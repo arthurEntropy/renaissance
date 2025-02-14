@@ -257,7 +257,21 @@
     text-align: left;
     flex: 1;
     max-width: 50px;
+    cursor: pointer;
+    transition: color 0.2s ease-in-out;
+    position: relative; /* Needed for the tooltip */
   }
+
+  .skill-name:hover {
+    color: goldenrod;
+    text-shadow: 0px 0px 5px yellow;
+  }
+
+  .skill-name:hover::after {
+    opacity: 1;
+    visibility: visible;
+  }
+
   
   .d12-symbol {
     margin-left: auto;
