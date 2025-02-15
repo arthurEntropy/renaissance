@@ -10,6 +10,7 @@
           <span class="ability-name">{{ ability.name }}</span>
           <input type="number" v-model="ability.score" class="ability-score" />
         </div>
+
         <div v-for="(skill, skillIndex) in ability.skills" :key="skillIndex" class="skill-row">
           <span class="skill-name" @click="rollDice(skill.name)">{{ skill.name }}</span>
           <span class="d12-symbol">⭓</span>
@@ -17,8 +18,28 @@
             <input type="checkbox" v-for="n in 5" :key="n" v-model="skill.checkboxes[n - 1]" class="skill-checkbox" />
           </div>
         </div>
-      </div>
-      
+
+        <!-- Virtue Row -->
+        <div class="virtue-row">
+          <span class="ability-name">{{ ability.virtue.name }}</span>
+          <input type="number" v-model="ability.virtue.current" class="virtue-score" />
+          <span>/</span>
+          <input type="number" v-model="ability.virtue.max" class="virtue-score" />
+        </div>
+
+        <!-- Weakness Row -->
+        <div class="weakness-row">
+          <span class="ability-name">{{ ability.weakness.name }}</span>
+          <input type="number" v-model="ability.weakness.current" class="weakness-score" />
+        </div>
+
+        <!-- States Row -->
+        <div class="state-row" v-for="(state, stateIndex) in ability.states" :key="stateIndex">
+          <span class="ability-name">{{ state.name }}</span>
+          <input type="checkbox" v-model="state.value" class="state-checkbox" />
+        </div>
+      </div>  
+
       <!-- Conditions Column -->
       <div class="conditions-column">
         <div class="section-label">Conditions</div>
@@ -30,7 +51,7 @@
     </div>
   </div>
 </template>
-  
+
 <script>
   import axios from 'axios';
   export default {
@@ -48,6 +69,12 @@
                           { name: 'Dexterity', checkboxes: [false, false, false, false, false] },
                           { name: 'Fortitude', checkboxes: [false, false, false, false, false] },
                           { name: 'Craft', checkboxes: [false, false, false, false, false] }
+                      ],
+                      virtue: { name: 'Endurance', current: 0, max: 0 },
+                      weakness: { name: 'Load', current: 0 },
+                      states: [
+                        { name: 'Weary', value: false },
+                        { name: 'Twice Weary', value: false }
                       ]
                   },
                   {
@@ -59,7 +86,13 @@
                           { name: 'Courtesy', checkboxes: [false, false, false, false, false] },
                           { name: 'Spirit', checkboxes: [false, false, false, false, false] },
                           { name: 'Aid', checkboxes: [false, false, false, false, false] }
-                      ]
+                      ],
+                      virtue: { name: 'Hope', current: 0, max: 0 },
+                      weakness: { name: 'Shadow', current: 0 },
+                      states: [
+                        { name: 'Miserable', value: false },
+                        { name: 'Twice Miserable', value: false }
+                    ]
                   },
                   {
                       name: 'WITS',
@@ -70,6 +103,12 @@
                           { name: 'Stealth', checkboxes: [false, false, false, false, false] },
                           { name: 'Lore', checkboxes: [false, false, false, false, false] },
                           { name: 'Riddle', checkboxes: [false, false, false, false, false] }
+                      ],
+                      virtue: { name: 'Defense', current: 0, max: 0 },
+                      weakness: { name: 'Injury', current: 0 },
+                      states: [
+                        { name: 'Helpless', value: false },
+                        { name: 'Twice Helpless', value: false }
                       ]
                   }
               ],
@@ -288,6 +327,26 @@
     width: 16px;
     height: 16px;
     accent-color: white;
+  }
+
+  .virtue-row, .weakness-row, .state-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .virtue-score, .weakness-score {
+    width: 40px;
+    text-align: center;
+    margin-left: 5px;
+  }
+
+  .state-checkbox {
+    width: 16px;
+    height: 16px;
+    margin-left: 10px;
   }
 </style>
   
