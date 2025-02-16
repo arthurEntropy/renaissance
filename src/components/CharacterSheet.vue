@@ -5,38 +5,100 @@
       <label>Target Number: <input type="number" v-model="targetNumber" class="target-number" /></label>
     </div>
     <div class="character-stats">
-      <div v-for="(ability, index) in coreAbilities" :key="index" class="ability-column">
-        <div class="ability-header">
-          <span class="ability-name">{{ ability.name }}</span>
-          <input type="number" v-model="ability.score" class="ability-score" />
-        </div>
 
-        <div v-for="(skill, skillIndex) in ability.skills" :key="skillIndex" class="skill-row">
-          <span class="skill-name" @click="rollDice(skill.name)">{{ skill.name }}</span>
+      <!-- Body Column -->
+      <div class="ability-column">
+        <div class="ability-header">
+          <span class="ability-name">{{ formatCoreAbility('body') }}</span>
+          <input type="number" v-model="body" class="ability-score" />
+        </div>
+        <div v-for="(skill, index) in skills.slice(0, 5)" :key="index" class="skill-row">
+          <span class="skill-name" @click="rollDice(Object.keys(skill)[0])">{{ formatSkillName(Object.keys(skill)[0]) }}</span>
           <span class="d12-symbol">⭓</span>
           <div class="checkbox-group">
-            <input type="checkbox" v-for="n in 5" :key="n" v-model="skill.checkboxes[n - 1]" class="skill-checkbox" />
+            <input type="checkbox" v-for="n in 5" :key="n" :checked="isCheckboxChecked(index, n - 1)" @change="handleCheckboxChange(index, n - 1)" class="skill-checkbox" />
           </div>
         </div>
-
-        <!-- Virtue Row -->
         <div class="virtue-row">
-          <span class="ability-name">{{ ability.virtue.name }}</span>
-          <input type="number" v-model="ability.virtue.current" class="virtue-score" />
+          <span class="ability-name">Endurance</span>
+          <input type="number" v-model="endurance[0].current" class="virtue-score" />
           <span>/</span>
-          <input type="number" v-model="ability.virtue.max" class="virtue-score" />
+          <input type="number" v-model="endurance[1].max" class="virtue-score" />
         </div>
-
-        <!-- Weakness Row -->
         <div class="weakness-row">
-          <span class="ability-name">{{ ability.weakness.name }}</span>
-          <input type="number" v-model="ability.weakness.current" class="weakness-score" />
+          <span class="ability-name">Load</span>
+          <input type="number" v-model="load" class="weakness-score" />
         </div>
+        <div class="state-row" v-for="(state, stateIndex) in states.slice(0, 1)" :key="stateIndex">
+          <span class="ability-name">{{ formatSkillName(Object.keys(state)[0]) }}</span>
+          <div class="checkbox-group">
+            <input type="checkbox" v-model="states[0].weary" class="state-checkbox" />
+            <input type="checkbox" v-model="states[1].twiceWeary" class="state-checkbox" />
+          </div>
+        </div>
+      </div>  
 
-        <!-- States Row -->
-        <div class="state-row" v-for="(state, stateIndex) in ability.states" :key="stateIndex">
-          <span class="ability-name">{{ state.name }}</span>
-          <input type="checkbox" v-model="state.value" class="state-checkbox" />
+      <!-- Heart Column -->
+      <div class="ability-column">
+        <div class="ability-header">
+          <span class="ability-name">{{ formatCoreAbility('heart') }}</span>
+          <input type="number" v-model="heart" class="ability-score" />
+        </div>
+        <div v-for="(skill, index) in skills.slice(5, 10)" :key="index" class="skill-row">
+          <span class="skill-name" @click="rollDice(Object.keys(skill)[0])">{{ formatSkillName(Object.keys(skill)[0]) }}</span>
+          <span class="d12-symbol">⭓</span>
+          <div class="checkbox-group">
+            <input type="checkbox" v-for="n in 5" :key="n" :checked="isCheckboxChecked(index + 5, n - 1)" @change="handleCheckboxChange(index + 5, n - 1)" class="skill-checkbox" />
+          </div>
+        </div>
+        <div class="virtue-row">
+          <span class="ability-name">Hope</span>
+          <input type="number" v-model="hope[0].current" class="virtue-score" />
+          <span>/</span>
+          <input type="number" v-model="hope[1].max" class="virtue-score" />
+        </div>
+        <div class="weakness-row">
+          <span class="ability-name">Shadow</span>
+          <input type="number" v-model="shadow" class="weakness-score" />
+        </div>
+        <div class="state-row" v-for="(state, stateIndex) in states.slice(2, 3)" :key="stateIndex">
+          <span class="ability-name">{{ formatSkillName(Object.keys(state)[0]) }}</span>
+          <div class="checkbox-group">
+            <input type="checkbox" v-model="states[2].miserable" class="state-checkbox" />
+            <input type="checkbox" v-model="states[3].twiceMiserable" class="state-checkbox" />
+          </div>
+        </div>
+      </div>  
+
+      <!-- Wits Column -->
+      <div class="ability-column">
+        <div class="ability-header">
+          <span class="ability-name">{{ formatCoreAbility('wits') }}</span>
+          <input type="number" v-model="wits" class="ability-score" />
+        </div>
+        <div v-for="(skill, index) in skills.slice(10, 15)" :key="index" class="skill-row">
+          <span class="skill-name" @click="rollDice(Object.keys(skill)[0])">{{ formatSkillName(Object.keys(skill)[0]) }}</span>
+          <span class="d12-symbol">⭓</span>
+          <div class="checkbox-group">
+            <input type="checkbox" v-for="n in 5" :key="n" :checked="isCheckboxChecked(index + 10, n - 1)" @change="handleCheckboxChange(index + 10, n - 1)" class="skill-checkbox" />
+          </div>
+        </div>
+        <div class="virtue-row">
+          <span class="ability-name">Defense</span>
+          <input type="number" v-model="defense[0].current" class="virtue-score" />
+          <span>/</span>
+          <input type="number" v-model="defense[1].max" class="virtue-score" />
+        </div>
+        <div class="weakness-row">
+          <span class="ability-name">Injury</span>
+          <input type="number" v-model="injury" class="weakness-score" />
+        </div>
+        <div class="state-row" v-for="(state, stateIndex) in states.slice(4, 5)" :key="stateIndex">
+          <span class="ability-name">{{ formatSkillName(Object.keys(state)[0]) }}</span>
+          <div class="checkbox-group">
+            <input type="checkbox" v-model="states[4].helpless" class="state-checkbox" />
+            <input type="checkbox" v-model="states[5].twiceHelpless" class="state-checkbox" />
+          </div>
         </div>
       </div>  
 
@@ -44,8 +106,8 @@
       <div class="conditions-column">
         <div class="section-label">Conditions</div>
         <div class="skill-row" v-for="(condition, index) in conditions" :key="index">
-          <span class="ability-name">{{ condition.name }}</span>
-          <input type="checkbox" v-model="condition.value" class="skill-checkbox" />
+          <span class="ability-name">{{ formatSkillName(Object.keys(condition)[0]) }}</span>
+          <input type="checkbox" v-model="condition[Object.keys(condition)[0]]" class="skill-checkbox" />
         </div>
       </div>
     </div>
@@ -53,77 +115,90 @@
 </template>
 
 <script>
-  import axios from 'axios';
-  export default {
-      data() {
-          return {
-              characterName: '',
-              targetNumber: 0,
-              coreAbilities: [
-                  {
-                      name: 'BODY',
-                      score: 0,
-                      skills: [
-                          { name: 'Awe', checkboxes: [false, false, false, false, false] },
-                          { name: 'Strength', checkboxes: [false, false, false, false, false] },
-                          { name: 'Dexterity', checkboxes: [false, false, false, false, false] },
-                          { name: 'Fortitude', checkboxes: [false, false, false, false, false] },
-                          { name: 'Craft', checkboxes: [false, false, false, false, false] }
-                      ],
-                      virtue: { name: 'Endurance', current: 0, max: 0 },
-                      weakness: { name: 'Load', current: 0 },
-                      states: [
-                        { name: 'Weary', value: false },
-                        { name: 'Twice Weary', value: false }
-                      ]
-                  },
-                  {
-                      name: 'HEART',
-                      score: 0,
-                      skills: [
-                          { name: 'Perform', checkboxes: [false, false, false, false, false] },
-                          { name: 'Insight', checkboxes: [false, false, false, false, false] },
-                          { name: 'Courtesy', checkboxes: [false, false, false, false, false] },
-                          { name: 'Spirit', checkboxes: [false, false, false, false, false] },
-                          { name: 'Aid', checkboxes: [false, false, false, false, false] }
-                      ],
-                      virtue: { name: 'Hope', current: 0, max: 0 },
-                      weakness: { name: 'Shadow', current: 0 },
-                      states: [
-                        { name: 'Miserable', value: false },
-                        { name: 'Twice Miserable', value: false }
-                    ]
-                  },
-                  {
-                      name: 'WITS',
-                      score: 0,
-                      skills: [
-                          { name: 'Persuade', checkboxes: [false, false, false, false, false] },
-                          { name: 'Awareness', checkboxes: [false, false, false, false, false] },
-                          { name: 'Stealth', checkboxes: [false, false, false, false, false] },
-                          { name: 'Lore', checkboxes: [false, false, false, false, false] },
-                          { name: 'Riddle', checkboxes: [false, false, false, false, false] }
-                      ],
-                      virtue: { name: 'Defense', current: 0, max: 0 },
-                      weakness: { name: 'Injury', current: 0 },
-                      states: [
-                        { name: 'Helpless', value: false },
-                        { name: 'Twice Helpless', value: false }
-                      ]
-                  }
-              ],
-              conditions: [
-                { name: 'Insecure', value: false },
-                { name: 'Guilty', value: false },
-                { name: 'Angry', value: false },
-                { name: 'Afraid', value: false },
-                { name: 'Troubled', value: false }
-              ]
-          };
-      },
-      methods: {
-          rollDice(skillName) {
-              console.log("Rolling dice...");
+import axios from 'axios';
+
+export default {
+  data() {
+    return {
+      characterName: '',
+      targetNumber: 0,
+      body: 0,
+      heart: 0,
+      wits: 0,
+      skills: [
+        { awe: 0 },
+        { strength: 0 },
+        { dexterity: 0 },
+        { fortitude: 0 },
+        { craft: 0 },
+        { perform: 0 },
+        { insight: 0 },
+        { courtesy: 0 },
+        { spirit: 0 },
+        { aid: 0 },
+        { persuade: 0 },
+        { awareness: 0 },
+        { stealth: 0 },
+        { lore: 0 },
+        { riddle: 0 }
+      ],
+      endurance: [{ current: 0 }, { max: 0 }],
+      hope: [{ current: 0 }, { max: 0 }],
+      defense: [{ current: 0 }, { max: 0 }],
+      load: 0,
+      shadow: 0,
+      injury: 0,
+      states: [
+        { weary: false },
+        { twiceWeary: false },
+        { miserable: false },
+        { twiceMiserable: false },
+        { helpless: false },
+        { twiceHelpless: false }
+      ],
+      conditions: [
+        { insecure: false },
+        { guilty: false },
+        { angry: false },
+        { afraid: false },
+        { troubled: false }
+      ]
+    };
+  },
+  methods: {
+    formatCoreAbility(ability) {
+      return ability.toUpperCase();
+    },
+
+    formatSkillName(skill) {
+      return skill.charAt(0).toUpperCase() + skill.slice(1).toLowerCase();
+    },
+
+    // This method will adjust ranks based on the checkbox clicked
+    handleCheckboxChange(skillIndex, checkboxIndex) {
+      const skill = this.skills[skillIndex];
+      const skillName = Object.keys(skill)[0]; // Get the skill name dynamically
+      const currentRanks = skill[skillName];  // Get the current number of checked boxes
+
+      if (checkboxIndex + 1 > currentRanks) {
+        // If we're checking a box that is beyond the current ranks, increase ranks
+        skill[skillName] = checkboxIndex + 1;
+      } else {
+        // If we're unchecking, decrease ranks to the previous checkbox
+        skill[skillName] = checkboxIndex;
+      }
+    },
+
+    // This method checks whether a checkbox should be checked based on the rank
+    isCheckboxChecked(skillIndex, checkboxIndex) {
+      const skill = this.skills[skillIndex];
+      const skillName = Object.keys(skill)[0]; // Get the skill name dynamically
+      return skill[skillName] > checkboxIndex;  // Return true if this checkbox is checked
+    },
+
+    rollDice(skill) {
+      const skillName = Object.keys(skill)[0];
+      console.log("Rolling dice for:", skillName);
 
               // Collect the dice that are selected for the skill
               let selectedDice = [];
@@ -347,6 +422,26 @@
     width: 16px;
     height: 16px;
     margin-left: 10px;
+  }
+
+  .state-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .state-row .ability-name {
+    flex: 1;
+  }
+
+  .state-row .checkbox-group {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+  }
+
+  .checkbox-group input {
+    margin: 0 4px;
   }
 </style>
   
