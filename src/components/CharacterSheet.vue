@@ -287,89 +287,83 @@ export default {
       this.equipment.splice(index, 1);
     },
 
-    rollDice(skill) {
-      const skillName = Object.keys(skill)[0];
+    rollDice(skillName) {
       console.log("Rolling dice for:", skillName);
 
-              // Collect the dice that are selected for the skill
-              let selectedDice = [];
-              this.coreAbilities.forEach(ability => {
-                  ability.skills.forEach(skill => {
-                      if (skill.name === skillName) {
-                          skill.checkboxes.forEach((selected, index) => {
-                              if (selected) {
-                                  selectedDice.push(index + 1);  // Store the index for each selected checkbox
-                              }
-                          });
-                      }
-                  });
-              });
-
-              const dice = [
-                  { id: 'd12', name: 'D12', sides: 12, emoji: '⭓', selected: true }  // Always include D12
-              ];
-
-              // Include D6 dice only if they are selected
-              selectedDice.forEach(die => {
-                  dice.push({ id: `d6-${die}`, name: 'D6', sides: 6, emoji: '◽️', selected: true });
-              });
-
-              const results = dice
-                  .filter(die => die.selected)
-                  .map(die => {
-                      const roll = Math.floor(Math.random() * die.sides) + 1;
-                      let symbol = die.sides === 12 ? '⭓' : '◽️';
-
-                      if (die.sides === 12) {
-                          if (roll === 12) {
-                              symbol = '⭓12🌞';
-                          } else if (roll === 11) {
-                              symbol = '⭓11💀';
-                          } else {
-                              symbol = `⭓${roll}`;
-                          }
-                      } else if (die.sides === 6 && roll === 6) {
-                          symbol = `◽️6✨`;
-                      } else {
-                          symbol = `◽️${roll}`;
-                      }
-
-                      return { die: die.sides, roll: roll, symbol: symbol };
-                  });
-
-              const rollResults = results.map(r => r.symbol);  // Ensure rollResults is an array
-              const totalSum = results.reduce((sum, r) => sum + r.roll, 0);
-
-              // Determine success or failure based on the target number
-              const success = this.targetNumber && totalSum >= this.targetNumber;
-
-              console.log("Sending roll request:", {
-                  rollResults,
-                  totalSum,
-                  targetNumber: this.targetNumber,
-                  name: this.characterName || "Unnamed Character",
-                  skill: skillName,
-                  success
-              });
-
-              // Send the results to the server
-              axios
-                  .post('http://localhost:3000/send-message', {
-                      rollResults: rollResults,  // Now an array
-                      total: totalSum,
-                      targetNumber: this.targetNumber,
-                      name: this.characterName || "Unnamed Character",
-                      skill: skillName,
-                      success: success
-                  })
-                  // .then(() => {
-                  //     alert('Roll sent to Discord!');
-                  // })
-                  .catch((error) => {
-                      console.error('Error sending roll:', error);
-                  });
-          }
+      // Find the corresponding skill from the skills array
+      const skill = this.skills.find(s => Object.keys(s)[0] === skillName);
+      if (!skill) {
+        console.error("Skill not found");
+        return;
       }
+
+      // Collect the ranks for the skill (number of checkboxes checked)
+      const selectedDice = Array.from({ length: 5 }, (_, index) => 
+        this.isCheckboxChecked(this.skills.indexOf(skill), index) ? index + 1 : null
+      ).filter(die => die !== null);
+
+      // Prepare the dice
+      const dice = [{ id: 'd12', name: 'D12', sides: 12, emoji: '⭓', selected: true }];  // Always include D12
+
+      // Add D6 dice for each selected rank
+      selectedDice.forEach(die => {
+        dice.push({ id: `d6-${die}`, name: 'D6', sides: 6, emoji: '◽️', selected: true });
+      });
+
+      // Roll the dice and handle their results
+      const results = dice
+        .filter(die => die.selected)
+        .map(die => {
+          const roll = Math.floor(Math.random() * die.sides) + 1;
+          let symbol = die.sides === 12 ? '⭓' : '◽️';
+
+          if (die.sides === 12) {
+            if (roll === 12) {
+              symbol = '⭓12🌞';
+            } else if (roll === 11) {
+              symbol = '⭓11💀';
+            } else {
+              symbol = `⭓${roll}`;
+            }
+          } else if (die.sides === 6 && roll === 6) {
+            symbol = `◽️6✨`;
+          } else {
+            symbol = `◽️${roll}`;
+          }
+
+          return { die: die.sides, roll: roll, symbol: symbol };
+        });
+
+      const rollResults = results.map(r => r.symbol);  // Ensure rollResults is an array
+      const totalSum = results.reduce((sum, r) => sum + r.roll, 0);
+
+      // Determine success or failure based on the target number
+      const success = this.targetNumber && totalSum >= this.targetNumber;
+
+      console.log("Sending roll request:", {
+        rollResults,
+        totalSum,
+        targetNumber: this.targetNumber,
+        name: this.characterName || "Unnamed Character",
+        skill: skillName,
+        success
+      });
+
+      // Send the results to the server
+      axios
+        .post('http://localhost:3000/send-message', {
+          rollResults: rollResults,  // Now an array
+          total: totalSum,
+          targetNumber: this.targetNumber,
+          name: this.characterName || "Unnamed Character",
+          skill: skillName,
+          success: success
+        })
+        .catch((error) => {
+          console.error('Error sending roll:', error);
+        });
+      }
+    }
   };
 </script>
 
