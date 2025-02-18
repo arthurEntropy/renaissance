@@ -5,109 +5,168 @@
       <label>Target Number: <input type="number" v-model="targetNumber" class="target-number" /></label>
     </div>
     <div class="character-stats">
+      <div class="character-stat-row">
+        <!-- Body Column -->
+        <div class="ability-column">
+          <div class="ability-header">
+            <span class="ability-name">{{ formatCoreAbility('body') }}</span>
+            <input type="number" v-model="body" class="ability-score" />
+          </div>
+          <div v-for="(skill, index) in skills.slice(0, 5)" :key="index" class="skill-row">
+            <span class="skill-name" @click="rollDice(Object.keys(skill)[0])">{{ formatSkillName(Object.keys(skill)[0]) }}</span>
+            <span class="d12-symbol">⭓</span>
+            <div class="checkbox-group">
+              <input type="checkbox" v-for="n in 5" :key="n" :checked="isCheckboxChecked(index, n - 1)" @change="handleCheckboxChange(index, n - 1)" class="skill-checkbox" />
+            </div>
+          </div>
+          <div class="virtue-row">
+            <span class="ability-name">Endurance</span>
+            <input type="number" v-model="endurance[0].current" class="virtue-score" />
+            <span>/</span>
+            <input type="number" v-model="endurance[1].max" class="virtue-score" />
+          </div>
+          <div class="weakness-row">
+            <span class="ability-name">Load</span>
+            <input type="number" v-model="load" class="weakness-score" />
+          </div>
+          <div class="state-row" v-for="(state, stateIndex) in states.slice(0, 1)" :key="stateIndex">
+            <span class="ability-name">{{ formatSkillName(Object.keys(state)[0]) }}</span>
+            <div class="checkbox-group">
+              <input type="checkbox" v-model="states[0].weary" class="skill-checkbox" />
+              <input type="checkbox" v-model="states[1].twiceWeary" class="skill-checkbox" />
+            </div>
+          </div>
+        </div>  
 
-      <!-- Body Column -->
-      <div class="ability-column">
-        <div class="ability-header">
-          <span class="ability-name">{{ formatCoreAbility('body') }}</span>
-          <input type="number" v-model="body" class="ability-score" />
-        </div>
-        <div v-for="(skill, index) in skills.slice(0, 5)" :key="index" class="skill-row">
-          <span class="skill-name" @click="rollDice(Object.keys(skill)[0])">{{ formatSkillName(Object.keys(skill)[0]) }}</span>
-          <span class="d12-symbol">⭓</span>
-          <div class="checkbox-group">
-            <input type="checkbox" v-for="n in 5" :key="n" :checked="isCheckboxChecked(index, n - 1)" @change="handleCheckboxChange(index, n - 1)" class="skill-checkbox" />
+        <!-- Heart Column -->
+        <div class="ability-column">
+          <div class="ability-header">
+            <span class="ability-name">{{ formatCoreAbility('heart') }}</span>
+            <input type="number" v-model="heart" class="ability-score" />
           </div>
-        </div>
-        <div class="virtue-row">
-          <span class="ability-name">Endurance</span>
-          <input type="number" v-model="endurance[0].current" class="virtue-score" />
-          <span>/</span>
-          <input type="number" v-model="endurance[1].max" class="virtue-score" />
-        </div>
-        <div class="weakness-row">
-          <span class="ability-name">Load</span>
-          <input type="number" v-model="load" class="weakness-score" />
-        </div>
-        <div class="state-row" v-for="(state, stateIndex) in states.slice(0, 1)" :key="stateIndex">
-          <span class="ability-name">{{ formatSkillName(Object.keys(state)[0]) }}</span>
-          <div class="checkbox-group">
-            <input type="checkbox" v-model="states[0].weary" class="state-checkbox" />
-            <input type="checkbox" v-model="states[1].twiceWeary" class="state-checkbox" />
+          <div v-for="(skill, index) in skills.slice(5, 10)" :key="index" class="skill-row">
+            <span class="skill-name" @click="rollDice(Object.keys(skill)[0])">{{ formatSkillName(Object.keys(skill)[0]) }}</span>
+            <span class="d12-symbol">⭓</span>
+            <div class="checkbox-group">
+              <input type="checkbox" v-for="n in 5" :key="n" :checked="isCheckboxChecked(index + 5, n - 1)" @change="handleCheckboxChange(index + 5, n - 1)" class="skill-checkbox" />
+            </div>
           </div>
-        </div>
-      </div>  
+          <div class="virtue-row">
+            <span class="ability-name">Hope</span>
+            <input type="number" v-model="hope[0].current" class="virtue-score" />
+            <span>/</span>
+            <input type="number" v-model="hope[1].max" class="virtue-score" />
+          </div>
+          <div class="weakness-row">
+            <span class="ability-name">Shadow</span>
+            <input type="number" v-model="shadow" class="weakness-score" />
+          </div>
+          <div class="state-row" v-for="(state, stateIndex) in states.slice(2, 3)" :key="stateIndex">
+            <span class="ability-name">{{ formatSkillName(Object.keys(state)[0]) }}</span>
+            <div class="checkbox-group">
+              <input type="checkbox" v-model="states[2].miserable" class="skill-checkbox" />
+              <input type="checkbox" v-model="states[3].twiceMiserable" class="skill-checkbox" />
+            </div>
+          </div>
+        </div>  
 
-      <!-- Heart Column -->
-      <div class="ability-column">
-        <div class="ability-header">
-          <span class="ability-name">{{ formatCoreAbility('heart') }}</span>
-          <input type="number" v-model="heart" class="ability-score" />
-        </div>
-        <div v-for="(skill, index) in skills.slice(5, 10)" :key="index" class="skill-row">
-          <span class="skill-name" @click="rollDice(Object.keys(skill)[0])">{{ formatSkillName(Object.keys(skill)[0]) }}</span>
-          <span class="d12-symbol">⭓</span>
-          <div class="checkbox-group">
-            <input type="checkbox" v-for="n in 5" :key="n" :checked="isCheckboxChecked(index + 5, n - 1)" @change="handleCheckboxChange(index + 5, n - 1)" class="skill-checkbox" />
+        <!-- Wits Column -->
+        <div class="ability-column">
+          <div class="ability-header">
+            <span class="ability-name">{{ formatCoreAbility('wits') }}</span>
+            <input type="number" v-model="wits" class="ability-score" />
           </div>
-        </div>
-        <div class="virtue-row">
-          <span class="ability-name">Hope</span>
-          <input type="number" v-model="hope[0].current" class="virtue-score" />
-          <span>/</span>
-          <input type="number" v-model="hope[1].max" class="virtue-score" />
-        </div>
-        <div class="weakness-row">
-          <span class="ability-name">Shadow</span>
-          <input type="number" v-model="shadow" class="weakness-score" />
-        </div>
-        <div class="state-row" v-for="(state, stateIndex) in states.slice(2, 3)" :key="stateIndex">
-          <span class="ability-name">{{ formatSkillName(Object.keys(state)[0]) }}</span>
-          <div class="checkbox-group">
-            <input type="checkbox" v-model="states[2].miserable" class="state-checkbox" />
-            <input type="checkbox" v-model="states[3].twiceMiserable" class="state-checkbox" />
+          <div v-for="(skill, index) in skills.slice(10, 15)" :key="index" class="skill-row">
+            <span class="skill-name" @click="rollDice(Object.keys(skill)[0])">{{ formatSkillName(Object.keys(skill)[0]) }}</span>
+            <span class="d12-symbol">⭓</span>
+            <div class="checkbox-group">
+              <input type="checkbox" v-for="n in 5" :key="n" :checked="isCheckboxChecked(index + 10, n - 1)" @change="handleCheckboxChange(index + 10, n - 1)" class="skill-checkbox" />
+            </div>
           </div>
-        </div>
-      </div>  
+          <div class="virtue-row">
+            <span class="ability-name">Defense</span>
+            <input type="number" v-model="defense[0].current" class="virtue-score" />
+            <span>/</span>
+            <input type="number" v-model="defense[1].max" class="virtue-score" />
+          </div>
+          <div class="weakness-row">
+            <span class="ability-name">Injury</span>
+            <input type="number" v-model="injury" class="weakness-score" />
+          </div>
+          <div class="state-row" v-for="(state, stateIndex) in states.slice(4, 5)" :key="stateIndex">
+            <span class="ability-name">{{ formatSkillName(Object.keys(state)[0]) }}</span>
+            <div class="checkbox-group">
+              <input type="checkbox" v-model="states[4].helpless" class="skill-checkbox" />
+              <input type="checkbox" v-model="states[5].twiceHelpless" class="skill-checkbox" />
+            </div>
+          </div>
+        </div>  
 
-      <!-- Wits Column -->
-      <div class="ability-column">
-        <div class="ability-header">
-          <span class="ability-name">{{ formatCoreAbility('wits') }}</span>
-          <input type="number" v-model="wits" class="ability-score" />
-        </div>
-        <div v-for="(skill, index) in skills.slice(10, 15)" :key="index" class="skill-row">
-          <span class="skill-name" @click="rollDice(Object.keys(skill)[0])">{{ formatSkillName(Object.keys(skill)[0]) }}</span>
-          <span class="d12-symbol">⭓</span>
-          <div class="checkbox-group">
-            <input type="checkbox" v-for="n in 5" :key="n" :checked="isCheckboxChecked(index + 10, n - 1)" @change="handleCheckboxChange(index + 10, n - 1)" class="skill-checkbox" />
+        <!-- Conditions Column -->
+        <div class="conditions-column">
+          <div class="section-label">Conditions</div>
+          <div class="skill-row" v-for="(condition, index) in conditions" :key="index">
+            <span class="ability-name">{{ formatSkillName(Object.keys(condition)[0]) }}</span>
+            <input type="checkbox" v-model="condition[Object.keys(condition)[0]]" class="skill-checkbox" />
           </div>
         </div>
-        <div class="virtue-row">
-          <span class="ability-name">Defense</span>
-          <input type="number" v-model="defense[0].current" class="virtue-score" />
-          <span>/</span>
-          <input type="number" v-model="defense[1].max" class="virtue-score" />
-        </div>
-        <div class="weakness-row">
-          <span class="ability-name">Injury</span>
-          <input type="number" v-model="injury" class="weakness-score" />
-        </div>
-        <div class="state-row" v-for="(state, stateIndex) in states.slice(4, 5)" :key="stateIndex">
-          <span class="ability-name">{{ formatSkillName(Object.keys(state)[0]) }}</span>
-          <div class="checkbox-group">
-            <input type="checkbox" v-model="states[4].helpless" class="state-checkbox" />
-            <input type="checkbox" v-model="states[5].twiceHelpless" class="state-checkbox" />
-          </div>
-        </div>
-      </div>  
+      </div>
 
-      <!-- Conditions Column -->
-      <div class="conditions-column">
-        <div class="section-label">Conditions</div>
-        <div class="skill-row" v-for="(condition, index) in conditions" :key="index">
-          <span class="ability-name">{{ formatSkillName(Object.keys(condition)[0]) }}</span>
-          <input type="checkbox" v-model="condition[Object.keys(condition)[0]]" class="skill-checkbox" />
+      <!-- Second Row -->
+      <div class="character-stat-row">
+
+        <!--Equipment Table-->
+        <div class="equipment-table">
+          <div class="equipment-row equipment-header">
+            <span class="equipment-item-name">Item</span>
+            <span class="equipment-header">Weight</span>
+            <span class="equipment-header">Quantity</span>
+            <span class="equipment-header">Carried</span>
+            <span class="equipment-header">lbs Carried</span>
+          </div>
+
+          <div v-for="(item, index) in equipment" :key="index" class="equipment-row">
+            <!-- Editable Item Name -->
+            <input type="text" v-model="item.name" class="equipment-item-name-input">
+            
+            <!-- Prevent negative weight -->
+            <input type="number" v-model.number="item.weight" class="virtue-score" 
+                  @input="item.weight = Math.max(0, item.weight)">
+            
+            <!-- Prevent negative quantity -->
+            <input type="number" v-model.number="item.quantity" class="virtue-score" 
+                  @input="item.quantity = Math.max(0, item.quantity)">
+            
+            <input type="checkbox" v-model="item.carried" class="equipment-checkbox">
+            
+            <!-- Weight per item rounded to 1 decimal place -->
+            <span class="equipment-total-lbs">
+              {{ item.carried ? formatWeight(item.weight * item.quantity) : '0' }}
+            </span>
+
+            <!-- Delete Button (ⓧ) -->
+            <span @click="deleteItem(index)" class="delete-item-link">ⓧ</span>
+          </div>
+
+          <!-- Add Item Button -->
+          <div class="equipment-row">
+            <span></span> <!-- Empty span for alignment -->
+            <span></span> <!-- Empty span for alignment -->
+            <span></span> <!-- Empty span for alignment -->
+            <span></span> <!-- Empty span for alignment -->
+            <span></span> <!-- Empty span for alignment -->
+            <span @click="addItem" class="add-item-link">+</span>
+          </div>
+
+          <!-- Total Weight Row -->
+          <div class="equipment-row total-weight-row" style="font-weight: bold; border-top: 2px solid white;">
+            <span class="equipment-item-name">Total Weight Carried</span>
+            <span></span> <!-- Maintain Column Spacing -->
+            <span></span>
+            <span></span>
+            <span class="equipment-total-lbs">{{ totalWeightCarried }}</span>
+            <span></span> <!-- Empty span for alignment -->
+          </div>
         </div>
       </div>
     </div>
@@ -162,9 +221,23 @@ export default {
         { angry: false },
         { afraid: false },
         { troubled: false }
+      ],
+      equipment: [
+        { name: 'Rope', weight: 5, quantity: 1, carried: true },
+        { name: 'Grappling Hook', weight: 2, quantity: 2, carried: true },
+        { name: 'Tinderbox', weight: 1, quantity: 1, carried: true },
       ]
     };
   },
+  computed: {
+    totalWeightCarried() {
+      const total = this.equipment.reduce((sum, item) => {
+        return item.carried ? sum + item.weight * item.quantity : sum;
+      }, 0);
+      
+      return Math.round(total); // Round to the nearest whole number
+    }
+  },  
   methods: {
     formatCoreAbility(ability) {
       return ability.toUpperCase();
@@ -194,6 +267,24 @@ export default {
       const skill = this.skills[skillIndex];
       const skillName = Object.keys(skill)[0]; // Get the skill name dynamically
       return skill[skillName] > checkboxIndex;  // Return true if this checkbox is checked
+    },
+
+    formatWeight(value) {
+      return Number.isInteger(value) ? value : value.toFixed(1);
+    },
+
+    addItem() {
+      // Add a new item with default values
+      this.equipment.push({
+        name: '',
+        weight: 0,
+        quantity: 0,
+        carried: false,
+      });
+    },
+    deleteItem(index) {
+      // Delete the item at the specified index
+      this.equipment.splice(index, 1);
     },
 
     rollDice(skill) {
@@ -312,7 +403,14 @@ export default {
   
   .character-stats {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-evenly;
+    width: 100%;
+  }
+
+  .character-stat-row {
+    display: flex;
+    justify-content: space-between;
     width: 100%;
   }
   
@@ -321,7 +419,8 @@ export default {
     flex-direction: column;
     align-items: center;
     flex: 1;
-    margin: 0 30px;
+    max-width: 251px;
+    margin: 10px 30px;
   }
 
   .conditions-column {
@@ -345,7 +444,7 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 10px;
+    margin: 10px 0px;
     font-size: 14px;
     font-style: italic;
     height: 28px
@@ -385,7 +484,6 @@ export default {
     opacity: 1;
     visibility: visible;
   }
-
   
   .d12-symbol {
     margin-left: auto;
@@ -413,7 +511,7 @@ export default {
   }
 
   .virtue-score, .weakness-score {
-    width: 40px;
+    width: 35px;
     text-align: center;
     margin-left: 5px;
   }
@@ -443,5 +541,110 @@ export default {
   .checkbox-group input {
     margin: 0 4px;
   }
+
+  .equipment-table-title {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .equipment-table {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    flex: 1;
+    max-width: 500px;
+    margin: 100px 30px;
+  }
+
+  .equipment-row {
+    display: grid;
+    grid-template-columns: 60% 10% 10% 7% 7% 6%;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 10px;
+    height: 25px;
+  }
+
+  .equipment-item-name {
+    text-align: left;
+    font-size: 16px;
+    padding-left: 5px;
+  }
+
+  .equipment-input {
+    width: 10px;
+    margin: 3px 5px;
+    font-size: 14px;
+    text-align: center;
+    height: 10px;
+  }
+
+  .equipment-input {
+    width: 100%;
+    text-align: center;
+    padding: 5px;
+    font-size: 12px;
+  }
+
+  .equipment-total-lbs {
+    text-align: center;
+    font-size: 16px;
+  }
+
+  .equipment-checkbox {
+    margin-left: auto;
+  }
+
+  .equipment-header {
+    font-size: 14px;
+    font-style: italic;
+    height: 28px;
+    text-decoration: underline;
+    text-align: left;
+    display: grid;
+    grid-template-columns: 60% 10% 10% 7% 7% 6%;
+  }
+
+  .equipment-header:nth-child(n+2) {
+    transform: rotate(-45deg);
+    transform-origin: left bottom;
+    white-space: nowrap;
+    display: inline-block;
+    margin-left: 20px;
+  }
+
+  .equipment-checkbox {
+    width: 16px;
+    height: 16px;
+    accent-color: white;
+    margin-left: 10px;
+  }
+
+  .delete-item-link {
+    cursor: pointer;
+    color: gray;
+    font-size: 20px;
+    line-height: 20px;
+    text-align: center;
+    margin-left: 10px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .add-item-link {
+    cursor: pointer;
+    color: gray;
+    font-size: 20px;
+    line-height: 20px;
+    text-align: center;
+    margin-left: 10px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  input, .equipment-item-name-input, .virtue-score, .equipment-checkbox {
+    font-family: 'Lora', serif;
+  }
+
 </style>
   
