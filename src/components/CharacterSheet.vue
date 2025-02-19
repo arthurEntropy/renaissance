@@ -15,11 +15,18 @@
             <span class="ability-name">BODY</span>
             <input type="number" v-model="body" class="ability-score" />
           </div>
-          <div v-for="(skill, index) in skills.slice(0, 5)" :key="index" class="skill-row">
-            <span class="skill-name" @click="rollDice(Object.keys(skill)[0])">{{ capitalizeFirstLetter(Object.keys(skill)[0]) }}</span>
+          <div v-for="([skillName]) in Object.entries(skills).slice(0, 5)" :key="skillName" class="skill-row">
+            <span class="skill-name" @click="rollDice(skillName)">{{ capitalizeFirstLetter(skillName) }}</span>
             <span class="d12-symbol">⭓</span>
             <div class="checkbox-group">
-              <input type="checkbox" v-for="n in 5" :key="n" :checked="isCheckboxChecked(index, n - 1)" @change="handleCheckboxChange(index, n - 1)" class="skill-checkbox" />
+              <input 
+                v-for="(n, index) in 5" 
+                :key="index" 
+                type="checkbox" 
+                :checked="index < skills[skillName]"
+                @change="handleCheckboxChange(skillName, index)"
+                class="skill-checkbox"
+              />
             </div>
           </div>
           <div class="virtue-row">
@@ -45,13 +52,21 @@
             <span class="ability-name">HEART</span>
             <input type="number" v-model="heart" class="ability-score" />
           </div>
-          <div v-for="(skill, index) in skills.slice(5, 10)" :key="index" class="skill-row">
-            <span class="skill-name" @click="rollDice(Object.keys(skill)[0])">{{ capitalizeFirstLetter(Object.keys(skill)[0]) }}</span>
+          <div v-for="([skillName]) in Object.entries(skills).slice(5, 10)" :key="skillName" class="skill-row">
+            <span class="skill-name" @click="rollDice(skillName)">{{ capitalizeFirstLetter(skillName) }}</span>
             <span class="d12-symbol">⭓</span>
             <div class="checkbox-group">
-              <input type="checkbox" v-for="n in 5" :key="n" :checked="isCheckboxChecked(index + 5, n - 1)" @change="handleCheckboxChange(index + 5, n - 1)" class="skill-checkbox" />
+              <input 
+                v-for="(n, index) in 5" 
+                :key="index" 
+                type="checkbox" 
+                :checked="index < skills[skillName]"
+                @change="handleCheckboxChange(skillName, index)"
+                class="skill-checkbox"
+              />
             </div>
           </div>
+
           <div class="virtue-row">
             <span class="ability-name">Hope</span>
             <input type="number" v-model="hope.current" class="virtue-score" />
@@ -75,11 +90,18 @@
             <span class="ability-name">WITS</span>
             <input type="number" v-model="wits" class="ability-score" />
           </div>
-          <div v-for="(skill, index) in skills.slice(10, 15)" :key="index" class="skill-row">
-            <span class="skill-name" @click="rollDice(Object.keys(skill)[0])">{{ capitalizeFirstLetter(Object.keys(skill)[0]) }}</span>
+          <div v-for="([skillName]) in Object.entries(skills).slice(10, 15)" :key="skillName" class="skill-row">
+            <span class="skill-name" @click="rollDice(skillName)">{{ capitalizeFirstLetter(skillName) }}</span>
             <span class="d12-symbol">⭓</span>
             <div class="checkbox-group">
-              <input type="checkbox" v-for="n in 5" :key="n" :checked="isCheckboxChecked(index + 10, n - 1)" @change="handleCheckboxChange(index + 10, n - 1)" class="skill-checkbox" />
+              <input 
+                v-for="(n, index) in 5" 
+                :key="index" 
+                type="checkbox" 
+                :checked="index < skills[skillName]"
+                @change="handleCheckboxChange(skillName, index)"
+                class="skill-checkbox"
+              />
             </div>
           </div>
           <div class="virtue-row">
@@ -102,10 +124,10 @@
         <!-- Conditions Column -->
         <div class="conditions-column">
           <div class="section-label">Conditions</div>
-          <div class="skill-row" v-for="(condition, index) in conditions" :key="index">
-            <span class="ability-name">{{ capitalizeFirstLetter(Object.keys(condition)[0]) }}</span>
-            <input type="checkbox" v-model="condition[Object.keys(condition)[0]]" class="skill-checkbox" />
-          </div>
+            <div class="skill-row" v-for="(value, key) in conditions" :key="key">
+              <span class="ability-name">{{ capitalizeFirstLetter(key) }}</span>
+              <input type="checkbox" v-model="conditions[key]" class="skill-checkbox" />
+            </div>
         </div>
       </div>
 
@@ -181,23 +203,23 @@ export default {
       body: 0,
       heart: 0,
       wits: 0,
-      skills: [
-        { awe: 0 },
-        { strength: 0 },
-        { dexterity: 0 },
-        { fortitude: 0 },
-        { craft: 0 },
-        { perform: 0 },
-        { insight: 0 },
-        { courtesy: 0 },
-        { spirit: 0 },
-        { aid: 0 },
-        { persuade: 0 },
-        { awareness: 0 },
-        { stealth: 0 },
-        { lore: 0 },
-        { riddle: 0 }
-      ],
+      skills: {
+        awe: 0,
+        strength: 0,
+        dexterity: 0,
+        fortitude: 0,
+        craft: 0,
+        perform: 0,
+        insight: 0,
+        courtesy: 0,
+        spirit: 0,
+        aid: 0,
+        persuade: 0,
+        awareness: 0,
+        stealth: 0,
+        lore: 0,
+        riddle: 0
+      },
       endurance: { current: 0, max: 0 },
       hope: { current: 0, max: 0 },
       defense: { current: 0, max: 0 },
@@ -212,13 +234,13 @@ export default {
         helpless: false ,
         twiceHelpless: false
       },
-      conditions: [
-        { insecure: false },
-        { guilty: false },
-        { angry: false },
-        { afraid: false },
-        { troubled: false }
-      ],
+      conditions: {
+        insecure: false,
+        guilty: false,
+        angry: false,
+        afraid: false,
+        troubled: false
+      },
       equipment: [
         { name: 'Rope', weight: 5, quantity: 1, carried: true },
         { name: 'Grappling Hook', weight: 2, quantity: 2, carried: true },
@@ -226,6 +248,7 @@ export default {
       ]
     };
   },
+
   computed: {
     totalWeightCarried() {
       const total = this.equipment.reduce((sum, item) => {
@@ -235,77 +258,68 @@ export default {
       return Math.round(total); // Round to the nearest whole number
     }
   },
+
   watch: {
     body(newBody) {
-      this.endurance.max = newBody * 5; // Update max endurance
-      this.calculateLoad(); // Recalculate load since max endurance affects it
+      this.endurance.max = newBody * 5; // Endurance is BODY x 5
     },
     heart(newHeart) {
-      this.hope.max = newHeart * 3; // Update max hope
+      this.hope.max = newHeart * 3; // Hope is HEART x 3
     },
     wits(newWits) {
-      this.defense.max = newWits + 10; // Update max defense
+      this.defense.max = newWits + 10; // Defense is WITS + 10
     },
     endurance: {
       handler() {
-        this.calculateLoad(); // Recalculate load when endurance changes
-        this.calculateWeary(); // Recalculate weary when endurance changes
+        // Endurance effects both Load and Weary
+        this.calculateLoad();
+        this.calculateWeary();
       },
-      deep: true
+      deep: true // Ensure changes to both current and max Endurance trigger recalculation
     },
     hope: {
       handler() {
-        this.calculateMiserable(); // Recalculate miserable when hope changes
+        this.calculateMiserable(); // Hope effects Miserable
       },
-      deep: true
+      deep: true // Ensure changes to both current and max Hope trigger recalculation
     },
     defense: {
       handler() {
-        this.calculateHelpless(); // Recalculate helpless when defense changes
+        this.calculateHelpless(); // Defense effects Helpless
       },
-      deep: true
+      deep: true // Ensure changes to both current and max Defense trigger recalculation
     },
     load() {
-      this.calculateWeary(); // Recalculate weary when load changes
+      this.calculateWeary(); // Load effects Weary
     },
     shadow() {
-      this.calculateMiserable(); // Recalculate miserable when shadow changes
+      this.calculateMiserable(); // Shadow effects Miserable
     },
     injury() {
-      this.calculateHelpless(); // Recalculate helpless when injury changes
+      this.calculateHelpless(); // Injury effects Helpless
     },
     equipment: {
       handler() {
-        this.calculateLoad(); // Recalculate load when equipment changes
+        this.calculateLoad(); // Equipment weight effects Load
       },
-      deep: true // Ensure nested changes in equipment trigger recalculation
+      deep: true // Ensure nested changes in Equipment trigger recalculation
     }
   },
+
   methods: {
     capitalizeFirstLetter(skill) {
       return skill.charAt(0).toUpperCase() + skill.slice(1).toLowerCase();
     },
 
-    // This method will adjust ranks based on the checkbox clicked
-    handleCheckboxChange(skillIndex, checkboxIndex) {
-      const skill = this.skills[skillIndex];
-      const skillName = Object.keys(skill)[0]; // Get the skill name dynamically
-      const currentRanks = skill[skillName];  // Get the current number of checked boxes
-
-      if (checkboxIndex + 1 > currentRanks) {
-        // If we're checking a box that is beyond the current ranks, increase ranks
-        skill[skillName] = checkboxIndex + 1;
-      } else {
-        // If we're unchecking, decrease ranks to the previous checkbox
-        skill[skillName] = checkboxIndex;
-      }
+    handleCheckboxChange(skillName, checkboxIndex) {
+      this.skills[skillName] = checkboxIndex + 1; // Ensure sequential checking of checkboxes
     },
 
-    // This method checks whether a checkbox should be checked based on the rank
+    // Determine whether a checkbox should be checked based on the rank
     isCheckboxChecked(skillIndex, checkboxIndex) {
       const skill = this.skills[skillIndex];
-      const skillName = Object.keys(skill)[0]; // Get the skill name dynamically
-      return skill[skillName] > checkboxIndex;  // Return true if this checkbox is checked
+      const skillName = Object.keys(skill)[0];
+      return skill[skillName] > checkboxIndex;
     },
 
     formatWeight(value) {
@@ -328,55 +342,38 @@ export default {
     },
 
     calculateLoad() {
-      const totalWeightCarried = this.equipment
-        .filter(item => item.carried)  // Only consider items that are carried
-        .reduce((sum, item) => sum + item.weight * item.quantity, 0);
-
-      const maxEndurance = this.endurance.max;
-      const bodyScore = this.body;
-
-      // Update load, ensuring it never goes below 0
-      this.load = Math.max(0, totalWeightCarried - maxEndurance - bodyScore);
+      this.load = Math.max(0, this.totalWeightCarried - this.endurance.max - this.body); // Load cannot be below 0
     },
 
     calculateWeary() {
-      // Character is weary if load is greater than current endurance
       this.states.weary = this.load > this.endurance.current;
-      // Character is twice weary if load is greater than max endurance
       this.states.twiceWeary = (this.load > this.endurance.max) && this.states.weary;
     },
 
     calculateMiserable() {
-      // Character is miserable if shadow is greater than current hope
       this.states.miserable = this.shadow > this.hope.current;
-      // Character is twice miserable if shadow is greater than max hope
       this.states.twiceMiserable = (this.shadow > this.hope.max) && this.states.miserable;
     },
 
     calculateHelpless() {
-      // Character is helpless if injury is greater than current defense
       this.states.helpless = this.injury > this.defense.current;
-      // Character is twice helpless if injury is greater than max defense
       this.states.twiceHelpless = (this.injury > this.defense.max) && this.states.helpless;
     },
 
     rollDice(skillName) {
       console.log("Rolling dice for:", skillName);
 
-      // Find the corresponding skill from the skills array
-      const skill = this.skills.find(s => Object.keys(s)[0] === skillName);
-      if (!skill) {
-        console.error("Skill not found");
+      const skillRanks = this.skills[skillName];
+      if (skillRanks === undefined) {
+        console.error("Skill not found:", skillName);
         return;
       }
 
       // Collect the ranks for the skill (number of checkboxes checked)
-      const selectedDice = Array.from({ length: 5 }, (_, index) => 
-        this.isCheckboxChecked(this.skills.indexOf(skill), index) ? index + 1 : null
-      ).filter(die => die !== null);
+      const selectedDice = Array.from({ length: skillRanks }, (_, index) => index + 1);
 
       // Prepare the dice
-      const dice = [{ id: 'd12', name: 'D12', sides: 12, emoji: '⭓', selected: true }];  // Always include D12
+      const dice = [{ id: 'd12', name: 'D12', sides: 12, emoji: '⭓', selected: true }]; // Always include D12
 
       // Add D6 dice for each selected rank
       selectedDice.forEach(die => {
@@ -407,7 +404,7 @@ export default {
           return { die: die.sides, roll: roll, symbol: symbol };
         });
 
-      const rollResults = results.map(r => r.symbol);  // Ensure rollResults is an array
+      const rollResults = results.map(r => r.symbol); // Ensure rollResults is an array
       const totalSum = results.reduce((sum, r) => sum + r.roll, 0);
 
       // Determine success or failure based on the target number
@@ -425,7 +422,7 @@ export default {
       // Send the results to the server
       axios
         .post('http://localhost:3000/send-message', {
-          rollResults: rollResults,  // Now an array
+          rollResults: rollResults, // Now an array
           total: totalSum,
           targetNumber: this.targetNumber,
           name: this.characterName || "Unnamed Character",
@@ -435,9 +432,9 @@ export default {
         .catch((error) => {
           console.error('Error sending roll:', error);
         });
-      }
     }
-  };
+  }
+};
 </script>
 
 <style scoped>
