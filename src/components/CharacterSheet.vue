@@ -405,7 +405,14 @@ export default {
         });
 
       const rollResults = results.map(r => r.symbol); // Ensure rollResults is an array
-      const totalSum = results.reduce((sum, r) => sum + r.roll, 0);
+
+      // Exclude d12 roll of 11 from the total sum
+      const totalSum = results.reduce((sum, r) => {
+        if (r.die === 12 && r.roll === 11) {
+          return sum; // Skip adding 11 from d12
+        }
+        return sum + r.roll;
+      }, 0);
 
       // Determine success or failure based on the target number
       const success = this.targetNumber && totalSum >= this.targetNumber;
