@@ -5,15 +5,18 @@
       <label>Target Number: <input type="number" v-model="targetNumber" class="target-number" /></label>
     </div>
     <div class="character-stats">
+
+      <!-- First Row -->
       <div class="character-stat-row">
+
         <!-- Body Column -->
         <div class="ability-column">
           <div class="ability-header">
-            <span class="ability-name">{{ formatCoreAbility('body') }}</span>
+            <span class="ability-name">BODY</span>
             <input type="number" v-model="body" class="ability-score" />
           </div>
           <div v-for="(skill, index) in skills.slice(0, 5)" :key="index" class="skill-row">
-            <span class="skill-name" @click="rollDice(Object.keys(skill)[0])">{{ formatSkillName(Object.keys(skill)[0]) }}</span>
+            <span class="skill-name" @click="rollDice(Object.keys(skill)[0])">{{ capitalizeFirstLetter(Object.keys(skill)[0]) }}</span>
             <span class="d12-symbol">⭓</span>
             <div class="checkbox-group">
               <input type="checkbox" v-for="n in 5" :key="n" :checked="isCheckboxChecked(index, n - 1)" @change="handleCheckboxChange(index, n - 1)" class="skill-checkbox" />
@@ -21,31 +24,29 @@
           </div>
           <div class="virtue-row">
             <span class="ability-name">Endurance</span>
-            <input type="number" v-model="endurance[0].current" class="virtue-score" />
+            <input type="number" v-model="endurance.current" class="virtue-score" />
             <span>/</span>
-            <input type="number" v-model="endurance[1].max" class="virtue-score" />
+            <span class="virtue-score">{{ endurance.max }}</span>
           </div>
           <div class="weakness-row">
             <span class="ability-name">Load</span>
-            <input type="number" v-model="load" class="weakness-score" />
+            <span class="weakness-score">{{ load }}</span>
           </div>
-          <div class="state-row" v-for="(state, stateIndex) in states.slice(0, 1)" :key="stateIndex">
-            <span class="ability-name">{{ formatSkillName(Object.keys(state)[0]) }}</span>
-            <div class="checkbox-group">
-              <input type="checkbox" v-model="states[0].weary" class="skill-checkbox" />
-              <input type="checkbox" v-model="states[1].twiceWeary" class="skill-checkbox" />
-            </div>
+          <div class="state-row">
+            <span class="ability-name">Weary</span>
+            <input type="checkbox" v-model="states.weary" class="skill-checkbox" />
+            <input type="checkbox" v-model="states.twiceWeary" class="skill-checkbox" />
           </div>
         </div>  
 
         <!-- Heart Column -->
         <div class="ability-column">
           <div class="ability-header">
-            <span class="ability-name">{{ formatCoreAbility('heart') }}</span>
+            <span class="ability-name">HEART</span>
             <input type="number" v-model="heart" class="ability-score" />
           </div>
           <div v-for="(skill, index) in skills.slice(5, 10)" :key="index" class="skill-row">
-            <span class="skill-name" @click="rollDice(Object.keys(skill)[0])">{{ formatSkillName(Object.keys(skill)[0]) }}</span>
+            <span class="skill-name" @click="rollDice(Object.keys(skill)[0])">{{ capitalizeFirstLetter(Object.keys(skill)[0]) }}</span>
             <span class="d12-symbol">⭓</span>
             <div class="checkbox-group">
               <input type="checkbox" v-for="n in 5" :key="n" :checked="isCheckboxChecked(index + 5, n - 1)" @change="handleCheckboxChange(index + 5, n - 1)" class="skill-checkbox" />
@@ -53,31 +54,29 @@
           </div>
           <div class="virtue-row">
             <span class="ability-name">Hope</span>
-            <input type="number" v-model="hope[0].current" class="virtue-score" />
+            <input type="number" v-model="hope.current" class="virtue-score" />
             <span>/</span>
-            <input type="number" v-model="hope[1].max" class="virtue-score" />
+            <span class="virtue-score">{{ hope.max }}</span>
           </div>
           <div class="weakness-row">
             <span class="ability-name">Shadow</span>
             <input type="number" v-model="shadow" class="weakness-score" />
           </div>
-          <div class="state-row" v-for="(state, stateIndex) in states.slice(2, 3)" :key="stateIndex">
-            <span class="ability-name">{{ formatSkillName(Object.keys(state)[0]) }}</span>
-            <div class="checkbox-group">
-              <input type="checkbox" v-model="states[2].miserable" class="skill-checkbox" />
-              <input type="checkbox" v-model="states[3].twiceMiserable" class="skill-checkbox" />
-            </div>
+          <div class="state-row">
+            <span class="ability-name">Miserable</span>
+            <input type="checkbox" v-model="states.miserable" class="skill-checkbox" />
+            <input type="checkbox" v-model="states.twiceMiserable" class="skill-checkbox" />
           </div>
         </div>  
 
         <!-- Wits Column -->
         <div class="ability-column">
           <div class="ability-header">
-            <span class="ability-name">{{ formatCoreAbility('wits') }}</span>
+            <span class="ability-name">WITS</span>
             <input type="number" v-model="wits" class="ability-score" />
           </div>
           <div v-for="(skill, index) in skills.slice(10, 15)" :key="index" class="skill-row">
-            <span class="skill-name" @click="rollDice(Object.keys(skill)[0])">{{ formatSkillName(Object.keys(skill)[0]) }}</span>
+            <span class="skill-name" @click="rollDice(Object.keys(skill)[0])">{{ capitalizeFirstLetter(Object.keys(skill)[0]) }}</span>
             <span class="d12-symbol">⭓</span>
             <div class="checkbox-group">
               <input type="checkbox" v-for="n in 5" :key="n" :checked="isCheckboxChecked(index + 10, n - 1)" @change="handleCheckboxChange(index + 10, n - 1)" class="skill-checkbox" />
@@ -85,20 +84,18 @@
           </div>
           <div class="virtue-row">
             <span class="ability-name">Defense</span>
-            <input type="number" v-model="defense[0].current" class="virtue-score" />
+            <input type="number" v-model="defense.current" class="virtue-score" />
             <span>/</span>
-            <input type="number" v-model="defense[1].max" class="virtue-score" />
+            <span class="virtue-score">{{ defense.max }}</span>
           </div>
           <div class="weakness-row">
             <span class="ability-name">Injury</span>
             <input type="number" v-model="injury" class="weakness-score" />
           </div>
-          <div class="state-row" v-for="(state, stateIndex) in states.slice(4, 5)" :key="stateIndex">
-            <span class="ability-name">{{ formatSkillName(Object.keys(state)[0]) }}</span>
-            <div class="checkbox-group">
-              <input type="checkbox" v-model="states[4].helpless" class="skill-checkbox" />
-              <input type="checkbox" v-model="states[5].twiceHelpless" class="skill-checkbox" />
-            </div>
+          <div class="state-row">
+            <span class="ability-name">Helpless</span>
+            <input type="checkbox" v-model="states.helpless" class="skill-checkbox" />
+            <input type="checkbox" v-model="states.twiceHelpless" class="skill-checkbox" />
           </div>
         </div>  
 
@@ -106,7 +103,7 @@
         <div class="conditions-column">
           <div class="section-label">Conditions</div>
           <div class="skill-row" v-for="(condition, index) in conditions" :key="index">
-            <span class="ability-name">{{ formatSkillName(Object.keys(condition)[0]) }}</span>
+            <span class="ability-name">{{ capitalizeFirstLetter(Object.keys(condition)[0]) }}</span>
             <input type="checkbox" v-model="condition[Object.keys(condition)[0]]" class="skill-checkbox" />
           </div>
         </div>
@@ -201,20 +198,20 @@ export default {
         { lore: 0 },
         { riddle: 0 }
       ],
-      endurance: [{ current: 0 }, { max: 0 }],
-      hope: [{ current: 0 }, { max: 0 }],
-      defense: [{ current: 0 }, { max: 0 }],
+      endurance: { current: 0, max: 0 },
+      hope: { current: 0, max: 0 },
+      defense: { current: 0, max: 0 },
       load: 0,
       shadow: 0,
       injury: 0,
-      states: [
-        { weary: false },
-        { twiceWeary: false },
-        { miserable: false },
-        { twiceMiserable: false },
-        { helpless: false },
-        { twiceHelpless: false }
-      ],
+      states: {
+        weary: false,
+        twiceWeary: false,
+        miserable: false,
+        twiceMiserable: false,
+        helpless: false ,
+        twiceHelpless: false
+      },
       conditions: [
         { insecure: false },
         { guilty: false },
@@ -237,13 +234,55 @@ export default {
       
       return Math.round(total); // Round to the nearest whole number
     }
-  },  
-  methods: {
-    formatCoreAbility(ability) {
-      return ability.toUpperCase();
+  },
+  watch: {
+    body(newBody) {
+      this.endurance.max = newBody * 5; // Update max endurance
+      this.calculateLoad(); // Recalculate load since max endurance affects it
     },
-
-    formatSkillName(skill) {
+    heart(newHeart) {
+      this.hope.max = newHeart * 3; // Update max hope
+    },
+    wits(newWits) {
+      this.defense.max = newWits + 10; // Update max defense
+    },
+    endurance: {
+      handler() {
+        this.calculateLoad(); // Recalculate load when endurance changes
+        this.calculateWeary(); // Recalculate weary when endurance changes
+      },
+      deep: true
+    },
+    hope: {
+      handler() {
+        this.calculateMiserable(); // Recalculate miserable when hope changes
+      },
+      deep: true
+    },
+    defense: {
+      handler() {
+        this.calculateHelpless(); // Recalculate helpless when defense changes
+      },
+      deep: true
+    },
+    load() {
+      this.calculateWeary(); // Recalculate weary when load changes
+    },
+    shadow() {
+      this.calculateMiserable(); // Recalculate miserable when shadow changes
+    },
+    injury() {
+      this.calculateHelpless(); // Recalculate helpless when injury changes
+    },
+    equipment: {
+      handler() {
+        this.calculateLoad(); // Recalculate load when equipment changes
+      },
+      deep: true // Ensure nested changes in equipment trigger recalculation
+    }
+  },
+  methods: {
+    capitalizeFirstLetter(skill) {
       return skill.charAt(0).toUpperCase() + skill.slice(1).toLowerCase();
     },
 
@@ -282,9 +321,43 @@ export default {
         carried: false,
       });
     },
+
     deleteItem(index) {
       // Delete the item at the specified index
       this.equipment.splice(index, 1);
+    },
+
+    calculateLoad() {
+      const totalWeightCarried = this.equipment
+        .filter(item => item.carried)  // Only consider items that are carried
+        .reduce((sum, item) => sum + item.weight * item.quantity, 0);
+
+      const maxEndurance = this.endurance.max;
+      const bodyScore = this.body;
+
+      // Update load, ensuring it never goes below 0
+      this.load = Math.max(0, totalWeightCarried - maxEndurance - bodyScore);
+    },
+
+    calculateWeary() {
+      // Character is weary if load is greater than current endurance
+      this.states.weary = this.load > this.endurance.current;
+      // Character is twice weary if load is greater than max endurance
+      this.states.twiceWeary = (this.load > this.endurance.max) && this.states.weary;
+    },
+
+    calculateMiserable() {
+      // Character is miserable if shadow is greater than current hope
+      this.states.miserable = this.shadow > this.hope.current;
+      // Character is twice miserable if shadow is greater than max hope
+      this.states.twiceMiserable = (this.shadow > this.hope.max) && this.states.miserable;
+    },
+
+    calculateHelpless() {
+      // Character is helpless if injury is greater than current defense
+      this.states.helpless = this.injury > this.defense.current;
+      // Character is twice helpless if injury is greater than max defense
+      this.states.twiceHelpless = (this.injury > this.defense.max) && this.states.helpless;
     },
 
     rollDice(skillName) {
