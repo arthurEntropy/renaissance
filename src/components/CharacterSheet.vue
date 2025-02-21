@@ -15,17 +15,21 @@
             <span class="ability-name">BODY</span>
             <input type="number" v-model="body" class="ability-score" />
           </div>
-          <div v-for="([skillName]) in Object.entries(skills).slice(0, 5)" :key="skillName" class="skill-row">
-            <span class="skill-name" @click="rollDice(skillName)">{{ capitalizeFirstLetter(skillName) }}</span>
-            <span class="d12-symbol">⭓</span>
+          <div v-for="(skill) in skills.slice(0, 5)" :key="skill.name" class="skill-row">
+            <span class="skill-name" @click="rollDice(skill.name)">{{ skill.name }}</span>
+            <span class="d12-symbol" :class="{ 'favored': skill.isFavored, 'ill-favored': skill.isIllFavored }">⭓</span>
             <div class="checkbox-group">
               <input 
-                v-for="(n, index) in 5" 
-                :key="index" 
+                v-for="(n, checkboxIndex) in 5" 
+                :key="checkboxIndex" 
                 type="checkbox" 
-                :checked="index < skills[skillName]"
-                @change="handleCheckboxChange(skillName, index)"
+                :checked="isCheckboxChecked(skill, checkboxIndex)"
+                @click="handleCheckboxChange(skill.name, checkboxIndex, $event)"
                 class="skill-checkbox"
+                :class="{
+                  'diceSubtracted': skill.ranks - checkboxIndex <= Math.abs(skill.diceMod) && skill.diceMod < 0,
+                  'diceAdded': checkboxIndex >= skill.ranks && checkboxIndex < skill.ranks + skill.diceMod && skill.diceMod > 0
+                }"
               />
             </div>
           </div>
@@ -44,7 +48,7 @@
             <input type="checkbox" v-model="states.weary" class="skill-checkbox" />
             <input type="checkbox" v-model="states.twiceWeary" class="skill-checkbox" />
           </div>
-        </div>  
+        </div>
 
         <!-- Heart Column -->
         <div class="ability-column">
@@ -52,17 +56,21 @@
             <span class="ability-name">HEART</span>
             <input type="number" v-model="heart" class="ability-score" />
           </div>
-          <div v-for="([skillName]) in Object.entries(skills).slice(5, 10)" :key="skillName" class="skill-row">
-            <span class="skill-name" @click="rollDice(skillName)">{{ capitalizeFirstLetter(skillName) }}</span>
-            <span class="d12-symbol">⭓</span>
+          <div v-for="(skill) in skills.slice(5, 10)" :key="skill.name" class="skill-row">
+            <span class="skill-name" @click="rollDice(skill.name)">{{ skill.name }}</span>
+            <span class="d12-symbol" :class="{ 'favored': skill.isFavored, 'ill-favored': skill.isIllFavored }">⭓</span>
             <div class="checkbox-group">
               <input 
-                v-for="(n, index) in 5" 
-                :key="index" 
+                v-for="(n, checkboxIndex) in 5" 
+                :key="checkboxIndex" 
                 type="checkbox" 
-                :checked="index < skills[skillName]"
-                @change="handleCheckboxChange(skillName, index)"
+                :checked="isCheckboxChecked(skill, checkboxIndex)"
+                @click="handleCheckboxChange(skill.name, checkboxIndex, $event)"
                 class="skill-checkbox"
+                :class="{
+                  'diceSubtracted': skill.ranks - checkboxIndex <= Math.abs(skill.diceMod) && skill.diceMod < 0,
+                  'diceAdded': checkboxIndex >= skill.ranks && checkboxIndex < skill.ranks + skill.diceMod && skill.diceMod > 0
+                }"
               />
             </div>
           </div>
@@ -90,17 +98,21 @@
             <span class="ability-name">WITS</span>
             <input type="number" v-model="wits" class="ability-score" />
           </div>
-          <div v-for="([skillName]) in Object.entries(skills).slice(10, 15)" :key="skillName" class="skill-row">
-            <span class="skill-name" @click="rollDice(skillName)">{{ capitalizeFirstLetter(skillName) }}</span>
-            <span class="d12-symbol">⭓</span>
+          <div v-for="(skill) in skills.slice(10, 15)" :key="skill.name" class="skill-row">
+            <span class="skill-name" @click="rollDice(skill.name)">{{ skill.name }}</span>
+            <span class="d12-symbol" :class="{ 'favored': skill.isFavored, 'ill-favored': skill.isIllFavored }">⭓</span>
             <div class="checkbox-group">
               <input 
-                v-for="(n, index) in 5" 
-                :key="index" 
+                v-for="(n, checkboxIndex) in 5" 
+                :key="checkboxIndex" 
                 type="checkbox" 
-                :checked="index < skills[skillName]"
-                @change="handleCheckboxChange(skillName, index)"
+                :checked="isCheckboxChecked(skill, checkboxIndex)"
+                @click="handleCheckboxChange(skill.name, checkboxIndex, $event)"
                 class="skill-checkbox"
+                :class="{
+                  'diceSubtracted': skill.ranks - checkboxIndex <= Math.abs(skill.diceMod) && skill.diceMod < 0,
+                  'diceAdded': checkboxIndex >= skill.ranks && checkboxIndex < skill.ranks + skill.diceMod && skill.diceMod > 0
+                }"
               />
             </div>
           </div>
@@ -124,10 +136,10 @@
         <!-- Conditions Column -->
         <div class="conditions-column">
           <div class="section-label">Conditions</div>
-            <div class="skill-row" v-for="(value, key) in conditions" :key="key">
-              <span class="ability-name">{{ capitalizeFirstLetter(key) }}</span>
-              <input type="checkbox" v-model="conditions[key]" class="skill-checkbox" />
-            </div>
+          <div class="skill-row" v-for="(value, key) in conditions" :key="key">
+            <span class="ability-name">{{ capitalizeFirstLetter(key) }}</span>
+            <input type="checkbox" class="skill-checkbox" v-model="conditions[key]" @change="updateSkillDice(key, conditions[key])" />
+          </div>
         </div>
       </div>
 
@@ -203,23 +215,23 @@ export default {
       body: 0,
       heart: 0,
       wits: 0,
-      skills: {
-        awe: 0,
-        strength: 0,
-        dexterity: 0,
-        fortitude: 0,
-        craft: 0,
-        perform: 0,
-        insight: 0,
-        courtesy: 0,
-        spirit: 0,
-        aid: 0,
-        persuade: 0,
-        awareness: 0,
-        stealth: 0,
-        lore: 0,
-        riddle: 0
-      },
+      skills: [
+        { name: 'Awe', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 2 },
+        { name: 'Strength', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
+        { name: 'Dexterity', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
+        { name: 'Fortitude', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
+        { name: 'Craft', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
+        { name: 'Perform', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
+        { name: 'Insight', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
+        { name: 'Courtesy', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
+        { name: 'Spirit', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
+        { name: 'Aid', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
+        { name: 'Persuade', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
+        { name: 'Awareness', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
+        { name: 'Stealth', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
+        { name: 'Lore', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
+        { name: 'Riddle', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
+      ],
       endurance: { current: 0, max: 0 },
       hope: { current: 0, max: 0 },
       defense: { current: 0, max: 0 },
@@ -311,15 +323,41 @@ export default {
       return skill.charAt(0).toUpperCase() + skill.slice(1).toLowerCase();
     },
 
-    handleCheckboxChange(skillName, checkboxIndex) {
-      this.skills[skillName] = checkboxIndex + 1; // Ensure sequential checking of checkboxes
+    handleCheckboxChange(skillName, checkboxIndex, event) {
+      event.preventDefault(); // Prevent default checkbox behavior
+
+      const skill = this.skills.find(skill => skill.name === skillName);
+      if (!skill) return;
+
+      const newRank = checkboxIndex + 1;
+
+      if (newRank > skill.ranks) {
+        // Increase rank: Check this box and all to the left
+        skill.ranks = newRank;
+      } else if (newRank === skill.ranks) {
+        // Decrease rank by 1: Uncheck this box
+        skill.ranks -= 1;
+      } else {
+        // Decrease rank to a lower value: Uncheck all to the right
+        skill.ranks = newRank;
+      }
+
+      // Ensure diceMod checkboxes are correctly adjusted
+      if (skill.ranks + skill.diceMod > 5) {
+        skill.diceMod = 5 - skill.ranks; // Limit diceMod to not exceed 5 total
+      }
+
+      // Update ill-favored status
+      this.updateIllFavoredStatus(skill);
+
+      // Force reactivity update
+      this.skills = [...this.skills];
     },
 
     // Determine whether a checkbox should be checked based on the rank
-    isCheckboxChecked(skillIndex, checkboxIndex) {
-      const skill = this.skills[skillIndex];
-      const skillName = Object.keys(skill)[0];
-      return skill[skillName] > checkboxIndex;
+    isCheckboxChecked(skill, checkboxIndex) {
+      return checkboxIndex < skill.ranks || 
+            (checkboxIndex >= skill.ranks && checkboxIndex < skill.ranks + skill.diceMod && skill.diceMod > 0);
     },
 
     formatWeight(value) {
@@ -337,8 +375,9 @@ export default {
     },
 
     deleteItem(index) {
-      // Delete the item at the specified index
-      this.equipment.splice(index, 1);
+      if (this.equipment.length > 1) {
+        this.equipment.splice(index, 1);
+      }
     },
 
     calculateLoad() {
@@ -360,25 +399,56 @@ export default {
       this.states.twiceHelpless = (this.injury > this.defense.max) && this.states.helpless;
     },
 
-    rollDice(skillName) {
-      console.log("Rolling dice for:", skillName);
+    updateSkillDice(conditionName, isChecked) {
+      const conditionSkillMap = {
+        insecure: ["Awe", "Perform", "Persuade"],
+        guilty: ["Strength", "Insight", "Awareness"],
+        angry: ["Dexterity", "Courtesy", "Stealth"],
+        afraid: ["Fortitude", "Spirit", "Lore"],
+        troubled: ["Craft", "Aid", "Riddle"],
+      };
 
-      const skillRanks = this.skills[skillName];
-      if (skillRanks === undefined) {
+      const skillsToModify = conditionSkillMap[conditionName];
+
+      if (skillsToModify) {
+        skillsToModify.forEach(skillName => {
+          const skillIndex = this.skills.findIndex(skill => skill.name === skillName);
+          if (skillIndex !== -1) {
+            const skill = this.skills[skillIndex];
+
+            // Update diceMod
+            this.skills[skillIndex].diceMod += isChecked ? -1 : 1;
+
+            // Update ill-favored status
+            this.updateIllFavoredStatus(skill);
+          }
+        });
+      }
+    },
+
+    updateIllFavoredStatus(skill) {
+      skill.isIllFavored = (skill.ranks + skill.diceMod) < 0;
+    },
+
+    rollDice(skillName) {
+      const skill = this.skills.find(s => s.name === skillName);
+      if (!skill) {
         console.error("Skill not found:", skillName);
         return;
       }
+      console.log("Rolling dice for:", skill.name, "Ranks:", skill.ranks, "Dice Mod:", skill.diceMod);
 
-      // Collect the ranks for the skill (number of checkboxes checked)
-      const selectedDice = Array.from({ length: skillRanks }, (_, index) => index + 1);
+      // Calculate the number of D6 dice based on ranks + diceMod
+      let totalD6 = skill.ranks + skill.diceMod;
+      totalD6 = Math.max(0, totalD6); // Ensure we don't roll a negative number of dice
 
-      // Prepare the dice
+      // Prepare the dice pool
       const dice = [{ id: 'd12', name: 'D12', sides: 12, emoji: '⭓', selected: true }]; // Always include D12
 
-      // Add D6 dice for each selected rank
-      selectedDice.forEach(die => {
-        dice.push({ id: `d6-${die}`, name: 'D6', sides: 6, emoji: '◽️', selected: true });
-      });
+      // Add the calculated number of D6 dice
+      for (let i = 0; i < totalD6; i++) {
+        dice.push({ id: `d6-${i + 1}`, name: 'D6', sides: 6, emoji: '◽️', selected: true });
+      }
 
       // Roll the dice and handle their results
       const results = dice
@@ -438,6 +508,7 @@ export default {
         })
         .catch((error) => {
           console.error('Error sending roll:', error);
+          alert('Failed to send roll. Check your connection or server.');
         });
     }
   }
@@ -560,6 +631,9 @@ export default {
     margin-left: auto;
     margin-right: 10px;
     font-size: 18px;
+    width: 25px;
+    text-align: center;
+    border-radius: 5px;
   }
   
   .checkbox-group {
@@ -715,6 +789,24 @@ export default {
 
   input, .equipment-item-name-input, .virtue-score, .equipment-checkbox {
     font-family: 'Lora', serif;
+  }
+
+  .favored {
+      background-color: green;
+      color: white; /* Ensure good contrast */
+    }
+
+  .ill-favored {
+    background-color: red;
+    color: white; /* Ensure good contrast */
+  }
+
+  .diceSubtracted {
+    accent-color: red;
+  }
+
+  .diceAdded {
+    accent-color: green;
   }
 
 </style>
