@@ -424,11 +424,14 @@ export default {
     },
 
     rollDice(skillName) {
+      // Find the skill by name and handle if it doesn't exist
       const skill = this.skills.find(s => s.name === skillName);
       if (!skill) {
         console.error("Skill not found:", skillName);
         return;
       }
+
+      // Logging for debugging
       console.log("Rolling dice for:", skill.name, "Ranks:", skill.ranks, "Dice Mod:", skill.diceMod);
 
       // Calculate the number of D6 dice based on ranks + diceMod
@@ -437,6 +440,10 @@ export default {
 
       // Prepare the dice pool
       const dice = [{ id: 'd12', name: 'D12', sides: 12, emoji: '⭓', selected: true }]; // Always include D12
+      // Add a second d12 if the skill is favored or ill-favored
+      if (skill.isFavored || skill.isIllFavored) {
+        dice.push({ id: 'd12-2', name: 'D12', sides: 12, emoji: '⭓', selected: true });
+      }
 
       // Add the calculated number of D6 dice
       for (let i = 0; i < totalD6; i++) {
@@ -469,6 +476,28 @@ export default {
 
       const rollResults = results.map(r => r.symbol); // Ensure rollResults is an array
 
+      // If the skill is favored, only use the highest d12 roll
+      if (skill.isFavored) {
+        const d12Rolls = results.filter(r => r.die === 12).map(r => r.roll);
+        const highestD12Roll = Math.max(...d12Rolls);
+        results.forEach(r => {
+          if (r.die === 12 && r.roll !== highestD12Roll) {
+            r.roll = 0; // Exclude the non-highest d12 roll
+          }
+        });
+      }
+
+      // If the skill is ill-favored, only use the lowest d12 roll
+      if (skill.isIllFavored) {
+        const d12Rolls = results.filter(r => r.die === 12).map(r => r.roll);
+        const lowestD12Roll = Math.min(...d12Rolls);
+        results.forEach(r => {
+          if (r.die === 12 && r.roll !== lowestD12Roll) {
+            r.roll = 0; // Exclude the non-lowest d12 roll
+          }
+        });
+      }
+
       // Exclude d12 roll of 11 from the total sum
       const totalSum = results.reduce((sum, r) => {
         if (r.die === 12 && r.roll === 11) {
@@ -480,7 +509,14 @@ export default {
       // Determine success or failure based on the target number
       const success = this.targetNumber && totalSum >= this.targetNumber;
 
-      console.log("Sending roll request:", {
+      let footer = "";
+      if (skill.isFavored) {
+        footer = "Favored";
+      } else if (skill.isIllFavored) {
+        footer = "Ill-Favored";
+      }
+
+      console.log("Sending roll to Discord:", {
         rollResults,
         totalSum,
         targetNumber: this.targetNumber,
@@ -492,12 +528,13 @@ export default {
       // Send the results to the server
       axios
         .post('http://localhost:3000/send-message', {
-          rollResults: rollResults, // Now an array
+          rollResults: rollResults,
           total: totalSum,
           targetNumber: this.targetNumber,
           name: this.characterName || "Unnamed Character",
           skill: skillName,
-          success: success
+          success: success,
+          footer: footer
         })
         .catch((error) => {
           console.error('Error sending roll:', error);
