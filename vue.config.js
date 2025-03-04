@@ -3,12 +3,19 @@ const webpack = require('webpack')
 
 module.exports = defineConfig({
   transpileDependencies: true,
+  productionSourceMap: true,  // Enable source maps for production as well
   configureWebpack: {
-    devtool: "eval-source-map", // You can try "eval-source-map" for faster rebuilding
-    plugins: [
-      new webpack.DefinePlugin({
-        __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: JSON.stringify(true),
-      })
-    ]
+    devtool: process.env.NODE_ENV === 'production' ? 'source-map' : 'source-map',
+    output: {
+        devtoolModuleFilenameTemplate: info => {
+            var $filename = 'sources://' + info.resourcePath;
+            if (info.resourcePath.match(/\.vue$/) && !info.query.match(/type=script/)) {
+                $filename = 'webpack-generated:///' + info.resourcePath + '?' + info.hash;
+            }
+            return $filename;
+        },
+        devtoolFallbackModuleFilenameTemplate: 'webpack:///[resource-path]?[hash]'
+    }
   }
 })
+

@@ -24,7 +24,7 @@
                 :key="checkboxIndex" 
                 type="checkbox" 
                 :checked="isCheckboxChecked(skill, checkboxIndex)"
-                @click="handleCheckboxChange(skill.name, checkboxIndex, $event)"
+                @click="handleCheckboxChange(skill.name, checkboxIndex)"
                 class="skill-checkbox"
                 :class="{
                   'diceSubtracted': skill.ranks - checkboxIndex <= Math.abs(skill.diceMod) && skill.diceMod < 0,
@@ -281,6 +281,15 @@ export default {
     wits(newWits) {
       this.defense.max = newWits + 10; // Defense is WITS + 10
     },
+    skills: {
+      handler() {
+        this.skills.forEach(skill => {
+          // Update ill-favored status
+          this.updateIllFavoredStatus(skill);
+        });
+      },
+      deep: true // Ensure changes to nested properties trigger recalculation
+    },
     endurance: {
       handler() {
         // Endurance effects both Load and Weary
@@ -323,41 +332,25 @@ export default {
       return skill.charAt(0).toUpperCase() + skill.slice(1).toLowerCase();
     },
 
-    handleCheckboxChange(skillName, checkboxIndex, event) {
-      event.preventDefault(); // Prevent default checkbox behavior
-
+    handleCheckboxChange(skillName, checkboxIndex) {
       const skill = this.skills.find(skill => skill.name === skillName);
       if (!skill) return;
 
       const newRank = checkboxIndex + 1;
-
-      if (newRank > skill.ranks) {
-        // Increase rank: Check this box and all to the left
-        skill.ranks = newRank;
-      } else if (newRank === skill.ranks) {
-        // Decrease rank by 1: Uncheck this box
+        
+      // Clicking a checkbox that is the same as the current rank should reduce the rank by 1
+      if (newRank === skill.ranks) {
         skill.ranks -= 1;
       } else {
-        // Decrease rank to a lower value: Uncheck all to the right
         skill.ranks = newRank;
       }
-
-      // Ensure diceMod checkboxes are correctly adjusted
-      if (skill.ranks + skill.diceMod > 5) {
-        skill.diceMod = 5 - skill.ranks; // Limit diceMod to not exceed 5 total
-      }
-
-      // Update ill-favored status
-      this.updateIllFavoredStatus(skill);
-
-      // Force reactivity update
-      this.skills = [...this.skills];
     },
 
     // Determine whether a checkbox should be checked based on the rank
     isCheckboxChecked(skill, checkboxIndex) {
-      return checkboxIndex < skill.ranks || 
-            (checkboxIndex >= skill.ranks && checkboxIndex < skill.ranks + skill.diceMod && skill.diceMod > 0);
+      const withinRanks = checkboxIndex < skill.ranks;
+      const withinDiceMod = checkboxIndex >= skill.ranks && checkboxIndex < skill.ranks + skill.diceMod && skill.diceMod > 0;
+      return withinRanks || withinDiceMod;
     },
 
     formatWeight(value) {
