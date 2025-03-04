@@ -214,56 +214,56 @@ export default {
     return {
       character: {
         characterName: 'Freda',
-      targetNumber: 10,
-      body: 2,
-      heart: 4,
-      wits: 3,
-      skills: [
-        { name: 'Awe', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
-        { name: 'Strength', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
-        { name: 'Dexterity', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
-        { name: 'Fortitude', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
-        { name: 'Craft', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
-        { name: 'Perform', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
-        { name: 'Insight', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
-        { name: 'Courtesy', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
-        { name: 'Spirit', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
-        { name: 'Aid', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
-        { name: 'Persuade', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
-        { name: 'Awareness', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
-        { name: 'Stealth', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
-        { name: 'Lore', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
-        { name: 'Riddle', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
-      ],
-      endurance: { current: 0, max: 0 },
-      hope: { current: 0, max: 0 },
-      defense: { current: 0, max: 0 },
-      load: 0,
-      shadow: 0,
-      injury: 0,
-      states: {
-        weary: false,
-        twiceWeary: false,
-        miserable: false,
-        twiceMiserable: false,
-        helpless: false ,
-        twiceHelpless: false
-      },
-      conditions: {
-        insecure: false,
-        guilty: false,
-        angry: true,
-        afraid: false,
-        troubled: false
-      },
-      equipment: [
-        { name: 'Rope', weight: 5, quantity: 1, carried: true },
-        { name: 'Grappling Hook', weight: 2, quantity: 2, carried: true },
-        { name: 'Tinderbox', weight: 1, quantity: 1, carried: true },
-      ],
-      activeEffects: [
-        { name: 'Cool Vibes', skills: ['Awe', 'Perform'], diceMod: 1 },
-      ],
+        targetNumber: 10,
+        body: 2,
+        heart: 4,
+        wits: 3,
+        skills: [
+          { name: 'Awe', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
+          { name: 'Strength', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
+          { name: 'Dexterity', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
+          { name: 'Fortitude', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
+          { name: 'Craft', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
+          { name: 'Perform', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
+          { name: 'Insight', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
+          { name: 'Courtesy', ranks: 0, isFavored: true, isIllFavored: false, diceMod: 0 },
+          { name: 'Spirit', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
+          { name: 'Aid', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
+          { name: 'Persuade', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
+          { name: 'Awareness', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
+          { name: 'Stealth', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
+          { name: 'Lore', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
+          { name: 'Riddle', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
+        ],
+        endurance: { current: 0, max: 0 },
+        hope: { current: 0, max: 0 },
+        defense: { current: 0, max: 0 },
+        load: 0,
+        shadow: 0,
+        injury: 0,
+        states: {
+          weary: false,
+          twiceWeary: false,
+          miserable: false,
+          twiceMiserable: false,
+          helpless: false ,
+          twiceHelpless: false
+        },
+        conditions: {
+          insecure: false,
+          guilty: false,
+          angry: true,
+          afraid: false,
+          troubled: false
+        },
+        equipment: [
+          { name: 'Rope', weight: 5, quantity: 1, carried: true },
+          { name: 'Grappling Hook', weight: 2, quantity: 2, carried: true },
+          { name: 'Tinderbox', weight: 1, quantity: 1, carried: true },
+        ],
+        activeEffects: [
+          { name: 'Cool Vibes', skills: ['Awe', 'Perform'], diceMod: 1 },
+        ],
       }
     };
   },
@@ -502,21 +502,30 @@ export default {
         return;
       }
 
+      // Logging statement for debugging
       console.log("Rolling dice for:", skill.name, "Ranks:", skill.ranks, "Dice Mod:", skill.diceMod);
 
+      // Prepare and roll the dice
       const totalD6 = this.calculateTotalD6(skill);
       const dice = this.prepareDicePool(skill, totalD6);
       const results = this.rollDiceResults(dice);
+
+      // Check for auto-fail due to twice miserable before applying favored/ill-favored logic
+      if (this.character.states.twiceMiserable && this.checkAutoFailTwiceMiserable(results)) {
+        this.sendRollResultsToServer(results.map(r => r.symbol), 0, false, skillName, this.generateFooter());
+        return;
+      }
 
       // Apply Favored/Ill-Favored dice logic
       if (skill.isFavored) this.filterFavoredDice(results);
       if (skill.isIllFavored) this.filterIllFavoredDice(results);
 
+      // Determine the outcome of the roll and prepare the footer
       const totalSum = this.calculateTotalSum(results);
-      const success = this.character.targetNumber && totalSum >= this.character.targetNumber;
+      const success = this.determineSuccess(totalSum, results);
+      const footer = this.generateFooter();
 
-      let footer = skill.isFavored ? "Favored" : (skill.isIllFavored ? "Ill-Favored" : "");
-
+      // Logging statement for debugging
       console.log("Sending roll to Discord:", {
         rollResults: results.map(r => r.symbol),
         totalSum,
@@ -528,6 +537,16 @@ export default {
 
       // Send the results to the server
       this.sendRollResultsToServer(results.map(r => r.symbol), totalSum, success, skillName, footer);
+    },
+
+    checkAutoFailTwiceMiserable(results, isFavored) {
+      const d12Rolls = results.filter(r => r.die === 12).map(r => r.roll);
+      // If the roll is favored, only auto-fail if both d12s are 11
+      if (isFavored) {
+        return d12Rolls.filter(roll => roll === 11).length === 2;
+      }
+      // Otherwise, auto-fail if any d12 is 11, since it's either the only d12 (flat roll) or the lower of two rolls (ill-favored)
+      return d12Rolls.includes(11);
     },
 
     calculateTotalD6(skill) {
@@ -578,7 +597,12 @@ export default {
 
     filterFavoredDice(results) {
       const d12Rolls = results.filter(r => r.die === 12).map(r => r.roll);
-      const highestD12Roll = Math.max(...d12Rolls);
+
+      // If we have at least one non-11 roll, pick the highest of those; otherwise, keep 11
+      const highestD12Roll = d12Rolls.some(roll => roll !== 11)
+        ? Math.max(...d12Rolls.filter(roll => roll !== 11))
+        : 11;
+      
       results.forEach(r => {
         if (r.die === 12 && r.roll !== highestD12Roll) {
           r.roll = 0; // Exclude the non-highest d12 roll
@@ -588,7 +612,10 @@ export default {
 
     filterIllFavoredDice(results) {
       const d12Rolls = results.filter(r => r.die === 12).map(r => r.roll);
-      const lowestD12Roll = Math.min(...d12Rolls);
+
+      // If there's an 11, it's automatically the lowest roll; otherwise, find the minimum
+      const lowestD12Roll = d12Rolls.includes(11) ? 11 : Math.min(...d12Rolls);
+
       results.forEach(r => {
         if (r.die === 12 && r.roll !== lowestD12Roll) {
           r.roll = 0; // Exclude the non-lowest d12 roll
@@ -598,11 +625,38 @@ export default {
 
     calculateTotalSum(results) {
       return results.reduce((sum, r) => {
-        if (r.die === 12 && r.roll === 11) {
-          return sum; // Skip adding 11 from d12
+        if (r.die === 6 && r.roll <= 3 && this.character.states.twiceWeary) {
+          return sum; // Skip adding D6 results of 3 or less if twice weary
         }
         return sum + r.roll;
       }, 0);
+    },
+
+    generateFooter() {
+      const effectsModifyingRoll = [];
+      const formattedStateNames = {
+        twiceWeary: "Twice Weary",
+        twiceMiserable: "Twice Miserable",
+        twiceHelpless: "Twice Helpless",
+      };
+
+      Object.keys(this.character.conditions).forEach(condition => {
+        if (this.character.conditions[condition]) {
+          effectsModifyingRoll.push(this.capitalizeFirstLetter(condition));
+        }
+      });
+
+      Object.keys(this.character.states).forEach(state => {
+        if (this.character.states[state]) {
+          effectsModifyingRoll.push(formattedStateNames[state] || this.capitalizeFirstLetter(state));
+        }
+      });
+
+      return effectsModifyingRoll.join(", ") || "";
+    },
+
+    determineSuccess(totalSum) {
+      return this.character.targetNumber && totalSum >= this.character.targetNumber;
     },
 
     sendRollResultsToServer(rollResults, totalSum, success, skillName, footer) {
@@ -621,7 +675,6 @@ export default {
           alert('Failed to send roll. Check your connection or server.');
         });
     }
-
   }
 };
 </script>
