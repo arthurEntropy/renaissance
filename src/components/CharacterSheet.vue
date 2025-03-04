@@ -17,7 +17,10 @@
           </div>
           <div v-for="(skill) in character.skills.slice(0, 5)" :key="skill.name" class="skill-row">
             <span class="skill-name" @click="rollDice(skill.name)">{{ skill.name }}</span>
-            <span class="d12-symbol" :class="{ 'favored': skill.isFavored, 'ill-favored': skill.isIllFavored }">⭓</span>
+            <span class="d12-symbol" :class="{
+              'favored': (skill.isFavored && !skill.isIllFavored), 
+              'ill-favored': (skill.isIllFavored && !skill.isFavored)
+            }">⭓</span>
             <div class="checkbox-group">
               <input 
                 v-for="(n, checkboxIndex) in 5" 
@@ -58,7 +61,10 @@
           </div>
           <div v-for="(skill) in character.skills.slice(5, 10)" :key="skill.name" class="skill-row">
             <span class="skill-name" @click="rollDice(skill.name)">{{ skill.name }}</span>
-            <span class="d12-symbol" :class="{ 'favored': skill.isFavored, 'ill-favored': skill.isIllFavored }">⭓</span>
+            <span class="d12-symbol" :class="{
+              'favored': (skill.isFavored && !skill.isIllFavored), 
+              'ill-favored': (skill.isIllFavored && !skill.isFavored)
+            }">⭓</span>
             <div class="checkbox-group">
               <input 
                 v-for="(n, checkboxIndex) in 5" 
@@ -100,7 +106,10 @@
           </div>
           <div v-for="(skill) in character.skills.slice(10, 15)" :key="skill.name" class="skill-row">
             <span class="skill-name" @click="rollDice(skill.name)">{{ skill.name }}</span>
-            <span class="d12-symbol" :class="{ 'favored': skill.isFavored, 'ill-favored': skill.isIllFavored }">⭓</span>
+            <span class="d12-symbol" :class="{
+              'favored': (skill.isFavored && !skill.isIllFavored), 
+              'ill-favored': (skill.isIllFavored && !skill.isFavored)
+            }">⭓</span>
             <div class="checkbox-group">
               <input 
                 v-for="(n, checkboxIndex) in 5" 
@@ -226,7 +235,7 @@ export default {
           { name: 'Craft', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
           { name: 'Perform', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
           { name: 'Insight', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
-          { name: 'Courtesy', ranks: 0, isFavored: true, isIllFavored: false, diceMod: 0 },
+          { name: 'Courtesy', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
           { name: 'Spirit', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
           { name: 'Aid', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
           { name: 'Persuade', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
@@ -252,7 +261,7 @@ export default {
         conditions: {
           insecure: false,
           guilty: false,
-          angry: true,
+          angry: false,
           afraid: false,
           troubled: false
         },
@@ -262,7 +271,18 @@ export default {
           { name: 'Tinderbox', weight: 1, quantity: 1, carried: true },
         ],
         activeEffects: [
-          { name: 'Cool Vibes', skills: ['Awe', 'Perform'], diceMod: 1 },
+          { name: 'Cool Vibes', skillsModified: [
+            { name: 'Awe',
+              diceMod: -1,
+              makeFavored: false,
+              makeIllFavored: false
+            },
+            { name: 'Perform',
+              diceMod: 1,
+              makeFavored: false,
+              makeIllFavored: false
+            }
+          ]},
         ],
       }
     };
@@ -291,12 +311,6 @@ export default {
     },
     'character.wits'() {
       this.calculateMaxDefense();
-    },
-    'character.skills': {
-      handler() {
-        this.updateIllFavoredStatus();
-      },
-      deep: true // Ensure changes to nested properties trigger recalculation
     },
     'character.endurance': {
       handler() {
@@ -330,14 +344,14 @@ export default {
     'character.conditions': {
       handler() {
         this.updateDiceMods();
-        this.updateIllFavoredStatus();
+        this.updateFavoredStatus();
       },
       deep: true
     },
     'character.states': {
       handler() {
         this.updateDiceMods();
-        this.updateIllFavoredStatus();
+        this.updateFavoredStatus();
       },
       deep: true
     },
@@ -363,7 +377,7 @@ export default {
       this.calculateMiserable();
       this.calculateHelpless();
       this.updateDiceMods();
-      this.updateIllFavoredStatus();
+      this.updateFavoredStatus();
     },
 
     calculateMaxEndurance() {
@@ -390,6 +404,8 @@ export default {
       } else {
         skill.ranks = newRank;
       }
+
+      this.updateFavoredStatus();
     },
 
     // Determine whether a checkbox should be checked based on the rank
@@ -459,16 +475,20 @@ export default {
 
       const conditionAndStateDiceMod = -1; // Dice mod for conditions and states
 
-      // For each skill stored in data, modify the diceMod based on the active effects, conditions and states
+      // For each skill stored in data, modify the diceMod based on the active effects, conditions, and states
       this.character.skills.forEach(skill => {
         // Reset the diceMod to the base value
         skill.diceMod = 0;
 
         // Check if the skill is affected by any active effects
         this.character.activeEffects.forEach(effect => {
-          if (effect.skills.includes(skill.name)) {
-            skill.diceMod += effect.diceMod;
-          }
+          effect.skillsModified.forEach(modifiedSkill => {
+            if (modifiedSkill.name === skill.name) {
+              // Apply the diceMod changes
+              skill.diceMod += modifiedSkill.diceMod;
+              }
+            }
+          );
         });
 
         // Check if the skill is affected by any conditions
@@ -487,10 +507,26 @@ export default {
       });
     },
 
-    updateIllFavoredStatus() {
-      //update all skills
+    updateFavoredStatus() {
+      // Determine if a skill is ill-favored based on the ranks and diceMod
+      // NOTE: Ranks and dice mods cannot make a skill favored, so we only check for ill-favored here
       this.character.skills.forEach(skill => {
         skill.isIllFavored = (skill.ranks + skill.diceMod) < 0;
+
+        // Check if the skill is affected by any active effects
+        this.character.activeEffects.forEach(effect => {
+          effect.skillsModified.forEach(modifiedSkill => {
+            if (modifiedSkill.name === skill.name) {
+              // Apply the favored, and illFavored changes
+              if (modifiedSkill.makeFavored) {
+                skill.isFavored = true;
+              }
+              if (modifiedSkill.makeIllFavored) {
+                skill.isIllFavored = true;
+              }
+            }
+          });
+        });
       });
     },
 
