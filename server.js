@@ -13,7 +13,7 @@ app.use(cors());
 app.post('/send-message', (req, res) => {
     console.log("Received roll request:", req.body);  // <-- Log request payload
     
-    const { rollResults, total, targetNumber, name, skill, success } = req.body;
+    const { rollResults, total, targetNumber, name, skill, success, footer } = req.body;
   
     if (success === undefined || success === null) {
         console.error("Success value is missing.");
@@ -47,7 +47,7 @@ app.post('/send-message', (req, res) => {
             }
         ],
         footer: {
-            text: "Renaissance Dice Roller",
+            text: footer,
         }
     };
     
