@@ -25,7 +25,7 @@
                     @input="character.body = Math.max(0, character.body)"/> <!-- Prevent negative value -->
             </div>
             <div v-for="(skill) in character.skills.slice(0, 5)" :key="skill.name" class="skill-row">
-              <span class="skill-name-clickable" @click="rollDice(skill.name)">{{ skill.name }}</span>
+              <span class="skill-name-clickable" @click="makeSkillCheck(skill.name)">{{ skill.name }}</span>
               <span class="d12-symbol" :class="{
                 'favored': (skill.isFavored && !skill.isIllFavored), 
                 'ill-favored': (skill.isIllFavored && !skill.isFavored)
@@ -75,7 +75,7 @@
                     @input="character.heart = Math.max(0, character.heart)"/> <!-- Prevent negative value -->
             </div>
             <div v-for="(skill) in character.skills.slice(5, 10)" :key="skill.name" class="skill-row">
-              <span class="skill-name-clickable" @click="rollDice(skill.name)">{{ skill.name }}</span>
+              <span class="skill-name-clickable" @click="makeSkillCheck(skill.name)">{{ skill.name }}</span>
               <span class="d12-symbol" :class="{
                 'favored': (skill.isFavored && !skill.isIllFavored), 
                 'ill-favored': (skill.isIllFavored && !skill.isFavored)
@@ -126,7 +126,7 @@
                     @input="character.wits = Math.max(0, character.wits)"/> <!-- Prevent negative value -->
             </div>
             <div v-for="(skill) in character.skills.slice(10, 15)" :key="skill.name" class="skill-row">
-              <span class="skill-name-clickable" @click="rollDice(skill.name)">{{ skill.name }}</span>
+              <span class="skill-name-clickable" @click="makeSkillCheck(skill.name)">{{ skill.name }}</span>
               <span class="d12-symbol" :class="{
                 'favored': (skill.isFavored && !skill.isIllFavored), 
                 'ill-favored': (skill.isIllFavored && !skill.isFavored)
@@ -253,7 +253,7 @@ export default {
           { name: 'Awe', ranks: 2, isFavored: false, isIllFavored: false, diceMod: 0 },
           { name: 'Strength', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
           { name: 'Dexterity', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
-          { name: 'Fortitude', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
+          { name: 'Fortitude', ranks: 0, isFavored: true, isIllFavored: false, diceMod: 0 },
           { name: 'Craft', ranks: 3, isFavored: false, isIllFavored: false, diceMod: 0 },
           { name: 'Perform', ranks: 1, isFavored: false, isIllFavored: false, diceMod: 0 },
           { name: 'Insight', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
@@ -266,12 +266,12 @@ export default {
           { name: 'Lore', ranks: 3, isFavored: false, isIllFavored: false, diceMod: 0 },
           { name: 'Riddle', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
         ],
-        endurance: { current: 0, max: 0 },
-        hope: { current: 0, max: 0 },
-        defense: { current: 0, max: 0 },
+        endurance: { current: 10, max: 10 },
+        hope: { current: 8, max: 12 },
+        defense: { current: 13, max: 13 },
         load: 0,
-        shadow: 0,
-        injury: 0,
+        shadow: 2,
+        injury: 4,
         states: {
           weary: false,
           twiceWeary: false,
@@ -285,15 +285,15 @@ export default {
           guilty: false,
           angry: false,
           afraid: false,
-          troubled: false
+          troubled: true
         },
         equipment: [
-          { name: 'Rope', weight: 5, quantity: 1, carried: true },
+          { name: 'Rations', weight: 1, quantity: 10, carried: true },
           { name: 'Grappling Hook', weight: 2, quantity: 2, carried: true },
           { name: 'Tinderbox', weight: 1, quantity: 1, carried: true },
         ],
         activeEffects: [
-          { name: 'Cool Vibes', skillsModified: [
+          { name: 'Weird But Entertaining', skillsModified: [
             { name: 'Awe',
               diceMod: -1,
               makeFavored: false,
@@ -326,13 +326,13 @@ export default {
 
   watch: {
     'character.body'() {
-      this.calculateMaxEndurance();
+      this.calculateMaxEndurance(); // Body effects max Endurance
     },
     'character.heart'() {
-      this.calculateMaxHope();
+      this.calculateMaxHope(); // Heart effects max Hope
     },
     'character.wits'() {
-      this.calculateMaxDefense();
+      this.calculateMaxDefense(); // Wits effects max Defense
     },
     'character.endurance': {
       handler() {
@@ -365,17 +365,19 @@ export default {
     },
     'character.conditions': {
       handler() {
+        // Conditions effect dice mods and Favored/Ill-Favored status
         this.updateDiceMods();
         this.updateFavoredStatus();
       },
-      deep: true
+      deep: true // Ensure nested changes in Conditions trigger recalculation
     },
     'character.states': {
       handler() {
+        // States effect dice mods and Favored/Ill-Favored status
         this.updateDiceMods();
         this.updateFavoredStatus();
       },
-      deep: true
+      deep: true // Ensure nested changes in States trigger recalculation
     },
     'character.equipment': {
       handler() {
@@ -386,10 +388,18 @@ export default {
   },
 
   methods: {
-    capitalizeFirstLetter(skill) {
-      return skill.charAt(0).toUpperCase() + skill.slice(1).toLowerCase();
+
+    /* FORMATTING METHODS */
+    capitalizeFirstLetter(string) {
+      return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
     },
 
+    formatWeight(value) {
+      return Number.isInteger(value) ? value : value.toFixed(1);
+    },
+
+
+    /* AUTO-CALCULATION METHODS */
     updateAllCalculatedProperties() {
       this.calculateMaxEndurance();
       this.calculateMaxHope();
@@ -403,58 +413,15 @@ export default {
     },
 
     calculateMaxEndurance() {
-      this.character.endurance.max = this.character.body * 5;
+      this.character.endurance.max = this.character.body * 5; // Max Endurance is 5x Body
     },
 
     calculateMaxHope() {
-      this.character.hope.max = this.character.heart * 3;
+      this.character.hope.max = this.character.heart * 3; // Max Hope is 3x Heart
     },
 
     calculateMaxDefense() {
-      this.character.defense.max = this.character.wits + 10;
-    },
-
-    handleCheckboxChange(skillName, checkboxIndex) {
-      const skill = this.character.skills.find(skill => skill.name === skillName);
-      if (!skill) return;
-
-      const newRank = checkboxIndex + 1;
-        
-      // Clicking a checkbox that is the same as the current rank should reduce the rank by 1
-      if (newRank === skill.ranks) {
-        skill.ranks -= 1;
-      } else {
-        skill.ranks = newRank;
-      }
-
-      this.updateFavoredStatus();
-    },
-
-    // Determine whether a checkbox should be checked based on the rank
-    isCheckboxChecked(skill, checkboxIndex) {
-      const withinRanks = checkboxIndex < skill.ranks;
-      const withinDiceMod = checkboxIndex >= skill.ranks && checkboxIndex < skill.ranks + skill.diceMod && skill.diceMod > 0;
-      return withinRanks || withinDiceMod;
-    },
-
-    formatWeight(value) {
-      return Number.isInteger(value) ? value : value.toFixed(1);
-    },
-
-    addItem() {
-      // Add a new item with default values
-      this.character.equipment.push({
-        name: '',
-        weight: 0,
-        quantity: 0,
-        carried: false,
-      });
-    },
-
-    deleteItem(index) {
-      if (this.character.equipment.length > 1) {
-        this.character.equipment.splice(index, 1);
-      }
+      this.character.defense.max = this.character.wits + 10; // Max Defense is Wits + 10
     },
 
     calculateLoad() {
@@ -552,7 +519,49 @@ export default {
       });
     },
 
-    rollDice(skillName) {
+
+    /* CHECKBOX METHODS */
+    handleCheckboxChange(skillName, checkboxIndex) {
+      const skill = this.character.skills.find(skill => skill.name === skillName);
+      if (!skill) return;
+
+      const newRank = checkboxIndex + 1; // Ranks are 1-indexed
+        
+      if (newRank === skill.ranks) {
+        skill.ranks -= 1; // Clicking a checkbox that is the same as the current rank should reduce the rank by 1
+      } else {
+        skill.ranks = newRank;
+      }
+
+      this.updateFavoredStatus(); // Ranks affect Favored/Ill-Favored status
+    },
+
+    isCheckboxChecked(skill, checkboxIndex) {
+      const withinRanks = checkboxIndex < skill.ranks;
+      const withinDiceMod = checkboxIndex >= skill.ranks && checkboxIndex < skill.ranks + skill.diceMod && skill.diceMod > 0;
+      return withinRanks || withinDiceMod;
+    },
+
+
+    /* EQUIPMENT TABLE METHODS */
+    addItem() {
+      this.character.equipment.push({
+        name: '',
+        weight: 0,
+        quantity: 0,
+        carried: false,
+      });
+    },
+
+    deleteItem(index) {
+      if (this.character.equipment.length > 1) {
+        this.character.equipment.splice(index, 1);
+      }
+    },
+
+
+    /* DICE ROLLING METHODS */
+    makeSkillCheck(skillName) {
       // Find the skill by name and handle if it doesn't exist
       const skill = this.character.skills.find(s => s.name === skillName);
       if (!skill) {
@@ -561,22 +570,38 @@ export default {
       }
 
       // Logging statement for debugging
-      console.log("Rolling dice for:", skill.name, "Ranks:", skill.ranks, "Dice Mod:", skill.diceMod);
+      console.log(
+        "Rolling dice for:", skill.name, 
+        "Ranks:", skill.ranks, 
+        "Dice Mod:", skill.diceMod,
+        "Favored:", skill.isFavored,
+        "Ill-Favored:", skill.isIllFavored,
+        "Conditions:", this.character.conditions,
+        "States:", this.character.states
+      );
 
       // Prepare and roll the dice
-      const totalD6 = this.calculateTotalD6(skill);
-      const dice = this.prepareDicePool(skill, totalD6);
-      const results = this.rollDiceResults(dice);
+      const dice = this.prepareDicePool(skill);
+      const results = this.rollDice(dice);
 
       // Check for auto-fail due to twice miserable before applying favored/ill-favored logic
       if (this.character.states.twiceMiserable && this.checkAutoFailTwiceMiserable(results)) {
-        this.sendRollResultsToServer(results.map(r => r.symbol), 0, false, skillName, this.generateFooter());
+        this.sendRollResultsToServer(results.map(r => r.symbol), 0, false, skillName, this.generateFooter()); // Auto-fail means the result is 0
         return;
       }
 
-      // Apply Favored/Ill-Favored dice logic
-      if (skill.isFavored) this.filterFavoredDice(results);
-      if (skill.isIllFavored) this.filterIllFavoredDice(results);
+      // If the skill is both Favored and Ill-Favored, it's a flat roll and we apply no further logic
+      if (!(skill.isFavored && skill.isIllFavored)) {
+        // Otherwise, apply Favored/Ill-Favored dice logic when applicable
+        if (skill.isFavored) {
+          this.handleFavored(results);
+          skillName += " (favored)";
+        }
+        if (skill.isIllFavored) {
+          this.handleIllFavored(results);
+          skillName += " (ill-favored)";
+        }
+      }
 
       // Determine the outcome of the roll and prepare the footer
       const totalSum = this.calculateTotalSum(results);
@@ -590,93 +615,108 @@ export default {
         targetNumber: this.character.targetNumber,
         name: this.character.characterName || "Unnamed Character",
         skill: skillName,
-        success
+        success,
+        footer
       });
 
       // Send the results to the server
       this.sendRollResultsToServer(results.map(r => r.symbol), totalSum, success, skillName, footer);
     },
-
-    checkAutoFailTwiceMiserable(results, isFavored) {
-      const d12Rolls = results.filter(r => r.die === 12).map(r => r.roll);
-      // If the roll is favored, only auto-fail if both d12s are 11
-      if (isFavored) {
-        return d12Rolls.filter(roll => roll === 11).length === 2;
-      }
-      // Otherwise, auto-fail if any d12 is 11, since it's either the only d12 (flat roll) or the lower of two rolls (ill-favored)
-      return d12Rolls.includes(11);
-    },
-
-    calculateTotalD6(skill) {
-      let totalD6 = skill.ranks + skill.diceMod;
-      return Math.max(0, totalD6); // Ensure we don't roll a negative number of dice
-    },
     
-    prepareDicePool(skill, totalD6) {
-      const dice = [{ id: 'd12', name: 'D12', sides: 12, emoji: '⭓', selected: true }];
+    prepareDicePool(skill) {
+      // We always roll at least one d12
+      const dice = [{ sides: 12 }];
       
       // Add a second d12 if the skill is favored or ill-favored
       if (skill.isFavored || skill.isIllFavored) {
-        dice.push({ id: 'd12-2', name: 'D12', sides: 12, emoji: '⭓', selected: true });
+        dice.push({ sides: 12 });
       }
 
-      // Add the calculated number of D6 dice
+      // Calculate the number of d6 to add
+      let totalD6 = skill.ranks + skill.diceMod;
+      if (totalD6 < 0) totalD6 = 0; // Ensure we don't roll a negative number of dice
+
+      // Add the calculated number of d6
       for (let i = 0; i < totalD6; i++) {
-        dice.push({ id: `d6-${i + 1}`, name: 'D6', sides: 6, emoji: '◽️', selected: true });
+        dice.push({ sides: 6 });
       }
 
       return dice;
     },
 
-    rollDiceResults(dice) {
-      return dice
-        .filter(die => die.selected)
-        .map(die => {
-          const roll = Math.floor(Math.random() * die.sides) + 1;
-          let symbol = die.sides === 12 ? '⭓' : '◽️';
-
-          if (die.sides === 12) {
-            if (roll === 12) {
-              symbol = '⭓12🌞';
-            } else if (roll === 11) {
-              symbol = '⭓11💀';
-            } else {
-              symbol = `⭓${roll}`;
-            }
-          } else if (die.sides === 6 && roll === 6) {
-            symbol = `◽️6✨`;
+    rollDice(dice) {
+      return dice.map(die => {
+        const roll = Math.floor(Math.random() * die.sides) + 1; // Choose a random number between 1 and the number of sides
+        
+        // Add 🌞 for Sol, 💀 for Morte and ✨ for Successes
+        let symbol;
+        if (die.sides === 12) {
+          if (roll === 12) {
+            symbol = '⭓12🌞';
+          } else if (roll === 11) {
+            symbol = '⭓11💀';
           } else {
-            symbol = `◽️${roll}`;
+            symbol = `⭓${roll}`;
           }
+        } else if (die.sides === 6 && roll === 6) {
+          symbol = `◽️6✨`;
+        } else {
+          symbol = `◽️${roll}`;
+        }
 
-          return { die: die.sides, roll: roll, symbol: symbol };
-        });
+        return { die: die.sides, roll: roll, symbol: symbol };
+      });
     },
 
-    filterFavoredDice(results) {
+    checkAutoFailTwiceMiserable(results, isFavored) {
       const d12Rolls = results.filter(r => r.die === 12).map(r => r.roll);
+      // If the roll is Favored, only auto-fail if both d12s are 11
+      if (isFavored) {
+        return d12Rolls.filter(roll => roll === 11).length === 2;
+      }
+      // Otherwise, auto-fail if any d12 is 11, since it's either the only d12 (flat roll) or the lower of two rolls (Ill-Favored)
+      return d12Rolls.includes(11);
+    },
 
-      // If we have at least one non-11 roll, pick the highest of those; otherwise, keep 11
-      const highestD12Roll = d12Rolls.some(roll => roll !== 11)
-        ? Math.max(...d12Rolls.filter(roll => roll !== 11))
-        : 11;
-      
-      results.forEach(r => {
-        if (r.die === 12 && r.roll !== highestD12Roll) {
-          r.roll = 0; // Exclude the non-highest d12 roll
+    handleFavored(results) {
+      const d12Results = results.filter(r => r.die === 12);
+      const d12Rolls = d12Results.map(r => r.roll);
+
+      // Find the highest valid d12 roll, treating 11 as the lowest
+      const highestD12Roll = d12Rolls.reduce((max, roll) => {
+        if (roll === 11) return max; // Ignore 11 unless it's the only roll
+        return max === 11 || roll > max ? roll : max;
+      }, 11);
+
+      // Flag to track if we've kept one instance of the highest roll
+      // This allows us to handle cases where multiple d12s roll the same highest value
+      let keptOne = false;
+
+      d12Results.forEach(r => {
+        if (r.roll === highestD12Roll && !keptOne) {
+          keptOne = true; // Keep this one
+        } else {
+          r.roll = 0; // Set others to 0 to exclude them from the total
         }
       });
     },
 
-    filterIllFavoredDice(results) {
-      const d12Rolls = results.filter(r => r.die === 12).map(r => r.roll);
+    handleIllFavored(results) {
+      const d12Results = results.filter(r => r.die === 12);
+      const d12Rolls = d12Results.map(r => r.roll);
 
       // If there's an 11, it's automatically the lowest roll; otherwise, find the minimum
       const lowestD12Roll = d12Rolls.includes(11) ? 11 : Math.min(...d12Rolls);
 
-      results.forEach(r => {
-        if (r.die === 12 && r.roll !== lowestD12Roll) {
-          r.roll = 0; // Exclude the non-lowest d12 roll
+      // Flag to track if we've kept one instance of the lowest roll
+      // This allows us to handle cases where multiple d12s roll the same lowest value
+      let keptOne = false;
+
+      d12Results.forEach(r => {
+        if (r.roll === lowestD12Roll && !keptOne) {
+          keptOne = true; // Keep this one
+        } else {
+          r.roll = 0; // Set others to 0
         }
       });
     },
@@ -684,37 +724,42 @@ export default {
     calculateTotalSum(results) {
       return results.reduce((sum, r) => {
         if (r.die === 6 && r.roll <= 3 && this.character.states.twiceWeary) {
-          return sum; // Skip adding D6 results of 3 or less if twice weary
+          return sum; // Skip adding D6 results of 3 or less if Twice Weary
         }
         return sum + r.roll;
       }, 0);
     },
 
+    determineSuccess(totalSum) {
+      return this.character.targetNumber && totalSum >= this.character.targetNumber;
+    },
+
     generateFooter() {
-      const effectsModifyingRoll = [];
+      const footerText = [];
+
+      // Add conditions
+      Object.keys(this.character.conditions).forEach(condition => {
+        if (this.character.conditions[condition]) {
+          footerText.push(this.capitalizeFirstLetter(condition));
+        }
+      });
+
+      // Add states
       const formattedStateNames = {
         twiceWeary: "Twice Weary",
         twiceMiserable: "Twice Miserable",
         twiceHelpless: "Twice Helpless",
       };
 
-      Object.keys(this.character.conditions).forEach(condition => {
-        if (this.character.conditions[condition]) {
-          effectsModifyingRoll.push(this.capitalizeFirstLetter(condition));
-        }
-      });
-
       Object.keys(this.character.states).forEach(state => {
         if (this.character.states[state]) {
-          effectsModifyingRoll.push(formattedStateNames[state] || this.capitalizeFirstLetter(state));
+          footerText.push(formattedStateNames[state] || this.capitalizeFirstLetter(state));
         }
       });
 
-      return effectsModifyingRoll.join(", ") || "";
-    },
+      // TODO: Add active effects
 
-    determineSuccess(totalSum) {
-      return this.character.targetNumber && totalSum >= this.character.targetNumber;
+      return footerText.join(", ") || "";
     },
 
     sendRollResultsToServer(rollResults, totalSum, success, skillName, footer) {
