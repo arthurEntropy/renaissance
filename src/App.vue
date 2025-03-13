@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class="app">
     <CharacterSheet />
   </div>
 </template>
@@ -13,3 +13,9 @@ export default {
   },
 };
 </script>
+
+<style>
+html, body {
+  background-color: black;
+}
+</style>
