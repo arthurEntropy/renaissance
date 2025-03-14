@@ -2,6 +2,8 @@ require('dotenv').config();
 const express = require('express');
 const axios = require('axios');
 const cors = require('cors');
+const fs = require('fs');
+const path = require('path');
 
 const app = express();
 const PORT = 3000;
@@ -9,6 +11,30 @@ const DISCORD_WEBHOOK_URL = process.env.DISCORD_WEBHOOK_URL;
 
 app.use(express.json());
 app.use(cors());
+
+// Load Freda character from the file system
+const characterFilePath = path.join(__dirname, 'data', 'characters', 'freda.json');
+const characterData = JSON.parse(fs.readFileSync(characterFilePath));
+
+console.log(characterData);  // Output the character data
+
+app.get('/characters', (req, res) => {
+    const charactersDir = path.join(process.cwd(), 'data', 'characters');
+    fs.readdir(charactersDir, (err, files) => {
+      if (err) {
+        console.error("Error reading characters directory:", err);
+        return res.status(500).send("Error reading characters directory.");
+      }
+  
+      const characters = files.map(file => {
+        const filePath = path.join(charactersDir, file);
+        return JSON.parse(fs.readFileSync(filePath));
+      });
+  
+      res.json(characters);
+    });
+  });
+  
 
 app.post('/send-message', (req, res) => {
     console.log("Received roll request:", req.body);  // <-- Log request payload

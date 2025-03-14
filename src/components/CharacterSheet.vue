@@ -1,13 +1,25 @@
 <template>
   <div class="background">
-    <div class="character-sheet">
+
+    <!-- Dropdown for character selection -->
+    <div class="character-selector">
+      <label for="characterSelect">Select Character: &nbsp;</label>
+      <select v-model="selectedCharacter" @change="onCharacterChange">
+        <option v-if="!selectedCharacter" disabled selected>Loading...</option>
+        <option v-for="character in characters" :key="character.characterName" :value="character">
+          {{ character.characterName }}
+        </option>
+      </select>
+    </div>
+
+    <div v-if="selectedCharacter" class="character-sheet">
 
       <!-- Character Bio Section -->
       <div class="character-bio-section">
-        <label>Name & Pronouns: <input type="text" v-model="character.characterName" class="character-name" /></label>
+        <label>Name & Pronouns: <input type="text" v-model="selectedCharacter.characterName" class="character-name" /></label>
         <label>
-          Target Number: <input type="number" v-model="character.targetNumber" class="target-number"
-                @input="character.targetNumber = Math.max(0, character.targetNumber)"/> <!-- Prevent negative value -->
+          Target Number: <input type="number" v-model="selectedCharacter.targetNumber" class="target-number"
+                @input="selectedCharacter.targetNumber = Math.max(0, selectedCharacter.targetNumber)"/> <!-- Prevent negative value -->
         </label>
       </div>
 
@@ -21,10 +33,10 @@
           <div class="core-ability-column">
             <div class="core-ability-header">
               <span class="core-ability-name">BODY</span>
-              <input type="number" v-model="character.body" class="core-ability-score"
-                    @input="character.body = Math.max(0, character.body)"/> <!-- Prevent negative value -->
+              <input type="number" v-model="selectedCharacter.body" class="core-ability-score"
+                    @input="selectedCharacter.body = Math.max(0, selectedCharacter.body)"/> <!-- Prevent negative value -->
             </div>
-            <div v-for="(skill) in character.skills.slice(0, 5)" :key="skill.name" class="skill-row">
+            <div v-for="(skill) in selectedCharacter.skills.slice(0, 5)" :key="skill.name" class="skill-row">
               <span class="skill-name-clickable" @click="makeSkillCheck(skill.name)">{{ skill.name }}</span>
               <span class="d12-symbol" :class="{
                 'favored': (skill.isFavored && !skill.isIllFavored), 
@@ -47,21 +59,21 @@
             </div>
             <div class="virtue-row">
               <span class="skill-name">Endurance</span>
-              <input type="number" v-model="character.endurance.current" class="virtue-score"
-                    @input="character.endurance.current = Math.max(0, character.endurance.current)"/> <!-- Prevent negative value -->
+              <input type="number" v-model="selectedCharacter.endurance.current" class="virtue-score"
+                    @input="selectedCharacter.endurance.current = Math.max(0, selectedCharacter.endurance.current)"/> <!-- Prevent negative value -->
               <span>/</span>
-              <input type="number" v-model="character.endurance.max" class="virtue-score"
-                    @input="character.endurance.max = Math.max(0, character.endurance.max)"/> <!-- Prevent negative value -->
+              <input type="number" v-model="selectedCharacter.endurance.max" class="virtue-score"
+                    @input="selectedCharacter.endurance.max = Math.max(0, selectedCharacter.endurance.max)"/> <!-- Prevent negative value -->
             </div>
             <div class="weakness-row">
               <span class="skill-name">Load</span>
-              <input type="number" v-model="character.load" class="weakness-score"
-                    @input="character.load = Math.max(0, character.load)"/> <!-- Prevent negative value -->
+              <input type="number" v-model="selectedCharacter.load" class="weakness-score"
+                    @input="selectedCharacter.load = Math.max(0, selectedCharacter.load)"/> <!-- Prevent negative value -->
             </div>
             <div class="state-row">
               <span class="skill-name">Weary</span>
-              <input type="checkbox" v-model="character.states.weary" class="skill-checkbox" />
-              <input type="checkbox" v-model="character.states.twiceWeary" class="skill-checkbox" />
+              <input type="checkbox" v-model="selectedCharacter.states.weary" class="skill-checkbox" />
+              <input type="checkbox" v-model="selectedCharacter.states.twiceWeary" class="skill-checkbox" />
               <span></span> <!-- Empty span for alignment -->
               <span></span> <!-- Empty span for alignment -->
             </div>
@@ -71,10 +83,10 @@
           <div class="core-ability-column">
             <div class="core-ability-header">
               <span class="core-ability-name">HEART</span>
-              <input type="number" v-model="character.heart" class="core-ability-score"
-                    @input="character.heart = Math.max(0, character.heart)"/> <!-- Prevent negative value -->
+              <input type="number" v-model="selectedCharacter.heart" class="core-ability-score"
+                    @input="selectedCharacter.heart = Math.max(0, selectedCharacter.heart)"/> <!-- Prevent negative value -->
             </div>
-            <div v-for="(skill) in character.skills.slice(5, 10)" :key="skill.name" class="skill-row">
+            <div v-for="(skill) in selectedCharacter.skills.slice(5, 10)" :key="skill.name" class="skill-row">
               <span class="skill-name-clickable" @click="makeSkillCheck(skill.name)">{{ skill.name }}</span>
               <span class="d12-symbol" :class="{
                 'favored': (skill.isFavored && !skill.isIllFavored), 
@@ -98,21 +110,21 @@
 
             <div class="virtue-row">
               <span class="skill-name">Hope</span>
-              <input type="number" v-model="character.hope.current" class="virtue-score"
-                    @input="character.hope.current = Math.max(0, character.hope.current)"/> <!-- Prevent negative value -->
+              <input type="number" v-model="selectedCharacter.hope.current" class="virtue-score"
+                    @input="selectedCharacter.hope.current = Math.max(0, selectedCharacter.hope.current)"/> <!-- Prevent negative value -->
               <span>/</span>
-              <input type="number" v-model="character.hope.max" class="virtue-score"
-                    @input="character.hope.max = Math.max(0, character.hope.max)"/> <!-- Prevent negative value -->
+              <input type="number" v-model="selectedCharacter.hope.max" class="virtue-score"
+                    @input="selectedCharacter.hope.max = Math.max(0, selectedCharacter.hope.max)"/> <!-- Prevent negative value -->
             </div>
             <div class="weakness-row">
               <span class="skill-name">Shadow</span>
-              <input type="number" v-model="character.shadow" class="weakness-score"
-                    @input="character.shadow = Math.max(0, character.shadow)"/> <!-- Prevent negative value -->
+              <input type="number" v-model="selectedCharacter.shadow" class="weakness-score"
+                    @input="selectedCharacter.shadow = Math.max(0, selectedCharacter.shadow)"/> <!-- Prevent negative value -->
             </div>
             <div class="state-row">
               <span class="skill-name">Miserable</span>
-              <input type="checkbox" v-model="character.states.miserable" class="skill-checkbox" />
-              <input type="checkbox" v-model="character.states.twiceMiserable" class="skill-checkbox" />
+              <input type="checkbox" v-model="selectedCharacter.states.miserable" class="skill-checkbox" />
+              <input type="checkbox" v-model="selectedCharacter.states.twiceMiserable" class="skill-checkbox" />
               <span></span> <!-- Empty span for alignment -->
               <span></span> <!-- Empty span for alignment -->
             </div>
@@ -122,10 +134,10 @@
           <div class="core-ability-column">
             <div class="core-ability-header">
               <span class="core-ability-name">WITS</span>
-              <input type="number" v-model="character.wits" class="core-ability-score"
-                    @input="character.wits = Math.max(0, character.wits)"/> <!-- Prevent negative value -->
+              <input type="number" v-model="selectedCharacter.wits" class="core-ability-score"
+                    @input="selectedCharacter.wits = Math.max(0, selectedCharacter.wits)"/> <!-- Prevent negative value -->
             </div>
-            <div v-for="(skill) in character.skills.slice(10, 15)" :key="skill.name" class="skill-row">
+            <div v-for="(skill) in selectedCharacter.skills.slice(10, 15)" :key="skill.name" class="skill-row">
               <span class="skill-name-clickable" @click="makeSkillCheck(skill.name)">{{ skill.name }}</span>
               <span class="d12-symbol" :class="{
                 'favored': (skill.isFavored && !skill.isIllFavored), 
@@ -148,21 +160,21 @@
             </div>
             <div class="virtue-row">
               <span class="skill-name">Defense</span>
-              <input type="number" v-model="character.defense.current" class="virtue-score"
-                    @input="character.defense.current = Math.max(0, character.defense.current)"/> <!-- Prevent negative value -->
+              <input type="number" v-model="selectedCharacter.defense.current" class="virtue-score"
+                    @input="selectedCharacter.defense.current = Math.max(0, selectedCharacter.defense.current)"/> <!-- Prevent negative value -->
               <span>/</span>
-              <input type="number" v-model="character.defense.max" class="virtue-score" 
-                    @input="character.defense.max = Math.max(0, character.defense.max)"/> <!-- Prevent negative value -->
+              <input type="number" v-model="selectedCharacter.defense.max" class="virtue-score" 
+                    @input="selectedCharacter.defense.max = Math.max(0, selectedCharacter.defense.max)"/> <!-- Prevent negative value -->
             </div>
             <div class="weakness-row">
               <span class="skill-name">Injury</span>
-              <input type="number" v-model="character.injury" class="weakness-score"
-                    @input="character.injury = Math.max(0, character.injury)"/> <!-- Prevent negative value -->
+              <input type="number" v-model="selectedCharacter.injury" class="weakness-score"
+                    @input="selectedCharacter.injury = Math.max(0, selectedCharacter.injury)"/> <!-- Prevent negative value -->
             </div>
             <div class="state-row">
               <span class="skill-name">Helpless</span>
-              <input type="checkbox" v-model="character.states.helpless" class="skill-checkbox" />
-              <input type="checkbox" v-model="character.states.twiceHelpless" class="skill-checkbox" />
+              <input type="checkbox" v-model="selectedCharacter.states.helpless" class="skill-checkbox" />
+              <input type="checkbox" v-model="selectedCharacter.states.twiceHelpless" class="skill-checkbox" />
               <span></span> <!-- Empty span for alignment -->
               <span></span> <!-- Empty span for alignment -->
               
@@ -172,9 +184,9 @@
           <!-- Conditions Column -->
           <div class="conditions-column">
             <div class="conditions-header">Conditions</div>
-            <div class="skill-row" v-for="(value, key) in character.conditions" :key="key">
+            <div class="skill-row" v-for="(value, key) in selectedCharacter.conditions" :key="key">
               <span class="skill-name">{{ capitalizeFirstLetter(key) }}</span>
-              <input type="checkbox" class="skill-checkbox" v-model="character.conditions[key]" />
+              <input type="checkbox" class="skill-checkbox" v-model="selectedCharacter.conditions[key]" />
             </div>
           </div>
         </div>
@@ -198,7 +210,7 @@
             </div>
 
             <!--Equipment item rows-->
-            <div v-for="(item, index) in character.equipment" :key="index" class="equipment-row">
+            <div v-for="(item, index) in selectedCharacter.equipment" :key="index" class="equipment-row">
               <input type="text" v-model="item.name" class="equipment-item-name-input">
               <input type="number" v-model.number="item.weight" class="equipment-weight-input" 
                     @input="item.weight = Math.max(0, item.weight)"> <!-- Prevent negative weight -->
@@ -239,102 +251,50 @@
 
 <script>
 import axios from 'axios';
+import { useCharacterStore } from '../stores/characterStore';
+import { computed, onMounted } from 'vue';
 
 export default {
-  data() {
+  setup() {
+    const store = useCharacterStore();
+
+    onMounted(() => {
+      store.fetchCharacters();
+    });
+
     return {
-      character: {
-        characterName: 'Freda',
-        targetNumber: 10,
-        body: 2,
-        heart: 4,
-        wits: 3,
-        skills: [
-          { name: 'Awe', ranks: 2, isFavored: false, isIllFavored: false, diceMod: 0 },
-          { name: 'Strength', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
-          { name: 'Dexterity', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
-          { name: 'Fortitude', ranks: 0, isFavored: true, isIllFavored: false, diceMod: 0 },
-          { name: 'Craft', ranks: 3, isFavored: false, isIllFavored: false, diceMod: 0 },
-          { name: 'Perform', ranks: 1, isFavored: false, isIllFavored: false, diceMod: 0 },
-          { name: 'Insight', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
-          { name: 'Courtesy', ranks: 2, isFavored: false, isIllFavored: false, diceMod: 0 },
-          { name: 'Spirit', ranks: 2, isFavored: false, isIllFavored: false, diceMod: 0 },
-          { name: 'Aid', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
-          { name: 'Persuade', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
-          { name: 'Awareness', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
-          { name: 'Stealth', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
-          { name: 'Lore', ranks: 3, isFavored: false, isIllFavored: false, diceMod: 0 },
-          { name: 'Riddle', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
-        ],
-        endurance: { current: 10, max: 10 },
-        hope: { current: 8, max: 12 },
-        defense: { current: 13, max: 13 },
-        load: 0,
-        shadow: 2,
-        injury: 4,
-        states: {
-          weary: false,
-          twiceWeary: false,
-          miserable: false,
-          twiceMiserable: false,
-          helpless: false ,
-          twiceHelpless: false
-        },
-        conditions: {
-          insecure: false,
-          guilty: false,
-          angry: false,
-          afraid: false,
-          troubled: true
-        },
-        equipment: [
-          { name: 'Rations', weight: 1, quantity: 10, carried: true },
-          { name: 'Grappling Hook', weight: 2, quantity: 2, carried: true },
-          { name: 'Tinderbox', weight: 1, quantity: 1, carried: true },
-        ],
-        activeEffects: [
-          { name: 'Weird But Entertaining', skillsModified: [
-            { name: 'Awe',
-              diceMod: -1,
-              makeFavored: false,
-              makeIllFavored: false
-            },
-            { name: 'Perform',
-              diceMod: 1,
-              makeFavored: false,
-              makeIllFavored: false
-            }
-          ]},
-        ],
-      }
+      characters: computed(() => store.characters), // Directly reference store characters
+      selectedCharacter: computed({
+        get: () => store.selectedCharacter,
+        set: (value) => (store.selectedCharacter = value),
+      }),
     };
   },
 
-  created() {
-    this.updateAllCalculatedProperties();
-  },
-
   computed: {
+
     totalWeightCarried() {
-      const total = this.character.equipment.reduce((sum, item) => {
-        return item.carried ? sum + item.weight * item.quantity : sum;
-      }, 0);
+      if (!this.selectedCharacter || !this.selectedCharacter.equipment) return 0;
       
-      return Math.round(total); // Round to the nearest whole number
+      return Math.round(
+        this.selectedCharacter.equipment.reduce((sum, item) => {
+          return item.carried ? sum + item.weight * item.quantity : sum;
+        }, 0)
+      );
     }
   },
 
   watch: {
-    'character.body'() {
+    'selectedCharacter.body'() {
       this.calculateMaxEndurance(); // Body effects max Endurance
     },
-    'character.heart'() {
+    'selectedCharacter.heart'() {
       this.calculateMaxHope(); // Heart effects max Hope
     },
-    'character.wits'() {
+    'selectedCharacter.wits'() {
       this.calculateMaxDefense(); // Wits effects max Defense
     },
-    'character.endurance': {
+    'selectedCharacter.endurance': {
       handler() {
         // Endurance effects both Load and Weary
         this.calculateLoad();
@@ -342,28 +302,28 @@ export default {
       },
       deep: true // Ensure changes to both current and max Endurance trigger recalculation
     },
-    'character.hope': {
+    'selectedCharacter.hope': {
       handler() {
         this.calculateMiserable(); // Hope effects Miserable
       },
       deep: true // Ensure changes to both current and max Hope trigger recalculation
     },
-    'character.defense': {
+    'selectedCharacter.defense': {
       handler() {
         this.calculateHelpless(); // Defense effects Helpless
       },
       deep: true // Ensure changes to both current and max Defense trigger recalculation
     },
-    'character.load'() {
+    'selectedCharacter.load'() {
       this.calculateWeary(); // Load effects Weary
     },
-    'character.shadow'() {
+    'selectedCharacter.shadow'() {
       this.calculateMiserable(); // Shadow effects Miserable
     },
-    'character.injury'() {
+    'selectedCharacter.injury'() {
       this.calculateHelpless(); // Injury effects Helpless
     },
-    'character.conditions': {
+    'selectedCharacter.conditions': {
       handler() {
         // Conditions effect dice mods and Favored/Ill-Favored status
         this.updateDiceMods();
@@ -371,7 +331,7 @@ export default {
       },
       deep: true // Ensure nested changes in Conditions trigger recalculation
     },
-    'character.states': {
+    'selectedCharacter.states': {
       handler() {
         // States effect dice mods and Favored/Ill-Favored status
         this.updateDiceMods();
@@ -379,7 +339,7 @@ export default {
       },
       deep: true // Ensure nested changes in States trigger recalculation
     },
-    'character.equipment': {
+    'selectedCharacter.equipment': {
       handler() {
         this.calculateLoad(); // Equipment weight effects Load
       },
@@ -388,6 +348,12 @@ export default {
   },
 
   methods: {
+    onCharacterChange() {
+      const store = useCharacterStore();
+      store.selectedCharacter = store.characters.find(
+        (char) => char.characterName === this.selectedCharacter.characterName
+      );
+    },
 
     /* FORMATTING METHODS */
     capitalizeFirstLetter(string) {
@@ -413,34 +379,34 @@ export default {
     },
 
     calculateMaxEndurance() {
-      this.character.endurance.max = this.character.body * 5; // Max Endurance is 5x Body
+      this.selectedCharacter.endurance.max = this.selectedCharacter.body * 5; // Max Endurance is 5x Body
     },
 
     calculateMaxHope() {
-      this.character.hope.max = this.character.heart * 3; // Max Hope is 3x Heart
+      this.selectedCharacter.hope.max = this.selectedCharacter.heart * 3; // Max Hope is 3x Heart
     },
 
     calculateMaxDefense() {
-      this.character.defense.max = this.character.wits + 10; // Max Defense is Wits + 10
+      this.selectedCharacter.defense.max = this.selectedCharacter.wits + 10; // Max Defense is Wits + 10
     },
 
     calculateLoad() {
-      this.character.load = Math.max(0, this.totalWeightCarried - this.character.endurance.max - this.character.body); // Load cannot be below 0
+      this.selectedCharacter.load = Math.max(0, this.totalWeightCarried - this.selectedCharacter.endurance.max - this.selectedCharacter.body); // Load cannot be below 0
     },
 
     calculateWeary() {
-      this.character.states.weary = this.character.load > this.character.endurance.current;
-      this.character.states.twiceWeary = (this.character.load > this.character.endurance.max) && this.character.states.weary;
+      this.selectedCharacter.states.weary = this.selectedCharacter.load > this.selectedCharacter.endurance.current;
+      this.selectedCharacter.states.twiceWeary = (this.selectedCharacter.load > this.selectedCharacter.endurance.max) && this.selectedCharacter.states.weary;
     },
 
     calculateMiserable() {
-      this.character.states.miserable = this.character.shadow > this.character.hope.current;
-      this.character.states.twiceMiserable = (this.character.shadow > this.character.hope.max) && this.character.states.miserable;
+      this.selectedCharacter.states.miserable = this.selectedCharacter.shadow > this.selectedCharacter.hope.current;
+      this.selectedCharacter.states.twiceMiserable = (this.selectedCharacter.shadow > this.selectedCharacter.hope.max) && this.selectedCharacter.states.miserable;
     },
 
     calculateHelpless() {
-      this.character.states.helpless = this.character.injury > this.character.defense.current;
-      this.character.states.twiceHelpless = (this.character.injury > this.character.defense.max) && this.character.states.helpless;
+      this.selectedCharacter.states.helpless = this.selectedCharacter.injury > this.selectedCharacter.defense.current;
+      this.selectedCharacter.states.twiceHelpless = (this.selectedCharacter.injury > this.selectedCharacter.defense.max) && this.selectedCharacter.states.helpless;
     },
 
     updateDiceMods() {
@@ -465,12 +431,12 @@ export default {
       const conditionAndStateDiceMod = -1; // Dice mod for conditions and states
 
       // For each skill stored in data, modify the diceMod based on the active effects, conditions, and states
-      this.character.skills.forEach(skill => {
+      this.selectedCharacter.skills.forEach(skill => {
         // Reset the diceMod to the base value
         skill.diceMod = 0;
 
         // Check if the skill is affected by any active effects
-        this.character.activeEffects.forEach(effect => {
+        this.selectedCharacter.activeEffects.forEach(effect => {
           effect.skillsModified.forEach(modifiedSkill => {
             if (modifiedSkill.name === skill.name) {
               // Apply the diceMod changes
@@ -481,15 +447,15 @@ export default {
         });
 
         // Check if the skill is affected by any conditions
-        Object.keys(this.character.conditions).forEach(condition => {
-          if (this.character.conditions[condition] && effectSkillMaps.conditions[condition].includes(skill.name)) {
+        Object.keys(this.selectedCharacter.conditions).forEach(condition => {
+          if (this.selectedCharacter.conditions[condition] && effectSkillMaps.conditions[condition].includes(skill.name)) {
             skill.diceMod += conditionAndStateDiceMod;
           }
         });
 
         // Check if the skill is affected by any states
-        Object.keys(this.character.states).forEach(state => {
-          if (this.character.states[state] && effectSkillMaps.states[state].includes(skill.name)) {
+        Object.keys(this.selectedCharacter.states).forEach(state => {
+          if (this.selectedCharacter.states[state] && effectSkillMaps.states[state].includes(skill.name)) {
             skill.diceMod += conditionAndStateDiceMod;
           }
         });
@@ -499,11 +465,11 @@ export default {
     updateFavoredStatus() {
       // Determine if a skill is ill-favored based on the ranks and diceMod
       // NOTE: Ranks and dice mods cannot make a skill favored, so we only check for ill-favored here
-      this.character.skills.forEach(skill => {
+      this.selectedCharacter.skills.forEach(skill => {
         skill.isIllFavored = (skill.ranks + skill.diceMod) < 0;
 
         // Check if the skill is affected by any active effects
-        this.character.activeEffects.forEach(effect => {
+        this.selectedCharacter.activeEffects.forEach(effect => {
           effect.skillsModified.forEach(modifiedSkill => {
             if (modifiedSkill.name === skill.name) {
               // Apply the favored, and illFavored changes
@@ -522,7 +488,7 @@ export default {
 
     /* CHECKBOX METHODS */
     handleCheckboxChange(skillName, checkboxIndex) {
-      const skill = this.character.skills.find(skill => skill.name === skillName);
+      const skill = this.selectedCharacter.skills.find(skill => skill.name === skillName);
       if (!skill) return;
 
       const newRank = checkboxIndex + 1; // Ranks are 1-indexed
@@ -545,7 +511,7 @@ export default {
 
     /* EQUIPMENT TABLE METHODS */
     addItem() {
-      this.character.equipment.push({
+      this.selectedCharacter.equipment.push({
         name: '',
         weight: 0,
         quantity: 0,
@@ -554,8 +520,8 @@ export default {
     },
 
     deleteItem(index) {
-      if (this.character.equipment.length > 1) {
-        this.character.equipment.splice(index, 1);
+      if (this.selectedCharacter.equipment.length > 1) {
+        this.selectedCharacter.equipment.splice(index, 1);
       }
     },
 
@@ -563,7 +529,7 @@ export default {
     /* DICE ROLLING METHODS */
     makeSkillCheck(skillName) {
       // Find the skill by name and handle if it doesn't exist
-      const skill = this.character.skills.find(s => s.name === skillName);
+      const skill = this.selectedCharacter.skills.find(s => s.name === skillName);
       if (!skill) {
         console.error("Skill not found:", skillName);
         return;
@@ -576,8 +542,8 @@ export default {
         "Dice Mod:", skill.diceMod,
         "Favored:", skill.isFavored,
         "Ill-Favored:", skill.isIllFavored,
-        "Conditions:", this.character.conditions,
-        "States:", this.character.states
+        "Conditions:", this.selectedCharacter.conditions,
+        "States:", this.selectedCharacter.states
       );
 
       // Prepare and roll the dice
@@ -585,7 +551,7 @@ export default {
       const results = this.rollDice(dice);
 
       // Check for auto-fail due to twice miserable before applying favored/ill-favored logic
-      if (this.character.states.twiceMiserable && this.checkAutoFailTwiceMiserable(results)) {
+      if (this.selectedCharacter.states.twiceMiserable && this.checkAutoFailTwiceMiserable(results)) {
         this.sendRollResultsToServer(results.map(r => r.symbol), 0, false, skillName, this.generateFooter()); // Auto-fail means the result is 0
         return;
       }
@@ -612,8 +578,8 @@ export default {
       console.log("Sending roll to Discord:", {
         rollResults: results.map(r => r.symbol),
         totalSum,
-        targetNumber: this.character.targetNumber,
-        name: this.character.characterName || "Unnamed Character",
+        targetNumber: this.selectedCharacter.targetNumber,
+        name: this.selectedCharacter.characterName || "Unnamed Character",
         skill: skillName,
         success,
         footer
@@ -723,7 +689,7 @@ export default {
 
     calculateTotalSum(results) {
       return results.reduce((sum, r) => {
-        if (r.die === 6 && r.roll <= 3 && this.character.states.twiceWeary) {
+        if (r.die === 6 && r.roll <= 3 && this.selectedCharacter.states.twiceWeary) {
           return sum; // Skip adding D6 results of 3 or less if Twice Weary
         }
         return sum + r.roll;
@@ -731,15 +697,15 @@ export default {
     },
 
     determineSuccess(totalSum) {
-      return this.character.targetNumber && totalSum >= this.character.targetNumber;
+      return this.selectedCharacter.targetNumber && totalSum >= this.selectedCharacter.targetNumber;
     },
 
     generateFooter() {
       const footerText = [];
 
       // Add conditions
-      Object.keys(this.character.conditions).forEach(condition => {
-        if (this.character.conditions[condition]) {
+      Object.keys(this.selectedCharacter.conditions).forEach(condition => {
+        if (this.selectedCharacter.conditions[condition]) {
           footerText.push(this.capitalizeFirstLetter(condition));
         }
       });
@@ -751,8 +717,8 @@ export default {
         twiceHelpless: "Twice Helpless",
       };
 
-      Object.keys(this.character.states).forEach(state => {
-        if (this.character.states[state]) {
+      Object.keys(this.selectedCharacter.states).forEach(state => {
+        if (this.selectedCharacter.states[state]) {
           footerText.push(formattedStateNames[state] || this.capitalizeFirstLetter(state));
         }
       });
@@ -767,8 +733,8 @@ export default {
         .post('http://localhost:3000/send-message', {
           rollResults: rollResults,
           total: totalSum,
-          targetNumber: this.character.targetNumber,
-          name: this.character.characterName || "Unnamed Character",
+          targetNumber: this.selectedCharacter.targetNumber,
+          name: this.selectedCharacter.characterName || "Unnamed Character",
           skill: skillName,
           success: success,
           footer: footer
@@ -790,6 +756,13 @@ export default {
       background-color: black;
   }
 
+  select {
+      font-family: 'Lora', serif;
+      color: white;
+      background-color: black;
+      font-size: 16px;
+  }
+
   .background {
     background-image: url('https://cdn.midjourney.com/b380594a-e352-4deb-b7b0-c3fff0095472/0_3.png');
     background-size: cover;
@@ -801,8 +774,15 @@ export default {
     top: 0;
     left: 0;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    color: lightgray;
+    font-family: 'Lora', serif;
+  }
+
+  .character-selector {
+    margin: 10px 0 30px 0;
   }
   
   .character-sheet {
@@ -810,8 +790,6 @@ export default {
     flex-direction: column;
     align-items: center;
     background: rgba(0,0,0,0.75);
-    color: lightgray;
-    font-family: 'Lora', serif;
     width: 80%;
     max-height: 100%;
     padding: 20px;

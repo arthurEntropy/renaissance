@@ -1,0 +1,59 @@
+{
+    "characterName": "Fist Meatpunch",
+    "targetNumber": 12,
+    "body": 5,
+    "heart": 2,
+    "wits": 0,
+    "skills": [
+      { "name": "Awe", "ranks": 3, "isFavored": false, "isIllFavored": false, "diceMod": 0 },
+      { "name": "Strength", "ranks": 4, "isFavored": false, "isIllFavored": false, "diceMod": 0 },
+      { "name": "Dexterity", "ranks": 0, "isFavored": false, "isIllFavored": false, "diceMod": 0 },
+      { "name": "Fortitude", "ranks": 0, "isFavored": false, "isIllFavored": false, "diceMod": 0 },
+      { "name": "Craft", "ranks": 0, "isFavored": false, "isIllFavored": false, "diceMod": 0 },
+      { "name": "Perform", "ranks": 2, "isFavored": false, "isIllFavored": false, "diceMod": 0 },
+      { "name": "Insight", "ranks": 0, "isFavored": false, "isIllFavored": false, "diceMod": 0 },
+      { "name": "Courtesy", "ranks": 0, "isFavored": false, "isIllFavored": false, "diceMod": 0 },
+      { "name": "Spirit", "ranks": 0, "isFavored": false, "isIllFavored": false, "diceMod": 0 },
+      { "name": "Aid", "ranks": 0, "isFavored": false, "isIllFavored": false, "diceMod": 0 },
+      { "name": "Persuade", "ranks": 0, "isFavored": false, "isIllFavored": false, "diceMod": 0 },
+      { "name": "Awareness", "ranks": 3, "isFavored": false, "isIllFavored": false, "diceMod": 0 },
+      { "name": "Stealth", "ranks": 0, "isFavored": false, "isIllFavored": false, "diceMod": 0 },
+      { "name": "Lore", "ranks": 0, "isFavored": false, "isIllFavored": false, "diceMod": 0 },
+      { "name": "Riddle", "ranks": 0, "isFavored": false, "isIllFavored": false, "diceMod": 0 }
+    ],
+    "endurance": { "current": 10, "max": 0 },
+    "hope": { "current": 8, "max": 0 },
+    "defense": { "current": 13, "max": 0 },
+    "load": 0,
+    "shadow": 4,
+    "injury": 7,
+    "states": {
+      "weary": false,
+      "twiceWeary": false,
+      "miserable": false,
+      "twiceMiserable": false,
+      "helpless": false,
+      "twiceHelpless": false
+    },
+    "conditions": {
+      "insecure": false,
+      "guilty": false,
+      "angry": false,
+      "afraid": false,
+      "troubled": true
+    },
+    "equipment": [
+      { "name": "Cool Sword", "weight": 5, "quantity": 1, "carried": true },
+      { "name": "Armor", "weight": 25, "quantity": 1, "carried": true }
+    ],
+    "activeEffects": [
+      {
+        "name": "Big Hand Time",
+        "skillsModified": [
+          { "name": "Strength", "diceMod": 2, "makeFavored": false, "makeIllFavored": false },
+          { "name": "Dexterity", "diceMod": 0, "makeFavored": false, "makeIllFavored": true }
+        ]
+      }
+    ]
+  }
+  
