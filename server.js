@@ -12,14 +12,51 @@ const DISCORD_WEBHOOK_URL = process.env.DISCORD_WEBHOOK_URL;
 app.use(express.json());
 app.use(cors());
 
-// Load Freda character from the file system
-const characterFilePath = path.join(__dirname, 'data', 'characters', 'freda.json');
-const characterData = JSON.parse(fs.readFileSync(characterFilePath));
+const charactersDir = path.join(process.cwd(), 'data', 'characters');
 
-console.log(characterData);  // Output the character data
+const getAllCharacters = () => {
+    return fs.readdirSync(charactersDir)
+        .filter(file => file.endsWith('.json'))
+        .map(file => {
+            const filePath = path.join(charactersDir, file);
+
+            try {
+                const data = fs.readFileSync(filePath, 'utf8');
+                if (!data.trim()) {
+                    console.warn(`Skipping empty file: ${file}`);
+                    return null;
+                }
+
+                return JSON.parse(data);
+            } catch (error) {
+                console.error(`Error parsing ${file}: ${error.message}`);
+                return null;
+            }
+        })
+        .filter(character => character !== null); // Remove null entries
+};
+
+const saveCharacter = (characterData, filePath) => {
+    const tempFilePath = `${filePath}.tmp`;
+
+    try {
+        // Validate JSON before writing
+        JSON.parse(JSON.stringify(characterData));
+
+        fs.writeFileSync(tempFilePath, JSON.stringify(characterData, null, 2), 'utf8');
+        fs.renameSync(tempFilePath, filePath); // Atomic rename
+    } catch (error) {
+        console.error(`Error saving character file: ${path.basename(filePath)}`, error);
+    }
+};
+
+const sanitizeFilename = (name) => {
+    return name.trim().toLowerCase()
+        .replace(/[^a-z0-9]/gi, '_')  // Replace special characters with underscores
+        .replace(/_+/g, '_'); // Remove multiple consecutive underscores
+};
 
 app.get('/characters', (req, res) => {
-    const charactersDir = path.join(process.cwd(), 'data', 'characters');
     fs.readdir(charactersDir, (err, files) => {
       if (err) {
         console.error("Error reading characters directory:", err);
@@ -33,8 +70,50 @@ app.get('/characters', (req, res) => {
   
       res.json(characters);
     });
-  });
+});
   
+app.put('/characters/:id', (req, res) => {
+    const characterId = parseInt(req.params.id);
+    const updatedCharacter = req.body;
+
+    let characters = getAllCharacters();
+    let existingCharacter = characters.find(c => c.id === characterId);
+
+    try {
+        if (existingCharacter) {
+            // Determine old and new filenames
+            const oldFilename = sanitizeFilename(existingCharacter.name) + ".json";
+            const newFilename = sanitizeFilename(updatedCharacter.name) + ".json";
+            const oldFilePath = path.join(charactersDir, oldFilename);
+            const newFilePath = path.join(charactersDir, newFilename);
+
+            // Rename file if name has changed
+            if (existingCharacter.name !== updatedCharacter.name) {
+                fs.renameSync(oldFilePath, newFilePath);
+                console.log(`Renamed ${oldFilename} to ${newFilename}`);
+            }
+
+            // Save updated character data
+            saveCharacter(updatedCharacter, newFilePath);
+            console.log(`Successfully updated ${newFilename}`);
+            res.status(200).send("Character updated successfully.");
+        } else {
+            // Create a new character with an incremented ID
+            const newId = characters.length > 0 ? Math.max(...characters.map(c => c.id)) + 1 : 1;
+            updatedCharacter.id = newId;
+            const newFilename = sanitizeFilename(updatedCharacter.name) + ".json";
+            const newFilePath = path.join(charactersDir, newFilename);
+
+            saveCharacter(updatedCharacter, newFilePath);
+            console.log(`Successfully created new character: ${newFilename}`);
+            res.status(201).send({ message: "Character created successfully.", id: newId });
+        }
+    } catch (error) {
+        console.error("Error handling character data:", error);
+        res.status(500).send("Failed to process character data.");
+    }
+});
+
 
 app.post('/send-message', (req, res) => {
     console.log("Received roll request:", req.body);  // <-- Log request payload
