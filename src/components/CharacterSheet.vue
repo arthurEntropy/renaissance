@@ -6,8 +6,8 @@
       <label for="characterSelect">Select Character: &nbsp;</label>
       <select v-model="selectedCharacter" @change="onCharacterChange">
         <option v-if="!selectedCharacter" disabled selected>Loading...</option>
-        <option v-for="character in characters" :key="character.characterName" :value="character">
-          {{ character.characterName }}
+        <option v-for="character in characters" :key="character.name" :value="character">
+          {{ character.name }}
         </option>
       </select>
     </div>
@@ -16,7 +16,7 @@
 
       <!-- Character Bio Section -->
       <div class="character-bio-section">
-        <label>Name & Pronouns: <input type="text" v-model="selectedCharacter.characterName" class="character-name" /></label>
+        <label>Name & Pronouns: <input type="text" v-model="selectedCharacter.name" class="character-name" /></label>
         <label>
           Target Number: <input type="number" v-model="selectedCharacter.targetNumber" class="target-number"
                 @input="selectedCharacter.targetNumber = Math.max(0, selectedCharacter.targetNumber)"/> <!-- Prevent negative value -->
@@ -252,7 +252,10 @@
 <script>
 import axios from 'axios';
 import { useCharacterStore } from '../stores/characterStore';
-import { computed, onMounted } from 'vue';
+import { computed, onMounted, watch } from 'vue';
+import { updateCharacter } from '../services/characterService';
+
+let updateTimeout = null;
 
 export default {
   setup() {
@@ -262,20 +265,34 @@ export default {
       store.fetchCharacters();
     });
 
+    const selectedCharacter = computed({
+      get: () => store.selectedCharacter,
+      set: (value) => (store.selectedCharacter = value),
+    });
+
+    watch(
+      selectedCharacter,
+      (newCharacter) => {
+        if (!newCharacter) return;
+        
+        clearTimeout(updateTimeout); // Prevent duplicate saves
+
+        updateTimeout = setTimeout(() => {
+          updateCharacter(newCharacter);
+        }, 1000); // Save 1 second after changes are made
+      },
+      { deep: true }
+    );
+
     return {
-      characters: computed(() => store.characters), // Directly reference store characters
-      selectedCharacter: computed({
-        get: () => store.selectedCharacter,
-        set: (value) => (store.selectedCharacter = value),
-      }),
+      characters: computed(() => store.characters),
+      selectedCharacter,
     };
   },
 
   computed: {
-
     totalWeightCarried() {
       if (!this.selectedCharacter || !this.selectedCharacter.equipment) return 0;
-      
       return Math.round(
         this.selectedCharacter.equipment.reduce((sum, item) => {
           return item.carried ? sum + item.weight * item.quantity : sum;
@@ -351,7 +368,7 @@ export default {
     onCharacterChange() {
       const store = useCharacterStore();
       store.selectedCharacter = store.characters.find(
-        (char) => char.characterName === this.selectedCharacter.characterName
+        (char) => char.name === this.selectedCharacter.name
       );
     },
 
@@ -579,7 +596,7 @@ export default {
         rollResults: results.map(r => r.symbol),
         totalSum,
         targetNumber: this.selectedCharacter.targetNumber,
-        name: this.selectedCharacter.characterName || "Unnamed Character",
+        name: this.selectedCharacter.name || "Unnamed Character",
         skill: skillName,
         success,
         footer
@@ -734,7 +751,7 @@ export default {
           rollResults: rollResults,
           total: totalSum,
           targetNumber: this.selectedCharacter.targetNumber,
-          name: this.selectedCharacter.characterName || "Unnamed Character",
+          name: this.selectedCharacter.name || "Unnamed Character",
           skill: skillName,
           success: success,
           footer: footer

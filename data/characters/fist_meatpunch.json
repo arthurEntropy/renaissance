@@ -1,14 +1,14 @@
 {
-  "id": 1,
-  "name": "Freda",
-  "targetNumber": 11,
-  "body": 2,
-  "heart": 4,
-  "wits": 3,
+  "id": 2,
+  "name": "Fist Meatpunch",
+  "targetNumber": 12,
+  "body": 4,
+  "heart": 2,
+  "wits": 0,
   "skills": [
     {
       "name": "Awe",
-      "ranks": 2,
+      "ranks": 3,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": -1
@@ -18,21 +18,21 @@
       "ranks": 4,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 0
+      "diceMod": 1
     },
     {
       "name": "Dexterity",
-      "ranks": 1,
+      "ranks": 4,
       "isFavored": false,
-      "isIllFavored": false,
-      "diceMod": 0
+      "isIllFavored": true,
+      "diceMod": -1
     },
     {
       "name": "Fortitude",
-      "ranks": 0,
-      "isFavored": true,
+      "ranks": 3,
+      "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 0
+      "diceMod": -1
     },
     {
       "name": "Craft",
@@ -43,90 +43,90 @@
     },
     {
       "name": "Perform",
-      "ranks": 1,
-      "isFavored": false,
-      "isIllFavored": false,
-      "diceMod": 1
-    },
-    {
-      "name": "Insight",
       "ranks": 4,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 0
+      "diceMod": -1
     },
     {
-      "name": "Courtesy",
-      "ranks": 5,
-      "isFavored": false,
-      "isIllFavored": false,
-      "diceMod": 0
-    },
-    {
-      "name": "Spirit",
+      "name": "Insight",
       "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 0
+      "diceMod": -1
+    },
+    {
+      "name": "Courtesy",
+      "ranks": 2,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": -1
+    },
+    {
+      "name": "Spirit",
+      "ranks": 4,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": -1
     },
     {
       "name": "Aid",
-      "ranks": 0,
+      "ranks": 3,
       "isFavored": false,
-      "isIllFavored": true,
+      "isIllFavored": false,
       "diceMod": -1
     },
     {
       "name": "Persuade",
-      "ranks": 0,
-      "isFavored": false,
-      "isIllFavored": false,
-      "diceMod": 0
-    },
-    {
-      "name": "Awareness",
-      "ranks": 0,
-      "isFavored": false,
-      "isIllFavored": false,
-      "diceMod": 0
-    },
-    {
-      "name": "Stealth",
-      "ranks": 0,
-      "isFavored": false,
-      "isIllFavored": false,
-      "diceMod": 0
-    },
-    {
-      "name": "Lore",
       "ranks": 3,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 0
+      "diceMod": -1
+    },
+    {
+      "name": "Awareness",
+      "ranks": 2,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": -1
+    },
+    {
+      "name": "Stealth",
+      "ranks": 4,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": -1
+    },
+    {
+      "name": "Lore",
+      "ranks": 5,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": -1
     },
     {
       "name": "Riddle",
-      "ranks": 0,
+      "ranks": 2,
       "isFavored": false,
-      "isIllFavored": true,
+      "isIllFavored": false,
       "diceMod": -1
     }
   ],
   "endurance": {
-    "current": 10,
-    "max": 10
+    "current": 13,
+    "max": 20
   },
   "hope": {
-    "current": 8,
-    "max": 12
+    "current": 10,
+    "max": 6
   },
   "defense": {
     "current": 13,
-    "max": 13
+    "max": 10
   },
-  "load": 5,
-  "shadow": 2,
-  "injury": 4,
+  "load": 6,
+  "shadow": 4,
+  "injury": 7,
   "states": {
     "weary": false,
     "twiceWeary": false,
@@ -136,53 +136,41 @@
     "twiceHelpless": false
   },
   "conditions": {
-    "insecure": false,
-    "guilty": false,
-    "angry": false,
-    "afraid": false,
+    "insecure": true,
+    "guilty": true,
+    "angry": true,
+    "afraid": true,
     "troubled": true
   },
   "equipment": [
     {
-      "name": "Rations",
-      "weight": 1,
-      "quantity": 10,
-      "carried": true
-    },
-    {
-      "name": "Grappling Hook",
-      "weight": 2,
-      "quantity": 2,
-      "carried": true
-    },
-    {
-      "name": "Tinderbox",
-      "weight": 1,
+      "name": "Cool Sword",
+      "weight": 5,
       "quantity": 1,
       "carried": true
     },
     {
-      "name": "Silversmith's Tools",
-      "weight": 2,
+      "name": "Armor",
+      "weight": 25,
       "quantity": 1,
       "carried": true
     }
   ],
   "activeEffects": [
     {
-      "name": "Weird But Entertaining",
+      "name": "Big Hand Time",
       "skillsModified": [
         {
-          "name": "Awe",
-          "diceMod": -1,
+          "name": "Strength",
+          "diceMod": 2,
           "makeFavored": false,
           "makeIllFavored": false
         },
         {
-          "name": "Perform",
-          "diceMod": 1,
+          "name": "Dexterity",
+          "diceMod": 0,
           "makeFavored": false,
-          "makeIllFavored": false
+          "makeIllFavored": true
         }
       ]
     }

@@ -9,3 +9,12 @@ export const useFetchCharacters = async () => {
     return [];
   }
 };
+
+export const updateCharacter = async (character) => {
+    console.log("updateCharacter called with:", character); // Debugging log
+    try {
+        await axios.put(`http://localhost:3000/characters/${character.id}`, character);
+    } catch (error) {
+        console.error("Error updating character:", error);
+    }
+};
