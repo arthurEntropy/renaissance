@@ -1,115 +1,116 @@
 {
   "id": 2,
   "name": "Fist Meatpunch",
+  "artUrl": "https://cdn.midjourney.com/579f1913-10e8-438c-9d1d-949151eb171c/0_0.png",
   "targetNumber": 12,
   "body": 4,
   "heart": 2,
-  "wits": 0,
+  "wits": 1,
   "skills": [
     {
       "name": "Awe",
-      "ranks": 3,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": -1
+      "diceMod": 0
     },
     {
       "name": "Strength",
-      "ranks": 4,
+      "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 1
+      "diceMod": 2
     },
     {
       "name": "Dexterity",
-      "ranks": 4,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": true,
-      "diceMod": -1
+      "diceMod": 0
     },
     {
       "name": "Fortitude",
-      "ranks": 3,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": -1
+      "diceMod": 0
     },
     {
       "name": "Craft",
-      "ranks": 3,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": -1
+      "diceMod": 0
     },
     {
       "name": "Perform",
-      "ranks": 4,
+      "ranks": 3,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": -1
+      "diceMod": 0
     },
     {
       "name": "Insight",
-      "ranks": 2,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": -1
+      "diceMod": 0
     },
     {
       "name": "Courtesy",
-      "ranks": 2,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": -1
+      "diceMod": 0
     },
     {
       "name": "Spirit",
-      "ranks": 4,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": -1
+      "diceMod": 0
     },
     {
       "name": "Aid",
-      "ranks": 3,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": -1
+      "diceMod": 0
     },
     {
       "name": "Persuade",
-      "ranks": 3,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": -1
+      "diceMod": 0
     },
     {
       "name": "Awareness",
-      "ranks": 2,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": -1
+      "diceMod": 0
     },
     {
       "name": "Stealth",
-      "ranks": 4,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": -1
+      "diceMod": 0
     },
     {
       "name": "Lore",
-      "ranks": 5,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": -1
+      "diceMod": 0
     },
     {
       "name": "Riddle",
-      "ranks": 2,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": -1
+      "diceMod": 0
     }
   ],
   "endurance": {
@@ -122,7 +123,7 @@
   },
   "defense": {
     "current": 13,
-    "max": 10
+    "max": 11
   },
   "load": 6,
   "shadow": 4,
@@ -136,11 +137,11 @@
     "twiceHelpless": false
   },
   "conditions": {
-    "insecure": true,
-    "guilty": true,
-    "angry": true,
-    "afraid": true,
-    "troubled": true
+    "insecure": false,
+    "guilty": false,
+    "angry": false,
+    "afraid": false,
+    "troubled": false
   },
   "equipment": [
     {

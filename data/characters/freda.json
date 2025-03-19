@@ -1,6 +1,7 @@
 {
   "id": 1,
   "name": "Freda",
+  "artUrl": "https://cdn.midjourney.com/3914bd33-13a2-48e4-89c5-b75076572688/0_1.png",
   "targetNumber": 11,
   "body": 2,
   "heart": 4,
@@ -15,14 +16,14 @@
     },
     {
       "name": "Strength",
-      "ranks": 4,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0
     },
     {
       "name": "Dexterity",
-      "ranks": 1,
+      "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0
@@ -36,7 +37,7 @@
     },
     {
       "name": "Craft",
-      "ranks": 3,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": -1
@@ -50,21 +51,21 @@
     },
     {
       "name": "Insight",
-      "ranks": 4,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0
     },
     {
       "name": "Courtesy",
-      "ranks": 5,
+      "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0
     },
     {
       "name": "Spirit",
-      "ranks": 2,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0
@@ -78,14 +79,14 @@
     },
     {
       "name": "Persuade",
-      "ranks": 0,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0
     },
     {
       "name": "Awareness",
-      "ranks": 0,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0
@@ -99,7 +100,7 @@
     },
     {
       "name": "Lore",
-      "ranks": 3,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0
@@ -117,7 +118,7 @@
     "max": 10
   },
   "hope": {
-    "current": 8,
+    "current": 12,
     "max": 12
   },
   "defense": {
@@ -125,8 +126,8 @@
     "max": 13
   },
   "load": 5,
-  "shadow": 2,
-  "injury": 4,
+  "shadow": 0,
+  "injury": 0,
   "states": {
     "weary": false,
     "twiceWeary": false,

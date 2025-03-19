@@ -4,7 +4,7 @@
     <!-- Dropdown for character selection -->
     <div class="character-selector">
       <label for="characterSelect">Select Character: &nbsp;</label>
-      <select v-model="selectedCharacter" @change="onCharacterChange">
+      <select v-model="selectedCharacter">
         <option v-if="!selectedCharacter" disabled selected>Loading...</option>
         <option v-for="character in characters" :key="character.name" :value="character">
           {{ character.name }}
@@ -14,16 +14,50 @@
 
     <div v-if="selectedCharacter" class="character-sheet">
 
-      <!-- Character Bio Section -->
+      <!-- CHARACTER BIO -->
       <div class="character-bio-section">
-        <label>Name & Pronouns: <input type="text" v-model="selectedCharacter.name" class="character-name" /></label>
-        <label>
-          Target Number: <input type="number" v-model="selectedCharacter.targetNumber" class="target-number"
-                @input="selectedCharacter.targetNumber = Math.max(0, selectedCharacter.targetNumber)"/> <!-- Prevent negative value -->
-        </label>
+
+        <!-- Character Portrait -->
+        <div class="character-portrait">
+          <img v-if="selectedCharacter.artUrl" 
+              :src="selectedCharacter.artUrl" 
+              class="portrait-image" 
+              @click="openFullSizeCharacterPortraitModal(selectedCharacter.artUrl)" />
+          <p v-else>No portrait available</p>
+        </div>
+
+        <!-- Bio Fields -->
+        <div class="bio-fields">
+          <label>Name & Pronouns: <input type="text" v-model="selectedCharacter.name" class="character-name" /></label>
+          <label>
+            Target Number: <input type="number" v-model="selectedCharacter.targetNumber" class="target-number"
+                  @input="selectedCharacter.targetNumber = Math.max(0, selectedCharacter.targetNumber)"/> 
+          </label>
+        </div>
       </div>
 
-      <!-- Character Stats Section -->
+      <!-- Full-size Image Modal -->
+      <div v-if="showModal" class="image-modal" @click="closeFullSizeCharacterPortraitModal">
+        <div class="image-modal-content" @click.stop>
+          <img :src="selectedImageUrl" alt="Full-size Character Portrait" class="full-image" />
+          <div class="change-link">
+            <a href="javascript:void(0)" @click="openChangeCharacterPortraitModal">Change</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal for changing the image URL -->
+      <div v-if="showCharacterArtUrlModal" class="modal-overlay" @click="closeChangeCharacterPortraitModal">
+        <div class="modal-content" @click.stop>
+          <label for="imageUrl">Image URL:</label>
+          <input type="text" v-model="selectedImageUrl" id="imageUrl" class="image-url-input" />
+          <button @click="closeChangeCharacterPortraitModal">Cancel</button>
+          <button @click="saveCharacterPortraitUrl">Save</button>
+        </div>
+      </div>
+
+
+      <!-- CHARACTER STATS -->
       <div class="character-stats-section">
 
         <!-- First Row -->
@@ -252,45 +286,39 @@
 <script>
 import axios from 'axios';
 import { useCharacterStore } from '../stores/characterStore';
-import { computed, onMounted, watch } from 'vue';
 import { updateCharacter } from '../services/characterService';
 
-let updateTimeout = null;
-
 export default {
-  setup() {
-    const store = useCharacterStore();
-
-    onMounted(() => {
-      store.fetchCharacters();
-    });
-
-    const selectedCharacter = computed({
-      get: () => store.selectedCharacter,
-      set: (value) => (store.selectedCharacter = value),
-    });
-
-    watch(
-      selectedCharacter,
-      (newCharacter) => {
-        if (!newCharacter) return;
-        
-        clearTimeout(updateTimeout); // Prevent duplicate saves
-
-        updateTimeout = setTimeout(() => {
-          updateCharacter(newCharacter);
-        }, 1000); // Save 1 second after changes are made
-      },
-      { deep: true }
-    );
-
+  data() {
     return {
-      characters: computed(() => store.characters),
-      selectedCharacter,
+      showModal: false,
+      showCharacterArtUrlModal: false,
+      selectedImageUrl: '',
+      updateTimeout: null,
     };
   },
 
+  mounted() {
+    const characterStore = useCharacterStore();
+    characterStore.fetchCharacters();
+  },
+
   computed: {
+    characters() {
+      const characterStore = useCharacterStore();
+      return characterStore.characters;
+    },
+    selectedCharacter: {
+      get() {
+        const characterStore = useCharacterStore();
+        return characterStore.selectedCharacter;
+      },
+      set(value) {
+        const characterStore = useCharacterStore();
+        characterStore.selectedCharacter = value;
+      }
+    },
+
     totalWeightCarried() {
       if (!this.selectedCharacter || !this.selectedCharacter.equipment) return 0;
       return Math.round(
@@ -302,75 +330,77 @@ export default {
   },
 
   watch: {
+    selectedCharacter: {
+      handler(newCharacter) {
+        if (!newCharacter) return;
+        clearTimeout(this.updateTimeout);
+
+        this.updateTimeout = setTimeout(() => {
+          updateCharacter(newCharacter);
+        }, 1000);
+      },
+      deep: true
+    },
     'selectedCharacter.body'() {
-      this.calculateMaxEndurance(); // Body effects max Endurance
+      this.calculateMaxEndurance();
     },
     'selectedCharacter.heart'() {
-      this.calculateMaxHope(); // Heart effects max Hope
+      this.calculateMaxHope();
     },
     'selectedCharacter.wits'() {
-      this.calculateMaxDefense(); // Wits effects max Defense
+      this.calculateMaxDefense();
     },
     'selectedCharacter.endurance': {
       handler() {
-        // Endurance effects both Load and Weary
         this.calculateLoad();
         this.calculateWeary();
       },
-      deep: true // Ensure changes to both current and max Endurance trigger recalculation
+      deep: true
     },
     'selectedCharacter.hope': {
       handler() {
-        this.calculateMiserable(); // Hope effects Miserable
+        this.calculateMiserable();
       },
-      deep: true // Ensure changes to both current and max Hope trigger recalculation
+      deep: true
     },
     'selectedCharacter.defense': {
       handler() {
-        this.calculateHelpless(); // Defense effects Helpless
+        this.calculateHelpless();
       },
-      deep: true // Ensure changes to both current and max Defense trigger recalculation
+      deep: true
     },
     'selectedCharacter.load'() {
-      this.calculateWeary(); // Load effects Weary
+      this.calculateWeary();
     },
     'selectedCharacter.shadow'() {
-      this.calculateMiserable(); // Shadow effects Miserable
+      this.calculateMiserable();
     },
     'selectedCharacter.injury'() {
-      this.calculateHelpless(); // Injury effects Helpless
+      this.calculateHelpless();
     },
     'selectedCharacter.conditions': {
       handler() {
-        // Conditions effect dice mods and Favored/Ill-Favored status
         this.updateDiceMods();
         this.updateFavoredStatus();
       },
-      deep: true // Ensure nested changes in Conditions trigger recalculation
+      deep: true
     },
     'selectedCharacter.states': {
       handler() {
-        // States effect dice mods and Favored/Ill-Favored status
         this.updateDiceMods();
         this.updateFavoredStatus();
       },
-      deep: true // Ensure nested changes in States trigger recalculation
+      deep: true
     },
     'selectedCharacter.equipment': {
       handler() {
-        this.calculateLoad(); // Equipment weight effects Load
+        this.calculateLoad();
       },
-      deep: true // Ensure nested changes in Equipment trigger recalculation
+      deep: true
     }
   },
 
   methods: {
-    onCharacterChange() {
-      const store = useCharacterStore();
-      store.selectedCharacter = store.characters.find(
-        (char) => char.name === this.selectedCharacter.name
-      );
-    },
 
     /* FORMATTING METHODS */
     capitalizeFirstLetter(string) {
@@ -381,6 +411,32 @@ export default {
       return Number.isInteger(value) ? value : value.toFixed(1);
     },
 
+
+    /* CHARACTER PORTRAIT METHODS */
+    openFullSizeCharacterPortraitModal(imageUrl) {
+      this.selectedImageUrl = imageUrl;
+      this.showModal = true;
+    },
+
+    closeFullSizeCharacterPortraitModal() {
+      this.showModal = false;
+    },
+
+    openChangeCharacterPortraitModal() {
+      this.selectedImageUrl = this.selectedCharacter.artUrl || '';
+      this.showCharacterArtUrlModal = true;
+    },
+
+    closeChangeCharacterPortraitModal() {
+      this.showCharacterArtUrlModal = false;
+    },
+
+    saveCharacterPortraitUrl() {
+      this.selectedCharacter.artUrl = this.selectedImageUrl;
+      updateCharacter(this.selectedCharacter);
+      this.closeChangeCharacterPortraitModal();
+    },
+    
 
     /* AUTO-CALCULATION METHODS */
     updateAllCalculatedProperties() {
@@ -821,13 +877,27 @@ export default {
 
   
   /* CHARACTER BIO SECTION */
+
   .character-bio-section {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     width: 80%;
-    margin-bottom: 20px;
+  }
+
+  .character-portrait {
+    position: relative;
+    margin-bottom: 1rem;
+    text-align: center;
+    cursor: pointer;
+    margin: 20px;
+  }
+
+  .portrait-image {
+    max-width: 150px;
+    max-height: 150px;
+    object-fit: cover;
   }
   
   .character-name, .target-number {
@@ -835,7 +905,104 @@ export default {
     color: white;
     padding: 5px;
     font-size: 18px;
-    margin-left: 10px;
+    margin: 10px;
+  }
+
+  .change-link {
+    margin-top: 0;
+    text-align: center;
+    font-size: 14px;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+
+  .change-link a {
+    text-decoration: none;
+    color: darkgray;
+  }
+
+  .bio-fields {
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+  }
+
+  /* CHANGE URL MODAL */
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+
+  .modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 70%;
+  }
+
+  .image-url-input {
+    width: 95%;
+    padding: 10px;
+    margin: 10px;
+    font-size: 16px;
+  }
+
+  button {
+    padding: 8px 16px;
+    margin: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+
+
+  /* FULL-SIZE IMAGE MODAL */
+  .image-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Ensure it's above other content */
+  }
+
+  .image-modal-content {
+    position: relative;
+    background: black;
+    padding: 20px;
+    max-width: 90%;
+    max-height: 90%;
+    overflow: hidden;
+    text-align: center;
+  }
+
+  .full-image {
+    max-width: 100%;
+    max-height: 80vh; /* Limit the height */
+    object-fit: contain; /* Keep aspect ratio intact */
+  }
+
+  .close-modal {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: black;
+    color: white;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
   }
 
   
