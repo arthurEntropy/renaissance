@@ -12,35 +12,35 @@
       "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 0
+      "diceMod": -1
     },
     {
       "name": "Strength",
       "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 2
+      "diceMod": 1
     },
     {
       "name": "Dexterity",
-      "ranks": 0,
+      "ranks": 4,
       "isFavored": false,
       "isIllFavored": true,
-      "diceMod": 0
+      "diceMod": -1
     },
     {
       "name": "Fortitude",
       "ranks": 1,
       "isFavored": false,
-      "isIllFavored": false,
-      "diceMod": -1
+      "isIllFavored": true,
+      "diceMod": -2
     },
     {
       "name": "Craft",
       "ranks": 0,
       "isFavored": false,
-      "isIllFavored": false,
-      "diceMod": 0
+      "isIllFavored": true,
+      "diceMod": -1
     },
     {
       "name": "Perform",
@@ -114,7 +114,7 @@
     }
   ],
   "endurance": {
-    "current": 20,
+    "current": 9,
     "max": 20
   },
   "hope": {
@@ -129,7 +129,7 @@
   "shadow": 0,
   "injury": 0,
   "states": {
-    "weary": false,
+    "weary": true,
     "twiceWeary": false,
     "miserable": false,
     "twiceMiserable": false,
@@ -175,5 +175,9 @@
         }
       ]
     }
-  ]
+  ],
+  "personalityAndBackground": "Prize fighter with one giant fist. Partner of Zap Kid. AKA \"Sir Hammel.\" ",
+  "cultures": "Guildford",
+  "pronouns": "he/him",
+  "races": "Human"
 }

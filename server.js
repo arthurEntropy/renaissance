@@ -118,7 +118,7 @@ app.put('/characters/:id', (req, res) => {
 app.post('/send-message', (req, res) => {
     console.log("Received roll request:", req.body);  // <-- Log request payload
     
-    const { rollResults, total, targetNumber, name, skill, success, footer } = req.body;
+    const { rollResults, total, targetNumber, name, skill, success, footer, image } = req.body;
   
     if (success === undefined || success === null) {
         console.error("Success value is missing.");
@@ -132,7 +132,7 @@ app.post('/send-message', (req, res) => {
         description: `${success ? '**SUCCESS**' : '**FAILURE**'}`,
         color: success ? 0x00FF00 : 0xFF0000,
         thumbnail: {
-            url: 'https://cdn.midjourney.com/3914bd33-13a2-48e4-89c5-b75076572688/0_1.png',
+            url: image,
         },
         fields: [
             {
