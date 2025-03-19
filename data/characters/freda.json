@@ -16,7 +16,7 @@
     },
     {
       "name": "Strength",
-      "ranks": 1,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0
