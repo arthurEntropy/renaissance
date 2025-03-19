@@ -28,8 +28,36 @@
 
         <!-- Bio Fields -->
         <div class="bio-fields">
-          <label>Name & Pronouns: <input type="text" v-model="selectedCharacter.name" class="character-name" /></label>
+          <div class= "bio-fields-row">
+            <div class="bio-field">
+              <label>Name: <input type="text" v-model="selectedCharacter.name" class="bio-input-field"/></label>
+            </div>
+          </div>
+          <div class= "bio-fields-row">
+            <div class="bio-field">
+              <label>Pronouns: <input type="text" v-model="selectedCharacter.pronouns" class="bio-input-field" style="width:100px"/></label>
+            </div>
+          </div>
+          <div class = "bio-fields-row">
+            <div class="bio-field">
+              <label>Race(s): <input type="text" v-model="selectedCharacter.races" class="bio-input-field" /></label>
+            </div>
+          </div>
+          <div class = "bio-fields-row">
+            <div class="bio-field">
+              <label>Culture(s): <input type="text" v-model="selectedCharacter.cultures" class="bio-input-field" /></label>
+            </div>
+          </div>
         </div>
+
+        <div class="personality-and-background">
+          <div class="bio-fields-row">
+            <label>Personality & Background:
+              <textarea v-model="selectedCharacter.personalityAndBackground" class="personality-and-background-textarea"></textarea>
+            </label>
+          </div>
+        </div>
+
       </div>
 
       <!-- Full-size Image Modal -->
@@ -723,7 +751,7 @@ export default {
       });
 
       // Send the results to the server
-      this.sendRollResultsToServer(results.map(r => r.symbol), totalSum, success, skillName, footer);
+      this.sendRollResultsToServer(results.map(r => r.symbol), totalSum, success, skillName, footer, this.selectedCharacter.artUrl);
 
       // Reset the target number
       this.targetNumber = 0;
@@ -837,7 +865,10 @@ export default {
     },
 
     determineSuccess(totalSum) {
-      return this.targetNumber && totalSum >= this.targetNumber;
+      if (this.targetNumber === null || this.targetNumber === undefined) {
+        return false;
+      }
+      return totalSum >= this.targetNumber;
     },
 
     generateFooter() {
@@ -868,7 +899,7 @@ export default {
       return footerText.join(", ") || "";
     },
 
-    sendRollResultsToServer(rollResults, totalSum, success, skillName, footer) {
+    sendRollResultsToServer(rollResults, totalSum, success, skillName, footer, image) {
       axios
         .post('http://localhost:3000/send-message', {
           rollResults: rollResults,
@@ -877,7 +908,8 @@ export default {
           name: this.selectedCharacter.name || "Unnamed Character",
           skill: skillName,
           success: success,
-          footer: footer
+          footer: footer,
+          image: image
         })
         .catch((error) => {
           console.error('Error sending roll:', error);
@@ -890,10 +922,22 @@ export default {
 
 <style scoped>
 
+  label {
+    font-size: 12px;
+  }
+
   input {
       font-family: 'Lora', serif;
       color: white;
       background-color: black;
+  }
+
+  textarea {
+    background-color: black;
+    font-family: 'Lora', serif;
+    color: white;
+    margin: 10px;
+    width: 100%;
   }
 
   select {
@@ -948,31 +992,24 @@ export default {
   .character-bio-section {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    width: 80%;
+    width: 100%;
+    margin-bottom: 10px;
   }
 
   .character-portrait {
     position: relative;
-    margin-bottom: 1rem;
     text-align: center;
     cursor: pointer;
-    margin: 20px;
+    margin: 20px 20px 20px 0;
   }
 
   .portrait-image {
     max-width: 150px;
     max-height: 150px;
     object-fit: cover;
-  }
-  
-  .character-name, .target-number {
-    background: black;
-    color: white;
-    padding: 5px;
-    font-size: 18px;
-    margin: 10px;
   }
 
   .change-link {
@@ -992,6 +1029,42 @@ export default {
     display: flex;
     flex-direction: column;
     text-align: right;
+    margin: 0 10px;
+  }
+
+  .bio-fields-row {
+    display: flex;
+    align-items: left;
+  }
+
+  .bio-field {
+    display: flex;
+    flex-wrap: nowrap;
+  }
+
+  .bio-input-field {
+    background: black;
+    color: white;
+    padding: 5px;
+    font-size: 16px;
+    margin: 3px;
+  }
+
+  .personality-and-background {
+    min-width: 275px;
+    height: 100%;
+    align-items: center;
+    vertical-align: top;
+    padding-top: 12px;
+  }
+
+  .personality-and-background-textarea {
+    color: lightgray;
+    height: 125px;
+    padding: 5px;
+    resize: none;
+    border-radius: 4px;
+    line-height: 1.4;
   }
 
   /* CHANGE URL MODAL */
