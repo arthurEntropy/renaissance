@@ -29,15 +29,11 @@
         <!-- Bio Fields -->
         <div class="bio-fields">
           <label>Name & Pronouns: <input type="text" v-model="selectedCharacter.name" class="character-name" /></label>
-          <label>
-            Target Number: <input type="number" v-model="selectedCharacter.targetNumber" class="target-number"
-                  @input="selectedCharacter.targetNumber = Math.max(0, selectedCharacter.targetNumber)"/> 
-          </label>
         </div>
       </div>
 
       <!-- Full-size Image Modal -->
-      <div v-if="showModal" class="image-modal" @click="closeFullSizeCharacterPortraitModal">
+      <div v-if="showFullSizePortraitModal" class="image-modal" @click="closeFullSizeCharacterPortraitModal">
         <div class="image-modal-content" @click.stop>
           <img :src="selectedImageUrl" alt="Full-size Character Portrait" class="full-image" />
           <div class="change-link">
@@ -47,8 +43,8 @@
       </div>
 
       <!-- Modal for changing the image URL -->
-      <div v-if="showCharacterArtUrlModal" class="modal-overlay" @click="closeChangeCharacterPortraitModal">
-        <div class="modal-content" @click.stop>
+      <div v-if="showCharacterArtUrlModal" class="character-art-url-modal-overlay" @click="closeChangeCharacterPortraitModal">
+        <div class="character-art-url-modal-content" @click.stop>
           <label for="imageUrl">Image URL:</label>
           <input type="text" v-model="selectedImageUrl" id="imageUrl" class="image-url-input" />
           <button @click="closeChangeCharacterPortraitModal">Cancel</button>
@@ -71,7 +67,7 @@
                     @input="selectedCharacter.body = Math.max(0, selectedCharacter.body)"/> <!-- Prevent negative value -->
             </div>
             <div v-for="(skill) in selectedCharacter.skills.slice(0, 5)" :key="skill.name" class="skill-row">
-              <span class="skill-name-clickable" @click="makeSkillCheck(skill.name)">{{ skill.name }}</span>
+              <span class="skill-name-clickable" @click="openDiceRollModal(skill.name)">{{ skill.name }}</span>
               <span class="d12-symbol" :class="{
                 'favored': (skill.isFavored && !skill.isIllFavored), 
                 'ill-favored': (skill.isIllFavored && !skill.isFavored)
@@ -121,7 +117,7 @@
                     @input="selectedCharacter.heart = Math.max(0, selectedCharacter.heart)"/> <!-- Prevent negative value -->
             </div>
             <div v-for="(skill) in selectedCharacter.skills.slice(5, 10)" :key="skill.name" class="skill-row">
-              <span class="skill-name-clickable" @click="makeSkillCheck(skill.name)">{{ skill.name }}</span>
+              <span class="skill-name-clickable" @click="openDiceRollModal(skill.name)">{{ skill.name }}</span>
               <span class="d12-symbol" :class="{
                 'favored': (skill.isFavored && !skill.isIllFavored), 
                 'ill-favored': (skill.isIllFavored && !skill.isFavored)
@@ -172,7 +168,7 @@
                     @input="selectedCharacter.wits = Math.max(0, selectedCharacter.wits)"/> <!-- Prevent negative value -->
             </div>
             <div v-for="(skill) in selectedCharacter.skills.slice(10, 15)" :key="skill.name" class="skill-row">
-              <span class="skill-name-clickable" @click="makeSkillCheck(skill.name)">{{ skill.name }}</span>
+              <span class="skill-name-clickable" @click="openDiceRollModal(skill.name)">{{ skill.name }}</span>
               <span class="d12-symbol" :class="{
                 'favored': (skill.isFavored && !skill.isIllFavored), 
                 'ill-favored': (skill.isIllFavored && !skill.isFavored)
@@ -279,8 +275,54 @@
           </div>
         </div>
       </div>
+
+      <!-- DICE ROLL MODAL -->
+      <div v-if="showDiceRollModal" class="dice-roll-modal-overlay" @click="closeDiceRollModal">
+        <div class="dice-roll-modal-content" @click.stop>
+          <h2>{{ selectedCharacter.name }} rolling...</h2>
+          
+          <select v-model="selectedSkill" class="dice-roll-modal-skill-dropdown">
+            <option v-if="!selectedSkill" disabled selected>No skill selected</option>
+            <option v-for="skill in selectedCharacter.skills" :key="skill.name" :value="skill.name">
+              {{ skill.name }}
+            </option>
+          </select>
+
+          <div v-if="selectedSkill">
+            <div class="dice-roll-modal-row">
+              <label>
+                <input type="checkbox" class="skill-checkbox" v-model="getSelectedSkill.isFavored" />
+                Favored
+              </label>
+              <label>
+                <input type="checkbox" class="skill-checkbox" v-model="getSelectedSkill.isIllFavored" />
+                Ill-Favored
+              </label>
+            </div>
+
+            <div class="dice-roll-modal-row">
+              <label>
+                Ranks:
+                <input type="number" class="dice-roll-modal-input" v-model="getSelectedSkill.ranks" min="0" />
+              </label>
+              <label>
+                Dice Mod:
+                <input type="number" class="dice-roll-modal-input" v-model="getSelectedSkill.diceMod" />
+              </label>
+            </div>
+
+            <div class="dice-roll-modal-target-number-row">
+              <h3>Target Number:</h3>
+              <input type="number" class="dice-roll-modal-target-number-input" v-model="targetNumber" min="0" />
+            </div>
+          </div>
+
+          <button class="roll-button" @click="makeSkillCheck(selectedSkill)">Roll</button>
+        </div>
+
     </div>
   </div>
+</div>
 </template>
 
 <script>
@@ -291,9 +333,12 @@ import { updateCharacter } from '../services/characterService';
 export default {
   data() {
     return {
-      showModal: false,
+      showFullSizePortraitModal: false,
       showCharacterArtUrlModal: false,
       selectedImageUrl: '',
+      showDiceRollModal: false,
+      selectedSkill: '',
+      targetNumber: 0,
       updateTimeout: null,
     };
   },
@@ -304,10 +349,12 @@ export default {
   },
 
   computed: {
+
     characters() {
       const characterStore = useCharacterStore();
       return characterStore.characters;
     },
+
     selectedCharacter: {
       get() {
         const characterStore = useCharacterStore();
@@ -317,6 +364,10 @@ export default {
         const characterStore = useCharacterStore();
         characterStore.selectedCharacter = value;
       }
+    },
+    
+    getSelectedSkill() {
+      return this.selectedCharacter.skills.find(skill => skill.name === this.selectedSkill) || {};
     },
 
     totalWeightCarried() {
@@ -415,11 +466,11 @@ export default {
     /* CHARACTER PORTRAIT METHODS */
     openFullSizeCharacterPortraitModal(imageUrl) {
       this.selectedImageUrl = imageUrl;
-      this.showModal = true;
+      this.showFullSizePortraitModal = true;
     },
 
     closeFullSizeCharacterPortraitModal() {
-      this.showModal = false;
+      this.showFullSizePortraitModal = false;
     },
 
     openChangeCharacterPortraitModal() {
@@ -600,7 +651,20 @@ export default {
 
 
     /* DICE ROLLING METHODS */
+
+    openDiceRollModal(skill) {
+      this.selectedSkill = skill;
+      this.showDiceRollModal = true;
+    },
+
+    closeDiceRollModal() {
+      this.showDiceRollModal = false;
+    },
+
     makeSkillCheck(skillName) {
+      
+      this.closeDiceRollModal();
+
       // Find the skill by name and handle if it doesn't exist
       const skill = this.selectedCharacter.skills.find(s => s.name === skillName);
       if (!skill) {
@@ -651,7 +715,7 @@ export default {
       console.log("Sending roll to Discord:", {
         rollResults: results.map(r => r.symbol),
         totalSum,
-        targetNumber: this.selectedCharacter.targetNumber,
+        targetNumber: this.targetNumber,
         name: this.selectedCharacter.name || "Unnamed Character",
         skill: skillName,
         success,
@@ -660,6 +724,9 @@ export default {
 
       // Send the results to the server
       this.sendRollResultsToServer(results.map(r => r.symbol), totalSum, success, skillName, footer);
+
+      // Reset the target number
+      this.targetNumber = 0;
     },
     
     prepareDicePool(skill) {
@@ -770,7 +837,7 @@ export default {
     },
 
     determineSuccess(totalSum) {
-      return this.selectedCharacter.targetNumber && totalSum >= this.selectedCharacter.targetNumber;
+      return this.targetNumber && totalSum >= this.targetNumber;
     },
 
     generateFooter() {
@@ -806,7 +873,7 @@ export default {
         .post('http://localhost:3000/send-message', {
           rollResults: rollResults,
           total: totalSum,
-          targetNumber: this.selectedCharacter.targetNumber,
+          targetNumber: this.targetNumber,
           name: this.selectedCharacter.name || "Unnamed Character",
           skill: skillName,
           success: success,
@@ -928,7 +995,7 @@ export default {
   }
 
   /* CHANGE URL MODAL */
-  .modal-overlay {
+  .character-art-url-modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -941,8 +1008,8 @@ export default {
     z-index: 1000;
   }
 
-  .modal-content {
-    background: white;
+  .character-art-url-modal-content {
+    background: rgb(30, 30, 30);
     padding: 20px;
     border-radius: 8px;
     width: 70%;
@@ -953,14 +1020,18 @@ export default {
     padding: 10px;
     margin: 10px;
     font-size: 16px;
+    color: lightgray;
   }
 
   button {
     padding: 8px 16px;
     margin: 10px;
+    font-family: Lora, serif;
     font-size: 16px;
+    font-weight: bold;
     cursor: pointer;
     margin-top: 10px;
+    background: rgb(118, 118, 118);
   }
 
 
@@ -971,11 +1042,11 @@ export default {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+    background: rgba(0, 0, 0, 0.7);
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000; /* Ensure it's above other content */
+    z-index: 1000;
   }
 
   .image-modal-content {
@@ -990,8 +1061,8 @@ export default {
 
   .full-image {
     max-width: 100%;
-    max-height: 80vh; /* Limit the height */
-    object-fit: contain; /* Keep aspect ratio intact */
+    max-height: 80vh;
+    object-fit: contain;
   }
 
   .close-modal {
@@ -1141,7 +1212,7 @@ export default {
     grid-template-columns: 35% 10% 10% 45%;
   }
 
-  .virtue-score, .weakness-score {
+  .virtue-score, .weakness-score .dice-roll-modal-score{
     width: 35px;
     height: 20px;
     text-align: center;
@@ -1257,6 +1328,72 @@ export default {
     padding-left: 15px;
     display: inline-block;
     vertical-align: middle;
+  }
+
+  /* DICE ROLL MODAL */
+  .dice-roll-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+
+  .dice-roll-modal-content {
+    background: rgb(30, 30, 30);
+    padding: 10px;
+    border-radius: 8px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .dice-roll-modal-row {
+    width: 90%;
+    margin: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .dice-roll-modal-skill-dropdown {
+    width: 40%;
+    font-size: 18px;
+    text-align: center;
+  }
+
+  .dice-roll-modal-input {
+    width: 32px;
+    margin-left: 5px;
+    text-align: center;
+  }
+
+  .dice-roll-modal-target-number-row {
+    width: 90%;
+    margin: 20px 0;
+    padding-left: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .dice-roll-modal-target-number-input {
+    width: 50px;
+    font-size: 24px;
+    text-align: center;
+  }
+
+  .roll-button {
+    background-color: goldenrod;
   }
 
 </style>
