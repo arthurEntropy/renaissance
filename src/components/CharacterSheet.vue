@@ -926,25 +926,19 @@ export default {
     font-size: 12px;
   }
 
-  input {
-      font-family: 'Lora', serif;
-      color: white;
-      background-color: black;
+  input, textarea, select {
+    font-family: 'Lora', serif;
+    color: white;
+    background-color: black;
   }
 
   textarea {
-    background-color: black;
-    font-family: 'Lora', serif;
-    color: white;
     margin: 10px;
     width: 100%;
   }
 
   select {
-      font-family: 'Lora', serif;
-      color: white;
-      background-color: black;
-      font-size: 16px;
+    font-size: 16px;
   }
 
   .background {
@@ -1285,7 +1279,7 @@ export default {
     grid-template-columns: 35% 10% 10% 45%;
   }
 
-  .virtue-score, .weakness-score .dice-roll-modal-score{
+  .virtue-score, .weakness-score, .dice-roll-modal-score{
     width: 35px;
     height: 20px;
     text-align: center;
