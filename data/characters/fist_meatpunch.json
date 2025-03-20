@@ -47,35 +47,35 @@
       "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 0
+      "diceMod": -1
     },
     {
       "name": "Insight",
-      "ranks": 0,
-      "isFavored": false,
-      "isIllFavored": false,
-      "diceMod": 0
-    },
-    {
-      "name": "Courtesy",
-      "ranks": 0,
-      "isFavored": false,
-      "isIllFavored": false,
-      "diceMod": 0
-    },
-    {
-      "name": "Spirit",
       "ranks": 0,
       "isFavored": false,
       "isIllFavored": true,
       "diceMod": -1
     },
     {
+      "name": "Courtesy",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": true,
+      "diceMod": -1
+    },
+    {
+      "name": "Spirit",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": true,
+      "diceMod": -2
+    },
+    {
       "name": "Aid",
       "ranks": 0,
       "isFavored": false,
-      "isIllFavored": false,
-      "diceMod": 0
+      "isIllFavored": true,
+      "diceMod": -1
     },
     {
       "name": "Persuade",
@@ -126,13 +126,13 @@
     "max": 11
   },
   "load": 11,
-  "shadow": 0,
+  "shadow": 18,
   "injury": 0,
   "states": {
     "weary": true,
     "twiceWeary": false,
-    "miserable": false,
-    "twiceMiserable": false,
+    "miserable": true,
+    "twiceMiserable": true,
     "helpless": false,
     "twiceHelpless": false
   },

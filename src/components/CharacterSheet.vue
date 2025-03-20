@@ -309,14 +309,14 @@
         <div class="dice-roll-modal-content" @click.stop>
           <h2>{{ selectedCharacter.name }} rolling...</h2>
           
-          <select v-model="selectedSkill" class="dice-roll-modal-skill-dropdown">
-            <option v-if="!selectedSkill" disabled selected>No skill selected</option>
+          <select v-model="selectedSkillName" class="dice-roll-modal-skill-dropdown">
+            <option v-if="!selectedSkillName" disabled selected>No skill selected</option>
             <option v-for="skill in selectedCharacter.skills" :key="skill.name" :value="skill.name">
               {{ skill.name }}
             </option>
           </select>
 
-          <div v-if="selectedSkill">
+          <div v-if="selectedSkillName">
             <div class="dice-roll-modal-row">
               <label>
                 <input type="checkbox" class="skill-checkbox" v-model="getSelectedSkill.isFavored" />
@@ -345,7 +345,7 @@
             </div>
           </div>
 
-          <button class="roll-button" @click="makeSkillCheck(selectedSkill)">Roll</button>
+          <button class="roll-button" @click="handleSkillCheck(selectedSkillName)">Roll</button>
         </div>
 
     </div>
@@ -354,7 +354,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import DiceRollService from '@/services/DiceRollService.js';
 import { useCharacterStore } from '../stores/characterStore';
 import { updateCharacter } from '../services/characterService';
 
@@ -365,7 +365,7 @@ export default {
       showCharacterArtUrlModal: false,
       selectedImageUrl: '',
       showDiceRollModal: false,
-      selectedSkill: '',
+      selectedSkillName: '',
       targetNumber: 0,
       updateTimeout: null,
     };
@@ -395,7 +395,7 @@ export default {
     },
     
     getSelectedSkill() {
-      return this.selectedCharacter.skills.find(skill => skill.name === this.selectedSkill) || {};
+      return this.selectedCharacter.skills.find(skill => skill.name === this.selectedSkillName) || {};
     },
 
     totalWeightCarried() {
@@ -679,9 +679,8 @@ export default {
 
 
     /* DICE ROLLING METHODS */
-
-    openDiceRollModal(skill) {
-      this.selectedSkill = skill;
+    openDiceRollModal(skillName) {
+      this.selectedSkillName = skillName;
       this.showDiceRollModal = true;
     },
 
@@ -689,232 +688,10 @@ export default {
       this.showDiceRollModal = false;
     },
 
-    makeSkillCheck(skillName) {
-      
+    handleSkillCheck() {
       this.closeDiceRollModal();
-
-      // Find the skill by name and handle if it doesn't exist
-      const skill = this.selectedCharacter.skills.find(s => s.name === skillName);
-      if (!skill) {
-        console.error("Skill not found:", skillName);
-        return;
-      }
-
-      // Logging statement for debugging
-      console.log(
-        "Rolling dice for:", skill.name, 
-        "Ranks:", skill.ranks, 
-        "Dice Mod:", skill.diceMod,
-        "Favored:", skill.isFavored,
-        "Ill-Favored:", skill.isIllFavored,
-        "Conditions:", this.selectedCharacter.conditions,
-        "States:", this.selectedCharacter.states
-      );
-
-      // Prepare and roll the dice
-      const dice = this.prepareDicePool(skill);
-      const results = this.rollDice(dice);
-
-      // Check for auto-fail due to twice miserable before applying favored/ill-favored logic
-      if (this.selectedCharacter.states.twiceMiserable && this.checkAutoFailTwiceMiserable(results)) {
-        this.sendRollResultsToServer(results.map(r => r.symbol), 0, false, skillName, this.generateFooter()); // Auto-fail means the result is 0
-        return;
-      }
-
-      // If the skill is both Favored and Ill-Favored, it's a flat roll and we apply no further logic
-      if (!(skill.isFavored && skill.isIllFavored)) {
-        // Otherwise, apply Favored/Ill-Favored dice logic when applicable
-        if (skill.isFavored) {
-          this.handleFavored(results);
-          skillName += " (favored)";
-        }
-        if (skill.isIllFavored) {
-          this.handleIllFavored(results);
-          skillName += " (ill-favored)";
-        }
-      }
-
-      // Determine the outcome of the roll and prepare the footer
-      const totalSum = this.calculateTotalSum(results);
-      const success = this.determineSuccess(totalSum, results);
-      const footer = this.generateFooter();
-
-      // Logging statement for debugging
-      console.log("Sending roll to Discord:", {
-        rollResults: results.map(r => r.symbol),
-        totalSum,
-        targetNumber: this.targetNumber,
-        name: this.selectedCharacter.name || "Unnamed Character",
-        skill: skillName,
-        success,
-        footer
-      });
-
-      // Send the results to the server
-      this.sendRollResultsToServer(results.map(r => r.symbol), totalSum, success, skillName, footer, this.selectedCharacter.artUrl);
-
-      // Reset the target number
+      DiceRollService.makeSkillCheck(this.getSelectedSkill, this.selectedCharacter, this.targetNumber);
       this.targetNumber = 0;
-    },
-    
-    prepareDicePool(skill) {
-      // We always roll at least one d12
-      const dice = [{ sides: 12 }];
-      
-      // Add a second d12 if the skill is favored or ill-favored
-      if (skill.isFavored || skill.isIllFavored) {
-        dice.push({ sides: 12 });
-      }
-
-      // Calculate the number of d6 to add
-      let totalD6 = skill.ranks + skill.diceMod;
-      if (totalD6 < 0) totalD6 = 0; // Ensure we don't roll a negative number of dice
-
-      // Add the calculated number of d6
-      for (let i = 0; i < totalD6; i++) {
-        dice.push({ sides: 6 });
-      }
-
-      return dice;
-    },
-
-    rollDice(dice) {
-      return dice.map(die => {
-        const roll = Math.floor(Math.random() * die.sides) + 1; // Choose a random number between 1 and the number of sides
-        
-        // Add 🌞 for Sol, 💀 for Morte and ✨ for Successes
-        let symbol;
-        if (die.sides === 12) {
-          if (roll === 12) {
-            symbol = '⭓12🌞';
-          } else if (roll === 11) {
-            symbol = '⭓11💀';
-          } else {
-            symbol = `⭓${roll}`;
-          }
-        } else if (die.sides === 6 && roll === 6) {
-          symbol = `◽️6✨`;
-        } else {
-          symbol = `◽️${roll}`;
-        }
-
-        return { die: die.sides, roll: roll, symbol: symbol };
-      });
-    },
-
-    checkAutoFailTwiceMiserable(results, isFavored) {
-      const d12Rolls = results.filter(r => r.die === 12).map(r => r.roll);
-      // If the roll is Favored, only auto-fail if both d12s are 11
-      if (isFavored) {
-        return d12Rolls.filter(roll => roll === 11).length === 2;
-      }
-      // Otherwise, auto-fail if any d12 is 11, since it's either the only d12 (flat roll) or the lower of two rolls (Ill-Favored)
-      return d12Rolls.includes(11);
-    },
-
-    handleFavored(results) {
-      const d12Results = results.filter(r => r.die === 12);
-      const d12Rolls = d12Results.map(r => r.roll);
-
-      // Find the highest valid d12 roll, treating 11 as the lowest
-      const highestD12Roll = d12Rolls.reduce((max, roll) => {
-        if (roll === 11) return max; // Ignore 11 unless it's the only roll
-        return max === 11 || roll > max ? roll : max;
-      }, 11);
-
-      // Flag to track if we've kept one instance of the highest roll
-      // This allows us to handle cases where multiple d12s roll the same highest value
-      let keptOne = false;
-
-      d12Results.forEach(r => {
-        if (r.roll === highestD12Roll && !keptOne) {
-          keptOne = true; // Keep this one
-        } else {
-          r.roll = 0; // Set others to 0 to exclude them from the total
-        }
-      });
-    },
-
-    handleIllFavored(results) {
-      const d12Results = results.filter(r => r.die === 12);
-      const d12Rolls = d12Results.map(r => r.roll);
-
-      // If there's an 11, it's automatically the lowest roll; otherwise, find the minimum
-      const lowestD12Roll = d12Rolls.includes(11) ? 11 : Math.min(...d12Rolls);
-
-      // Flag to track if we've kept one instance of the lowest roll
-      // This allows us to handle cases where multiple d12s roll the same lowest value
-      let keptOne = false;
-
-      d12Results.forEach(r => {
-        if (r.roll === lowestD12Roll && !keptOne) {
-          keptOne = true; // Keep this one
-        } else {
-          r.roll = 0; // Set others to 0
-        }
-      });
-    },
-
-    calculateTotalSum(results) {
-      return results.reduce((sum, r) => {
-        if (r.die === 6 && r.roll <= 3 && this.selectedCharacter.states.twiceWeary) {
-          return sum; // Skip adding D6 results of 3 or less if Twice Weary
-        }
-        return sum + r.roll;
-      }, 0);
-    },
-
-    determineSuccess(totalSum) {
-      if (this.targetNumber === null || this.targetNumber === undefined) {
-        return false;
-      }
-      return totalSum >= this.targetNumber;
-    },
-
-    generateFooter() {
-      const footerText = [];
-
-      // Add conditions
-      Object.keys(this.selectedCharacter.conditions).forEach(condition => {
-        if (this.selectedCharacter.conditions[condition]) {
-          footerText.push(this.capitalizeFirstLetter(condition));
-        }
-      });
-
-      // Add states
-      const formattedStateNames = {
-        twiceWeary: "Twice Weary",
-        twiceMiserable: "Twice Miserable",
-        twiceHelpless: "Twice Helpless",
-      };
-
-      Object.keys(this.selectedCharacter.states).forEach(state => {
-        if (this.selectedCharacter.states[state]) {
-          footerText.push(formattedStateNames[state] || this.capitalizeFirstLetter(state));
-        }
-      });
-
-      // TODO: Add active effects
-
-      return footerText.join(", ") || "";
-    },
-
-    sendRollResultsToServer(rollResults, totalSum, success, skillName, footer, image) {
-      axios
-        .post('http://localhost:3000/send-message', {
-          rollResults: rollResults,
-          total: totalSum,
-          targetNumber: this.targetNumber,
-          name: this.selectedCharacter.name || "Unnamed Character",
-          skill: skillName,
-          success: success,
-          footer: footer,
-          image: image
-        })
-        .catch((error) => {
-          console.error('Error sending roll:', error);
-          alert('Failed to send roll. Check your connection or server.');
-        });
     }
   }
 };
