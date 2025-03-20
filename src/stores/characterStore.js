@@ -1,16 +1,18 @@
 import { defineStore } from 'pinia';
-import { ref } from 'vue';
-import { useFetchCharacters } from '../services/characterService';
+import { reactive, toRefs } from 'vue';
+import CharacterService from '@/services/CharacterService';
 
 export const useCharacterStore = defineStore('character', () => {
-  const characters = ref([]);
-  const selectedCharacter = ref(null);
+  const state = reactive({
+    characters: [],
+    selectedCharacter: null,
+  });
 
   const fetchCharacters = async () => {
     try {
-      characters.value = await useFetchCharacters();
-      if (characters.value.length > 0) {
-        selectedCharacter.value = characters.value[0]; // Default to first character
+      state.characters = await CharacterService.fetchCharacters();
+      if (state.characters.length > 0) {
+        state.selectedCharacter = state.characters[0]; // Default to first character
       }
     } catch (error) {
       console.error("Failed to fetch characters:", error);
@@ -18,8 +20,7 @@ export const useCharacterStore = defineStore('character', () => {
   };
 
   return {
-    characters,
-    selectedCharacter,
+    ...toRefs(state),
     fetchCharacters,
   };
 });

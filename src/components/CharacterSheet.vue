@@ -1,7 +1,7 @@
 <template>
   <div class="background">
 
-    <!-- Dropdown for character selection -->
+    <!-- CHARACTER DROPDOWN -->
     <div class="character-selector">
       <label for="characterSelect">Select Character: &nbsp;</label>
       <select v-model="selectedCharacter">
@@ -50,6 +50,7 @@
           </div>
         </div>
 
+        <!-- Personality and Background -->
         <div class="personality-and-background">
           <div class="bio-fields-row">
             <label>Personality & Background:
@@ -60,7 +61,7 @@
 
       </div>
 
-      <!-- Full-size Image Modal -->
+      <!-- FULL-SIZE PORTRAIT MODAL -->
       <div v-if="showFullSizePortraitModal" class="image-modal" @click="closeFullSizeCharacterPortraitModal">
         <div class="image-modal-content" @click.stop>
           <img :src="selectedImageUrl" alt="Full-size Character Portrait" class="full-image" />
@@ -70,8 +71,8 @@
         </div>
       </div>
 
-      <!-- Modal for changing the image URL -->
-      <div v-if="showCharacterArtUrlModal" class="character-art-url-modal-overlay" @click="closeChangeCharacterPortraitModal">
+      <!-- PORTRAIT URL MODAL -->
+      <div v-if="showPortraitUrlModal" class="character-art-url-modal-overlay" @click="closeChangeCharacterPortraitModal">
         <div class="character-art-url-modal-content" @click.stop>
           <label for="imageUrl">Image URL:</label>
           <input type="text" v-model="selectedImageUrl" id="imageUrl" class="image-url-input" />
@@ -79,7 +80,6 @@
           <button @click="saveCharacterPortraitUrl">Save</button>
         </div>
       </div>
-
 
       <!-- CHARACTER STATS -->
       <div class="character-stats-section">
@@ -165,7 +165,6 @@
                 />
               </div>
             </div>
-
             <div class="virtue-row">
               <span class="skill-name">Hope</span>
               <input type="number" v-model="selectedCharacter.hope.current" class="virtue-score"
@@ -235,7 +234,6 @@
               <input type="checkbox" v-model="selectedCharacter.states.twiceHelpless" class="skill-checkbox" />
               <span></span> <!-- Empty span for alignment -->
               <span></span> <!-- Empty span for alignment -->
-              
             </div>
           </div>  
 
@@ -247,6 +245,7 @@
               <input type="checkbox" class="skill-checkbox" v-model="selectedCharacter.conditions[key]" />
             </div>
           </div>
+
         </div>
 
         <!-- Second Row -->
@@ -300,22 +299,23 @@
               <span class="equipment-lbs-carried">{{ totalWeightCarried }}</span>
               <span></span> <!-- Empty span for alignment -->
             </div>
+
           </div>
+
         </div>
+        
       </div>
 
       <!-- DICE ROLL MODAL -->
       <div v-if="showDiceRollModal" class="dice-roll-modal-overlay" @click="closeDiceRollModal">
         <div class="dice-roll-modal-content" @click.stop>
           <h2>{{ selectedCharacter.name }} rolling...</h2>
-          
           <select v-model="selectedSkillName" class="dice-roll-modal-skill-dropdown">
             <option v-if="!selectedSkillName" disabled selected>No skill selected</option>
             <option v-for="skill in selectedCharacter.skills" :key="skill.name" :value="skill.name">
               {{ skill.name }}
             </option>
           </select>
-
           <div v-if="selectedSkillName">
             <div class="dice-roll-modal-row">
               <label>
@@ -327,7 +327,6 @@
                 Ill-Favored
               </label>
             </div>
-
             <div class="dice-roll-modal-row">
               <label>
                 Ranks:
@@ -338,33 +337,35 @@
                 <input type="number" class="dice-roll-modal-input" v-model="getSelectedSkill.diceMod" />
               </label>
             </div>
-
             <div class="dice-roll-modal-target-number-row">
               <h3>Target Number:</h3>
               <input type="number" class="dice-roll-modal-target-number-input" v-model="targetNumber" min="0" />
             </div>
           </div>
-
           <button class="roll-button" @click="handleSkillCheck(selectedSkillName)">Roll</button>
         </div>
+      </div>
 
     </div>
+
   </div>
-</div>
+
 </template>
 
 <script>
-import DiceRollService from '@/services/DiceRollService.js';
-import { useCharacterStore } from '../stores/characterStore';
-import { updateCharacter } from '../services/characterService';
+import { useCharacterStore } from '@/stores/characterStore';
+import CharacterService from '@/services/CharacterService';
+import DiceService from '@/services/DiceService.js';
 
 export default {
   data() {
+    const characterStore = useCharacterStore();
     return {
+      characterStore,
       showFullSizePortraitModal: false,
-      showCharacterArtUrlModal: false,
-      selectedImageUrl: '',
+      showPortraitUrlModal: false,
       showDiceRollModal: false,
+      selectedImageUrl: '',
       selectedSkillName: '',
       targetNumber: 0,
       updateTimeout: null,
@@ -372,34 +373,25 @@ export default {
   },
 
   mounted() {
-    const characterStore = useCharacterStore();
-    characterStore.fetchCharacters();
+    this.characterStore.fetchCharacters();
   },
 
   computed: {
-
     characters() {
-      const characterStore = useCharacterStore();
-      return characterStore.characters;
+      return this.characterStore.characters;
     },
-
     selectedCharacter: {
       get() {
-        const characterStore = useCharacterStore();
-        return characterStore.selectedCharacter;
+        return this.characterStore.selectedCharacter;
       },
       set(value) {
-        const characterStore = useCharacterStore();
-        characterStore.selectedCharacter = value;
+        this.characterStore.selectedCharacter = value;
       }
     },
-    
     getSelectedSkill() {
       return this.selectedCharacter.skills.find(skill => skill.name === this.selectedSkillName) || {};
     },
-
     totalWeightCarried() {
-      if (!this.selectedCharacter || !this.selectedCharacter.equipment) return 0;
       return Math.round(
         this.selectedCharacter.equipment.reduce((sum, item) => {
           return item.carried ? sum + item.weight * item.quantity : sum;
@@ -415,7 +407,7 @@ export default {
         clearTimeout(this.updateTimeout);
 
         this.updateTimeout = setTimeout(() => {
-          updateCharacter(newCharacter);
+          CharacterService.updateCharacter(newCharacter);
         }, 1000);
       },
       deep: true
@@ -503,16 +495,16 @@ export default {
 
     openChangeCharacterPortraitModal() {
       this.selectedImageUrl = this.selectedCharacter.artUrl || '';
-      this.showCharacterArtUrlModal = true;
+      this.showPortraitUrlModal = true;
     },
 
     closeChangeCharacterPortraitModal() {
-      this.showCharacterArtUrlModal = false;
+      this.showPortraitUrlModal = false;
     },
 
     saveCharacterPortraitUrl() {
       this.selectedCharacter.artUrl = this.selectedImageUrl;
-      updateCharacter(this.selectedCharacter);
+      CharacterService.updateCharacter(this.selectedCharacter);
       this.closeChangeCharacterPortraitModal();
     },
     
@@ -690,7 +682,7 @@ export default {
 
     handleSkillCheck() {
       this.closeDiceRollModal();
-      DiceRollService.makeSkillCheck(this.getSelectedSkill, this.selectedCharacter, this.targetNumber);
+      DiceService.makeSkillCheck(this.getSelectedSkill, this.selectedCharacter, this.targetNumber);
       this.targetNumber = 0;
     }
   }
