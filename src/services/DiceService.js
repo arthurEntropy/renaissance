@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-class DiceRollService {
+class DiceService {
 
     static makeSkillCheck(skill, character, targetNumber) {
         const dice = this.prepareDicePool(skill);
@@ -191,4 +191,4 @@ class DiceRollService {
     }
 }
 
-export default DiceRollService;
+export default DiceService;
