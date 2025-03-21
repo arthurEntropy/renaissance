@@ -2,7 +2,6 @@
   "id": 1,
   "name": "Freda",
   "artUrl": "https://cdn.midjourney.com/3914bd33-13a2-48e4-89c5-b75076572688/0_1.png",
-  "targetNumber": 11,
   "body": 2,
   "heart": 4,
   "wits": 3,
@@ -191,5 +190,10 @@
   "pronouns": "she/her",
   "races": "Dwarf",
   "cultures": "Ered Luin",
-  "personalityAndBackground": "Silversmith, practitioner of Dwarven resonant singing, precocious party animal."
+  "personalityAndBackground": "Silversmith, practitioner of Dwarven resonant singing, precocious party animal.",
+  "xp": 10,
+  "mp": {
+    "current": 3,
+    "max": 5
+  }
 }

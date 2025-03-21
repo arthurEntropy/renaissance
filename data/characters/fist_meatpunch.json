@@ -185,5 +185,10 @@
   "personalityAndBackground": "Prize fighter with one giant fist. Partner of Zap Kid. AKA \"Sir Hammel.\" ",
   "cultures": "Guildford",
   "pronouns": "he/him",
-  "races": "Human"
+  "races": "Human",
+  "xp": 8,
+  "mp": {
+    "current": 3,
+    "max": 5
+  }
 }

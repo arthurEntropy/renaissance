@@ -12,6 +12,17 @@ class CharacterService {
     this.baseUrl = 'http://localhost:3000/characters';
   }
 
+  // DATA READ/WRITE METHODS
+  async getAllCharacters() {
+    try {
+      const response = await axios.get(this.baseUrl);
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching characters:", error);
+      throw error;
+    }
+  }
+  
   async saveCharacter(character) {
     try {
       await axios.put(`${this.baseUrl}/${character.id}`, character);
@@ -25,86 +36,69 @@ class CharacterService {
   handleBodyChange(character) {
     this.calculateMaxEndurance(character);
   }
-
   handleHeartChange(character) {
     this.calculateMaxHope(character);
   }
-
   handleWitsChange(character) {
     this.calculateMaxDefense(character);
   }
-
   handleEnduranceChange(character) {
     this.calculateLoad(character);
     this.calculateWeary(character);
   }
-
   handleHopeChange(character) {
     this.calculateMiserable(character);
   }
-
   handleDefenseChange(character) {
     this.calculateHelpless(character);
   }
-
   handleLoadChange(character) {
     this.calculateWeary(character);
   }
-
   handleShadowChange(character) {
     this.calculateMiserable(character);
   }
-
   handleInjuryChange(character) {
     this.calculateHelpless(character);
   }
-
   handleStatesChange(character) {
     this.updateDiceMods(character);
     this.updateFavoredStatus(character);
   }
-
   handleConditionsChange(character) {
     this.updateDiceMods(character);
     this.updateFavoredStatus(character);
   }
-
   handleEquipmentChange(character) {
     this.calculateLoad(character);
   }
+
 
   // AUTOCALC
   calculateMaxEndurance(character) {
     character.endurance.max = character.body * 5;
   }
-
   calculateMaxHope(character) {
     character.hope.max = character.heart * 3;
   }
-
   calculateMaxDefense(character) {
     character.defense.max = character.wits + 10;
   }
-
   calculateLoad(character) {
     character.load = Math.max(0, this.getTotalWeightCarried(character) - character.endurance.max - character.body);
   }
-
   calculateWeary(character) {
     character.states.weary = character.load > character.endurance.current;
     character.states.twiceWeary = (character.load > character.endurance.max) && character.states.weary;
   }
-
   calculateMiserable(character) {
     character.states.miserable = character.shadow > character.hope.current;
     character.states.twiceMiserable = (character.shadow > character.hope.max) && character.states.miserable;
   }
-
   calculateHelpless(character) {
     character.states.helpless = character.injury > character.defense.current;
     character.states.twiceHelpless = (character.injury > character.defense.max) && character.states.helpless;
   }
-
   getTotalWeightCarried(character) {
     return Math.round(
       character.equipment.reduce((sum, item) => {

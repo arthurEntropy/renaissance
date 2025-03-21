@@ -10,7 +10,7 @@ export const useCharacterStore = defineStore('character', () => {
 
   const fetchCharacters = async () => {
     try {
-      state.characters = await CharacterService.fetchCharacters();
+      state.characters = await CharacterService.getAllCharacters();
       if (state.characters.length > 0) {
         state.selectedCharacter = state.characters[0]; // Default to first character
       }
