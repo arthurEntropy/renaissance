@@ -59,6 +59,22 @@
           </div>
         </div>
 
+        <!-- XP/MP -->
+        <div class="xp-mp-section">
+          <div class= "xp-mp-row">
+            <div class="xp-field">
+              <span class="skill-name">XP: </span>
+              <input type="number" v-model="selectedCharacter.xp" class="xp-mp-input"/>
+            </div>
+          </div>
+          <div class="xp-mp-row">
+              <span class="skill-name">MP: </span>
+              <input type="number" v-model="selectedCharacter.mp.current" class="xp-mp-input" min="0"/>
+              <span>/</span>
+              <input type="number" v-model="selectedCharacter.mp.max" class="xp-mp-input" min="0"/>
+            </div>
+        </div>
+
       </div>
 
       <!-- FULL-SIZE CHARACTER ART MODAL -->
@@ -654,6 +670,27 @@ export default {
     line-height: 1.4;
   }
 
+  .xp-mp-section {
+    display: flex;
+    flex-direction: column;
+    align-items: right;
+    margin: 0 40px;
+  }
+
+  .xp-mp-row {
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    margin: 5px 0;
+  }
+
+  .xp-field {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 5px 0;
+  }
+
   /* CHANGE URL MODAL */
   .character-art-url-modal-overlay {
     position: fixed;
@@ -861,11 +898,12 @@ export default {
     grid-template-columns: 35% 10% 10% 45%;
   }
 
-  .virtue-score, .weakness-score, .dice-roll-modal-score{
+  .xp-mp-input, .virtue-score, .weakness-score, .dice-roll-modal-score{
     width: 35px;
     height: 20px;
     text-align: center;
     margin-left: 5px;
+    margin-right: 5px;
   }
 
 
