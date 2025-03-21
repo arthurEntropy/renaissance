@@ -1,7 +1,7 @@
 <template>
   <div class="background">
 
-    <!-- CHARACTER DROPDOWN -->
+    <!-- CHARACTER SELECTION DROPDOWN -->
     <div class="character-selector">
       <label for="characterSelect">Select Character: &nbsp;</label>
       <select v-model="selectedCharacter">
@@ -14,16 +14,16 @@
 
     <div v-if="selectedCharacter" class="character-sheet">
 
-      <!-- CHARACTER BIO -->
+      <!-- CHARACTER BIO SECTION-->
       <div class="character-bio-section">
 
-        <!-- Character Portrait -->
-        <div class="character-portrait">
+        <!-- Character Art -->
+        <div class="character-art">
           <img v-if="selectedCharacter.artUrl" 
               :src="selectedCharacter.artUrl" 
-              class="portrait-image" 
-              @click="openFullSizeCharacterPortraitModal(selectedCharacter.artUrl)" />
-          <p v-else>No portrait available</p>
+              class="character-art-image" 
+              @click="openFullSizeCharacterArtModal(selectedCharacter.artUrl)" />
+          <p v-else>No character art available</p>
         </div>
 
         <!-- Bio Fields -->
@@ -61,27 +61,27 @@
 
       </div>
 
-      <!-- FULL-SIZE PORTRAIT MODAL -->
-      <div v-if="showFullSizePortraitModal" class="image-modal" @click="closeFullSizeCharacterPortraitModal">
-        <div class="image-modal-content" @click.stop>
-          <img :src="selectedImageUrl" alt="Full-size Character Portrait" class="full-image" />
+      <!-- FULL-SIZE CHARACTER ART MODAL -->
+      <div v-if="showFullSizeCharacterArtModal" class="full-size-character-art-modal" @click="closeFullSizeCharacterArttModal">
+        <div class="full-size-character-art-modal-content" @click.stop>
+          <img :src="selectedCharacterArtUrl" alt="Full-size Character Portrait" class="full-size-character-art-modal-image" />
           <div class="change-link">
-            <a href="javascript:void(0)" @click="openChangeCharacterPortraitModal">Change</a>
+            <a href="javascript:void(0)" @click="openChangeCharacterArtModal">Change</a>
           </div>
         </div>
       </div>
 
-      <!-- PORTRAIT URL MODAL -->
-      <div v-if="showPortraitUrlModal" class="character-art-url-modal-overlay" @click="closeChangeCharacterPortraitModal">
+      <!-- CHANGE CHARACTER ART MODAL -->
+      <div v-if="showChangeCharacterArtModal" class="character-art-url-modal-overlay" @click="closeChangeCharacterArtModal">
         <div class="character-art-url-modal-content" @click.stop>
           <label for="imageUrl">Image URL:</label>
-          <input type="text" v-model="selectedImageUrl" id="imageUrl" class="image-url-input" />
-          <button @click="closeChangeCharacterPortraitModal">Cancel</button>
-          <button @click="saveCharacterPortraitUrl">Save</button>
+          <input type="text" v-model="selectedCharacterArtUrl" id="imageUrl" class="image-url-input" />
+          <button @click="closeChangeCharacterArtModal">Cancel</button>
+          <button @click="saveCharacterArtUrl">Save</button>
         </div>
       </div>
 
-      <!-- CHARACTER STATS -->
+      <!-- CHARACTER STATS SECTION -->
       <div class="character-stats-section">
 
         <!-- First Row -->
@@ -91,15 +91,11 @@
           <div class="core-ability-column">
             <div class="core-ability-header">
               <span class="core-ability-name">BODY</span>
-              <input type="number" v-model="selectedCharacter.body" class="core-ability-score"
-                    @input="selectedCharacter.body = Math.max(0, selectedCharacter.body)"/> <!-- Prevent negative value -->
+              <input type="number" v-model="selectedCharacter.body" class="core-ability-score" min="0"/>
             </div>
             <div v-for="(skill) in selectedCharacter.skills.slice(0, 5)" :key="skill.name" class="skill-row">
-              <span class="skill-name-clickable" @click="openDiceRollModal(skill.name)">{{ skill.name }}</span>
-              <span class="d12-symbol" :class="{
-                'favored': (skill.isFavored && !skill.isIllFavored), 
-                'ill-favored': (skill.isIllFavored && !skill.isFavored)
-              }">⭓</span>
+              <span class="skill-name-clickable" @click="openSkillCheckModal(skill.name)">{{ skill.name }}</span>
+              <span class="d12-symbol" :class="getFavoredClass(skill)">⭓</span>
               <div class="skill-checkbox-group">
                 <input 
                   v-for="(n, checkboxIndex) in 5" 
@@ -108,25 +104,19 @@
                   :checked="isCheckboxChecked(skill, checkboxIndex)"
                   @click="handleCheckboxChange(skill.name, checkboxIndex)"
                   class="skill-checkbox"
-                  :class="{
-                    'diceSubtracted': skill.ranks - checkboxIndex <= Math.abs(skill.diceMod) && skill.diceMod < 0,
-                    'diceAdded': checkboxIndex >= skill.ranks && checkboxIndex < skill.ranks + skill.diceMod && skill.diceMod > 0
-                  }"
+                  :class="getSkillCheckboxDiceModClass(skill, checkboxIndex)"
                 />
               </div>
             </div>
             <div class="virtue-row">
               <span class="skill-name">Endurance</span>
-              <input type="number" v-model="selectedCharacter.endurance.current" class="virtue-score"
-                    @input="selectedCharacter.endurance.current = Math.max(0, selectedCharacter.endurance.current)"/> <!-- Prevent negative value -->
+              <input type="number" v-model="selectedCharacter.endurance.current" class="virtue-score" min="0"/>
               <span>/</span>
-              <input type="number" v-model="selectedCharacter.endurance.max" class="virtue-score"
-                    @input="selectedCharacter.endurance.max = Math.max(0, selectedCharacter.endurance.max)"/> <!-- Prevent negative value -->
+              <input type="number" v-model="selectedCharacter.endurance.max" class="virtue-score" min="0"/>
             </div>
             <div class="weakness-row">
               <span class="skill-name">Load</span>
-              <input type="number" v-model="selectedCharacter.load" class="weakness-score"
-                    @input="selectedCharacter.load = Math.max(0, selectedCharacter.load)"/> <!-- Prevent negative value -->
+              <input type="number" v-model="selectedCharacter.load" class="weakness-score" min="0"/>
             </div>
             <div class="state-row">
               <span class="skill-name">Weary</span>
@@ -141,15 +131,11 @@
           <div class="core-ability-column">
             <div class="core-ability-header">
               <span class="core-ability-name">HEART</span>
-              <input type="number" v-model="selectedCharacter.heart" class="core-ability-score"
-                    @input="selectedCharacter.heart = Math.max(0, selectedCharacter.heart)"/> <!-- Prevent negative value -->
+              <input type="number" v-model="selectedCharacter.heart" class="core-ability-score" min="0"/>
             </div>
             <div v-for="(skill) in selectedCharacter.skills.slice(5, 10)" :key="skill.name" class="skill-row">
-              <span class="skill-name-clickable" @click="openDiceRollModal(skill.name)">{{ skill.name }}</span>
-              <span class="d12-symbol" :class="{
-                'favored': (skill.isFavored && !skill.isIllFavored), 
-                'ill-favored': (skill.isIllFavored && !skill.isFavored)
-              }">⭓</span>
+              <span class="skill-name-clickable" @click="openSkillCheckModal(skill.name)">{{ skill.name }}</span>
+              <span class="d12-symbol" :class="getFavoredClass(skill)">⭓</span>
               <div class="skill-checkbox-group">
                 <input 
                   v-for="(n, checkboxIndex) in 5" 
@@ -158,25 +144,19 @@
                   :checked="isCheckboxChecked(skill, checkboxIndex)"
                   @click="handleCheckboxChange(skill.name, checkboxIndex)"
                   class="skill-checkbox"
-                  :class="{
-                    'diceSubtracted': skill.ranks - checkboxIndex <= Math.abs(skill.diceMod) && skill.diceMod < 0,
-                    'diceAdded': checkboxIndex >= skill.ranks && checkboxIndex < skill.ranks + skill.diceMod && skill.diceMod > 0
-                  }"
+                  :class="getSkillCheckboxDiceModClass(skill, checkboxIndex)"
                 />
               </div>
             </div>
             <div class="virtue-row">
               <span class="skill-name">Hope</span>
-              <input type="number" v-model="selectedCharacter.hope.current" class="virtue-score"
-                    @input="selectedCharacter.hope.current = Math.max(0, selectedCharacter.hope.current)"/> <!-- Prevent negative value -->
+              <input type="number" v-model="selectedCharacter.hope.current" class="virtue-score" min="0"/>
               <span>/</span>
-              <input type="number" v-model="selectedCharacter.hope.max" class="virtue-score"
-                    @input="selectedCharacter.hope.max = Math.max(0, selectedCharacter.hope.max)"/> <!-- Prevent negative value -->
+              <input type="number" v-model="selectedCharacter.hope.max" class="virtue-score" min="0"/>
             </div>
             <div class="weakness-row">
               <span class="skill-name">Shadow</span>
-              <input type="number" v-model="selectedCharacter.shadow" class="weakness-score"
-                    @input="selectedCharacter.shadow = Math.max(0, selectedCharacter.shadow)"/> <!-- Prevent negative value -->
+              <input type="number" v-model="selectedCharacter.shadow" class="weakness-score" min="0"/>
             </div>
             <div class="state-row">
               <span class="skill-name">Miserable</span>
@@ -191,15 +171,11 @@
           <div class="core-ability-column">
             <div class="core-ability-header">
               <span class="core-ability-name">WITS</span>
-              <input type="number" v-model="selectedCharacter.wits" class="core-ability-score"
-                    @input="selectedCharacter.wits = Math.max(0, selectedCharacter.wits)"/> <!-- Prevent negative value -->
+              <input type="number" v-model="selectedCharacter.wits" class="core-ability-score" min="0"/>
             </div>
             <div v-for="(skill) in selectedCharacter.skills.slice(10, 15)" :key="skill.name" class="skill-row">
-              <span class="skill-name-clickable" @click="openDiceRollModal(skill.name)">{{ skill.name }}</span>
-              <span class="d12-symbol" :class="{
-                'favored': (skill.isFavored && !skill.isIllFavored), 
-                'ill-favored': (skill.isIllFavored && !skill.isFavored)
-              }">⭓</span>
+              <span class="skill-name-clickable" @click="openSkillCheckModal(skill.name)">{{ skill.name }}</span>
+              <span class="d12-symbol" :class="getFavoredClass(skill)">⭓</span>
               <div class="skill-checkbox-group">
                 <input 
                   v-for="(n, checkboxIndex) in 5" 
@@ -208,25 +184,19 @@
                   :checked="isCheckboxChecked(skill, checkboxIndex)"
                   @click="handleCheckboxChange(skill.name, checkboxIndex, $event)"
                   class="skill-checkbox"
-                  :class="{
-                    'diceSubtracted': skill.ranks - checkboxIndex <= Math.abs(skill.diceMod) && skill.diceMod < 0,
-                    'diceAdded': checkboxIndex >= skill.ranks && checkboxIndex < skill.ranks + skill.diceMod && skill.diceMod > 0
-                  }"
+                  :class="getSkillCheckboxDiceModClass(skill, checkboxIndex)"
                 />
               </div>
             </div>
             <div class="virtue-row">
               <span class="skill-name">Defense</span>
-              <input type="number" v-model="selectedCharacter.defense.current" class="virtue-score"
-                    @input="selectedCharacter.defense.current = Math.max(0, selectedCharacter.defense.current)"/> <!-- Prevent negative value -->
+              <input type="number" v-model="selectedCharacter.defense.current" class="virtue-score" min="0"/>
               <span>/</span>
-              <input type="number" v-model="selectedCharacter.defense.max" class="virtue-score" 
-                    @input="selectedCharacter.defense.max = Math.max(0, selectedCharacter.defense.max)"/> <!-- Prevent negative value -->
+              <input type="number" v-model="selectedCharacter.defense.max" class="virtue-score" min="0"/>
             </div>
             <div class="weakness-row">
               <span class="skill-name">Injury</span>
-              <input type="number" v-model="selectedCharacter.injury" class="weakness-score"
-                    @input="selectedCharacter.injury = Math.max(0, selectedCharacter.injury)"/> <!-- Prevent negative value -->
+              <input type="number" v-model="selectedCharacter.injury" class="weakness-score" min="0"/>
             </div>
             <div class="state-row">
               <span class="skill-name">Helpless</span>
@@ -268,16 +238,12 @@
 
             <!--Equipment item rows-->
             <div v-for="(item, index) in selectedCharacter.equipment" :key="index" class="equipment-row">
-              <input type="text" v-model="item.name" class="equipment-item-name-input">
-              <input type="number" v-model.number="item.weight" class="equipment-weight-input" 
-                    @input="item.weight = Math.max(0, item.weight)"> <!-- Prevent negative weight -->
-              <input type="number" v-model.number="item.quantity" class="equipment-quantity-input" 
-                    @input="item.quantity = Math.max(0, item.quantity)"> <!-- Prevent negative quantity -->
-              <input type="checkbox" v-model="item.carried" class="equipment-checkbox">
-              <span class="equipment-lbs-carried">
-                {{ item.carried ? formatWeight(item.weight * item.quantity) : '0' }} <!-- Rounded to 1 decimal place -->
-              </span>
-              <span @click="deleteItem(index)" class="delete-item-link">ⓧ</span>
+              <input type="text" v-model="item.name" class="equipment-item-name-input" @change="updateEquipmentItem(index, 'name', item.name)">
+              <input type="number" v-model.number="item.weight" class="equipment-weight-input" @input="updateEquipmentItem(index, 'weight', Math.max(0, item.weight))">
+              <input type="number" v-model.number="item.quantity" class="equipment-quantity-input" @input="updateEquipmentItem(index, 'quantity', Math.max(0, item.quantity))">
+              <input type="checkbox" v-model="item.carried" class="equipment-checkbox" @change="updateEquipmentItem(index, 'carried', item.carried)">
+              <span class="equipment-lbs-carried"> {{ item.carried ? formatWeight(item.weight * item.quantity) : '0' }} </span>
+              <span @click="removeEquipmentItem(index)" class="delete-item-link">ⓧ</span>
             </div>
 
             <!-- Add Item Row -->
@@ -287,11 +253,11 @@
               <span></span> <!-- Empty span for alignment -->
               <span></span> <!-- Empty span for alignment -->
               <span></span> <!-- Empty span for alignment -->
-              <span @click="addItem" class="add-item-link">+</span>
+              <span @click="addEquipmentItem()" class="add-item-link">+</span>
             </div>
 
             <!-- Total Weight Row -->
-            <div class="equipment-row total-weight-row" style="border-top: 1px solid lightgray;">
+            <div class="equipment-row total-weight-row">
               <span>Total Weight Carried</span>
               <span></span> <!-- Empty span for alignment -->
               <span></span> <!-- Empty span for alignment -->
@@ -307,7 +273,7 @@
       </div>
 
       <!-- DICE ROLL MODAL -->
-      <div v-if="showDiceRollModal" class="dice-roll-modal-overlay" @click="closeDiceRollModal">
+      <div v-if="showSkillCheckModal" class="dice-roll-modal-overlay" @click="closeSkillCheckModal">
         <div class="dice-roll-modal-content" @click.stop>
           <h2>{{ selectedCharacter.name }} rolling...</h2>
           <select v-model="selectedSkillName" class="dice-roll-modal-skill-dropdown">
@@ -349,7 +315,6 @@
     </div>
 
   </div>
-
 </template>
 
 <script>
@@ -362,10 +327,10 @@ export default {
     const characterStore = useCharacterStore();
     return {
       characterStore,
-      showFullSizePortraitModal: false,
-      showPortraitUrlModal: false,
-      showDiceRollModal: false,
-      selectedImageUrl: '',
+      showFullSizeCharacterArtModal: false,
+      showChangeCharacterArtModal: false,
+      showSkillCheckModal: false,
+      selectedCharacterArtUrl: '',
       selectedSkillName: '',
       targetNumber: 0,
       updateTimeout: null,
@@ -405,285 +370,144 @@ export default {
       handler(newCharacter) {
         if (!newCharacter) return;
         clearTimeout(this.updateTimeout);
-
         this.updateTimeout = setTimeout(() => {
-          CharacterService.updateCharacter(newCharacter);
+          CharacterService.saveCharacter(newCharacter);
         }, 1000);
       },
       deep: true
     },
+
+    // Changes to all these stats need to trigger recalculation of derived stats
     'selectedCharacter.body'() {
-      this.calculateMaxEndurance();
+      CharacterService.handleBodyChange(this.selectedCharacter);
     },
     'selectedCharacter.heart'() {
-      this.calculateMaxHope();
+      CharacterService.handleHeartChange(this.selectedCharacter);
     },
     'selectedCharacter.wits'() {
-      this.calculateMaxDefense();
+      CharacterService.handleWitsChange(this.selectedCharacter);
     },
     'selectedCharacter.endurance': {
       handler() {
-        this.calculateLoad();
-        this.calculateWeary();
+        CharacterService.handleEnduranceChange(this.selectedCharacter);
       },
       deep: true
     },
     'selectedCharacter.hope': {
       handler() {
-        this.calculateMiserable();
+        CharacterService.handleHopeChange(this.selectedCharacter);
       },
       deep: true
     },
     'selectedCharacter.defense': {
       handler() {
-        this.calculateHelpless();
+        CharacterService.handleDefenseChange(this.selectedCharacter);
       },
       deep: true
     },
     'selectedCharacter.load'() {
-      this.calculateWeary();
+      CharacterService.handleLoadChange(this.selectedCharacter);
     },
     'selectedCharacter.shadow'() {
-      this.calculateMiserable();
+      CharacterService.handleShadowChange(this.selectedCharacter);
     },
     'selectedCharacter.injury'() {
-      this.calculateHelpless();
+      CharacterService.handleInjuryChange(this.selectedCharacter);
     },
-    'selectedCharacter.conditions': {
-      handler() {
-        this.updateDiceMods();
-        this.updateFavoredStatus();
-      },
-      deep: true
+    'selectedCharacter.states'() {
+      CharacterService.handleStatesChange(this.selectedCharacter);
     },
-    'selectedCharacter.states': {
-      handler() {
-        this.updateDiceMods();
-        this.updateFavoredStatus();
-      },
-      deep: true
+    'selectedCharacter.conditions'() {
+      CharacterService.handleConditionsChange(this.selectedCharacter);
     },
-    'selectedCharacter.equipment': {
-      handler() {
-        this.calculateLoad();
-      },
-      deep: true
+    'selectedCharacter.equipment'() {
+      CharacterService.handleEquipmentChange(this.selectedCharacter);
     }
   },
 
   methods: {
 
-    /* FORMATTING METHODS */
+    /* FORMATTING */
     capitalizeFirstLetter(string) {
       return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
     },
-
+    getSkillCheckboxDiceModClass(skill, checkboxIndex) {
+      return {
+        'diceSubtracted': skill.ranks - checkboxIndex <= Math.abs(skill.diceMod) && skill.diceMod < 0,
+        'diceAdded': checkboxIndex >= skill.ranks && checkboxIndex < skill.ranks + skill.diceMod && skill.diceMod > 0
+      };
+    },
+    getFavoredClass(skill) {
+      if (skill.isFavored && !skill.isIllFavored) return 'favored';
+      if (skill.isIllFavored && !skill.isFavored) return 'ill-favored';
+      return '';
+    },
     formatWeight(value) {
       return Number.isInteger(value) ? value : value.toFixed(1);
     },
 
-
-    /* CHARACTER PORTRAIT METHODS */
-    openFullSizeCharacterPortraitModal(imageUrl) {
-      this.selectedImageUrl = imageUrl;
-      this.showFullSizePortraitModal = true;
+    /* CHARACTER ART */
+    openFullSizeCharacterArtModal(imageUrl) {
+      this.selectedCharacterArtUrl = imageUrl;
+      this.showFullSizeCharacterArtModal = true;
+    },
+    closeFullSizeCharacterArttModal() {
+      this.showFullSizeCharacterArtModal = false;
+    },
+    openChangeCharacterArtModal() {
+      this.selectedCharacterArtUrl = this.selectedCharacter.artUrl || '';
+      this.showChangeCharacterArtModal = true;
+    },
+    closeChangeCharacterArtModal() {
+      this.showChangeCharacterArtModal = false;
+    },
+    saveCharacterArtUrl() {
+      this.selectedCharacter.artUrl = this.selectedCharacterArtUrl;
+      CharacterService.saveCharacter(this.selectedCharacter);
+      this.closeChangeCharacterArtModal();
     },
 
-    closeFullSizeCharacterPortraitModal() {
-      this.showFullSizePortraitModal = false;
-    },
-
-    openChangeCharacterPortraitModal() {
-      this.selectedImageUrl = this.selectedCharacter.artUrl || '';
-      this.showPortraitUrlModal = true;
-    },
-
-    closeChangeCharacterPortraitModal() {
-      this.showPortraitUrlModal = false;
-    },
-
-    saveCharacterPortraitUrl() {
-      this.selectedCharacter.artUrl = this.selectedImageUrl;
-      CharacterService.updateCharacter(this.selectedCharacter);
-      this.closeChangeCharacterPortraitModal();
-    },
-    
-
-    /* AUTO-CALCULATION METHODS */
-    updateAllCalculatedProperties() {
-      this.calculateMaxEndurance();
-      this.calculateMaxHope();
-      this.calculateMaxDefense();
-      this.calculateLoad();
-      this.calculateWeary();
-      this.calculateMiserable();
-      this.calculateHelpless();
-      this.updateDiceMods();
-      this.updateFavoredStatus();
-    },
-
-    calculateMaxEndurance() {
-      this.selectedCharacter.endurance.max = this.selectedCharacter.body * 5; // Max Endurance is 5x Body
-    },
-
-    calculateMaxHope() {
-      this.selectedCharacter.hope.max = this.selectedCharacter.heart * 3; // Max Hope is 3x Heart
-    },
-
-    calculateMaxDefense() {
-      this.selectedCharacter.defense.max = this.selectedCharacter.wits + 10; // Max Defense is Wits + 10
-    },
-
-    calculateLoad() {
-      this.selectedCharacter.load = Math.max(0, this.totalWeightCarried - this.selectedCharacter.endurance.max - this.selectedCharacter.body); // Load cannot be below 0
-    },
-
-    calculateWeary() {
-      this.selectedCharacter.states.weary = this.selectedCharacter.load > this.selectedCharacter.endurance.current;
-      this.selectedCharacter.states.twiceWeary = (this.selectedCharacter.load > this.selectedCharacter.endurance.max) && this.selectedCharacter.states.weary;
-    },
-
-    calculateMiserable() {
-      this.selectedCharacter.states.miserable = this.selectedCharacter.shadow > this.selectedCharacter.hope.current;
-      this.selectedCharacter.states.twiceMiserable = (this.selectedCharacter.shadow > this.selectedCharacter.hope.max) && this.selectedCharacter.states.miserable;
-    },
-
-    calculateHelpless() {
-      this.selectedCharacter.states.helpless = this.selectedCharacter.injury > this.selectedCharacter.defense.current;
-      this.selectedCharacter.states.twiceHelpless = (this.selectedCharacter.injury > this.selectedCharacter.defense.max) && this.selectedCharacter.states.helpless;
-    },
-
-    updateDiceMods() {
-      const effectSkillMaps = {
-        conditions: {
-          insecure: ["Awe", "Perform", "Persuade"],
-          guilty: ["Strength", "Insight", "Awareness"],
-          angry: ["Dexterity", "Courtesy", "Stealth"],
-          afraid: ["Fortitude", "Spirit", "Lore"],
-          troubled: ["Craft", "Aid", "Riddle"],
-        },
-        states: {
-          weary: ["Awe", "Strength", "Dexterity", "Fortitude", "Craft"],
-          twiceWeary: [""],
-          miserable: ["Perform", "Insight", "Courtesy", "Spirit", "Aid"],
-          twiceMiserable: [""],
-          helpless: ["Persuade", "Awareness", "Stealth", "Lore", "Riddle"],
-          twiceHelpless: [""]
-        }
-      };
-
-      const conditionAndStateDiceMod = -1; // Dice mod for conditions and states
-
-      // For each skill stored in data, modify the diceMod based on the active effects, conditions, and states
-      this.selectedCharacter.skills.forEach(skill => {
-        // Reset the diceMod to the base value
-        skill.diceMod = 0;
-
-        // Check if the skill is affected by any active effects
-        this.selectedCharacter.activeEffects.forEach(effect => {
-          effect.skillsModified.forEach(modifiedSkill => {
-            if (modifiedSkill.name === skill.name) {
-              // Apply the diceMod changes
-              skill.diceMod += modifiedSkill.diceMod;
-              }
-            }
-          );
-        });
-
-        // Check if the skill is affected by any conditions
-        Object.keys(this.selectedCharacter.conditions).forEach(condition => {
-          if (this.selectedCharacter.conditions[condition] && effectSkillMaps.conditions[condition].includes(skill.name)) {
-            skill.diceMod += conditionAndStateDiceMod;
-          }
-        });
-
-        // Check if the skill is affected by any states
-        Object.keys(this.selectedCharacter.states).forEach(state => {
-          if (this.selectedCharacter.states[state] && effectSkillMaps.states[state].includes(skill.name)) {
-            skill.diceMod += conditionAndStateDiceMod;
-          }
-        });
-      });
-    },
-
-    updateFavoredStatus() {
-      // Determine if a skill is ill-favored based on the ranks and diceMod
-      // NOTE: Ranks and dice mods cannot make a skill favored, so we only check for ill-favored here
-      this.selectedCharacter.skills.forEach(skill => {
-        skill.isIllFavored = (skill.ranks + skill.diceMod) < 0;
-
-        // Check if the skill is affected by any active effects
-        this.selectedCharacter.activeEffects.forEach(effect => {
-          effect.skillsModified.forEach(modifiedSkill => {
-            if (modifiedSkill.name === skill.name) {
-              // Apply the favored, and illFavored changes
-              if (modifiedSkill.makeFavored) {
-                skill.isFavored = true;
-              }
-              if (modifiedSkill.makeIllFavored) {
-                skill.isIllFavored = true;
-              }
-            }
-          });
-        });
-      });
-    },
-
-
-    /* CHECKBOX METHODS */
+    /* RANK CHECKBOXES */
     handleCheckboxChange(skillName, checkboxIndex) {
-      const skill = this.selectedCharacter.skills.find(skill => skill.name === skillName);
-      if (!skill) return;
-
-      const newRank = checkboxIndex + 1; // Ranks are 1-indexed
-        
+      this.selectedSkillName = skillName;
+      const skill = this.getSelectedSkill;
+      const newRank = checkboxIndex + 1;
       if (newRank === skill.ranks) {
-        skill.ranks -= 1; // Clicking a checkbox that is the same as the current rank should reduce the rank by 1
+        skill.ranks -= 1;
       } else {
         skill.ranks = newRank;
       }
-
-      this.updateFavoredStatus(); // Ranks affect Favored/Ill-Favored status
+      CharacterService.updateFavoredStatus(this.selectedCharacter);
     },
-
     isCheckboxChecked(skill, checkboxIndex) {
       const withinRanks = checkboxIndex < skill.ranks;
       const withinDiceMod = checkboxIndex >= skill.ranks && checkboxIndex < skill.ranks + skill.diceMod && skill.diceMod > 0;
       return withinRanks || withinDiceMod;
     },
 
-
-    /* EQUIPMENT TABLE METHODS */
-    addItem() {
-      this.selectedCharacter.equipment.push({
-        name: '',
-        weight: 0,
-        quantity: 0,
-        carried: false,
-      });
-    },
-
-    deleteItem(index) {
-      if (this.selectedCharacter.equipment.length > 1) {
-        this.selectedCharacter.equipment.splice(index, 1);
-      }
-    },
-
-
-    /* DICE ROLLING METHODS */
-    openDiceRollModal(skillName) {
+    /* SKILL CHECKS */
+    openSkillCheckModal(skillName) {
       this.selectedSkillName = skillName;
-      this.showDiceRollModal = true;
+      this.showSkillCheckModal = true;
     },
-
-    closeDiceRollModal() {
-      this.showDiceRollModal = false;
+    closeSkillCheckModal() {
+      this.showSkillCheckModal = false;
     },
-
     handleSkillCheck() {
-      this.closeDiceRollModal();
+      this.closeSkillCheckModal();
       DiceService.makeSkillCheck(this.getSelectedSkill, this.selectedCharacter, this.targetNumber);
       this.targetNumber = 0;
+    },
+
+    /* EQUIPMENT */
+    addEquipmentItem() {
+      CharacterService.addEquipmentItem(this.selectedCharacter);
+    },
+    removeEquipmentItem(index) {
+      CharacterService.removeEquipmentItem(this.selectedCharacter, index);
+    },
+    updateEquipmentItem(index, key, value) {
+      CharacterService.updateEquipmentItem(this.selectedCharacter, index, key, value);
     }
   }
 };
@@ -762,14 +586,14 @@ export default {
     margin-bottom: 10px;
   }
 
-  .character-portrait {
+  .character-art {
     position: relative;
     text-align: center;
     cursor: pointer;
     margin: 20px 20px 20px 0;
   }
 
-  .portrait-image {
+  .character-art-image {
     max-width: 150px;
     max-height: 150px;
     object-fit: cover;
@@ -872,7 +696,7 @@ export default {
 
 
   /* FULL-SIZE IMAGE MODAL */
-  .image-modal {
+  .full-size-character-art-modal {
     position: fixed;
     top: 0;
     left: 0;
@@ -885,7 +709,7 @@ export default {
     z-index: 1000;
   }
 
-  .image-modal-content {
+  .full-size-character-art-modal-content {
     position: relative;
     background: black;
     padding: 20px;
@@ -895,21 +719,10 @@ export default {
     text-align: center;
   }
 
-  .full-image {
+  .full-size-character-art-modal-image {
     max-width: 100%;
     max-height: 80vh;
     object-fit: contain;
-  }
-
-  .close-modal {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: black;
-    color: white;
-    border: none;
-    font-size: 20px;
-    cursor: pointer;
   }
 
   
@@ -1122,6 +935,10 @@ export default {
     width: 100%;
     margin-bottom: 10px;
     height: 30px;
+  }
+
+  .total-weight-row {
+    border-top: 1px solid lightgray;
   }
 
   .equipment-item-name-input, .equipment-weight-input, .equipment-quantity-input {
