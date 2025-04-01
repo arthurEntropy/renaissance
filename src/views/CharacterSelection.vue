@@ -1,6 +1,6 @@
 <template>
   <div class="character-selection">
-    <h1>CHARACTERS</h1>
+    <h2>CHARACTERS</h2>
     <div class="character-selection-cards-section">
       <div class="character-selection-card" v-for="character in characters" :key="character.id">
         <img :src="character.artUrl" :alt="character.name" @click="selectCharacter(character)"/>
