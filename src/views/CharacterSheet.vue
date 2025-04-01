@@ -1,333 +1,323 @@
 <template>
-  <div class="background">
+  <div v-if="selectedCharacter" class="character-sheet">
 
-    <!-- CHARACTER SELECTION DROPDOWN -->
-    <div class="character-selector">
-      <label for="characterSelect">Select Character: &nbsp;</label>
-      <select v-model="selectedCharacter">
-        <option v-if="!selectedCharacter" disabled selected>Loading...</option>
-        <option v-for="character in characters" :key="character.name" :value="character">
-          {{ character.name }}
-        </option>
-      </select>
+    <!-- CLOSE BUTTON -->
+    <router-link to="/character-selection">
+      <p class="close-button">🆇</p>
+    </router-link>
+
+    <!-- CHARACTER BIO SECTION-->
+    <div class="character-bio-section">
+
+      <!-- Character Art -->
+      <div class="character-art">
+        <img v-if="selectedCharacter.artUrl" 
+            :src="selectedCharacter.artUrl" 
+            class="character-art-image" 
+            @click="openFullSizeCharacterArtModal(selectedCharacter.artUrl)" />
+        <p v-else>No character art available</p>
+      </div>
+
+      <!-- Bio Fields -->
+      <div class="bio-fields">
+        <div class= "bio-fields-row">
+          <div class="bio-field">
+            <label>Name: <input type="text" v-model="selectedCharacter.name" class="bio-input-field"/></label>
+          </div>
+        </div>
+        <div class= "bio-fields-row">
+          <div class="bio-field">
+            <label>Pronouns: <input type="text" v-model="selectedCharacter.pronouns" class="bio-input-field" style="width:100px"/></label>
+          </div>
+        </div>
+        <div class = "bio-fields-row">
+          <div class="bio-field">
+            <label>Race(s): <input type="text" v-model="selectedCharacter.races" class="bio-input-field" /></label>
+          </div>
+        </div>
+        <div class = "bio-fields-row">
+          <div class="bio-field">
+            <label>Culture(s): <input type="text" v-model="selectedCharacter.cultures" class="bio-input-field" /></label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Personality and Background -->
+      <div class="personality-and-background">
+        <div class="bio-fields-row">
+          <label>Personality & Background:
+            <textarea v-model="selectedCharacter.personalityAndBackground" class="personality-and-background-textarea"></textarea>
+          </label>
+        </div>
+      </div>
+
+      <!-- XP/MP -->
+      <div class="xp-mp-section">
+        <div class= "xp-mp-row">
+          <div class="xp-field">
+            <span class="skill-name">XP: </span>
+            <input type="number" v-model="selectedCharacter.xp" class="xp-mp-input"/>
+          </div>
+        </div>
+        <div class="xp-mp-row">
+            <span class="skill-name">MP: </span>
+            <input type="number" v-model="selectedCharacter.mp.current" class="xp-mp-input" min="0"/>
+            <span>/</span>
+            <input type="number" v-model="selectedCharacter.mp.max" class="xp-mp-input" min="0"/>
+          </div>
+      </div>
+
     </div>
 
-    <div v-if="selectedCharacter" class="character-sheet">
+    <!-- FULL-SIZE CHARACTER ART MODAL -->
+    <div v-if="showFullSizeCharacterArtModal" class="full-size-character-art-modal" @click="closeFullSizeCharacterArttModal">
+      <div class="full-size-character-art-modal-content" @click.stop>
+        <img :src="selectedCharacterArtUrl" alt="Full-size Character Portrait" class="full-size-character-art-modal-image" />
+        <div class="change-link">
+          <a href="javascript:void(0)" @click="openChangeCharacterArtModal">Change</a>
+        </div>
+      </div>
+    </div>
 
-      <!-- CHARACTER BIO SECTION-->
-      <div class="character-bio-section">
+    <!-- CHANGE CHARACTER ART MODAL -->
+    <div v-if="showChangeCharacterArtModal" class="character-art-url-modal-overlay" @click="closeChangeCharacterArtModal">
+      <div class="character-art-url-modal-content" @click.stop>
+        <label for="imageUrl">Image URL:</label>
+        <input type="text" v-model="selectedCharacterArtUrl" id="imageUrl" class="image-url-input" />
+        <button @click="closeChangeCharacterArtModal">Cancel</button>
+        <button @click="saveCharacterArtUrl">Save</button>
+      </div>
+    </div>
 
-        <!-- Character Art -->
-        <div class="character-art">
-          <img v-if="selectedCharacter.artUrl" 
-              :src="selectedCharacter.artUrl" 
-              class="character-art-image" 
-              @click="openFullSizeCharacterArtModal(selectedCharacter.artUrl)" />
-          <p v-else>No character art available</p>
+    <!-- CHARACTER STATS SECTION -->
+    <div class="character-stats-section">
+
+      <!-- First Row -->
+      <div class="character-stat-row">
+
+        <!-- Body Column -->
+        <div class="core-ability-column">
+          <div class="core-ability-header">
+            <span class="core-ability-name">BODY</span>
+            <input type="number" v-model="selectedCharacter.body" class="core-ability-score" min="0"/>
+          </div>
+          <div v-for="(skill) in selectedCharacter.skills.slice(0, 5)" :key="skill.name" class="skill-row">
+            <span class="skill-name-clickable" @click="openSkillCheckModal(skill.name)">{{ skill.name }}</span>
+            <span class="d12-symbol" :class="getFavoredClass(skill)">⭓</span>
+            <div class="skill-checkbox-group">
+              <input 
+                v-for="(n, checkboxIndex) in 5" 
+                :key="checkboxIndex" 
+                type="checkbox" 
+                :checked="isCheckboxChecked(skill, checkboxIndex)"
+                @click="handleCheckboxChange(skill.name, checkboxIndex)"
+                class="skill-checkbox"
+                :class="getSkillCheckboxDiceModClass(skill, checkboxIndex)"
+              />
+            </div>
+          </div>
+          <div class="virtue-row">
+            <span class="skill-name">Endurance</span>
+            <input type="number" v-model="selectedCharacter.endurance.current" class="virtue-score" min="0"/>
+            <span>/</span>
+            <input type="number" v-model="selectedCharacter.endurance.max" class="virtue-score" min="0"/>
+          </div>
+          <div class="weakness-row">
+            <span class="skill-name">Load</span>
+            <input type="number" v-model="selectedCharacter.load" class="weakness-score" min="0"/>
+          </div>
+          <div class="state-row">
+            <span class="skill-name">Weary</span>
+            <input type="checkbox" v-model="selectedCharacter.states.weary" class="skill-checkbox" />
+            <input type="checkbox" v-model="selectedCharacter.states.twiceWeary" class="skill-checkbox" />
+            <span></span> <!-- Empty span for alignment -->
+            <span></span> <!-- Empty span for alignment -->
+          </div>
         </div>
 
-        <!-- Bio Fields -->
-        <div class="bio-fields">
-          <div class= "bio-fields-row">
-            <div class="bio-field">
-              <label>Name: <input type="text" v-model="selectedCharacter.name" class="bio-input-field"/></label>
+        <!-- Heart Column -->
+        <div class="core-ability-column">
+          <div class="core-ability-header">
+            <span class="core-ability-name">HEART</span>
+            <input type="number" v-model="selectedCharacter.heart" class="core-ability-score" min="0"/>
+          </div>
+          <div v-for="(skill) in selectedCharacter.skills.slice(5, 10)" :key="skill.name" class="skill-row">
+            <span class="skill-name-clickable" @click="openSkillCheckModal(skill.name)">{{ skill.name }}</span>
+            <span class="d12-symbol" :class="getFavoredClass(skill)">⭓</span>
+            <div class="skill-checkbox-group">
+              <input 
+                v-for="(n, checkboxIndex) in 5" 
+                :key="checkboxIndex" 
+                type="checkbox" 
+                :checked="isCheckboxChecked(skill, checkboxIndex)"
+                @click="handleCheckboxChange(skill.name, checkboxIndex)"
+                class="skill-checkbox"
+                :class="getSkillCheckboxDiceModClass(skill, checkboxIndex)"
+              />
             </div>
           </div>
-          <div class= "bio-fields-row">
-            <div class="bio-field">
-              <label>Pronouns: <input type="text" v-model="selectedCharacter.pronouns" class="bio-input-field" style="width:100px"/></label>
+          <div class="virtue-row">
+            <span class="skill-name">Hope</span>
+            <input type="number" v-model="selectedCharacter.hope.current" class="virtue-score" min="0"/>
+            <span>/</span>
+            <input type="number" v-model="selectedCharacter.hope.max" class="virtue-score" min="0"/>
+          </div>
+          <div class="weakness-row">
+            <span class="skill-name">Shadow</span>
+            <input type="number" v-model="selectedCharacter.shadow" class="weakness-score" min="0"/>
+          </div>
+          <div class="state-row">
+            <span class="skill-name">Miserable</span>
+            <input type="checkbox" v-model="selectedCharacter.states.miserable" class="skill-checkbox" />
+            <input type="checkbox" v-model="selectedCharacter.states.twiceMiserable" class="skill-checkbox" />
+            <span></span> <!-- Empty span for alignment -->
+            <span></span> <!-- Empty span for alignment -->
+          </div>
+        </div>  
+
+        <!-- Wits Column -->
+        <div class="core-ability-column">
+          <div class="core-ability-header">
+            <span class="core-ability-name">WITS</span>
+            <input type="number" v-model="selectedCharacter.wits" class="core-ability-score" min="0"/>
+          </div>
+          <div v-for="(skill) in selectedCharacter.skills.slice(10, 15)" :key="skill.name" class="skill-row">
+            <span class="skill-name-clickable" @click="openSkillCheckModal(skill.name)">{{ skill.name }}</span>
+            <span class="d12-symbol" :class="getFavoredClass(skill)">⭓</span>
+            <div class="skill-checkbox-group">
+              <input 
+                v-for="(n, checkboxIndex) in 5" 
+                :key="checkboxIndex" 
+                type="checkbox" 
+                :checked="isCheckboxChecked(skill, checkboxIndex)"
+                @click="handleCheckboxChange(skill.name, checkboxIndex, $event)"
+                class="skill-checkbox"
+                :class="getSkillCheckboxDiceModClass(skill, checkboxIndex)"
+              />
             </div>
           </div>
-          <div class = "bio-fields-row">
-            <div class="bio-field">
-              <label>Race(s): <input type="text" v-model="selectedCharacter.races" class="bio-input-field" /></label>
-            </div>
+          <div class="virtue-row">
+            <span class="skill-name">Defense</span>
+            <input type="number" v-model="selectedCharacter.defense.current" class="virtue-score" min="0"/>
+            <span>/</span>
+            <input type="number" v-model="selectedCharacter.defense.max" class="virtue-score" min="0"/>
           </div>
-          <div class = "bio-fields-row">
-            <div class="bio-field">
-              <label>Culture(s): <input type="text" v-model="selectedCharacter.cultures" class="bio-input-field" /></label>
-            </div>
+          <div class="weakness-row">
+            <span class="skill-name">Injury</span>
+            <input type="number" v-model="selectedCharacter.injury" class="weakness-score" min="0"/>
+          </div>
+          <div class="state-row">
+            <span class="skill-name">Helpless</span>
+            <input type="checkbox" v-model="selectedCharacter.states.helpless" class="skill-checkbox" />
+            <input type="checkbox" v-model="selectedCharacter.states.twiceHelpless" class="skill-checkbox" />
+            <span></span> <!-- Empty span for alignment -->
+            <span></span> <!-- Empty span for alignment -->
+          </div>
+        </div>  
+
+        <!-- Conditions Column -->
+        <div class="conditions-column">
+          <div class="conditions-header">Conditions</div>
+          <div class="skill-row" v-for="(value, key) in selectedCharacter.conditions" :key="key">
+            <span class="skill-name">{{ capitalizeFirstLetter(key) }}</span>
+            <input type="checkbox" class="skill-checkbox" v-model="selectedCharacter.conditions[key]" />
           </div>
         </div>
 
-        <!-- Personality and Background -->
-        <div class="personality-and-background">
-          <div class="bio-fields-row">
-            <label>Personality & Background:
-              <textarea v-model="selectedCharacter.personalityAndBackground" class="personality-and-background-textarea"></textarea>
+      </div>
+
+      <!-- Second Row -->
+      <div class="character-stat-row">
+
+        <!--Equipment Table-->
+        <div class="equipment-table">
+
+          <!-- Title Row -->
+          <div class="equipment-title">EQUIPMENT</div>
+
+          <!-- Header Row -->
+          <div class="equipment-header-row">
+            <span class="equipment-header">item</span>
+            <span class="equipment-header">lbs</span>
+            <span class="equipment-header">qty</span>
+            <span class="equipment-header-angled">carried</span>
+            <span class="equipment-header-angled">lbs carried</span>
+          </div>
+
+          <!--Equipment item rows-->
+          <div v-for="(item, index) in selectedCharacter.equipment" :key="index" class="equipment-row">
+            <input type="text" v-model="item.name" class="equipment-item-name-input" @change="updateEquipmentItem(index, 'name', item.name)">
+            <input type="number" v-model.number="item.weight" class="equipment-weight-input" @input="updateEquipmentItem(index, 'weight', Math.max(0, item.weight))">
+            <input type="number" v-model.number="item.quantity" class="equipment-quantity-input" @input="updateEquipmentItem(index, 'quantity', Math.max(0, item.quantity))">
+            <input type="checkbox" v-model="item.carried" class="equipment-checkbox" @change="updateEquipmentItem(index, 'carried', item.carried)">
+            <span class="equipment-lbs-carried"> {{ item.carried ? formatWeight(item.weight * item.quantity) : '0' }} </span>
+            <span @click="removeEquipmentItem(index)" class="delete-item-link">ⓧ</span>
+          </div>
+
+          <!-- Add Item Row -->
+          <div class="equipment-row">
+            <span></span> <!-- Empty span for alignment -->
+            <span></span> <!-- Empty span for alignment -->
+            <span></span> <!-- Empty span for alignment -->
+            <span></span> <!-- Empty span for alignment -->
+            <span></span> <!-- Empty span for alignment -->
+            <span @click="addEquipmentItem()" class="add-item-link">+</span>
+          </div>
+
+          <!-- Total Weight Row -->
+          <div class="equipment-row total-weight-row">
+            <span>Total Weight Carried</span>
+            <span></span> <!-- Empty span for alignment -->
+            <span></span> <!-- Empty span for alignment -->
+            <span></span> <!-- Empty span for alignment -->
+            <span class="equipment-lbs-carried">{{ totalWeightCarried }}</span>
+            <span></span> <!-- Empty span for alignment -->
+          </div>
+
+        </div>
+
+      </div>
+      
+    </div>
+
+    <!-- DICE ROLL MODAL -->
+    <div v-if="showSkillCheckModal" class="dice-roll-modal-overlay" @click="closeSkillCheckModal">
+      <div class="dice-roll-modal-content" @click.stop>
+        <h2>{{ selectedCharacter.name }} rolling...</h2>
+        <select v-model="selectedSkillName" class="dice-roll-modal-skill-dropdown">
+          <option v-if="!selectedSkillName" disabled selected>No skill selected</option>
+          <option v-for="skill in selectedCharacter.skills" :key="skill.name" :value="skill.name">
+            {{ skill.name }}
+          </option>
+        </select>
+        <div v-if="selectedSkillName">
+          <div class="dice-roll-modal-row">
+            <label>
+              <input type="checkbox" class="skill-checkbox" v-model="getSelectedSkill.isFavored" />
+              Favored
+            </label>
+            <label>
+              <input type="checkbox" class="skill-checkbox" v-model="getSelectedSkill.isIllFavored" />
+              Ill-Favored
             </label>
           </div>
-        </div>
-
-        <!-- XP/MP -->
-        <div class="xp-mp-section">
-          <div class= "xp-mp-row">
-            <div class="xp-field">
-              <span class="skill-name">XP: </span>
-              <input type="number" v-model="selectedCharacter.xp" class="xp-mp-input"/>
-            </div>
+          <div class="dice-roll-modal-row">
+            <label>
+              Ranks:
+              <input type="number" class="dice-roll-modal-input" v-model="getSelectedSkill.ranks" min="0" />
+            </label>
+            <label>
+              Dice Mod:
+              <input type="number" class="dice-roll-modal-input" v-model="getSelectedSkill.diceMod" />
+            </label>
           </div>
-          <div class="xp-mp-row">
-              <span class="skill-name">MP: </span>
-              <input type="number" v-model="selectedCharacter.mp.current" class="xp-mp-input" min="0"/>
-              <span>/</span>
-              <input type="number" v-model="selectedCharacter.mp.max" class="xp-mp-input" min="0"/>
-            </div>
+          <div class="dice-roll-modal-target-number-row">
+            <h3>Target Number:</h3>
+            <input type="number" class="dice-roll-modal-target-number-input" v-model="targetNumber" min="0" />
+          </div>
         </div>
-
+        <button class="roll-button" @click="handleSkillCheck(selectedSkillName)">Roll</button>
       </div>
-
-      <!-- FULL-SIZE CHARACTER ART MODAL -->
-      <div v-if="showFullSizeCharacterArtModal" class="full-size-character-art-modal" @click="closeFullSizeCharacterArttModal">
-        <div class="full-size-character-art-modal-content" @click.stop>
-          <img :src="selectedCharacterArtUrl" alt="Full-size Character Portrait" class="full-size-character-art-modal-image" />
-          <div class="change-link">
-            <a href="javascript:void(0)" @click="openChangeCharacterArtModal">Change</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- CHANGE CHARACTER ART MODAL -->
-      <div v-if="showChangeCharacterArtModal" class="character-art-url-modal-overlay" @click="closeChangeCharacterArtModal">
-        <div class="character-art-url-modal-content" @click.stop>
-          <label for="imageUrl">Image URL:</label>
-          <input type="text" v-model="selectedCharacterArtUrl" id="imageUrl" class="image-url-input" />
-          <button @click="closeChangeCharacterArtModal">Cancel</button>
-          <button @click="saveCharacterArtUrl">Save</button>
-        </div>
-      </div>
-
-      <!-- CHARACTER STATS SECTION -->
-      <div class="character-stats-section">
-
-        <!-- First Row -->
-        <div class="character-stat-row">
-
-          <!-- Body Column -->
-          <div class="core-ability-column">
-            <div class="core-ability-header">
-              <span class="core-ability-name">BODY</span>
-              <input type="number" v-model="selectedCharacter.body" class="core-ability-score" min="0"/>
-            </div>
-            <div v-for="(skill) in selectedCharacter.skills.slice(0, 5)" :key="skill.name" class="skill-row">
-              <span class="skill-name-clickable" @click="openSkillCheckModal(skill.name)">{{ skill.name }}</span>
-              <span class="d12-symbol" :class="getFavoredClass(skill)">⭓</span>
-              <div class="skill-checkbox-group">
-                <input 
-                  v-for="(n, checkboxIndex) in 5" 
-                  :key="checkboxIndex" 
-                  type="checkbox" 
-                  :checked="isCheckboxChecked(skill, checkboxIndex)"
-                  @click="handleCheckboxChange(skill.name, checkboxIndex)"
-                  class="skill-checkbox"
-                  :class="getSkillCheckboxDiceModClass(skill, checkboxIndex)"
-                />
-              </div>
-            </div>
-            <div class="virtue-row">
-              <span class="skill-name">Endurance</span>
-              <input type="number" v-model="selectedCharacter.endurance.current" class="virtue-score" min="0"/>
-              <span>/</span>
-              <input type="number" v-model="selectedCharacter.endurance.max" class="virtue-score" min="0"/>
-            </div>
-            <div class="weakness-row">
-              <span class="skill-name">Load</span>
-              <input type="number" v-model="selectedCharacter.load" class="weakness-score" min="0"/>
-            </div>
-            <div class="state-row">
-              <span class="skill-name">Weary</span>
-              <input type="checkbox" v-model="selectedCharacter.states.weary" class="skill-checkbox" />
-              <input type="checkbox" v-model="selectedCharacter.states.twiceWeary" class="skill-checkbox" />
-              <span></span> <!-- Empty span for alignment -->
-              <span></span> <!-- Empty span for alignment -->
-            </div>
-          </div>
-
-          <!-- Heart Column -->
-          <div class="core-ability-column">
-            <div class="core-ability-header">
-              <span class="core-ability-name">HEART</span>
-              <input type="number" v-model="selectedCharacter.heart" class="core-ability-score" min="0"/>
-            </div>
-            <div v-for="(skill) in selectedCharacter.skills.slice(5, 10)" :key="skill.name" class="skill-row">
-              <span class="skill-name-clickable" @click="openSkillCheckModal(skill.name)">{{ skill.name }}</span>
-              <span class="d12-symbol" :class="getFavoredClass(skill)">⭓</span>
-              <div class="skill-checkbox-group">
-                <input 
-                  v-for="(n, checkboxIndex) in 5" 
-                  :key="checkboxIndex" 
-                  type="checkbox" 
-                  :checked="isCheckboxChecked(skill, checkboxIndex)"
-                  @click="handleCheckboxChange(skill.name, checkboxIndex)"
-                  class="skill-checkbox"
-                  :class="getSkillCheckboxDiceModClass(skill, checkboxIndex)"
-                />
-              </div>
-            </div>
-            <div class="virtue-row">
-              <span class="skill-name">Hope</span>
-              <input type="number" v-model="selectedCharacter.hope.current" class="virtue-score" min="0"/>
-              <span>/</span>
-              <input type="number" v-model="selectedCharacter.hope.max" class="virtue-score" min="0"/>
-            </div>
-            <div class="weakness-row">
-              <span class="skill-name">Shadow</span>
-              <input type="number" v-model="selectedCharacter.shadow" class="weakness-score" min="0"/>
-            </div>
-            <div class="state-row">
-              <span class="skill-name">Miserable</span>
-              <input type="checkbox" v-model="selectedCharacter.states.miserable" class="skill-checkbox" />
-              <input type="checkbox" v-model="selectedCharacter.states.twiceMiserable" class="skill-checkbox" />
-              <span></span> <!-- Empty span for alignment -->
-              <span></span> <!-- Empty span for alignment -->
-            </div>
-          </div>  
-
-          <!-- Wits Column -->
-          <div class="core-ability-column">
-            <div class="core-ability-header">
-              <span class="core-ability-name">WITS</span>
-              <input type="number" v-model="selectedCharacter.wits" class="core-ability-score" min="0"/>
-            </div>
-            <div v-for="(skill) in selectedCharacter.skills.slice(10, 15)" :key="skill.name" class="skill-row">
-              <span class="skill-name-clickable" @click="openSkillCheckModal(skill.name)">{{ skill.name }}</span>
-              <span class="d12-symbol" :class="getFavoredClass(skill)">⭓</span>
-              <div class="skill-checkbox-group">
-                <input 
-                  v-for="(n, checkboxIndex) in 5" 
-                  :key="checkboxIndex" 
-                  type="checkbox" 
-                  :checked="isCheckboxChecked(skill, checkboxIndex)"
-                  @click="handleCheckboxChange(skill.name, checkboxIndex, $event)"
-                  class="skill-checkbox"
-                  :class="getSkillCheckboxDiceModClass(skill, checkboxIndex)"
-                />
-              </div>
-            </div>
-            <div class="virtue-row">
-              <span class="skill-name">Defense</span>
-              <input type="number" v-model="selectedCharacter.defense.current" class="virtue-score" min="0"/>
-              <span>/</span>
-              <input type="number" v-model="selectedCharacter.defense.max" class="virtue-score" min="0"/>
-            </div>
-            <div class="weakness-row">
-              <span class="skill-name">Injury</span>
-              <input type="number" v-model="selectedCharacter.injury" class="weakness-score" min="0"/>
-            </div>
-            <div class="state-row">
-              <span class="skill-name">Helpless</span>
-              <input type="checkbox" v-model="selectedCharacter.states.helpless" class="skill-checkbox" />
-              <input type="checkbox" v-model="selectedCharacter.states.twiceHelpless" class="skill-checkbox" />
-              <span></span> <!-- Empty span for alignment -->
-              <span></span> <!-- Empty span for alignment -->
-            </div>
-          </div>  
-
-          <!-- Conditions Column -->
-          <div class="conditions-column">
-            <div class="conditions-header">Conditions</div>
-            <div class="skill-row" v-for="(value, key) in selectedCharacter.conditions" :key="key">
-              <span class="skill-name">{{ capitalizeFirstLetter(key) }}</span>
-              <input type="checkbox" class="skill-checkbox" v-model="selectedCharacter.conditions[key]" />
-            </div>
-          </div>
-
-        </div>
-
-        <!-- Second Row -->
-        <div class="character-stat-row">
-
-          <!--Equipment Table-->
-          <div class="equipment-table">
-
-            <!-- Title Row -->
-            <div class="equipment-title">EQUIPMENT</div>
-
-            <!-- Header Row -->
-            <div class="equipment-header-row">
-              <span class="equipment-header">item</span>
-              <span class="equipment-header">lbs</span>
-              <span class="equipment-header">qty</span>
-              <span class="equipment-header-angled">carried</span>
-              <span class="equipment-header-angled">lbs carried</span>
-            </div>
-
-            <!--Equipment item rows-->
-            <div v-for="(item, index) in selectedCharacter.equipment" :key="index" class="equipment-row">
-              <input type="text" v-model="item.name" class="equipment-item-name-input" @change="updateEquipmentItem(index, 'name', item.name)">
-              <input type="number" v-model.number="item.weight" class="equipment-weight-input" @input="updateEquipmentItem(index, 'weight', Math.max(0, item.weight))">
-              <input type="number" v-model.number="item.quantity" class="equipment-quantity-input" @input="updateEquipmentItem(index, 'quantity', Math.max(0, item.quantity))">
-              <input type="checkbox" v-model="item.carried" class="equipment-checkbox" @change="updateEquipmentItem(index, 'carried', item.carried)">
-              <span class="equipment-lbs-carried"> {{ item.carried ? formatWeight(item.weight * item.quantity) : '0' }} </span>
-              <span @click="removeEquipmentItem(index)" class="delete-item-link">ⓧ</span>
-            </div>
-
-            <!-- Add Item Row -->
-            <div class="equipment-row">
-              <span></span> <!-- Empty span for alignment -->
-              <span></span> <!-- Empty span for alignment -->
-              <span></span> <!-- Empty span for alignment -->
-              <span></span> <!-- Empty span for alignment -->
-              <span></span> <!-- Empty span for alignment -->
-              <span @click="addEquipmentItem()" class="add-item-link">+</span>
-            </div>
-
-            <!-- Total Weight Row -->
-            <div class="equipment-row total-weight-row">
-              <span>Total Weight Carried</span>
-              <span></span> <!-- Empty span for alignment -->
-              <span></span> <!-- Empty span for alignment -->
-              <span></span> <!-- Empty span for alignment -->
-              <span class="equipment-lbs-carried">{{ totalWeightCarried }}</span>
-              <span></span> <!-- Empty span for alignment -->
-            </div>
-
-          </div>
-
-        </div>
-        
-      </div>
-
-      <!-- DICE ROLL MODAL -->
-      <div v-if="showSkillCheckModal" class="dice-roll-modal-overlay" @click="closeSkillCheckModal">
-        <div class="dice-roll-modal-content" @click.stop>
-          <h2>{{ selectedCharacter.name }} rolling...</h2>
-          <select v-model="selectedSkillName" class="dice-roll-modal-skill-dropdown">
-            <option v-if="!selectedSkillName" disabled selected>No skill selected</option>
-            <option v-for="skill in selectedCharacter.skills" :key="skill.name" :value="skill.name">
-              {{ skill.name }}
-            </option>
-          </select>
-          <div v-if="selectedSkillName">
-            <div class="dice-roll-modal-row">
-              <label>
-                <input type="checkbox" class="skill-checkbox" v-model="getSelectedSkill.isFavored" />
-                Favored
-              </label>
-              <label>
-                <input type="checkbox" class="skill-checkbox" v-model="getSelectedSkill.isIllFavored" />
-                Ill-Favored
-              </label>
-            </div>
-            <div class="dice-roll-modal-row">
-              <label>
-                Ranks:
-                <input type="number" class="dice-roll-modal-input" v-model="getSelectedSkill.ranks" min="0" />
-              </label>
-              <label>
-                Dice Mod:
-                <input type="number" class="dice-roll-modal-input" v-model="getSelectedSkill.diceMod" />
-              </label>
-            </div>
-            <div class="dice-roll-modal-target-number-row">
-              <h3>Target Number:</h3>
-              <input type="number" class="dice-roll-modal-target-number-input" v-model="targetNumber" min="0" />
-            </div>
-          </div>
-          <button class="roll-button" @click="handleSkillCheck(selectedSkillName)">Roll</button>
-        </div>
-      </div>
-
     </div>
 
   </div>
@@ -351,10 +341,6 @@ export default {
       targetNumber: 0,
       updateTimeout: null,
     };
-  },
-
-  mounted() {
-    this.characterStore.fetchCharacters();
   },
 
   computed: {
@@ -550,24 +536,6 @@ export default {
     font-size: 16px;
   }
 
-  .background {
-    background-image: url('https://cdn.midjourney.com/b380594a-e352-4deb-b7b0-c3fff0095472/0_3.png');
-    background-size: cover;
-    background-attachment: fixed;
-    background-position: center;
-    position: absolute;
-    min-width: 100%;
-    min-height: 100%;
-    top: 0;
-    left: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: lightgray;
-    font-family: 'Lora', serif;
-  }
-
   .character-selector {
     margin: 10px 0 30px 0;
   }
@@ -576,10 +544,11 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: rgba(0,0,0,0.75);
+    background: rgba(0,0,0,0.65);
     width: 80%;
     max-height: 100%;
     padding: 20px;
+    position: relative;
   }
 
   @media (max-width: 567px) {
@@ -587,6 +556,16 @@ export default {
       width: 90%;
       padding: 0;
     }
+  }
+
+  .close-button {
+    position: absolute;
+    top: -10px;
+    right: 15px;
+    z-index: 1000;
+    font-size: 20px;
+    text-decoration: none;
+    color: white;
   }
 
   

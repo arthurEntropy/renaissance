@@ -1,0 +1,199 @@
+{
+  "id": 6,
+  "name": "Doran",
+  "artUrl": "https://cdn.midjourney.com/c0bc4dfb-498a-4163-b451-a61affada144/0_0.png",
+  "body": 3,
+  "heart": 2,
+  "wits": 1,
+  "skills": [
+    {
+      "name": "Awe",
+      "ranks": 2,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": -1
+    },
+    {
+      "name": "Strength",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0
+    },
+    {
+      "name": "Dexterity",
+      "ranks": 2,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0
+    },
+    {
+      "name": "Fortitude",
+      "ranks": 0,
+      "isFavored": true,
+      "isIllFavored": false,
+      "diceMod": 0
+    },
+    {
+      "name": "Craft",
+      "ranks": 1,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": -1
+    },
+    {
+      "name": "Perform",
+      "ranks": 1,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 1
+    },
+    {
+      "name": "Insight",
+      "ranks": 1,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0
+    },
+    {
+      "name": "Courtesy",
+      "ranks": 2,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0
+    },
+    {
+      "name": "Spirit",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0
+    },
+    {
+      "name": "Aid",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": true,
+      "diceMod": -1
+    },
+    {
+      "name": "Persuade",
+      "ranks": 1,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0
+    },
+    {
+      "name": "Awareness",
+      "ranks": 1,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0
+    },
+    {
+      "name": "Stealth",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0
+    },
+    {
+      "name": "Lore",
+      "ranks": 1,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0
+    },
+    {
+      "name": "Riddle",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": true,
+      "diceMod": -1
+    }
+  ],
+  "endurance": {
+    "current": 10,
+    "max": 10
+  },
+  "hope": {
+    "current": 12,
+    "max": 12
+  },
+  "defense": {
+    "current": 13,
+    "max": 13
+  },
+  "load": 4,
+  "shadow": 0,
+  "injury": 0,
+  "states": {
+    "weary": false,
+    "twiceWeary": false,
+    "miserable": false,
+    "twiceMiserable": false,
+    "helpless": false,
+    "twiceHelpless": false
+  },
+  "conditions": {
+    "insecure": false,
+    "guilty": false,
+    "angry": false,
+    "afraid": false,
+    "troubled": true
+  },
+  "equipment": [
+    {
+      "name": "Rations",
+      "weight": 1,
+      "quantity": 10,
+      "carried": true
+    },
+    {
+      "name": "Grappling Hook",
+      "weight": 2,
+      "quantity": 2,
+      "carried": true
+    },
+    {
+      "name": "Tinderbox",
+      "weight": 1,
+      "quantity": 1,
+      "carried": true
+    },
+    {
+      "name": "Silversmith's Tools",
+      "weight": 2,
+      "quantity": 1,
+      "carried": true
+    }
+  ],
+  "activeEffects": [
+    {
+      "name": "Weird But Entertaining",
+      "skillsModified": [
+        {
+          "name": "Awe",
+          "diceMod": -1,
+          "makeFavored": false,
+          "makeIllFavored": false
+        },
+        {
+          "name": "Perform",
+          "diceMod": 1,
+          "makeFavored": false,
+          "makeIllFavored": false
+        }
+      ]
+    }
+  ],
+  "pronouns": "he/him",
+  "races": "Rospogenti",
+  "cultures": "Raudkorna",
+  "personalityAndBackground": "Priest of the Church of Baldur. De factor ruler of Brimsholler. Possibly a bad dude?",
+  "xp": 10,
+  "mp": {
+    "current": 3,
+    "max": 5
+  }
+}
