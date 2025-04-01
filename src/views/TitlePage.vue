@@ -1,6 +1,8 @@
 <template>
   <div class="homepage">
-    <h1>Renaissance</h1>
+    <RouterLink to="/character-selection">
+      <h1 class="main-title">Renaissance</h1>
+    </RouterLink>
   </div>
 </template>
 
@@ -21,19 +23,20 @@
     padding-bottom: 25px;
   }
 
-  h1 {
+  .main-title {
     font-family: 'My Soul', cursive;
     font-size: 15vw;
     color: goldenrod;
     text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5);
+    text-decoration: none;
   }
-  h1:hover {
+  main-title:hover {
     text-shadow: 0px 0px 5px lightgray;
     cursor: pointer;
     transition: text-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
     transform: scale(1.02);
   }
-  h1:hover::after {
+  main-title:hover::after {
     opacity: 1;
     visibility: visible;
   }

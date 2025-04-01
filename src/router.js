@@ -1,10 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import Home from '@/views/Home.vue';
+import TitlePage from '@/views/TitlePage.vue';
 import CharacterSelection from '@/views/CharacterSelection.vue';
 import CharacterSheet from '@/views/CharacterSheet.vue';
 
 const routes = [
-  { path: '/', component: Home },
+  { path: '/', component: TitlePage },
   { path: '/character-selection', component: CharacterSelection },
   { path: '/character-sheet', component: CharacterSheet },
 ];
