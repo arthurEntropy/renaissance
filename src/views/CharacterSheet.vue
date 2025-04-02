@@ -32,7 +32,7 @@
         </div>
         <div class = "bio-fields-row">
           <div class="bio-field">
-            <label>Race(s): <input type="text" v-model="selectedCharacter.races" class="bio-input-field" /></label>
+            <label>Ancestry: <input type="text" v-model="selectedCharacter.ancestries" class="bio-input-field" /></label>
           </div>
         </div>
         <div class = "bio-fields-row">

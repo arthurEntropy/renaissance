@@ -4,6 +4,7 @@
       <button class="menu-toggle" @click="toggleMenu">☰</button>
       <nav v-if="menuOpen">
         <router-link to="/character-selection" @click="closeMenu">CHARACTERS</router-link>
+        <router-link to="/ancestries" @click="closeMenu">ANCESTRIES</router-link>
       </nav>
     </div>
 
