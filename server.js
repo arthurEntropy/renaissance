@@ -13,6 +13,7 @@ app.use(express.json());
 app.use(cors());
 
 const charactersDir = path.join(process.cwd(), 'data', 'characters');
+const ancestriesDir = path.join(process.cwd(), 'data', 'ancestries');
 
 const getAllCharacters = () => {
     return fs.readdirSync(charactersDir)
@@ -114,6 +115,21 @@ app.put('/characters/:id', (req, res) => {
     }
 });
 
+app.get('/ancestries', (req, res) => {
+    fs.readdir(ancestriesDir, (err, files) => {
+        if (err) {
+            console.error("Error reading ancestries directory:", err);
+            return res.status(500).send("Error reading ancestries directory.");
+        }
+
+        const ancestries = files.map(file => {
+            const filePath = path.join(ancestriesDir, file);
+            return JSON.parse(fs.readFileSync(filePath, 'utf8'));
+        });
+
+        res.json(ancestries);
+    });
+});
 
 app.post('/send-message', (req, res) => {
     console.log("Received roll request:", req.body);  // <-- Log request payload
@@ -168,7 +184,6 @@ app.post('/send-message', (req, res) => {
         });
     });    
 
-  
     app.listen(PORT, () => {
         console.log(`Server is running on http://localhost:${PORT}`);
 });

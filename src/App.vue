@@ -3,8 +3,8 @@
     <div class="nav-menu" :class="{ open: menuOpen }">
       <button class="menu-toggle" @click="toggleMenu">☰</button>
       <nav v-if="menuOpen">
-        <router-link to="/character-selection" @click="closeMenu">Character Selection</router-link>
-        <router-link to="/character-sheet" @click="closeMenu">Character Sheet</router-link>
+        <router-link to="/character-selection" @click="closeMenu">CHARACTERS</router-link>
+        <router-link to="/ancestries" @click="closeMenu">ANCESTRIES</router-link>
       </nav>
     </div>
 
@@ -49,6 +49,9 @@ html, body {
   justify-content: center;
   align-items: center;
   position: relative;
+}
+a {
+  text-decoration: none; /* Remove underline from all links */
 }
 
 /* Navigation Menu */
