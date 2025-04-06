@@ -1,7 +1,9 @@
 {
   "id": 7,
   "name": "Sethric",
-  "artUrl": "https://cdn.midjourney.com/197f94cf-5881-40eb-992f-01478aac1660/0_3.png",
+  "artUrls": [
+    "https://cdn.midjourney.com/197f94cf-5881-40eb-992f-01478aac1660/0_3.png"
+  ],
   "body": 3,
   "heart": 2,
   "wits": 1,

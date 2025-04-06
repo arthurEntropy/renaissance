@@ -1,7 +1,9 @@
 {
   "id": 5,
   "name": "Natsu",
-  "artUrl": "https://cdn.midjourney.com/a6773dd7-3da8-4349-9212-b021c7aa09f7/0_2.png",
+  "artUrls": [
+    "https://cdn.midjourney.com/a6773dd7-3da8-4349-9212-b021c7aa09f7/0_2.png"
+  ],
   "body": 3,
   "heart": 2,
   "wits": 1,

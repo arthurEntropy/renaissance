@@ -1,7 +1,9 @@
 {
   "id": 4,
   "name": "Bobobito",
-  "artUrl": "https://cdn.midjourney.com/33a4c041-49a8-4234-8e65-54d65bc7033b/0_0.png",
+  "artUrls": [
+    "https://cdn.midjourney.com/33a4c041-49a8-4234-8e65-54d65bc7033b/0_0.png"
+  ],
   "body": 3,
   "heart": 2,
   "wits": 1,

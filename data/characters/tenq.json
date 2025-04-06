@@ -1,7 +1,9 @@
 {
   "id": 8,
   "name": "Tenq",
-  "artUrl": "https://cdn.midjourney.com/545939d2-7091-4ee5-9e3d-479166b344af/0_3.png",
+  "artUrls": [
+    "https://cdn.midjourney.com/545939d2-7091-4ee5-9e3d-479166b344af/0_3.png"
+  ],
   "body": 3,
   "heart": 2,
   "wits": 1,

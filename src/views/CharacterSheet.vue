@@ -11,8 +11,8 @@
 
       <!-- Character Art -->
       <div class="character-art">
-        <img v-if="selectedCharacter.artUrl" 
-            :src="selectedCharacter.artUrl" 
+        <img v-if="selectedCharacter.artUrls" 
+            :src="selectedCharacter.artUrls[0]" 
             class="character-art-image" 
             @click="openFullSizeCharacterArtModal(selectedCharacter.artUrl)" />
         <p v-else>No character art available</p>

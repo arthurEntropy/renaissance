@@ -1,11 +1,13 @@
 <template>
   <div class="ancestry-selection" v-if="!selectedAncestry">
     <h2>ANCESTRIES</h2>
-    <div class="ancestry-selection-cards-section">
-      <div class="ancestry-selection-card" v-for="ancestry in ancestries" :key="ancestry.id">
-        <img :src="ancestry.artUrls[0]" :alt="ancestry.name" class="selection-image" @click="selectAncestry(ancestry)"/>
-        <p class="ancestry-name">{{ ancestry.name }}</p>
-      </div>
+    <div class="selection-cards-container">
+      <SelectionCard 
+        v-for="ancestry in ancestries" 
+        :key="ancestry.id" 
+        :item="ancestry" 
+        @select="selectAncestry(ancestry)"
+      />
     </div>
   </div>
   
@@ -28,8 +30,12 @@
 <script>
 import { useAncestriesStore } from '@/stores/ancestriesStore';
 import { mapState } from 'pinia';
+import SelectionCard from '@/components/SelectionCard.vue';
 
 export default {
+  components: {
+    SelectionCard
+  },
   data() {
     return {
       store: useAncestriesStore(),
@@ -62,77 +68,80 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .ancestry-selection {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 80%;
+  width: 90%;
   flex-grow: 1;
+  margin: 0 auto;
+  padding: 1rem;
 }
-.ancestry-selection-cards-section {
+
+.selection-cards-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  gap: 1rem;
   padding-bottom: 50px;
 }
-.ancestry-selection-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 10px;
-  padding: 10px;
-  border-radius: 5px;
-  background-color: rgba(0, 0, 0, 0.65);
-  cursor: pointer;
-}
-.selection-image {
-  width: 200px;
-  height: 200px;
-  object-fit: cover;
-  margin: 10px;
-}
-.ancestry-name {
-  font-size: 20px;
-  font-weight: normal;
-  margin: 10px;
-  max-width: 200px;
-  text-align: center;
-}
 
+/* Detail view layout */
 .ancestry-detail {
   position: fixed;
   top: 50%;
   left: 50%;
-  width: 80vw;
-  height: 80vh;
+  width: 90vw;
+  max-width: 900px;
+  height: 90vh;
   background: rgba(0, 0, 0, 0.65);
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   border-radius: 10px;
   transform: translate(-50%, -50%);
+  overflow-y: auto;
+  padding: 1rem;
 }
+
 .ancestry-detail-content {
   display: flex;
-  padding: 20px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 1rem;
   border-radius: 10px;
   color: white;
+  justify-content: center;
+  align-items: center;
 }
+
+/* Carousel image area */
 .image-carousel {
   display: flex;
   align-items: center;
+  justify-content: center;
   position: relative;
+  margin-bottom: 1rem;
 }
+
 .detail-image {
-  width: 400px;
-  height: 400px;
+  width: 300px;
+  height: 300px;
+  max-width: 80vw;
+  max-height: 80vw;
   object-fit: cover;
+  border-radius: 10px;
 }
+
 .ancestry-info {
-  margin-left: 20px;
   max-width: 400px;
+  text-align: center;
+  padding: 0 1rem;
 }
+
+/* Buttons */
 .close-button {
   position: absolute;
   top: 10px;
@@ -164,9 +173,35 @@ export default {
 
 .nav-button.left {
   left: 10px;
+  height: 50px;
 }
 
 .nav-button.right {
   right: 10px;
+  height: 50px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .ancestry-detail-content {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .ancestry-info {
+    margin-left: 0;
+    padding: 1rem 0;
+  }
+
+  .detail-image {
+    width: 250px;
+    height: 250px;
+  }
+
+  .nav-button {
+    font-size: 20px;
+    padding: 4px 8px;
+  }
 }
 </style>

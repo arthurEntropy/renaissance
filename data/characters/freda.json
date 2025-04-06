@@ -1,7 +1,9 @@
 {
   "id": 1,
   "name": "Freda",
-  "artUrl": "https://cdn.midjourney.com/3914bd33-13a2-48e4-89c5-b75076572688/0_1.png",
+  "artUrls": [
+    "https://cdn.midjourney.com/3914bd33-13a2-48e4-89c5-b75076572688/0_1.png"
+  ],
   "body": 2,
   "heart": 4,
   "wits": 3,
