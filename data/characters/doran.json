@@ -1,7 +1,9 @@
 {
   "id": 6,
   "name": "Doran",
-  "artUrl": "https://cdn.midjourney.com/c0bc4dfb-498a-4163-b451-a61affada144/0_0.png",
+  "artUrls": [
+    "https://cdn.midjourney.com/c0bc4dfb-498a-4163-b451-a61affada144/0_0.png"
+  ],
   "body": 3,
   "heart": 2,
   "wits": 1,

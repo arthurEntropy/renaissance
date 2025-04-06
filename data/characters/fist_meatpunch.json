@@ -1,7 +1,9 @@
 {
   "id": 2,
   "name": "Fist Meatpunch",
-  "artUrl": "https://cdn.midjourney.com/579f1913-10e8-438c-9d1d-949151eb171c/0_0.png",
+  "artUrls": [
+    "https://cdn.midjourney.com/579f1913-10e8-438c-9d1d-949151eb171c/0_0.png"
+  ],
   "targetNumber": 12,
   "body": 5,
   "heart": 2,

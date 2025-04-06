@@ -1,7 +1,9 @@
 {
   "id": 12,
   "name": "Arturo",
-  "artUrl": "https://cdn.midjourney.com/1a823ba8-dae5-4791-b9e9-0d7ea00cf5f4/0_2.png",
+  "artUrls": [
+    "https://cdn.midjourney.com/1a823ba8-dae5-4791-b9e9-0d7ea00cf5f4/0_2.png"
+  ],
   "body": 3,
   "heart": 2,
   "wits": 1,

@@ -1,7 +1,9 @@
 {
   "id": 11,
   "name": "Amaru",
-  "artUrl": "https://cdn.midjourney.com/46f7df2d-65a2-44e8-90fd-c01738a187c3/0_0.png",
+  "artUrls": [
+    "https://cdn.midjourney.com/46f7df2d-65a2-44e8-90fd-c01738a187c3/0_0.png"
+  ],
   "body": 3,
   "heart": 2,
   "wits": 1,

@@ -1,7 +1,9 @@
 {
   "id": 10,
   "name": "Dorothea",
-  "artUrl": "https://cdn.midjourney.com/890188b9-df60-4f68-8f03-11b5d1f127b4/0_2.png",
+  "artUrls": [
+    "https://cdn.midjourney.com/890188b9-df60-4f68-8f03-11b5d1f127b4/0_2.png"
+  ],
   "body": 3,
   "heart": 2,
   "wits": 1,
