@@ -1,6 +1,6 @@
 <template>
   <div class="homepage">
-    <RouterLink to="/character-selection">
+    <RouterLink to="/ancestries">
       <h1 class="main-title">Renaissance</h1>
     </RouterLink>
   </div>
