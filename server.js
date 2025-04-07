@@ -14,6 +14,7 @@ app.use(cors());
 
 const charactersDir = path.join(process.cwd(), 'data', 'characters');
 const ancestriesDir = path.join(process.cwd(), 'data', 'ancestries');
+const culturesDir = path.join(process.cwd(), 'data', 'cultures');
 
 const getAllCharacters = () => {
     return fs.readdirSync(charactersDir)
@@ -121,15 +122,27 @@ app.get('/ancestries', (req, res) => {
             console.error("Error reading ancestries directory:", err);
             return res.status(500).send("Error reading ancestries directory.");
         }
-
         const ancestries = files.map(file => {
             const filePath = path.join(ancestriesDir, file);
             return JSON.parse(fs.readFileSync(filePath, 'utf8'));
         });
-
         res.json(ancestries);
     });
 });
+
+app.get('/cultures', (req, res) => {
+    fs.readdir(culturesDir, (err, files) => {
+        if (err) {
+            console.error("Error reading cultures directory:", err);
+            return res.status(500).send("Error reading cultures directory.");
+        }
+        const cultures = files.map(file => {
+            const filePath = path.join(culturesDir, file);
+            return JSON.parse(fs.readFileSync(filePath, 'utf8'));
+        });
+        res.json(cultures);
+    });
+});    
 
 app.post('/send-message', (req, res) => {
     console.log("Received roll request:", req.body);  // <-- Log request payload
