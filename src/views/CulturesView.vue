@@ -1,25 +1,25 @@
 <template>
-  <div class="ancestry-selection" v-if="!selectedAncestry">
-    <h2>ANCESTRIES</h2>
+  <div class="culture-selection" v-if="!selectedCulture">
+    <h2>CULTURES</h2>
     <div class="selection-cards-container">
       <SelectionCard 
-        v-for="ancestry in ancestries" 
-        :key="ancestry.id" 
-        :item="ancestry" 
-        @select="selectAncestry(ancestry)"
+        v-for="culture in cultures" 
+        :key="culture.id" 
+        :item="culture" 
+        @select="selectCulture(culture)"
       />
     </div>
   </div>
   
   <ConceptDetail 
     v-else 
-    :concept="selectedAncestry" 
+    :concept="selectedCulture" 
     @close="closeDetailView" 
   />
 </template>
 
 <script>
-  import { useAncestriesStore } from '@/stores/ancestriesStore';
+  import { useCulturesStore } from '@/stores/culturesStore';
   import { mapState } from 'pinia';
   import SelectionCard from '@/components/SelectionCard.vue';
   import ConceptDetail from '@/components/ConceptDetail.vue';
@@ -31,29 +31,29 @@
     },
     data() {
       return {
-        store: useAncestriesStore(),
-        selectedAncestry: null,
+        store: useCulturesStore(),
+        selectedCulture: null,
       };
     },
     computed: {
-      ...mapState(useAncestriesStore, ['ancestries']),
+      ...mapState(useCulturesStore, ['cultures']),
     },
     methods: {
-      selectAncestry(ancestry) {
-        this.selectedAncestry = ancestry;
+      selectCulture(culture) {
+        this.selectedCulture = culture;
       },
       closeDetailView() {
-        this.selectedAncestry = null;
+        this.selectedCulture = null;
       },
     },
     mounted() {
-      this.store.fetchAncestries();
+      this.store.fetchCultures();
     },
   };
 </script>
 
 <style scoped>
-  .ancestry-selection {
+  .culture-selection {
     display: flex;
     flex-direction: column;
     align-items: center;

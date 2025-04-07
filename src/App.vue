@@ -5,6 +5,7 @@
       <nav v-if="menuOpen">
         <router-link to="/characters" @click="closeMenu">CHARACTERS</router-link>
         <router-link to="/ancestries" @click="closeMenu">ANCESTRIES</router-link>
+        <router-link to="/cultures" @click="closeMenu">CULTURES</router-link>
       </nav>
     </div>
 
