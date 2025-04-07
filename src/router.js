@@ -1,14 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import TitlePage from '@/views/TitlePage.vue';
-import CharacterSelection from '@/views/CharacterSelection.vue';
-import CharacterSheet from '@/views/CharacterSheet.vue';
-import AncestrySelection from '@/views/AncestrySelection.vue';
+import CharactersView from '@/views/CharactersView.vue';
+import AncestriesView from '@/views/AncestriesView.vue';
 
 const routes = [
   { path: '/', component: TitlePage },
-  { path: '/character-selection', component: CharacterSelection },
-  { path: '/character-sheet', component: CharacterSheet },
-  { path: '/ancestries', component: AncestrySelection },
+  { path: '/characters', component: CharactersView },
+  { path: '/ancestries', component: AncestriesView },
 ];
 
 const router = createRouter({
