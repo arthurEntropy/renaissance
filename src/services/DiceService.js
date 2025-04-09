@@ -20,7 +20,7 @@ class DiceService {
     
         this.sendRollResultsToServer(
             results.map(r => r.symbol), totalSum, success, skillName, footer,
-            character.artUrl, targetNumber, character.name
+            character.artUrls[0], targetNumber, character.name
         );
     }    
 
