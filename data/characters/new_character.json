@@ -1,28 +1,25 @@
 {
-  "id": 3,
-  "artUrls": [
-    "https://cdn.midjourney.com/b103377f-aac8-4932-a0ef-4f996901880d/0_3.png"
-  ],
-  "name": "Cheech",
-  "pronouns": "she/her",
-  "ancestries": "Halfling",
-  "cultures": "I Castagne",
-  "personalityAndBackground": "From an isolated village in the remote giant chestnut (castagne) forest. Wears armor crafted from chestnut hulls. Uncultured, kind, fierce, loyal.",
-  "xp": 10,
+  "id": "5980f08a-2266-4bd2-b21a-95301fb8287c",
+  "name": "New Character",
+  "pronouns": "",
+  "ancestries": "",
+  "cultures": "",
+  "personalityAndBackground": "",
+  "xp": 0,
   "mp": {
-    "current": 3,
-    "max": 5
+    "current": 0,
+    "max": 0
   },
-  "body": 3,
-  "heart": 2,
-  "wits": 1,
+  "body": 0,
+  "heart": 0,
+  "wits": 0,
   "skills": [
     {
       "name": "Awe",
-      "ranks": 2,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": -1
+      "diceMod": 0
     },
     {
       "name": "Strength",
@@ -33,7 +30,7 @@
     },
     {
       "name": "Dexterity",
-      "ranks": 2,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0
@@ -41,41 +38,41 @@
     {
       "name": "Fortitude",
       "ranks": 0,
-      "isFavored": true,
+      "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0
     },
     {
       "name": "Craft",
-      "ranks": 1,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": -1
+      "diceMod": 0
     },
     {
       "name": "Perform",
-      "ranks": 3,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 1
+      "diceMod": 0
     },
     {
       "name": "Insight",
-      "ranks": 1,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0
     },
     {
       "name": "Courtesy",
-      "ranks": 2,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0
     },
     {
       "name": "Spirit",
-      "ranks": 2,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0
@@ -84,19 +81,19 @@
       "name": "Aid",
       "ranks": 0,
       "isFavored": false,
-      "isIllFavored": true,
-      "diceMod": -1
+      "isIllFavored": false,
+      "diceMod": 0
     },
     {
       "name": "Persuade",
-      "ranks": 1,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0
     },
     {
       "name": "Awareness",
-      "ranks": 1,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0
@@ -110,7 +107,7 @@
     },
     {
       "name": "Lore",
-      "ranks": 1,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0
@@ -119,21 +116,21 @@
       "name": "Riddle",
       "ranks": 0,
       "isFavored": false,
-      "isIllFavored": true,
-      "diceMod": -1
+      "isIllFavored": false,
+      "diceMod": 0
     }
   ],
   "endurance": {
-    "current": 10,
-    "max": 15
+    "current": 0,
+    "max": 0
   },
   "hope": {
-    "current": 9,
-    "max": 6
+    "current": 0,
+    "max": 0
   },
   "defense": {
-    "current": 13,
-    "max": 11
+    "current": 0,
+    "max": 10
   },
   "load": 0,
   "shadow": 0,
@@ -151,51 +148,12 @@
     "guilty": false,
     "angry": false,
     "afraid": false,
-    "troubled": true
+    "troubled": false
   },
-  "equipment": [
-    {
-      "name": "Rations",
-      "weight": 1,
-      "quantity": 10,
-      "carried": true
-    },
-    {
-      "name": "Grappling Hook",
-      "weight": 2,
-      "quantity": 2,
-      "carried": true
-    },
-    {
-      "name": "Tinderbox",
-      "weight": 1,
-      "quantity": 1,
-      "carried": true
-    },
-    {
-      "name": "Silversmith's Tools",
-      "weight": 2,
-      "quantity": 1,
-      "carried": true
-    }
+  "equipment": [],
+  "artUrls": [
+    "https://cdn.midjourney.com/a8a36740-b7d3-4aef-bea3-a95039bec06f/0_2.png"
   ],
-  "activeEffects": [
-    {
-      "name": "Weird But Entertaining",
-      "skillsModified": [
-        {
-          "name": "Awe",
-          "diceMod": -1,
-          "makeFavored": false,
-          "makeIllFavored": false
-        },
-        {
-          "name": "Perform",
-          "diceMod": 1,
-          "makeFavored": false,
-          "makeIllFavored": false
-        }
-      ]
-    }
-  ]
+  "activeEffects": [],
+  "isDeleted": true
 }

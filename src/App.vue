@@ -51,9 +51,6 @@ html, body {
   align-items: center;
   position: relative;
 }
-a {
-  text-decoration: none; /* Remove underline from all links */
-}
 
 /* Navigation Menu */
 .nav-menu {

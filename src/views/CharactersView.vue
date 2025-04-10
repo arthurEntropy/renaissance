@@ -4,7 +4,7 @@
     <!--CHARACTER SELECTION-->
     <div v-if="!selectedCharacter" class="character-selection">
       <h2>CHARACTERS</h2>
-      <button class="new-character-button" @click="createNewCharacter">New Character</button>
+      <button class="button button-primary new-character-button" @click="createNewCharacter">New Character</button>
       <div class="selection-cards-container">
         <SelectionCard 
           v-for="character in characters"
@@ -15,14 +15,19 @@
       </div>
     </div>
 
+
     <!--CHARACTER SHEET-->
     <div v-if="selectedCharacter" class="character-sheet">
+
+      <!-- Gear Icon -->
+      <div class="settings-icon" @click="openSettingsModal">⚙️</div>
 
       <!-- Saving Status -->
       <p v-if="savingStatus" class="saving-status">{{ savingStatus }}</p>
 
-      <!-- CLOSE BUTTON -->
-      <p class="close-button" @click="deselectCharacter">🆇</p>
+      <!-- Close Button -->
+      <p class="close-button" @click="deselectCharacter">ⓧ</p>
+
 
       <!-- CHARACTER BIO SECTION-->
       <div class="character-bio-section">
@@ -87,34 +92,6 @@
 
       </div>
 
-      <!-- FULL-SIZE CHARACTER ART MODAL -->
-      <div v-if="showFullSizeCharacterArtModal" class="full-size-character-art-modal" @click="closeFullSizeCharacterArttModal">
-        <div class="full-size-character-art-modal-content" @click.stop>
-          <img
-            :src="selectedCharacter.artUrls[0] || defaultArtUrl" 
-            alt="Full-size Character Portrait" 
-            class="full-size-character-art-modal-image" />
-          <div class="change-link">
-            <a href="javascript:void(0)" @click="openChangeCharacterArtModal">Change</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- CHANGE CHARACTER ART MODAL -->
-      <div v-if="showChangeCharacterArtModal" class="character-art-url-modal-overlay" @click="closeChangeCharacterArtModal">
-        <div class="character-art-url-modal-content" @click.stop>
-          <label for="imageUrl">Image URL:</label>
-          <input 
-            type="text" 
-            v-model="tempArtUrl" 
-            id="imageUrl" 
-            class="image-url-input" 
-            placeholder="Enter image URL" 
-          />
-          <button @click="closeChangeCharacterArtModal">Cancel</button>
-          <button @click="saveCharacterArtUrl">Save</button>
-        </div>
-      </div>
 
       <!-- CHARACTER STATS SECTION -->
       <div class="character-stats-section">
@@ -307,81 +284,46 @@
         
       </div>
 
-      <!-- DICE ROLL MODAL -->
-      <div v-if="showSkillCheckModal" class="dice-roll-modal-overlay" @click="closeSkillCheckModal">
-        <div class="dice-roll-modal-content" @click.stop>
-          <h2>{{ selectedCharacter.name }} rolling...</h2>
-          <select v-model="selectedSkillName" class="dice-roll-modal-skill-dropdown">
-            <option v-if="!selectedSkillName" disabled selected>No skill selected</option>
-            <option v-for="skill in selectedCharacter.skills" :key="skill.name" :value="skill.name">
-              {{ skill.name }}
-            </option>
-          </select>
-          <div v-if="selectedSkillName">
-            <div class="dice-roll-modal-row">
-              <label>
-                <input type="checkbox" class="skill-checkbox" v-model="getSelectedSkill.isFavored" />
-                Favored
-              </label>
-              <label>
-                <input type="checkbox" class="skill-checkbox" v-model="getSelectedSkill.isIllFavored" />
-                Ill-Favored
-              </label>
-            </div>
-            <div class="dice-roll-modal-row">
-              <label>
-                Ranks:
-                <input type="number" class="dice-roll-modal-input" v-model="getSelectedSkill.ranks" min="0" />
-              </label>
-              <label>
-                Dice Mod:
-                <input type="number" class="dice-roll-modal-input" v-model="getSelectedSkill.diceMod" />
-              </label>
-            </div>
-            <div class="dice-roll-modal-target-number-row">
-              <h3>Target Number:</h3>
-              <input type="number" class="dice-roll-modal-target-number-input" v-model="targetNumber" min="0" />
-            </div>
-          </div>
-          <button class="roll-button" @click="handleSkillCheck(selectedSkillName)">Roll</button>
-        </div>
-      </div>
+      
+      <!-- MODALS -->
+      <FullSizeCharacterArtModal
+        v-if="showFullSizeCharacterArtModal"
+        :imageUrl="selectedCharacter.artUrls[0] || defaultArtUrl"
+        @close="closeFullSizeCharacterArtModal"
+        @change-art="openChangeCharacterArtModal"
+      />
 
-      <!-- Gear Icon -->
-      <div class="settings-icon" @click="openSettingsModal">⚙️</div>
+      <ChangeCharacterArtModal
+        v-if="showChangeCharacterArtModal"
+        :initialArtUrl="selectedCharacter.artUrls[0] || ''"
+        @close="closeChangeCharacterArtModal"
+        @save="saveCharacterArtUrl"
+      />
+
+      <SkillCheckModal
+        v-if="showSkillCheckModal"
+        :characterName="selectedCharacter.name"
+        :skills="selectedCharacter.skills"
+        :selectedSkillName="selectedSkillName"
+        :targetNumber="targetNumber"
+        @close="closeSkillCheckModal"
+        @roll="handleSkillCheck"
+      />
 
       <!-- Settings Modal -->
-      <div v-if="showSettingsModal" class="settings-modal-overlay" @click="closeSettingsModal">
-        <div class="settings-modal-content" @click.stop>
-          <h2>Settings</h2>
-          <button class="delete-character-button" @click="openDeleteConfirmationModal">Delete Character</button>
-          <button @click="closeSettingsModal">Close</button>
-        </div>
-      </div>
+      <SettingsModal
+        v-if="showSettingsModal"
+        @close="closeSettingsModal"
+        @delete="openDeleteConfirmationModal"
+      />
 
       <!-- Delete Confirmation Modal -->
-      <div v-if="showDeleteConfirmationModal" class="delete-confirmation-modal-overlay" @click="closeDeleteConfirmationModal">
-        <div class="delete-confirmation-modal-content" @click.stop>
-          <h2>Confirm Deletion</h2>
-          <p>Type the character's name (<strong>{{ selectedCharacter.name }}</strong>) to confirm deletion:</p>
-          <input 
-            type="text" 
-            v-model="deleteConfirmationInput" 
-            class="delete-confirmation-input" 
-            placeholder="Enter character name" 
-          />
-          <div class="delete-confirmation-buttons">
-            <button @click="closeDeleteConfirmationModal">Cancel</button>
-            <button 
-              class="confirm-delete-button" 
-              :disabled="deleteConfirmationInput !== selectedCharacter.name" 
-              @click="deleteCharacter"
-            >
-              Confirm
-            </button>
-          </div>
-        </div>
-      </div>
+      <DeleteConfirmationModal
+        v-if="showDeleteConfirmationModal"
+        :characterName="selectedCharacter.name"
+        @close="closeDeleteConfirmationModal"
+        @confirm="deleteCharacter"
+      />
 
     </div>
   </div>
@@ -389,14 +331,24 @@
 
 <script>
 import { useCharacterStore } from '@/stores/characterStore';
+import { mapState } from 'pinia';
 import CharacterService from '@/services/CharacterService';
 import DiceService from '@/services/DiceService.js';
 import SelectionCard from '@/components/SelectionCard.vue';
-import { mapState } from 'pinia';
+import FullSizeCharacterArtModal from '@/components/modals/FullSizeCharacterArtModal.vue';
+import ChangeCharacterArtModal from '@/components/modals/ChangeCharacterArtModal.vue';
+import SkillCheckModal from '@/components/modals/SkillCheckModal.vue';
+import SettingsModal from '@/components/modals/SettingsModal.vue';
+import DeleteConfirmationModal from '@/components/modals/DeleteConfirmationModal.vue';
 
 export default {
   components: {
-    SelectionCard
+    SelectionCard,
+    FullSizeCharacterArtModal,
+    ChangeCharacterArtModal,
+    SkillCheckModal,
+    SettingsModal,
+    DeleteConfirmationModal
   },
   data() {
     const characterStore = useCharacterStore();
@@ -460,7 +412,7 @@ export default {
               this.savingStatus = ''; // Clear the message after 3 seconds
             }, 3000);
           });
-        }, 2000); // Only save after 3 second to avoid too many saves
+        }, 1000); // Only save after 1 second to avoid too many saves
       },
       deep: true,
     },
@@ -612,7 +564,7 @@ export default {
       this.selectedCharacterArtUrl = imageUrl;
       this.showFullSizeCharacterArtModal = true;
     },
-    closeFullSizeCharacterArttModal() {
+    closeFullSizeCharacterArtModal() {
       this.showFullSizeCharacterArtModal = false;
     },
     openChangeCharacterArtModal() {
@@ -689,47 +641,33 @@ export default {
 
 <style scoped>
 
-  label {
-    font-size: 12px;
-  }
-
-  input, textarea, select {
-    font-family: 'Lora', serif;
-    color: white;
-    background-color: black;
-  }
-
-  textarea {
-    margin: 10px;
-    width: 100%;
-  }
-
-  select {
-    font-size: 16px;
-  }
-
   .character-view {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
-    flex-grow: 1;
   }
 
+  /* CHARACTER SELECTION */
   .character-selection {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 80%;
   }
-
   .selection-cards-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     padding-bottom: 50px;
   }
+  .new-character-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
   
+  /* CHARACTER SHEET */
   .character-sheet {
     display: flex;
     flex-direction: column;
@@ -740,14 +678,19 @@ export default {
     padding: 20px;
     position: relative;
   }
-
   @media (max-width: 567px) {
     .character-sheet {
       width: 90%;
       padding: 0;
     }
   }
-
+  .settings-icon {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 20px;
+    cursor: pointer;
+  }
   .close-button {
     position: absolute;
     top: -10px;
@@ -758,132 +701,18 @@ export default {
     color: white;
     cursor: pointer;
   }
-
   .saving-status {
-    position: absolute; /* Position relative to the character sheet */
+    position: absolute;
     top: 2px;
-    right: 50px; /* Adjust to leave space for the close button */
+    right: 50px;
     font-size: 14px;
     font-style: italic;
     color: darkgray;
     z-index: 1000;
   }
 
-  .new-character-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    padding: 10px 20px;
-    font-size: 14px;
-    font-weight: bold;
-    color: white;
-    background-color: darkgoldenrod;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
 
-  .new-character-button:hover {
-    background-color: goldenrod;
-  }
-
-  /* Gear Icon */
-  .settings-icon {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    font-size: 24px;
-    cursor: pointer;
-  }
-
-  /* Settings Modal */
-  .settings-modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.7);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-  }
-
-  .settings-modal-content {
-    background: rgb(30, 30, 30);
-    padding: 20px;
-    border-radius: 8px;
-    width: 300px;
-    text-align: center;
-  }
-
-  .delete-character-button {
-    background: red;
-    color: white;
-    padding: 10px 20px;
-    margin: 10px 0;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-
-  .delete-character-button:hover {
-    background: darkred;
-  }
-
-  /* Delete Confirmation Modal */
-  .delete-confirmation-modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.7);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-  }
-
-  .delete-confirmation-modal-content {
-    background: rgb(30, 30, 30);
-    padding: 20px;
-    border-radius: 8px;
-    width: 300px;
-    text-align: center;
-  }
-
-  .delete-confirmation-input {
-    width: 90%;
-    padding: 10px;
-    margin: 10px 0;
-    font-size: 16px;
-  }
-
-  .delete-confirmation-buttons button {
-    padding: 10px 20px;
-    margin: 10px;
-    font-size: 16px;
-  }
-
-  .confirm-delete-button {
-    background: red;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-
-  .confirm-delete-button:disabled {
-    background: gray;
-    cursor: not-allowed;
-  }
-
-  
   /* CHARACTER BIO SECTION */
-
   .character-bio-section {
     display: flex;
     flex-direction: row;
@@ -893,20 +722,17 @@ export default {
     width: 100%;
     margin-bottom: 10px;
   }
-
   .character-art {
     position: relative;
     text-align: center;
     cursor: pointer;
     margin: 20px 20px 20px 0;
   }
-
   .character-art-image {
     max-width: 150px;
     max-height: 150px;
     object-fit: cover;
   }
-
   .change-link {
     margin-top: 0;
     text-align: center;
@@ -914,29 +740,24 @@ export default {
     cursor: pointer;
     text-decoration: underline;
   }
-
   .change-link a {
     text-decoration: none;
     color: darkgray;
   }
-
   .bio-fields {
     display: flex;
     flex-direction: column;
     text-align: right;
     margin: 0 10px;
   }
-
   .bio-fields-row {
     display: flex;
     align-items: left;
   }
-
   .bio-field {
     display: flex;
     flex-wrap: nowrap;
   }
-
   .bio-input-field {
     background: black;
     color: white;
@@ -944,7 +765,6 @@ export default {
     font-size: 16px;
     margin: 3px;
   }
-
   .personality-and-background {
     min-width: 275px;
     height: 100%;
@@ -952,7 +772,6 @@ export default {
     vertical-align: top;
     padding-top: 12px;
   }
-
   .personality-and-background-textarea {
     color: lightgray;
     height: 125px;
@@ -960,22 +779,21 @@ export default {
     resize: none;
     border-radius: 4px;
     line-height: 1.4;
+    margin-top: 10px;
+    width: 100%;
   }
-
   .xp-mp-section {
     display: flex;
     flex-direction: column;
     align-items: right;
     margin: 0 40px;
   }
-
   .xp-mp-row {
     display: flex;
     align-items: center;
     justify-content: right;
     margin: 5px 0;
   }
-
   .xp-field {
     display: flex;
     align-items: center;
@@ -983,92 +801,18 @@ export default {
     margin: 5px 0;
   }
 
-  /* CHANGE URL MODAL */
-  .character-art-url-modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.7);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-  }
-
-  .character-art-url-modal-content {
-    background: rgb(30, 30, 30);
-    padding: 20px;
-    border-radius: 8px;
-    width: 70%;
-  }
-
-  .image-url-input {
-    width: 95%;
-    padding: 10px;
-    margin: 10px;
-    font-size: 16px;
-    color: lightgray;
-  }
-
-  button {
-    padding: 8px 16px;
-    margin: 10px;
-    font-family: Lora, serif;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    margin-top: 10px;
-    background: rgb(118, 118, 118);
-  }
-
-
-  /* FULL-SIZE IMAGE MODAL */
-  .full-size-character-art-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.7);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-  }
-
-  .full-size-character-art-modal-content {
-    position: relative;
-    background: black;
-    padding: 20px;
-    max-width: 90%;
-    max-height: 90%;
-    overflow: hidden;
-    text-align: center;
-  }
-
-  .full-size-character-art-modal-image {
-    max-width: 100%;
-    max-height: 80vh;
-    object-fit: contain;
-  }
-
-  
   /* CHARACTER STATS SECTION */
   .character-stats-section {
     display: flex;
     flex-wrap: wrap;
     width: 100%;
   }
-
   .character-stat-row {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     width: 100%;
   }
-
   .core-ability-column {
     display: flex;
     flex-direction: column;
@@ -1077,7 +821,6 @@ export default {
     max-width: 300px;
     margin: 10px 30px;
   }
-
   .core-ability-header {
     display: flex;
     align-items: center;
@@ -1086,19 +829,16 @@ export default {
     font-size: 20px;
     height: 28px
   }
-
   .core-ability-name {
     font-weight: bold;
     font-size: 24px;
   }
-  
   .core-ability-score {
     width: 50px;
     text-align: center;
     margin-left: 10px;
     font-size: 18px;
   }
-  
   .skill-row {
     display: flex;
     align-items: center;
@@ -1107,13 +847,11 @@ export default {
     margin: 5px 0;
     height: 25px
   }
-
   .skill-name {
     text-align: left;
     flex: 1;
     max-width: 85px;
   }
-  
   .skill-name-clickable {
     color: rgb(212, 182, 106);
     text-align: left;
@@ -1122,17 +860,14 @@ export default {
     cursor: pointer;
     transition: color 0.2s ease-in-out;
   }
-
   .skill-name-clickable:hover {
     color: white;
     text-shadow: 0px 0px 5px goldenrod;
   }
-
   .skill-name-clickable:hover::after {
     opacity: 1;
     visibility: visible;
   }
-  
   .d12-symbol {
     margin-left: auto;
     margin-right: 8px;
@@ -1141,23 +876,19 @@ export default {
     text-align: center;
     border-radius: 5px;
   }
-
   .favored {
       background-color: green;
       color: black;
-    }
-
+  }
   .ill-favored {
     background-color: rgb(255, 104, 104);
     color: black;
   }
-  
   .skill-checkbox-group {
     display: flex;
     gap: 5px;
     margin: 0 4px;
   }
-  
   .skill-checkbox {
     filter: invert(100%);
     width: 16px;
@@ -1165,15 +896,12 @@ export default {
     accent-color: darkgray; /* Dice checkbox colors are inverted */
     color: black; /* Dice checkbox colors are inverted */
   }
-
   .diceSubtracted {
     accent-color: teal; /* Dice checkbox colors are inverted */
   }
-
   .diceAdded {
     accent-color: purple; /* Dice checkbox colors are inverted */
   }
-
   .virtue-row, .weakness-row, .state-row {
     display: grid;
     align-items: left;
@@ -1181,15 +909,12 @@ export default {
     width: 100%;
     margin-top: 10px;
   }
-
   .virtue-row, .weakness-row {
     grid-template-columns: 35% 20% 5% 20% 20%;
   }
-
   .state-row {
     grid-template-columns: 35% 10% 10% 45%;
   }
-
   .xp-mp-input, .virtue-score, .weakness-score, .dice-roll-modal-score{
     width: 35px;
     height: 20px;
@@ -1208,7 +933,6 @@ export default {
     max-width: 100px;
     margin: 0 20px;
   }
-
   .conditions-header {
     display: flex;
     align-items: end;
@@ -1229,13 +953,11 @@ export default {
     max-width: 400px;
     margin: 50px 20px;
   }
-  
   .equipment-title {
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 15px;
   }
-  
   .equipment-header-row {
     font-size: 14px;
     font-style: italic;
@@ -1245,11 +967,9 @@ export default {
     display: grid;
     grid-template-columns: 50% 13% 13% 8% 8% 3%;
   }
-
   .equipment-header {
     padding: 0 0 0 5px;
   }
-
   .equipment-header-angled {
     transform: rotate(-45deg);
     transform-origin: left bottom;
@@ -1257,7 +977,6 @@ export default {
     display: inline-block;
     margin-left: 20px;
   }
-
   .equipment-row {
     display: grid;
     grid-template-columns: 50% 13% 13% 8% 8% 3%;
@@ -1266,32 +985,28 @@ export default {
     margin-bottom: 10px;
     height: 30px;
   }
-
   .total-weight-row {
     border-top: 1px solid lightgray;
   }
-
   .equipment-item-name-input, .equipment-weight-input, .equipment-quantity-input {
     text-align: left;
     padding: 5px;
     font-size: 12px;
     margin: 5px;
   }
-
   .equipment-checkbox {
     width: 16px;
     height: 16px;
     filter: invert(100%);
-    accent-color: lightgoldenrodyellow;
+    accent-color: darkgray; /* Checkbox colors are inverted */
+    color: black; /* Checkbox colors are inverted */
     margin-left: 10px;
   }
-
   .equipment-lbs-carried {
     text-align: center;
     font-size: 14px;
     font-weight: bold;
   }
-
   .delete-item-link {
     cursor: pointer;
     color: gray;
@@ -1302,7 +1017,6 @@ export default {
     display: inline-block;
     vertical-align: middle;
   }
-
   .add-item-link {
     cursor: pointer;
     color: gray;
@@ -1311,72 +1025,6 @@ export default {
     padding-left: 15px;
     display: inline-block;
     vertical-align: middle;
-  }
-
-  /* DICE ROLL MODAL */
-  .dice-roll-modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.7);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-  }
-
-  .dice-roll-modal-content {
-    background: rgb(30, 30, 30);
-    padding: 10px;
-    border-radius: 8px;
-    width: 300px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .dice-roll-modal-row {
-    width: 90%;
-    margin: 20px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .dice-roll-modal-skill-dropdown {
-    width: 40%;
-    font-size: 18px;
-    text-align: center;
-  }
-
-  .dice-roll-modal-input {
-    width: 32px;
-    margin-left: 5px;
-    text-align: center;
-  }
-
-  .dice-roll-modal-target-number-row {
-    width: 90%;
-    margin: 20px 0;
-    padding-left: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .dice-roll-modal-target-number-input {
-    width: 50px;
-    font-size: 24px;
-    text-align: center;
-  }
-
-  .roll-button {
-    background-color: goldenrod;
   }
 
 </style>
