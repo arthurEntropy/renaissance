@@ -1,8 +1,10 @@
 <template>
   <div class="character-view">
+
     <!--CHARACTER SELECTION-->
     <div v-if="!selectedCharacter" class="character-selection">
       <h2>CHARACTERS</h2>
+      <button class="new-character-button" @click="createNewCharacter">New Character</button>
       <div class="selection-cards-container">
         <SelectionCard 
           v-for="character in characters"
@@ -16,6 +18,9 @@
     <!--CHARACTER SHEET-->
     <div v-if="selectedCharacter" class="character-sheet">
 
+      <!-- Saving Status -->
+      <p v-if="savingStatus" class="saving-status">{{ savingStatus }}</p>
+
       <!-- CLOSE BUTTON -->
       <p class="close-button" @click="deselectCharacter">🆇</p>
 
@@ -25,7 +30,7 @@
         <!-- Character Art -->
         <div class="character-art">
           <img v-if="selectedCharacter.artUrls" 
-              :src="selectedCharacter.artUrls[0]" 
+              :src="selectedCharacter.artUrls[0] || defaultArtUrl" 
               class="character-art-image" 
               @click="openFullSizeCharacterArtModal(selectedCharacter.artUrl)" />
           <p v-else>No character art available</p>
@@ -85,7 +90,10 @@
       <!-- FULL-SIZE CHARACTER ART MODAL -->
       <div v-if="showFullSizeCharacterArtModal" class="full-size-character-art-modal" @click="closeFullSizeCharacterArttModal">
         <div class="full-size-character-art-modal-content" @click.stop>
-          <img :src="selectedCharacterArtUrls" alt="Full-size Character Portrait" class="full-size-character-art-modal-image" />
+          <img
+            :src="selectedCharacter.artUrls[0] || defaultArtUrl" 
+            alt="Full-size Character Portrait" 
+            class="full-size-character-art-modal-image" />
           <div class="change-link">
             <a href="javascript:void(0)" @click="openChangeCharacterArtModal">Change</a>
           </div>
@@ -96,7 +104,13 @@
       <div v-if="showChangeCharacterArtModal" class="character-art-url-modal-overlay" @click="closeChangeCharacterArtModal">
         <div class="character-art-url-modal-content" @click.stop>
           <label for="imageUrl">Image URL:</label>
-          <input type="text" v-model="selectedCharacterArtUrl" id="imageUrl" class="image-url-input" />
+          <input 
+            type="text" 
+            v-model="tempArtUrl" 
+            id="imageUrl" 
+            class="image-url-input" 
+            placeholder="Enter image URL" 
+          />
           <button @click="closeChangeCharacterArtModal">Cancel</button>
           <button @click="saveCharacterArtUrl">Save</button>
         </div>
@@ -359,6 +373,9 @@ export default {
       selectedSkillName: '',
       targetNumber: 0,
       updateTimeout: null,
+      savingStatus: '',
+      defaultArtUrl: CharacterService.DEFAULT_ART_URL,
+      tempArtUrl: '',
     };
   },
 
@@ -395,72 +412,87 @@ export default {
     selectedCharacter: {
       handler(newCharacter) {
         if (!newCharacter) return;
+        this.savingStatus = 'saving changes...'; // Show immediately
         clearTimeout(this.updateTimeout);
         this.updateTimeout = setTimeout(() => {
-          CharacterService.saveCharacter(newCharacter);
-        }, 1000);
+          CharacterService.saveCharacter(newCharacter).then(() => {
+            this.savingStatus = 'changes saved'; // Show after saving
+            setTimeout(() => {
+              this.savingStatus = ''; // Clear the message after 3 seconds
+            }, 3000);
+          });
+        }, 2000); // Only save after 3 second to avoid too many saves
       },
-      deep: true
+      deep: true,
     },
 
     // Changes to all these stats need to trigger recalculation of derived stats
     'selectedCharacter.body'() {
-      if (!this.selectedCharacter) return; // Null check
+      if (!this.selectedCharacter || this.selectedCharacter.body === undefined) return; // Null check
       CharacterService.handleBodyChange(this.selectedCharacter);
     },
     'selectedCharacter.heart'() {
-      if (!this.selectedCharacter) return; // Null check
+      if (!this.selectedCharacter || this.selectedCharacter.heart === undefined) return; // Null check
       CharacterService.handleHeartChange(this.selectedCharacter);
     },
     'selectedCharacter.wits'() {
-      if (!this.selectedCharacter) return; // Null check
+      if (!this.selectedCharacter || this.selectedCharacter.wits === undefined) return; // Null check
       CharacterService.handleWitsChange(this.selectedCharacter);
     },
     'selectedCharacter.endurance': {
       handler() {
-        if (!this.selectedCharacter) return; // Null check
+        if (!this.selectedCharacter || !this.selectedCharacter.endurance) return; // Null check
         CharacterService.handleEnduranceChange(this.selectedCharacter);
       },
-      deep: true
+      deep: true,
     },
     'selectedCharacter.hope': {
       handler() {
-        if (!this.selectedCharacter) return; // Null check
+        if (!this.selectedCharacter || !this.selectedCharacter.hope) return; // Null check
         CharacterService.handleHopeChange(this.selectedCharacter);
       },
-      deep: true
+      deep: true,
     },
     'selectedCharacter.defense': {
       handler() {
-        if (!this.selectedCharacter) return; // Null check
+        if (!this.selectedCharacter || !this.selectedCharacter.defense) return; // Null check
         CharacterService.handleDefenseChange(this.selectedCharacter);
       },
-      deep: true
+      deep: true,
     },
     'selectedCharacter.load'() {
-      if (!this.selectedCharacter) return; // Null check
+      if (!this.selectedCharacter || this.selectedCharacter.load === undefined) return; // Null check
       CharacterService.handleLoadChange(this.selectedCharacter);
     },
     'selectedCharacter.shadow'() {
-      if (!this.selectedCharacter) return; // Null check
+      if (!this.selectedCharacter || this.selectedCharacter.shadow === undefined) return; // Null check
       CharacterService.handleShadowChange(this.selectedCharacter);
     },
     'selectedCharacter.injury'() {
-      if (!this.selectedCharacter) return; // Null check
+      if (!this.selectedCharacter || this.selectedCharacter.injury === undefined) return; // Null check
       CharacterService.handleInjuryChange(this.selectedCharacter);
     },
-    'selectedCharacter.states'() {
-      if (!this.selectedCharacter) return; // Null check
-      CharacterService.handleStatesChange(this.selectedCharacter);
+    'selectedCharacter.states': {
+      handler() {
+        if (!this.selectedCharacter || !this.selectedCharacter.states) return; // Null check
+        CharacterService.handleStatesChange(this.selectedCharacter);
+      },
+      deep: true,
     },
-    'selectedCharacter.conditions'() {
-      if (!this.selectedCharacter) return; // Null check
-      CharacterService.handleConditionsChange(this.selectedCharacter);
+    'selectedCharacter.conditions': {
+      handler() {
+        if (!this.selectedCharacter || !this.selectedCharacter.conditions) return; // Null check
+        CharacterService.handleConditionsChange(this.selectedCharacter);
+      },
+      deep: true,
     },
-    'selectedCharacter.equipment'() {
-      if (!this.selectedCharacter) return; // Null check
-      CharacterService.handleEquipmentChange(this.selectedCharacter);
-    }
+    'selectedCharacter.equipment': {
+      handler() {
+        if (!this.selectedCharacter || !this.selectedCharacter.equipment) return; // Null check
+        CharacterService.handleEquipmentChange(this.selectedCharacter);
+      },
+      deep: true,
+    },
   },
 
   methods: {
@@ -484,7 +516,7 @@ export default {
       return Number.isInteger(value) ? value : value.toFixed(1);
     },
 
-    /* CHARACTER SELECTION */
+    /* CHARACTER SELECTION AND CREATION */
     selectCharacter(character) {
       this.selectedCharacter = character;
       this.characterStore.selectedCharacter = character;
@@ -492,6 +524,15 @@ export default {
     deselectCharacter() {
       this.selectedCharacter = null;
       this.characterStore.selectedCharacter = null;
+      this.characterStore.fetchCharacters();
+    },
+    async createNewCharacter() {
+      const createdCharacter = await CharacterService.createNewCharacter();
+      await this.characterStore.fetchCharacters();
+      const newCharacter = this.characterStore.characters.find(
+        (character) => character.id === createdCharacter.id
+      );
+        this.selectCharacter(newCharacter);
     },
 
     /* CHARACTER ART */
@@ -503,16 +544,29 @@ export default {
       this.showFullSizeCharacterArtModal = false;
     },
     openChangeCharacterArtModal() {
-      this.selectedCharacterArtUrl = this.selectedCharacter.artUrl || '';
+      this.tempArtUrl = this.selectedCharacter.artUrls[0] || '';
       this.showChangeCharacterArtModal = true;
     },
     closeChangeCharacterArtModal() {
       this.showChangeCharacterArtModal = false;
     },
     saveCharacterArtUrl() {
-      this.selectedCharacter.artUrl = this.selectedCharacterArtUrl;
+      if (!this.isValidImageUrl(this.tempArtUrl)) {
+        alert("Please enter a valid image URL."); // Show an error message
+        return;
+      }
+
+      if (!this.selectedCharacter.artUrls) {
+        this.selectedCharacter.artUrls = [];
+      }
+
+      this.selectedCharacter.artUrls[0] = this.tempArtUrl; // Update the character's art URL
       CharacterService.saveCharacter(this.selectedCharacter);
       this.closeChangeCharacterArtModal();
+    },
+    isValidImageUrl(url) {
+      const urlPattern = /^(https?:\/\/.*\.(?:png|jpg|jpeg|gif|webp))$/i; // Matches common image formats
+      return urlPattern.test(url);
     },
 
     /* RANK CHECKBOXES */
@@ -631,6 +685,35 @@ export default {
     text-decoration: none;
     color: white;
     cursor: pointer;
+  }
+
+  .saving-status {
+    position: absolute; /* Position relative to the character sheet */
+    top: 2px;
+    right: 50px; /* Adjust to leave space for the close button */
+    font-size: 14px;
+    font-style: italic;
+    color: darkgray;
+    z-index: 1000;
+  }
+
+  .new-character-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    background-color: darkgoldenrod;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .new-character-button:hover {
+    background-color: goldenrod;
   }
 
   
