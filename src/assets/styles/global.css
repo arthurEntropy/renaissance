@@ -1,0 +1,47 @@
+a {
+    text-decoration: none; /* Remove underline from all links */
+    color: inherit; /* Inherit color from parent */
+}
+
+label {
+    font-size: 14px;
+}
+
+input, textarea, select {
+    font-family: 'Lora', serif;
+    color: white;
+    background-color: black;
+}
+
+.button {
+    padding: 10px 20px;
+    margin: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    background-color: darkgray;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+  
+.button:hover {
+    background-color: gray;
+}
+  
+.button-primary {
+    background-color: darkgoldenrod;
+}
+  
+.button-primary:hover {
+    background-color: goldenrod;
+}
+  
+.button-danger {
+    background-color: darkred;
+}
+  
+  .button-danger:hover {
+    background-color: red;
+}
