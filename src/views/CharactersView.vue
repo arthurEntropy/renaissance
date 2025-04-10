@@ -347,6 +347,42 @@
         </div>
       </div>
 
+      <!-- Gear Icon -->
+      <div class="settings-icon" @click="openSettingsModal">⚙️</div>
+
+      <!-- Settings Modal -->
+      <div v-if="showSettingsModal" class="settings-modal-overlay" @click="closeSettingsModal">
+        <div class="settings-modal-content" @click.stop>
+          <h2>Settings</h2>
+          <button class="delete-character-button" @click="openDeleteConfirmationModal">Delete Character</button>
+          <button @click="closeSettingsModal">Close</button>
+        </div>
+      </div>
+
+      <!-- Delete Confirmation Modal -->
+      <div v-if="showDeleteConfirmationModal" class="delete-confirmation-modal-overlay" @click="closeDeleteConfirmationModal">
+        <div class="delete-confirmation-modal-content" @click.stop>
+          <h2>Confirm Deletion</h2>
+          <p>Type the character's name (<strong>{{ selectedCharacter.name }}</strong>) to confirm deletion:</p>
+          <input 
+            type="text" 
+            v-model="deleteConfirmationInput" 
+            class="delete-confirmation-input" 
+            placeholder="Enter character name" 
+          />
+          <div class="delete-confirmation-buttons">
+            <button @click="closeDeleteConfirmationModal">Cancel</button>
+            <button 
+              class="confirm-delete-button" 
+              :disabled="deleteConfirmationInput !== selectedCharacter.name" 
+              @click="deleteCharacter"
+            >
+              Confirm
+            </button>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </template>
@@ -369,6 +405,9 @@ export default {
       showFullSizeCharacterArtModal: false,
       showChangeCharacterArtModal: false,
       showSkillCheckModal: false,
+      showSettingsModal: false,
+      showDeleteConfirmationModal: false,
+      deleteConfirmationInput: '',
       selectedCharacterArtUrl: '',
       selectedSkillName: '',
       targetNumber: 0,
@@ -386,7 +425,7 @@ export default {
   computed: {
     ...mapState(useCharacterStore, ['characters']),
     characters() {
-      return this.characterStore.characters;
+      return this.characterStore.characters.filter(character => !character.isDeleted);
     },
     selectedCharacter: {
       get() {
@@ -520,6 +559,7 @@ export default {
     selectCharacter(character) {
       this.selectedCharacter = character;
       this.characterStore.selectedCharacter = character;
+      this.closeAllModals();
     },
     deselectCharacter() {
       this.selectedCharacter = null;
@@ -533,6 +573,38 @@ export default {
         (character) => character.id === createdCharacter.id
       );
         this.selectCharacter(newCharacter);
+    },
+    closeAllModals() {
+      this.showFullSizeCharacterArtModal = false;
+      this.showChangeCharacterArtModal = false;
+      this.showSkillCheckModal = false;
+      this.showSettingsModal = false;
+      this.showDeleteConfirmationModal = false;
+    },
+
+    /* SETTINGS MODAL */
+    openSettingsModal() {
+      this.showSettingsModal = true;
+    },
+    closeSettingsModal() {
+      this.showSettingsModal = false;
+    },
+
+    /* DELETE CONFIRMATION MODAL */
+    openDeleteConfirmationModal() {
+      this.deleteConfirmationInput = '';
+      this.showDeleteConfirmationModal = true;
+    },
+    closeDeleteConfirmationModal() {
+      this.showDeleteConfirmationModal = false;
+    },
+
+    /* DELETE CHARACTER */
+    deleteCharacter() {
+      this.selectedCharacter.isDeleted = true;
+      CharacterService.saveCharacter(this.selectedCharacter);
+      this.closeDeleteConfirmationModal();
+      this.deselectCharacter();
     },
 
     /* CHARACTER ART */
@@ -714,6 +786,99 @@ export default {
 
   .new-character-button:hover {
     background-color: goldenrod;
+  }
+
+  /* Gear Icon */
+  .settings-icon {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    font-size: 24px;
+    cursor: pointer;
+  }
+
+  /* Settings Modal */
+  .settings-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+
+  .settings-modal-content {
+    background: rgb(30, 30, 30);
+    padding: 20px;
+    border-radius: 8px;
+    width: 300px;
+    text-align: center;
+  }
+
+  .delete-character-button {
+    background: red;
+    color: white;
+    padding: 10px 20px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .delete-character-button:hover {
+    background: darkred;
+  }
+
+  /* Delete Confirmation Modal */
+  .delete-confirmation-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+
+  .delete-confirmation-modal-content {
+    background: rgb(30, 30, 30);
+    padding: 20px;
+    border-radius: 8px;
+    width: 300px;
+    text-align: center;
+  }
+
+  .delete-confirmation-input {
+    width: 90%;
+    padding: 10px;
+    margin: 10px 0;
+    font-size: 16px;
+  }
+
+  .delete-confirmation-buttons button {
+    padding: 10px 20px;
+    margin: 10px;
+    font-size: 16px;
+  }
+
+  .confirm-delete-button {
+    background: red;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .confirm-delete-button:disabled {
+    background: gray;
+    cursor: not-allowed;
   }
 
   
