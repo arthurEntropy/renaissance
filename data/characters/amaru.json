@@ -17,7 +17,7 @@
     },
     {
       "name": "Strength",
-      "ranks": 0,
+      "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0
@@ -52,7 +52,7 @@
     },
     {
       "name": "Insight",
-      "ranks": 1,
+      "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0
@@ -73,9 +73,9 @@
     },
     {
       "name": "Aid",
-      "ranks": 0,
+      "ranks": 1,
       "isFavored": false,
-      "isIllFavored": true,
+      "isIllFavored": false,
       "diceMod": -1
     },
     {
@@ -195,7 +195,7 @@
   "personalityAndBackground": "Wizard of the Third Wizards' Guild of Guildford. Associate of Volans.",
   "xp": 10,
   "mp": {
-    "current": 3,
+    "current": 4,
     "max": 5
   }
 }

@@ -31,6 +31,18 @@ class CharacterService {
     }
   }
 
+  async createNewCharacter() {
+    const newCharacter = this.getDefaultCharacter();
+
+    try {
+      const response = await axios.post(this.baseUrl, newCharacter);
+      return response.data; // Return the created character
+    } catch (error) {
+      console.error("Error creating new character:", error);
+      throw error;
+    }
+  }
+
 
   // STAT CHANGE HANDLER METHODS
   handleBodyChange(character) {
@@ -196,6 +208,156 @@ class CharacterService {
         this.calculateLoad(character);
       }
     }
+  }
+
+  // DEFAULT CHARACTER
+  static DEFAULT_ART_URL = "https://cdn.midjourney.com/a8a36740-b7d3-4aef-bea3-a95039bec06f/0_2.png";
+
+  getDefaultCharacter() {
+    return {
+      id: null, // ID will be assigned by the backend
+      name: "New Character",
+      pronouns: "",
+      ancestries: "",
+      cultures: "",
+      personalityAndBackground: "",
+      xp: 0,
+      mp: { current: 0, max: 0 },
+      body: 0,
+      heart: 0,
+      wits: 0,
+      skills: [
+        {
+          name: "Awe",
+          ranks: 0,
+          isFavored: false,
+          isIllFavored: false,
+          diceMod: 0,
+        },
+        {
+          name: "Strength",
+          ranks: 0,
+          isFavored: false,
+          isIllFavored: false,
+          diceMod: 0,
+        },
+        {
+          name: "Dexterity",
+          ranks: 0,
+          isFavored: false,
+          isIllFavored: false,
+          diceMod: 0,
+        },
+        {
+          name: "Fortitude",
+          ranks: 0,
+          isFavored: false,
+          isIllFavored: false,
+          diceMod: 0,
+        },
+        {
+          name: "Craft",
+          ranks: 0,
+          isFavored: false,
+          isIllFavored: false,
+          diceMod: 0,
+        },
+        {
+          name: "Perform",
+          ranks: 0,
+          isFavored: false,
+          isIllFavored: false,
+          diceMod: 0,
+        },
+        {
+          name: "Insight",
+          ranks: 0,
+          isFavored: false,
+          isIllFavored: false,
+          diceMod: 0,
+        },
+        {
+          name: "Courtesy",
+          ranks: 0,
+          isFavored: false,
+          isIllFavored: false,
+          diceMod: 0,
+        },
+        {
+          name: "Spirit",
+          ranks: 0,
+          isFavored: false,
+          isIllFavored: false,
+          diceMod: 0,
+        },
+        {
+          name: "Aid",
+          ranks: 0,
+          isFavored: false,
+          isIllFavored: false,
+          diceMod: 0,
+        },
+        {
+          name: "Persuade",
+          ranks: 0,
+          isFavored: false,
+          isIllFavored: false,
+          diceMod: 0,
+        },
+        {
+          name: "Awareness",
+          ranks: 0,
+          isFavored: false,
+          isIllFavored: false,
+          diceMod: 0,
+        },
+        {
+          name: "Stealth",
+          ranks: 0,
+          isFavored: false,
+          isIllFavored: false,
+          diceMod: 0,
+        },
+        {
+          name: "Lore",
+          ranks: 0,
+          isFavored: false,
+          isIllFavored: false,
+          diceMod: 0,
+        },
+        {
+          name: "Riddle",
+          ranks: 0,
+          isFavored: false,
+          isIllFavored: true,
+          diceMod: 0,
+        },
+      ],
+      endurance: { current: 0, max: 0 },
+      hope: { current: 0, max: 0 },
+      defense: { current: 0, max: 0 },
+      load: 0,
+      shadow: 0,
+      injury: 0,
+      states: {
+        weary: false,
+        twiceWeary: false,
+        miserable: false,
+        twiceMiserable: false,
+        helpless: false,
+        twiceHelpless: false,
+      },
+      conditions: {
+        insecure: false,
+        guilty: false,
+        angry: false,
+        afraid: false,
+        troubled: false,
+      },
+      equipment: [],
+      artUrls: [CharacterService.DEFAULT_ART_URL],
+      activeEffects: [],
+    };
   }
 }
 

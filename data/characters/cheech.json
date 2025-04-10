@@ -1,9 +1,18 @@
 {
   "id": 3,
-  "name": "Cheech",
   "artUrls": [
     "https://cdn.midjourney.com/b103377f-aac8-4932-a0ef-4f996901880d/0_3.png"
   ],
+  "name": "Cheech",
+  "pronouns": "she/her",
+  "ancestries": "Halfling",
+  "cultures": "I Castagne",
+  "personalityAndBackground": "From an isolated village in the remote giant chestnut (castagne) forest. Wears armor crafted from chestnut hulls. Uncultured, kind, fierce, loyal.",
+  "xp": 10,
+  "mp": {
+    "current": 3,
+    "max": 5
+  },
   "body": 3,
   "heart": 2,
   "wits": 1,
@@ -66,7 +75,7 @@
     },
     {
       "name": "Spirit",
-      "ranks": 0,
+      "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0
@@ -119,7 +128,7 @@
     "max": 15
   },
   "hope": {
-    "current": 12,
+    "current": 10,
     "max": 6
   },
   "defense": {
@@ -188,14 +197,5 @@
         }
       ]
     }
-  ],
-  "pronouns": "she/her",
-  "ancestries": "Halfling",
-  "cultures": "I Castagne",
-  "personalityAndBackground": "From an isolated village in the remote giant chestnut (castagne) forest. Wears armor crafted from chestnut hulls. Uncultured, kind, fierce, loyal.",
-  "xp": 10,
-  "mp": {
-    "current": 3,
-    "max": 5
-  }
+  ]
 }
