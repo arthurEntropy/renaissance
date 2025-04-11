@@ -24,7 +24,7 @@
       <!-- CHARACTER BIO SECTION-->
       <CharacterBioSection
         :character="selectedCharacter"
-        :defaultArtUrl="defaultArtUrl"
+        :defaultArtUrl="defaultArtUrl || ''"
         @open-full-size-art="openFullSizeCharacterArtModal"
         @update-character="updateCharacter"
       />
@@ -33,124 +33,67 @@
       <div class="character-stats-section">
 
         <!-- Body Column -->
-        <div class="core-ability-column">
-          <div class="core-ability-header">
-            <H2>BODY</H2>
-            <input type="number" v-model="selectedCharacter.body" class="input-large" min="0"/>
-          </div>
-          <div v-for="(skill) in selectedCharacter.skills.slice(0, 5)" :key="skill.name" class="skill-row">
-            <span class="skill-name-clickable" @click="openSkillCheckModal(skill.name)">{{ skill.name }}</span>
-            <span class="d12-symbol" :class="getFavoredClass(skill)">⭓</span>
-            <div class="skill-checkbox-group">
-              <input 
-                v-for="(n, checkboxIndex) in 5" 
-                :key="checkboxIndex" 
-                type="checkbox" 
-                :checked="isCheckboxChecked(skill, checkboxIndex)"
-                @click="handleCheckboxChange(skill.name, checkboxIndex)"
-                class="skill-checkbox"
-                :class="getSkillCheckboxDiceModClass(skill, checkboxIndex)"
-              />
-            </div>
-          </div>
-          <div class="virtue-row">
-            <span class="skill-name">Endurance</span>
-            <input type="number" v-model="selectedCharacter.endurance.current" class="input-small" min="0"/>
-            <span>/</span>
-            <input type="number" v-model="selectedCharacter.endurance.max" class="input-small" min="0"/>
-          </div>
-          <div class="weakness-row">
-            <span class="skill-name">Load</span>
-            <input type="number" v-model="selectedCharacter.load" class="input-small" min="0"/>
-          </div>
-          <div class="state-row">
-            <span class="skill-name">Weary</span>
-            <input type="checkbox" v-model="selectedCharacter.states.weary" class="skill-checkbox" />
-            <input type="checkbox" v-model="selectedCharacter.states.twiceWeary" class="skill-checkbox" />
-            <span></span> <!-- Empty span for alignment -->
-            <span></span> <!-- Empty span for alignment -->
-          </div>
-        </div>
+        <CoreAbilityColumn
+          title="BODY"
+          :coreAbilityValue="Number(selectedCharacter.body)"
+          :skills="selectedCharacter.skills.slice(0, 5)"
+          virtueLabel="Endurance"
+          :virtueValue="selectedCharacter.endurance"
+          weaknessLabel="Load"
+          :weaknessValue="Number(selectedCharacter.load)"
+          firstStateKey="weary"
+          :firstStateValue="selectedCharacter.states.weary"
+          secondStateKey="twiceWeary"
+          :secondStateValue="selectedCharacter.states.twiceWeary"
+          @update-core-ability="updateCharacter"
+          @update-virtue="updateCharacter"
+          @update-weakness="updateCharacter"
+          @update-skill-checkbox="handleCheckboxChange"
+          @update-state="updateCharacter"
+          @open-skill-check="openSkillCheckModal"
+        />
 
         <!-- Heart Column -->
-        <div class="core-ability-column">
-          <div class="core-ability-header">
-            <H2>HEART</H2>
-            <input type="number" v-model="selectedCharacter.heart" class="input-large" min="0"/>
-          </div>
-          <div v-for="(skill) in selectedCharacter.skills.slice(5, 10)" :key="skill.name" class="skill-row">
-            <span class="skill-name-clickable" @click="openSkillCheckModal(skill.name)">{{ skill.name }}</span>
-            <span class="d12-symbol" :class="getFavoredClass(skill)">⭓</span>
-            <div class="skill-checkbox-group">
-              <input 
-                v-for="(n, checkboxIndex) in 5" 
-                :key="checkboxIndex" 
-                type="checkbox" 
-                :checked="isCheckboxChecked(skill, checkboxIndex)"
-                @click="handleCheckboxChange(skill.name, checkboxIndex)"
-                class="skill-checkbox"
-                :class="getSkillCheckboxDiceModClass(skill, checkboxIndex)"
-              />
-            </div>
-          </div>
-          <div class="virtue-row">
-            <span class="skill-name">Hope</span>
-            <input type="number" v-model="selectedCharacter.hope.current" class="input-small" min="0"/>
-            <span>/</span>
-            <input type="number" v-model="selectedCharacter.hope.max" class="input-small" min="0"/>
-          </div>
-          <div class="weakness-row">
-            <span class="skill-name">Shadow</span>
-            <input type="number" v-model="selectedCharacter.shadow" class="input-small" min="0"/>
-          </div>
-          <div class="state-row">
-            <span class="skill-name">Miserable</span>
-            <input type="checkbox" v-model="selectedCharacter.states.miserable" class="skill-checkbox" />
-            <input type="checkbox" v-model="selectedCharacter.states.twiceMiserable" class="skill-checkbox" />
-            <span></span> <!-- Empty span for alignment -->
-            <span></span> <!-- Empty span for alignment -->
-          </div>
-        </div>  
+        <CoreAbilityColumn
+          title="HEART"
+          :coreAbilityValue="Number(selectedCharacter.heart)"
+          :skills="selectedCharacter.skills.slice(5, 10)"
+          virtueLabel="Hope"
+          :virtueValue="selectedCharacter.hope"
+          weaknessLabel="Shadow"
+          :weaknessValue="Number(selectedCharacter.shadow)"
+          firstStateKey="miserable"
+          :firstStateValue="selectedCharacter.states.miserable"
+          secondStateKey="twiceMiserable"
+          :secondStateValue="selectedCharacter.states.twiceMiserable"
+          @update-core-ability="updateCharacter"
+          @update-virtue="updateCharacter"
+          @update-weakness="updateCharacter"
+          @update-skill-checkbox="handleCheckboxChange"
+          @update-state="updateCharacter"
+          @open-skill-check="openSkillCheckModal"
+        />
 
         <!-- Wits Column -->
-        <div class="core-ability-column">
-          <div class="core-ability-header">
-            <H2>WITS</H2>
-            <input type="number" v-model="selectedCharacter.wits" class="input-large" min="0"/>
-          </div>
-          <div v-for="(skill) in selectedCharacter.skills.slice(10, 15)" :key="skill.name" class="skill-row">
-            <span class="skill-name-clickable" @click="openSkillCheckModal(skill.name)">{{ skill.name }}</span>
-            <span class="d12-symbol" :class="getFavoredClass(skill)">⭓</span>
-            <div class="skill-checkbox-group">
-              <input 
-                v-for="(n, checkboxIndex) in 5" 
-                :key="checkboxIndex" 
-                type="checkbox" 
-                :checked="isCheckboxChecked(skill, checkboxIndex)"
-                @click="handleCheckboxChange(skill.name, checkboxIndex, $event)"
-                class="skill-checkbox"
-                :class="getSkillCheckboxDiceModClass(skill, checkboxIndex)"
-              />
-            </div>
-          </div>
-          <div class="virtue-row">
-            <span class="skill-name">Defense</span>
-            <input type="number" v-model="selectedCharacter.defense.current" class="input-small" min="0"/>
-            <span>/</span>
-            <input type="number" v-model="selectedCharacter.defense.max" class="input-small" min="0"/>
-          </div>
-          <div class="weakness-row">
-            <span class="skill-name">Injury</span>
-            <input type="number" v-model="selectedCharacter.injury" class="input-small" min="0"/>
-          </div>
-          <div class="state-row">
-            <span class="skill-name">Helpless</span>
-            <input type="checkbox" v-model="selectedCharacter.states.helpless" class="skill-checkbox" />
-            <input type="checkbox" v-model="selectedCharacter.states.twiceHelpless" class="skill-checkbox" />
-            <span></span> <!-- Empty span for alignment -->
-            <span></span> <!-- Empty span for alignment -->
-          </div>
-        </div>  
+        <CoreAbilityColumn
+          title="WITS"
+          :coreAbilityValue="Number(selectedCharacter.wits)"
+          :skills="selectedCharacter.skills.slice(10, 15)"
+          virtueLabel="Defense"
+          :virtueValue="selectedCharacter.defense"
+          weaknessLabel="Injury"
+          :weaknessValue="Number(selectedCharacter.injury)"
+          firstStateKey="helpless"
+          :firstStateValue="selectedCharacter.states.helpless"
+          secondStateKey="twiceHelpless"
+          :secondStateValue="selectedCharacter.states.twiceHelpless"
+          @update-core-ability="updateCharacter"
+          @update-virtue="updateCharacter"
+          @update-weakness="updateCharacter"
+          @update-skill-checkbox="handleCheckboxChange"
+          @update-state="updateCharacter"
+          @open-skill-check="openSkillCheckModal"
+        />
 
         <!-- Conditions Column -->
         <div class="conditions-column-container">
@@ -234,6 +177,7 @@ import CharacterService from '@/services/CharacterService';
 import DiceService from '@/services/DiceService.js';
 import SelectionCard from '@/components/SelectionCard.vue';
 import CharacterBioSection from '@/components/characterSheet/CharacterBioSection.vue';
+import CoreAbilityColumn from '@/components/characterSheet/CoreAbilityColumn.vue';
 import EquipmentTable from '@/components/characterSheet/EquipmentTable.vue';
 import FullSizeCharacterArtModal from '@/components/modals/FullSizeCharacterArtModal.vue';
 import ChangeCharacterArtModal from '@/components/modals/ChangeCharacterArtModal.vue';
@@ -245,6 +189,7 @@ export default {
   components: {
     SelectionCard,
     CharacterBioSection,
+    CoreAbilityColumn,
     EquipmentTable,
     FullSizeCharacterArtModal,
     ChangeCharacterArtModal,
@@ -429,7 +374,16 @@ export default {
         this.selectCharacter(newCharacter);
     },
     updateCharacter({ key, value }) {
-      this.selectedCharacter[key] = value;
+      const keys = key.split('.'); // Split the key into parts for nested properties
+      let target = this.selectedCharacter;
+
+      // Traverse the object to the second-to-last key
+      for (let i = 0; i < keys.length - 1; i++) {
+        target = target[keys[i]];
+      }
+
+      // Update the final key
+      target[keys[keys.length - 1]] = value;
     },
     closeAllModals() {
       this.showFullSizeCharacterArtModal = false;
