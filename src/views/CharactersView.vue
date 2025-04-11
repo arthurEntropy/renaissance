@@ -15,55 +15,19 @@
       </div>
     </div>
 
-
     <!--CHARACTER SHEET-->
     <div v-if="selectedCharacter" class="character-sheet">
-
-      <!-- Gear Icon -->
       <div class="settings-icon" @click="openSettingsModal">⚙️</div>
-
-      <!-- Saving Status -->
       <p v-if="savingStatus" class="saving-status">{{ savingStatus }}</p>
-
-      <!-- Close Button -->
       <p class="close-button" @click="deselectCharacter">ⓧ</p>
 
-
       <!-- CHARACTER BIO SECTION-->
-      <div class="character-bio-section">
-
-        <!-- Character Art -->
-        <div class="character-art">
-          <img v-if="selectedCharacter.artUrls" 
-              :src="selectedCharacter.artUrls[0] || defaultArtUrl" 
-              class="character-art-image" 
-              @click="openFullSizeCharacterArtModal(selectedCharacter.artUrl)" />
-          <p v-else>No character art available</p>
-        </div>
-
-        <!-- Bio Fields -->
-        <div class="bio-fields">
-          <div class="bio-field">
-            <label>Name: <input type="text" v-model="selectedCharacter.name" class="bio-input-field"/></label>
-          </div>
-          <div class="bio-field">
-            <label>Pronouns: <input type="text" v-model="selectedCharacter.pronouns" class="bio-input-field"/></label>
-          </div>
-          <div class="bio-field">
-            <label>Ancestry: <input type="text" v-model="selectedCharacter.ancestries" class="bio-input-field" /></label>
-          </div>
-          <div class="bio-field">
-            <label>Culture(s): <input type="text" v-model="selectedCharacter.cultures" class="bio-input-field" /></label>
-          </div>
-        </div>
-
-        <!-- Personality and Background -->
-        <label class="personality-and-background">Personality & Background:
-          <textarea v-model="selectedCharacter.personalityAndBackground" class="personality-and-background-textarea"></textarea>
-        </label>
-
-      </div>
-
+      <CharacterBioSection
+        :character="selectedCharacter"
+        :defaultArtUrl="defaultArtUrl"
+        @open-full-size-art="openFullSizeCharacterArtModal"
+        @update-character="updateCharacter"
+      />
 
       <!-- CHARACTER STATS SECTION -->
       <div class="character-stats-section">
@@ -215,54 +179,15 @@
         </div>
 
         <!--Equipment Table-->
-        <div class="equipment-table">
-
-          <!-- Title Row -->
-          <H2>EQUIPMENT</H2>
-
-          <!-- Header Row -->
-          <div class="equipment-header-row">
-            <span class="equipment-header">item</span>
-            <span class="equipment-header">lbs</span>
-            <span class="equipment-header">qty</span>
-            <span class="equipment-header-angled">carried</span>
-            <span class="equipment-header-angled">lbs carried</span>
-          </div>
-
-          <!--Equipment item rows-->
-          <div v-for="(item, index) in selectedCharacter.equipment" :key="index" class="equipment-row">
-            <input type="text" v-model="item.name" class="input-small equipment-item-name-input" @change="updateEquipmentItem(index, 'name', item.name)">
-            <input type="number" v-model.number="item.weight" class="input-small" @input="updateEquipmentItem(index, 'weight', Math.max(0, item.weight))">
-            <input type="number" v-model.number="item.quantity" class="input-small" @input="updateEquipmentItem(index, 'quantity', Math.max(0, item.quantity))">
-            <input type="checkbox" v-model="item.carried" @change="updateEquipmentItem(index, 'carried', item.carried)">
-            <span class="equipment-lbs-carried"> {{ item.carried ? formatWeight(item.weight * item.quantity) : '0' }} </span>
-            <span @click="removeEquipmentItem(index)" class="delete-item-link">ⓧ</span>
-          </div>
-
-          <!-- Add Item Row -->
-          <div class="equipment-row">
-            <span></span> <!-- Empty span for alignment -->
-            <span></span> <!-- Empty span for alignment -->
-            <span></span> <!-- Empty span for alignment -->
-            <span></span> <!-- Empty span for alignment -->
-            <span></span> <!-- Empty span for alignment -->
-            <span @click="addEquipmentItem()" class="add-item-link">+</span>
-          </div>
-
-          <!-- Total Weight Row -->
-          <div class="equipment-row total-weight-row">
-            <span>Total Weight Carried</span>
-            <span></span> <!-- Empty span for alignment -->
-            <span></span> <!-- Empty span for alignment -->
-            <span></span> <!-- Empty span for alignment -->
-            <span class="equipment-lbs-carried">{{ totalWeightCarried }}</span>
-            <span></span> <!-- Empty span for alignment -->
-          </div>
-
-        </div>
+        <EquipmentTable
+          :equipment="selectedCharacter.equipment"
+          :totalWeightCarried="totalWeightCarried"
+          @update-item="updateEquipmentItem"
+          @remove-item="removeEquipmentItem"
+          @add-item="addEquipmentItem"
+        />
 
       </div>
-
       
       <!-- MODALS -->
       <FullSizeCharacterArtModal
@@ -271,14 +196,12 @@
         @close="closeFullSizeCharacterArtModal"
         @change-art="openChangeCharacterArtModal"
       />
-
       <ChangeCharacterArtModal
         v-if="showChangeCharacterArtModal"
         :initialArtUrl="selectedCharacter.artUrls[0] || ''"
         @close="closeChangeCharacterArtModal"
         @save="saveCharacterArtUrl"
       />
-
       <SkillCheckModal
         v-if="showSkillCheckModal"
         :characterName="selectedCharacter.name"
@@ -288,13 +211,11 @@
         @close="closeSkillCheckModal"
         @roll="handleSkillCheck"
       />
-
       <SettingsModal
         v-if="showSettingsModal"
         @close="closeSettingsModal"
         @delete="openDeleteConfirmationModal"
       />
-
       <DeleteConfirmationModal
         v-if="showDeleteConfirmationModal"
         :characterName="selectedCharacter.name"
@@ -312,6 +233,8 @@ import { mapState } from 'pinia';
 import CharacterService from '@/services/CharacterService';
 import DiceService from '@/services/DiceService.js';
 import SelectionCard from '@/components/SelectionCard.vue';
+import CharacterBioSection from '@/components/characterSheet/CharacterBioSection.vue';
+import EquipmentTable from '@/components/characterSheet/EquipmentTable.vue';
 import FullSizeCharacterArtModal from '@/components/modals/FullSizeCharacterArtModal.vue';
 import ChangeCharacterArtModal from '@/components/modals/ChangeCharacterArtModal.vue';
 import SkillCheckModal from '@/components/modals/SkillCheckModal.vue';
@@ -321,6 +244,8 @@ import DeleteConfirmationModal from '@/components/modals/DeleteConfirmationModal
 export default {
   components: {
     SelectionCard,
+    CharacterBioSection,
+    EquipmentTable,
     FullSizeCharacterArtModal,
     ChangeCharacterArtModal,
     SkillCheckModal,
@@ -484,7 +409,7 @@ export default {
       return Number.isInteger(value) ? value : value.toFixed(1);
     },
 
-    /* CHARACTER SELECTION AND CREATION */
+    /* CHARACTER SELECTION, CREATION & UPDATE */
     selectCharacter(character) {
       this.selectedCharacter = character;
       this.characterStore.selectedCharacter = character;
@@ -502,6 +427,9 @@ export default {
         (character) => character.id === createdCharacter.id
       );
         this.selectCharacter(newCharacter);
+    },
+    updateCharacter({ key, value }) {
+      this.selectedCharacter[key] = value;
     },
     closeAllModals() {
       this.showFullSizeCharacterArtModal = false;
@@ -688,70 +616,6 @@ export default {
     z-index: 1000;
   }
 
-
-  /* CHARACTER BIO SECTION */
-  .character-bio-section {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    margin-bottom: 10px;
-  }
-  .character-art {
-    position: relative;
-    text-align: center;
-    cursor: pointer;
-    margin: 20px 20px 20px 0;
-  }
-  .character-art-image {
-    max-width: 150px;
-    max-height: 150px;
-    object-fit: cover;
-  }
-  .bio-fields {
-    display: flex;
-    flex-direction: column;
-    margin: 0 20px;
-  }
-  .bio-field {
-    display: flex;
-    flex-wrap: nowrap;
-  }
-  .bio-input-field {
-    background: black;
-    color: lightgray;
-    padding: 3px;
-    font-size: 18px;
-    margin: 3px 3px 3px 10px;
-  }
-  .personality-and-background {
-    display: flex;
-    height: 155px;
-    width: 300px;
-    flex-direction: column;
-  }
-  .personality-and-background-textarea {
-    color: lightgray;
-    padding: 5px;
-    resize: none;
-    border-radius: 4px;
-    line-height: 1.4;
-    margin-top: 10px;
-    height: 100%;
-    width: 90%;
-  }
-  @media (max-width: 567px) {
-    .bio-fields {
-      align-items: center;
-    }
-    .personality-and-background {
-      margin-top: 20px;
-    }
-  }
-  
-
   /* CHARACTER STATS SECTION */
   .character-stats-section {
     display: flex;
@@ -811,8 +675,8 @@ export default {
     border-radius: 5px;
   }
   .favored {
-      background-color: rgb(110, 221, 110);
-      color: black;
+    background-color: rgb(110, 221, 110);
+    color: black;
   }
   .ill-favored {
     background-color: rgb(254, 135, 135);
@@ -842,7 +706,6 @@ export default {
   .state-row {
     grid-template-columns: 35% 10% 10% 45%;
   }
-
 
   /* CONDITIONS COLUMN */
   .conditions-column-container {
@@ -898,64 +761,6 @@ export default {
     align-items: center;
     justify-content: right;
     margin: 5px 0;
-  }
-
-
-  /* EQUIPMENT */
-  .equipment-table {
-    display: flex;
-    flex-direction: column;
-    align-items: left;
-    flex: 1;
-    max-width: 400px;
-    margin: 20px;
-  }
-  .equipment-header-row {
-    font-size: 14px;
-    font-style: italic;
-    height: 28px;
-    text-decoration: underline;
-    text-align: left;
-    display: grid;
-    grid-template-columns: 50% 13% 13% 8% 8% 3%;
-  }
-  .equipment-header {
-    padding: 0 0 0 5px;
-  }
-  .equipment-header-angled {
-    transform: rotate(-45deg);
-    transform-origin: left bottom;
-    white-space: nowrap;
-    display: inline-block;
-    margin-left: 20px;
-  }
-  .equipment-row {
-    display: grid;
-    grid-template-columns: 50% 13% 13% 8% 8% 3%;
-    align-items: center;
-    margin-bottom: 10px;
-    height: 30px;
-  }
-  .total-weight-row {
-    border-top: 1px solid lightgray;
-  }
-  .equipment-lbs-carried {
-    text-align: center;
-    font-size: 14px;
-    font-weight: bold;
-  }
-  .delete-item-link {
-    cursor: pointer;
-    color: gray;
-    font-size: 15px;
-    text-align: center;
-    margin: 0 0 -1px 10px;
-  }
-  .add-item-link {
-    cursor: pointer;
-    color: gray;
-    font-size: 20px;
-    padding-left: 12px;
   }
 
 </style>
