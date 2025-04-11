@@ -5,6 +5,7 @@ a {
 
 label {
     font-size: 14px;
+    color: darkgray;
 }
 
 input, textarea, select {
@@ -13,6 +14,7 @@ input, textarea, select {
     background-color: black;
 }
 
+/* BUTTONS */
 .button {
     padding: 10px 20px;
     margin: 10px;
@@ -25,23 +27,52 @@ input, textarea, select {
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
-  
 .button:hover {
     background-color: gray;
 }
-  
 .button-primary {
     background-color: darkgoldenrod;
 }
-  
 .button-primary:hover {
     background-color: goldenrod;
 }
-  
 .button-danger {
     background-color: darkred;
 }
-  
-  .button-danger:hover {
+.button-danger:hover {
     background-color: red;
+}
+
+/* CHECKBOXES */
+input[type="checkbox"] {
+    filter: invert(100%);
+    width: 16px;
+    height: 16px;
+    accent-color: rgb(68, 68, 68); /* Dice checkbox colors are inverted */
+    cursor: pointer;
+}
+
+/* INPUTS */
+.input {
+    background: black;
+    color: inherit;
+    padding: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+.input-small {
+    height: 20px;
+    font-size: 14px;
+}
+.input-small[type="number"] {
+    width: 35px;
+    text-align: center;
+}
+.input-large {
+    margin-left: 10px;
+    font-size: 18px;
+}
+.input-large[type="number"] {
+    width: 40px;
+    text-align: center;
 }
