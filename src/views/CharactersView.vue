@@ -32,66 +32,25 @@
       <!-- CHARACTER STATS SECTION -->
       <div class="character-stats-section">
 
-        <!-- Body Column -->
         <CoreAbilityColumn
-          title="BODY"
-          :coreAbilityValue="Number(selectedCharacter.body)"
-          :skills="selectedCharacter.skills.slice(0, 5)"
-          virtueLabel="Endurance"
-          :virtueValue="selectedCharacter.endurance"
-          weaknessLabel="Load"
-          :weaknessValue="Number(selectedCharacter.load)"
-          firstStateKey="weary"
-          :firstStateValue="selectedCharacter.states.weary"
-          secondStateKey="twiceWeary"
-          :secondStateValue="selectedCharacter.states.twiceWeary"
-          @update-core-ability="updateCharacter"
-          @update-virtue="updateCharacter"
-          @update-weakness="updateCharacter"
+          :character="selectedCharacter"
+          column="body"
+          @update-character="updateCharacter"
           @update-skill-checkbox="handleCheckboxChange"
-          @update-state="updateCharacter"
           @open-skill-check="openSkillCheckModal"
         />
-
-        <!-- Heart Column -->
         <CoreAbilityColumn
-          title="HEART"
-          :coreAbilityValue="Number(selectedCharacter.heart)"
-          :skills="selectedCharacter.skills.slice(5, 10)"
-          virtueLabel="Hope"
-          :virtueValue="selectedCharacter.hope"
-          weaknessLabel="Shadow"
-          :weaknessValue="Number(selectedCharacter.shadow)"
-          firstStateKey="miserable"
-          :firstStateValue="selectedCharacter.states.miserable"
-          secondStateKey="twiceMiserable"
-          :secondStateValue="selectedCharacter.states.twiceMiserable"
-          @update-core-ability="updateCharacter"
-          @update-virtue="updateCharacter"
-          @update-weakness="updateCharacter"
+          :character="selectedCharacter"
+          column="heart"
+          @update-character="updateCharacter"
           @update-skill-checkbox="handleCheckboxChange"
-          @update-state="updateCharacter"
           @open-skill-check="openSkillCheckModal"
         />
-
-        <!-- Wits Column -->
         <CoreAbilityColumn
-          title="WITS"
-          :coreAbilityValue="Number(selectedCharacter.wits)"
-          :skills="selectedCharacter.skills.slice(10, 15)"
-          virtueLabel="Defense"
-          :virtueValue="selectedCharacter.defense"
-          weaknessLabel="Injury"
-          :weaknessValue="Number(selectedCharacter.injury)"
-          firstStateKey="helpless"
-          :firstStateValue="selectedCharacter.states.helpless"
-          secondStateKey="twiceHelpless"
-          :secondStateValue="selectedCharacter.states.twiceHelpless"
-          @update-core-ability="updateCharacter"
-          @update-virtue="updateCharacter"
-          @update-weakness="updateCharacter"
+          :character="selectedCharacter"
+          column="wits"
+          @update-character="updateCharacter"
           @update-skill-checkbox="handleCheckboxChange"
-          @update-state="updateCharacter"
           @open-skill-check="openSkillCheckModal"
         />
 
@@ -373,17 +332,8 @@ export default {
       );
         this.selectCharacter(newCharacter);
     },
-    updateCharacter({ key, value }) {
-      const keys = key.split('.'); // Split the key into parts for nested properties
-      let target = this.selectedCharacter;
-
-      // Traverse the object to the second-to-last key
-      for (let i = 0; i < keys.length - 1; i++) {
-        target = target[keys[i]];
-      }
-
-      // Update the final key
-      target[keys[keys.length - 1]] = value;
+    updateCharacter(updatedCharacter) {
+      this.selectedCharacter = { ...updatedCharacter }; // Replace the character object
     },
     closeAllModals() {
       this.showFullSizeCharacterArtModal = false;

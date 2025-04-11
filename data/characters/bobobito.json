@@ -4,7 +4,7 @@
   "artUrls": [
     "https://cdn.midjourney.com/33a4c041-49a8-4234-8e65-54d65bc7033b/0_0.png"
   ],
-  "body": "3",
+  "body": 3,
   "heart": 3,
   "wits": 4,
   "skills": [
@@ -13,35 +13,35 @@
       "ranks": 3,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": -1
+      "diceMod": -2
     },
     {
       "name": "Strength",
       "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 0
+      "diceMod": -1
     },
     {
       "name": "Dexterity",
       "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 0
+      "diceMod": -1
     },
     {
       "name": "Fortitude",
       "ranks": 0,
       "isFavored": false,
-      "isIllFavored": false,
-      "diceMod": 0
+      "isIllFavored": true,
+      "diceMod": -2
     },
     {
       "name": "Craft",
       "ranks": 0,
       "isFavored": false,
-      "isIllFavored": false,
-      "diceMod": 0
+      "isIllFavored": true,
+      "diceMod": -1
     },
     {
       "name": "Perform",
@@ -52,7 +52,7 @@
     },
     {
       "name": "Insight",
-      "ranks": 0,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0
@@ -68,8 +68,8 @@
       "name": "Spirit",
       "ranks": 0,
       "isFavored": false,
-      "isIllFavored": false,
-      "diceMod": 0
+      "isIllFavored": true,
+      "diceMod": -1
     },
     {
       "name": "Aid",
@@ -94,7 +94,7 @@
     },
     {
       "name": "Stealth",
-      "ranks": 0,
+      "ranks": 3,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0
@@ -103,8 +103,8 @@
       "name": "Lore",
       "ranks": 0,
       "isFavored": false,
-      "isIllFavored": false,
-      "diceMod": 0
+      "isIllFavored": true,
+      "diceMod": -1
     },
     {
       "name": "Riddle",
@@ -126,12 +126,12 @@
     "current": "7",
     "max": 14
   },
-  "load": 0,
-  "shadow": 2,
-  "injury": 4,
+  "load": 26,
+  "shadow": 1,
+  "injury": 6,
   "states": {
-    "weary": false,
-    "twiceWeary": false,
+    "weary": true,
+    "twiceWeary": true,
     "miserable": false,
     "twiceMiserable": false,
     "helpless": false,
@@ -141,14 +141,14 @@
     "insecure": true,
     "guilty": false,
     "angry": false,
-    "afraid": false,
+    "afraid": true,
     "troubled": false
   },
   "equipment": [
     {
-      "name": "",
-      "weight": 0,
-      "quantity": 1,
+      "name": "Dunce cap",
+      "weight": 4,
+      "quantity": 11,
       "carried": true
     }
   ],

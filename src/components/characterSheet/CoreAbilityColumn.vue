@@ -2,11 +2,11 @@
     <div class="core-ability-column">
       <!-- Core Ability Header -->
       <div class="core-ability-header">
-        <h2>{{ title }}</h2>
+        <h2>{{ columnConfig.title }}</h2>
         <input
         type="number"
         :value="coreAbilityValue"
-        @input="$emit('update-core-ability', { key: title.toLowerCase(), value: Number($event.target.value) })"
+        @input="updateCharacter(columnConfig.coreAbilityKey, Number($event.target.value))"
         class="input-large"
         min="0"
         />
@@ -26,27 +26,25 @@
         </span>
         <span class="d12-symbol" :class="getFavoredClass(skill)">⭓</span>
         <div class="skill-checkbox-group">
-            <div class="skill-checkbox-group">
-    <input
-        v-for="(n, checkboxIndex) in 5"
-        :key="checkboxIndex"
-        type="checkbox"
-        :checked="isCheckboxChecked(skill, checkboxIndex)"
-        @click="$emit('update-skill-checkbox', skill.name, checkboxIndex)"
-        class="skill-checkbox"
-        :class="getSkillCheckboxDiceModClass(skill, checkboxIndex)"
-    />
-    </div>
+          <input
+            v-for="(n, checkboxIndex) in 5"
+            :key="checkboxIndex"
+            type="checkbox"
+            :checked="isCheckboxChecked(skill, checkboxIndex)"
+            @click="$emit('update-skill-checkbox', skill.name, checkboxIndex)"
+            class="skill-checkbox"
+            :class="getSkillCheckboxDiceModClass(skill, checkboxIndex)"
+          />
         </div>
       </div>
   
       <!-- Virtue Row -->
       <div class="virtue-row">
-        <span class="skill-name">{{ virtueLabel }}</span>
+        <span class="skill-name">{{ columnConfig.virtueLabel }}</span>
         <input
         type="number"
         :value="virtueValue.current"
-        @input="$emit('update-virtue', { key: `${virtueLabel.toLowerCase()}.current`, value: Number($event.target.value) })"
+        @input="updateCharacter(`${columnConfig.virtueKey}.current`, Number($event.target.value))"
         class="input-small"
         min="0"
         />
@@ -54,7 +52,7 @@
         <input
         type="number"
         :value="virtueValue.max"
-        @input="$emit('update-virtue', { key: `${virtueLabel.toLowerCase()}.max`, value: Number($event.target.value) })"
+        @input="updateCharacter(`${columnConfig.virtueKey}.max`, Number($event.target.value))"
         class="input-small"
         min="0"
         />
@@ -62,11 +60,11 @@
   
       <!-- Weakness Row -->
       <div class="weakness-row">
-        <span class="skill-name">{{ weaknessLabel }}</span>
+        <span class="skill-name">{{ columnConfig.weaknessLabel }}</span>
         <input
         type="number"
         :value="weaknessValue"
-        @input="$emit('update-weakness', { key: weaknessLabel.toLowerCase(), value: Number($event.target.value) })"
+        @input="updateCharacter(columnConfig.weaknessKey, Number($event.target.value))"
         class="input-small"
         min="0"
         />
@@ -74,18 +72,18 @@
   
       <!-- State Row -->
       <div class="state-row">
-        <span class="skill-name">{{ capitalizeFirstLetter(firstStateKey) }}</span>
+        <span class="skill-name">{{ capitalizeFirstLetter(columnConfig.firstStateKey) }}</span>
         <input
-          type="checkbox"
-          :checked="firstStateValue"
-          @change="$emit('update-state', { key: firstStateKey, value: $event.target.checked })"
-          class="skill-checkbox"
+        type="checkbox"
+        :checked="firstStateValue"
+        @change="updateCharacter(columnConfig.firstStateKey, $event.target.checked)"
+        class="skill-checkbox"
         />
         <input
-          type="checkbox"
-          :checked="secondStateValue"
-          @change="$emit('update-state', { key: secondStateKey, value: $event.target.checked })"
-          class="skill-checkbox"
+        type="checkbox"
+        :checked="secondStateValue"
+        @change="updateCharacter(columnConfig.secondStateKey, $event.target.checked)"
+        class="skill-checkbox"
         />
         <span></span> <!-- Empty span for alignment -->
         <span></span> <!-- Empty span for alignment -->
@@ -96,48 +94,12 @@
   <script>
   export default {
     props: {
-      title: {
-        type: String,
-        required: true,
-      },
-      coreAbilityValue: {
-        type: Number,
-        required: true,
-      },
-      skills: {
-        type: Array,
-        required: true,
-      },
-      virtueLabel: {
-        type: String,
-        required: true,
-      },
-      virtueValue: {
+      character: {
         type: Object,
         required: true,
       },
-      weaknessLabel: {
+      column: {
         type: String,
-        required: true,
-      },
-      weaknessValue: {
-        type: Number,
-        required: true,
-      },
-      firstStateKey: {
-        type: String,
-        required: true,
-      },
-      firstStateValue: {
-        type: Boolean,
-        required: true,
-      },
-      secondStateKey: {
-        type: String,
-        required: true,
-      },
-      secondStateValue: {
-        type: Boolean,
         required: true,
       },
     },
@@ -149,6 +111,66 @@
       "update-state",
       "open-skill-check",
     ],
+    computed: {
+      columnConfig() {
+        const columnMappings = {
+          body: {
+            title: "BODY",
+            coreAbilityKey: "body",
+            virtueLabel: "Endurance",
+            virtueKey: "endurance",
+            weaknessLabel: "Load",
+            weaknessKey: "load",
+            firstStateKey: "weary",
+            secondStateKey: "twiceWeary",
+            skillRange: [0, 5],
+          },
+          heart: {
+            title: "HEART",
+            coreAbilityKey: "heart",
+            virtueLabel: "Hope",
+            virtueKey: "hope",
+            weaknessLabel: "Shadow",
+            weaknessKey: "shadow",
+            firstStateKey: "miserable",
+            secondStateKey: "twiceMiserable",
+            skillRange: [5, 10],
+          },
+          wits: {
+            title: "WITS",
+            coreAbilityKey: "wits",
+            virtueLabel: "Defense",
+            virtueKey: "defense",
+            weaknessLabel: "Injury",
+            weaknessKey: "injury",
+            firstStateKey: "helpless",
+            secondStateKey: "twiceHelpless",
+            skillRange: [10, 15],
+          },
+        };
+  
+        return columnMappings[this.column];
+      },
+      coreAbilityValue() {
+        return this.character[this.columnConfig.coreAbilityKey];
+      },
+      virtueValue() {
+        return this.character[this.columnConfig.virtueKey];
+      },
+      weaknessValue() {
+        return this.character[this.columnConfig.weaknessKey];
+      },
+      firstStateValue() {
+        return this.character.states[this.columnConfig.firstStateKey];
+      },
+      secondStateValue() {
+        return this.character.states[this.columnConfig.secondStateKey];
+      },
+      skills() {
+        const [start, end] = this.columnConfig.skillRange;
+        return this.character.skills.slice(start, end);
+      },
+    },
     methods: {
       getFavoredClass(skill) {
         if (skill.isFavored && !skill.isIllFavored) return "favored";
@@ -178,6 +200,21 @@
         if (!string) return "";
         return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
       },
+      updateCharacter(key, value) {
+        const keys = key.split('.'); // Split the key into parts for nested properties
+        let target = this.character;
+
+        // Traverse the object to the second-to-last key
+        for (let i = 0; i < keys.length - 1; i++) {
+        target = target[keys[i]];
+        }
+
+        // Update the final key
+        target[keys[keys.length - 1]] = value;
+
+        // Emit the updated character object
+        this.$emit('update-character', this.character);
+    },
     },
   };
   </script>
