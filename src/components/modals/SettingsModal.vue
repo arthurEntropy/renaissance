@@ -1,11 +1,10 @@
 <template>
-    <div class="modal-overlay" @click="closeModal">
-      <div class="modal-content" @click.stop>
-        <h2>Settings</h2>
-        <button class="button button-danger" @click="onDeleteCharacter">Delete Character</button>
-        <button class="button" @click="closeModal">Close</button>
-      </div>
+  <div class="modal-overlay" @click="closeModal">
+    <div class="modal-content" @click.stop>
+      <h2>Settings</h2>
+      <button class="button button-danger" @click="onDeleteCharacter">Delete Character</button>
     </div>
+  </div>
 </template>
   
 <script>

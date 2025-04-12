@@ -1,30 +1,28 @@
-<!-- filepath: /src/components/modals/DeleteConfirmationModal.vue -->
 <template>
-    <div class="modal-overlay" @click="closeModal">
-      <div class="modal-content" @click.stop>
-        <h2>Confirm Deletion</h2>
-        <p>Type the character's name (<strong>{{ characterName }}</strong>) to confirm deletion:</p>
-        <input
-          type="text"
-          v-model="confirmationInput"
-          class="modal-input"
-          placeholder="Enter character name"
-        />
-        <div>
-          <button class="button" @click="closeModal">Cancel</button>
-          <button
-            class="button confirm-delete-button"
-            :disabled="confirmationInput !== characterName"
-            @click="confirmDeletion"
-          >
-            Confirm
-          </button>
-        </div>
+  <div class="modal-overlay" @click="closeModal">
+    <div class="modal-content" @click.stop>
+      <h2>Confirm Deletion</h2>
+      <p>Type the character's name (<strong>{{ characterName }}</strong>) to confirm deletion:</p>
+      <input
+        type="text"
+        v-model="confirmationInput"
+        class="modal-input"
+        placeholder="Enter character name"
+      />
+      <div>
+        <button
+          class="button button-danger"
+          :disabled="confirmationInput !== characterName"
+          @click="confirmDeletion"
+        >
+          DELETE
+        </button>
       </div>
     </div>
-  </template>
+  </div>
+</template>
   
-  <script>
+<script>
   export default {
     props: {
       characterName: {
@@ -47,9 +45,9 @@
       },
     },
   };
-  </script>
+</script>
   
-  <style scoped>
+<style scoped>
     .modal-input {
         width: 90%;
         padding: 10px;
@@ -58,14 +56,7 @@
         background: black;
         color: white;
     }
-    .confirm-delete-button {
-        background: red;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-    }
-    .confirm-delete-button:disabled {
+    .button:disabled {
         background: black;
         color: darkgray;
         cursor: not-allowed;

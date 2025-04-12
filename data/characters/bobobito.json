@@ -13,35 +13,35 @@
       "ranks": 3,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": -2
+      "diceMod": -1
     },
     {
       "name": "Strength",
       "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": -1
+      "diceMod": 0
     },
     {
       "name": "Dexterity",
       "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": -1
+      "diceMod": 0
     },
     {
       "name": "Fortitude",
       "ranks": 0,
       "isFavored": false,
       "isIllFavored": true,
-      "diceMod": -2
+      "diceMod": -1
     },
     {
       "name": "Craft",
       "ranks": 0,
       "isFavored": false,
-      "isIllFavored": true,
-      "diceMod": -1
+      "isIllFavored": false,
+      "diceMod": 0
     },
     {
       "name": "Perform",
@@ -119,19 +119,19 @@
     "max": 15
   },
   "hope": {
-    "current": "3",
+    "current": 4,
     "max": 9
   },
   "defense": {
     "current": "7",
     "max": 14
   },
-  "load": 26,
+  "load": 0,
   "shadow": 1,
   "injury": 6,
   "states": {
-    "weary": true,
-    "twiceWeary": true,
+    "weary": false,
+    "twiceWeary": false,
     "miserable": false,
     "twiceMiserable": false,
     "helpless": false,
@@ -147,8 +147,8 @@
   "equipment": [
     {
       "name": "Dunce cap",
-      "weight": 4,
-      "quantity": 11,
+      "weight": 1,
+      "quantity": 14,
       "carried": true
     }
   ],

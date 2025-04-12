@@ -26,7 +26,7 @@
     },
     {
       "name": "Strength",
-      "ranks": 0,
+      "ranks": 5,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0
@@ -61,14 +61,14 @@
     },
     {
       "name": "Insight",
-      "ranks": 1,
+      "ranks": 4,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0
     },
     {
       "name": "Courtesy",
-      "ranks": 2,
+      "ranks": 3,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0

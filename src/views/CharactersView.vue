@@ -36,21 +36,18 @@
           :character="selectedCharacter"
           column="body"
           @update-character="updateCharacter"
-          @update-skill-checkbox="handleCheckboxChange"
           @open-skill-check="openSkillCheckModal"
         />
         <CoreAbilityColumn
           :character="selectedCharacter"
           column="heart"
           @update-character="updateCharacter"
-          @update-skill-checkbox="handleCheckboxChange"
           @open-skill-check="openSkillCheckModal"
         />
         <CoreAbilityColumn
           :character="selectedCharacter"
           column="wits"
           @update-character="updateCharacter"
-          @update-skill-checkbox="handleCheckboxChange"
           @open-skill-check="openSkillCheckModal"
         />
 
@@ -59,7 +56,7 @@
           <div class="conditions-column">
             <div class="conditions-header">Conditions</div>
             <div class="conditions-row" v-for="(value, key) in selectedCharacter.conditions" :key="key">
-              <span>{{ capitalizeFirstLetter(key) }}</span>
+              <span>{{ this.$capitalizeFirstLetter(key) }}</span>
               <input type="checkbox" class="skill-checkbox" v-model="selectedCharacter.conditions[key]" />
             </div>
           </div>
@@ -83,10 +80,8 @@
         <!--Equipment Table-->
         <EquipmentTable
           :equipment="selectedCharacter.equipment"
-          :totalWeightCarried="totalWeightCarried"
-          @update-item="updateEquipmentItem"
-          @remove-item="removeEquipmentItem"
-          @add-item="addEquipmentItem"
+          :character="selectedCharacter"
+          @update-character="updateCharacter"
         />
 
       </div>
@@ -101,17 +96,15 @@
       <ChangeCharacterArtModal
         v-if="showChangeCharacterArtModal"
         :initialArtUrl="selectedCharacter.artUrls[0] || ''"
+        :character="selectedCharacter"
         @close="closeChangeCharacterArtModal"
-        @save="saveCharacterArtUrl"
+        @update-character="updateCharacter"
       />
       <SkillCheckModal
         v-if="showSkillCheckModal"
-        :characterName="selectedCharacter.name"
-        :skills="selectedCharacter.skills"
+        :character="selectedCharacter"
         :selectedSkillName="selectedSkillName"
-        :targetNumber="targetNumber"
         @close="closeSkillCheckModal"
-        @roll="handleSkillCheck"
       />
       <SettingsModal
         v-if="showSettingsModal"
@@ -133,7 +126,6 @@
 import { useCharacterStore } from '@/stores/characterStore';
 import { mapState } from 'pinia';
 import CharacterService from '@/services/CharacterService';
-import DiceService from '@/services/DiceService.js';
 import SelectionCard from '@/components/SelectionCard.vue';
 import CharacterBioSection from '@/components/characterSheet/CharacterBioSection.vue';
 import CoreAbilityColumn from '@/components/characterSheet/CoreAbilityColumn.vue';
@@ -168,7 +160,6 @@ export default {
       deleteConfirmationInput: '',
       selectedCharacterArtUrl: '',
       selectedSkillName: '',
-      targetNumber: 0,
       updateTimeout: null,
       savingStatus: '',
       defaultArtUrl: CharacterService.DEFAULT_ART_URL,
@@ -196,13 +187,6 @@ export default {
     getSelectedSkill() {
       return this.selectedCharacter.skills.find(skill => skill.name === this.selectedSkillName) || {};
     },
-    totalWeightCarried() {
-      return Math.round(
-        this.selectedCharacter.equipment.reduce((sum, item) => {
-          return item.carried ? sum + item.weight * item.quantity : sum;
-        }, 0)
-      );
-    }
   },
 
   watch: {
@@ -294,26 +278,7 @@ export default {
 
   methods: {
 
-    /* FORMATTING */
-    capitalizeFirstLetter(string) {
-      return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
-    },
-    getSkillCheckboxDiceModClass(skill, checkboxIndex) {
-      return {
-        'diceSubtracted': skill.ranks - checkboxIndex <= Math.abs(skill.diceMod) && skill.diceMod < 0,
-        'diceAdded': checkboxIndex >= skill.ranks && checkboxIndex < skill.ranks + skill.diceMod && skill.diceMod > 0
-      };
-    },
-    getFavoredClass(skill) {
-      if (skill.isFavored && !skill.isIllFavored) return 'favored';
-      if (skill.isIllFavored && !skill.isFavored) return 'ill-favored';
-      return '';
-    },
-    formatWeight(value) {
-      return Number.isInteger(value) ? value : value.toFixed(1);
-    },
-
-    /* CHARACTER SELECTION, CREATION & UPDATE */
+    /* CHARACTER SELECTION & CRUD */
     selectCharacter(character) {
       this.selectedCharacter = character;
       this.characterStore.selectedCharacter = character;
@@ -333,34 +298,8 @@ export default {
         this.selectCharacter(newCharacter);
     },
     updateCharacter(updatedCharacter) {
-      this.selectedCharacter = { ...updatedCharacter }; // Replace the character object
+      this.selectedCharacter = { ...updatedCharacter };
     },
-    closeAllModals() {
-      this.showFullSizeCharacterArtModal = false;
-      this.showChangeCharacterArtModal = false;
-      this.showSkillCheckModal = false;
-      this.showSettingsModal = false;
-      this.showDeleteConfirmationModal = false;
-    },
-
-    /* SETTINGS MODAL */
-    openSettingsModal() {
-      this.showSettingsModal = true;
-    },
-    closeSettingsModal() {
-      this.showSettingsModal = false;
-    },
-
-    /* DELETE CONFIRMATION MODAL */
-    openDeleteConfirmationModal() {
-      this.deleteConfirmationInput = '';
-      this.showDeleteConfirmationModal = true;
-    },
-    closeDeleteConfirmationModal() {
-      this.showDeleteConfirmationModal = false;
-    },
-
-    /* DELETE CHARACTER */
     deleteCharacter() {
       this.selectedCharacter.isDeleted = true;
       CharacterService.saveCharacter(this.selectedCharacter);
@@ -368,7 +307,27 @@ export default {
       this.deselectCharacter();
     },
 
-    /* CHARACTER ART */
+    /* MODAL CONTROLS */
+    closeAllModals() {
+      this.showFullSizeCharacterArtModal = false;
+      this.showChangeCharacterArtModal = false;
+      this.showSkillCheckModal = false;
+      this.showSettingsModal = false;
+      this.showDeleteConfirmationModal = false;
+    },
+    openSettingsModal() {
+      this.showSettingsModal = true;
+    },
+    closeSettingsModal() {
+      this.showSettingsModal = false;
+    },
+    openDeleteConfirmationModal() {
+      this.deleteConfirmationInput = '';
+      this.showDeleteConfirmationModal = true;
+    },
+    closeDeleteConfirmationModal() {
+      this.showDeleteConfirmationModal = false;
+    },
     openFullSizeCharacterArtModal(imageUrl) {
       this.selectedCharacterArtUrl = imageUrl;
       this.showFullSizeCharacterArtModal = true;
@@ -383,44 +342,6 @@ export default {
     closeChangeCharacterArtModal() {
       this.showChangeCharacterArtModal = false;
     },
-    saveCharacterArtUrl() {
-      if (!this.isValidImageUrl(this.tempArtUrl)) {
-        alert("Please enter a valid image URL."); // Show an error message
-        return;
-      }
-
-      if (!this.selectedCharacter.artUrls) {
-        this.selectedCharacter.artUrls = [];
-      }
-
-      this.selectedCharacter.artUrls[0] = this.tempArtUrl; // Update the character's art URL
-      CharacterService.saveCharacter(this.selectedCharacter);
-      this.closeChangeCharacterArtModal();
-    },
-    isValidImageUrl(url) {
-      const urlPattern = /^(https?:\/\/.*\.(?:png|jpg|jpeg|gif|webp))$/i; // Matches common image formats
-      return urlPattern.test(url);
-    },
-
-    /* RANK CHECKBOXES */
-    handleCheckboxChange(skillName, checkboxIndex) {
-      this.selectedSkillName = skillName;
-      const skill = this.getSelectedSkill;
-      const newRank = checkboxIndex + 1;
-      if (newRank === skill.ranks) {
-        skill.ranks -= 1;
-      } else {
-        skill.ranks = newRank;
-      }
-      CharacterService.updateFavoredStatus(this.selectedCharacter);
-    },
-    isCheckboxChecked(skill, checkboxIndex) {
-      const withinRanks = checkboxIndex < skill.ranks;
-      const withinDiceMod = checkboxIndex >= skill.ranks && checkboxIndex < skill.ranks + skill.diceMod && skill.diceMod > 0;
-      return withinRanks || withinDiceMod;
-    },
-
-    /* SKILL CHECKS */
     openSkillCheckModal(skillName) {
       this.selectedSkillName = skillName;
       this.showSkillCheckModal = true;
@@ -428,22 +349,6 @@ export default {
     closeSkillCheckModal() {
       this.showSkillCheckModal = false;
     },
-    handleSkillCheck() {
-      this.closeSkillCheckModal();
-      DiceService.makeSkillCheck(this.getSelectedSkill, this.selectedCharacter, this.targetNumber);
-      this.targetNumber = 0;
-    },
-
-    /* EQUIPMENT */
-    addEquipmentItem() {
-      CharacterService.addEquipmentItem(this.selectedCharacter);
-    },
-    removeEquipmentItem(index) {
-      CharacterService.removeEquipmentItem(this.selectedCharacter, index);
-    },
-    updateEquipmentItem(index, key, value) {
-      CharacterService.updateEquipmentItem(this.selectedCharacter, index, key, value);
-    }
   }
 };
 </script>

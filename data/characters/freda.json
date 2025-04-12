@@ -126,7 +126,7 @@
     "current": 13,
     "max": 13
   },
-  "load": 5,
+  "load": 0,
   "shadow": 0,
   "injury": 0,
   "states": {
@@ -147,8 +147,8 @@
   "equipment": [
     {
       "name": "Rations",
-      "weight": 1,
-      "quantity": 10,
+      "weight": 0.5,
+      "quantity": 9,
       "carried": true
     },
     {
