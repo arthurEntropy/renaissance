@@ -1,5 +1,5 @@
 {
-  "id": "5980f08a-2266-4bd2-b21a-95301fb8287c",
+  "id": "c6e87008-622d-4410-9f1d-ce56c85ea5ae",
   "name": "New Character",
   "pronouns": "",
   "ancestries": "",
@@ -152,8 +152,7 @@
   },
   "equipment": [],
   "artUrls": [
-    "https://cdn.midjourney.com/a8a36740-b7d3-4aef-bea3-a95039bec06f/0_2.png"
+    "https://cdn.midjourney.com/b75951b3-d21b-4e00-b7c8-c81fc16c043e/0_2.png"
   ],
-  "activeEffects": [],
-  "isDeleted": true
+  "activeEffects": []
 }

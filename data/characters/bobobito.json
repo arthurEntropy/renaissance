@@ -5,26 +5,26 @@
     "https://cdn.midjourney.com/33a4c041-49a8-4234-8e65-54d65bc7033b/0_0.png"
   ],
   "body": 3,
-  "heart": 2,
-  "wits": 1,
+  "heart": 3,
+  "wits": 4,
   "skills": [
     {
       "name": "Awe",
-      "ranks": 2,
+      "ranks": 3,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": -1
     },
     {
       "name": "Strength",
-      "ranks": 0,
+      "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0
     },
     {
       "name": "Dexterity",
-      "ranks": 2,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0
@@ -32,23 +32,23 @@
     {
       "name": "Fortitude",
       "ranks": 0,
-      "isFavored": true,
-      "isIllFavored": false,
-      "diceMod": 0
+      "isFavored": false,
+      "isIllFavored": true,
+      "diceMod": -1
     },
     {
       "name": "Craft",
-      "ranks": 1,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": -1
+      "diceMod": 0
     },
     {
       "name": "Perform",
       "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 1
+      "diceMod": -1
     },
     {
       "name": "Insight",
@@ -59,7 +59,7 @@
     },
     {
       "name": "Courtesy",
-      "ranks": 2,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0
@@ -68,67 +68,67 @@
       "name": "Spirit",
       "ranks": 0,
       "isFavored": false,
+      "isIllFavored": true,
+      "diceMod": -1
+    },
+    {
+      "name": "Aid",
+      "ranks": 0,
+      "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0
     },
     {
-      "name": "Aid",
+      "name": "Persuade",
       "ranks": 0,
       "isFavored": false,
       "isIllFavored": true,
       "diceMod": -1
     },
     {
-      "name": "Persuade",
-      "ranks": 1,
-      "isFavored": false,
-      "isIllFavored": false,
-      "diceMod": 0
-    },
-    {
       "name": "Awareness",
-      "ranks": 1,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0
     },
     {
       "name": "Stealth",
-      "ranks": 0,
+      "ranks": 3,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0
     },
     {
       "name": "Lore",
-      "ranks": 1,
+      "ranks": 0,
       "isFavored": false,
-      "isIllFavored": false,
-      "diceMod": 0
+      "isIllFavored": true,
+      "diceMod": -1
     },
     {
       "name": "Riddle",
       "ranks": 0,
       "isFavored": false,
-      "isIllFavored": true,
-      "diceMod": -1
+      "isIllFavored": false,
+      "diceMod": 0
     }
   ],
   "endurance": {
-    "current": 10,
+    "current": "7",
     "max": 15
   },
   "hope": {
-    "current": 12,
-    "max": 6
+    "current": 4,
+    "max": 9
   },
   "defense": {
-    "current": 13,
-    "max": 11
+    "current": "7",
+    "max": 14
   },
   "load": 0,
-  "shadow": 0,
-  "injury": 0,
+  "shadow": 1,
+  "injury": 6,
   "states": {
     "weary": false,
     "twiceWeary": false,
@@ -138,58 +138,29 @@
     "twiceHelpless": false
   },
   "conditions": {
-    "insecure": false,
+    "insecure": true,
     "guilty": false,
     "angry": false,
-    "afraid": false,
-    "troubled": true
+    "afraid": true,
+    "troubled": false
   },
   "equipment": [
     {
-      "name": "Rations",
+      "name": "Dunce cap",
       "weight": 1,
-      "quantity": 10,
-      "carried": true
-    },
-    {
-      "name": "Grappling Hook",
-      "weight": 2,
-      "quantity": 2,
-      "carried": true
-    },
-    {
-      "name": "Tinderbox",
-      "weight": 1,
-      "quantity": 1,
+      "quantity": 14,
       "carried": true
     }
   ],
-  "activeEffects": [
-    {
-      "name": "Weird But Entertaining",
-      "skillsModified": [
-        {
-          "name": "Awe",
-          "diceMod": -1,
-          "makeFavored": false,
-          "makeIllFavored": false
-        },
-        {
-          "name": "Perform",
-          "diceMod": 1,
-          "makeFavored": false,
-          "makeIllFavored": false
-        }
-      ]
-    }
-  ],
+  "activeEffects": [],
   "pronouns": "he/him",
   "ancestries": "Human",
   "cultures": "Agralaur",
   "personalityAndBackground": "Seasoned squire nearing retirement. Has a bird named Xixixaxa. Has a brother-in-law who owns a shaved ice stand. Never stops smiling.",
-  "xp": 10,
+  "xp": 0,
   "mp": {
-    "current": 3,
-    "max": 5
-  }
+    "current": 0,
+    "max": 0
+  },
+  "current": "9"
 }

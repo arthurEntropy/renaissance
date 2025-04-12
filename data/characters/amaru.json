@@ -12,50 +12,50 @@
       "name": "Awe",
       "ranks": 2,
       "isFavored": false,
-      "isIllFavored": false,
-      "diceMod": -1
+      "isIllFavored": true,
+      "diceMod": -3
     },
     {
       "name": "Strength",
-      "ranks": 2,
+      "ranks": 3,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 0
+      "diceMod": -2
     },
     {
       "name": "Dexterity",
-      "ranks": 2,
-      "isFavored": false,
-      "isIllFavored": false,
-      "diceMod": 0
-    },
-    {
-      "name": "Fortitude",
-      "ranks": 0,
-      "isFavored": true,
-      "isIllFavored": false,
-      "diceMod": 0
-    },
-    {
-      "name": "Craft",
-      "ranks": 1,
+      "ranks": 4,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": -1
+    },
+    {
+      "name": "Fortitude",
+      "ranks": 4,
+      "isFavored": true,
+      "isIllFavored": false,
+      "diceMod": -1
+    },
+    {
+      "name": "Craft",
+      "ranks": 5,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": -2
     },
     {
       "name": "Perform",
       "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 1
+      "diceMod": 0
     },
     {
       "name": "Insight",
       "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 0
+      "diceMod": -1
     },
     {
       "name": "Courtesy",
@@ -83,14 +83,14 @@
       "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 0
+      "diceMod": -1
     },
     {
       "name": "Awareness",
       "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 0
+      "diceMod": -1
     },
     {
       "name": "Stealth",
@@ -126,11 +126,11 @@
     "current": 13,
     "max": 11
   },
-  "load": 0,
+  "load": 15,
   "shadow": 0,
-  "injury": 0,
+  "injury": 1,
   "states": {
-    "weary": false,
+    "weary": true,
     "twiceWeary": false,
     "miserable": false,
     "twiceMiserable": false,
@@ -138,8 +138,8 @@
     "twiceHelpless": false
   },
   "conditions": {
-    "insecure": false,
-    "guilty": false,
+    "insecure": true,
+    "guilty": true,
     "angry": false,
     "afraid": false,
     "troubled": true
@@ -148,7 +148,7 @@
     {
       "name": "Rations",
       "weight": 1,
-      "quantity": 10,
+      "quantity": 28,
       "carried": true
     },
     {
@@ -160,12 +160,6 @@
     {
       "name": "Tinderbox",
       "weight": 1,
-      "quantity": 1,
-      "carried": true
-    },
-    {
-      "name": "Silversmith's Tools",
-      "weight": 2,
       "quantity": 1,
       "carried": true
     }
@@ -195,7 +189,7 @@
   "personalityAndBackground": "Wizard of the Third Wizards' Guild of Guildford. Associate of Volans.",
   "xp": 10,
   "mp": {
-    "current": 4,
+    "current": 5,
     "max": 5
   }
 }
