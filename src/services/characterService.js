@@ -18,7 +18,7 @@ class CharacterService {
       const response = await axios.get(this.baseUrl);
       return response.data;
     } catch (error) {
-      console.error("Error fetching characters:", error);
+      console.error("Error getting all characters:", error);
       throw error;
     }
   }

@@ -7,8 +7,14 @@ class AncestryService {
 
   // CRUD METHODS
   async getAllAncestries() {
-    const response = await axios.get(this.baseUrl);
-    return response.data;
+    try {
+      const response = await axios.get(this.baseUrl);
+      return response.data;
+    }
+    catch (error) {
+      console.error("Error getting all ancestries:", error);
+      throw error;
+    }
   }
   async saveAncestry(ancestry) {
     try {
