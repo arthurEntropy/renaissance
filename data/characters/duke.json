@@ -1,29 +1,29 @@
 {
-  "id": "14a03db9-9755-42c7-b458-bbeabcbda498",
-  "name": "New Character",
-  "pronouns": "",
-  "ancestries": "",
-  "cultures": "",
+  "id": "c6e87008-622d-4410-9f1d-ce56c85ea5ae",
+  "name": "Duke",
+  "pronouns": "she/her",
+  "ancestries": "Dwarf",
+  "cultures": "Desert Union",
   "personalityAndBackground": "",
   "xp": 0,
   "mp": {
     "current": 0,
     "max": 0
   },
-  "body": 0,
-  "heart": 0,
-  "wits": 0,
+  "body": 3,
+  "heart": 1,
+  "wits": 2,
   "skills": [
     {
       "name": "Awe",
-      "ranks": 0,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0
     },
     {
       "name": "Strength",
-      "ranks": 0,
+      "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0
@@ -58,7 +58,7 @@
     },
     {
       "name": "Insight",
-      "ranks": 0,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0
@@ -86,7 +86,7 @@
     },
     {
       "name": "Persuade",
-      "ranks": 0,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0
@@ -114,23 +114,23 @@
     },
     {
       "name": "Riddle",
-      "ranks": 0,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0
     }
   ],
   "endurance": {
-    "current": 0,
-    "max": 0
+    "current": 15,
+    "max": 15
   },
   "hope": {
-    "current": 0,
-    "max": 0
+    "current": 3,
+    "max": 3
   },
   "defense": {
-    "current": 0,
-    "max": 10
+    "current": 12,
+    "max": 12
   },
   "load": 0,
   "shadow": 0,
@@ -152,8 +152,7 @@
   },
   "equipment": [],
   "artUrls": [
-    null
+    "https://cdn.midjourney.com/b75951b3-d21b-4e00-b7c8-c81fc16c043e/0_2.png"
   ],
-  "activeEffects": [],
-  "isDeleted": true
+  "activeEffects": []
 }

@@ -4,7 +4,7 @@
     <!--CHARACTER SELECTION-->
     <div v-if="!selectedCharacter" class="character-selection">
       <h2>CHARACTERS</h2>
-      <button class="button button-primary new-character-button" @click="createNewCharacter">New Character</button>
+      <button class="button button-primary create-new-button" @click="createNewCharacter">New Character</button>
       <div class="selection-cards-container">
         <SelectionCard 
           v-for="character in characters"
@@ -113,7 +113,7 @@
       />
       <DeleteConfirmationModal
         v-if="showDeleteConfirmationModal"
-        :characterName="selectedCharacter.name"
+        :name="selectedCharacter.name"
         @close="closeDeleteConfirmationModal"
         @confirm="deleteCharacter"
       />
@@ -157,7 +157,6 @@ export default {
       showSkillCheckModal: false,
       showSettingsModal: false,
       showDeleteConfirmationModal: false,
-      deleteConfirmationInput: '',
       selectedCharacterArtUrl: '',
       selectedSkillName: '',
       updateTimeout: null,
@@ -301,8 +300,7 @@ export default {
       this.selectedCharacter = { ...updatedCharacter };
     },
     deleteCharacter() {
-      this.selectedCharacter.isDeleted = true;
-      CharacterService.saveCharacter(this.selectedCharacter);
+      CharacterService.deleteCharacter(this.selectedCharacter);
       this.closeDeleteConfirmationModal();
       this.deselectCharacter();
     },
@@ -322,7 +320,6 @@ export default {
       this.showSettingsModal = false;
     },
     openDeleteConfirmationModal() {
-      this.deleteConfirmationInput = '';
       this.showDeleteConfirmationModal = true;
     },
     closeDeleteConfirmationModal() {
@@ -374,11 +371,6 @@ export default {
     flex-wrap: wrap;
     justify-content: center;
     padding-bottom: 50px;
-  }
-  .new-character-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
   }
   
   /* CHARACTER SHEET */

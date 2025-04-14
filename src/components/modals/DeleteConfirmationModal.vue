@@ -2,17 +2,17 @@
   <div class="modal-overlay" @click="closeModal">
     <div class="modal-content" @click.stop>
       <h2>Confirm Deletion</h2>
-      <p>Type the character's name (<strong>{{ characterName }}</strong>) to confirm deletion:</p>
+      <p>Type <strong>{{ name }}</strong> to confirm deletion:</p>
       <input
         type="text"
         v-model="confirmationInput"
         class="modal-input"
-        placeholder="Enter character name"
+        placeholder="Type name to confirm"
       />
       <div>
         <button
           class="button button-danger"
-          :disabled="confirmationInput !== characterName"
+          :disabled="confirmationInput !== name"
           @click="confirmDeletion"
         >
           DELETE
@@ -25,7 +25,7 @@
 <script>
   export default {
     props: {
-      characterName: {
+      name: {
         type: String,
         required: true,
       },

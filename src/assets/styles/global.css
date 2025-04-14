@@ -46,6 +46,11 @@ input, textarea, select {
 .button-danger:hover {
     background-color: red;
 }
+.create-new-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
 
 /* CHECKBOXES */
 input[type="checkbox"] {

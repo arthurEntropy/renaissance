@@ -1,6 +1,7 @@
 <template>
     <div class="concept-detail">
-      <button class="close-button" @click="closeDetailView">🆇</button>
+      <button class="close-button" @click="closeDetailView">ⓧ</button>
+      <button class="delete-button" @click="deleteConcept">🗑️</button>
       <div class="concept-detail-content">
         <div class="image-carousel" @mouseenter="showNav = true" @mouseleave="showNav = false">
           <button v-if="showNav" class="nav-button left" @click="prevImage">◀</button>
@@ -32,6 +33,9 @@
         methods: {
         closeDetailView() {
             this.$emit('close');
+        },
+        deleteConcept() {
+            this.$emit('delete', this.concept);
         },
         prevImage() {
             this.currentImageIndex = (this.currentImageIndex - 1 + this.concept.artUrls.length) % this.concept.artUrls.length;
@@ -100,6 +104,17 @@
         position: absolute;
         top: 10px;
         right: 10px;
+        background: none;
+        border: none;
+        font-size: 20px;
+        color: gray;
+        cursor: pointer;
+    }
+
+    .delete-button {
+        position: absolute;
+        top: 10px;
+        left: 10px;
         background: none;
         border: none;
         font-size: 30px;
