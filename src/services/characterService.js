@@ -12,7 +12,7 @@ class CharacterService {
     this.baseUrl = 'http://localhost:3000/characters';
   }
 
-  // DATA READ/WRITE METHODS
+  // CRUD METHODS
   async getAllCharacters() {
     try {
       const response = await axios.get(this.baseUrl);
@@ -22,7 +22,6 @@ class CharacterService {
       throw error;
     }
   }
-  
   async saveCharacter(character) {
     try {
       await axios.put(`${this.baseUrl}/${character.id}`, character);
@@ -30,17 +29,19 @@ class CharacterService {
       console.error("Error saving character:", error);
     }
   }
-
   async createNewCharacter() {
     const newCharacter = this.getDefaultCharacter();
-
     try {
       const response = await axios.post(this.baseUrl, newCharacter);
-      return response.data; // Return the created character
+      return response.data;
     } catch (error) {
       console.error("Error creating new character:", error);
       throw error;
     }
+  }
+  async deleteCharacter(character) {
+    character.isDeleted = true;
+    this.saveCharacter(character);
   }
 
 
@@ -166,7 +167,6 @@ class CharacterService {
       });
     });
   }
-
   updateFavoredStatus(character) {
     character.skills.forEach(skill => {
       skill.isIllFavored = (skill.ranks + skill.diceMod) < 0;
@@ -192,14 +192,12 @@ class CharacterService {
     character.equipment.push(defaultNewEquipmentItem);
     this.calculateLoad(character);
   }
-
   removeEquipmentItem(character, index) {
     if (index >= 0 && index < character.equipment.length) {
       character.equipment.splice(index, 1);
       this.calculateLoad(character);
     }
   }
-
   updateEquipmentItem(character, index, key, value) {
     if (index >= 0 && index < character.equipment.length) {
       character.equipment[index][key] = value;
