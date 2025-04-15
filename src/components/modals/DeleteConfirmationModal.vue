@@ -48,6 +48,9 @@
 </script>
   
 <style scoped>
+    .modal-overlay {
+      z-index: 1001;
+    }
     .modal-input {
         width: 90%;
         padding: 10px;

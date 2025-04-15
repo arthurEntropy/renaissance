@@ -23,7 +23,7 @@ class CultureService {
       console.error("Error saving culture:", error);
     }
   }
-  async createNewCulture() {
+  async createCulture() {
     const newCulture = this.getDefaultCulture();
     try {
       const response = await axios.post(this.baseUrl, newCulture);

@@ -66,7 +66,7 @@
         this.culturesStore.fetchCultures();
       },
       async createNewCulture() {
-        const createdCulture = await CultureService.createNewCulture();
+        const createdCulture = await CultureService.createCulture();
         await this.culturesStore.fetchCultures();
         const newCulture = this.culturesStore.cultures.find(
           (culture) => culture.id === createdCulture.id

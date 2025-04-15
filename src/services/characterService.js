@@ -29,7 +29,7 @@ class CharacterService {
       console.error("Error saving character:", error);
     }
   }
-  async createNewCharacter() {
+  async createCharacter() {
     const newCharacter = this.getDefaultCharacter();
     try {
       const response = await axios.post(this.baseUrl, newCharacter);

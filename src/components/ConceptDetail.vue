@@ -1,5 +1,5 @@
 <template>
-    <div class="concept-detail">
+    <div class="concept-detail" @click="closeDetailView">
       <button class="close-button" @click="closeDetailView">ⓧ</button>
       <button class="delete-button" @click="deleteConcept">🗑️</button>
       <div class="concept-detail-content">

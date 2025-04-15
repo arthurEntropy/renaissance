@@ -1,5 +1,5 @@
 {
-    "id": 2,
+    "id": "adc655c1-1d9c-433f-a0eb-41f93cf3ee07",
     "name": "Dwarf",
     "artUrls": [
         "https://cdn.midjourney.com/35985bd8-93b4-460c-8228-ac49e8ce970c/0_0.png",
@@ -7,5 +7,7 @@
         "https://cdn.midjourney.com/b75951b3-d21b-4e00-b7c8-c81fc16c043e/0_2.png",
         "https://cdn.midjourney.com/3ca89b90-dfef-478b-99cb-473ce3d725fc/0_2.png"
     ],
-    "description": "Stout and sturdy, dwarves are known for their resilience and craftsmanship. They are often found in mountainous regions, where they mine precious metals and gems. Dwarves are skilled warriors and have a deep connection to the earth."
+    "description": "Stout and sturdy, dwarves are known for their resilience and craftsmanship. They are often found in mountainous regions, where they mine precious metals and gems. Dwarves are skilled warriors and have a deep connection to the earth.",
+    "color1": "#f03535",
+    "color2": "#871f1f"
 }

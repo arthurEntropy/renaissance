@@ -66,7 +66,7 @@
         this.ancestriesStore.fetchAncestries();
       },
       async createNewAncestry() {
-        const createdAncestry = await AncestryService.createNewAncestry();
+        const createdAncestry = await AncestryService.createAncestry();
         await this.ancestriesStore.fetchAncestries();
         const newAncestry = this.ancestriesStore.ancestries.find(
           (ancestry) => ancestry.id === createdAncestry.id

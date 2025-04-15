@@ -23,7 +23,7 @@ class AncestryService {
       console.error("Error saving ancestry:", error);
     }
   }
-  async createNewAncestry() {
+  async createAncestry() {
     const newAncestry = this.getDefaultAncestry();
     try {
       const response = await axios.post(this.baseUrl, newAncestry);

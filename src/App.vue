@@ -6,6 +6,7 @@
         <router-link to="/characters" @click="closeMenu">CHARACTERS</router-link>
         <router-link to="/ancestries" @click="closeMenu">ANCESTRIES</router-link>
         <router-link to="/cultures" @click="closeMenu">CULTURES</router-link>
+        <router-link to="/abilities" @click="closeMenu">ABILITIES</router-link>
       </nav>
     </div>
 
@@ -50,6 +51,7 @@ html, body {
   justify-content: center;
   align-items: center;
   position: relative;
+  width: 100%;
 }
 
 /* Navigation Menu */
