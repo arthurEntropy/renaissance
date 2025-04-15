@@ -46,8 +46,11 @@ class AbilityService {
     return {
       id: null, // ID will be assigned by the backend
       name: "New Ability",
-      description: "Description of the ability.",
-      origin: null, // Origin ID will be assigned when it's associated with an Ancestry, Culture or Mestiere
+      description: "",
+      isTrait: false,
+      canBeActive: false,
+      isActive: true,
+      source: null,
       isDeleted: false,
     };
   }
