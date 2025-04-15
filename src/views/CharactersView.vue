@@ -289,7 +289,7 @@ export default {
       this.characterStore.fetchCharacters();
     },
     async createNewCharacter() {
-      const createdCharacter = await CharacterService.createNewCharacter();
+      const createdCharacter = await CharacterService.createCharacter();
       await this.characterStore.fetchCharacters();
       const newCharacter = this.characterStore.characters.find(
         (character) => character.id === createdCharacter.id

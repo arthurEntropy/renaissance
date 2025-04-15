@@ -1,0 +1,11 @@
+{
+  "id": "58c57499-9eef-49d4-9273-7674c60fae49",
+  "name": "Amphibious",
+  "description": "You can breathe in both air and water, but you must immerse yourself in water for at least 1 hour each day or become Weary. The condition can only be removed by immersing yourself in water for 1 hour. Describe the effects of this need and how you sate it.",
+  "mp": 1,
+  "isTrait": true,
+  "source": "9250fcc5-9bc9-4724-815d-4411e79d403c",
+  "isDeleted": false,
+  "canBeActive": true,
+  "isActive": true
+}

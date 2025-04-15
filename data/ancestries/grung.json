@@ -1,7 +1,9 @@
 {
-    "id": 3,
+    "id": "9250fcc5-9bc9-4724-815d-4411e79d403c",
     "name": "Grung",
     "artUrls": [
         "https://cdn.midjourney.com/714c9605-e5d4-4792-9240-f83340c5f0b2/0_0.png"
-    ]
+    ],
+    "color1": "#032687",
+    "color2": "#038764"
 }
