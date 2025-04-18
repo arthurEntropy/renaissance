@@ -15,6 +15,9 @@
   padding: 20px;
   border-radius: 8px;
   text-align: center;
+  max-height: 90%;
+  max-width: 90%;
+  overflow-y: auto;
 }
 .modal-input {
   width: 90%;

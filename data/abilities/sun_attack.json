@@ -1,0 +1,10 @@
+{
+  "id": "0ebe0ac3-8dd5-4b75-be40-6f6cc6904b7f",
+  "name": "Sun Attack",
+  "description": "4d10 hot damage?",
+  "isTrait": false,
+  "canBeActive": true,
+  "isActive": true,
+  "source": "ad8a3840-7297-4f69-b99b-2b932f599b65",
+  "isDeleted": false
+}

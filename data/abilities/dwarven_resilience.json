@@ -4,5 +4,6 @@
   "description": "Once per rest, if damage would reduce you to 0 or less Endurance, it instead reduces you to 1 Endurance. Describe how you endure.",
   "source": "adc655c1-1d9c-433f-a0eb-41f93cf3ee07",
   "isTrait": true,
-  "canBeActive": false
+  "canBeActive": false,
+  "xp": 10
 }

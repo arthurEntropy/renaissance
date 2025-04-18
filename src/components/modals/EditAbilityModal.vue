@@ -21,6 +21,14 @@
           <textarea id="description" v-model="editedAbility.description" class="modal-input"></textarea>
         </div>
 
+        <!-- MP and XP -->
+        <div class="form-group centered">
+          <label for="mp">MP:</label>
+          <input type="number" id="mp" v-model.number="editedAbility.mp" class="modal-input small-input" />
+          <label for="xp">XP:</label>
+          <input type="number" id="xp" v-model.number="editedAbility.xp" class="modal-input small-input" />
+        </div>
+
         <!-- Trait -->
         <div class="form-group centered">
           <label for="source">Source:</label>
@@ -38,6 +46,11 @@
             <optgroup label="Mestieri">
               <option v-for="mestiere in mestieri" :key="mestiere.id" :value="mestiere.id">
                 {{ mestiere.name }}
+              </option>
+            </optgroup>
+            <optgroup label="World Elements">
+              <option v-for="worldElement in worldElements" :key="worldElement.id" :value="worldElement.id">
+                {{ worldElement.name }}
               </option>
             </optgroup>
           </select>
@@ -59,11 +72,12 @@
     </div>
   </div>
 </template>
-  
+
 <script>
 import AncestryService from "@/services/AncestryService";
 import CultureService from "@/services/CultureService";
 import MestieriService from "@/services/MestieriService";
+import WorldElementsService from "@/services/WorldElementsService";
 
 export default {
   props: {
@@ -79,19 +93,22 @@ export default {
       ancestries: [],
       cultures: [],
       mestieri: [],
+      worldElements: [], // Add world elements to the data
     };
   },
   methods: {
     async fetchSources() {
       try {
-        const [ancestries, cultures, mestieri] = await Promise.all([
+        const [ancestries, cultures, mestieri, worldElements] = await Promise.all([
           AncestryService.getAllAncestries(),
           CultureService.getAllCultures(),
           MestieriService.getAllMestieri(),
+          WorldElementsService.getAllWorldElements(), // Fetch world elements
         ]);
         this.ancestries = ancestries;
         this.cultures = cultures;
         this.mestieri = mestieri;
+        this.worldElements = worldElements; // Store world elements
       } catch (error) {
         console.error("Error fetching sources:", error);
       }
@@ -109,60 +126,64 @@ export default {
   },
 };
 </script>
-  
-  <style scoped>
-  .modal-content {
-    text-align: left;
-    width: 100%;
-    max-width: 500px;
-  }
-  
-  .modal-header {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .form-group {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 15px;
-  }
-  
-  .form-group.vertical {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  
-  .form-group.centered {
-    justify-content: center;
-  }
-  
-  label {
-    margin-right: 10px;
-    font-size: 14px;
-    color: darkgray;
-  }
-  
-  .modal-input {
-    flex: 1;
-    padding: 8px;
-    font-family: 'Lora', serif;
-    color: white;
-    background-color: black;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    margin-right: 10px;
-  }
-  
-  textarea.modal-input {
-    resize: vertical;
-    min-height: 300px;
-  }
-  
-  .form-buttons {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-  }
-  </style>
+
+<style scoped>
+.modal-content {
+  text-align: left;
+  width: 100%;
+  max-width: 500px;
+}
+
+.modal-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+.form-group.vertical {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.form-group.centered {
+  justify-content: center;
+}
+
+label {
+  margin-right: 10px;
+  font-size: 14px;
+  color: darkgray;
+}
+
+.modal-input {
+  flex: 1;
+  padding: 8px;
+  font-family: 'Lora', serif;
+  color: white;
+  background-color: black;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-right: 10px;
+}
+
+textarea.modal-input {
+  resize: vertical;
+  min-height: 300px;
+}
+
+.modal-input.small-input {
+  width: 80px; /* Adjust width for smaller inputs */
+}
+
+.form-buttons {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+</style>

@@ -1,0 +1,12 @@
+{
+  "id": "35df7942-c4e0-4929-ac5d-743e73cc287c",
+  "name": "Draw Three",
+  "description": "Draw 3 cards. Choose one section from each one and cast a spell based on them. Or, you know, something like that.",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "96e062f8-646e-49f4-8eec-d92bd5fb77c4",
+  "isDeleted": false,
+  "mp": 2,
+  "xp": 10
+}
