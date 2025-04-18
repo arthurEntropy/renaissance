@@ -16,7 +16,7 @@ class CultureService {
       throw error;
     }
   }
-  async saveCulture(culture) {
+  async updateCulture(culture) {
     try {
       await axios.put(`${this.baseUrl}/${culture.id}`, culture);
     } catch (error) {
@@ -35,7 +35,7 @@ class CultureService {
   }
   async deleteCulture(culture) {
     culture.isDeleted = true;
-    this.saveCulture(culture);
+    this.updateCulture(culture);
   }
 
   // DEFAULT CULTURE

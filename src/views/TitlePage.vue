@@ -28,7 +28,6 @@
     font-size: 15vw;
     color: goldenrod;
     text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5);
-    text-decoration: none;
   }
   main-title:hover {
     text-shadow: 0px 0px 5px lightgray;

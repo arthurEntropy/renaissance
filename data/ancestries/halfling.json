@@ -1,7 +1,8 @@
 {
-    "id": 4,
-    "name": "Halfling",
-    "artUrls": [
-        "https://cdn.midjourney.com/46b1ae1a-3f67-49b3-a9a1-6341fe9e65a0/0_0.png"
-    ]
+  "id": 4,
+  "name": "Halfling",
+  "artUrls": [
+    "https://cdn.midjourney.com/46b1ae1a-3f67-49b3-a9a1-6341fe9e65a0/0_0.png"
+  ],
+  "isDeleted": true
 }

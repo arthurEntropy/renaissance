@@ -24,8 +24,8 @@
       <EditAbilityModal 
         v-if="showEditAbilityModal"
         :ability="abilityToEdit"
-        @save="saveEditedAbility"
-        @cancel="closeEditAbilityModal"
+        @update="saveEditedAbility"
+        @close="closeEditAbilityModal"
         @delete="openDeleteConfirmationModal(abilityToEdit)"
       />
     </div>
