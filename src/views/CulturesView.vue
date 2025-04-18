@@ -78,7 +78,6 @@
     computed: {
       ...mapState(useCulturesStore, ['cultures']),
       cultures() {
-        console.log('Cultures:', this.culturesStore.cultures);
         return this.culturesStore.cultures.filter(culture => !culture.isDeleted);
       },
     },

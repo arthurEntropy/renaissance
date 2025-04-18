@@ -6,7 +6,9 @@
         <router-link to="/characters" @click="closeMenu">CHARACTERS</router-link>
         <router-link to="/ancestries" @click="closeMenu">ANCESTRIES</router-link>
         <router-link to="/cultures" @click="closeMenu">CULTURES</router-link>
+        <router-link to="/mestieri" @click="closeMenu">MESTIERI</router-link>
         <router-link to="/abilities" @click="closeMenu">ABILITIES</router-link>
+        <router-link to="/world-elements" @click="closeMenu">WORLD ELEMENTS</router-link>
       </nav>
     </div>
 

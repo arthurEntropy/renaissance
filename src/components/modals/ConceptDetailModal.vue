@@ -1,126 +1,107 @@
 <template>
-    <div class="modal-overlay" @click.self="closeDetailView">
-      <div class="modal-content">
-  
-        <!-- Concept Name and Edit Button -->
-        <h2 class="concept-header">
-          {{ concept.name }}
-          <button
-            class="edit-concept-button"
-            @click="emitEditEvent"
-            title="Edit concept"
-          >
-            ✎
-          </button>
-        </h2>
-  
-        <div class="concept-detail-content">
-          <!-- Image and Description -->
-          <div class="concept-info">
-            <div class="image-carousel" @mouseenter="showNav = true" @mouseleave="showNav = false">
-              <button v-if="showNav" class="nav-button left" @click="prevImage">◀</button>
-              <img :src="concept.artUrls[currentImageIndex]" :alt="concept.name" class="detail-image" />
-              <button v-if="showNav" class="nav-button right" @click="nextImage">▶</button>
-            </div>
-            <p>{{ concept.description }}</p>
+  <div class="modal-overlay" @click.self="closeDetailView">
+    <div class="modal-content">
+      <!-- Concept Name and Edit Button -->
+      <h2 class="concept-header">
+        {{ concept.name }}
+        <button
+          class="edit-concept-button"
+          @click="emitEditEvent"
+          title="Edit concept"
+        >
+          ✎
+        </button>
+      </h2>
+
+      <div class="concept-detail-content">
+        <!-- Image and Description -->
+        <div class="concept-info">
+          <div class="image-carousel" @mouseenter="showNav = true" @mouseleave="showNav = false">
+            <button v-if="showNav" class="nav-button left" @click="prevImage">◀</button>
+            <img :src="concept.artUrls[currentImageIndex]" :alt="concept.name" class="detail-image" />
+            <button v-if="showNav" class="nav-button right" @click="nextImage">▶</button>
           </div>
-  
-          <!-- Traits and Abilities -->
-          <div class="concept-abilities">
-            <p v-if="traits.length > 0">Traits</p>
-            <div class="ability-cards-container">
-              <AbilityCard
-                v-for="trait in traits"
-                :key="trait.id"
-                :ability="trait"
-                @edit="emitAbilityEdit"
-                @delete="emitDeleteAbility"
-                @update="emitUpdateAbility"
-              />
-            </div>
-            <p v-if="abilities.length > 0">Abilities</p>
-            <div class="ability-cards-container">
-              <AbilityCard
-                v-for="ability in abilities"
-                :key="ability.id"
-                :ability="ability"
-                @edit="emitAbilityEdit"
-                @delete="emitDeleteAbility"
-                @update="emitUpdateAbility"
-              />
-            </div>
+          <p>{{ concept.description }}</p>
+        </div>
+
+        <!-- Combined Traits and Abilities -->
+        <div class="concept-abilities">
+          <p v-if="abilities.length > 0">Traits & Abilities</p>
+          <div class="ability-cards-container">
+            <AbilityCard
+              v-for="ability in abilities"
+              :key="ability.id"
+              :ability="ability"
+              @edit="emitAbilityEdit"
+            />
           </div>
         </div>
       </div>
     </div>
+  </div>
 </template>
   
-  <script>
-  import AbilityService from "@/services/AbilityService";
-  import AbilityCard from "@/components/AbilityCard.vue";
-  
-  export default {
-    props: {
-      concept: {
-        type: Object,
-        required: true,
-      },
+<script>
+import AbilityService from "@/services/AbilityService";
+import AbilityCard from "@/components/AbilityCard.vue";
+
+export default {
+  props: {
+    concept: {
+      type: Object,
+      required: true,
     },
-    components: {
-      AbilityCard,
+  },
+  components: {
+    AbilityCard,
+  },
+  data() {
+    return {
+      currentImageIndex: 0,
+      showNav: false,
+      abilities: [], // Store all abilities (traits and non-traits) together
+    };
+  },
+  methods: {
+    closeDetailView() {
+      this.$emit("close");
     },
-    data() {
-      return {
-        currentImageIndex: 0,
-        showNav: false,
-        traits: [],
-        abilities: [],
-      };
+    deleteConcept() {
+      this.$emit("delete", this.concept);
     },
-    methods: {
-      closeDetailView() {
-        this.$emit("close");
-      },
-      deleteConcept() {
-        this.$emit("delete", this.concept);
-      },
-      prevImage() {
-        this.currentImageIndex =
-          (this.currentImageIndex - 1 + this.concept.artUrls.length) %
-          this.concept.artUrls.length;
-      },
-      nextImage() {
-        this.currentImageIndex =
-          (this.currentImageIndex + 1) % this.concept.artUrls.length;
-      },
-      async fetchAbilities() {
-        try {
-          const abilities = await AbilityService.getAllAbilities();
-  
-          // Filter abilities by source matching the concept's ID
-          const conceptAbilities = abilities.filter(
-            (ability) => ability.source === this.concept.id
-          );
-  
-          // Separate abilities into traits and non-traits
-          this.traits = conceptAbilities.filter((ability) => ability.isTrait);
-          this.abilities = conceptAbilities.filter((ability) => !ability.isTrait);
-        } catch (error) {
-          console.error("Error fetching abilities:", error);
-        }
-      },
-      emitEditEvent() {
-        this.$emit("edit", this.concept);
-      },
-      emitAbilityEdit(ability) {
-        this.$emit("edit-ability", ability);
-      },
+    prevImage() {
+      this.currentImageIndex =
+        (this.currentImageIndex - 1 + this.concept.artUrls.length) %
+        this.concept.artUrls.length;
     },
-    async mounted() {
-      await this.fetchAbilities();
+    nextImage() {
+      this.currentImageIndex =
+        (this.currentImageIndex + 1) % this.concept.artUrls.length;
     },
-  };
-  </script>
+    async fetchAbilities() {
+      try {
+        const abilities = await AbilityService.getAllAbilities();
+
+        // Filter abilities by source matching the concept's ID
+        this.abilities = abilities.filter(
+          (ability) => ability.source === this.concept.id
+        );
+      } catch (error) {
+        console.error("Error fetching abilities:", error);
+      }
+    },
+    emitEditEvent() {
+      this.$emit("edit", this.concept);
+    },
+    emitAbilityEdit(ability) {
+      this.$emit("edit-ability", ability);
+    },
+  },
+  async mounted() {
+    await this.fetchAbilities();
+  },
+};
+</script>
   
 <style scoped>
 
@@ -186,7 +167,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: left;
     margin-right: 40px;
     max-width: 500px;
     text-align: left;

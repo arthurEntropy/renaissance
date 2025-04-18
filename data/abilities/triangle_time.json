@@ -1,0 +1,11 @@
+{
+  "id": "b5e6dcd8-fcc9-4f74-b87c-1747dda661a9",
+  "name": "Triangle Time",
+  "description": "If three creatures are each 20ft apart from one another, two of them take 2d6 dmg and one regains 1d6 endurance.",
+  "isTrait": false,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "a7895ceb-db19-4c87-acf5-8960f6b555ea",
+  "isDeleted": false,
+  "mp": 3
+}

@@ -9,7 +9,6 @@ class AbilityService {
   async getAllAbilities() {
     try {
       const response = await axios.get(this.baseUrl);
-      console.log("Fetched abilities:", response.data);
       return response.data;
     } catch (error) {
       console.error("Error getting all abilities:", error);
@@ -52,6 +51,8 @@ class AbilityService {
       isActive: true,
       source: null,
       isDeleted: false,
+      mp: null,
+      xp: null,
     };
   }
 }

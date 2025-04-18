@@ -1,0 +1,11 @@
+{
+  "id": "96e062f8-646e-49f4-8eec-d92bd5fb77c4",
+  "name": "Cartomancer",
+  "artUrls": [
+    "https://cdn.midjourney.com/80aecb3a-a9bc-4f7d-95a7-06daacf84da2/0_2.png"
+  ],
+  "color1": "#2e4153",
+  "color2": "#ef9932",
+  "isDeleted": false,
+  "description": "Draw cards to make modular spells and shit."
+}

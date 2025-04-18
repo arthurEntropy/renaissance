@@ -1,59 +1,63 @@
 <template>
-    <div
-      class="ability-card"
-      :style="gradientStyle"
-      @mouseenter="startSourceTooltipTimer"
-      @mouseleave="clearSourceTooltipTimer"
-      @click="toggleCollapsed"
-    >
-      <div class="ability-header">
-        <span class="caret">{{ caretSymbol }}</span>
-        <div class="ability-name-container">
-          <span class="ability-name"><strong>{{ ability.name }}</strong></span>
-          <button
-            class="edit-button"
-            @click.stop="$emit('edit', ability)"
-            title="Edit ability"
-          >
-            ✎
-          </button>
-        </div>
-        <div class="ability-info" v-if="traitOrMp">
-          <em>{{ traitOrMp }}</em>
-        </div>
+  <div
+    class="ability-card"
+    :style="gradientStyle"
+    @mouseenter="startSourceTooltipTimer"
+    @mouseleave="clearSourceTooltipTimer"
+    @click="toggleCollapsed"
+  >
+    <div class="ability-header">
+      <span class="caret">{{ caretSymbol }}</span>
+      <div class="ability-name-container">
+        <span class="ability-name"><strong>{{ ability.name }}</strong></span>
+        <button
+          class="edit-button"
+          @click.stop="$emit('edit', ability)"
+          title="Edit ability"
+        >
+          ✎
+        </button>
       </div>
-      <transition name="expand">
-        <div v-if="!collapsed" class="ability-content">
-          <p class="description-background">
-            {{ ability.description }}
-          </p>
-          <button
-            v-if="ability.canBeActive"
-            class="bottom-buttons toggle-active-button"
-            @click.stop="toggleActive"
-            :title="isActive ? 'Make inactive' : 'Make active'"
-          >
-            {{ isActive ? '💨' : '💥' }}
-          </button>
-          <button
-            class="bottom-buttons send-to-chat-button"
-            @click.stop="sendAbilityToChat"
-            title="Send to chat"
-          >
-            💬
-          </button>
-        </div>
-      </transition>
-      <div v-if="showTooltip" class="tooltip">
-        from {{ sourceName }}
+      <div class="ability-info" v-if="traitOrMp">
+        <em>{{ traitOrMp }}</em>
       </div>
     </div>
+    <transition name="expand">
+      <div v-if="!collapsed" class="ability-content">
+        <p class="description-background">
+          {{ ability.description }}
+        </p>
+        <button
+          v-if="ability.canBeActive"
+          class="bottom-buttons toggle-active-button"
+          @click.stop="toggleActive"
+          :title="isActive ? 'Make inactive' : 'Make active'"
+        >
+          {{ isActive ? '💨' : '💥' }}
+        </button>
+        <button
+          class="bottom-buttons send-to-chat-button"
+          @click.stop="sendAbilityToChat"
+          title="Send to chat"
+        >
+          💬
+        </button>
+      </div>
+    </transition>
+    <div v-if="showTooltip" class="tooltip">
+      from {{ sourceName }}
+    </div>
+    <div v-if="ability.xp" class="xp-bubble">
+          {{ ability.xp }} XP
+        </div>
+  </div>
 </template>
   
 <script>
 import AncestryService from "@/services/AncestryService";
 import CultureService from "@/services/CultureService";
 import MestieriService from "@/services/MestieriService";
+import WorldElementsService from "@/services/WorldElementsService";
 
 export default {
   props: {
@@ -93,16 +97,18 @@ export default {
   methods: {
     async fetchSourceColorsAndName() {
       try {
-        const [ancestries, cultures, mestieri] = await Promise.all([
+        const [ancestries, cultures, mestieri, worldElements] = await Promise.all([
           AncestryService.getAllAncestries(),
           CultureService.getAllCultures(),
           MestieriService.getAllMestieri(),
+          WorldElementsService.getAllWorldElements(),
         ]);
 
         const sourceEntity =
           ancestries.find((item) => item.id === this.ability.source) ||
           cultures.find((item) => item.id === this.ability.source) ||
-          mestieri.find((item) => item.id === this.ability.source);
+          mestieri.find((item) => item.id === this.ability.source) ||
+          worldElements.find((item) => item.id === this.ability.source);
 
         if (sourceEntity) {
           this.color1 = sourceEntity.color1 || "#000000";
@@ -172,7 +178,7 @@ export default {
   color: lightgray;
   transition: background-color 0.3s ease, transform 0.2s ease;
   width: 300px;
-  position: relative; /* For tooltip positioning */
+  position: relative; /* For tooltip and XP bubble positioning */
 }
 
 .ability-header {
@@ -242,6 +248,20 @@ export default {
   padding: 10px;
   border-radius: 5px;
   text-align: left;
+}
+
+.xp-bubble {
+  position: absolute;
+  bottom: -10px;
+  left: 0px;
+  background-color: white;
+  color: black;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 5px 10px;
+  border-radius: 15px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+  pointer-events: none; /* Prevent interaction */
 }
 
 .bottom-buttons {
