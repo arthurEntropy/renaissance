@@ -1,0 +1,10 @@
+{
+  "id": "1955e307-ce0a-429c-a1bf-aa461cfdecdc",
+  "name": "Firetouched",
+  "description": "You can do cool shit with fire! Really!",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": 2,
+  "isDeleted": false
+}

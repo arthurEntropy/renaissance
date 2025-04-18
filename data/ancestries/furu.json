@@ -1,9 +1,9 @@
 {
-    "id": "d5e3228b-1d04-4503-8ec6-3210d420c082",
-    "name": "Furu",
-    "artUrls": [
-        "https://cdn.midjourney.com/b5a160de-9fa2-4f5f-9eca-39f0be802304/0_0.png"
-    ],
-    "color1": "#9cc2ff",
-    "color2": "#edf1f7"
+  "id": "d5e3228b-1d04-4503-8ec6-3210d420c082",
+  "name": "Furu",
+  "artUrls": [
+    "https://cdn.midjourney.com/b5a160de-9fa2-4f5f-9eca-39f0be802304/0_0.png"
+  ],
+  "color1": "#213535",
+  "color2": "#46463f"
 }

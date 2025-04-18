@@ -3,8 +3,9 @@ const { getDirectory, getAllDataByDirectory, saveFile, deleteFile } = require('.
 const getAllEntities = (entity) => (req, res) => {
   try {
     const directory = getDirectory(entity);
-    const entities = getAllDataByDirectory(directory);
-    res.json(entities);
+    const allEntities = getAllDataByDirectory(directory);
+    const filteredEntities = allEntities.filter(e => !e.isDeleted); // Filter out deleted entities
+    res.json(filteredEntities);
   } catch (err) {
     console.error(`Error reading ${entity} directory:`, err);
     res.status(500).send(`Error reading ${entity} directory.`);

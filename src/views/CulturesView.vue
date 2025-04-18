@@ -16,8 +16,25 @@
     v-else 
     :concept="selectedCulture" 
     @close="deselectCulture" 
-    @update="updateCulture"
-    @delete="openDeleteConfirmationModal"
+    @edit="openEditConceptModal"
+    @edit-ability="openEditAbilityModal"
+    @delete-ability="openDeleteConfirmationModalForAbility" 
+  />
+
+  <EditConceptModal 
+    v-if="showEditConceptModal"
+    :concept="selectedCulture"
+    @update="updateEditedConcept"
+    @close="closeEditConceptModal"
+    @delete="openDeleteConfirmationModalForCulture"
+  />
+
+  <EditAbilityModal 
+    v-if="showEditAbilityModal"
+    :ability="selectedAbility"
+    @update="updateEditedAbility"
+    @close="closeEditAbilityModal"
+    @delete="openDeleteConfirmationModalForAbility"
   />
 
   <DeleteConfirmationModal 
@@ -33,25 +50,35 @@
   import { mapState } from 'pinia';
   import CultureService from '@/services/CultureService';
   import SelectionCard from '@/components/SelectionCard.vue';
-  import ConceptDetail from '@/components/ConceptDetail.vue';
+  import ConceptDetail from '@/components/modals/ConceptDetailModal.vue';
   import DeleteConfirmationModal from '@/components/modals/DeleteConfirmationModal.vue';
+  import EditConceptModal from '@/components/modals/EditConceptModal.vue';
+  import EditAbilityModal from '@/components/modals/EditAbilityModal.vue';
+  import AbilityService from '@/services/AbilityService';
 
   export default {
     components: {
       SelectionCard,
       ConceptDetail,
       DeleteConfirmationModal,
+      EditConceptModal,
+      EditAbilityModal,
     },
     data() {
       return {
         culturesStore: useCulturesStore(),
         selectedCulture: null,
         showDeleteConfirmationModal: false,
+        showEditConceptModal: false,
+        showEditAbilityModal: false,
+        selectedAbility: null,
+        isDeletingAbility: false,
       };
     },
     computed: {
       ...mapState(useCulturesStore, ['cultures']),
       cultures() {
+        console.log('Cultures:', this.culturesStore.cultures);
         return this.culturesStore.cultures.filter(culture => !culture.isDeleted);
       },
     },
@@ -74,27 +101,61 @@
         this.selectCulture(newCulture);
       },
       updateCulture(updatedCulture) {
-        this.selectedCulture = { ...updatedCulture };
+        CultureService.updateCulture(updatedCulture);
+        this.culturesStore.fetchCultures();
+        this.selectedCulture = updatedCulture;
       },
       deleteCulture() {
         this.selectedCulture.isDeleted = true;
-        CultureService.saveCulture(this.selectedCulture);
+        CultureService.updateCulture(this.selectedCulture);
         this.closeDeleteConfirmationModal();
         this.deselectCulture();
       },
 
       // MODAL CONTROLS
-      openDeleteConfirmationModal() {
+      openEditConceptModal() {
+        this.showEditConceptModal = true;
+      },
+      closeEditConceptModal() {
+        this.showEditConceptModal = false;
+      },
+      refreshConceptDetailModal() {
+        var selectedCulture = this.selectedCulture;
+        this.selectedCulture = null;
+        // TODO: better solution for this issue
+        setTimeout(() => {
+          this.selectedCulture = selectedCulture;
+        }, 1);
+      },
+      updateEditedConcept(updatedConcept) {
+        this.updateCulture(updatedConcept);
+        this.refreshConceptDetailModal();
+      },
+      openEditAbilityModal(ability) {
+        this.selectedAbility = ability;
+        this.showEditAbilityModal = true;
+      },
+      closeEditAbilityModal() {
+        this.showEditAbilityModal = false;
+      },
+      updateEditedAbility(updatedAbility) {
+        AbilityService.updateAbility(updatedAbility);
+        this.culturesStore.fetchCultures();
+      },
+      openDeleteConfirmationModalForAbility() {
+        this.showDeleteConfirmationModal = true;
+      },
+      openDeleteConfirmationModalForCulture() {
         this.showDeleteConfirmationModal = true;
       },
       closeDeleteConfirmationModal() {
         this.showDeleteConfirmationModal = false;
       },
-    },
-    mounted() {
+  },
+  mounted() {
       this.culturesStore.fetchCultures();
-    },
-  };
+  },
+};
 </script>
 
 <style scoped>

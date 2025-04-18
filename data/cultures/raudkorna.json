@@ -1,8 +1,10 @@
 {
-    "id": 2,
-    "name": "Raudkorna",
-    "artUrls": [
-        "https://cdn.midjourney.com/a581598f-6262-4f23-8715-7ea54560054c/0_0.png"
-    ],
-    "description": "Appalachia but Baldur and fire and ever-red trees."
+  "id": 2,
+  "name": "Raudkorna",
+  "artUrls": [
+    "https://cdn.midjourney.com/a581598f-6262-4f23-8715-7ea54560054c/0_0.png"
+  ],
+  "description": "Appalachia but Baldur and fire and ever-red trees.TEST",
+  "color1": "#c92626",
+  "color2": "#faab00"
 }

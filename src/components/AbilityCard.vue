@@ -51,98 +51,115 @@
 </template>
   
 <script>
-  import AncestryService from "@/services/AncestryService";
-  import CultureService from "@/services/CultureService";
-  import MestieriService from "@/services/MestieriService";
-  
-  export default {
-    props: {
-      ability: {
-        type: Object,
-        required: true,
-      },
+import AncestryService from "@/services/AncestryService";
+import CultureService from "@/services/CultureService";
+import MestieriService from "@/services/MestieriService";
+
+export default {
+  props: {
+    ability: {
+      type: Object,
+      required: true,
     },
-    data() {
+  },
+  data() {
+    return {
+      collapsed: false,
+      color1: "#000000",
+      color2: "#000000",
+      sourceName: "",
+      editButtonIsVisible: false,
+      showTooltip: false,
+      tooltipTimer: null,
+      isActive: this.ability.isActive,
+    };
+  },
+  computed: {
+    caretSymbol() {
+      return this.collapsed ? "▶" : "▼";
+    },
+    gradientStyle() {
       return {
-        collapsed: true, // Default to expanded
-        color1: "#000000", // Default color1 (black)
-        color2: "#000000", // Default color2 (black)
-        sourceName: "", // Name of the source entity
-        editButtonIsVisible: false, // Whether to show the edit button
-        showTooltip: false, // Whether to show the tooltip
-        tooltipTimer: null, // Timer for tooltip delay
-        isActive: this.ability.isActive, // Local copy of isActive
+        background: `linear-gradient(to bottom right, ${this.color1}, ${this.color2})`,
       };
     },
-    computed: {
-      caretSymbol() {
-        return this.collapsed ? "▶" : "▼"; // Right-pointing or downward-pointing caret
-      },
-      gradientStyle() {
-        return {
-          background: `linear-gradient(to bottom right, ${this.color1}, ${this.color2})`,
-        };
-      },
-      traitOrMp() {
-        const parts = [];
-        if (this.ability.isTrait) parts.push("trait");
-        if (this.ability.mp) parts.push(`${this.ability.mp} MP`);
-        return parts.join(", ");
-      },
+    traitOrMp() {
+      const parts = [];
+      if (this.ability.isTrait) parts.push("trait");
+      if (this.ability.mp) parts.push(`${this.ability.mp} MP`);
+      return parts.join(", ");
     },
-    methods: {
-      async fetchSourceColorsAndName() {
-        try {
-          const [ancestries, cultures, mestieri] = await Promise.all([
-            AncestryService.getAllAncestries(),
-            CultureService.getAllCultures(),
-            MestieriService.getAllMestieri(),
-          ]);
-  
-          const sourceEntity =
-            ancestries.find((item) => item.id === this.ability.source) ||
-            cultures.find((item) => item.id === this.ability.source) ||
-            mestieri.find((item) => item.id === this.ability.source);
-  
-          if (sourceEntity) {
-            this.color1 = sourceEntity.color1 || "#000000";
-            this.color2 = sourceEntity.color2 || "#000000";
-            this.sourceName = sourceEntity.name || "Unknown"; // Set the source name
-          }
-        } catch (error) {
-          console.error("Error fetching source colors and name:", error);
+  },
+  methods: {
+    async fetchSourceColorsAndName() {
+      try {
+        const [ancestries, cultures, mestieri] = await Promise.all([
+          AncestryService.getAllAncestries(),
+          CultureService.getAllCultures(),
+          MestieriService.getAllMestieri(),
+        ]);
+
+        const sourceEntity =
+          ancestries.find((item) => item.id === this.ability.source) ||
+          cultures.find((item) => item.id === this.ability.source) ||
+          mestieri.find((item) => item.id === this.ability.source);
+
+        if (sourceEntity) {
+          this.color1 = sourceEntity.color1 || "#000000";
+          this.color2 = sourceEntity.color2 || "#000000";
+          this.sourceName = sourceEntity.name || "Unknown";
+        } else {
+          console.warn(`Source not found for ability with source ID: ${this.ability.source}`);
+          this.color1 = "#000000";
+          this.color2 = "#000000";
+          this.sourceName = "Unknown";
         }
-      },
-      showEditButton() {
-          this.editButtonIsVisible = !this.editButtonIsVisible;
-      },
-      hideEditButton() {
-          this.editButtonIsVisible = false;
-      },
-      toggleCollapsed() {
-        this.collapsed = !this.collapsed;
-      },
-      toggleActive() {
-        this.isActive = !this.isActive;
-        this.$emit("update", { ...this.ability, isActive: this.isActive });
-      },
-      sendAbilityToChat() {
-        this.$emit("sendToChat", this.ability);
-      },
-      startSourceTooltipTimer() {
-        this.tooltipTimer = setTimeout(() => {
-          this.showTooltip = true;
-        }, 1500); // Show source tooltip after 1.5 seconds
-      },
-      clearSourceTooltipTimer() {
-        clearTimeout(this.tooltipTimer);
-        this.showTooltip = false;
-      },
+      } catch (error) {
+        console.error("Error fetching source colors and name:", error);
+        this.color1 = "#000000";
+        this.color2 = "#000000";
+        this.sourceName = "Unknown";
+      }
     },
-    async mounted() {
-      await this.fetchSourceColorsAndName();
+    showEditButton() {
+      this.editButtonIsVisible = !this.editButtonIsVisible;
     },
-  };
+    hideEditButton() {
+      this.editButtonIsVisible = false;
+    },
+    toggleCollapsed() {
+      this.collapsed = !this.collapsed;
+    },
+    toggleActive() {
+      this.isActive = !this.isActive;
+      this.$emit("update", { ...this.ability, isActive: this.isActive });
+    },
+    sendAbilityToChat() {
+      this.$emit("sendToChat", this.ability);
+    },
+    startSourceTooltipTimer() {
+      this.tooltipTimer = setTimeout(() => {
+        this.showTooltip = true;
+      }, 1500); // Show source tooltip after 1.5 seconds
+    },
+    clearSourceTooltipTimer() {
+      clearTimeout(this.tooltipTimer);
+      this.showTooltip = false;
+    },
+  },
+  watch: {
+    ability: {
+      handler() {
+        this.fetchSourceColorsAndName();
+      },
+      deep: true,
+      immediate: true,
+    },
+  },
+  async mounted() {
+    await this.fetchSourceColorsAndName();
+  },
+};
 </script>
   
 <style scoped>
@@ -150,16 +167,12 @@
   border: 1px solid #555;
   border-radius: 8px;
   padding: 10px;
-  margin: 5px 0;
+  margin: 10px 0;
   cursor: pointer;
   color: lightgray;
   transition: background-color 0.3s ease, transform 0.2s ease;
   width: 300px;
   position: relative; /* For tooltip positioning */
-}
-
-.ability-card:hover {
-  transform: scale(1.02);
 }
 
 .ability-header {
@@ -197,9 +210,8 @@
   background: none;
   border: none;
   color: lightgray;
-  font-size: 16px;
+  font-size: 14px;
   cursor: pointer;
-  padding: 2px;
   transition: text-shadow 0.2s ease-in-out;
 }
 
@@ -219,7 +231,6 @@
 }
 
 .ability-content {
-  margin-top: 10px;
   font-size: 14px;
   color: lightgray;
   overflow: hidden;
@@ -230,6 +241,7 @@
   background-color: rgba(0, 0, 0, 0.4);
   padding: 10px;
   border-radius: 5px;
+  text-align: left;
 }
 
 .bottom-buttons {
@@ -273,7 +285,6 @@
   pointer-events: none; /* Prevent tooltip from interfering with hover */
 }
 
-/* Transition for expanding and collapsing */
 .expand-enter-active,
 .expand-leave-active {
   transition: all 0.3s ease;
