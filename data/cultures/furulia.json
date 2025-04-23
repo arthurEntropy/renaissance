@@ -1,8 +1,10 @@
 {
-    "id": 4,
-    "name": "Furulia",
-    "artUrls": [
-        "https://cdn.midjourney.com/6809e242-9038-4c24-bed1-902a19f5d96f/0_0.png"
-    ],
-    "description": "Frozen story owl north country with glowing trees."
+  "id": 4,
+  "name": "Furulia",
+  "artUrls": [
+    "https://cdn.midjourney.com/6809e242-9038-4c24-bed1-902a19f5d96f/0_0.png"
+  ],
+  "description": "Frozen story owl north country with glowing trees.",
+  "color1": "#00b3ff",
+  "color2": "#8a8a8a"
 }
