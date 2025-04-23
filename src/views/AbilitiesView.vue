@@ -2,9 +2,70 @@
     <div class="ability-selection">
       <h2>ABILITIES</h2>
       <button class="button button-primary create-new-button" @click="createAbility">New Ability</button>
+      
+      <!-- Search and Filter Controls -->
+      <div class="filter-controls">
+        <input
+          type="text"
+          v-model="searchQuery"
+          class="search-input"
+          placeholder="Search abilities..."
+        />
+        <select v-model="sourceFilter" class="source-filter">
+          <option value="">All Sources</option>
+          <optgroup label="Ancestries">
+            <option v-for="ancestry in sources.ancestries" 
+              :key="ancestry.id" 
+              :value="ancestry.id"
+            >
+              {{ ancestry.name }}
+            </option>
+          </optgroup>
+          <optgroup label="Cultures">
+            <option v-for="culture in sources.cultures" 
+              :key="culture.id" 
+              :value="culture.id"
+            >
+              {{ culture.name }}
+            </option>
+          </optgroup>
+          <optgroup label="Mestieri">
+            <option v-for="mestiere in sources.mestieri" 
+              :key="mestiere.id" 
+              :value="mestiere.id"
+            >
+              {{ mestiere.name }}
+            </option>
+          </optgroup>
+          <optgroup label="World Elements">
+            <option v-for="worldElement in sources.worldElements" 
+              :key="worldElement.id" 
+              :value="worldElement.id"
+            >
+              {{ worldElement.name }}
+            </option>
+          </optgroup>
+        </select>
+        <select v-model="sortOption" class="sort-filter">
+          <option value="">Sort by...</option>
+          <optgroup label="Name">
+            <option value="name-asc">Name (A-Z)</option>
+            <option value="name-desc">Name (Z-A)</option>
+          </optgroup>
+          <optgroup label="MP">
+            <option value="mp-asc">MP (Low to High)</option>
+            <option value="mp-desc">MP (High to Low)</option>
+          </optgroup>
+          <optgroup label="XP">
+            <option value="xp-asc">XP (Low to High)</option>
+            <option value="xp-desc">XP (High to Low)</option>
+          </optgroup>
+        </select>
+      </div>
+
       <div class="selection-cards-container">
         <AbilityCard 
-          v-for="ability in abilities" 
+          v-for="ability in filteredAbilities" 
           :key="ability.id" 
           :ability="ability" 
           @delete="openDeleteConfirmationModal(ability)"
@@ -52,13 +113,60 @@
         abilityToEdit: null,
         showDeleteConfirmationModal: false,
         abilityToDelete: null,
+        searchQuery: '',
+        sourceFilter: '',
+        sources: {
+          ancestries: [],
+          cultures: [],
+          mestieri: [],
+          worldElements: [],
+        },
+        sortOption: '',
       };
     },
     computed: {
       ...mapState(useAbilitiesStore, ['abilities']),
-      abilities() {
-        return this.abilitiesStore.abilities.filter(ability => !ability.isDeleted);
-      },
+      filteredAbilities() {
+        const query = this.searchQuery.toLowerCase().trim();
+        let filtered = this.abilitiesStore.abilities.filter(ability => !ability.isDeleted);
+        
+        // Apply source filter
+        if (this.sourceFilter) {
+          filtered = filtered.filter(ability => ability.source === this.sourceFilter);
+        }
+        
+        // Apply search query
+        if (query) {
+          filtered = filtered.filter(ability => 
+            ability.name.toLowerCase().includes(query) ||
+            ability.description.toLowerCase().includes(query)
+          );
+        }
+
+        // Apply sorting
+        if (this.sortOption) {
+          const [field, direction] = this.sortOption.split('-');
+          filtered.sort((a, b) => {
+            let comparison = 0;
+            
+            // Handle null/undefined values
+            if (!a[field] && !b[field]) return 0;
+            if (!a[field]) return 1;
+            if (!b[field]) return -1;
+
+            // Compare based on field type
+            if (field === 'name') {
+              comparison = a[field].localeCompare(b[field]);
+            } else {
+              comparison = a[field] - b[field];
+            }
+            
+            return direction === 'asc' ? comparison : -comparison;
+          });
+        }
+        
+        return filtered;
+      }
     },
     methods: {
       // ABILITY CRUD
@@ -102,32 +210,113 @@
         this.abilityToDelete = null;
         this.showDeleteConfirmationModal = false;
       },
+      async fetchSources() {
+        await this.abilitiesStore.fetchAllSources();
+        this.sources = this.abilitiesStore.sources;
+      }
     },
     mounted() {
-      this.abilitiesStore.fetchAllAbilities();
+      this.abilitiesStore.fetchAllAbilities(),
+      this.fetchSources()
     },
   };
-  </script>
+</script>
   
-  <style scoped>
-  .ability-selection {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    flex-grow: 1;
-  }
-  
-  .selection-cards-container {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1rem;
-    padding-bottom: 50px;
-  }
-  
-  .create-new-button {
-    margin-bottom: 1rem;
-  }
-  </style>
+<style scoped>
+.filter-controls {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+  max-width: 900px;
+  margin-bottom: 1rem;
+}
+
+.search-input {
+  flex: 2;
+  padding: 8px 12px;
+  border: 1px solid #555;
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0.65);
+  color: white;
+  font-size: 16px;
+}
+
+.source-filter {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid #555;
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0.65);
+  color: white;
+  font-size: 16px;
+  font-family: 'Lora', serif;
+}
+
+.source-filter optgroup {
+  background-color: black;
+}
+
+.source-filter option {
+  background-color: rgba(0, 0, 0, 0.85);
+  padding: 8px;
+}
+
+.search-input::placeholder {
+  color: #888;
+}
+
+.search-input:focus,
+.source-filter:focus {
+  outline: none;
+  border-color: #888;
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+}
+
+.sort-filter {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid #555;
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0.65);
+  color: white;
+  font-size: 16px;
+  font-family: 'Lora', serif;
+}
+
+.sort-filter optgroup {
+  background-color: black;
+}
+
+.sort-filter option {
+  background-color: rgba(0, 0, 0, 0.85);
+  padding: 8px;
+}
+
+.ability-selection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  flex-grow: 1;
+  padding: 0 2rem;
+}
+
+.selection-cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-auto-rows: 10px;
+  width: 100%;
+  max-width: 1400px;
+  gap: 0.1rem;
+  align-items: start;
+  padding: 0.5rem;
+}
+
+.selection-cards-container > * {
+  grid-row: span var(--card-span, 28);
+}
+
+.create-new-button {
+  margin-bottom: 1rem;
+}
+</style>

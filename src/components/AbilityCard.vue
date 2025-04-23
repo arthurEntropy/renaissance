@@ -54,10 +54,7 @@
 </template>
   
 <script>
-import AncestryService from "@/services/AncestryService";
-import CultureService from "@/services/CultureService";
-import MestieriService from "@/services/MestieriService";
-import WorldElementsService from "@/services/WorldElementsService";
+import { useAbilitiesStore } from '@/stores/abilitiesStore';
 
 export default {
   props: {
@@ -72,10 +69,10 @@ export default {
       color1: "#000000",
       color2: "#000000",
       sourceName: "",
-      editButtonIsVisible: false,
       showTooltip: false,
       tooltipTimer: null,
       isActive: this.ability.isActive,
+      abilitiesStore: useAbilitiesStore(),
     };
   },
   computed: {
@@ -83,6 +80,11 @@ export default {
       return this.collapsed ? "▶" : "▼";
     },
     gradientStyle() {
+      if (!this.color1 || !this.color2) {
+        return {
+          background: 'rgba(0, 0, 0, 0.65)' // Fallback color while loading
+        };
+      }
       return {
         background: `linear-gradient(to bottom right, ${this.color1}, ${this.color2})`,
       };
@@ -96,36 +98,27 @@ export default {
   },
   methods: {
     async fetchSourceColorsAndName() {
-      try {
-        const [ancestries, cultures, mestieri, worldElements] = await Promise.all([
-          AncestryService.getAllAncestries(),
-          CultureService.getAllCultures(),
-          MestieriService.getAllMestieri(),
-          WorldElementsService.getAllWorldElements(),
-        ]);
-
-        const sourceEntity =
-          ancestries.find((item) => item.id === this.ability.source) ||
-          cultures.find((item) => item.id === this.ability.source) ||
-          mestieri.find((item) => item.id === this.ability.source) ||
-          worldElements.find((item) => item.id === this.ability.source);
-
-        if (sourceEntity) {
-          this.color1 = sourceEntity.color1 || "#000000";
-          this.color2 = sourceEntity.color2 || "#000000";
-          this.sourceName = sourceEntity.name || "Unknown";
-        } else {
-          console.warn(`Source not found for ability with source ID: ${this.ability.source}`);
-          this.color1 = "#000000";
-          this.color2 = "#000000";
-          this.sourceName = "Unknown";
-        }
-      } catch (error) {
-        console.error("Error fetching source colors and name:", error);
-        this.color1 = "#000000";
-        this.color2 = "#000000";
-        this.sourceName = "Unknown";
+      if (!this.ability.source) {
+        this.setDefaultColors();
+        return;
       }
+
+      await this.abilitiesStore.fetchAllSources();
+      const sourceEntity = this.abilitiesStore.getSourceById(this.ability.source);
+
+      if (sourceEntity) {
+        this.color1 = sourceEntity.color1;
+        this.color2 = sourceEntity.color2;
+        this.sourceName = sourceEntity.name;
+      } else {
+        this.setDefaultColors();
+      }
+    },
+
+    setDefaultColors() {
+      this.color1 = "#000000";
+      this.color2 = "#000000";
+      this.sourceName = "Unknown";
     },
     showEditButton() {
       this.editButtonIsVisible = !this.editButtonIsVisible;
@@ -152,18 +145,33 @@ export default {
       clearTimeout(this.tooltipTimer);
       this.showTooltip = false;
     },
+    setSpanSize() {
+    const rowHeight = 10; // This should match grid-auto-rows in parent
+    const height = this.$el.getBoundingClientRect().height;
+    const rowSpan = Math.ceil(height / rowHeight);
+    this.$el.style.setProperty('--card-span', rowSpan);
+    }
   },
   watch: {
-    ability: {
+    'ability.source': {
+      immediate: true,
       handler() {
         this.fetchSourceColorsAndName();
       },
-      deep: true,
-      immediate: true,
     },
+    collapsed() {
+      this.$nextTick(() => {
+        this.setSpanSize();
+      });
+    }
+  },
+  async created() {
+    await this.fetchSourceColorsAndName();
   },
   async mounted() {
-    await this.fetchSourceColorsAndName();
+    this.$nextTick(() => {
+      this.setSpanSize();
+    });
   },
 };
 </script>
@@ -173,12 +181,12 @@ export default {
   border: 1px solid #555;
   border-radius: 8px;
   padding: 10px;
-  margin: 10px 0;
+  margin: 0; /* Remove margin, was 10px 0 */
   cursor: pointer;
   color: lightgray;
   transition: background-color 0.3s ease, transform 0.2s ease;
   width: 300px;
-  position: relative; /* For tooltip and XP bubble positioning */
+  position: relative;
 }
 
 .ability-header {
@@ -287,7 +295,6 @@ export default {
 .send-to-chat-button {
   right: -1px;
 }
-
 
 .tooltip {
   position: absolute;
