@@ -9,6 +9,7 @@
         <router-link to="/mestieri" @click="closeMenu">MESTIERI</router-link>
         <router-link to="/abilities" @click="closeMenu">ABILITIES</router-link>
         <router-link to="/world-elements" @click="closeMenu">WORLD ELEMENTS</router-link>
+        <router-link to="/equipment" @click="closeMenu">EQUIPMENT</router-link>
       </nav>
     </div>
 

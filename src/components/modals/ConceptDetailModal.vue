@@ -24,7 +24,7 @@
           <p>{{ concept.description }}</p>
         </div>
 
-        <!-- Combined Traits and Abilities -->
+        <!-- Traits & Abilities -->
         <div class="concept-abilities">
           <p v-if="abilities.length > 0">Traits & Abilities</p>
           <div class="ability-cards-container">
@@ -36,6 +36,19 @@
             />
           </div>
         </div>
+
+        <!-- Equipment Section -->
+        <div class="concept-equipment" v-if="equipment.length > 0">
+          <p>Equipment</p>
+          <div class="equipment-cards-container">
+            <EquipmentCard
+              v-for="item in equipment"
+              :key="item.id"
+              :equipment="item"
+              @edit="emitEquipmentEdit"
+            />
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -43,7 +56,9 @@
   
 <script>
 import AbilityService from "@/services/AbilityService";
+import EquipmentService from "@/services/EquipmentService";
 import AbilityCard from "@/components/AbilityCard.vue";
+import EquipmentCard from "@/components/EquipmentCard.vue";
 
 export default {
   props: {
@@ -54,12 +69,14 @@ export default {
   },
   components: {
     AbilityCard,
+    EquipmentCard,
   },
   data() {
     return {
       currentImageIndex: 0,
       showNav: false,
       abilities: [], // Store all abilities (traits and non-traits) together
+      equipment: [], // Store all equipment related to the concept
     };
   },
   methods: {
@@ -90,15 +107,30 @@ export default {
         console.error("Error fetching abilities:", error);
       }
     },
+    async fetchEquipment() {
+      try {
+        const equipment = await EquipmentService.getAllEquipment();
+
+        // Filter equipment by source matching the concept's ID
+        this.equipment = equipment.filter(
+          (item) => item.source === this.concept.id
+        );
+      } catch (error) {
+        console.error("Error fetching equipment:", error);
+      }
+    },
     emitEditEvent() {
       this.$emit("edit", this.concept);
     },
     emitAbilityEdit(ability) {
       this.$emit("edit-ability", ability);
     },
+    emitEquipmentEdit(equipment) {
+      this.$emit("edit-equipment", equipment);
+    },
   },
   async mounted() {
-    await this.fetchAbilities();
+    await Promise.all([this.fetchAbilities(), this.fetchEquipment()]);
   },
 };
 </script>
@@ -221,11 +253,24 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  margin-right: 20px;
 }
 
 .ability-cards-container {
   display: flex;
   flex-direction: column;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.concept-equipment {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.equipment-cards-container {
+  display: flex;
   flex-wrap: wrap;
   gap: 10px;
 }
