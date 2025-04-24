@@ -2,18 +2,24 @@
   "id": "58c57499-9eef-49d4-9273-7674c60fae77",
   "artUrl": "https://cdn.midjourney.com/ca2dd46f-000f-4c7f-b942-d32f5c8e3625/0_3.png",
   "name": "Longsword",
-  "description": "A super cool sharp sword that deals 2d6 damage on a hit.",
+  "description": "A super cool sharp sword that deals 2d6 damage on a hit. It also does some cool ice shit that I won't attempt to describe, but my guess would be that it does and additional 1d4 cold damage once per rest.",
   "standardOfLiving": "4",
   "source": "75800953-4adb-405f-a4ab-a599573ca533",
   "weight": 2,
   "isMelee": true,
   "damageDice": [
     6,
-    6
+    6,
+    4,
+    20,
+    10,
+    8
   ],
   "engagementDice": [
     4,
-    6
+    6,
+    8,
+    10
   ],
   "engagementSuccesses": [
     "77c57499-9eef-49d4-9273-7674c60fae77",
