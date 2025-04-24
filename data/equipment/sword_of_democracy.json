@@ -1,0 +1,26 @@
+{
+  "id": "b5c44a5a-cf41-4982-973b-d3d4ad36bee8",
+  "name": "Sword of Democracy",
+  "description": "",
+  "standardOfLiving": "1",
+  "source": 3,
+  "weight": 2,
+  "isMelee": true,
+  "damageDice": [
+    6
+  ],
+  "engagementDice": [
+    6,
+    6
+  ],
+  "engagementSuccesses": [
+    "1",
+    "2",
+    "4",
+    "11"
+  ],
+  "skillMods": [],
+  "isDeleted": false,
+  "isCustom": false,
+  "artUrl": "https://cdn.midjourney.com/d616c215-b9a3-4f68-8874-fb042110fa46/0_0.png"
+}

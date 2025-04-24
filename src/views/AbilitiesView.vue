@@ -305,7 +305,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   grid-auto-rows: 10px;
-  width: 100%;
+  width: 90%;
   max-width: 1400px;
   gap: 0.1rem;
   align-items: start;

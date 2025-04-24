@@ -45,7 +45,7 @@
       </div>
     </transition>
     <div v-if="showTooltip" class="tooltip">
-      from {{ sourceName }}
+      from: {{ sourceName }}
     </div>
     <div v-if="ability.xp" class="xp-bubble">
           {{ ability.xp }} XP
@@ -181,7 +181,7 @@ export default {
   border: 1px solid #555;
   border-radius: 8px;
   padding: 10px;
-  margin: 0; /* Remove margin, was 10px 0 */
+  margin-top: 5px;
   cursor: pointer;
   color: lightgray;
   transition: background-color 0.3s ease, transform 0.2s ease;

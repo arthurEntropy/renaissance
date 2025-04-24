@@ -1,0 +1,24 @@
+{
+  "id": "c69de09b-f928-4465-95c4-8ba25e6fb66b",
+  "name": "Azcan Warhammer",
+  "description": "Once per rest, you may call upon the fire of Azca to add 1d6 to a damage roll for this weapon.",
+  "standardOfLiving": "3",
+  "source": "adc655c1-1d9c-433f-a0eb-41f93cf3ee07",
+  "weight": 5,
+  "isMelee": true,
+  "damageDice": [
+    12
+  ],
+  "engagementDice": [
+    10
+  ],
+  "engagementSuccesses": [
+    "3",
+    "6",
+    "11"
+  ],
+  "skillMods": [],
+  "isDeleted": false,
+  "isCustom": false,
+  "artUrl": "https://cdn.midjourney.com/2fcb5ebc-3878-47b7-9ff2-966514ac8989/0_3.png"
+}

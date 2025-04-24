@@ -1,0 +1,16 @@
+{
+  "id": "6491e3fc-1152-4a3d-baa7-d1afd720edc1",
+  "name": "Waterskin",
+  "description": "Just a regular-ass waterskin.",
+  "standardOfLiving": null,
+  "source": null,
+  "weight": 0,
+  "isMelee": false,
+  "damageDice": [],
+  "engagementDice": [],
+  "engagementSuccesses": [],
+  "skillMods": [],
+  "isDeleted": false,
+  "isCustom": false,
+  "artUrl": null
+}

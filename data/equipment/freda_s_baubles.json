@@ -1,0 +1,16 @@
+{
+  "id": "4efb13c1-7cbe-4a74-be9c-3602f9426978",
+  "name": "Freda's Baubles",
+  "description": "Just some cool baubles. Maybe they can give you favored on a Persuade roll once per rest?",
+  "standardOfLiving": "3",
+  "source": "75800953-4adb-405f-a4ab-a599573ca533",
+  "weight": 0,
+  "isMelee": false,
+  "damageDice": [],
+  "engagementDice": [],
+  "engagementSuccesses": [],
+  "skillMods": [],
+  "isDeleted": false,
+  "isCustom": false,
+  "artUrl": "https://cdn.midjourney.com/0686856a-67aa-4bb8-b9f3-b2e51ad84a32/0_3.png"
+}

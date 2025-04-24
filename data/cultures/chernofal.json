@@ -1,8 +1,10 @@
 {
-    "id": 3,
-    "name": "Chernofal",
-    "artUrls": [
-        "https://cdn.midjourney.com/f3d4e3d1-2306-49ee-b9d9-df99b4451441/0_0.png"
-    ],
-    "description": "Farms and democracy pits as far as the eye can see. A land of plenty, where the people are free to choose their own path. The land is rich with resources, and the people are skilled in agriculture and trade. The culture is one of cooperation and mutual aid, with a strong emphasis on community and family. The people of Chernofal are known for their hospitality and generosity, always willing to lend a helping hand to those in need."
+  "id": 3,
+  "name": "Chernofal",
+  "artUrls": [
+    "https://cdn.midjourney.com/f3d4e3d1-2306-49ee-b9d9-df99b4451441/0_0.png"
+  ],
+  "description": "Farms and democracy pits as far as the eye can see. A land of plenty, where the people are free to choose their own path. The land is rich with resources, and the people are skilled in agriculture and trade. The culture is one of cooperation and mutual aid, with a strong emphasis on community and family. The people of Chernofal are known for their hospitality and generosity, always willing to lend a helping hand to those in need.",
+  "color1": "#4d850d",
+  "color2": "#e7c070"
 }

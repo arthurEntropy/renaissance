@@ -14,11 +14,13 @@
   
   <ConceptDetail 
     v-else 
+    :key="conceptDetailKey"
     :concept="selectedCulture" 
     @close="deselectCulture" 
     @edit="openEditConceptModal"
     @edit-ability="openEditAbilityModal"
     @delete-ability="openDeleteConfirmationModalForAbility" 
+    @edit-equipment="openEditEquipmentModal"
   />
 
   <EditConceptModal 
@@ -37,6 +39,14 @@
     @delete="openDeleteConfirmationModalForAbility"
   />
 
+  <EditEquipmentModal 
+    v-if="showEditEquipmentModal"
+    :equipment="selectedEquipment"
+    @update="updateEditedEquipment"
+    @close="closeEditEquipmentModal"
+    @delete="openDeleteConfirmationModalForEquipment"
+  />
+
   <DeleteConfirmationModal 
     v-if="showDeleteConfirmationModal"
     :name="selectedCulture.name" 
@@ -46,113 +56,139 @@
 </template>
 
 <script>
-  import { useCulturesStore } from '@/stores/culturesStore';
-  import { mapState } from 'pinia';
-  import CultureService from '@/services/CultureService';
-  import SelectionCard from '@/components/SelectionCard.vue';
-  import ConceptDetail from '@/components/modals/ConceptDetailModal.vue';
-  import DeleteConfirmationModal from '@/components/modals/DeleteConfirmationModal.vue';
-  import EditConceptModal from '@/components/modals/EditConceptModal.vue';
-  import EditAbilityModal from '@/components/modals/EditAbilityModal.vue';
-  import AbilityService from '@/services/AbilityService';
+import { useCulturesStore } from '@/stores/culturesStore';
+import { mapState } from 'pinia';
+import CultureService from '@/services/CultureService';
+import EquipmentService from '@/services/EquipmentService';
+import SelectionCard from '@/components/SelectionCard.vue';
+import ConceptDetail from '@/components/modals/ConceptDetailModal.vue';
+import DeleteConfirmationModal from '@/components/modals/DeleteConfirmationModal.vue';
+import EditConceptModal from '@/components/modals/EditConceptModal.vue';
+import EditAbilityModal from '@/components/modals/EditAbilityModal.vue';
+import EditEquipmentModal from '@/components/modals/EditEquipmentModal.vue';
+import AbilityService from '@/services/AbilityService';
 
-  export default {
-    components: {
-      SelectionCard,
-      ConceptDetail,
-      DeleteConfirmationModal,
-      EditConceptModal,
-      EditAbilityModal,
+export default {
+  components: {
+    SelectionCard,
+    ConceptDetail,
+    DeleteConfirmationModal,
+    EditConceptModal,
+    EditAbilityModal,
+    EditEquipmentModal,
+  },
+  data() {
+    return {
+      culturesStore: useCulturesStore(),
+      selectedCulture: null,
+      selectedEquipment: null, // Track the selected equipment
+      showDeleteConfirmationModal: false,
+      showEditConceptModal: false,
+      showEditAbilityModal: false,
+      showEditEquipmentModal: false, // Track the visibility of the EditEquipmentModal
+      selectedAbility: null,
+      isDeletingAbility: false,
+      conceptDetailKey: 0,
+    };
+  },
+  computed: {
+    ...mapState(useCulturesStore, ['cultures']),
+    cultures() {
+      return this.culturesStore.cultures.filter(culture => !culture.isDeleted);
     },
-    data() {
-      return {
-        culturesStore: useCulturesStore(),
-        selectedCulture: null,
-        showDeleteConfirmationModal: false,
-        showEditConceptModal: false,
-        showEditAbilityModal: false,
-        selectedAbility: null,
-        isDeletingAbility: false,
-      };
+  },
+  methods: {
+    // CULTURE SELECTION & CRUD
+    selectCulture(culture) {
+      this.selectedCulture = culture;
     },
-    computed: {
-      ...mapState(useCulturesStore, ['cultures']),
-      cultures() {
-        return this.culturesStore.cultures.filter(culture => !culture.isDeleted);
-      },
+    deselectCulture() {
+      this.selectedCulture = null;
+      this.culturesStore.selectedCulture = null;
+      this.culturesStore.fetchCultures();
     },
-    methods: {
-      // CULTURE SELECTION & CRUD
-      selectCulture(culture) {
-        this.selectedCulture = culture;
-      },
-      deselectCulture() {
-        this.selectedCulture = null;
-        this.culturesStore.selectedCulture = null;
-        this.culturesStore.fetchCultures();
-      },
-      async createNewCulture() {
-        const createdCulture = await CultureService.createCulture();
-        await this.culturesStore.fetchCultures();
-        const newCulture = this.culturesStore.cultures.find(
-          (culture) => culture.id === createdCulture.id
-        );
-        this.selectCulture(newCulture);
-      },
-      updateCulture(updatedCulture) {
-        CultureService.updateCulture(updatedCulture);
-        this.culturesStore.fetchCultures();
-        this.selectedCulture = updatedCulture;
-      },
-      deleteCulture() {
-        this.selectedCulture.isDeleted = true;
-        CultureService.updateCulture(this.selectedCulture);
-        this.closeDeleteConfirmationModal();
-        this.deselectCulture();
-      },
+    async createNewCulture() {
+      const createdCulture = await CultureService.createCulture();
+      await this.culturesStore.fetchCultures();
+      const newCulture = this.culturesStore.cultures.find(
+        (culture) => culture.id === createdCulture.id
+      );
+      this.selectCulture(newCulture);
+    },
+    updateCulture(updatedCulture) {
+      CultureService.updateCulture(updatedCulture);
+      this.culturesStore.fetchCultures();
+      this.selectedCulture = updatedCulture;
+    },
+    deleteCulture() {
+      this.selectedCulture.isDeleted = true;
+      CultureService.updateCulture(this.selectedCulture);
+      this.closeDeleteConfirmationModal();
+      this.deselectCulture();
+    },
 
-      // MODAL CONTROLS
-      openEditConceptModal() {
-        this.showEditConceptModal = true;
-      },
-      closeEditConceptModal() {
-        this.showEditConceptModal = false;
-      },
-      refreshConceptDetailModal() {
-        var selectedCulture = this.selectedCulture;
-        this.selectedCulture = null;
-        // TODO: better solution for this issue
-        setTimeout(() => {
-          this.selectedCulture = selectedCulture;
-        }, 1);
-      },
-      updateEditedConcept(updatedConcept) {
-        this.updateCulture(updatedConcept);
-        this.refreshConceptDetailModal();
-      },
-      openEditAbilityModal(ability) {
-        this.selectedAbility = ability;
-        this.showEditAbilityModal = true;
-      },
-      closeEditAbilityModal() {
-        this.showEditAbilityModal = false;
-      },
-      updateEditedAbility(updatedAbility) {
-        AbilityService.updateAbility(updatedAbility);
-        this.culturesStore.fetchCultures();
-      },
-      openDeleteConfirmationModalForAbility() {
-        this.showDeleteConfirmationModal = true;
-      },
-      openDeleteConfirmationModalForCulture() {
-        this.showDeleteConfirmationModal = true;
-      },
-      closeDeleteConfirmationModal() {
-        this.showDeleteConfirmationModal = false;
-      },
+    // EQUIPMENT MODAL CONTROLS
+    openEditEquipmentModal(equipment) {
+      this.selectedEquipment = equipment;
+      this.showEditEquipmentModal = true;
+    },
+    closeEditEquipmentModal() {
+      this.selectedEquipment = null;
+      this.showEditEquipmentModal = false;
+    },
+    async updateEditedEquipment(updatedEquipment) {
+      await EquipmentService.updateEquipment(updatedEquipment);
+      this.closeEditEquipmentModal();
+      this.culturesStore.fetchCultures();
+      this.conceptDetailKey++; // Force ConceptDetail to remount and refresh
+    },
+    openDeleteConfirmationModalForEquipment() {
+      this.showDeleteConfirmationModal = true;
+    },
+
+    // MODAL CONTROLS
+    openEditConceptModal() {
+      this.showEditConceptModal = true;
+    },
+    closeEditConceptModal() {
+      this.showEditConceptModal = false;
+    },
+    refreshConceptDetailModal() {
+      var selectedCulture = this.selectedCulture;
+      this.selectedCulture = null;
+      // TODO: better solution for this issue
+      setTimeout(() => {
+        this.selectedCulture = selectedCulture;
+      }, 1);
+    },
+    updateEditedConcept(updatedConcept) {
+      this.updateCulture(updatedConcept);
+      this.refreshConceptDetailModal();
+    },
+    openEditAbilityModal(ability) {
+      this.selectedAbility = ability;
+      this.showEditAbilityModal = true;
+    },
+    closeEditAbilityModal() {
+      this.showEditAbilityModal = false;
+    },
+    updateEditedAbility(updatedAbility) {
+      AbilityService.updateAbility(updatedAbility);
+      this.culturesStore.fetchCultures();
+      this.conceptDetailKey++; // Force ConceptDetail to remount and refresh
+    },
+    openDeleteConfirmationModalForAbility() {
+      this.showDeleteConfirmationModal = true;
+    },
+    openDeleteConfirmationModalForCulture() {
+      this.showDeleteConfirmationModal = true;
+    },
+    closeDeleteConfirmationModal() {
+      this.showDeleteConfirmationModal = false;
+    },
   },
   mounted() {
-      this.culturesStore.fetchCultures();
+    this.culturesStore.fetchCultures();
   },
 };
 </script>

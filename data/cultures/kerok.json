@@ -1,8 +1,10 @@
 {
-    "id": 7,
-    "name": "Kerok",
-    "artUrls": [
-        "https://cdn.midjourney.com/ef82a25a-369b-40d5-9c12-811ffeb9697e/0_0.png"
-    ],
-    "description": "Gnome star fortresses, now centers of craft, lore and learning."
+  "id": 7,
+  "name": "Kerok",
+  "artUrls": [
+    "https://cdn.midjourney.com/ef82a25a-369b-40d5-9c12-811ffeb9697e/0_0.png"
+  ],
+  "description": "Gnome star fortresses, now centers of craft, lore and learning.",
+  "color1": "#f1c013",
+  "color2": "#172c2f"
 }

@@ -1,0 +1,33 @@
+{
+  "id": "58c57499-9eef-49d4-9273-7674c60fae77",
+  "artUrl": "https://cdn.midjourney.com/ca2dd46f-000f-4c7f-b942-d32f5c8e3625/0_3.png",
+  "name": "Longsword",
+  "description": "A super cool sharp sword that deals 2d6 damage on a hit.",
+  "standardOfLiving": "4",
+  "source": "75800953-4adb-405f-a4ab-a599573ca533",
+  "weight": 2,
+  "isMelee": true,
+  "damageDice": [
+    8
+  ],
+  "engagementDice": [
+    6,
+    6
+  ],
+  "engagementSuccesses": [
+    "5",
+    "7",
+    "8",
+    "10"
+  ],
+  "skillMods": [
+    {
+      "name": "Stealth",
+      "diceMod": -1,
+      "isFavored": false,
+      "isIllFavored": false
+    }
+  ],
+  "isDeleted": false,
+  "isCustom": false
+}
