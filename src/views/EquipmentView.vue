@@ -116,7 +116,7 @@ export default {
 
   computed: {
     store() {
-      return useEquipmentStore();
+      return useEquipmentStore(); // Access the store via a computed property
     },
 
     equipment() {
@@ -158,11 +158,16 @@ export default {
       }
 
       return filtered;
-    }
+    },
   },
 
   methods: {
-    // EQUIPMENT CRUD
+    async saveEditedEquipment(editedEquipment) {
+      await EquipmentService.updateEquipment(editedEquipment);
+      this.store.updateEquipmentInStore(editedEquipment); // Use the store from computed
+      this.closeEditEquipmentModal();
+    },
+
     async createEquipment() {
       await EquipmentService.createEquipment();
       await this.store.fetchAllEquipment();
@@ -180,7 +185,6 @@ export default {
       await this.store.fetchAllEquipment();
     },
 
-    // MODAL CONTROLS
     openEditEquipmentModal(equipment) {
       this.equipmentToEdit = equipment;
       this.showEditEquipmentModal = true;
@@ -189,12 +193,6 @@ export default {
     closeEditEquipmentModal() {
       this.equipmentToEdit = null;
       this.showEditEquipmentModal = false;
-    },
-
-    async saveEditedEquipment(editedEquipment) {
-      await EquipmentService.updateEquipment(editedEquipment);
-      this.closeEditEquipmentModal();
-      await this.store.fetchAllEquipment();
     },
 
     sendEquipmentToChat() {
@@ -213,13 +211,12 @@ export default {
   },
 
   async mounted() {
-    await this.store.init();
+    await this.store.init(); // Initialize the store
   },
 };
 </script>
-
   
-  <style scoped>
+<style scoped>
   .equipment-selection {
     display: flex;
     flex-direction: column;
@@ -285,16 +282,16 @@ export default {
   .selection-cards-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    grid-auto-rows: 1px;
+    grid-auto-rows: 10px;
     width: 90%;
     max-width: 1400px;
     gap: 0.1rem;
     align-items: start;
     padding: 0.5rem;
   }
-  
+
   .selection-cards-container > * {
-    grid-row: span var(--card-span, 280);
+    grid-row: span var(--card-span, 28);
     width: 100%;
     max-width: 300px;
   }
@@ -302,4 +299,4 @@ export default {
   .create-new-button {
     margin-bottom: 1rem;
   }
-  </style>
+</style>

@@ -93,5 +93,12 @@ export const useEquipmentStore = defineStore('equipment', {
         console.error('Error initializing equipment store:', error);
       }
     },
+
+    updateEquipmentInStore(updatedEquipment) {
+      const index = this.equipment.findIndex(e => e.id === updatedEquipment.id);
+      if (index !== -1) {
+        this.equipment.splice(index, 1, updatedEquipment); // Replace the old equipment with the updated one
+      }
+    },
   },
 });

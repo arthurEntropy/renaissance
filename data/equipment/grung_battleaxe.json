@@ -1,0 +1,25 @@
+{
+  "id": "ee88a7d2-a4fa-423f-b332-0008ba84e5f7",
+  "name": "Grung Battleaxe",
+  "description": "",
+  "standardOfLiving": "1",
+  "source": "9250fcc5-9bc9-4724-815d-4411e79d403c",
+  "weight": 3,
+  "isMelee": true,
+  "damageDice": [
+    8
+  ],
+  "engagementDice": [
+    6
+  ],
+  "engagementSuccesses": [
+    "6",
+    "8",
+    "10",
+    "11"
+  ],
+  "skillMods": [],
+  "isDeleted": false,
+  "isCustom": false,
+  "artUrl": "https://cdn.midjourney.com/bee84fff-a044-4730-b63c-c3a5d71c14ad/0_3.png"
+}

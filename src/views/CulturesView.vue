@@ -14,6 +14,7 @@
   
   <ConceptDetail 
     v-else 
+    :key="conceptDetailKey"
     :concept="selectedCulture" 
     @close="deselectCulture" 
     @edit="openEditConceptModal"
@@ -87,6 +88,7 @@ export default {
       showEditEquipmentModal: false, // Track the visibility of the EditEquipmentModal
       selectedAbility: null,
       isDeletingAbility: false,
+      conceptDetailKey: 0,
     };
   },
   computed: {
@@ -137,7 +139,8 @@ export default {
     async updateEditedEquipment(updatedEquipment) {
       await EquipmentService.updateEquipment(updatedEquipment);
       this.closeEditEquipmentModal();
-      this.culturesStore.fetchCultures(); // Refresh cultures to reflect changes
+      this.culturesStore.fetchCultures();
+      this.conceptDetailKey++; // Force ConceptDetail to remount and refresh
     },
     openDeleteConfirmationModalForEquipment() {
       this.showDeleteConfirmationModal = true;
@@ -172,6 +175,7 @@ export default {
     updateEditedAbility(updatedAbility) {
       AbilityService.updateAbility(updatedAbility);
       this.culturesStore.fetchCultures();
+      this.conceptDetailKey++; // Force ConceptDetail to remount and refresh
     },
     openDeleteConfirmationModalForAbility() {
       this.showDeleteConfirmationModal = true;

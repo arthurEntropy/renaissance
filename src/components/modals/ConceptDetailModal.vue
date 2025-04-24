@@ -272,6 +272,7 @@ export default {
 .equipment-cards-container {
   display: flex;
   flex-wrap: wrap;
+  width: 300px;
   gap: 10px;
 }
 

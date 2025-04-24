@@ -1,0 +1,16 @@
+{
+  "id": "973a606c-4f16-4f0f-afe7-0734d705272c",
+  "name": "Bear Charm",
+  "description": "A cool metal and gemstone bear, I guess?",
+  "standardOfLiving": "3",
+  "source": "75800953-4adb-405f-a4ab-a599573ca533",
+  "weight": 0.5,
+  "isMelee": false,
+  "damageDice": [],
+  "engagementDice": [],
+  "engagementSuccesses": [],
+  "skillMods": [],
+  "isDeleted": false,
+  "isCustom": false,
+  "artUrl": "https://cdn.midjourney.com/5177bcba-3344-4a0c-8753-813df059b185/0_0.png"
+}
