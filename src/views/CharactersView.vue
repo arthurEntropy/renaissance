@@ -80,6 +80,7 @@
         <!--Equipment Table-->
         <EquipmentTable
           :equipment="selectedCharacter.equipment"
+          :allEquipment="allEquipment"
           :character="selectedCharacter"
           @update-character="updateCharacter"
         />
@@ -135,6 +136,7 @@ import ChangeCharacterArtModal from '@/components/modals/ChangeCharacterArtModal
 import SkillCheckModal from '@/components/modals/SkillCheckModal.vue';
 import SettingsModal from '@/components/modals/SettingsModal.vue';
 import DeleteConfirmationModal from '@/components/modals/DeleteConfirmationModal.vue';
+import { useEquipmentStore } from '@/stores/equipmentStore';
 
 export default {
   components: {
@@ -150,8 +152,10 @@ export default {
   },
   data() {
     const characterStore = useCharacterStore();
+    const equipmentStore = useEquipmentStore();
     return {
       characterStore,
+      equipmentStore,
       showFullSizeCharacterArtModal: false,
       showChangeCharacterArtModal: false,
       showSkillCheckModal: false,
@@ -168,12 +172,16 @@ export default {
 
   mounted() {
     this.characterStore.fetchCharacters();
+    this.equipmentStore.fetchAllEquipment();
   },
 
   computed: {
     ...mapState(useCharacterStore, ['characters']),
     characters() {
       return this.characterStore.characters.filter(character => !character.isDeleted);
+    },
+    allEquipment() {
+      return this.equipmentStore.equipment;
     },
     selectedCharacter: {
       get() {
