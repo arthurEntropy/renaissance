@@ -12,50 +12,50 @@
       "name": "Awe",
       "ranks": 2,
       "isFavored": false,
-      "isIllFavored": true,
-      "diceMod": -3
+      "isIllFavored": false,
+      "diceMod": -1
     },
     {
       "name": "Strength",
-      "ranks": 3,
+      "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": -2
+      "diceMod": 0
     },
     {
       "name": "Dexterity",
-      "ranks": 4,
+      "ranks": 3,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": -1
+      "diceMod": 0
     },
     {
       "name": "Fortitude",
-      "ranks": 4,
+      "ranks": 2,
       "isFavored": true,
       "isIllFavored": false,
-      "diceMod": -1
+      "diceMod": 0
     },
     {
       "name": "Craft",
-      "ranks": 5,
+      "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": -2
+      "diceMod": 0
     },
     {
       "name": "Perform",
       "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 0
+      "diceMod": 1
     },
     {
       "name": "Insight",
       "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": -1
+      "diceMod": 0
     },
     {
       "name": "Courtesy",
@@ -76,21 +76,21 @@
       "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": -1
+      "diceMod": 0
     },
     {
       "name": "Persuade",
       "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": -1
+      "diceMod": 0
     },
     {
       "name": "Awareness",
       "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": -1
+      "diceMod": 0
     },
     {
       "name": "Stealth",
@@ -110,8 +110,8 @@
       "name": "Riddle",
       "ranks": 0,
       "isFavored": false,
-      "isIllFavored": true,
-      "diceMod": -1
+      "isIllFavored": false,
+      "diceMod": 0
     }
   ],
   "endurance": {
@@ -126,11 +126,11 @@
     "current": 13,
     "max": 11
   },
-  "load": 15,
+  "load": 0,
   "shadow": 0,
   "injury": 1,
   "states": {
-    "weary": true,
+    "weary": false,
     "twiceWeary": false,
     "miserable": false,
     "twiceMiserable": false,
@@ -138,32 +138,13 @@
     "twiceHelpless": false
   },
   "conditions": {
-    "insecure": true,
-    "guilty": true,
+    "insecure": false,
+    "guilty": false,
     "angry": false,
     "afraid": false,
-    "troubled": true
+    "troubled": false
   },
-  "equipment": [
-    {
-      "name": "Rations",
-      "weight": 1,
-      "quantity": 28,
-      "carried": true
-    },
-    {
-      "name": "Grappling Hook",
-      "weight": 2,
-      "quantity": 2,
-      "carried": true
-    },
-    {
-      "name": "Tinderbox",
-      "weight": 1,
-      "quantity": 1,
-      "carried": true
-    }
-  ],
+  "equipment": [],
   "activeEffects": [
     {
       "name": "Weird But Entertaining",
