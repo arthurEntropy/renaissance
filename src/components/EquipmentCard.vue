@@ -4,9 +4,9 @@
     :style="gradientStyle"
   >
     <!-- SOL Pill -->
-    <div v-if="equipment.standardOfLiving" class="sol-pill">
+    <!-- <div v-if="equipment.standardOfLiving" class="sol-pill">
       {{ standardOfLivingName }}: {{ equipmentStore.getStandardOfLivingById(equipment.standardOfLiving)?.cost || 0 }} 🪙
-    </div>
+    </div> -->
 
     <!-- Header Row -->
     <div class="equipment-header" @click="toggleCollapsed">
@@ -33,7 +33,7 @@
 
     <!-- Expandable Content -->
     <transition name="expand">
-      <div v-if="!collapsed" class="equipment-content">
+      <div v-if="!isCollapsed" class="equipment-content">
         <!-- Art and Description Row -->
         <div class="content-wrapper">
           <div class="art-and-sol" v-if="!showLargeImage">
@@ -154,11 +154,15 @@ export default {
       type: Object,
       required: true,
     },
+    collapsed: {
+      type: Boolean,
+      default: false,
+    },
   },
 
   data() {
     return {
-      collapsed: false,
+      isCollapsed: this.collapsed,
       color1: "#000000",
       color2: "#000000",
       sourceName: "",
@@ -174,7 +178,7 @@ export default {
 
   computed: {
     caretSymbol() {
-      return this.collapsed ? "▶" : "▼";
+      return this.isCollapsed ? "▶" : "▼";
     },
     gradientStyle() {
       if (!this.color1 || !this.color2) {
@@ -238,7 +242,7 @@ export default {
     },
 
     toggleCollapsed() {
-      this.collapsed = !this.collapsed;
+      this.isCollapsed = !this.isCollapsed;
     },
 
     setDefaultColors() {
@@ -281,7 +285,7 @@ export default {
         this.fetchSourceColorsAndName();
       },
     },
-    collapsed() {
+    isCollapsed() {
       this.$nextTick(() => {
         this.setSpanSize();
       });
@@ -310,7 +314,7 @@ export default {
   border: 1px solid #555;
   border-radius: 8px;
   padding: 10px;
-  margin-top: 15px;
+  margin-top: 5px;
   color: lightgray;
   transition: background-color 0.3s ease, transform 0.2s ease;
   width: 100%;

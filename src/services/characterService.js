@@ -1,8 +1,7 @@
 import axios from 'axios';
 
 const defaultNewEquipmentItem = {
-  name: '',
-  weight: 0,
+  id: '',
   quantity: 1,
   carried: true
 };
