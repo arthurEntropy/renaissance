@@ -1,0 +1,12 @@
+{
+  "id": "8f9c579e-1089-4532-a10a-3cf5115bb403",
+  "name": "Champion Warfare",
+  "description": "Once per engagement, you may re-roll any engagement die before it has been paired. Describe how your experience in one-on-one combat gives you an edge.",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "68fadf5d-6661-4611-bb38-deaf05f01d45",
+  "isDeleted": false,
+  "mp": null,
+  "xp": null
+}

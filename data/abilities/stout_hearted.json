@@ -1,0 +1,12 @@
+{
+  "id": "9f21adf6-85f2-482b-a13c-29b4c53487bd",
+  "name": "Stout-Hearted",
+  "description": "Your maximum Hope increases by 2. Describe what gives you hope.",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "77e4f81a-728f-49a7-a013-4d6f666353e2",
+  "isDeleted": false,
+  "mp": null,
+  "xp": null
+}

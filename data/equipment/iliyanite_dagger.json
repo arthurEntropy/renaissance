@@ -1,0 +1,25 @@
+{
+  "id": "37a98252-6881-4aaf-bc6c-4091c1b70e1b",
+  "name": "Iliyanite Dagger",
+  "description": "Once per rest, you may call upon the Iliyanite magic embedded within this dagger to bend and extend it into a greater weapon for a moment, changing its damage die to 1d6 for one attack.",
+  "standardOfLiving": "1",
+  "source": "68fadf5d-6661-4611-bb38-deaf05f01d45",
+  "weight": 0.5,
+  "isMelee": true,
+  "damageDice": [
+    4
+  ],
+  "engagementDice": [
+    4
+  ],
+  "engagementSuccesses": [
+    "8",
+    "4",
+    "5",
+    "7"
+  ],
+  "skillMods": [],
+  "isDeleted": false,
+  "isCustom": false,
+  "artUrl": "https://cdn.midjourney.com/489cca4d-20f9-4f1f-8394-88738a1ae0d7/0_3.png"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "42b239bb-7a4f-4e23-9530-276744aaf701",
+  "name": "Watcher Of The World",
+  "description": "Your Lore and Insight skills are favored. Describe how you manage to gather and recall information.",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "d5e3228b-1d04-4503-8ec6-3210d420c082",
+  "isDeleted": false,
+  "mp": null,
+  "xp": null
+}

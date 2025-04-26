@@ -1,0 +1,12 @@
+{
+  "id": "366982d4-7d65-4b32-b808-be39ccea385e",
+  "name": "Antennae",
+  "description": "Once per rest, you may perceive your surroundings without sight and can sense the surface emotions of nearby creatures for a few moments. You cannot use this ability if your antennae are covered. Describe how you experience this sense and how it appears to others.",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "d7578278-c801-410b-b194-12b555042f29",
+  "isDeleted": false,
+  "mp": null,
+  "xp": null
+}

@@ -1,0 +1,12 @@
+{
+  "id": "ae41ad01-5ac7-48f5-a729-1c5da6cdf83e",
+  "name": "Gnome Cunning",
+  "description": "All your rolls to resist magical effects are favored. Additionally, you have an extra pool of 4 MP that can be used for any Mestiere. This pool is replenished every sunrise, regardless of all other effects. Describe how this natural aptitude manifests in you.",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "fffc6b74-d66f-4270-a8b4-e045433ae176",
+  "isDeleted": false,
+  "mp": null,
+  "xp": null
+}

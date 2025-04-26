@@ -1,8 +1,11 @@
 {
-  "id": 4,
+  "id": "77e4f81a-728f-49a7-a013-4d6f666353e2",
   "name": "Halfling",
   "artUrls": [
-    "https://cdn.midjourney.com/46b1ae1a-3f67-49b3-a9a1-6341fe9e65a0/0_0.png"
-  ],
-  "isDeleted": true
+    "https://cdn.midjourney.com/033e30ef-e853-44db-971b-ba105fd8a590/0_3.png",
+    "https://cdn.midjourney.com/31a1c36f-11c0-49fa-b40f-d9709c3c378d/0_0.png",
+    "https://cdn.midjourney.com/93944e55-58a8-4459-bc77-e332cf53d875/0_3.png",
+    "https://cdn.midjourney.com/b25d6f34-ff72-4b59-b8a9-2655b6765c45/0_2.png",
+    "https://cdn.midjourney.com/750cd082-fe77-44a2-8d22-890336c515ec/0_1.png"
+  ]
 }

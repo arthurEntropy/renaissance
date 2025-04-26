@@ -1,0 +1,12 @@
+{
+  "id": "1c489889-08dc-4a13-81fe-db63f10661c4",
+  "name": "Arboreal Alertness",
+  "description": "Your Dexterity and Awareness skills are favored. Describe how frog-like reflexes and keen vision give you an advantage.",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "9250fcc5-9bc9-4724-815d-4411e79d403c",
+  "isDeleted": false,
+  "mp": null,
+  "xp": null
+}

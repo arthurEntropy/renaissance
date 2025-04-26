@@ -2,12 +2,14 @@
   "id": "adc655c1-1d9c-433f-a0eb-41f93cf3ee07",
   "name": "Dwarf",
   "artUrls": [
-    "https://cdn.midjourney.com/35985bd8-93b4-460c-8228-ac49e8ce970c/0_0.png",
-    "https://cdn.midjourney.com/b05f3486-bd85-447c-955e-55ceda9f9940/0_1.png",
     "https://cdn.midjourney.com/b75951b3-d21b-4e00-b7c8-c81fc16c043e/0_2.png",
-    "https://cdn.midjourney.com/3ca89b90-dfef-478b-99cb-473ce3d725fc/0_2.png"
+    "https://cdn.midjourney.com/b05f3486-bd85-447c-955e-55ceda9f9940/0_1.png",
+    "https://cdn.midjourney.com/3914bd33-13a2-48e4-89c5-b75076572688/0_1.png",
+    "https://cdn.midjourney.com/c2754ed4-bab7-4d37-996c-aafb90e5e0c2/0_3.png",
+    "https://cdn.midjourney.com/6280731c-1c25-437f-9f8e-69a3c5d66cf9/0_1.png"
   ],
-  "description": "Stout and sturdy, dwarves are known for their resilience and craftsmanship. They are often found in mountainous regions, where they mine precious metals and gems. Dwarves are skilled warriors and have a deep connection to the earth.",
+  "description": "Stout in stature and typically broad in bearing, some say that the Dwarves emerged fully-formed from within the mountains themselves. More likely they are descended from folk who fell in love with the hidden places within the Earth. Many long generations of subterranean exploration and toil have made them sturdy and hardy.",
   "color1": "#b60707",
-  "color2": "#6b1006"
+  "color2": "#6b1006",
+  "backgroundImage": "https://cdn.midjourney.com/6f44f23e-5a88-4f40-aaa4-a3df9120514d/0_0.png"
 }

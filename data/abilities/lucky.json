@@ -1,0 +1,12 @@
+{
+  "id": "738255ac-87f1-45a5-91ff-c2144b92b5e3",
+  "name": "Lucky",
+  "description": "Once per rest, when you roll morte (💀), you may re-roll the feat die. Describe how you cheat fate.",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "77e4f81a-728f-49a7-a013-4d6f666353e2",
+  "isDeleted": false,
+  "mp": null,
+  "xp": null
+}

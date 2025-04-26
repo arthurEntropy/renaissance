@@ -1,0 +1,12 @@
+{
+  "id": "b3f0e2f6-1ecf-4cf5-bf66-746f93f76b60",
+  "name": "Fey Connection",
+  "description": "Once per rest, if you are in a natural area, you may attempt to locate fey spirits. Roll Spirit against a TN of 10. On a success, you locate a spirit and they accompany you for one hour. On a failure, for one minute. Either way, describe what the spirit looks like. They can understand you and may answer questions with gestures, but cannot themselves speak or write.",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "83d190cb-0e05-4392-a5b1-f8a8017f505b",
+  "isDeleted": false,
+  "mp": null,
+  "xp": null
+}

@@ -1,0 +1,12 @@
+{
+  "id": "2bb88a42-4ba0-4e99-a375-d7b9b4a877d1",
+  "name": "Draconic Affinity",
+  "description": "Choose a volatile energy or substance like fire, acid, electricity, etc. Your draconic ancestry protects you from any harm that energy or substance would do to you. Describe how this manifests in you.",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "ba7af7ad-54d2-4b45-86ad-71781d4cdb33",
+  "isDeleted": false,
+  "mp": null,
+  "xp": null
+}

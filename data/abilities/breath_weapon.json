@@ -1,0 +1,12 @@
+{
+  "id": "25daccec-9dc4-469a-93ce-af13e853fc8e",
+  "name": "Breath Weapon",
+  "description": "Once per rest, you may exhale a cone-shaped burst, the nature of which is based on your affinity as chosen above (if you do not have the Draconic Affinity trait, choose one for the purposes of this ability, but you do not have the protective benefit). All foes within range must succeed on a Dexterity check or take 1d6+BODY damage. The range of the burst and the TN of the Dexterity check are both 10+BODY. Describe the burst and its effects.",
+  "isTrait": false,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "ba7af7ad-54d2-4b45-86ad-71781d4cdb33",
+  "isDeleted": false,
+  "mp": null,
+  "xp": null
+}

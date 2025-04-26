@@ -63,7 +63,7 @@
         </select>
       </div>
 
-      <div class="selection-cards-container">
+      <masonry-grid :column-width="350" :gap="6" :row-height="10" class="cards-container">
         <AbilityCard 
           v-for="ability in filteredAbilities" 
           :key="ability.id" 
@@ -72,8 +72,9 @@
           @update="updateAbility(ability)"
           @edit="openEditAbilityModal(ability)"
           @send-to-chat="sendAbilityToChat(ability)"
+          @height-changed="updateLayout"
         />
-      </div>
+      </masonry-grid>
   
       <DeleteConfirmationModal 
         v-if="showDeleteConfirmationModal"
@@ -99,12 +100,14 @@
   import AbilityCard from '@/components/AbilityCard.vue';
   import DeleteConfirmationModal from '@/components/modals/DeleteConfirmationModal.vue';
   import EditAbilityModal from '@/components/modals/EditAbilityModal.vue';
+  import MasonryGrid from '@/components/MasonryGrid.vue';
   
   export default {
     components: {
       AbilityCard,
       DeleteConfirmationModal,
       EditAbilityModal,
+      MasonryGrid,
     },
     data() {
       return {
@@ -169,6 +172,11 @@
       }
     },
     methods: {
+      updateLayout() {
+        // This will be called when any card height changes
+        // The MasonryGrid handles everything internally, but we could trigger manual refresh if needed
+      },
+
       // ABILITY CRUD
       async createAbility() {
         await AbilityService.createAbility();
@@ -301,19 +309,12 @@
   padding: 0 2rem;
 }
 
-.selection-cards-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  grid-auto-rows: 10px;
+.cards-container {
   width: 90%;
-  max-width: 1400px;
-  gap: 0.1rem;
-  align-items: start;
+  margin: 0 auto;
   padding: 0.5rem;
-}
-
-.selection-cards-container > * {
-  grid-row: span var(--card-span, 28);
+  box-sizing: border-box;
+  overflow: visible;  /* Allow cards to be measured properly */
 }
 
 .create-new-button {
