@@ -1,9 +1,32 @@
 {
-    "id": 1,
-    "name": "Adiri",
-    "artUrls": [
-        "https://cdn.midjourney.com/a62158dc-df37-42e7-ac23-7736880051c8/0_0.png",
-        "https://cdn.midjourney.com/bb4a83ca-a535-425b-bef6-c5a388865d9c/0_0.png"
-    ],
-    "description": "West African walled city that celebrates champion warfare."
+  "id": "68fadf5d-6661-4611-bb38-deaf05f01d45",
+  "name": "Adiri",
+  "artUrls": [
+    "https://cdn.midjourney.com/9c3c1165-785a-40c6-8d0d-d191822012d7/0_1.png",
+    "https://cdn.midjourney.com/04529bc5-ace3-404a-8dc0-387e464818b7/0_3.png",
+    "https://cdn.midjourney.com/9c47a0ec-2e54-40be-8275-b2bb722afaee/0_0.png",
+    "https://cdn.midjourney.com/0f82c57c-ac1e-4cab-8fc8-3d7752428e8c/0_1.png"
+  ],
+  "isDeleted": false,
+  "description": "<p>Its former power long since worn down by war, the Human-founded city-state of <strong>Adiri</strong> remains stubbornly independent from the united lands surrounding it. Here still the long tradition of champion warfare is practiced, augmented now by the Iliyanites’ metal-shaping, which also fills the city’s bazaars with one-of-a-kind armaments. Public displays of combative skill are the centerpiece of life in the city, and those who still remember the former <em>aspirational</em> glory of the Adirian Empire begin to look at neighboring lands with hungry eyes…</p>",
+  "color1": "#a2401c",
+  "color2": "#432e4b",
+  "backgroundImage": "https://cdn.midjourney.com/e3e85b1b-a420-4229-ac36-905767a45830/0_0.png",
+  "faces": [
+    "https://cdn.midjourney.com/1815c36f-6688-4078-a28d-9e5fc6528020/0_3.png",
+    "https://cdn.midjourney.com/3c77014e-d18f-44cd-a7fc-a816ba40a055/0_2.png",
+    "https://cdn.midjourney.com/47d9ec66-a0b9-4d62-9765-4a2eefe03b80/0_0.png",
+    "https://cdn.midjourney.com/ef0d1f76-90ea-424b-bb29-c8a444b98bd9/0_1.png",
+    "https://cdn.midjourney.com/26d307ac-e9aa-43a0-8301-f49d4bfa2d92/0_1.png",
+    "https://cdn.midjourney.com/541d17e1-4a44-4bf1-a3a5-2caaedcfb77c/0_1.png",
+    "https://cdn.midjourney.com/733054af-254c-4f47-b4c2-3cadd8a00c5c/0_2.png",
+    "https://cdn.midjourney.com/21611c2f-4354-4551-87ee-fb9f0016a6d6/0_0.png",
+    "https://cdn.midjourney.com/4cfd9fc3-8f49-4d88-8649-54caa63557bd/0_1.png",
+    "https://cdn.midjourney.com/c37bd818-151c-44bf-94f0-420be55eb7ed/0_2.png",
+    "https://cdn.midjourney.com/036523c4-f7f1-4a65-a92f-50108a556758/0_0.png",
+    "https://cdn.midjourney.com/6d13f2e1-d67a-4755-9d33-e04852a04f3e/0_2.png",
+    "https://cdn.midjourney.com/62a64832-627e-4f6e-a47f-6e4e1b7522a8/0_1.png",
+    "https://cdn.midjourney.com/0e062f5b-98d2-4351-bd9f-4a3b3b2fe72a/0_2.png",
+    "https://cdn.midjourney.com/d87c929b-9a22-4704-a5b6-8b7900b6de9d/0_3.png"
+  ]
 }

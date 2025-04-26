@@ -1,0 +1,12 @@
+{
+  "id": "56f682a2-50e9-4c65-8de2-8e24ec82b04a",
+  "name": "Machine Reslilience",
+  "description": "You cannot become weary. You don’t need to eat, drink, breathe or sleep, and magic can't put you to sleep. When you rest, rather than sleeping, you appear inert, but you can see and hear as normal. Describe your state as you sleep.",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "cfd7bf18-3a9a-4b4e-a9a9-c7069dd822c3",
+  "isDeleted": false,
+  "mp": null,
+  "xp": null
+}

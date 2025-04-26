@@ -1,0 +1,12 @@
+{
+  "id": "ef00cc69-1e2e-4697-abfb-102cca7daca7",
+  "name": "Glamour",
+  "description": "You can conceal your true form, changing your physical appearance at-will. You must retain a humanoid form not greatly different in stature from your true form, but all other details are the subject of your will.\n\nOnce per rest, you may further exert this power to turn invisible for a few moments.",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "f00fe427-1bb5-472c-8abb-2a394730a40a",
+  "isDeleted": false,
+  "mp": null,
+  "xp": null
+}

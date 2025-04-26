@@ -1,0 +1,12 @@
+{
+  "id": "4fbf9ccb-0fbb-45d0-9f8f-7b7fcfb811fb",
+  "name": "Adaptable",
+  "description": "Any time you gain XP, you gain 1 additional XP. Describe how you learn quickly.",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": 1,
+  "isDeleted": false,
+  "mp": null,
+  "xp": null
+}

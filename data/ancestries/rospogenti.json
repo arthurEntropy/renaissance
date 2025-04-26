@@ -1,7 +1,11 @@
 {
-    "id": 6,
-    "name": "Rospogenti",
-    "artUrls": [
-        "https://cdn.midjourney.com/4017ccc5-b8a6-4067-9ad6-78f8009ffd13/0_0.png"
-    ]
+  "id": 6,
+  "name": "Rospogenti",
+  "artUrls": [
+    "https://cdn.midjourney.com/4eea37a1-9ee1-4b3a-aa21-574e58368a36/0_2.png",
+    "https://cdn.midjourney.com/0a8f1896-34d6-452b-98bc-e64fe768264b/0_1.png",
+    "https://cdn.midjourney.com/19f299ed-1a1a-4eb5-885d-e9b26313175f/0_2.png",
+    "https://cdn.midjourney.com/76e0d58d-3b06-4093-92ac-486dcaf850c9/0_2.png",
+    "https://cdn.midjourney.com/12bfa474-ea9a-4494-99b3-0fbcf019b947/0_1.png"
+  ]
 }

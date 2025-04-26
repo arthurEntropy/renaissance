@@ -1,0 +1,12 @@
+{
+  "id": "31c4d609-7d0f-40da-9197-2cddb3cdd58b",
+  "name": "Dwarven Resonant Singing",
+  "description": "You can sing some cool shit and detect metal objects within 100 ft of you, once per rest.",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "75800953-4adb-405f-a4ab-a599573ca533",
+  "isDeleted": false,
+  "mp": null,
+  "xp": null
+}

@@ -1,0 +1,12 @@
+{
+  "id": "ad7f2d4c-75cc-4b7c-8066-57eb1ccaf54a",
+  "name": "Versatile",
+  "description": "Once per quest, you may remove a rank from one skill and add a rank to a different skill. Describe how you shift your focus.",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": 1,
+  "isDeleted": false,
+  "mp": null,
+  "xp": null
+}

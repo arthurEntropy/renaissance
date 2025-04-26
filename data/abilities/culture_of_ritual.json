@@ -1,0 +1,12 @@
+{
+  "id": "17dc2012-47f2-4b6b-bbd6-f584551d0286",
+  "name": "Culture of Ritual",
+  "description": "Once per rest, you may spend at least 10 minutes performing a ritual of preparation. State what you’re preparing for and describe the ritual. You and anyone who participates in the ritual gains +1d on their next relevant roll. This benefit expires after the next rest.",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "a3a54cb6-09c4-42e3-b142-3053b7c1d4e8",
+  "isDeleted": false,
+  "mp": null,
+  "xp": null
+}

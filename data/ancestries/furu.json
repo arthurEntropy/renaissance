@@ -2,8 +2,13 @@
   "id": "d5e3228b-1d04-4503-8ec6-3210d420c082",
   "name": "Furu",
   "artUrls": [
-    "https://cdn.midjourney.com/b5a160de-9fa2-4f5f-9eca-39f0be802304/0_0.png"
+    "https://cdn.midjourney.com/4d48d295-4aa2-46bb-9db0-448f8c241347/0_1.png",
+    "https://cdn.midjourney.com/054292a1-0c54-4765-b7a5-823f0c7bbb76/0_0.png",
+    "https://cdn.midjourney.com/9548acc5-7d85-4662-a3f3-266af86af3ff/0_0.png",
+    "https://cdn.midjourney.com/d68ef233-2073-4c6c-96d9-f16896217ec3/0_2.png",
+    "https://cdn.midjourney.com/7de1d3e3-556a-4c93-b29d-8bc850359870/0_3.png"
   ],
   "color1": "#213535",
-  "color2": "#46463f"
+  "color2": "#46463f",
+  "backgroundImage": "https://cdn.midjourney.com/7e60824c-94bc-4137-a4f5-5d1fe560553d/0_2.png"
 }

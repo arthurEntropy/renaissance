@@ -1,11 +1,12 @@
 {
-  "id": "32ca9f83-7cd8-4e83-917f-a35afe1274a8",
+  "id": "22b1ec3d-59a4-4cac-98a1-98a2286e9520",
   "name": "Stout Stature",
-  "description": "When calculating load, halve the load rating of all gear you carry, to a minimum of 1. Describe how you bear up under the weight.",
+  "description": "When calculating Load, halve the total weight of all gear you're carrying, rounded up. Describe how you bear up under the weight.",
   "isTrait": true,
   "canBeActive": false,
   "isActive": true,
-  "source": "75800953-4adb-405f-a4ab-a599573ca533",
+  "source": "adc655c1-1d9c-433f-a0eb-41f93cf3ee07",
   "isDeleted": false,
-  "xp": ""
+  "mp": null,
+  "xp": null
 }

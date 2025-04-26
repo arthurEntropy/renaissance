@@ -1,0 +1,12 @@
+{
+  "id": "fc251bc8-4a9a-43c1-9ad1-2ed1c7a6fef7",
+  "name": "Stone & Story",
+  "description": "Your Craft and Lore skills are favored. Describe how you know what you know.",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "a3a54cb6-09c4-42e3-b142-3053b7c1d4e8",
+  "isDeleted": false,
+  "mp": null,
+  "xp": null
+}

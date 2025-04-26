@@ -59,7 +59,7 @@
         </select>
       </div>
   
-      <div class="selection-cards-container">
+      <masonry-grid :column-width="350" :gap="6" :row-height="10" class="cards-container">
         <EquipmentCard 
           v-for="equipment in filteredEquipment" 
           :key="equipment.id" 
@@ -68,8 +68,9 @@
           @update="updateEquipment(equipment)"
           @edit="openEditEquipmentModal(equipment)"
           @send-to-chat="sendEquipmentToChat(equipment)"
+          @height-changed="updateLayout"
         />
-      </div>
+      </masonry-grid>
   
       <DeleteConfirmationModal 
         v-if="showDeleteConfirmationModal"
@@ -94,12 +95,14 @@ import EquipmentService from '@/services/EquipmentService';
 import EquipmentCard from '@/components/EquipmentCard.vue';
 import DeleteConfirmationModal from '@/components/modals/DeleteConfirmationModal.vue';
 import EditEquipmentModal from '@/components/modals/EditEquipmentModal.vue';
+import MasonryGrid from '@/components/MasonryGrid.vue';
 
 export default {
   components: {
     EquipmentCard,
     DeleteConfirmationModal,
     EditEquipmentModal,
+    MasonryGrid,
   },
 
   data() {
@@ -162,6 +165,10 @@ export default {
   },
 
   methods: {
+    updateLayout() {
+      // Same placeholder method for consistency
+    },
+
     async saveEditedEquipment(editedEquipment) {
       await EquipmentService.updateEquipment(editedEquipment);
       this.store.updateEquipmentInStore(editedEquipment); // Use the store from computed
@@ -279,21 +286,12 @@ export default {
     box-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
   }
   
-  .selection-cards-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    grid-auto-rows: 10px;
+  .cards-container {
     width: 90%;
-    max-width: 1400px;
-    gap: 0.1rem;
-    align-items: start;
+    margin: 0 auto;
     padding: 0.5rem;
-  }
-
-  .selection-cards-container > * {
-    grid-row: span var(--card-span, 28);
-    width: 100%;
-    max-width: 300px;
+    box-sizing: border-box;
+    overflow: visible;  /* Allow cards to be measured properly */
   }
   
   .create-new-button {

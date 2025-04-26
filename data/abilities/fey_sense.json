@@ -1,0 +1,12 @@
+{
+  "id": "da39ee23-263d-4540-ae37-aea66100a451",
+  "name": "Fey Sense",
+  "description": "Once per rest, you can open your mind to the strands of the fey that are interwoven into the world around you. You can sense the presence of any spiritual beings nearby. If they are further off, you only feel their presence vaguely.",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "f00fe427-1bb5-472c-8abb-2a394730a40a",
+  "isDeleted": false,
+  "mp": null,
+  "xp": null
+}

@@ -1,7 +1,13 @@
 {
-    "id": 1,
-    "name": "Human",
-    "artUrls": [
-        "https://cdn.midjourney.com/6996ccd1-d214-4f22-ac97-21f819a25e36/0_1.png"
-    ]
+  "id": 1,
+  "name": "Human",
+  "artUrls": [
+    "https://cdn.midjourney.com/6996ccd1-d214-4f22-ac97-21f819a25e36/0_1.png",
+    "https://cdn.midjourney.com/d67ac338-0cf6-49c9-96f1-e875a1822380/0_3.png",
+    "https://cdn.midjourney.com/bf74233c-82c3-49ce-89b6-6c6dea5caa62/0_0.png",
+    "https://cdn.midjourney.com/c6c09cf3-2d0b-47f9-a5a3-42aa8df54fd7/0_2.png",
+    "https://cdn.midjourney.com/2453093b-e1af-42d2-a47b-759e2fbaff9b/0_3.png"
+  ],
+  "color1": "#d5955b",
+  "color2": "#58230c"
 }
