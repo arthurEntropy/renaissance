@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import { reactive, toRefs } from 'vue';
-import MestieriService from '@/services/MestieriService.js';
+import MestieriService from '@/services/MestiereService.js';
 
 export const useMestieriStore = defineStore('mestieri', () => {
   const state = reactive({

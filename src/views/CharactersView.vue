@@ -3,8 +3,6 @@
 
     <!--CHARACTER SELECTION-->
     <div v-if="!selectedCharacter" class="character-selection">
-      <h2>CHARACTERS</h2>
-      <button class="button button-primary create-new-button" @click="createNewCharacter">New Character</button>
       <div class="selection-cards-container">
         <SelectionCard 
           v-for="character in characters"
@@ -12,6 +10,12 @@
           :item="character" 
           @click="selectCharacter(character)"
         />
+        
+        <!-- New "Add" card with plus icon -->
+        <div class="add-concept-card" @click="createNewCharacter">
+          <div class="add-icon">+</div>
+          <div class="add-text">Add Character</div>
+        </div>
       </div>
     </div>
 
@@ -379,6 +383,34 @@ export default {
     flex-wrap: wrap;
     justify-content: center;
     padding-bottom: 50px;
+  }
+  .add-concept-card {
+    width: 250px;
+    height: 300px;
+    background: rgba(0, 0, 0, 0.4);
+    border: 2px dashed rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin: 10px;
+  }
+  .add-concept-card:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.5);
+  }
+  .add-icon {
+    font-size: 3rem;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 10px;
+  }
+  .add-text {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1rem;
   }
   
   /* CHARACTER SHEET */

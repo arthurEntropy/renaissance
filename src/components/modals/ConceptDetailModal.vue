@@ -70,7 +70,6 @@
         </div>
         </div>
 
-        
 
         <!-- Right: Header, Description, Abilities, Names, Hooks & Equipment -->
         <div class="concept-main-column">
@@ -93,7 +92,7 @@
           <div class="concept-section" v-if="abilities.length > 0">
             <h2 class="section-header">Traits & Abilities</h2>
             <masonry-grid 
-              :column-width="300" 
+              :column-width="350" 
               :gap="10" 
               :row-height="10"
               class="ability-cards-container"
@@ -190,7 +189,7 @@
           <div class="concept-section" v-if="equipment.length > 0">
             <h2 class="section-header">Wares</h2>
             <masonry-grid 
-              :column-width="300" 
+              :column-width="350" 
               :gap="10" 
               :row-height="10"
               class="equipment-cards-container"
@@ -332,8 +331,8 @@ export default {
   display: flex;
   flex-direction: column;
   flex: 1;
-  min-width: 350px;
-  max-width: 610px;
+  min-width: 400px;
+  max-width: 710px;
   gap: 1.5rem;
 }
 

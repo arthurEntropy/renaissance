@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import { reactive, toRefs } from 'vue';
-import WorldElementsService from '@/services/WorldElementsService.js';
+import WorldElementsService from '@/services/WorldElementService.js';
 
 export const useWorldElementsStore = defineStore('worldElements', () => {
   const state = reactive({

@@ -1,0 +1,12 @@
+{
+  "id": "553ec305-0d83-47f9-9398-2036831d8235",
+  "name": "Echolocation",
+  "description": "You can click and \"see\" stuff.",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "e40c3cff-9f6b-4940-ae41-cef878821a75",
+  "isDeleted": false,
+  "mp": null,
+  "xp": null
+}
