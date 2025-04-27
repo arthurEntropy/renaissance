@@ -26,13 +26,14 @@
         </button>
         
         <ConceptDetail 
-          :key="conceptDetailKey"
-          :concept="selectedConcept" 
-          @close="deselectConcept" 
-          @edit="openEditConceptModal"
-          @edit-ability="openEditAbilityModal"
-          @edit-equipment="openEditEquipmentModal"
-          @delete-ability="openDeleteConfirmationModalForAbility"
+        :key="conceptDetailKey"
+        :concept="selectedConcept" 
+        @close="deselectConcept" 
+        @update="updateConceptFromDetail"
+        @edit="openEditConceptModal"
+        @edit-ability="openEditAbilityModal"
+        @edit-equipment="openEditEquipmentModal"
+        @delete-ability="openDeleteConfirmationModalForAbility"
         />
         
         <button 
@@ -214,6 +215,22 @@
         
         this.conceptDetailKey++; // Force refresh of concept detail
       },
+      
+      async updateConceptFromDetail(updatedConcept) {
+      try {
+        // Call the update function passed as prop
+        await this.updateConceptFn(updatedConcept);
+        
+        // Update the selected concept to reflect changes immediately
+        this.selectedConcept = updatedConcept;
+        
+        // No need to refresh all data for minor updates
+        // This helps avoid selection issues and performance problems
+        console.log(`Updated ${this.itemName}: ${updatedConcept.id}`);
+      } catch (error) {
+        console.error(`Error updating ${this.itemName}:`, error);
+      }
+    },
       
       // ABILITY CONTROLS
       openEditAbilityModal(ability) {

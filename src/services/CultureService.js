@@ -5,6 +5,11 @@ class CultureService {
     this.baseUrl = 'http://localhost:3000/cultures';
   }
 
+  sanitizeForJSON(obj) {
+    // Clone the object without circular references
+    return JSON.parse(JSON.stringify(obj));
+  }
+
   // CRUD METHODS
   async getAllCultures() {
     try {
@@ -18,9 +23,13 @@ class CultureService {
   }
   async updateCulture(culture) {
     try {
-      await axios.put(`${this.baseUrl}/${culture.id}`, culture);
+      // Sanitize the culture object before sending to the server
+      const sanitizedCulture = this.sanitizeForJSON(culture);
+      const response = await axios.put(`${this.baseUrl}/${culture.id}`, sanitizedCulture);
+      return response.data;
     } catch (error) {
       console.error("Error saving culture:", error);
+      throw error;
     }
   }
   async createCulture() {

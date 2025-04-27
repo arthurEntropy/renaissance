@@ -1,0 +1,36 @@
+{
+  "id": "0c876a74-a89b-42dc-b76a-4592a0478d81",
+  "name": "Ockham",
+  "description": "<p>This is a town that gets burnt to the ground. Your story can start it before it happens or after it happens, but it happens.</p><p>Before it happens, it's the center of trade for the valley of the River Troutbeck: a broad, green, bread-basket region that includes the outlying hamlets of Eashing, Wattle and Send. There is a different festival nearly every week, each drawing a different patchwork of folk from the surrounding fields and hills. The land is plentiful and life is thundering blissful towards death in a stampede of its fumbling green gentleness.</p><p>After it happens - and it's up to you when and why and how it happens - it is a place agape, newly awake to the full depth of cruelty and horror that this world contains. There is a wandering time, a casting-about for meaning. But as the people begin to dig through the charred ruin of their former lives, they pick out the nails from the ashes. What will they do with their anger? What will they become?</p>",
+  "artUrls": [
+    "https://cdn.midjourney.com/9eeb3810-b3f8-41e0-bfb4-2b29c9dd0808/0_0.jpeg",
+    "https://cdn.midjourney.com/d05af20c-7fd9-4812-9e21-294581347da8/0_3.jpeg",
+    "https://cdn.midjourney.com/cfb7fd76-60d9-4ff3-a055-c052691d38c5/0_3.jpeg",
+    "https://cdn.midjourney.com/ffa5079d-cf97-4063-a38c-5f053fcfacb9/0_1.jpeg",
+    "https://cdn.midjourney.com/7e10993e-c5f3-4fa1-b7b7-9cfdc46df735/0_1.png"
+  ],
+  "faces": [
+    "https://cdn.midjourney.com/9ac9dc43-7038-476c-b240-b3d00d437638/0_2.png",
+    "https://cdn.midjourney.com/6c6ef150-cd50-49a9-855f-299d1b556b1a/0_1.jpeg",
+    "https://cdn.midjourney.com/d4b6773f-83b8-4217-bbdb-dfd5c3fe2f6a/0_3.jpeg",
+    "https://cdn.midjourney.com/6dc6784a-f5a5-4ce7-be34-4d0065c9cbea/0_0.jpeg",
+    "https://cdn.midjourney.com/cbb2c026-6f03-4000-9cd5-3243324bcadd/0_2.png",
+    "https://cdn.midjourney.com/72444095-3c80-4327-a8da-3e17ff9cece6/0_1.jpeg",
+    "https://cdn.midjourney.com/ce2757ea-03e8-4635-b10c-828b01203d77/0_3.png",
+    "https://cdn.midjourney.com/be6b59ca-ce0c-4ea1-b6ef-3bc4e576cfb5/0_0.jpeg",
+    "https://cdn.midjourney.com/fdf7bd30-c857-442f-91c5-8f5b775a6277/0_1.jpeg",
+    "https://cdn.midjourney.com/7d8a0c75-6a3e-4878-aecf-6f8b2d7fd877/0_0.png",
+    "https://cdn.midjourney.com/458ab163-3077-47a1-81f9-4efb1a03e621/0_1.png",
+    "https://cdn.midjourney.com/7d4972e8-9555-4018-b79e-6ffb2aebccb3/0_3.png"
+  ],
+  "places": [],
+  "hooks": [],
+  "playlists": [],
+  "names": "Hugh, Albie, Benedict, Miles, Rupert, Imogen, Harriet, Tamsin, Elspeth, Marnie, Rowan, Kit, Jules, Enid, Robin, Edmund, Cecily, Anselm, Lettice, Simeon.",
+  "occupations": "Farmer, Shepherd, Miller, Broker, Blacksmith, Carpenter, Cooper, Weaver, Potter, Tanner, Carney, Butcher, Baker, Brewer, Chandler, Mason, Thatcher, Midwife.",
+  "publicHouses": "The Boar and Barrel, The Green Man, The Crown and Sickle, The Wagtail's Nest, The Prancing Hart, The Shepherd's Rest.",
+  "vittles": "Cider, Mead, Barley Bread, Oat Porridge, Smoked Eel, Salted Pork, Stewed Lentils, Hard Cheese, Fresh Apples, Pickled Onions, Roasted Turnips, Honey Cakes, Black Pudding, Small Beer.",
+  "pointsOfInterest": "The Festival Square, The Grand Fountain, The Exchange House, The Tithing Barn, The Hollow Tree.",
+  "floraFauna": "Oak, Willow, Hawthorn, Elderberry, Wild Garlic, Nettles, Foxglove, Crow, Hedgehog, Badger, Red Deer, Pike, Barn Owl, Stoat, Lark.",
+  "isDeleted": false
+}
