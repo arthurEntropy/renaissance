@@ -54,7 +54,7 @@ import { useAncestriesStore } from '@/stores/ancestriesStore';
 import { mapState } from 'pinia';
 import AncestryService from '@/services/AncestryService';
 import AbilityService from '@/services/AbilityService';
-import SelectionCard from '@/components/SelectionCard.vue';
+import SelectionCard from '@/components/ConceptCard.vue';
 import ConceptDetail from '@/components/modals/ConceptDetailModal.vue';
 import EditConceptModal from '@/components/modals/EditConceptModal.vue';
 import EditAbilityModal from '@/components/modals/EditAbilityModal.vue';

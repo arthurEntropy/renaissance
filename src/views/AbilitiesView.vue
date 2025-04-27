@@ -181,6 +181,8 @@
       async createAbility() {
         await AbilityService.createAbility();
         await this.abilitiesStore.fetchAllAbilities();
+        this.abilityToEdit = this.abilitiesStore.abilities[this.abilitiesStore.abilities.length - 1];
+        this.showEditAbilityModal = true;
       },
       async updateAbility(ability) {
         await AbilityService.updateAbility(ability);

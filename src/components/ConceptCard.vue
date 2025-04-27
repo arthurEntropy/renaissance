@@ -43,6 +43,7 @@
     text-align: center;
     color: white;
     max-width: 200px;
+    margin: 0px;
   }
   </style>
   
