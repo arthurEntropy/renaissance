@@ -60,7 +60,7 @@ import { useCulturesStore } from '@/stores/culturesStore';
 import { mapState } from 'pinia';
 import CultureService from '@/services/CultureService';
 import EquipmentService from '@/services/EquipmentService';
-import SelectionCard from '@/components/SelectionCard.vue';
+import SelectionCard from '@/components/ConceptCard.vue';
 import ConceptDetail from '@/components/modals/ConceptDetailModal.vue';
 import DeleteConfirmationModal from '@/components/modals/DeleteConfirmationModal.vue';
 import EditConceptModal from '@/components/modals/EditConceptModal.vue';

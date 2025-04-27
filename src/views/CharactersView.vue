@@ -127,7 +127,7 @@
 import { useCharacterStore } from '@/stores/characterStore';
 import { mapState } from 'pinia';
 import CharacterService from '@/services/CharacterService';
-import SelectionCard from '@/components/SelectionCard.vue';
+import SelectionCard from '@/components/ConceptCard.vue';
 import CharacterBioSection from '@/components/characterSheet/CharacterBioSection.vue';
 import CoreAbilityColumn from '@/components/characterSheet/CoreAbilityColumn.vue';
 import EquipmentTable from '@/components/characterSheet/EquipmentTable.vue';

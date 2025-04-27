@@ -178,6 +178,8 @@ export default {
     async createEquipment() {
       await EquipmentService.createEquipment();
       await this.store.fetchAllEquipment();
+      this.equipmentToEdit = this.store.equipment[this.store.equipment.length - 1];
+      this.showEditEquipmentModal = true;
     },
 
     async updateEquipment(equipment) {
