@@ -21,6 +21,7 @@ input, textarea, select {
 .button {
     padding: 10px 20px;
     margin: 10px;
+    font-family: 'Lora', serif;
     font-size: 14px;
     font-weight: bold;
     color: white;
@@ -34,10 +35,10 @@ input, textarea, select {
     background-color: gray;
 }
 .button-primary {
-    background-color: darkgoldenrod;
+    background-color: goldenrod;
 }
 .button-primary:hover {
-    background-color: goldenrod;
+    background-color: darkgoldenrod;
 }
 .button-danger {
     background-color: darkred;
@@ -45,11 +46,6 @@ input, textarea, select {
 .button-danger:hover {
     background-color: red;
 }
-.create-new-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-  }
 
 /* CHECKBOXES */
 input[type="checkbox"] {

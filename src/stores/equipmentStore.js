@@ -2,8 +2,8 @@ import { defineStore } from 'pinia';
 import EquipmentService from '@/services/EquipmentService';
 import AncestryService from '@/services/AncestryService';
 import CultureService from '@/services/CultureService';
-import MestieriService from '@/services/MestieriService';
-import WorldElementsService from '@/services/WorldElementsService';
+import MestieriService from '@/services/MestiereService';
+import WorldElementsService from '@/services/WorldElementService';
 import StandardOfLivingService from '@/services/StandardOfLivingService';
 
 export const useEquipmentStore = defineStore('equipment', {

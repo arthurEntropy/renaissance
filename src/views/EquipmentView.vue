@@ -1,84 +1,52 @@
 <template>
-    <div class="equipment-selection">
-      <h2>EQUIPMENT</h2>
-      <button class="button button-primary create-new-button" @click="createEquipment">New Equipment</button>
-      
-      <!-- Search and Filter Controls -->
-      <div class="filter-controls">
-        <input
-          type="text"
-          v-model="searchQuery"
-          class="search-input"
-          placeholder="Search equipment..."
-        />
-        <select v-model="sourceFilter" class="source-filter">
-          <option value="">All Sources</option>
-          <optgroup label="Ancestries">
-            <option v-for="ancestry in sources.ancestries" 
-              :key="ancestry.id" 
-              :value="ancestry.id"
-            >
-              {{ ancestry.name }}
-            </option>
-          </optgroup>
-          <optgroup label="Cultures">
-            <option v-for="culture in sources.cultures" 
-              :key="culture.id" 
-              :value="culture.id"
-            >
-              {{ culture.name }}
-            </option>
-          </optgroup>
-          <optgroup label="Mestieri">
-            <option v-for="mestiere in sources.mestieri" 
-              :key="mestiere.id" 
-              :value="mestiere.id"
-            >
-              {{ mestiere.name }}
-            </option>
-          </optgroup>
-          <optgroup label="World Elements">
-            <option v-for="worldElement in sources.worldElements" 
-              :key="worldElement.id" 
-              :value="worldElement.id"
-            >
-              {{ worldElement.name }}
-            </option>
-          </optgroup>
-        </select>
-        <select v-model="sortOption" class="sort-filter">
-          <option value="">Sort by...</option>
-          <optgroup label="Name">
-            <option value="name-asc">Name (A-Z)</option>
-            <option value="name-desc">Name (Z-A)</option>
-          </optgroup>
-          <optgroup label="Weight">
-            <option value="weight-asc">Weight (Light to Heavy)</option>
-            <option value="weight-desc">Weight (Heavy to Light)</option>
-          </optgroup>
-        </select>
-      </div>
-  
-      <masonry-grid :column-width="350" :gap="6" :row-height="10" class="cards-container">
-        <EquipmentCard 
-          v-for="equipment in filteredEquipment" 
-          :key="equipment.id" 
-          :equipment="equipment" 
-          @delete="openDeleteConfirmationModal(equipment)"
-          @update="updateEquipment(equipment)"
-          @edit="openEditEquipmentModal(equipment)"
-          @send-to-chat="sendEquipmentToChat(equipment)"
-          @height-changed="updateLayout"
-        />
-      </masonry-grid>
-  
+  <ItemListView
+    title="EQUIPMENT"
+    itemType="Equipment"
+    itemTypePlural="Equipment"
+    :sources="sources"
+    v-model:searchQuery="searchQuery"
+    v-model:sourceFilter="sourceFilter"
+    @create="createEquipment"
+    @update-layout="updateLayout"
+  >
+    <!-- Additional filters slot -->
+    <template #additional-filters>
+      <select v-model="sortOption" class="sort-filter">
+        <option value="">Sort by...</option>
+        <optgroup label="Name">
+          <option value="name-asc">Name (A-Z)</option>
+          <option value="name-desc">Name (Z-A)</option>
+        </optgroup>
+        <optgroup label="Weight">
+          <option value="weight-asc">Weight (Light to Heavy)</option>
+          <option value="weight-desc">Weight (Heavy to Light)</option>
+        </optgroup>
+      </select>
+    </template>
+    
+    <!-- Item cards slot -->
+    <template #item-cards>
+      <EquipmentCard 
+        v-for="equipment in filteredEquipment" 
+        :key="equipment.id" 
+        :equipment="equipment" 
+        @delete="openDeleteConfirmationModal(equipment)"
+        @update="updateEquipment(equipment)"
+        @edit="openEditEquipmentModal(equipment)"
+        @send-to-chat="sendEquipmentToChat(equipment)"
+        @height-changed="updateLayout"
+      />
+    </template>
+    
+    <!-- Modals slot -->
+    <template #modals>
       <DeleteConfirmationModal 
         v-if="showDeleteConfirmationModal"
-        :name="equipmentToDelete.name" 
+        :name="equipmentToDelete?.name" 
         @close="closeDeleteConfirmationModal" 
         @confirm="deleteEquipment"
       />
-  
+      
       <EditEquipmentModal 
         v-if="showEditEquipmentModal"
         :equipment="equipmentToEdit"
@@ -86,23 +54,24 @@
         @close="closeEditEquipmentModal"
         @delete="openDeleteConfirmationModal(equipmentToEdit)"
       />
-    </div>
+    </template>
+  </ItemListView>
 </template>
-  
+
 <script>
 import { useEquipmentStore } from '@/stores/equipmentStore';
 import EquipmentService from '@/services/EquipmentService';
 import EquipmentCard from '@/components/EquipmentCard.vue';
 import DeleteConfirmationModal from '@/components/modals/DeleteConfirmationModal.vue';
 import EditEquipmentModal from '@/components/modals/EditEquipmentModal.vue';
-import MasonryGrid from '@/components/MasonryGrid.vue';
+import ItemListView from '@/components/ItemsView.vue';
 
 export default {
   components: {
     EquipmentCard,
     DeleteConfirmationModal,
     EditEquipmentModal,
-    MasonryGrid,
+    ItemListView,
   },
 
   data() {
@@ -111,15 +80,15 @@ export default {
       equipmentToEdit: null,
       showDeleteConfirmationModal: false,
       equipmentToDelete: null,
+      sortOption: '',
       searchQuery: '',
       sourceFilter: '',
-      sortOption: '',
     };
   },
 
   computed: {
     store() {
-      return useEquipmentStore(); // Access the store via a computed property
+      return useEquipmentStore();
     },
 
     equipment() {
@@ -131,11 +100,14 @@ export default {
     },
 
     filteredEquipment() {
+      // Use local data properties instead of accessing through $children
       const query = this.searchQuery.toLowerCase().trim();
+      const sourceFilter = this.sourceFilter;
+      
       let filtered = this.equipment.filter(equipment => !equipment.isDeleted);
 
-      if (this.sourceFilter) {
-        filtered = filtered.filter(equipment => equipment.source === this.sourceFilter);
+      if (sourceFilter) {
+        filtered = filtered.filter(equipment => equipment.source === sourceFilter);
       }
 
       if (query) {
@@ -171,14 +143,14 @@ export default {
 
     async saveEditedEquipment(editedEquipment) {
       await EquipmentService.updateEquipment(editedEquipment);
-      this.store.updateEquipmentInStore(editedEquipment); // Use the store from computed
+      this.store.updateEquipmentInStore(editedEquipment);
       this.closeEditEquipmentModal();
     },
 
     async createEquipment() {
-      await EquipmentService.createEquipment();
+      const newEquipment = await EquipmentService.createEquipment();
       await this.store.fetchAllEquipment();
-      this.equipmentToEdit = this.store.equipment[this.store.equipment.length - 1];
+      this.equipmentToEdit = this.store.equipment.find(e => e.id === newEquipment.id);
       this.showEditEquipmentModal = true;
     },
 
@@ -188,10 +160,32 @@ export default {
     },
 
     async deleteEquipment() {
-      this.equipmentToDelete.isDeleted = true;
-      await EquipmentService.updateEquipment(this.equipmentToDelete);
-      this.closeDeleteConfirmationModal();
-      await this.store.fetchAllEquipment();
+      // Make a copy of the IDs to ensure we can still access them after closing modals
+      const deleteId = this.equipmentToDelete?.id;
+      const editId = this.equipmentToEdit?.id;
+      
+      if (this.equipmentToDelete) {
+        // Create a new object to ensure we're not modifying a potentially frozen object
+        const equipmentToUpdate = { ...this.equipmentToDelete, isDeleted: true };
+        
+        try {
+          // Close the delete confirmation modal first
+          this.closeDeleteConfirmationModal();
+          
+          // Check if we need to close the edit modal (if it's open for the same item)
+          if (this.showEditEquipmentModal && editId === deleteId) {
+            this.closeEditEquipmentModal();
+          }
+          
+          // Now update the equipment with isDeleted set to true
+          await EquipmentService.updateEquipment(equipmentToUpdate);
+          
+          // Finally refresh the equipment list
+          await this.store.fetchAllEquipment();
+        } catch (error) {
+          console.error('Error deleting equipment:', error);
+        }
+      }
     },
 
     openEditEquipmentModal(equipment) {
@@ -204,8 +198,9 @@ export default {
       this.showEditEquipmentModal = false;
     },
 
-    sendEquipmentToChat() {
-      // TODO
+    sendEquipmentToChat(equipment) {
+      // TODO: Implement sending equipment to chat
+      console.log('Sending to chat:', equipment);
     },
 
     openDeleteConfirmationModal(equipment) {
@@ -220,83 +215,29 @@ export default {
   },
 
   async mounted() {
-    await this.store.init(); // Initialize the store
+    await this.store.init();
   },
 };
 </script>
-  
+
 <style scoped>
-  .equipment-selection {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    flex-grow: 1;
-    padding: 0 2rem;
-  }
-  
-  .filter-controls {
-    display: flex;
-    gap: 1rem;
-    width: 100%;
-    max-width: 900px;
-    margin-bottom: 1rem;
-  }
-  
-  .search-input {
-    flex: 2;
-    padding: 8px 12px;
-    border: 1px solid #555;
-    border-radius: 4px;
-    background-color: rgba(0, 0, 0, 0.65);
-    color: white;
-    font-size: 16px;
-  }
-  
-  .source-filter,
-  .sort-filter {
-    flex: 1;
-    padding: 8px 12px;
-    border: 1px solid #555;
-    border-radius: 4px;
-    background-color: rgba(0, 0, 0, 0.65);
-    color: white;
-    font-size: 16px;
-    font-family: 'Lora', serif;
-  }
-  
-  .source-filter optgroup,
-  .sort-filter optgroup {
-    background-color: black;
-  }
-  
-  .source-filter option,
-  .sort-filter option {
-    background-color: rgba(0, 0, 0, 0.85);
-    padding: 8px;
-  }
-  
-  .search-input::placeholder {
-    color: #888;
-  }
-  
-  .search-input:focus,
-  .source-filter:focus,
-  .sort-filter:focus {
-    outline: none;
-    border-color: #888;
-    box-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
-  }
-  
-  .cards-container {
-    width: 90%;
-    margin: 0 auto;
-    padding: 0.5rem;
-    box-sizing: border-box;
-    overflow: visible;  /* Allow cards to be measured properly */
-  }
-  
-  .create-new-button {
-    margin-bottom: 1rem;
-  }
+.sort-filter {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid #555;
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0.65);
+  color: white;
+  font-size: 16px;
+  font-family: 'Lora', serif;
+}
+
+.sort-filter optgroup {
+  background-color: black;
+}
+
+.sort-filter option {
+  background-color: rgba(0, 0, 0, 0.85);
+  padding: 8px;
+}
 </style>

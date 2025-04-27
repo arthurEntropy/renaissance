@@ -181,9 +181,26 @@
     width: 100%;
     position: relative;
     box-sizing: border-box;
-    min-width: 0;      /* Critical for preventing overflow */
-    overflow: hidden;  /* Prevent content from forcing wider than container */
-    }
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  .base-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .base-card > * {
+    position: relative;
+    z-index: 2;
+  }
   
   .card-header {
     display: flex;

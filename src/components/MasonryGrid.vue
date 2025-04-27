@@ -1,10 +1,10 @@
 <template>
-    <div class="masonry-grid" ref="masonryContainer">
-      <slot></slot>
-    </div>
-  </template>
+  <div class="masonry-grid" ref="masonryContainer">
+    <slot></slot>
+  </div>
+</template>
   
-  <script>
+<script>
   // Debounce function to limit rapid-fire resize events
   function debounce(fn, delay) {
     let timeoutId;
@@ -176,9 +176,9 @@
       }
     }
   };
-  </script>
+</script>
   
-  <style scoped>
+<style scoped>
   .masonry-grid {
     width: 100%;
     align-items: start;
@@ -191,4 +191,4 @@
     overflow: hidden; /* Prevent overflow from causing layout issues */
     /* Remove min-width and max-width constraints as we're setting exact width */
   }
-  </style>
+</style>
