@@ -24,7 +24,8 @@
     "pinia": "^3.0.1",
     "uuid": "^11.1.0",
     "vue": "^3.2.13",
-    "vue-router": "4"
+    "vue-router": "4",
+    "vuedraggable": "^4.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.26.10",

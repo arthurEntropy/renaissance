@@ -149,6 +149,7 @@
     border-radius: 4px;
     overflow: hidden;
     background-color: #111;
+    text-align: left;
   }
   
   .rich-editor-toolbar {
