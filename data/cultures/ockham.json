@@ -17,20 +17,80 @@
     "https://cdn.midjourney.com/cbb2c026-6f03-4000-9cd5-3243324bcadd/0_2.png",
     "https://cdn.midjourney.com/72444095-3c80-4327-a8da-3e17ff9cece6/0_1.jpeg",
     "https://cdn.midjourney.com/ce2757ea-03e8-4635-b10c-828b01203d77/0_3.png",
-    "https://cdn.midjourney.com/be6b59ca-ce0c-4ea1-b6ef-3bc4e576cfb5/0_0.jpeg",
+    "https://cdn.midjourney.com/1ff20a75-60ae-4fc1-9063-13d30f609d94/0_2.png",
+    "https://cdn.midjourney.com/470a5ff8-ee12-4835-94f5-593b0d48850b/0_2.png",
+    "https://cdn.midjourney.com/7d4972e8-9555-4018-b79e-6ffb2aebccb3/0_3.png",
+    "https://cdn.midjourney.com/be6b59ca-ce0c-4ea1-b6ef-3bc4e576cfb5/0_0.png",
     "https://cdn.midjourney.com/fdf7bd30-c857-442f-91c5-8f5b775a6277/0_1.jpeg",
-    "https://cdn.midjourney.com/7d8a0c75-6a3e-4878-aecf-6f8b2d7fd877/0_0.png",
+    "https://cdn.midjourney.com/1b748a4d-b673-4d09-9aa4-36c62931bf02/0_1.png",
     "https://cdn.midjourney.com/458ab163-3077-47a1-81f9-4efb1a03e621/0_1.png",
-    "https://cdn.midjourney.com/7d4972e8-9555-4018-b79e-6ffb2aebccb3/0_3.png"
+    "https://cdn.midjourney.com/bb27515a-35a0-4d24-8a27-fae8f24ed08a/0_0.png",
+    "https://cdn.midjourney.com/c50e57d0-717a-44b8-8ccc-fab06d5ba12d/0_2.png",
+    "https://cdn.midjourney.com/4779009f-5353-4aad-8b46-5b61bef72c66/0_0.png",
+    "https://cdn.midjourney.com/0d8eb65c-797d-418d-8e16-850d10a797f3/0_3.png",
+    "https://cdn.midjourney.com/10104873-b0ae-41a1-bad5-440d7755f58c/0_1.png",
+    "https://cdn.midjourney.com/c522c116-174c-4e28-9d1f-6b0fb3e60425/0_3.png"
   ],
-  "places": [],
-  "hooks": [],
-  "playlists": [],
+  "places": [
+    "https://cdn.midjourney.com/308a2b3a-4b13-43b8-b089-71a57bc1364b/0_2.png",
+    "https://cdn.midjourney.com/4a83eec5-9049-419b-8052-8ca57222fd38/0_3.png",
+    "https://cdn.midjourney.com/9ab53176-649a-454b-9b40-df59c134573b/0_3.png",
+    "https://cdn.midjourney.com/1066e69d-62bd-400b-b96a-bd383d234072/0_0.png",
+    "https://cdn.midjourney.com/b5779eb2-a1df-4243-bd19-9e76c036d1e1/0_0.png",
+    "https://cdn.midjourney.com/62939bc9-0860-4bf0-9ecb-ca51df545a54/0_1.png",
+    "https://cdn.midjourney.com/2b36aef0-3fea-4486-8b13-7a9d512411b8/0_0.png",
+    "https://cdn.midjourney.com/5baeb2da-d2bd-4c87-87d9-8bfea10762f9/0_1.png",
+    "https://cdn.midjourney.com/9235edb2-29ac-454b-b901-6e498c7e21f7/0_3.png",
+    "https://cdn.midjourney.com/b6b1e881-f8b8-4daf-aeb4-3a9aea6e8fa6/0_1.png",
+    "https://cdn.midjourney.com/a967efb8-b523-4d09-9749-6deffcea1a82/0_1.png",
+    "https://cdn.midjourney.com/5baeb2da-d2bd-4c87-87d9-8bfea10762f9/0_3.png",
+    "https://cdn.midjourney.com/f22b9169-7081-4fd7-8fd3-003d4a4cf550/0_3.png",
+    "https://cdn.midjourney.com/f10ec55a-3a12-4627-abef-0bc2590fac40/0_2.png",
+    "https://cdn.midjourney.com/61075f83-bd8c-4983-8575-8e4b8d5ec35f/0_3.png",
+    "https://cdn.midjourney.com/3c5ea7ea-f4f8-44f5-b6c0-00ac6291d1ff/0_3.png",
+    "https://cdn.midjourney.com/aef6bdd0-4e68-41f9-9a27-4aacde571915/0_1.png",
+    "https://cdn.midjourney.com/2c24db1c-bbe3-4707-a683-280945dc0b3c/0_3.png",
+    "https://cdn.midjourney.com/2abd585a-11d1-4564-9a8f-6e1defde2c8e/0_0.png",
+    "https://cdn.midjourney.com/becfce6c-7e79-4e91-b1a0-2ccb740fd0bf/0_1.png"
+  ],
+  "hooks": [
+    {
+      "id": "ef3e441b-455e-4b91-95b8-58263289d699",
+      "name": "A Mysterious Advertisement",
+      "description": "<p>One morning a mysterious advertisement appears all over town, advertising \"Geori Rempler's Traveling School of the Adventuring Arts\" - an institution nobody has ever heard of. Prospective students are to appear at the Grand Fountain at noon on the next festival day.</p>",
+      "gmNotes": "<h3>Option 1</h3><p>Geori Rempler is a real person who operates a real school and will really teach students how to be an adventurer. He offers a three-quest, fast-track course in exchange for half of any treasure found on the quests.</p><p>The first quest is simple, relatively easy, presents a clear moral imperative and secures enough treasure to entice Our Heroes to continue the course.</p><p>The second is similarly straightforward, but a danger should present itself that requires Prof. Rempler to reveal a degree of surprising or even frightening power previously hidden. The treasure is proportionately larger.</p><p>The third quest should either: A) reveal Prof. Rempler to have stumbled into something very unexpected, dangerous and beyond his skill - he will perish unless Our Heroes intervene; or B) reveal Prof. Rempler to be exploiting Our Heroes in some way - perhaps by bringing them into a dangerous situation as expendable forces, or by turning on them and attempting to rob them once a particularly large take of treasure is secured.</p><h3>Option 2</h3><p>Geori Rempler is an anagram of Emperor Rigel(!), a fearful fellow who thinks very highly of himself and is targeting Our Heroes in particular for some reason. It turns out that the posters for the Adventuring School are enchanted so as to appear as such only to Our Heroes, while everyone else sees them as mundane advertisements for various business ventures.</p><p>Whether or not Our Heroes become wise to this beforehand, at the appointed time and place, the trap will spring with great and reckless force - perhaps this sets into motion the great conflagration of Ockham?</p><p>Did Our Heroes unknowingly cross Rigel or one of his agents in a previous quest? Has word of their deeds reached him and he fears their ascendant power as do-gooders? Does the force and recklessness of Rigel's attack bely a wider scope of his malice and ambition? Can the villain resist savoring the reveal of the ever-so-clever anagram ruse?</p>"
+    },
+    {
+      "id": "8c66ff02-ec2c-4ded-960b-06d5ee8e3d22",
+      "name": "The Road Is Not Safe",
+      "description": "<p>Farmers and merchants have been arriving in town with empty carts, bruised faces and high tempers. It seems a troop of bandits has been raiding on the road with increasing frequency, and the mayor has been slow to address the problem. Perhaps under duress from an angry mob, the mayor offers a reward for anyone who can put an end to this trouble on the North Road.</p>",
+      "gmNotes": "<p>Should Our Heroes take up the call, they should readily find tracks leading to a cave. What follows should be a jolly-good cave crawl, perhaps two or three chambers in length, with reasonably challenging but surmountable bandit and bandit-adjacent foes.</p><p>The final, much-larger chamber should reveal an organized operation of theft and repackaging-for-resale, being led by... the mayor! They have humped themself double-time to get here before Our Heroes and intends to destroy them with something unexpected and powerful: perhaps a faithful ogre in a pit, or some other less blunt instrument?</p><p>Should Our Heroes prove victorious and should they choose to return to Ockham, perhaps it becomes apparent that others in town were secretly invested in this operation and are less than pleased at its demise. What trouble have they stirred up for themselves?</p><p>Bonus points for foreshadowing this illicit operation with items and/or foodstuffs for sale in town at the outset of the quest that are of notable quality and mysterious origin. Further accolades for including noncombatant laborers, kitchen staff, etc. who were ignorant of the evil of their employer's machinations and who muddy the moral waters of Our Heroes' putting things to rights.</p>"
+    },
+    {
+      "id": "9d8c7dee-7177-49c5-9738-ce8d9976e04e",
+      "name": "Rapier For Sale",
+      "description": "<p>On a busy festival day, a nervous man is standing in the middle of the Festival Square attempting to sell a very fancy, bejeweled rapier. His garments suggest a scholar more than a merchant and he is doing a very bad job convincing passersby of the rapier's great value.</p>",
+      "gmNotes": "<p>The man is indeed a scholar whose research led him to visit this region in search of a long-lost artifact of great cultural, magical and/or military significance - the very rapier he's \"selling.\" He will not offer this information readily, but his nervous glances into the crowd may indicate a connection with a few tough-looking ruffians keeping a close eye on him. These latter are of course local ne'er-do-wells who caught wind of his discovery and who now hope to make some easy coin by the forced sale of the item.</p><p>Should Our Heroes manage to foil these plans and secure the scholar's safety, he will share his research with them, which indicates that there are a number of other companion artifacts that are worth questing after. What is their number? What is their significance? What is their power? Who else might be after them?</p>"
+    }
+  ],
+  "playlists": [
+    {
+      "service": "apple",
+      "embedCode": "<iframe allow=\"autoplay *; encrypted-media *;\" frameborder=\"0\" height=\"450\" style=\"width:100%;max-width:660px;overflow:hidden;background:transparent;\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation\" src=\"https://embed.music.apple.com/us/playlist/ockham-before/pl.u-yZyVjgLCqRNX7y?theme=dark\"></iframe>"
+    },
+    {
+      "service": "apple",
+      "embedCode": "<iframe allow=\"autoplay *; encrypted-media *;\" frameborder=\"0\" height=\"450\" style=\"width:100%;max-width:660px;overflow:hidden;background:transparent;\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation\" src=\"https://embed.music.apple.com/us/playlist/ockham-after/pl.u-zPyLJMgCxaR5Xr?theme=dark\"></iframe>"
+    }
+  ],
   "names": "Hugh, Albie, Benedict, Miles, Rupert, Imogen, Harriet, Tamsin, Elspeth, Marnie, Rowan, Kit, Jules, Enid, Robin, Edmund, Cecily, Anselm, Lettice, Simeon.",
   "occupations": "Farmer, Shepherd, Miller, Broker, Blacksmith, Carpenter, Cooper, Weaver, Potter, Tanner, Carney, Butcher, Baker, Brewer, Chandler, Mason, Thatcher, Midwife.",
-  "publicHouses": "The Boar and Barrel, The Green Man, The Crown and Sickle, The Wagtail's Nest, The Prancing Hart, The Shepherd's Rest.",
-  "vittles": "Cider, Mead, Barley Bread, Oat Porridge, Smoked Eel, Salted Pork, Stewed Lentils, Hard Cheese, Fresh Apples, Pickled Onions, Roasted Turnips, Honey Cakes, Black Pudding, Small Beer.",
+  "publicHouses": "The Stripey Pig, The Green Woman, The Sack and Sickle, Stickney's Tavern, The Shepherd's Legs.",
+  "vittles": "Cider, Mead, Barley Bread, Oat Porridge, Smoked Eel, Salted Pork, Stewed Lentils, Hard Cheese, Fresh Apples, Pickled Onions, Roasted Turnips, Honey Cakes, Black Pudding, Small Beer, Snipe-On-A-Stick.",
   "pointsOfInterest": "The Festival Square, The Grand Fountain, The Exchange House, The Tithing Barn, The Hollow Tree.",
   "floraFauna": "Oak, Willow, Hawthorn, Elderberry, Wild Garlic, Nettles, Foxglove, Crow, Hedgehog, Badger, Red Deer, Pike, Barn Owl, Stoat, Lark.",
+  "backgroundImage": "https://cdn.midjourney.com/077407d0-f6fb-4245-81ae-07c31bbce5d9/0_1.png",
+  "color1": "#ffffff",
+  "color2": "#000000",
   "isDeleted": false
 }

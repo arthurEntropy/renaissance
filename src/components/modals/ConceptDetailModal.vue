@@ -1,6 +1,9 @@
 <template>
   <div class="modal-overlay" @click.self="closeDetailView">
     <div class="modal-content">
+
+    <button class="settings-button" @click="openStyleSettings" title="Card Style Settings">⚙️</button>
+
       <div class="concept-detail-content">
 
         <!-- Left: Art & Faces -->
@@ -14,29 +17,30 @@
             @update:images="updateArtUrls"
           />
 
-          <!-- Faces Section -->
-          <div class="concept-faces" v-if="localConcept.faces && localConcept.faces.length">
+          <!-- FACES SECTION: Always show -->
+          <div class="concept-faces">
             <h2 class="section-header">Faces</h2>
             <ImageGallery
-              :images="localConcept.faces"
+              :images="localConcept.faces || []"
               :editable="true"
               :grid-columns="5"
               @update:images="updateFaces"
             />
           </div>
-
-          <!-- Places Section -->
-          <div class="concept-faces" v-if="localConcept.places && localConcept.places.length">
+          
+          <!-- PLACES SECTION: Always show -->
+          <div class="concept-faces">
             <h2 class="section-header">Places</h2>
             <ImageGallery
-              :images="localConcept.places"
+              :images="localConcept.places || []"
               :editable="true" 
               :grid-columns="5"
               @update:images="updatePlaces"
             />
           </div>
 
-          <div class="concept-section" v-if="hasPlaylists">
+          <!-- PLAYLISTS SECTION: Always show -->
+          <div class="concept-section">
             <h2 class="section-header">
               Playlists
               <button class="edit-section-button" @click="togglePlaylistEditing" title="Edit playlists">✎</button>
@@ -172,8 +176,8 @@
             </masonry-grid>
           </div>
 
-          <!-- Local Flavor section -->
-          <div class="concept-section" v-if="hasReferenceData || editingReference">
+          <!-- LOCAL FLAVOR SECTION: Always show -->
+          <div class="concept-section">
             <h2 class="section-header">
               Local Flavor
               <button class="edit-section-button" @click="toggleReferenceEditing" title="Edit local flavor">✎</button>
@@ -307,8 +311,8 @@
             </div>
           </div>
 
-          <!-- Hooks Section -->
-          <div class="concept-section" v-if="localConcept.hooks?.length || editingHooks">
+          <!-- HOOKS SECTION: Always show -->
+          <div class="concept-section">
             <h2 class="section-header">
               Hooks
               <button class="edit-section-button" @click="toggleHooksEditing" title="Edit hooks">✎</button>
@@ -422,6 +426,37 @@
       </div>
     </div>
   </div>
+  <!-- Style Settings Modal -->
+  <div v-if="showStyleSettings" class="modal-overlay" @click.self="closeStyleSettings">
+    <div class="modal-content style-settings-modal">
+      <h3>Card Style Settings</h3>
+      
+      <!-- Background Image URL -->
+      <div class="form-group vertical">
+        <label for="backgroundImage">Background Image URL:</label>
+        <input
+          type="text"
+          id="backgroundImage"
+          v-model="tempStyleSettings.backgroundImage"
+          class="modal-input"
+          placeholder="https://example.com/image.png"
+        />
+      </div>
+
+      <!-- Colors -->
+      <div class="form-group">
+        <label for="color1">Primary Color:</label>
+        <input type="color" id="color1" v-model="tempStyleSettings.color1" />
+        <label for="color2">Secondary Color:</label>
+        <input type="color" id="color2" v-model="tempStyleSettings.color2" />
+      </div>
+      
+      <div class="settings-buttons">
+        <button type="button" class="button" @click="closeStyleSettings">Cancel</button>
+        <button type="button" class="button button-primary" @click="saveStyleSettings">Save</button>
+      </div>
+    </div>
+  </div>
 </template>
   
 <script>
@@ -468,7 +503,14 @@ export default defineComponent({
       expandedHooks: {},
       
       // For undo functionality
-      backupConcept: null
+      backupConcept: null,
+
+      showStyleSettings: false,
+      tempStyleSettings: {
+        backgroundImage: '',
+        color1: '#ffffff',
+        color2: '#000000'
+      },
     };
   },
   watch: {
@@ -520,6 +562,64 @@ export default defineComponent({
   },
   methods: {
     // General methods
+
+    processAppleEmbedCodes() {
+      if (!this.localConcept.playlists) return;
+      
+      this.localConcept.playlists.forEach(playlist => {
+        if (playlist.service === 'apple' && playlist.embedCode) {
+          // Check if the embed code already has ?theme=dark
+          if (!playlist.embedCode.includes('?theme=dark') && 
+              !playlist.embedCode.includes('&theme=dark')) {
+            
+            // Use regex to find the src attribute
+            const srcRegex = /src=["']([^"']*)["']/i;
+            const match = playlist.embedCode.match(srcRegex);
+            
+            if (match && match[1]) {
+              const originalSrc = match[1];
+              const newSrc = originalSrc + (originalSrc.includes('?') ? '&theme=dark' : '?theme=dark');
+              
+              // Replace the src in the embed code
+              playlist.embedCode = playlist.embedCode.replace(
+                `src="${originalSrc}"`, 
+                `src="${newSrc}"`
+              ).replace(
+                `src='${originalSrc}'`,
+                `src='${newSrc}'`
+              );
+            }
+          }
+        }
+      });
+    },
+
+    openStyleSettings() {
+      // Copy current values to the temp object
+      this.tempStyleSettings = {
+        backgroundImage: this.localConcept.backgroundImage || '',
+        color1: this.localConcept.color1 || '#ffffff',
+        color2: this.localConcept.color2 || '#000000'
+      };
+      this.showStyleSettings = true;
+    },
+
+    closeStyleSettings() {
+      this.showStyleSettings = false;
+    },
+
+    saveStyleSettings() {
+      // Update the local concept with the new settings
+      this.localConcept.backgroundImage = this.tempStyleSettings.backgroundImage;
+      this.localConcept.color1 = this.tempStyleSettings.color1;
+      this.localConcept.color2 = this.tempStyleSettings.color2;
+      
+      // Emit the update
+      this.emitUpdateEvent();
+      
+      // Close the settings modal
+      this.closeStyleSettings();
+    },
     closeDetailView() {
       try {
         // Check if any editing is in progress
@@ -571,6 +671,10 @@ export default defineComponent({
           vittles: this.localConcept.vittles,
           pointsOfInterest: this.localConcept.pointsOfInterest,
           floraFauna: this.localConcept.floraFauna,
+          // Preserve styling fields
+          backgroundImage: this.localConcept.backgroundImage,
+          color1: this.localConcept.color1,
+          color2: this.localConcept.color2,
           // Include any other fields your concept might have
           isDeleted: this.localConcept.isDeleted
         };
@@ -757,6 +861,9 @@ export default defineComponent({
     },
     
     savePlaylistChanges() {
+      // Process Apple Music embed codes to ensure dark theme
+      this.processAppleEmbedCodes();
+      
       this.editingPlaylists = false;
       this.emitUpdateEvent();
     },
@@ -1302,6 +1409,50 @@ export default defineComponent({
 
 .button-danger {
   background: #f44336;
+}
+
+.settings-button {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  color: #aaa;
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 10;
+  padding: 5px;
+  transition: color 0.2s ease;
+}
+
+.settings-button:hover {
+  color: white;
+}
+
+.style-settings-modal {
+  max-width: 500px;
+  text-align: left;
+}
+
+.settings-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+/* Make sure the modal content has position relative for absolute positioning */
+.modal-content {
+  position: relative;
+}
+
+/* For better color picker styling */
+input[type="color"] {
+  width: 50px;
+  height: 30px;
+  border: none;
+  cursor: pointer;
+  margin: 0 10px;
 }
 
 /* Responsive adjustments */

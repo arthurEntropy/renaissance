@@ -1,12 +1,12 @@
 {
   "id": "75800953-4adb-405f-a4ab-a599573ca533",
   "name": "Ered Luin",
-  "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean faucibus enim vel lacinia volutpat. Pellentesque et tempus eros. Ut mollis venenatis magna, ut mollis orci venenatis non. Nullam elementum sagittis sagittis. Vivamus nec lobortis lacus. Vestibulum dolor eros, gravida in molestie eget, congue nec magna.</p><p>Aliquam erat volutpat. In quis erat at risus sodales tristique. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Sed consequat justo ac eros rutrum, ut feugiat libero sagittis. Etiam dapibus congue nisi, vitae venenatis quam interdum in. Nulla consectetur, ligula at tempus dignissim, arcu elit viverra augue, at convallis enim magna sit amet enim. Ut scelerisque mi quis dui venenatis convallis. Integer suscipit euismod libero, in volutpat enim interdum semper. In dictum ultricies ligula et auctor. Sed vitae nunc rutrum libero sodales rutrum nec sit amet ipsum.</p><p>Duis vel pellentesque nisi. Aliquam eget vulputate elit. Proin vehicula fermentum orci, vel imperdiet mi sollicitudin et. Phasellus libero sapien, gravida vel augue sit amet, tristique convallis sapien. Integer non turpis in risus faucibus sagittis. Nam eget vulputate elit, id congue massa. Nullam pulvinar massa lorem, quis vulputate lacus feugiat ac. Suspendisse et quam quis nulla laoreet varius id eget lorem. Etiam mollis sit amet diam a congue. Duis ultricies urna metus, vitae ornare sem ultrices vitae. Duis et scelerisque ligula. Ut vehicula id enim a pretium.</p>",
+  "description": "<p></p>",
   "artUrls": [
     "https://cdn.midjourney.com/275667ac-9ecf-40d9-85b4-89b340aeff14/0_0.png",
-    "https://cdn.midjourney.com/7a6929ed-a0fe-401c-b94a-bea7707427a2/0_2.png",
     "https://cdn.midjourney.com/25a39b88-eb2d-41ef-88a3-27c9ed0f57b1/0_0.png",
     "https://cdn.midjourney.com/ed33b32d-c5cc-4f8b-b418-c0d3e8bdc3b1/0_0.png",
+    "https://cdn.midjourney.com/7a6929ed-a0fe-401c-b94a-bea7707427a2/0_2.png",
     "https://cdn.midjourney.com/7a6929ed-a0fe-401c-b94a-bea7707427a2/0_3.png"
   ],
   "faces": [
@@ -18,8 +18,7 @@
     "https://cdn.midjourney.com/1b4bf24e-acff-4d04-94bd-f76f12139ec0/0_1.png",
     "https://cdn.midjourney.com/25ff0d5d-3a99-4e0d-bc70-6a13da330752/0_3.png",
     "https://cdn.midjourney.com/5e468eb4-a7c5-416c-8d38-29a66d9f6cff/0_2.png",
-    "https://cdn.midjourney.com/1b4bf24e-acff-4d04-94bd-f76f12139ec0/0_0.png",
-    "https://cdn.midjourney.com/fad917b9-d6f5-4e30-b3ac-140d731a1fc1/0_3.png"
+    "https://cdn.midjourney.com/1b4bf24e-acff-4d04-94bd-f76f12139ec0/0_0.png"
   ],
   "places": [
     "https://cdn.midjourney.com/30b6ae11-33b5-4c6d-8eb9-3a21aa7b9b3e/0_2.png",
@@ -28,12 +27,6 @@
     "https://cdn.midjourney.com/7a6929ed-a0fe-401c-b94a-bea7707427a2/0_0.png"
   ],
   "hooks": [
-    {
-      "id": "e1f3b0a2-4c5d-4b8c-9f6d-7a5e0f3b1c8e",
-      "name": "Freda's Angry Suitors",
-      "description": "Local silversmith Freda has been receiving unwanted attention from a group of suitors. She is not interested in any of them, and they are becoming increasingly aggressive in their pursuit. Local silversmith Freda has been receiving unwanted attention from a group of suitors. She is not interested in any of them, and they are becoming increasingly aggressive in their pursuit. Local silversmith Freda has been receiving unwanted attention from a group of suitors. She is not interested in any of them, and they are becoming increasingly aggressive in their pursuit.",
-      "gmNotes": "Freda has actually been seeing someone else in secret, and the suitors are not just being annoying, they are actually dangerous."
-    },
     {
       "id": "d2f3b0a2-4c5d-4b8c-9f6d-7a5e0f3b1c8e",
       "name": "The Missing Miners",

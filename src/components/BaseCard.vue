@@ -77,6 +77,7 @@
         sourceName: '',
         showTooltip: false,
         tooltipTimer: null,
+        sourceLoaded: false,  // Add this to track source loading state
       };
     },
     computed: {
@@ -93,15 +94,17 @@
           };
         }
   
-        // Then check source's background
-        const source = this.storeInstance.getSourceById(this.item.source);
-        if (source && source.backgroundImage) {
-          return {
-            backgroundImage: `url(${source.backgroundImage})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat',
-          };
+        // Then check source's background (depend on sourceLoaded to trigger re-evaluation)
+        if (this.sourceLoaded) {
+          const source = this.storeInstance.getSourceById(this.item.source);
+          if (source && source.backgroundImage) {
+            return {
+              backgroundImage: `url(${source.backgroundImage})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              backgroundRepeat: 'no-repeat',
+            };
+          }
         }
   
         // Fallback
@@ -132,12 +135,14 @@
       async fetchSourceInfo() {
         if (!this.item.source) {
           this.sourceName = 'Unknown';
+          this.sourceLoaded = true;
           return;
         }
   
         await this.storeInstance.fetchAllSources();
         const source = this.storeInstance.getSourceById(this.item.source);
         this.sourceName = source?.name || 'Unknown';
+        this.sourceLoaded = true;  // Mark source as loaded to trigger cardStyle re-evaluation
       },
     },
     watch: {
