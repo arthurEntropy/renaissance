@@ -1,49 +1,62 @@
 <template>
   <div class="modal-overlay" @click.self="closeDetailView">
     <div class="modal-content">
-
-    <button class="settings-button" @click="openStyleSettings" title="Card Style Settings">⚙️</button>
+      <!-- Mode toggle button -->
+      <div class="modal-controls">
+        <button 
+          class="mode-toggle-button" 
+          @click="toggleEditMode" 
+          :title="isEditMode ? 'Exit Edit Mode' : 'Enter Edit Mode'"
+        >
+          {{ isEditMode ? '✓ Save' : '✎ Edit' }}
+        </button>
+        <button 
+          v-if="isEditMode"
+          class="settings-button" 
+          @click="openStyleSettings" 
+          title="Card Style Settings"
+        >⚙️</button>
+      </div>
 
       <div class="concept-detail-content">
-
         <!-- Left: Art & Faces -->
         <div class="concept-info">
           <!-- Main Art Section -->
           <ImageGallery
             v-if="localConcept.artUrls && localConcept.artUrls.length"
             :images="localConcept.artUrls"
-            :editable="true"
+            :editable="isEditMode"
             :grid-columns="5"
             @update:images="updateArtUrls"
           />
 
-          <!-- FACES SECTION: Always show -->
+          <!-- FACES SECTION -->
           <div class="concept-faces">
             <h2 class="section-header">Faces</h2>
             <ImageGallery
               :images="localConcept.faces || []"
-              :editable="true"
+              :editable="isEditMode"
               :grid-columns="5"
               @update:images="updateFaces"
             />
           </div>
           
-          <!-- PLACES SECTION: Always show -->
+          <!-- PLACES SECTION -->
           <div class="concept-faces">
             <h2 class="section-header">Places</h2>
             <ImageGallery
               :images="localConcept.places || []"
-              :editable="true" 
+              :editable="isEditMode" 
               :grid-columns="5"
               @update:images="updatePlaces"
             />
           </div>
 
-          <!-- PLAYLISTS SECTION: Always show -->
+          <!-- PLAYLISTS SECTION -->
           <div class="concept-section">
             <h2 class="section-header">
               Playlists
-              <button class="edit-section-button" @click="togglePlaylistEditing" title="Edit playlists">✎</button>
+              <button v-if="isEditMode" class="edit-section-button" @click="togglePlaylistEditing" title="Edit playlists">✎</button>
             </h2>
             
             <!-- Playlist Editor -->
@@ -107,7 +120,6 @@
                   class="playlist-embed"
                   v-html="playlist.embedCode"
                 ></div>
-                
                 <div v-if="filteredPlaylists.length === 0" class="no-playlists">
                   No {{ playlistService === 'spotify' ? 'Spotify' : 'Apple Music' }} playlists available.
                   <span v-if="hasOtherServicePlaylists">
@@ -134,9 +146,9 @@
                 @keyup.esc="cancelTitleEdit"
               />
             </div>
-            <h1 v-else class="concept-header" @click="startTitleEdit">
+            <h1 v-else class="concept-header" @click="isEditMode && startTitleEdit">
               {{ localConcept.name }}
-              <span class="edit-indicator" title="Click to edit">✎</span>
+              <span v-if="isEditMode" class="edit-indicator" title="Click to edit">✎</span>
             </h1>
           </div>
           
@@ -153,9 +165,9 @@
                 <button class="button small" @click="cancelDescriptionEdit">Cancel</button>
               </div>
             </div>
-            <div v-else class="concept-description" @click="startDescriptionEdit" v-html="localConcept.description">
+            <div v-else class="concept-description" @click="isEditMode && startDescriptionEdit" v-html="localConcept.description">
             </div>
-            <span v-if="!editingDescription" class="edit-field-indicator" @click="startDescriptionEdit" title="Edit description">✎</span>
+            <span v-if="isEditMode && !editingDescription" class="edit-field-indicator" @click="startDescriptionEdit" title="Edit description">✎</span>
           </div>
           
           <!-- Traits & Abilities -->
@@ -171,16 +183,17 @@
                 v-for="ability in abilities"
                 :key="ability.id"
                 :ability="ability"
+                :editable="isEditMode"
                 @edit="emitAbilityEdit"
               />
             </masonry-grid>
           </div>
 
-          <!-- LOCAL FLAVOR SECTION: Always show -->
+          <!-- LOCAL FLAVOR SECTION -->
           <div class="concept-section">
             <h2 class="section-header">
               Local Flavor
-              <button class="edit-section-button" @click="toggleReferenceEditing" title="Edit local flavor">✎</button>
+              <button v-if="isEditMode" class="edit-section-button" @click="toggleReferenceEditing" title="Edit local flavor">✎</button>
             </h2>
             
             <!-- Edit mode for reference data -->
@@ -311,11 +324,11 @@
             </div>
           </div>
 
-          <!-- HOOKS SECTION: Always show -->
+          <!-- HOOKS SECTION -->
           <div class="concept-section">
             <h2 class="section-header">
               Hooks
-              <button class="edit-section-button" @click="toggleHooksEditing" title="Edit hooks">✎</button>
+              <button v-if="isEditMode" class="edit-section-button" @click="toggleHooksEditing" title="Edit hooks">✎</button>
             </h2>
             
             <!-- Edit mode for hooks -->
@@ -347,7 +360,7 @@
                       />
                     </div>
                     
-                    <!-- Collapsible hook content - remains the same -->
+                    <!-- Collapsible hook content -->
                     <div v-if="isHookExpanded(hook.id || idx)" class="hook-fields">
                       <div class="hook-field">
                         <label>Description:</label>
@@ -355,6 +368,7 @@
                           v-model="hook.description"
                           placeholder="Description of the hook..."
                           height="120px"
+                          :readonly="!isEditMode"
                         />
                       </div>
 
@@ -364,6 +378,7 @@
                           v-model="hook.gmNotes"
                           placeholder="Notes only visible to the GM..."
                           height="120px"
+                          :readonly="!isEditMode"
                         />
                       </div>
 
@@ -418,6 +433,7 @@
                 v-for="item in equipment"
                 :key="item.id"
                 :equipment="item"
+                :editable="isEditMode"
                 @edit="emitEquipmentEdit"
               />
             </masonry-grid>
@@ -426,6 +442,7 @@
       </div>
     </div>
   </div>
+  
   <!-- Style Settings Modal -->
   <div v-if="showStyleSettings" class="modal-overlay" @click.self="closeStyleSettings">
     <div class="modal-content style-settings-modal">
@@ -466,7 +483,8 @@ import AbilityCard from "@/components/AbilityCard.vue";
 import EquipmentCard from "@/components/EquipmentCard.vue";
 import ImageGallery from "@/components/ImageGallery.vue";
 import MasonryGrid from "@/components/MasonryGrid.vue";
-import TextEditor from '@/components/TextEditor.vue';import { defineComponent } from 'vue';
+import TextEditor from '@/components/TextEditor.vue';
+import { defineComponent } from 'vue';
 import draggable from 'vuedraggable';
 
 export default defineComponent({
@@ -475,6 +493,10 @@ export default defineComponent({
       type: Object,
       required: true,
     },
+    editable: {
+      type: Boolean,
+      default: false
+    }
   },
   components: {
     AbilityCard,
@@ -484,6 +506,7 @@ export default defineComponent({
     TextEditor,
     draggable,
   },
+  emits: ['close', 'update', 'edit-ability', 'edit-equipment'],
   data() {
     return {
       abilities: [],
@@ -491,6 +514,7 @@ export default defineComponent({
       shownGMNotes: {},
       playlistService: 'apple',
       localConcept: {},
+      isEditMode: false,
       
       // Individual editing states
       editingTitle: false,
@@ -531,6 +555,12 @@ export default defineComponent({
         this.fetchAbilities();
         this.fetchEquipment();
       }
+    },
+    editable: {
+      handler(newValue) {
+        this.isEditMode = newValue;
+      },
+      immediate: true
     }
   },
   computed: {
@@ -557,88 +587,242 @@ export default defineComponent({
     hasOtherServicePlaylists() {
       if (!this.localConcept.playlists) return false;
       const otherService = this.playlistService === 'spotify' ? 'apple' : 'spotify';
-      return this.localConcept.playlists.some(playlist => playlist.service === otherService);
+      return this.localConcept.playlists.some(p => p.service === otherService);
     }
   },
   methods: {
-    // General methods
-
-    processAppleEmbedCodes() {
-      if (!this.localConcept.playlists) return;
+    toggleEditMode() {
+      // If turning off edit mode, save changes
+      if (this.isEditMode) {
+        // Save any open editors
+        if (this.editingTitle) this.saveTitleChanges();
+        if (this.editingDescription) this.saveDescriptionChanges();
+        if (this.editingReference) this.saveReferenceChanges();
+        if (this.editingHooks) this.saveHooksChanges();
+        if (this.editingPlaylists) this.savePlaylistChanges();
+        
+        // Emit update with current state
+        this.emitUpdateEvent();
+      }
       
-      this.localConcept.playlists.forEach(playlist => {
-        if (playlist.service === 'apple' && playlist.embedCode) {
-          // Check if the embed code already has ?theme=dark
-          if (!playlist.embedCode.includes('?theme=dark') && 
-              !playlist.embedCode.includes('&theme=dark')) {
-            
-            // Use regex to find the src attribute
-            const srcRegex = /src=["']([^"']*)["']/i;
-            const match = playlist.embedCode.match(srcRegex);
-            
-            if (match && match[1]) {
-              const originalSrc = match[1];
-              const newSrc = originalSrc + (originalSrc.includes('?') ? '&theme=dark' : '?theme=dark');
-              
-              // Replace the src in the embed code
-              playlist.embedCode = playlist.embedCode.replace(
-                `src="${originalSrc}"`, 
-                `src="${newSrc}"`
-              ).replace(
-                `src='${originalSrc}'`,
-                `src='${newSrc}'`
-              );
-            }
-          }
+      // Toggle edit mode
+      this.isEditMode = !this.isEditMode;
+      
+      // Emit event to parent
+      this.$emit('edit-mode-change', this.isEditMode);
+    },
+    
+    // Title editing
+    startTitleEdit() {
+      if (!this.isEditMode) return;
+      this.editingTitle = true;
+      this.backupConcept = { name: this.localConcept.name };
+      this.$nextTick(() => {
+        this.$refs.titleInput.focus();
+        this.$refs.titleInput.select();
+      });
+    },
+    
+    saveTitleChanges() {
+      this.editingTitle = false;
+      this.emitUpdateEvent();
+    },
+    
+    cancelTitleEdit() {
+      this.localConcept.name = this.backupConcept.name;
+      this.editingTitle = false;
+    },
+    
+    // Description editing
+    startDescriptionEdit() {
+      if (!this.isEditMode) return;
+      this.editingDescription = true;
+      this.backupConcept = { description: this.localConcept.description };
+    },
+    
+    saveDescriptionChanges() {
+      this.editingDescription = false;
+      this.emitUpdateEvent();
+    },
+    
+    cancelDescriptionEdit() {
+      this.localConcept.description = this.backupConcept.description;
+      this.editingDescription = false;
+    },
+    
+    // Reference (Local Flavor) editing
+    toggleReferenceEditing() {
+      if (!this.isEditMode) return;
+      if (!this.editingReference) {
+        // Starting to edit - backup current values
+        this.backupConcept = {
+          names: this.localConcept.names,
+          occupations: this.localConcept.occupations,
+          publicHouses: this.localConcept.publicHouses,
+          vittles: this.localConcept.vittles,
+          pointsOfInterest: this.localConcept.pointsOfInterest,
+          floraFauna: this.localConcept.floraFauna
+        };
+      }
+      this.editingReference = !this.editingReference;
+    },
+    
+    saveReferenceChanges() {
+      this.editingReference = false;
+      this.emitUpdateEvent();
+    },
+    
+    cancelReferenceEdit() {
+      // Restore from backup
+      this.localConcept.names = this.backupConcept.names;
+      this.localConcept.occupations = this.backupConcept.occupations;
+      this.localConcept.publicHouses = this.backupConcept.publicHouses;
+      this.localConcept.vittles = this.backupConcept.vittles;
+      this.localConcept.pointsOfInterest = this.backupConcept.pointsOfInterest;
+      this.localConcept.floraFauna = this.backupConcept.floraFauna;
+      this.editingReference = false;
+    },
+    
+    // Hooks editing
+    toggleHooksEditing() {
+      if (!this.isEditMode) return;
+      if (!this.editingHooks) {
+        // Starting to edit - backup current hooks
+        this.backupConcept = { hooks: JSON.parse(JSON.stringify(this.localConcept.hooks)) };
+      }
+      this.editingHooks = !this.editingHooks;
+    },
+    
+    saveHooksOrder(event) {
+      // Force clean update after drag completes
+      this.$nextTick(() => {
+        // Only emit if we actually moved something
+        if (event.oldIndex !== event.newIndex) {
+          this.emitUpdateEvent();
         }
       });
     },
-
-    openStyleSettings() {
-      // Copy current values to the temp object
-      this.tempStyleSettings = {
-        backgroundImage: this.localConcept.backgroundImage || '',
-        color1: this.localConcept.color1 || '#ffffff',
-        color2: this.localConcept.color2 || '#000000'
-      };
-      this.showStyleSettings = true;
+    
+    saveHooksChanges() {
+      this.editingHooks = false;
+      // Force a clean update when editing is done
+      this.$nextTick(() => {
+        this.emitUpdateEvent();
+      });
+    },
+    
+    cancelHooksEdit() {
+      // Restore from backup
+      this.localConcept.hooks = this.backupConcept.hooks;
+      this.editingHooks = false;
+    },
+    
+    toggleHookExpansion(hookId) {
+      this.expandedHooks[hookId] = !this.expandedHooks[hookId];
+    },
+    
+    isHookExpanded(hookId) {
+      return !!this.expandedHooks[hookId];
     },
 
-    closeStyleSettings() {
-      this.showStyleSettings = false;
+    addHook() {
+      const hookId = crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).slice(2);
+      this.localConcept.hooks.push({
+        id: hookId,
+        name: "",
+        description: "",
+        gmNotes: ""
+      });
+      this.expandedHooks[hookId] = true;
     },
 
-    saveStyleSettings() {
-      // Update the local concept with the new settings
-      this.localConcept.backgroundImage = this.tempStyleSettings.backgroundImage;
-      this.localConcept.color1 = this.tempStyleSettings.color1;
-      this.localConcept.color2 = this.tempStyleSettings.color2;
-      
-      // Emit the update
-      this.emitUpdateEvent();
-      
-      // Close the settings modal
-      this.closeStyleSettings();
+    removeHook(idx) {
+      this.localConcept.hooks.splice(idx, 1);
     },
-    closeDetailView() {
-      try {
-        // Check if any editing is in progress
-        if (this.editingTitle || this.editingDescription || 
-            this.editingReference || this.editingHooks || this.editingPlaylists) {
-          if (confirm("You have unsaved changes. Are you sure you want to exit?")) {
-            // Don't emit an update when closing - just close
-            this.$emit("close");
-          }
-          // If they cancel, do nothing (keep modal open)
-        } else {
-          // Just close without emitting update
-          this.$emit("close");
-        }
-      } catch (error) {
-        console.error("Error in closeDetailView:", error);
-        // Still close the modal even if there was an error
-        this.$emit("close");
+    
+    toggleGMNotes(hookId) {
+      this.shownGMNotes[hookId] = !this.shownGMNotes[hookId];
+    },
+    
+    // Playlist editing
+    togglePlaylistEditing() {
+      if (!this.isEditMode) return;
+      if (!this.editingPlaylists) {
+        // Starting to edit - backup current playlists
+        this.backupConcept = { playlists: JSON.parse(JSON.stringify(this.localConcept.playlists || [])) };
       }
+      this.editingPlaylists = !this.editingPlaylists;
+    },
+    
+    savePlaylistChanges() {
+      // Process Apple Music embed codes to ensure dark theme
+      this.processAppleEmbedCodes();
+      
+      this.editingPlaylists = false;
+      this.emitUpdateEvent();
+    },
+    
+    cancelPlaylistEdit() {
+      // Restore from backup
+      this.localConcept.playlists = this.backupConcept.playlists;
+      this.editingPlaylists = false;
+    },
+    
+    addPlaylist() {
+      if (!this.localConcept.playlists) {
+        this.localConcept.playlists = [];
+      }
+      this.localConcept.playlists.push({
+        service: 'spotify',
+        embedCode: ''
+      });
+    },
+    
+    removePlaylist(idx) {
+      this.localConcept.playlists.splice(idx, 1);
+    },
+    
+    movePlaylist(idx, direction) {
+      const playlists = this.localConcept.playlists;
+      const newIdx = idx + direction;
+      if (newIdx >= 0 && newIdx < playlists.length) {
+        [playlists[idx], playlists[newIdx]] = [playlists[newIdx], playlists[idx]];
+      }
+    },
+    
+    // Abilities and Equipment
+    async fetchAbilities() {
+      try {
+        const abilities = await AbilityService.getAllAbilities();
+        this.abilities = abilities.filter(
+          (ability) => ability.source === this.localConcept.id
+        );
+        console.log(`Fetched ${this.abilities.length} abilities for concept ${this.localConcept.id}`);
+      } catch (error) {
+        console.error("Error fetching abilities:", error);
+      }
+    },
+    
+    async fetchEquipment() {
+      try {
+        const equipment = await EquipmentService.getAllEquipment();
+        this.equipment = equipment.filter(
+          (item) => item.source === this.localConcept.id
+        );
+        console.log(`Fetched ${this.equipment.length} equipment items for concept ${this.localConcept.id}`);
+      } catch (error) {
+        console.error("Error fetching equipment:", error);
+      }
+    },
+    
+    emitAbilityEdit(ability) {
+      if (!this.isEditMode) return;
+      this.$emit("edit-ability", ability);
+    },
+    
+    emitEquipmentEdit(equipment) {
+      if (!this.isEditMode) return;
+      this.$emit("edit-equipment", equipment);
     },
     
     // A more robust emitUpdateEvent that handles errors
@@ -723,228 +907,121 @@ export default defineComponent({
       }
     },
     
-    // Title editing
-    startTitleEdit() {
-      this.editingTitle = true;
-      this.backupConcept = { name: this.localConcept.name };
-      this.$nextTick(() => {
-        this.$refs.titleInput.focus();
-        this.$refs.titleInput.select();
-      });
-    },
-    
-    saveTitleChanges() {
-      this.editingTitle = false;
-      this.emitUpdateEvent();
-    },
-    
-    cancelTitleEdit() {
-      this.localConcept.name = this.backupConcept.name;
-      this.editingTitle = false;
-    },
-    
-    // Description editing
-    startDescriptionEdit() {
-      this.editingDescription = true;
-      this.backupConcept = { description: this.localConcept.description };
-    },
-    
-    saveDescriptionChanges() {
-      this.editingDescription = false;
-      this.emitUpdateEvent();
-    },
-    
-    cancelDescriptionEdit() {
-      this.localConcept.description = this.backupConcept.description;
-      this.editingDescription = false;
-    },
-    
-    // Reference (Local Flavor) editing
-    toggleReferenceEditing() {
-      if (!this.editingReference) {
-        // Starting to edit - backup current values
-        this.backupConcept = {
-          names: this.localConcept.names,
-          occupations: this.localConcept.occupations,
-          publicHouses: this.localConcept.publicHouses,
-          vittles: this.localConcept.vittles,
-          pointsOfInterest: this.localConcept.pointsOfInterest,
-          floraFauna: this.localConcept.floraFauna
-        };
-      }
-      this.editingReference = !this.editingReference;
-    },
-    
-    saveReferenceChanges() {
-      this.editingReference = false;
-      this.emitUpdateEvent();
-    },
-    
-    cancelReferenceEdit() {
-      // Restore from backup
-      this.localConcept.names = this.backupConcept.names;
-      this.localConcept.occupations = this.backupConcept.occupations;
-      this.localConcept.publicHouses = this.backupConcept.publicHouses;
-      this.localConcept.vittles = this.backupConcept.vittles;
-      this.localConcept.pointsOfInterest = this.backupConcept.pointsOfInterest;
-      this.localConcept.floraFauna = this.backupConcept.floraFauna;
-      this.editingReference = false;
-    },
-    
-    // Hooks editing
-    toggleHooksEditing() {
-      if (!this.editingHooks) {
-        // Starting to edit - backup current hooks
-        this.backupConcept = { hooks: JSON.parse(JSON.stringify(this.localConcept.hooks)) };
-      }
-      this.editingHooks = !this.editingHooks;
-    },
-    
-    saveHooksOrder(event) {
-      // Force clean update after drag completes
-      this.$nextTick(() => {
-        // Only emit if we actually moved something
-        if (event.oldIndex !== event.newIndex) {
-          this.emitUpdateEvent();
+    processAppleEmbedCodes() {
+      // Function to ensure dark theme is set for Apple Music embeds
+      this.localConcept.playlists.forEach(playlist => {
+        if (playlist.service === 'apple' && playlist.embedCode) {
+          // Extract the src attribute
+          const srcMatch = playlist.embedCode.match(/src="([^"]+)"/);
+          if (srcMatch && srcMatch[1]) {
+            const originalSrc = srcMatch[1];
+            
+            // Add dark theme parameter if not already present
+            const newSrc = originalSrc + (originalSrc.includes('?') ? '&theme=dark' : '?theme=dark');
+            
+            // Replace the src in the embed code
+            playlist.embedCode = playlist.embedCode.replace(
+              `src="${originalSrc}"`, 
+              `src="${newSrc}"`
+            ).replace(
+              `src='${originalSrc}'`,
+              `src='${newSrc}'`
+            );
+          }
         }
       });
     },
-    
-    saveHooksChanges() {
-      this.editingHooks = false;
-      // Force a clean update when editing is done
-      this.$nextTick(() => {
-        this.emitUpdateEvent();
-      });
-    },
-    
-    cancelHooksEdit() {
-      // Restore from backup
-      this.localConcept.hooks = this.backupConcept.hooks;
-      this.editingHooks = false;
-    },
-    
-    toggleHookExpansion(hookId) {
-      this.expandedHooks[hookId] = !this.expandedHooks[hookId];
-    },
-    
-    isHookExpanded(hookId) {
-      return !!this.expandedHooks[hookId];
+
+    openStyleSettings() {
+      // Copy current values to the temp object
+      this.tempStyleSettings = {
+        backgroundImage: this.localConcept.backgroundImage || '',
+        color1: this.localConcept.color1 || '#ffffff',
+        color2: this.localConcept.color2 || '#000000'
+      };
+      this.showStyleSettings = true;
     },
 
-    addHook() {
-      const hookId = crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).slice(2);
-      this.localConcept.hooks.push({
-        id: hookId,
-        name: "",
-        description: "",
-        gmNotes: ""
-      });
-      this.expandedHooks[hookId] = true;
+    closeStyleSettings() {
+      this.showStyleSettings = false;
     },
 
-    removeHook(idx) {
-      this.localConcept.hooks.splice(idx, 1);
-    },
-    
-    toggleGMNotes(hookId) {
-      this.shownGMNotes[hookId] = !this.shownGMNotes[hookId];
-    },
-    
-    // Playlist editing
-    togglePlaylistEditing() {
-      if (!this.editingPlaylists) {
-        // Starting to edit - backup current playlists
-        this.backupConcept = { playlists: JSON.parse(JSON.stringify(this.localConcept.playlists || [])) };
-      }
-      this.editingPlaylists = !this.editingPlaylists;
-    },
-    
-    savePlaylistChanges() {
-      // Process Apple Music embed codes to ensure dark theme
-      this.processAppleEmbedCodes();
+    saveStyleSettings() {
+      // Update the local concept with the new settings
+      this.localConcept.backgroundImage = this.tempStyleSettings.backgroundImage;
+      this.localConcept.color1 = this.tempStyleSettings.color1;
+      this.localConcept.color2 = this.tempStyleSettings.color2;
       
-      this.editingPlaylists = false;
+      // Emit the update
       this.emitUpdateEvent();
+      
+      // Close the settings modal
+      this.closeStyleSettings();
     },
     
-    cancelPlaylistEdit() {
-      // Restore from backup
-      this.localConcept.playlists = this.backupConcept.playlists;
-      this.editingPlaylists = false;
-    },
-    
-    addPlaylist() {
-      if (!this.localConcept.playlists) {
-        this.localConcept.playlists = [];
-      }
-      this.localConcept.playlists.push({
-        service: 'spotify',
-        embedCode: ''
-      });
-    },
-    
-    removePlaylist(idx) {
-      this.localConcept.playlists.splice(idx, 1);
-    },
-    
-    movePlaylist(idx, direction) {
-      const playlists = this.localConcept.playlists;
-      const newIdx = idx + direction;
-      if (newIdx >= 0 && newIdx < playlists.length) {
-        [playlists[idx], playlists[newIdx]] = [playlists[newIdx], playlists[idx]];
-      }
-    },
-    
-    // Abilities and Equipment
-    async fetchAbilities() {
+    closeDetailView() {
       try {
-        const abilities = await AbilityService.getAllAbilities();
-        this.abilities = abilities.filter(
-          (ability) => ability.source === this.localConcept.id
-        );
-        console.log(`Fetched ${this.abilities.length} abilities for concept ${this.localConcept.id}`);
+        // Check if any editing is in progress
+        if (this.editingTitle || this.editingDescription || 
+            this.editingReference || this.editingHooks || this.editingPlaylists) {
+          if (confirm("You have unsaved changes. Are you sure you want to exit?")) {
+            // Don't emit an update when closing - just close
+            this.$emit("close");
+          }
+          // If they cancel, do nothing (keep modal open)
+        } else {
+          // Just close without emitting update
+          this.$emit("close");
+        }
       } catch (error) {
-        console.error("Error fetching abilities:", error);
+        console.error("Error in closeDetailView:", error);
+        // Still close the modal even if there was an error
+        this.$emit("close");
       }
-    },
-    
-    async fetchEquipment() {
-      try {
-        const equipment = await EquipmentService.getAllEquipment();
-        this.equipment = equipment.filter(
-          (item) => item.source === this.localConcept.id
-        );
-        console.log(`Fetched ${this.equipment.length} equipment items for concept ${this.localConcept.id}`);
-      } catch (error) {
-        console.error("Error fetching equipment:", error);
-      }
-    },
-    
-    emitAbilityEdit(ability) {
-      this.$emit("edit-ability", ability);
-    },
-    
-    emitEquipmentEdit(equipment) {
-      this.$emit("edit-equipment", equipment);
     },
   },
+  
   async mounted() {
     // We'll fetch abilities and equipment immediately on mount
-    // We'll also fetch them again when the concept changes (in the watcher)
     await Promise.all([this.fetchAbilities(), this.fetchEquipment()]);
   },
 });
 </script>
   
 <style scoped>
+/* Add this new style for the edit mode toggle button */
+.modal-controls {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  display: flex;
+  gap: 10px;
+  z-index: 10;
+}
+
+.mode-toggle-button {
+  background: #4caf50;
+  border: none;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s;
+  z-index: 10;
+}
+
+.mode-toggle-button:hover {
+  background: #45a049;
+}
+
 .concept-detail-content {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  gap: 40px;
   padding: 20px;
   color: white;
-  gap: 40px;
 }
 
 .concept-info {
@@ -1072,7 +1149,6 @@ export default defineComponent({
   padding: 10px;
   background: rgba(0, 0, 0, 0.2);
   border-radius: 8px;
-  margin-bottom: 10px;
 }
 
 .playlist-editor-buttons {
@@ -1210,6 +1286,7 @@ export default defineComponent({
   display: flex;
   flex-direction: column;
   width: 100%;
+  margin-top: 1rem;
   text-align: left;
 }
 
@@ -1328,93 +1405,41 @@ export default defineComponent({
   border: 1px solid #555;
   color: #aaa;
   padding: 8px 16px;
-  border-radius: 20px;
+  border-radius: 4px;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .playlist-toggle-btn.active {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.8);
+  border-color: #ffd700;
   color: white;
-  border-color: #888;
-  box-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
 }
 
 .playlist-container {
-  display: grid;
-  grid-template-columns: 1fr;
+  display: flex;
+  flex-direction: column;
   gap: 15px;
 }
 
 .playlist-embed {
   width: 100%;
-  min-height: 80px;
-}
-
-.playlist-embed iframe {
-  width: 100%;
-  border: none;
+  background: rgba(0, 0, 0, 0.2);
   border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .no-playlists {
-  padding: 30px;
+  padding: 15px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
   text-align: center;
   color: #aaa;
-  border: 1px dashed #555;
-  border-radius: 8px;
-  background: rgba(0, 0, 0, 0.2);
-}
-
-/* Playlist service selector */
-.playlist-service-selector {
-  margin-bottom: 5px;
-}
-
-.service-select {
-  padding: 4px 8px;
-  background: #222;
-  color: white;
-  border: 1px solid #555;
-  border-radius: 4px;
-}
-
-/* Helper text */
-.helper-text {
-  font-size: 0.9em;
-  color: #aaa;
-  margin-bottom: 10px;
-}
-
-/* Buttons */
-.button {
-  padding: 6px 12px;
-  background: #444;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 14px;
-}
-
-.button.small {
-  font-size: 12px;
-  padding: 3px 8px;
-}
-
-.button-primary {
-  background: #4caf50;
-}
-
-.button-danger {
-  background: #f44336;
 }
 
 .settings-button {
   position: absolute;
-  top: 15px;
-  right: 15px;
+  top: 30px;
+  right: 0;
   background: none;
   border: none;
   color: #aaa;

@@ -78,6 +78,10 @@
       height: {
         type: String,
         default: '200px'
+      },
+      readonly: {
+        type: Boolean,
+        default: false
       }
     },
     emits: ['update:modelValue'],
@@ -98,6 +102,7 @@
     mounted() {
       this.editor = new Editor({
         content: this.modelValue,
+        editable: !this.readonly,
         extensions: [
           StarterKit,
           Link.configure({
@@ -108,10 +113,11 @@
               target: '_blank'
             }
           }),
+          // Other extensions...
         ],
-        onUpdate: ({ editor }) => {
-          this.$emit('update:modelValue', editor.getHTML());
-        }
+        onUpdate: () => {
+          this.$emit('update:modelValue', this.editor.getHTML())
+        },
       });
     },
     beforeUnmount() {
