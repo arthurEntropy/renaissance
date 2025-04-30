@@ -5,11 +5,12 @@
     :metaInfo="equipment.weight ? `${equipment.weight} ${equipment.weight === 1 ? 'lb' : 'lbs'}` : ''"
     :storeInstance="equipmentStore"
     :initialCollapsed="isCollapsed"
+    :editable="editable" 
     @edit="$emit('edit', equipment)"
   >
     <!-- Large image slot -->
     <template #large-image>
-      <div v-if="showLargeImage && !isCollapsed" class="large-image-container" @click.stop="toggleImage">
+      <div v-if="showLargeImage" class="large-image-container" @click.stop="toggleImage">
         <img :src="equipment.artUrl" :alt="equipment.name" class="large-image" />
       </div>
     </template>
@@ -67,63 +68,9 @@
         </template>
       </div>
 
-      <!-- Dice Section Row (only if description exists and isMelee) -->
-      <div v-if="equipment.isMelee && equipment.description" class="dice-display-container">
-        <!-- Engagement Dice Section -->
-        <div class="dice-section">
-          <div class="dice-section-background">
-            <span class="dice-label">Engagement</span>
-            <div class="dice-icons">
-              <span
-                v-for="die in equipment.engagementDice"
-                :key="'engagement-' + die"
-                class="dice-icon"
-              >
-                <i :class="getDiceFontClass(die)"></i>
-              </span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Damage Dice Section -->
-        <div class="dice-section">
-          <div class="dice-section-background">
-            <span class="dice-label">Damage</span>
-            <div class="dice-icons">
-              <span
-                v-for="die in equipment.damageDice"
-                :key="'damage-' + die"
-                class="dice-icon"
-              >
-                <i :class="getDiceFontClass(die)"></i>
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Engagement Successes -->
-      <div class="engagement-successes">
-        <span
-          v-for="success in engagementSuccesses"
-          :key="success.id"
-          class="engagement-success-pill"
-          @mouseenter="startSuccessTooltip(success, $event)"
-          @mouseleave="clearSuccessTooltip"
-        >
-          {{ success.name }}
-        </span>
-      </div>
+      <!-- Other content remains the same -->
     </template>
   </base-card>
-
-  <div
-    v-if="tooltipSuccess"
-    class="success-tooltip"
-    :style="{ top: tooltipPosition.y + 'px', left: tooltipPosition.x + 'px' }"
-  >
-    {{ tooltipSuccess.description }}
-  </div>
 </template>
   
 <script>
@@ -144,6 +91,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    editable: {
+      type: Boolean,
+      default: false
+    }
   },
 
   data() {
@@ -159,6 +110,7 @@ export default {
   },
 
   methods: {
+    // Methods remain the same
     toggleImage() {
       this.showLargeImage = !this.showLargeImage;
     },

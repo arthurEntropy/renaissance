@@ -5,6 +5,7 @@
     :metaInfo="traitOrMp"
     :storeInstance="abilitiesStore"
     :initialCollapsed="collapsed"
+    :editable="editable"
     @edit="$emit('edit', ability)"
   >
     <!-- Content slot -->
@@ -55,6 +56,10 @@ export default {
       type: Object,
       required: true,
     },
+    editable: {
+      type: Boolean,
+      default: false
+    }
   },
   data() {
     return {
