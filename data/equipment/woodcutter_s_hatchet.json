@@ -1,0 +1,22 @@
+{
+  "id": "a3bd3d0a-2394-4f9e-811a-72c9e390177a",
+  "name": "Woodcutter's Hatchet",
+  "description": "",
+  "standardOfLiving": "1",
+  "source": "0c876a74-a89b-42dc-b76a-4592a0478d81",
+  "weight": 3,
+  "isMelee": true,
+  "damageDice": [
+    4
+  ],
+  "engagementDice": [
+    10
+  ],
+  "engagementSuccesses": [
+    "8"
+  ],
+  "skillMods": [],
+  "isDeleted": false,
+  "isCustom": false,
+  "artUrl": "https://cdn.midjourney.com/878615c7-e854-4244-b8fe-1ef183cc89b9/0_3.png"
+}

@@ -213,6 +213,8 @@ html, body {
 
 .nav-menu a:hover {
   background: rgba(255, 255, 255, 0.1);
+  text-decoration: none;
+
 }
 
 .nav-menu a.router-link-active {

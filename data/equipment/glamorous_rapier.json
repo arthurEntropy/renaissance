@@ -1,0 +1,23 @@
+{
+  "id": "79a4cbaf-ff79-4d5d-bd4e-8c7a6fb275d0",
+  "name": "Glamorous Rapier",
+  "description": "",
+  "standardOfLiving": "4",
+  "source": "0c876a74-a89b-42dc-b76a-4592a0478d81",
+  "weight": 2,
+  "isMelee": true,
+  "damageDice": [
+    6
+  ],
+  "engagementDice": [
+    6
+  ],
+  "engagementSuccesses": [
+    "7",
+    "8"
+  ],
+  "skillMods": [],
+  "isDeleted": false,
+  "isCustom": false,
+  "artUrl": "https://cdn.midjourney.com/dbfc0618-1c12-4dbb-9baf-09afaf1f622f/0_3.png"
+}

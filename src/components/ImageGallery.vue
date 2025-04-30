@@ -1,6 +1,8 @@
 <template>
   <div class="image-gallery">
+    <!-- Enlarged image section (only shown when images exist) -->
     <div
+      v-if="images.length > 0"
       class="enlarged-image-wrapper"
       @mouseenter="showNav = true"
       @mouseleave="showNav = false"
@@ -33,7 +35,7 @@
         aria-label="Next image"
       >▶</button>
       
-      <!-- Edit Modal -->
+      <!-- Edit Modal - moved outside of conditional rendering -->
       <div v-if="editModalOpen" class="edit-modal" @click.stop>
         <div class="edit-modal-content">
           <h3>Edit Image</h3>
@@ -42,7 +44,7 @@
             v-model="editImageUrl" 
             class="url-input" 
             placeholder="Image URL" 
-            ref="urlInput"
+            ref="editUrlInput"
           />
           <div class="edit-modal-buttons">
             <button class="button button-danger" @click.stop="deleteImage">Delete</button>
@@ -53,73 +55,78 @@
       </div>
     </div>
     
-    <div class="thumbs-container" :class="{ 'editable-thumbs': editable }">
-      <!-- Draggable thumbnails grid -->
-      <draggable
-        v-if="editable"
-        v-model="localImages"
+    <!-- Thumbnails grid -->
+    <div class="thumbs-container" :style="{ '--grid-columns': gridColumns }">
+      <div 
         class="thumbs-grid"
         :style="{ 'grid-template-columns': `repeat(${gridColumns}, 1fr)` }"
-        handle=".thumb-drag-handle"
-        item-key="idx"
-        animation="150"
-        ghost-class="ghost-thumb"
-        @end="onDragEnd"
       >
-        <template #item="{element: img, index: idx}">
-          <div class="thumb-wrapper">
-            <div 
-              class="thumb-drag-handle" 
-              title="Drag to reorder"
-            >
-              ⋮⋮
+        <!-- Editable mode -->
+        <template v-if="editable">
+          <draggable
+            v-model="localImages"
+            class="draggable-container"
+            handle=".thumb-drag-handle"
+            item-key="idx"
+            animation="150"
+            ghost-class="ghost-thumb"
+            @end="onDragEnd"
+          >
+            <template #item="{element: img, index: idx}">
+              <div class="thumb-wrapper">
+                <div class="thumb-drag-handle" title="Drag to reorder">⋮⋮</div>
+                <img
+                  :src="img"
+                  :alt="`Thumbnail ${idx + 1}`"
+                  class="thumb-image"
+                  @click="selectImage(idx)"
+                />
+                <div v-if="selectedIndex === idx" class="thumb-selected-overlay"></div>
+              </div>
+            </template>
+          </draggable>
+          
+          <!-- Add button in the same grid -->
+          <div class="thumb-wrapper add-image-thumb" @click="addNewImage">
+            <div class="add-image-placeholder">
+              <span class="add-icon">+</span>
             </div>
+          </div>
+        </template>
+        
+        <!-- Non-editable mode -->
+        <template v-else>
+          <div
+            v-for="(img, idx) in images"
+            :key="img + idx"
+            class="thumb-wrapper"
+            @click="selectImage(idx)"
+          >
             <img
               :src="img"
               :alt="`Thumbnail ${idx + 1}`"
               class="thumb-image"
-              @click="selectImage(idx)"
             />
-            <div
-              v-if="selectedIndex === idx"
-              class="thumb-selected-overlay"
-            ></div>
+            <div v-if="selectedIndex === idx" class="thumb-selected-overlay"></div>
           </div>
         </template>
-      </draggable>
-
-      <!-- Regular thumbnails grid (non-editable mode) -->
-      <div 
-        v-else
-        class="thumbs-grid"
-        :style="{ 'grid-template-columns': `repeat(${gridColumns}, 1fr)` }"
-      >
-        <div
-          v-for="(img, idx) in images"
-          :key="img + idx"
-          class="thumb-wrapper"
-          @click="selectImage(idx)"
-        >
-          <img
-            :src="img"
-            :alt="`Thumbnail ${idx + 1}`"
-            class="thumb-image"
-          />
-          <div
-            v-if="selectedIndex === idx"
-            class="thumb-selected-overlay"
-          ></div>
-        </div>
       </div>
-      
-      <!-- Add New Image Thumbnail -->
-      <div 
-        v-if="editable" 
-        class="thumb-wrapper add-image-thumb"
-        @click="addNewImage"
-      >
-        <div class="add-image-placeholder">
-          <span class="add-icon">+</span>
+    </div>
+    
+    <!-- Add Image Modal (separate from edit modal, using global styles) -->
+    <div v-if="addModalOpen" class="modal-overlay" @click.self="closeAddModal">
+      <div class="modal-content">
+        <h3>Add New Image</h3>
+        <input 
+          type="text" 
+          v-model="newImageUrl" 
+          class="modal-input" 
+          placeholder="Enter image URL" 
+          ref="addUrlInput"
+        />
+        <div class="modal-buttons">
+          <button class="button" @click="closeAddModal">Cancel</button>
+          <button class="button button-primary" @click="saveNewImage">Add Image</button>
         </div>
       </div>
     </div>
@@ -158,13 +165,16 @@ export default defineComponent({
       selectedIndex: this.initialIndex,
       showNav: false,
       editModalOpen: false,
+      addModalOpen: false,
       editImageUrl: '',
-      localImages: [...this.images], // Local copy for draggable
-      isInternalChange: false // Flag to prevent recursive updates
+      newImageUrl: '',
+      localImages: [...this.images],
+      isInternalChange: false,
     };
   },
   emits: ['update:images', 'edit', 'delete', 'add'],
   methods: {
+    // Navigation methods
     selectImage(idx) {
       this.selectedIndex = idx;
     },
@@ -175,12 +185,14 @@ export default defineComponent({
     nextImage() {
       this.selectedIndex = (this.selectedIndex + 1) % this.localImages.length;
     },
+    
+    // Edit existing image methods
     openEditModal() {
       this.editImageUrl = this.localImages[this.selectedIndex];
       this.editModalOpen = true;
       // Focus the input field after the modal is rendered
       this.$nextTick(() => {
-        this.$refs.urlInput?.focus();
+        this.$refs.editUrlInput?.focus();
       });
     },
     closeEditModal() {
@@ -192,7 +204,7 @@ export default defineComponent({
         // Set the flag to indicate an internal change
         this.isInternalChange = true;
         
-        // Create a new array to avoid direct mutation
+        // Update existing image
         const updatedImages = [...this.localImages];
         updatedImages[this.selectedIndex] = this.editImageUrl;
         
@@ -208,6 +220,7 @@ export default defineComponent({
           this.isInternalChange = false;
         });
       }
+      
       this.closeEditModal();
     },
     deleteImage() {
@@ -240,15 +253,48 @@ export default defineComponent({
         this.closeEditModal();
       }
     },
+    
+    // Add new image methods
     addNewImage() {
-      this.editImageUrl = '';
-      this.editModalOpen = true;
+      this.newImageUrl = '';
+      this.addModalOpen = true;
       // Focus the input field after the modal is rendered
       this.$nextTick(() => {
-        this.$refs.urlInput?.focus();
+        this.$refs.addUrlInput?.focus();
       });
     },
-    // Method to emit updates from drag and drop
+    closeAddModal() {
+      this.addModalOpen = false;
+      this.newImageUrl = '';
+    },
+    saveNewImage() {
+      if (this.newImageUrl) {
+        // Set the flag to indicate an internal change
+        this.isInternalChange = true;
+        
+        // Add new image to the array
+        const updatedImages = [...this.localImages, this.newImageUrl];
+        
+        // Select the new image
+        this.selectedIndex = updatedImages.length - 1;
+        
+        // Update local copy
+        this.localImages = updatedImages;
+        
+        // Emit events
+        this.$emit('update:images', updatedImages);
+        this.$emit('add', this.newImageUrl);
+        
+        // Reset the flag after the next tick
+        this.$nextTick(() => {
+          this.isInternalChange = false;
+        });
+      }
+      
+      this.closeAddModal();
+    },
+    
+    // Drag and drop method
     onDragEnd() {
       // Track the currently selected image URL before reordering
       const selectedImageUrl = this.localImages[this.selectedIndex];
@@ -278,16 +324,13 @@ export default defineComponent({
     }
   },
   watch: {
+    // Keep the watcher for external image changes
     images: {
       handler(newImages) {
-        // Only update localImages if this is not from an internal change
-        // and if the arrays are actually different
         if (!this.isInternalChange) {
-          // Use a simple array comparison since these are just strings
           if (JSON.stringify(newImages) !== JSON.stringify(this.localImages)) {
             this.localImages = [...newImages];
             
-            // Adjust selected index if needed
             if (this.selectedIndex >= newImages.length) {
               this.selectedIndex = Math.max(0, newImages.length - 1);
             }
@@ -299,7 +342,6 @@ export default defineComponent({
   }
 });
 </script>
-
 <style scoped>
 .image-gallery {
   width: 100%;
@@ -432,6 +474,7 @@ export default defineComponent({
 
 .thumbs-grid {
   display: grid;
+  grid-template-columns: repeat(5, 1fr); /* Default, will be overridden */
   gap: 12px;
   width: 100%;
 }
@@ -439,6 +482,10 @@ export default defineComponent({
 .thumb-wrapper {
   position: relative;
   cursor: pointer;
+}
+
+.draggable-container {
+  display: contents; /* Makes draggable children part of parent grid */
 }
 
 /* Drag handle for editable mode */
@@ -492,10 +539,10 @@ export default defineComponent({
 
 /* Add image thumbnail */
 .add-image-thumb {
-  margin-top: 12px;
-  width: calc(100% / var(--grid-columns, 5) - 12px);
-  max-width: 100px;
-  min-width: 80px;
+  width: auto;
+  min-width: auto;
+  max-width: none;
+  margin-top: 0;
 }
 
 .add-image-placeholder {
@@ -523,6 +570,33 @@ export default defineComponent({
 .editable-thumbs {
   display: flex;
   flex-wrap: wrap;
+}
+
+/* Modal buttons styling */
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+/* These styles will override the global modal styles */
+:deep(.modal-content) {
+  min-width: 350px;
+}
+
+:deep(.modal-input) {
+  background: #333;
+  color: white;
+  border: 1px solid #555;
+  border-radius: 4px;
+}
+
+/* Centered modal title */
+:deep(.modal-content h3) {
+  color: white;
+  margin-bottom: 15px;
+  text-align: center;
 }
 
 @media (max-width: 600px) {
