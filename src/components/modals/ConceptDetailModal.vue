@@ -75,7 +75,7 @@
                 @keyup.esc="cancelTitleEdit"
               />
             </div>
-            <h1 v-else class="concept-header" @click="isEditMode && startTitleEdit">
+            <h1 v-else class="concept-title" @click="isEditMode && startTitleEdit">
               {{ localConcept.name }}
               <span v-if="isEditMode" class="edit-indicator" title="Click to edit">✎</span>
             </h1>
@@ -119,139 +119,18 @@
           </div>
 
           <!-- LOCAL FLAVOR SECTION -->
-          <div class="concept-section">
-            <h2 class="section-header">
-              Local Flavor
-              <button v-if="isEditMode" class="edit-section-button" @click="toggleReferenceEditing" title="Edit local flavor">✎</button>
-            </h2>
-            
-            <!-- Edit mode for reference data -->
-            <div v-if="editingReference" class="reference-editor">
-              <div class="reference-edit-grid">
-                <!-- Names -->
-                <div class="reference-edit-item">
-                  <label for="names">Names</label>
-                  <textarea
-                    id="names"
-                    v-model="localConcept.names"
-                    class="modal-input reference-textarea"
-                    placeholder="Who might you meet?"
-                  ></textarea>
-                </div>
-                
-                <!-- Occupations -->
-                <div class="reference-edit-item">
-                  <label for="occupations">Occupations</label>
-                  <textarea
-                    id="occupations"
-                    v-model="localConcept.occupations"
-                    class="modal-input reference-textarea"
-                    placeholder="What do people do around here?"
-                  ></textarea>
-                </div>
-                
-                <!-- Public Houses -->
-                <div class="reference-edit-item">
-                  <label for="publicHouses">Public Houses</label>
-                  <textarea
-                    id="publicHouses"
-                    v-model="localConcept.publicHouses"
-                    class="modal-input reference-textarea"
-                    placeholder="Where can a traveler find hospitality?"
-                  ></textarea>
-                </div>
-                
-                <!-- Vittles -->
-                <div class="reference-edit-item">
-                  <label for="vittles">Vittles</label>
-                  <textarea
-                    id="vittles"
-                    v-model="localConcept.vittles"
-                    class="modal-input reference-textarea"
-                    placeholder="What's on the menu?"
-                  ></textarea>
-                </div>
-                
-                <!-- Points of Interest -->
-                <div class="reference-edit-item">
-                  <label for="pointsOfInterest">Points of Interest</label>
-                  <textarea
-                    id="pointsOfInterest"
-                    v-model="localConcept.pointsOfInterest"
-                    class="modal-input reference-textarea"
-                    placeholder="What are the must-see spots?"
-                  ></textarea>
-                </div>
-                
-                <!-- Flora & Fauna -->
-                <div class="reference-edit-item">
-                  <label for="floraFauna">Flora & Fauna</label>
-                  <textarea
-                    id="floraFauna"
-                    v-model="localConcept.floraFauna"
-                    class="modal-input reference-textarea"
-                    placeholder="What can be found in the wild?"
-                  ></textarea>
-                </div>
-              </div>
-              
-              <div class="edit-field-buttons">
-                <button class="button small" @click="saveReferenceChanges">Save</button>
-                <button class="button small" @click="cancelReferenceEdit">Cancel</button>
-              </div>
-            </div>
-            
-            <!-- Display mode for reference data -->
-            <div v-else class="reference-grid">
-              <!-- Names -->
-              <div class="reference-card" v-if="localConcept.names">
-                <div class="reference-title">Names</div>
-                <div class="reference-content">
-                  {{ localConcept.names }}
-                </div>
-              </div>
-              
-              <!-- Occupations -->
-              <div class="reference-card" v-if="localConcept.occupations">
-                <div class="reference-title">Occupations</div>
-                <div class="reference-content">
-                  {{ localConcept.occupations }}
-                </div>
-              </div>
-              
-              <!-- Public Houses -->
-              <div class="reference-card" v-if="localConcept.publicHouses">
-                <div class="reference-title">Public Houses</div>
-                <div class="reference-content">
-                  {{ localConcept.publicHouses }}
-                </div>
-              </div>
-              
-              <!-- Vittles -->
-              <div class="reference-card" v-if="localConcept.vittles">
-                <div class="reference-title">Vittles</div>
-                <div class="reference-content">
-                  {{ localConcept.vittles }}
-                </div>
-              </div>
-
-              <!-- Points of Interest-->
-              <div class="reference-card" v-if="localConcept.pointsOfInterest">
-                <div class="reference-title">Points of Interest</div>
-                <div class="reference-content">
-                  {{ localConcept.pointsOfInterest }}
-                </div>
-              </div>
-
-              <!-- Flora & Fauna -->
-              <div class="reference-card" v-if="localConcept.floraFauna">
-                <div class="reference-title">Flora & Fauna</div>
-                <div class="reference-content">
-                  {{ localConcept.floraFauna }}
-                </div>
-              </div>
-            </div>
-          </div>
+          <LocalFlavorSection
+            :data="{
+              names: localConcept.names,
+              occupations: localConcept.occupations,
+              publicHouses: localConcept.publicHouses,
+              vittles: localConcept.vittles,
+              pointsOfInterest: localConcept.pointsOfInterest,
+              floraFauna: localConcept.floraFauna
+            }"
+            :editable="isEditMode"
+            @update="updateLocalFlavor"
+          />
 
           <!-- HOOKS SECTION -->
           <HooksSection
@@ -327,6 +206,7 @@ import TextEditor from '@/components/TextEditor.vue';
 import { defineComponent } from 'vue';
 import PlaylistSection from '@/components/PlaylistSection.vue';
 import HooksSection from '@/components/HooksSection.vue';
+import LocalFlavorSection from '@/components/LocalFlavorSection.vue';
 
 export default defineComponent({
   props: {
@@ -347,14 +227,13 @@ export default defineComponent({
     TextEditor,
     PlaylistSection,
     HooksSection,
+    LocalFlavorSection
   },
   emits: ['close', 'update', 'edit-ability', 'edit-equipment'],
   data() {
     return {
       abilities: [],
       equipment: [],
-      shownGMNotes: {},
-      playlistService: 'apple',
       localConcept: {},
       isEditMode: false,
       
@@ -362,11 +241,6 @@ export default defineComponent({
       editingTitle: false,
       editingDescription: false,
       editingReference: false,
-      editingHooks: false,
-      editingPlaylists: false,
-      
-      // For hook expansion
-      expandedHooks: {},
       
       // For undo functionality
       backupConcept: null,
@@ -413,23 +287,6 @@ export default defineComponent({
              this.localConcept.vittles ||
              this.localConcept.pointsOfInterest ||
              this.localConcept.floraFauna;
-    },
-
-    hasPlaylists() {
-      return this.localConcept.playlists && this.localConcept.playlists.length > 0;
-    },
-    
-    filteredPlaylists() {
-      if (!this.localConcept.playlists) return [];
-      return this.localConcept.playlists.filter(playlist => 
-        playlist.service === this.playlistService
-      );
-    },
-    
-    hasOtherServicePlaylists() {
-      if (!this.localConcept.playlists) return false;
-      const otherService = this.playlistService === 'spotify' ? 'apple' : 'spotify';
-      return this.localConcept.playlists.some(p => p.service === otherService);
     }
   },
   methods: {
@@ -440,8 +297,6 @@ export default defineComponent({
         if (this.editingTitle) this.saveTitleChanges();
         if (this.editingDescription) this.saveDescriptionChanges();
         if (this.editingReference) this.saveReferenceChanges();
-        if (this.editingHooks) this.saveHooksChanges();
-        if (this.editingPlaylists) this.savePlaylistChanges();
         
         // Emit update with current state
         this.emitUpdateEvent();
@@ -490,146 +345,6 @@ export default defineComponent({
     cancelDescriptionEdit() {
       this.localConcept.description = this.backupConcept.description;
       this.editingDescription = false;
-    },
-    
-    // Reference (Local Flavor) editing
-    toggleReferenceEditing() {
-      if (!this.isEditMode) return;
-      if (!this.editingReference) {
-        // Starting to edit - backup current values
-        this.backupConcept = {
-          names: this.localConcept.names,
-          occupations: this.localConcept.occupations,
-          publicHouses: this.localConcept.publicHouses,
-          vittles: this.localConcept.vittles,
-          pointsOfInterest: this.localConcept.pointsOfInterest,
-          floraFauna: this.localConcept.floraFauna
-        };
-      }
-      this.editingReference = !this.editingReference;
-    },
-    
-    saveReferenceChanges() {
-      this.editingReference = false;
-      this.emitUpdateEvent();
-    },
-    
-    cancelReferenceEdit() {
-      // Restore from backup
-      this.localConcept.names = this.backupConcept.names;
-      this.localConcept.occupations = this.backupConcept.occupations;
-      this.localConcept.publicHouses = this.backupConcept.publicHouses;
-      this.localConcept.vittles = this.backupConcept.vittles;
-      this.localConcept.pointsOfInterest = this.backupConcept.pointsOfInterest;
-      this.localConcept.floraFauna = this.backupConcept.floraFauna;
-      this.editingReference = false;
-    },
-    
-    // Hooks editing
-    toggleHooksEditing() {
-      if (!this.isEditMode) return;
-      if (!this.editingHooks) {
-        // Starting to edit - backup current hooks
-        this.backupConcept = { hooks: JSON.parse(JSON.stringify(this.localConcept.hooks)) };
-      }
-      this.editingHooks = !this.editingHooks;
-    },
-    
-    saveHooksOrder(event) {
-      // Force clean update after drag completes
-      this.$nextTick(() => {
-        // Only emit if we actually moved something
-        if (event.oldIndex !== event.newIndex) {
-          this.emitUpdateEvent();
-        }
-      });
-    },
-    
-    saveHooksChanges() {
-      this.editingHooks = false;
-      // Force a clean update when editing is done
-      this.$nextTick(() => {
-        this.emitUpdateEvent();
-      });
-    },
-    
-    cancelHooksEdit() {
-      // Restore from backup
-      this.localConcept.hooks = this.backupConcept.hooks;
-      this.editingHooks = false;
-    },
-    
-    toggleHookExpansion(hookId) {
-      this.expandedHooks[hookId] = !this.expandedHooks[hookId];
-    },
-    
-    isHookExpanded(hookId) {
-      return !!this.expandedHooks[hookId];
-    },
-
-    addHook() {
-      const hookId = crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).slice(2);
-      this.localConcept.hooks.push({
-        id: hookId,
-        name: "",
-        description: "",
-        gmNotes: ""
-      });
-      this.expandedHooks[hookId] = true;
-    },
-
-    removeHook(idx) {
-      this.localConcept.hooks.splice(idx, 1);
-    },
-    
-    toggleGMNotes(hookId) {
-      this.shownGMNotes[hookId] = !this.shownGMNotes[hookId];
-    },
-    
-    // Playlist editing
-    togglePlaylistEditing() {
-      if (!this.isEditMode) return;
-      if (!this.editingPlaylists) {
-        // Starting to edit - backup current playlists
-        this.backupConcept = { playlists: JSON.parse(JSON.stringify(this.localConcept.playlists || [])) };
-      }
-      this.editingPlaylists = !this.editingPlaylists;
-    },
-    
-    savePlaylistChanges() {
-      // Process Apple Music embed codes to ensure dark theme
-      this.processAppleEmbedCodes();
-      
-      this.editingPlaylists = false;
-      this.emitUpdateEvent();
-    },
-    
-    cancelPlaylistEdit() {
-      // Restore from backup
-      this.localConcept.playlists = this.backupConcept.playlists;
-      this.editingPlaylists = false;
-    },
-    
-    addPlaylist() {
-      if (!this.localConcept.playlists) {
-        this.localConcept.playlists = [];
-      }
-      this.localConcept.playlists.push({
-        service: 'spotify',
-        embedCode: ''
-      });
-    },
-    
-    removePlaylist(idx) {
-      this.localConcept.playlists.splice(idx, 1);
-    },
-    
-    movePlaylist(idx, direction) {
-      const playlists = this.localConcept.playlists;
-      const newIdx = idx + direction;
-      if (newIdx >= 0 && newIdx < playlists.length) {
-        [playlists[idx], playlists[newIdx]] = [playlists[newIdx], playlists[idx]];
-      }
     },
     
     // Abilities and Equipment
@@ -796,6 +511,19 @@ export default defineComponent({
       });
     },
 
+    updateLocalFlavor(data) {
+      // Update the local concept with the new data
+      this.localConcept.names = data.names;
+      this.localConcept.occupations = data.occupations;
+      this.localConcept.publicHouses = data.publicHouses;
+      this.localConcept.vittles = data.vittles;
+      this.localConcept.pointsOfInterest = data.pointsOfInterest;
+      this.localConcept.floraFauna = data.floraFauna;
+      
+      // Emit the updated concept
+      this.emitUpdateEvent();
+    },
+
     openStyleSettings() {
       // Copy current values to the temp object
       this.tempStyleSettings = {
@@ -827,7 +555,7 @@ export default defineComponent({
       try {
         // Check if any editing is in progress
         if (this.editingTitle || this.editingDescription || 
-            this.editingReference || this.editingHooks || this.editingPlaylists) {
+            this.editingReference) {
           if (confirm("You have unsaved changes. Are you sure you want to exit?")) {
             // Don't emit an update when closing - just close
             this.$emit("close");
@@ -913,8 +641,8 @@ export default defineComponent({
   position: relative;
 }
 
-/* Concept header (the title) */
-.concept-header {
+/* Concept title */
+.concept-title {
   display: flex;
   align-items: center;
   justify-content: left;
@@ -934,7 +662,7 @@ export default defineComponent({
   transition: opacity 0.2s;
 }
 
-.concept-header:hover .edit-indicator {
+.concept-title:hover .edit-indicator {
   opacity: 0.7;
 }
 
@@ -1067,82 +795,6 @@ export default defineComponent({
 .reference-textarea {
   min-height: 80px;
   resize: vertical;
-}
-
-/* Hooks editor */
-.hooks-editor {
-  padding: 10px;
-  background: rgba(0, 0, 0, 0.2);
-  border-radius: 8px;
-}
-
-.hooks-editor-buttons {
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-  margin-top: 10px;
-}
-
-.hook-edit-card {
-  background: rgba(0, 0, 0, 0.3);
-  border: 1px solid #444;
-  border-radius: 6px;
-  margin-bottom: 10px;
-  padding: 8px;
-}
-
-.drag-handle {
-  cursor: move;
-  font-size: 1.2em;
-  color: #777;
-  margin-right: 8px;
-  user-select: none;
-}
-
-.drag-handle:hover {
-  color: #aaa;
-}
-
-.ghost-hook {
-  opacity: 0.5;
-  background: #2a2a2a !important;
-  border: 2px dashed #555 !important;
-}
-
-.hook-header {
-  display: flex;
-  align-items: center;
-  padding: 4px;
-}
-
-.hook-caret {
-  cursor: pointer;
-  padding: 4px 8px 4px 2px;
-  user-select: none;
-}
-
-.hook-input {
-  flex: 1;
-  margin: 0;
-}
-
-.hook-fields {
-  padding: 10px 10px 5px 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.hook-field {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-
-.delete-hook-container {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 5px;
 }
 
 /* Individual component styling from original */
