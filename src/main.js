@@ -4,6 +4,7 @@ import App from './App.vue';
 import router from './router';
 import '@/assets/styles/modals.css';
 import '@/assets/styles/global.css';
+import '@/assets/styles/concept-components.css'
 import { capitalizeFirstLetter } from "../utils/stringUtils.js";
 
 
