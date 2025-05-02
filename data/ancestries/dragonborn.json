@@ -1,6 +1,7 @@
 {
   "id": "ba7af7ad-54d2-4b45-86ad-71781d4cdb33",
   "name": "Dragonborn",
+  "description": "Born of some ancient, improbable union lost to living knowledge, the Dragonborn bear the strength of dragons with the mere frame of a humanoid form. Some cultivate these unusual gifts and wield them with pride. Others see them as a burden to be overcome. All stand out in a crowd - typically tall and imposing, with scales and horns of many colors.",
   "artUrls": [
     "https://cdn.midjourney.com/d36b8637-3c46-48f3-9a7b-b98750195974/0_2.png",
     "https://cdn.midjourney.com/0e5ed0ff-e696-4bda-8c6c-43b62b8d371a/0_1.png",
@@ -8,8 +9,11 @@
     "https://cdn.midjourney.com/5d81fd3f-88c3-441c-b5fa-28f9c804ea65/0_2.png",
     "https://cdn.midjourney.com/7ee45294-2724-4584-9f08-c4a1a33ed533/0_2.png"
   ],
-  "description": "Born of some ancient, improbable union lost to living knowledge, the Dragonborn bear the strength of dragons with the mere frame of a humanoid form. Some cultivate these unusual gifts and wield them with pride. Others see them as a burden to be overcome. All stand out in a crowd - typically tall and imposing, with scales and horns of many colors.",
+  "faces": [],
+  "places": [],
+  "hooks": [],
+  "playlists": [],
+  "backgroundImage": "https://cdn.midjourney.com/4e604789-ad6d-4c05-a936-e411407b5838/0_0.png",
   "color1": "#6a6b41",
-  "color2": "#2d2e28",
-  "backgroundImage": "https://cdn.midjourney.com/4e604789-ad6d-4c05-a936-e411407b5838/0_0.png"
+  "color2": "#2d2e28"
 }

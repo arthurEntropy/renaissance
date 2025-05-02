@@ -53,82 +53,11 @@
           </div>
 
           <!-- PLAYLISTS SECTION -->
-          <div class="concept-section">
-            <h2 class="section-header">
-              Playlists
-              <button v-if="isEditMode" class="edit-section-button" @click="togglePlaylistEditing" title="Edit playlists">✎</button>
-            </h2>
-            
-            <!-- Playlist Editor -->
-            <div v-if="editingPlaylists" class="playlist-editor">
-              <p class="helper-text">Paste embed codes from Spotify or Apple Music</p>
-              <div class="url-container">
-                <div
-                  v-for="(playlist, idx) in localConcept.playlists"
-                  :key="'playlist-' + idx"
-                  class="playlist-item url-item"
-                >
-                  <div class="playlist-service-selector">
-                    <select v-model="playlist.service" class="service-select">
-                      <option value="spotify">Spotify</option>
-                      <option value="apple">Apple Music</option>
-                    </select>
-                  </div>
-                  <input
-                    type="text"
-                    v-model="playlist.embedCode"
-                    class="modal-input playlist-input"
-                    placeholder="Paste embed code"
-                  />
-                  <div class="url-buttons">
-                    <button type="button" class="button small" @click="movePlaylist(idx, -1)" :disabled="idx === 0" title="Move Up">▲</button>
-                    <button type="button" class="button small" @click="movePlaylist(idx, 1)" :disabled="idx === localConcept.playlists.length - 1" title="Move Down">▼</button>
-                    <button type="button" class="button button-danger small" @click="removePlaylist(idx)">✕</button>
-                  </div>
-                </div>
-              </div>
-              <div class="playlist-editor-buttons">
-                <button type="button" class="button button-primary small" @click="addPlaylist">Add Playlist</button>
-                <button type="button" class="button small" @click="savePlaylistChanges">Done</button>
-              </div>
-            </div>
-          
-            <!-- Service Toggle (when not editing) -->
-            <div v-else>
-              <div class="playlist-toggle">
-                <button 
-                  class="playlist-toggle-btn" 
-                  :class="{ active: playlistService === 'spotify' }" 
-                  @click="playlistService = 'spotify'"
-                >
-                  <i class="fa fa-spotify"></i> Spotify
-                </button>
-                <button 
-                  class="playlist-toggle-btn" 
-                  :class="{ active: playlistService === 'apple' }" 
-                  @click="playlistService = 'apple'"
-                >
-                  <i class="fa fa-music"></i> Apple Music
-                </button>
-              </div>
-              
-              <!-- Playlist Embeds -->
-              <div class="playlist-container">
-                <div 
-                  v-for="(playlist, index) in filteredPlaylists" 
-                  :key="`playlist-${index}`"
-                  class="playlist-embed"
-                  v-html="playlist.embedCode"
-                ></div>
-                <div v-if="filteredPlaylists.length === 0" class="no-playlists">
-                  No {{ playlistService === 'spotify' ? 'Spotify' : 'Apple Music' }} playlists available.
-                  <span v-if="hasOtherServicePlaylists">
-                    Try switching to {{ playlistService === 'spotify' ? 'Apple Music' : 'Spotify' }}.
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
+          <PlaylistSection
+            :playlists="localConcept.playlists || []"
+            :editable="isEditMode"
+            @update="updatePlaylists"
+          />
         </div>
 
         <!-- Right: Header, Description, Abilities, Names, Hooks & Equipment -->
@@ -325,101 +254,12 @@
           </div>
 
           <!-- HOOKS SECTION -->
-          <div class="concept-section">
-            <h2 class="section-header">
-              Hooks
-              <button v-if="isEditMode" class="edit-section-button" @click="toggleHooksEditing" title="Edit hooks">✎</button>
-            </h2>
-            
-            <!-- Edit mode for hooks -->
-            <div v-if="editingHooks" class="hooks-editor">
-              <draggable 
-                v-model="localConcept.hooks" 
-                item-key="id" 
-                handle=".drag-handle"
-                animation="200"
-                ghost-class="ghost-hook"
-                @end="saveHooksOrder"
-              >
-                <template #item="{ element: hook, index: idx }">
-                  <div class="hook-edit-card">
-                    <!-- Hook header with drag handle, caret and name -->
-                    <div class="hook-header">
-                      <span class="drag-handle" title="Drag to reorder">⋮⋮</span>
-                      <span 
-                        class="hook-caret" 
-                        @click="toggleHookExpansion(hook.id || idx)"
-                      >
-                        {{ isHookExpanded(hook.id || idx) ? '▼' : '►' }}
-                      </span>
-                      <input
-                        type="text"
-                        v-model="hook.name"
-                        placeholder="Hook Name"
-                        class="modal-input hook-input"
-                      />
-                    </div>
-                    
-                    <!-- Collapsible hook content -->
-                    <div v-if="isHookExpanded(hook.id || idx)" class="hook-fields">
-                      <div class="hook-field">
-                        <label>Description:</label>
-                        <text-editor
-                          v-model="hook.description"
-                          placeholder="Description of the hook..."
-                          height="120px"
-                          :readonly="!isEditMode"
-                        />
-                      </div>
+          <HooksSection
+            :hooks="localConcept.hooks || []"
+            :editable="isEditMode"
+            @update="updateHooks"
+          />
 
-                      <div class="hook-field">
-                        <label>GM Notes:</label>
-                        <text-editor
-                          v-model="hook.gmNotes"
-                          placeholder="Notes only visible to the GM..."
-                          height="120px"
-                          :readonly="!isEditMode"
-                        />
-                      </div>
-
-                      <div class="delete-hook-container">
-                        <button type="button" class="button button-danger small delete-hook-btn" @click="removeHook(idx)">Delete Hook</button>
-                      </div>
-                    </div>
-                  </div>
-                </template>
-              </draggable>
-              
-              <div class="hooks-editor-buttons">
-                <button type="button" class="button button-primary small" @click="addHook">Add Hook</button>
-                <button type="button" class="button small" @click="saveHooksChanges">Done</button>
-              </div>
-            </div>
-            
-            <!-- Display mode for hooks -->
-            <div v-else>
-              <div
-                v-for="hook in localConcept.hooks"
-                :key="hook.id"
-                class="info-card"
-              >
-                <div class="hook-name">{{ hook.name }}</div>
-                <div class="hook-description" v-html="hook.description"></div>
-                <button
-                  class="toggle-gm-notes"
-                  @click="toggleGMNotes(hook.id)"
-                >
-                  {{ shownGMNotes && shownGMNotes[hook.id] ? 'Hide GM Notes' : 'View GM Notes' }}
-                </button>
-                <div
-                  v-if="shownGMNotes && shownGMNotes[hook.id]"
-                  class="hook-gm-notes"
-                  v-html="hook.gmNotes"
-                ></div>
-              </div>
-            </div>
-          </div>
-          
           <!-- Equipment/Wares -->
           <div class="concept-section" v-if="equipment.length > 0">
             <h2 class="section-header">Wares</h2>
@@ -485,7 +325,8 @@ import ImageGallery from "@/components/ImageGallery.vue";
 import MasonryGrid from "@/components/MasonryGrid.vue";
 import TextEditor from '@/components/TextEditor.vue';
 import { defineComponent } from 'vue';
-import draggable from 'vuedraggable';
+import PlaylistSection from '@/components/PlaylistSection.vue';
+import HooksSection from '@/components/HooksSection.vue';
 
 export default defineComponent({
   props: {
@@ -504,7 +345,8 @@ export default defineComponent({
     ImageGallery,
     MasonryGrid,
     TextEditor,
-    draggable,
+    PlaylistSection,
+    HooksSection,
   },
   emits: ['close', 'update', 'edit-ability', 'edit-equipment'],
   data() {
@@ -904,6 +746,28 @@ export default defineComponent({
         });
       } catch (error) {
         console.error("Error updating places:", error);
+      }
+    },
+    
+    updatePlaylists(newPlaylists) {
+      try {
+        this.localConcept.playlists = [...newPlaylists];
+        this.$nextTick(() => {
+          this.emitUpdateEvent();
+        });
+      } catch (error) {
+        console.error("Error updating playlists:", error);
+      }
+    },
+    
+    updateHooks(newHooks) {
+      try {
+        this.localConcept.hooks = [...newHooks];
+        this.$nextTick(() => {
+          this.emitUpdateEvent();
+        });
+      } catch (error) {
+        console.error("Error updating hooks:", error);
       }
     },
     
