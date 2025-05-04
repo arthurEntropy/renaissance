@@ -1,6 +1,7 @@
 {
   "id": "83d190cb-0e05-4392-a5b1-f8a8017f505b",
   "name": "Bael Turath",
+  "description": "Deep in the half-light beneath towering colonnades of ancient trees, the Fey Court presides over the city which has grown up around it. Pageantry and intrigue are the rule of the day among the Courtiers, while the rest of the city maneuvers to anticipate and benefit from the various fads, rises and falls among the Fey. Despite this turmoil, the Fey seem to draw more and more power from the forest, and new, fearsome beasts have begun appearing in the surrounding foothills…",
   "artUrls": [
     "https://cdn.midjourney.com/b392c2f0-750f-47fe-ba27-d906e661d74a/0_0.png",
     "https://cdn.midjourney.com/01ee75b0-8827-4d92-a696-beedeb05b786/0_1.png",
@@ -8,8 +9,6 @@
     "https://cdn.midjourney.com/2a5b7207-9f08-4144-8be9-b160bb89a550/0_2.png",
     "https://cdn.midjourney.com/9ff8cfd6-5d65-4257-96ce-3d9ea4e258c1/0_2.png"
   ],
-  "isDeleted": false,
-  "description": "Deep in the half-light beneath towering colonnades of ancient trees, the Fey Court presides over the city which has grown up around it. Pageantry and intrigue are the rule of the day among the Courtiers, while the rest of the city maneuvers to anticipate and benefit from the various fads, rises and falls among the Fey. Despite this turmoil, the Fey seem to draw more and more power from the forest, and new, fearsome beasts have begun appearing in the surrounding foothills…",
   "faces": [
     "https://cdn.midjourney.com/7ff8f7f0-613f-47c6-8d7e-3217ba85967b/0_1.png",
     "https://cdn.midjourney.com/8724f631-f490-40fe-920d-1b32acb073f0/0_1.png",
@@ -27,7 +26,11 @@
     "https://cdn.midjourney.com/59c75b0b-f43d-427e-a9ec-62e32389de45/0_0.png",
     "https://cdn.midjourney.com/1c52b406-9365-4626-a21b-e627c437e205/0_3.png"
   ],
+  "places": [],
+  "hooks": [],
+  "playlists": [],
+  "backgroundImage": "https://cdn.midjourney.com/ce7aa2b1-a531-4201-acaf-b95e9d99c25c/0_1.png",
   "color1": "#3c3933",
   "color2": "#422c34",
-  "backgroundImage": "https://cdn.midjourney.com/ce7aa2b1-a531-4201-acaf-b95e9d99c25c/0_1.png"
+  "isDeleted": false
 }

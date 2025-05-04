@@ -30,7 +30,6 @@
         :concept="selectedConcept" 
         @close="deselectConcept" 
         @update="updateConceptFromDetail"
-        @edit="openEditConceptModal"
         @edit-ability="openEditAbilityModal"
         @edit-equipment="openEditEquipmentModal"
         @delete-ability="openDeleteConfirmationModalForAbility"
@@ -44,15 +43,6 @@
           &rsaquo;
         </button>
       </div>
-  
-      <!-- Edit Concept Modal -->
-      <EditConceptModal 
-        v-if="showEditConceptModal"
-        :concept="selectedConcept"
-        @update="updateEditedConcept"
-        @close="closeEditConceptModal"
-        @delete="openDeleteConfirmationModalForConcept"
-      />
   
       <!-- Edit Ability Modal -->
       <EditAbilityModal 
@@ -83,24 +73,22 @@
   </template>
   
   <script>
-  import SelectionCard from '@/components/ConceptCard.vue';
+  import AbilityService from '@/services/AbilityService';
   import ConceptDetail from '@/components/modals/ConceptDetailModal.vue';
-  import EditConceptModal from '@/components/modals/EditConceptModal.vue';
+  import DeleteConfirmationModal from '@/components/modals/DeleteConfirmationModal.vue';
   import EditAbilityModal from '@/components/modals/EditAbilityModal.vue';
   import EditEquipmentModal from '@/components/modals/EditEquipmentModal.vue';
-  import DeleteConfirmationModal from '@/components/modals/DeleteConfirmationModal.vue';
-  import AbilityService from '@/services/AbilityService';
   import EquipmentService from '@/services/EquipmentService';
+  import SelectionCard from '@/components/ConceptCard.vue';
   
   export default {
     name: 'ConceptsView',
     components: {
-      SelectionCard,
       ConceptDetail,
-      EditConceptModal,
+      DeleteConfirmationModal,
       EditAbilityModal,
       EditEquipmentModal,
-      DeleteConfirmationModal,
+      SelectionCard,
     },
     props: {
       itemName: {
@@ -134,7 +122,6 @@
         selectedConcept: null,
         selectedAbility: null,
         selectedEquipment: null,
-        showEditConceptModal: false,
         showEditAbilityModal: false,
         showEditEquipmentModal: false,
         showDeleteConfirmationModal: false,
@@ -194,17 +181,8 @@
       },
   
       // CONCEPT MODAL CONTROLS
-      openEditConceptModal() {
-        this.showEditConceptModal = true;
-      },
-      
-      closeEditConceptModal() {
-        this.showEditConceptModal = false;
-      },
-      
       async updateEditedConcept(updatedConcept) {
         await this.updateConceptFn(updatedConcept);
-        this.closeEditConceptModal();
         await this.refreshDataFn();
         
         // Find the updated concept in the refreshed list

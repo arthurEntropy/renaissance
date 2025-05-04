@@ -1,9 +1,9 @@
 <template>
-    <div class="concept-section">
-      <h2 class="section-header">
-        Playlists
-        <button v-if="editable" class="edit-section-button" @click="togglePlaylistEditing" title="Edit playlists">✎</button>
-      </h2>
+  <div class="concept-section" v-if="hasPlaylists || editable">
+    <h2 class="section-header">
+      Playlists
+      <button v-if="editable" class="edit-section-button" @click="togglePlaylistEditing" title="Edit playlists">✎</button>
+    </h2>
       
       <!-- Playlist Editor -->
       <div v-if="editingPlaylists" class="section-editor">
@@ -102,6 +102,9 @@
       };
     },
     computed: {
+      hasPlaylists() {
+        return this.localPlaylists && this.localPlaylists.length > 0;
+      },
       filteredPlaylists() {
         return this.localPlaylists.filter(playlist => 
           playlist.service === this.playlistService

@@ -1,5 +1,5 @@
 <template>
-    <div class="concept-section">
+    <div class="concept-section" v-if="hasContent || editable">
       <h2 class="section-header">
         Local Flavor
         <button v-if="editable" class="edit-section-button" @click="toggleEditing" title="Edit local flavor">✎</button>
@@ -7,6 +7,7 @@
       
       <!-- Edit mode for local flavor data -->
       <div v-if="isEditing" class="section-editor">
+        <!-- existing edit form content -->
         <div class="flavor-edit-grid">
           <!-- Names -->
           <div class="flavor-edit-item">
@@ -40,6 +41,17 @@
               placeholder="Where can a traveler find hospitality?"
             ></textarea>
           </div>
+
+          <!-- Points of Interest -->
+          <div class="flavor-edit-item">
+            <label for="pointsOfInterest">Points of Interest</label>
+            <textarea
+              id="pointsOfInterest"
+              v-model="localData.pointsOfInterest"
+              class="modal-input flavor-textarea"
+              placeholder="What are the must-see spots?"
+            ></textarea>
+          </div>
           
           <!-- Vittles -->
           <div class="flavor-edit-item">
@@ -49,17 +61,6 @@
               v-model="localData.vittles"
               class="modal-input flavor-textarea"
               placeholder="What's on the menu?"
-            ></textarea>
-          </div>
-          
-          <!-- Points of Interest -->
-          <div class="flavor-edit-item">
-            <label for="pointsOfInterest">Points of Interest</label>
-            <textarea
-              id="pointsOfInterest"
-              v-model="localData.pointsOfInterest"
-              class="modal-input flavor-textarea"
-              placeholder="What are the must-see spots?"
             ></textarea>
           </div>
           
@@ -123,7 +124,7 @@
   </template>
   
   <script>
-  import InfoCard from '@/components/InfoCard.vue';
+  import InfoCard from '@/components/conceptDetail/InfoCard.vue';
   
   export default {
     name: 'LocalFlavorSection',
@@ -153,6 +154,18 @@
         },
         backupData: null
       };
+    },
+    computed: {
+      hasContent() {
+        return Boolean(
+          this.localData.names || 
+          this.localData.occupations ||
+          this.localData.publicHouses ||
+          this.localData.vittles ||
+          this.localData.pointsOfInterest ||
+          this.localData.floraFauna
+        );
+      }
     },
     watch: {
       data: {

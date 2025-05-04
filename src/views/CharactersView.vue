@@ -138,7 +138,7 @@ import EquipmentTable from '@/components/characterSheet/EquipmentTable.vue';
 import FullSizeCharacterArtModal from '@/components/modals/FullSizeCharacterArtModal.vue';
 import ChangeCharacterArtModal from '@/components/modals/ChangeCharacterArtModal.vue';
 import SkillCheckModal from '@/components/modals/SkillCheckModal.vue';
-import SettingsModal from '@/components/modals/SettingsModal.vue';
+import CharacterSettingsModal from '@/components/modals/CharacterSettingsModal.vue';
 import DeleteConfirmationModal from '@/components/modals/DeleteConfirmationModal.vue';
 import { useEquipmentStore } from '@/stores/equipmentStore';
 
@@ -151,7 +151,7 @@ export default {
     FullSizeCharacterArtModal,
     ChangeCharacterArtModal,
     SkillCheckModal,
-    SettingsModal,
+    SettingsModal: CharacterSettingsModal,
     DeleteConfirmationModal
   },
   data() {
