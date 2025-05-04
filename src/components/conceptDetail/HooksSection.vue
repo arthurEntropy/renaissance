@@ -1,9 +1,9 @@
 <template>
-    <div class="concept-section">
-      <h2 class="section-header">
-        Hooks
-        <button v-if="editable" class="edit-section-button" @click="toggleHooksEditing" title="Edit hooks">✎</button>
-      </h2>
+  <div class="concept-section" v-if="hasHooks || editable">
+    <h2 class="section-header">
+      Hooks
+      <button v-if="editable" class="edit-section-button" @click="toggleHooksEditing" title="Edit hooks">✎</button>
+    </h2>
       
       <!-- Edit mode for hooks -->
       <div v-if="editingHooks" class="section-editor">
@@ -99,7 +99,7 @@
   <script>
   import draggable from 'vuedraggable';
   import TextEditor from '@/components/TextEditor.vue';
-  import InfoCard from '@/components/InfoCard.vue';
+  import InfoCard from '@/components/conceptDetail/InfoCard.vue';
   
   export default {
     components: {
@@ -124,6 +124,11 @@
         expandedHooks: {},
         shownGMNotes: {}
       };
+    },
+    computed: {
+      hasHooks() {
+        return this.localHooks && this.localHooks.length > 0;
+      }
     },
     methods: {
       toggleHooksEditing() {
