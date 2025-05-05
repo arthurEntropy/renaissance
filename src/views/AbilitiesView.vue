@@ -34,6 +34,7 @@
         v-for="ability in filteredAbilities" 
         :key="ability.id" 
         :ability="ability" 
+        :editable="true"
         @delete="openDeleteConfirmationModal(ability)"
         @update="updateAbility(ability)"
         @edit="openEditAbilityModal(ability)"

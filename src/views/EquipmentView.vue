@@ -30,6 +30,7 @@
         v-for="equipment in filteredEquipment" 
         :key="equipment.id" 
         :equipment="equipment" 
+        :editable="true"
         @delete="openDeleteConfirmationModal(equipment)"
         @update="updateEquipment(equipment)"
         @edit="openEditEquipmentModal(equipment)"

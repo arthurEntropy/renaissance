@@ -147,7 +147,7 @@
   "equipment": [
     {
       "id": "44d287b1-6675-40d3-86df-d5a965330e62",
-      "quantity": 1,
+      "quantity": 9,
       "isCarried": true,
       "order": 0,
       "equipment": {
@@ -173,28 +173,6 @@
         "isDeleted": false,
         "isCustom": false,
         "artUrl": "https://cdn.midjourney.com/c7ba970c-1c38-4805-91b7-6e2d84f7fe2a/0_3.png"
-      }
-    },
-    {
-      "id": "4efb13c1-7cbe-4a74-be9c-3602f9426978",
-      "quantity": 1,
-      "isCarried": true,
-      "order": 1,
-      "equipment": {
-        "id": "4efb13c1-7cbe-4a74-be9c-3602f9426978",
-        "name": "Freda's Baubles",
-        "description": "Just some cool baubles. Maybe they can give you favored on a Persuade roll once per rest?",
-        "standardOfLiving": "3",
-        "source": "75800953-4adb-405f-a4ab-a599573ca533",
-        "weight": 0,
-        "isMelee": false,
-        "damageDice": [],
-        "engagementDice": [],
-        "engagementSuccesses": [],
-        "skillMods": [],
-        "isDeleted": false,
-        "isCustom": false,
-        "artUrl": "https://cdn.midjourney.com/0686856a-67aa-4bb8-b9f3-b2e51ad84a32/0_3.png"
       }
     }
   ],
