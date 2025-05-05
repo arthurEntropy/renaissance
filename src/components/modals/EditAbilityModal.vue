@@ -1,23 +1,23 @@
 <template>
-  <div class="modal-overlay" @click.self="updateAbilityAndCloseModal">
+  <div class="modal-overlay" @click.self="closeModal">
     <div class="modal-content">
-      <h2 class="modal-header">Edit Ability</h2>
+      <h2 class="modal-header centered">Edit Ability</h2>
       <form @submit.prevent="saveAbility">
         <!-- ID (Displayed as Text) -->
-        <div class="form-group">
+        <div class="form-group centered">
           <label>ID:</label>
           <span>{{ ability.id }}</span>
         </div>
 
         <!-- Name -->
         <div class="form-group vertical">
-          <label for="name">Name:</label>
+          <label for="name" class="left-aligned">Name:</label>
           <input type="text" id="name" v-model="editedAbility.name" class="modal-input" />
         </div>
 
         <!-- Description -->
         <div class="form-group vertical description">
-          <label for="description">Description:</label>
+          <label for="description" class="left-aligned">Description:</label>
           <textarea id="description" v-model="editedAbility.description" class="modal-input"></textarea>
         </div>
 
@@ -29,7 +29,7 @@
           <input type="number" id="xp" v-model.number="editedAbility.xp" class="modal-input small-input" />
         </div>
 
-        <!-- Trait -->
+        <!-- Source and Trait Checkboxes -->
         <div class="form-group centered">
           <label for="source">Source:</label>
           <select id="source" v-model="editedAbility.source" class="modal-input">
@@ -64,8 +64,10 @@
           </label>
         </div>
 
-        <!-- Delete Button -->
+        <!-- Action Buttons -->
         <div class="form-buttons">
+          <button type="button" class="button button-primary" @click="saveAbility">Save Changes</button>
+          <button type="button" class="button" @click="closeModal">Cancel</button>
           <button type="button" class="button button-danger" @click="deleteAbility">Delete</button>
         </div>
       </form>
@@ -86,15 +88,21 @@ export default {
       required: true,
     },
   },
-  emits: ["save", "delete", "cancel"],
+  emits: ["update", "delete", "close"],
   data() {
     return {
-      editedAbility: { ...this.ability }, // Create a local copy of the ability
+      editedAbility: null,
+      originalAbility: null,
       ancestries: [],
       cultures: [],
       mestieri: [],
-      worldElements: [], // Add world elements to the data
+      worldElements: [],
     };
+  },
+  created() {
+    // Deep clone the ability to avoid direct mutations and preserve original state
+    this.originalAbility = JSON.parse(JSON.stringify(this.ability));
+    this.editedAbility = JSON.parse(JSON.stringify(this.ability));
   },
   methods: {
     async fetchSources() {
@@ -103,23 +111,29 @@ export default {
           AncestryService.getAllAncestries(),
           CultureService.getAllCultures(),
           MestieriService.getAllMestieri(),
-          WorldElementsService.getAllWorldElements(), // Fetch world elements
+          WorldElementsService.getAllWorldElements(),
         ]);
         this.ancestries = ancestries;
         this.cultures = cultures;
         this.mestieri = mestieri;
-        this.worldElements = worldElements; // Store world elements
+        this.worldElements = worldElements;
       } catch (error) {
         console.error("Error fetching sources:", error);
       }
     },
-    deleteAbility() {
-      this.$emit("delete", this.editedAbility);
-    },
-    updateAbilityAndCloseModal() {
+    saveAbility() {
       this.$emit("update", this.editedAbility);
       this.$emit("close");
     },
+    deleteAbility() {
+      const name = this.editedAbility.name || "this ability";
+      if (confirm(`Are you sure you want to delete "${name}"?`)) {
+        this.$emit("delete", this.editedAbility);
+      }
+    },
+    closeModal() {
+      this.$emit("close");
+    }
   },
   async mounted() {
     await this.fetchSources();
@@ -155,6 +169,10 @@ export default {
   justify-content: center;
 }
 
+.left-aligned {
+  text-align: left;
+}
+
 label {
   margin-right: 10px;
   font-size: 14px;
@@ -181,9 +199,40 @@ textarea.modal-input {
   width: 80px; /* Adjust width for smaller inputs */
 }
 
+/* Form Buttons */
 .form-buttons {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   margin-top: 20px;
+  gap: 10px;
+}
+
+.button {
+  flex: 1;
+  padding: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.2s;
+}
+
+.button-primary {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+}
+
+.button-danger {
+  background-color: #f44336;
+  color: white;
+  border: none;
+}
+
+.button:hover {
+  opacity: 0.9;
+}
+
+.description textarea {
+  height: 150px;
 }
 </style>

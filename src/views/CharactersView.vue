@@ -87,6 +87,16 @@
           :allEquipment="allEquipment"
           :character="selectedCharacter"
           @update-character="updateCharacter"
+          @edit-custom-equipment="openEditEquipmentModal"
+        />
+
+        <!-- Add the EditEquipmentModal component -->
+        <EditEquipmentModal
+          v-if="showEditEquipmentModal"
+          :equipment="equipmentToEdit"
+          @update="saveEditedEquipment"
+          @close="closeEditEquipmentModal"
+          @delete="deleteCustomEquipment"
         />
 
       </div>
@@ -128,9 +138,11 @@
 </template>
 
 <script>
-import { useCharacterStore } from '@/stores/characterStore';
 import { mapState } from 'pinia';
+import { useCharacterStore } from '@/stores/characterStore';
+import { useEquipmentStore } from '@/stores/equipmentStore';
 import CharacterService from '@/services/CharacterService';
+import EquipmentService from '@/services/EquipmentService';
 import SelectionCard from '@/components/ConceptCard.vue';
 import CharacterBioSection from '@/components/characterSheet/CharacterBioSection.vue';
 import CoreAbilityColumn from '@/components/characterSheet/CoreAbilityColumn.vue';
@@ -140,7 +152,7 @@ import ChangeCharacterArtModal from '@/components/modals/ChangeCharacterArtModal
 import SkillCheckModal from '@/components/modals/SkillCheckModal.vue';
 import CharacterSettingsModal from '@/components/modals/CharacterSettingsModal.vue';
 import DeleteConfirmationModal from '@/components/modals/DeleteConfirmationModal.vue';
-import { useEquipmentStore } from '@/stores/equipmentStore';
+import EditEquipmentModal from '@/components/modals/EditEquipmentModal.vue';
 
 export default {
   components: {
@@ -152,7 +164,8 @@ export default {
     ChangeCharacterArtModal,
     SkillCheckModal,
     SettingsModal: CharacterSettingsModal,
-    DeleteConfirmationModal
+    DeleteConfirmationModal,
+    EditEquipmentModal,
   },
   data() {
     const characterStore = useCharacterStore();
@@ -171,6 +184,8 @@ export default {
       savingStatus: '',
       defaultArtUrl: CharacterService.DEFAULT_ART_URL,
       tempArtUrl: '',
+      showEditEquipmentModal: false,
+      equipmentToEdit: null,
     };
   },
 
@@ -289,7 +304,7 @@ export default {
 
   methods: {
 
-    /* CHARACTER SELECTION & CRUD */
+    // CHARACTER SELECTION & CRUD
     selectCharacter(character) {
       this.selectedCharacter = character;
       this.characterStore.selectedCharacter = character;
@@ -317,7 +332,7 @@ export default {
       this.deselectCharacter();
     },
 
-    /* MODAL CONTROLS */
+    // MODAL CONTROLS
     closeAllModals() {
       this.showFullSizeCharacterArtModal = false;
       this.showChangeCharacterArtModal = false;
@@ -357,6 +372,52 @@ export default {
     },
     closeSkillCheckModal() {
       this.showSkillCheckModal = false;
+    },
+    openEditEquipmentModal(equipment) {
+      this.equipmentToEdit = equipment;
+      this.showEditEquipmentModal = true;
+    },
+    closeEditEquipmentModal() {
+      this.showEditEquipmentModal = false;
+      this.equipmentToEdit = null;
+    },
+
+    // EQUIPMENT HANDLING
+    async saveEditedEquipment(editedEquipment) {
+      try {
+        await EquipmentService.updateEquipment(editedEquipment);
+        await this.equipmentStore.fetchAllEquipment();
+        this.closeEditEquipmentModal();
+      } catch (error) {
+        console.error("Error saving equipment:", error);
+      }
+    },
+    async deleteCustomEquipment(equipment) {
+      try {
+        // First, set isDeleted to true on the equipment
+        equipment.isDeleted = true;
+        
+        // Update the equipment in the database
+        await EquipmentService.updateEquipment(equipment);
+        
+        // Remove from character's equipment
+        const equipmentIndex = this.selectedCharacter.equipment.findIndex(
+          item => item.id === equipment.id
+        );
+        
+        if (equipmentIndex >= 0) {
+          this.selectedCharacter.equipment.splice(equipmentIndex, 1);
+          this.$emit("update-character", this.selectedCharacter);
+        }
+        
+        // Refresh equipment list
+        await this.equipmentStore.fetchAllEquipment();
+        
+        // Close the modal
+        this.closeEditEquipmentModal();
+      } catch (error) {
+        console.error("Error deleting custom equipment:", error);
+      }
     },
   }
 };

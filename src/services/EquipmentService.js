@@ -35,6 +35,28 @@ class EquipmentService {
     }
   }
 
+  async createCustomEquipment() {
+    const customEquipment = this.getDefaultEquipment();
+    
+    // Explicitly set these properties
+    customEquipment.isCustom = true;
+    customEquipment.name = "New Custom Item";
+    
+    try {
+      const response = await axios.post(this.baseUrl, customEquipment);
+      
+      // Make sure the response data has the proper values
+      const data = response.data;
+      data.isCustom = true; // Ensure isCustom is set in response
+      data.name = data.name || "New Custom Item"; // Ensure name is set
+      
+      return data;
+    } catch (error) {
+      console.error("Error creating custom equipment:", error);
+      throw error;
+    }
+  }
+
   async deleteEquipment(equipment) {
     equipment.isDeleted = true;
     this.updateEquipment(equipment);
@@ -44,7 +66,7 @@ class EquipmentService {
   getDefaultEquipment() {
     return {
       id: null, // ID will be assigned by the backend
-      name: "New Equipment",
+      name: "New Item",
       description: "",
       standardOfLiving: null,
       source: null,

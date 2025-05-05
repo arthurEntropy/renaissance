@@ -155,28 +155,10 @@
   },
   "equipment": [
     {
-      "name": "Rations",
-      "weight": 1,
-      "quantity": 10,
-      "carried": true
-    },
-    {
-      "name": "Grappling Hook",
-      "weight": 2,
-      "quantity": 2,
-      "carried": true
-    },
-    {
-      "name": "Tinderbox",
-      "weight": 1,
-      "quantity": 1,
-      "carried": true
-    },
-    {
-      "name": "Silversmith's Tools",
-      "weight": 2,
-      "quantity": 1,
-      "carried": true
+      "id": "64992fd9-1594-4cab-b232-b570e0e53ece",
+      "quantity": 11,
+      "isCarried": true,
+      "order": 0
     }
   ],
   "activeEffects": [
