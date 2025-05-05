@@ -1,19 +1,18 @@
 <template>
   <div class="equipment-table">
-
     <!-- TITLE -->
     <div class="equipment-table-header">
       <div class="header-left">
         <h2>Equipment</h2>
-        <em @click="toggleAddOptions()" class="add-item-text">add item</em>
+        <em @click="toggleAddOptions($event)" class="add-item-text">add item</em>
         
         <!-- Add Options Menu -->
         <div v-if="showAddOptions" class="add-options-menu header-add-menu">
-          <div class="add-option" @click="toggleEquipmentSelector()">
-            <i class="fas fa-book"></i> Add from Library
+          <div class="add-option" @click="toggleEquipmentSelector($event)">
+            <i>📖</i> Add from Library
           </div>
           <div class="add-option" @click="addCustomEquipment()">
-            <i class="fas fa-plus-circle"></i> Add Custom Item
+            <i>➕</i> Add Custom Item
           </div>
         </div>
       </div>
@@ -23,57 +22,67 @@
       </div>
     </div>
 
-    <!-- ITEM ROWS -->
-    <div
-      v-for="(row, index) in characterEquipmentRows"
-      :key="row.id"
-      class="equipment-row"
+    <!-- DRAGGABLE ITEM ROWS -->
+    <draggable
+      v-model="sortedEquipmentRows"
+      handle=".drag-handle"
+      item-key="id"
+      @end="onDragEnd"
+      ghost-class="ghost-equipment-row"
+      animation="150"
     >
-      <!-- EquipmentCard (collapsed/minimal) -->
-      <EquipmentCard
-        v-if="row.equipment"
-        :equipment="row.equipment"
-        :collapsed="true"
-        :editable="row.equipment.isCustom"
-        class="equipment-card"
-        @edit="editCustomItem"
-      />
-      <span v-else class="missing-equipment">Unknown item</span>
-
-      <div class="equipment-row-details">
-        <!-- Quantity -->
-        <em class="carried"> x </em>
-        <input
-          type="number"
-          v-model.number="row.quantity"
-          min="1"
-          class="input-small quantity-input"
-          @input="updateEquipmentItem(index, 'quantity', Math.max(1, row.quantity))"
-        />
-
-        <!-- Carried Weight -->
-        <em> = </em>
-        <div>
-          <span>
-            {{ row.isCarried && row.equipment ? formatWeight(row.equipment.weight * row.quantity) : '0' }}
-          </span>
-          <em>&nbsp; lbs</em>
-        </div>
-
-        <!-- Carried Checkbox -->
-        <div>
-          <input
-            type="checkbox"
-            v-model="row.isCarried"
-            @change="updateEquipmentItem(index, 'isCarried', row.isCarried)"
+      <template #item="{ element: row, index }">
+        <div class="equipment-row">
+          <!-- EquipmentCard (collapsed/minimal) -->
+          <EquipmentCard
+            v-if="row.equipment"
+            :equipment="row.equipment"
+            :collapsed="true"
+            :editable="row.equipment.isCustom"
+            class="equipment-card"
+            @edit="editCustomItem"
           />
-          <em class="carried"> carried</em>
-        </div>
+          <span v-else class="missing-equipment">Unknown item</span>
 
-        <!-- Delete Button -->
-        <span @click="removeEquipmentItem(index)" class="delete-item-link">ⓧ</span>
-      </div>
-    </div>
+          <div class="equipment-row-details">
+            <!-- Quantity -->
+            <em class="carried"> x </em>
+            <input
+              type="number"
+              v-model.number="row.quantity"
+              min="1"
+              class="input-small quantity-input"
+              @input="updateEquipmentItem(index, 'quantity', Math.max(1, row.quantity))"
+            />
+
+            <!-- Carried Weight -->
+            <em> = </em>
+            <div>
+              <span>
+                {{ row.isCarried && row.equipment ? formatWeight(row.equipment.weight * row.quantity) : '0' }}
+              </span>
+              <em>&nbsp; lbs</em>
+            </div>
+
+            <!-- Carried Checkbox -->
+            <div>
+              <input
+                type="checkbox"
+                v-model="row.isCarried"
+                @change="updateEquipmentItem(index, 'isCarried', row.isCarried)"
+              />
+              <em class="carried"> carried</em>
+            </div>
+
+            <!-- Delete Button -->
+            <span @click="removeEquipmentItem(index)" class="delete-item-link">ⓧ</span>
+            
+            <!-- Drag Handle -->
+            <span class="drag-handle" title="Drag to reorder">⋮⋮</span>
+          </div>
+        </div>
+      </template>
+    </draggable>
 
     <!-- Equipment Selector Dropdown -->
     <div v-if="showEquipmentSelector" class="equipment-selector-container">
@@ -111,6 +120,7 @@
   import EquipmentCard from "@/components/EquipmentCard.vue";
   import EquipmentService from "@/services/EquipmentService";
   import { useEquipmentStore } from '@/stores/equipmentStore';
+  import draggable from 'vuedraggable';
 
   export default {
     props: {
@@ -121,6 +131,7 @@
     emits: ["update-character", "edit-custom-equipment"],
     components: {
       EquipmentCard,
+      draggable,
     },
     data() {
       return {
@@ -141,6 +152,22 @@
             equipment,
           };
         });
+      },
+      sortedEquipmentRows: {
+        get() {
+          // Sort by order property (if exists)
+          return [...this.characterEquipmentRows].sort((a, b) => {
+            if (a.order !== undefined && b.order !== undefined) {
+              return a.order - b.order;
+            }
+            // If order is not defined, use original index
+            return 0;
+          });
+        },
+        set(value) {
+          // This will be called when draggable updates the order
+          this.updateEquipmentOrder(value);
+        }
       },
       totalWeightCarried() {
         return Math.round(
@@ -215,13 +242,62 @@
       },
     },
     methods: {
+      updateEquipmentOrder(newOrder) {
+        // Update the order property on each equipment item
+        const updatedEquipment = newOrder.map((item, index) => ({
+          ...item,
+          order: index
+        }));
+        
+        // Create a new character object with updated equipment
+        const updatedCharacter = {
+          ...this.character,
+          equipment: updatedEquipment
+        };
+        
+        // Emit the update event with the new character object
+        this.$emit("update-character", updatedCharacter);
+      },
+      onDragEnd() {
+        // This will be called after a drag operation completes
+        // We don't need to do anything here since the v-model binding will handle the update
+      },
       updateEquipmentItem(index, key, value) {
-        CharacterService.updateEquipmentItem(this.character, index, key, value);
-        this.$emit("update-character", this.character);
+        // Create a new array of equipment items
+        const updatedEquipment = [...this.character.equipment];
+        
+        // Update the specific property on the item at the given index
+        updatedEquipment[index] = {
+          ...updatedEquipment[index],
+          [key]: value
+        };
+        
+        // Create a new character object with the updated equipment
+        const updatedCharacter = {
+          ...this.character,
+          equipment: updatedEquipment
+        };
+        
+        // Emit the update event
+        this.$emit("update-character", updatedCharacter);
       },
       removeEquipmentItem(index) {
-        CharacterService.removeEquipmentItem(this.character, index);
-        this.$emit("update-character", this.character);
+        const equipment = this.characterEquipmentRows[index].equipment;
+        const name = equipment ? equipment.name : "this item";
+        
+        if (confirm(`Are you sure you want to remove ${name} from inventory?`)) {
+          // Create a new array without the item at the given index
+          const updatedEquipment = this.character.equipment.filter((_, i) => i !== index);
+          
+          // Create a new character object with the updated equipment
+          const updatedCharacter = {
+            ...this.character,
+            equipment: updatedEquipment
+          };
+          
+          // Emit the update event
+          this.$emit("update-character", updatedCharacter);
+        }
       },
       editCustomItem(equipment) {
         // When the edit button is clicked on a custom item, emit an event to the parent
@@ -230,14 +306,20 @@
       formatWeight(value) {
         return Number.isInteger(value) ? value : value.toFixed(1); // Format to one decimal place
       },
-      toggleAddOptions() {
+      toggleAddOptions(event) {
+        if (event) {
+          event.stopPropagation(); // Prevent immediate closing
+        }
         this.showAddOptions = !this.showAddOptions;
         // Close equipment selector if open
         if (this.showEquipmentSelector) {
           this.showEquipmentSelector = false;
         }
       },
-      toggleEquipmentSelector() {
+      toggleEquipmentSelector(event) {
+        if (event) {
+          event.stopPropagation(); // Prevent immediate closing
+        }
         this.showEquipmentSelector = !this.showEquipmentSelector;
         this.showAddOptions = false; // Close the add options menu
         
@@ -303,15 +385,76 @@
         const source = this.equipmentStore.getSourceById(sourceId);
         return source ? source.name : 'General';
       },
+      moveEquipmentItem(index, direction) {
+        // Calculate new index
+        const newIndex = index + direction;
+        
+        // Make sure new index is within bounds
+        if (newIndex < 0 || newIndex >= this.character.equipment.length) {
+          return;
+        }
+        
+        // Create a copy of the equipment array
+        const updatedEquipment = [...this.character.equipment];
+        
+        // Update the order property for both items
+        if (!updatedEquipment[index].order) {
+          updatedEquipment[index].order = index;
+        }
+        if (!updatedEquipment[newIndex].order) {
+          updatedEquipment[newIndex].order = newIndex;
+        }
+        
+        // Swap the order properties
+        const tempOrder = updatedEquipment[index].order;
+        updatedEquipment[index].order = updatedEquipment[newIndex].order;
+        updatedEquipment[newIndex].order = tempOrder;
+        
+        // Swap the items themselves
+        [updatedEquipment[index], updatedEquipment[newIndex]] = 
+          [updatedEquipment[newIndex], updatedEquipment[index]];
+        
+        // Create a new character object with the updated equipment
+        const updatedCharacter = {
+          ...this.character,
+          equipment: updatedEquipment
+        };
+        
+        // Emit update event
+        this.$emit("update-character", updatedCharacter);
+      },
+      handleOutsideClick(event) {
+        // References to the dropdown elements
+        const addOptionsMenu = this.$el.querySelector('.add-options-menu');
+        const equipmentSelector = this.$el.querySelector('.equipment-selector-container');
+        const addItemText = this.$el.querySelector('.add-item-text');
+        
+        // Close add options menu if clicking outside
+        if (this.showAddOptions && 
+            addOptionsMenu && 
+            !addOptionsMenu.contains(event.target) && 
+            !addItemText.contains(event.target)) {
+          this.showAddOptions = false;
+        }
+        
+        // Close equipment selector if clicking outside
+        if (this.showEquipmentSelector && 
+            equipmentSelector && 
+            !equipmentSelector.contains(event.target)) {
+          this.showEquipmentSelector = false;
+        }
+      }
     },
     mounted() {
-      // Initialize the equipment store if needed
       this.equipmentStore.init();
+      document.addEventListener('click', this.handleOutsideClick);
     },
     beforeUnmount() {
       // Ensure dropdowns are closed when component is destroyed
       this.showEquipmentSelector = false;
       this.showAddOptions = false;
+      // Remove the click listener
+      document.removeEventListener('click', this.handleOutsideClick);
     }
   };
 </script>
@@ -433,7 +576,7 @@
   .add-options-menu {
     position: absolute;
     top: 100%;
-    right: 0;
+    left: 150px;
     background-color: rgba(30, 30, 30, 0.95);
     border-radius: 8px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
@@ -443,7 +586,7 @@
   }
   
   .add-option {
-    padding: 12px 15px;
+    padding: 10px;
     cursor: pointer;
     transition: background-color 0.2s;
     display: flex;
@@ -549,6 +692,66 @@
   .total-weight-container {
     background-color: rgb(61, 61, 61);
     padding: 5px 15px;
+    border-radius: 5px;
+  }
+
+  /* Reorder Buttons */
+  .reorder-buttons {
+    display: flex;
+    flex-direction: column;
+    margin-left: 5px;
+  }
+  
+  .reorder-button {
+    background: none;
+    border: none;
+    color: #aaa;
+    font-size: 8px;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+    height: 12px;
+    width: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .reorder-button:hover:not(.disabled) {
+    color: white;
+  }
+  
+  .reorder-button.disabled {
+    color: #555;
+    cursor: default;
+  }
+  
+  .reorder-button.up {
+    margin-bottom: -2px;
+  }
+  
+  .reorder-button.down {
+    margin-top: -2px;
+  }
+
+  /* Drag Handle Styles */
+  .drag-handle {
+    cursor: move;
+    font-size: 16px;
+    color: #777;
+    margin-left: 5px;
+    user-select: none;
+  }
+  
+  .drag-handle:hover {
+    color: white;
+  }
+  
+  /* Ghost row style for dragging */
+  .ghost-equipment-row {
+    opacity: 0.5;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px dashed #777;
     border-radius: 5px;
   }
 </style>

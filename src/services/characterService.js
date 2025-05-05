@@ -188,14 +188,27 @@ class CharacterService {
 
   // EQUIPMENT
   addEquipmentItem(character) {
-    character.equipment.push(defaultNewEquipmentItem);
+    // Calculate the highest current order value
+    const maxOrder = character.equipment.reduce((max, item) => 
+      item.order !== undefined && item.order > max ? item.order : max, -1);
+    
+    character.equipment.push({
+      ...defaultNewEquipmentItem,
+      order: maxOrder + 1 // Add order property
+    });
     this.calculateLoad(character);
   }
   addSpecificEquipmentItem(character, equipmentItem) {
+    // Calculate the highest current order value
+    const maxOrder = character.equipment.reduce((max, item) => 
+      item.order !== undefined && item.order > max ? item.order : max, -1);
+    
+    // Add the new equipment with order = maxOrder + 1
     character.equipment.push({
       id: equipmentItem.id,
       quantity: equipmentItem.quantity || 1,
-      isCarried: equipmentItem.isCarried !== undefined ? equipmentItem.isCarried : true
+      isCarried: equipmentItem.isCarried !== undefined ? equipmentItem.isCarried : true,
+      order: maxOrder + 1 // Add order property
     });
     this.calculateLoad(character);
   }
