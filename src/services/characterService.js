@@ -191,6 +191,14 @@ class CharacterService {
     character.equipment.push(defaultNewEquipmentItem);
     this.calculateLoad(character);
   }
+  addSpecificEquipmentItem(character, equipmentItem) {
+    character.equipment.push({
+      id: equipmentItem.id,
+      quantity: equipmentItem.quantity || 1,
+      isCarried: equipmentItem.isCarried !== undefined ? equipmentItem.isCarried : true
+    });
+    this.calculateLoad(character);
+  }
   removeEquipmentItem(character, index) {
     if (index >= 0 && index < character.equipment.length) {
       character.equipment.splice(index, 1);

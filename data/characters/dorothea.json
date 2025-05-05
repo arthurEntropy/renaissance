@@ -146,28 +146,29 @@
   },
   "equipment": [
     {
-      "name": "Rations",
-      "weight": 1,
-      "quantity": 10,
-      "carried": true
+      "id": "bccb6c9c-bb15-4679-a0ce-a2e330b0aae0",
+      "quantity": 3,
+      "isCarried": true
     },
     {
-      "name": "Grappling Hook",
-      "weight": 2,
-      "quantity": 2,
-      "carried": true
-    },
-    {
-      "name": "Tinderbox",
-      "weight": 1,
+      "id": "2121d925-27f0-40ee-9d7f-2cc67b90141c",
       "quantity": 1,
-      "carried": true
+      "isCarried": true
     },
     {
-      "name": "Silversmith's Tools",
-      "weight": 2,
+      "id": "44d287b1-6675-40d3-86df-d5a965330e62",
+      "quantity": 4,
+      "isCarried": true
+    },
+    {
+      "id": "61769296-ad14-42dd-9ab8-885a66e28415",
       "quantity": 1,
-      "carried": true
+      "isCarried": true
+    },
+    {
+      "id": "bbe7b5b9-9a9a-4a91-8f35-deffb62f2dae",
+      "quantity": 1,
+      "isCarried": true
     }
   ],
   "activeEffects": [

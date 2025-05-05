@@ -1,5 +1,5 @@
 <template>
-  <div class="modal-overlay" @click.self="updateEquipmentAndCloseModal">
+  <div class="modal-overlay" @click.self="closeModal">
     <div class="modal-content">
       <!-- Centered Modal Title -->
       <h2 class="modal-header centered">Edit Equipment</h2>
@@ -9,6 +9,14 @@
         <div class="form-group centered">
           <label>ID:</label>
           <span>{{ equipment.id }}</span>
+        </div>
+        
+        <!-- Custom Item Checkbox -->
+        <div class="form-group centered">
+          <label for="isCustom">
+            <input type="checkbox" id="isCustom" v-model="editedEquipment.isCustom" />
+            Custom Item
+          </label>
         </div>
 
         <!-- Name -->
@@ -33,7 +41,15 @@
         <div class="form-group row">
           <div class="form-column small-weight-input">
             <label for="weight" class="left-aligned">Weight:</label>
-            <input type="number" id="weight" v-model.number="editedEquipment.weight" class="modal-input" />
+            <input 
+              type="number" 
+              id="weight" 
+              v-model.number="editedEquipment.weight" 
+              min="0" 
+              step="0.1" 
+              @blur="ensureWeightValue"
+              class="modal-input" 
+            />
           </div>
           <div class="form-column expanded-source-dropdown">
             <label for="source" class="left-aligned">Source:</label>
@@ -131,8 +147,10 @@
           </div>
         </div>
 
-        <!-- Delete Button -->
+        <!-- Action Buttons -->
         <div class="form-buttons">
+          <button type="button" class="button button-primary" @click="saveEquipment">Save Changes</button>
+          <button type="button" class="button" @click="closeModal">Cancel</button>
           <button type="button" class="button button-danger" @click="deleteEquipment">Delete</button>
         </div>
       </form>
@@ -157,7 +175,8 @@
   
     data() {
       return {
-        editedEquipment: { ...this.equipment },
+        editedEquipment: null,
+        originalEquipment: null,
         sources: {
           ancestries: [],
           cultures: [],
@@ -172,6 +191,29 @@
         damageDiceCounts: {}, // Object to store counts of each damage die type
       };
     },
+    
+    created() {
+      // Deep clone the equipment to avoid direct mutations and preserve original state
+      this.originalEquipment = JSON.parse(JSON.stringify(this.equipment));
+      this.editedEquipment = JSON.parse(JSON.stringify(this.equipment));
+      
+      // Ensure all properties exist with correct default values
+      this.editedEquipment.name = this.editedEquipment.name || "New Custom Item";
+      this.editedEquipment.isCustom = this.editedEquipment.isCustom || false;
+      this.editedEquipment.weight = this.editedEquipment.weight !== undefined ? 
+        this.editedEquipment.weight : 0; // Explicitly handle weight
+      this.editedEquipment.engagementSuccesses = this.editedEquipment.engagementSuccesses || [];
+      this.editedEquipment.engagementDice = this.editedEquipment.engagementDice || [];
+      this.editedEquipment.damageDice = this.editedEquipment.damageDice || [];
+      this.editedEquipment.skillMods = this.editedEquipment.skillMods || [];
+      
+      // Log for debugging
+      console.log("Modal initialized with:", {
+        name: this.editedEquipment.name,
+        isCustom: this.editedEquipment.isCustom,
+        weight: this.editedEquipment.weight
+      });
+    },
   
     methods: {
       async fetchSources() {
@@ -185,6 +227,15 @@
       
       getDiceFontClass(dieType) {
         return `df-d${dieType}-${dieType}`;
+      },
+      
+      ensureWeightValue() {
+        // Ensure weight is never undefined or null
+        if (this.editedEquipment.weight === undefined || 
+            this.editedEquipment.weight === null || 
+            isNaN(this.editedEquipment.weight)) {
+          this.editedEquipment.weight = 0;
+        }
       },
   
       initializeDiceCounts() {
@@ -235,12 +286,20 @@
       },
   
       deleteEquipment() {
-        this.$emit("delete", this.editedEquipment);
+        const name = this.editedEquipment.name || "this item";
+        if (confirm(`Are you sure you want to delete "${name}"?`)) {
+          this.$emit("delete", this.editedEquipment);
+        }
       },
   
-      updateEquipmentAndCloseModal() {
+      saveEquipment() {
         this.saveDiceChanges();
+        this.ensureWeightValue(); // Make sure weight is properly set
         this.$emit("update", this.editedEquipment);
+        this.$emit("close");
+      },
+      
+      closeModal() {
         this.$emit("close");
       },
 
@@ -280,7 +339,6 @@
 </script>
   
 <style scoped>
-
 .modal-content {
   max-width: 500px;
 }
@@ -326,6 +384,39 @@
 .melee-checkbox {
   margin: 20px 0;
   text-align: center;
+}
+
+/* Form Buttons */
+.form-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  gap: 10px;
+}
+
+.button {
+  flex: 1;
+  padding: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.2s;
+}
+
+.button-primary {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+}
+
+.button-danger {
+  background-color: #f44336;
+  color: white;
+  border: none;
+}
+
+.button:hover {
+  opacity: 0.9;
 }
 
 /* Dice Row and Column */
