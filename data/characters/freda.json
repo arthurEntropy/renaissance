@@ -146,9 +146,79 @@
   },
   "equipment": [
     {
-      "id": "c69de09b-f928-4465-95c4-8ba25e6fb66b",
+      "id": "002510c0-e60c-4552-bbf5-66105de9b415",
       "quantity": 1,
-      "isCarried": true
+      "isCarried": true,
+      "order": 1,
+      "equipment": {
+        "id": "002510c0-e60c-4552-bbf5-66105de9b415",
+        "name": "Ered Luin Dagger",
+        "description": "",
+        "standardOfLiving": "2",
+        "source": "75800953-4adb-405f-a4ab-a599573ca533",
+        "weight": 1,
+        "isMelee": true,
+        "damageDice": [
+          4
+        ],
+        "engagementDice": [
+          4
+        ],
+        "engagementSuccesses": [
+          "4",
+          "5",
+          "7",
+          "8"
+        ],
+        "skillMods": [],
+        "isDeleted": false,
+        "isCustom": false,
+        "artUrl": "https://cdn.midjourney.com/25f10508-cee6-4e08-945d-3e837c89dc65/0_2.png"
+      }
+    },
+    {
+      "id": "973a606c-4f16-4f0f-afe7-0734d705272c",
+      "quantity": 1,
+      "isCarried": true,
+      "order": 2,
+      "equipment": {
+        "id": "973a606c-4f16-4f0f-afe7-0734d705272c",
+        "name": "Bear Charm",
+        "description": "A cool metal and gemstone bear, I guess?",
+        "standardOfLiving": "3",
+        "source": "75800953-4adb-405f-a4ab-a599573ca533",
+        "weight": 0.5,
+        "isMelee": false,
+        "damageDice": [],
+        "engagementDice": [],
+        "engagementSuccesses": [],
+        "skillMods": [],
+        "isDeleted": false,
+        "isCustom": false,
+        "artUrl": "https://cdn.midjourney.com/5177bcba-3344-4a0c-8753-813df059b185/0_0.png"
+      }
+    },
+    {
+      "id": "6491e3fc-1152-4a3d-baa7-d1afd720edc1",
+      "quantity": 1,
+      "isCarried": true,
+      "order": 3,
+      "equipment": {
+        "id": "6491e3fc-1152-4a3d-baa7-d1afd720edc1",
+        "name": "Waterskin",
+        "description": "Just a regular-ass waterskin.",
+        "standardOfLiving": null,
+        "source": null,
+        "weight": 0,
+        "isMelee": false,
+        "damageDice": [],
+        "engagementDice": [],
+        "engagementSuccesses": [],
+        "skillMods": [],
+        "isDeleted": false,
+        "isCustom": false,
+        "artUrl": null
+      }
     }
   ],
   "activeEffects": [
@@ -178,5 +248,12 @@
   "mp": {
     "current": 3,
     "max": 5
-  }
+  },
+  "abilities": [
+    "e50350ea-0c67-4c29-bd54-f4f255ba2ffe",
+    "22b1ec3d-59a4-4cac-98a1-98a2286e9520",
+    "0eed3060-9397-4461-86ee-5392b24631b5",
+    "31c4d609-7d0f-40da-9197-2cddb3cdd58b",
+    "b2fc670c-2837-45a5-a8cb-0b9223acc76c"
+  ]
 }

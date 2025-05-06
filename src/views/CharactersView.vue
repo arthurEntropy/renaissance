@@ -90,13 +90,11 @@
           @edit-custom-equipment="openEditEquipmentModal"
         />
 
-        <!-- Add the EditEquipmentModal component -->
-        <EditEquipmentModal
-          v-if="showEditEquipmentModal"
-          :equipment="equipmentToEdit"
-          @update="saveEditedEquipment"
-          @close="closeEditEquipmentModal"
-          @delete="deleteCustomEquipment"
+        <!--Abilities Table-->
+        <AbilitiesTable
+          :character="selectedCharacter"
+          :allAbilities="allAbilities"
+          @update-character="updateCharacter"
         />
 
       </div>
@@ -132,6 +130,13 @@
         @close="closeDeleteConfirmationModal"
         @confirm="deleteCharacter"
       />
+      <EditEquipmentModal
+        v-if="showEditEquipmentModal"
+        :equipment="equipmentToEdit"
+        @update="saveEditedEquipment"
+        @close="closeEditEquipmentModal"
+        @delete="deleteCustomEquipment"
+      />
 
     </div>
   </div>
@@ -141,12 +146,14 @@
 import { mapState } from 'pinia';
 import { useCharacterStore } from '@/stores/characterStore';
 import { useEquipmentStore } from '@/stores/equipmentStore';
+import { useAbilitiesStore } from '@/stores/abilitiesStore';
 import CharacterService from '@/services/CharacterService';
 import EquipmentService from '@/services/EquipmentService';
 import SelectionCard from '@/components/ConceptCard.vue';
 import CharacterBioSection from '@/components/characterSheet/CharacterBioSection.vue';
 import CoreAbilityColumn from '@/components/characterSheet/CoreAbilityColumn.vue';
 import EquipmentTable from '@/components/characterSheet/EquipmentTable.vue';
+import AbilitiesTable from '@/components/characterSheet/AbilitiesTable.vue';
 import FullSizeCharacterArtModal from '@/components/modals/FullSizeCharacterArtModal.vue';
 import ChangeCharacterArtModal from '@/components/modals/ChangeCharacterArtModal.vue';
 import SkillCheckModal from '@/components/modals/SkillCheckModal.vue';
@@ -160,6 +167,7 @@ export default {
     CharacterBioSection,
     CoreAbilityColumn,
     EquipmentTable,
+    AbilitiesTable,
     FullSizeCharacterArtModal,
     ChangeCharacterArtModal,
     SkillCheckModal,
@@ -170,9 +178,11 @@ export default {
   data() {
     const characterStore = useCharacterStore();
     const equipmentStore = useEquipmentStore();
+    const abilitiesStore = useAbilitiesStore();
     return {
       characterStore,
       equipmentStore,
+      abilitiesStore,
       showFullSizeCharacterArtModal: false,
       showChangeCharacterArtModal: false,
       showSkillCheckModal: false,
@@ -192,6 +202,7 @@ export default {
   mounted() {
     this.characterStore.fetchCharacters();
     this.equipmentStore.fetchAllEquipment();
+    this.abilitiesStore.fetchAllAbilities();
   },
 
   computed: {
@@ -201,6 +212,9 @@ export default {
     },
     allEquipment() {
       return this.equipmentStore.equipment;
+    },
+    allAbilities() {
+      return this.abilitiesStore.abilities;
     },
     selectedCharacter: {
       get() {
