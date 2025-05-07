@@ -40,7 +40,7 @@
       <!-- Using MasonryGrid with draggable -->
       <masonry-grid
         v-if="!isEditMode"
-        :column-width="390"
+        :column-width="375"
         :gap="15"
         :row-height="10"
         class="abilities-grid"
@@ -404,7 +404,7 @@
       flex-direction: column;
       flex-grow: 1;
       align-items: left;
-      max-width: 800px;
+      max-width: 790px;
       background-color: black;  
       padding: 15px;
       border-radius: 5px;

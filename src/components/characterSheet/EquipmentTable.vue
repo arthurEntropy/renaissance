@@ -502,7 +502,7 @@
     flex-direction: column;
     flex-grow: 1;
     align-items: left;
-    max-width: 350px;
+    width: 350px;
     background-color: black;  
     padding: 15px;
     border-radius: 5px;

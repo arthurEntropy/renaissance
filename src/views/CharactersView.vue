@@ -64,15 +64,6 @@
               <input type="checkbox" class="skill-checkbox" v-model="selectedCharacter.conditions[key]" />
             </div>
           </div>
-          <!-- XP/MP -->
-          <div class="xp-mp-section">
-            <div class= "xp-mp-row">
-              <div class="xp-field">
-                <span class="skill-name">XP: </span>
-                <input type="number" v-model="selectedCharacter.xp" class="input-small"/>
-              </div>
-            </div>
-          </div>
         </div>
 
         <!--Equipment Table-->
@@ -625,7 +616,7 @@ export default {
     align-items: center;
     flex: 1;
     width: 100px;
-    margin: 0 20px;
+    margin: 0 20px 0 15px;
   }
   @media (max-width: 567px) {
     .conditions-column {
