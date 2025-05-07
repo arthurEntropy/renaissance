@@ -165,9 +165,14 @@
   
   export default {
     props: {
-      equipment: {
-        type: Object,
+      equipmentId: {
+        type: String,
         required: true,
+      },
+    },
+    computed: {
+      equipment() {
+        return this.equipmentStore.equipment.find(eq => eq.id === this.equipmentId);
       },
     },
   
@@ -206,13 +211,6 @@
       this.editedEquipment.engagementDice = this.editedEquipment.engagementDice || [];
       this.editedEquipment.damageDice = this.editedEquipment.damageDice || [];
       this.editedEquipment.skillMods = this.editedEquipment.skillMods || [];
-      
-      // Log for debugging
-      console.log("Modal initialized with:", {
-        name: this.editedEquipment.name,
-        isCustom: this.editedEquipment.isCustom,
-        weight: this.editedEquipment.weight
-      });
     },
   
     methods: {

@@ -80,12 +80,12 @@
                 <!-- Quantity -->
                 <div class="detail-item">
                   <em class="carried-label"> qty </em>
-                  <input
-                    type="number"
-                    v-model.number="row.quantity"
-                    min="1"
-                    class="input-small quantity-input"
-                    @input="updateEquipmentItem(index, 'quantity', Math.max(1, row.quantity))"
+                  <NumberInput
+                    :model-value="row.quantity"
+                    @update:model-value="value => updateEquipmentItem(index, 'quantity', Math.max(1, value))"
+                    :min="1"
+                    size="tiny"
+                    class="quantity-input"
                   />
                 </div>
 
@@ -156,6 +156,7 @@
   import EquipmentService from "@/services/EquipmentService";
   import { useEquipmentStore } from '@/stores/equipmentStore';
   import draggable from 'vuedraggable';
+  import NumberInput from "@/components/NumberInput.vue";
 
   export default {
     props: {
@@ -167,6 +168,7 @@
     components: {
       EquipmentCard,
       draggable,
+      NumberInput,
     },
     data() {
       return {
@@ -308,31 +310,31 @@
           ...updatedEquipment[index],
           [key]: value
         };
-        
+
         // Create a new character object with the updated equipment
         const updatedCharacter = {
           ...this.character,
           equipment: updatedEquipment
         };
-        
+
         // Emit the update event
         this.$emit("update-character", updatedCharacter);
       },
-      
+
       removeEquipmentItem(index) {
         const equipment = this.characterEquipmentRows[index].equipment;
         const name = equipment ? equipment.name : "this item";
         
         if (confirm(`Are you sure you want to remove ${name} from inventory?`)) {
           // Create a new array without the item at the given index
-          const updatedEquipment = this.character.equipment.filter((_, i) => i !== index);
-          
+        const updatedEquipment = this.character.equipment.filter((_, i) => i !== index);
+
           // Create a new character object with the updated equipment
-          const updatedCharacter = {
-            ...this.character,
+        const updatedCharacter = {
+          ...this.character,
             equipment: updatedEquipment
-          };
-          
+        };
+
           // Emit the update event
           this.$emit("update-character", updatedCharacter);
         }
@@ -347,18 +349,18 @@
           ...updatedEquipment[index],
           isCarried: isCarried
         };
-        
+
         // If unchecking carried, also uncheck wielding
         if (!isCarried && updatedEquipment[index].isWielding) {
           updatedEquipment[index].isWielding = false;
         }
-        
+
         // Create a new character object with the updated equipment
         const updatedCharacter = {
           ...this.character,
           equipment: updatedEquipment
         };
-        
+
         // Emit the update event
         this.$emit("update-character", updatedCharacter);
       },
@@ -399,11 +401,11 @@
       async addCustomEquipment() {
         // Hide the add options menu
         this.showAddOptions = false;
-        
+
         try {
           // Create a new custom equipment item using the service method
           const createdEquipment = await EquipmentService.createCustomEquipment();
-          
+
           // Add it to the character's equipment
           const newItem = {
             id: createdEquipment.id,
@@ -502,7 +504,8 @@
     flex-direction: column;
     flex-grow: 1;
     align-items: left;
-    width: 350px;
+    max-width: 350px;
+    min-width: 300px;
     background-color: black;  
     padding: 15px;
     border-radius: 5px;
@@ -610,19 +613,11 @@
     color: #ccc;
   }
   
-  .quantity-input {
-    width: 36px;
-    height: 14px;
-    padding: 0 2px;
-    margin: 0;
-    font-size: 12px;
-  }
-  
   .total-weight-container {
     display: flex;
     align-items: center;
     background-color: rgb(61, 61, 61);
-    padding: 8px 15px;
+    padding: 5px 10px;
     border-radius: 5px;
     width: auto;
     gap: 5px;

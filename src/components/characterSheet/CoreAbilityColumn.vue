@@ -4,12 +4,11 @@
     <!-- Core Ability Header -->
     <div class="core-ability-header">
       <h2>{{ columnConfig.title }}</h2>
-      <input
-        type="number"
-        :value="coreAbilityValue"
-        @input="updateCharacter(columnConfig.coreAbilityKey, Number($event.target.value))"
-        class="input-large"
-        min="0"
+      <NumberInput
+        :model-value="coreAbilityValue"
+        @update:model-value="updateCharacter(columnConfig.coreAbilityKey, $event)"
+        :min="0"
+        size="large"
       />
     </div>
 
@@ -40,32 +39,29 @@
     <!-- Virtue Row -->
     <div class="virtue-row">
       <span class="skill-name">{{ columnConfig.virtueLabel }}</span>
-      <input
-        type="number"
-        :value="virtueValue.current"
-        @input="updateCharacter(`${columnConfig.virtueKey}.current`, Number($event.target.value))"
-        class="input-small"
-        min="0"
+      <NumberInput
+        :model-value="virtueValue.current"
+        @update:model-value="updateCharacter(`${columnConfig.virtueKey}.current`, $event)"
+        :min="0"
+        size="small"
       />
       <span>/</span>
-      <input
-        type="number"
-        :value="virtueValue.max"
-        @input="updateCharacter(`${columnConfig.virtueKey}.max`, Number($event.target.value))"
-        class="input-small"
-        min="0"
+      <NumberInput
+        :model-value="virtueValue.max"
+        @update:model-value="updateCharacter(`${columnConfig.virtueKey}.max`, $event)"
+        :min="0"
+        size="small"
       />
     </div>
 
     <!-- Weakness Row -->
     <div class="weakness-row">
       <span class="skill-name">{{ columnConfig.weaknessLabel }}</span>
-      <input
-        type="number"
-        :value="weaknessValue"
-        @input="updateCharacter(columnConfig.weaknessKey, Number($event.target.value))"
-        class="input-small"
-        min="0"
+      <NumberInput
+        :model-value="weaknessValue"
+        @update:model-value="updateCharacter(columnConfig.weaknessKey, $event)"
+        :min="0"
+        size="small"
       />
     </div>
 
@@ -95,8 +91,12 @@
   
 <script>
 import CharacterService from "@/services/CharacterService";
+import NumberInput from "@/components/NumberInput"; // Adjust path as needed
 
 export default {
+  components: {
+    NumberInput
+  },
   props: {
     character: {
       type: Object,
@@ -279,6 +279,7 @@ export default {
     align-items: center;
     margin-bottom: 10px;
     height: 28px;
+    gap: 10px;
   }
   .skill-row {
     display: flex;
@@ -353,7 +354,7 @@ export default {
     margin-top: 10px;
   }
   .virtue-row {
-    grid-template-columns: 35% 20% 5% 20% 20%;
+    grid-template-columns: 35% 19% 8% 19% 19%;
   }
   .weakness-row {
     grid-template-columns: 35% 65%;
@@ -361,8 +362,6 @@ export default {
   .state-row {
     grid-template-columns: 35% 10% 10% 45%;
   }
-
-  
 
   /* CONDITIONAL STYLES */
   .favored {

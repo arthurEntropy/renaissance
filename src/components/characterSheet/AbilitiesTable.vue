@@ -18,20 +18,18 @@
           <em v-if="isEditMode" @click="toggleAbilitySelector($event)" class="add-item-text">add ability</em>
           <div class="mp-container">
             <span class="mp-label">MP:</span>
-            <input 
-              type="number" 
-              :value="character.mp.current"
-              @input="updateMpCurrent($event)" 
-              class="input-small" 
-              min="0"
+            <NumberInput
+              :model-value="character.mp.current"
+              @update:model-value="updateMpCurrent"
+              :min="0"
+              size="small"
             />
             <span>/</span>
-            <input 
-              type="number" 
-              :value="character.mp.max"
-              @input="updateMpMax($event)" 
-              class="input-small" 
-              min="0"
+            <NumberInput
+              :model-value="character.mp.max"
+              @update:model-value="updateMpMax"
+              :min="0"
+              size="small"
             />
           </div>
         </div>
@@ -125,6 +123,7 @@
     import AbilityCard from "@/components/AbilityCard.vue";
     import draggable from 'vuedraggable';
     import MasonryGrid from '@/components/MasonryGrid.vue';
+    import NumberInput from '@/components/NumberInput.vue';
   
     export default {
       props: {
@@ -141,7 +140,8 @@
       components: {
         AbilityCard,
         draggable,
-        MasonryGrid
+        MasonryGrid,
+        NumberInput,
       },
       data() {
         return {
@@ -244,8 +244,7 @@
         },
         
         // MP Management
-        updateMpCurrent(event) {
-          const value = parseInt(event.target.value);
+        updateMpCurrent(value) {
           if (!isNaN(value)) {
             const updatedCharacter = {
               ...this.character,
@@ -257,9 +256,8 @@
             this.$emit("update-character", updatedCharacter);
           }
         },
-        
-        updateMpMax(event) {
-          const value = parseInt(event.target.value);
+
+        updateMpMax(value) {
           if (!isNaN(value)) {
             const updatedCharacter = {
               ...this.character,
@@ -402,9 +400,10 @@
     .abilities-table {
       display: flex;
       flex-direction: column;
-      flex-grow: 1;
       align-items: left;
+      width: 790px;
       max-width: 790px;
+      min-width: 300px;
       background-color: black;  
       padding: 15px;
       border-radius: 5px;
