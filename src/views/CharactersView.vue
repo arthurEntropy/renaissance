@@ -60,8 +60,13 @@
           <div class="conditions-column">
             <div class="conditions-header">Conditions</div>
             <div class="conditions-row" v-for="(value, key) in selectedCharacter.conditions" :key="key">
-              <span>{{ this.$capitalizeFirstLetter(key) }}</span>
-              <input type="checkbox" class="skill-checkbox" v-model="selectedCharacter.conditions[key]" />
+              <span :class="{ 'condition-active': value }">{{ this.$capitalizeFirstLetter(key) }}</span>
+              <input 
+                type="checkbox" 
+                class="skill-checkbox" 
+                :class="{ 'condition-active-checkbox': value }"
+                v-model="selectedCharacter.conditions[key]" 
+              />
             </div>
           </div>
         </div>
@@ -640,26 +645,13 @@ export default {
     height: 25px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   }
-  .xp-mp-section {
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    right: 25px;
-    bottom: 10px;
+  .condition-active {
+    color: red;
+    text-shadow: 0px 0px 5px red;
   }
-  @media (max-width: 567px) {
-    .xp-mp-section {
-      right: 0;
-      bottom: 0;
-      margin: 20px;
-      align-items: center;
-    }
-  }
-  .xp-mp-row {
-    display: flex;
-    align-items: center;
-    justify-content: right;
-    margin: 5px 0;
+
+  .condition-active-checkbox {
+    box-shadow: 0px 0px 10px cyan;
   }
 
 </style>

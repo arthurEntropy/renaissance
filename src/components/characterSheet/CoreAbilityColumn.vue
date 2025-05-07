@@ -1,90 +1,97 @@
 <template>
-    <div class="core-ability-column">
+  <div class="core-ability-column">
 
-      <!-- Core Ability Header -->
-      <div class="core-ability-header">
-        <h2>{{ columnConfig.title }}</h2>
-        <input
-          type="number"
-          :value="coreAbilityValue"
-          @input="updateCharacter(columnConfig.coreAbilityKey, Number($event.target.value))"
-          class="input-large"
-          min="0"
-        />
-      </div>
-  
-      <!-- Skills -->
-      <div v-for="(skill) in skills" :key="skill.name" class="skill-row">
-        <span class="skill-name-clickable" @click="$emit('open-skill-check', skill.name)">
-          {{ skill.name }}
-        </span>
-        <span class="d12-symbol" :class="getStyleClassForFavoredStatus(skill)">⭓</span>
-        <div class="skill-checkbox-group">
-          <input
-            v-for="(n, checkboxIndex) in 5"
-            :key="checkboxIndex"
-            type="checkbox"
-            :checked="isCheckboxChecked(skill, checkboxIndex)"
-            @click="handleCheckboxChange(skill.name, checkboxIndex)"
-            class="skill-checkbox"
-            :class="getStyleClassForDiceMod(skill, checkboxIndex)"
-          />
-        </div>
-      </div>
-  
-      <!-- Virtue Row -->
-      <div class="virtue-row">
-        <span class="skill-name">{{ columnConfig.virtueLabel }}</span>
-        <input
-          type="number"
-          :value="virtueValue.current"
-          @input="updateCharacter(`${columnConfig.virtueKey}.current`, Number($event.target.value))"
-          class="input-small"
-          min="0"
-        />
-        <span>/</span>
-        <input
-          type="number"
-          :value="virtueValue.max"
-          @input="updateCharacter(`${columnConfig.virtueKey}.max`, Number($event.target.value))"
-          class="input-small"
-          min="0"
-        />
-      </div>
-  
-      <!-- Weakness Row -->
-      <div class="weakness-row">
-        <span class="skill-name">{{ columnConfig.weaknessLabel }}</span>
-        <input
-          type="number"
-          :value="weaknessValue"
-          @input="updateCharacter(columnConfig.weaknessKey, Number($event.target.value))"
-          class="input-small"
-          min="0"
-        />
-      </div>
-  
-      <!-- State Row -->
-      <div class="state-row">
-        <span class="skill-name">{{ this.$capitalizeFirstLetter(columnConfig.firstStateKey) }}</span>
-        <input
-          type="checkbox"
-          :checked="firstStateValue"
-          @change="updateCharacter(columnConfig.firstStateKey, $event.target.checked)"
-          class="skill-checkbox"
-        />
-        <input
-          type="checkbox"
-          :checked="secondStateValue"
-          @change="updateCharacter(columnConfig.secondStateKey, $event.target.checked)"
-          class="skill-checkbox"
-        />
-        <span></span> <!-- Empty span for alignment -->
-        <span></span> <!-- Empty span for alignment -->
-      </div>
-
+    <!-- Core Ability Header -->
+    <div class="core-ability-header">
+      <h2>{{ columnConfig.title }}</h2>
+      <input
+        type="number"
+        :value="coreAbilityValue"
+        @input="updateCharacter(columnConfig.coreAbilityKey, Number($event.target.value))"
+        class="input-large"
+        min="0"
+      />
     </div>
-  </template>
+
+    <!-- Skills -->
+    <div v-for="(skill) in skills" :key="skill.name" class="skill-row">
+      <span class="skill-name-clickable" @click="$emit('open-skill-check', skill.name)">
+        {{ skill.name }}
+      </span>
+      <i class="dice-icon d12-icon" :class="[getDiceFontClass(12, 12), getStyleClassForFavoredStatus(skill)]"></i>
+      <div class="dice-group">
+        <i
+          v-for="(n, diceIndex) in 5"
+          :key="diceIndex"
+          :class="[
+            getDiceFontClass(6, 6),
+            {
+              'dice-active': isRankActive(skill, diceIndex),
+              'dice-added': isDiceAdded(skill, diceIndex),
+              'dice-subtracted': isDiceSubtracted(skill, diceIndex)
+            }
+          ]"
+          @click="handleDiceClick(skill.name, diceIndex)"
+          class="dice-icon d6-icon"
+        ></i>
+      </div>
+    </div>
+
+    <!-- Virtue Row -->
+    <div class="virtue-row">
+      <span class="skill-name">{{ columnConfig.virtueLabel }}</span>
+      <input
+        type="number"
+        :value="virtueValue.current"
+        @input="updateCharacter(`${columnConfig.virtueKey}.current`, Number($event.target.value))"
+        class="input-small"
+        min="0"
+      />
+      <span>/</span>
+      <input
+        type="number"
+        :value="virtueValue.max"
+        @input="updateCharacter(`${columnConfig.virtueKey}.max`, Number($event.target.value))"
+        class="input-small"
+        min="0"
+      />
+    </div>
+
+    <!-- Weakness Row -->
+    <div class="weakness-row">
+      <span class="skill-name">{{ columnConfig.weaknessLabel }}</span>
+      <input
+        type="number"
+        :value="weaknessValue"
+        @input="updateCharacter(columnConfig.weaknessKey, Number($event.target.value))"
+        class="input-small"
+        min="0"
+      />
+    </div>
+
+    <!-- State Row -->
+    <div class="state-row">
+      <span class="skill-name" :class="{ 'state-active': firstStateValue }">{{ this.$capitalizeFirstLetter(columnConfig.firstStateKey) }}</span>
+      <input
+        type="checkbox"
+        :checked="firstStateValue"
+        @change="updateCharacter(columnConfig.firstStateKey, $event.target.checked)"
+        class="skill-checkbox"
+        :class="{ 'state-active-checkbox': firstStateValue }"
+      />
+      <input
+        type="checkbox"
+        :checked="secondStateValue"
+        @change="updateCharacter(columnConfig.secondStateKey, $event.target.checked)"
+        class="skill-checkbox"
+        :class="{ 'state-active-checkbox': secondStateValue }"
+      />
+      <span></span> <!-- Empty span for alignment -->
+      <span></span> <!-- Empty span for alignment -->
+    </div>
+
+  </div>
+</template>
   
 <script>
 import CharacterService from "@/services/CharacterService";
@@ -164,11 +171,42 @@ export default {
     },
   },
   methods: {
+    // Get the dice font class for the specified die type and value
+    getDiceFontClass(sides, value) {
+      return `df-d${sides}-${value}`;
+    },
+    
+    // Determine if the rank is active (either from base ranks or positive dice mod)
+    isRankActive(skill, diceIndex) {
+      return this.isCheckboxChecked(skill, diceIndex);
+    },
+    
+    // Determine if this die is added by a positive dice mod
+    isDiceAdded(skill, diceIndex) {
+      return diceIndex >= skill.ranks && 
+             diceIndex < skill.ranks + skill.diceMod && 
+             skill.diceMod > 0;
+    },
+    
+    // Determine if this die is subtracted by a negative dice mod
+    isDiceSubtracted(skill, diceIndex) {
+      return skill.ranks - diceIndex <= Math.abs(skill.diceMod) && 
+             skill.diceMod < 0 &&
+             diceIndex < skill.ranks;
+    },
+    
+    // Handle clicks on the dice icons, same logic as checkbox clicks
+    handleDiceClick(skillName, diceIndex) {
+      this.handleCheckboxChange(skillName, diceIndex);
+    },
+    
+    // Existing methods remain unchanged
     getStyleClassForFavoredStatus(skill) {
       if (skill.isFavored && !skill.isIllFavored) return "favored";
       if (skill.isIllFavored && !skill.isFavored) return "ill-favored";
       return "";
     },
+    
     isCheckboxChecked(skill, checkboxIndex) {
       const withinRanks = checkboxIndex < skill.ranks;
       const withinDiceMod =
@@ -177,6 +215,7 @@ export default {
         skill.diceMod > 0;
       return withinRanks || withinDiceMod;
     },
+    
     getStyleClassForDiceMod(skill, checkboxIndex) {
       return {
         diceSubtracted:
@@ -188,6 +227,7 @@ export default {
           skill.diceMod > 0,
       };
     },
+    
     handleCheckboxChange(skillName, checkboxIndex) {
       const skill = this.character.skills.find((s) => s.name === skillName);
       const newRank = checkboxIndex + 1;
@@ -199,7 +239,7 @@ export default {
       CharacterService.updateFavoredStatus(this.character);
       this.$emit("update-character", this.character);
     },
-    // TODO: This seems overly complex for what it's doing, but I can't find a better way at the moment.
+    
     updateCharacter(key, value) {
       const keys = key.split('.'); // Split the key into parts for nested properties
       let target = this.character;
@@ -261,22 +301,48 @@ export default {
     color: white;
     text-shadow: 0px 0px 5px goldenrod;
   }
-  .d12-symbol {
+  
+  /* Dice styling */
+  .dice-icon {
+    font-size: 24px;
+    cursor: pointer;
+    transition: color 0.2s, opacity 0.2s;
+  }
+  
+  .d12-icon {
     margin-left: auto;
     margin-right: 8px;
-    font-size: 18px;
     width: 25px;
     text-align: center;
     border-radius: 5px;
   }
-  .skill-checkbox-group {
+  
+  .dice-group {
     display: flex;
     gap: 5px;
     margin: 0 4px;
   }
-  .skill-checkbox {
-    margin-left: 5px;
+  
+  .d6-icon {
+    opacity: 0.4;
+    color: #888;
   }
+  
+  .dice-active {
+    opacity: 1;
+    color: white;
+  }
+  
+  .dice-added {
+    color: lightgreen;
+    text-shadow: 0px 0px 5px lightgreen;
+  }
+  
+  .dice-subtracted {
+    color: red;
+    text-shadow: 0px 0px 5px red;
+  }
+  
   .virtue-row,
   .weakness-row,
   .state-row {
@@ -296,19 +362,27 @@ export default {
     grid-template-columns: 35% 10% 10% 45%;
   }
 
+  
+
   /* CONDITIONAL STYLES */
   .favored {
-    background-color: rgb(110, 221, 110);
-    color: black;
+    color: lightgreen;
+    text-shadow: 0px 0px 5px lightgreen;
   }
   .ill-favored {
-    background-color: rgb(254, 135, 135);
-    color: black;
+    color: red;
+    text-shadow: 0px 0px 5px red;
   }
-  .diceSubtracted {
-    accent-color: teal; /* Dice checkbox colors are inverted */
+  .state-active {
+    color: red;
+    text-shadow: 0px 0px 5px red;
   }
-  .diceAdded {
-    accent-color: purple; /* Dice checkbox colors are inverted */
+  .state-active-checkbox {
+    box-shadow: 0px 0px 10px cyan;
+  }
+  
+  /* Keep checkbox styles for state checkboxes */
+  .skill-checkbox {
+    margin-left: 5px;
   }
 </style>

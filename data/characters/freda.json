@@ -17,7 +17,7 @@
     },
     {
       "name": "Strength",
-      "ranks": 0,
+      "ranks": 5,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0
@@ -33,8 +33,8 @@
       "name": "Fortitude",
       "ranks": 0,
       "isFavored": true,
-      "isIllFavored": false,
-      "diceMod": 0
+      "isIllFavored": true,
+      "diceMod": -1
     },
     {
       "name": "Craft",
@@ -48,100 +48,100 @@
       "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 1
+      "diceMod": 0
     },
     {
       "name": "Insight",
       "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 0
+      "diceMod": -1
     },
     {
       "name": "Courtesy",
-      "ranks": 2,
+      "ranks": 4,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 0
+      "diceMod": -1
     },
     {
       "name": "Spirit",
-      "ranks": 0,
+      "ranks": 3,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 0
+      "diceMod": -2
     },
     {
       "name": "Aid",
       "ranks": 0,
       "isFavored": false,
       "isIllFavored": true,
-      "diceMod": -1
+      "diceMod": -2
     },
     {
       "name": "Persuade",
       "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 0
+      "diceMod": -1
     },
     {
       "name": "Awareness",
       "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 0
+      "diceMod": -1
     },
     {
       "name": "Stealth",
       "ranks": 0,
       "isFavored": false,
-      "isIllFavored": false,
-      "diceMod": 0
+      "isIllFavored": true,
+      "diceMod": -1
     },
     {
       "name": "Lore",
       "ranks": 1,
       "isFavored": false,
-      "isIllFavored": false,
-      "diceMod": 0
+      "isIllFavored": true,
+      "diceMod": -2
     },
     {
       "name": "Riddle",
       "ranks": 0,
       "isFavored": false,
       "isIllFavored": true,
-      "diceMod": -1
+      "diceMod": -2
     }
   ],
   "endurance": {
-    "current": 10,
+    "current": 4,
     "max": 10
   },
   "hope": {
-    "current": 12,
+    "current": 5,
     "max": 12
   },
   "defense": {
-    "current": 13,
+    "current": 7,
     "max": 13
   },
   "load": 0,
-  "shadow": 0,
-  "injury": 0,
+  "shadow": 6,
+  "injury": 8,
   "states": {
     "weary": false,
     "twiceWeary": false,
-    "miserable": false,
+    "miserable": true,
     "twiceMiserable": false,
-    "helpless": false,
+    "helpless": true,
     "twiceHelpless": false
   },
   "conditions": {
     "insecure": false,
     "guilty": false,
     "angry": false,
-    "afraid": false,
+    "afraid": true,
     "troubled": true
   },
   "equipment": [
