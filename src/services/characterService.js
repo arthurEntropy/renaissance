@@ -208,6 +208,7 @@ class CharacterService {
       id: equipmentItem.id,
       quantity: equipmentItem.quantity || 1,
       isCarried: equipmentItem.isCarried !== undefined ? equipmentItem.isCarried : true,
+      isWielding: equipmentItem.isWielding || false, // Include wielding state
       order: maxOrder + 1 // Add order property
     });
     this.calculateLoad(character);

@@ -105,7 +105,9 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    margin-bottom: 10px;
+    background-color: black;
+    border-radius: 5px;
+    margin: 10px;
   }
   .character-art {
     position: relative;

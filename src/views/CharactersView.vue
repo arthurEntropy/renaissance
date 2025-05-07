@@ -72,12 +72,6 @@
                 <input type="number" v-model="selectedCharacter.xp" class="input-small"/>
               </div>
             </div>
-            <div class="xp-mp-row">
-                <span class="skill-name">MP: </span>
-                <input type="number" v-model="selectedCharacter.mp.current" class="input-small" min="0"/>
-                <span>/</span>
-                <input type="number" v-model="selectedCharacter.mp.max" class="input-small" min="0"/>
-              </div>
           </div>
         </div>
 
@@ -493,8 +487,10 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: rgba(0,0,0,0.65);
+    background: rgb(17, 17, 17);
+    border-radius: 5px;
     width: 80%;
+    max-width: 1200px;
     max-height: 100%;
     padding: 20px;
     position: relative;
@@ -538,14 +534,7 @@ export default {
     flex-wrap: wrap;
     width: 100%;
     justify-content: center;
-  }
-  .core-ability-column {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    flex: 1;
-    max-width: 300px;
-    margin: 10px 30px;
+    gap: 10px;
   }
   .core-ability-header {
     display: flex;
@@ -627,6 +616,8 @@ export default {
   .conditions-column-container {
     display: flex;
     flex-direction: column;
+    background-color: black;
+    border-radius: 5px;
   }
   .conditions-column {
     display: flex;
@@ -644,7 +635,7 @@ export default {
   .conditions-header {
     display: flex;
     align-items: end;
-    margin: 10px 0px;
+    margin: 12px 0px;
     font-size: 14px;
     font-style: italic;
     height: 28px
@@ -655,7 +646,8 @@ export default {
     justify-content: space-between;
     width: 100%;
     margin: 5px 0;
-    height: 25px
+    height: 25px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   }
   .xp-mp-section {
     display: flex;

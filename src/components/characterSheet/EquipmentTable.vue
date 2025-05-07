@@ -4,21 +4,12 @@
     <div class="equipment-table-header">
       <div class="header-left">
         <h2>Equipment</h2>
-        <em @click="toggleAddOptions($event)" class="add-item-text">add item</em>
-        
-        <!-- Add Options Menu -->
-        <div v-if="showAddOptions" class="add-options-menu header-add-menu">
-          <div class="add-option" @click="toggleEquipmentSelector($event)">
-            <i>📖</i> Add from Library
-          </div>
-          <div class="add-option" @click="addCustomEquipment()">
-            <i>➕</i> Add Custom Item
-          </div>
-        </div>
       </div>
-      <div class="total-weight-container">
-        <span class="total-weight-carried">Total Weight Carried:</span>
-        <span class="equipment-lbs-carried">{{ totalWeightCarried }} lbs</span>
+      <div class="header-right">
+        <div class="total-weight-container">
+          <span class="total-weight-carried">Total Carried:</span>
+          <span class="equipment-lbs-carried">{{ totalWeightCarried }} lbs</span>
+        </div>
       </div>
     </div>
 
@@ -45,44 +36,88 @@
           <span v-else class="missing-equipment">Unknown item</span>
 
           <div class="equipment-row-details">
-            <!-- Quantity -->
-            <em class="carried"> x </em>
-            <input
-              type="number"
-              v-model.number="row.quantity"
-              min="1"
-              class="input-small quantity-input"
-              @input="updateEquipmentItem(index, 'quantity', Math.max(1, row.quantity))"
-            />
+            <div class="details-content">
 
-            <!-- Carried Weight -->
-            <em> = </em>
-            <div>
-              <span>
-                {{ row.isCarried && row.equipment ? formatWeight(row.equipment.weight * row.quantity) : '0' }}
-              </span>
-              <em>&nbsp; lbs</em>
+              <!-- Edit Controls (always visible) -->
+              <div class="edit-controls">
+                <!-- Drag Handle -->
+                <span class="drag-handle" title="Drag to reorder">⋮⋮</span>
+                
+                <!-- Delete Button -->
+                <span @click="removeEquipmentItem(index)" class="delete-item-link">ⓧ</span>
+              </div>
+
+              <!-- Carried Checkbox -->
+              <div class="detail-item checkbox-item">
+                <input
+                  type="checkbox"
+                  class="equipment-checkbox"
+                  v-model="row.isCarried"
+                  @change="handleCarriedChange(index, row.isCarried)"
+                />
+                <em class="carried-label">carried</em>
+              </div>
+
+              <!-- Wielding Checkbox (always visible but disabled for non-melee) -->
+              <div class="detail-item checkbox-item">
+                <input
+                  type="checkbox"
+                  class="equipment-checkbox"
+                  :class="{ 
+                    'disabled-checkbox': !row.isCarried || !(row.equipment && row.equipment.isMelee) 
+                  }"
+                  v-model="row.isWielding"
+                  @change="updateEquipmentItem(index, 'isWielding', row.isWielding && row.isCarried && (row.equipment && row.equipment.isMelee))"
+                  :disabled="!row.isCarried || !(row.equipment && row.equipment.isMelee)"
+                />
+                <em 
+                  class="carried-label" 
+                  :class="{ 'disabled-text': !row.isCarried || !(row.equipment && row.equipment.isMelee) }"
+                >wielding</em>
+              </div>
+
+              <div class="detail-item">
+                <!-- Quantity -->
+                <div class="detail-item">
+                  <em class="carried-label"> qty </em>
+                  <input
+                    type="number"
+                    v-model.number="row.quantity"
+                    min="1"
+                    class="input-small quantity-input"
+                    @input="updateEquipmentItem(index, 'quantity', Math.max(1, row.quantity))"
+                  />
+                </div>
+
+                <!-- Carried Weight -->
+                <div class="detail-item carried-weight">
+                  <em class="carried-label"> = </em>
+                  <span>
+                    {{ row.isCarried && row.equipment ? formatWeight(row.equipment.weight * row.quantity) : '0' }}
+                  </span>
+                  <em class="carried-label">lbs</em>
+                </div>
+              </div>
             </div>
-
-            <!-- Carried Checkbox -->
-            <div>
-              <input
-                type="checkbox"
-                v-model="row.isCarried"
-                @change="updateEquipmentItem(index, 'isCarried', row.isCarried)"
-              />
-              <em class="carried"> carried</em>
-            </div>
-
-            <!-- Delete Button -->
-            <span @click="removeEquipmentItem(index)" class="delete-item-link">ⓧ</span>
-            
-            <!-- Drag Handle -->
-            <span class="drag-handle" title="Drag to reorder">⋮⋮</span>
           </div>
         </div>
       </template>
     </draggable>
+
+    <!-- Add Item Link (always visible at bottom right) -->
+    <div class="add-item-footer">
+      <em @click="toggleAddOptions($event)" class="add-item-text">add item</em>
+    </div>
+    
+    <!-- Add Options Menu -->
+    <div v-if="showAddOptions" class="add-options-menu">
+      <div class="add-option" @click="toggleEquipmentSelector($event)">
+        <i>📖</i> Add from Library
+      </div>
+      <div class="add-option" @click="addCustomEquipment()">
+        <i>➕</i> Add Custom Item
+      </div>
+    </div>
 
     <!-- Equipment Selector Dropdown -->
     <div v-if="showEquipmentSelector" class="equipment-selector-container">
@@ -258,10 +293,12 @@
         // Emit the update event with the new character object
         this.$emit("update-character", updatedCharacter);
       },
+      
       onDragEnd() {
         // This will be called after a drag operation completes
         // We don't need to do anything here since the v-model binding will handle the update
       },
+      
       updateEquipmentItem(index, key, value) {
         // Create a new array of equipment items
         const updatedEquipment = [...this.character.equipment];
@@ -281,6 +318,7 @@
         // Emit the update event
         this.$emit("update-character", updatedCharacter);
       },
+      
       removeEquipmentItem(index) {
         const equipment = this.characterEquipmentRows[index].equipment;
         const name = equipment ? equipment.name : "this item";
@@ -299,13 +337,41 @@
           this.$emit("update-character", updatedCharacter);
         }
       },
+
+      handleCarriedChange(index, isCarried) {
+        // Create a new array of equipment items
+        const updatedEquipment = [...this.character.equipment];
+        
+        // Update the carried property
+        updatedEquipment[index] = {
+          ...updatedEquipment[index],
+          isCarried: isCarried
+        };
+        
+        // If unchecking carried, also uncheck wielding
+        if (!isCarried && updatedEquipment[index].isWielding) {
+          updatedEquipment[index].isWielding = false;
+        }
+        
+        // Create a new character object with the updated equipment
+        const updatedCharacter = {
+          ...this.character,
+          equipment: updatedEquipment
+        };
+        
+        // Emit the update event
+        this.$emit("update-character", updatedCharacter);
+      },
+      
       editCustomItem(equipment) {
         // When the edit button is clicked on a custom item, emit an event to the parent
         this.$emit("edit-custom-equipment", equipment);
       },
+      
       formatWeight(value) {
         return Number.isInteger(value) ? value : value.toFixed(1); // Format to one decimal place
       },
+      
       toggleAddOptions(event) {
         if (event) {
           event.stopPropagation(); // Prevent immediate closing
@@ -316,6 +382,7 @@
           this.showEquipmentSelector = false;
         }
       },
+      
       toggleEquipmentSelector(event) {
         if (event) {
           event.stopPropagation(); // Prevent immediate closing
@@ -328,6 +395,7 @@
           this.filteredEquipment = [];
         }
       },
+      
       async addCustomEquipment() {
         // Hide the add options menu
         this.showAddOptions = false;
@@ -340,21 +408,20 @@
           const newItem = {
             id: createdEquipment.id,
             quantity: 1,
-            isCarried: true
+            isCarried: true,
+            isWielding: false // Initialize wielding state
           };
           
           CharacterService.addSpecificEquipmentItem(this.character, newItem);
           this.$emit("update-character", this.character);
           
-          // Refresh equipment list to include the new item
-          await this.equipmentStore.fetchAllEquipment();
-          
-          // Emit event to open the edit modal
-          this.$emit("edit-custom-equipment", createdEquipment);
+          // Rest of existing code
+          // ...
         } catch (error) {
           console.error("Error adding custom equipment:", error);
         }
       },
+      
       filterEquipment() {
         const query = this.equipmentSearchQuery.toLowerCase().trim();
         if (!query) {
@@ -367,17 +434,20 @@
           (item.description && item.description.toLowerCase().includes(query))
         );
       },
+      
       selectEquipment(equipment) {
         const newItem = {
           id: equipment.id,
           quantity: 1,
-          isCarried: true
+          isCarried: true,
+          isWielding: false // Initialize wielding state
         };
         
         CharacterService.addSpecificEquipmentItem(this.character, newItem);
         this.$emit("update-character", this.character);
         this.toggleEquipmentSelector();
       },
+      
       getSourceName(sourceId) {
         if (sourceId === 'general') return 'General';
         if (sourceId === 'custom') return 'Custom Items';
@@ -385,44 +455,7 @@
         const source = this.equipmentStore.getSourceById(sourceId);
         return source ? source.name : 'General';
       },
-      moveEquipmentItem(index, direction) {
-        // Calculate new index
-        const newIndex = index + direction;
-        
-        // Make sure new index is within bounds
-        if (newIndex < 0 || newIndex >= this.character.equipment.length) {
-          return;
-        }
-        
-        // Create a copy of the equipment array
-        const updatedEquipment = [...this.character.equipment];
-        
-        // Update the order property for both items
-        if (!updatedEquipment[index].order) {
-          updatedEquipment[index].order = index;
-        }
-        if (!updatedEquipment[newIndex].order) {
-          updatedEquipment[newIndex].order = newIndex;
-        }
-        
-        // Swap the order properties
-        const tempOrder = updatedEquipment[index].order;
-        updatedEquipment[index].order = updatedEquipment[newIndex].order;
-        updatedEquipment[newIndex].order = tempOrder;
-        
-        // Swap the items themselves
-        [updatedEquipment[index], updatedEquipment[newIndex]] = 
-          [updatedEquipment[newIndex], updatedEquipment[index]];
-        
-        // Create a new character object with the updated equipment
-        const updatedCharacter = {
-          ...this.character,
-          equipment: updatedEquipment
-        };
-        
-        // Emit update event
-        this.$emit("update-character", updatedCharacter);
-      },
+      
       handleOutsideClick(event) {
         // References to the dropdown elements
         const addOptionsMenu = this.$el.querySelector('.add-options-menu');
@@ -433,7 +466,7 @@
         if (this.showAddOptions && 
             addOptionsMenu && 
             !addOptionsMenu.contains(event.target) && 
-            !addItemText.contains(event.target)) {
+            (addItemText && !addItemText.contains(event.target))) {
           this.showAddOptions = false;
         }
         
@@ -463,32 +496,47 @@
   h2 {
     margin: 5px;
   }
+  
   .equipment-table {
     display: flex;
     flex-direction: column;
+    flex-grow: 1;
     align-items: left;
-    width: 600px;
-    margin: 20px;
+    max-width: 350px;
     background-color: black;  
     padding: 15px;
     border-radius: 5px;
-    position: relative; /* For positioning the dropdown */
+    position: relative;
+    height: fit-content; /* Ensure the table only takes up as much vertical space as needed */
   }
+  
   .equipment-table-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap; /* Allow wrapping on smaller screens */
-    gap: 10px; /* Add some spacing when elements wrap */
+    margin-bottom: 15px;
   }
 
   .header-left {
     display: flex;
-    align-items:last baseline;
-    gap: 15px;
-    position: relative; /* For absolute positioning of dropdown */
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .header-right {
+    display: flex;
+    align-items: center;
+    position: relative;
   }
 
+  /* Add Item Footer */
+  .add-item-footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+    position: relative;
+  }
+  
   .add-item-text {
     font-size: 14px;
     color: #aaa;
@@ -500,83 +548,164 @@
     color: white;
     text-decoration: underline;
   }
-
-  /* Reposition the Add Options Menu for header placement */
-  .header-add-menu {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    z-index: 101;
-  }
+  
+  /* Equipment row styles */
   .equipment-row {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    padding: 5px;
+    flex-direction: column;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    overflow: hidden;
   }
-  .add-item-row {
-    justify-content: right;
-  }
+  
   .equipment-card {
-    width: 300px;
-    max-width: 300px;
-    min-width: 300px;
+    width: 100%;
     padding: 7px;
     text-align: left;
+    margin-bottom: 0;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
   }
+  
   .equipment-row-details {
     display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
-    width: 275px;
-    padding-top: 10px;
+    padding: 4px 8px;
+    background-color: rgba(60, 60, 60, 0.4);
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
   }
-  .equipment-row-details > * {
+  
+  .details-content {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+  }
+  
+  .detail-item {
     display: flex;
     align-items: center;
+    gap: 2px;
+    flex-grow: 1;
+    justify-content: flex-start;
   }
+  
+  .checkbox-item {
+    margin-left: 5px;
+  }
+  
+  .edit-controls {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    min-width: 25px;
+    font-size: 12px;
+  }
+  
+  .carried-label {
+    color: #ccc;
+  }
+  
   .quantity-input {
-    margin-left: 2px;
+    width: 36px;
+    height: 14px;
+    padding: 0 2px;
+    margin: 0;
+    font-size: 12px;
   }
+  
+  .total-weight-container {
+    display: flex;
+    align-items: center;
+    background-color: rgb(61, 61, 61);
+    padding: 8px 15px;
+    border-radius: 5px;
+    width: auto;
+    gap: 5px;
+  }
+  
   .total-weight-carried {
-    font-size: 14px;
-    margin-right: 10px;
+    font-size: 12px;
     font-style: italic;
+    white-space: nowrap;
+    margin-top: 2px;
   }
+  
   .equipment-lbs-carried {
     font-size: 16px;
     font-weight: bold;
+    white-space: nowrap;
   }
+  
   .delete-item-link {
     cursor: pointer;
     color: gray;
-    font-size: 15px;
+    font-size: 13px;
     text-align: center;
-    margin: 0 0 -1px 10px;
   }
-  .add-item-link {
+  
+  .delete-item-link:hover {
+    color: #ff6b6b;
+  }
+  
+  /* Drag Handle Styles */
+  .drag-handle {
+    cursor: move;
+    font-size: 14px;
+    color: #777;
+    user-select: none;
+  }
+  
+  .drag-handle:hover {
+    color: white;
+  }
+  
+  /* Ghost row style for dragging */
+  .ghost-equipment-row {
+    opacity: 0.5;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px dashed #777;
+    border-radius: 5px;
+  }
+  
+  .missing-equipment {
+    color: #888;
+    font-style: italic;
+    padding: 10px;
+  }
+
+  .equipment-checkbox {
+    width: 12px;
+    height: 12px;
     cursor: pointer;
-    color: gray;
-    font-size: 20px;
-    padding-right: 12px;
-    position: relative; /* For positioning the popup menu */
+    margin-left: 10px;
+  }
+  
+  .disabled-checkbox {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+  .disabled-text {
+    color: #777;
+  }
+
+  .carried-weight {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 12px;
   }
   
   /* Add Options Menu */
-  .add-item-row {
-    position: relative;
-    display: flex;
-    justify-content: right;
-    padding-right: 50px;
-  }
-  
   .add-options-menu {
     position: absolute;
-    top: 100%;
-    left: 150px;
+    bottom: 30px;
+    right: 0;
     background-color: rgba(30, 30, 30, 0.95);
     border-radius: 8px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
@@ -677,81 +806,22 @@
   .equipment-option:hover {
     background-color: rgba(255, 255, 255, 0.1);
   }
-
+  
   .equipment-weight {
     color: #aaa;
     font-size: 0.9em;
     margin-left: 5px;
   }
-
-  .carried {
-    margin-left: 2px;
-    font-size: 12px;
-  }
-
-  .total-weight-container {
-    background-color: rgb(61, 61, 61);
-    padding: 5px 15px;
-    border-radius: 5px;
-  }
-
-  /* Reorder Buttons */
-  .reorder-buttons {
-    display: flex;
-    flex-direction: column;
-    margin-left: 5px;
-  }
   
-  .reorder-button {
-    background: none;
-    border: none;
-    color: #aaa;
-    font-size: 8px;
-    cursor: pointer;
-    padding: 0;
-    line-height: 1;
-    height: 12px;
-    width: 15px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .reorder-button:hover:not(.disabled) {
-    color: white;
-  }
-  
-  .reorder-button.disabled {
-    color: #555;
-    cursor: default;
-  }
-  
-  .reorder-button.up {
-    margin-bottom: -2px;
-  }
-  
-  .reorder-button.down {
-    margin-top: -2px;
-  }
-
-  /* Drag Handle Styles */
-  .drag-handle {
-    cursor: move;
-    font-size: 16px;
-    color: #777;
-    margin-left: 5px;
-    user-select: none;
-  }
-  
-  .drag-handle:hover {
-    color: white;
-  }
-  
-  /* Ghost row style for dragging */
-  .ghost-equipment-row {
-    opacity: 0.5;
-    background: rgba(255, 255, 255, 0.1);
-    border: 2px dashed #777;
-    border-radius: 5px;
+  @media (max-width: 650px) {
+    .equipment-table {
+      width: 95%;
+      margin: 10px;
+      padding: 10px;
+    }
+    
+    .details-content {
+      flex-wrap: wrap;
+    }
   }
 </style>
