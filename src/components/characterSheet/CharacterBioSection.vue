@@ -5,7 +5,7 @@
     <div v-if="isBackgroundModalOpen" class="modal-overlay" @click.self="closeBackgroundModal">
       <div class="modal-content background-modal">
         <div class="modal-header">
-          <h3>Personality & Background</h3>
+          <h3>Personality, Background & Notes</h3>
           <button 
             v-if="!isBackgroundEditMode" 
             class="edit-button" 
@@ -52,7 +52,7 @@
         />
       </div>
 
-      <!-- Bio Information (with inline editing) -->
+      <!-- Bio Information -->
       <div class="bio-info">
         <!-- Name (click to edit) -->
         <div class="character-name-container" :class="{ 'editing': editingField === 'name' }">
@@ -175,9 +175,9 @@
         </div>
       </div>
 
-      <!-- Personality and Background Section (modified to be scrollable) -->
+      <!-- Personality and Background Section -->
       <div class="personality-background-section">
-        <span class="bio-label">Personality & Background</span>
+        <span class="bio-label">Personality, Background & Notes</span>
         
         <!-- View Mode (scrollable and clickable to open modal) -->
         <div 
@@ -227,6 +227,16 @@ export default {
       tempBackgroundContent: '',
     };
   },
+  watch: {
+    character: {
+      handler(newCharacter) {
+        if (!this.editingField) {
+          this.editedCharacter = { ...newCharacter };
+        }
+      },
+      deep: true
+    }
+  },
   computed: {
     displayAncestries() {
       if (!this.character.ancestryIds || !this.character.ancestryIds.length) {
@@ -264,28 +274,6 @@ export default {
       return this.cultureStore.cultures.filter(c => !selectedIds.includes(c.id));
     },
     
-    isTextTruncated() {
-      // Now this is a computed property
-      if (!this.character.personalityAndBackground) return false;
-      
-      const maxLength = 200;
-      return this.character.personalityAndBackground.length > maxLength;
-    },
-    
-    truncatedBackground() {
-      if (!this.character.personalityAndBackground) return '';
-      
-      const maxLength = 200;
-      const text = this.character.personalityAndBackground;
-      
-      if (text.length > maxLength) {
-        // No side effect here anymore
-        return this.formatText(text.substring(0, maxLength));
-      } else {
-        return this.formatText(text);
-      }
-    },
-    
     formattedBackground() {
       if (!this.character.personalityAndBackground) return '';
       return this.formatText(this.character.personalityAndBackground);
@@ -293,25 +281,26 @@ export default {
   },
   methods: {
     formatText(text) {
-      // Simple formatting for line breaks and markdown-style formatting
       return text
         .replace(/\n/g, '<br>')
         .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
         .replace(/\*(.*?)\*/g, '<em>$1</em>');
     },
+    
     openFullSizeCharacterArtModal(imageUrl) {
       this.$emit("open-full-size-art", imageUrl);
     },
     
-    // Start editing a specific field
     startEditing(field) {
-      // Only allow one field to be edited at a time
       if (this.editingField) {
         this.saveField(this.editingField);
       }
+      
+      // Create a fresh copy of the character data before starting to edit
+      this.editedCharacter = { ...this.character };
+      
       this.editingField = field;
 
-      // Focus the input after a slight delay to ensure it's rendered
       this.$nextTick(() => {
         const inputRef = `${field}Input`;
         const selectRef = `${field}Select`;
@@ -324,13 +313,11 @@ export default {
       });
     },
     
-    // Save changes to a specific field
     saveField(field) {
       if (field === this.editingField) {
         this.editingField = null;
       }
       
-      // Only update the character if something actually changed
       const updatedField = this.editedCharacter[field];
       if (updatedField !== this.character[field]) {
         const updatedCharacter = { 
@@ -349,7 +336,6 @@ export default {
     
     closeBackgroundModal() {
       if (this.isBackgroundEditMode) {
-        // Confirm before closing if in edit mode
         if (confirm('Discard changes?')) {
           this.isBackgroundModalOpen = false;
           this.isBackgroundEditMode = false;
@@ -378,7 +364,6 @@ export default {
       this.isBackgroundEditMode = false;
     },
     
-    // Ancestry methods
     addAncestry() {
       if (!this.selectedAncestryId) return;
       
@@ -386,13 +371,11 @@ export default {
         this.editedCharacter.ancestryIds = [];
       }
       
-      // Prevent adding duplicates
       if (!this.editedCharacter.ancestryIds.includes(this.selectedAncestryId)) {
         this.editedCharacter.ancestryIds.push(this.selectedAncestryId);
       }
       this.selectedAncestryId = '';
       
-      // Save the change immediately
       this.saveField('ancestryIds');
     },
     
@@ -403,7 +386,6 @@ export default {
       this.saveField('ancestryIds');
     },
     
-    // Culture methods
     addCulture() {
       if (!this.selectedCultureId) return;
       
@@ -411,13 +393,11 @@ export default {
         this.editedCharacter.cultureIds = [];
       }
       
-      // Prevent adding duplicates
       if (!this.editedCharacter.cultureIds.includes(this.selectedCultureId)) {
         this.editedCharacter.cultureIds.push(this.selectedCultureId);
       }
       this.selectedCultureId = '';
       
-      // Save the change immediately
       this.saveField('cultureIds');
     },
     
@@ -428,9 +408,7 @@ export default {
       this.saveField('cultureIds');
     },
     
-    // Handle clicks outside editable areas
     handleOutsideClick(event) {
-      // Don't process outside clicks when clicking inside tag components
       if (event.target.closest('.remove-tag') || 
           event.target.closest('.selected-tag') || 
           event.target.closest('.tag-dropdown')) {
@@ -447,21 +425,22 @@ export default {
     }
   },
   mounted() {
-    // Fetch ancestries and cultures when component mounts
     this.ancestryStore.fetchAncestries();
     this.cultureStore.fetchCultures();
     
-    // Add click handler to detect clicks outside edit fields
     document.addEventListener('click', this.handleOutsideClick);
   },
   beforeUnmount() {
-    // Remove click listener when component is destroyed
     document.removeEventListener('click', this.handleOutsideClick);
   }
 };
 </script>
 
 <style scoped>
+p {
+  margin: 0;
+}
+
 .character-bio-section {
   display: flex;
   flex-direction: column;
@@ -472,7 +451,6 @@ export default {
   margin-bottom: 10px;
 }
 
-/* Bio Section Content */
 .bio-section-content {
   display: flex;
   flex-wrap: wrap;
@@ -600,16 +578,16 @@ export default {
   color: white;
   padding: 5px 8px;
   font-size: 1rem;
-  width: 100%; /* Set width to 100% of container */
+  width: 100%;
   min-width: 200px;
   outline: none; 
   box-shadow: none;
-  box-sizing: border-box; /* Include padding/border in width calculation */
+  box-sizing: border-box;
 }
 
 .form-input.inline-edit:focus {
   border-color: #666;
-  box-shadow: 0 0 0 2px rgba(100, 100, 100, 0.5); /* Custom focus style */
+  box-shadow: 0 0 0 2px rgba(100, 100, 100, 0.5);
 }
 
 .pronouns-input {
@@ -653,7 +631,7 @@ export default {
   cursor: pointer;
   margin-left: 5px;
   padding: 0 2px;
-  line-height: 1; /* Ensure proper vertical alignment */
+  line-height: 1;
 }
 
 .remove-tag:hover {
@@ -669,72 +647,33 @@ export default {
   cursor: pointer;
 }
 
-/* Personality & Background Section - moved to the right */
+/* Personality & Background Section */
 .personality-background-section {
   flex: 4;
   min-width: 300px;
   display: flex;
   flex-direction: column;
   position: relative;
-}
-
-.background-content {
-  padding: 10px;
-  background-color: rgba(255, 255, 255, 0.05);
-  border-radius: 5px;
-  min-height: 150px;
-  height: 100%;
-  font-size: 14px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-.background-content:hover {
-  background-color: rgba(255, 255, 255, 0.08);
+  height: 165px;
 }
 
 .background-content.scrollable {
   padding: 10px;
   background-color: rgba(255, 255, 255, 0.05);
   border-radius: 5px;
-  height: 100px;
-  max-height: 100px;
+  height: 100%;
   font-size: 14px;
   cursor: pointer;
   transition: background-color 0.2s;
-  overflow-y: auto; /* Enable vertical scrolling */
+  overflow-y: auto;
+}
+
+.background-content:hover {
+  background-color: rgba(255, 255, 255, 0.08);
 }
 
 .background-scroll-content {
   line-height: 1.5;
-}
-
-.background-content.truncated {
-  padding: 10px;
-  background-color: rgba(255, 255, 255, 0.05);
-  border-radius: 5px;
-  height: 100px;
-  max-height: 100px;
-  font-size: 14px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-  overflow: hidden;
-  position: relative;
-}
-
-.truncated-text {
-  max-height: 80px; /* Leave room for the "..." indicator */
-  overflow: hidden;
-}
-
-.read-more-indicator {
-  position: absolute;
-  bottom: 5px;
-  right: 10px;
-  background-color: rgba(0, 0, 0, 0.7);
-  padding: 0px 10px;
-  color: white;
-  font-weight: bold;
 }
 
 /* Modal specific styles */
@@ -799,26 +738,6 @@ export default {
   font-style: italic;
 }
 
-.background-textarea:focus {
-  border-color: #666;
-}
-
-.background-content, .background-textarea {
-  box-sizing: border-box;
-  min-height: 150px;
-  width: 100%;
-  margin: 0;
-}
-
-.save-background-button:hover {
-  background-color: #555;
-}
-
-/* Remove edit mode button since it's no longer needed */
-.edit-mode-button {
-  display: none;
-}
-
 /* Responsive Styles */
 @media (max-width: 1024px) {
   .bio-section-content {
@@ -828,10 +747,6 @@ export default {
   .bio-info, .personality-background-section {
     width: 100%;
     max-width: none;
-  }
-  
-  .background-textarea {
-    min-height: 150px;
   }
 }
 
