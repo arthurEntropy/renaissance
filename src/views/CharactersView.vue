@@ -64,21 +64,6 @@
               <input type="checkbox" class="skill-checkbox" v-model="selectedCharacter.conditions[key]" />
             </div>
           </div>
-          <!-- XP/MP -->
-          <div class="xp-mp-section">
-            <div class= "xp-mp-row">
-              <div class="xp-field">
-                <span class="skill-name">XP: </span>
-                <input type="number" v-model="selectedCharacter.xp" class="input-small"/>
-              </div>
-            </div>
-            <div class="xp-mp-row">
-                <span class="skill-name">MP: </span>
-                <input type="number" v-model="selectedCharacter.mp.current" class="input-small" min="0"/>
-                <span>/</span>
-                <input type="number" v-model="selectedCharacter.mp.max" class="input-small" min="0"/>
-              </div>
-          </div>
         </div>
 
         <!--Equipment Table-->
@@ -90,13 +75,11 @@
           @edit-custom-equipment="openEditEquipmentModal"
         />
 
-        <!-- Add the EditEquipmentModal component -->
-        <EditEquipmentModal
-          v-if="showEditEquipmentModal"
-          :equipment="equipmentToEdit"
-          @update="saveEditedEquipment"
-          @close="closeEditEquipmentModal"
-          @delete="deleteCustomEquipment"
+        <!--Abilities Table-->
+        <AbilitiesTable
+          :character="selectedCharacter"
+          :allAbilities="allAbilities"
+          @update-character="updateCharacter"
         />
 
       </div>
@@ -132,6 +115,13 @@
         @close="closeDeleteConfirmationModal"
         @confirm="deleteCharacter"
       />
+      <EditEquipmentModal
+        v-if="showEditEquipmentModal"
+        :equipment="equipmentToEdit"
+        @update="saveEditedEquipment"
+        @close="closeEditEquipmentModal"
+        @delete="deleteCustomEquipment"
+      />
 
     </div>
   </div>
@@ -141,12 +131,14 @@
 import { mapState } from 'pinia';
 import { useCharacterStore } from '@/stores/characterStore';
 import { useEquipmentStore } from '@/stores/equipmentStore';
+import { useAbilitiesStore } from '@/stores/abilitiesStore';
 import CharacterService from '@/services/CharacterService';
 import EquipmentService from '@/services/EquipmentService';
 import SelectionCard from '@/components/ConceptCard.vue';
 import CharacterBioSection from '@/components/characterSheet/CharacterBioSection.vue';
 import CoreAbilityColumn from '@/components/characterSheet/CoreAbilityColumn.vue';
 import EquipmentTable from '@/components/characterSheet/EquipmentTable.vue';
+import AbilitiesTable from '@/components/characterSheet/AbilitiesTable.vue';
 import FullSizeCharacterArtModal from '@/components/modals/FullSizeCharacterArtModal.vue';
 import ChangeCharacterArtModal from '@/components/modals/ChangeCharacterArtModal.vue';
 import SkillCheckModal from '@/components/modals/SkillCheckModal.vue';
@@ -160,6 +152,7 @@ export default {
     CharacterBioSection,
     CoreAbilityColumn,
     EquipmentTable,
+    AbilitiesTable,
     FullSizeCharacterArtModal,
     ChangeCharacterArtModal,
     SkillCheckModal,
@@ -170,9 +163,11 @@ export default {
   data() {
     const characterStore = useCharacterStore();
     const equipmentStore = useEquipmentStore();
+    const abilitiesStore = useAbilitiesStore();
     return {
       characterStore,
       equipmentStore,
+      abilitiesStore,
       showFullSizeCharacterArtModal: false,
       showChangeCharacterArtModal: false,
       showSkillCheckModal: false,
@@ -192,6 +187,7 @@ export default {
   mounted() {
     this.characterStore.fetchCharacters();
     this.equipmentStore.fetchAllEquipment();
+    this.abilitiesStore.fetchAllAbilities();
   },
 
   computed: {
@@ -201,6 +197,9 @@ export default {
     },
     allEquipment() {
       return this.equipmentStore.equipment;
+    },
+    allAbilities() {
+      return this.abilitiesStore.abilities;
     },
     selectedCharacter: {
       get() {
@@ -479,8 +478,10 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: rgba(0,0,0,0.65);
+    background: rgb(17, 17, 17);
+    border-radius: 5px;
     width: 80%;
+    max-width: 1200px;
     max-height: 100%;
     padding: 20px;
     position: relative;
@@ -524,14 +525,7 @@ export default {
     flex-wrap: wrap;
     width: 100%;
     justify-content: center;
-  }
-  .core-ability-column {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    flex: 1;
-    max-width: 300px;
-    margin: 10px 30px;
+    gap: 10px;
   }
   .core-ability-header {
     display: flex;
@@ -613,6 +607,8 @@ export default {
   .conditions-column-container {
     display: flex;
     flex-direction: column;
+    background-color: black;
+    border-radius: 5px;
   }
   .conditions-column {
     display: flex;
@@ -620,7 +616,7 @@ export default {
     align-items: center;
     flex: 1;
     width: 100px;
-    margin: 0 20px;
+    margin: 0 20px 0 15px;
   }
   @media (max-width: 567px) {
     .conditions-column {
@@ -630,7 +626,7 @@ export default {
   .conditions-header {
     display: flex;
     align-items: end;
-    margin: 10px 0px;
+    margin: 12px 0px;
     font-size: 14px;
     font-style: italic;
     height: 28px
@@ -641,7 +637,8 @@ export default {
     justify-content: space-between;
     width: 100%;
     margin: 5px 0;
-    height: 25px
+    height: 25px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   }
   .xp-mp-section {
     display: flex;

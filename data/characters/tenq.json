@@ -197,5 +197,16 @@
   "mp": {
     "current": 3,
     "max": 5
-  }
+  },
+  "ancestryIds": [
+    "ba7af7ad-54d2-4b45-86ad-71781d4cdb33",
+    "adc655c1-1d9c-433f-a0eb-41f93cf3ee07",
+    "d7578278-c801-410b-b194-12b555042f29",
+    "f00fe427-1bb5-472c-8abb-2a394730a40a",
+    "cfd7bf18-3a9a-4b4e-a9a9-c7069dd822c3"
+  ],
+  "cultureIds": [
+    "a3a54cb6-09c4-42e3-b142-3053b7c1d4e8",
+    "0c876a74-a89b-42dc-b76a-4592a0478d81"
+  ]
 }

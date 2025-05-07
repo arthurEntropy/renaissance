@@ -227,10 +227,12 @@ export default {
   .core-ability-column {
     display: flex;
     flex-direction: column;
-    align-items: center;
     flex: 1;
-    max-width: 300px;
-    margin: 10px 30px;
+    align-items: center;
+    background-color: black;
+    border-radius: 5px;
+    padding: 15px;
+    max-width: 320px;
   }
   .core-ability-header {
     display: flex;
@@ -245,6 +247,7 @@ export default {
     width: 100%;
     margin: 5px 0;
     height: 25px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   }
   .skill-name-clickable {
     color: rgb(212, 182, 106);

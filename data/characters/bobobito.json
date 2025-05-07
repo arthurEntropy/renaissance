@@ -162,5 +162,11 @@
     "current": 0,
     "max": 0
   },
-  "current": "9"
+  "current": "9",
+  "ancestryIds": [
+    1
+  ],
+  "cultureIds": [
+    "0c876a74-a89b-42dc-b76a-4592a0478d81"
+  ]
 }
