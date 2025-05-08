@@ -272,6 +272,7 @@ export default {
     background-color: black;
     border-radius: 5px;
     padding: 15px;
+    width: 300px;
     max-width: 320px;
   }
   .core-ability-header {

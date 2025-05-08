@@ -115,7 +115,7 @@
     }
   ],
   "endurance": {
-    "current": 10,
+    "current": 15,
     "max": 15
   },
   "hope": {
@@ -126,7 +126,7 @@
     "current": 13,
     "max": 11
   },
-  "load": 0,
+  "load": 15,
   "shadow": 0,
   "injury": 0,
   "states": {
@@ -177,7 +177,7 @@
     },
     {
       "id": "bccb6c9c-bb15-4679-a0ce-a2e330b0aae0",
-      "quantity": 3,
+      "quantity": 32,
       "isCarried": true,
       "order": 1,
       "equipment": {
@@ -238,5 +238,11 @@
     "1325605b-d523-4ec2-b2a7-57a04dc55d91",
     "9f21adf6-85f2-482b-a13c-29b4c53487bd",
     "7cbea262-49dc-45de-a1e0-cc4270835f14"
+  ],
+  "ancestryIds": [
+    "77e4f81a-728f-49a7-a013-4d6f666353e2"
+  ],
+  "cultureIds": [
+    "5a639d7b-847a-468b-9bbe-5275d31fdf66"
   ]
 }

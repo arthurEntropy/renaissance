@@ -22,35 +22,35 @@
       "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": -1
+      "diceMod": -2
     },
     {
       "name": "Strength",
       "ranks": 5,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 0
+      "diceMod": -1
     },
     {
       "name": "Dexterity",
       "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 0
+      "diceMod": -1
     },
     {
       "name": "Fortitude",
       "ranks": 0,
       "isFavored": true,
-      "isIllFavored": false,
-      "diceMod": 0
+      "isIllFavored": true,
+      "diceMod": -1
     },
     {
       "name": "Craft",
       "ranks": 1,
       "isFavored": false,
-      "isIllFavored": false,
-      "diceMod": -1
+      "isIllFavored": true,
+      "diceMod": -2
     },
     {
       "name": "Perform",
@@ -135,12 +135,12 @@
     "current": 13,
     "max": 11
   },
-  "load": 0,
+  "load": 26,
   "shadow": 0,
   "injury": 0,
   "states": {
-    "weary": false,
-    "twiceWeary": false,
+    "weary": true,
+    "twiceWeary": true,
     "miserable": false,
     "twiceMiserable": false,
     "helpless": false,

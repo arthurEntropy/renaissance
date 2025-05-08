@@ -476,11 +476,12 @@ p {
 /* Bio Info */
 .bio-info {
   flex: 1; 
-  max-width: 400px;
+  min-width: 300px;
 }
 
 .character-name-container {
   display: flex;
+  flex-direction: row;
   align-items: baseline;
   flex-wrap: wrap;
   cursor: pointer;
@@ -512,7 +513,7 @@ p {
 
 .character-pronouns {
   margin-left: 5px;
-  font-size: 0.9rem;
+  font-size: 14px;
   color: #aaa;
   font-style: italic;
 }
@@ -650,8 +651,7 @@ p {
 
 /* Personality & Background Section */
 .personality-background-section {
-  flex: 4;
-  min-width: 300px;
+  width: 600px;
   display: flex;
   flex-direction: column;
   position: relative;

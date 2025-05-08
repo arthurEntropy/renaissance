@@ -172,7 +172,7 @@
     },
     computed: {
       equipment() {
-        return this.equipmentStore.equipment.find(eq => eq.id === this.equipmentId);
+        return this.equipmentStore.equipment.find(eq => eq.id === this.equipmentId) || {}; // Fallback to an empty object
       },
     },
   
@@ -291,6 +291,11 @@
       },
   
       saveEquipment() {
+        if (!this.editedEquipment.id) {
+          console.error("Cannot save equipment: Missing ID");
+          return;
+        }
+
         this.saveDiceChanges();
         this.ensureWeightValue(); // Make sure weight is properly set
         this.$emit("update", this.editedEquipment);

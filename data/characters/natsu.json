@@ -41,7 +41,7 @@
       "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": -1
+      "diceMod": 0
     },
     {
       "name": "Perform",
@@ -75,12 +75,12 @@
       "name": "Aid",
       "ranks": 0,
       "isFavored": false,
-      "isIllFavored": true,
-      "diceMod": -1
+      "isIllFavored": false,
+      "diceMod": 0
     },
     {
       "name": "Persuade",
-      "ranks": 1,
+      "ranks": 3,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0
@@ -101,7 +101,7 @@
     },
     {
       "name": "Lore",
-      "ranks": 1,
+      "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0
@@ -110,8 +110,8 @@
       "name": "Riddle",
       "ranks": 0,
       "isFavored": false,
-      "isIllFavored": true,
-      "diceMod": -1
+      "isIllFavored": false,
+      "diceMod": 0
     }
   ],
   "endurance": {
@@ -142,34 +142,9 @@
     "guilty": false,
     "angry": false,
     "afraid": false,
-    "troubled": true
+    "troubled": false
   },
-  "equipment": [
-    {
-      "name": "Rations",
-      "weight": 1,
-      "quantity": 10,
-      "carried": true
-    },
-    {
-      "name": "Grappling Hook",
-      "weight": 2,
-      "quantity": 2,
-      "carried": true
-    },
-    {
-      "name": "Tinderbox",
-      "weight": 1,
-      "quantity": 1,
-      "carried": true
-    },
-    {
-      "name": "Silversmith's Tools",
-      "weight": 2,
-      "quantity": 1,
-      "carried": true
-    }
-  ],
+  "equipment": [],
   "activeEffects": [
     {
       "name": "Weird But Entertaining",
@@ -197,5 +172,8 @@
   "mp": {
     "current": 3,
     "max": 5
-  }
+  },
+  "ancestryIds": [
+    1
+  ]
 }

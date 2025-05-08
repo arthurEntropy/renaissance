@@ -181,7 +181,7 @@
     },
     computed: {
       characterEquipmentRows() {
-        const allEquipment = this.allEquipment || [];
+        const allEquipment = this.allEquipment || []; // Fallback to an empty array
         return this.character.equipment.map(entry => {
           const equipment = allEquipment.find(eq => eq.id === entry.id);
           return {
@@ -366,8 +366,8 @@
       },
       
       editCustomItem(equipment) {
-        // When the edit button is clicked on a custom item, emit an event to the parent
-        this.$emit("edit-custom-equipment", equipment);
+        // When the edit button is clicked on a custom item, emit an event to the parent with just the ID
+        this.$emit("edit-custom-equipment", equipment.id);
       },
       
       formatWeight(value) {
@@ -411,14 +411,20 @@
             id: createdEquipment.id,
             quantity: 1,
             isCarried: true,
-            isWielding: false // Initialize wielding state
+            isWielding: false, // Initialize wielding state
           };
-          
+
+          // Add the new item to the character's inventory
           CharacterService.addSpecificEquipmentItem(this.character, newItem);
+
+          // Emit the update event to ensure the parent updates the character
           this.$emit("update-character", this.character);
           
-          // Rest of existing code
-          // ...
+          // Refresh equipment store to ensure the new item is available
+          await this.equipmentStore.fetchAllEquipment();
+          
+          // Now that the equipment store is updated, emit the edit event
+          this.$emit("edit-custom-equipment", createdEquipment.id);
         } catch (error) {
           console.error("Error adding custom equipment:", error);
         }
@@ -445,7 +451,7 @@
           isWielding: false // Initialize wielding state
         };
         
-        CharacterService.addSpecificEquipmentItem(this.character, newItem);
+        CharacterService.addSpecificEquipmentItem(this.character, newItem, this.allEquipment);
         this.$emit("update-character", this.character);
         this.toggleEquipmentSelector();
       },
@@ -504,13 +510,13 @@
     flex-direction: column;
     flex-grow: 1;
     align-items: left;
-    max-width: 350px;
-    min-width: 300px;
+    width: 300px;
     background-color: black;  
     padding: 15px;
     border-radius: 5px;
     position: relative;
-    height: fit-content; /* Ensure the table only takes up as much vertical space as needed */
+    height: fit-content;
+    min-height: 50px;
   }
   
   .equipment-table-header {
