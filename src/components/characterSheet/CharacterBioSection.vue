@@ -164,12 +164,11 @@
           <!-- XP (always an input) -->
           <div class="bio-detail xp-field">
             <span class="bio-label">XP:</span>
-            <input
-              type="number"
-              v-model.number="editedCharacter.xp"
-              class="form-input input-small"
-              min="0"
-              @change="saveField('xp')"
+            <NumberInput
+              :model-value="editedCharacter.xp"
+              @update:model-value="value => { editedCharacter.xp = value; saveField('xp'); }"
+              :min="0"
+              size="small"
             />
           </div>
         </div>
@@ -198,10 +197,12 @@
 import { useAncestriesStore } from '@/stores/ancestriesStore';
 import { useCulturesStore } from '@/stores/culturesStore';
 import TextEditor from '@/components/TextEditor.vue';
+import NumberInput from '@/components/NumberInput.vue';
 
 export default {
   components: {
     TextEditor,
+    NumberInput
   },
   props: {
     character: {
@@ -475,11 +476,12 @@ p {
 /* Bio Info */
 .bio-info {
   flex: 1; 
-  max-width: 400px;
+  min-width: 300px;
 }
 
 .character-name-container {
   display: flex;
+  flex-direction: row;
   align-items: baseline;
   flex-wrap: wrap;
   cursor: pointer;
@@ -511,7 +513,7 @@ p {
 
 .character-pronouns {
   margin-left: 5px;
-  font-size: 0.9rem;
+  font-size: 14px;
   color: #aaa;
   font-style: italic;
 }
@@ -649,8 +651,7 @@ p {
 
 /* Personality & Background Section */
 .personality-background-section {
-  flex: 4;
-  min-width: 300px;
+  width: 600px;
   display: flex;
   flex-direction: column;
   position: relative;

@@ -80,12 +80,12 @@
                 <!-- Quantity -->
                 <div class="detail-item">
                   <em class="carried-label"> qty </em>
-                  <input
-                    type="number"
-                    v-model.number="row.quantity"
-                    min="1"
-                    class="input-small quantity-input"
-                    @input="updateEquipmentItem(index, 'quantity', Math.max(1, row.quantity))"
+                  <NumberInput
+                    :model-value="row.quantity"
+                    @update:model-value="value => updateEquipmentItem(index, 'quantity', Math.max(1, value))"
+                    :min="1"
+                    size="tiny"
+                    class="quantity-input"
                   />
                 </div>
 
@@ -156,6 +156,7 @@
   import EquipmentService from "@/services/EquipmentService";
   import { useEquipmentStore } from '@/stores/equipmentStore';
   import draggable from 'vuedraggable';
+  import NumberInput from "@/components/NumberInput.vue";
 
   export default {
     props: {
@@ -167,6 +168,7 @@
     components: {
       EquipmentCard,
       draggable,
+      NumberInput,
     },
     data() {
       return {
@@ -179,7 +181,7 @@
     },
     computed: {
       characterEquipmentRows() {
-        const allEquipment = this.allEquipment || [];
+        const allEquipment = this.allEquipment || []; // Fallback to an empty array
         return this.character.equipment.map(entry => {
           const equipment = allEquipment.find(eq => eq.id === entry.id);
           return {
@@ -308,31 +310,31 @@
           ...updatedEquipment[index],
           [key]: value
         };
-        
+
         // Create a new character object with the updated equipment
         const updatedCharacter = {
           ...this.character,
           equipment: updatedEquipment
         };
-        
+
         // Emit the update event
         this.$emit("update-character", updatedCharacter);
       },
-      
+
       removeEquipmentItem(index) {
         const equipment = this.characterEquipmentRows[index].equipment;
         const name = equipment ? equipment.name : "this item";
         
         if (confirm(`Are you sure you want to remove ${name} from inventory?`)) {
           // Create a new array without the item at the given index
-          const updatedEquipment = this.character.equipment.filter((_, i) => i !== index);
-          
+        const updatedEquipment = this.character.equipment.filter((_, i) => i !== index);
+
           // Create a new character object with the updated equipment
-          const updatedCharacter = {
-            ...this.character,
+        const updatedCharacter = {
+          ...this.character,
             equipment: updatedEquipment
-          };
-          
+        };
+
           // Emit the update event
           this.$emit("update-character", updatedCharacter);
         }
@@ -347,25 +349,25 @@
           ...updatedEquipment[index],
           isCarried: isCarried
         };
-        
+
         // If unchecking carried, also uncheck wielding
         if (!isCarried && updatedEquipment[index].isWielding) {
           updatedEquipment[index].isWielding = false;
         }
-        
+
         // Create a new character object with the updated equipment
         const updatedCharacter = {
           ...this.character,
           equipment: updatedEquipment
         };
-        
+
         // Emit the update event
         this.$emit("update-character", updatedCharacter);
       },
       
       editCustomItem(equipment) {
-        // When the edit button is clicked on a custom item, emit an event to the parent
-        this.$emit("edit-custom-equipment", equipment);
+        // When the edit button is clicked on a custom item, emit an event to the parent with just the ID
+        this.$emit("edit-custom-equipment", equipment.id);
       },
       
       formatWeight(value) {
@@ -399,24 +401,30 @@
       async addCustomEquipment() {
         // Hide the add options menu
         this.showAddOptions = false;
-        
+
         try {
           // Create a new custom equipment item using the service method
           const createdEquipment = await EquipmentService.createCustomEquipment();
-          
+
           // Add it to the character's equipment
           const newItem = {
             id: createdEquipment.id,
             quantity: 1,
             isCarried: true,
-            isWielding: false // Initialize wielding state
+            isWielding: false, // Initialize wielding state
           };
-          
+
+          // Add the new item to the character's inventory
           CharacterService.addSpecificEquipmentItem(this.character, newItem);
+
+          // Emit the update event to ensure the parent updates the character
           this.$emit("update-character", this.character);
           
-          // Rest of existing code
-          // ...
+          // Refresh equipment store to ensure the new item is available
+          await this.equipmentStore.fetchAllEquipment();
+          
+          // Now that the equipment store is updated, emit the edit event
+          this.$emit("edit-custom-equipment", createdEquipment.id);
         } catch (error) {
           console.error("Error adding custom equipment:", error);
         }
@@ -443,7 +451,7 @@
           isWielding: false // Initialize wielding state
         };
         
-        CharacterService.addSpecificEquipmentItem(this.character, newItem);
+        CharacterService.addSpecificEquipmentItem(this.character, newItem, this.allEquipment);
         this.$emit("update-character", this.character);
         this.toggleEquipmentSelector();
       },
@@ -502,12 +510,13 @@
     flex-direction: column;
     flex-grow: 1;
     align-items: left;
-    width: 350px;
+    width: 300px;
     background-color: black;  
     padding: 15px;
     border-radius: 5px;
     position: relative;
-    height: fit-content; /* Ensure the table only takes up as much vertical space as needed */
+    height: fit-content;
+    min-height: 50px;
   }
   
   .equipment-table-header {
@@ -610,19 +619,11 @@
     color: #ccc;
   }
   
-  .quantity-input {
-    width: 36px;
-    height: 14px;
-    padding: 0 2px;
-    margin: 0;
-    font-size: 12px;
-  }
-  
   .total-weight-container {
     display: flex;
     align-items: center;
     background-color: rgb(61, 61, 61);
-    padding: 8px 15px;
+    padding: 5px 10px;
     border-radius: 5px;
     width: auto;
     gap: 5px;

@@ -165,9 +165,14 @@
   
   export default {
     props: {
-      equipment: {
-        type: Object,
+      equipmentId: {
+        type: String,
         required: true,
+      },
+    },
+    computed: {
+      equipment() {
+        return this.equipmentStore.equipment.find(eq => eq.id === this.equipmentId) || {}; // Fallback to an empty object
       },
     },
   
@@ -206,13 +211,6 @@
       this.editedEquipment.engagementDice = this.editedEquipment.engagementDice || [];
       this.editedEquipment.damageDice = this.editedEquipment.damageDice || [];
       this.editedEquipment.skillMods = this.editedEquipment.skillMods || [];
-      
-      // Log for debugging
-      console.log("Modal initialized with:", {
-        name: this.editedEquipment.name,
-        isCustom: this.editedEquipment.isCustom,
-        weight: this.editedEquipment.weight
-      });
     },
   
     methods: {
@@ -293,6 +291,11 @@
       },
   
       saveEquipment() {
+        if (!this.editedEquipment.id) {
+          console.error("Cannot save equipment: Missing ID");
+          return;
+        }
+
         this.saveDiceChanges();
         this.ensureWeightValue(); // Make sure weight is properly set
         this.$emit("update", this.editedEquipment);

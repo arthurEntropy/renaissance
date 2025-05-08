@@ -17,6 +17,7 @@ class EquipmentService {
   }
 
   async updateEquipment(equipment) {
+    console.log("Updating equipment:", equipment);
     try {
       await axios.put(`${this.baseUrl}/${equipment.id}`, equipment);
     } catch (error) {
@@ -36,20 +37,23 @@ class EquipmentService {
   }
 
   async createCustomEquipment() {
+    console.log("Creating custom equipment...");
     const customEquipment = this.getDefaultEquipment();
-    
+  
     // Explicitly set these properties
     customEquipment.isCustom = true;
     customEquipment.name = "New Custom Item";
-    
+  
     try {
       const response = await axios.post(this.baseUrl, customEquipment);
-      
-      // Make sure the response data has the proper values
-      const data = response.data;
-      data.isCustom = true; // Ensure isCustom is set in response
-      data.name = data.name || "New Custom Item"; // Ensure name is set
-      
+  
+      // Merge the response data with the default schema to ensure all fields are present
+      const data = { ...this.getDefaultEquipment(), ...response.data };
+  
+      // Ensure isCustom and name are set correctly
+      data.isCustom = true;
+      data.name = data.name || "New Custom Item";
+  
       return data;
     } catch (error) {
       console.error("Error creating custom equipment:", error);

@@ -54,8 +54,8 @@ class CharacterService {
   handleWitsChange(character) {
     this.calculateMaxDefense(character);
   }
-  handleEnduranceChange(character) {
-    this.calculateLoad(character);
+  handleEnduranceChange(character, allEquipment) {
+    this.calculateLoad(character, allEquipment);
     this.calculateWeary(character);
   }
   handleHopeChange(character) {
@@ -81,8 +81,8 @@ class CharacterService {
     this.updateDiceMods(character);
     this.updateFavoredStatus(character);
   }
-  handleEquipmentChange(character) {
-    this.calculateLoad(character);
+  handleEquipmentChange(character, allEquipment) {
+    this.calculateLoad(character, allEquipment);
   }
 
 
@@ -96,8 +96,8 @@ class CharacterService {
   calculateMaxDefense(character) {
     character.defense.max = character.wits + 10;
   }
-  calculateLoad(character) {
-    character.load = Math.max(0, this.getTotalWeightCarried(character) - character.endurance.max - character.body);
+  calculateLoad(character, allEquipment) {
+    character.load = Math.max(0, this.getTotalWeightCarried(character, allEquipment) - character.endurance.max - character.body);
   }
   calculateWeary(character) {
     character.states.weary = character.load > character.endurance.current;
@@ -111,12 +111,11 @@ class CharacterService {
     character.states.helpless = character.injury > character.defense.current;
     character.states.twiceHelpless = (character.injury > character.defense.max) && character.states.helpless;
   }
-  getTotalWeightCarried(character) {
-    return Math.round(
-      character.equipment.reduce((sum, item) => {
-        return item.carried ? sum + item.weight * item.quantity : sum;
-      }, 0)
-    );
+  getTotalWeightCarried(character, allEquipment) {
+    return character.equipment.reduce((sum, item) => {
+      const equipment = allEquipment.find(eq => eq.id === item.id);
+      return item.isCarried && equipment ? sum + (equipment.weight * item.quantity) : sum;
+    }, 0);
   }
 
 
@@ -187,7 +186,7 @@ class CharacterService {
 
 
   // EQUIPMENT
-  addEquipmentItem(character) {
+  addEquipmentItem(character, allEquipment) {
     // Calculate the highest current order value
     const maxOrder = character.equipment.reduce((max, item) => 
       item.order !== undefined && item.order > max ? item.order : max, -1);
@@ -196,22 +195,23 @@ class CharacterService {
       ...defaultNewEquipmentItem,
       order: maxOrder + 1 // Add order property
     });
-    this.calculateLoad(character);
+    this.calculateLoad(character, allEquipment);
   }
-  addSpecificEquipmentItem(character, equipmentItem) {
-    // Calculate the highest current order value
+  addSpecificEquipmentItem(character, equipmentItem, allEquipment) {
     const maxOrder = character.equipment.reduce((max, item) => 
       item.order !== undefined && item.order > max ? item.order : max, -1);
-    
-    // Add the new equipment with order = maxOrder + 1
+  
     character.equipment.push({
       id: equipmentItem.id,
       quantity: equipmentItem.quantity || 1,
       isCarried: equipmentItem.isCarried !== undefined ? equipmentItem.isCarried : true,
-      isWielding: equipmentItem.isWielding || false, // Include wielding state
-      order: maxOrder + 1 // Add order property
+      isWielding: equipmentItem.isWielding || false,
+      order: maxOrder + 1,
     });
-    this.calculateLoad(character);
+  
+    if (allEquipment) {
+      this.calculateLoad(character, allEquipment);
+    }
   }
   removeEquipmentItem(character, index) {
     if (index >= 0 && index < character.equipment.length) {

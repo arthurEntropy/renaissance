@@ -60,14 +60,19 @@
           <div class="conditions-column">
             <div class="conditions-header">Conditions</div>
             <div class="conditions-row" v-for="(value, key) in selectedCharacter.conditions" :key="key">
-              <span>{{ this.$capitalizeFirstLetter(key) }}</span>
-              <input type="checkbox" class="skill-checkbox" v-model="selectedCharacter.conditions[key]" />
+              <span :class="{ 'condition-active': value }">{{ this.$capitalizeFirstLetter(key) }}</span>
+              <input 
+                type="checkbox" 
+                class="skill-checkbox" 
+                :class="{ 'condition-active-checkbox': value }"
+                v-model="selectedCharacter.conditions[key]" 
+              />
             </div>
           </div>
         </div>
 
         <!--Equipment Table-->
-        <EquipmentTable
+        <EquipmentTable 
           :equipment="selectedCharacter.equipment"
           :allEquipment="allEquipment"
           :character="selectedCharacter"
@@ -115,12 +120,12 @@
         @close="closeDeleteConfirmationModal"
         @confirm="deleteCharacter"
       />
-      <EditEquipmentModal
+      <EditEquipmentModal 
         v-if="showEditEquipmentModal"
-        :equipment="equipmentToEdit"
+        :equipmentId="equipmentIdToEdit"
         @update="saveEditedEquipment"
         @close="closeEditEquipmentModal"
-        @delete="deleteCustomEquipment"
+        @delete="openDeleteConfirmationModal"
       />
 
     </div>
@@ -180,14 +185,19 @@ export default {
       defaultArtUrl: CharacterService.DEFAULT_ART_URL,
       tempArtUrl: '',
       showEditEquipmentModal: false,
-      equipmentToEdit: null,
+      equipmentIdToEdit: null,
     };
   },
 
   mounted() {
     this.characterStore.fetchCharacters();
-    this.equipmentStore.fetchAllEquipment();
     this.abilitiesStore.fetchAllAbilities();
+
+    // Wait for equipment to load
+    this.equipmentStore.fetchAllEquipment().then(() => {
+    }).catch(error => {
+      console.error('Error fetching equipment:', error);
+    });
   },
 
   computed: {
@@ -248,7 +258,7 @@ export default {
     'selectedCharacter.endurance': {
       handler() {
         if (!this.selectedCharacter || !this.selectedCharacter.endurance) return; // Null check
-        CharacterService.handleEnduranceChange(this.selectedCharacter);
+        CharacterService.handleEnduranceChange(this.selectedCharacter, this.allEquipment);
       },
       deep: true,
     },
@@ -294,10 +304,10 @@ export default {
     },
     'selectedCharacter.equipment': {
       handler() {
-        if (!this.selectedCharacter || !this.selectedCharacter.equipment) return; // Null check
-        CharacterService.handleEquipmentChange(this.selectedCharacter);
+        if (!this.selectedCharacter || !this.selectedCharacter.equipment || !this.allEquipment) return; // Null check
+        CharacterService.handleEquipmentChange(this.selectedCharacter, this.allEquipment); // Recalculate load
       },
-      deep: true,
+      deep: true, // Ensure nested changes are detected
     },
   },
 
@@ -372,8 +382,8 @@ export default {
     closeSkillCheckModal() {
       this.showSkillCheckModal = false;
     },
-    openEditEquipmentModal(equipment) {
-      this.equipmentToEdit = equipment;
+    openEditEquipmentModal(equipmentId) {
+      this.equipmentIdToEdit = equipmentId;
       this.showEditEquipmentModal = true;
     },
     closeEditEquipmentModal() {
@@ -382,11 +392,16 @@ export default {
     },
 
     // EQUIPMENT HANDLING
-    async saveEditedEquipment(editedEquipment) {
+    async saveEditedEquipment(updatedEquipment) {
       try {
-        await EquipmentService.updateEquipment(editedEquipment);
+        // Save the updated equipment to the backend
+        await EquipmentService.updateEquipment(updatedEquipment);
+
+        // Refresh the equipment list to ensure the new item is included
         await this.equipmentStore.fetchAllEquipment();
-        this.closeEditEquipmentModal();
+
+        // Update the character's equipment
+        this.updateCharacter(this.characterStore.selectedCharacter);
       } catch (error) {
         console.error("Error saving equipment:", error);
       }
@@ -498,6 +513,7 @@ export default {
     left: 10px;
     font-size: 20px;
     cursor: pointer;
+    z-index: 2;
   }
   .close-button {
     position: absolute;
@@ -511,7 +527,7 @@ export default {
   }
   .saving-status {
     position: absolute;
-    top: 2px;
+    top: 13px;
     right: 50px;
     font-size: 14px;
     font-style: italic;
@@ -640,26 +656,13 @@ export default {
     height: 25px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   }
-  .xp-mp-section {
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    right: 25px;
-    bottom: 10px;
+  .condition-active {
+    color: red;
+    text-shadow: 0px 0px 5px red;
   }
-  @media (max-width: 567px) {
-    .xp-mp-section {
-      right: 0;
-      bottom: 0;
-      margin: 20px;
-      align-items: center;
-    }
-  }
-  .xp-mp-row {
-    display: flex;
-    align-items: center;
-    justify-content: right;
-    margin: 5px 0;
+
+  .condition-active-checkbox {
+    box-shadow: 0px 0px 10px cyan;
   }
 
 </style>
