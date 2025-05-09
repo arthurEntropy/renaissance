@@ -176,7 +176,7 @@
 
       <!-- Personality and Background Section -->
       <div class="personality-background-section">
-        <span class="bio-label">Personality, Background & Notes</span>
+        <span class="bio-label" style="margin-bottom: 5px">Personality, Background & Notes</span>
         
         <!-- View Mode (scrollable and clickable to open modal) -->
         <div 
@@ -438,16 +438,13 @@ export default {
 </script>
 
 <style scoped>
-p {
-  margin: 0;
-}
 
 .character-bio-section {
   display: flex;
   flex-direction: column;
   background-color: black;
   border-radius: 5px;
-  padding: 20px;
+  padding: 15px;
   position: relative;
   margin-bottom: 10px;
 }
@@ -466,8 +463,8 @@ p {
 }
 
 .character-art-image {
-  width: 165px;
-  height: 165px;
+  width: 170px;
+  height: 170px;
   object-fit: cover;
   border-radius: 4px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
@@ -476,7 +473,7 @@ p {
 /* Bio Info */
 .bio-info {
   flex: 1; 
-  min-width: 300px;
+  min-width: 200px;
 }
 
 .character-name-container {
@@ -651,9 +648,9 @@ p {
 
 /* Personality & Background Section */
 .personality-background-section {
-  width: 600px;
   display: flex;
   flex-direction: column;
+  flex: 3;
   position: relative;
   height: 165px;
 }
@@ -674,7 +671,7 @@ p {
 }
 
 .background-scroll-content {
-  line-height: 1.5;
+  line-height: 1.25;
 }
 
 /* Modal specific styles */
@@ -737,6 +734,11 @@ p {
 .empty-background {
   color: #888;
   font-style: italic;
+}
+
+.background-full-text :deep(p),
+.background-scroll-content :deep(p) {
+  margin: 0;
 }
 
 /* Responsive Styles */

@@ -68,24 +68,38 @@
                 v-model="selectedCharacter.conditions[key]" 
               />
             </div>
+            <div class="conditions-row" style="border-bottom: none"></div>
           </div>
         </div>
 
-        <!--Equipment Table-->
-        <EquipmentTable 
-          :equipment="selectedCharacter.equipment"
-          :allEquipment="allEquipment"
-          :character="selectedCharacter"
-          @update-character="updateCharacter"
-          @edit-custom-equipment="openEditEquipmentModal"
-        />
+        <!-- Two-column layout for Equipment and Abilities -->
+          <!-- Left column: Equipment -->
+          <div class="equipment-column">
+            <!-- Engagement Dice Table -->
+            <EngagementDiceTable
+              :character="selectedCharacter"
+              :allEquipment="allEquipment"
+            />
 
-        <!--Abilities Table-->
-        <AbilitiesTable
-          :character="selectedCharacter"
-          :allAbilities="allAbilities"
-          @update-character="updateCharacter"
-        />
+            <!-- Equipment Table -->
+            <EquipmentTable 
+              :equipment="selectedCharacter.equipment"
+              :allEquipment="allEquipment"
+              :character="selectedCharacter"
+              @update-character="updateCharacter"
+              @edit-custom-equipment="openEditEquipmentModal"
+            />
+          </div>
+          
+          <!-- Right column: Abilities -->
+          <div class="abilities-column">
+            <!-- Abilities Table -->
+            <AbilitiesTable
+              :character="selectedCharacter"
+              :allAbilities="allAbilities"
+              @update-character="updateCharacter"
+            />
+          </div>
 
       </div>
       
@@ -150,6 +164,7 @@ import SkillCheckModal from '@/components/modals/SkillCheckModal.vue';
 import CharacterSettingsModal from '@/components/modals/CharacterSettingsModal.vue';
 import DeleteConfirmationModal from '@/components/modals/DeleteConfirmationModal.vue';
 import EditEquipmentModal from '@/components/modals/EditEquipmentModal.vue';
+import EngagementDiceTable from '@/components/characterSheet/EngagementDiceTable.vue';
 
 export default {
   components: {
@@ -164,6 +179,7 @@ export default {
     SettingsModal: CharacterSettingsModal,
     DeleteConfirmationModal,
     EditEquipmentModal,
+    EngagementDiceTable,
   },
   data() {
     const characterStore = useCharacterStore();
@@ -495,8 +511,7 @@ export default {
     align-items: center;
     background: rgb(17, 17, 17);
     border-radius: 5px;
-    width: 80%;
-    max-width: 1200px;
+    width: 1050px;
     max-height: 100%;
     padding: 20px;
     position: relative;
@@ -543,81 +558,7 @@ export default {
     justify-content: center;
     gap: 10px;
   }
-  .core-ability-header {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-    height: 28px
-  }
-  .skill-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    margin: 5px 0;
-    height: 25px
-  }
-  .skill-name {
-    text-align: left;
-    flex: 1;
-    max-width: 85px;
-  }
-  .skill-name-clickable {
-    color: rgb(212, 182, 106);
-    text-align: left;
-    flex: 1;
-    max-width: 85px;
-    cursor: pointer;
-    transition: color 0.2s ease-in-out;
-  }
-  .skill-name-clickable:hover {
-    color: white;
-    text-shadow: 0px 0px 5px goldenrod;
-  }
-  .skill-name-clickable:hover::after {
-    opacity: 1;
-    visibility: visible;
-  }
-  .d12-symbol {
-    margin-left: auto;
-    margin-right: 8px;
-    font-size: 18px;
-    width: 25px;
-    text-align: center;
-    border-radius: 5px;
-  }
-  .favored {
-    background-color: rgb(110, 221, 110);
-    color: black;
-  }
-  .ill-favored {
-    background-color: rgb(254, 135, 135);
-    color: black;
-  }
-  .skill-checkbox-group {
-    display: flex;
-    gap: 5px;
-    margin: 0 4px;
-  }
-  .diceSubtracted {
-    accent-color: teal; /* Dice checkbox colors are inverted */
-  }
-  .diceAdded {
-    accent-color: purple; /* Dice checkbox colors are inverted */
-  }
-  .virtue-row, .weakness-row, .state-row {
-    display: grid;
-    align-items: left;
-    height: 25px;
-    width: 100%;
-    margin-top: 10px;
-  }
-  .virtue-row, .weakness-row {
-    grid-template-columns: 35% 20% 5% 20% 20%;
-  }
-  .state-row {
-    grid-template-columns: 35% 10% 10% 45%;
-  }
+
 
   /* CONDITIONS COLUMN */
   .conditions-column-container {
@@ -663,6 +604,40 @@ export default {
 
   .condition-active-checkbox {
     box-shadow: 0px 0px 10px cyan;
+  }
+
+  .equipment-abilities-container {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .equipment-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-width: 300px;
+    gap: 10px;
+  }
+
+  .abilities-column {
+    display: flex;
+    flex-direction: column;
+    min-width: 300px;
+  }
+
+  @media (max-width: 768px) {
+    .equipment-abilities-container {
+      flex-direction: column;
+    }
+
+    .equipment-column,
+    .abilities-column {
+      width: 100%;
+      max-width: none;
+    }
   }
 
 </style>
