@@ -10,8 +10,8 @@
   "skills": [
     {
       "name": "Awe",
-      "ranks": 2,
-      "isFavored": false,
+      "ranks": 5,
+      "isFavored": true,
       "isIllFavored": false,
       "diceMod": -1
     },
@@ -31,7 +31,7 @@
     },
     {
       "name": "Fortitude",
-      "ranks": 0,
+      "ranks": 1,
       "isFavored": true,
       "isIllFavored": false,
       "diceMod": 0
@@ -41,7 +41,7 @@
       "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 0
+      "diceMod": -1
     },
     {
       "name": "Perform",
@@ -59,14 +59,14 @@
     },
     {
       "name": "Courtesy",
-      "ranks": 1,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0
     },
     {
       "name": "Spirit",
-      "ranks": 1,
+      "ranks": 3,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0
@@ -75,8 +75,8 @@
       "name": "Aid",
       "ranks": 0,
       "isFavored": false,
-      "isIllFavored": false,
-      "diceMod": 0
+      "isIllFavored": true,
+      "diceMod": -1
     },
     {
       "name": "Persuade",
@@ -110,8 +110,8 @@
       "name": "Riddle",
       "ranks": 0,
       "isFavored": false,
-      "isIllFavored": false,
-      "diceMod": 0
+      "isIllFavored": true,
+      "diceMod": -1
     }
   ],
   "endurance": {
@@ -126,7 +126,7 @@
     "current": 13,
     "max": 13
   },
-  "load": 2.5,
+  "load": 0,
   "shadow": 6,
   "injury": 8,
   "states": {
@@ -142,21 +142,21 @@
     "guilty": false,
     "angry": false,
     "afraid": false,
-    "troubled": false
+    "troubled": true
   },
   "equipment": [
     {
       "id": "2121d925-27f0-40ee-9d7f-2cc67b90141c",
-      "quantity": 3,
-      "isCarried": true,
-      "isWielding": true,
+      "quantity": 12,
+      "isCarried": false,
+      "isWielding": false,
       "order": 2
     },
     {
       "id": "37a98252-6881-4aaf-bc6c-4091c1b70e1b",
       "quantity": 1,
       "isCarried": true,
-      "isWielding": false,
+      "isWielding": true,
       "order": 3
     },
     {
@@ -170,7 +170,7 @@
       "id": "44d287b1-6675-40d3-86df-d5a965330e62",
       "quantity": 1,
       "isCarried": true,
-      "isWielding": false,
+      "isWielding": true,
       "order": 5
     },
     {
