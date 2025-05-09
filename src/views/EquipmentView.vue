@@ -50,7 +50,7 @@
       
       <EditEquipmentModal 
         v-if="showEditEquipmentModal"
-        :equipment="equipmentToEdit"
+        :equipmentId="equipmentToEdit?.id"
         @update="saveEditedEquipment"
         @close="closeEditEquipmentModal"
         @delete="openDeleteConfirmationModal(equipmentToEdit)"

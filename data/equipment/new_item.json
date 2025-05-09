@@ -1,6 +1,6 @@
 {
-  "id": "e4fc1904-71a1-475c-8191-f729e84603bd",
-  "name": "New Custom Item",
+  "id": "a639774a-3c80-4fa7-ac7d-2043ea5f98aa",
+  "name": "New Item",
   "description": "",
   "standardOfLiving": null,
   "source": null,
@@ -10,7 +10,7 @@
   "engagementDice": [],
   "engagementSuccesses": [],
   "skillMods": [],
-  "isDeleted": false,
-  "isCustom": true,
+  "isDeleted": true,
+  "isCustom": false,
   "artUrl": null
 }
