@@ -94,6 +94,7 @@ export default {
   padding: 10px;
   border-radius: 5px;
   text-align: left;
+  font-size: 14px;
 }
 
 .xp-bubble {

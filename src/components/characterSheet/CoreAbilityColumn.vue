@@ -272,8 +272,8 @@ export default {
     background-color: black;
     border-radius: 5px;
     padding: 15px;
-    width: 300px;
-    max-width: 320px;
+    width: 270px;
+    max-width: 270px;
   }
   .core-ability-header {
     display: flex;
@@ -379,10 +379,5 @@ export default {
   }
   .state-active-checkbox {
     box-shadow: 0px 0px 10px cyan;
-  }
-  
-  /* Keep checkbox styles for state checkboxes */
-  .skill-checkbox {
-    margin-left: 5px;
   }
 </style>

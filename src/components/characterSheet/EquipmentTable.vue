@@ -511,6 +511,7 @@
     flex-grow: 1;
     align-items: left;
     width: 300px;
+    max-width: 300px;
     background-color: black;  
     padding: 15px;
     border-radius: 5px;
