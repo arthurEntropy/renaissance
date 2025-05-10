@@ -129,7 +129,9 @@
         v-if="showSkillCheckModal"
         :character="selectedCharacter"
         :selectedSkillName="selectedSkillName"
+        :defaultTargetNumber="getLastTargetNumber()"
         @close="closeSkillCheckModal"
+        @update-target-number="updateLastTargetNumber"
       />
       <SettingsModal
         v-if="showSettingsModal"
@@ -214,6 +216,7 @@ export default {
       showEditEquipmentModal: false,
       equipmentIdToEdit: null,
       latestRoll: null,
+      lastTargetNumber: null,
     };
   },
 
@@ -404,13 +407,22 @@ export default {
     closeChangeCharacterArtModal() {
       this.showChangeCharacterArtModal = false;
     },
+    getLastTargetNumber() {
+      return this.lastTargetNumber;
+    },
+    
+    updateLastTargetNumber(targetNumber) {
+      this.lastTargetNumber = targetNumber;
+    },
+    
     openSkillCheckModal(skillName) {
       this.selectedSkillName = skillName;
       this.showSkillCheckModal = true;
     },
+    
     closeSkillCheckModal() {
       this.showSkillCheckModal = false;
-      this.updateLatestRoll();
+      this.updateLatestRoll(); // Get latest roll when modal closes
     },
     openEditEquipmentModal(equipmentId) {
       this.equipmentIdToEdit = equipmentId;
