@@ -16,21 +16,6 @@ class RulesService {
     }
   }
 
-  async fetchSection(sectionId) {
-    if (!sectionId) {
-      console.warn('fetchSection called with undefined sectionId');
-      return null;
-    }
-    
-    try {
-      const response = await axios.get(`${this.baseUrl}/${sectionId}`);
-      return response.data;
-    } catch (error) {
-      console.error(`Error fetching section ${sectionId}:`, error);
-      throw error;
-    }
-  }
-
   async updateSection(section) {
     try {
       await axios.put(`${this.baseUrl}/${section.id}`, section);

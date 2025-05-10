@@ -8,22 +8,19 @@ export const useRulesStore = defineStore('rules', () => {
     currentSection: null
   });
 
-  const fetchRules = async () => {
+  const fetchRules = async (id = null) => {
     try {
       state.sections = await RulesService.getAllSections();
+      // Set currentSection if an ID is provided
+      if (id) {
+        state.currentSection = state.sections.find(section => section.id === id) || null;
+      }
     } catch (error) {
       console.error("Error fetching sections:", error);
     }
   };
 
-  const fetchSection = async (id) => {
-    try {
-      state.currentSection = await RulesService.fetchSection(id);
-      return state.currentSection;
-    } catch (error) {
-      console.error(`Error fetching section ${id}:`, error);
-    }
-  };
+  // Removed fetchSection method
 
   const updateSection = async (section) => {
     try {
@@ -71,7 +68,6 @@ export const useRulesStore = defineStore('rules', () => {
   return {
     ...toRefs(state),
     fetchRules,
-    fetchSection,
     updateSection,
     createSection,
     deleteSection,

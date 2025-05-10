@@ -181,33 +181,26 @@
     },
     
     async created() {
-    try {
-        await this.rulesStore.fetchRules();
-        
-        // Only select a section if we have one
-        if (this.initialSectionId) {
-        this.selectSection(this.initialSectionId);
-        } else if (this.sortedSections && this.sortedSections.length > 0) {
-        // If no initial section specified, select the first one
-        this.selectSection(this.sortedSections[0].id);
+        try {
+            await this.rulesStore.fetchRules();
+            // Only select a section if we have one
+            if (this.initialSectionId) {
+                this.selectSection(this.initialSectionId);
+            } else if (this.sortedSections && this.sortedSections.length > 0) {
+                // If no initial section specified, select the first one
+                this.selectSection(this.sortedSections[0].id);
+            }
+        } catch (error) {
+            console.error('Error in RulesModal created:', error);
         }
-    } catch (error) {
-        console.error('Error in RulesModal created:', error);
-    }
     },
     
     methods: {
         async selectSection(sectionId) {
-        // Only attempt to fetch if we have a valid section ID
-        if (sectionId) {
-            try {
-            await this.rulesStore.fetchSection(sectionId);
-            this.selectedSectionId = sectionId;
-            } catch (error) {
-            console.error('Error selecting section:', error);
-            }
-        }
-        },
+        // Filter the section locally from the loaded sections
+        this.currentSection = this.rulesStore.sections.find(section => section.id === sectionId) || null;
+        this.selectedSectionId = sectionId;
+    },
       
       async createNewSection() {
         try {

@@ -44,27 +44,34 @@ const getAllDataByDirectory = (directory) => {
 };
 
 // Save a file with sanitized name and generate ID if needed
-const saveFile = (data, directory, oldName = null) => {
+function saveFile(entity, directory, fileName) {
   try {
-    // Generate a new ID if one doesn't exist
-    if (!data.id) {
-      data.id = uuidv4();
+    // Ensure all string properties are properly initialized
+    if (entity.title) {
+      entity.title = entity.title.trim();
+    } else {
+      entity.title = "Untitled"; // Default title if missing
     }
 
-    // Sanitize the filename
-    const filename = sanitizeFilename(data.name) + ".json";
-    const filePath = join(directory, filename);
-
-    // If old name exists, check for renaming
-    if (oldName && oldName !== data.name) {
-      const oldFilePath = join(directory, sanitizeFilename(oldName) + ".json");
-      renameSync(oldFilePath, filePath); // Rename the file
+    if (entity.content) {
+      entity.content = entity.content.trim();
+    } else {
+      entity.content = ""; // Default content if missing
     }
 
-    // Save the file
-    writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf8');
+    // Generate a unique ID if not provided
+    if (!entity.id) {
+      entity.id = uuidv4(); // Generate a UUID
+    }
+
+    // Generate file path
+    const sanitizedFileName = fileName || `${sanitizeFilename(entity.id)}.json`;
+    const filePath = join(directory, sanitizedFileName);
+
+    // Write the file
+    writeFileSync(filePath, JSON.stringify(entity, null, 2));
   } catch (error) {
-    console.error(`Error saving file: ${error.message}`);
+    console.error("Error saving file:", error);
     throw new Error(`Error saving file: ${error.message}`);
   }
 };
