@@ -22,7 +22,7 @@
     <!--CHARACTER SHEET-->
     <div v-if="selectedCharacter" class="character-sheet">
       <div class="settings-icon" @click="openSettingsModal">⚙️</div>
-      <p v-if="savingStatus" class="saving-status">{{ savingStatus }}</p>
+      <!-- <p v-if="savingStatus" class="saving-status">{{ savingStatus }}</p> -->
       <p class="close-button" @click="deselectCharacter">ⓧ</p>
 
       <!-- Top section with bio and dice results -->
