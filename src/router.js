@@ -7,6 +7,7 @@ import MestieriView from '@/views/MestieriView.vue';
 import AbilitiesView from '@/views/AbilitiesView.vue';
 import WorldElementsView from '@/views/WorldElementsView.vue';
 import EquipmentView from '@/views/EquipmentView.vue';
+import RulesView from '@/views/RulesView.vue';
 
 const routes = [
   { path: '/', component: TitlePage },
@@ -17,6 +18,7 @@ const routes = [
   { path: '/abilities', component: AbilitiesView },
   { path: '/world-elements', component: WorldElementsView },
   { path: '/equipment', component: EquipmentView },
+  { path: '/rules', name: 'Rules', component: RulesView },
 ];
 
 const router = createRouter({

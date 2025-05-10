@@ -13,6 +13,7 @@ app.use(cors());
 
 // Dynamically retrieve entity names from the "data" directory
 const entities = getEntityNames();
+console.log('Available entities:', entities);
 
 // Entity routes
 entities.forEach((entity) => {
@@ -21,6 +22,15 @@ entities.forEach((entity) => {
   app.put(`/${entity}/:id`, updateEntity(entity));
   app.delete(`/${entity}/:id`, deleteEntity(entity));
 });
+
+// Make sure rules is registered as an entity
+if (!entities.includes('rules')) {
+  console.log('Adding rules entity manually...');
+  app.get('/rules', getAllEntities('rules'));
+  app.post('/rules', createEntity('rules'));
+  app.put('/rules/:id', updateEntity('rules'));
+  app.delete('/rules/:id', deleteEntity('rules'));
+}
 
 // Discord route
 app.post('/send-message', sendDiscordMessage);

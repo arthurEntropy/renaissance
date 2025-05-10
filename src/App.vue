@@ -4,6 +4,7 @@
     <div class="nav-menu" :class="{ open: menuOpen }">
       <button class="menu-toggle" @click="toggleMenu">☰</button>
       <nav v-if="menuOpen">
+        <router-link to="/rules" @click="closeMenu">RULES</router-link>
         <router-link to="/ancestries" @click="closeMenu">ANCESTRIES</router-link>
         <router-link to="/cultures" @click="closeMenu">CULTURES</router-link>
         <router-link to="/mestieri" @click="closeMenu">MESTIERI</router-link>
@@ -17,6 +18,7 @@
     <!-- New Desktop Top Navigation -->
     <div class="top-nav">
       <div class="top-nav-content">
+        <router-link to="/rules">RULES</router-link>
         <router-link to="/ancestries">ANCESTRIES</router-link>
         <router-link to="/cultures">CULTURES</router-link>
         <router-link to="/mestieri">MESTIERI</router-link>

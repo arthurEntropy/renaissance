@@ -23,11 +23,32 @@
           ¶
         </button>
         <button 
+          @click.stop.prevent="editor.chain().focus().toggleHeading({ level: 1 }).run()" 
+          :class="{ 'is-active': editor?.isActive('heading', { level: 1 }) }"
+          title="Heading 1"
+        >
+          H1
+        </button>
+        <button 
+          @click.stop.prevent="editor.chain().focus().toggleHeading({ level: 2 }).run()" 
+          :class="{ 'is-active': editor?.isActive('heading', { level: 2 }) }"
+          title="Heading 2"
+        >
+          H2
+        </button>
+        <button 
           @click.stop.prevent="editor.chain().focus().toggleHeading({ level: 3 }).run()" 
           :class="{ 'is-active': editor?.isActive('heading', { level: 3 }) }"
-          title="Heading"
+          title="Heading 3"
         >
-          H
+          H3
+        </button>
+        <button 
+          @click.stop.prevent="editor.chain().focus().toggleHeading({ level: 4 }).run()" 
+          :class="{ 'is-active': editor?.isActive('heading', { level: 4 }) }"
+          title="Heading 4"
+        >
+          H4
         </button>
         <button 
           @click.stop.prevent="editor.chain().focus().toggleBulletList().run()" 
