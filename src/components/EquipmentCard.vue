@@ -29,46 +29,49 @@
             />
           </div>
         </div>
-        <template v-if="equipment.description">
-          <p class="description-background">
-            {{ equipment.description }}
-          </p>
-        </template>
-        <template v-else-if="equipment.isMelee">
-          <div class="dice-description-row">
-            <div class="dice-section">
-              <div class="dice-section-background">
-                <span class="dice-label">Engagement</span>
-                <div class="dice-icons">
-                  <span
-                    v-for="die in equipment.engagementDice"
-                    :key="'engagement-' + die"
-                    class="dice-icon"
-                  >
-                    <i :class="getDiceFontClass(die)"></i>
-                  </span>
+        <!-- Description section - show if available -->
+        <div class="content-sections">
+          <template v-if="equipment.description">
+            <p class="description-background">
+              {{ equipment.description }}
+            </p>
+          </template>
+          
+          <!-- Dice section - show independently if it's a melee weapon -->
+          <template v-if="equipment.isMelee">
+            <div class="dice-description-row">
+              <div class="dice-section">
+                <div class="dice-section-background">
+                  <span class="dice-label">Engagement</span>
+                  <div class="dice-icons">
+                    <span
+                      v-for="die in equipment.engagementDice"
+                      :key="'engagement-' + die"
+                      class="dice-icon"
+                    >
+                      <i :class="getDiceFontClass(die)"></i>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="dice-section">
+                <div class="dice-section-background">
+                  <span class="dice-label">Damage</span>
+                  <div class="dice-icons">
+                    <span
+                      v-for="die in equipment.damageDice"
+                      :key="'damage-' + die"
+                      class="dice-icon"
+                    >
+                      <i :class="getDiceFontClass(die)"></i>
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
-            <div class="dice-section">
-              <div class="dice-section-background">
-                <span class="dice-label">Damage</span>
-                <div class="dice-icons">
-                  <span
-                    v-for="die in equipment.damageDice"
-                    :key="'damage-' + die"
-                    class="dice-icon"
-                  >
-                    <i :class="getDiceFontClass(die)"></i>
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </template>
+          </template>
+        </div>
       </div>
-
-      <!-- Other content remains the same -->
     </template>
   </base-card>
 </template>
@@ -283,6 +286,12 @@ export default {
 
 .engagement-success-pill:hover {
   background-color: rgba(64, 64, 64, 0.4);
+}
+.content-sections {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 /* Tooltip */

@@ -22,16 +22,24 @@
     <!--CHARACTER SHEET-->
     <div v-if="selectedCharacter" class="character-sheet">
       <div class="settings-icon" @click="openSettingsModal">⚙️</div>
-      <p v-if="savingStatus" class="saving-status">{{ savingStatus }}</p>
+      <!-- <p v-if="savingStatus" class="saving-status">{{ savingStatus }}</p> -->
       <p class="close-button" @click="deselectCharacter">ⓧ</p>
 
-      <!-- CHARACTER BIO SECTION-->
-      <CharacterBioSection
-        :character="selectedCharacter"
-        :defaultArtUrl="defaultArtUrl || ''"
-        @open-full-size-art="openFullSizeCharacterArtModal"
-        @update-character="updateCharacter"
-      />
+      <!-- Top section with bio and dice results -->
+      <div class="top-section">
+        <!-- CHARACTER BIO SECTION-->
+        <CharacterBioSection
+          :character="selectedCharacter"
+          :defaultArtUrl="defaultArtUrl || ''"
+          @open-full-size-art="openFullSizeCharacterArtModal"
+          @update-character="updateCharacter"
+        />
+        
+        <!-- DICE ROLL RESULTS -->
+        <DiceRollResults
+          :latestRoll="latestRoll"
+        />
+      </div>
 
       <!-- CHARACTER STATS SECTION -->
       <div class="character-stats-section">
@@ -121,7 +129,9 @@
         v-if="showSkillCheckModal"
         :character="selectedCharacter"
         :selectedSkillName="selectedSkillName"
+        :defaultTargetNumber="getLastTargetNumber()"
         @close="closeSkillCheckModal"
+        @update-target-number="updateLastTargetNumber"
       />
       <SettingsModal
         v-if="showSettingsModal"
@@ -165,6 +175,8 @@ import CharacterSettingsModal from '@/components/modals/CharacterSettingsModal.v
 import DeleteConfirmationModal from '@/components/modals/DeleteConfirmationModal.vue';
 import EditEquipmentModal from '@/components/modals/EditEquipmentModal.vue';
 import EngagementDiceTable from '@/components/characterSheet/EngagementDiceTable.vue';
+import DiceRollResults from '@/components/characterSheet/DiceRollResults.vue';
+import DiceService from '@/services/DiceService';
 
 export default {
   components: {
@@ -180,6 +192,7 @@ export default {
     DeleteConfirmationModal,
     EditEquipmentModal,
     EngagementDiceTable,
+    DiceRollResults,
   },
   data() {
     const characterStore = useCharacterStore();
@@ -202,6 +215,8 @@ export default {
       tempArtUrl: '',
       showEditEquipmentModal: false,
       equipmentIdToEdit: null,
+      latestRoll: null,
+      lastTargetNumber: null,
     };
   },
 
@@ -338,6 +353,7 @@ export default {
     deselectCharacter() {
       this.selectedCharacter = null;
       this.characterStore.selectedCharacter = null;
+      this.latestRoll = null;
       this.characterStore.fetchCharacters();
     },
     async createNewCharacter() {
@@ -391,12 +407,22 @@ export default {
     closeChangeCharacterArtModal() {
       this.showChangeCharacterArtModal = false;
     },
+    getLastTargetNumber() {
+      return this.lastTargetNumber;
+    },
+    
+    updateLastTargetNumber(targetNumber) {
+      this.lastTargetNumber = targetNumber;
+    },
+    
     openSkillCheckModal(skillName) {
       this.selectedSkillName = skillName;
       this.showSkillCheckModal = true;
     },
+    
     closeSkillCheckModal() {
       this.showSkillCheckModal = false;
+      this.updateLatestRoll(); // Get latest roll when modal closes
     },
     openEditEquipmentModal(equipmentId) {
       this.equipmentIdToEdit = equipmentId;
@@ -448,6 +474,10 @@ export default {
       } catch (error) {
         console.error("Error deleting custom equipment:", error);
       }
+    },
+    // LATEST ROLL
+    updateLatestRoll() {
+      this.latestRoll = DiceService.getLatestRoll();
     },
   }
 };
@@ -557,6 +587,18 @@ export default {
     width: 100%;
     justify-content: center;
     gap: 10px;
+  }
+  .top-section {
+    display: flex;
+    width: 100%;
+    gap: 10px;
+    justify-content: space-between;
+  }
+  @media (max-width: 768px) {
+    .top-section {
+      flex-direction: column;
+      align-items: center;
+    }
   }
 
 

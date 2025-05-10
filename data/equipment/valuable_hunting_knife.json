@@ -8,5 +8,6 @@
   "damageDice": [],
   "skillMods": [],
   "description": "I want to start a new life",
-  "weight": 0
+  "weight": 0,
+  "isDeleted": true
 }

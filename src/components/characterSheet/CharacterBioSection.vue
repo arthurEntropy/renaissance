@@ -447,6 +447,7 @@ export default {
   padding: 15px;
   position: relative;
   margin-bottom: 10px;
+  flex: 3;
 }
 
 .bio-section-content {

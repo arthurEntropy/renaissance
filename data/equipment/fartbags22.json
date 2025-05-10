@@ -1,7 +1,7 @@
 {
-  "id": "6491e3fc-1152-4a3d-baa7-d1afd720edc1",
-  "name": "Waterskin",
-  "description": "Just a regular-ass waterskin.",
+  "id": "cd2d81d6-8251-4899-b9d2-67b3431f6638",
+  "name": "Fartbags22",
+  "description": "",
   "standardOfLiving": null,
   "source": null,
   "weight": 0,
@@ -11,6 +11,6 @@
   "engagementSuccesses": [],
   "skillMods": [],
   "isDeleted": true,
-  "isCustom": false,
+  "isCustom": true,
   "artUrl": null
 }

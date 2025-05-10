@@ -7,5 +7,6 @@
   "engagementSuccesses": [],
   "engagementDice": [],
   "damageDice": [],
-  "skillMods": []
+  "skillMods": [],
+  "isDeleted": true
 }

@@ -8,5 +8,6 @@
   "engagementDice": [],
   "damageDice": [],
   "skillMods": [],
-  "description": "Testing"
+  "description": "Testing",
+  "isDeleted": true
 }
