@@ -5,7 +5,6 @@ class RulesService {
     this.baseUrl = 'http://localhost:3000/rules';
   }
 
-  // CRUD METHODS
   async getAllSections() {
     try {
       const response = await axios.get(this.baseUrl);
@@ -16,20 +15,17 @@ class RulesService {
     }
   }
 
-  async updateSection(section) {
+  async createSection(sectionData = {}) {
+    const defaultSection = {
+      name: "New Section",
+      content: "",
+      index: 0,
+      isDeleted: false,
+      ...sectionData
+    };
+    
     try {
-      await axios.put(`${this.baseUrl}/${section.id}`, section);
-      return section;
-    } catch (error) {
-      console.error("Error saving section:", error);
-      throw error;
-    }
-  }
-
-  async createSection(sectionData) {
-    const newSection = this.getDefaultSection(sectionData);
-    try {
-      const response = await axios.post(this.baseUrl, newSection);
+      const response = await axios.post(this.baseUrl, defaultSection);
       return response.data;
     } catch (error) {
       console.error("Error creating new section:", error);
@@ -37,33 +33,41 @@ class RulesService {
     }
   }
 
-  async deleteSection(id) {
+  async updateSection(section) {
     try {
-      await axios.delete(`${this.baseUrl}/${id}`);
+      const response = await axios.put(`${this.baseUrl}/${section.id}`, section);
+      return response.data;
+    } catch (error) {
+      console.error("Error updating section:", error);
+      throw error;
+    }
+  }
+
+  async deleteSection(section) {
+    try {
+      // Soft delete by marking as deleted
+      section.isDeleted = true;
+      return await this.updateSection(section);
     } catch (error) {
       console.error("Error deleting section:", error);
       throw error;
     }
   }
 
-  async reorderSections(orderedIds) {
+  async reorderSections(sections) {
     try {
-      await axios.post(`${this.baseUrl}/reorder`, { orderedIds });
+      // Instead of a dedicated endpoint, update each section with its new index
+      const updatePromises = sections.map((section, index) => {
+        const updatedSection = { ...section, index };
+        return this.updateSection(updatedSection);
+      });
+      
+      await Promise.all(updatePromises);
+      return sections; // Return the reordered sections
     } catch (error) {
       console.error("Error reordering sections:", error);
       throw error;
     }
-  }
-
-  // DEFAULT SECTION
-  getDefaultSection(overrides = {}) {
-    return {
-      id: null, // ID will be assigned by the backend
-      title: "New Section",
-      content: "",
-      index: 0,
-      ...overrides
-    };
   }
 }
 
