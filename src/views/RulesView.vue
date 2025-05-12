@@ -638,6 +638,13 @@ export default {
   line-height: 1.6;
 }
 
+.content-display img {
+  width: 100%; /* Fill horizontal space */
+  height: auto; /* Maintain aspect ratio */
+  display: block;
+  margin: 0.5em 0;
+}
+
 .no-selection {
   display: flex;
   flex-direction: column;

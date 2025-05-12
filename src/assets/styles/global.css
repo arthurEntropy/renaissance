@@ -53,6 +53,13 @@ input[type="checkbox"] {
     cursor: pointer;
 }
 
+/* IMAGES */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
 /* INPUTS */
 /* .input {
     background: black;
