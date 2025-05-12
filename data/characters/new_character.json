@@ -1,0 +1,166 @@
+{
+  "id": "f2963d92-028d-4572-a8fe-05b38b367b66",
+  "name": "New Character",
+  "pronouns": "",
+  "ancestries": "",
+  "cultures": "",
+  "personalityAndBackground": "",
+  "xp": 0,
+  "mp": {
+    "current": 0,
+    "max": 0
+  },
+  "body": 3,
+  "heart": 2,
+  "wits": 4,
+  "skills": [
+    {
+      "name": "Awe",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0
+    },
+    {
+      "name": "Strength",
+      "ranks": 2,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0
+    },
+    {
+      "name": "Dexterity",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0
+    },
+    {
+      "name": "Fortitude",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0
+    },
+    {
+      "name": "Craft",
+      "ranks": 1,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0
+    },
+    {
+      "name": "Perform",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0
+    },
+    {
+      "name": "Insight",
+      "ranks": 1,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0
+    },
+    {
+      "name": "Courtesy",
+      "ranks": 1,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0
+    },
+    {
+      "name": "Spirit",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0
+    },
+    {
+      "name": "Aid",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0
+    },
+    {
+      "name": "Persuade",
+      "ranks": 1,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0
+    },
+    {
+      "name": "Awareness",
+      "ranks": 2,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0
+    },
+    {
+      "name": "Stealth",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0
+    },
+    {
+      "name": "Lore",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0
+    },
+    {
+      "name": "Riddle",
+      "ranks": 1,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0
+    }
+  ],
+  "endurance": {
+    "current": 12,
+    "max": 15
+  },
+  "hope": {
+    "current": 5,
+    "max": 6
+  },
+  "defense": {
+    "current": 14,
+    "max": 14
+  },
+  "load": 6,
+  "shadow": 2,
+  "injury": 5,
+  "states": {
+    "weary": false,
+    "twiceWeary": false,
+    "miserable": false,
+    "twiceMiserable": false,
+    "helpless": false,
+    "twiceHelpless": false
+  },
+  "conditions": {
+    "insecure": false,
+    "guilty": false,
+    "angry": false,
+    "afraid": false,
+    "troubled": false
+  },
+  "equipment": [
+    {
+      "id": "64992fd9-1594-4cab-b232-b570e0e53ece",
+      "quantity": 6,
+      "isCarried": true,
+      "isWielding": false,
+      "order": 0
+    }
+  ],
+  "artUrls": [
+    "https://cdn.midjourney.com/a8a36740-b7d3-4aef-bea3-a95039bec06f/0_2.png"
+  ],
+  "activeEffects": []
+}

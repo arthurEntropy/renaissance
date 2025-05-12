@@ -71,6 +71,12 @@
         >
           🔗❌
         </button>
+        <button 
+          @click.stop.prevent="insertImage" 
+          title="Insert Image"
+        >
+          🖼️
+        </button>
       </div>
       <editor-content :editor="editor" @click.stop />
       <div v-if="!editor" class="editor-loading">Loading editor...</div>
@@ -81,6 +87,7 @@
   import { Editor, EditorContent } from '@tiptap/vue-3'
   import StarterKit from '@tiptap/starter-kit'
   import Link from '@tiptap/extension-link'
+  import Image from '@tiptap/extension-image'
   
   export default {
     name: 'RichTextEditor',
@@ -134,6 +141,12 @@
               target: '_blank'
             }
           }),
+          Image.configure({
+            inline: false,
+            HTMLAttributes: {
+              class: 'editor-image',
+            },
+          }),
           // Other extensions...
         ],
         onUpdate: () => {
@@ -162,6 +175,13 @@
   
         const validUrl = url.match(/^https?:\/\//) ? url : `https://${url}`;
         this.editor.chain().focus().extendMarkRange('link').setLink({ href: validUrl }).run();
+      },
+      insertImage() {
+        const url = window.prompt('Image URL');
+    
+        if (url) {
+          this.editor.chain().focus().setImage({ src: url }).run();
+        }
       },
       focus() {
         this.editor?.chain().focus().run();
@@ -242,5 +262,12 @@
   
   :deep(.ProseMirror ul li) {
     margin-bottom: 0.3em;
+  }
+
+  .editor-image {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
   }
   </style>
