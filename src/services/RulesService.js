@@ -20,6 +20,7 @@ class RulesService {
       id: null, // ID will be assigned by the backend
       name: "New Section",
       content: "",
+      imageUrl: "",
       index: 0,
       isDeleted: false,
       ...sectionData

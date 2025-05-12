@@ -74,40 +74,74 @@
       <!-- Right content area -->
       <div class="rules-content">
         <div v-if="currentSection" class="rules-content-body">
-          <!-- Name editor with edit button -->
-          <div class="section-name-container">
-            <div class="section-header">
-              <input 
-                v-if="isContentEditMode"
-                type="text" 
-                v-model="currentSection.name" 
-                class="section-name-input"
-                @input="markAsChanged"
-              />
-              <h2 v-else>{{ currentSection.name }}</h2>
+          <div class="section-layout">
+            <!-- Left side with title and content -->
+            <div class="content-side">
+              <!-- Name editor with edit button -->
+              <div class="section-name-container">
+                <div class="section-header">
+                  <input 
+                    v-if="isContentEditMode"
+                    type="text" 
+                    v-model="currentSection.name" 
+                    class="section-name-input"
+                    @input="markAsChanged"
+                  />
+                  <h2 v-else>{{ currentSection.name }}</h2>
+                  
+                  <!-- Edit button moved here -->
+                  <button 
+                    class="content-edit-toggle" 
+                    @click="toggleContentEditMode"
+                    :class="{ 'active': isContentEditMode }"
+                    :disabled="isStructureEditMode"
+                    :name="isContentEditMode ? 'Save Changes' : 'Edit Content'"
+                  >
+                    {{ isContentEditMode ? '✓' : '✎' }}
+                  </button>
+                </div>
+              </div>
               
-              <!-- Edit button moved here -->
-              <button 
-                class="content-edit-toggle" 
-                @click="toggleContentEditMode"
-                :class="{ 'active': isContentEditMode }"
-                :disabled="isStructureEditMode"
-                :name="isContentEditMode ? 'Save Changes' : 'Edit Content'"
-              >
-                {{ isContentEditMode ? '✓' : '✎' }}
-              </button>
+              <!-- Content editor -->
+              <div class="section-content-container">
+                <div v-if="isContentEditMode" class="image-url-container">
+                  <label for="section-image-url">Side Image URL:</label>
+                  <input 
+                    id="section-image-url"
+                    type="text" 
+                    v-model="currentSection.imageUrl" 
+                    class="image-url-input"
+                    placeholder="Enter image URL (optional)"
+                    @input="markAsChanged"
+                  />
+                </div>
+                
+                <TextEditor 
+                  v-if="isContentEditMode"
+                  v-model="currentSection.content"
+                  height="calc(100vh - 200px)"
+                  @update:modelValue="markAsChanged"
+                />
+                <div v-else class="content-display" v-html="formattedContent"></div>
+              </div>
             </div>
-          </div>
-          
-          <!-- Content editor -->
-          <div class="section-content-container">
-            <TextEditor 
-              v-if="isContentEditMode"
-              v-model="currentSection.content"
-              height="calc(100vh - 200px)"
-              @update:modelValue="markAsChanged"
-            />
-            <div v-else class="content-display" v-html="formattedContent"></div>
+            
+            <!-- Right side with image -->
+            <div class="image-side">
+              <div 
+                class="side-image" 
+                :style="{ 
+                  backgroundImage: currentSection.imageUrl 
+                    ? `url(${currentSection.imageUrl})` 
+                    : 'url(/images/side-decoration.jpg)'
+                }"
+              >
+                <!-- Add an "Add Image" placeholder when in edit mode and no image -->
+                <div v-if="isContentEditMode && !currentSection.imageUrl" class="add-image-placeholder">
+                  <span>Add Side Image</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         
@@ -123,13 +157,6 @@
         </div>
       </div>
     </div>
-    
-    <DeleteConfirmationModal
-      v-if="showDeleteConfirmationModal"
-      :name="sectionToDelete?.name || 'this section'"
-      @close="closeDeleteConfirmationModal"
-      @confirm="deleteSection"
-    />
   </div>
 </template>
 
@@ -138,13 +165,11 @@ import { useRulesStore } from '@/stores/rulesStore';
 import RulesService from '@/services/RulesService';
 import TextEditor from '@/components/TextEditor.vue';
 import draggable from 'vuedraggable';
-import DeleteConfirmationModal from '@/components/modals/DeleteConfirmationModal.vue';
 
 export default {
   components: {
     TextEditor,
-    draggable,
-    DeleteConfirmationModal
+    draggable
   },
   
   data() {
@@ -155,7 +180,6 @@ export default {
       currentSection: null,
       selectedSectionId: null,
       localSections: [],
-      showDeleteConfirmationModal: false,
       sectionToDelete: null,
       unsavedChanges: false
     };
@@ -198,7 +222,6 @@ export default {
   },
   
   methods: {
-    // Copy all methods from RulesModal.vue, but remove the confirmClose method
     async selectSection(sectionId) {
       // Skip if we're trying to select the already selected section
       if (this.currentSection?.id === sectionId) return;
@@ -301,12 +324,11 @@ export default {
       if (this.isContentEditMode) return;
       
       this.sectionToDelete = section;
-      this.showDeleteConfirmationModal = true;
-    },
-    
-    closeDeleteConfirmationModal() {
-      this.showDeleteConfirmationModal = false;
-      this.sectionToDelete = null;
+      if (window.confirm(`Are you sure you want to delete "${section.name}"?`)) {
+        this.deleteSection();
+      } else {
+        this.sectionToDelete = null;
+      }
     },
     
     async deleteSection() {
@@ -315,7 +337,7 @@ export default {
       
       await RulesService.deleteSection(this.sectionToDelete);
       await this.rulesStore.fetchRules();
-      this.closeDeleteConfirmationModal(); // This sets sectionToDelete to null
+      this.sectionToDelete = null;
       
       // If the deleted section was the current section, select another one
       if (this.currentSection && this.currentSection.id === deletedSectionId) {
@@ -345,25 +367,24 @@ export default {
 <style scoped>
 .rules-view {
   padding: 20px;
-  height: calc(100vh - 40px);
+  height: 90vh;
   display: flex;
   flex-direction: column;
-  width: 90%;
+  width: 80%;
 }
 
 .rules-container {
   display: flex;
   flex: 1;
-  background: rgb(17, 17, 17, 0.9);
+  background: rgb(17, 17, 17);
   border-radius: 8px;
   overflow: hidden;
 }
 
-/* Copy all styles from RulesModal.vue, except modal-overlay */
 /* Navigation sidebar styles */
 .rules-navigation {
   width: 250px;
-  background: rgba(0, 0, 0, 0.3);
+  background: rgb(28, 28, 28);
   padding: 15px 0;
   border-right: 1px solid rgba(255, 255, 255, 0.1);
   display: flex;
@@ -452,6 +473,7 @@ export default {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  color: goldenrod;
 }
 
 .section-controls {
@@ -492,18 +514,45 @@ export default {
 }
 
 .rules-content-body {
-  padding: 20px;
-  overflow-y: auto;
-  flex: 1;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
 }
 
+/* New layout structure */
+.section-layout {
+  display: flex;
+  height: 100%;
+  position: relative;
+}
+
+.content-side {
+  width: 65%;
+  height: 100%;
+  padding: 20px;
+  position: relative;
+  z-index: 2; /* Position above the image */
+  overflow-y: auto;
+}
+
+.image-side {
+  width: 45%;
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  z-index: 1; /* Position behind the content */
+}
+
+/* Section header and name styles */
 .section-name-container {
   margin-bottom: 20px;
+  position: relative;
+  z-index: 3; /* Above content and image */
 }
 
 .section-header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   padding-bottom: 10px;
@@ -511,6 +560,9 @@ export default {
 
 .section-name-container h2 {
   margin: 0;
+  text-transform: uppercase;
+  font-style: italic;
+  font-weight: normal;
 }
 
 .section-name-input {
@@ -525,8 +577,60 @@ export default {
   flex: 1;
 }
 
+/* Content container */
 .section-content-container {
-  margin-top: 10px;
+  position: relative;
+}
+
+/* Image styles */
+.side-image {
+  position: sticky;
+  top: 0;
+  height: 100%;
+  background-size: cover;
+  background-position: right;
+  border-radius: 8px;
+  box-shadow: inset 200px 0 100px -50px rgb(17, 17, 17);
+}
+
+/* Enhanced fade effect for text overlap */
+.side-image::before {
+  display: none;
+}
+
+/* Image URL input styles */
+.image-url-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.image-url-container label {
+  font-size: 14px;
+  color: #aaa;
+}
+
+.image-url-input {
+  flex: 1;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid #444;
+  padding: 8px;
+  color: white;
+  border-radius: 4px;
+}
+
+/* Placeholder for when no image is set */
+.add-image-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  color: #aaa;
+  font-style: italic;
+  border: 2px dashed #555;
+  border-radius: 8px;
 }
 
 .content-display {
@@ -545,11 +649,6 @@ export default {
   padding: 20px;
 }
 
-.content-edit-toggle:disabled {
-  opacity: 0.3;
-  cursor: not-allowed;
-}
-
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .rules-container {
@@ -558,9 +657,41 @@ export default {
 
   .rules-navigation {
     width: 100%;
-    height: 200px;
+    height: auto;
+    max-height: 200px;
     border-right: none;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .section-layout {
+    flex-direction: column;
+  }
+
+  .content-side {
+    width: 100%;
+    padding: 15px;
+    overflow-y: visible;
+    height: auto;
+  }
+
+  .image-side {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    margin-top: 20px;
+  }
+
+  .section-content-container {
+    padding-right: 0;
+  }
+
+  .side-image {
+    position: relative;
+    height: 200px;
+  }
+  
+  .side-image::before {
+    width: 30%;
   }
 }
 </style>
