@@ -17,6 +17,7 @@ class RulesService {
 
   async createSection(sectionData = {}) {
     const defaultSection = {
+      id: null, // ID will be assigned by the backend
       name: "New Section",
       content: "",
       index: 0,

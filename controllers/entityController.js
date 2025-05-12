@@ -17,7 +17,7 @@ const createEntity = (entity) => (req, res) => {
 
   try {
     const directory = getDirectory(entity);
-    saveFile(newEntity, directory, newEntity.name);
+    saveFile(newEntity, directory);
     res.status(201).send({ message: `${entity.slice(0, -1)} created successfully.`, id: newEntity.id });
   } catch (error) {
     console.error(`Error creating ${entity.slice(0, -1)}:`, error);

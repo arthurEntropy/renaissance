@@ -46,23 +46,25 @@ const getAllDataByDirectory = (directory) => {
 // Save a file with sanitized name and generate ID if needed
 const saveFile = (data, directory, oldName = null) => {
   try {
-    console.log(`Saving file: name=${data.name}, directory=${directory}`);
+    // Generate a new ID if one doesn't exist
+    if (!data.id) {
+      data.id = uuidv4();
+    }
+
+    // Sanitize the filename
     const filename = sanitizeFilename(data.name) + ".json";
     const filePath = join(directory, filename);
-    console.log(`Generated file path: ${filePath}`);
 
     // If old name exists, check for renaming
     if (oldName && oldName !== data.name) {
       const oldFilePath = join(directory, sanitizeFilename(oldName) + ".json");
-      console.log(`Renaming file from ${oldFilePath} to ${filePath}`);
       renameSync(oldFilePath, filePath); // Rename the file
     }
 
     // Save the file
     writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf8');
-    console.log(`File saved successfully: ${filePath}`);
   } catch (error) {
-    console.error(`Error saving file: name=${data.name}, directory=${directory}, error=${error.message}`);
+    console.error(`Error saving file: ${error.message}`);
     throw new Error(`Error saving file: ${error.message}`);
   }
 };

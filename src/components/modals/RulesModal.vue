@@ -211,17 +211,21 @@ export default {
   
   methods: {
     async selectSection(sectionId) {
-      // Prevent section switching during content edit mode with unsaved changes
-      if (this.isContentEditMode) {
-        if (this.unsavedChanges) {
-          if (confirm('You have unsaved changes. Do you want to save before selecting another section?')) {
-            await this.saveSection();
-          } else {
-            this.unsavedChanges = false;
-          }
+      // Skip if we're trying to select the already selected section
+      if (this.currentSection?.id === sectionId) return;
+      
+      // Handle unsaved changes if in content edit mode
+      if (this.isContentEditMode && this.unsavedChanges) {
+        if (confirm('You have unsaved changes. Do you want to save before selecting another section?')) {
+          await this.saveSection();
         } else {
-          return; // Don't allow section switching in content edit mode even if no changes
+          this.unsavedChanges = false;
         }
+      }
+      
+      // Exit content edit mode when switching sections
+      if (this.isContentEditMode) {
+        this.isContentEditMode = false;
       }
       
       // Clear current section first to avoid visual issues with multiple sections appearing selected
@@ -243,18 +247,26 @@ export default {
         // Refresh data
         await this.rulesStore.fetchRules();
         
-        if (newSection && newSection.id) {
+        // More robust section finding - check by name and id
+        const sectionToSelect = this.rulesStore.sections.find(s => 
+          (s.id && s.id === newSection.id) || 
+          (!s.id && s.name === newSection.name)
+        );
+        
+        if (sectionToSelect) {
           // Exit structure edit mode
           this.isStructureEditMode = false;
           
           // Select the newly created section
-          await this.selectSection(newSection.id);
+          await this.selectSection(sectionToSelect.id);
           
-          // Enter content edit mode after a short delay to ensure the section is selected
-          this.$nextTick(() => {
+          // Enter content edit mode after a short delay
+          setTimeout(() => {
             this.isContentEditMode = true;
-            this.unsavedChanges = true; // Mark as changed so user will be prompted if they navigate away
-          });
+            this.unsavedChanges = true; // Mark as changed
+          }, 100);
+        } else {
+          console.error("Couldn't find the newly created section");
         }
       } catch (error) {
         console.error("Error creating new section:", error);
@@ -309,12 +321,15 @@ export default {
     },
     
     async deleteSection() {
+      // Store the section ID before it gets set to null
+      const deletedSectionId = this.sectionToDelete.id;
+      
       await RulesService.deleteSection(this.sectionToDelete);
       await this.rulesStore.fetchRules();
-      this.closeDeleteConfirmationModal();
+      this.closeDeleteConfirmationModal(); // This sets sectionToDelete to null
       
       // If the deleted section was the current section, select another one
-      if (this.currentSection && this.currentSection.id === this.sectionToDelete.id) {
+      if (this.currentSection && this.currentSection.id === deletedSectionId) {
         this.currentSection = null;
         
         if (this.sortedSections.length > 0) {
