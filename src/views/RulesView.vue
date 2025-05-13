@@ -213,7 +213,19 @@ export default {
   async created() {
     try {
       await this.rulesStore.fetchRules();
-      if (this.sortedSections && this.sortedSections.length > 0) {
+      
+      // Get the last selected section ID from localStorage
+      const lastSelectedSectionId = localStorage.getItem('lastSelectedSectionId');
+      
+      // Check if the section still exists
+      const sectionExists = lastSelectedSectionId && 
+        this.sortedSections.some(section => section.id === lastSelectedSectionId);
+      
+      if (sectionExists) {
+        // Select the last viewed section
+        this.selectSection(lastSelectedSectionId);
+      } else if (this.sortedSections && this.sortedSections.length > 0) {
+        // Fall back to the first section if the saved one doesn't exist
         this.selectSection(this.sortedSections[0].id);
       }
     } catch (error) {
@@ -246,6 +258,9 @@ export default {
         // Filter the section locally from the loaded sections
         this.currentSection = this.rulesStore.sections.find(section => section.id === sectionId) || null;
         this.selectedSectionId = sectionId;
+        
+        // Save the selected section ID to localStorage
+        localStorage.setItem('lastSelectedSectionId', sectionId);
       });
     },
     
@@ -455,7 +470,7 @@ export default {
   align-items: center;
   padding: 10px 15px;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: background-color 0.2s, color 0.2s;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
@@ -463,9 +478,17 @@ export default {
   background-color: rgba(255, 255, 255, 0.05);
 }
 
+.rule-section-item:hover .section-name {
+  color: white; /* Text turns white on hover */
+}
+
 .rule-section-item.active {
   background-color: rgba(255, 255, 255, 0.1);
-  border-left: 3px solid #4CAF50;
+  border-left: 3px solid white; /* Changed from green to white */
+}
+
+.rule-section-item.active .section-name {
+  color: white; /* Selected section text is white */
 }
 
 .section-name {
@@ -474,6 +497,7 @@ export default {
   text-overflow: ellipsis;
   white-space: nowrap;
   color: goldenrod;
+  transition: color 0.2s; /* Smooth color transition */
 }
 
 .section-controls {
@@ -554,6 +578,7 @@ export default {
 .section-header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   padding-bottom: 10px;
 }
@@ -636,6 +661,19 @@ export default {
 .content-display {
   text-align: left;
   line-height: 1.6;
+}
+
+.content-display :deep(h2) {
+  font-size: 36px;
+  margin: 1.5em 0 0 0;
+  color: goldenrod;
+  font-weight: normal;
+}
+
+.content-display :deep(h3) {
+  margin: 1.5em 0 0 0;
+  font-size: 24px;
+  color: lightseagreen;
 }
 
 .content-display img {

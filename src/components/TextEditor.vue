@@ -77,6 +77,40 @@
         >
           🖼️
         </button>
+        <button 
+          @click.stop.prevent="editor.chain().focus().setTextAlign('left').run()" 
+          :class="{ 'is-active': editor?.isActive({ textAlign: 'left' }) }"
+          title="Align Left"
+        >
+          ⬅️
+        </button>
+        <button 
+          @click.stop.prevent="editor.chain().focus().setTextAlign('center').run()" 
+          :class="{ 'is-active': editor?.isActive({ textAlign: 'center' }) }"
+          title="Align Center"
+        >
+          ⬜
+        </button>
+        <button 
+          @click.stop.prevent="editor.chain().focus().setTextAlign('right').run()" 
+          :class="{ 'is-active': editor?.isActive({ textAlign: 'right' }) }"
+          title="Align Right"
+        >
+          ➡️
+        </button>
+        <button 
+          @click.stop.prevent="editor.chain().focus().setTextAlign('justify').run()" 
+          :class="{ 'is-active': editor?.isActive({ textAlign: 'justify' }) }"
+          title="Justify"
+        >
+          📏
+        </button>
+        <button 
+          @click.stop.prevent="insertDiceFontCharacter" 
+          title="Insert DiceFont Character"
+        >
+          🎲
+        </button>
       </div>
       <editor-content :editor="editor" @click.stop />
       <div v-if="!editor" class="editor-loading">Loading editor...</div>
@@ -88,6 +122,8 @@
   import StarterKit from '@tiptap/starter-kit'
   import Link from '@tiptap/extension-link'
   import Image from '@tiptap/extension-image'
+  import TextAlign from '@tiptap/extension-text-align'
+  import DiceFontNode from '@/extensions/DiceFontNode';
   
   export default {
     name: 'RichTextEditor',
@@ -147,6 +183,10 @@
               class: 'editor-image',
             },
           }),
+          TextAlign.configure({
+            types: ['heading', 'paragraph'],
+          }),
+          DiceFontNode,
           // Other extensions...
         ],
         onUpdate: () => {
@@ -183,6 +223,19 @@
           this.editor.chain().focus().setImage({ src: url }).run();
         }
       },
+      insertDiceFontCharacter() {
+        const identifier = window.prompt('Enter DiceFont identifier (e.g., df-d8-3 for a d8 showing 3):');
+        if (identifier) {
+          const match = identifier.match(/df-d(\d+)-(\d+)/);
+          if (match) {
+            const [sides, value] = match.slice(1);
+            const diceClass = `df-d${sides}-${value}`;
+            this.editor.chain().focus().insertDiceFont(diceClass).run();
+          } else {
+            alert('Invalid DiceFont identifier. Please use the format df-d{sides}-{value}.');
+          }
+        }
+      },
       focus() {
         this.editor?.chain().focus().run();
       }
@@ -191,20 +244,30 @@
   </script>
   
   <style scoped>
+  .dicefont {
+    font-family: "DiceFont" !important;
+  }
+
   .rich-editor-wrapper {
     border: 1px solid #444;
     border-radius: 4px;
     overflow: hidden;
     background-color: #111;
     text-align: left;
+    display: flex;
+    flex-direction: column;
+    max-height: v-bind(height); /* Use the height prop */
   }
-  
+
   .rich-editor-toolbar {
     padding: 8px;
     display: flex;
     border-bottom: 1px solid #444;
     gap: 8px;
     background: #222;
+    position: sticky;
+    top: 0;
+    z-index: 10;
   }
   
   .rich-editor-toolbar button {
@@ -236,13 +299,12 @@
   
   :deep(.ProseMirror) {
     padding: 10px;
-    min-height: v-bind(height);
+    min-height: 100px;
     outline: none;
     line-height: 1.5;
-  }
-  
-  :deep(.ProseMirror p) {
-    margin: 0.5em 0;
+    overflow-y: auto;
+    flex: 1;
+    max-height: calc(v-bind(height) - 50px); /* Adjust for toolbar height */
   }
   
   :deep(.ProseMirror a) {
