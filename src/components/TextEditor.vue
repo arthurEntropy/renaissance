@@ -312,16 +312,29 @@
     text-decoration: underline;
   }
   
-  :deep(.ProseMirror h3) {
-    margin: 1em 0 0.5em;
-    font-size: 1.3em;
+  :deep(.ProseMirror h2) {
+    font-size: 36px;
+    margin: 1.5em 0 0 0;
+    color: goldenrod;
+    font-weight: normal;
   }
-  
+
+  :deep(.ProseMirror h3) {
+    margin: 1.5em 0 0 0;
+    font-size: 24px;
+    color: lightseagreen;
+  }
+
+  :deep(.ProseMirror p) {
+    margin: 0.5em 0;
+    line-height: 1.6;
+  }
+
   :deep(.ProseMirror ul) {
     padding-left: 20px;
     margin: 0.5em 0;
   }
-  
+
   :deep(.ProseMirror ul li) {
     margin-bottom: 0.3em;
   }

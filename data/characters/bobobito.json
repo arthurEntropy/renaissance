@@ -4,9 +4,9 @@
   "artUrls": [
     "https://cdn.midjourney.com/33a4c041-49a8-4234-8e65-54d65bc7033b/0_0.png"
   ],
-  "body": 3,
-  "heart": 3,
-  "wits": 4,
+  "body": 6,
+  "heart": 2,
+  "wits": 3,
   "skills": [
     {
       "name": "Awe",
@@ -24,16 +24,16 @@
     },
     {
       "name": "Dexterity",
-      "ranks": 1,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0
     },
     {
       "name": "Fortitude",
-      "ranks": 0,
+      "ranks": 1,
       "isFavored": false,
-      "isIllFavored": true,
+      "isIllFavored": false,
       "diceMod": -1
     },
     {
@@ -115,19 +115,19 @@
     }
   ],
   "endurance": {
-    "current": "7",
-    "max": 15
+    "current": 17,
+    "max": 30
   },
   "hope": {
     "current": 4,
-    "max": 9
+    "max": 6
   },
   "defense": {
-    "current": "7",
-    "max": 14
+    "current": 10,
+    "max": 13
   },
   "load": 0,
-  "shadow": 1,
+  "shadow": 2,
   "injury": 6,
   "states": {
     "weary": false,
