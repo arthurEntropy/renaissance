@@ -10,5 +10,10 @@
   "publicHouses": "The Upham General, The Stone Cup.",
   "vittles": "Smoked Trout, Venison Stew, Black Bread, Goat Cheese, Pickled Cabbage, Mountain Honey, Roasted Walnuts, Dried Cherries, Spiced Ale, Mushroom Pie, Sausage Links, Hard Pears, Juniper Mead, Salted Boar, Rye Cakes.",
   "pointsOfInterest": "The Twin Falls, The Old Pelt Market, The Broken Anvil, The Mossy Steps, Tierney's Magic Nifty Trinkets.",
-  "floraFauna": "Pine, Juniper, Edelweiss, Alpine Rose, Wild Thyme, Rowan, Brown Bear, Red Deer, Mountain Goat, Pine Marten, Wolf, Golden Eagle, Trout, Otter, Snow Hare"
+  "floraFauna": "Pine, Juniper, Edelweiss, Alpine Rose, Wild Thyme, Rowan, Brown Bear, Red Deer, Mountain Goat, Pine Marten, Wolf, Golden Eagle, Trout, Otter, Snow Hare",
+  "hooks": [],
+  "playlists": [],
+  "faces": [],
+  "places": [],
+  "description": "<h1>EXAMPLE TITLE</h1><h3>EXAMPLE SUBTITLE</h3><p>Example paragraph with <strong>bold text</strong> and a <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://pitchfork.com/\">link</a>.</p><ul><li><p>Example list 1</p></li><li><p>Example list 2</p></li></ul>"
 }

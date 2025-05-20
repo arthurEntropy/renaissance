@@ -23,11 +23,32 @@
           ¶
         </button>
         <button 
+          @click.stop.prevent="editor.chain().focus().toggleHeading({ level: 1 }).run()" 
+          :class="{ 'is-active': editor?.isActive('heading', { level: 1 }) }"
+          title="Heading 1"
+        >
+          H1
+        </button>
+        <button 
+          @click.stop.prevent="editor.chain().focus().toggleHeading({ level: 2 }).run()" 
+          :class="{ 'is-active': editor?.isActive('heading', { level: 2 }) }"
+          title="Heading 2"
+        >
+          H2
+        </button>
+        <button 
           @click.stop.prevent="editor.chain().focus().toggleHeading({ level: 3 }).run()" 
           :class="{ 'is-active': editor?.isActive('heading', { level: 3 }) }"
-          title="Heading"
+          title="Heading 3"
         >
-          H
+          H3
+        </button>
+        <button 
+          @click.stop.prevent="editor.chain().focus().toggleHeading({ level: 4 }).run()" 
+          :class="{ 'is-active': editor?.isActive('heading', { level: 4 }) }"
+          title="Heading 4"
+        >
+          H4
         </button>
         <button 
           @click.stop.prevent="editor.chain().focus().toggleBulletList().run()" 
@@ -50,6 +71,46 @@
         >
           🔗❌
         </button>
+        <button 
+          @click.stop.prevent="insertImage" 
+          title="Insert Image"
+        >
+          🖼️
+        </button>
+        <button 
+          @click.stop.prevent="editor.chain().focus().setTextAlign('left').run()" 
+          :class="{ 'is-active': editor?.isActive({ textAlign: 'left' }) }"
+          title="Align Left"
+        >
+          ⬅️
+        </button>
+        <button 
+          @click.stop.prevent="editor.chain().focus().setTextAlign('center').run()" 
+          :class="{ 'is-active': editor?.isActive({ textAlign: 'center' }) }"
+          title="Align Center"
+        >
+          ⬜
+        </button>
+        <button 
+          @click.stop.prevent="editor.chain().focus().setTextAlign('right').run()" 
+          :class="{ 'is-active': editor?.isActive({ textAlign: 'right' }) }"
+          title="Align Right"
+        >
+          ➡️
+        </button>
+        <button 
+          @click.stop.prevent="editor.chain().focus().setTextAlign('justify').run()" 
+          :class="{ 'is-active': editor?.isActive({ textAlign: 'justify' }) }"
+          title="Justify"
+        >
+          📏
+        </button>
+        <button 
+          @click.stop.prevent="insertDiceFontCharacter" 
+          title="Insert DiceFont Character"
+        >
+          🎲
+        </button>
       </div>
       <editor-content :editor="editor" @click.stop />
       <div v-if="!editor" class="editor-loading">Loading editor...</div>
@@ -60,6 +121,9 @@
   import { Editor, EditorContent } from '@tiptap/vue-3'
   import StarterKit from '@tiptap/starter-kit'
   import Link from '@tiptap/extension-link'
+  import Image from '@tiptap/extension-image'
+  import TextAlign from '@tiptap/extension-text-align'
+  import DiceFontNode from '@/extensions/DiceFontNode';
   
   export default {
     name: 'RichTextEditor',
@@ -113,6 +177,16 @@
               target: '_blank'
             }
           }),
+          Image.configure({
+            inline: false,
+            HTMLAttributes: {
+              class: 'editor-image',
+            },
+          }),
+          TextAlign.configure({
+            types: ['heading', 'paragraph'],
+          }),
+          DiceFontNode,
           // Other extensions...
         ],
         onUpdate: () => {
@@ -142,6 +216,26 @@
         const validUrl = url.match(/^https?:\/\//) ? url : `https://${url}`;
         this.editor.chain().focus().extendMarkRange('link').setLink({ href: validUrl }).run();
       },
+      insertImage() {
+        const url = window.prompt('Image URL');
+    
+        if (url) {
+          this.editor.chain().focus().setImage({ src: url }).run();
+        }
+      },
+      insertDiceFontCharacter() {
+        const identifier = window.prompt('Enter DiceFont identifier (e.g., df-d8-3 for a d8 showing 3):');
+        if (identifier) {
+          const match = identifier.match(/df-d(\d+)-(\d+)/);
+          if (match) {
+            const [sides, value] = match.slice(1);
+            const diceClass = `df-d${sides}-${value}`;
+            this.editor.chain().focus().insertDiceFont(diceClass).run();
+          } else {
+            alert('Invalid DiceFont identifier. Please use the format df-d{sides}-{value}.');
+          }
+        }
+      },
       focus() {
         this.editor?.chain().focus().run();
       }
@@ -150,20 +244,30 @@
   </script>
   
   <style scoped>
+  .dicefont {
+    font-family: "DiceFont" !important;
+  }
+
   .rich-editor-wrapper {
     border: 1px solid #444;
     border-radius: 4px;
     overflow: hidden;
     background-color: #111;
     text-align: left;
+    display: flex;
+    flex-direction: column;
+    max-height: v-bind(height); /* Use the height prop */
   }
-  
+
   .rich-editor-toolbar {
     padding: 8px;
     display: flex;
     border-bottom: 1px solid #444;
     gap: 8px;
     background: #222;
+    position: sticky;
+    top: 0;
+    z-index: 10;
   }
   
   .rich-editor-toolbar button {
@@ -195,13 +299,12 @@
   
   :deep(.ProseMirror) {
     padding: 10px;
-    min-height: v-bind(height);
+    min-height: 100px;
     outline: none;
     line-height: 1.5;
-  }
-  
-  :deep(.ProseMirror p) {
-    margin: 0.5em 0;
+    overflow-y: auto;
+    flex: 1;
+    max-height: calc(v-bind(height) - 50px); /* Adjust for toolbar height */
   }
   
   :deep(.ProseMirror a) {
@@ -209,17 +312,45 @@
     text-decoration: underline;
   }
   
-  :deep(.ProseMirror h3) {
-    margin: 1em 0 0.5em;
-    font-size: 1.3em;
+  :deep(.ProseMirror h2) {
+    font-size: 36px;
+    margin: 1.5em 0 0 0;
+    color: goldenrod;
+    font-weight: normal;
   }
-  
+
+  :deep(.ProseMirror h3) {
+    margin: 1.5em 0 0 0;
+    font-size: 24px;
+    color: lightseagreen;
+  }
+
+  :deep(.ProseMirror p) {
+    margin: 0.5em 0;
+    line-height: 1.6;
+  }
+
   :deep(.ProseMirror ul) {
     padding-left: 20px;
     margin: 0.5em 0;
   }
-  
+
   :deep(.ProseMirror ul li) {
     margin-bottom: 0.3em;
+  }
+
+  :deep(.ProseMirror img),
+  :deep(.editor-image) {
+    width: 100%; /* Fill horizontal space */
+    height: auto; /* Maintain aspect ratio */
+    display: block;
+    margin: 0.5em 0;
+  }
+
+  .editor-image {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
   }
   </style>
