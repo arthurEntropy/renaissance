@@ -37,6 +37,7 @@
 
 <script>
 import { useEquipmentStore } from '@/stores/equipmentStore'
+import { mapState } from 'pinia'
 import EquipmentService from '@/services/EquipmentService'
 import EquipmentCard from '@/components/EquipmentCard.vue'
 import DeleteConfirmationModal from '@/components/modals/DeleteConfirmationModal.vue'
@@ -53,6 +54,7 @@ export default {
 
   data() {
     return {
+      equipmentStore: useEquipmentStore(),
       showEditEquipmentModal: false,
       equipmentToEdit: null,
       showDeleteConfirmationModal: false,
@@ -60,21 +62,17 @@ export default {
       sortOption: '',
       searchQuery: '',
       sourceFilter: '',
+      sources: {
+        ancestries: [],
+        cultures: [],
+        mestieri: [],
+        worldElements: [],
+      },
     }
   },
 
   computed: {
-    store() {
-      return useEquipmentStore()
-    },
-
-    equipment() {
-      return this.store.equipment
-    },
-
-    sources() {
-      return this.store.sources
-    },
+    ...mapState(useEquipmentStore, ['equipment']),
 
     filteredEquipment() {
       // Use local data properties instead of accessing through $children
@@ -124,14 +122,14 @@ export default {
 
     async saveEditedEquipment(editedEquipment) {
       await EquipmentService.updateEquipment(editedEquipment)
-      this.store.updateEquipmentInStore(editedEquipment)
       this.closeEditEquipmentModal()
+      await this.equipmentStore.fetchAllEquipment()
     },
 
     async createEquipment() {
       const newEquipment = await EquipmentService.createEquipment()
-      await this.store.fetchAllEquipment()
-      this.equipmentToEdit = this.store.equipment.find(
+      await this.equipmentStore.fetchAllEquipment()
+      this.equipmentToEdit = this.equipment.find(
         (e) => e.id === newEquipment.id,
       )
       this.showEditEquipmentModal = true
@@ -139,7 +137,7 @@ export default {
 
     async updateEquipment(equipment) {
       await EquipmentService.updateEquipment(equipment)
-      await this.store.fetchAllEquipment()
+      await this.equipmentStore.fetchAllEquipment()
     },
 
     async deleteEquipment() {
@@ -164,7 +162,7 @@ export default {
           await EquipmentService.updateEquipment(equipmentToUpdate)
 
           // Finally refresh the equipment list
-          await this.store.fetchAllEquipment()
+          await this.equipmentStore.fetchAllEquipment()
         } catch (error) {
           console.error('Error deleting equipment:', error)
         }
@@ -195,10 +193,18 @@ export default {
       this.equipmentToDelete = null
       this.showDeleteConfirmationModal = false
     },
+
+    async fetchSources() {
+      await this.equipmentStore.fetchAllSources()
+      this.sources = this.equipmentStore.sources
+    },
   },
 
   async mounted() {
-    await this.store.init()
+    await this.equipmentStore.fetchAllEquipment()
+    await this.equipmentStore.fetchAllSources()
+    await this.equipmentStore.fetchStandardsOfLiving()
+    await this.fetchSources()
   },
 }
 </script>

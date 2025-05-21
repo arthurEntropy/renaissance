@@ -5,7 +5,6 @@ import CharacterService from '@/services/CharacterService'
 export const useCharacterStore = defineStore('character', () => {
   const state = reactive({
     characters: [],
-    selectedCharacter: null,
   })
 
   const fetchCharacters = async () => {

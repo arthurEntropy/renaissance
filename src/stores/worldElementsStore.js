@@ -5,7 +5,6 @@ import WorldElementsService from '@/services/WorldElementService.js'
 export const useWorldElementsStore = defineStore('worldElements', () => {
   const state = reactive({
     worldElements: [],
-    selectedWorldElement: null,
   })
 
   const fetchWorldElements = async () => {
@@ -16,18 +15,8 @@ export const useWorldElementsStore = defineStore('worldElements', () => {
     }
   }
 
-  const setSelectedWorldElement = (worldElement) => {
-    state.selectedWorldElement = worldElement
-  }
-
-  const clearSelectedWorldElement = () => {
-    state.selectedWorldElement = null
-  }
-
   return {
     ...toRefs(state),
     fetchWorldElements,
-    setSelectedWorldElement,
-    clearSelectedWorldElement,
   }
 })

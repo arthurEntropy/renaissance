@@ -5,7 +5,6 @@ import MestieriService from '@/services/MestiereService.js'
 export const useMestieriStore = defineStore('mestieri', () => {
   const state = reactive({
     mestieri: [],
-    selectedMestiere: null,
   })
 
   const fetchMestieri = async () => {
@@ -16,18 +15,8 @@ export const useMestieriStore = defineStore('mestieri', () => {
     }
   }
 
-  const setSelectedMestiere = (mestiere) => {
-    state.selectedMestiere = mestiere
-  }
-
-  const clearSelectedMestiere = () => {
-    state.selectedMestiere = null
-  }
-
   return {
     ...toRefs(state),
     fetchMestieri,
-    setSelectedMestiere,
-    clearSelectedMestiere,
   }
 })

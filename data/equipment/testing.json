@@ -1,0 +1,16 @@
+{
+  "id": "6fba6f74-c200-435c-8e3b-64ae91aa19d6",
+  "name": "TESTING",
+  "description": "",
+  "standardOfLiving": null,
+  "source": null,
+  "weight": 0,
+  "isMelee": false,
+  "damageDice": [],
+  "engagementDice": [],
+  "engagementSuccesses": [],
+  "skillMods": [],
+  "isDeleted": false,
+  "isCustom": false,
+  "artUrl": null
+}

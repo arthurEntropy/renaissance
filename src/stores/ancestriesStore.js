@@ -5,7 +5,6 @@ import AncestryService from '@/services/AncestryService.js'
 export const useAncestriesStore = defineStore('ancestry', () => {
   const state = reactive({
     ancestries: [],
-    selectedAncestry: null,
   })
 
   const fetchAncestries = async () => {

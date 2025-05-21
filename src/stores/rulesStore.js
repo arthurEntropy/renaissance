@@ -5,7 +5,6 @@ import RulesService from '@/services/RulesService.js'
 export const useRulesStore = defineStore('rules', () => {
   const state = reactive({
     sections: [],
-    currentSection: null,
   })
 
   const fetchRules = async () => {
@@ -18,14 +17,8 @@ export const useRulesStore = defineStore('rules', () => {
     }
   }
 
-  const setCurrentSection = (sectionId) => {
-    state.currentSection =
-      state.sections.find((section) => section.id === sectionId) || null
-  }
-
   return {
     ...toRefs(state),
     fetchRules,
-    setCurrentSection,
   }
 })

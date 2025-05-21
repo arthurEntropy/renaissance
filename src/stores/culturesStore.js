@@ -5,7 +5,6 @@ import CultureService from '@/services/CultureService.js'
 export const useCulturesStore = defineStore('culture', () => {
   const state = reactive({
     cultures: [],
-    selectedCulture: null,
   })
 
   const fetchCultures = async () => {

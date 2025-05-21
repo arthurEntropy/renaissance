@@ -1,5 +1,6 @@
 import { Node } from '@tiptap/core'
 
+// Custom node for rendering dice icons in Tiptap editor
 const DiceFontNode = Node.create({
   name: 'diceFont',
 
