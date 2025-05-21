@@ -2,16 +2,28 @@
   <base-card
     :item="equipment"
     itemType="equipment"
-    :metaInfo="equipment.weight ? `${equipment.weight} ${equipment.weight === 1 ? 'lb' : 'lbs'}` : ''"
+    :metaInfo="
+      equipment.weight
+        ? `${equipment.weight} ${equipment.weight === 1 ? 'lb' : 'lbs'}`
+        : ''
+    "
     :storeInstance="equipmentStore"
     :initialCollapsed="isCollapsed"
-    :editable="editable" 
+    :editable="editable"
     @edit="$emit('edit', equipment)"
   >
     <!-- Large image slot -->
     <template #large-image>
-      <div v-if="showLargeImage" class="large-image-container" @click.stop="toggleImage">
-        <img :src="equipment.artUrl" :alt="equipment.name" class="large-image" />
+      <div
+        v-if="showLargeImage"
+        class="large-image-container"
+        @click.stop="toggleImage"
+      >
+        <img
+          :src="equipment.artUrl"
+          :alt="equipment.name"
+          class="large-image"
+        />
       </div>
     </template>
 
@@ -21,10 +33,10 @@
       <div class="content-wrapper">
         <div class="art-and-sol" v-if="!showLargeImage">
           <div class="small-image-container" @click.stop="toggleImage">
-            <img 
-              v-if="equipment.artUrl" 
-              :src="equipment.artUrl" 
-              :alt="equipment.name" 
+            <img
+              v-if="equipment.artUrl"
+              :src="equipment.artUrl"
+              :alt="equipment.name"
               class="equipment-image"
             />
           </div>
@@ -36,7 +48,7 @@
               {{ equipment.description }}
             </p>
           </template>
-          
+
           <!-- Dice section - show independently if it's a melee weapon -->
           <template v-if="equipment.isMelee">
             <div class="dice-description-row">
@@ -75,15 +87,15 @@
     </template>
   </base-card>
 </template>
-  
+
 <script>
-import { useEquipmentStore } from '@/stores/equipmentStore';
-import BaseCard from '@/components/BaseCard.vue';
-import EngagementSuccessService from '@/services/EngagementSuccessService';
+import { useEquipmentStore } from '@/stores/equipmentStore'
+import BaseCard from '@/components/BaseCard.vue'
+import EngagementSuccessService from '@/services/EngagementSuccessService'
 
 export default {
   components: {
-    BaseCard
+    BaseCard,
   },
   props: {
     equipment: {
@@ -96,8 +108,8 @@ export default {
     },
     editable: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
 
   data() {
@@ -109,51 +121,52 @@ export default {
       tooltipSuccess: null,
       tooltipPosition: { x: 0, y: 0 },
       tooltipTimer: null,
-    };
+    }
   },
 
   methods: {
     // Methods remain the same
     toggleImage() {
-      this.showLargeImage = !this.showLargeImage;
+      this.showLargeImage = !this.showLargeImage
     },
 
     async fetchEngagementSuccesses() {
       try {
-        const allSuccesses = await EngagementSuccessService.getAllEngagementSuccesses();
+        const allSuccesses =
+          await EngagementSuccessService.getAllEngagementSuccesses()
         this.engagementSuccesses = this.equipment.engagementSuccesses
-          .map(id => allSuccesses.find(success => success.id === id))
-          .filter(success => success);
+          .map((id) => allSuccesses.find((success) => success.id === id))
+          .filter((success) => success)
       } catch (error) {
-        console.error("Error fetching engagement successes:", error);
-        this.engagementSuccesses = [];
+        console.error('Error fetching engagement successes:', error)
+        this.engagementSuccesses = []
       }
     },
 
     getDiceFontClass(die) {
-      return `df-d${die}-${die}`;
+      return `df-d${die}-${die}`
     },
 
     startSuccessTooltip(success, event) {
       this.tooltipTimer = setTimeout(() => {
-        this.tooltipSuccess = success;
+        this.tooltipSuccess = success
         this.tooltipPosition = {
           x: event.clientX + 12,
           y: event.clientY + 12,
-        };
-      }, 1000);
+        }
+      }, 1000)
     },
-    
+
     clearSuccessTooltip() {
-      clearTimeout(this.tooltipTimer);
-      this.tooltipSuccess = null;
+      clearTimeout(this.tooltipTimer)
+      this.tooltipSuccess = null
     },
   },
 
   async created() {
-    await this.fetchEngagementSuccesses();
+    await this.fetchEngagementSuccesses()
   },
-};
+}
 </script>
 
 <style scoped>
@@ -188,7 +201,7 @@ export default {
   height: 100px;
   object-fit: cover;
   border-radius: 4px;
-  cursor: pointer
+  cursor: pointer;
 }
 
 /* Large Image */
@@ -203,7 +216,7 @@ export default {
 .large-image {
   width: 100%;
   height: auto;
-  border-radius: 4px; 
+  border-radius: 4px;
   margin-top: 10px;
 }
 
@@ -304,7 +317,7 @@ export default {
   border-radius: 8px;
   font-size: 13px;
   pointer-events: none;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
   max-width: 260px;
   white-space: pre-line;
 }

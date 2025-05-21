@@ -2,134 +2,136 @@
 
 /* Section layout */
 .concept-section {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    margin-top: 1rem;
-    text-align: left;
-  }
-  
-  .section-header {
-    font-weight: bold;
-    margin-bottom: 0.5rem;
-    font-size: 2rem;
-    color: white;
-  }
-  
-  /* Edit section button */
-  .edit-section-button {
-    background: none;
-    border: none;
-    color: #aaa;
-    font-size: 0.7em;
-    padding: 2px 6px;
-    cursor: pointer;
-    vertical-align: middle;
-    margin-left: 8px;
-    transition: color 0.2s;
-  }
-  
-  .edit-section-button:hover {
-    color: white;
-  }
-  
-  /* Common editor styles */
-  .section-editor {
-    padding: 10px;
-    background: rgba(0, 0, 0, 0.2);
-    border-radius: 8px;
-    margin-bottom: 10px;
-  }
-  
-  /* Common button styles */
-  .button {
-    padding: 8px 16px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: background-color 0.2s;
-    background-color: #333;
-    color: #fff;
-  }
-  
-  .button:hover {
-    opacity: 0.9;
-  }
-  
-  .button.small {
-    font-size: 0.85em;
-    padding: 2px 8px;
-    margin-top: 2px;
-  }
-  
-  .button-primary {
-    background-color: #4caf50;
-    color: white;
-  }
-  
-  .button-danger {
-    background-color: #f44336;
-    color: white;
-  }
-  
-  /* Editor item styles */
-  .edit-item {
-    background: rgba(0, 0, 0, 0.3);
-    border: 1px solid #444;
-    border-radius: 6px;
-    margin-bottom: 10px;
-    padding: 8px;
-  }
-  
-  /* Editor buttons container */
-  .editor-buttons {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-    margin-top: 10px;
-  }
-  
-  /* GM Notes section styling */
-  .toggle-gm-notes {
-    background: none;
-    border: 1px solid #888;
-    color: #bbb;
-    border-radius: 4px;
-    padding: 2px 10px;
-    font-size: 0.95em;
-    cursor: pointer;
-    margin-bottom: 6px;
-    margin-top: 2px;
-    transition: background 0.2s, color 0.2s;
-  }
-  
-  .toggle-gm-notes:hover {
-    background: #444;
-    color: #fff;
-  }
-  
-  .gm-notes {
-    background: rgba(60,60,80,0.85);
-    color: #b0e0ff;
-    border-radius: 4px;
-    padding: 8px 10px;
-    margin-top: 6px;
-    font-size: 0.97em;
-    white-space: pre-line;
-  }
-  
-  /* Grid layouts */
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 1rem;
+  text-align: left;
+}
+
+.section-header {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  font-size: 2rem;
+  color: white;
+}
+
+/* Edit section button */
+.edit-section-button {
+  background: none;
+  border: none;
+  color: #aaa;
+  font-size: 0.7em;
+  padding: 2px 6px;
+  cursor: pointer;
+  vertical-align: middle;
+  margin-left: 8px;
+  transition: color 0.2s;
+}
+
+.edit-section-button:hover {
+  color: white;
+}
+
+/* Common editor styles */
+.section-editor {
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+/* Common button styles */
+.button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s;
+  background-color: #333;
+  color: #fff;
+}
+
+.button:hover {
+  opacity: 0.9;
+}
+
+.button.small {
+  font-size: 0.85em;
+  padding: 2px 8px;
+  margin-top: 2px;
+}
+
+.button-primary {
+  background-color: #4caf50;
+  color: white;
+}
+
+.button-danger {
+  background-color: #f44336;
+  color: white;
+}
+
+/* Editor item styles */
+.edit-item {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid #444;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  padding: 8px;
+}
+
+/* Editor buttons container */
+.editor-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+/* GM Notes section styling */
+.toggle-gm-notes {
+  background: none;
+  border: 1px solid #888;
+  color: #bbb;
+  border-radius: 4px;
+  padding: 2px 10px;
+  font-size: 0.95em;
+  cursor: pointer;
+  margin-bottom: 6px;
+  margin-top: 2px;
+  transition:
+    background 0.2s,
+    color 0.2s;
+}
+
+.toggle-gm-notes:hover {
+  background: #444;
+  color: #fff;
+}
+
+.gm-notes {
+  background: rgba(60, 60, 80, 0.85);
+  color: #b0e0ff;
+  border-radius: 4px;
+  padding: 8px 10px;
+  margin-top: 6px;
+  font-size: 0.97em;
+  white-space: pre-line;
+}
+
+/* Grid layouts */
+.two-column-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  width: 100%;
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
   .two-column-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-    width: 100%;
+    grid-template-columns: 1fr;
   }
-  
-  /* Responsive design */
-  @media (max-width: 600px) {
-    .two-column-grid {
-      grid-template-columns: 1fr;
-    }
-  }
+}

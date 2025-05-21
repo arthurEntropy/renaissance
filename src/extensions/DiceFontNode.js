@@ -1,4 +1,4 @@
-import { Node } from '@tiptap/core';
+import { Node } from '@tiptap/core'
 
 const DiceFontNode = Node.create({
   name: 'diceFont',
@@ -14,7 +14,7 @@ const DiceFontNode = Node.create({
       class: {
         default: null,
       },
-    };
+    }
   },
 
   parseHTML() {
@@ -22,11 +22,18 @@ const DiceFontNode = Node.create({
       {
         tag: 'span.dice-icon',
       },
-    ];
+    ]
   },
 
   renderHTML({ HTMLAttributes }) {
-    return ['span', { ...HTMLAttributes, class: `dice-icon ${HTMLAttributes.class || ''}`.trim(), style: 'font-size: 36px;' }];
+    return [
+      'span',
+      {
+        ...HTMLAttributes,
+        class: `dice-icon ${HTMLAttributes.class || ''}`.trim(),
+        style: 'font-size: 36px;',
+      },
+    ]
   },
 
   addCommands() {
@@ -34,10 +41,12 @@ const DiceFontNode = Node.create({
       insertDiceFont:
         (diceClass) =>
         ({ chain }) => {
-          return chain().insertContent({ type: this.name, attrs: { class: diceClass } }).run();
+          return chain()
+            .insertContent({ type: this.name, attrs: { class: diceClass } })
+            .run()
         },
-    };
+    }
   },
-});
+})
 
-export default DiceFontNode;
+export default DiceFontNode

@@ -10,7 +10,9 @@
     <div class="card-header">
       <span class="caret">{{ caretSymbol }}</span>
       <div class="name-container">
-        <span class="item-name"><strong>{{ item.name }}</strong></span>
+        <span class="item-name"
+          ><strong>{{ item.name }}</strong></span
+        >
         <button
           v-if="editable"
           class="edit-button"
@@ -34,12 +36,12 @@
         <slot name="buttons"></slot>
       </div>
     </transition>
-    
+
     <!-- Tooltip -->
     <!-- <div v-if="showTooltip" class="tooltip">
       from: {{ sourceName }}
     </div> -->
-    
+
     <!-- XP or other badge -->
     <slot name="badge"></slot>
   </div>
@@ -55,24 +57,24 @@ export default {
     },
     itemType: {
       type: String,
-      default: 'item'
+      default: 'item',
     },
     metaInfo: {
       type: String,
-      default: ''
+      default: '',
     },
     storeInstance: {
       type: Object,
-      required: true
+      required: true,
     },
     initialCollapsed: {
       type: Boolean,
-      default: false
+      default: false,
     },
     editable: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   emits: ['edit', 'update', 'send-to-chat'],
   data() {
@@ -82,11 +84,11 @@ export default {
       showTooltip: false,
       tooltipTimer: null,
       sourceLoaded: false,
-    };
+    }
   },
   computed: {
     caretSymbol() {
-      return this.isCollapsed ? '▶' : '▼';
+      return this.isCollapsed ? '▶' : '▼'
     },
     cardStyle() {
       // First check for item's own background
@@ -95,84 +97,84 @@ export default {
           backgroundImage: `url(${this.item.backgroundImage})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
-        };
+        }
       }
 
       // Then check source's background
       if (this.sourceLoaded) {
-        const source = this.storeInstance.getSourceById(this.item.source);
+        const source = this.storeInstance.getSourceById(this.item.source)
         if (source && source.backgroundImage) {
           return {
             backgroundImage: `url(${source.backgroundImage})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
-          };
+          }
         }
       }
 
       // Fallback
       return {
         background: 'rgba(0, 0, 0, 0.65)',
-      };
+      }
     },
   },
   methods: {
     toggleCollapsed() {
-      this.isCollapsed = !this.isCollapsed;
+      this.isCollapsed = !this.isCollapsed
     },
     startSourceTooltipTimer() {
       this.tooltipTimer = setTimeout(() => {
-        this.showTooltip = true;
-      }, 1500);
+        this.showTooltip = true
+      }, 1500)
     },
     clearSourceTooltipTimer() {
-      clearTimeout(this.tooltipTimer);
-      this.showTooltip = false;
+      clearTimeout(this.tooltipTimer)
+      this.showTooltip = false
     },
     setSpanSize() {
-      const rowHeight = 10;
-      const height = this.$el.getBoundingClientRect().height;
-      const rowSpan = Math.ceil(height / rowHeight);
-      this.$el.style.setProperty('--card-span', rowSpan);
+      const rowHeight = 10
+      const height = this.$el.getBoundingClientRect().height
+      const rowSpan = Math.ceil(height / rowHeight)
+      this.$el.style.setProperty('--card-span', rowSpan)
     },
     async fetchSourceInfo() {
       if (!this.item.source) {
-        this.sourceName = 'Unknown';
-        this.sourceLoaded = true;
-        return;
+        this.sourceName = 'Unknown'
+        this.sourceLoaded = true
+        return
       }
 
-      await this.storeInstance.fetchAllSources();
-      const source = this.storeInstance.getSourceById(this.item.source);
-      this.sourceName = source?.name || 'Unknown';
-      this.sourceLoaded = true;
+      await this.storeInstance.fetchAllSources()
+      const source = this.storeInstance.getSourceById(this.item.source)
+      this.sourceName = source?.name || 'Unknown'
+      this.sourceLoaded = true
     },
   },
   watch: {
     'item.source': {
       immediate: true,
       handler() {
-        this.fetchSourceInfo();
+        this.fetchSourceInfo()
       },
     },
     isCollapsed(newVal, oldVal) {
       if (newVal !== oldVal) {
         this.$nextTick(() => {
           setTimeout(() => {
-            this.$emit('height-changed');
-          }, 300);
-        });
+            this.$emit('height-changed')
+          }, 300)
+        })
       }
-    }
+    },
   },
   async created() {
-    await this.fetchSourceInfo();
+    await this.fetchSourceInfo()
   },
   mounted() {
-    this.$nextTick(this.setSpanSize);
+    this.$nextTick(this.setSpanSize)
   },
-};
+}
 </script>
 
 <style scoped>
@@ -183,7 +185,9 @@ export default {
   margin-top: 5px;
   cursor: pointer;
   color: white;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  transition:
+    background-color 0.3s ease,
+    transform 0.2s ease;
   width: 100%;
   position: relative;
   box-sizing: border-box;
@@ -219,7 +223,11 @@ export default {
   font-size: 16px;
   height: 20px;
   width: 20px;
-  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+  text-shadow:
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000;
 }
 
 .name-container {
@@ -232,12 +240,20 @@ export default {
 
 .item-name {
   font-size: 16px;
-  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+  text-shadow:
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000;
   word-wrap: break-word;
 }
 
 .edit-button {
-  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+  text-shadow:
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000;
   margin-left: 5px;
   background: none;
   border: none;

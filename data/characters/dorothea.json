@@ -158,17 +158,9 @@
         "source": "68fadf5d-6661-4611-bb38-deaf05f01d45",
         "weight": 1,
         "isMelee": true,
-        "damageDice": [
-          6
-        ],
-        "engagementDice": [
-          6
-        ],
-        "engagementSuccesses": [
-          "5",
-          "7",
-          "8"
-        ],
+        "damageDice": [6],
+        "engagementDice": [6],
+        "engagementSuccesses": ["5", "7", "8"],
         "skillMods": [],
         "isDeleted": false,
         "isCustom": false,
@@ -188,15 +180,9 @@
         "source": "a3a54cb6-09c4-42e3-b142-3053b7c1d4e8",
         "weight": 1,
         "isMelee": true,
-        "damageDice": [
-          4
-        ],
-        "engagementDice": [
-          4
-        ],
-        "engagementSuccesses": [
-          "8"
-        ],
+        "damageDice": [4],
+        "engagementDice": [4],
+        "engagementSuccesses": ["8"],
         "skillMods": [],
         "isDeleted": false,
         "isCustom": false,
@@ -239,10 +225,6 @@
     "9f21adf6-85f2-482b-a13c-29b4c53487bd",
     "7cbea262-49dc-45de-a1e0-cc4270835f14"
   ],
-  "ancestryIds": [
-    "77e4f81a-728f-49a7-a013-4d6f666353e2"
-  ],
-  "cultureIds": [
-    "5a639d7b-847a-468b-9bbe-5275d31fdf66"
-  ]
+  "ancestryIds": ["77e4f81a-728f-49a7-a013-4d6f666353e2"],
+  "cultureIds": ["5a639d7b-847a-468b-9bbe-5275d31fdf66"]
 }

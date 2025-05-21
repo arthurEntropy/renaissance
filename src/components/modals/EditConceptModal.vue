@@ -2,7 +2,7 @@
   <div class="modal-overlay">
     <div class="modal-content" @scroll="handleScroll" ref="modalContent">
       <h2 class="modal-header">Edit Concept</h2>
-      
+
       <!-- Two-column layout container -->
       <div class="two-column-layout">
         <!-- Left column - Main content -->
@@ -17,7 +17,12 @@
             <!-- Name -->
             <div class="form-group vertical">
               <h3 class="section-label">Name</h3>
-              <input type="text" id="name" v-model="editedConcept.name" class="modal-input" />
+              <input
+                type="text"
+                id="name"
+                v-model="editedConcept.name"
+                class="modal-input"
+              />
             </div>
 
             <!-- Description -->
@@ -31,7 +36,6 @@
             </div>
 
             <h3 class="section-label">Local Flavor</h3>
-
 
             <!-- Names -->
             <label for="names">Names:</label>
@@ -90,11 +94,15 @@
             <!-- Hooks -->
             <div class="form-group vertical">
               <h3 class="section-label">Hooks</h3>
-              <div v-for="(hook, idx) in editedConcept.hooks" :key="hook.id || idx" class="hook-edit-card">
+              <div
+                v-for="(hook, idx) in editedConcept.hooks"
+                :key="hook.id || idx"
+                class="hook-edit-card"
+              >
                 <!-- Hook header with caret and name - everything on one row -->
                 <div class="hook-header">
-                  <span 
-                    class="hook-caret" 
+                  <span
+                    class="hook-caret"
                     @click="toggleHookExpansion(hook.id || idx)"
                   >
                     {{ isHookExpanded(hook.id || idx) ? '▼' : '►' }}
@@ -108,7 +116,7 @@
                     class="modal-input hook-input"
                   />
                 </div>
-                
+
                 <!-- Collapsible hook content -->
                 <div v-if="isHookExpanded(hook.id || idx)" class="hook-fields">
                   <div class="hook-field">
@@ -130,14 +138,28 @@
                   </div>
 
                   <div class="delete-hook-container">
-                    <button type="button" class="button button-danger small delete-hook-btn" @click="removeHook(idx)">Delete Hook</button>
+                    <button
+                      type="button"
+                      class="button button-danger small delete-hook-btn"
+                      @click="removeHook(idx)"
+                    >
+                      Delete Hook
+                    </button>
                   </div>
                 </div>
               </div>
-              <button type="button" class="button button-primary small" @click="addHook">Add Hook</button>
+              <button
+                type="button"
+                class="button button-primary small"
+                @click="addHook"
+              >
+                Add Hook
+              </button>
             </div>
 
-            <h3 class="section-label">Ability & Equipment Card Background Style</h3>
+            <h3 class="section-label">
+              Ability & Equipment Card Background Style
+            </h3>
 
             <!-- Background Image URL -->
             <div class="form-group vertical">
@@ -160,7 +182,7 @@
             </div>
           </form>
         </div>
-        
+
         <!-- Right column - Art URLs -->
         <div class="right-column">
           <!-- Art URLs -->
@@ -185,13 +207,41 @@
                   :placeholder="`Art URL #${idx + 1}`"
                 />
                 <div class="url-buttons">
-                  <button type="button" class="button small" @click="moveArtUrl(idx, -1)" :disabled="idx === 0" title="Move Up">▲</button>
-                  <button type="button" class="button small" @click="moveArtUrl(idx, 1)" :disabled="idx === editedConcept.artUrls.length - 1" title="Move Down">▼</button>
-                  <button type="button" class="button button-danger small" @click="removeArtUrl(idx)">✕</button>
+                  <button
+                    type="button"
+                    class="button small"
+                    @click="moveArtUrl(idx, -1)"
+                    :disabled="idx === 0"
+                    title="Move Up"
+                  >
+                    ▲
+                  </button>
+                  <button
+                    type="button"
+                    class="button small"
+                    @click="moveArtUrl(idx, 1)"
+                    :disabled="idx === editedConcept.artUrls.length - 1"
+                    title="Move Down"
+                  >
+                    ▼
+                  </button>
+                  <button
+                    type="button"
+                    class="button button-danger small"
+                    @click="removeArtUrl(idx)"
+                  >
+                    ✕
+                  </button>
                 </div>
               </div>
             </div>
-            <button type="button" class="button button-primary small" @click="addArtUrl">Add Art URL</button>
+            <button
+              type="button"
+              class="button button-primary small"
+              @click="addArtUrl"
+            >
+              Add Art URL
+            </button>
           </div>
 
           <!-- Faces URLs -->
@@ -216,13 +266,41 @@
                   :placeholder="`Face URL #${idx + 1}`"
                 />
                 <div class="url-buttons">
-                  <button type="button" class="button small" @click="moveFaceUrl(idx, -1)" :disabled="idx === 0" title="Move Up">▲</button>
-                  <button type="button" class="button small" @click="moveFaceUrl(idx, 1)" :disabled="idx === editedConcept.faces.length - 1" title="Move Down">▼</button>
-                  <button type="button" class="button button-danger small" @click="removeFaceUrl(idx)">✕</button>
+                  <button
+                    type="button"
+                    class="button small"
+                    @click="moveFaceUrl(idx, -1)"
+                    :disabled="idx === 0"
+                    title="Move Up"
+                  >
+                    ▲
+                  </button>
+                  <button
+                    type="button"
+                    class="button small"
+                    @click="moveFaceUrl(idx, 1)"
+                    :disabled="idx === editedConcept.faces.length - 1"
+                    title="Move Down"
+                  >
+                    ▼
+                  </button>
+                  <button
+                    type="button"
+                    class="button button-danger small"
+                    @click="removeFaceUrl(idx)"
+                  >
+                    ✕
+                  </button>
                 </div>
               </div>
             </div>
-            <button type="button" class="button button-primary small" @click="addFaceUrl">Add Face URL</button>
+            <button
+              type="button"
+              class="button button-primary small"
+              @click="addFaceUrl"
+            >
+              Add Face URL
+            </button>
           </div>
 
           <!-- Places URLs -->
@@ -247,18 +325,48 @@
                   :placeholder="`Place URL #${idx + 1}`"
                 />
                 <div class="url-buttons">
-                  <button type="button" class="button small" @click="movePlaceUrl(idx, -1)" :disabled="idx === 0" title="Move Up">▲</button>
-                  <button type="button" class="button small" @click="movePlaceUrl(idx, 1)" :disabled="idx === editedConcept.places.length - 1" title="Move Down">▼</button>
-                  <button type="button" class="button button-danger small" @click="removePlaceUrl(idx)">✕</button>
+                  <button
+                    type="button"
+                    class="button small"
+                    @click="movePlaceUrl(idx, -1)"
+                    :disabled="idx === 0"
+                    title="Move Up"
+                  >
+                    ▲
+                  </button>
+                  <button
+                    type="button"
+                    class="button small"
+                    @click="movePlaceUrl(idx, 1)"
+                    :disabled="idx === editedConcept.places.length - 1"
+                    title="Move Down"
+                  >
+                    ▼
+                  </button>
+                  <button
+                    type="button"
+                    class="button button-danger small"
+                    @click="removePlaceUrl(idx)"
+                  >
+                    ✕
+                  </button>
                 </div>
               </div>
             </div>
-            <button type="button" class="button button-primary small" @click="addPlaceUrl">Add Place URL</button>
+            <button
+              type="button"
+              class="button button-primary small"
+              @click="addPlaceUrl"
+            >
+              Add Place URL
+            </button>
           </div>
 
           <div class="form-group vertical">
             <h3 class="section-label">Music Playlists</h3>
-            <p class="helper-text">Paste embed codes from Spotify or Apple Music</p>
+            <p class="helper-text">
+              Paste embed codes from Spotify or Apple Music
+            </p>
             <div class="url-container">
               <div
                 v-for="(playlist, idx) in editedConcept.playlists"
@@ -278,22 +386,62 @@
                   :placeholder="`Paste embed code`"
                 />
                 <div class="url-buttons">
-                  <button type="button" class="button small" @click="movePlaylist(idx, -1)" :disabled="idx === 0" title="Move Up">▲</button>
-                  <button type="button" class="button small" @click="movePlaylist(idx, 1)" :disabled="idx === editedConcept.playlists.length - 1" title="Move Down">▼</button>
-                  <button type="button" class="button button-danger small" @click="removePlaylist(idx)">✕</button>
+                  <button
+                    type="button"
+                    class="button small"
+                    @click="movePlaylist(idx, -1)"
+                    :disabled="idx === 0"
+                    title="Move Up"
+                  >
+                    ▲
+                  </button>
+                  <button
+                    type="button"
+                    class="button small"
+                    @click="movePlaylist(idx, 1)"
+                    :disabled="idx === editedConcept.playlists.length - 1"
+                    title="Move Down"
+                  >
+                    ▼
+                  </button>
+                  <button
+                    type="button"
+                    class="button button-danger small"
+                    @click="removePlaylist(idx)"
+                  >
+                    ✕
+                  </button>
                 </div>
               </div>
             </div>
-            <button type="button" class="button button-primary small" @click="addPlaylist">Add Playlist</button>
+            <button
+              type="button"
+              class="button button-primary small"
+              @click="addPlaylist"
+            >
+              Add Playlist
+            </button>
           </div>
         </div>
       </div>
-      
+
       <!-- Save/Cancel/Delete Buttons - Outside the columns -->
       <div class="form-buttons danger-zone" ref="originalButtons">
-        <button type="button" class="button button-primary" @click="saveChanges">Save Changes</button>
+        <button
+          type="button"
+          class="button button-primary"
+          @click="saveChanges"
+        >
+          Save Changes
+        </button>
         <button type="button" class="button" @click="cancelEdit">Cancel</button>
-        <button type="button" class="button button-danger" @click="deleteConcept">Delete Concept</button>
+        <button
+          type="button"
+          class="button button-danger"
+          @click="deleteConcept"
+        >
+          Delete Concept
+        </button>
       </div>
     </div>
 
@@ -301,16 +449,29 @@
     <transition name="fade">
       <div class="floating-action-bar" v-if="showFloatingButtons">
         <div class="floating-buttons">
-          <button type="button" class="button button-primary" @click="saveChanges">Save Changes</button>
-          <button type="button" class="button" @click="cancelEdit">Cancel</button>
-          <button type="button" class="button button-danger" @click="deleteConcept">Delete Concept</button>
+          <button
+            type="button"
+            class="button button-primary"
+            @click="saveChanges"
+          >
+            Save Changes
+          </button>
+          <button type="button" class="button" @click="cancelEdit">
+            Cancel
+          </button>
+          <button
+            type="button"
+            class="button button-danger"
+            @click="deleteConcept"
+          >
+            Delete Concept
+          </button>
         </div>
       </div>
     </transition>
-
   </div>
 </template>
-  
+
 <script>
 import TextEditor from '@/components/TextEditor.vue'
 
@@ -324,187 +485,200 @@ export default {
       required: true,
     },
   },
-  emits: ["update", "delete", "close"],
+  emits: ['update', 'delete', 'close'],
   data() {
     return {
       editedConcept: { ...this.concept },
       expandedHooks: {},
       showFloatingButtons: false,
-    };
+    }
   },
   methods: {
     // Form actions
     saveChanges() {
-      this.$emit("update", this.editedConcept);
-      this.$emit("close");
+      this.$emit('update', this.editedConcept)
+      this.$emit('close')
     },
-    
+
     cancelEdit() {
-      this.$emit("close");
+      this.$emit('close')
     },
-    
+
     deleteConcept() {
-      if (confirm(`Are you sure you want to delete the concept "${this.editedConcept.name}"?`)) {
-        this.$emit("delete", this.editedConcept);
+      if (
+        confirm(
+          `Are you sure you want to delete the concept "${this.editedConcept.name}"?`,
+        )
+      ) {
+        this.$emit('delete', this.editedConcept)
       }
     },
-    
+
     // Art URL methods
     addArtUrl() {
-      if (!this.editedConcept.artUrls) this.editedConcept.artUrls = [];
-      this.editedConcept.artUrls.push('');
+      if (!this.editedConcept.artUrls) this.editedConcept.artUrls = []
+      this.editedConcept.artUrls.push('')
     },
-    
+
     removeArtUrl(idx) {
-      this.editedConcept.artUrls.splice(idx, 1);
+      this.editedConcept.artUrls.splice(idx, 1)
     },
-    
+
     moveArtUrl(idx, direction) {
-      const urls = this.editedConcept.artUrls;
-      const newIndex = idx + direction;
-      if (newIndex < 0 || newIndex >= urls.length) return;
-      [urls[idx], urls[newIndex]] = [urls[newIndex], urls[idx]];
+      const urls = this.editedConcept.artUrls
+      const newIndex = idx + direction
+      if (newIndex < 0 || newIndex >= urls.length) return
+      ;[urls[idx], urls[newIndex]] = [urls[newIndex], urls[idx]]
     },
-    
+
     // Face URL methods
     addFaceUrl() {
-      if (!this.editedConcept.faces) this.editedConcept.faces = [];
-      this.editedConcept.faces.push('');
+      if (!this.editedConcept.faces) this.editedConcept.faces = []
+      this.editedConcept.faces.push('')
     },
-    
+
     removeFaceUrl(idx) {
-      this.editedConcept.faces.splice(idx, 1);
+      this.editedConcept.faces.splice(idx, 1)
     },
-    
+
     moveFaceUrl(idx, direction) {
-      const urls = this.editedConcept.faces;
-      const newIndex = idx + direction;
-      if (newIndex < 0 || newIndex >= urls.length) return;
-      [urls[idx], urls[newIndex]] = [urls[newIndex], urls[idx]];
+      const urls = this.editedConcept.faces
+      const newIndex = idx + direction
+      if (newIndex < 0 || newIndex >= urls.length) return
+      ;[urls[idx], urls[newIndex]] = [urls[newIndex], urls[idx]]
     },
 
     // Place URL methods
     addPlaceUrl() {
-      if (!this.editedConcept.places) this.editedConcept.places = [];
-      this.editedConcept.places.push('');
+      if (!this.editedConcept.places) this.editedConcept.places = []
+      this.editedConcept.places.push('')
     },
-    
+
     removePlaceUrl(idx) {
-      this.editedConcept.places.splice(idx, 1);
+      this.editedConcept.places.splice(idx, 1)
     },
-    
+
     movePlaceUrl(idx, direction) {
-      const urls = this.editedConcept.places;
-      const newIndex = idx + direction;
-      if (newIndex < 0 || newIndex >= urls.length) return;
-      [urls[idx], urls[newIndex]] = [urls[newIndex], urls[idx]];
+      const urls = this.editedConcept.places
+      const newIndex = idx + direction
+      if (newIndex < 0 || newIndex >= urls.length) return
+      ;[urls[idx], urls[newIndex]] = [urls[newIndex], urls[idx]]
     },
-    
+
     // Hook methods
     toggleHookExpansion(hookId) {
       // Replace this.$set with direct assignment
-      this.expandedHooks[hookId] = !this.expandedHooks[hookId];
-      
+      this.expandedHooks[hookId] = !this.expandedHooks[hookId]
+
       // If expanding, resize textareas on next tick after they're visible
       if (this.expandedHooks[hookId]) {
         this.$nextTick(() => {
           // Find textareas in this hook and resize them
-          const textareas = this.$refs.hookTextarea;
+          const textareas = this.$refs.hookTextarea
           if (textareas) {
             if (Array.isArray(textareas)) {
-              textareas.forEach(textarea => this.resizeTextarea({ target: textarea }));
+              textareas.forEach((textarea) =>
+                this.resizeTextarea({ target: textarea }),
+              )
             } else {
-              this.resizeTextarea({ target: textareas });
+              this.resizeTextarea({ target: textareas })
             }
           }
-        });
+        })
       }
     },
-    
+
     isHookExpanded(hookId) {
-      return !!this.expandedHooks[hookId];
+      return !!this.expandedHooks[hookId]
     },
 
     addHook() {
-      this.editedConcept.hooks = this.editedConcept.hooks || [];
-      const hookId = crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).slice(2);
+      this.editedConcept.hooks = this.editedConcept.hooks || []
+      const hookId = crypto.randomUUID
+        ? crypto.randomUUID()
+        : Math.random().toString(36).slice(2)
       this.editedConcept.hooks.push({
         id: hookId,
-        name: "",
-        description: "",
-        gmNotes: "",
-        isDeleted: false
-      });
+        name: '',
+        description: '',
+        gmNotes: '',
+        isDeleted: false,
+      })
       // Replace this.$set with direct assignment
-      this.expandedHooks[hookId] = true;
+      this.expandedHooks[hookId] = true
     },
 
     removeHook(idx) {
-      this.editedConcept.hooks.splice(idx, 1);
+      this.editedConcept.hooks.splice(idx, 1)
     },
 
     // Playlist methods
     addPlaylist() {
-      if (!this.editedConcept.playlists) this.editedConcept.playlists = [];
+      if (!this.editedConcept.playlists) this.editedConcept.playlists = []
       this.editedConcept.playlists.push({
-        service: 'spotify',  // Default to Spotify
-        embedCode: ''
-      });
+        service: 'spotify', // Default to Spotify
+        embedCode: '',
+      })
     },
-    
+
     removePlaylist(idx) {
-      this.editedConcept.playlists.splice(idx, 1);
+      this.editedConcept.playlists.splice(idx, 1)
     },
-    
+
     movePlaylist(idx, direction) {
-      const playlists = this.editedConcept.playlists;
-      const newIndex = idx + direction;
-      if (newIndex < 0 || newIndex >= playlists.length) return;
-      [playlists[idx], playlists[newIndex]] = [playlists[newIndex], playlists[idx]];
+      const playlists = this.editedConcept.playlists
+      const newIndex = idx + direction
+      if (newIndex < 0 || newIndex >= playlists.length) return
+      ;[playlists[idx], playlists[newIndex]] = [
+        playlists[newIndex],
+        playlists[idx],
+      ]
     },
-    
+
     // Auto-resize textarea
     resizeTextarea(event) {
-      const textarea = event.target;
+      const textarea = event.target
       // Reset height temporarily to get the correct scrollHeight
-      textarea.style.height = 'auto';
+      textarea.style.height = 'auto'
       // Set the height to match content
-      textarea.style.height = textarea.scrollHeight + 'px';
+      textarea.style.height = textarea.scrollHeight + 'px'
     },
 
     handleScroll() {
-      const modalContent = this.$refs.modalContent;
-      const originalButtons = this.$refs.originalButtons;
-      
-      if (!modalContent || !originalButtons) return;
-      
+      const modalContent = this.$refs.modalContent
+      const originalButtons = this.$refs.originalButtons
+
+      if (!modalContent || !originalButtons) return
+
       // Get position data for the original buttons
-      const buttonRect = originalButtons.getBoundingClientRect();
-      const modalRect = modalContent.getBoundingClientRect();
-      
+      const buttonRect = originalButtons.getBoundingClientRect()
+      const modalRect = modalContent.getBoundingClientRect()
+
       // Show floating buttons when original buttons are not visible in the viewport
-      this.showFloatingButtons = buttonRect.bottom > window.innerHeight || 
-                                buttonRect.top < modalRect.top;
-    }
+      this.showFloatingButtons =
+        buttonRect.bottom > window.innerHeight || buttonRect.top < modalRect.top
+    },
   },
-  
+
   mounted() {
     // Resize all textareas on initial load
     this.$nextTick(() => {
       if (this.$refs.hookTextarea) {
-        const textareas = this.$refs.hookTextarea;
+        const textareas = this.$refs.hookTextarea
         if (Array.isArray(textareas)) {
-          textareas.forEach(textarea => this.resizeTextarea({ target: textarea }));
+          textareas.forEach((textarea) =>
+            this.resizeTextarea({ target: textarea }),
+          )
         } else {
-          this.resizeTextarea({ target: textareas });
+          this.resizeTextarea({ target: textareas })
         }
       }
-      this.handleScroll();
-    });
-  }
-};
+      this.handleScroll()
+    })
+  },
+}
 </script>
-  
+
 <style scoped>
 .modal-content {
   text-align: left;
@@ -598,7 +772,7 @@ export default {
 }
 
 label {
-  margin-right: 5px;  
+  margin-right: 5px;
   font-size: 14px;
   color: darkgray;
 }
@@ -624,9 +798,9 @@ textarea.modal-input {
 
 /* URL items */
 .url-item {
-  display: flex; 
-  align-items: center; 
-  width: 100%; 
+  display: flex;
+  align-items: center;
+  width: 100%;
   margin-bottom: 4px;
 }
 
@@ -652,7 +826,7 @@ textarea.modal-input {
   padding: 10px;
   margin-bottom: 10px;
   width: 95%;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.10);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
 }
 
 .hook-header {
@@ -677,7 +851,7 @@ textarea.modal-input {
 }
 
 .hook-input {
-  flex: 1;  /* Input takes remaining space */
+  flex: 1; /* Input takes remaining space */
   margin-bottom: 0;
 }
 
@@ -710,7 +884,7 @@ textarea.modal-input {
 }
 
 /* Color inputs */
-input[type="color"] {
+input[type='color'] {
   width: 50px;
   height: 30px;
   border: none;
@@ -779,7 +953,7 @@ input[type="color"] {
 
 /* Update regular labels to be smaller and more subtle */
 label {
-  margin-right: 5px;  
+  margin-right: 5px;
   font-size: 14px;
   color: #aaa;
 }
@@ -808,16 +982,21 @@ label {
 }
 
 /* Transition effects */
-.fade-enter-active, .fade-leave-active {
-  transition: opacity 0.3s, transform 0.3s;
+.fade-enter-active,
+.fade-leave-active {
+  transition:
+    opacity 0.3s,
+    transform 0.3s;
 }
 
-.fade-enter-from, .fade-leave-to {
+.fade-enter-from,
+.fade-leave-to {
   opacity: 0;
   transform: translateY(20px);
 }
 
-.fade-enter-to, .fade-leave-from {
+.fade-enter-to,
+.fade-leave-from {
   opacity: 1;
   transform: translateY(0);
 }

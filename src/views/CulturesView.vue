@@ -10,9 +10,9 @@
 </template>
 
 <script>
-import { useCulturesStore } from '@/stores/culturesStore';
-import CultureService from '@/services/CultureService';
-import ConceptsView from '@/components/ConceptsView.vue';
+import { useCulturesStore } from '@/stores/culturesStore'
+import CultureService from '@/services/CultureService'
+import ConceptsView from '@/components/ConceptsView.vue'
 
 export default {
   components: {
@@ -20,34 +20,34 @@ export default {
   },
   data() {
     return {
-      culturesStore: useCulturesStore()
-    };
+      culturesStore: useCulturesStore(),
+    }
   },
   computed: {
     cultures() {
-      return this.culturesStore.cultures.filter(culture => !culture.isDeleted);
-    }
+      return this.culturesStore.cultures.filter((culture) => !culture.isDeleted)
+    },
   },
   methods: {
     async createNewCulture() {
-      return await CultureService.createCulture();
+      return await CultureService.createCulture()
     },
-    
+
     async updateCulture(culture) {
-      return await CultureService.updateCulture(culture);
+      return await CultureService.updateCulture(culture)
     },
-    
+
     async deleteCulture(culture) {
-      culture.isDeleted = true;
-      return await CultureService.updateCulture(culture);
+      culture.isDeleted = true
+      return await CultureService.updateCulture(culture)
     },
-    
+
     async refreshData() {
-      return await this.culturesStore.fetchCultures();
-    }
+      return await this.culturesStore.fetchCultures()
+    },
   },
   mounted() {
-    this.refreshData();
-  }
-};
+    this.refreshData()
+  },
+}
 </script>

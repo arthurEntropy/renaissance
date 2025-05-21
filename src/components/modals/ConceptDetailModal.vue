@@ -1,31 +1,30 @@
 <template>
   <div class="modal-overlay" @click.self="closeModal">
     <div class="modal-content">
-
       <!-- ADMIN CONTROLS -->
       <div class="admin-controls">
         <!-- Edit/Save button -->
-        <button 
-          class="edit-save-button" 
-          @click="toggleEditMode" 
+        <button
+          class="edit-save-button"
+          @click="toggleEditMode"
           :title="isEditMode ? 'Exit Edit Mode' : 'Enter Edit Mode'"
         >
           {{ isEditMode ? '✓ Save' : '✎ Edit' }}
         </button>
         <!-- Settings button -->
-        <button 
+        <button
           v-if="isEditMode"
-          class="settings-button" 
-          @click="openSettingsModal" 
+          class="settings-button"
+          @click="openSettingsModal"
           title="Card Style Settings"
-        >⚙️</button>
+        >
+          ⚙️
+        </button>
       </div>
 
       <div class="concept-detail-content">
-        
         <!-- LEFT COLUMN -->
         <div class="concept-left-column">
-          
           <!-- Featured Art -->
           <ImageGallery
             v-if="localConcept.artUrls && localConcept.artUrls.length"
@@ -45,13 +44,13 @@
               @update:images="updateFaces"
             />
           </div>
-          
+
           <!-- Places -->
           <div class="concept-section" v-if="hasPlaces || isEditMode">
             <h2 class="section-header">Places</h2>
             <ImageGallery
               :images="localConcept.places || []"
-              :editable="isEditMode" 
+              :editable="isEditMode"
               :grid-columns="5"
               @update:images="updatePlaces"
             />
@@ -67,13 +66,12 @@
 
         <!-- RIGHT COLUMN -->
         <div class="concept-right-column">
-
           <!-- Title -->
           <div class="concept-header-container">
             <div v-if="isEditingTitle" class="editable-title">
-              <input 
-                type="text" 
-                v-model="localConcept.name" 
+              <input
+                type="text"
+                v-model="localConcept.name"
                 class="concept-title-input"
                 ref="titleInput"
                 @blur="saveTitleChanges"
@@ -83,38 +81,61 @@
             </div>
             <h1 v-else class="concept-title" @click="startTitleEdit">
               {{ localConcept.name }}
-              <span v-if="isEditMode" class="edit-section-button" title="Click to edit">✎</span>
+              <span
+                v-if="isEditMode"
+                class="edit-section-button"
+                title="Click to edit"
+                >✎</span
+              >
             </h1>
           </div>
-          
+
           <!-- Description -->
           <div class="description-container">
             <div v-if="isEditingDescription" class="editable-description">
               <text-editor
-                v-model="localConcept.description" 
+                v-model="localConcept.description"
                 height="200px"
                 ref="descriptionEditor"
               />
               <div class="edit-field-buttons">
-                <button class="button small" @click="saveDescriptionChanges">Save</button>
-                <button class="button small" @click="cancelDescriptionEdit">Cancel</button>
+                <button class="button small" @click="saveDescriptionChanges">
+                  Save
+                </button>
+                <button class="button small" @click="cancelDescriptionEdit">
+                  Cancel
+                </button>
               </div>
             </div>
-            <div v-else class="concept-description" @click="isEditMode && startDescriptionEdit" v-html="localConcept.description">
-            </div>
-            <span v-if="isEditMode && !isEditingDescription" class="edit-field-indicator" @click="startDescriptionEdit" title="Edit description">✎</span>
+            <div
+              v-else
+              class="concept-description"
+              @click="isEditMode && startDescriptionEdit"
+              v-html="localConcept.description"
+            ></div>
+            <span
+              v-if="isEditMode && !isEditingDescription"
+              class="edit-field-indicator"
+              @click="startDescriptionEdit"
+              title="Edit description"
+              >✎</span
+            >
           </div>
-          
+
           <!-- Traits & Abilities -->
           <div class="concept-section" v-if="hasAbilities || isEditMode">
             <h2 class="section-header">Traits & Abilities</h2>
-            <div v-if="!hasAbilities && isEditMode" class="empty-section-placeholder">
-              No abilities added yet. Create abilities in the "Abilities" section and assign them to this concept.
+            <div
+              v-if="!hasAbilities && isEditMode"
+              class="empty-section-placeholder"
+            >
+              No abilities added yet. Create abilities in the "Abilities"
+              section and assign them to this concept.
             </div>
-            <masonry-grid 
+            <masonry-grid
               v-else
-              :column-width="350" 
-              :gap="10" 
+              :column-width="350"
+              :gap="10"
               :row-height="10"
               class="ability-cards-container"
             >
@@ -136,7 +157,7 @@
               publicHouses: localConcept.publicHouses,
               vittles: localConcept.vittles,
               pointsOfInterest: localConcept.pointsOfInterest,
-              floraFauna: localConcept.floraFauna
+              floraFauna: localConcept.floraFauna,
             }"
             :editable="isEditMode"
             @update="updateLocalFlavor"
@@ -152,13 +173,17 @@
           <!-- Wares -->
           <div class="concept-section" v-if="hasEquipment || isEditMode">
             <h2 class="section-header">Wares</h2>
-            <div v-if="!hasEquipment && isEditMode" class="empty-section-placeholder">
-              No equipment added yet. Create equipment in the "Equipment" section and assign it to this concept.
+            <div
+              v-if="!hasEquipment && isEditMode"
+              class="empty-section-placeholder"
+            >
+              No equipment added yet. Create equipment in the "Equipment"
+              section and assign it to this concept.
             </div>
-            <masonry-grid 
+            <masonry-grid
               v-else
-              :column-width="350" 
-              :gap="10" 
+              :column-width="350"
+              :gap="10"
               :row-height="10"
               class="equipment-cards-container"
             >
@@ -175,7 +200,7 @@
       </div>
     </div>
   </div>
-  
+
   <!-- SETTINGS MODAL -->
   <SettingsModal
     :visible="showSettingsModal"
@@ -185,20 +210,20 @@
     @cancel="closeSettingsModal"
   />
 </template>
-  
+
 <script>
-import { defineComponent } from 'vue';
-import AbilityCard from "@/components/AbilityCard.vue";
-import AbilityService from "@/services/AbilityService";
-import EquipmentService from "@/services/EquipmentService";
-import EquipmentCard from "@/components/EquipmentCard.vue";
-import HooksSection from '@/components/conceptDetail/HooksSection.vue';
-import ImageGallery from "@/components/conceptDetail/ImageGallery.vue";
-import LocalFlavorSection from '@/components/conceptDetail/LocalFlavorSection.vue';
-import MasonryGrid from "@/components/MasonryGrid.vue";
-import PlaylistSection from '@/components/conceptDetail/PlaylistSection.vue';
-import SettingsModal from '@/components/conceptDetail/ConceptSettingsModal.vue';
-import TextEditor from '@/components/TextEditor.vue';
+import { defineComponent } from 'vue'
+import AbilityCard from '@/components/AbilityCard.vue'
+import AbilityService from '@/services/AbilityService'
+import EquipmentService from '@/services/EquipmentService'
+import EquipmentCard from '@/components/EquipmentCard.vue'
+import HooksSection from '@/components/conceptDetail/HooksSection.vue'
+import ImageGallery from '@/components/conceptDetail/ImageGallery.vue'
+import LocalFlavorSection from '@/components/conceptDetail/LocalFlavorSection.vue'
+import MasonryGrid from '@/components/MasonryGrid.vue'
+import PlaylistSection from '@/components/conceptDetail/PlaylistSection.vue'
+import SettingsModal from '@/components/conceptDetail/ConceptSettingsModal.vue'
+import TextEditor from '@/components/TextEditor.vue'
 
 export default defineComponent({
   props: {
@@ -208,8 +233,8 @@ export default defineComponent({
     },
     editable: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   components: {
     AbilityCard,
@@ -221,7 +246,6 @@ export default defineComponent({
     PlaylistSection,
     SettingsModal,
     TextEditor,
-
   },
   emits: ['close', 'update', 'edit-ability', 'edit-equipment'],
   data() {
@@ -237,58 +261,58 @@ export default defineComponent({
       tempSettings: {
         backgroundImage: '',
         color1: '#ffffff',
-        color2: '#000000'
+        color2: '#000000',
       },
-    };
+    }
   },
   watch: {
     concept: {
       immediate: true,
       handler(newConcept) {
         // Deep clone the concept to avoid direct mutations
-        this.localConcept = JSON.parse(JSON.stringify(newConcept));
-        this.localConcept.hooks = this.localConcept.hooks || [];
-        this.localConcept.playlists = this.localConcept.playlists || [];
-        this.localConcept.artUrls = this.localConcept.artUrls || [];
-        this.localConcept.faces = this.localConcept.faces || [];
-        this.localConcept.places = this.localConcept.places || [];
-        this.fetchAbilities();
-        this.fetchEquipment();
-      }
+        this.localConcept = JSON.parse(JSON.stringify(newConcept))
+        this.localConcept.hooks = this.localConcept.hooks || []
+        this.localConcept.playlists = this.localConcept.playlists || []
+        this.localConcept.artUrls = this.localConcept.artUrls || []
+        this.localConcept.faces = this.localConcept.faces || []
+        this.localConcept.places = this.localConcept.places || []
+        this.fetchAbilities()
+        this.fetchEquipment()
+      },
     },
     editable: {
       handler(newValue) {
-        this.isEditMode = newValue;
+        this.isEditMode = newValue
       },
-      immediate: true
-    }
+      immediate: true,
+    },
   },
   computed: {
     hasArt() {
-      return this.localConcept.artUrls && this.localConcept.artUrls.length > 0;
+      return this.localConcept.artUrls && this.localConcept.artUrls.length > 0
     },
     hasFaces() {
-      return this.localConcept.faces && this.localConcept.faces.length > 0;
+      return this.localConcept.faces && this.localConcept.faces.length > 0
     },
     hasPlaces() {
-      return this.localConcept.places && this.localConcept.places.length > 0;
+      return this.localConcept.places && this.localConcept.places.length > 0
     },
     hasAbilities() {
-      return this.abilities && this.abilities.length > 0;
+      return this.abilities && this.abilities.length > 0
     },
     hasEquipment() {
-      return this.equipment && this.equipment.length > 0;
-    }
+      return this.equipment && this.equipment.length > 0
+    },
   },
   methods: {
     toggleEditMode() {
       if (this.isEditMode) {
-        if (this.isEditingTitle) this.saveTitleChanges();
-        if (this.isEditingDescription) this.saveDescriptionChanges();
-        this.emitUpdateEvent();
+        if (this.isEditingTitle) this.saveTitleChanges()
+        if (this.isEditingDescription) this.saveDescriptionChanges()
+        this.emitUpdateEvent()
       }
-      this.isEditMode = !this.isEditMode;
-      this.$emit('edit-mode-change', this.isEditMode);
+      this.isEditMode = !this.isEditMode
+      this.$emit('edit-mode-change', this.isEditMode)
     },
 
     emitUpdateEvent() {
@@ -296,22 +320,32 @@ export default defineComponent({
         // Create a clean copy excluding methods and non-data properties
         const cleanConcept = {
           ...this.localConcept,
-          
+
           // Handle arrays properly
           artUrls: [...(this.localConcept.artUrls || [])],
           faces: [...(this.localConcept.faces || [])],
           places: [...(this.localConcept.places || [])],
-          
+
           // Process hooks and playlists to extract only necessary properties
-          hooks: this.localConcept.hooks?.map(({id, name, description, gmNotes}) => 
-            ({id, name, description, gmNotes})) || [],
-          playlists: this.localConcept.playlists?.map(({service, embedCode}) => 
-            ({service, embedCode})) || []
-        };
-        
-        this.$emit('update', cleanConcept);
+          hooks:
+            this.localConcept.hooks?.map(
+              ({ id, name, description, gmNotes }) => ({
+                id,
+                name,
+                description,
+                gmNotes,
+              }),
+            ) || [],
+          playlists:
+            this.localConcept.playlists?.map(({ service, embedCode }) => ({
+              service,
+              embedCode,
+            })) || [],
+        }
+
+        this.$emit('update', cleanConcept)
       } catch (error) {
-        console.error("Error in emitUpdateEvent:", error);
+        console.error('Error in emitUpdateEvent:', error)
       }
     },
 
@@ -319,180 +353,184 @@ export default defineComponent({
       try {
         // Check if any editing is in progress
         if (this.isEditingTitle || this.isEditingDescription) {
-          if (confirm("You have unsaved changes. Are you sure you want to exit?")) {
+          if (
+            confirm('You have unsaved changes. Are you sure you want to exit?')
+          ) {
             // Don't emit an update when closing - just close
-            this.$emit("close");
+            this.$emit('close')
           }
           // If they cancel, do nothing (keep modal open)
         } else {
           // Just close without emitting update
-          this.$emit("close");
+          this.$emit('close')
         }
       } catch (error) {
-        console.error("Error in closeDetailView:", error);
+        console.error('Error in closeDetailView:', error)
         // Still close the modal even if there was an error
-        this.$emit("close");
+        this.$emit('close')
       }
     },
-    
+
     // Title editing
     startTitleEdit() {
-      if (!this.isEditMode) return;
-      this.isEditingTitle = true;
-      this.backupConcept = { name: this.localConcept.name };
+      if (!this.isEditMode) return
+      this.isEditingTitle = true
+      this.backupConcept = { name: this.localConcept.name }
       this.$nextTick(() => {
-        this.$refs.titleInput.focus();
-        this.$refs.titleInput.select();
-      });
+        this.$refs.titleInput.focus()
+        this.$refs.titleInput.select()
+      })
     },
-    
+
     saveTitleChanges() {
-      this.isEditingTitle = false;
-      this.emitUpdateEvent();
+      this.isEditingTitle = false
+      this.emitUpdateEvent()
     },
-    
+
     cancelTitleEdit() {
-      this.localConcept.name = this.backupConcept.name;
-      this.isEditingTitle = false;
+      this.localConcept.name = this.backupConcept.name
+      this.isEditingTitle = false
     },
-    
+
     // Description editing
     startDescriptionEdit() {
-      if (!this.isEditMode) return;
-      this.isEditingDescription = true;
-      this.backupConcept = { description: this.localConcept.description };
+      if (!this.isEditMode) return
+      this.isEditingDescription = true
+      this.backupConcept = { description: this.localConcept.description }
     },
-    
+
     saveDescriptionChanges() {
-      this.isEditingDescription = false;
-      this.emitUpdateEvent();
+      this.isEditingDescription = false
+      this.emitUpdateEvent()
     },
-    
+
     cancelDescriptionEdit() {
-      this.localConcept.description = this.backupConcept.description;
-      this.isEditingDescription = false;
+      this.localConcept.description = this.backupConcept.description
+      this.isEditingDescription = false
     },
-    
+
     // Abilities and Equipment
     async fetchAbilities() {
       try {
-        const abilities = await AbilityService.getAllAbilities();
+        const abilities = await AbilityService.getAllAbilities()
         this.abilities = abilities.filter(
-          (ability) => ability.source === this.localConcept.id
-        );
-        console.log(`Fetched ${this.abilities.length} abilities for concept ${this.localConcept.id}`);
+          (ability) => ability.source === this.localConcept.id,
+        )
+        console.log(
+          `Fetched ${this.abilities.length} abilities for concept ${this.localConcept.id}`,
+        )
       } catch (error) {
-        console.error("Error fetching abilities:", error);
+        console.error('Error fetching abilities:', error)
       }
     },
-    
+
     async fetchEquipment() {
       try {
-        const equipment = await EquipmentService.getAllEquipment();
+        const equipment = await EquipmentService.getAllEquipment()
         this.equipment = equipment.filter(
-          (item) => item.source === this.localConcept.id
-        );
-        console.log(`Fetched ${this.equipment.length} equipment items for concept ${this.localConcept.id}`);
+          (item) => item.source === this.localConcept.id,
+        )
+        console.log(
+          `Fetched ${this.equipment.length} equipment items for concept ${this.localConcept.id}`,
+        )
       } catch (error) {
-        console.error("Error fetching equipment:", error);
+        console.error('Error fetching equipment:', error)
       }
     },
-    
+
     emitAbilityEdit(ability) {
-      if (!this.isEditMode) return;
-      this.$emit("edit-ability", ability);
+      if (!this.isEditMode) return
+      this.$emit('edit-ability', ability)
     },
-    
+
     emitEquipmentEdit(equipment) {
-      if (!this.isEditMode) return;
-      this.$emit("edit-equipment", equipment);
+      if (!this.isEditMode) return
+      this.$emit('edit-equipment', equipment)
     },
 
     /* Image Galleries: Featured, Faces, Places */
     updateFeaturedArt(newImages) {
       try {
-        this.localConcept.artUrls = [...newImages];
+        this.localConcept.artUrls = [...newImages]
         this.$nextTick(() => {
-          this.emitUpdateEvent();
-        });
+          this.emitUpdateEvent()
+        })
       } catch (error) {
-        console.error("Error updating art URLs:", error);
+        console.error('Error updating art URLs:', error)
       }
     },
-    
+
     updateFaces(newImages) {
       try {
-        this.localConcept.faces = [...newImages];
+        this.localConcept.faces = [...newImages]
         this.$nextTick(() => {
-          this.emitUpdateEvent();
-        });
+          this.emitUpdateEvent()
+        })
       } catch (error) {
-        console.error("Error updating faces:", error);
+        console.error('Error updating faces:', error)
       }
     },
-    
+
     updatePlaces(newImages) {
       try {
-        this.localConcept.places = [...newImages];
+        this.localConcept.places = [...newImages]
         this.$nextTick(() => {
-          this.emitUpdateEvent();
-        });
+          this.emitUpdateEvent()
+        })
       } catch (error) {
-        console.error("Error updating places:", error);
+        console.error('Error updating places:', error)
       }
     },
-    
+
     /* Playlists */
     updatePlaylists(newPlaylists) {
       try {
-        this.localConcept.playlists = [...newPlaylists];
+        this.localConcept.playlists = [...newPlaylists]
         this.$nextTick(() => {
-          this.emitUpdateEvent();
-        });
+          this.emitUpdateEvent()
+        })
       } catch (error) {
-        console.error("Error updating playlists:", error);
+        console.error('Error updating playlists:', error)
       }
     },
-    
+
     ensureAppleEmbedHasDarkTheme() {
-      this.localConcept.playlists.forEach(playlist => {
+      this.localConcept.playlists.forEach((playlist) => {
         if (playlist.service === 'apple' && playlist.embedCode) {
-          const srcMatch = playlist.embedCode.match(/src="([^"]+)"/);
+          const srcMatch = playlist.embedCode.match(/src="([^"]+)"/)
           if (srcMatch && srcMatch[1]) {
-            const originalSrc = srcMatch[1];
-            const newSrc = originalSrc + (originalSrc.includes('?') ? '&theme=dark' : '?theme=dark');
-            playlist.embedCode = playlist.embedCode.replace(
-              `src="${originalSrc}"`, 
-              `src="${newSrc}"`
-            ).replace(
-              `src='${originalSrc}'`,
-              `src='${newSrc}'`
-            );
+            const originalSrc = srcMatch[1]
+            const newSrc =
+              originalSrc +
+              (originalSrc.includes('?') ? '&theme=dark' : '?theme=dark')
+            playlist.embedCode = playlist.embedCode
+              .replace(`src="${originalSrc}"`, `src="${newSrc}"`)
+              .replace(`src='${originalSrc}'`, `src='${newSrc}'`)
           }
         }
-      });
+      })
     },
 
     /* Local Flavor */
     updateLocalFlavor(data) {
-      this.localConcept.names = data.names;
-      this.localConcept.occupations = data.occupations;
-      this.localConcept.publicHouses = data.publicHouses;
-      this.localConcept.vittles = data.vittles;
-      this.localConcept.pointsOfInterest = data.pointsOfInterest;
-      this.localConcept.floraFauna = data.floraFauna;
-      this.emitUpdateEvent();
+      this.localConcept.names = data.names
+      this.localConcept.occupations = data.occupations
+      this.localConcept.publicHouses = data.publicHouses
+      this.localConcept.vittles = data.vittles
+      this.localConcept.pointsOfInterest = data.pointsOfInterest
+      this.localConcept.floraFauna = data.floraFauna
+      this.emitUpdateEvent()
     },
 
     /* Hooks */
     updateHooks(newHooks) {
       try {
-        this.localConcept.hooks = [...newHooks];
+        this.localConcept.hooks = [...newHooks]
         this.$nextTick(() => {
-          this.emitUpdateEvent();
-        });
+          this.emitUpdateEvent()
+        })
       } catch (error) {
-        console.error("Error updating hooks:", error);
+        console.error('Error updating hooks:', error)
       }
     },
 
@@ -501,32 +539,31 @@ export default defineComponent({
       this.tempSettings = {
         backgroundImage: this.localConcept.backgroundImage || '',
         color1: this.localConcept.color1 || '#ffffff',
-        color2: this.localConcept.color2 || '#000000'
-      };
-      this.showSettingsModal = true;
+        color2: this.localConcept.color2 || '#000000',
+      }
+      this.showSettingsModal = true
     },
 
     closeSettingsModal() {
-      this.showSettingsModal = false;
+      this.showSettingsModal = false
     },
 
     saveSettings() {
-      this.localConcept.backgroundImage = this.tempSettings.backgroundImage;
-      this.localConcept.color1 = this.tempSettings.color1;
-      this.localConcept.color2 = this.tempSettings.color2;
-      this.emitUpdateEvent();
-      this.closeSettingsModal();
+      this.localConcept.backgroundImage = this.tempSettings.backgroundImage
+      this.localConcept.color1 = this.tempSettings.color1
+      this.localConcept.color2 = this.tempSettings.color2
+      this.emitUpdateEvent()
+      this.closeSettingsModal()
     },
   },
-  
-  async mounted() {
-    await Promise.all([this.fetchAbilities(), this.fetchEquipment()]);
-  },
-});
-</script>
-  
-<style scoped>
 
+  async mounted() {
+    await Promise.all([this.fetchAbilities(), this.fetchEquipment()])
+  },
+})
+</script>
+
+<style scoped>
 /* Admin controls */
 .admin-controls {
   position: absolute;
@@ -605,7 +642,7 @@ export default defineComponent({
   font-weight: bold;
   padding: 4px 8px;
   width: 100%;
-  background: rgba(0,0,0,0.2);
+  background: rgba(0, 0, 0, 0.2);
   border: 1px solid #555;
   border-radius: 4px;
   color: white;
@@ -652,7 +689,6 @@ export default defineComponent({
   margin-top: 10px;
 }
 
-
 /* Individual component styling from original */
 .concept-section {
   display: flex;
@@ -691,16 +727,16 @@ export default defineComponent({
 
 /* Responsive adjustments */
 @media (max-width: 900px) {
-  .concept-detail-content { 
-    flex-direction: column; 
-    gap: 18px; 
+  .concept-detail-content {
+    flex-direction: column;
+    gap: 18px;
   }
-  .concept-left-column { 
+  .concept-left-column {
     max-width: 100%;
     margin-bottom: 1rem;
   }
-  .concept-right-column { 
-    max-width: 100%; 
+  .concept-right-column {
+    max-width: 100%;
   }
 }
 </style>

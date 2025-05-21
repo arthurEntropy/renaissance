@@ -5,17 +5,21 @@
       <div class="rules-navigation">
         <div class="rules-nav-header">
           <h3>Table of Contents</h3>
-          <button 
+          <button
             class="structure-edit-toggle"
             @click="toggleStructureEditMode"
-            :class="{ 'active': isStructureEditMode }"
+            :class="{ active: isStructureEditMode }"
             :disabled="isContentEditMode"
-            :name="isStructureEditMode ? 'Exit Structure Edit Mode' : 'Edit Structure'"
+            :name="
+              isStructureEditMode
+                ? 'Exit Structure Edit Mode'
+                : 'Edit Structure'
+            "
           >
             {{ isStructureEditMode ? '✓' : '≡' }}
           </button>
         </div>
-        
+
         <!-- Rule sections list - draggable when in structure edit mode -->
         <draggable
           v-if="isStructureEditMode"
@@ -28,49 +32,55 @@
           :disabled="isContentEditMode"
         >
           <template #item="{ element }">
-            <div 
-              :class="['rule-section-item', { active: currentSection?.id === element.id }]"
+            <div
+              :class="[
+                'rule-section-item',
+                { active: currentSection?.id === element.id },
+              ]"
               @click="selectSection(element.id)"
             >
               <span class="section-name">{{ element.name }}</span>
               <!-- Edit controls -->
               <div class="section-controls">
-                <span 
-                  class="drag-handle" 
-                  name="Drag to reorder"
-                >⋮⋮</span>
-                <span 
-                  class="delete-section" 
-                  @click.stop="confirmDeleteSection(element)" 
+                <span class="drag-handle" name="Drag to reorder">⋮⋮</span>
+                <span
+                  class="delete-section"
+                  @click.stop="confirmDeleteSection(element)"
                   name="Delete section"
-                >×</span>
+                  >×</span
+                >
               </div>
             </div>
           </template>
         </draggable>
-        
+
         <!-- Non-draggable version for view/content edit mode -->
         <div v-else class="rule-sections-list">
-          <div 
-            v-for="section in sortedSections" 
+          <div
+            v-for="section in sortedSections"
             :key="section.id"
-            :class="['rule-section-item', { active: currentSection?.id === section.id }]"
+            :class="[
+              'rule-section-item',
+              { active: currentSection?.id === section.id },
+            ]"
             @click="selectSection(section.id)"
           >
             <span class="section-name">{{ section.name }}</span>
           </div>
         </div>
-        
+
         <!-- Add new section button at the bottom -->
         <div v-if="isStructureEditMode" class="bottom-actions">
-          <button 
+          <button
             class="add-section-btn"
             @click="createNewSection"
             name="Add new section"
-          >+ Add New Section</button>
+          >
+            + Add New Section
+          </button>
         </div>
       </div>
-      
+
       <!-- Right content area -->
       <div class="rules-content">
         <div v-if="currentSection" class="rules-content-body">
@@ -80,20 +90,20 @@
               <!-- Name editor with edit button -->
               <div class="section-name-container">
                 <div class="section-header">
-                  <input 
+                  <input
                     v-if="isContentEditMode"
-                    type="text" 
-                    v-model="currentSection.name" 
+                    type="text"
+                    v-model="currentSection.name"
                     class="section-name-input"
                     @input="markAsChanged"
                   />
                   <h2 v-else>{{ currentSection.name }}</h2>
-                  
+
                   <!-- Edit button moved here -->
-                  <button 
-                    class="content-edit-toggle" 
+                  <button
+                    class="content-edit-toggle"
                     @click="toggleContentEditMode"
-                    :class="{ 'active': isContentEditMode }"
+                    :class="{ active: isContentEditMode }"
                     :disabled="isStructureEditMode"
                     :name="isContentEditMode ? 'Save Changes' : 'Edit Content'"
                   >
@@ -101,53 +111,62 @@
                   </button>
                 </div>
               </div>
-              
+
               <!-- Content editor -->
               <div class="section-content-container">
                 <div v-if="isContentEditMode" class="image-url-container">
                   <label for="section-image-url">Side Image URL:</label>
-                  <input 
+                  <input
                     id="section-image-url"
-                    type="text" 
-                    v-model="currentSection.imageUrl" 
+                    type="text"
+                    v-model="currentSection.imageUrl"
                     class="image-url-input"
                     placeholder="Enter image URL (optional)"
                     @input="markAsChanged"
                   />
                 </div>
-                
-                <TextEditor 
+
+                <TextEditor
                   v-if="isContentEditMode"
                   v-model="currentSection.content"
                   height="calc(100vh - 200px)"
                   @update:modelValue="markAsChanged"
                 />
-                <div v-else class="content-display" v-html="formattedContent"></div>
+                <div
+                  v-else
+                  class="content-display"
+                  v-html="formattedContent"
+                ></div>
               </div>
             </div>
-            
+
             <!-- Right side with image -->
             <div class="image-side">
-              <div 
-                class="side-image" 
-                :style="{ 
-                  backgroundImage: currentSection.imageUrl 
-                    ? `url(${currentSection.imageUrl})` 
-                    : 'url(/images/side-decoration.jpg)'
+              <div
+                class="side-image"
+                :style="{
+                  backgroundImage: currentSection.imageUrl
+                    ? `url(${currentSection.imageUrl})`
+                    : 'url(/images/side-decoration.jpg)',
                 }"
               >
                 <!-- Add an "Add Image" placeholder when in edit mode and no image -->
-                <div v-if="isContentEditMode && !currentSection.imageUrl" class="add-image-placeholder">
+                <div
+                  v-if="isContentEditMode && !currentSection.imageUrl"
+                  class="add-image-placeholder"
+                >
                   <span>Add Side Image</span>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        
+
         <div v-else class="no-selection">
-          <p>Select a section from the table of contents or create a new one.</p>
-          <button 
+          <p>
+            Select a section from the table of contents or create a new one.
+          </p>
+          <button
             v-if="sortedSections.length === 0"
             class="button button-primary"
             @click="createFirstSection"
@@ -161,17 +180,17 @@
 </template>
 
 <script>
-import { useRulesStore } from '@/stores/rulesStore';
-import RulesService from '@/services/RulesService';
-import TextEditor from '@/components/TextEditor.vue';
-import draggable from 'vuedraggable';
+import { useRulesStore } from '@/stores/rulesStore'
+import RulesService from '@/services/RulesService'
+import TextEditor from '@/components/TextEditor.vue'
+import draggable from 'vuedraggable'
 
 export default {
   components: {
     TextEditor,
-    draggable
+    draggable,
   },
-  
+
   data() {
     return {
       rulesStore: useRulesStore(),
@@ -181,202 +200,219 @@ export default {
       selectedSectionId: null,
       localSections: [],
       sectionToDelete: null,
-      unsavedChanges: false
-    };
-  },
-  
-  computed: {
-    sortedSections() {
-      return this.rulesStore.sections ? [...this.rulesStore.sections].sort((a, b) => a.index - b.index) : [];
-    },
-    
-    formattedContent() {
-      if (!this.currentSection?.content) return '';
-      return this.currentSection.content;
-    },
-    
-    // Easily determine if we're in any edit mode
-    isInEditMode() {
-      return this.isContentEditMode || this.isStructureEditMode;
+      unsavedChanges: false,
     }
   },
-  
+
+  computed: {
+    sortedSections() {
+      return this.rulesStore.sections
+        ? [...this.rulesStore.sections].sort((a, b) => a.index - b.index)
+        : []
+    },
+
+    formattedContent() {
+      if (!this.currentSection?.content) return ''
+      return this.currentSection.content
+    },
+
+    // Easily determine if we're in any edit mode
+    isInEditMode() {
+      return this.isContentEditMode || this.isStructureEditMode
+    },
+  },
+
   watch: {
     sortedSections: {
       immediate: true,
       handler(newValue) {
-        this.localSections = JSON.parse(JSON.stringify(newValue));
-      }
-    }
+        this.localSections = JSON.parse(JSON.stringify(newValue))
+      },
+    },
   },
-  
+
   async created() {
     try {
-      await this.rulesStore.fetchRules();
-      
+      await this.rulesStore.fetchRules()
+
       // Get the last selected section ID from localStorage
-      const lastSelectedSectionId = localStorage.getItem('lastSelectedSectionId');
-      
+      const lastSelectedSectionId = localStorage.getItem(
+        'lastSelectedSectionId',
+      )
+
       // Check if the section still exists
-      const sectionExists = lastSelectedSectionId && 
-        this.sortedSections.some(section => section.id === lastSelectedSectionId);
-      
+      const sectionExists =
+        lastSelectedSectionId &&
+        this.sortedSections.some(
+          (section) => section.id === lastSelectedSectionId,
+        )
+
       if (sectionExists) {
         // Select the last viewed section
-        this.selectSection(lastSelectedSectionId);
+        this.selectSection(lastSelectedSectionId)
       } else if (this.sortedSections && this.sortedSections.length > 0) {
         // Fall back to the first section if the saved one doesn't exist
-        this.selectSection(this.sortedSections[0].id);
+        this.selectSection(this.sortedSections[0].id)
       }
     } catch (error) {
-      console.error('Error in RulesView created:', error);
+      console.error('Error in RulesView created:', error)
     }
   },
-  
+
   methods: {
     async selectSection(sectionId) {
       // Skip if we're trying to select the already selected section
-      if (this.currentSection?.id === sectionId) return;
-      
+      if (this.currentSection?.id === sectionId) return
+
       // Handle unsaved changes if in content edit mode
       if (this.isContentEditMode && this.unsavedChanges) {
-        if (confirm('You have unsaved changes. Do you want to save before selecting another section?')) {
-          await this.saveSection();
+        if (
+          confirm(
+            'You have unsaved changes. Do you want to save before selecting another section?',
+          )
+        ) {
+          await this.saveSection()
         } else {
-          this.unsavedChanges = false;
+          this.unsavedChanges = false
         }
       }
-      
+
       // Exit content edit mode when switching sections
       if (this.isContentEditMode) {
-        this.isContentEditMode = false;
+        this.isContentEditMode = false
       }
-      
+
       // Clear current section first to avoid visual issues with multiple sections appearing selected
-      this.currentSection = null;
+      this.currentSection = null
       this.$nextTick(() => {
         // Filter the section locally from the loaded sections
-        this.currentSection = this.rulesStore.sections.find(section => section.id === sectionId) || null;
-        this.selectedSectionId = sectionId;
-        
+        this.currentSection =
+          this.rulesStore.sections.find(
+            (section) => section.id === sectionId,
+          ) || null
+        this.selectedSectionId = sectionId
+
         // Save the selected section ID to localStorage
-        localStorage.setItem('lastSelectedSectionId', sectionId);
-      });
+        localStorage.setItem('lastSelectedSectionId', sectionId)
+      })
     },
-    
+
     async createNewSection() {
       // Don't allow creating sections in content edit mode
-      if (this.isContentEditMode) return;
-      
+      if (this.isContentEditMode) return
+
       try {
         // Create the new section
-        const newSection = await RulesService.createSection();
+        const newSection = await RulesService.createSection()
         // Refresh data
-        await this.rulesStore.fetchRules();
-        
+        await this.rulesStore.fetchRules()
+
         // More robust section finding - check by name and id
-        const sectionToSelect = this.rulesStore.sections.find(s => 
-          (s.id && s.id === newSection.id) || 
-          (!s.id && s.name === newSection.name)
-        );
-        
+        const sectionToSelect = this.rulesStore.sections.find(
+          (s) =>
+            (s.id && s.id === newSection.id) ||
+            (!s.id && s.name === newSection.name),
+        )
+
         if (sectionToSelect) {
           // Exit structure edit mode
-          this.isStructureEditMode = false;
-          
+          this.isStructureEditMode = false
+
           // Select the newly created section
-          await this.selectSection(sectionToSelect.id);
-          
+          await this.selectSection(sectionToSelect.id)
+
           // Enter content edit mode after a short delay
           setTimeout(() => {
-            this.isContentEditMode = true;
-            this.unsavedChanges = true; // Mark as changed
-          }, 100);
+            this.isContentEditMode = true
+            this.unsavedChanges = true // Mark as changed
+          }, 100)
         } else {
-          console.error("Couldn't find the newly created section");
+          console.error("Couldn't find the newly created section")
         }
       } catch (error) {
-        console.error("Error creating new section:", error);
+        console.error('Error creating new section:', error)
       }
     },
-    
+
     createFirstSection() {
-      this.createNewSection();
+      this.createNewSection()
     },
-    
+
     async saveSection() {
       if (this.currentSection) {
-        await RulesService.updateSection(this.currentSection);
-        await this.rulesStore.fetchRules();
-        this.unsavedChanges = false;
+        await RulesService.updateSection(this.currentSection)
+        await this.rulesStore.fetchRules()
+        this.unsavedChanges = false
       }
     },
-    
+
     markAsChanged() {
-      this.unsavedChanges = true;
+      this.unsavedChanges = true
     },
-    
+
     toggleContentEditMode() {
       // Don't allow entering content edit mode if structure edit mode is active
-      if (this.isStructureEditMode) return;
-      
+      if (this.isStructureEditMode) return
+
       if (this.isContentEditMode) {
         // Switching from edit to view mode - save changes
-        this.saveSection();
+        this.saveSection()
       }
-      this.isContentEditMode = !this.isContentEditMode;
+      this.isContentEditMode = !this.isContentEditMode
     },
-    
+
     toggleStructureEditMode() {
       // Don't allow entering structure edit mode if content edit mode is active
-      if (this.isContentEditMode) return;
-      
-      this.isStructureEditMode = !this.isStructureEditMode;
+      if (this.isContentEditMode) return
+
+      this.isStructureEditMode = !this.isStructureEditMode
     },
-    
+
     confirmDeleteSection(section) {
       // Don't allow deletion in content edit mode
-      if (this.isContentEditMode) return;
-      
-      this.sectionToDelete = section;
-      if (window.confirm(`Are you sure you want to delete "${section.name}"?`)) {
-        this.deleteSection();
+      if (this.isContentEditMode) return
+
+      this.sectionToDelete = section
+      if (
+        window.confirm(`Are you sure you want to delete "${section.name}"?`)
+      ) {
+        this.deleteSection()
       } else {
-        this.sectionToDelete = null;
+        this.sectionToDelete = null
       }
     },
-    
+
     async deleteSection() {
       // Store the section ID before it gets set to null
-      const deletedSectionId = this.sectionToDelete.id;
-      
-      await RulesService.deleteSection(this.sectionToDelete);
-      await this.rulesStore.fetchRules();
-      this.sectionToDelete = null;
-      
+      const deletedSectionId = this.sectionToDelete.id
+
+      await RulesService.deleteSection(this.sectionToDelete)
+      await this.rulesStore.fetchRules()
+      this.sectionToDelete = null
+
       // If the deleted section was the current section, select another one
       if (this.currentSection && this.currentSection.id === deletedSectionId) {
-        this.currentSection = null;
-        
+        this.currentSection = null
+
         if (this.sortedSections.length > 0) {
-          this.selectSection(this.sortedSections[0].id);
+          this.selectSection(this.sortedSections[0].id)
         }
       }
     },
-    
+
     async updateSectionsOrder() {
       // Don't allow reordering in content edit mode
-      if (this.isContentEditMode) return;
-      
+      if (this.isContentEditMode) return
+
       try {
-        await RulesService.reorderSections(this.localSections);
-        await this.rulesStore.fetchRules();
+        await RulesService.reorderSections(this.localSections)
+        await this.rulesStore.fetchRules()
       } catch (error) {
-        console.error("Error updating section order:", error);
+        console.error('Error updating section order:', error)
       }
-    }
-  }
-};
+    },
+  },
+}
 </script>
 
 <style scoped>
@@ -427,7 +463,7 @@ export default {
 
 .add-section-btn {
   width: 100%;
-  background: #4CAF50;
+  background: #4caf50;
   color: white;
   border: none;
   border-radius: 4px;
@@ -439,7 +475,8 @@ export default {
   cursor: pointer;
 }
 
-.structure-edit-toggle, .content-edit-toggle {
+.structure-edit-toggle,
+.content-edit-toggle {
   background: none;
   border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 4px;
@@ -449,9 +486,10 @@ export default {
   padding: 4px 8px;
 }
 
-.structure-edit-toggle.active, .content-edit-toggle.active {
-  background: #4CAF50;
-  border-color: #4CAF50;
+.structure-edit-toggle.active,
+.content-edit-toggle.active {
+  background: #4caf50;
+  border-color: #4caf50;
 }
 
 .content-edit-toggle:disabled {
@@ -470,7 +508,9 @@ export default {
   align-items: center;
   padding: 10px 15px;
   cursor: pointer;
-  transition: background-color 0.2s, color 0.2s;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
@@ -707,7 +747,7 @@ export default {
     border-right: none;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   }
-  
+
   .section-layout {
     flex-direction: column;
   }
@@ -734,7 +774,7 @@ export default {
     position: relative;
     height: 200px;
   }
-  
+
   .side-image::before {
     width: 30%;
   }

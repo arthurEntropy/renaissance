@@ -2,7 +2,9 @@
   <div class="modal-overlay" @click="closeModal">
     <div class="modal-content" @click.stop>
       <h2>Confirm Deletion</h2>
-      <p>Type <strong>{{ name }}</strong> to confirm deletion:</p>
+      <p>
+        Type <strong>{{ name }}</strong> to confirm deletion:
+      </p>
       <input
         type="text"
         v-model="confirmationInput"
@@ -21,47 +23,47 @@
     </div>
   </div>
 </template>
-  
+
 <script>
-  export default {
-    props: {
-      name: {
-        type: String,
-        required: true,
-      },
+export default {
+  props: {
+    name: {
+      type: String,
+      required: true,
     },
-    emits: ['close', 'confirm'],
-    data() {
-      return {
-        confirmationInput: '',
-      };
+  },
+  emits: ['close', 'confirm'],
+  data() {
+    return {
+      confirmationInput: '',
+    }
+  },
+  methods: {
+    closeModal() {
+      this.$emit('close')
     },
-    methods: {
-      closeModal() {
-        this.$emit('close');
-      },
-      confirmDeletion() {
-        this.$emit('confirm');
-      },
+    confirmDeletion() {
+      this.$emit('confirm')
     },
-  };
+  },
+}
 </script>
-  
+
 <style scoped>
-    .modal-overlay {
-      z-index: 1001;
-    }
-    .modal-input {
-        width: 90%;
-        padding: 10px;
-        margin: 10px 0;
-        font-size: 16px;
-        background: black;
-        color: white;
-    }
-    .button:disabled {
-        background: black;
-        color: darkgray;
-        cursor: not-allowed;
-    }
+.modal-overlay {
+  z-index: 1001;
+}
+.modal-input {
+  width: 90%;
+  padding: 10px;
+  margin: 10px 0;
+  font-size: 16px;
+  background: black;
+  color: white;
+}
+.button:disabled {
+  background: black;
+  color: darkgray;
+  cursor: not-allowed;
+}
 </style>

@@ -1,23 +1,31 @@
 <template>
-
   <!-- Overlay For Readability In Equipment/Abilities Views-->
-  <div id="app" class="app" :class="{ 'overlay-background': shouldShowOverlay }">
-
+  <div
+    id="app"
+    class="app"
+    :class="{ 'overlay-background': shouldShowOverlay }"
+  >
     <!-- Mobile Side Menu -->
     <div class="nav-menu" :class="{ open: menuOpen }">
       <button class="menu-toggle" @click="toggleMenu">☰</button>
       <nav v-if="menuOpen">
         <router-link to="/rules" @click="closeMenu">RULES</router-link>
-        <router-link to="/ancestries" @click="closeMenu">ANCESTRIES</router-link>
+        <router-link to="/ancestries" @click="closeMenu"
+          >ANCESTRIES</router-link
+        >
         <router-link to="/cultures" @click="closeMenu">CULTURES</router-link>
         <router-link to="/mestieri" @click="closeMenu">MESTIERI</router-link>
-        <router-link to="/world-elements" @click="closeMenu">WORLD ELEMENTS</router-link>
-        <router-link to="/characters" @click="closeMenu">CHARACTERS</router-link>
+        <router-link to="/world-elements" @click="closeMenu"
+          >WORLD ELEMENTS</router-link
+        >
+        <router-link to="/characters" @click="closeMenu"
+          >CHARACTERS</router-link
+        >
         <router-link to="/abilities" @click="closeMenu">ABILITIES</router-link>
         <router-link to="/equipment" @click="closeMenu">EQUIPMENT</router-link>
       </nav>
     </div>
-    
+
     <!-- Desktop Top Navigation -->
     <div class="top-nav">
       <div class="top-nav-content">
@@ -36,7 +44,6 @@
     <div class="content-area">
       <router-view />
     </div>
-
   </div>
 </template>
 
@@ -45,27 +52,28 @@ export default {
   data() {
     return {
       menuOpen: false,
-    };
+    }
   },
   computed: {
     shouldShowOverlay() {
-      const currentPath = this.$route.path.toLowerCase();
-      return currentPath === '/abilities' || currentPath === '/equipment'; // Show overlay for these routes
-    }
+      const currentPath = this.$route.path.toLowerCase()
+      return currentPath === '/abilities' || currentPath === '/equipment' // Show overlay for these routes
+    },
   },
   methods: {
     toggleMenu() {
-      this.menuOpen = !this.menuOpen;
+      this.menuOpen = !this.menuOpen
     },
     closeMenu() {
-      this.menuOpen = false;
+      this.menuOpen = false
     },
   },
-};
+}
 </script>
 
 <style>
-html, body {
+html,
+body {
   /* TODO: Give the user a few options for background images */
   background-size: cover;
   background-image: url('https://cdn.midjourney.com/b380594a-e352-4deb-b7b0-c3fff0095472/0_3.png');
@@ -204,14 +212,12 @@ html, body {
 .nav-menu a:hover {
   background: rgba(255, 255, 255, 0.1);
   text-decoration: none;
-
 }
 
 .nav-menu a.router-link-active {
   background: rgba(255, 255, 255, 0.15);
   color: white;
 }
-
 
 /* Responsive Design */
 @media (min-width: 1024px) {
@@ -221,14 +227,15 @@ html, body {
 }
 
 @media (max-width: 1023px) {
-  html, body {
+  html,
+  body {
     background-position: left; /* All the cool stuff in the current background image is on the left */
   }
-  
+
   .top-nav {
     display: none; /* Hide top nav on mobile */
   }
-  
+
   .content-area {
     padding-top: 10px; /* Reduce top padding on mobile since top nav is hidden */
   }

@@ -36,20 +36,18 @@
 
     <!-- Badge slot (XP) -->
     <template #badge>
-      <div v-if="ability.xp" class="xp-bubble">
-        {{ ability.xp }} XP
-      </div>
+      <div v-if="ability.xp" class="xp-bubble">{{ ability.xp }} XP</div>
     </template>
   </base-card>
 </template>
 
 <script>
-import { useAbilitiesStore } from '@/stores/abilitiesStore';
-import BaseCard from '@/components/BaseCard.vue';
+import { useAbilitiesStore } from '@/stores/abilitiesStore'
+import BaseCard from '@/components/BaseCard.vue'
 
 export default {
   components: {
-    BaseCard
+    BaseCard,
   },
   props: {
     ability: {
@@ -58,34 +56,34 @@ export default {
     },
     editable: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   data() {
     return {
       collapsed: false,
       isActive: this.ability.isActive,
       abilitiesStore: useAbilitiesStore(),
-    };
+    }
   },
   computed: {
     traitOrMp() {
-      const parts = [];
-      if (this.ability.isTrait) parts.push('trait');
-      if (this.ability.mp) parts.push(`${this.ability.mp} MP`);
-      return parts.join(', ');
+      const parts = []
+      if (this.ability.isTrait) parts.push('trait')
+      if (this.ability.mp) parts.push(`${this.ability.mp} MP`)
+      return parts.join(', ')
     },
   },
   methods: {
     toggleActive() {
-      this.isActive = !this.isActive;
-      this.$emit('update', { ...this.ability, isActive: this.isActive });
+      this.isActive = !this.isActive
+      this.$emit('update', { ...this.ability, isActive: this.isActive })
     },
     sendAbilityToChat() {
-      this.$emit('sendToChat', this.ability);
-    }
-  }
-};
+      this.$emit('sendToChat', this.ability)
+    },
+  },
+}
 </script>
 
 <style scoped>

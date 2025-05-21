@@ -1,79 +1,88 @@
 <template>
   <div class="item-list-view">
-    
-      <!-- Search and Filter Controls -->
-      <div class="filter-controls">
-        <input
-          type="text"
-          v-model="searchQueryLocal"
-          class="search-input"
-          :placeholder="`Search ${itemTypePlural.toLowerCase()}...`"
-        />
-        <select v-model="sourceFilterLocal" class="source-filter">
-          <option value="">All Sources</option>
-          <optgroup label="Ancestries">
-            <option v-for="ancestry in sources.ancestries" 
-              :key="ancestry.id" 
-              :value="ancestry.id"
-            >
-              {{ ancestry.name }}
-            </option>
-          </optgroup>
-          <optgroup label="Cultures">
-            <option v-for="culture in sources.cultures" 
-              :key="culture.id" 
-              :value="culture.id"
-            >
-              {{ culture.name }}
-            </option>
-          </optgroup>
-          <optgroup label="Mestieri">
-            <option v-for="mestiere in sources.mestieri" 
-              :key="mestiere.id" 
-              :value="mestiere.id"
-            >
-              {{ mestiere.name }}
-            </option>
-          </optgroup>
-          <optgroup label="World Elements">
-            <option v-for="worldElement in sources.worldElements" 
-              :key="worldElement.id" 
-              :value="worldElement.id"
-            >
-              {{ worldElement.name }}
-            </option>
-          </optgroup>
-        </select>
-        <slot name="additional-filters"></slot>
-        <button class="button button-primary" @click="createItem">Create New</button>
-      </div>
+    <!-- Search and Filter Controls -->
+    <div class="filter-controls">
+      <input
+        type="text"
+        v-model="searchQueryLocal"
+        class="search-input"
+        :placeholder="`Search ${itemTypePlural.toLowerCase()}...`"
+      />
+      <select v-model="sourceFilterLocal" class="source-filter">
+        <option value="">All Sources</option>
+        <optgroup label="Ancestries">
+          <option
+            v-for="ancestry in sources.ancestries"
+            :key="ancestry.id"
+            :value="ancestry.id"
+          >
+            {{ ancestry.name }}
+          </option>
+        </optgroup>
+        <optgroup label="Cultures">
+          <option
+            v-for="culture in sources.cultures"
+            :key="culture.id"
+            :value="culture.id"
+          >
+            {{ culture.name }}
+          </option>
+        </optgroup>
+        <optgroup label="Mestieri">
+          <option
+            v-for="mestiere in sources.mestieri"
+            :key="mestiere.id"
+            :value="mestiere.id"
+          >
+            {{ mestiere.name }}
+          </option>
+        </optgroup>
+        <optgroup label="World Elements">
+          <option
+            v-for="worldElement in sources.worldElements"
+            :key="worldElement.id"
+            :value="worldElement.id"
+          >
+            {{ worldElement.name }}
+          </option>
+        </optgroup>
+      </select>
+      <slot name="additional-filters"></slot>
+      <button class="button button-primary" @click="createItem">
+        Create New
+      </button>
+    </div>
 
-      <!-- Item Cards-->
-      <masonry-grid :column-width="350" :gap="20" :row-height="10" class="cards-container">
-        <slot name="item-cards"></slot>
-      </masonry-grid>
-
+    <!-- Item Cards-->
+    <masonry-grid
+      :column-width="350"
+      :gap="20"
+      :row-height="10"
+      class="cards-container"
+    >
+      <slot name="item-cards"></slot>
+    </masonry-grid>
 
     <slot name="modals"></slot>
   </div>
 </template>
 
 <script>
-import MasonryGrid from '@/components/MasonryGrid.vue';
+import MasonryGrid from '@/components/MasonryGrid.vue'
 
 export default {
   name: 'ItemListView',
   components: {
-    MasonryGrid
+    MasonryGrid,
   },
   props: {
     itemType: {
       type: String,
-      required: true
+      required: true,
     },
     itemTypePlural: {
       type: String,
-      required: true
+      required: true,
     },
     sources: {
       type: Object,
@@ -82,45 +91,45 @@ export default {
         ancestries: [],
         cultures: [],
         mestieri: [],
-        worldElements: []
-      })
+        worldElements: [],
+      }),
     },
     searchQuery: {
       type: String,
-      default: ''
+      default: '',
     },
     sourceFilter: {
       type: String,
-      default: ''
-    }
+      default: '',
+    },
   },
   computed: {
     searchQueryLocal: {
       get() {
-        return this.searchQuery;
+        return this.searchQuery
       },
       set(value) {
-        this.$emit('update:searchQuery', value);
-      }
+        this.$emit('update:searchQuery', value)
+      },
     },
     sourceFilterLocal: {
       get() {
-        return this.sourceFilter;
+        return this.sourceFilter
       },
       set(value) {
-        this.$emit('update:sourceFilter', value);
-      }
-    }
+        this.$emit('update:sourceFilter', value)
+      },
+    },
   },
   methods: {
     createItem() {
-      this.$emit('create');
+      this.$emit('create')
     },
     updateLayout() {
-      this.$emit('update-layout');
-    }
-  }
-};
+      this.$emit('update-layout')
+    },
+  },
+}
 </script>
 
 <style scoped>

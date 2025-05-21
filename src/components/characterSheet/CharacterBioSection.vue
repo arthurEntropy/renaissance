@@ -1,33 +1,40 @@
 <template>
   <div class="character-bio-section">
-
     <!-- Background Modal -->
-    <div v-if="isBackgroundModalOpen" class="modal-overlay" @click.self="closeBackgroundModal">
+    <div
+      v-if="isBackgroundModalOpen"
+      class="modal-overlay"
+      @click.self="closeBackgroundModal"
+    >
       <div class="modal-content background-modal">
         <div class="modal-header">
           <h3>Personality, Background & Notes</h3>
-          <button 
-            v-if="!isBackgroundEditMode" 
-            class="edit-button" 
+          <button
+            v-if="!isBackgroundEditMode"
+            class="edit-button"
             @click.stop="startBackgroundEdit"
           >
             Edit
           </button>
           <div v-else class="edit-actions">
-            <button class="cancel-button" @click.stop="cancelBackgroundEdit">Cancel</button>
-            <button class="save-button" @click.stop="saveBackgroundEdit">Save</button>
+            <button class="cancel-button" @click.stop="cancelBackgroundEdit">
+              Cancel
+            </button>
+            <button class="save-button" @click.stop="saveBackgroundEdit">
+              Save
+            </button>
           </div>
         </div>
-        
+
         <!-- View mode -->
         <div v-if="!isBackgroundEditMode" class="background-modal-content">
           <div v-html="formattedBackground" class="background-full-text"></div>
         </div>
-        
+
         <!-- Edit mode with TextEditor -->
         <div v-else class="background-modal-editor">
-          <TextEditor 
-            v-model="editedCharacter.personalityAndBackground" 
+          <TextEditor
+            v-model="editedCharacter.personalityAndBackground"
             :placeholder="'Describe your character\'s personality, history, and notable background...'"
             height="300px"
           />
@@ -44,9 +51,9 @@
           class="character-art-image"
           @click="openFullSizeCharacterArtModal(character.artUrls[0])"
         />
-        <img 
-          v-else 
-          :src="defaultArtUrl" 
+        <img
+          v-else
+          :src="defaultArtUrl"
           class="character-art-image"
           @click="openFullSizeCharacterArtModal(defaultArtUrl)"
         />
@@ -55,7 +62,10 @@
       <!-- Bio Information -->
       <div class="bio-info">
         <!-- Name (click to edit) -->
-        <div class="character-name-container" :class="{ 'editing': editingField === 'name' }">
+        <div
+          class="character-name-container"
+          :class="{ editing: editingField === 'name' }"
+        >
           <template v-if="editingField === 'name'">
             <input
               type="text"
@@ -67,11 +77,17 @@
             />
           </template>
           <template v-else>
-            <span class="character-name" @click.stop="startEditing('name')">{{ character.name || 'Unnamed Character' }}</span>
+            <span class="character-name" @click.stop="startEditing('name')">{{
+              character.name || 'Unnamed Character'
+            }}</span>
           </template>
 
           <!-- Pronouns (click to edit) -->
-          <div class="pronouns-container" @click.stop="startEditing('pronouns')" :class="{ 'editing': editingField === 'pronouns' }">
+          <div
+            class="pronouns-container"
+            @click.stop="startEditing('pronouns')"
+            :class="{ editing: editingField === 'pronouns' }"
+          >
             <template v-if="editingField === 'pronouns'">
               <input
                 type="text"
@@ -84,34 +100,51 @@
               />
             </template>
             <template v-else>
-              <span v-if="character.pronouns" class="character-pronouns">({{ character.pronouns }})</span>
+              <span v-if="character.pronouns" class="character-pronouns"
+                >({{ character.pronouns }})</span
+              >
               <span v-else class="empty-field">(Add pronouns)</span>
             </template>
           </div>
         </div>
-        
+
         <div class="bio-details">
           <!-- Ancestries (click to edit) -->
-          <div class="bio-detail" @click.stop="editingField !== 'ancestries' && startEditing('ancestries')" :class="{ 'editing': editingField === 'ancestries' }">
+          <div
+            class="bio-detail"
+            @click.stop="
+              editingField !== 'ancestries' && startEditing('ancestries')
+            "
+            :class="{ editing: editingField === 'ancestries' }"
+          >
             <span class="bio-label">Ancestries:</span>
             <template v-if="editingField === 'ancestries'">
               <div class="tag-selector" @click.stop>
-                <div v-for="ancestry in selectedAncestries" :key="ancestry.id" class="selected-tag">
+                <div
+                  v-for="ancestry in selectedAncestries"
+                  :key="ancestry.id"
+                  class="selected-tag"
+                >
                   <span>{{ ancestry.name }}</span>
-                  <button @click.stop="removeAncestry(ancestry.id)" class="remove-tag">×</button>
+                  <button
+                    @click.stop="removeAncestry(ancestry.id)"
+                    class="remove-tag"
+                  >
+                    ×
+                  </button>
                 </div>
-                <select 
-                  v-model="selectedAncestryId" 
-                  @change="addAncestry" 
+                <select
+                  v-model="selectedAncestryId"
+                  @change="addAncestry"
                   class="tag-dropdown"
                   @click.stop
                   @blur.prevent="null"
                   ref="ancestriesSelect"
                 >
                   <option value="">Add...</option>
-                  <option 
-                    v-for="ancestry in availableAncestries" 
-                    :key="ancestry.id" 
+                  <option
+                    v-for="ancestry in availableAncestries"
+                    :key="ancestry.id"
                     :value="ancestry.id"
                   >
                     {{ ancestry.name }}
@@ -127,26 +160,41 @@
           </div>
 
           <!-- Cultures (click to edit) -->
-          <div class="bio-detail" @click.stop="editingField !== 'cultures' && startEditing('cultures')" :class="{ 'editing': editingField === 'cultures' }">
+          <div
+            class="bio-detail"
+            @click.stop="
+              editingField !== 'cultures' && startEditing('cultures')
+            "
+            :class="{ editing: editingField === 'cultures' }"
+          >
             <span class="bio-label">Cultures:</span>
             <template v-if="editingField === 'cultures'">
               <div class="tag-selector" @click.stop>
-                <div v-for="culture in selectedCultures" :key="culture.id" class="selected-tag">
+                <div
+                  v-for="culture in selectedCultures"
+                  :key="culture.id"
+                  class="selected-tag"
+                >
                   <span>{{ culture.name }}</span>
-                  <button @click.stop="removeCulture(culture.id)" class="remove-tag">×</button>
+                  <button
+                    @click.stop="removeCulture(culture.id)"
+                    class="remove-tag"
+                  >
+                    ×
+                  </button>
                 </div>
-                <select 
-                  v-model="selectedCultureId" 
-                  @change="addCulture" 
+                <select
+                  v-model="selectedCultureId"
+                  @change="addCulture"
                   class="tag-dropdown"
                   @click.stop
                   @blur.prevent="null"
                   ref="culturesSelect"
                 >
                   <option value="">Add...</option>
-                  <option 
-                    v-for="culture in availableCultures" 
-                    :key="culture.id" 
+                  <option
+                    v-for="culture in availableCultures"
+                    :key="culture.id"
                     :value="culture.id"
                   >
                     {{ culture.name }}
@@ -160,13 +208,18 @@
               </span>
             </template>
           </div>
-          
+
           <!-- XP (always an input) -->
           <div class="bio-detail xp-field">
             <span class="bio-label">XP:</span>
             <NumberInput
               :model-value="editedCharacter.xp"
-              @update:model-value="value => { editedCharacter.xp = value; saveField('xp'); }"
+              @update:model-value="
+                (value) => {
+                  editedCharacter.xp = value
+                  saveField('xp')
+                }
+              "
               :min="0"
               size="small"
             />
@@ -176,17 +229,21 @@
 
       <!-- Personality and Background Section -->
       <div class="personality-background-section">
-        <span class="bio-label" style="margin-bottom: 5px">Personality, Background & Notes</span>
-        
-        <!-- View Mode (scrollable and clickable to open modal) -->
-        <div 
-          class="background-content scrollable" 
-          @click="openBackgroundModal"
+        <span class="bio-label" style="margin-bottom: 5px"
+          >Personality, Background & Notes</span
         >
+
+        <!-- View Mode (scrollable and clickable to open modal) -->
+        <div class="background-content scrollable" @click="openBackgroundModal">
           <template v-if="character.personalityAndBackground">
-            <div v-html="formattedBackground" class="background-scroll-content"></div>
+            <div
+              v-html="formattedBackground"
+              class="background-scroll-content"
+            ></div>
           </template>
-          <span v-else class="empty-background">What's your vibe? What's your story? Where are you going?</span>
+          <span v-else class="empty-background"
+            >What's your vibe? What's your story? Where are you going?</span
+          >
         </div>
       </div>
     </div>
@@ -194,15 +251,15 @@
 </template>
 
 <script>
-import { useAncestriesStore } from '@/stores/ancestriesStore';
-import { useCulturesStore } from '@/stores/culturesStore';
-import TextEditor from '@/components/TextEditor.vue';
-import NumberInput from '@/components/NumberInput.vue';
+import { useAncestriesStore } from '@/stores/ancestriesStore'
+import { useCulturesStore } from '@/stores/culturesStore'
+import TextEditor from '@/components/TextEditor.vue'
+import NumberInput from '@/components/NumberInput.vue'
 
 export default {
   components: {
     TextEditor,
-    NumberInput
+    NumberInput,
   },
   props: {
     character: {
@@ -214,7 +271,7 @@ export default {
       required: true,
     },
   },
-  emits: ["open-full-size-art", "update-character"],
+  emits: ['open-full-size-art', 'update-character'],
   data() {
     return {
       editingField: null,
@@ -226,219 +283,230 @@ export default {
       ancestryStore: useAncestriesStore(),
       cultureStore: useCulturesStore(),
       tempBackgroundContent: '',
-    };
+    }
   },
   watch: {
     character: {
       handler(newCharacter) {
         if (!this.editingField) {
-          this.editedCharacter = { ...newCharacter };
+          this.editedCharacter = { ...newCharacter }
         }
       },
-      deep: true
-    }
+      deep: true,
+    },
   },
   computed: {
     displayAncestries() {
       if (!this.character.ancestryIds || !this.character.ancestryIds.length) {
-        return '';
+        return ''
       }
-      
-      return this.selectedAncestries.map(a => a.name).join(', ');
+
+      return this.selectedAncestries.map((a) => a.name).join(', ')
     },
-    
+
     displayCultures() {
       if (!this.character.cultureIds || !this.character.cultureIds.length) {
-        return '';
+        return ''
       }
-      
-      return this.selectedCultures.map(c => c.name).join(', ');
+
+      return this.selectedCultures.map((c) => c.name).join(', ')
     },
-    
+
     selectedAncestries() {
-      const ancestryIds = this.character.ancestryIds || [];
-      return this.ancestryStore.ancestries.filter(a => ancestryIds.includes(a.id));
+      const ancestryIds = this.character.ancestryIds || []
+      return this.ancestryStore.ancestries.filter((a) =>
+        ancestryIds.includes(a.id),
+      )
     },
-    
+
     selectedCultures() {
-      const cultureIds = this.character.cultureIds || [];
-      return this.cultureStore.cultures.filter(c => cultureIds.includes(c.id));
+      const cultureIds = this.character.cultureIds || []
+      return this.cultureStore.cultures.filter((c) => cultureIds.includes(c.id))
     },
-    
+
     availableAncestries() {
-      const selectedIds = this.editedCharacter.ancestryIds || [];
-      return this.ancestryStore.ancestries.filter(a => !selectedIds.includes(a.id));
+      const selectedIds = this.editedCharacter.ancestryIds || []
+      return this.ancestryStore.ancestries.filter(
+        (a) => !selectedIds.includes(a.id),
+      )
     },
-    
+
     availableCultures() {
-      const selectedIds = this.editedCharacter.cultureIds || [];
-      return this.cultureStore.cultures.filter(c => !selectedIds.includes(c.id));
+      const selectedIds = this.editedCharacter.cultureIds || []
+      return this.cultureStore.cultures.filter(
+        (c) => !selectedIds.includes(c.id),
+      )
     },
-    
+
     formattedBackground() {
-      if (!this.character.personalityAndBackground) return '';
-      return this.formatText(this.character.personalityAndBackground);
-    }
+      if (!this.character.personalityAndBackground) return ''
+      return this.formatText(this.character.personalityAndBackground)
+    },
   },
   methods: {
     formatText(text) {
       return text
         .replace(/\n/g, '<br>')
         .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-        .replace(/\*(.*?)\*/g, '<em>$1</em>');
+        .replace(/\*(.*?)\*/g, '<em>$1</em>')
     },
-    
+
     openFullSizeCharacterArtModal(imageUrl) {
-      this.$emit("open-full-size-art", imageUrl);
+      this.$emit('open-full-size-art', imageUrl)
     },
-    
+
     startEditing(field) {
       if (this.editingField) {
-        this.saveField(this.editingField);
+        this.saveField(this.editingField)
       }
-      
+
       // Create a fresh copy of the character data before starting to edit
-      this.editedCharacter = { ...this.character };
-      
-      this.editingField = field;
+      this.editedCharacter = { ...this.character }
+
+      this.editingField = field
 
       this.$nextTick(() => {
-        const inputRef = `${field}Input`;
-        const selectRef = `${field}Select`;
-        
+        const inputRef = `${field}Input`
+        const selectRef = `${field}Select`
+
         if (this.$refs[inputRef]) {
-          this.$refs[inputRef].focus();
+          this.$refs[inputRef].focus()
         } else if (this.$refs[selectRef]) {
-          this.$refs[selectRef].focus();
+          this.$refs[selectRef].focus()
         }
-      });
+      })
     },
-    
+
     saveField(field) {
       if (field === this.editingField) {
-        this.editingField = null;
+        this.editingField = null
       }
-      
-      const updatedField = this.editedCharacter[field];
+
+      const updatedField = this.editedCharacter[field]
       if (updatedField !== this.character[field]) {
-        const updatedCharacter = { 
-          ...this.character, 
-          [field]: updatedField 
-        };
-        this.$emit("update-character", updatedCharacter);
+        const updatedCharacter = {
+          ...this.character,
+          [field]: updatedField,
+        }
+        this.$emit('update-character', updatedCharacter)
       }
     },
-    
+
     openBackgroundModal() {
-      this.isBackgroundModalOpen = true;
-      this.isBackgroundEditMode = false;
-      this.editedCharacter = { ...this.character };
+      this.isBackgroundModalOpen = true
+      this.isBackgroundEditMode = false
+      this.editedCharacter = { ...this.character }
     },
-    
+
     closeBackgroundModal() {
       if (this.isBackgroundEditMode) {
         if (confirm('Discard changes?')) {
-          this.isBackgroundModalOpen = false;
-          this.isBackgroundEditMode = false;
+          this.isBackgroundModalOpen = false
+          this.isBackgroundEditMode = false
         }
       } else {
-        this.isBackgroundModalOpen = false;
+        this.isBackgroundModalOpen = false
       }
     },
-    
+
     startBackgroundEdit() {
-      this.isBackgroundEditMode = true;
-      this.tempBackgroundContent = this.character.personalityAndBackground || '';
+      this.isBackgroundEditMode = true
+      this.tempBackgroundContent = this.character.personalityAndBackground || ''
     },
-    
+
     cancelBackgroundEdit() {
-      this.editedCharacter.personalityAndBackground = this.tempBackgroundContent;
-      this.isBackgroundEditMode = false;
+      this.editedCharacter.personalityAndBackground = this.tempBackgroundContent
+      this.isBackgroundEditMode = false
     },
-    
+
     saveBackgroundEdit() {
-      const updatedCharacter = { 
-        ...this.character, 
-        personalityAndBackground: this.editedCharacter.personalityAndBackground 
-      };
-      this.$emit("update-character", updatedCharacter);
-      this.isBackgroundEditMode = false;
+      const updatedCharacter = {
+        ...this.character,
+        personalityAndBackground: this.editedCharacter.personalityAndBackground,
+      }
+      this.$emit('update-character', updatedCharacter)
+      this.isBackgroundEditMode = false
     },
-    
+
     addAncestry() {
-      if (!this.selectedAncestryId) return;
-      
+      if (!this.selectedAncestryId) return
+
       if (!this.editedCharacter.ancestryIds) {
-        this.editedCharacter.ancestryIds = [];
+        this.editedCharacter.ancestryIds = []
       }
-      
+
       if (!this.editedCharacter.ancestryIds.includes(this.selectedAncestryId)) {
-        this.editedCharacter.ancestryIds.push(this.selectedAncestryId);
+        this.editedCharacter.ancestryIds.push(this.selectedAncestryId)
       }
-      this.selectedAncestryId = '';
-      
-      this.saveField('ancestryIds');
+      this.selectedAncestryId = ''
+
+      this.saveField('ancestryIds')
     },
-    
+
     removeAncestry(id) {
-      if (!this.editedCharacter.ancestryIds) return;
-      
-      this.editedCharacter.ancestryIds = this.editedCharacter.ancestryIds.filter(aId => aId !== id);
-      this.saveField('ancestryIds');
+      if (!this.editedCharacter.ancestryIds) return
+
+      this.editedCharacter.ancestryIds =
+        this.editedCharacter.ancestryIds.filter((aId) => aId !== id)
+      this.saveField('ancestryIds')
     },
-    
+
     addCulture() {
-      if (!this.selectedCultureId) return;
-      
+      if (!this.selectedCultureId) return
+
       if (!this.editedCharacter.cultureIds) {
-        this.editedCharacter.cultureIds = [];
+        this.editedCharacter.cultureIds = []
       }
-      
+
       if (!this.editedCharacter.cultureIds.includes(this.selectedCultureId)) {
-        this.editedCharacter.cultureIds.push(this.selectedCultureId);
+        this.editedCharacter.cultureIds.push(this.selectedCultureId)
       }
-      this.selectedCultureId = '';
-      
-      this.saveField('cultureIds');
+      this.selectedCultureId = ''
+
+      this.saveField('cultureIds')
     },
-    
+
     removeCulture(id) {
-      if (!this.editedCharacter.cultureIds) return;
-      
-      this.editedCharacter.cultureIds = this.editedCharacter.cultureIds.filter(cId => cId !== id);
-      this.saveField('cultureIds');
+      if (!this.editedCharacter.cultureIds) return
+
+      this.editedCharacter.cultureIds = this.editedCharacter.cultureIds.filter(
+        (cId) => cId !== id,
+      )
+      this.saveField('cultureIds')
     },
-    
+
     handleOutsideClick(event) {
-      if (event.target.closest('.remove-tag') || 
-          event.target.closest('.selected-tag') || 
-          event.target.closest('.tag-dropdown')) {
-        return;
+      if (
+        event.target.closest('.remove-tag') ||
+        event.target.closest('.selected-tag') ||
+        event.target.closest('.tag-dropdown')
+      ) {
+        return
       }
-      
+
       if (this.editingField) {
-        const clickedInsideEditArea = event.target.closest('.editing') || 
-                                      event.target.closest('.tag-selector');
+        const clickedInsideEditArea =
+          event.target.closest('.editing') ||
+          event.target.closest('.tag-selector')
         if (!clickedInsideEditArea) {
-          this.saveField(this.editingField);
+          this.saveField(this.editingField)
         }
       }
-    }
+    },
   },
   mounted() {
-    this.ancestryStore.fetchAncestries();
-    this.cultureStore.fetchCultures();
-    
-    document.addEventListener('click', this.handleOutsideClick);
+    this.ancestryStore.fetchAncestries()
+    this.cultureStore.fetchCultures()
+
+    document.addEventListener('click', this.handleOutsideClick)
   },
   beforeUnmount() {
-    document.removeEventListener('click', this.handleOutsideClick);
-  }
-};
+    document.removeEventListener('click', this.handleOutsideClick)
+  },
+}
 </script>
 
 <style scoped>
-
 .character-bio-section {
   display: flex;
   flex-direction: column;
@@ -473,7 +541,7 @@ export default {
 
 /* Bio Info */
 .bio-info {
-  flex: 1; 
+  flex: 1;
   min-width: 200px;
 }
 
@@ -580,7 +648,7 @@ export default {
   font-size: 1rem;
   width: 100%;
   min-width: 200px;
-  outline: none; 
+  outline: none;
   box-shadow: none;
   box-sizing: border-box;
 }
@@ -747,8 +815,9 @@ export default {
   .bio-section-content {
     flex-direction: column;
   }
-  
-  .bio-info, .personality-background-section {
+
+  .bio-info,
+  .personality-background-section {
     width: 100%;
     max-width: none;
   }
@@ -759,7 +828,7 @@ export default {
     flex-direction: column;
     align-items: flex-start;
   }
-  
+
   .character-pronouns {
     margin-left: 0;
     margin-top: 5px;

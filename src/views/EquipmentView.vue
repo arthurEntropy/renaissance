@@ -23,13 +23,13 @@
         </optgroup>
       </select>
     </template>
-    
+
     <!-- Item cards slot -->
     <template #item-cards>
-      <EquipmentCard 
-        v-for="equipment in filteredEquipment" 
-        :key="equipment.id" 
-        :equipment="equipment" 
+      <EquipmentCard
+        v-for="equipment in filteredEquipment"
+        :key="equipment.id"
+        :equipment="equipment"
         :editable="true"
         @delete="openDeleteConfirmationModal(equipment)"
         @update="updateEquipment(equipment)"
@@ -38,17 +38,17 @@
         @height-changed="updateLayout"
       />
     </template>
-    
+
     <!-- Modals slot -->
     <template #modals>
-      <DeleteConfirmationModal 
+      <DeleteConfirmationModal
         v-if="showDeleteConfirmationModal"
-        :name="equipmentToDelete?.name" 
-        @close="closeDeleteConfirmationModal" 
+        :name="equipmentToDelete?.name"
+        @close="closeDeleteConfirmationModal"
         @confirm="deleteEquipment"
       />
-      
-      <EditEquipmentModal 
+
+      <EditEquipmentModal
         v-if="showEditEquipmentModal"
         :equipmentId="equipmentToEdit?.id"
         @update="saveEditedEquipment"
@@ -60,12 +60,12 @@
 </template>
 
 <script>
-import { useEquipmentStore } from '@/stores/equipmentStore';
-import EquipmentService from '@/services/EquipmentService';
-import EquipmentCard from '@/components/EquipmentCard.vue';
-import DeleteConfirmationModal from '@/components/modals/DeleteConfirmationModal.vue';
-import EditEquipmentModal from '@/components/modals/EditEquipmentModal.vue';
-import ItemListView from '@/components/ItemsView.vue';
+import { useEquipmentStore } from '@/stores/equipmentStore'
+import EquipmentService from '@/services/EquipmentService'
+import EquipmentCard from '@/components/EquipmentCard.vue'
+import DeleteConfirmationModal from '@/components/modals/DeleteConfirmationModal.vue'
+import EditEquipmentModal from '@/components/modals/EditEquipmentModal.vue'
+import ItemListView from '@/components/ItemsView.vue'
 
 export default {
   components: {
@@ -84,56 +84,60 @@ export default {
       sortOption: '',
       searchQuery: '',
       sourceFilter: '',
-    };
+    }
   },
 
   computed: {
     store() {
-      return useEquipmentStore();
+      return useEquipmentStore()
     },
 
     equipment() {
-      return this.store.equipment;
+      return this.store.equipment
     },
 
     sources() {
-      return this.store.sources;
+      return this.store.sources
     },
 
     filteredEquipment() {
       // Use local data properties instead of accessing through $children
-      const query = this.searchQuery.toLowerCase().trim();
-      const sourceFilter = this.sourceFilter;
-      
-      let filtered = this.equipment.filter(equipment => !equipment.isDeleted);
+      const query = this.searchQuery.toLowerCase().trim()
+      const sourceFilter = this.sourceFilter
+
+      let filtered = this.equipment.filter((equipment) => !equipment.isDeleted)
 
       if (sourceFilter) {
-        filtered = filtered.filter(equipment => equipment.source === sourceFilter);
+        filtered = filtered.filter(
+          (equipment) => equipment.source === sourceFilter,
+        )
       }
 
       if (query) {
-        filtered = filtered.filter(equipment =>
-          equipment.name.toLowerCase().includes(query) ||
-          equipment.description.toLowerCase().includes(query)
-        );
+        filtered = filtered.filter(
+          (equipment) =>
+            equipment.name.toLowerCase().includes(query) ||
+            equipment.description.toLowerCase().includes(query),
+        )
       }
 
       if (this.sortOption) {
-        const [field, direction] = this.sortOption.split('-');
+        const [field, direction] = this.sortOption.split('-')
         filtered.sort((a, b) => {
-          if (!a[field] && !b[field]) return 0;
-          if (!a[field]) return 1;
-          if (!b[field]) return -1;
+          if (!a[field] && !b[field]) return 0
+          if (!a[field]) return 1
+          if (!b[field]) return -1
 
-          const comparison = field === 'name'
-            ? a[field].localeCompare(b[field])
-            : a[field] - b[field];
+          const comparison =
+            field === 'name'
+              ? a[field].localeCompare(b[field])
+              : a[field] - b[field]
 
-          return direction === 'asc' ? comparison : -comparison;
-        });
+          return direction === 'asc' ? comparison : -comparison
+        })
       }
 
-      return filtered;
+      return filtered
     },
   },
 
@@ -143,82 +147,84 @@ export default {
     },
 
     async saveEditedEquipment(editedEquipment) {
-      await EquipmentService.updateEquipment(editedEquipment);
-      this.store.updateEquipmentInStore(editedEquipment);
-      this.closeEditEquipmentModal();
+      await EquipmentService.updateEquipment(editedEquipment)
+      this.store.updateEquipmentInStore(editedEquipment)
+      this.closeEditEquipmentModal()
     },
 
     async createEquipment() {
-      const newEquipment = await EquipmentService.createEquipment();
-      await this.store.fetchAllEquipment();
-      this.equipmentToEdit = this.store.equipment.find(e => e.id === newEquipment.id);
-      this.showEditEquipmentModal = true;
+      const newEquipment = await EquipmentService.createEquipment()
+      await this.store.fetchAllEquipment()
+      this.equipmentToEdit = this.store.equipment.find(
+        (e) => e.id === newEquipment.id,
+      )
+      this.showEditEquipmentModal = true
     },
 
     async updateEquipment(equipment) {
-      await EquipmentService.updateEquipment(equipment);
-      await this.store.fetchAllEquipment();
+      await EquipmentService.updateEquipment(equipment)
+      await this.store.fetchAllEquipment()
     },
 
     async deleteEquipment() {
       // Make a copy of the IDs to ensure we can still access them after closing modals
-      const deleteId = this.equipmentToDelete?.id;
-      const editId = this.equipmentToEdit?.id;
-      
+      const deleteId = this.equipmentToDelete?.id
+      const editId = this.equipmentToEdit?.id
+
       if (this.equipmentToDelete) {
         // Create a new object to ensure we're not modifying a potentially frozen object
-        const equipmentToUpdate = { ...this.equipmentToDelete, isDeleted: true };
-        
+        const equipmentToUpdate = { ...this.equipmentToDelete, isDeleted: true }
+
         try {
           // Close the delete confirmation modal first
-          this.closeDeleteConfirmationModal();
-          
+          this.closeDeleteConfirmationModal()
+
           // Check if we need to close the edit modal (if it's open for the same item)
           if (this.showEditEquipmentModal && editId === deleteId) {
-            this.closeEditEquipmentModal();
+            this.closeEditEquipmentModal()
           }
-          
+
           // Now update the equipment with isDeleted set to true
-          await EquipmentService.updateEquipment(equipmentToUpdate);
-          
+          await EquipmentService.updateEquipment(equipmentToUpdate)
+
           // Finally refresh the equipment list
-          await this.store.fetchAllEquipment();
+          await this.store.fetchAllEquipment()
         } catch (error) {
-          console.error('Error deleting equipment:', error);
+          console.error('Error deleting equipment:', error)
         }
       }
     },
 
     openEditEquipmentModal(equipment) {
-      this.equipmentToEdit = equipment;
-      this.showEditEquipmentModal = true;
+      this.equipmentToEdit = equipment
+      this.showEditEquipmentModal = true
     },
 
     closeEditEquipmentModal() {
-      this.equipmentToEdit = null;
-      this.showEditEquipmentModal = false;
+      this.equipmentToEdit = null
+      this.showEditEquipmentModal = false
     },
 
     sendEquipmentToChat(equipment) {
       // TODO: Implement sending equipment to chat
-      console.log('Sending to chat:', equipment);
+      console.log('Sending to chat:', equipment)
     },
 
     openDeleteConfirmationModal(equipment) {
-      this.equipmentToDelete = equipment;
-      this.showDeleteConfirmationModal = true;
+      this.equipmentToDelete = equipment
+      this.showDeleteConfirmationModal = true
     },
 
     closeDeleteConfirmationModal() {
-      this.equipmentToDelete = null;
-      this.showDeleteConfirmationModal = false;
+      this.equipmentToDelete = null
+      this.showDeleteConfirmationModal = false
     },
   },
 
   async mounted() {
-    await this.store.init();
+    await this.store.init()
   },
-};
+}
 </script>
 
 <style scoped>
