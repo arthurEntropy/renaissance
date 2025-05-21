@@ -5,25 +5,19 @@
         {{ latestRoll.characterName }} rolled
         <span class="skill-name">{{
           latestRoll.baseSkillName || latestRoll.skillName
-        }}</span>
-        <span
-          v-if="latestRoll.favoredStatus"
-          :class="{
-            'favored-modifier': latestRoll.favoredStatus === 'favored',
-            'ill-favored-modifier': latestRoll.favoredStatus === 'ill-favored',
-          }"
-        >
+          }}</span>
+        <span v-if="latestRoll.favoredStatus" :class="{
+          'favored-modifier': latestRoll.favoredStatus === 'favored',
+          'ill-favored-modifier': latestRoll.favoredStatus === 'ill-favored',
+        }">
           ({{ latestRoll.favoredStatus }})
         </span>
       </div>
 
       <!-- Use Vue's transition component for smooth appearance -->
       <transition name="outcome-fade" appear>
-        <div
-          v-if="!isRolling"
-          class="roll-outcome"
-          :class="{ success: latestRoll.success, failure: !latestRoll.success }"
-        >
+        <div v-if="!isRolling" class="roll-outcome"
+          :class="{ success: latestRoll.success, failure: !latestRoll.success }">
           {{ latestRoll.success ? 'SUCCESS' : 'FAILURE' }}
         </div>
       </transition>
@@ -43,21 +37,15 @@
       <div v-if="isRolling" class="roll-numbers-placeholder"></div>
 
       <div class="roll-dice">
-        <span
-          v-for="(die, index) in displayDice"
-          :key="index"
-          class="dice-symbol"
-          :class="{
-            'dropped-die': !isRolling && die.dropped,
-            'max-value-die': !isRolling && die.isMaxValue,
-            'dice-rolling': isRolling,
-          }"
-          :style="{ animationDelay: `${index * 50}ms` }"
-        >
+        <span v-for="(die, index) in displayDice" :key="index" class="dice-symbol" :class="{
+          'dropped-die': !isRolling && die.dropped,
+          'max-value-die': !isRolling && die.isMaxValue,
+          'dice-rolling': isRolling,
+        }" :style="{ animationDelay: `${index * 50}ms` }">
           <i :class="die.class"></i>
           <span v-if="!isRolling && die.emoji" class="dice-emoji">{{
             die.emoji
-          }}</span>
+            }}</span>
         </span>
       </div>
 
@@ -191,7 +179,8 @@ export default {
   background-color: black;
   border-radius: 5px;
   padding: 10px;
-  align-self: stretch; /* Take up full height */
+  align-self: stretch;
+  /* Take up full height */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -214,21 +203,22 @@ export default {
 }
 
 .skill-name {
-  color: rgb(
-    212,
-    182,
-    106
-  ); /* Match the skill name color from character sheet */
+  color: rgb(212,
+      182,
+      106);
+  /* Match the skill name color from character sheet */
   font-weight: bold;
 }
 
 .favored-modifier {
-  color: #4caf50; /* Green */
+  color: #4caf50;
+  /* Green */
   font-weight: bold;
 }
 
 .ill-favored-modifier {
-  color: #f44336; /* Red */
+  color: #f44336;
+  /* Red */
   font-weight: bold;
   margin-left: 4px;
 }
@@ -276,19 +266,23 @@ export default {
 
 .roll-dice {
   display: flex;
-  flex-wrap: nowrap; /* Keep dice in a single row */
+  flex-wrap: nowrap;
+  /* Keep dice in a single row */
   justify-content: center;
   gap: 5px;
   padding: 5px 0;
-  overflow-x: auto; /* Allow horizontal scrolling if needed */
+  overflow-x: auto;
+  /* Allow horizontal scrolling if needed */
 }
 
 .dice-symbol {
-  font-size: 36px; /* Default size */
-  flex-shrink: 1; /* Allow dice to shrink if needed */
+  font-size: 36px;
+  /* Default size */
+  flex-shrink: 1;
+  /* Allow dice to shrink if needed */
   position: relative;
-  color: white; /* Default color */
-  text-shadow: none; /* No glow by default */
+  text-shadow: none;
+  /* No glow by default */
   opacity: 1;
   text-decoration: none;
 }
@@ -316,6 +310,7 @@ export default {
     color: white;
     text-shadow: none;
   }
+
   100% {
     color: rgb(212, 182, 106);
     text-shadow:
@@ -327,7 +322,8 @@ export default {
 /* Apply animation to max value dice */
 .max-value-die {
   animation: fadeInGlow 0.8s ease-in forwards;
-  animation-delay: 0.1s; /* Slight delay after roll ends */
+  animation-delay: 0.1s;
+  /* Slight delay after roll ends */
 }
 
 /* Keyframes for dropped die effect */
@@ -336,6 +332,7 @@ export default {
     opacity: 1;
     text-decoration: none;
   }
+
   100% {
     opacity: 0.5;
     text-decoration: line-through;
@@ -345,7 +342,8 @@ export default {
 /* Apply animation to dropped dice */
 .dropped-die {
   animation: fadeInStrikethrough 0.8s ease-in forwards;
-  animation-delay: 0.1s; /* Slight delay after roll ends */
+  animation-delay: 0.1s;
+  /* Slight delay after roll ends */
 }
 
 /* Keyframes for dropped die line */
@@ -353,6 +351,7 @@ export default {
   0% {
     opacity: 0;
   }
+
   100% {
     opacity: 0.7;
   }
@@ -370,7 +369,8 @@ export default {
   transform: translateY(-50%);
   opacity: 0;
   animation: fadeInLine 0.8s ease-in forwards;
-  animation-delay: 0.3s; /* Slightly more delay for the line */
+  animation-delay: 0.3s;
+  /* Slightly more delay for the line */
 }
 
 .dice-emoji {
@@ -379,15 +379,18 @@ export default {
   right: 0;
   font-size: 16px;
   transform: translate(5px, 5px);
-  opacity: 0; /* Start invisible */
+  opacity: 0;
+  /* Start invisible */
   animation: fadeIn 0.5s ease-in forwards;
-  animation-delay: 0.4s; /* Appear after other effects */
+  animation-delay: 0.4s;
+  /* Appear after other effects */
 }
 
 @keyframes fadeIn {
   0% {
     opacity: 0;
   }
+
   100% {
     opacity: 1;
   }
@@ -416,33 +419,43 @@ export default {
     transform: translateY(-15px) rotate(0deg);
     opacity: 0.7;
   }
+
   10% {
     transform: translateY(5px) rotate(180deg);
   }
+
   20% {
     transform: translateY(-8px) rotate(360deg);
   }
+
   30% {
     transform: translateY(6px) rotate(450deg);
   }
+
   40% {
     transform: translateY(-6px) rotate(540deg);
   }
+
   50% {
     transform: translateY(4px) rotate(630deg);
   }
+
   60% {
     transform: translateY(-4px) rotate(720deg);
   }
+
   75% {
     transform: translateY(3px) rotate(1020deg);
   }
+
   85% {
     transform: translateY(-1px) rotate(1060deg);
   }
+
   95% {
     transform: translateY(0.5px) rotate(1076deg);
   }
+
   100% {
     transform: translateY(0) rotate(1080deg);
     opacity: 1;
@@ -460,6 +473,7 @@ export default {
 .outcome-fade-enter-active {
   animation: fadeInOutcome 0.6s ease-out;
 }
+
 .outcome-fade-enter-from {
   opacity: 0;
   transform: scale(0.9);
@@ -470,6 +484,7 @@ export default {
   transition: all 0.6s ease-out;
   transition-delay: 0.2s;
 }
+
 .simple-fade-enter-from {
   opacity: 0;
   transform: scale(0.95);
@@ -481,9 +496,11 @@ export default {
     opacity: 0;
     transform: scale(0.9);
   }
+
   70% {
     transform: scale(1.05);
   }
+
   100% {
     opacity: 1;
     transform: scale(1);
@@ -492,7 +509,8 @@ export default {
 
 /* Empty placeholder with same height during rolling */
 .roll-outcome-placeholder {
-  height: 29px; /* Match the height of the outcome div */
+  height: 29px;
+  /* Match the height of the outcome div */
 }
 
 /* Animation for the roll numbers */
@@ -501,6 +519,7 @@ export default {
     opacity: 0;
     transform: translateY(-5px);
   }
+
   100% {
     opacity: 1;
     transform: translateY(0);
@@ -509,6 +528,7 @@ export default {
 
 /* Placeholder for roll numbers during animation */
 .roll-numbers-placeholder {
-  height: 30px; /* Match height of roll-numbers */
+  height: 30px;
+  /* Match height of roll-numbers */
 }
 </style>

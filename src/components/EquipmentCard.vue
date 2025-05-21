@@ -1,29 +1,13 @@
 <template>
-  <base-card
-    :item="equipment"
-    itemType="equipment"
-    :metaInfo="
-      equipment.weight
-        ? `${equipment.weight} ${equipment.weight === 1 ? 'lb' : 'lbs'}`
-        : ''
-    "
-    :storeInstance="equipmentStore"
-    :initialCollapsed="isCollapsed"
-    :editable="editable"
-    @edit="$emit('edit', equipment)"
-  >
+  <base-card :item="equipment" itemType="equipment" :metaInfo="equipment.weight
+    ? `${equipment.weight} ${equipment.weight === 1 ? 'lb' : 'lbs'}`
+    : ''
+    " :storeInstance="equipmentStore" :initialCollapsed="isCollapsed" :editable="editable"
+    @edit="$emit('edit', equipment)">
     <!-- Large image slot -->
     <template #large-image>
-      <div
-        v-if="showLargeImage"
-        class="large-image-container"
-        @click.stop="toggleImage"
-      >
-        <img
-          :src="equipment.artUrl"
-          :alt="equipment.name"
-          class="large-image"
-        />
+      <div v-if="showLargeImage" class="large-image-container" @click.stop="toggleImage">
+        <img :src="equipment.artUrl" :alt="equipment.name" class="large-image" />
       </div>
     </template>
 
@@ -33,12 +17,7 @@
       <div class="content-wrapper">
         <div class="art-and-sol" v-if="!showLargeImage">
           <div class="small-image-container" @click.stop="toggleImage">
-            <img
-              v-if="equipment.artUrl"
-              :src="equipment.artUrl"
-              :alt="equipment.name"
-              class="equipment-image"
-            />
+            <img v-if="equipment.artUrl" :src="equipment.artUrl" :alt="equipment.name" class="equipment-image" />
           </div>
         </div>
         <!-- Description section - show if available -->
@@ -56,11 +35,7 @@
                 <div class="dice-section-background">
                   <span class="dice-label">Engagement</span>
                   <div class="dice-icons">
-                    <span
-                      v-for="die in equipment.engagementDice"
-                      :key="'engagement-' + die"
-                      class="dice-icon"
-                    >
+                    <span v-for="die in equipment.engagementDice" :key="'engagement-' + die" class="dice-icon">
                       <i :class="getDiceFontClass(die)"></i>
                     </span>
                   </div>
@@ -70,11 +45,7 @@
                 <div class="dice-section-background">
                   <span class="dice-label">Damage</span>
                   <div class="dice-icons">
-                    <span
-                      v-for="die in equipment.damageDice"
-                      :key="'damage-' + die"
-                      class="dice-icon"
-                    >
+                    <span v-for="die in equipment.damageDice" :key="'damage-' + die" class="dice-icon">
                       <i :class="getDiceFontClass(die)"></i>
                     </span>
                   </div>
@@ -85,7 +56,25 @@
         </div>
       </div>
     </template>
+
+    <!-- Footer slot for engagement successes -->
+    <template #footer>
+      <div class="engagement-successes">
+        <span v-for="success in engagementSuccesses" :key="success.id" class="engagement-success-pill"
+          @mouseenter="startSuccessTooltip(success, $event)" @mouseleave="clearSuccessTooltip">
+          {{ success.name }}
+        </span>
+      </div>
+    </template>
   </base-card>
+
+  <!-- Tooltip for engagement success description -->
+  <teleport to="body">
+    <div v-if="tooltipSuccess" class="success-tooltip"
+      :style="{ top: `${tooltipPosition.y}px`, left: `${tooltipPosition.x}px` }">
+      {{ tooltipSuccess }}
+    </div>
+  </teleport>
 </template>
 
 <script>
@@ -148,18 +137,38 @@ export default {
     },
 
     startSuccessTooltip(success, event) {
+      console.log('Tooltip success:', success);
+      clearTimeout(this.tooltipTimer);
       this.tooltipTimer = setTimeout(() => {
-        this.tooltipSuccess = success
-        this.tooltipPosition = {
-          x: event.clientX + 12,
-          y: event.clientY + 12,
+        this.tooltipSuccess = success.description;
+
+        // Calculate position to avoid tooltip going off-screen
+        const padding = 10;
+        let x = event.clientX + 15;
+        let y = event.clientY + 10;
+
+        // Check if tooltip would go off the right edge
+        const tooltipWidth = 260; // max-width from CSS
+        if (x + tooltipWidth > window.innerWidth - padding) {
+          x = window.innerWidth - tooltipWidth - padding;
         }
-      }, 1000)
+
+        // Check if tooltip would go off the bottom
+        const tooltipHeight = 100; // estimated height
+        if (y + tooltipHeight > window.innerHeight - padding) {
+          y = event.clientY - tooltipHeight - 10;
+        }
+
+        this.tooltipPosition = { x, y };
+        console.log('Tooltip position:', this.tooltipPosition);
+      }, 300); // Reduced delay from 1000ms to 300ms for better UX
     },
 
     clearSuccessTooltip() {
-      clearTimeout(this.tooltipTimer)
-      this.tooltipSuccess = null
+      clearTimeout(this.tooltipTimer);
+      this.tooltipTimer = null;
+      this.tooltipSuccess = null;
+      console.log('Tooltip cleared');
     },
   },
 
@@ -248,7 +257,6 @@ export default {
 
 .dice-label {
   font-size: 12px;
-  color: white;
   margin-bottom: 1px;
 }
 
@@ -261,7 +269,6 @@ export default {
 
 .dice-icon {
   font-size: 36px;
-  color: white;
 }
 
 /* Dice Description Row */
@@ -300,6 +307,7 @@ export default {
 .engagement-success-pill:hover {
   background-color: rgba(64, 64, 64, 0.4);
 }
+
 .content-sections {
   flex: 1;
   display: flex;
@@ -313,9 +321,9 @@ export default {
   z-index: 1000;
   background: rgba(30, 30, 30, 0.97);
   color: #fff;
-  padding: 8px 14px;
+  padding: 14px;
   border-radius: 8px;
-  font-size: 13px;
+  font-size: 12px;
   pointer-events: none;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
   max-width: 260px;

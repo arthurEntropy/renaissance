@@ -47,7 +47,6 @@ export default {
   font-size: 20px;
   font-weight: normal;
   text-align: center;
-  color: white;
   max-width: 200px;
   margin: 0px;
 }

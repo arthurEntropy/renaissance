@@ -23,21 +23,21 @@ select {
   font-family: 'Lora', serif;
   font-size: 14px;
   font-weight: bold;
-  color: white;
-  background-color: darkgray;
+  color: lightgray;
+  background-color: gray;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.2s ease;
 }
 .button:hover {
-  background-color: gray;
+  background-color: darkgray;
 }
 .button-primary {
-  background-color: goldenrod;
+  background-color: darkgoldenrod;
 }
 .button-primary:hover {
-  background-color: darkgoldenrod;
+  background-color: goldenrod;
 }
 .button-danger {
   background-color: darkred;
@@ -61,28 +61,3 @@ img {
   height: auto;
   display: block;
 }
-
-/* INPUTS */
-/* .input {
-    background: black;
-    color: inherit;
-    padding: 5px;
-    margin-left: 5px;
-    margin-right: 5px;
-}
-.input-small {
-    height: 20px;
-    font-size: 14px;
-}
-.input-small[type="number"] {
-    width: 35px;
-    text-align: center;
-}
-.input-large {
-    margin-left: 10px;
-    font-size: 18px;
-}
-.input-large[type="number"] {
-    width: 40px;
-    text-align: center;
-} */

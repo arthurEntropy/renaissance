@@ -1,24 +1,12 @@
 <template>
-  <div
-    class="base-card"
-    :style="cardStyle"
-    @mouseenter="startSourceTooltipTimer"
-    @mouseleave="clearSourceTooltipTimer"
-    @click="toggleCollapsed"
-  >
+  <div class="base-card" :style="cardStyle" @mouseenter="startSourceTooltipTimer" @mouseleave="clearSourceTooltipTimer"
+    @click="toggleCollapsed">
     <!-- Header Row -->
     <div class="card-header">
       <span class="caret">{{ caretSymbol }}</span>
       <div class="name-container">
-        <span class="item-name"
-          ><strong>{{ item.name }}</strong></span
-        >
-        <button
-          v-if="editable"
-          class="edit-button"
-          @click.stop="$emit('edit', item)"
-          :title="`Edit ${itemType}`"
-        >
+        <span class="item-name"><strong>{{ item.name }}</strong></span>
+        <button v-if="editable" class="edit-button" @click.stop="$emit('edit', item)" :title="`Edit ${itemType}`">
           ✎
         </button>
       </div>
@@ -44,6 +32,9 @@
 
     <!-- XP or other badge -->
     <slot name="badge"></slot>
+
+    <!-- Footer Slot -->
+    <slot name="footer"></slot>
   </div>
 </template>
 
@@ -184,7 +175,6 @@ export default {
   padding: 10px;
   margin-top: 5px;
   cursor: pointer;
-  color: white;
   transition:
     background-color 0.3s ease,
     transform 0.2s ease;
@@ -207,7 +197,7 @@ export default {
   pointer-events: none;
 }
 
-.base-card > * {
+.base-card>* {
   position: relative;
   z-index: 2;
 }

@@ -1,14 +1,6 @@
 <template>
-  <ItemListView
-    title="EQUIPMENT"
-    itemType="Equipment"
-    itemTypePlural="Equipment"
-    :sources="sources"
-    v-model:searchQuery="searchQuery"
-    v-model:sourceFilter="sourceFilter"
-    @create="createEquipment"
-    @update-layout="updateLayout"
-  >
+  <ItemListView itemType="Equipment" itemTypePlural="Equipment" :sources="sources" v-model:searchQuery="searchQuery"
+    v-model:sourceFilter="sourceFilter" @create="createEquipment" @update-layout="updateLayout">
     <!-- Additional filters slot -->
     <template #additional-filters>
       <select v-model="sortOption" class="sort-filter">
@@ -26,35 +18,19 @@
 
     <!-- Item cards slot -->
     <template #item-cards>
-      <EquipmentCard
-        v-for="equipment in filteredEquipment"
-        :key="equipment.id"
-        :equipment="equipment"
-        :editable="true"
-        @delete="openDeleteConfirmationModal(equipment)"
-        @update="updateEquipment(equipment)"
-        @edit="openEditEquipmentModal(equipment)"
-        @send-to-chat="sendEquipmentToChat(equipment)"
-        @height-changed="updateLayout"
-      />
+      <EquipmentCard v-for="equipment in filteredEquipment" :key="equipment.id" :equipment="equipment" :editable="true"
+        @delete="openDeleteConfirmationModal(equipment)" @update="updateEquipment(equipment)"
+        @edit="openEditEquipmentModal(equipment)" @send-to-chat="sendEquipmentToChat(equipment)"
+        @height-changed="updateLayout" />
     </template>
 
     <!-- Modals slot -->
     <template #modals>
-      <DeleteConfirmationModal
-        v-if="showDeleteConfirmationModal"
-        :name="equipmentToDelete?.name"
-        @close="closeDeleteConfirmationModal"
-        @confirm="deleteEquipment"
-      />
+      <DeleteConfirmationModal v-if="showDeleteConfirmationModal" :name="equipmentToDelete?.name"
+        @close="closeDeleteConfirmationModal" @confirm="deleteEquipment" />
 
-      <EditEquipmentModal
-        v-if="showEditEquipmentModal"
-        :equipmentId="equipmentToEdit?.id"
-        @update="saveEditedEquipment"
-        @close="closeEditEquipmentModal"
-        @delete="openDeleteConfirmationModal(equipmentToEdit)"
-      />
+      <EditEquipmentModal v-if="showEditEquipmentModal" :equipmentId="equipmentToEdit?.id" @update="saveEditedEquipment"
+        @close="closeEditEquipmentModal" @delete="openDeleteConfirmationModal(equipmentToEdit)" />
     </template>
   </ItemListView>
 </template>

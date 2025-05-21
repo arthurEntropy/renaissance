@@ -5,50 +5,29 @@
       <div class="rules-navigation">
         <div class="rules-nav-header">
           <h3>Table of Contents</h3>
-          <button
-            class="structure-edit-toggle"
-            @click="toggleStructureEditMode"
-            :class="{ active: isStructureEditMode }"
-            :disabled="isContentEditMode"
-            :name="
-              isStructureEditMode
-                ? 'Exit Structure Edit Mode'
-                : 'Edit Structure'
-            "
-          >
+          <button class="structure-edit-toggle" @click="toggleStructureEditMode"
+            :class="{ active: isStructureEditMode }" :disabled="isContentEditMode" :name="isStructureEditMode
+              ? 'Exit Structure Edit Mode'
+              : 'Edit Structure'
+              ">
             {{ isStructureEditMode ? '✓' : '≡' }}
           </button>
         </div>
 
         <!-- Rule sections list - draggable when in structure edit mode -->
-        <draggable
-          v-if="isStructureEditMode"
-          v-model="localSections"
-          item-key="id"
-          handle=".drag-handle"
-          ghost-class="ghost-section"
-          @end="updateSectionsOrder"
-          class="rule-sections-list"
-          :disabled="isContentEditMode"
-        >
+        <draggable v-if="isStructureEditMode" v-model="localSections" item-key="id" handle=".drag-handle"
+          ghost-class="ghost-section" @end="updateSectionsOrder" class="rule-sections-list"
+          :disabled="isContentEditMode">
           <template #item="{ element }">
-            <div
-              :class="[
-                'rule-section-item',
-                { active: currentSection?.id === element.id },
-              ]"
-              @click="selectSection(element.id)"
-            >
+            <div :class="[
+              'rule-section-item',
+              { active: currentSection?.id === element.id },
+            ]" @click="selectSection(element.id)">
               <span class="section-name">{{ element.name }}</span>
               <!-- Edit controls -->
               <div class="section-controls">
                 <span class="drag-handle" name="Drag to reorder">⋮⋮</span>
-                <span
-                  class="delete-section"
-                  @click.stop="confirmDeleteSection(element)"
-                  name="Delete section"
-                  >×</span
-                >
+                <span class="delete-section" @click.stop="confirmDeleteSection(element)" name="Delete section">×</span>
               </div>
             </div>
           </template>
@@ -56,26 +35,17 @@
 
         <!-- Non-draggable version for view/content edit mode -->
         <div v-else class="rule-sections-list">
-          <div
-            v-for="section in sortedSections"
-            :key="section.id"
-            :class="[
-              'rule-section-item',
-              { active: currentSection?.id === section.id },
-            ]"
-            @click="selectSection(section.id)"
-          >
+          <div v-for="section in sortedSections" :key="section.id" :class="[
+            'rule-section-item',
+            { active: currentSection?.id === section.id },
+          ]" @click="selectSection(section.id)">
             <span class="section-name">{{ section.name }}</span>
           </div>
         </div>
 
         <!-- Add new section button at the bottom -->
         <div v-if="isStructureEditMode" class="bottom-actions">
-          <button
-            class="add-section-btn"
-            @click="createNewSection"
-            name="Add new section"
-          >
+          <button class="add-section-btn" @click="createNewSection" name="Add new section">
             + Add New Section
           </button>
         </div>
@@ -90,23 +60,14 @@
               <!-- Name editor with edit button -->
               <div class="section-name-container">
                 <div class="section-header">
-                  <input
-                    v-if="isContentEditMode"
-                    type="text"
-                    v-model="currentSection.name"
-                    class="section-name-input"
-                    @input="markAsChanged"
-                  />
+                  <input v-if="isContentEditMode" type="text" v-model="currentSection.name" class="section-name-input"
+                    @input="markAsChanged" />
                   <h2 v-else>{{ currentSection.name }}</h2>
 
                   <!-- Edit button moved here -->
-                  <button
-                    class="content-edit-toggle"
-                    @click="toggleContentEditMode"
-                    :class="{ active: isContentEditMode }"
-                    :disabled="isStructureEditMode"
-                    :name="isContentEditMode ? 'Save Changes' : 'Edit Content'"
-                  >
+                  <button class="content-edit-toggle" @click="toggleContentEditMode"
+                    :class="{ active: isContentEditMode }" :disabled="isStructureEditMode"
+                    :name="isContentEditMode ? 'Save Changes' : 'Edit Content'">
                     {{ isContentEditMode ? '✓' : '✎' }}
                   </button>
                 </div>
@@ -116,45 +77,25 @@
               <div class="section-content-container">
                 <div v-if="isContentEditMode" class="image-url-container">
                   <label for="section-image-url">Side Image URL:</label>
-                  <input
-                    id="section-image-url"
-                    type="text"
-                    v-model="currentSection.imageUrl"
-                    class="image-url-input"
-                    placeholder="Enter image URL (optional)"
-                    @input="markAsChanged"
-                  />
+                  <input id="section-image-url" type="text" v-model="currentSection.imageUrl" class="image-url-input"
+                    placeholder="Enter image URL (optional)" @input="markAsChanged" />
                 </div>
 
-                <TextEditor
-                  v-if="isContentEditMode"
-                  v-model="currentSection.content"
-                  height="calc(100vh - 200px)"
-                  @update:modelValue="markAsChanged"
-                />
-                <div
-                  v-else
-                  class="content-display"
-                  v-html="formattedContent"
-                ></div>
+                <TextEditor v-if="isContentEditMode" v-model="currentSection.content" height="calc(100vh - 200px)"
+                  @update:modelValue="markAsChanged" />
+                <div v-else class="content-display" v-html="formattedContent"></div>
               </div>
             </div>
 
             <!-- Right side with image -->
             <div class="image-side">
-              <div
-                class="side-image"
-                :style="{
-                  backgroundImage: currentSection.imageUrl
-                    ? `url(${currentSection.imageUrl})`
-                    : 'url(/images/side-decoration.jpg)',
-                }"
-              >
+              <div class="side-image" :style="{
+                backgroundImage: currentSection.imageUrl
+                  ? `url(${currentSection.imageUrl})`
+                  : 'url(/images/side-decoration.jpg)',
+              }">
                 <!-- Add an "Add Image" placeholder when in edit mode and no image -->
-                <div
-                  v-if="isContentEditMode && !currentSection.imageUrl"
-                  class="add-image-placeholder"
-                >
+                <div v-if="isContentEditMode && !currentSection.imageUrl" class="add-image-placeholder">
                   <span>Add Side Image</span>
                 </div>
               </div>
@@ -166,11 +107,7 @@
           <p>
             Select a section from the table of contents or create a new one.
           </p>
-          <button
-            v-if="sortedSections.length === 0"
-            class="button button-primary"
-            @click="createFirstSection"
-          >
+          <button v-if="sortedSections.length === 0" class="button button-primary" @click="createFirstSection">
             Create First Section
           </button>
         </div>
@@ -417,8 +354,8 @@ export default {
 
 <style scoped>
 .rules-view {
-  padding: 20px;
-  height: 90vh;
+  margin-top: -20px;
+  height: 93.5vh;
   display: flex;
   flex-direction: column;
   width: 80%;
@@ -428,7 +365,6 @@ export default {
   display: flex;
   flex: 1;
   background: rgb(17, 17, 17);
-  border-radius: 8px;
   overflow: hidden;
 }
 
@@ -458,7 +394,8 @@ export default {
 .bottom-actions {
   padding: 10px 15px;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
-  margin-top: auto; /* Push to bottom */
+  margin-top: auto;
+  /* Push to bottom */
 }
 
 .add-section-btn {
@@ -519,16 +456,19 @@ export default {
 }
 
 .rule-section-item:hover .section-name {
-  color: white; /* Text turns white on hover */
+  color: white;
+  /* Text turns white on hover */
 }
 
 .rule-section-item.active {
   background-color: rgba(255, 255, 255, 0.1);
-  border-left: 3px solid white; /* Changed from green to white */
+  border-left: 3px solid white;
+  /* Changed from green to white */
 }
 
 .rule-section-item.active .section-name {
-  color: white; /* Selected section text is white */
+  color: white;
+  /* Selected section text is white */
 }
 
 .section-name {
@@ -537,7 +477,8 @@ export default {
   text-overflow: ellipsis;
   white-space: nowrap;
   color: goldenrod;
-  transition: color 0.2s; /* Smooth color transition */
+  transition: color 0.2s;
+  /* Smooth color transition */
 }
 
 .section-controls {
@@ -595,7 +536,8 @@ export default {
   height: 100%;
   padding: 20px;
   position: relative;
-  z-index: 2; /* Position above the image */
+  z-index: 2;
+  /* Position above the image */
   overflow-y: auto;
 }
 
@@ -605,14 +547,16 @@ export default {
   right: 0;
   top: 0;
   height: 100%;
-  z-index: 1; /* Position behind the content */
+  z-index: 1;
+  /* Position behind the content */
 }
 
 /* Section header and name styles */
 .section-name-container {
   margin-bottom: 20px;
   position: relative;
-  z-index: 3; /* Above content and image */
+  z-index: 3;
+  /* Above content and image */
 }
 
 .section-header {
@@ -654,7 +598,6 @@ export default {
   height: 100%;
   background-size: cover;
   background-position: right;
-  border-radius: 8px;
   box-shadow: inset 200px 0 100px -50px rgb(17, 17, 17);
 }
 
@@ -717,8 +660,10 @@ export default {
 }
 
 .content-display img {
-  width: 100%; /* Fill horizontal space */
-  height: auto; /* Maintain aspect ratio */
+  width: 100%;
+  /* Fill horizontal space */
+  height: auto;
+  /* Maintain aspect ratio */
   display: block;
   margin: 0.5em 0;
 }

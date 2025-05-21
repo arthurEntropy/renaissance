@@ -231,6 +231,10 @@
     "22b1ec3d-59a4-4cac-98a1-98a2286e9520",
     "31c4d609-7d0f-40da-9197-2cddb3cdd58b"
   ],
-  "ancestryIds": ["adc655c1-1d9c-433f-a0eb-41f93cf3ee07"],
-  "cultureIds": ["75800953-4adb-405f-a4ab-a599573ca533"]
+  "ancestryIds": [
+    "adc655c1-1d9c-433f-a0eb-41f93cf3ee07"
+  ],
+  "cultureIds": [
+    "75800953-4adb-405f-a4ab-a599573ca533"
+  ]
 }

@@ -1,43 +1,22 @@
 <template>
   <div class="image-gallery">
     <!-- Enlarged image section (only shown when images exist) -->
-    <div
-      v-if="images.length > 0"
-      class="enlarged-image-wrapper"
-      @mouseenter="showNav = true"
-      @mouseleave="showNav = false"
-    >
-      <button
-        v-if="showNav && images.length > 1"
-        class="nav-button left"
-        @click.stop="prevImage"
-        aria-label="Previous image"
-      >
+    <div v-if="images.length > 0" class="enlarged-image-wrapper" @mouseenter="showNav = true"
+      @mouseleave="showNav = false">
+      <button v-if="showNav && images.length > 1" class="nav-button left" @click.stop="prevImage"
+        aria-label="Previous image">
         ◀
       </button>
 
-      <img
-        :src="images[selectedIndex]"
-        :alt="`Image ${selectedIndex + 1}`"
-        class="enlarged-image"
-      />
+      <img :src="images[selectedIndex]" :alt="`Image ${selectedIndex + 1}`" class="enlarged-image" />
 
       <!-- Edit button -->
-      <button
-        v-if="showNav && editable"
-        class="edit-button"
-        @click.stop="openEditModal"
-        aria-label="Edit image"
-      >
+      <button v-if="showNav && editable" class="edit-button" @click.stop="openEditModal" aria-label="Edit image">
         ✎
       </button>
 
-      <button
-        v-if="showNav && images.length > 1"
-        class="nav-button right"
-        @click.stop="nextImage"
-        aria-label="Next image"
-      >
+      <button v-if="showNav && images.length > 1" class="nav-button right" @click.stop="nextImage"
+        aria-label="Next image">
         ▶
       </button>
 
@@ -45,13 +24,7 @@
       <div v-if="editModalOpen" class="edit-modal" @click.stop>
         <div class="edit-modal-content">
           <h3>Edit Image</h3>
-          <input
-            type="text"
-            v-model="editImageUrl"
-            class="url-input"
-            placeholder="Image URL"
-            ref="editUrlInput"
-          />
+          <input type="text" v-model="editImageUrl" class="url-input" placeholder="Image URL" ref="editUrlInput" />
           <div class="edit-modal-buttons">
             <button class="button button-danger" @click.stop="deleteImage">
               Delete
@@ -67,34 +40,16 @@
 
     <!-- Thumbnails grid -->
     <div class="thumbs-container" :style="{ '--grid-columns': gridColumns }">
-      <div
-        class="thumbs-grid"
-        :style="{ 'grid-template-columns': `repeat(${gridColumns}, 1fr)` }"
-      >
+      <div class="thumbs-grid" :style="{ 'grid-template-columns': `repeat(${gridColumns}, 1fr)` }">
         <!-- Editable mode -->
         <template v-if="editable">
-          <draggable
-            v-model="localImages"
-            class="draggable-container"
-            handle=".thumb-drag-handle"
-            item-key="idx"
-            animation="150"
-            ghost-class="ghost-thumb"
-            @end="onDragEnd"
-          >
+          <draggable v-model="localImages" class="draggable-container" handle=".thumb-drag-handle" item-key="idx"
+            animation="150" ghost-class="ghost-thumb" @end="onDragEnd">
             <template #item="{ element: img, index: idx }">
               <div class="thumb-wrapper">
                 <div class="thumb-drag-handle" title="Drag to reorder">⋮⋮</div>
-                <img
-                  :src="img"
-                  :alt="`Thumbnail ${idx + 1}`"
-                  class="thumb-image"
-                  @click="selectImage(idx)"
-                />
-                <div
-                  v-if="selectedIndex === idx"
-                  class="thumb-selected-overlay"
-                ></div>
+                <img :src="img" :alt="`Thumbnail ${idx + 1}`" class="thumb-image" @click="selectImage(idx)" />
+                <div v-if="selectedIndex === idx" class="thumb-selected-overlay"></div>
               </div>
             </template>
           </draggable>
@@ -109,17 +64,9 @@
 
         <!-- Non-editable mode -->
         <template v-else>
-          <div
-            v-for="(img, idx) in images"
-            :key="img + idx"
-            class="thumb-wrapper"
-            @click="selectImage(idx)"
-          >
+          <div v-for="(img, idx) in images" :key="img + idx" class="thumb-wrapper" @click="selectImage(idx)">
             <img :src="img" :alt="`Thumbnail ${idx + 1}`" class="thumb-image" />
-            <div
-              v-if="selectedIndex === idx"
-              class="thumb-selected-overlay"
-            ></div>
+            <div v-if="selectedIndex === idx" class="thumb-selected-overlay"></div>
           </div>
         </template>
       </div>
@@ -129,13 +76,7 @@
     <div v-if="addModalOpen" class="modal-overlay" @click.self="closeAddModal">
       <div class="modal-content">
         <h3>Add New Image</h3>
-        <input
-          type="text"
-          v-model="newImageUrl"
-          class="modal-input"
-          placeholder="Enter image URL"
-          ref="addUrlInput"
-        />
+        <input type="text" v-model="newImageUrl" class="modal-input" placeholder="Enter image URL" ref="addUrlInput" />
         <div class="modal-buttons">
           <button class="button" @click="closeAddModal">Cancel</button>
           <button class="button button-primary" @click="saveNewImage">
@@ -368,11 +309,13 @@ export default defineComponent({
 .image-gallery {
   width: 100%;
 }
+
 .enlarged-image-wrapper {
   width: 100%;
   margin-bottom: 1rem;
   position: relative;
 }
+
 .enlarged-image {
   width: 100%;
   object-fit: contain;
@@ -382,6 +325,7 @@ export default defineComponent({
   display: block;
   margin: 0 auto;
 }
+
 .nav-button {
   position: absolute;
   top: 50%;
@@ -396,13 +340,16 @@ export default defineComponent({
   transition: opacity 0.3s;
   z-index: 2;
 }
+
 .enlarged-image-wrapper:hover .nav-button {
   opacity: 1;
 }
+
 .nav-button.left {
   left: 10px;
   height: 50px;
 }
+
 .nav-button.right {
   right: 10px;
   height: 50px;
@@ -428,9 +375,11 @@ export default defineComponent({
   align-items: center;
   justify-content: center;
 }
+
 .enlarged-image-wrapper:hover .edit-button {
   opacity: 1;
 }
+
 .edit-button:hover {
   background: rgba(0, 0, 0, 0.8);
 }
@@ -461,7 +410,6 @@ export default defineComponent({
 
 .edit-modal-content h3 {
   margin-top: 0;
-  color: white;
   margin-bottom: 15px;
 }
 
@@ -508,7 +456,8 @@ export default defineComponent({
 
 .thumbs-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr); /* Default, will be overridden */
+  grid-template-columns: repeat(5, 1fr);
+  /* Default, will be overridden */
   gap: 12px;
   width: 100%;
 }
@@ -519,7 +468,8 @@ export default defineComponent({
 }
 
 .draggable-container {
-  display: contents; /* Makes draggable children part of parent grid */
+  display: contents;
+  /* Makes draggable children part of parent grid */
 }
 
 /* Drag handle for editable mode */
@@ -638,10 +588,9 @@ export default defineComponent({
 
 @media (max-width: 600px) {
   .thumbs-grid {
-    grid-template-columns: repeat(
-      2,
-      1fr
-    ) !important; /* Responsive: 2 columns on small screens */
+    grid-template-columns: repeat(2,
+        1fr) !important;
+    /* Responsive: 2 columns on small screens */
   }
 }
 </style>

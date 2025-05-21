@@ -2,12 +2,7 @@
   <div class="concept-section" v-if="hasPlaylists || editable">
     <h2 class="section-header">
       Playlists
-      <button
-        v-if="editable"
-        class="edit-section-button"
-        @click="togglePlaylistEditing"
-        title="Edit playlists"
-      >
+      <button v-if="editable" class="edit-section-button" @click="togglePlaylistEditing" title="Edit playlists">
         ✎
       </button>
     </h2>
@@ -16,58 +11,32 @@
     <div v-if="editingPlaylists" class="section-editor">
       <p class="helper-text">Paste embed codes from Spotify or Apple Music</p>
       <div class="url-container">
-        <div
-          v-for="(playlist, idx) in localPlaylists"
-          :key="'playlist-' + idx"
-          class="edit-item"
-        >
+        <div v-for="(playlist, idx) in localPlaylists" :key="'playlist-' + idx" class="edit-item">
           <div class="playlist-service-selector">
             <select v-model="playlist.service" class="service-select">
               <option value="spotify">Spotify</option>
               <option value="apple">Apple Music</option>
             </select>
           </div>
-          <input
-            type="text"
-            v-model="playlist.embedCode"
-            class="modal-input playlist-input"
-            placeholder="Paste embed code"
-          />
+          <input type="text" v-model="playlist.embedCode" class="modal-input playlist-input"
+            placeholder="Paste embed code" />
           <div class="url-buttons">
-            <button
-              type="button"
-              class="button small"
-              @click="movePlaylist(idx, -1)"
-              :disabled="idx === 0"
-              title="Move Up"
-            >
+            <button type="button" class="button small" @click="movePlaylist(idx, -1)" :disabled="idx === 0"
+              title="Move Up">
               ▲
             </button>
-            <button
-              type="button"
-              class="button small"
-              @click="movePlaylist(idx, 1)"
-              :disabled="idx === localPlaylists.length - 1"
-              title="Move Down"
-            >
+            <button type="button" class="button small" @click="movePlaylist(idx, 1)"
+              :disabled="idx === localPlaylists.length - 1" title="Move Down">
               ▼
             </button>
-            <button
-              type="button"
-              class="button button-danger small"
-              @click="removePlaylist(idx)"
-            >
+            <button type="button" class="button button-danger small" @click="removePlaylist(idx)">
               ✕
             </button>
           </div>
         </div>
       </div>
       <div class="editor-buttons">
-        <button
-          type="button"
-          class="button button-primary small"
-          @click="addPlaylist"
-        >
+        <button type="button" class="button button-primary small" @click="addPlaylist">
           Add Playlist
         </button>
         <button type="button" class="button small" @click="savePlaylistChanges">
@@ -79,30 +48,20 @@
     <!-- Service Toggle (when not editing) -->
     <div v-else>
       <div class="playlist-toggle">
-        <button
-          class="playlist-toggle-btn"
-          :class="{ active: playlistService === 'apple' }"
-          @click="playlistService = 'apple'"
-        >
+        <button class="playlist-toggle-btn" :class="{ active: playlistService === 'apple' }"
+          @click="playlistService = 'apple'">
           <i class="fa fa-music"></i> Apple Music
         </button>
-        <button
-          class="playlist-toggle-btn"
-          :class="{ active: playlistService === 'spotify' }"
-          @click="playlistService = 'spotify'"
-        >
+        <button class="playlist-toggle-btn" :class="{ active: playlistService === 'spotify' }"
+          @click="playlistService = 'spotify'">
           <i class="fa fa-spotify"></i> Spotify
         </button>
       </div>
 
       <!-- Playlist Embeds -->
       <div class="playlist-container">
-        <div
-          v-for="(playlist, index) in filteredPlaylists"
-          :key="`playlist-${index}`"
-          class="playlist-embed"
-          v-html="playlist.embedCode"
-        ></div>
+        <div v-for="(playlist, index) in filteredPlaylists" :key="`playlist-${index}`" class="playlist-embed"
+          v-html="playlist.embedCode"></div>
         <div v-if="filteredPlaylists.length === 0" class="no-playlists">
           No
           {{
@@ -200,7 +159,7 @@ export default {
       const playlists = this.localPlaylists
       const newIdx = idx + direction
       if (newIdx >= 0 && newIdx < playlists.length) {
-         [playlists[idx], playlists[newIdx]] = [
+        [playlists[idx], playlists[newIdx]] = [
           playlists[newIdx],
           playlists[idx],
         ]
@@ -314,7 +273,7 @@ export default {
   padding: 5px;
   background: rgba(0, 0, 0, 0.3);
   border: 1px solid #555;
-  color: white;
+  color: lightgray;
   border-radius: 4px;
 }
 

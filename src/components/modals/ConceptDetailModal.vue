@@ -4,20 +4,12 @@
       <!-- ADMIN CONTROLS -->
       <div class="admin-controls">
         <!-- Edit/Save button -->
-        <button
-          class="edit-save-button"
-          @click="toggleEditMode"
-          :title="isEditMode ? 'Exit Edit Mode' : 'Enter Edit Mode'"
-        >
+        <button class="edit-save-button" @click="toggleEditMode"
+          :title="isEditMode ? 'Exit Edit Mode' : 'Enter Edit Mode'">
           {{ isEditMode ? '✓ Save' : '✎ Edit' }}
         </button>
         <!-- Settings button -->
-        <button
-          v-if="isEditMode"
-          class="settings-button"
-          @click="openSettingsModal"
-          title="Card Style Settings"
-        >
+        <button v-if="isEditMode" class="settings-button" @click="openSettingsModal" title="Card Style Settings">
           ⚙️
         </button>
       </div>
@@ -26,42 +18,25 @@
         <!-- LEFT COLUMN -->
         <div class="concept-left-column">
           <!-- Featured Art -->
-          <ImageGallery
-            v-if="localConcept.artUrls && localConcept.artUrls.length"
-            :images="localConcept.artUrls"
-            :editable="isEditMode"
-            :grid-columns="5"
-            @update:images="updateFeaturedArt"
-          />
+          <ImageGallery v-if="localConcept.artUrls && localConcept.artUrls.length" :images="localConcept.artUrls"
+            :editable="isEditMode" :grid-columns="5" @update:images="updateFeaturedArt" />
 
           <!-- Faces -->
           <div class="concept-section" v-if="hasFaces || isEditMode">
             <h2 class="section-header">Faces</h2>
-            <ImageGallery
-              :images="localConcept.faces || []"
-              :editable="isEditMode"
-              :grid-columns="5"
-              @update:images="updateFaces"
-            />
+            <ImageGallery :images="localConcept.faces || []" :editable="isEditMode" :grid-columns="5"
+              @update:images="updateFaces" />
           </div>
 
           <!-- Places -->
           <div class="concept-section" v-if="hasPlaces || isEditMode">
             <h2 class="section-header">Places</h2>
-            <ImageGallery
-              :images="localConcept.places || []"
-              :editable="isEditMode"
-              :grid-columns="5"
-              @update:images="updatePlaces"
-            />
+            <ImageGallery :images="localConcept.places || []" :editable="isEditMode" :grid-columns="5"
+              @update:images="updatePlaces" />
           </div>
 
           <!-- Playlists -->
-          <PlaylistSection
-            :playlists="localConcept.playlists || []"
-            :editable="isEditMode"
-            @update="updatePlaylists"
-          />
+          <PlaylistSection :playlists="localConcept.playlists || []" :editable="isEditMode" @update="updatePlaylists" />
         </div>
 
         <!-- RIGHT COLUMN -->
@@ -69,35 +44,19 @@
           <!-- Title -->
           <div class="concept-header-container">
             <div v-if="isEditingTitle" class="editable-title">
-              <input
-                type="text"
-                v-model="localConcept.name"
-                class="concept-title-input"
-                ref="titleInput"
-                @blur="saveTitleChanges"
-                @keyup.enter="saveTitleChanges"
-                @keyup.esc="cancelTitleEdit"
-              />
+              <input type="text" v-model="localConcept.name" class="concept-title-input" ref="titleInput"
+                @blur="saveTitleChanges" @keyup.enter="saveTitleChanges" @keyup.esc="cancelTitleEdit" />
             </div>
             <h1 v-else class="concept-title" @click="startTitleEdit">
               {{ localConcept.name }}
-              <span
-                v-if="isEditMode"
-                class="edit-section-button"
-                title="Click to edit"
-                >✎</span
-              >
+              <span v-if="isEditMode" class="edit-section-button" title="Click to edit">✎</span>
             </h1>
           </div>
 
           <!-- Description -->
           <div class="description-container">
             <div v-if="isEditingDescription" class="editable-description">
-              <text-editor
-                v-model="localConcept.description"
-                height="200px"
-                ref="descriptionEditor"
-              />
+              <text-editor v-model="localConcept.description" height="200px" ref="descriptionEditor" />
               <div class="edit-field-buttons">
                 <button class="button small" @click="saveDescriptionChanges">
                   Save
@@ -107,93 +66,48 @@
                 </button>
               </div>
             </div>
-            <div
-              v-else
-              class="concept-description"
-              @click="isEditMode && startDescriptionEdit"
-              v-html="localConcept.description"
-            ></div>
-            <span
-              v-if="isEditMode && !isEditingDescription"
-              class="edit-field-indicator"
-              @click="startDescriptionEdit"
-              title="Edit description"
-              >✎</span
-            >
+            <div v-else class="concept-description" @click="isEditMode && startDescriptionEdit"
+              v-html="localConcept.description"></div>
+            <span v-if="isEditMode && !isEditingDescription" class="edit-field-indicator" @click="startDescriptionEdit"
+              title="Edit description">✎</span>
           </div>
 
           <!-- Traits & Abilities -->
           <div class="concept-section" v-if="hasAbilities || isEditMode">
             <h2 class="section-header">Traits & Abilities</h2>
-            <div
-              v-if="!hasAbilities && isEditMode"
-              class="empty-section-placeholder"
-            >
+            <div v-if="!hasAbilities && isEditMode" class="empty-section-placeholder">
               No abilities added yet. Create abilities in the "Abilities"
               section and assign them to this concept.
             </div>
-            <masonry-grid
-              v-else
-              :column-width="350"
-              :gap="10"
-              :row-height="10"
-              class="ability-cards-container"
-            >
-              <AbilityCard
-                v-for="ability in abilities"
-                :key="ability.id"
-                :ability="ability"
-                :editable="isEditMode"
-                @edit="emitAbilityEdit"
-              />
+            <masonry-grid v-else :column-width="350" :gap="10" :row-height="10" class="ability-cards-container">
+              <AbilityCard v-for="ability in abilities" :key="ability.id" :ability="ability" :editable="isEditMode"
+                @edit="emitAbilityEdit" />
             </masonry-grid>
           </div>
 
           <!-- Local Flavor -->
-          <LocalFlavorSection
-            :data="{
-              names: localConcept.names,
-              occupations: localConcept.occupations,
-              publicHouses: localConcept.publicHouses,
-              vittles: localConcept.vittles,
-              pointsOfInterest: localConcept.pointsOfInterest,
-              floraFauna: localConcept.floraFauna,
-            }"
-            :editable="isEditMode"
-            @update="updateLocalFlavor"
-          />
+          <LocalFlavorSection :data="{
+            names: localConcept.names,
+            occupations: localConcept.occupations,
+            publicHouses: localConcept.publicHouses,
+            vittles: localConcept.vittles,
+            pointsOfInterest: localConcept.pointsOfInterest,
+            floraFauna: localConcept.floraFauna,
+          }" :editable="isEditMode" @update="updateLocalFlavor" />
 
           <!-- Hooks -->
-          <HooksSection
-            :hooks="localConcept.hooks || []"
-            :editable="isEditMode"
-            @update="updateHooks"
-          />
+          <HooksSection :hooks="localConcept.hooks || []" :editable="isEditMode" @update="updateHooks" />
 
           <!-- Wares -->
           <div class="concept-section" v-if="hasEquipment || isEditMode">
             <h2 class="section-header">Wares</h2>
-            <div
-              v-if="!hasEquipment && isEditMode"
-              class="empty-section-placeholder"
-            >
+            <div v-if="!hasEquipment && isEditMode" class="empty-section-placeholder">
               No equipment added yet. Create equipment in the "Equipment"
               section and assign it to this concept.
             </div>
-            <masonry-grid
-              v-else
-              :column-width="350"
-              :gap="10"
-              :row-height="10"
-              class="equipment-cards-container"
-            >
-              <EquipmentCard
-                v-for="item in equipment"
-                :key="item.id"
-                :equipment="item"
-                :editable="isEditMode"
-                @edit="emitEquipmentEdit"
-              />
+            <masonry-grid v-else :column-width="350" :gap="10" :row-height="10" class="equipment-cards-container">
+              <EquipmentCard v-for="item in equipment" :key="item.id" :equipment="item" :editable="isEditMode"
+                @edit="emitEquipmentEdit" />
             </masonry-grid>
           </div>
         </div>
@@ -202,13 +116,8 @@
   </div>
 
   <!-- SETTINGS MODAL -->
-  <SettingsModal
-    :visible="showSettingsModal"
-    :settings="tempSettings"
-    @update:settings="tempSettings = $event"
-    @save="saveSettings"
-    @cancel="closeSettingsModal"
-  />
+  <SettingsModal :visible="showSettingsModal" :settings="tempSettings" @update:settings="tempSettings = $event"
+    @save="saveSettings" @cancel="closeSettingsModal" />
 </template>
 
 <script>
@@ -597,7 +506,6 @@ export default defineComponent({
   flex-wrap: wrap;
   gap: 40px;
   padding: 20px;
-  color: white;
 }
 
 .concept-left-column {
@@ -702,7 +610,6 @@ export default defineComponent({
   font-weight: bold;
   margin-bottom: 0.5rem;
   font-size: 2rem;
-  color: white;
 }
 
 .ability-cards-container,
@@ -731,10 +638,12 @@ export default defineComponent({
     flex-direction: column;
     gap: 18px;
   }
+
   .concept-left-column {
     max-width: 100%;
     margin-bottom: 1rem;
   }
+
   .concept-right-column {
     max-width: 100%;
   }

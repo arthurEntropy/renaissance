@@ -1,19 +1,11 @@
 <template>
   <div class="character-bio-section">
     <!-- Background Modal -->
-    <div
-      v-if="isBackgroundModalOpen"
-      class="modal-overlay"
-      @click.self="closeBackgroundModal"
-    >
+    <div v-if="isBackgroundModalOpen" class="modal-overlay" @click.self="closeBackgroundModal">
       <div class="modal-content background-modal">
         <div class="modal-header">
           <h3>Personality, Background & Notes</h3>
-          <button
-            v-if="!isBackgroundEditMode"
-            class="edit-button"
-            @click.stop="startBackgroundEdit"
-          >
+          <button v-if="!isBackgroundEditMode" class="edit-button" @click.stop="startBackgroundEdit">
             Edit
           </button>
           <div v-else class="edit-actions">
@@ -33,11 +25,9 @@
 
         <!-- Edit mode with TextEditor -->
         <div v-else class="background-modal-editor">
-          <TextEditor
-            v-model="editedCharacter.personalityAndBackground"
+          <TextEditor v-model="editedCharacter.personalityAndBackground"
             :placeholder="'Describe your character\'s personality, history, and notable background...'"
-            height="300px"
-          />
+            height="300px" />
         </div>
       </div>
     </div>
@@ -45,64 +35,36 @@
     <div class="bio-section-content">
       <!-- Character Art -->
       <div class="character-art">
-        <img
-          v-if="character.artUrls && character.artUrls.length > 0"
-          :src="character.artUrls[0] || defaultArtUrl"
-          class="character-art-image"
-          @click="openFullSizeCharacterArtModal(character.artUrls[0])"
-        />
-        <img
-          v-else
-          :src="defaultArtUrl"
-          class="character-art-image"
-          @click="openFullSizeCharacterArtModal(defaultArtUrl)"
-        />
+        <img v-if="character.artUrls && character.artUrls.length > 0" :src="character.artUrls[0] || defaultArtUrl"
+          class="character-art-image" @click="openFullSizeCharacterArtModal(character.artUrls[0])" />
+        <img v-else :src="defaultArtUrl" class="character-art-image"
+          @click="openFullSizeCharacterArtModal(defaultArtUrl)" />
       </div>
 
       <!-- Bio Information -->
       <div class="bio-info">
         <!-- Name (click to edit) -->
-        <div
-          class="character-name-container"
-          :class="{ editing: editingField === 'name' }"
-        >
+        <div class="character-name-container" :class="{ editing: editingField === 'name' }">
           <template v-if="editingField === 'name'">
-            <input
-              type="text"
-              v-model="editedCharacter.name"
-              class="form-input inline-edit"
-              @blur="saveField('name')"
-              @keyup.enter="saveField('name')"
-              ref="nameInput"
-            />
+            <input type="text" v-model="editedCharacter.name" class="form-input inline-edit" @blur="saveField('name')"
+              @keyup.enter="saveField('name')" ref="nameInput" />
           </template>
           <template v-else>
             <span class="character-name" @click.stop="startEditing('name')">{{
               character.name || 'Unnamed Character'
-            }}</span>
+              }}</span>
           </template>
 
           <!-- Pronouns (click to edit) -->
-          <div
-            class="pronouns-container"
-            @click.stop="startEditing('pronouns')"
-            :class="{ editing: editingField === 'pronouns' }"
-          >
+          <div class="pronouns-container" @click.stop="startEditing('pronouns')"
+            :class="{ editing: editingField === 'pronouns' }">
             <template v-if="editingField === 'pronouns'">
-              <input
-                type="text"
-                v-model="editedCharacter.pronouns"
-                class="form-input inline-edit pronouns-input"
-                @blur="saveField('pronouns')"
-                @keyup.enter="saveField('pronouns')"
-                placeholder="Add pronouns"
-                ref="pronounsInput"
-              />
+              <input type="text" v-model="editedCharacter.pronouns" class="form-input inline-edit pronouns-input"
+                @blur="saveField('pronouns')" @keyup.enter="saveField('pronouns')" placeholder="Add pronouns"
+                ref="pronounsInput" />
             </template>
             <template v-else>
-              <span v-if="character.pronouns" class="character-pronouns"
-                >({{ character.pronouns }})</span
-              >
+              <span v-if="character.pronouns" class="character-pronouns">({{ character.pronouns }})</span>
               <span v-else class="empty-field">(Add pronouns)</span>
             </template>
           </div>
@@ -110,43 +72,22 @@
 
         <div class="bio-details">
           <!-- Ancestries (click to edit) -->
-          <div
-            class="bio-detail"
-            @click.stop="
-              editingField !== 'ancestries' && startEditing('ancestries')
-            "
-            :class="{ editing: editingField === 'ancestries' }"
-          >
+          <div class="bio-detail" @click.stop="
+            editingField !== 'ancestries' && startEditing('ancestries')
+            " :class="{ editing: editingField === 'ancestries' }">
             <span class="bio-label">Ancestries:</span>
             <template v-if="editingField === 'ancestries'">
               <div class="tag-selector" @click.stop>
-                <div
-                  v-for="ancestry in selectedAncestries"
-                  :key="ancestry.id"
-                  class="selected-tag"
-                >
+                <div v-for="ancestry in selectedAncestries" :key="ancestry.id" class="selected-tag">
                   <span>{{ ancestry.name }}</span>
-                  <button
-                    @click.stop="removeAncestry(ancestry.id)"
-                    class="remove-tag"
-                  >
+                  <button @click.stop="removeAncestry(ancestry.id)" class="remove-tag">
                     ×
                   </button>
                 </div>
-                <select
-                  v-model="selectedAncestryId"
-                  @change="addAncestry"
-                  class="tag-dropdown"
-                  @click.stop
-                  @blur.prevent="null"
-                  ref="ancestriesSelect"
-                >
+                <select v-model="selectedAncestryId" @change="addAncestry" class="tag-dropdown" @click.stop
+                  @blur.prevent="null" ref="ancestriesSelect">
                   <option value="">Add...</option>
-                  <option
-                    v-for="ancestry in availableAncestries"
-                    :key="ancestry.id"
-                    :value="ancestry.id"
-                  >
+                  <option v-for="ancestry in availableAncestries" :key="ancestry.id" :value="ancestry.id">
                     {{ ancestry.name }}
                   </option>
                 </select>
@@ -160,43 +101,22 @@
           </div>
 
           <!-- Cultures (click to edit) -->
-          <div
-            class="bio-detail"
-            @click.stop="
-              editingField !== 'cultures' && startEditing('cultures')
-            "
-            :class="{ editing: editingField === 'cultures' }"
-          >
+          <div class="bio-detail" @click.stop="
+            editingField !== 'cultures' && startEditing('cultures')
+            " :class="{ editing: editingField === 'cultures' }">
             <span class="bio-label">Cultures:</span>
             <template v-if="editingField === 'cultures'">
               <div class="tag-selector" @click.stop>
-                <div
-                  v-for="culture in selectedCultures"
-                  :key="culture.id"
-                  class="selected-tag"
-                >
+                <div v-for="culture in selectedCultures" :key="culture.id" class="selected-tag">
                   <span>{{ culture.name }}</span>
-                  <button
-                    @click.stop="removeCulture(culture.id)"
-                    class="remove-tag"
-                  >
+                  <button @click.stop="removeCulture(culture.id)" class="remove-tag">
                     ×
                   </button>
                 </div>
-                <select
-                  v-model="selectedCultureId"
-                  @change="addCulture"
-                  class="tag-dropdown"
-                  @click.stop
-                  @blur.prevent="null"
-                  ref="culturesSelect"
-                >
+                <select v-model="selectedCultureId" @change="addCulture" class="tag-dropdown" @click.stop
+                  @blur.prevent="null" ref="culturesSelect">
                   <option value="">Add...</option>
-                  <option
-                    v-for="culture in availableCultures"
-                    :key="culture.id"
-                    :value="culture.id"
-                  >
+                  <option v-for="culture in availableCultures" :key="culture.id" :value="culture.id">
                     {{ culture.name }}
                   </option>
                 </select>
@@ -212,38 +132,26 @@
           <!-- XP (always an input) -->
           <div class="bio-detail xp-field">
             <span class="bio-label">XP:</span>
-            <NumberInput
-              :model-value="editedCharacter.xp"
-              @update:model-value="
-                (value) => {
-                  editedCharacter.xp = value
-                  saveField('xp')
-                }
-              "
-              :min="0"
-              size="small"
-            />
+            <NumberInput :model-value="editedCharacter.xp" @update:model-value="
+              (value) => {
+                editedCharacter.xp = value
+                saveField('xp')
+              }
+            " :min="0" size="small" />
           </div>
         </div>
       </div>
 
       <!-- Personality and Background Section -->
       <div class="personality-background-section">
-        <span class="bio-label" style="margin-bottom: 5px"
-          >Personality, Background & Notes</span
-        >
+        <span class="bio-label" style="margin-bottom: 5px">Personality, Background & Notes</span>
 
         <!-- View Mode (scrollable and clickable to open modal) -->
         <div class="background-content scrollable" @click="openBackgroundModal">
           <template v-if="character.personalityAndBackground">
-            <div
-              v-html="formattedBackground"
-              class="background-scroll-content"
-            ></div>
+            <div v-html="formattedBackground" class="background-scroll-content"></div>
           </template>
-          <span v-else class="empty-background"
-            >What's your vibe? What's your story? Where are you going?</span
-          >
+          <span v-else class="empty-background">What's your vibe? What's your story? Where are you going?</span>
         </div>
       </div>
     </div>

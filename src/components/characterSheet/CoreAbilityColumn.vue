@@ -3,105 +3,62 @@
     <!-- Core Ability Header -->
     <div class="core-ability-header">
       <h2>{{ columnConfig.title }}</h2>
-      <NumberInput
-        :model-value="coreAbilityValue"
-        @update:model-value="
-          updateCharacter(columnConfig.coreAbilityKey, $event)
-        "
-        :min="0"
-        size="large"
-      />
+      <NumberInput :model-value="coreAbilityValue" @update:model-value="
+        updateCharacter(columnConfig.coreAbilityKey, $event)
+        " :min="0" size="large" />
     </div>
 
     <!-- Skills -->
     <div v-for="skill in skills" :key="skill.name" class="skill-row">
-      <span
-        class="skill-name-clickable"
-        @click="$emit('open-skill-check', skill.name)"
-      >
+      <span class="skill-name-clickable" @click="$emit('open-skill-check', skill.name)">
         {{ skill.name }}
       </span>
-      <i
-        class="dice-icon d12-icon"
-        :class="[
-          getDiceFontClass(12, 12),
-          getStyleClassForFavoredStatus(skill),
-        ]"
-      ></i>
+      <i class="dice-icon d12-icon" :class="[
+        getDiceFontClass(12, 12),
+        getStyleClassForFavoredStatus(skill),
+      ]"></i>
       <div class="dice-group">
-        <i
-          v-for="(n, diceIndex) in 5"
-          :key="diceIndex"
-          :class="[
-            getDiceFontClass(6, 6),
-            {
-              'dice-active': isRankActive(skill, diceIndex),
-              'dice-added': isDiceAdded(skill, diceIndex),
-              'dice-subtracted': isDiceSubtracted(skill, diceIndex),
-            },
-          ]"
-          @click="handleDiceClick(skill.name, diceIndex)"
-          class="dice-icon d6-icon"
-        ></i>
+        <i v-for="(n, diceIndex) in 5" :key="diceIndex" :class="[
+          getDiceFontClass(6, 6),
+          {
+            'dice-active': isRankActive(skill, diceIndex),
+            'dice-added': isDiceAdded(skill, diceIndex),
+            'dice-subtracted': isDiceSubtracted(skill, diceIndex),
+          },
+        ]" @click="handleDiceClick(skill.name, diceIndex)" class="dice-icon d6-icon"></i>
       </div>
     </div>
 
     <!-- Virtue Row -->
     <div class="virtue-row">
       <span class="skill-name">{{ columnConfig.virtueLabel }}</span>
-      <NumberInput
-        :model-value="virtueValue.current"
-        @update:model-value="
-          updateCharacter(`${columnConfig.virtueKey}.current`, $event)
-        "
-        :min="0"
-        size="small"
-      />
+      <NumberInput :model-value="virtueValue.current" @update:model-value="
+        updateCharacter(`${columnConfig.virtueKey}.current`, $event)
+        " :min="0" size="small" />
       <span>/</span>
-      <NumberInput
-        :model-value="virtueValue.max"
-        @update:model-value="
-          updateCharacter(`${columnConfig.virtueKey}.max`, $event)
-        "
-        :min="0"
-        size="small"
-      />
+      <NumberInput :model-value="virtueValue.max" @update:model-value="
+        updateCharacter(`${columnConfig.virtueKey}.max`, $event)
+        " :min="0" size="small" />
     </div>
 
     <!-- Weakness Row -->
     <div class="weakness-row">
       <span class="skill-name">{{ columnConfig.weaknessLabel }}</span>
-      <NumberInput
-        :model-value="weaknessValue"
-        @update:model-value="updateCharacter(columnConfig.weaknessKey, $event)"
-        :min="0"
-        size="small"
-      />
+      <NumberInput :model-value="weaknessValue" @update:model-value="updateCharacter(columnConfig.weaknessKey, $event)"
+        :min="0" size="small" />
     </div>
 
     <!-- State Row -->
     <div class="state-row">
       <span class="skill-name" :class="{ 'state-active': firstStateValue }">{{
         this.$capitalizeFirstLetter(columnConfig.firstStateKey)
-      }}</span>
-      <input
-        type="checkbox"
-        :checked="firstStateValue"
-        @change="
-          updateCharacter(columnConfig.firstStateKey, $event.target.checked)
-        "
-        class="skill-checkbox"
-        :class="{ 'state-active-checkbox': firstStateValue }"
-      />
-      <input
-        type="checkbox"
-        :checked="secondStateValue"
-        @change="
-          updateCharacter(columnConfig.secondStateKey, $event.target.checked)
-        "
-        class="skill-checkbox"
-        :class="{ 'state-active-checkbox': secondStateValue }"
-      />
+        }}</span>
+      <input type="checkbox" :checked="firstStateValue" @change="
+        updateCharacter(columnConfig.firstStateKey, $event.target.checked)
+        " class="skill-checkbox" :class="{ 'state-active-checkbox': firstStateValue }" />
+      <input type="checkbox" :checked="secondStateValue" @change="
+        updateCharacter(columnConfig.secondStateKey, $event.target.checked)
+        " class="skill-checkbox" :class="{ 'state-active-checkbox': secondStateValue }" />
       <span></span>
       <!-- Empty span for alignment -->
       <span></span>
@@ -297,6 +254,7 @@ export default {
   width: 270px;
   max-width: 270px;
 }
+
 .core-ability-header {
   display: flex;
   align-items: center;
@@ -304,6 +262,7 @@ export default {
   height: 28px;
   gap: 10px;
 }
+
 .skill-row {
   display: flex;
   align-items: center;
@@ -313,6 +272,7 @@ export default {
   height: 25px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
+
 .skill-name-clickable {
   color: rgb(212, 182, 106);
   text-align: left;
@@ -321,6 +281,7 @@ export default {
   cursor: pointer;
   transition: color 0.2s ease-in-out;
 }
+
 .skill-name-clickable:hover {
   color: white;
   text-shadow: 0px 0px 5px goldenrod;
@@ -356,7 +317,7 @@ export default {
 
 .dice-active {
   opacity: 1;
-  color: white;
+  color: lightgray;
 }
 
 .dice-added {
@@ -378,12 +339,15 @@ export default {
   width: 100%;
   margin-top: 10px;
 }
+
 .virtue-row {
   grid-template-columns: 35% 19% 8% 19% 19%;
 }
+
 .weakness-row {
   grid-template-columns: 35% 65%;
 }
+
 .state-row {
   grid-template-columns: 35% 10% 10% 45%;
 }
@@ -393,14 +357,17 @@ export default {
   color: lightgreen;
   text-shadow: 0px 0px 5px lightgreen;
 }
+
 .ill-favored {
   color: red;
   text-shadow: 0px 0px 5px red;
 }
+
 .state-active {
   color: red;
   text-shadow: 0px 0px 5px red;
 }
+
 .state-active-checkbox {
   box-shadow: 0px 0px 10px cyan;
 }
