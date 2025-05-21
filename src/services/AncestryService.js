@@ -6,22 +6,6 @@ class AncestryService {
   }
 
   // CRUD METHODS
-  async getAllAncestries() {
-    try {
-      const response = await axios.get(this.baseUrl)
-      return response.data
-    } catch (error) {
-      console.error('Error getting all ancestries:', error)
-      throw error
-    }
-  }
-  async saveAncestry(ancestry) {
-    try {
-      await axios.put(`${this.baseUrl}/${ancestry.id}`, ancestry)
-    } catch (error) {
-      console.error('Error saving ancestry:', error)
-    }
-  }
   async createAncestry() {
     const newAncestry = this.getDefaultAncestry()
     try {
@@ -32,8 +16,27 @@ class AncestryService {
       throw error
     }
   }
+
+  async getAllAncestries() {
+    try {
+      const response = await axios.get(this.baseUrl)
+      return response.data
+    } catch (error) {
+      console.error('Error getting all ancestries:', error)
+      throw error
+    }
+  }
+
+  async saveAncestry(ancestry) {
+    try {
+      await axios.put(`${this.baseUrl}/${ancestry.id}`, ancestry)
+    } catch (error) {
+      console.error('Error saving ancestry:', error)
+    }
+  }
+
   async deleteAncestry(ancestry) {
-    ancestry.isDeleted = true
+    ancestry.isDeleted = true // Soft delete
     this.saveAncestry(ancestry)
   }
 

@@ -12,22 +12,6 @@ class CharacterService {
   }
 
   // CRUD METHODS
-  async getAllCharacters() {
-    try {
-      const response = await axios.get(this.baseUrl)
-      return response.data
-    } catch (error) {
-      console.error('Error getting all characters:', error)
-      throw error
-    }
-  }
-  async saveCharacter(character) {
-    try {
-      await axios.put(`${this.baseUrl}/${character.id}`, character)
-    } catch (error) {
-      console.error('Error saving character:', error)
-    }
-  }
   async createCharacter() {
     const newCharacter = this.getDefaultCharacter()
     try {
@@ -38,8 +22,27 @@ class CharacterService {
       throw error
     }
   }
+
+  async getAllCharacters() {
+    try {
+      const response = await axios.get(this.baseUrl)
+      return response.data
+    } catch (error) {
+      console.error('Error getting all characters:', error)
+      throw error
+    }
+  }
+
+  async saveCharacter(character) {
+    try {
+      await axios.put(`${this.baseUrl}/${character.id}`, character)
+    } catch (error) {
+      console.error('Error saving character:', error)
+    }
+  }
+
   async deleteCharacter(character) {
-    character.isDeleted = true
+    character.isDeleted = true // Soft delete
     this.saveCharacter(character)
   }
 

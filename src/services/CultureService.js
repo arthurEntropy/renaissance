@@ -11,6 +11,17 @@ class CultureService {
   }
 
   // CRUD METHODS
+  async createCulture() {
+    const newCulture = this.getDefaultCulture()
+    try {
+      const response = await axios.post(this.baseUrl, newCulture)
+      return response.data
+    } catch (error) {
+      console.error('Error creating new culture:', error)
+      throw error
+    }
+  }
+
   async getAllCultures() {
     try {
       const response = await axios.get(this.baseUrl)
@@ -20,6 +31,7 @@ class CultureService {
       throw error
     }
   }
+
   async updateCulture(culture) {
     try {
       // Sanitize the culture object before sending to the server
@@ -34,18 +46,9 @@ class CultureService {
       throw error
     }
   }
-  async createCulture() {
-    const newCulture = this.getDefaultCulture()
-    try {
-      const response = await axios.post(this.baseUrl, newCulture)
-      return response.data
-    } catch (error) {
-      console.error('Error creating new culture:', error)
-      throw error
-    }
-  }
+
   async deleteCulture(culture) {
-    culture.isDeleted = true
+    culture.isDeleted = true // Soft delete
     this.updateCulture(culture)
   }
 

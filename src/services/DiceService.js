@@ -4,9 +4,11 @@ class DiceService {
   static latestRollResult = null
 
   static makeSkillCheck(skill, character, targetNumber) {
+    // Prepare the dice pool based on the skill and roll the dice.
     const dice = this.prepareDicePool(skill)
     const results = this.rollDice(dice)
 
+    // Check for twice miserable condition and handle auto-fail if applicable.
     if (
       character.states.twiceMiserable &&
       this.checkAndHandleAutoFailForTwiceMiserable(
@@ -20,14 +22,18 @@ class DiceService {
       return
     }
 
+    // Handle favored and ill-favored logic and append favored/ill-favored status to skill name for output.
     const skillModifier = this.handleFavoredAndIllFavored(results, skill)
     const skillName = skill.name + skillModifier
 
+    // Calculate the total sum of the rolled dice and determine success.
     const totalSum = this.calculateTotalSum(
       results,
       character.states.twiceWeary,
     )
     const success = this.determineSuccess(totalSum, targetNumber)
+
+    // Generate the footer text based on character conditions and states.
     const footer = this.generateFooter(character.conditions, character.states)
 
     // Mark max value dice (12 for d12, 6 for d6)
@@ -37,29 +43,25 @@ class DiceService {
       r.dropped = r.roll === 0 // Any dice with roll=0 were dropped by favored/ill-favored logic
     })
 
-    // Create enhanced roll result object
+    // Create roll result object to be used in-app and sent to Discord.
     const rollResult = {
       characterName: character.name,
-      // Original full skill name with modifier for backwards compatibility
       skillName: skillName,
-      // New separate field for just the skill name without modifier
       baseSkillName: skill.name,
       total: totalSum,
       targetNumber: targetNumber,
       success: success,
-      // Original symbols for backward compatibility
       diceSymbols: results.map((r) => r.symbol),
-      // Enhanced structured data for in-app display
       diceResults: results.map((r) => ({
         type: r.die, // 12 or 6
         value: r.roll, // The actual number rolled (0 for dropped dice)
-        symbol: r.symbol, // Original symbol
+        symbol: r.symbol, // Symbol for Discord ouput
         isMaxValue:
           (r.die === 12 && r.roll === 12) || (r.die === 6 && r.roll === 6),
         emoji: this.getDiceEmoji(r.die, r.roll === 0 ? r.originalRoll : r.roll),
         dropped: r.roll === 0, // Was this die dropped by favored/ill-favored logic
-        displayValue: r.roll === 0 ? r.originalRoll : r.roll, // Use original value for display
-        class: `df-d${r.die}-${r.roll === 0 ? r.originalRoll : r.roll}`, // For dicefont
+        displayValue: r.roll === 0 ? r.originalRoll : r.roll,
+        class: `df-d${r.die}-${r.roll === 0 ? r.originalRoll : r.roll}`, // For in-app display using DiceFont
       })),
       favoredStatus: skill.isFavored
         ? 'favored'
@@ -73,7 +75,8 @@ class DiceService {
     // Store latest roll
     this.latestRollResult = rollResult
 
-    // Send to Discord as before
+    // Send to Discord
+    // TODO: Make this optional
     this.sendRollResultsToServer(
       results.map((r) => r.symbol),
       totalSum,
@@ -86,20 +89,6 @@ class DiceService {
     )
 
     return rollResult
-  }
-
-  static getDiceEmoji(dieType, value) {
-    if (dieType === 12) {
-      if (value === 12) return '🌞'
-      if (value === 11) return '💀'
-    } else if (dieType === 6 && value === 6) {
-      return '✨'
-    }
-    return null
-  }
-
-  static getLatestRoll() {
-    return this.latestRollResult
   }
 
   static prepareDicePool(skill) {
@@ -173,14 +162,14 @@ class DiceService {
     if (!(skill.isFavored && skill.isIllFavored)) {
       if (skill.isFavored) {
         this.handleFavored(results)
-        return ' (favored)'
+        return ' (favored)' // Return string to append to skill name
       }
       if (skill.isIllFavored) {
         this.handleIllFavored(results)
-        return ' (ill-favored)'
+        return ' (ill-favored)' // Return string to append to skill name
       }
     }
-    return '' // No modification needed
+    return '' // No favored/ill-favored status to append
   }
 
   static handleFavored(results) {
@@ -204,11 +193,14 @@ class DiceService {
   }
 
   static handleIllFavored(results) {
+    // Filter to get only d12 results
     const d12Results = results.filter((r) => r.die === 12)
     const d12Rolls = d12Results.map((r) => r.roll)
 
+    // Find the lowest roll, but if 11 is present, treat it as the lowest
     const lowestD12Roll = d12Rolls.includes(11) ? 11 : Math.min(...d12Rolls)
 
+    // Find the first occurrence of the lowest roll and set it to 0
     let keptOne = false
     d12Results.forEach((r) => {
       if (r.roll === lowestD12Roll && !keptOne) {
@@ -232,11 +224,12 @@ class DiceService {
         return sum
       }
 
-      // Apply twice weary rule (d6 rolls of 1-3 don't count)
+      // Apply Twice Weary rule (d6 rolls of 1-3 don't count toward total)
       if (r.die === 6 && r.roll <= 3 && isTwiceWeary) {
         return sum
       }
 
+      // Otherwise, add the roll to the total
       return sum + r.roll
     }, 0)
   }
@@ -248,18 +241,19 @@ class DiceService {
   static generateFooter(conditions, states) {
     const footerText = []
 
+    // Add conditions to footer text
     Object.keys(conditions).forEach((condition) => {
       if (conditions[condition]) {
         footerText.push(condition.charAt(0).toUpperCase() + condition.slice(1))
       }
     })
 
+    // Add states to footer text
     const formattedStateNames = {
       twiceWeary: 'Twice Weary',
       twiceMiserable: 'Twice Miserable',
       twiceHelpless: 'Twice Helpless',
     }
-
     Object.keys(states).forEach((state) => {
       if (states[state]) {
         footerText.push(
@@ -269,7 +263,18 @@ class DiceService {
       }
     })
 
+    // Concatenate conditions and states as a comma-separated string
     return footerText.join(', ') || ''
+  }
+
+  static getDiceEmoji(dieType, value) {
+    if (dieType === 12) {
+      if (value === 12) return '🌞' // For 'Sol'
+      if (value === 11) return '💀' // For 'Morte'
+    } else if (dieType === 6 && value === 6) {
+      return '✨' // For successes on success dice
+    }
+    return null
   }
 
   static async sendRollResultsToServer(

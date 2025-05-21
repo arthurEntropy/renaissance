@@ -6,6 +6,17 @@ class AbilityService {
   }
 
   // CRUD METHODS
+  async createAbility() {
+    const newAbility = this.getDefaultAbility()
+    try {
+      const response = await axios.post(this.baseUrl, newAbility)
+      return response.data
+    } catch (error) {
+      console.error('Error creating new ability:', error)
+      throw error
+    }
+  }
+
   async getAllAbilities() {
     try {
       const response = await axios.get(this.baseUrl)
@@ -24,19 +35,8 @@ class AbilityService {
     }
   }
 
-  async createAbility() {
-    const newAbility = this.getDefaultAbility()
-    try {
-      const response = await axios.post(this.baseUrl, newAbility)
-      return response.data
-    } catch (error) {
-      console.error('Error creating new ability:', error)
-      throw error
-    }
-  }
-
   async deleteAbility(ability) {
-    ability.isDeleted = true
+    ability.isDeleted = true // Soft delete
     this.updateAbility(ability)
   }
 

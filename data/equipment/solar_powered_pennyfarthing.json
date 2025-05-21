@@ -1,0 +1,16 @@
+{
+  "id": "a1377576-94dc-4131-99d6-3a7d63e12244",
+  "name": "Solar-Powered Pennyfarthing",
+  "description": "",
+  "standardOfLiving": null,
+  "source": null,
+  "weight": 0,
+  "isMelee": false,
+  "damageDice": [],
+  "engagementDice": [],
+  "engagementSuccesses": [],
+  "skillMods": [],
+  "isDeleted": false,
+  "isCustom": true,
+  "artUrl": null
+}

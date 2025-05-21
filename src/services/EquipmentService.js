@@ -6,6 +6,32 @@ class EquipmentService {
   }
 
   // CRUD METHODS
+  async createEquipment() {
+    const newEquipment = this.getDefaultEquipment()
+    try {
+      const response = await axios.post(this.baseUrl, newEquipment)
+      return response.data
+    } catch (error) {
+      console.error('Error creating new equipment:', error)
+      throw error
+    }
+  }
+
+  async createCustomEquipment() {
+    // Use default equipment and modify it for custom equipment
+    const customEquipment = this.getDefaultEquipment()
+    customEquipment.isCustom = true
+    customEquipment.name = 'New Custom Item'
+
+    try {
+      const response = await axios.post(this.baseUrl, customEquipment)
+      return response.data
+    } catch (error) {
+      console.error('Error creating custom equipment:', error)
+      throw error
+    }
+  }
+
   async getAllEquipment() {
     try {
       const response = await axios.get(this.baseUrl)
@@ -25,44 +51,8 @@ class EquipmentService {
     }
   }
 
-  async createEquipment() {
-    const newEquipment = this.getDefaultEquipment()
-    try {
-      const response = await axios.post(this.baseUrl, newEquipment)
-      return response.data
-    } catch (error) {
-      console.error('Error creating new equipment:', error)
-      throw error
-    }
-  }
-
-  async createCustomEquipment() {
-    console.log('Creating custom equipment...')
-    const customEquipment = this.getDefaultEquipment()
-
-    // Explicitly set these properties
-    customEquipment.isCustom = true
-    customEquipment.name = 'New Custom Item'
-
-    try {
-      const response = await axios.post(this.baseUrl, customEquipment)
-
-      // Merge the response data with the default schema to ensure all fields are present
-      const data = { ...this.getDefaultEquipment(), ...response.data }
-
-      // Ensure isCustom and name are set correctly
-      data.isCustom = true
-      data.name = data.name || 'New Custom Item'
-
-      return data
-    } catch (error) {
-      console.error('Error creating custom equipment:', error)
-      throw error
-    }
-  }
-
   async deleteEquipment(equipment) {
-    equipment.isDeleted = true
+    equipment.isDeleted = true // Soft delete
     this.updateEquipment(equipment)
   }
 

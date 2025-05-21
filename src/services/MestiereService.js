@@ -6,6 +6,17 @@ class MestieriService {
   }
 
   // CRUD METHODS
+  async createMestiere() {
+    const newMestiere = this.getDefaultMestiere()
+    try {
+      const response = await axios.post(this.baseUrl, newMestiere)
+      return response.data
+    } catch (error) {
+      console.error('Error creating new mestiere:', error)
+      throw error
+    }
+  }
+
   async getAllMestieri() {
     try {
       const response = await axios.get(this.baseUrl)
@@ -24,19 +35,8 @@ class MestieriService {
     }
   }
 
-  async createMestiere() {
-    const newMestiere = this.getDefaultMestiere()
-    try {
-      const response = await axios.post(this.baseUrl, newMestiere)
-      return response.data
-    } catch (error) {
-      console.error('Error creating new mestiere:', error)
-      throw error
-    }
-  }
-
   async deleteMestiere(mestiere) {
-    mestiere.isDeleted = true
+    mestiere.isDeleted = true // Soft delete
     this.saveMestiere(mestiere)
   }
 
@@ -48,8 +48,6 @@ class MestieriService {
       id: null, // ID will be assigned by the backend
       name: 'New Mestiere',
       artUrls: [MestieriService.DEFAULT_ART_URL],
-      color1: '#000000', // Default color1 (black)
-      color2: '#FFFFFF', // Default color2 (white)
       isDeleted: false,
     }
   }

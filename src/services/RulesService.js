@@ -5,32 +5,23 @@ class RulesService {
     this.baseUrl = 'http://localhost:3000/rules'
   }
 
+  async createSection() {
+    const defaultSection = this.getDefaultSection()
+    try {
+      const response = await axios.post(this.baseUrl, defaultSection)
+      return response.data
+    } catch (error) {
+      console.error('Error creating new section:', error)
+      throw error
+    }
+  }
+
   async getAllSections() {
     try {
       const response = await axios.get(this.baseUrl)
       return response.data
     } catch (error) {
       console.error('Error getting all sections:', error)
-      throw error
-    }
-  }
-
-  async createSection(sectionData = {}) {
-    const defaultSection = {
-      id: null, // ID will be assigned by the backend
-      name: 'New Section',
-      content: '',
-      imageUrl: '',
-      index: 0,
-      isDeleted: false,
-      ...sectionData,
-    }
-
-    try {
-      const response = await axios.post(this.baseUrl, defaultSection)
-      return response.data
-    } catch (error) {
-      console.error('Error creating new section:', error)
       throw error
     }
   }
@@ -47,8 +38,7 @@ class RulesService {
 
   async deleteSection(section) {
     try {
-      // Soft delete by marking as deleted
-      section.isDeleted = true
+      section.isDeleted = true // Soft delete
       return await this.updateSection(section)
     } catch (error) {
       console.error('Error deleting section:', error)
@@ -58,17 +48,26 @@ class RulesService {
 
   async reorderSections(sections) {
     try {
-      // Instead of a dedicated endpoint, update each section with its new index
       const updatePromises = sections.map((section, index) => {
         const updatedSection = { ...section, index }
         return this.updateSection(updatedSection)
       })
-
       await Promise.all(updatePromises)
-      return sections // Return the reordered sections
+      return sections
     } catch (error) {
       console.error('Error reordering sections:', error)
       throw error
+    }
+  }
+
+  getDefaultSection() {
+    return {
+      id: null, // ID will be assigned by the backend
+      name: 'New Section',
+      content: '',
+      imageUrl: '',
+      index: 0,
+      isDeleted: false,
     }
   }
 }

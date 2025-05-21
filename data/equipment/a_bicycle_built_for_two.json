@@ -1,0 +1,16 @@
+{
+  "id": "7d882fb5-0920-45a8-9e2d-9acc0328bf18",
+  "name": "A Bicycle Built For Two",
+  "description": "",
+  "standardOfLiving": null,
+  "source": null,
+  "weight": 0,
+  "isMelee": false,
+  "damageDice": [],
+  "engagementDice": [],
+  "engagementSuccesses": [],
+  "skillMods": [],
+  "isDeleted": false,
+  "isCustom": true,
+  "artUrl": null
+}

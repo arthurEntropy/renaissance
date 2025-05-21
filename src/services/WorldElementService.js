@@ -6,6 +6,17 @@ class WorldElementsService {
   }
 
   // CRUD METHODS
+  async createWorldElement() {
+    const newWorldElement = this.getDefaultWorldElement()
+    try {
+      const response = await axios.post(this.baseUrl, newWorldElement)
+      return response.data
+    } catch (error) {
+      console.error('Error creating new world element:', error)
+      throw error
+    }
+  }
+
   async getAllWorldElements() {
     try {
       const response = await axios.get(this.baseUrl)
@@ -21,17 +32,6 @@ class WorldElementsService {
       await axios.put(`${this.baseUrl}/${worldElement.id}`, worldElement)
     } catch (error) {
       console.error('Error saving world element:', error)
-      throw error
-    }
-  }
-
-  async createWorldElement() {
-    const newWorldElement = this.getDefaultWorldElement()
-    try {
-      const response = await axios.post(this.baseUrl, newWorldElement)
-      return response.data
-    } catch (error) {
-      console.error('Error creating new world element:', error)
       throw error
     }
   }
