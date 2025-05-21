@@ -5,6 +5,10 @@ const {
   deleteFile,
 } = require('../utils/fileService.js')
 
+// These are generic CRUD operations for all entities.
+// They are designed to be used with the routes defined in server.js.
+// The routes are created dynamically based on the entity names in the "data" directory.
+
 const getAllEntities = (entity) => (req, res) => {
   try {
     const directory = getDirectory(entity)
@@ -26,12 +30,12 @@ const createEntity = (entity) => (req, res) => {
     res
       .status(201)
       .send({
-        message: `${entity.slice(0, -1)} created successfully.`,
+        message: `New record created in ${entity}.`,
         id: newEntity.id,
       })
   } catch (error) {
-    console.error(`Error creating ${entity.slice(0, -1)}:`, error)
-    res.status(500).send(`Failed to create ${entity.slice(0, -1)}.`)
+    console.error(`Error creating new record in ${entity}:`, error)
+    res.status(500).send(`Error creating new record in ${entity}.`)
   }
 }
 
@@ -46,13 +50,13 @@ const updateEntity = (entity) => (req, res) => {
       saveFile(updatedEntity, directory, existingEntity.name)
       return res
         .status(200)
-        .send(`${entity.slice(0, -1)} updated successfully.`)
+        .send(`Record updated successfully in ${entity}.`)
     } else {
-      return res.status(404).send(`No ${entity.slice(0, -1)} found to update.`)
+      return res.status(404).send(`No record found to update in ${entity}.`)
     }
   } catch (error) {
-    console.error(`Error updating ${entity.slice(0, -1)}:`, error)
-    res.status(500).send(`Failed to update ${entity.slice(0, -1)}.`)
+    console.error(`Error updating record in ${entity}:`, error)
+    res.status(500).send(`Failed to update record in ${entity}.`)
   }
 }
 
@@ -67,13 +71,13 @@ const deleteEntity = (entity) => (req, res) => {
       deleteFile(entityToDelete.name, directory)
       return res
         .status(200)
-        .send(`${entity.slice(0, -1)} deleted successfully.`)
+        .send(`Record deleted successfully in ${entity}.`)
     } else {
-      return res.status(404).send(`${entity.slice(0, -1)} not found.`)
+      return res.status(404).send(`Record not found in ${entity}.`)
     }
   } catch (error) {
-    console.error(`Error deleting ${entity.slice(0, -1)}:`, error)
-    res.status(500).send(`Failed to delete ${entity.slice(0, -1)}.`)
+    console.error(`Error deleting record in ${entity}:`, error)
+    res.status(500).send(`Failed to delete record in ${entity}.`)
   }
 }
 

@@ -8,10 +8,9 @@ const {
 const { join } = require('path')
 const { v4: uuidv4 } = require('uuid')
 
-// Base directory for all entities
+// Base directory for all data entities (cultures, characters, etc.)
 const DATA_DIR = join(process.cwd(), 'data')
 
-// Centralized filename sanitization
 const sanitizeFilename = (name) => {
   return name
     .trim()
@@ -20,10 +19,8 @@ const sanitizeFilename = (name) => {
     .replace(/_+/g, '_') // Remove multiple consecutive underscores
 }
 
-// Get the directory for a given entity
 const getDirectory = (entity) => join(DATA_DIR, entity)
 
-// Get all entity names (folder names) from the "data" directory
 const getEntityNames = () => {
   try {
     return readdirSync(DATA_DIR, { withFileTypes: true })
@@ -35,7 +32,6 @@ const getEntityNames = () => {
   }
 }
 
-// Get all data from a specific directory
 const getAllDataByDirectory = (directory) => {
   try {
     const files = readdirSync(directory)
@@ -51,7 +47,6 @@ const getAllDataByDirectory = (directory) => {
   }
 }
 
-// Save a file with sanitized name and generate ID if needed
 const saveFile = (data, directory, oldName = null) => {
   try {
     // Generate a new ID if one doesn't exist
@@ -77,7 +72,6 @@ const saveFile = (data, directory, oldName = null) => {
   }
 }
 
-// Delete a file by entity name
 const deleteFile = (name, directory) => {
   try {
     const filename = sanitizeFilename(name) + '.json'

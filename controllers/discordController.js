@@ -1,9 +1,9 @@
 const axios = require('axios')
 
-const DISCORD_WEBHOOK_URL = process.env.DISCORD_WEBHOOK_URL
+// TODO: Allow user to set this value per campaign and pass with the request
+const DISCORD_WEBHOOK_URL="https://discord.com/api/webhooks/1339580491094822932/6_fDF8aWBxvvGTgkdN_uEsjdImLCejdXdP9BlrGVz4DG8Vg1u9kVTJl2Nf4FH0kGMlp-"
 
 const sendDiscordMessage = (req, res) => {
-  console.log('Received roll request:', req.body)
   const {
     rollResults,
     total,
@@ -15,15 +15,10 @@ const sendDiscordMessage = (req, res) => {
     image,
   } = req.body
 
-  if (success === undefined || success === null) {
-    console.error('Success value is missing.')
-    return res.status(400).send('Missing success value.')
-  }
-
   const embed = {
     title: `${name ? name : 'Someone'} rolled ${skill ? skill : ''}`,
     description: `${success ? '**SUCCESS**' : '**FAILURE**'}`,
-    color: success ? 0x00ff00 : 0xff0000,
+    color: success ? 0x00ff00 : 0xff0000, // Green for success, red for failure
     thumbnail: {
       url: image,
     },
@@ -48,8 +43,6 @@ const sendDiscordMessage = (req, res) => {
       text: footer,
     },
   }
-
-  console.log('Embed Object:', JSON.stringify(embed, null, 2))
 
   axios
     .post(DISCORD_WEBHOOK_URL, { embeds: [embed] })
