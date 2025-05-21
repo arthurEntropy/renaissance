@@ -244,7 +244,7 @@ class DiceService {
 
     static async sendRollResultsToServer(rollResults, totalSum, success, skillName, footer, image, targetNumber, characterName) {
         try {
-        await axios.post('http://localhost:3000/send-message', {
+        await axios.post('http://localhost:3000/send-discord-message', {
             rollResults,
             total: totalSum,
             targetNumber,

@@ -1,11 +1,10 @@
 const { defineConfig } = require('@vue/cli-service')
-const webpack = require('webpack')
 
 module.exports = defineConfig({
   transpileDependencies: true,
-  productionSourceMap: true,  // Enable source maps for production as well
+  productionSourceMap: false,
   configureWebpack: {
-    devtool: process.env.NODE_ENV === 'production' ? 'source-map' : 'source-map',
+    devtool: process.env.NODE_ENV === 'production' ? 'source-map' : 'eval-source-map',
     output: {
         devtoolModuleFilenameTemplate: info => {
             var $filename = 'sources://' + info.resourcePath;
@@ -18,4 +17,3 @@ module.exports = defineConfig({
     }
   }
 })
-
