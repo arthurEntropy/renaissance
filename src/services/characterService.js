@@ -208,28 +208,27 @@ class CharacterService extends BaseService {
   }
 
   // EQUIPMENT
-  addEquipmentItem(character, allEquipment) {
-    // Calculate the highest current order value
-    const maxOrder = character.equipment.reduce(
+  findMaxEquipmentIndex(character) {
+    // Calculate the highest current index value
+    return character.equipment.reduce(
       (max, item) =>
-        item.order !== undefined && item.order > max ? item.order : max,
+        item.index !== undefined && item.index > max ? item.index : max,
       -1,
     )
+  }
+
+  addEquipmentItem(character, allEquipment) {
+    const maxIndex = this.findMaxEquipmentIndex(character)
 
     character.equipment.push({
       ...defaultNewEquipmentItem,
-      order: maxOrder + 1, // Put the new item at the end of the list
+      index: maxIndex + 1, // Put the new item at the end of the list
     })
     this.calculateLoad(character, allEquipment)
   }
 
   addSpecificEquipmentItem(character, equipmentItem, allEquipment) {
-    // Calculate the highest current order value
-    const maxOrder = character.equipment.reduce(
-      (max, item) =>
-        item.order !== undefined && item.order > max ? item.order : max,
-      -1,
-    )
+    const maxIndex = this.findMaxEquipmentIndex(character)
 
     character.equipment.push({
       id: equipmentItem.id,
@@ -237,7 +236,7 @@ class CharacterService extends BaseService {
       isCarried:
         equipmentItem.isCarried !== undefined ? equipmentItem.isCarried : true, // Default to carried
       isWielding: equipmentItem.isWielding || false, // Default to not wielding
-      order: maxOrder + 1, // Put the new item at the end of the list
+      index: maxIndex + 1, // Put the new item at the end of the list
     })
 
     if (allEquipment) {

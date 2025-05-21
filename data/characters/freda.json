@@ -150,49 +150,49 @@
       "quantity": 12,
       "isCarried": false,
       "isWielding": false,
-      "order": 2
+      "index": 2
     },
     {
       "id": "37a98252-6881-4aaf-bc6c-4091c1b70e1b",
       "quantity": 1,
       "isCarried": true,
       "isWielding": true,
-      "order": 3
+      "index": 3
     },
     {
       "id": "6a8992ec-46d8-4113-ac97-a87d759e2a46",
       "quantity": 1,
       "isCarried": true,
       "isWielding": true,
-      "order": 4
+      "index": 4
     },
     {
       "id": "44d287b1-6675-40d3-86df-d5a965330e62",
       "quantity": 1,
       "isCarried": true,
       "isWielding": true,
-      "order": 5
+      "index": 5
     },
     {
       "id": "58c57499-9eef-49d4-9273-7674c60fae77",
       "quantity": 1,
       "isCarried": true,
       "isWielding": true,
-      "order": 6
+      "index": 6
     },
     {
       "id": "bccb6c9c-bb15-4679-a0ce-a2e330b0aae0",
       "quantity": 1,
       "isCarried": true,
       "isWielding": true,
-      "order": 7
+      "index": 7
     },
     {
       "id": "cd2d81d6-8251-4899-b9d2-67b3431f6638",
       "quantity": 1,
       "isCarried": true,
       "isWielding": false,
-      "order": 8
+      "index": 8
     }
   ],
   "activeEffects": [

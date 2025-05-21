@@ -158,7 +158,7 @@
       "id": "64992fd9-1594-4cab-b232-b570e0e53ece",
       "quantity": 11,
       "isCarried": true,
-      "order": 0
+      "index": 0
     }
   ],
   "activeEffects": [

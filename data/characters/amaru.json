@@ -149,7 +149,7 @@
       "id": "44d287b1-6675-40d3-86df-d5a965330e62",
       "quantity": 9,
       "isCarried": true,
-      "order": 0,
+      "index": 0,
       "equipment": {
         "id": "44d287b1-6675-40d3-86df-d5a965330e62",
         "name": "Kerok Warhammer",

@@ -8,33 +8,19 @@
       <div class="header-right">
         <div class="total-weight-container">
           <span class="total-weight-carried">Total Carried:</span>
-          <span class="equipment-lbs-carried"
-            >{{ totalWeightCarried }} lbs</span
-          >
+          <span class="equipment-lbs-carried">{{ totalWeightCarried }} lbs</span>
         </div>
       </div>
     </div>
 
     <!-- DRAGGABLE ITEM ROWS -->
-    <draggable
-      v-model="sortedEquipmentRows"
-      handle=".drag-handle"
-      item-key="id"
-      @end="onDragEnd"
-      ghost-class="ghost-equipment-row"
-      animation="150"
-    >
+    <draggable v-model="sortedEquipmentRows" handle=".drag-handle" item-key="id" @end="onDragEnd"
+      ghost-class="ghost-equipment-row" animation="150">
       <template #item="{ element: row, index }">
         <div class="equipment-row">
           <!-- EquipmentCard (collapsed/minimal) -->
-          <EquipmentCard
-            v-if="row.equipment"
-            :equipment="row.equipment"
-            :collapsed="true"
-            :editable="row.equipment.isCustom"
-            class="equipment-card"
-            @edit="editCustomItem"
-          />
+          <EquipmentCard v-if="row.equipment" :equipment="row.equipment" :collapsed="true"
+            :editable="row.equipment.isCustom" class="equipment-card" @edit="editCustomItem" />
           <span v-else class="missing-equipment">Unknown item</span>
 
           <div class="equipment-row-details">
@@ -45,78 +31,52 @@
                 <span class="drag-handle" title="Drag to reorder">⋮⋮</span>
 
                 <!-- Delete Button -->
-                <span
-                  @click="removeEquipmentItem(index)"
-                  class="delete-item-link"
-                  >ⓧ</span
-                >
+                <span @click="removeEquipmentItem(index)" class="delete-item-link">ⓧ</span>
               </div>
 
               <!-- Carried Checkbox -->
               <div class="detail-item checkbox-item">
-                <input
-                  type="checkbox"
-                  class="equipment-checkbox"
-                  v-model="row.isCarried"
-                  @change="handleCarriedChange(index, row.isCarried)"
-                />
+                <input type="checkbox" class="equipment-checkbox" v-model="row.isCarried"
+                  @change="handleCarriedChange(index, row.isCarried)" />
                 <em class="carried-label">carried</em>
               </div>
 
               <!-- Wielding Checkbox (always visible but disabled for non-melee) -->
               <div class="detail-item checkbox-item">
-                <input
-                  type="checkbox"
-                  class="equipment-checkbox"
-                  :class="{
-                    'disabled-checkbox':
-                      !row.isCarried ||
-                      !(row.equipment && row.equipment.isMelee),
-                  }"
-                  v-model="row.isWielding"
-                  @change="
+                <input type="checkbox" class="equipment-checkbox" :class="{
+                  'disabled-checkbox':
+                    !row.isCarried ||
+                    !(row.equipment && row.equipment.isMelee),
+                }" v-model="row.isWielding" @change="
                     updateEquipmentItem(
                       index,
                       'isWielding',
                       row.isWielding &&
-                        row.isCarried &&
-                        row.equipment &&
-                        row.equipment.isMelee,
+                      row.isCarried &&
+                      row.equipment &&
+                      row.equipment.isMelee,
                     )
-                  "
-                  :disabled="
-                    !row.isCarried || !(row.equipment && row.equipment.isMelee)
-                  "
-                />
-                <em
-                  class="carried-label"
-                  :class="{
-                    'disabled-text':
-                      !row.isCarried ||
-                      !(row.equipment && row.equipment.isMelee),
-                  }"
-                  >wielding</em
-                >
+                    " :disabled="!row.isCarried || !(row.equipment && row.equipment.isMelee)
+                    " />
+                <em class="carried-label" :class="{
+                  'disabled-text':
+                    !row.isCarried ||
+                    !(row.equipment && row.equipment.isMelee),
+                }">wielding</em>
               </div>
 
               <div class="detail-item">
                 <!-- Quantity -->
                 <div class="detail-item">
                   <em class="carried-label"> qty </em>
-                  <NumberInput
-                    :model-value="row.quantity"
-                    @update:model-value="
-                      (value) =>
-                        updateEquipmentItem(
-                          index,
-                          'quantity',
-                          Math.max(1, value),
-                        )
-                    "
-                    :min="1"
-                    size="tiny"
-                    class="quantity-input"
-                  />
+                  <NumberInput :model-value="row.quantity" @update:model-value="
+                    (value) =>
+                      updateEquipmentItem(
+                        index,
+                        'quantity',
+                        Math.max(1, value),
+                      )
+                  " :min="1" size="tiny" class="quantity-input" />
                 </div>
 
                 <!-- Carried Weight -->
@@ -156,25 +116,15 @@
     <!-- Equipment Selector Dropdown -->
     <div v-if="showEquipmentSelector" class="equipment-selector-container">
       <div class="equipment-selector-header">
-        <input
-          type="text"
-          v-model="equipmentSearchQuery"
-          placeholder="Search equipment..."
-          class="equipment-search"
-          @input="filterEquipment"
-        />
+        <input type="text" v-model="equipmentSearchQuery" placeholder="Search equipment..." class="equipment-search"
+          @input="filterEquipment" />
         <span @click="toggleEquipmentSelector()" class="close-selector">×</span>
       </div>
       <div class="equipment-options-container">
         <template v-for="(items, source) in groupedEquipment" :key="source">
           <div class="equipment-source-group">
             <div class="source-header">{{ getSourceName(source) }}</div>
-            <div
-              v-for="item in items"
-              :key="item.id"
-              class="equipment-option"
-              @click="selectEquipment(item)"
-            >
+            <div v-for="item in items" :key="item.id" class="equipment-option" @click="selectEquipment(item)">
               {{ item.name }}
               <span class="equipment-weight">({{ item.weight }} lbs)</span>
             </div>
@@ -227,12 +177,12 @@ export default {
     },
     sortedEquipmentRows: {
       get() {
-        // Sort by order property (if exists)
+        // Sort by index property (if exists)
         return [...this.characterEquipmentRows].sort((a, b) => {
-          if (a.order !== undefined && b.order !== undefined) {
-            return a.order - b.order
+          if (a.index !== undefined && b.index !== undefined) {
+            return a.index - b.index
           }
-          // If order is not defined, use original index
+          // If index is not defined, use original position
           return 0
         })
       },
@@ -319,10 +269,10 @@ export default {
   },
   methods: {
     updateEquipmentOrder(newOrder) {
-      // Update the order property on each equipment item
+      // Update the index property on each equipment item
       const updatedEquipment = newOrder.map((item, index) => ({
         ...item,
-        order: index,
+        index: index,
       }))
 
       // Create a new character object with updated equipment

@@ -150,14 +150,14 @@
       "quantity": 1,
       "isCarried": true,
       "isWielding": false,
-      "order": 0
+      "index": 0
     },
     {
       "id": "a1377576-94dc-4131-99d6-3a7d63e12244",
       "quantity": 1,
       "isCarried": true,
       "isWielding": false,
-      "order": 1
+      "index": 1
     }
   ],
   "activeEffects": [
