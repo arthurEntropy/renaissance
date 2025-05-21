@@ -32,53 +32,67 @@ class CharacterService extends BaseService {
   handleBodyChange(character) {
     this.calculateMaxEndurance(character)
   }
+  
   handleHeartChange(character) {
     this.calculateMaxHope(character)
   }
+
   handleWitsChange(character) {
     this.calculateMaxDefense(character)
   }
+
   handleEnduranceChange(character, allEquipment) {
     this.calculateLoad(character, allEquipment)
     this.calculateWeary(character)
   }
+
   handleHopeChange(character) {
     this.calculateMiserable(character)
   }
+
   handleDefenseChange(character) {
     this.calculateHelpless(character)
   }
+
   handleLoadChange(character) {
     this.calculateWeary(character)
   }
+
   handleShadowChange(character) {
     this.calculateMiserable(character)
   }
+
   handleInjuryChange(character) {
     this.calculateHelpless(character)
   }
+
   handleStatesChange(character) {
     this.updateDiceMods(character)
     this.updateFavoredStatus(character)
   }
+
   handleConditionsChange(character) {
     this.updateDiceMods(character)
     this.updateFavoredStatus(character)
   }
+
   handleEquipmentChange(character, allEquipment) {
     this.calculateLoad(character, allEquipment)
   }
 
-  // AUTOCALC
+  // CALCULATIONS
   calculateMaxEndurance(character) {
     character.endurance.max = character.body * 5
   }
+
   calculateMaxHope(character) {
     character.hope.max = character.heart * 3
   }
+
   calculateMaxDefense(character) {
     character.defense.max = character.wits + 10
   }
+
   calculateLoad(character, allEquipment) {
     character.load = Math.max(
       0,
@@ -87,21 +101,25 @@ class CharacterService extends BaseService {
         character.body,
     )
   }
+
   calculateWeary(character) {
     character.states.weary = character.load > character.endurance.current
     character.states.twiceWeary =
       character.load > character.endurance.max && character.states.weary
   }
+
   calculateMiserable(character) {
     character.states.miserable = character.shadow > character.hope.current
     character.states.twiceMiserable =
       character.shadow > character.hope.max && character.states.miserable
   }
+
   calculateHelpless(character) {
     character.states.helpless = character.injury > character.defense.current
     character.states.twiceHelpless =
       character.injury > character.defense.max && character.states.helpless
   }
+
   getTotalWeightCarried(character, allEquipment) {
     return character.equipment.reduce((sum, item) => {
       const equipment = allEquipment.find((eq) => eq.id === item.id)
@@ -113,6 +131,7 @@ class CharacterService extends BaseService {
 
   // DICE MODS & FAVORED STATUS
   updateDiceMods(character) {
+    // These maps define which skills are affected by each condition and state
     const effectSkillMaps = {
       conditions: {
         insecure: ['Awe', 'Perform', 'Persuade'],
@@ -131,11 +150,14 @@ class CharacterService extends BaseService {
       },
     }
 
+    // The dice modifier for conditions and states
     const conditionAndStateDiceMod = -1
 
+    // Reset all dice modifiers to 0
     character.skills.forEach((skill) => {
       skill.diceMod = 0
 
+      // Apply mods from active effects
       character.activeEffects.forEach((effect) => {
         effect.skillsModified.forEach((modifiedSkill) => {
           if (modifiedSkill.name === skill.name) {
@@ -144,6 +166,7 @@ class CharacterService extends BaseService {
         })
       })
 
+      // Apply mods from conditions
       Object.keys(character.conditions).forEach((condition) => {
         if (
           character.conditions[condition] &&
@@ -153,6 +176,7 @@ class CharacterService extends BaseService {
         }
       })
 
+      // Apply mods from states
       Object.keys(character.states).forEach((state) => {
         if (
           character.states[state] &&
@@ -163,6 +187,7 @@ class CharacterService extends BaseService {
       })
     })
   }
+
   updateFavoredStatus(character) {
     character.skills.forEach((skill) => {
       skill.isIllFavored = skill.ranks + skill.diceMod < 0
@@ -193,11 +218,13 @@ class CharacterService extends BaseService {
 
     character.equipment.push({
       ...defaultNewEquipmentItem,
-      order: maxOrder + 1, // Add order property
+      order: maxOrder + 1, // Put the new item at the end of the list
     })
     this.calculateLoad(character, allEquipment)
   }
+
   addSpecificEquipmentItem(character, equipmentItem, allEquipment) {
+    // Calculate the highest current order value
     const maxOrder = character.equipment.reduce(
       (max, item) =>
         item.order !== undefined && item.order > max ? item.order : max,
@@ -206,29 +233,31 @@ class CharacterService extends BaseService {
 
     character.equipment.push({
       id: equipmentItem.id,
-      quantity: equipmentItem.quantity || 1,
+      quantity: equipmentItem.quantity || 1, // Default to qty 1
       isCarried:
-        equipmentItem.isCarried !== undefined ? equipmentItem.isCarried : true,
-      isWielding: equipmentItem.isWielding || false,
-      order: maxOrder + 1,
+        equipmentItem.isCarried !== undefined ? equipmentItem.isCarried : true, // Default to carried
+      isWielding: equipmentItem.isWielding || false, // Default to not wielding
+      order: maxOrder + 1, // Put the new item at the end of the list
     })
 
     if (allEquipment) {
       this.calculateLoad(character, allEquipment)
     }
   }
+
   removeEquipmentItem(character, index) {
     if (index >= 0 && index < character.equipment.length) {
       character.equipment.splice(index, 1)
       this.calculateLoad(character)
     }
   }
+  
   updateEquipmentItem(character, index, key, value) {
     if (index >= 0 && index < character.equipment.length) {
       character.equipment[index][key] = value
 
       if (key === 'weight' || key === 'quantity' || key === 'carried') {
-        this.calculateLoad(character)
+        this.calculateLoad(character) // Recalculate load if weight, quantity, or carried status changes
       }
     }
   }

@@ -5,7 +5,7 @@ class RulesService extends BaseService {
     super('http://localhost:3000/rules', 'section')
   }
 
-  // Override methods with specific names for this service
+  // CRUD METHODS
   async createSection() {
     return this.create()
   }
@@ -22,7 +22,7 @@ class RulesService extends BaseService {
     return this.delete(section)
   }
 
-  // Special method specific to RulesService
+  // Rules sections are the only entities that have a specific order
   async reorderSections(sections) {
     try {
       const updatePromises = sections.map((section, index) => {

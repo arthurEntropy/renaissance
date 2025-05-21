@@ -10,13 +10,11 @@ class EquipmentService extends BaseService {
     return this.create()
   }
 
-  // Custom method specific to EquipmentService
+  // Equipment is the only entity that allows custom items to be created by the user
   async createCustomEquipment() {
-    // Use default equipment and modify it for custom equipment
     const customEquipment = this.getDefaultEntity()
     customEquipment.isCustom = true
     customEquipment.name = 'New Custom Item'
-
     return this.create(customEquipment)
   }
 
@@ -49,7 +47,7 @@ class EquipmentService extends BaseService {
       skillMods: [],
       isDeleted: false,
       isCustom: false,
-      artUrl: null,
+      artUrl: null, // No default art for equipment
     }
   }
 }

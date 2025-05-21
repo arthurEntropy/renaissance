@@ -5,7 +5,7 @@ class MestieriService extends BaseService {
     super('http://localhost:3000/mestieri', 'mestiere')
   }
 
-  // Override methods with specific names for this service
+  // CRUD METHODS
   async createMestiere() {
     return this.create()
   }
@@ -23,7 +23,7 @@ class MestieriService extends BaseService {
   }
 
   // DEFAULT MESTIERE
-  static DEFAULT_ART_URL = 'https://cdn.midjourney.com/default-mestiere-art.png'
+  static DEFAULT_ART_URL = 'https://cdn.midjourney.com/a8a36740-b7d3-4aef-bea3-a95039bec06f/0_2.png'
 
   getDefaultEntity() {
     return {

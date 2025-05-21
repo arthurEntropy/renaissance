@@ -1,4 +1,3 @@
-import axios from 'axios'
 import BaseService from './BaseService'
 
 class CultureService extends BaseService {
@@ -6,12 +5,7 @@ class CultureService extends BaseService {
     super('http://localhost:3000/cultures', 'culture')
   }
 
-  sanitizeForJSON(obj) {
-    // Clone the object without circular references
-    return JSON.parse(JSON.stringify(obj))
-  }
-
-  // Override methods with specific names for this service
+  // CRUD METHODS
   async createCulture() {
     return this.create()
   }
@@ -21,18 +15,7 @@ class CultureService extends BaseService {
   }
 
   async updateCulture(culture) {
-    try {
-      // Sanitize the culture object before sending to the server
-      const sanitizedCulture = this.sanitizeForJSON(culture)
-      const response = await axios.put(
-        `${this.baseUrl}/${culture.id}`,
-        sanitizedCulture,
-      )
-      return response.data
-    } catch (error) {
-      console.error('Error saving culture:', error)
-      throw error
-    }
+    return this.update(culture)
   }
 
   async deleteCulture(culture) {

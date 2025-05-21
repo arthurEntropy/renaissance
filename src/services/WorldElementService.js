@@ -5,7 +5,7 @@ class WorldElementsService extends BaseService {
     super('http://localhost:3000/worldelements', 'world element')
   }
 
-  // Override methods with specific names for this service
+  // CRUD METHODS
   async createWorldElement() {
     return this.create()
   }

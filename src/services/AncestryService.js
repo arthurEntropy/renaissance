@@ -5,7 +5,7 @@ class AncestryService extends BaseService {
     super('http://localhost:3000/ancestries', 'ancestry')
   }
 
-  // Override methods with specific names for this service
+  // CRUD METHODS
   async createAncestry() {
     return this.create()
   }

@@ -5,7 +5,7 @@ class AbilityService extends BaseService {
     super('http://localhost:3000/abilities', 'ability')
   }
 
-  // Override methods with specific names for this service
+  // CRUD METHODS
   async createAbility() {
     return this.create()
   }
