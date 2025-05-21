@@ -3,6 +3,10 @@ import axios from 'axios'
 class DiceService {
   static latestRollResult = null
 
+  static getLatestRollResult() {
+    return this.latestRollResult
+  }
+
   static makeSkillCheck(skill, character, targetNumber) {
     // Prepare the dice pool based on the skill and roll the dice.
     const dice = this.prepareDicePool(skill)

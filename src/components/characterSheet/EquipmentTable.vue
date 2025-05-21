@@ -48,16 +48,16 @@
                     !row.isCarried ||
                     !(row.equipment && row.equipment.isMelee),
                 }" v-model="row.isWielding" @change="
-                    updateEquipmentItem(
-                      index,
-                      'isWielding',
-                      row.isWielding &&
-                      row.isCarried &&
-                      row.equipment &&
-                      row.equipment.isMelee,
-                    )
-                    " :disabled="!row.isCarried || !(row.equipment && row.equipment.isMelee)
-                    " />
+                  updateEquipmentItem(
+                    index,
+                    'isWielding',
+                    row.isWielding &&
+                    row.isCarried &&
+                    row.equipment &&
+                    row.equipment.isMelee,
+                  )
+                  " :disabled="!row.isCarried || !(row.equipment && row.equipment.isMelee)
+                      " />
                 <em class="carried-label" :class="{
                   'disabled-text':
                     !row.isCarried ||
@@ -490,9 +490,10 @@ export default {
     },
   },
   mounted() {
-    this.equipmentStore.init()
+    // Remove the init() call since it no longer exists in the store
     document.addEventListener('click', this.handleOutsideClick)
   },
+
   beforeUnmount() {
     // Ensure dropdowns are closed when component is destroyed
     this.showEquipmentSelector = false

@@ -67,7 +67,7 @@ export default {
       default: false,
     },
   },
-  emits: ['edit', 'update', 'send-to-chat'],
+  emits: ['edit', 'update', 'send-to-chat', 'height-changed'],
   data() {
     return {
       isCollapsed: this.initialCollapsed,
