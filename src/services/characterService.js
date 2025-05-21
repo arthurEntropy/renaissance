@@ -1,4 +1,4 @@
-import axios from 'axios'
+import BaseService from './BaseService'
 
 const defaultNewEquipmentItem = {
   id: '',
@@ -6,44 +6,26 @@ const defaultNewEquipmentItem = {
   carried: true,
 }
 
-class CharacterService {
+class CharacterService extends BaseService {
   constructor() {
-    this.baseUrl = 'http://localhost:3000/characters'
+    super('http://localhost:3000/characters', 'character')
   }
 
   // CRUD METHODS
   async createCharacter() {
-    const newCharacter = this.getDefaultCharacter()
-    try {
-      const response = await axios.post(this.baseUrl, newCharacter)
-      return response.data
-    } catch (error) {
-      console.error('Error creating new character:', error)
-      throw error
-    }
+    return this.create()
   }
 
   async getAllCharacters() {
-    try {
-      const response = await axios.get(this.baseUrl)
-      return response.data
-    } catch (error) {
-      console.error('Error getting all characters:', error)
-      throw error
-    }
+    return this.getAll()
   }
 
   async saveCharacter(character) {
-    try {
-      await axios.put(`${this.baseUrl}/${character.id}`, character)
-    } catch (error) {
-      console.error('Error saving character:', error)
-    }
+    return this.update(character)
   }
 
   async deleteCharacter(character) {
-    character.isDeleted = true // Soft delete
-    this.saveCharacter(character)
+    return this.delete(character)
   }
 
   // STAT CHANGE HANDLER METHODS
@@ -255,7 +237,7 @@ class CharacterService {
   static DEFAULT_ART_URL =
     'https://cdn.midjourney.com/a8a36740-b7d3-4aef-bea3-a95039bec06f/0_2.png'
 
-  getDefaultCharacter() {
+  getDefaultResource() {
     return {
       id: null, // ID will be assigned by the backend
       name: 'New Character',

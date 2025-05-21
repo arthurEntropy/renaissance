@@ -1,47 +1,29 @@
-import axios from 'axios'
+import BaseService from './BaseService'
 
-class AbilityService {
+class AbilityService extends BaseService {
   constructor() {
-    this.baseUrl = 'http://localhost:3000/abilities'
+    super('http://localhost:3000/abilities', 'ability')
   }
 
-  // CRUD METHODS
+  // Override methods with specific names for this service
   async createAbility() {
-    const newAbility = this.getDefaultAbility()
-    try {
-      const response = await axios.post(this.baseUrl, newAbility)
-      return response.data
-    } catch (error) {
-      console.error('Error creating new ability:', error)
-      throw error
-    }
+    return this.create()
   }
 
   async getAllAbilities() {
-    try {
-      const response = await axios.get(this.baseUrl)
-      return response.data
-    } catch (error) {
-      console.error('Error getting all abilities:', error)
-      throw error
-    }
+    return this.getAll()
   }
 
   async updateAbility(ability) {
-    try {
-      await axios.put(`${this.baseUrl}/${ability.id}`, ability)
-    } catch (error) {
-      console.error('Error saving ability:', error)
-    }
+    return this.update(ability)
   }
 
   async deleteAbility(ability) {
-    ability.isDeleted = true // Soft delete
-    this.updateAbility(ability)
+    return this.delete(ability)
   }
 
   // DEFAULT ABILITY
-  getDefaultAbility() {
+  getDefaultResource() {
     return {
       id: null, // ID will be assigned by the backend
       name: 'New Ability',

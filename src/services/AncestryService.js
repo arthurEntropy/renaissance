@@ -1,54 +1,37 @@
-import axios from 'axios'
+import BaseService from './BaseService'
 
-class AncestryService {
+class AncestryService extends BaseService {
   constructor() {
-    this.baseUrl = 'http://localhost:3000/ancestries'
+    super('http://localhost:3000/ancestries', 'ancestry')
   }
 
-  // CRUD METHODS
+  // Override methods with specific names for this service
   async createAncestry() {
-    const newAncestry = this.getDefaultAncestry()
-    try {
-      const response = await axios.post(this.baseUrl, newAncestry)
-      return response.data
-    } catch (error) {
-      console.error('Error creating new ancestry:', error)
-      throw error
-    }
+    return this.create()
   }
 
   async getAllAncestries() {
-    try {
-      const response = await axios.get(this.baseUrl)
-      return response.data
-    } catch (error) {
-      console.error('Error getting all ancestries:', error)
-      throw error
-    }
+    return this.getAll()
   }
 
   async saveAncestry(ancestry) {
-    try {
-      await axios.put(`${this.baseUrl}/${ancestry.id}`, ancestry)
-    } catch (error) {
-      console.error('Error saving ancestry:', error)
-    }
+    return this.update(ancestry)
   }
 
   async deleteAncestry(ancestry) {
-    ancestry.isDeleted = true // Soft delete
-    this.saveAncestry(ancestry)
+    return this.delete(ancestry)
   }
 
   // DEFAULT ANCESTRY
   static DEFAULT_ART_URL =
     'https://cdn.midjourney.com/a8a36740-b7d3-4aef-bea3-a95039bec06f/0_2.png'
 
-  getDefaultAncestry() {
+  getDefaultResource() {
     return {
       id: null, // ID will be assigned by the backend
       name: 'New Ancestry',
       artUrls: [AncestryService.DEFAULT_ART_URL],
+      isDeleted: false,
     }
   }
 }

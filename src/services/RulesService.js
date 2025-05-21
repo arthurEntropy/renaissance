@@ -1,51 +1,28 @@
-import axios from 'axios'
+import BaseService from './BaseService'
 
-class RulesService {
+class RulesService extends BaseService {
   constructor() {
-    this.baseUrl = 'http://localhost:3000/rules'
+    super('http://localhost:3000/rules', 'section')
   }
 
+  // Override methods with specific names for this service
   async createSection() {
-    const defaultSection = this.getDefaultSection()
-    try {
-      const response = await axios.post(this.baseUrl, defaultSection)
-      return response.data
-    } catch (error) {
-      console.error('Error creating new section:', error)
-      throw error
-    }
+    return this.create()
   }
 
   async getAllSections() {
-    try {
-      const response = await axios.get(this.baseUrl)
-      return response.data
-    } catch (error) {
-      console.error('Error getting all sections:', error)
-      throw error
-    }
+    return this.getAll()
   }
 
   async updateSection(section) {
-    try {
-      const response = await axios.put(`${this.baseUrl}/${section.id}`, section)
-      return response.data
-    } catch (error) {
-      console.error('Error updating section:', error)
-      throw error
-    }
+    return this.update(section)
   }
 
   async deleteSection(section) {
-    try {
-      section.isDeleted = true // Soft delete
-      return await this.updateSection(section)
-    } catch (error) {
-      console.error('Error deleting section:', error)
-      throw error
-    }
+    return this.delete(section)
   }
 
+  // Special method specific to RulesService
   async reorderSections(sections) {
     try {
       const updatePromises = sections.map((section, index) => {
@@ -60,7 +37,7 @@ class RulesService {
     }
   }
 
-  getDefaultSection() {
+  getDefaultResource() {
     return {
       id: null, // ID will be assigned by the backend
       name: 'New Section',

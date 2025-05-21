@@ -1,63 +1,40 @@
-import axios from 'axios'
+import BaseService from './BaseService'
 
-class EquipmentService {
+class EquipmentService extends BaseService {
   constructor() {
-    this.baseUrl = 'http://localhost:3000/equipment'
+    super('http://localhost:3000/equipment', 'equipment')
   }
 
   // CRUD METHODS
   async createEquipment() {
-    const newEquipment = this.getDefaultEquipment()
-    try {
-      const response = await axios.post(this.baseUrl, newEquipment)
-      return response.data
-    } catch (error) {
-      console.error('Error creating new equipment:', error)
-      throw error
-    }
+    return this.create()
   }
 
+  // Custom method specific to EquipmentService
   async createCustomEquipment() {
     // Use default equipment and modify it for custom equipment
-    const customEquipment = this.getDefaultEquipment()
+    const customEquipment = this.getDefaultResource()
     customEquipment.isCustom = true
     customEquipment.name = 'New Custom Item'
 
-    try {
-      const response = await axios.post(this.baseUrl, customEquipment)
-      return response.data
-    } catch (error) {
-      console.error('Error creating custom equipment:', error)
-      throw error
-    }
+    return this.create(customEquipment)
   }
 
   async getAllEquipment() {
-    try {
-      const response = await axios.get(this.baseUrl)
-      return response.data
-    } catch (error) {
-      console.error('Error getting all equipment:', error)
-      throw error
-    }
+    return this.getAll()
   }
 
   async updateEquipment(equipment) {
     console.log('Updating equipment:', equipment)
-    try {
-      await axios.put(`${this.baseUrl}/${equipment.id}`, equipment)
-    } catch (error) {
-      console.error('Error saving equipment:', error)
-    }
+    return this.update(equipment)
   }
 
   async deleteEquipment(equipment) {
-    equipment.isDeleted = true // Soft delete
-    this.updateEquipment(equipment)
+    return this.delete(equipment)
   }
 
   // DEFAULT EQUIPMENT
-  getDefaultEquipment() {
+  getDefaultResource() {
     return {
       id: null, // ID will be assigned by the backend
       name: 'New Item',

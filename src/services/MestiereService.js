@@ -1,49 +1,31 @@
-import axios from 'axios'
+import BaseService from './BaseService'
 
-class MestieriService {
+class MestieriService extends BaseService {
   constructor() {
-    this.baseUrl = 'http://localhost:3000/mestieri'
+    super('http://localhost:3000/mestieri', 'mestiere')
   }
 
-  // CRUD METHODS
+  // Override methods with specific names for this service
   async createMestiere() {
-    const newMestiere = this.getDefaultMestiere()
-    try {
-      const response = await axios.post(this.baseUrl, newMestiere)
-      return response.data
-    } catch (error) {
-      console.error('Error creating new mestiere:', error)
-      throw error
-    }
+    return this.create()
   }
 
   async getAllMestieri() {
-    try {
-      const response = await axios.get(this.baseUrl)
-      return response.data
-    } catch (error) {
-      console.error('Error getting all mestieri:', error)
-      throw error
-    }
+    return this.getAll()
   }
 
   async saveMestiere(mestiere) {
-    try {
-      await axios.put(`${this.baseUrl}/${mestiere.id}`, mestiere)
-    } catch (error) {
-      console.error('Error saving mestiere:', error)
-    }
+    return this.update(mestiere)
   }
 
   async deleteMestiere(mestiere) {
-    mestiere.isDeleted = true // Soft delete
-    this.saveMestiere(mestiere)
+    return this.delete(mestiere)
   }
 
   // DEFAULT MESTIERE
   static DEFAULT_ART_URL = 'https://cdn.midjourney.com/default-mestiere-art.png'
 
-  getDefaultMestiere() {
+  getDefaultResource() {
     return {
       id: null, // ID will be assigned by the backend
       name: 'New Mestiere',

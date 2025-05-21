@@ -1,51 +1,32 @@
-import axios from 'axios'
+import BaseService from './BaseService'
 
-class WorldElementsService {
+class WorldElementsService extends BaseService {
   constructor() {
-    this.baseUrl = 'http://localhost:3000/worldelements'
+    super('http://localhost:3000/worldelements', 'world element')
   }
 
-  // CRUD METHODS
+  // Override methods with specific names for this service
   async createWorldElement() {
-    const newWorldElement = this.getDefaultWorldElement()
-    try {
-      const response = await axios.post(this.baseUrl, newWorldElement)
-      return response.data
-    } catch (error) {
-      console.error('Error creating new world element:', error)
-      throw error
-    }
+    return this.create()
   }
 
   async getAllWorldElements() {
-    try {
-      const response = await axios.get(this.baseUrl)
-      return response.data
-    } catch (error) {
-      console.error('Error getting all world elements:', error)
-      throw error
-    }
+    return this.getAll()
   }
 
   async saveWorldElement(worldElement) {
-    try {
-      await axios.put(`${this.baseUrl}/${worldElement.id}`, worldElement)
-    } catch (error) {
-      console.error('Error saving world element:', error)
-      throw error
-    }
+    return this.update(worldElement)
   }
 
   async deleteWorldElement(worldElement) {
-    worldElement.isDeleted = true
-    this.saveWorldElement(worldElement)
+    return this.delete(worldElement)
   }
 
   // DEFAULT WORLD ELEMENT
   static DEFAULT_ART_URL =
     'https://cdn.midjourney.com/47601870-3903-4c6f-98d3-b51e3770a9c1/0_0.png'
 
-  getDefaultWorldElement() {
+  getDefaultResource() {
     return {
       id: null, // ID will be assigned by the backend
       name: 'New World Element',
