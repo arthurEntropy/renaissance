@@ -13,7 +13,7 @@ class EquipmentService extends BaseService {
   // Custom method specific to EquipmentService
   async createCustomEquipment() {
     // Use default equipment and modify it for custom equipment
-    const customEquipment = this.getDefaultResource()
+    const customEquipment = this.getDefaultEntity()
     customEquipment.isCustom = true
     customEquipment.name = 'New Custom Item'
 
@@ -34,7 +34,7 @@ class EquipmentService extends BaseService {
   }
 
   // DEFAULT EQUIPMENT
-  getDefaultResource() {
+  getDefaultEntity() {
     return {
       id: null, // ID will be assigned by the backend
       name: 'New Item',

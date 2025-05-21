@@ -37,7 +37,7 @@ class RulesService extends BaseService {
     }
   }
 
-  getDefaultResource() {
+  getDefaultEntity() {
     return {
       id: null, // ID will be assigned by the backend
       name: 'New Section',

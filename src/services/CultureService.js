@@ -43,7 +43,7 @@ class CultureService extends BaseService {
   static DEFAULT_ART_URL =
     'https://cdn.midjourney.com/a8a36740-b7d3-4aef-bea3-a95039bec06f/0_2.png'
 
-  getDefaultResource() {
+  getDefaultEntity() {
     return {
       id: null, // ID will be assigned by the backend
       name: 'New Culture',

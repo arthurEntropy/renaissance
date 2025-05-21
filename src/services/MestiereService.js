@@ -25,7 +25,7 @@ class MestieriService extends BaseService {
   // DEFAULT MESTIERE
   static DEFAULT_ART_URL = 'https://cdn.midjourney.com/default-mestiere-art.png'
 
-  getDefaultResource() {
+  getDefaultEntity() {
     return {
       id: null, // ID will be assigned by the backend
       name: 'New Mestiere',

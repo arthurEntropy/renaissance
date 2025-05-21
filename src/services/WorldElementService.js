@@ -26,7 +26,7 @@ class WorldElementsService extends BaseService {
   static DEFAULT_ART_URL =
     'https://cdn.midjourney.com/47601870-3903-4c6f-98d3-b51e3770a9c1/0_0.png'
 
-  getDefaultResource() {
+  getDefaultEntity() {
     return {
       id: null, // ID will be assigned by the backend
       name: 'New World Element',

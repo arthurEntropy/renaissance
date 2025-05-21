@@ -5,71 +5,71 @@ import axios from 'axios'
  * To be extended by specific service classes
  */
 class BaseService {
-  constructor(baseUrl, defaultResourceName) {
+  constructor(baseUrl, defaultEntityName) {
     this.baseUrl = baseUrl
-    this.defaultResourceName = defaultResourceName
+    this.defaultEntityName = defaultEntityName
   }
 
   /**
-   * Create a new resource
-   * @param {Object} defaultResource - Optional custom default resource
-   * @returns {Promise<Object>} The created resource
+   * Create a new entity
+   * @param {Object} defaultEntity - Optional custom default entity
+   * @returns {Promise<Object>} The created entity
    */
-  async create(defaultResource = null) {
-    const newResource = defaultResource || this.getDefaultResource()
+  async create(defaultEntity = null) {
+    const newEntity = defaultEntity || this.getDefaultEntity()
     try {
-      const response = await axios.post(this.baseUrl, newResource)
+      const response = await axios.post(this.baseUrl, newEntity)
       return response.data
     } catch (error) {
-      console.error(`Error creating new ${this.defaultResourceName}:`, error)
+      console.error(`Error creating new ${this.defaultEntityName}:`, error)
       throw error
     }
   }
 
   /**
-   * Get all resources of this type
-   * @returns {Promise<Array>} Array of resources
+   * Get all entities of this type
+   * @returns {Promise<Array>} Array of entities
    */
   async getAll() {
     try {
       const response = await axios.get(this.baseUrl)
       return response.data
     } catch (error) {
-      console.error(`Error getting all ${this.defaultResourceName}s:`, error)
+      console.error(`Error getting all ${this.defaultEntityName}s:`, error)
       throw error
     }
   }
 
   /**
-   * Update a resource
-   * @param {Object} resource - The resource to update
-   * @returns {Promise<Object>} The updated resource or response
+   * Update an entity
+   * @param {Object} entity - The entity to update
+   * @returns {Promise<Object>} The updated entity or response
    */
-  async update(resource) {
+  async update(entity) {
     try {
-      const response = await axios.put(`${this.baseUrl}/${resource.id}`, resource)
+      const response = await axios.put(`${this.baseUrl}/${entity.id}`, entity)
       return response.data
     } catch (error) {
-      console.error(`Error updating ${this.defaultResourceName}:`, error)
+      console.error(`Error updating ${this.defaultEntityName}:`, error)
       throw error
     }
   }
 
   /**
-   * Soft delete a resource by setting isDeleted to true
-   * @param {Object} resource - The resource to delete
+   * Soft delete an entity by setting isDeleted to true
+   * @param {Object} entity - The entity to delete
    */
-  async delete(resource) {
-    resource.isDeleted = true // Soft delete
-    return this.update(resource)
+  async delete(entity) {
+    entity.isDeleted = true // Soft delete
+    return this.update(entity)
   }
 
   /**
    * Must be implemented by child classes
-   * @returns {Object} Default resource template
+   * @returns {Object} Default entity template
    */
-  getDefaultResource() {
-    throw new Error('getDefaultResource must be implemented by child class')
+  getDefaultEntity() {
+    throw new Error('getDefaultEntity must be implemented by child class')
   }
 }
 

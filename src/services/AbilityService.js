@@ -23,7 +23,7 @@ class AbilityService extends BaseService {
   }
 
   // DEFAULT ABILITY
-  getDefaultResource() {
+  getDefaultEntity() {
     return {
       id: null, // ID will be assigned by the backend
       name: 'New Ability',
