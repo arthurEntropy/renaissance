@@ -35,7 +35,7 @@
 
         <!-- Non-draggable version for view/content edit mode -->
         <div v-else class="rule-sections-list">
-          <div v-for="section in sortedSections" :key="section.id" :class="[
+          <div v-for="section in filteredSections" :key="section.id" :class="[
             'rule-section-item',
             { active: currentSection?.id === section.id },
           ]" @click="selectSection(section.id)">
@@ -107,7 +107,7 @@
           <p>
             Select a section from the table of contents or create a new one.
           </p>
-          <button v-if="sortedSections.length === 0" class="button button-primary" @click="createFirstSection">
+          <button v-if="filteredSections.length === 0" class="button button-primary" @click="createFirstSection">
             Create First Section
           </button>
         </div>
@@ -142,9 +142,12 @@ export default {
   },
 
   computed: {
-    sortedSections() {
+    filteredSections() {
+      // Filter out deleted and sort sections by index
       return this.rulesStore.sections
-        ? [...this.rulesStore.sections].sort((a, b) => a.index - b.index)
+        ? [...this.rulesStore.sections]
+          .filter(section => !section.isDeleted)
+          .sort((a, b) => a.index - b.index)
         : []
     },
 
@@ -160,7 +163,7 @@ export default {
   },
 
   watch: {
-    sortedSections: {
+    filteredSections: {
       immediate: true,
       handler(newValue) {
         this.localSections = JSON.parse(JSON.stringify(newValue))
@@ -180,16 +183,16 @@ export default {
       // Check if the section still exists
       const sectionExists =
         lastSelectedSectionId &&
-        this.sortedSections.some(
+        this.filteredSections.some(
           (section) => section.id === lastSelectedSectionId,
         )
 
       if (sectionExists) {
         // Select the last viewed section
         this.selectSection(lastSelectedSectionId)
-      } else if (this.sortedSections && this.sortedSections.length > 0) {
+      } else if (this.filteredSections && this.filteredSections.length > 0) {
         // Fall back to the first section if the saved one doesn't exist
-        this.selectSection(this.sortedSections[0].id)
+        this.selectSection(this.filteredSections[0].id)
       }
     } catch (error) {
       console.error('Error in RulesView created:', error)
@@ -222,9 +225,9 @@ export default {
       // Clear current section first to avoid visual issues with multiple sections appearing selected
       this.currentSection = null
       this.$nextTick(() => {
-        // Filter the section locally from the loaded sections
+        // Filter the section from the filtered sections
         this.currentSection =
-          this.rulesStore.sections.find(
+          this.filteredSections.find(
             (section) => section.id === sectionId,
           ) || null
         this.selectedSectionId = sectionId
@@ -245,7 +248,7 @@ export default {
         await this.rulesStore.fetchRules()
 
         // More robust section finding - check by name and id
-        const sectionToSelect = this.rulesStore.sections.find(
+        const sectionToSelect = this.filteredSections.find(
           (s) =>
             (s.id && s.id === newSection.id) ||
             (!s.id && s.name === newSection.name),
@@ -323,17 +326,29 @@ export default {
       // Store the section ID before it gets set to null
       const deletedSectionId = this.sectionToDelete.id
 
-      await RulesService.deleteSection(this.sectionToDelete)
-      await this.rulesStore.fetchRules()
-      this.sectionToDelete = null
+      // Create a new object to ensure we're not modifying a potentially frozen object
+      const sectionToUpdate = { ...this.sectionToDelete, isDeleted: true }
 
-      // If the deleted section was the current section, select another one
-      if (this.currentSection && this.currentSection.id === deletedSectionId) {
-        this.currentSection = null
+      try {
+        // Close the delete confirmation modal first
+        this.sectionToDelete = null
 
-        if (this.sortedSections.length > 0) {
-          this.selectSection(this.sortedSections[0].id)
+        // Use soft delete by setting isDeleted to true
+        await RulesService.updateSection(sectionToUpdate)
+
+        // Refresh rules data
+        await this.rulesStore.fetchRules()
+
+        // If the deleted section was the current section, select another one
+        if (this.currentSection && this.currentSection.id === deletedSectionId) {
+          this.currentSection = null
+
+          if (this.filteredSections.length > 0) {
+            this.selectSection(this.filteredSections[0].id)
+          }
         }
+      } catch (error) {
+        console.error('Error deleting section:', error)
       }
     },
 

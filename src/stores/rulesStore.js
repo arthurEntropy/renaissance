@@ -9,9 +9,7 @@ export const useRulesStore = defineStore('rules', () => {
 
   const fetchRules = async () => {
     try {
-      const allSections = await RulesService.getAllSections()
-      // Filter out deleted sections
-      state.sections = allSections.filter((section) => !section.isDeleted)
+      state.sections = await RulesService.getAllSections()
     } catch (error) {
       console.error('Error fetching sections:', error)
     }
