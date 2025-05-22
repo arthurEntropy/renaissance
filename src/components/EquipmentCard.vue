@@ -1,5 +1,5 @@
 <template>
-  <base-card :item="equipment" itemType="equipment" :metaInfo="equipment.weight
+  <base-card v-bind="$attrs" :item="equipment" itemType="equipment" :metaInfo="equipment.weight
     ? `${equipment.weight} ${equipment.weight === 1 ? 'lb' : 'lbs'}`
     : ''
     " :storeInstance="equipmentStore" :initialCollapsed="isCollapsed" :editable="editable"
@@ -83,6 +83,7 @@ import BaseCard from '@/components/BaseCard.vue'
 import EngagementSuccessService from '@/services/EngagementSuccessService'
 
 export default {
+  inheritAttrs: false,
   components: {
     BaseCard,
   },
