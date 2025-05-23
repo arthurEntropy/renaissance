@@ -28,6 +28,14 @@
           </option>
         </optgroup>
       </select>
+      <select v-if="sortOptions.length > 0" v-model="sortOptionLocal" class="sort-filter">
+        <option value="">Sort by...</option>
+        <optgroup v-for="(options, group) in sortOptions" :key="group" :label="group">
+          <option v-for="option in options" :key="option.value" :value="option.value">
+            {{ option.label }}
+          </option>
+        </optgroup>
+      </select>
       <slot name="additional-filters"></slot>
       <button class="button button-primary" @click="createItem">
         Create New
@@ -36,7 +44,7 @@
 
     <!-- Item Cards-->
     <masonry-grid :column-width="350" :gap="20" :row-height="10" class="cards-container">
-      <slot name="item-cards"></slot>
+      <slot name="item-cards" :filtered-items="filteredItems"></slot>
     </masonry-grid>
 
     <slot name="modals"></slot>
@@ -78,6 +86,18 @@ export default {
       type: String,
       default: '',
     },
+    sortOption: {
+      type: String,
+      default: '',
+    },
+    sortOptions: {
+      type: Object,
+      default: () => ({}),
+    },
+    items: {
+      type: Array,
+      default: () => [],
+    }
   },
   computed: {
     searchQueryLocal: {
@@ -96,6 +116,62 @@ export default {
         this.$emit('update:sourceFilter', value)
       },
     },
+    sortOptionLocal: {
+      get() {
+        return this.sortOption
+      },
+      set(value) {
+        this.$emit('update:sortOption', value)
+      },
+    },
+    filteredItems() {
+      const query = this.searchQueryLocal.toLowerCase().trim()
+      const sourceFilter = this.sourceFilterLocal
+
+      // Filter out deleted items
+      let filtered = this.items.filter(item => !item.isDeleted)
+
+      // Apply source filter
+      if (sourceFilter) {
+        filtered = filtered.filter(item => item.source === sourceFilter)
+      }
+
+      // Apply search query
+      if (query) {
+        filtered = filtered.filter(
+          item =>
+            item.name.toLowerCase().includes(query) ||
+            item.description.toLowerCase().includes(query)
+        )
+      }
+
+      // Apply sorting
+      if (this.sortOptionLocal) {
+        const [field, direction] = this.sortOptionLocal.split('-')
+        filtered.sort((a, b) => {
+          let comparison = 0
+
+          // Handle null/undefined values
+          if (!a[field] && !b[field]) return 0
+          if (!a[field]) return 1
+          if (!b[field]) return -1
+
+          // Compare based on field type
+          if (field === 'name') {
+            comparison = a[field].localeCompare(b[field])
+          } else {
+            comparison = a[field] - b[field]
+          }
+
+          return direction === 'asc' ? comparison : -comparison
+        })
+      }
+
+      // Emit the filtered items so parent components can access them
+      this.$emit('update:filteredItems', filtered)
+
+      return filtered
+    }
   },
   methods: {
     createItem() {
@@ -132,20 +208,24 @@ export default {
   font-size: 16px;
 }
 
-.source-filter {
+.source-filter,
+.sort-filter {
   flex: 1;
   padding: 8px 12px;
   border: 1px solid #555;
   border-radius: 4px;
   background-color: rgba(0, 0, 0, 0.65);
   font-size: 16px;
+  color: white;
 }
 
-.source-filter optgroup {
+.source-filter optgroup,
+.sort-filter optgroup {
   background-color: black;
 }
 
-.source-filter option {
+.source-filter option,
+.sort-filter option {
   background-color: rgba(0, 0, 0, 0.85);
   padding: 8px;
 }
@@ -155,7 +235,8 @@ export default {
 }
 
 .search-input:focus,
-.source-filter:focus {
+.source-filter:focus,
+.sort-filter:focus {
   outline: none;
   border-color: #888;
   box-shadow: 0 0 5px rgba(255, 255, 255, 0.2);

@@ -1,29 +1,11 @@
 <template>
-  <ItemCardsView itemType="Ability" itemTypePlural="Abilities" :sources="sources" v-model:searchQuery="searchQuery"
-    v-model:sourceFilter="sourceFilter" @create="createAbility">
-
-    <!-- Additional filters slot -->
-    <template #additional-filters>
-      <select v-model="sortOption" class="sort-filter">
-        <option value="">Sort by...</option>
-        <optgroup label="Name">
-          <option value="name-asc">Name (A-Z)</option>
-          <option value="name-desc">Name (Z-A)</option>
-        </optgroup>
-        <optgroup label="MP">
-          <option value="mp-asc">MP (Low to High)</option>
-          <option value="mp-desc">MP (High to Low)</option>
-        </optgroup>
-        <optgroup label="XP">
-          <option value="xp-asc">XP (Low to High)</option>
-          <option value="xp-desc">XP (High to Low)</option>
-        </optgroup>
-      </select>
-    </template>
+  <ItemCardsView itemType="Ability" itemTypePlural="Abilities" :sources="sources" :items="abilities"
+    :sortOptions="sortOptions" v-model:searchQuery="searchQuery" v-model:sourceFilter="sourceFilter"
+    v-model:sortOption="sortOption" @create="createAbility">
 
     <!-- Item cards slot -->
-    <template #item-cards>
-      <AbilityCard v-for="ability in filteredAbilities" :key="ability.id" :ability="ability" :editable="true"
+    <template #item-cards="{ filteredItems }">
+      <AbilityCard v-for="ability in filteredItems" :key="ability.id" :ability="ability" :editable="true"
         @delete="deleteAbility(ability)" @update="updateAbility(ability)" @edit="openEditAbilityModal(ability)"
         @send-to-chat="sendAbilityToChat(ability)" />
     </template>
@@ -64,58 +46,24 @@ export default {
         mestieri: [],
         worldElements: [],
       },
+      sortOptions: {
+        'Name': [
+          { value: 'name-asc', label: 'Name (A-Z)' },
+          { value: 'name-desc', label: 'Name (Z-A)' },
+        ],
+        'MP': [
+          { value: 'mp-asc', label: 'MP (Low to High)' },
+          { value: 'mp-desc', label: 'MP (High to Low)' },
+        ],
+        'XP': [
+          { value: 'xp-asc', label: 'XP (Low to High)' },
+          { value: 'xp-desc', label: 'XP (High to Low)' },
+        ],
+      },
     }
   },
   computed: {
     ...mapState(useAbilitiesStore, ['abilities']),
-
-    filteredAbilities() {
-      const query = this.searchQuery.toLowerCase().trim()
-      const sourceFilter = this.sourceFilter
-
-      // Filter out deleted abilities
-      let filtered = this.abilitiesStore.abilities.filter(
-        (ability) => !ability.isDeleted,
-      )
-
-      // Apply source filter
-      if (sourceFilter) {
-        filtered = filtered.filter((ability) => ability.source === sourceFilter)
-      }
-
-      // Apply search query
-      if (query) {
-        filtered = filtered.filter(
-          (ability) =>
-            ability.name.toLowerCase().includes(query) ||
-            ability.description.toLowerCase().includes(query),
-        )
-      }
-
-      // Apply sorting
-      if (this.sortOption) {
-        const [field, direction] = this.sortOption.split('-')
-        filtered.sort((a, b) => {
-          let comparison = 0
-
-          // Handle null/undefined values
-          if (!a[field] && !b[field]) return 0
-          if (!a[field]) return 1
-          if (!b[field]) return -1
-
-          // Compare based on field type
-          if (field === 'name') {
-            comparison = a[field].localeCompare(b[field])
-          } else {
-            comparison = a[field] - b[field]
-          }
-
-          return direction === 'asc' ? comparison : -comparison
-        })
-      }
-
-      return filtered
-    },
   },
   methods: {
     // ABILITY CRUD
@@ -185,24 +133,3 @@ export default {
   },
 }
 </script>
-
-<style scoped>
-.sort-filter {
-  flex: 1;
-  padding: 8px 12px;
-  border: 1px solid #555;
-  border-radius: 4px;
-  background-color: rgba(0, 0, 0, 0.65);
-  color: white;
-  font-size: 16px;
-}
-
-.sort-filter optgroup {
-  background-color: black;
-}
-
-.sort-filter option {
-  background-color: rgba(0, 0, 0, 0.85);
-  padding: 8px;
-}
-</style>
