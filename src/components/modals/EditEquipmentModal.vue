@@ -5,20 +5,10 @@
       <h2 class="modal-header centered">Edit Equipment</h2>
 
       <form @submit.prevent="saveEquipment">
-        <!-- Centered ID Display -->
-        <div class="form-group centered">
-          <label>ID:</label>
-          <span>{{ equipment.id }}</span>
-        </div>
-
         <!-- Custom Item Checkbox -->
         <div class="form-group centered">
           <label for="isCustom">
-            <input
-              type="checkbox"
-              id="isCustom"
-              v-model="editedEquipment.isCustom"
-            />
+            <input type="checkbox" id="isCustom" v-model="editedEquipment.isCustom" />
             Custom Item
           </label>
         </div>
@@ -26,108 +16,57 @@
         <!-- Name -->
         <div class="form-group vertical">
           <label for="name" class="left-aligned">Name:</label>
-          <input
-            type="text"
-            id="name"
-            v-model="editedEquipment.name"
-            class="modal-input"
-          />
+          <input type="text" id="name" v-model="editedEquipment.name" class="modal-input" />
         </div>
 
         <!-- Art URL -->
         <div class="form-group vertical">
           <label for="artUrl" class="left-aligned">Art URL:</label>
-          <input
-            type="text"
-            id="artUrl"
-            v-model="editedEquipment.artUrl"
-            class="modal-input"
-          />
+          <input type="text" id="artUrl" v-model="editedEquipment.artUrl" class="modal-input" />
         </div>
 
         <!-- Description -->
         <div class="form-group vertical description">
           <label for="description" class="left-aligned">Description:</label>
-          <textarea
-            id="description"
-            v-model="editedEquipment.description"
-            class="modal-input"
-          ></textarea>
+          <textarea id="description" v-model="editedEquipment.description" class="modal-input"></textarea>
         </div>
 
         <!-- Weight, Source, and Standard of Living -->
         <div class="form-group row">
           <div class="form-column small-weight-input">
             <label for="weight" class="left-aligned">Weight:</label>
-            <input
-              type="number"
-              id="weight"
-              v-model.number="editedEquipment.weight"
-              min="0"
-              step="0.1"
-              @blur="ensureWeightValue"
-              class="modal-input"
-            />
+            <input type="number" id="weight" v-model.number="editedEquipment.weight" min="0" step="0.1"
+              @blur="ensureWeightValue" class="modal-input" />
           </div>
           <div class="form-column expanded-source-dropdown">
             <label for="source" class="left-aligned">Source:</label>
-            <select
-              id="source"
-              v-model="editedEquipment.source"
-              class="modal-input"
-            >
+            <select id="source" v-model="editedEquipment.source" class="modal-input">
               <optgroup label="Ancestries">
-                <option
-                  v-for="ancestry in sources.ancestries"
-                  :key="ancestry.id"
-                  :value="ancestry.id"
-                >
+                <option v-for="ancestry in sources.ancestries" :key="ancestry.id" :value="ancestry.id">
                   {{ ancestry.name }}
                 </option>
               </optgroup>
               <optgroup label="Cultures">
-                <option
-                  v-for="culture in sources.cultures"
-                  :key="culture.id"
-                  :value="culture.id"
-                >
+                <option v-for="culture in sources.cultures" :key="culture.id" :value="culture.id">
                   {{ culture.name }}
                 </option>
               </optgroup>
               <optgroup label="Mestieri">
-                <option
-                  v-for="mestiere in sources.mestieri"
-                  :key="mestiere.id"
-                  :value="mestiere.id"
-                >
+                <option v-for="mestiere in sources.mestieri" :key="mestiere.id" :value="mestiere.id">
                   {{ mestiere.name }}
                 </option>
               </optgroup>
               <optgroup label="World Elements">
-                <option
-                  v-for="worldElement in sources.worldElements"
-                  :key="worldElement.id"
-                  :value="worldElement.id"
-                >
+                <option v-for="worldElement in sources.worldElements" :key="worldElement.id" :value="worldElement.id">
                   {{ worldElement.name }}
                 </option>
               </optgroup>
             </select>
           </div>
           <div class="form-column standard-of-living">
-            <label for="standardOfLiving" class="left-aligned"
-              >Standard of Living:</label
-            >
-            <select
-              id="standardOfLiving"
-              v-model="editedEquipment.standardOfLiving"
-              class="modal-input"
-            >
-              <option
-                v-for="sol in standardsOfLiving"
-                :key="sol.id"
-                :value="sol.id"
-              >
+            <label for="standardOfLiving" class="left-aligned">Standard of Living:</label>
+            <select id="standardOfLiving" v-model="editedEquipment.standardOfLiving" class="modal-input">
+              <option v-for="sol in standardsOfLiving" :key="sol.id" :value="sol.id">
                 {{ sol.name }} ({{ sol.cost }})
               </option>
             </select>
@@ -137,11 +76,7 @@
         <!-- Melee Weapon Checkbox -->
         <div class="form-group centered melee-checkbox">
           <label for="isMelee">
-            <input
-              type="checkbox"
-              id="isMelee"
-              v-model="editedEquipment.isMelee"
-            />
+            <input type="checkbox" id="isMelee" v-model="editedEquipment.isMelee" />
             Melee Weapon
           </label>
         </div>
@@ -150,18 +85,9 @@
         <div v-if="editedEquipment.isMelee" class="form-group vertical">
           <label>Engagement Dice:</label>
           <div class="dice-row">
-            <div
-              v-for="dieType in dieTypes"
-              :key="'engagement-' + dieType"
-              class="dice-column"
-            >
+            <div v-for="dieType in dieTypes" :key="'engagement-' + dieType" class="dice-column">
               <i :class="getDiceFontClass(dieType)" class="dice-icon"></i>
-              <input
-                type="number"
-                min="0"
-                v-model.number="engagementDiceCounts[dieType]"
-                class="dice-input"
-              />
+              <input type="number" min="0" v-model.number="engagementDiceCounts[dieType]" class="dice-input" />
             </div>
           </div>
         </div>
@@ -170,18 +96,9 @@
         <div v-if="editedEquipment.isMelee" class="form-group vertical">
           <label>Damage Dice:</label>
           <div class="dice-row">
-            <div
-              v-for="dieType in dieTypes"
-              :key="'damage-' + dieType"
-              class="dice-column"
-            >
+            <div v-for="dieType in dieTypes" :key="'damage-' + dieType" class="dice-column">
               <i :class="getDiceFontClass(dieType)" class="dice-icon"></i>
-              <input
-                type="number"
-                min="0"
-                v-model.number="damageDiceCounts[dieType]"
-                class="dice-input"
-              />
+              <input type="number" min="0" v-model.number="damageDiceCounts[dieType]" class="dice-input" />
             </div>
           </div>
         </div>
@@ -190,18 +107,9 @@
         <div v-if="editedEquipment.isMelee" class="form-group vertical">
           <label>Engagement Successes:</label>
           <div class="engagement-success-container">
-            <div
-              v-for="success in engagementSuccessOptions"
-              :key="success.id"
-              class="engagement-success-pill"
-            >
-              <input
-                type="checkbox"
-                :id="'success-' + success.id"
-                :value="success.id"
-                v-model="editedEquipment.engagementSuccesses"
-                class="pill-checkbox"
-              />
+            <div v-for="success in engagementSuccessOptions" :key="success.id" class="engagement-success-pill">
+              <input type="checkbox" :id="'success-' + success.id" :value="success.id"
+                v-model="editedEquipment.engagementSuccesses" class="pill-checkbox" />
               <label :for="'success-' + success.id">{{ success.name }}</label>
             </div>
           </div>
@@ -209,21 +117,13 @@
 
         <!-- Action Buttons -->
         <div class="form-buttons">
-          <button
-            type="button"
-            class="button button-primary"
-            @click="saveEquipment"
-          >
+          <button type="button" class="button button-primary" @click="saveEquipment">
             Save Changes
           </button>
           <button type="button" class="button" @click="closeModal">
             Cancel
           </button>
-          <button
-            type="button"
-            class="button button-danger"
-            @click="deleteEquipment"
-          >
+          <button type="button" class="button button-danger" @click="deleteEquipment">
             Delete
           </button>
         </div>
@@ -447,6 +347,7 @@ export default {
 .modal-content {
   max-width: 500px;
 }
+
 /* Centered Title and ID */
 .modal-header.centered,
 .form-group.centered {
@@ -459,14 +360,16 @@ export default {
 
 /* Description Section */
 .description textarea {
-  height: 150px; /* Double the default height */
+  height: 150px;
+  /* Double the default height */
 }
 
 /* Row Layout for Weight, Source, and Standard of Living */
 .form-group.row {
   display: flex;
   justify-content: space-between;
-  gap: 10px; /* Add gap between columns */
+  gap: 10px;
+  /* Add gap between columns */
 }
 
 .form-column {
@@ -556,7 +459,8 @@ export default {
 }
 
 .form-group.vertical {
-  margin-bottom: 20px; /* Add vertical spacing between sections */
+  margin-bottom: 20px;
+  /* Add vertical spacing between sections */
   text-align: left;
 }
 
@@ -565,13 +469,13 @@ export default {
   flex-wrap: wrap;
   gap: 10px;
   margin-top: 10px;
-  padding: 10px; /* Add padding around the engagement successes section */
-  background-color: rgba(
-    0,
-    0,
-    0,
-    0.1
-  ); /* Optional: Add a subtle background for clarity */
+  padding: 10px;
+  /* Add padding around the engagement successes section */
+  background-color: rgba(0,
+      0,
+      0,
+      0.1);
+  /* Optional: Add a subtle background for clarity */
   border-radius: 5px;
 }
 

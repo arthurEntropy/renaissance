@@ -1,48 +1,29 @@
 <template>
-  <div class="item-list-view">
+  <div class="item-cards-view">
+
     <!-- Search and Filter Controls -->
     <div class="filter-controls">
-      <input
-        type="text"
-        v-model="searchQueryLocal"
-        class="search-input"
-        :placeholder="`Search ${itemTypePlural.toLowerCase()}...`"
-      />
+      <input type="text" v-model="searchQueryLocal" class="search-input"
+        :placeholder="`Search ${itemTypePlural.toLowerCase()}...`" />
       <select v-model="sourceFilterLocal" class="source-filter">
         <option value="">All Sources</option>
         <optgroup label="Ancestries">
-          <option
-            v-for="ancestry in sources.ancestries"
-            :key="ancestry.id"
-            :value="ancestry.id"
-          >
+          <option v-for="ancestry in sources.ancestries" :key="ancestry.id" :value="ancestry.id">
             {{ ancestry.name }}
           </option>
         </optgroup>
         <optgroup label="Cultures">
-          <option
-            v-for="culture in sources.cultures"
-            :key="culture.id"
-            :value="culture.id"
-          >
+          <option v-for="culture in sources.cultures" :key="culture.id" :value="culture.id">
             {{ culture.name }}
           </option>
         </optgroup>
         <optgroup label="Mestieri">
-          <option
-            v-for="mestiere in sources.mestieri"
-            :key="mestiere.id"
-            :value="mestiere.id"
-          >
+          <option v-for="mestiere in sources.mestieri" :key="mestiere.id" :value="mestiere.id">
             {{ mestiere.name }}
           </option>
         </optgroup>
         <optgroup label="World Elements">
-          <option
-            v-for="worldElement in sources.worldElements"
-            :key="worldElement.id"
-            :value="worldElement.id"
-          >
+          <option v-for="worldElement in sources.worldElements" :key="worldElement.id" :value="worldElement.id">
             {{ worldElement.name }}
           </option>
         </optgroup>
@@ -54,12 +35,7 @@
     </div>
 
     <!-- Item Cards-->
-    <masonry-grid
-      :column-width="350"
-      :gap="20"
-      :row-height="10"
-      class="cards-container"
-    >
+    <masonry-grid :column-width="350" :gap="20" :row-height="10" class="cards-container">
       <slot name="item-cards"></slot>
     </masonry-grid>
 
@@ -71,7 +47,7 @@
 import MasonryGrid from '@/components/MasonryGrid.vue'
 
 export default {
-  name: 'ItemListView',
+  name: 'ItemCardsView',
   components: {
     MasonryGrid,
   },
@@ -125,20 +101,16 @@ export default {
     createItem() {
       this.$emit('create')
     },
-    updateLayout() {
-      this.$emit('update-layout')
-    },
   },
 }
 </script>
 
 <style scoped>
-.item-list-view {
+.item-cards-view {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
-  flex-grow: 1;
 }
 
 .filter-controls {
@@ -157,7 +129,6 @@ export default {
   border: 1px solid #555;
   border-radius: 4px;
   background-color: rgba(0, 0, 0, 0.65);
-  color: white;
   font-size: 16px;
 }
 
@@ -167,9 +138,7 @@ export default {
   border: 1px solid #555;
   border-radius: 4px;
   background-color: rgba(0, 0, 0, 0.65);
-  color: white;
   font-size: 16px;
-  font-family: 'Lora', serif;
 }
 
 .source-filter optgroup {
@@ -193,17 +162,7 @@ export default {
 }
 
 .cards-container {
-  width: 90%;
   padding: 0.5rem;
-  box-sizing: border-box;
   overflow: visible;
-}
-
-.create-new-button {
-  margin-bottom: 1rem;
-}
-
-h2 {
-  margin-top: 1rem;
 }
 </style>

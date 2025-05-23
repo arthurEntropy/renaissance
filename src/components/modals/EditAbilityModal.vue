@@ -3,131 +3,70 @@
     <div class="modal-content">
       <h2 class="modal-header centered">Edit Ability</h2>
       <form @submit.prevent="saveAbility">
-        <!-- ID (Displayed as Text) -->
-        <div class="form-group centered">
-          <label>ID:</label>
-          <span>{{ ability.id }}</span>
-        </div>
-
         <!-- Name -->
         <div class="form-group vertical">
           <label for="name" class="left-aligned">Name:</label>
-          <input
-            type="text"
-            id="name"
-            v-model="editedAbility.name"
-            class="modal-input"
-          />
+          <input type="text" id="name" v-model="editedAbility.name" class="modal-input" />
         </div>
 
         <!-- Description -->
         <div class="form-group vertical description">
           <label for="description" class="left-aligned">Description:</label>
-          <textarea
-            id="description"
-            v-model="editedAbility.description"
-            class="modal-input"
-          ></textarea>
+          <textarea id="description" v-model="editedAbility.description" class="modal-input"></textarea>
         </div>
 
         <!-- MP and XP -->
         <div class="form-group centered">
           <label for="mp">MP:</label>
-          <input
-            type="number"
-            id="mp"
-            v-model.number="editedAbility.mp"
-            class="modal-input small-input"
-          />
+          <input type="number" id="mp" v-model.number="editedAbility.mp" class="modal-input small-input" />
           <label for="xp">XP:</label>
-          <input
-            type="number"
-            id="xp"
-            v-model.number="editedAbility.xp"
-            class="modal-input small-input"
-          />
+          <input type="number" id="xp" v-model.number="editedAbility.xp" class="modal-input small-input" />
         </div>
 
         <!-- Source and Trait Checkboxes -->
         <div class="form-group centered">
           <label for="source">Source:</label>
-          <select
-            id="source"
-            v-model="editedAbility.source"
-            class="modal-input"
-          >
+          <select id="source" v-model="editedAbility.source" class="modal-input">
             <optgroup label="Ancestries">
-              <option
-                v-for="ancestry in ancestries"
-                :key="ancestry.id"
-                :value="ancestry.id"
-              >
+              <option v-for="ancestry in ancestries" :key="ancestry.id" :value="ancestry.id">
                 {{ ancestry.name }}
               </option>
             </optgroup>
             <optgroup label="Cultures">
-              <option
-                v-for="culture in cultures"
-                :key="culture.id"
-                :value="culture.id"
-              >
+              <option v-for="culture in cultures" :key="culture.id" :value="culture.id">
                 {{ culture.name }}
               </option>
             </optgroup>
             <optgroup label="Mestieri">
-              <option
-                v-for="mestiere in mestieri"
-                :key="mestiere.id"
-                :value="mestiere.id"
-              >
+              <option v-for="mestiere in mestieri" :key="mestiere.id" :value="mestiere.id">
                 {{ mestiere.name }}
               </option>
             </optgroup>
             <optgroup label="World Elements">
-              <option
-                v-for="worldElement in worldElements"
-                :key="worldElement.id"
-                :value="worldElement.id"
-              >
+              <option v-for="worldElement in worldElements" :key="worldElement.id" :value="worldElement.id">
                 {{ worldElement.name }}
               </option>
             </optgroup>
           </select>
           <label for="isTrait">
-            <input
-              type="checkbox"
-              id="isTrait"
-              v-model="editedAbility.isTrait"
-            />
+            <input type="checkbox" id="isTrait" v-model="editedAbility.isTrait" />
             Trait
           </label>
           <label for="canBeActive">
-            <input
-              type="checkbox"
-              id="canBeActive"
-              v-model="editedAbility.canBeActive"
-            />
+            <input type="checkbox" id="canBeActive" v-model="editedAbility.canBeActive" />
             Can Be Active
           </label>
         </div>
 
         <!-- Action Buttons -->
         <div class="form-buttons">
-          <button
-            type="button"
-            class="button button-primary"
-            @click="saveAbility"
-          >
+          <button type="button" class="button button-primary" @click="saveAbility">
             Save Changes
           </button>
           <button type="button" class="button" @click="closeModal">
             Cancel
           </button>
-          <button
-            type="button"
-            class="button button-danger"
-            @click="deleteAbility"
-          >
+          <button type="button" class="button button-danger" @click="deleteAbility">
             Delete
           </button>
         </div>
@@ -254,11 +193,12 @@ label {
 
 textarea.modal-input {
   resize: vertical;
-  min-height: 300px;
+  min-height: 250px;
 }
 
 .modal-input.small-input {
-  width: 80px; /* Adjust width for smaller inputs */
+  width: 80px;
+  /* Adjust width for smaller inputs */
 }
 
 /* Form Buttons */
@@ -292,9 +232,5 @@ textarea.modal-input {
 
 .button:hover {
   opacity: 0.9;
-}
-
-.description textarea {
-  height: 150px;
 }
 </style>

@@ -3,12 +3,8 @@
     <!--CHARACTER SELECTION-->
     <div v-if="!selectedCharacter" class="character-selection">
       <div class="selection-cards-container">
-        <SelectionCard
-          v-for="character in characters"
-          :key="character.id"
-          :item="character"
-          @click="selectCharacter(character)"
-        />
+        <SelectionCard v-for="character in characters" :key="character.id" :item="character"
+          @click="selectCharacter(character)" />
 
         <!-- New "Add" card with plus icon -->
         <div class="add-concept-card" @click="createNewCharacter">
@@ -27,12 +23,8 @@
       <!-- Top section with bio and dice results -->
       <div class="top-section">
         <!-- CHARACTER BIO SECTION-->
-        <CharacterBioSection
-          :character="selectedCharacter"
-          :defaultArtUrl="defaultArtUrl || ''"
-          @open-full-size-art="openFullSizeCharacterArtModal"
-          @update-character="updateCharacter"
-        />
+        <CharacterBioSection :character="selectedCharacter" :defaultArtUrl="defaultArtUrl || ''"
+          @open-full-size-art="openFullSizeCharacterArtModal" @update-character="updateCharacter" />
 
         <!-- DICE ROLL RESULTS -->
         <DiceRollResults :latestRoll="latestRoll" />
@@ -40,43 +32,23 @@
 
       <!-- CHARACTER STATS SECTION -->
       <div class="character-stats-section">
-        <CoreAbilityColumn
-          :character="selectedCharacter"
-          column="body"
-          @update-character="updateCharacter"
-          @open-skill-check="openSkillCheckModal"
-        />
-        <CoreAbilityColumn
-          :character="selectedCharacter"
-          column="heart"
-          @update-character="updateCharacter"
-          @open-skill-check="openSkillCheckModal"
-        />
-        <CoreAbilityColumn
-          :character="selectedCharacter"
-          column="wits"
-          @update-character="updateCharacter"
-          @open-skill-check="openSkillCheckModal"
-        />
+        <CoreAbilityColumn :character="selectedCharacter" column="body" @update-character="updateCharacter"
+          @open-skill-check="openSkillCheckModal" />
+        <CoreAbilityColumn :character="selectedCharacter" column="heart" @update-character="updateCharacter"
+          @open-skill-check="openSkillCheckModal" />
+        <CoreAbilityColumn :character="selectedCharacter" column="wits" @update-character="updateCharacter"
+          @open-skill-check="openSkillCheckModal" />
 
         <!-- Conditions Column -->
         <div class="conditions-column-container">
           <div class="conditions-column">
             <div class="conditions-header">Conditions</div>
-            <div
-              class="conditions-row"
-              v-for="(value, key) in selectedCharacter.conditions"
-              :key="key"
-            >
+            <div class="conditions-row" v-for="(value, key) in selectedCharacter.conditions" :key="key">
               <span :class="{ 'condition-active': value }">{{
                 this.$capitalizeFirstLetter(key)
-              }}</span>
-              <input
-                type="checkbox"
-                class="skill-checkbox"
-                :class="{ 'condition-active-checkbox': value }"
-                v-model="selectedCharacter.conditions[key]"
-              />
+                }}</span>
+              <input type="checkbox" class="skill-checkbox" :class="{ 'condition-active-checkbox': value }"
+                v-model="selectedCharacter.conditions[key]" />
             </div>
             <div class="conditions-row" style="border-bottom: none"></div>
           </div>
@@ -86,72 +58,36 @@
         <!-- Left column: Equipment -->
         <div class="equipment-column">
           <!-- Engagement Dice Table -->
-          <EngagementDiceTable
-            :character="selectedCharacter"
-            :allEquipment="allEquipment"
-          />
+          <EngagementDiceTable :character="selectedCharacter" :allEquipment="allEquipment" />
 
           <!-- Equipment Table -->
-          <EquipmentTable
-            :equipment="selectedCharacter.equipment"
-            :allEquipment="allEquipment"
-            :character="selectedCharacter"
-            @update-character="updateCharacter"
-            @edit-custom-equipment="openEditEquipmentModal"
-          />
+          <EquipmentTable :equipment="selectedCharacter.equipment" :allEquipment="allEquipment"
+            :character="selectedCharacter" @update-character="updateCharacter"
+            @edit-custom-equipment="openEditEquipmentModal" />
         </div>
 
         <!-- Right column: Abilities -->
         <div class="abilities-column">
           <!-- Abilities Table -->
-          <AbilitiesTable
-            :character="selectedCharacter"
-            :allAbilities="allAbilities"
-            @update-character="updateCharacter"
-          />
+          <AbilitiesTable :character="selectedCharacter" :allAbilities="allAbilities"
+            @update-character="updateCharacter" />
         </div>
       </div>
 
       <!-- MODALS -->
-      <FullSizeCharacterArtModal
-        v-if="showFullSizeCharacterArtModal"
-        :imageUrl="selectedCharacter.artUrls[0] || defaultArtUrl"
-        @close="closeFullSizeCharacterArtModal"
-        @change-art="openChangeCharacterArtModal"
-      />
-      <ChangeCharacterArtModal
-        v-if="showChangeCharacterArtModal"
-        :initialArtUrl="selectedCharacter.artUrls[0] || ''"
-        :character="selectedCharacter"
-        @close="closeChangeCharacterArtModal"
-        @update-character="updateCharacter"
-      />
-      <SkillCheckModal
-        v-if="showSkillCheckModal"
-        :character="selectedCharacter"
-        :selectedSkillName="selectedSkillName"
-        :defaultTargetNumber="getLastTargetNumber()"
-        @close="closeSkillCheckModal"
-        @update-target-number="updateLastTargetNumber"
-      />
-      <SettingsModal
-        v-if="showSettingsModal"
-        @close="closeSettingsModal"
-        @delete="openDeleteConfirmationModal"
-      />
-      <DeleteConfirmationModal
-        v-if="showDeleteConfirmationModal"
-        :name="selectedCharacter.name"
-        @close="closeDeleteConfirmationModal"
-        @confirm="deleteCharacter"
-      />
-      <EditEquipmentModal
-        v-if="showEditEquipmentModal"
-        :equipmentId="equipmentIdToEdit"
-        @update="saveEditedEquipment"
-        @close="closeEditEquipmentModal"
-        @delete="openDeleteConfirmationModal"
-      />
+      <FullSizeCharacterArtModal v-if="showFullSizeCharacterArtModal"
+        :imageUrl="selectedCharacter.artUrls[0] || defaultArtUrl" @close="closeFullSizeCharacterArtModal"
+        @change-art="openChangeCharacterArtModal" />
+      <ChangeCharacterArtModal v-if="showChangeCharacterArtModal" :initialArtUrl="selectedCharacter.artUrls[0] || ''"
+        :character="selectedCharacter" @close="closeChangeCharacterArtModal" @update-character="updateCharacter" />
+      <SkillCheckModal v-if="showSkillCheckModal" :character="selectedCharacter" :selectedSkillName="selectedSkillName"
+        :defaultTargetNumber="getLastTargetNumber()" @close="closeSkillCheckModal"
+        @update-target-number="updateLastTargetNumber" />
+      <SettingsModal v-if="showSettingsModal" @close="closeSettingsModal" @delete="openDeleteConfirmationModal" />
+      <DeleteConfirmationModal v-if="showDeleteConfirmationModal" :name="selectedCharacter.name"
+        @close="closeDeleteConfirmationModal" @confirm="deleteCharacter" />
+      <EditEquipmentModal v-if="showEditEquipmentModal" :equipmentId="equipmentIdToEdit" @update="saveEditedEquipment"
+        @close="closeEditEquipmentModal" @delete="openDeleteConfirmationModal" />
     </div>
   </div>
 </template>
@@ -227,7 +163,7 @@ export default {
     // Wait for equipment to load
     this.equipmentStore
       .fetchAllEquipment()
-      .then(() => {})
+      .then(() => { })
       .catch((error) => {
         console.error('Error fetching equipment:', error)
       })
@@ -508,7 +444,7 @@ export default {
     },
     // LATEST ROLL
     updateLatestRoll() {
-      this.latestRoll = DiceService.getLatestRoll()
+      this.latestRoll = DiceService.getLatestRollResult()
     },
   },
 }
@@ -529,12 +465,14 @@ export default {
   align-items: center;
   width: 80%;
 }
+
 .selection-cards-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   padding-bottom: 50px;
 }
+
 .add-concept-card {
   width: 250px;
   height: 300px;
@@ -549,16 +487,19 @@ export default {
   transition: all 0.2s ease;
   margin: 10px;
 }
+
 .add-concept-card:hover {
   background: rgba(255, 255, 255, 0.1);
   border-color: rgba(255, 255, 255, 0.5);
 }
+
 .add-icon {
   font-size: 3rem;
   font-weight: 300;
   color: rgba(255, 255, 255, 0.7);
   margin-bottom: 10px;
 }
+
 .add-text {
   color: rgba(255, 255, 255, 0.7);
   font-size: 1rem;
@@ -576,12 +517,14 @@ export default {
   padding: 20px;
   position: relative;
 }
+
 @media (max-width: 567px) {
   .character-sheet {
     width: 90%;
     padding: 0;
   }
 }
+
 .settings-icon {
   position: absolute;
   top: 10px;
@@ -590,6 +533,7 @@ export default {
   cursor: pointer;
   z-index: 2;
 }
+
 .close-button {
   position: absolute;
   top: -10px;
@@ -600,6 +544,7 @@ export default {
   color: gray;
   cursor: pointer;
 }
+
 .saving-status {
   position: absolute;
   top: 13px;
@@ -618,12 +563,14 @@ export default {
   justify-content: center;
   gap: 10px;
 }
+
 .top-section {
   display: flex;
   width: 100%;
   gap: 10px;
   justify-content: space-between;
 }
+
 @media (max-width: 768px) {
   .top-section {
     flex-direction: column;
@@ -638,6 +585,7 @@ export default {
   background-color: black;
   border-radius: 5px;
 }
+
 .conditions-column {
   display: flex;
   flex-direction: column;
@@ -646,11 +594,13 @@ export default {
   width: 100px;
   margin: 0 20px 0 15px;
 }
+
 @media (max-width: 567px) {
   .conditions-column {
     margin: 0 40px;
   }
 }
+
 .conditions-header {
   display: flex;
   align-items: end;
@@ -659,6 +609,7 @@ export default {
   font-style: italic;
   height: 28px;
 }
+
 .conditions-row {
   display: flex;
   align-items: center;
@@ -668,6 +619,7 @@ export default {
   height: 25px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
+
 .condition-active {
   color: red;
   text-shadow: 0px 0px 5px red;

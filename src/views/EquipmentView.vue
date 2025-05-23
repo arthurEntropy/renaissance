@@ -1,6 +1,7 @@
 <template>
-  <ItemListView itemType="Equipment" itemTypePlural="Equipment" :sources="sources" v-model:searchQuery="searchQuery"
-    v-model:sourceFilter="sourceFilter" @create="createEquipment" @update-layout="updateLayout">
+  <ItemCardsView itemType="Equipment" itemTypePlural="Equipment" :sources="sources" v-model:searchQuery="searchQuery"
+    v-model:sourceFilter="sourceFilter" @create="createEquipment">
+
     <!-- Additional filters slot -->
     <template #additional-filters>
       <select v-model="sortOption" class="sort-filter">
@@ -19,20 +20,16 @@
     <!-- Item cards slot -->
     <template #item-cards>
       <EquipmentCard v-for="equipment in filteredEquipment" :key="equipment.id" :equipment="equipment" :editable="true"
-        @delete="openDeleteConfirmationModal(equipment)" @update="updateEquipment(equipment)"
-        @edit="openEditEquipmentModal(equipment)" @send-to-chat="sendEquipmentToChat(equipment)"
-        @height-changed="updateLayout" />
+        @delete="deleteEquipment(equipment)" @update="updateEquipment(equipment)"
+        @edit="openEditEquipmentModal(equipment)" @send-to-chat="sendEquipmentToChat(equipment)" />
     </template>
 
     <!-- Modals slot -->
     <template #modals>
-      <DeleteConfirmationModal v-if="showDeleteConfirmationModal" :name="equipmentToDelete?.name"
-        @close="closeDeleteConfirmationModal" @confirm="deleteEquipment" />
-
       <EditEquipmentModal v-if="showEditEquipmentModal" :equipmentId="equipmentToEdit?.id" @update="saveEditedEquipment"
-        @close="closeEditEquipmentModal" @delete="openDeleteConfirmationModal(equipmentToEdit)" />
+        @close="closeEditEquipmentModal" @delete="deleteEquipment(equipmentToEdit)" />
     </template>
-  </ItemListView>
+  </ItemCardsView>
 </template>
 
 <script>
@@ -40,16 +37,14 @@ import { useEquipmentStore } from '@/stores/equipmentStore'
 import { mapState } from 'pinia'
 import EquipmentService from '@/services/EquipmentService'
 import EquipmentCard from '@/components/EquipmentCard.vue'
-import DeleteConfirmationModal from '@/components/modals/DeleteConfirmationModal.vue'
 import EditEquipmentModal from '@/components/modals/EditEquipmentModal.vue'
-import ItemListView from '@/components/ItemsView.vue'
+import ItemCardsView from '@/components/ItemCardsView.vue'
 
 export default {
   components: {
     EquipmentCard,
-    DeleteConfirmationModal,
     EditEquipmentModal,
-    ItemListView,
+    ItemCardsView,
   },
 
   data() {
@@ -57,8 +52,6 @@ export default {
       equipmentStore: useEquipmentStore(),
       showEditEquipmentModal: false,
       equipmentToEdit: null,
-      showDeleteConfirmationModal: false,
-      equipmentToDelete: null,
       sortOption: '',
       searchQuery: '',
       sourceFilter: '',
@@ -75,18 +68,20 @@ export default {
     ...mapState(useEquipmentStore, ['equipment']),
 
     filteredEquipment() {
-      // Use local data properties instead of accessing through $children
       const query = this.searchQuery.toLowerCase().trim()
       const sourceFilter = this.sourceFilter
 
+      // Filter out deleted equipment
       let filtered = this.equipment.filter((equipment) => !equipment.isDeleted)
 
+      // Apply source filter
       if (sourceFilter) {
         filtered = filtered.filter(
           (equipment) => equipment.source === sourceFilter,
         )
       }
 
+      // Apply search query
       if (query) {
         filtered = filtered.filter(
           (equipment) =>
@@ -95,9 +90,11 @@ export default {
         )
       }
 
+      // Apply sorting
       if (this.sortOption) {
         const [field, direction] = this.sortOption.split('-')
         filtered.sort((a, b) => {
+          // Handle null or undefined values
           if (!a[field] && !b[field]) return 0
           if (!a[field]) return 1
           if (!b[field]) return -1
@@ -116,21 +113,12 @@ export default {
   },
 
   methods: {
-    updateLayout() {
-      // Same placeholder method for consistency
-    },
-
-    async saveEditedEquipment(editedEquipment) {
-      await EquipmentService.updateEquipment(editedEquipment)
-      this.closeEditEquipmentModal()
-      await this.equipmentStore.fetchAllEquipment()
-    },
-
+    // EQUIPMENT CRUD
     async createEquipment() {
       const newEquipment = await EquipmentService.createEquipment()
       await this.equipmentStore.fetchAllEquipment()
       this.equipmentToEdit = this.equipment.find(
-        (e) => e.id === newEquipment.id,
+        (equipment) => equipment.id === newEquipment.id,
       )
       this.showEditEquipmentModal = true
     },
@@ -140,28 +128,16 @@ export default {
       await this.equipmentStore.fetchAllEquipment()
     },
 
-    async deleteEquipment() {
-      // Make a copy of the IDs to ensure we can still access them after closing modals
-      const deleteId = this.equipmentToDelete?.id
+    async deleteEquipment(equipment) {
+      const deleteId = equipment?.id
       const editId = this.equipmentToEdit?.id
-
-      if (this.equipmentToDelete) {
-        // Create a new object to ensure we're not modifying a potentially frozen object
-        const equipmentToUpdate = { ...this.equipmentToDelete, isDeleted: true }
-
+      if (equipment) {
+        const equipmentToUpdate = { ...equipment, isDeleted: true }
         try {
-          // Close the delete confirmation modal first
-          this.closeDeleteConfirmationModal()
-
-          // Check if we need to close the edit modal (if it's open for the same item)
           if (this.showEditEquipmentModal && editId === deleteId) {
             this.closeEditEquipmentModal()
           }
-
-          // Now update the equipment with isDeleted set to true
           await EquipmentService.updateEquipment(equipmentToUpdate)
-
-          // Finally refresh the equipment list
           await this.equipmentStore.fetchAllEquipment()
         } catch (error) {
           console.error('Error deleting equipment:', error)
@@ -169,6 +145,13 @@ export default {
       }
     },
 
+    async saveEditedEquipment(editedEquipment) {
+      await EquipmentService.updateEquipment(editedEquipment)
+      this.closeEditEquipmentModal()
+      await this.equipmentStore.fetchAllEquipment()
+    },
+
+    // MODAL CONTROLS
     openEditEquipmentModal(equipment) {
       this.equipmentToEdit = equipment
       this.showEditEquipmentModal = true
@@ -179,19 +162,10 @@ export default {
       this.showEditEquipmentModal = false
     },
 
+    // OTHER METHODS
     sendEquipmentToChat(equipment) {
       // TODO: Implement sending equipment to chat
-      console.log('Sending to chat:', equipment)
-    },
-
-    openDeleteConfirmationModal(equipment) {
-      this.equipmentToDelete = equipment
-      this.showDeleteConfirmationModal = true
-    },
-
-    closeDeleteConfirmationModal() {
-      this.equipmentToDelete = null
-      this.showDeleteConfirmationModal = false
+      console.log('Send to chat not yet implemented:', equipment)
     },
 
     async fetchSources() {
@@ -202,7 +176,6 @@ export default {
 
   async mounted() {
     await this.equipmentStore.fetchAllEquipment()
-    await this.equipmentStore.fetchAllSources()
     await this.equipmentStore.fetchStandardsOfLiving()
     await this.fetchSources()
   },
@@ -218,7 +191,6 @@ export default {
   background-color: rgba(0, 0, 0, 0.65);
   color: white;
   font-size: 16px;
-  font-family: 'Lora', serif;
 }
 
 .sort-filter optgroup {

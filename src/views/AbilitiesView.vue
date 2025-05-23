@@ -1,13 +1,7 @@
 <template>
-  <ItemListView
-    itemType="Ability"
-    itemTypePlural="Abilities"
-    :sources="sources"
-    v-model:searchQuery="searchQuery"
-    v-model:sourceFilter="sourceFilter"
-    @create="createAbility"
-    @update-layout="updateLayout"
-  >
+  <ItemCardsView itemType="Ability" itemTypePlural="Abilities" :sources="sources" v-model:searchQuery="searchQuery"
+    v-model:sourceFilter="sourceFilter" @create="createAbility">
+
     <!-- Additional filters slot -->
     <template #additional-filters>
       <select v-model="sortOption" class="sort-filter">
@@ -29,37 +23,17 @@
 
     <!-- Item cards slot -->
     <template #item-cards>
-      <AbilityCard
-        v-for="ability in filteredAbilities"
-        :key="ability.id"
-        :ability="ability"
-        :editable="true"
-        @delete="openDeleteConfirmationModal(ability)"
-        @update="updateAbility(ability)"
-        @edit="openEditAbilityModal(ability)"
-        @send-to-chat="sendAbilityToChat(ability)"
-        @height-changed="updateLayout"
-      />
+      <AbilityCard v-for="ability in filteredAbilities" :key="ability.id" :ability="ability" :editable="true"
+        @delete="deleteAbility(ability)" @update="updateAbility(ability)" @edit="openEditAbilityModal(ability)"
+        @send-to-chat="sendAbilityToChat(ability)" />
     </template>
 
     <!-- Modals slot -->
     <template #modals>
-      <DeleteConfirmationModal
-        v-if="showDeleteConfirmationModal"
-        :name="abilityToDelete?.name"
-        @close="closeDeleteConfirmationModal"
-        @confirm="deleteAbility"
-      />
-
-      <EditAbilityModal
-        v-if="showEditAbilityModal"
-        :ability="abilityToEdit"
-        @update="saveEditedAbility"
-        @close="closeEditAbilityModal"
-        @delete="openDeleteConfirmationModal(abilityToEdit)"
-      />
+      <EditAbilityModal v-if="showEditAbilityModal" :ability="abilityToEdit" @update="saveEditedAbility"
+        @close="closeEditAbilityModal" @delete="deleteAbility(abilityToEdit)" />
     </template>
-  </ItemListView>
+  </ItemCardsView>
 </template>
 
 <script>
@@ -67,24 +41,20 @@ import { useAbilitiesStore } from '@/stores/abilitiesStore'
 import { mapState } from 'pinia'
 import AbilityService from '@/services/AbilityService'
 import AbilityCard from '@/components/AbilityCard.vue'
-import DeleteConfirmationModal from '@/components/modals/DeleteConfirmationModal.vue'
 import EditAbilityModal from '@/components/modals/EditAbilityModal.vue'
-import ItemListView from '@/components/ItemsView.vue'
+import ItemCardsView from '@/components/ItemCardsView.vue'
 
 export default {
   components: {
     AbilityCard,
-    DeleteConfirmationModal,
     EditAbilityModal,
-    ItemListView,
+    ItemCardsView,
   },
   data() {
     return {
       abilitiesStore: useAbilitiesStore(),
       showEditAbilityModal: false,
       abilityToEdit: null,
-      showDeleteConfirmationModal: false,
-      abilityToDelete: null,
       sortOption: '',
       searchQuery: '',
       sourceFilter: '',
@@ -98,11 +68,12 @@ export default {
   },
   computed: {
     ...mapState(useAbilitiesStore, ['abilities']),
+
     filteredAbilities() {
-      // Use local data properties instead of accessing through $children
       const query = this.searchQuery.toLowerCase().trim()
       const sourceFilter = this.sourceFilter
 
+      // Filter out deleted abilities
       let filtered = this.abilitiesStore.abilities.filter(
         (ability) => !ability.isDeleted,
       )
@@ -147,10 +118,6 @@ export default {
     },
   },
   methods: {
-    updateLayout() {
-      // This will be called when any card height changes
-    },
-
     // ABILITY CRUD
     async createAbility() {
       const newAbility = await AbilityService.createAbility()
@@ -160,32 +127,22 @@ export default {
       )
       this.showEditAbilityModal = true
     },
+
     async updateAbility(ability) {
       await AbilityService.updateAbility(ability)
       await this.abilitiesStore.fetchAllAbilities()
     },
-    async deleteAbility() {
-      // Make a copy of the IDs to ensure we can still access them after closing modals
-      const deleteId = this.abilityToDelete?.id
+
+    async deleteAbility(ability) {
+      const deleteId = ability?.id
       const editId = this.abilityToEdit?.id
-
-      if (this.abilityToDelete) {
-        // Create a new object to ensure we're not modifying a potentially frozen object
-        const abilityToUpdate = { ...this.abilityToDelete, isDeleted: true }
-
+      if (ability) {
+        const abilityToUpdate = { ...ability, isDeleted: true }
         try {
-          // Close the delete confirmation modal first
-          this.closeDeleteConfirmationModal()
-
-          // Check if we need to close the edit modal (if it's open for the same item)
           if (this.showEditAbilityModal && editId === deleteId) {
             this.closeEditAbilityModal()
           }
-
-          // Now update the ability with isDeleted set to true
           await AbilityService.updateAbility(abilityToUpdate)
-
-          // Finally refresh the abilities list
           await this.abilitiesStore.fetchAllAbilities()
         } catch (error) {
           console.error('Error deleting ability:', error)
@@ -193,37 +150,35 @@ export default {
       }
     },
 
-    // MODAL CONTROLS
-    openEditAbilityModal(ability) {
-      this.abilityToEdit = ability
-      this.showEditAbilityModal = true
-    },
-    closeEditAbilityModal() {
-      this.abilityToEdit = null
-      this.showEditAbilityModal = false
-    },
     async saveEditedAbility(editedAbility) {
       await AbilityService.updateAbility(editedAbility)
       this.closeEditAbilityModal()
       await this.abilitiesStore.fetchAllAbilities()
     },
+
+    // MODAL CONTROLS
+    openEditAbilityModal(ability) {
+      this.abilityToEdit = ability
+      this.showEditAbilityModal = true
+    },
+
+    closeEditAbilityModal() {
+      this.abilityToEdit = null
+      this.showEditAbilityModal = false
+    },
+
+    // OTHER METHODS
     sendAbilityToChat(ability) {
       // TODO: Implement sending ability to chat
-      console.log('Sending to chat:', ability)
+      console.log('Send to chat not yet implemented:', ability)
     },
-    openDeleteConfirmationModal(ability) {
-      this.abilityToDelete = ability
-      this.showDeleteConfirmationModal = true
-    },
-    closeDeleteConfirmationModal() {
-      this.abilityToDelete = null
-      this.showDeleteConfirmationModal = false
-    },
+
     async fetchSources() {
       await this.abilitiesStore.fetchAllSources()
       this.sources = this.abilitiesStore.sources
     },
   },
+
   async mounted() {
     await this.abilitiesStore.fetchAllAbilities()
     await this.fetchSources()
@@ -240,7 +195,6 @@ export default {
   background-color: rgba(0, 0, 0, 0.65);
   color: white;
   font-size: 16px;
-  font-family: 'Lora', serif;
 }
 
 .sort-filter optgroup {

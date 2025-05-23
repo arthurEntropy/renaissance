@@ -8,151 +8,85 @@
         <!-- Left column - Main content -->
         <div class="left-column">
           <form>
-            <!-- ID (Displayed as Text) -->
-            <div class="form-group">
-              <label>ID:</label>
-              <span>{{ concept.id }}</span>
-            </div>
-
             <!-- Name -->
             <div class="form-group vertical">
               <h3 class="section-label">Name</h3>
-              <input
-                type="text"
-                id="name"
-                v-model="editedConcept.name"
-                class="modal-input"
-              />
+              <input type="text" id="name" v-model="editedConcept.name" class="modal-input" />
             </div>
 
             <!-- Description -->
             <div class="form-group vertical">
               <h3 class="section-label">Description</h3>
-              <text-editor
-                v-model="editedConcept.description"
-                height="200px"
-                placeholder="Enter concept description..."
-              />
+              <text-editor v-model="editedConcept.description" height="200px"
+                placeholder="Enter concept description..." />
             </div>
 
             <h3 class="section-label">Local Flavor</h3>
 
             <!-- Names -->
             <label for="names">Names:</label>
-            <textarea
-              id="names"
-              v-model="editedConcept.names"
-              class="modal-input"
-              placeholder="Who might you meet?"
-            ></textarea>
+            <textarea id="names" v-model="editedConcept.names" class="modal-input"
+              placeholder="Who might you meet?"></textarea>
 
             <!-- Occupations-->
             <label for="occupations">Occupations:</label>
-            <textarea
-              id="occupations"
-              v-model="editedConcept.occupations"
-              class="modal-input"
-              placeholder="What do people do around here?"
-            ></textarea>
+            <textarea id="occupations" v-model="editedConcept.occupations" class="modal-input"
+              placeholder="What do people do around here?"></textarea>
 
             <!-- Public Houses-->
             <label for="publicHouses">Public Houses:</label>
-            <textarea
-              id="publicHouses"
-              v-model="editedConcept.publicHouses"
-              class="modal-input"
-              placeholder="Where can a traveler find hospitality?"
-            ></textarea>
+            <textarea id="publicHouses" v-model="editedConcept.publicHouses" class="modal-input"
+              placeholder="Where can a traveler find hospitality?"></textarea>
 
             <!-- Vittles-->
             <label for="vittles">Vittles:</label>
-            <textarea
-              id="vittles"
-              v-model="editedConcept.vittles"
-              class="modal-input"
-              placeholder="What's on the menu?"
-            ></textarea>
+            <textarea id="vittles" v-model="editedConcept.vittles" class="modal-input"
+              placeholder="What's on the menu?"></textarea>
 
             <!-- Points of Interest-->
             <label for="pointsOfInterest">Points of Interest:</label>
-            <textarea
-              id="pointsOfInterest"
-              v-model="editedConcept.pointsOfInterest"
-              class="modal-input"
-              placeholder="What are the must-see spots?"
-            ></textarea>
+            <textarea id="pointsOfInterest" v-model="editedConcept.pointsOfInterest" class="modal-input"
+              placeholder="What are the must-see spots?"></textarea>
 
             <!-- Flora & Fauna-->
             <label for="floraFauna">Flora & Fauna:</label>
-            <textarea
-              id="floraFauna"
-              v-model="editedConcept.floraFauna"
-              class="modal-input"
-              placeholder="What can be found in the wild?"
-            ></textarea>
+            <textarea id="floraFauna" v-model="editedConcept.floraFauna" class="modal-input"
+              placeholder="What can be found in the wild?"></textarea>
 
             <!-- Hooks -->
             <div class="form-group vertical">
               <h3 class="section-label">Hooks</h3>
-              <div
-                v-for="(hook, idx) in editedConcept.hooks"
-                :key="hook.id || idx"
-                class="hook-edit-card"
-              >
+              <div v-for="(hook, idx) in editedConcept.hooks" :key="hook.id || idx" class="hook-edit-card">
                 <!-- Hook header with caret and name - everything on one row -->
                 <div class="hook-header">
-                  <span
-                    class="hook-caret"
-                    @click="toggleHookExpansion(hook.id || idx)"
-                  >
+                  <span class="hook-caret" @click="toggleHookExpansion(hook.id || idx)">
                     {{ isHookExpanded(hook.id || idx) ? '▼' : '►' }}
                   </span>
                   <label for="hook-name" class="hook-label">Name:</label>
-                  <input
-                    type="text"
-                    id="hook-name"
-                    v-model="hook.name"
-                    placeholder="Hook Name"
-                    class="modal-input hook-input"
-                  />
+                  <input type="text" id="hook-name" v-model="hook.name" placeholder="Hook Name"
+                    class="modal-input hook-input" />
                 </div>
 
                 <!-- Collapsible hook content -->
                 <div v-if="isHookExpanded(hook.id || idx)" class="hook-fields">
                   <div class="hook-field">
                     <label class="hook-label">Description:</label>
-                    <text-editor
-                      v-model="hook.description"
-                      placeholder="Description of the hook..."
-                      height="120px"
-                    />
+                    <text-editor v-model="hook.description" placeholder="Description of the hook..." height="120px" />
                   </div>
 
                   <div class="hook-field">
                     <label class="hook-label">GM Notes:</label>
-                    <text-editor
-                      v-model="hook.gmNotes"
-                      placeholder="Notes only visible to the GM..."
-                      height="120px"
-                    />
+                    <text-editor v-model="hook.gmNotes" placeholder="Notes only visible to the GM..." height="120px" />
                   </div>
 
                   <div class="delete-hook-container">
-                    <button
-                      type="button"
-                      class="button button-danger small delete-hook-btn"
-                      @click="removeHook(idx)"
-                    >
+                    <button type="button" class="button button-danger small delete-hook-btn" @click="removeHook(idx)">
                       Delete Hook
                     </button>
                   </div>
                 </div>
               </div>
-              <button
-                type="button"
-                class="button button-primary small"
-                @click="addHook"
-              >
+              <button type="button" class="button button-primary small" @click="addHook">
                 Add Hook
               </button>
             </div>
@@ -164,13 +98,8 @@
             <!-- Background Image URL -->
             <div class="form-group vertical">
               <label for="backgroundImage">Background Image URL:</label>
-              <input
-                type="text"
-                id="backgroundImage"
-                v-model="editedConcept.backgroundImage"
-                class="modal-input"
-                placeholder="https://example.com/image.png"
-              />
+              <input type="text" id="backgroundImage" v-model="editedConcept.backgroundImage" class="modal-input"
+                placeholder="https://example.com/image.png" />
             </div>
 
             <!-- Colors -->
@@ -189,57 +118,26 @@
           <div class="form-group vertical">
             <h3 class="section-label">Featured Art URLs</h3>
             <div class="url-container">
-              <div
-                v-for="(url, idx) in editedConcept.artUrls"
-                :key="'art-' + idx"
-                class="url-item"
-              >
-                <img
-                  v-if="url"
-                  :src="url"
-                  alt="Art thumbnail"
-                  class="url-thumb"
-                />
-                <input
-                  type="text"
-                  v-model="editedConcept.artUrls[idx]"
-                  class="modal-input url-input"
-                  :placeholder="`Art URL #${idx + 1}`"
-                />
+              <div v-for="(url, idx) in editedConcept.artUrls" :key="'art-' + idx" class="url-item">
+                <img v-if="url" :src="url" alt="Art thumbnail" class="url-thumb" />
+                <input type="text" v-model="editedConcept.artUrls[idx]" class="modal-input url-input"
+                  :placeholder="`Art URL #${idx + 1}`" />
                 <div class="url-buttons">
-                  <button
-                    type="button"
-                    class="button small"
-                    @click="moveArtUrl(idx, -1)"
-                    :disabled="idx === 0"
-                    title="Move Up"
-                  >
+                  <button type="button" class="button small" @click="moveArtUrl(idx, -1)" :disabled="idx === 0"
+                    title="Move Up">
                     ▲
                   </button>
-                  <button
-                    type="button"
-                    class="button small"
-                    @click="moveArtUrl(idx, 1)"
-                    :disabled="idx === editedConcept.artUrls.length - 1"
-                    title="Move Down"
-                  >
+                  <button type="button" class="button small" @click="moveArtUrl(idx, 1)"
+                    :disabled="idx === editedConcept.artUrls.length - 1" title="Move Down">
                     ▼
                   </button>
-                  <button
-                    type="button"
-                    class="button button-danger small"
-                    @click="removeArtUrl(idx)"
-                  >
+                  <button type="button" class="button button-danger small" @click="removeArtUrl(idx)">
                     ✕
                   </button>
                 </div>
               </div>
             </div>
-            <button
-              type="button"
-              class="button button-primary small"
-              @click="addArtUrl"
-            >
+            <button type="button" class="button button-primary small" @click="addArtUrl">
               Add Art URL
             </button>
           </div>
@@ -248,57 +146,26 @@
           <div class="form-group vertical">
             <h3 class="section-label">Faces Art URLs</h3>
             <div class="url-container">
-              <div
-                v-for="(url, idx) in editedConcept.faces"
-                :key="'face-' + idx"
-                class="url-item"
-              >
-                <img
-                  v-if="url"
-                  :src="url"
-                  alt="Face thumbnail"
-                  class="url-thumb"
-                />
-                <input
-                  type="text"
-                  v-model="editedConcept.faces[idx]"
-                  class="modal-input"
-                  :placeholder="`Face URL #${idx + 1}`"
-                />
+              <div v-for="(url, idx) in editedConcept.faces" :key="'face-' + idx" class="url-item">
+                <img v-if="url" :src="url" alt="Face thumbnail" class="url-thumb" />
+                <input type="text" v-model="editedConcept.faces[idx]" class="modal-input"
+                  :placeholder="`Face URL #${idx + 1}`" />
                 <div class="url-buttons">
-                  <button
-                    type="button"
-                    class="button small"
-                    @click="moveFaceUrl(idx, -1)"
-                    :disabled="idx === 0"
-                    title="Move Up"
-                  >
+                  <button type="button" class="button small" @click="moveFaceUrl(idx, -1)" :disabled="idx === 0"
+                    title="Move Up">
                     ▲
                   </button>
-                  <button
-                    type="button"
-                    class="button small"
-                    @click="moveFaceUrl(idx, 1)"
-                    :disabled="idx === editedConcept.faces.length - 1"
-                    title="Move Down"
-                  >
+                  <button type="button" class="button small" @click="moveFaceUrl(idx, 1)"
+                    :disabled="idx === editedConcept.faces.length - 1" title="Move Down">
                     ▼
                   </button>
-                  <button
-                    type="button"
-                    class="button button-danger small"
-                    @click="removeFaceUrl(idx)"
-                  >
+                  <button type="button" class="button button-danger small" @click="removeFaceUrl(idx)">
                     ✕
                   </button>
                 </div>
               </div>
             </div>
-            <button
-              type="button"
-              class="button button-primary small"
-              @click="addFaceUrl"
-            >
+            <button type="button" class="button button-primary small" @click="addFaceUrl">
               Add Face URL
             </button>
           </div>
@@ -307,57 +174,26 @@
           <div class="form-group vertical">
             <h3 class="section-label">Places Art URLs</h3>
             <div class="url-container">
-              <div
-                v-for="(url, idx) in editedConcept.places"
-                :key="'place-' + idx"
-                class="url-item"
-              >
-                <img
-                  v-if="url"
-                  :src="url"
-                  alt="Place thumbnail"
-                  class="url-thumb"
-                />
-                <input
-                  type="text"
-                  v-model="editedConcept.places[idx]"
-                  class="modal-input"
-                  :placeholder="`Place URL #${idx + 1}`"
-                />
+              <div v-for="(url, idx) in editedConcept.places" :key="'place-' + idx" class="url-item">
+                <img v-if="url" :src="url" alt="Place thumbnail" class="url-thumb" />
+                <input type="text" v-model="editedConcept.places[idx]" class="modal-input"
+                  :placeholder="`Place URL #${idx + 1}`" />
                 <div class="url-buttons">
-                  <button
-                    type="button"
-                    class="button small"
-                    @click="movePlaceUrl(idx, -1)"
-                    :disabled="idx === 0"
-                    title="Move Up"
-                  >
+                  <button type="button" class="button small" @click="movePlaceUrl(idx, -1)" :disabled="idx === 0"
+                    title="Move Up">
                     ▲
                   </button>
-                  <button
-                    type="button"
-                    class="button small"
-                    @click="movePlaceUrl(idx, 1)"
-                    :disabled="idx === editedConcept.places.length - 1"
-                    title="Move Down"
-                  >
+                  <button type="button" class="button small" @click="movePlaceUrl(idx, 1)"
+                    :disabled="idx === editedConcept.places.length - 1" title="Move Down">
                     ▼
                   </button>
-                  <button
-                    type="button"
-                    class="button button-danger small"
-                    @click="removePlaceUrl(idx)"
-                  >
+                  <button type="button" class="button button-danger small" @click="removePlaceUrl(idx)">
                     ✕
                   </button>
                 </div>
               </div>
             </div>
-            <button
-              type="button"
-              class="button button-primary small"
-              @click="addPlaceUrl"
-            >
+            <button type="button" class="button button-primary small" @click="addPlaceUrl">
               Add Place URL
             </button>
           </div>
@@ -368,57 +204,32 @@
               Paste embed codes from Spotify or Apple Music
             </p>
             <div class="url-container">
-              <div
-                v-for="(playlist, idx) in editedConcept.playlists"
-                :key="'playlist-' + idx"
-                class="playlist-item url-item"
-              >
+              <div v-for="(playlist, idx) in editedConcept.playlists" :key="'playlist-' + idx"
+                class="playlist-item url-item">
                 <div class="playlist-service-selector">
                   <select v-model="playlist.service" class="service-select">
                     <option value="spotify">Spotify</option>
                     <option value="apple">Apple Music</option>
                   </select>
                 </div>
-                <input
-                  type="text"
-                  v-model="playlist.embedCode"
-                  class="modal-input playlist-input"
-                  :placeholder="`Paste embed code`"
-                />
+                <input type="text" v-model="playlist.embedCode" class="modal-input playlist-input"
+                  :placeholder="`Paste embed code`" />
                 <div class="url-buttons">
-                  <button
-                    type="button"
-                    class="button small"
-                    @click="movePlaylist(idx, -1)"
-                    :disabled="idx === 0"
-                    title="Move Up"
-                  >
+                  <button type="button" class="button small" @click="movePlaylist(idx, -1)" :disabled="idx === 0"
+                    title="Move Up">
                     ▲
                   </button>
-                  <button
-                    type="button"
-                    class="button small"
-                    @click="movePlaylist(idx, 1)"
-                    :disabled="idx === editedConcept.playlists.length - 1"
-                    title="Move Down"
-                  >
+                  <button type="button" class="button small" @click="movePlaylist(idx, 1)"
+                    :disabled="idx === editedConcept.playlists.length - 1" title="Move Down">
                     ▼
                   </button>
-                  <button
-                    type="button"
-                    class="button button-danger small"
-                    @click="removePlaylist(idx)"
-                  >
+                  <button type="button" class="button button-danger small" @click="removePlaylist(idx)">
                     ✕
                   </button>
                 </div>
               </div>
             </div>
-            <button
-              type="button"
-              class="button button-primary small"
-              @click="addPlaylist"
-            >
+            <button type="button" class="button button-primary small" @click="addPlaylist">
               Add Playlist
             </button>
           </div>
@@ -427,19 +238,11 @@
 
       <!-- Save/Cancel/Delete Buttons - Outside the columns -->
       <div class="form-buttons danger-zone" ref="originalButtons">
-        <button
-          type="button"
-          class="button button-primary"
-          @click="saveChanges"
-        >
+        <button type="button" class="button button-primary" @click="saveChanges">
           Save Changes
         </button>
         <button type="button" class="button" @click="cancelEdit">Cancel</button>
-        <button
-          type="button"
-          class="button button-danger"
-          @click="deleteConcept"
-        >
+        <button type="button" class="button button-danger" @click="deleteConcept">
           Delete Concept
         </button>
       </div>
@@ -449,21 +252,13 @@
     <transition name="fade">
       <div class="floating-action-bar" v-if="showFloatingButtons">
         <div class="floating-buttons">
-          <button
-            type="button"
-            class="button button-primary"
-            @click="saveChanges"
-          >
+          <button type="button" class="button button-primary" @click="saveChanges">
             Save Changes
           </button>
           <button type="button" class="button" @click="cancelEdit">
             Cancel
           </button>
-          <button
-            type="button"
-            class="button button-danger"
-            @click="deleteConcept"
-          >
+          <button type="button" class="button button-danger" @click="deleteConcept">
             Delete Concept
           </button>
         </div>
@@ -528,7 +323,7 @@ export default {
       const urls = this.editedConcept.artUrls
       const newIndex = idx + direction
       if (newIndex < 0 || newIndex >= urls.length) return
-      ;[urls[idx], urls[newIndex]] = [urls[newIndex], urls[idx]]
+        ;[urls[idx], urls[newIndex]] = [urls[newIndex], urls[idx]]
     },
 
     // Face URL methods
@@ -545,7 +340,7 @@ export default {
       const urls = this.editedConcept.faces
       const newIndex = idx + direction
       if (newIndex < 0 || newIndex >= urls.length) return
-      ;[urls[idx], urls[newIndex]] = [urls[newIndex], urls[idx]]
+        ;[urls[idx], urls[newIndex]] = [urls[newIndex], urls[idx]]
     },
 
     // Place URL methods
@@ -562,7 +357,7 @@ export default {
       const urls = this.editedConcept.places
       const newIndex = idx + direction
       if (newIndex < 0 || newIndex >= urls.length) return
-      ;[urls[idx], urls[newIndex]] = [urls[newIndex], urls[idx]]
+        ;[urls[idx], urls[newIndex]] = [urls[newIndex], urls[idx]]
     },
 
     // Hook methods
@@ -629,10 +424,10 @@ export default {
       const playlists = this.editedConcept.playlists
       const newIndex = idx + direction
       if (newIndex < 0 || newIndex >= playlists.length) return
-      ;[playlists[idx], playlists[newIndex]] = [
-        playlists[newIndex],
-        playlists[idx],
-      ]
+        ;[playlists[idx], playlists[newIndex]] = [
+          playlists[newIndex],
+          playlists[idx],
+        ]
     },
 
     // Auto-resize textarea
@@ -683,7 +478,8 @@ export default {
 .modal-content {
   text-align: left;
   width: 100%;
-  max-width: 900px; /* Increased from 500px to accommodate two columns */
+  max-width: 900px;
+  /* Increased from 500px to accommodate two columns */
   border-radius: 8px;
   padding: 20px;
   background: #1e1e1e;
@@ -833,7 +629,8 @@ textarea.modal-input {
   display: flex;
   align-items: center;
   width: 100%;
-  margin-bottom: 8px; /* Space between header and expanded content */
+  margin-bottom: 8px;
+  /* Space between header and expanded content */
 }
 
 .hook-caret {
@@ -844,14 +641,17 @@ textarea.modal-input {
 }
 
 .hook-label {
-  white-space: nowrap; /* Prevent wrapping of labels */
-  margin-right: 8px; /* Space between label and input */
+  white-space: nowrap;
+  /* Prevent wrapping of labels */
+  margin-right: 8px;
+  /* Space between label and input */
   color: #aaa;
   font-size: 13px;
 }
 
 .hook-input {
-  flex: 1; /* Input takes remaining space */
+  flex: 1;
+  /* Input takes remaining space */
   margin-bottom: 0;
 }
 
@@ -860,7 +660,8 @@ textarea.modal-input {
   flex-direction: column;
   gap: 16px;
   margin-top: 12px;
-  padding-left: 25px; /* Align with the name input after caret */
+  padding-left: 25px;
+  /* Align with the name input after caret */
 }
 
 .hook-field {
