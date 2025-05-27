@@ -87,7 +87,7 @@ export default {
   components: {
     BaseCard,
   },
-  emits: ['edit', 'delete', 'update', 'send-to-chat', 'height-changed'],
+  emits: ['edit', 'delete', 'send-to-chat', 'height-changed'],
   props: {
     equipment: {
       type: Object,

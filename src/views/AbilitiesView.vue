@@ -16,6 +16,7 @@
       <EditAbilityModal v-if="showEditAbilityModal" :ability="abilityToEdit" :sources="sources"
         @update="saveEditedAbility" @close="closeEditAbilityModal" @delete="deleteAbility(abilityToEdit)" />
     </template>
+
   </ItemCardsView>
 </template>
 
@@ -97,6 +98,8 @@ export default {
           console.error('Error deleting ability:', error)
         }
       }
+      this.abilityToEdit = null
+      this.showEditAbilityModal = false
     },
 
     async saveEditedAbility(editedAbility) {

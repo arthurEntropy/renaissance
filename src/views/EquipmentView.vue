@@ -15,7 +15,7 @@
       <EditEquipmentModal v-if="showEditEquipmentModal" :equipment="equipmentToEdit" :all-equipment="equipment"
         :standards-of-living="equipmentStore.standardsOfLiving" :sources="sources"
         :engagement-success-options="engagementSuccessOptions" @update="saveEditedEquipment"
-        @close="closeEditEquipmentModal" />
+        @close="closeEditEquipmentModal" @delete="deleteEquipment(equipmentToEdit)" />
     </template>
   </ItemCardsView>
 </template>
@@ -89,9 +89,28 @@ export default {
       await this.equipmentStore.fetchAllEquipment()
     },
 
+    async deleteEquipment(equipmentItem) {
+      const deleteId = equipmentItem?.id
+      const editId = this.equipmentToEdit?.id
+      if (equipmentItem) {
+        const equipmentToUpdate = { ...equipmentItem, isDeleted: true }
+        try {
+          if (this.showEditEquipmentModal && editId === deleteId) {
+            this.closeEditEquipmentModal()
+          }
+          await EquipmentService.updateEquipment(equipmentToUpdate)
+          await this.equipmentStore.fetchAllEquipment()
+        } catch (error) {
+          console.error('Error deleting equipment:', error)
+        }
+      }
+      this.equipmentToEdit = null
+      this.showEditEquipmentModal = false
+    },
+
     // MODAL CONTROLS
-    openEditEquipmentModal(equipment) {
-      this.equipmentToEdit = equipment
+    openEditEquipmentModal(equipmentItem) {
+      this.equipmentToEdit = equipmentItem
       this.showEditEquipmentModal = true
     },
 
@@ -122,15 +141,10 @@ export default {
 
   async mounted() {
     try {
-      // Fetch sources first to ensure background images are available as soon as possible
       await this.fetchSources()
-      // Then fetch equipment and standards of living
-      await Promise.all([
-        this.equipmentStore.fetchAllEquipment(),
-        this.equipmentStore.fetchStandardsOfLiving()
-      ]);
-      // Fetch engagement success options
-      await this.fetchEngagementSuccessOptions();
+      await this.equipmentStore.fetchStandardsOfLiving()
+      await this.fetchEngagementSuccessOptions()
+      await this.equipmentStore.fetchAllEquipment()
     } catch (error) {
       console.error('Error initializing EquipmentView:', error)
     }

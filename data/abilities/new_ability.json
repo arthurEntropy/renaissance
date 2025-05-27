@@ -6,7 +6,7 @@
   "canBeActive": false,
   "isActive": true,
   "source": null,
-  "isDeleted": false,
+  "isDeleted": true,
   "mp": null,
   "xp": null
 }

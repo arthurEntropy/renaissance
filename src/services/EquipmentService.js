@@ -23,7 +23,6 @@ class EquipmentService extends BaseService {
   }
 
   async updateEquipment(equipment) {
-    console.log('Updating equipment:', equipment)
     return this.update(equipment)
   }
 
