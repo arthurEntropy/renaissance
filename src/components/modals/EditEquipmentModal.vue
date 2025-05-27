@@ -134,23 +134,30 @@
 
 <script>
 import { useEquipmentStore } from '@/stores/equipmentStore'
-import StandardOfLivingService from '@/services/StandardOfLivingService'
 import EngagementSuccessService from '@/services/EngagementSuccessService'
 
 export default {
   props: {
-    equipmentId: {
-      type: String,
+    equipment: {
+      type: Object,
       required: true,
     },
-  },
-  computed: {
-    equipment() {
-      return (
-        this.equipmentStore.equipment.find(
-          (eq) => eq.id === this.equipmentId,
-        ) || {}
-      ) // Fallback to an empty object
+    allEquipment: {
+      type: Array,
+      default: () => [],
+    },
+    standardsOfLiving: {
+      type: Array,
+      default: () => [],
+    },
+    sources: {
+      type: Object,
+      default: () => ({
+        ancestries: [],
+        cultures: [],
+        mestieri: [],
+        worldElements: [],
+      }),
     },
   },
 
@@ -160,13 +167,6 @@ export default {
     return {
       editedEquipment: null,
       originalEquipment: null,
-      sources: {
-        ancestries: [],
-        cultures: [],
-        mestieri: [],
-        worldElements: [],
-      },
-      standardsOfLiving: [],
       engagementSuccessOptions: [],
       equipmentStore: useEquipmentStore(),
       dieTypes: [4, 6, 8, 10, 12, 20], // Supported die types
@@ -196,16 +196,6 @@ export default {
   },
 
   methods: {
-    async fetchSources() {
-      await this.equipmentStore.fetchAllSources()
-      this.sources = this.equipmentStore.sources
-    },
-
-    async fetchStandardsOfLiving() {
-      this.standardsOfLiving =
-        await StandardOfLivingService.getAllStandardsOfLiving()
-    },
-
     getDiceFontClass(dieType) {
       return `df-d${dieType}-${dieType}`
     },
@@ -333,11 +323,7 @@ export default {
   },
 
   async mounted() {
-    await Promise.all([
-      this.fetchSources(),
-      this.fetchStandardsOfLiving(),
-      this.fetchEngagementSuccessOptions(),
-    ])
+    await this.fetchEngagementSuccessOptions()
     this.initializeDiceCounts() // Initialize dice counts after fetching data
   },
 }

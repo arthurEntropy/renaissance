@@ -3,6 +3,7 @@
     <div class="modal-content">
       <h2 class="modal-header centered">Edit Ability</h2>
       <form @submit.prevent="saveAbility">
+
         <!-- Name -->
         <div class="form-group vertical">
           <label for="name" class="left-aligned">Name:</label>
@@ -23,8 +24,8 @@
           <input type="number" id="xp" v-model.number="editedAbility.xp" class="modal-input small-input" />
         </div>
 
-        <!-- Source and Trait Checkboxes -->
         <div class="form-group centered">
+          <!-- Source Dropdown -->
           <label for="source">Source:</label>
           <select id="source" v-model="editedAbility.source" class="modal-input">
             <optgroup label="Ancestries">
@@ -48,6 +49,8 @@
               </option>
             </optgroup>
           </select>
+
+          <!-- Trait and Can-Be-Active Checkboxes -->
           <label for="isTrait">
             <input type="checkbox" id="isTrait" v-model="editedAbility.isTrait" />
             Trait
@@ -100,7 +103,6 @@ export default {
     }
   },
   created() {
-    // Deep clone the ability to avoid direct mutations and preserve original state
     this.originalAbility = JSON.parse(JSON.stringify(this.ability))
     this.editedAbility = JSON.parse(JSON.stringify(this.ability))
   },

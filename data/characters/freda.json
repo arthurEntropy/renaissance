@@ -126,7 +126,7 @@
     "current": 13,
     "max": 13
   },
-  "load": 0,
+  "load": 0.5,
   "shadow": 6,
   "injury": 8,
   "states": {
@@ -147,8 +147,8 @@
   "equipment": [
     {
       "id": "2121d925-27f0-40ee-9d7f-2cc67b90141c",
-      "quantity": 12,
-      "isCarried": false,
+      "quantity": 1,
+      "isCarried": true,
       "isWielding": false,
       "index": 2
     },
@@ -156,7 +156,7 @@
       "id": "37a98252-6881-4aaf-bc6c-4091c1b70e1b",
       "quantity": 1,
       "isCarried": true,
-      "isWielding": true,
+      "isWielding": false,
       "index": 3
     },
     {
