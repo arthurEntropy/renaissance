@@ -20,7 +20,7 @@
         <div class="equipment-row">
           <!-- EquipmentCard (collapsed/minimal) -->
           <EquipmentCard v-if="row.equipment" :equipment="row.equipment" :collapsed="true"
-            :editable="row.equipment.isCustom" class="equipment-card" @edit="editCustomItem" />
+            :editable="row.equipment.isCustom" :sources="sources" class="equipment-card" @edit="editCustomItem" />
           <span v-else class="missing-equipment">Unknown item</span>
 
           <div class="equipment-row-details">
@@ -57,7 +57,7 @@
                     row.equipment.isMelee,
                   )
                   " :disabled="!row.isCarried || !(row.equipment && row.equipment.isMelee)
-                      " />
+                    " />
                 <em class="carried-label" :class="{
                   'disabled-text':
                     !row.isCarried ||
@@ -148,6 +148,15 @@ export default {
     equipment: Array,
     allEquipment: Array,
     character: Object,
+    sources: {
+      type: Object,
+      default: () => ({
+        ancestries: [],
+        cultures: [],
+        mestieri: [],
+        worldElements: []
+      })
+    }
   },
   emits: ['update-character', 'edit-custom-equipment'],
   components: {
@@ -219,7 +228,7 @@ export default {
             grouped.custom.push(item)
           } else if (
             !item.source ||
-            !this.equipmentStore.getSourceById(item.source)
+            !this.getSourceById(item.source)
           ) {
             // Items without a source or with an unrecognized source go to the general group
             grouped.general.push(item)
@@ -452,11 +461,24 @@ export default {
       this.toggleEquipmentSelector()
     },
 
+    getSourceById(sourceId) {
+      if (!sourceId) return null;
+
+      // Use sources passed as props if available
+      return (
+        this.sources.ancestries.find((item) => item.id === sourceId) ||
+        this.sources.cultures.find((item) => item.id === sourceId) ||
+        this.sources.mestieri.find((item) => item.id === sourceId) ||
+        this.sources.worldElements.find((item) => item.id === sourceId) ||
+        this.equipmentStore.getSourceById(sourceId)
+      );
+    },
+
     getSourceName(sourceId) {
       if (sourceId === 'general') return 'General'
       if (sourceId === 'custom') return 'Custom Items'
 
-      const source = this.equipmentStore.getSourceById(sourceId)
+      const source = this.getSourceById(sourceId)
       return source ? source.name : 'General'
     },
 
@@ -490,7 +512,6 @@ export default {
     },
   },
   mounted() {
-    // Remove the init() call since it no longer exists in the store
     document.addEventListener('click', this.handleOutsideClick)
   },
 

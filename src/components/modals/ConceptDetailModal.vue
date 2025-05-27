@@ -81,7 +81,7 @@
             </div>
             <masonry-grid v-else :column-width="350" :gap="10" :row-height="10" class="ability-cards-container">
               <AbilityCard v-for="ability in abilities" :key="ability.id" :ability="ability" :editable="isEditMode"
-                @edit="emitAbilityEdit" />
+                :sources="sources" @edit="emitAbilityEdit" />
             </masonry-grid>
           </div>
 
@@ -107,7 +107,7 @@
             </div>
             <masonry-grid v-else :column-width="350" :gap="10" :row-height="10" class="equipment-cards-container">
               <EquipmentCard v-for="item in equipment" :key="item.id" :equipment="item" :editable="isEditMode"
-                @edit="emitEquipmentEdit" />
+                :sources="sources" @edit="emitEquipmentEdit" />
             </masonry-grid>
           </div>
         </div>
@@ -133,6 +133,12 @@ import MasonryGrid from '@/components/MasonryGrid.vue'
 import PlaylistSection from '@/components/conceptDetail/PlaylistSection.vue'
 import SettingsModal from '@/components/conceptDetail/ConceptSettingsModal.vue'
 import TextEditor from '@/components/TextEditor.vue'
+import { useAbilitiesStore } from '@/stores/abilitiesStore'
+import { useEquipmentStore } from '@/stores/equipmentStore'
+import AncestryService from '@/services/AncestryService'
+import CultureService from '@/services/CultureService'
+import MestiereService from '@/services/MestiereService'
+import WorldElementService from '@/services/WorldElementService'
 
 export default defineComponent({
   props: {
@@ -172,6 +178,14 @@ export default defineComponent({
         color1: '#ffffff',
         color2: '#000000',
       },
+      sources: {
+        ancestries: [],
+        cultures: [],
+        mestieri: [],
+        worldElements: [],
+      },
+      abilitiesStore: useAbilitiesStore(),
+      equipmentStore: useEquipmentStore(),
     }
   },
   watch: {
@@ -318,15 +332,39 @@ export default defineComponent({
       this.isEditingDescription = false
     },
 
+    // Fetch sources for backdrop images
+    async fetchSources() {
+      try {
+        // Fetch all source types in parallel
+        const [ancestries, cultures, mestieri, worldElements] = await Promise.all([
+          AncestryService.getAllAncestries(),
+          CultureService.getAllCultures(),
+          MestiereService.getAllMestieri(),
+          WorldElementService.getAllWorldElements()
+        ]);
+
+        // Update sources
+        this.sources = {
+          ancestries,
+          cultures,
+          mestieri,
+          worldElements
+        };
+
+        // Also update the stores to ensure consistency
+        this.abilitiesStore.sources = this.sources;
+        this.equipmentStore.sources = this.sources;
+      } catch (error) {
+        console.error('Error fetching sources:', error);
+      }
+    },
+
     // Abilities and Equipment
     async fetchAbilities() {
       try {
         const abilities = await AbilityService.getAllAbilities()
         this.abilities = abilities.filter(
           (ability) => ability.source === this.localConcept.id,
-        )
-        console.log(
-          `Fetched ${this.abilities.length} abilities for concept ${this.localConcept.id}`,
         )
       } catch (error) {
         console.error('Error fetching abilities:', error)
@@ -338,9 +376,6 @@ export default defineComponent({
         const equipment = await EquipmentService.getAllEquipment()
         this.equipment = equipment.filter(
           (item) => item.source === this.localConcept.id,
-        )
-        console.log(
-          `Fetched ${this.equipment.length} equipment items for concept ${this.localConcept.id}`,
         )
       } catch (error) {
         console.error('Error fetching equipment:', error)
@@ -467,7 +502,18 @@ export default defineComponent({
   },
 
   async mounted() {
-    await Promise.all([this.fetchAbilities(), this.fetchEquipment()])
+    try {
+      // Fetch sources first so background images are available
+      await this.fetchSources();
+
+      // Then fetch abilities and equipment in parallel
+      await Promise.all([
+        this.fetchAbilities(),
+        this.fetchEquipment()
+      ]);
+    } catch (error) {
+      console.error('Error initializing ConceptDetailModal:', error);
+    }
   },
 })
 </script>

@@ -1,13 +1,6 @@
 <template>
-  <base-card
-    :item="ability"
-    itemType="ability"
-    :metaInfo="traitOrMp"
-    :storeInstance="abilitiesStore"
-    :initialCollapsed="collapsed"
-    :editable="editable"
-    @edit="$emit('edit', ability)"
-  >
+  <base-card :item="ability" itemType="ability" :metaInfo="traitOrMp" :storeInstance="abilitiesStore"
+    :initialCollapsed="collapsed" :editable="editable" :sources="sources" @edit="$emit('edit', ability)">
     <!-- Content slot -->
     <template #content>
       <p class="description-background">
@@ -17,19 +10,11 @@
 
     <!-- Buttons slot -->
     <template #buttons>
-      <button
-        v-if="ability.canBeActive"
-        class="bottom-buttons toggle-active-button"
-        @click.stop="toggleActive"
-        :title="isActive ? 'Make inactive' : 'Make active'"
-      >
+      <button v-if="ability.canBeActive" class="bottom-buttons toggle-active-button" @click.stop="toggleActive"
+        :title="isActive ? 'Make inactive' : 'Make active'">
         {{ isActive ? '💨' : '💥' }}
       </button>
-      <button
-        class="bottom-buttons send-to-chat-button"
-        @click.stop="sendAbilityToChat"
-        title="Send to chat"
-      >
+      <button class="bottom-buttons send-to-chat-button" @click.stop="sendAbilityToChat" title="Send to chat">
         💬
       </button>
     </template>
@@ -58,10 +43,23 @@ export default {
       type: Boolean,
       default: false,
     },
+    collapsed: {
+      type: Boolean,
+      default: false
+    },
+    sources: {
+      type: Object,
+      default: () => ({
+        ancestries: [],
+        cultures: [],
+        mestieri: [],
+        worldElements: []
+      })
+    }
   },
+  emits: ['edit', 'update', 'sendToChat'],
   data() {
     return {
-      collapsed: false,
       isActive: this.ability.isActive,
       abilitiesStore: useAbilitiesStore(),
     }

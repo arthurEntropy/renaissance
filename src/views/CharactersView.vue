@@ -4,7 +4,7 @@
     <div v-if="!selectedCharacter" class="character-selection">
       <div class="selection-cards-container">
         <SelectionCard v-for="character in characters" :key="character.id" :item="character"
-          @click="selectCharacter(character)" />
+          @click="selectCharacter(character)" :sources="sources" />
 
         <!-- New "Add" card with plus icon -->
         <div class="add-concept-card" @click="createNewCharacter">
@@ -46,7 +46,7 @@
             <div class="conditions-row" v-for="(value, key) in selectedCharacter.conditions" :key="key">
               <span :class="{ 'condition-active': value }">{{
                 this.$capitalizeFirstLetter(key)
-                }}</span>
+              }}</span>
               <input type="checkbox" class="skill-checkbox" :class="{ 'condition-active-checkbox': value }"
                 v-model="selectedCharacter.conditions[key]" />
             </div>
@@ -58,18 +58,18 @@
         <!-- Left column: Equipment -->
         <div class="equipment-column">
           <!-- Engagement Dice Table -->
-          <EngagementDiceTable :character="selectedCharacter" :allEquipment="allEquipment" />
+          <EngagementDiceTable :character="selectedCharacter" :allEquipment="allEquipment" :sources="sources" />
 
           <!-- Equipment Table -->
           <EquipmentTable :equipment="selectedCharacter.equipment" :allEquipment="allEquipment"
-            :character="selectedCharacter" @update-character="updateCharacter"
+            :character="selectedCharacter" :sources="sources" @update-character="updateCharacter"
             @edit-custom-equipment="openEditEquipmentModal" />
         </div>
 
         <!-- Right column: Abilities -->
         <div class="abilities-column">
           <!-- Abilities Table -->
-          <AbilitiesTable :character="selectedCharacter" :allAbilities="allAbilities"
+          <AbilitiesTable :character="selectedCharacter" :allAbilities="allAbilities" :sources="sources"
             @update-character="updateCharacter" />
         </div>
       </div>
@@ -86,8 +86,8 @@
       <SettingsModal v-if="showSettingsModal" @close="closeSettingsModal" @delete="openDeleteConfirmationModal" />
       <DeleteConfirmationModal v-if="showDeleteConfirmationModal" :name="selectedCharacter.name"
         @close="closeDeleteConfirmationModal" @confirm="deleteCharacter" />
-      <EditEquipmentModal v-if="showEditEquipmentModal" :equipmentId="equipmentIdToEdit" @update="saveEditedEquipment"
-        @close="closeEditEquipmentModal" @delete="openDeleteConfirmationModal" />
+      <EditEquipmentModal v-if="showEditEquipmentModal" :equipmentId="equipmentIdToEdit" :sources="sources"
+        @update="saveEditedEquipment" @close="closeEditEquipmentModal" @delete="openDeleteConfirmationModal" />
     </div>
   </div>
 </template>
@@ -153,20 +153,29 @@ export default {
       equipmentIdToEdit: null,
       latestRoll: null,
       lastTargetNumber: null,
+      sources: {
+        ancestries: [],
+        cultures: [],
+        mestieri: [],
+        worldElements: [],
+      },
     }
   },
 
-  mounted() {
-    this.characterStore.fetchCharacters()
-    this.abilitiesStore.fetchAllAbilities()
+  async mounted() {
+    try {
+      // First fetch sources to ensure background images are available
+      await this.fetchSources()
 
-    // Wait for equipment to load
-    this.equipmentStore
-      .fetchAllEquipment()
-      .then(() => { })
-      .catch((error) => {
-        console.error('Error fetching equipment:', error)
-      })
+      // Then fetch other data in parallel
+      await Promise.all([
+        this.characterStore.fetchCharacters(),
+        this.abilitiesStore.fetchAllAbilities(),
+        this.equipmentStore.fetchAllEquipment()
+      ]);
+    } catch (error) {
+      console.error('Error initializing CharactersView:', error);
+    }
   },
 
   computed: {
@@ -311,6 +320,28 @@ export default {
   },
 
   methods: {
+    // Fetch sources for both abilities and equipment
+    async fetchSources() {
+      try {
+        // Fetch ability sources from abilitiesStore
+        await this.abilitiesStore.fetchAllSources();
+
+        // Fetch equipment sources from equipmentStore
+        await this.equipmentStore.fetchAllSources();
+
+        // Combine sources from both stores to ensure we have all sources
+        // We'll prioritize the equipment store's sources but merge in any unique sources from abilities
+        this.sources = {
+          ancestries: [...this.equipmentStore.sources.ancestries],
+          cultures: [...this.equipmentStore.sources.cultures],
+          mestieri: [...this.equipmentStore.sources.mestieri],
+          worldElements: [...this.equipmentStore.sources.worldElements]
+        };
+      } catch (error) {
+        console.error('Error fetching sources:', error);
+      }
+    },
+
     // CHARACTER SELECTION & CRUD
     selectCharacter(character) {
       this.selectedCharacter = character

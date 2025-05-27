@@ -1,17 +1,20 @@
 <template>
   <ItemCardsView itemType="Equipment" itemTypePlural="Equipment" :sources="sources" :items="equipment"
     :sortOptions="sortOptions" v-model:searchQuery="searchQuery" v-model:sourceFilter="sourceFilter"
-    v-model:sortOption="sortOption" @create="createEquipment">
+    v-model:sortOption="sortOption" @create="createEquipment" ref="itemCardsView">
 
+    <!-- Item cards slot -->
     <template #item-cards="{ filteredItems }">
-      <EquipmentCard v-for="equipment in filteredItems" :key="equipment.id" :equipment="equipment" :editable="true"
-        @delete="deleteEquipment(equipment)" @update="updateEquipment(equipment)"
-        @edit="openEditEquipmentModal(equipment)" @send-to-chat="sendEquipmentToChat(equipment)" />
+      <EquipmentCard v-for="item in filteredItems" :key="item.id" :equipment="item" :editable="true" :sources="sources"
+        @edit="openEditEquipmentModal(item)" @send-to-chat="sendEquipmentToChat(item)"
+        @height-changed="onCardHeightChanged" />
     </template>
 
+    <!-- Modals slot -->
     <template #modals>
-      <EditEquipmentModal v-if="showEditEquipmentModal" :equipmentId="equipmentToEdit?.id" @update="saveEditedEquipment"
-        @close="closeEditEquipmentModal" @delete="deleteEquipment(equipmentToEdit)" />
+      <EditEquipmentModal v-if="showEditEquipmentModal" :equipment="equipmentToEdit" :all-equipment="equipment"
+        :standards-of-living="equipmentStore.standardsOfLiving" :sources="sources" @update="saveEditedEquipment"
+        @close="closeEditEquipmentModal" />
     </template>
   </ItemCardsView>
 </template>
@@ -54,6 +57,10 @@ export default {
           { value: 'weight-asc', label: 'Weight (Light to Heavy)' },
           { value: 'weight-desc', label: 'Weight (Heavy to Light)' },
         ],
+        'Type': [
+          { value: 'isMelee-desc', label: 'Weapons First' },
+          { value: 'isMelee-asc', label: 'Gear First' },
+        ],
       },
     }
   },
@@ -63,36 +70,25 @@ export default {
   },
 
   methods: {
+    // Handle card height changes to update masonry layout
+    onCardHeightChanged() {
+      this.$nextTick(() => {
+        // Attempt to find the MasonryGrid component and update it
+        const masonryGrid = this.$el.querySelector('.masonry-grid')?.__vue__
+        if (masonryGrid && typeof masonryGrid.updateLayout === 'function') {
+          masonryGrid.updateLayout()
+        }
+      })
+    },
+
     // EQUIPMENT CRUD
     async createEquipment() {
       const newEquipment = await EquipmentService.createEquipment()
       await this.equipmentStore.fetchAllEquipment()
-      this.equipmentToEdit = this.equipment.find(
-        (equipment) => equipment.id === newEquipment.id,
+      this.equipmentToEdit = this.equipmentStore.equipment.find(
+        (item) => item.id === newEquipment.id,
       )
       this.showEditEquipmentModal = true
-    },
-
-    async updateEquipment(equipment) {
-      await EquipmentService.updateEquipment(equipment)
-      await this.equipmentStore.fetchAllEquipment()
-    },
-
-    async deleteEquipment(equipment) {
-      const deleteId = equipment?.id
-      const editId = this.equipmentToEdit?.id
-      if (equipment) {
-        const equipmentToUpdate = { ...equipment, isDeleted: true }
-        try {
-          if (this.showEditEquipmentModal && editId === deleteId) {
-            this.closeEditEquipmentModal()
-          }
-          await EquipmentService.updateEquipment(equipmentToUpdate)
-          await this.equipmentStore.fetchAllEquipment()
-        } catch (error) {
-          console.error('Error deleting equipment:', error)
-        }
-      }
     },
 
     async saveEditedEquipment(editedEquipment) {
@@ -125,9 +121,17 @@ export default {
   },
 
   async mounted() {
-    await this.equipmentStore.fetchAllEquipment()
-    await this.equipmentStore.fetchStandardsOfLiving()
-    await this.fetchSources()
+    try {
+      // Fetch sources first to ensure background images are available as soon as possible
+      await this.fetchSources()
+      // Then fetch equipment and standards of living
+      await Promise.all([
+        this.equipmentStore.fetchAllEquipment(),
+        this.equipmentStore.fetchStandardsOfLiving()
+      ]);
+    } catch (error) {
+      console.error('Error initializing EquipmentView:', error)
+    }
   },
 }
 </script>

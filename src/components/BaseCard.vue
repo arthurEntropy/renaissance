@@ -56,7 +56,8 @@ export default {
     },
     storeInstance: {
       type: Object,
-      required: true,
+      required: false,
+      default: null,
     },
     initialCollapsed: {
       type: Boolean,
@@ -65,6 +66,15 @@ export default {
     editable: {
       type: Boolean,
       default: false,
+    },
+    sources: {
+      type: Object,
+      default: () => ({
+        ancestries: [],
+        cultures: [],
+        mestieri: [],
+        worldElements: []
+      })
     },
   },
   emits: ['edit', 'update', 'send-to-chat', 'height-changed'],
@@ -92,15 +102,13 @@ export default {
       }
 
       // Then check source's background
-      if (this.sourceLoaded) {
-        const source = this.storeInstance.getSourceById(this.item.source)
-        if (source && source.backgroundImage) {
-          return {
-            backgroundImage: `url(${source.backgroundImage})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat',
-          }
+      const source = this.getSourceById(this.item.source)
+      if (source && source.backgroundImage) {
+        return {
+          backgroundImage: `url(${source.backgroundImage})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
         }
       }
 
@@ -129,25 +137,38 @@ export default {
       const rowSpan = Math.ceil(height / rowHeight)
       this.$el.style.setProperty('--card-span', rowSpan)
     },
-    async fetchSourceInfo() {
+    getSourceById(sourceId) {
+      if (!sourceId) return null
+
+      return (
+        this.sources.ancestries.find((item) => item.id === sourceId) ||
+        this.sources.cultures.find((item) => item.id === sourceId) ||
+        this.sources.mestieri.find((item) => item.id === sourceId) ||
+        this.sources.worldElements.find((item) => item.id === sourceId)
+      )
+    },
+    updateSourceName() {
       if (!this.item.source) {
         this.sourceName = 'Unknown'
-        this.sourceLoaded = true
         return
       }
 
-      await this.storeInstance.fetchAllSources()
-      const source = this.storeInstance.getSourceById(this.item.source)
+      const source = this.getSourceById(this.item.source)
       this.sourceName = source?.name || 'Unknown'
-      this.sourceLoaded = true
     },
   },
   watch: {
     'item.source': {
       immediate: true,
       handler() {
-        this.fetchSourceInfo()
+        this.updateSourceName()
       },
+    },
+    sources: {
+      immediate: true,
+      handler() {
+        this.updateSourceName()
+      }
     },
     isCollapsed(newVal, oldVal) {
       if (newVal !== oldVal) {
@@ -158,9 +179,6 @@ export default {
         })
       }
     },
-  },
-  async created() {
-    await this.fetchSourceInfo()
   },
   mounted() {
     this.$nextTick(this.setSpanSize)

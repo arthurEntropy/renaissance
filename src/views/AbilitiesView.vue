@@ -1,13 +1,14 @@
 <template>
   <ItemCardsView itemType="Ability" itemTypePlural="Abilities" :sources="sources" :items="abilities"
     :sortOptions="sortOptions" v-model:searchQuery="searchQuery" v-model:sourceFilter="sourceFilter"
-    v-model:sortOption="sortOption" @create="createAbility">
+    v-model:sortOption="sortOption" @create="createAbility" ref="itemCardsView">
 
     <!-- Item cards slot -->
     <template #item-cards="{ filteredItems }">
       <AbilityCard v-for="ability in filteredItems" :key="ability.id" :ability="ability" :editable="true"
-        @delete="deleteAbility(ability)" @update="updateAbility(ability)" @edit="openEditAbilityModal(ability)"
-        @send-to-chat="sendAbilityToChat(ability)" />
+        :sources="sources" @delete="deleteAbility(ability)" @update="updateAbility(ability)"
+        @edit="openEditAbilityModal(ability)" @send-to-chat="sendAbilityToChat(ability)"
+        @height-changed="onCardHeightChanged" />
     </template>
 
     <!-- Modals slot -->
@@ -66,6 +67,17 @@ export default {
     ...mapState(useAbilitiesStore, ['abilities']),
   },
   methods: {
+    // Handle card height changes to update masonry layout
+    onCardHeightChanged() {
+      this.$nextTick(() => {
+        // Attempt to find any MasonryGrid components and update them
+        const masonryGrid = this.$el.querySelector('.masonry-grid')?.__vue__
+        if (masonryGrid && typeof masonryGrid.updateLayout === 'function') {
+          masonryGrid.updateLayout()
+        }
+      })
+    },
+
     // ABILITY CRUD
     async createAbility() {
       const newAbility = await AbilityService.createAbility()
@@ -128,8 +140,14 @@ export default {
   },
 
   async mounted() {
-    await this.abilitiesStore.fetchAllAbilities()
-    await this.fetchSources()
+    try {
+      // Fetch sources first to ensure background images are available as soon as possible
+      await this.fetchSources()
+      // Then fetch the abilities
+      await this.abilitiesStore.fetchAllAbilities()
+    } catch (error) {
+      console.error('Error initializing AbilitiesView:', error)
+    }
   },
 }
 </script>

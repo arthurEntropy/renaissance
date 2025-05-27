@@ -5,86 +5,43 @@
       <div class="header-left">
         <h2>Traits & Abilities</h2>
         <!-- Edit mode toggle button moved next to title -->
-        <button
-          class="edit-mode-button"
-          @click="toggleEditMode"
-          :title="isEditMode ? 'Exit Edit Mode' : 'Enter Edit Mode'"
-        >
+        <button class="edit-mode-button" @click="toggleEditMode"
+          :title="isEditMode ? 'Exit Edit Mode' : 'Enter Edit Mode'">
           {{ isEditMode ? '✓' : '✎' }}
         </button>
       </div>
       <div class="header-right">
         <!-- Add ability link moved to header-right -->
-        <em
-          v-if="isEditMode"
-          @click="toggleAbilitySelector($event)"
-          class="add-item-text"
-          >add ability</em
-        >
+        <em v-if="isEditMode" @click="toggleAbilitySelector($event)" class="add-item-text">add ability</em>
         <div class="mp-container">
           <span class="mp-label">MP:</span>
-          <NumberInput
-            :model-value="character.mp.current"
-            @update:model-value="updateMpCurrent"
-            :min="0"
-            size="small"
-          />
+          <NumberInput :model-value="character.mp.current" @update:model-value="updateMpCurrent" :min="0"
+            size="small" />
           <span>/</span>
-          <NumberInput
-            :model-value="character.mp.max"
-            @update:model-value="updateMpMax"
-            :min="0"
-            size="small"
-          />
+          <NumberInput :model-value="character.mp.max" @update:model-value="updateMpMax" :min="0" size="small" />
         </div>
       </div>
     </div>
 
     <!-- Using MasonryGrid with draggable -->
-    <masonry-grid
-      v-if="!isEditMode"
-      :column-width="330"
-      :gap="15"
-      :row-height="10"
-      class="abilities-grid"
-    >
-      <AbilityCard
-        v-for="ability in sortedAbilities"
-        :key="ability.id"
-        :ability="ability"
-        :collapsed="true"
-        class="ability-card"
-      />
+    <masonry-grid v-if="!isEditMode" :column-width="330" :gap="15" :row-height="10" class="abilities-grid">
+      <AbilityCard v-for="ability in sortedAbilities" :key="ability.id" :ability="ability" :collapsed="true"
+        :sources="sources" class="ability-card" />
     </masonry-grid>
 
     <!-- DRAGGABLE ABILITY ROWS (only in edit mode) -->
-    <draggable
-      v-else
-      v-model="sortedAbilities"
-      group="abilities"
-      handle=".drag-handle"
-      item-key="id"
-      @end="onDragEnd"
-      ghost-class="ghost-ability-row"
-      animation="150"
-    >
+    <draggable v-else v-model="sortedAbilities" group="abilities" handle=".drag-handle" item-key="id" @end="onDragEnd"
+      ghost-class="ghost-ability-row" animation="150">
       <template #item="{ element: ability, index }">
         <div class="ability-row">
           <!-- Ability Card -->
-          <AbilityCard
-            v-if="ability"
-            :ability="ability"
-            :collapsed="true"
-            class="ability-card"
-          />
+          <AbilityCard v-if="ability" :ability="ability" :collapsed="true" :sources="sources" class="ability-card" />
           <span v-else class="missing-ability">Unknown ability</span>
 
           <!-- Edit Mode Controls -->
           <div class="edit-controls">
             <!-- Remove button -->
-            <span @click="removeAbility(index)" class="delete-item-link"
-              >ⓧ</span
-            >
+            <span @click="removeAbility(index)" class="delete-item-link">ⓧ</span>
 
             <!-- Drag Handle -->
             <span class="drag-handle" title="Drag to reorder">⋮⋮</span>
@@ -96,29 +53,17 @@
     <!-- Ability Selector Dropdown -->
     <div v-if="showAbilitySelector" class="ability-selector-container">
       <div class="ability-selector-header">
-        <input
-          type="text"
-          v-model="abilitySearchQuery"
-          placeholder="Search abilities..."
-          class="ability-search"
-          @input="filterAbilities"
-        />
+        <input type="text" v-model="abilitySearchQuery" placeholder="Search abilities..." class="ability-search"
+          @input="filterAbilities" />
         <span @click="toggleAbilitySelector()" class="close-selector">×</span>
       </div>
       <div class="ability-options-container">
         <template v-for="(items, source) in groupedAbilities" :key="source">
           <div class="ability-source-group">
             <div class="source-header">{{ getSourceName(source) }}</div>
-            <div
-              v-for="item in items"
-              :key="item.id"
-              class="ability-option"
-              @click="selectAbility(item)"
-            >
+            <div v-for="item in items" :key="item.id" class="ability-option" @click="selectAbility(item)">
               {{ item.name }}
-              <span v-if="item.mp" class="ability-cost"
-                >({{ item.mp }} MP)</span
-              >
+              <span v-if="item.mp" class="ability-cost">({{ item.mp }} MP)</span>
             </div>
           </div>
         </template>
@@ -144,6 +89,15 @@ export default {
       type: Array,
       default: () => [],
     },
+    sources: {
+      type: Object,
+      default: () => ({
+        ancestries: [],
+        cultures: [],
+        mestieri: [],
+        worldElements: []
+      })
+    }
   },
   emits: ['update-character'],
   components: {
@@ -207,18 +161,20 @@ export default {
       items
         .filter((item) => !item.isDeleted)
         .forEach((item) => {
-          if (!item.source || !this.abilitiesStore.getSourceById(item.source)) {
+          const sourceId = item.source;
+          const source = sourceId ? this.getSourceById(sourceId) : null;
+
+          if (!sourceId || !source) {
             // Items without a source or with an unrecognized source go to the general group
-            grouped.general.push(item)
+            grouped.general.push(item);
           } else {
             // All other items are grouped by their source
-            const sourceId = item.source
             if (!grouped[sourceId]) {
-              grouped[sourceId] = []
+              grouped[sourceId] = [];
             }
-            grouped[sourceId].push(item)
+            grouped[sourceId].push(item);
           }
-        })
+        });
 
       // Sort items within each group by name
       Object.keys(grouped).forEach((key) => {
@@ -380,10 +336,23 @@ export default {
       this.toggleAbilitySelector()
     },
 
+    getSourceById(sourceId) {
+      if (!sourceId) return null;
+
+      // Use sources passed as props if available
+      return (
+        this.sources.ancestries.find((item) => item.id === sourceId) ||
+        this.sources.cultures.find((item) => item.id === sourceId) ||
+        this.sources.mestieri.find((item) => item.id === sourceId) ||
+        this.sources.worldElements.find((item) => item.id === sourceId) ||
+        this.abilitiesStore.getSourceById(sourceId)
+      );
+    },
+
     getSourceName(sourceId) {
       if (sourceId === 'general') return 'General'
 
-      const source = this.abilitiesStore.getSourceById(sourceId)
+      const source = this.getSourceById(sourceId);
       return source ? source.name : 'General'
     },
 
@@ -404,7 +373,6 @@ export default {
     },
   },
   mounted() {
-    this.abilitiesStore.fetchAllSources()
     // Add click listener to detect clicks outside the dropdown
     document.addEventListener('click', this.handleOutsideClick)
   },
@@ -433,15 +401,18 @@ h2 {
   background-color: black;
   padding: 15px;
   border-radius: 5px;
-  position: relative; /* For positioning the dropdown */
+  position: relative;
+  /* For positioning the dropdown */
 }
 
 .abilities-table-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap; /* Allow wrapping on smaller screens */
-  gap: 10px; /* Add some spacing when elements wrap */
+  flex-wrap: wrap;
+  /* Allow wrapping on smaller screens */
+  gap: 10px;
+  /* Add some spacing when elements wrap */
   margin-bottom: 15px;
 }
 

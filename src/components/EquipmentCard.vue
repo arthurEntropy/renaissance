@@ -2,7 +2,7 @@
   <base-card v-bind="$attrs" :item="equipment" itemType="equipment" :metaInfo="equipment.weight
     ? `${equipment.weight} ${equipment.weight === 1 ? 'lb' : 'lbs'}`
     : ''
-    " :storeInstance="equipmentStore" :initialCollapsed="isCollapsed" :editable="editable"
+    " :storeInstance="equipmentStore" :initialCollapsed="isCollapsed" :editable="editable" :sources="sources"
     @edit="$emit('edit', equipment)">
     <!-- Large image slot -->
     <template #large-image>
@@ -101,6 +101,15 @@ export default {
       type: Boolean,
       default: false,
     },
+    sources: {
+      type: Object,
+      default: () => ({
+        ancestries: [],
+        cultures: [],
+        mestieri: [],
+        worldElements: []
+      })
+    }
   },
 
   data() {
@@ -116,7 +125,6 @@ export default {
   },
 
   methods: {
-    // Methods remain the same
     toggleImage() {
       this.showLargeImage = !this.showLargeImage
     },
@@ -139,7 +147,6 @@ export default {
     },
 
     startSuccessTooltip(success, event) {
-      console.log('Tooltip success:', success);
       clearTimeout(this.tooltipTimer);
       this.tooltipTimer = setTimeout(() => {
         this.tooltipSuccess = success.description;
@@ -162,7 +169,6 @@ export default {
         }
 
         this.tooltipPosition = { x, y };
-        console.log('Tooltip position:', this.tooltipPosition);
       }, 300); // Reduced delay from 1000ms to 300ms for better UX
     },
 
@@ -170,7 +176,6 @@ export default {
       clearTimeout(this.tooltipTimer);
       this.tooltipTimer = null;
       this.tooltipSuccess = null;
-      console.log('Tooltip cleared');
     },
   },
 
