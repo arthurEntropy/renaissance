@@ -29,22 +29,22 @@
           <label for="source">Source:</label>
           <select id="source" v-model="editedAbility.source" class="modal-input">
             <optgroup label="Ancestries">
-              <option v-for="ancestry in ancestries" :key="ancestry.id" :value="ancestry.id">
+              <option v-for="ancestry in sources.ancestries" :key="ancestry.id" :value="ancestry.id">
                 {{ ancestry.name }}
               </option>
             </optgroup>
             <optgroup label="Cultures">
-              <option v-for="culture in cultures" :key="culture.id" :value="culture.id">
+              <option v-for="culture in sources.cultures" :key="culture.id" :value="culture.id">
                 {{ culture.name }}
               </option>
             </optgroup>
             <optgroup label="Mestieri">
-              <option v-for="mestiere in mestieri" :key="mestiere.id" :value="mestiere.id">
+              <option v-for="mestiere in sources.mestieri" :key="mestiere.id" :value="mestiere.id">
                 {{ mestiere.name }}
               </option>
             </optgroup>
             <optgroup label="World Elements">
-              <option v-for="worldElement in worldElements" :key="worldElement.id" :value="worldElement.id">
+              <option v-for="worldElement in sources.worldElements" :key="worldElement.id" :value="worldElement.id">
                 {{ worldElement.name }}
               </option>
             </optgroup>
@@ -79,16 +79,20 @@
 </template>
 
 <script>
-import AncestryService from '@/services/AncestryService'
-import CultureService from '@/services/CultureService'
-import MestieriService from '@/services/MestiereService'
-import WorldElementsService from '@/services/WorldElementService'
-
 export default {
   props: {
     ability: {
       type: Object,
       required: true,
+    },
+    sources: {
+      type: Object,
+      default: () => ({
+        ancestries: [],
+        cultures: [],
+        mestieri: [],
+        worldElements: [],
+      }),
     },
   },
   emits: ['update', 'delete', 'close'],
@@ -96,10 +100,6 @@ export default {
     return {
       editedAbility: null,
       originalAbility: null,
-      ancestries: [],
-      cultures: [],
-      mestieri: [],
-      worldElements: [],
     }
   },
   created() {
@@ -107,23 +107,6 @@ export default {
     this.editedAbility = JSON.parse(JSON.stringify(this.ability))
   },
   methods: {
-    async fetchSources() {
-      try {
-        const [ancestries, cultures, mestieri, worldElements] =
-          await Promise.all([
-            AncestryService.getAllAncestries(),
-            CultureService.getAllCultures(),
-            MestieriService.getAllMestieri(),
-            WorldElementsService.getAllWorldElements(),
-          ])
-        this.ancestries = ancestries
-        this.cultures = cultures
-        this.mestieri = mestieri
-        this.worldElements = worldElements
-      } catch (error) {
-        console.error('Error fetching sources:', error)
-      }
-    },
     saveAbility() {
       this.$emit('update', this.editedAbility)
       this.$emit('close')
@@ -138,15 +121,11 @@ export default {
       this.$emit('close')
     },
   },
-  async mounted() {
-    await this.fetchSources()
-  },
 }
 </script>
 
 <style scoped>
 .modal-content {
-  text-align: left;
   width: 100%;
   max-width: 500px;
 }

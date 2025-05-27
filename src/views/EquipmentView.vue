@@ -13,7 +13,8 @@
     <!-- Modals slot -->
     <template #modals>
       <EditEquipmentModal v-if="showEditEquipmentModal" :equipment="equipmentToEdit" :all-equipment="equipment"
-        :standards-of-living="equipmentStore.standardsOfLiving" :sources="sources" @update="saveEditedEquipment"
+        :standards-of-living="equipmentStore.standardsOfLiving" :sources="sources"
+        :engagement-success-options="engagementSuccessOptions" @update="saveEditedEquipment"
         @close="closeEditEquipmentModal" />
     </template>
   </ItemCardsView>
@@ -23,6 +24,7 @@
 import { useEquipmentStore } from '@/stores/equipmentStore'
 import { mapState } from 'pinia'
 import EquipmentService from '@/services/EquipmentService'
+import EngagementSuccessService from '@/services/EngagementSuccessService'
 import EquipmentCard from '@/components/EquipmentCard.vue'
 import EditEquipmentModal from '@/components/modals/EditEquipmentModal.vue'
 import ItemCardsView from '@/components/ItemCardsView.vue'
@@ -42,6 +44,7 @@ export default {
       sortOption: '',
       searchQuery: '',
       sourceFilter: '',
+      engagementSuccessOptions: [],
       sources: {
         ancestries: [],
         cultures: [],
@@ -107,6 +110,14 @@ export default {
       await this.equipmentStore.fetchAllSources()
       this.sources = this.equipmentStore.sources
     },
+
+    async fetchEngagementSuccessOptions() {
+      try {
+        this.engagementSuccessOptions = await EngagementSuccessService.getAllEngagementSuccesses();
+      } catch (error) {
+        console.error('Error fetching engagement success options:', error);
+      }
+    },
   },
 
   async mounted() {
@@ -118,6 +129,8 @@ export default {
         this.equipmentStore.fetchAllEquipment(),
         this.equipmentStore.fetchStandardsOfLiving()
       ]);
+      // Fetch engagement success options
+      await this.fetchEngagementSuccessOptions();
     } catch (error) {
       console.error('Error initializing EquipmentView:', error)
     }

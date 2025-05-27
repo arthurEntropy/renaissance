@@ -134,7 +134,6 @@
 
 <script>
 import { useEquipmentStore } from '@/stores/equipmentStore'
-import EngagementSuccessService from '@/services/EngagementSuccessService'
 
 export default {
   props: {
@@ -159,6 +158,10 @@ export default {
         worldElements: [],
       }),
     },
+    engagementSuccessOptions: {
+      type: Array,
+      default: () => [],
+    },
   },
 
   emits: ['update', 'delete', 'close'],
@@ -167,7 +170,6 @@ export default {
     return {
       editedEquipment: null,
       originalEquipment: null,
-      engagementSuccessOptions: [],
       equipmentStore: useEquipmentStore(),
       dieTypes: [4, 6, 8, 10, 12, 20], // Supported die types
       engagementDiceCounts: {}, // Object to store counts of each engagement die type
@@ -289,11 +291,6 @@ export default {
       this.$emit('close')
     },
 
-    async fetchEngagementSuccessOptions() {
-      this.engagementSuccessOptions =
-        await EngagementSuccessService.getAllEngagementSuccesses()
-    },
-
     getEngagementSuccessName(id) {
       const success = this.engagementSuccessOptions.find(
         (success) => success.id === id,
@@ -322,9 +319,8 @@ export default {
     },
   },
 
-  async mounted() {
-    await this.fetchEngagementSuccessOptions()
-    this.initializeDiceCounts() // Initialize dice counts after fetching data
+  mounted() {
+    this.initializeDiceCounts() // Initialize dice counts
   },
 }
 </script>
@@ -334,7 +330,6 @@ export default {
   max-width: 500px;
 }
 
-/* Centered Title and ID */
 .modal-header.centered,
 .form-group.centered {
   text-align: center;
@@ -344,18 +339,14 @@ export default {
   text-align: left;
 }
 
-/* Description Section */
 .description textarea {
   height: 150px;
-  /* Double the default height */
 }
 
-/* Row Layout for Weight, Source, and Standard of Living */
 .form-group.row {
   display: flex;
   justify-content: space-between;
   gap: 10px;
-  /* Add gap between columns */
 }
 
 .form-column {
@@ -374,13 +365,11 @@ export default {
   flex: 1.5;
 }
 
-/* Melee Weapon Checkbox */
 .melee-checkbox {
   margin: 20px 0;
   text-align: center;
 }
 
-/* Form Buttons */
 .form-buttons {
   display: flex;
   justify-content: space-between;
@@ -413,7 +402,6 @@ export default {
   opacity: 0.9;
 }
 
-/* Dice Row and Column */
 .dice-row {
   display: flex;
   justify-content: space-between;
@@ -428,13 +416,11 @@ export default {
   gap: 5px;
 }
 
-/* DiceFont Icon */
 .dice-icon {
   font-size: 36px;
   color: white;
 }
 
-/* Dice Input */
 .dice-input {
   width: 50px;
   text-align: center;
@@ -446,7 +432,6 @@ export default {
 
 .form-group.vertical {
   margin-bottom: 20px;
-  /* Add vertical spacing between sections */
   text-align: left;
 }
 
@@ -456,12 +441,10 @@ export default {
   gap: 10px;
   margin-top: 10px;
   padding: 10px;
-  /* Add padding around the engagement successes section */
   background-color: rgba(0,
       0,
       0,
       0.1);
-  /* Optional: Add a subtle background for clarity */
   border-radius: 5px;
 }
 

@@ -13,8 +13,8 @@
 
     <!-- Modals slot -->
     <template #modals>
-      <EditAbilityModal v-if="showEditAbilityModal" :ability="abilityToEdit" @update="saveEditedAbility"
-        @close="closeEditAbilityModal" @delete="deleteAbility(abilityToEdit)" />
+      <EditAbilityModal v-if="showEditAbilityModal" :ability="abilityToEdit" :sources="sources"
+        @update="saveEditedAbility" @close="closeEditAbilityModal" @delete="deleteAbility(abilityToEdit)" />
     </template>
   </ItemCardsView>
 </template>
@@ -130,9 +130,7 @@ export default {
 
   async mounted() {
     try {
-      // Fetch sources first to ensure background images are available as soon as possible
       await this.fetchSources()
-      // Then fetch the abilities
       await this.abilitiesStore.fetchAllAbilities()
     } catch (error) {
       console.error('Error initializing AbilitiesView:', error)
