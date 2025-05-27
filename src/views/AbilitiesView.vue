@@ -8,7 +8,7 @@
       <AbilityCard v-for="ability in filteredItems" :key="ability.id" :ability="ability" :editable="true"
         :sources="sources" @delete="deleteAbility(ability)" @update="updateAbility(ability)"
         @edit="openEditAbilityModal(ability)" @send-to-chat="sendAbilityToChat(ability)"
-        @height-changed="onCardHeightChanged" />
+        @height-changed="$refs.itemCardsView.onCardHeightChanged()" />
     </template>
 
     <!-- Modals slot -->
@@ -67,17 +67,6 @@ export default {
     ...mapState(useAbilitiesStore, ['abilities']),
   },
   methods: {
-    // Handle card height changes to update masonry layout
-    onCardHeightChanged() {
-      this.$nextTick(() => {
-        // Attempt to find any MasonryGrid components and update them
-        const masonryGrid = this.$el.querySelector('.masonry-grid')?.__vue__
-        if (masonryGrid && typeof masonryGrid.updateLayout === 'function') {
-          masonryGrid.updateLayout()
-        }
-      })
-    },
-
     // ABILITY CRUD
     async createAbility() {
       const newAbility = await AbilityService.createAbility()

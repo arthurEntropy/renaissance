@@ -7,7 +7,7 @@
     <template #item-cards="{ filteredItems }">
       <EquipmentCard v-for="item in filteredItems" :key="item.id" :equipment="item" :editable="true" :sources="sources"
         @edit="openEditEquipmentModal(item)" @send-to-chat="sendEquipmentToChat(item)"
-        @height-changed="onCardHeightChanged" />
+        @height-changed="$refs.itemCardsView.onCardHeightChanged()" />
     </template>
 
     <!-- Modals slot -->
@@ -70,17 +70,6 @@ export default {
   },
 
   methods: {
-    // Handle card height changes to update masonry layout
-    onCardHeightChanged() {
-      this.$nextTick(() => {
-        // Attempt to find the MasonryGrid component and update it
-        const masonryGrid = this.$el.querySelector('.masonry-grid')?.__vue__
-        if (masonryGrid && typeof masonryGrid.updateLayout === 'function') {
-          masonryGrid.updateLayout()
-        }
-      })
-    },
-
     // EQUIPMENT CRUD
     async createEquipment() {
       const newEquipment = await EquipmentService.createEquipment()

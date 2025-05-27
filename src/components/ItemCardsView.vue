@@ -43,7 +43,7 @@
     </div>
 
     <!-- Item Cards-->
-    <masonry-grid :column-width="350" :gap="20" :row-height="10" class="cards-container">
+    <masonry-grid :column-width="350" :gap="20" :row-height="10" class="cards-container" ref="masonryGrid">
       <slot name="item-cards" :filtered-items="filteredItems"></slot>
     </masonry-grid>
 
@@ -177,6 +177,14 @@ export default {
     createItem() {
       this.$emit('create')
     },
+
+    onCardHeightChanged() {
+      this.$nextTick(() => {
+        if (this.$refs.masonryGrid && typeof this.$refs.masonryGrid.updateLayout === 'function') {
+          this.$refs.masonryGrid.updateLayout()
+        }
+      })
+    }
   },
 }
 </script>
