@@ -1,6 +1,8 @@
 <template>
   <div class="modal-overlay" @click.self="closeModal">
     <div class="modal-content">
+
+      <!-- Header -->
       <h2 class="modal-header centered">Edit Ability</h2>
       <form @submit.prevent="saveAbility">
 
@@ -25,6 +27,7 @@
         </div>
 
         <div class="form-group centered">
+
           <!-- Source Dropdown -->
           <label for="source">Source:</label>
           <select id="source" v-model="editedAbility.source" class="modal-input">
@@ -73,6 +76,7 @@
             Delete
           </button>
         </div>
+
       </form>
     </div>
   </div>
@@ -126,92 +130,10 @@ export default {
 
 <style scoped>
 .modal-content {
-  width: 100%;
   max-width: 500px;
 }
 
-.modal-header {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.form-group {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 15px;
-}
-
-.form-group.vertical {
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.form-group.centered {
-  justify-content: center;
-}
-
-.left-aligned {
-  text-align: left;
-}
-
-label {
-  margin-right: 10px;
-  font-size: 14px;
-  color: darkgray;
-}
-
-.modal-input {
-  flex: 1;
-  padding: 8px;
-  font-family: 'Lora', serif;
-  color: white;
-  background-color: black;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  margin-right: 10px;
-}
-
 textarea.modal-input {
-  resize: vertical;
   min-height: 250px;
-}
-
-.modal-input.small-input {
-  width: 80px;
-  /* Adjust width for smaller inputs */
-}
-
-/* Form Buttons */
-.form-buttons {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
-  gap: 10px;
-}
-
-.button {
-  flex: 1;
-  padding: 10px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: all 0.2s;
-}
-
-.button-primary {
-  background-color: #4caf50;
-  color: white;
-  border: none;
-}
-
-.button-danger {
-  background-color: #f44336;
-  color: white;
-  border: none;
-}
-
-.button:hover {
-  opacity: 0.9;
 }
 </style>

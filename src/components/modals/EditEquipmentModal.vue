@@ -1,10 +1,12 @@
 <template>
   <div class="modal-overlay" @click.self="closeModal">
     <div class="modal-content">
-      <!-- Centered Modal Title -->
+
+      <!-- Header -->
       <h2 class="modal-header centered">Edit Equipment</h2>
 
       <form @submit.prevent="saveEquipment">
+
         <!-- Custom Item Checkbox -->
         <div class="form-group centered">
           <label for="isCustom">
@@ -31,14 +33,16 @@
           <textarea id="description" v-model="editedEquipment.description" class="modal-input"></textarea>
         </div>
 
-        <!-- Weight, Source, and Standard of Living -->
         <div class="form-group row">
-          <div class="form-column small-weight-input">
+
+          <!-- Weight -->
+          <div class="form-column weight-input">
             <label for="weight" class="left-aligned">Weight:</label>
-            <input type="number" id="weight" v-model.number="editedEquipment.weight" min="0" step="0.1"
-              @blur="ensureWeightValue" class="modal-input" />
+            <input type="number" id="weight" v-model.number="editedEquipment.weight" min="0" class="modal-input" />
           </div>
-          <div class="form-column expanded-source-dropdown">
+
+          <!-- Source -->
+          <div class="form-column source-dropdown">
             <label for="source" class="left-aligned">Source:</label>
             <select id="source" v-model="editedEquipment.source" class="modal-input">
               <optgroup label="Ancestries">
@@ -63,7 +67,9 @@
               </optgroup>
             </select>
           </div>
-          <div class="form-column standard-of-living">
+
+          <!-- Standard of Living -->
+          <div class="form-column">
             <label for="standardOfLiving" class="left-aligned">Standard of Living:</label>
             <select id="standardOfLiving" v-model="editedEquipment.standardOfLiving" class="modal-input">
               <option v-for="sol in standardsOfLiving" :key="sol.id" :value="sol.id">
@@ -127,6 +133,7 @@
             Delete
           </button>
         </div>
+
       </form>
     </div>
   </div>
@@ -172,53 +179,25 @@ export default {
       originalEquipment: null,
       equipmentStore: useEquipmentStore(),
       dieTypes: [4, 6, 8, 10, 12, 20], // Supported die types
-      engagementDiceCounts: {}, // Object to store counts of each engagement die type
-      damageDiceCounts: {}, // Object to store counts of each damage die type
+      engagementDiceCounts: {},
+      damageDiceCounts: {},
     }
   },
 
   created() {
-    // Deep clone the equipment to avoid direct mutations and preserve original state
     this.originalEquipment = JSON.parse(JSON.stringify(this.equipment))
     this.editedEquipment = JSON.parse(JSON.stringify(this.equipment))
-
-    // Ensure all properties exist with correct default values
-    this.editedEquipment.name = this.editedEquipment.name || 'New Custom Item'
-    this.editedEquipment.isCustom = this.editedEquipment.isCustom || false
-    this.editedEquipment.weight =
-      this.editedEquipment.weight !== undefined
-        ? this.editedEquipment.weight
-        : 0 // Explicitly handle weight
-    this.editedEquipment.engagementSuccesses =
-      this.editedEquipment.engagementSuccesses || []
-    this.editedEquipment.engagementDice =
-      this.editedEquipment.engagementDice || []
-    this.editedEquipment.damageDice = this.editedEquipment.damageDice || []
-    this.editedEquipment.skillMods = this.editedEquipment.skillMods || []
   },
 
   methods: {
     getDiceFontClass(dieType) {
-      return `df-d${dieType}-${dieType}`
-    },
-
-    ensureWeightValue() {
-      // Ensure weight is never undefined or null
-      if (
-        this.editedEquipment.weight === undefined ||
-        this.editedEquipment.weight === null ||
-        isNaN(this.editedEquipment.weight)
-      ) {
-        this.editedEquipment.weight = 0
-      }
+      return `df-d${dieType}-${dieType}` // Format for DiceFont classes
     },
 
     initializeDiceCounts() {
-      // Initialize engagement dice counts
       this.engagementDiceCounts = this.convertDiceListToCounts(
         this.editedEquipment.engagementDice || [],
       )
-      // Initialize damage dice counts
       this.damageDiceCounts = this.convertDiceListToCounts(
         this.editedEquipment.damageDice || [],
       )
@@ -245,27 +224,12 @@ export default {
     },
 
     saveDiceChanges() {
-      // Save the updated dice counts back to the equipment object
       this.editedEquipment.engagementDice = this.convertCountsToDiceList(
         this.engagementDiceCounts,
       )
       this.editedEquipment.damageDice = this.convertCountsToDiceList(
         this.damageDiceCounts,
       )
-    },
-
-    addSkillMod() {
-      if (!this.editedEquipment.skillMods) this.editedEquipment.skillMods = []
-      this.editedEquipment.skillMods.push({
-        name: '',
-        diceMod: 0,
-        isFavored: false,
-        isIllFavored: false,
-      })
-    },
-
-    removeSkillMod(index) {
-      this.editedEquipment.skillMods.splice(index, 1)
     },
 
     deleteEquipment() {
@@ -280,9 +244,9 @@ export default {
         console.error('Cannot save equipment: Missing ID')
         return
       }
-
       this.saveDiceChanges()
-      this.ensureWeightValue() // Make sure weight is properly set
+      // Ensure weight is a valid number
+      this.editedEquipment.weight = Number.isFinite(this.editedEquipment.weight) ? this.editedEquipment.weight : 0
       this.$emit('update', this.editedEquipment)
       this.$emit('close')
     },
@@ -311,7 +275,7 @@ export default {
           this.selectedEngagementSuccess,
         )
       }
-      this.selectedEngagementSuccess = '' // Reset the dropdown
+      this.selectedEngagementSuccess = ''
     },
 
     removeEngagementSuccess(index) {
@@ -320,7 +284,7 @@ export default {
   },
 
   mounted() {
-    this.initializeDiceCounts() // Initialize dice counts
+    this.initializeDiceCounts()
   },
 }
 </script>
@@ -330,25 +294,6 @@ export default {
   max-width: 500px;
 }
 
-.modal-header.centered,
-.form-group.centered {
-  text-align: center;
-}
-
-.left-aligned {
-  text-align: left;
-}
-
-.description textarea {
-  height: 150px;
-}
-
-.form-group.row {
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-}
-
 .form-column {
   flex: 1;
   display: flex;
@@ -356,52 +301,20 @@ export default {
   gap: 5px;
 }
 
-.small-weight-input {
-  flex-grow: 0.25;
+.weight-input {
+  flex: 0.25;
   margin-right: 35px;
 }
 
-.expanded-source-dropdown {
+.source-dropdown {
   flex: 1.5;
 }
 
 .melee-checkbox {
   margin: 20px 0;
-  text-align: center;
 }
 
-.form-buttons {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
-  gap: 10px;
-}
-
-.button {
-  flex: 1;
-  padding: 10px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: all 0.2s;
-}
-
-.button-primary {
-  background-color: #4caf50;
-  color: white;
-  border: none;
-}
-
-.button-danger {
-  background-color: #f44336;
-  color: white;
-  border: none;
-}
-
-.button:hover {
-  opacity: 0.9;
-}
-
+/* Dice styles */
 .dice-row {
   display: flex;
   justify-content: space-between;
@@ -418,7 +331,6 @@ export default {
 
 .dice-icon {
   font-size: 36px;
-  color: white;
 }
 
 .dice-input {
@@ -426,33 +338,24 @@ export default {
   text-align: center;
   padding: 5px;
   font-size: 14px;
-  border: 1px solid #ccc;
+  border: 1px solid lightgray;
   border-radius: 4px;
 }
 
-.form-group.vertical {
-  margin-bottom: 20px;
-  text-align: left;
-}
-
+/* Engagement success styles */
 .engagement-success-container {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
   margin-top: 10px;
   padding: 10px;
-  background-color: rgba(0,
-      0,
-      0,
-      0.1);
-  border-radius: 5px;
 }
 
 .engagement-success-pill {
   display: flex;
   align-items: center;
   background-color: black;
-  color: white;
+  color: lightgray;
   padding: 5px 10px;
   border-radius: 15px;
   font-size: 12px;
@@ -464,11 +367,10 @@ export default {
   appearance: none;
   width: 16px;
   height: 16px;
-  border: 2px solid white;
+  border: 2px solid lightgray;
   border-radius: 3px;
   background-color: black;
   cursor: pointer;
-  margin-right: 5px;
 }
 
 .pill-checkbox:checked {
