@@ -17,7 +17,6 @@
     <!--CHARACTER SHEET-->
     <div v-if="selectedCharacter" class="character-sheet">
       <div class="settings-icon" @click="openSettingsModal">⚙️</div>
-      <!-- <p v-if="savingStatus" class="saving-status">{{ savingStatus }}</p> -->
       <p class="close-button" @click="deselectCharacter">ⓧ</p>
 
       <!-- Top section with bio and dice results -->
@@ -54,20 +53,16 @@
           </div>
         </div>
 
-        <!-- Two-column layout for Equipment and Abilities -->
-        <!-- Left column: Equipment -->
-        <div class="equipment-column">
-          <!-- Engagement Dice Table -->
+        <!-- Three-column layout for Engagement, Equipment, and Abilities -->
+        <div class="main-column">
           <EngagementDiceTable :character="selectedCharacter" :allEquipment="allEquipment" :sources="sources" />
-
-          <!-- Equipment Table -->
+        </div>
+        <div class="main-column">
           <EquipmentTable :equipment="selectedCharacter.equipment" :allEquipment="allEquipment"
             :character="selectedCharacter" :sources="sources" @update-character="updateCharacter"
             @edit-custom-equipment="openEditEquipmentModal" />
         </div>
-
-        <!-- Right column: Abilities -->
-        <div class="abilities-column">
+        <div class="main-column">
           <!-- Abilities Table -->
           <AbilitiesTable :character="selectedCharacter" :allAbilities="allAbilities" :sources="sources"
             @update-character="updateCharacter" />
@@ -78,14 +73,19 @@
       <FullSizeCharacterArtModal v-if="showFullSizeCharacterArtModal"
         :imageUrl="selectedCharacter.artUrls[0] || defaultArtUrl" @close="closeFullSizeCharacterArtModal"
         @change-art="openChangeCharacterArtModal" />
+
       <ChangeCharacterArtModal v-if="showChangeCharacterArtModal" :initialArtUrl="selectedCharacter.artUrls[0] || ''"
         :character="selectedCharacter" @close="closeChangeCharacterArtModal" @update-character="updateCharacter" />
+
       <SkillCheckModal v-if="showSkillCheckModal" :character="selectedCharacter" :selectedSkillName="selectedSkillName"
         :defaultTargetNumber="getLastTargetNumber()" @close="closeSkillCheckModal"
         @update-target-number="updateLastTargetNumber" />
+
       <SettingsModal v-if="showSettingsModal" @close="closeSettingsModal" @delete="openDeleteConfirmationModal" />
+
       <DeleteConfirmationModal v-if="showDeleteConfirmationModal" :name="selectedCharacter.name"
         @close="closeDeleteConfirmationModal" @confirm="deleteCharacter" />
+
       <EditEquipmentModal v-if="showEditEquipmentModal" :equipmentId="equipmentIdToEdit" :sources="sources"
         @update="saveEditedEquipment" @close="closeEditEquipmentModal" @delete="openDeleteConfirmationModal" />
     </div>
@@ -146,7 +146,6 @@ export default {
       selectedCharacterArtUrl: '',
       selectedSkillName: '',
       updateTimeout: null,
-      savingStatus: '',
       defaultArtUrl: CharacterService.DEFAULT_ART_URL,
       tempArtUrl: '',
       showEditEquipmentModal: false,
@@ -212,16 +211,10 @@ export default {
     selectedCharacter: {
       handler(newCharacter) {
         if (!newCharacter) return
-        this.savingStatus = 'saving changes...' // Show immediately
         clearTimeout(this.updateTimeout)
         this.updateTimeout = setTimeout(() => {
-          CharacterService.saveCharacter(newCharacter).then(() => {
-            this.savingStatus = 'changes saved' // Show after saving
-            setTimeout(() => {
-              this.savingStatus = '' // Clear the message after 3 seconds
-            }, 3000)
-          })
-        }, 1000) // Only save after 1 second to avoid too many saves
+          CharacterService.saveCharacter(newCharacter)
+        }, 500) // Only save after 0.5 seconds to avoid too many saves
       },
       deep: true,
     },
@@ -576,16 +569,6 @@ export default {
   cursor: pointer;
 }
 
-.saving-status {
-  position: absolute;
-  top: 13px;
-  right: 50px;
-  font-size: 14px;
-  font-style: italic;
-  color: darkgray;
-  z-index: 1000;
-}
-
 /* CHARACTER STATS SECTION */
 .character-stats-section {
   display: flex;
@@ -660,26 +643,10 @@ export default {
   box-shadow: 0px 0px 10px cyan;
 }
 
-.equipment-abilities-container {
-  display: flex;
-  gap: 15px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.equipment-column {
+.main-column {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  min-width: 300px;
-  gap: 10px;
-}
-
-.abilities-column {
-  display: flex;
-  flex-direction: column;
-  min-width: 300px;
+  flex: 1;
 }
 
 @media (max-width: 768px) {

@@ -2,14 +2,12 @@
   <div class="abilities-table">
     <!-- TITLE with Edit toggle -->
     <div class="abilities-table-header">
-      <div class="header-left">
-        <h2>Traits & Abilities</h2>
-        <!-- Edit mode toggle button moved next to title -->
-        <button class="edit-mode-button" @click="toggleEditMode"
-          :title="isEditMode ? 'Exit Edit Mode' : 'Enter Edit Mode'">
-          {{ isEditMode ? '✓' : '✎' }}
-        </button>
-      </div>
+      <h2>Abilities</h2>
+      <!-- Edit mode toggle button moved next to title -->
+      <button class="edit-mode-button" @click="toggleEditMode"
+        :title="isEditMode ? 'Exit Edit Mode' : 'Enter Edit Mode'">
+        {{ isEditMode ? '✓' : '✎' }}
+      </button>
       <div class="header-right">
         <!-- Add ability link moved to header-right -->
         <em v-if="isEditMode" @click="toggleAbilitySelector($event)" class="add-item-text">add ability</em>
@@ -24,10 +22,10 @@
     </div>
 
     <!-- Using MasonryGrid with draggable -->
-    <masonry-grid v-if="!isEditMode" :column-width="330" :gap="15" :row-height="10" class="abilities-grid">
+    <div v-if="!isEditMode" class="abilities-list">
       <AbilityCard v-for="ability in sortedAbilities" :key="ability.id" :ability="ability" :collapsed="true"
         :sources="sources" class="ability-card" />
-    </masonry-grid>
+    </div>
 
     <!-- DRAGGABLE ABILITY ROWS (only in edit mode) -->
     <draggable v-else v-model="sortedAbilities" group="abilities" handle=".drag-handle" item-key="id" @end="onDragEnd"
@@ -76,7 +74,6 @@
 import { useAbilitiesStore } from '@/stores/abilitiesStore'
 import AbilityCard from '@/components/AbilityCard.vue'
 import draggable from 'vuedraggable'
-import MasonryGrid from '@/components/MasonryGrid.vue'
 import NumberInput from '@/components/NumberInput.vue'
 
 export default {
@@ -103,7 +100,6 @@ export default {
   components: {
     AbilityCard,
     draggable,
-    MasonryGrid,
     NumberInput,
   },
   data() {
@@ -390,42 +386,35 @@ h2 {
   margin: 5px;
 }
 
+.abilities-column {
+  display: flex;
+  flex-direction: column;
+}
+
 .abilities-table {
   display: flex;
   flex-direction: column;
-  align-items: left;
-  max-width: 800px;
-  width: 680px;
-  min-width: 300px;
-  flex: 1;
+  align-items: flex-start;
   background-color: black;
   padding: 15px;
   border-radius: 5px;
-  position: relative;
-  /* For positioning the dropdown */
 }
 
 .abilities-table-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap;
-  /* Allow wrapping on smaller screens */
-  gap: 10px;
-  /* Add some spacing when elements wrap */
-  margin-bottom: 15px;
+  width: 100%;
+  margin-bottom: 10px;
 }
 
-.header-left {
+.abilities-list {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
   display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.header-right {
-  display: flex;
-  align-items: center;
-  gap: 15px;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .add-item-text {
@@ -489,12 +478,6 @@ h2 {
   align-items: flex-start;
   padding: 5px;
   margin-bottom: 5px;
-}
-
-.ability-card {
-  width: 95%;
-  padding: 7px;
-  text-align: left;
 }
 
 .edit-controls {

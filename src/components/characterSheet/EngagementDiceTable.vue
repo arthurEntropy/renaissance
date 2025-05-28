@@ -113,8 +113,6 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
-  max-width: 300px;
   background-color: black;
   padding: 15px;
   border-radius: 5px;
@@ -124,7 +122,6 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  width: 100%;
   margin: 10px 0;
 }
 

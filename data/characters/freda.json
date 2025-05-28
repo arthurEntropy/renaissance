@@ -10,7 +10,7 @@
   "skills": [
     {
       "name": "Awe",
-      "ranks": 5,
+      "ranks": 3,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": -1
@@ -126,7 +126,7 @@
     "current": 13,
     "max": 13
   },
-  "load": 0.5,
+  "load": 0,
   "shadow": 6,
   "injury": 8,
   "states": {
@@ -146,17 +146,10 @@
   },
   "equipment": [
     {
-      "id": "2121d925-27f0-40ee-9d7f-2cc67b90141c",
-      "quantity": 1,
-      "isCarried": true,
-      "isWielding": false,
-      "index": 2
-    },
-    {
       "id": "37a98252-6881-4aaf-bc6c-4091c1b70e1b",
       "quantity": 1,
       "isCarried": true,
-      "isWielding": false,
+      "isWielding": true,
       "index": 3
     },
     {
@@ -167,32 +160,11 @@
       "index": 4
     },
     {
-      "id": "44d287b1-6675-40d3-86df-d5a965330e62",
-      "quantity": 1,
-      "isCarried": true,
-      "isWielding": true,
-      "index": 5
-    },
-    {
       "id": "58c57499-9eef-49d4-9273-7674c60fae77",
       "quantity": 1,
       "isCarried": true,
       "isWielding": true,
       "index": 6
-    },
-    {
-      "id": "bccb6c9c-bb15-4679-a0ce-a2e330b0aae0",
-      "quantity": 1,
-      "isCarried": true,
-      "isWielding": true,
-      "index": 7
-    },
-    {
-      "id": "cd2d81d6-8251-4899-b9d2-67b3431f6638",
-      "quantity": 1,
-      "isCarried": true,
-      "isWielding": false,
-      "index": 8
     }
   ],
   "activeEffects": [
@@ -220,13 +192,12 @@
   "personalityAndBackground": "<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy.</p><p>The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. </p>",
   "xp": 10,
   "mp": {
-    "current": 5,
+    "current": 4,
     "max": 5
   },
   "abilities": [
     "e50350ea-0c67-4c29-bd54-f4f255ba2ffe",
     "b2fc670c-2837-45a5-a8cb-0b9223acc76c",
-    "d97c0db1-5797-4f54-9c77-15597dcc6d49",
     "0eed3060-9397-4461-86ee-5392b24631b5",
     "22b1ec3d-59a4-4cac-98a1-98a2286e9520",
     "31c4d609-7d0f-40da-9197-2cddb3cdd58b"
