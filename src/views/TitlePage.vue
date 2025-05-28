@@ -18,7 +18,7 @@ export default {
   justify-content: center;
   align-items: center;
   width: 80%;
-  padding-bottom: 25px;
+  height: 80vh;
 }
 
 .main-title {
@@ -26,17 +26,5 @@ export default {
   font-size: 15vw;
   color: goldenrod;
   text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5);
-}
-main-title:hover {
-  text-shadow: 0px 0px 5px lightgray;
-  cursor: pointer;
-  transition:
-    text-shadow 0.3s ease-in-out,
-    transform 0.3s ease-in-out;
-  transform: scale(1.02);
-}
-main-title:hover::after {
-  opacity: 1;
-  visibility: visible;
 }
 </style>

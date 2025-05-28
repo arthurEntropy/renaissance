@@ -1,20 +1,18 @@
 <template>
   <div class="rules-view">
     <div class="rules-container">
-      <!-- Left sidebar with navigation -->
+
+      <!-- TABLE OF CONTENTS NAV BAR -->
       <div class="rules-navigation">
         <div class="rules-nav-header">
           <h3>Table of Contents</h3>
           <button class="structure-edit-toggle" @click="toggleStructureEditMode"
-            :class="{ active: isStructureEditMode }" :disabled="isContentEditMode" :name="isStructureEditMode
-              ? 'Exit Structure Edit Mode'
-              : 'Edit Structure'
-              ">
+            :class="{ active: isStructureEditMode }" :disabled="isContentEditMode">
             {{ isStructureEditMode ? '✓' : '≡' }}
           </button>
         </div>
 
-        <!-- Rule sections list - draggable when in structure edit mode -->
+        <!-- Draggable rule sections when in structure edit mode -->
         <draggable v-if="isStructureEditMode" v-model="localSections" item-key="id" handle=".drag-handle"
           ghost-class="ghost-section" @end="updateSectionsOrder" class="rule-sections-list"
           :disabled="isContentEditMode">
@@ -33,7 +31,7 @@
           </template>
         </draggable>
 
-        <!-- Non-draggable version for view/content edit mode -->
+        <!-- Non-draggable rule sections when not in structure edit mode -->
         <div v-else class="rule-sections-list">
           <div v-for="section in filteredSections" :key="section.id" :class="[
             'rule-section-item',
@@ -43,7 +41,7 @@
           </div>
         </div>
 
-        <!-- Add new section button at the bottom -->
+        <!-- Add new section button -->
         <div v-if="isStructureEditMode" class="bottom-actions">
           <button class="add-section-btn" @click="createNewSection" name="Add new section">
             + Add New Section
@@ -51,20 +49,20 @@
         </div>
       </div>
 
-      <!-- Right content area -->
+      <!-- CONTENT AREA -->
       <div class="rules-content">
         <div v-if="currentSection" class="rules-content-body">
           <div class="section-layout">
-            <!-- Left side with title and content -->
+
+            <!-- LEFT SIDE WITH SECTION TITLE & CONTENT -->
             <div class="content-side">
-              <!-- Name editor with edit button -->
+
+              <!-- Name with edit button and name edit field -->
               <div class="section-name-container">
                 <div class="section-header">
                   <input v-if="isContentEditMode" type="text" v-model="currentSection.name" class="section-name-input"
                     @input="markAsChanged" />
                   <h2 v-else>{{ currentSection.name }}</h2>
-
-                  <!-- Edit button moved here -->
                   <button class="content-edit-toggle" @click="toggleContentEditMode"
                     :class="{ active: isContentEditMode }" :disabled="isStructureEditMode"
                     :name="isContentEditMode ? 'Save Changes' : 'Edit Content'">
@@ -73,28 +71,30 @@
                 </div>
               </div>
 
-              <!-- Content editor -->
+
               <div class="section-content-container">
+                <!-- Image URL input and text editor - visible when in content edit mode -->
                 <div v-if="isContentEditMode" class="image-url-container">
                   <label for="section-image-url">Side Image URL:</label>
                   <input id="section-image-url" type="text" v-model="currentSection.imageUrl" class="image-url-input"
                     placeholder="Enter image URL (optional)" @input="markAsChanged" />
                 </div>
-
                 <TextEditor v-if="isContentEditMode" v-model="currentSection.content" height="calc(100vh - 200px)"
                   @update:modelValue="markAsChanged" />
-                <div v-else class="content-display" v-html="formattedContent"></div>
+
+                <!-- Section content when not in content edit mode -->
+                <div v-else class="content-display" v-html="currentSection?.content ? currentSection.content : ''">
+                </div>
               </div>
             </div>
 
-            <!-- Right side with image -->
+            <!-- RIGHT SIDE WITH IMAGE -->
             <div class="image-side">
               <div class="side-image" :style="{
                 backgroundImage: currentSection.imageUrl
                   ? `url(${currentSection.imageUrl})`
                   : 'url(/images/side-decoration.jpg)',
               }">
-                <!-- Add an "Add Image" placeholder when in edit mode and no image -->
                 <div v-if="isContentEditMode && !currentSection.imageUrl" class="add-image-placeholder">
                   <span>Add Side Image</span>
                 </div>
@@ -103,11 +103,12 @@
           </div>
         </div>
 
+        <!-- No section selected message -->
         <div v-else class="no-selection">
           <p>
             Select a section from the table of contents or create a new one.
           </p>
-          <button v-if="filteredSections.length === 0" class="button button-primary" @click="createFirstSection">
+          <button v-if="filteredSections.length === 0" class="button button-primary" @click="createNewSection">
             Create First Section
           </button>
         </div>
@@ -150,16 +151,6 @@ export default {
           .sort((a, b) => a.index - b.index)
         : []
     },
-
-    formattedContent() {
-      if (!this.currentSection?.content) return ''
-      return this.currentSection.content
-    },
-
-    // Easily determine if we're in any edit mode
-    isInEditMode() {
-      return this.isContentEditMode || this.isStructureEditMode
-    },
   },
 
   watch: {
@@ -175,23 +166,19 @@ export default {
     try {
       await this.rulesStore.fetchRules()
 
-      // Get the last selected section ID from localStorage
+      // Select the last selected section from localStorage if available.
+      // We're assuming the user likely wants to continue where they left off.
       const lastSelectedSectionId = localStorage.getItem(
         'lastSelectedSectionId',
       )
-
-      // Check if the section still exists
       const sectionExists =
         lastSelectedSectionId &&
         this.filteredSections.some(
           (section) => section.id === lastSelectedSectionId,
         )
-
       if (sectionExists) {
-        // Select the last viewed section
         this.selectSection(lastSelectedSectionId)
       } else if (this.filteredSections && this.filteredSections.length > 0) {
-        // Fall back to the first section if the saved one doesn't exist
         this.selectSection(this.filteredSections[0].id)
       }
     } catch (error) {
@@ -203,7 +190,6 @@ export default {
     async selectSection(sectionId) {
       // Skip if we're trying to select the already selected section
       if (this.currentSection?.id === sectionId) return
-
       // Handle unsaved changes if in content edit mode
       if (this.isContentEditMode && this.unsavedChanges) {
         if (
@@ -216,12 +202,10 @@ export default {
           this.unsavedChanges = false
         }
       }
-
       // Exit content edit mode when switching sections
       if (this.isContentEditMode) {
         this.isContentEditMode = false
       }
-
       // Clear current section first to avoid visual issues with multiple sections appearing selected
       this.currentSection = null
       this.$nextTick(() => {
@@ -231,7 +215,6 @@ export default {
             (section) => section.id === sectionId,
           ) || null
         this.selectedSectionId = sectionId
-
         // Save the selected section ID to localStorage
         localStorage.setItem('lastSelectedSectionId', sectionId)
       })
@@ -240,30 +223,22 @@ export default {
     async createNewSection() {
       // Don't allow creating sections in content edit mode
       if (this.isContentEditMode) return
-
       try {
-        // Create the new section
+        // Create the new section and refresh the sections list
         const newSection = await RulesService.createSection()
-        // Refresh data
         await this.rulesStore.fetchRules()
 
-        // More robust section finding - check by name and id
+        // Confirm the section was created and select it
         const sectionToSelect = this.filteredSections.find(
           (s) =>
             (s.id && s.id === newSection.id) ||
             (!s.id && s.name === newSection.name),
         )
-
         if (sectionToSelect) {
-          // Exit structure edit mode
           this.isStructureEditMode = false
-
-          // Select the newly created section
           await this.selectSection(sectionToSelect.id)
-
-          // Enter content edit mode after a short delay
           setTimeout(() => {
-            this.isContentEditMode = true
+            this.isContentEditMode = true // Default to editing new section
             this.unsavedChanges = true // Mark as changed
           }, 100)
         } else {
@@ -272,10 +247,6 @@ export default {
       } catch (error) {
         console.error('Error creating new section:', error)
       }
-    },
-
-    createFirstSection() {
-      this.createNewSection()
     },
 
     async saveSection() {
@@ -295,7 +266,6 @@ export default {
       if (this.isStructureEditMode) return
 
       if (this.isContentEditMode) {
-        // Switching from edit to view mode - save changes
         this.saveSection()
       }
       this.isContentEditMode = !this.isContentEditMode
@@ -330,19 +300,12 @@ export default {
       const sectionToUpdate = { ...this.sectionToDelete, isDeleted: true }
 
       try {
-        // Close the delete confirmation modal first
         this.sectionToDelete = null
-
-        // Use soft delete by setting isDeleted to true
         await RulesService.updateSection(sectionToUpdate)
-
-        // Refresh rules data
         await this.rulesStore.fetchRules()
-
         // If the deleted section was the current section, select another one
         if (this.currentSection && this.currentSection.id === deletedSectionId) {
           this.currentSection = null
-
           if (this.filteredSections.length > 0) {
             this.selectSection(this.filteredSections[0].id)
           }
@@ -369,6 +332,7 @@ export default {
 
 <style scoped>
 .rules-view {
+  /* Adjusted to fit space below top nav */
   margin-top: -20px;
   height: 93.5vh;
   display: flex;
@@ -388,7 +352,6 @@ export default {
   width: 250px;
   background: rgb(28, 28, 28);
   padding: 15px 0;
-  border-right: 1px solid rgba(255, 255, 255, 0.1);
   display: flex;
   flex-direction: column;
 }
@@ -398,7 +361,6 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .rules-nav-header h3 {
@@ -408,9 +370,6 @@ export default {
 
 .bottom-actions {
   padding: 10px 15px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  margin-top: auto;
-  /* Push to bottom */
 }
 
 .add-section-btn {
@@ -472,18 +431,15 @@ export default {
 
 .rule-section-item:hover .section-name {
   color: white;
-  /* Text turns white on hover */
 }
 
 .rule-section-item.active {
   background-color: rgba(255, 255, 255, 0.1);
   border-left: 3px solid white;
-  /* Changed from green to white */
 }
 
 .rule-section-item.active .section-name {
   color: white;
-  /* Selected section text is white */
 }
 
 .section-name {
@@ -493,7 +449,6 @@ export default {
   white-space: nowrap;
   color: goldenrod;
   transition: color 0.2s;
-  /* Smooth color transition */
 }
 
 .section-controls {
@@ -539,7 +494,6 @@ export default {
   position: relative;
 }
 
-/* New layout structure */
 .section-layout {
   display: flex;
   height: 100%;
@@ -552,7 +506,6 @@ export default {
   padding: 20px;
   position: relative;
   z-index: 2;
-  /* Position above the image */
   overflow-y: auto;
 }
 
@@ -563,7 +516,6 @@ export default {
   top: 0;
   height: 100%;
   z-index: 1;
-  /* Position behind the content */
 }
 
 /* Section header and name styles */
@@ -571,7 +523,6 @@ export default {
   margin-bottom: 20px;
   position: relative;
   z-index: 3;
-  /* Above content and image */
 }
 
 .section-header {
@@ -616,7 +567,6 @@ export default {
   box-shadow: inset 200px 0 100px -50px rgb(17, 17, 17);
 }
 
-/* Enhanced fade effect for text overlap */
 .side-image::before {
   display: none;
 }
@@ -656,6 +606,18 @@ export default {
   border-radius: 8px;
 }
 
+.no-selection {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  color: #888;
+  text-align: center;
+  padding: 20px;
+}
+
+/* Section content styles */
 .content-display {
   text-align: left;
   line-height: 1.6;
@@ -676,22 +638,9 @@ export default {
 
 .content-display img {
   width: 100%;
-  /* Fill horizontal space */
   height: auto;
-  /* Maintain aspect ratio */
   display: block;
   margin: 0.5em 0;
-}
-
-.no-selection {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  color: #888;
-  text-align: center;
-  padding: 20px;
 }
 
 /* Responsive adjustments */
