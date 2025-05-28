@@ -9,8 +9,6 @@
         {{ isEditMode ? '✓' : '✎' }}
       </button>
       <div class="header-right">
-        <!-- Add ability link moved to header-right -->
-        <em v-if="isEditMode" @click="toggleAbilitySelector($event)" class="add-item-text">add ability</em>
         <div class="mp-container">
           <span class="mp-label">MP:</span>
           <NumberInput :model-value="character.mp.current" @update:model-value="updateMpCurrent" :min="0"
@@ -32,21 +30,22 @@
       ghost-class="ghost-ability-row" animation="150">
       <template #item="{ element: ability, index }">
         <div class="ability-row">
+          <!-- Edit Mode Controls (left, stacked) -->
+          <div class="edit-controls edit-controls-vertical">
+            <span @click="removeAbility(index)" class="delete-item-link">ⓧ</span>
+            <span class="drag-handle" title="Drag to reorder">⋮⋮</span>
+          </div>
           <!-- Ability Card -->
           <AbilityCard v-if="ability" :ability="ability" :collapsed="true" :sources="sources" class="ability-card" />
           <span v-else class="missing-ability">Unknown ability</span>
-
-          <!-- Edit Mode Controls -->
-          <div class="edit-controls">
-            <!-- Remove button -->
-            <span @click="removeAbility(index)" class="delete-item-link">ⓧ</span>
-
-            <!-- Drag Handle -->
-            <span class="drag-handle" title="Drag to reorder">⋮⋮</span>
-          </div>
         </div>
       </template>
     </draggable>
+
+    <!-- Add Ability Link (always visible at bottom right) -->
+    <div class="add-item-footer">
+      <em @click="toggleAbilitySelector($event)" class="add-item-text">add ability</em>
+    </div>
 
     <!-- Ability Selector Dropdown -->
     <div v-if="showAbilitySelector" class="ability-selector-container">
@@ -417,16 +416,29 @@ h2 {
   gap: 8px;
 }
 
+.add-item-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+  width: 100%;
+  position: relative;
+}
+
 .add-item-text {
   font-size: 14px;
   color: #aaa;
   cursor: pointer;
   transition: color 0.2s;
+  padding: 4px 12px;
+  border-radius: 4px;
+  background: none;
+  margin-right: 0;
 }
 
 .add-item-text:hover {
   color: white;
   text-decoration: underline;
+  background: rgba(255, 255, 255, 0.05);
 }
 
 .mp-container {
@@ -474,7 +486,6 @@ h2 {
 .ability-row {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
   align-items: flex-start;
   padding: 5px;
   margin-bottom: 5px;
@@ -484,6 +495,15 @@ h2 {
   display: flex;
   align-items: center;
   gap: 5px;
+}
+
+.edit-controls-vertical {
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 2px;
+  margin-right: 8px;
+  min-width: 24px;
 }
 
 .missing-ability {
@@ -497,7 +517,7 @@ h2 {
   color: gray;
   font-size: 15px;
   text-align: center;
-  margin: 0 0 -1px 10px;
+  margin: 0;
 }
 
 .delete-item-link:hover {
@@ -508,8 +528,8 @@ h2 {
   cursor: move;
   font-size: 16px;
   color: #777;
-  margin-left: 5px;
   user-select: none;
+  margin: 0;
 }
 
 .drag-handle:hover {
