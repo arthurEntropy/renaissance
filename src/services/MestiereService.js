@@ -1,58 +1,38 @@
-import axios from 'axios';
+import BaseService from './BaseService'
 
-class MestieriService {
+class MestieriService extends BaseService {
   constructor() {
-    this.baseUrl = 'http://localhost:3000/mestieri';
+    super('http://localhost:3000/mestieri', 'mestiere')
   }
 
   // CRUD METHODS
+  async createMestiere() {
+    return this.create()
+  }
+
   async getAllMestieri() {
-    try {
-      const response = await axios.get(this.baseUrl);
-      return response.data;
-    } catch (error) {
-      console.error("Error getting all mestieri:", error);
-      throw error;
-    }
+    return this.getAll()
   }
 
   async saveMestiere(mestiere) {
-    try {
-      await axios.put(`${this.baseUrl}/${mestiere.id}`, mestiere);
-    } catch (error) {
-      console.error("Error saving mestiere:", error);
-    }
-  }
-
-  async createMestiere() {
-    const newMestiere = this.getDefaultMestiere();
-    try {
-      const response = await axios.post(this.baseUrl, newMestiere);
-      return response.data;
-    } catch (error) {
-      console.error("Error creating new mestiere:", error);
-      throw error;
-    }
+    return this.update(mestiere)
   }
 
   async deleteMestiere(mestiere) {
-    mestiere.isDeleted = true;
-    this.saveMestiere(mestiere);
+    return this.delete(mestiere)
   }
 
   // DEFAULT MESTIERE
-  static DEFAULT_ART_URL = "https://cdn.midjourney.com/default-mestiere-art.png";
+  static DEFAULT_ART_URL = 'https://cdn.midjourney.com/a8a36740-b7d3-4aef-bea3-a95039bec06f/0_2.png'
 
-  getDefaultMestiere() {
+  getDefaultEntity() {
     return {
       id: null, // ID will be assigned by the backend
-      name: "New Mestiere",
+      name: 'New Mestiere',
       artUrls: [MestieriService.DEFAULT_ART_URL],
-      color1: "#000000", // Default color1 (black)
-      color2: "#FFFFFF", // Default color2 (white)
       isDeleted: false,
-    };
+    }
   }
 }
 
-export default new MestieriService();
+export default new MestieriService()

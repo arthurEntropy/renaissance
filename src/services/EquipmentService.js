@@ -1,77 +1,41 @@
-import axios from 'axios';
+import BaseService from './BaseService'
 
-class EquipmentService {
+class EquipmentService extends BaseService {
   constructor() {
-    this.baseUrl = 'http://localhost:3000/equipment';
+    super('http://localhost:3000/equipment', 'equipment')
   }
 
   // CRUD METHODS
+  async createEquipment() {
+    return this.create()
+  }
+
+  // Equipment is the only entity that allows custom items to be created by the user
+  async createCustomEquipment() {
+    const customEquipment = this.getDefaultEntity()
+    customEquipment.isCustom = true
+    customEquipment.name = 'New Custom Item'
+    return this.create(customEquipment)
+  }
+
   async getAllEquipment() {
-    try {
-      const response = await axios.get(this.baseUrl);
-      return response.data;
-    } catch (error) {
-      console.error("Error getting all equipment:", error);
-      throw error;
-    }
+    return this.getAll()
   }
 
   async updateEquipment(equipment) {
-    console.log("Updating equipment:", equipment);
-    try {
-      await axios.put(`${this.baseUrl}/${equipment.id}`, equipment);
-    } catch (error) {
-      console.error("Error saving equipment:", error);
-    }
-  }
-
-  async createEquipment() {
-    const newEquipment = this.getDefaultEquipment();
-    try {
-      const response = await axios.post(this.baseUrl, newEquipment);
-      return response.data;
-    } catch (error) {
-      console.error("Error creating new equipment:", error);
-      throw error;
-    }
-  }
-
-  async createCustomEquipment() {
-    console.log("Creating custom equipment...");
-    const customEquipment = this.getDefaultEquipment();
-  
-    // Explicitly set these properties
-    customEquipment.isCustom = true;
-    customEquipment.name = "New Custom Item";
-  
-    try {
-      const response = await axios.post(this.baseUrl, customEquipment);
-  
-      // Merge the response data with the default schema to ensure all fields are present
-      const data = { ...this.getDefaultEquipment(), ...response.data };
-  
-      // Ensure isCustom and name are set correctly
-      data.isCustom = true;
-      data.name = data.name || "New Custom Item";
-  
-      return data;
-    } catch (error) {
-      console.error("Error creating custom equipment:", error);
-      throw error;
-    }
+    return this.update(equipment)
   }
 
   async deleteEquipment(equipment) {
-    equipment.isDeleted = true;
-    this.updateEquipment(equipment);
+    return this.delete(equipment)
   }
 
   // DEFAULT EQUIPMENT
-  getDefaultEquipment() {
+  getDefaultEntity() {
     return {
       id: null, // ID will be assigned by the backend
-      name: "New Item",
-      description: "",
+      name: 'New Item',
+      description: '',
       standardOfLiving: null,
       source: null,
       weight: 0,
@@ -82,9 +46,9 @@ class EquipmentService {
       skillMods: [],
       isDeleted: false,
       isCustom: false,
-      artUrl: null
-    };
+      artUrl: null, // No default art for equipment
+    }
   }
 }
 
-export default new EquipmentService();
+export default new EquipmentService()

@@ -1,14 +1,14 @@
 .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.7);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
 }
 
 .modal-content {
@@ -22,9 +22,75 @@
   overflow-y: auto;
 }
 
+.modal-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
 .modal-input {
   width: 90%;
-  padding: 10px;
+  padding: 8px;
   margin: 10px 0;
-  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-right: 10px;
+  flex: 1;
+}
+
+.modal-input.small-input {
+  width: 80px;
+}
+
+textarea.modal-input {
+  resize: vertical;
+  min-height: 150px;
+}
+
+/* Form groups */
+.form-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 15px;
+  margin-left: 15px;
+}
+
+.form-group.vertical {
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.form-group.centered {
+  justify-content: center;
+  text-align: center;
+}
+
+.form-group.row {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+/* Text alignment */
+.left-aligned {
+  text-align: left;
+}
+
+.centered {
+  text-align: center;
+}
+
+/* Form buttons */
+.form-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  gap: 10px;
+}
+
+/* Button customization specific to modals */
+.form-buttons .button {
+  flex: 1;
 }

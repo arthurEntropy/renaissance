@@ -3,7 +3,7 @@
   "name": "Raudkornan Mace",
   "description": "",
   "standardOfLiving": "1",
-  "source": 2,
+  "source": "ba7af7ad-54d2-4b45-86ad-71781d4cdb33",
   "weight": 4,
   "isMelee": true,
   "damageDice": [

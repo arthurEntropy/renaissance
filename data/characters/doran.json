@@ -144,7 +144,22 @@
     "afraid": false,
     "troubled": true
   },
-  "equipment": [],
+  "equipment": [
+    {
+      "id": "7d882fb5-0920-45a8-9e2d-9acc0328bf18",
+      "quantity": 1,
+      "isCarried": true,
+      "isWielding": false,
+      "index": 0
+    },
+    {
+      "id": "a1377576-94dc-4131-99d6-3a7d63e12244",
+      "quantity": 1,
+      "isCarried": true,
+      "isWielding": false,
+      "index": 1
+    }
+  ],
   "activeEffects": [
     {
       "name": "Weird But Entertaining",

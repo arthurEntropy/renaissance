@@ -7,19 +7,9 @@
   "source": "75800953-4adb-405f-a4ab-a599573ca533",
   "weight": 2,
   "isMelee": true,
-  "damageDice": [
-    8
-  ],
-  "engagementDice": [
-    6,
-    6
-  ],
-  "engagementSuccesses": [
-    "5",
-    "7",
-    "8",
-    "10"
-  ],
+  "damageDice": [8],
+  "engagementDice": [6, 6],
+  "engagementSuccesses": ["5", "7", "8", "10"],
   "skillMods": [
     {
       "name": "Stealth",

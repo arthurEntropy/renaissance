@@ -1,21 +1,32 @@
 <template>
-  <div id="app" class="app" :class="{ 'overlay-background': shouldShowOverlay }">
-    <!-- Mobile Side Menu (kept as is) -->
+  <!-- Overlay For Readability In Equipment/Abilities Views-->
+  <div
+    id="app"
+    class="app"
+    :class="{ 'overlay-background': shouldShowOverlay }"
+  >
+    <!-- Mobile Side Menu -->
     <div class="nav-menu" :class="{ open: menuOpen }">
       <button class="menu-toggle" @click="toggleMenu">☰</button>
       <nav v-if="menuOpen">
         <router-link to="/rules" @click="closeMenu">RULES</router-link>
-        <router-link to="/ancestries" @click="closeMenu">ANCESTRIES</router-link>
+        <router-link to="/ancestries" @click="closeMenu"
+          >ANCESTRIES</router-link
+        >
         <router-link to="/cultures" @click="closeMenu">CULTURES</router-link>
         <router-link to="/mestieri" @click="closeMenu">MESTIERI</router-link>
-        <router-link to="/world-elements" @click="closeMenu">WORLD ELEMENTS</router-link>
-        <router-link to="/characters" @click="closeMenu">CHARACTERS</router-link>
+        <router-link to="/world-elements" @click="closeMenu"
+          >WORLD ELEMENTS</router-link
+        >
+        <router-link to="/characters" @click="closeMenu"
+          >CHARACTERS</router-link
+        >
         <router-link to="/abilities" @click="closeMenu">ABILITIES</router-link>
         <router-link to="/equipment" @click="closeMenu">EQUIPMENT</router-link>
       </nav>
     </div>
-    
-    <!-- New Desktop Top Navigation -->
+
+    <!-- Desktop Top Navigation -->
     <div class="top-nav">
       <div class="top-nav-content">
         <router-link to="/rules">RULES</router-link>
@@ -41,46 +52,37 @@ export default {
   data() {
     return {
       menuOpen: false,
-    };
+    }
   },
   computed: {
     shouldShowOverlay() {
-      const currentPath = this.$route.path.toLowerCase();
-      return currentPath === '/abilities' || currentPath === '/equipment';
-    }
+      const currentPath = this.$route.path.toLowerCase()
+      return currentPath === '/abilities' || currentPath === '/equipment' // Show overlay for these routes
+    },
   },
   methods: {
     toggleMenu() {
-      this.menuOpen = !this.menuOpen;
+      this.menuOpen = !this.menuOpen
     },
     closeMenu() {
-      this.menuOpen = false;
+      this.menuOpen = false
     },
   },
-};
+}
 </script>
 
 <style>
-html, body {
-  background-image: url('https://cdn.midjourney.com/b380594a-e352-4deb-b7b0-c3fff0095472/0_3.png');
+html,
+body {
+  /* TODO: Give the user a few options for background images */
   background-size: cover;
+  background-image: url('https://cdn.midjourney.com/b380594a-e352-4deb-b7b0-c3fff0095472/0_3.png');
   background-position: center;
   background-attachment: fixed;
   background-color: black;
-  color: white;
+  color: lightgray;
   font-family: 'Lora', serif;
-  height: 100%;
-  margin: 0;
-  padding: 0;
   overflow-x: hidden;
-}
-
-#app {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  width: 100%;
-  position: relative;
 }
 
 #app.overlay-background::before {
@@ -95,14 +97,11 @@ html, body {
   pointer-events: none;
 }
 
-/* Content Area */
 .content-area {
-  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  width: 100%;
   padding-top: 60px; /* Space for the top navigation */
 }
 
@@ -117,7 +116,7 @@ html, body {
   backdrop-filter: blur(5px);
   z-index: 100;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  display: none; /* Hidden on mobile by default */
+  display: block;
 }
 
 .top-nav-content {
@@ -147,11 +146,7 @@ html, body {
   color: white;
 }
 
-/* Active link indicator */
-.top-nav a.router-link-active {
-  color: white;
-}
-
+/* Active View Indicator */
 .top-nav a.router-link-active::after {
   content: '';
   position: absolute;
@@ -162,12 +157,12 @@ html, body {
   background: white;
 }
 
-/* Mobile Navigation Menu (existing code) */
+/* Updated Mobile Navigation Menu */
 .nav-menu {
   position: fixed;
   top: 0;
   left: -220px; /* Hidden by default */
-  width: 200px;
+  width: 180px;
   height: 100vh;
   background: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(5px);
@@ -179,13 +174,14 @@ html, body {
 }
 
 .nav-menu.open {
+  display: flex;
   left: 0;
 }
 
 .menu-toggle {
   position: absolute;
   top: 10px;
-  right: -40px;
+  right: -35px;
   width: 30px;
   height: 30px;
   background: rgba(0, 0, 0, 0.7);
@@ -216,7 +212,6 @@ html, body {
 .nav-menu a:hover {
   background: rgba(255, 255, 255, 0.1);
   text-decoration: none;
-
 }
 
 .nav-menu a.router-link-active {
@@ -224,35 +219,30 @@ html, body {
   color: white;
 }
 
-
 /* Responsive Design */
 @media (min-width: 1024px) {
-  /* Show top nav on desktop */
-  .top-nav {
-    display: block;
-  }
-  
-  /* Hide mobile menu toggle on desktop */
-  .menu-toggle {
-    display: none;
+  .nav-menu .menu-toggle {
+    display: none; /* Hide mobile menu on desktop */
   }
 }
 
 @media (max-width: 1023px) {
-  html, body {
-    background-attachment: scroll;
+  html,
+  body {
+    background-position: left; /* All the cool stuff in the current background image is on the left */
   }
-  
+
+  .top-nav {
+    display: none; /* Hide top nav on mobile */
+  }
+
   .content-area {
-    padding-top: 10px; /* Reduce top padding on mobile */
+    padding-top: 10px; /* Reduce top padding on mobile since top nav is hidden */
   }
-  
+
   .nav-menu {
+    display: flex; /* Show side menu on mobile */
     width: 180px;
-  }
-  
-  .menu-toggle {
-    right: -35px;
   }
 }
 </style>

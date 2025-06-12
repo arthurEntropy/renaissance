@@ -3,7 +3,7 @@
   "name": "Sword of Democracy",
   "description": "",
   "standardOfLiving": "1",
-  "source": 3,
+  "source": "e40c3cff-9f6b-4940-ae41-cef878821a75",
   "weight": 2,
   "isMelee": true,
   "damageDice": [

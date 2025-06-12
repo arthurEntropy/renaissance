@@ -1,51 +1,33 @@
-import axios from 'axios';
+import BaseService from './BaseService'
 
-class AbilityService {
+class AbilityService extends BaseService {
   constructor() {
-    this.baseUrl = 'http://localhost:3000/abilities';
+    super('http://localhost:3000/abilities', 'ability')
   }
 
   // CRUD METHODS
+  async createAbility() {
+    return this.create()
+  }
+
   async getAllAbilities() {
-    try {
-      const response = await axios.get(this.baseUrl);
-      return response.data;
-    } catch (error) {
-      console.error("Error getting all abilities:", error);
-      throw error;
-    }
+    return this.getAll()
   }
 
   async updateAbility(ability) {
-    try {
-      await axios.put(`${this.baseUrl}/${ability.id}`, ability);
-    } catch (error) {
-      console.error("Error saving ability:", error);
-    }
-  }
-
-  async createAbility() {
-    const newAbility = this.getDefaultAbility();
-    try {
-      const response = await axios.post(this.baseUrl, newAbility);
-      return response.data;
-    } catch (error) {
-      console.error("Error creating new ability:", error);
-      throw error;
-    }
+    return this.update(ability)
   }
 
   async deleteAbility(ability) {
-    ability.isDeleted = true;
-    this.updateAbility(ability);
+    return this.delete(ability)
   }
 
   // DEFAULT ABILITY
-  getDefaultAbility() {
+  getDefaultEntity() {
     return {
       id: null, // ID will be assigned by the backend
-      name: "New Ability",
-      description: "",
+      name: 'New Ability',
+      description: '',
       isTrait: false,
       canBeActive: false,
       isActive: true,
@@ -53,8 +35,8 @@ class AbilityService {
       isDeleted: false,
       mp: null,
       xp: null,
-    };
+    }
   }
 }
 
-export default new AbilityService();
+export default new AbilityService()

@@ -1,70 +1,82 @@
 <template>
-    <div class="number-input-container" :class="sizeClass">
-      <input 
-        type="number"
-        :value="modelValue"
-        @input="$emit('update:modelValue', Number($event.target.value))"
-        :min="min"
-        :max="max"
-        :step="step"
-        :class="inputClass"
-      />
-      <div class="spinner-buttons">
-        <button @click="increment" class="spinner-up">▲</button>
-        <button @click="decrement" class="spinner-down">▼</button>
-      </div>
+  <div class="number-input-container" :class="sizeClass">
+    <input
+      type="number"
+      :value="modelValue"
+      @input="$emit('update:modelValue', Number($event.target.value))"
+      :min="min"
+      :max="max"
+      :step="step"
+      :class="inputClass"
+    />
+    <div class="spinner-buttons">
+      <button @click="increment" class="spinner-up">▲</button>
+      <button @click="decrement" class="spinner-down">▼</button>
     </div>
+  </div>
 </template>
-  
+
 <script>
-  export default {
-    name: 'NumberInput',
-    props: {
-      modelValue: {
-        type: Number,
-        required: true
-      },
-      min: {
-        type: Number,
-        default: null
-      },
-      max: {
-        type: Number,
-        default: null
-      },
-      step: {
-        type: Number,
-        default: 1
-      },
-      size: {
-        type: String,
-        default: 'small',
-        validator: (value) => ['tiny', 'small', 'large'].includes(value)
+export default {
+  name: 'NumberInput',
+  props: {
+    modelValue: {
+      type: Number,
+      required: true,
+    },
+    min: {
+      type: Number,
+      default: null,
+    },
+    max: {
+      type: Number,
+      default: null,
+    },
+    step: {
+      type: Number,
+      default: 1,
+    },
+    size: {
+      type: String,
+      default: 'small',
+      validator: (value) => ['tiny', 'small', 'large'].includes(value),
+    },
+  },
+  computed: {
+    sizeClass() {
+      return `number-input-${this.size}`
+    },
+    inputClass() {
+      return `input-${this.size}`
+    },
+  },
+  methods: {
+    increment() {
+      if (this.max === null || this.modelValue < this.max) {
+        this.$emit(
+          'update:modelValue',
+          Math.min(
+            this.modelValue + this.step,
+            this.max !== null ? this.max : Infinity,
+          ),
+        )
       }
     },
-    computed: {
-      sizeClass() {
-        return `number-input-${this.size}`;
-      },
-      inputClass() {
-        return `input-${this.size}`;
+    decrement() {
+      if (this.min === null || this.modelValue > this.min) {
+        this.$emit(
+          'update:modelValue',
+          Math.max(
+            this.modelValue - this.step,
+            this.min !== null ? this.min : -Infinity,
+          ),
+        )
       }
     },
-    methods: {
-      increment() {
-        if (this.max === null || this.modelValue < this.max) {
-          this.$emit('update:modelValue', Math.min(this.modelValue + this.step, this.max !== null ? this.max : Infinity));
-        }
-      },
-      decrement() {
-        if (this.min === null || this.modelValue > this.min) {
-          this.$emit('update:modelValue', Math.max(this.modelValue - this.step, this.min !== null ? this.min : -Infinity));
-        }
-      }
-    }
-  }
+  },
+}
 </script>
-  
+
 <style scoped>
 .number-input-container {
   position: relative;
@@ -86,7 +98,7 @@
   width: 40px;
 }
 
-input[type="number"] {
+input[type='number'] {
   -moz-appearance: textfield;
   -webkit-appearance: textfield;
   appearance: textfield;
@@ -100,10 +112,10 @@ input[type="number"] {
   box-sizing: border-box;
 }
 
-input[type="number"]::-webkit-inner-spin-button, 
-input[type="number"]::-webkit-outer-spin-button { 
-  -webkit-appearance: none; 
-  margin: 0; 
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 .input-tiny {
@@ -140,7 +152,8 @@ input[type="number"]::-webkit-outer-spin-button {
   pointer-events: auto; /* Enable interaction on hover */
 }
 
-.spinner-up, .spinner-down {
+.spinner-up,
+.spinner-down {
   background: rgba(0, 0, 0, 0.7);
   border: none;
   color: white;
@@ -162,7 +175,8 @@ input[type="number"]::-webkit-outer-spin-button {
   border-radius: 0 0 3px 0;
 }
 
-.spinner-up:hover, .spinner-down:hover {
+.spinner-up:hover,
+.spinner-down:hover {
   background: rgba(0, 0, 0, 0.9);
 }
 

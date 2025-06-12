@@ -1,13 +1,9 @@
 <template>
-  <base-card
-    :item="equipment"
-    itemType="equipment"
-    :metaInfo="equipment.weight ? `${equipment.weight} ${equipment.weight === 1 ? 'lb' : 'lbs'}` : ''"
-    :storeInstance="equipmentStore"
-    :initialCollapsed="isCollapsed"
-    :editable="editable" 
-    @edit="$emit('edit', equipment)"
-  >
+  <base-card v-bind="$attrs" :item="equipment" itemType="equipment" :metaInfo="equipment.weight
+    ? `${equipment.weight} ${equipment.weight === 1 ? 'lb' : 'lbs'}`
+    : ''
+    " :storeInstance="equipmentStore" :initialCollapsed="isCollapsed" :editable="editable" :sources="sources"
+    @edit="$emit('edit', equipment)">
     <!-- Large image slot -->
     <template #large-image>
       <div v-if="showLargeImage" class="large-image-container" @click.stop="toggleImage">
@@ -21,12 +17,7 @@
       <div class="content-wrapper">
         <div class="art-and-sol" v-if="!showLargeImage">
           <div class="small-image-container" @click.stop="toggleImage">
-            <img 
-              v-if="equipment.artUrl" 
-              :src="equipment.artUrl" 
-              :alt="equipment.name" 
-              class="equipment-image"
-            />
+            <img v-if="equipment.artUrl" :src="equipment.artUrl" :alt="equipment.name" class="equipment-image" />
           </div>
         </div>
         <!-- Description section - show if available -->
@@ -36,7 +27,7 @@
               {{ equipment.description }}
             </p>
           </template>
-          
+
           <!-- Dice section - show independently if it's a melee weapon -->
           <template v-if="equipment.isMelee">
             <div class="dice-description-row">
@@ -44,11 +35,7 @@
                 <div class="dice-section-background">
                   <span class="dice-label">Engagement</span>
                   <div class="dice-icons">
-                    <span
-                      v-for="die in equipment.engagementDice"
-                      :key="'engagement-' + die"
-                      class="dice-icon"
-                    >
+                    <span v-for="die in equipment.engagementDice" :key="'engagement-' + die" class="dice-icon">
                       <i :class="getDiceFontClass(die)"></i>
                     </span>
                   </div>
@@ -58,11 +45,7 @@
                 <div class="dice-section-background">
                   <span class="dice-label">Damage</span>
                   <div class="dice-icons">
-                    <span
-                      v-for="die in equipment.damageDice"
-                      :key="'damage-' + die"
-                      class="dice-icon"
-                    >
+                    <span v-for="die in equipment.damageDice" :key="'damage-' + die" class="dice-icon">
                       <i :class="getDiceFontClass(die)"></i>
                     </span>
                   </div>
@@ -73,18 +56,38 @@
         </div>
       </div>
     </template>
+
+    <!-- Footer slot for engagement successes -->
+    <template #footer>
+      <div v-if="!isCollapsed" class="engagement-successes">
+        <span v-for="success in engagementSuccesses" :key="success.id" class="engagement-success-pill"
+          @mouseenter="startSuccessTooltip(success, $event)" @mouseleave="clearSuccessTooltip">
+          {{ success.name }}
+        </span>
+      </div>
+    </template>
   </base-card>
+
+  <!-- Tooltip for engagement success description -->
+  <teleport to="body">
+    <div v-if="tooltipSuccess" class="success-tooltip"
+      :style="{ top: `${tooltipPosition.y}px`, left: `${tooltipPosition.x}px` }">
+      {{ tooltipSuccess }}
+    </div>
+  </teleport>
 </template>
-  
+
 <script>
-import { useEquipmentStore } from '@/stores/equipmentStore';
-import BaseCard from '@/components/BaseCard.vue';
-import EngagementSuccessService from '@/services/EngagementSuccessService';
+import { useEquipmentStore } from '@/stores/equipmentStore'
+import BaseCard from '@/components/BaseCard.vue'
+import EngagementSuccessService from '@/services/EngagementSuccessService'
 
 export default {
+  inheritAttrs: false,
   components: {
-    BaseCard
+    BaseCard,
   },
+  emits: ['edit', 'delete', 'send-to-chat', 'height-changed'],
   props: {
     equipment: {
       type: Object,
@@ -96,7 +99,16 @@ export default {
     },
     editable: {
       type: Boolean,
-      default: false
+      default: false,
+    },
+    sources: {
+      type: Object,
+      default: () => ({
+        ancestries: [],
+        cultures: [],
+        mestieri: [],
+        worldElements: []
+      })
     }
   },
 
@@ -109,51 +121,68 @@ export default {
       tooltipSuccess: null,
       tooltipPosition: { x: 0, y: 0 },
       tooltipTimer: null,
-    };
+    }
   },
 
   methods: {
-    // Methods remain the same
     toggleImage() {
-      this.showLargeImage = !this.showLargeImage;
+      this.showLargeImage = !this.showLargeImage
     },
 
     async fetchEngagementSuccesses() {
       try {
-        const allSuccesses = await EngagementSuccessService.getAllEngagementSuccesses();
+        const allSuccesses =
+          await EngagementSuccessService.getAllEngagementSuccesses()
         this.engagementSuccesses = this.equipment.engagementSuccesses
-          .map(id => allSuccesses.find(success => success.id === id))
-          .filter(success => success);
+          .map((id) => allSuccesses.find((success) => success.id === id))
+          .filter((success) => success)
       } catch (error) {
-        console.error("Error fetching engagement successes:", error);
-        this.engagementSuccesses = [];
+        console.error('Error fetching engagement successes:', error)
+        this.engagementSuccesses = []
       }
     },
 
     getDiceFontClass(die) {
-      return `df-d${die}-${die}`;
+      return `df-d${die}-${die}`
     },
 
     startSuccessTooltip(success, event) {
+      clearTimeout(this.tooltipTimer);
       this.tooltipTimer = setTimeout(() => {
-        this.tooltipSuccess = success;
-        this.tooltipPosition = {
-          x: event.clientX + 12,
-          y: event.clientY + 12,
-        };
-      }, 1000);
+        this.tooltipSuccess = success.description;
+
+        // Calculate position to avoid tooltip going off-screen
+        const padding = 10;
+        let x = event.clientX + 15;
+        let y = event.clientY + 10;
+
+        // Check if tooltip would go off the right edge
+        const tooltipWidth = 260; // max-width from CSS
+        if (x + tooltipWidth > window.innerWidth - padding) {
+          x = window.innerWidth - tooltipWidth - padding;
+        }
+
+        // Check if tooltip would go off the bottom
+        const tooltipHeight = 100; // estimated height
+        if (y + tooltipHeight > window.innerHeight - padding) {
+          y = event.clientY - tooltipHeight - 10;
+        }
+
+        this.tooltipPosition = { x, y };
+      }, 300); // Reduced delay from 1000ms to 300ms for better UX
     },
-    
+
     clearSuccessTooltip() {
       clearTimeout(this.tooltipTimer);
+      this.tooltipTimer = null;
       this.tooltipSuccess = null;
     },
   },
 
   async created() {
-    await this.fetchEngagementSuccesses();
+    await this.fetchEngagementSuccesses()
   },
-};
+}
 </script>
 
 <style scoped>
@@ -188,7 +217,7 @@ export default {
   height: 100px;
   object-fit: cover;
   border-radius: 4px;
-  cursor: pointer
+  cursor: pointer;
 }
 
 /* Large Image */
@@ -203,7 +232,7 @@ export default {
 .large-image {
   width: 100%;
   height: auto;
-  border-radius: 4px; 
+  border-radius: 4px;
   margin-top: 10px;
 }
 
@@ -235,7 +264,6 @@ export default {
 
 .dice-label {
   font-size: 12px;
-  color: white;
   margin-bottom: 1px;
 }
 
@@ -248,7 +276,6 @@ export default {
 
 .dice-icon {
   font-size: 36px;
-  color: white;
 }
 
 /* Dice Description Row */
@@ -287,6 +314,7 @@ export default {
 .engagement-success-pill:hover {
   background-color: rgba(64, 64, 64, 0.4);
 }
+
 .content-sections {
   flex: 1;
   display: flex;
@@ -300,11 +328,11 @@ export default {
   z-index: 1000;
   background: rgba(30, 30, 30, 0.97);
   color: #fff;
-  padding: 8px 14px;
+  padding: 14px;
   border-radius: 8px;
-  font-size: 13px;
+  font-size: 12px;
   pointer-events: none;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
   max-width: 260px;
   white-space: pre-line;
 }

@@ -6,18 +6,9 @@
   "source": "ad8a3840-7297-4f69-b99b-2b932f599b65",
   "weight": 3,
   "isMelee": true,
-  "damageDice": [
-    8
-  ],
-  "engagementDice": [
-    6
-  ],
-  "engagementSuccesses": [
-    "6",
-    "8",
-    "10",
-    "11"
-  ],
+  "damageDice": [8],
+  "engagementDice": [6],
+  "engagementSuccesses": ["6", "8", "10", "11"],
   "skillMods": [],
   "isDeleted": false,
   "isCustom": false,

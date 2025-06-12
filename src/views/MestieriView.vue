@@ -10,9 +10,9 @@
 </template>
 
 <script>
-import { useMestieriStore } from '@/stores/mestieriStore';
-import MestiereService from '@/services/MestiereService';
-import ConceptsView from '@/components/ConceptsView.vue';
+import { useMestieriStore } from '@/stores/mestieriStore'
+import MestiereService from '@/services/MestiereService'
+import ConceptsView from '@/components/ConceptsView.vue'
 
 export default {
   components: {
@@ -20,34 +20,36 @@ export default {
   },
   data() {
     return {
-      mestieriStore: useMestieriStore()
-    };
+      mestieriStore: useMestieriStore(),
+    }
   },
   computed: {
     mestieri() {
-      return this.mestieriStore.mestieri.filter(mestiere => !mestiere.isDeleted);
-    }
+      return this.mestieriStore.mestieri.filter(
+        (mestiere) => !mestiere.isDeleted,
+      )
+    },
   },
   methods: {
     async createNewMestiere() {
-      return await MestiereService.createMestiere();
+      return await MestiereService.createMestiere()
     },
-    
+
     async updateMestiere(mestiere) {
-      return await MestiereService.updateMestiere(mestiere);
+      return await MestiereService.updateMestiere(mestiere)
     },
-    
+
     async deleteMestiere(mestiere) {
-      mestiere.isDeleted = true;
-      return await MestiereService.updateMestiere(mestiere);
+      mestiere.isDeleted = true
+      return await MestiereService.updateMestiere(mestiere)
     },
-    
+
     async refreshData() {
-      return await this.mestieriStore.fetchMestieri();
-    }
+      return await this.mestieriStore.fetchMestieri()
+    },
   },
   mounted() {
-    this.refreshData();
-  }
-};
+    this.refreshData()
+  },
+}
 </script>

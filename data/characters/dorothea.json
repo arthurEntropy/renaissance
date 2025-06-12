@@ -149,7 +149,7 @@
       "id": "2121d925-27f0-40ee-9d7f-2cc67b90141c",
       "quantity": 1,
       "isCarried": true,
-      "order": 0,
+      "index": 0,
       "equipment": {
         "id": "2121d925-27f0-40ee-9d7f-2cc67b90141c",
         "name": "Adirian Hand Axe",
@@ -179,7 +179,7 @@
       "id": "bccb6c9c-bb15-4679-a0ce-a2e330b0aae0",
       "quantity": 32,
       "isCarried": true,
-      "order": 1,
+      "index": 1,
       "equipment": {
         "id": "bccb6c9c-bb15-4679-a0ce-a2e330b0aae0",
         "name": "Azcan Dagger",

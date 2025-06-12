@@ -155,28 +155,28 @@
       "id": "64992fd9-1594-4cab-b232-b570e0e53ece",
       "quantity": 9,
       "isCarried": true,
-      "order": 0
+      "index": 0
     },
     {
       "id": "6491e3fc-1152-4a3d-baa7-d1afd720edc1",
       "quantity": 1,
       "isCarried": true,
       "isWielding": false,
-      "order": 1
+      "index": 1
     },
     {
       "id": "c811e686-c74b-47bc-9f19-dd7aee051742",
       "quantity": 1,
       "isCarried": true,
       "isWielding": false,
-      "order": 2
+      "index": 2
     },
     {
       "id": "6c2b44b0-7b4d-4275-b825-efd51284a921",
       "quantity": 1,
       "isCarried": true,
       "isWielding": false,
-      "order": 3
+      "index": 3
     }
   ],
   "artUrls": [

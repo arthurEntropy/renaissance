@@ -1,22 +1,12 @@
 <template>
-  <div
-    class="base-card"
-    :style="cardStyle"
-    @mouseenter="startSourceTooltipTimer"
-    @mouseleave="clearSourceTooltipTimer"
-    @click="toggleCollapsed"
-  >
+  <div class="base-card" :style="cardStyle" @mouseenter="startSourceTooltipTimer" @mouseleave="clearSourceTooltipTimer"
+    @click="toggleCollapsed">
     <!-- Header Row -->
     <div class="card-header">
       <span class="caret">{{ caretSymbol }}</span>
       <div class="name-container">
         <span class="item-name"><strong>{{ item.name }}</strong></span>
-        <button
-          v-if="editable"
-          class="edit-button"
-          @click.stop="$emit('edit', item)"
-          :title="`Edit ${itemType}`"
-        >
+        <button v-if="editable" class="edit-button" @click.stop="$emit('edit', item)" :title="`Edit ${itemType}`">
           ✎
         </button>
       </div>
@@ -34,14 +24,17 @@
         <slot name="buttons"></slot>
       </div>
     </transition>
-    
+
     <!-- Tooltip -->
     <!-- <div v-if="showTooltip" class="tooltip">
       from: {{ sourceName }}
     </div> -->
-    
+
     <!-- XP or other badge -->
     <slot name="badge"></slot>
+
+    <!-- Footer Slot -->
+    <slot name="footer"></slot>
   </div>
 </template>
 
@@ -55,26 +48,36 @@ export default {
     },
     itemType: {
       type: String,
-      default: 'item'
+      default: 'item',
     },
     metaInfo: {
       type: String,
-      default: ''
+      default: '',
     },
     storeInstance: {
       type: Object,
-      required: true
+      required: false,
+      default: null,
     },
     initialCollapsed: {
       type: Boolean,
-      default: false
+      default: false,
     },
     editable: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
+    sources: {
+      type: Object,
+      default: () => ({
+        ancestries: [],
+        cultures: [],
+        mestieri: [],
+        worldElements: []
+      })
+    },
   },
-  emits: ['edit', 'update', 'send-to-chat'],
+  emits: ['edit', 'update', 'send-to-chat', 'height-changed'],
   data() {
     return {
       isCollapsed: this.initialCollapsed,
@@ -82,11 +85,11 @@ export default {
       showTooltip: false,
       tooltipTimer: null,
       sourceLoaded: false,
-    };
+    }
   },
   computed: {
     caretSymbol() {
-      return this.isCollapsed ? '▶' : '▼';
+      return this.isCollapsed ? '▶' : '▼'
     },
     cardStyle() {
       // First check for item's own background
@@ -95,84 +98,92 @@ export default {
           backgroundImage: `url(${this.item.backgroundImage})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
-        };
+        }
       }
 
       // Then check source's background
-      if (this.sourceLoaded) {
-        const source = this.storeInstance.getSourceById(this.item.source);
-        if (source && source.backgroundImage) {
-          return {
-            backgroundImage: `url(${source.backgroundImage})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat',
-          };
+      const source = this.getSourceById(this.item.source)
+      if (source && source.backgroundImage) {
+        return {
+          backgroundImage: `url(${source.backgroundImage})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
         }
       }
 
       // Fallback
       return {
         background: 'rgba(0, 0, 0, 0.65)',
-      };
+      }
     },
   },
   methods: {
     toggleCollapsed() {
-      this.isCollapsed = !this.isCollapsed;
+      this.isCollapsed = !this.isCollapsed
     },
     startSourceTooltipTimer() {
       this.tooltipTimer = setTimeout(() => {
-        this.showTooltip = true;
-      }, 1500);
+        this.showTooltip = true
+      }, 1500)
     },
     clearSourceTooltipTimer() {
-      clearTimeout(this.tooltipTimer);
-      this.showTooltip = false;
+      clearTimeout(this.tooltipTimer)
+      this.showTooltip = false
     },
     setSpanSize() {
-      const rowHeight = 10;
-      const height = this.$el.getBoundingClientRect().height;
-      const rowSpan = Math.ceil(height / rowHeight);
-      this.$el.style.setProperty('--card-span', rowSpan);
+      const rowHeight = 10
+      const height = this.$el.getBoundingClientRect().height
+      const rowSpan = Math.ceil(height / rowHeight)
+      this.$el.style.setProperty('--card-span', rowSpan)
     },
-    async fetchSourceInfo() {
+    getSourceById(sourceId) {
+      if (!sourceId) return null
+
+      return (
+        this.sources.ancestries.find((item) => item.id === sourceId) ||
+        this.sources.cultures.find((item) => item.id === sourceId) ||
+        this.sources.mestieri.find((item) => item.id === sourceId) ||
+        this.sources.worldElements.find((item) => item.id === sourceId)
+      )
+    },
+    updateSourceName() {
       if (!this.item.source) {
-        this.sourceName = 'Unknown';
-        this.sourceLoaded = true;
-        return;
+        this.sourceName = 'Unknown'
+        return
       }
 
-      await this.storeInstance.fetchAllSources();
-      const source = this.storeInstance.getSourceById(this.item.source);
-      this.sourceName = source?.name || 'Unknown';
-      this.sourceLoaded = true;
+      const source = this.getSourceById(this.item.source)
+      this.sourceName = source?.name || 'Unknown'
     },
   },
   watch: {
     'item.source': {
       immediate: true,
       handler() {
-        this.fetchSourceInfo();
+        this.updateSourceName()
       },
+    },
+    sources: {
+      immediate: true,
+      handler() {
+        this.updateSourceName()
+      }
     },
     isCollapsed(newVal, oldVal) {
       if (newVal !== oldVal) {
         this.$nextTick(() => {
           setTimeout(() => {
-            this.$emit('height-changed');
-          }, 300);
-        });
+            this.$emit('height-changed')
+          }, 300)
+        })
       }
-    }
-  },
-  async created() {
-    await this.fetchSourceInfo();
+    },
   },
   mounted() {
-    this.$nextTick(this.setSpanSize);
+    this.$nextTick(this.setSpanSize)
   },
-};
+}
 </script>
 
 <style scoped>
@@ -182,8 +193,9 @@ export default {
   padding: 10px;
   margin-top: 5px;
   cursor: pointer;
-  color: white;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  transition:
+    background-color 0.3s ease,
+    transform 0.2s ease;
   width: 100%;
   position: relative;
   box-sizing: border-box;
@@ -203,7 +215,7 @@ export default {
   pointer-events: none;
 }
 
-.base-card > * {
+.base-card>* {
   position: relative;
   z-index: 2;
 }
@@ -219,7 +231,11 @@ export default {
   font-size: 16px;
   height: 20px;
   width: 20px;
-  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+  text-shadow:
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000;
 }
 
 .name-container {
@@ -232,12 +248,20 @@ export default {
 
 .item-name {
   font-size: 16px;
-  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+  text-shadow:
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000;
   word-wrap: break-word;
 }
 
 .edit-button {
-  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+  text-shadow:
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000;
   margin-left: 5px;
   background: none;
   border: none;
