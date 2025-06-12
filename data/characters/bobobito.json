@@ -144,14 +144,7 @@
     "afraid": true,
     "troubled": false
   },
-  "equipment": [
-    {
-      "name": "Dunce cap",
-      "weight": 1,
-      "quantity": 14,
-      "carried": true
-    }
-  ],
+  "equipment": [],
   "activeEffects": [],
   "pronouns": "he/him",
   "ancestries": "Human",
@@ -164,9 +157,11 @@
   },
   "current": "9",
   "ancestryIds": [
-    1
+    1,
+    "adc655c1-1d9c-433f-a0eb-41f93cf3ee07"
   ],
   "cultureIds": [
-    "0c876a74-a89b-42dc-b76a-4592a0478d81"
+    "0c876a74-a89b-42dc-b76a-4592a0478d81",
+    "a3a54cb6-09c4-42e3-b142-3053b7c1d4e8"
   ]
 }

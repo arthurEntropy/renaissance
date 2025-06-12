@@ -4,7 +4,7 @@
       <!-- ADMIN CONTROLS -->
       <div class="admin-controls">
         <!-- Edit/Save button -->
-        <button class="edit-save-button" @click="toggleEditMode"
+        <button v-if="editable" class="edit-save-button" @click="toggleEditMode"
           :title="isEditMode ? 'Exit Edit Mode' : 'Enter Edit Mode'">
           {{ isEditMode ? '✓ Save' : '✎ Edit' }}
         </button>
@@ -168,7 +168,7 @@ export default defineComponent({
       abilities: [],
       equipment: [],
       localConcept: {},
-      isEditMode: true,
+      isEditMode: false, // Always start as false
       isEditingTitle: false,
       isEditingDescription: false,
       backupConcept: null,
@@ -202,12 +202,6 @@ export default defineComponent({
         this.fetchAbilities()
         this.fetchEquipment()
       },
-    },
-    editable: {
-      handler(newValue) {
-        this.isEditMode = newValue
-      },
-      immediate: true,
     },
   },
   computed: {

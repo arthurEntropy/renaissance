@@ -10,5 +10,9 @@
   ],
   "color1": "#213535",
   "color2": "#46463f",
-  "backgroundImage": "https://cdn.midjourney.com/7e60824c-94bc-4137-a4f5-5d1fe560553d/0_2.png"
+  "backgroundImage": "https://cdn.midjourney.com/7e60824c-94bc-4137-a4f5-5d1fe560553d/0_2.png",
+  "hooks": [],
+  "playlists": [],
+  "faces": [],
+  "places": []
 }

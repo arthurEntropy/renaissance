@@ -534,7 +534,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: rgb(17, 17, 17);
+  background: rgb(17, 17, 17, 0.75);
   border-radius: 5px;
   width: 1050px;
   max-height: 100%;

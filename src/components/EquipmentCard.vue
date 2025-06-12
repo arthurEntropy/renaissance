@@ -59,7 +59,7 @@
 
     <!-- Footer slot for engagement successes -->
     <template #footer>
-      <div class="engagement-successes">
+      <div v-if="!isCollapsed" class="engagement-successes">
         <span v-for="success in engagementSuccesses" :key="success.id" class="engagement-success-pill"
           @mouseenter="startSuccessTooltip(success, $event)" @mouseleave="clearSuccessTooltip">
           {{ success.name }}

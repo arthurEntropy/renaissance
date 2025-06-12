@@ -10,9 +10,18 @@
       </div>
     </div>
 
-    <!-- Concept Detail Modal -->
-    <ConceptDetailModal v-if="showConceptDetail" :concept="selectedConcept" :editable="true" @close="closeConceptDetail"
-      @update="updateConcept" @edit-ability="editAbility" @edit-equipment="editEquipment" />
+    <!-- Concept Detail Modal with Navigation Arrows -->
+    <div v-if="showConceptDetail" class="modal-container">
+      <button class="navigate-button prev" @click="navigateConcept(-1)" :disabled="!hasPreviousConcept">
+        &lsaquo;
+      </button>
+      <ConceptDetailModal :key="conceptDetailKey" :concept="selectedConcept" :editable="true"
+        @close="closeConceptDetail" @update="updateConcept" @edit-ability="editAbility"
+        @edit-equipment="editEquipment" />
+      <button class="navigate-button next" @click="navigateConcept(1)" :disabled="!hasNextConcept">
+        &rsaquo;
+      </button>
+    </div>
 
     <!-- Edit Ability Modal -->
     <EditAbilityModal v-if="showEditAbilityModal" :ability="selectedAbility" :sources="sources"
@@ -87,7 +96,20 @@ export default {
         mestieri: [],
         worldElements: [],
       },
+      conceptDetailKey: 0, // for modal refresh
     }
+  },
+  computed: {
+    currentIndex() {
+      if (!this.selectedConcept) return -1;
+      return this.concepts.findIndex(c => c.id === this.selectedConcept.id);
+    },
+    hasPreviousConcept() {
+      return this.currentIndex > 0;
+    },
+    hasNextConcept() {
+      return this.currentIndex < this.concepts.length - 1 && this.currentIndex >= 0;
+    },
   },
   methods: {
     // Source data fetching
@@ -161,8 +183,16 @@ export default {
     openConceptDetail(concept) {
       this.selectedConcept = concept
       this.showConceptDetail = true
+      this.conceptDetailKey++ // force modal refresh
     },
-
+    navigateConcept(direction) {
+      if (!this.selectedConcept) return;
+      const idx = this.currentIndex;
+      const newIndex = idx + direction;
+      if (newIndex < 0 || newIndex >= this.concepts.length) return;
+      this.selectedConcept = this.concepts[newIndex];
+      this.conceptDetailKey++;
+    },
     closeConceptDetail() {
       this.selectedConcept = null
       this.showConceptDetail = false
@@ -245,7 +275,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
+  width: 90%;
 }
 
 .concepts-container {
@@ -257,7 +287,7 @@ export default {
 
 .add-concept-card {
   width: 250px;
-  height: 300px;
+  height: 270px;
   background: rgba(0, 0, 0, 0.4);
   border: 2px dashed rgba(255, 255, 255, 0.3);
   border-radius: 10px;
@@ -287,11 +317,79 @@ export default {
   font-size: 1rem;
 }
 
+/* Navigation styling */
+.modal-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  z-index: 1000;
+}
+
+.navigate-button {
+  position: fixed;
+  top: 50%;
+  padding-bottom: 7px;
+  transform: translateY(-50%);
+  background: rgba(20, 20, 20, 0.6);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  font-size: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1100;
+  transition: all 0.2s ease;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+}
+
+.navigate-button:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+}
+
+.navigate-button:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.navigate-button.prev {
+  left: 30px;
+}
+
+.navigate-button.next {
+  right: 30px;
+}
+
 @media (max-width: 650px) {
   .add-concept-card {
     width: 80%;
     margin-left: 10px;
     margin-right: 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  .navigate-button {
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+  }
+
+  .navigate-button.prev {
+    left: 5px;
+  }
+
+  .navigate-button.next {
+    right: 5px;
   }
 }
 </style>

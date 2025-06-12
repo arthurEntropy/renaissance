@@ -1,23 +1,41 @@
 <template>
   <div class="engagement-dice-table">
-    <h2>Engagement</h2>
+    <div class="engagement-dice-header">
+      <h2>Engagement Dice</h2>
+    </div>
 
-    <div class="engagement-dice-container">
-      <div class="dice-section">
-        <div class="dice-icons">
-          <span v-for="die in combinedEngagementDice" :key="'engagement-' + die" class="dice-icon">
-            <i :class="getDiceFontClass(die)"></i>
-          </span>
-        </div>
+    <div class="engagement-dice-content">
+      <div v-if="characterEngagementDice.length > 0" class="dice-display">
+        <span v-for="(die, index) in characterEngagementDice" :key="index" class="dice-icon"
+          :title="diceSourceInfo[index] ? `${diceSourceInfo[index].name}: d${diceSourceInfo[index].die}` : `d${die}`">
+          <i :class="`df-d${die}-${die}`"></i>
+        </span>
+      </div>
+      <div v-else class="no-dice-message">
+        No engagement dice available
       </div>
     </div>
-    <button class="roll-button" @click="rollEngagementDice" title="Roll engagement dice">
-      Roll
-    </button>
+
+    <!-- Engagement Successes Section -->
+    <div v-if="uniqueEngagementSuccesses.length > 0" class="engagement-successes-section">
+      <div class="engagement-successes">
+        <span v-for="success in uniqueEngagementSuccesses" :key="success.id" class="engagement-success-pill"
+          @mouseenter="startSuccessTooltip(success, $event)" @mouseleave="clearSuccessTooltip">
+          {{ success.name }}
+        </span>
+      </div>
+    </div>
+
+    <!-- Tooltip for engagement success descriptions -->
+    <div v-if="tooltipSuccess" class="success-tooltip"
+      :style="{ top: tooltipPosition.y + 'px', left: tooltipPosition.x + 'px' }">
+      {{ tooltipSuccess.description }}
+    </div>
   </div>
 </template>
 
 <script>
+import EngagementSuccessService from '@/services/EngagementSuccessService';
 import DiceService from '@/services/DiceService'
 
 export default {
@@ -41,42 +59,111 @@ export default {
     }
   },
 
+  data() {
+    return {
+      allEngagementSuccesses: [],
+      tooltipSuccess: null,
+      tooltipPosition: { x: 0, y: 0 },
+      tooltipTimer: null
+    };
+  },
+
   computed: {
     wieldedWeapons() {
+      // Ensure reactivity by referencing character.equipment and allEquipment
       return (this.character.equipment || []).filter((item) => {
         if (!item.isWielding) return false
-
         const equipmentItem = this.allEquipment.find((eq) => eq.id === item.id)
         return equipmentItem && equipmentItem.isMelee
       })
     },
 
     combinedEngagementDice() {
-      return this.calculateEngagementDice()
+      // Default dice
+      let dice = [6]
+      // Collect all engagement dice from wielded weapons
+      if (this.wieldedWeapons.length > 0) {
+        dice = this.wieldedWeapons
+          .map((item) => {
+            const weapon = this.allEquipment.find((eq) => eq.id === item.id)
+            return weapon && weapon.engagementDice ? weapon.engagementDice : []
+          })
+          .flat()
+      }
+      // Sort dice for consistency
+      return [...dice].sort((a, b) => a - b)
     },
+
+    equipmentWithDice() {
+      const result = [];
+      if (!this.character || !this.character.equipment || !this.allEquipment) {
+        return result;
+      }
+      this.character.equipment.forEach(characterEquip => {
+        const fullEquipment = this.allEquipment.find(eq => eq.id === characterEquip.id);
+        const isActive = characterEquip.isCarried !== false && characterEquip.isWielding !== false;
+        if (isActive && fullEquipment && fullEquipment.engagementDice && fullEquipment.engagementDice.length > 0) {
+          fullEquipment.engagementDice.forEach(die => {
+            result.push({
+              die,
+              name: fullEquipment.name
+            });
+          });
+        }
+      });
+      // If no dice from equipment, default to d6
+      if (result.length === 0) {
+        result.push({ die: 6, name: 'Unarmed' });
+      }
+      return result;
+    },
+
+    characterEngagementDice() {
+      return this.equipmentWithDice
+        .map(item => item.die)
+        .sort((a, b) => b - a);
+    },
+
+    diceSourceInfo() {
+      return [...this.equipmentWithDice].sort((a, b) => b.die - a.die);
+    },
+
+    allEquipmentEngagementSuccesses() {
+      const successIds = [];
+      if (!this.character || !this.character.equipment || !this.allEquipment) {
+        return [];
+      }
+      this.character.equipment.forEach(characterEquip => {
+        const fullEquipment = this.allEquipment.find(eq => eq.id === characterEquip.id);
+        const isActive = characterEquip.isCarried !== false && characterEquip.isWielding !== false;
+        if (isActive && fullEquipment && fullEquipment.engagementSuccesses && fullEquipment.engagementSuccesses.length > 0) {
+          successIds.push(...fullEquipment.engagementSuccesses);
+        }
+      });
+      return successIds;
+    },
+
+    uniqueEngagementSuccesses() {
+      const uniqueIds = [...new Set(this.allEquipmentEngagementSuccesses)];
+      return uniqueIds
+        .map(id => this.allEngagementSuccesses.find(success => success.id === id))
+        .filter(success => success)
+        .sort((a, b) => a.name.localeCompare(b.name));
+    }
   },
 
   methods: {
-    getDiceFontClass(die) {
-      return `df-d${die}-${die}`
+    async fetchEngagementSuccesses() {
+      try {
+        this.allEngagementSuccesses = await EngagementSuccessService.getAllEngagementSuccesses();
+      } catch (error) {
+        console.error("Error fetching engagement successes:", error);
+        this.allEngagementSuccesses = [];
+      }
     },
 
-    calculateEngagementDice() {
-      // Default dice
-      let dice = [6]
-
-      // Add dice from wielded weapons
-      if (this.wieldedWeapons.length > 0) {
-        this.wieldedWeapons.forEach((item) => {
-          const weapon = this.allEquipment.find((eq) => eq.id === item.id)
-          if (weapon && weapon.engagementDice) {
-            dice = weapon.engagementDice
-          }
-        })
-      }
-
-      // Sort dice for consistency
-      return [...dice].sort((a, b) => a - b)
+    getDiceFontClass(die) {
+      return `df-d${die}-${die}`
     },
 
     rollEngagementDice() {
@@ -104,7 +191,26 @@ export default {
       const weapon = this.allEquipment.find((eq) => eq.id === weaponId)
       return weapon ? weapon.name : 'unknown weapon'
     },
+
+    startSuccessTooltip(success, event) {
+      this.tooltipTimer = setTimeout(() => {
+        this.tooltipSuccess = success;
+        this.tooltipPosition = {
+          x: event.clientX + 12,
+          y: event.clientY + 12,
+        };
+      }, 500);
+    },
+
+    clearSuccessTooltip() {
+      clearTimeout(this.tooltipTimer);
+      this.tooltipSuccess = null;
+    }
   },
+
+  created() {
+    this.fetchEngagementSuccesses();
+  }
 }
 </script>
 
@@ -118,6 +224,18 @@ export default {
   border-radius: 5px;
 }
 
+.engagement-dice-header {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 6px;
+}
+
+.engagement-dice-content {
+  width: 100%;
+}
+
 .engagement-dice-container {
   display: flex;
   flex-direction: row;
@@ -125,22 +243,63 @@ export default {
   margin: 10px 0;
 }
 
-.dice-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  flex-grow: 1;
-}
-
-.dice-icons {
+.dice-display {
   display: flex;
   justify-content: center;
   gap: 3px;
+  margin-top: 5px;
 }
 
 .dice-icon {
   font-size: 36px;
   /* Size of the dice font */
+}
+
+.no-dice-message {
+  text-align: center;
+  color: #999;
+  margin-top: 10px;
+}
+
+.engagement-successes-section {
+  margin-top: 10px;
+}
+
+.engagement-successes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 5px;
+  margin-top: 10px;
+}
+
+.engagement-success-pill {
+  background-color: rgb(61, 61, 61);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: 10px;
+  text-align: center;
+  cursor: help;
+  transition: background-color 0.2s;
+}
+
+.engagement-success-pill:hover {
+  background-color: rgba(64, 64, 64, 0.4);
+}
+
+.success-tooltip {
+  position: fixed;
+  z-index: 1000;
+  background: rgba(30, 30, 30, 0.97);
+  color: #fff;
+  padding: 14px;
+  border-radius: 8px;
+  font-size: 12px;
+  pointer-events: none;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
+  max-width: 260px;
+  white-space: pre-line;
 }
 
 h2 {

@@ -31,7 +31,7 @@
       <template #item="{ element: ability, index }">
         <div class="ability-row">
           <!-- Edit Mode Controls (left, stacked) -->
-          <div class="edit-controls edit-controls-vertical">
+          <div class="edit-controls">
             <span @click="removeAbility(index)" class="delete-item-link">ⓧ</span>
             <span class="drag-handle" title="Drag to reorder">⋮⋮</span>
           </div>
@@ -487,23 +487,13 @@ h2 {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  padding: 5px;
-  margin-bottom: 5px;
+  margin-bottom: 6px;
 }
 
 .edit-controls {
   display: flex;
-  align-items: center;
-  gap: 5px;
-}
-
-.edit-controls-vertical {
   flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-  gap: 2px;
-  margin-right: 8px;
-  min-width: 24px;
+  margin: 7px 5px 0 0;
 }
 
 .missing-ability {

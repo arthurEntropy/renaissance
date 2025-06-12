@@ -4,6 +4,10 @@
     <div class="equipment-table-header">
       <div class="header-left">
         <h2>Equipment</h2>
+        <button class="edit-mode-button" @click="toggleEditMode"
+          :title="isEditMode ? 'Exit Edit Mode' : 'Enter Edit Mode'">
+          {{ isEditMode ? '✓' : '✎' }}
+        </button>
       </div>
       <div class="header-right">
         <div class="total-weight-container">
@@ -15,7 +19,7 @@
 
     <!-- DRAGGABLE ITEM ROWS -->
     <draggable v-model="sortedEquipmentRows" handle=".drag-handle" item-key="id" @end="onDragEnd"
-      ghost-class="ghost-equipment-row" animation="150">
+      ghost-class="ghost-equipment-row" animation="150" :disabled="!isEditMode">
       <template #item="{ element: row, index }">
         <div class="equipment-row">
           <!-- EquipmentCard (collapsed/minimal) -->
@@ -23,25 +27,22 @@
             :editable="row.equipment.isCustom" :sources="sources" class="equipment-card" @edit="editCustomItem" />
           <span v-else class="missing-equipment">Unknown item</span>
 
-          <div class="equipment-row-details">
+          <div v-if="isEditMode" class="equipment-row-details">
             <div class="details-content">
-              <!-- Edit Controls (always visible) -->
+              <!-- Edit Controls (edit mode only) -->
               <div class="edit-controls">
                 <!-- Drag Handle -->
                 <span class="drag-handle" title="Drag to reorder">⋮⋮</span>
-
                 <!-- Delete Button -->
                 <span @click="removeEquipmentItem(index)" class="delete-item-link">ⓧ</span>
               </div>
-
               <!-- Carried Checkbox -->
               <div class="detail-item checkbox-item">
                 <input type="checkbox" class="equipment-checkbox" v-model="row.isCarried"
                   @change="handleCarriedChange(index, row.isCarried)" />
                 <em class="carried-label">carried</em>
               </div>
-
-              <!-- Wielding Checkbox (always visible but disabled for non-melee) -->
+              <!-- Wielding Checkbox (edit mode only) -->
               <div class="detail-item checkbox-item">
                 <input type="checkbox" class="equipment-checkbox" :class="{
                   'disabled-checkbox':
@@ -64,7 +65,6 @@
                     !(row.equipment && row.equipment.isMelee),
                 }">wielding</em>
               </div>
-
               <div class="detail-item">
                 <!-- Quantity -->
                 <div class="detail-item">
@@ -78,7 +78,6 @@
                       )
                   " :min="1" size="tiny" class="quantity-input" />
                 </div>
-
                 <!-- Carried Weight -->
                 <div class="detail-item carried-weight">
                   <em class="carried-label"> = </em>
@@ -171,6 +170,7 @@ export default {
       equipmentSearchQuery: '',
       filteredEquipment: [],
       equipmentStore: useEquipmentStore(),
+      isEditMode: false, // New state for edit mode
     }
   },
   computed: {
@@ -510,6 +510,10 @@ export default {
         this.showEquipmentSelector = false
       }
     },
+
+    toggleEditMode() {
+      this.isEditMode = !this.isEditMode
+    },
   },
   mounted() {
     document.addEventListener('click', this.handleOutsideClick)
@@ -561,6 +565,20 @@ h2 {
   position: relative;
 }
 
+/* Edit Mode Button */
+.edit-mode-button {
+  background: none;
+  border: none;
+  color: #aaa;
+  font-size: 16px;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.edit-mode-button:hover {
+  color: white;
+}
+
 /* Add Item Footer */
 .add-item-footer {
   display: flex;
@@ -605,8 +623,7 @@ h2 {
   align-items: center;
   padding: 4px 8px;
   background-color: rgba(60, 60, 60, 0.4);
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
+  border-radius: 5px;
 }
 
 .details-content {
