@@ -31,6 +31,8 @@ export default {
   cursor: pointer;
   width: 200px;
   position: relative;
+  border: 2px solid #fff;
+  box-shadow: none;
 }
 
 /* White glow on hover */

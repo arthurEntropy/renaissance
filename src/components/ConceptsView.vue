@@ -1,8 +1,17 @@
 <template>
   <div class="concepts-view">
+    <!-- Filter Controls -->
+    <div class="filter-controls">
+      <input type="text" v-model="searchQuery" class="search-input" placeholder="Search..." />
+      <select v-model="expansionFilter" class="expansion-filter">
+        <option value="">All Expansions</option>
+        <option v-for="exp in expansions" :key="exp.id" :value="exp.id">{{ exp.name }}</option>
+      </select>
+    </div>
+
     <!-- Selection Cards -->
     <div class="concepts-container">
-      <ConceptCard v-for="concept in conceptsWithLogo" :key="concept.id" :item="concept" :sources="sources"
+      <ConceptCard v-for="concept in filteredConcepts" :key="concept.id" :item="concept" :sources="sources"
         @click="openConceptDetail(concept)" />
       <div class="add-concept-card" @click="createConcept">
         <div class="add-icon">+</div>
@@ -100,6 +109,8 @@ export default {
       },
       expansions: [],
       conceptDetailKey: 0, // for modal refresh
+      searchQuery: '',
+      expansionFilter: '',
     }
   },
   computed: {
@@ -121,6 +132,20 @@ export default {
           expansionLogoUrl: expansion && expansion.logoUrl ? expansion.logoUrl : '',
         }
       })
+    },
+    filteredConcepts() {
+      let filtered = this.conceptsWithLogo
+      if (this.expansionFilter) {
+        filtered = filtered.filter(c => c.expansion === this.expansionFilter)
+      }
+      if (this.searchQuery.trim()) {
+        const q = this.searchQuery.trim().toLowerCase()
+        filtered = filtered.filter(c =>
+          (c.name && c.name.toLowerCase().includes(q)) ||
+          (c.description && c.description.toLowerCase().includes(q))
+        )
+      }
+      return filtered
     },
   },
   methods: {
@@ -287,6 +312,51 @@ export default {
   flex-direction: column;
   align-items: center;
   width: 90%;
+}
+
+.filter-controls {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+  max-width: 60%;
+  margin-bottom: 1rem;
+  padding: 0 2rem;
+  z-index: 1;
+}
+
+.search-input {
+  flex: 2;
+  padding: 8px 12px;
+  border: 1px solid #555;
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0.65);
+  font-size: 16px;
+}
+
+.expansion-filter {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid #555;
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0.65);
+  font-size: 16px;
+  color: white;
+}
+
+.expansion-filter option {
+  background-color: rgba(0, 0, 0, 0.85);
+  padding: 8px;
+}
+
+.search-input::placeholder {
+  color: #888;
+}
+
+.search-input:focus,
+.expansion-filter:focus {
+  outline: none;
+  border-color: #888;
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
 }
 
 .concepts-container {
