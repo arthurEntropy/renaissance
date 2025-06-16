@@ -2,7 +2,7 @@
   <div class="concepts-view">
     <!-- Selection Cards -->
     <div class="concepts-container">
-      <ConceptCard v-for="concept in concepts" :key="concept.id" :item="concept" :sources="sources"
+      <ConceptCard v-for="concept in conceptsWithLogo" :key="concept.id" :item="concept" :sources="sources"
         @click="openConceptDetail(concept)" />
       <div class="add-concept-card" @click="createConcept">
         <div class="add-icon">+</div>
@@ -42,6 +42,7 @@ import AbilityService from '@/services/AbilityService'
 import EquipmentService from '@/services/EquipmentService'
 import { useAbilitiesStore } from '@/stores/abilitiesStore'
 import { useEquipmentStore } from '@/stores/equipmentStore'
+import { useExpansionStore } from '@/stores/expansionStore'
 import AncestryService from '@/services/AncestryService'
 import CultureService from '@/services/CultureService'
 import MestiereService from '@/services/MestiereService'
@@ -90,12 +91,14 @@ export default {
       selectedEquipment: null,
       abilitiesStore: useAbilitiesStore(),
       equipmentStore: useEquipmentStore(),
+      expansionStore: useExpansionStore(),
       sources: {
         ancestries: [],
         cultures: [],
         mestieri: [],
         worldElements: [],
       },
+      expansions: [],
       conceptDetailKey: 0, // for modal refresh
     }
   },
@@ -109,6 +112,15 @@ export default {
     },
     hasNextConcept() {
       return this.currentIndex < this.concepts.length - 1 && this.currentIndex >= 0;
+    },
+    conceptsWithLogo() {
+      return this.concepts.map(concept => {
+        const expansion = this.expansions.find(e => e.id === concept.expansion)
+        return {
+          ...concept,
+          expansionLogoUrl: expansion && expansion.logoUrl ? expansion.logoUrl : '',
+        }
+      })
     },
   },
   methods: {
@@ -255,10 +267,9 @@ export default {
   },
   async mounted() {
     try {
-      // Fetch sources first to ensure background images are available
+      await this.expansionStore.fetchExpansions()
+      this.expansions = this.expansionStore.expansions
       await this.fetchSources();
-
-      // Make sure we have abilities and equipment available
       await Promise.all([
         this.abilitiesStore.fetchAllAbilities(),
         this.equipmentStore.fetchAllEquipment()

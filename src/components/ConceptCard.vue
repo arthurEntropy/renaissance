@@ -1,5 +1,8 @@
 <template>
   <div class="selection-card" @click="$emit('select', item)">
+    <div v-if="item.expansionLogoUrl" class="expansion-logo-badge-wrapper">
+      <img :src="item.expansionLogoUrl" alt="Expansion Logo" class="expansion-logo-badge" />
+    </div>
     <img :src="item.artUrls[0]" :alt="item.name" class="selection-card-image" />
     <p class="selection-card-name">{{ item.name }}</p>
   </div>
@@ -27,6 +30,7 @@ export default {
   background-color: rgba(17, 17, 17);
   cursor: pointer;
   width: 200px;
+  position: relative;
 }
 
 /* White glow on hover */
@@ -49,5 +53,30 @@ export default {
   text-align: center;
   max-width: 200px;
   margin: 0px;
+}
+
+/* Expansion logo badge */
+.expansion-logo-badge-wrapper {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+}
+
+.expansion-logo-badge {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  background: #222;
+  object-fit: cover;
+  border: 2px solid #fff;
 }
 </style>
