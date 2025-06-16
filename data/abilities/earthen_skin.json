@@ -1,0 +1,12 @@
+{
+  "id": "d453adb9-09fb-4886-bf22-8770e2f02f6e",
+  "name": "Earthen Skin",
+  "description": "Your skin resembles one or more natural materials, like stone, bark, moss, earth, etc. Once per rest, you may change this appearance as you choose. When you are in a natural area with features that resemble your current appearance, your Stealth rolls are favored and you cannot be seen if you remain still.",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "134acec3-0e13-42e1-9d75-7999340d458c",
+  "isDeleted": false,
+  "mp": null,
+  "xp": null
+}

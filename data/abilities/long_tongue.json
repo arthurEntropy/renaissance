@@ -1,0 +1,12 @@
+{
+  "id": "3023d595-cc9a-4109-9e99-d9f393806085",
+  "name": "Long Tongue",
+  "description": "You have a long, sticky tongue that can extend to a length up to your speed and can be retracted at-will. Unsecured objects and creatures that weigh less than half your body weight automatically stick to the tongue and are dragged with it when retracted. Heavier objects require a Strengh check to pull and heavier creatures oppose with their own Strength check.",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": 6,
+  "isDeleted": false,
+  "mp": null,
+  "xp": null
+}

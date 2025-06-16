@@ -1,7 +1,7 @@
 {
-  "id": "e4b7cc8a-7762-410e-80db-d6e680c883cc",
+  "id": "da39ee23-263d-4540-ae37-aea66100a451",
   "name": "Not Of This World",
-  "description": "You have a true name. It is your greatest secret. Choosing to share your this name with another is an act of great significance and trust, for those who possess it wield power over you, but can also be of great help to you. Someone who knows your true name always rolls favored when acting upon you, whether their intent is good or evil.\n\nConversely, the more names you can accumulate for yourself, the more powerful you become.\n\nAlso, you can't sleep in beds.\n\n",
+  "description": "Even as you walk in this world, you are bound by strands to the spirit world, which underlies the world we know.\n\nOnce per rest, you may open your senses to this connection, sensing nearby spiritual and magical beings. You get a vague sense of their power, domain or general intent. When you attempt to communicate with, influence or request a favor from such beings, your skill checks are favored. Describe how your connection manifests.\n\nAdditionally, your ties to the world of spirits prevent you from following fully the ways of this world. Choose one:\n\n- You cannot sleep in beds.\n- You cannot use utensils to eat food.\n- You cannot enter a dwelling uninvited.\n\nDescribe how you navigate this limitation.\n",
   "isTrait": true,
   "canBeActive": false,
   "isActive": true,

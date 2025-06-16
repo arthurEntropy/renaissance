@@ -1,7 +1,7 @@
 {
   "id": "46867e87-36a8-412c-81e4-278b6374cbe0",
   "name": "Feathered Arms",
-  "description": "You can use your wing-like arms to glide from any height safely to the ground. Once per rest, you can fly up to 30 feet in the air. If you don’t perch at that height, you immediately glide back down. Describe your winged movement.",
+  "description": "You can use your wing-like arms to glide from any height safely to the ground. Once per rest, you can fly upward for a few moments. If you don’t perch at that height, you immediately glide back down. Your body makes no sound while gliding, but things you are wearing or carrying may. Describe your winged movement.",
   "isTrait": true,
   "canBeActive": false,
   "isActive": true,

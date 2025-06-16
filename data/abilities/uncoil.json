@@ -1,0 +1,12 @@
+{
+  "id": "837bcd8c-e9d9-4328-b1e8-be2a420bce07",
+  "name": "Uncoil",
+  "description": "While the rope that makes up your body is not generally expendable and is vital to your continued bodily function, you are able unravel a short length of yourself at will - a number of feet up to your maximum Endurance - without causing yourself any harm. You can unravel further, but at risk to your wellbeing. Each additional five feet unraveled temporarily reduces your current and maximum endurance by 1 while it is uncoiled. If you unravel completely, you become an inert length of rope, forever.\n\nAny unraveled length you extend can be controlled by you as if it were an arm or tentacle - you can move and bend it, have a sense of touch all along it, and can use it to grip and manipulate objects. You can also use it like a whip-like melee weapon, dealing 1d6+BODY damage on a hit.",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "15bb5476-5cca-48ee-a6a0-95b0ea6cc803",
+  "isDeleted": false,
+  "mp": null,
+  "xp": null
+}

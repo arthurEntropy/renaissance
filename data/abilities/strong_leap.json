@@ -1,7 +1,7 @@
 {
   "id": "de38ad38-f841-41b2-9b4e-e9028b7db3f5",
-  "name": "Toad Shit",
-  "description": "You jump real good.",
+  "name": "Strong Leap",
+  "description": "You can leap a distance up to your speed.",
   "isTrait": true,
   "canBeActive": false,
   "isActive": true,

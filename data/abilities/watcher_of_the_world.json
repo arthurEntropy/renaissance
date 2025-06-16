@@ -1,7 +1,7 @@
 {
   "id": "42b239bb-7a4f-4e23-9530-276744aaf701",
   "name": "Watcher Of The World",
-  "description": "Your Lore and Insight skills are favored. Describe how you manage to gather and recall information.",
+  "description": "You have exceptional powers of observation and recall. Your Awareness and Lore skills are favored, and you can read lips, so long as the person is speaking a language you understand. Describe how you manage to gather and retain information.\n\nThis accumulation of knowledge leads to you notice patterns and details that others miss. Once per Quest, you may ask the GM for a secret. The secret should be something relevant to the Quest and something you could reasonably deduce from things you've observed. Whenever you choose to reveal this information, describe how you learned it.",
   "isTrait": true,
   "canBeActive": false,
   "isActive": true,

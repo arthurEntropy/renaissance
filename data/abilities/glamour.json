@@ -1,7 +1,7 @@
 {
   "id": "ef00cc69-1e2e-4697-abfb-102cca7daca7",
   "name": "Glamour",
-  "description": "You can conceal your true form, changing your physical appearance at-will. You must retain a humanoid form not greatly different in stature from your true form, but all other details are the subject of your will.\n\nOnce per rest, you may further exert this power to turn invisible for a few moments.",
+  "description": "You can conceal your true form, changing your physical appearance. Choose a humanoid form that is not greatly different in stature from your true form. The details of your appearance when wearing your glamour are up to you, but are they same each time you wear it and must include at least one feature hinting at your true form (such as antlers, horns or tusks). Describe your glamour.\n\nOnce per rest, you may further exert this power to turn invisible for a few moments. Describe how you vanish into thin air.",
   "isTrait": true,
   "canBeActive": false,
   "isActive": true,

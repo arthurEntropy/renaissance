@@ -1,7 +1,7 @@
 {
   "id": "f957c002-8de8-42f5-9452-2edd153e6bca",
   "name": "Poisonous Skin",
-  "description": "When any creature comes into direct contact with your skin, they take 1d4+BODY damage. On a 4, they must also make an Injury Roll. Describe the poison and its effects.",
+  "description": "When any creature comes into direct contact with your skin, they take 1d4 damage. On a 4, they must also make an Injury Roll. Describe the poison and its effects.",
   "isTrait": true,
   "canBeActive": false,
   "isActive": true,

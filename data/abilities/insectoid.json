@@ -1,7 +1,7 @@
 {
   "id": "38a03db2-ed78-4d42-9df2-195bc2e24748",
   "name": "Insectoid",
-  "description": "When you create your Falena character, choose wings or adhesion. If you chose wings, you can fly. If you chose adhesion, you can crawl up walls and hang briefly on ceilings. Either way, you cannot perform these feats while Weary. Describe how your unique physiology allows you to move in this way.\n\nHowever, your exoskeleton is slow to heal. [SOMETHING ABOUT HOW YOU RECOVER FROM INJURY - NEED RULES FLESHED OUT]",
+  "description": "Choose wings or adhesion. If you chose wings, you can fly. If you chose adhesion, you can crawl up walls and hang briefly from ceilings. Either way, you cannot perform these feats while Weary. Describe how your unique physiology allows you to move in this way.",
   "isTrait": true,
   "canBeActive": false,
   "isActive": true,

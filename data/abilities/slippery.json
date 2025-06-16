@@ -1,0 +1,12 @@
+{
+  "id": "a52f7c3a-4275-4043-b716-3bd4ff896e0f",
+  "name": "Slippery",
+  "description": "When you engage your instinct to flee, your small, nimble form helps you save your own skin. Once per rest, you can automatically slip past a creature or a group of creatures standing together, provided you have the movement available and do them no direct harm as you move past them.",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "6ff91bc4-122f-4e95-bb08-b577f1a94bb6",
+  "isDeleted": false,
+  "mp": null,
+  "xp": null
+}

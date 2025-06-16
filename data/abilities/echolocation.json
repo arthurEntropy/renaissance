@@ -1,7 +1,7 @@
 {
   "id": "553ec305-0d83-47f9-9398-2036831d8235",
   "name": "Echolocation",
-  "description": "You can click and \"see\" stuff.",
+  "description": "You emit a loud clicking noise which can be heard up to 300 feet away underwater and up to 100 feet away out of water. You are aware of the location, size and relative movement of objects within range. Describe how you perform this ability.",
   "isTrait": true,
   "canBeActive": false,
   "isActive": true,

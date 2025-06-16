@@ -1,0 +1,12 @@
+{
+  "id": "e4b7cc8a-7762-410e-80db-d6e680c883cc",
+  "name": "Known By Many Names",
+  "description": "You have a true name. It is your greatest secret. Choosing to share this name with another is an act of great significance and trust, for those who possess it wield power over you, but can also be of great help to you. Someone who knows your true name always rolls favored when helping or acting upon you - regardless of their intent towards you - and you cannot cause them physical harm. When this bond shows itself, describe how it manifests.\n\nConversely, the more names you attach to yourself in the world - obscuring your true name - the more powerful you become. These names can be personal names, titles, or other appellations given to you by yourself or by others, but they only grant you power if they are used by others with regularity, whether in addressing you directly or referring to you in conversation, rumors or tales.\n\nThese names grant you a pool of +1d bonuses that you may apply at-will to skill checks you make. The number of +1d bonuses is equal to the number of names you are known by and is replenished every sunrise or sunset - your choice. Describe how your names grant you strength.",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "f00fe427-1bb5-472c-8abb-2a394730a40a",
+  "isDeleted": false,
+  "mp": null,
+  "xp": null
+}

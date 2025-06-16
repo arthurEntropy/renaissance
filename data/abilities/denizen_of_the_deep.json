@@ -1,0 +1,12 @@
+{
+  "id": "da672458-835f-42ee-a7a7-7511a526c77b",
+  "name": "Denizen of the Deep",
+  "description": "Your body is adapted to life beneath the waves but is less graceful out of water. All your skills under BODY are favored while underwater and ill-favored while on land. Describe your movement.\n\nYour gills allow you to breathe underwater but you struggle on land. Your Endurance maximum is halved while out of water. Applying fresh mammalian blood to your gills once per day removes this penalty. Describe whether and how you do so fashionably.",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "e40c3cff-9f6b-4940-ae41-cef878821a75",
+  "isDeleted": false,
+  "mp": null,
+  "xp": null
+}

@@ -1,0 +1,12 @@
+{
+  "id": "f906a23e-b95d-421a-b4ed-b094c3086497",
+  "name": "Abandon",
+  "description": "When roused, you are readily capable of suppressing your sense of self-preservation. Once per rest, choose one:\n\n- Re-roll a skill check. Roll Injury.\n- Double the damage you deal to a foe. You take damage equal to half of the new total.\n\nDescribe how you throw caution to the wind.",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "6ff91bc4-122f-4e95-bb08-b577f1a94bb6",
+  "isDeleted": false,
+  "mp": null,
+  "xp": null
+}
