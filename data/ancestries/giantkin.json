@@ -9,5 +9,9 @@
     "https://cdn.midjourney.com/13498d95-2e16-4f53-8ad0-37a13b7dbcb8/0_1.png",
     "https://cdn.midjourney.com/3c9a265e-face-4038-bdfd-bb1e1d0c970a/0_2.png"
   ],
-  "backgroundImage": "https://cdn.midjourney.com/4306cf43-e21d-4494-a5f4-0d24a3dbcd7f/0_1.png"
+  "backgroundImage": "https://cdn.midjourney.com/4306cf43-e21d-4494-a5f4-0d24a3dbcd7f/0_1.png",
+  "hooks": [],
+  "playlists": [],
+  "faces": [],
+  "places": []
 }

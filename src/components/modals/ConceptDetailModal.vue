@@ -18,8 +18,11 @@
         <!-- LEFT COLUMN -->
         <div class="concept-left-column">
           <!-- Featured Art -->
-          <ImageGallery v-if="localConcept.artUrls && localConcept.artUrls.length" :images="localConcept.artUrls"
-            :editable="isEditMode" :grid-columns="5" @update:images="updateFeaturedArt" />
+          <div class="concept-section" v-if="hasFeaturedArt || isEditMode">
+            <ImageGallery :images="localConcept.artUrls || []"
+              :editable="isEditMode" :grid-columns="5"
+              @update:images="updateFeaturedArt" />
+          </div>
 
           <!-- Faces -->
           <div class="concept-section" v-if="hasFaces || isEditMode">
@@ -205,7 +208,7 @@ export default defineComponent({
     },
   },
   computed: {
-    hasArt() {
+    hasFeaturedArt() {
       return this.localConcept.artUrls && this.localConcept.artUrls.length > 0
     },
     hasFaces() {

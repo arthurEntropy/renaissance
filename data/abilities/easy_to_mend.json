@@ -1,0 +1,12 @@
+{
+  "id": "3ccd9c77-deaf-4f96-aaef-907d8e2baf01",
+  "name": "Easy To Mend",
+  "description": "Being made of rope, your injuries are easier than most to repair. The quality of the repair depends on the quality of the rope you carry. On a short rest, reduce your Injury score by the cost of your current Keeping. Double this effect on a long rest.",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "15bb5476-5cca-48ee-a6a0-95b0ea6cc803",
+  "isDeleted": false,
+  "mp": null,
+  "xp": null
+}

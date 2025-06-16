@@ -1,0 +1,12 @@
+{
+  "id": "d97c0db1-5797-4f54-9c77-15597dcc6d49",
+  "name": "Made Of Tougher Stuff",
+  "description": "Your metallic form grants +2 to Defense.\n\nAdditionally, you may integrate armor into your body. To do so, you must spend an hour affixing it carefully. After doing so, while you are conscious, your armor can't be removed from your body against your will. Describe how your armor alters your appearance.",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "cfd7bf18-3a9a-4b4e-a9a9-c7069dd822c3",
+  "isDeleted": false,
+  "mp": null,
+  "xp": null
+}

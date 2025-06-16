@@ -1,0 +1,12 @@
+{
+  "id": "96a0444e-b3b0-47c5-a503-6250fcff1b5d",
+  "name": "Of The Earth",
+  "description": "You have a strong connection with the earth. You can draw strength from it and tap into its memory.\n\nWhenever you spend a short rest on the ground outdoors, you regain double the amount of Endurance you normally would.\n\nAdditionally, once per rest, you may commune with the earth to get a vague sense of what has happened in the immediate area within the last day. This sense is limited to what the earth itself would have experienced: footfalls, impacts, digging, a muffled sense of sound, etc. Once per Quest, you may further exert this ability to get a deeper but similarly vague sense of major events in the immediate area in the past century.",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "134acec3-0e13-42e1-9d75-7999340d458c",
+  "isDeleted": false,
+  "mp": null,
+  "xp": null
+}

@@ -1,7 +1,7 @@
 {
   "id": "1325605b-d523-4ec2-b2a7-57a04dc55d91",
   "name": "Stoop For A Stone",
-  "description": "When you roll to throw an improvised projectile, the roll is favored. Describe how you became a good shot.",
+  "description": "When you roll to throw an improvised projectile, the roll is favored. Describe your technique.",
   "isTrait": true,
   "canBeActive": false,
   "isActive": true,

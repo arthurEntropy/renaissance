@@ -1,7 +1,7 @@
 {
   "id": "738255ac-87f1-45a5-91ff-c2144b92b5e3",
   "name": "Lucky",
-  "description": "Once per rest, when you roll morte (💀), you may re-roll the feat die. Describe how you cheat fate.",
+  "description": "Once per rest, when you roll 💀 Morte, you may re-roll the feat die. The original roll still counts toward Bane/Boon, but use the new roll to resolve the skill check. Describe how you cheat fate.",
   "isTrait": true,
   "canBeActive": false,
   "isActive": true,

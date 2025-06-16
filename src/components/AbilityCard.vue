@@ -3,9 +3,8 @@
     :initialCollapsed="collapsed" :editable="editable" :sources="sources" @edit="$emit('edit', ability)">
     <!-- Content slot -->
     <template #content>
-      <p class="description-background">
-        {{ ability.description }}
-      </p>
+      <div v-html="formattedDescription" class="description-background">
+      </div>
     </template>
 
     <!-- Buttons slot -->
@@ -71,6 +70,14 @@ export default {
       if (this.ability.mp) parts.push(`${this.ability.mp} MP`)
       return parts.join(', ')
     },
+    formattedDescription() {
+      // Split on double line breaks, trim, and wrap in <p> tags
+      if (!this.ability.description) return ''
+      return this.ability.description
+        .split(/\n{2,}/)
+        .map(paragraph => `<p>${paragraph.replace(/\n/g, '<br>')}</p>`)
+        .join('')
+    },
   },
   methods: {
     toggleActive() {
@@ -87,10 +94,20 @@ export default {
 <style scoped>
 .description-background {
   background-color: rgba(0, 0, 0, 0.75);
-  padding: 10px;
+  padding: 1px 10px;
   border-radius: 5px;
   text-align: left;
   font-size: 14px;
+  margin-top: 6px;
+}
+
+.description-background p {
+  margin: 0 0 2px 0;
+  /* Remove top margin, minimal bottom margin for separation */
+}
+
+.description-background p:last-child {
+  margin-bottom: 0;
 }
 
 .xp-bubble {

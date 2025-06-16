@@ -1,7 +1,7 @@
 {
   "id": "7cbea262-49dc-45de-a1e0-cc4270835f14",
   "name": "Weapons Specialist",
-  "description": "You are proficient in one weapon type of your choice. Additionally, you can identify any weapon by type, material, use and culture of origin. Once per rest, you can identify the magical properties of a weapon. Describe how you gained this knowledge.",
+  "description": "The bustling weapons trade in Adiri has familiarized you with armaments from every corner of the land. You can identify any weapon by type, material, use and culture of origin. Once per rest, you can identify the magical properties of a weapon. Describe how you gained this knowledge.",
   "isTrait": true,
   "canBeActive": false,
   "isActive": true,
