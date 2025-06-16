@@ -8,5 +8,12 @@
     "https://cdn.midjourney.com/cd91dd3d-84cd-427c-a53e-875a6a280791/0_3.png",
     "https://cdn.midjourney.com/2b704631-c666-45a2-a221-b9a7029be434/0_2.png"
   ],
-  "backgroundImage": "https://cdn.midjourney.com/27dc5718-9778-4461-bbb9-ba249c4ea10d/0_0.png"
+  "backgroundImage": "https://cdn.midjourney.com/27dc5718-9778-4461-bbb9-ba249c4ea10d/0_0.png",
+  "hooks": [],
+  "playlists": [],
+  "faces": [],
+  "places": [],
+  "color1": "#ffffff",
+  "color2": "#000000",
+  "expansion": "e46f4320-a414-4300-95d5-397ba717d982"
 }

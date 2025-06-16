@@ -9,5 +9,12 @@
     "https://cdn.midjourney.com/a1912f42-aca0-4ce7-9f6f-02dce7b45910/0_3.png"
   ],
   "description": "",
-  "backgroundImage": "https://cdn.midjourney.com/4295a2ed-3594-42e0-8f96-1a01c321af4a/0_1.png"
+  "backgroundImage": "https://cdn.midjourney.com/4295a2ed-3594-42e0-8f96-1a01c321af4a/0_1.png",
+  "hooks": [],
+  "playlists": [],
+  "faces": [],
+  "places": [],
+  "color1": "#ffffff",
+  "color2": "#000000",
+  "expansion": "e46f4320-a414-4300-95d5-397ba717d982"
 }
