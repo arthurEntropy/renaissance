@@ -1,6 +1,10 @@
 <template>
   <div class="modal-overlay" @click.self="closeModal">
     <div class="modal-content">
+      <!-- EXPANSION LOGO BADGE (moved inside modal-content) -->
+      <div v-if="expansionLogoUrl" class="expansion-logo-badge-wrapper">
+        <img :src="expansionLogoUrl" alt="Expansion Logo" class="expansion-logo-badge" />
+      </div>
       <!-- ADMIN CONTROLS -->
       <div class="admin-controls">
         <!-- Edit/Save button -->
@@ -19,8 +23,7 @@
         <div class="concept-left-column">
           <!-- Featured Art -->
           <div class="concept-section" v-if="hasFeaturedArt || isEditMode">
-            <ImageGallery :images="localConcept.artUrls || []"
-              :editable="isEditMode" :grid-columns="5"
+            <ImageGallery :images="localConcept.artUrls || []" :editable="isEditMode" :grid-columns="5"
               @update:images="updateFeaturedArt" />
           </div>
 
@@ -138,6 +141,7 @@ import SettingsModal from '@/components/conceptDetail/ConceptSettingsModal.vue'
 import TextEditor from '@/components/TextEditor.vue'
 import { useAbilitiesStore } from '@/stores/abilitiesStore'
 import { useEquipmentStore } from '@/stores/equipmentStore'
+import { useExpansionStore } from '@/stores/expansionStore'
 import AncestryService from '@/services/AncestryService'
 import CultureService from '@/services/CultureService'
 import MestiereService from '@/services/MestiereService'
@@ -189,6 +193,8 @@ export default defineComponent({
       },
       abilitiesStore: useAbilitiesStore(),
       equipmentStore: useEquipmentStore(),
+      expansionStore: useExpansionStore(),
+      expansions: [],
     }
   },
   watch: {
@@ -222,6 +228,13 @@ export default defineComponent({
     },
     hasEquipment() {
       return this.equipment && this.equipment.length > 0
+    },
+    expansion() {
+      if (!this.localConcept.expansion) return null
+      return this.expansions.find(e => e.id === this.localConcept.expansion) || null
+    },
+    expansionLogoUrl() {
+      return this.expansion && this.expansion.logoUrl ? this.expansion.logoUrl : ''
     },
   },
   methods: {
@@ -481,6 +494,8 @@ export default defineComponent({
         backgroundImage: this.localConcept.backgroundImage || '',
         color1: this.localConcept.color1 || '#ffffff',
         color2: this.localConcept.color2 || '#000000',
+        expansionId: this.localConcept.expansion || '',
+        expansion: this.localConcept.expansion || '',
       }
       this.showSettingsModal = true
     },
@@ -493,6 +508,7 @@ export default defineComponent({
       this.localConcept.backgroundImage = this.tempSettings.backgroundImage
       this.localConcept.color1 = this.tempSettings.color1
       this.localConcept.color2 = this.tempSettings.color2
+      this.localConcept.expansion = this.tempSettings.expansionId
       this.emitUpdateEvent()
       this.closeSettingsModal()
     },
@@ -500,6 +516,10 @@ export default defineComponent({
 
   async mounted() {
     try {
+      // Fetch expansions for badge
+      await this.expansionStore.fetchExpansions()
+      this.expansions = this.expansionStore.expansions
+
       // Fetch sources first so background images are available
       await this.fetchSources();
 
@@ -675,7 +695,36 @@ export default defineComponent({
   transition: color 0.2s ease;
 }
 
-/* Responsive adjustments */
+/* Expansion logo badge */
+.expansion-logo-badge-wrapper {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 30;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+}
+
+.expansion-logo-badge {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  background: #222;
+  object-fit: cover;
+  border: 2px solid #fff;
+}
+
+.modal-content {
+  position: relative;
+  overflow: visible;
+}
+
 @media (max-width: 900px) {
   .concept-detail-content {
     flex-direction: column;

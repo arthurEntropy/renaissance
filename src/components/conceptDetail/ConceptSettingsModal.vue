@@ -6,13 +6,8 @@
       <!-- Background Image URL -->
       <div>
         <label for="backgroundImage">Background Image URL:</label>
-        <input
-          type="text"
-          id="backgroundImage"
-          v-model="localSettings.backgroundImage"
-          class="modal-input"
-          placeholder="https://example.com/image.png"
-        />
+        <input type="text" id="backgroundImage" v-model="localSettings.backgroundImage" class="modal-input"
+          placeholder="https://example.com/image.png" />
       </div>
 
       <!-- Colors -->
@@ -21,6 +16,17 @@
         <input type="color" id="color1" v-model="localSettings.color1" />
         <label for="color2">Secondary Color:</label>
         <input type="color" id="color2" v-model="localSettings.color2" />
+      </div>
+
+      <!-- Expansion Dropdown -->
+      <div class="form-group">
+        <label for="expansion">Expansion:</label>
+        <select id="expansion" v-model="localSettings.expansionId" class="modal-input">
+          <option value="">None</option>
+          <option v-for="exp in expansions" :key="exp.id" :value="exp.id">
+            {{ exp.name }}
+          </option>
+        </select>
       </div>
 
       <div class="settings-buttons-container">
@@ -34,6 +40,8 @@
 </template>
 
 <script>
+import { useExpansionStore } from '@/stores/expansionStore'
+
 export default {
   name: 'SettingsModal',
   props: {
@@ -57,7 +65,18 @@ export default {
         backgroundImage: '',
         color1: '#ffffff',
         color2: '#000000',
+        expansionId: '',
       },
+      expansions: [],
+    }
+  },
+  async mounted() {
+    const expansionStore = useExpansionStore()
+    await expansionStore.fetchExpansions()
+    this.expansions = expansionStore.expansions
+    // Ensure expansionId is set from settings.expansion if present
+    if (!this.localSettings.expansionId && this.settings.expansion) {
+      this.localSettings.expansionId = this.settings.expansion
     }
   },
   watch: {
@@ -65,12 +84,22 @@ export default {
       immediate: true,
       handler(newSettings) {
         this.localSettings = { ...newSettings }
+        // If expansionId is not present, set it from the concept's expansion property if available
+        if (!('expansionId' in this.localSettings)) {
+          this.localSettings.expansionId = newSettings.expansion || ''
+        } else if (!this.localSettings.expansionId && newSettings.expansion) {
+          this.localSettings.expansionId = newSettings.expansion
+        }
       },
     },
     visible(isVisible) {
       if (isVisible) {
-        // Reset local settings when modal becomes visible
         this.localSettings = { ...this.settings }
+        if (!('expansionId' in this.localSettings)) {
+          this.localSettings.expansionId = this.settings.expansion || ''
+        } else if (!this.localSettings.expansionId && this.settings.expansion) {
+          this.localSettings.expansionId = this.settings.expansion
+        }
       }
     },
   },
@@ -88,7 +117,7 @@ export default {
 
 <style scoped>
 .settings-modal {
-  max-width: 500px;
+  width: 400px;
   text-align: left;
 }
 
@@ -119,8 +148,8 @@ input[type='color'] {
 
 label {
   display: block;
-  margin-top: 10px;
   color: #ccc;
+  margin-right: 5px;
 }
 
 .form-group {

@@ -8,5 +8,9 @@
   ],
   "faces": [],
   "places": [],
-  "name": "The Harrow Wood"
+  "name": "The Harrow Wood",
+  "backgroundImage": "",
+  "color1": "#ffffff",
+  "color2": "#000000",
+  "expansion": "824cad94-3a4a-4df3-b81a-ede17b84644b"
 }

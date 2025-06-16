@@ -15,5 +15,9 @@
   "playlists": [],
   "faces": [],
   "places": [],
-  "description": "<h1>EXAMPLE TITLE</h1><h3>EXAMPLE SUBTITLE</h3><p>Example paragraph with <strong>bold text</strong> and a <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://pitchfork.com/\">link</a>.</p><ul><li><p>Example list 1</p></li><li><p>Example list 2</p></li></ul>"
+  "description": "<h1>EXAMPLE TITLE</h1><h3>EXAMPLE SUBTITLE</h3><p>Example paragraph with <strong>bold text</strong> and a <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://pitchfork.com/\">link</a>.</p><ul><li><p>Example list 1</p></li><li><p>Example list 2</p></li></ul>",
+  "backgroundImage": "",
+  "color1": "#ffffff",
+  "color2": "#000000",
+  "expansion": "824cad94-3a4a-4df3-b81a-ede17b84644b"
 }
