@@ -1,6 +1,7 @@
 <template>
   <base-card :item="ability" itemType="ability" :metaInfo="traitOrMp" :storeInstance="abilitiesStore"
-    :initialCollapsed="collapsed" :editable="editable" :sources="sources" @edit="$emit('edit', ability)">
+    :initialCollapsed="collapsed" :editable="editable" :sources="sources" @edit="$emit('edit', ability)"
+    :collapsible="collapsible">
     <!-- Content slot -->
     <template #content>
       <div v-if="ability.description" v-html="ability.description" class="description-background"></div>
@@ -53,7 +54,11 @@ export default {
         mestieri: [],
         worldElements: []
       })
-    }
+    },
+    collapsible: {
+      type: Boolean,
+      default: false,
+    },
   },
   emits: ['edit', 'update', 'sendToChat'],
   data() {
@@ -92,27 +97,19 @@ export default {
   margin-top: 6px;
 }
 
-.description-background p {
-  margin: 0 0 2px 0;
-  /* Remove top margin, minimal bottom margin for separation */
-}
-
-.description-background p:last-child {
-  margin-bottom: 0;
-}
-
 .xp-bubble {
   position: absolute;
-  bottom: -10px;
+  bottom: -3px;
   left: 0px;
-  background-color: white;
+  background-color: darkgoldenrod;
   color: black;
   font-size: 12px;
   font-weight: bold;
   padding: 5px 10px;
-  border-radius: 15px;
+  border-top-right-radius: 10px;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
   pointer-events: none;
+  z-index: 10;
 }
 
 .bottom-buttons {

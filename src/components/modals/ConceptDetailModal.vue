@@ -90,7 +90,7 @@
             </div>
             <masonry-grid v-else :column-width="350" :gap="10" :row-height="10" class="ability-cards-container">
               <AbilityCard v-for="ability in abilities" :key="ability.id" :ability="ability" :editable="isEditMode"
-                :sources="sources" @edit="emitAbilityEdit" />
+                :sources="sources" :collapsible="false" @edit="emitAbilityEdit(ability)" />
             </masonry-grid>
           </div>
 
@@ -113,7 +113,7 @@
             <masonry-grid v-if="hasEquipment || !isEditMode" :column-width="350" :gap="10" :row-height="10"
               class="equipment-cards-container">
               <EquipmentCard v-for="item in equipment" :key="item.id" :equipment="item" :editable="isEditMode"
-                :sources="sources" @edit="emitEquipmentEdit" />
+                :sources="sources" @edit="emitEquipmentEdit" :collapsible="false" />
             </masonry-grid>
           </div>
         </div>

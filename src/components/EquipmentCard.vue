@@ -3,7 +3,7 @@
     ? `${equipment.weight} ${equipment.weight === 1 ? 'lb' : 'lbs'}`
     : ''
     " :storeInstance="equipmentStore" :initialCollapsed="isCollapsed" :editable="editable" :sources="sources"
-    @edit="$emit('edit', equipment)">
+    @edit="$emit('edit', equipment)" :collapsible="collapsible">
     <!-- Large image slot -->
     <template #large-image>
       <div v-if="showLargeImage" class="large-image-container" @click.stop="toggleImage">
@@ -104,7 +104,11 @@ export default {
         mestieri: [],
         worldElements: []
       })
-    }
+    },
+    collapsible: {
+      type: Boolean,
+      default: false,
+    },
   },
 
   data() {
