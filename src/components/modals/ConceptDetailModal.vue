@@ -89,7 +89,7 @@
               section and assign them to this concept.
             </div>
             <masonry-grid v-else :column-width="350" :gap="10" :row-height="10" class="ability-cards-container">
-              <AbilityCard v-for="ability in abilities" :key="ability.id" :ability="ability" :editable="isEditMode"
+              <AbilityCard v-for="ability in sortedAbilities" :key="ability.id" :ability="ability" :editable="isEditMode"
                 :sources="sources" :collapsible="false" @edit="emitAbilityEdit(ability)" />
             </masonry-grid>
           </div>
@@ -236,16 +236,25 @@ export default defineComponent({
     expansionLogoUrl() {
       return this.expansion && this.expansion.logoUrl ? this.expansion.logoUrl : ''
     },
+    sortedAbilities() {
+      // Sort by XP (ascending), then by name (A-Z)
+      return [...this.abilities].sort((a, b) => {
+        const xpA = a.xp ?? 0;
+        const xpB = b.xp ?? 0;
+        if (xpA !== xpB) return xpA - xpB;
+        return (a.name || '').localeCompare(b.name || '');
+      });
+    },
   },
   methods: {
     toggleEditMode() {
       if (this.isEditMode) {
-        if (this.isEditingTitle) this.saveTitleChanges()
-        if (this.isEditingDescription) this.saveDescriptionChanges()
-        this.emitUpdateEvent()
+        if (this.isEditingTitle) this.saveTitleChanges();
+        if (this.isEditingDescription) this.saveDescriptionChanges();
+        this.emitUpdateEvent();
       }
-      this.isEditMode = !this.isEditMode
-      this.$emit('edit-mode-change', this.isEditMode)
+      this.isEditMode = !this.isEditMode;
+      this.$emit('edit-mode-change', this.isEditMode);
     },
 
     emitUpdateEvent() {
