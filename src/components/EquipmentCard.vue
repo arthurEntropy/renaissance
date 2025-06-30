@@ -22,12 +22,7 @@
         </div>
         <!-- Description section - show if available -->
         <div class="content-sections">
-          <template v-if="equipment.description">
-            <p class="description-background">
-              {{ equipment.description }}
-            </p>
-          </template>
-
+          <div v-if="equipment.description" v-html="equipment.description" class="description-background"></div>
           <!-- Dice section - show independently if it's a melee weapon -->
           <template v-if="equipment.isMelee">
             <div class="dice-description-row">

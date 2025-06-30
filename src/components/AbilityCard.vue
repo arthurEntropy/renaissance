@@ -3,8 +3,7 @@
     :initialCollapsed="collapsed" :editable="editable" :sources="sources" @edit="$emit('edit', ability)">
     <!-- Content slot -->
     <template #content>
-      <div v-html="formattedDescription" class="description-background">
-      </div>
+      <div v-if="ability.description" v-html="ability.description" class="description-background"></div>
     </template>
 
     <!-- Buttons slot -->
@@ -69,14 +68,6 @@ export default {
       if (this.ability.isTrait) parts.push('trait')
       if (this.ability.mp) parts.push(`${this.ability.mp} MP`)
       return parts.join(', ')
-    },
-    formattedDescription() {
-      // Split on double line breaks, trim, and wrap in <p> tags
-      if (!this.ability.description) return ''
-      return this.ability.description
-        .split(/\n{2,}/)
-        .map(paragraph => `<p>${paragraph.replace(/\n/g, '<br>')}</p>`)
-        .join('')
     },
   },
   methods: {

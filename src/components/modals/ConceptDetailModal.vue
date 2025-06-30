@@ -63,7 +63,8 @@
           <!-- Description -->
           <div class="description-container">
             <div v-if="isEditingDescription" class="editable-description">
-              <text-editor v-model="localConcept.description" height="200px" ref="descriptionEditor" placeholder="description" />
+              <text-editor v-model="localConcept.description" height="200px" ref="descriptionEditor"
+                placeholder="description" :auto-height="true" />
               <div class="edit-field-buttons">
                 <button class="button small" @click="saveDescriptionChanges">
                   Save

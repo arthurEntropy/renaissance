@@ -15,7 +15,8 @@
         <!-- Description -->
         <div class="form-group vertical description">
           <label for="description" class="left-aligned">Description:</label>
-          <textarea id="description" v-model="editedAbility.description" class="modal-input"></textarea>
+          <TextEditor v-model="editedAbility.description" :placeholder="'Enter ability description...'"
+            :height="'250px'" />
         </div>
 
         <!-- MP and XP -->
@@ -83,6 +84,8 @@
 </template>
 
 <script>
+import TextEditor from '@/components/TextEditor.vue'
+
 export default {
   props: {
     ability: {
@@ -125,6 +128,7 @@ export default {
       this.$emit('close')
     },
   },
+  components: { TextEditor },
 }
 </script>
 
