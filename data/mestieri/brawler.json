@@ -1,0 +1,18 @@
+{
+  "id": "e0a69b6f-38f9-4fa5-a1ef-5e5777299e82",
+  "name": "Brawler",
+  "artUrls": [
+    "https://cdn.midjourney.com/579f1913-10e8-438c-9d1d-949151eb171c/0_0.png"
+  ],
+  "isDeleted": false,
+  "expansionLogoUrl": "",
+  "hooks": [],
+  "playlists": [],
+  "faces": [],
+  "places": [],
+  "description": "<ul><li><p>Analogous to barbarian, but more focused on creating and benefitting from chaos in battle. Maybe something like you get more attacks the more you get hit. Or even you benefit from people around you getting hit. The kind of person who loves a good brawl, hence the name.</p></li><li><p>Maybe also try to have out-of-combat incentives to favor action over deliberation? Basically this should be an Antonuccioid.</p></li></ul><p></p><p>FLAVOR</p><ul><li><p>For the love of the fight</p></li><li><p>Benefit from chaos in battle</p></li><li><p>Magic bad</p></li></ul><p>WEAPONS</p><ul><li><p>Unarmed, improvised</p></li><li><p>No armor, shields or helms</p></li></ul><p>ENGAGEMENT:</p><ul><li><p>1d12 -&gt; never improves (not a finesse class)</p></li><li><p>Later abilities can provide situational dice</p></li></ul><p>ABILITIES:</p><ul><li><p>Out-of-combat impatience</p></li><li><p>+d's for chaos around you</p></li><li><p>Slapstick opportunities</p></li><li><p>Get better when bloodied</p></li><li><p>Penalties for magic</p></li><li><p>XP for breaking magic items</p></li><li><p>Improvements for unarmed and improvised weapons</p></li></ul>",
+  "backgroundImage": "https://cdn.midjourney.com/eb0dfd29-5c13-4761-a198-0cf7a021a03f/0_0.png",
+  "color1": "#ffffff",
+  "color2": "#000000",
+  "expansion": ""
+}

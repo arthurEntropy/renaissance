@@ -1,0 +1,12 @@
+{
+  "id": "6f6b54c6-919b-4152-9a1a-377d73699c1f",
+  "name": "Bloodlust",
+  "description": "(Improvement - Embrace The Chaos)\n\nOnce per round, you may spend one +1d gained from your Embrace the Chaos ability to add a bonus die to a damage roll instead of a skill check. Bonus dice you pass to others can still only be used on skill checks.\n\nDescribe how you become fierce amid the chaos of battle.",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "e0a69b6f-38f9-4fa5-a1ef-5e5777299e82",
+  "isDeleted": false,
+  "mp": null,
+  "xp": null
+}

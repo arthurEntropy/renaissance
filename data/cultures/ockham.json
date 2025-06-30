@@ -83,15 +83,16 @@
       "embedCode": "<iframe allow=\"autoplay *; encrypted-media *;\" frameborder=\"0\" height=\"450\" style=\"width:100%;max-width:660px;overflow:hidden;background:transparent;\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation\" src=\"https://embed.music.apple.com/us/playlist/ockham-after/pl.u-zPyLJMgCxaR5Xr?theme=dark&theme=dark&theme=dark\"></iframe>"
     }
   ],
-  "names": "Hugh, Albie, Benedict, Miles, Rupert, Imogen, Harriet, Tamsin, Elspeth, Marnie, Rowan, Kit, Jules, Enid, Robin, Edmund, Cecily, Anselm, Lettice, Simeon.",
-  "occupations": "Farmer, Shepherd, Miller, Broker, Blacksmith, Carpenter, Cooper, Weaver, Potter, Tanner, Carney, Butcher, Baker, Brewer, Chandler, Mason, Thatcher, Midwife.",
-  "publicHouses": "The Stripey Pig, The Green Woman, The Sack and Sickle, Stickney's Tavern, The Shepherd's Legs.",
-  "vittles": "Cider, Mead, Barley Bread, Oat Porridge, Smoked Eel, Salted Pork, Stewed Lentils, Hard Cheese, Fresh Apples, Pickled Onions, Roasted Turnips, Honey Cakes, Black Pudding, Small Beer, Snipe-On-A-Stick.",
-  "pointsOfInterest": "The Festival Square, The Grand Fountain, The Exchange House, The Tithing Barn, The Hollow Tree.",
-  "floraFauna": "Oak, Willow, Hawthorn, Elderberry, Wild Garlic, Nettles, Foxglove, Crow, Hedgehog, Badger, Red Deer, Pike, Barn Owl, Stoat, Lark.",
+  "names": "Hugh, Albie, Benedict, Miles, Rupert, Imogen, Harriet, Tamsin, Elspeth, Marnie, Rowan, Kit, Jules, Enid, Robin, Edmund, Cecily, Anselm, Lettice, Simeon",
+  "occupations": "Farmer, Shepherd, Miller, Broker, Blacksmith, Carpenter, Cooper, Weaver, Potter, Tanner, Carney, Butcher, Baker, Brewer, Chandler, Mason, Thatcher, Midwife",
+  "publicHouses": "The Stripey Pig, The Green Woman, The Sack and Sickle, Stickney's Tavern, The Shepherd's Legs",
+  "vittles": "Cider, Mead, Barley Bread, Oat Porridge, Smoked Eel, Salted Pork, Stewed Lentils, Hard Cheese, Fresh Apples, Pickled Onions, Roasted Turnips, Honey Cakes, Black Pudding, Small Beer, Snipe-On-A-Stick",
+  "pointsOfInterest": "The Festival Square, The Grand Fountain, The Exchange House, The Tithing Barn, The Hollow Tree",
+  "floraFauna": "Oak, Willow, Hawthorn, Elderberry, Wild Garlic, Nettles, Foxglove, Crow, Hedgehog, Badger, Red Deer, Pike, Barn Owl, Stoat, Lark",
   "backgroundImage": "https://cdn.midjourney.com/077407d0-f6fb-4245-81ae-07c31bbce5d9/0_1.png",
   "color1": "#ffffff",
   "color2": "#000000",
   "isDeleted": false,
-  "expansion": "824cad94-3a4a-4df3-b81a-ede17b84644b"
+  "expansion": "824cad94-3a4a-4df3-b81a-ede17b84644b",
+  "expansionLogoUrl": "https://cdn.midjourney.com/8803d0cc-59f8-4b7e-b852-81f9090150c6/0_2.png"
 }

@@ -1,0 +1,12 @@
+{
+  "id": "b7d830fd-8133-4de8-a2bf-95463e0a019b",
+  "name": "Deal Broker",
+  "description": "Your time among the grain brokers of Ockham has taught you how to spot a great opportunity to make a profit. On an Intermezzo, you may attempt to broker a trade deal. Spend any amount of treasure you choose to purchase goods. You may also take on debt of an amount up to the amount of treasure you spend (so if you put 4 treasure down, you can take on an additional 4 treasure of debt to purchase 8 treasure's-worth of goods). Describe the goods, how you purchase them and how you intend to sell them for a profit. If you take on debt, establish who you borrow from.\n\nRoll Awe, Perform or Persuade to determine the outcome. The TN is 10 plus the value of the goods. On a success, you manage to sell the goods for twice what you paid for them. On a failure, the goods are damaged, lost or stolen, and your investment is lost (you still owe your debt). Success with consequence is up to DM discretion, as usual.",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "0c876a74-a89b-42dc-b76a-4592a0478d81",
+  "isDeleted": false,
+  "mp": null,
+  "xp": null
+}
