@@ -1,23 +1,18 @@
 <template>
   <div class="modal-overlay" @click.self="closeModal">
+    <!-- ADMIN CONTROLS -->
+    <div class="admin-controls">
+      <!-- Edit/Save button -->
+      <button v-if="editable" class="edit-save-button" @click="toggleEditMode"
+        :title="isEditMode ? 'Exit Edit Mode' : 'Enter Edit Mode'">
+        {{ isEditMode ? '✓ Save' : '✎ Edit' }}
+      </button>
+      <!-- Settings button -->
+      <button v-if="isEditMode" class="settings-button" @click="openSettingsModal" title="Card Style Settings">
+        ⚙️
+      </button>
+    </div>
     <div class="modal-content">
-      <!-- EXPANSION LOGO BADGE (moved inside modal-content) -->
-      <div v-if="expansionLogoUrl" class="expansion-logo-badge-wrapper">
-        <img :src="expansionLogoUrl" alt="Expansion Logo" class="expansion-logo-badge" />
-      </div>
-      <!-- ADMIN CONTROLS -->
-      <div class="admin-controls">
-        <!-- Edit/Save button -->
-        <button v-if="editable" class="edit-save-button" @click="toggleEditMode"
-          :title="isEditMode ? 'Exit Edit Mode' : 'Enter Edit Mode'">
-          {{ isEditMode ? '✓ Save' : '✎ Edit' }}
-        </button>
-        <!-- Settings button -->
-        <button v-if="isEditMode" class="settings-button" @click="openSettingsModal" title="Card Style Settings">
-          ⚙️
-        </button>
-      </div>
-
       <div class="concept-detail-content">
         <!-- LEFT COLUMN -->
         <div class="concept-left-column">
@@ -53,16 +48,22 @@
               <input type="text" v-model="localConcept.name" class="concept-title-input" ref="titleInput"
                 @blur="saveTitleChanges" @keyup.enter="saveTitleChanges" @keyup.esc="cancelTitleEdit" />
             </div>
-            <h1 v-else class="concept-title" @click="startTitleEdit">
-              {{ localConcept.name }}
-              <span v-if="isEditMode" class="edit-section-button" title="Click to edit">✎</span>
-            </h1>
+            <template v-else>
+              <h1 class="concept-title" @click="startTitleEdit">
+                {{ localConcept.name }}
+                <span v-if="isEditMode" class="edit-section-button" title="Click to edit">✎</span>
+              </h1>
+              <div v-if="expansionLogoUrl" class="expansion-logo-badge-wrapper"
+                :title="expansion ? `Expansion: ${expansion.name}` : 'Expansion'">
+                <img :src="expansionLogoUrl" alt="Expansion Logo" class="expansion-logo-badge" />
+              </div>
+            </template>
           </div>
 
           <!-- Description -->
           <div class="description-container">
             <div v-if="isEditingDescription" class="editable-description">
-              <text-editor v-model="localConcept.description" height="200px" ref="descriptionEditor" />
+              <text-editor v-model="localConcept.description" height="200px" ref="descriptionEditor" placeholder="description" />
               <div class="edit-field-buttons">
                 <button class="button small" @click="saveDescriptionChanges">
                   Save
@@ -73,7 +74,8 @@
               </div>
             </div>
             <div v-else class="concept-description" @click="isEditMode && startDescriptionEdit"
-              v-html="localConcept.description"></div>
+              v-html="localConcept.description">
+            </div>
             <span v-if="isEditMode && !isEditingDescription" class="edit-field-indicator" @click="startDescriptionEdit"
               title="Edit description">✎</span>
           </div>
@@ -107,11 +109,8 @@
           <!-- Wares -->
           <div class="concept-section" v-if="hasEquipment || isEditMode">
             <h2 class="section-header">Wares</h2>
-            <div v-if="!hasEquipment && isEditMode" class="empty-section-placeholder">
-              No equipment added yet. Create equipment in the "Equipment"
-              section and assign it to this concept.
-            </div>
-            <masonry-grid v-else :column-width="350" :gap="10" :row-height="10" class="equipment-cards-container">
+            <masonry-grid v-if="hasEquipment || !isEditMode" :column-width="350" :gap="10" :row-height="10"
+              class="equipment-cards-container">
               <EquipmentCard v-for="item in equipment" :key="item.id" :equipment="item" :editable="isEditMode"
                 :sources="sources" @edit="emitEquipmentEdit" />
             </masonry-grid>
@@ -538,12 +537,14 @@ export default defineComponent({
 <style scoped>
 /* Admin controls */
 .admin-controls {
-  position: absolute;
-  top: 15px;
-  right: 15px;
+  position: fixed;
+  top: 30px;
+  left: 30px;
   display: flex;
+  flex-direction: row;
   gap: 10px;
-  z-index: 10;
+  z-index: 1001;
+  /* Above modal content */
 }
 
 .edit-save-button {
@@ -556,10 +557,26 @@ export default defineComponent({
   font-size: 14px;
   transition: background-color 0.2s;
   z-index: 10;
+  min-width: 70px;
+  text-align: center;
+  height: 34px;
+  line-height: 22px;
 }
 
 .edit-save-button:hover {
   background: #45a049;
+}
+
+.settings-button {
+  position: static;
+  background: none;
+  border: none;
+  color: #aaa;
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 10;
+  padding: 5px;
+  transition: color 0.2s ease;
 }
 
 /* Concept content, columns */
@@ -681,33 +698,22 @@ export default defineComponent({
   min-height: 50px;
 }
 
-.settings-button {
-  position: absolute;
-  top: 30px;
-  right: 0;
-  background: none;
-  border: none;
-  color: #aaa;
-  font-size: 20px;
-  cursor: pointer;
-  z-index: 10;
-  padding: 5px;
-  transition: color 0.2s ease;
+.modal-content {
+  position: relative;
+  overflow: auto;
+  max-height: 90vh;
 }
 
 /* Expansion logo badge */
 .expansion-logo-badge-wrapper {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 30;
+  position: static;
   width: 40px;
   height: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
-  pointer-events: none;
+  margin-left: 16px;
+  z-index: 30;
 }
 
 .expansion-logo-badge {
@@ -720,9 +726,12 @@ export default defineComponent({
   border: 2px solid #fff;
 }
 
-.modal-content {
+.concept-header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   position: relative;
-  overflow: visible;
+  gap: 16px;
 }
 
 @media (max-width: 900px) {

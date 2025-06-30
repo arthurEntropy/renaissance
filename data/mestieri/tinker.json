@@ -1,0 +1,14 @@
+{
+  "message": "New record created in mestieri.",
+  "id": "21bd354f-8468-4057-971c-5afc0d20b571",
+  "hooks": [],
+  "playlists": [],
+  "artUrls": [
+    "https://cdn.midjourney.com/b93cfc83-d6b5-41b1-9a9b-a24cbd4471ae/0_3.png"
+  ],
+  "faces": [],
+  "places": [],
+  "name": "Tinker",
+  "expansionLogoUrl": "",
+  "description": "<p>FLAVOR:</p><ul><li><p>Minecraft artificer: gather materials and make stuff from them</p></li></ul><p>WEAPONS:</p><ul><li><p>Common, light, light ranged, light firearms</p></li><li><p>Light armor, shields</p></li></ul><p>ENGAGEMENT:</p><ul><li><p>None from mestiere</p></li></ul><p>ABILITIES:</p><ul><li><p>Start with a magic bag, which can be improved later (inventory slots, better containers). Maybe all your stuff pops out if it gets destroyed?</p></li><li><p>Start with basic recipes, can buy better ones later.</p></li><li><p>Choose from a selection of starting materials, can craft from them for starting items.</p></li><li><p>XP --&gt; recipe books with better stuff, themes like weapons, potions, cooking, vehicles, clockwork, enchanting, repair, style, upgrades</p></li><li><p>Tables or code mechanics for finding stuff</p></li><li><p>Cart or pocket dimension with lots of storage and tools for repairing/crafting, etc.?</p></li></ul><p></p><p>OLD NOTES:</p><ul><li><p>This is extremely nebulous but I want this to be a more modular approach to an Artificer-type class. Like, you get to build lil gadgets (or maybe big ones, too). It should have the vibe of someone who keeps a collection of ever-growing spare parts and is always finding new ways to make use of them.</p></li><li><p>Maybe there is a physical element to this for the player, like components they can accumulate and “forms” they can fit those pieces into to craft items. Kind of like Minecraft recipes. Combining five components into a rough sword shape lets you craft a magic sword with special abilities based on the components you used.</p></li><li><p>I like the idea that this class would be incentivised to acquire resources when they encounter them in the world.</p></li><li><p>The problem of course is where to PUT all this junk. Maybe there’s a tradition of crafting arcane bags/boxes. Hey, it’s the Mary Poppins class!</p></li></ul>"
+}

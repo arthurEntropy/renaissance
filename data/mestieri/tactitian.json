@@ -2,10 +2,15 @@
   "id": "a7895ceb-db19-4c87-acf5-8960f6b555ea",
   "name": "Tactitian",
   "artUrls": [
-    "https://cdn.midjourney.com/fb9133a7-c71f-4c58-99c3-b2e2bad804e1/0_0.png"
+    "https://cdn.midjourney.com/05e244de-4082-4629-89db-739d0762d0f8/0_2.png"
   ],
   "color1": "#3f1819",
   "color2": "#b99457",
   "isDeleted": false,
-  "description": "You help your allies move around the battlefield, but you also have a strange private affinity for geometry and are surprised to find that indulging that preoccupation produces magical results."
+  "description": "<p>FLAVOR:</p><ul><li><p>Warlord-type</p></li><li><p>But also strange geometrical significance --&gt; big magic</p></li></ul><p>WEAPONS:</p><ul><li><p>Light, common</p></li><li><p>Light, heavy armor, no shields, light helms</p></li></ul><p>ENGAGEMENT:</p><ul><li><p>Only from gear</p></li></ul><p>ABILITIES:</p><ul><li><p>Commands: others move, attack, retreat, etc.</p></li><li><p>Can read foes to anticipate movement?</p></li><li><p>Tetris-ish shapes that you arrange on the battlefield to make overlapping large shapes</p><ul><li><p>Don't know what they do until you do them</p></li><li><p>Effects are as grab-bag of magic (akin to wild magic)</p></li><li><p>One-time randomization upon character creation</p></li></ul></li></ul><p></p><p>You help your allies move around the battlefield, but you also have a strange private affinity for geometry and are surprised to find that indulging that preoccupation produces magical results.</p><p></p><ul><li><p>So let’s start with the <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://dnd4.fandom.com/wiki/Warlord\">4e Warlord class</a>. Mine that for what’s good and interesting. Commanding other people to do stuff.</p></li><li><p>But the concept art with the dude conjuring a weird geometric shape in the middle of battle really speaks to me. This class should be weirder. Like, you see patterns that other people don’t see and which aren’t evident as tactical advantages until you point them out.</p></li><li><p>So maybe it’s literally based on geometry on the battlefield. Like the player has a set of geometric shapes (<a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://m.media-amazon.com/images/I/71mSvHvLzUL._AC_UF1000,1000_QL80_.jpg\">like these things</a>) that they are attempting to place connecting between combatants. Actually maybe it’s more like tetris shapes, since those fit nicely on a battle map grid. Maybe you’re building shapes out on the battlefield and then projecting benefits or banes through them. Maybe you get more shapes as advancements.</p></li><li><p>I think a pitfall here is that it would suck to have to try to get people to stand in the right places all the time - you should be able to do that on your turn, in small ways of course.</p></li></ul>",
+  "expansionLogoUrl": "",
+  "hooks": [],
+  "playlists": [],
+  "faces": [],
+  "places": []
 }

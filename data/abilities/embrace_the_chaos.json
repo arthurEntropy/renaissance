@@ -1,0 +1,12 @@
+{
+  "id": "f1d0e5f7-bb30-4251-a575-8d31c113fe1a",
+  "name": "Embrace The Chaos",
+  "description": "In combat, whenever a creature within short range takes damage from a source other than you, you gain +1d. On your turn, you may spend any number of these bonus dice on your skill checks.\n\nUnused dice are lost at the end of your turn—unless you hit and deal damage. If you do, you may pass any remaining +1d to any number of creatures within short range. Recipients must use the bonus dice on their next turn or lose them.\n\nDescribe how you turn the chaos of battle to your advantage.",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "e0a69b6f-38f9-4fa5-a1ef-5e5777299e82",
+  "isDeleted": false,
+  "mp": null,
+  "xp": null
+}

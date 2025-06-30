@@ -22,35 +22,35 @@
       "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": -2
+      "diceMod": -1
     },
     {
       "name": "Strength",
       "ranks": 5,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": -1
+      "diceMod": 0
     },
     {
       "name": "Dexterity",
       "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": -1
+      "diceMod": 0
     },
     {
       "name": "Fortitude",
       "ranks": 0,
       "isFavored": true,
-      "isIllFavored": true,
-      "diceMod": -1
+      "isIllFavored": false,
+      "diceMod": 0
     },
     {
       "name": "Craft",
       "ranks": 1,
       "isFavored": false,
-      "isIllFavored": true,
-      "diceMod": -2
+      "isIllFavored": false,
+      "diceMod": 0
     },
     {
       "name": "Perform",
@@ -84,8 +84,8 @@
       "name": "Aid",
       "ranks": 0,
       "isFavored": false,
-      "isIllFavored": true,
-      "diceMod": -1
+      "isIllFavored": false,
+      "diceMod": 0
     },
     {
       "name": "Persuade",
@@ -119,8 +119,8 @@
       "name": "Riddle",
       "ranks": 0,
       "isFavored": false,
-      "isIllFavored": true,
-      "diceMod": -1
+      "isIllFavored": false,
+      "diceMod": 0
     }
   ],
   "endurance": {
@@ -135,12 +135,12 @@
     "current": 13,
     "max": 11
   },
-  "load": 26,
+  "load": 0,
   "shadow": 0,
   "injury": 0,
   "states": {
-    "weary": true,
-    "twiceWeary": true,
+    "weary": false,
+    "twiceWeary": false,
     "miserable": false,
     "twiceMiserable": false,
     "helpless": false,
@@ -151,12 +151,12 @@
     "guilty": false,
     "angry": false,
     "afraid": false,
-    "troubled": true
+    "troubled": false
   },
   "equipment": [
     {
       "id": "64992fd9-1594-4cab-b232-b570e0e53ece",
-      "quantity": 11,
+      "quantity": 1,
       "isCarried": true,
       "index": 0
     }

@@ -3,16 +3,18 @@
   "name": "Adiri",
   "artUrls": [
     "https://cdn.midjourney.com/9c3c1165-785a-40c6-8d0d-d191822012d7/0_1.png",
+    "https://cdn.midjourney.com/0f82c57c-ac1e-4cab-8fc8-3d7752428e8c/0_1.png",
     "https://cdn.midjourney.com/04529bc5-ace3-404a-8dc0-387e464818b7/0_3.png",
     "https://cdn.midjourney.com/9c47a0ec-2e54-40be-8275-b2bb722afaee/0_0.png",
-    "https://cdn.midjourney.com/0f82c57c-ac1e-4cab-8fc8-3d7752428e8c/0_1.png"
+    "https://cdn.midjourney.com/fa5f84f1-eaf3-4a12-91b6-34ffa38fb070/0_0.png"
   ],
   "isDeleted": false,
-  "description": "<p>Its former power long since worn down by war, the Human-founded city-state of <strong>Adiri</strong> remains stubbornly independent from the united lands surrounding it. Here still the long tradition of champion warfare is practiced, augmented now by the Iliyanites’ metal-shaping, which also fills the city’s bazaars with one-of-a-kind armaments. Public displays of combative skill are the centerpiece of life in the city, and those who still remember the former <em>aspirational</em> glory of the Adirian Empire begin to look at neighboring lands with hungry eyes…</p>",
+  "description": "<p>Its former power long since worn down by war, the Human-founded city-state of Adiri remains stubbornly independent from the united lands surrounding it. Here still the long tradition of champion warfare is practiced, augmented now by the Iliyanites’ metal-shaping, which also fills the city’s bazaars with one-of-a-kind armaments. Public displays of combative skill are the centerpiece of life in the city, and those who still remember the former aspirational glory of the Adirian Empire begin to look at neighboring lands with hungry eyes…</p>",
   "color1": "#a2401c",
   "color2": "#432e4b",
-  "backgroundImage": "https://cdn.midjourney.com/e3e85b1b-a420-4229-ac36-905767a45830/0_0.png",
+  "backgroundImage": "https://cdn.midjourney.com/8d6a4126-e11c-41f2-90a6-9a829595bdbe/0_2.png",
   "faces": [
+    "https://cdn.midjourney.com/4cfd9fc3-8f49-4d88-8649-54caa63557bd/0_1.png",
     "https://cdn.midjourney.com/1815c36f-6688-4078-a28d-9e5fc6528020/0_3.png",
     "https://cdn.midjourney.com/3c77014e-d18f-44cd-a7fc-a816ba40a055/0_2.png",
     "https://cdn.midjourney.com/47d9ec66-a0b9-4d62-9765-4a2eefe03b80/0_0.png",
@@ -21,17 +23,57 @@
     "https://cdn.midjourney.com/541d17e1-4a44-4bf1-a3a5-2caaedcfb77c/0_1.png",
     "https://cdn.midjourney.com/733054af-254c-4f47-b4c2-3cadd8a00c5c/0_2.png",
     "https://cdn.midjourney.com/21611c2f-4354-4551-87ee-fb9f0016a6d6/0_0.png",
-    "https://cdn.midjourney.com/4cfd9fc3-8f49-4d88-8649-54caa63557bd/0_1.png",
     "https://cdn.midjourney.com/c37bd818-151c-44bf-94f0-420be55eb7ed/0_2.png",
     "https://cdn.midjourney.com/036523c4-f7f1-4a65-a92f-50108a556758/0_0.png",
+    "https://cdn.midjourney.com/6ed445d0-e849-4a5a-81fe-ad357ff2e96b/0_0.png",
     "https://cdn.midjourney.com/6d13f2e1-d67a-4755-9d33-e04852a04f3e/0_2.png",
     "https://cdn.midjourney.com/62a64832-627e-4f6e-a47f-6e4e1b7522a8/0_1.png",
     "https://cdn.midjourney.com/0e062f5b-98d2-4351-bd9f-4a3b3b2fe72a/0_2.png",
-    "https://cdn.midjourney.com/d87c929b-9a22-4704-a5b6-8b7900b6de9d/0_3.png"
+    "https://cdn.midjourney.com/d87c929b-9a22-4704-a5b6-8b7900b6de9d/0_3.png",
+    "https://cdn.midjourney.com/f12d1ee8-9c9d-41b9-a147-f375c1ed27c5/0_0.png",
+    "https://cdn.midjourney.com/b774d30f-d8b8-4c8a-884e-fd37d2c9989b/0_0.png",
+    "https://cdn.midjourney.com/69e58f43-0fc1-4c24-8fb4-a714d8d1e133/0_0.png",
+    "https://cdn.midjourney.com/80f0cce3-bd78-4ee9-bc93-f1c5c0efe36e/0_3.png"
   ],
-  "names": "Yogurt",
+  "names": "Bakari, Asha, Jabari, Nia, Idrissa, Zuberi, Malika, Ayodele, Tariq, Imani, Sekou, Halima, Nuru, Kofi, Adama, Salif, Zara, Amadou, Kenza, Faizah",
   "hooks": [],
-  "playlists": [],
-  "places": [],
-  "expansion": "e46f4320-a414-4300-95d5-397ba717d982"
+  "playlists": [
+    {
+      "service": "apple",
+      "embedCode": "<iframe allow=\"autoplay *; encrypted-media *;\" frameborder=\"0\" height=\"450\" style=\"width:100%;max-width:660px;overflow:hidden;background:transparent;\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation\" src=\"https://embed.music.apple.com/us/playlist/adiri-calm/pl.u-yZyVjV1CqRNX7y?theme=dark\"></iframe>"
+    },
+    {
+      "service": "apple",
+      "embedCode": "<iframe allow=\"autoplay *; encrypted-media *;\" frameborder=\"0\" height=\"450\" style=\"width:100%;max-width:660px;overflow:hidden;background:transparent;\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation\" src=\"https://embed.music.apple.com/us/playlist/adiri-action/pl.u-zPyLJL3uxaR5Xr?theme=dark\"></iframe>"
+    }
+  ],
+  "places": [
+    "https://cdn.midjourney.com/dc50b169-a13c-4858-ba09-13e5a5d01ccb/0_2.png",
+    "https://cdn.midjourney.com/1d8656ad-0d0c-4fbf-87f9-777f982b5d9d/0_1.png",
+    "https://cdn.midjourney.com/c66cd7d8-5c83-458c-9f56-46886f5272bb/0_3.png",
+    "https://cdn.midjourney.com/ec369008-1500-49ce-b0f8-27c7a9e3dd8c/0_0.png",
+    "https://cdn.midjourney.com/2282bb3a-f140-4c1f-bba5-1d83daf47135/0_2.png",
+    "https://cdn.midjourney.com/ca44a1fb-d6a3-4017-83d0-5d3d30fb8c2c/0_2.png",
+    "https://cdn.midjourney.com/10c0d84e-56c6-470a-ae9a-8d66884a2d7e/0_1.png",
+    "https://cdn.midjourney.com/166cb07e-4898-4deb-a9f2-cf24d83e42bb/0_0.png",
+    "https://cdn.midjourney.com/f22380a9-d67e-47a2-9750-87fa07b6d211/0_2.png",
+    "https://cdn.midjourney.com/9684bca5-25cb-4a68-bd37-459dde57bc33/0_1.png",
+    "https://cdn.midjourney.com/a6205e7e-3f39-49bb-b7f9-92e3791f17d4/0_1.png",
+    "https://cdn.midjourney.com/e785b913-841c-4811-89a4-8ce8b6ec1879/0_0.png",
+    "https://cdn.midjourney.com/d114283a-9f23-4b08-a451-19b1c948bfec/0_0.png",
+    "https://cdn.midjourney.com/843fe324-3ec8-4e8e-95bf-be9429f45b12/0_1.png",
+    "https://cdn.midjourney.com/2483f88c-5ae1-4528-adaf-5344facdff02/0_3.png",
+    "https://cdn.midjourney.com/dce62cde-f8fd-4353-a0da-66f95f8fcdc3/0_2.png",
+    "https://cdn.midjourney.com/5369597a-7f42-467a-92af-c6c9de1d51fe/0_1.png",
+    "https://cdn.midjourney.com/fe72a9f4-94ec-49ea-ade8-b5b44511e2a8/0_0.png",
+    "https://cdn.midjourney.com/a060a0c7-083d-4c6f-8fa6-6525d869f67b/0_2.png",
+    "https://cdn.midjourney.com/fb6ea336-4e61-4192-8596-9f92186bb542/0_1.png"
+  ],
+  "expansion": "e46f4320-a414-4300-95d5-397ba717d982",
+  "expansionLogoUrl": "https://cdn.midjourney.com/a74946da-ccb3-4540-89e9-751411b6bb7c/0_1.png",
+  "occupations": "Smith, Champion, Herder, Sandwalker Guide, Bazaar Merchant, Storykeeper, Herbalist, Water Bearer, Tiler, Drum Maker, Oracle, Armor Carver, Scribe, Sandglass Maker, Dancer",
+  "publicHouses": "The Bronze Fang, The Arena’s Edge, The Red Sand Cup, The Ember Gate, The Golden Horn,  Champion's Arms",
+  "vittles": "Spiced Lamb, Flatbread, Date Paste, Honeyed Millet, Roasted Chickpeas, Grilled Eggplant, Fig Jam, Stewed Okra, Mint Tea, Tamarind Juice, Fried Locusts, Almond Couscous, Pomegranate Seeds, Goat Stew, Smoked Fish",
+  "pointsOfInterest": "The Arena of Echoes, The Forge of Kings, The Painted Gate, The Moonlit Bazaar, The Whispering Obelisk, The Fountain of Ancestry",
+  "floraFauna": "Acacia, Baobab, Date Palm, Desert Rose, Henna, Myrrh, Scorpion, Dromedary, Monitor Lizard, Sand Cat, Jerboa, Desert Hawk, Horned Viper, Gazelle, Fire Beetle"
 }

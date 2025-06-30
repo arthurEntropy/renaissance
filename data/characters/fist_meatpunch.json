@@ -21,13 +21,13 @@
       "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 2
+      "diceMod": 0
     },
     {
       "name": "Dexterity",
       "ranks": 4,
       "isFavored": false,
-      "isIllFavored": true,
+      "isIllFavored": false,
       "diceMod": 0
     },
     {
@@ -147,43 +147,21 @@
   },
   "equipment": [
     {
-      "name": "Cool Sword",
-      "weight": 5,
+      "id": "6a8992ec-46d8-4113-ac97-a87d759e2a46",
       "quantity": 1,
-      "carried": true
+      "isCarried": true,
+      "isWielding": true,
+      "index": 0
     },
     {
-      "name": "Armor",
-      "weight": 30,
+      "id": "2121d925-27f0-40ee-9d7f-2cc67b90141c",
       "quantity": 1,
-      "carried": true
-    },
-    {
-      "name": "Cool Shirt",
-      "weight": 1,
-      "quantity": 1,
-      "carried": true
+      "isCarried": true,
+      "isWielding": true,
+      "index": 1
     }
   ],
-  "activeEffects": [
-    {
-      "name": "Big Hand Time",
-      "skillsModified": [
-        {
-          "name": "Strength",
-          "diceMod": 2,
-          "makeFavored": false,
-          "makeIllFavored": false
-        },
-        {
-          "name": "Dexterity",
-          "diceMod": 0,
-          "makeFavored": false,
-          "makeIllFavored": true
-        }
-      ]
-    }
-  ],
+  "activeEffects": [],
   "personalityAndBackground": "Prize fighter with one giant fist. Partner of Zap Kid. AKA \"Sir Hammel.\" ",
   "cultures": "Guildford",
   "pronouns": "he/him",
@@ -192,5 +170,12 @@
   "mp": {
     "current": 3,
     "max": 5
-  }
+  },
+  "abilities": [
+    "4fbf9ccb-0fbb-45d0-9f8f-7b7fcfb811fb",
+    "ad7f2d4c-75cc-4b7c-8066-57eb1ccaf54a",
+    "f1d0e5f7-bb30-4251-a575-8d31c113fe1a",
+    "9c92d5ba-7c73-4480-a357-d98ac4820c7d",
+    "329b5305-71b2-49f2-93b5-985e92576f02"
+  ]
 }

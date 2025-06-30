@@ -14,7 +14,7 @@ class MestieriService extends BaseService {
     return this.getAll()
   }
 
-  async saveMestiere(mestiere) {
+  async updateMestiere(mestiere) {
     return this.update(mestiere)
   }
 

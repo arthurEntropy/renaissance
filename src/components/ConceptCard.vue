@@ -31,7 +31,7 @@ export default {
   cursor: pointer;
   width: 200px;
   position: relative;
-  border: 2px solid #fff;
+  border: 2px solid #555;
   box-shadow: none;
 }
 
@@ -60,9 +60,9 @@ export default {
 /* Expansion logo badge */
 .expansion-logo-badge-wrapper {
   position: absolute;
-  top: 0;
+  bottom: 0;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, 50%);
   z-index: 2;
   width: 30px;
   height: 30px;
@@ -79,6 +79,6 @@ export default {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
   background: #222;
   object-fit: cover;
-  border: 2px solid #fff;
+  border: 2px solid #555;
 }
 </style>

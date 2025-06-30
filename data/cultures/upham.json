@@ -13,11 +13,27 @@
   "floraFauna": "Pine, Juniper, Edelweiss, Alpine Rose, Wild Thyme, Rowan, Brown Bear, Red Deer, Mountain Goat, Pine Marten, Wolf, Golden Eagle, Trout, Otter, Snow Hare",
   "hooks": [],
   "playlists": [],
-  "faces": [],
+  "faces": [
+    "https://cdn.midjourney.com/4520788b-3aaa-497e-b2a6-25f14cfd7862/0_2.png",
+    "https://cdn.midjourney.com/d529ad3c-c3c5-4116-937a-2124ac411d1c/0_3.png",
+    "https://cdn.midjourney.com/fe5bb378-9bbe-4a8d-ad08-73e2f60d6c7f/0_2.png",
+    "https://cdn.midjourney.com/ad512b7f-8b71-4c88-a5f4-d2736c87de5d/0_3.png",
+    "https://cdn.midjourney.com/5e3ade71-45e8-4ce5-b044-350725962c21/0_0.png",
+    "https://cdn.midjourney.com/e37992ad-48de-4ce5-9b0e-3dbeca79bd28/0_0.png",
+    "https://cdn.midjourney.com/8a9c155e-126d-4f2c-96bd-efd0924bd92c/0_2.png",
+    "https://cdn.midjourney.com/f7ef74bf-7e3c-4694-956e-e196ee2a09b7/0_3.png",
+    "https://cdn.midjourney.com/bece15f3-3375-4a01-a84d-dffbf7071658/0_1.png",
+    "https://cdn.midjourney.com/dd0503fb-28ce-49bf-8441-f3d7c720bba1/0_1.png",
+    "https://cdn.midjourney.com/d729374c-f0fb-47d5-bef0-b9bc30e31848/0_2.png",
+    "https://cdn.midjourney.com/6552137f-f102-4a43-8ab5-205b9250f4c1/0_2.png",
+    "https://cdn.midjourney.com/c87dbe8d-abca-4d08-9872-5b7b1a92f4ed/0_0.png",
+    "https://cdn.midjourney.com/32fcb777-9981-498a-92dd-def2d93dc6d1/0_0.png"
+  ],
   "places": [],
-  "description": "<h1>EXAMPLE TITLE</h1><h3>EXAMPLE SUBTITLE</h3><p>Example paragraph with <strong>bold text</strong> and a <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://pitchfork.com/\">link</a>.</p><ul><li><p>Example list 1</p></li><li><p>Example list 2</p></li></ul>",
-  "backgroundImage": "",
+  "description": "<p>Perched in a high pass at the base of a cloven falls that is the source of two rivers in two separate valleys, Upham began as a mere wayside resting place for travelers and grew into a bustling center of trade for trappers and for merchants moving goods over the mountains. The Upham General, its eight precarious stories of outfitters, smiths, taverns and lodgings embedded into the steep, crumbling mountainside, is the great hub of activity, with lesser establishments lining the roadway on either side. Squat, sturdy frames and broad roofs are shields that deflect the frequent falling boulders safely to either side and into the gorge below. Although travelers, merchants and other passers-through comprise the vast majority of souls in the town at any given time, a hardy and eclectic population of locals accumulates steadily year after year, their lives finding footholds amid the current of travelers.<br><br>A further population of trappers, trackers, hunters and explorers radiate out from Upham across the <em>Kop Terilar</em> - the </p>",
+  "backgroundImage": "https://cdn.midjourney.com/77f3e650-17c0-48ce-8b03-37e682bb98be/0_3.png",
   "color1": "#ffffff",
   "color2": "#000000",
-  "expansion": "824cad94-3a4a-4df3-b81a-ede17b84644b"
+  "expansion": "824cad94-3a4a-4df3-b81a-ede17b84644b",
+  "expansionLogoUrl": "https://cdn.midjourney.com/8803d0cc-59f8-4b7e-b852-81f9090150c6/0_2.png"
 }
