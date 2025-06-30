@@ -52,6 +52,13 @@
       </div>
     </template>
 
+    <!-- Badge slot (Standard of Living) -->
+    <template #badge>
+      <div v-if="equipment.standardOfLiving" class="sol-bubble">
+        {{ equipment.standardOfLiving }} 🪙
+      </div>
+    </template>
+
     <!-- Footer slot for engagement successes -->
     <template #footer>
       <div v-if="!isCollapsed" class="engagement-successes">
@@ -334,5 +341,21 @@ export default {
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
   max-width: 260px;
   white-space: pre-line;
+}
+
+/* Standard of Living Bubble */
+.sol-bubble {
+  position: absolute;
+  bottom: -3px;
+  left: 0px;
+  background-color: darkgoldenrod;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 2px 8px 4px 8px;
+  border-top-right-radius: 10px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+  pointer-events: none;
+  z-index: 10;
 }
 </style>
