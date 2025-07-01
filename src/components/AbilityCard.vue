@@ -70,6 +70,14 @@ export default {
   computed: {
     traitOrMp() {
       const parts = []
+      if (this.ability.actionType) {
+        let type = this.ability.actionType
+        if (type === 'Action') type = 'action'
+        else if (type === 'Half Action') type = 'half action'
+        else if (type === 'Free Action') type = 'free action'
+        else if (type === 'Reaction') type = 'reaction'
+        parts.push(type)
+      }
       if (this.ability.isTrait) parts.push('trait')
       if (this.ability.mp) parts.push(`${this.ability.mp} MP`)
       return parts.join(', ')

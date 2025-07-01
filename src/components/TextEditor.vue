@@ -296,15 +296,18 @@ export default {
 
 :deep(.ProseMirror) {
   padding: 10px;
-  /* Extra bottom padding for scroll visibility */
   padding-bottom: 35px;
   min-height: 100px;
-  outline: none;
-  line-height: 1.5;
-  overflow-y: auto;
-  width: 100%;
+  height: 100%;
+  max-height: none;
   box-sizing: border-box;
-  max-height: 250px;
+  overflow-y: auto;
+  font-size: 1.1rem;
+  line-height: 1.5;
+}
+
+:deep(.ProseMirror)>* {
+  max-width: 100%;
 }
 
 :deep(.ProseMirror a) {

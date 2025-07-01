@@ -486,6 +486,8 @@ export default {
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  font-size: 1.1rem;
+  line-height: 1.5;
 }
 
 .rules-content-body {

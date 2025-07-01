@@ -19,12 +19,20 @@
             :height="'250px'" />
         </div>
 
-        <!-- MP and XP -->
+        <!-- MP, XP, and Type -->
         <div class="form-group centered">
           <label for="mp">MP:</label>
           <input type="number" id="mp" v-model.number="editedAbility.mp" class="modal-input small-input" />
           <label for="xp">XP:</label>
           <input type="number" id="xp" v-model.number="editedAbility.xp" class="modal-input small-input" />
+          <label for="actionType">Type:</label>
+          <select id="actionType" v-model="editedAbility.actionType" class="modal-input small-input">
+            <option value="">--</option>
+            <option value="Action">Action</option>
+            <option value="Half Action">Half Action</option>
+            <option value="Free Action">Free Action</option>
+            <option value="Reaction">Reaction</option>
+          </select>
         </div>
 
         <div class="form-group centered">

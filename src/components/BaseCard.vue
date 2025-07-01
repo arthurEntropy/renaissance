@@ -260,6 +260,20 @@ export default {
   word-wrap: break-word;
 }
 
+.item-info {
+  font-size: 13px;
+  color: #fff;
+  text-shadow:
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  margin-left: 8px;
+  margin-right: 0;
+}
+
 .edit-button {
   text-shadow:
     -1px -1px 0 #000,
