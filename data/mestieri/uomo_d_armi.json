@@ -10,5 +10,20 @@
   "places": [],
   "name": "Uomo d'Armi",
   "expansionLogoUrl": "",
-  "description": "<p>FLAVOR:</p><ul><li><p>All-around fighter</p></li><li><p>Tactics, benefits from/for others nearby</p></li><li><p>Selflessness?</p></li></ul><p>WEAPONS:</p><ul><li><p>All (including polearms) except great, heavy ranged and firearms</p></li><li><p>All armor, shields and helms</p></li></ul><p>ENGAGEMENT:</p><ul><li><p>Medium amount of medium dice (or maybe 2x what you get from your gear?)</p></li><li><p>Medium amount of success options, nothing extreme (fancy or brutal)</p></li><li><p>So like the mestiere provides no engagement dice, but does provide success options?</p></li></ul><p>ABILITIES</p><ul><li><p>Tactics, defending others (mine fighter class)</p></li><li><p>Ways to regain endurance?</p></li></ul>"
+  "description": "<p>For the <em>Uomo d’Armi</em>, battle is not just blood and steel—it’s discipline, timing, and trust. These professional soldiers bring cohesion to chaos, using their training not to dominate the battlefield alone, but to strengthen the whole. With training that guides them in critical moments—when wounds deepen, when allies falter, when escape demands a sacrifice—they are defined by action in adversity. This class rewards players who value group tactics, endurance under fire, and selfless decision-making. A true Uomo d’Armi doesn’t seek fame—they seek the right death, at the right time, for the right reason.</p>",
+  "backgroundImage": "https://cdn.midjourney.com/c8d64ac7-c7c4-47d1-b7d6-34bd6ff153a8/0_2.png",
+  "color1": "#ffffff",
+  "color2": "#000000",
+  "expansion": "",
+  "novizio": {
+    "flavorText": "",
+    "melee": "light, common, martial, heavy",
+    "polearms": "light, heavy",
+    "ranged": "light",
+    "firearms": "none",
+    "armor": "all armor, all helms, all shields",
+    "engagement": "",
+    "initialMaxMP": 5,
+    "abilities": "Close Ranks, Rally"
+  }
 }

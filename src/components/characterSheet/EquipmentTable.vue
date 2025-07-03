@@ -24,7 +24,8 @@
         <div class="equipment-row">
           <!-- EquipmentCard (collapsed/minimal) -->
           <EquipmentCard v-if="row.equipment" :equipment="row.equipment" :collapsed="true"
-            :editable="row.equipment.isCustom" :sources="sources" class="equipment-card" @edit="editCustomItem" />
+            :editable="row.equipment.isCustom" :sources="sources" class="equipment-card" @edit="editCustomItem"
+            :collapsible="true" />
           <span v-else class="missing-equipment">Unknown item</span>
 
           <div v-if="isEditMode" class="equipment-row-details">

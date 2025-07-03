@@ -1,0 +1,12 @@
+{
+  "id": "05f788f2-cf7a-4bf0-a65c-e41bbe0f5ea3",
+  "name": "Agralaur 1",
+  "description": "<p>This is a placeholder for an ability</p>",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "c02c53d1-b456-45d0-a048-6fc941cacc03",
+  "isDeleted": false,
+  "mp": null,
+  "xp": null
+}

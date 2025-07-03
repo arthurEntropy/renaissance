@@ -39,7 +39,11 @@
     </div>
 
     <!-- Thumbnails grid -->
-    <div class="thumbs-container" :style="{ '--grid-columns': gridColumns }">
+    <div
+      v-if="editable || images.length > 1"
+      class="thumbs-container"
+      :style="{ '--grid-columns': gridColumns }"
+    >
       <div class="thumbs-grid" :style="{ 'grid-template-columns': `repeat(${gridColumns}, 1fr)` }">
         <!-- Editable mode -->
         <template v-if="editable">

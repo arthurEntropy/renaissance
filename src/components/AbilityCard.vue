@@ -1,10 +1,10 @@
 <template>
   <base-card :item="ability" itemType="ability" :metaInfo="traitOrMp" :storeInstance="abilitiesStore"
-    :initialCollapsed="collapsed" :editable="editable" :sources="sources" @edit="$emit('edit', ability)">
+    :initialCollapsed="collapsed" :editable="editable" :sources="sources" @edit="$emit('edit', ability)"
+    :collapsible="collapsible">
     <!-- Content slot -->
     <template #content>
-      <div v-html="formattedDescription" class="description-background">
-      </div>
+      <div v-if="ability.description" v-html="ability.description" class="description-background"></div>
     </template>
 
     <!-- Buttons slot -->
@@ -54,7 +54,11 @@ export default {
         mestieri: [],
         worldElements: []
       })
-    }
+    },
+    collapsible: {
+      type: Boolean,
+      default: false,
+    },
   },
   emits: ['edit', 'update', 'sendToChat'],
   data() {
@@ -66,17 +70,17 @@ export default {
   computed: {
     traitOrMp() {
       const parts = []
+      if (this.ability.actionType) {
+        let type = this.ability.actionType
+        if (type === 'Action') type = 'action'
+        else if (type === 'Half Action') type = 'half action'
+        else if (type === 'Free Action') type = 'free action'
+        else if (type === 'Reaction') type = 'reaction'
+        parts.push(type)
+      }
       if (this.ability.isTrait) parts.push('trait')
       if (this.ability.mp) parts.push(`${this.ability.mp} MP`)
       return parts.join(', ')
-    },
-    formattedDescription() {
-      // Split on double line breaks, trim, and wrap in <p> tags
-      if (!this.ability.description) return ''
-      return this.ability.description
-        .split(/\n{2,}/)
-        .map(paragraph => `<p>${paragraph.replace(/\n/g, '<br>')}</p>`)
-        .join('')
     },
   },
   methods: {
@@ -101,27 +105,19 @@ export default {
   margin-top: 6px;
 }
 
-.description-background p {
-  margin: 0 0 2px 0;
-  /* Remove top margin, minimal bottom margin for separation */
-}
-
-.description-background p:last-child {
-  margin-bottom: 0;
-}
-
 .xp-bubble {
   position: absolute;
-  bottom: -10px;
+  bottom: -3px;
   left: 0px;
-  background-color: white;
+  background-color: darkgoldenrod;
   color: black;
   font-size: 12px;
   font-weight: bold;
   padding: 5px 10px;
-  border-radius: 15px;
+  border-top-right-radius: 10px;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
   pointer-events: none;
+  z-index: 10;
 }
 
 .bottom-buttons {

@@ -1,0 +1,12 @@
+{
+  "id": "79f7d0be-4052-45ae-9351-449cd4023bdf",
+  "name": "Momentum",
+  "description": "<p><em>Each strike fuels your resolve, replenishing your strength to keep fighting.</em></p><p>Whenever you inflict injury on a foe, you regain 1 MP. Whenever you knock a foe unconscious, you regain 2 MP.</p><p><strong>Describe how each successful blow energizes you to push further into battle.</strong></p>",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "d4dce5e2-e767-464d-91f0-c40b47f788b3",
+  "isDeleted": false,
+  "mp": null,
+  "xp": 17
+}

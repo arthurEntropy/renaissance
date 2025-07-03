@@ -30,7 +30,8 @@
         <!-- Description -->
         <div class="form-group vertical description">
           <label for="description" class="left-aligned">Description:</label>
-          <textarea id="description" v-model="editedEquipment.description" class="modal-input"></textarea>
+          <TextEditor v-model="editedEquipment.description" :placeholder="'Enter equipment description...'"
+            :height="'250px'" />
         </div>
 
         <div class="form-group row">
@@ -141,6 +142,7 @@
 
 <script>
 import { useEquipmentStore } from '@/stores/equipmentStore'
+import TextEditor from '@/components/TextEditor.vue'
 
 export default {
   props: {
@@ -188,6 +190,8 @@ export default {
     this.originalEquipment = JSON.parse(JSON.stringify(this.equipment))
     this.editedEquipment = JSON.parse(JSON.stringify(this.equipment))
   },
+
+  components: { TextEditor },
 
   methods: {
     getDiceFontClass(dieType) {

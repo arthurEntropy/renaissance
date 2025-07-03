@@ -22,6 +22,11 @@
               @update:images="updateFeaturedArt" />
           </div>
 
+          <!-- Novizio Section -->
+          <NovizioSection ref="novizioSection" :novizio="localConcept.novizio" :editable="isEditMode"
+            @update="updateNovizio" @unsaved-changes="onSectionUnsavedChanges"
+            @reset-unsaved-changes="onSectionResetUnsavedChanges" />
+
           <!-- Faces -->
           <div class="concept-section" v-if="hasFaces || isEditMode">
             <h2 class="section-header">Faces</h2>
@@ -63,7 +68,8 @@
           <!-- Description -->
           <div class="description-container">
             <div v-if="isEditingDescription" class="editable-description">
-              <text-editor v-model="localConcept.description" height="200px" ref="descriptionEditor" placeholder="description" />
+              <text-editor v-model="localConcept.description" height="200px" ref="descriptionEditor"
+                placeholder="description" :auto-height="true" />
               <div class="edit-field-buttons">
                 <button class="button small" @click="saveDescriptionChanges">
                   Save
@@ -88,8 +94,8 @@
               section and assign them to this concept.
             </div>
             <masonry-grid v-else :column-width="350" :gap="10" :row-height="10" class="ability-cards-container">
-              <AbilityCard v-for="ability in abilities" :key="ability.id" :ability="ability" :editable="isEditMode"
-                :sources="sources" @edit="emitAbilityEdit" />
+              <AbilityCard v-for="ability in sortedAbilities" :key="ability.id" :ability="ability"
+                :editable="isEditMode" :sources="sources" :collapsible="false" @edit="emitAbilityEdit(ability)" />
             </masonry-grid>
           </div>
 
@@ -101,10 +107,12 @@
             vittles: localConcept.vittles,
             pointsOfInterest: localConcept.pointsOfInterest,
             floraFauna: localConcept.floraFauna,
-          }" :editable="isEditMode" @update="updateLocalFlavor" />
+          }" :editable="isEditMode" @update="updateLocalFlavor" @unsaved-changes="onSectionUnsavedChanges"
+            @reset-unsaved-changes="onSectionResetUnsavedChanges" />
 
           <!-- Hooks -->
-          <HooksSection :hooks="localConcept.hooks || []" :editable="isEditMode" @update="updateHooks" />
+          <HooksSection :hooks="localConcept.hooks || []" :editable="isEditMode" @update="updateHooks"
+            @unsaved-changes="onSectionUnsavedChanges" @reset-unsaved-changes="onSectionResetUnsavedChanges" />
 
           <!-- Wares -->
           <div class="concept-section" v-if="hasEquipment || isEditMode">
@@ -112,7 +120,7 @@
             <masonry-grid v-if="hasEquipment || !isEditMode" :column-width="350" :gap="10" :row-height="10"
               class="equipment-cards-container">
               <EquipmentCard v-for="item in equipment" :key="item.id" :equipment="item" :editable="isEditMode"
-                :sources="sources" @edit="emitEquipmentEdit" />
+                :sources="sources" @edit="emitEquipmentEdit" :collapsible="false" />
             </masonry-grid>
           </div>
         </div>
@@ -138,6 +146,7 @@ import MasonryGrid from '@/components/MasonryGrid.vue'
 import PlaylistSection from '@/components/conceptDetail/PlaylistSection.vue'
 import SettingsModal from '@/components/conceptDetail/ConceptSettingsModal.vue'
 import TextEditor from '@/components/TextEditor.vue'
+import NovizioSection from '@/components/conceptDetail/NovizioSection.vue'
 import { useAbilitiesStore } from '@/stores/abilitiesStore'
 import { useEquipmentStore } from '@/stores/equipmentStore'
 import { useExpansionStore } from '@/stores/expansionStore'
@@ -167,6 +176,7 @@ export default defineComponent({
     PlaylistSection,
     SettingsModal,
     TextEditor,
+    NovizioSection,
   },
   emits: ['close', 'update', 'edit-ability', 'edit-equipment'],
   data() {
@@ -174,7 +184,7 @@ export default defineComponent({
       abilities: [],
       equipment: [],
       localConcept: {},
-      isEditMode: false, // Always start as false
+      isEditMode: false, // Always start in 'display' mode
       isEditingTitle: false,
       isEditingDescription: false,
       backupConcept: null,
@@ -194,6 +204,7 @@ export default defineComponent({
       equipmentStore: useEquipmentStore(),
       expansionStore: useExpansionStore(),
       expansions: [],
+      hasUnsavedSectionChanges: false,
     }
   },
   watch: {
@@ -235,16 +246,25 @@ export default defineComponent({
     expansionLogoUrl() {
       return this.expansion && this.expansion.logoUrl ? this.expansion.logoUrl : ''
     },
+    sortedAbilities() {
+      // Sort by XP (ascending), then by name (A-Z)
+      return [...this.abilities].sort((a, b) => {
+        const xpA = a.xp ?? 0;
+        const xpB = b.xp ?? 0;
+        if (xpA !== xpB) return xpA - xpB;
+        return (a.name || '').localeCompare(b.name || '');
+      });
+    },
   },
   methods: {
     toggleEditMode() {
       if (this.isEditMode) {
-        if (this.isEditingTitle) this.saveTitleChanges()
-        if (this.isEditingDescription) this.saveDescriptionChanges()
-        this.emitUpdateEvent()
+        if (this.isEditingTitle) this.saveTitleChanges();
+        if (this.isEditingDescription) this.saveDescriptionChanges();
+        this.emitUpdateEvent();
       }
-      this.isEditMode = !this.isEditMode
-      this.$emit('edit-mode-change', this.isEditMode)
+      this.isEditMode = !this.isEditMode;
+      this.$emit('edit-mode-change', this.isEditMode);
     },
 
     emitUpdateEvent() {
@@ -283,22 +303,21 @@ export default defineComponent({
 
     closeModal() {
       try {
-        // Check if any editing is in progress
-        if (this.isEditingTitle || this.isEditingDescription) {
+        if (
+          this.isEditingTitle ||
+          this.isEditingDescription ||
+          this.hasUnsavedSectionChanges
+        ) {
           if (
             confirm('You have unsaved changes. Are you sure you want to exit?')
           ) {
-            // Don't emit an update when closing - just close
             this.$emit('close')
           }
-          // If they cancel, do nothing (keep modal open)
         } else {
-          // Just close without emitting update
           this.$emit('close')
         }
       } catch (error) {
         console.error('Error in closeDetailView:', error)
-        // Still close the modal even if there was an error
         this.$emit('close')
       }
     },
@@ -511,6 +530,20 @@ export default defineComponent({
       this.emitUpdateEvent()
       this.closeSettingsModal()
     },
+
+    // Novizio Section
+    updateNovizio(newNovizio) {
+      this.localConcept.novizio = { ...newNovizio }
+      this.emitUpdateEvent()
+    },
+
+    //Section Unsaved Changes Handling
+    onSectionUnsavedChanges() {
+      this.hasUnsavedSectionChanges = true;
+    },
+    onSectionResetUnsavedChanges() {
+      this.hasUnsavedSectionChanges = false;
+    },
   },
 
   async mounted() {
@@ -650,10 +683,6 @@ export default defineComponent({
   cursor: pointer;
 }
 
-.concept-description:hover {
-  background-color: rgba(255, 255, 255, 0.05);
-}
-
 .edit-field-indicator {
   position: absolute;
   top: 4px;
@@ -668,13 +697,6 @@ export default defineComponent({
 
 .description-container:hover .edit-field-indicator {
   opacity: 0.7;
-}
-
-.edit-field-buttons {
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-  margin-top: 10px;
 }
 
 /* Individual component styling from original */

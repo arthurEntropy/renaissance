@@ -3,7 +3,7 @@
     ? `${equipment.weight} ${equipment.weight === 1 ? 'lb' : 'lbs'}`
     : ''
     " :storeInstance="equipmentStore" :initialCollapsed="isCollapsed" :editable="editable" :sources="sources"
-    @edit="$emit('edit', equipment)">
+    @edit="$emit('edit', equipment)" :collapsible="collapsible">
     <!-- Large image slot -->
     <template #large-image>
       <div v-if="showLargeImage" class="large-image-container" @click.stop="toggleImage">
@@ -22,12 +22,7 @@
         </div>
         <!-- Description section - show if available -->
         <div class="content-sections">
-          <template v-if="equipment.description">
-            <p class="description-background">
-              {{ equipment.description }}
-            </p>
-          </template>
-
+          <div v-if="equipment.description" v-html="equipment.description" class="description-background"></div>
           <!-- Dice section - show independently if it's a melee weapon -->
           <template v-if="equipment.isMelee">
             <div class="dice-description-row">
@@ -54,6 +49,13 @@
             </div>
           </template>
         </div>
+      </div>
+    </template>
+
+    <!-- Badge slot (Standard of Living) -->
+    <template #badge>
+      <div v-if="equipment.standardOfLiving" class="sol-bubble">
+        {{ equipment.standardOfLiving }} 🪙
       </div>
     </template>
 
@@ -109,7 +111,11 @@ export default {
         mestieri: [],
         worldElements: []
       })
-    }
+    },
+    collapsible: {
+      type: Boolean,
+      default: false,
+    },
   },
 
   data() {
@@ -335,5 +341,21 @@ export default {
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
   max-width: 260px;
   white-space: pre-line;
+}
+
+/* Standard of Living Bubble */
+.sol-bubble {
+  position: absolute;
+  bottom: -3px;
+  left: 0px;
+  background-color: darkgoldenrod;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 2px 8px 4px 8px;
+  border-top-right-radius: 10px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+  pointer-events: none;
+  z-index: 10;
 }
 </style>

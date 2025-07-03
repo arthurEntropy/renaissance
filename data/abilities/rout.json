@@ -1,0 +1,13 @@
+{
+  "id": "5dfebb16-f7a3-44d1-9c7a-a575812ff676",
+  "name": "Rout",
+  "description": "<p><em>Your ferocity tips momentum in your favor, each fallen foe spurring your allies to strike harder.</em></p><p>When you knock a foe unconscious, use your reaction to give you and your allies a temporary +1d to attack rolls. If you or an ally knocks another foe unconscious before the end of your next turn, the bonus increases to +2d. This bonus continues from round to round, but ends if, at the end of your turn, neither you nor an ally has knocked a foe unconscious in the last round.</p><p><strong>Describe how each victory pushes your group to fight with greater fury.</strong></p>",
+  "isTrait": false,
+  "canBeActive": true,
+  "isActive": true,
+  "source": "d4dce5e2-e767-464d-91f0-c40b47f788b3",
+  "isDeleted": false,
+  "mp": 4,
+  "xp": 20,
+  "actionType": "Reaction"
+}

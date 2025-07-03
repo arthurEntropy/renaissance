@@ -4,11 +4,26 @@
   "hooks": [],
   "playlists": [],
   "artUrls": [
-    "https://cdn.midjourney.com/631158ad-08cd-4d7e-a78e-ad047ab53a36/0_0.png"
+    "https://cdn.midjourney.com/548d3344-a534-4bbf-96e2-09847110ee9e/0_0.png"
   ],
   "faces": [],
   "places": [],
   "name": "Murato",
   "expansionLogoUrl": "",
-  "description": "<p>FLAVOR:</p><ul><li><p>Heavily armored, heavily armed</p></li><li><p>Get in the middle and let them come to you (CHOMP)</p></li><li><p>Big hits are BIG HITS</p></li></ul><p>WEAPONS</p><ul><li><p>Martial, heavy, great</p></li><li><p>Heavy armor, shields, all helms</p></li></ul><p>ENGAGEMENT</p><ul><li><p>Few large dice</p></li><li><p>Few success options, domination-focused</p></li></ul><p>ABILITIES</p><ul><li><p>Big swing followed by skip turn</p></li><li><p>Endurance economy: can use in addition to MP?</p></li><li><p>Injury resistance?</p></li><li><p>Hand cannoneer?</p></li></ul>"
+  "description": "<p>The <em>Murato</em> is a walking bulwark, clad in steel and wielding fearsome weapons. Where others conserve energy, they expend it—trading their Endurance for devastating blows. They, endure longer by embracing the burden of their arms, and find power in stillness as much as motion. Through brutal efficiency, a Murato transforms fatigue into ferocity, and armor into an extension of their own flesh.</p><p>Play a Murato if you want to wield huge weapons, take big hits in stride and smash your enemies.</p>",
+  "backgroundImage": "https://cdn.midjourney.com/cc9f465d-8684-468a-8a2f-2f1cc0d76cd4/0_2.png",
+  "color1": "#ffffff",
+  "color2": "#000000",
+  "expansion": "",
+  "novizio": {
+    "flavorText": "<p></p>",
+    "melee": "common, martial, heavy, great",
+    "polearms": "light, heavy, testing",
+    "ranged": "none",
+    "firearms": "heavy",
+    "armor": "heavy armor, all helms, all shields",
+    "engagement": "<p><span class=\"dice-icon dice-icon df-d12-12\" style=\"font-size: 36px;\"></span> <span class=\"dice-icon dice-icon df-d12-12\" style=\"font-size: 36px;\"></span></p>",
+    "initialMaxMP": 0,
+    "abilities": "<p>Heavy Strike, Take A Breather, Tough</p>"
+  }
 }

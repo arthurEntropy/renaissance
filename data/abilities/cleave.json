@@ -1,0 +1,13 @@
+{
+  "id": "82fad9cc-9de8-49c3-a192-ae96a981007d",
+  "name": "Cleave",
+  "description": "<p><em>The force of your weapon carries through your target, swinging in a relentless arc that punishes any who stand too near.</em></p><p>When you hit with a melee attack, you may hit another adjacent foe with a glancing blow, dealing BODY damage to them.</p><p><strong>Describe the momentum and fury that make your weapon too heavy to stop once it’s in motion.</strong></p>",
+  "isTrait": false,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "1e4131c7-8a6f-422c-998a-5147600c946e",
+  "isDeleted": false,
+  "mp": null,
+  "xp": 5,
+  "actionType": "Reaction"
+}

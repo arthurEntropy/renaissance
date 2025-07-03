@@ -1,0 +1,12 @@
+{
+  "id": "0734e2c7-0fc5-4ccf-ad87-e7d3bde5924d",
+  "name": "Brace Yourself",
+  "description": "<p><strong>(Improvement - Take A Breather)</strong></p><p><em>You dig into a defensive position while you catch your breath.</em></p><p>When you use the Take A Breather ability, you also get +2 Defense until the start of your next turn.</p><p><strong>Describe how you set your feet, raise your guard, and draw strength from stillness as the fight rages on.</strong></p>",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "1e4131c7-8a6f-422c-998a-5147600c946e",
+  "isDeleted": false,
+  "mp": null,
+  "xp": 5
+}

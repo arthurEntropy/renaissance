@@ -1,0 +1,13 @@
+{
+  "id": "37b8ce8f-520b-4783-9720-568c02d8fcd4",
+  "name": "Team Strike",
+  "description": "<p><em>You strike in rhythm with your ally, hammering your foe from both sides with brutal force.</em></p><p>If you and an ally are both engaged with the same foe, you each take +1d to damage rolls on your next attack against that foe.</p><p><strong>Describe how you and your ally coordinate your attacks.</strong></p>",
+  "isTrait": false,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "d4dce5e2-e767-464d-91f0-c40b47f788b3",
+  "isDeleted": false,
+  "mp": 1,
+  "xp": 10,
+  "actionType": "Half Action"
+}

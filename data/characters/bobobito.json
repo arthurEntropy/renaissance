@@ -4,20 +4,20 @@
   "artUrls": [
     "https://cdn.midjourney.com/33a4c041-49a8-4234-8e65-54d65bc7033b/0_0.png"
   ],
-  "body": 6,
+  "body": 3,
   "heart": 2,
   "wits": 3,
   "skills": [
     {
       "name": "Awe",
-      "ranks": 3,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": -1
+      "diceMod": 0
     },
     {
       "name": "Strength",
-      "ranks": 2,
+      "ranks": 3,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0
@@ -31,10 +31,10 @@
     },
     {
       "name": "Fortitude",
-      "ranks": 1,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": -1
+      "diceMod": 0
     },
     {
       "name": "Craft",
@@ -45,31 +45,31 @@
     },
     {
       "name": "Perform",
-      "ranks": 1,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": -1
+      "diceMod": 0
     },
     {
       "name": "Insight",
-      "ranks": 1,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0
     },
     {
       "name": "Courtesy",
-      "ranks": 0,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0
     },
     {
       "name": "Spirit",
-      "ranks": 0,
+      "ranks": 1,
       "isFavored": false,
-      "isIllFavored": true,
-      "diceMod": -1
+      "isIllFavored": false,
+      "diceMod": 0
     },
     {
       "name": "Aid",
@@ -80,21 +80,21 @@
     },
     {
       "name": "Persuade",
-      "ranks": 0,
+      "ranks": 1,
       "isFavored": false,
-      "isIllFavored": true,
-      "diceMod": -1
+      "isIllFavored": false,
+      "diceMod": 0
     },
     {
       "name": "Awareness",
-      "ranks": 0,
+      "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0
     },
     {
       "name": "Stealth",
-      "ranks": 3,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0
@@ -103,8 +103,8 @@
       "name": "Lore",
       "ranks": 0,
       "isFavored": false,
-      "isIllFavored": true,
-      "diceMod": -1
+      "isIllFavored": false,
+      "diceMod": 0
     },
     {
       "name": "Riddle",
@@ -115,20 +115,20 @@
     }
   ],
   "endurance": {
-    "current": 17,
-    "max": 30
+    "current": 14,
+    "max": 20
   },
   "hope": {
-    "current": 4,
+    "current": 6,
     "max": 6
   },
   "defense": {
-    "current": 10,
+    "current": 13,
     "max": 13
   },
   "load": 0,
-  "shadow": 2,
-  "injury": 6,
+  "shadow": 0,
+  "injury": 0,
   "states": {
     "weary": false,
     "twiceWeary": false,
@@ -138,30 +138,51 @@
     "twiceHelpless": false
   },
   "conditions": {
-    "insecure": true,
+    "insecure": false,
     "guilty": false,
     "angry": false,
-    "afraid": true,
+    "afraid": false,
     "troubled": false
   },
-  "equipment": [],
+  "equipment": [
+    {
+      "id": "6a8992ec-46d8-4113-ac97-a87d759e2a46",
+      "quantity": 1,
+      "isCarried": true,
+      "isWielding": true,
+      "index": 0
+    },
+    {
+      "id": "58c57499-9eef-49d4-9273-7674c60fae77",
+      "quantity": 1,
+      "isCarried": true,
+      "isWielding": true,
+      "index": 1
+    }
+  ],
   "activeEffects": [],
   "pronouns": "he/him",
   "ancestries": "Human",
   "cultures": "Agralaur",
   "personalityAndBackground": "Seasoned squire nearing retirement. Has a bird named Xixixaxa. Has a brother-in-law who owns a shaved ice stand. Never stops smiling.",
-  "xp": 0,
+  "xp": 5,
   "mp": {
     "current": 0,
     "max": 0
   },
   "current": "9",
   "ancestryIds": [
-    1,
-    "adc655c1-1d9c-433f-a0eb-41f93cf3ee07"
+    1
   ],
   "cultureIds": [
-    "0c876a74-a89b-42dc-b76a-4592a0478d81",
-    "a3a54cb6-09c4-42e3-b142-3053b7c1d4e8"
+    "c02c53d1-b456-45d0-a048-6fc941cacc03"
+  ],
+  "abilities": [
+    "3f084b3d-ff7a-462c-a55c-0ea52dac6332",
+    "82fad9cc-9de8-49c3-a192-ae96a981007d",
+    "55004379-6745-465c-887f-2eb2337ac6f0",
+    "4fbf9ccb-0fbb-45d0-9f8f-7b7fcfb811fb",
+    "dbd3d35e-5846-49f5-94db-030d8515fdf0",
+    "2f40fa98-f90a-4eb8-b626-999b000fa4b2"
   ]
 }

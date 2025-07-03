@@ -1,121 +1,69 @@
 <template>
   <div class="rich-editor-wrapper">
     <div class="rich-editor-toolbar" v-if="editor">
-      <button
-        @click.stop.prevent="editor.chain().focus().toggleBold().run()"
-        :class="{ 'is-active': editor?.isActive('bold') }"
-        title="Bold"
-      >
+      <button @click.stop.prevent="editor.chain().focus().toggleBold().run()"
+        :class="{ 'is-active': editor?.isActive('bold') }" title="Bold">
         B
       </button>
-      <button
-        @click.stop.prevent="editor.chain().focus().toggleItalic().run()"
-        :class="{ 'is-active': editor?.isActive('italic') }"
-        title="Italic"
-      >
+      <button @click.stop.prevent="editor.chain().focus().toggleItalic().run()"
+        :class="{ 'is-active': editor?.isActive('italic') }" title="Italic">
         I
       </button>
-      <button
-        @click.stop.prevent="editor.chain().focus().setParagraph().run()"
-        :class="{ 'is-active': editor?.isActive('paragraph') }"
-        title="Paragraph"
-      >
+      <button @click.stop.prevent="editor.chain().focus().setParagraph().run()"
+        :class="{ 'is-active': editor?.isActive('paragraph') }" title="Paragraph">
         ¶
       </button>
-      <button
-        @click.stop.prevent="
-          editor.chain().focus().toggleHeading({ level: 1 }).run()
-        "
-        :class="{ 'is-active': editor?.isActive('heading', { level: 1 }) }"
-        title="Heading 1"
-      >
+      <button @click.stop.prevent="
+        editor.chain().focus().toggleHeading({ level: 1 }).run()
+        " :class="{ 'is-active': editor?.isActive('heading', { level: 1 }) }" title="Heading 1">
         H1
       </button>
-      <button
-        @click.stop.prevent="
-          editor.chain().focus().toggleHeading({ level: 2 }).run()
-        "
-        :class="{ 'is-active': editor?.isActive('heading', { level: 2 }) }"
-        title="Heading 2"
-      >
+      <button @click.stop.prevent="
+        editor.chain().focus().toggleHeading({ level: 2 }).run()
+        " :class="{ 'is-active': editor?.isActive('heading', { level: 2 }) }" title="Heading 2">
         H2
       </button>
-      <button
-        @click.stop.prevent="
-          editor.chain().focus().toggleHeading({ level: 3 }).run()
-        "
-        :class="{ 'is-active': editor?.isActive('heading', { level: 3 }) }"
-        title="Heading 3"
-      >
+      <button @click.stop.prevent="
+        editor.chain().focus().toggleHeading({ level: 3 }).run()
+        " :class="{ 'is-active': editor?.isActive('heading', { level: 3 }) }" title="Heading 3">
         H3
       </button>
-      <button
-        @click.stop.prevent="
-          editor.chain().focus().toggleHeading({ level: 4 }).run()
-        "
-        :class="{ 'is-active': editor?.isActive('heading', { level: 4 }) }"
-        title="Heading 4"
-      >
+      <button @click.stop.prevent="
+        editor.chain().focus().toggleHeading({ level: 4 }).run()
+        " :class="{ 'is-active': editor?.isActive('heading', { level: 4 }) }" title="Heading 4">
         H4
       </button>
-      <button
-        @click.stop.prevent="editor.chain().focus().toggleBulletList().run()"
-        :class="{ 'is-active': editor?.isActive('bulletList') }"
-        title="Bullet List"
-      >
+      <button @click.stop.prevent="editor.chain().focus().toggleBulletList().run()"
+        :class="{ 'is-active': editor?.isActive('bulletList') }" title="Bullet List">
         •
       </button>
-      <button
-        @click.stop.prevent="setLink"
-        :class="{ 'is-active': editor?.isActive('link') }"
-        title="Add Link"
-      >
+      <button @click.stop.prevent="setLink" :class="{ 'is-active': editor?.isActive('link') }" title="Add Link">
         🔗
       </button>
-      <button
-        @click.stop.prevent="editor.chain().focus().unsetLink().run()"
-        :disabled="!editor?.isActive('link')"
-        title="Remove Link"
-      >
+      <button @click.stop.prevent="editor.chain().focus().unsetLink().run()" :disabled="!editor?.isActive('link')"
+        title="Remove Link">
         🔗❌
       </button>
       <button @click.stop.prevent="insertImage" title="Insert Image">🖼️</button>
-      <button
-        @click.stop.prevent="editor.chain().focus().setTextAlign('left').run()"
-        :class="{ 'is-active': editor?.isActive({ textAlign: 'left' }) }"
-        title="Align Left"
-      >
+      <button @click.stop.prevent="editor.chain().focus().setTextAlign('left').run()"
+        :class="{ 'is-active': editor?.isActive({ textAlign: 'left' }) }" title="Align Left">
         ⬅️
       </button>
-      <button
-        @click.stop.prevent="
-          editor.chain().focus().setTextAlign('center').run()
-        "
-        :class="{ 'is-active': editor?.isActive({ textAlign: 'center' }) }"
-        title="Align Center"
-      >
+      <button @click.stop.prevent="
+        editor.chain().focus().setTextAlign('center').run()
+        " :class="{ 'is-active': editor?.isActive({ textAlign: 'center' }) }" title="Align Center">
         ⬜
       </button>
-      <button
-        @click.stop.prevent="editor.chain().focus().setTextAlign('right').run()"
-        :class="{ 'is-active': editor?.isActive({ textAlign: 'right' }) }"
-        title="Align Right"
-      >
+      <button @click.stop.prevent="editor.chain().focus().setTextAlign('right').run()"
+        :class="{ 'is-active': editor?.isActive({ textAlign: 'right' }) }" title="Align Right">
         ➡️
       </button>
-      <button
-        @click.stop.prevent="
-          editor.chain().focus().setTextAlign('justify').run()
-        "
-        :class="{ 'is-active': editor?.isActive({ textAlign: 'justify' }) }"
-        title="Justify"
-      >
+      <button @click.stop.prevent="
+        editor.chain().focus().setTextAlign('justify').run()
+        " :class="{ 'is-active': editor?.isActive({ textAlign: 'justify' }) }" title="Justify">
         📏
       </button>
-      <button
-        @click.stop.prevent="insertDiceFontCharacter"
-        title="Insert DiceFont Character"
-      >
+      <button @click.stop.prevent="insertDiceFontCharacter" title="Insert DiceFont Character">
         🎲
       </button>
     </div>
@@ -154,11 +102,16 @@ export default {
       type: Boolean,
       default: false,
     },
+    autoHeight: {
+      type: Boolean,
+      default: false,
+    },
   },
   emits: ['update:modelValue'],
   data() {
     return {
       editor: null,
+      dynamicHeight: this.height,
     }
   },
   watch: {
@@ -167,6 +120,9 @@ export default {
       const currentContent = this.editor?.getHTML()
       if (this.editor && newValue !== currentContent) {
         this.editor.commands.setContent(newValue)
+      }
+      if (this.autoHeight) {
+        this.$nextTick(this.updateHeight)
       }
     },
   },
@@ -198,8 +154,14 @@ export default {
       ],
       onUpdate: () => {
         this.$emit('update:modelValue', this.editor.getHTML())
+        if (this.autoHeight) {
+          this.$nextTick(this.updateHeight)
+        }
       },
     })
+    if (this.autoHeight) {
+      this.$nextTick(this.updateHeight)
+    }
   },
   beforeUnmount() {
     if (this.editor) {
@@ -255,6 +217,20 @@ export default {
     focus() {
       this.editor?.chain().focus().run()
     },
+    updateHeight() {
+      if (!this.autoHeight) return
+      this.$nextTick(() => {
+        const pm = this.$el.querySelector('.ProseMirror')
+        if (pm) {
+          pm.style.height = 'auto'
+          const scrollHeight = pm.scrollHeight
+          const minHeight = 200
+          const newHeight = Math.max(minHeight, scrollHeight)
+          this.dynamicHeight = newHeight + 'px'
+          pm.style.height = this.dynamicHeight
+        }
+      })
+    },
   },
 }
 </script>
@@ -272,14 +248,17 @@ export default {
   text-align: left;
   display: flex;
   flex-direction: column;
-  max-height: v-bind(height); /* Use the height prop */
+  /* Use dynamicHeight if autoHeight, else use height prop */
+  height: v-bind(dynamicHeight);
+  min-height: 100px;
 }
 
 .rich-editor-toolbar {
-  padding: 8px;
+  padding: 4px;
   display: flex;
+  flex-wrap: wrap;
   border-bottom: 1px solid #444;
-  gap: 8px;
+  gap: 4px;
   background: #222;
   position: sticky;
   top: 0;
@@ -290,11 +269,13 @@ export default {
   background: #333;
   border: none;
   color: #eee;
-  padding: 4px 8px;
-  border-radius: 4px;
+  padding: 2px 4px;
+  border-radius: 3px;
   cursor: pointer;
-  min-width: 30px;
+  min-width: 22px;
   font-weight: bold;
+  font-size: 13px;
+  line-height: 1.1;
 }
 
 .rich-editor-toolbar button.is-active {
@@ -315,12 +296,18 @@ export default {
 
 :deep(.ProseMirror) {
   padding: 10px;
+  padding-bottom: 35px;
   min-height: 100px;
-  outline: none;
-  line-height: 1.5;
+  height: 100%;
+  max-height: none;
+  box-sizing: border-box;
   overflow-y: auto;
-  flex: 1;
-  max-height: calc(v-bind(height) - 50px); /* Adjust for toolbar height */
+  font-size: 1.1rem;
+  line-height: 1.5;
+}
+
+:deep(.ProseMirror)>* {
+  max-width: 100%;
 }
 
 :deep(.ProseMirror a) {
@@ -357,8 +344,8 @@ export default {
 
 :deep(.ProseMirror img),
 :deep(.editor-image) {
-  width: 100%; /* Fill horizontal space */
-  height: auto; /* Maintain aspect ratio */
+  width: 100%;
+  height: auto;
   display: block;
   margin: 0.5em 0;
 }

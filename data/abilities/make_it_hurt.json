@@ -1,0 +1,13 @@
+{
+  "id": "76025af2-a4d6-4e91-bcec-2815f575f4dd",
+  "name": "Make It Hurt",
+  "description": "<p><em>You bear down on your foe with brutal finality, ignoring pain in pursuit of a decisive blow.</em></p><p>Upgrade a melee attack hit, inflicting Injury on the foe. You lose 5 Endurance.</p><p><strong>Describe the ruthless precision of your strike — the kind that leaves armor torn and bone broken.</strong></p>",
+  "isTrait": false,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "1e4131c7-8a6f-422c-998a-5147600c946e",
+  "isDeleted": false,
+  "mp": null,
+  "xp": 15,
+  "actionType": "Reaction"
+}

@@ -8,7 +8,7 @@
       <AbilityCard v-for="ability in filteredItems" :key="ability.id" :ability="ability" :editable="true"
         :sources="sources" @delete="deleteAbility(ability)" @update="updateAbility(ability)"
         @edit="openEditAbilityModal(ability)" @send-to-chat="sendAbilityToChat(ability)"
-        @height-changed="$refs.itemCardsView.onCardHeightChanged()" />
+        @height-changed="$refs.itemCardsView.onCardHeightChanged()" :collapsible="false" />
     </template>
 
     <!-- Modals slot -->

@@ -1,0 +1,16 @@
+{
+  "id": "0c2b3561-e4b5-4a40-9a30-4dbc7d3cf2c8",
+  "name": "New Custom Item",
+  "description": "",
+  "standardOfLiving": null,
+  "source": null,
+  "weight": 0,
+  "isMelee": false,
+  "damageDice": [],
+  "engagementDice": [],
+  "engagementSuccesses": [],
+  "skillMods": [],
+  "isDeleted": false,
+  "isCustom": true,
+  "artUrl": null
+}

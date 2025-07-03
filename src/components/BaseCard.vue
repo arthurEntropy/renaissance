@@ -1,9 +1,9 @@
 <template>
   <div class="base-card" :style="cardStyle" @mouseenter="startSourceTooltipTimer" @mouseleave="clearSourceTooltipTimer"
-    @click="toggleCollapsed">
+    @click="collapsible ? toggleCollapsed() : null">
     <!-- Header Row -->
     <div class="card-header">
-      <span class="caret">{{ caretSymbol }}</span>
+      <span v-if="collapsible" class="caret">{{ caretSymbol }}</span>
       <div class="name-container">
         <span class="item-name"><strong>{{ item.name }}</strong></span>
         <button v-if="editable" class="edit-button" @click.stop="$emit('edit', item)" :title="`Edit ${itemType}`">
@@ -17,7 +17,7 @@
 
     <!-- Expandable Content -->
     <transition name="expand">
-      <div v-if="!isCollapsed" class="card-content">
+      <div v-if="!collapsible || !isCollapsed" class="card-content">
         <!-- Move large image inside the collapsible area -->
         <slot name="large-image"></slot>
         <slot name="content"></slot>
@@ -75,6 +75,10 @@ export default {
         mestieri: [],
         worldElements: []
       })
+    },
+    collapsible: {
+      type: Boolean,
+      default: true,
     },
   },
   emits: ['edit', 'update', 'send-to-chat', 'height-changed'],
@@ -254,6 +258,20 @@ export default {
     -1px 1px 0 #000,
     1px 1px 0 #000;
   word-wrap: break-word;
+}
+
+.item-info {
+  font-size: 13px;
+  color: #fff;
+  text-shadow:
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  margin-left: 8px;
+  margin-right: 0;
 }
 
 .edit-button {

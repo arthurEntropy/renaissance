@@ -1,0 +1,12 @@
+{
+  "id": "6949c26b-a3a5-44c1-ae6c-175fad763f37",
+  "name": "Master of Arms",
+  "description": "<p><em>You don’t just use your gear—you turn it into an extension of your will.</em></p><p>For each engagement die provided by equipment you’re wearing or wielding, you add two more dice of the same type instead of one.</p><p><strong>Describe how your expert handling of gear gives you a decisive edge in combat.</strong></p>",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "d4dce5e2-e767-464d-91f0-c40b47f788b3",
+  "isDeleted": false,
+  "mp": "",
+  "xp": 20
+}

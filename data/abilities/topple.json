@@ -1,0 +1,13 @@
+{
+  "id": "eabcf518-4257-4b12-8b33-c5314cad6fcf",
+  "name": "Topple",
+  "description": "<p><em>You seize an opportunity to bring the enemy down.</em></p><p>When you and an ally are both engaged with a foe and one of you lands a hit with a melee attack, the other may roll Strength vs Dexterity against that foe. If you win the roll, the foe is knocked prone.</p><p><strong>Describe how you take your foe off their feet.</strong></p>",
+  "isTrait": false,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "d4dce5e2-e767-464d-91f0-c40b47f788b3",
+  "isDeleted": false,
+  "mp": 1,
+  "xp": 5,
+  "actionType": "Reaction"
+}

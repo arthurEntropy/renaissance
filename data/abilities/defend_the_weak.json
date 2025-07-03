@@ -1,0 +1,13 @@
+{
+  "id": "6bd8eec2-3aa3-4e00-b73c-c716b938550b",
+  "name": "Defend The Weak",
+  "description": "<p><em>Your instincts pull you toward danger when others are in harm’s way.</em></p><p>Use your reaction to move up to half your speed and intercept an attack targeting an ally. You become the new target of the attack instead. You must declare this before the attack roll is made but after engagement.</p><p><strong>Describe how you intervene.</strong></p>",
+  "isTrait": false,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "d4dce5e2-e767-464d-91f0-c40b47f788b3",
+  "isDeleted": false,
+  "mp": 2,
+  "xp": 5,
+  "actionType": "Reaction"
+}

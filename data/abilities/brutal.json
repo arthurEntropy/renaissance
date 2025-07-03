@@ -1,0 +1,12 @@
+{
+  "id": "3a04ff42-11fc-45fc-9eac-a80595e6d374",
+  "name": "Brutal",
+  "description": "<p><em>Your attacks aren’t just powerful — they’re punishing.</em></p><p>When you inflict Injury on a foe, they roll their Injury check twice and keep the worse result.</p><p><strong>Describe how the sheer brutality of your attack makes it harder for your enemy to shake off the pain.</strong></p>",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "1e4131c7-8a6f-422c-998a-5147600c946e",
+  "isDeleted": false,
+  "mp": null,
+  "xp": 15
+}

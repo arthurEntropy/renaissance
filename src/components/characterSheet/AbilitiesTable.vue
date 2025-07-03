@@ -22,7 +22,7 @@
     <!-- Using MasonryGrid with draggable -->
     <div v-if="!isEditMode" class="abilities-list">
       <AbilityCard v-for="ability in sortedAbilities" :key="ability.id" :ability="ability" :collapsed="true"
-        :sources="sources" class="ability-card" />
+        :sources="sources" class="ability-card" :collapsible="true" />
     </div>
 
     <!-- DRAGGABLE ABILITY ROWS (only in edit mode) -->
@@ -36,7 +36,8 @@
             <span class="drag-handle" title="Drag to reorder">⋮⋮</span>
           </div>
           <!-- Ability Card -->
-          <AbilityCard v-if="ability" :ability="ability" :collapsed="true" :sources="sources" class="ability-card" />
+          <AbilityCard v-if="ability" :ability="ability" :collapsed="true" :sources="sources" class="ability-card"
+            :collapsible="true" />
           <span v-else class="missing-ability">Unknown ability</span>
         </div>
       </template>
