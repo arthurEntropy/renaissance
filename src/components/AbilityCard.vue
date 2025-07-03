@@ -1,7 +1,7 @@
 <template>
   <base-card :item="ability" itemType="ability" :metaInfo="traitOrMp" :storeInstance="abilitiesStore"
-    :initialCollapsed="collapsed" :editable="editable" :sources="sources" @edit="$emit('edit', ability)"
-    :collapsible="collapsible">
+    :initialCollapsed="localCollapsed" :editable="editable" :sources="sources" @edit="$emit('edit', ability)"
+    :collapsible="collapsible" @update:collapsed="onBaseCardCollapsed">
     <!-- Content slot -->
     <template #content>
       <div v-if="ability.description" v-html="ability.description" class="description-background"></div>
@@ -20,7 +20,7 @@
 
     <!-- Badge slot (XP) -->
     <template #badge>
-      <div v-if="ability.xp" class="xp-bubble">{{ ability.xp }} XP</div>
+      <div v-if="showXpBadge && ability.xp" class="xp-bubble">{{ ability.xp }} XP</div>
     </template>
   </base-card>
 </template>
@@ -59,12 +59,25 @@ export default {
       type: Boolean,
       default: false,
     },
+    showXpBadge: {
+      type: Boolean,
+      default: true,
+    },
   },
-  emits: ['edit', 'update', 'sendToChat'],
+  emits: ['edit', 'update', 'sendToChat', 'update:collapsed'],
   data() {
     return {
       isActive: this.ability.isActive,
       abilitiesStore: useAbilitiesStore(),
+      localCollapsed: this.collapsed,
+    }
+  },
+  watch: {
+    collapsed(newVal) {
+      this.localCollapsed = newVal
+    },
+    localCollapsed(newVal) {
+      this.$emit('update:collapsed', newVal)
     }
   },
   computed: {
@@ -90,6 +103,10 @@ export default {
     },
     sendAbilityToChat() {
       this.$emit('sendToChat', this.ability)
+    },
+    onBaseCardCollapsed(newVal) {
+      this.localCollapsed = newVal
+      this.$emit('update:collapsed', newVal)
     },
   },
 }

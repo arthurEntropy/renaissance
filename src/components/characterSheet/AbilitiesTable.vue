@@ -21,13 +21,14 @@
 
     <!-- Using MasonryGrid with draggable -->
     <div v-if="!isEditMode" class="abilities-list">
-      <AbilityCard v-for="ability in sortedAbilities" :key="ability.id" :ability="ability" :collapsed="true"
-        :sources="sources" class="ability-card" :collapsible="true" />
+      <AbilityCard v-for="ability in sortedAbilities" :key="ability.id" :ability="ability"
+        :collapsed="getCollapsedState(ability)" @update:collapsed="setCollapsedState(ability, $event)"
+        :sources="sources" class="ability-card" :collapsible="true" :show-xp-badge="false" />
     </div>
 
     <!-- DRAGGABLE ABILITY ROWS (only in edit mode) -->
     <draggable v-else v-model="sortedAbilities" group="abilities" handle=".drag-handle" item-key="id" @end="onDragEnd"
-      ghost-class="ghost-ability-row" animation="150">
+      ghost-class="ghost-ability-row" animation="150" class="abilities-edit-list">
       <template #item="{ element: ability, index }">
         <div class="ability-row">
           <!-- Edit Mode Controls (left, stacked) -->
@@ -36,15 +37,16 @@
             <span class="drag-handle" title="Drag to reorder">⋮⋮</span>
           </div>
           <!-- Ability Card -->
-          <AbilityCard v-if="ability" :ability="ability" :collapsed="true" :sources="sources" class="ability-card"
-            :collapsible="true" />
+          <AbilityCard v-if="ability" :ability="ability" :collapsed="getCollapsedState(ability)"
+            @update:collapsed="setCollapsedState(ability, $event)" :sources="sources" class="ability-card"
+            :collapsible="true" :show-xp-badge="false" />
           <span v-else class="missing-ability">Unknown ability</span>
         </div>
       </template>
     </draggable>
 
-    <!-- Add Ability Link (always visible at bottom right) -->
-    <div class="add-item-footer">
+    <!-- Add Ability Link (only visible in edit mode) -->
+    <div v-if="isEditMode" class="add-item-footer">
       <em @click="toggleAbilitySelector($event)" class="add-item-text">add ability</em>
     </div>
 
@@ -109,6 +111,7 @@ export default {
       abilitySearchQuery: '',
       filteredAbilities: [],
       abilitiesStore: useAbilitiesStore(),
+      abilityCollapseState: {}, // Track collapsed/expanded state by ability ID
     }
   },
   computed: {
@@ -332,6 +335,20 @@ export default {
       this.toggleAbilitySelector()
     },
 
+    // Collapsed/Expanded State Management
+    getCollapsedState(ability) {
+      // Default to true (collapsed) if not set
+      return this.abilityCollapseState[ability.id] !== undefined
+        ? this.abilityCollapseState[ability.id]
+        : true
+    },
+    setCollapsedState(ability, collapsed) {
+      this.abilityCollapseState = {
+        ...this.abilityCollapseState,
+        [ability.id]: collapsed
+      }
+    },
+
     getSourceById(sourceId) {
       if (!sourceId) return null;
 
@@ -408,7 +425,8 @@ h2 {
   margin-bottom: 10px;
 }
 
-.abilities-list {
+.abilities-list,
+.abilities-edit-list {
   width: 100%;
   min-width: 0;
   max-width: 100%;
@@ -488,7 +506,16 @@ h2 {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  margin-bottom: 6px;
+  margin-bottom: -2px;
+  width: 100%;
+}
+
+.ability-row .ability-card {
+  flex: 1 1 0%;
+  width: 100% !important;
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .edit-controls {

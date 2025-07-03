@@ -176,6 +176,7 @@ export default {
     },
     isCollapsed(newVal, oldVal) {
       if (newVal !== oldVal) {
+        this.$emit('update:collapsed', newVal)
         this.$nextTick(() => {
           setTimeout(() => {
             this.$emit('height-changed')
