@@ -111,10 +111,6 @@ export default {
           });
         }
       });
-      // If no dice from equipment, default to d6
-      if (result.length === 0) {
-        result.push({ die: 6, name: 'Unarmed' });
-      }
       return result;
     },
 

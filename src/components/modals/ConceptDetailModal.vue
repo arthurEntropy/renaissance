@@ -22,6 +22,11 @@
               @update:images="updateFeaturedArt" />
           </div>
 
+          <!-- Novizio Section -->
+          <NovizioSection ref="novizioSection" :novizio="localConcept.novizio" :editable="isEditMode"
+            @update="updateNovizio" @unsaved-changes="onSectionUnsavedChanges"
+            @reset-unsaved-changes="onSectionResetUnsavedChanges" />
+
           <!-- Faces -->
           <div class="concept-section" v-if="hasFaces || isEditMode">
             <h2 class="section-header">Faces</h2>
@@ -102,10 +107,12 @@
             vittles: localConcept.vittles,
             pointsOfInterest: localConcept.pointsOfInterest,
             floraFauna: localConcept.floraFauna,
-          }" :editable="isEditMode" @update="updateLocalFlavor" />
+          }" :editable="isEditMode" @update="updateLocalFlavor" @unsaved-changes="onSectionUnsavedChanges"
+            @reset-unsaved-changes="onSectionResetUnsavedChanges" />
 
           <!-- Hooks -->
-          <HooksSection :hooks="localConcept.hooks || []" :editable="isEditMode" @update="updateHooks" />
+          <HooksSection :hooks="localConcept.hooks || []" :editable="isEditMode" @update="updateHooks"
+            @unsaved-changes="onSectionUnsavedChanges" @reset-unsaved-changes="onSectionResetUnsavedChanges" />
 
           <!-- Wares -->
           <div class="concept-section" v-if="hasEquipment || isEditMode">
@@ -139,6 +146,7 @@ import MasonryGrid from '@/components/MasonryGrid.vue'
 import PlaylistSection from '@/components/conceptDetail/PlaylistSection.vue'
 import SettingsModal from '@/components/conceptDetail/ConceptSettingsModal.vue'
 import TextEditor from '@/components/TextEditor.vue'
+import NovizioSection from '@/components/conceptDetail/NovizioSection.vue'
 import { useAbilitiesStore } from '@/stores/abilitiesStore'
 import { useEquipmentStore } from '@/stores/equipmentStore'
 import { useExpansionStore } from '@/stores/expansionStore'
@@ -168,6 +176,7 @@ export default defineComponent({
     PlaylistSection,
     SettingsModal,
     TextEditor,
+    NovizioSection,
   },
   emits: ['close', 'update', 'edit-ability', 'edit-equipment'],
   data() {
@@ -175,7 +184,7 @@ export default defineComponent({
       abilities: [],
       equipment: [],
       localConcept: {},
-      isEditMode: false, // Always start as false
+      isEditMode: false, // Always start in 'display' mode
       isEditingTitle: false,
       isEditingDescription: false,
       backupConcept: null,
@@ -195,6 +204,7 @@ export default defineComponent({
       equipmentStore: useEquipmentStore(),
       expansionStore: useExpansionStore(),
       expansions: [],
+      hasUnsavedSectionChanges: false,
     }
   },
   watch: {
@@ -293,22 +303,21 @@ export default defineComponent({
 
     closeModal() {
       try {
-        // Check if any editing is in progress
-        if (this.isEditingTitle || this.isEditingDescription) {
+        if (
+          this.isEditingTitle ||
+          this.isEditingDescription ||
+          this.hasUnsavedSectionChanges
+        ) {
           if (
             confirm('You have unsaved changes. Are you sure you want to exit?')
           ) {
-            // Don't emit an update when closing - just close
             this.$emit('close')
           }
-          // If they cancel, do nothing (keep modal open)
         } else {
-          // Just close without emitting update
           this.$emit('close')
         }
       } catch (error) {
         console.error('Error in closeDetailView:', error)
-        // Still close the modal even if there was an error
         this.$emit('close')
       }
     },
@@ -521,6 +530,20 @@ export default defineComponent({
       this.emitUpdateEvent()
       this.closeSettingsModal()
     },
+
+    // Novizio Section
+    updateNovizio(newNovizio) {
+      this.localConcept.novizio = { ...newNovizio }
+      this.emitUpdateEvent()
+    },
+
+    //Section Unsaved Changes Handling
+    onSectionUnsavedChanges() {
+      this.hasUnsavedSectionChanges = true;
+    },
+    onSectionResetUnsavedChanges() {
+      this.hasUnsavedSectionChanges = false;
+    },
   },
 
   async mounted() {
@@ -674,13 +697,6 @@ export default defineComponent({
 
 .description-container:hover .edit-field-indicator {
   opacity: 0.7;
-}
-
-.edit-field-buttons {
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-  margin-top: 10px;
 }
 
 /* Individual component styling from original */

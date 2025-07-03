@@ -16,7 +16,7 @@
         <div class="form-group vertical description">
           <label for="description" class="left-aligned">Description:</label>
           <TextEditor v-model="editedAbility.description" :placeholder="'Enter ability description...'"
-            :height="'250px'" />
+            :auto-height="true" />
         </div>
 
         <!-- MP, XP, and Type -->
@@ -143,9 +143,5 @@ export default {
 <style scoped>
 .modal-content {
   max-width: 500px;
-}
-
-textarea.modal-input {
-  min-height: 250px;
 }
 </style>

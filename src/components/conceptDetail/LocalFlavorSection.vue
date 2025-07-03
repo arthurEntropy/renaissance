@@ -120,6 +120,9 @@ export default {
         this.localData.floraFauna,
       )
     },
+    hasUnsavedChanges() {
+      return JSON.stringify(this.localData) !== JSON.stringify(this.backupData)
+    },
   },
   watch: {
     data: {
@@ -127,6 +130,16 @@ export default {
       handler(newValue) {
         this.localData = { ...newValue }
       },
+    },
+    localData: {
+      handler() {
+        if (this.isEditing && this.hasUnsavedChanges) {
+          this.$emit('unsaved-changes')
+        } else if (this.isEditing && !this.hasUnsavedChanges) {
+          this.$emit('reset-unsaved-changes')
+        }
+      },
+      deep: true,
     },
   },
   methods: {
@@ -136,6 +149,7 @@ export default {
       if (!this.isEditing) {
         // Starting to edit - backup current values
         this.backupData = { ...this.localData }
+        this.$emit('unsaved-changes')
       } else {
         // Save changes if exiting edit mode
         this.saveChanges()
@@ -147,12 +161,14 @@ export default {
     saveChanges() {
       this.isEditing = false
       this.$emit('update', { ...this.localData })
+      this.$emit('reset-unsaved-changes')
     },
 
     cancelEdit() {
       // Restore from backup
       this.localData = { ...this.backupData }
       this.isEditing = false
+      this.$emit('reset-unsaved-changes')
     },
   },
 }
