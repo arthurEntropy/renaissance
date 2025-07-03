@@ -54,7 +54,7 @@
 
     <!-- Badge slot (Standard of Living) -->
     <template #badge>
-      <div v-if="equipment.standardOfLiving" class="sol-bubble">
+      <div v-if="showSolBadge && equipment.standardOfLiving" class="sol-bubble">
         {{ equipment.standardOfLiving }} 🪙
       </div>
     </template>
@@ -115,6 +115,10 @@ export default {
     collapsible: {
       type: Boolean,
       default: false,
+    },
+    showSolBadge: {
+      type: Boolean,
+      default: true,
     },
   },
 

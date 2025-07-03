@@ -22,74 +22,75 @@
       ghost-class="ghost-equipment-row" animation="150" :disabled="!isEditMode">
       <template #item="{ element: row, index }">
         <div class="equipment-row">
-          <!-- EquipmentCard (collapsed/minimal) -->
-          <EquipmentCard v-if="row.equipment" :equipment="row.equipment" :collapsed="true"
-            :editable="row.equipment.isCustom" :sources="sources" class="equipment-card" @edit="editCustomItem"
-            :collapsible="true" />
-          <span v-else class="missing-equipment">Unknown item</span>
-
-          <div v-if="isEditMode" class="equipment-row-details">
-            <div class="details-content">
-              <!-- Edit Controls (edit mode only) -->
-              <div class="edit-controls">
-                <!-- Drag Handle -->
-                <span class="drag-handle" title="Drag to reorder">⋮⋮</span>
-                <!-- Delete Button -->
-                <span @click="removeEquipmentItem(index)" class="delete-item-link">ⓧ</span>
-              </div>
-              <!-- Carried Checkbox -->
-              <div class="detail-item checkbox-item">
-                <input type="checkbox" class="equipment-checkbox" v-model="row.isCarried"
-                  @change="handleCarriedChange(index, row.isCarried)" />
-                <em class="carried-label">carried</em>
-              </div>
-              <!-- Wielding Checkbox (edit mode only) -->
-              <div class="detail-item checkbox-item">
-                <input type="checkbox" class="equipment-checkbox" :class="{
-                  'disabled-checkbox':
-                    !row.isCarried ||
-                    !(row.equipment && row.equipment.isMelee),
-                }" v-model="row.isWielding" @change="
-                  updateEquipmentItem(
-                    index,
-                    'isWielding',
-                    row.isWielding &&
-                    row.isCarried &&
-                    row.equipment &&
-                    row.equipment.isMelee,
-                  )
-                  " :disabled="!row.isCarried || !(row.equipment && row.equipment.isMelee)
-                    " />
-                <em class="carried-label" :class="{
-                  'disabled-text':
-                    !row.isCarried ||
-                    !(row.equipment && row.equipment.isMelee),
-                }">wielding</em>
-              </div>
-              <div class="detail-item">
-                <!-- Quantity -->
-                <div class="detail-item">
-                  <em class="carried-label"> qty </em>
-                  <NumberInput :model-value="row.quantity" @update:model-value="
-                    (value) =>
+          <div class="equipment-row-flex">
+            <!-- Edit Controls (left, stacked, only in edit mode) -->
+            <div v-if="isEditMode" class="edit-controls">
+              <span @click="removeEquipmentItem(index)" class="delete-item-link">ⓧ</span>
+              <span class="drag-handle" title="Drag to reorder">⋮⋮</span>
+            </div>
+            <!-- EquipmentCard (collapsed/minimal) -->
+            <div class="equipment-card-col">
+              <EquipmentCard v-if="row.equipment" :equipment="row.equipment" :collapsed="true"
+                :editable="row.equipment.isCustom" :sources="sources" class="equipment-card" @edit="editCustomItem"
+                :collapsible="true" :show-sol-badge="false" />
+              <span v-else class="missing-equipment">Unknown item</span>
+              <div class="equipment-row-details">
+                <div class="details-content">
+                  <!-- Carried Checkbox -->
+                  <div class="detail-item checkbox-item">
+                    <input type="checkbox" class="equipment-checkbox" v-model="row.isCarried"
+                      @change="handleCarriedChange(index, row.isCarried)" />
+                    <em class="carried-label">carried</em>
+                  </div>
+                  <!-- Wielding Checkbox (edit mode only) -->
+                  <div class="detail-item checkbox-item">
+                    <input type="checkbox" class="equipment-checkbox" :class="{
+                      'disabled-checkbox':
+                        !row.isCarried ||
+                        !(row.equipment && row.equipment.isMelee),
+                    }" v-model="row.isWielding" @change="
                       updateEquipmentItem(
                         index,
-                        'quantity',
-                        Math.max(1, value),
+                        'isWielding',
+                        row.isWielding &&
+                        row.isCarried &&
+                        row.equipment &&
+                        row.equipment.isMelee,
                       )
-                  " :min="1" size="tiny" class="quantity-input" />
-                </div>
-                <!-- Carried Weight -->
-                <div class="detail-item carried-weight">
-                  <em class="carried-label"> = </em>
-                  <span>
-                    {{
-                      row.isCarried && row.equipment
-                        ? formatWeight(row.equipment.weight * row.quantity)
-                        : '0'
-                    }}
-                  </span>
-                  <em class="carried-label">lbs</em>
+                      " :disabled="!row.isCarried || !(row.equipment && row.equipment.isMelee)
+                        " />
+                    <em class="carried-label" :class="{
+                      'disabled-text':
+                        !row.isCarried ||
+                        !(row.equipment && row.equipment.isMelee),
+                    }">wielding</em>
+                  </div>
+                  <div class="detail-item">
+                    <!-- Quantity -->
+                    <div class="detail-item">
+                      <em class="carried-label"> qty </em>
+                      <NumberInput :model-value="row.quantity" @update:model-value="
+                        (value) =>
+                          updateEquipmentItem(
+                            index,
+                            'quantity',
+                            Math.max(1, value),
+                          )
+                      " :min="1" size="tiny" class="quantity-input" />
+                    </div>
+                    <!-- Carried Weight -->
+                    <div class="detail-item carried-weight">
+                      <em class="carried-label"> = </em>
+                      <span>
+                        {{
+                          row.isCarried && row.equipment
+                            ? formatWeight(row.equipment.weight * row.quantity)
+                            : '0'
+                        }}
+                      </span>
+                      <em class="carried-label">lbs</em>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -603,14 +604,34 @@ h2 {
 /* Equipment row styles */
 .equipment-row {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  /* Change from column to row to separate controls from card+details */
+  align-items: stretch;
   margin-bottom: 10px;
   border-radius: 5px;
   overflow: hidden;
+  width: 100%;
+}
+
+.equipment-row-flex {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.equipment-card-col {
+  flex: 1 1 0%;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-width: 0;
 }
 
 .equipment-card {
+  flex: 1 1 0%;
   width: 100%;
+  min-width: 0;
   padding: 7px;
   text-align: left;
   margin-bottom: 0;
@@ -624,7 +645,12 @@ h2 {
   align-items: center;
   padding: 4px 8px;
   background-color: rgba(60, 60, 60, 0.4);
-  border-radius: 5px;
+  border-radius: 0 0 5px 5px;
+  width: 100%;
+  /* Ensure it matches the card width */
+  margin-left: 0;
+  /* No offset under controls */
+  box-sizing: border-box;
 }
 
 .details-content {
@@ -648,62 +674,42 @@ h2 {
   margin-left: 5px;
 }
 
+/* Edit Controls (left, stacked, like AbilitiesTable) */
 .edit-controls {
   display: flex;
-  align-items: center;
-  gap: 5px;
-  min-width: 25px;
-  font-size: 12px;
-}
-
-.carried-label {
-  color: #ccc;
-}
-
-.total-weight-container {
-  display: flex;
-  align-items: center;
-  background-color: rgb(61, 61, 61);
-  padding: 5px 10px;
-  border-radius: 5px;
-  width: auto;
-  gap: 5px;
-}
-
-.total-weight-carried {
-  font-size: 12px;
-  font-style: italic;
-  white-space: nowrap;
-  margin-top: 2px;
-}
-
-.equipment-lbs-carried {
-  font-size: 16px;
-  font-weight: bold;
-  white-space: nowrap;
+  flex-direction: column;
+  margin: 7px 5px 0 0;
 }
 
 .delete-item-link {
   cursor: pointer;
   color: gray;
-  font-size: 13px;
+  font-size: 15px;
   text-align: center;
+  margin: 0;
 }
 
 .delete-item-link:hover {
   color: #ff6b6b;
 }
 
-/* Drag Handle Styles */
 .drag-handle {
   cursor: move;
-  font-size: 14px;
+  font-size: 16px;
   color: #777;
   user-select: none;
+  margin: 0;
 }
 
 .drag-handle:hover {
   color: white;
+}
+
+.equipment-row-main-details {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 0%;
+  min-width: 0;
 }
 
 /* Ghost row style for dragging */
@@ -853,6 +859,29 @@ h2 {
   color: #aaa;
   font-size: 0.9em;
   margin-left: 5px;
+}
+
+.total-weight-container {
+  display: flex;
+  align-items: center;
+  background-color: rgb(61, 61, 61);
+  padding: 5px 10px;
+  border-radius: 5px;
+  width: auto;
+  gap: 5px;
+}
+
+.total-weight-carried {
+  font-size: 12px;
+  font-style: italic;
+  white-space: nowrap;
+  margin-top: 2px;
+}
+
+.equipment-lbs-carried {
+  font-size: 16px;
+  font-weight: bold;
+  white-space: nowrap;
 }
 
 @media (max-width: 650px) {
