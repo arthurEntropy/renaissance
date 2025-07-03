@@ -1,14 +1,7 @@
 <template>
   <div class="number-input-container" :class="sizeClass">
-    <input
-      type="number"
-      :value="modelValue"
-      @input="$emit('update:modelValue', Number($event.target.value))"
-      :min="min"
-      :max="max"
-      :step="step"
-      :class="inputClass"
-    />
+    <input type="number" :value="modelValue" @input="$emit('update:modelValue', Number($event.target.value))" :min="min"
+      :max="max" :step="step" :class="inputClass" />
     <div class="spinner-buttons">
       <button @click="increment" class="spinner-up">▲</button>
       <button @click="decrement" class="spinner-down">▼</button>
@@ -85,7 +78,7 @@ export default {
 
 .number-input-tiny {
   height: 16px;
-  width: 30px;
+  width: 40px;
 }
 
 .number-input-small {
@@ -107,7 +100,8 @@ input[type='number'] {
   border-radius: 4px;
   color: white;
   text-align: center;
-  padding: 0 14px 0 4px; /* Add right padding to make room for buttons */
+  padding: 0 14px 0 4px;
+  /* Add right padding to make room for buttons */
   width: 100%;
   box-sizing: border-box;
 }
@@ -133,23 +127,31 @@ input[type='number']::-webkit-outer-spin-button {
 /* Spinner buttons styling */
 .spinner-buttons {
   position: absolute;
-  top: 1px; /* Account for input border */
-  bottom: 1px; /* Account for input border */
-  right: 1px; /* Position just inside the input border */
+  top: 1px;
+  /* Account for input border */
+  bottom: 1px;
+  /* Account for input border */
+  right: 1px;
+  /* Position just inside the input border */
   width: 12px;
   display: flex;
   flex-direction: column;
   opacity: 0;
   transition: opacity 0.2s;
-  pointer-events: none; /* Initially hidden from interaction */
-  z-index: 1; /* Ensure buttons are above input */
-  border-radius: 0 3px 3px 0; /* Match input's right border radius */
-  overflow: hidden; /* Ensure buttons don't exceed container */
+  pointer-events: none;
+  /* Initially hidden from interaction */
+  z-index: 1;
+  /* Ensure buttons are above input */
+  border-radius: 0 3px 3px 0;
+  /* Match input's right border radius */
+  overflow: hidden;
+  /* Ensure buttons don't exceed container */
 }
 
 .number-input-container:hover .spinner-buttons {
   opacity: 1;
-  pointer-events: auto; /* Enable interaction on hover */
+  pointer-events: auto;
+  /* Enable interaction on hover */
 }
 
 .spinner-up,

@@ -99,8 +99,8 @@
       </template>
     </draggable>
 
-    <!-- Add Item Link (always visible at bottom right) -->
-    <div class="add-item-footer">
+    <!-- Add Item Link (only visible in edit mode) -->
+    <div v-if="isEditMode" class="add-item-footer">
       <em @click="toggleAddOptions($event)" class="add-item-text">add item</em>
     </div>
 
@@ -558,7 +558,7 @@ h2 {
 .header-left {
   display: flex;
   align-items: center;
-  gap: 10px;
+  padding-right: 10px;
 }
 
 .header-right {
@@ -671,7 +671,7 @@ h2 {
 }
 
 .checkbox-item {
-  margin-left: 5px;
+  margin-left: -5px;
 }
 
 /* Edit Controls (left, stacked, like AbilitiesTable) */
@@ -747,6 +747,12 @@ h2 {
   align-items: center;
   justify-content: space-between;
   font-size: 12px;
+}
+
+.carried-weight span {
+  display: inline-block;
+  min-width: 25px;
+  text-align: right;
 }
 
 /* Add Options Menu */
@@ -882,6 +888,8 @@ h2 {
   font-size: 16px;
   font-weight: bold;
   white-space: nowrap;
+  min-width: 55px;
+  text-align: right;
 }
 
 @media (max-width: 650px) {
