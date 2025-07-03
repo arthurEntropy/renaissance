@@ -1,0 +1,13 @@
+{
+  "id": "03b57e4f-63a9-40d7-9822-c2da4810a617",
+  "name": "Hold Their Eye",
+  "description": "<p><em>You plant your feet and draw the enemy’s focus, shielding your allies.</em></p><p>Until the beginning of your next turn, redirect all opportunity attacks made by the foe you're engaged with to you.</p><p><strong>Describe how you take the hits so others can move freely.</strong></p>",
+  "isTrait": false,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "d4dce5e2-e767-464d-91f0-c40b47f788b3",
+  "isDeleted": false,
+  "mp": 1,
+  "xp": 7,
+  "actionType": "Half Action"
+}

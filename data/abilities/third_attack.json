@@ -1,0 +1,12 @@
+{
+  "id": "2390a2d1-9d6d-4ec4-a62b-2510a9ded764",
+  "name": "Third Attack",
+  "description": "<p style=\"text-align: justify\"><strong>(Prerequisite: Second Attack)</strong></p><p><em>Your battle-hardened instincts let you unleash a flurry of attacks before your foes can react.</em></p><p>When you use an action to attack on your turn, you may instead make three attacks.</p><p><strong>Describe how your experience turns the fight into a whirlwind of blows.</strong></p>",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "d4dce5e2-e767-464d-91f0-c40b47f788b3",
+  "isDeleted": false,
+  "mp": null,
+  "xp": 30
+}

@@ -1,0 +1,12 @@
+{
+  "id": "4837f5fd-7866-4803-a00a-fb9906c2d88f",
+  "name": "Measured Step",
+  "description": "<p><em>You adjust your pace to match the weight of your armaments.</em></p><p>At the beginning of each of your turns, you may choose to reduce your movement for the round. For each 5 feet you reduce it by, ignore 5 lbs of weight from your weapons and armor when calculating Load.</p><p><strong>Describe how you settle into a deliberate rhythm.</strong></p>",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "1e4131c7-8a6f-422c-998a-5147600c946e",
+  "isDeleted": false,
+  "mp": null,
+  "xp": 10
+}

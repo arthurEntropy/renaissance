@@ -1,0 +1,13 @@
+{
+  "id": "5d4dd6b7-e553-4661-842a-fb80a6cf21fd",
+  "name": "Flanking",
+  "description": "<p><em>Surrounding an enemy, you and your allies press your advantage.</em></p><p>When you and one or more allies are engaged with the same foe, each of you gains +1d to attack rolls against that foe.</p><p><strong>Describe how you and your allies work in concert to overwhelm your opponent.</strong></p>",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "d4dce5e2-e767-464d-91f0-c40b47f788b3",
+  "isDeleted": false,
+  "mp": null,
+  "xp": 15,
+  "actionType": ""
+}

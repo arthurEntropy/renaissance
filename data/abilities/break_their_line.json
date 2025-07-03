@@ -1,0 +1,13 @@
+{
+  "id": "1cdb97ec-6a87-48d5-903e-6a9450f43ba8",
+  "name": "Break Their Line",
+  "description": "<p><em>You throw yourself at the enemy, shattering the their focus and opening the way for others to strike.</em></p><p>Until the start of your next turn, you take –5 Defense, but all allies within medium range get +2d to their attack rolls.</p><p><strong>Describe how your charge disrupts the enemy formation and sends your allies surging forward.</strong></p>",
+  "isTrait": false,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "d4dce5e2-e767-464d-91f0-c40b47f788b3",
+  "isDeleted": false,
+  "mp": 4,
+  "xp": 20,
+  "actionType": "Half Action"
+}

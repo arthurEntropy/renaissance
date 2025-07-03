@@ -1,0 +1,13 @@
+{
+  "id": "45131198-e0b6-4ac8-997b-bf309a9c52a0",
+  "name": "Unbreakable",
+  "description": "<p><em>With shields raised and shoulders aligned, you and your allies become an unstoppable wall.</em></p><p>Until the beginning of your next turn, if you and any number of adjacent allies are all wielding shields, each of you automatically wins any engagement you enter as a defender—no engagement rolls are required.</p><p><strong>Describe how your formation shrugs off attacks.</strong></p>",
+  "isTrait": false,
+  "canBeActive": true,
+  "isActive": true,
+  "source": "d4dce5e2-e767-464d-91f0-c40b47f788b3",
+  "isDeleted": false,
+  "mp": 2,
+  "xp": 10,
+  "actionType": "Half Action"
+}

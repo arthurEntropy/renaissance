@@ -1,0 +1,21 @@
+{
+  "id": "324647ca-8a6f-4e3c-8c44-a7bdb8fb837f",
+  "name": "Rally",
+  "description": "<p><em>You refuse to give up when the tide turns.</em></p><p>Once per rest, if your Endurance is down to less than half its maximum, regain Endurance equal to your BODY score.</p><p><strong>Describe how you keep fighting when others would falter.</strong></p>",
+  "isTrait": false,
+  "canBeActive": true,
+  "isActive": true,
+  "source": "d4dce5e2-e767-464d-91f0-c40b47f788b3",
+  "isDeleted": false,
+  "mp": "",
+  "xp": "",
+  "actionType": "Half Action",
+  "improvements": [
+    {
+      "id": 1751502247688.0747,
+      "name": "Improved Rally",
+      "description": "<p>You instead regain twice your BODY score.</p>",
+      "xp": 5
+    }
+  ]
+}

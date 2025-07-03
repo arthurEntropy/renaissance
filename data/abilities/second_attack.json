@@ -1,0 +1,12 @@
+{
+  "id": "1e9dec02-69e5-4963-a765-19cfdc02e6ff",
+  "name": "Second Attack",
+  "description": "<p><em>Years on the battlefield have honed your ability to find multiple openings with a single effort.</em></p><p>When you use an action to attack on your turn, you may instead make two attacks.</p><p><strong>Describe how your practiced strikes flow seamlessly from one to the next.</strong></p>",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "d4dce5e2-e767-464d-91f0-c40b47f788b3",
+  "isDeleted": false,
+  "mp": null,
+  "xp": 25
+}

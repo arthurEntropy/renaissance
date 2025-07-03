@@ -1,0 +1,13 @@
+{
+  "id": "3f084b3d-ff7a-462c-a55c-0ea52dac6332",
+  "name": "Heavy Strike",
+  "description": "<p><em>You throw your full weight behind a blow, knowing it will cost you—but that it must count.</em></p><p>Take +1d to either your attack or damage rolls this turn. You lose 2 Endurance.</p><p><strong>Describe how your muscles strain and your footing shifts as you force the momentum behind the strike.</strong></p>",
+  "isTrait": false,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "1e4131c7-8a6f-422c-998a-5147600c946e",
+  "isDeleted": false,
+  "mp": null,
+  "xp": "",
+  "actionType": "Half Action"
+}

@@ -1,0 +1,13 @@
+{
+  "id": "983c85c3-6189-42d0-aa7b-4247056a093e",
+  "name": "Shieldwork",
+  "description": "<p><em>You’ve learned to turn defense into offense, using your shield as both barrier and weapon.</em></p><p>In your next engagement, if you are wielding a shield, the Knockback and Disarm engagement successes are available to you.</p><p><strong>Describe how you use your shield to control the flow of the fight.</strong></p>",
+  "isTrait": false,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "d4dce5e2-e767-464d-91f0-c40b47f788b3",
+  "isDeleted": false,
+  "mp": 1,
+  "xp": 5,
+  "actionType": "Half Action"
+}

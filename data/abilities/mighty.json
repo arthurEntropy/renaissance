@@ -1,0 +1,12 @@
+{
+  "id": "372e7eaa-734d-4e68-aad9-edeac49762f5",
+  "name": "Mighty",
+  "description": "<p><em>Every attack is a full-body commitment to breaking through whatever stands before you.</em></p><p>When making a damage roll, instead of adding your BODY score to the roll, add twice your BODY score.</p><p><strong>Describe the raw physicality of your assault — the kind of power that doesn’t just wound, but overwhelms.</strong></p>",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "1e4131c7-8a6f-422c-998a-5147600c946e",
+  "isDeleted": false,
+  "mp": null,
+  "xp": 15
+}

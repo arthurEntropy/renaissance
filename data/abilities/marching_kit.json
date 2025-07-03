@@ -1,0 +1,13 @@
+{
+  "id": "fa0a07e3-e7bc-453b-9cdd-c7ae06000467",
+  "name": "Marching Kit",
+  "description": "<p><em>You move with ease beneath the weight of armor—what burdens others feels natural to you.</em></p><p>Halve the weight of armor and shields you're carrying when calculating load.</p><p><strong>Describe how your training allows you to fight freely beneath heavy gear.</strong></p>",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "d4dce5e2-e767-464d-91f0-c40b47f788b3",
+  "isDeleted": false,
+  "mp": null,
+  "xp": 7,
+  "actionType": ""
+}

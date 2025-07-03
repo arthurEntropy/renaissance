@@ -1,0 +1,12 @@
+{
+  "id": "f15feda2-c1e5-4b91-a59c-77ffab9c8b41",
+  "name": "Veteran's Instincts",
+  "description": "<p><em>Experience sharpens your reflexes—you know the signs of an enemy you’ve faced before.</em></p><p>Your initiative is favored against foes you have fought before (whether by culture, faction or beast type - GM discretion).</p><p><strong>Describe how you recognize the foe’s movements and prepare yourself to act first.</strong></p>",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "d4dce5e2-e767-464d-91f0-c40b47f788b3",
+  "isDeleted": false,
+  "mp": null,
+  "xp": 12
+}
