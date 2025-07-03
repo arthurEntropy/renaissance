@@ -45,10 +45,11 @@
       </template>
     </draggable>
 
-    <!-- Add Ability Link (only visible in edit mode) -->
-    <div v-if="isEditMode" class="add-item-footer">
-      <em @click="toggleAbilitySelector($event)" class="add-item-text">add ability</em>
-    </div>
+    <!-- Add Ability Floating Button (only visible in edit mode) -->
+    <button v-if="isEditMode" class="add-ability-fab" @click="toggleAbilitySelector($event)" title="Add ability"
+      type="button">
+      +
+    </button>
 
     <!-- Ability Selector Dropdown -->
     <div v-if="showAbilitySelector" class="ability-selector-container">
@@ -415,6 +416,7 @@ h2 {
   background-color: black;
   padding: 15px;
   border-radius: 5px;
+  position: relative;
 }
 
 .abilities-table-header {
@@ -435,29 +437,38 @@ h2 {
   gap: 8px;
 }
 
-.add-item-footer {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 10px;
-  width: 100%;
-  position: relative;
-}
-
+/* Remove old add-item-footer styles */
+.add-item-footer,
 .add-item-text {
-  font-size: 14px;
-  color: #aaa;
-  cursor: pointer;
-  transition: color 0.2s;
-  padding: 4px 12px;
-  border-radius: 4px;
-  background: none;
-  margin-right: 0;
+  display: none !important;
 }
 
-.add-item-text:hover {
-  color: white;
-  text-decoration: underline;
-  background: rgba(255, 255, 255, 0.05);
+/* Floating Action Button for Add Ability */
+.add-ability-fab {
+  position: absolute;
+  left: 50%;
+  bottom: -11px;
+  transform: translateX(-50%);
+  z-index: 110;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #444 60%, #222 100%);
+  color: #fff;
+  font-size: 1.1rem;
+  border: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+  padding: 0;
+}
+
+.add-ability-fab:hover {
+  background: linear-gradient(135deg, #666 60%, #333 100%);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
 }
 
 .mp-container {

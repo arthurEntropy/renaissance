@@ -99,10 +99,11 @@
       </template>
     </draggable>
 
-    <!-- Add Item Link (only visible in edit mode) -->
-    <div v-if="isEditMode" class="add-item-footer">
-      <em @click="toggleAddOptions($event)" class="add-item-text">add item</em>
-    </div>
+    <!-- Add Item Floating Button (only visible in edit mode) -->
+    <button v-if="isEditMode" class="add-equipment-fab" @click="toggleAddOptions($event)" title="Add item"
+      type="button">
+      +
+    </button>
 
     <!-- Add Options Menu -->
     <div v-if="showAddOptions" class="add-options-menu">
@@ -581,24 +582,38 @@ h2 {
   color: white;
 }
 
-/* Add Item Footer */
-.add-item-footer {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 10px;
-  position: relative;
-}
-
+/* Hide old add-item-footer and add-item-text */
+.add-item-footer,
 .add-item-text {
-  font-size: 14px;
-  color: #aaa;
-  cursor: pointer;
-  transition: color 0.2s;
+  display: none !important;
 }
 
-.add-item-text:hover {
-  color: white;
-  text-decoration: underline;
+/* Floating Action Button for Add Equipment */
+.add-equipment-fab {
+  position: absolute;
+  left: 50%;
+  bottom: -11px;
+  transform: translateX(-50%);
+  z-index: 110;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #444 60%, #222 100%);
+  color: #fff;
+  font-size: 1.1rem;
+  border: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+  padding: 0;
+}
+
+.add-equipment-fab:hover {
+  background: linear-gradient(135deg, #666 60%, #333 100%);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
 }
 
 /* Equipment row styles */
