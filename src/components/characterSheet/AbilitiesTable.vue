@@ -21,32 +21,35 @@
 
     <!-- Using MasonryGrid with draggable -->
     <div v-if="!isEditMode" class="abilities-list">
-      <AbilityCard v-for="ability in sortedAbilities" :key="ability.id" :ability="ability" :collapsed="true"
-        :sources="sources" class="ability-card" :collapsible="true" />
+      <AbilityCard v-for="ability in sortedAbilities" :key="ability.id" :ability="ability"
+        :collapsed="getCollapsedState(ability)" @update:collapsed="setCollapsedState(ability, $event)"
+        :sources="sources" class="ability-card" :collapsible="true" :show-xp-badge="false" />
     </div>
 
     <!-- DRAGGABLE ABILITY ROWS (only in edit mode) -->
     <draggable v-else v-model="sortedAbilities" group="abilities" handle=".drag-handle" item-key="id" @end="onDragEnd"
-      ghost-class="ghost-ability-row" animation="150">
+      ghost-class="ghost-ability-row" animation="150" class="abilities-edit-list">
       <template #item="{ element: ability, index }">
         <div class="ability-row">
-          <!-- Edit Mode Controls (left, stacked) -->
-          <div class="edit-controls">
-            <span @click="removeAbility(index)" class="delete-item-link">ⓧ</span>
-            <span class="drag-handle" title="Drag to reorder">⋮⋮</span>
+          <!-- Floating Edit Controls (left, vertical, partly outside row) -->
+          <div v-if="isEditMode" class="floating-edit-controls">
+            <button @click="removeAbility(index)" class="fab-delete" title="Remove ability" type="button">ⓧ</button>
+            <span class="fab-drag drag-handle" title="Drag to reorder">⋮⋮</span>
           </div>
           <!-- Ability Card -->
-          <AbilityCard v-if="ability" :ability="ability" :collapsed="true" :sources="sources" class="ability-card"
-            :collapsible="true" />
+          <AbilityCard v-if="ability" :ability="ability" :collapsed="getCollapsedState(ability)"
+            @update:collapsed="setCollapsedState(ability, $event)" :sources="sources" class="ability-card"
+            :collapsible="true" :show-xp-badge="false" />
           <span v-else class="missing-ability">Unknown ability</span>
         </div>
       </template>
     </draggable>
 
-    <!-- Add Ability Link (always visible at bottom right) -->
-    <div class="add-item-footer">
-      <em @click="toggleAbilitySelector($event)" class="add-item-text">add ability</em>
-    </div>
+    <!-- Add Ability Floating Button (only visible in edit mode) -->
+    <button v-if="isEditMode" class="add-ability-fab" @click="toggleAbilitySelector($event)" title="Add ability"
+      type="button">
+      +
+    </button>
 
     <!-- Ability Selector Dropdown -->
     <div v-if="showAbilitySelector" class="ability-selector-container">
@@ -109,6 +112,7 @@ export default {
       abilitySearchQuery: '',
       filteredAbilities: [],
       abilitiesStore: useAbilitiesStore(),
+      abilityCollapseState: {}, // Track collapsed/expanded state by ability ID
     }
   },
   computed: {
@@ -332,6 +336,20 @@ export default {
       this.toggleAbilitySelector()
     },
 
+    // Collapsed/Expanded State Management
+    getCollapsedState(ability) {
+      // Default to true (collapsed) if not set
+      return this.abilityCollapseState[ability.id] !== undefined
+        ? this.abilityCollapseState[ability.id]
+        : true
+    },
+    setCollapsedState(ability, collapsed) {
+      this.abilityCollapseState = {
+        ...this.abilityCollapseState,
+        [ability.id]: collapsed
+      }
+    },
+
     getSourceById(sourceId) {
       if (!sourceId) return null;
 
@@ -398,6 +416,7 @@ h2 {
   background-color: black;
   padding: 15px;
   border-radius: 5px;
+  position: relative;
 }
 
 .abilities-table-header {
@@ -408,7 +427,8 @@ h2 {
   margin-bottom: 10px;
 }
 
-.abilities-list {
+.abilities-list,
+.abilities-edit-list {
   width: 100%;
   min-width: 0;
   max-width: 100%;
@@ -417,29 +437,38 @@ h2 {
   gap: 8px;
 }
 
-.add-item-footer {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 10px;
-  width: 100%;
-  position: relative;
-}
-
+/* Remove old add-item-footer styles */
+.add-item-footer,
 .add-item-text {
-  font-size: 14px;
-  color: #aaa;
-  cursor: pointer;
-  transition: color 0.2s;
-  padding: 4px 12px;
-  border-radius: 4px;
-  background: none;
-  margin-right: 0;
+  display: none !important;
 }
 
-.add-item-text:hover {
-  color: white;
-  text-decoration: underline;
-  background: rgba(255, 255, 255, 0.05);
+/* Floating Action Button for Add Ability */
+.add-ability-fab {
+  position: absolute;
+  left: 50%;
+  bottom: -11px;
+  transform: translateX(-50%);
+  z-index: 110;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #444 60%, #222 100%);
+  color: #fff;
+  font-size: 1.1rem;
+  border: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+  padding: 0;
+}
+
+.add-ability-fab:hover {
+  background: linear-gradient(135deg, #666 60%, #333 100%);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
 }
 
 .mp-container {
@@ -485,16 +514,38 @@ h2 {
 
 /* Draggable Styles */
 .ability-row {
+  position: relative;
+  overflow: visible;
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  margin-bottom: 6px;
+  /* Removed margin-bottom: -2px; to fix gap inconsistency */
+  width: 100%;
+}
+
+.ability-row .ability-card {
+  flex: 1 1 0%;
+  width: 100% !important;
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* Floating edit controls for each ability row */
+.floating-edit-controls {
+  position: absolute;
+  left: -18px;
+  top: 2px;
+  transform: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  z-index: 120;
+  pointer-events: auto;
 }
 
 .edit-controls {
-  display: flex;
-  flex-direction: column;
-  margin: 7px 5px 0 0;
+  display: none !important;
 }
 
 .missing-ability {
@@ -613,6 +664,50 @@ h2 {
   color: #aaa;
   font-size: 0.9em;
   margin-left: 5px;
+}
+
+.fab-delete {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #222 60%, #444 100%);
+  color: #ff6b6b;
+  border: none;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.18);
+  transition: background 0.2s, color 0.2s;
+  padding: 0;
+}
+
+.fab-delete:hover {
+  background: linear-gradient(135deg, #222 60%, #444 100%);
+  color: #fff;
+}
+
+.fab-drag {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #222 60%, #444 100%);
+  color: #aaa;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: move;
+  user-select: none;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.18);
+  transition: background 0.2s, color 0.2s;
+}
+
+.fab-drag:hover {
+  /* Keep background unchanged on hover */
+  background: linear-gradient(135deg, #222 60%, #444 100%);
+  color: #222;
 }
 
 @media (max-width: 650px) {

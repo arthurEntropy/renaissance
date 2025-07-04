@@ -251,6 +251,9 @@ export default {
   /* Use dynamicHeight if autoHeight, else use height prop */
   height: v-bind(dynamicHeight);
   min-height: 100px;
+  /* Always allow vertical scrolling if content overflows */
+  overflow-y: auto;
+  max-height: 420px;
 }
 
 .rich-editor-toolbar {
@@ -298,10 +301,12 @@ export default {
   padding: 10px;
   padding-bottom: 35px;
   min-height: 100px;
-  height: 100%;
-  max-height: none;
-  box-sizing: border-box;
+  /* Always allow vertical scrolling if content overflows */
   overflow-y: auto;
+  /* If autoHeight is false, use fixed height and max-height */
+  height: v-bind(dynamicHeight);
+  max-height: 400px;
+  box-sizing: border-box;
   font-size: 1.1rem;
   line-height: 1.5;
 }

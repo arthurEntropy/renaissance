@@ -22,74 +22,78 @@
       ghost-class="ghost-equipment-row" animation="150" :disabled="!isEditMode">
       <template #item="{ element: row, index }">
         <div class="equipment-row">
-          <!-- EquipmentCard (collapsed/minimal) -->
-          <EquipmentCard v-if="row.equipment" :equipment="row.equipment" :collapsed="true"
-            :editable="row.equipment.isCustom" :sources="sources" class="equipment-card" @edit="editCustomItem"
-            :collapsible="true" />
-          <span v-else class="missing-equipment">Unknown item</span>
-
-          <div v-if="isEditMode" class="equipment-row-details">
-            <div class="details-content">
-              <!-- Edit Controls (edit mode only) -->
-              <div class="edit-controls">
-                <!-- Drag Handle -->
-                <span class="drag-handle" title="Drag to reorder">⋮⋮</span>
-                <!-- Delete Button -->
-                <span @click="removeEquipmentItem(index)" class="delete-item-link">ⓧ</span>
-              </div>
-              <!-- Carried Checkbox -->
-              <div class="detail-item checkbox-item">
-                <input type="checkbox" class="equipment-checkbox" v-model="row.isCarried"
-                  @change="handleCarriedChange(index, row.isCarried)" />
-                <em class="carried-label">carried</em>
-              </div>
-              <!-- Wielding Checkbox (edit mode only) -->
-              <div class="detail-item checkbox-item">
-                <input type="checkbox" class="equipment-checkbox" :class="{
-                  'disabled-checkbox':
-                    !row.isCarried ||
-                    !(row.equipment && row.equipment.isMelee),
-                }" v-model="row.isWielding" @change="
-                  updateEquipmentItem(
-                    index,
-                    'isWielding',
-                    row.isWielding &&
-                    row.isCarried &&
-                    row.equipment &&
-                    row.equipment.isMelee,
-                  )
-                  " :disabled="!row.isCarried || !(row.equipment && row.equipment.isMelee)
-                    " />
-                <em class="carried-label" :class="{
-                  'disabled-text':
-                    !row.isCarried ||
-                    !(row.equipment && row.equipment.isMelee),
-                }">wielding</em>
-              </div>
-              <div class="detail-item">
-                <!-- Quantity -->
-                <div class="detail-item">
-                  <em class="carried-label"> qty </em>
-                  <NumberInput :model-value="row.quantity" @update:model-value="
-                    (value) =>
+          <div class="equipment-row-flex">
+            <!-- Floating Edit Controls (only in edit mode) -->
+            <div v-if="isEditMode" class="floating-edit-controls">
+              <button @click="removeEquipmentItem(index)" class="fab-delete" title="Remove item"
+                type="button">ⓧ</button>
+              <span class="fab-drag drag-handle" title="Drag to reorder">⋮⋮</span>
+            </div>
+            <!-- EquipmentCard (collapsed/minimal) -->
+            <div class="equipment-card-col">
+              <EquipmentCard v-if="row.equipment" :equipment="row.equipment"
+                :collapsed="getCollapsedState(row.equipment)"
+                @update:collapsed="setCollapsedState(row.equipment, $event)" :editable="row.equipment.isCustom"
+                :sources="sources" class="equipment-card" @edit="editCustomItem" :collapsible="true"
+                :show-sol-badge="false" />
+              <span v-else class="missing-equipment">Unknown item</span>
+              <div class="equipment-row-details">
+                <div class="details-content">
+                  <!-- Carried Checkbox -->
+                  <div class="detail-item checkbox-item">
+                    <input type="checkbox" class="equipment-checkbox" v-model="row.isCarried"
+                      @change="handleCarriedChange(index, row.isCarried)" />
+                    <em class="carried-label">carried</em>
+                  </div>
+                  <!-- Wielding Checkbox (edit mode only) -->
+                  <div class="detail-item checkbox-item">
+                    <input type="checkbox" class="equipment-checkbox" :class="{
+                      'disabled-checkbox':
+                        !row.isCarried ||
+                        !(row.equipment && row.equipment.isMelee),
+                    }" v-model="row.isWielding" @change="
                       updateEquipmentItem(
                         index,
-                        'quantity',
-                        Math.max(1, value),
+                        'isWielding',
+                        row.isWielding &&
+                        row.isCarried &&
+                        row.equipment &&
+                        row.equipment.isMelee,
                       )
-                  " :min="1" size="tiny" class="quantity-input" />
-                </div>
-                <!-- Carried Weight -->
-                <div class="detail-item carried-weight">
-                  <em class="carried-label"> = </em>
-                  <span>
-                    {{
-                      row.isCarried && row.equipment
-                        ? formatWeight(row.equipment.weight * row.quantity)
-                        : '0'
-                    }}
-                  </span>
-                  <em class="carried-label">lbs</em>
+                      " :disabled="!row.isCarried || !(row.equipment && row.equipment.isMelee)
+                        " />
+                    <em class="carried-label" :class="{
+                      'disabled-text':
+                        !row.isCarried ||
+                        !(row.equipment && row.equipment.isMelee),
+                    }">wielding</em>
+                  </div>
+                  <div class="detail-item">
+                    <!-- Quantity -->
+                    <div class="detail-item">
+                      <em class="carried-label"> qty </em>
+                      <NumberInput :model-value="row.quantity" @update:model-value="
+                        (value) =>
+                          updateEquipmentItem(
+                            index,
+                            'quantity',
+                            Math.max(1, value),
+                          )
+                      " :min="1" size="tiny" class="quantity-input" />
+                    </div>
+                    <!-- Carried Weight -->
+                    <div class="detail-item carried-weight">
+                      <em class="carried-label"> = </em>
+                      <span>
+                        {{
+                          row.isCarried && row.equipment
+                            ? formatWeight(row.equipment.weight * row.quantity)
+                            : '0'
+                        }}
+                      </span>
+                      <em class="carried-label">lbs</em>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -98,10 +102,11 @@
       </template>
     </draggable>
 
-    <!-- Add Item Link (always visible at bottom right) -->
-    <div class="add-item-footer">
-      <em @click="toggleAddOptions($event)" class="add-item-text">add item</em>
-    </div>
+    <!-- Add Item Floating Button (only visible in edit mode) -->
+    <button v-if="isEditMode" class="add-equipment-fab" @click="toggleAddOptions($event)" title="Add item"
+      type="button">
+      +
+    </button>
 
     <!-- Add Options Menu -->
     <div v-if="showAddOptions" class="add-options-menu">
@@ -172,6 +177,7 @@ export default {
       filteredEquipment: [],
       equipmentStore: useEquipmentStore(),
       isEditMode: false, // New state for edit mode
+      equipmentCollapseState: {}, // Track collapsed/expanded state by equipment ID
     }
   },
   computed: {
@@ -278,6 +284,20 @@ export default {
     },
   },
   methods: {
+    // Collapsed/Expanded State Management
+    getCollapsedState(equipment) {
+      // Default to true (collapsed) if not set
+      return this.equipmentCollapseState[equipment.id] !== undefined
+        ? this.equipmentCollapseState[equipment.id]
+        : true
+    },
+    setCollapsedState(equipment, collapsed) {
+      this.equipmentCollapseState = {
+        ...this.equipmentCollapseState,
+        [equipment.id]: collapsed
+      }
+    },
+
     updateEquipmentOrder(newOrder) {
       // Update the index property on each equipment item
       const updatedEquipment = newOrder.map((item, index) => ({
@@ -367,8 +387,7 @@ export default {
     },
 
     editCustomItem(equipment) {
-      // When the edit button is clicked on a custom item, emit an event to the parent with just the ID
-      this.$emit('edit-custom-equipment', equipment.id)
+      this.$emit('edit-custom-equipment', equipment)
     },
 
     formatWeight(value) {
@@ -424,8 +443,18 @@ export default {
         // Refresh equipment store to ensure the new item is available
         await this.equipmentStore.fetchAllEquipment()
 
-        // Now that the equipment store is updated, emit the edit event
-        this.$emit('edit-custom-equipment', createdEquipment.id)
+        // Find the full equipment object from the updated equipment list
+        const fullEquipment = (this.equipmentStore.equipment || []).find(
+          (eq) => eq.id === createdEquipment.id
+        )
+
+        // Now that the equipment store is updated, emit the edit event with the full object
+        if (fullEquipment) {
+          this.$emit('edit-custom-equipment', fullEquipment)
+        } else {
+          // fallback: emit the id if not found (should not happen)
+          this.$emit('edit-custom-equipment', createdEquipment.id)
+        }
       } catch (error) {
         console.error('Error adding custom equipment:', error)
       }
@@ -557,7 +586,7 @@ h2 {
 .header-left {
   display: flex;
   align-items: center;
-  gap: 10px;
+  padding-right: 10px;
 }
 
 .header-right {
@@ -580,37 +609,73 @@ h2 {
   color: white;
 }
 
-/* Add Item Footer */
-.add-item-footer {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 10px;
-  position: relative;
-}
-
+/* Hide old add-item-footer and add-item-text */
+.add-item-footer,
 .add-item-text {
-  font-size: 14px;
-  color: #aaa;
-  cursor: pointer;
-  transition: color 0.2s;
+  display: none !important;
 }
 
-.add-item-text:hover {
-  color: white;
-  text-decoration: underline;
+/* Floating Action Button for Add Equipment */
+.add-equipment-fab {
+  position: absolute;
+  left: 50%;
+  bottom: -11px;
+  transform: translateX(-50%);
+  z-index: 110;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #444 60%, #222 100%);
+  color: #fff;
+  font-size: 1.1rem;
+  border: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+  padding: 0;
+}
+
+.add-equipment-fab:hover {
+  background: linear-gradient(135deg, #666 60%, #333 100%);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
 }
 
 /* Equipment row styles */
 .equipment-row {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  /* Change from column to row to separate controls from card+details */
+  align-items: stretch;
   margin-bottom: 10px;
   border-radius: 5px;
   overflow: hidden;
+  width: 100%;
+  position: relative;
+  overflow: visible;
+}
+
+.equipment-row-flex {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.equipment-card-col {
+  flex: 1 1 0%;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-width: 0;
 }
 
 .equipment-card {
+  flex: 1 1 0%;
   width: 100%;
+  min-width: 0;
   padding: 7px;
   text-align: left;
   margin-bottom: 0;
@@ -624,7 +689,12 @@ h2 {
   align-items: center;
   padding: 4px 8px;
   background-color: rgba(60, 60, 60, 0.4);
-  border-radius: 5px;
+  border-radius: 0 0 5px 5px;
+  width: 100%;
+  /* Ensure it matches the card width */
+  margin-left: 0;
+  /* No offset under controls */
+  box-sizing: border-box;
 }
 
 .details-content {
@@ -645,73 +715,76 @@ h2 {
 }
 
 .checkbox-item {
-  margin-left: 5px;
+  margin-left: -5px;
 }
 
+/* Floating edit controls for each equipment row */
+.floating-edit-controls {
+  position: absolute;
+  left: -18px;
+  top: 2px;
+  transform: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  z-index: 120;
+  pointer-events: auto;
+}
+
+.equipment-row {
+  position: relative;
+  overflow: visible;
+}
+
+/* Hide old edit-controls in edit mode */
 .edit-controls {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  min-width: 25px;
-  font-size: 12px;
+  display: none !important;
 }
 
-.carried-label {
-  color: #ccc;
-}
-
-.total-weight-container {
-  display: flex;
-  align-items: center;
-  background-color: rgb(61, 61, 61);
-  padding: 5px 10px;
-  border-radius: 5px;
-  width: auto;
-  gap: 5px;
-}
-
-.total-weight-carried {
-  font-size: 12px;
-  font-style: italic;
-  white-space: nowrap;
-  margin-top: 2px;
-}
-
-.equipment-lbs-carried {
-  font-size: 16px;
-  font-weight: bold;
-  white-space: nowrap;
-}
-
-.delete-item-link {
-  cursor: pointer;
-  color: gray;
-  font-size: 13px;
-  text-align: center;
-}
-
-.delete-item-link:hover {
+/* Delete button style */
+.fab-delete {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #222 60%, #444 100%);
   color: #ff6b6b;
+  border: none;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.18);
+  transition: background 0.2s, color 0.2s;
+  padding: 0;
 }
 
-/* Drag Handle Styles */
-.drag-handle {
+.fab-delete:hover {
+  background: linear-gradient(135deg, #222 60%, #444 100%);
+  color: #fff;
+}
+
+/* Drag handle button style */
+.fab-drag {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #222 60%, #444 100%);
+  color: #aaa;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: move;
-  font-size: 14px;
-  color: #777;
   user-select: none;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.18);
+  transition: background 0.2s, color 0.2s;
 }
 
-.drag-handle:hover {
-  color: white;
-}
-
-/* Ghost row style for dragging */
-.ghost-equipment-row {
-  opacity: 0.5;
-  background: rgba(255, 255, 255, 0.1);
-  border: 2px dashed #777;
-  border-radius: 5px;
+.fab-drag:hover {
+  /* Keep background unchanged on hover */
+  background: linear-gradient(135deg, #222 60%, #444 100%);
+  color: #222;
 }
 
 .missing-equipment {
@@ -741,6 +814,12 @@ h2 {
   align-items: center;
   justify-content: space-between;
   font-size: 12px;
+}
+
+.carried-weight span {
+  display: inline-block;
+  min-width: 25px;
+  text-align: right;
 }
 
 /* Add Options Menu */
@@ -853,6 +932,31 @@ h2 {
   color: #aaa;
   font-size: 0.9em;
   margin-left: 5px;
+}
+
+.total-weight-container {
+  display: flex;
+  align-items: center;
+  background-color: rgb(61, 61, 61);
+  padding: 5px 10px;
+  border-radius: 5px;
+  width: auto;
+  gap: 5px;
+}
+
+.total-weight-carried {
+  font-size: 10px;
+  font-style: italic;
+  white-space: nowrap;
+  margin-top: 2px;
+}
+
+.equipment-lbs-carried {
+  font-size: 16px;
+  font-weight: bold;
+  white-space: nowrap;
+  min-width: 55px;
+  text-align: right;
 }
 
 @media (max-width: 650px) {

@@ -3,7 +3,9 @@
   "id": "558abd15-f90f-40d7-80d8-df73a37f977c",
   "hooks": [],
   "playlists": [],
-  "artUrls": [],
+  "artUrls": [
+    "https://cdn.midjourney.com/b4a69efb-4573-427d-b5b2-3bf49c18753c/0_1.png"
+  ],
   "faces": [],
   "places": [],
   "name": "Summoner",

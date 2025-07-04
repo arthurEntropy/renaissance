@@ -45,7 +45,7 @@
             <div class="conditions-row" v-for="(value, key) in selectedCharacter.conditions" :key="key">
               <span :class="{ 'condition-active': value }">{{
                 this.$capitalizeFirstLetter(key)
-              }}</span>
+                }}</span>
               <input type="checkbox" class="skill-checkbox" :class="{ 'condition-active-checkbox': value }"
                 v-model="selectedCharacter.conditions[key]" />
             </div>
@@ -86,7 +86,7 @@
       <DeleteConfirmationModal v-if="showDeleteConfirmationModal" :name="selectedCharacter.name"
         @close="closeDeleteConfirmationModal" @confirm="deleteCharacter" />
 
-      <EditEquipmentModal v-if="showEditEquipmentModal" :equipmentId="equipmentIdToEdit" :sources="sources"
+      <EditEquipmentModal v-if="showEditEquipmentModal" :equipment="equipmentToEdit" :sources="sources"
         @update="saveEditedEquipment" @close="closeEditEquipmentModal" @delete="openDeleteConfirmationModal" />
     </div>
   </div>
@@ -415,8 +415,8 @@ export default {
       this.showSkillCheckModal = false
       this.updateLatestRoll() // Get latest roll when modal closes
     },
-    openEditEquipmentModal(equipmentId) {
-      this.equipmentIdToEdit = equipmentId
+    openEditEquipmentModal(equipment) {
+      this.equipmentToEdit = equipment
       this.showEditEquipmentModal = true
     },
     closeEditEquipmentModal() {

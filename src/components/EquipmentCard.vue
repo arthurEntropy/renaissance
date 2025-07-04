@@ -2,7 +2,7 @@
   <base-card v-bind="$attrs" :item="equipment" itemType="equipment" :metaInfo="equipment.weight
     ? `${equipment.weight} ${equipment.weight === 1 ? 'lb' : 'lbs'}`
     : ''
-    " :storeInstance="equipmentStore" :initialCollapsed="isCollapsed" :editable="editable" :sources="sources"
+    " :storeInstance="equipmentStore" :initialCollapsed="collapsed" :editable="editable" :sources="sources"
     @edit="$emit('edit', equipment)" :collapsible="collapsible">
     <!-- Large image slot -->
     <template #large-image>
@@ -54,14 +54,14 @@
 
     <!-- Badge slot (Standard of Living) -->
     <template #badge>
-      <div v-if="equipment.standardOfLiving" class="sol-bubble">
+      <div v-if="showSolBadge && equipment.standardOfLiving" class="sol-bubble">
         {{ equipment.standardOfLiving }} 🪙
       </div>
     </template>
 
     <!-- Footer slot for engagement successes -->
     <template #footer>
-      <div v-if="!isCollapsed" class="engagement-successes">
+      <div v-if="!collapsed" class="engagement-successes">
         <span v-for="success in engagementSuccesses" :key="success.id" class="engagement-success-pill"
           @mouseenter="startSuccessTooltip(success, $event)" @mouseleave="clearSuccessTooltip">
           {{ success.name }}
@@ -116,11 +116,14 @@ export default {
       type: Boolean,
       default: false,
     },
+    showSolBadge: {
+      type: Boolean,
+      default: true,
+    },
   },
 
   data() {
     return {
-      isCollapsed: this.collapsed,
       equipmentStore: useEquipmentStore(),
       engagementSuccesses: [],
       showLargeImage: false,

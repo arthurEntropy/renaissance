@@ -116,7 +116,7 @@
   ],
   "endurance": {
     "current": 14,
-    "max": 20
+    "max": 15
   },
   "hope": {
     "current": 6,
@@ -146,18 +146,123 @@
   },
   "equipment": [
     {
-      "id": "6a8992ec-46d8-4113-ac97-a87d759e2a46",
-      "quantity": 1,
-      "isCarried": true,
-      "isWielding": true,
-      "index": 0
-    },
-    {
       "id": "58c57499-9eef-49d4-9273-7674c60fae77",
       "quantity": 1,
       "isCarried": true,
       "isWielding": true,
-      "index": 1
+      "index": 0,
+      "equipment": {
+        "id": "58c57499-9eef-49d4-9273-7674c60fae77",
+        "artUrl": "https://cdn.midjourney.com/ca2dd46f-000f-4c7f-b942-d32f5c8e3625/0_3.png",
+        "name": "Longsword",
+        "description": "A super cool sharp sword that deals 2d6 damage on a hit.",
+        "standardOfLiving": "4",
+        "source": "75800953-4adb-405f-a4ab-a599573ca533",
+        "weight": 2,
+        "isMelee": true,
+        "damageDice": [
+          8
+        ],
+        "engagementDice": [
+          6,
+          6
+        ],
+        "engagementSuccesses": [
+          "5",
+          "7",
+          "8",
+          "10"
+        ],
+        "skillMods": [
+          {
+            "name": "Stealth",
+            "diceMod": -1,
+            "isFavored": false,
+            "isIllFavored": false
+          }
+        ],
+        "isDeleted": false,
+        "isCustom": false
+      }
+    },
+    {
+      "id": "49e6789c-efa8-4282-9a79-2aa92c31efd3",
+      "quantity": 1,
+      "isCarried": true,
+      "isWielding": false,
+      "index": 1,
+      "equipment": {
+        "id": "49e6789c-efa8-4282-9a79-2aa92c31efd3",
+        "name": "Good Stick",
+        "description": "<p>A very good stick</p>",
+        "standardOfLiving": null,
+        "source": null,
+        "weight": 0,
+        "isMelee": false,
+        "damageDice": [],
+        "engagementDice": [],
+        "engagementSuccesses": [],
+        "skillMods": [],
+        "isDeleted": false,
+        "isCustom": true,
+        "artUrl": null
+      }
+    },
+    {
+      "id": "c811e686-c74b-47bc-9f19-dd7aee051742",
+      "quantity": 1,
+      "isCarried": true,
+      "isWielding": true,
+      "index": 2,
+      "equipment": {
+        "id": "c811e686-c74b-47bc-9f19-dd7aee051742",
+        "name": "Furulian Dagger",
+        "description": "Carved from the eternally-cold bones of some ancient bird-beast.",
+        "standardOfLiving": "2",
+        "source": 4,
+        "weight": 1,
+        "isMelee": true,
+        "damageDice": [
+          4
+        ],
+        "engagementDice": [
+          4,
+          8
+        ],
+        "engagementSuccesses": [
+          "4",
+          "7",
+          "8",
+          "9"
+        ],
+        "skillMods": [],
+        "isDeleted": false,
+        "isCustom": false,
+        "artUrl": "https://cdn.midjourney.com/65e126d0-27a6-45c0-9c69-97eef3362aef/0_0.png"
+      }
+    },
+    {
+      "id": "769496ef-2a6f-489c-951d-f61e870752e9",
+      "quantity": 1,
+      "isCarried": true,
+      "isWielding": false,
+      "index": 3,
+      "equipment": {
+        "id": "769496ef-2a6f-489c-951d-f61e870752e9",
+        "name": "Cool Bag Of Rocks",
+        "description": "<p>Just a cool bag of rocks</p>",
+        "standardOfLiving": null,
+        "source": null,
+        "weight": 3,
+        "isMelee": false,
+        "damageDice": [],
+        "engagementDice": [],
+        "engagementSuccesses": [],
+        "skillMods": [],
+        "isDeleted": false,
+        "isCustom": true,
+        "artUrl": null
+      }
     }
   ],
   "activeEffects": [],
@@ -178,11 +283,11 @@
     "c02c53d1-b456-45d0-a048-6fc941cacc03"
   ],
   "abilities": [
-    "3f084b3d-ff7a-462c-a55c-0ea52dac6332",
     "82fad9cc-9de8-49c3-a192-ae96a981007d",
+    "dbd3d35e-5846-49f5-94db-030d8515fdf0",
     "55004379-6745-465c-887f-2eb2337ac6f0",
     "4fbf9ccb-0fbb-45d0-9f8f-7b7fcfb811fb",
-    "dbd3d35e-5846-49f5-94db-030d8515fdf0",
+    "3f084b3d-ff7a-462c-a55c-0ea52dac6332",
     "2f40fa98-f90a-4eb8-b626-999b000fa4b2"
   ]
 }
