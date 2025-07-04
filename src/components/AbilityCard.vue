@@ -6,13 +6,10 @@
     <template #content>
       <div v-if="ability.description" class="description-background" style="position: relative;">
         <div v-html="ability.description"></div>
-        <div v-if="showXpBadge && ability.xp && improvements && improvements.length" class="improvement-xp-badge">{{
-          ability.xp }}
-          XP</div>
+        <div v-if="showXpBadge && ability.xp && improvements && improvements.length && showImprovements"
+          class="improvement-xp-badge">{{ ability.xp }} XP</div>
       </div>
-
-      <!-- Improvements pile (now inside the card) -->
-      <div v-if="improvements && improvements.length" class="improvements-pile">
+      <div v-if="improvements && improvements.length && showImprovements" class="improvements-pile">
         <div v-for="(impr) in improvements" :key="impr.id || impr.title" class="improvement-desc-block">
           <div class="improvement-title">{{ impr.name }}</div>
           <div v-if="impr.description" class="improvement-description-background">
@@ -32,12 +29,17 @@
       <button class="bottom-buttons send-to-chat-button" @click.stop="sendAbilityToChat" title="Send to chat">
         💬
       </button>
+      <button v-if="improvements && improvements.length" class="bottom-buttons improvements-toggle-button"
+        @click.stop="toggleImprovements" :title="showImprovements ? 'Hide improvements' : 'Show improvements'">
+        Improvements <span>{{ showImprovements ? '▲' : '▼' }}</span>
+      </button>
     </template>
 
     <!-- Badge slot (XP) -->
     <template #badge>
-      <div v-if="showXpBadge && ability.xp && (!improvements || !improvements.length)" class="xp-bubble">{{ ability.xp
-      }} XP</div>
+      <div v-if="showXpBadge && ability.xp && (
+        (!improvements || !improvements.length) || (improvements && improvements.length && !showImprovements)
+      )" class="xp-bubble">{{ ability.xp }} XP</div>
     </template>
   </base-card>
 </template>
@@ -91,6 +93,7 @@ export default {
       isActive: this.ability.isActive,
       abilitiesStore: useAbilitiesStore(),
       localCollapsed: this.collapsed,
+      showImprovements: false,
     }
   },
   watch: {
@@ -128,6 +131,9 @@ export default {
     onBaseCardCollapsed(newVal) {
       this.localCollapsed = newVal
       this.$emit('update:collapsed', newVal)
+    },
+    toggleImprovements() {
+      this.showImprovements = !this.showImprovements
     },
     improvementStyle(idx) {
       // Offset each mini-card for a pile effect
@@ -188,6 +194,32 @@ export default {
 
 .send-to-chat-button {
   right: -1px;
+}
+
+.improvements-toggle-button {
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: -10px;
+  background: darkgoldenrod;
+  color: black;
+  font-size: 11px;
+  font-family: inherit;
+  font-weight: bold;
+  border: none;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  padding: 3px 10px 2px 10px;
+  cursor: pointer;
+  transition: color 0.2s, background 0.2s;
+  z-index: 11;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+}
+
+.improvements-toggle-button:hover {
+  background: goldenrod;
 }
 
 .improvements-pile {
