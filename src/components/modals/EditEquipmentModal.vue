@@ -31,7 +31,7 @@
         <div class="form-group vertical description">
           <label for="description" class="left-aligned">Description:</label>
           <TextEditor v-model="editedEquipment.description" :placeholder="'Enter equipment description...'"
-            :height="'250px'" />
+            :height="'250px'" :auto-height="false" />
         </div>
 
         <div class="form-group row">
