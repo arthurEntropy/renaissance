@@ -31,9 +31,11 @@
             </div>
             <!-- EquipmentCard (collapsed/minimal) -->
             <div class="equipment-card-col">
-              <EquipmentCard v-if="row.equipment" :equipment="row.equipment" :collapsed="true"
-                :editable="row.equipment.isCustom" :sources="sources" class="equipment-card" @edit="editCustomItem"
-                :collapsible="true" :show-sol-badge="false" />
+              <EquipmentCard v-if="row.equipment" :equipment="row.equipment"
+                :collapsed="getCollapsedState(row.equipment)"
+                @update:collapsed="setCollapsedState(row.equipment, $event)" :editable="row.equipment.isCustom"
+                :sources="sources" class="equipment-card" @edit="editCustomItem" :collapsible="true"
+                :show-sol-badge="false" />
               <span v-else class="missing-equipment">Unknown item</span>
               <div class="equipment-row-details">
                 <div class="details-content">
@@ -175,6 +177,7 @@ export default {
       filteredEquipment: [],
       equipmentStore: useEquipmentStore(),
       isEditMode: false, // New state for edit mode
+      equipmentCollapseState: {}, // Track collapsed/expanded state by equipment ID
     }
   },
   computed: {
@@ -281,6 +284,20 @@ export default {
     },
   },
   methods: {
+    // Collapsed/Expanded State Management
+    getCollapsedState(equipment) {
+      // Default to true (collapsed) if not set
+      return this.equipmentCollapseState[equipment.id] !== undefined
+        ? this.equipmentCollapseState[equipment.id]
+        : true
+    },
+    setCollapsedState(equipment, collapsed) {
+      this.equipmentCollapseState = {
+        ...this.equipmentCollapseState,
+        [equipment.id]: collapsed
+      }
+    },
+
     updateEquipmentOrder(newOrder) {
       // Update the index property on each equipment item
       const updatedEquipment = newOrder.map((item, index) => ({

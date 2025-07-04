@@ -146,41 +146,11 @@
   },
   "equipment": [
     {
-      "id": "6a8992ec-46d8-4113-ac97-a87d759e2a46",
-      "quantity": 2,
-      "isCarried": true,
-      "isWielding": true,
-      "index": 0,
-      "equipment": {
-        "id": "6a8992ec-46d8-4113-ac97-a87d759e2a46",
-        "name": "Azcan Warhammer",
-        "description": "Once per rest, you may call on the fires of Azca to add 1d6 to this weapon's damage. Describe how the hammer burns your foe.",
-        "standardOfLiving": "2",
-        "source": "a3a54cb6-09c4-42e3-b142-3053b7c1d4e8",
-        "weight": 3,
-        "isMelee": true,
-        "damageDice": [
-          8
-        ],
-        "engagementDice": [
-          10
-        ],
-        "engagementSuccesses": [
-          "6",
-          "11"
-        ],
-        "skillMods": [],
-        "isDeleted": false,
-        "isCustom": false,
-        "artUrl": "https://cdn.midjourney.com/2fcb5ebc-3878-47b7-9ff2-966514ac8989/0_3.png"
-      }
-    },
-    {
       "id": "58c57499-9eef-49d4-9273-7674c60fae77",
       "quantity": 1,
       "isCarried": true,
       "isWielding": true,
-      "index": 1,
+      "index": 0,
       "equipment": {
         "id": "58c57499-9eef-49d4-9273-7674c60fae77",
         "artUrl": "https://cdn.midjourney.com/ca2dd46f-000f-4c7f-b942-d32f5c8e3625/0_3.png",
@@ -213,6 +183,36 @@
         ],
         "isDeleted": false,
         "isCustom": false
+      }
+    },
+    {
+      "id": "6a8992ec-46d8-4113-ac97-a87d759e2a46",
+      "quantity": 2,
+      "isCarried": true,
+      "isWielding": true,
+      "index": 1,
+      "equipment": {
+        "id": "6a8992ec-46d8-4113-ac97-a87d759e2a46",
+        "name": "Azcan Warhammer",
+        "description": "Once per rest, you may call on the fires of Azca to add 1d6 to this weapon's damage. Describe how the hammer burns your foe.",
+        "standardOfLiving": "2",
+        "source": "a3a54cb6-09c4-42e3-b142-3053b7c1d4e8",
+        "weight": 3,
+        "isMelee": true,
+        "damageDice": [
+          8
+        ],
+        "engagementDice": [
+          10
+        ],
+        "engagementSuccesses": [
+          "6",
+          "11"
+        ],
+        "skillMods": [],
+        "isDeleted": false,
+        "isCustom": false,
+        "artUrl": "https://cdn.midjourney.com/2fcb5ebc-3878-47b7-9ff2-966514ac8989/0_3.png"
       }
     }
   ],
