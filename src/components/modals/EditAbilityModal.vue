@@ -73,6 +73,29 @@
           </label>
         </div>
 
+        <!-- Improvements Section -->
+        <div class="form-group vertical">
+          <label class="left-aligned">Improvements:</label>
+          <div v-if="!editedAbility.improvements || !editedAbility.improvements.length" class="improvements-empty">
+            <em>No improvements yet.</em>
+          </div>
+          <div v-for="(impr, idx) in editedAbility.improvements" :key="impr.id || idx" class="improvement-edit-block">
+            <div class="improvement-card-row">
+              <input type="text" v-model="impr.name" placeholder="Name" class="modal-input improvement-name-input" />
+              <span class="xp-label">XP:</span>
+              <input type="number" v-model.number="impr.xp" placeholder="XP" class="modal-input improvement-xp-input"
+                min="0" />
+              <button type="button" class="icon-btn" @click="removeImprovement(idx)">❌</button>
+              <button type="button" class="icon-btn" @click="moveImprovementUp(idx)" :disabled="idx === 0">⬆️</button>
+              <button type="button" class="icon-btn" @click="moveImprovementDown(idx)"
+                :disabled="idx === editedAbility.improvements.length - 1">⬇️</button>
+            </div>
+            <TextEditor v-model="impr.description" :placeholder="'Description'" :height="'80px'" :auto-height="true" />
+          </div>
+          <button type="button" class="button button-primary add-improvement-btn" @click="addImprovement">+ Add
+            Improvement</button>
+        </div>
+
         <!-- Action Buttons -->
         <div class="form-buttons">
           <button type="button" class="button button-primary" @click="saveAbility">
@@ -135,6 +158,25 @@ export default {
     closeModal() {
       this.$emit('close')
     },
+    addImprovement() {
+      if (!this.editedAbility.improvements) this.editedAbility.improvements = []
+      this.editedAbility.improvements.push({ name: '', description: '', xp: 0 })
+    },
+    removeImprovement(idx) {
+      this.editedAbility.improvements.splice(idx, 1)
+    },
+    moveImprovementUp(idx) {
+      if (idx > 0) {
+        const arr = this.editedAbility.improvements
+          ;[arr[idx - 1], arr[idx]] = [arr[idx], arr[idx - 1]]
+      }
+    },
+    moveImprovementDown(idx) {
+      const arr = this.editedAbility.improvements
+      if (idx < arr.length - 1) {
+        [arr[idx], arr[idx + 1]] = [arr[idx + 1], arr[idx]]
+      }
+    },
   },
   components: { TextEditor },
 }
@@ -143,5 +185,58 @@ export default {
 <style scoped>
 .modal-content {
   max-width: 500px;
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  padding: 0 2px;
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  color: #888;
+  transition: color 0.15s;
+}
+
+.icon-btn:disabled {
+  color: #bbb;
+  cursor: default;
+}
+
+.icon-btn:not(:disabled):hover {
+  color: #222;
+}
+
+.improvement-edit-block {
+  background: #23272e;
+  border-radius: 7px;
+  margin-bottom: 14px;
+  padding: 10px 10px 8px 10px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.10);
+}
+
+.improvement-card-row {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.xp-label {
+  color: #aaa;
+  font-size: 13px;
+  margin-right: 2px;
+  margin-left: 4px;
+}
+
+.improvement-xp-input {
+  flex: 1 1 0;
+  min-width: 0;
+  text-align: center;
+}
+
+.improvement-name-input {
+  flex: 4 1 0;
+  min-width: 0;
 }
 </style>

@@ -95,7 +95,8 @@
             </div>
             <masonry-grid v-else :column-width="350" :gap="10" :row-height="10" class="ability-cards-container">
               <AbilityCard v-for="ability in sortedAbilities" :key="ability.id" :ability="ability"
-                :editable="isEditMode" :sources="sources" :collapsible="false" @edit="emitAbilityEdit(ability)" />
+                :editable="isEditMode" :sources="sources" :collapsible="false"
+                :improvements="ability.improvements || []" @edit="emitAbilityEdit(ability)" />
             </masonry-grid>
           </div>
 

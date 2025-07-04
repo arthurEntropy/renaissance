@@ -5,6 +5,17 @@
     <!-- Content slot -->
     <template #content>
       <div v-if="ability.description" v-html="ability.description" class="description-background"></div>
+
+      <!-- Improvements pile (now inside the card) -->
+      <div v-if="improvements && improvements.length" class="improvements-pile">
+        <div v-for="(impr) in improvements" :key="impr.id || impr.title" class="improvement-desc-block">
+          <div class="improvement-title">{{ impr.name }}</div>
+          <div v-if="impr.description" class="improvement-description-background">
+            <div v-html="impr.description"></div>
+            <span v-if="impr.xp" class="improvement-xp-badge">{{ impr.xp }} XP</span>
+          </div>
+        </div>
+      </div>
     </template>
 
     <!-- Buttons slot -->
@@ -63,6 +74,10 @@ export default {
       type: Boolean,
       default: true,
     },
+    improvements: {
+      type: Array,
+      default: () => []
+    },
   },
   emits: ['edit', 'update', 'sendToChat', 'update:collapsed'],
   data() {
@@ -108,6 +123,14 @@ export default {
       this.localCollapsed = newVal
       this.$emit('update:collapsed', newVal)
     },
+    improvementStyle(idx) {
+      // Offset each mini-card for a pile effect
+      return {
+        top: `${idx * 18}px`,
+        left: `${idx * 10}px`,
+        zIndex: 100 - idx
+      }
+    }
   },
 }
 </script>
@@ -159,5 +182,52 @@ export default {
 
 .send-to-chat-button {
   right: -1px;
+}
+
+.improvements-pile {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.improvement-desc-block {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.improvement-title {
+  text-shadow: 0 1px 2px #000;
+  font-size: 15px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  margin-top: 8px;
+}
+
+.improvement-description-background {
+  background-color: rgba(0, 0, 0, 0.75);
+  padding: 1px 10px 6px 10px;
+  border-radius: 5px;
+  text-align: left;
+  font-size: 13px;
+  margin-top: 2px;
+  position: relative;
+  min-height: 24px;
+}
+
+.improvement-xp-badge {
+  position: absolute;
+  left: 0px;
+  bottom: -5px;
+  background: darkgoldenrod;
+  color: black;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 2px 8px;
+  border-top-right-radius: 10px;
+  border-bottom-left-radius: 5px;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
+  margin: 0;
 }
 </style>
