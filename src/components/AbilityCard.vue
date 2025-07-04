@@ -4,7 +4,12 @@
     :collapsible="collapsible" @update:collapsed="onBaseCardCollapsed">
     <!-- Content slot -->
     <template #content>
-      <div v-if="ability.description" v-html="ability.description" class="description-background"></div>
+      <div v-if="ability.description" class="description-background" style="position: relative;">
+        <div v-html="ability.description"></div>
+        <div v-if="showXpBadge && ability.xp && improvements && improvements.length" class="improvement-xp-badge">{{
+          ability.xp }}
+          XP</div>
+      </div>
 
       <!-- Improvements pile (now inside the card) -->
       <div v-if="improvements && improvements.length" class="improvements-pile">
@@ -31,7 +36,8 @@
 
     <!-- Badge slot (XP) -->
     <template #badge>
-      <div v-if="showXpBadge && ability.xp" class="xp-bubble">{{ ability.xp }} XP</div>
+      <div v-if="showXpBadge && ability.xp && (!improvements || !improvements.length)" class="xp-bubble">{{ ability.xp
+      }} XP</div>
     </template>
   </base-card>
 </template>
@@ -147,13 +153,13 @@ export default {
 
 .xp-bubble {
   position: absolute;
-  bottom: -3px;
+  bottom: 0px;
   left: 0px;
   background-color: darkgoldenrod;
   color: black;
   font-size: 12px;
   font-weight: bold;
-  padding: 5px 10px;
+  padding: 2px 8px;
   border-top-right-radius: 10px;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
   pointer-events: none;
