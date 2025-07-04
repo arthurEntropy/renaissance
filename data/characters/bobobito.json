@@ -150,14 +150,70 @@
       "quantity": 2,
       "isCarried": true,
       "isWielding": true,
-      "index": 0
+      "index": 0,
+      "equipment": {
+        "id": "6a8992ec-46d8-4113-ac97-a87d759e2a46",
+        "name": "Azcan Warhammer",
+        "description": "Once per rest, you may call on the fires of Azca to add 1d6 to this weapon's damage. Describe how the hammer burns your foe.",
+        "standardOfLiving": "2",
+        "source": "a3a54cb6-09c4-42e3-b142-3053b7c1d4e8",
+        "weight": 3,
+        "isMelee": true,
+        "damageDice": [
+          8
+        ],
+        "engagementDice": [
+          10
+        ],
+        "engagementSuccesses": [
+          "6",
+          "11"
+        ],
+        "skillMods": [],
+        "isDeleted": false,
+        "isCustom": false,
+        "artUrl": "https://cdn.midjourney.com/2fcb5ebc-3878-47b7-9ff2-966514ac8989/0_3.png"
+      }
     },
     {
       "id": "58c57499-9eef-49d4-9273-7674c60fae77",
       "quantity": 1,
       "isCarried": true,
       "isWielding": true,
-      "index": 1
+      "index": 1,
+      "equipment": {
+        "id": "58c57499-9eef-49d4-9273-7674c60fae77",
+        "artUrl": "https://cdn.midjourney.com/ca2dd46f-000f-4c7f-b942-d32f5c8e3625/0_3.png",
+        "name": "Longsword",
+        "description": "A super cool sharp sword that deals 2d6 damage on a hit.",
+        "standardOfLiving": "4",
+        "source": "75800953-4adb-405f-a4ab-a599573ca533",
+        "weight": 2,
+        "isMelee": true,
+        "damageDice": [
+          8
+        ],
+        "engagementDice": [
+          6,
+          6
+        ],
+        "engagementSuccesses": [
+          "5",
+          "7",
+          "8",
+          "10"
+        ],
+        "skillMods": [
+          {
+            "name": "Stealth",
+            "diceMod": -1,
+            "isFavored": false,
+            "isIllFavored": false
+          }
+        ],
+        "isDeleted": false,
+        "isCustom": false
+      }
     }
   ],
   "activeEffects": [],
@@ -178,8 +234,8 @@
     "c02c53d1-b456-45d0-a048-6fc941cacc03"
   ],
   "abilities": [
-    "3f084b3d-ff7a-462c-a55c-0ea52dac6332",
     "82fad9cc-9de8-49c3-a192-ae96a981007d",
+    "3f084b3d-ff7a-462c-a55c-0ea52dac6332",
     "55004379-6745-465c-887f-2eb2337ac6f0",
     "4fbf9ccb-0fbb-45d0-9f8f-7b7fcfb811fb",
     "dbd3d35e-5846-49f5-94db-030d8515fdf0",

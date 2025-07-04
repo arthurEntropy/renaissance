@@ -31,10 +31,10 @@
       ghost-class="ghost-ability-row" animation="150" class="abilities-edit-list">
       <template #item="{ element: ability, index }">
         <div class="ability-row">
-          <!-- Edit Mode Controls (left, stacked) -->
-          <div class="edit-controls">
-            <span @click="removeAbility(index)" class="delete-item-link">ⓧ</span>
-            <span class="drag-handle" title="Drag to reorder">⋮⋮</span>
+          <!-- Floating Edit Controls (left, vertical, partly outside row) -->
+          <div v-if="isEditMode" class="floating-edit-controls">
+            <button @click="removeAbility(index)" class="fab-delete" title="Remove ability" type="button">ⓧ</button>
+            <span class="fab-drag drag-handle" title="Drag to reorder">⋮⋮</span>
           </div>
           <!-- Ability Card -->
           <AbilityCard v-if="ability" :ability="ability" :collapsed="getCollapsedState(ability)"
@@ -514,10 +514,12 @@ h2 {
 
 /* Draggable Styles */
 .ability-row {
+  position: relative;
+  overflow: visible;
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  margin-bottom: -2px;
+  /* Removed margin-bottom: -2px; to fix gap inconsistency */
   width: 100%;
 }
 
@@ -529,10 +531,21 @@ h2 {
   box-sizing: border-box;
 }
 
-.edit-controls {
+/* Floating edit controls for each ability row */
+.floating-edit-controls {
+  position: absolute;
+  left: -18px;
+  top: 2px;
+  transform: none;
   display: flex;
   flex-direction: column;
-  margin: 7px 5px 0 0;
+  gap: 2px;
+  z-index: 120;
+  pointer-events: auto;
+}
+
+.edit-controls {
+  display: none !important;
 }
 
 .missing-ability {
@@ -651,6 +664,50 @@ h2 {
   color: #aaa;
   font-size: 0.9em;
   margin-left: 5px;
+}
+
+.fab-delete {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #222 60%, #444 100%);
+  color: #ff6b6b;
+  border: none;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.18);
+  transition: background 0.2s, color 0.2s;
+  padding: 0;
+}
+
+.fab-delete:hover {
+  background: linear-gradient(135deg, #222 60%, #444 100%);
+  color: #fff;
+}
+
+.fab-drag {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #222 60%, #444 100%);
+  color: #aaa;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: move;
+  user-select: none;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.18);
+  transition: background 0.2s, color 0.2s;
+}
+
+.fab-drag:hover {
+  /* Keep background unchanged on hover */
+  background: linear-gradient(135deg, #222 60%, #444 100%);
+  color: #222;
 }
 
 @media (max-width: 650px) {

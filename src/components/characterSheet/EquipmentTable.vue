@@ -23,10 +23,11 @@
       <template #item="{ element: row, index }">
         <div class="equipment-row">
           <div class="equipment-row-flex">
-            <!-- Edit Controls (left, stacked, only in edit mode) -->
-            <div v-if="isEditMode" class="edit-controls">
-              <span @click="removeEquipmentItem(index)" class="delete-item-link">ⓧ</span>
-              <span class="drag-handle" title="Drag to reorder">⋮⋮</span>
+            <!-- Floating Edit Controls (only in edit mode) -->
+            <div v-if="isEditMode" class="floating-edit-controls">
+              <button @click="removeEquipmentItem(index)" class="fab-delete" title="Remove item"
+                type="button">ⓧ</button>
+              <span class="fab-drag drag-handle" title="Drag to reorder">⋮⋮</span>
             </div>
             <!-- EquipmentCard (collapsed/minimal) -->
             <div class="equipment-card-col">
@@ -626,6 +627,8 @@ h2 {
   border-radius: 5px;
   overflow: hidden;
   width: 100%;
+  position: relative;
+  overflow: visible;
 }
 
 .equipment-row-flex {
@@ -689,50 +692,73 @@ h2 {
   margin-left: -5px;
 }
 
-/* Edit Controls (left, stacked, like AbilitiesTable) */
+/* Floating edit controls for each equipment row */
+.floating-edit-controls {
+  position: absolute;
+  left: -18px;
+  top: 2px;
+  transform: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  z-index: 120;
+  pointer-events: auto;
+}
+
+.equipment-row {
+  position: relative;
+  overflow: visible;
+}
+
+/* Hide old edit-controls in edit mode */
 .edit-controls {
-  display: flex;
-  flex-direction: column;
-  margin: 7px 5px 0 0;
+  display: none !important;
 }
 
-.delete-item-link {
-  cursor: pointer;
-  color: gray;
-  font-size: 15px;
-  text-align: center;
-  margin: 0;
-}
-
-.delete-item-link:hover {
+/* Delete button style */
+.fab-delete {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #222 60%, #444 100%);
   color: #ff6b6b;
-}
-
-.drag-handle {
-  cursor: move;
-  font-size: 16px;
-  color: #777;
-  user-select: none;
-  margin: 0;
-}
-
-.drag-handle:hover {
-  color: white;
-}
-
-.equipment-row-main-details {
+  border: none;
+  font-size: 1rem;
   display: flex;
-  flex-direction: column;
-  flex: 1 1 0%;
-  min-width: 0;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.18);
+  transition: background 0.2s, color 0.2s;
+  padding: 0;
 }
 
-/* Ghost row style for dragging */
-.ghost-equipment-row {
-  opacity: 0.5;
-  background: rgba(255, 255, 255, 0.1);
-  border: 2px dashed #777;
-  border-radius: 5px;
+.fab-delete:hover {
+  background: linear-gradient(135deg, #222 60%, #444 100%);
+  color: #fff;
+}
+
+/* Drag handle button style */
+.fab-drag {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #222 60%, #444 100%);
+  color: #aaa;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: move;
+  user-select: none;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.18);
+  transition: background 0.2s, color 0.2s;
+}
+
+.fab-drag:hover {
+  /* Keep background unchanged on hover */
+  background: linear-gradient(135deg, #222 60%, #444 100%);
+  color: #222;
 }
 
 .missing-equipment {
