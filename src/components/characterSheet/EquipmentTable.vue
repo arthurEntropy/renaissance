@@ -936,7 +936,7 @@ h2 {
 }
 
 .total-weight-carried {
-  font-size: 12px;
+  font-size: 10px;
   font-style: italic;
   white-space: nowrap;
   margin-top: 2px;

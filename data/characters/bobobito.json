@@ -184,36 +184,6 @@
         "isDeleted": false,
         "isCustom": false
       }
-    },
-    {
-      "id": "6a8992ec-46d8-4113-ac97-a87d759e2a46",
-      "quantity": 2,
-      "isCarried": true,
-      "isWielding": true,
-      "index": 1,
-      "equipment": {
-        "id": "6a8992ec-46d8-4113-ac97-a87d759e2a46",
-        "name": "Azcan Warhammer",
-        "description": "Once per rest, you may call on the fires of Azca to add 1d6 to this weapon's damage. Describe how the hammer burns your foe.",
-        "standardOfLiving": "2",
-        "source": "a3a54cb6-09c4-42e3-b142-3053b7c1d4e8",
-        "weight": 3,
-        "isMelee": true,
-        "damageDice": [
-          8
-        ],
-        "engagementDice": [
-          10
-        ],
-        "engagementSuccesses": [
-          "6",
-          "11"
-        ],
-        "skillMods": [],
-        "isDeleted": false,
-        "isCustom": false,
-        "artUrl": "https://cdn.midjourney.com/2fcb5ebc-3878-47b7-9ff2-966514ac8989/0_3.png"
-      }
     }
   ],
   "activeEffects": [],
@@ -235,10 +205,10 @@
   ],
   "abilities": [
     "82fad9cc-9de8-49c3-a192-ae96a981007d",
-    "3f084b3d-ff7a-462c-a55c-0ea52dac6332",
+    "dbd3d35e-5846-49f5-94db-030d8515fdf0",
     "55004379-6745-465c-887f-2eb2337ac6f0",
     "4fbf9ccb-0fbb-45d0-9f8f-7b7fcfb811fb",
-    "dbd3d35e-5846-49f5-94db-030d8515fdf0",
+    "3f084b3d-ff7a-462c-a55c-0ea52dac6332",
     "2f40fa98-f90a-4eb8-b626-999b000fa4b2"
   ]
 }
