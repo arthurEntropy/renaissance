@@ -184,6 +184,85 @@
         "isDeleted": false,
         "isCustom": false
       }
+    },
+    {
+      "id": "49e6789c-efa8-4282-9a79-2aa92c31efd3",
+      "quantity": 1,
+      "isCarried": true,
+      "isWielding": false,
+      "index": 1,
+      "equipment": {
+        "id": "49e6789c-efa8-4282-9a79-2aa92c31efd3",
+        "name": "Good Stick",
+        "description": "<p>A very good stick</p>",
+        "standardOfLiving": null,
+        "source": null,
+        "weight": 0,
+        "isMelee": false,
+        "damageDice": [],
+        "engagementDice": [],
+        "engagementSuccesses": [],
+        "skillMods": [],
+        "isDeleted": false,
+        "isCustom": true,
+        "artUrl": null
+      }
+    },
+    {
+      "id": "c811e686-c74b-47bc-9f19-dd7aee051742",
+      "quantity": 1,
+      "isCarried": true,
+      "isWielding": true,
+      "index": 2,
+      "equipment": {
+        "id": "c811e686-c74b-47bc-9f19-dd7aee051742",
+        "name": "Furulian Dagger",
+        "description": "Carved from the eternally-cold bones of some ancient bird-beast.",
+        "standardOfLiving": "2",
+        "source": 4,
+        "weight": 1,
+        "isMelee": true,
+        "damageDice": [
+          4
+        ],
+        "engagementDice": [
+          4,
+          8
+        ],
+        "engagementSuccesses": [
+          "4",
+          "7",
+          "8",
+          "9"
+        ],
+        "skillMods": [],
+        "isDeleted": false,
+        "isCustom": false,
+        "artUrl": "https://cdn.midjourney.com/65e126d0-27a6-45c0-9c69-97eef3362aef/0_0.png"
+      }
+    },
+    {
+      "id": "769496ef-2a6f-489c-951d-f61e870752e9",
+      "quantity": 1,
+      "isCarried": true,
+      "isWielding": false,
+      "index": 3,
+      "equipment": {
+        "id": "769496ef-2a6f-489c-951d-f61e870752e9",
+        "name": "Cool Bag Of Rocks",
+        "description": "<p>Just a cool bag of rocks</p>",
+        "standardOfLiving": null,
+        "source": null,
+        "weight": 3,
+        "isMelee": false,
+        "damageDice": [],
+        "engagementDice": [],
+        "engagementSuccesses": [],
+        "skillMods": [],
+        "isDeleted": false,
+        "isCustom": true,
+        "artUrl": null
+      }
     }
   ],
   "activeEffects": [],

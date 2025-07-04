@@ -387,8 +387,7 @@ export default {
     },
 
     editCustomItem(equipment) {
-      // When the edit button is clicked on a custom item, emit an event to the parent with just the ID
-      this.$emit('edit-custom-equipment', equipment.id)
+      this.$emit('edit-custom-equipment', equipment)
     },
 
     formatWeight(value) {
@@ -444,8 +443,18 @@ export default {
         // Refresh equipment store to ensure the new item is available
         await this.equipmentStore.fetchAllEquipment()
 
-        // Now that the equipment store is updated, emit the edit event
-        this.$emit('edit-custom-equipment', createdEquipment.id)
+        // Find the full equipment object from the updated equipment list
+        const fullEquipment = (this.equipmentStore.equipment || []).find(
+          (eq) => eq.id === createdEquipment.id
+        )
+
+        // Now that the equipment store is updated, emit the edit event with the full object
+        if (fullEquipment) {
+          this.$emit('edit-custom-equipment', fullEquipment)
+        } else {
+          // fallback: emit the id if not found (should not happen)
+          this.$emit('edit-custom-equipment', createdEquipment.id)
+        }
       } catch (error) {
         console.error('Error adding custom equipment:', error)
       }
