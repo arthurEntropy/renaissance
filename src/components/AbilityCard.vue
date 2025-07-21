@@ -1,7 +1,7 @@
 <template>
   <base-card :item="ability" itemType="ability" :metaInfo="traitOrMp" :storeInstance="abilitiesStore"
     :initialCollapsed="localCollapsed" :editable="editable" :sources="sources" @edit="$emit('edit', ability)"
-    :collapsible="collapsible" @update:collapsed="onBaseCardCollapsed">
+    :collapsible="collapsible" @update:collapsed="onBaseCardCollapsed" :showSource="showSource">
     <!-- Content slot -->
     <template #content>
       <div v-if="ability.description" class="description-background" style="position: relative;">
@@ -86,6 +86,10 @@ export default {
       type: Array,
       default: () => []
     },
+    showSource: {
+      type: Boolean,
+      default: true,
+    },
   },
   emits: ['edit', 'update', 'sendToChat', 'update:collapsed'],
   data() {
@@ -161,7 +165,7 @@ export default {
   position: absolute;
   bottom: 0px;
   left: 0px;
-  background-color: darkgoldenrod;
+  background-color: goldenrod;
   color: black;
   font-size: 12px;
   font-weight: bold;
@@ -200,7 +204,7 @@ export default {
   left: 50%;
   transform: translateX(-50%);
   bottom: -10px;
-  background: darkgoldenrod;
+  background: goldenrod;
   color: black;
   font-size: 11px;
   font-family: inherit;
@@ -219,7 +223,7 @@ export default {
 }
 
 .improvements-toggle-button:hover {
-  background: goldenrod;
+  background: gold;
 }
 
 .improvements-pile {
@@ -233,6 +237,10 @@ export default {
   width: 100%;
   margin: 0;
   padding: 0;
+}
+
+.improvement-desc-block:last-child {
+  margin-bottom: 10px;
 }
 
 .improvement-title {
@@ -258,7 +266,7 @@ export default {
   position: absolute;
   left: 0px;
   bottom: -5px;
-  background: darkgoldenrod;
+  background: goldenrod;
   color: black;
   font-size: 12px;
   font-weight: bold;
