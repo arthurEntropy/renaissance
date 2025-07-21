@@ -1,0 +1,12 @@
+{
+  "id": "fc7c589d-e706-4dc1-8fcf-06861e4abc65",
+  "name": "Arcanist 1",
+  "description": "<p>This is a placeholder.</p>",
+  "isTrait": false,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
+  "isDeleted": false,
+  "mp": null,
+  "xp": null
+}

@@ -1,0 +1,13 @@
+{
+  "id": "7eb3559b-8cd5-49ce-b047-a627e30db31c",
+  "name": "Demand Satisfaction",
+  "description": "<p>Roll Awe vs Spirit against a foe who can see and hear you. If you win, the foe's attacks against combatants other than you are ill-favored for the next three rounds. If you attack any combatant other than the foe, the effect ends.</p>",
+  "isTrait": false,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "4eccfe5d-de19-4bc5-8c9c-374d793d67f0",
+  "isDeleted": false,
+  "mp": 1,
+  "xp": null,
+  "actionType": "Half Action"
+}

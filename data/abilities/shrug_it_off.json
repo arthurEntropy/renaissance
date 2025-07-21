@@ -1,13 +1,13 @@
 {
-  "id": "b485f7a7-ecf2-4899-8eb6-16de70aad279",
+  "id": "8eac2e82-547f-4474-b01e-07a7374eb98e",
   "name": "Shrug It Off",
-  "description": "<p><em>You grit your teeth and hold your ground, enduring the arcane assault with sheer physical resolve.</em></p><p>Once per rest, when a foe targets you with a spell that would require you to make an opposed roll, you may roll with Fortitude instead of the skill specified by the spell.</p><p><strong>Describe how your body endures what your mind or spirit might not.</strong></p>",
+  "description": "<p>When you lose an opposed roll, you may re-roll it. You may use this ability once per rest for each level of <em>Swagger</em> you have.</p>",
   "isTrait": false,
   "canBeActive": false,
   "isActive": true,
-  "source": "d4dce5e2-e767-464d-91f0-c40b47f788b3",
+  "source": "45ca935d-938b-4974-961c-4171cc388904",
   "isDeleted": false,
   "mp": 1,
-  "xp": 12,
+  "xp": 5,
   "actionType": "Reaction"
 }

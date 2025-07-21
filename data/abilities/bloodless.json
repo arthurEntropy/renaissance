@@ -1,0 +1,14 @@
+{
+  "id": "dc9dbb88-7a9d-4776-8ee3-aeb7ba654f02",
+  "name": "Bloodless",
+  "description": "<p>Halve the damage dealt to you from one source. You may use this ability once per rest for each level of <em>Swagger</em> you have.</p>",
+  "isTrait": false,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "45ca935d-938b-4974-961c-4171cc388904",
+  "isDeleted": false,
+  "mp": 1,
+  "xp": 5,
+  "actionType": "Reaction",
+  "improvements": []
+}

@@ -1,7 +1,7 @@
 {
   "id": "976032f0-f2e9-42c3-8c1d-6b4ff73ce454",
   "name": "Keep Swinging",
-  "description": "<p><em>You strain your body to press the assault.</em></p><p>Once per round, you may make one extra attack this turn. You lose 5 Endurance.</p><p><strong>Describe how your offense becomes a blur of reckless momentum, pushing past the limits of safe combat.</strong></p>",
+  "description": "<p><em>You strain your body to press the assault.</em></p><p>Once per round: you may make one extra attack this turn. You lose 5 Endurance.</p><p><strong>Describe how your offense becomes a blur of reckless momentum, pushing past the limits of safe combat.</strong></p>",
   "isTrait": false,
   "canBeActive": false,
   "isActive": true,

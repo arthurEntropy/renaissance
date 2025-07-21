@@ -1,0 +1,25 @@
+{
+  "id": "c447c4d5-d5f1-4f1a-9246-cb3881d30ed8",
+  "name": "Aura Of Experience",
+  "description": "<p>Allies within short range get +1d to attack rolls.</p><p>Additionally, for each different Culture of origin among the weapons and armor you are wielding or wearing, your max MP increases by 1, up to 5 additional MP.</p>",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "45ca935d-938b-4974-961c-4171cc388904",
+  "isDeleted": false,
+  "mp": "",
+  "xp": null,
+  "actionType": "",
+  "improvements": [
+    {
+      "name": "Inspiring",
+      "description": "<p>Whenever you roll 🌞 on an attack roll, an ally within short range can use their reaction to make a melee attack.</p>",
+      "xp": 5
+    },
+    {
+      "name": "Put Your Back Into It",
+      "description": "<p>Allies within short range may spend 2 Endurance before making an attack roll. If they do, they roll damage with +1d.</p>",
+      "xp": 5
+    }
+  ]
+}

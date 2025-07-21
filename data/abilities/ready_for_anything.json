@@ -9,11 +9,5 @@
   "isDeleted": false,
   "mp": null,
   "xp": 5,
-  "improvements": [
-    {
-      "name": "This Is A Test",
-      "description": "<p>Testing whether this looks good.</p>",
-      "xp": 2
-    }
-  ]
+  "improvements": []
 }

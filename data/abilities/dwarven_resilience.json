@@ -1,7 +1,7 @@
 {
   "id": "e50350ea-0c67-4c29-bd54-f4f255ba2ffe",
   "name": "Dwarven Resilience",
-  "description": "Once per rest, if damage would reduce your Endurance to 0 or less, it instead reduces your Endurance to 1. Describe how you endure.",
+  "description": "<p>Once per rest, if damage would reduce your Endurance to 0 or less, it instead reduces your Endurance to 1. Describe how you endure.</p>",
   "isTrait": true,
   "canBeActive": false,
   "isActive": true,

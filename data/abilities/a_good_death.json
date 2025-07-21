@@ -1,0 +1,12 @@
+{
+  "id": "3f8b04db-fe8e-4569-8670-092ea46a06cf",
+  "name": "A Good Death",
+  "description": "<p><em>Your fall on the battlefield echoes far beyond the moment.</em></p><p>Once per quest, when you're knocked unconscious in battle, double the quest’s current compagnia. If you die outright as a result, every future quest that includes members of the current quest begins with 1 additional compagnia.</p><p><strong>Describe what flashes through your mind as the world begins to fade.</strong></p>",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "d4dce5e2-e767-464d-91f0-c40b47f788b3",
+  "isDeleted": false,
+  "mp": null,
+  "xp": 10
+}

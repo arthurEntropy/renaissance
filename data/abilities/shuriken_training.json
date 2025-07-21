@@ -1,0 +1,29 @@
+{
+  "id": "bd3fe860-81bc-45cb-9f01-a2ac4efca67e",
+  "name": "Shuriken Training",
+  "description": "<p>You are trained in the use of shuriken (small throwing blades), a special weapon type. When you use an action to attack with a shuriken weapon, you can attack foes within short range as a normal ranged attack or within medium range, ill-favored.</p>",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "e10d7d9f-9d93-46b0-9846-d60241031644",
+  "isDeleted": false,
+  "mp": null,
+  "xp": 10,
+  "improvements": [
+    {
+      "name": "Long Throw",
+      "description": "<p>You may spend a half action and 1 MP to target a foe within medium range without the ill-favored penalty, or a foe within long range with the ill-favored penalty.</p>",
+      "xp": 5
+    },
+    {
+      "name": "Pinning Throw",
+      "description": "<p>Each time you roll max damage on a damage die for your shuriken, if the foe is adjacent to a wall or other sturdy, inanimate object, they are pinned to that object and must spend a half action on their turn to free themselves (multiple pinnings require multiple half actions).</p>",
+      "xp": 5
+    },
+    {
+      "name": "Piercing Throw",
+      "description": "<p>Each time you roll max damage on a damage die for your shuriken, you inflict 1 injury on the foe.</p>",
+      "xp": 10
+    }
+  ]
+}

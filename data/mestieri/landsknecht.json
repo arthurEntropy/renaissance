@@ -10,5 +10,20 @@
   "places": [],
   "name": "Landsknecht",
   "expansionLogoUrl": "",
-  "description": "<p>FLAVOR:</p><ul><li><p>Mercenary with swagger</p></li><li><p>Expensive to have in the party</p></li><li><p>Benefits to others (morale, experience)</p></li><li><p>Martial instruments (drum and fife, etc.)</p></li><li><p>Out-of-combat advantages (impressive, negotiation, knows your price)</p></li></ul><p></p><p>WEAPONS</p><ul><li><p>Heavy weapons, heavy polearms, heavy firearms, heavy ranged</p></li><li><p>Light armor, no shields or helms</p></li></ul><p></p><p>ENGAGEMENT</p><ul><li><p>Varies with keeping? Cost in excess of usual?</p></li><li><p>One of each (d4, d6, d8, d10, d12), but choose as they like?</p></li></ul><p></p><p>ABILITIES</p><ul><li><p>Skirmisher (entering/exiting melee)</p></li><li><p>Bloodless (spend MP to halve damage)</p></li><li><p>Aura Of Experience (allies)</p></li><li><p>Bonuses from fashion</p></li></ul><p></p><p>MOVES FROM 0.1:</p><ul><li><p>MERCHANT OF FIGHTING (trait): Your max MP for Landsknecht is 3. You are trained in wielding Martial and Heavy weapons. Whenever you use the Intuizione move to attempt to discern a person’s price to be influenced, you roll with advantage.</p></li><li><p>BLADE WHISPERER (trait): You may spend a day forging a telepathic link with the soul of a Martial or Heavy weapon. If you do so, it grants +1 to rolls to attack with it, and you may use it for the DANCING BLADE Move, if you have access to it.&nbsp;</p></li><li><p>SKIRMISHER: When you charge into battle or seek rapid egress, roll+CHA:</p></li><li><p>On a 10+, you dodge all foes in your path. On a 7-9, you weave through your foes, but each foe you pass deals half damage to you.</p></li><li><p>BLOODLESS (trait): Any time you would take damage from a physical wound or blow, you may spend 1 MP to instead take half that damage.</p></li><li><p>AURA OF EXPERIENCE (trait): Allies within 10 ft of you get +1 to rolls for melee attacks.</p></li><li><p>DANCING BLADE: When you command your linked blade to battle a foe on your behalf, spend 1 MP and roll+CHA: On a 10+, your blade hovers in the air and may use the Pugni move independently from you for up to 10 minutes. On a 7-9, same as 10+, but you must use a Move to control the blade with magic.</p></li></ul><ul><li><p>Isn’t there a thing about IRL landsknecht getting fancy fabrics from the places they fought in? Maybe something to do with fashion and Awe rolls, acquiring new fashions in unfamiliar places, etc.</p></li></ul>"
+  "description": "<p>FLAVOR:</p><ul><li><p>Mercenary with swagger</p></li><li><p>Expensive to have in the party</p></li><li><p>Benefits to others (morale, experience)</p></li><li><p>Martial instruments (drum and fife, etc.)</p></li><li><p>Out-of-combat advantages (impressive, negotiation, knows your price)</p></li></ul>",
+  "backgroundImage": "https://cdn.midjourney.com/22cc8bad-7939-47de-9584-8828c0a5ffcb/0_3.png",
+  "color1": "#ffffff",
+  "color2": "#000000",
+  "expansion": "",
+  "novizio": {
+    "flavorText": "",
+    "melee": "martial, heavy",
+    "polearms": "light",
+    "ranged": "",
+    "firearms": "",
+    "armor": "light, medium",
+    "engagement": "<p>Conditional - see <em>Merchant of Fighting.</em></p>",
+    "initialMaxMP": 5,
+    "abilities": "<p>Aura of Experience, Everyone Has A Price, Merchant of Fighting.</p>"
+  }
 }

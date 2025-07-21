@@ -8,5 +8,17 @@
   "source": "d4dce5e2-e767-464d-91f0-c40b47f788b3",
   "isDeleted": false,
   "mp": null,
-  "xp": null
+  "xp": null,
+  "improvements": [
+    {
+      "name": "Hold The Line",
+      "description": "<p>When you or any of your adjacent allies is attacked, all of you may contribute engagement dice to the engagement (just the dice - not engagement success options).</p>",
+      "xp": 10
+    },
+    {
+      "name": "Shield Wall",
+      "description": "<p>If you and your adjacent allies are all wielding shields, all of you automatically win any engagements you enter as defenders - no rolls needed.</p>",
+      "xp": 5
+    }
+  ]
 }

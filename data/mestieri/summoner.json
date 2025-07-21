@@ -9,5 +9,9 @@
   "faces": [],
   "places": [],
   "name": "Summoner",
-  "expansionLogoUrl": ""
+  "expansionLogoUrl": "",
+  "backgroundImage": "https://cdn.midjourney.com/7f7891f0-b3cb-45ec-92a2-738839651f59/0_3.png",
+  "color1": "#ffffff",
+  "color2": "#000000",
+  "expansion": ""
 }

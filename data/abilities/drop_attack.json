@@ -1,0 +1,13 @@
+{
+  "id": "dacd9416-0204-4460-87c8-9ba69d4203ca",
+  "name": "Drop Attack",
+  "description": "<p>When you attack a foe who is on the ground below you while falling or leaping downward, you may spend 2 MP to use the force of your movement, adding +1d damage per 10 ft of downward vertical movement on a hit.</p>",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "e10d7d9f-9d93-46b0-9846-d60241031644",
+  "isDeleted": false,
+  "mp": "",
+  "xp": 10,
+  "actionType": ""
+}

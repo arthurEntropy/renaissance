@@ -1,7 +1,7 @@
 {
   "id": "7f33f7ca-dfe2-49cd-8e11-ac8fdab5f905",
   "name": "Visitor To Ancient Shrines",
-  "description": "Your time among the forested peaks around Upham has brought you to many long-forgotten shrines",
+  "description": "<p><em>Your time among the forested peaks around Upham has brought you to many long-forgotten shrines</em></p>",
   "isTrait": true,
   "canBeActive": false,
   "isActive": true,

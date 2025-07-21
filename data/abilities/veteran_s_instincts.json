@@ -1,12 +1,12 @@
 {
-  "id": "f15feda2-c1e5-4b91-a59c-77ffab9c8b41",
+  "id": "b11eb6ec-7cd1-4bf0-92d0-574786ed6b52",
   "name": "Veteran's Instincts",
-  "description": "<p><em>Experience sharpens your reflexes—you know the signs of an enemy you’ve faced before.</em></p><p>Your initiative is favored against foes you have fought before (whether by culture, faction or beast type - GM discretion).</p><p><strong>Describe how you recognize the foe’s movements and prepare yourself to act first.</strong></p>",
+  "description": "<p>At the beginning of each combat, for each level of <em>Swagger </em>you have, choose one:</p><ul><li><p>Your initiative roll is favored.</p></li><li><p>Two of your allies' initiative rolls are favored.</p></li><li><p>Roll Awareness vs Defense for up to three foes. For each roll you win, you learn that foe's current Defense score.</p></li></ul>",
   "isTrait": true,
   "canBeActive": false,
   "isActive": true,
-  "source": "d4dce5e2-e767-464d-91f0-c40b47f788b3",
+  "source": "45ca935d-938b-4974-961c-4171cc388904",
   "isDeleted": false,
   "mp": null,
-  "xp": 12
+  "xp": 5
 }

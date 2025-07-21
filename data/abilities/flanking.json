@@ -9,5 +9,17 @@
   "isDeleted": false,
   "mp": null,
   "xp": 15,
-  "actionType": ""
+  "actionType": "",
+  "improvements": [
+    {
+      "name": "Team Strike",
+      "description": "<p>You and the flanking allies also take +1d to damage rolls against the flanked foe.</p>",
+      "xp": 10
+    },
+    {
+      "name": "Topple",
+      "description": "<p>When you or a flanking ally lands a hit with a melee attack, one of you other then the attacker may roll Strength vs Dexterity against that foe. If you win the roll, the foe is knocked prone.</p>",
+      "xp": 5
+    }
+  ]
 }

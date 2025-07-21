@@ -1,12 +1,12 @@
 {
   "id": "329b5305-71b2-49f2-93b5-985e92576f02",
   "name": "Mistrust Of Magic",
-  "description": "Whenever you equip a magic item, check a condition, and you cannot clear that condition, except by dropping or removing the magic item.\n\nAdditionally, any time you break a magic item, you gain XP equal to its cost.\n\nDescribe what makes you suspicious of magic.",
+  "description": "<p>Whenever you equip a magic item, check a condition, and you cannot clear that condition, except by dropping or removing the magic item.</p><p>Additionally, any time you break a magic item, you gain XP equal to its cost.</p><p><strong>Describe what makes you suspicious of magic.</strong></p>",
   "isTrait": true,
   "canBeActive": false,
   "isActive": true,
   "source": "e0a69b6f-38f9-4fa5-a1ef-5e5777299e82",
   "isDeleted": false,
   "mp": null,
-  "xp": null
+  "xp": 10
 }

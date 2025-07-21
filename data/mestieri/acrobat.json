@@ -10,5 +10,20 @@
   "places": [],
   "name": "Acrobat",
   "expansionLogoUrl": "",
-  "description": "<p>FLAVOR:</p><ul><li><p>Rogue-type agility, but without emphasis on sneakiness.</p></li><li><p>Hard to pin down</p></li><li><p>Significantly able to get into places others can't (PARKOUR!)</p></li></ul><p>WEAPONS</p><ul><li><p>Light, special (ropes, chains, grappling hook, big pole, blowgun, etc.)</p></li></ul><p>ENGAGEMENT</p><ul><li><p>LOTS, but only if you have movement to spend?</p></li></ul><p>ABILITIES</p><ul><li><p>Can always double move, but can't do much if out of movement</p></li><li><p>Parkour shit - really incentivize wild moves</p></li></ul>"
+  "description": "<p>FLAVOR:</p><ul><li><p>Rogue-type agility, but without emphasis on sneakiness.</p></li><li><p>Hard to pin down</p></li><li><p>Significantly able to get into places others can't (PARKOUR!)</p></li></ul>",
+  "backgroundImage": "https://cdn.midjourney.com/bb5d780e-88ee-4d7e-a4c0-94fe2eceb64f/0_3.png",
+  "color1": "#ffffff",
+  "color2": "#000000",
+  "expansion": "",
+  "novizio": {
+    "flavorText": "<p>Your speed is doubled, but you have zero actions by default on your turn. To gain actions, you may spend your movement. For every 10 ft of movement you spend, you gain a half action. You may spend as much movement in this way as you choose each turn.</p>",
+    "melee": "light",
+    "polearms": "",
+    "ranged": "",
+    "firearms": "",
+    "armor": "",
+    "engagement": "<p><span class=\"dice-icon dice-icon df-d4-4\" style=\"font-size: 36px;\"></span> <span class=\"dice-icon dice-icon df-d4-4\" style=\"font-size: 36px;\"></span> <span class=\"dice-icon dice-icon dice-icon df-d4-4\" style=\"font-size: 36px;\"></span> <span class=\"dice-icon dice-icon dice-icon df-d4-4\" style=\"font-size: 36px;\"></span></p>",
+    "initialMaxMP": 5,
+    "abilities": "<p>Nimble and choose one, ignoring its XP cost:</p><ul><li><p>Pole Training</p></li><li><p>Rope &amp; Chain Weapon Training</p></li><li><p>Shuriken Training</p></li><li><p>Pressure Point Training</p></li></ul>"
+  }
 }

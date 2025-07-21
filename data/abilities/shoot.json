@@ -1,0 +1,40 @@
+{
+  "id": "e246953b-6f39-44d1-9669-fb92ac7bc9f9",
+  "name": "Shoot",
+  "description": "<p>You throw your orb at a target within short range. Roll Dexterity vs Defense. On a hit, the orb deals 1d4+BODY base damage, plus an additional 1d4 for each charge it contains. The charges are expended, and the orb magically returns to you, propelled by its own magic force.</p><p>On a miss, it deals no damage, retains and charges it contains, and falls to the ground in a space adjacent to the target (GM's choice). You must either move to retrieve it or use a half action to recall the orb to magically to you.</p>",
+  "isTrait": false,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "a07490af-2d77-4968-9adc-0a2a7c84ef70",
+  "isDeleted": false,
+  "mp": null,
+  "xp": null,
+  "actionType": "Action",
+  "improvements": [
+    {
+      "name": "Reach",
+      "description": "<p>Your range increases to medium range.</p>",
+      "xp": 5
+    },
+    {
+      "name": "Bank Shot",
+      "description": "<p>You may bounce your orb off a surface or object as part of its trajectory. The total distance covered must still be within range.</p>",
+      "xp": 5
+    },
+    {
+      "name": "From Downtown",
+      "description": "<p>You may choose to roll ill-favored to aim at a target up to double your range. If you do so and deal damage to a target beyond your usual range, the damage is tripled.</p>",
+      "xp": 10
+    },
+    {
+      "name": "Boomshakalaka",
+      "description": "<p>Your base damage increases to 2d4+BODY.</p>",
+      "xp": 10
+    },
+    {
+      "name": "Traveling",
+      "description": "<p>When you hit a target, instead of expending charges to deal damage, you may expend all charges to teleport to the orb's location.</p>",
+      "xp": 10
+    }
+  ]
+}

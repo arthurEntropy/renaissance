@@ -1,0 +1,20 @@
+{
+  "id": "1b51a7b9-ad28-4238-808b-fdb82cd70698",
+  "name": "Acrobat's Pole",
+  "description": "<p>Two-handed, Length: 15 ft, Reach: 10 ft</p>",
+  "standardOfLiving": "3",
+  "source": "83d190cb-0e05-4392-a5b1-f8a8017f505b",
+  "weight": 15,
+  "isMelee": true,
+  "damageDice": [
+    4
+  ],
+  "engagementDice": [
+    8
+  ],
+  "engagementSuccesses": [],
+  "skillMods": [],
+  "isDeleted": false,
+  "isCustom": false,
+  "artUrl": "https://cdn.midjourney.com/03333597-abc6-4336-b7f4-e98d98d1e772/0_1.png"
+}

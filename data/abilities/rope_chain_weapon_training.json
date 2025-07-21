@@ -1,0 +1,24 @@
+{
+  "id": "fafd1877-3ecf-4da7-a29a-e14e5a345a9d",
+  "name": "Rope & Chain Weapon Training",
+  "description": "<p>You are trained in the use of rope and chain weapons, a special weapon type. When you attack with a rope or chain weapon, your reach with it is 15 ft.</p>",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "e10d7d9f-9d93-46b0-9846-d60241031644",
+  "isDeleted": false,
+  "mp": null,
+  "xp": 10,
+  "improvements": [
+    {
+      "name": "Grappling",
+      "description": "<p>When you land a hit with a rope or chain weapon, you may spend 1 MP to attempt to grapple the foe, rolling Dexterity vs Dexterity.</p><p>If the foe is grappled, they may attempt to free themself at the beginning of each of their turns by rolling Strength against your original Dexterity roll to grapple them. If you are no longer holding the grappling weapon, their roll is favored. You or anyone else can free them by using a half action, no roll required.</p><p>While grappled, you may use an action to attempt to pull them up to 1/4 your speed or knock them prone, Strength vs Strength.</p>",
+      "xp": 5
+    },
+    {
+      "name": "Reach",
+      "description": "<p>Your reach with rope and chain weapons increases to short range.</p>",
+      "xp": 10
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "id": "24a7c21f-4bf2-482a-8595-d4e8cbf0955d",
+  "name": "Fierce Hurl",
+  "description": "<p>When throwing a polearm, you may use Strength instead of Dexterity for the attack roll, but the range is halved.</p>",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "45ca935d-938b-4974-961c-4171cc388904",
+  "isDeleted": true,
+  "mp": null,
+  "xp": 5,
+  "improvements": [
+    {
+      "name": "Piercing Blow",
+      "description": "<p>+1d to the damage roll on a hit.</p>",
+      "xp": 5
+    },
+    {
+      "name": "Knock Flat",
+      "description": "<p>On a hit, the foe must roll Dexterity against the attack roll, falling prone on a loss.</p>",
+      "xp": 5
+    }
+  ]
+}

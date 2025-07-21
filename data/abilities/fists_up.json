@@ -1,0 +1,19 @@
+{
+  "id": "1e289ca8-cf6a-4f0d-ad7c-a13fc8e1f381",
+  "name": "Fists Up",
+  "description": "<p><em>You favor the raw simplicity of fists and whatever’s within reach.</em></p><p>When you make unarmed attacks or strike with an improvised weapon, your damage die is a d6. Also, you may make one attack per free hand each turn.</p><p>However, you are awkward with implements of combat: your attacks made with purpose-made weapons are ill-favored.</p><p><strong>Describe how your stripped-down style delivers a brutal blow.</strong></p>",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "e0a69b6f-38f9-4fa5-a1ef-5e5777299e82",
+  "isDeleted": false,
+  "mp": null,
+  "xp": null,
+  "improvements": [
+    {
+      "name": "Fists of Fury",
+      "description": "<p>Your damage die for unarmed attacks and attacks with improvised weapons increases to a d8.</p>",
+      "xp": 10
+    }
+  ]
+}

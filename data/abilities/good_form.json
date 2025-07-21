@@ -1,0 +1,29 @@
+{
+  "id": "c93d20c3-2fa2-4001-837d-cf38629b9c1a",
+  "name": "Good Form",
+  "description": "<p>When you roll Engagement, you can always re-roll one die before resolving, and can re-roll additional dice for 1 MP each.</p><p>Whenever you roll the highest possible number on an Engagement die, you may spend it as if it were a Success.</p>",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "4eccfe5d-de19-4bc5-8c9c-374d793d67f0",
+  "isDeleted": false,
+  "mp": null,
+  "xp": null,
+  "improvements": [
+    {
+      "name": "Excellent Form",
+      "description": "<p>You can always re-roll 2 Engagement dice at no cost.</p>",
+      "xp": 10
+    },
+    {
+      "name": "Backfoot Them",
+      "description": "<p>Each time you win an Engagement, the foe's Defense is lowered by 1.</p>",
+      "xp": 10
+    },
+    {
+      "name": "Dominate",
+      "description": "<p>If you win 3 Engagements in a row against the same foe, your next attack against them automatically inflicts Injury on a hit.</p>",
+      "xp": 10
+    }
+  ]
+}

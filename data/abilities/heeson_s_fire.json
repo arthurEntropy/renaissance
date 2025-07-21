@@ -1,0 +1,12 @@
+{
+  "id": "be3a525e-5a14-4659-adb7-9f072eadcaf9",
+  "name": "Heeson's Fire",
+  "description": "<p>If you land a hit with your Shoot ability three consecutive times in an encounter, your orb erupts in magical flame, which persists until you miss with your Shoot ability. The flame does no harm to you or your allies, but doubles damage dealt with the orb.</p>",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "a07490af-2d77-4968-9adc-0a2a7c84ef70",
+  "isDeleted": false,
+  "mp": null,
+  "xp": 10
+}

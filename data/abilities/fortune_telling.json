@@ -1,7 +1,7 @@
 {
   "id": "34799d66-7466-4505-8013-dcfe8c5e8614",
   "name": "Fortune Telling",
-  "description": "In your time among the paper-lanterned streets and bohemian shops of Chobham, you've seen how fortune telling - real and fake - can sway people's actions. Choose a technique like palm reading, astrology or reading tea leaves.\n\nOnce per long rest, you can read someone's fortune, granting them +1d to their next check made that day with a relevant skill (GM discretion). Describe your technique. Do you believe that you're actually telling the future or is it an effective placebo?",
+  "description": "<p><em>In your time among the paper-lanterned streets and bohemian shops of Chobham, you've seen how fortune telling - real or not - can sway people's actions.</em></p><p>Choose a technique like palm reading, astrology or reading tea leaves. Once per long rest, you can read someone's fortune, granting them +1d to their next check made that day with a relevant skill (GM discretion).</p><p><strong>Describe your technique. Do you believe that you're actually telling the future or is it an effective placebo?</strong></p>",
   "isTrait": true,
   "canBeActive": false,
   "isActive": true,

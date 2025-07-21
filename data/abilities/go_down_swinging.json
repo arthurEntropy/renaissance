@@ -1,12 +1,19 @@
 {
   "id": "bdc10a98-d189-4917-9330-9fadb116c8e8",
   "name": "Go Down Swinging",
-  "description": "Whenever you make an attack while your current Endurance is less than half your maximum Endurance, +1d to either the attack roll or damage roll, your choice.",
+  "description": "<p>Whenever you make an attack while your current Endurance is less than half your maximum Endurance, +1d to either the attack roll or damage roll, your choice.</p>",
   "isTrait": true,
   "canBeActive": false,
   "isActive": true,
   "source": "e0a69b6f-38f9-4fa5-a1ef-5e5777299e82",
   "isDeleted": false,
   "mp": null,
-  "xp": null
+  "xp": 5,
+  "improvements": [
+    {
+      "name": "Nothing To Lose",
+      "description": "<p>Whenever you make an attack while your current Endurance is less than 1/4 your maximum Endurance, take an additional +1d to either the attack roll or damage roll, your choice.</p>",
+      "xp": 10
+    }
+  ]
 }

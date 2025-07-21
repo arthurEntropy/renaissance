@@ -10,5 +10,10 @@
   ],
   "color1": "#d5955b",
   "color2": "#58230c",
-  "backgroundImage": "https://cdn.midjourney.com/ff414bb0-35be-42bf-96ef-5d641fd368fb/0_0.png"
+  "backgroundImage": "https://cdn.midjourney.com/ff414bb0-35be-42bf-96ef-5d641fd368fb/0_0.png",
+  "expansionLogoUrl": "",
+  "hooks": [],
+  "playlists": [],
+  "faces": [],
+  "places": []
 }

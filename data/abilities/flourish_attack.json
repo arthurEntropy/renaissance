@@ -1,0 +1,13 @@
+{
+  "id": "9ec47fcf-338e-4510-8eb3-ef36ec03f941",
+  "name": "Flourish Attack",
+  "description": "<p>This turn, if you have at least one level of <em>Swagger</em>, when you make a melee weapon attack, you may skip engagement and instead roll Awe vs Awareness for the attack roll.</p><p>On a hit, roll damage as normal, and you may spend an additional 1 MP to make another attack in the same way if you have an additional level of <em>Swagger</em> (up to 3 total attacks).</p>",
+  "isTrait": false,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "45ca935d-938b-4974-961c-4171cc388904",
+  "isDeleted": false,
+  "mp": 1,
+  "xp": 5,
+  "actionType": "Half Action"
+}

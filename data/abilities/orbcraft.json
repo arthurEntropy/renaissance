@@ -1,0 +1,12 @@
+{
+  "id": "98678361-6b7e-4810-8e95-06b914150808",
+  "name": "Orbcraft",
+  "description": "<p>You know the skill of Orbcraft: you wrap a small object of your choosing in leather, cloth or other flexible material until it forms an orb approximately one foot in diameter (scaled larger or smaller depending on your ancestry) and weighing between 5 and 25 lbs (depending on the materials used).</p><p>The act of crafting the orb imbues it with magical energy. When completed and attuned to you, the orb changes its appearance in some way and/or emits light or sound - your choice. It also becomes bouncy, as the magic within it propels it away from objects and surfaces other than you.</p><p>Crafting and attuning to the orb takes one hour. You may craft as many orbs as you like, but you can only be attuned to one at a time. Each orb has the Keeping of the object at its center or the wrapping material, whichever is greater.</p><p>If the object at its center has any magical properties, you have access to those properties while wielding the orb.</p><p><strong>Describe your orb.</strong></p>",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "a07490af-2d77-4968-9adc-0a2a7c84ef70",
+  "isDeleted": false,
+  "mp": null,
+  "xp": null
+}

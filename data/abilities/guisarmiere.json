@@ -1,0 +1,34 @@
+{
+  "id": "c43c4a45-e40c-41eb-ab9b-6ff10ee7ba87",
+  "name": "Guisarmiere",
+  "description": "<p>You are trained in the use of heavy polearms. </p><p>While wielding any polearm, you have the following abilities:</p><ul><li><p>You may use a half action to make an attack with the butt end, dealing 1d4 damage on a hit, or spending 1 MP to increase the damage to 1d6.</p></li><li><p>Any time you land a hit and either beat the foe's Defense by at least 3 or roll max damage, you may spend 1 MP to inflict Injury (this applies to hits with either end of the polearm).</p></li><li><p>If the polearm can be thrown, you may halve its range and use Strength instead of Dexterity to fling it with extreme force, dealing +1d damage on a hit.</p></li></ul>",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "45ca935d-938b-4974-961c-4171cc388904",
+  "isDeleted": false,
+  "mp": null,
+  "xp": 10,
+  "improvements": [
+    {
+      "name": "Takedown",
+      "description": "<p>Whenever you roll max damage with either end of a polearm, you may roll Strength vs Dexterity against the foe you hit, knocking them prone on a win.</p>",
+      "xp": 5
+    },
+    {
+      "name": "Brace For Impact",
+      "description": "<p>When you take the defensive stance while wielding a polearm two-handed, you instead gain +WITS Defense. If any foes make a melee attack against you while in this stance, roll your Strength vs their Dexterity instead of rolling engagement.</p>",
+      "xp": 5
+    },
+    {
+      "name": "Wide Berth",
+      "description": "<p>Foes provoke opportunity attacks from you if they enter the radius of your polearm's reach. On a hit, their movement is stopped and they cannot move further this turn.</p>",
+      "xp": 10
+    },
+    {
+      "name": "Deep Impact",
+      "description": "<p>Whenever you inflict Injury with a polearm, you may spend 1 MP to lodge the weapon in the wound. The foe takes -2 Defense and their speed is halved while it remains in place.</p><p>It takes a half action to remove the weapon, and doing so provokes a roll of Dexterity vs the foe's current Injury to see how carefully they remove it. On a loss, the foe rolls Injury again, as the removal causes more damage.</p>",
+      "xp": 10
+    }
+  ]
+}

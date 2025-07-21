@@ -6,11 +6,41 @@
   "artUrls": [
     "https://cdn.midjourney.com/7a665c83-c9de-4fb4-b8bd-bc3999fc3d71/0_2.png"
   ],
-  "faces": [],
+  "faces": [
+    "https://cdn.midjourney.com/80ac604f-5931-4667-ae83-2cfa18502c72/0_1.png",
+    "https://cdn.midjourney.com/61c2a4fb-3600-42b5-8529-8248e1cb5b12/0_1.png",
+    "https://cdn.midjourney.com/ff9ef438-3e68-4042-bf30-de616ac44330/0_1.png",
+    "https://cdn.midjourney.com/3d91812a-7a76-4b6a-a7d3-3ea1f6edb3f9/0_1.png",
+    "https://cdn.midjourney.com/594f2060-4c5e-4c3b-990c-f290b9074181/0_1.png",
+    "https://cdn.midjourney.com/0a46dbc5-ab1a-4ee9-9c3e-ff2c6946df87/0_0.png",
+    "https://cdn.midjourney.com/1c36461f-1b42-4469-80ba-69cdd3d3cd4b/0_3.png",
+    "https://cdn.midjourney.com/09fb2916-ea28-4e3a-a58f-19bf4998b2cf/0_3.png",
+    "https://cdn.midjourney.com/7fc87973-4d7b-49b7-9dda-742d71fa6c84/0_0.png",
+    "https://cdn.midjourney.com/6c5b3ad0-ef63-43a2-9db2-e944c2de093c/0_0.png",
+    "https://cdn.midjourney.com/52d0965c-9a3b-4fb1-9237-b4cab129bbec/0_3.png",
+    "https://cdn.midjourney.com/3b60a0ad-696f-436f-be42-589e189a948a/0_2.png",
+    "https://cdn.midjourney.com/1b4da1a3-b358-40c4-a2ca-99e8a2893ad5/0_1.png",
+    "https://cdn.midjourney.com/4dde5a68-6b26-469e-91e1-ef723d24154c/0_1.png",
+    "https://cdn.midjourney.com/61c2a4fb-3600-42b5-8529-8248e1cb5b12/0_0.png",
+    "https://cdn.midjourney.com/d097bdb1-7f6d-47d7-8ed9-bc3ae066972f/0_2.png",
+    "https://cdn.midjourney.com/99948991-2a2b-4ce7-a9c4-012d8d1ef39f/0_3.png",
+    "https://cdn.midjourney.com/8cbc3d40-5793-4264-975d-465a40a5216e/0_0.png",
+    "https://cdn.midjourney.com/0168a354-8aa8-4481-8223-3dd7ed82ae0f/0_1.png",
+    "https://cdn.midjourney.com/52b2b9be-bba9-4c05-9cc4-69d85025e1d4/0_3.png",
+    "https://cdn.midjourney.com/71a7dbfe-637f-49eb-aa23-e081a52f0546/0_2.png",
+    "https://cdn.midjourney.com/ce160565-27da-40ac-a8e9-784c7f84bf65/0_1.png"
+  ],
   "places": [],
   "name": "Guildford",
   "backgroundImage": "",
   "color1": "#ffffff",
   "color2": "#000000",
-  "expansion": "824cad94-3a4a-4df3-b81a-ede17b84644b"
+  "expansion": "824cad94-3a4a-4df3-b81a-ede17b84644b",
+  "expansionLogoUrl": "https://cdn.midjourney.com/8803d0cc-59f8-4b7e-b852-81f9090150c6/0_2.png",
+  "names": "Rudek, Silvana, Teobald, Mirela, Oskar, Drina, Jorik, Ysabet, Klemens, Sancia, Otakar, Vesna, Niklas, Elzbiéta, Dario, Rozsa, Varek, Lucetta, Soren, Alodia",
+  "occupations": "Bridge Scribe, Guild Enforcer, Blade Dancer, Ink Brewer, Relic Appraiser, Coin Cutter, Alley Barber, Thaumaturge, Guild Herald, Tournament Armorer, Spellwright, Ferryman, Charm Vendor, Cobblestone Mender, Discreet Courier",
+  "publicHouses": "The Healthy Chicken, The Empty Coinpurse, The Fey Chestnut, Ratbridge Tavern, Guilder’s Respite, The Fifth Tower, Bellman’s Flask, The Blood Flag, Lions' Club, The Very Secure Hotel",
+  "vittles": "Poppyseed Bread, Blood Sausage, Roasted Leeks with Vinegar, Aged Goat Cheese, Herbed Lentils, Salted Carp, Honeyed Chestnuts, Caraway Crackers, Pickled Beets, Garlic Chicken Pottage, Plum Brandy, Spiced Goulash, Smoked Duck Leg, Beetroot Tart, Mulled Wine",
+  "pointsOfInterest": "The Guild Bridges, The Museum Of Obsolescence, Thieves' Guild Tower, The Knights' Guild Arena, The First Wizards' Guild, The Second Wizards' Guild, The Third Wizard's Guild, The First Secular Armorer's Guild, Ropeson's Finest Ropes, Congress Of Independent Rangers, Jacques Jacqueson's Combat Training, The Whither Wastes",
+  "floraFauna": "Twilight Ivy, Black Rose, Rue, Mandrake, Elder Tree, Saffron Crocus, Sewer Rat, Bridge Owl, Canal Pike, Clockwork Beetle, Gutter Cat, Grey Heron, Basilisk Wyrmling, Night Toad, Gilded Moth"
 }

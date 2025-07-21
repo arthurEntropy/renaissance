@@ -10,5 +10,9 @@
   "places": [],
   "name": "Hunter",
   "expansionLogoUrl": "",
-  "description": "<p>FLAVOR:</p><ul><li><p>Best ranged class in the game</p></li><li><p>Actually useful travel stuff</p></li><li><p>Traps!</p></li><li><p>Hunting horn with large area of effect</p></li></ul><p>WEAPONS</p><ul><li><p>All ranged</p></li><li><p>Light polearms</p></li><li><p>Common</p></li><li><p>No shields, no helms</p></li></ul><p>ENGAGEMENT:</p><ul><li><p>None by default, can specialize to gain some?</p></li></ul><p>ABILITIES:</p><ul><li><p>Expanded crit range w/ ranged?</p></li><li><p>Trap types: snares, foot traps, haussepieds, pit</p></li><li><p>Horn blasts for buffs, misdirection, frightening</p></li><li><p>Actually useful travel stuff</p></li><li><p>Hound or raptor, very simple mechanics</p></li><li><p>Specialization: Hunting stuff underwater --&gt; trident</p></li></ul>"
+  "description": "<p>FLAVOR:</p><ul><li><p>Best ranged class in the game</p></li><li><p>Actually useful travel stuff</p></li><li><p>Traps!</p></li><li><p>Hunting horn with large area of effect</p></li></ul><p>WEAPONS</p><ul><li><p>All ranged</p></li><li><p>Light polearms</p></li><li><p>Common</p></li><li><p>No shields, no helms</p></li></ul><p>ENGAGEMENT:</p><ul><li><p>None by default, can specialize to gain some?</p></li></ul><p>ABILITIES:</p><ul><li><p>Expanded crit range w/ ranged?</p></li><li><p>Trap types: snares, foot traps, haussepieds, pit</p></li><li><p>Horn blasts for buffs, misdirection, frightening</p></li><li><p>Actually useful travel stuff</p></li><li><p>Hound or raptor, very simple mechanics</p></li><li><p>Specialization: Hunting stuff underwater --&gt; trident</p></li></ul>",
+  "backgroundImage": "https://cdn.midjourney.com/25a3ebcf-bf80-4100-abb6-257d30e3538b/0_0.png",
+  "color1": "#ffffff",
+  "color2": "#000000",
+  "expansion": ""
 }

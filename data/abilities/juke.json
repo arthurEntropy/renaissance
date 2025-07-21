@@ -1,0 +1,13 @@
+{
+  "id": "dfce477d-03f8-4355-a360-362ef37c2b23",
+  "name": "Juke",
+  "description": "<p>You body fake to confuse a foe. Roll Dexterity vs Dexterity. If you win the roll, you may move past or away from the foe unimpeded, and this ability does not consume a half action.</p>",
+  "isTrait": false,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "a07490af-2d77-4968-9adc-0a2a7c84ef70",
+  "isDeleted": false,
+  "mp": null,
+  "xp": 5,
+  "actionType": "Half Action"
+}

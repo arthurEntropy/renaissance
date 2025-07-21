@@ -1,0 +1,12 @@
+{
+  "id": "9220f6be-c172-4b8a-9188-b3a14ed21943",
+  "name": "Skirmisher",
+  "description": "<p>Once per rest, per level of <em>Swagger</em> you have, you may disengage as a half action instead of an action.</p>",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "45ca935d-938b-4974-961c-4171cc388904",
+  "isDeleted": false,
+  "mp": null,
+  "xp": 5
+}

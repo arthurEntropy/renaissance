@@ -1,7 +1,7 @@
 {
   "id": "0b396674-1f4e-41b8-9439-3901d39018a2",
   "name": "Plant-Wary",
-  "description": "Your time spent near the Chokewood taught you that not all plants move slowly, nor are they all to be trusted. You and cannot be surprised by hostile plant creatures and your rolls against them are favored.",
+  "description": "<p><em>Your time spent near the Chokewood taught you that not all plants move slowly, nor are they all to be trusted.</em></p><p>You and cannot be surprised by hostile plant creatures and your rolls against them are favored.</p><p><strong>Describe what raises your suspicion.</strong></p>",
   "isTrait": true,
   "canBeActive": false,
   "isActive": true,

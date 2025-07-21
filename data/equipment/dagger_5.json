@@ -1,0 +1,20 @@
+{
+  "id": "83757d92-985c-46ed-b112-03e9278adafc",
+  "name": "Dagger",
+  "description": "",
+  "standardOfLiving": "1",
+  "source": "5a639d7b-847a-468b-9bbe-5275d31fdf66",
+  "weight": 1,
+  "isMelee": true,
+  "damageDice": [
+    4
+  ],
+  "engagementDice": [
+    4
+  ],
+  "engagementSuccesses": [],
+  "skillMods": [],
+  "isDeleted": false,
+  "isCustom": false,
+  "artUrl": "https://cdn.midjourney.com/44ad2b39-4623-408d-a3f0-ff67d4af842c/0_2.png"
+}

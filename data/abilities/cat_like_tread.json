@@ -1,0 +1,12 @@
+{
+  "id": "bd8f66a4-5849-483b-9123-b0085c0e5a5c",
+  "name": "Cat-Like Tread",
+  "description": "<p>You may roll Dexterity instead of Stealth to sneak or hide.</p>",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "e10d7d9f-9d93-46b0-9846-d60241031644",
+  "isDeleted": false,
+  "mp": null,
+  "xp": 5
+}

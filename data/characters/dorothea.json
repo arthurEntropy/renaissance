@@ -24,7 +24,7 @@
     },
     {
       "name": "Dexterity",
-      "ranks": 2,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0
