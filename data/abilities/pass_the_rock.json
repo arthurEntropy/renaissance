@@ -1,0 +1,13 @@
+{
+  "id": "61439085-9624-4f4f-a52d-dd0b3e20d0e9",
+  "name": "Pass The Rock",
+  "description": "<p>You throw your orb to an ally. Both of you roll Dexterity, adding the results together:</p><p>On a 10+ the ally just catches the orb and may use any charges stored in the orb as if they were MP, regardless of their Mestiere. On a 20+, they also have access to your Orbmancer abilities while holding the orb. At the beginning of your next turn, the orb magically returns to you.</p><p>On a 9 or less, the orb lands in a space adjacent to the ally (GM's choice) and there is no further effect and you must retrieve the orb as normal.</p>",
+  "isTrait": false,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "a07490af-2d77-4968-9adc-0a2a7c84ef70",
+  "isDeleted": false,
+  "mp": 2,
+  "xp": 15,
+  "actionType": "Action"
+}

@@ -1,0 +1,14 @@
+{
+  "id": "71514016-e2a6-4a6d-97e7-df00d89d94d3",
+  "name": "Tumble",
+  "description": "<p>Until the start of your next turn, whenever you would provoke an opportunity attack from a foe, first roll Dexterity vs Dexterity against them. If you win, you pass unhindered. If you lose, they make an opportunity attack as normal.</p>",
+  "isTrait": false,
+  "canBeActive": true,
+  "isActive": true,
+  "source": "e10d7d9f-9d93-46b0-9846-d60241031644",
+  "isDeleted": false,
+  "mp": 1,
+  "xp": 10,
+  "actionType": "Half Action",
+  "improvements": []
+}

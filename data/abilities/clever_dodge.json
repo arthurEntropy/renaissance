@@ -1,12 +1,12 @@
 {
   "id": "2588e590-6bc7-4f42-aada-1f89bf7f1843",
   "name": "Clever Dodge",
-  "description": "Your clarity in the chaos lets you slip away at just the right moment. Once per rest, when an attacker would hit you—but before they roll damage—you may redirect the blow to another target within melee range. If the new target is an inanimate object, the attacker takes 1d4 damage from the force of the impact.\n\nDescribe how you duck out of danger just in time.",
+  "description": "<p><em>Your clarity in the chaos lets you slip away at just the right moment.</em></p><p>Once per rest, when an attacker would hit you—but before they roll damage—you may redirect the blow to another target within melee range. If the new target is an inanimate object, the attacker takes 1d4 damage from the force of the impact.</p><p><strong>Describe how you duck out of danger just in time.</strong></p>",
   "isTrait": true,
   "canBeActive": false,
   "isActive": true,
   "source": "e0a69b6f-38f9-4fa5-a1ef-5e5777299e82",
   "isDeleted": false,
   "mp": null,
-  "xp": null
+  "xp": 5
 }

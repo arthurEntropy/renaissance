@@ -6,55 +6,55 @@
     </div>
     <div v-if="isEditing">
       <div class="novizio-intro-text">
-        <text-editor v-model="localNovizio.flavorText" placeholder="Flavor text..." height="80px"
+        <text-editor v-model="localNovizio.flavorText" placeholder="Flavor text..." height="80px" auto-height="true"
           class="novizio-text-editor" />
       </div>
-      <div class="novizio-subsection" v-if="hasAnyNovizioData">
+      <div class="novizio-subsection">
         <strong>Martial Training</strong>
         <div class="martial-training-list">
           <div class="martial-training-item">
             <img src="@/assets/icons/melee.png" alt="Melee" class="martial-icon" />
             <span class="martial-label">Melee</span>
-            <input v-if="isEditing" type="text" v-model="localNovizio.melee" placeholder="Melee..."
+            <input type="text" v-model="localNovizio.melee" placeholder="Melee..."
               class="novizio-input full-width-input" />
           </div>
           <div class="martial-training-item">
             <img src="@/assets/icons/polearms.png" alt="Polearms" class="martial-icon" />
             <span class="martial-label">Polearms</span>
-            <input v-if="isEditing" type="text" v-model="localNovizio.polearms" placeholder="Polearms..."
+            <input type="text" v-model="localNovizio.polearms" placeholder="Polearms..."
               class="novizio-input full-width-input" />
           </div>
           <div class="martial-training-item">
             <img src="@/assets/icons/ranged.png" alt="Ranged" class="martial-icon" />
             <span class="martial-label">Ranged</span>
-            <input v-if="isEditing" type="text" v-model="localNovizio.ranged" placeholder="Ranged..."
+            <input type="text" v-model="localNovizio.ranged" placeholder="Ranged..."
               class="novizio-input full-width-input" />
           </div>
           <div class="martial-training-item">
             <img src="@/assets/icons/firearms.png" alt="Firearms" class="martial-icon" />
             <span class="martial-label">Firearms</span>
-            <input v-if="isEditing" type="text" v-model="localNovizio.firearms" placeholder="Firearms..."
+            <input type="text" v-model="localNovizio.firearms" placeholder="Firearms..."
               class="novizio-input full-width-input" />
           </div>
           <div class="martial-training-item">
             <img src="@/assets/icons/armor.png" alt="Armor" class="martial-icon" />
             <span class="martial-label">Armor</span>
-            <input v-if="isEditing" type="text" v-model="localNovizio.armor" placeholder="Armor..."
+            <input type="text" v-model="localNovizio.armor" placeholder="Armor..."
               class="novizio-input full-width-input" />
           </div>
         </div>
       </div>
-      <div class="novizio-subsection" v-if="hasAnyNovizioData">
+      <div class="novizio-subsection">
         <strong>Engagement</strong>
         <text-editor v-model="localNovizio.engagement" placeholder="Engagement..." height="80px"
           class="novizio-text-editor" />
       </div>
-      <div class="novizio-subsection" v-if="hasAnyNovizioData">
+      <div class="novizio-subsection">
         <strong>Mestieri Points (MP)</strong>
         <input type="number" min="1" v-model.number="localNovizio.initialMaxMP" placeholder="Initial Max MP..."
           class="novizio-input" />
       </div>
-      <div class="novizio-subsection" v-if="hasAnyNovizioData">
+      <div class="novizio-subsection">
         <strong>Abilities</strong>
         <text-editor v-model="localNovizio.abilities" placeholder="Abilities..." height="80px"
           class="novizio-text-editor" />
@@ -124,7 +124,7 @@
       </div>
       <div class="novizio-subsection" v-if="hasAnyNovizioData && novizio && novizio.initialMaxMP">
         <strong>Mestieri Points (MP)</strong>
-        <div class="novizio-placeholder">Your maximum MP for Uomo d'Armi is {{ novizio.initialMaxMP }}.</div>
+        <div class="novizio-placeholder">Your maximum MP for this mestiere is {{ novizio.initialMaxMP }}.</div>
       </div>
       <div class="novizio-subsection" v-if="hasAnyNovizioData && novizio && novizio.abilities">
         <strong>Abilities</strong>

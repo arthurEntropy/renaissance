@@ -1,0 +1,13 @@
+{
+  "id": "9c077803-607e-4cda-9f46-8f71d7778857",
+  "name": "Finger Spin",
+  "description": "<p>You spin your orb on your finger, charging it with magical energy. Roll Dexterity as many times as you choose, up to your BODY score. For each result above 10, add 1 charge to your orb. If you roll 9 or less, you lose the spin and this ability adds no charges to the orb. If all your rolls are above 10, this ability does not expend a half action.</p>",
+  "isTrait": false,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "a07490af-2d77-4968-9adc-0a2a7c84ef70",
+  "isDeleted": false,
+  "mp": 1,
+  "xp": 10,
+  "actionType": "Half Action"
+}

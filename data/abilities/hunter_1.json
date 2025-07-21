@@ -1,0 +1,12 @@
+{
+  "id": "ed6d2d46-d275-45e4-b62f-3a3aaa40b6be",
+  "name": "Hunter 1",
+  "description": "<p>This is a placeholder.</p>",
+  "isTrait": false,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "10f46ecd-e6f5-4d3b-b510-d4035ab24f56",
+  "isDeleted": false,
+  "mp": null,
+  "xp": null
+}

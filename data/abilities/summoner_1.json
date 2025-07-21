@@ -1,0 +1,12 @@
+{
+  "id": "04e9acb0-df69-44eb-8c7f-8bbcf28ca22d",
+  "name": "Summoner 1",
+  "description": "<p>This is a placeholder.</p>",
+  "isTrait": false,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "558abd15-f90f-40d7-80d8-df73a37f977c",
+  "isDeleted": false,
+  "mp": null,
+  "xp": null
+}

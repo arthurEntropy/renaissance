@@ -10,5 +10,9 @@
   "places": [],
   "name": "Arcanist",
   "expansionLogoUrl": "",
-  "description": "<p>FLAVOR:</p><ul><li><p>Wizards are finding the inner workings of all the other extant magic traditions, and maybe some new bits</p></li><li><p>Namecloaking?</p></li><li><p>Deities and natural forces don't like what they're doing, will resist or deter</p></li></ul><p>WEAPONS:</p><ul><li><p>none</p></li></ul><p>ENGAGEMENT:</p><ul><li><p>none</p></li></ul><p>ABILITIES:</p><ul><li><p>Classic wizard shit, manipulating objects, people's names on spells (should feel academic)</p></li><li><p>Lingua arcana, ability to make new spells. Can also pick up new ones from written sources.</p></li><li><p>Weird grab-bag of bits from other traditions, but not many and somehow distorted. Maybe some sort of hunt threshold that triggers wrath if you meddle too much.</p></li></ul>"
+  "description": "<p>FLAVOR:</p><ul><li><p>Wizards are finding the inner workings of all the other extant magic traditions, and maybe some new bits</p></li><li><p>Namecloaking?</p></li><li><p>Deities and natural forces don't like what they're doing, will resist or deter</p></li></ul><p>WEAPONS:</p><ul><li><p>none</p></li></ul><p>ENGAGEMENT:</p><ul><li><p>none</p></li></ul><p>ABILITIES:</p><ul><li><p>Classic wizard shit, manipulating objects, people's names on spells (should feel academic)</p></li><li><p>Lingua arcana, ability to make new spells. Can also pick up new ones from written sources.</p></li><li><p>Weird grab-bag of bits from other traditions, but not many and somehow distorted. Maybe some sort of hunt threshold that triggers wrath if you meddle too much.</p></li></ul>",
+  "backgroundImage": "https://cdn.midjourney.com/9f0df945-537e-43ff-9523-ea0525473cbe/0_2.jpeg",
+  "color1": "#ffffff",
+  "color2": "#000000",
+  "expansion": ""
 }

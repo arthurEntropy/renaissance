@@ -1,0 +1,24 @@
+{
+  "id": "bbf8f9d6-45a6-4703-9388-b771935d4a0a",
+  "name": "Pressure Point Training",
+  "description": "<p>You are trained in special pressure point techniques. You may use an action to make a pressure point attack, rolling Dexterity vs Defense against an adjacent foe. If you win the roll, choose one:</p><ul><li><p>They check a condition.</p></li><li><p>Their speed is reduced by 5 ft.</p></li><li><p>They take -1d to all rolls under BODY until the end of their next turn.</p></li><li><p>They cannot use reactions until the start of their next turn.</p></li></ul><p>You may make multiple pressure point attacks each turn. The effects are cumulative.</p>",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "e10d7d9f-9d93-46b0-9846-d60241031644",
+  "isDeleted": false,
+  "mp": null,
+  "xp": 10,
+  "improvements": [
+    {
+      "name": "Catch Them Off-Guard",
+      "description": "<p>When defending in an engagement, you may spend engagement successes to make pressure point attacks (you still must make the opposed roll).</p>",
+      "xp": 5
+    },
+    {
+      "name": "Five Touch Attack",
+      "description": "<p>If you successfully make five pressure point attacks against a foe in one round, they roll injury and their speed is reduced to zero until the end of their next turn.</p>",
+      "xp": 10
+    }
+  ]
+}

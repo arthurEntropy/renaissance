@@ -1,0 +1,23 @@
+{
+  "id": "eed4a0ac-94b1-4623-aecb-e93f816e1788",
+  "name": "Longsword",
+  "description": "",
+  "standardOfLiving": "4",
+  "source": "92110fd8-eae9-47d9-94a4-9873ef8b6c8d",
+  "weight": 1,
+  "isMelee": true,
+  "damageDice": [
+    8
+  ],
+  "engagementDice": [
+    8
+  ],
+  "engagementSuccesses": [
+    "8",
+    "1"
+  ],
+  "skillMods": [],
+  "isDeleted": false,
+  "isCustom": false,
+  "artUrl": "https://cdn.midjourney.com/aa90f106-60a3-4b6d-a2fd-b959df38649b/0_3.png"
+}

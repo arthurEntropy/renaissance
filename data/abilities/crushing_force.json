@@ -8,5 +8,12 @@
   "source": "1e4131c7-8a6f-422c-998a-5147600c946e",
   "isDeleted": false,
   "mp": null,
-  "xp": 20
+  "xp": 10,
+  "improvements": [
+    {
+      "name": "Beheading",
+      "description": "<p>When you inflict Injury on a foe, if the Injury causes them to become Twice Helpless, their head is severed or crushed, as appropriate for your weapon. Their Endurance is immediately reduced to 0.</p>",
+      "xp": 5
+    }
+  ]
 }

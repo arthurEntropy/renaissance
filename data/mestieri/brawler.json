@@ -14,5 +14,16 @@
   "backgroundImage": "https://cdn.midjourney.com/eb0dfd29-5c13-4761-a198-0cf7a021a03f/0_0.png",
   "color1": "#ffffff",
   "color2": "#000000",
-  "expansion": ""
+  "expansion": "",
+  "novizio": {
+    "flavorText": "<p>Testing</p>",
+    "melee": "none",
+    "polearms": "none",
+    "ranged": "none",
+    "firearms": "none",
+    "armor": "none",
+    "engagement": "<p><span class=\"dice-icon df-d12-12\" style=\"font-size: 36px;\"></span> <span class=\"dice-icon dice-icon df-d12-12\" style=\"font-size: 36px;\"></span></p>",
+    "initialMaxMP": 0,
+    "abilities": "<p>Action Over Deliberation, Embrace The Chaos, Fists Up</p>"
+  }
 }

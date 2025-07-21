@@ -1,7 +1,7 @@
 {
   "id": "2f40fa98-f90a-4eb8-b626-999b000fa4b2",
   "name": "Tough",
-  "description": "<p><em>Your training has thickened your skin.</em></p><p>Your maximum Endurance increases by 5.</p><p><strong>Describe the grit that lets you endure more than most.</strong></p>",
+  "description": "<p><em>Your training has thickened your skin.</em></p><p>Your maximum Endurance is 6 times your BODY score.</p><p><strong>Describe the grit that lets you endure more than most.</strong></p>",
   "isTrait": true,
   "canBeActive": false,
   "isActive": true,

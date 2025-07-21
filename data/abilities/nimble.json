@@ -1,0 +1,29 @@
+{
+  "id": "8e346eb3-1e72-4b3f-971c-497eac98a06c",
+  "name": "Nimble",
+  "description": "<p>Your speed is doubled, but you have zero actions by default on your turn. To gain actions, you may spend your movement. For every 10 ft of movement you spend, you gain a half action for that turn. You may spend as much movement in this way as you choose each turn.</p><p>Additionally, you can run up vertical surfaces up to 1/4 your speed as if it were flat ground, can jump a distance up to 1/4 your speed, and take no damage from falling up to 1/4 your speed if your limbs are free.</p>",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "e10d7d9f-9d93-46b0-9846-d60241031644",
+  "isDeleted": false,
+  "mp": null,
+  "xp": null,
+  "improvements": [
+    {
+      "name": "Hard To Pin Down",
+      "description": "<p>You may also spend 10 ft of movement to gain a d4 engagement die until the start of your next turn.</p>",
+      "xp": 5
+    },
+    {
+      "name": "Ready To Spring",
+      "description": "<p>You may spend half your movement to force all foes who make melee attacks against you to roll Dexterity vs Dexterity instead of engagement until the start of your next turn.</p>",
+      "xp": 10
+    },
+    {
+      "name": "Like The Wind",
+      "description": "<p>Your speed is instead tripled.</p>",
+      "xp": 15
+    }
+  ]
+}

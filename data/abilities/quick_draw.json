@@ -1,0 +1,12 @@
+{
+  "id": "359a4615-81a7-4cd1-a23f-22b50b7d1f93",
+  "name": "Quick Draw",
+  "description": "<p>Once per rest, when a foe makes an attack against you, if you have a free hand, you may use your reaction to draw and fire a light firearm at them before their attack roll.</p>",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "4eccfe5d-de19-4bc5-8c9c-374d793d67f0",
+  "isDeleted": false,
+  "mp": null,
+  "xp": 5
+}

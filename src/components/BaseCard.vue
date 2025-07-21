@@ -1,14 +1,16 @@
 <template>
   <div class="base-card" :style="cardStyle" @mouseenter="startSourceTooltipTimer" @mouseleave="clearSourceTooltipTimer"
     @click="collapsible ? toggleCollapsed() : null">
+    <!-- Floating Edit Button -->
+    <button v-if="editable" class="edit-button-floating" @click.stop="$emit('edit', item)" :title="`Edit ${itemType}`">
+      ✎
+    </button>
     <!-- Header Row -->
     <div class="card-header">
       <span v-if="collapsible" class="caret">{{ caretSymbol }}</span>
       <div class="name-container">
         <span class="item-name"><strong>{{ item.name }}</strong></span>
-        <button v-if="editable" class="edit-button" @click.stop="$emit('edit', item)" :title="`Edit ${itemType}`">
-          ✎
-        </button>
+        <span v-if="sourceName && showSource" class="source-name">({{ sourceName }})</span>
       </div>
       <div class="item-info" v-if="metaInfo">
         <em>{{ metaInfo }}</em>
@@ -80,6 +82,10 @@ export default {
       type: Boolean,
       default: true,
     },
+    showSource: {
+      type: Boolean,
+      default: true,
+    },
   },
   emits: ['edit', 'update', 'send-to-chat', 'height-changed'],
   data() {
@@ -101,7 +107,7 @@ export default {
         return {
           backgroundImage: `url(${this.item.backgroundImage})`,
           backgroundSize: 'cover',
-          backgroundPosition: 'center',
+          backgroundPosition: 'top center',
         }
       }
 
@@ -197,7 +203,6 @@ export default {
   border-radius: 8px;
   padding: 10px;
   margin-top: 5px;
-  cursor: pointer;
   transition:
     background-color 0.3s ease,
     transform 0.2s ease;
@@ -206,6 +211,7 @@ export default {
   box-sizing: border-box;
   min-width: 0;
   overflow: hidden;
+  background-position: top center !important;
 }
 
 .base-card::before {
@@ -261,6 +267,14 @@ export default {
   word-wrap: break-word;
 }
 
+.source-name {
+  font-size: 0.7em;
+  font-style: italic;
+  color: lightgray;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+
 .item-info {
   font-size: 13px;
   color: #fff;
@@ -275,27 +289,36 @@ export default {
   margin-right: 0;
 }
 
-.edit-button {
-  text-shadow:
-    -1px -1px 0 #000,
-    1px -1px 0 #000,
-    -1px 1px 0 #000,
-    1px 1px 0 #000;
-  margin-left: 5px;
-  background: none;
+.edit-button-floating {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  width: 32px;
+  height: 32px;
+  background: #111;
+  color: #fff;
   border: none;
-  color: white;
-  font-size: 14px;
-  cursor: pointer;
-  transition: text-shadow 0.2s ease-in-out;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   opacity: 0;
+  pointer-events: none;
+  z-index: 10;
+  transition: opacity 0.2s, box-shadow 0.2s;
+  cursor: pointer;
 }
 
-.base-card:hover .edit-button {
+.base-card:hover .edit-button-floating {
   opacity: 1;
+  pointer-events: auto;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
 }
 
-.edit-button:hover {
-  text-shadow: 0px 0px 5px white;
+.edit-button-floating:hover {
+  background: #222;
+  color: #ffd700;
 }
 </style>

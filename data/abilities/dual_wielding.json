@@ -1,0 +1,24 @@
+{
+  "id": "df41e010-07b6-40bf-bc67-ec2a01c9b95d",
+  "name": "Dual Wielding",
+  "description": "<p>You gain +1 Defense while wielding a separate melee weapon in each hand.</p><p>When you attack with one of these weapons and miss, you may immediately make a follow-up attack with the other weapon if it is light, using the same Engagement result as the first attack.</p>",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "4eccfe5d-de19-4bc5-8c9c-374d793d67f0",
+  "isDeleted": false,
+  "mp": null,
+  "xp": 10,
+  "improvements": [
+    {
+      "name": "Ambidextrous",
+      "description": "<p>You can make the follow-up attack with a melee weapon of any type.</p>",
+      "xp": 10
+    },
+    {
+      "name": "Relentless",
+      "description": "<p>You can make the follow-up attack even if the initial attack hits.</p>",
+      "xp": 10
+    }
+  ]
+}

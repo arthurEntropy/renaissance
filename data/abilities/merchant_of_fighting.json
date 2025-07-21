@@ -1,0 +1,13 @@
+{
+  "id": "a9e22111-7812-43f4-995f-25da1c0f37f4",
+  "name": "Merchant Of Fighting",
+  "description": "<p>When establishing the Keeping for a Quest, the party may spend up to 3 additional treasure to enhance the quality of your services and satisfy your exacting sartorial tastes. For each additional treasure spent in this way, you gain 1 level of <em>Swagger </em>for the Quest.</p><p>For each level of <em>Swagger</em>, choose one effect, which lasts for the duration of the Quest (you may choose each effect multiple times):</p><ul><li><p>You gain one rank in Awe.</p></li><li><p>Your maximum Endurance increases by your BODY score.</p></li><li><p>Your maximum Hope increases by 3.</p></li><li><p>Your maximum Defense increases by 2.</p></li></ul><p>Additionally, at the beginning of each combat, for each level of <em>Swagger</em>, choose two of the below dice to add to your pool of engagement dice for the duration of the combat (choose each die type only once):</p><p style=\"text-align: center\"><span class=\"dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon df-d4-4\" style=\"font-size: 36px;\"></span> <span class=\"dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon df-d6-6\" style=\"font-size: 36px;\"></span> <span class=\"dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon df-d8-8\" style=\"font-size: 36px;\"></span> <span class=\"dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon df-d10-10\" style=\"font-size: 36px;\"></span> <span class=\"dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon df-d12-12\" style=\"font-size: 36px;\"></span> <span class=\"dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon dice-icon df-d20-20\" style=\"font-size: 36px;\"></span></p><p>Finally, you have a strange, hateful fixation on a certain type of harmless inanimate object - dolls, telescopes, clocks, windmills or the like - something neither omnipresent nor rare, and which represents no real threat in and of itself.</p><p>Catching sight of one of these objects causes you to check a Condition. Every minute you spend within short range of it causes you to check another Condition. Touching it causes you to check two Conditions. Destroying one of these objects clears all your Conditions.</p>",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "45ca935d-938b-4974-961c-4171cc388904",
+  "isDeleted": false,
+  "mp": null,
+  "xp": null,
+  "improvements": []
+}

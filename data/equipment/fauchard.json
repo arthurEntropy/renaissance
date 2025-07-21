@@ -1,0 +1,23 @@
+{
+  "id": "f026c8af-51de-447b-ae92-ed56a645224c",
+  "name": "Fauchard",
+  "description": "",
+  "standardOfLiving": "2",
+  "source": "7016610e-ddf9-415b-8711-3b1c5fff241c",
+  "weight": 6,
+  "isMelee": true,
+  "damageDice": [
+    8
+  ],
+  "engagementDice": [
+    8
+  ],
+  "engagementSuccesses": [
+    "8",
+    "1"
+  ],
+  "skillMods": [],
+  "isDeleted": false,
+  "isCustom": false,
+  "artUrl": "https://cdn.midjourney.com/0db67442-7b88-46b7-838a-95f2411b2edd/0_2.png"
+}

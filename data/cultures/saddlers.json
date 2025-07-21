@@ -9,8 +9,9 @@
   "faces": [],
   "places": [],
   "name": "Saddlers",
-  "backgroundImage": "",
+  "backgroundImage": "https://cdn.midjourney.com/c6383ec3-fbf4-4dd4-b20f-738a1acfbb91/0_0.png",
   "color1": "#ffffff",
   "color2": "#000000",
-  "expansion": "e46f4320-a414-4300-95d5-397ba717d982"
+  "expansion": "e46f4320-a414-4300-95d5-397ba717d982",
+  "expansionLogoUrl": "https://cdn.midjourney.com/a74946da-ccb3-4540-89e9-751411b6bb7c/0_1.png"
 }

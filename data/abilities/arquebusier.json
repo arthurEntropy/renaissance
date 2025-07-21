@@ -1,0 +1,19 @@
+{
+  "id": "f5182393-253b-4bd9-b41a-b92e8f91b334",
+  "name": "Arquebusier",
+  "description": "<p>You are trained in the use of heavy firearms.</p>",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "45ca935d-938b-4974-961c-4171cc388904",
+  "isDeleted": false,
+  "mp": null,
+  "xp": 10,
+  "improvements": [
+    {
+      "name": "Hand Cannoneer",
+      "description": "<p>You are trained in the use of hand cannons, a special weapon type.</p>",
+      "xp": 5
+    }
+  ]
+}

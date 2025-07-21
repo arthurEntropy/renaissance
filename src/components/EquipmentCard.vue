@@ -3,7 +3,7 @@
     ? `${equipment.weight} ${equipment.weight === 1 ? 'lb' : 'lbs'}`
     : ''
     " :storeInstance="equipmentStore" :initialCollapsed="collapsed" :editable="editable" :sources="sources"
-    @edit="$emit('edit', equipment)" :collapsible="collapsible">
+    :showSource="showSource" @edit="$emit('edit', equipment)" :collapsible="collapsible">
     <!-- Large image slot -->
     <template #large-image>
       <div v-if="showLargeImage" class="large-image-container" @click.stop="toggleImage">
@@ -120,13 +120,21 @@ export default {
       type: Boolean,
       default: true,
     },
+    artExpanded: {
+      type: Boolean,
+      default: false,
+    },
+    showSource: {
+      type: Boolean,
+      default: true,
+    },
   },
 
   data() {
     return {
       equipmentStore: useEquipmentStore(),
       engagementSuccesses: [],
-      showLargeImage: false,
+      showLargeImage: this.artExpanded,
       tooltipSuccess: null,
       tooltipPosition: { x: 0, y: 0 },
       tooltipTimer: null,

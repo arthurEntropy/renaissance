@@ -1,7 +1,7 @@
 {
   "id": "9c92d5ba-7c73-4480-a357-d98ac4820c7d",
   "name": "Action Over Deliberation",
-  "description": "When the party debates how to approach a dangerous situation, your patience wears thin. For each proposed course of action beyond the first—so long as it’s suggested by someone other than you—roll 1d6 and add it to a running total. If the total exceeds 10, choose one:\n\n- Charge ahead recklessly, ignoring your companions’ concerns.\n\n- Break something, make a loud noise, or otherwise draw unwanted attention (or reveal sensitive information).\n\n- Check two conditions.\n\nIf the party agrees on a plan before you cross the threshold, halve the total (rounded down) and gain that many +1d to use while carrying out the agreed-upon plan.\n\nDescribe how your temper simmers and/or boils over.",
+  "description": "<p>When the party debates how to approach a dangerous situation, your patience wears thin. For each proposed course of action beyond the first—so long as it’s suggested by someone other than you—roll 1d6 and add it to a running total. If the total exceeds 10, choose one:</p><ul><li><p>Charge ahead recklessly, ignoring your companions’ concerns.</p></li><li><p>Break something, make a loud noise, or otherwise draw unwanted attention (or reveal sensitive information).</p></li><li><p>Check two conditions.</p></li></ul><p>If the party agrees on a plan before you cross the threshold, halve the total of your count (rounded down) and gain that many +1d to use while carrying out the agreed-upon plan.</p><p><strong>Describe how your temper simmers and/or boils over.</strong></p>",
   "isTrait": true,
   "canBeActive": false,
   "isActive": true,

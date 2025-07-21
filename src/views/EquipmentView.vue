@@ -6,8 +6,8 @@
     <!-- Item cards slot -->
     <template #item-cards="{ filteredItems }">
       <EquipmentCard v-for="item in filteredItems" :key="item.id" :equipment="item" :editable="true" :sources="sources"
-        @edit="openEditEquipmentModal(item)" @send-to-chat="sendEquipmentToChat(item)"
-        @height-changed="$refs.itemCardsView.onCardHeightChanged()" :collapsible="false" />
+        :art-expanded="true" @edit="openEditEquipmentModal(item)" @send-to-chat="sendEquipmentToChat(item)"
+        @height-changed="$refs.itemCardsView.onCardHeightChanged()" :collapsible="false" :showSource="true" />
     </template>
 
     <!-- Modals slot -->

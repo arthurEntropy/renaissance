@@ -1,0 +1,12 @@
+{
+  "id": "b20b4f5e-7c7c-4b43-b180-991cf07d0712",
+  "name": "Channeler 1",
+  "description": "<p>This is a placeholder.</p>",
+  "isTrait": false,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
+  "isDeleted": false,
+  "mp": null,
+  "xp": null
+}

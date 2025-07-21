@@ -1,0 +1,13 @@
+{
+  "id": "6c1ad625-9400-447a-9b1a-189d597b573a",
+  "name": "Dribble",
+  "description": "<p>You bounce your orb to charge it with energy. Roll Dexterity. On a 10+, add 1 charge to the orb, and this ability does not consume a half action. On a 20+, add 1 additional charge. These charges persist within the orb so long as you or an ally remain in possession of it.</p><p>You may use this ability multiple times per turn, but not twice in a row.</p>",
+  "isTrait": false,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "a07490af-2d77-4968-9adc-0a2a7c84ef70",
+  "isDeleted": false,
+  "mp": null,
+  "xp": null,
+  "actionType": "Half Action"
+}

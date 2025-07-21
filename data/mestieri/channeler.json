@@ -11,5 +11,9 @@
   "places": [],
   "name": "Channeler",
   "expansionLogoUrl": "",
-  "description": "<p>FLAVOR:</p><ul><li><p>Magic by bloodline</p></li><li><p>Draw on yourself for power</p></li><li><p>Spellshaping, but not just physical</p></li></ul><p>WEAPONS</p><ul><li><p>light, common, no armor or helms</p></li><li><p>Can innately enchant wielded weapons?</p></li></ul><p>ENGAGEMENT</p><ul><li><p>none</p></li></ul><p>ABILITIES:</p><ul><li><p>Aggressive and enchantment, altering self in non-animal ways</p></li><li><p>Can add/remove targets/range/shape of AoE, etc. (reduce one to increase another)</p></li><li><p>[look at 0.1 evoker class]</p></li><li><p>HERE LIES FIREBALL</p></li><li><p>Not quite counterspell, but reactions that can oppose magic with magic, maybe a magical equivalent to riposte.</p></li></ul>"
+  "description": "<p>FLAVOR:</p><ul><li><p>Magic by bloodline</p></li><li><p>Draw on yourself for power</p></li><li><p>Spellshaping, but not just physical</p></li></ul><p>WEAPONS</p><ul><li><p>light, common, no armor or helms</p></li><li><p>Can innately enchant wielded weapons?</p></li></ul><p>ENGAGEMENT</p><ul><li><p>none</p></li></ul><p>ABILITIES:</p><ul><li><p>Aggressive and enchantment, altering self in non-animal ways</p></li><li><p>Can add/remove targets/range/shape of AoE, etc. (reduce one to increase another)</p></li><li><p>[look at 0.1 evoker class]</p></li><li><p>HERE LIES FIREBALL</p></li><li><p>Not quite counterspell, but reactions that can oppose magic with magic, maybe a magical equivalent to riposte.</p></li></ul>",
+  "backgroundImage": "https://cdn.midjourney.com/bcbc84cf-af8a-4f0d-97b1-7b9f3434f075/0_2.jpeg",
+  "color1": "#ffffff",
+  "color2": "#000000",
+  "expansion": ""
 }

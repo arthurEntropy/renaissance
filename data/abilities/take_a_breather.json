@@ -9,5 +9,12 @@
   "isDeleted": false,
   "mp": null,
   "xp": "",
-  "actionType": "Action"
+  "actionType": "Action",
+  "improvements": [
+    {
+      "name": "Brace Yourself",
+      "description": "<p>When you Take A Breather, you get +2 Defense until the start of your next turn.</p>",
+      "xp": 10
+    }
+  ]
 }

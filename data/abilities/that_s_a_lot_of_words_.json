@@ -1,0 +1,13 @@
+{
+  "id": "b485f7a7-ecf2-4899-8eb6-16de70aad279",
+  "name": "That's A Lot Of Words...",
+  "description": "<p>Once per rest, when a foe targets you with an ability that would require you to make an opposed roll, you may roll with Fortitude instead of the skill specified by the ability.</p><p><strong>Describe how your body endures what your mind or spirit might not.</strong></p>",
+  "isTrait": false,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "e0a69b6f-38f9-4fa5-a1ef-5e5777299e82",
+  "isDeleted": false,
+  "mp": "",
+  "xp": 10,
+  "actionType": "Reaction"
+}

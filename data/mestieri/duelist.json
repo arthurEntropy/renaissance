@@ -1,0 +1,29 @@
+{
+  "message": "New record created in mestieri.",
+  "id": "4eccfe5d-de19-4bc5-8c9c-374d793d67f0",
+  "hooks": [],
+  "playlists": [],
+  "artUrls": [
+    "https://cdn.midjourney.com/bb7f8092-0710-4aaf-9f26-e376a0cec04e/0_0.png"
+  ],
+  "faces": [],
+  "places": [],
+  "name": "Duelist",
+  "expansionLogoUrl": "",
+  "description": "<p>FLAVOR:</p><ul><li><p>Duelist</p></li><li><p>Precision combat, maneuverability</p></li><li><p>Must maintain good form!</p></li></ul><p>WEAPONS</p><ul><li><p>Light, common, light firearms</p></li><li><p>Light armor, no helms</p></li></ul><p>ENGAGEMENT:</p><ul><li><p>Many small dice</p></li><li><p>Lots of success options, fancy</p></li></ul><p>ABILITIES</p><ul><li><p>Form: benefits while maintaining, penalties while out of form</p></li><li><p>Dual wielding</p></li><li><p>Extra movement as reaction?</p></li></ul>",
+  "backgroundImage": "https://cdn.midjourney.com/0f6778cb-4d1e-47f5-b37a-2ce56238195a/0_3.png",
+  "color1": "#ffffff",
+  "color2": "#000000",
+  "expansion": "",
+  "novizio": {
+    "flavorText": "",
+    "melee": "light, martial, heavy",
+    "polearms": "",
+    "ranged": "",
+    "firearms": "light",
+    "armor": "light",
+    "engagement": "<p><span class=\"dice-icon df-d4-4\" style=\"font-size: 36px;\"></span> <span class=\"dice-icon df-d4-4\" style=\"font-size: 36px;\"></span> x WITS</p>",
+    "initialMaxMP": 3,
+    "abilities": ""
+  }
+}

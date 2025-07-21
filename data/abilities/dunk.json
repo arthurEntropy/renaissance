@@ -1,0 +1,13 @@
+{
+  "id": "076a961f-8a88-48b8-bdc4-e7b08b69f106",
+  "name": "Dunk",
+  "description": "<p>You slam your orb into your foe rather than throwing it. Roll Dexterity vs Dexterity. If you win the roll, deal your damage, as in the Shoot ability, ignoring the foe's defense. If you lose the roll, deal half damage.</p>",
+  "isTrait": false,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "a07490af-2d77-4968-9adc-0a2a7c84ef70",
+  "isDeleted": false,
+  "mp": 2,
+  "xp": 15,
+  "actionType": "Action"
+}

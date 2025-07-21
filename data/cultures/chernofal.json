@@ -9,8 +9,9 @@
   "faces": [],
   "places": [],
   "name": "Chernofal",
-  "backgroundImage": "",
+  "backgroundImage": "https://cdn.midjourney.com/713ca3be-8022-48d1-8456-cd56ec91f28b/0_1.png",
   "color1": "#ffffff",
   "color2": "#000000",
-  "expansion": "e46f4320-a414-4300-95d5-397ba717d982"
+  "expansion": "e46f4320-a414-4300-95d5-397ba717d982",
+  "expansionLogoUrl": "https://cdn.midjourney.com/a74946da-ccb3-4540-89e9-751411b6bb7c/0_1.png"
 }

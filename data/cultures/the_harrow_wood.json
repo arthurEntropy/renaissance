@@ -6,11 +6,14 @@
   "artUrls": [
     "https://cdn.midjourney.com/7294b7ec-c7f3-4d32-8112-35bb02f24fab/0_1.png"
   ],
-  "faces": [],
+  "faces": [
+    "https://cdn.midjourney.com/b3d09b27-ec0e-4471-95c0-35ce5edb8517/0_3.png"
+  ],
   "places": [],
   "name": "The Harrow Wood",
   "backgroundImage": "",
   "color1": "#ffffff",
   "color2": "#000000",
-  "expansion": "824cad94-3a4a-4df3-b81a-ede17b84644b"
+  "expansion": "824cad94-3a4a-4df3-b81a-ede17b84644b",
+  "expansionLogoUrl": "https://cdn.midjourney.com/8803d0cc-59f8-4b7e-b852-81f9090150c6/0_2.png"
 }

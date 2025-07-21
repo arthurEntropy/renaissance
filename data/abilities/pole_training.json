@@ -1,0 +1,29 @@
+{
+  "id": "c2d5d451-32de-401f-bed5-572f2b33b474",
+  "name": "Pole Training",
+  "description": "<p>You are trained in the use of the acrobat's pole, a special weapon type. When you use an action to attack while wielding a pole, you may either make one attack against a foe within the pole's reach or two attacks against adjacent foes.</p>",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "e10d7d9f-9d93-46b0-9846-d60241031644",
+  "isDeleted": false,
+  "mp": null,
+  "xp": 10,
+  "improvements": [
+    {
+      "name": "Vault",
+      "description": "<p>Once per turn, you may choose one:</p><ul><li><p>Your jump distance is doubled for your next jump this turn.</p></li><li><p>The height of vertical surface you can run up is doubled this turn.</p></li></ul><p>In either case, the increase does not cost you additional movement.</p>",
+      "xp": 5
+    },
+    {
+      "name": "Spin Attack",
+      "description": "<p>When wielding a pole, you may spend 2 MP and spend an action to attack all adjacent foes with a spinning attack.</p>",
+      "xp": 5
+    },
+    {
+      "name": "Ground Spin",
+      "description": "<p>When you use the Spin Attack ability, you may spend 1 additional MP to roll Dexterity vs Dexterity against each foe you hit, knocking prone each foe that loses their roll.</p>",
+      "xp": 5
+    }
+  ]
+}

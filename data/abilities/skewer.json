@@ -1,0 +1,24 @@
+{
+  "id": "01344caf-bc35-499e-953b-8f596b10f402",
+  "name": "Skewer",
+  "description": "<p>When you attack and hit with a polearm and either beat the foe's Defense by at least 3 or roll max damage, you may spend 1 MP to inflict Injury.</p>",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "45ca935d-938b-4974-961c-4171cc388904",
+  "isDeleted": true,
+  "mp": "",
+  "xp": 5,
+  "improvements": [
+    {
+      "name": "Puncture Wound",
+      "description": "<p>The foe also takes -1 to Defense.</p>",
+      "xp": 5
+    },
+    {
+      "name": "Deep Impact",
+      "description": "<p>You may spend an additional 1 MP to make the polearm become lodged in the wound. The foe's movement is halved until they or another combatant spend a half action to remove it.</p>",
+      "xp": 5
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "id": "de2e226f-c1e2-489e-9f70-353153421262",
+  "name": "Press Advantage",
+  "description": "<p>You may expend 4 Engagement dice to make one extra melee attack this turn.</p>",
+  "isTrait": false,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "4eccfe5d-de19-4bc5-8c9c-374d793d67f0",
+  "isDeleted": false,
+  "mp": 1,
+  "xp": 10,
+  "actionType": "Half Action"
+}

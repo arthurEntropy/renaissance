@@ -1,0 +1,12 @@
+{
+  "id": "5ca90b33-0407-46a9-9854-01eda52a5d51",
+  "name": "Stoop To My Level",
+  "description": "<p>You are subject to no penalties when prone - attacks against you are not favored and your attacks are not ill-favored.</p><p>Additionally, while prone, you may use a half action to roll Strength vs Dexterity against an adjacent foe. If you win, they are knocked prone.</p>",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "e0a69b6f-38f9-4fa5-a1ef-5e5777299e82",
+  "isDeleted": false,
+  "mp": null,
+  "xp": 5
+}

@@ -1,0 +1,13 @@
+{
+  "id": "f26ae89b-ac58-4ac3-aa09-d2c7fac43388",
+  "name": "Call The Retreat",
+  "description": "<p>Until the start of your next turn, whenever an ally within medium range of you would be subject to an opportunity attack, the foe's roll is ill-favored.</p>",
+  "isTrait": false,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "d4dce5e2-e767-464d-91f0-c40b47f788b3",
+  "isDeleted": false,
+  "mp": 2,
+  "xp": 10,
+  "actionType": "Half Action"
+}

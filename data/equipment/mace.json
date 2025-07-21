@@ -1,0 +1,24 @@
+{
+  "id": "64992fd9-1594-4cab-b232-b570e0e53ece",
+  "name": "Mace",
+  "description": "",
+  "standardOfLiving": "1",
+  "source": "34ea8807-b404-435c-a860-704b4a40df8f",
+  "weight": 4,
+  "isMelee": true,
+  "damageDice": [
+    6
+  ],
+  "engagementDice": [
+    8
+  ],
+  "engagementSuccesses": [
+    "1",
+    "3",
+    "6"
+  ],
+  "skillMods": [],
+  "isDeleted": false,
+  "isCustom": false,
+  "artUrl": "https://cdn.midjourney.com/4029dc4e-8914-439d-b9b3-bea09b059880/0_1.png"
+}
