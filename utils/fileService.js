@@ -55,12 +55,47 @@ const saveFile = (data, directory, oldName = null) => {
     }
 
     // Sanitize the filename
-    const filename = sanitizeFilename(data.name) + '.json'
-    const filePath = join(directory, filename)
+    let baseFilename = sanitizeFilename(data.name)
+    let filename = baseFilename + '.json'
+    let filePath = join(directory, filename)
+
+    // Get all files in the directory
+    const files = readdirSync(directory).filter((f) => f.endsWith('.json'))
+    let suffix = 1
+    // Check for filename conflicts (different id, same name)
+    while (files.includes(filename)) {
+      const existingData = JSON.parse(
+        readFileSync(join(directory, filename), 'utf8')
+      )
+      if (existingData.id !== data.id) {
+        filename = `${baseFilename}_${suffix}.json`
+        filePath = join(directory, filename)
+        suffix++
+      } else {
+        // Same id, safe to overwrite
+        break
+      }
+    }
 
     // If old name exists, check for renaming
     if (oldName && oldName !== data.name) {
-      const oldFilePath = join(directory, sanitizeFilename(oldName) + '.json')
+      let oldBaseFilename = sanitizeFilename(oldName)
+      let oldFilename = oldBaseFilename + '.json'
+      let oldFilePath = join(directory, oldFilename)
+      let renameSuffix = 1
+      // Handle renaming conflicts
+      while (files.includes(filename) && oldFilename !== filename) {
+        const existingData = JSON.parse(
+          readFileSync(join(directory, filename), 'utf8')
+        )
+        if (existingData.id !== data.id) {
+          filename = `${baseFilename}_${renameSuffix}.json`
+          filePath = join(directory, filename)
+          renameSuffix++
+        } else {
+          break
+        }
+      }
       renameSync(oldFilePath, filePath) // Rename the file
     }
 
