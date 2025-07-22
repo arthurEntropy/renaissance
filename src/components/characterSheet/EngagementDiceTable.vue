@@ -1,14 +1,14 @@
 <template>
   <div class="engagement-dice-table">
     <div class="engagement-dice-header">
-      <h2>Engagement Dice</h2>
+      <h2>Engagement</h2>
     </div>
 
     <div class="engagement-dice-content">
-      <div v-if="characterEngagementDice.length > 0" class="dice-display">
-        <span v-for="(die, index) in characterEngagementDice" :key="index" class="dice-icon"
-          :title="diceSourceInfo[index] ? `${diceSourceInfo[index].name}: d${diceSourceInfo[index].die}` : `d${die}`">
-          <i :class="`df-d${die}-${die}`"></i>
+      <div v-if="diceSourceInfo.length > 0" class="dice-display">
+        <span v-for="(diceInfo) in diceSourceInfo" :key="diceInfo.statusKey" class="dice-icon" :class="diceInfo.status"
+          @click="toggleDiceStatus(diceInfo)" :title="`${diceInfo.name}: d${diceInfo.die} (${diceInfo.status})`">
+          <i :class="`df-d${diceInfo.die}-${diceInfo.die}`"></i>
         </span>
       </div>
       <div v-else class="no-dice-message">
@@ -64,7 +64,8 @@ export default {
       allEngagementSuccesses: [],
       tooltipSuccess: null,
       tooltipPosition: { x: 0, y: 0 },
-      tooltipTimer: null
+      tooltipTimer: null,
+      diceStatuses: {} // Track statuses as { "equipmentId_dieIndex": "available"|"selected"|"expended" }
     };
   },
 
@@ -103,10 +104,16 @@ export default {
         const fullEquipment = this.allEquipment.find(eq => eq.id === characterEquip.id);
         const isActive = characterEquip.isCarried !== false && characterEquip.isWielding !== false;
         if (isActive && fullEquipment && fullEquipment.engagementDice && fullEquipment.engagementDice.length > 0) {
-          fullEquipment.engagementDice.forEach(die => {
+          fullEquipment.engagementDice.forEach((die, dieIndex) => {
+            const statusKey = `${fullEquipment.id}_${dieIndex}`;
+            const status = this.diceStatuses[statusKey] || 'available';
             result.push({
               die,
-              name: fullEquipment.name
+              name: fullEquipment.name,
+              equipmentId: fullEquipment.id,
+              dieIndex,
+              statusKey,
+              status
             });
           });
         }
@@ -201,6 +208,32 @@ export default {
     clearSuccessTooltip() {
       clearTimeout(this.tooltipTimer);
       this.tooltipSuccess = null;
+    },
+
+    toggleDiceStatus(diceInfo) {
+      // Cycle through states: available -> selected -> expended -> available
+      const currentStatus = this.diceStatuses[diceInfo.statusKey] || 'available';
+      let newStatus;
+
+      switch (currentStatus) {
+        case 'available':
+          newStatus = 'selected';
+          break;
+        case 'selected':
+          newStatus = 'expended';
+          break;
+        case 'expended':
+          newStatus = 'available';
+          break;
+        default:
+          newStatus = 'available';
+      }
+
+      // In Vue 3, we can directly set properties and they will be reactive
+      this.diceStatuses = {
+        ...this.diceStatuses,
+        [diceInfo.statusKey]: newStatus
+      };
     }
   },
 
@@ -248,7 +281,42 @@ export default {
 
 .dice-icon {
   font-size: 36px;
-  /* Size of the dice font */
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.dice-icon.available {
+  color: inherit;
+  /* Default color */
+}
+
+.dice-icon.selected {
+  color: gold;
+  text-shadow:
+    0 0 5px rgba(255, 215, 0, 0.7),
+    0 0 10px rgba(255, 215, 0, 0.5),
+    0 0 15px rgba(255, 215, 0, 0.3);
+  transform: scale(1.05);
+}
+
+.dice-icon.expended {
+  color: #5a5a5a;
+  /* Dark gray */
+  opacity: 0.7;
+}
+
+.dice-icon.expended::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: rgba(255, 0, 0, 0.8);
+  transform: translateY(-50%) rotate(-45deg);
+  pointer-events: none;
+  z-index: 1;
 }
 
 .no-dice-message {
