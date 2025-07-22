@@ -441,11 +441,7 @@ h2 {
   border-radius: 4px;
   cursor: pointer;
   transition: all 0.3s ease;
-}
-
-.roll-button:hover:not(:disabled),
-.reset-button:hover:not(:disabled) {
-  background-color: #444;
+  font-family: inherit;
 }
 
 .roll-button:disabled,
@@ -455,11 +451,14 @@ h2 {
   cursor: not-allowed;
 }
 
-.roll-button.active,
-.reset-button.active {
+.roll-button.active {
   background-color: gold;
   color: black;
-  box-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
+}
+
+.reset-button.active {
+  background-color: #777;
+  color: white;
 }
 
 /* Media query for smaller screens */
