@@ -295,7 +295,7 @@ export default {
 
 <style scoped>
 .modal-content {
-  max-width: 500px;
+  width: 500px;
 }
 
 .form-column {

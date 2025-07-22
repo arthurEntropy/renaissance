@@ -254,6 +254,7 @@ export default {
   /* Always allow vertical scrolling if content overflows */
   overflow-y: auto;
   max-height: 420px;
+  width: 100%;
 }
 
 .rich-editor-toolbar {
