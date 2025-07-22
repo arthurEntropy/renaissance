@@ -17,7 +17,8 @@
     <div class="engagement-dice-content">
       <div v-if="diceSourceInfo.length > 0" class="dice-display">
         <span v-for="(diceInfo) in diceSourceInfo" :key="diceInfo.statusKey" class="dice-icon" :class="diceInfo.status"
-          @click="toggleDiceStatus(diceInfo)" :title="`${diceInfo.name}: d${diceInfo.die} (${diceInfo.status})`">
+          @click="toggleDiceStatus(diceInfo)" @mouseenter="startDiceTooltip(diceInfo, $event)"
+          @mouseleave="clearDiceTooltip">
           <i :class="`df-d${diceInfo.die}-${diceInfo.die}`"></i>
         </span>
       </div>
@@ -39,7 +40,18 @@
     <!-- Tooltip for engagement success descriptions -->
     <div v-if="tooltipSuccess" class="success-tooltip"
       :style="{ top: tooltipPosition.y + 'px', left: tooltipPosition.x + 'px' }">
-      {{ tooltipSuccess.description }}
+      <div class="tooltip-description">{{ tooltipSuccess.description }}</div>
+      <div v-if="successSources[tooltipSuccess.id]" class="tooltip-source">
+        From: {{ successSources[tooltipSuccess.id].join(', ') }}
+      </div>
+    </div>
+
+    <!-- Tooltip for dice sources -->
+    <div v-if="tooltipDice" class="dice-tooltip"
+      :style="{ top: tooltipPosition.y + 'px', left: tooltipPosition.x + 'px' }">
+      <div class="tooltip-source">
+        From: {{ tooltipDice.name }}
+      </div>
     </div>
   </div>
 </template>
@@ -73,6 +85,7 @@ export default {
     return {
       allEngagementSuccesses: [],
       tooltipSuccess: null,
+      tooltipDice: null,
       tooltipPosition: { x: 0, y: 0 },
       tooltipTimer: null,
       diceStatuses: {} // Track statuses as { "equipmentId_dieIndex": "available"|"selected"|"expended" }
@@ -156,6 +169,32 @@ export default {
       return successIds;
     },
 
+    // Map success IDs to their source equipment names
+    successSources() {
+      const sources = {};
+      if (!this.character || !this.character.equipment || !this.allEquipment) {
+        return sources;
+      }
+
+      this.character.equipment.forEach(characterEquip => {
+        const fullEquipment = this.allEquipment.find(eq => eq.id === characterEquip.id);
+        const isActive = characterEquip.isCarried !== false && characterEquip.isWielding !== false;
+
+        if (isActive && fullEquipment && fullEquipment.engagementSuccesses && fullEquipment.engagementSuccesses.length > 0) {
+          fullEquipment.engagementSuccesses.forEach(successId => {
+            if (!sources[successId]) {
+              sources[successId] = [];
+            }
+            if (!sources[successId].includes(fullEquipment.name)) {
+              sources[successId].push(fullEquipment.name);
+            }
+          });
+        }
+      });
+
+      return sources;
+    },
+
     uniqueEngagementSuccesses() {
       const uniqueIds = [...new Set(this.allEquipmentEngagementSuccesses)];
       return uniqueIds
@@ -220,18 +259,35 @@ export default {
     },
 
     startSuccessTooltip(success, event) {
+      this.clearDiceTooltip(); // Ensure only one tooltip shows at a time
       this.tooltipTimer = setTimeout(() => {
         this.tooltipSuccess = success;
         this.tooltipPosition = {
           x: event.clientX + 12,
           y: event.clientY + 12,
         };
-      }, 500);
+      }, 1000);
     },
 
     clearSuccessTooltip() {
       clearTimeout(this.tooltipTimer);
       this.tooltipSuccess = null;
+    },
+
+    startDiceTooltip(diceInfo, event) {
+      this.clearSuccessTooltip(); // Ensure only one tooltip shows at a time
+      this.tooltipTimer = setTimeout(() => {
+        this.tooltipDice = diceInfo;
+        this.tooltipPosition = {
+          x: event.clientX + 12,
+          y: event.clientY + 12,
+        };
+      }, 1000);
+    },
+
+    clearDiceTooltip() {
+      clearTimeout(this.tooltipTimer);
+      this.tooltipDice = null;
     },
 
     toggleDiceStatus(diceInfo) {
@@ -268,9 +324,8 @@ export default {
         return;
       }
 
-      // TODO: Implement dice rolling functionality with DiceService
-      // Will need to call a method like:
-      // DiceService.rollEngagementDice(selectedDice, this.character.name, weaponName);
+      // TODO: Implement engagement roll modal
+
       console.log('Rolling selected dice:', selectedDice);
 
       // Set all selected dice to expended after rolling
@@ -413,7 +468,8 @@ export default {
   background-color: rgba(64, 64, 64, 0.4);
 }
 
-.success-tooltip {
+.success-tooltip,
+.dice-tooltip {
   position: fixed;
   z-index: 1000;
   background: rgba(30, 30, 30, 0.97);
@@ -425,6 +481,16 @@ export default {
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
   max-width: 260px;
   white-space: pre-line;
+}
+
+.tooltip-description {
+  margin-bottom: 8px;
+}
+
+.tooltip-source {
+  color: #aaa;
+  font-size: 10px;
+  font-style: italic;
 }
 
 h2 {
