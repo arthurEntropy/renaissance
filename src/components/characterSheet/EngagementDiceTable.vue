@@ -2,6 +2,16 @@
   <div class="engagement-dice-table">
     <div class="engagement-dice-header">
       <h2>Engagement</h2>
+      <div class="button-group">
+        <button class="reset-button" :class="{ 'active': hasExpendedDice }" :disabled="!hasExpendedDice"
+          @click="resetDice">
+          Reset
+        </button>
+        <button class="roll-button" :class="{ 'active': hasSelectedDice }" :disabled="!hasSelectedDice"
+          @click="rollSelectedDice">
+          Roll
+        </button>
+      </div>
     </div>
 
     <div class="engagement-dice-content">
@@ -152,6 +162,20 @@ export default {
         .map(id => this.allEngagementSuccesses.find(success => success.id === id))
         .filter(success => success)
         .sort((a, b) => a.name.localeCompare(b.name));
+    },
+
+    hasSelectedDice() {
+      return Object.values(this.diceStatuses).includes('selected');
+    },
+
+    selectedDice() {
+      return this.equipmentWithDice
+        .filter(item => item.status === 'selected')
+        .map(item => item.die);
+    },
+
+    hasExpendedDice() {
+      return Object.values(this.diceStatuses).includes('expended');
     }
   },
 
@@ -234,6 +258,38 @@ export default {
         ...this.diceStatuses,
         [diceInfo.statusKey]: newStatus
       };
+    },
+
+    rollSelectedDice() {
+      const selectedDice = this.selectedDice;
+
+      if (selectedDice.length === 0) {
+        console.warn('No selected dice to roll');
+        return;
+      }
+
+      // TODO: Implement dice rolling functionality with DiceService
+      // Will need to call a method like:
+      // DiceService.rollEngagementDice(selectedDice, this.character.name, weaponName);
+      console.log('Rolling selected dice:', selectedDice);
+
+      // Set all selected dice to expended after rolling
+      const updatedStatuses = { ...this.diceStatuses };
+      Object.keys(updatedStatuses).forEach(key => {
+        if (updatedStatuses[key] === 'selected') {
+          updatedStatuses[key] = 'expended';
+        }
+      });
+      this.diceStatuses = updatedStatuses;
+    },
+
+    resetDice() {
+      if (!this.hasExpendedDice) {
+        return;
+      }
+
+      // Reset all dice to available state
+      this.diceStatuses = {};
     }
   },
 
@@ -256,9 +312,14 @@ export default {
 .engagement-dice-header {
   width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   margin-top: 6px;
+}
+
+.button-group {
+  display: flex;
+  gap: 8px;
 }
 
 .engagement-dice-content {
@@ -371,20 +432,34 @@ h2 {
   margin-bottom: 5px;
 }
 
-.roll-button {
-  margin-top: 10px;
+.roll-button,
+.reset-button {
   background-color: #333;
   color: white;
   border: none;
-  padding: 8px 16px;
+  padding: 6px 14px;
   border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.2s;
-  margin-top: 6px;
+  transition: all 0.3s ease;
 }
 
-.roll-button:hover {
+.roll-button:hover:not(:disabled),
+.reset-button:hover:not(:disabled) {
   background-color: #444;
+}
+
+.roll-button:disabled,
+.reset-button:disabled {
+  background-color: #222;
+  color: #666;
+  cursor: not-allowed;
+}
+
+.roll-button.active,
+.reset-button.active {
+  background-color: gold;
+  color: black;
+  box-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
 }
 
 /* Media query for smaller screens */
