@@ -1,5 +1,5 @@
 <template>
-  <div class="modal-overlay" @click.self="closeModal">
+  <div class="modal-overlay concept-modal-overlay" @click.self="closeModal">
     <!-- ADMIN CONTROLS -->
     <div class="admin-controls">
       <!-- Edit/Save button -->
@@ -549,6 +549,9 @@ export default defineComponent({
 
   async mounted() {
     try {
+      // Prevent body scrolling when modal is open
+      document.body.classList.add('modal-open');
+
       // Fetch expansions for badge
       await this.expansionStore.fetchExpansions()
       this.expansions = this.expansionStore.expansions
@@ -565,10 +568,21 @@ export default defineComponent({
       console.error('Error initializing ConceptDetailModal:', error);
     }
   },
+
+  beforeUnmount() {
+    // Re-enable body scrolling when modal is closed
+    document.body.classList.remove('modal-open');
+  },
 })
 </script>
 
 <style scoped>
+/* Modal overlay specific styles */
+.concept-modal-overlay {
+  overflow: hidden;
+  /* Prevent scrolling on the overlay */
+}
+
 /* Admin controls */
 .admin-controls {
   position: fixed;
@@ -723,8 +737,11 @@ export default defineComponent({
 
 .modal-content {
   position: relative;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
   max-height: 90vh;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
 /* Expansion logo badge */
@@ -771,5 +788,13 @@ export default defineComponent({
   .concept-right-column {
     max-width: 100%;
   }
+}
+
+/* Global styles */
+:global(body.modal-open) {
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+  height: 100%;
 }
 </style>
