@@ -21,13 +21,15 @@
 
     <!-- Concept Detail Modal with Navigation Arrows -->
     <div v-if="showConceptDetail" class="modal-container">
-      <button class="navigate-button prev" @click="navigateConcept(-1)" :disabled="!hasPreviousConcept">
+      <button class="navigate-button prev" @click="navigateConcept(-1)" :disabled="!hasPreviousConcept"
+        :title="hasPreviousConcept ? 'Previous (← Left Arrow)' : 'No previous item'">
         &lsaquo;
       </button>
       <ConceptDetailModal :key="conceptDetailKey" :concept="selectedConcept" :editable="true"
         @close="closeConceptDetail" @update="updateConcept" @edit-ability="editAbility"
         @edit-equipment="editEquipment" />
-      <button class="navigate-button next" @click="navigateConcept(1)" :disabled="!hasNextConcept">
+      <button class="navigate-button next" @click="navigateConcept(1)" :disabled="!hasNextConcept"
+        :title="hasNextConcept ? 'Next (→ Right Arrow)' : 'No next item'">
         &rsaquo;
       </button>
     </div>
@@ -289,6 +291,34 @@ export default {
         console.error('Error updating equipment:', error)
       }
     },
+
+    handleKeyNavigation(event) {
+      // Only process keyboard navigation when concept detail is shown
+      if (!this.showConceptDetail) return;
+
+      // Ignore keyboard events when user is in an input field
+      if (event.target.tagName === 'INPUT' ||
+        event.target.tagName === 'TEXTAREA' ||
+        event.target.isContentEditable) {
+        return;
+      }
+
+      switch (event.key) {
+        case 'ArrowLeft':
+          if (this.hasPreviousConcept) {
+            this.navigateConcept(-1);
+          }
+          break;
+        case 'ArrowRight':
+          if (this.hasNextConcept) {
+            this.navigateConcept(1);
+          }
+          break;
+        case 'Escape':
+          this.closeConceptDetail();
+          break;
+      }
+    },
   },
   async mounted() {
     try {
@@ -299,9 +329,14 @@ export default {
         this.abilitiesStore.fetchAllAbilities(),
         this.equipmentStore.fetchAllEquipment()
       ]);
+      window.addEventListener('keydown', this.handleKeyNavigation);
     } catch (error) {
       console.error('Error initializing ConceptsView:', error);
     }
+  },
+
+  beforeUnmount() {
+    window.removeEventListener('keydown', this.handleKeyNavigation);
   },
 }
 </script>
