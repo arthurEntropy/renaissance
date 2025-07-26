@@ -1,39 +1,104 @@
 <template>
   <div class="engagement-dice-table">
     <div class="engagement-dice-header">
-      <h2>Engagement</h2>
+      <div class="header-left">
+        <h2>Engagement</h2>
+        <button class="edit-mode-button" @click="toggleEditMode"
+          :title="isEditMode ? 'Exit Edit Mode' : 'Enter Edit Mode'">
+          {{ isEditMode ? '✓' : '✎' }}
+        </button>
+      </div>
       <div class="button-group">
-        <button class="reset-button" :class="{ 'active': hasExpendedDice }" :disabled="!hasExpendedDice"
-          @click="resetDice">
+        <button class="reset-button" :class="{ 'active': hasExpendedDice && !isEditMode }"
+          :disabled="isEditMode || !hasExpendedDice" @click="resetDice">
           Reset
         </button>
-        <button class="roll-button" :class="{ 'active': hasSelectedDice }" :disabled="!hasSelectedDice"
-          @click="rollSelectedDice">
+        <button class="roll-button" :class="{ 'active': hasSelectedDice && !isEditMode }"
+          :disabled="isEditMode || !hasSelectedDice" @click="rollSelectedDice">
           Roll
         </button>
       </div>
     </div>
 
     <div class="engagement-dice-content">
-      <div v-if="diceSourceInfo.length > 0" class="dice-display">
-        <span v-for="(diceInfo) in diceSourceInfo" :key="diceInfo.statusKey" class="dice-icon" :class="diceInfo.status"
-          @click="toggleDiceStatus(diceInfo)" @mouseenter="startDiceTooltip(diceInfo, $event)"
-          @mouseleave="clearDiceTooltip">
-          <i :class="`df-d${diceInfo.die}-${diceInfo.die}`"></i>
-        </span>
+      <div v-if="diceSourceInfo.length > 0 || isEditMode" class="dice-display">
+        <!-- Display dice -->
+        <div v-for="(diceInfo) in diceSourceInfo" :key="diceInfo.statusKey" class="dice-icon-container"
+          :class="{ 'custom-die': diceInfo.isCustom }">
+          <!-- Remove button for custom dice in edit mode -->
+          <button v-if="isEditMode && diceInfo.isCustom" class="remove-die-button"
+            @click="removeCustomDie(diceInfo.customIndex)">
+            ✕
+          </button>
+
+          <!-- The die itself -->
+          <span class="dice-icon" :class="diceInfo.status" @click="toggleDiceStatus(diceInfo)"
+            @mouseenter="startDiceTooltip(diceInfo, $event)" @mouseleave="clearDiceTooltip">
+            <i :class="`df-d${diceInfo.die}-${diceInfo.die}`"></i>
+          </span>
+        </div>
+
+        <!-- Add button in edit mode -->
+        <div v-if="isEditMode" class="add-die-container">
+          <button class="add-die-button" @click="toggleDiceDropdown($event)">+</button>
+        </div>
       </div>
-      <div v-else class="no-dice-message">
+      <div v-else-if="!isEditMode" class="no-dice-message">
         No engagement dice available
+      </div>
+
+      <!-- Dice dropdown for adding custom dice -->
+      <div v-if="showDiceDropdown" class="dice-dropdown"
+        :style="{ top: dropdownPosition.y + 'px', left: dropdownPosition.x + 'px' }">
+        <button v-for="die in diceOptions" :key="die" class="die-option" @click="addCustomDie(die)">
+          d{{ die }}
+        </button>
       </div>
     </div>
 
     <!-- Engagement Successes Section -->
-    <div v-if="uniqueEngagementSuccesses.length > 0" class="engagement-successes-section">
+    <div class="engagement-successes-section">
       <div class="engagement-successes">
-        <span v-for="success in uniqueEngagementSuccesses" :key="success.id" class="engagement-success-pill"
-          @mouseenter="startSuccessTooltip(success, $event)" @mouseleave="clearSuccessTooltip">
+        <!-- Show existing successes -->
+        <div v-for="success in uniqueEngagementSuccesses" :key="success.id" class="engagement-success-pill-container"
+          :class="{ 'custom-success': success.isCustom }">
+          <!-- Remove button for custom successes in edit mode -->
+          <button v-if="isEditMode && success.isCustom" class="remove-success-button"
+            @click="removeCustomSuccess(success.id)">
+            ✕
+          </button>
+
+          <span class="engagement-success-pill" @mouseenter="startSuccessTooltip(success, $event)"
+            @mouseleave="clearSuccessTooltip">
+            {{ success.name }}
+          </span>
+        </div>
+
+        <!-- Add button in edit mode -->
+        <div v-if="isEditMode" class="add-success-container">
+          <button class="add-success-button" @click="toggleSuccessDropdown($event)">+</button>
+        </div>
+      </div>
+
+      <!-- No successes message -->
+      <div v-if="uniqueEngagementSuccesses.length === 0 && !isEditMode" class="no-successes-message">
+        No engagement successes available
+      </div>
+    </div>
+
+    <!-- Success dropdown for adding custom successes -->
+    <div v-if="showSuccessDropdown" class="success-dropdown"
+      :style="{ top: dropdownPosition.y + 'px', left: dropdownPosition.x + 'px' }">
+      <!-- Only show available successes that can be added -->
+      <div v-if="availableEngagementSuccesses.length > 0">
+        <button v-for="success in availableEngagementSuccesses" :key="success.id" class="success-option"
+          @click="addCustomSuccess(success.id)">
           {{ success.name }}
-        </span>
+        </button>
+      </div>
+
+      <div v-else class="success-dropdown-empty">
+        All engagement successes already owned
       </div>
     </div>
 
@@ -81,6 +146,8 @@ export default {
     }
   },
 
+  emits: ['update:character'], // Emit event to update character
+
   data() {
     return {
       allEngagementSuccesses: [],
@@ -88,7 +155,12 @@ export default {
       tooltipDice: null,
       tooltipPosition: { x: 0, y: 0 },
       tooltipTimer: null,
-      diceStatuses: {} // Track statuses as { "equipmentId_dieIndex": "available"|"selected"|"expended" }
+      diceStatuses: {}, // Track statuses as { "equipmentId_dieIndex": "available"|"selected"|"expended" }
+      isEditMode: false, // Toggle for edit mode
+      showDiceDropdown: false, // Toggle for dice dropdown visibility
+      showSuccessDropdown: false, // Toggle for success dropdown visibility
+      dropdownPosition: { x: 0, y: 0 }, // Position for dropdown
+      diceOptions: [4, 6, 8, 10, 12, 20] // Available dice options
     };
   },
 
@@ -118,11 +190,44 @@ export default {
       return [...dice].sort((a, b) => a - b)
     },
 
+    customEngagementDice() {
+      // Return the custom engagement dice from character, or an empty array if not defined
+      return this.character.engagementDice || [];
+    },
+
+    customEngagementSuccesses() {
+      // Return the custom engagement successes from character, or an empty array if not defined
+      return this.character.engagementSuccesses || [];
+    },
+
+    // All available engagement successes that can be added
+    availableEngagementSuccesses() {
+      // Filter out successes that are already in the character's equipment or custom successes
+      return this.allEngagementSuccesses.filter(success => {
+        // Check if this success is already in equipment or custom
+        const isInEquipment = this.allEquipmentEngagementSuccesses.includes(success.id);
+        const isInCustom = this.customEngagementSuccesses.includes(success.id);
+        return !isInEquipment && !isInCustom;
+      }).sort((a, b) => a.name.localeCompare(b.name));
+    },
+
+    // All engagement successes that are already owned but can still be shown in dropdown
+    ownedEngagementSuccesses() {
+      // Get successes that are already in the character's equipment or custom successes
+      return this.allEngagementSuccesses.filter(success => {
+        const isInEquipment = this.allEquipmentEngagementSuccesses.includes(success.id);
+        const isInCustom = this.customEngagementSuccesses.includes(success.id);
+        return isInEquipment || isInCustom;
+      }).sort((a, b) => a.name.localeCompare(b.name));
+    },
+
     equipmentWithDice() {
       const result = [];
       if (!this.character || !this.character.equipment || !this.allEquipment) {
         return result;
       }
+
+      // Add dice from equipment
       this.character.equipment.forEach(characterEquip => {
         const fullEquipment = this.allEquipment.find(eq => eq.id === characterEquip.id);
         const isActive = characterEquip.isCarried !== false && characterEquip.isWielding !== false;
@@ -136,11 +241,29 @@ export default {
               equipmentId: fullEquipment.id,
               dieIndex,
               statusKey,
-              status
+              status,
+              isCustom: false
             });
           });
         }
       });
+
+      // Add custom dice
+      if (this.customEngagementDice.length > 0) {
+        this.customEngagementDice.forEach((die, index) => {
+          const statusKey = `custom_${index}`;
+          const status = this.diceStatuses[statusKey] || 'available';
+          result.push({
+            die,
+            name: 'Custom',
+            customIndex: index,
+            statusKey,
+            status,
+            isCustom: true
+          });
+        });
+      }
+
       return result;
     },
 
@@ -151,7 +274,7 @@ export default {
     },
 
     diceSourceInfo() {
-      return [...this.equipmentWithDice].sort((a, b) => b.die - a.die);
+      return [...this.equipmentWithDice].sort((a, b) => a.die - b.die);
     },
 
     allEquipmentEngagementSuccesses() {
@@ -196,9 +319,25 @@ export default {
     },
 
     uniqueEngagementSuccesses() {
-      const uniqueIds = [...new Set(this.allEquipmentEngagementSuccesses)];
+      // Combine equipment and custom successes
+      const allSuccessIds = [
+        ...this.allEquipmentEngagementSuccesses,
+        ...this.customEngagementSuccesses
+      ];
+      const uniqueIds = [...new Set(allSuccessIds)];
+
       return uniqueIds
-        .map(id => this.allEngagementSuccesses.find(success => success.id === id))
+        .map(id => {
+          const success = this.allEngagementSuccesses.find(success => success.id === id);
+          if (success) {
+            // Add a flag to indicate if this is a custom success
+            return {
+              ...success,
+              isCustom: this.customEngagementSuccesses.includes(id) && !this.allEquipmentEngagementSuccesses.includes(id)
+            };
+          }
+          return null;
+        })
         .filter(success => success)
         .sort((a, b) => a.name.localeCompare(b.name));
     },
@@ -345,6 +484,162 @@ export default {
 
       // Reset all dice to available state
       this.diceStatuses = {};
+    },
+
+    toggleEditMode() {
+      this.isEditMode = !this.isEditMode;
+      this.showDiceDropdown = false; // Close dropdowns when toggling edit mode
+      this.showSuccessDropdown = false;
+    },
+
+    toggleDiceDropdown(event) {
+      this.showDiceDropdown = !this.showDiceDropdown;
+      this.showSuccessDropdown = false; // Close success dropdown if open
+
+      if (this.showDiceDropdown) {
+        // Default position
+        this.dropdownPosition = {
+          x: event.clientX,
+          y: event.clientY + 10
+        };
+
+        // Add click outside listener to close dropdown
+        setTimeout(() => {
+          // Adjust position if dropdown would go off-screen
+          this.adjustDropdownPosition('.dice-dropdown');
+          document.addEventListener('click', this.closeDiceDropdown);
+        }, 10);
+      } else {
+        document.removeEventListener('click', this.closeDiceDropdown);
+      }
+    },
+
+    closeDiceDropdown(event) {
+      // Check if click is outside dropdown
+      const dropdown = document.querySelector('.dice-dropdown');
+      const addButton = document.querySelector('.add-die-button');
+
+      if (dropdown && !dropdown.contains(event.target) &&
+        addButton && !addButton.contains(event.target)) {
+        this.showDiceDropdown = false;
+        document.removeEventListener('click', this.closeDiceDropdown);
+      }
+    },
+
+    addCustomDie(die) {
+      // Create a new array with the custom dice, adding the new one
+      const updatedDice = [...this.customEngagementDice, die];
+
+      // Update character with the new custom dice
+      const updatedCharacter = {
+        ...this.character,
+        engagementDice: updatedDice
+      };
+
+      // Emit update event
+      this.$emit('update:character', updatedCharacter);
+
+      // Close the dropdown
+      this.showDiceDropdown = false;
+    },
+
+    removeCustomDie(index) {
+      // Create a new array with the custom dice, removing the specified one
+      const updatedDice = this.customEngagementDice.filter((_, i) => i !== index);
+
+      // Update character with the new custom dice
+      const updatedCharacter = {
+        ...this.character,
+        engagementDice: updatedDice
+      };
+
+      // Emit update event
+      this.$emit('update:character', updatedCharacter);
+    },
+
+    toggleSuccessDropdown(event) {
+      this.showSuccessDropdown = !this.showSuccessDropdown;
+      this.showDiceDropdown = false; // Close dice dropdown if open
+
+      if (this.showSuccessDropdown) {
+        // Default position
+        this.dropdownPosition = {
+          x: event.clientX,
+          y: event.clientY + 10
+        };
+
+        // Add click outside listener to close dropdown
+        setTimeout(() => {
+          // Adjust position if dropdown would go off-screen
+          this.adjustDropdownPosition('.success-dropdown');
+          document.addEventListener('click', this.closeSuccessDropdown);
+        }, 10);
+      } else {
+        document.removeEventListener('click', this.closeSuccessDropdown);
+      }
+    },
+
+    adjustDropdownPosition(selector) {
+      const dropdown = document.querySelector(selector);
+      if (!dropdown) return;
+
+      const dropdownRect = dropdown.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      const windowWidth = window.innerWidth;
+
+      // Check if dropdown extends beyond bottom of viewport
+      if (dropdownRect.bottom > windowHeight) {
+        // Position above the click point instead of below it
+        this.dropdownPosition.y = Math.max(10, this.dropdownPosition.y - dropdownRect.height - 30);
+      }
+
+      // Check if dropdown extends beyond right edge of viewport
+      if (dropdownRect.right > windowWidth) {
+        this.dropdownPosition.x = Math.max(10, this.dropdownPosition.x - (dropdownRect.right - windowWidth) - 20);
+      }
+    },
+
+    closeSuccessDropdown(event) {
+      // Check if click is outside dropdown
+      const dropdown = document.querySelector('.success-dropdown');
+      const addButton = document.querySelector('.add-success-button');
+
+      if (dropdown && !dropdown.contains(event.target) &&
+        addButton && !addButton.contains(event.target)) {
+        this.showSuccessDropdown = false;
+        document.removeEventListener('click', this.closeSuccessDropdown);
+      }
+    },
+
+    addCustomSuccess(successId) {
+      // Create a new array with the custom successes, adding the new one
+      const updatedSuccesses = [...this.customEngagementSuccesses, successId];
+
+      // Update character with the new custom successes
+      const updatedCharacter = {
+        ...this.character,
+        engagementSuccesses: updatedSuccesses
+      };
+
+      // Emit update event
+      this.$emit('update:character', updatedCharacter);
+
+      // Close the dropdown
+      this.showSuccessDropdown = false;
+    },
+
+    removeCustomSuccess(successId) {
+      // Create a new array with the custom successes, removing the specified one
+      const updatedSuccesses = this.customEngagementSuccesses.filter(id => id !== successId);
+
+      // Update character with the new custom successes
+      const updatedCharacter = {
+        ...this.character,
+        engagementSuccesses: updatedSuccesses
+      };
+
+      // Emit update event
+      this.$emit('update:character', updatedCharacter);
     }
   },
 
@@ -372,6 +667,30 @@ export default {
   margin-top: 6px;
 }
 
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.edit-mode-button {
+  background: none;
+  border: none;
+  color: #aaa;
+  font-size: 16px;
+  cursor: pointer;
+  transition: color 0.2s;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.edit-mode-button:hover {
+  color: white;
+}
+
 .button-group {
   display: flex;
   gap: 8px;
@@ -391,8 +710,13 @@ export default {
 .dice-display {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
   gap: 3px;
-  margin-top: 5px;
+  margin-top: 15px;
+}
+
+.dice-icon-container {
+  position: relative;
 }
 
 .dice-icon {
@@ -400,6 +724,84 @@ export default {
   cursor: pointer;
   transition: all 0.3s ease;
   position: relative;
+  display: inline-block;
+}
+
+.remove-die-button {
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  width: 16px;
+  height: 16px;
+  background-color: #ff4444;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 10px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  padding: 0;
+}
+
+.add-die-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 5px;
+}
+
+.add-die-button {
+  width: 26px;
+  height: 26px;
+  background-color: #444;
+  color: white;
+  border: 2px solid #666;
+  border-radius: 50%;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-top: 5px;
+  padding-top: 5px;
+  padding-left: 7px;
+}
+
+.add-die-button:hover {
+  background-color: #555;
+}
+
+.dice-dropdown {
+  position: fixed;
+  background-color: #333;
+  border: 1px solid #555;
+  border-radius: 4px;
+  padding: 5px;
+  z-index: 100;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.die-option {
+  padding: 5px 10px;
+  background-color: #444;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background-color 0.2s;
+}
+
+.die-option:hover {
+  background-color: #555;
 }
 
 .dice-icon.available {
@@ -453,6 +855,10 @@ export default {
   margin-top: 10px;
 }
 
+.engagement-success-pill-container {
+  position: relative;
+}
+
 .engagement-success-pill {
   background-color: rgb(61, 61, 61);
   color: white;
@@ -462,10 +868,106 @@ export default {
   text-align: center;
   cursor: help;
   transition: background-color 0.2s;
+  display: inline-block;
 }
 
 .engagement-success-pill:hover {
   background-color: rgba(64, 64, 64, 0.4);
+}
+
+.remove-success-button {
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  width: 14px;
+  height: 14px;
+  background-color: #ff4444;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 8px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  padding: 0;
+}
+
+.add-success-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 5px;
+}
+
+.add-success-button {
+  width: 20px;
+  height: 20px;
+  background-color: #444;
+  color: white;
+  border: 1px solid #666;
+  border-radius: 50%;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  padding-bottom: 2px;
+}
+
+.add-success-button:hover {
+  background-color: #555;
+}
+
+.success-dropdown {
+  position: fixed;
+  background-color: #333;
+  border: 1px solid #555;
+  border-radius: 4px;
+  padding: 8px;
+  z-index: 100;
+  max-width: 250px;
+  max-height: 300px;
+  overflow-y: auto;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.success-option {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 5px 8px;
+  margin-bottom: 3px;
+  background-color: #444;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 11px;
+  transition: background-color 0.2s;
+}
+
+.success-option:hover {
+  background-color: #555;
+}
+
+.success-dropdown-empty {
+  color: #777;
+  font-style: italic;
+  padding: 5px;
+  text-align: center;
+  font-size: 11px;
+}
+
+.no-successes-message {
+  text-align: center;
+  color: #999;
+  margin-top: 5px;
+  font-size: 11px;
 }
 
 .success-tooltip,

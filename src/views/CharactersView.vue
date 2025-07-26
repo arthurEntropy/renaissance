@@ -45,7 +45,7 @@
             <div class="conditions-row" v-for="(value, key) in selectedCharacter.conditions" :key="key">
               <span :class="{ 'condition-active': value }">{{
                 this.$capitalizeFirstLetter(key)
-                }}</span>
+              }}</span>
               <input type="checkbox" class="skill-checkbox" :class="{ 'condition-active-checkbox': value }"
                 v-model="selectedCharacter.conditions[key]" />
             </div>
@@ -55,7 +55,8 @@
 
         <!-- Three-column layout for Engagement, Equipment, and Abilities -->
         <div class="main-column">
-          <EngagementDiceTable :character="selectedCharacter" :allEquipment="allEquipment" :sources="sources" />
+          <EngagementDiceTable :character="selectedCharacter" :allEquipment="allEquipment" :sources="sources"
+            @update:character="updateCharacter" />
         </div>
         <div class="main-column">
           <EquipmentTable :equipment="selectedCharacter.equipment" :allEquipment="allEquipment"

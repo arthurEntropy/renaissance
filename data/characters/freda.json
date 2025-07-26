@@ -200,5 +200,12 @@
   ],
   "cultureIds": [
     "75800953-4adb-405f-a4ab-a599573ca533"
+  ],
+  "engagementDice": [
+    12,
+    8
+  ],
+  "engagementSuccesses": [
+    "10"
   ]
 }
