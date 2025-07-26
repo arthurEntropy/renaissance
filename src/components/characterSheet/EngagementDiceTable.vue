@@ -20,6 +20,11 @@
       </div>
     </div>
 
+    <!-- Engagement Roll Modal -->
+    <EngagementRollModal v-if="showEngagementRollModal" :character="character" :selectedDice="currentRollDice"
+      :allEngagementSuccesses="allEngagementSuccesses" :allEquipment="allEquipment" @close="closeEngagementRollModal"
+      @confirm-roll="handleConfirmRoll" />
+
     <div class="engagement-dice-content">
       <div v-if="diceSourceInfo.length > 0 || isEditMode" class="dice-display">
         <!-- Display dice -->
@@ -123,9 +128,12 @@
 
 <script>
 import EngagementSuccessService from '@/services/EngagementSuccessService';
-import DiceService from '@/services/DiceService'
+import EngagementRollModal from '@/components/modals/EngagementRollModal.vue';
 
 export default {
+  components: {
+    EngagementRollModal
+  },
   props: {
     character: {
       type: Object,
@@ -160,7 +168,9 @@ export default {
       showDiceDropdown: false, // Toggle for dice dropdown visibility
       showSuccessDropdown: false, // Toggle for success dropdown visibility
       dropdownPosition: { x: 0, y: 0 }, // Position for dropdown
-      diceOptions: [4, 6, 8, 10, 12, 20] // Available dice options
+      diceOptions: [4, 6, 8, 10, 12, 20], // Available dice options
+      showEngagementRollModal: false, // Toggle for the engagement roll modal
+      currentRollDice: [], // Store the currently selected dice for the roll modal
     };
   },
 
@@ -347,9 +357,11 @@ export default {
     },
 
     selectedDice() {
-      return this.equipmentWithDice
+      const selected = this.equipmentWithDice
         .filter(item => item.status === 'selected')
         .map(item => item.die);
+      console.log('Parent component selectedDice:', selected);
+      return selected;
     },
 
     hasExpendedDice() {
@@ -379,13 +391,10 @@ export default {
         return
       }
 
-      // Roll the dice using the DiceService
-      DiceService.rollEngagementDice(
-        dice,
+      // Just log the dice for now (no service call)
+      console.log('Rolling engagement dice:', dice,
         this.character.name,
-        this.wieldedWeapons.length > 0
-          ? this.getWieldedWeaponName()
-          : 'unarmed'
+        this.wieldedWeapons.length > 0 ? this.getWieldedWeaponName() : 'unarmed'
       )
     },
 
@@ -456,16 +465,32 @@ export default {
     },
 
     rollSelectedDice() {
-      const selectedDice = this.selectedDice;
+      const selectedDice = [...this.selectedDice]; // Create a copy
 
       if (selectedDice.length === 0) {
         console.warn('No selected dice to roll');
         return;
       }
 
-      // TODO: Implement engagement roll modal
+      // Store the selected dice in a data property so they don't change
+      this.currentRollDice = selectedDice;
 
-      console.log('Rolling selected dice:', selectedDice);
+      // Log before setting modal to true
+      console.log('Before showing modal, selectedDice:', selectedDice);
+
+      // Show the engagement roll modal with current roll dice
+      this.showEngagementRollModal = true;
+
+      // Just log the dice for now (no service call)
+      console.log('Rolling dice:', selectedDice);
+    },
+
+    closeEngagementRollModal() {
+      this.showEngagementRollModal = false;
+    },
+
+    handleConfirmRoll(dice) {
+      console.log('Confirming roll with dice:', dice);
 
       // Set all selected dice to expended after rolling
       const updatedStatuses = { ...this.diceStatuses };
@@ -475,9 +500,13 @@ export default {
         }
       });
       this.diceStatuses = updatedStatuses;
-    },
 
-    resetDice() {
+      // Clear the current roll dice
+      this.currentRollDice = [];
+
+      // Close the modal
+      this.closeEngagementRollModal();
+    }, resetDice() {
       if (!this.hasExpendedDice) {
         return;
       }
