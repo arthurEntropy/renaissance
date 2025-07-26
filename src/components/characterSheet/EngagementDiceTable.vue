@@ -357,11 +357,9 @@ export default {
     },
 
     selectedDice() {
-      const selected = this.equipmentWithDice
+      return this.equipmentWithDice
         .filter(item => item.status === 'selected')
         .map(item => item.die);
-      console.log('Parent component selectedDice:', selected);
-      return selected;
     },
 
     hasExpendedDice() {
@@ -387,15 +385,10 @@ export default {
       const dice = this.combinedEngagementDice
 
       if (dice.length === 0) {
-        console.warn('No engagement dice to roll')
         return
       }
 
-      // Just log the dice for now (no service call)
-      console.log('Rolling engagement dice:', dice,
-        this.character.name,
-        this.wieldedWeapons.length > 0 ? this.getWieldedWeaponName() : 'unarmed'
-      )
+      // Execute engagement roll with combined dice
     },
 
     getWieldedWeaponName() {
@@ -468,30 +461,22 @@ export default {
       const selectedDice = [...this.selectedDice]; // Create a copy
 
       if (selectedDice.length === 0) {
-        console.warn('No selected dice to roll');
+        alert('Please select at least one die to roll.');
         return;
       }
 
       // Store the selected dice in a data property so they don't change
       this.currentRollDice = selectedDice;
 
-      // Log before setting modal to true
-      console.log('Before showing modal, selectedDice:', selectedDice);
-
       // Show the engagement roll modal with current roll dice
       this.showEngagementRollModal = true;
-
-      // Just log the dice for now (no service call)
-      console.log('Rolling dice:', selectedDice);
     },
 
     closeEngagementRollModal() {
       this.showEngagementRollModal = false;
     },
 
-    handleConfirmRoll(dice) {
-      console.log('Confirming roll with dice:', dice);
-
+    handleConfirmRoll() {
       // Set all selected dice to expended after rolling
       const updatedStatuses = { ...this.diceStatuses };
       Object.keys(updatedStatuses).forEach(key => {
