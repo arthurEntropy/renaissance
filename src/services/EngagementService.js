@@ -70,6 +70,12 @@ class EngagementService {
       this._notifyListeners('success-assignment-updated', { characterId, player, diceIndex, successId });
     });
 
+    // Acceptance state updates from other users
+    this.socket.on('acceptance-state-updated', ({ characterId, accepted }) => {
+      console.log('Service received acceptance state update:', { characterId, accepted });
+      this._notifyListeners('acceptance-state-updated', { characterId, accepted });
+    });
+
     this.socket.on('die-rerolled', ({ player, diceIndex, newValue, characterId }) => {
       this._notifyListeners('die-rerolled', { player, diceIndex, newValue, characterId });
     });
@@ -200,6 +206,20 @@ class EngagementService {
       });
     } else {
       console.log('Cannot send success assignment - no socket or session:', { socket: !!this.socket, sessionId: this.sessionId });
+    }
+  }
+
+  // Broadcast acceptance state to other users
+  updateAcceptanceState(characterId, accepted) {
+    console.log('Service sending acceptance state:', { characterId, accepted, sessionId: this.sessionId });
+    if (this.socket && this.sessionId) {
+      this.socket.emit('acceptance-state-updated', {
+        sessionId: this.sessionId,
+        characterId,
+        accepted
+      });
+    } else {
+      console.log('Cannot send acceptance state - no socket or session:', { socket: !!this.socket, sessionId: this.sessionId });
     }
   }
 }

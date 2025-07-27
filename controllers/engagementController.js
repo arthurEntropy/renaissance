@@ -212,6 +212,18 @@ const setupSocketHandlers = (io) => {
         console.log('Session not found:', sessionId);
       }
     });
+
+    // Handle acceptance state updates
+    socket.on('acceptance-state-updated', ({ sessionId, characterId, accepted }) => {
+      console.log('Backend received acceptance state update:', { sessionId, characterId, accepted });
+      if (activeSessions.has(sessionId)) {
+        // Broadcast the acceptance state to all other users in the session
+        console.log('Broadcasting acceptance state to session:', sessionId);
+        socket.to(sessionId).emit('acceptance-state-updated', { characterId, accepted });
+      } else {
+        console.log('Session not found:', sessionId);
+      }
+    });
   });
   
   // Clean up stale sessions (runs every 5 minutes)

@@ -16,8 +16,8 @@
                 }" :style="{ top: `${190 + (pair.index * 48)}px` }">
                     <div class="indicator-circle"
                         :class="{ 'winner': pair.leftWins, 'loser': !pair.leftWins && !pair.tie }"></div>
-                    <div class="indicator-caret" @click.stop="toggleResult(index)"
-                        :class="{ 'left-wins': pair.leftWins, 'right-wins': pair.rightWins, 'tie': pair.tie, 'clickable': true }">
+                    <div class="indicator-caret" @click.stop="canEditResults ? toggleResult(index) : null"
+                        :class="{ 'left-wins': pair.leftWins, 'right-wins': pair.rightWins, 'tie': pair.tie, 'clickable': canEditResults }">
                         <span v-if="pair.tie">◉</span>
                         <span v-else-if="pair.leftWins">◀</span>
                         <span v-else>▶</span>
@@ -49,12 +49,14 @@
                                 @mouseenter="showRerollHover(index, true)" @mouseleave="showRerollHover(index, false)">
                                 <!-- Success assignment drop zone (left side for user) - positioned absolutely -->
                                 <div v-if="die.isMax && showResults" class="success-drop-zone left-side"
-                                    @drop="onSuccessDrop($event, 'user', index)" @dragover.prevent @dragenter.prevent>
+                                    :class="{ disabled: !canEditResults }"
+                                    @drop="canEditResults ? onSuccessDrop($event, 'user', index) : null"
+                                    @dragover.prevent @dragenter.prevent>
                                     <div v-if="assignedSuccesses[`user-${index}`]" class="assigned-success-pill"
                                         @mouseenter="startSuccessTooltip(allEngagementSuccesses.find(s => s.id === assignedSuccesses[`user-${index}`]), $event)"
                                         @mouseleave="clearSuccessTooltip">
                                         {{ getSuccessName(assignedSuccesses[`user-${index}`]) }}
-                                        <span class="remove-success-btn"
+                                        <span v-if="canEditResults" class="remove-success-btn"
                                             @click.stop="removeSuccessAssignment('user', index)">×</span>
                                     </div>
                                     <div v-else class="success-outline"></div>
@@ -71,7 +73,7 @@
                                         class="max-indicator">✨</span>
                                 </span>
                                 <!-- Reroll hover link - only for user's own dice -->
-                                <div v-if="showResults && !die.isRolling && !rerollingDice.has(`user-${index}`) && hoverStates[`user-${index}`]"
+                                <div v-if="showResults && !die.isRolling && !rerollingDice.has(`user-${index}`) && hoverStates[`user-${index}`] && canEditResults"
                                     class="reroll-hover" @click="rerollDie('user', index)">
                                     Reroll
                                 </div>
@@ -87,7 +89,7 @@
                             </div>
                             <div v-else class="success-pills">
                                 <span v-for="success in characterSuccesses" :key="success.id"
-                                    class="engagement-success-pill draggable-success" draggable="true"
+                                    class="engagement-success-pill draggable-success" :draggable="canEditResults"
                                     @dragstart="onSuccessDragStart($event, success)"
                                     @mouseenter="startSuccessTooltip(success, $event)"
                                     @mouseleave="clearSuccessTooltip">
@@ -185,16 +187,15 @@
                     <div class="result-row">
                         <button class="button button-gold accept-btn user-accept"
                             :class="{ 'accepted': userAccepted, 'disabled': !showResults }" :disabled="!showResults"
-                            @click="acceptResult('user')">
+                            @click="toggleUserAccept">
                             {{ userAccepted ? '✓' : 'Accept' }}
                         </button>
                         <div class="winner-announcement" :class="{ 'both-accepted': userAccepted && opponentAccepted }">
                             {{ winnerText }}
                         </div>
-                        <button class="button button-gold accept-btn opponent-accept"
-                            :class="{ 'accepted': opponentAccepted, 'disabled': !showResults }" :disabled="!showResults"
-                            @click="acceptResult('opponent')">
-                            {{ opponentAccepted ? '✓' : 'Accept' }}
+                        <button class="button opponent-status-btn"
+                            :class="{ 'accepted': opponentAccepted, 'waiting': !opponentAccepted }" disabled>
+                            {{ opponentAccepted ? '✓' : 'Waiting...' }}
                         </button>
                     </div>
                 </div>
@@ -265,6 +266,7 @@ export default {
             resultIndicatorUpdatedHandler: null,
             dieRerolledHandler: null,
             successAssignmentUpdatedHandler: null,
+            acceptanceStateUpdatedHandler: null,
             // Acceptance tracking
             userAccepted: false,
             opponentAccepted: false
@@ -578,6 +580,11 @@ export default {
                 default:
                     return '';
             }
+        },
+
+        // Check if editing is allowed (not locked by either user accepting)
+        canEditResults() {
+            return !this.userAccepted && !this.opponentAccepted;
         }
     },
 
@@ -784,6 +791,24 @@ export default {
                 this.$forceUpdate();
             };
 
+            this.acceptanceStateUpdatedHandler = ({ characterId, accepted }) => {
+                console.log('Received acceptance state update:', { characterId, accepted, myCharacterId: this.character.id });
+
+                // Don't process our own acceptance state updates
+                if (characterId === this.character.id) {
+                    console.log('Ignoring own acceptance state update');
+                    return;
+                }
+
+                // Update opponent's acceptance state
+                if (this.opponent && characterId === this.opponent.characterInfo.id) {
+                    console.log('Updating opponent acceptance state:', accepted);
+                    this.opponentAccepted = accepted;
+                } else {
+                    console.log('Unknown character ID for acceptance:', characterId);
+                }
+            };
+
             // Set up event listeners
             engagementService.on('session-created', this.sessionCreatedHandler);
             engagementService.on('session-updated', this.sessionUpdatedHandler);
@@ -793,6 +818,7 @@ export default {
             engagementService.on('result-indicator-updated', this.resultIndicatorUpdatedHandler);
             engagementService.on('die-rerolled', this.dieRerolledHandler);
             engagementService.on('success-assignment-updated', this.successAssignmentUpdatedHandler);
+            engagementService.on('acceptance-state-updated', this.acceptanceStateUpdatedHandler);
         },
 
         cleanupEngagementListeners() {
@@ -819,6 +845,9 @@ export default {
             }
             if (this.successAssignmentUpdatedHandler) {
                 engagementService.off('success-assignment-updated', this.successAssignmentUpdatedHandler);
+            }
+            if (this.acceptanceStateUpdatedHandler) {
+                engagementService.off('acceptance-state-updated', this.acceptanceStateUpdatedHandler);
             }
         },
 
@@ -1069,6 +1098,12 @@ export default {
         },
 
         onSuccessDragStart(event, success) {
+            // Prevent drag if editing is locked
+            if (!this.canEditResults) {
+                event.preventDefault();
+                return;
+            }
+
             // Store the success data for the drop event
             event.dataTransfer.setData('application/json', JSON.stringify(success));
             event.dataTransfer.effectAllowed = 'copy';
@@ -1175,6 +1210,14 @@ export default {
 
             // TODO: Add WebSocket broadcasting for acceptance state
             // For now, just handle local state
+        },
+
+        toggleUserAccept() {
+            this.userAccepted = !this.userAccepted;
+
+            // Broadcast the acceptance state to other users
+            console.log('Broadcasting acceptance state:', { characterId: this.character.id, accepted: this.userAccepted });
+            engagementService.updateAcceptanceState(this.character.id, this.userAccepted);
         }
     },
 
@@ -1317,6 +1360,16 @@ export default {
     transition: all 0.2s ease;
 }
 
+.success-drop-zone.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+.success-drop-zone.disabled .success-outline {
+    border-color: rgba(128, 128, 128, 0.4);
+    background-color: rgba(128, 128, 128, 0.1);
+}
+
 .success-drop-zone:hover .success-outline {
     border-color: rgba(212, 182, 106, 0.9);
     background-color: rgba(212, 182, 106, 0.2);
@@ -1388,6 +1441,12 @@ export default {
 .draggable-success:active {
     cursor: grabbing;
     transform: scale(0.95);
+}
+
+.draggable-success[draggable="false"] {
+    cursor: not-allowed;
+    opacity: 0.6;
+    transform: none !important;
 }
 
 .dice-symbol {
@@ -1543,7 +1602,6 @@ export default {
     align-items: center;
     width: 100%;
     max-width: 400px;
-    gap: 8px;
 }
 
 .result-label {
@@ -1563,7 +1621,7 @@ export default {
 
 .accept-btn {
     min-width: 60px;
-    width: 75px;
+    width: 80px;
     padding: 6px 12px;
     font-size: 14px;
     flex-shrink: 0;
@@ -1577,6 +1635,31 @@ export default {
 
 .accept-btn.disabled:hover {
     background-color: #ccc;
+}
+
+.opponent-status-btn {
+    min-width: 60px;
+    width: 80px;
+    padding: 6px 12px;
+    font-size: 14px;
+    flex-shrink: 0;
+    background-color: lightgray;
+    color: #666;
+    font-style: italic;
+    font-weight: normal;
+    cursor: default;
+}
+
+.opponent-status-btn.accepted {
+    background-color: #4caf50;
+    color: white;
+    font-style: normal;
+    font-weight: bold;
+}
+
+.opponent-status-btn.waiting {
+    font-style: italic;
+    font-weight: normal;
 }
 
 .winner-announcement {
