@@ -283,7 +283,7 @@ export default {
         }
     },
 
-    emits: ['close', 'confirm-roll'],
+    emits: ['close', 'confirm-roll', 'engagement-committed'],
 
     computed: {
         characterArtUrl() {
@@ -670,6 +670,9 @@ export default {
             this.rollResultsHandler = ({ session }) => {
                 this.sessionStatus = 'completed';
                 this.rollResults = { session };
+
+                // Emit event to notify parent that engagement is now committed
+                this.$emit('engagement-committed');
 
                 // Reset sorting state to allow initial sort based on roll results
                 this.initialSortDone = false;

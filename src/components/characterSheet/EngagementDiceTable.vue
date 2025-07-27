@@ -23,7 +23,7 @@
     <!-- Engagement Roll Modal -->
     <EngagementRollModal v-if="showEngagementRollModal" :character="character" :selectedDice="currentRollDice"
       :allEngagementSuccesses="allEngagementSuccesses" :allEquipment="allEquipment" @close="closeEngagementRollModal"
-      @confirm-roll="handleConfirmRoll" />
+      @confirm-roll="handleConfirmRoll" @engagement-committed="handleEngagementCommitted" />
 
     <div class="engagement-dice-content">
       <div v-if="diceSourceInfo.length > 0 || isEditMode" class="dice-display">
@@ -477,7 +477,19 @@ export default {
     },
 
     handleConfirmRoll() {
-      // Set all selected dice to expended after rolling
+      // In the new logic, dice are only marked as expended when engagement is committed
+      // This method now just handles the confirmation without changing dice status
+
+      // Clear the current roll dice
+      this.currentRollDice = [];
+
+      // Close the modal
+      this.closeEngagementRollModal();
+    },
+
+    handleEngagementCommitted() {
+      // Mark all selected dice as expended when the engagement is actually committed
+      // (i.e., when an opponent joined and dice were actually rolled)
       const updatedStatuses = { ...this.diceStatuses };
       Object.keys(updatedStatuses).forEach(key => {
         if (updatedStatuses[key] === 'selected') {
@@ -485,12 +497,6 @@ export default {
         }
       });
       this.diceStatuses = updatedStatuses;
-
-      // Clear the current roll dice
-      this.currentRollDice = [];
-
-      // Close the modal
-      this.closeEngagementRollModal();
     }, resetDice() {
       if (!this.hasExpendedDice) {
         return;
