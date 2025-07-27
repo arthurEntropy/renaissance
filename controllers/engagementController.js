@@ -3,6 +3,9 @@ const { v4: uuidv4 } = require('uuid');
 // In-memory storage for active engagement sessions
 const activeSessions = new Map();
 
+// Store the socket.io namespace reference for global access
+let engagementIO = null;
+
 // Session data structure:
 // {
 //   id: string,
@@ -15,7 +18,8 @@ const activeSessions = new Map();
 
 const setupSocketHandlers = (io) => {
   // Namespace for engagement rolls
-  const engagementIO = io.of('/engagement');
+  engagementIO = io.of('/engagement');
+  console.log('Engagement socket.io namespace initialized');
   
   // Keep track of the latest available session ID
   let availableSessionId = null;
@@ -51,18 +55,25 @@ const setupSocketHandlers = (io) => {
             session 
           });
           
-          // Schedule the roll after a delay
-          setTimeout(() => {
-            // Only proceed if session still exists and both users are still connected
-            const currentSession = activeSessions.get(availableSessionId);
-            if (currentSession && currentSession.users.length === 2) {
-              performRoll(availableSessionId);
-            }
-          }, 1500);
+          // Save the session ID before clearing it
+          const joinedSessionId = availableSessionId;
           
           // Clear the available session now that it's full
-          const joinedSessionId = availableSessionId;
           availableSessionId = null;
+          
+          // Schedule the roll after a delay
+          setTimeout(() => {
+            console.log('Attempting to perform roll for session', joinedSessionId);
+            // Only proceed if session still exists and both users are still connected
+            const currentSession = activeSessions.get(joinedSessionId);
+            if (currentSession && currentSession.users.length === 2) {
+              console.log('Conditions met, performing roll');
+              performRoll(joinedSessionId);
+            } else {
+              console.log('Cannot perform roll - session changed or users disconnected', 
+                currentSession ? `Users: ${currentSession.users.length}` : 'Session not found');
+            }
+          }, 1500);
           return;
         }
       }
@@ -197,8 +208,14 @@ const setupSocketHandlers = (io) => {
 
 // Perform the actual dice roll for both users
 function performRoll(sessionId) {
+  console.log('performRoll called with sessionId:', sessionId);
   const session = activeSessions.get(sessionId);
-  if (!session) return;
+  if (!session) {
+    console.log('No session found with ID:', sessionId);
+    return;
+  }
+  
+  console.log('Session found, users:', session.users.length, 'current state:', session.state);
   
   // Update session state
   session.state = 'rolling';
@@ -227,12 +244,24 @@ function performRoll(sessionId) {
   // Update session state
   session.state = 'completed';
   
-  // Broadcast results to all participants
-  const engagementIO = require('socket.io').of('/engagement');
-  engagementIO.to(sessionId).emit('roll-results', { 
-    session,
-    timestamp: new Date()
-  });
+  // Broadcast results to all participants using the global socket.io reference
+  console.log('Broadcasting roll results to session:', sessionId);
+  console.log('Roll results:', session.users.map(user => ({
+    characterName: user.characterInfo.name,
+    dice: user.selectedDice,
+    results: user.rollResults,
+    total: user.rollTotal
+  })));
+  
+  if (engagementIO) {
+    engagementIO.to(sessionId).emit('roll-results', { 
+      session,
+      timestamp: new Date()
+    });
+    console.log('Roll results emitted to clients');
+  } else {
+    console.error('Cannot emit results: engagementIO is not initialized');
+  }
   
 }
 

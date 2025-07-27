@@ -12,6 +12,23 @@
                 </div>
             </div>
 
+            <!-- Floating comparison indicators -->
+            <div v-if="showResults && opponent" class="floating-comparisons">
+                <div v-for="(pair, index) in diceComparisons" :key="index" class="comparison-indicator"
+                    :style="{ top: `${190 + (pair.index * 48)}px` }">
+                    <div class="indicator-circle"
+                        :class="{ 'winner': pair.leftWins, 'loser': !pair.leftWins && !pair.tie }"></div>
+                    <div class="indicator-caret"
+                        :class="{ 'left-wins': pair.leftWins, 'right-wins': pair.rightWins, 'tie': pair.tie }">
+                        <span v-if="pair.tie">•</span>
+                        <span v-else-if="pair.leftWins">◀</span>
+                        <span v-else>▶</span>
+                    </div>
+                    <div class="indicator-circle"
+                        :class="{ 'winner': pair.rightWins, 'loser': !pair.rightWins && !pair.tie }"></div>
+                </div>
+            </div>
+
             <div class="engagement-columns">
                 <!-- User's column -->
                 <div class="engagement-column user-column">
@@ -23,28 +40,28 @@
                     </div>
 
                     <div class="dice-section">
-                        <h4>Selected Dice</h4>
                         <div class="dice-list">
                             <div v-if="sortedSelectedDice.length === 0" class="no-dice-message">
                                 No dice selected
                             </div>
                             <span v-for="(die, index) in sortedSelectedDice" :key="index" class="dice-symbol"
-                                :class="[`rolling-die-${(index % 3) + 1}`]">
+                                :class="{ [`rolling-die-${(index % 3) + 1}`]: die.isRolling, 'result-die': !die.isRolling, 'max-result': die.isMax }">
                                 <i :class="die.class"></i>
+                                <span v-if="die.isMax" class="max-indicator">✨</span>
                             </span>
                         </div>
                     </div>
 
                     <!-- Engagement Successes Section -->
                     <div class="engagement-successes-section">
-                        <h4>Engagement Successes</h4>
                         <div class="engagement-successes-list">
                             <div v-if="characterSuccesses.length === 0" class="no-successes-message">
                                 No engagement successes available
                             </div>
                             <div v-else class="success-pills">
                                 <span v-for="success in characterSuccesses" :key="success.id"
-                                    class="engagement-success-pill">
+                                    class="engagement-success-pill" @mouseenter="startSuccessTooltip(success, $event)"
+                                    @mouseleave="clearSuccessTooltip">
                                     {{ success.name }}
                                 </span>
                             </div>
@@ -63,22 +80,21 @@
                         </div>
 
                         <div class="dice-section">
-                            <h4>Selected Dice</h4>
                             <div class="dice-list">
                                 <div v-if="!opponent.selectedDice || opponent.selectedDice.length === 0"
                                     class="no-dice-message">
                                     No dice selected
                                 </div>
                                 <span v-for="(die, index) in sortedOpponentDice" :key="index" class="dice-symbol"
-                                    :class="[`rolling-die-${(index % 3) + 1}`]">
+                                    :class="{ [`rolling-die-${(index % 3) + 1}`]: die.isRolling, 'result-die': !die.isRolling, 'max-result': die.isMax }">
                                     <i :class="die.class"></i>
+                                    <span v-if="die.isMax" class="max-indicator">✨</span>
                                 </span>
                             </div>
                         </div>
 
                         <!-- Opponent Engagement Successes Section -->
                         <div class="engagement-successes-section">
-                            <h4>Engagement Successes</h4>
                             <div class="engagement-successes-list">
                                 <div v-if="!opponent.engagementSuccesses || opponent.engagementSuccesses.length === 0"
                                     class="no-successes-message">
@@ -86,7 +102,9 @@
                                 </div>
                                 <div v-else class="success-pills">
                                     <span v-for="(successId, idx) in opponent.engagementSuccesses" :key="idx"
-                                        class="engagement-success-pill">
+                                        class="engagement-success-pill"
+                                        @mouseenter="startSuccessTooltip(allEngagementSuccesses.find(s => s.id === successId), $event)"
+                                        @mouseleave="clearSuccessTooltip">
                                         {{ getSuccessName(successId) }}
                                     </span>
                                 </div>
@@ -110,6 +128,12 @@
                 <button class="button button-secondary" @click="closeModal">
                     Cancel
                 </button>
+            </div>
+
+            <!-- Tooltip for engagement success descriptions -->
+            <div v-if="tooltipSuccess" class="success-tooltip"
+                :style="{ top: tooltipPosition.y + 'px', left: tooltipPosition.x + 'px' }">
+                <div class="tooltip-description">{{ tooltipSuccess.description }}</div>
             </div>
         </div>
     </div>
@@ -149,7 +173,9 @@ export default {
             opponent: null,
             sessionMode: false,
             rollResults: null,
-            showResults: false
+            tooltipSuccess: null,
+            tooltipPosition: { x: 0, y: 0 },
+            tooltipTimer: null
         };
     },
 
@@ -187,6 +213,32 @@ export default {
                 return [];
             }
 
+            // If we have roll results, use those values
+            if (this.rollResults && this.rollResults.session) {
+                // Find the user's results in the session
+                const userResults = this.rollResults.session.users.find(
+                    user => user.characterInfo.id === this.character.id
+                );
+
+                if (userResults && userResults.rollResults) {
+                    // Create array with die info including roll results
+                    const diceWithResults = [...this.selectedDice].map((die, index) => {
+                        const value = userResults.rollResults[index] || 1;
+                        const isMax = value === die; // Check if roll is maximum possible value for that die
+                        return {
+                            die: die,
+                            value: value,
+                            class: `df-d${die}-${value}`,
+                            isRolling: false,
+                            isMax: isMax
+                        };
+                    });
+
+                    // Sort by rolled value (highest to lowest)
+                    return diceWithResults.sort((a, b) => b.value - a.value);
+                }
+            }
+
             // Convert plain dice values to objects with class info
             return [...this.selectedDice]
                 .sort((a, b) => b - a)
@@ -203,7 +255,31 @@ export default {
                 return [];
             }
 
-            // Convert plain dice values to objects with class info
+            // If we have roll results, use those values
+            if (this.rollResults && this.rollResults.session) {
+                // Find the opponent's results in the session
+                const opponentResults = this.rollResults.session.users.find(
+                    user => user.socketId === this.opponent.socketId
+                );
+
+                if (opponentResults && opponentResults.rollResults) {
+                    // Create array with die info including roll results
+                    const diceWithResults = [...this.opponent.selectedDice].map((die, index) => {
+                        const value = opponentResults.rollResults[index] || 1;
+                        const isMax = value === die; // Check if roll is maximum possible value for that die
+                        return {
+                            die: die,
+                            value: value,
+                            class: `df-d${die}-${value}`,
+                            isRolling: false,
+                            isMax: isMax
+                        };
+                    });
+
+                    // Sort by rolled value (highest to lowest)
+                    return diceWithResults.sort((a, b) => b.value - a.value);
+                }
+            }            // Convert plain dice values to objects with class info
             return [...this.opponent.selectedDice]
                 .sort((a, b) => b - a)
                 .map(die => ({
@@ -264,6 +340,64 @@ export default {
 
         sessionStatusClass() {
             return `status-${this.sessionStatus}`;
+        },
+
+        showResults() {
+            return this.rollResults && this.rollResults.session && this.sessionStatus === 'completed';
+        },
+
+        diceComparisons() {
+            // Only show comparisons when we have results
+            if (!this.rollResults || !this.rollResults.session || !this.opponent) {
+                return [];
+            }
+
+            const userDice = this.sortedSelectedDice;
+            const opponentDice = this.sortedOpponentDice;
+
+            // Get the maximum length of both dice arrays to compare pairs
+            const pairCount = Math.max(userDice.length, opponentDice.length);
+
+            // Create comparison objects for each pair
+            const comparisons = [];
+            for (let i = 0; i < pairCount; i++) {
+                const userDie = i < userDice.length ? userDice[i] : null;
+                const opponentDie = i < opponentDice.length ? opponentDice[i] : null;
+
+                // If only one side has a die, that side wins automatically
+                if (!userDie && opponentDie) {
+                    // Opponent wins this pair
+                    comparisons.push({
+                        leftWins: false,
+                        rightWins: true,
+                        tie: false,
+                        index: i
+                    });
+                } else if (userDie && !opponentDie) {
+                    // User wins this pair
+                    comparisons.push({
+                        leftWins: true,
+                        rightWins: false,
+                        tie: false,
+                        index: i
+                    });
+                } else if (userDie && opponentDie && !userDie.isRolling && !opponentDie.isRolling &&
+                    userDie.value !== undefined && opponentDie.value !== undefined) {
+                    // Both sides have dice with values
+                    const leftWins = userDie.value > opponentDie.value;
+                    const rightWins = opponentDie.value > userDie.value;
+                    const tie = userDie.value === opponentDie.value;
+
+                    comparisons.push({
+                        leftWins,
+                        rightWins,
+                        tie,
+                        index: i
+                    });
+                }
+            }
+
+            return comparisons;
         }
     },
 
@@ -292,14 +426,18 @@ export default {
 
         initSession() {
             this.sessionMode = true;
+            console.log('Initializing engagement session');
 
             // Connect to the WebSocket server
             engagementService.connect();
+            console.log('WebSocket connection established');
 
             // Set up event listeners
             this.setupEngagementListeners();
+            console.log('Event listeners set up');
 
             // Auto-join or create a session
+            console.log('Auto-joining or creating session with character:', this.character.name);
             engagementService.autoJoinOrCreate(
                 this.character,
                 this.selectedDice,
@@ -346,18 +484,40 @@ export default {
             });
 
             // Roll results
-            engagementService.on('roll-results', ({ session: sessionData }) => {
+            engagementService.on('roll-results', ({ session }) => {
+                console.log('Roll results received from server:', session);
                 this.sessionStatus = 'completed';
-                this.rollResults = sessionData;
-                this.showResults = true;
+                this.rollResults = { session };
 
-                // Handle roll results display (to be implemented)
+                // Stop the dice rolling animation and show results
+                setTimeout(() => {
+                    console.log('Forcing update to display roll results');
+                    // Force a re-computation of the sorted dice arrays to show the results
+                    // This is needed since Vue might not detect the nested property change
+                    this.$forceUpdate();
+                }, 100);
             });
         },
 
         getSuccessName(successId) {
             const success = this.allEngagementSuccesses.find(s => s.id === successId);
             return success ? success.name : 'Unknown Success';
+        },
+
+        startSuccessTooltip(success, event) {
+            clearTimeout(this.tooltipTimer);
+            this.tooltipTimer = setTimeout(() => {
+                this.tooltipSuccess = success;
+                this.tooltipPosition = {
+                    x: event.clientX + 12,
+                    y: event.clientY + 12,
+                };
+            }, 1000);
+        },
+
+        clearSuccessTooltip() {
+            clearTimeout(this.tooltipTimer);
+            this.tooltipSuccess = null;
         }
     },
 
@@ -367,6 +527,7 @@ export default {
     },
 
     beforeUnmount() {
+        console.log('Component unmounting, cleaning up WebSocket connection');
         // Clean up WebSocket connection when component is destroyed
         engagementService.disconnect();
     }
@@ -380,6 +541,8 @@ export default {
     max-width: 90vw;
     max-height: 85vh;
     overflow-y: auto;
+    position: relative;
+    /* Needed for absolute positioning of comparison indicators */
 }
 
 .header-row {
@@ -410,8 +573,11 @@ export default {
 
 .engagement-columns {
     display: flex;
-    gap: 20px;
+    gap: 10px;
     margin-bottom: 20px;
+    min-height: 350px;
+    /* Give enough space for content */
+    align-items: stretch;
 }
 
 .engagement-column {
@@ -420,6 +586,8 @@ export default {
     border-radius: 5px;
     padding: 15px;
     background-color: rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
 }
 
 .user-column {
@@ -428,6 +596,12 @@ export default {
 
 .opponent-column {
     background-color: rgba(150, 30, 0, 0.05);
+}
+
+.opponent-info {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 .character-info {
@@ -448,14 +622,17 @@ export default {
 
 .dice-section {
     margin-top: 10px;
+    flex: 1;
 }
 
 .dice-list {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
+    /* Consistent spacing for dice rows */
     margin-top: 10px;
+    padding-bottom: 10px;
 }
 
 .dice-symbol {
@@ -464,6 +641,11 @@ export default {
     position: relative;
     color: inherit;
     margin: 0 5px;
+    transform: scale(1.2);
+    height: 36px;
+    /* Fixed height for better alignment */
+    line-height: 1;
+    /* Make all dice the same size as result dice */
 }
 
 .dice-symbol i {
@@ -568,8 +750,9 @@ h4 {
 /* Engagement Successes Styling */
 .engagement-successes-section {
     margin-top: 20px;
-    border-top: 1px solid #ddd;
     padding-top: 15px;
+    margin-top: auto;
+    /* Push to bottom */
 }
 
 .engagement-successes-list {
@@ -590,7 +773,13 @@ h4 {
     border-radius: 15px;
     font-size: 10px;
     text-align: center;
+    cursor: help;
+    transition: background-color 0.2s;
     display: inline-block;
+}
+
+.engagement-success-pill:hover {
+    background-color: rgba(64, 64, 64, 0.4);
 }
 
 /* Session Information Styling */
@@ -718,6 +907,8 @@ h4 {
 }
 
 .opponent-info {
+    display: flex;
+    flex-direction: column;
     height: 100%;
 }
 
@@ -765,6 +956,159 @@ h4 {
     100% {
         transform: scale(0.7);
         opacity: 0.5;
+    }
+}
+
+/* Result dice styling */
+.result-die {
+    animation: none;
+    transition: transform 0.3s ease;
+}
+
+/* Maximum roll styling */
+.max-result {
+    color: rgb(212, 182, 106);
+    position: relative;
+    text-shadow:
+        0 0 5px rgba(212, 182, 106, 0.8),
+        0 0 10px rgba(212, 182, 106, 0.6);
+    animation: fadeInGlow 0.8s ease-in forwards;
+    animation-delay: 0.1s;
+}
+
+.max-indicator {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    font-size: 16px;
+    transform: translate(5px, 5px);
+    opacity: 0;
+    animation: fadeIn 0.5s ease-in forwards;
+    animation-delay: 0.4s;
+}
+
+@keyframes fadeInGlow {
+    0% {
+        color: white;
+        text-shadow: none;
+    }
+
+    100% {
+        color: rgb(212, 182, 106);
+        text-shadow:
+            0 0 5px rgba(212, 182, 106, 0.8),
+            0 0 10px rgba(212, 182, 106, 0.6);
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Success tooltip styling */
+.success-tooltip {
+    position: fixed;
+    z-index: 1000;
+    background: rgba(30, 30, 30, 0.97);
+    color: #fff;
+    padding: 14px;
+    border-radius: 8px;
+    font-size: 12px;
+    pointer-events: none;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
+    max-width: 260px;
+    white-space: pre-line;
+}
+
+.tooltip-description {
+    margin-bottom: 8px;
+}
+
+.tooltip-source {
+    color: #aaa;
+    font-size: 10px;
+    font-style: italic;
+}
+
+/* Floating comparison indicators styling */
+.floating-comparisons {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    pointer-events: none;
+    /* Allow clicking through the indicators */
+    width: 100px;
+    margin-top: 12px;
+}
+
+.comparison-indicator {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 80px;
+    background-color: #000000;
+    border: 1px solid #ffffff;
+    border-radius: 15px;
+    padding: 3px 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.indicator-circle {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 1px solid #ffffff;
+}
+
+.indicator-circle.winner {
+    background-color: #4caf50;
+    box-shadow: 0 0 12px rgba(76, 175, 80, 0.9);
+    animation: pulse-win 1.5s infinite;
+}
+
+.indicator-circle.loser {
+    background-color: transparent;
+    box-shadow: none;
+}
+
+.indicator-caret {
+    padding: 0 5px;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.indicator-caret.tie {
+    color: #ffffff;
+}
+
+.indicator-caret.left-wins {
+    color: #ffffff;
+}
+
+.indicator-caret.right-wins {
+    color: #ffffff;
+}
+
+@keyframes pulse-win {
+    0% {
+        box-shadow: 0 0 5px rgba(76, 175, 80, 0.7);
+    }
+
+    50% {
+        box-shadow: 0 0 15px rgba(76, 175, 80, 1);
+    }
+
+    100% {
+        box-shadow: 0 0 5px rgba(76, 175, 80, 0.7);
     }
 }
 </style>
