@@ -3,19 +3,17 @@
         <div class="modal-content engagement-roll-modal" @click.stop>
             <div class="header-row">
                 <h2>Engagement Roll</h2>
-                <button class="close-button" @click="closeModal">×</button>
-            </div>
-
-            <div v-if="sessionMode" class="session-info">
-                <div class="session-status" :class="sessionStatusClass">
-                    {{ sessionStatusText }}
-                </div>
             </div>
 
             <!-- Floating comparison indicators -->
             <div v-if="showResults && opponent" class="floating-comparisons">
-                <div v-for="(pair, index) in diceComparisons" :key="index" class="comparison-indicator"
-                    :style="{ top: `${190 + (pair.index * 48)}px` }">
+                <div v-for="(pair, index) in diceComparisons" :key="index" class="comparison-indicator" :class="{
+                    'user-wins-pair': pair.leftWins && engagementWinner === 'user',
+                    'opponent-wins-pair': pair.rightWins && engagementWinner === 'opponent',
+                    'user-loses-pair': pair.leftWins && engagementWinner === 'opponent',
+                    'opponent-loses-pair': pair.rightWins && engagementWinner === 'user',
+                    'tie-pair': pair.tie
+                }" :style="{ top: `${190 + (pair.index * 48)}px` }">
                     <div class="indicator-circle"
                         :class="{ 'winner': pair.leftWins, 'loser': !pair.leftWins && !pair.tie }"></div>
                     <div class="indicator-caret" @click.stop="toggleResult(index)"
@@ -31,7 +29,10 @@
 
             <div class="engagement-columns">
                 <!-- User's column -->
-                <div class="engagement-column user-column">
+                <div class="engagement-column user-column" :class="{
+                    'winner-column': showResults && engagementWinner === 'user',
+                    'loser-column': showResults && engagementWinner === 'opponent'
+                }">
                     <div class="character-info">
                         <h3>{{ character.name }}</h3>
                         <div class="character-art">
@@ -98,7 +99,10 @@
                 </div>
 
                 <!-- Opponent's column -->
-                <div class="engagement-column opponent-column">
+                <div class="engagement-column opponent-column" :class="{
+                    'winner-column': showResults && engagementWinner === 'opponent',
+                    'loser-column': showResults && engagementWinner === 'user'
+                }">
                     <div v-if="opponent" class="opponent-info">
                         <div class="character-info">
                             <h3>{{ opponent.characterInfo.name }}</h3>
@@ -170,9 +174,30 @@
             </div>
 
             <div class="modal-actions">
-                <button class="button button-secondary" @click="closeModal">
+                <!-- Show Cancel button only while waiting for opponent -->
+                <button v-if="!opponent" class="button button-secondary" @click="closeModal">
                     Cancel
                 </button>
+
+                <!-- Show engagement resolution UI when opponent is present -->
+                <div v-if="opponent" class="engagement-resolution">
+                    <div class="result-label">Result:</div>
+                    <div class="result-row">
+                        <button class="button button-gold accept-btn user-accept"
+                            :class="{ 'accepted': userAccepted, 'disabled': !showResults }" :disabled="!showResults"
+                            @click="acceptResult('user')">
+                            {{ userAccepted ? '✓' : 'Accept' }}
+                        </button>
+                        <div class="winner-announcement" :class="{ 'both-accepted': userAccepted && opponentAccepted }">
+                            {{ winnerText }}
+                        </div>
+                        <button class="button button-gold accept-btn opponent-accept"
+                            :class="{ 'accepted': opponentAccepted, 'disabled': !showResults }" :disabled="!showResults"
+                            @click="acceptResult('opponent')">
+                            {{ opponentAccepted ? '✓' : 'Accept' }}
+                        </button>
+                    </div>
+                </div>
             </div>
 
             <!-- Tooltip for engagement success descriptions -->
@@ -239,7 +264,10 @@ export default {
             rollResultsHandler: null,
             resultIndicatorUpdatedHandler: null,
             dieRerolledHandler: null,
-            successAssignmentUpdatedHandler: null
+            successAssignmentUpdatedHandler: null,
+            // Acceptance tracking
+            userAccepted: false,
+            opponentAccepted: false
         };
     },
 
@@ -421,25 +449,6 @@ export default {
                 .sort((a, b) => a.name.localeCompare(b.name)); // Sort alphabetically
         },
 
-        sessionStatusText() {
-            switch (this.sessionStatus) {
-                case 'waiting':
-                    return 'Waiting for opponent to join...';
-                case 'ready':
-                    return 'Both users ready! Preparing roll...';
-                case 'rolling':
-                    return 'Rolling dice...';
-                case 'completed':
-                    return 'Roll completed!';
-                default:
-                    return 'Session active';
-            }
-        },
-
-        sessionStatusClass() {
-            return `status-${this.sessionStatus}`;
-        },
-
         showResults() {
             return this.rollResults && this.rollResults.session && this.sessionStatus === 'completed';
         },
@@ -524,6 +533,51 @@ export default {
             }
 
             return comparisons;
+        },
+
+        // Determine who wins the overall engagement based on dice comparisons
+        engagementWinner() {
+            if (!this.showResults || !this.opponent || this.diceComparisons.length === 0) {
+                return null;
+            }
+
+            let userWins = 0;
+            let opponentWins = 0;
+
+            this.diceComparisons.forEach(comparison => {
+                if (comparison.leftWins) {
+                    userWins++;
+                } else if (comparison.rightWins) {
+                    opponentWins++;
+                }
+                // Ties don't count for either side
+            });
+
+            if (userWins > opponentWins) {
+                return 'user';
+            } else if (opponentWins > userWins) {
+                return 'opponent';
+            } else {
+                return 'tie';
+            }
+        },
+
+        // Generate winner announcement text
+        winnerText() {
+            if (!this.engagementWinner) {
+                return '';
+            }
+
+            switch (this.engagementWinner) {
+                case 'user':
+                    return `${this.character.name} wins`;
+                case 'opponent':
+                    return `${this.opponent.characterInfo.name} wins`;
+                case 'tie':
+                    return 'Draw';
+                default:
+                    return '';
+            }
         }
     },
 
@@ -1110,6 +1164,17 @@ export default {
                     this.opponentInitialSortDone = true;
                 }
             }
+        },
+
+        acceptResult(side) {
+            if (side === 'user') {
+                this.userAccepted = true;
+            } else if (side === 'opponent') {
+                this.opponentAccepted = true;
+            }
+
+            // TODO: Add WebSocket broadcasting for acceptance state
+            // For now, just handle local state
         }
     },
 
@@ -1150,20 +1215,6 @@ export default {
     text-align: center;
 }
 
-.close-button {
-    background: none;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-    color: #888;
-    position: absolute;
-    right: 0;
-}
-
-.close-button:hover {
-    color: #333;
-}
-
 .engagement-columns {
     display: flex;
     gap: 10px;
@@ -1175,7 +1226,7 @@ export default {
 
 .engagement-column {
     flex: 1;
-    border: 1px solid #ddd;
+    border: 2px solid #666;
     border-radius: 5px;
     padding: 15px;
     background-color: rgba(0, 0, 0, 0.05);
@@ -1465,9 +1516,95 @@ export default {
     color: white;
 }
 
+.button-gold {
+    background-color: #d4b666;
+    color: #000;
+    transition: background-color 0.3s ease;
+}
+
+.button-gold:hover {
+    background-color: #c9a84d;
+}
+
+.button-gold.accepted {
+    background-color: #4caf50;
+    color: white;
+}
+
 .button-secondary {
     background-color: #ddd;
     color: #333;
+}
+
+/* Engagement Resolution Styling */
+.engagement-resolution {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 400px;
+    gap: 8px;
+}
+
+.result-label {
+    font-size: 14px;
+    color: #666;
+    font-weight: bold;
+    text-align: center;
+}
+
+.result-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: 15px;
+}
+
+.accept-btn {
+    min-width: 60px;
+    width: 75px;
+    padding: 6px 12px;
+    font-size: 14px;
+    flex-shrink: 0;
+}
+
+.accept-btn.disabled {
+    background-color: #ccc;
+    color: #888;
+    cursor: not-allowed;
+}
+
+.accept-btn.disabled:hover {
+    background-color: #ccc;
+}
+
+.winner-announcement {
+    font-weight: bold;
+    font-size: 16px;
+    padding: 8px 16px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    flex: 1;
+    text-align: center;
+}
+
+.winner-announcement.both-accepted {
+    border: 3px solid #4caf50;
+    box-shadow: 0 0 15px rgba(76, 175, 80, 0.3);
+    background-color: rgba(76, 175, 80, 0.1);
+}
+
+/* Winner Column Styling */
+.winner-column {
+    border: 2px solid #4caf50 !important;
+    box-shadow: 0 0 15px rgba(76, 175, 80, 0.3);
+}
+
+/* Loser Column Styling */
+.loser-column {
+    border: 2px solid #f44336 !important;
+    box-shadow: 0 0 15px rgba(244, 67, 54, 0.3);
 }
 
 h2,
@@ -1526,70 +1663,6 @@ h4 {
 
 .engagement-success-pill:hover {
     background-color: rgba(64, 64, 64, 0.4);
-}
-
-/* Session Information Styling */
-.session-info {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 15px;
-    padding: 10px;
-    background-color: rgba(0, 0, 0, 0.05);
-    border-radius: 5px;
-}
-
-.session-id {
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.session-code {
-    font-weight: bold;
-    font-family: monospace;
-    background-color: rgba(0, 0, 0, 0.1);
-    padding: 2px 8px;
-    border-radius: 4px;
-}
-
-.copy-button {
-    background-color: #555;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    padding: 2px 8px;
-    font-size: 12px;
-    cursor: pointer;
-}
-
-.session-status {
-    margin-top: 8px;
-    padding: 5px 10px;
-    border-radius: 10px;
-    font-size: 12px;
-    font-weight: bold;
-}
-
-.status-waiting {
-    background-color: #ffeeba;
-    color: #856404;
-}
-
-.status-ready {
-    background-color: #cce5ff;
-    color: #004085;
-}
-
-.status-rolling {
-    background-color: #d1ecf1;
-    color: #0c5460;
-}
-
-.status-completed {
-    background-color: #d4edda;
-    color: #155724;
 }
 
 /* Join Session Form */
@@ -1801,11 +1874,29 @@ h4 {
     justify-content: space-between;
     width: 80px;
     background-color: #000000;
-    border: 1px solid #ffffff;
+    border: 2px solid #666;
     border-radius: 15px;
     padding: 3px 15px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-    height: 26px;
+    height: 28px;
+    left: -7px;
+}
+
+.comparison-indicator.user-wins-pair,
+.comparison-indicator.opponent-wins-pair {
+    border: 2px solid #4caf50;
+    box-shadow: 0 0 10px rgba(76, 175, 80, 0.4);
+}
+
+.comparison-indicator.user-loses-pair,
+.comparison-indicator.opponent-loses-pair {
+    border: 2px solid #f44336;
+    box-shadow: 0 0 10px rgba(244, 67, 54, 0.4);
+}
+
+.comparison-indicator.tie-pair {
+    border: 2px solid #ffeb3b;
+    box-shadow: 0 0 10px rgba(255, 235, 59, 0.4);
 }
 
 .indicator-circle {
