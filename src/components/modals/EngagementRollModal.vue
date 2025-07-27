@@ -45,21 +45,33 @@
                                 No dice selected
                             </div>
                             <div v-for="(die, index) in sortedSelectedDice" :key="index" class="dice-container"
-                                @mouseenter="showRerollHover(index, true)" 
-                                @mouseleave="showRerollHover(index, false)">
-                                <span class="dice-symbol"
-                                    :class="{ 
-                                        [`rolling-die-${(index % 3) + 1}`]: die.isRolling || rerollingDice.has(`user-${index}`), 
-                                        'result-die': !die.isRolling && !rerollingDice.has(`user-${index}`), 
-                                        'max-result': die.isMax,
-                                        'rerolling': rerollingDice.has(`user-${index}`)
-                                    }">
+                                @mouseenter="showRerollHover(index, true)" @mouseleave="showRerollHover(index, false)">
+                                <!-- Success assignment drop zone (left side for user) - positioned absolutely -->
+                                <div v-if="die.isMax && showResults" class="success-drop-zone left-side"
+                                    @drop="onSuccessDrop($event, 'user', index)" @dragover.prevent @dragenter.prevent>
+                                    <div v-if="assignedSuccesses[`user-${index}`]" class="assigned-success-pill"
+                                        @mouseenter="startSuccessTooltip(allEngagementSuccesses.find(s => s.id === assignedSuccesses[`user-${index}`]), $event)"
+                                        @mouseleave="clearSuccessTooltip">
+                                        {{ getSuccessName(assignedSuccesses[`user-${index}`]) }}
+                                        <span class="remove-success-btn"
+                                            @click.stop="removeSuccessAssignment('user', index)">×</span>
+                                    </div>
+                                    <div v-else class="success-outline"></div>
+                                </div>
+
+                                <span class="dice-symbol" :class="{
+                                    [`rolling-die-${(index % 3) + 1}`]: die.isRolling || rerollingDice.has(`user-${index}`),
+                                    'result-die': !die.isRolling && !rerollingDice.has(`user-${index}`),
+                                    'max-result': die.isMax,
+                                    'rerolling': rerollingDice.has(`user-${index}`)
+                                }">
                                     <i :class="die.class"></i>
-                                    <span v-if="die.isMax && !rerollingDice.has(`user-${index}`)" class="max-indicator">✨</span>
+                                    <span v-if="die.isMax && !rerollingDice.has(`user-${index}`)"
+                                        class="max-indicator">✨</span>
                                 </span>
                                 <!-- Reroll hover link - only for user's own dice -->
-                                <div v-if="showResults && !die.isRolling && !rerollingDice.has(`user-${index}`) && hoverStates[`user-${index}`]" 
-                                     class="reroll-hover" @click="rerollDie('user', index)">
+                                <div v-if="showResults && !die.isRolling && !rerollingDice.has(`user-${index}`) && hoverStates[`user-${index}`]"
+                                    class="reroll-hover" @click="rerollDie('user', index)">
                                     Reroll
                                 </div>
                             </div>
@@ -74,7 +86,9 @@
                             </div>
                             <div v-else class="success-pills">
                                 <span v-for="success in characterSuccesses" :key="success.id"
-                                    class="engagement-success-pill" @mouseenter="startSuccessTooltip(success, $event)"
+                                    class="engagement-success-pill draggable-success" draggable="true"
+                                    @dragstart="onSuccessDragStart($event, success)"
+                                    @mouseenter="startSuccessTooltip(success, $event)"
                                     @mouseleave="clearSuccessTooltip">
                                     {{ success.name }}
                                 </span>
@@ -100,23 +114,32 @@
                                     No dice selected
                                 </div>
                                 <div v-for="(die, index) in sortedOpponentDice" :key="index" class="dice-container">
-                                    <span class="dice-symbol"
-                                        :class="{ 
-                                            [`rolling-die-${(index % 3) + 1}`]: die.isRolling || rerollingDice.has(`opponent-${index}`), 
-                                            'result-die': !die.isRolling && !rerollingDice.has(`opponent-${index}`), 
-                                            'max-result': die.isMax,
-                                            'rerolling': rerollingDice.has(`opponent-${index}`)
-                                        }">
+                                    <span class="dice-symbol" :class="{
+                                        [`rolling-die-${(index % 3) + 1}`]: die.isRolling || rerollingDice.has(`opponent-${index}`),
+                                        'result-die': !die.isRolling && !rerollingDice.has(`opponent-${index}`),
+                                        'max-result': die.isMax,
+                                        'rerolling': rerollingDice.has(`opponent-${index}`)
+                                    }">
                                         <i :class="die.class"></i>
-                                        <span v-if="die.isMax && !rerollingDice.has(`opponent-${index}`)" class="max-indicator">✨</span>
+                                        <span v-if="die.isMax && !rerollingDice.has(`opponent-${index}`)"
+                                            class="max-indicator">✨</span>
                                     </span>
-                                    <!-- No reroll hover for opponent's dice -->
+
+                                    <!-- Success assignment display (right side for opponent) - positioned absolutely -->
+                                    <div v-if="die.isMax && showResults" class="success-display-zone right-side">
+                                        <div v-if="assignedSuccesses[`opponent-${index}`]" class="assigned-success-pill"
+                                            @mouseenter="startSuccessTooltip(allEngagementSuccesses.find(s => s.id === assignedSuccesses[`opponent-${index}`]), $event)"
+                                            @mouseleave="clearSuccessTooltip">
+                                            {{ getSuccessName(assignedSuccesses[`opponent-${index}`]) }}
+                                        </div>
+                                        <div v-else class="success-outline"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Opponent Engagement Successes Section -->
-                        <div class="engagement-successes-section">
+                        <!-- Opponent Engagement Successes Section - Hidden from view but preserve space -->
+                        <div class="engagement-successes-section opponent-successes-hidden">
                             <div class="engagement-successes-list">
                                 <div v-if="!opponent.engagementSuccesses || opponent.engagementSuccesses.length === 0"
                                     class="no-successes-message">
@@ -202,6 +225,7 @@ export default {
             isUpdatingResultLocally: false, // Flag to prevent infinite loops
             rerollingDice: new Set(), // Track which dice are currently rerolling
             hoverStates: {}, // Track hover states for reroll buttons
+            assignedSuccesses: {}, // Track success assignments to dice: { 'user-0': successId, 'opponent-1': successId }
             // Dice sorting state to maintain order after rerolls
             initialSortDone: false,
             sortedOrder: null,
@@ -213,7 +237,9 @@ export default {
             userLeftHandler: null,
             sessionCancelledHandler: null,
             rollResultsHandler: null,
-            resultIndicatorUpdatedHandler: null
+            resultIndicatorUpdatedHandler: null,
+            dieRerolledHandler: null,
+            successAssignmentUpdatedHandler: null
         };
     },
 
@@ -590,6 +616,9 @@ export default {
                 this.opponentInitialSortDone = false;
                 this.opponentSortedOrder = null;
 
+                // Reset success assignments when new results come in
+                this.assignedSuccesses = {};
+
                 // Perform initial sort now that we have results
                 this.performInitialSort();
 
@@ -615,6 +644,92 @@ export default {
                 this.manualResults = newManualResults;
             };
 
+            this.dieRerolledHandler = ({ player, diceIndex, newValue, characterId }) => {
+                // Don't process our own rerolls
+                if (characterId === this.character.id) {
+                    return;
+                }
+
+                // Find the target dice array and update the rerolled die
+                let targetDice, targetArray;
+
+                if (player === 'user' && this.character.id !== characterId) {
+                    // This is actually the opponent from our perspective
+                    targetArray = this.sortedOpponentDice;
+                    targetDice = targetArray[diceIndex];
+                } else if (player === 'opponent' && this.opponent && this.opponent.characterInfo.id === characterId) {
+                    // This is the opponent rerolling
+                    targetArray = this.sortedOpponentDice;
+                    targetDice = targetArray[diceIndex];
+                }
+
+                if (targetDice) {
+                    // Show reroll animation
+                    this.rerollingDice.add(`opponent-${diceIndex}`);
+
+                    // Show max value while rerolling
+                    const originalDieSize = targetDice.die;
+                    targetDice.class = `df-d${originalDieSize}-${originalDieSize}`;
+                    targetDice.isMax = false;
+
+                    // After animation, show new result
+                    setTimeout(() => {
+                        const isNewMax = newValue === originalDieSize;
+                        targetDice.value = newValue;
+                        targetDice.class = `df-d${originalDieSize}-${newValue}`;
+                        targetDice.isMax = isNewMax;
+
+                        // Remove from rerolling set
+                        this.rerollingDice.delete(`opponent-${diceIndex}`);
+
+                        // Update the session data
+                        this.updateOpponentRollResults(diceIndex, newValue);
+
+                        // Force reactivity update
+                        this.$forceUpdate();
+
+                        // Recalculate comparisons
+                        this.recalculateComparisons();
+                    }, 1500);
+                }
+            };
+
+            this.successAssignmentUpdatedHandler = ({ characterId, player, diceIndex, successId }) => {
+                console.log('Received success assignment update:', { characterId, player, diceIndex, successId, myCharacterId: this.character.id });
+
+                // Don't process our own assignments
+                if (characterId === this.character.id) {
+                    console.log('Ignoring own assignment update');
+                    return;
+                }
+
+                // Translate the assignment to the correct UI position from this user's perspective
+                let targetKey;
+                if (characterId === this.character.id) {
+                    // This is our own assignment (shouldn't happen due to check above, but just in case)
+                    targetKey = `${player}-${diceIndex}`;
+                } else if (this.opponent && characterId === this.opponent.characterInfo.id) {
+                    // This is the opponent's assignment - translate to opponent column
+                    targetKey = `opponent-${diceIndex}`;
+                } else {
+                    console.log('Unknown character ID:', characterId);
+                    return;
+                }
+
+                // Update the assigned successes
+                if (successId) {
+                    console.log('Adding assignment:', targetKey, successId);
+                    this.assignedSuccesses[targetKey] = successId;
+                } else {
+                    // Remove assignment if successId is null
+                    console.log('Removing assignment:', targetKey);
+                    delete this.assignedSuccesses[targetKey];
+                }
+
+                // Force reactivity update
+                this.$forceUpdate();
+            };
+
             // Set up event listeners
             engagementService.on('session-created', this.sessionCreatedHandler);
             engagementService.on('session-updated', this.sessionUpdatedHandler);
@@ -622,6 +737,8 @@ export default {
             engagementService.on('session-cancelled', this.sessionCancelledHandler);
             engagementService.on('roll-results', this.rollResultsHandler);
             engagementService.on('result-indicator-updated', this.resultIndicatorUpdatedHandler);
+            engagementService.on('die-rerolled', this.dieRerolledHandler);
+            engagementService.on('success-assignment-updated', this.successAssignmentUpdatedHandler);
         },
 
         cleanupEngagementListeners() {
@@ -642,6 +759,12 @@ export default {
             }
             if (this.resultIndicatorUpdatedHandler) {
                 engagementService.off('result-indicator-updated', this.resultIndicatorUpdatedHandler);
+            }
+            if (this.dieRerolledHandler) {
+                engagementService.off('die-rerolled', this.dieRerolledHandler);
+            }
+            if (this.successAssignmentUpdatedHandler) {
+                engagementService.off('success-assignment-updated', this.successAssignmentUpdatedHandler);
             }
         },
 
@@ -755,13 +878,21 @@ export default {
 
         rerollDie(player, index) {
             const rerollKey = `${player}-${index}`;
-            
+            const assignmentKey = `${player}-${index}`;
+
+            // Clear any assigned success for this die since it's being rerolled
+            if (this.assignedSuccesses[assignmentKey]) {
+                delete this.assignedSuccesses[assignmentKey];
+                // Broadcast the assignment removal to other users
+                engagementService.updateSuccessAssignment(this.character.id, player, index, null);
+            }
+
             // Mark this die as rerolling
             this.rerollingDice.add(rerollKey);
 
             // Update the die to show max value while spinning
             let targetDice, originalDieSize;
-            
+
             if (player === 'user') {
                 targetDice = this.sortedSelectedDice[index];
                 originalDieSize = targetDice.die;
@@ -773,30 +904,33 @@ export default {
             // Show max value while rerolling
             targetDice.class = `df-d${originalDieSize}-${originalDieSize}`;
             targetDice.isMax = false; // Hide the sparkle during reroll
-            
+
+            // Roll new value immediately
+            const newValue = Math.floor(Math.random() * originalDieSize) + 1;
+            const isNewMax = newValue === originalDieSize;
+
+            // Broadcast the reroll to other users immediately
+            engagementService.rerollDie(player, index, newValue, this.character.id);
+
             // After animation completes, show new result
             setTimeout(() => {
-                // Roll new value
-                const newValue = Math.floor(Math.random() * originalDieSize) + 1;
-                const isNewMax = newValue === originalDieSize;
-                
                 // Update the die with new result (but keep it in the same position)
                 targetDice.value = newValue;
                 targetDice.class = `df-d${originalDieSize}-${newValue}`;
                 targetDice.isMax = isNewMax;
-                
+
                 // Remove from rerolling set
                 this.rerollingDice.delete(rerollKey);
-                
+
                 // Update the roll results in the session data
                 this.updateRollResultsAfterReroll(player, index, newValue);
-                
+
                 // Force reactivity update
                 this.$forceUpdate();
-                
+
                 // Clear any manual results for affected comparisons and recalculate
                 this.recalculateComparisons();
-                
+
             }, 1500); // 1.5 second animation
         },
 
@@ -804,7 +938,7 @@ export default {
             if (!this.rollResults || !this.rollResults.session) return;
 
             let targetUser;
-            
+
             if (player === 'user') {
                 targetUser = this.rollResults.session.users.find(
                     user => user.characterInfo.id === this.character.id
@@ -814,26 +948,26 @@ export default {
                     user => user.socketId === this.opponent.socketId
                 );
             }
-            
+
             if (targetUser && targetUser.rollResults) {
                 const sortedArray = player === 'user' ? this.sortedSelectedDice : this.sortedOpponentDice;
-                
+
                 // Get the die that was rerolled from the sorted array
                 const rerolledDie = sortedArray[diceIndex];
-                
+
                 // Find the original index of this specific die instance
                 // We need to track which original die this sorted position represents
                 if (rerolledDie && rerolledDie.originalIndex !== undefined) {
                     // Update the roll result at the original index
                     targetUser.rollResults[rerolledDie.originalIndex] = newValue;
-                    
+
                     // Recalculate total
                     targetUser.rollTotal = targetUser.rollResults.reduce((sum, value) => sum + value, 0);
                 } else {
                     // Fallback: find matching die size (this is less precise but works for simple cases)
                     const originalArray = player === 'user' ? this.selectedDice : this.opponent.selectedDice;
                     const targetDieSize = rerolledDie.die;
-                    
+
                     let originalIndex = -1;
                     for (let i = 0; i < originalArray.length; i++) {
                         if (originalArray[i] === targetDieSize && targetUser.rollResults[i] === rerolledDie.value) {
@@ -841,7 +975,7 @@ export default {
                             break;
                         }
                     }
-                    
+
                     if (originalIndex !== -1) {
                         targetUser.rollResults[originalIndex] = newValue;
                         targetUser.rollTotal = targetUser.rollResults.reduce((sum, value) => sum + value, 0);
@@ -850,14 +984,80 @@ export default {
             }
         },
 
+        updateOpponentRollResults(diceIndex, newValue) {
+            if (!this.rollResults || !this.rollResults.session || !this.opponent) return;
+
+            const opponentUser = this.rollResults.session.users.find(
+                user => user.socketId === this.opponent.socketId
+            );
+
+            if (opponentUser && opponentUser.rollResults) {
+                const rerolledDie = this.sortedOpponentDice[diceIndex];
+
+                if (rerolledDie && rerolledDie.originalIndex !== undefined) {
+                    // Update the roll result at the original index
+                    opponentUser.rollResults[rerolledDie.originalIndex] = newValue;
+
+                    // Recalculate total
+                    opponentUser.rollTotal = opponentUser.rollResults.reduce((sum, value) => sum + value, 0);
+                }
+            }
+        },
+
         recalculateComparisons() {
             // Clear manual results to force recalculation based on new die values
             this.manualResults = [];
-            
+
             // Force the diceComparisons computed property to recalculate
             this.$nextTick(() => {
                 this.$forceUpdate();
             });
+        },
+
+        onSuccessDragStart(event, success) {
+            // Store the success data for the drop event
+            event.dataTransfer.setData('application/json', JSON.stringify(success));
+            event.dataTransfer.effectAllowed = 'copy';
+        },
+
+        onSuccessDrop(event, player, diceIndex) {
+            event.preventDefault();
+
+            try {
+                const successData = JSON.parse(event.dataTransfer.getData('application/json'));
+                const key = `${player}-${diceIndex}`;
+
+                // Check if there's already an assignment and it's different
+                const previousAssignment = this.assignedSuccesses[key];
+                const newAssignment = successData.id;
+
+                console.log('Success drop:', { key, previousAssignment, newAssignment, characterId: this.character.id });
+
+                // Only update if the assignment is actually changing
+                if (previousAssignment !== newAssignment) {
+                    // Assign the success to this die
+                    this.assignedSuccesses[key] = newAssignment;
+
+                    // Broadcast this assignment with character context
+                    console.log('Broadcasting success assignment:', { key, newAssignment, characterId: this.character.id });
+                    engagementService.updateSuccessAssignment(this.character.id, player, diceIndex, newAssignment);
+                }
+
+            } catch (error) {
+                console.error('Error handling success drop:', error);
+            }
+        },
+
+        removeSuccessAssignment(player, diceIndex) {
+            const key = `${player}-${diceIndex}`;
+
+            if (this.assignedSuccesses[key]) {
+                // Remove the assignment locally
+                delete this.assignedSuccesses[key];
+
+                // Broadcast the removal to other users via WebSocket
+                engagementService.updateSuccessAssignment(this.character.id, player, diceIndex, null);
+            }
         },
 
         performInitialSort() {
@@ -1033,6 +1233,110 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 8px;
+}
+
+.success-drop-zone,
+.success-display-zone {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 60px;
+    height: 24px;
+    overflow: visible;
+}
+
+.success-drop-zone.left-side {
+    right: 100%;
+    margin-right: 8px;
+}
+
+.success-display-zone.right-side {
+    left: 100%;
+    margin-left: 8px;
+}
+
+.success-outline {
+    width: 50px;
+    height: 20px;
+    border: 2px dashed rgba(212, 182, 106, 0.6);
+    border-radius: 10px;
+    background-color: rgba(212, 182, 106, 0.1);
+    transition: all 0.2s ease;
+}
+
+.success-drop-zone:hover .success-outline {
+    border-color: rgba(212, 182, 106, 0.9);
+    background-color: rgba(212, 182, 106, 0.2);
+}
+
+.assigned-success-pill {
+    background-color: rgb(212, 182, 106);
+    color: #000;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: bold;
+    text-align: center;
+    max-width: 50px;
+    overflow: visible;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    cursor: help;
+    transition: background-color 0.2s;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.assigned-success-pill:hover {
+    background-color: rgba(212, 182, 106, 0.8);
+}
+
+.remove-success-btn {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    width: 14px;
+    height: 14px;
+    background-color: #ff4444;
+    color: white;
+    border-radius: 50%;
+    font-size: 10px;
+    font-weight: bold;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    line-height: 1;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.assigned-success-pill:hover .remove-success-btn {
+    display: flex;
+}
+
+.remove-success-btn:hover {
+    background-color: #cc0000;
+    transform: scale(1.1);
+}
+
+.draggable-success {
+    cursor: grab;
+    transition: transform 0.2s ease;
+}
+
+.draggable-success:hover {
+    transform: scale(1.05);
+}
+
+.draggable-success:active {
+    cursor: grabbing;
+    transform: scale(0.95);
 }
 
 .dice-symbol {
@@ -1191,6 +1495,10 @@ h4 {
     padding-top: 15px;
     margin-top: auto;
     /* Push to bottom */
+}
+
+.engagement-successes-section.opponent-successes-hidden {
+    visibility: hidden;
 }
 
 .engagement-successes-list {
@@ -1519,7 +1827,7 @@ h4 {
 }
 
 .indicator-caret {
-    padding: 3px 5px 0px 5px;
+    padding: 0px 5px;
     color: #ffffff;
     font-size: 14px;
     font-weight: bold;

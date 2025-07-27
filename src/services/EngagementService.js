@@ -63,6 +63,16 @@ class EngagementService {
     this.socket.on('result-indicator-updated', ({ index, state }) => {
       this._notifyListeners('result-indicator-updated', { index, state });
     });
+
+    // Success assignment updates from other users
+    this.socket.on('success-assignment-updated', ({ characterId, player, diceIndex, successId }) => {
+      console.log('Service received success assignment update:', { characterId, player, diceIndex, successId });
+      this._notifyListeners('success-assignment-updated', { characterId, player, diceIndex, successId });
+    });
+
+    this.socket.on('die-rerolled', ({ player, diceIndex, newValue, characterId }) => {
+      this._notifyListeners('die-rerolled', { player, diceIndex, newValue, characterId });
+    });
   }
 
   // Disconnect from the socket server
@@ -161,6 +171,35 @@ class EngagementService {
         index,
         state
       });
+    }
+  }
+
+  // Broadcast die reroll to other users
+  rerollDie(player, diceIndex, newValue, characterId) {
+    if (this.socket && this.sessionId) {
+      this.socket.emit('reroll-die', {
+        sessionId: this.sessionId,
+        player,
+        diceIndex,
+        newValue,
+        characterId
+      });
+    }
+  }
+
+  // Broadcast success assignment to other users
+  updateSuccessAssignment(characterId, player, diceIndex, successId) {
+    console.log('Service sending success assignment:', { characterId, player, diceIndex, successId, sessionId: this.sessionId });
+    if (this.socket && this.sessionId) {
+      this.socket.emit('success-assignment-updated', {
+        sessionId: this.sessionId,
+        characterId,
+        player,
+        diceIndex,
+        successId
+      });
+    } else {
+      console.log('Cannot send success assignment - no socket or session:', { socket: !!this.socket, sessionId: this.sessionId });
     }
   }
 }

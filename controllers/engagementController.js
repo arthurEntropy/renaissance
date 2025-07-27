@@ -192,6 +192,26 @@ const setupSocketHandlers = (io) => {
         socket.to(sessionId).emit('result-indicator-updated', { index, state });
       }
     });
+
+    // Handle die rerolls
+    socket.on('reroll-die', ({ sessionId, player, diceIndex, newValue, characterId }) => {
+      if (activeSessions.has(sessionId)) {
+        // Broadcast the reroll to all other users in the session
+        socket.to(sessionId).emit('die-rerolled', { player, diceIndex, newValue, characterId });
+      }
+    });
+
+    // Handle success assignment updates
+    socket.on('success-assignment-updated', ({ sessionId, characterId, player, diceIndex, successId }) => {
+      console.log('Backend received success assignment update:', { sessionId, characterId, player, diceIndex, successId });
+      if (activeSessions.has(sessionId)) {
+        // Broadcast the success assignment to all other users in the session
+        console.log('Broadcasting success assignment to session:', sessionId);
+        socket.to(sessionId).emit('success-assignment-updated', { characterId, player, diceIndex, successId });
+      } else {
+        console.log('Session not found:', sessionId);
+      }
+    });
   });
   
   // Clean up stale sessions (runs every 5 minutes)
