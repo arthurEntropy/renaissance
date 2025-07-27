@@ -28,6 +28,7 @@ class EngagementService {
     });
 
     this.socket.on('error', (error) => {
+      console.error('EngagementService: WebSocket error:', error);
       this._notifyListeners('error', error);
     });
 
@@ -38,6 +39,10 @@ class EngagementService {
     });
 
     this.socket.on('session-updated', ({ session }) => {
+      // Update the sessionId if we don't have one yet
+      if (!this.sessionId && session.id) {
+        this.sessionId = session.id;
+      }
       this._notifyListeners('session-updated', { session });
     });
 
@@ -52,6 +57,11 @@ class EngagementService {
 
     this.socket.on('roll-results', ({ session, timestamp }) => {
       this._notifyListeners('roll-results', { session, timestamp });
+    });
+    
+    // Result indicator updates from other users
+    this.socket.on('result-indicator-updated', ({ index, state }) => {
+      this._notifyListeners('result-indicator-updated', { index, state });
     });
   }
 
@@ -141,6 +151,17 @@ class EngagementService {
   // Check if connected to socket server
   isConnected() {
     return this.socket && this.socket.connected;
+  }
+  
+  // Update result indicator and broadcast to other users
+  updateResultIndicator(index, state) {
+    if (this.socket && this.sessionId) {
+      this.socket.emit('update-result-indicator', {
+        sessionId: this.sessionId,
+        index,
+        state
+      });
+    }
   }
 }
 

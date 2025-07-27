@@ -18,9 +18,9 @@
                     :style="{ top: `${190 + (pair.index * 48)}px` }">
                     <div class="indicator-circle"
                         :class="{ 'winner': pair.leftWins, 'loser': !pair.leftWins && !pair.tie }"></div>
-                    <div class="indicator-caret"
-                        :class="{ 'left-wins': pair.leftWins, 'right-wins': pair.rightWins, 'tie': pair.tie }">
-                        <span v-if="pair.tie">•</span>
+                    <div class="indicator-caret" @click.stop="toggleResult(index)"
+                        :class="{ 'left-wins': pair.leftWins, 'right-wins': pair.rightWins, 'tie': pair.tie, 'clickable': true }">
+                        <span v-if="pair.tie">🟡</span>
                         <span v-else-if="pair.leftWins">◀</span>
                         <span v-else>▶</span>
                     </div>
@@ -175,7 +175,16 @@ export default {
             rollResults: null,
             tooltipSuccess: null,
             tooltipPosition: { x: 0, y: 0 },
-            tooltipTimer: null
+            tooltipTimer: null,
+            manualResults: [], // Array to store manually adjusted results
+            isUpdatingResultLocally: false, // Flag to prevent infinite loops
+            // Event handler references for cleanup
+            sessionCreatedHandler: null,
+            sessionUpdatedHandler: null,
+            userLeftHandler: null,
+            sessionCancelledHandler: null,
+            rollResultsHandler: null,
+            resultIndicatorUpdatedHandler: null
         };
     },
 
@@ -361,6 +370,24 @@ export default {
             // Create comparison objects for each pair
             const comparisons = [];
             for (let i = 0; i < pairCount; i++) {
+                // Check if there's a manual result for this index
+                if (this.manualResults[i]) {
+                    // Convert character-based result to UI position for this user
+                    const manualResult = this.manualResults[i];
+                    const leftWins = manualResult.winnerCharacterId === this.character.id;
+                    const rightWins = manualResult.winnerCharacterId === this.opponent.characterInfo.id;
+                    const tie = !manualResult.winnerCharacterId;
+
+                    comparisons.push({
+                        leftWins,
+                        rightWins,
+                        tie,
+                        index: i,
+                        winnerCharacterId: manualResult.winnerCharacterId
+                    });
+                    continue;
+                }
+
                 const userDie = i < userDice.length ? userDice[i] : null;
                 const opponentDie = i < opponentDice.length ? opponentDice[i] : null;
 
@@ -371,7 +398,8 @@ export default {
                         leftWins: false,
                         rightWins: true,
                         tie: false,
-                        index: i
+                        index: i,
+                        winnerCharacterId: this.opponent.characterInfo.id
                     });
                 } else if (userDie && !opponentDie) {
                     // User wins this pair
@@ -379,20 +407,29 @@ export default {
                         leftWins: true,
                         rightWins: false,
                         tie: false,
-                        index: i
+                        index: i,
+                        winnerCharacterId: this.character.id
                     });
                 } else if (userDie && opponentDie && !userDie.isRolling && !opponentDie.isRolling &&
                     userDie.value !== undefined && opponentDie.value !== undefined) {
                     // Both sides have dice with values
-                    const leftWins = userDie.value > opponentDie.value;
-                    const rightWins = opponentDie.value > userDie.value;
+                    const userWins = userDie.value > opponentDie.value;
+                    const opponentWins = opponentDie.value > userDie.value;
                     const tie = userDie.value === opponentDie.value;
 
+                    let winnerCharacterId = null;
+                    if (userWins) {
+                        winnerCharacterId = this.character.id;
+                    } else if (opponentWins) {
+                        winnerCharacterId = this.opponent.characterInfo.id;
+                    }
+
                     comparisons.push({
-                        leftWins,
-                        rightWins,
+                        leftWins: userWins,
+                        rightWins: opponentWins,
                         tie,
-                        index: i
+                        index: i,
+                        winnerCharacterId
                     });
                 }
             }
@@ -403,12 +440,16 @@ export default {
 
     methods: {
         closeModal() {
+            // Clean up event listeners first
+            this.cleanupEngagementListeners();
+
             // If in a session, leave it
             if (this.sessionId) {
                 engagementService.cancelSession();
             }
 
-            // Disconnect from WebSocket when closing
+            // Only disconnect if no other components are using the service
+            // (In practice, this is safe since each modal instance is independent)
             engagementService.disconnect();
 
             this.$emit('close');
@@ -426,18 +467,14 @@ export default {
 
         initSession() {
             this.sessionMode = true;
-            console.log('Initializing engagement session');
 
             // Connect to the WebSocket server
             engagementService.connect();
-            console.log('WebSocket connection established');
 
             // Set up event listeners
             this.setupEngagementListeners();
-            console.log('Event listeners set up');
 
             // Auto-join or create a session
-            console.log('Auto-joining or creating session with character:', this.character.name);
             engagementService.autoJoinOrCreate(
                 this.character,
                 this.selectedDice,
@@ -446,14 +483,13 @@ export default {
         },
 
         setupEngagementListeners() {
-            // Session created
-            engagementService.on('session-created', ({ sessionId, session }) => {
+            // Store references to the bound functions for cleanup
+            this.sessionCreatedHandler = ({ sessionId, session }) => {
                 this.sessionId = sessionId;
                 this.sessionStatus = session.state;
-            });
+            };
 
-            // Session updated
-            engagementService.on('session-updated', ({ session }) => {
+            this.sessionUpdatedHandler = ({ session }) => {
                 this.sessionId = session.id;
                 this.sessionStatus = session.state;
 
@@ -466,37 +502,75 @@ export default {
                         this.opponent = otherUser;
                     }
                 }
-            });
+            };
 
-            // User left
-            engagementService.on('user-left', ({ message }) => {
+            this.userLeftHandler = ({ message }) => {
                 this.opponent = null;
                 this.sessionStatus = 'waiting';
                 alert(message);
-            });
+            };
 
-            // Session cancelled
-            engagementService.on('session-cancelled', ({ message }) => {
+            this.sessionCancelledHandler = ({ message }) => {
                 alert(message);
                 this.sessionId = null;
                 this.sessionStatus = 'waiting';
                 this.opponent = null;
-            });
+            };
 
-            // Roll results
-            engagementService.on('roll-results', ({ session }) => {
-                console.log('Roll results received from server:', session);
+            this.rollResultsHandler = ({ session }) => {
                 this.sessionStatus = 'completed';
                 this.rollResults = { session };
 
                 // Stop the dice rolling animation and show results
                 setTimeout(() => {
-                    console.log('Forcing update to display roll results');
                     // Force a re-computation of the sorted dice arrays to show the results
                     // This is needed since Vue might not detect the nested property change
                     this.$forceUpdate();
                 }, 100);
-            });
+            };
+
+            this.resultIndicatorUpdatedHandler = ({ index, state }) => {
+                // Prevent infinite loops by checking if this is a remote update
+                if (this.isUpdatingResultLocally) {
+                    return;
+                }
+
+                // Create a new array to ensure reactivity
+                const newManualResults = [...this.manualResults];
+                // Update the state at the specified index with the character-based state
+                newManualResults[index] = state;
+                // Replace the entire array to trigger reactivity
+                this.manualResults = newManualResults;
+            };
+
+            // Set up event listeners
+            engagementService.on('session-created', this.sessionCreatedHandler);
+            engagementService.on('session-updated', this.sessionUpdatedHandler);
+            engagementService.on('user-left', this.userLeftHandler);
+            engagementService.on('session-cancelled', this.sessionCancelledHandler);
+            engagementService.on('roll-results', this.rollResultsHandler);
+            engagementService.on('result-indicator-updated', this.resultIndicatorUpdatedHandler);
+        },
+
+        cleanupEngagementListeners() {
+            if (this.sessionCreatedHandler) {
+                engagementService.off('session-created', this.sessionCreatedHandler);
+            }
+            if (this.sessionUpdatedHandler) {
+                engagementService.off('session-updated', this.sessionUpdatedHandler);
+            }
+            if (this.userLeftHandler) {
+                engagementService.off('user-left', this.userLeftHandler);
+            }
+            if (this.sessionCancelledHandler) {
+                engagementService.off('session-cancelled', this.sessionCancelledHandler);
+            }
+            if (this.rollResultsHandler) {
+                engagementService.off('roll-results', this.rollResultsHandler);
+            }
+            if (this.resultIndicatorUpdatedHandler) {
+                engagementService.off('result-indicator-updated', this.resultIndicatorUpdatedHandler);
+            }
         },
 
         getSuccessName(successId) {
@@ -518,6 +592,84 @@ export default {
         clearSuccessTooltip() {
             clearTimeout(this.tooltipTimer);
             this.tooltipSuccess = null;
+        },
+
+        toggleResult(index) {
+            // Prevent concurrent updates
+            if (this.isUpdatingResultLocally) {
+                return;
+            }
+
+            this.isUpdatingResultLocally = true;
+
+            try {
+                // Initialize manualResults array if needed
+                if (!this.manualResults[index]) {
+                    const pair = this.diceComparisons[index];
+
+                    // Create a new array to ensure reactivity
+                    const newManualResults = [...this.manualResults];
+                    // Initialize with the current state - store character ID instead of UI position
+                    newManualResults[index] = {
+                        winnerCharacterId: pair.winnerCharacterId,
+                        index: pair.index
+                    };
+                    // Replace the entire array to trigger reactivity
+                    this.manualResults = newManualResults;
+                }
+
+                // Get the current result state
+                const result = this.manualResults[index];
+                let newState;
+
+                // Cycle through the states based on character wins: user win -> tie -> opponent win -> tie -> user win
+                if (result.winnerCharacterId === this.character.id) {
+                    // Change from user win to tie
+                    newState = {
+                        winnerCharacterId: null, // null means tie
+                        index: result.index,
+                        wasOpponentWin: false
+                    };
+                } else if (!result.winnerCharacterId) {
+                    // Currently tied - check if we were cycling from user or opponent
+                    if (!result.wasOpponentWin) {
+                        // Go to opponent win
+                        newState = {
+                            winnerCharacterId: this.opponent.characterInfo.id,
+                            index: result.index,
+                            wasOpponentWin: true
+                        };
+                    } else {
+                        // Go back to user win
+                        newState = {
+                            winnerCharacterId: this.character.id,
+                            index: result.index
+                        };
+                    }
+                } else if (result.winnerCharacterId === this.opponent.characterInfo.id) {
+                    // Change from opponent win to tie
+                    newState = {
+                        winnerCharacterId: null, // null means tie
+                        index: result.index,
+                        wasOpponentWin: true
+                    };
+                }
+
+                // Create a new array to ensure reactivity
+                const newManualResults = [...this.manualResults];
+                // Update the state at the specified index
+                newManualResults[index] = newState;
+                // Replace the entire array to trigger reactivity
+                this.manualResults = newManualResults;
+
+                // Broadcast the change to other users
+                engagementService.updateResultIndicator(index, newState);
+            } finally {
+                // Always reset the flag, even if an error occurs
+                setTimeout(() => {
+                    this.isUpdatingResultLocally = false;
+                }, 100);
+            }
         }
     },
 
@@ -527,7 +679,8 @@ export default {
     },
 
     beforeUnmount() {
-        console.log('Component unmounting, cleaning up WebSocket connection');
+        // Clean up event listeners first
+        this.cleanupEngagementListeners();
         // Clean up WebSocket connection when component is destroyed
         engagementService.disconnect();
     }
@@ -1057,8 +1210,9 @@ h4 {
     background-color: #000000;
     border: 1px solid #ffffff;
     border-radius: 15px;
-    padding: 3px 6px;
+    padding: 3px 5px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    height: 26px;
 }
 
 .indicator-circle {
@@ -1084,10 +1238,26 @@ h4 {
     color: #ffffff;
     font-size: 14px;
     font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+}
+
+.indicator-caret.clickable {
+    cursor: pointer;
+    pointer-events: auto;
+}
+
+.indicator-caret.clickable:hover {
+    transform: scale(1.2);
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
 }
 
 .indicator-caret.tie {
-    color: #ffffff;
+    color: #ffeb3b;
+    text-shadow: 0 0 5px rgba(255, 235, 59, 0.8);
 }
 
 .indicator-caret.left-wins {
