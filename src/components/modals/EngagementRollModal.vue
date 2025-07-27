@@ -1257,7 +1257,7 @@ h4 {
 
 .indicator-caret.tie {
     color: #ffeb3b;
-    text-shadow: 0 0 5px rgba(255, 235, 59, 0.8);
+    text-shadow:0 0 5px rgba(255, 235, 59, 0.8);
 }
 
 .indicator-caret.left-wins {
