@@ -20,7 +20,7 @@
                         :class="{ 'winner': pair.leftWins, 'loser': !pair.leftWins && !pair.tie }"></div>
                     <div class="indicator-caret" @click.stop="toggleResult(index)"
                         :class="{ 'left-wins': pair.leftWins, 'right-wins': pair.rightWins, 'tie': pair.tie, 'clickable': true }">
-                        <span v-if="pair.tie">🟡</span>
+                        <span v-if="pair.tie">◉</span>
                         <span v-else-if="pair.leftWins">◀</span>
                         <span v-else>▶</span>
                     </div>
@@ -44,11 +44,25 @@
                             <div v-if="sortedSelectedDice.length === 0" class="no-dice-message">
                                 No dice selected
                             </div>
-                            <span v-for="(die, index) in sortedSelectedDice" :key="index" class="dice-symbol"
-                                :class="{ [`rolling-die-${(index % 3) + 1}`]: die.isRolling, 'result-die': !die.isRolling, 'max-result': die.isMax }">
-                                <i :class="die.class"></i>
-                                <span v-if="die.isMax" class="max-indicator">✨</span>
-                            </span>
+                            <div v-for="(die, index) in sortedSelectedDice" :key="index" class="dice-container"
+                                @mouseenter="showRerollHover(index, true)" 
+                                @mouseleave="showRerollHover(index, false)">
+                                <span class="dice-symbol"
+                                    :class="{ 
+                                        [`rolling-die-${(index % 3) + 1}`]: die.isRolling || rerollingDice.has(`user-${index}`), 
+                                        'result-die': !die.isRolling && !rerollingDice.has(`user-${index}`), 
+                                        'max-result': die.isMax,
+                                        'rerolling': rerollingDice.has(`user-${index}`)
+                                    }">
+                                    <i :class="die.class"></i>
+                                    <span v-if="die.isMax && !rerollingDice.has(`user-${index}`)" class="max-indicator">✨</span>
+                                </span>
+                                <!-- Reroll hover link - only for user's own dice -->
+                                <div v-if="showResults && !die.isRolling && !rerollingDice.has(`user-${index}`) && hoverStates[`user-${index}`]" 
+                                     class="reroll-hover" @click="rerollDie('user', index)">
+                                    Reroll
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -85,11 +99,19 @@
                                     class="no-dice-message">
                                     No dice selected
                                 </div>
-                                <span v-for="(die, index) in sortedOpponentDice" :key="index" class="dice-symbol"
-                                    :class="{ [`rolling-die-${(index % 3) + 1}`]: die.isRolling, 'result-die': !die.isRolling, 'max-result': die.isMax }">
-                                    <i :class="die.class"></i>
-                                    <span v-if="die.isMax" class="max-indicator">✨</span>
-                                </span>
+                                <div v-for="(die, index) in sortedOpponentDice" :key="index" class="dice-container">
+                                    <span class="dice-symbol"
+                                        :class="{ 
+                                            [`rolling-die-${(index % 3) + 1}`]: die.isRolling || rerollingDice.has(`opponent-${index}`), 
+                                            'result-die': !die.isRolling && !rerollingDice.has(`opponent-${index}`), 
+                                            'max-result': die.isMax,
+                                            'rerolling': rerollingDice.has(`opponent-${index}`)
+                                        }">
+                                        <i :class="die.class"></i>
+                                        <span v-if="die.isMax && !rerollingDice.has(`opponent-${index}`)" class="max-indicator">✨</span>
+                                    </span>
+                                    <!-- No reroll hover for opponent's dice -->
+                                </div>
                             </div>
                         </div>
 
@@ -178,6 +200,13 @@ export default {
             tooltipTimer: null,
             manualResults: [], // Array to store manually adjusted results
             isUpdatingResultLocally: false, // Flag to prevent infinite loops
+            rerollingDice: new Set(), // Track which dice are currently rerolling
+            hoverStates: {}, // Track hover states for reroll buttons
+            // Dice sorting state to maintain order after rerolls
+            initialSortDone: false,
+            sortedOrder: null,
+            opponentInitialSortDone: false,
+            opponentSortedOrder: null,
             // Event handler references for cleanup
             sessionCreatedHandler: null,
             sessionUpdatedHandler: null,
@@ -239,22 +268,38 @@ export default {
                             value: value,
                             class: `df-d${die}-${value}`,
                             isRolling: false,
-                            isMax: isMax
+                            isMax: isMax,
+                            originalIndex: index // Track original position for reroll updates
                         };
                     });
 
-                    // Sort by rolled value (highest to lowest)
-                    return diceWithResults.sort((a, b) => b.value - a.value);
+                    // Return sorted order if it exists, otherwise create initial sort
+                    if (this.sortedOrder) {
+                        // Keep existing order but update values
+                        this.sortedOrder.forEach((sortedDie) => {
+                            const originalDie = diceWithResults.find(d => d.originalIndex === sortedDie.originalIndex);
+                            if (originalDie) {
+                                sortedDie.value = originalDie.value;
+                                sortedDie.class = originalDie.class;
+                                sortedDie.isMax = originalDie.isMax;
+                            }
+                        });
+                        return this.sortedOrder;
+                    } else {
+                        // Initial sort needed - this should be handled by a method call
+                        return diceWithResults.sort((a, b) => b.value - a.value);
+                    }
                 }
             }
 
             // Convert plain dice values to objects with class info
             return [...this.selectedDice]
                 .sort((a, b) => b - a)
-                .map(die => ({
+                .map((die) => ({
                     die: die,
                     class: `df-d${die}-${die}`,
-                    isRolling: true
+                    isRolling: true,
+                    originalIndex: this.selectedDice.indexOf(die) // Track original position
                 }));
         },
 
@@ -281,20 +326,38 @@ export default {
                             value: value,
                             class: `df-d${die}-${value}`,
                             isRolling: false,
-                            isMax: isMax
+                            isMax: isMax,
+                            originalIndex: index // Track original position for reroll updates
                         };
                     });
 
-                    // Sort by rolled value (highest to lowest)
-                    return diceWithResults.sort((a, b) => b.value - a.value);
+                    // Return sorted order if it exists, otherwise create initial sort
+                    if (this.opponentSortedOrder) {
+                        // Keep existing order but update values
+                        this.opponentSortedOrder.forEach((sortedDie) => {
+                            const originalDie = diceWithResults.find(d => d.originalIndex === sortedDie.originalIndex);
+                            if (originalDie) {
+                                sortedDie.value = originalDie.value;
+                                sortedDie.class = originalDie.class;
+                                sortedDie.isMax = originalDie.isMax;
+                            }
+                        });
+                        return this.opponentSortedOrder;
+                    } else {
+                        // Initial sort needed - this should be handled by a method call
+                        return diceWithResults.sort((a, b) => b.value - a.value);
+                    }
                 }
-            }            // Convert plain dice values to objects with class info
+            }
+
+            // Convert plain dice values to objects with class info
             return [...this.opponent.selectedDice]
                 .sort((a, b) => b - a)
-                .map(die => ({
+                .map((die) => ({
                     die: die,
                     class: `df-d${die}-${die}`,
-                    isRolling: true
+                    isRolling: true,
+                    originalIndex: this.opponent.selectedDice.indexOf(die) // Track original position
                 }));
         },
 
@@ -521,6 +584,15 @@ export default {
                 this.sessionStatus = 'completed';
                 this.rollResults = { session };
 
+                // Reset sorting state to allow initial sort based on roll results
+                this.initialSortDone = false;
+                this.sortedOrder = null;
+                this.opponentInitialSortDone = false;
+                this.opponentSortedOrder = null;
+
+                // Perform initial sort now that we have results
+                this.performInitialSort();
+
                 // Stop the dice rolling animation and show results
                 setTimeout(() => {
                     // Force a re-computation of the sorted dice arrays to show the results
@@ -670,6 +742,174 @@ export default {
                     this.isUpdatingResultLocally = false;
                 }, 100);
             }
+        },
+
+        showRerollHover(index, show, player = 'user') {
+            // Only show reroll hover if we have results and dice aren't rolling
+            if (!this.showResults) return;
+
+            const key = `${player}-${index}`;
+            // In Vue 3, we can directly assign to reactive objects
+            this.hoverStates[key] = show;
+        },
+
+        rerollDie(player, index) {
+            const rerollKey = `${player}-${index}`;
+            
+            // Mark this die as rerolling
+            this.rerollingDice.add(rerollKey);
+
+            // Update the die to show max value while spinning
+            let targetDice, originalDieSize;
+            
+            if (player === 'user') {
+                targetDice = this.sortedSelectedDice[index];
+                originalDieSize = targetDice.die;
+            } else {
+                targetDice = this.sortedOpponentDice[index];
+                originalDieSize = targetDice.die;
+            }
+
+            // Show max value while rerolling
+            targetDice.class = `df-d${originalDieSize}-${originalDieSize}`;
+            targetDice.isMax = false; // Hide the sparkle during reroll
+            
+            // After animation completes, show new result
+            setTimeout(() => {
+                // Roll new value
+                const newValue = Math.floor(Math.random() * originalDieSize) + 1;
+                const isNewMax = newValue === originalDieSize;
+                
+                // Update the die with new result (but keep it in the same position)
+                targetDice.value = newValue;
+                targetDice.class = `df-d${originalDieSize}-${newValue}`;
+                targetDice.isMax = isNewMax;
+                
+                // Remove from rerolling set
+                this.rerollingDice.delete(rerollKey);
+                
+                // Update the roll results in the session data
+                this.updateRollResultsAfterReroll(player, index, newValue);
+                
+                // Force reactivity update
+                this.$forceUpdate();
+                
+                // Clear any manual results for affected comparisons and recalculate
+                this.recalculateComparisons();
+                
+            }, 1500); // 1.5 second animation
+        },
+
+        updateRollResultsAfterReroll(player, diceIndex, newValue) {
+            if (!this.rollResults || !this.rollResults.session) return;
+
+            let targetUser;
+            
+            if (player === 'user') {
+                targetUser = this.rollResults.session.users.find(
+                    user => user.characterInfo.id === this.character.id
+                );
+            } else {
+                targetUser = this.rollResults.session.users.find(
+                    user => user.socketId === this.opponent.socketId
+                );
+            }
+            
+            if (targetUser && targetUser.rollResults) {
+                const sortedArray = player === 'user' ? this.sortedSelectedDice : this.sortedOpponentDice;
+                
+                // Get the die that was rerolled from the sorted array
+                const rerolledDie = sortedArray[diceIndex];
+                
+                // Find the original index of this specific die instance
+                // We need to track which original die this sorted position represents
+                if (rerolledDie && rerolledDie.originalIndex !== undefined) {
+                    // Update the roll result at the original index
+                    targetUser.rollResults[rerolledDie.originalIndex] = newValue;
+                    
+                    // Recalculate total
+                    targetUser.rollTotal = targetUser.rollResults.reduce((sum, value) => sum + value, 0);
+                } else {
+                    // Fallback: find matching die size (this is less precise but works for simple cases)
+                    const originalArray = player === 'user' ? this.selectedDice : this.opponent.selectedDice;
+                    const targetDieSize = rerolledDie.die;
+                    
+                    let originalIndex = -1;
+                    for (let i = 0; i < originalArray.length; i++) {
+                        if (originalArray[i] === targetDieSize && targetUser.rollResults[i] === rerolledDie.value) {
+                            originalIndex = i;
+                            break;
+                        }
+                    }
+                    
+                    if (originalIndex !== -1) {
+                        targetUser.rollResults[originalIndex] = newValue;
+                        targetUser.rollTotal = targetUser.rollResults.reduce((sum, value) => sum + value, 0);
+                    }
+                }
+            }
+        },
+
+        recalculateComparisons() {
+            // Clear manual results to force recalculation based on new die values
+            this.manualResults = [];
+            
+            // Force the diceComparisons computed property to recalculate
+            this.$nextTick(() => {
+                this.$forceUpdate();
+            });
+        },
+
+        performInitialSort() {
+            // Perform initial sort for user dice
+            if (this.rollResults && this.rollResults.session && !this.initialSortDone) {
+                const userResults = this.rollResults.session.users.find(
+                    user => user.characterInfo.id === this.character.id
+                );
+
+                if (userResults && userResults.rollResults) {
+                    const diceWithResults = [...this.selectedDice].map((die, index) => {
+                        const value = userResults.rollResults[index] || 1;
+                        const isMax = value === die;
+                        return {
+                            die: die,
+                            value: value,
+                            class: `df-d${die}-${value}`,
+                            isRolling: false,
+                            isMax: isMax,
+                            originalIndex: index
+                        };
+                    });
+
+                    this.sortedOrder = diceWithResults.sort((a, b) => b.value - a.value);
+                    this.initialSortDone = true;
+                }
+            }
+
+            // Perform initial sort for opponent dice
+            if (this.rollResults && this.rollResults.session && !this.opponentInitialSortDone && this.opponent) {
+                const opponentResults = this.rollResults.session.users.find(
+                    user => user.socketId === this.opponent.socketId
+                );
+
+                if (opponentResults && opponentResults.rollResults) {
+                    const diceWithResults = [...this.opponent.selectedDice].map((die, index) => {
+                        const value = opponentResults.rollResults[index] || 1;
+                        const isMax = value === die;
+                        return {
+                            die: die,
+                            value: value,
+                            class: `df-d${die}-${value}`,
+                            isRolling: false,
+                            isMax: isMax,
+                            originalIndex: index
+                        };
+                    });
+
+                    this.opponentSortedOrder = diceWithResults.sort((a, b) => b.value - a.value);
+                    this.opponentInitialSortDone = true;
+                }
+            }
         }
     },
 
@@ -788,6 +1028,13 @@ export default {
     padding-bottom: 10px;
 }
 
+.dice-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .dice-symbol {
     font-size: 36px;
     display: inline-block;
@@ -799,6 +1046,29 @@ export default {
     /* Fixed height for better alignment */
     line-height: 1;
     /* Make all dice the same size as result dice */
+}
+
+.reroll-hover {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(212, 182, 106, 0.95);
+    color: #000;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 20;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    text-shadow: none;
+}
+
+.reroll-hover:hover {
+    background-color: rgb(212, 182, 106);
+    transform: translate(-50%, -50%) scale(1.1);
 }
 
 .dice-symbol i {
@@ -817,6 +1087,11 @@ export default {
 
 .rolling-die-3 {
     animation: roll-3 0.7s linear infinite;
+}
+
+/* Rerolling animation - faster spin */
+.dice-symbol.rerolling {
+    animation: reroll-spin 0.15s linear infinite !important;
 }
 
 @keyframes roll-1 {
@@ -846,6 +1121,16 @@ export default {
 
     100% {
         transform: rotate(360deg);
+    }
+}
+
+@keyframes reroll-spin {
+    0% {
+        transform: scale(1.2) rotate(0deg);
+    }
+
+    100% {
+        transform: scale(1.2) rotate(360deg);
     }
 }
 
@@ -1210,7 +1495,7 @@ h4 {
     background-color: #000000;
     border: 1px solid #ffffff;
     border-radius: 15px;
-    padding: 3px 5px;
+    padding: 3px 15px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
     height: 26px;
 }
@@ -1234,7 +1519,7 @@ h4 {
 }
 
 .indicator-caret {
-    padding: 0 5px;
+    padding: 3px 5px 0px 5px;
     color: #ffffff;
     font-size: 14px;
     font-weight: bold;
@@ -1257,7 +1542,7 @@ h4 {
 
 .indicator-caret.tie {
     color: #ffeb3b;
-    text-shadow:0 0 5px rgba(255, 235, 59, 0.8);
+    text-shadow: 0 0 5px rgba(255, 235, 59, 0.8);
 }
 
 .indicator-caret.left-wins {
