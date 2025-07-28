@@ -177,7 +177,7 @@ const setupSocketHandlers = (io) => {
       if (activeSessions.has(sessionId)) {
         // Notify all users in the session
         engagementIO.to(sessionId).emit('session-cancelled', { 
-          message: 'Engagement session cancelled'
+          message: 'Opponent has left the engagement.'
         });
         
         // Remove the session

@@ -625,6 +625,13 @@ export default {
 
     methods: {
         closeModal() {
+            // Check if we should show confirmation dialog
+            if (this.shouldShowExitConfirmation()) {
+                if (!confirm('Are you sure you want to exit this engagement?')) {
+                    return; // User cancelled, don't close
+                }
+            }
+
             // Clean up event listeners first
             this.cleanupEngagementListeners();
 
@@ -638,6 +645,16 @@ export default {
             engagementService.disconnect();
 
             this.$emit('close');
+        },
+
+        shouldShowExitConfirmation() {
+            // Show confirmation if:
+            // 1. There is an opponent (engagement has started)
+            // 2. Results are available (roll has completed)
+            // 3. Both users haven't accepted yet
+            return this.opponent &&
+                this.showResults &&
+                !(this.userAccepted && this.opponentAccepted);
         },
 
         confirmRoll() {
@@ -689,14 +706,18 @@ export default {
                 }
             };
 
-            this.userLeftHandler = ({ message }) => {
+            this.userLeftHandler = ({ message, characterName }) => {
                 this.opponent = null;
                 this.sessionStatus = 'waiting';
-                alert(message);
+                // Show character name if available, otherwise fall back to generic message
+                const alertMessage = characterName ? `${characterName} has exited the engagement.` : message;
+                alert(alertMessage);
             };
 
-            this.sessionCancelledHandler = ({ message }) => {
-                alert(message);
+            this.sessionCancelledHandler = ({ message, characterName }) => {
+                // Show character name if available, otherwise fall back to generic message
+                const alertMessage = characterName ? `${characterName} has exited the engagement.` : message;
+                alert(alertMessage);
                 this.sessionId = null;
                 this.sessionStatus = 'waiting';
                 this.opponent = null;
