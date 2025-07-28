@@ -2,23 +2,39 @@
   <div class="dice-roll-results">
     <div v-if="latestRoll" class="roll-content">
       <div class="roll-title">
-        {{ latestRoll.characterName }} rolled
-        <span class="skill-name">{{
-          latestRoll.baseSkillName || latestRoll.skillName
-          }}</span>
-        <span v-if="latestRoll.favoredStatus" :class="{
-          'favored-modifier': latestRoll.favoredStatus === 'favored',
-          'ill-favored-modifier': latestRoll.favoredStatus === 'ill-favored',
-        }">
-          ({{ latestRoll.favoredStatus }})
+        <span v-if="isEngagement">
+          Engagement:
+          <span class="skill-name">{{ latestRoll.characterName }}</span>
+          vs
+          <span class="skill-name">{{ latestRoll.opponentName }}</span>
+        </span>
+        <span v-else>
+          {{ latestRoll.characterName }} rolled
+          <span class="skill-name">{{
+            latestRoll.baseSkillName || latestRoll.skillName
+            }}</span>
+          <span v-if="latestRoll.favoredStatus" :class="{
+            'favored-modifier': latestRoll.favoredStatus === 'favored',
+            'ill-favored-modifier': latestRoll.favoredStatus === 'ill-favored',
+          }">
+            ({{ latestRoll.favoredStatus }})
+          </span>
         </span>
       </div>
 
       <!-- Use Vue's transition component for smooth appearance -->
       <transition name="outcome-fade" appear>
-        <div v-if="!isRolling" class="roll-outcome"
-          :class="{ success: latestRoll.success, failure: !latestRoll.success }">
-          {{ latestRoll.success ? 'SUCCESS' : 'FAILURE' }}
+        <div v-if="!isRolling" class="roll-outcome" :class="{
+          success: isEngagement ? latestRoll.result === 'win' : latestRoll.success,
+          failure: isEngagement ? latestRoll.result === 'loss' : !latestRoll.success,
+          draw: isEngagement && latestRoll.result === 'draw'
+        }">
+          <span v-if="isEngagement">
+            {{ latestRoll.result === 'win' ? 'WIN' : latestRoll.result === 'draw' ? 'DRAW' : 'LOSS' }}
+          </span>
+          <span v-else>
+            {{ latestRoll.success ? 'SUCCESS' : 'FAILURE' }}
+          </span>
         </div>
       </transition>
 
@@ -28,15 +44,23 @@
       <!-- Use a simpler fade transition with appear prop -->
       <transition name="simple-fade" appear>
         <div v-if="!isRolling" class="roll-numbers">
-          <span class="roll-total">{{ latestRoll.total }}</span>
-          <span class="roll-target">{{ latestRoll.targetNumber }}</span>
+          <span v-if="isEngagement" class="engagement-score">
+            <span class="user-wins">{{ latestRoll.userWins }}</span>
+            <span class="score-separator">to</span>
+            <span class="opponent-wins">{{ latestRoll.opponentWins }}</span>
+          </span>
+          <span v-else>
+            <span class="roll-total">{{ latestRoll.total }}</span>
+            <span class="roll-target">{{ latestRoll.targetNumber }}</span>
+          </span>
         </div>
       </transition>
 
       <!-- Placeholder when rolling -->
       <div v-if="isRolling" class="roll-numbers-placeholder"></div>
 
-      <div class="roll-dice">
+      <!-- Only show dice for skill checks, not engagement -->
+      <div v-if="!isEngagement" class="roll-dice">
         <span v-for="(die, index) in displayDice" :key="index" class="dice-symbol" :class="{
           'dropped-die': !isRolling && die.dropped,
           'max-value-die': !isRolling && die.isMaxValue,
@@ -49,13 +73,16 @@
         </span>
       </div>
 
-      <div v-if="latestRoll.footer" class="roll-footer">
+      <!-- Empty space for engagement to maintain layout consistency -->
+      <div v-else class="engagement-dice-placeholder"></div>
+
+      <div v-if="!isEngagement && latestRoll.footer" class="roll-footer">
         {{ latestRoll.footer }}
       </div>
     </div>
 
     <div v-else class="no-roll">
-      <em>Skill check results will appear here!</em>
+      <em>Roll results will appear here!</em>
     </div>
   </div>
 </template>
@@ -83,9 +110,22 @@ export default {
         ? this.animatedDice
         : this.latestRoll?.diceResults || []
     },
+    isEngagement() {
+      // Detect if this is an engagement result based on the presence of engagement-specific properties
+      return this.latestRoll && (
+        this.latestRoll.type === 'engagement' ||
+        (this.latestRoll.opponentName && this.latestRoll.result && this.latestRoll.userWins !== undefined)
+      )
+    }
   },
   methods: {
     startRollAnimation() {
+      // Skip animation for engagement results since they don't have dice to animate
+      if (this.isEngagement) {
+        this.isRolling = false
+        return
+      }
+
       if (
         !this.latestRoll ||
         !this.latestRoll.diceResults ||
@@ -241,6 +281,11 @@ export default {
   background-color: rgba(244, 67, 54, 0.2);
 }
 
+.draw {
+  color: #ffeb3b;
+  background-color: rgba(255, 235, 59, 0.2);
+}
+
 .roll-numbers {
   display: flex;
   justify-content: center;
@@ -264,6 +309,23 @@ export default {
   color: #aaa;
 }
 
+.engagement-score {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.user-wins,
+.opponent-wins {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.score-separator {
+  font-size: 16px;
+  color: #aaa;
+}
+
 .roll-dice {
   display: flex;
   flex-wrap: nowrap;
@@ -273,6 +335,13 @@ export default {
   padding: 5px 0;
   overflow-x: auto;
   /* Allow horizontal scrolling if needed */
+}
+
+.engagement-dice-placeholder {
+  /* Match the height and padding of roll-dice to maintain layout consistency */
+  padding: 5px 0;
+  height: 46px;
+  /* Approximate height of dice section */
 }
 
 .dice-symbol {

@@ -150,6 +150,14 @@ const setupSocketHandlers = (io) => {
         const userIndex = session.users.findIndex(user => user.socketId === socket.id);
         
         if (userIndex !== -1) {
+          // Check if both users have accepted before sending alerts
+          const bothAccepted = session.users.length === 2 && 
+                              session.users.every(user => user.accepted === true);
+          
+          // Get the leaving user's character name for the alert
+          const leavingUser = session.users[userIndex];
+          const characterName = leavingUser.characterInfo?.name;
+          
           // Remove the user from the session
           session.users.splice(userIndex, 1);
           
@@ -161,13 +169,15 @@ const setupSocketHandlers = (io) => {
           // If no users left, remove the session
           if (session.users.length === 0) {
             activeSessions.delete(sessionId);
-          } else {
-            // Notify remaining users
+          } else if (!bothAccepted) {
+            // Only notify remaining users if both hadn't already accepted
             engagementIO.to(sessionId).emit('user-left', { 
               session,
-              message: 'Opponent has left the engagement'
+              message: 'Opponent has left the engagement',
+              characterName: characterName
             });
           }
+          // If both had accepted, don't send any alert - this is a normal exit
         }
       }
     });
@@ -175,10 +185,23 @@ const setupSocketHandlers = (io) => {
     // Cancel a session
     socket.on('cancel-session', ({ sessionId }) => {
       if (activeSessions.has(sessionId)) {
-        // Notify all users in the session
-        engagementIO.to(sessionId).emit('session-cancelled', { 
-          message: 'Opponent has left the engagement.'
-        });
+        const session = activeSessions.get(sessionId);
+        
+        // Check if both users have accepted before sending alerts
+        const bothAccepted = session.users.length === 2 && 
+                            session.users.every(user => user.accepted === true);
+        
+        // Find the user who is cancelling the session
+        const cancellingUser = session.users.find(user => user.socketId === socket.id);
+        const characterName = cancellingUser?.characterInfo?.name;
+        
+        if (!bothAccepted) {
+          // Only notify users if both hadn't already accepted
+          engagementIO.to(sessionId).emit('session-cancelled', { 
+            message: 'Opponent has left the engagement.',
+            characterName: characterName
+          });
+        }
         
         // Remove the session
         activeSessions.delete(sessionId);
@@ -217,6 +240,15 @@ const setupSocketHandlers = (io) => {
     socket.on('acceptance-state-updated', ({ sessionId, characterId, accepted }) => {
       console.log('Backend received acceptance state update:', { sessionId, characterId, accepted });
       if (activeSessions.has(sessionId)) {
+        const session = activeSessions.get(sessionId);
+        
+        // Update the acceptance state for the user in the session
+        const user = session.users.find(u => u.characterInfo.id === characterId);
+        if (user) {
+          user.accepted = accepted;
+          console.log('Updated user acceptance state:', user.characterInfo.name, 'accepted:', accepted);
+        }
+        
         // Broadcast the acceptance state to all other users in the session
         console.log('Broadcasting acceptance state to session:', sessionId);
         socket.to(sessionId).emit('acceptance-state-updated', { characterId, accepted });

@@ -48,35 +48,35 @@
       "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 1
+      "diceMod": 0
     },
     {
       "name": "Insight",
       "ranks": 0,
       "isFavored": false,
-      "isIllFavored": false,
-      "diceMod": 0
+      "isIllFavored": true,
+      "diceMod": -1
     },
     {
       "name": "Courtesy",
       "ranks": 0,
       "isFavored": false,
-      "isIllFavored": false,
-      "diceMod": 0
+      "isIllFavored": true,
+      "diceMod": -1
     },
     {
       "name": "Spirit",
       "ranks": 3,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 0
+      "diceMod": -1
     },
     {
       "name": "Aid",
       "ranks": 0,
       "isFavored": false,
-      "isIllFavored": false,
-      "diceMod": 0
+      "isIllFavored": true,
+      "diceMod": -1
     },
     {
       "name": "Persuade",
@@ -119,7 +119,7 @@
     "max": 10
   },
   "hope": {
-    "current": 12,
+    "current": 5,
     "max": 12
   },
   "defense": {
@@ -132,7 +132,7 @@
   "states": {
     "weary": false,
     "twiceWeary": false,
-    "miserable": false,
+    "miserable": true,
     "twiceMiserable": false,
     "helpless": false,
     "twiceHelpless": false
@@ -206,5 +206,7 @@
   ],
   "engagementSuccesses": [
     "10"
-  ]
+  ],
+  "weary": false,
+  "miserable": false
 }

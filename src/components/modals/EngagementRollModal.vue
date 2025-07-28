@@ -297,7 +297,7 @@ export default {
         }
     },
 
-    emits: ['close', 'confirm-roll', 'engagement-committed'],
+    emits: ['close', 'confirm-roll', 'engagement-committed', 'engagement-results'],
 
     computed: {
         characterArtUrl() {
@@ -620,6 +620,28 @@ export default {
         // Check if editing is allowed (not locked by either user accepting)
         canEditResults() {
             return !this.userAccepted && !this.opponentAccepted;
+        },
+
+        // Calculate user wins for engagement results
+        userWinCount() {
+            if (!this.showResults || this.diceComparisons.length === 0) {
+                return 0;
+            }
+
+            return this.diceComparisons.filter(comparison => {
+                return comparison.leftWins || comparison.winnerCharacterId === this.character.id;
+            }).length;
+        },
+
+        // Calculate opponent wins for engagement results  
+        opponentWinCount() {
+            if (!this.showResults || this.diceComparisons.length === 0) {
+                return 0;
+            }
+
+            return this.diceComparisons.filter(comparison => {
+                return comparison.rightWins || comparison.winnerCharacterId === (this.opponent?.characterInfo?.id);
+            }).length;
         }
     },
 
@@ -863,6 +885,9 @@ export default {
                 if (this.opponent && characterId === this.opponent.characterInfo.id) {
                     console.log('Updating opponent acceptance state:', accepted);
                     this.opponentAccepted = accepted;
+
+                    // Check if both users have now accepted and emit results
+                    this.checkAndEmitResults();
                 } else {
                     console.log('Unknown character ID for acceptance:', characterId);
                 }
@@ -1277,6 +1302,48 @@ export default {
             // Broadcast the acceptance state to other users
             console.log('Broadcasting acceptance state:', { characterId: this.character.id, accepted: this.userAccepted });
             engagementService.updateAcceptanceState(this.character.id, this.userAccepted);
+
+            // Check if both users have now accepted and emit results
+            this.checkAndEmitResults();
+        },
+
+        checkAndEmitResults() {
+            // If both users have accepted, emit the engagement results
+            if (this.userAccepted && this.opponentAccepted && this.showResults && this.opponent) {
+                this.emitEngagementResults();
+            }
+        },
+
+        emitEngagementResults() {
+            // Determine the result from the user's perspective
+            let result;
+            switch (this.engagementWinner) {
+                case 'user':
+                    result = 'win';
+                    break;
+                case 'opponent':
+                    result = 'loss';
+                    break;
+                case 'tie':
+                    result = 'draw';
+                    break;
+                default:
+                    result = 'draw';
+            }
+
+            // Format the engagement result for the DiceRollResults component
+            const engagementResult = {
+                type: 'engagement',
+                characterName: this.character.name,
+                opponentName: this.opponent.characterInfo.name,
+                result: result,
+                userWins: this.userWinCount,
+                opponentWins: this.opponentWinCount,
+                timestamp: Date.now()
+            };
+
+            console.log('Emitting engagement results:', engagementResult);
+            this.$emit('engagement-results', engagementResult);
         }
     },
 

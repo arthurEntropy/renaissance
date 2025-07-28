@@ -45,7 +45,7 @@
             <div class="conditions-row" v-for="(value, key) in selectedCharacter.conditions" :key="key">
               <span :class="{ 'condition-active': value }">{{
                 this.$capitalizeFirstLetter(key)
-              }}</span>
+                }}</span>
               <input type="checkbox" class="skill-checkbox" :class="{ 'condition-active-checkbox': value }"
                 v-model="selectedCharacter.conditions[key]" />
             </div>
@@ -56,7 +56,7 @@
         <!-- Three-column layout for Engagement, Equipment, and Abilities -->
         <div class="main-column">
           <EngagementDiceTable :character="selectedCharacter" :allEquipment="allEquipment" :sources="sources"
-            @update:character="updateCharacter" />
+            @update:character="updateCharacter" @engagement-results="handleEngagementResults" />
         </div>
         <div class="main-column">
           <EquipmentTable :equipment="selectedCharacter.equipment" :allEquipment="allEquipment"
@@ -359,6 +359,13 @@ export default {
     updateCharacter(updatedCharacter) {
       this.selectedCharacter = { ...updatedCharacter }
     },
+
+    handleEngagementResults(engagementResult) {
+      // Update the latestRoll to show engagement results in DiceRollResults component
+      console.log('CharactersView received engagement results:', engagementResult);
+      this.latestRoll = engagementResult;
+    },
+
     deleteCharacter() {
       CharacterService.deleteCharacter(this.selectedCharacter)
       this.closeDeleteConfirmationModal()

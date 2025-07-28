@@ -22,7 +22,8 @@
     <!-- Engagement Roll Modal -->
     <EngagementRollModal v-if="showEngagementRollModal" :character="character" :selectedDice="currentRollDice"
       :allEngagementSuccesses="allEngagementSuccesses" :allEquipment="allEquipment" @close="closeEngagementRollModal"
-      @confirm-roll="handleConfirmRoll" @engagement-committed="handleEngagementCommitted" />
+      @confirm-roll="handleConfirmRoll" @engagement-committed="handleEngagementCommitted"
+      @engagement-results="handleEngagementResults" />
 
     <div class="engagement-dice-content">
       <div v-if="diceSourceInfo.length > 0 || isEditMode" class="dice-display">
@@ -153,7 +154,7 @@ export default {
     }
   },
 
-  emits: ['update:character'], // Emit event to update character
+  emits: ['update:character', 'engagement-results'], // Emit event to update character and send engagement results
 
   data() {
     return {
@@ -498,7 +499,15 @@ export default {
         }
       });
       this.diceStatuses = updatedStatuses;
-    }, resetDice() {
+    },
+
+    handleEngagementResults(engagementResult) {
+      // Pass the engagement results up to the parent component
+      console.log('EngagementDiceTable received engagement results:', engagementResult);
+      this.$emit('engagement-results', engagementResult);
+    },
+
+    resetDice() {
       if (!this.hasExpendedDice) {
         return;
       }
