@@ -13,8 +13,7 @@
           :disabled="isEditMode || !hasExpendedDice" @click="resetDice">
           Reset
         </button>
-        <button class="roll-button" :class="{ 'active': hasSelectedDice && !isEditMode }"
-          :disabled="isEditMode || !hasSelectedDice" @click="rollSelectedDice">
+        <button class="roll-button" :class="{ 'active': !isEditMode }" :disabled="isEditMode" @click="rollSelectedDice">
           Roll
         </button>
       </div>
@@ -461,8 +460,10 @@ export default {
       const selectedDice = [...this.selectedDice]; // Create a copy
 
       if (selectedDice.length === 0) {
-        alert('Please select at least one die to roll.');
-        return;
+        // Confirm entering engagement with no dice
+        if (!confirm('Enter engagement with no dice selected?')) {
+          return;
+        }
       }
 
       // Store the selected dice in a data property so they don't change

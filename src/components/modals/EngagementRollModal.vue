@@ -185,16 +185,30 @@
                 <div v-if="opponent" class="engagement-resolution">
                     <div class="result-label">Result:</div>
                     <div class="result-row">
-                        <button class="button button-gold accept-btn user-accept"
-                            :class="{ 'accepted': userAccepted, 'disabled': !showResults }" :disabled="!showResults"
-                            @click="toggleUserAccept">
+                        <button class="button accept-btn user-accept" :class="{
+                            'accepted': userAccepted,
+                            'disabled': !showResults,
+                            'win-pale': !userAccepted && engagementWinner === 'user',
+                            'win-solid': userAccepted && engagementWinner === 'user',
+                            'loss-pale': !userAccepted && engagementWinner === 'opponent',
+                            'loss-solid': userAccepted && engagementWinner === 'opponent',
+                            'draw-pale': !userAccepted && engagementWinner === 'tie',
+                            'draw-solid': userAccepted && engagementWinner === 'tie'
+                        }" :disabled="!showResults" @click="toggleUserAccept">
                             {{ userAccepted ? '✓' : 'Accept' }}
                         </button>
-                        <div class="winner-announcement" :class="{ 'both-accepted': userAccepted && opponentAccepted }">
+                        <div class="winner-announcement" :class="{
+                            'both-accepted': userAccepted && opponentAccepted,
+                            'draw-result': engagementWinner === 'tie'
+                        }">
                             {{ winnerText }}
                         </div>
-                        <button class="button opponent-status-btn"
-                            :class="{ 'accepted': opponentAccepted, 'waiting': !opponentAccepted }" disabled>
+                        <button class="button opponent-status-btn" :class="{
+                            'waiting': !opponentAccepted,
+                            'opponent-win-solid': opponentAccepted && engagementWinner === 'opponent',
+                            'opponent-loss-solid': opponentAccepted && engagementWinner === 'user',
+                            'opponent-draw-solid': opponentAccepted && engagementWinner === 'tie'
+                        }" disabled>
                             {{ opponentAccepted ? '✓' : 'Waiting...' }}
                         </button>
                     </div>
@@ -510,6 +524,15 @@ export default {
                         index: i,
                         winnerCharacterId: this.character.id
                     });
+                } else if (!userDie && !opponentDie) {
+                    // Both sides have no dice - this is a tie
+                    comparisons.push({
+                        leftWins: false,
+                        rightWins: false,
+                        tie: true,
+                        index: i,
+                        winnerCharacterId: null
+                    });
                 } else if (userDie && opponentDie && !userDie.isRolling && !opponentDie.isRolling &&
                     userDie.value !== undefined && opponentDie.value !== undefined) {
                     // Both sides have dice with values
@@ -539,7 +562,19 @@ export default {
 
         // Determine who wins the overall engagement based on dice comparisons
         engagementWinner() {
-            if (!this.showResults || !this.opponent || this.diceComparisons.length === 0) {
+            if (!this.showResults || !this.opponent) {
+                return null;
+            }
+
+            // Special case: if both players have no dice, it's a tie
+            const userDice = this.sortedSelectedDice;
+            const opponentDice = this.sortedOpponentDice;
+            if (userDice.length === 0 && opponentDice.length === 0) {
+                return 'tie';
+            }
+
+            // If no comparisons exist (shouldn't happen with the above check), return null
+            if (this.diceComparisons.length === 0) {
                 return null;
             }
 
@@ -1593,6 +1628,60 @@ export default {
     color: white;
 }
 
+.button-gold.draw-accepted {
+    background-color: #ffeb3b;
+    color: #000;
+}
+
+/* User Accept Button Colors */
+.accept-btn {
+    min-width: 60px;
+    width: 80px;
+    padding: 6px 12px;
+    font-size: 14px;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+}
+
+/* Win states for user (user wins) */
+.accept-btn.win-pale {
+    background-color: rgba(76, 175, 80, 0.4);
+    color: white;
+    border: 1px solid rgba(76, 175, 80, 0.6);
+}
+
+.accept-btn.win-solid {
+    background-color: #4caf50;
+    color: white;
+    border: 1px solid #4caf50;
+}
+
+/* Loss states for user (opponent wins) */
+.accept-btn.loss-pale {
+    background-color: rgba(244, 67, 54, 0.4);
+    color: white;
+    border: 1px solid rgba(244, 67, 54, 0.6);
+}
+
+.accept-btn.loss-solid {
+    background-color: #f44336;
+    color: white;
+    border: 1px solid #f44336;
+}
+
+/* Draw states for user */
+.accept-btn.draw-pale {
+    background-color: rgba(255, 235, 59, 0.4);
+    color: white;
+    border: 1px solid rgba(255, 235, 59, 0.6);
+}
+
+.accept-btn.draw-solid {
+    background-color: #ffeb3b;
+    color: white;
+    border: 1px solid #ffeb3b;
+}
+
 .button-secondary {
     background-color: #ddd;
     color: #333;
@@ -1620,14 +1709,6 @@ export default {
     justify-content: space-between;
     width: 100%;
     gap: 15px;
-}
-
-.accept-btn {
-    min-width: 60px;
-    width: 80px;
-    padding: 6px 12px;
-    font-size: 14px;
-    flex-shrink: 0;
 }
 
 .accept-btn.disabled {
@@ -1665,6 +1746,28 @@ export default {
     font-weight: normal;
 }
 
+/* Opponent Accept Button Colors - reflect opponent's outcome */
+.opponent-status-btn.opponent-win-solid {
+    background-color: #4caf50;
+    color: white;
+    font-style: normal;
+    font-weight: bold;
+}
+
+.opponent-status-btn.opponent-loss-solid {
+    background-color: #f44336;
+    color: white;
+    font-style: normal;
+    font-weight: bold;
+}
+
+.opponent-status-btn.opponent-draw-solid {
+    background-color: #ffeb3b;
+    color: white;
+    font-style: normal;
+    font-weight: bold;
+}
+
 .winner-announcement {
     font-weight: bold;
     font-size: 16px;
@@ -1679,6 +1782,12 @@ export default {
     border: 3px solid #4caf50;
     box-shadow: 0 0 15px rgba(76, 175, 80, 0.3);
     background-color: rgba(76, 175, 80, 0.1);
+}
+
+.winner-announcement.draw-result {
+    border: 3px solid #ffeb3b;
+    box-shadow: 0 0 15px rgba(255, 235, 59, 0.4);
+    background-color: rgba(255, 235, 59, 0.1);
 }
 
 /* Winner Column Styling */
