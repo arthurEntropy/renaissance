@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import DiceService from '@/services/DiceService';
+import EngagementRollService from '@/services/EngagementRollService';
 import CharacterColumn from '@/components/engagement/CharacterColumn.vue';
 import DiceComparisonIndicators from '@/components/engagement/DiceComparisonIndicators.vue';
 import EngagementResolution from '@/components/engagement/EngagementResolution.vue';
@@ -405,7 +405,7 @@ export default {
             emit('engagement-results', engagementResult)
 
             // Send engagement results to Discord
-            DiceService.sendEngagementResultsToServer(engagementResult)
+            EngagementRollService.sendEngagementResultsToServer(engagementResult)
         }
 
         // Event handlers for WebSocket events

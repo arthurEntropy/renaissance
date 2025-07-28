@@ -1,5 +1,5 @@
 import { ref, reactive, nextTick } from 'vue'
-import DiceService from '@/services/DiceService'
+import EngagementRollService from '@/services/EngagementRollService'
 import engagementService from '@/services/EngagementService'
 
 /**
@@ -44,8 +44,8 @@ export function useEngagementDice() {
       }
 
       if (targetResults && targetResults.rollResults) {
-        // Use DiceService to sort the dice
-        const sortedDice = DiceService.sortEngagementDice(selectedDice, targetResults.rollResults)
+        // Use EngagementRollService to sort the dice
+        const sortedDice = EngagementRollService.sortEngagementDice(selectedDice, targetResults.rollResults)
         
         // Store sorted order for consistency
         if (side === 'user' && !initialSortDone.value) {
@@ -77,11 +77,11 @@ export function useEngagementDice() {
     }
 
     // No results yet - show dice in rolling state
-    return DiceService.sortEngagementDice(selectedDice, null)
+    return EngagementRollService.sortEngagementDice(selectedDice, null)
   }
 
   /**
-   * Calculate dice comparisons using DiceService
+   * Calculate dice comparisons using EngagementRollService
    * @param {Array} userDice - User's sorted dice
    * @param {Array} opponentDice - Opponent's sorted dice
    * @param {string} userCharacterId - User's character ID
@@ -89,7 +89,7 @@ export function useEngagementDice() {
    * @returns {Array} Dice comparisons array
    */
   function calculateDiceComparisons(userDice, opponentDice, userCharacterId, opponentCharacterId) {
-    return DiceService.calculateDiceComparisons(
+    return EngagementRollService.calculateDiceComparisons(
       userDice, 
       opponentDice, 
       userCharacterId, 
@@ -99,14 +99,14 @@ export function useEngagementDice() {
   }
 
   /**
-   * Determine engagement winner using DiceService
+   * Determine engagement winner using EngagementRollService
    * @param {Array} diceComparisons - Dice comparisons array
    * @param {Array} userDice - User's dice array
    * @param {Array} opponentDice - Opponent's dice array
    * @returns {string|null} Winner designation
    */
   function determineEngagementWinner(diceComparisons, userDice, opponentDice) {
-    return DiceService.determineEngagementWinner(diceComparisons, userDice, opponentDice)
+    return EngagementRollService.determineEngagementWinner(diceComparisons, userDice, opponentDice)
   }
 
   /**
@@ -118,7 +118,7 @@ export function useEngagementDice() {
    * @returns {number} Number of wins
    */
   function countWins(diceComparisons, side, userCharacterId, opponentCharacterId) {
-    return DiceService.countSideWins(diceComparisons, side, userCharacterId, opponentCharacterId)
+    return EngagementRollService.countSideWins(diceComparisons, side, userCharacterId, opponentCharacterId)
   }
 
   /**
@@ -127,7 +127,7 @@ export function useEngagementDice() {
    * @returns {number} Number of ties
    */
   function countTies(diceComparisons) {
-    return DiceService.countTies(diceComparisons)
+    return EngagementRollService.countTies(diceComparisons)
   }
 
   /**
@@ -177,8 +177,8 @@ export function useEngagementDice() {
       targetDice.class = `df-d${originalDieSize}-${originalDieSize}`
       targetDice.isMax = false
 
-      // Roll new value using DiceService
-      const newValue = DiceService.rollSingleDie(originalDieSize)
+      // Roll new value using EngagementRollService
+      const newValue = EngagementRollService.rollSingleDie(originalDieSize)
       const isNewMax = newValue === originalDieSize
 
       // Broadcast the reroll to other users immediately
@@ -194,9 +194,9 @@ export function useEngagementDice() {
         // Remove from rerolling set
         rerollingDice.delete(rerollKey)
 
-        // Update the roll results using DiceService
+        // Update the roll results using EngagementRollService
         const opponentSocketId = opponent?.socketId
-        DiceService.updateRollResultsAfterReroll(
+        EngagementRollService.updateRollResultsAfterReroll(
           rollResults,
           player,
           index,
@@ -252,8 +252,8 @@ export function useEngagementDice() {
       // Remove from rerolling set
       rerollingDice.delete(`opponent-${diceIndex}`)
 
-      // Update roll results using DiceService
-      DiceService.updateRollResultsAfterReroll(
+      // Update roll results using EngagementRollService
+      EngagementRollService.updateRollResultsAfterReroll(
         rollResults,
         'opponent',
         diceIndex,

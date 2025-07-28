@@ -45,7 +45,7 @@
             <div class="conditions-row" v-for="(value, key) in selectedCharacter.conditions" :key="key">
               <span :class="{ 'condition-active': value }">{{
                 this.$capitalizeFirstLetter(key)
-                }}</span>
+              }}</span>
               <input type="checkbox" class="skill-checkbox" :class="{ 'condition-active-checkbox': value }"
                 v-model="selectedCharacter.conditions[key]" />
             </div>
@@ -113,7 +113,7 @@ import DeleteConfirmationModal from '@/components/modals/DeleteConfirmationModal
 import EditEquipmentModal from '@/components/modals/EditEquipmentModal.vue'
 import EngagementDiceTable from '@/components/characterSheet/EngagementDiceTable.vue'
 import DiceRollResults from '@/components/characterSheet/DiceRollResults.vue'
-import DiceService from '@/services/DiceService'
+import SkillCheckService from '@/services/SkillCheckService'
 
 export default {
   components: {
@@ -476,7 +476,7 @@ export default {
     },
     // LATEST ROLL
     updateLatestRoll() {
-      this.latestRoll = DiceService.getLatestRollResult()
+      this.latestRoll = SkillCheckService.getLatestRollResult()
     },
   },
 }

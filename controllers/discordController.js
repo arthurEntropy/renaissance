@@ -5,6 +5,7 @@ const DISCORD_WEBHOOK_URL="https://discord.com/api/webhooks/1339580491094822932/
 
 const sendDiscordMessage = (req, res) => {
   const {
+    // Skill check fields
     rollResults,
     total,
     targetNumber,
@@ -13,7 +14,7 @@ const sendDiscordMessage = (req, res) => {
     success,
     footer,
     image,
-    // Engagement-specific fields
+    // Engagement fields
     type,
     characterName,
     opponentName,

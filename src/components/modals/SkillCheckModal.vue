@@ -8,11 +8,7 @@
       <div class="skill-selection-row">
         <select v-model="localSelectedSkillName" class="modal-skill-dropdown">
           <option disabled value="">Select a skill</option>
-          <option
-            v-for="skill in localCharacter.skills"
-            :key="skill.name"
-            :value="skill.name"
-          >
+          <option v-for="skill in localCharacter.skills" :key="skill.name" :value="skill.name">
             {{ skill.name }}
           </option>
         </select>
@@ -27,13 +23,8 @@
       </div>
 
       <div class="dice-mod-options">
-        <span
-          v-for="mod in diceModOptions"
-          :key="mod.value"
-          class="dice-mod-option"
-          :class="{ selected: rollParameters.diceMod === mod.value }"
-          @click="rollParameters.diceMod = mod.value"
-        >
+        <span v-for="mod in diceModOptions" :key="mod.value" class="dice-mod-option"
+          :class="{ selected: rollParameters.diceMod === mod.value }" @click="rollParameters.diceMod = mod.value">
           {{ mod.label }}
         </span>
       </div>
@@ -41,28 +32,18 @@
       <div class="dice-preview" v-if="localSelectedSkillName">
         <div class="dice-pool">
           <!-- Display d12 dice -->
-          <span
-            v-for="(die, index) in d12DicePool"
-            :key="`d12-${index}`"
-            class="dice-symbol"
-            :class="{
-              'favored-die': rollParameters.isFavored,
-              'illfavored-die': rollParameters.isIllFavored,
-            }"
-          >
+          <span v-for="(die, index) in d12DicePool" :key="`d12-${index}`" class="dice-symbol" :class="{
+            'favored-die': rollParameters.isFavored,
+            'illfavored-die': rollParameters.isIllFavored,
+          }">
             <i :class="die.diceClass"></i>
           </span>
 
           <!-- Display d6 dice -->
-          <span
-            v-for="(die, index) in d6DicePool"
-            :key="`d6-${index}`"
-            class="dice-symbol"
-            :class="{
-              'added-die': die.isAdded,
-              'subtracted-die': die.isSubtracted,
-            }"
-          >
+          <span v-for="(die, index) in d6DicePool" :key="`d6-${index}`" class="dice-symbol" :class="{
+            'added-die': die.isAdded,
+            'subtracted-die': die.isSubtracted,
+          }">
             <i :class="die.diceClass"></i>
           </span>
         </div>
@@ -70,22 +51,13 @@
 
       <div class="section-label">Target Number:</div>
       <div class="target-number-options">
-        <span
-          v-for="tn in targetNumberOptions"
-          :key="tn"
-          class="target-number-option"
-          :class="{ selected: localTargetNumber === tn }"
-          @click="localTargetNumber = tn"
-        >
+        <span v-for="tn in targetNumberOptions" :key="tn" class="target-number-option"
+          :class="{ selected: localTargetNumber === tn }" @click="localTargetNumber = tn">
           {{ tn }}
         </span>
       </div>
 
-      <button
-        class="button button-primary"
-        @click="rollSkillCheck"
-        :disabled="!localSelectedSkillName"
-      >
+      <button class="button button-primary" @click="rollSkillCheck" :disabled="!localSelectedSkillName">
         Roll
       </button>
     </div>
@@ -93,7 +65,7 @@
 </template>
 
 <script>
-import DiceService from '@/services/DiceService'
+import SkillCheckService from '@/services/SkillCheckService'
 
 export default {
   props: {
@@ -270,7 +242,7 @@ export default {
       }
 
       // Use the adjusted roll parameters
-      DiceService.makeSkillCheck(
+      SkillCheckService.makeSkillCheck(
         this.rollParameters,
         this.localCharacter,
         this.localTargetNumber,
@@ -324,18 +296,21 @@ export default {
 
 /* Styling for favored dropdown options */
 select option.favored-option {
-  color: #4caf50; /* Green for favored */
+  color: #4caf50;
+  /* Green for favored */
   font-weight: bold;
 }
 
 select option.illfavored-option {
-  color: #f44336; /* Red for ill-favored */
+  color: #f44336;
+  /* Red for ill-favored */
   font-weight: bold;
 }
 
 .dice-preview {
   width: fit-content;
-  min-width: 280px; /* Space for 7 dice (2d12 + 5d6) */
+  min-width: 280px;
+  /* Space for 7 dice (2d12 + 5d6) */
   max-width: 300px;
   padding: 15px;
   background-color: rgba(255, 255, 255, 0.05);
@@ -416,7 +391,8 @@ select option.illfavored-option {
 .dice-mod-option.selected,
 .target-number-option.selected {
   background-color: gold;
-  color: black; /* Better contrast with gold */
+  color: black;
+  /* Better contrast with gold */
   border-color: gold;
 }
 
@@ -428,7 +404,8 @@ select option.illfavored-option {
 
 .button-primary {
   background-color: gold;
-  color: black; /* Better contrast with gold */
+  color: black;
+  /* Better contrast with gold */
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -441,6 +418,7 @@ select option.illfavored-option {
 }
 
 .button-primary:not(:disabled):hover {
-  background-color: rgb(192, 162, 86); /* Slightly darker gold on hover */
+  background-color: rgb(192, 162, 86);
+  /* Slightly darker gold on hover */
 }
 </style>
