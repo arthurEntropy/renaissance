@@ -3,7 +3,7 @@
         <div class="modal-content engagement-roll-modal" @click.stop>
             <!-- Header -->
             <div class="header-row">
-                <h2>Engagement Roll</h2>
+                <h2>Engagement</h2>
             </div>
 
             <!-- Floating comparison indicators -->
@@ -132,7 +132,7 @@ export default {
 
             let successIds = []
 
-            // Add custom engagement successes
+            // Add user-added engagement successes
             if (props.character.engagementSuccesses && Array.isArray(props.character.engagementSuccesses)) {
                 successIds = [...props.character.engagementSuccesses]
             }

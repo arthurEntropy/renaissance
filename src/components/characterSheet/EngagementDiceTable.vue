@@ -29,10 +29,10 @@
       <div v-if="diceSourceInfo.length > 0 || isEditMode" class="dice-display">
         <!-- Display dice -->
         <div v-for="(diceInfo) in diceSourceInfo" :key="diceInfo.statusKey" class="dice-icon-container"
-          :class="{ 'custom-die': diceInfo.isCustom }">
-          <!-- Remove button for custom dice in edit mode -->
-          <button v-if="isEditMode && diceInfo.isCustom" class="remove-die-button"
-            @click="removeCustomDie(diceInfo.customIndex)">
+          :class="{ 'user-added-die': diceInfo.isUserAdded }">
+          <!-- Remove button for user-added dice in edit mode -->
+          <button v-if="isEditMode && diceInfo.isUserAdded" class="remove-die-button"
+            @click="removeUserAddedDie(diceInfo.userAddedIndex)">
             ✕
           </button>
 
@@ -55,7 +55,7 @@
       <!-- Dice dropdown for adding custom dice -->
       <div v-if="showDiceDropdown" class="dice-dropdown"
         :style="{ top: dropdownPosition.y + 'px', left: dropdownPosition.x + 'px' }">
-        <button v-for="die in diceOptions" :key="die" class="die-option" @click="addCustomDie(die)">
+        <button v-for="die in diceOptions" :key="die" class="die-option" @click="addUserAddedDie(die)">
           d{{ die }}
         </button>
       </div>
@@ -65,11 +65,12 @@
     <div class="engagement-successes-section">
       <div class="engagement-successes">
         <!-- Show existing successes -->
+        <!-- Show existing successes -->
         <div v-for="success in uniqueEngagementSuccesses" :key="success.id" class="engagement-success-pill-container"
-          :class="{ 'custom-success': success.isCustom }">
-          <!-- Remove button for custom successes in edit mode -->
-          <button v-if="isEditMode && success.isCustom" class="remove-success-button"
-            @click="removeCustomSuccess(success.id)">
+          :class="{ 'user-added-success': success.isUserAdded }">
+          <!-- Remove button for user-added successes in edit mode -->
+          <button v-if="isEditMode && success.isUserAdded" class="remove-success-button"
+            @click="removeUserAddedSuccess(success.id)">
             ✕
           </button>
 
@@ -97,7 +98,7 @@
       <!-- Only show available successes that can be added -->
       <div v-if="availableEngagementSuccesses.length > 0">
         <button v-for="success in availableEngagementSuccesses" :key="success.id" class="success-option"
-          @click="addCustomSuccess(success.id)">
+          @click="addUserAddedSuccess(success.id)">
           {{ success.name }}
         </button>
       </div>
@@ -200,34 +201,34 @@ export default {
       return [...dice].sort((a, b) => a - b)
     },
 
-    customEngagementDice() {
-      // Return the custom engagement dice from character, or an empty array if not defined
+    userAddedEngagementDice() {
+      // Return the user-added engagement dice from character, or an empty array if not defined
       return this.character.engagementDice || [];
     },
 
-    customEngagementSuccesses() {
-      // Return the custom engagement successes from character, or an empty array if not defined
+    userAddedEngagementSuccesses() {
+      // Return the user-added engagement successes from character, or an empty array if not defined
       return this.character.engagementSuccesses || [];
     },
 
     // All available engagement successes that can be added
     availableEngagementSuccesses() {
-      // Filter out successes that are already in the character's equipment or custom successes
+      // Filter out successes that are already in the character's equipment or user-added successes
       return this.allEngagementSuccesses.filter(success => {
-        // Check if this success is already in equipment or custom
+        // Check if this success is already in equipment or user-added
         const isInEquipment = this.allEquipmentEngagementSuccesses.includes(success.id);
-        const isInCustom = this.customEngagementSuccesses.includes(success.id);
-        return !isInEquipment && !isInCustom;
+        const isInUserAdded = this.userAddedEngagementSuccesses.includes(success.id);
+        return !isInEquipment && !isInUserAdded;
       }).sort((a, b) => a.name.localeCompare(b.name));
     },
 
     // All engagement successes that are already owned but can still be shown in dropdown
     ownedEngagementSuccesses() {
-      // Get successes that are already in the character's equipment or custom successes
+      // Get successes that are already in the character's equipment or user-added successes
       return this.allEngagementSuccesses.filter(success => {
         const isInEquipment = this.allEquipmentEngagementSuccesses.includes(success.id);
-        const isInCustom = this.customEngagementSuccesses.includes(success.id);
-        return isInEquipment || isInCustom;
+        const isInUserAdded = this.userAddedEngagementSuccesses.includes(success.id);
+        return isInEquipment || isInUserAdded;
       }).sort((a, b) => a.name.localeCompare(b.name));
     },
 
@@ -252,24 +253,24 @@ export default {
               dieIndex,
               statusKey,
               status,
-              isCustom: false
+              isUserAdded: false
             });
           });
         }
       });
 
-      // Add custom dice
-      if (this.customEngagementDice.length > 0) {
-        this.customEngagementDice.forEach((die, index) => {
-          const statusKey = `custom_${index}`;
+      // Add user-added dice
+      if (this.userAddedEngagementDice.length > 0) {
+        this.userAddedEngagementDice.forEach((die, index) => {
+          const statusKey = `user_added_${index}`;
           const status = this.diceStatuses[statusKey] || 'available';
           result.push({
             die,
-            name: 'Custom',
-            customIndex: index,
+            name: 'User-added',
+            userAddedIndex: index,
             statusKey,
             status,
-            isCustom: true
+            isUserAdded: true
           });
         });
       }
@@ -329,10 +330,10 @@ export default {
     },
 
     uniqueEngagementSuccesses() {
-      // Combine equipment and custom successes
+      // Combine equipment and user-added successes
       const allSuccessIds = [
         ...this.allEquipmentEngagementSuccesses,
-        ...this.customEngagementSuccesses
+        ...this.userAddedEngagementSuccesses
       ];
       const uniqueIds = [...new Set(allSuccessIds)];
 
@@ -340,10 +341,10 @@ export default {
         .map(id => {
           const success = this.allEngagementSuccesses.find(success => success.id === id);
           if (success) {
-            // Add a flag to indicate if this is a custom success
+            // Add a flag to indicate if this is a user-added success
             return {
               ...success,
-              isCustom: this.customEngagementSuccesses.includes(id) && !this.allEquipmentEngagementSuccesses.includes(id)
+              isUserAdded: this.userAddedEngagementSuccesses.includes(id) && !this.allEquipmentEngagementSuccesses.includes(id)
             };
           }
           return null;
@@ -556,11 +557,11 @@ export default {
       }
     },
 
-    addCustomDie(die) {
-      // Create a new array with the custom dice, adding the new one
-      const updatedDice = [...this.customEngagementDice, die];
+    addUserAddedDie(die) {
+      // Create a new array with the user-added dice, adding the new one
+      const updatedDice = [...this.userAddedEngagementDice, die];
 
-      // Update character with the new custom dice
+      // Update character with the new user-added dice
       const updatedCharacter = {
         ...this.character,
         engagementDice: updatedDice
@@ -573,11 +574,11 @@ export default {
       this.showDiceDropdown = false;
     },
 
-    removeCustomDie(index) {
-      // Create a new array with the custom dice, removing the specified one
-      const updatedDice = this.customEngagementDice.filter((_, i) => i !== index);
+    removeUserAddedDie(index) {
+      // Create a new array with the user-added dice, removing the specified one
+      const updatedDice = this.userAddedEngagementDice.filter((_, i) => i !== index);
 
-      // Update character with the new custom dice
+      // Update character with the new user-added dice
       const updatedCharacter = {
         ...this.character,
         engagementDice: updatedDice
@@ -641,11 +642,11 @@ export default {
       }
     },
 
-    addCustomSuccess(successId) {
-      // Create a new array with the custom successes, adding the new one
-      const updatedSuccesses = [...this.customEngagementSuccesses, successId];
+    addUserAddedSuccess(successId) {
+      // Create a new array with the user-added successes, adding the new one
+      const updatedSuccesses = [...this.userAddedEngagementSuccesses, successId];
 
-      // Update character with the new custom successes
+      // Update character with the new user-added successes
       const updatedCharacter = {
         ...this.character,
         engagementSuccesses: updatedSuccesses
@@ -658,11 +659,11 @@ export default {
       this.showSuccessDropdown = false;
     },
 
-    removeCustomSuccess(successId) {
-      // Create a new array with the custom successes, removing the specified one
-      const updatedSuccesses = this.customEngagementSuccesses.filter(id => id !== successId);
+    removeUserAddedSuccess(successId) {
+      // Create a new array with the user-added successes, removing the specified one
+      const updatedSuccesses = this.userAddedEngagementSuccesses.filter(id => id !== successId);
 
-      // Update character with the new custom successes
+      // Update character with the new user-added successes
       const updatedCharacter = {
         ...this.character,
         engagementSuccesses: updatedSuccesses
