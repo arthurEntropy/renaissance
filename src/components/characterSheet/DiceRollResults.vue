@@ -3,7 +3,7 @@
     <div v-if="latestRoll" class="roll-content">
       <div class="roll-title">
         <span v-if="isEngagement">
-          Engagement:
+          ⚔️ Engagement:
           <span class="skill-name">{{ latestRoll.characterName }}</span>
           vs
           <span class="skill-name">{{ latestRoll.opponentName }}</span>
@@ -48,6 +48,10 @@
             <span class="user-wins">{{ latestRoll.userWins }}</span>
             <span class="score-separator">to</span>
             <span class="opponent-wins">{{ latestRoll.opponentWins }}</span>
+            <span v-if="latestRoll.drawCount && latestRoll.drawCount > 0" class="draw-count">
+              , <span class="draw-number">{{ latestRoll.drawCount }}</span> {{ latestRoll.drawCount === 1 ? 'draw' :
+                'draws' }}
+            </span>
           </span>
           <span v-else>
             <span class="roll-total">{{ latestRoll.total }}</span>
@@ -316,14 +320,23 @@ export default {
 }
 
 .user-wins,
-.opponent-wins {
+.opponent-wins,
+.draw-number {
   font-size: 20px;
   font-weight: bold;
+  color: white;
+  /* Ensure same color as win/loss numbers */
 }
 
 .score-separator {
   font-size: 16px;
   color: #aaa;
+}
+
+.draw-count {
+  font-size: 14px;
+  color: #999;
+  font-style: italic;
 }
 
 .roll-dice {

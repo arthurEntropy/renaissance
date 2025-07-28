@@ -13,35 +13,81 @@ const sendDiscordMessage = (req, res) => {
     success,
     footer,
     image,
+    // Engagement-specific fields
+    type,
+    characterName,
+    opponentName,
+    result,
+    userWins,
+    opponentWins,
+    drawCount
   } = req.body
 
-  const embed = {
-    title: `${name ? name : 'Someone'} rolled ${skill ? skill : ''}`,
-    description: `${success ? '**SUCCESS**' : '**FAILURE**'}`,
-    color: success ? 0x00ff00 : 0xff0000, // Green for success, red for failure
-    thumbnail: {
-      url: image,
-    },
-    fields: [
-      {
-        name: 'Result',
-        value: `${total}`,
-        inline: true,
+  // Detect if this is an engagement result
+  const isEngagement = type === 'engagement' || (opponentName && result && userWins !== undefined)
+  
+  let embed
+  
+  if (isEngagement) {
+    // Create engagement embed
+    const winner = result === 'win' ? characterName : result === 'loss' ? opponentName : null
+    const description = result === 'draw' ? 'DRAW' : `**${winner.toUpperCase()} WINS**`
+    
+    // Use provided drawCount, or calculate if not provided
+    const calculatedDraws = drawCount !== undefined ? drawCount : Math.max(0, Math.max(userWins || 0, opponentWins || 0) - (userWins || 0) - (opponentWins || 0))
+    
+    embed = {
+      title: `⚔️ Engagement: ${characterName} vs ${opponentName}`,
+      description: description,
+      color: result === 'draw' ? 0xffeb3b : null, // Yellow for draw, no color for win/loss
+      fields: [
+        {
+          name: characterName,
+          value: `${userWins}`,
+          inline: true,
+        },
+        {
+          name: opponentName,
+          value: `${opponentWins}`,
+          inline: true,
+        },
+        {
+          name: 'Draws',
+          value: `${calculatedDraws}`,
+          inline: true,
+        },
+      ],
+    }
+  } else {
+    // Create skill check embed (original logic)
+    embed = {
+      title: `${name ? name : 'Someone'} rolled ${skill ? skill : ''}`,
+      description: `${success ? '**SUCCESS**' : '**FAILURE**'}`,
+      color: success ? 0x00ff00 : 0xff0000, // Green for success, red for failure
+      thumbnail: {
+        url: image,
       },
-      {
-        name: 'Target',
-        value: `${targetNumber}`,
-        inline: true,
+      fields: [
+        {
+          name: 'Result',
+          value: `${total}`,
+          inline: true,
+        },
+        {
+          name: 'Target',
+          value: `${targetNumber}`,
+          inline: true,
+        },
+        {
+          name: 'Rolls',
+          value: rollResults ? rollResults.join(', ') : 'No dice were rolled.',
+          inline: false,
+        },
+      ],
+      footer: {
+        text: footer,
       },
-      {
-        name: 'Rolls',
-        value: rollResults ? rollResults.join(', ') : 'No dice were rolled.',
-        inline: false,
-      },
-    ],
-    footer: {
-      text: footer,
-    },
+    }
   }
 
   axios

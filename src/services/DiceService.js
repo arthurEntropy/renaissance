@@ -307,6 +307,18 @@ class DiceService {
       alert('Failed to send roll. Check your connection or server.')
     }
   }
+
+  static async sendEngagementResultsToServer(engagementResults) {
+    try {
+      await axios.post('http://localhost:3000/send-discord-message', {
+        type: 'engagement',
+        ...engagementResults
+      })
+    } catch (error) {
+      console.error('Error sending engagement results:', error)
+      alert('Failed to send engagement results. Check your connection or server.')
+    }
+  }
 }
 
 export default DiceService

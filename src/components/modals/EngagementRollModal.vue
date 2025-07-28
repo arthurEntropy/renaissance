@@ -226,6 +226,7 @@
 
 <script>
 import engagementService from '@/services/EngagementService';
+import DiceService from '@/services/DiceService';
 
 export default {
     props: {
@@ -641,6 +642,17 @@ export default {
 
             return this.diceComparisons.filter(comparison => {
                 return comparison.rightWins || comparison.winnerCharacterId === (this.opponent?.characterInfo?.id);
+            }).length;
+        },
+
+        // Calculate draws for engagement results
+        drawCount() {
+            if (!this.showResults || this.diceComparisons.length === 0) {
+                return 0;
+            }
+
+            return this.diceComparisons.filter(comparison => {
+                return comparison.tie || !comparison.winnerCharacterId;
             }).length;
         }
     },
@@ -1339,11 +1351,15 @@ export default {
                 result: result,
                 userWins: this.userWinCount,
                 opponentWins: this.opponentWinCount,
+                drawCount: this.drawCount,
                 timestamp: Date.now()
             };
 
             console.log('Emitting engagement results:', engagementResult);
             this.$emit('engagement-results', engagementResult);
+
+            // Send engagement results to Discord
+            DiceService.sendEngagementResultsToServer(engagementResult);
         }
     },
 
