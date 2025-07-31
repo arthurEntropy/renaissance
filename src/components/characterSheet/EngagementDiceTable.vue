@@ -129,10 +129,11 @@
 </template>
 
 <script>
-import EngagementSuccessService from '@/services/EngagementSuccessService';
 import EngagementRollModal from '@/components/modals/EngagementRollModal.vue';
 import { getDiceFontMaxClass } from '../../../utils/diceFontUtils'
-import { DiceStatus } from '../../constants/diceStatus'
+import { useEngagementDice } from '@/composables/useEngagementDice'
+import { useEngagementSuccesses } from '@/composables/useEngagementSuccesses'
+import { ref, toRef } from 'vue'
 
 export default {
   components: {
@@ -160,449 +161,260 @@ export default {
 
   emits: ['update:character', 'engagement-results'],
 
-  data() {
-    return {
-      allEngagementSuccesses: [],
-      tooltipSuccess: null,
-      tooltipDice: null,
-      tooltipPosition: { x: 0, y: 0 },
-      tooltipTimer: null,
-      diceStatuses: {},
-      isEditMode: false,
-      showDiceDropdown: false,
-      showSuccessDropdown: false,
-      dropdownPosition: { x: 0, y: 0 },
-      diceOptions: [4, 6, 8, 10, 12, 20], // Standard dice types
-      showEngagementRollModal: false,
-      currentRollDice: [],
-    };
-  },
+  setup(props, { emit }) {
+    // Initialize composable with reactive references
+    const characterRef = toRef(props, 'character')
+    const allEquipmentRef = toRef(props, 'allEquipment')
 
-  computed: {
-    equipmentEngagementDice() {
-      const result = [];
+    const diceManager = useEngagementDice(characterRef, allEquipmentRef)
+    const successManager = useEngagementSuccesses(characterRef, allEquipmentRef)
 
-      if (!this.character?.equipment || !this.allEquipment) {
-        return result;
-      }
+    // Local UI state
+    const tooltipSuccess = ref(null)
+    const tooltipDice = ref(null)
+    const tooltipPosition = ref({ x: 0, y: 0 })
+    const tooltipTimer = ref(null)
+    const isEditMode = ref(false)
+    const showDiceDropdown = ref(false)
+    const showSuccessDropdown = ref(false)
+    const dropdownPosition = ref({ x: 0, y: 0 })
+    const diceOptions = ref([4, 6, 8, 10, 12, 20]) // Standard dice types
+    const showEngagementRollModal = ref(false)
+    const currentRollDice = ref([])
 
-      // Equipment items must be wielded to contribute engagement dice
-      const wieldedEquipment = (this.character.equipment || [])
-        .filter((item) => item.isWielding)
-        .map((item) => this.allEquipment.find((eq) => eq.id === item.id))
-        .filter((equipment) => equipment && equipment.engagementDice && equipment.engagementDice.length > 0);
+    // Methods
+    const updateCharacter = (updatedCharacter) => {
+      emit('update:character', updatedCharacter)
+    }
 
-      wieldedEquipment.forEach(equipment => {
-        if (equipment.engagementDice) {
-          equipment.engagementDice.forEach((die, dieIndex) => {
-            const statusKey = `${equipment.id}_${dieIndex}`;
-            // Default to available status if not set
-            const status = this.diceStatuses[statusKey] || DiceStatus.AVAILABLE;
-            result.push({
-              die,
-              name: equipment.name,
-              equipmentId: equipment.id,
-              dieIndex,
-              statusKey,
-              status,
-              isUserAdded: false
-            });
-          });
-        }
-      });
-
-      return result;
-    },
-
-    userAddedEngagementDice() {
-      const rawDice = this.character.engagementDice || [];
-      return rawDice.map((die, index) => {
-        const statusKey = `user_added_${index}`;
-        // Default to available status if not set
-        const status = this.diceStatuses[statusKey] || DiceStatus.AVAILABLE;
-        return {
-          die,
-          name: 'Added manually', // Label for user-added dice in tooltips
-          userAddedIndex: index,
-          statusKey,
-          status,
-          isUserAdded: true
-        };
-      });
-    },
-
-    allOwnedEngagementDice() {
-      const allDice = [
-        ...this.equipmentEngagementDice,
-        ...this.userAddedEngagementDice
-      ];
-
-      // Sort by die size for consistent display
-      return allDice.sort((a, b) => a.die - b.die);
-    },
-
-    hasSelectedDice() {
-      return Object.values(this.diceStatuses).includes(DiceStatus.SELECTED);
-    },
-
-    selectedDiceValues() {
-      return this.allOwnedEngagementDice
-        .filter(item => item.status === DiceStatus.SELECTED)
-        .map(item => item.die);
-    },
-
-    hasExpendedDice() {
-      return Object.values(this.diceStatuses).includes(DiceStatus.EXPENDED);
-    },
-
-    equipmentEngagementSuccesses() {
-      const result = [];
-
-      if (!this.character?.equipment || !this.allEquipment) {
-        return result;
-      }
-
-      this.character.equipment.forEach(characterEquip => {
-        const equipment = this.allEquipment.find(eq => eq.id === characterEquip.id);
-
-        if (characterEquip.isWielding && equipment?.engagementSuccesses?.length > 0) {
-          equipment.engagementSuccesses.forEach(successId => {
-            const success = this.allEngagementSuccesses.find(s => s.id === successId);
-            if (success) {
-              result.push({
-                ...success,
-                isUserAdded: false,
-                sources: [equipment.name]
-              });
-            }
-          });
-        }
-      });
-
-      return result;
-    },
-
-    userAddedEngagementSuccesses() {
-      const rawSuccessIds = this.character.engagementSuccesses || [];
-      return rawSuccessIds.map(successId => {
-        const success = this.allEngagementSuccesses.find(s => s.id === successId);
-        if (success) {
-          return {
-            ...success,
-            isUserAdded: true,
-            sources: ['Added manually'] // Label for user-added successes in tooltips
-          };
-        }
-        return null;
-      }).filter(Boolean);
-    },
-
-    allOwnedEngagementSuccesses() {
-      const allSuccesses = [
-        ...this.equipmentEngagementSuccesses,
-        ...this.userAddedEngagementSuccesses
-      ];
-
-      // Group by ID and merge sources
-      const successMap = new Map();
-
-      allSuccesses.forEach(success => {
-        if (successMap.has(success.id)) {
-          const existing = successMap.get(success.id);
-          // Merge sources from all instances
-          existing.sources = [...new Set([...existing.sources, ...success.sources])];
-          // If any instance is user-added, mark as user-added
-          if (success.isUserAdded) {
-            existing.isUserAdded = true;
-          }
-        } else {
-          successMap.set(success.id, { ...success });
-        }
-      });
-
-      // Convert back to array and sort by name
-      return Array.from(successMap.values()).sort((a, b) => a.name.localeCompare(b.name));
-    },
-
-    // Engagement successes available for user to add (not already owned)
-    availableEngagementSuccesses() {
-      const ownedIds = new Set(this.allOwnedEngagementSuccesses.map(success => success.id));
-
-      return this.allEngagementSuccesses
-        .filter(success => !ownedIds.has(success.id))
-        .sort((a, b) => a.name.localeCompare(b.name));
-    },
-  },
-
-  methods: {
-    getDiceFontMaxClass,
-
-    async fetchEngagementSuccesses() {
-      try {
-        this.allEngagementSuccesses = await EngagementSuccessService.getAllEngagementSuccesses();
-      } catch (error) {
-        console.error("Error fetching engagement successes:", error);
-        this.allEngagementSuccesses = [];
-      }
-    },
-
-    startSuccessTooltip(success, event) {
-      this.clearDiceTooltip(); // Ensure only one tooltip shows at a time
-      this.tooltipTimer = setTimeout(() => {
-        this.tooltipSuccess = success;
-        this.tooltipPosition = {
+    const startSuccessTooltip = (success, event) => {
+      clearDiceTooltip() // Ensure only one tooltip shows at a time
+      tooltipTimer.value = setTimeout(() => {
+        tooltipSuccess.value = success
+        tooltipPosition.value = {
           x: event.clientX + 12,
           y: event.clientY + 12,
-        };
-      }, 1000);
-    },
+        }
+      }, 1000)
+    }
 
-    clearSuccessTooltip() {
-      clearTimeout(this.tooltipTimer);
-      this.tooltipSuccess = null;
-    },
+    const clearSuccessTooltip = () => {
+      clearTimeout(tooltipTimer.value)
+      tooltipSuccess.value = null
+    }
 
-    startDiceTooltip(diceInfo, event) {
-      this.clearSuccessTooltip(); // Ensure only one tooltip shows at a time
-      this.tooltipTimer = setTimeout(() => {
-        this.tooltipDice = diceInfo;
-        this.tooltipPosition = {
+    const startDiceTooltip = (diceInfo, event) => {
+      clearSuccessTooltip() // Ensure only one tooltip shows at a time
+      tooltipTimer.value = setTimeout(() => {
+        tooltipDice.value = diceInfo
+        tooltipPosition.value = {
           x: event.clientX + 12,
           y: event.clientY + 12,
-        };
-      }, 1000);
-    },
+        }
+      }, 1000)
+    }
 
-    clearDiceTooltip() {
-      clearTimeout(this.tooltipTimer);
-      this.tooltipDice = null;
-    },
+    const clearDiceTooltip = () => {
+      clearTimeout(tooltipTimer.value)
+      tooltipDice.value = null
+    }
 
-    toggleDiceStatus(diceInfo) {
-      // Cycle through states: available -> selected -> expended -> available
-      const currentStatus = this.diceStatuses[diceInfo.statusKey] || DiceStatus.AVAILABLE;
-      let newStatus;
-
-      switch (currentStatus) {
-        case DiceStatus.AVAILABLE:
-          newStatus = DiceStatus.SELECTED;
-          break;
-        case DiceStatus.SELECTED:
-          newStatus = DiceStatus.EXPENDED;
-          break;
-        case DiceStatus.EXPENDED:
-          newStatus = DiceStatus.AVAILABLE;
-          break;
-        default:
-          newStatus = DiceStatus.AVAILABLE;
-      }
-
-      this.diceStatuses = {
-        ...this.diceStatuses,
-        [diceInfo.statusKey]: newStatus
-      };
-    },
-
-    rollSelectedDice() {
-      const selectedDice = [...this.selectedDiceValues]; // Create a copy
+    const rollSelectedDice = () => {
+      const selectedDice = [...diceManager.selectedDiceValues.value] // Create a copy
 
       if (selectedDice.length === 0) {
         // Players can choose to enter engagement with no dice selected
         // We just need to confirm this action
         if (!confirm('Enter engagement with no dice selected?')) {
-          return;
+          return
         }
       }
 
       // Store the selected dice in a data property so they don't change
-      this.currentRollDice = selectedDice;
+      currentRollDice.value = selectedDice
 
       // Show the engagement roll modal with current roll dice
-      this.showEngagementRollModal = true;
-    },
+      showEngagementRollModal.value = true
+    }
 
-    closeEngagementRollModal() {
-      this.showEngagementRollModal = false;
-    },
+    const closeEngagementRollModal = () => {
+      showEngagementRollModal.value = false
+    }
 
-    handleEngagementCommitted() {
+    const handleEngagementCommitted = () => {
       // Mark all selected dice as expended when the engagement is actually committed
       // (i.e., when an opponent joined and dice were actually rolled)
-      const updatedStatuses = { ...this.diceStatuses };
-      Object.keys(updatedStatuses).forEach(key => {
-        if (updatedStatuses[key] === DiceStatus.SELECTED) {
-          updatedStatuses[key] = DiceStatus.EXPENDED;
-        }
-      });
-      this.diceStatuses = updatedStatuses;
-    },
+      diceManager.markSelectedDiceAsExpended()
+    }
 
-    handleEngagementResults(engagementResult) {
+    const handleEngagementResults = (engagementResult) => {
       // Pass the engagement results up to the parent component
-      this.$emit('engagement-results', engagementResult);
-    },
+      emit('engagement-results', engagementResult)
+    }
 
-    resetDice() {
-      if (!this.hasExpendedDice) {
-        return;
-      }
+    const toggleEditMode = () => {
+      isEditMode.value = !isEditMode.value
+      showDiceDropdown.value = false // Close dropdowns when toggling edit mode
+      showSuccessDropdown.value = false
+    }
 
-      // Available is default status
-      this.diceStatuses = {};
-    },
+    const toggleDiceDropdown = (event) => {
+      showDiceDropdown.value = !showDiceDropdown.value
+      showSuccessDropdown.value = false // Close success dropdown if open
 
-    toggleEditMode() {
-      this.isEditMode = !this.isEditMode;
-      this.showDiceDropdown = false; // Close dropdowns when toggling edit mode
-      this.showSuccessDropdown = false;
-    },
-
-    toggleDiceDropdown(event) {
-      this.showDiceDropdown = !this.showDiceDropdown;
-      this.showSuccessDropdown = false; // Close success dropdown if open
-
-      if (this.showDiceDropdown) {
+      if (showDiceDropdown.value) {
         // Default position
-        this.dropdownPosition = {
+        dropdownPosition.value = {
           x: event.clientX,
           y: event.clientY + 10
-        };
+        }
 
         // Add click outside listener to close dropdown
         setTimeout(() => {
           // Adjust position if dropdown would go off-screen
-          this.adjustDropdownPosition('.dice-dropdown');
-          document.addEventListener('click', this.closeDiceDropdown);
-        }, 10);
+          adjustDropdownPosition('.dice-dropdown')
+          document.addEventListener('click', closeDiceDropdown)
+        }, 10)
       } else {
-        document.removeEventListener('click', this.closeDiceDropdown);
+        document.removeEventListener('click', closeDiceDropdown)
       }
-    },
+    }
 
-    closeDiceDropdown(event) {
+    const closeDiceDropdown = (event) => {
       // Check if click is outside dropdown
-      const dropdown = document.querySelector('.dice-dropdown');
-      const addButton = document.querySelector('.add-die-button');
+      const dropdown = document.querySelector('.dice-dropdown')
+      const addButton = document.querySelector('.add-die-button')
 
       if (dropdown && !dropdown.contains(event.target) &&
         addButton && !addButton.contains(event.target)) {
-        this.showDiceDropdown = false;
-        document.removeEventListener('click', this.closeDiceDropdown);
+        showDiceDropdown.value = false
+        document.removeEventListener('click', closeDiceDropdown)
       }
-    },
+    }
 
-    addUserAddedDie(die) {
-      const currentDice = this.character.engagementDice || [];
-      const updatedDice = [...currentDice, die];
+    const addUserAddedDie = (die) => {
+      diceManager.addUserAddedDie(die, updateCharacter)
+      showDiceDropdown.value = false
+    }
 
-      // Update character with the new user-added dice
-      const updatedCharacter = {
-        ...this.character,
-        engagementDice: updatedDice
-      };
+    const removeUserAddedDie = (index) => {
+      diceManager.removeUserAddedDie(index, updateCharacter)
+    }
 
-      // Emit update event
-      this.$emit('update:character', updatedCharacter);
+    const toggleSuccessDropdown = (event) => {
+      showSuccessDropdown.value = !showSuccessDropdown.value
+      showDiceDropdown.value = false // Close dice dropdown if open
 
-      // Close the dropdown
-      this.showDiceDropdown = false;
-    },
-
-    removeUserAddedDie(index) {
-      const currentDice = this.character.engagementDice || [];
-      const updatedDice = currentDice.filter((_, i) => i !== index);
-
-      const updatedCharacter = {
-        ...this.character,
-        engagementDice: updatedDice
-      };
-
-      this.$emit('update:character', updatedCharacter);
-    },
-
-    toggleSuccessDropdown(event) {
-      this.showSuccessDropdown = !this.showSuccessDropdown;
-      this.showDiceDropdown = false; // Close dice dropdown if open
-
-      if (this.showSuccessDropdown) {
-        this.dropdownPosition = {
+      if (showSuccessDropdown.value) {
+        dropdownPosition.value = {
           x: event.clientX,
           y: event.clientY + 10
-        };
+        }
 
         // Add click outside listener to close dropdown
         setTimeout(() => {
           // Adjust position if dropdown would go off-screen
-          this.adjustDropdownPosition('.success-dropdown');
-          document.addEventListener('click', this.closeSuccessDropdown);
-        }, 10);
+          adjustDropdownPosition('.success-dropdown')
+          document.addEventListener('click', closeSuccessDropdown)
+        }, 10)
       } else {
-        document.removeEventListener('click', this.closeSuccessDropdown);
+        document.removeEventListener('click', closeSuccessDropdown)
       }
-    },
+    }
 
     // TODO: Centralize dropdown position adjustment
-    adjustDropdownPosition(selector) {
-      const dropdown = document.querySelector(selector);
-      if (!dropdown) return;
+    const adjustDropdownPosition = (selector) => {
+      const dropdown = document.querySelector(selector)
+      if (!dropdown) return
 
-      const dropdownRect = dropdown.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
-      const windowWidth = window.innerWidth;
+      const dropdownRect = dropdown.getBoundingClientRect()
+      const windowHeight = window.innerHeight
+      const windowWidth = window.innerWidth
 
       // Check if dropdown extends beyond bottom of viewport
       if (dropdownRect.bottom > windowHeight) {
         // Position above the click point instead of below it
-        this.dropdownPosition.y = Math.max(10, this.dropdownPosition.y - dropdownRect.height - 30);
+        dropdownPosition.value.y = Math.max(10, dropdownPosition.value.y - dropdownRect.height - 30)
       }
 
       // Check if dropdown extends beyond right edge of viewport
       if (dropdownRect.right > windowWidth) {
-        this.dropdownPosition.x = Math.max(10, this.dropdownPosition.x - (dropdownRect.right - windowWidth) - 20);
+        dropdownPosition.value.x = Math.max(10, dropdownPosition.value.x - (dropdownRect.right - windowWidth) - 20)
       }
-    },
+    }
 
-    closeSuccessDropdown(event) {
+    const closeSuccessDropdown = (event) => {
       // Check if click is outside dropdown
-      const dropdown = document.querySelector('.success-dropdown');
-      const addButton = document.querySelector('.add-success-button');
+      const dropdown = document.querySelector('.success-dropdown')
+      const addButton = document.querySelector('.add-success-button')
 
       if (dropdown && !dropdown.contains(event.target) &&
         addButton && !addButton.contains(event.target)) {
-        this.showSuccessDropdown = false;
-        document.removeEventListener('click', this.closeSuccessDropdown);
+        showSuccessDropdown.value = false
+        document.removeEventListener('click', closeSuccessDropdown)
       }
-    },
-
-    addUserAddedSuccess(successId) {
-      const currentSuccesses = this.character.engagementSuccesses || [];
-      const updatedSuccesses = [...currentSuccesses, successId];
-
-      const updatedCharacter = {
-        ...this.character,
-        engagementSuccesses: updatedSuccesses
-      };
-
-      this.$emit('update:character', updatedCharacter);
-
-      this.showSuccessDropdown = false;
-    },
-
-    removeUserAddedSuccess(successId) {
-      const currentSuccesses = this.character.engagementSuccesses || [];
-      const updatedSuccesses = currentSuccesses.filter(id => id !== successId);
-
-      const updatedCharacter = {
-        ...this.character,
-        engagementSuccesses: updatedSuccesses
-      };
-
-      this.$emit('update:character', updatedCharacter);
     }
-  },
 
-  created() {
-    this.fetchEngagementSuccesses();
+    const addUserAddedSuccess = (successId) => {
+      successManager.addUserAddedSuccess(successId, updateCharacter)
+      showSuccessDropdown.value = false
+    }
+
+    const removeUserAddedSuccess = (successId) => {
+      successManager.removeUserAddedSuccess(successId, updateCharacter)
+    }
+
+    // Initialize success data
+    successManager.fetchEngagementSuccesses()
+
+    return {
+      // From dice manager composable
+      allOwnedEngagementDice: diceManager.allOwnedEngagementDice,
+      hasSelectedDice: diceManager.hasSelectedDice,
+      hasExpendedDice: diceManager.hasExpendedDice,
+      selectedDiceValues: diceManager.selectedDiceValues,
+      toggleDiceStatus: diceManager.toggleDiceStatus,
+      resetDice: diceManager.resetDice,
+
+      // From success manager composable
+      allEngagementSuccesses: successManager.allEngagementSuccesses,
+      allOwnedEngagementSuccesses: successManager.allOwnedEngagementSuccesses,
+      availableEngagementSuccesses: successManager.availableEngagementSuccesses,
+
+      // Local state
+      tooltipSuccess,
+      tooltipDice,
+      tooltipPosition,
+      tooltipTimer,
+      isEditMode,
+      showDiceDropdown,
+      showSuccessDropdown,
+      dropdownPosition,
+      diceOptions,
+      showEngagementRollModal,
+      currentRollDice,
+
+      // Methods
+      getDiceFontMaxClass,
+      startSuccessTooltip,
+      clearSuccessTooltip,
+      startDiceTooltip,
+      clearDiceTooltip,
+      rollSelectedDice,
+      closeEngagementRollModal,
+      handleEngagementCommitted,
+      handleEngagementResults,
+      toggleEditMode,
+      toggleDiceDropdown,
+      closeDiceDropdown,
+      addUserAddedDie,
+      removeUserAddedDie,
+      toggleSuccessDropdown,
+      adjustDropdownPosition,
+      closeSuccessDropdown,
+      addUserAddedSuccess,
+      removeUserAddedSuccess
+    }
   }
 }
 </script>
@@ -656,13 +468,6 @@ export default {
 
 .engagement-dice-content {
   width: 100%;
-}
-
-.engagement-dice-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  margin: 10px 0;
 }
 
 .dice-display {

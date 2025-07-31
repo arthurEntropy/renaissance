@@ -202,9 +202,11 @@
   ],
   "engagementDice": [
     12,
-    8
+    4
   ],
-  "engagementSuccesses": [],
+  "engagementSuccesses": [
+    "11"
+  ],
   "weary": false,
   "miserable": false
 }
