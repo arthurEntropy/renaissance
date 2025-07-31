@@ -110,13 +110,7 @@
     </div>
 
     <!-- Tooltip for engagement success descriptions -->
-    <div v-if="tooltipSuccess" class="success-tooltip"
-      :style="{ top: tooltipPosition.y + 'px', left: tooltipPosition.x + 'px' }">
-      <div class="tooltip-description">{{ tooltipSuccess.description }}</div>
-      <div v-if="tooltipSuccess.sources && tooltipSuccess.sources.length > 0" class="tooltip-source">
-        From: {{ tooltipSuccess.sources.join(', ') }}
-      </div>
-    </div>
+    <SuccessTooltip v-if="tooltipSuccess" :success="tooltipSuccess" :position="tooltipPosition" />
 
     <!-- Tooltip for dice sources -->
     <div v-if="tooltipDice" class="dice-tooltip"
@@ -130,6 +124,7 @@
 
 <script>
 import EngagementRollModal from '@/components/modals/EngagementRollModal.vue';
+import SuccessTooltip from '@/components/engagement/SuccessTooltip.vue';
 import { getDiceFontMaxClass } from '../../../utils/diceFontUtils'
 import { useEngagementDice } from '@/composables/useEngagementDice'
 import { useEngagementSuccesses } from '@/composables/useEngagementSuccesses'
@@ -137,7 +132,8 @@ import { ref, toRef } from 'vue'
 
 export default {
   components: {
-    EngagementRollModal
+    EngagementRollModal,
+    SuccessTooltip
   },
   props: {
     character: {
@@ -731,7 +727,6 @@ export default {
   font-size: 11px;
 }
 
-.success-tooltip,
 .dice-tooltip {
   position: fixed;
   z-index: 1000;
@@ -744,10 +739,6 @@ export default {
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
   max-width: 260px;
   white-space: pre-line;
-}
-
-.tooltip-description {
-  margin-bottom: 8px;
 }
 
 .tooltip-source {

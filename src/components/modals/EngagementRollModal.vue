@@ -50,7 +50,8 @@ import SuccessTooltip from '@/components/engagement/SuccessTooltip.vue';
 import { useEngagementSession } from '@/composables/useEngagementSession';
 import { useSuccessAssignment } from '@/composables/useSuccessAssignment';
 import { useEngagementDice } from '@/composables/useEngagementDice';
-import { computed, watch, onMounted, onBeforeUnmount } from 'vue';
+import { useEngagementSuccesses } from '@/composables/useEngagementSuccesses';
+import { computed, watch, onMounted, onBeforeUnmount, toRef } from 'vue';
 import SessionStatus from '@/constants/sessionStatus';
 import PlayerSides from '@/constants/playerSides';
 import RollTypes from '@/constants/rollTypes';
@@ -98,6 +99,12 @@ export default {
         const sessionManager = useEngagementSession()
         const successManager = useSuccessAssignment()
         const diceManager = useEngagementDice()
+        const engagementSuccesses = useEngagementSuccesses(toRef(props, 'character'), toRef(props, 'allEquipment'))
+
+        // Initialize engagement successes data on mount
+        onMounted(async () => {
+            await engagementSuccesses.fetchEngagementSuccesses()
+        })
 
         // Tooltip state
         const tooltipTimer = ref(null)
@@ -143,32 +150,7 @@ export default {
 
         // Computed properties for successes
         const characterSuccesses = computed(() => {
-            if (!props.character) return []
-
-            let successIds = []
-
-            // Add user-added engagement successes
-            if (props.character.engagementSuccesses && Array.isArray(props.character.engagementSuccesses)) {
-                successIds = [...props.character.engagementSuccesses]
-            }
-
-            // Add engagement successes from equipment
-            if (props.character.equipment && Array.isArray(props.character.equipment) && props.allEquipment && Array.isArray(props.allEquipment)) {
-                props.character.equipment.forEach(characterEquipmentItem => {
-                    const fullEquipmentItemObject = props.allEquipment.find(eq => eq.id === characterEquipmentItem.id)
-                    const isCarriedAndWielded = characterEquipmentItem.isCarried !== false && characterEquipmentItem.isWielding !== false
-                    if (isCarriedAndWielded && fullEquipmentItemObject && fullEquipmentItemObject.engagementSuccesses && fullEquipmentItemObject.engagementSuccesses.length > 0) {
-                        successIds.push(...fullEquipmentItemObject.engagementSuccesses)
-                    }
-                })
-            }
-
-            // Remove duplicates and map to success objects
-            const uniqueSuccessIds = [...new Set(successIds)]
-            return uniqueSuccessIds
-                .map(id => props.allEngagementSuccesses.find(success => success.id === id))
-                .filter(success => success)
-                .sort((a, b) => a.name.localeCompare(b.name))
+            return engagementSuccesses.allOwnedEngagementSuccesses.value
         })
 
         // Computed properties for template conditional logic

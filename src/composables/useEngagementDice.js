@@ -65,7 +65,7 @@ export function useEngagementDice(character = null, allEquipment = null) {
       const status = diceStatuses[statusKey] || DiceStatus.AVAILABLE
       return {
         die,
-        name: 'Added manually', // Label for user-added dice in tooltips
+        name: '(added manually)', // Label for user-added dice in tooltips
         userAddedIndex: index,
         statusKey,
         status,

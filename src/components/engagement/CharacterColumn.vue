@@ -13,19 +13,19 @@
                     No dice selected
                 </div>
                 <div v-for="(die, index) in dice" :key="index" class="dice-container"
-                    @mouseenter="!isOpponent ? $emit('show-reroll-hover', index, true) : null"
-                    @mouseleave="!isOpponent ? $emit('show-reroll-hover', index, false) : null">
+                    @mouseenter="!isOpponent ? emit('show-reroll-hover', index, true) : null"
+                    @mouseleave="!isOpponent ? emit('show-reroll-hover', index, false) : null">
 
                     <!-- Success assignment drop zone (left side for user) -->
                     <div v-if="die.isMax && showResults && !isOpponent" class="success-drop-zone left-side"
                         :class="{ disabled: !canEdit }" @drop="canEdit ? onSuccessDrop($event, index) : null"
                         @dragover.prevent @dragenter.prevent>
                         <div v-if="assignedSuccesses[`${side}-${index}`]" class="assigned-success-pill"
-                            @mouseenter="$emit('start-success-tooltip', getSuccessById(assignedSuccesses[`${side}-${index}`]), $event)"
-                            @mouseleave="$emit('clear-success-tooltip')">
+                            @mouseenter="emit('start-success-tooltip', getSuccessById(assignedSuccesses[`${side}-${index}`]), $event)"
+                            @mouseleave="emit('clear-success-tooltip')">
                             {{ getSuccessName(assignedSuccesses[`${side}-${index}`]) }}
                             <span v-if="canEdit" class="remove-success-btn"
-                                @click.stop="$emit('remove-success-assignment', side, index)">×</span>
+                                @click.stop="emit('remove-success-assignment', side, index)">×</span>
                         </div>
                         <div v-else class="success-outline"></div>
                     </div>
@@ -38,15 +38,15 @@
                     <!-- Reroll hover link - only for user's own dice -->
                     <div v-if="showResults && !die.isRolling && !isRerolling(index) &&
                         hoverStates[`${side}-${index}`] && canEdit && !isOpponent" class="reroll-hover"
-                        @click="$emit('reroll-die', side, index)">
+                        @click="emit('reroll-die', side, index)">
                         Reroll
                     </div>
 
                     <!-- Success assignment display (right side for opponent) -->
                     <div v-if="die.isMax && showResults && isOpponent" class="success-display-zone right-side">
                         <div v-if="assignedSuccesses[`${side}-${index}`]" class="assigned-success-pill"
-                            @mouseenter="$emit('start-success-tooltip', getSuccessById(assignedSuccesses[`${side}-${index}`]), $event)"
-                            @mouseleave="$emit('clear-success-tooltip')">
+                            @mouseenter="emit('start-success-tooltip', getSuccessById(assignedSuccesses[`${side}-${index}`]), $event)"
+                            @mouseleave="emit('clear-success-tooltip')">
                             {{ getSuccessName(assignedSuccesses[`${side}-${index}`]) }}
                         </div>
                         <div v-else class="success-outline"></div>
@@ -65,8 +65,8 @@
                     <span v-for="success in successes" :key="success.id"
                         class="engagement-success-pill draggable-success" :draggable="canEdit && !isOpponent"
                         @dragstart="!isOpponent ? onSuccessDragStart($event, success) : null"
-                        @mouseenter="$emit('start-success-tooltip', success, $event)"
-                        @mouseleave="$emit('clear-success-tooltip')">
+                        @mouseenter="emit('start-success-tooltip', success, $event)"
+                        @mouseleave="emit('clear-success-tooltip')">
                         {{ success.name }}
                     </span>
                 </div>
@@ -87,157 +87,155 @@
     </div>
 </template>
 
-<script>
+<script setup>
+import { computed } from 'vue'
 import EngagementWinnerTypes from '@/constants/engagementWinnerTypes'
 
-export default {
-    name: 'CharacterColumn',
-    props: {
-        character: {
-            type: Object,
-            default: null
-        },
-        dice: {
-            type: Array,
-            default: () => []
-        },
-        successes: {
-            type: Array,
-            default: () => []
-        },
-        assignedSuccesses: {
-            type: Object,
-            default: () => ({})
-        },
-        side: {
-            type: String,
-            required: true // 'user' or 'opponent'
-        },
-        isOpponent: {
-            type: Boolean,
-            default: false
-        },
-        canEdit: {
-            type: Boolean,
-            default: true
-        },
-        showResults: {
-            type: Boolean,
-            default: false
-        },
-        rerollingDice: {
-            type: Set,
-            default: () => new Set()
-        },
-        hoverStates: {
-            type: Object,
-            default: () => ({})
-        },
-        defaultArtUrl: {
-            type: String,
-            default: '/img/default-character.png'
-        },
-        allEngagementSuccesses: {
-            type: Array,
-            default: () => []
-        },
-        winner: {
-            type: String,
-            default: null // 'user', 'opponent', 'tie', null
-        }
+// Props
+const props = defineProps({
+    character: {
+        type: Object,
+        default: null
     },
-
-    emits: [
-        'show-reroll-hover',
-        'reroll-die',
-        'success-drop',
-        'remove-success-assignment',
-        'start-success-tooltip',
-        'clear-success-tooltip'
-    ],
-
-    computed: {
-        characterArtUrl() {
-            if (!this.character) return this.defaultArtUrl;
-            return (this.character.artUrls && this.character.artUrls.length > 0)
-                ? this.character.artUrls[0]
-                : this.defaultArtUrl;
-        },
-
-        columnClasses() {
-            const classes = [];
-
-            if (this.isOpponent) {
-                classes.push('opponent-column');
-            } else {
-                classes.push('user-column');
-            }
-
-            if (this.showResults && this.winner) {
-                if ((this.winner === EngagementWinnerTypes.USER && !this.isOpponent) ||
-                    (this.winner === EngagementWinnerTypes.OPPONENT && this.isOpponent)) {
-                    classes.push('winner-column');
-                } else if (this.winner !== EngagementWinnerTypes.TIE) {
-                    classes.push('loser-column');
-                }
-            }
-
-            return classes;
-        }
+    dice: {
+        type: Array,
+        default: () => []
     },
+    successes: {
+        type: Array,
+        default: () => []
+    },
+    assignedSuccesses: {
+        type: Object,
+        default: () => ({})
+    },
+    side: {
+        type: String,
+        required: true // 'user' or 'opponent'
+    },
+    isOpponent: {
+        type: Boolean,
+        default: false
+    },
+    canEdit: {
+        type: Boolean,
+        default: true
+    },
+    showResults: {
+        type: Boolean,
+        default: false
+    },
+    rerollingDice: {
+        type: Set,
+        default: () => new Set()
+    },
+    hoverStates: {
+        type: Object,
+        default: () => ({})
+    },
+    defaultArtUrl: {
+        type: String,
+        default: '/img/default-character.png'
+    },
+    allEngagementSuccesses: {
+        type: Array,
+        default: () => []
+    },
+    winner: {
+        type: String,
+        default: null // 'user', 'opponent', 'tie', null
+    }
+})
 
-    methods: {
-        getDiceClasses(die, index) {
-            const classes = [];
+// Emits
+const emit = defineEmits([
+    'show-reroll-hover',
+    'reroll-die',
+    'success-drop',
+    'remove-success-assignment',
+    'start-success-tooltip',
+    'clear-success-tooltip'
+])
 
-            if (die.isRolling || this.isRerolling(index)) {
-                classes.push(`rolling-die-${(index % 3) + 1}`);
-            } else {
-                classes.push('result-die');
-            }
+// Computed properties
+const characterArtUrl = computed(() => {
+    if (!props.character) return props.defaultArtUrl;
+    return (props.character.artUrls && props.character.artUrls.length > 0)
+        ? props.character.artUrls[0]
+        : props.defaultArtUrl;
+})
 
-            if (die.isMax) {
-                classes.push('max-result');
-            }
+const columnClasses = computed(() => {
+    const classes = [];
 
-            if (this.isRerolling(index)) {
-                classes.push('rerolling');
-            }
+    if (props.isOpponent) {
+        classes.push('opponent-column');
+    } else {
+        classes.push('user-column');
+    }
 
-            return classes;
-        },
-
-        isRerolling(index) {
-            return this.rerollingDice.has(`${this.side}-${index}`);
-        },
-
-        getSuccessById(successId) {
-            return this.allEngagementSuccesses.find(s => s.id === successId);
-        },
-
-        getSuccessName(successId) {
-            const success = this.getSuccessById(successId);
-            return success ? success.name : 'Unknown Success';
-        },
-
-        onSuccessDragStart(event, success) {
-            if (!this.canEdit) {
-                event.preventDefault();
-                return;
-            }
-            event.dataTransfer.setData('application/json', JSON.stringify(success));
-            event.dataTransfer.effectAllowed = 'copy';
-        },
-
-        onSuccessDrop(event, diceIndex) {
-            event.preventDefault();
-            try {
-                const successData = JSON.parse(event.dataTransfer.getData('application/json'));
-                this.$emit('success-drop', this.side, diceIndex, successData);
-            } catch (error) {
-                console.error('Error handling success drop:', error);
-            }
+    if (props.showResults && props.winner) {
+        if ((props.winner === EngagementWinnerTypes.USER && !props.isOpponent) ||
+            (props.winner === EngagementWinnerTypes.OPPONENT && props.isOpponent)) {
+            classes.push('winner-column');
+        } else if (props.winner !== EngagementWinnerTypes.TIE) {
+            classes.push('loser-column');
         }
+    }
+
+    return classes;
+})
+
+// Methods
+const getDiceClasses = (die, index) => {
+    const classes = [];
+
+    if (die.isRolling || isRerolling(index)) {
+        classes.push(`rolling-die-${(index % 3) + 1}`);
+    } else {
+        classes.push('result-die');
+    }
+
+    if (die.isMax) {
+        classes.push('max-result');
+    }
+
+    if (isRerolling(index)) {
+        classes.push('rerolling');
+    }
+
+    return classes;
+}
+
+const isRerolling = (index) => {
+    return props.rerollingDice.has(`${props.side}-${index}`);
+}
+
+const getSuccessById = (successId) => {
+    return props.allEngagementSuccesses.find(s => s.id === successId);
+}
+
+const getSuccessName = (successId) => {
+    const success = getSuccessById(successId);
+    return success ? success.name : 'Unknown Success';
+}
+
+const onSuccessDragStart = (event, success) => {
+    if (!props.canEdit) {
+        event.preventDefault();
+        return;
+    }
+    event.dataTransfer.setData('application/json', JSON.stringify(success));
+    event.dataTransfer.effectAllowed = 'copy';
+}
+
+const onSuccessDrop = (event, diceIndex) => {
+    event.preventDefault();
+    try {
+        const successData = JSON.parse(event.dataTransfer.getData('application/json'));
+        emit('success-drop', props.side, diceIndex, successData);
+    } catch (error) {
+        console.error('Error handling success drop:', error);
     }
 }
 </script>
@@ -266,6 +264,11 @@ export default {
     flex-direction: column;
     align-items: center;
     margin-bottom: 15px;
+}
+
+.character-art {
+    display: flex;
+    justify-content: center;
 }
 
 .character-art-thumbnail {

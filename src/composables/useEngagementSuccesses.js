@@ -41,7 +41,7 @@ export function useEngagementSuccesses(character = null, allEquipment = null) {
         return {
           ...success,
           isUserAdded: true,
-          sources: ['Added manually'] // Label for user-added successes in tooltips
+          sources: ['(added manually)'] // Label for user-added successes in tooltips
         }
       }
       return null

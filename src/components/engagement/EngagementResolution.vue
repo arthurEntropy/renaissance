@@ -3,7 +3,7 @@
         <div class="result-label">Result:</div>
         <div class="result-row">
             <button class="button accept-btn user-accept" :class="getUserAcceptClasses" :disabled="!canAccept"
-                @click="$emit('toggle-user-accept')">
+                @click="emit('toggle-user-accept')">
                 {{ userAccepted ? '✓' : 'Accept' }}
             </button>
             <div class="winner-announcement" :class="getWinnerAnnouncementClasses">
@@ -16,115 +16,114 @@
     </div>
 </template>
 
-<script>
+<script setup>
+import { computed } from 'vue'
 import EngagementWinnerTypes from '@/constants/engagementWinnerTypes'
 
-export default {
-    name: 'EngagementResolution',
-    props: {
-        winner: {
-            type: String,
-            default: null // 'user', 'opponent', 'tie'
-        },
-        userAccepted: {
-            type: Boolean,
-            default: false
-        },
-        opponentAccepted: {
-            type: Boolean,
-            default: false
-        },
-        canAccept: {
-            type: Boolean,
-            default: false
-        },
-        characterName: {
-            type: String,
-            default: ''
-        },
-        opponentName: {
-            type: String,
-            default: ''
-        }
+// Props
+const props = defineProps({
+    winner: {
+        type: String,
+        default: null // 'user', 'opponent', 'tie'
     },
+    userAccepted: {
+        type: Boolean,
+        default: false
+    },
+    opponentAccepted: {
+        type: Boolean,
+        default: false
+    },
+    canAccept: {
+        type: Boolean,
+        default: false
+    },
+    characterName: {
+        type: String,
+        default: ''
+    },
+    opponentName: {
+        type: String,
+        default: ''
+    }
+})
 
-    emits: ['toggle-user-accept'],
+// Emits
+const emit = defineEmits(['toggle-user-accept'])
 
-    computed: {
-        winnerText() {
-            if (!this.winner) {
-                return '';
-            }
+// Computed properties
+const winnerText = computed(() => {
+    if (!props.winner) {
+        return '';
+    }
 
-            switch (this.winner) {
-                case EngagementWinnerTypes.USER:
-                    return `${this.characterName} wins`;
-                case EngagementWinnerTypes.OPPONENT:
-                    return `${this.opponentName} wins`;
-                case EngagementWinnerTypes.TIE:
-                    return 'Draw';
-                default:
-                    return '';
-            }
-        },
+    switch (props.winner) {
+        case EngagementWinnerTypes.USER:
+            return `${props.characterName} wins`;
+        case EngagementWinnerTypes.OPPONENT:
+            return `${props.opponentName} wins`;
+        case EngagementWinnerTypes.TIE:
+            return 'Draw';
+        default:
+            return '';
+    }
+})
 
-        getUserAcceptClasses() {
-            const classes = ['accepted'];
+const getUserAcceptClasses = computed(() => {
+    const classes = ['accepted'];
 
-            if (!this.canAccept) {
-                classes.push('disabled');
-            }
+    if (!props.canAccept) {
+        classes.push('disabled');
+    }
 
-            if (!this.userAccepted && this.winner === EngagementWinnerTypes.USER) {
-                classes.push('win-pale');
-            } else if (this.userAccepted && this.winner === EngagementWinnerTypes.USER) {
-                classes.push('win-solid');
-            } else if (!this.userAccepted && this.winner === EngagementWinnerTypes.OPPONENT) {
-                classes.push('loss-pale');
-            } else if (this.userAccepted && this.winner === EngagementWinnerTypes.OPPONENT) {
-                classes.push('loss-solid');
-            } else if (!this.userAccepted && this.winner === EngagementWinnerTypes.TIE) {
-                classes.push('draw-pale');
-            } else if (this.userAccepted && this.winner === EngagementWinnerTypes.TIE) {
-                classes.push('draw-solid');
-            }
+    if (!props.userAccepted && props.winner === EngagementWinnerTypes.USER) {
+        classes.push('win-pale');
+    } else if (props.userAccepted && props.winner === EngagementWinnerTypes.USER) {
+        classes.push('win-solid');
+    } else if (!props.userAccepted && props.winner === EngagementWinnerTypes.OPPONENT) {
+        classes.push('loss-pale');
+    } else if (props.userAccepted && props.winner === EngagementWinnerTypes.OPPONENT) {
+        classes.push('loss-solid');
+    } else if (!props.userAccepted && props.winner === EngagementWinnerTypes.TIE) {
+        classes.push('draw-pale');
+    } else if (props.userAccepted && props.winner === EngagementWinnerTypes.TIE) {
+        classes.push('draw-solid');
+    }
 
-            return classes;
-        },
+    return classes;
+})
 
-        getOpponentStatusClasses() {
-            const classes = [];
+const getOpponentStatusClasses = computed(() => {
+    const classes = [];
 
-            if (!this.opponentAccepted) {
-                classes.push('waiting');
-            } else {
-                if (this.winner === EngagementWinnerTypes.OPPONENT) {
-                    classes.push('opponent-win-solid');
-                } else if (this.winner === EngagementWinnerTypes.USER) {
-                    classes.push('opponent-loss-solid');
-                } else if (this.winner === EngagementWinnerTypes.TIE) {
-                    classes.push('opponent-draw-solid');
-                }
-            }
-
-            return classes;
-        },
-
-        getWinnerAnnouncementClasses() {
-            const classes = [];
-
-            if (this.userAccepted && this.opponentAccepted) {
-                classes.push('both-accepted');
-            }
-
-            if (this.winner === EngagementWinnerTypes.TIE) {
-                classes.push('draw-result');
-            }
-
-            return classes;
+    if (!props.opponentAccepted) {
+        classes.push('waiting');
+    } else {
+        if (props.winner === EngagementWinnerTypes.OPPONENT) {
+            classes.push('opponent-win-solid');
+        } else if (props.winner === EngagementWinnerTypes.USER) {
+            classes.push('opponent-loss-solid');
+        } else if (props.winner === EngagementWinnerTypes.TIE) {
+            classes.push('opponent-draw-solid');
         }
     }
-}
+
+    return classes;
+})
+
+const getWinnerAnnouncementClasses = computed(() => {
+    const classes = [];
+
+    if (props.userAccepted && props.opponentAccepted) {
+        classes.push('both-accepted');
+    }
+
+    if (props.winner === EngagementWinnerTypes.TIE) {
+        classes.push('draw-result');
+    }
+
+    return classes;
+})
 </script>
 
 <style scoped>
