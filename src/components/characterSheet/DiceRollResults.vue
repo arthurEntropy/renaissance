@@ -16,7 +16,7 @@
           {{ latestRoll.characterName }} rolled
           <span class="skill-name">{{
             latestRoll.baseSkillName || latestRoll.skillName
-            }}</span>
+          }}</span>
           <span v-if="latestRoll.favoredStatus" :class="{
             'favored-modifier': latestRoll.favoredStatus === 'favored',
             'ill-favored-modifier': latestRoll.favoredStatus === 'ill-favored',
@@ -83,7 +83,7 @@
           <i :class="die.class"></i>
           <span v-if="!isRolling && die.emoji" class="dice-emoji">{{
             die.emoji
-            }}</span>
+          }}</span>
         </span>
       </div>
 
@@ -109,7 +109,7 @@
 </template>
 
 <script>
-import { getRandomDiceFontClass } from '../../../utils/diceFontUtils'
+import { getDiceFontClass, getRandomDiceFontClass } from '../../../utils/diceFontUtils'
 import { RollTypes } from '../../constants/rollTypes'
 
 export default {
@@ -142,6 +142,9 @@ export default {
     }
   },
   methods: {
+    getDiceFontClass,
+    getRandomDiceFontClass,
+
     getCircularPosition(index, total) {
       const radius = 50 // pixels from center
       const angle = (index * 2 * Math.PI) / total - Math.PI / 2 // Start from top

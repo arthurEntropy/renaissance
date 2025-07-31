@@ -143,6 +143,7 @@
 <script>
 import { useEquipmentStore } from '@/stores/equipmentStore'
 import TextEditor from '@/components/TextEditor.vue'
+import { getDiceFontMaxClass } from '../../../utils/diceFontUtils'
 
 export default {
   props: {
@@ -194,6 +195,8 @@ export default {
   components: { TextEditor },
 
   methods: {
+    getDiceFontMaxClass,
+
     initializeDiceCounts() {
       this.engagementDiceCounts = this.convertDiceListToCounts(
         this.editedEquipment.engagementDice || [],

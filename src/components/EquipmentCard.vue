@@ -83,6 +83,7 @@
 import { useEquipmentStore } from '@/stores/equipmentStore'
 import BaseCard from '@/components/BaseCard.vue'
 import EngagementSuccessService from '@/services/EngagementSuccessService'
+import { getDiceFontMaxClass } from '../../utils/diceFontUtils'
 
 export default {
   inheritAttrs: false,
@@ -142,6 +143,8 @@ export default {
   },
 
   methods: {
+    getDiceFontMaxClass,
+
     toggleImage() {
       this.showLargeImage = !this.showLargeImage
     },
