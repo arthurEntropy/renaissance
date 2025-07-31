@@ -7,7 +7,8 @@
             </div>
 
             <!-- Floating comparison indicators -->
-            <ResultIndicators v-if="shouldShowComparisons" :comparisons="diceComparisons" :result="engagementResult" />
+            <ResultIndicators v-if="shouldShowComparisons" :comparisons="diceComparisons"
+                :engagement-winner="engagementWinner" :can-edit="canEditResults" @toggle-result="toggleResult" />
 
             <!-- Engagement columns -->
             <div class="engagement-columns">
