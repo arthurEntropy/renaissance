@@ -2,6 +2,7 @@ import axios from 'axios'
 import { getDiceFontClass, getDiceFontMaxClass } from '../../utils/diceFontUtils'
 import { RollTypes } from '../constants/rollTypes'
 import { EngagementWinnerTypes } from '../constants/engagementWinnerTypes'
+import { PlayerSides } from '../constants/playerSides'
 
 class EngagementRollService {
 
@@ -16,7 +17,17 @@ class EngagementRollService {
 
     // Create dice objects with roll results and metadata
     const diceWithResults = diceArray.map((die, index) => {
-      if (rollResults) {
+      if (!rollResults) {
+        // No results yet - show rolling state with max die face
+        return {
+          die: die,
+          value: die, // Show max face while rolling
+          class: getDiceFontMaxClass(die),
+          isRolling: true,
+          isMax: false, // Not actually max until rolled
+          originalIndex: index
+        }
+      } else {
         // We have actual roll results
         const value = rollResults[index] || 1
         const isMax = value === die
@@ -26,16 +37,6 @@ class EngagementRollService {
           class: getDiceFontClass(die, value),
           isRolling: false,
           isMax: isMax,
-          originalIndex: index
-        }
-      } else {
-        // No results yet - show rolling state with max die face
-        return {
-          die: die,
-          value: die, // Show max face while rolling
-          class: getDiceFontMaxClass(die),
-          isRolling: true,
-          isMax: false, // Not actually max until rolled
           originalIndex: index
         }
       }
@@ -56,6 +57,8 @@ class EngagementRollService {
 
     for (let i = 0; i < pairCount; i++) {
       // Check for manual override first
+      // "Manual" means a user has manually set a result via the indicators in the UI
+      // This allows for custom results that don't depend on actual die values
       if (manualResults[i]) {
         const manualResult = manualResults[i]
         const leftWins = manualResult.winnerCharacterId === userCharacterId
@@ -165,7 +168,7 @@ class EngagementRollService {
     }
 
     return diceComparisons.filter(comparison => {
-      if (side === 'user') {
+      if (side === PlayerSides.USER) {
         return comparison.leftWins || comparison.winnerCharacterId === userCharacterId
       } else {
         return comparison.rightWins || comparison.winnerCharacterId === opponentCharacterId
@@ -188,7 +191,7 @@ class EngagementRollService {
 
     let targetUser
 
-    if (player === 'user') {
+    if (player === PlayerSides.USER) {
       targetUser = rollResults.session.users.find(
         user => user.characterInfo.id === characterId
       )

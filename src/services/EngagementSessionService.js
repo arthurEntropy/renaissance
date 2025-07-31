@@ -1,6 +1,6 @@
 import { io } from 'socket.io-client';
 
-class EngagementService {
+class EngagementSessionService {
   constructor() {
     this.socket = null;
     this.sessionId = null;
@@ -100,11 +100,6 @@ class EngagementService {
       selectedDice,
       engagementSuccesses
     });
-  }
-  
-  // Create a new engagement session (legacy method, kept for backwards compatibility)
-  createSession(characterInfo, selectedDice, engagementSuccesses) {
-    this.autoJoinOrCreate(characterInfo, selectedDice, engagementSuccesses);
   }
 
   // Cancel the current session
@@ -212,6 +207,6 @@ class EngagementService {
 }
 
 // Create a singleton instance
-const engagementService = new EngagementService();
+const engagementSessionService = new EngagementSessionService();
 
-export default engagementService;
+export default engagementSessionService;

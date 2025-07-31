@@ -1,5 +1,5 @@
 import { reactive } from 'vue'
-import engagementService from '@/services/EngagementService'
+import engagementSessionService from '@/services/EngagementSessionService'
 
 export function useSuccessAssignment() {
   // Success assignment state
@@ -16,7 +16,7 @@ export function useSuccessAssignment() {
       assignedSuccesses[key] = newAssignment
 
       // Broadcast this assignment with character context
-      engagementService.updateSuccessAssignment(characterId, player, diceIndex, newAssignment)
+      engagementSessionService.updateSuccessAssignment(characterId, player, diceIndex, newAssignment)
     }
   }
 
@@ -25,7 +25,9 @@ export function useSuccessAssignment() {
     
     if (assignedSuccesses[key]) {
       delete assignedSuccesses[key]
-      engagementService.updateSuccessAssignment(characterId, player, diceIndex, null)
+      
+      // Broadcast the removal with null to indicate clearing
+      engagementSessionService.updateSuccessAssignment(characterId, player, diceIndex, null)
     }
   }
 

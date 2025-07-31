@@ -1,6 +1,6 @@
 import { ref, reactive, nextTick, computed } from 'vue'
 import EngagementRollService from '@/services/EngagementRollService'
-import engagementService from '@/services/EngagementService'
+import engagementSessionService from '@/services/EngagementSessionService'
 import PlayerSides from '@/constants/playerSides'
 import { getDiceFontClass, getDiceFontMaxClass } from '../../utils/diceFontUtils'
 import { DiceStatus } from '@/constants/diceStatus'
@@ -211,8 +211,8 @@ export function useEngagementDice(character = null, allEquipment = null) {
       const newValue = EngagementRollService.rollSingleDie(originalDieSize)
       const isNewMax = newValue === originalDieSize
 
-      // Broadcast the reroll to other users immediately
-      engagementService.rerollDie(player, index, newValue, characterId)
+            // Broadcast the reroll to other players
+      engagementSessionService.rerollDie(player, index, newValue, characterId)
 
       // After animation completes, show new result
       setTimeout(() => {
@@ -350,7 +350,7 @@ export function useEngagementDice(character = null, allEquipment = null) {
       manualResults.value = newManualResults
 
       // Broadcast the change
-      engagementService.updateResultIndicator(index, newState)
+      engagementSessionService.updateResultIndicator(index, newState)
     } finally {
       // Reset the flag
       setTimeout(() => {

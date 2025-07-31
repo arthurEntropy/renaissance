@@ -1,6 +1,6 @@
 import { ref, reactive, computed } from 'vue'
 import SessionStatus from '@/constants/sessionStatus'
-import engagementService from '@/services/EngagementService'
+import engagementSessionService from '@/services/EngagementSessionService'
 
 export function useEngagementSession() {
   const sessionId = ref(null)
@@ -21,10 +21,14 @@ export function useEngagementSession() {
     acceptanceStateUpdated: null
   })
 
-  function initializeSession(character, selectedDice, characterSuccessIds, diceComparisonIndicatorHandler, dieRerolledHandler, successAssignmentUpdatedHandler, rollResultsHandler) {
-    engagementService.connect()
-    setupEngagementListeners(character, diceComparisonIndicatorHandler, dieRerolledHandler, successAssignmentUpdatedHandler, rollResultsHandler)
-    engagementService.autoJoinOrCreate(character, selectedDice, characterSuccessIds)
+  function initializeSession(character, selectedDice, characterSuccessIds, resultIndicatorCallback, dieRerolledCallback, successAssignmentCallback, rollResultsCallback) {
+    // Connect to the WebSocket if not already connected
+    engagementSessionService.connect()
+    
+    engagementSessionService.autoJoinOrCreate(character, selectedDice, characterSuccessIds)
+
+    // Setup event listeners with the provided callbacks
+    setupEngagementListeners(character, resultIndicatorCallback, dieRerolledCallback, successAssignmentCallback, rollResultsCallback)
   }
 
   function setupEngagementListeners(character, diceComparisonIndicatorHandler, dieRerolledHandler, successAssignmentUpdatedHandler, rollResultsHandler) {
@@ -79,19 +83,19 @@ export function useEngagementSession() {
     eventHandlers.successAssignmentUpdated = successAssignmentUpdatedHandler
 
     // Register all event listeners
-    engagementService.on('session-created', eventHandlers.sessionCreated)
-    engagementService.on('session-updated', eventHandlers.sessionUpdated)
-    engagementService.on('session-cancelled', eventHandlers.sessionCancelled)
-    engagementService.on('roll-results', eventHandlers.rollResults)
-    engagementService.on('acceptance-state-updated', eventHandlers.acceptanceStateUpdated)
-    engagementService.on('result-indicator-updated', eventHandlers.resultIndicatorUpdated)
-    engagementService.on('die-rerolled', eventHandlers.dieRerolled)
-    engagementService.on('success-assignment-updated', eventHandlers.successAssignmentUpdated)
+    engagementSessionService.on('session-created', eventHandlers.sessionCreated)
+    engagementSessionService.on('session-updated', eventHandlers.sessionUpdated)
+    engagementSessionService.on('session-cancelled', eventHandlers.sessionCancelled)
+    engagementSessionService.on('roll-results', eventHandlers.rollResults)
+    engagementSessionService.on('acceptance-state-updated', eventHandlers.acceptanceStateUpdated)
+    engagementSessionService.on('result-indicator-updated', eventHandlers.resultIndicatorUpdated)
+    engagementSessionService.on('die-rerolled', eventHandlers.dieRerolled)
+    engagementSessionService.on('success-assignment-updated', eventHandlers.successAssignmentUpdated)
   }
 
   function updateUserAcceptance(characterId, accepted) {
     userAccepted.value = accepted
-    engagementService.updateAcceptanceState(characterId, accepted)
+    engagementSessionService.updateAcceptanceState(characterId, accepted)
   }
 
   const bothUsersAccepted = computed(() => {
@@ -113,7 +117,7 @@ export function useEngagementSession() {
 
   function cancelSession() {
     if (sessionId.value) {
-      engagementService.cancelSession()
+      engagementSessionService.cancelSession()
     }
   }
 
@@ -133,7 +137,7 @@ export function useEngagementSession() {
         
         const socketEvent = eventMap[eventName]
         if (socketEvent) {
-          engagementService.off(socketEvent, handler)
+          engagementSessionService.off(socketEvent, handler)
         }
       }
     })
@@ -141,7 +145,7 @@ export function useEngagementSession() {
 
   function disconnect() {
     cleanupEventListeners()
-    engagementService.disconnect()
+    engagementSessionService.disconnect()
   }
 
   return {
