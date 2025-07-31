@@ -1,6 +1,8 @@
 require('dotenv').config()
 const express = require('express')
 const cors = require('cors')
+const http = require('http')
+const { Server } = require('socket.io')
 const {
   getAllEntities,
   createEntity,
@@ -8,9 +10,17 @@ const {
   deleteEntity,
 } = require('./controllers/entityController.js')
 const { sendDiscordMessage } = require('./controllers/discordController.js')
+const { setupSocketHandlers } = require('./controllers/engagementController.js')
 const { getEntityNames } = require('./utils/fileService.js')
 
 const app = express()
+const server = http.createServer(app)
+const io = new Server(server, {
+  cors: {
+    origin: '*', // TODO: Restrict this to frontend domain in production
+    methods: ['GET', 'POST']
+  }
+})
 const PORT = 3000
 
 app.use(express.json())
@@ -30,6 +40,11 @@ entities.forEach((entity) => {
 // Discord route
 app.post('/send-discord-message', sendDiscordMessage)
 
-app.listen(PORT, () => {
+// Set up Socket.io handlers
+setupSocketHandlers(io)
+
+// Start the server
+server.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`)
+  console.log(`Socket.IO is ready for WebSocket connections`)
 })

@@ -45,7 +45,7 @@
             <div class="conditions-row" v-for="(value, key) in selectedCharacter.conditions" :key="key">
               <span :class="{ 'condition-active': value }">{{
                 this.$capitalizeFirstLetter(key)
-                }}</span>
+              }}</span>
               <input type="checkbox" class="skill-checkbox" :class="{ 'condition-active-checkbox': value }"
                 v-model="selectedCharacter.conditions[key]" />
             </div>
@@ -55,7 +55,8 @@
 
         <!-- Three-column layout for Engagement, Equipment, and Abilities -->
         <div class="main-column">
-          <EngagementDiceTable :character="selectedCharacter" :allEquipment="allEquipment" :sources="sources" />
+          <EngagementDiceTable :character="selectedCharacter" :allEquipment="allEquipment" :sources="sources"
+            @update:character="updateCharacter" @engagement-results="handleEngagementResults" />
         </div>
         <div class="main-column">
           <EquipmentTable :equipment="selectedCharacter.equipment" :allEquipment="allEquipment"
@@ -112,7 +113,7 @@ import DeleteConfirmationModal from '@/components/modals/DeleteConfirmationModal
 import EditEquipmentModal from '@/components/modals/EditEquipmentModal.vue'
 import EngagementDiceTable from '@/components/characterSheet/EngagementDiceTable.vue'
 import DiceRollResults from '@/components/characterSheet/DiceRollResults.vue'
-import DiceService from '@/services/DiceService'
+import SkillCheckService from '@/services/SkillCheckService'
 
 export default {
   components: {
@@ -358,6 +359,13 @@ export default {
     updateCharacter(updatedCharacter) {
       this.selectedCharacter = { ...updatedCharacter }
     },
+
+    handleEngagementResults(engagementResult) {
+      // Update the latestRoll to show engagement results in DiceRollResults component
+      console.log('CharactersView received engagement results:', engagementResult);
+      this.latestRoll = engagementResult;
+    },
+
     deleteCharacter() {
       CharacterService.deleteCharacter(this.selectedCharacter)
       this.closeDeleteConfirmationModal()
@@ -468,7 +476,7 @@ export default {
     },
     // LATEST ROLL
     updateLatestRoll() {
-      this.latestRoll = DiceService.getLatestRollResult()
+      this.latestRoll = SkillCheckService.getLatestRollResult()
     },
   },
 }

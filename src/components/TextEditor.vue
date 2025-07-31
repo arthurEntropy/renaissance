@@ -74,6 +74,7 @@
 
 <script>
 import { Editor, EditorContent } from '@tiptap/vue-3'
+import { getDiceFontClass, parseDiceFontClass } from '../../utils/diceFontUtils'
 import StarterKit from '@tiptap/starter-kit'
 import Link from '@tiptap/extension-link'
 import Image from '@tiptap/extension-image'
@@ -202,10 +203,9 @@ export default {
         'Enter DiceFont identifier (e.g., df-d8-3 for a d8 showing 3):',
       )
       if (identifier) {
-        const match = identifier.match(/df-d(\d+)-(\d+)/)
-        if (match) {
-          const [sides, value] = match.slice(1)
-          const diceClass = `df-d${sides}-${value}`
+        const parsed = parseDiceFontClass(identifier)
+        if (parsed) {
+          const diceClass = getDiceFontClass(parsed.dieSize, parsed.value)
           this.editor.chain().focus().insertDiceFont(diceClass).run()
         } else {
           alert(

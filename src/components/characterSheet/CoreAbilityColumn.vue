@@ -52,7 +52,7 @@
     <div class="state-row">
       <span class="skill-name" :class="{ 'state-active': firstStateValue }">{{
         this.$capitalizeFirstLetter(columnConfig.firstStateKey)
-        }}</span>
+      }}</span>
       <input type="checkbox" :checked="firstStateValue" @change="
         updateCharacter(columnConfig.firstStateKey, $event.target.checked)
         " class="skill-checkbox" :class="{ 'state-active-checkbox': firstStateValue }" />
@@ -70,6 +70,7 @@
 <script>
 import CharacterService from '@/services/CharacterService'
 import NumberInput from '@/components/NumberInput' // Adjust path as needed
+import { getDiceFontClass } from '../../../utils/diceFontUtils'
 
 export default {
   components: {
@@ -146,10 +147,7 @@ export default {
     },
   },
   methods: {
-    // Get the dice font class for the specified die type and value
-    getDiceFontClass(sides, value) {
-      return `df-d${sides}-${value}`
-    },
+    getDiceFontClass,
 
     // Determine if the rank is active (either from base ranks or positive dice mod)
     isRankActive(skill, diceIndex) {

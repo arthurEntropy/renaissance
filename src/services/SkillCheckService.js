@@ -1,6 +1,8 @@
 import axios from 'axios'
+import { getDiceFontClass } from '../../utils/diceFontUtils'
+import { RollTypes } from '../constants/rollTypes'
 
-class DiceService {
+class SkillCheckService {
   static latestRollResult = null
 
   static getLatestRollResult() {
@@ -49,6 +51,7 @@ class DiceService {
 
     // Create roll result object to be used in-app and sent to Discord.
     const rollResult = {
+      type: RollTypes.SKILL_CHECK,
       characterName: character.name,
       skillName: skillName,
       baseSkillName: skill.name,
@@ -65,7 +68,7 @@ class DiceService {
         emoji: this.getDiceEmoji(r.die, r.roll === 0 ? r.originalRoll : r.roll),
         dropped: r.roll === 0, // Was this die dropped by favored/ill-favored logic
         displayValue: r.roll === 0 ? r.originalRoll : r.roll,
-        class: `df-d${r.die}-${r.roll === 0 ? r.originalRoll : r.roll}`, // For in-app display using DiceFont
+        class: getDiceFontClass(r.die, r.roll === 0 ? r.originalRoll : r.roll), // For in-app display using DiceFont
       })),
       favoredStatus: skill.isFavored
         ? 'favored'
@@ -81,7 +84,7 @@ class DiceService {
 
     // Send to Discord
     // TODO: Make this optional
-    this.sendRollResultsToServer(
+    this.sendSkillCheckResultsToServer(
       results.map((r) => r.symbol),
       totalSum,
       success,
@@ -147,7 +150,7 @@ class DiceService {
       : d12Rolls.includes(11)
 
     if (autoFail) {
-      this.sendRollResultsToServer(
+      this.sendSkillCheckResultsToServer(
         results.map((r) => r.symbol),
         0,
         false,
@@ -281,7 +284,7 @@ class DiceService {
     return null
   }
 
-  static async sendRollResultsToServer(
+  static async sendSkillCheckResultsToServer(
     rollResults,
     totalSum,
     success,
@@ -303,10 +306,10 @@ class DiceService {
         image,
       })
     } catch (error) {
-      console.error('Error sending roll:', error)
-      alert('Failed to send roll. Check your connection or server.')
+      console.error('Error sending skill check:', error)
+      alert('Failed to send skill check. Check your connection or server.')
     }
   }
 }
 
-export default DiceService
+export default SkillCheckService

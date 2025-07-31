@@ -31,7 +31,7 @@
                   <span class="dice-label">Engagement</span>
                   <div class="dice-icons">
                     <span v-for="die in equipment.engagementDice" :key="'engagement-' + die" class="dice-icon">
-                      <i :class="getDiceFontClass(die)"></i>
+                      <i :class="getDiceFontMaxClass(die)"></i>
                     </span>
                   </div>
                 </div>
@@ -41,7 +41,7 @@
                   <span class="dice-label">Damage</span>
                   <div class="dice-icons">
                     <span v-for="die in equipment.damageDice" :key="'damage-' + die" class="dice-icon">
-                      <i :class="getDiceFontClass(die)"></i>
+                      <i :class="getDiceFontMaxClass(die)"></i>
                     </span>
                   </div>
                 </div>
@@ -83,6 +83,7 @@
 import { useEquipmentStore } from '@/stores/equipmentStore'
 import BaseCard from '@/components/BaseCard.vue'
 import EngagementSuccessService from '@/services/EngagementSuccessService'
+import { getDiceFontMaxClass } from '../../utils/diceFontUtils'
 
 export default {
   inheritAttrs: false,
@@ -142,6 +143,8 @@ export default {
   },
 
   methods: {
+    getDiceFontMaxClass,
+
     toggleImage() {
       this.showLargeImage = !this.showLargeImage
     },
@@ -157,10 +160,6 @@ export default {
         console.error('Error fetching engagement successes:', error)
         this.engagementSuccesses = []
       }
-    },
-
-    getDiceFontClass(die) {
-      return `df-d${die}-${die}`
     },
 
     startSuccessTooltip(success, event) {

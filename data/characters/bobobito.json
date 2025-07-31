@@ -290,5 +290,11 @@
     "4fbf9ccb-0fbb-45d0-9f8f-7b7fcfb811fb",
     "3f084b3d-ff7a-462c-a55c-0ea52dac6332",
     "2f40fa98-f90a-4eb8-b626-999b000fa4b2"
+  ],
+  "engagementDice": [
+    8
+  ],
+  "engagementSuccesses": [
+    "9"
   ]
 }
