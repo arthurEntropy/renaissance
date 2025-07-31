@@ -107,19 +107,6 @@ class EngagementService {
     this.autoJoinOrCreate(characterInfo, selectedDice, engagementSuccesses);
   }
 
-  // Join an existing engagement session (legacy method, kept for backwards compatibility)
-  joinSession(sessionId, characterInfo, selectedDice, engagementSuccesses) {
-    if (!this.socket) this.connect();
-    
-    this.sessionId = sessionId;
-    this.socket.emit('join-session', {
-      sessionId,
-      characterInfo,
-      selectedDice,
-      engagementSuccesses
-    });
-  }
-
   // Cancel the current session
   cancelSession() {
     if (this.socket && this.sessionId) {

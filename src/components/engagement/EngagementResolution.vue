@@ -17,6 +17,8 @@
 </template>
 
 <script>
+import EngagementWinnerTypes from '@/constants/engagementWinnerTypes'
+
 export default {
     name: 'EngagementResolution',
     props: {
@@ -55,11 +57,11 @@ export default {
             }
 
             switch (this.winner) {
-                case 'user':
+                case EngagementWinnerTypes.USER:
                     return `${this.characterName} wins`;
-                case 'opponent':
+                case EngagementWinnerTypes.OPPONENT:
                     return `${this.opponentName} wins`;
-                case 'tie':
+                case EngagementWinnerTypes.TIE:
                     return 'Draw';
                 default:
                     return '';
@@ -73,17 +75,17 @@ export default {
                 classes.push('disabled');
             }
 
-            if (!this.userAccepted && this.winner === 'user') {
+            if (!this.userAccepted && this.winner === EngagementWinnerTypes.USER) {
                 classes.push('win-pale');
-            } else if (this.userAccepted && this.winner === 'user') {
+            } else if (this.userAccepted && this.winner === EngagementWinnerTypes.USER) {
                 classes.push('win-solid');
-            } else if (!this.userAccepted && this.winner === 'opponent') {
+            } else if (!this.userAccepted && this.winner === EngagementWinnerTypes.OPPONENT) {
                 classes.push('loss-pale');
-            } else if (this.userAccepted && this.winner === 'opponent') {
+            } else if (this.userAccepted && this.winner === EngagementWinnerTypes.OPPONENT) {
                 classes.push('loss-solid');
-            } else if (!this.userAccepted && this.winner === 'tie') {
+            } else if (!this.userAccepted && this.winner === EngagementWinnerTypes.TIE) {
                 classes.push('draw-pale');
-            } else if (this.userAccepted && this.winner === 'tie') {
+            } else if (this.userAccepted && this.winner === EngagementWinnerTypes.TIE) {
                 classes.push('draw-solid');
             }
 
@@ -96,11 +98,11 @@ export default {
             if (!this.opponentAccepted) {
                 classes.push('waiting');
             } else {
-                if (this.winner === 'opponent') {
+                if (this.winner === EngagementWinnerTypes.OPPONENT) {
                     classes.push('opponent-win-solid');
-                } else if (this.winner === 'user') {
+                } else if (this.winner === EngagementWinnerTypes.USER) {
                     classes.push('opponent-loss-solid');
-                } else if (this.winner === 'tie') {
+                } else if (this.winner === EngagementWinnerTypes.TIE) {
                     classes.push('opponent-draw-solid');
                 }
             }
@@ -115,7 +117,7 @@ export default {
                 classes.push('both-accepted');
             }
 
-            if (this.winner === 'tie') {
+            if (this.winner === EngagementWinnerTypes.TIE) {
                 classes.push('draw-result');
             }
 

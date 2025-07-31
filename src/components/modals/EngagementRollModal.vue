@@ -7,8 +7,7 @@
             </div>
 
             <!-- Floating comparison indicators -->
-            <DiceComparisonIndicators v-if="shouldShowComparisons" :comparisons="diceComparisons"
-                :can-edit="canEditResults" :engagement-winner="engagementWinner" @toggle-result="toggleResult" />
+            <ResultIndicators v-if="shouldShowComparisons" :comparisons="diceComparisons" :result="engagementResult" />
 
             <!-- Engagement columns -->
             <div class="engagement-columns">
@@ -45,7 +44,7 @@
 <script>
 import EngagementRollService from '@/services/EngagementRollService';
 import CharacterColumn from '@/components/engagement/CharacterColumn.vue';
-import DiceComparisonIndicators from '@/components/engagement/DiceComparisonIndicators.vue';
+import ResultIndicators from '@/components/engagement/ResultIndicators.vue';
 import EngagementResolution from '@/components/engagement/EngagementResolution.vue';
 import SuccessTooltip from '@/components/engagement/SuccessTooltip.vue';
 import { useEngagementSession } from '@/composables/useEngagementSession';
@@ -55,13 +54,15 @@ import { computed, watch, onMounted, onBeforeUnmount } from 'vue';
 import SessionStatus from '@/constants/sessionStatus';
 import PlayerSides from '@/constants/playerSides';
 import RollTypes from '@/constants/rollTypes';
+import EngagementResultTypes from '@/constants/engagementResultTypes';
+import EngagementWinnerTypes from '@/constants/engagementWinnerTypes';
 import { ref, reactive } from 'vue';
 
 
 export default {
     components: {
         CharacterColumn,
-        DiceComparisonIndicators,
+        ResultIndicators,
         EngagementResolution,
         SuccessTooltip
     },
@@ -252,11 +253,11 @@ export default {
             }
 
             switch (engagementWinner.value) {
-                case 'user':
+                case EngagementWinnerTypes.USER:
                     return `${props.character.name} wins`
-                case 'opponent':
+                case EngagementWinnerTypes.OPPONENT:
                     return `${sessionManager.opponent.value.characterInfo.name} wins`
-                case 'tie':
+                case EngagementWinnerTypes.TIE:
                     return 'Draw'
                 default:
                     return ''
@@ -382,17 +383,17 @@ export default {
             // Determine the result from the user's perspective
             let result
             switch (engagementWinner.value) {
-                case 'user':
-                    result = 'win'
+                case EngagementWinnerTypes.USER:
+                    result = EngagementResultTypes.WIN
                     break
-                case 'opponent':
-                    result = 'loss'
+                case EngagementWinnerTypes.OPPONENT:
+                    result = EngagementResultTypes.LOSS
                     break
-                case 'tie':
-                    result = 'draw'
+                case EngagementWinnerTypes.TIE:
+                    result = EngagementResultTypes.DRAW
                     break
                 default:
-                    result = 'draw'
+                    result = EngagementResultTypes.DRAW
             }
 
             // Format the engagement result

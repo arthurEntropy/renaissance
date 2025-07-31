@@ -17,7 +17,7 @@ const app = express()
 const server = http.createServer(app)
 const io = new Server(server, {
   cors: {
-    origin: '*', // Restrict this to frontend domain in production
+    origin: '*', // TODO: Restrict this to frontend domain in production
     methods: ['GET', 'POST']
   }
 })

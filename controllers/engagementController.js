@@ -1,4 +1,5 @@
 const { v4: uuidv4 } = require('uuid');
+const { SessionStatus } = require('../src/constants/sessionStatus.js');
 
 // In-memory storage for active engagement sessions
 const activeSessions = new Map();
@@ -13,7 +14,7 @@ let engagementIO = null;
 //   users: [
 //     { id: string, name: string, ready: boolean, dice: [], success: [] }
 //   ],
-//   state: 'waiting' | 'ready' | 'rolling' | 'completed'
+//   status: SessionStatus.WAITING | SessionStatus.ACTIVE | SessionStatus.ROLLING | SessionStatus.COMPLETED
 // }
 
 const setupSocketHandlers = (io) => {
@@ -31,8 +32,8 @@ const setupSocketHandlers = (io) => {
       if (availableSessionId && activeSessions.has(availableSessionId)) {
         const session = activeSessions.get(availableSessionId);
         
-        // Make sure the session only has one user and is in waiting state
-        if (session.users.length === 1 && session.state === 'waiting') {
+        // Make sure the session only has one user and is in waiting status
+        if (session.users.length === 1 && session.status === SessionStatus.WAITING) {
           // Join the existing session
           session.users.push({
             socketId: socket.id,
@@ -42,8 +43,8 @@ const setupSocketHandlers = (io) => {
             ready: true
           });
           
-          // Update session state now that we have two users
-          session.state = 'ready';
+          // Update session status now that we have two users
+          session.status = SessionStatus.ACTIVE;
           
           // Join the socket room
           socket.join(availableSessionId);
@@ -67,7 +68,7 @@ const setupSocketHandlers = (io) => {
             if (currentSession && currentSession.users.length === 2) {
               performRoll(joinedSessionId);
             }
-          }, 1500);
+          }, 1500); // TODO: Centralize roll animation delay so this is guaranteed to be in sync with the client
           return;
         }
       }
@@ -88,7 +89,7 @@ const setupSocketHandlers = (io) => {
             ready: true
           }
         ],
-        state: 'waiting'
+        status: SessionStatus.WAITING
       };
       
       // Store in our sessions map
@@ -102,45 +103,6 @@ const setupSocketHandlers = (io) => {
       
       // Send back the session ID to the client
       socket.emit('session-created', { sessionId, session: newSession });
-    });
-    
-    // Join a specific session (kept for backward compatibility but not used in auto mode)
-    socket.on('join-session', ({ sessionId, characterInfo, selectedDice, engagementSuccesses }) => {
-      const session = activeSessions.get(sessionId);
-      
-      if (!session) {
-        socket.emit('error', { message: 'Session not found' });
-        return;
-      }
-      
-      // Add the new user to the session
-      session.users.push({
-        socketId: socket.id,
-        characterInfo,
-        selectedDice,
-        engagementSuccesses,
-        ready: true
-      });
-      
-      // Update session state if we now have two users ready
-      if (session.users.length === 2) {
-        session.state = 'ready';
-        
-        // Schedule the roll after a delay
-        setTimeout(() => {
-          // Only proceed if session still exists and both users are still connected
-          const currentSession = activeSessions.get(sessionId);
-          if (currentSession && currentSession.users.length === 2) {
-            performRoll(sessionId);
-          }
-        }, 1500);
-      }
-      
-      // Join the socket room
-      socket.join(sessionId);
-      
-      // Notify all users in the session about the update
-      engagementIO.to(sessionId).emit('session-updated', { session });
     });
     
     // Handle user disconnect
@@ -277,8 +239,8 @@ function performRoll(sessionId) {
     return;
   }
   
-  // Update session state
-  session.state = 'rolling';
+  // Update session status
+  session.status = SessionStatus.ROLLING;
   
   // Roll dice for both users
   session.users.forEach(user => {
@@ -301,8 +263,8 @@ function performRoll(sessionId) {
     session.winner = -1; // Tie
   }
   
-  // Update session state
-  session.state = 'completed';
+  // Update session status
+  session.status = SessionStatus.COMPLETED;
   
   // Broadcast results to all participants using the global socket.io reference
   if (engagementIO) {

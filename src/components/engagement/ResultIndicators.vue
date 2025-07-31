@@ -19,8 +19,10 @@
 </template>
 
 <script>
+import EngagementWinnerTypes from '@/constants/engagementWinnerTypes'
+
 export default {
-    name: 'DiceComparisonIndicators',
+    name: 'ResultIndicators',
     props: {
         comparisons: {
             type: Array,
@@ -42,13 +44,13 @@ export default {
         getComparisonClasses(comparison) {
             const classes = [];
 
-            if (comparison.leftWins && this.engagementWinner === 'user') {
+            if (comparison.leftWins && this.engagementWinner === EngagementWinnerTypes.USER) {
                 classes.push('user-wins-pair');
-            } else if (comparison.rightWins && this.engagementWinner === 'opponent') {
+            } else if (comparison.rightWins && this.engagementWinner === EngagementWinnerTypes.OPPONENT) {
                 classes.push('opponent-wins-pair');
-            } else if (comparison.leftWins && this.engagementWinner === 'opponent') {
+            } else if (comparison.leftWins && this.engagementWinner === EngagementWinnerTypes.OPPONENT) {
                 classes.push('user-loses-pair');
-            } else if (comparison.rightWins && this.engagementWinner === 'user') {
+            } else if (comparison.rightWins && this.engagementWinner === EngagementWinnerTypes.USER) {
                 classes.push('opponent-loses-pair');
             } else if (comparison.tie) {
                 classes.push('tie-pair');

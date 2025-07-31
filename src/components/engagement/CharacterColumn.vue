@@ -88,6 +88,8 @@
 </template>
 
 <script>
+import EngagementWinnerTypes from '@/constants/engagementWinnerTypes'
+
 export default {
     name: 'CharacterColumn',
     props: {
@@ -172,10 +174,10 @@ export default {
             }
 
             if (this.showResults && this.winner) {
-                if ((this.winner === 'user' && !this.isOpponent) ||
-                    (this.winner === 'opponent' && this.isOpponent)) {
+                if ((this.winner === EngagementWinnerTypes.USER && !this.isOpponent) ||
+                    (this.winner === EngagementWinnerTypes.OPPONENT && this.isOpponent)) {
                     classes.push('winner-column');
-                } else if (this.winner !== 'tie') {
+                } else if (this.winner !== EngagementWinnerTypes.TIE) {
                     classes.push('loser-column');
                 }
             }

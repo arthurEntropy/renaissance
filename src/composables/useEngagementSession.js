@@ -31,13 +31,13 @@ export function useEngagementSession() {
     // Session created handler
     eventHandlers.sessionCreated = ({ sessionId: newSessionId, session }) => {
       sessionId.value = newSessionId
-      sessionStatus.value = session.state
+      sessionStatus.value = session.status
     }
 
     // Session updated handler
     eventHandlers.sessionUpdated = ({ session }) => {
       sessionId.value = session.id
-      sessionStatus.value = session.state
+      sessionStatus.value = session.status
 
       // Find opponent (the other user in the session)
       if (session.users && session.users.length === 2) {

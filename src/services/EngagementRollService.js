@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { getDiceFontClass, getDiceFontMaxClass } from '../../utils/diceFontUtils'
 import { RollTypes } from '../constants/rollTypes'
+import { EngagementWinnerTypes } from '../constants/engagementWinnerTypes'
 
 class EngagementRollService {
 
@@ -129,7 +130,7 @@ class EngagementRollService {
   static determineEngagementWinner(diceComparisons, userDice = [], opponentDice = []) {
     // Special case: if both players have no dice, it's a tie
     if (userDice.length === 0 && opponentDice.length === 0) {
-      return 'tie'
+      return EngagementWinnerTypes.TIE
     }
 
     // If no comparisons exist, return null
@@ -150,11 +151,11 @@ class EngagementRollService {
     })
 
     if (userWins > opponentWins) {
-      return 'user'
+      return EngagementWinnerTypes.USER
     } else if (opponentWins > userWins) {
-      return 'opponent'
+      return EngagementWinnerTypes.OPPONENT
     } else {
-      return 'tie'
+      return EngagementWinnerTypes.TIE
     }
   }
 

@@ -1,5 +1,6 @@
 const axios = require('axios')
 const { RollTypes } = require('../src/constants/rollTypes.js')
+const { EngagementResultTypes } = require('../src/constants/engagementResultTypes.js')
 
 // TODO: Allow user to set this value per campaign and pass with the request
 const DISCORD_WEBHOOK_URL="https://discord.com/api/webhooks/1339580491094822932/6_fDF8aWBxvvGTgkdN_uEsjdImLCejdXdP9BlrGVz4DG8Vg1u9kVTJl2Nf4FH0kGMlp-"
@@ -26,22 +27,19 @@ const sendDiscordMessage = (req, res) => {
   } = req.body
 
   // Detect if this is an engagement result
-  const isEngagement = type === RollTypes.ENGAGEMENT || (opponentName && result && userWins !== undefined)
+  const isEngagement = type === RollTypes.ENGAGEMENT
   
   let embed
   
   if (isEngagement) {
     // Create engagement embed
-    const winner = result === 'win' ? characterName : result === 'loss' ? opponentName : null
-    const description = result === 'draw' ? 'DRAW' : `**${winner.toUpperCase()} WINS**`
-    
-    // Use provided drawCount, or calculate if not provided
-    const calculatedDraws = drawCount !== undefined ? drawCount : Math.max(0, Math.max(userWins || 0, opponentWins || 0) - (userWins || 0) - (opponentWins || 0))
+    const winner = result === EngagementResultTypes.WIN ? characterName : result === EngagementResultTypes.LOSS ? opponentName : null
+    const description = result === EngagementResultTypes.DRAW ? 'DRAW' : `**${winner.toUpperCase()} WINS**`
     
     embed = {
       title: `⚔️ Engagement: ${characterName} vs ${opponentName}`,
       description: description,
-      color: result === 'draw' ? 0xffeb3b : null, // Yellow for draw, no color for win/loss
+      color: result === EngagementResultTypes.DRAW ? 0xffeb3b : null, // Yellow for draw, no color for win/loss
       fields: [
         {
           name: characterName,
@@ -55,13 +53,13 @@ const sendDiscordMessage = (req, res) => {
         },
         {
           name: 'Draws',
-          value: `${calculatedDraws}`,
+          value: `${drawCount}`,
           inline: true,
         },
       ],
     }
   } else {
-    // Create skill check embed (original logic)
+    // Create skill check embed
     embed = {
       title: `${name ? name : 'Someone'} rolled ${skill ? skill : ''}`,
       description: `${success ? '**SUCCESS**' : '**FAILURE**'}`,

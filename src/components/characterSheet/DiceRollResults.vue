@@ -30,13 +30,14 @@
       <transition name="outcome-fade" appear>
         <!-- Only show if not rolling, conditional styling for both engagement and skill checks -->
         <div v-if="!isRolling" class="roll-outcome" :class="{
-          success: isEngagement ? latestRoll.result === 'win' : latestRoll.success,
-          failure: isEngagement ? latestRoll.result === 'loss' : !latestRoll.success,
-          draw: isEngagement && latestRoll.result === 'draw'
+          success: isEngagement ? latestRoll.result === EngagementResultTypes.WIN : latestRoll.success,
+          failure: isEngagement ? latestRoll.result === EngagementResultTypes.LOSS : !latestRoll.success,
+          draw: isEngagement && latestRoll.result === EngagementResultTypes.DRAW
         }">
           <!-- Display outcome text for engagement -->
           <span v-if="isEngagement">
-            {{ latestRoll.result === 'win' ? 'WIN' : latestRoll.result === 'draw' ? 'DRAW' : 'LOSS' }}
+            {{ latestRoll.result === EngagementResultTypes.WIN ? 'WIN' : latestRoll.result ===
+              EngagementResultTypes.DRAW ? 'DRAW' : 'LOSS' }}
           </span>
           <!-- Display outcome text for skill checks -->
           <span v-else>
@@ -111,6 +112,7 @@
 <script>
 import { getDiceFontClass, getRandomDiceFontClass } from '../../../utils/diceFontUtils'
 import { RollTypes } from '../../constants/rollTypes'
+import { EngagementResultTypes } from '../../constants/engagementResultTypes'
 
 export default {
   props: {
@@ -135,10 +137,10 @@ export default {
         : this.latestRoll?.diceResults || []
     },
     isEngagement() {
-      return this.latestRoll && (
-        this.latestRoll.type === RollTypes.ENGAGEMENT ||
-        (this.latestRoll.opponentName && this.latestRoll.result && this.latestRoll.userWins !== undefined)
-      )
+      return this.latestRoll && this.latestRoll.type === RollTypes.ENGAGEMENT
+    },
+    EngagementResultTypes() {
+      return EngagementResultTypes
     }
   },
   methods: {
