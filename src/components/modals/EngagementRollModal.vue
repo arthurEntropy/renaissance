@@ -54,6 +54,7 @@ import { useEngagementDice } from '@/composables/useEngagementDice';
 import { computed, watch, onMounted, onBeforeUnmount } from 'vue';
 import SessionStatus from '@/constants/sessionStatus';
 import PlayerSides from '@/constants/playerSides';
+import { ref, reactive } from 'vue';
 
 
 export default {
@@ -89,11 +90,17 @@ export default {
     setup(props, { emit }) {
         // UI Constants
         const DICE_REROLL_ANIMATION_DURATION = 1500 // 1.5 seconds
+        const SUCCESS_TOOLTIP_DELAY = 1000 // 1 second
 
         // Initialize composables
         const sessionManager = useEngagementSession()
         const successManager = useSuccessAssignment()
         const diceManager = useEngagementDice()
+
+        // Tooltip state
+        const tooltipTimer = ref(null)
+        const tooltipSuccess = ref(null)
+        const tooltipPosition = reactive({ x: 0, y: 0 })
 
         // Computed properties for character art
         const characterArtUrl = computed(() => {
@@ -341,15 +348,21 @@ export default {
         }
 
         const removeSuccessAssignment = (player, diceIndex) => {
-            successManager.removeSuccessAssignment(player, diceIndex, props.character.id)
+            successManager.clearSuccessAssignment(player, diceIndex, props.character.id)
         }
 
         const startSuccessTooltip = (success, event) => {
-            successManager.startSuccessTooltip(success, event)
+            clearTimeout(tooltipTimer.value)
+            tooltipTimer.value = setTimeout(() => {
+                tooltipSuccess.value = success
+                tooltipPosition.x = event.clientX + 12
+                tooltipPosition.y = event.clientY + 12
+            }, SUCCESS_TOOLTIP_DELAY)
         }
 
         const clearSuccessTooltip = () => {
-            successManager.clearSuccessTooltip()
+            clearTimeout(tooltipTimer.value)
+            tooltipSuccess.value = null
         }
 
         const toggleUserAccept = () => {
@@ -475,8 +488,8 @@ export default {
             userAccepted: sessionManager.userAccepted,
             opponentAccepted: sessionManager.opponentAccepted,
             assignedSuccesses: successManager.assignedSuccesses,
-            tooltipSuccess: successManager.tooltipSuccess,
-            tooltipPosition: successManager.tooltipPosition,
+            tooltipSuccess,
+            tooltipPosition,
             rerollingDice: diceManager.rerollingDice,
             hoverStates: diceManager.hoverStates,
 
