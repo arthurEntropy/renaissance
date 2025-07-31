@@ -2,12 +2,16 @@
   <div class="dice-roll-results">
     <div v-if="latestRoll" class="roll-content">
       <div class="roll-title">
+
+        <!-- Engagement Roll Title -->
         <span v-if="isEngagement">
           ⚔️ Engagement:
           <span class="skill-name">{{ latestRoll.characterName }}</span>
           vs
           <span class="skill-name">{{ latestRoll.opponentName }}</span>
         </span>
+
+        <!-- Skill Check Title with Favored/Ill-Favored -->
         <span v-else>
           {{ latestRoll.characterName }} rolled
           <span class="skill-name">{{
@@ -22,16 +26,19 @@
         </span>
       </div>
 
-      <!-- Use Vue's transition component for smooth appearance -->
+      <!-- Outcome display -->
       <transition name="outcome-fade" appear>
+        <!-- Only show if not rolling, conditional styling for both engagement and skill checks -->
         <div v-if="!isRolling" class="roll-outcome" :class="{
           success: isEngagement ? latestRoll.result === 'win' : latestRoll.success,
           failure: isEngagement ? latestRoll.result === 'loss' : !latestRoll.success,
           draw: isEngagement && latestRoll.result === 'draw'
         }">
+          <!-- Display outcome text for engagement -->
           <span v-if="isEngagement">
             {{ latestRoll.result === 'win' ? 'WIN' : latestRoll.result === 'draw' ? 'DRAW' : 'LOSS' }}
           </span>
+          <!-- Display outcome text for skill checks -->
           <span v-else>
             {{ latestRoll.success ? 'SUCCESS' : 'FAILURE' }}
           </span>
@@ -41,9 +48,11 @@
       <!-- Placeholder when rolling -->
       <div v-if="isRolling" class="roll-outcome-placeholder"></div>
 
-      <!-- Use a simpler fade transition with appear prop -->
+      <!-- Roll/Engagement Results Display -->
       <transition name="simple-fade" appear>
+        <!-- Only show numbers if not rolling -->
         <div v-if="!isRolling" class="roll-numbers">
+          <!-- Engagement Results Display -->
           <span v-if="isEngagement" class="engagement-score">
             <span class="user-wins">{{ latestRoll.userWins }}</span>
             <span class="score-separator">to</span>
@@ -53,6 +62,7 @@
                 'draws' }}
             </span>
           </span>
+          <!-- Skill Check Results Display -->
           <span v-else>
             <span class="roll-total">{{ latestRoll.total }}</span>
             <span class="roll-target">{{ latestRoll.targetNumber }}</span>
@@ -63,7 +73,7 @@
       <!-- Placeholder when rolling -->
       <div v-if="isRolling" class="roll-numbers-placeholder"></div>
 
-      <!-- Only show dice for skill checks, not engagement -->
+      <!-- Dice display (for skill checks, not engagement) -->
       <div v-if="!isEngagement" class="roll-dice">
         <span v-for="(die, index) in displayDice" :key="index" class="dice-symbol" :class="{
           'dropped-die': !isRolling && die.dropped,
@@ -80,18 +90,28 @@
       <!-- Empty space for engagement to maintain layout consistency -->
       <div v-else class="engagement-dice-placeholder"></div>
 
+      <!-- Footer for additional skill check info -->
       <div v-if="!isEngagement && latestRoll.footer" class="roll-footer">
         {{ latestRoll.footer }}
       </div>
     </div>
 
     <div v-else class="no-roll">
-      <em>Roll results will appear here!</em>
+      <div class="dice-showcase">
+        <span v-for="(dieType, index) in [20, 4, 6, 8, 10, 12]" :key="dieType" class="showcase-die"
+          :style="getCircularPosition(index, 6)">
+          <i :class="getDiceFontClass(dieType, Math.ceil(dieType / 2))"></i>
+        </span>
+        <div class="hover-text">Roll results will appear here.</div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import { getRandomDiceFontClass } from '../../../utils/diceFontUtils'
+import { RollTypes } from '../../constants/rollTypes'
+
 export default {
   props: {
     latestRoll: {
@@ -103,7 +123,7 @@ export default {
     return {
       isRolling: false,
       rollStartTime: null,
-      rollDuration: 1200, // Total roll animation duration in ms
+      rollDuration: 1500, // 1.5 seconds
       animatedDice: [],
       lastRollId: null,
     }
@@ -115,14 +135,27 @@ export default {
         : this.latestRoll?.diceResults || []
     },
     isEngagement() {
-      // Detect if this is an engagement result based on the presence of engagement-specific properties
       return this.latestRoll && (
-        this.latestRoll.type === 'engagement' ||
+        this.latestRoll.type === RollTypes.ENGAGEMENT ||
         (this.latestRoll.opponentName && this.latestRoll.result && this.latestRoll.userWins !== undefined)
       )
     }
   },
   methods: {
+    getCircularPosition(index, total) {
+      const radius = 50 // pixels from center
+      const angle = (index * 2 * Math.PI) / total - Math.PI / 2 // Start from top
+      const x = Math.cos(angle) * radius
+      const y = Math.sin(angle) * radius
+
+      return {
+        position: 'absolute',
+        left: '50%',
+        top: '50%',
+        transform: `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`
+      }
+    },
+
     startRollAnimation() {
       // Skip animation for engagement results since they don't have dice to animate
       if (this.isEngagement) {
@@ -145,11 +178,10 @@ export default {
       this.animatedDice = this.latestRoll.diceResults.map((die) => {
         return {
           ...die,
-          class: this.getRandomDieClass(die.type),
+          class: getRandomDiceFontClass(die.type),
           isRolling: true,
         }
       })
-
       this.isRolling = true
       this.rollStartTime = Date.now()
 
@@ -167,10 +199,11 @@ export default {
         // Continue animation
         this.animatedDice = this.animatedDice.map((die, index) => {
           // Determine if we should change the die face
+          // Change it every 20% of the time, but more frequently at the start
           if (Math.random() < 0.5 / (progress * 5 + 0.5)) {
             return {
               ...die,
-              class: this.getRandomDieClass(die.type),
+              class: getRandomDiceFontClass(die.type),
             }
           }
 
@@ -192,12 +225,6 @@ export default {
         // Animation complete, show final results
         this.isRolling = false
       }
-    },
-
-    getRandomDieClass(dieType) {
-      const max = dieType === 12 ? 12 : 6
-      const randomValue = Math.floor(Math.random() * max) + 1
-      return `df-d${dieType}-${randomValue}`
     },
   },
   watch: {
@@ -224,7 +251,6 @@ export default {
   border-radius: 5px;
   padding: 10px;
   align-self: stretch;
-  /* Take up full height */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -247,22 +273,17 @@ export default {
 }
 
 .skill-name {
-  color: rgb(212,
-      182,
-      106);
-  /* Match the skill name color from character sheet */
+  color: rgb(212, 182, 106);
   font-weight: bold;
 }
 
 .favored-modifier {
   color: #4caf50;
-  /* Green */
   font-weight: bold;
 }
 
 .ill-favored-modifier {
   color: #f44336;
-  /* Red */
   font-weight: bold;
   margin-left: 4px;
 }
@@ -325,7 +346,6 @@ export default {
   font-size: 20px;
   font-weight: bold;
   color: white;
-  /* Ensure same color as win/loss numbers */
 }
 
 .score-separator {
@@ -342,29 +362,22 @@ export default {
 .roll-dice {
   display: flex;
   flex-wrap: nowrap;
-  /* Keep dice in a single row */
   justify-content: center;
   gap: 5px;
   padding: 5px 0;
   overflow-x: auto;
-  /* Allow horizontal scrolling if needed */
 }
 
 .engagement-dice-placeholder {
-  /* Match the height and padding of roll-dice to maintain layout consistency */
   padding: 5px 0;
   height: 46px;
-  /* Approximate height of dice section */
 }
 
 .dice-symbol {
   font-size: 36px;
-  /* Default size */
   flex-shrink: 1;
-  /* Allow dice to shrink if needed */
   position: relative;
   text-shadow: none;
-  /* No glow by default */
   opacity: 1;
   text-decoration: none;
 }
@@ -494,6 +507,45 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.dice-showcase {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  margin: 0 auto;
+}
+
+.showcase-die {
+  font-size: 24px;
+  color: #666;
+  opacity: 0.6;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.showcase-die:hover {
+  color: #aaa;
+  opacity: 0.8;
+  transform: scale(1.1);
+}
+
+.hover-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 12px;
+  color: #999;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.dice-showcase:hover .hover-text {
+  opacity: 1;
 }
 
 @keyframes rollDice {

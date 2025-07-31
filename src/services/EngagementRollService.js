@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { getDiceFontClass, getDiceFontMaxClass } from '../../utils/diceFontUtils'
+import { RollTypes } from '../constants/rollTypes'
 
 class EngagementRollService {
 
@@ -216,7 +217,7 @@ class EngagementRollService {
   static async sendEngagementResultsToServer(engagementResults) {
     try {
       await axios.post('http://localhost:3000/send-discord-message', {
-        type: 'engagement',
+        type: RollTypes.ENGAGEMENT,
         ...engagementResults
       })
     } catch (error) {

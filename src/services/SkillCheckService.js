@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { getDiceFontClass } from '../../utils/diceFontUtils'
+import { RollTypes } from '../constants/rollTypes'
 
 class SkillCheckService {
   static latestRollResult = null
@@ -50,6 +51,7 @@ class SkillCheckService {
 
     // Create roll result object to be used in-app and sent to Discord.
     const rollResult = {
+      type: RollTypes.SKILL_CHECK,
       characterName: character.name,
       skillName: skillName,
       baseSkillName: skill.name,

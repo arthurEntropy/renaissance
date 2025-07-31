@@ -39,7 +39,7 @@
           <!-- The die itself -->
           <span class="dice-icon" :class="diceInfo.status" @click="toggleDiceStatus(diceInfo)"
             @mouseenter="startDiceTooltip(diceInfo, $event)" @mouseleave="clearDiceTooltip">
-            <i :class="`df-d${diceInfo.die}-${diceInfo.die}`"></i>
+            <i :class="getDiceFontMaxClass(diceInfo.die)"></i>
           </span>
         </div>
 
@@ -376,10 +376,6 @@ export default {
         console.error("Error fetching engagement successes:", error);
         this.allEngagementSuccesses = [];
       }
-    },
-
-    getDiceFontClass(die) {
-      return `df-d${die}-${die}`
     },
 
     rollEngagementDice() {

@@ -93,7 +93,7 @@
           <label>Engagement Dice:</label>
           <div class="dice-row">
             <div v-for="dieType in dieTypes" :key="'engagement-' + dieType" class="dice-column">
-              <i :class="getDiceFontClass(dieType)" class="dice-icon"></i>
+              <i :class="getDiceFontMaxClass(dieType)" class="dice-icon"></i>
               <input type="number" min="0" v-model.number="engagementDiceCounts[dieType]" class="dice-input" />
             </div>
           </div>
@@ -104,7 +104,7 @@
           <label>Damage Dice:</label>
           <div class="dice-row">
             <div v-for="dieType in dieTypes" :key="'damage-' + dieType" class="dice-column">
-              <i :class="getDiceFontClass(dieType)" class="dice-icon"></i>
+              <i :class="getDiceFontMaxClass(dieType)" class="dice-icon"></i>
               <input type="number" min="0" v-model.number="damageDiceCounts[dieType]" class="dice-input" />
             </div>
           </div>
@@ -194,10 +194,6 @@ export default {
   components: { TextEditor },
 
   methods: {
-    getDiceFontClass(dieType) {
-      return `df-d${dieType}-${dieType}` // Format for DiceFont classes
-    },
-
     initializeDiceCounts() {
       this.engagementDiceCounts = this.convertDiceListToCounts(
         this.editedEquipment.engagementDice || [],

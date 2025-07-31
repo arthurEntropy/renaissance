@@ -1,4 +1,5 @@
 const axios = require('axios')
+const { RollTypes } = require('../src/constants/rollTypes.js')
 
 // TODO: Allow user to set this value per campaign and pass with the request
 const DISCORD_WEBHOOK_URL="https://discord.com/api/webhooks/1339580491094822932/6_fDF8aWBxvvGTgkdN_uEsjdImLCejdXdP9BlrGVz4DG8Vg1u9kVTJl2Nf4FH0kGMlp-"
@@ -25,7 +26,7 @@ const sendDiscordMessage = (req, res) => {
   } = req.body
 
   // Detect if this is an engagement result
-  const isEngagement = type === 'engagement' || (opponentName && result && userWins !== undefined)
+  const isEngagement = type === RollTypes.ENGAGEMENT || (opponentName && result && userWins !== undefined)
   
   let embed
   

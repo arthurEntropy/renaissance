@@ -54,6 +54,7 @@ import { useEngagementDice } from '@/composables/useEngagementDice';
 import { computed, watch, onMounted, onBeforeUnmount } from 'vue';
 import SessionStatus from '@/constants/sessionStatus';
 import PlayerSides from '@/constants/playerSides';
+import RollTypes from '@/constants/rollTypes';
 import { ref, reactive } from 'vue';
 
 
@@ -396,7 +397,7 @@ export default {
 
             // Format the engagement result
             const engagementResult = {
-                type: 'engagement',
+                type: RollTypes.ENGAGEMENT,
                 characterName: props.character.name,
                 opponentName: sessionManager.opponent.value.characterInfo.name,
                 result: result,

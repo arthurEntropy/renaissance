@@ -20,8 +20,14 @@ export function parseDiceFontClass(diceClass) {
   return null
 }
 
+export function getRandomDiceFontClass(dieSize) {
+  const randomValue = Math.floor(Math.random() * dieSize) + 1
+  return getDiceFontClass(dieSize, randomValue)
+}
+
 export default {
   getDiceFontClass,
   getDiceFontMaxClass,
-  parseDiceFontClass
+  parseDiceFontClass,
+  getRandomDiceFontClass
 }
