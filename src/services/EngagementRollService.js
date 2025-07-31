@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { getDiceFontClass, getDiceFontMaxClass } from '../../utils/diceFontUtils'
 
 class EngagementRollService {
 
@@ -20,7 +21,7 @@ class EngagementRollService {
         return {
           die: die,
           value: value,
-          class: `df-d${die}-${value}`,
+          class: getDiceFontClass(die, value),
           isRolling: false,
           isMax: isMax,
           originalIndex: index
@@ -30,7 +31,7 @@ class EngagementRollService {
         return {
           die: die,
           value: die, // Show max face while rolling
-          class: `df-d${die}-${die}`,
+          class: getDiceFontMaxClass(die),
           isRolling: true,
           isMax: false, // Not actually max until rolled
           originalIndex: index

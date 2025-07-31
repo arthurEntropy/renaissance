@@ -52,6 +52,9 @@ import { useEngagementSession } from '@/composables/useEngagementSession';
 import { useSuccessAssignment } from '@/composables/useSuccessAssignment';
 import { useEngagementDice } from '@/composables/useEngagementDice';
 import { computed, watch, onMounted, onBeforeUnmount } from 'vue';
+import SessionStatus from '@/constants/sessionStatus';
+import PlayerSides from '@/constants/playerSides';
+
 
 export default {
     components: {
@@ -82,8 +85,11 @@ export default {
             default: () => []
         }
     },
-    emits: ['close', 'confirm-roll', 'engagement-committed', 'engagement-results'],
+    emits: ['close', 'engagement-committed', 'engagement-results'],
     setup(props, { emit }) {
+        // UI Constants
+        const DICE_REROLL_ANIMATION_DURATION = 1500 // 1.5 seconds
+
         // Initialize composables
         const sessionManager = useEngagementSession()
         const successManager = useSuccessAssignment()
@@ -110,7 +116,7 @@ export default {
                 props.selectedDice,
                 sessionManager.rollResults.value,
                 props.character.id,
-                'user'
+                PlayerSides.USER
             )
         })
 
@@ -121,7 +127,7 @@ export default {
                 sessionManager.opponent.value.selectedDice,
                 sessionManager.rollResults.value,
                 props.character.id,
-                'opponent',
+                PlayerSides.OPPONENT,
                 sessionManager.opponent.value
             )
         })
@@ -137,13 +143,13 @@ export default {
                 successIds = [...props.character.engagementSuccesses]
             }
 
-            // Add equipment engagement successes
+            // Add engagement successes from equipment
             if (props.character.equipment && Array.isArray(props.character.equipment) && props.allEquipment && Array.isArray(props.allEquipment)) {
-                props.character.equipment.forEach(characterEquip => {
-                    const fullEquipment = props.allEquipment.find(eq => eq.id === characterEquip.id)
-                    const isActive = characterEquip.isCarried !== false && characterEquip.isWielding !== false
-                    if (isActive && fullEquipment && fullEquipment.engagementSuccesses && fullEquipment.engagementSuccesses.length > 0) {
-                        successIds.push(...fullEquipment.engagementSuccesses)
+                props.character.equipment.forEach(characterEquipmentItem => {
+                    const fullEquipmentItemObject = props.allEquipment.find(eq => eq.id === characterEquipmentItem.id)
+                    const isCarriedAndWielded = characterEquipmentItem.isCarried !== false && characterEquipmentItem.isWielding !== false
+                    if (isCarriedAndWielded && fullEquipmentItemObject && fullEquipmentItemObject.engagementSuccesses && fullEquipmentItemObject.engagementSuccesses.length > 0) {
+                        successIds.push(...fullEquipmentItemObject.engagementSuccesses)
                     }
                 })
             }
@@ -151,15 +157,6 @@ export default {
             // Remove duplicates and map to success objects
             const uniqueSuccessIds = [...new Set(successIds)]
             return uniqueSuccessIds
-                .map(id => props.allEngagementSuccesses.find(success => success.id === id))
-                .filter(success => success)
-                .sort((a, b) => a.name.localeCompare(b.name))
-        })
-
-        const opponentSuccesses = computed(() => {
-            if (!sessionManager.opponent.value || !sessionManager.opponent.value.engagementSuccesses) return []
-
-            return sessionManager.opponent.value.engagementSuccesses
                 .map(id => props.allEngagementSuccesses.find(success => success.id === id))
                 .filter(success => success)
                 .sort((a, b) => a.name.localeCompare(b.name))
@@ -194,7 +191,7 @@ export default {
             character: props.character,
             dice: sortedSelectedDice.value,
             successes: characterSuccesses.value,
-            side: 'user',
+            side: PlayerSides.USER,
             isOpponent: false,
             canEdit: sessionManager.canEditResults.value
         }))
@@ -203,8 +200,8 @@ export default {
             ...commonColumnProps.value,
             character: sessionManager.opponent.value?.characterInfo || null,
             dice: sortedOpponentDice.value,
-            successes: opponentSuccesses.value,
-            side: 'opponent',
+            successes: [], // Opponent successes are shown only when assigned to dice
+            side: PlayerSides.OPPONENT,
             isOpponent: true,
             canEdit: false
         }))
@@ -213,7 +210,7 @@ export default {
         const showResults = computed(() => {
             return sessionManager.rollResults.value &&
                 sessionManager.rollResults.value.session &&
-                sessionManager.sessionStatus.value === 'completed'
+                sessionManager.sessionStatus.value === SessionStatus.COMPLETED
         })
 
         const diceComparisons = computed(() => {
@@ -265,7 +262,7 @@ export default {
 
             return diceManager.countWins(
                 diceComparisons.value,
-                'user',
+                PlayerSides.USER,
                 props.character.id,
                 sessionManager.opponent.value?.characterInfo?.id
             )
@@ -278,7 +275,7 @@ export default {
 
             return diceManager.countWins(
                 diceComparisons.value,
-                'opponent',
+                PlayerSides.OPPONENT,
                 props.character.id,
                 sessionManager.opponent.value?.characterInfo?.id
             )
@@ -296,7 +293,7 @@ export default {
         const closeModal = () => {
             // Check if we should show confirmation dialog
             if (sessionManager.shouldShowExitConfirmation.value) {
-                if (!confirm('Are you sure you want to exit this engagement?')) {
+                if (!confirm('Are you sure you want to leave this engagement?')) {
                     return // User cancelled, don't close
                 }
             }
@@ -306,11 +303,6 @@ export default {
             sessionManager.disconnect()
 
             emit('close')
-        }
-
-        const confirmRoll = () => {
-            emit('confirm-roll', sortedSelectedDice.value)
-            closeModal()
         }
 
         const toggleResult = (index) => {
@@ -324,7 +316,7 @@ export default {
             )
         }
 
-        const showRerollHover = (index, show, player = 'user') => {
+        const showRerollHover = (index, show, player = PlayerSides.USER) => {
             if (!showResults.value) return
             diceManager.showRerollHover(index, show, player)
         }
@@ -332,16 +324,15 @@ export default {
         const rerollDie = async (player, index) => {
             if (!sessionManager.opponent.value) return
 
-            const targetDice = player === 'user' ? sortedSelectedDice.value : sortedOpponentDice.value
-
             await diceManager.rerollDie(
                 player,
                 index,
                 props.character.id,
-                targetDice,
+                sortedSelectedDice.value,
                 sessionManager.rollResults.value,
                 sessionManager.opponent.value,
-                successManager.clearSuccessAssignment
+                successManager.clearSuccessAssignment,
+                DICE_REROLL_ANIMATION_DURATION
             )
         }
 
@@ -409,7 +400,7 @@ export default {
         }
 
         // Event handlers for WebSocket events
-        const handleResultIndicatorUpdated = ({ index, state }) => {
+        const handleDiceComparisonIndicatorUpdated = ({ index, state }) => {
             diceManager.handleRemoteResultUpdate(index, state)
         }
 
@@ -424,7 +415,8 @@ export default {
                 props.character.id,
                 sortedOpponentDice.value,
                 sessionManager.rollResults.value,
-                sessionManager.opponent.value
+                sessionManager.opponent.value,
+                DICE_REROLL_ANIMATION_DURATION
             )
         }
 
@@ -441,7 +433,7 @@ export default {
 
         const handleRollResults = ({ session }) => {
             sessionManager.rollResults.value = { session }
-            sessionManager.sessionStatus.value = 'completed' // Set status to completed
+            sessionManager.sessionStatus.value = SessionStatus.COMPLETED // Set status to completed
 
             // Emit event to notify parent that engagement is now committed
             emit('engagement-committed')
@@ -453,22 +445,16 @@ export default {
 
         // Lifecycle hooks
         onMounted(() => {
-            // Initialize session
-            sessionManager.initSession(
+            // Initialize session with all handlers
+            sessionManager.initializeSession(
                 props.character,
                 props.selectedDice,
-                characterSuccesses.value.map(s => s.id)
-            )
-
-            // Register additional event handlers
-            sessionManager.registerAdditionalHandlers(
-                handleResultIndicatorUpdated,
+                characterSuccesses.value.map(s => s.id),
+                handleDiceComparisonIndicatorUpdated,
                 handleDieRerolled,
-                handleSuccessAssignmentUpdated
+                handleSuccessAssignmentUpdated,
+                handleRollResults
             )
-
-            // Register custom roll results handler
-            sessionManager.registerRollResultsHandler(handleRollResults)
         })
 
         onBeforeUnmount(() => {
@@ -500,7 +486,6 @@ export default {
             sortedSelectedDice,
             sortedOpponentDice,
             characterSuccesses,
-            opponentSuccesses,
             showResults,
             diceComparisons,
             engagementWinner,
@@ -520,7 +505,6 @@ export default {
 
             // Methods
             closeModal,
-            confirmRoll,
             toggleResult,
             showRerollHover,
             rerollDie,
@@ -535,7 +519,6 @@ export default {
 </script>
 
 <style scoped>
-/* Use the global modal styles for consistency */
 .engagement-roll-modal {
     width: 400px;
     max-width: 90vw;
@@ -563,7 +546,6 @@ export default {
     gap: 10px;
     margin-bottom: 20px;
     min-height: 350px;
-    /* Give enough space for content */
     align-items: stretch;
 }
 

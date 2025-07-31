@@ -102,6 +102,7 @@ export default {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
     height: 28px;
     left: -7px;
+    margin-top: 7px;
 }
 
 .comparison-indicator.user-wins-pair,
@@ -149,6 +150,7 @@ export default {
     justify-content: center;
     width: 20px;
     height: 20px;
+    margin-top: 2px;
 }
 
 .indicator-caret.clickable {

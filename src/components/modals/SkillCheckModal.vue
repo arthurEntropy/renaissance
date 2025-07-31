@@ -66,6 +66,7 @@
 
 <script>
 import SkillCheckService from '@/services/SkillCheckService'
+import { getDiceFontMaxClass } from '../../../utils/diceFontUtils'
 
 export default {
   props: {
@@ -149,7 +150,7 @@ export default {
         .fill()
         .map(() => ({
           type: 12,
-          diceClass: 'df-d12-12',
+          diceClass: getDiceFontMaxClass(12),
         }))
     },
     d6DicePool() {
@@ -166,7 +167,7 @@ export default {
 
         dicePool.push({
           type: 6,
-          diceClass: 'df-d6-6',
+          diceClass: getDiceFontMaxClass(6),
           isSubtracted: isSubtracted,
           isAdded: false,
         })
@@ -177,7 +178,7 @@ export default {
         for (let i = 0; i < Math.min(diceMod, 5 - ranks); i++) {
           dicePool.push({
             type: 6,
-            diceClass: 'df-d6-6',
+            diceClass: getDiceFontMaxClass(6),
             isAdded: true,
             isSubtracted: false,
           })

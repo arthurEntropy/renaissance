@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { getDiceFontClass } from '../../utils/diceFontUtils'
 
 class SkillCheckService {
   static latestRollResult = null
@@ -65,7 +66,7 @@ class SkillCheckService {
         emoji: this.getDiceEmoji(r.die, r.roll === 0 ? r.originalRoll : r.roll),
         dropped: r.roll === 0, // Was this die dropped by favored/ill-favored logic
         displayValue: r.roll === 0 ? r.originalRoll : r.roll,
-        class: `df-d${r.die}-${r.roll === 0 ? r.originalRoll : r.roll}`, // For in-app display using DiceFont
+        class: getDiceFontClass(r.die, r.roll === 0 ? r.originalRoll : r.roll), // For in-app display using DiceFont
       })),
       favoredStatus: skill.isFavored
         ? 'favored'

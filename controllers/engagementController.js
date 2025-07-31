@@ -171,8 +171,7 @@ const setupSocketHandlers = (io) => {
             activeSessions.delete(sessionId);
           } else if (!bothAccepted) {
             // Only notify remaining users if both hadn't already accepted
-            engagementIO.to(sessionId).emit('user-left', { 
-              session,
+            engagementIO.to(sessionId).emit('session-cancelled', { 
               message: 'Opponent has left the engagement',
               characterName: characterName
             });

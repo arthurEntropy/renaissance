@@ -1,23 +1,18 @@
 import { ref, reactive, computed } from 'vue'
+import SessionStatus from '@/constants/sessionStatus'
 import engagementService from '@/services/EngagementService'
 
-/**
- * Composable for managing engagement session state and WebSocket events
- */
 export function useEngagementSession() {
-  // Session state
   const sessionId = ref(null)
-  const sessionStatus = ref('waiting')
+  const sessionStatus = ref(SessionStatus.WAITING)
   const opponent = ref(null)
   const rollResults = ref(null)
   const userAccepted = ref(false)
   const opponentAccepted = ref(false)
 
-  // Event handler references for cleanup
   const eventHandlers = reactive({
     sessionCreated: null,
     sessionUpdated: null,
-    userLeft: null,
     sessionCancelled: null,
     rollResults: null,
     resultIndicatorUpdated: null,
@@ -26,28 +21,13 @@ export function useEngagementSession() {
     acceptanceStateUpdated: null
   })
 
-  /**
-   * Initialize session and setup event listeners
-   * @param {Object} character - User's character object
-   * @param {Array} selectedDice - Array of selected dice
-   * @param {Array} characterSuccessIds - Array of character success IDs
-   */
-  function initSession(character, selectedDice, characterSuccessIds) {
-    // Connect to WebSocket server
+  function initializeSession(character, selectedDice, characterSuccessIds, diceComparisonIndicatorHandler, dieRerolledHandler, successAssignmentUpdatedHandler, rollResultsHandler) {
     engagementService.connect()
-
-    // Setup event listeners
-    setupEngagementListeners(character)
-
-    // Auto-join or create session
+    setupEngagementListeners(character, diceComparisonIndicatorHandler, dieRerolledHandler, successAssignmentUpdatedHandler, rollResultsHandler)
     engagementService.autoJoinOrCreate(character, selectedDice, characterSuccessIds)
   }
 
-  /**
-   * Setup all WebSocket event listeners
-   * @param {Object} character - User's character object
-   */
-  function setupEngagementListeners(character) {
+  function setupEngagementListeners(character, diceComparisonIndicatorHandler, dieRerolledHandler, successAssignmentUpdatedHandler, rollResultsHandler) {
     // Session created handler
     eventHandlers.sessionCreated = ({ sessionId: newSessionId, session }) => {
       sessionId.value = newSessionId
@@ -70,32 +50,18 @@ export function useEngagementSession() {
       }
     }
 
-    // User left handler
-    eventHandlers.userLeft = ({ message, characterName }) => {
-      opponent.value = null
-      sessionStatus.value = 'waiting'
-      const alertMessage = characterName ? `${characterName} has exited the engagement.` : message
-      alert(alertMessage)
-    }
-
     // Session cancelled handler
     eventHandlers.sessionCancelled = ({ message, characterName }) => {
       const alertMessage = characterName ? `${characterName} has exited the engagement.` : message
       alert(alertMessage)
       sessionId.value = null
-      sessionStatus.value = 'waiting'
+      sessionStatus.value = SessionStatus.WAITING
       opponent.value = null
-    }
-
-    // Roll results handler
-    eventHandlers.rollResults = ({ session }) => {
-      sessionStatus.value = 'completed'
-      rollResults.value = { session }
     }
 
     // Acceptance state updated handler
     eventHandlers.acceptanceStateUpdated = ({ characterId, accepted }) => {
-      // Don't process our own acceptance state updates
+      // Don't process our own acceptance state updates because we handle those directly in the component
       if (characterId === character.id) {
         return
       }
@@ -106,111 +72,57 @@ export function useEngagementSession() {
       }
     }
 
+    // Passed-in handlers
+    eventHandlers.rollResults = rollResultsHandler
+    eventHandlers.resultIndicatorUpdated = diceComparisonIndicatorHandler
+    eventHandlers.dieRerolled = dieRerolledHandler
+    eventHandlers.successAssignmentUpdated = successAssignmentUpdatedHandler
+
     // Register all event listeners
     engagementService.on('session-created', eventHandlers.sessionCreated)
     engagementService.on('session-updated', eventHandlers.sessionUpdated)
-    engagementService.on('user-left', eventHandlers.userLeft)
     engagementService.on('session-cancelled', eventHandlers.sessionCancelled)
     engagementService.on('roll-results', eventHandlers.rollResults)
     engagementService.on('acceptance-state-updated', eventHandlers.acceptanceStateUpdated)
+    engagementService.on('result-indicator-updated', eventHandlers.resultIndicatorUpdated)
+    engagementService.on('die-rerolled', eventHandlers.dieRerolled)
+    engagementService.on('success-assignment-updated', eventHandlers.successAssignmentUpdated)
   }
 
-  /**
-   * Register additional event handlers for dice and success management
-   * @param {Function} resultIndicatorHandler - Handler for result indicator updates
-   * @param {Function} dieRerolledHandler - Handler for die reroll events
-   * @param {Function} successAssignmentHandler - Handler for success assignment updates
-   */
-  function registerAdditionalHandlers(resultIndicatorHandler, dieRerolledHandler, successAssignmentHandler) {
-    if (resultIndicatorHandler) {
-      eventHandlers.resultIndicatorUpdated = resultIndicatorHandler
-      engagementService.on('result-indicator-updated', eventHandlers.resultIndicatorUpdated)
-    }
-
-    if (dieRerolledHandler) {
-      eventHandlers.dieRerolled = dieRerolledHandler
-      engagementService.on('die-rerolled', eventHandlers.dieRerolled)
-    }
-
-    if (successAssignmentHandler) {
-      eventHandlers.successAssignmentUpdated = successAssignmentHandler
-      engagementService.on('success-assignment-updated', eventHandlers.successAssignmentUpdated)
-    }
-  }
-
-  /**
-   * Register a custom roll results handler
-   * @param {Function} customHandler - Custom roll results handler
-   */
-  function registerRollResultsHandler(customHandler) {
-    if (customHandler) {
-      // Remove existing handler if any
-      if (eventHandlers.rollResults) {
-        engagementService.off('roll-results', eventHandlers.rollResults)
-      }
-      
-      // Register the custom handler
-      eventHandlers.rollResults = customHandler
-      engagementService.on('roll-results', eventHandlers.rollResults)
-    }
-  }
-
-  /**
-   * Update user's acceptance state
-   * @param {string} characterId - Character ID
-   * @param {boolean} accepted - Acceptance state
-   */
   function updateUserAcceptance(characterId, accepted) {
     userAccepted.value = accepted
     engagementService.updateAcceptanceState(characterId, accepted)
   }
 
-  /**
-   * Check if both users have accepted
-   * @returns {boolean} True if both users accepted
-   */
   const bothUsersAccepted = computed(() => {
     return userAccepted.value && opponentAccepted.value
   })
 
-  /**
-   * Check if results can be edited (neither user has accepted)
-   * @returns {boolean} True if results can be edited
-   */
   const canEditResults = computed(() => {
+    // Results can only be edited if neither user has accepted
     return !userAccepted.value && !opponentAccepted.value
   })
 
-  /**
-   * Check if should show exit confirmation
-   * @returns {boolean} True if confirmation should be shown
-   */
   function shouldShowExitConfirmation() {
+    // Only ask for user confirmation before exiting if there's an opponent and dice have already been rolled
     return opponent.value && 
            rollResults.value && 
-           sessionStatus.value === 'completed' &&
+           sessionStatus.value === SessionStatus.COMPLETED &&
            !bothUsersAccepted.value
   }
 
-  /**
-   * Cancel the current session
-   */
   function cancelSession() {
     if (sessionId.value) {
       engagementService.cancelSession()
     }
   }
 
-  /**
-   * Clean up all event listeners
-   */
   function cleanupEventListeners() {
     Object.entries(eventHandlers).forEach(([eventName, handler]) => {
       if (handler) {
         const eventMap = {
           sessionCreated: 'session-created',
           sessionUpdated: 'session-updated',
-          userLeft: 'user-left',
           sessionCancelled: 'session-cancelled',
           rollResults: 'roll-results',
           resultIndicatorUpdated: 'result-indicator-updated',
@@ -227,9 +139,6 @@ export function useEngagementSession() {
     })
   }
 
-  /**
-   * Disconnect from the engagement service
-   */
   function disconnect() {
     cleanupEventListeners()
     engagementService.disconnect()
@@ -250,9 +159,7 @@ export function useEngagementSession() {
     shouldShowExitConfirmation,
     
     // Methods
-    initSession,
-    registerAdditionalHandlers,
-    registerRollResultsHandler,
+    initializeSession,
     updateUserAcceptance,
     cancelSession,
     cleanupEventListeners,
