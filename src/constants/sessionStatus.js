@@ -1,6 +1,3 @@
-/**
- * Engagement session status constants
- */
 export const SessionStatus = {
   WAITING: 'waiting',
   ACTIVE: 'active', 

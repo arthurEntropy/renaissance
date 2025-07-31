@@ -1,5 +1,7 @@
 <template>
   <div class="engagement-dice-table">
+
+    <!-- Header Row -->
     <div class="engagement-dice-header">
       <div class="header-left">
         <h2>Engagement</h2>
@@ -22,13 +24,12 @@
     <!-- Engagement Roll Modal -->
     <EngagementRollModal v-if="showEngagementRollModal" :character="character" :selectedDice="currentRollDice"
       :allEngagementSuccesses="allEngagementSuccesses" :allEquipment="allEquipment" @close="closeEngagementRollModal"
-      @confirm-roll="handleConfirmRoll" @engagement-committed="handleEngagementCommitted"
-      @engagement-results="handleEngagementResults" />
+      @engagement-committed="handleEngagementCommitted" @engagement-results="handleEngagementResults" />
 
     <div class="engagement-dice-content">
-      <div v-if="diceSourceInfo.length > 0 || isEditMode" class="dice-display">
+      <div v-if="allOwnedEngagementDice.length > 0 || isEditMode" class="dice-display">
         <!-- Display dice -->
-        <div v-for="(diceInfo) in diceSourceInfo" :key="diceInfo.statusKey" class="dice-icon-container"
+        <div v-for="(diceInfo) in allOwnedEngagementDice" :key="diceInfo.statusKey" class="dice-icon-container"
           :class="{ 'user-added-die': diceInfo.isUserAdded }">
           <!-- Remove button for user-added dice in edit mode -->
           <button v-if="isEditMode && diceInfo.isUserAdded" class="remove-die-button"
@@ -66,7 +67,7 @@
       <div class="engagement-successes">
         <!-- Show existing successes -->
         <!-- Show existing successes -->
-        <div v-for="success in uniqueEngagementSuccesses" :key="success.id" class="engagement-success-pill-container"
+        <div v-for="success in allOwnedEngagementSuccesses" :key="success.id" class="engagement-success-pill-container"
           :class="{ 'user-added-success': success.isUserAdded }">
           <!-- Remove button for user-added successes in edit mode -->
           <button v-if="isEditMode && success.isUserAdded" class="remove-success-button"
@@ -87,7 +88,7 @@
       </div>
 
       <!-- No successes message -->
-      <div v-if="uniqueEngagementSuccesses.length === 0 && !isEditMode" class="no-successes-message">
+      <div v-if="allOwnedEngagementSuccesses.length === 0 && !isEditMode" class="no-successes-message">
         No engagement successes available
       </div>
     </div>
@@ -112,8 +113,8 @@
     <div v-if="tooltipSuccess" class="success-tooltip"
       :style="{ top: tooltipPosition.y + 'px', left: tooltipPosition.x + 'px' }">
       <div class="tooltip-description">{{ tooltipSuccess.description }}</div>
-      <div v-if="successSources[tooltipSuccess.id]" class="tooltip-source">
-        From: {{ successSources[tooltipSuccess.id].join(', ') }}
+      <div v-if="tooltipSuccess.sources && tooltipSuccess.sources.length > 0" class="tooltip-source">
+        From: {{ tooltipSuccess.sources.join(', ') }}
       </div>
     </div>
 
@@ -130,6 +131,8 @@
 <script>
 import EngagementSuccessService from '@/services/EngagementSuccessService';
 import EngagementRollModal from '@/components/modals/EngagementRollModal.vue';
+import { getDiceFontMaxClass } from '../../../utils/diceFontUtils'
+import { DiceStatus } from '../../constants/diceStatus'
 
 export default {
   components: {
@@ -155,7 +158,7 @@ export default {
     }
   },
 
-  emits: ['update:character', 'engagement-results'], // Emit event to update character and send engagement results
+  emits: ['update:character', 'engagement-results'],
 
   data() {
     return {
@@ -164,92 +167,41 @@ export default {
       tooltipDice: null,
       tooltipPosition: { x: 0, y: 0 },
       tooltipTimer: null,
-      diceStatuses: {}, // Track statuses as { "equipmentId_dieIndex": "available"|"selected"|"expended" }
-      isEditMode: false, // Toggle for edit mode
-      showDiceDropdown: false, // Toggle for dice dropdown visibility
-      showSuccessDropdown: false, // Toggle for success dropdown visibility
-      dropdownPosition: { x: 0, y: 0 }, // Position for dropdown
-      diceOptions: [4, 6, 8, 10, 12, 20], // Available dice options
-      showEngagementRollModal: false, // Toggle for the engagement roll modal
-      currentRollDice: [], // Store the currently selected dice for the roll modal
+      diceStatuses: {},
+      isEditMode: false,
+      showDiceDropdown: false,
+      showSuccessDropdown: false,
+      dropdownPosition: { x: 0, y: 0 },
+      diceOptions: [4, 6, 8, 10, 12, 20], // Standard dice types
+      showEngagementRollModal: false,
+      currentRollDice: [],
     };
   },
 
   computed: {
-    wieldedWeapons() {
-      // Ensure reactivity by referencing character.equipment and allEquipment
-      return (this.character.equipment || []).filter((item) => {
-        if (!item.isWielding) return false
-        const equipmentItem = this.allEquipment.find((eq) => eq.id === item.id)
-        return equipmentItem && equipmentItem.isMelee
-      })
-    },
-
-    combinedEngagementDice() {
-      // Default dice
-      let dice = [6]
-      // Collect all engagement dice from wielded weapons
-      if (this.wieldedWeapons.length > 0) {
-        dice = this.wieldedWeapons
-          .map((item) => {
-            const weapon = this.allEquipment.find((eq) => eq.id === item.id)
-            return weapon && weapon.engagementDice ? weapon.engagementDice : []
-          })
-          .flat()
-      }
-      // Sort dice for consistency
-      return [...dice].sort((a, b) => a - b)
-    },
-
-    userAddedEngagementDice() {
-      // Return the user-added engagement dice from character, or an empty array if not defined
-      return this.character.engagementDice || [];
-    },
-
-    userAddedEngagementSuccesses() {
-      // Return the user-added engagement successes from character, or an empty array if not defined
-      return this.character.engagementSuccesses || [];
-    },
-
-    // All available engagement successes that can be added
-    availableEngagementSuccesses() {
-      // Filter out successes that are already in the character's equipment or user-added successes
-      return this.allEngagementSuccesses.filter(success => {
-        // Check if this success is already in equipment or user-added
-        const isInEquipment = this.allEquipmentEngagementSuccesses.includes(success.id);
-        const isInUserAdded = this.userAddedEngagementSuccesses.includes(success.id);
-        return !isInEquipment && !isInUserAdded;
-      }).sort((a, b) => a.name.localeCompare(b.name));
-    },
-
-    // All engagement successes that are already owned but can still be shown in dropdown
-    ownedEngagementSuccesses() {
-      // Get successes that are already in the character's equipment or user-added successes
-      return this.allEngagementSuccesses.filter(success => {
-        const isInEquipment = this.allEquipmentEngagementSuccesses.includes(success.id);
-        const isInUserAdded = this.userAddedEngagementSuccesses.includes(success.id);
-        return isInEquipment || isInUserAdded;
-      }).sort((a, b) => a.name.localeCompare(b.name));
-    },
-
-    equipmentWithDice() {
+    equipmentEngagementDice() {
       const result = [];
-      if (!this.character || !this.character.equipment || !this.allEquipment) {
+
+      if (!this.character?.equipment || !this.allEquipment) {
         return result;
       }
 
-      // Add dice from equipment
-      this.character.equipment.forEach(characterEquip => {
-        const fullEquipment = this.allEquipment.find(eq => eq.id === characterEquip.id);
-        const isActive = characterEquip.isCarried !== false && characterEquip.isWielding !== false;
-        if (isActive && fullEquipment && fullEquipment.engagementDice && fullEquipment.engagementDice.length > 0) {
-          fullEquipment.engagementDice.forEach((die, dieIndex) => {
-            const statusKey = `${fullEquipment.id}_${dieIndex}`;
-            const status = this.diceStatuses[statusKey] || 'available';
+      // Equipment items must be wielded to contribute engagement dice
+      const wieldedEquipment = (this.character.equipment || [])
+        .filter((item) => item.isWielding)
+        .map((item) => this.allEquipment.find((eq) => eq.id === item.id))
+        .filter((equipment) => equipment && equipment.engagementDice && equipment.engagementDice.length > 0);
+
+      wieldedEquipment.forEach(equipment => {
+        if (equipment.engagementDice) {
+          equipment.engagementDice.forEach((die, dieIndex) => {
+            const statusKey = `${equipment.id}_${dieIndex}`;
+            // Default to available status if not set
+            const status = this.diceStatuses[statusKey] || DiceStatus.AVAILABLE;
             result.push({
               die,
-              name: fullEquipment.name,
-              equipmentId: fullEquipment.id,
+              name: equipment.name,
+              equipmentId: equipment.id,
               dieIndex,
               statusKey,
               status,
@@ -259,116 +211,132 @@ export default {
         }
       });
 
-      // Add user-added dice
-      if (this.userAddedEngagementDice.length > 0) {
-        this.userAddedEngagementDice.forEach((die, index) => {
-          const statusKey = `user_added_${index}`;
-          const status = this.diceStatuses[statusKey] || 'available';
-          result.push({
-            die,
-            name: 'User-added',
-            userAddedIndex: index,
-            statusKey,
-            status,
-            isUserAdded: true
-          });
-        });
-      }
-
       return result;
     },
 
-    characterEngagementDice() {
-      return this.equipmentWithDice
-        .map(item => item.die)
-        .sort((a, b) => b - a);
-    },
-
-    diceSourceInfo() {
-      return [...this.equipmentWithDice].sort((a, b) => a.die - b.die);
-    },
-
-    allEquipmentEngagementSuccesses() {
-      const successIds = [];
-      if (!this.character || !this.character.equipment || !this.allEquipment) {
-        return [];
-      }
-      this.character.equipment.forEach(characterEquip => {
-        const fullEquipment = this.allEquipment.find(eq => eq.id === characterEquip.id);
-        const isActive = characterEquip.isCarried !== false && characterEquip.isWielding !== false;
-        if (isActive && fullEquipment && fullEquipment.engagementSuccesses && fullEquipment.engagementSuccesses.length > 0) {
-          successIds.push(...fullEquipment.engagementSuccesses);
-        }
+    userAddedEngagementDice() {
+      const rawDice = this.character.engagementDice || [];
+      return rawDice.map((die, index) => {
+        const statusKey = `user_added_${index}`;
+        // Default to available status if not set
+        const status = this.diceStatuses[statusKey] || DiceStatus.AVAILABLE;
+        return {
+          die,
+          name: 'Added manually', // Label for user-added dice in tooltips
+          userAddedIndex: index,
+          statusKey,
+          status,
+          isUserAdded: true
+        };
       });
-      return successIds;
     },
 
-    // Map success IDs to their source equipment names
-    successSources() {
-      const sources = {};
-      if (!this.character || !this.character.equipment || !this.allEquipment) {
-        return sources;
-      }
-
-      this.character.equipment.forEach(characterEquip => {
-        const fullEquipment = this.allEquipment.find(eq => eq.id === characterEquip.id);
-        const isActive = characterEquip.isCarried !== false && characterEquip.isWielding !== false;
-
-        if (isActive && fullEquipment && fullEquipment.engagementSuccesses && fullEquipment.engagementSuccesses.length > 0) {
-          fullEquipment.engagementSuccesses.forEach(successId => {
-            if (!sources[successId]) {
-              sources[successId] = [];
-            }
-            if (!sources[successId].includes(fullEquipment.name)) {
-              sources[successId].push(fullEquipment.name);
-            }
-          });
-        }
-      });
-
-      return sources;
-    },
-
-    uniqueEngagementSuccesses() {
-      // Combine equipment and user-added successes
-      const allSuccessIds = [
-        ...this.allEquipmentEngagementSuccesses,
-        ...this.userAddedEngagementSuccesses
+    allOwnedEngagementDice() {
+      const allDice = [
+        ...this.equipmentEngagementDice,
+        ...this.userAddedEngagementDice
       ];
-      const uniqueIds = [...new Set(allSuccessIds)];
 
-      return uniqueIds
-        .map(id => {
-          const success = this.allEngagementSuccesses.find(success => success.id === id);
-          if (success) {
-            // Add a flag to indicate if this is a user-added success
-            return {
-              ...success,
-              isUserAdded: this.userAddedEngagementSuccesses.includes(id) && !this.allEquipmentEngagementSuccesses.includes(id)
-            };
-          }
-          return null;
-        })
-        .filter(success => success)
-        .sort((a, b) => a.name.localeCompare(b.name));
+      // Sort by die size for consistent display
+      return allDice.sort((a, b) => a.die - b.die);
     },
 
     hasSelectedDice() {
-      return Object.values(this.diceStatuses).includes('selected');
+      return Object.values(this.diceStatuses).includes(DiceStatus.SELECTED);
     },
 
-    selectedDice() {
-      return this.equipmentWithDice
-        .filter(item => item.status === 'selected')
+    selectedDiceValues() {
+      return this.allOwnedEngagementDice
+        .filter(item => item.status === DiceStatus.SELECTED)
         .map(item => item.die);
     },
 
     hasExpendedDice() {
-      return Object.values(this.diceStatuses).includes('expended');
-    }
+      return Object.values(this.diceStatuses).includes(DiceStatus.EXPENDED);
+    },
+
+    equipmentEngagementSuccesses() {
+      const result = [];
+
+      if (!this.character?.equipment || !this.allEquipment) {
+        return result;
+      }
+
+      this.character.equipment.forEach(characterEquip => {
+        const equipment = this.allEquipment.find(eq => eq.id === characterEquip.id);
+
+        if (characterEquip.isWielding && equipment?.engagementSuccesses?.length > 0) {
+          equipment.engagementSuccesses.forEach(successId => {
+            const success = this.allEngagementSuccesses.find(s => s.id === successId);
+            if (success) {
+              result.push({
+                ...success,
+                isUserAdded: false,
+                sources: [equipment.name]
+              });
+            }
+          });
+        }
+      });
+
+      return result;
+    },
+
+    userAddedEngagementSuccesses() {
+      const rawSuccessIds = this.character.engagementSuccesses || [];
+      return rawSuccessIds.map(successId => {
+        const success = this.allEngagementSuccesses.find(s => s.id === successId);
+        if (success) {
+          return {
+            ...success,
+            isUserAdded: true,
+            sources: ['Added manually'] // Label for user-added successes in tooltips
+          };
+        }
+        return null;
+      }).filter(Boolean);
+    },
+
+    allOwnedEngagementSuccesses() {
+      const allSuccesses = [
+        ...this.equipmentEngagementSuccesses,
+        ...this.userAddedEngagementSuccesses
+      ];
+
+      // Group by ID and merge sources
+      const successMap = new Map();
+
+      allSuccesses.forEach(success => {
+        if (successMap.has(success.id)) {
+          const existing = successMap.get(success.id);
+          // Merge sources from all instances
+          existing.sources = [...new Set([...existing.sources, ...success.sources])];
+          // If any instance is user-added, mark as user-added
+          if (success.isUserAdded) {
+            existing.isUserAdded = true;
+          }
+        } else {
+          successMap.set(success.id, { ...success });
+        }
+      });
+
+      // Convert back to array and sort by name
+      return Array.from(successMap.values()).sort((a, b) => a.name.localeCompare(b.name));
+    },
+
+    // Engagement successes available for user to add (not already owned)
+    availableEngagementSuccesses() {
+      const ownedIds = new Set(this.allOwnedEngagementSuccesses.map(success => success.id));
+
+      return this.allEngagementSuccesses
+        .filter(success => !ownedIds.has(success.id))
+        .sort((a, b) => a.name.localeCompare(b.name));
+    },
   },
 
   methods: {
+    getDiceFontMaxClass,
+
     async fetchEngagementSuccesses() {
       try {
         this.allEngagementSuccesses = await EngagementSuccessService.getAllEngagementSuccesses();
@@ -376,24 +344,6 @@ export default {
         console.error("Error fetching engagement successes:", error);
         this.allEngagementSuccesses = [];
       }
-    },
-
-    rollEngagementDice() {
-      const dice = this.combinedEngagementDice
-
-      if (dice.length === 0) {
-        return
-      }
-
-      // Execute engagement roll with combined dice
-    },
-
-    getWieldedWeaponName() {
-      if (this.wieldedWeapons.length === 0) return 'unarmed'
-
-      const weaponId = this.wieldedWeapons[0].id
-      const weapon = this.allEquipment.find((eq) => eq.id === weaponId)
-      return weapon ? weapon.name : 'unknown weapon'
     },
 
     startSuccessTooltip(success, event) {
@@ -430,24 +380,23 @@ export default {
 
     toggleDiceStatus(diceInfo) {
       // Cycle through states: available -> selected -> expended -> available
-      const currentStatus = this.diceStatuses[diceInfo.statusKey] || 'available';
+      const currentStatus = this.diceStatuses[diceInfo.statusKey] || DiceStatus.AVAILABLE;
       let newStatus;
 
       switch (currentStatus) {
-        case 'available':
-          newStatus = 'selected';
+        case DiceStatus.AVAILABLE:
+          newStatus = DiceStatus.SELECTED;
           break;
-        case 'selected':
-          newStatus = 'expended';
+        case DiceStatus.SELECTED:
+          newStatus = DiceStatus.EXPENDED;
           break;
-        case 'expended':
-          newStatus = 'available';
+        case DiceStatus.EXPENDED:
+          newStatus = DiceStatus.AVAILABLE;
           break;
         default:
-          newStatus = 'available';
+          newStatus = DiceStatus.AVAILABLE;
       }
 
-      // In Vue 3, we can directly set properties and they will be reactive
       this.diceStatuses = {
         ...this.diceStatuses,
         [diceInfo.statusKey]: newStatus
@@ -455,10 +404,11 @@ export default {
     },
 
     rollSelectedDice() {
-      const selectedDice = [...this.selectedDice]; // Create a copy
+      const selectedDice = [...this.selectedDiceValues]; // Create a copy
 
       if (selectedDice.length === 0) {
-        // Confirm entering engagement with no dice
+        // Players can choose to enter engagement with no dice selected
+        // We just need to confirm this action
         if (!confirm('Enter engagement with no dice selected?')) {
           return;
         }
@@ -475,24 +425,13 @@ export default {
       this.showEngagementRollModal = false;
     },
 
-    handleConfirmRoll() {
-      // In the new logic, dice are only marked as expended when engagement is committed
-      // This method now just handles the confirmation without changing dice status
-
-      // Clear the current roll dice
-      this.currentRollDice = [];
-
-      // Close the modal
-      this.closeEngagementRollModal();
-    },
-
     handleEngagementCommitted() {
       // Mark all selected dice as expended when the engagement is actually committed
       // (i.e., when an opponent joined and dice were actually rolled)
       const updatedStatuses = { ...this.diceStatuses };
       Object.keys(updatedStatuses).forEach(key => {
-        if (updatedStatuses[key] === 'selected') {
-          updatedStatuses[key] = 'expended';
+        if (updatedStatuses[key] === DiceStatus.SELECTED) {
+          updatedStatuses[key] = DiceStatus.EXPENDED;
         }
       });
       this.diceStatuses = updatedStatuses;
@@ -500,7 +439,6 @@ export default {
 
     handleEngagementResults(engagementResult) {
       // Pass the engagement results up to the parent component
-      console.log('EngagementDiceTable received engagement results:', engagementResult);
       this.$emit('engagement-results', engagementResult);
     },
 
@@ -509,7 +447,7 @@ export default {
         return;
       }
 
-      // Reset all dice to available state
+      // Available is default status
       this.diceStatuses = {};
     },
 
@@ -554,8 +492,8 @@ export default {
     },
 
     addUserAddedDie(die) {
-      // Create a new array with the user-added dice, adding the new one
-      const updatedDice = [...this.userAddedEngagementDice, die];
+      const currentDice = this.character.engagementDice || [];
+      const updatedDice = [...currentDice, die];
 
       // Update character with the new user-added dice
       const updatedCharacter = {
@@ -571,16 +509,14 @@ export default {
     },
 
     removeUserAddedDie(index) {
-      // Create a new array with the user-added dice, removing the specified one
-      const updatedDice = this.userAddedEngagementDice.filter((_, i) => i !== index);
+      const currentDice = this.character.engagementDice || [];
+      const updatedDice = currentDice.filter((_, i) => i !== index);
 
-      // Update character with the new user-added dice
       const updatedCharacter = {
         ...this.character,
         engagementDice: updatedDice
       };
 
-      // Emit update event
       this.$emit('update:character', updatedCharacter);
     },
 
@@ -589,7 +525,6 @@ export default {
       this.showDiceDropdown = false; // Close dice dropdown if open
 
       if (this.showSuccessDropdown) {
-        // Default position
         this.dropdownPosition = {
           x: event.clientX,
           y: event.clientY + 10
@@ -606,6 +541,7 @@ export default {
       }
     },
 
+    // TODO: Centralize dropdown position adjustment
     adjustDropdownPosition(selector) {
       const dropdown = document.querySelector(selector);
       if (!dropdown) return;
@@ -639,33 +575,28 @@ export default {
     },
 
     addUserAddedSuccess(successId) {
-      // Create a new array with the user-added successes, adding the new one
-      const updatedSuccesses = [...this.userAddedEngagementSuccesses, successId];
+      const currentSuccesses = this.character.engagementSuccesses || [];
+      const updatedSuccesses = [...currentSuccesses, successId];
 
-      // Update character with the new user-added successes
       const updatedCharacter = {
         ...this.character,
         engagementSuccesses: updatedSuccesses
       };
 
-      // Emit update event
       this.$emit('update:character', updatedCharacter);
 
-      // Close the dropdown
       this.showSuccessDropdown = false;
     },
 
     removeUserAddedSuccess(successId) {
-      // Create a new array with the user-added successes, removing the specified one
-      const updatedSuccesses = this.userAddedEngagementSuccesses.filter(id => id !== successId);
+      const currentSuccesses = this.character.engagementSuccesses || [];
+      const updatedSuccesses = currentSuccesses.filter(id => id !== successId);
 
-      // Update character with the new user-added successes
       const updatedCharacter = {
         ...this.character,
         engagementSuccesses: updatedSuccesses
       };
 
-      // Emit update event
       this.$emit('update:character', updatedCharacter);
     }
   },
@@ -833,7 +764,6 @@ export default {
 
 .dice-icon.available {
   color: inherit;
-  /* Default color */
 }
 
 .dice-icon.selected {
@@ -847,7 +777,6 @@ export default {
 
 .dice-icon.expended {
   color: #5a5a5a;
-  /* Dark gray */
   opacity: 0.7;
 }
 
@@ -1056,7 +985,7 @@ h2 {
   color: white;
 }
 
-/* Media query for smaller screens */
+/* Responsive styles */
 @media (max-width: 600px) {
   .engagement-dice-table {
     width: 90%;
