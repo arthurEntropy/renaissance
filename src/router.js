@@ -8,7 +8,7 @@ import AbilitiesView from '@/views/AbilitiesView.vue'
 import WorldElementsView from '@/views/WorldElementsView.vue'
 import EquipmentView from '@/views/EquipmentView.vue'
 import RulesView from '@/views/RulesView.vue'
-import Admin from '@/views/Admin.vue'
+import AdminView from '@/views/AdminView.vue'
 
 const routes = [
   { path: '/', component: TitlePage },
@@ -20,7 +20,7 @@ const routes = [
   { path: '/world-elements', component: WorldElementsView },
   { path: '/equipment', component: EquipmentView },
   { path: '/rules', name: 'Rules', component: RulesView },
-  { path: '/admin', component: Admin },
+  { path: '/admin', component: AdminView },
 ]
 
 const router = createRouter({
