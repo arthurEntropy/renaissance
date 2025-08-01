@@ -1,55 +1,28 @@
 <template>
-  <ConceptsView
-    itemName="World Element"
-    :concepts="worldElements"
-    :createConceptFn="createNewWorldElement"
-    :updateConceptFn="updateWorldElement"
-    :deleteConceptFn="deleteWorldElement"
-    :refreshDataFn="refreshData"
-  />
+  <ConceptsView itemName="World Element" :concepts="worldElements" :createConceptFn="createNewWorldElement"
+    :updateConceptFn="updateWorldElement" :deleteConceptFn="deleteWorldElement" :refreshDataFn="refreshData" />
 </template>
 
-<script>
+<script setup>
 import { useWorldElementsStore } from '@/stores/worldElementsStore'
 import WorldElementService from '@/services/WorldElementService'
 import ConceptsView from '@/components/ConceptsView.vue'
+import { useConceptView } from '@/composables/useConceptView'
 
-export default {
-  components: {
-    ConceptsView,
-  },
-  data() {
-    return {
-      worldElementsStore: useWorldElementsStore(),
-    }
-  },
-  computed: {
-    worldElements() {
-      return this.worldElementsStore.worldElements.filter(
-        (element) => !element.isDeleted,
-      )
-    },
-  },
-  methods: {
-    async createNewWorldElement() {
-      return await WorldElementService.createWorldElement()
-    },
+const worldElementsStore = useWorldElementsStore()
 
-    async updateWorldElement(worldElement) {
-      return await WorldElementService.updateWorldElement(worldElement)
-    },
-
-    async deleteWorldElement(worldElement) {
-      worldElement.isDeleted = true
-      return await WorldElementService.updateWorldElement(worldElement)
-    },
-
-    async refreshData() {
-      return await this.worldElementsStore.fetchWorldElements()
-    },
-  },
-  mounted() {
-    this.refreshData()
-  },
-}
+const {
+  concepts: worldElements,
+  createNew: createNewWorldElement,
+  update: updateWorldElement,
+  deleteItem: deleteWorldElement,
+  refreshData
+} = useConceptView(worldElementsStore, WorldElementService, {
+  itemsProperty: 'worldElements',
+  fetchMethod: 'fetchWorldElements',
+  createMethod: 'createWorldElement',
+  updateMethod: 'updateWorldElement',
+  filterDeleted: true,
+  useSoftDelete: true
+})
 </script>
