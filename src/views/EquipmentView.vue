@@ -7,7 +7,7 @@
     <template #item-cards="{ filteredItems }">
       <EquipmentCard v-for="item in filteredItems" :key="item.id" :equipment="item" :editable="true" :sources="sources"
         :art-expanded="true" @edit="openEditEquipmentModal(item)" @send-to-chat="sendEquipmentToChat(item)"
-        @height-changed="$refs.itemCardsView.onCardHeightChanged()" :collapsible="false" :showSource="true" />
+        @height-changed="itemCardsView?.onCardHeightChanged()" :collapsible="false" :showSource="true" />
     </template>
 
     <!-- Modals slot -->
@@ -20,134 +20,118 @@
   </ItemCardsView>
 </template>
 
-<script>
+<script setup>
+import { ref, onMounted } from 'vue'
+import { storeToRefs } from 'pinia'
 import { useEquipmentStore } from '@/stores/equipmentStore'
-import { mapState } from 'pinia'
+import { useEditModal } from '@/composables/useEditModal'
 import EquipmentService from '@/services/EquipmentService'
 import EngagementSuccessService from '@/services/EngagementSuccessService'
 import EquipmentCard from '@/components/EquipmentCard.vue'
 import EditEquipmentModal from '@/components/modals/EditEquipmentModal.vue'
 import ItemCardsView from '@/components/ItemCardsView.vue'
 
-export default {
-  components: {
-    EquipmentCard,
-    EditEquipmentModal,
-    ItemCardsView,
-  },
+// Store
+const equipmentStore = useEquipmentStore()
+const { equipment } = storeToRefs(equipmentStore)
 
-  data() {
-    return {
-      equipmentStore: useEquipmentStore(),
-      showEditEquipmentModal: false,
-      equipmentToEdit: null,
-      sortOption: '',
-      searchQuery: '',
-      sourceFilter: '',
-      engagementSuccessOptions: [],
-      sources: {
-        ancestries: [],
-        cultures: [],
-        mestieri: [],
-        worldElements: [],
-      },
-      sortOptions: {
-        'Name': [
-          { value: 'name-asc', label: 'Name (A-Z)' },
-          { value: 'name-desc', label: 'Name (Z-A)' },
-        ],
-        'Weight': [
-          { value: 'weight-asc', label: 'Weight (Light to Heavy)' },
-          { value: 'weight-desc', label: 'Weight (Heavy to Light)' },
-        ],
-        'Type': [
-          { value: 'isMelee-desc', label: 'Weapons First' },
-          { value: 'isMelee-asc', label: 'Gear First' },
-        ],
-      },
-    }
-  },
+// Modal management
+const {
+  showModal: showEditEquipmentModal,
+  itemToEdit: equipmentToEdit,
+  openModal: openEditEquipmentModal,
+  closeModal: closeEditEquipmentModal
+} = useEditModal()
 
-  computed: {
-    ...mapState(useEquipmentStore, ['equipment']),
-  },
+// Reactive state
+const itemCardsView = ref(null)
+const sortOption = ref('')
+const searchQuery = ref('')
+const sourceFilter = ref('')
+const engagementSuccessOptions = ref([])
+const sources = ref({
+  ancestries: [],
+  cultures: [],
+  mestieri: [],
+  worldElements: [],
+})
 
-  methods: {
-    // EQUIPMENT CRUD
-    async createEquipment() {
-      const newEquipment = await EquipmentService.createEquipment()
-      await this.equipmentStore.fetchAllEquipment()
-      this.equipmentToEdit = this.equipmentStore.equipment.find(
-        (item) => item.id === newEquipment.id,
-      )
-      this.showEditEquipmentModal = true
-    },
+const sortOptions = ref({
+  'Name': [
+    { value: 'name-asc', label: 'Name (A-Z)' },
+    { value: 'name-desc', label: 'Name (Z-A)' },
+  ],
+  'Weight': [
+    { value: 'weight-asc', label: 'Weight (Light to Heavy)' },
+    { value: 'weight-desc', label: 'Weight (Heavy to Light)' },
+  ],
+  'Type': [
+    { value: 'isMelee-desc', label: 'Weapons First' },
+    { value: 'isMelee-asc', label: 'Gear First' },
+  ],
+})
 
-    async saveEditedEquipment(editedEquipment) {
-      await EquipmentService.updateEquipment(editedEquipment)
-      this.closeEditEquipmentModal()
-      await this.equipmentStore.fetchAllEquipment()
-    },
-
-    async deleteEquipment(equipmentItem) {
-      const deleteId = equipmentItem?.id
-      const editId = this.equipmentToEdit?.id
-      if (equipmentItem) {
-        const equipmentToUpdate = { ...equipmentItem, isDeleted: true }
-        try {
-          if (this.showEditEquipmentModal && editId === deleteId) {
-            this.closeEditEquipmentModal()
-          }
-          await EquipmentService.updateEquipment(equipmentToUpdate)
-          await this.equipmentStore.fetchAllEquipment()
-        } catch (error) {
-          console.error('Error deleting equipment:', error)
-        }
-      }
-      this.equipmentToEdit = null
-      this.showEditEquipmentModal = false
-    },
-
-    // MODAL CONTROLS
-    openEditEquipmentModal(equipmentItem) {
-      this.equipmentToEdit = equipmentItem
-      this.showEditEquipmentModal = true
-    },
-
-    closeEditEquipmentModal() {
-      this.equipmentToEdit = null
-      this.showEditEquipmentModal = false
-    },
-
-    // OTHER METHODS
-    sendEquipmentToChat(equipment) {
-      // TODO: Implement sending equipment to chat
-      console.log('Send to chat not yet implemented:', equipment)
-    },
-
-    async fetchSources() {
-      await this.equipmentStore.fetchAllSources()
-      this.sources = this.equipmentStore.sources
-    },
-
-    async fetchEngagementSuccessOptions() {
-      try {
-        this.engagementSuccessOptions = await EngagementSuccessService.getAllEngagementSuccesses();
-      } catch (error) {
-        console.error('Error fetching engagement success options:', error);
-      }
-    },
-  },
-
-  async mounted() {
-    try {
-      await this.fetchSources()
-      await this.equipmentStore.fetchStandardsOfLiving()
-      await this.fetchEngagementSuccessOptions()
-      await this.equipmentStore.fetchAllEquipment()
-    } catch (error) {
-      console.error('Error initializing EquipmentView:', error)
-    }
-  },
+// EQUIPMENT CRUD
+const createEquipment = async () => {
+  const newEquipment = await EquipmentService.createEquipment()
+  await equipmentStore.fetchAllEquipment()
+  const createdEquipment = equipmentStore.equipment.find(
+    (item) => item.id === newEquipment.id,
+  )
+  openEditEquipmentModal(createdEquipment)
 }
+
+const saveEditedEquipment = async (editedEquipment) => {
+  await EquipmentService.updateEquipment(editedEquipment)
+  closeEditEquipmentModal()
+  await equipmentStore.fetchAllEquipment()
+}
+
+const deleteEquipment = async (equipmentItem) => {
+  const deleteId = equipmentItem?.id
+  const editId = equipmentToEdit.value?.id
+  if (equipmentItem) {
+    const equipmentToUpdate = { ...equipmentItem, isDeleted: true }
+    try {
+      if (showEditEquipmentModal.value && editId === deleteId) {
+        closeEditEquipmentModal()
+      }
+      await EquipmentService.updateEquipment(equipmentToUpdate)
+      await equipmentStore.fetchAllEquipment()
+    } catch (error) {
+      console.error('Error deleting equipment:', error)
+    }
+  }
+}
+
+// OTHER METHODS
+const sendEquipmentToChat = (equipment) => {
+  // TODO: Implement sending equipment to chat
+  console.log('Send to chat not yet implemented:', equipment)
+}
+
+const fetchSources = async () => {
+  await equipmentStore.fetchAllSources()
+  sources.value = equipmentStore.sources
+}
+
+const fetchEngagementSuccessOptions = async () => {
+  try {
+    engagementSuccessOptions.value = await EngagementSuccessService.getAllEngagementSuccesses();
+  } catch (error) {
+    console.error('Error fetching engagement success options:', error);
+  }
+}
+
+// Lifecycle
+onMounted(async () => {
+  try {
+    await fetchSources()
+    await equipmentStore.fetchStandardsOfLiving()
+    await fetchEngagementSuccessOptions()
+    await equipmentStore.fetchAllEquipment()
+  } catch (error) {
+    console.error('Error initializing EquipmentView:', error)
+  }
+})
 </script>
