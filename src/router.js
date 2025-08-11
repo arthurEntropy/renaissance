@@ -16,9 +16,9 @@ const routes = [
   { path: '/ancestries', component: AncestriesView },
   { path: '/cultures', component: CulturesView },
   { path: '/mestieri', component: MestieriView },
-  { path: '/abilities', component: AbilitiesView },
+  { path: '/abilities', component: AbilitiesView, meta: { overlay: true } },
   { path: '/world-elements', component: WorldElementsView },
-  { path: '/equipment', component: EquipmentView },
+  { path: '/equipment', component: EquipmentView, meta: { overlay: true } },
   { path: '/rules', name: 'Rules', component: RulesView },
   { path: '/admin', component: AdminView },
 ]

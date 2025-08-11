@@ -1,26 +1,16 @@
 <template>
   <!-- Overlay For Readability In Equipment/Abilities Views-->
-  <div
-    id="app"
-    class="app"
-    :class="{ 'overlay-background': shouldShowOverlay }"
-  >
+  <div id="app" class="app" :class="{ 'overlay-background': shouldShowOverlay }">
     <!-- Mobile Side Menu -->
     <div class="nav-menu" :class="{ open: menuOpen }">
       <button class="menu-toggle" @click="toggleMenu">☰</button>
       <nav v-if="menuOpen">
         <router-link to="/rules" @click="closeMenu">RULES</router-link>
-        <router-link to="/ancestries" @click="closeMenu"
-          >ANCESTRIES</router-link
-        >
+        <router-link to="/ancestries" @click="closeMenu">ANCESTRIES</router-link>
         <router-link to="/cultures" @click="closeMenu">CULTURES</router-link>
         <router-link to="/mestieri" @click="closeMenu">MESTIERI</router-link>
-        <router-link to="/world-elements" @click="closeMenu"
-          >WORLD ELEMENTS</router-link
-        >
-        <router-link to="/characters" @click="closeMenu"
-          >CHARACTERS</router-link
-        >
+        <router-link to="/world-elements" @click="closeMenu">WORLD ELEMENTS</router-link>
+        <router-link to="/characters" @click="closeMenu">CHARACTERS</router-link>
         <router-link to="/abilities" @click="closeMenu">ABILITIES</router-link>
         <router-link to="/equipment" @click="closeMenu">EQUIPMENT</router-link>
       </nav>
@@ -56,8 +46,7 @@ export default {
   },
   computed: {
     shouldShowOverlay() {
-      const currentPath = this.$route.path.toLowerCase()
-      return currentPath === '/abilities' || currentPath === '/equipment' // Show overlay for these routes
+      return this.$route.meta?.overlay === true
     },
   },
   methods: {
@@ -102,7 +91,8 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  padding-top: 60px; /* Space for the top navigation */
+  padding-top: 60px;
+  /* Space for the top navigation */
 }
 
 /* Top Navigation Styles */
@@ -161,7 +151,8 @@ body {
 .nav-menu {
   position: fixed;
   top: 0;
-  left: -220px; /* Hidden by default */
+  left: -220px;
+  /* Hidden by default */
   width: 180px;
   height: 100vh;
   background: rgba(0, 0, 0, 0.5);
@@ -222,26 +213,32 @@ body {
 /* Responsive Design */
 @media (min-width: 1024px) {
   .nav-menu .menu-toggle {
-    display: none; /* Hide mobile menu on desktop */
+    display: none;
+    /* Hide mobile menu on desktop */
   }
 }
 
 @media (max-width: 1023px) {
+
   html,
   body {
-    background-position: left; /* All the cool stuff in the current background image is on the left */
+    background-position: left;
+    /* All the cool stuff in the current background image is on the left */
   }
 
   .top-nav {
-    display: none; /* Hide top nav on mobile */
+    display: none;
+    /* Hide top nav on mobile */
   }
 
   .content-area {
-    padding-top: 10px; /* Reduce top padding on mobile since top nav is hidden */
+    padding-top: 10px;
+    /* Reduce top padding on mobile since top nav is hidden */
   }
 
   .nav-menu {
-    display: flex; /* Show side menu on mobile */
+    display: flex;
+    /* Show side menu on mobile */
     width: 180px;
   }
 }

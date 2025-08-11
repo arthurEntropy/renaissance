@@ -44,8 +44,8 @@
             <div class="conditions-header">Conditions</div>
             <div class="conditions-row" v-for="(value, key) in selectedCharacter.conditions" :key="key">
               <span :class="{ 'condition-active': value }">{{
-                this.$capitalizeFirstLetter(key)
-              }}</span>
+                cap(key)
+                }}</span>
               <input type="checkbox" class="skill-checkbox" :class="{ 'condition-active-checkbox': value }"
                 v-model="selectedCharacter.conditions[key]" />
             </div>
@@ -104,6 +104,7 @@ import { useCharacterManagement } from '@/composables/useCharacterManagement'
 import { useSkillCheck } from '@/composables/useSkillCheck'
 import { useEquipmentManagement } from '@/composables/useEquipmentManagement'
 import { useCharacterArt } from '@/composables/useCharacterArt'
+import { capitalizeFirstLetter } from '../../utils/stringUtils'
 import SelectionCard from '@/components/ConceptCard.vue'
 import CharacterBioSection from '@/components/characterSheet/CharacterBioSection.vue'
 import CoreAbilityColumn from '@/components/characterSheet/CoreAbilityColumn.vue'
@@ -122,6 +123,9 @@ import DiceRollResults from '@/components/characterSheet/DiceRollResults.vue'
 const characterStore = useCharactersStore()
 const equipmentStore = useEquipmentStore()
 const abilitiesStore = useAbilitiesStore()
+
+// Local helpers
+const cap = (s) => capitalizeFirstLetter(String(s || ''))
 
 // Composables
 const {
