@@ -48,7 +48,7 @@
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import { useAbilitiesStore } from '@/stores/abilitiesStore'
 import { useEquipmentStore } from '@/stores/equipmentStore'
-import { useExpansionStore } from '@/stores/expansionStore'
+import { useExpansionsStore } from '@/stores/expansionsStore'
 import { useEditModal } from '@/composables/useEditModal'
 import { useSourcesStore } from '@/stores/sourcesStore'
 import ConceptCard from '@/components/ConceptCard.vue'
@@ -89,7 +89,7 @@ const props = defineProps({
 // Stores
 const abilitiesStore = useAbilitiesStore()
 const equipmentStore = useEquipmentStore()
-const expansionStore = useExpansionStore()
+const expansionStore = useExpansionsStore()
 
 // Modal management using composables
 const {

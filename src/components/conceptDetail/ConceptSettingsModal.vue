@@ -41,7 +41,7 @@
 
 <script setup>
 import { ref, reactive, watch, onMounted } from 'vue'
-import { useExpansionStore } from '@/stores/expansionStore'
+import { useExpansionsStore } from '@/stores/expansionsStore'
 
 // Props
 const props = defineProps({
@@ -63,7 +63,7 @@ const props = defineProps({
 const emit = defineEmits(['update:settings', 'cancel', 'save'])
 
 // Store
-const expansionStore = useExpansionStore()
+const expansionStore = useExpansionsStore()
 
 // Reactive state
 const localSettings = reactive({

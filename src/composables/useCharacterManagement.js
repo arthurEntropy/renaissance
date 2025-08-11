@@ -1,5 +1,5 @@
 import { computed, watch } from 'vue'
-import { useCharacterStore } from '@/stores/characterStore'
+import { useCharactersStore } from '@/stores/charactersStore'
 import CharacterService from '@/services/CharacterService'
 
 /**
@@ -7,7 +7,7 @@ import CharacterService from '@/services/CharacterService'
  * Centralizes character-related business logic and state management
  */
 export function useCharacterManagement(allEquipment) {
-  const characterStore = useCharacterStore()
+  const characterStore = useCharactersStore()
 
   // Character selection management
   const selectedCharacter = computed({

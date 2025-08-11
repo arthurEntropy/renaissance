@@ -45,7 +45,7 @@
             <div class="conditions-row" v-for="(value, key) in selectedCharacter.conditions" :key="key">
               <span :class="{ 'condition-active': value }">{{
                 this.$capitalizeFirstLetter(key)
-                }}</span>
+              }}</span>
               <input type="checkbox" class="skill-checkbox" :class="{ 'condition-active-checkbox': value }"
                 v-model="selectedCharacter.conditions[key]" />
             </div>
@@ -96,7 +96,7 @@
 
 <script setup>
 import { computed, onMounted } from 'vue'
-import { useCharacterStore } from '@/stores/characterStore'
+import { useCharactersStore } from '@/stores/charactersStore'
 import { useEquipmentStore } from '@/stores/equipmentStore'
 import { useAbilitiesStore } from '@/stores/abilitiesStore'
 import { useModal } from '@/composables/useModal'
@@ -119,7 +119,7 @@ import EngagementDiceTable from '@/components/characterSheet/EngagementDiceTable
 import DiceRollResults from '@/components/characterSheet/DiceRollResults.vue'
 
 // Stores
-const characterStore = useCharacterStore()
+const characterStore = useCharactersStore()
 const equipmentStore = useEquipmentStore()
 const abilitiesStore = useAbilitiesStore()
 

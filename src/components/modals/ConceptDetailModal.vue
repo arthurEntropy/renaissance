@@ -148,7 +148,7 @@ import PlaylistSection from '@/components/conceptDetail/PlaylistSection.vue'
 import SettingsModal from '@/components/conceptDetail/ConceptSettingsModal.vue'
 import TextEditor from '@/components/TextEditor.vue'
 import NovizioSection from '@/components/conceptDetail/NovizioSection.vue'
-import { useExpansionStore } from '@/stores/expansionStore'
+import { useExpansionsStore } from '@/stores/expansionsStore'
 import { useSourcesStore } from '@/stores/sourcesStore'
 
 // Props
@@ -167,7 +167,7 @@ const props = defineProps({
 const emit = defineEmits(['close', 'update', 'edit-ability', 'edit-equipment', 'edit-mode-change'])
 
 // Stores
-const expansionStore = useExpansionStore()
+const expansionStore = useExpansionsStore()
 
 // Sources management
 const sourcesStore = useSourcesStore()
