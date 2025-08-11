@@ -85,9 +85,9 @@
                       <em class="carried-label"> = </em>
                       <span>
                         {{
-                        row.isCarried && row.equipment
-                        ? formatWeight(row.equipment.weight * row.quantity)
-                        : '0'
+                          row.isCarried && row.equipment
+                            ? formatWeight(row.equipment.weight * row.quantity)
+                            : '0'
                         }}
                       </span>
                       <em class="carried-label">lbs</em>
@@ -151,7 +151,7 @@ import { useEditMode } from '@/composables/useEditMode'
 import { useCollapseState } from '@/composables/useCollapseState'
 import { useDragAndDrop } from '@/composables/useDragAndDrop'
 import { useItemSelector } from '@/composables/useItemSelector'
-import { useSources } from '@/composables/useSources'
+import { useSourcesStore } from '@/stores/sourcesStore'
 
 // Props
 const props = defineProps({
@@ -170,9 +170,14 @@ const equipmentStore = useEquipmentStore()
 const { isEditMode, toggleEditMode } = useEditMode()
 const { getCollapsedState, setCollapsedState } = useCollapseState(true)
 
-// Source management - using composable directly
-const { sources, getSourceById, getSourceName, getSourceType } = useSources()
-const sourceUtils = { getSourceById, getSourceName, getSourceType }
+// Source management - using sources store
+const sourcesStore = useSourcesStore()
+const sources = sourcesStore.sources
+const sourceUtils = {
+  getSourceById: sourcesStore.getSourceById,
+  getSourceName: sourcesStore.getSourceName,
+  getSourceType: sourcesStore.getSourceType,
+}
 
 // Item selector for equipment
 const {

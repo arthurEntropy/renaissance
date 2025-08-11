@@ -149,7 +149,7 @@ import SettingsModal from '@/components/conceptDetail/ConceptSettingsModal.vue'
 import TextEditor from '@/components/TextEditor.vue'
 import NovizioSection from '@/components/conceptDetail/NovizioSection.vue'
 import { useExpansionStore } from '@/stores/expansionStore'
-import { useSources } from '@/composables/useSources'
+import { useSourcesStore } from '@/stores/sourcesStore'
 
 // Props
 const props = defineProps({
@@ -169,8 +169,9 @@ const emit = defineEmits(['close', 'update', 'edit-ability', 'edit-equipment', '
 // Stores
 const expansionStore = useExpansionStore()
 
-// Sources management (using the enhanced composable)
-const { sources } = useSources()
+// Sources management
+const sourcesStore = useSourcesStore()
+const sources = sourcesStore.sources
 
 // Reactive state
 const abilities = ref([])

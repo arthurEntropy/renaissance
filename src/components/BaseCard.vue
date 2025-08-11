@@ -36,7 +36,7 @@
 
 <script setup>
 import { ref, computed, watch, onMounted, nextTick } from 'vue'
-import { useSources } from '@/composables/useSources'
+import { useSourcesStore } from '@/stores/sourcesStore'
 
 const props = defineProps({
   item: { type: Object, required: true },
@@ -52,7 +52,9 @@ const props = defineProps({
 const emit = defineEmits(['edit', 'update', 'send-to-chat', 'height-changed', 'update:collapsed'])
 
 // Source management
-const { sources, getSourceById, getSourceName } = useSources()
+const sourcesStore = useSourcesStore()
+const getSourceById = sourcesStore.getSourceById
+const getSourceName = sourcesStore.getSourceName
 
 // Template ref
 const cardElement = ref(null)
@@ -120,7 +122,7 @@ watch(
 )
 
 watch(
-  () => sources.value,
+  sourcesStore.sources,
   () => {
     updateSourceName()
   },

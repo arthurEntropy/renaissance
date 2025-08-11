@@ -50,7 +50,7 @@ import { useAbilitiesStore } from '@/stores/abilitiesStore'
 import { useEquipmentStore } from '@/stores/equipmentStore'
 import { useExpansionStore } from '@/stores/expansionStore'
 import { useEditModal } from '@/composables/useEditModal'
-import { useSources } from '@/composables/useSources'
+import { useSourcesStore } from '@/stores/sourcesStore'
 import ConceptCard from '@/components/ConceptCard.vue'
 import ConceptDetailModal from '@/components/modals/ConceptDetailModal.vue'
 import EditAbilityModal from '@/components/modals/EditAbilityModal.vue'
@@ -107,7 +107,8 @@ const {
 } = useEditModal()
 
 // Sources management
-const { sources } = useSources()
+const sourcesStore = useSourcesStore()
+const sources = sourcesStore.sources
 
 // Reactive state
 const selectedConcept = ref(null)

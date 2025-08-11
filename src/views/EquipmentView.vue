@@ -25,7 +25,7 @@ import { ref, onMounted } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useEquipmentStore } from '@/stores/equipmentStore'
 import { useEditModal } from '@/composables/useEditModal'
-import { useSources } from '@/composables/useSources'
+import { useSourcesStore } from '@/stores/sourcesStore'
 import EquipmentService from '@/services/EquipmentService'
 import EngagementSuccessService from '@/services/EngagementSuccessService'
 import EquipmentCard from '@/components/EquipmentCard.vue'
@@ -45,7 +45,8 @@ const {
 } = useEditModal()
 
 // Sources management
-const { sources } = useSources()
+const sourcesStore = useSourcesStore()
+const sources = sourcesStore.sources
 
 // Reactive state
 const itemCardsView = ref(null)

@@ -82,7 +82,7 @@ import { useEditMode } from '@/composables/useEditMode'
 import { useCollapseState } from '@/composables/useCollapseState'
 import { useDragAndDrop } from '@/composables/useDragAndDrop'
 import { useItemSelector } from '@/composables/useItemSelector'
-import { useSources } from '@/composables/useSources'
+import { useSourcesStore } from '@/stores/sourcesStore'
 
 // Props
 const props = defineProps({
@@ -103,9 +103,14 @@ const emit = defineEmits(['update-character'])
 const { isEditMode, toggleEditMode } = useEditMode()
 const { getCollapsedState, setCollapsedState } = useCollapseState(true)
 
-// Source management - using composable directly
-const { sources, getSourceById, getSourceName, getSourceType } = useSources()
-const sourceUtils = { getSourceById, getSourceName, getSourceType }
+// Source management - using sources store
+const sourcesStore = useSourcesStore()
+const sources = sourcesStore.sources
+const sourceUtils = {
+  getSourceById: sourcesStore.getSourceById,
+  getSourceName: sourcesStore.getSourceName,
+  getSourceType: sourcesStore.getSourceType,
+}
 
 // Item selector for abilities
 const {

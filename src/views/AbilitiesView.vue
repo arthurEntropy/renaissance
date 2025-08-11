@@ -25,7 +25,7 @@ import { ref, onMounted } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useAbilitiesStore } from '@/stores/abilitiesStore'
 import { useEditModal } from '@/composables/useEditModal'
-import { useSources } from '@/composables/useSources'
+import { useSourcesStore } from '@/stores/sourcesStore'
 import AbilityService from '@/services/AbilityService'
 import AbilityCard from '@/components/AbilityCard.vue'
 import EditAbilityModal from '@/components/modals/EditAbilityModal.vue'
@@ -44,7 +44,8 @@ const {
 } = useEditModal()
 
 // Sources management
-const { sources } = useSources()
+const sourcesStore = useSourcesStore()
+const sources = sourcesStore.sources
 
 // Reactive state
 const itemCardsView = ref(null)

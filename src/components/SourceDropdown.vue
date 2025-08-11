@@ -25,7 +25,7 @@
 </template>
 
 <script setup>
-import { useSources } from '@/composables/useSources'
+import { useSourcesStore } from '@/stores/sourcesStore'
 
 defineProps({
     id: {
@@ -40,5 +40,5 @@ defineProps({
 
 defineEmits(['update:modelValue'])
 
-const { sources } = useSources()
+const sources = useSourcesStore().sources
 </script>
