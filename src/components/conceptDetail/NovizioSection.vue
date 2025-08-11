@@ -2,7 +2,7 @@
   <div v-if="novizio || editable" class="concept-section novizio-section">
     <div class="novizio-header-row">
       <h2 class="section-header">Novizio</h2>
-      <span v-if="editable && !editMode.isEditing" class="edit-field-indicator" @click="startEdit"
+      <span v-if="editable && !isSectionEditing" class="edit-field-indicator" @click="startEdit"
         title="Edit Novizio">✎</span>
     </div>
     <div v-if="isSectionEditing && editable">
