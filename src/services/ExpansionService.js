@@ -2,7 +2,7 @@ import BaseService from './BaseService'
 
 class ExpansionService extends BaseService {
   constructor() {
-    super(`${process.env.VUE_APP_API_URL || 'http://localhost:3000'}/expansions`, 'expansion')
+    super(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/expansions`, 'expansion')
   }
 
   // CRUD METHODS

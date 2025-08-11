@@ -2,7 +2,7 @@ import BaseService from './BaseService'
 
 class MestieriService extends BaseService {
   constructor() {
-    super(`${process.env.VUE_APP_API_URL || 'http://localhost:3000'}/mestieri`, 'mestiere')
+    super(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/mestieri`, 'mestiere')
   }
 
   // CRUD METHODS

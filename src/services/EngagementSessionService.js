@@ -12,7 +12,7 @@ class EngagementSessionService {
     if (this.socket) return; // Already connected
     
     // Connect to the engagement namespace
-    this.socket = io(`${process.env.VUE_APP_API_URL || 'http://localhost:3000'}/engagement`, {
+    this.socket = io(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/engagement`, {
       reconnection: true,
       reconnectionDelay: 1000,
       reconnectionAttempts: 5

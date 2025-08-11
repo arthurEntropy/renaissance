@@ -2,7 +2,7 @@ import BaseService from './BaseService'
 
 class AncestryService extends BaseService {
   constructor() {
-    super(`${process.env.VUE_APP_API_URL || 'http://localhost:3000'}/ancestries`, 'ancestry')
+    super(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/ancestries`, 'ancestry')
   }
 
   // CRUD METHODS
@@ -14,7 +14,7 @@ class AncestryService extends BaseService {
     return this.getAll()
   }
 
-  async saveAncestry(ancestry) {
+  async updateAncestry(ancestry) {
     return this.update(ancestry)
   }
 
@@ -23,14 +23,11 @@ class AncestryService extends BaseService {
   }
 
   // DEFAULT ANCESTRY
-  static DEFAULT_ART_URL =
-    'https://cdn.midjourney.com/a8a36740-b7d3-4aef-bea3-a95039bec06f/0_2.png'
-
   getDefaultEntity() {
     return {
       id: null, // ID will be assigned by the backend
       name: 'New Ancestry',
-      artUrls: [AncestryService.DEFAULT_ART_URL],
+      description: '',
       isDeleted: false,
     }
   }
