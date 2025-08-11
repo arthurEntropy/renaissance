@@ -6,20 +6,11 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'InfoCard',
-  props: {
-    title: {
-      type: String,
-      required: true,
-    },
-    content: {
-      type: String,
-      default: '',
-    },
-  },
-}
+<script setup>
+defineProps({
+  title: { type: String, required: true },
+  content: { type: String, default: '' },
+})
 </script>
 
 <style scoped>

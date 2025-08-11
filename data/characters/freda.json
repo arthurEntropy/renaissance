@@ -24,7 +24,7 @@
     },
     {
       "name": "Dexterity",
-      "ranks": 0,
+      "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0
@@ -146,18 +146,71 @@
   },
   "equipment": [
     {
+      "id": "58c57499-9eef-49d4-9273-7674c60fae77",
+      "quantity": 5,
+      "isCarried": true,
+      "isWielding": true,
+      "index": 0,
+      "equipment": {
+        "id": "58c57499-9eef-49d4-9273-7674c60fae77",
+        "artUrl": "https://cdn.midjourney.com/ca2dd46f-000f-4c7f-b942-d32f5c8e3625/0_3.png",
+        "name": "Longsword",
+        "description": "A super cool sharp sword that deals 2d6 damage on a hit.",
+        "standardOfLiving": "4",
+        "source": "75800953-4adb-405f-a4ab-a599573ca533",
+        "weight": 2,
+        "isMelee": true,
+        "damageDice": [
+          8
+        ],
+        "engagementDice": [
+          6,
+          6
+        ],
+        "engagementSuccesses": [
+          "8",
+          "1"
+        ],
+        "skillMods": [
+          {
+            "name": "Stealth",
+            "diceMod": -1,
+            "isFavored": false,
+            "isIllFavored": false
+          }
+        ],
+        "isDeleted": false,
+        "isCustom": false
+      }
+    },
+    {
       "id": "37a98252-6881-4aaf-bc6c-4091c1b70e1b",
       "quantity": 1,
       "isCarried": true,
       "isWielding": true,
-      "index": 3
-    },
-    {
-      "id": "58c57499-9eef-49d4-9273-7674c60fae77",
-      "quantity": 1,
-      "isCarried": true,
-      "isWielding": true,
-      "index": 6
+      "index": 1,
+      "equipment": {
+        "id": "37a98252-6881-4aaf-bc6c-4091c1b70e1b",
+        "name": "Iliyanite Dagger",
+        "description": "Once per rest, you may call upon the Iliyanite magic embedded within this dagger to bend and extend it into a greater weapon for a moment, changing its damage die to 1d6 for one attack.",
+        "standardOfLiving": "1",
+        "source": "68fadf5d-6661-4611-bb38-deaf05f01d45",
+        "weight": 0.5,
+        "isMelee": true,
+        "damageDice": [
+          4
+        ],
+        "engagementDice": [
+          4
+        ],
+        "engagementSuccesses": [
+          "8"
+        ],
+        "skillMods": [],
+        "isDeleted": false,
+        "isCustom": false,
+        "artUrl": "https://cdn.midjourney.com/489cca4d-20f9-4f1f-8394-88738a1ae0d7/0_3.png"
+      }
     }
   ],
   "activeEffects": [
@@ -189,9 +242,9 @@
     "max": 5
   },
   "abilities": [
-    "e50350ea-0c67-4c29-bd54-f4f255ba2ffe",
     "22b1ec3d-59a4-4cac-98a1-98a2286e9520",
     "b2fc670c-2837-45a5-a8cb-0b9223acc76c",
+    "e50350ea-0c67-4c29-bd54-f4f255ba2ffe",
     "31c4d609-7d0f-40da-9197-2cddb3cdd58b"
   ],
   "ancestryIds": [

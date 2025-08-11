@@ -2,11 +2,12 @@
   <div v-if="novizio || editable" class="concept-section novizio-section">
     <div class="novizio-header-row">
       <h2 class="section-header">Novizio</h2>
-      <span v-if="editable && !isEditing" class="edit-field-indicator" @click="startEdit" title="Edit Novizio">✎</span>
+      <span v-if="editable && !editMode.isEditing" class="edit-field-indicator" @click="startEdit"
+        title="Edit Novizio">✎</span>
     </div>
-    <div v-if="isEditing">
+    <div v-if="editMode.isEditing && editable">
       <div class="novizio-intro-text">
-        <text-editor v-model="localNovizio.flavorText" placeholder="Flavor text..." height="80px" auto-height="true"
+        <text-editor v-model="localNovizio.flavorText" placeholder="Flavor text..." height="80px" :auto-height="true"
           class="novizio-text-editor" />
       </div>
       <div class="novizio-subsection">
@@ -134,107 +135,135 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import { ref, computed, watch } from 'vue'
 import TextEditor from '@/components/TextEditor.vue'
-export default {
-  name: 'NovizioSection',
-  components: { TextEditor },
-  props: {
-    novizio: {
-      type: Object,
-      default: null,
-    },
-    editable: {
-      type: Boolean,
-      default: false,
-    },
+import { useEditMode } from '@/composables/useEditMode'
+import { useUnsavedChanges } from '@/composables/useUnsavedChanges'
+
+// Props
+const props = defineProps({
+  novizio: {
+    type: Object,
+    default: null,
   },
-  data() {
-    return {
-      isEditing: false,
-      localNovizio: this.novizio ? { ...this.novizio } : {
-        flavorText: '', melee: '', polearms: '', ranged: '', firearms: '', armor: '', engagement: '', initialMaxMP: 1, abilities: ''
-      },
-      backupNovizio: null,
+  editable: {
+    type: Boolean,
+    default: false,
+  },
+})
+
+// Emits
+const emit = defineEmits(['update', 'unsaved-changes', 'reset-unsaved-changes'])
+
+// Helper function to get default novizio structure
+const getDefaultNovizio = () => ({
+  flavorText: '',
+  melee: '',
+  polearms: '',
+  ranged: '',
+  firearms: '',
+  armor: '',
+  engagement: '',
+  initialMaxMP: 1,
+  abilities: ''
+})
+
+// Reactive state
+const localNovizio = ref(props.novizio ? { ...props.novizio } : getDefaultNovizio())
+
+// Edit mode composable
+const editMode = useEditMode({
+  onSave: () => {
+    emit('update', { ...localNovizio.value })
+    unsavedChanges.markAsSaved()
+  },
+  onCancel: (restoredData) => {
+    if (restoredData) {
+      localNovizio.value = { ...restoredData }
     }
-  },
-  watch: {
-    novizio: {
-      handler(newVal) {
-        if (!this.isEditing) {
-          this.localNovizio = newVal ? { ...newVal } : {
-            flavorText: '', melee: '', polearms: '', ranged: '', firearms: '', armor: '', engagement: '', initialMaxMP: 1, abilities: ''
-          }
-        }
-      },
-      deep: true,
-    },
-    localNovizio: {
-      handler() {
-        if (this.isEditing && this.hasUnsavedChanges()) {
-          this.$emit('unsaved-changes', true);
-        } else {
-          this.$emit('reset-unsaved-changes');
-        }
-      },
-      deep: true,
-    },
-    editable(val) {
-      if (!val && this.isEditing) {
-        if (this.hasUnsavedChanges()) {
-          // Let parent handle the generic unsaved changes warning
-          this.$emit('unsaved-changes', true);
-        } else {
-          this.isEditing = false
-        }
-      }
-    },
-  },
-  computed: {
-    hasAnyMartialTraining() {
-      const n = this.novizio || {}
-      return [n.melee, n.polearms, n.ranged, n.firearms, n.armor].some(val => val && val.trim() !== '')
-    },
-    hasAnyNovizioData() {
-      const n = this.novizio || {}
-      return [n.flavorText, n.melee, n.polearms, n.ranged, n.firearms, n.armor, n.engagement, n.initialMaxMP, n.abilities].some(val => {
-        if (typeof val === 'number') return val > 1
-        return val && val.toString().trim() !== ''
-      })
-    },
-  },
-  methods: {
-    startEdit() {
-      this.backupNovizio = { ...this.localNovizio }
-      this.isEditing = true
-    },
-    saveEdit() {
-      this.isEditing = false
-      this.$emit('update', { ...this.localNovizio })
-      this.$emit('reset-unsaved-changes');
-    },
-    cancelEdit() {
-      this.localNovizio = { ...this.backupNovizio }
-      this.isEditing = false
-      this.$emit('reset-unsaved-changes');
-    },
-    hasUnsavedChanges() {
-      return JSON.stringify(this.localNovizio) !== JSON.stringify(this.backupNovizio)
-    },
-    // Called by parent when master Save is clicked
-    saveFromParent() {
-      if (this.isEditing && this.hasUnsavedChanges()) {
-        this.saveEdit();
-      }
-    },
-    // Optionally, called by parent to cancel edits (e.g., on modal close)
-    cancelFromParent() {
-      if (this.isEditing && this.hasUnsavedChanges()) {
-        this.cancelEdit();
-      }
-    },
-  },
+    unsavedChanges.markAsSaved()
+  }
+})
+
+// Unsaved changes composable
+const unsavedChanges = useUnsavedChanges(emit, () => {
+  return editMode.isEditing.value && editMode.hasUnsavedChanges(localNovizio.value)
+})
+
+// Computed properties
+const hasAnyMartialTraining = computed(() => {
+  const n = props.novizio || {}
+  return [n.melee, n.polearms, n.ranged, n.firearms, n.armor].some(val => val && val.trim() !== '')
+})
+
+const hasAnyNovizioData = computed(() => {
+  const n = props.novizio || {}
+  return [n.flavorText, n.melee, n.polearms, n.ranged, n.firearms, n.armor, n.engagement, n.initialMaxMP, n.abilities].some(val => {
+    if (typeof val === 'number') return val > 1
+    return val && val.toString().trim() !== ''
+  })
+})
+
+// Methods
+const startEdit = () => {
+  editMode.startEdit(localNovizio.value)
 }
+
+const saveEdit = () => {
+  editMode.saveEdit(localNovizio.value)
+}
+
+const cancelEdit = () => {
+  const restored = editMode.cancelEdit()
+  if (restored) {
+    localNovizio.value = { ...restored }
+  }
+}
+
+// Called by parent when master Save is clicked
+const saveFromParent = () => {
+  if (editMode.isEditing.value && editMode.hasUnsavedChanges(localNovizio.value)) {
+    saveEdit()
+  }
+}
+
+// Optionally, called by parent to cancel edits (e.g., on modal close)
+const cancelFromParent = () => {
+  if (editMode.isEditing.value && editMode.hasUnsavedChanges(localNovizio.value)) {
+    cancelEdit()
+  }
+}
+
+// Expose methods for parent component
+defineExpose({
+  saveFromParent,
+  cancelFromParent
+})
+
+// Watchers
+watch(() => props.novizio, (newVal) => {
+  if (!editMode.isEditing.value) {
+    localNovizio.value = newVal ? { ...newVal } : getDefaultNovizio()
+  }
+}, { deep: true })
+
+watch(localNovizio, () => {
+  if (editMode.isEditing.value) {
+    unsavedChanges.checkForChanges()
+  }
+}, { deep: true })
+
+watch(() => props.editable, (val) => {
+  if (!val && editMode.isEditing.value) {
+    if (editMode.hasUnsavedChanges(localNovizio.value)) {
+      // Let parent handle the generic unsaved changes warning
+      unsavedChanges.markAsChanged()
+    } else {
+      editMode.isEditing.value = false
+    }
+  }
+})
 </script>
 
 <style scoped>

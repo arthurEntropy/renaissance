@@ -8,7 +8,7 @@
     </h2>
 
     <!-- Edit mode for hooks -->
-    <div v-if="editingHooks" class="section-editor">
+    <div v-if="editMode.isEditing && editable" class="section-editor">
       <draggable v-model="localHooks" item-key="id" handle=".drag-handle" animation="200" ghost-class="ghost-hook"
         @end="saveHooksOrder">
         <template #item="{ element: hook, index: idx }">
@@ -53,6 +53,9 @@
         <button type="button" class="button small" @click="saveHooksChanges">
           Done
         </button>
+        <button type="button" class="button small" @click="cancelHooksEdit">
+          Cancel
+        </button>
       </div>
     </div>
 
@@ -74,107 +77,127 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import { ref, computed, watch } from 'vue'
 import draggable from 'vuedraggable'
 import TextEditor from '@/components/TextEditor.vue'
 import InfoCard from '@/components/conceptDetail/InfoCard.vue'
+import { useEditMode } from '@/composables/useEditMode'
+import { useUnsavedChanges } from '@/composables/useUnsavedChanges'
 
-export default {
-  components: {
-    draggable,
-    TextEditor,
-    InfoCard,
+// Props
+const props = defineProps({
+  hooks: {
+    type: Array,
+    default: () => [],
   },
-  props: {
-    hooks: {
-      type: Array,
-      default: () => [],
-    },
-    editable: {
-      type: Boolean,
-      default: false,
-    },
+  editable: {
+    type: Boolean,
+    default: false,
   },
-  data() {
-    return {
-      localHooks: [],
-      editingHooks: false,
-      expandedHooks: {},
-      shownGMNotes: {},
-      backupHooks: [],
+})
+
+// Emits
+const emit = defineEmits(['update', 'unsaved-changes', 'reset-unsaved-changes'])
+
+// Reactive state
+const localHooks = ref([])
+const expandedHooks = ref({})
+const shownGMNotes = ref({})
+
+// Edit mode composable
+const editMode = useEditMode({
+  onSave: () => {
+    emit('update', [...localHooks.value])
+    unsavedChanges.markAsSaved()
+  },
+  onCancel: (restoredData) => {
+    if (restoredData) {
+      localHooks.value = [...restoredData]
     }
+    unsavedChanges.markAsSaved()
   },
-  computed: {
-    hasHooks() {
-      return this.localHooks && this.localHooks.length > 0
-    },
-    hasUnsavedChanges() {
-      return JSON.stringify(this.localHooks) !== JSON.stringify(this.backupHooks)
-    },
-  },
-  watch: {
-    hooks: {
-      immediate: true,
-      handler(newHooks) {
-        this.localHooks = JSON.parse(JSON.stringify(newHooks || []))
-      },
-    },
-    localHooks: {
-      handler() {
-        if (this.editingHooks && this.hasUnsavedChanges) {
-          this.$emit('unsaved-changes')
-        } else if (this.editingHooks && !this.hasUnsavedChanges) {
-          this.$emit('reset-unsaved-changes')
-        }
-      },
-      deep: true,
-    },
-  },
-  methods: {
-    toggleHooksEditing() {
-      this.editingHooks = !this.editingHooks
-      if (this.editingHooks) {
-        this.backupHooks = JSON.parse(JSON.stringify(this.localHooks))
-        this.$emit('unsaved-changes')
-      } else {
-        this.$emit('reset-unsaved-changes')
-      }
-    },
-    saveHooksChanges() {
-      this.editingHooks = false
-      this.$emit('update', [...this.localHooks])
-      this.$emit('reset-unsaved-changes')
-    },
-    saveHooksOrder() {
-      this.$emit('update', [...this.localHooks])
-    },
-    addHook() {
-      const hookId = crypto.randomUUID
-        ? crypto.randomUUID()
-        : Math.random().toString(36).slice(2)
-      this.localHooks.push({
-        id: hookId,
-        name: '',
-        description: '',
-        gmNotes: '',
-        isDeleted: false,
-      })
-      this.expandedHooks[hookId] = true
-    },
-    toggleHookExpansion(hookId) {
-      this.expandedHooks[hookId] = !this.expandedHooks[hookId]
-    },
-    isHookExpanded(hookId) {
-      return !!this.expandedHooks[hookId]
-    },
-    removeHook(idx) {
-      this.localHooks.splice(idx, 1)
-    },
-    toggleGMNotes(hookId) {
-      this.shownGMNotes[hookId] = !this.shownGMNotes[hookId]
-    },
-  },
+  onStartEdit: () => {
+    unsavedChanges.markAsChanged()
+  }
+})
+
+// Unsaved changes composable
+const unsavedChanges = useUnsavedChanges(emit, () => {
+  return editMode.isEditing.value && editMode.hasUnsavedChanges(localHooks.value)
+})
+
+// Computed properties
+const hasHooks = computed(() => {
+  return localHooks.value && localHooks.value.length > 0
+})
+
+// Methods
+const toggleHooksEditing = () => {
+  if (!props.editable) return
+
+  if (!editMode.isEditing.value) {
+    editMode.startEdit(localHooks.value)
+  } else {
+    editMode.saveEdit(localHooks.value)
+  }
 }
+
+const saveHooksChanges = () => {
+  editMode.saveEdit(localHooks.value)
+}
+
+const cancelHooksEdit = () => {
+  const restored = editMode.cancelEdit()
+  if (restored) {
+    localHooks.value = [...restored]
+  }
+}
+
+const saveHooksOrder = () => {
+  emit('update', [...localHooks.value])
+}
+
+const addHook = () => {
+  const hookId = crypto.randomUUID
+    ? crypto.randomUUID()
+    : Math.random().toString(36).slice(2)
+  localHooks.value.push({
+    id: hookId,
+    name: '',
+    description: '',
+    gmNotes: '',
+    isDeleted: false,
+  })
+  expandedHooks.value[hookId] = true
+}
+
+const toggleHookExpansion = (hookId) => {
+  expandedHooks.value[hookId] = !expandedHooks.value[hookId]
+}
+
+const isHookExpanded = (hookId) => {
+  return !!expandedHooks.value[hookId]
+}
+
+const removeHook = (idx) => {
+  localHooks.value.splice(idx, 1)
+}
+
+const toggleGMNotes = (hookId) => {
+  shownGMNotes.value[hookId] = !shownGMNotes.value[hookId]
+}
+
+// Watchers
+watch(() => props.hooks, (newHooks) => {
+  localHooks.value = JSON.parse(JSON.stringify(newHooks || []))
+}, { immediate: true })
+
+watch(localHooks, () => {
+  if (editMode.isEditing.value) {
+    unsavedChanges.checkForChanges()
+  }
+}, { deep: true })
 </script>
 
 <style scoped>

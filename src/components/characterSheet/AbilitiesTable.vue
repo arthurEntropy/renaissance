@@ -23,7 +23,7 @@
     <div v-if="!isEditMode" class="abilities-list">
       <AbilityCard v-for="ability in sortedAbilities" :key="ability.id" :ability="ability"
         :collapsed="getCollapsedState(ability)" @update:collapsed="setCollapsedState(ability, $event)"
-        :sources="sources" class="ability-card" :collapsible="true" :show-xp-badge="false" />
+        class="ability-card" :collapsible="true" :show-xp-badge="false" />
     </div>
 
     <!-- DRAGGABLE ABILITY ROWS (only in edit mode) -->
@@ -38,8 +38,8 @@
           </div>
           <!-- Ability Card -->
           <AbilityCard v-if="ability" :ability="ability" :collapsed="getCollapsedState(ability)"
-            @update:collapsed="setCollapsedState(ability, $event)" :sources="sources" class="ability-card"
-            :collapsible="true" :show-xp-badge="false" />
+            @update:collapsed="setCollapsedState(ability, $event)" class="ability-card" :collapsible="true"
+            :show-xp-badge="false" />
           <span v-else class="missing-ability">Unknown ability</span>
         </div>
       </template>
@@ -61,7 +61,7 @@
       <div class="ability-options-container">
         <template v-for="(items, source) in groupedAbilities" :key="source">
           <div class="ability-source-group">
-            <div class="source-header">{{ getSourceName(source) }}</div>
+            <div class="source-header">{{ sourceUtils.getSourceName(source) }}</div>
             <div v-for="item in items" :key="item.id" class="ability-option" @click="selectAbility(item)">
               {{ item.name }}
               <span v-if="item.mp" class="ability-cost">({{ item.mp }} MP)</span>
@@ -73,330 +73,164 @@
   </div>
 </template>
 
-<script>
-import { useAbilitiesStore } from '@/stores/abilitiesStore'
+<script setup>
+import { computed, onMounted, onBeforeUnmount } from 'vue'
 import AbilityCard from '@/components/AbilityCard.vue'
 import draggable from 'vuedraggable'
 import NumberInput from '@/components/NumberInput.vue'
+import { useEditMode } from '@/composables/useEditMode'
+import { useCollapseState } from '@/composables/useCollapseState'
+import { useDragAndDrop } from '@/composables/useDragAndDrop'
+import { useItemSelector } from '@/composables/useItemSelector'
+import { useSources } from '@/composables/useSources'
 
-export default {
-  props: {
-    character: {
-      type: Object,
-      required: true,
-    },
-    allAbilities: {
-      type: Array,
-      default: () => [],
-    },
-    sources: {
-      type: Object,
-      default: () => ({
-        ancestries: [],
-        cultures: [],
-        mestieri: [],
-        worldElements: []
+// Props
+const props = defineProps({
+  character: {
+    type: Object,
+    required: true,
+  },
+  allAbilities: {
+    type: Array,
+    default: () => [],
+  }
+})
+
+// Emits
+const emit = defineEmits(['update-character'])
+
+// Composables
+const { isEditMode, toggleEditMode } = useEditMode()
+const { getCollapsedState, setCollapsedState } = useCollapseState(true)
+
+// Source management - using composable directly
+const { sources, getSourceById, getSourceName, getSourceType } = useSources()
+const sourceUtils = { getSourceById, getSourceName, getSourceType }
+
+// Item selector for abilities
+const {
+  showSelector: showAbilitySelector,
+  searchQuery: abilitySearchQuery,
+  groupedItems: groupedAbilities,
+  toggleSelector: toggleAbilitySelector,
+  filterItems: filterAbilities
+} = useItemSelector(computed(() => props.allAbilities), sources, sourceUtils)
+// Computed properties
+const characterAbilities = computed(() => {
+  // Get the full ability objects for the character's abilities
+  const allAbilities = props.allAbilities || []
+  return (
+    props.character.abilities
+      ?.map((abilityId, index) => {
+        const ability = allAbilities.find((ability) => ability.id === abilityId)
+        return ability ? { ...ability, order: index } : null
       })
-    }
-  },
-  emits: ['update-character'],
-  components: {
-    AbilityCard,
-    draggable,
-    NumberInput,
-  },
-  data() {
-    return {
-      isEditMode: false,
-      showAbilitySelector: false,
-      abilitySearchQuery: '',
-      filteredAbilities: [],
-      abilitiesStore: useAbilitiesStore(),
-      abilityCollapseState: {}, // Track collapsed/expanded state by ability ID
-    }
-  },
-  computed: {
-    characterAbilities() {
-      // Get the full ability objects for the character's abilities
-      const allAbilities = this.allAbilities || []
-      return (
-        this.character.abilities
-          ?.map((abilityId) => {
-            return (
-              allAbilities.find((ability) => ability.id === abilityId) || null
-            )
-          })
-          .filter((ability) => ability !== null) || []
-      )
-    },
-    sortedAbilities: {
-      get() {
-        // Sort by order property (if exists)
-        return [...this.characterAbilities].sort((a, b) => {
-          if (a.order !== undefined && b.order !== undefined) {
-            return a.order - b.order
-          }
-          // If order is not defined, use original index
-          return 0
-        })
-      },
-      set(value) {
-        // This will be called when draggable updates the order
-        if (this.isEditMode) {
-          this.updateAbilityOrder(value)
-        }
-      },
-    },
-    groupedAbilities() {
-      const grouped = {
-        general: [], // For items without a source or with an unknown source
-      }
+      .filter((ability) => ability !== null) || []
+  )
+})
 
-      const items =
-        this.filteredAbilities.length > 0
-          ? this.filteredAbilities
-          : this.allAbilities || []
+// Drag and drop functionality
+const updateAbilityOrder = (newOrder) => {
+  // Update the abilities list with the new order
+  if (!Array.isArray(newOrder) || newOrder.length === 0) return
 
-      // Group items
-      items
-        .filter((item) => !item.isDeleted)
-        .forEach((item) => {
-          const sourceId = item.source;
-          const source = sourceId ? this.getSourceById(sourceId) : null;
+  // Extract the IDs from the ability objects in the new order
+  const updatedAbilityIds = newOrder.map((ability) => ability.id)
 
-          if (!sourceId || !source) {
-            // Items without a source or with an unrecognized source go to the general group
-            grouped.general.push(item);
-          } else {
-            // All other items are grouped by their source
-            if (!grouped[sourceId]) {
-              grouped[sourceId] = [];
-            }
-            grouped[sourceId].push(item);
-          }
-        });
+  // Create a new character object with updated abilities
+  const updatedCharacter = {
+    ...props.character,
+    abilities: updatedAbilityIds,
+  }
 
-      // Sort items within each group by name
-      Object.keys(grouped).forEach((key) => {
-        grouped[key].sort((a, b) => a.name.localeCompare(b.name))
-      })
-
-      // Return a new ordered object to control the display order
-      const orderedGrouped = {}
-
-      // 1. General items first (if any exist)
-      if (grouped.general.length > 0) {
-        orderedGrouped.general = grouped.general
-      }
-
-      // 2. Add all other source groups (sorted alphabetically by source name)
-      const sourceKeys = Object.keys(grouped)
-        .filter((key) => key !== 'general')
-        .sort((a, b) => {
-          const sourceNameA = this.getSourceName(a)
-          const sourceNameB = this.getSourceName(b)
-          return sourceNameA.localeCompare(sourceNameB)
-        })
-
-      sourceKeys.forEach((key) => {
-        orderedGrouped[key] = grouped[key]
-      })
-
-      return orderedGrouped
-    },
-  },
-  methods: {
-    // Edit Mode Toggle
-    toggleEditMode() {
-      this.isEditMode = !this.isEditMode
-      // Close the selector if we're exiting edit mode
-      if (!this.isEditMode) {
-        this.showAbilitySelector = false
-      }
-    },
-
-    // MP Management
-    updateMpCurrent(value) {
-      if (!isNaN(value)) {
-        const updatedCharacter = {
-          ...this.character,
-          mp: {
-            ...this.character.mp,
-            current: value,
-          },
-        }
-        this.$emit('update-character', updatedCharacter)
-      }
-    },
-
-    updateMpMax(value) {
-      if (!isNaN(value)) {
-        const updatedCharacter = {
-          ...this.character,
-          mp: {
-            ...this.character.mp,
-            max: value,
-          },
-        }
-        this.$emit('update-character', updatedCharacter)
-      }
-    },
-
-    // Ability Order Management
-    updateAbilityOrder(newOrder) {
-      // Update the abilities list with the new order
-      if (!Array.isArray(newOrder) || newOrder.length === 0) return
-
-      // Extract the IDs from the ability objects in the new order
-      const updatedAbilityIds = newOrder.map((ability) => ability.id)
-
-      // Create a new character object with updated abilities
-      const updatedCharacter = {
-        ...this.character,
-        abilities: updatedAbilityIds,
-      }
-
-      // Emit the update event with the new character object
-      this.$emit('update-character', updatedCharacter)
-    },
-
-    onDragEnd() {
-      // This will be called after a drag operation completes
-      // We don't need to do anything here since the v-model binding will handle the update
-    },
-
-    // Ability Management
-    removeAbility(index) {
-      if (!this.isEditMode) return
-
-      const ability = this.characterAbilities[index]
-      const name = ability ? ability.name : 'this ability'
-
-      if (
-        confirm(`Are you sure you want to remove ${name} from your character?`)
-      ) {
-        // Create a new array without the ability at the given index
-        const updatedAbilities = this.character.abilities.filter(
-          (_, i) => i !== index,
-        )
-
-        // Create a new character object with the updated abilities
-        const updatedCharacter = {
-          ...this.character,
-          abilities: updatedAbilities,
-        }
-
-        // Emit the update event
-        this.$emit('update-character', updatedCharacter)
-      }
-    },
-
-    // Ability Selector
-    toggleAbilitySelector(event) {
-      if (!this.isEditMode) return
-
-      if (event) {
-        event.stopPropagation() // Prevent immediate closing
-      }
-      this.showAbilitySelector = !this.showAbilitySelector
-
-      if (this.showAbilitySelector) {
-        this.abilitySearchQuery = ''
-        this.filteredAbilities = []
-      }
-    },
-
-    filterAbilities() {
-      const query = this.abilitySearchQuery.toLowerCase().trim()
-      if (!query) {
-        this.filteredAbilities = []
-        return
-      }
-
-      this.filteredAbilities = (this.allAbilities || []).filter(
-        (item) =>
-          item.name.toLowerCase().includes(query) ||
-          (item.description && item.description.toLowerCase().includes(query)),
-      )
-    },
-
-    selectAbility(ability) {
-      // Add ability to character's abilities list
-      const currentAbilities = this.character.abilities || []
-
-      // Only add if not already in the list
-      if (!currentAbilities.includes(ability.id)) {
-        const updatedCharacter = {
-          ...this.character,
-          abilities: [...currentAbilities, ability.id],
-        }
-        this.$emit('update-character', updatedCharacter)
-      }
-
-      this.toggleAbilitySelector()
-    },
-
-    // Collapsed/Expanded State Management
-    getCollapsedState(ability) {
-      // Default to true (collapsed) if not set
-      return this.abilityCollapseState[ability.id] !== undefined
-        ? this.abilityCollapseState[ability.id]
-        : true
-    },
-    setCollapsedState(ability, collapsed) {
-      this.abilityCollapseState = {
-        ...this.abilityCollapseState,
-        [ability.id]: collapsed
-      }
-    },
-
-    getSourceById(sourceId) {
-      if (!sourceId) return null;
-
-      // Use sources passed as props if available
-      return (
-        this.sources.ancestries.find((item) => item.id === sourceId) ||
-        this.sources.cultures.find((item) => item.id === sourceId) ||
-        this.sources.mestieri.find((item) => item.id === sourceId) ||
-        this.sources.worldElements.find((item) => item.id === sourceId) ||
-        this.abilitiesStore.getSourceById(sourceId)
-      );
-    },
-
-    getSourceName(sourceId) {
-      if (sourceId === 'general') return 'General'
-
-      const source = this.getSourceById(sourceId);
-      return source ? source.name : 'General'
-    },
-
-    handleOutsideClick(event) {
-      // References to the dropdown elements
-      const abilitySelector = this.$el.querySelector(
-        '.ability-selector-container',
-      )
-
-      // Close ability selector if clicking outside
-      if (
-        this.showAbilitySelector &&
-        abilitySelector &&
-        !abilitySelector.contains(event.target)
-      ) {
-        this.showAbilitySelector = false
-      }
-    },
-  },
-  mounted() {
-    // Add click listener to detect clicks outside the dropdown
-    document.addEventListener('click', this.handleOutsideClick)
-  },
-  beforeUnmount() {
-    // Ensure dropdowns are closed when component is destroyed
-    this.showAbilitySelector = false
-    // Remove the click listener
-    document.removeEventListener('click', this.handleOutsideClick)
-  },
+  // Emit the update event with the new character object
+  emit('update-character', updatedCharacter)
 }
+
+const {
+  sortedItems: sortedAbilities,
+  onDragEnd
+} = useDragAndDrop(characterAbilities, updateAbilityOrder, 'order')
+
+// Methods
+// MP Management
+const updateMpCurrent = (value) => {
+  if (!isNaN(value)) {
+    const updatedCharacter = {
+      ...props.character,
+      mp: {
+        ...props.character.mp,
+        current: value,
+      },
+    }
+    emit('update-character', updatedCharacter)
+  }
+}
+
+const updateMpMax = (value) => {
+  if (!isNaN(value)) {
+    const updatedCharacter = {
+      ...props.character,
+      mp: {
+        ...props.character.mp,
+        max: value,
+      },
+    }
+    emit('update-character', updatedCharacter)
+  }
+}
+
+// Ability Management
+const removeAbility = (index) => {
+  if (!isEditMode.value) return
+
+  const ability = characterAbilities.value[index]
+  const name = ability ? ability.name : 'this ability'
+
+  if (
+    confirm(`Are you sure you want to remove ${name} from your character?`)
+  ) {
+    // Create a new array without the ability at the given index
+    const updatedAbilities = props.character.abilities.filter(
+      (_, i) => i !== index,
+    )
+
+    // Create a new character object with the updated abilities
+    const updatedCharacter = {
+      ...props.character,
+      abilities: updatedAbilities,
+    }
+
+    // Emit the update event
+    emit('update-character', updatedCharacter)
+  }
+}
+
+// Ability Selector
+const selectAbility = (ability) => {
+  // Add ability to character's abilities list
+  const currentAbilities = props.character.abilities || []
+
+  // Only add if not already in the list
+  if (!currentAbilities.includes(ability.id)) {
+    const updatedCharacter = {
+      ...props.character,
+      abilities: [...currentAbilities, ability.id],
+    }
+    emit('update-character', updatedCharacter)
+  }
+
+  toggleAbilitySelector()
+}
+
+// Lifecycle hooks
+onMounted(() => {
+  // Composables handle their own lifecycle
+})
+
+onBeforeUnmount(() => {
+  // Composables handle their own cleanup
+})
 </script>
 
 <style scoped>

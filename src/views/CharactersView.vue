@@ -3,8 +3,8 @@
     <!--CHARACTER SELECTION-->
     <div v-if="!selectedCharacter" class="character-selection">
       <div class="selection-cards-container">
-        <SelectionCard v-for="character in characters" :key="character.id" :item="character"
-          @click="selectCharacter(character)" :sources="sources" />
+        <SelectionCard v-for="character in filteredCharacters" :key="character.id" :item="character"
+          @click="handleSelectCharacter(character)" />
 
         <!-- New "Add" card with plus icon -->
         <div class="add-concept-card" @click="createNewCharacter">
@@ -17,7 +17,7 @@
     <!--CHARACTER SHEET-->
     <div v-if="selectedCharacter" class="character-sheet">
       <div class="settings-icon" @click="openSettingsModal">⚙️</div>
-      <p class="close-button" @click="deselectCharacter">ⓧ</p>
+      <p class="close-button" @click="handleDeselectCharacter">ⓧ</p>
 
       <!-- Top section with bio and dice results -->
       <div class="top-section">
@@ -45,7 +45,7 @@
             <div class="conditions-row" v-for="(value, key) in selectedCharacter.conditions" :key="key">
               <span :class="{ 'condition-active': value }">{{
                 this.$capitalizeFirstLetter(key)
-              }}</span>
+                }}</span>
               <input type="checkbox" class="skill-checkbox" :class="{ 'condition-active-checkbox': value }"
                 v-model="selectedCharacter.conditions[key]" />
             </div>
@@ -55,17 +55,17 @@
 
         <!-- Three-column layout for Engagement, Equipment, and Abilities -->
         <div class="main-column">
-          <EngagementDiceTable :character="selectedCharacter" :allEquipment="allEquipment" :sources="sources"
+          <EngagementDiceTable :character="selectedCharacter" :allEquipment="allEquipment"
             @update:character="updateCharacter" @engagement-results="handleEngagementResults" />
         </div>
         <div class="main-column">
           <EquipmentTable :equipment="selectedCharacter.equipment" :allEquipment="allEquipment"
-            :character="selectedCharacter" :sources="sources" @update-character="updateCharacter"
+            :character="selectedCharacter" @update-character="updateCharacter"
             @edit-custom-equipment="openEditEquipmentModal" />
         </div>
         <div class="main-column">
           <!-- Abilities Table -->
-          <AbilitiesTable :character="selectedCharacter" :allAbilities="allAbilities" :sources="sources"
+          <AbilitiesTable :character="selectedCharacter" :allAbilities="allAbilities"
             @update-character="updateCharacter" />
         </div>
       </div>
@@ -73,7 +73,7 @@
       <!-- MODALS -->
       <FullSizeCharacterArtModal v-if="showFullSizeCharacterArtModal"
         :imageUrl="selectedCharacter.artUrls[0] || defaultArtUrl" @close="closeFullSizeCharacterArtModal"
-        @change-art="openChangeCharacterArtModal" />
+        @change-art="handleOpenChangeCharacterArtModal" />
 
       <ChangeCharacterArtModal v-if="showChangeCharacterArtModal" :initialArtUrl="selectedCharacter.artUrls[0] || ''"
         :character="selectedCharacter" @close="closeChangeCharacterArtModal" @update-character="updateCharacter" />
@@ -82,24 +82,28 @@
         :defaultTargetNumber="getLastTargetNumber()" @close="closeSkillCheckModal"
         @update-target-number="updateLastTargetNumber" />
 
-      <SettingsModal v-if="showSettingsModal" @close="closeSettingsModal" @delete="openDeleteConfirmationModal" />
+      <CharacterSettingsModal v-if="showSettingsModal" @close="closeSettingsModal"
+        @delete="openDeleteConfirmationModal" />
 
       <DeleteConfirmationModal v-if="showDeleteConfirmationModal" :name="selectedCharacter.name"
-        @close="closeDeleteConfirmationModal" @confirm="deleteCharacter" />
+        @close="closeDeleteConfirmationModal" @confirm="handleDeleteCharacter" />
 
-      <EditEquipmentModal v-if="showEditEquipmentModal" :equipment="equipmentToEdit" :sources="sources"
-        @update="saveEditedEquipment" @close="closeEditEquipmentModal" @delete="openDeleteConfirmationModal" />
+      <EditEquipmentModal v-if="showEditEquipmentModal" :equipment="equipmentToEdit" @update="saveEditedEquipment"
+        @close="closeEditEquipmentModal" @delete="openDeleteConfirmationModal" />
     </div>
   </div>
 </template>
 
-<script>
-import { mapState } from 'pinia'
+<script setup>
+import { computed, onMounted } from 'vue'
 import { useCharacterStore } from '@/stores/characterStore'
 import { useEquipmentStore } from '@/stores/equipmentStore'
 import { useAbilitiesStore } from '@/stores/abilitiesStore'
-import CharacterService from '@/services/CharacterService'
-import EquipmentService from '@/services/EquipmentService'
+import { useModal } from '@/composables/useModal'
+import { useCharacterManagement } from '@/composables/useCharacterManagement'
+import { useSkillCheck } from '@/composables/useSkillCheck'
+import { useEquipmentManagement } from '@/composables/useEquipmentManagement'
+import { useCharacterArt } from '@/composables/useCharacterArt'
 import SelectionCard from '@/components/ConceptCard.vue'
 import CharacterBioSection from '@/components/characterSheet/CharacterBioSection.vue'
 import CoreAbilityColumn from '@/components/characterSheet/CoreAbilityColumn.vue'
@@ -113,373 +117,127 @@ import DeleteConfirmationModal from '@/components/modals/DeleteConfirmationModal
 import EditEquipmentModal from '@/components/modals/EditEquipmentModal.vue'
 import EngagementDiceTable from '@/components/characterSheet/EngagementDiceTable.vue'
 import DiceRollResults from '@/components/characterSheet/DiceRollResults.vue'
-import SkillCheckService from '@/services/SkillCheckService'
 
-export default {
-  components: {
-    SelectionCard,
-    CharacterBioSection,
-    CoreAbilityColumn,
-    EquipmentTable,
-    AbilitiesTable,
-    FullSizeCharacterArtModal,
-    ChangeCharacterArtModal,
-    SkillCheckModal,
-    SettingsModal: CharacterSettingsModal,
-    DeleteConfirmationModal,
-    EditEquipmentModal,
-    EngagementDiceTable,
-    DiceRollResults,
-  },
-  data() {
-    const characterStore = useCharacterStore()
-    const equipmentStore = useEquipmentStore()
-    const abilitiesStore = useAbilitiesStore()
-    return {
-      characterStore,
-      equipmentStore,
-      abilitiesStore,
-      showFullSizeCharacterArtModal: false,
-      showChangeCharacterArtModal: false,
-      showSkillCheckModal: false,
-      showSettingsModal: false,
-      showDeleteConfirmationModal: false,
-      selectedCharacterArtUrl: '',
-      selectedSkillName: '',
-      updateTimeout: null,
-      defaultArtUrl: CharacterService.DEFAULT_ART_URL,
-      tempArtUrl: '',
-      showEditEquipmentModal: false,
-      equipmentIdToEdit: null,
-      latestRoll: null,
-      lastTargetNumber: null,
-      sources: {
-        ancestries: [],
-        cultures: [],
-        mestieri: [],
-        worldElements: [],
-      },
-    }
-  },
+// Stores
+const characterStore = useCharacterStore()
+const equipmentStore = useEquipmentStore()
+const abilitiesStore = useAbilitiesStore()
 
-  async mounted() {
-    try {
-      // First fetch sources to ensure background images are available
-      await this.fetchSources()
+// Composables
+const {
+  isOpen: showSettingsModal,
+  openModal: openSettingsModal,
+  closeModal: closeSettingsModal
+} = useModal()
 
-      // Then fetch other data in parallel
-      await Promise.all([
-        this.characterStore.fetchCharacters(),
-        this.abilitiesStore.fetchAllAbilities(),
-        this.equipmentStore.fetchAllEquipment()
-      ]);
-    } catch (error) {
-      console.error('Error initializing CharactersView:', error);
-    }
-  },
+const {
+  isOpen: showDeleteConfirmationModal,
+  openModal: openDeleteConfirmationModal,
+  closeModal: closeDeleteConfirmationModal
+} = useModal()
 
-  computed: {
-    ...mapState(useCharacterStore, ['characters']),
-    characters() {
-      return this.characterStore.characters.filter(
-        (character) => !character.isDeleted,
-      )
-    },
-    allEquipment() {
-      return this.equipmentStore.equipment
-    },
-    allAbilities() {
-      return this.abilitiesStore.abilities
-    },
-    selectedCharacter: {
-      get() {
-        return this.characterStore.selectedCharacter
-      },
-      set(value) {
-        this.characterStore.selectedCharacter = value
-      },
-    },
-    getSelectedSkill() {
-      return (
-        this.selectedCharacter.skills.find(
-          (skill) => skill.name === this.selectedSkillName,
-        ) || {}
-      )
-    },
-  },
+const {
+  selectedCharacter,
+  selectCharacter,
+  deselectCharacter,
+  updateCharacter,
+  createNewCharacter,
+  deleteCharacter,
+  watchCharacterStats
+} = useCharacterManagement(computed(() => equipmentStore.equipment))
 
-  watch: {
-    selectedCharacter: {
-      handler(newCharacter) {
-        if (!newCharacter) return
-        clearTimeout(this.updateTimeout)
-        this.updateTimeout = setTimeout(() => {
-          CharacterService.saveCharacter(newCharacter)
-        }, 500) // Only save after 0.5 seconds to avoid too many saves
-      },
-      deep: true,
-    },
+const {
+  showSkillCheckModal,
+  selectedSkillName,
+  latestRoll,
+  openSkillCheckModal,
+  closeSkillCheckModal,
+  handleEngagementResults,
+  getLastTargetNumber,
+  updateLastTargetNumber
+} = useSkillCheck()
 
-    // Changes to all these stats need to trigger recalculation of derived stats
-    'selectedCharacter.body'() {
-      if (!this.selectedCharacter || this.selectedCharacter.body === undefined)
-        return // Null check
-      CharacterService.handleBodyChange(this.selectedCharacter)
-    },
-    'selectedCharacter.heart'() {
-      if (!this.selectedCharacter || this.selectedCharacter.heart === undefined)
-        return // Null check
-      CharacterService.handleHeartChange(this.selectedCharacter)
-    },
-    'selectedCharacter.wits'() {
-      if (!this.selectedCharacter || this.selectedCharacter.wits === undefined)
-        return // Null check
-      CharacterService.handleWitsChange(this.selectedCharacter)
-    },
-    'selectedCharacter.endurance': {
-      handler() {
-        if (!this.selectedCharacter || !this.selectedCharacter.endurance) return // Null check
-        CharacterService.handleEnduranceChange(
-          this.selectedCharacter,
-          this.allEquipment,
-        )
-      },
-      deep: true,
-    },
-    'selectedCharacter.hope': {
-      handler() {
-        if (!this.selectedCharacter || !this.selectedCharacter.hope) return // Null check
-        CharacterService.handleHopeChange(this.selectedCharacter)
-      },
-      deep: true,
-    },
-    'selectedCharacter.defense': {
-      handler() {
-        if (!this.selectedCharacter || !this.selectedCharacter.defense) return // Null check
-        CharacterService.handleDefenseChange(this.selectedCharacter)
-      },
-      deep: true,
-    },
-    'selectedCharacter.load'() {
-      if (!this.selectedCharacter || this.selectedCharacter.load === undefined)
-        return // Null check
-      CharacterService.handleLoadChange(this.selectedCharacter)
-    },
-    'selectedCharacter.shadow'() {
-      if (
-        !this.selectedCharacter ||
-        this.selectedCharacter.shadow === undefined
-      )
-        return // Null check
-      CharacterService.handleShadowChange(this.selectedCharacter)
-    },
-    'selectedCharacter.injury'() {
-      if (
-        !this.selectedCharacter ||
-        this.selectedCharacter.injury === undefined
-      )
-        return // Null check
-      CharacterService.handleInjuryChange(this.selectedCharacter)
-    },
-    'selectedCharacter.states': {
-      handler() {
-        if (!this.selectedCharacter || !this.selectedCharacter.states) return // Null check
-        CharacterService.handleStatesChange(this.selectedCharacter)
-      },
-      deep: true,
-    },
-    'selectedCharacter.conditions': {
-      handler() {
-        if (!this.selectedCharacter || !this.selectedCharacter.conditions)
-          return // Null check
-        CharacterService.handleConditionsChange(this.selectedCharacter)
-      },
-      deep: true,
-    },
-    'selectedCharacter.equipment': {
-      handler() {
-        if (
-          !this.selectedCharacter ||
-          !this.selectedCharacter.equipment ||
-          !this.allEquipment
-        )
-          return // Null check
-        CharacterService.handleEquipmentChange(
-          this.selectedCharacter,
-          this.allEquipment,
-        ) // Recalculate load
-      },
-      deep: true, // Ensure nested changes are detected
-    },
-  },
+const {
+  showEditEquipmentModal,
+  equipmentToEdit,
+  openEditEquipmentModal,
+  closeEditEquipmentModal,
+  saveEditedEquipment
+} = useEquipmentManagement()
 
-  methods: {
-    // Fetch sources for both abilities and equipment
-    async fetchSources() {
-      try {
-        // Fetch ability sources from abilitiesStore
-        await this.abilitiesStore.fetchAllSources();
+const {
+  showFullSizeCharacterArtModal,
+  showChangeCharacterArtModal,
+  defaultArtUrl,
+  openFullSizeCharacterArtModal,
+  closeFullSizeCharacterArtModal,
+  openChangeCharacterArtModal,
+  closeChangeCharacterArtModal
+} = useCharacterArt()
 
-        // Fetch equipment sources from equipmentStore
-        await this.equipmentStore.fetchAllSources();
+// Computed properties
+const filteredCharacters = computed(() => {
+  return characterStore.characters.filter(
+    (character) => !character.isDeleted,
+  )
+})
 
-        // Combine sources from both stores to ensure we have all sources
-        // We'll prioritize the equipment store's sources but merge in any unique sources from abilities
-        this.sources = {
-          ancestries: [...this.equipmentStore.sources.ancestries],
-          cultures: [...this.equipmentStore.sources.cultures],
-          mestieri: [...this.equipmentStore.sources.mestieri],
-          worldElements: [...this.equipmentStore.sources.worldElements]
-        };
-      } catch (error) {
-        console.error('Error fetching sources:', error);
-      }
-    },
+const allEquipment = computed(() => {
+  return equipmentStore.equipment
+})
 
-    // CHARACTER SELECTION & CRUD
-    selectCharacter(character) {
-      this.selectedCharacter = character
-      this.characterStore.selectedCharacter = character
-      this.closeAllModals()
-    },
-    deselectCharacter() {
-      this.selectedCharacter = null
-      this.characterStore.selectedCharacter = null
-      this.latestRoll = null
-      this.characterStore.fetchCharacters()
-    },
-    async createNewCharacter() {
-      const createdCharacter = await CharacterService.createCharacter()
-      await this.characterStore.fetchCharacters()
-      const newCharacter = this.characterStore.characters.find(
-        (character) => character.id === createdCharacter.id,
-      )
-      this.selectCharacter(newCharacter)
-    },
-    updateCharacter(updatedCharacter) {
-      this.selectedCharacter = { ...updatedCharacter }
-    },
+const allAbilities = computed(() => {
+  return abilitiesStore.abilities
+})
 
-    handleEngagementResults(engagementResult) {
-      // Update the latestRoll to show engagement results in DiceRollResults component
-      console.log('CharactersView received engagement results:', engagementResult);
-      this.latestRoll = engagementResult;
-    },
-
-    deleteCharacter() {
-      CharacterService.deleteCharacter(this.selectedCharacter)
-      this.closeDeleteConfirmationModal()
-      this.deselectCharacter()
-    },
-
-    // MODAL CONTROLS
-    closeAllModals() {
-      this.showFullSizeCharacterArtModal = false
-      this.showChangeCharacterArtModal = false
-      this.showSkillCheckModal = false
-      this.showSettingsModal = false
-      this.showDeleteConfirmationModal = false
-    },
-    openSettingsModal() {
-      this.showSettingsModal = true
-    },
-    closeSettingsModal() {
-      this.showSettingsModal = false
-    },
-    openDeleteConfirmationModal() {
-      this.showDeleteConfirmationModal = true
-    },
-    closeDeleteConfirmationModal() {
-      this.showDeleteConfirmationModal = false
-    },
-    openFullSizeCharacterArtModal(imageUrl) {
-      this.selectedCharacterArtUrl = imageUrl
-      this.showFullSizeCharacterArtModal = true
-    },
-    closeFullSizeCharacterArtModal() {
-      this.showFullSizeCharacterArtModal = false
-    },
-    openChangeCharacterArtModal() {
-      this.tempArtUrl = this.selectedCharacter.artUrls[0] || ''
-      this.showChangeCharacterArtModal = true
-    },
-    closeChangeCharacterArtModal() {
-      this.showChangeCharacterArtModal = false
-    },
-    getLastTargetNumber() {
-      return this.lastTargetNumber
-    },
-
-    updateLastTargetNumber(targetNumber) {
-      this.lastTargetNumber = targetNumber
-    },
-
-    openSkillCheckModal(skillName) {
-      this.selectedSkillName = skillName
-      this.showSkillCheckModal = true
-    },
-
-    closeSkillCheckModal() {
-      this.showSkillCheckModal = false
-      this.updateLatestRoll() // Get latest roll when modal closes
-    },
-    openEditEquipmentModal(equipment) {
-      this.equipmentToEdit = equipment
-      this.showEditEquipmentModal = true
-    },
-    closeEditEquipmentModal() {
-      this.showEditEquipmentModal = false
-      this.equipmentToEdit = null
-    },
-
-    // EQUIPMENT HANDLING
-    async saveEditedEquipment(updatedEquipment) {
-      try {
-        // Save the updated equipment to the backend
-        await EquipmentService.updateEquipment(updatedEquipment)
-
-        // Refresh the equipment list to ensure the new item is included
-        await this.equipmentStore.fetchAllEquipment()
-
-        // Update the character's equipment
-        this.updateCharacter(this.characterStore.selectedCharacter)
-      } catch (error) {
-        console.error('Error saving equipment:', error)
-      }
-    },
-    async deleteCustomEquipment(equipment) {
-      try {
-        // First, set isDeleted to true on the equipment
-        equipment.isDeleted = true
-
-        // Update the equipment in the database
-        await EquipmentService.updateEquipment(equipment)
-
-        // Remove from character's equipment
-        const equipmentIndex = this.selectedCharacter.equipment.findIndex(
-          (item) => item.id === equipment.id,
-        )
-
-        if (equipmentIndex >= 0) {
-          this.selectedCharacter.equipment.splice(equipmentIndex, 1)
-          this.$emit('update-character', this.selectedCharacter)
-        }
-
-        // Refresh equipment list
-        await this.equipmentStore.fetchAllEquipment()
-
-        // Close the modal
-        this.closeEditEquipmentModal()
-      } catch (error) {
-        console.error('Error deleting custom equipment:', error)
-      }
-    },
-    // LATEST ROLL
-    updateLatestRoll() {
-      this.latestRoll = SkillCheckService.getLatestRollResult()
-    },
-  },
+// Enhanced delete character handler
+const handleDeleteCharacter = () => {
+  deleteCharacter(selectedCharacter.value)
+  closeDeleteConfirmationModal()
 }
+
+// Enhanced character selection handler
+const handleSelectCharacter = (character) => {
+  selectCharacter(character)
+  closeAllModals()
+}
+
+// Enhanced deselect character handler
+const handleDeselectCharacter = () => {
+  deselectCharacter()
+  latestRoll.value = null
+}
+
+// Enhanced open change art modal handler
+const handleOpenChangeCharacterArtModal = () => {
+  openChangeCharacterArtModal(selectedCharacter.value)
+}
+
+// Modal close handler
+const closeAllModals = () => {
+  closeFullSizeCharacterArtModal()
+  closeChangeCharacterArtModal()
+  closeSkillCheckModal()
+  closeSettingsModal()
+  closeDeleteConfirmationModal()
+}
+
+// Lifecycle
+onMounted(async () => {
+  try {
+    // Initialize character stat watchers
+    watchCharacterStats()
+
+    // Fetch data in parallel (sources will auto-fetch via useSources)
+    await Promise.all([
+      characterStore.fetchCharacters(),
+      abilitiesStore.fetchAllAbilities(),
+      equipmentStore.fetchAllEquipment()
+    ])
+  } catch (error) {
+    console.error('Error initializing CharactersView:', error)
+  }
+})
 </script>
 
 <style scoped>

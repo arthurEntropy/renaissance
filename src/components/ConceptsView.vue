@@ -50,16 +50,13 @@ import { useAbilitiesStore } from '@/stores/abilitiesStore'
 import { useEquipmentStore } from '@/stores/equipmentStore'
 import { useExpansionStore } from '@/stores/expansionStore'
 import { useEditModal } from '@/composables/useEditModal'
+import { useSources } from '@/composables/useSources'
 import ConceptCard from '@/components/ConceptCard.vue'
 import ConceptDetailModal from '@/components/modals/ConceptDetailModal.vue'
 import EditAbilityModal from '@/components/modals/EditAbilityModal.vue'
 import EditEquipmentModal from '@/components/modals/EditEquipmentModal.vue'
 import AbilityService from '@/services/AbilityService'
 import EquipmentService from '@/services/EquipmentService'
-import AncestryService from '@/services/AncestryService'
-import CultureService from '@/services/CultureService'
-import MestiereService from '@/services/MestiereService'
-import WorldElementService from '@/services/WorldElementService'
 
 // Props
 const props = defineProps({
@@ -109,15 +106,12 @@ const {
   closeModal: closeEditEquipmentModal
 } = useEditModal()
 
+// Sources management
+const { sources } = useSources()
+
 // Reactive state
 const selectedConcept = ref(null)
 const showConceptDetail = ref(false)
-const sources = ref({
-  ancestries: [],
-  cultures: [],
-  mestieri: [],
-  worldElements: [],
-})
 const expansions = ref([])
 const conceptDetailKey = ref(0)
 const searchQuery = ref('')
@@ -161,33 +155,6 @@ const filteredConcepts = computed(() => {
   }
   return filtered
 })
-
-// Source data fetching
-const fetchSources = async () => {
-  try {
-    // Fetch all source types in parallel
-    const [ancestries, cultures, mestieri, worldElements] = await Promise.all([
-      AncestryService.getAllAncestries(),
-      CultureService.getAllCultures(),
-      MestiereService.getAllMestieri(),
-      WorldElementService.getAllWorldElements()
-    ]);
-
-    // Update sources
-    sources.value = {
-      ancestries,
-      cultures,
-      mestieri,
-      worldElements
-    };
-
-    // Also update the stores to ensure consistency
-    abilitiesStore.sources = sources.value;
-    equipmentStore.sources = sources.value;
-  } catch (error) {
-    console.error('Error fetching sources:', error);
-  }
-}
 
 // CONCEPT CRUD
 const createConcept = async () => {
@@ -328,7 +295,7 @@ onMounted(async () => {
   try {
     await expansionStore.fetchExpansions()
     expansions.value = expansionStore.expansions
-    await fetchSources();
+    // Sources will auto-fetch via useSources composable
     await Promise.all([
       abilitiesStore.fetchAllAbilities(),
       equipmentStore.fetchAllEquipment()

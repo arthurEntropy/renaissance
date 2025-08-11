@@ -1,7 +1,7 @@
 <template>
   <div class="number-input-container" :class="sizeClass">
-    <input type="number" :value="modelValue" @input="$emit('update:modelValue', Number($event.target.value))" :min="min"
-      :max="max" :step="step" :class="inputClass" />
+    <input type="number" :value="modelValue" @input="$emit('update:modelValue', Number(($event.target).value))"
+      :min="min" :max="max" :step="step" :class="inputClass" />
     <div class="spinner-buttons">
       <button @click="increment" class="spinner-up">▲</button>
       <button @click="decrement" class="spinner-down">▼</button>
@@ -9,64 +9,34 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'NumberInput',
-  props: {
-    modelValue: {
-      type: Number,
-      required: true,
-    },
-    min: {
-      type: Number,
-      default: null,
-    },
-    max: {
-      type: Number,
-      default: null,
-    },
-    step: {
-      type: Number,
-      default: 1,
-    },
-    size: {
-      type: String,
-      default: 'small',
-      validator: (value) => ['tiny', 'small', 'large'].includes(value),
-    },
-  },
-  computed: {
-    sizeClass() {
-      return `number-input-${this.size}`
-    },
-    inputClass() {
-      return `input-${this.size}`
-    },
-  },
-  methods: {
-    increment() {
-      if (this.max === null || this.modelValue < this.max) {
-        this.$emit(
-          'update:modelValue',
-          Math.min(
-            this.modelValue + this.step,
-            this.max !== null ? this.max : Infinity,
-          ),
-        )
-      }
-    },
-    decrement() {
-      if (this.min === null || this.modelValue > this.min) {
-        this.$emit(
-          'update:modelValue',
-          Math.max(
-            this.modelValue - this.step,
-            this.min !== null ? this.min : -Infinity,
-          ),
-        )
-      }
-    },
-  },
+<script setup>
+import { computed } from 'vue'
+
+const props = defineProps({
+  modelValue: { type: Number, required: true },
+  min: { type: Number, default: null },
+  max: { type: Number, default: null },
+  step: { type: Number, default: 1 },
+  size: { type: String, default: 'small', validator: (v) => ['tiny', 'small', 'large'].includes(v) },
+})
+
+const emit = defineEmits(['update:modelValue'])
+
+const sizeClass = computed(() => `number-input-${props.size}`)
+const inputClass = computed(() => `input-${props.size}`)
+
+function increment() {
+  if (props.max === null || props.modelValue < props.max) {
+    const next = Math.min(props.modelValue + props.step, props.max ?? Infinity)
+    emit('update:modelValue', next)
+  }
+}
+
+function decrement() {
+  if (props.min === null || props.modelValue > props.min) {
+    const next = Math.max(props.modelValue - props.step, props.min ?? -Infinity)
+    emit('update:modelValue', next)
+  }
 }
 </script>
 

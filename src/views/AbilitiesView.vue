@@ -25,6 +25,7 @@ import { ref, onMounted } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useAbilitiesStore } from '@/stores/abilitiesStore'
 import { useEditModal } from '@/composables/useEditModal'
+import { useSources } from '@/composables/useSources'
 import AbilityService from '@/services/AbilityService'
 import AbilityCard from '@/components/AbilityCard.vue'
 import EditAbilityModal from '@/components/modals/EditAbilityModal.vue'
@@ -42,17 +43,14 @@ const {
   closeModal: closeEditAbilityModal
 } = useEditModal()
 
+// Sources management
+const { sources } = useSources()
+
 // Reactive state
 const itemCardsView = ref(null)
 const sortOption = ref('')
 const searchQuery = ref('')
 const sourceFilter = ref('')
-const sources = ref({
-  ancestries: [],
-  cultures: [],
-  mestieri: [],
-  worldElements: [],
-})
 
 const sortOptions = ref({
   'Name': [
@@ -113,15 +111,10 @@ const sendAbilityToChat = (ability) => {
   console.log('Send to chat not yet implemented:', ability)
 }
 
-const fetchSources = async () => {
-  await abilitiesStore.fetchAllSources()
-  sources.value = abilitiesStore.sources
-}
-
 // Lifecycle
 onMounted(async () => {
   try {
-    await fetchSources()
+    // Sources will auto-fetch via useSources composable
     await abilitiesStore.fetchAllAbilities()
   } catch (error) {
     console.error('Error initializing AbilitiesView:', error)

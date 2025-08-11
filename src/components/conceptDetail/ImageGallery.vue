@@ -39,11 +39,7 @@
     </div>
 
     <!-- Thumbnails grid -->
-    <div
-      v-if="editable || images.length > 1"
-      class="thumbs-container"
-      :style="{ '--grid-columns': gridColumns }"
-    >
+    <div v-if="editable || images.length > 1" class="thumbs-container" :style="{ '--grid-columns': gridColumns }">
       <div class="thumbs-grid" :style="{ 'grid-template-columns': `repeat(${gridColumns}, 1fr)` }">
         <!-- Editable mode -->
         <template v-if="editable">
@@ -92,222 +88,224 @@
   </div>
 </template>
 
-<script>
-import { defineComponent } from 'vue'
+<script setup>
+import { ref, watch, nextTick } from 'vue'
 import draggable from 'vuedraggable'
 
-export default defineComponent({
-  name: 'ImageGallery',
-  components: {
-    draggable,
+// Props
+const props = defineProps({
+  images: {
+    type: Array,
+    required: true,
   },
-  props: {
-    images: {
-      type: Array,
-      required: true,
-    },
-    initialIndex: {
-      type: Number,
-      default: 0,
-    },
-    gridColumns: {
-      type: Number,
-      default: 5,
-    },
-    editable: {
-      type: Boolean,
-      default: false,
-    },
+  initialIndex: {
+    type: Number,
+    default: 0,
   },
-  data() {
-    return {
-      selectedIndex: this.initialIndex,
-      showNav: false,
-      editModalOpen: false,
-      addModalOpen: false,
-      editImageUrl: '',
-      newImageUrl: '',
-      localImages: [...this.images],
-      isInternalChange: false,
-    }
+  gridColumns: {
+    type: Number,
+    default: 5,
   },
-  emits: ['update:images', 'edit', 'delete', 'add'],
-  methods: {
-    // Navigation methods
-    selectImage(idx) {
-      this.selectedIndex = idx
-    },
-    prevImage() {
-      this.selectedIndex =
-        (this.selectedIndex - 1 + this.localImages.length) %
-        this.localImages.length
-    },
-    nextImage() {
-      this.selectedIndex = (this.selectedIndex + 1) % this.localImages.length
-    },
-
-    // Edit existing image methods
-    openEditModal() {
-      this.editImageUrl = this.localImages[this.selectedIndex]
-      this.editModalOpen = true
-      // Focus the input field after the modal is rendered
-      this.$nextTick(() => {
-        this.$refs.editUrlInput?.focus()
-      })
-    },
-    closeEditModal() {
-      this.editModalOpen = false
-      this.editImageUrl = ''
-    },
-    saveImageUrl() {
-      if (this.editImageUrl) {
-        // Set the flag to indicate an internal change
-        this.isInternalChange = true
-
-        // Update existing image
-        const updatedImages = [...this.localImages]
-        updatedImages[this.selectedIndex] = this.editImageUrl
-
-        // Update local copy
-        this.localImages = updatedImages
-
-        // Emit events
-        this.$emit('update:images', updatedImages)
-        this.$emit('edit', {
-          index: this.selectedIndex,
-          url: this.editImageUrl,
-        })
-
-        // Reset the flag after the next tick
-        this.$nextTick(() => {
-          this.isInternalChange = false
-        })
-      }
-
-      this.closeEditModal()
-    },
-    deleteImage() {
-      if (confirm('Are you sure you want to delete this image?')) {
-        const indexToDelete = this.selectedIndex
-
-        // Set the flag to indicate an internal change
-        this.isInternalChange = true
-
-        // Create a new array without the deleted image
-        const updatedImages = this.localImages.filter(
-          (_, idx) => idx !== indexToDelete,
-        )
-
-        // Adjust the selected index if necessary
-        if (this.selectedIndex >= updatedImages.length) {
-          this.selectedIndex = Math.max(0, updatedImages.length - 1)
-        }
-
-        // Update local copy
-        this.localImages = updatedImages
-
-        // Emit events
-        this.$emit('update:images', updatedImages)
-        this.$emit('delete', indexToDelete)
-
-        // Reset the flag after the next tick
-        this.$nextTick(() => {
-          this.isInternalChange = false
-        })
-
-        this.closeEditModal()
-      }
-    },
-
-    // Add new image methods
-    addNewImage() {
-      this.newImageUrl = ''
-      this.addModalOpen = true
-      // Focus the input field after the modal is rendered
-      this.$nextTick(() => {
-        this.$refs.addUrlInput?.focus()
-      })
-    },
-    closeAddModal() {
-      this.addModalOpen = false
-      this.newImageUrl = ''
-    },
-    saveNewImage() {
-      if (this.newImageUrl) {
-        // Set the flag to indicate an internal change
-        this.isInternalChange = true
-
-        // Add new image to the array
-        const updatedImages = [...this.localImages, this.newImageUrl]
-
-        // Select the new image
-        this.selectedIndex = updatedImages.length - 1
-
-        // Update local copy
-        this.localImages = updatedImages
-
-        // Emit events
-        this.$emit('update:images', updatedImages)
-        this.$emit('add', this.newImageUrl)
-
-        // Reset the flag after the next tick
-        this.$nextTick(() => {
-          this.isInternalChange = false
-        })
-      }
-
-      this.closeAddModal()
-    },
-
-    // Drag and drop method
-    onDragEnd() {
-      // Track the currently selected image URL before reordering
-      const selectedImageUrl = this.localImages[this.selectedIndex]
-
-      // Only emit if this is not already part of a recursive update
-      if (!this.isInternalChange) {
-        this.isInternalChange = true
-
-        // Find the new index of the previously selected image
-        const newSelectedIndex = this.localImages.findIndex(
-          (url) => url === selectedImageUrl,
-        )
-        if (newSelectedIndex !== -1) {
-          this.selectedIndex = newSelectedIndex
-        }
-
-        // Make a clean copy of the localImages array before emitting
-        const cleanImages = [...this.localImages]
-
-        // Use nextTick to ensure Vue's reactivity has settled
-        this.$nextTick(() => {
-          // Emit the updated array
-          this.$emit('update:images', cleanImages)
-
-          // Reset the flag after the update is processed
-          this.isInternalChange = false
-        })
-      }
-    },
-  },
-  watch: {
-    // Keep the watcher for external image changes
-    images: {
-      handler(newImages) {
-        if (!this.isInternalChange) {
-          if (JSON.stringify(newImages) !== JSON.stringify(this.localImages)) {
-            this.localImages = [...newImages]
-
-            if (this.selectedIndex >= newImages.length) {
-              this.selectedIndex = Math.max(0, newImages.length - 1)
-            }
-          }
-        }
-      },
-      deep: true,
-    },
+  editable: {
+    type: Boolean,
+    default: false,
   },
 })
+
+// Emits
+const emit = defineEmits(['update:images', 'edit', 'delete', 'add'])
+
+// Reactive state
+const selectedIndex = ref(props.initialIndex)
+const showNav = ref(false)
+const editModalOpen = ref(false)
+const addModalOpen = ref(false)
+const editImageUrl = ref('')
+const newImageUrl = ref('')
+const localImages = ref([...props.images])
+const isInternalChange = ref(false)
+
+// Template refs
+const editUrlInput = ref(null)
+const addUrlInput = ref(null)
+
+// Navigation methods
+const selectImage = (idx) => {
+  selectedIndex.value = idx
+}
+
+const prevImage = () => {
+  selectedIndex.value =
+    (selectedIndex.value - 1 + localImages.value.length) %
+    localImages.value.length
+}
+
+const nextImage = () => {
+  selectedIndex.value = (selectedIndex.value + 1) % localImages.value.length
+}
+
+// Edit existing image methods
+const openEditModal = () => {
+  editImageUrl.value = localImages.value[selectedIndex.value]
+  editModalOpen.value = true
+  // Focus the input field after the modal is rendered
+  nextTick(() => {
+    editUrlInput.value?.focus()
+  })
+}
+
+const closeEditModal = () => {
+  editModalOpen.value = false
+  editImageUrl.value = ''
+}
+
+const saveImageUrl = () => {
+  if (editImageUrl.value) {
+    // Set the flag to indicate an internal change
+    isInternalChange.value = true
+
+    // Update existing image
+    const updatedImages = [...localImages.value]
+    updatedImages[selectedIndex.value] = editImageUrl.value
+
+    // Update local copy
+    localImages.value = updatedImages
+
+    // Emit events
+    emit('update:images', updatedImages)
+    emit('edit', {
+      index: selectedIndex.value,
+      url: editImageUrl.value,
+    })
+
+    // Reset the flag after the next tick
+    nextTick(() => {
+      isInternalChange.value = false
+    })
+  }
+
+  closeEditModal()
+}
+
+const deleteImage = () => {
+  if (confirm('Are you sure you want to delete this image?')) {
+    const indexToDelete = selectedIndex.value
+
+    // Set the flag to indicate an internal change
+    isInternalChange.value = true
+
+    // Create a new array without the deleted image
+    const updatedImages = localImages.value.filter(
+      (_, idx) => idx !== indexToDelete,
+    )
+
+    // Adjust the selected index if necessary
+    if (selectedIndex.value >= updatedImages.length) {
+      selectedIndex.value = Math.max(0, updatedImages.length - 1)
+    }
+
+    // Update local copy
+    localImages.value = updatedImages
+
+    // Emit events
+    emit('update:images', updatedImages)
+    emit('delete', indexToDelete)
+
+    // Reset the flag after the next tick
+    nextTick(() => {
+      isInternalChange.value = false
+    })
+
+    closeEditModal()
+  }
+}
+
+// Add new image methods
+const addNewImage = () => {
+  newImageUrl.value = ''
+  addModalOpen.value = true
+  // Focus the input field after the modal is rendered
+  nextTick(() => {
+    addUrlInput.value?.focus()
+  })
+}
+
+const closeAddModal = () => {
+  addModalOpen.value = false
+  newImageUrl.value = ''
+}
+
+const saveNewImage = () => {
+  if (newImageUrl.value) {
+    // Set the flag to indicate an internal change
+    isInternalChange.value = true
+
+    // Add new image to the array
+    const updatedImages = [...localImages.value, newImageUrl.value]
+
+    // Select the new image
+    selectedIndex.value = updatedImages.length - 1
+
+    // Update local copy
+    localImages.value = updatedImages
+
+    // Emit events
+    emit('update:images', updatedImages)
+    emit('add', newImageUrl.value)
+
+    // Reset the flag after the next tick
+    nextTick(() => {
+      isInternalChange.value = false
+    })
+  }
+
+  closeAddModal()
+}
+
+// Drag and drop method
+const onDragEnd = () => {
+  // Track the currently selected image URL before reordering
+  const selectedImageUrl = localImages.value[selectedIndex.value]
+
+  // Only emit if this is not already part of a recursive update
+  if (!isInternalChange.value) {
+    isInternalChange.value = true
+
+    // Find the new index of the previously selected image
+    const newSelectedIndex = localImages.value.findIndex(
+      (url) => url === selectedImageUrl,
+    )
+    if (newSelectedIndex !== -1) {
+      selectedIndex.value = newSelectedIndex
+    }
+
+    // Make a clean copy of the localImages array before emitting
+    const cleanImages = [...localImages.value]
+
+    // Use nextTick to ensure Vue's reactivity has settled
+    nextTick(() => {
+      // Emit the updated array
+      emit('update:images', cleanImages)
+
+      // Reset the flag after the update is processed
+      isInternalChange.value = false
+    })
+  }
+}
+
+// Watchers
+// Keep the watcher for external image changes
+watch(() => props.images, (newImages) => {
+  if (!isInternalChange.value) {
+    if (JSON.stringify(newImages) !== JSON.stringify(localImages.value)) {
+      localImages.value = [...newImages]
+
+      if (selectedIndex.value >= newImages.length) {
+        selectedIndex.value = Math.max(0, newImages.length - 1)
+      }
+    }
+  }
+}, { deep: true })
 </script>
 <style scoped>
 .image-gallery {

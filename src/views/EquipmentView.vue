@@ -25,6 +25,7 @@ import { ref, onMounted } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useEquipmentStore } from '@/stores/equipmentStore'
 import { useEditModal } from '@/composables/useEditModal'
+import { useSources } from '@/composables/useSources'
 import EquipmentService from '@/services/EquipmentService'
 import EngagementSuccessService from '@/services/EngagementSuccessService'
 import EquipmentCard from '@/components/EquipmentCard.vue'
@@ -43,18 +44,15 @@ const {
   closeModal: closeEditEquipmentModal
 } = useEditModal()
 
+// Sources management
+const { sources } = useSources()
+
 // Reactive state
 const itemCardsView = ref(null)
 const sortOption = ref('')
 const searchQuery = ref('')
 const sourceFilter = ref('')
 const engagementSuccessOptions = ref([])
-const sources = ref({
-  ancestries: [],
-  cultures: [],
-  mestieri: [],
-  worldElements: [],
-})
 
 const sortOptions = ref({
   'Name': [
@@ -110,11 +108,6 @@ const sendEquipmentToChat = (equipment) => {
   console.log('Send to chat not yet implemented:', equipment)
 }
 
-const fetchSources = async () => {
-  await equipmentStore.fetchAllSources()
-  sources.value = equipmentStore.sources
-}
-
 const fetchEngagementSuccessOptions = async () => {
   try {
     engagementSuccessOptions.value = await EngagementSuccessService.getAllEngagementSuccesses();
@@ -126,7 +119,7 @@ const fetchEngagementSuccessOptions = async () => {
 // Lifecycle
 onMounted(async () => {
   try {
-    await fetchSources()
+    // Sources will auto-fetch via useSources composable
     await equipmentStore.fetchStandardsOfLiving()
     await fetchEngagementSuccessOptions()
     await equipmentStore.fetchAllEquipment()

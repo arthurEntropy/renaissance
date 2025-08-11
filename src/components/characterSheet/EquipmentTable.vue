@@ -34,8 +34,7 @@
               <EquipmentCard v-if="row.equipment" :equipment="row.equipment"
                 :collapsed="getCollapsedState(row.equipment)"
                 @update:collapsed="setCollapsedState(row.equipment, $event)" :editable="row.equipment.isCustom"
-                :sources="sources" class="equipment-card" @edit="editCustomItem" :collapsible="true"
-                :show-sol-badge="false" />
+                class="equipment-card" @edit="editCustomItem" :collapsible="true" :show-sol-badge="false" />
               <span v-else class="missing-equipment">Unknown item</span>
               <div class="equipment-row-details">
                 <div class="details-content">
@@ -86,9 +85,9 @@
                       <em class="carried-label"> = </em>
                       <span>
                         {{
-                          row.isCarried && row.equipment
-                            ? formatWeight(row.equipment.weight * row.quantity)
-                            : '0'
+                        row.isCarried && row.equipment
+                        ? formatWeight(row.equipment.weight * row.quantity)
+                        : '0'
                         }}
                       </span>
                       <em class="carried-label">lbs</em>
@@ -110,7 +109,7 @@
 
     <!-- Add Options Menu -->
     <div v-if="showAddOptions" class="add-options-menu">
-      <div class="add-option" @click="toggleEquipmentSelector($event)">
+      <div class="add-option" @click="showAddOptions = false; toggleEquipmentSelector($event)">
         <i>📖</i> Add from Library
       </div>
       <div class="add-option" @click="addCustomEquipment()">
@@ -128,7 +127,7 @@
       <div class="equipment-options-container">
         <template v-for="(items, source) in groupedEquipment" :key="source">
           <div class="equipment-source-group">
-            <div class="source-header">{{ getSourceName(source) }}</div>
+            <div class="source-header">{{ sourceUtils.getSourceName(source) }}</div>
             <div v-for="item in items" :key="item.id" class="equipment-option" @click="selectEquipment(item)">
               {{ item.name }}
               <span class="equipment-weight">({{ item.weight }} lbs)</span>
@@ -140,423 +139,271 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import CharacterService from '@/services/CharacterService'
 import EquipmentCard from '@/components/EquipmentCard.vue'
 import EquipmentService from '@/services/EquipmentService'
 import { useEquipmentStore } from '@/stores/equipmentStore'
 import draggable from 'vuedraggable'
 import NumberInput from '@/components/NumberInput.vue'
+import { useEditMode } from '@/composables/useEditMode'
+import { useCollapseState } from '@/composables/useCollapseState'
+import { useDragAndDrop } from '@/composables/useDragAndDrop'
+import { useItemSelector } from '@/composables/useItemSelector'
+import { useSources } from '@/composables/useSources'
 
-export default {
-  props: {
-    equipment: Array,
-    allEquipment: Array,
-    character: Object,
-    sources: {
-      type: Object,
-      default: () => ({
-        ancestries: [],
-        cultures: [],
-        mestieri: [],
-        worldElements: []
-      })
-    }
-  },
-  emits: ['update-character', 'edit-custom-equipment'],
-  components: {
-    EquipmentCard,
-    draggable,
-    NumberInput,
-  },
-  data() {
+// Props
+const props = defineProps({
+  equipment: Array,
+  allEquipment: Array,
+  character: Object
+})
+
+// Emits
+const emit = defineEmits(['update-character', 'edit-custom-equipment'])
+
+// Store
+const equipmentStore = useEquipmentStore()
+
+// Composables
+const { isEditMode, toggleEditMode } = useEditMode()
+const { getCollapsedState, setCollapsedState } = useCollapseState(true)
+
+// Source management - using composable directly
+const { sources, getSourceById, getSourceName, getSourceType } = useSources()
+const sourceUtils = { getSourceById, getSourceName, getSourceType }
+
+// Item selector for equipment
+const {
+  showSelector: showEquipmentSelector,
+  searchQuery: equipmentSearchQuery,
+  groupedItems: groupedEquipment,
+  toggleSelector: toggleEquipmentSelector,
+  filterItems: filterEquipment
+} = useItemSelector(computed(() => props.allEquipment), sources, sourceUtils)
+
+// Additional equipment-specific state
+const showAddOptions = ref(false)
+
+// Computed properties
+const characterEquipmentRows = computed(() => {
+  const allEquipment = props.allEquipment || [] // Fallback to an empty array
+  return props.character.equipment.map((entry) => {
+    const equipment = allEquipment.find((eq) => eq.id === entry.id)
     return {
-      showEquipmentSelector: false,
-      showAddOptions: false,
-      equipmentSearchQuery: '',
-      filteredEquipment: [],
-      equipmentStore: useEquipmentStore(),
-      isEditMode: false, // New state for edit mode
-      equipmentCollapseState: {}, // Track collapsed/expanded state by equipment ID
+      ...entry,
+      equipment,
     }
-  },
-  computed: {
-    characterEquipmentRows() {
-      const allEquipment = this.allEquipment || [] // Fallback to an empty array
-      return this.character.equipment.map((entry) => {
-        const equipment = allEquipment.find((eq) => eq.id === entry.id)
-        return {
-          ...entry,
-          equipment,
-        }
-      })
-    },
-    sortedEquipmentRows: {
-      get() {
-        // Sort by index property (if exists)
-        return [...this.characterEquipmentRows].sort((a, b) => {
-          if (a.index !== undefined && b.index !== undefined) {
-            return a.index - b.index
-          }
-          // If index is not defined, use original position
-          return 0
-        })
-      },
-      set(value) {
-        // This will be called when draggable updates the order
-        this.updateEquipmentOrder(value)
-      },
-    },
-    totalWeightCarried() {
-      return Math.round(
-        this.characterEquipmentRows.reduce((sum, row) => {
-          if (!row.equipment) return sum
-          return row.isCarried ? sum + row.equipment.weight * row.quantity : sum
-        }, 0),
-      )
-    },
-    groupedEquipment() {
-      const grouped = {
-        general: [], // For items without a source or with an unknown source
-        custom: [], // For custom items
-      }
+  })
+})
 
-      const items =
-        this.filteredEquipment.length > 0
-          ? this.filteredEquipment
-          : this.allEquipment || []
+// Drag and drop functionality
+const updateEquipmentOrder = (newOrder) => {
+  // Update the index property on each equipment item
+  const updatedEquipment = newOrder.map((item, index) => ({
+    ...item,
+    index: index,
+  }))
 
-      // Group items
-      items
-        .filter((item) => !item.isDeleted)
-        .forEach((item) => {
-          if (item.isCustom === true) {
-            // Custom items go to the custom group
-            grouped.custom.push(item)
-          } else if (
-            !item.source ||
-            !this.getSourceById(item.source)
-          ) {
-            // Items without a source or with an unrecognized source go to the general group
-            grouped.general.push(item)
-          } else {
-            // All other items are grouped by their source
-            const sourceId = item.source
-            if (!grouped[sourceId]) {
-              grouped[sourceId] = []
-            }
-            grouped[sourceId].push(item)
-          }
-        })
+  // Create a new character object with updated equipment
+  const updatedCharacter = {
+    ...props.character,
+    equipment: updatedEquipment,
+  }
 
-      // Sort items within each group by name
-      Object.keys(grouped).forEach((key) => {
-        grouped[key].sort((a, b) => a.name.localeCompare(b.name))
-      })
-
-      // Return a new ordered object to control the display order
-      const orderedGrouped = {}
-
-      // 1. General items first (if any exist)
-      if (grouped.general.length > 0) {
-        orderedGrouped.general = grouped.general
-      }
-
-      // 2. Add all other source groups (sorted alphabetically by source name)
-      const sourceKeys = Object.keys(grouped)
-        .filter((key) => key !== 'custom' && key !== 'general')
-        .sort((a, b) => {
-          const sourceNameA = this.getSourceName(a)
-          const sourceNameB = this.getSourceName(b)
-          return sourceNameA.localeCompare(sourceNameB)
-        })
-
-      sourceKeys.forEach((key) => {
-        orderedGrouped[key] = grouped[key]
-      })
-
-      // 3. Custom items last (if any exist)
-      if (grouped.custom.length > 0) {
-        orderedGrouped.custom = grouped.custom
-      }
-
-      return orderedGrouped
-    },
-  },
-  methods: {
-    // Collapsed/Expanded State Management
-    getCollapsedState(equipment) {
-      // Default to true (collapsed) if not set
-      return this.equipmentCollapseState[equipment.id] !== undefined
-        ? this.equipmentCollapseState[equipment.id]
-        : true
-    },
-    setCollapsedState(equipment, collapsed) {
-      this.equipmentCollapseState = {
-        ...this.equipmentCollapseState,
-        [equipment.id]: collapsed
-      }
-    },
-
-    updateEquipmentOrder(newOrder) {
-      // Update the index property on each equipment item
-      const updatedEquipment = newOrder.map((item, index) => ({
-        ...item,
-        index: index,
-      }))
-
-      // Create a new character object with updated equipment
-      const updatedCharacter = {
-        ...this.character,
-        equipment: updatedEquipment,
-      }
-
-      // Emit the update event with the new character object
-      this.$emit('update-character', updatedCharacter)
-    },
-
-    onDragEnd() {
-      // This will be called after a drag operation completes
-      // We don't need to do anything here since the v-model binding will handle the update
-    },
-
-    updateEquipmentItem(index, key, value) {
-      // Create a new array of equipment items
-      const updatedEquipment = [...this.character.equipment]
-
-      // Update the specific property on the item at the given index
-      updatedEquipment[index] = {
-        ...updatedEquipment[index],
-        [key]: value,
-      }
-
-      // Create a new character object with the updated equipment
-      const updatedCharacter = {
-        ...this.character,
-        equipment: updatedEquipment,
-      }
-
-      // Emit the update event
-      this.$emit('update-character', updatedCharacter)
-    },
-
-    removeEquipmentItem(index) {
-      const equipment = this.characterEquipmentRows[index].equipment
-      const name = equipment ? equipment.name : 'this item'
-
-      if (confirm(`Are you sure you want to remove ${name} from inventory?`)) {
-        // Create a new array without the item at the given index
-        const updatedEquipment = this.character.equipment.filter(
-          (_, i) => i !== index,
-        )
-
-        // Create a new character object with the updated equipment
-        const updatedCharacter = {
-          ...this.character,
-          equipment: updatedEquipment,
-        }
-
-        // Emit the update event
-        this.$emit('update-character', updatedCharacter)
-      }
-    },
-
-    handleCarriedChange(index, isCarried) {
-      // Create a new array of equipment items
-      const updatedEquipment = [...this.character.equipment]
-
-      // Update the carried property
-      updatedEquipment[index] = {
-        ...updatedEquipment[index],
-        isCarried: isCarried,
-      }
-
-      // If unchecking carried, also uncheck wielding
-      if (!isCarried && updatedEquipment[index].isWielding) {
-        updatedEquipment[index].isWielding = false
-      }
-
-      // Create a new character object with the updated equipment
-      const updatedCharacter = {
-        ...this.character,
-        equipment: updatedEquipment,
-      }
-
-      // Emit the update event
-      this.$emit('update-character', updatedCharacter)
-    },
-
-    editCustomItem(equipment) {
-      this.$emit('edit-custom-equipment', equipment)
-    },
-
-    formatWeight(value) {
-      return Number.isInteger(value) ? value : value.toFixed(1) // Format to one decimal place
-    },
-
-    toggleAddOptions(event) {
-      if (event) {
-        event.stopPropagation() // Prevent immediate closing
-      }
-      this.showAddOptions = !this.showAddOptions
-      // Close equipment selector if open
-      if (this.showEquipmentSelector) {
-        this.showEquipmentSelector = false
-      }
-    },
-
-    toggleEquipmentSelector(event) {
-      if (event) {
-        event.stopPropagation() // Prevent immediate closing
-      }
-      this.showEquipmentSelector = !this.showEquipmentSelector
-      this.showAddOptions = false // Close the add options menu
-
-      if (this.showEquipmentSelector) {
-        this.equipmentSearchQuery = ''
-        this.filteredEquipment = []
-      }
-    },
-
-    async addCustomEquipment() {
-      // Hide the add options menu
-      this.showAddOptions = false
-
-      try {
-        // Create a new custom equipment item using the service method
-        const createdEquipment = await EquipmentService.createCustomEquipment()
-
-        // Add it to the character's equipment
-        const newItem = {
-          id: createdEquipment.id,
-          quantity: 1,
-          isCarried: true,
-          isWielding: false, // Initialize wielding state
-        }
-
-        // Add the new item to the character's inventory
-        CharacterService.addSpecificEquipmentItem(this.character, newItem)
-
-        // Emit the update event to ensure the parent updates the character
-        this.$emit('update-character', this.character)
-
-        // Refresh equipment store to ensure the new item is available
-        await this.equipmentStore.fetchAllEquipment()
-
-        // Find the full equipment object from the updated equipment list
-        const fullEquipment = (this.equipmentStore.equipment || []).find(
-          (eq) => eq.id === createdEquipment.id
-        )
-
-        // Now that the equipment store is updated, emit the edit event with the full object
-        if (fullEquipment) {
-          this.$emit('edit-custom-equipment', fullEquipment)
-        } else {
-          // fallback: emit the id if not found (should not happen)
-          this.$emit('edit-custom-equipment', createdEquipment.id)
-        }
-      } catch (error) {
-        console.error('Error adding custom equipment:', error)
-      }
-    },
-
-    filterEquipment() {
-      const query = this.equipmentSearchQuery.toLowerCase().trim()
-      if (!query) {
-        this.filteredEquipment = []
-        return
-      }
-
-      this.filteredEquipment = (this.allEquipment || []).filter(
-        (item) =>
-          item.name.toLowerCase().includes(query) ||
-          (item.description && item.description.toLowerCase().includes(query)),
-      )
-    },
-
-    selectEquipment(equipment) {
-      const newItem = {
-        id: equipment.id,
-        quantity: 1,
-        isCarried: true,
-        isWielding: false, // Initialize wielding state
-      }
-
-      CharacterService.addSpecificEquipmentItem(
-        this.character,
-        newItem,
-        this.allEquipment,
-      )
-      this.$emit('update-character', this.character)
-      this.toggleEquipmentSelector()
-    },
-
-    getSourceById(sourceId) {
-      if (!sourceId) return null;
-
-      // Use sources passed as props if available
-      return (
-        this.sources.ancestries.find((item) => item.id === sourceId) ||
-        this.sources.cultures.find((item) => item.id === sourceId) ||
-        this.sources.mestieri.find((item) => item.id === sourceId) ||
-        this.sources.worldElements.find((item) => item.id === sourceId) ||
-        this.equipmentStore.getSourceById(sourceId)
-      );
-    },
-
-    getSourceName(sourceId) {
-      if (sourceId === 'general') return 'General'
-      if (sourceId === 'custom') return 'Custom Items'
-
-      const source = this.getSourceById(sourceId)
-      return source ? source.name : 'General'
-    },
-
-    handleOutsideClick(event) {
-      // References to the dropdown elements
-      const addOptionsMenu = this.$el.querySelector('.add-options-menu')
-      const equipmentSelector = this.$el.querySelector(
-        '.equipment-selector-container',
-      )
-      const addItemText = this.$el.querySelector('.add-item-text')
-
-      // Close add options menu if clicking outside
-      if (
-        this.showAddOptions &&
-        addOptionsMenu &&
-        !addOptionsMenu.contains(event.target) &&
-        addItemText &&
-        !addItemText.contains(event.target)
-      ) {
-        this.showAddOptions = false
-      }
-
-      // Close equipment selector if clicking outside
-      if (
-        this.showEquipmentSelector &&
-        equipmentSelector &&
-        !equipmentSelector.contains(event.target)
-      ) {
-        this.showEquipmentSelector = false
-      }
-    },
-
-    toggleEditMode() {
-      this.isEditMode = !this.isEditMode
-    },
-  },
-  mounted() {
-    document.addEventListener('click', this.handleOutsideClick)
-  },
-
-  beforeUnmount() {
-    // Ensure dropdowns are closed when component is destroyed
-    this.showEquipmentSelector = false
-    this.showAddOptions = false
-    // Remove the click listener
-    document.removeEventListener('click', this.handleOutsideClick)
-  },
+  // Emit the update event with the new character object
+  emit('update-character', updatedCharacter)
 }
+
+const {
+  sortedItems: sortedEquipmentRows,
+  onDragEnd
+} = useDragAndDrop(characterEquipmentRows, updateEquipmentOrder, 'index')
+
+const totalWeightCarried = computed(() => {
+  return Math.round(
+    characterEquipmentRows.value.reduce((sum, row) => {
+      if (!row.equipment) return sum
+      return row.isCarried ? sum + row.equipment.weight * row.quantity : sum
+    }, 0),
+  )
+})
+
+// Methods
+// Collapsed/Expanded State Management
+
+const updateEquipmentItem = (index, key, value) => {
+  // Create a new array of equipment items
+  const updatedEquipment = [...props.character.equipment]
+
+  // Update the specific property on the item at the given index
+  updatedEquipment[index] = {
+    ...updatedEquipment[index],
+    [key]: value,
+  }
+
+  // Create a new character object with the updated equipment
+  const updatedCharacter = {
+    ...props.character,
+    equipment: updatedEquipment,
+  }
+
+  // Emit the update event
+  emit('update-character', updatedCharacter)
+}
+
+const removeEquipmentItem = (index) => {
+  const equipment = characterEquipmentRows.value[index].equipment
+  const name = equipment ? equipment.name : 'this item'
+
+  if (confirm(`Are you sure you want to remove ${name} from inventory?`)) {
+    // Create a new array without the item at the given index
+    const updatedEquipment = props.character.equipment.filter(
+      (_, i) => i !== index,
+    )
+
+    // Create a new character object with the updated equipment
+    const updatedCharacter = {
+      ...props.character,
+      equipment: updatedEquipment,
+    }
+
+    // Emit the update event
+    emit('update-character', updatedCharacter)
+  }
+}
+
+const handleCarriedChange = (index, isCarried) => {
+  // Create a new array of equipment items
+  const updatedEquipment = [...props.character.equipment]
+
+  // Update the carried property
+  updatedEquipment[index] = {
+    ...updatedEquipment[index],
+    isCarried: isCarried,
+  }
+
+  // If unchecking carried, also uncheck wielding
+  if (!isCarried && updatedEquipment[index].isWielding) {
+    updatedEquipment[index].isWielding = false
+  }
+
+  // Create a new character object with the updated equipment
+  const updatedCharacter = {
+    ...props.character,
+    equipment: updatedEquipment,
+  }
+
+  // Emit the update event
+  emit('update-character', updatedCharacter)
+}
+
+const editCustomItem = (equipment) => {
+  emit('edit-custom-equipment', equipment)
+}
+
+const formatWeight = (value) => {
+  return Number.isInteger(value) ? value : value.toFixed(1) // Format to one decimal place
+}
+
+const toggleAddOptions = (event) => {
+  if (event) {
+    event.stopPropagation() // Prevent immediate closing
+  }
+  showAddOptions.value = !showAddOptions.value
+  // Close equipment selector if open
+  if (showEquipmentSelector.value) {
+    showEquipmentSelector.value = false
+  }
+}
+
+const addCustomEquipment = async () => {
+  // Hide the add options menu
+  showAddOptions.value = false
+
+  try {
+    // Create a new custom equipment item using the service method
+    const createdEquipment = await EquipmentService.createCustomEquipment()
+
+    // Add it to the character's equipment
+    const newItem = {
+      id: createdEquipment.id,
+      quantity: 1,
+      isCarried: true,
+      isWielding: false, // Initialize wielding state
+    }
+
+    // Add the new item to the character's inventory
+    CharacterService.addSpecificEquipmentItem(props.character, newItem)
+
+    // Emit the update event to ensure the parent updates the character
+    emit('update-character', props.character)
+
+    // Refresh equipment store to ensure the new item is available
+    await equipmentStore.fetchAllEquipment()
+
+    // Find the full equipment object from the updated equipment list
+    const fullEquipment = (equipmentStore.equipment || []).find(
+      (eq) => eq.id === createdEquipment.id
+    )
+
+    // Now that the equipment store is updated, emit the edit event with the full object
+    if (fullEquipment) {
+      emit('edit-custom-equipment', fullEquipment)
+    } else {
+      // fallback: emit the id if not found (should not happen)
+      emit('edit-custom-equipment', createdEquipment.id)
+    }
+  } catch (error) {
+    console.error('Error adding custom equipment:', error)
+  }
+}
+
+const selectEquipment = (equipment) => {
+  const newItem = {
+    id: equipment.id,
+    quantity: 1,
+    isCarried: true,
+    isWielding: false, // Initialize wielding state
+  }
+
+  CharacterService.addSpecificEquipmentItem(
+    props.character,
+    newItem,
+    props.allEquipment,
+  )
+  emit('update-character', props.character)
+  toggleEquipmentSelector()
+}
+
+const handleOutsideClick = (event) => {
+  // Handle outside clicks for add options menu
+  // Equipment selector is handled by the composable
+  const addOptionsMenu = document.querySelector('.add-options-menu')
+  const addItemText = document.querySelector('.add-item-text')
+
+  // Close add options menu if clicking outside
+  if (
+    showAddOptions.value &&
+    addOptionsMenu &&
+    !addOptionsMenu.contains(event.target) &&
+    addItemText &&
+    !addItemText.contains(event.target)
+  ) {
+    showAddOptions.value = false
+  }
+}
+
+// Lifecycle hooks
+onMounted(() => {
+  document.addEventListener('click', handleOutsideClick)
+})
+
+onBeforeUnmount(() => {
+  showAddOptions.value = false
+  document.removeEventListener('click', handleOutsideClick)
+})
 </script>
 
 <style scoped>

@@ -45,28 +45,7 @@
           <!-- Source -->
           <div class="form-column source-dropdown">
             <label for="source" class="left-aligned">Source:</label>
-            <select id="source" v-model="editedEquipment.source" class="modal-input">
-              <optgroup label="Ancestries">
-                <option v-for="ancestry in sources.ancestries" :key="ancestry.id" :value="ancestry.id">
-                  {{ ancestry.name }}
-                </option>
-              </optgroup>
-              <optgroup label="Cultures">
-                <option v-for="culture in sources.cultures" :key="culture.id" :value="culture.id">
-                  {{ culture.name }}
-                </option>
-              </optgroup>
-              <optgroup label="Mestieri">
-                <option v-for="mestiere in sources.mestieri" :key="mestiere.id" :value="mestiere.id">
-                  {{ mestiere.name }}
-                </option>
-              </optgroup>
-              <optgroup label="World Elements">
-                <option v-for="worldElement in sources.worldElements" :key="worldElement.id" :value="worldElement.id">
-                  {{ worldElement.name }}
-                </option>
-              </optgroup>
-            </select>
+            <SourceDropdown v-model="editedEquipment.source" id="source" />
           </div>
 
           <!-- Standard of Living -->
@@ -140,156 +119,88 @@
   </div>
 </template>
 
-<script>
-import { useEquipmentStore } from '@/stores/equipmentStore'
+<script setup>
+import { useDiceManagement } from '@/composables/useDiceManagement'
+import { useEditForm } from '@/composables/useEditForm'
 import TextEditor from '@/components/TextEditor.vue'
+import SourceDropdown from '@/components/SourceDropdown.vue'
 import { getDiceFontMaxClass } from '../../../utils/diceFontUtils'
 
-export default {
-  props: {
-    equipment: {
-      type: Object,
-      required: true,
-    },
-    allEquipment: {
-      type: Array,
-      default: () => [],
-    },
-    standardsOfLiving: {
-      type: Array,
-      default: () => [],
-    },
-    sources: {
-      type: Object,
-      default: () => ({
-        ancestries: [],
-        cultures: [],
-        mestieri: [],
-        worldElements: [],
-      }),
-    },
-    engagementSuccessOptions: {
-      type: Array,
-      default: () => [],
-    },
+// Props
+const props = defineProps({
+  equipment: {
+    type: Object,
+    required: true,
   },
-
-  emits: ['update', 'delete', 'close'],
-
-  data() {
-    return {
-      editedEquipment: null,
-      originalEquipment: null,
-      equipmentStore: useEquipmentStore(),
-      dieTypes: [4, 6, 8, 10, 12, 20], // Supported die types
-      engagementDiceCounts: {},
-      damageDiceCounts: {},
-    }
+  allEquipment: {
+    type: Array,
+    default: () => [],
   },
-
-  created() {
-    this.originalEquipment = JSON.parse(JSON.stringify(this.equipment))
-    this.editedEquipment = JSON.parse(JSON.stringify(this.equipment))
+  standardsOfLiving: {
+    type: Array,
+    default: () => [],
   },
-
-  components: { TextEditor },
-
-  methods: {
-    getDiceFontMaxClass,
-
-    initializeDiceCounts() {
-      this.engagementDiceCounts = this.convertDiceListToCounts(
-        this.editedEquipment.engagementDice || [],
-      )
-      this.damageDiceCounts = this.convertDiceListToCounts(
-        this.editedEquipment.damageDice || [],
-      )
-    },
-
-    convertDiceListToCounts(diceList) {
-      // Convert a list of dice (e.g., [4, 6, 6, 8]) to an object with counts
-      const counts = {}
-      this.dieTypes.forEach((dieType) => {
-        counts[dieType] = diceList.filter((die) => die === dieType).length
-      })
-      return counts
-    },
-
-    convertCountsToDiceList(diceCounts) {
-      // Convert an object with counts (e.g., {4: 1, 6: 2, 8: 1}) to a list of dice
-      const diceList = []
-      Object.entries(diceCounts).forEach(([dieType, count]) => {
-        for (let i = 0; i < count; i++) {
-          diceList.push(Number(dieType))
-        }
-      })
-      return diceList
-    },
-
-    saveDiceChanges() {
-      this.editedEquipment.engagementDice = this.convertCountsToDiceList(
-        this.engagementDiceCounts,
-      )
-      this.editedEquipment.damageDice = this.convertCountsToDiceList(
-        this.damageDiceCounts,
-      )
-    },
-
-    deleteEquipment() {
-      const name = this.editedEquipment.name || 'this item'
-      if (confirm(`Are you sure you want to delete "${name}"?`)) {
-        this.$emit('delete', this.editedEquipment)
-      }
-    },
-
-    saveEquipment() {
-      if (!this.editedEquipment.id) {
-        console.error('Cannot save equipment: Missing ID')
-        return
-      }
-      this.saveDiceChanges()
-      // Ensure weight is a valid number
-      this.editedEquipment.weight = Number.isFinite(this.editedEquipment.weight) ? this.editedEquipment.weight : 0
-      this.$emit('update', this.editedEquipment)
-      this.$emit('close')
-    },
-
-    closeModal() {
-      this.$emit('close')
-    },
-
-    getEngagementSuccessName(id) {
-      const success = this.engagementSuccessOptions.find(
-        (success) => success.id === id,
-      )
-      return success ? success.name : 'Unknown'
-    },
-
-    addSelectedEngagementSuccess() {
-      if (!this.editedEquipment.engagementSuccesses) {
-        this.editedEquipment.engagementSuccesses = []
-      }
-      if (
-        !this.editedEquipment.engagementSuccesses.includes(
-          this.selectedEngagementSuccess,
-        )
-      ) {
-        this.editedEquipment.engagementSuccesses.push(
-          this.selectedEngagementSuccess,
-        )
-      }
-      this.selectedEngagementSuccess = ''
-    },
-
-    removeEngagementSuccess(index) {
-      this.editedEquipment.engagementSuccesses.splice(index, 1)
-    },
+  engagementSuccessOptions: {
+    type: Array,
+    default: () => [],
   },
+})
 
-  mounted() {
-    this.initializeDiceCounts()
-  },
+// Emits
+const emit = defineEmits(['update', 'delete', 'close'])
+
+// Composables
+const {
+  editedData: editedEquipment,
+  save,
+  deleteItem,
+  cancel
+} = useEditForm(props.equipment, emit)
+
+// Dice management composables
+const {
+  dieTypes,
+  diceCounts: engagementDiceCounts,
+  initializeCounts: initializeEngagementDice,
+  getDiceList: getEngagementDiceList
+} = useDiceManagement()
+
+const {
+  diceCounts: damageDiceCounts,
+  initializeCounts: initializeDamageDice,
+  getDiceList: getDamageDiceList
+} = useDiceManagement()
+
+// Initialize dice counts from equipment data
+const initializeDiceCounts = () => {
+  initializeEngagementDice(editedEquipment.value?.engagementDice || [])
+  initializeDamageDice(editedEquipment.value?.damageDice || [])
 }
+
+// Initialize dice counts immediately
+initializeDiceCounts()
+
+// Equipment management functions
+const saveDiceChanges = () => {
+  editedEquipment.value.engagementDice = getEngagementDiceList()
+  editedEquipment.value.damageDice = getDamageDiceList()
+}
+
+const saveEquipment = () => {
+  if (!editedEquipment.value.id) {
+    console.error('Cannot save equipment: Missing ID')
+    return
+  }
+  saveDiceChanges()
+  // Ensure weight is a valid number
+  editedEquipment.value.weight = Number.isFinite(editedEquipment.value.weight)
+    ? editedEquipment.value.weight
+    : 0
+  save()
+}
+
+const deleteEquipment = () => deleteItem('equipment')
+const closeModal = () => cancel()
 </script>
 
 <style scoped>

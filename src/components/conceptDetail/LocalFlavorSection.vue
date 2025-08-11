@@ -8,7 +8,7 @@
     </h2>
 
     <!-- Edit mode for local flavor data -->
-    <div v-if="isEditing" class="section-editor">
+    <div v-if="editMode.isEditing && editable" class="section-editor">
       <!-- existing edit form content -->
       <div class="flavor-edit-grid">
         <!-- Names -->
@@ -77,101 +77,103 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import { ref, computed, watch } from 'vue'
 import InfoCard from '@/components/conceptDetail/InfoCard.vue'
+import { useEditMode } from '@/composables/useEditMode'
+import { useUnsavedChanges } from '@/composables/useUnsavedChanges'
 
-export default {
-  name: 'LocalFlavorSection',
-  components: {
-    InfoCard,
+// Props
+const props = defineProps({
+  data: {
+    type: Object,
+    required: true,
   },
-  props: {
-    data: {
-      type: Object,
-      required: true,
-    },
-    editable: {
-      type: Boolean,
-      default: false,
-    },
+  editable: {
+    type: Boolean,
+    default: false,
   },
-  data() {
-    return {
-      isEditing: false,
-      localData: {
-        names: '',
-        occupations: '',
-        publicHouses: '',
-        vittles: '',
-        pointsOfInterest: '',
-        floraFauna: '',
-      },
-      backupData: null,
+})
+
+// Emits
+const emit = defineEmits(['update', 'unsaved-changes', 'reset-unsaved-changes'])
+
+// Reactive state
+const localData = ref({
+  names: '',
+  occupations: '',
+  publicHouses: '',
+  vittles: '',
+  pointsOfInterest: '',
+  floraFauna: '',
+})
+
+// Edit mode composable
+const editMode = useEditMode({
+  onSave: (data) => {
+    emit('update', { ...data })
+    unsavedChanges.markAsSaved()
+  },
+  onCancel: (restoredData) => {
+    if (restoredData) {
+      localData.value = { ...restoredData }
     }
+    unsavedChanges.markAsSaved()
   },
-  computed: {
-    hasContent() {
-      return Boolean(
-        this.localData.names ||
-        this.localData.occupations ||
-        this.localData.publicHouses ||
-        this.localData.vittles ||
-        this.localData.pointsOfInterest ||
-        this.localData.floraFauna,
-      )
-    },
-    hasUnsavedChanges() {
-      return JSON.stringify(this.localData) !== JSON.stringify(this.backupData)
-    },
-  },
-  watch: {
-    data: {
-      immediate: true,
-      handler(newValue) {
-        this.localData = { ...newValue }
-      },
-    },
-    localData: {
-      handler() {
-        if (this.isEditing && this.hasUnsavedChanges) {
-          this.$emit('unsaved-changes')
-        } else if (this.isEditing && !this.hasUnsavedChanges) {
-          this.$emit('reset-unsaved-changes')
-        }
-      },
-      deep: true,
-    },
-  },
-  methods: {
-    toggleEditing() {
-      if (!this.editable) return
+  onStartEdit: () => {
+    unsavedChanges.markAsChanged()
+  }
+})
 
-      if (!this.isEditing) {
-        // Starting to edit - backup current values
-        this.backupData = { ...this.localData }
-        this.$emit('unsaved-changes')
-      } else {
-        // Save changes if exiting edit mode
-        this.saveChanges()
-      }
+// Unsaved changes composable
+const unsavedChanges = useUnsavedChanges(emit, () => {
+  return editMode.isEditing.value && editMode.hasUnsavedChanges(localData.value)
+})
 
-      this.isEditing = !this.isEditing
-    },
+// Computed properties
+const hasContent = computed(() => {
+  return Boolean(
+    localData.value.names ||
+    localData.value.occupations ||
+    localData.value.publicHouses ||
+    localData.value.vittles ||
+    localData.value.pointsOfInterest ||
+    localData.value.floraFauna,
+  )
+})
 
-    saveChanges() {
-      this.isEditing = false
-      this.$emit('update', { ...this.localData })
-      this.$emit('reset-unsaved-changes')
-    },
+// Methods
+const toggleEditing = () => {
+  if (!props.editable) return
 
-    cancelEdit() {
-      // Restore from backup
-      this.localData = { ...this.backupData }
-      this.isEditing = false
-      this.$emit('reset-unsaved-changes')
-    },
-  },
+  if (!editMode.isEditing.value) {
+    editMode.startEdit(localData.value)
+  } else {
+    editMode.saveEdit(localData.value)
+  }
 }
+
+const saveChanges = () => {
+  editMode.saveEdit(localData.value)
+}
+
+const cancelEdit = () => {
+  const restored = editMode.cancelEdit()
+  if (restored) {
+    localData.value = { ...restored }
+  }
+}
+
+// Watchers
+watch(() => props.data, (newValue) => {
+  localData.value = { ...newValue }
+}, { immediate: true })
+
+watch(localData, () => {
+  if (editMode.isEditing.value) {
+    unsavedChanges.checkForChanges()
+  }
+}, { deep: true })
 </script>
 
 <style scoped>

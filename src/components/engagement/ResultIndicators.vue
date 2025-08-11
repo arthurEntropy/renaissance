@@ -18,65 +18,51 @@
     </div>
 </template>
 
-<script>
+<script setup>
 import EngagementWinnerTypes from '@/constants/engagementWinnerTypes'
 
-export default {
-    name: 'ResultIndicators',
-    props: {
-        comparisons: {
-            type: Array,
-            default: () => []
-        },
-        canEdit: {
-            type: Boolean,
-            default: false
-        },
-        engagementWinner: {
-            type: String,
-            default: null // 'user', 'opponent', 'tie'
-        }
-    },
+const props = defineProps({
+    comparisons: { type: Array, default: () => [] },
+    canEdit: { type: Boolean, default: false },
+    engagementWinner: { type: String, default: null },
+})
 
-    emits: ['toggle-result'],
+defineEmits(['toggle-result'])
 
-    methods: {
-        getComparisonClasses(comparison) {
-            const classes = [];
+function getComparisonClasses(comparison) {
+    const classes = []
 
-            if (comparison.leftWins && this.engagementWinner === EngagementWinnerTypes.USER) {
-                classes.push('user-wins-pair');
-            } else if (comparison.rightWins && this.engagementWinner === EngagementWinnerTypes.OPPONENT) {
-                classes.push('opponent-wins-pair');
-            } else if (comparison.leftWins && this.engagementWinner === EngagementWinnerTypes.OPPONENT) {
-                classes.push('user-loses-pair');
-            } else if (comparison.rightWins && this.engagementWinner === EngagementWinnerTypes.USER) {
-                classes.push('opponent-loses-pair');
-            } else if (comparison.tie) {
-                classes.push('tie-pair');
-            }
-
-            return classes;
-        },
-
-        getCaretClasses(comparison) {
-            const classes = [];
-
-            if (this.canEdit) {
-                classes.push('clickable');
-            }
-
-            if (comparison.tie) {
-                classes.push('tie');
-            } else if (comparison.leftWins) {
-                classes.push('left-wins');
-            } else if (comparison.rightWins) {
-                classes.push('right-wins');
-            }
-
-            return classes;
-        }
+    if (comparison.leftWins && props.engagementWinner === EngagementWinnerTypes.USER) {
+        classes.push('user-wins-pair')
+    } else if (comparison.rightWins && props.engagementWinner === EngagementWinnerTypes.OPPONENT) {
+        classes.push('opponent-wins-pair')
+    } else if (comparison.leftWins && props.engagementWinner === EngagementWinnerTypes.OPPONENT) {
+        classes.push('user-loses-pair')
+    } else if (comparison.rightWins && props.engagementWinner === EngagementWinnerTypes.USER) {
+        classes.push('opponent-loses-pair')
+    } else if (comparison.tie) {
+        classes.push('tie-pair')
     }
+
+    return classes
+}
+
+function getCaretClasses(comparison) {
+    const classes = []
+
+    if (props.canEdit) {
+        classes.push('clickable')
+    }
+
+    if (comparison.tie) {
+        classes.push('tie')
+    } else if (comparison.leftWins) {
+        classes.push('left-wins')
+    } else if (comparison.rightWins) {
+        classes.push('right-wins')
+    }
+
+    return classes
 }
 </script>
 

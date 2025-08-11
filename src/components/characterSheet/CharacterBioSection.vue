@@ -1,11 +1,11 @@
 <template>
   <div class="character-bio-section">
     <!-- Background Modal -->
-    <div v-if="isBackgroundModalOpen" class="modal-overlay" @click.self="closeBackgroundModal">
+    <div v-if="backgroundModal.isOpen.value" class="modal-overlay" @click.self="closeBackgroundModal">
       <div class="modal-content background-modal">
         <div class="modal-header">
           <h3>Personality, Background & Notes</h3>
-          <button v-if="!isBackgroundEditMode" class="edit-button" @click.stop="startBackgroundEdit">
+          <button v-if="!backgroundModal.isEditMode.value" class="edit-button" @click.stop="startBackgroundEdit">
             Edit
           </button>
           <div v-else class="edit-actions">
@@ -19,7 +19,7 @@
         </div>
 
         <!-- View mode -->
-        <div v-if="!isBackgroundEditMode" class="background-modal-content">
+        <div v-if="!backgroundModal.isEditMode.value" class="background-modal-content">
           <div v-html="formattedBackground" class="background-full-text"></div>
         </div>
 
@@ -44,21 +44,21 @@
       <!-- Bio Information -->
       <div class="bio-info">
         <!-- Name (click to edit) -->
-        <div class="character-name-container" :class="{ editing: editingField === 'name' }">
-          <template v-if="editingField === 'name'">
+        <div class="character-name-container" :class="{ editing: isEditing('name') }">
+          <template v-if="isEditing('name')">
             <input type="text" v-model="editedCharacter.name" class="form-input inline-edit" @blur="saveField('name')"
               @keyup.enter="saveField('name')" ref="nameInput" />
           </template>
           <template v-else>
-            <span class="character-name" @click.stop="startEditing('name')">{{
+            <span class="character-name" @click.stop="startEditingWithRefs('name')">{{
               character.name || 'Unnamed Character'
               }}</span>
           </template>
 
           <!-- Pronouns (click to edit) -->
-          <div class="pronouns-container" @click.stop="startEditing('pronouns')"
-            :class="{ editing: editingField === 'pronouns' }">
-            <template v-if="editingField === 'pronouns'">
+          <div class="pronouns-container" @click.stop="startEditingWithRefs('pronouns')"
+            :class="{ editing: isEditing('pronouns') }">
+            <template v-if="isEditing('pronouns')">
               <input type="text" v-model="editedCharacter.pronouns" class="form-input inline-edit pronouns-input"
                 @blur="saveField('pronouns')" @keyup.enter="saveField('pronouns')" placeholder="Add pronouns"
                 ref="pronounsInput" />
@@ -73,10 +73,10 @@
         <div class="bio-details">
           <!-- Ancestries (click to edit) -->
           <div class="bio-detail" @click.stop="
-            editingField !== 'ancestries' && startEditing('ancestries')
-            " :class="{ editing: editingField === 'ancestries' }">
+            !isEditing('ancestries') && startEditingWithRefs('ancestries')
+            " :class="{ editing: isEditing('ancestries') }">
             <span class="bio-label">Ancestries:</span>
-            <template v-if="editingField === 'ancestries'">
+            <template v-if="isEditing('ancestries')">
               <div class="tag-selector" @click.stop>
                 <div v-for="ancestry in selectedAncestries" :key="ancestry.id" class="selected-tag">
                   <span>{{ ancestry.name }}</span>
@@ -84,8 +84,8 @@
                     ×
                   </button>
                 </div>
-                <select v-model="selectedAncestryId" @change="addAncestry" class="tag-dropdown" @click.stop
-                  @blur.prevent="null" ref="ancestriesSelect">
+                <select v-model="ancestrySelector.selectedId.value" @change="addAncestry" class="tag-dropdown"
+                  @click.stop @blur.prevent="null" ref="ancestriesSelect">
                   <option value="">Add...</option>
                   <option v-for="ancestry in availableAncestries" :key="ancestry.id" :value="ancestry.id">
                     {{ ancestry.name }}
@@ -94,7 +94,7 @@
               </div>
             </template>
             <template v-else>
-              <span class="bio-value" @click.stop="startEditing('ancestries')">
+              <span class="bio-value" @click.stop="startEditingWithRefs('ancestries')">
                 {{ displayAncestries || 'None' }}
               </span>
             </template>
@@ -102,10 +102,10 @@
 
           <!-- Cultures (click to edit) -->
           <div class="bio-detail" @click.stop="
-            editingField !== 'cultures' && startEditing('cultures')
-            " :class="{ editing: editingField === 'cultures' }">
+            !isEditing('cultures') && startEditingWithRefs('cultures')
+            " :class="{ editing: isEditing('cultures') }">
             <span class="bio-label">Cultures:</span>
-            <template v-if="editingField === 'cultures'">
+            <template v-if="isEditing('cultures')">
               <div class="tag-selector" @click.stop>
                 <div v-for="culture in selectedCultures" :key="culture.id" class="selected-tag">
                   <span>{{ culture.name }}</span>
@@ -113,7 +113,7 @@
                     ×
                   </button>
                 </div>
-                <select v-model="selectedCultureId" @change="addCulture" class="tag-dropdown" @click.stop
+                <select v-model="cultureSelector.selectedId.value" @change="addCulture" class="tag-dropdown" @click.stop
                   @blur.prevent="null" ref="culturesSelect">
                   <option value="">Add...</option>
                   <option v-for="culture in availableCultures" :key="culture.id" :value="culture.id">
@@ -123,7 +123,7 @@
               </div>
             </template>
             <template v-else>
-              <span class="bio-value" @click.stop="startEditing('cultures')">
+              <span class="bio-value" @click.stop="startEditingWithRefs('cultures')">
                 {{ displayCultures || 'None' }}
               </span>
             </template>
@@ -158,260 +158,179 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue'
 import { useAncestriesStore } from '@/stores/ancestriesStore'
 import { useCulturesStore } from '@/stores/culturesStore'
+import { useInlineEditor } from '@/composables/useInlineEditor'
+import { useModal } from '@/composables/useModal'
+import { useTagSelector } from '@/composables/useTagSelector'
+import { formatText } from '../../../utils/stringUtils'
 import TextEditor from '@/components/TextEditor.vue'
 import NumberInput from '@/components/NumberInput.vue'
 
-export default {
-  components: {
-    TextEditor,
-    NumberInput,
+// Props
+const props = defineProps({
+  character: {
+    type: Object,
+    required: true,
   },
-  props: {
-    character: {
-      type: Object,
-      required: true,
-    },
-    defaultArtUrl: {
-      type: String,
-      required: true,
-    },
+  defaultArtUrl: {
+    type: String,
+    required: true,
   },
-  emits: ['open-full-size-art', 'update-character'],
-  data() {
-    return {
-      editingField: null,
-      isBackgroundModalOpen: false,
-      isBackgroundEditMode: false,
-      editedCharacter: { ...this.character },
-      selectedAncestryId: '',
-      selectedCultureId: '',
-      ancestryStore: useAncestriesStore(),
-      cultureStore: useCulturesStore(),
-      tempBackgroundContent: '',
-    }
-  },
-  watch: {
-    character: {
-      handler(newCharacter) {
-        if (!this.editingField) {
-          this.editedCharacter = { ...newCharacter }
-        }
-      },
-      deep: true,
-    },
-  },
-  computed: {
-    displayAncestries() {
-      if (!this.character.ancestryIds || !this.character.ancestryIds.length) {
-        return ''
-      }
+})
 
-      return this.selectedAncestries.map((a) => a.name).join(', ')
-    },
+// Emits
+const emit = defineEmits(['open-full-size-art', 'update-character'])
 
-    displayCultures() {
-      if (!this.character.cultureIds || !this.character.cultureIds.length) {
-        return ''
-      }
+// Stores
+const ancestryStore = useAncestriesStore()
+const cultureStore = useCulturesStore()
 
-      return this.selectedCultures.map((c) => c.name).join(', ')
-    },
-
-    selectedAncestries() {
-      const ancestryIds = this.character.ancestryIds || []
-      return this.ancestryStore.ancestries.filter((a) =>
-        ancestryIds.includes(a.id),
-      )
-    },
-
-    selectedCultures() {
-      const cultureIds = this.character.cultureIds || []
-      return this.cultureStore.cultures.filter((c) => cultureIds.includes(c.id))
-    },
-
-    availableAncestries() {
-      const selectedIds = this.editedCharacter.ancestryIds || []
-      return this.ancestryStore.ancestries.filter(
-        (a) => !selectedIds.includes(a.id),
-      )
-    },
-
-    availableCultures() {
-      const selectedIds = this.editedCharacter.cultureIds || []
-      return this.cultureStore.cultures.filter(
-        (c) => !selectedIds.includes(c.id),
-      )
-    },
-
-    formattedBackground() {
-      if (!this.character.personalityAndBackground) return ''
-      return this.formatText(this.character.personalityAndBackground)
-    },
-  },
-  methods: {
-    formatText(text) {
-      return text
-        .replace(/\n/g, '<br>')
-        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-        .replace(/\*(.*?)\*/g, '<em>$1</em>')
-    },
-
-    openFullSizeCharacterArtModal(imageUrl) {
-      this.$emit('open-full-size-art', imageUrl)
-    },
-
-    startEditing(field) {
-      if (this.editingField) {
-        this.saveField(this.editingField)
-      }
-
-      // Create a fresh copy of the character data before starting to edit
-      this.editedCharacter = { ...this.character }
-
-      this.editingField = field
-
-      this.$nextTick(() => {
-        const inputRef = `${field}Input`
-        const selectRef = `${field}Select`
-
-        if (this.$refs[inputRef]) {
-          this.$refs[inputRef].focus()
-        } else if (this.$refs[selectRef]) {
-          this.$refs[selectRef].focus()
-        }
-      })
-    },
-
-    saveField(field) {
-      if (field === this.editingField) {
-        this.editingField = null
-      }
-
-      const updatedField = this.editedCharacter[field]
-      if (updatedField !== this.character[field]) {
-        const updatedCharacter = {
-          ...this.character,
-          [field]: updatedField,
-        }
-        this.$emit('update-character', updatedCharacter)
-      }
-    },
-
-    openBackgroundModal() {
-      this.isBackgroundModalOpen = true
-      this.isBackgroundEditMode = false
-      this.editedCharacter = { ...this.character }
-    },
-
-    closeBackgroundModal() {
-      if (this.isBackgroundEditMode) {
-        if (confirm('Discard changes?')) {
-          this.isBackgroundModalOpen = false
-          this.isBackgroundEditMode = false
-        }
-      } else {
-        this.isBackgroundModalOpen = false
-      }
-    },
-
-    startBackgroundEdit() {
-      this.isBackgroundEditMode = true
-      this.tempBackgroundContent = this.character.personalityAndBackground || ''
-    },
-
-    cancelBackgroundEdit() {
-      this.editedCharacter.personalityAndBackground = this.tempBackgroundContent
-      this.isBackgroundEditMode = false
-    },
-
-    saveBackgroundEdit() {
-      const updatedCharacter = {
-        ...this.character,
-        personalityAndBackground: this.editedCharacter.personalityAndBackground,
-      }
-      this.$emit('update-character', updatedCharacter)
-      this.isBackgroundEditMode = false
-    },
-
-    addAncestry() {
-      if (!this.selectedAncestryId) return
-
-      if (!this.editedCharacter.ancestryIds) {
-        this.editedCharacter.ancestryIds = []
-      }
-
-      if (!this.editedCharacter.ancestryIds.includes(this.selectedAncestryId)) {
-        this.editedCharacter.ancestryIds.push(this.selectedAncestryId)
-      }
-      this.selectedAncestryId = ''
-
-      this.saveField('ancestryIds')
-    },
-
-    removeAncestry(id) {
-      if (!this.editedCharacter.ancestryIds) return
-
-      this.editedCharacter.ancestryIds =
-        this.editedCharacter.ancestryIds.filter((aId) => aId !== id)
-      this.saveField('ancestryIds')
-    },
-
-    addCulture() {
-      if (!this.selectedCultureId) return
-
-      if (!this.editedCharacter.cultureIds) {
-        this.editedCharacter.cultureIds = []
-      }
-
-      if (!this.editedCharacter.cultureIds.includes(this.selectedCultureId)) {
-        this.editedCharacter.cultureIds.push(this.selectedCultureId)
-      }
-      this.selectedCultureId = ''
-
-      this.saveField('cultureIds')
-    },
-
-    removeCulture(id) {
-      if (!this.editedCharacter.cultureIds) return
-
-      this.editedCharacter.cultureIds = this.editedCharacter.cultureIds.filter(
-        (cId) => cId !== id,
-      )
-      this.saveField('cultureIds')
-    },
-
-    handleOutsideClick(event) {
-      if (
-        event.target.closest('.remove-tag') ||
-        event.target.closest('.selected-tag') ||
-        event.target.closest('.tag-dropdown')
-      ) {
-        return
-      }
-
-      if (this.editingField) {
-        const clickedInsideEditArea =
-          event.target.closest('.editing') ||
-          event.target.closest('.tag-selector')
-        if (!clickedInsideEditArea) {
-          this.saveField(this.editingField)
-        }
-      }
-    },
-  },
-  mounted() {
-    this.ancestryStore.fetchAncestries()
-    this.cultureStore.fetchCultures()
-
-    document.addEventListener('click', this.handleOutsideClick)
-  },
-  beforeUnmount() {
-    document.removeEventListener('click', this.handleOutsideClick)
-  },
+// Composables
+const updateCharacter = (updatedCharacter) => {
+  emit('update-character', updatedCharacter)
 }
+
+const {
+  editingField,
+  editedData: editedCharacter,
+  startEditing,
+  saveField,
+  isEditing,
+  setFieldRef,
+  syncData
+} = useInlineEditor(computed(() => props.character), updateCharacter)
+
+const backgroundModal = useModal({
+  confirmOnClose: true,
+  confirmMessage: 'Discard changes?'
+})
+
+const ancestrySelector = useTagSelector(
+  computed(() => ancestryStore.ancestries),
+  computed(() => editedCharacter.value.ancestryIds),
+  (updatedIds) => {
+    editedCharacter.value.ancestryIds = updatedIds
+    saveField('ancestryIds')
+  }
+)
+
+const cultureSelector = useTagSelector(
+  computed(() => cultureStore.cultures),
+  computed(() => editedCharacter.value.cultureIds),
+  (updatedIds) => {
+    editedCharacter.value.cultureIds = updatedIds
+    saveField('cultureIds')
+  }
+)
+
+// Template refs
+const nameInput = ref(null)
+const pronounsInput = ref(null)
+const ancestriesSelect = ref(null)
+const culturesSelect = ref(null)
+// Watchers
+watch(
+  () => props.character,
+  (newCharacter) => {
+    syncData(newCharacter)
+  },
+  { deep: true }
+)
+
+// Computed properties
+const displayAncestries = computed(() => ancestrySelector.displayText.value)
+const displayCultures = computed(() => cultureSelector.displayText.value)
+const selectedAncestries = computed(() => ancestrySelector.selectedItems.value)
+const selectedCultures = computed(() => cultureSelector.selectedItems.value)
+const availableAncestries = computed(() => ancestrySelector.availableItems.value)
+const availableCultures = computed(() => cultureSelector.availableItems.value)
+
+const formattedBackground = computed(() => {
+  if (!props.character.personalityAndBackground) return ''
+  return formatText(props.character.personalityAndBackground)
+})
+// Methods
+const openFullSizeCharacterArtModal = (imageUrl) => {
+  emit('open-full-size-art', imageUrl)
+}
+
+// Override the composable's startEditing to handle template refs
+const startEditingWithRefs = (field) => {
+  startEditing(field)
+
+  // Set up template refs for focusing
+  if (field === 'name') setFieldRef('name', nameInput.value)
+  else if (field === 'pronouns') setFieldRef('pronouns', pronounsInput.value)
+  else if (field === 'ancestries') setFieldRef('ancestries', ancestriesSelect.value)
+  else if (field === 'cultures') setFieldRef('cultures', culturesSelect.value)
+}
+
+// Background modal methods
+const openBackgroundModal = () => {
+  backgroundModal.openModal()
+  editedCharacter.value = { ...props.character }
+}
+
+const closeBackgroundModal = () => {
+  backgroundModal.closeModal()
+}
+
+const startBackgroundEdit = () => {
+  backgroundModal.startEdit(props.character.personalityAndBackground || '')
+}
+
+const cancelBackgroundEdit = () => {
+  const tempContent = backgroundModal.cancelEdit()
+  editedCharacter.value.personalityAndBackground = tempContent
+}
+
+const saveBackgroundEdit = () => {
+  backgroundModal.saveEdit(() => {
+    const updatedCharacter = {
+      ...props.character,
+      personalityAndBackground: editedCharacter.value.personalityAndBackground,
+    }
+    emit('update-character', updatedCharacter)
+  })
+}
+
+// Tag selector methods (use composable methods)
+const addAncestry = () => ancestrySelector.addItem()
+const removeAncestry = (id) => ancestrySelector.removeItem(id)
+const addCulture = () => cultureSelector.addItem()
+const removeCulture = (id) => cultureSelector.removeItem(id)
+
+const handleOutsideClick = (event) => {
+  if (
+    event.target.closest('.remove-tag') ||
+    event.target.closest('.selected-tag') ||
+    event.target.closest('.tag-dropdown')
+  ) {
+    return
+  }
+
+  if (editingField.value) {
+    const clickedInsideEditArea =
+      event.target.closest('.editing') ||
+      event.target.closest('.tag-selector')
+    if (!clickedInsideEditArea) {
+      saveField(editingField.value)
+    }
+  }
+}
+// Lifecycle hooks
+onMounted(() => {
+  ancestryStore.fetchAncestries()
+  cultureStore.fetchCultures()
+  document.addEventListener('click', handleOutsideClick)
+})
+
+onBeforeUnmount(() => {
+  document.removeEventListener('click', handleOutsideClick)
+})
 </script>
 
 <style scoped>
