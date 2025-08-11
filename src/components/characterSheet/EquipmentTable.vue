@@ -147,7 +147,7 @@ import EquipmentService from '@/services/EquipmentService'
 import { useEquipmentStore } from '@/stores/equipmentStore'
 import draggable from 'vuedraggable'
 import NumberInput from '@/components/NumberInput.vue'
-import { useEditMode } from '@/composables/useEditMode'
+import { useSimpleEditMode } from '@/composables/useEditMode'
 import { useCollapseState } from '@/composables/useCollapseState'
 import { useDragAndDrop } from '@/composables/useDragAndDrop'
 import { useItemSelector } from '@/composables/useItemSelector'
@@ -167,7 +167,7 @@ const emit = defineEmits(['update-character', 'edit-custom-equipment'])
 const equipmentStore = useEquipmentStore()
 
 // Composables
-const { isEditMode, toggleEditMode } = useEditMode()
+const { isEditMode, toggleEditMode } = useSimpleEditMode()
 const { getCollapsedState, setCollapsedState } = useCollapseState(true)
 
 // Source management - using sources store
