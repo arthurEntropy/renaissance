@@ -83,7 +83,7 @@
 
 <script setup>
 import { ref, computed, watch } from 'vue'
-import '@/assets/styles/concept-components.css'
+import '@/styles/concept-components.css'
 import { useEditMode } from '@/composables/useEditMode'
 import { sanitizeEmbedHtml } from '@/utils/sanitizeHtml'
 
