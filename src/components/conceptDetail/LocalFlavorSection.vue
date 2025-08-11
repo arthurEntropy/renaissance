@@ -8,7 +8,7 @@
     </h2>
 
     <!-- Edit mode for local flavor data -->
-    <div v-if="editMode.isEditing && editable" class="section-editor">
+    <div v-if="isSectionEditing && editable" class="section-editor">
       <!-- existing edit form content -->
       <div class="flavor-edit-grid">
         <!-- Names -->
@@ -125,6 +125,8 @@ const editMode = useEditMode({
   }
 })
 
+const isSectionEditing = ref(false)
+
 // Unsaved changes composable
 const unsavedChanges = useUnsavedChanges(emit, () => {
   return editMode.isEditing.value && editMode.hasUnsavedChanges(localData.value)
@@ -148,13 +150,16 @@ const toggleEditing = () => {
 
   if (!editMode.isEditing.value) {
     editMode.startEdit(localData.value)
+    isSectionEditing.value = true
   } else {
     editMode.saveEdit(localData.value)
+    isSectionEditing.value = false
   }
 }
 
 const saveChanges = () => {
   editMode.saveEdit(localData.value)
+  isSectionEditing.value = false
 }
 
 const cancelEdit = () => {
@@ -162,6 +167,7 @@ const cancelEdit = () => {
   if (restored) {
     localData.value = { ...restored }
   }
+  isSectionEditing.value = false
 }
 
 // Watchers
@@ -170,10 +176,23 @@ watch(() => props.data, (newValue) => {
 }, { immediate: true })
 
 watch(localData, () => {
-  if (editMode.isEditing.value) {
+  if (isSectionEditing.value) {
     unsavedChanges.checkForChanges()
   }
 }, { deep: true })
+
+watch(() => props.editable, (val) => {
+  if (val) {
+    isSectionEditing.value = false
+  } else if (isSectionEditing.value) {
+    if (editMode.hasUnsavedChanges(localData.value)) {
+      cancelEdit()
+    } else {
+      cancelEdit()
+    }
+    isSectionEditing.value = false
+  }
+})
 </script>
 
 <style scoped>

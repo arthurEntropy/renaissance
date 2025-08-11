@@ -323,9 +323,7 @@ const closeModal = () => {
       isEditingDescription.value ||
       hasUnsavedSectionChanges.value
     ) {
-      if (
-        confirm('You have unsaved changes. Are you sure you want to exit?')
-      ) {
+      if (confirm('You have unsaved changes. Are you sure you want to exit?')) {
         emit('close')
       }
     } else {

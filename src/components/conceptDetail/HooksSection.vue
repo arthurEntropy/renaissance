@@ -8,7 +8,7 @@
     </h2>
 
     <!-- Edit mode for hooks -->
-    <div v-if="editMode.isEditing && editable" class="section-editor">
+    <div v-if="isSectionEditing && editable" class="section-editor">
       <draggable v-model="localHooks" item-key="id" handle=".drag-handle" animation="200" ghost-class="ghost-hook"
         @end="saveHooksOrder">
         <template #item="{ element: hook, index: idx }">
@@ -123,6 +123,8 @@ const editMode = useEditMode({
   }
 })
 
+const isSectionEditing = ref(false)
+
 // Unsaved changes composable
 const unsavedChanges = useUnsavedChanges(emit, () => {
   return editMode.isEditing.value && editMode.hasUnsavedChanges(localHooks.value)
@@ -139,13 +141,16 @@ const toggleHooksEditing = () => {
 
   if (!editMode.isEditing.value) {
     editMode.startEdit(localHooks.value)
+    isSectionEditing.value = true
   } else {
     editMode.saveEdit(localHooks.value)
+    isSectionEditing.value = false
   }
 }
 
 const saveHooksChanges = () => {
   editMode.saveEdit(localHooks.value)
+  isSectionEditing.value = false
 }
 
 const cancelHooksEdit = () => {
@@ -153,6 +158,7 @@ const cancelHooksEdit = () => {
   if (restored) {
     localHooks.value = [...restored]
   }
+  isSectionEditing.value = false
 }
 
 const saveHooksOrder = () => {
@@ -197,10 +203,23 @@ watch(() => props.hooks, (newHooks) => {
 }, { immediate: true })
 
 watch(localHooks, () => {
-  if (editMode.isEditing.value) {
+  if (isSectionEditing.value) {
     unsavedChanges.checkForChanges()
   }
 }, { deep: true })
+
+watch(() => props.editable, (val) => {
+  if (val) {
+    isSectionEditing.value = false
+  } else if (isSectionEditing.value) {
+    if (editMode.hasUnsavedChanges(localHooks.value)) {
+      cancelEdit()
+    } else {
+      cancelEdit()
+    }
+    isSectionEditing.value = false
+  }
+})
 </script>
 
 <style scoped>

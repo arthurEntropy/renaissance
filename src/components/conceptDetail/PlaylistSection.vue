@@ -8,7 +8,7 @@
     </h2>
 
     <!-- Playlist Editor -->
-    <div v-if="editMode.isEditing && editable" class="section-editor">
+    <div v-if="isSectionEditing && editable" class="section-editor">
       <p class="helper-text">Paste embed codes from Spotify or Apple Music</p>
       <div class="url-container">
         <div v-for="(playlist, idx) in localPlaylists" :key="'playlist-' + idx" class="edit-item">
@@ -120,6 +120,8 @@ const editMode = useEditMode({
   }
 })
 
+const isSectionEditing = ref(false)
+
 // Computed properties
 const hasPlaylists = computed(() => {
   return localPlaylists.value && localPlaylists.value.length > 0
@@ -143,13 +145,16 @@ const togglePlaylistEditing = () => {
 
   if (!editMode.isEditing.value) {
     editMode.startEdit(localPlaylists.value)
+    isSectionEditing.value = true
   } else {
     editMode.saveEdit(localPlaylists.value)
+    isSectionEditing.value = false
   }
 }
 
 const savePlaylistChanges = () => {
   editMode.saveEdit(localPlaylists.value)
+  isSectionEditing.value = false
 }
 
 const cancelPlaylistEdit = () => {
@@ -157,6 +162,7 @@ const cancelPlaylistEdit = () => {
   if (restored) {
     localPlaylists.value = [...restored]
   }
+  isSectionEditing.value = false
 }
 
 const addPlaylist = () => {
@@ -210,6 +216,24 @@ const safeEmbed = (html) => sanitizeEmbedHtml(html)
 watch(() => props.playlists, (newPlaylists) => {
   localPlaylists.value = JSON.parse(JSON.stringify(newPlaylists || []))
 }, { immediate: true })
+
+watch(localPlaylists, () => {
+  if (isSectionEditing.value) {
+  }
+}, { deep: true })
+
+watch(() => props.editable, (val) => {
+  if (val) {
+    isSectionEditing.value = false
+  } else if (isSectionEditing.value) {
+    if (editMode.hasUnsavedChanges(localPlaylists.value)) {
+      cancelPlaylistEdit()
+    } else {
+      cancelPlaylistEdit()
+    }
+    isSectionEditing.value = false
+  }
+})
 </script>
 
 <style scoped>

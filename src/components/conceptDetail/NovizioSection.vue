@@ -5,7 +5,7 @@
       <span v-if="editable && !editMode.isEditing" class="edit-field-indicator" @click="startEdit"
         title="Edit Novizio">✎</span>
     </div>
-    <div v-if="editMode.isEditing && editable">
+    <div v-if="isSectionEditing && editable">
       <div class="novizio-intro-text">
         <text-editor v-model="localNovizio.flavorText" placeholder="Flavor text..." height="80px" :auto-height="true"
           class="novizio-text-editor" />
@@ -172,6 +172,7 @@ const getDefaultNovizio = () => ({
 
 // Reactive state
 const localNovizio = ref(props.novizio ? { ...props.novizio } : getDefaultNovizio())
+const isSectionEditing = ref(false)
 
 // Edit mode composable
 const editMode = useEditMode({
@@ -213,10 +214,12 @@ const safeAbilities = computed(() => sanitizeHtml(props.novizio?.abilities))
 // Methods
 const startEdit = () => {
   editMode.startEdit(localNovizio.value)
+  isSectionEditing.value = true
 }
 
 const saveEdit = () => {
   editMode.saveEdit(localNovizio.value)
+  isSectionEditing.value = false
 }
 
 const cancelEdit = () => {
@@ -224,18 +227,19 @@ const cancelEdit = () => {
   if (restored) {
     localNovizio.value = { ...restored }
   }
+  isSectionEditing.value = false
 }
 
 // Called by parent when master Save is clicked
 const saveFromParent = () => {
-  if (editMode.isEditing.value && editMode.hasUnsavedChanges(localNovizio.value)) {
+  if (isSectionEditing.value && editMode.hasUnsavedChanges(localNovizio.value)) {
     saveEdit()
   }
 }
 
 // Optionally, called by parent to cancel edits (e.g., on modal close)
 const cancelFromParent = () => {
-  if (editMode.isEditing.value && editMode.hasUnsavedChanges(localNovizio.value)) {
+  if (isSectionEditing.value && editMode.hasUnsavedChanges(localNovizio.value)) {
     cancelEdit()
   }
 }
@@ -248,25 +252,27 @@ defineExpose({
 
 // Watchers
 watch(() => props.novizio, (newVal) => {
-  if (!editMode.isEditing.value) {
+  if (!isSectionEditing.value) {
     localNovizio.value = newVal ? { ...newVal } : getDefaultNovizio()
   }
 }, { deep: true })
 
 watch(localNovizio, () => {
-  if (editMode.isEditing.value) {
+  if (isSectionEditing.value) {
     unsavedChanges.checkForChanges()
   }
 }, { deep: true })
 
 watch(() => props.editable, (val) => {
-  if (!val && editMode.isEditing.value) {
+  if (val) {
+    isSectionEditing.value = false
+  } else if (isSectionEditing.value) {
     if (editMode.hasUnsavedChanges(localNovizio.value)) {
-      // Let parent handle the generic unsaved changes warning
-      unsavedChanges.markAsChanged()
+      cancelEdit()
     } else {
-      editMode.isEditing.value = false
+      cancelEdit()
     }
+    isSectionEditing.value = false
   }
 })
 </script>
