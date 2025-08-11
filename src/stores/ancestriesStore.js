@@ -1,22 +1,20 @@
 import { defineStore } from 'pinia'
-import { reactive, toRefs } from 'vue'
+import { ref } from 'vue'
 import AncestryService from '@/services/AncestryService.js'
 
 export const useAncestriesStore = defineStore('ancestry', () => {
-  const state = reactive({
-    ancestries: [],
-  })
+  const ancestries = ref([])
 
   const fetchAncestries = async () => {
     try {
-      state.ancestries = await AncestryService.getAllAncestries()
+      ancestries.value = await AncestryService.getAllAncestries()
     } catch (error) {
       console.error('Failed to fetch ancestries:', error)
     }
   }
 
   return {
-    ...toRefs(state),
-    fetchAncestries: fetchAncestries,
+    ancestries,
+    fetchAncestries,
   }
 })

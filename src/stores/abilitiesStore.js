@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { reactive, toRefs } from 'vue'
+import { ref } from 'vue'
 import AbilityService from '@/services/AbilityService'
 import AncestryService from '@/services/AncestryService'
 import CultureService from '@/services/CultureService'
@@ -7,19 +7,19 @@ import MestieriService from '@/services/MestiereService'
 import WorldElementsService from '@/services/WorldElementService'
 
 export const useAbilitiesStore = defineStore('abilities', () => {
-  const state = reactive({
-    abilities: [],
-    sources: {
-      ancestries: [],
-      cultures: [],
-      mestieri: [],
-      worldElements: [],
-    },
+  // state
+  const abilities = ref([])
+  const sources = ref({
+    ancestries: [],
+    cultures: [],
+    mestieri: [],
+    worldElements: [],
   })
 
+  // actions
   const fetchAllAbilities = async () => {
     try {
-      state.abilities = await AbilityService.getAllAbilities()
+      abilities.value = await AbilityService.getAllAbilities()
     } catch (error) {
       console.error('Failed to fetch abilities:', error)
     }
@@ -34,7 +34,7 @@ export const useAbilitiesStore = defineStore('abilities', () => {
         WorldElementsService.getAllWorldElements(),
       ])
 
-      state.sources = {
+      sources.value = {
         ancestries,
         cultures,
         mestieri,
@@ -49,15 +49,16 @@ export const useAbilitiesStore = defineStore('abilities', () => {
     if (!sourceId) return null
 
     return (
-      state.sources.ancestries.find((item) => item.id === sourceId) ||
-      state.sources.cultures.find((item) => item.id === sourceId) ||
-      state.sources.mestieri.find((item) => item.id === sourceId) ||
-      state.sources.worldElements.find((item) => item.id === sourceId)
+      sources.value.ancestries.find((item) => item.id === sourceId) ||
+      sources.value.cultures.find((item) => item.id === sourceId) ||
+      sources.value.mestieri.find((item) => item.id === sourceId) ||
+      sources.value.worldElements.find((item) => item.id === sourceId)
     )
   }
 
   return {
-    ...toRefs(state),
+    abilities,
+    sources,
     fetchAllAbilities,
     fetchAllSources,
     getSourceById,
