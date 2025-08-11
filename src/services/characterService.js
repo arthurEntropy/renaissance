@@ -3,7 +3,7 @@ import BaseService from './BaseService'
 const defaultNewEquipmentItem = {
   id: '',
   quantity: 1,
-  carried: true,
+  isCarried: true,
 }
 
 class CharacterService extends BaseService {
@@ -255,7 +255,7 @@ class CharacterService extends BaseService {
     if (index >= 0 && index < character.equipment.length) {
       character.equipment[index][key] = value
 
-      if (key === 'weight' || key === 'quantity' || key === 'carried') {
+      if (key === 'weight' || key === 'quantity' || key === 'isCarried') {
         this.calculateLoad(character) // Recalculate load if weight, quantity, or carried status changes
       }
     }
