@@ -2,7 +2,7 @@ import BaseService from './BaseService'
 
 class CultureService extends BaseService {
   constructor() {
-    super('http://localhost:3000/cultures', 'culture')
+    super(`${process.env.VUE_APP_API_URL || 'http://localhost:3000'}/cultures`, 'culture')
   }
 
   // CRUD METHODS

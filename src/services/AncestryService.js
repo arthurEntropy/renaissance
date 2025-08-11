@@ -2,7 +2,7 @@ import BaseService from './BaseService'
 
 class AncestryService extends BaseService {
   constructor() {
-    super('http://localhost:3000/ancestries', 'ancestry')
+    super(`${process.env.VUE_APP_API_URL || 'http://localhost:3000'}/ancestries`, 'ancestry')
   }
 
   // CRUD METHODS

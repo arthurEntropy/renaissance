@@ -2,7 +2,7 @@ import BaseService from './BaseService'
 
 class AbilityService extends BaseService {
   constructor() {
-    super('http://localhost:3000/abilities', 'ability')
+    super(`${process.env.VUE_APP_API_URL || 'http://localhost:3000'}/abilities`, 'ability')
   }
 
   // CRUD METHODS

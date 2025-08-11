@@ -220,7 +220,7 @@ class EngagementRollService {
 
   static async sendEngagementResultsToServer(engagementResults) {
     try {
-      await axios.post('http://localhost:3000/send-discord-message', {
+      await axios.post(`${process.env.VUE_APP_API_URL || 'http://localhost:3000'}/send-discord-message`, {
         type: RollTypes.ENGAGEMENT,
         ...engagementResults
       })

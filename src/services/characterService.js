@@ -8,7 +8,7 @@ const defaultNewEquipmentItem = {
 
 class CharacterService extends BaseService {
   constructor() {
-    super('http://localhost:3000/characters', 'character')
+    super(`${process.env.VUE_APP_API_URL || 'http://localhost:3000'}/characters`, 'character')
   }
 
   // CRUD METHODS

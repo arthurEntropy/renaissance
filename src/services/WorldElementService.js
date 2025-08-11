@@ -2,7 +2,7 @@ import BaseService from './BaseService'
 
 class WorldElementsService extends BaseService {
   constructor() {
-    super('http://localhost:3000/worldelements', 'world element')
+    super(`${process.env.VUE_APP_API_URL || 'http://localhost:3000'}/worldelements`, 'world element')
   }
 
   // CRUD METHODS
