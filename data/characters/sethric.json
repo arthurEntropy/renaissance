@@ -149,25 +149,25 @@
       "name": "Rations",
       "weight": 1,
       "quantity": 10,
-      "carried": true
+      "isCarried": true
     },
     {
       "name": "Grappling Hook",
       "weight": 2,
       "quantity": 2,
-      "carried": true
+      "isCarried": true
     },
     {
       "name": "Tinderbox",
       "weight": 1,
       "quantity": 1,
-      "carried": true
+      "isCarried": true
     },
     {
       "name": "Silversmith's Tools",
       "weight": 2,
       "quantity": 1,
-      "carried": true
+      "isCarried": true
     }
   ],
   "activeEffects": [

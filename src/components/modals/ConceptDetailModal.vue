@@ -80,7 +80,7 @@
               </div>
             </div>
             <div v-else class="concept-description" @click="isEditMode && startDescriptionEdit"
-              v-html="localConcept.description">
+              v-html="safeDescription">
             </div>
             <span v-if="isEditMode && !isEditingDescription" class="edit-field-indicator" @click="startDescriptionEdit"
               title="Edit description">✎</span>
@@ -150,6 +150,7 @@ import TextEditor from '@/components/TextEditor.vue'
 import NovizioSection from '@/components/conceptDetail/NovizioSection.vue'
 import { useExpansionsStore } from '@/stores/expansionsStore'
 import { useSourcesStore } from '@/stores/sourcesStore'
+import { sanitizeHtml } from '@/utils/sanitizeHtml'
 
 // Props
 const props = defineProps({
@@ -517,6 +518,11 @@ onMounted(async () => {
 onBeforeUnmount(() => {
   // Re-enable body scrolling when modal is closed
   document.body.classList.remove('modal-open');
+})
+
+// Computed properties
+const safeDescription = computed(() => {
+  return sanitizeHtml(localConcept.value.description || '')
 })
 </script>
 

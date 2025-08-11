@@ -21,6 +21,7 @@ class CharacterService extends BaseService {
   }
 
   async saveCharacter(character) {
+    this.normalizeEquipmentFlags(character)
     return this.update(character)
   }
 
@@ -234,7 +235,9 @@ class CharacterService extends BaseService {
       id: equipmentItem.id,
       quantity: equipmentItem.quantity || 1, // Default to qty 1
       isCarried:
-        equipmentItem.isCarried !== undefined ? equipmentItem.isCarried : true, // Default to carried
+        equipmentItem.isCarried !== undefined
+          ? equipmentItem.isCarried
+          : true, // Default to carried
       isWielding: equipmentItem.isWielding || false, // Default to not wielding
       index: maxIndex + 1, // Put the new item at the end of the list
     })
@@ -410,6 +413,16 @@ class CharacterService extends BaseService {
       artUrls: [CharacterService.DEFAULT_ART_URL],
       activeEffects: [],
     }
+  }
+
+  // Ensure equipment items consistently use `isCarried` and valid quantities
+  normalizeEquipmentFlags(character) {
+    if (!character || !Array.isArray(character.equipment)) return
+    character.equipment.forEach((item) => {
+      if (item && (item.quantity === undefined || item.quantity < 1)) {
+        item.quantity = 1
+      }
+    })
   }
 }
 

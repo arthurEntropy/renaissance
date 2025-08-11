@@ -70,7 +70,7 @@
                 : 'View GM Notes'
             }}
           </button>
-          <div v-if="shownGMNotes && shownGMNotes[hook.id]" class="gm-notes" v-html="hook.gmNotes"></div>
+          <div v-if="shownGMNotes && shownGMNotes[hook.id]" class="gm-notes" v-html="safeGMNotes(hook.gmNotes)"></div>
         </template>
       </InfoCard>
     </div>
@@ -84,6 +84,7 @@ import TextEditor from '@/components/TextEditor.vue'
 import InfoCard from '@/components/conceptDetail/InfoCard.vue'
 import { useEditMode } from '@/composables/useEditMode'
 import { useUnsavedChanges } from '@/composables/useUnsavedChanges'
+import { sanitizeHtml } from '@/utils/sanitizeHtml'
 
 // Props
 const props = defineProps({
@@ -187,6 +188,8 @@ const removeHook = (idx) => {
 const toggleGMNotes = (hookId) => {
   shownGMNotes.value[hookId] = !shownGMNotes.value[hookId]
 }
+
+const safeGMNotes = (html) => sanitizeHtml(html)
 
 // Watchers
 watch(() => props.hooks, (newHooks) => {

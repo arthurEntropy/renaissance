@@ -20,7 +20,7 @@
 
         <!-- View mode -->
         <div v-if="!backgroundModal.isEditMode.value" class="background-modal-content">
-          <div v-html="formattedBackground" class="background-full-text"></div>
+          <div v-html="safeFormattedBackground" class="background-full-text"></div>
         </div>
 
         <!-- Edit mode with TextEditor -->
@@ -52,7 +52,7 @@
           <template v-else>
             <span class="character-name" @click.stop="startEditingWithRefs('name')">{{
               character.name || 'Unnamed Character'
-              }}</span>
+            }}</span>
           </template>
 
           <!-- Pronouns (click to edit) -->
@@ -149,7 +149,7 @@
         <!-- View Mode (scrollable and clickable to open modal) -->
         <div class="background-content scrollable" @click="openBackgroundModal">
           <template v-if="character.personalityAndBackground">
-            <div v-html="formattedBackground" class="background-scroll-content"></div>
+            <div v-html="safeFormattedBackground" class="background-scroll-content"></div>
           </template>
           <span v-else class="empty-background">What's your vibe? What's your story? Where are you going?</span>
         </div>
@@ -168,6 +168,7 @@ import { useTagSelector } from '@/composables/useTagSelector'
 import { formatText } from '../../../utils/stringUtils'
 import TextEditor from '@/components/TextEditor.vue'
 import NumberInput from '@/components/NumberInput.vue'
+import { sanitizeHtml } from '@/utils/sanitizeHtml'
 
 // Props
 const props = defineProps({
@@ -252,6 +253,7 @@ const formattedBackground = computed(() => {
   if (!props.character.personalityAndBackground) return ''
   return formatText(props.character.personalityAndBackground)
 })
+const safeFormattedBackground = computed(() => sanitizeHtml(formattedBackground.value))
 // Methods
 const openFullSizeCharacterArtModal = (imageUrl) => {
   emit('open-full-size-art', imageUrl)

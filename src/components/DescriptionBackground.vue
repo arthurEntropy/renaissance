@@ -1,16 +1,21 @@
 <template>
     <div v-if="content" class="description-background" :class="additionalClasses">
-        <div v-html="content"></div>
+        <div v-html="safeContent"></div>
         <slot name="badge"></slot>
     </div>
 </template>
 
 <script setup>
-defineProps({
+import { computed } from 'vue'
+import { sanitizeHtml } from '@/utils/sanitizeHtml'
+
+const props = defineProps({
     content: { type: String, required: true },
     additionalClasses: { type: [String, Array, Object], default: '' },
     size: { type: String, default: 'normal', validator: (v) => ['small', 'normal', 'large'].includes(v) }
 })
+
+const safeContent = computed(() => sanitizeHtml(props.content))
 </script>
 
 <style scoped>

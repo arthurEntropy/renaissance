@@ -83,7 +83,7 @@
                   @update:modelValue="markAsChanged" />
 
                 <!-- Section content when not in content edit mode -->
-                <div v-else class="content-display" v-html="currentSection?.content ? currentSection.content : ''">
+                <div v-else class="content-display" v-html="safeSectionHtml">
                 </div>
               </div>
             </div>
@@ -122,6 +122,7 @@ import { useRulesStore } from '@/stores/rulesStore'
 import RulesService from '@/services/RulesService'
 import TextEditor from '@/components/TextEditor.vue'
 import draggable from 'vuedraggable'
+import { sanitizeHtml } from '@/utils/sanitizeHtml'
 
 export default {
   components: {
@@ -150,6 +151,9 @@ export default {
           .filter(section => !section.isDeleted)
           .sort((a, b) => a.index - b.index)
         : []
+    },
+    safeSectionHtml() {
+      return sanitizeHtml(this.currentSection?.content || '')
     },
   },
 

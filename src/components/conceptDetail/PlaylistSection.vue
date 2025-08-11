@@ -64,7 +64,7 @@
       <!-- Playlist Embeds -->
       <div class="playlist-container">
         <div v-for="(playlist, index) in filteredPlaylists" :key="`playlist-${index}`" class="playlist-embed"
-          v-html="playlist.embedCode"></div>
+          v-html="safeEmbed(playlist.embedCode)"></div>
         <div v-if="filteredPlaylists.length === 0" class="no-playlists">
           No
           {{
@@ -85,6 +85,7 @@
 import { ref, computed, watch } from 'vue'
 import '@/assets/styles/concept-components.css'
 import { useEditMode } from '@/composables/useEditMode'
+import { sanitizeEmbedHtml } from '@/utils/sanitizeHtml'
 
 // Props
 const props = defineProps({
@@ -202,6 +203,8 @@ const processAppleEmbedCodes = () => {
     }
   })
 }
+
+const safeEmbed = (html) => sanitizeEmbedHtml(html)
 
 // Watchers
 watch(() => props.playlists, (newPlaylists) => {

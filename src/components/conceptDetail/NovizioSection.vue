@@ -67,7 +67,7 @@
     </div>
     <div v-else>
       <div class="novizio-intro-text" v-if="novizio && novizio.flavorText">
-        <i v-html="novizio.flavorText"></i>
+        <i v-html="safeFlavorText"></i>
       </div>
       <div class="novizio-subsection" v-if="hasAnyNovizioData">
         <strong>Martial Training</strong>
@@ -121,7 +121,7 @@
       </div>
       <div class="novizio-subsection" v-if="hasAnyNovizioData && novizio && novizio.engagement">
         <strong>Engagement</strong>
-        <div class="novizio-placeholder" v-html="novizio.engagement"></div>
+        <div class="novizio-placeholder" v-html="safeEngagement"></div>
       </div>
       <div class="novizio-subsection" v-if="hasAnyNovizioData && novizio && novizio.initialMaxMP">
         <strong>Mestieri Points (MP)</strong>
@@ -129,7 +129,7 @@
       </div>
       <div class="novizio-subsection" v-if="hasAnyNovizioData && novizio && novizio.abilities">
         <strong>Abilities</strong>
-        <div class="novizio-placeholder" v-html="novizio.abilities"></div>
+        <div class="novizio-placeholder" v-html="safeAbilities"></div>
       </div>
     </div>
   </div>
@@ -140,6 +140,7 @@ import { ref, computed, watch } from 'vue'
 import TextEditor from '@/components/TextEditor.vue'
 import { useEditMode } from '@/composables/useEditMode'
 import { useUnsavedChanges } from '@/composables/useUnsavedChanges'
+import { sanitizeHtml } from '@/utils/sanitizeHtml'
 
 // Props
 const props = defineProps({
@@ -204,6 +205,10 @@ const hasAnyNovizioData = computed(() => {
     return val && val.toString().trim() !== ''
   })
 })
+
+const safeFlavorText = computed(() => sanitizeHtml(props.novizio?.flavorText))
+const safeEngagement = computed(() => sanitizeHtml(props.novizio?.engagement))
+const safeAbilities = computed(() => sanitizeHtml(props.novizio?.abilities))
 
 // Methods
 const startEdit = () => {
