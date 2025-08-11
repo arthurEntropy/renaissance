@@ -1,6 +1,5 @@
 <template>
-  <div class="base-card" :style="cardStyle" @mouseenter="startSourceTooltipTimer" @mouseleave="clearSourceTooltipTimer"
-    @click="collapsible ? toggleCollapsed() : null">
+  <div ref="cardElement" class="base-card" :style="cardStyle" @click="collapsible ? toggleCollapsed() : null">
     <!-- Floating Edit Button -->
     <button v-if="editable" class="edit-button-floating" @click.stop="$emit('edit', item)" :title="`Edit ${itemType}`">
       ✎
@@ -27,11 +26,6 @@
       </div>
     </transition>
 
-    <!-- Tooltip -->
-    <!-- <div v-if="showTooltip" class="tooltip">
-      from: {{ sourceName }}
-    </div> -->
-
     <!-- XP or other badge -->
     <slot name="badge"></slot>
 
@@ -40,161 +34,118 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'BaseCard',
-  props: {
-    item: {
-      type: Object,
-      required: true,
-    },
-    itemType: {
-      type: String,
-      default: 'item',
-    },
-    metaInfo: {
-      type: String,
-      default: '',
-    },
-    storeInstance: {
-      type: Object,
-      required: false,
-      default: null,
-    },
-    initialCollapsed: {
-      type: Boolean,
-      default: false,
-    },
-    editable: {
-      type: Boolean,
-      default: false,
-    },
-    sources: {
-      type: Object,
-      default: () => ({
-        ancestries: [],
-        cultures: [],
-        mestieri: [],
-        worldElements: []
-      })
-    },
-    collapsible: {
-      type: Boolean,
-      default: true,
-    },
-    showSource: {
-      type: Boolean,
-      default: true,
-    },
-  },
-  emits: ['edit', 'update', 'send-to-chat', 'height-changed'],
-  data() {
+<script setup>
+import { ref, computed, watch, onMounted, nextTick } from 'vue'
+import { useSourcesStore } from '@/stores/sourcesStore'
+
+const props = defineProps({
+  item: { type: Object, required: true },
+  itemType: { type: String, default: 'item' },
+  metaInfo: { type: String, default: '' },
+  storeInstance: { type: Object, required: false, default: null },
+  initialCollapsed: { type: Boolean, default: false },
+  editable: { type: Boolean, default: false },
+  collapsible: { type: Boolean, default: true },
+  showSource: { type: Boolean, default: true },
+})
+
+const emit = defineEmits(['edit', 'update', 'send-to-chat', 'height-changed', 'update:collapsed'])
+
+// Source management
+const sourcesStore = useSourcesStore()
+const getSourceById = sourcesStore.getSourceById
+const getSourceName = sourcesStore.getSourceName
+
+// Template ref
+const cardElement = ref(null)
+
+// Reactive state
+const isCollapsed = ref(props.initialCollapsed)
+const sourceName = ref('')
+
+// Computed properties
+const caretSymbol = computed(() => (isCollapsed.value ? '▶' : '▼'))
+
+const cardStyle = computed(() => {
+  // First check for item's own background
+  if (props.item.backgroundImage) {
     return {
-      isCollapsed: this.initialCollapsed,
-      sourceName: '',
-      showTooltip: false,
-      tooltipTimer: null,
-      sourceLoaded: false,
+      backgroundImage: `url(${props.item.backgroundImage})`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'top center',
     }
-  },
-  computed: {
-    caretSymbol() {
-      return this.isCollapsed ? '▶' : '▼'
-    },
-    cardStyle() {
-      // First check for item's own background
-      if (this.item.backgroundImage) {
-        return {
-          backgroundImage: `url(${this.item.backgroundImage})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'top center',
-        }
-      }
+  }
 
-      // Then check source's background
-      const source = this.getSourceById(this.item.source)
-      if (source && source.backgroundImage) {
-        return {
-          backgroundImage: `url(${source.backgroundImage})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-        }
-      }
+  // Then check source's background
+  const source = getSourceById(props.item.source)
+  if (source && source.backgroundImage) {
+    return {
+      backgroundImage: `url(${source.backgroundImage})`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      backgroundRepeat: 'no-repeat',
+    }
+  }
 
-      // Fallback
-      return {
-        background: 'rgba(0, 0, 0, 0.65)',
-      }
-    },
-  },
-  methods: {
-    toggleCollapsed() {
-      this.isCollapsed = !this.isCollapsed
-    },
-    startSourceTooltipTimer() {
-      this.tooltipTimer = setTimeout(() => {
-        this.showTooltip = true
-      }, 1500)
-    },
-    clearSourceTooltipTimer() {
-      clearTimeout(this.tooltipTimer)
-      this.showTooltip = false
-    },
-    setSpanSize() {
-      const rowHeight = 10
-      const height = this.$el.getBoundingClientRect().height
-      const rowSpan = Math.ceil(height / rowHeight)
-      this.$el.style.setProperty('--card-span', rowSpan)
-    },
-    getSourceById(sourceId) {
-      if (!sourceId) return null
+  // Fallback
+  return { background: 'rgba(0, 0, 0, 0.65)' }
+})
 
-      return (
-        this.sources.ancestries.find((item) => item.id === sourceId) ||
-        this.sources.cultures.find((item) => item.id === sourceId) ||
-        this.sources.mestieri.find((item) => item.id === sourceId) ||
-        this.sources.worldElements.find((item) => item.id === sourceId)
-      )
-    },
-    updateSourceName() {
-      if (!this.item.source) {
-        this.sourceName = 'Unknown'
-        return
-      }
-
-      const source = this.getSourceById(this.item.source)
-      this.sourceName = source?.name || 'Unknown'
-    },
-  },
-  watch: {
-    'item.source': {
-      immediate: true,
-      handler() {
-        this.updateSourceName()
-      },
-    },
-    sources: {
-      immediate: true,
-      handler() {
-        this.updateSourceName()
-      }
-    },
-    isCollapsed(newVal, oldVal) {
-      if (newVal !== oldVal) {
-        this.$emit('update:collapsed', newVal)
-        this.$nextTick(() => {
-          setTimeout(() => {
-            this.$emit('height-changed')
-          }, 300)
-        })
-      }
-    },
-  },
-  mounted() {
-    this.$nextTick(this.setSpanSize)
-  },
+// Methods
+const toggleCollapsed = () => {
+  isCollapsed.value = !isCollapsed.value
 }
+
+const setSpanSize = () => {
+  if (!cardElement.value) return
+  const rowHeight = 10
+  const height = cardElement.value.getBoundingClientRect().height
+  const rowSpan = Math.ceil(height / rowHeight)
+  cardElement.value.style.setProperty('--card-span', rowSpan)
+}
+
+const updateSourceName = () => {
+  if (!props.item.source) {
+    sourceName.value = 'Unknown'
+    return
+  }
+  sourceName.value = getSourceName(props.item.source)
+}
+
+// Watchers
+watch(
+  () => props.item.source,
+  () => {
+    updateSourceName()
+  },
+  { immediate: true },
+)
+
+watch(
+  sourcesStore.sources,
+  () => {
+    updateSourceName()
+  },
+  { immediate: true },
+)
+
+watch(isCollapsed, (newVal, oldVal) => {
+  if (newVal !== oldVal) {
+    emit('update:collapsed', newVal)
+    nextTick(() => {
+      setTimeout(() => {
+        emit('height-changed')
+      }, 300)
+    })
+  }
+})
+
+// Lifecycle
+onMounted(() => {
+  nextTick(() => {
+    setSpanSize()
+  })
+})
 </script>
 
 <style scoped>

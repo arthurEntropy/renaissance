@@ -1,25 +1,21 @@
 <template>
   <div class="info-card">
     <div class="info-card-title">{{ title }}</div>
-    <div class="info-card-content" v-html="content"></div>
+    <div class="info-card-content" v-html="safeContent"></div>
     <slot name="additional-content"></slot>
   </div>
 </template>
 
-<script>
-export default {
-  name: 'InfoCard',
-  props: {
-    title: {
-      type: String,
-      required: true,
-    },
-    content: {
-      type: String,
-      default: '',
-    },
-  },
-}
+<script setup>
+import { computed } from 'vue'
+import { sanitizeHtml } from '@/utils/sanitizeHtml'
+
+const props = defineProps({
+  title: { type: String, required: true },
+  content: { type: String, default: '' },
+})
+
+const safeContent = computed(() => sanitizeHtml(props.content))
 </script>
 
 <style scoped>

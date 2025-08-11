@@ -5,18 +5,9 @@
       <p>
         Type <strong>{{ name }}</strong> to confirm deletion:
       </p>
-      <input
-        type="text"
-        v-model="confirmationInput"
-        class="modal-input"
-        placeholder="Type name to confirm"
-      />
+      <input type="text" v-model="confirmationInput" class="modal-input" placeholder="Type name to confirm" />
       <div>
-        <button
-          class="button button-danger"
-          :disabled="confirmationInput !== name"
-          @click="confirmDeletion"
-        >
+        <button class="button button-danger" :disabled="confirmationInput !== name" @click="confirmDeletion">
           DELETE
         </button>
       </div>
@@ -24,28 +15,23 @@
   </div>
 </template>
 
-<script>
-export default {
-  props: {
-    name: {
-      type: String,
-      required: true,
-    },
-  },
-  emits: ['close', 'confirm'],
-  data() {
-    return {
-      confirmationInput: '',
-    }
-  },
-  methods: {
-    closeModal() {
-      this.$emit('close')
-    },
-    confirmDeletion() {
-      this.$emit('confirm')
-    },
-  },
+<script setup>
+import { ref } from 'vue'
+
+defineProps({
+  name: { type: String, required: true },
+})
+
+const emit = defineEmits(['close', 'confirm'])
+
+const confirmationInput = ref('')
+
+function closeModal() {
+  emit('close')
+}
+
+function confirmDeletion() {
+  emit('confirm')
 }
 </script>
 
@@ -53,6 +39,7 @@ export default {
 .modal-overlay {
   z-index: 1001;
 }
+
 .modal-input {
   width: 90%;
   padding: 10px;
@@ -61,6 +48,7 @@ export default {
   background: black;
   color: white;
 }
+
 .button:disabled {
   background: black;
   color: darkgray;

@@ -80,7 +80,7 @@
               </div>
             </div>
             <div v-else class="concept-description" @click="isEditMode && startDescriptionEdit"
-              v-html="localConcept.description">
+              v-html="safeDescription">
             </div>
             <span v-if="isEditMode && !isEditingDescription" class="edit-field-indicator" @click="startDescriptionEdit"
               title="Edit description">✎</span>
@@ -134,8 +134,8 @@
     @save="saveSettings" @cancel="closeSettingsModal" />
 </template>
 
-<script>
-import { defineComponent } from 'vue'
+<script setup>
+import { ref, computed, watch, onMounted, onBeforeUnmount, nextTick } from 'vue'
 import AbilityCard from '@/components/AbilityCard.vue'
 import AbilityService from '@/services/AbilityService'
 import EquipmentService from '@/services/EquipmentService'
@@ -148,431 +148,381 @@ import PlaylistSection from '@/components/conceptDetail/PlaylistSection.vue'
 import SettingsModal from '@/components/conceptDetail/ConceptSettingsModal.vue'
 import TextEditor from '@/components/TextEditor.vue'
 import NovizioSection from '@/components/conceptDetail/NovizioSection.vue'
-import { useAbilitiesStore } from '@/stores/abilitiesStore'
-import { useEquipmentStore } from '@/stores/equipmentStore'
-import { useExpansionStore } from '@/stores/expansionStore'
-import AncestryService from '@/services/AncestryService'
-import CultureService from '@/services/CultureService'
-import MestiereService from '@/services/MestiereService'
-import WorldElementService from '@/services/WorldElementService'
+import { useExpansionsStore } from '@/stores/expansionsStore'
+import { useSourcesStore } from '@/stores/sourcesStore'
+import { sanitizeHtml } from '@/utils/sanitizeHtml'
 
-export default defineComponent({
-  props: {
-    concept: {
-      type: Object,
-      required: true,
-    },
-    editable: {
-      type: Boolean,
-      default: false,
-    },
+// Props
+const props = defineProps({
+  concept: {
+    type: Object,
+    required: true,
   },
-  components: {
-    AbilityCard,
-    EquipmentCard,
-    HooksSection,
-    ImageGallery,
-    LocalFlavorSection,
-    MasonryGrid,
-    PlaylistSection,
-    SettingsModal,
-    TextEditor,
-    NovizioSection,
+  editable: {
+    type: Boolean,
+    default: false,
   },
-  emits: ['close', 'update', 'edit-ability', 'edit-equipment'],
-  data() {
-    return {
-      abilities: [],
-      equipment: [],
-      localConcept: {},
-      isEditMode: false, // Always start in 'display' mode
-      isEditingTitle: false,
-      isEditingDescription: false,
-      backupConcept: null,
-      showSettingsModal: false,
-      tempSettings: {
-        backgroundImage: '',
-        color1: '#ffffff',
-        color2: '#000000',
-      },
-      sources: {
-        ancestries: [],
-        cultures: [],
-        mestieri: [],
-        worldElements: [],
-      },
-      abilitiesStore: useAbilitiesStore(),
-      equipmentStore: useEquipmentStore(),
-      expansionStore: useExpansionStore(),
-      expansions: [],
-      hasUnsavedSectionChanges: false,
+})
+
+// Emits
+const emit = defineEmits(['close', 'update', 'edit-ability', 'edit-equipment', 'edit-mode-change'])
+
+// Stores
+const expansionStore = useExpansionsStore()
+
+// Sources management
+const sourcesStore = useSourcesStore()
+const sources = sourcesStore.sources
+
+// Reactive state
+const abilities = ref([])
+const equipment = ref([])
+const localConcept = ref({})
+const isEditMode = ref(false) // Always start in 'display' mode
+const isEditingTitle = ref(false)
+const isEditingDescription = ref(false)
+const backupConcept = ref(null)
+const showSettingsModal = ref(false)
+const tempSettings = ref({
+  backgroundImage: '',
+  color1: '#ffffff',
+  color2: '#000000',
+})
+const expansions = ref([])
+const hasUnsavedSectionChanges = ref(false)
+
+// Template refs
+const titleInput = ref(null)
+const descriptionEditor = ref(null)
+
+// Abilities and Equipment functions (declared early to avoid hoisting issues)
+const fetchAbilities = async () => {
+  try {
+    const allAbilities = await AbilityService.getAllAbilities()
+    abilities.value = allAbilities.filter(
+      (ability) => ability.source === localConcept.value.id,
+    )
+  } catch (error) {
+    console.error('Error fetching abilities:', error)
+  }
+}
+
+const fetchEquipment = async () => {
+  try {
+    const allEquipment = await EquipmentService.getAllEquipment()
+    equipment.value = allEquipment.filter(
+      (item) => item.source === localConcept.value.id,
+    )
+  } catch (error) {
+    console.error('Error fetching equipment:', error)
+  }
+}
+
+// Watchers
+watch(() => props.concept, (newConcept) => {
+  // Deep clone the concept to avoid direct mutations
+  localConcept.value = JSON.parse(JSON.stringify(newConcept))
+  localConcept.value.hooks = localConcept.value.hooks || []
+  localConcept.value.playlists = localConcept.value.playlists || []
+  localConcept.value.artUrls = localConcept.value.artUrls || []
+  localConcept.value.faces = localConcept.value.faces || []
+  localConcept.value.places = localConcept.value.places || []
+  fetchAbilities()
+  fetchEquipment()
+}, { immediate: true })
+
+// Computed properties
+const hasFeaturedArt = computed(() => {
+  return localConcept.value.artUrls && localConcept.value.artUrls.length > 0
+})
+
+const hasFaces = computed(() => {
+  return localConcept.value.faces && localConcept.value.faces.length > 0
+})
+
+const hasPlaces = computed(() => {
+  return localConcept.value.places && localConcept.value.places.length > 0
+})
+
+const hasAbilities = computed(() => {
+  return abilities.value && abilities.value.length > 0
+})
+
+const hasEquipment = computed(() => {
+  return equipment.value && equipment.value.length > 0
+})
+
+const expansion = computed(() => {
+  if (!localConcept.value.expansion) return null
+  return expansions.value.find(e => e.id === localConcept.value.expansion) || null
+})
+
+const expansionLogoUrl = computed(() => {
+  return expansion.value && expansion.value.logoUrl ? expansion.value.logoUrl : ''
+})
+
+const sortedAbilities = computed(() => {
+  // Sort by XP (ascending), then by name (A-Z)
+  return [...abilities.value].sort((a, b) => {
+    const xpA = a.xp ?? 0;
+    const xpB = b.xp ?? 0;
+    if (xpA !== xpB) return xpA - xpB;
+    return (a.name || '').localeCompare(b.name || '');
+  });
+})
+
+// Methods
+const toggleEditMode = () => {
+  if (isEditMode.value) {
+    if (isEditingTitle.value) saveTitleChanges();
+    if (isEditingDescription.value) saveDescriptionChanges();
+    emitUpdateEvent();
+  }
+  isEditMode.value = !isEditMode.value;
+  emit('edit-mode-change', isEditMode.value);
+}
+
+const emitUpdateEvent = () => {
+  try {
+    // Create a clean copy excluding methods and non-data properties
+    const cleanConcept = {
+      ...localConcept.value,
+
+      // Handle arrays properly
+      artUrls: [...(localConcept.value.artUrls || [])],
+      faces: [...(localConcept.value.faces || [])],
+      places: [...(localConcept.value.places || [])],
+
+      // Process hooks and playlists to extract only necessary properties
+      hooks:
+        localConcept.value.hooks?.map(
+          ({ id, name, description, gmNotes }) => ({
+            id,
+            name,
+            description,
+            gmNotes,
+          }),
+        ) || [],
+      playlists:
+        localConcept.value.playlists?.map(({ service, embedCode }) => ({
+          service,
+          embedCode,
+        })) || [],
     }
-  },
-  watch: {
-    concept: {
-      immediate: true,
-      handler(newConcept) {
-        // Deep clone the concept to avoid direct mutations
-        this.localConcept = JSON.parse(JSON.stringify(newConcept))
-        this.localConcept.hooks = this.localConcept.hooks || []
-        this.localConcept.playlists = this.localConcept.playlists || []
-        this.localConcept.artUrls = this.localConcept.artUrls || []
-        this.localConcept.faces = this.localConcept.faces || []
-        this.localConcept.places = this.localConcept.places || []
-        this.fetchAbilities()
-        this.fetchEquipment()
-      },
-    },
-  },
-  computed: {
-    hasFeaturedArt() {
-      return this.localConcept.artUrls && this.localConcept.artUrls.length > 0
-    },
-    hasFaces() {
-      return this.localConcept.faces && this.localConcept.faces.length > 0
-    },
-    hasPlaces() {
-      return this.localConcept.places && this.localConcept.places.length > 0
-    },
-    hasAbilities() {
-      return this.abilities && this.abilities.length > 0
-    },
-    hasEquipment() {
-      return this.equipment && this.equipment.length > 0
-    },
-    expansion() {
-      if (!this.localConcept.expansion) return null
-      return this.expansions.find(e => e.id === this.localConcept.expansion) || null
-    },
-    expansionLogoUrl() {
-      return this.expansion && this.expansion.logoUrl ? this.expansion.logoUrl : ''
-    },
-    sortedAbilities() {
-      // Sort by XP (ascending), then by name (A-Z)
-      return [...this.abilities].sort((a, b) => {
-        const xpA = a.xp ?? 0;
-        const xpB = b.xp ?? 0;
-        if (xpA !== xpB) return xpA - xpB;
-        return (a.name || '').localeCompare(b.name || '');
-      });
-    },
-  },
-  methods: {
-    toggleEditMode() {
-      if (this.isEditMode) {
-        if (this.isEditingTitle) this.saveTitleChanges();
-        if (this.isEditingDescription) this.saveDescriptionChanges();
-        this.emitUpdateEvent();
+
+    emit('update', cleanConcept)
+  } catch (error) {
+    console.error('Error in emitUpdateEvent:', error)
+  }
+}
+
+const closeModal = () => {
+  try {
+    if (
+      isEditingTitle.value ||
+      isEditingDescription.value ||
+      hasUnsavedSectionChanges.value
+    ) {
+      if (
+        confirm('You have unsaved changes. Are you sure you want to exit?')
+      ) {
+        emit('close')
       }
-      this.isEditMode = !this.isEditMode;
-      this.$emit('edit-mode-change', this.isEditMode);
-    },
-
-    emitUpdateEvent() {
-      try {
-        // Create a clean copy excluding methods and non-data properties
-        const cleanConcept = {
-          ...this.localConcept,
-
-          // Handle arrays properly
-          artUrls: [...(this.localConcept.artUrls || [])],
-          faces: [...(this.localConcept.faces || [])],
-          places: [...(this.localConcept.places || [])],
-
-          // Process hooks and playlists to extract only necessary properties
-          hooks:
-            this.localConcept.hooks?.map(
-              ({ id, name, description, gmNotes }) => ({
-                id,
-                name,
-                description,
-                gmNotes,
-              }),
-            ) || [],
-          playlists:
-            this.localConcept.playlists?.map(({ service, embedCode }) => ({
-              service,
-              embedCode,
-            })) || [],
-        }
-
-        this.$emit('update', cleanConcept)
-      } catch (error) {
-        console.error('Error in emitUpdateEvent:', error)
-      }
-    },
-
-    closeModal() {
-      try {
-        if (
-          this.isEditingTitle ||
-          this.isEditingDescription ||
-          this.hasUnsavedSectionChanges
-        ) {
-          if (
-            confirm('You have unsaved changes. Are you sure you want to exit?')
-          ) {
-            this.$emit('close')
-          }
-        } else {
-          this.$emit('close')
-        }
-      } catch (error) {
-        console.error('Error in closeDetailView:', error)
-        this.$emit('close')
-      }
-    },
-
-    // Title editing
-    startTitleEdit() {
-      if (!this.isEditMode) return
-      this.isEditingTitle = true
-      this.backupConcept = { name: this.localConcept.name }
-      this.$nextTick(() => {
-        this.$refs.titleInput.focus()
-        this.$refs.titleInput.select()
-      })
-    },
-
-    saveTitleChanges() {
-      this.isEditingTitle = false
-      this.emitUpdateEvent()
-    },
-
-    cancelTitleEdit() {
-      this.localConcept.name = this.backupConcept.name
-      this.isEditingTitle = false
-    },
-
-    // Description editing
-    startDescriptionEdit() {
-      if (!this.isEditMode) return
-      this.isEditingDescription = true
-      this.backupConcept = { description: this.localConcept.description }
-    },
-
-    saveDescriptionChanges() {
-      this.isEditingDescription = false
-      this.emitUpdateEvent()
-    },
-
-    cancelDescriptionEdit() {
-      this.localConcept.description = this.backupConcept.description
-      this.isEditingDescription = false
-    },
-
-    // Fetch sources for backdrop images
-    async fetchSources() {
-      try {
-        // Fetch all source types in parallel
-        const [ancestries, cultures, mestieri, worldElements] = await Promise.all([
-          AncestryService.getAllAncestries(),
-          CultureService.getAllCultures(),
-          MestiereService.getAllMestieri(),
-          WorldElementService.getAllWorldElements()
-        ]);
-
-        // Update sources
-        this.sources = {
-          ancestries,
-          cultures,
-          mestieri,
-          worldElements
-        };
-
-        // Also update the stores to ensure consistency
-        this.abilitiesStore.sources = this.sources;
-        this.equipmentStore.sources = this.sources;
-      } catch (error) {
-        console.error('Error fetching sources:', error);
-      }
-    },
-
-    // Abilities and Equipment
-    async fetchAbilities() {
-      try {
-        const abilities = await AbilityService.getAllAbilities()
-        this.abilities = abilities.filter(
-          (ability) => ability.source === this.localConcept.id,
-        )
-      } catch (error) {
-        console.error('Error fetching abilities:', error)
-      }
-    },
-
-    async fetchEquipment() {
-      try {
-        const equipment = await EquipmentService.getAllEquipment()
-        this.equipment = equipment.filter(
-          (item) => item.source === this.localConcept.id,
-        )
-      } catch (error) {
-        console.error('Error fetching equipment:', error)
-      }
-    },
-
-    emitAbilityEdit(ability) {
-      if (!this.isEditMode) return
-      this.$emit('edit-ability', ability)
-    },
-
-    emitEquipmentEdit(equipment) {
-      if (!this.isEditMode) return
-      this.$emit('edit-equipment', equipment)
-    },
-
-    /* Image Galleries: Featured, Faces, Places */
-    updateFeaturedArt(newImages) {
-      try {
-        this.localConcept.artUrls = [...newImages]
-        this.$nextTick(() => {
-          this.emitUpdateEvent()
-        })
-      } catch (error) {
-        console.error('Error updating art URLs:', error)
-      }
-    },
-
-    updateFaces(newImages) {
-      try {
-        this.localConcept.faces = [...newImages]
-        this.$nextTick(() => {
-          this.emitUpdateEvent()
-        })
-      } catch (error) {
-        console.error('Error updating faces:', error)
-      }
-    },
-
-    updatePlaces(newImages) {
-      try {
-        this.localConcept.places = [...newImages]
-        this.$nextTick(() => {
-          this.emitUpdateEvent()
-        })
-      } catch (error) {
-        console.error('Error updating places:', error)
-      }
-    },
-
-    /* Playlists */
-    updatePlaylists(newPlaylists) {
-      try {
-        this.localConcept.playlists = [...newPlaylists]
-        this.$nextTick(() => {
-          this.emitUpdateEvent()
-        })
-      } catch (error) {
-        console.error('Error updating playlists:', error)
-      }
-    },
-
-    ensureAppleEmbedHasDarkTheme() {
-      this.localConcept.playlists.forEach((playlist) => {
-        if (playlist.service === 'apple' && playlist.embedCode) {
-          const srcMatch = playlist.embedCode.match(/src="([^"]+)"/)
-          if (srcMatch && srcMatch[1]) {
-            const originalSrc = srcMatch[1]
-            const newSrc =
-              originalSrc +
-              (originalSrc.includes('?') ? '&theme=dark' : '?theme=dark')
-            playlist.embedCode = playlist.embedCode
-              .replace(`src="${originalSrc}"`, `src="${newSrc}"`)
-              .replace(`src='${originalSrc}'`, `src='${newSrc}'`)
-          }
-        }
-      })
-    },
-
-    /* Local Flavor */
-    updateLocalFlavor(data) {
-      this.localConcept.names = data.names
-      this.localConcept.occupations = data.occupations
-      this.localConcept.publicHouses = data.publicHouses
-      this.localConcept.vittles = data.vittles
-      this.localConcept.pointsOfInterest = data.pointsOfInterest
-      this.localConcept.floraFauna = data.floraFauna
-      this.emitUpdateEvent()
-    },
-
-    /* Hooks */
-    updateHooks(newHooks) {
-      try {
-        this.localConcept.hooks = [...newHooks]
-        this.$nextTick(() => {
-          this.emitUpdateEvent()
-        })
-      } catch (error) {
-        console.error('Error updating hooks:', error)
-      }
-    },
-
-    /* Settings Modal */
-    openSettingsModal() {
-      this.tempSettings = {
-        backgroundImage: this.localConcept.backgroundImage || '',
-        color1: this.localConcept.color1 || '#ffffff',
-        color2: this.localConcept.color2 || '#000000',
-        expansionId: this.localConcept.expansion || '',
-        expansion: this.localConcept.expansion || '',
-      }
-      this.showSettingsModal = true
-    },
-
-    closeSettingsModal() {
-      this.showSettingsModal = false
-    },
-
-    saveSettings() {
-      this.localConcept.backgroundImage = this.tempSettings.backgroundImage
-      this.localConcept.color1 = this.tempSettings.color1
-      this.localConcept.color2 = this.tempSettings.color2
-      this.localConcept.expansion = this.tempSettings.expansionId
-      this.emitUpdateEvent()
-      this.closeSettingsModal()
-    },
-
-    // Novizio Section
-    updateNovizio(newNovizio) {
-      this.localConcept.novizio = { ...newNovizio }
-      this.emitUpdateEvent()
-    },
-
-    //Section Unsaved Changes Handling
-    onSectionUnsavedChanges() {
-      this.hasUnsavedSectionChanges = true;
-    },
-    onSectionResetUnsavedChanges() {
-      this.hasUnsavedSectionChanges = false;
-    },
-  },
-
-  async mounted() {
-    try {
-      // Prevent body scrolling when modal is open
-      document.body.classList.add('modal-open');
-
-      // Fetch expansions for badge
-      await this.expansionStore.fetchExpansions()
-      this.expansions = this.expansionStore.expansions
-
-      // Fetch sources first so background images are available
-      await this.fetchSources();
-
-      // Then fetch abilities and equipment in parallel
-      await Promise.all([
-        this.fetchAbilities(),
-        this.fetchEquipment()
-      ]);
-    } catch (error) {
-      console.error('Error initializing ConceptDetailModal:', error);
+    } else {
+      emit('close')
     }
-  },
+  } catch (error) {
+    console.error('Error in closeDetailView:', error)
+    emit('close')
+  }
+}
 
-  beforeUnmount() {
-    // Re-enable body scrolling when modal is closed
-    document.body.classList.remove('modal-open');
-  },
+// Title editing
+const startTitleEdit = () => {
+  if (!isEditMode.value) return
+  isEditingTitle.value = true
+  backupConcept.value = { name: localConcept.value.name }
+  nextTick(() => {
+    titleInput.value?.focus()
+    titleInput.value?.select()
+  })
+}
+
+const saveTitleChanges = () => {
+  isEditingTitle.value = false
+  emitUpdateEvent()
+}
+
+const cancelTitleEdit = () => {
+  localConcept.value.name = backupConcept.value.name
+  isEditingTitle.value = false
+}
+
+// Description editing
+const startDescriptionEdit = () => {
+  if (!isEditMode.value) return
+  isEditingDescription.value = true
+  backupConcept.value = { description: localConcept.value.description }
+}
+
+const saveDescriptionChanges = () => {
+  isEditingDescription.value = false
+  emitUpdateEvent()
+}
+
+const cancelDescriptionEdit = () => {
+  localConcept.value.description = backupConcept.value.description
+  isEditingDescription.value = false
+}
+
+const emitAbilityEdit = (ability) => {
+  if (!isEditMode.value) return
+  emit('edit-ability', ability)
+}
+
+const emitEquipmentEdit = (equipmentItem) => {
+  if (!isEditMode.value) return
+  emit('edit-equipment', equipmentItem)
+}
+
+// Image Galleries: Featured, Faces, Places
+const updateFeaturedArt = (newImages) => {
+  try {
+    localConcept.value.artUrls = [...newImages]
+    nextTick(() => {
+      emitUpdateEvent()
+    })
+  } catch (error) {
+    console.error('Error updating art URLs:', error)
+  }
+}
+
+const updateFaces = (newImages) => {
+  try {
+    localConcept.value.faces = [...newImages]
+    nextTick(() => {
+      emitUpdateEvent()
+    })
+  } catch (error) {
+    console.error('Error updating faces:', error)
+  }
+}
+
+const updatePlaces = (newImages) => {
+  try {
+    localConcept.value.places = [...newImages]
+    nextTick(() => {
+      emitUpdateEvent()
+    })
+  } catch (error) {
+    console.error('Error updating places:', error)
+  }
+}
+
+// Playlists
+const updatePlaylists = (newPlaylists) => {
+  try {
+    localConcept.value.playlists = [...newPlaylists]
+    nextTick(() => {
+      emitUpdateEvent()
+    })
+  } catch (error) {
+    console.error('Error updating playlists:', error)
+  }
+}
+
+// Local Flavor
+const updateLocalFlavor = (data) => {
+  localConcept.value.names = data.names
+  localConcept.value.occupations = data.occupations
+  localConcept.value.publicHouses = data.publicHouses
+  localConcept.value.vittles = data.vittles
+  localConcept.value.pointsOfInterest = data.pointsOfInterest
+  localConcept.value.floraFauna = data.floraFauna
+  emitUpdateEvent()
+}
+
+// Hooks
+const updateHooks = (newHooks) => {
+  try {
+    localConcept.value.hooks = [...newHooks]
+    nextTick(() => {
+      emitUpdateEvent()
+    })
+  } catch (error) {
+    console.error('Error updating hooks:', error)
+  }
+}
+
+// Settings Modal
+const openSettingsModal = () => {
+  tempSettings.value = {
+    backgroundImage: localConcept.value.backgroundImage || '',
+    color1: localConcept.value.color1 || '#ffffff',
+    color2: localConcept.value.color2 || '#000000',
+    expansionId: localConcept.value.expansion || '',
+    expansion: localConcept.value.expansion || '',
+  }
+  showSettingsModal.value = true
+}
+
+const closeSettingsModal = () => {
+  showSettingsModal.value = false
+}
+
+const saveSettings = () => {
+  localConcept.value.backgroundImage = tempSettings.value.backgroundImage
+  localConcept.value.color1 = tempSettings.value.color1
+  localConcept.value.color2 = tempSettings.value.color2
+  localConcept.value.expansion = tempSettings.value.expansionId
+  emitUpdateEvent()
+  closeSettingsModal()
+}
+
+// Novizio Section
+const updateNovizio = (newNovizio) => {
+  localConcept.value.novizio = { ...newNovizio }
+  emitUpdateEvent()
+}
+
+// Section Unsaved Changes Handling
+const onSectionUnsavedChanges = () => {
+  hasUnsavedSectionChanges.value = true;
+}
+
+const onSectionResetUnsavedChanges = () => {
+  hasUnsavedSectionChanges.value = false;
+}
+
+// Lifecycle hooks
+onMounted(async () => {
+  try {
+    // Prevent body scrolling when modal is open
+    document.body.classList.add('modal-open');
+
+    // Fetch expansions for badge
+    await expansionStore.fetchExpansions()
+    expansions.value = expansionStore.expansions
+
+    // Sources will auto-fetch via useSources composable
+    // Then fetch abilities and equipment in parallel
+    await Promise.all([
+      fetchAbilities(),
+      fetchEquipment()
+    ]);
+  } catch (error) {
+    console.error('Error initializing ConceptDetailModal:', error);
+  }
+})
+
+onBeforeUnmount(() => {
+  // Re-enable body scrolling when modal is closed
+  document.body.classList.remove('modal-open');
+})
+
+// Computed properties
+const safeDescription = computed(() => {
+  return sanitizeHtml(localConcept.value.description || '')
 })
 </script>
 

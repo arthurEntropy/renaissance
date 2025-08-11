@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { reactive, toRefs } from 'vue'
+import { ref } from 'vue'
 import EquipmentService from '@/services/EquipmentService'
 import AncestryService from '@/services/AncestryService'
 import CultureService from '@/services/CultureService'
@@ -8,20 +8,18 @@ import WorldElementsService from '@/services/WorldElementService'
 import StandardOfLivingService from '@/services/StandardOfLivingService'
 
 export const useEquipmentStore = defineStore('equipment', () => {
-  const state = reactive({
-    equipment: [],
-    sources: {
-      ancestries: [],
-      cultures: [],
-      mestieri: [],
-      worldElements: [],
-    },
-    standardsOfLiving: [],
+  const equipment = ref([])
+  const sources = ref({
+    ancestries: [],
+    cultures: [],
+    mestieri: [],
+    worldElements: [],
   })
+  const standardsOfLiving = ref([])
 
   const fetchAllEquipment = async () => {
     try {
-      state.equipment = await EquipmentService.getAllEquipment()
+      equipment.value = await EquipmentService.getAllEquipment()
     } catch (error) {
       console.error('Failed to fetch equipment:', error)
     }
@@ -36,7 +34,7 @@ export const useEquipmentStore = defineStore('equipment', () => {
         WorldElementsService.getAllWorldElements(),
       ])
 
-      state.sources = {
+      sources.value = {
         ancestries,
         cultures,
         mestieri,
@@ -51,16 +49,16 @@ export const useEquipmentStore = defineStore('equipment', () => {
     if (!sourceId) return null
 
     return (
-      state.sources.ancestries.find((item) => item.id === sourceId) ||
-      state.sources.cultures.find((item) => item.id === sourceId) ||
-      state.sources.mestieri.find((item) => item.id === sourceId) ||
-      state.sources.worldElements.find((item) => item.id === sourceId)
+      sources.value.ancestries.find((item) => item.id === sourceId) ||
+      sources.value.cultures.find((item) => item.id === sourceId) ||
+      sources.value.mestieri.find((item) => item.id === sourceId) ||
+      sources.value.worldElements.find((item) => item.id === sourceId)
     )
   }
 
   const fetchStandardsOfLiving = async () => {
     try {
-      state.standardsOfLiving = await StandardOfLivingService.getAllStandardsOfLiving()
+      standardsOfLiving.value = await StandardOfLivingService.getAllStandardsOfLiving()
     } catch (error) {
       console.error('Error fetching standards of living:', error)
     }
@@ -68,11 +66,13 @@ export const useEquipmentStore = defineStore('equipment', () => {
 
   const getStandardOfLivingById = (solId) => {
     if (!solId) return null
-    return state.standardsOfLiving.find((sol) => sol.id === solId)
+    return standardsOfLiving.value.find((sol) => sol.id === solId)
   }
 
   return {
-    ...toRefs(state),
+    equipment,
+    sources,
+    standardsOfLiving,
     fetchAllEquipment,
     fetchAllSources,
     getSourceById,

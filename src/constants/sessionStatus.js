@@ -7,3 +7,8 @@ export const SessionStatus = {
 }
 
 export default SessionStatus
+
+// CommonJS compatibility for Node.js backend
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = { SessionStatus }
+}

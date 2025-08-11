@@ -1,22 +1,20 @@
 import { defineStore } from 'pinia'
-import { reactive, toRefs } from 'vue'
+import { ref } from 'vue'
 import MestieriService from '@/services/MestiereService.js'
 
 export const useMestieriStore = defineStore('mestieri', () => {
-  const state = reactive({
-    mestieri: [],
-  })
+  const mestieri = ref([])
 
   const fetchMestieri = async () => {
     try {
-      state.mestieri = await MestieriService.getAllMestieri()
+      mestieri.value = await MestieriService.getAllMestieri()
     } catch (error) {
       console.error('Failed to fetch mestieri:', error)
     }
   }
 
   return {
-    ...toRefs(state),
+    mestieri,
     fetchMestieri,
   }
 })

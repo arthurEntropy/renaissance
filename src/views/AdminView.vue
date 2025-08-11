@@ -15,45 +15,33 @@
     </div>
 </template>
 
-<script>
+<script setup>
 import { ref, onMounted } from 'vue'
 import ExpansionService from '@/services/ExpansionService'
 
-export default {
-    name: 'AdminPage',
-    setup() {
-        const expansions = ref([])
+const expansions = ref([])
 
-        const fetchExpansions = async () => {
-            expansions.value = await ExpansionService.getAllExpansions()
-        }
-
-        const addExpansion = async () => {
-            // Always create with a default name so the backend can generate a file
-            await ExpansionService.createExpansion({ name: 'New Expansion', logoUrl: '' })
-            await fetchExpansions()
-        }
-
-        const saveExpansion = async (expansion) => {
-            await ExpansionService.saveExpansion(expansion)
-            await fetchExpansions()
-        }
-
-        const deleteExpansion = async (expansion) => {
-            await ExpansionService.deleteExpansion(expansion)
-            await fetchExpansions()
-        }
-
-        onMounted(fetchExpansions)
-
-        return {
-            expansions,
-            addExpansion,
-            saveExpansion,
-            deleteExpansion,
-        }
-    },
+const fetchExpansions = async () => {
+    expansions.value = await ExpansionService.getAllExpansions()
 }
+
+const addExpansion = async () => {
+    // Always create with a default name so the backend can generate a file
+    await ExpansionService.createExpansion({ name: 'New Expansion', logoUrl: '' })
+    await fetchExpansions()
+}
+
+const saveExpansion = async (expansion) => {
+    await ExpansionService.saveExpansion(expansion)
+    await fetchExpansions()
+}
+
+const deleteExpansion = async (expansion) => {
+    await ExpansionService.deleteExpansion(expansion)
+    await fetchExpansions()
+}
+
+onMounted(fetchExpansions)
 </script>
 
 <style scoped>

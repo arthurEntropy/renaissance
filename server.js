@@ -21,7 +21,7 @@ const io = new Server(server, {
     methods: ['GET', 'POST']
   }
 })
-const PORT = 3000
+const PORT = process.env.PORT || 3000
 
 app.use(express.json())
 app.use(cors())
@@ -45,6 +45,6 @@ setupSocketHandlers(io)
 
 // Start the server
 server.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`)
+  console.log(`Server is running on port ${PORT}`)
   console.log(`Socket.IO is ready for WebSocket connections`)
 })

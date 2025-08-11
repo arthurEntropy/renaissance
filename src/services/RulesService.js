@@ -2,7 +2,7 @@ import BaseService from './BaseService'
 
 class RulesService extends BaseService {
   constructor() {
-    super('http://localhost:3000/rules', 'section')
+    super(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/rules`, 'section')
   }
 
   // CRUD METHODS

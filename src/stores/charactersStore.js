@@ -1,22 +1,20 @@
 import { defineStore } from 'pinia'
-import { reactive, toRefs } from 'vue'
+import { ref } from 'vue'
 import CharacterService from '@/services/CharacterService'
 
-export const useCharacterStore = defineStore('character', () => {
-  const state = reactive({
-    characters: [],
-  })
+export const useCharactersStore = defineStore('characters', () => {
+  const characters = ref([])
 
   const fetchCharacters = async () => {
     try {
-      state.characters = await CharacterService.getAllCharacters()
+      characters.value = await CharacterService.getAllCharacters()
     } catch (error) {
       console.error('Failed to fetch characters:', error)
     }
   }
 
   return {
-    ...toRefs(state),
+    characters,
     fetchCharacters,
   }
 })

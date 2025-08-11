@@ -2,7 +2,7 @@ import BaseService from './BaseService'
 
 class CultureService extends BaseService {
   constructor() {
-    super('http://localhost:3000/cultures', 'culture')
+    super(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/cultures`, 'culture')
   }
 
   // CRUD METHODS
@@ -23,14 +23,11 @@ class CultureService extends BaseService {
   }
 
   // DEFAULT CULTURE
-  static DEFAULT_ART_URL =
-    'https://cdn.midjourney.com/a8a36740-b7d3-4aef-bea3-a95039bec06f/0_2.png'
-
   getDefaultEntity() {
     return {
       id: null, // ID will be assigned by the backend
       name: 'New Culture',
-      artUrls: [CultureService.DEFAULT_ART_URL],
+      description: '',
       isDeleted: false,
     }
   }

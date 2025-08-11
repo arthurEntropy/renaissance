@@ -4,7 +4,9 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import { ref, onMounted, onBeforeUnmount, nextTick } from 'vue'
+
 // Debounce function to limit rapid-fire resize events
 function debounce(fn, delay) {
   let timeoutId
@@ -14,172 +16,112 @@ function debounce(fn, delay) {
   }
 }
 
-export default {
-  name: 'MasonryGrid',
-  props: {
-    columnWidth: {
-      type: Number,
-      default: 300,
-    },
-    gap: {
-      type: Number,
-      default: 10,
-    },
-    rowHeight: {
-      type: Number,
-      default: 10,
-    },
-  },
-  data() {
-    return {
-      resizeObserver: null,
-      mutationObserver: null,
-      childResizeObservers: [],
-      columnCount: 1,
-    }
-  },
-  mounted() {
-    this.initMasonry()
+const props = defineProps({
+  columnWidth: { type: Number, default: 300 },
+  gap: { type: Number, default: 10 },
+  rowHeight: { type: Number, default: 10 },
+})
 
-    // Debounced update function to prevent too many rapid updates
-    const debouncedUpdate = debounce(() => {
-      this.calculateColumnCount()
-      this.updateLayout()
-    }, 50)
+const masonryContainer = ref(null)
+let resizeObserver = null
+let mutationObserver = null
+let childResizeObservers = []
+const columnCount = ref(1)
 
-    // Create a ResizeObserver to handle container resizing
-    this.resizeObserver = new ResizeObserver(debouncedUpdate)
-    this.resizeObserver.observe(this.$refs.masonryContainer)
-
-    // Create a MutationObserver to watch for child elements being added or removed
-    this.mutationObserver = new MutationObserver(() => {
-      debouncedUpdate()
-      this.observeChildElements()
-    })
-    this.mutationObserver.observe(this.$refs.masonryContainer, {
-      childList: true,
-      subtree: false,
-    })
-
-    // Initial observation of child elements
-    this.observeChildElements()
-
-    // Initial layout after a slight delay to ensure DOM is ready
-    this.$nextTick(() => {
-      setTimeout(() => {
-        this.calculateColumnCount()
-        this.updateLayout()
-      }, 100)
-    })
-  },
-  beforeUnmount() {
-    // Clean up observers
-    if (this.resizeObserver) {
-      this.resizeObserver.disconnect()
-    }
-
-    if (this.mutationObserver) {
-      this.mutationObserver.disconnect()
-    }
-
-    // Disconnect all child observers
-    this.childResizeObservers.forEach((observer) => {
-      if (observer) observer.disconnect()
-    })
-  },
-  methods: {
-    calculateColumnCount() {
-      // Calculate how many columns can fit based on container width
-      const containerWidth = this.$refs.masonryContainer.clientWidth
-      // Total width of each column including gap = columnWidth + gap
-      // First column has no left gap, last column has no right gap
-      // So total width needed = (columnWidth * columnCount) + (gap * (columnCount - 1))
-      // Solving for columnCount: columnCount = (containerWidth + gap) / (columnWidth + gap)
-      let columnCount = Math.floor(
-        (containerWidth + this.gap) / (this.columnWidth + this.gap),
-      )
-      columnCount = Math.max(1, columnCount) // Ensure at least one column
-      this.columnCount = columnCount
-    },
-
-    initMasonry() {
-      const container = this.$refs.masonryContainer
-
-      // Apply grid styles - we'll use a repeat with a fixed column width instead of auto-fill
-      container.style.display = 'grid'
-      container.style.gridAutoRows = `${this.rowHeight}px`
-      container.style.gap = `${this.gap}px` // This sets both row and column gap
-      container.style.position = 'relative'
-
-      // Initially calculate column count
-      this.calculateColumnCount()
-      container.style.gridTemplateColumns = `repeat(${this.columnCount}, ${this.columnWidth}px)`
-
-      // Make the container center the grid
-      container.style.justifyContent = 'center'
-
-      // Initial layout update
-      this.$nextTick(() => {
-        this.updateLayout()
-      })
-    },
-
-    updateLayout() {
-      const container = this.$refs.masonryContainer
-
-      // Update the grid template columns based on recalculated column count
-      container.style.gridTemplateColumns = `repeat(${this.columnCount}, ${this.columnWidth}px)`
-
-      // Calculate spans for all child elements
-      Array.from(container.children).forEach((child) => {
-        this.setSpanForElement(child)
-      })
-    },
-
-    setSpanForElement(element) {
-      // Make sure the element is visible and rendered
-      if (element.offsetParent === null) return
-
-      // Set the element to exact column width
-      element.style.width = `${this.columnWidth}px`
-
-      // Get the height and calculate how many rows it should span
-      const height = element.getBoundingClientRect().height
-      const rowSpan = Math.ceil(
-        (height + this.gap) / (this.rowHeight + this.gap),
-      )
-
-      // Apply the span
-      element.style.gridRowEnd = `span ${rowSpan}`
-    },
-
-    observeChildElements() {
-      // Clean up previous observers first
-      this.childResizeObservers.forEach((observer) => {
-        if (observer) observer.disconnect()
-      })
-      this.childResizeObservers = []
-
-      // Debounced setter to prevent too many rapid updates
-      const debouncedSetSpan = debounce((element) => {
-        this.setSpanForElement(element)
-      }, 50)
-
-      // Create new observers for each child
-      const children = Array.from(this.$refs.masonryContainer.children)
-      children.forEach((child) => {
-        // Set initial width
-        child.style.width = `${this.columnWidth}px`
-
-        const observer = new ResizeObserver(() => {
-          debouncedSetSpan(child)
-        })
-        observer.observe(child)
-        this.childResizeObservers.push(observer)
-      })
-    },
-  },
+function calculateColumnCount() {
+  const containerWidth = masonryContainer.value?.clientWidth || 0
+  let count = Math.floor((containerWidth + props.gap) / (props.columnWidth + props.gap))
+  columnCount.value = Math.max(1, count)
 }
+
+function initMasonry() {
+  const container = masonryContainer.value
+  if (!container) return
+
+  container.style.display = 'grid'
+  container.style.gridAutoRows = `${props.rowHeight}px`
+  container.style.gap = `${props.gap}px`
+  container.style.position = 'relative'
+
+  calculateColumnCount()
+  container.style.gridTemplateColumns = `repeat(${columnCount.value}, ${props.columnWidth}px)`
+  container.style.justifyContent = 'center'
+
+  nextTick(() => {
+    updateLayout()
+  })
+}
+
+function updateLayout() {
+  const container = masonryContainer.value
+  if (!container) return
+
+  container.style.gridTemplateColumns = `repeat(${columnCount.value}, ${props.columnWidth}px)`
+  Array.from(container.children).forEach((child) => setSpanForElement(child))
+}
+
+function setSpanForElement(element) {
+  if (!element || element.offsetParent === null) return
+  element.style.width = `${props.columnWidth}px`
+  const height = element.getBoundingClientRect().height
+  const rowSpan = Math.ceil((height + props.gap) / (props.rowHeight + props.gap))
+  element.style.gridRowEnd = `span ${rowSpan}`
+}
+
+function observeChildElements() {
+  // cleanup first
+  childResizeObservers.forEach((o) => o && o.disconnect())
+  childResizeObservers = []
+
+  const debouncedSetSpan = debounce((el) => setSpanForElement(el), 50)
+
+  const children = Array.from(masonryContainer.value?.children || [])
+  children.forEach((child) => {
+    child.style.width = `${props.columnWidth}px`
+    const observer = new ResizeObserver(() => debouncedSetSpan(child))
+    observer.observe(child)
+    childResizeObservers.push(observer)
+  })
+}
+
+onMounted(() => {
+  initMasonry()
+
+  const debouncedUpdate = debounce(() => {
+    calculateColumnCount()
+    updateLayout()
+  }, 50)
+
+  resizeObserver = new ResizeObserver(debouncedUpdate)
+  if (masonryContainer.value) resizeObserver.observe(masonryContainer.value)
+
+  mutationObserver = new MutationObserver(() => {
+    debouncedUpdate()
+    observeChildElements()
+  })
+  if (masonryContainer.value) {
+    mutationObserver.observe(masonryContainer.value, { childList: true, subtree: false })
+  }
+
+  observeChildElements()
+
+  nextTick(() => {
+    setTimeout(() => {
+      calculateColumnCount()
+      updateLayout()
+    }, 100)
+  })
+})
+
+onBeforeUnmount(() => {
+  if (resizeObserver) resizeObserver.disconnect()
+  if (mutationObserver) mutationObserver.disconnect()
+  childResizeObservers.forEach((o) => o && o.disconnect())
+  childResizeObservers = []
+})
+
+// expose updateLayout so parents can call via ref
+defineExpose({ updateLayout })
 </script>
 
 <style scoped>
@@ -190,9 +132,10 @@ export default {
   min-height: 100px;
 }
 
-.masonry-grid > * {
+.masonry-grid>* {
   box-sizing: border-box;
-  overflow: hidden; /* Prevent overflow from causing layout issues */
+  overflow: hidden;
+  /* Prevent overflow from causing layout issues */
   /* Remove min-width and max-width constraints as we're setting exact width */
 }
 </style>

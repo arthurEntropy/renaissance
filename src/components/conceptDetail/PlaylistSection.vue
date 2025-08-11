@@ -8,7 +8,7 @@
     </h2>
 
     <!-- Playlist Editor -->
-    <div v-if="editingPlaylists" class="section-editor">
+    <div v-if="editMode.isEditing && editable" class="section-editor">
       <p class="helper-text">Paste embed codes from Spotify or Apple Music</p>
       <div class="url-container">
         <div v-for="(playlist, idx) in localPlaylists" :key="'playlist-' + idx" class="edit-item">
@@ -42,6 +42,9 @@
         <button type="button" class="button small" @click="savePlaylistChanges">
           Done
         </button>
+        <button type="button" class="button small" @click="cancelPlaylistEdit">
+          Cancel
+        </button>
       </div>
     </div>
 
@@ -61,7 +64,7 @@
       <!-- Playlist Embeds -->
       <div class="playlist-container">
         <div v-for="(playlist, index) in filteredPlaylists" :key="`playlist-${index}`" class="playlist-embed"
-          v-html="playlist.embedCode"></div>
+          v-html="safeEmbed(playlist.embedCode)"></div>
         <div v-if="filteredPlaylists.length === 0" class="no-playlists">
           No
           {{
@@ -78,126 +81,135 @@
   </div>
 </template>
 
-<script>
-import '@/assets/styles/concept-components.css'
+<script setup>
+import { ref, computed, watch } from 'vue'
+import '@/styles/concept-components.css'
+import { useEditMode } from '@/composables/useEditMode'
+import { sanitizeEmbedHtml } from '@/utils/sanitizeHtml'
 
-export default {
-  name: 'PlaylistSection',
-  props: {
-    playlists: {
-      type: Array,
-      default: () => [],
-    },
-    editable: {
-      type: Boolean,
-      default: false,
-    },
+// Props
+const props = defineProps({
+  playlists: {
+    type: Array,
+    default: () => [],
   },
-  emits: ['update'],
-  data() {
-    return {
-      playlistService: 'apple',
-      editingPlaylists: false,
-      localPlaylists: [],
-      backupPlaylists: null,
+  editable: {
+    type: Boolean,
+    default: false,
+  },
+})
+
+// Emits
+const emit = defineEmits(['update'])
+
+// Reactive state
+const playlistService = ref('apple')
+const localPlaylists = ref([])
+
+// Edit mode composable
+const editMode = useEditMode({
+  onSave: () => {
+    // Process Apple Music embed codes to ensure dark theme
+    processAppleEmbedCodes()
+    emit('update', localPlaylists.value)
+  },
+  onCancel: (restoredData) => {
+    if (restoredData) {
+      localPlaylists.value = [...restoredData]
     }
-  },
-  computed: {
-    hasPlaylists() {
-      return this.localPlaylists && this.localPlaylists.length > 0
-    },
-    filteredPlaylists() {
-      return this.localPlaylists.filter(
-        (playlist) => playlist.service === this.playlistService,
-      )
-    },
-    hasOtherServicePlaylists() {
-      const otherService =
-        this.playlistService === 'spotify' ? 'apple' : 'spotify'
-      return this.localPlaylists.some((p) => p.service === otherService)
-    },
-  },
-  methods: {
-    togglePlaylistEditing() {
-      if (!this.editable) return
+  }
+})
 
-      if (!this.editingPlaylists) {
-        // Starting to edit - backup current playlists
-        this.backupPlaylists = JSON.parse(
-          JSON.stringify(this.localPlaylists || []),
-        )
-      }
-      this.editingPlaylists = !this.editingPlaylists
-    },
+// Computed properties
+const hasPlaylists = computed(() => {
+  return localPlaylists.value && localPlaylists.value.length > 0
+})
 
-    savePlaylistChanges() {
-      // Process Apple Music embed codes to ensure dark theme
-      this.processAppleEmbedCodes()
+const filteredPlaylists = computed(() => {
+  return localPlaylists.value.filter(
+    (playlist) => playlist.service === playlistService.value,
+  )
+})
 
-      this.editingPlaylists = false
-      this.$emit('update', this.localPlaylists)
-    },
+const hasOtherServicePlaylists = computed(() => {
+  const otherService =
+    playlistService.value === 'spotify' ? 'apple' : 'spotify'
+  return localPlaylists.value.some((p) => p.service === otherService)
+})
 
-    cancelPlaylistEdit() {
-      // Restore from backup
-      this.localPlaylists = this.backupPlaylists
-      this.editingPlaylists = false
-    },
+// Methods
+const togglePlaylistEditing = () => {
+  if (!props.editable) return
 
-    addPlaylist() {
-      this.localPlaylists.push({
-        service: 'spotify',
-        embedCode: '',
-      })
-    },
-
-    removePlaylist(idx) {
-      this.localPlaylists.splice(idx, 1)
-    },
-
-    movePlaylist(idx, direction) {
-      const playlists = this.localPlaylists
-      const newIdx = idx + direction
-      if (newIdx >= 0 && newIdx < playlists.length) {
-        [playlists[idx], playlists[newIdx]] = [
-          playlists[newIdx],
-          playlists[idx],
-        ]
-      }
-    },
-
-    processAppleEmbedCodes() {
-      // Function to ensure dark theme is set for Apple Music embeds
-      this.localPlaylists.forEach((playlist) => {
-        if (playlist.service === 'apple' && playlist.embedCode) {
-          // Extract the src attribute
-          const srcMatch = playlist.embedCode.match(/src="([^"]+)"/)
-          if (srcMatch && srcMatch[1]) {
-            const originalSrc = srcMatch[1]
-
-            // Add dark theme parameter if not already present
-            const newSrc =
-              originalSrc +
-              (originalSrc.includes('?') ? '&theme=dark' : '?theme=dark')
-
-            // Replace the src in the embed code
-            playlist.embedCode = playlist.embedCode
-              .replace(`src="${originalSrc}"`, `src="${newSrc}"`)
-              .replace(`src='${originalSrc}'`, `src='${newSrc}'`)
-          }
-        }
-      })
-    },
-  },
-  watch: {
-    playlists: {
-      immediate: true,
-      handler(newPlaylists) {
-        this.localPlaylists = JSON.parse(JSON.stringify(newPlaylists || []))
-      },
-    },
-  },
+  if (!editMode.isEditing.value) {
+    editMode.startEdit(localPlaylists.value)
+  } else {
+    editMode.saveEdit(localPlaylists.value)
+  }
 }
+
+const savePlaylistChanges = () => {
+  editMode.saveEdit(localPlaylists.value)
+}
+
+const cancelPlaylistEdit = () => {
+  const restored = editMode.cancelEdit()
+  if (restored) {
+    localPlaylists.value = [...restored]
+  }
+}
+
+const addPlaylist = () => {
+  localPlaylists.value.push({
+    service: 'spotify',
+    embedCode: '',
+  })
+}
+
+const removePlaylist = (idx) => {
+  localPlaylists.value.splice(idx, 1)
+}
+
+const movePlaylist = (idx, direction) => {
+  const playlists = localPlaylists.value
+  const newIdx = idx + direction
+  if (newIdx >= 0 && newIdx < playlists.length) {
+    [playlists[idx], playlists[newIdx]] = [
+      playlists[newIdx],
+      playlists[idx],
+    ]
+  }
+}
+
+const processAppleEmbedCodes = () => {
+  // Function to ensure dark theme is set for Apple Music embeds
+  localPlaylists.value.forEach((playlist) => {
+    if (playlist.service === 'apple' && playlist.embedCode) {
+      // Extract the src attribute
+      const srcMatch = playlist.embedCode.match(/src="([^"]+)"/)
+      if (srcMatch && srcMatch[1]) {
+        const originalSrc = srcMatch[1]
+
+        // Add dark theme parameter if not already present
+        const newSrc =
+          originalSrc +
+          (originalSrc.includes('?') ? '&theme=dark' : '?theme=dark')
+
+        // Replace the src in the embed code
+        playlist.embedCode = playlist.embedCode
+          .replace(`src="${originalSrc}"`, `src="${newSrc}"`)
+          .replace(`src='${originalSrc}'`, `src='${newSrc}'`)
+      }
+    }
+  })
+}
+
+const safeEmbed = (html) => sanitizeEmbedHtml(html)
+
+// Watchers
+watch(() => props.playlists, (newPlaylists) => {
+  localPlaylists.value = JSON.parse(JSON.stringify(newPlaylists || []))
+}, { immediate: true })
 </script>
 
 <style scoped>

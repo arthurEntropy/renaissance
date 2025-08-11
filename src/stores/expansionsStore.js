@@ -1,8 +1,8 @@
-// src/stores/expansionStore.js
+// src/stores/expansionsStore.js
 import { defineStore } from 'pinia'
 import ExpansionService from '@/services/ExpansionService'
 
-export const useExpansionStore = defineStore('expansionStore', {
+export const useExpansionsStore = defineStore('expansions', {
   state: () => ({
     expansions: [],
     loading: false,

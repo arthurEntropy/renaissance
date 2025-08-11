@@ -295,7 +295,7 @@ class SkillCheckService {
     characterName,
   ) {
     try {
-      await axios.post('http://localhost:3000/send-discord-message', {
+      await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/send-discord-message`, {
         rollResults,
         total: totalSum,
         targetNumber,

@@ -39,28 +39,7 @@
 
           <!-- Source Dropdown -->
           <label for="source">Source:</label>
-          <select id="source" v-model="editedAbility.source" class="modal-input">
-            <optgroup label="Ancestries">
-              <option v-for="ancestry in sources.ancestries" :key="ancestry.id" :value="ancestry.id">
-                {{ ancestry.name }}
-              </option>
-            </optgroup>
-            <optgroup label="Cultures">
-              <option v-for="culture in sources.cultures" :key="culture.id" :value="culture.id">
-                {{ culture.name }}
-              </option>
-            </optgroup>
-            <optgroup label="Mestieri">
-              <option v-for="mestiere in sources.mestieri" :key="mestiere.id" :value="mestiere.id">
-                {{ mestiere.name }}
-              </option>
-            </optgroup>
-            <optgroup label="World Elements">
-              <option v-for="worldElement in sources.worldElements" :key="worldElement.id" :value="worldElement.id">
-                {{ worldElement.name }}
-              </option>
-            </optgroup>
-          </select>
+          <SourceDropdown v-model="editedAbility.source" id="source" />
 
           <!-- Trait and Can-Be-Active Checkboxes -->
           <label for="isTrait">
@@ -114,72 +93,58 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import { useEditForm } from '@/composables/useEditForm'
 import TextEditor from '@/components/TextEditor.vue'
+import SourceDropdown from '@/components/SourceDropdown.vue'
 
-export default {
-  props: {
-    ability: {
-      type: Object,
-      required: true,
-    },
-    sources: {
-      type: Object,
-      default: () => ({
-        ancestries: [],
-        cultures: [],
-        mestieri: [],
-        worldElements: [],
-      }),
-    },
+// Props
+const props = defineProps({
+  ability: {
+    type: Object,
+    required: true,
   },
-  emits: ['update', 'delete', 'close'],
-  data() {
-    return {
-      editedAbility: null,
-      originalAbility: null,
-    }
-  },
-  created() {
-    this.originalAbility = JSON.parse(JSON.stringify(this.ability))
-    this.editedAbility = JSON.parse(JSON.stringify(this.ability))
-  },
-  methods: {
-    saveAbility() {
-      this.$emit('update', this.editedAbility)
-      this.$emit('close')
-    },
-    deleteAbility() {
-      const name = this.editedAbility.name || 'this ability'
-      if (confirm(`Are you sure you want to delete "${name}"?`)) {
-        this.$emit('delete', this.editedAbility)
-      }
-    },
-    closeModal() {
-      this.$emit('close')
-    },
-    addImprovement() {
-      if (!this.editedAbility.improvements) this.editedAbility.improvements = []
-      this.editedAbility.improvements.push({ name: '', description: '', xp: 0 })
-    },
-    removeImprovement(idx) {
-      this.editedAbility.improvements.splice(idx, 1)
-    },
-    moveImprovementUp(idx) {
-      if (idx > 0) {
-        const arr = this.editedAbility.improvements
-          ;[arr[idx - 1], arr[idx]] = [arr[idx], arr[idx - 1]]
-      }
-    },
-    moveImprovementDown(idx) {
-      const arr = this.editedAbility.improvements
-      if (idx < arr.length - 1) {
-        [arr[idx], arr[idx + 1]] = [arr[idx + 1], arr[idx]]
-      }
-    },
-  },
-  components: { TextEditor },
+})
+
+// Emits
+const emit = defineEmits(['update', 'delete', 'close'])
+
+// Composables
+const {
+  editedData: editedAbility,
+  save,
+  deleteItem,
+  cancel
+} = useEditForm(props.ability, emit)
+
+// Improvement management functions
+const addImprovement = () => {
+  if (!editedAbility.value.improvements) editedAbility.value.improvements = []
+  editedAbility.value.improvements.push({ name: '', description: '', xp: 0 })
 }
+
+const removeImprovement = (idx) => {
+  editedAbility.value.improvements.splice(idx, 1)
+}
+
+const moveImprovementUp = (idx) => {
+  if (idx > 0) {
+    const arr = editedAbility.value.improvements
+      ;[arr[idx - 1], arr[idx]] = [arr[idx], arr[idx - 1]]
+  }
+}
+
+const moveImprovementDown = (idx) => {
+  const arr = editedAbility.value.improvements
+  if (idx < arr.length - 1) {
+    [arr[idx], arr[idx + 1]] = [arr[idx + 1], arr[idx]]
+  }
+}
+
+// Ability-specific functions
+const saveAbility = () => save()
+const deleteAbility = () => deleteItem('ability')
+const closeModal = () => cancel()
 </script>
 
 <style scoped>

@@ -1,5 +1,4 @@
 const { v4: uuidv4 } = require('uuid');
-const { SessionStatus } = require('../src/constants/sessionStatus.js');
 
 // In-memory storage for active engagement sessions
 const activeSessions = new Map();
@@ -14,7 +13,7 @@ let engagementIO = null;
 //   users: [
 //     { id: string, name: string, ready: boolean, dice: [], success: [] }
 //   ],
-//   status: SessionStatus.WAITING | SessionStatus.ACTIVE | SessionStatus.ROLLING | SessionStatus.COMPLETED
+//   status: 'waiting' | 'active' | 'rolling' | 'completed'
 // }
 
 const setupSocketHandlers = (io) => {
@@ -33,7 +32,7 @@ const setupSocketHandlers = (io) => {
         const session = activeSessions.get(availableSessionId);
         
         // Make sure the session only has one user and is in waiting status
-        if (session.users.length === 1 && session.status === SessionStatus.WAITING) {
+        if (session.users.length === 1 && session.status === 'waiting') {
           // Join the existing session
           session.users.push({
             socketId: socket.id,
@@ -44,7 +43,7 @@ const setupSocketHandlers = (io) => {
           });
           
           // Update session status now that we have two users
-          session.status = SessionStatus.ACTIVE;
+          session.status = 'active';
           
           // Join the socket room
           socket.join(availableSessionId);
@@ -89,7 +88,7 @@ const setupSocketHandlers = (io) => {
             ready: true
           }
         ],
-        status: SessionStatus.WAITING
+        status: 'waiting'
       };
       
       // Store in our sessions map
@@ -240,7 +239,7 @@ function performRoll(sessionId) {
   }
   
   // Update session status
-  session.status = SessionStatus.ROLLING;
+  session.status = 'rolling';
   
   // Roll dice for both users
   session.users.forEach(user => {
@@ -264,7 +263,7 @@ function performRoll(sessionId) {
   }
   
   // Update session status
-  session.status = SessionStatus.COMPLETED;
+  session.status = 'completed';
   
   // Broadcast results to all participants using the global socket.io reference
   if (engagementIO) {

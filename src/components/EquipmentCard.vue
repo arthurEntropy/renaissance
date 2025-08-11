@@ -2,8 +2,8 @@
   <base-card v-bind="$attrs" :item="equipment" itemType="equipment" :metaInfo="equipment.weight
     ? `${equipment.weight} ${equipment.weight === 1 ? 'lb' : 'lbs'}`
     : ''
-    " :storeInstance="equipmentStore" :initialCollapsed="collapsed" :editable="editable" :sources="sources"
-    :showSource="showSource" @edit="$emit('edit', equipment)" :collapsible="collapsible">
+    " :storeInstance="equipmentStore" :initialCollapsed="collapsed" :editable="editable" :showSource="showSource"
+    @edit="$emit('edit', equipment)" :collapsible="collapsible">
     <!-- Large image slot -->
     <template #large-image>
       <div v-if="showLargeImage" class="large-image-container" @click.stop="toggleImage">
@@ -22,7 +22,7 @@
         </div>
         <!-- Description section - show if available -->
         <div class="content-sections">
-          <div v-if="equipment.description" v-html="equipment.description" class="description-background"></div>
+          <DescriptionBackground :content="equipment.description" />
           <!-- Dice section - show independently if it's a melee weapon -->
           <template v-if="equipment.isMelee">
             <div class="dice-description-row">
@@ -54,9 +54,8 @@
 
     <!-- Badge slot (Standard of Living) -->
     <template #badge>
-      <div v-if="showSolBadge && equipment.standardOfLiving" class="sol-bubble">
-        {{ equipment.standardOfLiving }} 🪙
-      </div>
+      <BadgeDisplay v-if="showSolBadge && equipment.standardOfLiving" type="sol" :value="equipment.standardOfLiving"
+        position="bottom-left" />
     </template>
 
     <!-- Footer slot for engagement successes -->
@@ -80,15 +79,21 @@
 </template>
 
 <script>
+import { ref, computed, onMounted } from 'vue'
 import { useEquipmentStore } from '@/stores/equipmentStore'
 import BaseCard from '@/components/BaseCard.vue'
+import BadgeDisplay from '@/components/BadgeDisplay.vue'
+import DescriptionBackground from '@/components/DescriptionBackground.vue'
 import EngagementSuccessService from '@/services/EngagementSuccessService'
 import { getDiceFontMaxClass } from '../../utils/diceFontUtils'
+import { useTooltip } from '@/composables/useTooltip'
 
 export default {
   inheritAttrs: false,
   components: {
     BaseCard,
+    BadgeDisplay,
+    DescriptionBackground,
   },
   emits: ['edit', 'delete', 'send-to-chat', 'height-changed'],
   props: {
@@ -103,15 +108,6 @@ export default {
     editable: {
       type: Boolean,
       default: false,
-    },
-    sources: {
-      type: Object,
-      default: () => ({
-        ancestries: [],
-        cultures: [],
-        mestieri: [],
-        worldElements: []
-      })
     },
     collapsible: {
       type: Boolean,
@@ -131,73 +127,67 @@ export default {
     },
   },
 
-  data() {
-    return {
-      equipmentStore: useEquipmentStore(),
-      engagementSuccesses: [],
-      showLargeImage: this.artExpanded,
-      tooltipSuccess: null,
-      tooltipPosition: { x: 0, y: 0 },
-      tooltipTimer: null,
+  setup(props) {
+    // Store
+    const equipmentStore = useEquipmentStore()
+
+    // Tooltip functionality
+    const tooltip = useTooltip()
+
+    // Reactive state
+    const engagementSuccesses = ref([])
+    const showLargeImage = ref(props.artExpanded)
+
+    // Methods
+    const toggleImage = () => {
+      showLargeImage.value = !showLargeImage.value
     }
-  },
 
-  methods: {
-    getDiceFontMaxClass,
-
-    toggleImage() {
-      this.showLargeImage = !this.showLargeImage
-    },
-
-    async fetchEngagementSuccesses() {
+    const fetchEngagementSuccesses = async () => {
       try {
-        const allSuccesses =
-          await EngagementSuccessService.getAllEngagementSuccesses()
-        this.engagementSuccesses = this.equipment.engagementSuccesses
+        const allSuccesses = await EngagementSuccessService.getAllEngagementSuccesses()
+        engagementSuccesses.value = props.equipment.engagementSuccesses
           .map((id) => allSuccesses.find((success) => success.id === id))
           .filter((success) => success)
       } catch (error) {
         console.error('Error fetching engagement successes:', error)
-        this.engagementSuccesses = []
+        engagementSuccesses.value = []
       }
-    },
+    }
 
-    startSuccessTooltip(success, event) {
-      clearTimeout(this.tooltipTimer);
-      this.tooltipTimer = setTimeout(() => {
-        this.tooltipSuccess = success.description;
+    const startSuccessTooltip = (success, event) => {
+      tooltip.startTooltip('success', success.description, event)
+    }
 
-        // Calculate position to avoid tooltip going off-screen
-        const padding = 10;
-        let x = event.clientX + 15;
-        let y = event.clientY + 10;
+    const clearSuccessTooltip = () => {
+      tooltip.clearTooltip('success')
+    }
 
-        // Check if tooltip would go off the right edge
-        const tooltipWidth = 260; // max-width from CSS
-        if (x + tooltipWidth > window.innerWidth - padding) {
-          x = window.innerWidth - tooltipWidth - padding;
-        }
+    // Lifecycle
+    onMounted(async () => {
+      await fetchEngagementSuccesses()
+    })
 
-        // Check if tooltip would go off the bottom
-        const tooltipHeight = 100; // estimated height
-        if (y + tooltipHeight > window.innerHeight - padding) {
-          y = event.clientY - tooltipHeight - 10;
-        }
+    return {
+      // Store
+      equipmentStore,
 
-        this.tooltipPosition = { x, y };
-      }, 300); // Reduced delay from 1000ms to 300ms for better UX
-    },
+      // State
+      engagementSuccesses,
+      showLargeImage,
 
-    clearSuccessTooltip() {
-      clearTimeout(this.tooltipTimer);
-      this.tooltipTimer = null;
-      this.tooltipSuccess = null;
-    },
-  },
+      // Tooltip
+      tooltipSuccess: computed(() => tooltip.getTooltip('success')),
+      tooltipPosition: tooltip.position,
 
-  async created() {
-    await this.fetchEngagementSuccesses()
-  },
+      // Methods
+      getDiceFontMaxClass,
+      toggleImage,
+      fetchEngagementSuccesses,
+      startSuccessTooltip,
+      clearSuccessTooltip,
+    }
+  }
 }
 </script>
 
@@ -351,21 +341,5 @@ export default {
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
   max-width: 260px;
   white-space: pre-line;
-}
-
-/* Standard of Living Bubble */
-.sol-bubble {
-  position: absolute;
-  bottom: -3px;
-  left: 0px;
-  background-color: darkgoldenrod;
-  color: white;
-  font-size: 12px;
-  font-weight: bold;
-  padding: 2px 8px 4px 8px;
-  border-top-right-radius: 10px;
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
-  pointer-events: none;
-  z-index: 10;
 }
 </style>

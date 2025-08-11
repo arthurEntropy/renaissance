@@ -128,7 +128,9 @@ import SuccessTooltip from '@/components/engagement/SuccessTooltip.vue';
 import { getDiceFontMaxClass } from '../../../utils/diceFontUtils'
 import { useEngagementDice } from '@/composables/useEngagementDice'
 import { useEngagementSuccesses } from '@/composables/useEngagementSuccesses'
-import { ref, toRef } from 'vue'
+import { useTooltip } from '@/composables/useTooltip'
+import { useDropdown } from '@/composables/useDropdown'
+import { ref, toRef, computed } from 'vue'
 
 export default {
   components: {
@@ -143,15 +145,6 @@ export default {
     allEquipment: {
       type: Array,
       default: () => [],
-    },
-    sources: {
-      type: Object,
-      default: () => ({
-        ancestries: [],
-        cultures: [],
-        mestieri: [],
-        worldElements: []
-      })
     }
   },
 
@@ -165,18 +158,20 @@ export default {
     const diceManager = useEngagementDice(characterRef, allEquipmentRef)
     const successManager = useEngagementSuccesses(characterRef, allEquipmentRef)
 
+    // UI composables
+    const tooltip = useTooltip()
+    const diceDropdown = useDropdown()
+    const successDropdown = useDropdown()
+
     // Local UI state
-    const tooltipSuccess = ref(null)
-    const tooltipDice = ref(null)
-    const tooltipPosition = ref({ x: 0, y: 0 })
-    const tooltipTimer = ref(null)
     const isEditMode = ref(false)
-    const showDiceDropdown = ref(false)
-    const showSuccessDropdown = ref(false)
-    const dropdownPosition = ref({ x: 0, y: 0 })
     const diceOptions = ref([4, 6, 8, 10, 12, 20]) // Standard dice types
     const showEngagementRollModal = ref(false)
     const currentRollDice = ref([])
+
+    // Computed properties for tooltip data
+    const tooltipSuccess = computed(() => tooltip.getTooltip('success'))
+    const tooltipDice = computed(() => tooltip.getTooltip('dice'))
 
     // Methods
     const updateCharacter = (updatedCharacter) => {
@@ -184,35 +179,19 @@ export default {
     }
 
     const startSuccessTooltip = (success, event) => {
-      clearDiceTooltip() // Ensure only one tooltip shows at a time
-      tooltipTimer.value = setTimeout(() => {
-        tooltipSuccess.value = success
-        tooltipPosition.value = {
-          x: event.clientX + 12,
-          y: event.clientY + 12,
-        }
-      }, 1000)
+      tooltip.startTooltip('success', success, event)
     }
 
     const clearSuccessTooltip = () => {
-      clearTimeout(tooltipTimer.value)
-      tooltipSuccess.value = null
+      tooltip.clearTooltip('success')
     }
 
     const startDiceTooltip = (diceInfo, event) => {
-      clearSuccessTooltip() // Ensure only one tooltip shows at a time
-      tooltipTimer.value = setTimeout(() => {
-        tooltipDice.value = diceInfo
-        tooltipPosition.value = {
-          x: event.clientX + 12,
-          y: event.clientY + 12,
-        }
-      }, 1000)
+      tooltip.startTooltip('dice', diceInfo, event)
     }
 
     const clearDiceTooltip = () => {
-      clearTimeout(tooltipTimer.value)
-      tooltipDice.value = null
+      tooltip.clearTooltip('dice')
     }
 
     const rollSelectedDice = () => {
@@ -250,47 +229,18 @@ export default {
 
     const toggleEditMode = () => {
       isEditMode.value = !isEditMode.value
-      showDiceDropdown.value = false // Close dropdowns when toggling edit mode
-      showSuccessDropdown.value = false
+      diceDropdown.close() // Close dropdowns when toggling edit mode
+      successDropdown.close()
     }
 
     const toggleDiceDropdown = (event) => {
-      showDiceDropdown.value = !showDiceDropdown.value
-      showSuccessDropdown.value = false // Close success dropdown if open
-
-      if (showDiceDropdown.value) {
-        // Default position
-        dropdownPosition.value = {
-          x: event.clientX,
-          y: event.clientY + 10
-        }
-
-        // Add click outside listener to close dropdown
-        setTimeout(() => {
-          // Adjust position if dropdown would go off-screen
-          adjustDropdownPosition('.dice-dropdown')
-          document.addEventListener('click', closeDiceDropdown)
-        }, 10)
-      } else {
-        document.removeEventListener('click', closeDiceDropdown)
-      }
-    }
-
-    const closeDiceDropdown = (event) => {
-      // Check if click is outside dropdown
-      const dropdown = document.querySelector('.dice-dropdown')
-      const addButton = document.querySelector('.add-die-button')
-
-      if (dropdown && !dropdown.contains(event.target) &&
-        addButton && !addButton.contains(event.target)) {
-        showDiceDropdown.value = false
-        document.removeEventListener('click', closeDiceDropdown)
-      }
+      successDropdown.close() // Close success dropdown if open
+      diceDropdown.toggle(event, '.dice-dropdown', '.add-die-button')
     }
 
     const addUserAddedDie = (die) => {
       diceManager.addUserAddedDie(die, updateCharacter)
-      showDiceDropdown.value = false
+      diceDropdown.close()
     }
 
     const removeUserAddedDie = (index) => {
@@ -298,62 +248,13 @@ export default {
     }
 
     const toggleSuccessDropdown = (event) => {
-      showSuccessDropdown.value = !showSuccessDropdown.value
-      showDiceDropdown.value = false // Close dice dropdown if open
-
-      if (showSuccessDropdown.value) {
-        dropdownPosition.value = {
-          x: event.clientX,
-          y: event.clientY + 10
-        }
-
-        // Add click outside listener to close dropdown
-        setTimeout(() => {
-          // Adjust position if dropdown would go off-screen
-          adjustDropdownPosition('.success-dropdown')
-          document.addEventListener('click', closeSuccessDropdown)
-        }, 10)
-      } else {
-        document.removeEventListener('click', closeSuccessDropdown)
-      }
-    }
-
-    // TODO: Centralize dropdown position adjustment
-    const adjustDropdownPosition = (selector) => {
-      const dropdown = document.querySelector(selector)
-      if (!dropdown) return
-
-      const dropdownRect = dropdown.getBoundingClientRect()
-      const windowHeight = window.innerHeight
-      const windowWidth = window.innerWidth
-
-      // Check if dropdown extends beyond bottom of viewport
-      if (dropdownRect.bottom > windowHeight) {
-        // Position above the click point instead of below it
-        dropdownPosition.value.y = Math.max(10, dropdownPosition.value.y - dropdownRect.height - 30)
-      }
-
-      // Check if dropdown extends beyond right edge of viewport
-      if (dropdownRect.right > windowWidth) {
-        dropdownPosition.value.x = Math.max(10, dropdownPosition.value.x - (dropdownRect.right - windowWidth) - 20)
-      }
-    }
-
-    const closeSuccessDropdown = (event) => {
-      // Check if click is outside dropdown
-      const dropdown = document.querySelector('.success-dropdown')
-      const addButton = document.querySelector('.add-success-button')
-
-      if (dropdown && !dropdown.contains(event.target) &&
-        addButton && !addButton.contains(event.target)) {
-        showSuccessDropdown.value = false
-        document.removeEventListener('click', closeSuccessDropdown)
-      }
+      diceDropdown.close() // Close dice dropdown if open
+      successDropdown.toggle(event, '.success-dropdown', '.add-success-button')
     }
 
     const addUserAddedSuccess = (successId) => {
       successManager.addUserAddedSuccess(successId, updateCharacter)
-      showSuccessDropdown.value = false
+      successDropdown.close()
     }
 
     const removeUserAddedSuccess = (successId) => {
@@ -380,12 +281,11 @@ export default {
       // Local state
       tooltipSuccess,
       tooltipDice,
-      tooltipPosition,
-      tooltipTimer,
+      tooltipPosition: tooltip.position,
       isEditMode,
-      showDiceDropdown,
-      showSuccessDropdown,
-      dropdownPosition,
+      showDiceDropdown: diceDropdown.isOpen,
+      showSuccessDropdown: successDropdown.isOpen,
+      dropdownPosition: diceDropdown.position,
       diceOptions,
       showEngagementRollModal,
       currentRollDice,
@@ -402,12 +302,9 @@ export default {
       handleEngagementResults,
       toggleEditMode,
       toggleDiceDropdown,
-      closeDiceDropdown,
       addUserAddedDie,
       removeUserAddedDie,
       toggleSuccessDropdown,
-      adjustDropdownPosition,
-      closeSuccessDropdown,
       addUserAddedSuccess,
       removeUserAddedSuccess
     }

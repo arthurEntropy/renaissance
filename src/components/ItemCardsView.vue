@@ -28,7 +28,7 @@
           </option>
         </optgroup>
       </select>
-      <select v-if="sortOptions.length > 0" v-model="sortOptionLocal" class="sort-filter">
+      <select v-if="sortOptions && Object.keys(sortOptions).length > 0" v-model="sortOptionLocal" class="sort-filter">
         <option value="">Sort by...</option>
         <optgroup v-for="(options, group) in sortOptions" :key="group" :label="group">
           <option v-for="option in options" :key="option.value" :value="option.value">
@@ -43,149 +43,103 @@
     </div>
 
     <!-- Item Cards-->
-    <masonry-grid :column-width="350" :gap="20" :row-height="10" class="cards-container" ref="masonryGrid">
+    <MasonryGrid :column-width="350" :gap="20" :row-height="10" class="cards-container" ref="masonryGrid">
       <slot name="item-cards" :filtered-items="filteredItems"></slot>
-    </masonry-grid>
+    </MasonryGrid>
 
     <slot name="modals"></slot>
   </div>
 </template>
 
-<script>
+<script setup>
 import MasonryGrid from '@/components/MasonryGrid.vue'
+import { computed, ref } from 'vue'
 
-export default {
-  name: 'ItemCardsView',
-  components: {
-    MasonryGrid,
+const props = defineProps({
+  itemType: { type: String, required: true },
+  itemTypePlural: { type: String, required: true },
+  sources: {
+    type: Object,
+    required: true,
+    default: () => ({ ancestries: [], cultures: [], mestieri: [], worldElements: [] }),
   },
-  props: {
-    itemType: {
-      type: String,
-      required: true,
-    },
-    itemTypePlural: {
-      type: String,
-      required: true,
-    },
-    sources: {
-      type: Object,
-      required: true,
-      default: () => ({
-        ancestries: [],
-        cultures: [],
-        mestieri: [],
-        worldElements: [],
-      }),
-    },
-    searchQuery: {
-      type: String,
-      default: '',
-    },
-    sourceFilter: {
-      type: String,
-      default: '',
-    },
-    sortOption: {
-      type: String,
-      default: '',
-    },
-    sortOptions: {
-      type: Object,
-      default: () => ({}),
-    },
-    items: {
-      type: Array,
-      default: () => [],
-    }
-  },
-  computed: {
-    searchQueryLocal: {
-      get() {
-        return this.searchQuery
-      },
-      set(value) {
-        this.$emit('update:searchQuery', value)
-      },
-    },
-    sourceFilterLocal: {
-      get() {
-        return this.sourceFilter
-      },
-      set(value) {
-        this.$emit('update:sourceFilter', value)
-      },
-    },
-    sortOptionLocal: {
-      get() {
-        return this.sortOption
-      },
-      set(value) {
-        this.$emit('update:sortOption', value)
-      },
-    },
-    filteredItems() {
-      const query = this.searchQueryLocal.toLowerCase().trim()
-      const sourceFilter = this.sourceFilterLocal
+  searchQuery: { type: String, default: '' },
+  sourceFilter: { type: String, default: '' },
+  sortOption: { type: String, default: '' },
+  sortOptions: { type: Object, default: () => ({}) },
+  items: { type: Array, default: () => [] },
+})
 
-      // Filter out deleted items
-      let filtered = this.items.filter(item => !item.isDeleted)
+const emit = defineEmits(['update:searchQuery', 'update:sourceFilter', 'update:sortOption', 'update:filteredItems', 'create'])
 
-      // Apply source filter
-      if (sourceFilter) {
-        filtered = filtered.filter(item => item.source === sourceFilter)
+const masonryGrid = ref(null)
+
+const searchQueryLocal = computed({
+  get: () => props.searchQuery,
+  set: (value) => emit('update:searchQuery', value),
+})
+
+const sourceFilterLocal = computed({
+  get: () => props.sourceFilter,
+  set: (value) => emit('update:sourceFilter', value),
+})
+
+const sortOptionLocal = computed({
+  get: () => props.sortOption,
+  set: (value) => emit('update:sortOption', value),
+})
+
+const filteredItems = computed(() => {
+  const query = searchQueryLocal.value.toLowerCase().trim()
+  const sourceFilter = sourceFilterLocal.value
+
+  // Filter out deleted items
+  let filtered = (props.items || []).filter((item) => !item.isDeleted)
+
+  // Apply source filter
+  if (sourceFilter) {
+    filtered = filtered.filter((item) => item.source === sourceFilter)
+  }
+
+  // Apply search query
+  if (query) {
+    filtered = filtered.filter((item) => {
+      const name = (item.name || '').toLowerCase()
+      const description = (item.description || '').toLowerCase()
+      return name.includes(query) || description.includes(query)
+    })
+  }
+
+  // Apply sorting
+  if (sortOptionLocal.value) {
+    const [field, direction] = sortOptionLocal.value.split('-')
+    filtered.sort((a, b) => {
+      let comparison = 0
+
+      const aVal = a?.[field]
+      const bVal = b?.[field]
+
+      // Handle null/undefined values
+      if (aVal == null && bVal == null) return 0
+      if (aVal == null) return 1
+      if (bVal == null) return -1
+
+      if (field === 'name') {
+        comparison = String(aVal).localeCompare(String(bVal))
+      } else {
+        comparison = Number(aVal) - Number(bVal)
       }
 
-      // Apply search query
-      if (query) {
-        filtered = filtered.filter(
-          item =>
-            item.name.toLowerCase().includes(query) ||
-            item.description.toLowerCase().includes(query)
-        )
-      }
+      return direction === 'asc' ? comparison : -comparison
+    })
+  }
 
-      // Apply sorting
-      if (this.sortOptionLocal) {
-        const [field, direction] = this.sortOptionLocal.split('-')
-        filtered.sort((a, b) => {
-          let comparison = 0
+  emit('update:filteredItems', filtered)
+  return filtered
+})
 
-          // Handle null/undefined values
-          if (!a[field] && !b[field]) return 0
-          if (!a[field]) return 1
-          if (!b[field]) return -1
-
-          // Compare based on field type
-          if (field === 'name') {
-            comparison = a[field].localeCompare(b[field])
-          } else {
-            comparison = a[field] - b[field]
-          }
-
-          return direction === 'asc' ? comparison : -comparison
-        })
-      }
-
-      // Emit the filtered items so parent components can access them
-      this.$emit('update:filteredItems', filtered)
-
-      return filtered
-    }
-  },
-  methods: {
-    createItem() {
-      this.$emit('create')
-    },
-
-    onCardHeightChanged() {
-      this.$nextTick(() => {
-        if (this.$refs.masonryGrid && typeof this.$refs.masonryGrid.updateLayout === 'function') {
-          this.$refs.masonryGrid.updateLayout()
-        }
-      })
-    }
-  },
+function createItem() {
+  emit('create')
 }
 </script>
 

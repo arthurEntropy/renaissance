@@ -2,7 +2,7 @@ import BaseService from './BaseService'
 
 class EquipmentService extends BaseService {
   constructor() {
-    super('http://localhost:3000/equipment', 'equipment')
+    super(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/equipment`, 'equipment')
   }
 
   // CRUD METHODS

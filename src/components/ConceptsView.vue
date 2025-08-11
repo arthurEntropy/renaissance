@@ -44,301 +44,272 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
+import { useAbilitiesStore } from '@/stores/abilitiesStore'
+import { useEquipmentStore } from '@/stores/equipmentStore'
+import { useExpansionsStore } from '@/stores/expansionsStore'
+import { useEditModal } from '@/composables/useEditModal'
+import { useSourcesStore } from '@/stores/sourcesStore'
 import ConceptCard from '@/components/ConceptCard.vue'
 import ConceptDetailModal from '@/components/modals/ConceptDetailModal.vue'
 import EditAbilityModal from '@/components/modals/EditAbilityModal.vue'
 import EditEquipmentModal from '@/components/modals/EditEquipmentModal.vue'
 import AbilityService from '@/services/AbilityService'
 import EquipmentService from '@/services/EquipmentService'
-import { useAbilitiesStore } from '@/stores/abilitiesStore'
-import { useEquipmentStore } from '@/stores/equipmentStore'
-import { useExpansionStore } from '@/stores/expansionStore'
-import AncestryService from '@/services/AncestryService'
-import CultureService from '@/services/CultureService'
-import MestiereService from '@/services/MestiereService'
-import WorldElementService from '@/services/WorldElementService'
 
-export default {
-  props: {
-    itemName: {
-      type: String,
-      required: true,
-    },
-    concepts: {
-      type: Array,
-      default: () => [],
-    },
-    createConceptFn: {
-      type: Function,
-      required: true,
-    },
-    updateConceptFn: {
-      type: Function,
-      required: true,
-    },
-    deleteConceptFn: {
-      type: Function,
-      required: true,
-    },
-    refreshDataFn: {
-      type: Function,
-      required: true,
-    },
+// Props
+const props = defineProps({
+  itemName: {
+    type: String,
+    required: true,
   },
-  components: {
-    ConceptCard,
-    ConceptDetailModal,
-    EditAbilityModal,
-    EditEquipmentModal,
+  concepts: {
+    type: Array,
+    default: () => [],
   },
-  data() {
+  createConceptFn: {
+    type: Function,
+    required: true,
+  },
+  updateConceptFn: {
+    type: Function,
+    required: true,
+  },
+  deleteConceptFn: {
+    type: Function,
+    required: true,
+  },
+  refreshDataFn: {
+    type: Function,
+    required: true,
+  },
+})
+
+// Stores
+const abilitiesStore = useAbilitiesStore()
+const equipmentStore = useEquipmentStore()
+const expansionStore = useExpansionsStore()
+
+// Modal management using composables
+const {
+  showModal: showEditAbilityModal,
+  itemToEdit: selectedAbility,
+  openModal: openAbilityModal,
+  closeModal: closeEditAbilityModal
+} = useEditModal()
+
+const {
+  showModal: showEditEquipmentModal,
+  itemToEdit: selectedEquipment,
+  openModal: openEquipmentModal,
+  closeModal: closeEditEquipmentModal
+} = useEditModal()
+
+// Sources management
+const sourcesStore = useSourcesStore()
+const sources = sourcesStore.sources
+
+// Reactive state
+const selectedConcept = ref(null)
+const showConceptDetail = ref(false)
+const expansions = ref([])
+const conceptDetailKey = ref(0)
+const searchQuery = ref('')
+const expansionFilter = ref('')
+
+// Computed properties
+const currentIndex = computed(() => {
+  if (!selectedConcept.value) return -1;
+  return props.concepts.findIndex(c => c.id === selectedConcept.value.id);
+})
+
+const hasPreviousConcept = computed(() => {
+  return currentIndex.value > 0;
+})
+
+const hasNextConcept = computed(() => {
+  return currentIndex.value < props.concepts.length - 1 && currentIndex.value >= 0;
+})
+
+const conceptsWithLogo = computed(() => {
+  return props.concepts.map(concept => {
+    const expansion = expansions.value.find(e => e.id === concept.expansion)
     return {
-      selectedConcept: null,
-      showConceptDetail: false,
-      showEditAbilityModal: false,
-      selectedAbility: null,
-      showEditEquipmentModal: false,
-      selectedEquipment: null,
-      abilitiesStore: useAbilitiesStore(),
-      equipmentStore: useEquipmentStore(),
-      expansionStore: useExpansionStore(),
-      sources: {
-        ancestries: [],
-        cultures: [],
-        mestieri: [],
-        worldElements: [],
-      },
-      expansions: [],
-      conceptDetailKey: 0, // for modal refresh
-      searchQuery: '',
-      expansionFilter: '',
+      ...concept,
+      expansionLogoUrl: expansion && expansion.logoUrl ? expansion.logoUrl : '',
     }
-  },
-  computed: {
-    currentIndex() {
-      if (!this.selectedConcept) return -1;
-      return this.concepts.findIndex(c => c.id === this.selectedConcept.id);
-    },
-    hasPreviousConcept() {
-      return this.currentIndex > 0;
-    },
-    hasNextConcept() {
-      return this.currentIndex < this.concepts.length - 1 && this.currentIndex >= 0;
-    },
-    conceptsWithLogo() {
-      return this.concepts.map(concept => {
-        const expansion = this.expansions.find(e => e.id === concept.expansion)
-        return {
-          ...concept,
-          expansionLogoUrl: expansion && expansion.logoUrl ? expansion.logoUrl : '',
-        }
-      })
-    },
-    filteredConcepts() {
-      let filtered = this.conceptsWithLogo
-      if (this.expansionFilter) {
-        filtered = filtered.filter(c => c.expansion === this.expansionFilter)
-      }
-      if (this.searchQuery.trim()) {
-        const q = this.searchQuery.trim().toLowerCase()
-        filtered = filtered.filter(c =>
-          (c.name && c.name.toLowerCase().includes(q)) ||
-          (c.description && c.description.toLowerCase().includes(q))
-        )
-      }
-      return filtered
-    },
-  },
-  methods: {
-    // Source data fetching
-    async fetchSources() {
-      try {
-        // Fetch all source types in parallel
-        const [ancestries, cultures, mestieri, worldElements] = await Promise.all([
-          AncestryService.getAllAncestries(),
-          CultureService.getAllCultures(),
-          MestiereService.getAllMestieri(),
-          WorldElementService.getAllWorldElements()
-        ]);
+  })
+})
 
-        // Update sources
-        this.sources = {
-          ancestries,
-          cultures,
-          mestieri,
-          worldElements
-        };
+const filteredConcepts = computed(() => {
+  let filtered = conceptsWithLogo.value
+  if (expansionFilter.value) {
+    filtered = filtered.filter(c => c.expansion === expansionFilter.value)
+  }
+  if (searchQuery.value.trim()) {
+    const q = searchQuery.value.trim().toLowerCase()
+    filtered = filtered.filter(c =>
+      (c.name && c.name.toLowerCase().includes(q)) ||
+      (c.description && c.description.toLowerCase().includes(q))
+    )
+  }
+  return filtered
+})
 
-        // Also update the stores to ensure consistency
-        this.abilitiesStore.sources = this.sources;
-        this.equipmentStore.sources = this.sources;
-      } catch (error) {
-        console.error('Error fetching sources:', error);
-      }
-    },
+// CONCEPT CRUD
+const createConcept = async () => {
+  try {
+    const createdConcept = await props.createConceptFn()
+    await props.refreshDataFn()
 
-    // CONCEPT CRUD
-    async createConcept() {
-      try {
-        const createdConcept = await this.createConceptFn()
-        await this.refreshDataFn()
-
-        // Open the detail view for the new concept
-        this.selectedConcept = createdConcept
-        this.showConceptDetail = true
-      } catch (error) {
-        console.error(`Error creating ${this.itemName}:`, error)
-      }
-    },
-
-    async updateConcept(updatedConcept) {
-      try {
-        await this.updateConceptFn(updatedConcept)
-        // Update the selected concept
-        this.selectedConcept = updatedConcept
-        // Refresh the list
-        await this.refreshDataFn()
-      } catch (error) {
-        console.error(`Error updating ${this.itemName}:`, error)
-      }
-    },
-
-    async deleteConcept(concept) {
-      try {
-        await this.deleteConceptFn(concept)
-        // Close the detail view if open
-        if (this.selectedConcept?.id === concept.id) {
-          this.closeConceptDetail()
-        }
-        // Refresh the list
-        await this.refreshDataFn()
-      } catch (error) {
-        console.error(`Error deleting ${this.itemName}:`, error)
-      }
-    },
-
-    // Detail view
-    openConceptDetail(concept) {
-      this.selectedConcept = concept
-      this.showConceptDetail = true
-      this.conceptDetailKey++ // force modal refresh
-    },
-    navigateConcept(direction) {
-      if (!this.selectedConcept) return;
-      const idx = this.currentIndex;
-      const newIndex = idx + direction;
-      if (newIndex < 0 || newIndex >= this.concepts.length) return;
-      this.selectedConcept = this.concepts[newIndex];
-      this.conceptDetailKey++;
-    },
-    closeConceptDetail() {
-      this.selectedConcept = null
-      this.showConceptDetail = false
-    },
-
-    // Ability editing
-    editAbility(ability) {
-      this.selectedAbility = ability
-      this.showEditAbilityModal = true
-    },
-
-    closeEditAbilityModal() {
-      this.selectedAbility = null
-      this.showEditAbilityModal = false
-      // Refresh the data to ensure changes are reflected
-      this.abilitiesStore.fetchAllAbilities()
-    },
-
-    async saveEditedAbility(editedAbility) {
-      try {
-        await AbilityService.updateAbility(editedAbility)
-        this.closeEditAbilityModal()
-      } catch (error) {
-        console.error('Error updating ability:', error)
-      }
-    },
-
-    async deleteAbility(ability) {
-      try {
-        // Mark as deleted
-        const updatedAbility = { ...ability, isDeleted: true }
-        await AbilityService.updateAbility(updatedAbility)
-        this.closeEditAbilityModal()
-      } catch (error) {
-        console.error('Error deleting ability:', error)
-      }
-    },
-
-    // Equipment editing
-    editEquipment(equipment) {
-      this.selectedEquipment = equipment
-      this.showEditEquipmentModal = true
-    },
-
-    closeEditEquipmentModal() {
-      this.selectedEquipment = null
-      this.showEditEquipmentModal = false
-      // Refresh the data to ensure changes are reflected
-      this.equipmentStore.fetchAllEquipment()
-    },
-
-    async saveEditedEquipment(editedEquipment) {
-      try {
-        await EquipmentService.updateEquipment(editedEquipment)
-        this.closeEditEquipmentModal()
-      } catch (error) {
-        console.error('Error updating equipment:', error)
-      }
-    },
-
-    handleKeyNavigation(event) {
-      // Only process keyboard navigation when concept detail is shown
-      if (!this.showConceptDetail) return;
-
-      // Ignore keyboard events when user is in an input field
-      if (event.target.tagName === 'INPUT' ||
-        event.target.tagName === 'TEXTAREA' ||
-        event.target.isContentEditable) {
-        return;
-      }
-
-      switch (event.key) {
-        case 'ArrowLeft':
-          if (this.hasPreviousConcept) {
-            this.navigateConcept(-1);
-          }
-          break;
-        case 'ArrowRight':
-          if (this.hasNextConcept) {
-            this.navigateConcept(1);
-          }
-          break;
-        case 'Escape':
-          this.closeConceptDetail();
-          break;
-      }
-    },
-  },
-  async mounted() {
-    try {
-      await this.expansionStore.fetchExpansions()
-      this.expansions = this.expansionStore.expansions
-      await this.fetchSources();
-      await Promise.all([
-        this.abilitiesStore.fetchAllAbilities(),
-        this.equipmentStore.fetchAllEquipment()
-      ]);
-      window.addEventListener('keydown', this.handleKeyNavigation);
-    } catch (error) {
-      console.error('Error initializing ConceptsView:', error);
-    }
-  },
-
-  beforeUnmount() {
-    window.removeEventListener('keydown', this.handleKeyNavigation);
-  },
+    // Open the detail view for the new concept
+    selectedConcept.value = createdConcept
+    showConceptDetail.value = true
+  } catch (error) {
+    console.error(`Error creating ${props.itemName}:`, error)
+  }
 }
+
+const updateConcept = async (updatedConcept) => {
+  try {
+    await props.updateConceptFn(updatedConcept)
+    // Update the selected concept
+    selectedConcept.value = updatedConcept
+    // Refresh the list
+    await props.refreshDataFn()
+  } catch (error) {
+    console.error(`Error updating ${props.itemName}:`, error)
+  }
+}
+
+// Deleting a concept is a rare operation, so we'll just manually delete the data file for now.
+// const deleteConcept = async (concept) => {
+//   try {
+//     await props.deleteConceptFn(concept)
+//     // Close the detail view if open
+//     if (selectedConcept.value?.id === concept.id) {
+//       closeConceptDetail()
+//     }
+//     // Refresh the list
+//     await props.refreshDataFn()
+//   } catch (error) {
+//     console.error(`Error deleting ${props.itemName}:`, error)
+//   }
+// }
+
+// Detail view
+const openConceptDetail = (concept) => {
+  selectedConcept.value = concept
+  showConceptDetail.value = true
+  conceptDetailKey.value++ // force modal refresh
+}
+
+const navigateConcept = (direction) => {
+  if (!selectedConcept.value) return;
+  const idx = currentIndex.value;
+  const newIndex = idx + direction;
+  if (newIndex < 0 || newIndex >= props.concepts.length) return;
+  selectedConcept.value = props.concepts[newIndex];
+  conceptDetailKey.value++;
+}
+
+const closeConceptDetail = () => {
+  selectedConcept.value = null
+  showConceptDetail.value = false
+}
+
+// Ability editing
+const editAbility = (ability) => {
+  openAbilityModal(ability)
+}
+
+const saveEditedAbility = async (editedAbility) => {
+  try {
+    await AbilityService.updateAbility(editedAbility)
+    closeEditAbilityModal()
+    // Refresh the data to ensure changes are reflected
+    abilitiesStore.fetchAllAbilities()
+  } catch (error) {
+    console.error('Error updating ability:', error)
+  }
+}
+
+const deleteAbility = async (ability) => {
+  try {
+    // Mark as deleted
+    const updatedAbility = { ...ability, isDeleted: true }
+    await AbilityService.updateAbility(updatedAbility)
+    closeEditAbilityModal()
+  } catch (error) {
+    console.error('Error deleting ability:', error)
+  }
+}
+
+// Equipment editing
+const editEquipment = (equipment) => {
+  openEquipmentModal(equipment)
+}
+
+const saveEditedEquipment = async (editedEquipment) => {
+  try {
+    await EquipmentService.updateEquipment(editedEquipment)
+    closeEditEquipmentModal()
+    // Refresh the data to ensure changes are reflected
+    equipmentStore.fetchAllEquipment()
+  } catch (error) {
+    console.error('Error updating equipment:', error)
+  }
+}
+
+// Keyboard navigation
+const handleKeyNavigation = (event) => {
+  // Only process keyboard navigation when concept detail is shown
+  if (!showConceptDetail.value) return;
+
+  // Ignore keyboard events when user is in an input field
+  if (event.target.tagName === 'INPUT' ||
+    event.target.tagName === 'TEXTAREA' ||
+    event.target.isContentEditable) {
+    return;
+  }
+
+  switch (event.key) {
+    case 'ArrowLeft':
+      if (hasPreviousConcept.value) {
+        navigateConcept(-1);
+      }
+      break;
+    case 'ArrowRight':
+      if (hasNextConcept.value) {
+        navigateConcept(1);
+      }
+      break;
+    case 'Escape':
+      closeConceptDetail();
+      break;
+  }
+}
+
+// Lifecycle
+onMounted(async () => {
+  try {
+    await expansionStore.fetchExpansions()
+    expansions.value = expansionStore.expansions
+    // Sources will auto-fetch via useSources composable
+    await Promise.all([
+      abilitiesStore.fetchAllAbilities(),
+      equipmentStore.fetchAllEquipment()
+    ]);
+    window.addEventListener('keydown', handleKeyNavigation);
+  } catch (error) {
+    console.error('Error initializing ConceptsView:', error);
+  }
+})
+
+onBeforeUnmount(() => {
+  window.removeEventListener('keydown', handleKeyNavigation);
+})
 </script>
 
 <style scoped>

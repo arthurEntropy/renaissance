@@ -1,52 +1,28 @@
 <template>
-  <ConceptsView
-    itemName="Ancestry"
-    :concepts="ancestries"
-    :createConceptFn="createNewAncestry"
-    :updateConceptFn="updateAncestry"
-    :deleteConceptFn="deleteAncestry"
-    :refreshDataFn="refreshData"
-  />
+  <ConceptsView itemName="Ancestry" :concepts="ancestries" :createConceptFn="createNewAncestry"
+    :updateConceptFn="updateAncestry" :deleteConceptFn="deleteAncestry" :refreshDataFn="refreshData" />
 </template>
 
-<script>
+<script setup>
 import { useAncestriesStore } from '@/stores/ancestriesStore'
 import AncestryService from '@/services/AncestryService'
 import ConceptsView from '@/components/ConceptsView.vue'
+import { useConceptView } from '@/composables/useConceptView'
 
-export default {
-  components: {
-    ConceptsView,
-  },
-  data() {
-    return {
-      ancestriesStore: useAncestriesStore(),
-    }
-  },
-  computed: {
-    ancestries() {
-      return this.ancestriesStore.ancestries
-    },
-  },
-  methods: {
-    async createNewAncestry() {
-      return await AncestryService.createAncestry()
-    },
+const ancestriesStore = useAncestriesStore()
 
-    async updateAncestry(ancestry) {
-      return await AncestryService.saveAncestry(ancestry)
-    },
-
-    async deleteAncestry(ancestry) {
-      return await AncestryService.deleteAncestry(ancestry)
-    },
-
-    async refreshData() {
-      return await this.ancestriesStore.fetchAncestries()
-    },
-  },
-  mounted() {
-    this.refreshData()
-  },
-}
+const {
+  concepts: ancestries,
+  createNew: createNewAncestry,
+  update: updateAncestry,
+  deleteItem: deleteAncestry,
+  refreshData
+} = useConceptView(ancestriesStore, AncestryService, {
+  itemsProperty: 'ancestries',
+  fetchMethod: 'fetchAncestries',
+  createMethod: 'createAncestry',
+  updateMethod: 'saveAncestry',
+  deleteMethod: 'deleteAncestry',
+  useSoftDelete: false
+})
 </script>

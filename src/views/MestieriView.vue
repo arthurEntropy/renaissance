@@ -1,55 +1,28 @@
 <template>
-  <ConceptsView
-    itemName="Mestiere"
-    :concepts="mestieri"
-    :createConceptFn="createNewMestiere"
-    :updateConceptFn="updateMestiere"
-    :deleteConceptFn="deleteMestiere"
-    :refreshDataFn="refreshData"
-  />
+  <ConceptsView itemName="Mestiere" :concepts="mestieri" :createConceptFn="createNewMestiere"
+    :updateConceptFn="updateMestiere" :deleteConceptFn="deleteMestiere" :refreshDataFn="refreshData" />
 </template>
 
-<script>
+<script setup>
 import { useMestieriStore } from '@/stores/mestieriStore'
 import MestiereService from '@/services/MestiereService'
 import ConceptsView from '@/components/ConceptsView.vue'
+import { useConceptView } from '@/composables/useConceptView'
 
-export default {
-  components: {
-    ConceptsView,
-  },
-  data() {
-    return {
-      mestieriStore: useMestieriStore(),
-    }
-  },
-  computed: {
-    mestieri() {
-      return this.mestieriStore.mestieri.filter(
-        (mestiere) => !mestiere.isDeleted,
-      )
-    },
-  },
-  methods: {
-    async createNewMestiere() {
-      return await MestiereService.createMestiere()
-    },
+const mestieriStore = useMestieriStore()
 
-    async updateMestiere(mestiere) {
-      return await MestiereService.updateMestiere(mestiere)
-    },
-
-    async deleteMestiere(mestiere) {
-      mestiere.isDeleted = true
-      return await MestiereService.updateMestiere(mestiere)
-    },
-
-    async refreshData() {
-      return await this.mestieriStore.fetchMestieri()
-    },
-  },
-  mounted() {
-    this.refreshData()
-  },
-}
+const {
+  concepts: mestieri,
+  createNew: createNewMestiere,
+  update: updateMestiere,
+  deleteItem: deleteMestiere,
+  refreshData
+} = useConceptView(mestieriStore, MestiereService, {
+  itemsProperty: 'mestieri',
+  fetchMethod: 'fetchMestieri',
+  createMethod: 'createMestiere',
+  updateMethod: 'updateMestiere',
+  filterDeleted: true,
+  useSoftDelete: true
+})
 </script>

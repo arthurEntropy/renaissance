@@ -39,80 +39,80 @@
   </div>
 </template>
 
-<script>
-import { useExpansionStore } from '@/stores/expansionStore'
+<script setup>
+import { ref, reactive, watch, onMounted } from 'vue'
+import { useExpansionsStore } from '@/stores/expansionsStore'
 
-export default {
-  name: 'SettingsModal',
-  props: {
-    visible: {
-      type: Boolean,
-      default: false,
-    },
-    settings: {
-      type: Object,
-      default: () => ({
-        backgroundImage: '',
-        color1: '#ffffff',
-        color2: '#000000',
-      }),
-    },
+// Props
+const props = defineProps({
+  visible: {
+    type: Boolean,
+    default: false,
   },
-  emits: ['update:settings', 'cancel', 'save'],
-  data() {
-    return {
-      localSettings: {
-        backgroundImage: '',
-        color1: '#ffffff',
-        color2: '#000000',
-        expansionId: '',
-      },
-      expansions: [],
-    }
+  settings: {
+    type: Object,
+    default: () => ({
+      backgroundImage: '',
+      color1: '#ffffff',
+      color2: '#000000',
+    }),
   },
-  async mounted() {
-    const expansionStore = useExpansionStore()
-    await expansionStore.fetchExpansions()
-    this.expansions = expansionStore.expansions
-    // Ensure expansionId is set from settings.expansion if present
-    if (!this.localSettings.expansionId && this.settings.expansion) {
-      this.localSettings.expansionId = this.settings.expansion
-    }
-  },
-  watch: {
-    settings: {
-      immediate: true,
-      handler(newSettings) {
-        this.localSettings = { ...newSettings }
-        // If expansionId is not present, set it from the concept's expansion property if available
-        if (!('expansionId' in this.localSettings)) {
-          this.localSettings.expansionId = newSettings.expansion || ''
-        } else if (!this.localSettings.expansionId && newSettings.expansion) {
-          this.localSettings.expansionId = newSettings.expansion
-        }
-      },
-    },
-    visible(isVisible) {
-      if (isVisible) {
-        this.localSettings = { ...this.settings }
-        if (!('expansionId' in this.localSettings)) {
-          this.localSettings.expansionId = this.settings.expansion || ''
-        } else if (!this.localSettings.expansionId && this.settings.expansion) {
-          this.localSettings.expansionId = this.settings.expansion
-        }
-      }
-    },
-  },
-  methods: {
-    save() {
-      this.$emit('update:settings', { ...this.localSettings })
-      this.$emit('save')
-    },
-    cancel() {
-      this.$emit('cancel')
-    },
-  },
+})
+
+// Emits
+const emit = defineEmits(['update:settings', 'cancel', 'save'])
+
+// Store
+const expansionStore = useExpansionsStore()
+
+// Reactive state
+const localSettings = reactive({
+  backgroundImage: '',
+  color1: '#ffffff',
+  color2: '#000000',
+  expansionId: '',
+})
+
+const expansions = ref([])
+
+// Methods
+const save = () => {
+  emit('update:settings', { ...localSettings })
+  emit('save')
 }
+
+const cancel = () => {
+  emit('cancel')
+}
+
+const updateLocalSettings = (newSettings) => {
+  Object.assign(localSettings, newSettings)
+  // If expansionId is not present, set it from the concept's expansion property if available
+  if (!('expansionId' in localSettings)) {
+    localSettings.expansionId = newSettings.expansion || ''
+  } else if (!localSettings.expansionId && newSettings.expansion) {
+    localSettings.expansionId = newSettings.expansion
+  }
+}
+
+// Watchers
+watch(() => props.settings, updateLocalSettings, { immediate: true })
+
+watch(() => props.visible, (isVisible) => {
+  if (isVisible) {
+    updateLocalSettings(props.settings)
+  }
+})
+
+// Lifecycle
+onMounted(async () => {
+  await expansionStore.fetchExpansions()
+  expansions.value = expansionStore.expansions
+  // Ensure expansionId is set from settings.expansion if present
+  if (!localSettings.expansionId && props.settings.expansion) {
+    localSettings.expansionId = props.settings.expansion
+  }
+})
 </script>
 
 <style scoped>

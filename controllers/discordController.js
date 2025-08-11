@@ -1,11 +1,13 @@
 const axios = require('axios')
-const { RollTypes } = require('../src/constants/rollTypes.js')
-const { EngagementResultTypes } = require('../src/constants/engagementResultTypes.js')
 
-// TODO: Allow user to set this value per campaign and pass with the request
-const DISCORD_WEBHOOK_URL="https://discord.com/api/webhooks/1339580491094822932/6_fDF8aWBxvvGTgkdN_uEsjdImLCejdXdP9BlrGVz4DG8Vg1u9kVTJl2Nf4FH0kGMlp-"
+// Use environment variable for Discord webhook URL
+const DISCORD_WEBHOOK_URL = process.env.DISCORD_WEBHOOK_URL
 
 const sendDiscordMessage = (req, res) => {
+  if (!DISCORD_WEBHOOK_URL) {
+    return res.status(500).send('Discord webhook URL is not configured on the server.')
+  }
+
   const {
     // Skill check fields
     rollResults,
@@ -27,19 +29,19 @@ const sendDiscordMessage = (req, res) => {
   } = req.body
 
   // Detect if this is an engagement result
-  const isEngagement = type === RollTypes.ENGAGEMENT
+  const isEngagement = type === 'engagement'
   
   let embed
   
   if (isEngagement) {
     // Create engagement embed
-    const winner = result === EngagementResultTypes.WIN ? characterName : result === EngagementResultTypes.LOSS ? opponentName : null
-    const description = result === EngagementResultTypes.DRAW ? 'DRAW' : `**${winner.toUpperCase()} WINS**`
+    const winner = result === 'win' ? characterName : result === 'loss' ? opponentName : null
+    const description = result === 'draw' ? 'DRAW' : `**${winner.toUpperCase()} WINS**`
     
     embed = {
       title: `⚔️ Engagement: ${characterName} vs ${opponentName}`,
       description: description,
-      color: result === EngagementResultTypes.DRAW ? 0xffeb3b : null, // Yellow for draw, no color for win/loss
+      color: result === 'draw' ? 0xffeb3b : null, // Yellow for draw, no color for win/loss
       fields: [
         {
           name: characterName,
