@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import CharacterService from '@/services/CharacterService'
+import CharacterService from '@/services/CharactersService'
 
 export const useCharactersStore = defineStore('characters', () => {
   const characters = ref([])
