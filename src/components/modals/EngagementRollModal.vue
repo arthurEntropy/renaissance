@@ -25,9 +25,8 @@
             <!-- Modal actions -->
             <div class="modal-actions">
                 <!-- Cancel button while waiting -->
-                <button v-if="shouldShowCancelButton" class="button button-secondary" @click="closeModal">
-                    Cancel
-                </button>
+                <ActionButton v-if="shouldShowCancelButton" variant="neutral" size="small" text="Cancel"
+                    @click="closeModal" />
 
                 <!-- Engagement resolution -->
                 <EngagementResolution v-if="shouldShowResolution" :winner="engagementWinner"
@@ -43,6 +42,7 @@
 </template>
 
 <script>
+import ActionButton from '@/components/ActionButton.vue'
 import EngagementRollService from '@/services/EngagementRollService';
 import CharacterColumn from '@/components/engagement/CharacterColumn.vue';
 import ResultIndicators from '@/components/engagement/ResultIndicators.vue';
@@ -63,6 +63,7 @@ import { ref, reactive } from 'vue';
 
 export default {
     components: {
+        ActionButton,
         CharacterColumn,
         ResultIndicators,
         EngagementResolution,

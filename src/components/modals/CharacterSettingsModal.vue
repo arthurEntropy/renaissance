@@ -2,15 +2,18 @@
   <div class="modal-overlay" @click="closeModal">
     <div class="modal-content" @click.stop>
       <h2>Settings</h2>
-      <button class="button button-danger" @click="onDeleteCharacter">
-        Delete Character
-      </button>
+      <ActionButton variant="danger" size="small" text="Delete Character" @click="onDeleteCharacter" />
     </div>
   </div>
 </template>
 
 <script>
+import ActionButton from '@/components/ActionButton.vue'
+
 export default {
+  components: {
+    ActionButton
+  },
   emits: ['close', 'delete'],
   methods: {
     closeModal() {
