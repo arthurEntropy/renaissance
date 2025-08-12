@@ -1,14 +1,13 @@
 <template>
   <div class="concept-section" v-if="hasHooks || editable">
-    <h2 class="section-header">
+    <h2 class="section-header edit-hover-area">
       Hooks
-      <button v-if="editable" class="edit-section-button" @click="toggleHooksEditing" title="Edit hooks">
-        ✎
-      </button>
+      <EditButton v-if="editable" :is-editing="isSectionEditing" @click="toggleHooksEditing" title="Edit hooks"
+        size="small" visibility="on-hover" />
     </h2>
 
     <!-- Edit mode for hooks -->
-    <div v-if="editMode.isEditing && editable" class="section-editor">
+    <div v-if="isSectionEditing && editable" class="section-editor">
       <draggable v-model="localHooks" item-key="id" handle=".drag-handle" animation="200" ghost-class="ghost-hook"
         @end="saveHooksOrder">
         <template #item="{ element: hook, index: idx }">
@@ -37,9 +36,7 @@
               </div>
 
               <div class="delete-hook-container">
-                <button type="button" class="button button-danger small delete-hook-btn" @click="removeHook(idx)">
-                  Delete Hook
-                </button>
+                <ActionButton variant="danger" size="small" text="Delete Hook" @click="removeHook(idx)" />
               </div>
             </div>
           </div>
@@ -47,15 +44,8 @@
       </draggable>
 
       <div class="editor-buttons">
-        <button type="button" class="button button-primary small" @click="addHook">
-          Add Hook
-        </button>
-        <button type="button" class="button small" @click="saveHooksChanges">
-          Done
-        </button>
-        <button type="button" class="button small" @click="cancelHooksEdit">
-          Cancel
-        </button>
+        <ActionButton variant="neutral" size="small" text="Cancel" @click="cancelHooksEdit" type="button" />
+        <ActionButton variant="primary" size="small" text="+ Add" @click="addHook" type="button" />
       </div>
     </div>
 
@@ -82,6 +72,8 @@ import { ref, computed, watch } from 'vue'
 import draggable from 'vuedraggable'
 import TextEditor from '@/components/TextEditor.vue'
 import InfoCard from '@/components/conceptDetail/InfoCard.vue'
+import ActionButton from '@/components/ActionButton.vue'
+import EditButton from '@/components/EditButton.vue'
 import { useEditMode } from '@/composables/useEditMode'
 import { useUnsavedChanges } from '@/composables/useUnsavedChanges'
 import { sanitizeHtml } from '@/utils/sanitizeHtml'
@@ -123,6 +115,8 @@ const editMode = useEditMode({
   }
 })
 
+const isSectionEditing = ref(false)
+
 // Unsaved changes composable
 const unsavedChanges = useUnsavedChanges(emit, () => {
   return editMode.isEditing.value && editMode.hasUnsavedChanges(localHooks.value)
@@ -139,13 +133,16 @@ const toggleHooksEditing = () => {
 
   if (!editMode.isEditing.value) {
     editMode.startEdit(localHooks.value)
+    isSectionEditing.value = true
   } else {
     editMode.saveEdit(localHooks.value)
+    isSectionEditing.value = false
   }
 }
 
 const saveHooksChanges = () => {
   editMode.saveEdit(localHooks.value)
+  isSectionEditing.value = false
 }
 
 const cancelHooksEdit = () => {
@@ -153,6 +150,7 @@ const cancelHooksEdit = () => {
   if (restored) {
     localHooks.value = [...restored]
   }
+  isSectionEditing.value = false
 }
 
 const saveHooksOrder = () => {
@@ -197,10 +195,23 @@ watch(() => props.hooks, (newHooks) => {
 }, { immediate: true })
 
 watch(localHooks, () => {
-  if (editMode.isEditing.value) {
+  if (isSectionEditing.value) {
     unsavedChanges.checkForChanges()
   }
 }, { deep: true })
+
+watch(() => props.editable, (val) => {
+  if (val) {
+    isSectionEditing.value = false
+  } else if (isSectionEditing.value) {
+    if (editMode.hasUnsavedChanges(localHooks.value)) {
+      cancelEdit()
+    } else {
+      cancelEdit()
+    }
+    isSectionEditing.value = false
+  }
+})
 </script>
 
 <style scoped>

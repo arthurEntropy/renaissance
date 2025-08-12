@@ -30,10 +30,8 @@
       </div>
 
       <div class="settings-buttons-container">
-        <button type="button" class="button" @click="cancel">Cancel</button>
-        <button type="button" class="button button-primary" @click="save">
-          Save
-        </button>
+        <ActionButton variant="neutral" size="small" text="Cancel" @click="cancel" type="button" />
+        <ActionButton variant="success" size="small" text="Save" @click="save" type="button" />
       </div>
     </div>
   </div>
@@ -42,6 +40,7 @@
 <script setup>
 import { ref, reactive, watch, onMounted } from 'vue'
 import { useExpansionsStore } from '@/stores/expansionsStore'
+import ActionButton from '@/components/ActionButton.vue'
 
 // Props
 const props = defineProps({
@@ -156,24 +155,5 @@ label {
   display: flex;
   align-items: center;
   margin: 15px 0;
-}
-
-.button {
-  padding: 8px 16px;
-  border: none;
-  border-radius: 4px;
-  background-color: #333;
-  color: white;
-  cursor: pointer;
-  font-size: 14px;
-  transition: background-color 0.2s;
-}
-
-.button:hover {
-  opacity: 0.9;
-}
-
-.button-primary {
-  background-color: #4caf50;
 }
 </style>

@@ -7,9 +7,8 @@
       </p>
       <input type="text" v-model="confirmationInput" class="modal-input" placeholder="Type name to confirm" />
       <div>
-        <button class="button button-danger" :disabled="confirmationInput !== name" @click="confirmDeletion">
-          DELETE
-        </button>
+        <ActionButton variant="danger" size="small" text="DELETE" :disabled="confirmationInput !== name"
+          @click="confirmDeletion" />
       </div>
     </div>
   </div>
@@ -17,6 +16,7 @@
 
 <script setup>
 import { ref } from 'vue'
+import ActionButton from '@/components/ActionButton.vue'
 
 defineProps({
   name: { type: String, required: true },

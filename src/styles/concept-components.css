@@ -13,61 +13,12 @@
   font-size: 2rem;
 }
 
-/* Edit section button */
-.edit-section-button {
-  background: none;
-  border: none;
-  color: #aaa;
-  font-size: 0.7em;
-  padding: 2px 6px;
-  cursor: pointer;
-  vertical-align: middle;
-  margin-left: 8px;
-  transition: color 0.2s;
-}
-
-.edit-section-button:hover {
-  color: white;
-}
-
 /* Common editor styles */
 .section-editor {
   padding: 10px;
   background: rgba(0, 0, 0, 0.2);
   border-radius: 8px;
   margin-bottom: 10px;
-}
-
-/* Common button styles */
-.button {
-  padding: 8px 16px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 14px;
-  transition: background-color 0.2s;
-  background-color: #333;
-  color: #fff;
-}
-
-.button:hover {
-  opacity: 0.9;
-}
-
-.button.small {
-  font-size: 0.85em;
-  padding: 2px 8px;
-  margin-top: 2px;
-}
-
-.button-primary {
-  background-color: #4caf50;
-  color: lightgray;
-}
-
-.button-danger {
-  background-color: #f44336;
-  color: lightgray;
 }
 
 /* Editor item styles */

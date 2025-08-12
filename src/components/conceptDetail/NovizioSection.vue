@@ -1,11 +1,11 @@
 <template>
   <div v-if="novizio || editable" class="concept-section novizio-section">
-    <div class="novizio-header-row">
-      <h2 class="section-header">Novizio</h2>
-      <span v-if="editable && !editMode.isEditing" class="edit-field-indicator" @click="startEdit"
-        title="Edit Novizio">✎</span>
-    </div>
-    <div v-if="editMode.isEditing && editable">
+    <h2 class="section-header edit-hover-area">
+      Novizio
+      <EditButton v-if="editable" @click="toggleEdit" :is-editing="isSectionEditing" title="Edit Novizio" size="small"
+        visibility="on-hover" />
+    </h2>
+    <div v-if="isSectionEditing && editable">
       <div class="novizio-intro-text">
         <text-editor v-model="localNovizio.flavorText" placeholder="Flavor text..." height="80px" :auto-height="true"
           class="novizio-text-editor" />
@@ -61,8 +61,7 @@
           class="novizio-text-editor" />
       </div>
       <div class="edit-field-buttons">
-        <button class="button small" @click="saveEdit">Save</button>
-        <button class="button small" @click="cancelEdit">Cancel</button>
+        <ActionButton variant="neutral" size="small" text="Cancel" @click="cancelEdit" />
       </div>
     </div>
     <div v-else>
@@ -138,6 +137,8 @@
 <script setup>
 import { ref, computed, watch } from 'vue'
 import TextEditor from '@/components/TextEditor.vue'
+import ActionButton from '@/components/ActionButton.vue'
+import EditButton from '@/components/EditButton.vue'
 import { useEditMode } from '@/composables/useEditMode'
 import { useUnsavedChanges } from '@/composables/useUnsavedChanges'
 import { sanitizeHtml } from '@/utils/sanitizeHtml'
@@ -172,6 +173,7 @@ const getDefaultNovizio = () => ({
 
 // Reactive state
 const localNovizio = ref(props.novizio ? { ...props.novizio } : getDefaultNovizio())
+const isSectionEditing = ref(false)
 
 // Edit mode composable
 const editMode = useEditMode({
@@ -213,10 +215,24 @@ const safeAbilities = computed(() => sanitizeHtml(props.novizio?.abilities))
 // Methods
 const startEdit = () => {
   editMode.startEdit(localNovizio.value)
+  isSectionEditing.value = true
+}
+
+const toggleEdit = () => {
+  if (isSectionEditing.value) {
+    // Save changes
+    editMode.saveEdit(localNovizio.value)
+    isSectionEditing.value = false
+  } else {
+    // Start editing
+    editMode.startEdit(localNovizio.value)
+    isSectionEditing.value = true
+  }
 }
 
 const saveEdit = () => {
   editMode.saveEdit(localNovizio.value)
+  isSectionEditing.value = false
 }
 
 const cancelEdit = () => {
@@ -224,18 +240,19 @@ const cancelEdit = () => {
   if (restored) {
     localNovizio.value = { ...restored }
   }
+  isSectionEditing.value = false
 }
 
 // Called by parent when master Save is clicked
 const saveFromParent = () => {
-  if (editMode.isEditing.value && editMode.hasUnsavedChanges(localNovizio.value)) {
+  if (isSectionEditing.value && editMode.hasUnsavedChanges(localNovizio.value)) {
     saveEdit()
   }
 }
 
 // Optionally, called by parent to cancel edits (e.g., on modal close)
 const cancelFromParent = () => {
-  if (editMode.isEditing.value && editMode.hasUnsavedChanges(localNovizio.value)) {
+  if (isSectionEditing.value && editMode.hasUnsavedChanges(localNovizio.value)) {
     cancelEdit()
   }
 }
@@ -248,37 +265,32 @@ defineExpose({
 
 // Watchers
 watch(() => props.novizio, (newVal) => {
-  if (!editMode.isEditing.value) {
+  if (!isSectionEditing.value) {
     localNovizio.value = newVal ? { ...newVal } : getDefaultNovizio()
   }
 }, { deep: true })
 
 watch(localNovizio, () => {
-  if (editMode.isEditing.value) {
+  if (isSectionEditing.value) {
     unsavedChanges.checkForChanges()
   }
 }, { deep: true })
 
 watch(() => props.editable, (val) => {
-  if (!val && editMode.isEditing.value) {
+  if (val) {
+    isSectionEditing.value = false
+  } else if (isSectionEditing.value) {
     if (editMode.hasUnsavedChanges(localNovizio.value)) {
-      // Let parent handle the generic unsaved changes warning
-      unsavedChanges.markAsChanged()
+      cancelEdit()
     } else {
-      editMode.isEditing.value = false
+      cancelEdit()
     }
+    isSectionEditing.value = false
   }
 })
 </script>
 
 <style scoped>
-.novizio-header-row {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 10px;
-}
-
 .edit-field-indicator {
   font-size: 1.2em;
   color: #aaa;

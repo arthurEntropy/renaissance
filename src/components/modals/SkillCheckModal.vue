@@ -57,18 +57,21 @@
         </span>
       </div>
 
-      <button class="button button-primary" @click="rollSkillCheck" :disabled="!localSelectedSkillName">
-        Roll
-      </button>
+      <ActionButton variant="primary" size="small" text="Roll" @click="rollSkillCheck"
+        :disabled="!localSelectedSkillName" />
     </div>
   </div>
 </template>
 
 <script>
+import ActionButton from '@/components/ActionButton.vue'
 import SkillCheckService from '@/services/SkillCheckService'
 import { getDiceFontMaxClass } from '../../../utils/diceFontUtils'
 
 export default {
+  components: {
+    ActionButton
+  },
   props: {
     character: {
       type: Object,
@@ -249,7 +252,7 @@ export default {
         this.localTargetNumber,
       )
 
-      // Emit the current target number back to the parent
+// Emit the current target number back to the parent
       this.$emit('update-target-number', this.localTargetNumber)
       this.closeModal()
     },

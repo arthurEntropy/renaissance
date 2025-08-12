@@ -1,13 +1,10 @@
 <template>
   <div class="abilities-table">
     <!-- TITLE with Edit toggle -->
-    <div class="abilities-table-header">
+    <div class="abilities-table-header edit-trigger">
       <h2>Abilities</h2>
       <!-- Edit mode toggle button moved next to title -->
-      <button class="edit-mode-button" @click="toggleEditMode"
-        :title="isEditMode ? 'Exit Edit Mode' : 'Enter Edit Mode'">
-        {{ isEditMode ? '✓' : '✎' }}
-      </button>
+      <EditButton size="small" visibility="on-hover" :is-edit-mode="isEditMode" @click="toggleEditMode" />
       <div class="header-right">
         <div class="mp-container">
           <span class="mp-label">MP:</span>
@@ -76,6 +73,7 @@
 <script setup>
 import { computed, onMounted, onBeforeUnmount } from 'vue'
 import AbilityCard from '@/components/AbilityCard.vue'
+import EditButton from '@/components/EditButton.vue'
 import draggable from 'vuedraggable'
 import NumberInput from '@/components/NumberInput.vue'
 import { useSimpleEditMode } from '@/composables/useEditMode'

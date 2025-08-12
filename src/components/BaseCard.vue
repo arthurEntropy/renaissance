@@ -1,9 +1,9 @@
 <template>
-  <div ref="cardElement" class="base-card" :style="cardStyle" @click="collapsible ? toggleCollapsed() : null">
+  <div ref="cardElement" class="base-card edit-hover-area" :style="cardStyle"
+    @click="collapsible ? toggleCollapsed() : null">
     <!-- Floating Edit Button -->
-    <button v-if="editable" class="edit-button-floating" @click.stop="$emit('edit', item)" :title="`Edit ${itemType}`">
-      ✎
-    </button>
+    <EditButton v-if="editable" @click.stop="$emit('edit', item)" :title="`Edit ${itemType}`" size="small"
+      visibility="on-hover" class="edit-button-floating" />
     <!-- Header Row -->
     <div class="card-header">
       <span v-if="collapsible" class="caret">{{ caretSymbol }}</span>
@@ -37,6 +37,7 @@
 <script setup>
 import { ref, computed, watch, onMounted, nextTick } from 'vue'
 import { useSourcesStore } from '@/stores/sourcesStore'
+import EditButton from '@/components/EditButton.vue'
 
 const props = defineProps({
   item: { type: Object, required: true },
@@ -244,32 +245,6 @@ onMounted(() => {
   position: absolute;
   top: 3px;
   right: 3px;
-  width: 32px;
-  height: 32px;
-  background: #111;
-  color: #fff;
-  border: none;
-  border-radius: 50%;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
-  font-size: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  pointer-events: none;
   z-index: 10;
-  transition: opacity 0.2s, box-shadow 0.2s;
-  cursor: pointer;
-}
-
-.base-card:hover .edit-button-floating {
-  opacity: 1;
-  pointer-events: auto;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
-}
-
-.edit-button-floating:hover {
-  background: #222;
-  color: #ffd700;
 }
 </style>

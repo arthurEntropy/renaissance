@@ -6,10 +6,8 @@
       <div class="rules-navigation">
         <div class="rules-nav-header">
           <h3>Table of Contents</h3>
-          <button class="structure-edit-toggle" @click="toggleStructureEditMode"
-            :class="{ active: isStructureEditMode }" :disabled="isContentEditMode">
-            {{ isStructureEditMode ? '✓' : '≡' }}
-          </button>
+          <EditButton :isEditMode="isStructureEditMode" :disabled="isContentEditMode" visibility="always"
+            @click="toggleStructureEditMode" />
         </div>
 
         <!-- Draggable rule sections when in structure edit mode -->
@@ -43,9 +41,7 @@
 
         <!-- Add new section button -->
         <div v-if="isStructureEditMode" class="bottom-actions">
-          <button class="add-section-btn" @click="createNewSection" name="Add new section">
-            + Add New Section
-          </button>
+          <ActionButton variant="primary" size="small" text="+ Add" @click="createNewSection" />
         </div>
       </div>
 
@@ -63,11 +59,8 @@
                   <input v-if="isContentEditMode" type="text" v-model="currentSection.name" class="section-name-input"
                     @input="markAsChanged" />
                   <h2 v-else>{{ currentSection.name }}</h2>
-                  <button class="content-edit-toggle" @click="toggleContentEditMode"
-                    :class="{ active: isContentEditMode }" :disabled="isStructureEditMode"
-                    :name="isContentEditMode ? 'Save Changes' : 'Edit Content'">
-                    {{ isContentEditMode ? '✓' : '✎' }}
-                  </button>
+                  <EditButton :isEditMode="isContentEditMode" :disabled="isStructureEditMode" visibility="always"
+                    @click="toggleContentEditMode" />
                 </div>
               </div>
 
@@ -108,9 +101,8 @@
           <p>
             Select a section from the table of contents or create a new one.
           </p>
-          <button v-if="filteredSections.length === 0" class="button button-primary" @click="createNewSection">
-            Create First Section
-          </button>
+          <ActionButton v-if="filteredSections.length === 0" variant="primary" size="small" text="Create First Section"
+            @click="createNewSection" />
         </div>
       </div>
     </div>
@@ -121,12 +113,16 @@
 import { useRulesStore } from '@/stores/rulesStore'
 import RulesService from '@/services/RulesService'
 import TextEditor from '@/components/TextEditor.vue'
+import ActionButton from '@/components/ActionButton.vue'
+import EditButton from '@/components/EditButton.vue'
 import draggable from 'vuedraggable'
 import { sanitizeHtml } from '@/utils/sanitizeHtml'
 
 export default {
   components: {
     TextEditor,
+    ActionButton,
+    EditButton,
     draggable,
   },
 
@@ -374,42 +370,8 @@ export default {
 
 .bottom-actions {
   padding: 10px 15px;
-}
-
-.add-section-btn {
-  width: 100%;
-  background: #4caf50;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 8px;
   display: flex;
-  align-items: center;
   justify-content: center;
-  font-size: 14px;
-  cursor: pointer;
-}
-
-.structure-edit-toggle,
-.content-edit-toggle {
-  background: none;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 4px;
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
-  padding: 4px 8px;
-}
-
-.structure-edit-toggle.active,
-.content-edit-toggle.active {
-  background: #4caf50;
-  border-color: #4caf50;
-}
-
-.content-edit-toggle:disabled {
-  opacity: 0.3;
-  cursor: not-allowed;
 }
 
 .rule-sections-list {

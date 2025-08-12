@@ -2,13 +2,10 @@
   <div class="engagement-dice-table">
 
     <!-- Header Row -->
-    <div class="engagement-dice-header">
+    <div class="engagement-dice-header edit-trigger">
       <div class="header-left">
         <h2>Engagement</h2>
-        <button class="edit-mode-button" @click="toggleEditMode"
-          :title="isEditMode ? 'Exit Edit Mode' : 'Enter Edit Mode'">
-          {{ isEditMode ? '✓' : '✎' }}
-        </button>
+        <EditButton size="small" visibility="on-hover" :is-edit-mode="isEditMode" @click="toggleEditMode" />
       </div>
       <div class="button-group">
         <button class="reset-button" :class="{ 'active': hasExpendedDice && !isEditMode }"
@@ -125,6 +122,7 @@
 <script>
 import EngagementRollModal from '@/components/modals/EngagementRollModal.vue';
 import SuccessTooltip from '@/components/engagement/SuccessTooltip.vue';
+import EditButton from '@/components/EditButton.vue';
 import { getDiceFontMaxClass } from '../../../utils/diceFontUtils'
 import { useEngagementDice } from '@/composables/useEngagementDice'
 import { useEngagementSuccesses } from '@/composables/useEngagementSuccesses'
@@ -135,7 +133,8 @@ import { ref, toRef, computed } from 'vue'
 export default {
   components: {
     EngagementRollModal,
-    SuccessTooltip
+    SuccessTooltip,
+    EditButton
   },
   props: {
     character: {
