@@ -2,28 +2,21 @@
   <div class="modal-overlay" @click="closeModal">
     <div class="modal-content" @click.stop>
       <label for="imageUrl">Image URL:</label>
-      <input
-        type="text"
-        v-model="tempArtUrl"
-        id="imageUrl"
-        class="url-input"
-        placeholder="Enter image URL"
-      />
-      <button
-        class="button button-primary"
-        @click="saveArtUrl"
-        :disabled="!isValidImageUrl(tempArtUrl)"
-      >
-        Save
-      </button>
+      <input type="text" v-model="tempArtUrl" id="imageUrl" class="url-input" placeholder="Enter image URL" />
+      <ActionButton variant="success" size="small" text="Save" @click="saveArtUrl"
+        :disabled="!isValidImageUrl(tempArtUrl)" />
     </div>
   </div>
 </template>
 
 <script>
 import CharacterService from '@/services/CharacterService'
+import ActionButton from '@/components/ActionButton.vue'
 
 export default {
+  components: {
+    ActionButton
+  },
   props: {
     initialArtUrl: {
       type: String,
@@ -66,6 +59,7 @@ export default {
 .modal-content {
   width: 50%;
 }
+
 .url-input {
   width: 95%;
   padding: 10px;
@@ -76,6 +70,7 @@ export default {
   border: 1px solid gray;
   border-radius: 5px;
 }
+
 button:disabled {
   background-color: gray;
   cursor: not-allowed;

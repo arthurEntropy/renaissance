@@ -1,10 +1,9 @@
 <template>
   <div class="concept-section" v-if="hasPlaylists || editable">
-    <h2 class="section-header">
+    <h2 class="section-header edit-hover-area">
       Playlists
-      <button v-if="editable" class="edit-section-button" @click="togglePlaylistEditing" title="Edit playlists">
-        ✎
-      </button>
+      <EditButton v-if="editable" :is-editing="isSectionEditing" @click="togglePlaylistEditing" title="Edit playlists"
+        size="small" visibility="on-hover" />
     </h2>
 
     <!-- Playlist Editor -->
@@ -21,30 +20,18 @@
           <input type="text" v-model="playlist.embedCode" class="modal-input playlist-input"
             placeholder="Paste embed code" />
           <div class="url-buttons">
-            <button type="button" class="button small" @click="movePlaylist(idx, -1)" :disabled="idx === 0"
-              title="Move Up">
-              ▲
-            </button>
-            <button type="button" class="button small" @click="movePlaylist(idx, 1)"
-              :disabled="idx === localPlaylists.length - 1" title="Move Down">
-              ▼
-            </button>
-            <button type="button" class="button button-danger small" @click="removePlaylist(idx)">
-              ✕
-            </button>
+            <ActionButton variant="neutral" size="small" text="▲" @click="movePlaylist(idx, -1)" :disabled="idx === 0"
+              title="Move Up" type="button" />
+            <ActionButton variant="neutral" size="small" text="▼" @click="movePlaylist(idx, 1)"
+              :disabled="idx === localPlaylists.length - 1" title="Move Down" type="button" />
+            <ActionButton variant="danger" size="small" text="✕" @click="removePlaylist(idx)" title="Remove"
+              type="button" />
           </div>
         </div>
       </div>
       <div class="editor-buttons">
-        <button type="button" class="button button-primary small" @click="addPlaylist">
-          Add Playlist
-        </button>
-        <button type="button" class="button small" @click="savePlaylistChanges">
-          Done
-        </button>
-        <button type="button" class="button small" @click="cancelPlaylistEdit">
-          Cancel
-        </button>
+        <ActionButton variant="neutral" size="small" text="Cancel" @click="cancelPlaylistEdit" type="button" />
+        <ActionButton variant="primary" size="small" text="+ Add" @click="addPlaylist" type="button" />
       </div>
     </div>
 
@@ -84,6 +71,8 @@
 <script setup>
 import { ref, computed, watch } from 'vue'
 import '@/styles/concept-components.css'
+import ActionButton from '@/components/ActionButton.vue'
+import EditButton from '@/components/EditButton.vue'
 import { useEditMode } from '@/composables/useEditMode'
 import { sanitizeEmbedHtml } from '@/utils/sanitizeHtml'
 
@@ -294,6 +283,15 @@ watch(() => props.editable, (val) => {
   margin-bottom: 10px;
 }
 
+.edit-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
 .url-buttons {
   display: flex;
   justify-content: flex-end;
@@ -315,5 +313,7 @@ watch(() => props.editable, (val) => {
 
 .playlist-input {
   width: 100%;
+  box-sizing: border-box;
+  min-width: 0;
 }
 </style>

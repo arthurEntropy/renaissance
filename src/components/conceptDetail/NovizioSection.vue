@@ -1,10 +1,10 @@
 <template>
   <div v-if="novizio || editable" class="concept-section novizio-section">
-    <div class="novizio-header-row">
-      <h2 class="section-header">Novizio</h2>
-      <span v-if="editable && !isSectionEditing" class="edit-field-indicator" @click="startEdit"
-        title="Edit Novizio">✎</span>
-    </div>
+    <h2 class="section-header edit-hover-area">
+      Novizio
+      <EditButton v-if="editable" @click="toggleEdit" :is-editing="isSectionEditing" title="Edit Novizio" size="small"
+        visibility="on-hover" />
+    </h2>
     <div v-if="isSectionEditing && editable">
       <div class="novizio-intro-text">
         <text-editor v-model="localNovizio.flavorText" placeholder="Flavor text..." height="80px" :auto-height="true"
@@ -61,8 +61,7 @@
           class="novizio-text-editor" />
       </div>
       <div class="edit-field-buttons">
-        <button class="button small" @click="saveEdit">Save</button>
-        <button class="button small" @click="cancelEdit">Cancel</button>
+        <ActionButton variant="neutral" size="small" text="Cancel" @click="cancelEdit" />
       </div>
     </div>
     <div v-else>
@@ -138,6 +137,8 @@
 <script setup>
 import { ref, computed, watch } from 'vue'
 import TextEditor from '@/components/TextEditor.vue'
+import ActionButton from '@/components/ActionButton.vue'
+import EditButton from '@/components/EditButton.vue'
 import { useEditMode } from '@/composables/useEditMode'
 import { useUnsavedChanges } from '@/composables/useUnsavedChanges'
 import { sanitizeHtml } from '@/utils/sanitizeHtml'
@@ -217,6 +218,18 @@ const startEdit = () => {
   isSectionEditing.value = true
 }
 
+const toggleEdit = () => {
+  if (isSectionEditing.value) {
+    // Save changes
+    editMode.saveEdit(localNovizio.value)
+    isSectionEditing.value = false
+  } else {
+    // Start editing
+    editMode.startEdit(localNovizio.value)
+    isSectionEditing.value = true
+  }
+}
+
 const saveEdit = () => {
   editMode.saveEdit(localNovizio.value)
   isSectionEditing.value = false
@@ -278,13 +291,6 @@ watch(() => props.editable, (val) => {
 </script>
 
 <style scoped>
-.novizio-header-row {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 10px;
-}
-
 .edit-field-indicator {
   font-size: 1.2em;
   color: #aaa;

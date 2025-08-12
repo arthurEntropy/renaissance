@@ -1,0 +1,152 @@
+/**
+ * Design System - CSS Custom Properties (Design Tokens)
+ * 
+ * This file contains all the design tokens for consistent styling across the app.
+ * Based on the existing Renaissance color scheme and patterns.
+ */
+
+:root {
+  /* === COLORS === */
+  
+  /* Primary Colors (Goldenrod theme) */
+  --color-primary: #daa520;           /* goldenrod */
+  --color-primary-hover: #b8860b;     /* darkgoldenrod */
+  --color-primary-active: #996f07;    /* darker goldenrod */
+  --color-primary-text: #000000;      /* black text on gold */
+  
+  /* Danger Colors */
+  --color-danger: #dc2626;            /* red */
+  --color-danger-hover: #991b1b;      /* darkred */
+  --color-danger-active: #7f1d1d;     /* darker red */
+  --color-danger-text: #ffffff;       /* white text on red */
+  
+  /* Success Colors */
+  --color-success: #16a34a;           /* green */
+  --color-success-hover: #15803d;     /* darker green */
+  --color-success-active: #166534;    /* darkest green */
+  --color-success-text: #ffffff;      /* white text on green */
+  
+  /* Neutral Colors */
+  --color-neutral: #6b7280;           /* gray */
+  --color-neutral-hover: #4b5563;     /* darker gray */
+  --color-neutral-active: #374151;    /* darkest gray */
+  --color-neutral-text: #ffffff;      /* white text on gray */
+  
+  /* Background Colors */
+  --color-bg-primary: #111111;        /* main dark background */
+  --color-bg-secondary: #1f1f1f;      /* slightly lighter dark */
+  --color-bg-tertiary: #2d2d2d;       /* card backgrounds */
+  --color-bg-overlay: rgba(0, 0, 0, 0.75); /* modal overlays */
+  
+  /* Text Colors */
+  --color-text-primary: #d1d5db;      /* lightgray */
+  --color-text-secondary: #9ca3af;    /* darker gray */
+  --color-text-muted: #6b7280;        /* muted text */
+  --color-text-inverse: #111111;      /* dark text for light backgrounds */
+  
+  /* Border Colors */
+  --color-border-primary: #374151;    /* main border color */
+  --color-border-secondary: rgba(255, 255, 255, 0.2); /* lighter borders */
+  --color-border-muted: rgba(255, 255, 255, 0.1);     /* subtle borders */
+  
+  /* Special Colors (Gaming themed) */
+  --color-accent-gold: #ffd700;       /* bright gold for accents */
+  --color-condition-active: #ef4444;  /* red for active conditions */
+  --color-condition-glow: #06b6d4;    /* cyan for glows */
+  
+  /* === SPACING === */
+  --space-xs: 0.25rem;    /* 4px */
+  --space-sm: 0.5rem;     /* 8px */
+  --space-md: 1rem;       /* 16px */
+  --space-lg: 1.5rem;     /* 24px */
+  --space-xl: 2rem;       /* 32px */
+  --space-2xl: 3rem;      /* 48px */
+  --space-3xl: 4rem;      /* 64px */
+  
+  /* === TYPOGRAPHY === */
+  --font-family-primary: 'Lora', serif;
+  --font-family-secondary: system-ui, sans-serif;
+  
+  --font-size-xs: 0.75rem;     /* 12px */
+  --font-size-sm: 0.875rem;    /* 14px */
+  --font-size-base: 1rem;      /* 16px */
+  --font-size-lg: 1.125rem;    /* 18px */
+  --font-size-xl: 1.25rem;     /* 20px */
+  --font-size-2xl: 1.5rem;     /* 24px */
+  --font-size-3xl: 2rem;       /* 32px */
+  
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  
+  --line-height-tight: 1.25;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
+  
+  /* === BORDER RADIUS === */
+  --radius-none: 0;
+  --radius-sm: 0.25rem;     /* 4px */
+  --radius-md: 0.375rem;    /* 6px */
+  --radius-lg: 0.5rem;      /* 8px */
+  --radius-xl: 0.75rem;     /* 12px */
+  --radius-full: 9999px;    /* fully rounded */
+  
+  /* === SHADOWS === */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --shadow-glow: 0 0 10px rgba(255, 255, 255, 0.5);
+  --shadow-glow-gold: 0 0 8px rgba(218, 165, 32, 0.7);
+  --shadow-glow-red: 0 0 8px rgba(244, 67, 54, 0.7);
+  --shadow-glow-cyan: 0 0 10px rgba(6, 182, 212, 0.7);
+  
+  /* === TRANSITIONS === */
+  --transition-fast: 0.1s ease;
+  --transition-normal: 0.2s ease;
+  --transition-slow: 0.3s ease;
+  --transition-all: all var(--transition-normal);
+  
+  /* === Z-INDEX === */
+  --z-dropdown: 100;
+  --z-modal: 1000;
+  --z-tooltip: 1100;
+  --z-notification: 1200;
+  
+  /* === BREAKPOINTS (for reference in JS) === */
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  
+  /* === BUTTON SPECIFIC === */
+  --btn-padding-sm: 0.125rem var(--space-sm);  /* 2px top/bottom, 8px left/right */
+  --btn-padding-md: var(--space-sm) var(--space-md);
+  --btn-padding-lg: var(--space-md) var(--space-lg);
+  
+  --btn-font-size-sm: var(--font-size-xs);
+  --btn-font-size-md: var(--font-size-sm);
+  --btn-font-size-lg: var(--font-size-base);
+  
+  --btn-min-height-sm: 1.5rem;   /* 24px - reduced from 32px */
+  --btn-min-height-md: 2.5rem;   /* 40px */
+  --btn-min-height-lg: 3rem;     /* 48px */
+}
+
+/* === DARK MODE OVERRIDES === */
+/* Since your app is primarily dark mode, we'll keep these as the defaults */
+/* But this structure allows for light mode variants if needed */
+
+@media (prefers-color-scheme: light) {
+  /* Light mode overrides would go here if needed */
+}
+
+/* === REDUCED MOTION === */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --transition-fast: 0s;
+    --transition-normal: 0s;
+    --transition-slow: 0s;
+  }
+}

@@ -2,15 +2,12 @@
   <div class="modal-overlay concept-modal-overlay" @click.self="closeModal">
     <!-- ADMIN CONTROLS -->
     <div class="admin-controls">
-      <!-- Edit/Save button -->
-      <button v-if="editable" class="edit-save-button" @click="toggleEditMode"
-        :title="isEditMode ? 'Exit Edit Mode' : 'Enter Edit Mode'">
-        {{ isEditMode ? '✓ Save' : '✎ Edit' }}
-      </button>
       <!-- Settings button -->
       <button v-if="isEditMode" class="settings-button" @click="openSettingsModal" title="Card Style Settings">
         ⚙️
       </button>
+      <!-- Edit/Save button -->
+      <EditButton v-if="editable" size="large" visibility="always" :is-edit-mode="isEditMode" @click="toggleEditMode" />
     </div>
     <div class="modal-content">
       <div class="concept-detail-content">
@@ -54,9 +51,10 @@
                 @blur="saveTitleChanges" @keyup.enter="saveTitleChanges" @keyup.esc="cancelTitleEdit" />
             </div>
             <template v-else>
-              <h1 class="concept-title" @click="startTitleEdit">
+              <h1 class="concept-title edit-hover-area" @click="startTitleEdit">
                 {{ localConcept.name }}
-                <span v-if="isEditMode" class="edit-section-button" title="Click to edit">✎</span>
+                <EditButton v-if="isEditMode" @click="startTitleEdit" title="Edit title" size="small"
+                  visibility="on-hover" />
               </h1>
               <div v-if="expansionLogoUrl" class="expansion-logo-badge-wrapper"
                 :title="expansion ? `Expansion: ${expansion.name}` : 'Expansion'">
@@ -66,24 +64,19 @@
           </div>
 
           <!-- Description -->
-          <div class="description-container">
+          <div class="description-container edit-hover-area">
+            <EditButton v-if="isEditMode" @click="toggleDescriptionEdit" :is-editing="isEditingDescription"
+              title="Edit description" size="small" visibility="on-hover" class="description-edit-button" />
             <div v-if="isEditingDescription" class="editable-description">
               <text-editor v-model="localConcept.description" height="200px" ref="descriptionEditor"
                 placeholder="description" :auto-height="true" />
-              <div class="edit-field-buttons">
-                <button class="button small" @click="saveDescriptionChanges">
-                  Save
-                </button>
-                <button class="button small" @click="cancelDescriptionEdit">
-                  Cancel
-                </button>
+              <div class="description-editor-buttons">
+                <ActionButton variant="neutral" size="small" text="Cancel" @click="cancelDescriptionEdit" />
               </div>
             </div>
             <div v-else class="concept-description" @click="isEditMode && startDescriptionEdit"
               v-html="safeDescription">
             </div>
-            <span v-if="isEditMode && !isEditingDescription" class="edit-field-indicator" @click="startDescriptionEdit"
-              title="Edit description">✎</span>
           </div>
 
           <!-- Traits & Abilities -->
@@ -148,6 +141,8 @@ import PlaylistSection from '@/components/conceptDetail/PlaylistSection.vue'
 import SettingsModal from '@/components/conceptDetail/ConceptSettingsModal.vue'
 import TextEditor from '@/components/TextEditor.vue'
 import NovizioSection from '@/components/conceptDetail/NovizioSection.vue'
+import ActionButton from '@/components/ActionButton.vue'
+import EditButton from '@/components/EditButton.vue'
 import { useExpansionsStore } from '@/stores/expansionsStore'
 import { useSourcesStore } from '@/stores/sourcesStore'
 import { sanitizeHtml } from '@/utils/sanitizeHtml'
@@ -318,11 +313,12 @@ const emitUpdateEvent = () => {
 
 const closeModal = () => {
   try {
-    if (
+    const hasUnsavedChanges =
       isEditingTitle.value ||
       isEditingDescription.value ||
       hasUnsavedSectionChanges.value
-    ) {
+
+    if (hasUnsavedChanges) {
       if (confirm('You have unsaved changes. Are you sure you want to exit?')) {
         emit('close')
       }
@@ -361,6 +357,20 @@ const startDescriptionEdit = () => {
   if (!isEditMode.value) return
   isEditingDescription.value = true
   backupConcept.value = { description: localConcept.value.description }
+}
+
+const toggleDescriptionEdit = () => {
+  if (!isEditMode.value) return
+
+  if (isEditingDescription.value) {
+    // Save changes
+    isEditingDescription.value = false
+    emitUpdateEvent()
+  } else {
+    // Start editing
+    isEditingDescription.value = true
+    backupConcept.value = { description: localConcept.value.description }
+  }
 }
 
 const saveDescriptionChanges = () => {
@@ -485,10 +495,12 @@ const updateNovizio = (newNovizio) => {
 
 // Section Unsaved Changes Handling
 const onSectionUnsavedChanges = () => {
+  console.log('onSectionUnsavedChanges called')
   hasUnsavedSectionChanges.value = true;
 }
 
 const onSectionResetUnsavedChanges = () => {
+  console.log('onSectionResetUnsavedChanges called')
   hasUnsavedSectionChanges.value = false;
 }
 
@@ -535,32 +547,12 @@ const safeDescription = computed(() => {
 .admin-controls {
   position: fixed;
   top: 30px;
-  left: 30px;
+  right: 30px;
   display: flex;
   flex-direction: row;
   gap: 10px;
   z-index: 1001;
   /* Above modal content */
-}
-
-.edit-save-button {
-  background: #4caf50;
-  border: none;
-  color: white;
-  padding: 6px 12px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 14px;
-  transition: background-color 0.2s;
-  z-index: 10;
-  min-width: 70px;
-  text-align: center;
-  height: 34px;
-  line-height: 22px;
-}
-
-.edit-save-button:hover {
-  background: #45a049;
 }
 
 .settings-button {
@@ -617,7 +609,6 @@ const safeDescription = computed(() => {
   margin-bottom: 0;
   margin-top: 0;
   font-size: 3rem;
-  cursor: pointer;
 }
 
 /* Title input */
@@ -637,13 +628,25 @@ const safeDescription = computed(() => {
   position: relative;
 }
 
+.description-edit-button {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  z-index: 1000;
+}
+
+.description-editor-buttons {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 10px;
+}
+
 .concept-description {
   text-align: left;
   font-size: 1.1rem;
   line-height: 1.5;
   padding: 4px;
   border-radius: 4px;
-  cursor: pointer;
 }
 
 .edit-field-indicator {
@@ -662,7 +665,6 @@ const safeDescription = computed(() => {
   opacity: 0.7;
 }
 
-/* Individual component styling from original */
 .concept-section {
   display: flex;
   flex-direction: column;
@@ -675,6 +677,13 @@ const safeDescription = computed(() => {
   font-weight: bold;
   margin-bottom: 0.5rem;
   font-size: 2rem;
+}
+
+.section-header.edit-hover-area {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .ability-cards-container,

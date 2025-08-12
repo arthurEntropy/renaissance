@@ -1,10 +1,9 @@
 <template>
   <div class="concept-section" v-if="hasHooks || editable">
-    <h2 class="section-header">
+    <h2 class="section-header edit-hover-area">
       Hooks
-      <button v-if="editable" class="edit-section-button" @click="toggleHooksEditing" title="Edit hooks">
-        ✎
-      </button>
+      <EditButton v-if="editable" :is-editing="isSectionEditing" @click="toggleHooksEditing" title="Edit hooks"
+        size="small" visibility="on-hover" />
     </h2>
 
     <!-- Edit mode for hooks -->
@@ -37,9 +36,7 @@
               </div>
 
               <div class="delete-hook-container">
-                <button type="button" class="button button-danger small delete-hook-btn" @click="removeHook(idx)">
-                  Delete Hook
-                </button>
+                <ActionButton variant="danger" size="small" text="Delete Hook" @click="removeHook(idx)" />
               </div>
             </div>
           </div>
@@ -47,15 +44,8 @@
       </draggable>
 
       <div class="editor-buttons">
-        <button type="button" class="button button-primary small" @click="addHook">
-          Add Hook
-        </button>
-        <button type="button" class="button small" @click="saveHooksChanges">
-          Done
-        </button>
-        <button type="button" class="button small" @click="cancelHooksEdit">
-          Cancel
-        </button>
+        <ActionButton variant="neutral" size="small" text="Cancel" @click="cancelHooksEdit" type="button" />
+        <ActionButton variant="primary" size="small" text="+ Add" @click="addHook" type="button" />
       </div>
     </div>
 
@@ -82,6 +72,8 @@ import { ref, computed, watch } from 'vue'
 import draggable from 'vuedraggable'
 import TextEditor from '@/components/TextEditor.vue'
 import InfoCard from '@/components/conceptDetail/InfoCard.vue'
+import ActionButton from '@/components/ActionButton.vue'
+import EditButton from '@/components/EditButton.vue'
 import { useEditMode } from '@/composables/useEditMode'
 import { useUnsavedChanges } from '@/composables/useUnsavedChanges'
 import { sanitizeHtml } from '@/utils/sanitizeHtml'

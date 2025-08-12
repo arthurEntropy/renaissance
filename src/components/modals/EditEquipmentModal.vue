@@ -103,15 +103,9 @@
 
         <!-- Action Buttons -->
         <div class="form-buttons">
-          <button type="button" class="button button-primary" @click="saveEquipment">
-            Save Changes
-          </button>
-          <button type="button" class="button" @click="closeModal">
-            Cancel
-          </button>
-          <button type="button" class="button button-danger" @click="deleteEquipment">
-            Delete
-          </button>
+          <ActionButton variant="success" size="small" text="Save Changes" @click="saveEquipment" type="button" />
+          <ActionButton variant="neutral" size="small" text="Cancel" @click="closeModal" type="button" />
+          <ActionButton variant="danger" size="small" text="Delete" @click="deleteEquipment" type="button" />
         </div>
 
       </form>
@@ -124,6 +118,7 @@ import { useDiceManagement } from '@/composables/useDiceManagement'
 import { useEditForm } from '@/composables/useEditForm'
 import TextEditor from '@/components/TextEditor.vue'
 import SourceDropdown from '@/components/SourceDropdown.vue'
+import ActionButton from '@/components/ActionButton.vue'
 import { getDiceFontMaxClass } from '../../../utils/diceFontUtils'
 
 // Props

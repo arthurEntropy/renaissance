@@ -37,9 +37,7 @@
         </optgroup>
       </select>
       <slot name="additional-filters"></slot>
-      <button class="button button-primary" @click="createItem">
-        Create New
-      </button>
+      <ActionButton variant="primary" size="small" text="Create New" @click="createItem" />
     </div>
 
     <!-- Item Cards-->
@@ -53,6 +51,7 @@
 
 <script setup>
 import MasonryGrid from '@/components/MasonryGrid.vue'
+import ActionButton from '@/components/ActionButton.vue'
 import { computed, ref } from 'vue'
 
 const props = defineProps({

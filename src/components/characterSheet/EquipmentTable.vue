@@ -1,13 +1,10 @@
 <template>
   <div class="equipment-table">
     <!-- TITLE -->
-    <div class="equipment-table-header">
+    <div class="equipment-table-header edit-trigger">
       <div class="header-left">
         <h2>Equipment</h2>
-        <button class="edit-mode-button" @click="toggleEditMode"
-          :title="isEditMode ? 'Exit Edit Mode' : 'Enter Edit Mode'">
-          {{ isEditMode ? '✓' : '✎' }}
-        </button>
+        <EditButton size="small" visibility="on-hover" :is-edit-mode="isEditMode" @click="toggleEditMode" />
       </div>
       <div class="header-right">
         <div class="total-weight-container">
@@ -144,6 +141,7 @@ import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import CharacterService from '@/services/CharacterService'
 import EquipmentCard from '@/components/EquipmentCard.vue'
 import EquipmentService from '@/services/EquipmentService'
+import EditButton from '@/components/EditButton.vue'
 import { useEquipmentStore } from '@/stores/equipmentStore'
 import draggable from 'vuedraggable'
 import NumberInput from '@/components/NumberInput.vue'

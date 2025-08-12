@@ -1,7 +1,7 @@
 <template>
   <div class="image-gallery">
     <!-- Enlarged image section (only shown when images exist) -->
-    <div v-if="images.length > 0" class="enlarged-image-wrapper" @mouseenter="showNav = true"
+    <div v-if="images.length > 0" class="enlarged-image-wrapper edit-hover-area" @mouseenter="showNav = true"
       @mouseleave="showNav = false">
       <button v-if="showNav && images.length > 1" class="nav-button left" @click.stop="prevImage"
         aria-label="Previous image">
@@ -11,7 +11,8 @@
       <img :src="images[selectedIndex]" :alt="`Image ${selectedIndex + 1}`" class="enlarged-image" />
 
       <!-- Edit button -->
-      <button v-if="showNav && editable" class="edit-button" @click.stop="openEditModal" aria-label="Edit image">
+      <button v-if="editable" class="edit-button edit-btn edit-btn--filled edit-btn--small edit-btn--on-hover"
+        @click.stop="openEditModal" aria-label="Edit image">
         ✎
       </button>
 
@@ -26,13 +27,9 @@
           <h3>Edit Image</h3>
           <input type="text" v-model="editImageUrl" class="url-input" placeholder="Image URL" ref="editUrlInput" />
           <div class="edit-modal-buttons">
-            <button class="button button-danger" @click.stop="deleteImage">
-              Delete
-            </button>
-            <button class="button" @click.stop="closeEditModal">Cancel</button>
-            <button class="button button-primary" @click.stop="saveImageUrl">
-              Save
-            </button>
+            <ActionButton variant="danger" size="small" text="Delete" @click.stop="deleteImage" />
+            <ActionButton variant="neutral" size="small" text="Cancel" @click.stop="closeEditModal" />
+            <ActionButton variant="success" size="small" text="Save" @click.stop="saveImageUrl" />
           </div>
         </div>
       </div>
@@ -78,10 +75,8 @@
         <h3>Add New Image</h3>
         <input type="text" v-model="newImageUrl" class="modal-input" placeholder="Enter image URL" ref="addUrlInput" />
         <div class="modal-buttons">
-          <button class="button" @click="closeAddModal">Cancel</button>
-          <button class="button button-primary" @click="saveNewImage">
-            Add Image
-          </button>
+          <ActionButton variant="neutral" size="small" text="Cancel" @click="closeAddModal" />
+          <ActionButton variant="primary" size="small" text="Add Image" @click="saveNewImage" />
         </div>
       </div>
     </div>
@@ -91,6 +86,8 @@
 <script setup>
 import { ref, watch, nextTick } from 'vue'
 import draggable from 'vuedraggable'
+import ActionButton from '@/components/ActionButton.vue'
+import EditButton from '@/components/EditButton.vue'
 
 // Props
 const props = defineProps({
@@ -363,27 +360,42 @@ watch(() => props.images, (newImages) => {
   top: 10px;
   right: 10px;
   background: rgba(0, 0, 0, 0.6);
-  border: none;
-  color: white;
-  font-size: 18px;
-  width: 36px;
-  height: 36px;
+  border: 1px solid rgba(0, 0, 0, 0.6);
+  color: var(--color-white);
+  font-size: var(--font-size-small);
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   cursor: pointer;
-  opacity: 0;
-  transition: opacity 0.3s;
+  transition: var(--transition-standard);
   z-index: 2;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.enlarged-image-wrapper:hover .edit-button {
-  opacity: 1;
+  font-weight: var(--font-weight-medium);
 }
 
 .edit-button:hover {
   background: rgba(0, 0, 0, 0.8);
+  border-color: rgba(0, 0, 0, 0.8);
+}
+
+.edit-btn--small {
+  width: 28px;
+  height: 28px;
+  font-size: var(--font-size-xs);
+}
+
+.edit-btn--on-hover {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--transition-duration-fast) ease,
+    visibility var(--transition-duration-fast) ease;
+}
+
+.edit-hover-area:hover .edit-btn--on-hover {
+  opacity: 1;
+  visibility: visible;
 }
 
 /* Edit modal styling */
@@ -430,24 +442,6 @@ watch(() => props.images, (newImages) => {
   display: flex;
   justify-content: flex-end;
   gap: 10px;
-}
-
-.button {
-  padding: 8px 16px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 14px;
-  background-color: #444;
-  color: white;
-}
-
-.button-primary {
-  background-color: #4caf50;
-}
-
-.button-danger {
-  background-color: #f44336;
 }
 
 /* Thumbnail grid */

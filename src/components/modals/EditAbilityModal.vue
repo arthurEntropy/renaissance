@@ -71,21 +71,15 @@
             </div>
             <TextEditor v-model="impr.description" :placeholder="'Description'" :height="'80px'" :auto-height="true" />
           </div>
-          <button type="button" class="button button-primary add-improvement-btn" @click="addImprovement">+ Add
-            Improvement</button>
+          <ActionButton variant="primary" size="small" icon="+" text="Add Improvement" @click="addImprovement"
+            type="button" />
         </div>
 
         <!-- Action Buttons -->
         <div class="form-buttons">
-          <button type="button" class="button button-primary" @click="saveAbility">
-            Save Changes
-          </button>
-          <button type="button" class="button" @click="closeModal">
-            Cancel
-          </button>
-          <button type="button" class="button button-danger" @click="deleteAbility">
-            Delete
-          </button>
+          <ActionButton variant="success" size="small" text="Save Changes" @click="saveAbility" type="button" />
+          <ActionButton variant="neutral" size="small" text="Cancel" @click="closeModal" type="button" />
+          <ActionButton variant="danger" size="small" text="Delete" @click="deleteAbility" type="button" />
         </div>
 
       </form>
@@ -97,6 +91,7 @@
 import { useEditForm } from '@/composables/useEditForm'
 import TextEditor from '@/components/TextEditor.vue'
 import SourceDropdown from '@/components/SourceDropdown.vue'
+import ActionButton from '@/components/ActionButton.vue'
 
 // Props
 const props = defineProps({
