@@ -1,0 +1,333 @@
+<template>
+  <base-card v-bind="$attrs" :item="equipment" itemType="equipment" :metaInfo="equipment.weight
+    ? `${equipment.weight} ${equipment.weight === 1 ? 'lb' : 'lbs'}`
+    : ''
+    " :storeInstance="equipmentStore" :initialCollapsed="collapsed" :editable="editable" :showSource="showSource"
+    @edit="$emit('edit', equipment)" :collapsible="collapsible">
+    <!-- Large image slot -->
+    <template #large-image>
+      <div v-if="showLargeImage" class="large-image-container" @click.stop="toggleImage">
+        <img :src="equipment.artUrl" :alt="equipment.name" class="large-image" />
+      </div>
+    </template>
+
+    <!-- Content slot -->
+    <template #content>
+      <!-- Art and Description Row -->
+      <div class="content-wrapper">
+        <div class="art-and-sol" v-if="!showLargeImage">
+          <div class="small-image-container" @click.stop="toggleImage">
+            <img v-if="equipment.artUrl" :src="equipment.artUrl" :alt="equipment.name" class="equipment-image" />
+          </div>
+        </div>
+        <!-- Description section - show if available -->
+        <div class="content-sections">
+          <DescriptionBackground :content="equipment.description" />
+          <!-- Dice section - show independently if it's a melee weapon -->
+          <template v-if="equipment.isMelee">
+            <div class="dice-description-row">
+              <div class="dice-section">
+                <div class="dice-section-background">
+                  <span class="dice-label">Engagement</span>
+                  <div class="dice-icons">
+                    <span v-for="die in equipment.engagementDice" :key="'engagement-' + die" class="dice-icon">
+                      <i :class="getDiceFontMaxClass(die)"></i>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="dice-section">
+                <div class="dice-section-background">
+                  <span class="dice-label">Damage</span>
+                  <div class="dice-icons">
+                    <span v-for="die in equipment.damageDice" :key="'damage-' + die" class="dice-icon">
+                      <i :class="getDiceFontMaxClass(die)"></i>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </template>
+        </div>
+      </div>
+    </template>
+
+    <!-- Badge slot (Standard of Living) -->
+    <template #badge>
+      <BadgeDisplay v-if="showSolBadge && equipment.standardOfLiving" type="sol" :value="equipment.standardOfLiving"
+        position="bottom-left" />
+    </template>
+
+    <!-- Footer slot for engagement successes -->
+    <template #footer>
+      <div v-if="!collapsed" class="engagement-successes">
+        <span v-for="success in engagementSuccesses" :key="success.id" class="engagement-success-pill"
+          @mouseenter="startSuccessTooltip(success, $event)" @mouseleave="clearSuccessTooltip">
+          {{ success.name }}
+        </span>
+      </div>
+    </template>
+  </base-card>
+
+  <!-- Tooltip for engagement success description -->
+  <teleport to="body">
+    <div v-if="tooltipSuccess" class="success-tooltip"
+      :style="{ top: `${tooltipPosition.y}px`, left: `${tooltipPosition.x}px` }">
+      {{ tooltipSuccess }}
+    </div>
+  </teleport>
+</template>
+
+<script>
+import { ref, computed, onMounted } from 'vue'
+import { useEquipmentStore } from '@/stores/equipmentStore'
+import BaseCard from '@/components/ui/cards/BaseCard.vue'
+import BadgeDisplay from '@/components/ui/cards/BadgeDisplay.vue'
+import DescriptionBackground from '@/components/ui/cards/DescriptionBackground.vue'
+import EngagementSuccessService from '@/services/engagementSuccessService'
+import { getDiceFontMaxClass } from '../../../../utils/diceFontUtils'
+import { useTooltip } from '@/composables/useTooltip'
+
+export default {
+  inheritAttrs: false,
+  components: {
+    BaseCard,
+    BadgeDisplay,
+    DescriptionBackground,
+  },
+  emits: ['edit', 'delete', 'send-to-chat', 'height-changed'],
+  props: {
+    equipment: {
+      type: Object,
+      required: true,
+    },
+    collapsed: {
+      type: Boolean,
+      default: false,
+    },
+    editable: {
+      type: Boolean,
+      default: false,
+    },
+    collapsible: {
+      type: Boolean,
+      default: false,
+    },
+    showSolBadge: {
+      type: Boolean,
+      default: true,
+    },
+    artExpanded: {
+      type: Boolean,
+      default: false,
+    },
+    showSource: {
+      type: Boolean,
+      default: true,
+    },
+  },
+
+  setup(props) {
+    // Store
+    const equipmentStore = useEquipmentStore()
+
+    // Tooltip functionality
+    const tooltip = useTooltip()
+
+    // Reactive state
+    const engagementSuccesses = ref([])
+    const showLargeImage = ref(props.artExpanded)
+
+    // Methods
+    const toggleImage = () => {
+      showLargeImage.value = !showLargeImage.value
+    }
+
+    const fetchEngagementSuccesses = async () => {
+      try {
+        const allSuccesses = await EngagementSuccessService.getAllEngagementSuccesses()
+        engagementSuccesses.value = props.equipment.engagementSuccesses
+          .map((id) => allSuccesses.find((success) => success.id === id))
+          .filter((success) => success)
+      } catch (error) {
+        console.error('Error fetching engagement successes:', error)
+        engagementSuccesses.value = []
+      }
+    }
+
+    const startSuccessTooltip = (success, event) => {
+      tooltip.startTooltip('success', success.description, event)
+    }
+
+    const clearSuccessTooltip = () => {
+      tooltip.clearTooltip('success')
+    }
+
+    // Lifecycle
+    onMounted(async () => {
+      await fetchEngagementSuccesses()
+    })
+
+    return {
+      // Store
+      equipmentStore,
+
+      // State
+      engagementSuccesses,
+      showLargeImage,
+
+      // Tooltip
+      tooltipSuccess: computed(() => tooltip.getTooltip('success')),
+      tooltipPosition: tooltip.position,
+
+      // Methods
+      getDiceFontMaxClass,
+      toggleImage,
+      fetchEngagementSuccesses,
+      startSuccessTooltip,
+      clearSuccessTooltip,
+    }
+  }
+}
+</script>
+
+<style scoped>
+.content-wrapper {
+  display: flex;
+  gap: var(--space-md);
+  align-items: flex-start;
+  padding-top: 10px;
+}
+
+.art-and-sol {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.equipment-image {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: var(--radius-4);
+  cursor: pointer;
+}
+
+/* Large Image */
+.large-image-container {
+  width: 100%;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.large-image {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-4);
+  margin-top: 10px;
+}
+
+/* Dice Section */
+.dice-display-container {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-md);
+  margin-top: 10px;
+}
+
+.dice-section {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.dice-section-background {
+  background-color: var(--overlay-black-medium);
+  padding: 3px 0 3px 0;
+  border-radius: var(--radius-5);
+  text-align: center;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: left;
+}
+
+.dice-label {
+  font-size: var(--font-size-14);
+  margin-bottom: 1px;
+}
+
+.dice-icons {
+  display: flex;
+  justify-content: center;
+  gap: 1px;
+  flex-wrap: wrap;
+}
+
+.dice-icon {
+  font-size: var(--font-size-36);
+}
+
+/* Dice Description Row */
+.dice-description-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  width: 100%;
+}
+
+.dice-description-row .dice-section {
+  flex: 1 1 20px;
+  display: flex;
+  justify-content: center;
+}
+
+/* Engagement Successes */
+.engagement-successes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-xs);
+  margin-top: 10px;
+}
+
+.engagement-success-pill {
+  background-color: var(--overlay-black-medium);
+  color: white;
+  padding: var(--space-xs) 10px;
+  border-radius: var(--radius-15);
+  font-size: var(--font-size-10);
+  text-align: center;
+  cursor: help;
+}
+
+.engagement-success-pill:hover {
+  background-color: var(--overlay-white-medium);
+}
+
+.content-sections {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+/* Tooltip */
+.success-tooltip {
+  position: fixed;
+  z-index: var(--z-modal);
+  background: var(--overlay-black-heavy);
+  color: #fff;
+  padding: 14px;
+  border-radius: var(--radius-8);
+  font-size: var(--font-size-14);
+  pointer-events: none;
+  box-shadow: var(--shadow-elevation-lg);
+  max-width: 260px;
+  white-space: pre-line;
+}
+</style>
