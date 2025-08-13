@@ -34,7 +34,7 @@ defineEmits(['select'])
 /* White glow on hover */
 .selection-card:hover {
   box-shadow: var(--shadow-glow-lg);
-  transition: box-shadow 0.2s ease;
+  transition: box-shadow var(--transition-normal) ease;
 }
 
 .selection-card-image {
@@ -59,7 +59,7 @@ defineEmits(['select'])
   bottom: 0;
   left: 50%;
   transform: translate(-50%, 50%);
-  z-index: 2;
+  z-index: var(--z-raised);
   width: 30px;
   height: 30px;
   display: flex;

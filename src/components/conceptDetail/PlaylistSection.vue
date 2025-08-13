@@ -246,7 +246,7 @@ watch(() => props.editable, (val) => {
   padding: 8px 16px;
   border-radius: var(--radius-4);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: var(--transition-all);
 }
 
 .playlist-toggle-btn.active {

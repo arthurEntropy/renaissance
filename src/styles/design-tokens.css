@@ -83,6 +83,7 @@
   --color-condition-glow: #06b6d4;    /* cyan for glows */
   
   /* === SPACING === */
+  --space-2xs: 0.125rem;  /* 2px */
   --space-xs: 0.25rem;    /* 4px */
   --space-sm: 0.5rem;     /* 8px */
   --space-md: 1rem;       /* 16px */
@@ -137,12 +138,12 @@
   --radius-15: 0.9375rem;   /* 15px */
   --radius-full: 9999px;    /* fully rounded (50%) */
   
-  /* === SHADOWS === */
-  /* Elevation shadows (box-shadow for cards, modals, etc.) */
+  /* === SHADOWS, GLOWS & OUTLINES === */
+  /* Elevation shadows */
   --shadow-elevation-sm: 0 2px 8px var(--overlay-black-medium);          /* Small elevation */
   --shadow-elevation-lg: 0 2px 12px var(--overlay-black-medium);         /* Large elevation */
 
-  /* Glow effects (for highlights, focus, and special states) */
+  /* Glow effects */
   --shadow-glow-sm: 0 0 5px var(--overlay-white-subtle);                 /* Small glow */
   --shadow-glow-md: 0 0 8px var(--overlay-white-medium);                 /* Medium glow */
   --shadow-glow-lg: 0 0 10px var(--overlay-white-medium);                /* Large glow */
@@ -158,11 +159,11 @@
   --shadow-glow-warning-md: 0 0 10px var(--color-warning);               /* Warning glow (medium) */
   --shadow-glow-warning-lg: 0 0 15px var(--color-warning);               /* Warning glow (large) */
   --shadow-glow-gold-sm: 0 0 5px var(--color-accent-gold);               /* Gold highlight (small) */
-  --shadow-gloe-gold-md: 0 0 10px var(--color-accent-gold);              /* Gold highlight (medium) */
+  --shadow-glow-gold-md: 0 0 10px var(--color-accent-gold);              /* Gold highlight (medium) */
   --shadow-glow-gold-lg: 0 0 15px var(--color-accent-gold);               /* Gold highlight (large) */
   --shadow-glow-condition: 0 0 10px var(--color-condition-glow);         /* Condition glow */
 
-  /* Text shadows */
+  /* Text outlines */
   --text-shadow-outline: -1px -1px 0 var(--color-black), 1px -1px 0 var(--color-black), -1px 1px 0 var(--color-black), 1px 1px 0 var(--color-black); /* Black text outline */
 
   /* Special shadows */
@@ -170,25 +171,42 @@
   --shadow-none: none;                                                    /* No shadow */
   
   /* === TRANSITIONS === */
-  --transition-fast: 0.1s ease;
-  --transition-normal: 0.2s ease;
-  --transition-slow: 0.3s ease;
+  /* Base duration */
+  --transition-normal: 0.3s ease;
+  
+  /* Core semantic transitions (most commonly used) */
   --transition-all: all var(--transition-normal);
+  --transition-color: color var(--transition-normal);
+  --transition-background: background-color var(--transition-normal);
+  --transition-opacity: opacity var(--transition-normal);
+  
+  /* Multi-property transition */
+  --transition-color-bg: color var(--transition-normal), background-color var(--transition-normal);
   
   /* === Z-INDEX === */
+  /* Base layers */
+  --z-base: 0;
+  --z-overlay: 1;
+  --z-raised: 2;
+  --z-floating: 3;
+  
+  /* Interactive layers */
+  --z-interactive: 10;
   --z-dropdown: 100;
+  
+  /* Modal layers */
   --z-modal: 1000;
+  --z-modal-content: 1001;
   --z-tooltip: 1100;
-  --z-notification: 1200;
   
   /* === BREAKPOINTS (for reference in JS) === */
-  --breakpoint-sm: 640px;
-  --breakpoint-md: 768px;
-  --breakpoint-lg: 1024px;
-  --breakpoint-xl: 1280px;
+  /* Industry standard breakpoints */
+  --breakpoint-sm: 640px;     /* Small screens (mobile) */
+  --breakpoint-md: 768px;     /* Medium screens (tablets) */
+  --breakpoint-lg: 1024px;    /* Large screens (desktop) */
   
   /* === BUTTON SPECIFIC === */
-  --btn-padding-sm: 0.125rem var(--space-sm);  /* 2px top/bottom, 8px left/right */
+  --btn-padding-sm: var(--space-2xs) var(--space-sm);  /* 2px top/bottom, 8px left/right */
   --btn-padding-md: var(--space-sm) var(--space-md);
   --btn-padding-lg: var(--space-md) var(--space-lg);
   
@@ -196,24 +214,7 @@
   --btn-font-size-md: var(--font-size-14);
   --btn-font-size-lg: var(--font-size-16);
   
-  --btn-min-height-sm: 1.5rem;   /* 24px */
-  --btn-min-height-md: 1.75rem;   /* 28px */
-  --btn-min-height-lg: 3rem;     /* 48px */
-}
-
-/* === DARK MODE OVERRIDES === */
-/* App is primarily dark mode - these are the default values */
-/* Light mode overrides can be added if needed */
-
-@media (prefers-color-scheme: light) {
-  /* Light mode overrides would go here if needed */
-}
-
-/* === REDUCED MOTION === */
-@media (prefers-reduced-motion: reduce) {
-  :root {
-    --transition-fast: 0s;
-    --transition-normal: 0s;
-    --transition-slow: 0s;
-  }
+  --btn-min-height-sm: var(--space-lg);     /* 24px */
+  --btn-min-height-md: var(--space-xl);     /* 32px */
+  --btn-min-height-lg: var(--space-2xl);    /* 48px */
 }

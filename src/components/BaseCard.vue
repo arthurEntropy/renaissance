@@ -156,7 +156,7 @@ onMounted(() => {
   padding: 10px;
   margin-top: 5px;
   transition:
-    background-color 0.3s ease,
+    background-color var(--transition-normal) ease,
     transform 0.2s ease;
   width: 100%;
   position: relative;
@@ -174,13 +174,13 @@ onMounted(() => {
   width: 100%;
   height: 100%;
   background: var(--overlay-black-medium);
-  z-index: 1;
+  z-index: var(--z-overlay);
   pointer-events: none;
 }
 
 .base-card>* {
   position: relative;
-  z-index: 2;
+  z-index: var(--z-raised);
 }
 
 .card-header {
@@ -242,6 +242,6 @@ onMounted(() => {
   position: absolute;
   top: 3px;
   right: 3px;
-  z-index: 10;
+  z-index: var(--z-interactive);
 }
 </style>

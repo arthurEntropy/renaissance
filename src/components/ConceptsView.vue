@@ -327,7 +327,7 @@ onBeforeUnmount(() => {
   max-width: 60%;
   margin-bottom: 1rem;
   padding: 0 2rem;
-  z-index: 1;
+  z-index: var(--z-overlay);
 }
 
 .search-input {
@@ -383,7 +383,7 @@ onBeforeUnmount(() => {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: var(--transition-all);
   margin: 10px;
 }
 
@@ -414,7 +414,7 @@ onBeforeUnmount(() => {
   top: 0;
   left: 0;
   height: 100%;
-  z-index: 1000;
+  z-index: var(--z-modal);
 }
 
 .navigate-button {
@@ -433,8 +433,8 @@ onBeforeUnmount(() => {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  z-index: 1100;
-  transition: all 0.2s ease;
+  z-index: var(--z-tooltip);
+  transition: var(--transition-all);
 }
 
 .navigate-button:hover:not(:disabled) {
@@ -454,7 +454,7 @@ onBeforeUnmount(() => {
   right: 30px;
 }
 
-@media (max-width: 650px) {
+@media (max-width: var(--breakpoint-sm)) {
   .add-concept-card {
     width: 80%;
     margin-left: 10px;
@@ -462,7 +462,7 @@ onBeforeUnmount(() => {
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: var(--breakpoint-md)) {
   .navigate-button {
     width: 40px;
     height: 40px;

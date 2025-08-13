@@ -107,10 +107,10 @@ input[type='number']::-webkit-outer-spin-button {
   display: flex;
   flex-direction: column;
   opacity: 0;
-  transition: opacity 0.2s;
+  transition: var(--transition-opacity);
   pointer-events: none;
   /* Initially hidden from interaction */
-  z-index: 1;
+  z-index: var(--z-overlay);
   /* Ensure buttons are above input */
   border-radius: 0 var(--radius-3) var(--radius-3) 0;
   /* Match input's right border radius */

@@ -103,7 +103,7 @@ h1 {
     cursor: pointer;
     font-size: var(--font-size-16);
     margin-left: auto;
-    transition: background 0.2s;
+    transition: var(--transition-background);
 }
 
 .delete-button:hover {
@@ -118,7 +118,7 @@ h1 {
     padding: 10px 20px;
     font-size: var(--font-size-18);
     cursor: pointer;
-    transition: background 0.2s;
+    transition: var(--transition-background);
 }
 
 .add-button:hover {

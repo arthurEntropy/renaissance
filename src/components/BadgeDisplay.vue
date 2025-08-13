@@ -84,7 +84,7 @@ export default {
     padding: 2px 8px;
     border-top-right-radius: var(--radius-10);
     pointer-events: none;
-    z-index: 10;
+    z-index: var(--z-interactive);
 }
 
 /* Badge types */

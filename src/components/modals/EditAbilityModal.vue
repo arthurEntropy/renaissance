@@ -152,7 +152,7 @@ const closeModal = () => cancel()
   line-height: var(--line-height-none);
   cursor: pointer;
   color: var(--color-text-muted);
-  transition: color 0.15s;
+  transition: color var(--transition-normal);
 }
 
 .icon-btn:disabled {

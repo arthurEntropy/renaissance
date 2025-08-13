@@ -27,7 +27,7 @@ defineProps({
 <style scoped>
 .success-tooltip {
     position: fixed;
-    z-index: 1000;
+    z-index: var(--z-modal);
     background: var(--overlay-black-medium);
     color: var(--color-text-primary);
     padding: 14px;

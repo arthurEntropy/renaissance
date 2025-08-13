@@ -286,7 +286,7 @@ h2 {
   left: 50%;
   bottom: -11px;
   transform: translateX(-50%);
-  z-index: 110;
+  z-index: var(--z-dropdown);
   width: 24px;
   height: 24px;
   border-radius: var(--radius-full);
@@ -299,7 +299,7 @@ h2 {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+  transition: var(--transition-color-bg), box-shadow var(--transition-normal);
   padding: 0;
 }
 
@@ -329,7 +329,7 @@ h2 {
   color: var(--color-gray-light);
   font-size: var(--font-size-18);
   cursor: pointer;
-  transition: color 0.2s;
+  transition: var(--transition-color);
   width: 30px;
   height: 30px;
   display: flex;
@@ -376,7 +376,7 @@ h2 {
   display: flex;
   flex-direction: column;
   gap: 2px;
-  z-index: 120;
+  z-index: var(--z-dropdown);
   pointer-events: auto;
 }
 
@@ -432,7 +432,7 @@ h2 {
   max-height: 80vh;
   background-color: var(--overlay-black-heavy);
   border-radius: var(--radius-8);
-  z-index: 100;
+  z-index: var(--z-dropdown);
   display: flex;
   flex-direction: column;
 }
@@ -488,7 +488,7 @@ h2 {
   padding: 8px 12px;
   cursor: pointer;
   border-radius: var(--radius-4);
-  transition: background-color 0.2s;
+  transition: var(--transition-background);
 }
 
 .ability-option:hover {
@@ -513,7 +513,7 @@ h2 {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: background 0.2s, color 0.2s;
+  transition: var(--transition-color-bg);
   padding: 0;
 }
 
@@ -534,7 +534,7 @@ h2 {
   justify-content: center;
   cursor: move;
   user-select: none;
-  transition: background 0.2s, color 0.2s;
+  transition: var(--transition-color-bg);
 }
 
 .fab-drag:hover {
@@ -543,7 +543,7 @@ h2 {
   color: var(--color-gray-dark);
 }
 
-@media (max-width: 650px) {
+@media (max-width: var(--breakpoint-sm)) {
   .abilities-table {
     width: 80%;
     margin: 10px;

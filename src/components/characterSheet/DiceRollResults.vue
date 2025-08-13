@@ -16,7 +16,7 @@
           {{ latestRoll.characterName }} rolled
           <span class="skill-name">{{
             latestRoll.baseSkillName || latestRoll.skillName
-            }}</span>
+          }}</span>
           <span v-if="latestRoll.favoredStatus" :class="{
             'favored-modifier': latestRoll.favoredStatus === 'favored',
             'ill-favored-modifier': latestRoll.favoredStatus === 'ill-favored',
@@ -281,7 +281,7 @@ const getCircularPosition = (index, total) => {
   font-size: var(--font-size-24);
   color: var(--color-gray-medium);
   opacity: 0.6;
-  transition: all 0.3s ease;
+  transition: var(--transition-all);
   display: inline-block;
 }
 
@@ -299,7 +299,7 @@ const getCircularPosition = (index, total) => {
   font-size: var(--font-size-14);
   color: var(--color-gray-medium);
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: opacity var(--transition-normal) ease;
   pointer-events: none;
   text-align: center;
   white-space: nowrap;

@@ -278,7 +278,7 @@ onMounted(async () => {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: var(--transition-all);
   margin: 10px;
 }
 
@@ -312,7 +312,7 @@ onMounted(async () => {
   position: relative;
 }
 
-@media (max-width: 567px) {
+@media (max-width: var(--breakpoint-sm)) {
   .character-sheet {
     width: 90%;
     padding: 0;
@@ -325,14 +325,14 @@ onMounted(async () => {
   left: 10px;
   font-size: var(--font-size-20);
   cursor: pointer;
-  z-index: 2;
+  z-index: var(--z-raised);
 }
 
 .close-button {
   position: absolute;
   top: -10px;
   right: 15px;
-  z-index: 1000;
+  z-index: var(--z-modal);
   font-size: var(--font-size-20);
   text-decoration: none;
   color: var(--color-gray-medium);
@@ -355,7 +355,7 @@ onMounted(async () => {
   justify-content: space-between;
 }
 
-@media (max-width: 768px) {
+@media (max-width: var(--breakpoint-md)) {
   .top-section {
     flex-direction: column;
     align-items: center;
@@ -379,7 +379,7 @@ onMounted(async () => {
   margin: 0 20px 0 15px;
 }
 
-@media (max-width: 567px) {
+@media (max-width: var(--breakpoint-sm)) {
   .conditions-column {
     margin: 0 40px;
   }
@@ -419,7 +419,7 @@ onMounted(async () => {
   flex: 1;
 }
 
-@media (max-width: 768px) {
+@media (max-width: var(--breakpoint-md)) {
   .equipment-abilities-container {
     flex-direction: column;
   }

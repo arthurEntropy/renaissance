@@ -319,7 +319,7 @@ export default {
 /* Tooltip */
 .success-tooltip {
   position: fixed;
-  z-index: 1000;
+  z-index: var(--z-modal);
   background: var(--overlay-black-heavy);
   color: #fff;
   padding: 14px;

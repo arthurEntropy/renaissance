@@ -157,7 +157,7 @@ function createItem() {
   max-width: 60%;
   margin-bottom: 1rem;
   padding: 0 2rem;
-  z-index: 1;
+  z-index: var(--z-overlay);
 }
 
 .search-input {

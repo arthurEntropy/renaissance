@@ -71,7 +71,7 @@ function getCaretClasses(comparison) {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    z-index: 10;
+    z-index: var(--z-interactive);
     pointer-events: none;
     width: 100px;
     margin-top: 12px;

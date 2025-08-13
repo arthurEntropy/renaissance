@@ -37,7 +37,7 @@ function confirmDeletion() {
 
 <style scoped>
 .modal-overlay {
-  z-index: 1001;
+  z-index: var(--z-modal-content);
 }
 
 .modal-input {

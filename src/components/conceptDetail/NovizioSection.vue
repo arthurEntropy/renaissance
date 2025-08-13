@@ -296,7 +296,7 @@ watch(() => props.editable, (val) => {
   color: var(--color-gray-light);
   cursor: pointer;
   opacity: 0.7;
-  transition: opacity 0.2s;
+  transition: var(--transition-opacity);
   margin-left: 10px;
 }
 
@@ -392,7 +392,7 @@ watch(() => props.editable, (val) => {
   background: var(--color-gray-light);
   border-radius: var(--radius-4);
   border: 1px solid var(--color-bg-secondary);
-  padding: 2px;
+  padding: var(--space-2xs);
 }
 
 .martial-label {

@@ -551,7 +551,7 @@ const safeDescription = computed(() => {
   display: flex;
   flex-direction: row;
   gap: 10px;
-  z-index: 1001;
+  z-index: var(--z-modal-content);
   /* Above modal content */
 }
 
@@ -562,9 +562,9 @@ const safeDescription = computed(() => {
   color: var(--color-gray-light);
   font-size: var(--font-size-20);
   cursor: pointer;
-  z-index: 10;
+  z-index: var(--z-interactive);
   padding: 5px;
-  transition: color 0.2s ease;
+  transition: var(--transition-color) ease;
 }
 
 /* Concept content, columns */
@@ -632,7 +632,7 @@ const safeDescription = computed(() => {
   position: absolute;
   top: 4px;
   right: 4px;
-  z-index: 1000;
+  z-index: var(--z-modal);
 }
 
 .description-editor-buttons {
@@ -658,7 +658,7 @@ const safeDescription = computed(() => {
   padding: 2px 6px;
   cursor: pointer;
   color: var(--color-gray-light);
-  transition: opacity 0.2s;
+  transition: var(--transition-opacity);
 }
 
 .description-container:hover .edit-field-indicator {
@@ -710,7 +710,7 @@ const safeDescription = computed(() => {
   justify-content: center;
   align-items: center;
   margin-left: 16px;
-  z-index: 30;
+  z-index: var(--z-floating);
 }
 
 .expansion-logo-badge {
@@ -731,7 +731,7 @@ const safeDescription = computed(() => {
   gap: 16px;
 }
 
-@media (max-width: 900px) {
+@media (max-width: var(--breakpoint-lg)) {
   .concept-detail-content {
     flex-direction: column;
     gap: 18px;

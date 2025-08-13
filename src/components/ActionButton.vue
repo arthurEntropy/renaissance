@@ -253,7 +253,7 @@ const handleClick = (event) => {
 }
 
 /* === RESPONSIVE ADJUSTMENTS === */
-@media (max-width: 768px) {
+@media (max-width: var(--breakpoint-md)) {
 
     /* Slightly larger touch targets on mobile */
     .action-btn--small {

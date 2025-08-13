@@ -191,7 +191,7 @@ const handleClick = (event) => {
 }
 
 /* === RESPONSIVE ADJUSTMENTS === */
-@media (max-width: 768px) {
+@media (max-width: var(--breakpoint-md)) {
 
     /* Make on-hover buttons always visible on touch devices */
     .edit-btn--on-hover {

@@ -56,7 +56,7 @@ const getDiceClasses = (diceIndex) => {
 .dice-icon {
     font-size: var(--font-size-24);
     cursor: pointer;
-    transition: color 0.2s, opacity 0.2s;
+    transition: var(--transition-color), opacity var(--transition-normal);
 }
 
 .d6-icon {

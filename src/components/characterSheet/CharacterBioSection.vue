@@ -376,9 +376,9 @@ onBeforeUnmount(() => {
   align-items: baseline;
   flex-wrap: wrap;
   cursor: pointer;
-  padding: 2px;
+  padding: var(--space-2xs);
   border-radius: var(--radius-4);
-  transition: background-color 0.2s;
+  transition: var(--transition-background);
 }
 
 .character-name-container:hover {
@@ -395,7 +395,7 @@ onBeforeUnmount(() => {
   display: inline-block;
   padding: 2px 4px;
   border-radius: var(--radius-4);
-  transition: background-color 0.2s;
+  transition: var(--transition-background);
 }
 
 .pronouns-container:hover {
@@ -422,7 +422,7 @@ onBeforeUnmount(() => {
   padding: 5px;
   border-radius: var(--radius-4);
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: var(--transition-background);
 }
 
 .bio-detail:hover {
@@ -554,7 +554,7 @@ onBeforeUnmount(() => {
   height: 100%;
   font-size: var(--font-size-14);
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: var(--transition-background);
   overflow-y: auto;
 }
 
@@ -621,7 +621,7 @@ onBeforeUnmount(() => {
 }
 
 /* Responsive Styles */
-@media (max-width: 1024px) {
+@media (max-width: var(--breakpoint-lg)) {
   .bio-section-content {
     flex-direction: column;
   }
@@ -633,7 +633,7 @@ onBeforeUnmount(() => {
   }
 }
 
-@media (max-width: 767px) {
+@media (max-width: calc(var(--breakpoint-md) - 1px)) {
   .character-name-container {
     flex-direction: column;
     align-items: flex-start;

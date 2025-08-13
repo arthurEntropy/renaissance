@@ -164,7 +164,7 @@ const getWinnerAnnouncementClasses = computed(() => {
     padding: 6px 12px;
     font-size: var(--font-size-14);
     flex-shrink: 0;
-    transition: all 0.3s ease;
+    transition: var(--transition-all);
 }
 
 /* Win states for user */
@@ -260,7 +260,7 @@ const getWinnerAnnouncementClasses = computed(() => {
     font-size: var(--font-size-16);
     padding: 8px 16px;
     border-radius: var(--radius-6);
-    transition: all 0.3s ease;
+    transition: var(--transition-all);
     flex: 1;
     text-align: center;
 }

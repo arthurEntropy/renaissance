@@ -177,8 +177,8 @@ export default {
   color: var(--color-gray-light);
   font-size: var(--font-size-16);
   cursor: pointer;
-  padding: 2px;
-  transition: text-shadow 0.2s ease-in-out;
+  padding: var(--space-2xs);
+  transition: text-shadow var(--transition-normal);
 }
 
 .bottom-buttons:hover {
@@ -207,8 +207,8 @@ export default {
   border-top-left-radius: var(--radius-10);
   padding: 3px 10px 2px 10px;
   cursor: pointer;
-  transition: color 0.2s, background 0.2s;
-  z-index: 11;
+  transition: var(--transition-color-bg);
+  z-index: var(--z-interactive);
   display: flex;
   align-items: center;
   justify-content: center;

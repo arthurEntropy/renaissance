@@ -333,8 +333,8 @@ watch(() => props.images, (newImages) => {
   padding: 5px 10px;
   cursor: pointer;
   opacity: 0;
-  transition: opacity 0.3s;
-  z-index: 2;
+  transition: opacity var(--transition-normal);
+  z-index: var(--z-raised);
 }
 
 .enlarged-image-wrapper:hover .nav-button {
@@ -356,7 +356,7 @@ watch(() => props.images, (newImages) => {
   position: absolute;
   top: 10px;
   right: 10px;
-  z-index: 2;
+  z-index: var(--z-raised);
 }
 
 /* Edit modal styling */
@@ -370,7 +370,7 @@ watch(() => props.images, (newImages) => {
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 10;
+  z-index: var(--z-interactive);
   border-radius: var(--radius-12);
 }
 
@@ -437,11 +437,11 @@ watch(() => props.images, (newImages) => {
   color: var(--color-text-primary);
   background: var(--overlay-white-medium);
   border-radius: var(--radius-4);
-  padding: 2px;
+  padding: var(--space-2xs);
   cursor: grab;
   opacity: 0;
-  transition: opacity 0.2s;
-  z-index: 3;
+  transition: var(--transition-opacity);
+  z-index: var(--z-floating);
 }
 
 .thumb-wrapper:hover .thumb-drag-handle {
@@ -461,7 +461,7 @@ watch(() => props.images, (newImages) => {
   border-radius: var(--radius-8);
   box-shadow: var(--shadow-elevation-sm);
   background: var(--color-bg-secondary);
-  transition: box-shadow 0.2s;
+  transition: box-shadow var(--transition-normal);
 }
 
 .thumb-selected-overlay {
@@ -492,7 +492,7 @@ watch(() => props.images, (newImages) => {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color 0.2s;
+  transition: var(--transition-background);
 }
 
 .add-image-thumb:hover .add-image-placeholder {
@@ -538,7 +538,7 @@ watch(() => props.images, (newImages) => {
   text-align: center;
 }
 
-@media (max-width: 600px) {
+@media (max-width: var(--breakpoint-sm)) {
   .thumbs-grid {
     grid-template-columns: repeat(2,
         1fr) !important;

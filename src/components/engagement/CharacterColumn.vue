@@ -329,7 +329,7 @@ const onSuccessDrop = (event, diceIndex) => {
     border: 2px dashed var(--color-accent-gold);
     border-radius: var(--radius-10);
     background-color: transparent;
-    transition: all 0.2s ease;
+    transition: var(--transition-all);
 }
 
 .success-drop-zone.disabled {
@@ -360,7 +360,7 @@ const onSuccessDrop = (event, diceIndex) => {
     text-overflow: ellipsis;
     white-space: nowrap;
     cursor: help;
-    transition: background-color 0.2s;
+    transition: var(--transition-background);
     position: relative;
     display: flex;
     align-items: center;
@@ -387,7 +387,7 @@ const onSuccessDrop = (event, diceIndex) => {
     justify-content: center;
     cursor: pointer;
     line-height: var(--line-height-none);
-    transition: all 0.2s ease;
+    transition: var(--transition-all);
 }
 
 .assigned-success-pill:hover .remove-success-btn {
@@ -401,7 +401,7 @@ const onSuccessDrop = (event, diceIndex) => {
 
 .draggable-success {
     cursor: grab;
-    transition: transform 0.2s ease;
+    transition: transform var(--transition-normal);
 }
 
 .draggable-success:hover {
@@ -442,8 +442,8 @@ const onSuccessDrop = (event, diceIndex) => {
     font-size: var(--font-size-14);
     font-weight: var(--font-weight-bold);
     cursor: pointer;
-    z-index: 20;
-    transition: all 0.2s ease;
+    z-index: var(--z-interactive);
+    transition: var(--transition-all);
     box-shadow: var(--shadow-elevation-sm);
     text-shadow: var(--shadow-none);
 }
@@ -517,7 +517,7 @@ const onSuccessDrop = (event, diceIndex) => {
 
 .result-die {
     animation: none;
-    transition: transform 0.3s ease;
+    transition: transform var(--transition-normal);
 }
 
 .max-result {
@@ -598,7 +598,7 @@ const onSuccessDrop = (event, diceIndex) => {
     font-size: var(--font-size-10);
     text-align: center;
     cursor: help;
-    transition: background-color 0.2s;
+    transition: var(--transition-background);
     display: inline-block;
 }
 

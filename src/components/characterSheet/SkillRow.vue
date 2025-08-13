@@ -61,7 +61,7 @@ defineEmits(['open-skill-check', 'dice-click'])
     flex: 1;
     max-width: 85px;
     cursor: pointer;
-    transition: color 0.2s ease-in-out;
+    transition: var(--transition-color) ease-in-out;
 }
 
 .skill-name-clickable:hover {
@@ -72,7 +72,7 @@ defineEmits(['open-skill-check', 'dice-click'])
 .dice-icon {
     font-size: var(--font-size-24);
     cursor: pointer;
-    transition: color 0.2s, opacity 0.2s;
+    transition: var(--transition-color), opacity var(--transition-normal);
 }
 
 .d12-icon {

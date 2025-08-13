@@ -215,7 +215,7 @@ watch(() => props.editable, (val) => {
 }
 
 /* Responsive design */
-@media (max-width: 600px) {
+@media (max-width: var(--breakpoint-sm)) {
   .flavor-edit-grid {
     grid-template-columns: 1fr;
   }

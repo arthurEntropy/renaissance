@@ -356,7 +356,7 @@ export default {
 .dice-icon {
   font-size: var(--font-size-36);
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: var(--transition-all);
   position: relative;
   display: inline-block;
 }
@@ -377,7 +377,7 @@ export default {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  z-index: 10;
+  z-index: var(--z-interactive);
   padding: 0;
 }
 
@@ -400,7 +400,7 @@ export default {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: var(--transition-background);
   margin-top: 5px;
   padding-top: 5px;
   padding-left: 7px;
@@ -416,7 +416,7 @@ export default {
   border: 1px solid var(--color-gray-light);
   border-radius: var(--radius-4);
   padding: 5px;
-  z-index: 100;
+  z-index: var(--z-dropdown);
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 4px;
@@ -431,7 +431,7 @@ export default {
   border-radius: var(--radius-3);
   cursor: pointer;
   font-family: inherit;
-  transition: background-color 0.2s;
+  transition: var(--transition-background);
 }
 
 .die-option:hover {
@@ -463,7 +463,7 @@ export default {
   background-color: var(--color-danger);
   transform: translateY(-50%) rotate(-45deg);
   pointer-events: none;
-  z-index: 1;
+  z-index: var(--z-overlay);
 }
 
 .no-dice-message {
@@ -496,7 +496,7 @@ export default {
   font-size: var(--font-size-10);
   text-align: center;
   cursor: help;
-  transition: background-color 0.2s;
+  transition: var(--transition-background);
   display: inline-block;
 }
 
@@ -520,7 +520,7 @@ export default {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  z-index: 10;
+  z-index: var(--z-interactive);
   padding: 0;
 }
 
@@ -543,7 +543,7 @@ export default {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: var(--transition-background);
   padding-bottom: 2px;
 }
 
@@ -557,7 +557,7 @@ export default {
   border: 1px solid var(--color-gray-light);
   border-radius: var(--radius-4);
   padding: 8px;
-  z-index: 100;
+  z-index: var(--z-dropdown);
   max-width: 250px;
   max-height: 300px;
   overflow-y: auto;
@@ -577,7 +577,7 @@ export default {
   cursor: pointer;
   font-family: inherit;
   font-size: var(--font-size-14);
-  transition: background-color 0.2s;
+  transition: var(--transition-background);
 }
 
 .success-option:hover {
@@ -601,7 +601,7 @@ export default {
 
 .dice-tooltip {
   position: fixed;
-  z-index: 1000;
+  z-index: var(--z-modal);
   background: var(--overlay-black-heavy);
   color: var(--color-text-primary);
   padding: 14px;
@@ -625,7 +625,7 @@ h2 {
 }
 
 /* Responsive styles */
-@media (max-width: 600px) {
+@media (max-width: var(--breakpoint-sm)) {
   .engagement-dice-table {
     width: 90%;
     padding: 10px;

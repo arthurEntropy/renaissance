@@ -414,7 +414,7 @@ export default {
   text-overflow: ellipsis;
   white-space: nowrap;
   color: var(--color-primary);
-  transition: color 0.2s;
+  transition: var(--transition-color);
 }
 
 .section-controls {
@@ -473,7 +473,7 @@ export default {
   height: 100%;
   padding: 20px;
   position: relative;
-  z-index: 2;
+  z-index: var(--z-raised);
   overflow-y: auto;
 }
 
@@ -483,14 +483,14 @@ export default {
   right: 0;
   top: 0;
   height: 100%;
-  z-index: 1;
+  z-index: var(--z-overlay);
 }
 
 /* Section header and name styles */
 .section-name-container {
   margin-bottom: 20px;
   position: relative;
-  z-index: 3;
+  z-index: var(--z-floating);
 }
 
 .section-header {
@@ -612,7 +612,7 @@ export default {
 }
 
 /* Responsive adjustments */
-@media (max-width: 768px) {
+@media (max-width: var(--breakpoint-md)) {
   .rules-container {
     flex-direction: column;
   }

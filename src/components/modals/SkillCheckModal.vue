@@ -334,7 +334,7 @@ select option.illfavored-option {
 .dice-symbol {
   font-size: var(--font-size-32);
   color: var(--color-text-primary);
-  transition: all 0.3s ease;
+  transition: var(--transition-all);
 }
 
 /* Favored/ill-favored d12 styling */
@@ -384,7 +384,7 @@ select option.illfavored-option {
   cursor: pointer;
   text-align: center;
   background-color: var(--color-bg-secondary);
-  transition: all 0.2s;
+  transition: var(--transition-all);
 }
 
 .dice-mod-option:hover,
