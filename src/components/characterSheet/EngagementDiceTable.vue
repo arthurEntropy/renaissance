@@ -314,8 +314,8 @@ export default {
   flex-direction: column;
   align-items: center;
   background-color: var(--color-black);
-  padding: 15px;
-  border-radius: 5px;
+  padding: var(--space-lg);
+  border-radius: var(--radius-5);
 }
 
 .engagement-dice-header {
@@ -329,12 +329,12 @@ export default {
 .header-left {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--space-md);
 }
 
 .button-group {
   display: flex;
-  gap: 8px;
+  gap: var(--space-sm);
 }
 
 .engagement-dice-content {
@@ -354,9 +354,9 @@ export default {
 }
 
 .dice-icon {
-  font-size: 36px;
+  font-size: var(--font-size-36);
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: var(--transition-all);
   position: relative;
   display: inline-block;
 }
@@ -370,14 +370,14 @@ export default {
   background-color: var(--color-danger);
   color: var(--color-text-primary);
   border: none;
-  border-radius: 50%;
-  font-size: 10px;
-  line-height: 1;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-10);
+  line-height: var(--line-height-none);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  z-index: 10;
+  z-index: var(--z-interactive);
   padding: 0;
 }
 
@@ -394,13 +394,13 @@ export default {
   background-color: var(--color-gray-medium);
   color: var(--color-text-primary);
   border: 2px solid var(--color-gray-light);
-  border-radius: 50%;
-  font-size: 18px;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-18);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: var(--transition-background);
   margin-top: 5px;
   padding-top: 5px;
   padding-left: 7px;
@@ -414,24 +414,24 @@ export default {
   position: fixed;
   background-color: var(--color-bg-secondary);
   border: 1px solid var(--color-gray-light);
-  border-radius: 4px;
-  padding: 5px;
-  z-index: 100;
+  border-radius: var(--radius-4);
+  padding: var(--space-xs);
+  z-index: var(--z-dropdown);
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 4px;
-  box-shadow: 0 2px 8px var(--overlay-black-medium);
+  gap: var(--space-xs);
+  box-shadow: var(--shadow-elevation-sm);
 }
 
 .die-option {
-  padding: 5px 10px;
+  padding: var(--space-xs) 10px;
   background-color: var(--color-bg-secondary);
   color: var(--color-text-primary);
   border: none;
-  border-radius: 3px;
+  border-radius: var(--radius-3);
   cursor: pointer;
   font-family: inherit;
-  transition: background-color 0.2s;
+  transition: var(--transition-background);
 }
 
 .die-option:hover {
@@ -444,7 +444,7 @@ export default {
 
 .dice-icon.selected {
   color: var(--color-accent-gold);
-  text-shadow: var(--shadow-glow-gold);
+  text-shadow: var(--shadow-glow-gold-sm);
   transform: scale(1.05);
 }
 
@@ -463,7 +463,7 @@ export default {
   background-color: var(--color-danger);
   transform: translateY(-50%) rotate(-45deg);
   pointer-events: none;
-  z-index: 1;
+  z-index: var(--z-overlay);
 }
 
 .no-dice-message {
@@ -480,7 +480,7 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 5px;
+  gap: var(--space-xs);
   margin-top: 10px;
 }
 
@@ -491,12 +491,12 @@ export default {
 .engagement-success-pill {
   background-color: var(--color-gray-dark);
   color: var(--color-text-primary);
-  padding: 5px 10px;
-  border-radius: 15px;
-  font-size: 10px;
+  padding: var(--space-xs) 10px;
+  border-radius: var(--radius-15);
+  font-size: var(--font-size-10);
   text-align: center;
   cursor: help;
-  transition: background-color 0.2s;
+  transition: var(--transition-background);
   display: inline-block;
 }
 
@@ -513,14 +513,14 @@ export default {
   background-color: var(--color-danger);
   color: var(--color-text-primary);
   border: none;
-  border-radius: 50%;
-  font-size: 8px;
-  line-height: 1;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-10);
+  line-height: var(--line-height-none);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  z-index: 10;
+  z-index: var(--z-interactive);
   padding: 0;
 }
 
@@ -537,13 +537,13 @@ export default {
   background-color: var(--color-bg-secondary);
   color: var(--color-text-primary);
   border: 1px solid var(--color-gray-light);
-  border-radius: 50%;
-  font-size: 14px;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-14);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: var(--transition-background);
   padding-bottom: 2px;
 }
 
@@ -555,29 +555,29 @@ export default {
   position: fixed;
   background-color: var(--color-bg-secondary);
   border: 1px solid var(--color-gray-light);
-  border-radius: 4px;
-  padding: 8px;
-  z-index: 100;
+  border-radius: var(--radius-4);
+  padding: var(--space-sm);
+  z-index: var(--z-dropdown);
   max-width: 250px;
   max-height: 300px;
   overflow-y: auto;
-  box-shadow: 0 2px 8px var(--overlay-black-medium);
+  box-shadow: var(--shadow-elevation-sm);
 }
 
 .success-option {
   display: block;
   width: 100%;
   text-align: left;
-  padding: 5px 8px;
+  padding: var(--space-xs) 8px;
   margin-bottom: 3px;
   background-color: var(--color-bg-secondary);
   color: var(--color-text-primary);
   border: none;
-  border-radius: 3px;
+  border-radius: var(--radius-3);
   cursor: pointer;
   font-family: inherit;
-  font-size: 11px;
-  transition: background-color 0.2s;
+  font-size: var(--font-size-14);
+  transition: var(--transition-background);
 }
 
 .success-option:hover {
@@ -587,35 +587,35 @@ export default {
 .success-dropdown-empty {
   color: var(--color-text-muted);
   font-style: italic;
-  padding: 5px;
+  padding: var(--space-xs);
   text-align: center;
-  font-size: 11px;
+  font-size: var(--font-size-14);
 }
 
 .no-successes-message {
   text-align: center;
   color: var(--color-text-muted);
   margin-top: 5px;
-  font-size: 11px;
+  font-size: var(--font-size-14);
 }
 
 .dice-tooltip {
   position: fixed;
-  z-index: 1000;
+  z-index: var(--z-modal);
   background: var(--overlay-black-heavy);
   color: var(--color-text-primary);
   padding: 14px;
-  border-radius: 8px;
-  font-size: 12px;
+  border-radius: var(--radius-8);
+  font-size: var(--font-size-14);
   pointer-events: none;
-  box-shadow: 0 2px 12px var(--overlay-black-medium);
+  box-shadow: var(--shadow-elevation-lg);
   max-width: 260px;
   white-space: pre-line;
 }
 
 .tooltip-source {
   color: var(--color-text-muted);
-  font-size: 10px;
+  font-size: var(--font-size-10);
   font-style: italic;
 }
 
@@ -625,10 +625,10 @@ h2 {
 }
 
 /* Responsive styles */
-@media (max-width: 600px) {
+@media (max-width: var(--breakpoint-sm)) {
   .engagement-dice-table {
     width: 90%;
-    padding: 10px;
+    padding: var(--space-md);
   }
 }
 </style>

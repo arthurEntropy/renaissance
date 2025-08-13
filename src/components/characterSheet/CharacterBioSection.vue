@@ -336,8 +336,8 @@ onBeforeUnmount(() => {
   display: flex;
   flex-direction: column;
   background-color: var(--color-black);
-  border-radius: 5px;
-  padding: 15px;
+  border-radius: var(--radius-5);
+  padding: var(--space-lg);
   position: relative;
   margin-bottom: 10px;
   flex: 3;
@@ -346,7 +346,7 @@ onBeforeUnmount(() => {
 .bio-section-content {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: var(--space-xl);
 }
 
 /* Character Art */
@@ -360,8 +360,8 @@ onBeforeUnmount(() => {
   width: 170px;
   height: 170px;
   object-fit: cover;
-  border-radius: 4px;
-  box-shadow: 0 2px 8px var(--overlay-black-heavy);
+  border-radius: var(--radius-4);
+  box-shadow: var(--shadow-elevation-sm);
 }
 
 /* Bio Info */
@@ -377,8 +377,8 @@ onBeforeUnmount(() => {
   flex-wrap: wrap;
   cursor: pointer;
   padding: 2px;
-  border-radius: 4px;
-  transition: background-color 0.2s;
+  border-radius: var(--radius-4);
+  transition: var(--transition-background);
 }
 
 .character-name-container:hover {
@@ -387,15 +387,15 @@ onBeforeUnmount(() => {
 
 .character-name {
   margin: 0;
-  font-size: 24px;
+  font-size: var(--font-size-24);
   color: var(--color-white);
 }
 
 .pronouns-container {
   display: inline-block;
   padding: 2px 4px;
-  border-radius: 4px;
-  transition: background-color 0.2s;
+  border-radius: var(--radius-4);
+  transition: var(--transition-background);
 }
 
 .pronouns-container:hover {
@@ -404,7 +404,7 @@ onBeforeUnmount(() => {
 
 .character-pronouns {
   margin-left: 5px;
-  font-size: 14px;
+  font-size: var(--font-size-14);
   color: var(--color-gray-light);
   font-style: italic;
 }
@@ -419,10 +419,10 @@ onBeforeUnmount(() => {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 5px;
-  border-radius: 4px;
+  padding: var(--space-xs);
+  border-radius: var(--radius-4);
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: var(--transition-background);
 }
 
 .bio-detail:hover {
@@ -435,19 +435,19 @@ onBeforeUnmount(() => {
 
 .bio-label {
   color: var(--color-gray-light);
-  font-size: 12px;
+  font-size: var(--font-size-14);
 }
 
 .bio-value {
   color: var(--color-white);
   flex-grow: 1;
-  font-size: 14px;
+  font-size: var(--font-size-14);
 }
 
 .empty-field {
   color: var(--color-gray-medium);
   font-style: italic;
-  font-size: 0.9rem;
+  font-size: var(--font-size-14);
 }
 
 /* XP Field */
@@ -455,7 +455,7 @@ onBeforeUnmount(() => {
   flex-direction: row;
   justify-content: left;
   align-items: center;
-  gap: 10px;
+  gap: var(--space-md);
   cursor: default;
 }
 
@@ -467,20 +467,18 @@ onBeforeUnmount(() => {
 .form-input.inline-edit {
   background-color: var(--color-gray-dark);
   border: 1px solid var(--color-gray-medium);
-  border-radius: 4px;
+  border-radius: var(--radius-4);
   color: var(--color-white);
-  padding: 5px 8px;
-  font-size: 1rem;
+  padding: var(--space-xs) 8px;
+  font-size: var(--font-size-16);
   width: 100%;
   min-width: 200px;
   outline: none;
-  box-shadow: none;
   box-sizing: border-box;
 }
 
 .form-input.inline-edit:focus {
   border-color: var(--color-gray-light);
-  box-shadow: 0 0 0 2px var(--overlay-white-medium);
 }
 
 .pronouns-input {
@@ -495,13 +493,13 @@ onBeforeUnmount(() => {
 .tag-selector {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: var(--space-sm);
   align-items: center;
-  padding: 5px;
+  padding: var(--space-xs);
   min-height: 34px;
   background-color: var(--color-gray-dark);
   border: 1px solid var(--color-gray-medium);
-  border-radius: 4px;
+  border-radius: var(--radius-4);
   flex-grow: 1;
 }
 
@@ -509,22 +507,22 @@ onBeforeUnmount(() => {
   display: flex;
   align-items: center;
   background-color: var(--color-gray-medium);
-  border-radius: 15px;
+  border-radius: var(--radius-15);
   padding: 3px 8px;
-  font-size: 0.9rem;
+  font-size: var(--font-size-14);
   color: var(--color-white);
-  font-size: 12px;
+  font-size: var(--font-size-14);
 }
 
 .remove-tag {
   background: none;
   border: none;
   color: var(--color-gray-light);
-  font-size: 1.2rem;
+  font-size: var(--font-size-20);
   cursor: pointer;
   margin-left: 5px;
   padding: 0 2px;
-  line-height: 1;
+  line-height: var(--line-height-none);
 }
 
 .remove-tag:hover {
@@ -535,8 +533,8 @@ onBeforeUnmount(() => {
   background-color: var(--color-gray-medium);
   border: 1px solid var(--color-gray-medium);
   color: var(--color-white);
-  padding: 5px;
-  border-radius: 4px;
+  padding: var(--space-xs);
+  border-radius: var(--radius-4);
   cursor: pointer;
 }
 
@@ -550,13 +548,13 @@ onBeforeUnmount(() => {
 }
 
 .background-content.scrollable {
-  padding: 10px;
+  padding: var(--space-md);
   background-color: var(--color-dark-gray);
-  border-radius: 5px;
+  border-radius: var(--radius-5);
   height: 100%;
-  font-size: 14px;
+  font-size: var(--font-size-14);
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: var(--transition-background);
   overflow-y: auto;
 }
 
@@ -565,7 +563,7 @@ onBeforeUnmount(() => {
 }
 
 .background-scroll-content {
-  line-height: 1.25;
+  line-height: var(--line-height-normal);
 }
 
 /* Modal specific styles */
@@ -590,26 +588,26 @@ onBeforeUnmount(() => {
 
 .edit-actions {
   display: flex;
-  gap: 10px;
+  gap: var(--space-md);
 }
 
 .background-modal-content {
   max-height: 60vh;
   overflow-y: auto;
-  padding: 10px;
+  padding: var(--space-md);
   background: var(--overlay-white-subtle);
-  border-radius: 4px;
+  border-radius: var(--radius-4);
   text-align: left;
 }
 
 .background-full-text {
   white-space: pre-wrap;
-  line-height: 1.5;
+  line-height: var(--line-height-normal);
 }
 
 .background-modal-editor {
   height: 400px;
-  margin: 10px 0;
+  margin: var(--space-md) 0;
 }
 
 .empty-background {
@@ -623,7 +621,7 @@ onBeforeUnmount(() => {
 }
 
 /* Responsive Styles */
-@media (max-width: 1024px) {
+@media (max-width: var(--breakpoint-lg)) {
   .bio-section-content {
     flex-direction: column;
   }
@@ -635,7 +633,7 @@ onBeforeUnmount(() => {
   }
 }
 
-@media (max-width: 767px) {
+@media (max-width: calc(var(--breakpoint-md) - 1px)) {
   .character-name-container {
     flex-direction: column;
     align-items: flex-start;

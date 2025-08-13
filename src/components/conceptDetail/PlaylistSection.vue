@@ -228,14 +228,14 @@ watch(() => props.editable, (val) => {
 <style scoped>
 /* Component-specific styles */
 .helper-text {
-  font-size: 0.9rem;
+  font-size: var(--font-size-14);
   color: var(--color-gray-light);
   margin-bottom: 10px;
 }
 
 .playlist-toggle {
   display: flex;
-  gap: 10px;
+  gap: var(--space-md);
   margin-bottom: 15px;
 }
 
@@ -243,10 +243,10 @@ watch(() => props.editable, (val) => {
   background: var(--overlay-black-medium);
   border: 1px solid var(--color-gray-medium);
   color: var(--color-gray-light);
-  padding: 8px 16px;
-  border-radius: 4px;
+  padding: var(--space-sm) 16px;
+  border-radius: var(--radius-4);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: var(--transition-all);
 }
 
 .playlist-toggle-btn.active {
@@ -258,19 +258,19 @@ watch(() => props.editable, (val) => {
 .playlist-container {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: var(--space-lg);
 }
 
 .playlist-embed {
   width: 100%;
   background: var(--overlay-white-subtle);
-  border-radius: 8px;
+  border-radius: var(--radius-8);
 }
 
 .no-playlists {
-  padding: 15px;
+  padding: var(--space-lg);
   background: var(--overlay-white-subtle);
-  border-radius: 8px;
+  border-radius: var(--radius-8);
   text-align: center;
   color: var(--color-gray-light);
 }
@@ -279,23 +279,23 @@ watch(() => props.editable, (val) => {
 .url-container {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: var(--space-md);
   margin-bottom: 10px;
 }
 
 .edit-item {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--space-sm);
   padding: 12px;
   background: var(--overlay-white-subtle);
-  border-radius: 4px;
+  border-radius: var(--radius-4);
 }
 
 .url-buttons {
   display: flex;
   justify-content: flex-end;
-  gap: 5px;
+  gap: var(--space-xs);
   margin-top: 5px;
 }
 
@@ -304,11 +304,11 @@ watch(() => props.editable, (val) => {
 }
 
 .service-select {
-  padding: 5px;
+  padding: var(--space-xs);
   background: var(--overlay-white-medium);
   border: 1px solid var(--color-gray-medium);
   color: var(--color-text-secondary);
-  border-radius: 4px;
+  border-radius: var(--radius-4);
 }
 
 .playlist-input {

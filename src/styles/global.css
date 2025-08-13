@@ -4,31 +4,31 @@ a {
 }
 
 label {
-  font-size: 14px;
+  font-size: var(--font-size-14);
   color: var(--color-gray-medium);
 }
 
 input,
 textarea,
 select {
-  font-family: 'Lora', serif;
+  font-family: var(--font-family-primary);
   color: var(--color-white);
   background-color: var(--color-black);
 }
 
 /* BUTTONS */
 .button {
-  padding: 10px 20px;
-  margin: 10px;
-  font-family: 'Lora', serif;
-  font-size: 14px;
-  font-weight: bold;
+  padding: var(--space-md) 20px;
+  margin: var(--space-md);
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-14);
+  font-weight: var(--font-weight-bold);
   color: var(--color-gray-light);
   background-color: var(--color-gray-medium);
   border: none;
-  border-radius: 5px;
+  border-radius: var(--radius-5);
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: var(--transition-background);
 }
 .button:hover {
   background-color: var(--color-gray-light);

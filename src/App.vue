@@ -73,7 +73,7 @@ body {
   background-attachment: fixed;
   background-color: var(--color-black);
   color: var(--color-text-primary);
-  font-family: 'Lora', serif;
+  font-family: var(--font-family-primary);
   overflow-x: hidden;
 }
 
@@ -85,7 +85,7 @@ body {
   width: 100%;
   height: 100%;
   background-color: var(--overlay-black-medium);
-  z-index: 0;
+  z-index: var(--z-base);
   pointer-events: none;
 }
 
@@ -107,7 +107,7 @@ body {
   height: 50px;
   background: var(--overlay-black-heavy);
   backdrop-filter: blur(5px);
-  z-index: 100;
+  z-index: var(--z-dropdown);
   border-bottom: 1px solid var(--overlay-white-medium);
   display: block;
 }
@@ -126,13 +126,13 @@ body {
   color: var(--color-text-secondary);
   text-decoration: none;
   padding: 0 10px;
-  font-size: 0.9rem;
+  font-size: var(--font-size-14);
   letter-spacing: 1px;
   height: 100%;
   display: flex;
   align-items: center;
   position: relative;
-  transition: color 0.3s;
+  transition: color var(--transition-normal);
 }
 
 .top-nav a:hover {
@@ -164,11 +164,11 @@ body {
   height: 100vh;
   background: var(--overlay-black-medium);
   backdrop-filter: blur(5px);
-  padding: 20px;
-  transition: left 0.3s ease-in-out;
+  padding: var(--space-xl);
+  transition: left var(--transition-normal);
   display: flex;
   flex-direction: column;
-  z-index: 1000;
+  z-index: var(--z-modal);
 }
 
 .nav-menu.open {
@@ -185,9 +185,9 @@ body {
   background: var(--overlay-black-heavy);
   color: var(--color-text-secondary);
   border: none;
-  border-radius: 5px;
+  border-radius: var(--radius-5);
   cursor: pointer;
-  font-size: 1.5em;
+  font-size: var(--font-size-24);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -202,9 +202,9 @@ body {
 .nav-menu a {
   color: var(--color-text-secondary);
   text-decoration: none;
-  padding: 10px;
-  margin: 5px 0;
-  transition: background 0.3s;
+  padding: var(--space-md);
+  margin: var(--space-xs) 0;
+  transition: background-color var(--transition-normal);
 }
 
 .nav-menu a:hover {
@@ -218,14 +218,14 @@ body {
 }
 
 /* Responsive Design */
-@media (min-width: 1024px) {
+@media (min-width: var(--breakpoint-lg)) {
   .nav-menu .menu-toggle {
     display: none;
     /* Hide mobile menu on desktop */
   }
 }
 
-@media (max-width: 1023px) {
+@media (max-width: calc(var(--breakpoint-lg) - 1px)) {
 
   html,
   body {

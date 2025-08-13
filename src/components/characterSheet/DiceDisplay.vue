@@ -78,32 +78,31 @@ defineExpose({
     display: flex;
     flex-wrap: nowrap;
     justify-content: center;
-    gap: 5px;
-    padding: 5px 0;
+    gap: var(--space-xs);
+    padding: var(--space-xs) 0;
     overflow-x: auto;
 }
 
 .engagement-dice-placeholder {
-    padding: 5px 0;
+    padding: var(--space-xs) 0;
     height: 46px;
 }
 
 .dice-symbol {
-    font-size: 36px;
+    font-size: var(--font-size-36);
     flex-shrink: 1;
     position: relative;
-    text-shadow: none;
     opacity: 1;
     text-decoration: none;
 }
 
 /* When there are many dice, make them smaller */
 .roll-dice:has(.dice-symbol:nth-child(n + 6)) .dice-symbol {
-    font-size: 30px;
+    font-size: var(--font-size-30);
 }
 
 .roll-dice:has(.dice-symbol:nth-child(n + 8)) .dice-symbol {
-    font-size: 24px;
+    font-size: var(--font-size-24);
 }
 
 /* Define transition for all dice */
@@ -118,14 +117,12 @@ defineExpose({
 @keyframes fadeInGlow {
     0% {
         color: var(--color-white);
-        text-shadow: none;
+        text-shadow: var(--shadow-none);
     }
 
     100% {
         color: var(--color-accent-gold);
-        text-shadow:
-            0 0 5px var(--shadow-glow-gold),
-            0 0 10px var(--shadow-glow-gold);
+        text-shadow: var(--shadow-glow-gold-sm);
     }
 }
 
@@ -187,7 +184,7 @@ defineExpose({
     position: absolute;
     bottom: 0;
     right: 0;
-    font-size: 16px;
+    font-size: var(--font-size-16);
     transform: translate(5px, 5px);
     opacity: 0;
     /* Start invisible */

@@ -194,7 +194,7 @@ export default {
 <style scoped>
 .content-wrapper {
   display: flex;
-  gap: 10px;
+  gap: var(--space-md);
   align-items: flex-start;
   padding-top: 10px;
 }
@@ -203,14 +203,14 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 5px;
+  gap: var(--space-xs);
 }
 
 .equipment-image {
   width: 100px;
   height: 100px;
   object-fit: cover;
-  border-radius: 4px;
+  border-radius: var(--radius-4);
   cursor: pointer;
 }
 
@@ -226,7 +226,7 @@ export default {
 .large-image {
   width: 100%;
   height: auto;
-  border-radius: 4px;
+  border-radius: var(--radius-4);
   margin-top: 10px;
 }
 
@@ -234,7 +234,7 @@ export default {
 .dice-display-container {
   display: flex;
   justify-content: space-between;
-  gap: 10px;
+  gap: var(--space-md);
   margin-top: 10px;
 }
 
@@ -247,7 +247,7 @@ export default {
 .dice-section-background {
   background-color: var(--overlay-black-medium);
   padding: 3px 0 3px 0;
-  border-radius: 5px;
+  border-radius: var(--radius-5);
   text-align: center;
   width: 100%;
   display: flex;
@@ -257,7 +257,7 @@ export default {
 }
 
 .dice-label {
-  font-size: 12px;
+  font-size: var(--font-size-14);
   margin-bottom: 1px;
 }
 
@@ -269,14 +269,14 @@ export default {
 }
 
 .dice-icon {
-  font-size: 36px;
+  font-size: var(--font-size-36);
 }
 
 /* Dice Description Row */
 .dice-description-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: var(--space-md);
   width: 100%;
 }
 
@@ -291,16 +291,16 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 5px;
+  gap: var(--space-xs);
   margin-top: 10px;
 }
 
 .engagement-success-pill {
   background-color: var(--overlay-black-medium);
   color: white;
-  padding: 5px 10px;
-  border-radius: 15px;
-  font-size: 10px;
+  padding: var(--space-xs) 10px;
+  border-radius: var(--radius-15);
+  font-size: var(--font-size-10);
   text-align: center;
   cursor: help;
 }
@@ -313,20 +313,20 @@ export default {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: var(--space-md);
 }
 
 /* Tooltip */
 .success-tooltip {
   position: fixed;
-  z-index: 1000;
+  z-index: var(--z-modal);
   background: var(--overlay-black-heavy);
   color: #fff;
   padding: 14px;
-  border-radius: 8px;
-  font-size: 12px;
+  border-radius: var(--radius-8);
+  font-size: var(--font-size-14);
   pointer-events: none;
-  box-shadow: 0 2px 12px var(--overlay-black-medium);
+  box-shadow: var(--shadow-elevation-lg);
   max-width: 260px;
   white-space: pre-line;
 }

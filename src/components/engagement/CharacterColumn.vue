@@ -244,8 +244,8 @@ const onSuccessDrop = (event, diceIndex) => {
 .engagement-column {
     flex: 1;
     border: 2px solid var(--color-gray-light);
-    border-radius: 5px;
-    padding: 15px;
+    border-radius: var(--radius-5);
+    padding: var(--space-lg);
     background-color: var(--overlay-white-subtle);
     display: flex;
     flex-direction: column;
@@ -275,8 +275,8 @@ const onSuccessDrop = (event, diceIndex) => {
     width: 100px;
     height: 100px;
     object-fit: cover;
-    border-radius: 50%;
-    margin: 10px 0;
+    border-radius: var(--radius-full);
+    margin: var(--space-md) 0;
     border: 2px solid var(--color-bg-secondary);
 }
 
@@ -299,7 +299,7 @@ const onSuccessDrop = (event, diceIndex) => {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    gap: var(--space-sm);
 }
 
 .success-drop-zone,
@@ -327,9 +327,9 @@ const onSuccessDrop = (event, diceIndex) => {
     width: 50px;
     height: 20px;
     border: 2px dashed var(--color-accent-gold);
-    border-radius: 10px;
+    border-radius: var(--radius-10);
     background-color: transparent;
-    transition: all 0.2s ease;
+    transition: var(--transition-all);
 }
 
 .success-drop-zone.disabled {
@@ -351,17 +351,16 @@ const onSuccessDrop = (event, diceIndex) => {
     background-color: var(--color-accent-gold);
     color: var(--overlay-black-heavy);
     padding: 2px 8px;
-    border-radius: 10px;
-    font-size: 10px;
-    font-weight: bold;
+    border-radius: var(--radius-10);
+    font-size: var(--font-size-10);
+    font-weight: var(--font-weight-bold);
     text-align: center;
     max-width: 50px;
     overflow: visible;
     text-overflow: ellipsis;
     white-space: nowrap;
-    box-shadow: 0 1px 3px var(--overlay-white-medium);
     cursor: help;
-    transition: background-color 0.2s;
+    transition: var(--transition-background);
     position: relative;
     display: flex;
     align-items: center;
@@ -380,16 +379,15 @@ const onSuccessDrop = (event, diceIndex) => {
     height: 14px;
     background-color: var(--color-danger);
     color: var(--color-text-primary);
-    border-radius: 50%;
-    font-size: 10px;
-    font-weight: bold;
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-10);
+    font-weight: var(--font-weight-bold);
     display: none;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    line-height: 1;
-    transition: all 0.2s ease;
-    box-shadow: 0 1px 3px var(--overlay-white-medium);
+    line-height: var(--line-height-none);
+    transition: var(--transition-all);
 }
 
 .assigned-success-pill:hover .remove-success-btn {
@@ -403,7 +401,7 @@ const onSuccessDrop = (event, diceIndex) => {
 
 .draggable-success {
     cursor: grab;
-    transition: transform 0.2s ease;
+    transition: transform var(--transition-normal);
 }
 
 .draggable-success:hover {
@@ -422,14 +420,14 @@ const onSuccessDrop = (event, diceIndex) => {
 }
 
 .dice-symbol {
-    font-size: 36px;
+    font-size: var(--font-size-36);
     display: inline-block;
     position: relative;
     color: inherit;
     margin: 0 5px;
     transform: scale(1.2);
     height: 36px;
-    line-height: 1;
+    line-height: var(--line-height-none);
 }
 
 .reroll-hover {
@@ -439,15 +437,15 @@ const onSuccessDrop = (event, diceIndex) => {
     transform: translate(-50%, -50%);
     background-color: var(--color-accent-gold);
     color: var(--overlay-black-heavy);
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-size: 12px;
-    font-weight: bold;
+    padding: var(--space-xs) 8px;
+    border-radius: var(--radius-4);
+    font-size: var(--font-size-14);
+    font-weight: var(--font-weight-bold);
     cursor: pointer;
-    z-index: 20;
-    transition: all 0.2s ease;
-    box-shadow: 0 2px 8px var(--overlay-white-medium);
-    text-shadow: none;
+    z-index: var(--z-interactive);
+    transition: var(--transition-all);
+    box-shadow: var(--shadow-elevation-sm);
+    text-shadow: var(--shadow-none);
 }
 
 .reroll-hover:hover {
@@ -456,7 +454,7 @@ const onSuccessDrop = (event, diceIndex) => {
 }
 
 .dice-symbol i {
-    font-family: 'dicefont' !important;
+    font-family: var(--font-family-dice) !important;
     font-style: normal;
 }
 
@@ -519,15 +517,13 @@ const onSuccessDrop = (event, diceIndex) => {
 
 .result-die {
     animation: none;
-    transition: transform 0.3s ease;
+    transition: transform var(--transition-normal);
 }
 
 .max-result {
     color: var(--color-accent-gold);
     position: relative;
-    text-shadow:
-        0 0 5px var(--color-accent-gold),
-        0 0 10px var(--color-accent-gold);
+    text-shadow: var(--shadow-glow-gold-sm);
     animation: fadeInGlow 0.8s ease-in forwards;
     animation-delay: 0.1s;
 }
@@ -536,7 +532,7 @@ const onSuccessDrop = (event, diceIndex) => {
     position: absolute;
     bottom: 0;
     right: 0;
-    font-size: 16px;
+    font-size: var(--font-size-16);
     transform: translate(5px, 5px);
     opacity: 0;
     animation: fadeIn 0.5s ease-in forwards;
@@ -546,14 +542,12 @@ const onSuccessDrop = (event, diceIndex) => {
 @keyframes fadeInGlow {
     0% {
         color: var(--color-text-primary);
-        text-shadow: none;
+        text-shadow: var(--shadow-none);
     }
 
     100% {
         color: var(--color-accent-gold);
-        text-shadow:
-            0 0 5px var(--color-accent-gold),
-            0 0 10px var(--color-accent-gold);
+        text-shadow: var(--shadow-glow-gold-sm);
     }
 }
 
@@ -593,18 +587,18 @@ const onSuccessDrop = (event, diceIndex) => {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 5px;
+    gap: var(--space-xs);
 }
 
 .engagement-success-pill {
     background-color: var(--color-gray-dark);
     color: var(--color-text-primary);
-    padding: 5px 10px;
-    border-radius: 15px;
-    font-size: 10px;
+    padding: var(--space-xs) 10px;
+    border-radius: var(--radius-15);
+    font-size: var(--font-size-10);
     text-align: center;
     cursor: help;
-    transition: background-color 0.2s;
+    transition: var(--transition-background);
     display: inline-block;
 }
 
@@ -629,7 +623,7 @@ const onSuccessDrop = (event, diceIndex) => {
 .waiting-animation {
     display: flex;
     justify-content: center;
-    gap: 8px;
+    gap: var(--space-sm);
     margin-bottom: 15px;
 }
 
@@ -637,7 +631,7 @@ const onSuccessDrop = (event, diceIndex) => {
     width: 12px;
     height: 12px;
     background-color: var(--color-text-muted);
-    border-radius: 50%;
+    border-radius: var(--radius-full);
     animation: pulse 1.5s infinite ease-in-out;
 }
 
@@ -669,12 +663,12 @@ const onSuccessDrop = (event, diceIndex) => {
 /* Winner/Loser Column Styling */
 .winner-column {
     border: 2px solid var(--color-success) !important;
-    box-shadow: 0 0 15px var(--color-success);
+    box-shadow: var(--shadow-glow-success-lg);
 }
 
 .loser-column {
     border: 2px solid var(--color-danger) !important;
-    box-shadow: 0 0 15px var(--color-danger);
+    box-shadow: var(--shadow-glow-danger-lg);
 }
 
 h3 {

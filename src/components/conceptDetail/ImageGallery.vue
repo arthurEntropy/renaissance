@@ -316,8 +316,7 @@ watch(() => props.images, (newImages) => {
 .enlarged-image {
   width: 100%;
   object-fit: contain;
-  border-radius: 12px;
-  box-shadow: 0 4px 32px var(--overlay-black-medium);
+  border-radius: var(--radius-12);
   background: var(--color-bg-tertiary);
   display: block;
   margin: 0 auto;
@@ -330,12 +329,12 @@ watch(() => props.images, (newImages) => {
   background: var(--overlay-black-medium);
   border: none;
   color: var(--color-text-primary);
-  font-size: 24px;
-  padding: 5px 10px;
+  font-size: var(--font-size-24);
+  padding: var(--space-xs) 10px;
   cursor: pointer;
   opacity: 0;
-  transition: opacity 0.3s;
-  z-index: 2;
+  transition: opacity var(--transition-normal);
+  z-index: var(--z-raised);
 }
 
 .enlarged-image-wrapper:hover .nav-button {
@@ -357,7 +356,7 @@ watch(() => props.images, (newImages) => {
   position: absolute;
   top: 10px;
   right: 10px;
-  z-index: 2;
+  z-index: var(--z-raised);
 }
 
 /* Edit modal styling */
@@ -371,17 +370,16 @@ watch(() => props.images, (newImages) => {
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 10;
-  border-radius: 12px;
+  z-index: var(--z-interactive);
+  border-radius: var(--radius-12);
 }
 
 .edit-modal-content {
   background: var(--color-bg-secondary);
-  padding: 20px;
-  border-radius: 8px;
+  padding: var(--space-xl);
+  border-radius: var(--radius-8);
   width: 80%;
   max-width: 500px;
-  box-shadow: 0 4px 20px var(--overlay-black-medium);
 }
 
 .edit-modal-content h3 {
@@ -391,19 +389,19 @@ watch(() => props.images, (newImages) => {
 
 .url-input {
   width: 100%;
-  padding: 8px 12px;
+  padding: var(--space-sm) 12px;
   margin-bottom: 15px;
   background: var(--color-bg-secondary);
   border: 1px solid var(--color-gray-medium);
-  border-radius: 4px;
+  border-radius: var(--radius-4);
   color: var(--color-text-primary);
-  font-size: 16px;
+  font-size: var(--font-size-16);
 }
 
 .edit-modal-buttons {
   display: flex;
   justify-content: flex-end;
-  gap: 10px;
+  gap: var(--space-md);
 }
 
 /* Thumbnail grid */
@@ -435,15 +433,15 @@ watch(() => props.images, (newImages) => {
   position: absolute;
   top: 5px;
   left: 5px;
-  font-size: 16px;
+  font-size: var(--font-size-16);
   color: var(--color-text-primary);
   background: var(--overlay-white-medium);
-  border-radius: 4px;
+  border-radius: var(--radius-4);
   padding: 2px;
   cursor: grab;
   opacity: 0;
-  transition: opacity 0.2s;
-  z-index: 3;
+  transition: var(--transition-opacity);
+  z-index: var(--z-floating);
 }
 
 .thumb-wrapper:hover .thumb-drag-handle {
@@ -460,14 +458,10 @@ watch(() => props.images, (newImages) => {
   width: 100%;
   aspect-ratio: 1/1;
   object-fit: cover;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px var(--overlay-black-medium);
+  border-radius: var(--radius-8);
+  box-shadow: var(--shadow-elevation-sm);
   background: var(--color-bg-secondary);
-  transition: box-shadow 0.2s;
-}
-
-.thumb-wrapper:hover .thumb-image {
-  box-shadow: 0 2px 16px var(--color-white);
+  transition: box-shadow var(--transition-normal);
 }
 
 .thumb-selected-overlay {
@@ -477,7 +471,7 @@ watch(() => props.images, (newImages) => {
   right: 0;
   bottom: 0;
   background: var(--overlay-white-medium);
-  border-radius: 8px;
+  border-radius: var(--radius-8);
   border: 2px solid var(--color-gray-medium);
   pointer-events: none;
 }
@@ -494,11 +488,11 @@ watch(() => props.images, (newImages) => {
   width: 100%;
   aspect-ratio: 1/1;
   border: 2px dashed var(--color-gray-medium);
-  border-radius: 8px;
+  border-radius: var(--radius-8);
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color 0.2s;
+  transition: var(--transition-background);
 }
 
 .add-image-thumb:hover .add-image-placeholder {
@@ -507,7 +501,7 @@ watch(() => props.images, (newImages) => {
 }
 
 .add-icon {
-  font-size: 30px;
+  font-size: var(--font-size-30);
   color: var(--color-gray-medium);
 }
 
@@ -521,7 +515,7 @@ watch(() => props.images, (newImages) => {
 .modal-buttons {
   display: flex;
   justify-content: flex-end;
-  gap: 10px;
+  gap: var(--space-md);
   margin-top: 15px;
 }
 
@@ -534,7 +528,7 @@ watch(() => props.images, (newImages) => {
   background: var(--color-bg-secondary);
   color: var(--color-text-primary);
   border: 1px solid var(--color-gray-medium);
-  border-radius: 4px;
+  border-radius: var(--radius-4);
 }
 
 /* Centered modal title */
@@ -544,7 +538,7 @@ watch(() => props.images, (newImages) => {
   text-align: center;
 }
 
-@media (max-width: 600px) {
+@media (max-width: var(--breakpoint-sm)) {
   .thumbs-grid {
     grid-template-columns: repeat(2,
         1fr) !important;

@@ -238,7 +238,7 @@ onBeforeUnmount(() => {
 
 <style scoped>
 h2 {
-  margin: 5px;
+  margin: var(--space-xs);
 }
 
 .abilities-column {
@@ -251,8 +251,8 @@ h2 {
   flex-direction: column;
   align-items: flex-start;
   background-color: var(--color-black);
-  padding: 15px;
-  border-radius: 5px;
+  padding: var(--space-lg);
+  border-radius: var(--radius-5);
   position: relative;
 }
 
@@ -271,7 +271,7 @@ h2 {
   max-width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--space-sm);
 }
 
 /* Remove old add-item-footer styles */
@@ -286,39 +286,38 @@ h2 {
   left: 50%;
   bottom: -11px;
   transform: translateX(-50%);
-  z-index: 110;
+  z-index: var(--z-dropdown);
   width: 24px;
   height: 24px;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   background: linear-gradient(135deg, var(--color-gray-medium) 60%, var(--color-gray-dark) 100%);
   color: var(--color-white);
-  font-size: 1.1rem;
+  font-size: var(--font-size-18);
   border: none;
-  box-shadow: 0 2px 8px var(--overlay-black-medium);
+  box-shadow: var(--shadow-elevation-sm);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+  transition: var(--transition-color-bg), box-shadow var(--transition-normal);
   padding: 0;
 }
 
 .add-ability-fab:hover {
   background: linear-gradient(135deg, var(--color-gray-light) 60%, var(--color-gray-medium) 100%);
-  box-shadow: 0 4px 16px var(--overlay-white-medium);
 }
 
 .mp-container {
   background-color: var(--color-gray-dark);
-  padding: 5px 15px;
-  border-radius: 5px;
+  padding: var(--space-xs) 15px;
+  border-radius: var(--radius-5);
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: var(--space-xs);
 }
 
 .mp-label {
-  font-size: 14px;
+  font-size: var(--font-size-14);
   margin-right: 5px;
   font-style: italic;
 }
@@ -328,9 +327,9 @@ h2 {
   background: none;
   border: none;
   color: var(--color-gray-light);
-  font-size: 18px;
+  font-size: var(--font-size-18);
   cursor: pointer;
-  transition: color 0.2s;
+  transition: var(--transition-color);
   width: 30px;
   height: 30px;
   display: flex;
@@ -377,7 +376,7 @@ h2 {
   display: flex;
   flex-direction: column;
   gap: 2px;
-  z-index: 120;
+  z-index: var(--z-dropdown);
   pointer-events: auto;
 }
 
@@ -388,13 +387,13 @@ h2 {
 .missing-ability {
   color: var(--color-gray-light);
   font-style: italic;
-  padding: 10px;
+  padding: var(--space-md);
 }
 
 .delete-item-link {
   cursor: pointer;
   color: var(--color-gray-medium);
-  font-size: 15px;
+  font-size: var(--font-size-15);
   text-align: center;
   margin: 0;
 }
@@ -405,7 +404,7 @@ h2 {
 
 .drag-handle {
   cursor: move;
-  font-size: 16px;
+  font-size: var(--font-size-16);
   color: var(--color-gray-light);
   user-select: none;
   margin: 0;
@@ -420,7 +419,7 @@ h2 {
   opacity: 0.5;
   background: var(--overlay-white-subtle);
   border: 2px dashed var(--color-gray-light);
-  border-radius: 5px;
+  border-radius: var(--radius-5);
 }
 
 /* Ability Selector Styles */
@@ -432,9 +431,8 @@ h2 {
   max-width: 500px;
   max-height: 80vh;
   background-color: var(--overlay-black-heavy);
-  border-radius: 8px;
-  box-shadow: 0 4px 20px var(--overlay-black-heavy);
-  z-index: 100;
+  border-radius: var(--radius-8);
+  z-index: var(--z-dropdown);
   display: flex;
   flex-direction: column;
 }
@@ -443,22 +441,22 @@ h2 {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px;
+  padding: var(--space-lg);
   border-bottom: 1px solid var(--overlay-white-subtle);
 }
 
 .ability-search {
   flex: 1;
-  padding: 8px 12px;
+  padding: var(--space-sm) 12px;
   border: 1px solid var(--color-gray-medium);
-  border-radius: 4px;
+  border-radius: var(--radius-4);
   background-color: var(--overlay-white-subtle);
   color: var(--color-white);
-  font-size: 16px;
+  font-size: var(--font-size-16);
 }
 
 .close-selector {
-  font-size: 24px;
+  font-size: var(--font-size-24);
   margin-left: 15px;
   cursor: pointer;
   color: var(--color-gray-light);
@@ -471,7 +469,7 @@ h2 {
 .ability-options-container {
   overflow-y: auto;
   max-height: calc(80vh - 60px);
-  padding: 10px;
+  padding: var(--space-md);
 }
 
 .ability-source-group {
@@ -479,18 +477,18 @@ h2 {
 }
 
 .source-header {
-  font-weight: bold;
+  font-weight: var(--font-weight-bold);
   color: var(--color-gray-light);
-  padding: 5px 0;
+  padding: var(--space-xs) 0;
   border-bottom: 1px solid var(--overlay-white-subtle);
   margin-bottom: 8px;
 }
 
 .ability-option {
-  padding: 8px 12px;
+  padding: var(--space-sm) 12px;
   cursor: pointer;
-  border-radius: 4px;
-  transition: background-color 0.2s;
+  border-radius: var(--radius-4);
+  transition: var(--transition-background);
 }
 
 .ability-option:hover {
@@ -499,24 +497,23 @@ h2 {
 
 .ability-cost {
   color: var(--color-gray-light);
-  font-size: 0.9em;
+  font-size: var(--font-size-14);
   margin-left: 5px;
 }
 
 .fab-delete {
   width: 22px;
   height: 22px;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   background: linear-gradient(135deg, var(--color-gray-dark) 60%, var(--color-gray-medium) 100%);
   color: var(--color-danger);
   border: none;
-  font-size: 1rem;
+  font-size: var(--font-size-16);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 1px 4px var(--overlay-white-subtle);
-  transition: background 0.2s, color 0.2s;
+  transition: var(--transition-color-bg);
   padding: 0;
 }
 
@@ -528,17 +525,16 @@ h2 {
 .fab-drag {
   width: 22px;
   height: 22px;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   background: linear-gradient(135deg, var(--color-gray-dark) 60%, var(--color-gray-medium) 100%);
   color: var(--color-gray-light);
-  font-size: 1.1rem;
+  font-size: var(--font-size-18);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: move;
   user-select: none;
-  box-shadow: 0 1px 4px var(--overlay-white-subtle);
-  transition: background 0.2s, color 0.2s;
+  transition: var(--transition-color-bg);
 }
 
 .fab-drag:hover {
@@ -547,11 +543,11 @@ h2 {
   color: var(--color-gray-dark);
 }
 
-@media (max-width: 650px) {
+@media (max-width: var(--breakpoint-sm)) {
   .abilities-table {
     width: 80%;
-    margin: 10px;
-    padding: 10px;
+    margin: var(--space-md);
+    padding: var(--space-md);
   }
 
   .mp-container {

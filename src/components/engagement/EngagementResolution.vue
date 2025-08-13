@@ -136,9 +136,9 @@ const getWinnerAnnouncementClasses = computed(() => {
 }
 
 .result-label {
-    font-size: 14px;
+    font-size: var(--font-size-14);
     color: var(--color-gray-light);
-    font-weight: bold;
+    font-weight: var(--font-weight-bold);
     text-align: center;
 }
 
@@ -147,24 +147,24 @@ const getWinnerAnnouncementClasses = computed(() => {
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    gap: 15px;
+    gap: var(--space-lg);
 }
 
 .button {
-    padding: 10px 20px;
+    padding: var(--space-md) 20px;
     border: none;
-    border-radius: 4px;
+    border-radius: var(--radius-4);
     cursor: pointer;
-    font-weight: bold;
+    font-weight: var(--font-weight-bold);
 }
 
 .accept-btn {
     min-width: 60px;
     width: 80px;
     padding: 6px 12px;
-    font-size: 14px;
+    font-size: var(--font-size-14);
     flex-shrink: 0;
-    transition: all 0.3s ease;
+    transition: var(--transition-all);
 }
 
 /* Win states for user */
@@ -220,60 +220,60 @@ const getWinnerAnnouncementClasses = computed(() => {
     min-width: 60px;
     width: 80px;
     padding: 6px 12px;
-    font-size: 14px;
+    font-size: var(--font-size-14);
     flex-shrink: 0;
     background-color: var(--color-gray-light);
     color: var(--color-gray-light);
     font-style: italic;
-    font-weight: normal;
+    font-weight: var(--font-weight-normal);
     cursor: default;
 }
 
 .opponent-status-btn.waiting {
     font-style: italic;
-    font-weight: normal;
+    font-weight: var(--font-weight-normal);
 }
 
 .opponent-status-btn.opponent-win-solid {
     background-color: var(--color-success);
     color: var(--color-text-primary);
     font-style: normal;
-    font-weight: bold;
+    font-weight: var(--font-weight-bold);
 }
 
 .opponent-status-btn.opponent-loss-solid {
     background-color: var(--color-danger);
     color: var(--color-text-primary);
     font-style: normal;
-    font-weight: bold;
+    font-weight: var(--font-weight-bold);
 }
 
 .opponent-status-btn.opponent-draw-solid {
     background-color: var(--color-warning);
     color: var(--color-text-primary);
     font-style: normal;
-    font-weight: bold;
+    font-weight: var(--font-weight-bold);
 }
 
 .winner-announcement {
-    font-weight: bold;
-    font-size: 16px;
-    padding: 8px 16px;
-    border-radius: 6px;
-    transition: all 0.3s ease;
+    font-weight: var(--font-weight-bold);
+    font-size: var(--font-size-16);
+    padding: var(--space-sm) 16px;
+    border-radius: var(--radius-6);
+    transition: var(--transition-all);
     flex: 1;
     text-align: center;
 }
 
 .winner-announcement.both-accepted {
     border: 3px solid var(--color-success);
-    box-shadow: 0 0 15px var(--color-success);
+    box-shadow: var(--shadow-glow-success-lg);
     background-color: var(--color-success);
 }
 
 .winner-announcement.draw-result {
     border: 3px solid var(--color-warning);
-    box-shadow: 0 0 15px var(--color-warning);
+    box-shadow: var(--shadow-glow-warning-lg);
     background-color: var(--color-warning);
     color: var(--color-text-inverse);
 }

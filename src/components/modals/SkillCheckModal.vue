@@ -268,7 +268,7 @@ export default {
   width: auto;
   min-width: 400px;
   max-width: 90vw;
-  padding: 20px;
+  padding: var(--space-xl);
 }
 
 .header-row {
@@ -284,31 +284,31 @@ export default {
 .skill-selection-row {
   display: flex;
   justify-content: center;
-  gap: 15px;
+  gap: var(--space-lg);
   margin-bottom: 20px;
 }
 
 .modal-skill-dropdown,
 .modal-favored-dropdown {
-  padding: 8px;
-  font-size: 16px;
+  padding: var(--space-sm);
+  font-size: var(--font-size-16);
   background: var(--color-bg-secondary);
   color: var(--color-text-primary);
   border: 1px solid var(--color-gray-medium);
-  border-radius: 4px;
+  border-radius: var(--radius-4);
 }
 
 /* Styling for favored dropdown options */
 select option.favored-option {
   color: var(--semantic-success);
   /* Green for favored */
-  font-weight: bold;
+  font-weight: var(--font-weight-bold);
 }
 
 select option.illfavored-option {
   color: var(--color-danger);
   /* Red for ill-favored */
-  font-weight: bold;
+  font-weight: var(--font-weight-bold);
 }
 
 .dice-preview {
@@ -316,61 +316,61 @@ select option.illfavored-option {
   min-width: 280px;
   /* Space for 7 dice (2d12 + 5d6) */
   max-width: 300px;
-  padding: 15px;
+  padding: var(--space-lg);
   background-color: var(--overlay-white-subtle);
-  border-radius: 6px;
-  margin: 20px 0;
+  border-radius: var(--radius-6);
+  margin: var(--space-xl) 0;
   display: flex;
   justify-content: center;
 }
 
 .dice-pool {
   display: flex;
-  gap: 10px;
+  gap: var(--space-md);
   flex-wrap: wrap;
   justify-content: center;
 }
 
 .dice-symbol {
-  font-size: 32px;
+  font-size: var(--font-size-32);
   color: var(--color-text-primary);
-  transition: all 0.3s ease;
+  transition: var(--transition-all);
 }
 
 /* Favored/ill-favored d12 styling */
 .dice-symbol.favored-die i {
   color: var(--semantic-success);
-  text-shadow: 0 0 8px var(--semantic-success-shadow);
+  text-shadow: var(--shadow-glow-success-md);
 }
 
 .dice-symbol.illfavored-die i {
   color: var(--color-danger);
-  text-shadow: 0 0 8px var(--color-danger-shadow);
+  text-shadow: var(--shadow-glow-danger-md);
 }
 
 /* Added/subtracted d6 styling */
 .dice-symbol.added-die i {
   color: var(--semantic-success);
-  text-shadow: 0 0 8px var(--semantic-success-shadow);
+  text-shadow: var(--shadow-glow-success-md);
 }
 
 .dice-symbol.subtracted-die i {
   color: var(--color-danger);
-  text-shadow: 0 0 8px var(--color-danger-shadow);
+  text-shadow: var(--shadow-glow-danger-md);
 }
 
 .section-label {
   width: 100%;
   text-align: center;
-  margin: 10px 0 5px;
-  font-weight: bold;
+  margin: var(--space-md) 0 5px;
+  font-weight: var(--font-weight-bold);
 }
 
 .dice-mod-options,
 .target-number-options {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: var(--space-sm);
   justify-content: center;
   width: 100%;
   margin-bottom: 15px;
@@ -380,11 +380,11 @@ select option.illfavored-option {
 .target-number-option {
   padding: 6px 10px;
   border: 1px solid var(--color-gray-medium);
-  border-radius: 4px;
+  border-radius: var(--radius-4);
   cursor: pointer;
   text-align: center;
   background-color: var(--color-bg-secondary);
-  transition: all 0.2s;
+  transition: var(--transition-all);
 }
 
 .dice-mod-option:hover,
@@ -402,8 +402,8 @@ select option.illfavored-option {
 
 .button {
   margin-top: 20px;
-  padding: 10px 30px;
-  font-size: 16px;
+  padding: var(--space-md) 30px;
+  font-size: var(--font-size-16);
 }
 
 .button-primary {
@@ -411,7 +411,7 @@ select option.illfavored-option {
   color: var(--color-primary-text);
   /* Better contrast with gold */
   border: none;
-  border-radius: 4px;
+  border-radius: var(--radius-4);
   cursor: pointer;
 }
 

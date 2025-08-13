@@ -45,7 +45,7 @@
             <div class="conditions-row" v-for="(value, key) in selectedCharacter.conditions" :key="key">
               <span :class="{ 'condition-active': value }">{{
                 cap(key)
-              }}</span>
+                }}</span>
               <input type="checkbox" class="skill-checkbox" :class="{ 'condition-active-checkbox': value }"
                 v-model="selectedCharacter.conditions[key]" />
             </div>
@@ -272,14 +272,14 @@ onMounted(async () => {
   height: 300px;
   background: var(--overlay-black-medium);
   border: 2px dashed var(--overlay-white-heavy);
-  border-radius: 10px;
+  border-radius: var(--radius-10);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: all 0.2s ease;
-  margin: 10px;
+  transition: var(--transition-all);
+  margin: var(--space-md);
 }
 
 .add-concept-card:hover {
@@ -288,15 +288,15 @@ onMounted(async () => {
 }
 
 .add-icon {
-  font-size: 3rem;
-  font-weight: 300;
+  font-size: var(--font-size-32);
+  font-weight: var(--font-weight-light);
   color: var(--overlay-white-heavy);
   margin-bottom: 10px;
 }
 
 .add-text {
   color: var(--overlay-white-heavy);
-  font-size: 1rem;
+  font-size: var(--font-size-16);
 }
 
 /* CHARACTER SHEET */
@@ -305,14 +305,14 @@ onMounted(async () => {
   flex-direction: column;
   align-items: center;
   background: var(--overlay-black-heavy);
-  border-radius: 5px;
+  border-radius: var(--radius-5);
   width: 1050px;
   max-height: 100%;
-  padding: 20px;
+  padding: var(--space-xl);
   position: relative;
 }
 
-@media (max-width: 567px) {
+@media (max-width: var(--breakpoint-sm)) {
   .character-sheet {
     width: 90%;
     padding: 0;
@@ -323,17 +323,17 @@ onMounted(async () => {
   position: absolute;
   top: 10px;
   left: 10px;
-  font-size: 20px;
+  font-size: var(--font-size-20);
   cursor: pointer;
-  z-index: 2;
+  z-index: var(--z-raised);
 }
 
 .close-button {
   position: absolute;
   top: -10px;
   right: 15px;
-  z-index: 1000;
-  font-size: 20px;
+  z-index: var(--z-modal);
+  font-size: var(--font-size-20);
   text-decoration: none;
   color: var(--color-gray-medium);
   cursor: pointer;
@@ -345,17 +345,17 @@ onMounted(async () => {
   flex-wrap: wrap;
   width: 100%;
   justify-content: center;
-  gap: 10px;
+  gap: var(--space-md);
 }
 
 .top-section {
   display: flex;
   width: 100%;
-  gap: 10px;
+  gap: var(--space-md);
   justify-content: space-between;
 }
 
-@media (max-width: 768px) {
+@media (max-width: var(--breakpoint-md)) {
   .top-section {
     flex-direction: column;
     align-items: center;
@@ -367,7 +367,7 @@ onMounted(async () => {
   display: flex;
   flex-direction: column;
   background-color: var(--color-black);
-  border-radius: 5px;
+  border-radius: var(--radius-5);
 }
 
 .conditions-column {
@@ -379,7 +379,7 @@ onMounted(async () => {
   margin: 0 20px 0 15px;
 }
 
-@media (max-width: 567px) {
+@media (max-width: var(--breakpoint-sm)) {
   .conditions-column {
     margin: 0 40px;
   }
@@ -389,7 +389,7 @@ onMounted(async () => {
   display: flex;
   align-items: end;
   margin: 12px 0px;
-  font-size: 14px;
+  font-size: var(--font-size-14);
   font-style: italic;
   height: 28px;
 }
@@ -399,18 +399,18 @@ onMounted(async () => {
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  margin: 5px 0;
+  margin: var(--space-xs) 0;
   height: 25px;
   border-bottom: 1px solid var(--color-gray-dark);
 }
 
 .condition-active {
   color: var(--color-danger);
-  text-shadow: 0px 0px 5px var(--color-danger);
+  text-shadow: var(--shadow-glow-sm-danger);
 }
 
 .condition-active-checkbox {
-  box-shadow: 0px 0px 10px var(--color-condition-glow);
+  box-shadow: var(--shadow-glow-condition);
 }
 
 .main-column {
@@ -419,7 +419,7 @@ onMounted(async () => {
   flex: 1;
 }
 
-@media (max-width: 768px) {
+@media (max-width: var(--breakpoint-md)) {
   .equipment-abilities-container {
     flex-direction: column;
   }

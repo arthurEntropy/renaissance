@@ -207,7 +207,7 @@ const closeModal = () => cancel()
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: var(--space-xs);
 }
 
 .weight-input {
@@ -220,14 +220,14 @@ const closeModal = () => cancel()
 }
 
 .melee-checkbox {
-  margin: 20px 0;
+  margin: var(--space-xl) 0;
 }
 
 /* Dice styles */
 .dice-row {
   display: flex;
   justify-content: space-between;
-  gap: 10px;
+  gap: var(--space-md);
   margin-top: 10px;
 }
 
@@ -235,29 +235,29 @@ const closeModal = () => cancel()
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 5px;
+  gap: var(--space-xs);
 }
 
 .dice-icon {
-  font-size: 36px;
+  font-size: var(--font-size-36);
 }
 
 .dice-input {
   width: 50px;
   text-align: center;
-  padding: 5px;
-  font-size: 14px;
+  padding: var(--space-xs);
+  font-size: var(--font-size-14);
   border: 1px solid var(--color-gray-light);
-  border-radius: 4px;
+  border-radius: var(--radius-4);
 }
 
 /* Engagement success styles */
 .engagement-success-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: var(--space-md);
   margin-top: 10px;
-  padding: 10px;
+  padding: var(--space-md);
 }
 
 .engagement-success-pill {
@@ -265,11 +265,11 @@ const closeModal = () => cancel()
   align-items: center;
   background-color: var(--overlay-black-heavy);
   color: var(--color-text-secondary);
-  padding: 5px 10px;
-  border-radius: 15px;
-  font-size: 12px;
+  padding: var(--space-xs) 10px;
+  border-radius: var(--radius-15);
+  font-size: var(--font-size-14);
   text-align: center;
-  gap: 5px;
+  gap: var(--space-xs);
 }
 
 .pill-checkbox {
@@ -277,7 +277,7 @@ const closeModal = () => cancel()
   width: 16px;
   height: 16px;
   border: 2px solid var(--color-gray-light);
-  border-radius: 3px;
+  border-radius: var(--radius-3);
   background-color: var(--overlay-black-heavy);
   cursor: pointer;
 }
@@ -291,9 +291,9 @@ const closeModal = () => cancel()
   content: '✔';
   display: block;
   color: var(--overlay-black-heavy);
-  font-size: 12px;
+  font-size: var(--font-size-14);
   text-align: center;
-  line-height: 16px;
+  line-height: var(--line-height-normal);
 }
 
 .pill-checkbox:hover {

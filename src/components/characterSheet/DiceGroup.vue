@@ -49,14 +49,14 @@ const getDiceClasses = (diceIndex) => {
 <style scoped>
 .dice-group {
     display: flex;
-    gap: 5px;
+    gap: var(--space-xs);
     margin: 0 4px;
 }
 
 .dice-icon {
-    font-size: 24px;
+    font-size: var(--font-size-24);
     cursor: pointer;
-    transition: color 0.2s, opacity 0.2s;
+    transition: var(--transition-color), opacity var(--transition-normal);
 }
 
 .d6-icon {
@@ -71,11 +71,11 @@ const getDiceClasses = (diceIndex) => {
 
 .dice-added {
     color: var(--color-success);
-    text-shadow: 0px 0px 5px var(--color-success);
+    text-shadow: var(--shadow-glow-sm-success);
 }
 
 .dice-subtracted {
     color: var(--color-danger);
-    text-shadow: 0px 0px 5px var(--color-danger);
+    text-shadow: var(--shadow-glow-sm-danger);
 }
 </style>

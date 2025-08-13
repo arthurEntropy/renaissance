@@ -411,7 +411,7 @@ onBeforeUnmount(() => {
 
 <style scoped>
 h2 {
-  margin: 5px;
+  margin: var(--space-xs);
 }
 
 .equipment-table {
@@ -419,8 +419,8 @@ h2 {
   flex-direction: column;
   align-items: left;
   background-color: var(--overlay-black-heavy);
-  padding: 15px;
-  border-radius: 5px;
+  padding: var(--space-lg);
+  border-radius: var(--radius-5);
   position: relative;
   height: fit-content;
   min-height: 50px;
@@ -457,26 +457,25 @@ h2 {
   left: 50%;
   bottom: -11px;
   transform: translateX(-50%);
-  z-index: 110;
+  z-index: var(--z-dropdown);
   width: 24px;
   height: 24px;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   background: linear-gradient(135deg, var(--color-gray-medium) 60%, var(--color-gray-dark) 100%);
   color: var(--color-text-primary);
-  font-size: 1.1rem;
+  font-size: var(--font-size-18);
   border: none;
-  box-shadow: 0 2px 8px var(--overlay-black-medium);
+  box-shadow: var(--shadow-elevation-sm);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+  transition: var(--transition-color-bg), box-shadow var(--transition-normal);
   padding: 0;
 }
 
 .add-equipment-fab:hover {
   background: linear-gradient(135deg, var(--color-gray-light) 60%, var(--color-gray-medium) 100%);
-  box-shadow: 0 4px 16px var(--overlay-white-medium);
 }
 
 /* Equipment row styles */
@@ -486,7 +485,7 @@ h2 {
   /* Change from column to row to separate controls from card+details */
   align-items: stretch;
   margin-bottom: 10px;
-  border-radius: 5px;
+  border-radius: var(--radius-5);
   overflow: hidden;
   width: 100%;
   position: relative;
@@ -515,8 +514,6 @@ h2 {
   padding: 7px;
   text-align: left;
   margin-bottom: 0;
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
 }
 
 .equipment-row-details {
@@ -525,7 +522,7 @@ h2 {
   align-items: center;
   padding: 4px 8px;
   background-color: var(--overlay-white-medium);
-  border-radius: 0 0 5px 5px;
+  border-radius: 0 0 var(--radius-5) var(--radius-5);
   width: 100%;
   /* Ensure it matches the card width */
   margin-left: 0;
@@ -539,7 +536,7 @@ h2 {
   flex-grow: 1;
   justify-content: space-between;
   align-items: center;
-  font-size: 12px;
+  font-size: var(--font-size-14);
 }
 
 .detail-item {
@@ -563,7 +560,7 @@ h2 {
   display: flex;
   flex-direction: column;
   gap: 2px;
-  z-index: 120;
+  z-index: var(--z-dropdown);
   pointer-events: auto;
 }
 
@@ -581,17 +578,16 @@ h2 {
 .fab-delete {
   width: 22px;
   height: 22px;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   background: linear-gradient(135deg, var(--color-gray-dark) 60%, var(--color-gray-medium) 100%);
   color: var(--color-danger);
   border: none;
-  font-size: 1rem;
+  font-size: var(--font-size-16);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 1px 4px var(--overlay-white-subtle);
-  transition: background 0.2s, color 0.2s;
+  transition: var(--transition-color-bg);
   padding: 0;
 }
 
@@ -604,17 +600,16 @@ h2 {
 .fab-drag {
   width: 22px;
   height: 22px;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   background: linear-gradient(135deg, var(--color-gray-dark) 60%, var(--color-gray-medium) 100%);
   color: var(--color-gray-light);
-  font-size: 1.1rem;
+  font-size: var(--font-size-18);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: move;
   user-select: none;
-  box-shadow: 0 1px 4px var(--overlay-white-subtle);
-  transition: background 0.2s, color 0.2s;
+  transition: var(--transition-color-bg);
 }
 
 .fab-drag:hover {
@@ -626,7 +621,7 @@ h2 {
 .missing-equipment {
   color: var(--color-text-muted);
   font-style: italic;
-  padding: 10px;
+  padding: var(--space-md);
 }
 
 .equipment-checkbox {
@@ -649,7 +644,7 @@ h2 {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 12px;
+  font-size: var(--font-size-14);
 }
 
 .carried-weight span {
@@ -664,17 +659,16 @@ h2 {
   bottom: 30px;
   right: 0;
   background-color: var(--overlay-black-medium);
-  border-radius: 8px;
-  box-shadow: 0 4px 20px var(--overlay-black-medium);
-  z-index: 100;
+  border-radius: var(--radius-8);
+  z-index: var(--z-dropdown);
   width: 200px;
   overflow: hidden;
 }
 
 .add-option {
-  padding: 10px;
+  padding: var(--space-md);
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: var(--transition-background);
   display: flex;
   align-items: center;
   color: var(--color-text-secondary);
@@ -699,9 +693,8 @@ h2 {
   max-width: 500px;
   max-height: 80vh;
   background-color: var(--overlay-black-medium);
-  border-radius: 8px;
-  box-shadow: 0 4px 20px var(--overlay-black-medium);
-  z-index: 100;
+  border-radius: var(--radius-8);
+  z-index: var(--z-dropdown);
   display: flex;
   flex-direction: column;
 }
@@ -710,22 +703,22 @@ h2 {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px;
+  padding: var(--space-lg);
   border-bottom: 1px solid var(--overlay-white-subtle);
 }
 
 .equipment-search {
   flex: 1;
-  padding: 8px 12px;
+  padding: var(--space-sm) 12px;
   border: 1px solid var(--color-gray-medium);
-  border-radius: 4px;
+  border-radius: var(--radius-4);
   background-color: var(--overlay-white-medium);
   color: var(--color-text-primary);
-  font-size: 16px;
+  font-size: var(--font-size-16);
 }
 
 .close-selector {
-  font-size: 24px;
+  font-size: var(--font-size-24);
   margin-left: 15px;
   cursor: pointer;
   color: var(--color-gray-light);
@@ -738,7 +731,7 @@ h2 {
 .equipment-options-container {
   overflow-y: auto;
   max-height: calc(80vh - 60px);
-  padding: 10px;
+  padding: var(--space-md);
 }
 
 .equipment-source-group {
@@ -746,18 +739,18 @@ h2 {
 }
 
 .source-header {
-  font-weight: bold;
+  font-weight: var(--font-weight-bold);
   color: var(--color-gray-light);
-  padding: 5px 0;
+  padding: var(--space-xs) 0;
   border-bottom: 1px solid var(--overlay-white-subtle);
   margin-bottom: 8px;
 }
 
 .equipment-option {
-  padding: 8px 12px;
+  padding: var(--space-sm) 12px;
   cursor: pointer;
-  border-radius: 4px;
-  transition: background-color 0.2s;
+  border-radius: var(--radius-4);
+  transition: var(--transition-background);
 }
 
 .equipment-option:hover {
@@ -766,7 +759,7 @@ h2 {
 
 .equipment-weight {
   color: var(--color-gray-light);
-  font-size: 0.9em;
+  font-size: var(--font-size-14);
   margin-left: 5px;
 }
 
@@ -774,32 +767,32 @@ h2 {
   display: flex;
   align-items: center;
   background-color: var(--color-gray-dark);
-  padding: 5px 10px;
-  border-radius: 5px;
+  padding: var(--space-xs) 10px;
+  border-radius: var(--radius-5);
   width: auto;
-  gap: 5px;
+  gap: var(--space-xs);
 }
 
 .total-weight-carried {
-  font-size: 10px;
+  font-size: var(--font-size-10);
   font-style: italic;
   white-space: nowrap;
   margin-top: 2px;
 }
 
 .equipment-lbs-carried {
-  font-size: 16px;
-  font-weight: bold;
+  font-size: var(--font-size-16);
+  font-weight: var(--font-weight-bold);
   white-space: nowrap;
   min-width: 55px;
   text-align: right;
 }
 
-@media (max-width: 650px) {
+@media (max-width: var(--breakpoint-sm)) {
   .equipment-table {
     width: 95%;
-    margin: 10px;
-    padding: 10px;
+    margin: var(--space-md);
+    padding: var(--space-md);
   }
 
   .details-content {

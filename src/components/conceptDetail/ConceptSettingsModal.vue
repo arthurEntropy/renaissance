@@ -123,7 +123,7 @@ onMounted(async () => {
 .settings-buttons-container {
   display: flex;
   justify-content: flex-end;
-  gap: 10px;
+  gap: var(--space-md);
   margin-top: 20px;
 }
 
@@ -137,11 +137,11 @@ input[type='color'] {
 
 .modal-input {
   width: 100%;
-  padding: 8px;
-  margin: 8px 0;
+  padding: var(--space-sm);
+  margin: var(--space-sm) 0;
   background-color: var(--color-bg-secondary);
   border: 1px solid var(--color-gray-medium);
-  border-radius: 4px;
+  border-radius: var(--radius-4);
   color: var(--color-text-primary);
 }
 
@@ -154,6 +154,6 @@ label {
 .form-group {
   display: flex;
   align-items: center;
-  margin: 15px 0;
+  margin: var(--space-lg) 0;
 }
 </style>

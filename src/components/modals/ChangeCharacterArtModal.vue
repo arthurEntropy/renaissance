@@ -62,13 +62,13 @@ export default {
 
 .url-input {
   width: 95%;
-  padding: 10px;
-  margin: 10px 0;
-  font-size: 16px;
+  padding: var(--space-md);
+  margin: var(--space-md) 0;
+  font-size: var(--font-size-16);
   color: var(--color-text-secondary);
   background: var(--overlay-black-heavy);
   border: 1px solid var(--color-gray-medium);
-  border-radius: 5px;
+  border-radius: var(--radius-5);
 }
 
 button:disabled {

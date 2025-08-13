@@ -152,11 +152,11 @@ onMounted(() => {
 <style scoped>
 .base-card {
   border: 1px solid var(--color-gray-medium);
-  border-radius: 8px;
-  padding: 10px;
+  border-radius: var(--radius-8);
+  padding: var(--space-md);
   margin-top: 5px;
   transition:
-    background-color 0.3s ease,
+    background-color var(--transition-normal) ease,
     transform 0.2s ease;
   width: 100%;
   position: relative;
@@ -174,13 +174,13 @@ onMounted(() => {
   width: 100%;
   height: 100%;
   background: var(--overlay-black-medium);
-  z-index: 1;
+  z-index: var(--z-overlay);
   pointer-events: none;
 }
 
 .base-card>* {
   position: relative;
-  z-index: 2;
+  z-index: var(--z-raised);
 }
 
 .card-header {
@@ -200,14 +200,10 @@ onMounted(() => {
 
 .caret {
   margin-right: 10px;
-  font-size: 16px;
+  font-size: var(--font-size-16);
   height: 20px;
   width: 20px;
-  text-shadow:
-    -1px -1px 0 var(--color-black),
-    1px -1px 0 var(--color-black),
-    -1px 1px 0 var(--color-black),
-    1px 1px 0 var(--color-black);
+  text-shadow: var(--text-shadow-outline);
 }
 
 .name-container {
@@ -219,17 +215,13 @@ onMounted(() => {
 }
 
 .item-name {
-  font-size: 16px;
-  text-shadow:
-    -1px -1px 0 var(--color-black),
-    1px -1px 0 var(--color-black),
-    -1px 1px 0 var(--color-black),
-    1px 1px 0 var(--color-black);
+  font-size: var(--font-size-16);
+  text-shadow: var(--text-shadow-outline);
   word-wrap: break-word;
 }
 
 .source-name {
-  font-size: 0.7em;
+  font-size: var(--font-size-14);
   font-style: italic;
   color: var(--color-gray-light);
   margin-left: 6px;
@@ -237,14 +229,10 @@ onMounted(() => {
 }
 
 .item-info {
-  font-size: 13px;
+  font-size: var(--font-size-13);
   color: var(--color-white);
-  text-shadow:
-    -1px -1px 0 var(--color-black),
-    1px -1px 0 var(--color-black),
-    -1px 1px 0 var(--color-black),
-    1px 1px 0 var(--color-black);
-  font-weight: 500;
+  text-shadow: var(--text-shadow-outline);
+  font-weight: var(--font-weight-semibold);
   letter-spacing: 0.01em;
   margin-left: 8px;
   margin-right: 0;
@@ -254,6 +242,6 @@ onMounted(() => {
   position: absolute;
   top: 3px;
   right: 3px;
-  z-index: 10;
+  z-index: var(--z-interactive);
 }
 </style>

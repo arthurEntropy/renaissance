@@ -148,11 +148,11 @@ const closeModal = () => cancel()
   background: none;
   border: none;
   padding: 0 2px;
-  font-size: 16px;
-  line-height: 1;
+  font-size: var(--font-size-16);
+  line-height: var(--line-height-none);
   cursor: pointer;
   color: var(--color-text-muted);
-  transition: color 0.15s;
+  transition: color var(--transition-normal);
 }
 
 .icon-btn:disabled {
@@ -166,10 +166,9 @@ const closeModal = () => cancel()
 
 .improvement-edit-block {
   background: var(--color-bg-secondary);
-  border-radius: 7px;
+  border-radius: var(--radius-7);
   margin-bottom: 14px;
-  padding: 10px 10px 8px 10px;
-  box-shadow: 0 1px 4px var(--overlay-white-subtle);
+  padding: var(--space-md) 10px 8px 10px;
 }
 
 .improvement-card-row {
@@ -181,7 +180,7 @@ const closeModal = () => cancel()
 
 .xp-label {
   color: var(--color-gray-light);
-  font-size: 13px;
+  font-size: var(--font-size-13);
   margin-right: 2px;
   margin-left: 4px;
 }

@@ -157,26 +157,26 @@ function createItem() {
   max-width: 60%;
   margin-bottom: 1rem;
   padding: 0 2rem;
-  z-index: 1;
+  z-index: var(--z-overlay);
 }
 
 .search-input {
   flex: 2;
-  padding: 8px 12px;
+  padding: var(--space-sm) 12px;
   border: 1px solid var(--color-gray-medium);
-  border-radius: 4px;
+  border-radius: var(--radius-4);
   background-color: var(--overlay-black-medium);
-  font-size: 16px;
+  font-size: var(--font-size-16);
 }
 
 .source-filter,
 .sort-filter {
   flex: 1;
-  padding: 8px 12px;
+  padding: var(--space-sm) 12px;
   border: 1px solid var(--color-gray-medium);
-  border-radius: 4px;
+  border-radius: var(--radius-4);
   background-color: var(--overlay-black-medium);
-  font-size: 16px;
+  font-size: var(--font-size-16);
   color: white;
 }
 
@@ -188,7 +188,7 @@ function createItem() {
 .source-filter option,
 .sort-filter option {
   background-color: var(--overlay-black-heavy);
-  padding: 8px;
+  padding: var(--space-sm);
 }
 
 .search-input::placeholder {
@@ -200,7 +200,7 @@ function createItem() {
 .sort-filter:focus {
   outline: none;
   border-color: var(--color-gray-light);
-  box-shadow: 0 0 5px var(--overlay-white-subtle);
+  box-shadow: var(--shadow-glow-sm);
 }
 
 .cards-container {

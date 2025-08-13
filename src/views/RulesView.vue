@@ -351,7 +351,7 @@ export default {
 .rules-navigation {
   width: 250px;
   background: var(--color-bg-secondary);
-  padding: 15px 0;
+  padding: var(--space-lg) 0;
   display: flex;
   flex-direction: column;
 }
@@ -365,11 +365,11 @@ export default {
 
 .rules-nav-header h3 {
   margin: 0;
-  font-size: 1.2rem;
+  font-size: var(--font-size-20);
 }
 
 .bottom-actions {
-  padding: 10px 15px;
+  padding: var(--space-md) 15px;
   display: flex;
   justify-content: center;
 }
@@ -383,7 +383,7 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 15px;
+  padding: var(--space-md) 15px;
   cursor: pointer;
   transition:
     background-color 0.2s,
@@ -414,12 +414,12 @@ export default {
   text-overflow: ellipsis;
   white-space: nowrap;
   color: var(--color-primary);
-  transition: color 0.2s;
+  transition: var(--transition-color);
 }
 
 .section-controls {
   display: flex;
-  gap: 5px;
+  gap: var(--space-xs);
   opacity: 0.5;
 }
 
@@ -452,8 +452,8 @@ export default {
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  font-size: 1.1rem;
-  line-height: 1.5;
+  font-size: var(--font-size-18);
+  line-height: var(--line-height-normal);
 }
 
 .rules-content-body {
@@ -471,9 +471,9 @@ export default {
 .content-side {
   width: 65%;
   height: 100%;
-  padding: 20px;
+  padding: var(--space-xl);
   position: relative;
-  z-index: 2;
+  z-index: var(--z-raised);
   overflow-y: auto;
 }
 
@@ -483,14 +483,14 @@ export default {
   right: 0;
   top: 0;
   height: 100%;
-  z-index: 1;
+  z-index: var(--z-overlay);
 }
 
 /* Section header and name styles */
 .section-name-container {
   margin-bottom: 20px;
   position: relative;
-  z-index: 3;
+  z-index: var(--z-floating);
 }
 
 .section-header {
@@ -505,17 +505,17 @@ export default {
   margin: 0;
   text-transform: uppercase;
   font-style: italic;
-  font-weight: normal;
+  font-weight: var(--font-weight-normal);
 }
 
 .section-name-input {
   width: 100%;
   background: var(--overlay-white-heavy);
   border: 1px solid var(--color-gray-medium);
-  padding: 10px;
+  padding: var(--space-md);
   color: var(--color-white);
-  font-size: 1.5rem;
-  font-weight: bold;
+  font-size: var(--font-size-24);
+  font-weight: var(--font-weight-bold);
   margin-right: 10px;
   flex: 1;
 }
@@ -532,7 +532,7 @@ export default {
   height: 100%;
   background-size: cover;
   background-position: right;
-  box-shadow: inset 200px 0 100px -50px var(--color-bg-primary);
+  box-shadow: var(--shadow-inset-fade);
 }
 
 .side-image::before {
@@ -543,12 +543,12 @@ export default {
 .image-url-container {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--space-md);
   margin-bottom: 15px;
 }
 
 .image-url-container label {
-  font-size: 14px;
+  font-size: var(--font-size-14);
   color: var(--color-gray-light);
 }
 
@@ -556,9 +556,9 @@ export default {
   flex: 1;
   background: var(--overlay-white-heavy);
   border: 1px solid var(--color-gray-medium);
-  padding: 8px;
+  padding: var(--space-sm);
   color: var(--color-white);
-  border-radius: 4px;
+  border-radius: var(--radius-4);
 }
 
 /* Placeholder for when no image is set */
@@ -571,7 +571,7 @@ export default {
   color: var(--color-gray-light);
   font-style: italic;
   border: 2px dashed var(--color-gray-medium);
-  border-radius: 8px;
+  border-radius: var(--radius-8);
 }
 
 .no-selection {
@@ -582,25 +582,25 @@ export default {
   height: 100%;
   color: var(--color-gray-medium);
   text-align: center;
-  padding: 20px;
+  padding: var(--space-xl);
 }
 
 /* Section content styles */
 .content-display {
   text-align: left;
-  line-height: 1.6;
+  line-height: var(--line-height-loose);
 }
 
 .content-display :deep(h2) {
-  font-size: 36px;
+  font-size: var(--font-size-36);
   margin: 1.5em 0 0 0;
   color: var(--color-primary);
-  font-weight: normal;
+  font-weight: var(--font-weight-normal);
 }
 
 .content-display :deep(h3) {
   margin: 1.5em 0 0 0;
-  font-size: 24px;
+  font-size: var(--font-size-24);
   color: var(--color-condition-glow);
 }
 
@@ -612,7 +612,7 @@ export default {
 }
 
 /* Responsive adjustments */
-@media (max-width: 768px) {
+@media (max-width: var(--breakpoint-md)) {
   .rules-container {
     flex-direction: column;
   }
@@ -631,7 +631,7 @@ export default {
 
   .content-side {
     width: 100%;
-    padding: 15px;
+    padding: var(--space-lg);
     overflow-y: visible;
     height: auto;
   }

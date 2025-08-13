@@ -80,16 +80,15 @@ const handleClick = (event) => {
 
     /* Typography */
     font-family: var(--font-family-primary);
-    font-weight: var(--font-weight-medium);
+    font-weight: var(--font-weight-semibold);
     text-decoration: none;
     white-space: nowrap;
-    line-height: 1;
+    line-height: var(--line-height-none);
 
     /* Appearance */
     background: var(--overlay-black-medium);
     border: 1px solid var(--overlay-black-medium);
     color: var(--color-white);
-    box-shadow: var(--shadow-sm);
     cursor: pointer;
     user-select: none;
 
@@ -101,28 +100,27 @@ const handleClick = (event) => {
     background: var(--overlay-black-heavy);
     border-color: var(--overlay-black-heavy);
     color: var(--color-white);
-    box-shadow: var(--shadow-md);
 }
 
 /* === SIZE VARIANTS === */
 .edit-btn--small {
     padding: 0;
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-14);
     min-width: 28px;
     min-height: 28px;
     width: 28px;
     height: 28px;
-    border-radius: 50%;
+    border-radius: var(--radius-full);
 }
 
 .edit-btn--large {
     padding: 0;
-    font-size: var(--font-size-base);
+    font-size: var(--font-size-16);
     min-width: 32px;
     min-height: 32px;
     width: 32px;
     height: 32px;
-    border-radius: 50%;
+    border-radius: var(--radius-full);
 }
 
 /* === VISIBILITY VARIANTS === */
@@ -193,7 +191,7 @@ const handleClick = (event) => {
 }
 
 /* === RESPONSIVE ADJUSTMENTS === */
-@media (max-width: 768px) {
+@media (max-width: var(--breakpoint-md)) {
 
     /* Make on-hover buttons always visible on touch devices */
     .edit-btn--on-hover {
@@ -219,7 +217,8 @@ const handleClick = (event) => {
 
 /* === REDUCED MOTION === */
 @media (prefers-reduced-motion: reduce) {
-    .edit-btn {  transition: none;
+    .edit-btn {
+        transition: none;
     }
 }
 </style>

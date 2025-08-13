@@ -100,13 +100,13 @@ const handleClick = (event) => {
 
     /* Typography */
     font-family: var(--font-family-primary);
-    font-weight: var(--font-weight-medium);
+    font-weight: var(--font-weight-semibold);
     text-decoration: none;
     white-space: nowrap;
 
     /* Appearance */
     border: none;
-    border-radius: var(--radius-sm);
+    border-radius: var(--radius-4);
     cursor: pointer;
     user-select: none;
 
@@ -212,7 +212,7 @@ const handleClick = (event) => {
 /* === ICON STYLING === */
 .action-btn__icon {
     flex-shrink: 0;
-    line-height: 1;
+    line-height: var(--line-height-none);
 }
 
 .action-btn__icon--left {
@@ -253,7 +253,7 @@ const handleClick = (event) => {
 }
 
 /* === RESPONSIVE ADJUSTMENTS === */
-@media (max-width: 768px) {
+@media (max-width: var(--breakpoint-md)) {
 
     /* Slightly larger touch targets on mobile */
     .action-btn--small {

@@ -206,7 +206,7 @@ watch(() => props.editable, (val) => {
 .flavor-edit-item {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: var(--space-xs);
 }
 
 .flavor-textarea {
@@ -215,7 +215,7 @@ watch(() => props.editable, (val) => {
 }
 
 /* Responsive design */
-@media (max-width: 600px) {
+@media (max-width: var(--breakpoint-sm)) {
   .flavor-edit-grid {
     grid-template-columns: 1fr;
   }

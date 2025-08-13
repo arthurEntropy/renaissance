@@ -8,14 +8,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
+  z-index: var(--z-modal);
 }
 
 .modal-content {
   position: relative;
   background: var(--overlay-black-heavy);
-  padding: 20px;
-  border-radius: 8px;
+  padding: var(--space-xl);
+  border-radius: var(--radius-8);
   text-align: center;
   max-height: 90%;
   max-width: 90%;
@@ -29,10 +29,10 @@
 
 .modal-input {
   width: 90%;
-  padding: 8px;
-  margin: 10px 0;
+  padding: var(--space-sm);
+  margin: var(--space-md) 0;
   border: 1px solid var(--color-gray-light);
-  border-radius: 4px;
+  border-radius: var(--radius-4);
   margin-right: 10px;
   flex: 1;
 }
@@ -70,7 +70,7 @@ textarea.modal-input {
 .form-group.row {
   display: flex;
   justify-content: space-between;
-  gap: 10px;
+  gap: var(--space-md);
 }
 
 /* Text alignment */
@@ -86,9 +86,9 @@ textarea.modal-input {
 .form-buttons {
   display: flex;
   justify-content: center;
-  gap: 10px;
+  gap: var(--space-md);
   margin-top: 20px;
-  gap: 10px;
+  gap: var(--space-md);
 }
 
 /* Button customization specific to modals */

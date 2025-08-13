@@ -30,11 +30,11 @@ defineEmits(['update'])
     align-items: center;
     margin-bottom: 10px;
     height: 28px;
-    gap: 10px;
+    gap: var(--space-md);
 }
 
 h2 {
     margin: 0;
-    font-size: 1.2rem;
+    font-size: var(--font-size-20);
 }
 </style>

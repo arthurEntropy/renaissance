@@ -141,8 +141,8 @@ const getCircularPosition = (index, total) => {
 <style scoped>
 .dice-roll-results {
   background-color: var(--color-black);
-  border-radius: 5px;
-  padding: 10px;
+  border-radius: var(--radius-5);
+  padding: var(--space-md);
   align-self: stretch;
   display: flex;
   flex-direction: column;
@@ -155,38 +155,38 @@ const getCircularPosition = (index, total) => {
 .roll-content {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--space-sm);
   height: 100%;
   justify-content: space-between;
 }
 
 .roll-title {
-  font-size: 12px;
+  font-size: var(--font-size-14);
   text-align: center;
 }
 
 .skill-name {
   color: var(--color-accent-gold);
-  font-weight: bold;
+  font-weight: var(--font-weight-bold);
 }
 
 .favored-modifier {
   color: var(--color-success);
-  font-weight: bold;
+  font-weight: var(--font-weight-bold);
 }
 
 .ill-favored-modifier {
   color: var(--color-danger);
-  font-weight: bold;
+  font-weight: var(--font-weight-bold);
   margin-left: 4px;
 }
 
 .roll-outcome {
-  font-size: 16px;
-  font-weight: bold;
+  font-size: var(--font-size-16);
+  font-weight: var(--font-weight-bold);
   text-align: center;
-  padding: 5px;
-  border-radius: 4px;
+  padding: var(--space-xs);
+  border-radius: var(--radius-4);
 }
 
 .success {
@@ -207,13 +207,13 @@ const getCircularPosition = (index, total) => {
 .roll-numbers {
   display: flex;
   justify-content: center;
-  gap: 5px;
+  gap: var(--space-xs);
   align-items: center;
 }
 
 .roll-total {
-  font-size: 20px;
-  font-weight: bold;
+  font-size: var(--font-size-20);
+  font-weight: var(--font-weight-bold);
 }
 
 .roll-total::after {
@@ -223,37 +223,37 @@ const getCircularPosition = (index, total) => {
 }
 
 .roll-target {
-  font-size: 20px;
+  font-size: var(--font-size-20);
   color: var(--color-gray-light);
 }
 
 .engagement-score {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--space-sm);
 }
 
 .user-wins,
 .opponent-wins,
 .draw-number {
-  font-size: 20px;
-  font-weight: bold;
+  font-size: var(--font-size-20);
+  font-weight: var(--font-weight-bold);
   color: var(--color-white);
 }
 
 .score-separator {
-  font-size: 16px;
+  font-size: var(--font-size-16);
   color: var(--color-gray-light);
 }
 
 .draw-count {
-  font-size: 14px;
+  font-size: var(--font-size-14);
   color: var(--color-gray-medium);
   font-style: italic;
 }
 
 .roll-footer {
-  font-size: 11px;
+  font-size: var(--font-size-14);
   color: var(--color-gray-light);
   text-align: center;
   border-top: 1px solid var(--overlay-white-subtle);
@@ -263,7 +263,7 @@ const getCircularPosition = (index, total) => {
 .no-roll {
   color: var(--color-gray-light);
   text-align: center;
-  padding: 20px 0;
+  padding: var(--space-xl) 0;
   height: 100%;
   display: flex;
   align-items: center;
@@ -278,10 +278,10 @@ const getCircularPosition = (index, total) => {
 }
 
 .showcase-die {
-  font-size: 24px;
+  font-size: var(--font-size-24);
   color: var(--color-gray-medium);
   opacity: 0.6;
-  transition: all 0.3s ease;
+  transition: var(--transition-all);
   display: inline-block;
 }
 
@@ -296,10 +296,10 @@ const getCircularPosition = (index, total) => {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 12px;
+  font-size: var(--font-size-14);
   color: var(--color-gray-medium);
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: opacity var(--transition-normal) ease;
   pointer-events: none;
   text-align: center;
   white-space: nowrap;

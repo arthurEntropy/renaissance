@@ -550,8 +550,8 @@ const safeDescription = computed(() => {
   right: 30px;
   display: flex;
   flex-direction: row;
-  gap: 10px;
-  z-index: 1001;
+  gap: var(--space-md);
+  z-index: var(--z-modal-content);
   /* Above modal content */
 }
 
@@ -560,11 +560,11 @@ const safeDescription = computed(() => {
   background: none;
   border: none;
   color: var(--color-gray-light);
-  font-size: 20px;
+  font-size: var(--font-size-20);
   cursor: pointer;
-  z-index: 10;
-  padding: 5px;
-  transition: color 0.2s ease;
+  z-index: var(--z-interactive);
+  padding: var(--space-xs);
+  transition: var(--transition-color) ease;
 }
 
 /* Concept content, columns */
@@ -573,7 +573,7 @@ const safeDescription = computed(() => {
   flex-direction: row;
   flex-wrap: wrap;
   gap: 40px;
-  padding: 20px;
+  padding: var(--space-xl);
 }
 
 .concept-left-column {
@@ -605,21 +605,21 @@ const safeDescription = computed(() => {
   display: flex;
   align-items: center;
   justify-content: left;
-  gap: 10px;
+  gap: var(--space-md);
   margin-bottom: 0;
   margin-top: 0;
-  font-size: 3rem;
+  font-size: var(--font-size-32);
 }
 
 /* Title input */
 .concept-title-input {
-  font-size: 3rem;
-  font-weight: bold;
+  font-size: var(--font-size-32);
+  font-weight: var(--font-weight-bold);
   padding: 4px 8px;
   width: 100%;
   background: var(--overlay-white-subtle);
   border: 1px solid var(--color-gray-medium);
-  border-radius: 4px;
+  border-radius: var(--radius-4);
   color: var(--color-text-primary);
 }
 
@@ -632,7 +632,7 @@ const safeDescription = computed(() => {
   position: absolute;
   top: 4px;
   right: 4px;
-  z-index: 1000;
+  z-index: var(--z-modal);
 }
 
 .description-editor-buttons {
@@ -643,10 +643,10 @@ const safeDescription = computed(() => {
 
 .concept-description {
   text-align: left;
-  font-size: 1.1rem;
-  line-height: 1.5;
-  padding: 4px;
-  border-radius: 4px;
+  font-size: var(--font-size-18);
+  line-height: var(--line-height-normal);
+  padding: var(--space-xs);
+  border-radius: var(--radius-4);
 }
 
 .edit-field-indicator {
@@ -654,11 +654,11 @@ const safeDescription = computed(() => {
   top: 4px;
   right: 4px;
   opacity: 0;
-  font-size: 0.85em;
+  font-size: var(--font-size-13);
   padding: 2px 6px;
   cursor: pointer;
   color: var(--color-gray-light);
-  transition: opacity 0.2s;
+  transition: var(--transition-opacity);
 }
 
 .description-container:hover .edit-field-indicator {
@@ -674,9 +674,9 @@ const safeDescription = computed(() => {
 }
 
 .section-header {
-  font-weight: bold;
+  font-weight: var(--font-weight-bold);
   margin-bottom: 0.5rem;
-  font-size: 2rem;
+  font-size: var(--font-size-32);
 }
 
 .section-header.edit-hover-area {
@@ -697,8 +697,8 @@ const safeDescription = computed(() => {
   overflow-y: auto;
   overflow-x: hidden;
   max-height: 90vh;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px var(--overlay-white-medium);
+  border-radius: var(--radius-8);
+  box-shadow: var(--shadow-elevation-sm);
 }
 
 /* Expansion logo badge */
@@ -710,14 +710,14 @@ const safeDescription = computed(() => {
   justify-content: center;
   align-items: center;
   margin-left: 16px;
-  z-index: 30;
+  z-index: var(--z-floating);
 }
 
 .expansion-logo-badge {
   width: 40px;
   height: 40px;
-  border-radius: 50%;
-  box-shadow: 0 2px 8px var(--overlay-black-medium);
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-elevation-sm);
   background: var(--color-bg-secondary);
   object-fit: cover;
   border: 2px solid var(--color-gray-light);
@@ -731,7 +731,7 @@ const safeDescription = computed(() => {
   gap: 16px;
 }
 
-@media (max-width: 900px) {
+@media (max-width: var(--breakpoint-lg)) {
   .concept-detail-content {
     flex-direction: column;
     gap: 18px;

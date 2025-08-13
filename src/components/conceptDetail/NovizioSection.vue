@@ -292,11 +292,11 @@ watch(() => props.editable, (val) => {
 
 <style scoped>
 .edit-field-indicator {
-  font-size: 1.2em;
+  font-size: var(--font-size-20);
   color: var(--color-gray-light);
   cursor: pointer;
   opacity: 0.7;
-  transition: opacity 0.2s;
+  transition: var(--transition-opacity);
   margin-left: 10px;
 }
 
@@ -310,12 +310,12 @@ watch(() => props.editable, (val) => {
   max-width: 220px;
   margin-left: 0.5rem;
   margin-right: 0.5rem;
-  padding: 4px 8px;
-  border-radius: 4px;
+  padding: var(--space-xs) 8px;
+  border-radius: var(--radius-4);
   border: 1px solid var(--color-gray-medium);
   background: var(--color-bg-secondary);
   color: var(--color-text-primary);
-  font-size: 1rem;
+  font-size: var(--font-size-16);
   display: inline-block;
   vertical-align: middle;
 }
@@ -331,7 +331,7 @@ watch(() => props.editable, (val) => {
 
 .novizio-section {
   background: var(--overlay-black-heavy) !important;
-  border-radius: 8px;
+  border-radius: var(--radius-8);
   padding: 18px 18px 10px 18px;
   margin-top: 1rem;
   margin-bottom: 1rem;
@@ -346,7 +346,7 @@ watch(() => props.editable, (val) => {
 
 .novizio-intro-text {
   color: var(--color-text-secondary);
-  font-size: 1.08rem;
+  font-size: var(--font-size-18);
   margin-bottom: 1.1rem;
   margin-top: -0.3rem;
   padding-left: 2px;
@@ -359,7 +359,7 @@ watch(() => props.editable, (val) => {
 
 .novizio-placeholder {
   color: var(--text-tertiary);
-  font-size: 0.98rem;
+  font-size: var(--font-size-15);
   margin-top: 0.2rem;
   margin-left: 0.5rem;
 }
@@ -382,7 +382,7 @@ watch(() => props.editable, (val) => {
   display: flex;
   align-items: center;
   gap: 0.7rem;
-  font-size: 1.08rem;
+  font-size: var(--font-size-18);
 }
 
 .martial-icon {
@@ -390,20 +390,20 @@ watch(() => props.editable, (val) => {
   height: 28px;
   object-fit: contain;
   background: var(--color-gray-light);
-  border-radius: 4px;
+  border-radius: var(--radius-4);
   border: 1px solid var(--color-bg-secondary);
   padding: 2px;
 }
 
 .martial-label {
   min-width: 80px;
-  font-weight: 500;
+  font-weight: var(--font-weight-semibold);
   color: var(--color-text-primary);
 }
 
 .martial-placeholder {
   color: var(--text-tertiary);
-  font-size: 0.98rem;
+  font-size: var(--font-size-15);
   margin-left: 0.5rem;
 }
 
@@ -411,16 +411,16 @@ watch(() => props.editable, (val) => {
   background: var(--color-bg-secondary);
   color: var(--color-text-primary);
   border: 1px solid var(--color-gray-medium);
-  border-radius: 12px;
+  border-radius: var(--radius-12);
   padding: 2px 10px;
-  font-size: 0.98rem;
-  line-height: 1.5;
+  font-size: var(--font-size-15);
+  line-height: var(--line-height-normal);
   display: inline-block;
 }
 
 .martial-training-none {
   color: var(--text-tertiary);
-  font-size: 1rem;
+  font-size: var(--font-size-16);
   margin-left: 0.5rem;
   margin-top: 0.2rem;
 }

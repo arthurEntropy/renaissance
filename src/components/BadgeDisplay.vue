@@ -79,13 +79,12 @@ export default {
 <style scoped>
 .badge-display {
     position: absolute;
-    font-size: 12px;
-    font-weight: bold;
+    font-size: var(--font-size-14);
+    font-weight: var(--font-weight-bold);
     padding: 2px 8px;
-    border-top-right-radius: 10px;
-    box-shadow: var(--shadow-md);
+    border-top-right-radius: var(--radius-10);
     pointer-events: none;
-    z-index: 10;
+    z-index: var(--z-interactive);
 }
 
 /* Badge types */
@@ -109,34 +108,34 @@ export default {
 .badge-bottom-left {
     bottom: 0px;
     left: 0px;
-    border-top-right-radius: 10px;
-    border-bottom-left-radius: 5px;
+    border-top-right-radius: var(--radius-10);
+    border-bottom-left-radius: var(--radius-5);
 }
 
 .badge-bottom-right {
     bottom: 0px;
     right: 0px;
-    border-top-left-radius: 10px;
-    border-bottom-right-radius: 5px;
+    border-top-left-radius: var(--radius-10);
+    border-bottom-right-radius: var(--radius-5);
 }
 
 .badge-top-left {
     top: 0px;
     left: 0px;
-    border-bottom-right-radius: 10px;
-    border-top-left-radius: 5px;
+    border-bottom-right-radius: var(--radius-10);
+    border-top-left-radius: var(--radius-5);
 }
 
 .badge-top-right {
     top: 0px;
     right: 0px;
-    border-bottom-left-radius: 10px;
-    border-top-right-radius: 5px;
+    border-bottom-left-radius: var(--radius-10);
+    border-top-right-radius: var(--radius-5);
 }
 
 /* Special styling for improvement badges */
 .badge-bottom-left.improvement-badge {
     bottom: -5px;
-    border-bottom-left-radius: 5px;
+    border-bottom-left-radius: var(--radius-5);
 }
 </style>

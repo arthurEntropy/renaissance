@@ -327,31 +327,31 @@ onBeforeUnmount(() => {
   max-width: 60%;
   margin-bottom: 1rem;
   padding: 0 2rem;
-  z-index: 1;
+  z-index: var(--z-overlay);
 }
 
 .search-input {
   flex: 2;
-  padding: 8px 12px;
+  padding: var(--space-sm) 12px;
   border: 1px solid var(--color-gray-medium);
-  border-radius: 4px;
+  border-radius: var(--radius-4);
   background-color: var(--overlay-black-medium);
-  font-size: 16px;
+  font-size: var(--font-size-16);
 }
 
 .expansion-filter {
   flex: 1;
-  padding: 8px 12px;
+  padding: var(--space-sm) 12px;
   border: 1px solid var(--color-gray-medium);
-  border-radius: 4px;
+  border-radius: var(--radius-4);
   background-color: var(--overlay-black-medium);
-  font-size: 16px;
+  font-size: var(--font-size-16);
   color: white;
 }
 
 .expansion-filter option {
   background-color: var(--overlay-black-heavy);
-  padding: 8px;
+  padding: var(--space-sm);
 }
 
 .search-input::placeholder {
@@ -362,7 +362,7 @@ onBeforeUnmount(() => {
 .expansion-filter:focus {
   outline: none;
   border-color: var(--color-gray-light);
-  box-shadow: 0 0 5px var(--overlay-white-subtle);
+  box-shadow: var(--shadow-glow-sm);
 }
 
 .concepts-container {
@@ -377,14 +377,14 @@ onBeforeUnmount(() => {
   height: 270px;
   background: var(--overlay-white-medium);
   border: 2px dashed var(--overlay-white-subtle);
-  border-radius: 10px;
+  border-radius: var(--radius-10);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: all 0.2s ease;
-  margin: 10px;
+  transition: var(--transition-all);
+  margin: var(--space-md);
 }
 
 .add-concept-card:hover {
@@ -393,15 +393,15 @@ onBeforeUnmount(() => {
 }
 
 .add-icon {
-  font-size: 3rem;
-  font-weight: 300;
+  font-size: var(--font-size-32);
+  font-weight: var(--font-weight-light);
   color: var(--color-gray-light);
   margin-bottom: 10px;
 }
 
 .add-text {
   color: var(--color-gray-light);
-  font-size: 1rem;
+  font-size: var(--font-size-16);
 }
 
 /* Navigation styling */
@@ -414,7 +414,7 @@ onBeforeUnmount(() => {
   top: 0;
   left: 0;
   height: 100%;
-  z-index: 1000;
+  z-index: var(--z-modal);
 }
 
 .navigate-button {
@@ -425,22 +425,20 @@ onBeforeUnmount(() => {
   background: var(--overlay-black-medium);
   color: white;
   border: none;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   width: 60px;
   height: 60px;
-  font-size: 40px;
+  font-size: var(--font-size-40);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  z-index: 1100;
-  transition: all 0.2s ease;
-  box-shadow: 0 0 15px var(--overlay-black-heavy);
+  z-index: var(--z-tooltip);
+  transition: var(--transition-all);
 }
 
 .navigate-button:hover:not(:disabled) {
   background: var(--overlay-white-medium);
-  box-shadow: 0 0 20px var(--overlay-white-subtle);
 }
 
 .navigate-button:disabled {
@@ -456,7 +454,7 @@ onBeforeUnmount(() => {
   right: 30px;
 }
 
-@media (max-width: 650px) {
+@media (max-width: var(--breakpoint-sm)) {
   .add-concept-card {
     width: 80%;
     margin-left: 10px;
@@ -464,11 +462,11 @@ onBeforeUnmount(() => {
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: var(--breakpoint-md)) {
   .navigate-button {
     width: 40px;
     height: 40px;
-    font-size: 24px;
+    font-size: var(--font-size-24);
   }
 
   .navigate-button.prev {

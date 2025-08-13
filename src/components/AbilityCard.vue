@@ -175,14 +175,14 @@ export default {
   background: none;
   border: none;
   color: var(--color-gray-light);
-  font-size: 16px;
+  font-size: var(--font-size-16);
   cursor: pointer;
   padding: 2px;
-  transition: text-shadow 0.2s ease-in-out;
+  transition: text-shadow var(--transition-normal);
 }
 
 .bottom-buttons:hover {
-  text-shadow: 0px 0px 5px var(--color-white);
+  text-shadow: var(--shadow-glow-sm);
 }
 
 .toggle-active-button {
@@ -199,16 +199,16 @@ export default {
   bottom: -10px;
   background: var(--color-primary);
   color: var(--color-black);
-  font-size: 11px;
+  font-size: var(--font-size-14);
   font-family: inherit;
-  font-weight: bold;
+  font-weight: var(--font-weight-bold);
   border: none;
-  border-top-right-radius: 10px;
-  border-top-left-radius: 10px;
+  border-top-right-radius: var(--radius-10);
+  border-top-left-radius: var(--radius-10);
   padding: 3px 10px 2px 10px;
   cursor: pointer;
-  transition: color 0.2s, background 0.2s;
-  z-index: 11;
+  transition: var(--transition-color-bg);
+  z-index: var(--z-interactive);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -223,7 +223,7 @@ export default {
   margin-top: 12px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: var(--space-md);
 }
 
 .improvement-desc-block {
@@ -237,9 +237,8 @@ export default {
 }
 
 .improvement-title {
-  text-shadow: 0 1px 2px var(--color-black);
-  font-size: 15px;
-  font-weight: bold;
+  font-size: var(--font-size-15);
+  font-weight: var(--font-weight-bold);
   margin-bottom: 5px;
   margin-top: 8px;
 }

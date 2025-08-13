@@ -37,14 +37,14 @@ function confirmDeletion() {
 
 <style scoped>
 .modal-overlay {
-  z-index: 1001;
+  z-index: var(--z-modal-content);
 }
 
 .modal-input {
   width: 90%;
-  padding: 10px;
-  margin: 10px 0;
-  font-size: 16px;
+  padding: var(--space-md);
+  margin: var(--space-md) 0;
+  font-size: var(--font-size-16);
   background: var(--overlay-black-heavy);
   color: var(--color-text-primary);
 }

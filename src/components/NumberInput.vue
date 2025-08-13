@@ -67,7 +67,7 @@ input[type='number'] {
   appearance: textfield;
   background-color: var(--overlay-white-subtle);
   border: 1px solid var(--color-gray-medium);
-  border-radius: 4px;
+  border-radius: var(--radius-4);
   color: white;
   text-align: center;
   padding: 0 14px 0 4px;
@@ -83,15 +83,15 @@ input[type='number']::-webkit-outer-spin-button {
 }
 
 .input-tiny {
-  font-size: 10px;
+  font-size: var(--font-size-10);
 }
 
 .input-small {
-  font-size: 16px;
+  font-size: var(--font-size-16);
 }
 
 .input-large {
-  font-size: 20px;
+  font-size: var(--font-size-20);
 }
 
 /* Spinner buttons styling */
@@ -107,12 +107,12 @@ input[type='number']::-webkit-outer-spin-button {
   display: flex;
   flex-direction: column;
   opacity: 0;
-  transition: opacity 0.2s;
+  transition: var(--transition-opacity);
   pointer-events: none;
   /* Initially hidden from interaction */
-  z-index: 1;
+  z-index: var(--z-overlay);
   /* Ensure buttons are above input */
-  border-radius: 0 3px 3px 0;
+  border-radius: 0 var(--radius-3) var(--radius-3) 0;
   /* Match input's right border radius */
   overflow: hidden;
   /* Ensure buttons don't exceed container */
@@ -132,7 +132,7 @@ input[type='number']::-webkit-outer-spin-button {
   padding: 0;
   height: 50%;
   width: 100%;
-  font-size: 8px;
+  font-size: var(--font-size-10);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -140,11 +140,11 @@ input[type='number']::-webkit-outer-spin-button {
 }
 
 .spinner-up {
-  border-radius: 0 3px 0 0;
+  border-radius: 0 var(--radius-3) 0 0;
 }
 
 .spinner-down {
-  border-radius: 0 0 3px 0;
+  border-radius: 0 0 var(--radius-3) 0;
 }
 
 .spinner-up:hover,
@@ -155,6 +155,6 @@ input[type='number']::-webkit-outer-spin-button {
 input:focus {
   outline: none;
   border-color: var(--color-gray-light);
-  box-shadow: 0 0 3px var(--overlay-white-subtle);
+  box-shadow: var(--shadow-glow-sm);
 }
 </style>
