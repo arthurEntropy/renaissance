@@ -465,7 +465,7 @@ h2 {
   color: var(--color-text-primary);
   font-size: var(--font-size-18);
   border: none;
-  box-shadow: 0 2px 8px var(--overlay-black-medium);
+  box-shadow: var(--shadow-elevation-sm);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -476,7 +476,6 @@ h2 {
 
 .add-equipment-fab:hover {
   background: linear-gradient(135deg, var(--color-gray-light) 60%, var(--color-gray-medium) 100%);
-  box-shadow: 0 4px 16px var(--overlay-white-medium);
 }
 
 /* Equipment row styles */
@@ -588,7 +587,6 @@ h2 {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 1px 4px var(--overlay-white-subtle);
   transition: background 0.2s, color 0.2s;
   padding: 0;
 }
@@ -611,7 +609,6 @@ h2 {
   justify-content: center;
   cursor: move;
   user-select: none;
-  box-shadow: 0 1px 4px var(--overlay-white-subtle);
   transition: background 0.2s, color 0.2s;
 }
 
@@ -663,7 +660,6 @@ h2 {
   right: 0;
   background-color: var(--overlay-black-medium);
   border-radius: var(--radius-8);
-  box-shadow: 0 4px 20px var(--overlay-black-medium);
   z-index: 100;
   width: 200px;
   overflow: hidden;
@@ -698,7 +694,6 @@ h2 {
   max-height: 80vh;
   background-color: var(--overlay-black-medium);
   border-radius: var(--radius-8);
-  box-shadow: 0 4px 20px var(--overlay-black-medium);
   z-index: 100;
   display: flex;
   flex-direction: column;

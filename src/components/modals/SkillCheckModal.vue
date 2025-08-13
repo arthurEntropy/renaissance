@@ -340,23 +340,23 @@ select option.illfavored-option {
 /* Favored/ill-favored d12 styling */
 .dice-symbol.favored-die i {
   color: var(--semantic-success);
-  text-shadow: 0 0 8px var(--semantic-success-shadow);
+  text-shadow: var(--shadow-glow-success-md);
 }
 
 .dice-symbol.illfavored-die i {
   color: var(--color-danger);
-  text-shadow: 0 0 8px var(--color-danger-shadow);
+  text-shadow: var(--shadow-glow-danger-md);
 }
 
 /* Added/subtracted d6 styling */
 .dice-symbol.added-die i {
   color: var(--semantic-success);
-  text-shadow: 0 0 8px var(--semantic-success-shadow);
+  text-shadow: var(--shadow-glow-success-md);
 }
 
 .dice-symbol.subtracted-die i {
   color: var(--color-danger);
-  text-shadow: 0 0 8px var(--color-danger-shadow);
+  text-shadow: var(--shadow-glow-danger-md);
 }
 
 .section-label {

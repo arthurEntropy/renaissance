@@ -83,7 +83,6 @@ export default {
     font-weight: var(--font-weight-bold);
     padding: 2px 8px;
     border-top-right-radius: var(--radius-10);
-    box-shadow: var(--shadow-md);
     pointer-events: none;
     z-index: 10;
 }

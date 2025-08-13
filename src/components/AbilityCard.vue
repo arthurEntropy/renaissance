@@ -182,7 +182,7 @@ export default {
 }
 
 .bottom-buttons:hover {
-  text-shadow: 0px 0px 5px var(--color-white);
+  text-shadow: var(--shadow-glow-sm);
 }
 
 .toggle-active-button {
@@ -237,7 +237,6 @@ export default {
 }
 
 .improvement-title {
-  text-shadow: 0 1px 2px var(--color-black);
   font-size: var(--font-size-15);
   font-weight: var(--font-weight-bold);
   margin-bottom: 5px;

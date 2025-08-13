@@ -138,14 +138,36 @@
   --radius-full: 9999px;    /* fully rounded (50%) */
   
   /* === SHADOWS === */
-  --shadow-sm: 0 1px 2px 0 var(--overlay-black-subtle);
-  --shadow-md: 0 4px 6px -1px var(--overlay-black-subtle), 0 2px 4px -1px var(--overlay-black-subtle);
-  --shadow-lg: 0 10px 15px -3px var(--overlay-black-medium), 0 4px 6px -2px var(--overlay-black-subtle);
-  --shadow-xl: 0 20px 25px -5px var(--overlay-black-medium), 0 10px 10px -5px var(--overlay-black-subtle);
-  --shadow-glow: 0 0 10px var(--overlay-white-medium);
-  --shadow-glow-gold: 0 0 8px rgba(218, 165, 32, 0.7);
-  --shadow-glow-red: 0 0 8px rgba(244, 67, 54, 0.7);
-  --shadow-glow-cyan: 0 0 10px rgba(6, 182, 212, 0.7);
+  /* Elevation shadows (box-shadow for cards, modals, etc.) */
+  --shadow-elevation-sm: 0 2px 8px var(--overlay-black-medium);          /* Small elevation */
+  --shadow-elevation-lg: 0 2px 12px var(--overlay-black-medium);         /* Large elevation */
+
+  /* Glow effects (for highlights, focus, and special states) */
+  --shadow-glow-sm: 0 0 5px var(--overlay-white-subtle);                 /* Small glow */
+  --shadow-glow-md: 0 0 8px var(--overlay-white-medium);                 /* Medium glow */
+  --shadow-glow-lg: 0 0 10px var(--overlay-white-medium);                /* Large glow */
+
+  /* Semantic color glows */
+  --shadow-glow-success-sm: 0 0 5px var(--color-success);                /* Success glow (small) */
+  --shadow-glow-success-md: 0 0 10px var(--color-success);               /* Success glow (medium) */
+  --shadow-glow-success-lg: 0 0 15px var(--color-success);               /* Success glow (large) */
+  --shadow-glow-danger-sm: 0 0 5px var(--color-danger);                  /* Danger glow (small) */
+  --shadow-glow-danger-md: 0 0 10px var(--color-danger);                 /* Danger glow (medium) */
+  --shadow-glow-danger-lg: 0 0 15px var(--color-danger);                 /* Danger glow (large) */
+  --shadow-glow-warning-sm: 0 0 5px var(--color-warning);                /* Warning glow (small) */
+  --shadow-glow-warning-md: 0 0 10px var(--color-warning);               /* Warning glow (medium) */
+  --shadow-glow-warning-lg: 0 0 15px var(--color-warning);               /* Warning glow (large) */
+  --shadow-glow-gold-sm: 0 0 5px var(--color-accent-gold);               /* Gold highlight (small) */
+  --shadow-gloe-gold-md: 0 0 10px var(--color-accent-gold);              /* Gold highlight (medium) */
+  --shadow-glow-gold-lg: 0 0 15px var(--color-accent-gold);               /* Gold highlight (large) */
+  --shadow-glow-condition: 0 0 10px var(--color-condition-glow);         /* Condition glow */
+
+  /* Text shadows */
+  --text-shadow-outline: -1px -1px 0 var(--color-black), 1px -1px 0 var(--color-black), -1px 1px 0 var(--color-black), 1px 1px 0 var(--color-black); /* Black text outline */
+
+  /* Special shadows */
+  --shadow-inset-fade: inset 200px 0 100px -50px var(--color-bg-primary); /* Special inset fade */
+  --shadow-none: none;                                                    /* No shadow */
   
   /* === TRANSITIONS === */
   --transition-fast: 0.1s ease;

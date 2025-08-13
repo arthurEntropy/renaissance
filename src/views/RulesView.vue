@@ -532,7 +532,7 @@ export default {
   height: 100%;
   background-size: cover;
   background-position: right;
-  box-shadow: inset 200px 0 100px -50px var(--color-bg-primary);
+  box-shadow: var(--shadow-inset-fade);
 }
 
 .side-image::before {

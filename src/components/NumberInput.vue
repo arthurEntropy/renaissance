@@ -155,6 +155,6 @@ input[type='number']::-webkit-outer-spin-button {
 input:focus {
   outline: none;
   border-color: var(--color-gray-light);
-  box-shadow: 0 0 3px var(--overlay-white-subtle);
+  box-shadow: var(--shadow-glow-sm);
 }
 </style>

@@ -200,7 +200,7 @@ function createItem() {
 .sort-filter:focus {
   outline: none;
   border-color: var(--color-gray-light);
-  box-shadow: 0 0 5px var(--overlay-white-subtle);
+  box-shadow: var(--shadow-glow-sm);
 }
 
 .cards-container {

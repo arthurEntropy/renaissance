@@ -51,7 +51,6 @@ onMounted(fetchExpansions)
     padding: 30px;
     background: var(--color-bg-secondary);
     border-radius: var(--radius-12);
-    box-shadow: var(--shadow-lg);
 }
 
 h1 {

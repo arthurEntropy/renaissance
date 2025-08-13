@@ -203,11 +203,7 @@ onMounted(() => {
   font-size: var(--font-size-16);
   height: 20px;
   width: 20px;
-  text-shadow:
-    -1px -1px 0 var(--color-black),
-    1px -1px 0 var(--color-black),
-    -1px 1px 0 var(--color-black),
-    1px 1px 0 var(--color-black);
+  text-shadow: var(--text-shadow-outline);
 }
 
 .name-container {
@@ -220,11 +216,7 @@ onMounted(() => {
 
 .item-name {
   font-size: var(--font-size-16);
-  text-shadow:
-    -1px -1px 0 var(--color-black),
-    1px -1px 0 var(--color-black),
-    -1px 1px 0 var(--color-black),
-    1px 1px 0 var(--color-black);
+  text-shadow: var(--text-shadow-outline);
   word-wrap: break-word;
 }
 
@@ -239,11 +231,7 @@ onMounted(() => {
 .item-info {
   font-size: var(--font-size-13);
   color: var(--color-white);
-  text-shadow:
-    -1px -1px 0 var(--color-black),
-    1px -1px 0 var(--color-black),
-    -1px 1px 0 var(--color-black),
-    1px 1px 0 var(--color-black);
+  text-shadow: var(--text-shadow-outline);
   font-weight: var(--font-weight-semibold);
   letter-spacing: 0.01em;
   margin-left: 8px;

@@ -317,7 +317,6 @@ watch(() => props.images, (newImages) => {
   width: 100%;
   object-fit: contain;
   border-radius: var(--radius-12);
-  box-shadow: 0 4px 32px var(--overlay-black-medium);
   background: var(--color-bg-tertiary);
   display: block;
   margin: 0 auto;
@@ -381,7 +380,6 @@ watch(() => props.images, (newImages) => {
   border-radius: var(--radius-8);
   width: 80%;
   max-width: 500px;
-  box-shadow: 0 4px 20px var(--overlay-black-medium);
 }
 
 .edit-modal-content h3 {
@@ -461,13 +459,9 @@ watch(() => props.images, (newImages) => {
   aspect-ratio: 1/1;
   object-fit: cover;
   border-radius: var(--radius-8);
-  box-shadow: 0 2px 8px var(--overlay-black-medium);
+  box-shadow: var(--shadow-elevation-sm);
   background: var(--color-bg-secondary);
   transition: box-shadow 0.2s;
-}
-
-.thumb-wrapper:hover .thumb-image {
-  box-shadow: 0 2px 16px var(--color-white);
 }
 
 .thumb-selected-overlay {

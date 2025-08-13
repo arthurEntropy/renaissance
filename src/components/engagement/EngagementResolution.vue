@@ -267,13 +267,13 @@ const getWinnerAnnouncementClasses = computed(() => {
 
 .winner-announcement.both-accepted {
     border: 3px solid var(--color-success);
-    box-shadow: 0 0 15px var(--color-success);
+    box-shadow: var(--shadow-glow-success-lg);
     background-color: var(--color-success);
 }
 
 .winner-announcement.draw-result {
     border: 3px solid var(--color-warning);
-    box-shadow: 0 0 15px var(--color-warning);
+    box-shadow: var(--shadow-glow-warning-lg);
     background-color: var(--color-warning);
     color: var(--color-text-inverse);
 }

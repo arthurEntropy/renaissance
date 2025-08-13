@@ -698,7 +698,7 @@ const safeDescription = computed(() => {
   overflow-x: hidden;
   max-height: 90vh;
   border-radius: var(--radius-8);
-  box-shadow: 0 2px 10px var(--overlay-white-medium);
+  box-shadow: var(--shadow-elevation-sm);
 }
 
 /* Expansion logo badge */
@@ -717,7 +717,7 @@ const safeDescription = computed(() => {
   width: 40px;
   height: 40px;
   border-radius: var(--radius-full);
-  box-shadow: 0 2px 8px var(--overlay-black-medium);
+  box-shadow: var(--shadow-elevation-sm);
   background: var(--color-bg-secondary);
   object-fit: cover;
   border: 2px solid var(--color-gray-light);

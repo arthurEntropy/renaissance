@@ -420,7 +420,7 @@ export default {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 4px;
-  box-shadow: 0 2px 8px var(--overlay-black-medium);
+  box-shadow: var(--shadow-elevation-sm);
 }
 
 .die-option {
@@ -444,7 +444,7 @@ export default {
 
 .dice-icon.selected {
   color: var(--color-accent-gold);
-  text-shadow: var(--shadow-glow-gold);
+  text-shadow: var(--shadow-glow-gold-sm);
   transform: scale(1.05);
 }
 
@@ -561,7 +561,7 @@ export default {
   max-width: 250px;
   max-height: 300px;
   overflow-y: auto;
-  box-shadow: 0 2px 8px var(--overlay-black-medium);
+  box-shadow: var(--shadow-elevation-sm);
 }
 
 .success-option {
@@ -608,7 +608,7 @@ export default {
   border-radius: var(--radius-8);
   font-size: var(--font-size-14);
   pointer-events: none;
-  box-shadow: 0 2px 12px var(--overlay-black-medium);
+  box-shadow: var(--shadow-elevation-lg);
   max-width: 260px;
   white-space: pre-line;
 }

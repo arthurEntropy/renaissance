@@ -25,6 +25,6 @@ export default {
   font-family: var(--font-family-title);
   font-size: 15vw;
   color: var(--color-primary);
-  text-shadow: 4px 4px 8px var(--overlay-black-medium);
+  text-shadow: var(--shadow-elevation-lg);
 }
 </style>

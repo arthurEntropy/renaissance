@@ -87,7 +87,7 @@ function getCaretClasses(comparison) {
     border: 2px solid var(--color-gray-light);
     border-radius: var(--radius-15);
     padding: 3px 15px;
-    box-shadow: 0 2px 8px var(--overlay-white-medium);
+    box-shadow: var(--shadow-elevation-sm);
     height: 28px;
     left: -7px;
     margin-top: 7px;
@@ -96,18 +96,18 @@ function getCaretClasses(comparison) {
 .comparison-indicator.user-wins-pair,
 .comparison-indicator.opponent-wins-pair {
     border: 2px solid var(--color-success);
-    box-shadow: 0 0 10px var(--color-success);
+    box-shadow: var(--shadow-glow-success-lg);
 }
 
 .comparison-indicator.user-loses-pair,
 .comparison-indicator.opponent-loses-pair {
     border: 2px solid var(--color-danger);
-    box-shadow: 0 0 10px var(--color-danger);
+    box-shadow: var(--shadow-glow-danger-sm);
 }
 
 .comparison-indicator.tie-pair {
     border: 2px solid var(--color-warning);
-    box-shadow: 0 0 10px var(--color-warning);
+    box-shadow: var(--shadow-glow-warning-sm);
 }
 
 .indicator-circle {
@@ -119,13 +119,12 @@ function getCaretClasses(comparison) {
 
 .indicator-circle.winner {
     background-color: var(--color-white);
-    box-shadow: 0 0 12px var(--color-white);
+    box-shadow: var(--shadow-glow-lg);
     animation: pulse-win 1.5s infinite;
 }
 
 .indicator-circle.loser {
     background-color: transparent;
-    box-shadow: none;
 }
 
 .indicator-caret {
@@ -148,12 +147,12 @@ function getCaretClasses(comparison) {
 
 .indicator-caret.clickable:hover {
     transform: scale(1.2);
-    text-shadow: 0 0 5px var(--color-text-primary);
+    text-shadow: var(--shadow-glow-sm);
 }
 
 .indicator-caret.tie {
     color: var(--color-warning);
-    text-shadow: 0 0 5px var(--color-warning);
+    text-shadow: var(--shadow-glow-sm-warning);
 }
 
 .indicator-caret.left-wins {
@@ -166,15 +165,15 @@ function getCaretClasses(comparison) {
 
 @keyframes pulse-win {
     0% {
-        box-shadow: 0 0 5px var(--color-success);
+        box-shadow: var(--shadow-glow-success-sm);
     }
 
     50% {
-        box-shadow: 0 0 15px var(--color-success);
+        box-shadow: var(--shadow-glow-success-lg);
     }
 
     100% {
-        box-shadow: 0 0 5px var(--color-success);
+        box-shadow: var(--shadow-glow-success-sm);
     }
 }
 </style>

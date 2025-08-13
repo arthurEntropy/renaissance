@@ -89,7 +89,6 @@ const handleClick = (event) => {
     background: var(--overlay-black-medium);
     border: 1px solid var(--overlay-black-medium);
     color: var(--color-white);
-    box-shadow: var(--shadow-sm);
     cursor: pointer;
     user-select: none;
 
@@ -101,7 +100,6 @@ const handleClick = (event) => {
     background: var(--overlay-black-heavy);
     border-color: var(--overlay-black-heavy);
     color: var(--color-white);
-    box-shadow: var(--shadow-md);
 }
 
 /* === SIZE VARIANTS === */
@@ -219,7 +217,8 @@ const handleClick = (event) => {
 
 /* === REDUCED MOTION === */
 @media (prefers-reduced-motion: reduce) {
-    .edit-btn {  transition: none;
+    .edit-btn {
+        transition: none;
     }
 }
 </style>

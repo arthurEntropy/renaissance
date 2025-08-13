@@ -47,7 +47,7 @@
           <template v-else>
             <span class="character-name" @click.stop="startEditingWithRefs('name')">{{
               character.name || 'Unnamed Character'
-              }}</span>
+            }}</span>
           </template>
 
           <!-- Pronouns (click to edit) -->
@@ -361,7 +361,7 @@ onBeforeUnmount(() => {
   height: 170px;
   object-fit: cover;
   border-radius: var(--radius-4);
-  box-shadow: 0 2px 8px var(--overlay-black-heavy);
+  box-shadow: var(--shadow-elevation-sm);
 }
 
 /* Bio Info */
@@ -474,13 +474,11 @@ onBeforeUnmount(() => {
   width: 100%;
   min-width: 200px;
   outline: none;
-  box-shadow: none;
   box-sizing: border-box;
 }
 
 .form-input.inline-edit:focus {
   border-color: var(--color-gray-light);
-  box-shadow: 0 0 0 2px var(--overlay-white-medium);
 }
 
 .pronouns-input {

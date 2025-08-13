@@ -71,11 +71,11 @@ const getDiceClasses = (diceIndex) => {
 
 .dice-added {
     color: var(--color-success);
-    text-shadow: 0px 0px 5px var(--color-success);
+    text-shadow: var(--shadow-glow-sm-success);
 }
 
 .dice-subtracted {
     color: var(--color-danger);
-    text-shadow: 0px 0px 5px var(--color-danger);
+    text-shadow: var(--shadow-glow-sm-danger);
 }
 </style>

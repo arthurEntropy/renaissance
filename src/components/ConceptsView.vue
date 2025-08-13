@@ -362,7 +362,7 @@ onBeforeUnmount(() => {
 .expansion-filter:focus {
   outline: none;
   border-color: var(--color-gray-light);
-  box-shadow: 0 0 5px var(--overlay-white-subtle);
+  box-shadow: var(--shadow-glow-sm);
 }
 
 .concepts-container {
@@ -435,12 +435,10 @@ onBeforeUnmount(() => {
   cursor: pointer;
   z-index: 1100;
   transition: all 0.2s ease;
-  box-shadow: 0 0 15px var(--overlay-black-heavy);
 }
 
 .navigate-button:hover:not(:disabled) {
   background: var(--overlay-white-medium);
-  box-shadow: 0 0 20px var(--overlay-white-subtle);
 }
 
 .navigate-button:disabled {

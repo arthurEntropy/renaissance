@@ -66,7 +66,7 @@ defineEmits(['open-skill-check', 'dice-click'])
 
 .skill-name-clickable:hover {
     color: var(--color-white);
-    text-shadow: 0px 0px 5px var(--color-accent-gold);
+    text-shadow: var(--shadow-glow-sm-gold);
 }
 
 .dice-icon {
@@ -86,11 +86,11 @@ defineEmits(['open-skill-check', 'dice-click'])
 /* Conditional styles */
 .favored {
     color: var(--color-success);
-    text-shadow: 0px 0px 5px var(--color-success);
+    text-shadow: var(--shadow-glow-sm-success);
 }
 
 .ill-favored {
     color: var(--color-danger);
-    text-shadow: 0px 0px 5px var(--color-danger);
+    text-shadow: var(--shadow-glow-sm-danger);
 }
 </style>

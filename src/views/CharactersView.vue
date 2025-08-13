@@ -406,11 +406,11 @@ onMounted(async () => {
 
 .condition-active {
   color: var(--color-danger);
-  text-shadow: 0px 0px 5px var(--color-danger);
+  text-shadow: var(--shadow-glow-sm-danger);
 }
 
 .condition-active-checkbox {
-  box-shadow: 0px 0px 10px var(--color-condition-glow);
+  box-shadow: var(--shadow-glow-condition);
 }
 
 .main-column {

@@ -359,7 +359,6 @@ const onSuccessDrop = (event, diceIndex) => {
     overflow: visible;
     text-overflow: ellipsis;
     white-space: nowrap;
-    box-shadow: 0 1px 3px var(--overlay-white-medium);
     cursor: help;
     transition: background-color 0.2s;
     position: relative;
@@ -389,7 +388,6 @@ const onSuccessDrop = (event, diceIndex) => {
     cursor: pointer;
     line-height: var(--line-height-none);
     transition: all 0.2s ease;
-    box-shadow: 0 1px 3px var(--overlay-white-medium);
 }
 
 .assigned-success-pill:hover .remove-success-btn {
@@ -446,8 +444,8 @@ const onSuccessDrop = (event, diceIndex) => {
     cursor: pointer;
     z-index: 20;
     transition: all 0.2s ease;
-    box-shadow: 0 2px 8px var(--overlay-white-medium);
-    text-shadow: none;
+    box-shadow: var(--shadow-elevation-sm);
+    text-shadow: var(--shadow-none);
 }
 
 .reroll-hover:hover {
@@ -525,9 +523,7 @@ const onSuccessDrop = (event, diceIndex) => {
 .max-result {
     color: var(--color-accent-gold);
     position: relative;
-    text-shadow:
-        0 0 5px var(--color-accent-gold),
-        0 0 10px var(--color-accent-gold);
+    text-shadow: var(--shadow-glow-gold-sm);
     animation: fadeInGlow 0.8s ease-in forwards;
     animation-delay: 0.1s;
 }
@@ -546,14 +542,12 @@ const onSuccessDrop = (event, diceIndex) => {
 @keyframes fadeInGlow {
     0% {
         color: var(--color-text-primary);
-        text-shadow: none;
+        text-shadow: var(--shadow-none);
     }
 
     100% {
         color: var(--color-accent-gold);
-        text-shadow:
-            0 0 5px var(--color-accent-gold),
-            0 0 10px var(--color-accent-gold);
+        text-shadow: var(--shadow-glow-gold-sm);
     }
 }
 
@@ -669,12 +663,12 @@ const onSuccessDrop = (event, diceIndex) => {
 /* Winner/Loser Column Styling */
 .winner-column {
     border: 2px solid var(--color-success) !important;
-    box-shadow: 0 0 15px var(--color-success);
+    box-shadow: var(--shadow-glow-success-lg);
 }
 
 .loser-column {
     border: 2px solid var(--color-danger) !important;
-    box-shadow: 0 0 15px var(--color-danger);
+    box-shadow: var(--shadow-glow-danger-lg);
 }
 
 h3 {

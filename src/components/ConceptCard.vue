@@ -29,12 +29,11 @@ defineEmits(['select'])
   width: 200px;
   position: relative;
   border: 2px solid var(--color-gray-dark);
-  box-shadow: none;
 }
 
 /* White glow on hover */
 .selection-card:hover {
-  box-shadow: 0 0 10px var(--overlay-white-medium);
+  box-shadow: var(--shadow-glow-lg);
   transition: box-shadow 0.2s ease;
 }
 
@@ -73,7 +72,7 @@ defineEmits(['select'])
   width: 30px;
   height: 30px;
   border-radius: var(--radius-full);
-  box-shadow: 0 2px 8px var(--overlay-black-medium);
+  box-shadow: var(--shadow-elevation-sm);
   background: var(--color-gray-dark);
   object-fit: cover;
   border: 2px solid var(--color-gray-dark);
