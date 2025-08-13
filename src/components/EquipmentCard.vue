@@ -257,7 +257,7 @@ export default {
 }
 
 .dice-label {
-  font-size: 12px;
+  font-size: var(--font-size-14);
   margin-bottom: 1px;
 }
 
@@ -269,7 +269,7 @@ export default {
 }
 
 .dice-icon {
-  font-size: 36px;
+  font-size: var(--font-size-36);
 }
 
 /* Dice Description Row */
@@ -300,7 +300,7 @@ export default {
   color: white;
   padding: 5px 10px;
   border-radius: 15px;
-  font-size: 10px;
+  font-size: var(--font-size-10);
   text-align: center;
   cursor: help;
 }
@@ -324,7 +324,7 @@ export default {
   color: #fff;
   padding: 14px;
   border-radius: 8px;
-  font-size: 12px;
+  font-size: var(--font-size-14);
   pointer-events: none;
   box-shadow: 0 2px 12px var(--overlay-black-medium);
   max-width: 260px;

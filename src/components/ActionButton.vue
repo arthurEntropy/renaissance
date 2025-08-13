@@ -100,7 +100,7 @@ const handleClick = (event) => {
 
     /* Typography */
     font-family: var(--font-family-primary);
-    font-weight: var(--font-weight-medium);
+    font-weight: var(--font-weight-semibold);
     text-decoration: none;
     white-space: nowrap;
 
@@ -212,7 +212,7 @@ const handleClick = (event) => {
 /* === ICON STYLING === */
 .action-btn__icon {
     flex-shrink: 0;
-    line-height: 1;
+    line-height: var(--line-height-none);
 }
 
 .action-btn__icon--left {

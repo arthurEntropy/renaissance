@@ -55,7 +55,7 @@ onMounted(fetchExpansions)
 }
 
 h1 {
-    font-size: 2.5rem;
+    font-size: var(--font-size-36);
     margin-bottom: 2rem;
 }
 
@@ -77,7 +77,7 @@ h1 {
 
 .expansion-name-input,
 .expansion-logo-input {
-    font-size: 1.1rem;
+    font-size: var(--font-size-18);
     padding: 6px 10px;
     border-radius: 4px;
     border: 1px solid var(--color-gray-medium);
@@ -102,7 +102,7 @@ h1 {
     border-radius: 4px;
     padding: 6px 12px;
     cursor: pointer;
-    font-size: 1rem;
+    font-size: var(--font-size-16);
     margin-left: auto;
     transition: background 0.2s;
 }
@@ -117,7 +117,7 @@ h1 {
     border: none;
     border-radius: 4px;
     padding: 10px 20px;
-    font-size: 1.1rem;
+    font-size: var(--font-size-18);
     cursor: pointer;
     transition: background 0.2s;
 }

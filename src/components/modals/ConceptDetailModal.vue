@@ -560,7 +560,7 @@ const safeDescription = computed(() => {
   background: none;
   border: none;
   color: var(--color-gray-light);
-  font-size: 20px;
+  font-size: var(--font-size-20);
   cursor: pointer;
   z-index: 10;
   padding: 5px;
@@ -608,13 +608,13 @@ const safeDescription = computed(() => {
   gap: 10px;
   margin-bottom: 0;
   margin-top: 0;
-  font-size: 3rem;
+  font-size: var(--font-size-32);
 }
 
 /* Title input */
 .concept-title-input {
-  font-size: 3rem;
-  font-weight: bold;
+  font-size: var(--font-size-32);
+  font-weight: var(--font-weight-bold);
   padding: 4px 8px;
   width: 100%;
   background: var(--overlay-white-subtle);
@@ -643,8 +643,8 @@ const safeDescription = computed(() => {
 
 .concept-description {
   text-align: left;
-  font-size: 1.1rem;
-  line-height: 1.5;
+  font-size: var(--font-size-18);
+  line-height: var(--line-height-normal);
   padding: 4px;
   border-radius: 4px;
 }
@@ -654,7 +654,7 @@ const safeDescription = computed(() => {
   top: 4px;
   right: 4px;
   opacity: 0;
-  font-size: 0.85em;
+  font-size: var(--font-size-13);
   padding: 2px 6px;
   cursor: pointer;
   color: var(--color-gray-light);
@@ -674,9 +674,9 @@ const safeDescription = computed(() => {
 }
 
 .section-header {
-  font-weight: bold;
+  font-weight: var(--font-weight-bold);
   margin-bottom: 0.5rem;
-  font-size: 2rem;
+  font-size: var(--font-size-32);
 }
 
 .section-header.edit-hover-area {

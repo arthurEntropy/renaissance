@@ -166,7 +166,7 @@ function createItem() {
   border: 1px solid var(--color-gray-medium);
   border-radius: 4px;
   background-color: var(--overlay-black-medium);
-  font-size: 16px;
+  font-size: var(--font-size-16);
 }
 
 .source-filter,
@@ -176,7 +176,7 @@ function createItem() {
   border: 1px solid var(--color-gray-medium);
   border-radius: 4px;
   background-color: var(--overlay-black-medium);
-  font-size: 16px;
+  font-size: var(--font-size-16);
   color: white;
 }
 

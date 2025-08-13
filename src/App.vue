@@ -73,7 +73,7 @@ body {
   background-attachment: fixed;
   background-color: var(--color-black);
   color: var(--color-text-primary);
-  font-family: 'Lora', serif;
+  font-family: var(--font-family-primary);
   overflow-x: hidden;
 }
 
@@ -126,7 +126,7 @@ body {
   color: var(--color-text-secondary);
   text-decoration: none;
   padding: 0 10px;
-  font-size: 0.9rem;
+  font-size: var(--font-size-14);
   letter-spacing: 1px;
   height: 100%;
   display: flex;
@@ -187,7 +187,7 @@ body {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 1.5em;
+  font-size: var(--font-size-24);
   display: flex;
   justify-content: center;
   align-items: center;

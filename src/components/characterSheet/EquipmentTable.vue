@@ -463,7 +463,7 @@ h2 {
   border-radius: 50%;
   background: linear-gradient(135deg, var(--color-gray-medium) 60%, var(--color-gray-dark) 100%);
   color: var(--color-text-primary);
-  font-size: 1.1rem;
+  font-size: var(--font-size-18);
   border: none;
   box-shadow: 0 2px 8px var(--overlay-black-medium);
   cursor: pointer;
@@ -539,7 +539,7 @@ h2 {
   flex-grow: 1;
   justify-content: space-between;
   align-items: center;
-  font-size: 12px;
+  font-size: var(--font-size-14);
 }
 
 .detail-item {
@@ -585,7 +585,7 @@ h2 {
   background: linear-gradient(135deg, var(--color-gray-dark) 60%, var(--color-gray-medium) 100%);
   color: var(--color-danger);
   border: none;
-  font-size: 1rem;
+  font-size: var(--font-size-16);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -607,7 +607,7 @@ h2 {
   border-radius: 50%;
   background: linear-gradient(135deg, var(--color-gray-dark) 60%, var(--color-gray-medium) 100%);
   color: var(--color-gray-light);
-  font-size: 1.1rem;
+  font-size: var(--font-size-18);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -649,7 +649,7 @@ h2 {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 12px;
+  font-size: var(--font-size-14);
 }
 
 .carried-weight span {
@@ -721,11 +721,11 @@ h2 {
   border-radius: 4px;
   background-color: var(--overlay-white-medium);
   color: var(--color-text-primary);
-  font-size: 16px;
+  font-size: var(--font-size-16);
 }
 
 .close-selector {
-  font-size: 24px;
+  font-size: var(--font-size-24);
   margin-left: 15px;
   cursor: pointer;
   color: var(--color-gray-light);
@@ -746,7 +746,7 @@ h2 {
 }
 
 .source-header {
-  font-weight: bold;
+  font-weight: var(--font-weight-bold);
   color: var(--color-gray-light);
   padding: 5px 0;
   border-bottom: 1px solid var(--overlay-white-subtle);
@@ -766,7 +766,7 @@ h2 {
 
 .equipment-weight {
   color: var(--color-gray-light);
-  font-size: 0.9em;
+  font-size: var(--font-size-14);
   margin-left: 5px;
 }
 
@@ -781,15 +781,15 @@ h2 {
 }
 
 .total-weight-carried {
-  font-size: 10px;
+  font-size: var(--font-size-10);
   font-style: italic;
   white-space: nowrap;
   margin-top: 2px;
 }
 
 .equipment-lbs-carried {
-  font-size: 16px;
-  font-weight: bold;
+  font-size: var(--font-size-16);
+  font-weight: var(--font-weight-bold);
   white-space: nowrap;
   min-width: 55px;
   text-align: right;

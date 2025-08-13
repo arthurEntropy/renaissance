@@ -291,7 +291,7 @@ export default {
 .modal-skill-dropdown,
 .modal-favored-dropdown {
   padding: 8px;
-  font-size: 16px;
+  font-size: var(--font-size-16);
   background: var(--color-bg-secondary);
   color: var(--color-text-primary);
   border: 1px solid var(--color-gray-medium);
@@ -302,13 +302,13 @@ export default {
 select option.favored-option {
   color: var(--semantic-success);
   /* Green for favored */
-  font-weight: bold;
+  font-weight: var(--font-weight-bold);
 }
 
 select option.illfavored-option {
   color: var(--color-danger);
   /* Red for ill-favored */
-  font-weight: bold;
+  font-weight: var(--font-weight-bold);
 }
 
 .dice-preview {
@@ -332,7 +332,7 @@ select option.illfavored-option {
 }
 
 .dice-symbol {
-  font-size: 32px;
+  font-size: var(--font-size-32);
   color: var(--color-text-primary);
   transition: all 0.3s ease;
 }
@@ -363,7 +363,7 @@ select option.illfavored-option {
   width: 100%;
   text-align: center;
   margin: 10px 0 5px;
-  font-weight: bold;
+  font-weight: var(--font-weight-bold);
 }
 
 .dice-mod-options,
@@ -403,7 +403,7 @@ select option.illfavored-option {
 .button {
   margin-top: 20px;
   padding: 10px 30px;
-  font-size: 16px;
+  font-size: var(--font-size-16);
 }
 
 .button-primary {

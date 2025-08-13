@@ -288,15 +288,15 @@ onMounted(async () => {
 }
 
 .add-icon {
-  font-size: 3rem;
-  font-weight: 300;
+  font-size: var(--font-size-32);
+  font-weight: var(--font-weight-light);
   color: var(--overlay-white-heavy);
   margin-bottom: 10px;
 }
 
 .add-text {
   color: var(--overlay-white-heavy);
-  font-size: 1rem;
+  font-size: var(--font-size-16);
 }
 
 /* CHARACTER SHEET */
@@ -323,7 +323,7 @@ onMounted(async () => {
   position: absolute;
   top: 10px;
   left: 10px;
-  font-size: 20px;
+  font-size: var(--font-size-20);
   cursor: pointer;
   z-index: 2;
 }
@@ -333,7 +333,7 @@ onMounted(async () => {
   top: -10px;
   right: 15px;
   z-index: 1000;
-  font-size: 20px;
+  font-size: var(--font-size-20);
   text-decoration: none;
   color: var(--color-gray-medium);
   cursor: pointer;
@@ -389,7 +389,7 @@ onMounted(async () => {
   display: flex;
   align-items: end;
   margin: 12px 0px;
-  font-size: 14px;
+  font-size: var(--font-size-14);
   font-style: italic;
   height: 28px;
 }

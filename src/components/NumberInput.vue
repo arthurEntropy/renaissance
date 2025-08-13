@@ -83,15 +83,15 @@ input[type='number']::-webkit-outer-spin-button {
 }
 
 .input-tiny {
-  font-size: 10px;
+  font-size: var(--font-size-10);
 }
 
 .input-small {
-  font-size: 16px;
+  font-size: var(--font-size-16);
 }
 
 .input-large {
-  font-size: 20px;
+  font-size: var(--font-size-20);
 }
 
 /* Spinner buttons styling */
@@ -132,7 +132,7 @@ input[type='number']::-webkit-outer-spin-button {
   padding: 0;
   height: 50%;
   width: 100%;
-  font-size: 8px;
+  font-size: var(--font-size-10);
   cursor: pointer;
   display: flex;
   align-items: center;

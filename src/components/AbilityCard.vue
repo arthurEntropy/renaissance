@@ -175,7 +175,7 @@ export default {
   background: none;
   border: none;
   color: var(--color-gray-light);
-  font-size: 16px;
+  font-size: var(--font-size-16);
   cursor: pointer;
   padding: 2px;
   transition: text-shadow 0.2s ease-in-out;
@@ -199,9 +199,9 @@ export default {
   bottom: -10px;
   background: var(--color-primary);
   color: var(--color-black);
-  font-size: 11px;
+  font-size: var(--font-size-14);
   font-family: inherit;
-  font-weight: bold;
+  font-weight: var(--font-weight-bold);
   border: none;
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
@@ -238,8 +238,8 @@ export default {
 
 .improvement-title {
   text-shadow: 0 1px 2px var(--color-black);
-  font-size: 15px;
-  font-weight: bold;
+  font-size: var(--font-size-15);
+  font-weight: var(--font-weight-bold);
   margin-bottom: 5px;
   margin-top: 8px;
 }

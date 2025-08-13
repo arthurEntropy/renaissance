@@ -64,7 +64,7 @@ export default {
   width: 95%;
   padding: 10px;
   margin: 10px 0;
-  font-size: 16px;
+  font-size: var(--font-size-16);
   color: var(--color-text-secondary);
   background: var(--overlay-black-heavy);
   border: 1px solid var(--color-gray-medium);

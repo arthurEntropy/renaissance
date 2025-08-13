@@ -79,8 +79,8 @@ export default {
 <style scoped>
 .badge-display {
     position: absolute;
-    font-size: 12px;
-    font-weight: bold;
+    font-size: var(--font-size-14);
+    font-weight: var(--font-weight-bold);
     padding: 2px 8px;
     border-top-right-radius: 10px;
     box-shadow: var(--shadow-md);

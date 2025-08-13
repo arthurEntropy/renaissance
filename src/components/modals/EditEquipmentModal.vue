@@ -239,14 +239,14 @@ const closeModal = () => cancel()
 }
 
 .dice-icon {
-  font-size: 36px;
+  font-size: var(--font-size-36);
 }
 
 .dice-input {
   width: 50px;
   text-align: center;
   padding: 5px;
-  font-size: 14px;
+  font-size: var(--font-size-14);
   border: 1px solid var(--color-gray-light);
   border-radius: 4px;
 }
@@ -267,7 +267,7 @@ const closeModal = () => cancel()
   color: var(--color-text-secondary);
   padding: 5px 10px;
   border-radius: 15px;
-  font-size: 12px;
+  font-size: var(--font-size-14);
   text-align: center;
   gap: 5px;
 }
@@ -291,9 +291,9 @@ const closeModal = () => cancel()
   content: '✔';
   display: block;
   color: var(--overlay-black-heavy);
-  font-size: 12px;
+  font-size: var(--font-size-14);
   text-align: center;
-  line-height: 16px;
+  line-height: var(--line-height-normal);
 }
 
 .pill-checkbox:hover {

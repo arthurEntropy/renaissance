@@ -47,7 +47,7 @@
           <template v-else>
             <span class="character-name" @click.stop="startEditingWithRefs('name')">{{
               character.name || 'Unnamed Character'
-            }}</span>
+              }}</span>
           </template>
 
           <!-- Pronouns (click to edit) -->
@@ -387,7 +387,7 @@ onBeforeUnmount(() => {
 
 .character-name {
   margin: 0;
-  font-size: 24px;
+  font-size: var(--font-size-24);
   color: var(--color-white);
 }
 
@@ -404,7 +404,7 @@ onBeforeUnmount(() => {
 
 .character-pronouns {
   margin-left: 5px;
-  font-size: 14px;
+  font-size: var(--font-size-14);
   color: var(--color-gray-light);
   font-style: italic;
 }
@@ -435,19 +435,19 @@ onBeforeUnmount(() => {
 
 .bio-label {
   color: var(--color-gray-light);
-  font-size: 12px;
+  font-size: var(--font-size-14);
 }
 
 .bio-value {
   color: var(--color-white);
   flex-grow: 1;
-  font-size: 14px;
+  font-size: var(--font-size-14);
 }
 
 .empty-field {
   color: var(--color-gray-medium);
   font-style: italic;
-  font-size: 0.9rem;
+  font-size: var(--font-size-14);
 }
 
 /* XP Field */
@@ -470,7 +470,7 @@ onBeforeUnmount(() => {
   border-radius: 4px;
   color: var(--color-white);
   padding: 5px 8px;
-  font-size: 1rem;
+  font-size: var(--font-size-16);
   width: 100%;
   min-width: 200px;
   outline: none;
@@ -511,20 +511,20 @@ onBeforeUnmount(() => {
   background-color: var(--color-gray-medium);
   border-radius: 15px;
   padding: 3px 8px;
-  font-size: 0.9rem;
+  font-size: var(--font-size-14);
   color: var(--color-white);
-  font-size: 12px;
+  font-size: var(--font-size-14);
 }
 
 .remove-tag {
   background: none;
   border: none;
   color: var(--color-gray-light);
-  font-size: 1.2rem;
+  font-size: var(--font-size-20);
   cursor: pointer;
   margin-left: 5px;
   padding: 0 2px;
-  line-height: 1;
+  line-height: var(--line-height-none);
 }
 
 .remove-tag:hover {
@@ -554,7 +554,7 @@ onBeforeUnmount(() => {
   background-color: var(--color-dark-gray);
   border-radius: 5px;
   height: 100%;
-  font-size: 14px;
+  font-size: var(--font-size-14);
   cursor: pointer;
   transition: background-color 0.2s;
   overflow-y: auto;
@@ -565,7 +565,7 @@ onBeforeUnmount(() => {
 }
 
 .background-scroll-content {
-  line-height: 1.25;
+  line-height: var(--line-height-normal);
 }
 
 /* Modal specific styles */
@@ -604,7 +604,7 @@ onBeforeUnmount(() => {
 
 .background-full-text {
   white-space: pre-wrap;
-  line-height: 1.5;
+  line-height: var(--line-height-normal);
 }
 
 .background-modal-editor {

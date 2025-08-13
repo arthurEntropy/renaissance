@@ -89,7 +89,7 @@ defineExpose({
 }
 
 .dice-symbol {
-    font-size: 36px;
+    font-size: var(--font-size-36);
     flex-shrink: 1;
     position: relative;
     text-shadow: none;
@@ -99,11 +99,11 @@ defineExpose({
 
 /* When there are many dice, make them smaller */
 .roll-dice:has(.dice-symbol:nth-child(n + 6)) .dice-symbol {
-    font-size: 30px;
+    font-size: var(--font-size-30);
 }
 
 .roll-dice:has(.dice-symbol:nth-child(n + 8)) .dice-symbol {
-    font-size: 24px;
+    font-size: var(--font-size-24);
 }
 
 /* Define transition for all dice */
@@ -187,7 +187,7 @@ defineExpose({
     position: absolute;
     bottom: 0;
     right: 0;
-    font-size: 16px;
+    font-size: var(--font-size-16);
     transform: translate(5px, 5px);
     opacity: 0;
     /* Start invisible */

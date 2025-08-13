@@ -237,7 +237,7 @@ export default {
 
 <style scoped>
 .dicefont {
-  font-family: 'DiceFont' !important;
+  font-family: var(--font-family-dice) !important;
 }
 
 .rich-editor-wrapper {
@@ -277,9 +277,9 @@ export default {
   border-radius: 3px;
   cursor: pointer;
   min-width: 22px;
-  font-weight: bold;
-  font-size: 13px;
-  line-height: 1.1;
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-13);
+  line-height: var(--line-height-normal);
 }
 
 .rich-editor-toolbar button.is-active {
@@ -308,8 +308,8 @@ export default {
   height: v-bind(dynamicHeight);
   max-height: 400px;
   box-sizing: border-box;
-  font-size: 1.1rem;
-  line-height: 1.5;
+  font-size: var(--font-size-18);
+  line-height: var(--line-height-normal);
 }
 
 :deep(.ProseMirror)>* {
@@ -322,21 +322,21 @@ export default {
 }
 
 :deep(.ProseMirror h2) {
-  font-size: 36px;
+  font-size: var(--font-size-36);
   margin: 1.5em 0 0 0;
   color: var(--color-accent-gold);
-  font-weight: normal;
+  font-weight: var(--font-weight-normal);
 }
 
 :deep(.ProseMirror h3) {
   margin: 1.5em 0 0 0;
-  font-size: 24px;
+  font-size: var(--font-size-24);
   color: var(--color-accent-gold);
 }
 
 :deep(.ProseMirror p) {
   margin: 0.5em 0;
-  line-height: 1.6;
+  line-height: var(--line-height-normal);
 }
 
 :deep(.ProseMirror ul) {

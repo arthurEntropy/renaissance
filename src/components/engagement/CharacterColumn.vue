@@ -352,8 +352,8 @@ const onSuccessDrop = (event, diceIndex) => {
     color: var(--overlay-black-heavy);
     padding: 2px 8px;
     border-radius: 10px;
-    font-size: 10px;
-    font-weight: bold;
+    font-size: var(--font-size-10);
+    font-weight: var(--font-weight-bold);
     text-align: center;
     max-width: 50px;
     overflow: visible;
@@ -381,13 +381,13 @@ const onSuccessDrop = (event, diceIndex) => {
     background-color: var(--color-danger);
     color: var(--color-text-primary);
     border-radius: 50%;
-    font-size: 10px;
-    font-weight: bold;
+    font-size: var(--font-size-10);
+    font-weight: var(--font-weight-bold);
     display: none;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    line-height: 1;
+    line-height: var(--line-height-none);
     transition: all 0.2s ease;
     box-shadow: 0 1px 3px var(--overlay-white-medium);
 }
@@ -422,14 +422,14 @@ const onSuccessDrop = (event, diceIndex) => {
 }
 
 .dice-symbol {
-    font-size: 36px;
+    font-size: var(--font-size-36);
     display: inline-block;
     position: relative;
     color: inherit;
     margin: 0 5px;
     transform: scale(1.2);
     height: 36px;
-    line-height: 1;
+    line-height: var(--line-height-none);
 }
 
 .reroll-hover {
@@ -441,8 +441,8 @@ const onSuccessDrop = (event, diceIndex) => {
     color: var(--overlay-black-heavy);
     padding: 4px 8px;
     border-radius: 4px;
-    font-size: 12px;
-    font-weight: bold;
+    font-size: var(--font-size-14);
+    font-weight: var(--font-weight-bold);
     cursor: pointer;
     z-index: 20;
     transition: all 0.2s ease;
@@ -456,7 +456,7 @@ const onSuccessDrop = (event, diceIndex) => {
 }
 
 .dice-symbol i {
-    font-family: 'dicefont' !important;
+    font-family: var(--font-family-dice) !important;
     font-style: normal;
 }
 
@@ -536,7 +536,7 @@ const onSuccessDrop = (event, diceIndex) => {
     position: absolute;
     bottom: 0;
     right: 0;
-    font-size: 16px;
+    font-size: var(--font-size-16);
     transform: translate(5px, 5px);
     opacity: 0;
     animation: fadeIn 0.5s ease-in forwards;
@@ -601,7 +601,7 @@ const onSuccessDrop = (event, diceIndex) => {
     color: var(--color-text-primary);
     padding: 5px 10px;
     border-radius: 15px;
-    font-size: 10px;
+    font-size: var(--font-size-10);
     text-align: center;
     cursor: help;
     transition: background-color 0.2s;

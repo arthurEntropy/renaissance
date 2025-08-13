@@ -330,7 +330,7 @@ watch(() => props.images, (newImages) => {
   background: var(--overlay-black-medium);
   border: none;
   color: var(--color-text-primary);
-  font-size: 24px;
+  font-size: var(--font-size-24);
   padding: 5px 10px;
   cursor: pointer;
   opacity: 0;
@@ -397,7 +397,7 @@ watch(() => props.images, (newImages) => {
   border: 1px solid var(--color-gray-medium);
   border-radius: 4px;
   color: var(--color-text-primary);
-  font-size: 16px;
+  font-size: var(--font-size-16);
 }
 
 .edit-modal-buttons {
@@ -435,7 +435,7 @@ watch(() => props.images, (newImages) => {
   position: absolute;
   top: 5px;
   left: 5px;
-  font-size: 16px;
+  font-size: var(--font-size-16);
   color: var(--color-text-primary);
   background: var(--overlay-white-medium);
   border-radius: 4px;
@@ -507,7 +507,7 @@ watch(() => props.images, (newImages) => {
 }
 
 .add-icon {
-  font-size: 30px;
+  font-size: var(--font-size-30);
   color: var(--color-gray-medium);
 }
 

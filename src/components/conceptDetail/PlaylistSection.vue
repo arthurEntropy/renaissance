@@ -228,7 +228,7 @@ watch(() => props.editable, (val) => {
 <style scoped>
 /* Component-specific styles */
 .helper-text {
-  font-size: 0.9rem;
+  font-size: var(--font-size-14);
   color: var(--color-gray-light);
   margin-bottom: 10px;
 }

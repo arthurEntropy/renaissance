@@ -136,9 +136,9 @@ const getWinnerAnnouncementClasses = computed(() => {
 }
 
 .result-label {
-    font-size: 14px;
+    font-size: var(--font-size-14);
     color: var(--color-gray-light);
-    font-weight: bold;
+    font-weight: var(--font-weight-bold);
     text-align: center;
 }
 
@@ -155,14 +155,14 @@ const getWinnerAnnouncementClasses = computed(() => {
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    font-weight: bold;
+    font-weight: var(--font-weight-bold);
 }
 
 .accept-btn {
     min-width: 60px;
     width: 80px;
     padding: 6px 12px;
-    font-size: 14px;
+    font-size: var(--font-size-14);
     flex-shrink: 0;
     transition: all 0.3s ease;
 }
@@ -220,44 +220,44 @@ const getWinnerAnnouncementClasses = computed(() => {
     min-width: 60px;
     width: 80px;
     padding: 6px 12px;
-    font-size: 14px;
+    font-size: var(--font-size-14);
     flex-shrink: 0;
     background-color: var(--color-gray-light);
     color: var(--color-gray-light);
     font-style: italic;
-    font-weight: normal;
+    font-weight: var(--font-weight-normal);
     cursor: default;
 }
 
 .opponent-status-btn.waiting {
     font-style: italic;
-    font-weight: normal;
+    font-weight: var(--font-weight-normal);
 }
 
 .opponent-status-btn.opponent-win-solid {
     background-color: var(--color-success);
     color: var(--color-text-primary);
     font-style: normal;
-    font-weight: bold;
+    font-weight: var(--font-weight-bold);
 }
 
 .opponent-status-btn.opponent-loss-solid {
     background-color: var(--color-danger);
     color: var(--color-text-primary);
     font-style: normal;
-    font-weight: bold;
+    font-weight: var(--font-weight-bold);
 }
 
 .opponent-status-btn.opponent-draw-solid {
     background-color: var(--color-warning);
     color: var(--color-text-primary);
     font-style: normal;
-    font-weight: bold;
+    font-weight: var(--font-weight-bold);
 }
 
 .winner-announcement {
-    font-weight: bold;
-    font-size: 16px;
+    font-weight: var(--font-weight-bold);
+    font-size: var(--font-size-16);
     padding: 8px 16px;
     border-radius: 6px;
     transition: all 0.3s ease;

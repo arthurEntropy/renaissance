@@ -161,29 +161,29 @@ const getCircularPosition = (index, total) => {
 }
 
 .roll-title {
-  font-size: 12px;
+  font-size: var(--font-size-14);
   text-align: center;
 }
 
 .skill-name {
   color: var(--color-accent-gold);
-  font-weight: bold;
+  font-weight: var(--font-weight-bold);
 }
 
 .favored-modifier {
   color: var(--color-success);
-  font-weight: bold;
+  font-weight: var(--font-weight-bold);
 }
 
 .ill-favored-modifier {
   color: var(--color-danger);
-  font-weight: bold;
+  font-weight: var(--font-weight-bold);
   margin-left: 4px;
 }
 
 .roll-outcome {
-  font-size: 16px;
-  font-weight: bold;
+  font-size: var(--font-size-16);
+  font-weight: var(--font-weight-bold);
   text-align: center;
   padding: 5px;
   border-radius: 4px;
@@ -212,8 +212,8 @@ const getCircularPosition = (index, total) => {
 }
 
 .roll-total {
-  font-size: 20px;
-  font-weight: bold;
+  font-size: var(--font-size-20);
+  font-weight: var(--font-weight-bold);
 }
 
 .roll-total::after {
@@ -223,7 +223,7 @@ const getCircularPosition = (index, total) => {
 }
 
 .roll-target {
-  font-size: 20px;
+  font-size: var(--font-size-20);
   color: var(--color-gray-light);
 }
 
@@ -236,24 +236,24 @@ const getCircularPosition = (index, total) => {
 .user-wins,
 .opponent-wins,
 .draw-number {
-  font-size: 20px;
-  font-weight: bold;
+  font-size: var(--font-size-20);
+  font-weight: var(--font-weight-bold);
   color: var(--color-white);
 }
 
 .score-separator {
-  font-size: 16px;
+  font-size: var(--font-size-16);
   color: var(--color-gray-light);
 }
 
 .draw-count {
-  font-size: 14px;
+  font-size: var(--font-size-14);
   color: var(--color-gray-medium);
   font-style: italic;
 }
 
 .roll-footer {
-  font-size: 11px;
+  font-size: var(--font-size-14);
   color: var(--color-gray-light);
   text-align: center;
   border-top: 1px solid var(--overlay-white-subtle);
@@ -278,7 +278,7 @@ const getCircularPosition = (index, total) => {
 }
 
 .showcase-die {
-  font-size: 24px;
+  font-size: var(--font-size-24);
   color: var(--color-gray-medium);
   opacity: 0.6;
   transition: all 0.3s ease;
@@ -296,7 +296,7 @@ const getCircularPosition = (index, total) => {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 12px;
+  font-size: var(--font-size-14);
   color: var(--color-gray-medium);
   opacity: 0;
   transition: opacity 0.3s ease;

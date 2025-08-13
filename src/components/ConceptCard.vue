@@ -47,8 +47,8 @@ defineEmits(['select'])
 }
 
 .selection-card-name {
-  font-size: 20px;
-  font-weight: normal;
+  font-size: var(--font-size-20);
+  font-weight: var(--font-weight-normal);
   text-align: center;
   max-width: 200px;
   margin: 0px;

@@ -44,7 +44,7 @@ function confirmDeletion() {
   width: 90%;
   padding: 10px;
   margin: 10px 0;
-  font-size: 16px;
+  font-size: var(--font-size-16);
   background: var(--overlay-black-heavy);
   color: var(--color-text-primary);
 }

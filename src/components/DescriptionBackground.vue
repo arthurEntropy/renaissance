@@ -24,23 +24,23 @@ const safeContent = computed(() => sanitizeHtml(props.content))
     padding: 1px 10px;
     border-radius: 5px;
     text-align: left;
-    font-size: 14px;
+    font-size: var(--font-size-14);
     position: relative;
 }
 
 .description-background.small {
     padding: 1px 10px;
-    font-size: 13px;
+    font-size: var(--font-size-13);
 }
 
 .description-background.large {
     padding: 15px;
-    font-size: 16px;
+    font-size: var(--font-size-16);
 }
 
 .description-background.improvement {
     padding: 1px 10px 6px 10px;
-    font-size: 13px;
+    font-size: var(--font-size-13);
     margin-top: 2px;
     min-height: 24px;
 }

@@ -365,7 +365,7 @@ export default {
 
 .rules-nav-header h3 {
   margin: 0;
-  font-size: 1.2rem;
+  font-size: var(--font-size-20);
 }
 
 .bottom-actions {
@@ -452,8 +452,8 @@ export default {
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  font-size: 1.1rem;
-  line-height: 1.5;
+  font-size: var(--font-size-18);
+  line-height: var(--line-height-normal);
 }
 
 .rules-content-body {
@@ -505,7 +505,7 @@ export default {
   margin: 0;
   text-transform: uppercase;
   font-style: italic;
-  font-weight: normal;
+  font-weight: var(--font-weight-normal);
 }
 
 .section-name-input {
@@ -514,8 +514,8 @@ export default {
   border: 1px solid var(--color-gray-medium);
   padding: 10px;
   color: var(--color-white);
-  font-size: 1.5rem;
-  font-weight: bold;
+  font-size: var(--font-size-24);
+  font-weight: var(--font-weight-bold);
   margin-right: 10px;
   flex: 1;
 }
@@ -548,7 +548,7 @@ export default {
 }
 
 .image-url-container label {
-  font-size: 14px;
+  font-size: var(--font-size-14);
   color: var(--color-gray-light);
 }
 
@@ -588,19 +588,19 @@ export default {
 /* Section content styles */
 .content-display {
   text-align: left;
-  line-height: 1.6;
+  line-height: var(--line-height-loose);
 }
 
 .content-display :deep(h2) {
-  font-size: 36px;
+  font-size: var(--font-size-36);
   margin: 1.5em 0 0 0;
   color: var(--color-primary);
-  font-weight: normal;
+  font-weight: var(--font-weight-normal);
 }
 
 .content-display :deep(h3) {
   margin: 1.5em 0 0 0;
-  font-size: 24px;
+  font-size: var(--font-size-24);
   color: var(--color-condition-glow);
 }
 

@@ -560,7 +560,7 @@ export default {
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    font-weight: bold;
+    font-weight: var(--font-weight-bold);
 }
 
 .button-secondary {

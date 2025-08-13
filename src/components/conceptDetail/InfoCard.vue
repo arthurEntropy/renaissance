@@ -29,9 +29,9 @@ const safeContent = computed(() => sanitizeHtml(props.content))
 }
 
 .info-card-title {
-  font-weight: bold;
+  font-weight: var(--font-weight-bold);
   color: var(--color-accent-gold);
-  font-size: 1.2rem;
+  font-size: var(--font-size-20);
   margin-bottom: 8px;
   border-bottom: 1px solid var(--color-accent-gold);
   padding-bottom: 4px;
@@ -40,6 +40,6 @@ const safeContent = computed(() => sanitizeHtml(props.content))
 .info-card-content {
   color: var(--color-text-primary);
   white-space: pre-line;
-  line-height: 1.4;
+  line-height: var(--line-height-normal);
 }
 </style>

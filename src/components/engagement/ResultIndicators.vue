@@ -131,8 +131,8 @@ function getCaretClasses(comparison) {
 .indicator-caret {
     padding: 0px 5px;
     color: var(--color-text-primary);
-    font-size: 14px;
-    font-weight: bold;
+    font-size: var(--font-size-14);
+    font-weight: var(--font-weight-bold);
     display: flex;
     align-items: center;
     justify-content: center;

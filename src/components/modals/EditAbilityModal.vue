@@ -148,8 +148,8 @@ const closeModal = () => cancel()
   background: none;
   border: none;
   padding: 0 2px;
-  font-size: 16px;
-  line-height: 1;
+  font-size: var(--font-size-16);
+  line-height: var(--line-height-none);
   cursor: pointer;
   color: var(--color-text-muted);
   transition: color 0.15s;
@@ -181,7 +181,7 @@ const closeModal = () => cancel()
 
 .xp-label {
   color: var(--color-gray-light);
-  font-size: 13px;
+  font-size: var(--font-size-13);
   margin-right: 2px;
   margin-left: 4px;
 }

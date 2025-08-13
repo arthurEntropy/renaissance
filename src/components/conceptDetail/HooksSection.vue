@@ -218,7 +218,7 @@ watch(() => props.editable, (val) => {
 /* Hook-specific styling */
 .drag-handle {
   cursor: move;
-  font-size: 1.2em;
+  font-size: var(--font-size-20);
   color: var(--color-text-muted);
   margin-right: 8px;
   user-select: none;

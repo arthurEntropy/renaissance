@@ -292,7 +292,7 @@ h2 {
   border-radius: 50%;
   background: linear-gradient(135deg, var(--color-gray-medium) 60%, var(--color-gray-dark) 100%);
   color: var(--color-white);
-  font-size: 1.1rem;
+  font-size: var(--font-size-18);
   border: none;
   box-shadow: 0 2px 8px var(--overlay-black-medium);
   cursor: pointer;
@@ -318,7 +318,7 @@ h2 {
 }
 
 .mp-label {
-  font-size: 14px;
+  font-size: var(--font-size-14);
   margin-right: 5px;
   font-style: italic;
 }
@@ -328,7 +328,7 @@ h2 {
   background: none;
   border: none;
   color: var(--color-gray-light);
-  font-size: 18px;
+  font-size: var(--font-size-18);
   cursor: pointer;
   transition: color 0.2s;
   width: 30px;
@@ -394,7 +394,7 @@ h2 {
 .delete-item-link {
   cursor: pointer;
   color: var(--color-gray-medium);
-  font-size: 15px;
+  font-size: var(--font-size-15);
   text-align: center;
   margin: 0;
 }
@@ -405,7 +405,7 @@ h2 {
 
 .drag-handle {
   cursor: move;
-  font-size: 16px;
+  font-size: var(--font-size-16);
   color: var(--color-gray-light);
   user-select: none;
   margin: 0;
@@ -454,11 +454,11 @@ h2 {
   border-radius: 4px;
   background-color: var(--overlay-white-subtle);
   color: var(--color-white);
-  font-size: 16px;
+  font-size: var(--font-size-16);
 }
 
 .close-selector {
-  font-size: 24px;
+  font-size: var(--font-size-24);
   margin-left: 15px;
   cursor: pointer;
   color: var(--color-gray-light);
@@ -479,7 +479,7 @@ h2 {
 }
 
 .source-header {
-  font-weight: bold;
+  font-weight: var(--font-weight-bold);
   color: var(--color-gray-light);
   padding: 5px 0;
   border-bottom: 1px solid var(--overlay-white-subtle);
@@ -499,7 +499,7 @@ h2 {
 
 .ability-cost {
   color: var(--color-gray-light);
-  font-size: 0.9em;
+  font-size: var(--font-size-14);
   margin-left: 5px;
 }
 
@@ -510,7 +510,7 @@ h2 {
   background: linear-gradient(135deg, var(--color-gray-dark) 60%, var(--color-gray-medium) 100%);
   color: var(--color-danger);
   border: none;
-  font-size: 1rem;
+  font-size: var(--font-size-16);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -531,7 +531,7 @@ h2 {
   border-radius: 50%;
   background: linear-gradient(135deg, var(--color-gray-dark) 60%, var(--color-gray-medium) 100%);
   color: var(--color-gray-light);
-  font-size: 1.1rem;
+  font-size: var(--font-size-18);
   display: flex;
   align-items: center;
   justify-content: center;

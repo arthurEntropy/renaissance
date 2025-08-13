@@ -336,7 +336,7 @@ onBeforeUnmount(() => {
   border: 1px solid var(--color-gray-medium);
   border-radius: 4px;
   background-color: var(--overlay-black-medium);
-  font-size: 16px;
+  font-size: var(--font-size-16);
 }
 
 .expansion-filter {
@@ -345,7 +345,7 @@ onBeforeUnmount(() => {
   border: 1px solid var(--color-gray-medium);
   border-radius: 4px;
   background-color: var(--overlay-black-medium);
-  font-size: 16px;
+  font-size: var(--font-size-16);
   color: white;
 }
 
@@ -393,15 +393,15 @@ onBeforeUnmount(() => {
 }
 
 .add-icon {
-  font-size: 3rem;
-  font-weight: 300;
+  font-size: var(--font-size-32);
+  font-weight: var(--font-weight-light);
   color: var(--color-gray-light);
   margin-bottom: 10px;
 }
 
 .add-text {
   color: var(--color-gray-light);
-  font-size: 1rem;
+  font-size: var(--font-size-16);
 }
 
 /* Navigation styling */
@@ -428,7 +428,7 @@ onBeforeUnmount(() => {
   border-radius: 50%;
   width: 60px;
   height: 60px;
-  font-size: 40px;
+  font-size: var(--font-size-40);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -468,7 +468,7 @@ onBeforeUnmount(() => {
   .navigate-button {
     width: 40px;
     height: 40px;
-    font-size: 24px;
+    font-size: var(--font-size-24);
   }
 
   .navigate-button.prev {

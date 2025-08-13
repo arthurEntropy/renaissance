@@ -354,7 +354,7 @@ export default {
 }
 
 .dice-icon {
-  font-size: 36px;
+  font-size: var(--font-size-36);
   cursor: pointer;
   transition: all 0.3s ease;
   position: relative;
@@ -371,8 +371,8 @@ export default {
   color: var(--color-text-primary);
   border: none;
   border-radius: 50%;
-  font-size: 10px;
-  line-height: 1;
+  font-size: var(--font-size-10);
+  line-height: var(--line-height-none);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -395,7 +395,7 @@ export default {
   color: var(--color-text-primary);
   border: 2px solid var(--color-gray-light);
   border-radius: 50%;
-  font-size: 18px;
+  font-size: var(--font-size-18);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -493,7 +493,7 @@ export default {
   color: var(--color-text-primary);
   padding: 5px 10px;
   border-radius: 15px;
-  font-size: 10px;
+  font-size: var(--font-size-10);
   text-align: center;
   cursor: help;
   transition: background-color 0.2s;
@@ -514,8 +514,8 @@ export default {
   color: var(--color-text-primary);
   border: none;
   border-radius: 50%;
-  font-size: 8px;
-  line-height: 1;
+  font-size: var(--font-size-10);
+  line-height: var(--line-height-none);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -538,7 +538,7 @@ export default {
   color: var(--color-text-primary);
   border: 1px solid var(--color-gray-light);
   border-radius: 50%;
-  font-size: 14px;
+  font-size: var(--font-size-14);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -576,7 +576,7 @@ export default {
   border-radius: 3px;
   cursor: pointer;
   font-family: inherit;
-  font-size: 11px;
+  font-size: var(--font-size-14);
   transition: background-color 0.2s;
 }
 
@@ -589,14 +589,14 @@ export default {
   font-style: italic;
   padding: 5px;
   text-align: center;
-  font-size: 11px;
+  font-size: var(--font-size-14);
 }
 
 .no-successes-message {
   text-align: center;
   color: var(--color-text-muted);
   margin-top: 5px;
-  font-size: 11px;
+  font-size: var(--font-size-14);
 }
 
 .dice-tooltip {
@@ -606,7 +606,7 @@ export default {
   color: var(--color-text-primary);
   padding: 14px;
   border-radius: 8px;
-  font-size: 12px;
+  font-size: var(--font-size-14);
   pointer-events: none;
   box-shadow: 0 2px 12px var(--overlay-black-medium);
   max-width: 260px;
@@ -615,7 +615,7 @@ export default {
 
 .tooltip-source {
   color: var(--color-text-muted);
-  font-size: 10px;
+  font-size: var(--font-size-10);
   font-style: italic;
 }
 

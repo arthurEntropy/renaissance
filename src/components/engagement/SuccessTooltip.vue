@@ -32,7 +32,7 @@ defineProps({
     color: var(--color-text-primary);
     padding: 14px;
     border-radius: 8px;
-    font-size: 12px;
+    font-size: var(--font-size-14);
     pointer-events: none;
     box-shadow: 0 2px 12px var(--overlay-black-medium);
     max-width: 260px;
@@ -46,7 +46,7 @@ defineProps({
 
 .tooltip-source {
     color: var(--color-gray-light);
-    font-size: 10px;
+    font-size: var(--font-size-10);
     font-style: italic;
 }
 </style>

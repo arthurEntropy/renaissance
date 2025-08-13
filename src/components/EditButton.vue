@@ -80,10 +80,10 @@ const handleClick = (event) => {
 
     /* Typography */
     font-family: var(--font-family-primary);
-    font-weight: var(--font-weight-medium);
+    font-weight: var(--font-weight-semibold);
     text-decoration: none;
     white-space: nowrap;
-    line-height: 1;
+    line-height: var(--line-height-none);
 
     /* Appearance */
     background: var(--overlay-black-medium);
@@ -107,7 +107,7 @@ const handleClick = (event) => {
 /* === SIZE VARIANTS === */
 .edit-btn--small {
     padding: 0;
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-14);
     min-width: 28px;
     min-height: 28px;
     width: 28px;
@@ -117,7 +117,7 @@ const handleClick = (event) => {
 
 .edit-btn--large {
     padding: 0;
-    font-size: var(--font-size-base);
+    font-size: var(--font-size-16);
     min-width: 32px;
     min-height: 32px;
     width: 32px;

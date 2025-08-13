@@ -200,7 +200,7 @@ onMounted(() => {
 
 .caret {
   margin-right: 10px;
-  font-size: 16px;
+  font-size: var(--font-size-16);
   height: 20px;
   width: 20px;
   text-shadow:
@@ -219,7 +219,7 @@ onMounted(() => {
 }
 
 .item-name {
-  font-size: 16px;
+  font-size: var(--font-size-16);
   text-shadow:
     -1px -1px 0 var(--color-black),
     1px -1px 0 var(--color-black),
@@ -229,7 +229,7 @@ onMounted(() => {
 }
 
 .source-name {
-  font-size: 0.7em;
+  font-size: var(--font-size-14);
   font-style: italic;
   color: var(--color-gray-light);
   margin-left: 6px;
@@ -237,14 +237,14 @@ onMounted(() => {
 }
 
 .item-info {
-  font-size: 13px;
+  font-size: var(--font-size-13);
   color: var(--color-white);
   text-shadow:
     -1px -1px 0 var(--color-black),
     1px -1px 0 var(--color-black),
     -1px 1px 0 var(--color-black),
     1px 1px 0 var(--color-black);
-  font-weight: 500;
+  font-weight: var(--font-weight-semibold);
   letter-spacing: 0.01em;
   margin-left: 8px;
   margin-right: 0;

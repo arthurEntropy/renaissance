@@ -100,7 +100,7 @@ const stateClasses = computed(() => {
 }
 
 .skill-name {
-    font-size: 14px;
+    font-size: var(--font-size-14);
 }
 
 .state-active {
