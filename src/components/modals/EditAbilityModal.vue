@@ -168,7 +168,7 @@ const closeModal = () => cancel()
   background: var(--color-bg-secondary);
   border-radius: var(--radius-7);
   margin-bottom: 14px;
-  padding: 10px 10px 8px 10px;
+  padding: var(--space-md) 10px 8px 10px;
 }
 
 .improvement-card-row {

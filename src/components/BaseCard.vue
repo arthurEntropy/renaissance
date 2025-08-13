@@ -153,7 +153,7 @@ onMounted(() => {
 .base-card {
   border: 1px solid var(--color-gray-medium);
   border-radius: var(--radius-8);
-  padding: 10px;
+  padding: var(--space-md);
   margin-top: 5px;
   transition:
     background-color var(--transition-normal) ease,

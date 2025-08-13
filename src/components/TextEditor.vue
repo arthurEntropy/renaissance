@@ -293,13 +293,13 @@ export default {
 }
 
 .editor-loading {
-  padding: 20px;
+  padding: var(--space-xl);
   text-align: center;
   color: var(--color-gray-light);
 }
 
 :deep(.ProseMirror) {
-  padding: 10px;
+  padding: var(--space-md);
   padding-bottom: 35px;
   min-height: 100px;
   /* Always allow vertical scrolling if content overflows */

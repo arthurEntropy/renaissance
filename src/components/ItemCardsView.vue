@@ -162,7 +162,7 @@ function createItem() {
 
 .search-input {
   flex: 2;
-  padding: 8px 12px;
+  padding: var(--space-sm) 12px;
   border: 1px solid var(--color-gray-medium);
   border-radius: var(--radius-4);
   background-color: var(--overlay-black-medium);
@@ -172,7 +172,7 @@ function createItem() {
 .source-filter,
 .sort-filter {
   flex: 1;
-  padding: 8px 12px;
+  padding: var(--space-sm) 12px;
   border: 1px solid var(--color-gray-medium);
   border-radius: var(--radius-4);
   background-color: var(--overlay-black-medium);
@@ -188,7 +188,7 @@ function createItem() {
 .source-filter option,
 .sort-filter option {
   background-color: var(--overlay-black-heavy);
-  padding: 8px;
+  padding: var(--space-sm);
 }
 
 .search-input::placeholder {

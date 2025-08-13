@@ -238,7 +238,7 @@ onBeforeUnmount(() => {
 
 <style scoped>
 h2 {
-  margin: 5px;
+  margin: var(--space-xs);
 }
 
 .abilities-column {
@@ -251,7 +251,7 @@ h2 {
   flex-direction: column;
   align-items: flex-start;
   background-color: var(--color-black);
-  padding: 15px;
+  padding: var(--space-lg);
   border-radius: var(--radius-5);
   position: relative;
 }
@@ -271,7 +271,7 @@ h2 {
   max-width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--space-sm);
 }
 
 /* Remove old add-item-footer styles */
@@ -309,11 +309,11 @@ h2 {
 
 .mp-container {
   background-color: var(--color-gray-dark);
-  padding: 5px 15px;
+  padding: var(--space-xs) 15px;
   border-radius: var(--radius-5);
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: var(--space-xs);
 }
 
 .mp-label {
@@ -387,7 +387,7 @@ h2 {
 .missing-ability {
   color: var(--color-gray-light);
   font-style: italic;
-  padding: 10px;
+  padding: var(--space-md);
 }
 
 .delete-item-link {
@@ -441,13 +441,13 @@ h2 {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px;
+  padding: var(--space-lg);
   border-bottom: 1px solid var(--overlay-white-subtle);
 }
 
 .ability-search {
   flex: 1;
-  padding: 8px 12px;
+  padding: var(--space-sm) 12px;
   border: 1px solid var(--color-gray-medium);
   border-radius: var(--radius-4);
   background-color: var(--overlay-white-subtle);
@@ -469,7 +469,7 @@ h2 {
 .ability-options-container {
   overflow-y: auto;
   max-height: calc(80vh - 60px);
-  padding: 10px;
+  padding: var(--space-md);
 }
 
 .ability-source-group {
@@ -479,13 +479,13 @@ h2 {
 .source-header {
   font-weight: var(--font-weight-bold);
   color: var(--color-gray-light);
-  padding: 5px 0;
+  padding: var(--space-xs) 0;
   border-bottom: 1px solid var(--overlay-white-subtle);
   margin-bottom: 8px;
 }
 
 .ability-option {
-  padding: 8px 12px;
+  padding: var(--space-sm) 12px;
   cursor: pointer;
   border-radius: var(--radius-4);
   transition: var(--transition-background);
@@ -546,8 +546,8 @@ h2 {
 @media (max-width: var(--breakpoint-sm)) {
   .abilities-table {
     width: 80%;
-    margin: 10px;
-    padding: 10px;
+    margin: var(--space-md);
+    padding: var(--space-md);
   }
 
   .mp-container {

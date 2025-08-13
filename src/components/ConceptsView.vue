@@ -332,7 +332,7 @@ onBeforeUnmount(() => {
 
 .search-input {
   flex: 2;
-  padding: 8px 12px;
+  padding: var(--space-sm) 12px;
   border: 1px solid var(--color-gray-medium);
   border-radius: var(--radius-4);
   background-color: var(--overlay-black-medium);
@@ -341,7 +341,7 @@ onBeforeUnmount(() => {
 
 .expansion-filter {
   flex: 1;
-  padding: 8px 12px;
+  padding: var(--space-sm) 12px;
   border: 1px solid var(--color-gray-medium);
   border-radius: var(--radius-4);
   background-color: var(--overlay-black-medium);
@@ -351,7 +351,7 @@ onBeforeUnmount(() => {
 
 .expansion-filter option {
   background-color: var(--overlay-black-heavy);
-  padding: 8px;
+  padding: var(--space-sm);
 }
 
 .search-input::placeholder {
@@ -384,7 +384,7 @@ onBeforeUnmount(() => {
   justify-content: center;
   cursor: pointer;
   transition: var(--transition-all);
-  margin: 10px;
+  margin: var(--space-md);
 }
 
 .add-concept-card:hover {

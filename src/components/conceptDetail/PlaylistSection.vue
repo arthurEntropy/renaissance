@@ -235,7 +235,7 @@ watch(() => props.editable, (val) => {
 
 .playlist-toggle {
   display: flex;
-  gap: 10px;
+  gap: var(--space-md);
   margin-bottom: 15px;
 }
 
@@ -243,7 +243,7 @@ watch(() => props.editable, (val) => {
   background: var(--overlay-black-medium);
   border: 1px solid var(--color-gray-medium);
   color: var(--color-gray-light);
-  padding: 8px 16px;
+  padding: var(--space-sm) 16px;
   border-radius: var(--radius-4);
   cursor: pointer;
   transition: var(--transition-all);
@@ -258,7 +258,7 @@ watch(() => props.editable, (val) => {
 .playlist-container {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: var(--space-lg);
 }
 
 .playlist-embed {
@@ -268,7 +268,7 @@ watch(() => props.editable, (val) => {
 }
 
 .no-playlists {
-  padding: 15px;
+  padding: var(--space-lg);
   background: var(--overlay-white-subtle);
   border-radius: var(--radius-8);
   text-align: center;
@@ -279,14 +279,14 @@ watch(() => props.editable, (val) => {
 .url-container {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: var(--space-md);
   margin-bottom: 10px;
 }
 
 .edit-item {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--space-sm);
   padding: 12px;
   background: var(--overlay-white-subtle);
   border-radius: var(--radius-4);
@@ -295,7 +295,7 @@ watch(() => props.editable, (val) => {
 .url-buttons {
   display: flex;
   justify-content: flex-end;
-  gap: 5px;
+  gap: var(--space-xs);
   margin-top: 5px;
 }
 
@@ -304,7 +304,7 @@ watch(() => props.editable, (val) => {
 }
 
 .service-select {
-  padding: 5px;
+  padding: var(--space-xs);
   background: var(--overlay-white-medium);
   border: 1px solid var(--color-gray-medium);
   color: var(--color-text-secondary);

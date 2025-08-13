@@ -268,7 +268,7 @@ export default {
   width: auto;
   min-width: 400px;
   max-width: 90vw;
-  padding: 20px;
+  padding: var(--space-xl);
 }
 
 .header-row {
@@ -284,13 +284,13 @@ export default {
 .skill-selection-row {
   display: flex;
   justify-content: center;
-  gap: 15px;
+  gap: var(--space-lg);
   margin-bottom: 20px;
 }
 
 .modal-skill-dropdown,
 .modal-favored-dropdown {
-  padding: 8px;
+  padding: var(--space-sm);
   font-size: var(--font-size-16);
   background: var(--color-bg-secondary);
   color: var(--color-text-primary);
@@ -316,17 +316,17 @@ select option.illfavored-option {
   min-width: 280px;
   /* Space for 7 dice (2d12 + 5d6) */
   max-width: 300px;
-  padding: 15px;
+  padding: var(--space-lg);
   background-color: var(--overlay-white-subtle);
   border-radius: var(--radius-6);
-  margin: 20px 0;
+  margin: var(--space-xl) 0;
   display: flex;
   justify-content: center;
 }
 
 .dice-pool {
   display: flex;
-  gap: 10px;
+  gap: var(--space-md);
   flex-wrap: wrap;
   justify-content: center;
 }
@@ -362,7 +362,7 @@ select option.illfavored-option {
 .section-label {
   width: 100%;
   text-align: center;
-  margin: 10px 0 5px;
+  margin: var(--space-md) 0 5px;
   font-weight: var(--font-weight-bold);
 }
 
@@ -370,7 +370,7 @@ select option.illfavored-option {
 .target-number-options {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: var(--space-sm);
   justify-content: center;
   width: 100%;
   margin-bottom: 15px;
@@ -402,7 +402,7 @@ select option.illfavored-option {
 
 .button {
   margin-top: 20px;
-  padding: 10px 30px;
+  padding: var(--space-md) 30px;
   font-size: var(--font-size-16);
 }
 

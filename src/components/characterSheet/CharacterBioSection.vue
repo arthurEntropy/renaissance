@@ -337,7 +337,7 @@ onBeforeUnmount(() => {
   flex-direction: column;
   background-color: var(--color-black);
   border-radius: var(--radius-5);
-  padding: 15px;
+  padding: var(--space-lg);
   position: relative;
   margin-bottom: 10px;
   flex: 3;
@@ -346,7 +346,7 @@ onBeforeUnmount(() => {
 .bio-section-content {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: var(--space-xl);
 }
 
 /* Character Art */
@@ -376,7 +376,7 @@ onBeforeUnmount(() => {
   align-items: baseline;
   flex-wrap: wrap;
   cursor: pointer;
-  padding: var(--space-2xs);
+  padding: 2px;
   border-radius: var(--radius-4);
   transition: var(--transition-background);
 }
@@ -419,7 +419,7 @@ onBeforeUnmount(() => {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 5px;
+  padding: var(--space-xs);
   border-radius: var(--radius-4);
   cursor: pointer;
   transition: var(--transition-background);
@@ -455,7 +455,7 @@ onBeforeUnmount(() => {
   flex-direction: row;
   justify-content: left;
   align-items: center;
-  gap: 10px;
+  gap: var(--space-md);
   cursor: default;
 }
 
@@ -469,7 +469,7 @@ onBeforeUnmount(() => {
   border: 1px solid var(--color-gray-medium);
   border-radius: var(--radius-4);
   color: var(--color-white);
-  padding: 5px 8px;
+  padding: var(--space-xs) 8px;
   font-size: var(--font-size-16);
   width: 100%;
   min-width: 200px;
@@ -493,9 +493,9 @@ onBeforeUnmount(() => {
 .tag-selector {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: var(--space-sm);
   align-items: center;
-  padding: 5px;
+  padding: var(--space-xs);
   min-height: 34px;
   background-color: var(--color-gray-dark);
   border: 1px solid var(--color-gray-medium);
@@ -533,7 +533,7 @@ onBeforeUnmount(() => {
   background-color: var(--color-gray-medium);
   border: 1px solid var(--color-gray-medium);
   color: var(--color-white);
-  padding: 5px;
+  padding: var(--space-xs);
   border-radius: var(--radius-4);
   cursor: pointer;
 }
@@ -548,7 +548,7 @@ onBeforeUnmount(() => {
 }
 
 .background-content.scrollable {
-  padding: 10px;
+  padding: var(--space-md);
   background-color: var(--color-dark-gray);
   border-radius: var(--radius-5);
   height: 100%;
@@ -588,13 +588,13 @@ onBeforeUnmount(() => {
 
 .edit-actions {
   display: flex;
-  gap: 10px;
+  gap: var(--space-md);
 }
 
 .background-modal-content {
   max-height: 60vh;
   overflow-y: auto;
-  padding: 10px;
+  padding: var(--space-md);
   background: var(--overlay-white-subtle);
   border-radius: var(--radius-4);
   text-align: left;
@@ -607,7 +607,7 @@ onBeforeUnmount(() => {
 
 .background-modal-editor {
   height: 400px;
-  margin: 10px 0;
+  margin: var(--space-md) 0;
 }
 
 .empty-background {

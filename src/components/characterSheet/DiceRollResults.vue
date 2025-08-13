@@ -16,7 +16,7 @@
           {{ latestRoll.characterName }} rolled
           <span class="skill-name">{{
             latestRoll.baseSkillName || latestRoll.skillName
-          }}</span>
+            }}</span>
           <span v-if="latestRoll.favoredStatus" :class="{
             'favored-modifier': latestRoll.favoredStatus === 'favored',
             'ill-favored-modifier': latestRoll.favoredStatus === 'ill-favored',
@@ -142,7 +142,7 @@ const getCircularPosition = (index, total) => {
 .dice-roll-results {
   background-color: var(--color-black);
   border-radius: var(--radius-5);
-  padding: 10px;
+  padding: var(--space-md);
   align-self: stretch;
   display: flex;
   flex-direction: column;
@@ -155,7 +155,7 @@ const getCircularPosition = (index, total) => {
 .roll-content {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--space-sm);
   height: 100%;
   justify-content: space-between;
 }
@@ -185,7 +185,7 @@ const getCircularPosition = (index, total) => {
   font-size: var(--font-size-16);
   font-weight: var(--font-weight-bold);
   text-align: center;
-  padding: 5px;
+  padding: var(--space-xs);
   border-radius: var(--radius-4);
 }
 
@@ -207,7 +207,7 @@ const getCircularPosition = (index, total) => {
 .roll-numbers {
   display: flex;
   justify-content: center;
-  gap: 5px;
+  gap: var(--space-xs);
   align-items: center;
 }
 
@@ -230,7 +230,7 @@ const getCircularPosition = (index, total) => {
 .engagement-score {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--space-sm);
 }
 
 .user-wins,
@@ -263,7 +263,7 @@ const getCircularPosition = (index, total) => {
 .no-roll {
   color: var(--color-gray-light);
   text-align: center;
-  padding: 20px 0;
+  padding: var(--space-xl) 0;
   height: 100%;
   display: flex;
   align-items: center;

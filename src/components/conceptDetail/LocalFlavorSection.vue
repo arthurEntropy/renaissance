@@ -206,7 +206,7 @@ watch(() => props.editable, (val) => {
 .flavor-edit-item {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: var(--space-xs);
 }
 
 .flavor-textarea {

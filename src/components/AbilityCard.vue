@@ -177,7 +177,7 @@ export default {
   color: var(--color-gray-light);
   font-size: var(--font-size-16);
   cursor: pointer;
-  padding: var(--space-2xs);
+  padding: 2px;
   transition: text-shadow var(--transition-normal);
 }
 
@@ -223,7 +223,7 @@ export default {
   margin-top: 12px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: var(--space-md);
 }
 
 .improvement-desc-block {

@@ -310,7 +310,7 @@ watch(() => props.editable, (val) => {
   max-width: 220px;
   margin-left: 0.5rem;
   margin-right: 0.5rem;
-  padding: 4px 8px;
+  padding: var(--space-xs) 8px;
   border-radius: var(--radius-4);
   border: 1px solid var(--color-gray-medium);
   background: var(--color-bg-secondary);
@@ -392,7 +392,7 @@ watch(() => props.editable, (val) => {
   background: var(--color-gray-light);
   border-radius: var(--radius-4);
   border: 1px solid var(--color-bg-secondary);
-  padding: var(--space-2xs);
+  padding: 2px;
 }
 
 .martial-label {

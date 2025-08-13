@@ -42,8 +42,8 @@ function confirmDeletion() {
 
 .modal-input {
   width: 90%;
-  padding: 10px;
-  margin: 10px 0;
+  padding: var(--space-md);
+  margin: var(--space-md) 0;
   font-size: var(--font-size-16);
   background: var(--overlay-black-heavy);
   color: var(--color-text-primary);

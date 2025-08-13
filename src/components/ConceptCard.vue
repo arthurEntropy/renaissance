@@ -21,8 +21,8 @@ defineEmits(['select'])
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 10px;
-  padding: 20px;
+  margin: var(--space-md);
+  padding: var(--space-xl);
   border-radius: var(--radius-5);
   background-color: var(--overlay-black-heavy);
   cursor: pointer;

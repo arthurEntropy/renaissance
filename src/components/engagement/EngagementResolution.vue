@@ -147,11 +147,11 @@ const getWinnerAnnouncementClasses = computed(() => {
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    gap: 15px;
+    gap: var(--space-lg);
 }
 
 .button {
-    padding: 10px 20px;
+    padding: var(--space-md) 20px;
     border: none;
     border-radius: var(--radius-4);
     cursor: pointer;
@@ -258,7 +258,7 @@ const getWinnerAnnouncementClasses = computed(() => {
 .winner-announcement {
     font-weight: var(--font-weight-bold);
     font-size: var(--font-size-16);
-    padding: 8px 16px;
+    padding: var(--space-sm) 16px;
     border-radius: var(--radius-6);
     transition: var(--transition-all);
     flex: 1;

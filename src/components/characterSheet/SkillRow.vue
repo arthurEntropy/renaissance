@@ -50,7 +50,7 @@ defineEmits(['open-skill-check', 'dice-click'])
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    margin: 5px 0;
+    margin: var(--space-xs) 0;
     height: 25px;
     border-bottom: 1px solid var(--color-gray-dark);
 }

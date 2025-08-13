@@ -330,7 +330,7 @@ watch(() => props.images, (newImages) => {
   border: none;
   color: var(--color-text-primary);
   font-size: var(--font-size-24);
-  padding: 5px 10px;
+  padding: var(--space-xs) 10px;
   cursor: pointer;
   opacity: 0;
   transition: opacity var(--transition-normal);
@@ -376,7 +376,7 @@ watch(() => props.images, (newImages) => {
 
 .edit-modal-content {
   background: var(--color-bg-secondary);
-  padding: 20px;
+  padding: var(--space-xl);
   border-radius: var(--radius-8);
   width: 80%;
   max-width: 500px;
@@ -389,7 +389,7 @@ watch(() => props.images, (newImages) => {
 
 .url-input {
   width: 100%;
-  padding: 8px 12px;
+  padding: var(--space-sm) 12px;
   margin-bottom: 15px;
   background: var(--color-bg-secondary);
   border: 1px solid var(--color-gray-medium);
@@ -401,7 +401,7 @@ watch(() => props.images, (newImages) => {
 .edit-modal-buttons {
   display: flex;
   justify-content: flex-end;
-  gap: 10px;
+  gap: var(--space-md);
 }
 
 /* Thumbnail grid */
@@ -437,7 +437,7 @@ watch(() => props.images, (newImages) => {
   color: var(--color-text-primary);
   background: var(--overlay-white-medium);
   border-radius: var(--radius-4);
-  padding: var(--space-2xs);
+  padding: 2px;
   cursor: grab;
   opacity: 0;
   transition: var(--transition-opacity);
@@ -515,7 +515,7 @@ watch(() => props.images, (newImages) => {
 .modal-buttons {
   display: flex;
   justify-content: flex-end;
-  gap: 10px;
+  gap: var(--space-md);
   margin-top: 15px;
 }
 

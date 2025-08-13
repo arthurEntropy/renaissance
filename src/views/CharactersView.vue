@@ -45,7 +45,7 @@
             <div class="conditions-row" v-for="(value, key) in selectedCharacter.conditions" :key="key">
               <span :class="{ 'condition-active': value }">{{
                 cap(key)
-              }}</span>
+                }}</span>
               <input type="checkbox" class="skill-checkbox" :class="{ 'condition-active-checkbox': value }"
                 v-model="selectedCharacter.conditions[key]" />
             </div>
@@ -279,7 +279,7 @@ onMounted(async () => {
   justify-content: center;
   cursor: pointer;
   transition: var(--transition-all);
-  margin: 10px;
+  margin: var(--space-md);
 }
 
 .add-concept-card:hover {
@@ -308,7 +308,7 @@ onMounted(async () => {
   border-radius: var(--radius-5);
   width: 1050px;
   max-height: 100%;
-  padding: 20px;
+  padding: var(--space-xl);
   position: relative;
 }
 
@@ -345,13 +345,13 @@ onMounted(async () => {
   flex-wrap: wrap;
   width: 100%;
   justify-content: center;
-  gap: 10px;
+  gap: var(--space-md);
 }
 
 .top-section {
   display: flex;
   width: 100%;
-  gap: 10px;
+  gap: var(--space-md);
   justify-content: space-between;
 }
 
@@ -399,7 +399,7 @@ onMounted(async () => {
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  margin: 5px 0;
+  margin: var(--space-xs) 0;
   height: 25px;
   border-bottom: 1px solid var(--color-gray-dark);
 }

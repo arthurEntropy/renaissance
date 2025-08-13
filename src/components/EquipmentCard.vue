@@ -194,7 +194,7 @@ export default {
 <style scoped>
 .content-wrapper {
   display: flex;
-  gap: 10px;
+  gap: var(--space-md);
   align-items: flex-start;
   padding-top: 10px;
 }
@@ -203,7 +203,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 5px;
+  gap: var(--space-xs);
 }
 
 .equipment-image {
@@ -234,7 +234,7 @@ export default {
 .dice-display-container {
   display: flex;
   justify-content: space-between;
-  gap: 10px;
+  gap: var(--space-md);
   margin-top: 10px;
 }
 
@@ -276,7 +276,7 @@ export default {
 .dice-description-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: var(--space-md);
   width: 100%;
 }
 
@@ -291,14 +291,14 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 5px;
+  gap: var(--space-xs);
   margin-top: 10px;
 }
 
 .engagement-success-pill {
   background-color: var(--overlay-black-medium);
   color: white;
-  padding: 5px 10px;
+  padding: var(--space-xs) 10px;
   border-radius: var(--radius-15);
   font-size: var(--font-size-10);
   text-align: center;
@@ -313,7 +313,7 @@ export default {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: var(--space-md);
 }
 
 /* Tooltip */

@@ -115,7 +115,7 @@ h1 {
     color: var(--color-white);
     border: none;
     border-radius: var(--radius-4);
-    padding: 10px 20px;
+    padding: var(--space-md) 20px;
     font-size: var(--font-size-18);
     cursor: pointer;
     transition: var(--transition-background);

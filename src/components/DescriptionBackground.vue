@@ -34,7 +34,7 @@ const safeContent = computed(() => sanitizeHtml(props.content))
 }
 
 .description-background.large {
-    padding: 15px;
+    padding: var(--space-lg);
     font-size: var(--font-size-16);
 }
 

@@ -237,12 +237,12 @@ watch(() => props.editable, (val) => {
 .hook-header {
   display: flex;
   align-items: center;
-  padding: 4px;
+  padding: var(--space-xs);
 }
 
 .hook-caret {
   cursor: pointer;
-  padding: 4px 8px 4px 2px;
+  padding: var(--space-xs) 8px 4px 2px;
   user-select: none;
 }
 
@@ -252,16 +252,16 @@ watch(() => props.editable, (val) => {
 }
 
 .hook-fields {
-  padding: 10px 10px 5px 24px;
+  padding: var(--space-md) 10px 5px 24px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: var(--space-md);
 }
 
 .hook-field {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: var(--space-xs);
 }
 
 .delete-hook-container {

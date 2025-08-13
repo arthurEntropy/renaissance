@@ -78,19 +78,14 @@
   
   /* ===== SPECIAL GAMING COLORS ===== */
   --color-accent-gold: #ffd700;       /* bright gold for accents */
-  --color-engagement-gold: rgb(212, 182, 106); /* specific engagement system gold */
-  --color-condition-active: var(--color-danger);  /* red for active conditions */
   --color-condition-glow: #06b6d4;    /* cyan for glows */
   
   /* === SPACING === */
-  --space-2xs: 0.125rem;  /* 2px */
-  --space-xs: 0.25rem;    /* 4px */
+  --space-xs: 0.3125rem; /* 5px */
   --space-sm: 0.5rem;     /* 8px */
-  --space-md: 1rem;       /* 16px */
-  --space-lg: 1.5rem;     /* 24px */
-  --space-xl: 2rem;       /* 32px */
-  --space-2xl: 3rem;      /* 48px */
-  --space-3xl: 4rem;      /* 64px */
+  --space-md: 0.625rem; /* 10px */
+  --space-lg: 0.9375rem; /* 15px */
+  --space-xl: 1.25rem;  /* 20px */
   
   /* === TYPOGRAPHY === */
   --font-family-primary: 'Lora', serif;
@@ -206,15 +201,15 @@
   --breakpoint-lg: 1024px;    /* Large screens (desktop) */
   
   /* === BUTTON SPECIFIC === */
-  --btn-padding-sm: var(--space-2xs) var(--space-sm);  /* 2px top/bottom, 8px left/right */
-  --btn-padding-md: var(--space-sm) var(--space-md);
-  --btn-padding-lg: var(--space-md) var(--space-lg);
+  --btn-padding-sm: 2px var(--space-sm);  /* 2px top/bottom, 8px left/right */
+  --btn-padding-md: var(--space-sm) 16px;
+  --btn-padding-lg: 16px 24px;
   
   --btn-font-size-sm: var(--font-size-14);
   --btn-font-size-md: var(--font-size-14);
   --btn-font-size-lg: var(--font-size-16);
   
-  --btn-min-height-sm: var(--space-lg);     /* 24px */
-  --btn-min-height-md: var(--space-xl);     /* 32px */
-  --btn-min-height-lg: var(--space-2xl);    /* 48px */
+  --btn-min-height-sm: 24px;     /* 24px */
+  --btn-min-height-md: 32px;     /* 32px */
+  --btn-min-height-lg: 48px;    /* 48px */
 }

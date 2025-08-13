@@ -49,7 +49,7 @@ const getDiceClasses = (diceIndex) => {
 <style scoped>
 .dice-group {
     display: flex;
-    gap: 5px;
+    gap: var(--space-xs);
     margin: 0 4px;
 }
 

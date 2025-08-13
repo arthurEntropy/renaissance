@@ -164,7 +164,7 @@ body {
   height: 100vh;
   background: var(--overlay-black-medium);
   backdrop-filter: blur(5px);
-  padding: 20px;
+  padding: var(--space-xl);
   transition: left var(--transition-normal);
   display: flex;
   flex-direction: column;
@@ -202,8 +202,8 @@ body {
 .nav-menu a {
   color: var(--color-text-secondary);
   text-decoration: none;
-  padding: 10px;
-  margin: 5px 0;
+  padding: var(--space-md);
+  margin: var(--space-xs) 0;
   transition: background-color var(--transition-normal);
 }
 

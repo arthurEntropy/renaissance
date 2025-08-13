@@ -542,7 +542,7 @@ export default {
 
 .engagement-columns {
     display: flex;
-    gap: 10px;
+    gap: var(--space-md);
     margin-bottom: 20px;
     min-height: 350px;
     align-items: stretch;
@@ -551,12 +551,12 @@ export default {
 .modal-actions {
     display: flex;
     justify-content: center;
-    gap: 15px;
+    gap: var(--space-lg);
     margin-top: 20px;
 }
 
 .button {
-    padding: 10px 20px;
+    padding: var(--space-md) 20px;
     border: none;
     border-radius: var(--radius-4);
     cursor: pointer;

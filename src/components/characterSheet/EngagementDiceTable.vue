@@ -314,7 +314,7 @@ export default {
   flex-direction: column;
   align-items: center;
   background-color: var(--color-black);
-  padding: 15px;
+  padding: var(--space-lg);
   border-radius: var(--radius-5);
 }
 
@@ -329,12 +329,12 @@ export default {
 .header-left {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--space-md);
 }
 
 .button-group {
   display: flex;
-  gap: 8px;
+  gap: var(--space-sm);
 }
 
 .engagement-dice-content {
@@ -415,16 +415,16 @@ export default {
   background-color: var(--color-bg-secondary);
   border: 1px solid var(--color-gray-light);
   border-radius: var(--radius-4);
-  padding: 5px;
+  padding: var(--space-xs);
   z-index: var(--z-dropdown);
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 4px;
+  gap: var(--space-xs);
   box-shadow: var(--shadow-elevation-sm);
 }
 
 .die-option {
-  padding: 5px 10px;
+  padding: var(--space-xs) 10px;
   background-color: var(--color-bg-secondary);
   color: var(--color-text-primary);
   border: none;
@@ -480,7 +480,7 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 5px;
+  gap: var(--space-xs);
   margin-top: 10px;
 }
 
@@ -491,7 +491,7 @@ export default {
 .engagement-success-pill {
   background-color: var(--color-gray-dark);
   color: var(--color-text-primary);
-  padding: 5px 10px;
+  padding: var(--space-xs) 10px;
   border-radius: var(--radius-15);
   font-size: var(--font-size-10);
   text-align: center;
@@ -556,7 +556,7 @@ export default {
   background-color: var(--color-bg-secondary);
   border: 1px solid var(--color-gray-light);
   border-radius: var(--radius-4);
-  padding: 8px;
+  padding: var(--space-sm);
   z-index: var(--z-dropdown);
   max-width: 250px;
   max-height: 300px;
@@ -568,7 +568,7 @@ export default {
   display: block;
   width: 100%;
   text-align: left;
-  padding: 5px 8px;
+  padding: var(--space-xs) 8px;
   margin-bottom: 3px;
   background-color: var(--color-bg-secondary);
   color: var(--color-text-primary);
@@ -587,7 +587,7 @@ export default {
 .success-dropdown-empty {
   color: var(--color-text-muted);
   font-style: italic;
-  padding: 5px;
+  padding: var(--space-xs);
   text-align: center;
   font-size: var(--font-size-14);
 }
@@ -628,7 +628,7 @@ h2 {
 @media (max-width: var(--breakpoint-sm)) {
   .engagement-dice-table {
     width: 90%;
-    padding: 10px;
+    padding: var(--space-md);
   }
 }
 </style>

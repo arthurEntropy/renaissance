@@ -9,7 +9,7 @@
             <i :class="die.class"></i>
             <span v-if="!isRolling && die.emoji" class="dice-emoji">{{
                 die.emoji
-                }}</span>
+            }}</span>
         </span>
     </div>
 
@@ -78,13 +78,13 @@ defineExpose({
     display: flex;
     flex-wrap: nowrap;
     justify-content: center;
-    gap: 5px;
-    padding: 5px 0;
+    gap: var(--space-xs);
+    padding: var(--space-xs) 0;
     overflow-x: auto;
 }
 
 .engagement-dice-placeholder {
-    padding: 5px 0;
+    padding: var(--space-xs) 0;
     height: 46px;
 }
 

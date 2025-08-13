@@ -550,7 +550,7 @@ const safeDescription = computed(() => {
   right: 30px;
   display: flex;
   flex-direction: row;
-  gap: 10px;
+  gap: var(--space-md);
   z-index: var(--z-modal-content);
   /* Above modal content */
 }
@@ -563,7 +563,7 @@ const safeDescription = computed(() => {
   font-size: var(--font-size-20);
   cursor: pointer;
   z-index: var(--z-interactive);
-  padding: 5px;
+  padding: var(--space-xs);
   transition: var(--transition-color) ease;
 }
 
@@ -573,7 +573,7 @@ const safeDescription = computed(() => {
   flex-direction: row;
   flex-wrap: wrap;
   gap: 40px;
-  padding: 20px;
+  padding: var(--space-xl);
 }
 
 .concept-left-column {
@@ -605,7 +605,7 @@ const safeDescription = computed(() => {
   display: flex;
   align-items: center;
   justify-content: left;
-  gap: 10px;
+  gap: var(--space-md);
   margin-bottom: 0;
   margin-top: 0;
   font-size: var(--font-size-32);
@@ -645,7 +645,7 @@ const safeDescription = computed(() => {
   text-align: left;
   font-size: var(--font-size-18);
   line-height: var(--line-height-normal);
-  padding: 4px;
+  padding: var(--space-xs);
   border-radius: var(--radius-4);
 }
 

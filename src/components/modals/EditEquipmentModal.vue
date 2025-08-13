@@ -207,7 +207,7 @@ const closeModal = () => cancel()
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: var(--space-xs);
 }
 
 .weight-input {
@@ -220,14 +220,14 @@ const closeModal = () => cancel()
 }
 
 .melee-checkbox {
-  margin: 20px 0;
+  margin: var(--space-xl) 0;
 }
 
 /* Dice styles */
 .dice-row {
   display: flex;
   justify-content: space-between;
-  gap: 10px;
+  gap: var(--space-md);
   margin-top: 10px;
 }
 
@@ -235,7 +235,7 @@ const closeModal = () => cancel()
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 5px;
+  gap: var(--space-xs);
 }
 
 .dice-icon {
@@ -245,7 +245,7 @@ const closeModal = () => cancel()
 .dice-input {
   width: 50px;
   text-align: center;
-  padding: 5px;
+  padding: var(--space-xs);
   font-size: var(--font-size-14);
   border: 1px solid var(--color-gray-light);
   border-radius: var(--radius-4);
@@ -255,9 +255,9 @@ const closeModal = () => cancel()
 .engagement-success-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: var(--space-md);
   margin-top: 10px;
-  padding: 10px;
+  padding: var(--space-md);
 }
 
 .engagement-success-pill {
@@ -265,11 +265,11 @@ const closeModal = () => cancel()
   align-items: center;
   background-color: var(--overlay-black-heavy);
   color: var(--color-text-secondary);
-  padding: 5px 10px;
+  padding: var(--space-xs) 10px;
   border-radius: var(--radius-15);
   font-size: var(--font-size-14);
   text-align: center;
-  gap: 5px;
+  gap: var(--space-xs);
 }
 
 .pill-checkbox {

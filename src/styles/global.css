@@ -18,8 +18,8 @@ select {
 
 /* BUTTONS */
 .button {
-  padding: 10px 20px;
-  margin: 10px;
+  padding: var(--space-md) 20px;
+  margin: var(--space-md);
   font-family: var(--font-family-primary);
   font-size: var(--font-size-14);
   font-weight: var(--font-weight-bold);
