@@ -558,7 +558,7 @@ export default {
 .button {
     padding: 10px 20px;
     border: none;
-    border-radius: 4px;
+    border-radius: var(--radius-4);
     cursor: pointer;
     font-weight: var(--font-weight-bold);
 }

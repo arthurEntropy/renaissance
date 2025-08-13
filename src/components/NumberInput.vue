@@ -67,7 +67,7 @@ input[type='number'] {
   appearance: textfield;
   background-color: var(--overlay-white-subtle);
   border: 1px solid var(--color-gray-medium);
-  border-radius: 4px;
+  border-radius: var(--radius-4);
   color: white;
   text-align: center;
   padding: 0 14px 0 4px;
@@ -112,7 +112,7 @@ input[type='number']::-webkit-outer-spin-button {
   /* Initially hidden from interaction */
   z-index: 1;
   /* Ensure buttons are above input */
-  border-radius: 0 3px 3px 0;
+  border-radius: 0 var(--radius-3) var(--radius-3) 0;
   /* Match input's right border radius */
   overflow: hidden;
   /* Ensure buttons don't exceed container */
@@ -140,11 +140,11 @@ input[type='number']::-webkit-outer-spin-button {
 }
 
 .spinner-up {
-  border-radius: 0 3px 0 0;
+  border-radius: 0 var(--radius-3) 0 0;
 }
 
 .spinner-down {
-  border-radius: 0 0 3px 0;
+  border-radius: 0 0 var(--radius-3) 0;
 }
 
 .spinner-up:hover,

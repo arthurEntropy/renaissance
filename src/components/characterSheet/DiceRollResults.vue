@@ -141,7 +141,7 @@ const getCircularPosition = (index, total) => {
 <style scoped>
 .dice-roll-results {
   background-color: var(--color-black);
-  border-radius: 5px;
+  border-radius: var(--radius-5);
   padding: 10px;
   align-self: stretch;
   display: flex;
@@ -186,7 +186,7 @@ const getCircularPosition = (index, total) => {
   font-weight: var(--font-weight-bold);
   text-align: center;
   padding: 5px;
-  border-radius: 4px;
+  border-radius: var(--radius-4);
 }
 
 .success {

@@ -68,7 +68,7 @@ export default {
   color: var(--color-text-secondary);
   background: var(--overlay-black-heavy);
   border: 1px solid var(--color-gray-medium);
-  border-radius: 5px;
+  border-radius: var(--radius-5);
 }
 
 button:disabled {

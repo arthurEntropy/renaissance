@@ -316,7 +316,7 @@ watch(() => props.images, (newImages) => {
 .enlarged-image {
   width: 100%;
   object-fit: contain;
-  border-radius: 12px;
+  border-radius: var(--radius-12);
   box-shadow: 0 4px 32px var(--overlay-black-medium);
   background: var(--color-bg-tertiary);
   display: block;
@@ -372,13 +372,13 @@ watch(() => props.images, (newImages) => {
   align-items: center;
   justify-content: center;
   z-index: 10;
-  border-radius: 12px;
+  border-radius: var(--radius-12);
 }
 
 .edit-modal-content {
   background: var(--color-bg-secondary);
   padding: 20px;
-  border-radius: 8px;
+  border-radius: var(--radius-8);
   width: 80%;
   max-width: 500px;
   box-shadow: 0 4px 20px var(--overlay-black-medium);
@@ -395,7 +395,7 @@ watch(() => props.images, (newImages) => {
   margin-bottom: 15px;
   background: var(--color-bg-secondary);
   border: 1px solid var(--color-gray-medium);
-  border-radius: 4px;
+  border-radius: var(--radius-4);
   color: var(--color-text-primary);
   font-size: var(--font-size-16);
 }
@@ -438,7 +438,7 @@ watch(() => props.images, (newImages) => {
   font-size: var(--font-size-16);
   color: var(--color-text-primary);
   background: var(--overlay-white-medium);
-  border-radius: 4px;
+  border-radius: var(--radius-4);
   padding: 2px;
   cursor: grab;
   opacity: 0;
@@ -460,7 +460,7 @@ watch(() => props.images, (newImages) => {
   width: 100%;
   aspect-ratio: 1/1;
   object-fit: cover;
-  border-radius: 8px;
+  border-radius: var(--radius-8);
   box-shadow: 0 2px 8px var(--overlay-black-medium);
   background: var(--color-bg-secondary);
   transition: box-shadow 0.2s;
@@ -477,7 +477,7 @@ watch(() => props.images, (newImages) => {
   right: 0;
   bottom: 0;
   background: var(--overlay-white-medium);
-  border-radius: 8px;
+  border-radius: var(--radius-8);
   border: 2px solid var(--color-gray-medium);
   pointer-events: none;
 }
@@ -494,7 +494,7 @@ watch(() => props.images, (newImages) => {
   width: 100%;
   aspect-ratio: 1/1;
   border: 2px dashed var(--color-gray-medium);
-  border-radius: 8px;
+  border-radius: var(--radius-8);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -534,7 +534,7 @@ watch(() => props.images, (newImages) => {
   background: var(--color-bg-secondary);
   color: var(--color-text-primary);
   border: 1px solid var(--color-gray-medium);
-  border-radius: 4px;
+  border-radius: var(--radius-4);
 }
 
 /* Centered modal title */

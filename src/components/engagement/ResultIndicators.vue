@@ -85,7 +85,7 @@ function getCaretClasses(comparison) {
     width: 80px;
     background-color: var(--color-black);
     border: 2px solid var(--color-gray-light);
-    border-radius: 15px;
+    border-radius: var(--radius-15);
     padding: 3px 15px;
     box-shadow: 0 2px 8px var(--overlay-white-medium);
     height: 28px;
@@ -113,7 +113,7 @@ function getCaretClasses(comparison) {
 .indicator-circle {
     width: 10px;
     height: 10px;
-    border-radius: 50%;
+    border-radius: var(--radius-full);
     border: 1px solid var(--color-white);
 }
 

@@ -80,7 +80,7 @@ defineEmits(['open-skill-check', 'dice-click'])
     margin-right: 8px;
     width: 25px;
     text-align: center;
-    border-radius: 5px;
+    border-radius: var(--radius-5);
 }
 
 /* Conditional styles */

@@ -242,7 +242,7 @@ export default {
 
 .rich-editor-wrapper {
   border: 1px solid var(--color-gray-medium);
-  border-radius: 4px;
+  border-radius: var(--radius-4);
   overflow: hidden;
   background-color: var(--color-bg-secondary);
   text-align: left;
@@ -274,7 +274,7 @@ export default {
   border: none;
   color: var(--color-white);
   padding: 2px 4px;
-  border-radius: 3px;
+  border-radius: var(--radius-3);
   cursor: pointer;
   min-width: 22px;
   font-weight: var(--font-weight-bold);

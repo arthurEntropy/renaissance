@@ -336,7 +336,7 @@ onBeforeUnmount(() => {
   display: flex;
   flex-direction: column;
   background-color: var(--color-black);
-  border-radius: 5px;
+  border-radius: var(--radius-5);
   padding: 15px;
   position: relative;
   margin-bottom: 10px;
@@ -360,7 +360,7 @@ onBeforeUnmount(() => {
   width: 170px;
   height: 170px;
   object-fit: cover;
-  border-radius: 4px;
+  border-radius: var(--radius-4);
   box-shadow: 0 2px 8px var(--overlay-black-heavy);
 }
 
@@ -377,7 +377,7 @@ onBeforeUnmount(() => {
   flex-wrap: wrap;
   cursor: pointer;
   padding: 2px;
-  border-radius: 4px;
+  border-radius: var(--radius-4);
   transition: background-color 0.2s;
 }
 
@@ -394,7 +394,7 @@ onBeforeUnmount(() => {
 .pronouns-container {
   display: inline-block;
   padding: 2px 4px;
-  border-radius: 4px;
+  border-radius: var(--radius-4);
   transition: background-color 0.2s;
 }
 
@@ -420,7 +420,7 @@ onBeforeUnmount(() => {
   flex-direction: column;
   justify-content: center;
   padding: 5px;
-  border-radius: 4px;
+  border-radius: var(--radius-4);
   cursor: pointer;
   transition: background-color 0.2s;
 }
@@ -467,7 +467,7 @@ onBeforeUnmount(() => {
 .form-input.inline-edit {
   background-color: var(--color-gray-dark);
   border: 1px solid var(--color-gray-medium);
-  border-radius: 4px;
+  border-radius: var(--radius-4);
   color: var(--color-white);
   padding: 5px 8px;
   font-size: var(--font-size-16);
@@ -501,7 +501,7 @@ onBeforeUnmount(() => {
   min-height: 34px;
   background-color: var(--color-gray-dark);
   border: 1px solid var(--color-gray-medium);
-  border-radius: 4px;
+  border-radius: var(--radius-4);
   flex-grow: 1;
 }
 
@@ -509,7 +509,7 @@ onBeforeUnmount(() => {
   display: flex;
   align-items: center;
   background-color: var(--color-gray-medium);
-  border-radius: 15px;
+  border-radius: var(--radius-15);
   padding: 3px 8px;
   font-size: var(--font-size-14);
   color: var(--color-white);
@@ -536,7 +536,7 @@ onBeforeUnmount(() => {
   border: 1px solid var(--color-gray-medium);
   color: var(--color-white);
   padding: 5px;
-  border-radius: 4px;
+  border-radius: var(--radius-4);
   cursor: pointer;
 }
 
@@ -552,7 +552,7 @@ onBeforeUnmount(() => {
 .background-content.scrollable {
   padding: 10px;
   background-color: var(--color-dark-gray);
-  border-radius: 5px;
+  border-radius: var(--radius-5);
   height: 100%;
   font-size: var(--font-size-14);
   cursor: pointer;
@@ -598,7 +598,7 @@ onBeforeUnmount(() => {
   overflow-y: auto;
   padding: 10px;
   background: var(--overlay-white-subtle);
-  border-radius: 4px;
+  border-radius: var(--radius-4);
   text-align: left;
 }
 

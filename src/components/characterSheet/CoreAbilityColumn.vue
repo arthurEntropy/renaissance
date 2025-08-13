@@ -88,7 +88,7 @@ const { updateNestedProperty } = useNestedPropertyUpdate(
   flex: 1;
   align-items: center;
   background-color: var(--color-black);
-  border-radius: 5px;
+  border-radius: var(--radius-5);
   padding: 15px;
   width: 270px;
   max-width: 270px;

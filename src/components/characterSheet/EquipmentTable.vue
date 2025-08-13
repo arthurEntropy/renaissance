@@ -420,7 +420,7 @@ h2 {
   align-items: left;
   background-color: var(--overlay-black-heavy);
   padding: 15px;
-  border-radius: 5px;
+  border-radius: var(--radius-5);
   position: relative;
   height: fit-content;
   min-height: 50px;
@@ -460,7 +460,7 @@ h2 {
   z-index: 110;
   width: 24px;
   height: 24px;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   background: linear-gradient(135deg, var(--color-gray-medium) 60%, var(--color-gray-dark) 100%);
   color: var(--color-text-primary);
   font-size: var(--font-size-18);
@@ -486,7 +486,7 @@ h2 {
   /* Change from column to row to separate controls from card+details */
   align-items: stretch;
   margin-bottom: 10px;
-  border-radius: 5px;
+  border-radius: var(--radius-5);
   overflow: hidden;
   width: 100%;
   position: relative;
@@ -515,8 +515,6 @@ h2 {
   padding: 7px;
   text-align: left;
   margin-bottom: 0;
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
 }
 
 .equipment-row-details {
@@ -525,7 +523,7 @@ h2 {
   align-items: center;
   padding: 4px 8px;
   background-color: var(--overlay-white-medium);
-  border-radius: 0 0 5px 5px;
+  border-radius: 0 0 var(--radius-5) var(--radius-5);
   width: 100%;
   /* Ensure it matches the card width */
   margin-left: 0;
@@ -581,7 +579,7 @@ h2 {
 .fab-delete {
   width: 22px;
   height: 22px;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   background: linear-gradient(135deg, var(--color-gray-dark) 60%, var(--color-gray-medium) 100%);
   color: var(--color-danger);
   border: none;
@@ -604,7 +602,7 @@ h2 {
 .fab-drag {
   width: 22px;
   height: 22px;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   background: linear-gradient(135deg, var(--color-gray-dark) 60%, var(--color-gray-medium) 100%);
   color: var(--color-gray-light);
   font-size: var(--font-size-18);
@@ -664,7 +662,7 @@ h2 {
   bottom: 30px;
   right: 0;
   background-color: var(--overlay-black-medium);
-  border-radius: 8px;
+  border-radius: var(--radius-8);
   box-shadow: 0 4px 20px var(--overlay-black-medium);
   z-index: 100;
   width: 200px;
@@ -699,7 +697,7 @@ h2 {
   max-width: 500px;
   max-height: 80vh;
   background-color: var(--overlay-black-medium);
-  border-radius: 8px;
+  border-radius: var(--radius-8);
   box-shadow: 0 4px 20px var(--overlay-black-medium);
   z-index: 100;
   display: flex;
@@ -718,7 +716,7 @@ h2 {
   flex: 1;
   padding: 8px 12px;
   border: 1px solid var(--color-gray-medium);
-  border-radius: 4px;
+  border-radius: var(--radius-4);
   background-color: var(--overlay-white-medium);
   color: var(--color-text-primary);
   font-size: var(--font-size-16);
@@ -756,7 +754,7 @@ h2 {
 .equipment-option {
   padding: 8px 12px;
   cursor: pointer;
-  border-radius: 4px;
+  border-radius: var(--radius-4);
   transition: background-color 0.2s;
 }
 
@@ -775,7 +773,7 @@ h2 {
   align-items: center;
   background-color: var(--color-gray-dark);
   padding: 5px 10px;
-  border-radius: 5px;
+  border-radius: var(--radius-5);
   width: auto;
   gap: 5px;
 }

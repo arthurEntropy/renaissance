@@ -112,7 +112,7 @@ const handleClick = (event) => {
     min-height: 28px;
     width: 28px;
     height: 28px;
-    border-radius: 50%;
+    border-radius: var(--radius-full);
 }
 
 .edit-btn--large {
@@ -122,7 +122,7 @@ const handleClick = (event) => {
     min-height: 32px;
     width: 32px;
     height: 32px;
-    border-radius: 50%;
+    border-radius: var(--radius-full);
 }
 
 /* === VISIBILITY VARIANTS === */

@@ -272,7 +272,7 @@ onMounted(async () => {
   height: 300px;
   background: var(--overlay-black-medium);
   border: 2px dashed var(--overlay-white-heavy);
-  border-radius: 10px;
+  border-radius: var(--radius-10);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -305,7 +305,7 @@ onMounted(async () => {
   flex-direction: column;
   align-items: center;
   background: var(--overlay-black-heavy);
-  border-radius: 5px;
+  border-radius: var(--radius-5);
   width: 1050px;
   max-height: 100%;
   padding: 20px;
@@ -367,7 +367,7 @@ onMounted(async () => {
   display: flex;
   flex-direction: column;
   background-color: var(--color-black);
-  border-radius: 5px;
+  border-radius: var(--radius-5);
 }
 
 .conditions-column {

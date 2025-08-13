@@ -164,7 +164,7 @@ function createItem() {
   flex: 2;
   padding: 8px 12px;
   border: 1px solid var(--color-gray-medium);
-  border-radius: 4px;
+  border-radius: var(--radius-4);
   background-color: var(--overlay-black-medium);
   font-size: var(--font-size-16);
 }
@@ -174,7 +174,7 @@ function createItem() {
   flex: 1;
   padding: 8px 12px;
   border: 1px solid var(--color-gray-medium);
-  border-radius: 4px;
+  border-radius: var(--radius-4);
   background-color: var(--overlay-black-medium);
   font-size: var(--font-size-16);
   color: white;

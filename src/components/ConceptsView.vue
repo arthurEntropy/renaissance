@@ -334,7 +334,7 @@ onBeforeUnmount(() => {
   flex: 2;
   padding: 8px 12px;
   border: 1px solid var(--color-gray-medium);
-  border-radius: 4px;
+  border-radius: var(--radius-4);
   background-color: var(--overlay-black-medium);
   font-size: var(--font-size-16);
 }
@@ -343,7 +343,7 @@ onBeforeUnmount(() => {
   flex: 1;
   padding: 8px 12px;
   border: 1px solid var(--color-gray-medium);
-  border-radius: 4px;
+  border-radius: var(--radius-4);
   background-color: var(--overlay-black-medium);
   font-size: var(--font-size-16);
   color: white;
@@ -377,7 +377,7 @@ onBeforeUnmount(() => {
   height: 270px;
   background: var(--overlay-white-medium);
   border: 2px dashed var(--overlay-white-subtle);
-  border-radius: 10px;
+  border-radius: var(--radius-10);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -425,7 +425,7 @@ onBeforeUnmount(() => {
   background: var(--overlay-black-medium);
   color: white;
   border: none;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   width: 60px;
   height: 60px;
   font-size: var(--font-size-40);

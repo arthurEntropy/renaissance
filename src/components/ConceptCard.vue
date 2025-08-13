@@ -23,7 +23,7 @@ defineEmits(['select'])
   align-items: center;
   margin: 10px;
   padding: 20px;
-  border-radius: 5px;
+  border-radius: var(--radius-5);
   background-color: var(--overlay-black-heavy);
   cursor: pointer;
   width: 200px;
@@ -72,7 +72,7 @@ defineEmits(['select'])
 .expansion-logo-badge {
   width: 30px;
   height: 30px;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   box-shadow: 0 2px 8px var(--overlay-black-medium);
   background: var(--color-gray-dark);
   object-fit: cover;

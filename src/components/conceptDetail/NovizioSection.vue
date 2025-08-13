@@ -311,7 +311,7 @@ watch(() => props.editable, (val) => {
   margin-left: 0.5rem;
   margin-right: 0.5rem;
   padding: 4px 8px;
-  border-radius: 4px;
+  border-radius: var(--radius-4);
   border: 1px solid var(--color-gray-medium);
   background: var(--color-bg-secondary);
   color: var(--color-text-primary);
@@ -331,7 +331,7 @@ watch(() => props.editable, (val) => {
 
 .novizio-section {
   background: var(--overlay-black-heavy) !important;
-  border-radius: 8px;
+  border-radius: var(--radius-8);
   padding: 18px 18px 10px 18px;
   margin-top: 1rem;
   margin-bottom: 1rem;
@@ -390,7 +390,7 @@ watch(() => props.editable, (val) => {
   height: 28px;
   object-fit: contain;
   background: var(--color-gray-light);
-  border-radius: 4px;
+  border-radius: var(--radius-4);
   border: 1px solid var(--color-bg-secondary);
   padding: 2px;
 }
@@ -411,7 +411,7 @@ watch(() => props.editable, (val) => {
   background: var(--color-bg-secondary);
   color: var(--color-text-primary);
   border: 1px solid var(--color-gray-medium);
-  border-radius: 12px;
+  border-radius: var(--radius-12);
   padding: 2px 10px;
   font-size: var(--font-size-15);
   line-height: var(--line-height-normal);

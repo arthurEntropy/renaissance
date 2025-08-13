@@ -315,7 +315,7 @@ export default {
   align-items: center;
   background-color: var(--color-black);
   padding: 15px;
-  border-radius: 5px;
+  border-radius: var(--radius-5);
 }
 
 .engagement-dice-header {
@@ -370,7 +370,7 @@ export default {
   background-color: var(--color-danger);
   color: var(--color-text-primary);
   border: none;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   font-size: var(--font-size-10);
   line-height: var(--line-height-none);
   display: flex;
@@ -394,7 +394,7 @@ export default {
   background-color: var(--color-gray-medium);
   color: var(--color-text-primary);
   border: 2px solid var(--color-gray-light);
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   font-size: var(--font-size-18);
   display: flex;
   align-items: center;
@@ -414,7 +414,7 @@ export default {
   position: fixed;
   background-color: var(--color-bg-secondary);
   border: 1px solid var(--color-gray-light);
-  border-radius: 4px;
+  border-radius: var(--radius-4);
   padding: 5px;
   z-index: 100;
   display: grid;
@@ -428,7 +428,7 @@ export default {
   background-color: var(--color-bg-secondary);
   color: var(--color-text-primary);
   border: none;
-  border-radius: 3px;
+  border-radius: var(--radius-3);
   cursor: pointer;
   font-family: inherit;
   transition: background-color 0.2s;
@@ -492,7 +492,7 @@ export default {
   background-color: var(--color-gray-dark);
   color: var(--color-text-primary);
   padding: 5px 10px;
-  border-radius: 15px;
+  border-radius: var(--radius-15);
   font-size: var(--font-size-10);
   text-align: center;
   cursor: help;
@@ -513,7 +513,7 @@ export default {
   background-color: var(--color-danger);
   color: var(--color-text-primary);
   border: none;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   font-size: var(--font-size-10);
   line-height: var(--line-height-none);
   display: flex;
@@ -537,7 +537,7 @@ export default {
   background-color: var(--color-bg-secondary);
   color: var(--color-text-primary);
   border: 1px solid var(--color-gray-light);
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   font-size: var(--font-size-14);
   display: flex;
   align-items: center;
@@ -555,7 +555,7 @@ export default {
   position: fixed;
   background-color: var(--color-bg-secondary);
   border: 1px solid var(--color-gray-light);
-  border-radius: 4px;
+  border-radius: var(--radius-4);
   padding: 8px;
   z-index: 100;
   max-width: 250px;
@@ -573,7 +573,7 @@ export default {
   background-color: var(--color-bg-secondary);
   color: var(--color-text-primary);
   border: none;
-  border-radius: 3px;
+  border-radius: var(--radius-3);
   cursor: pointer;
   font-family: inherit;
   font-size: var(--font-size-14);
@@ -605,7 +605,7 @@ export default {
   background: var(--overlay-black-heavy);
   color: var(--color-text-primary);
   padding: 14px;
-  border-radius: 8px;
+  border-radius: var(--radius-8);
   font-size: var(--font-size-14);
   pointer-events: none;
   box-shadow: 0 2px 12px var(--overlay-black-medium);

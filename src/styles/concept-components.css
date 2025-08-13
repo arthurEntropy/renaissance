@@ -17,7 +17,7 @@
 .section-editor {
   padding: 10px;
   background: var(--overlay-white-heavy);
-  border-radius: 8px;
+  border-radius: var(--radius-8);
   margin-bottom: 10px;
 }
 
@@ -25,7 +25,7 @@
 .edit-item {
   background: var(--overlay-black-medium);
   border: 1px solid var(--color-gray-medium);
-  border-radius: 6px;
+  border-radius: var(--radius-6);
   margin-bottom: 10px;
   padding: 8px;
 }
@@ -43,7 +43,7 @@
   background: none;
   border: 1px solid var(--color-gray-medium);
   color: var(--color-gray-light);
-  border-radius: 4px;
+  border-radius: var(--radius-4);
   padding: 2px 10px;
   font-size: var(--font-size-15);
   cursor: pointer;
@@ -62,7 +62,7 @@
 .gm-notes {
   background: rgba(60, 60, 80, 0.85);
   color: #b0e0ff;
-  border-radius: 4px;
+  border-radius: var(--radius-4);
   padding: 8px 10px;
   margin-top: 6px;
   font-size: var(--font-size-15);

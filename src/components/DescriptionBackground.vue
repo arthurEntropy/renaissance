@@ -22,7 +22,7 @@ const safeContent = computed(() => sanitizeHtml(props.content))
 .description-background {
     background-color: var(--overlay-black-heavy);
     padding: 1px 10px;
-    border-radius: 5px;
+    border-radius: var(--radius-5);
     text-align: left;
     font-size: var(--font-size-14);
     position: relative;

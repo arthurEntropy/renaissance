@@ -203,8 +203,8 @@ export default {
   font-family: inherit;
   font-weight: var(--font-weight-bold);
   border: none;
-  border-top-right-radius: 10px;
-  border-top-left-radius: 10px;
+  border-top-right-radius: var(--radius-10);
+  border-top-left-radius: var(--radius-10);
   padding: 3px 10px 2px 10px;
   cursor: pointer;
   transition: color 0.2s, background 0.2s;

@@ -244,7 +244,7 @@ const onSuccessDrop = (event, diceIndex) => {
 .engagement-column {
     flex: 1;
     border: 2px solid var(--color-gray-light);
-    border-radius: 5px;
+    border-radius: var(--radius-5);
     padding: 15px;
     background-color: var(--overlay-white-subtle);
     display: flex;
@@ -275,7 +275,7 @@ const onSuccessDrop = (event, diceIndex) => {
     width: 100px;
     height: 100px;
     object-fit: cover;
-    border-radius: 50%;
+    border-radius: var(--radius-full);
     margin: 10px 0;
     border: 2px solid var(--color-bg-secondary);
 }
@@ -327,7 +327,7 @@ const onSuccessDrop = (event, diceIndex) => {
     width: 50px;
     height: 20px;
     border: 2px dashed var(--color-accent-gold);
-    border-radius: 10px;
+    border-radius: var(--radius-10);
     background-color: transparent;
     transition: all 0.2s ease;
 }
@@ -351,7 +351,7 @@ const onSuccessDrop = (event, diceIndex) => {
     background-color: var(--color-accent-gold);
     color: var(--overlay-black-heavy);
     padding: 2px 8px;
-    border-radius: 10px;
+    border-radius: var(--radius-10);
     font-size: var(--font-size-10);
     font-weight: var(--font-weight-bold);
     text-align: center;
@@ -380,7 +380,7 @@ const onSuccessDrop = (event, diceIndex) => {
     height: 14px;
     background-color: var(--color-danger);
     color: var(--color-text-primary);
-    border-radius: 50%;
+    border-radius: var(--radius-full);
     font-size: var(--font-size-10);
     font-weight: var(--font-weight-bold);
     display: none;
@@ -440,7 +440,7 @@ const onSuccessDrop = (event, diceIndex) => {
     background-color: var(--color-accent-gold);
     color: var(--overlay-black-heavy);
     padding: 4px 8px;
-    border-radius: 4px;
+    border-radius: var(--radius-4);
     font-size: var(--font-size-14);
     font-weight: var(--font-weight-bold);
     cursor: pointer;
@@ -600,7 +600,7 @@ const onSuccessDrop = (event, diceIndex) => {
     background-color: var(--color-gray-dark);
     color: var(--color-text-primary);
     padding: 5px 10px;
-    border-radius: 15px;
+    border-radius: var(--radius-15);
     font-size: var(--font-size-10);
     text-align: center;
     cursor: help;
@@ -637,7 +637,7 @@ const onSuccessDrop = (event, diceIndex) => {
     width: 12px;
     height: 12px;
     background-color: var(--color-text-muted);
-    border-radius: 50%;
+    border-radius: var(--radius-full);
     animation: pulse 1.5s infinite ease-in-out;
 }
 

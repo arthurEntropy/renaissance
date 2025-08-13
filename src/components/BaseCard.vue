@@ -152,7 +152,7 @@ onMounted(() => {
 <style scoped>
 .base-card {
   border: 1px solid var(--color-gray-medium);
-  border-radius: 8px;
+  border-radius: var(--radius-8);
   padding: 10px;
   margin-top: 5px;
   transition:

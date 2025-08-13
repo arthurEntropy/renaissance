@@ -185,7 +185,7 @@ body {
   background: var(--overlay-black-heavy);
   color: var(--color-text-secondary);
   border: none;
-  border-radius: 5px;
+  border-radius: var(--radius-5);
   cursor: pointer;
   font-size: var(--font-size-24);
   display: flex;

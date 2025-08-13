@@ -619,7 +619,7 @@ const safeDescription = computed(() => {
   width: 100%;
   background: var(--overlay-white-subtle);
   border: 1px solid var(--color-gray-medium);
-  border-radius: 4px;
+  border-radius: var(--radius-4);
   color: var(--color-text-primary);
 }
 
@@ -646,7 +646,7 @@ const safeDescription = computed(() => {
   font-size: var(--font-size-18);
   line-height: var(--line-height-normal);
   padding: 4px;
-  border-radius: 4px;
+  border-radius: var(--radius-4);
 }
 
 .edit-field-indicator {
@@ -697,7 +697,7 @@ const safeDescription = computed(() => {
   overflow-y: auto;
   overflow-x: hidden;
   max-height: 90vh;
-  border-radius: 8px;
+  border-radius: var(--radius-8);
   box-shadow: 0 2px 10px var(--overlay-white-medium);
 }
 
@@ -716,7 +716,7 @@ const safeDescription = computed(() => {
 .expansion-logo-badge {
   width: 40px;
   height: 40px;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   box-shadow: 0 2px 8px var(--overlay-black-medium);
   background: var(--color-bg-secondary);
   object-fit: cover;

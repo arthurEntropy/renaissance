@@ -141,7 +141,7 @@ input[type='color'] {
   margin: 8px 0;
   background-color: var(--color-bg-secondary);
   border: 1px solid var(--color-gray-medium);
-  border-radius: 4px;
+  border-radius: var(--radius-4);
   color: var(--color-text-primary);
 }
 

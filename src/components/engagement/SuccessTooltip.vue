@@ -31,7 +31,7 @@ defineProps({
     background: var(--overlay-black-medium);
     color: var(--color-text-primary);
     padding: 14px;
-    border-radius: 8px;
+    border-radius: var(--radius-8);
     font-size: var(--font-size-14);
     pointer-events: none;
     box-shadow: 0 2px 12px var(--overlay-black-medium);

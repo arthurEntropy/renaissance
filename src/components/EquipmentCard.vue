@@ -210,7 +210,7 @@ export default {
   width: 100px;
   height: 100px;
   object-fit: cover;
-  border-radius: 4px;
+  border-radius: var(--radius-4);
   cursor: pointer;
 }
 
@@ -226,7 +226,7 @@ export default {
 .large-image {
   width: 100%;
   height: auto;
-  border-radius: 4px;
+  border-radius: var(--radius-4);
   margin-top: 10px;
 }
 
@@ -247,7 +247,7 @@ export default {
 .dice-section-background {
   background-color: var(--overlay-black-medium);
   padding: 3px 0 3px 0;
-  border-radius: 5px;
+  border-radius: var(--radius-5);
   text-align: center;
   width: 100%;
   display: flex;
@@ -299,7 +299,7 @@ export default {
   background-color: var(--overlay-black-medium);
   color: white;
   padding: 5px 10px;
-  border-radius: 15px;
+  border-radius: var(--radius-15);
   font-size: var(--font-size-10);
   text-align: center;
   cursor: help;
@@ -323,7 +323,7 @@ export default {
   background: var(--overlay-black-heavy);
   color: #fff;
   padding: 14px;
-  border-radius: 8px;
+  border-radius: var(--radius-8);
   font-size: var(--font-size-14);
   pointer-events: none;
   box-shadow: 0 2px 12px var(--overlay-black-medium);

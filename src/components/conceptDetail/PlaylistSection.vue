@@ -244,7 +244,7 @@ watch(() => props.editable, (val) => {
   border: 1px solid var(--color-gray-medium);
   color: var(--color-gray-light);
   padding: 8px 16px;
-  border-radius: 4px;
+  border-radius: var(--radius-4);
   cursor: pointer;
   transition: all 0.2s ease;
 }
@@ -264,13 +264,13 @@ watch(() => props.editable, (val) => {
 .playlist-embed {
   width: 100%;
   background: var(--overlay-white-subtle);
-  border-radius: 8px;
+  border-radius: var(--radius-8);
 }
 
 .no-playlists {
   padding: 15px;
   background: var(--overlay-white-subtle);
-  border-radius: 8px;
+  border-radius: var(--radius-8);
   text-align: center;
   color: var(--color-gray-light);
 }
@@ -289,7 +289,7 @@ watch(() => props.editable, (val) => {
   gap: 8px;
   padding: 12px;
   background: var(--overlay-white-subtle);
-  border-radius: 4px;
+  border-radius: var(--radius-4);
 }
 
 .url-buttons {
@@ -308,7 +308,7 @@ watch(() => props.editable, (val) => {
   background: var(--overlay-white-medium);
   border: 1px solid var(--color-gray-medium);
   color: var(--color-text-secondary);
-  border-radius: 4px;
+  border-radius: var(--radius-4);
 }
 
 .playlist-input {
