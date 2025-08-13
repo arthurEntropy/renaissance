@@ -252,7 +252,7 @@ export default {
         this.localTargetNumber,
       )
 
-// Emit the current target number back to the parent
+      // Emit the current target number back to the parent
       this.$emit('update-target-number', this.localTargetNumber)
       this.closeModal()
     },
@@ -292,21 +292,21 @@ export default {
 .modal-favored-dropdown {
   padding: 8px;
   font-size: 16px;
-  background: #222;
-  color: white;
-  border: 1px solid #444;
+  background: var(--color-bg-secondary);
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-gray-medium);
   border-radius: 4px;
 }
 
 /* Styling for favored dropdown options */
 select option.favored-option {
-  color: #4caf50;
+  color: var(--semantic-success);
   /* Green for favored */
   font-weight: bold;
 }
 
 select option.illfavored-option {
-  color: #f44336;
+  color: var(--color-danger);
   /* Red for ill-favored */
   font-weight: bold;
 }
@@ -317,7 +317,7 @@ select option.illfavored-option {
   /* Space for 7 dice (2d12 + 5d6) */
   max-width: 300px;
   padding: 15px;
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: var(--overlay-white-subtle);
   border-radius: 6px;
   margin: 20px 0;
   display: flex;
@@ -333,30 +333,30 @@ select option.illfavored-option {
 
 .dice-symbol {
   font-size: 32px;
-  color: white;
+  color: var(--color-text-primary);
   transition: all 0.3s ease;
 }
 
 /* Favored/ill-favored d12 styling */
 .dice-symbol.favored-die i {
-  color: #4caf50;
-  text-shadow: 0 0 8px rgba(76, 175, 80, 0.7);
+  color: var(--semantic-success);
+  text-shadow: 0 0 8px var(--semantic-success-shadow);
 }
 
 .dice-symbol.illfavored-die i {
-  color: #f44336;
-  text-shadow: 0 0 8px rgba(244, 67, 54, 0.7);
+  color: var(--color-danger);
+  text-shadow: 0 0 8px var(--color-danger-shadow);
 }
 
 /* Added/subtracted d6 styling */
 .dice-symbol.added-die i {
-  color: #4caf50;
-  text-shadow: 0 0 8px rgba(76, 175, 80, 0.7);
+  color: var(--semantic-success);
+  text-shadow: 0 0 8px var(--semantic-success-shadow);
 }
 
 .dice-symbol.subtracted-die i {
-  color: #f44336;
-  text-shadow: 0 0 8px rgba(244, 67, 54, 0.7);
+  color: var(--color-danger);
+  text-shadow: 0 0 8px var(--color-danger-shadow);
 }
 
 .section-label {
@@ -379,25 +379,25 @@ select option.illfavored-option {
 .dice-mod-option,
 .target-number-option {
   padding: 6px 10px;
-  border: 1px solid #555;
+  border: 1px solid var(--color-gray-medium);
   border-radius: 4px;
   cursor: pointer;
   text-align: center;
-  background-color: #333;
+  background-color: var(--color-bg-secondary);
   transition: all 0.2s;
 }
 
 .dice-mod-option:hover,
 .target-number-option:hover {
-  background-color: #444;
+  background-color: var(--color-bg-secondary);
 }
 
 .dice-mod-option.selected,
 .target-number-option.selected {
-  background-color: gold;
-  color: black;
+  background-color: var(--color-primary);
+  color: var(--color-primary-text);
   /* Better contrast with gold */
-  border-color: gold;
+  border-color: var(--color-primary);
 }
 
 .button {
@@ -407,8 +407,8 @@ select option.illfavored-option {
 }
 
 .button-primary {
-  background-color: gold;
-  color: black;
+  background-color: var(--color-primary);
+  color: var(--color-primary-text);
   /* Better contrast with gold */
   border: none;
   border-radius: 4px;
@@ -416,13 +416,13 @@ select option.illfavored-option {
 }
 
 .button-primary:disabled {
-  background-color: #888;
+  background-color: var(--color-gray-light);
   cursor: not-allowed;
-  color: #555;
+  color: var(--color-text-muted);
 }
 
 .button-primary:not(:disabled):hover {
-  background-color: rgb(192, 162, 86);
+  background-color: var(--color-neutral);
   /* Slightly darker gold on hover */
 }
 </style>

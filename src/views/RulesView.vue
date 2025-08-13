@@ -343,14 +343,14 @@ export default {
 .rules-container {
   display: flex;
   flex: 1;
-  background: rgb(17, 17, 17);
+  background: var(--color-bg-primary);
   overflow: hidden;
 }
 
 /* Navigation sidebar styles */
 .rules-navigation {
   width: 250px;
-  background: rgb(28, 28, 28);
+  background: var(--color-bg-secondary);
   padding: 15px 0;
   display: flex;
   flex-direction: column;
@@ -388,24 +388,24 @@ export default {
   transition:
     background-color 0.2s,
     color 0.2s;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid var(--overlay-white-subtle);
 }
 
 .rule-section-item:hover {
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: var(--overlay-white-subtle);
 }
 
 .rule-section-item:hover .section-name {
-  color: white;
+  color: var(--color-white);
 }
 
 .rule-section-item.active {
-  background-color: rgba(255, 255, 255, 0.1);
-  border-left: 3px solid white;
+  background-color: var(--overlay-white-medium);
+  border-left: 3px solid var(--color-white);
 }
 
 .rule-section-item.active .section-name {
-  color: white;
+  color: var(--color-white);
 }
 
 .section-name {
@@ -413,7 +413,7 @@ export default {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  color: goldenrod;
+  color: var(--color-primary);
   transition: color 0.2s;
 }
 
@@ -438,12 +438,12 @@ export default {
 }
 
 .delete-section:hover {
-  color: #f44336;
+  color: var(--color-danger);
 }
 
 .ghost-section {
   opacity: 0.5;
-  background: #333;
+  background: var(--color-gray-dark);
 }
 
 /* Content area styles */
@@ -497,7 +497,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid var(--overlay-white-medium);
   padding-bottom: 10px;
 }
 
@@ -510,10 +510,10 @@ export default {
 
 .section-name-input {
   width: 100%;
-  background: rgba(0, 0, 0, 0.2);
-  border: 1px solid #444;
+  background: var(--overlay-white-heavy);
+  border: 1px solid var(--color-gray-medium);
   padding: 10px;
-  color: white;
+  color: var(--color-white);
   font-size: 1.5rem;
   font-weight: bold;
   margin-right: 10px;
@@ -532,7 +532,7 @@ export default {
   height: 100%;
   background-size: cover;
   background-position: right;
-  box-shadow: inset 200px 0 100px -50px rgb(17, 17, 17);
+  box-shadow: inset 200px 0 100px -50px var(--color-bg-primary);
 }
 
 .side-image::before {
@@ -549,15 +549,15 @@ export default {
 
 .image-url-container label {
   font-size: 14px;
-  color: #aaa;
+  color: var(--color-gray-light);
 }
 
 .image-url-input {
   flex: 1;
-  background: rgba(0, 0, 0, 0.2);
-  border: 1px solid #444;
+  background: var(--overlay-white-heavy);
+  border: 1px solid var(--color-gray-medium);
   padding: 8px;
-  color: white;
+  color: var(--color-white);
   border-radius: 4px;
 }
 
@@ -567,10 +567,10 @@ export default {
   align-items: center;
   justify-content: center;
   height: 100%;
-  background: rgba(0, 0, 0, 0.3);
-  color: #aaa;
+  background: var(--overlay-black-medium);
+  color: var(--color-gray-light);
   font-style: italic;
-  border: 2px dashed #555;
+  border: 2px dashed var(--color-gray-medium);
   border-radius: 8px;
 }
 
@@ -580,7 +580,7 @@ export default {
   justify-content: center;
   align-items: center;
   height: 100%;
-  color: #888;
+  color: var(--color-gray-medium);
   text-align: center;
   padding: 20px;
 }
@@ -594,14 +594,14 @@ export default {
 .content-display :deep(h2) {
   font-size: 36px;
   margin: 1.5em 0 0 0;
-  color: goldenrod;
+  color: var(--color-primary);
   font-weight: normal;
 }
 
 .content-display :deep(h3) {
   margin: 1.5em 0 0 0;
   font-size: 24px;
-  color: lightseagreen;
+  color: var(--color-condition-glow);
 }
 
 .content-display img {
@@ -622,7 +622,7 @@ export default {
     height: auto;
     max-height: 200px;
     border-right: none;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid var(--overlay-white-medium);
   }
 
   .section-layout {

@@ -87,7 +87,7 @@ const { updateNestedProperty } = useNestedPropertyUpdate(
   flex-direction: column;
   flex: 1;
   align-items: center;
-  background-color: black;
+  background-color: var(--color-black);
   border-radius: 5px;
   padding: 15px;
   width: 270px;

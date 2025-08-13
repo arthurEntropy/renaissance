@@ -86,8 +86,8 @@ const handleClick = (event) => {
     line-height: 1;
 
     /* Appearance */
-    background: rgba(0, 0, 0, 0.6);
-    border: 1px solid rgba(0, 0, 0, 0.6);
+    background: var(--overlay-black-medium);
+    border: 1px solid var(--overlay-black-medium);
     color: var(--color-white);
     box-shadow: var(--shadow-sm);
     cursor: pointer;
@@ -98,8 +98,8 @@ const handleClick = (event) => {
 }
 
 .edit-btn:hover:not(.edit-btn--disabled) {
-    background: rgba(0, 0, 0, 0.8);
-    border-color: rgba(0, 0, 0, 0.8);
+    background: var(--overlay-black-heavy);
+    border-color: var(--overlay-black-heavy);
     color: var(--color-white);
     box-shadow: var(--shadow-md);
 }
@@ -219,8 +219,7 @@ const handleClick = (event) => {
 
 /* === REDUCED MOTION === */
 @media (prefers-reduced-motion: reduce) {
-    .edit-btn {
-        transition: none;
+    .edit-btn {  transition: none;
     }
 }
 </style>

@@ -8,13 +8,9 @@
         <EditButton size="small" visibility="on-hover" :is-edit-mode="isEditMode" @click="toggleEditMode" />
       </div>
       <div class="button-group">
-        <button class="reset-button" :class="{ 'active': hasExpendedDice && !isEditMode }"
-          :disabled="isEditMode || !hasExpendedDice" @click="resetDice">
-          Reset
-        </button>
-        <button class="roll-button" :class="{ 'active': !isEditMode }" :disabled="isEditMode" @click="rollSelectedDice">
-          Roll
-        </button>
+        <ActionButton variant="neutral" size="medium" text="Reset" :disabled="isEditMode || !hasExpendedDice"
+          @click="resetDice" />
+        <ActionButton variant="primary" size="medium" text="Roll" :disabled="isEditMode" @click="rollSelectedDice" />
       </div>
     </div>
 
@@ -62,7 +58,6 @@
     <!-- Engagement Successes Section -->
     <div class="engagement-successes-section">
       <div class="engagement-successes">
-        <!-- Show existing successes -->
         <!-- Show existing successes -->
         <div v-for="success in allOwnedEngagementSuccesses" :key="success.id" class="engagement-success-pill-container"
           :class="{ 'user-added-success': success.isUserAdded }">
@@ -123,6 +118,7 @@
 import EngagementRollModal from '@/components/modals/EngagementRollModal.vue';
 import SuccessTooltip from '@/components/engagement/SuccessTooltip.vue';
 import EditButton from '@/components/EditButton.vue';
+import ActionButton from '@/components/ActionButton.vue';
 import { getDiceFontMaxClass } from '../../../utils/diceFontUtils'
 import { useEngagementDice } from '@/composables/useEngagementDice'
 import { useEngagementSuccesses } from '@/composables/useEngagementSuccesses'
@@ -134,7 +130,8 @@ export default {
   components: {
     EngagementRollModal,
     SuccessTooltip,
-    EditButton
+    EditButton,
+    ActionButton
   },
   props: {
     character: {
@@ -316,7 +313,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: black;
+  background-color: var(--color-black);
   padding: 15px;
   border-radius: 5px;
 }
@@ -333,24 +330,6 @@ export default {
   display: flex;
   align-items: center;
   gap: 10px;
-}
-
-.edit-mode-button {
-  background: none;
-  border: none;
-  color: #aaa;
-  font-size: 16px;
-  cursor: pointer;
-  transition: color 0.2s;
-  width: 30px;
-  height: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.edit-mode-button:hover {
-  color: white;
 }
 
 .button-group {
@@ -388,8 +367,8 @@ export default {
   left: -2px;
   width: 16px;
   height: 16px;
-  background-color: #ff4444;
-  color: white;
+  background-color: var(--color-danger);
+  color: var(--color-text-primary);
   border: none;
   border-radius: 50%;
   font-size: 10px;
@@ -412,9 +391,9 @@ export default {
 .add-die-button {
   width: 26px;
   height: 26px;
-  background-color: #444;
-  color: white;
-  border: 2px solid #666;
+  background-color: var(--color-gray-medium);
+  color: var(--color-text-primary);
+  border: 2px solid var(--color-gray-light);
   border-radius: 50%;
   font-size: 18px;
   display: flex;
@@ -428,26 +407,26 @@ export default {
 }
 
 .add-die-button:hover {
-  background-color: #555;
+  background-color: var(--color-gray-light);
 }
 
 .dice-dropdown {
   position: fixed;
-  background-color: #333;
-  border: 1px solid #555;
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-gray-light);
   border-radius: 4px;
   padding: 5px;
   z-index: 100;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 4px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 2px 8px var(--overlay-black-medium);
 }
 
 .die-option {
   padding: 5px 10px;
-  background-color: #444;
-  color: white;
+  background-color: var(--color-bg-secondary);
+  color: var(--color-text-primary);
   border: none;
   border-radius: 3px;
   cursor: pointer;
@@ -456,7 +435,7 @@ export default {
 }
 
 .die-option:hover {
-  background-color: #555;
+  background-color: var(--color-bg-secondary);
 }
 
 .dice-icon.available {
@@ -464,16 +443,13 @@ export default {
 }
 
 .dice-icon.selected {
-  color: gold;
-  text-shadow:
-    0 0 5px rgba(255, 215, 0, 0.7),
-    0 0 10px rgba(255, 215, 0, 0.5),
-    0 0 15px rgba(255, 215, 0, 0.3);
+  color: var(--color-accent-gold);
+  text-shadow: var(--shadow-glow-gold);
   transform: scale(1.05);
 }
 
 .dice-icon.expended {
-  color: #5a5a5a;
+  color: var(--color-gray-medium);
   opacity: 0.7;
 }
 
@@ -484,7 +460,7 @@ export default {
   left: 0;
   right: 0;
   height: 2px;
-  background-color: rgba(255, 0, 0, 0.8);
+  background-color: var(--color-danger);
   transform: translateY(-50%) rotate(-45deg);
   pointer-events: none;
   z-index: 1;
@@ -492,7 +468,7 @@ export default {
 
 .no-dice-message {
   text-align: center;
-  color: #999;
+  color: var(--color-text-muted);
   margin-top: 10px;
 }
 
@@ -513,8 +489,8 @@ export default {
 }
 
 .engagement-success-pill {
-  background-color: rgb(61, 61, 61);
-  color: white;
+  background-color: var(--color-gray-dark);
+  color: var(--color-text-primary);
   padding: 5px 10px;
   border-radius: 15px;
   font-size: 10px;
@@ -525,7 +501,7 @@ export default {
 }
 
 .engagement-success-pill:hover {
-  background-color: rgba(64, 64, 64, 0.4);
+  background-color: var(--color-bg-secondary);
 }
 
 .remove-success-button {
@@ -534,8 +510,8 @@ export default {
   left: -5px;
   width: 14px;
   height: 14px;
-  background-color: #ff4444;
-  color: white;
+  background-color: var(--color-danger);
+  color: var(--color-text-primary);
   border: none;
   border-radius: 50%;
   font-size: 8px;
@@ -558,9 +534,9 @@ export default {
 .add-success-button {
   width: 20px;
   height: 20px;
-  background-color: #444;
-  color: white;
-  border: 1px solid #666;
+  background-color: var(--color-bg-secondary);
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-gray-light);
   border-radius: 50%;
   font-size: 14px;
   display: flex;
@@ -572,20 +548,20 @@ export default {
 }
 
 .add-success-button:hover {
-  background-color: #555;
+  background-color: var(--color-bg-secondary);
 }
 
 .success-dropdown {
   position: fixed;
-  background-color: #333;
-  border: 1px solid #555;
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-gray-light);
   border-radius: 4px;
   padding: 8px;
   z-index: 100;
   max-width: 250px;
   max-height: 300px;
   overflow-y: auto;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 2px 8px var(--overlay-black-medium);
 }
 
 .success-option {
@@ -594,8 +570,8 @@ export default {
   text-align: left;
   padding: 5px 8px;
   margin-bottom: 3px;
-  background-color: #444;
-  color: white;
+  background-color: var(--color-bg-secondary);
+  color: var(--color-text-primary);
   border: none;
   border-radius: 3px;
   cursor: pointer;
@@ -605,11 +581,11 @@ export default {
 }
 
 .success-option:hover {
-  background-color: #555;
+  background-color: var(--color-bg-secondary);
 }
 
 .success-dropdown-empty {
-  color: #777;
+  color: var(--color-text-muted);
   font-style: italic;
   padding: 5px;
   text-align: center;
@@ -618,7 +594,7 @@ export default {
 
 .no-successes-message {
   text-align: center;
-  color: #999;
+  color: var(--color-text-muted);
   margin-top: 5px;
   font-size: 11px;
 }
@@ -626,19 +602,19 @@ export default {
 .dice-tooltip {
   position: fixed;
   z-index: 1000;
-  background: rgba(30, 30, 30, 0.97);
-  color: #fff;
+  background: var(--overlay-black-heavy);
+  color: var(--color-text-primary);
   padding: 14px;
   border-radius: 8px;
   font-size: 12px;
   pointer-events: none;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 2px 12px var(--overlay-black-medium);
   max-width: 260px;
   white-space: pre-line;
 }
 
 .tooltip-source {
-  color: #aaa;
+  color: var(--color-text-muted);
   font-size: 10px;
   font-style: italic;
 }
@@ -646,35 +622,6 @@ export default {
 h2 {
   margin: 0;
   margin-bottom: 5px;
-}
-
-.roll-button,
-.reset-button {
-  background-color: #333;
-  color: white;
-  border: none;
-  padding: 6px 14px;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-family: inherit;
-}
-
-.roll-button:disabled,
-.reset-button:disabled {
-  background-color: #222;
-  color: #666;
-  cursor: not-allowed;
-}
-
-.roll-button.active {
-  background-color: gold;
-  color: black;
-}
-
-.reset-button.active {
-  background-color: #777;
-  color: white;
 }
 
 /* Responsive styles */

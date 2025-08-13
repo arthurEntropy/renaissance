@@ -250,7 +250,7 @@ h2 {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  background-color: black;
+  background-color: var(--color-black);
   padding: 15px;
   border-radius: 5px;
   position: relative;
@@ -290,11 +290,11 @@ h2 {
   width: 24px;
   height: 24px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #444 60%, #222 100%);
-  color: #fff;
+  background: linear-gradient(135deg, var(--color-gray-medium) 60%, var(--color-gray-dark) 100%);
+  color: var(--color-white);
   font-size: 1.1rem;
   border: none;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 2px 8px var(--overlay-black-medium);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -304,12 +304,12 @@ h2 {
 }
 
 .add-ability-fab:hover {
-  background: linear-gradient(135deg, #666 60%, #333 100%);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+  background: linear-gradient(135deg, var(--color-gray-light) 60%, var(--color-gray-medium) 100%);
+  box-shadow: 0 4px 16px var(--overlay-white-medium);
 }
 
 .mp-container {
-  background-color: rgb(61, 61, 61);
+  background-color: var(--color-gray-dark);
   padding: 5px 15px;
   border-radius: 5px;
   display: flex;
@@ -327,7 +327,7 @@ h2 {
 .edit-mode-button {
   background: none;
   border: none;
-  color: #aaa;
+  color: var(--color-gray-light);
   font-size: 18px;
   cursor: pointer;
   transition: color 0.2s;
@@ -339,7 +339,7 @@ h2 {
 }
 
 .edit-mode-button:hover {
-  color: white;
+  color: var(--color-white);
 }
 
 /* MasonryGrid Styles */
@@ -386,40 +386,40 @@ h2 {
 }
 
 .missing-ability {
-  color: #888;
+  color: var(--color-gray-light);
   font-style: italic;
   padding: 10px;
 }
 
 .delete-item-link {
   cursor: pointer;
-  color: gray;
+  color: var(--color-gray-medium);
   font-size: 15px;
   text-align: center;
   margin: 0;
 }
 
 .delete-item-link:hover {
-  color: #ff6b6b;
+  color: var(--color-danger);
 }
 
 .drag-handle {
   cursor: move;
   font-size: 16px;
-  color: #777;
+  color: var(--color-gray-light);
   user-select: none;
   margin: 0;
 }
 
 .drag-handle:hover {
-  color: white;
+  color: var(--color-white);
 }
 
 /* Ghost row style for dragging */
 .ghost-ability-row {
   opacity: 0.5;
-  background: rgba(255, 255, 255, 0.1);
-  border: 2px dashed #777;
+  background: var(--overlay-white-subtle);
+  border: 2px dashed var(--color-gray-light);
   border-radius: 5px;
 }
 
@@ -431,9 +431,9 @@ h2 {
   width: 80%;
   max-width: 500px;
   max-height: 80vh;
-  background-color: rgba(30, 30, 30, 0.95);
+  background-color: var(--overlay-black-heavy);
   border-radius: 8px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 4px 20px var(--overlay-black-heavy);
   z-index: 100;
   display: flex;
   flex-direction: column;
@@ -444,16 +444,16 @@ h2 {
   justify-content: space-between;
   align-items: center;
   padding: 15px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid var(--overlay-white-subtle);
 }
 
 .ability-search {
   flex: 1;
   padding: 8px 12px;
-  border: 1px solid #555;
+  border: 1px solid var(--color-gray-medium);
   border-radius: 4px;
-  background-color: rgba(0, 0, 0, 0.3);
-  color: white;
+  background-color: var(--overlay-white-subtle);
+  color: var(--color-white);
   font-size: 16px;
 }
 
@@ -461,11 +461,11 @@ h2 {
   font-size: 24px;
   margin-left: 15px;
   cursor: pointer;
-  color: #aaa;
+  color: var(--color-gray-light);
 }
 
 .close-selector:hover {
-  color: white;
+  color: var(--color-white);
 }
 
 .ability-options-container {
@@ -480,9 +480,9 @@ h2 {
 
 .source-header {
   font-weight: bold;
-  color: #aaa;
+  color: var(--color-gray-light);
   padding: 5px 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid var(--overlay-white-subtle);
   margin-bottom: 8px;
 }
 
@@ -494,11 +494,11 @@ h2 {
 }
 
 .ability-option:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: var(--overlay-white-subtle);
 }
 
 .ability-cost {
-  color: #aaa;
+  color: var(--color-gray-light);
   font-size: 0.9em;
   margin-left: 5px;
 }
@@ -507,44 +507,44 @@ h2 {
   width: 22px;
   height: 22px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #222 60%, #444 100%);
-  color: #ff6b6b;
+  background: linear-gradient(135deg, var(--color-gray-dark) 60%, var(--color-gray-medium) 100%);
+  color: var(--color-danger);
   border: none;
   font-size: 1rem;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 1px 4px var(--overlay-white-subtle);
   transition: background 0.2s, color 0.2s;
   padding: 0;
 }
 
 .fab-delete:hover {
-  background: linear-gradient(135deg, #222 60%, #444 100%);
-  color: #fff;
+  background: linear-gradient(135deg, var(--color-gray-dark) 60%, var(--color-gray-medium) 100%);
+  color: var(--color-white);
 }
 
 .fab-drag {
   width: 22px;
   height: 22px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #222 60%, #444 100%);
-  color: #aaa;
+  background: linear-gradient(135deg, var(--color-gray-dark) 60%, var(--color-gray-medium) 100%);
+  color: var(--color-gray-light);
   font-size: 1.1rem;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: move;
   user-select: none;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 1px 4px var(--overlay-white-subtle);
   transition: background 0.2s, color 0.2s;
 }
 
 .fab-drag:hover {
   /* Keep background unchanged on hover */
-  background: linear-gradient(135deg, #222 60%, #444 100%);
-  color: #222;
+  background: linear-gradient(135deg, var(--color-gray-dark) 60%, var(--color-gray-medium) 100%);
+  color: var(--color-gray-dark);
 }
 
 @media (max-width: 650px) {

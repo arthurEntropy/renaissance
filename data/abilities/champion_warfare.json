@@ -1,7 +1,7 @@
 {
   "id": "8f9c579e-1089-4532-a10a-3cf5115bb403",
   "name": "Champion Warfare",
-  "description": "If you are fighting a foe one-on-one, once per engagement, you may re-roll one of your engagement dice before it has been paired. Describe how your experience in dueling gives you an edge.",
+  "description": "<p>If you are fighting a foe one-on-one, once per engagement, you may re-roll one of your engagement dice before it has been paired. Describe how your experience in dueling gives you an edge.</p>",
   "isTrait": true,
   "canBeActive": false,
   "isActive": true,

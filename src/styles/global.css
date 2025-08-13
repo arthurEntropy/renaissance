@@ -1,19 +1,19 @@
 a {
   text-decoration: none;
-  color: goldenrod;
+  color: var(--color-primary);
 }
 
 label {
   font-size: 14px;
-  color: darkgray;
+  color: var(--color-gray-medium);
 }
 
 input,
 textarea,
 select {
   font-family: 'Lora', serif;
-  color: white;
-  background-color: black;
+  color: var(--color-white);
+  background-color: var(--color-black);
 }
 
 /* BUTTONS */
@@ -23,27 +23,27 @@ select {
   font-family: 'Lora', serif;
   font-size: 14px;
   font-weight: bold;
-  color: lightgray;
-  background-color: gray;
+  color: var(--color-gray-light);
+  background-color: var(--color-gray-medium);
   border: none;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.2s ease;
 }
 .button:hover {
-  background-color: darkgray;
+  background-color: var(--color-gray-light);
 }
 .button-primary {
-  background-color: darkgoldenrod;
+  background-color: var(--color-primary-hover);
 }
 .button-primary:hover {
-  background-color: goldenrod;
+  background-color: var(--color-primary);
 }
 .button-danger {
-  background-color: darkred;
+  background-color: var(--color-danger-hover);
 }
 .button-danger:hover {
-  background-color: red;
+  background-color: var(--color-danger);
 }
 
 /* CHECKBOXES */
@@ -51,7 +51,7 @@ input[type='checkbox'] {
   filter: invert(100%);
   width: 16px;
   height: 16px;
-  accent-color: rgb(68, 68, 68); /* Dice checkbox colors are inverted */
+  accent-color: var(--color-gray-dark); /* Dice checkbox colors are inverted */
   cursor: pointer;
 }
 

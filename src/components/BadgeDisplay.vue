@@ -82,27 +82,27 @@ export default {
     font-size: 12px;
     font-weight: bold;
     padding: 2px 8px;
-    border-radius: 10px;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+    border-top-right-radius: 10px;
+    box-shadow: var(--shadow-md);
     pointer-events: none;
     z-index: 10;
 }
 
 /* Badge types */
 .badge-xp {
-    background-color: goldenrod;
-    color: black;
+    background-color: var(--color-primary);
+    color: var(--color-black);
 }
 
 .badge-sol {
-    background-color: darkgoldenrod;
-    color: white;
+    background-color: var(--color-primary);
+    color: var(--color-text-inverse);
     padding: 2px 8px 4px 8px;
 }
 
 .badge-custom {
-    background-color: #666;
-    color: white;
+    background-color: var(--color-gray-medium);
+    color: var(--color-white);
 }
 
 /* Positioning */

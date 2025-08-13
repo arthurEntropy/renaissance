@@ -247,7 +247,7 @@ const closeModal = () => cancel()
   text-align: center;
   padding: 5px;
   font-size: 14px;
-  border: 1px solid lightgray;
+  border: 1px solid var(--color-gray-light);
   border-radius: 4px;
 }
 
@@ -263,8 +263,8 @@ const closeModal = () => cancel()
 .engagement-success-pill {
   display: flex;
   align-items: center;
-  background-color: black;
-  color: lightgray;
+  background-color: var(--overlay-black-heavy);
+  color: var(--color-text-secondary);
   padding: 5px 10px;
   border-radius: 15px;
   font-size: 12px;
@@ -276,27 +276,27 @@ const closeModal = () => cancel()
   appearance: none;
   width: 16px;
   height: 16px;
-  border: 2px solid lightgray;
+  border: 2px solid var(--color-gray-light);
   border-radius: 3px;
-  background-color: black;
+  background-color: var(--overlay-black-heavy);
   cursor: pointer;
 }
 
 .pill-checkbox:checked {
-  background-color: white;
-  border-color: white;
+  background-color: var(--color-white);
+  border-color: var(--color-white);
 }
 
 .pill-checkbox:checked::after {
   content: '✔';
   display: block;
-  color: black;
+  color: var(--overlay-black-heavy);
   font-size: 12px;
   text-align: center;
   line-height: 16px;
 }
 
 .pill-checkbox:hover {
-  border-color: gray;
+  border-color: var(--color-gray-medium);
 }
 </style>

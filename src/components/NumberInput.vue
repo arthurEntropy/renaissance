@@ -65,8 +65,8 @@ input[type='number'] {
   -moz-appearance: textfield;
   -webkit-appearance: textfield;
   appearance: textfield;
-  background-color: rgba(0, 0, 0, 0.3);
-  border: 1px solid #444;
+  background-color: var(--overlay-white-subtle);
+  border: 1px solid var(--color-gray-medium);
   border-radius: 4px;
   color: white;
   text-align: center;
@@ -126,7 +126,7 @@ input[type='number']::-webkit-outer-spin-button {
 
 .spinner-up,
 .spinner-down {
-  background: rgba(0, 0, 0, 0.7);
+  background: var(--overlay-black-medium);
   border: none;
   color: white;
   padding: 0;
@@ -149,12 +149,12 @@ input[type='number']::-webkit-outer-spin-button {
 
 .spinner-up:hover,
 .spinner-down:hover {
-  background: rgba(0, 0, 0, 0.9);
+  background: var(--overlay-black-heavy);
 }
 
 input:focus {
   outline: none;
-  border-color: #666;
-  box-shadow: 0 0 3px rgba(255, 255, 255, 0.2);
+  border-color: var(--color-gray-light);
+  box-shadow: 0 0 3px var(--overlay-white-subtle);
 }
 </style>

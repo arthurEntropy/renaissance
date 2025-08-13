@@ -5,16 +5,11 @@
       <div class="modal-content background-modal">
         <div class="modal-header">
           <h3>Personality, Background & Notes</h3>
-          <button v-if="!backgroundModal.isEditMode.value" class="edit-button" @click.stop="startBackgroundEdit">
-            Edit
-          </button>
+          <ActionButton v-if="!backgroundModal.isEditMode.value" variant="neutral" size="small" text="Edit"
+            @click.stop="startBackgroundEdit" />
           <div v-else class="edit-actions">
-            <button class="cancel-button" @click.stop="cancelBackgroundEdit">
-              Cancel
-            </button>
-            <button class="save-button" @click.stop="saveBackgroundEdit">
-              Save
-            </button>
+            <ActionButton variant="neutral" size="small" text="Cancel" @click.stop="cancelBackgroundEdit" />
+            <ActionButton variant="primary" size="small" text="Save" @click.stop="saveBackgroundEdit" />
           </div>
         </div>
 
@@ -168,6 +163,7 @@ import { useTagSelector } from '@/composables/useTagSelector'
 import { formatText } from '../../../utils/stringUtils'
 import TextEditor from '@/components/TextEditor.vue'
 import NumberInput from '@/components/NumberInput.vue'
+import ActionButton from '@/components/ActionButton.vue'
 import { sanitizeHtml } from '@/utils/sanitizeHtml'
 
 // Props
@@ -339,7 +335,7 @@ onBeforeUnmount(() => {
 .character-bio-section {
   display: flex;
   flex-direction: column;
-  background-color: black;
+  background-color: var(--color-black);
   border-radius: 5px;
   padding: 15px;
   position: relative;
@@ -365,7 +361,7 @@ onBeforeUnmount(() => {
   height: 170px;
   object-fit: cover;
   border-radius: 4px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 2px 8px var(--overlay-black-heavy);
 }
 
 /* Bio Info */
@@ -386,13 +382,13 @@ onBeforeUnmount(() => {
 }
 
 .character-name-container:hover {
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: var(--overlay-white-subtle);
 }
 
 .character-name {
   margin: 0;
   font-size: 24px;
-  color: white;
+  color: var(--color-white);
 }
 
 .pronouns-container {
@@ -403,13 +399,13 @@ onBeforeUnmount(() => {
 }
 
 .pronouns-container:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: var(--overlay-white-subtle);
 }
 
 .character-pronouns {
   margin-left: 5px;
   font-size: 14px;
-  color: #aaa;
+  color: var(--color-gray-light);
   font-style: italic;
 }
 
@@ -430,26 +426,26 @@ onBeforeUnmount(() => {
 }
 
 .bio-detail:hover {
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: var(--overlay-white-subtle);
 }
 
 .bio-detail.editing {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: var(--overlay-white-subtle);
 }
 
 .bio-label {
-  color: #aaa;
+  color: var(--color-gray-light);
   font-size: 12px;
 }
 
 .bio-value {
-  color: white;
+  color: var(--color-white);
   flex-grow: 1;
   font-size: 14px;
 }
 
 .empty-field {
-  color: #666;
+  color: var(--color-gray-medium);
   font-style: italic;
   font-size: 0.9rem;
 }
@@ -469,10 +465,10 @@ onBeforeUnmount(() => {
 
 /* Inline Edit Styles */
 .form-input.inline-edit {
-  background-color: #222;
-  border: 1px solid #444;
+  background-color: var(--color-gray-dark);
+  border: 1px solid var(--color-gray-medium);
   border-radius: 4px;
-  color: white;
+  color: var(--color-white);
   padding: 5px 8px;
   font-size: 1rem;
   width: 100%;
@@ -483,8 +479,8 @@ onBeforeUnmount(() => {
 }
 
 .form-input.inline-edit:focus {
-  border-color: #666;
-  box-shadow: 0 0 0 2px rgba(100, 100, 100, 0.5);
+  border-color: var(--color-gray-light);
+  box-shadow: 0 0 0 2px var(--overlay-white-medium);
 }
 
 .pronouns-input {
@@ -503,8 +499,8 @@ onBeforeUnmount(() => {
   align-items: center;
   padding: 5px;
   min-height: 34px;
-  background-color: #222;
-  border: 1px solid #444;
+  background-color: var(--color-gray-dark);
+  border: 1px solid var(--color-gray-medium);
   border-radius: 4px;
   flex-grow: 1;
 }
@@ -512,18 +508,18 @@ onBeforeUnmount(() => {
 .selected-tag {
   display: flex;
   align-items: center;
-  background-color: #444;
+  background-color: var(--color-gray-medium);
   border-radius: 15px;
   padding: 3px 8px;
   font-size: 0.9rem;
-  color: white;
+  color: var(--color-white);
   font-size: 12px;
 }
 
 .remove-tag {
   background: none;
   border: none;
-  color: #aaa;
+  color: var(--color-gray-light);
   font-size: 1.2rem;
   cursor: pointer;
   margin-left: 5px;
@@ -532,13 +528,13 @@ onBeforeUnmount(() => {
 }
 
 .remove-tag:hover {
-  color: white;
+  color: var(--color-white);
 }
 
 .tag-dropdown {
-  background-color: #333;
-  border: 1px solid #555;
-  color: white;
+  background-color: var(--color-gray-medium);
+  border: 1px solid var(--color-gray-medium);
+  color: var(--color-white);
   padding: 5px;
   border-radius: 4px;
   cursor: pointer;
@@ -555,7 +551,7 @@ onBeforeUnmount(() => {
 
 .background-content.scrollable {
   padding: 10px;
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: var(--color-dark-gray);
   border-radius: 5px;
   height: 100%;
   font-size: 14px;
@@ -565,7 +561,7 @@ onBeforeUnmount(() => {
 }
 
 .background-content:hover {
-  background-color: rgba(255, 255, 255, 0.08);
+  background-color: var(--overlay-white-medium);
 }
 
 .background-scroll-content {
@@ -584,25 +580,12 @@ onBeforeUnmount(() => {
   align-items: center;
   margin-bottom: 15px;
   padding-bottom: 10px;
-  border-bottom: 1px solid #444;
+  border-bottom: 1px solid var(--color-gray-medium);
 }
 
 .modal-header h3 {
   margin: 0;
-  color: white;
-}
-
-.edit-button {
-  background-color: #444;
-  border: none;
-  color: white;
-  padding: 5px 10px;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.edit-button:hover {
-  background-color: #555;
+  color: var(--color-white);
 }
 
 .edit-actions {
@@ -614,7 +597,7 @@ onBeforeUnmount(() => {
   max-height: 60vh;
   overflow-y: auto;
   padding: 10px;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--overlay-white-subtle);
   border-radius: 4px;
   text-align: left;
 }
@@ -630,7 +613,7 @@ onBeforeUnmount(() => {
 }
 
 .empty-background {
-  color: #888;
+  color: var(--color-gray-light);
   font-style: italic;
 }
 

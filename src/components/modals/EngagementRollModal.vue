@@ -564,7 +564,7 @@ export default {
 }
 
 .button-secondary {
-    background-color: #ddd;
-    color: #333;
+    background-color: var(--color-gray-light);
+    color: var(--color-bg-secondary);
 }
 </style>

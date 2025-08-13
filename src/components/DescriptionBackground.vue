@@ -20,8 +20,8 @@ const safeContent = computed(() => sanitizeHtml(props.content))
 
 <style scoped>
 .description-background {
-    background-color: rgba(0, 0, 0, 0.75);
-    padding: 10px;
+    background-color: var(--overlay-black-heavy);
+    padding: 1px 10px;
     border-radius: 5px;
     text-align: left;
     font-size: 14px;

@@ -45,7 +45,7 @@
             <div class="conditions-row" v-for="(value, key) in selectedCharacter.conditions" :key="key">
               <span :class="{ 'condition-active': value }">{{
                 cap(key)
-                }}</span>
+              }}</span>
               <input type="checkbox" class="skill-checkbox" :class="{ 'condition-active-checkbox': value }"
                 v-model="selectedCharacter.conditions[key]" />
             </div>
@@ -270,8 +270,8 @@ onMounted(async () => {
 .add-concept-card {
   width: 250px;
   height: 300px;
-  background: rgba(0, 0, 0, 0.4);
-  border: 2px dashed rgba(255, 255, 255, 0.3);
+  background: var(--overlay-black-medium);
+  border: 2px dashed var(--overlay-white-heavy);
   border-radius: 10px;
   display: flex;
   flex-direction: column;
@@ -283,19 +283,19 @@ onMounted(async () => {
 }
 
 .add-concept-card:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.5);
+  background: var(--overlay-white-medium);
+  border-color: var(--overlay-white-heavy);
 }
 
 .add-icon {
   font-size: 3rem;
   font-weight: 300;
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--overlay-white-heavy);
   margin-bottom: 10px;
 }
 
 .add-text {
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--overlay-white-heavy);
   font-size: 1rem;
 }
 
@@ -304,7 +304,7 @@ onMounted(async () => {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: rgb(17, 17, 17, 0.75);
+  background: var(--overlay-black-heavy);
   border-radius: 5px;
   width: 1050px;
   max-height: 100%;
@@ -335,7 +335,7 @@ onMounted(async () => {
   z-index: 1000;
   font-size: 20px;
   text-decoration: none;
-  color: gray;
+  color: var(--color-gray-medium);
   cursor: pointer;
 }
 
@@ -366,7 +366,7 @@ onMounted(async () => {
 .conditions-column-container {
   display: flex;
   flex-direction: column;
-  background-color: black;
+  background-color: var(--color-black);
   border-radius: 5px;
 }
 
@@ -401,16 +401,16 @@ onMounted(async () => {
   width: 100%;
   margin: 5px 0;
   height: 25px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid var(--color-gray-dark);
 }
 
 .condition-active {
-  color: red;
-  text-shadow: 0px 0px 5px red;
+  color: var(--color-danger);
+  text-shadow: 0px 0px 5px var(--color-danger);
 }
 
 .condition-active-checkbox {
-  box-shadow: 0px 0px 10px cyan;
+  box-shadow: 0px 0px 10px var(--color-condition-glow);
 }
 
 .main-column {

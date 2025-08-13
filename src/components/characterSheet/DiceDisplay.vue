@@ -9,7 +9,7 @@
             <i :class="die.class"></i>
             <span v-if="!isRolling && die.emoji" class="dice-emoji">{{
                 die.emoji
-                }}</span>
+            }}</span>
         </span>
     </div>
 
@@ -117,15 +117,15 @@ defineExpose({
 /* Keyframes for max value glow effect */
 @keyframes fadeInGlow {
     0% {
-        color: white;
+        color: var(--color-white);
         text-shadow: none;
     }
 
     100% {
-        color: rgb(212, 182, 106);
+        color: var(--color-accent-gold);
         text-shadow:
-            0 0 5px rgba(212, 182, 106, 0.8),
-            0 0 10px rgba(212, 182, 106, 0.6);
+            0 0 5px var(--shadow-glow-gold),
+            0 0 10px var(--shadow-glow-gold);
     }
 }
 
@@ -175,7 +175,7 @@ defineExpose({
     left: 0;
     right: 0;
     height: 2px;
-    background-color: rgba(255, 0, 0, 0.7);
+    background-color: var(--color-danger);
     transform: translateY(-50%);
     opacity: 0;
     animation: fadeInLine 0.8s ease-in forwards;

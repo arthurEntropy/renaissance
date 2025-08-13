@@ -293,7 +293,7 @@ watch(() => props.editable, (val) => {
 <style scoped>
 .edit-field-indicator {
   font-size: 1.2em;
-  color: #aaa;
+  color: var(--color-gray-light);
   cursor: pointer;
   opacity: 0.7;
   transition: opacity 0.2s;
@@ -312,9 +312,9 @@ watch(() => props.editable, (val) => {
   margin-right: 0.5rem;
   padding: 4px 8px;
   border-radius: 4px;
-  border: 1px solid #555;
-  background: #222;
-  color: #fff;
+  border: 1px solid var(--color-gray-medium);
+  background: var(--color-bg-secondary);
+  color: var(--color-text-primary);
   font-size: 1rem;
   display: inline-block;
   vertical-align: middle;
@@ -330,23 +330,22 @@ watch(() => props.editable, (val) => {
 }
 
 .novizio-section {
-  background: #000 !important;
+  background: var(--overlay-black-heavy) !important;
   border-radius: 8px;
   padding: 18px 18px 10px 18px;
   margin-top: 1rem;
   margin-bottom: 1rem;
-  color: #fff;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+  color: var(--color-text-primary);
 }
 
 .novizio-section .section-header {
   margin-top: 0;
   margin-bottom: 1.2rem;
-  color: #fff;
+  color: var(--color-text-primary);
 }
 
 .novizio-intro-text {
-  color: #eee;
+  color: var(--color-text-secondary);
   font-size: 1.08rem;
   margin-bottom: 1.1rem;
   margin-top: -0.3rem;
@@ -359,7 +358,7 @@ watch(() => props.editable, (val) => {
 }
 
 .novizio-placeholder {
-  color: #bbb;
+  color: var(--text-tertiary);
   font-size: 0.98rem;
   margin-top: 0.2rem;
   margin-left: 0.5rem;
@@ -390,28 +389,28 @@ watch(() => props.editable, (val) => {
   width: 28px;
   height: 28px;
   object-fit: contain;
-  background: lightgray;
+  background: var(--color-gray-light);
   border-radius: 4px;
-  border: 1px solid #333;
+  border: 1px solid var(--color-bg-secondary);
   padding: 2px;
 }
 
 .martial-label {
   min-width: 80px;
   font-weight: 500;
-  color: #fff;
+  color: var(--color-text-primary);
 }
 
 .martial-placeholder {
-  color: #bbb;
+  color: var(--text-tertiary);
   font-size: 0.98rem;
   margin-left: 0.5rem;
 }
 
 .martial-chip {
-  background: #222;
-  color: #fff;
-  border: 1px solid #444;
+  background: var(--color-bg-secondary);
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-gray-medium);
   border-radius: 12px;
   padding: 2px 10px;
   font-size: 0.98rem;
@@ -420,7 +419,7 @@ watch(() => props.editable, (val) => {
 }
 
 .martial-training-none {
-  color: #bbb;
+  color: var(--text-tertiary);
   font-size: 1rem;
   margin-left: 0.5rem;
   margin-top: 0.2rem;

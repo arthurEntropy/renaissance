@@ -137,7 +137,7 @@ const getWinnerAnnouncementClasses = computed(() => {
 
 .result-label {
     font-size: 14px;
-    color: #666;
+    color: var(--color-gray-light);
     font-weight: bold;
     text-align: center;
 }
@@ -169,51 +169,51 @@ const getWinnerAnnouncementClasses = computed(() => {
 
 /* Win states for user */
 .accept-btn.win-pale {
-    background-color: rgba(76, 175, 80, 0.4);
-    color: white;
-    border: 1px solid rgba(76, 175, 80, 0.6);
+    background-color: var(--color-success);
+    color: var(--color-text-primary);
+    border: 1px solid var(--color-success);
 }
 
 .accept-btn.win-solid {
-    background-color: #4caf50;
-    color: white;
-    border: 1px solid #4caf50;
+    background-color: var(--color-success);
+    color: var(--color-text-primary);
+    border: 1px solid var(--color-success);
 }
 
 /* Loss states for user */
 .accept-btn.loss-pale {
-    background-color: rgba(244, 67, 54, 0.4);
-    color: white;
-    border: 1px solid rgba(244, 67, 54, 0.6);
+    background-color: var(--color-danger);
+    color: var(--color-text-primary);
+    border: 1px solid var(--color-danger);
 }
 
 .accept-btn.loss-solid {
-    background-color: #f44336;
-    color: white;
-    border: 1px solid #f44336;
+    background-color: var(--color-danger);
+    color: var(--color-text-primary);
+    border: 1px solid var(--color-danger);
 }
 
 /* Draw states for user */
 .accept-btn.draw-pale {
-    background-color: rgba(255, 235, 59, 0.4);
-    color: white;
-    border: 1px solid rgba(255, 235, 59, 0.6);
+    background-color: var(--color-warning);
+    color: var(--color-text-inverse);
+    border: 1px solid var(--color-warning);
 }
 
 .accept-btn.draw-solid {
-    background-color: #ffeb3b;
-    color: white;
-    border: 1px solid #ffeb3b;
+    background-color: var(--color-warning);
+    color: var(--color-text-inverse);
+    border: 1px solid var(--color-warning);
 }
 
 .accept-btn.disabled {
-    background-color: #ccc;
-    color: #888;
+    background-color: var(--color-gray-light);
+    color: var(--color-text-muted);
     cursor: not-allowed;
 }
 
 .accept-btn.disabled:hover {
-    background-color: #ccc;
+    background-color: var(--color-gray-light);
 }
 
 .opponent-status-btn {
@@ -222,8 +222,8 @@ const getWinnerAnnouncementClasses = computed(() => {
     padding: 6px 12px;
     font-size: 14px;
     flex-shrink: 0;
-    background-color: lightgray;
-    color: #666;
+    background-color: var(--color-gray-light);
+    color: var(--color-gray-light);
     font-style: italic;
     font-weight: normal;
     cursor: default;
@@ -235,22 +235,22 @@ const getWinnerAnnouncementClasses = computed(() => {
 }
 
 .opponent-status-btn.opponent-win-solid {
-    background-color: #4caf50;
-    color: white;
+    background-color: var(--color-success);
+    color: var(--color-text-primary);
     font-style: normal;
     font-weight: bold;
 }
 
 .opponent-status-btn.opponent-loss-solid {
-    background-color: #f44336;
-    color: white;
+    background-color: var(--color-danger);
+    color: var(--color-text-primary);
     font-style: normal;
     font-weight: bold;
 }
 
 .opponent-status-btn.opponent-draw-solid {
-    background-color: #ffeb3b;
-    color: white;
+    background-color: var(--color-warning);
+    color: var(--color-text-primary);
     font-style: normal;
     font-weight: bold;
 }
@@ -266,14 +266,15 @@ const getWinnerAnnouncementClasses = computed(() => {
 }
 
 .winner-announcement.both-accepted {
-    border: 3px solid #4caf50;
-    box-shadow: 0 0 15px rgba(76, 175, 80, 0.3);
-    background-color: rgba(76, 175, 80, 0.1);
+    border: 3px solid var(--color-success);
+    box-shadow: 0 0 15px var(--color-success);
+    background-color: var(--color-success);
 }
 
 .winner-announcement.draw-result {
-    border: 3px solid #ffeb3b;
-    box-shadow: 0 0 15px rgba(255, 235, 59, 0.4);
-    background-color: rgba(255, 235, 59, 0.1);
+    border: 3px solid var(--color-warning);
+    box-shadow: 0 0 15px var(--color-warning);
+    background-color: var(--color-warning);
+    color: var(--color-text-inverse);
 }
 </style>

@@ -55,9 +55,6 @@
         <!-- Improvements Section -->
         <div class="form-group vertical">
           <label class="left-aligned">Improvements:</label>
-          <div v-if="!editedAbility.improvements || !editedAbility.improvements.length" class="improvements-empty">
-            <em>No improvements yet.</em>
-          </div>
           <div v-for="(impr, idx) in editedAbility.improvements" :key="impr.id || idx" class="improvement-edit-block">
             <div class="improvement-card-row">
               <input type="text" v-model="impr.name" placeholder="Name" class="modal-input improvement-name-input" />
@@ -154,25 +151,25 @@ const closeModal = () => cancel()
   font-size: 16px;
   line-height: 1;
   cursor: pointer;
-  color: #888;
+  color: var(--color-text-muted);
   transition: color 0.15s;
 }
 
 .icon-btn:disabled {
-  color: #bbb;
+  color: var(--text-tertiary);
   cursor: default;
 }
 
 .icon-btn:not(:disabled):hover {
-  color: #222;
+  color: var(--color-bg-secondary);
 }
 
 .improvement-edit-block {
-  background: #23272e;
+  background: var(--color-bg-secondary);
   border-radius: 7px;
   margin-bottom: 14px;
   padding: 10px 10px 8px 10px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.10);
+  box-shadow: 0 1px 4px var(--overlay-white-subtle);
 }
 
 .improvement-card-row {
@@ -183,7 +180,7 @@ const closeModal = () => cancel()
 }
 
 .xp-label {
-  color: #aaa;
+  color: var(--color-gray-light);
   font-size: 13px;
   margin-right: 2px;
   margin-left: 4px;

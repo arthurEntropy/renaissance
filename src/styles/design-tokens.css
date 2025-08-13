@@ -8,23 +8,50 @@
 :root {
   /* === COLORS === */
   
+  /* ===== CONSOLIDATED GRAYSCALE TOKENS (3 levels) ===== */
+  --color-gray-dark: #333333;         /* Dark gray - backgrounds, borders */
+  --color-gray-medium: #666666;       /* Medium gray - borders, muted elements */
+  --color-gray-light: #aaaaaa;        /* Light gray - text, placeholders */
+  
+  /* ===== ABSOLUTE COLORS ===== */
+  --color-black: #000000;             /* Pure black */
+  --color-white: #ffffff;             /* Pure white */
+  
+  /* ===== OVERLAY TOKENS (3 levels each) ===== */
+  /* Black overlays for shadows, modals, and backgrounds */
+  --overlay-black-subtle: rgba(0, 0, 0, 0.1);    /* Subtle shadows, hints */
+  --overlay-black-medium: rgba(0, 0, 0, 0.5);    /* Modal backgrounds, overlays */
+  --overlay-black-heavy: rgba(0, 0, 0, 0.75);    /* Info cards, tooltips */
+  
+  /* White overlays for highlights and hover states */
+  --overlay-white-subtle: rgba(255, 255, 255, 0.05);  /* Subtle highlights */
+  --overlay-white-medium: rgba(255, 255, 255, 0.1);   /* Button highlights, hover states */
+  --overlay-white-heavy: rgba(255, 255, 255, 0.2);    /* Strong highlights */
+  
+  /* ===== SEMANTIC COLOR SYSTEM ===== */
   /* Primary Colors (Goldenrod theme) */
   --color-primary: #daa520;           /* goldenrod */
   --color-primary-hover: #b8860b;     /* darkgoldenrod */
   --color-primary-active: #996f07;    /* darker goldenrod */
   --color-primary-text: #000000;      /* black text on gold */
   
-  /* Danger Colors */
-  --color-danger: #dc2626;            /* red */
-  --color-danger-hover: #991b1b;      /* darkred */
-  --color-danger-active: #7f1d1d;     /* darker red */
-  --color-danger-text: #ffffff;       /* white text on red */
-  
   /* Success Colors */
-  --color-success: #16a34a;           /* green */
+  --color-success: #4caf50;           /* Material Design green */
   --color-success-hover: #15803d;     /* darker green */
   --color-success-active: #166534;    /* darkest green */
   --color-success-text: #ffffff;      /* white text on green */
+  
+  /* Danger/Error Colors */
+  --color-danger: #f44336;            /* Material Design red */
+  --color-danger-hover: #991b1b;      /* darker red */
+  --color-danger-active: #7f1d1d;     /* darkest red */
+  --color-danger-text: #ffffff;       /* white text on red */
+  
+  /* Warning/Tie Colors */
+  --color-warning: #ffeb3b;           /* Material Design yellow - for ties/draws */
+  --color-warning-hover: #b8860b;     /* darker yellow */
+  --color-warning-active: #996f07;    /* darkest yellow */
+  --color-warning-text: #000000;      /* black text on yellow */
   
   /* Neutral Colors */
   --color-neutral: #6b7280;           /* gray */
@@ -32,26 +59,27 @@
   --color-neutral-active: #374151;    /* darkest gray */
   --color-neutral-text: #ffffff;      /* white text on gray */
   
-  /* Background Colors */
-  --color-bg-primary: #111111;        /* main dark background */
-  --color-bg-secondary: #1f1f1f;      /* slightly lighter dark */
-  --color-bg-tertiary: #2d2d2d;       /* card backgrounds */
-  --color-bg-overlay: rgba(0, 0, 0, 0.75); /* modal overlays */
+  /* ===== BACKGROUND SYSTEM ===== */
+  --color-bg-primary: var(--color-black);        /* Pure black backgrounds */
+  --color-bg-secondary: #161616;                 /* Dark gray backgrounds */
+  --color-bg-tertiary: var(--color-gray-medium); /* Medium gray backgrounds */
+  --color-bg-overlay: var(--overlay-black-medium); /* Modal overlays */
   
-  /* Text Colors */
-  --color-text-primary: #d1d5db;      /* lightgray */
-  --color-text-secondary: #9ca3af;    /* darker gray */
-  --color-text-muted: #6b7280;        /* muted text */
-  --color-text-inverse: #111111;      /* dark text for light backgrounds */
+  /* ===== TEXT SYSTEM ===== */
+  --color-text-primary: #ededed;                  /* Primary white text */
+  --color-text-secondary: var(--color-gray-light); /* Secondary gray text */
+  --color-text-muted: var(--color-gray-medium);   /* Muted gray text */
+  --color-text-inverse: var(--color-black);       /* Dark text for light backgrounds */
   
-  /* Border Colors */
-  --color-border-primary: #374151;    /* main border color */
-  --color-border-secondary: rgba(255, 255, 255, 0.2); /* lighter borders */
-  --color-border-muted: rgba(255, 255, 255, 0.1);     /* subtle borders */
+  /* ===== BORDER SYSTEM ===== */ 
+  --color-border-primary: var(--color-gray-medium);    /* Primary gray borders */
+  --color-border-secondary: var(--overlay-white-heavy); /* Secondary white borders */
+  --color-border-muted: var(--overlay-white-medium);    /* Muted white borders */
   
-  /* Special Colors (Gaming themed) */
+  /* ===== SPECIAL GAMING COLORS ===== */
   --color-accent-gold: #ffd700;       /* bright gold for accents */
-  --color-condition-active: #ef4444;  /* red for active conditions */
+  --color-engagement-gold: rgb(212, 182, 106); /* specific engagement system gold */
+  --color-condition-active: var(--color-danger);  /* red for active conditions */
   --color-condition-glow: #06b6d4;    /* cyan for glows */
   
   /* === SPACING === */
@@ -93,11 +121,11 @@
   --radius-full: 9999px;    /* fully rounded */
   
   /* === SHADOWS === */
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  --shadow-glow: 0 0 10px rgba(255, 255, 255, 0.5);
+  --shadow-sm: 0 1px 2px 0 var(--overlay-black-subtle);
+  --shadow-md: 0 4px 6px -1px var(--overlay-black-subtle), 0 2px 4px -1px var(--overlay-black-subtle);
+  --shadow-lg: 0 10px 15px -3px var(--overlay-black-medium), 0 4px 6px -2px var(--overlay-black-subtle);
+  --shadow-xl: 0 20px 25px -5px var(--overlay-black-medium), 0 10px 10px -5px var(--overlay-black-subtle);
+  --shadow-glow: 0 0 10px var(--overlay-white-medium);
   --shadow-glow-gold: 0 0 8px rgba(218, 165, 32, 0.7);
   --shadow-glow-red: 0 0 8px rgba(244, 67, 54, 0.7);
   --shadow-glow-cyan: 0 0 10px rgba(6, 182, 212, 0.7);
@@ -129,14 +157,14 @@
   --btn-font-size-md: var(--font-size-sm);
   --btn-font-size-lg: var(--font-size-base);
   
-  --btn-min-height-sm: 1.5rem;   /* 24px - reduced from 32px */
-  --btn-min-height-md: 2.5rem;   /* 40px */
+  --btn-min-height-sm: 1.5rem;   /* 24px */
+  --btn-min-height-md: 1.75rem;   /* 28px */
   --btn-min-height-lg: 3rem;     /* 48px */
 }
 
 /* === DARK MODE OVERRIDES === */
-/* Since your app is primarily dark mode, we'll keep these as the defaults */
-/* But this structure allows for light mode variants if needed */
+/* App is primarily dark mode - these are the default values */
+/* Light mode overrides can be added if needed */
 
 @media (prefers-color-scheme: light) {
   /* Light mode overrides would go here if needed */

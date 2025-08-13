@@ -140,7 +140,7 @@ const getCircularPosition = (index, total) => {
 
 <style scoped>
 .dice-roll-results {
-  background-color: black;
+  background-color: var(--color-black);
   border-radius: 5px;
   padding: 10px;
   align-self: stretch;
@@ -166,17 +166,17 @@ const getCircularPosition = (index, total) => {
 }
 
 .skill-name {
-  color: rgb(212, 182, 106);
+  color: var(--color-accent-gold);
   font-weight: bold;
 }
 
 .favored-modifier {
-  color: #4caf50;
+  color: var(--color-success);
   font-weight: bold;
 }
 
 .ill-favored-modifier {
-  color: #f44336;
+  color: var(--color-danger);
   font-weight: bold;
   margin-left: 4px;
 }
@@ -190,18 +190,18 @@ const getCircularPosition = (index, total) => {
 }
 
 .success {
-  color: #4caf50;
-  background-color: rgba(76, 175, 80, 0.2);
+  color: var(--color-success);
+  background-color: var(--color-success);
 }
 
 .failure {
-  color: #f44336;
-  background-color: rgba(244, 67, 54, 0.2);
+  color: var(--color-danger);
+  background-color: var(--color-danger);
 }
 
 .draw {
-  color: #ffeb3b;
-  background-color: rgba(255, 235, 59, 0.2);
+  color: var(--color-warning);
+  background-color: var(--color-warning);
 }
 
 .roll-numbers {
@@ -218,13 +218,13 @@ const getCircularPosition = (index, total) => {
 
 .roll-total::after {
   content: ' / ';
-  color: #666;
+  color: var(--color-gray-medium);
   margin: 0 2px;
 }
 
 .roll-target {
   font-size: 20px;
-  color: #aaa;
+  color: var(--color-gray-light);
 }
 
 .engagement-score {
@@ -238,30 +238,30 @@ const getCircularPosition = (index, total) => {
 .draw-number {
   font-size: 20px;
   font-weight: bold;
-  color: white;
+  color: var(--color-white);
 }
 
 .score-separator {
   font-size: 16px;
-  color: #aaa;
+  color: var(--color-gray-light);
 }
 
 .draw-count {
   font-size: 14px;
-  color: #999;
+  color: var(--color-gray-medium);
   font-style: italic;
 }
 
 .roll-footer {
   font-size: 11px;
-  color: #aaa;
+  color: var(--color-gray-light);
   text-align: center;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid var(--overlay-white-subtle);
   padding-top: 5px;
 }
 
 .no-roll {
-  color: #888;
+  color: var(--color-gray-light);
   text-align: center;
   padding: 20px 0;
   height: 100%;
@@ -279,14 +279,14 @@ const getCircularPosition = (index, total) => {
 
 .showcase-die {
   font-size: 24px;
-  color: #666;
+  color: var(--color-gray-medium);
   opacity: 0.6;
   transition: all 0.3s ease;
   display: inline-block;
 }
 
 .showcase-die:hover {
-  color: #aaa;
+  color: var(--color-gray-light);
   opacity: 0.8;
   transform: scale(1.1);
 }
@@ -297,7 +297,7 @@ const getCircularPosition = (index, total) => {
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 12px;
-  color: #999;
+  color: var(--color-gray-medium);
   opacity: 0;
   transition: opacity 0.3s ease;
   pointer-events: none;

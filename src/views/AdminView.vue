@@ -49,9 +49,9 @@ onMounted(fetchExpansions)
     max-width: 700px;
     margin: 40px auto;
     padding: 30px;
-    background: #23272f;
+    background: var(--color-bg-secondary);
     border-radius: 12px;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: var(--shadow-lg);
 }
 
 h1 {
@@ -70,7 +70,7 @@ h1 {
     display: flex;
     align-items: center;
     gap: 1rem;
-    background: #2c313a;
+    background: var(--color-gray-dark);
     padding: 1rem;
     border-radius: 8px;
 }
@@ -80,9 +80,9 @@ h1 {
     font-size: 1.1rem;
     padding: 6px 10px;
     border-radius: 4px;
-    border: 1px solid #444;
-    background: #23272f;
-    color: #fff;
+    border: 1px solid var(--color-gray-medium);
+    background: var(--color-bg-secondary);
+    color: var(--color-white);
     width: 180px;
 }
 
@@ -91,13 +91,13 @@ h1 {
     height: 48px;
     object-fit: contain;
     border-radius: 4px;
-    background: #fff;
-    border: 1px solid #444;
+    background: var(--color-white);
+    border: 1px solid var(--color-gray-medium);
 }
 
 .delete-button {
-    background: #c0392b;
-    color: #fff;
+    background: var(--color-danger-hover);
+    color: var(--color-white);
     border: none;
     border-radius: 4px;
     padding: 6px 12px;
@@ -108,12 +108,12 @@ h1 {
 }
 
 .delete-button:hover {
-    background: #e74c3c;
+    background: var(--color-danger);
 }
 
 .add-button {
-    background: #4caf50;
-    color: #fff;
+    background: var(--color-success);
+    color: var(--color-white);
     border: none;
     border-radius: 4px;
     padding: 10px 20px;
@@ -123,6 +123,6 @@ h1 {
 }
 
 .add-button:hover {
-    background: #45a049;
+    background: var(--color-success-hover);
 }
 </style>
