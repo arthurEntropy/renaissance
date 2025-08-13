@@ -559,7 +559,7 @@ const safeDescription = computed(() => {
   position: static;
   background: none;
   border: none;
-  color: #aaa;
+  color: var(--color-gray-light);
   font-size: 20px;
   cursor: pointer;
   z-index: 10;
@@ -617,10 +617,10 @@ const safeDescription = computed(() => {
   font-weight: bold;
   padding: 4px 8px;
   width: 100%;
-  background: rgba(0, 0, 0, 0.2);
-  border: 1px solid #555;
+  background: var(--overlay-white-subtle);
+  border: 1px solid var(--color-gray-medium);
   border-radius: 4px;
-  color: white;
+  color: var(--color-text-primary);
 }
 
 /* Description styling */
@@ -657,7 +657,7 @@ const safeDescription = computed(() => {
   font-size: 0.85em;
   padding: 2px 6px;
   cursor: pointer;
-  color: #aaa;
+  color: var(--color-gray-light);
   transition: opacity 0.2s;
 }
 
@@ -698,7 +698,7 @@ const safeDescription = computed(() => {
   overflow-x: hidden;
   max-height: 90vh;
   border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 2px 10px var(--overlay-white-medium);
 }
 
 /* Expansion logo badge */
@@ -717,10 +717,10 @@ const safeDescription = computed(() => {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
-  background: #222;
+  box-shadow: 0 2px 8px var(--overlay-black-medium);
+  background: var(--color-bg-secondary);
   object-fit: cover;
-  border: 2px solid #fff;
+  border: 2px solid var(--color-gray-light);
 }
 
 .concept-header-container {

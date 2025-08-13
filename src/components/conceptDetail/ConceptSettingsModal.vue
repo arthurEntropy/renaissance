@@ -139,15 +139,15 @@ input[type='color'] {
   width: 100%;
   padding: 8px;
   margin: 8px 0;
-  background-color: #333;
-  border: 1px solid #444;
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-gray-medium);
   border-radius: 4px;
-  color: white;
+  color: var(--color-text-primary);
 }
 
 label {
   display: block;
-  color: #ccc;
+  color: var(--color-text-secondary);
   margin-right: 5px;
 }
 

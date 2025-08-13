@@ -16,15 +16,15 @@
 /* Common editor styles */
 .section-editor {
   padding: 10px;
-  background: rgba(0, 0, 0, 0.2);
+  background: var(--overlay-white-heavy);
   border-radius: 8px;
   margin-bottom: 10px;
 }
 
 /* Editor item styles */
 .edit-item {
-  background: rgba(0, 0, 0, 0.3);
-  border: 1px solid #444;
+  background: var(--overlay-black-medium);
+  border: 1px solid var(--color-gray-medium);
   border-radius: 6px;
   margin-bottom: 10px;
   padding: 8px;
@@ -41,8 +41,8 @@
 /* GM Notes section styling */
 .toggle-gm-notes {
   background: none;
-  border: 1px solid #888;
-  color: #bbb;
+  border: 1px solid var(--color-gray-medium);
+  color: var(--color-gray-light);
   border-radius: 4px;
   padding: 2px 10px;
   font-size: 0.95em;
@@ -55,8 +55,8 @@
 }
 
 .toggle-gm-notes:hover {
-  background: #444;
-  color: #fff;
+  background: var(--color-gray-medium);
+  color: var(--color-white);
 }
 
 .gm-notes {

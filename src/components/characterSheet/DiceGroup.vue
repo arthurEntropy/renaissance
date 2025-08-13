@@ -61,21 +61,21 @@ const getDiceClasses = (diceIndex) => {
 
 .d6-icon {
     opacity: 0.4;
-    color: #888;
+    color: var(--color-gray-light);
 }
 
 .dice-active {
     opacity: 1;
-    color: lightgray;
+    color: var(--color-gray-light);
 }
 
 .dice-added {
-    color: lightgreen;
-    text-shadow: 0px 0px 5px lightgreen;
+    color: var(--color-success);
+    text-shadow: 0px 0px 5px var(--color-success);
 }
 
 .dice-subtracted {
-    color: red;
-    text-shadow: 0px 0px 5px red;
+    color: var(--color-danger);
+    text-shadow: 0px 0px 5px var(--color-danger);
 }
 </style>

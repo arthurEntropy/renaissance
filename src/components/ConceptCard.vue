@@ -24,17 +24,17 @@ defineEmits(['select'])
   margin: 10px;
   padding: 20px;
   border-radius: 5px;
-  background-color: rgba(17, 17, 17);
+  background-color: var(--overlay-black-heavy);
   cursor: pointer;
   width: 200px;
   position: relative;
-  border: 2px solid #555;
+  border: 2px solid var(--color-gray-dark);
   box-shadow: none;
 }
 
 /* White glow on hover */
 .selection-card:hover {
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 10px var(--overlay-white-medium);
   transition: box-shadow 0.2s ease;
 }
 
@@ -73,9 +73,9 @@ defineEmits(['select'])
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
-  background: #222;
+  box-shadow: 0 2px 8px var(--overlay-black-medium);
+  background: var(--color-gray-dark);
   object-fit: cover;
-  border: 2px solid #555;
+  border: 2px solid var(--color-gray-dark);
 }
 </style>

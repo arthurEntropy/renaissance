@@ -61,6 +61,9 @@ export default {
 </script>
 
 <style>
+/* Import design tokens */
+@import '@/styles/design-tokens.css';
+
 html,
 body {
   /* TODO: Give the user a few options for background images */
@@ -68,8 +71,8 @@ body {
   background-image: url('https://cdn.midjourney.com/b380594a-e352-4deb-b7b0-c3fff0095472/0_3.png');
   background-position: center;
   background-attachment: fixed;
-  background-color: black;
-  color: lightgray;
+  background-color: var(--color-black);
+  color: var(--color-text-primary);
   font-family: 'Lora', serif;
   overflow-x: hidden;
 }
@@ -81,7 +84,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: var(--overlay-black-medium);
   z-index: 0;
   pointer-events: none;
 }
@@ -102,10 +105,10 @@ body {
   left: 0;
   right: 0;
   height: 50px;
-  background: rgba(0, 0, 0, 0.6);
+  background: var(--overlay-black-heavy);
   backdrop-filter: blur(5px);
   z-index: 100;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid var(--overlay-white-medium);
   display: block;
 }
 
@@ -120,7 +123,7 @@ body {
 }
 
 .top-nav a {
-  color: lightgray;
+  color: var(--color-text-secondary);
   text-decoration: none;
   padding: 0 10px;
   font-size: 0.9rem;
@@ -133,10 +136,14 @@ body {
 }
 
 .top-nav a:hover {
-  color: white;
+  color: var(--color-text-primary);
 }
 
 /* Active View Indicator */
+.top-nav a.router-link-active {
+  color: var(--color-text-primary);
+}
+
 .top-nav a.router-link-active::after {
   content: '';
   position: absolute;
@@ -144,7 +151,7 @@ body {
   left: 10px;
   right: 10px;
   height: 2px;
-  background: white;
+  background: var(--color-white);
 }
 
 /* Updated Mobile Navigation Menu */
@@ -155,7 +162,7 @@ body {
   /* Hidden by default */
   width: 180px;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.5);
+  background: var(--overlay-black-medium);
   backdrop-filter: blur(5px);
   padding: 20px;
   transition: left 0.3s ease-in-out;
@@ -175,8 +182,8 @@ body {
   right: -35px;
   width: 30px;
   height: 30px;
-  background: rgba(0, 0, 0, 0.7);
-  color: lightgray;
+  background: var(--overlay-black-heavy);
+  color: var(--color-text-secondary);
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -193,7 +200,7 @@ body {
 }
 
 .nav-menu a {
-  color: lightgray;
+  color: var(--color-text-secondary);
   text-decoration: none;
   padding: 10px;
   margin: 5px 0;
@@ -201,13 +208,13 @@ body {
 }
 
 .nav-menu a:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--overlay-white-medium);
   text-decoration: none;
 }
 
 .nav-menu a.router-link-active {
-  background: rgba(255, 255, 255, 0.15);
-  color: white;
+  background: var(--overlay-white-heavy);
+  color: var(--color-text-primary);
 }
 
 /* Responsive Design */

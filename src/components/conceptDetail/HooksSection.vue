@@ -219,19 +219,19 @@ watch(() => props.editable, (val) => {
 .drag-handle {
   cursor: move;
   font-size: 1.2em;
-  color: #777;
+  color: var(--color-text-muted);
   margin-right: 8px;
   user-select: none;
 }
 
 .drag-handle:hover {
-  color: #aaa;
+  color: var(--color-gray-light);
 }
 
 .ghost-hook {
   opacity: 0.5;
-  background: #2a2a2a !important;
-  border: 2px dashed #555 !important;
+  background: var(--color-bg-secondary) !important;
+  border: 2px dashed var(--color-gray-medium) !important;
 }
 
 .hook-header {

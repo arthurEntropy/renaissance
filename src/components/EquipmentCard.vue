@@ -192,23 +192,11 @@ export default {
 </script>
 
 <style scoped>
-/* Content Wrapper */
 .content-wrapper {
   display: flex;
   gap: 10px;
   align-items: flex-start;
   padding-top: 10px;
-}
-
-/* Description & Images */
-.description-background {
-  background-color: rgba(0, 0, 0, 0.75);
-  padding: 10px;
-  border-radius: 5px;
-  text-align: left;
-  flex: 1;
-  margin: 0;
-  font-size: 14px;
 }
 
 .art-and-sol {
@@ -257,7 +245,7 @@ export default {
 }
 
 .dice-section-background {
-  background-color: rgba(0, 0, 0, 0.75);
+  background-color: var(--overlay-black-medium);
   padding: 3px 0 3px 0;
   border-radius: 5px;
   text-align: center;
@@ -308,7 +296,7 @@ export default {
 }
 
 .engagement-success-pill {
-  background-color: rgba(0, 0, 0, 0.75);
+  background-color: var(--overlay-black-medium);
   color: white;
   padding: 5px 10px;
   border-radius: 15px;
@@ -318,7 +306,7 @@ export default {
 }
 
 .engagement-success-pill:hover {
-  background-color: rgba(64, 64, 64, 0.4);
+  background-color: var(--overlay-white-medium);
 }
 
 .content-sections {
@@ -332,13 +320,13 @@ export default {
 .success-tooltip {
   position: fixed;
   z-index: 1000;
-  background: rgba(30, 30, 30, 0.97);
+  background: var(--overlay-black-heavy);
   color: #fff;
   padding: 14px;
   border-radius: 8px;
   font-size: 12px;
   pointer-events: none;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 2px 12px var(--overlay-black-medium);
   max-width: 260px;
   white-space: pre-line;
 }

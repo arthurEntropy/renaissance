@@ -229,7 +229,7 @@ watch(() => props.editable, (val) => {
 /* Component-specific styles */
 .helper-text {
   font-size: 0.9rem;
-  color: #aaa;
+  color: var(--color-gray-light);
   margin-bottom: 10px;
 }
 
@@ -240,9 +240,9 @@ watch(() => props.editable, (val) => {
 }
 
 .playlist-toggle-btn {
-  background: rgba(0, 0, 0, 0.5);
-  border: 1px solid #555;
-  color: #aaa;
+  background: var(--overlay-black-medium);
+  border: 1px solid var(--color-gray-medium);
+  color: var(--color-gray-light);
   padding: 8px 16px;
   border-radius: 4px;
   cursor: pointer;
@@ -250,9 +250,9 @@ watch(() => props.editable, (val) => {
 }
 
 .playlist-toggle-btn.active {
-  background: rgba(0, 0, 0, 0.8);
-  border-color: #ffd700;
-  color: white;
+  background: var(--overlay-black-medium);
+  border-color: var(--color-accent-gold);
+  color: var(--color-text-primary);
 }
 
 .playlist-container {
@@ -263,16 +263,16 @@ watch(() => props.editable, (val) => {
 
 .playlist-embed {
   width: 100%;
-  background: rgba(0, 0, 0, 0.2);
+  background: var(--overlay-white-subtle);
   border-radius: 8px;
 }
 
 .no-playlists {
   padding: 15px;
-  background: rgba(0, 0, 0, 0.2);
+  background: var(--overlay-white-subtle);
   border-radius: 8px;
   text-align: center;
-  color: #aaa;
+  color: var(--color-gray-light);
 }
 
 /* URL containers and items */
@@ -288,7 +288,7 @@ watch(() => props.editable, (val) => {
   flex-direction: column;
   gap: 8px;
   padding: 12px;
-  background: rgba(0, 0, 0, 0.2);
+  background: var(--overlay-white-subtle);
   border-radius: 4px;
 }
 
@@ -305,9 +305,9 @@ watch(() => props.editable, (val) => {
 
 .service-select {
   padding: 5px;
-  background: rgba(0, 0, 0, 0.3);
-  border: 1px solid #555;
-  color: lightgray;
+  background: var(--overlay-white-medium);
+  border: 1px solid var(--color-gray-medium);
+  color: var(--color-text-secondary);
   border-radius: 4px;
 }
 

@@ -20,7 +20,7 @@ const safeContent = computed(() => sanitizeHtml(props.content))
 
 <style scoped>
 .info-card {
-  background: rgba(0, 0, 0, 0.85);
+  background: var(--overlay-black-medium);
   border-radius: 8px;
   padding: 12px 16px;
   margin-bottom: 12px;
@@ -30,15 +30,15 @@ const safeContent = computed(() => sanitizeHtml(props.content))
 
 .info-card-title {
   font-weight: bold;
-  color: #ffd700;
+  color: var(--color-accent-gold);
   font-size: 1.2rem;
   margin-bottom: 8px;
-  border-bottom: 1px solid rgba(255, 215, 0, 0.3);
+  border-bottom: 1px solid var(--color-accent-gold);
   padding-bottom: 4px;
 }
 
 .info-card-content {
-  color: #e0e0e0;
+  color: var(--color-text-primary);
   white-space: pre-line;
   line-height: 1.4;
 }

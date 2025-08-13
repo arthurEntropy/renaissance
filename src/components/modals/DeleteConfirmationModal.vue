@@ -45,13 +45,13 @@ function confirmDeletion() {
   padding: 10px;
   margin: 10px 0;
   font-size: 16px;
-  background: black;
-  color: white;
+  background: var(--overlay-black-heavy);
+  color: var(--color-text-primary);
 }
 
 .button:disabled {
-  background: black;
-  color: darkgray;
+  background: var(--overlay-black-heavy);
+  color: var(--color-text-muted);
   cursor: not-allowed;
 }
 </style>

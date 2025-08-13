@@ -83,11 +83,11 @@ function getCaretClasses(comparison) {
     align-items: center;
     justify-content: space-between;
     width: 80px;
-    background-color: #000000;
-    border: 2px solid #666;
+    background-color: var(--color-black);
+    border: 2px solid var(--color-gray-light);
     border-radius: 15px;
     padding: 3px 15px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 2px 8px var(--overlay-white-medium);
     height: 28px;
     left: -7px;
     margin-top: 7px;
@@ -95,31 +95,31 @@ function getCaretClasses(comparison) {
 
 .comparison-indicator.user-wins-pair,
 .comparison-indicator.opponent-wins-pair {
-    border: 2px solid #4caf50;
-    box-shadow: 0 0 10px rgba(76, 175, 80, 0.4);
+    border: 2px solid var(--color-success);
+    box-shadow: 0 0 10px var(--color-success);
 }
 
 .comparison-indicator.user-loses-pair,
 .comparison-indicator.opponent-loses-pair {
-    border: 2px solid #f44336;
-    box-shadow: 0 0 10px rgba(244, 67, 54, 0.4);
+    border: 2px solid var(--color-danger);
+    box-shadow: 0 0 10px var(--color-danger);
 }
 
 .comparison-indicator.tie-pair {
-    border: 2px solid #ffeb3b;
-    box-shadow: 0 0 10px rgba(255, 235, 59, 0.4);
+    border: 2px solid var(--color-warning);
+    box-shadow: 0 0 10px var(--color-warning);
 }
 
 .indicator-circle {
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    border: 1px solid #ffffff;
+    border: 1px solid var(--color-white);
 }
 
 .indicator-circle.winner {
-    background-color: #4caf50;
-    box-shadow: 0 0 12px rgba(76, 175, 80, 0.9);
+    background-color: var(--color-white);
+    box-shadow: 0 0 12px var(--color-white);
     animation: pulse-win 1.5s infinite;
 }
 
@@ -130,7 +130,7 @@ function getCaretClasses(comparison) {
 
 .indicator-caret {
     padding: 0px 5px;
-    color: #ffffff;
+    color: var(--color-text-primary);
     font-size: 14px;
     font-weight: bold;
     display: flex;
@@ -148,33 +148,33 @@ function getCaretClasses(comparison) {
 
 .indicator-caret.clickable:hover {
     transform: scale(1.2);
-    text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+    text-shadow: 0 0 5px var(--color-text-primary);
 }
 
 .indicator-caret.tie {
-    color: #ffeb3b;
-    text-shadow: 0 0 5px rgba(255, 235, 59, 0.8);
+    color: var(--color-warning);
+    text-shadow: 0 0 5px var(--color-warning);
 }
 
 .indicator-caret.left-wins {
-    color: #ffffff;
+    color: var(--color-text-primary);
 }
 
 .indicator-caret.right-wins {
-    color: #ffffff;
+    color: var(--color-text-primary);
 }
 
 @keyframes pulse-win {
     0% {
-        box-shadow: 0 0 5px rgba(76, 175, 80, 0.7);
+        box-shadow: 0 0 5px var(--color-success);
     }
 
     50% {
-        box-shadow: 0 0 15px rgba(76, 175, 80, 1);
+        box-shadow: 0 0 15px var(--color-success);
     }
 
     100% {
-        box-shadow: 0 0 5px rgba(76, 175, 80, 0.7);
+        box-shadow: 0 0 5px var(--color-success);
     }
 }
 </style>

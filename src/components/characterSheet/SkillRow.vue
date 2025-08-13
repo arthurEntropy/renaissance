@@ -52,11 +52,11 @@ defineEmits(['open-skill-check', 'dice-click'])
     width: 100%;
     margin: 5px 0;
     height: 25px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    border-bottom: 1px solid var(--color-gray-dark);
 }
 
 .skill-name-clickable {
-    color: rgb(212, 182, 106);
+    color: var(--color-accent-gold);
     text-align: left;
     flex: 1;
     max-width: 85px;
@@ -65,8 +65,8 @@ defineEmits(['open-skill-check', 'dice-click'])
 }
 
 .skill-name-clickable:hover {
-    color: white;
-    text-shadow: 0px 0px 5px goldenrod;
+    color: var(--color-white);
+    text-shadow: 0px 0px 5px var(--color-accent-gold);
 }
 
 .dice-icon {
@@ -85,12 +85,12 @@ defineEmits(['open-skill-check', 'dice-click'])
 
 /* Conditional styles */
 .favored {
-    color: lightgreen;
-    text-shadow: 0px 0px 5px lightgreen;
+    color: var(--color-success);
+    text-shadow: 0px 0px 5px var(--color-success);
 }
 
 .ill-favored {
-    color: red;
-    text-shadow: 0px 0px 5px red;
+    color: var(--color-danger);
+    text-shadow: 0px 0px 5px var(--color-danger);
 }
 </style>

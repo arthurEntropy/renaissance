@@ -333,36 +333,36 @@ onBeforeUnmount(() => {
 .search-input {
   flex: 2;
   padding: 8px 12px;
-  border: 1px solid #555;
+  border: 1px solid var(--color-gray-medium);
   border-radius: 4px;
-  background-color: rgba(0, 0, 0, 0.65);
+  background-color: var(--overlay-black-medium);
   font-size: 16px;
 }
 
 .expansion-filter {
   flex: 1;
   padding: 8px 12px;
-  border: 1px solid #555;
+  border: 1px solid var(--color-gray-medium);
   border-radius: 4px;
-  background-color: rgba(0, 0, 0, 0.65);
+  background-color: var(--overlay-black-medium);
   font-size: 16px;
   color: white;
 }
 
 .expansion-filter option {
-  background-color: rgba(0, 0, 0, 0.85);
+  background-color: var(--overlay-black-heavy);
   padding: 8px;
 }
 
 .search-input::placeholder {
-  color: #888;
+  color: var(--color-gray-light);
 }
 
 .search-input:focus,
 .expansion-filter:focus {
   outline: none;
-  border-color: #888;
-  box-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+  border-color: var(--color-gray-light);
+  box-shadow: 0 0 5px var(--overlay-white-subtle);
 }
 
 .concepts-container {
@@ -375,8 +375,8 @@ onBeforeUnmount(() => {
 .add-concept-card {
   width: 250px;
   height: 270px;
-  background: rgba(0, 0, 0, 0.4);
-  border: 2px dashed rgba(255, 255, 255, 0.3);
+  background: var(--overlay-white-medium);
+  border: 2px dashed var(--overlay-white-subtle);
   border-radius: 10px;
   display: flex;
   flex-direction: column;
@@ -388,19 +388,19 @@ onBeforeUnmount(() => {
 }
 
 .add-concept-card:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.5);
+  background: var(--overlay-white-subtle);
+  border-color: var(--overlay-white-medium);
 }
 
 .add-icon {
   font-size: 3rem;
   font-weight: 300;
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--color-gray-light);
   margin-bottom: 10px;
 }
 
 .add-text {
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--color-gray-light);
   font-size: 1rem;
 }
 
@@ -422,7 +422,7 @@ onBeforeUnmount(() => {
   top: 50%;
   padding-bottom: 7px;
   transform: translateY(-50%);
-  background: rgba(20, 20, 20, 0.6);
+  background: var(--overlay-black-medium);
   color: white;
   border: none;
   border-radius: 50%;
@@ -435,12 +435,12 @@ onBeforeUnmount(() => {
   cursor: pointer;
   z-index: 1100;
   transition: all 0.2s ease;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 15px var(--overlay-black-heavy);
 }
 
 .navigate-button:hover:not(:disabled) {
-  background: rgba(255, 255, 255, 0.25);
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+  background: var(--overlay-white-medium);
+  box-shadow: 0 0 20px var(--overlay-white-subtle);
 }
 
 .navigate-button:disabled {

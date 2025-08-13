@@ -174,7 +174,7 @@ export default {
   bottom: -4px;
   background: none;
   border: none;
-  color: lightgray;
+  color: var(--color-gray-light);
   font-size: 16px;
   cursor: pointer;
   padding: 2px;
@@ -182,7 +182,7 @@ export default {
 }
 
 .bottom-buttons:hover {
-  text-shadow: 0px 0px 5px white;
+  text-shadow: 0px 0px 5px var(--color-white);
 }
 
 .toggle-active-button {
@@ -197,8 +197,8 @@ export default {
   left: 50%;
   transform: translateX(-50%);
   bottom: -10px;
-  background: goldenrod;
-  color: black;
+  background: var(--color-primary);
+  color: var(--color-black);
   font-size: 11px;
   font-family: inherit;
   font-weight: bold;
@@ -216,7 +216,7 @@ export default {
 }
 
 .improvements-toggle-button:hover {
-  background: gold;
+  background: var(--color-accent-gold);
 }
 
 .improvements-pile {
@@ -237,7 +237,7 @@ export default {
 }
 
 .improvement-title {
-  text-shadow: 0 1px 2px #000;
+  text-shadow: 0 1px 2px var(--color-black);
   font-size: 15px;
   font-weight: bold;
   margin-bottom: 5px;

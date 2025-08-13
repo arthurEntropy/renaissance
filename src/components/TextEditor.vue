@@ -241,10 +241,10 @@ export default {
 }
 
 .rich-editor-wrapper {
-  border: 1px solid #444;
+  border: 1px solid var(--color-gray-medium);
   border-radius: 4px;
   overflow: hidden;
-  background-color: #111;
+  background-color: var(--color-bg-secondary);
   text-align: left;
   display: flex;
   flex-direction: column;
@@ -261,18 +261,18 @@ export default {
   padding: 4px;
   display: flex;
   flex-wrap: wrap;
-  border-bottom: 1px solid #444;
+  border-bottom: 1px solid var(--color-gray-medium);
   gap: 4px;
-  background: #222;
+  background: var(--color-gray-dark);
   position: sticky;
   top: 0;
   z-index: 10;
 }
 
 .rich-editor-toolbar button {
-  background: #333;
+  background: var(--color-gray-medium);
   border: none;
-  color: #eee;
+  color: var(--color-white);
   padding: 2px 4px;
   border-radius: 3px;
   cursor: pointer;
@@ -283,8 +283,8 @@ export default {
 }
 
 .rich-editor-toolbar button.is-active {
-  background: #555;
-  color: white;
+  background: var(--color-gray-light);
+  color: var(--color-white);
 }
 
 .rich-editor-toolbar button:disabled {
@@ -295,7 +295,7 @@ export default {
 .editor-loading {
   padding: 20px;
   text-align: center;
-  color: #777;
+  color: var(--color-gray-light);
 }
 
 :deep(.ProseMirror) {
@@ -317,21 +317,21 @@ export default {
 }
 
 :deep(.ProseMirror a) {
-  color: #58a6ff;
+  color: var(--color-primary);
   text-decoration: underline;
 }
 
 :deep(.ProseMirror h2) {
   font-size: 36px;
   margin: 1.5em 0 0 0;
-  color: goldenrod;
+  color: var(--color-accent-gold);
   font-weight: normal;
 }
 
 :deep(.ProseMirror h3) {
   margin: 1.5em 0 0 0;
   font-size: 24px;
-  color: lightseagreen;
+  color: var(--color-accent-gold);
 }
 
 :deep(.ProseMirror p) {

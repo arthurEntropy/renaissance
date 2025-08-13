@@ -37,7 +37,7 @@
         </optgroup>
       </select>
       <slot name="additional-filters"></slot>
-      <ActionButton variant="primary" size="small" text="Create New" @click="createItem" />
+      <ActionButton variant="primary" size="large" text="+ Add" @click="createItem" />
     </div>
 
     <!-- Item Cards-->
@@ -163,9 +163,9 @@ function createItem() {
 .search-input {
   flex: 2;
   padding: 8px 12px;
-  border: 1px solid #555;
+  border: 1px solid var(--color-gray-medium);
   border-radius: 4px;
-  background-color: rgba(0, 0, 0, 0.65);
+  background-color: var(--overlay-black-medium);
   font-size: 16px;
 }
 
@@ -173,9 +173,9 @@ function createItem() {
 .sort-filter {
   flex: 1;
   padding: 8px 12px;
-  border: 1px solid #555;
+  border: 1px solid var(--color-gray-medium);
   border-radius: 4px;
-  background-color: rgba(0, 0, 0, 0.65);
+  background-color: var(--overlay-black-medium);
   font-size: 16px;
   color: white;
 }
@@ -187,20 +187,20 @@ function createItem() {
 
 .source-filter option,
 .sort-filter option {
-  background-color: rgba(0, 0, 0, 0.85);
+  background-color: var(--overlay-black-heavy);
   padding: 8px;
 }
 
 .search-input::placeholder {
-  color: #888;
+  color: var(--color-gray-light);
 }
 
 .search-input:focus,
 .source-filter:focus,
 .sort-filter:focus {
   outline: none;
-  border-color: #888;
-  box-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+  border-color: var(--color-gray-light);
+  box-shadow: 0 0 5px var(--overlay-white-subtle);
 }
 
 .cards-container {

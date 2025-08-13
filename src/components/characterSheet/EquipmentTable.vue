@@ -418,7 +418,7 @@ h2 {
   display: flex;
   flex-direction: column;
   align-items: left;
-  background-color: black;
+  background-color: var(--overlay-black-heavy);
   padding: 15px;
   border-radius: 5px;
   position: relative;
@@ -445,20 +445,6 @@ h2 {
   position: relative;
 }
 
-/* Edit Mode Button */
-.edit-mode-button {
-  background: none;
-  border: none;
-  color: #aaa;
-  font-size: 16px;
-  cursor: pointer;
-  transition: color 0.2s;
-}
-
-.edit-mode-button:hover {
-  color: white;
-}
-
 /* Hide old add-item-footer and add-item-text */
 .add-item-footer,
 .add-item-text {
@@ -475,11 +461,11 @@ h2 {
   width: 24px;
   height: 24px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #444 60%, #222 100%);
-  color: #fff;
+  background: linear-gradient(135deg, var(--color-gray-medium) 60%, var(--color-gray-dark) 100%);
+  color: var(--color-text-primary);
   font-size: 1.1rem;
   border: none;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 2px 8px var(--overlay-black-medium);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -489,8 +475,8 @@ h2 {
 }
 
 .add-equipment-fab:hover {
-  background: linear-gradient(135deg, #666 60%, #333 100%);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+  background: linear-gradient(135deg, var(--color-gray-light) 60%, var(--color-gray-medium) 100%);
+  box-shadow: 0 4px 16px var(--overlay-white-medium);
 }
 
 /* Equipment row styles */
@@ -538,7 +524,7 @@ h2 {
   justify-content: space-between;
   align-items: center;
   padding: 4px 8px;
-  background-color: rgba(60, 60, 60, 0.4);
+  background-color: var(--overlay-white-medium);
   border-radius: 0 0 5px 5px;
   width: 100%;
   /* Ensure it matches the card width */
@@ -596,22 +582,22 @@ h2 {
   width: 22px;
   height: 22px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #222 60%, #444 100%);
-  color: #ff6b6b;
+  background: linear-gradient(135deg, var(--color-gray-dark) 60%, var(--color-gray-medium) 100%);
+  color: var(--color-danger);
   border: none;
   font-size: 1rem;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 1px 4px var(--overlay-white-subtle);
   transition: background 0.2s, color 0.2s;
   padding: 0;
 }
 
 .fab-delete:hover {
-  background: linear-gradient(135deg, #222 60%, #444 100%);
-  color: #fff;
+  background: linear-gradient(135deg, var(--color-gray-dark) 60%, var(--color-gray-medium) 100%);
+  color: var(--color-text-primary);
 }
 
 /* Drag handle button style */
@@ -619,26 +605,26 @@ h2 {
   width: 22px;
   height: 22px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #222 60%, #444 100%);
-  color: #aaa;
+  background: linear-gradient(135deg, var(--color-gray-dark) 60%, var(--color-gray-medium) 100%);
+  color: var(--color-gray-light);
   font-size: 1.1rem;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: move;
   user-select: none;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 1px 4px var(--overlay-white-subtle);
   transition: background 0.2s, color 0.2s;
 }
 
 .fab-drag:hover {
   /* Keep background unchanged on hover */
-  background: linear-gradient(135deg, #222 60%, #444 100%);
-  color: #222;
+  background: linear-gradient(135deg, var(--color-gray-dark) 60%, var(--color-gray-medium) 100%);
+  color: var(--color-gray-dark);
 }
 
 .missing-equipment {
-  color: #888;
+  color: var(--color-text-muted);
   font-style: italic;
   padding: 10px;
 }
@@ -656,7 +642,7 @@ h2 {
 }
 
 .disabled-text {
-  color: #777;
+  color: var(--color-text-muted);
 }
 
 .carried-weight {
@@ -677,9 +663,9 @@ h2 {
   position: absolute;
   bottom: 30px;
   right: 0;
-  background-color: rgba(30, 30, 30, 0.95);
+  background-color: var(--overlay-black-medium);
   border-radius: 8px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 4px 20px var(--overlay-black-medium);
   z-index: 100;
   width: 200px;
   overflow: hidden;
@@ -691,7 +677,7 @@ h2 {
   transition: background-color 0.2s;
   display: flex;
   align-items: center;
-  color: #eee;
+  color: var(--color-text-secondary);
 }
 
 .add-option i {
@@ -701,7 +687,7 @@ h2 {
 }
 
 .add-option:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: var(--overlay-white-subtle);
 }
 
 /* Equipment Selector Styles */
@@ -712,9 +698,9 @@ h2 {
   width: 80%;
   max-width: 500px;
   max-height: 80vh;
-  background-color: rgba(30, 30, 30, 0.95);
+  background-color: var(--overlay-black-medium);
   border-radius: 8px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 4px 20px var(--overlay-black-medium);
   z-index: 100;
   display: flex;
   flex-direction: column;
@@ -725,16 +711,16 @@ h2 {
   justify-content: space-between;
   align-items: center;
   padding: 15px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid var(--overlay-white-subtle);
 }
 
 .equipment-search {
   flex: 1;
   padding: 8px 12px;
-  border: 1px solid #555;
+  border: 1px solid var(--color-gray-medium);
   border-radius: 4px;
-  background-color: rgba(0, 0, 0, 0.3);
-  color: white;
+  background-color: var(--overlay-white-medium);
+  color: var(--color-text-primary);
   font-size: 16px;
 }
 
@@ -742,11 +728,11 @@ h2 {
   font-size: 24px;
   margin-left: 15px;
   cursor: pointer;
-  color: #aaa;
+  color: var(--color-gray-light);
 }
 
 .close-selector:hover {
-  color: white;
+  color: var(--color-text-primary);
 }
 
 .equipment-options-container {
@@ -761,9 +747,9 @@ h2 {
 
 .source-header {
   font-weight: bold;
-  color: #aaa;
+  color: var(--color-gray-light);
   padding: 5px 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid var(--overlay-white-subtle);
   margin-bottom: 8px;
 }
 
@@ -775,11 +761,11 @@ h2 {
 }
 
 .equipment-option:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: var(--overlay-white-subtle);
 }
 
 .equipment-weight {
-  color: #aaa;
+  color: var(--color-gray-light);
   font-size: 0.9em;
   margin-left: 5px;
 }
@@ -787,7 +773,7 @@ h2 {
 .total-weight-container {
   display: flex;
   align-items: center;
-  background-color: rgb(61, 61, 61);
+  background-color: var(--color-gray-dark);
   padding: 5px 10px;
   border-radius: 5px;
   width: auto;

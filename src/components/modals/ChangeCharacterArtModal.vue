@@ -65,14 +65,14 @@ export default {
   padding: 10px;
   margin: 10px 0;
   font-size: 16px;
-  color: lightgray;
-  background: black;
-  border: 1px solid gray;
+  color: var(--color-text-secondary);
+  background: var(--overlay-black-heavy);
+  border: 1px solid var(--color-gray-medium);
   border-radius: 5px;
 }
 
 button:disabled {
-  background-color: gray;
+  background-color: var(--color-gray-medium);
   cursor: not-allowed;
 }
 </style>

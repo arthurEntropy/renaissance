@@ -1,6 +1,6 @@
 <template>
-  <div ref="cardElement" class="base-card edit-hover-area" :style="cardStyle"
-    @click="collapsible ? toggleCollapsed() : null">
+  <div ref="cardElement" class="base-card edit-hover-area" :class="{ collapsed: isCollapsed, collapsible: collapsible }"
+    :style="cardStyle" @click="collapsible ? toggleCollapsed() : null">
     <!-- Floating Edit Button -->
     <EditButton v-if="editable" @click.stop="$emit('edit', item)" :title="`Edit ${itemType}`" size="small"
       visibility="on-hover" class="edit-button-floating" />
@@ -89,7 +89,7 @@ const cardStyle = computed(() => {
   }
 
   // Fallback
-  return { background: 'rgba(0, 0, 0, 0.65)' }
+  return { background: 'rgba(0, 0, 0, 0.85)' }
 })
 
 // Methods
@@ -151,7 +151,7 @@ onMounted(() => {
 
 <style scoped>
 .base-card {
-  border: 1px solid #555;
+  border: 1px solid var(--color-gray-medium);
   border-radius: 8px;
   padding: 10px;
   margin-top: 5px;
@@ -173,7 +173,7 @@ onMounted(() => {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.3);
+  background: var(--overlay-black-medium);
   z-index: 1;
   pointer-events: none;
 }
@@ -187,6 +187,15 @@ onMounted(() => {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.base-card.collapsed .card-header {
+  margin-bottom: 0;
+}
+
+.base-card.collapsible {
+  cursor: pointer;
 }
 
 .caret {
@@ -195,10 +204,10 @@ onMounted(() => {
   height: 20px;
   width: 20px;
   text-shadow:
-    -1px -1px 0 #000,
-    1px -1px 0 #000,
-    -1px 1px 0 #000,
-    1px 1px 0 #000;
+    -1px -1px 0 var(--color-black),
+    1px -1px 0 var(--color-black),
+    -1px 1px 0 var(--color-black),
+    1px 1px 0 var(--color-black);
 }
 
 .name-container {
@@ -212,29 +221,29 @@ onMounted(() => {
 .item-name {
   font-size: 16px;
   text-shadow:
-    -1px -1px 0 #000,
-    1px -1px 0 #000,
-    -1px 1px 0 #000,
-    1px 1px 0 #000;
+    -1px -1px 0 var(--color-black),
+    1px -1px 0 var(--color-black),
+    -1px 1px 0 var(--color-black),
+    1px 1px 0 var(--color-black);
   word-wrap: break-word;
 }
 
 .source-name {
   font-size: 0.7em;
   font-style: italic;
-  color: lightgray;
+  color: var(--color-gray-light);
   margin-left: 6px;
   vertical-align: middle;
 }
 
 .item-info {
   font-size: 13px;
-  color: #fff;
+  color: var(--color-white);
   text-shadow:
-    -1px -1px 0 #000,
-    1px -1px 0 #000,
-    -1px 1px 0 #000,
-    1px 1px 0 #000;
+    -1px -1px 0 var(--color-black),
+    1px -1px 0 var(--color-black),
+    -1px 1px 0 var(--color-black),
+    1px 1px 0 var(--color-black);
   font-weight: 500;
   letter-spacing: 0.01em;
   margin-left: 8px;

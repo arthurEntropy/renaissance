@@ -28,13 +28,13 @@ defineProps({
 .success-tooltip {
     position: fixed;
     z-index: 1000;
-    background: rgba(30, 30, 30, 0.97);
-    color: #fff;
+    background: var(--overlay-black-medium);
+    color: var(--color-text-primary);
     padding: 14px;
     border-radius: 8px;
     font-size: 12px;
     pointer-events: none;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 2px 12px var(--overlay-black-medium);
     max-width: 260px;
     white-space: pre-line;
     text-align: left;
@@ -45,7 +45,7 @@ defineProps({
 }
 
 .tooltip-source {
-    color: #aaa;
+    color: var(--color-gray-light);
     font-size: 10px;
     font-style: italic;
 }

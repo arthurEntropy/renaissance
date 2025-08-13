@@ -24,7 +24,7 @@ export default {
 .main-title {
   font-family: 'My Soul', cursive;
   font-size: 15vw;
-  color: goldenrod;
-  text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5);
+  color: var(--color-primary);
+  text-shadow: 4px 4px 8px var(--overlay-black-medium);
 }
 </style>

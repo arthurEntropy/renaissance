@@ -11,10 +11,8 @@
       <img :src="images[selectedIndex]" :alt="`Image ${selectedIndex + 1}`" class="enlarged-image" />
 
       <!-- Edit button -->
-      <button v-if="editable" class="edit-button edit-btn edit-btn--filled edit-btn--small edit-btn--on-hover"
-        @click.stop="openEditModal" aria-label="Edit image">
-        ✎
-      </button>
+      <EditButton v-if="editable" size="small" visibility="on-hover" class="edit-button-overlay"
+        @click.stop="openEditModal" />
 
       <button v-if="showNav && images.length > 1" class="nav-button right" @click.stop="nextImage"
         aria-label="Next image">
@@ -319,8 +317,8 @@ watch(() => props.images, (newImages) => {
   width: 100%;
   object-fit: contain;
   border-radius: 12px;
-  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.45);
-  background: #111;
+  box-shadow: 0 4px 32px var(--overlay-black-medium);
+  background: var(--color-bg-tertiary);
   display: block;
   margin: 0 auto;
 }
@@ -329,9 +327,9 @@ watch(() => props.images, (newImages) => {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: rgba(0, 0, 0, 0.5);
+  background: var(--overlay-black-medium);
   border: none;
-  color: white;
+  color: var(--color-text-primary);
   font-size: 24px;
   padding: 5px 10px;
   cursor: pointer;
@@ -354,48 +352,12 @@ watch(() => props.images, (newImages) => {
   height: 50px;
 }
 
-/* Edit button styling */
-.edit-button {
+/* Edit button overlay styling */
+.edit-button-overlay {
   position: absolute;
   top: 10px;
   right: 10px;
-  background: rgba(0, 0, 0, 0.6);
-  border: 1px solid rgba(0, 0, 0, 0.6);
-  color: var(--color-white);
-  font-size: var(--font-size-small);
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: var(--transition-standard);
   z-index: 2;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: var(--font-weight-medium);
-}
-
-.edit-button:hover {
-  background: rgba(0, 0, 0, 0.8);
-  border-color: rgba(0, 0, 0, 0.8);
-}
-
-.edit-btn--small {
-  width: 28px;
-  height: 28px;
-  font-size: var(--font-size-xs);
-}
-
-.edit-btn--on-hover {
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity var(--transition-duration-fast) ease,
-    visibility var(--transition-duration-fast) ease;
-}
-
-.edit-hover-area:hover .edit-btn--on-hover {
-  opacity: 1;
-  visibility: visible;
 }
 
 /* Edit modal styling */
@@ -405,7 +367,7 @@ watch(() => props.images, (newImages) => {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.8);
+  background: var(--overlay-black-medium);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -414,12 +376,12 @@ watch(() => props.images, (newImages) => {
 }
 
 .edit-modal-content {
-  background: #222;
+  background: var(--color-bg-secondary);
   padding: 20px;
   border-radius: 8px;
   width: 80%;
   max-width: 500px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 4px 20px var(--overlay-black-medium);
 }
 
 .edit-modal-content h3 {
@@ -431,10 +393,10 @@ watch(() => props.images, (newImages) => {
   width: 100%;
   padding: 8px 12px;
   margin-bottom: 15px;
-  background: #333;
-  border: 1px solid #555;
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-gray-medium);
   border-radius: 4px;
-  color: white;
+  color: var(--color-text-primary);
   font-size: 16px;
 }
 
@@ -474,8 +436,8 @@ watch(() => props.images, (newImages) => {
   top: 5px;
   left: 5px;
   font-size: 16px;
-  color: white;
-  background: rgba(0, 0, 0, 0.6);
+  color: var(--color-text-primary);
+  background: var(--overlay-white-medium);
   border-radius: 4px;
   padding: 2px;
   cursor: grab;
@@ -490,8 +452,8 @@ watch(() => props.images, (newImages) => {
 
 .ghost-thumb {
   opacity: 0.5;
-  background: rgba(255, 255, 255, 0.1);
-  border: 2px dashed #777;
+  background: var(--overlay-white-subtle);
+  border: 2px dashed var(--color-gray-medium);
 }
 
 .thumb-image {
@@ -499,13 +461,13 @@ watch(() => props.images, (newImages) => {
   aspect-ratio: 1/1;
   object-fit: cover;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
-  background: #222;
+  box-shadow: 0 2px 8px var(--overlay-black-medium);
+  background: var(--color-bg-secondary);
   transition: box-shadow 0.2s;
 }
 
 .thumb-wrapper:hover .thumb-image {
-  box-shadow: 0 2px 16px white;
+  box-shadow: 0 2px 16px var(--color-white);
 }
 
 .thumb-selected-overlay {
@@ -514,9 +476,9 @@ watch(() => props.images, (newImages) => {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.3);
+  background: var(--overlay-white-medium);
   border-radius: 8px;
-  border: 2px solid white;
+  border: 2px solid var(--color-gray-medium);
   pointer-events: none;
 }
 
@@ -531,7 +493,7 @@ watch(() => props.images, (newImages) => {
 .add-image-placeholder {
   width: 100%;
   aspect-ratio: 1/1;
-  border: 2px dashed #555;
+  border: 2px dashed var(--color-gray-medium);
   border-radius: 8px;
   display: flex;
   align-items: center;
@@ -540,13 +502,13 @@ watch(() => props.images, (newImages) => {
 }
 
 .add-image-thumb:hover .add-image-placeholder {
-  background-color: rgba(255, 255, 255, 0.1);
-  border-color: #888;
+  background-color: var(--overlay-white-subtle);
+  border-color: var(--color-gray-medium);
 }
 
 .add-icon {
   font-size: 30px;
-  color: #888;
+  color: var(--color-gray-medium);
 }
 
 /* Responsive design */
@@ -569,15 +531,15 @@ watch(() => props.images, (newImages) => {
 }
 
 :deep(.modal-input) {
-  background: #333;
-  color: white;
-  border: 1px solid #555;
+  background: var(--color-bg-secondary);
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-gray-medium);
   border-radius: 4px;
 }
 
 /* Centered modal title */
 :deep(.modal-content h3) {
-  color: white;
+  color: var(--color-text-primary);
   margin-bottom: 15px;
   text-align: center;
 }
