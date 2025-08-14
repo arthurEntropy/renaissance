@@ -5,7 +5,7 @@
     <div v-if="isSectionEditing && editable" class="section-editor">
       <p class="helper-text">Paste embed codes from Spotify or Apple Music</p>
       <div class="url-container">
-        <div v-for="(playlist, idx) in localPlaylists" :key="'playlist-' + idx" class="edit-item">
+        <div v-for="(playlist, idx) in localPlaylists" :key="'playlist-' + idx" class="edit-item-light">
           <div class="playlist-service-selector">
             <select v-model="playlist.service" class="service-select">
               <option value="spotify">Spotify</option>
@@ -277,15 +277,6 @@ watch(() => props.editable, (val) => {
   flex-direction: column;
   gap: var(--space-md);
   margin-bottom: 10px;
-}
-
-.edit-item {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-sm);
-  padding: 12px;
-  background: var(--overlay-white-subtle);
-  border-radius: var(--radius-4);
 }
 
 .url-buttons {

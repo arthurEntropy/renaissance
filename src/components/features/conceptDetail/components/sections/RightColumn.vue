@@ -1,5 +1,5 @@
 <template>
-    <div class="concept-right-column">
+    <div class="concept-column-right">
         <!-- Title -->
         <ConceptTitle :concept="concept" :is-edit-mode="isEditMode" :expansion="expansion"
             @update:name="$emit('update:name', $event)" />
@@ -83,18 +83,5 @@ defineEmits([
 </script>
 
 <style scoped>
-.concept-right-column {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    min-width: 400px;
-    max-width: 710px;
-    gap: 1.5rem;
-}
-
-@media (max-width: var(--breakpoint-lg)) {
-    .concept-right-column {
-        max-width: 100%;
-    }
-}
+/* No component-specific styles needed - using shared concept-column-right */
 </style>

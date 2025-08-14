@@ -212,18 +212,6 @@ watch(() => props.editable, (val) => {
 
 <style scoped>
 /* Hook-specific styling */
-.drag-handle {
-  cursor: move;
-  font-size: var(--font-size-20);
-  color: var(--color-text-muted);
-  margin-right: 8px;
-  user-select: none;
-}
-
-.drag-handle:hover {
-  color: var(--color-gray-light);
-}
-
 .ghost-hook {
   opacity: 0.5;
   background: var(--color-bg-secondary) !important;

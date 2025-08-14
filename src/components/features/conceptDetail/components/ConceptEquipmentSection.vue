@@ -1,7 +1,7 @@
 <template>
     <ConceptSection title="Wares" :has-content="hasEquipment" :is-edit-mode="isEditMode"
         empty-message="No wares added yet.">
-        <MasonryGrid :column-width="350" :gap="10" :row-height="10" class="equipment-cards-container">
+        <MasonryGrid :column-width="350" :gap="10" :row-height="10" class="cards-container">
             <EquipmentCard v-for="item in equipment" :key="item.id" :equipment="item" :editable="isEditMode"
                 :sources="sources" @edit="$emit('edit-equipment', item)" :collapsible="false" :showSource="false" />
         </MasonryGrid>
@@ -37,8 +37,5 @@ const hasEquipment = computed(() => {
 </script>
 
 <style scoped>
-.equipment-cards-container {
-    width: 100%;
-    min-height: 50px;
-}
+/* No component-specific styles needed - using shared cards-container */
 </style>

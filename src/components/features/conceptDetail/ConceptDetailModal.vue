@@ -1,12 +1,12 @@
 <template>
-  <div class="modal-overlay concept-modal-overlay" @click.self="handleClose">
+  <div class="modal-overlay-base concept-modal-overlay" @click.self="handleClose">
     <!-- Admin Controls -->
     <ConceptHeader :editable="editable" :is-edit-mode="isEditMode" @toggle-edit-mode="handleToggleEditMode"
       @open-settings="openSettingsModal" />
 
-    <div class="modal-content">
+    <div class="modal-content-base modal-content">
       <!-- Desktop Layout: Left/Right Columns -->
-      <div v-if="isDesktop" class="concept-detail-content desktop-layout">
+      <div v-if="isDesktop" class="concept-layout-desktop">
         <!-- Left Column -->
         <LeftColumn :concept="localConcept" :is-edit-mode="isEditMode" @update:featured-art="updateFeaturedArt"
           @update:novizio="updateNovizio" @update:faces="updateFaces" @update:places="updatePlaces"
@@ -253,65 +253,13 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.8);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: var(--z-modal);
-  overflow-y: auto;
-  padding: 20px;
-}
-
-@media (max-width: var(--breakpoint-lg)) {
-  .modal-overlay {
-    align-items: flex-start;
-    padding: 10px;
-  }
-}
-
+/* Component-specific overrides */
 .concept-modal-overlay {
   background-color: rgba(0, 0, 0, 0.9);
 }
 
 .modal-content {
-  position: relative;
-  overflow-y: auto;
-  overflow-x: hidden;
-  max-height: 90vh;
-  border-radius: var(--radius-8);
-  box-shadow: var(--shadow-elevation-sm);
-  background: var(--color-bg-primary);
-  width: 100%;
   max-width: 1400px;
-}
-
-@media (max-width: var(--breakpoint-lg)) {
-  .modal-content {
-    max-height: 95vh;
-    border-radius: var(--radius-4);
-    margin-top: 10px;
-  }
-}
-
-.concept-detail-content.desktop-layout {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 40px;
-  padding: var(--space-xl);
-}
-
-@media (max-width: var(--breakpoint-lg)) {
-  .concept-detail-content.desktop-layout {
-    flex-direction: column;
-    gap: 18px;
-  }
 }
 
 /* Global styles */

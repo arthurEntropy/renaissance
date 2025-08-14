@@ -30,12 +30,29 @@
   padding: var(--space-sm);
 }
 
+/* Alternative edit item style for lighter backgrounds */
+.edit-item-light {
+  background: var(--overlay-white-subtle);
+  border: 1px solid var(--color-gray-medium);
+  border-radius: var(--radius-4);
+  margin-bottom: 10px;
+  padding: 12px;
+}
+
 /* Editor buttons container */
 .editor-buttons {
   display: flex;
   justify-content: space-between;
   gap: var(--space-md);
   margin-top: 10px;
+}
+
+.editor-buttons-start {
+  justify-content: flex-start;
+}
+
+.editor-buttons-end {
+  justify-content: flex-end;
 }
 
 /* GM Notes section styling */
@@ -77,7 +94,230 @@
   width: 100%;
 }
 
+/* === MODAL STYLES === */
+.modal-overlay-base {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: var(--z-modal);
+  overflow-y: auto;
+  padding: 20px;
+}
+
+.modal-overlay-dark {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.modal-overlay-darker {
+  background-color: rgba(0, 0, 0, 0.9);
+}
+
+.modal-content-base {
+  position: relative;
+  background: var(--color-bg-primary);
+  border-radius: var(--radius-8);
+  box-shadow: var(--shadow-elevation-sm);
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: 90vh;
+  width: 100%;
+}
+
+/* === EDIT BUTTON POSITIONING === */
+.edit-button-overlay {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  z-index: var(--z-modal);
+}
+
+.edit-button-overlay-large {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: var(--z-raised);
+}
+
+/* === CARD CONTAINER STYLES === */
+.cards-container {
+  width: 100%;
+  min-height: 50px;
+}
+
+/* === FORM INPUT STYLES === */
+.concept-input {
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-gray-medium);
+  border-radius: var(--radius-4);
+  color: var(--color-text-primary);
+  padding: var(--space-sm) 12px;
+  font-size: var(--font-size-16);
+}
+
+.concept-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+.concept-input-large {
+  font-size: var(--font-size-18);
+  padding: var(--space-md) 16px;
+}
+
+.concept-input-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  padding: 8px 12px;
+  border: 2px solid var(--color-primary);
+}
+
+/* === LAYOUT STYLES === */
+.concept-layout-desktop {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 40px;
+  padding: var(--space-xl);
+}
+
+.concept-layout-mobile {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: var(--space-lg);
+}
+
+.concept-column-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: left;
+  max-width: 500px;
+  text-align: left;
+}
+
+.concept-column-right {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 400px;
+  max-width: 710px;
+  gap: 1.5rem;
+}
+
+/* === DRAG AND DROP STYLES === */
+.drag-handle {
+  cursor: move;
+  font-size: var(--font-size-20);
+  color: var(--color-text-muted);
+  margin-right: 8px;
+  user-select: none;
+  transition: var(--transition-color);
+}
+
+.drag-handle:hover {
+  color: var(--color-gray-light);
+}
+
+.ghost-item {
+  opacity: 0.5;
+  background: var(--color-bg-secondary) !important;
+  border: 2px dashed var(--color-gray-medium) !important;
+}
+
+/* === CONTENT STYLING === */
+.content-container {
+  position: relative;
+}
+
+.content-editable {
+  cursor: pointer;
+  transition: var(--transition-color);
+}
+
+.content-editable:hover {
+  color: var(--color-primary);
+}
+
+/* === PLACEHOLDER STYLES === */
+.content-placeholder {
+  color: var(--color-text-muted);
+  font-style: italic;
+  margin: var(--space-sm) 0;
+}
+
+.helper-text {
+  font-size: var(--font-size-14);
+  color: var(--color-gray-light);
+  margin-bottom: 10px;
+}
+
+/* === BADGE AND CHIP STYLES === */
+.content-badge {
+  display: inline-block;
+  background: var(--color-bg-secondary);
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-gray-medium);
+  border-radius: var(--radius-12);
+  padding: 2px 10px;
+  font-size: var(--font-size-15);
+  line-height: var(--line-height-normal);
+}
+
+.expansion-badge {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-elevation-sm);
+  background: var(--color-bg-secondary);
+  object-fit: cover;
+  border: 2px solid var(--color-gray-light);
+}
+
+.expansion-badge-wrapper {
+  position: static;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 16px;
+  z-index: var(--z-floating);
+}
+
 /* Responsive design */
+@media (max-width: var(--breakpoint-lg)) {
+  .modal-overlay-base {
+    align-items: flex-start;
+    padding: 10px;
+  }
+  
+  .modal-content-base {
+    max-height: 95vh;
+    border-radius: var(--radius-4);
+    margin-top: 10px;
+  }
+
+  .concept-layout-desktop {
+    flex-direction: column;
+    gap: 18px;
+  }
+  
+  .concept-column-left,
+  .concept-column-right {
+    max-width: 100%;
+  }
+  
+  .concept-column-left {
+    margin-bottom: 1rem;
+  }
+}
+
 @media (max-width: var(--breakpoint-sm)) {
   .two-column-grid {
     grid-template-columns: 1fr;

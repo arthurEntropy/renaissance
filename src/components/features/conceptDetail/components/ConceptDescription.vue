@@ -1,7 +1,7 @@
 <template>
     <div class="description-container edit-hover-area">
         <EditButton v-if="isEditMode" @click="toggleEdit" :is-editing="isEditingDescription" title="Edit description"
-            size="small" visibility="on-hover" class="description-edit-button" />
+            size="small" visibility="on-hover" class="edit-button-overlay" />
 
         <div v-if="isEditingDescription" class="editable-description">
             <TextEditor v-model="localDescription" height="200px" ref="descriptionEditor" placeholder="description"
@@ -93,13 +93,6 @@ watch(() => props.description, (newDesc) => {
     position: relative;
 }
 
-.description-edit-button {
-    position: absolute;
-    top: 4px;
-    right: 4px;
-    z-index: var(--z-modal);
-}
-
 .description-editor-buttons {
     display: flex;
     justify-content: flex-start;
@@ -112,22 +105,6 @@ watch(() => props.description, (newDesc) => {
     line-height: var(--line-height-normal);
     padding: var(--space-xs);
     border-radius: var(--radius-4);
-}
-
-.edit-field-indicator {
-    position: absolute;
-    top: 4px;
-    right: 4px;
-    opacity: 0;
-    font-size: var(--font-size-13);
-    padding: 2px 6px;
-    cursor: pointer;
-    color: var(--color-gray-light);
-    transition: var(--transition-opacity);
-}
-
-.description-container:hover .edit-field-indicator {
-    opacity: 0.7;
 }
 
 .editable-description {

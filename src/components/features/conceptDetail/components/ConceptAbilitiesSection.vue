@@ -1,7 +1,7 @@
 <template>
     <ConceptSection title="Traits & Abilities" :has-content="hasAbilities" :is-edit-mode="isEditMode"
         empty-message="No abilities added yet. Create abilities in the 'Abilities' section and assign them to this concept.">
-        <MasonryGrid :column-width="350" :gap="10" :row-height="10" class="ability-cards-container">
+        <MasonryGrid :column-width="350" :gap="10" :row-height="10" class="cards-container">
             <AbilityCard v-for="ability in sortedAbilities" :key="ability.id" :ability="ability" :editable="isEditMode"
                 :sources="sources" :collapsible="false" :improvements="ability.improvements || []"
                 @edit="$emit('edit-ability', ability)" :showSource="false" />
@@ -48,8 +48,5 @@ const sortedAbilities = computed(() => {
 </script>
 
 <style scoped>
-.ability-cards-container {
-    width: 100%;
-    min-height: 50px;
-}
+/* No component-specific styles needed - using shared cards-container */
 </style>

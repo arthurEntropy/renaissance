@@ -1,5 +1,5 @@
 <template>
-    <div class="mobile-layout">
+    <div class="concept-layout-mobile">
         <!-- 1. Featured Art -->
         <ConceptImageSection title="Featured Art" :show-title="false" :images="concept.artUrls || []"
             :is-edit-mode="isEditMode" :grid-columns="3" @update:images="$emit('update:featured-art', $event)" />
@@ -112,10 +112,5 @@ defineEmits([
 </script>
 
 <style scoped>
-.mobile-layout {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    padding: var(--space-lg);
-}
+/* No component-specific styles needed - using shared concept-layout-mobile */
 </style>

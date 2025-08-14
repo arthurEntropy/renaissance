@@ -1,5 +1,5 @@
 <template>
-    <div class="concept-left-column">
+    <div class="concept-column-left">
         <!-- Featured Art -->
         <ConceptImageSection title="Featured Art" :show-title="false" :images="concept.artUrls || []"
             :is-edit-mode="isEditMode" :grid-columns="5" @update:images="$emit('update:featured-art', $event)" />
@@ -51,19 +51,5 @@ defineEmits([
 </script>
 
 <style scoped>
-.concept-left-column {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: left;
-    max-width: 500px;
-    text-align: left;
-}
-
-@media (max-width: var(--breakpoint-lg)) {
-    .concept-left-column {
-        max-width: 100%;
-        margin-bottom: 1rem;
-    }
-}
+/* No component-specific styles needed - using shared concept-column-left */
 </style>

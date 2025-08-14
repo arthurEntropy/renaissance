@@ -4,7 +4,7 @@
     <!-- Edit mode for local flavor data -->
     <div v-if="isSectionEditing && editable" class="section-editor">
       <!-- existing edit form content -->
-      <div class="flavor-edit-grid">
+      <div class="two-column-grid">
         <!-- Names -->
         <div class="flavor-edit-item">
           <label for="names">Names</label>
@@ -192,13 +192,6 @@ watch(() => props.editable, (val) => {
 </script>
 
 <style scoped>
-.flavor-edit-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
-  width: 100%;
-}
-
 .flavor-edit-item {
   display: flex;
   flex-direction: column;
@@ -208,12 +201,5 @@ watch(() => props.editable, (val) => {
 .flavor-textarea {
   min-height: 80px;
   resize: vertical;
-}
-
-/* Responsive design */
-@media (max-width: var(--breakpoint-sm)) {
-  .flavor-edit-grid {
-    grid-template-columns: 1fr;
-  }
 }
 </style>

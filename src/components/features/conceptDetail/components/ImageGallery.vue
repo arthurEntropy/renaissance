@@ -505,12 +505,6 @@ watch(() => props.images, (newImages) => {
   color: var(--color-gray-medium);
 }
 
-/* Responsive design */
-.editable-thumbs {
-  display: flex;
-  flex-wrap: wrap;
-}
-
 /* Modal buttons styling */
 .modal-buttons {
   display: flex;
