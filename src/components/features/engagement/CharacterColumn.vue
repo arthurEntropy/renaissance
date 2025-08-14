@@ -438,7 +438,7 @@ const onSuccessDrop = (event, diceIndex) => {
     background-color: var(--color-accent-gold);
     color: var(--overlay-black-heavy);
     padding: var(--space-xs) 8px;
-    border-radius: var(--radius-4);
+    border-radius: var(--radius-5);
     font-size: var(--font-size-14);
     font-weight: var(--font-weight-bold);
     cursor: pointer;

@@ -106,7 +106,7 @@ const handleClick = (event) => {
 
     /* Appearance */
     border: none;
-    border-radius: var(--radius-4);
+    border-radius: var(--radius-5);
     cursor: pointer;
     user-select: none;
 

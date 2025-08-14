@@ -75,6 +75,6 @@ defineEmits(['toggle-edit'])
     font-style: italic;
     background: var(--color-bg-secondary);
     border: 2px dashed var(--color-border-secondary);
-    border-radius: var(--radius-8);
+    border-radius: var(--radius-10);
 }
 </style>

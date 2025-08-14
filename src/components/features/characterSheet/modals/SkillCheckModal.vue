@@ -295,7 +295,7 @@ export default {
   background: var(--color-bg-secondary);
   color: var(--color-text-primary);
   border: 1px solid var(--color-gray-medium);
-  border-radius: var(--radius-4);
+  border-radius: var(--radius-5);
 }
 
 /* Styling for favored dropdown options */
@@ -318,7 +318,7 @@ select option.illfavored-option {
   max-width: 300px;
   padding: var(--space-lg);
   background-color: var(--overlay-white-subtle);
-  border-radius: var(--radius-6);
+  border-radius: var(--radius-5);
   margin: var(--space-xl) 0;
   display: flex;
   justify-content: center;
@@ -380,7 +380,7 @@ select option.illfavored-option {
 .target-number-option {
   padding: 6px 10px;
   border: 1px solid var(--color-gray-medium);
-  border-radius: var(--radius-4);
+  border-radius: var(--radius-5);
   cursor: pointer;
   text-align: center;
   background-color: var(--color-bg-secondary);
@@ -411,7 +411,7 @@ select option.illfavored-option {
   color: var(--color-primary-text);
   /* Better contrast with gold */
   border: none;
-  border-radius: var(--radius-4);
+  border-radius: var(--radius-5);
   cursor: pointer;
 }
 

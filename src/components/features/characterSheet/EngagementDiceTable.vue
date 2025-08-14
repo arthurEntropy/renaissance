@@ -391,7 +391,7 @@ export default {
 .add-die-button {
   width: 26px;
   height: 26px;
-  background-color: var(--color-gray-medium);
+  background-color: var(--color-bg-secondary);
   color: var(--color-text-primary);
   border: 2px solid var(--color-gray-light);
   border-radius: var(--radius-full);
@@ -414,7 +414,7 @@ export default {
   position: fixed;
   background-color: var(--color-bg-secondary);
   border: 1px solid var(--color-gray-light);
-  border-radius: var(--radius-4);
+  border-radius: var(--radius-5);
   padding: var(--space-xs);
   z-index: var(--z-dropdown);
   display: grid;
@@ -425,10 +425,10 @@ export default {
 
 .die-option {
   padding: var(--space-xs) 10px;
-  background-color: var(--color-bg-secondary);
+  background-color: var(--color-bg-tertiary);
   color: var(--color-text-primary);
   border: none;
-  border-radius: var(--radius-3);
+  border-radius: var(--radius-5);
   cursor: pointer;
   font-family: inherit;
   transition: var(--transition-background);
@@ -555,7 +555,7 @@ export default {
   position: fixed;
   background-color: var(--color-bg-secondary);
   border: 1px solid var(--color-gray-light);
-  border-radius: var(--radius-4);
+  border-radius: var(--radius-5);
   padding: var(--space-sm);
   z-index: var(--z-dropdown);
   max-width: 250px;
@@ -570,10 +570,10 @@ export default {
   text-align: left;
   padding: var(--space-xs) 8px;
   margin-bottom: 3px;
-  background-color: var(--color-bg-secondary);
+  background-color: var(--color-bg-tertiary);
   color: var(--color-text-primary);
   border: none;
-  border-radius: var(--radius-3);
+  border-radius: var(--radius-5);
   cursor: pointer;
   font-family: inherit;
   font-size: var(--font-size-14);
@@ -605,7 +605,7 @@ export default {
   background: var(--overlay-black-heavy);
   color: var(--color-text-primary);
   padding: 14px;
-  border-radius: var(--radius-8);
+  border-radius: var(--radius-10);
   font-size: var(--font-size-14);
   pointer-events: none;
   box-shadow: var(--shadow-elevation-lg);

@@ -248,7 +248,7 @@ const closeModal = () => cancel()
   padding: var(--space-xs);
   font-size: var(--font-size-14);
   border: 1px solid var(--color-gray-light);
-  border-radius: var(--radius-4);
+  border-radius: var(--radius-5);
 }
 
 /* Engagement success styles */
@@ -277,7 +277,7 @@ const closeModal = () => cancel()
   width: 16px;
   height: 16px;
   border: 2px solid var(--color-gray-light);
-  border-radius: var(--radius-3);
+  border-radius: var(--radius-5);
   background-color: var(--overlay-black-heavy);
   cursor: pointer;
 }

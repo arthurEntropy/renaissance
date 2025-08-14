@@ -50,7 +50,7 @@ onMounted(fetchExpansions)
     margin: 40px auto;
     padding: 30px;
     background: var(--color-bg-secondary);
-    border-radius: var(--radius-12);
+    border-radius: var(--radius-10);
 }
 
 h1 {
@@ -71,14 +71,14 @@ h1 {
     gap: 1rem;
     background: var(--color-gray-dark);
     padding: 1rem;
-    border-radius: var(--radius-8);
+    border-radius: var(--radius-10);
 }
 
 .expansion-name-input,
 .expansion-logo-input {
     font-size: var(--font-size-18);
     padding: 6px 10px;
-    border-radius: var(--radius-4);
+    border-radius: var(--radius-5);
     border: 1px solid var(--color-gray-medium);
     background: var(--color-bg-secondary);
     color: var(--color-white);
@@ -89,7 +89,7 @@ h1 {
     width: 48px;
     height: 48px;
     object-fit: contain;
-    border-radius: var(--radius-4);
+    border-radius: var(--radius-5);
     background: var(--color-white);
     border: 1px solid var(--color-gray-medium);
 }
@@ -98,7 +98,7 @@ h1 {
     background: var(--color-danger-hover);
     color: var(--color-white);
     border: none;
-    border-radius: var(--radius-4);
+    border-radius: var(--radius-5);
     padding: 6px 12px;
     cursor: pointer;
     font-size: var(--font-size-16);
@@ -114,7 +114,7 @@ h1 {
     background: var(--color-success);
     color: var(--color-white);
     border: none;
-    border-radius: var(--radius-4);
+    border-radius: var(--radius-5);
     padding: var(--space-md) 20px;
     font-size: var(--font-size-18);
     cursor: pointer;

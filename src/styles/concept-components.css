@@ -17,7 +17,7 @@
 .section-editor {
   padding: var(--space-md);
   background: var(--overlay-white-heavy);
-  border-radius: var(--radius-8);
+  border-radius: var(--radius-10);
   margin-bottom: 10px;
 }
 
@@ -25,7 +25,7 @@
 .edit-item {
   background: var(--overlay-black-medium);
   border: 1px solid var(--color-gray-medium);
-  border-radius: var(--radius-6);
+  border-radius: var(--radius-5);
   margin-bottom: 10px;
   padding: var(--space-sm);
 }
@@ -34,7 +34,7 @@
 .edit-item-light {
   background: var(--overlay-white-subtle);
   border: 1px solid var(--color-gray-medium);
-  border-radius: var(--radius-4);
+  border-radius: var(--radius-5);
   margin-bottom: 10px;
   padding: 12px;
 }
@@ -60,7 +60,7 @@
   background: none;
   border: 1px solid var(--color-gray-medium);
   color: var(--color-gray-light);
-  border-radius: var(--radius-4);
+  border-radius: var(--radius-5);
   padding: 2px 10px;
   font-size: var(--font-size-15);
   cursor: pointer;
@@ -79,7 +79,7 @@
 .gm-notes {
   background: rgba(60, 60, 80, 0.85);
   color: #b0e0ff;
-  border-radius: var(--radius-4);
+  border-radius: var(--radius-5);
   padding: var(--space-sm) 10px;
   margin-top: 6px;
   font-size: var(--font-size-15);
@@ -110,17 +110,17 @@
 }
 
 .modal-overlay-dark {
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: var(--overlay-black-heavy);
 }
 
 .modal-overlay-darker {
-  background-color: rgba(0, 0, 0, 0.9);
+  background-color: var(--overlay-black-heavy);
 }
 
 .modal-content-base {
   position: relative;
   background: var(--color-bg-primary);
-  border-radius: var(--radius-8);
+  border-radius: var(--radius-10);
   box-shadow: var(--shadow-elevation-sm);
   overflow-y: auto;
   overflow-x: hidden;
@@ -153,7 +153,7 @@
 .concept-input {
   background: var(--color-bg-secondary);
   border: 1px solid var(--color-gray-medium);
-  border-radius: var(--radius-4);
+  border-radius: var(--radius-5);
   color: var(--color-text-primary);
   padding: var(--space-sm) 12px;
   font-size: var(--font-size-16);
@@ -263,7 +263,7 @@
   background: var(--color-bg-secondary);
   color: var(--color-text-primary);
   border: 1px solid var(--color-gray-medium);
-  border-radius: var(--radius-12);
+  border-radius: var(--radius-10);
   padding: 2px 10px;
   font-size: var(--font-size-15);
   line-height: var(--line-height-normal);
@@ -299,7 +299,7 @@
   
   .modal-content-base {
     max-height: 95vh;
-    border-radius: var(--radius-4);
+    border-radius: var(--radius-5);
     margin-top: 10px;
   }
 

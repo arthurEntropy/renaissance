@@ -166,7 +166,7 @@ const closeModal = () => cancel()
 
 .improvement-edit-block {
   background: var(--color-bg-secondary);
-  border-radius: var(--radius-7);
+  border-radius: var(--radius-5);
   margin-bottom: 14px;
   padding: var(--space-md) 10px 8px 10px;
 }

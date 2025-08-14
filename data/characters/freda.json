@@ -248,10 +248,12 @@
     "31c4d609-7d0f-40da-9197-2cddb3cdd58b"
   ],
   "ancestryIds": [
-    "adc655c1-1d9c-433f-a0eb-41f93cf3ee07"
+    "adc655c1-1d9c-433f-a0eb-41f93cf3ee07",
+    6
   ],
   "cultureIds": [
-    "75800953-4adb-405f-a4ab-a599573ca533"
+    "75800953-4adb-405f-a4ab-a599573ca533",
+    "5c67bedd-8e73-4add-b46b-9b911bf0fd59"
   ],
   "engagementDice": [
     12,

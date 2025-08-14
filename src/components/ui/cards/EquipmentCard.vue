@@ -210,7 +210,7 @@ export default {
   width: 100px;
   height: 100px;
   object-fit: cover;
-  border-radius: var(--radius-4);
+  border-radius: var(--radius-5);
   cursor: pointer;
 }
 
@@ -226,7 +226,7 @@ export default {
 .large-image {
   width: 100%;
   height: auto;
-  border-radius: var(--radius-4);
+  border-radius: var(--radius-5);
   margin-top: 10px;
 }
 
@@ -323,7 +323,7 @@ export default {
   background: var(--overlay-black-heavy);
   color: #fff;
   padding: 14px;
-  border-radius: var(--radius-8);
+  border-radius: var(--radius-10);
   font-size: var(--font-size-14);
   pointer-events: none;
   box-shadow: var(--shadow-elevation-lg);

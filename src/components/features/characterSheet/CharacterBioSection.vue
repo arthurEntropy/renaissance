@@ -47,7 +47,7 @@
           <template v-else>
             <span class="character-name" @click.stop="startEditingWithRefs('name')">{{
               character.name || 'Unnamed Character'
-              }}</span>
+            }}</span>
           </template>
 
           <!-- Pronouns (click to edit) -->
@@ -360,7 +360,7 @@ onBeforeUnmount(() => {
   width: 170px;
   height: 170px;
   object-fit: cover;
-  border-radius: var(--radius-4);
+  border-radius: var(--radius-5);
   box-shadow: var(--shadow-elevation-sm);
 }
 
@@ -377,7 +377,7 @@ onBeforeUnmount(() => {
   flex-wrap: wrap;
   cursor: pointer;
   padding: 2px;
-  border-radius: var(--radius-4);
+  border-radius: var(--radius-5);
   transition: var(--transition-background);
 }
 
@@ -394,7 +394,7 @@ onBeforeUnmount(() => {
 .pronouns-container {
   display: inline-block;
   padding: 2px 4px;
-  border-radius: var(--radius-4);
+  border-radius: var(--radius-5);
   transition: var(--transition-background);
 }
 
@@ -420,7 +420,7 @@ onBeforeUnmount(() => {
   flex-direction: column;
   justify-content: center;
   padding: var(--space-xs);
-  border-radius: var(--radius-4);
+  border-radius: var(--radius-5);
   cursor: pointer;
   transition: var(--transition-background);
 }
@@ -467,7 +467,7 @@ onBeforeUnmount(() => {
 .form-input.inline-edit {
   background-color: var(--color-gray-dark);
   border: 1px solid var(--color-gray-medium);
-  border-radius: var(--radius-4);
+  border-radius: var(--radius-5);
   color: var(--color-white);
   padding: var(--space-xs) 8px;
   font-size: var(--font-size-16);
@@ -499,7 +499,7 @@ onBeforeUnmount(() => {
   min-height: 34px;
   background-color: var(--color-gray-dark);
   border: 1px solid var(--color-gray-medium);
-  border-radius: var(--radius-4);
+  border-radius: var(--radius-5);
   flex-grow: 1;
 }
 
@@ -534,7 +534,7 @@ onBeforeUnmount(() => {
   border: 1px solid var(--color-gray-medium);
   color: var(--color-white);
   padding: var(--space-xs);
-  border-radius: var(--radius-4);
+  border-radius: var(--radius-5);
   cursor: pointer;
 }
 
@@ -596,7 +596,7 @@ onBeforeUnmount(() => {
   overflow-y: auto;
   padding: var(--space-md);
   background: var(--overlay-white-subtle);
-  border-radius: var(--radius-4);
+  border-radius: var(--radius-5);
   text-align: left;
 }
 

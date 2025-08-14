@@ -166,13 +166,13 @@ body {
   backdrop-filter: blur(5px);
   padding: var(--space-xl);
   transition: left var(--transition-normal);
-  display: flex;
+  display: none;
+  /* Hidden on desktop by default */
   flex-direction: column;
   z-index: var(--z-modal);
 }
 
 .nav-menu.open {
-  display: flex;
   left: 0;
 }
 
@@ -215,13 +215,14 @@ body {
 .nav-menu a.router-link-active {
   background: var(--overlay-white-heavy);
   color: var(--color-text-primary);
+  border-left: 3px solid var(--color-white);
 }
 
 /* Responsive Design */
 @media (min-width: var(--breakpoint-lg)) {
-  .nav-menu .menu-toggle {
-    display: none;
-    /* Hide mobile menu on desktop */
+  .nav-menu {
+    display: none !important;
+    /* Hide entire mobile menu on desktop */
   }
 }
 
@@ -244,7 +245,7 @@ body {
   }
 
   .nav-menu {
-    display: flex;
+    display: flex !important;
     /* Show side menu on mobile */
     width: 180px;
   }

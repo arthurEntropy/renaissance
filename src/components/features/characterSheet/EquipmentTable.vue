@@ -659,7 +659,7 @@ h2 {
   bottom: 30px;
   right: 0;
   background-color: var(--overlay-black-medium);
-  border-radius: var(--radius-8);
+  border-radius: var(--radius-10);
   z-index: var(--z-dropdown);
   width: 200px;
   overflow: hidden;
@@ -693,7 +693,7 @@ h2 {
   max-width: 500px;
   max-height: 80vh;
   background-color: var(--overlay-black-medium);
-  border-radius: var(--radius-8);
+  border-radius: var(--radius-10);
   z-index: var(--z-dropdown);
   display: flex;
   flex-direction: column;
@@ -711,7 +711,7 @@ h2 {
   flex: 1;
   padding: var(--space-sm) 12px;
   border: 1px solid var(--color-gray-medium);
-  border-radius: var(--radius-4);
+  border-radius: var(--radius-5);
   background-color: var(--overlay-white-medium);
   color: var(--color-text-primary);
   font-size: var(--font-size-16);
@@ -749,7 +749,7 @@ h2 {
 .equipment-option {
   padding: var(--space-sm) 12px;
   cursor: pointer;
-  border-radius: var(--radius-4);
+  border-radius: var(--radius-5);
   transition: var(--transition-background);
 }
 

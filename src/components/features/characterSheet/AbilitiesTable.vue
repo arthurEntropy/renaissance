@@ -431,7 +431,7 @@ h2 {
   max-width: 500px;
   max-height: 80vh;
   background-color: var(--overlay-black-heavy);
-  border-radius: var(--radius-8);
+  border-radius: var(--radius-10);
   z-index: var(--z-dropdown);
   display: flex;
   flex-direction: column;
@@ -449,7 +449,7 @@ h2 {
   flex: 1;
   padding: var(--space-sm) 12px;
   border: 1px solid var(--color-gray-medium);
-  border-radius: var(--radius-4);
+  border-radius: var(--radius-5);
   background-color: var(--overlay-white-subtle);
   color: var(--color-white);
   font-size: var(--font-size-16);
@@ -487,7 +487,7 @@ h2 {
 .ability-option {
   padding: var(--space-sm) 12px;
   cursor: pointer;
-  border-radius: var(--radius-4);
+  border-radius: var(--radius-5);
   transition: var(--transition-background);
 }
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="modal-overlay-base concept-modal-overlay" @click.self="handleClose">
+  <div class="modal-overlay" @click.self="handleClose">
     <!-- Admin Controls -->
     <ConceptHeader :editable="editable" :is-edit-mode="isEditMode" @toggle-edit-mode="handleToggleEditMode"
       @open-settings="openSettingsModal" />
@@ -254,10 +254,6 @@ onMounted(async () => {
 
 <style scoped>
 /* Component-specific overrides */
-.concept-modal-overlay {
-  background-color: rgba(0, 0, 0, 0.9);
-}
-
 .modal-content {
   max-width: 1400px;
 }

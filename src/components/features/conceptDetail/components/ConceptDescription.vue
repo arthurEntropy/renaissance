@@ -104,12 +104,12 @@ watch(() => props.description, (newDesc) => {
     font-size: var(--font-size-18);
     line-height: var(--line-height-normal);
     padding: var(--space-xs);
-    border-radius: var(--radius-4);
+    border-radius: var(--radius-5);
 }
 
 .editable-description {
     background: var(--color-bg-secondary);
-    border-radius: var(--radius-8);
+    border-radius: var(--radius-10);
     padding: 16px;
 }
 </style>

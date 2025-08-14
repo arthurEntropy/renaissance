@@ -558,7 +558,7 @@ export default {
   border: 1px solid var(--color-gray-medium);
   padding: var(--space-sm);
   color: var(--color-white);
-  border-radius: var(--radius-4);
+  border-radius: var(--radius-5);
 }
 
 /* Placeholder for when no image is set */
@@ -571,7 +571,7 @@ export default {
   color: var(--color-gray-light);
   font-style: italic;
   border: 2px dashed var(--color-gray-medium);
-  border-radius: var(--radius-8);
+  border-radius: var(--radius-10);
 }
 
 .no-selection {

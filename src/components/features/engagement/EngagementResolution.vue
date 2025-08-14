@@ -153,7 +153,7 @@ const getWinnerAnnouncementClasses = computed(() => {
 .button {
     padding: var(--space-md) 20px;
     border: none;
-    border-radius: var(--radius-4);
+    border-radius: var(--radius-5);
     cursor: pointer;
     font-weight: var(--font-weight-bold);
 }
@@ -259,7 +259,7 @@ const getWinnerAnnouncementClasses = computed(() => {
     font-weight: var(--font-weight-bold);
     font-size: var(--font-size-16);
     padding: var(--space-sm) 16px;
-    border-radius: var(--radius-6);
+    border-radius: var(--radius-5);
     transition: var(--transition-all);
     flex: 1;
     text-align: center;

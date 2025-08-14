@@ -334,7 +334,7 @@ onBeforeUnmount(() => {
   flex: 2;
   padding: var(--space-sm) 12px;
   border: 1px solid var(--color-gray-medium);
-  border-radius: var(--radius-4);
+  border-radius: var(--radius-5);
   background-color: var(--overlay-black-medium);
   font-size: var(--font-size-16);
 }
@@ -343,7 +343,7 @@ onBeforeUnmount(() => {
   flex: 1;
   padding: var(--space-sm) 12px;
   border: 1px solid var(--color-gray-medium);
-  border-radius: var(--radius-4);
+  border-radius: var(--radius-5);
   background-color: var(--overlay-black-medium);
   font-size: var(--font-size-16);
   color: white;

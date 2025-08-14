@@ -39,22 +39,24 @@ defineEmits(['toggle-edit-mode', 'open-settings'])
 }
 
 .settings-button {
-    background: var(--color-bg-primary);
-    border: 1px solid var(--color-border-primary);
-    border-radius: var(--radius-8);
-    width: 40px;
-    height: 40px;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    width: auto;
+    height: auto;
     cursor: pointer;
-    font-size: 18px;
+    font-size: 24px;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: var(--shadow-elevation-sm);
-    transition: all 0.2s ease;
+    box-shadow: none;
+    transition: transform 0.2s ease;
+    padding: 4px;
 }
 
 .settings-button:hover {
-    background: var(--color-bg-secondary);
-    box-shadow: var(--shadow-elevation-md);
+    background: transparent;
+    box-shadow: none;
+    transform: scale(1.1);
 }
 </style>

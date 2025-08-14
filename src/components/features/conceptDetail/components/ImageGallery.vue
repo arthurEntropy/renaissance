@@ -316,7 +316,7 @@ watch(() => props.images, (newImages) => {
 .enlarged-image {
   width: 100%;
   object-fit: contain;
-  border-radius: var(--radius-12);
+  border-radius: var(--radius-10);
   background: var(--color-bg-tertiary);
   display: block;
   margin: 0 auto;
@@ -371,13 +371,13 @@ watch(() => props.images, (newImages) => {
   align-items: center;
   justify-content: center;
   z-index: var(--z-interactive);
-  border-radius: var(--radius-12);
+  border-radius: var(--radius-10);
 }
 
 .edit-modal-content {
   background: var(--color-bg-secondary);
   padding: var(--space-xl);
-  border-radius: var(--radius-8);
+  border-radius: var(--radius-10);
   width: 80%;
   max-width: 500px;
 }
@@ -393,7 +393,7 @@ watch(() => props.images, (newImages) => {
   margin-bottom: 15px;
   background: var(--color-bg-secondary);
   border: 1px solid var(--color-gray-medium);
-  border-radius: var(--radius-4);
+  border-radius: var(--radius-5);
   color: var(--color-text-primary);
   font-size: var(--font-size-16);
 }
@@ -436,7 +436,7 @@ watch(() => props.images, (newImages) => {
   font-size: var(--font-size-16);
   color: var(--color-text-primary);
   background: var(--overlay-white-medium);
-  border-radius: var(--radius-4);
+  border-radius: var(--radius-5);
   padding: 2px;
   cursor: grab;
   opacity: 0;
@@ -458,7 +458,7 @@ watch(() => props.images, (newImages) => {
   width: 100%;
   aspect-ratio: 1/1;
   object-fit: cover;
-  border-radius: var(--radius-8);
+  border-radius: var(--radius-10);
   box-shadow: var(--shadow-elevation-sm);
   background: var(--color-bg-secondary);
   transition: box-shadow var(--transition-normal);
@@ -471,7 +471,7 @@ watch(() => props.images, (newImages) => {
   right: 0;
   bottom: 0;
   background: var(--overlay-white-medium);
-  border-radius: var(--radius-8);
+  border-radius: var(--radius-10);
   border: 2px solid var(--color-gray-medium);
   pointer-events: none;
 }
@@ -488,7 +488,7 @@ watch(() => props.images, (newImages) => {
   width: 100%;
   aspect-ratio: 1/1;
   border: 2px dashed var(--color-gray-medium);
-  border-radius: var(--radius-8);
+  border-radius: var(--radius-10);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -522,7 +522,7 @@ watch(() => props.images, (newImages) => {
   background: var(--color-bg-secondary);
   color: var(--color-text-primary);
   border: 1px solid var(--color-gray-medium);
-  border-radius: var(--radius-4);
+  border-radius: var(--radius-5);
 }
 
 /* Centered modal title */
