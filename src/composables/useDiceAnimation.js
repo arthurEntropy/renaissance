@@ -1,5 +1,5 @@
 import { ref } from 'vue'
-import { getRandomDiceFontClass } from '../../utils/diceFontUtils'
+import { getRandomDiceFontClass } from '@utils/diceFontUtils'
 
 export function useDiceAnimation() {
   // Animation state

@@ -1,4 +1,4 @@
-import CharacterService from '@/services/CharacterService'
+import CharacterService from '@/services/characterService'
 
 /**
  * Composable for managing skill dice interactions

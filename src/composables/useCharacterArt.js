@@ -1,5 +1,5 @@
 import { ref } from 'vue'
-import CharacterService from '@/services/CharacterService'
+import CharacterService from '@/services/characterService'
 
 /**
  * Composable for managing character art modals and art-related functionality

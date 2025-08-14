@@ -1,11 +1,11 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import EquipmentService from '@/services/EquipmentService'
-import AncestryService from '@/services/AncestryService'
-import CultureService from '@/services/CultureService'
-import MestieriService from '@/services/MestiereService'
-import WorldElementsService from '@/services/WorldElementService'
-import StandardOfLivingService from '@/services/StandardOfLivingService'
+import EquipmentService from '@/services/equipmentService'
+import AncestryService from '@/services/ancestryService'
+import CultureService from '@/services/cultureService'
+import MestieriService from '@/services/mestiereService'
+import WorldElementsService from '@/services/worldElementService'
+import StandardOfLivingService from '@/services/standardOfLivingService'
 
 export const useEquipmentStore = defineStore('equipment', () => {
   const equipment = ref([])

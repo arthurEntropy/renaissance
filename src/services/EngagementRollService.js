@@ -1,8 +1,8 @@
 import axios from 'axios'
-import { getDiceFontClass, getDiceFontMaxClass } from '../../utils/diceFontUtils'
-import { RollTypes } from '../constants/rollTypes'
-import { EngagementWinnerTypes } from '../constants/engagementWinnerTypes'
-import { PlayerSides } from '../constants/playerSides'
+import { getDiceFontClass, getDiceFontMaxClass } from '@utils/diceFontUtils'
+import { RollTypes } from '@/constants/rollTypes'
+import { EngagementWinnerTypes } from '@/constants/engagementWinnerTypes'
+import { PlayerSides } from '@/constants/playerSides'
 
 class EngagementRollService {
 

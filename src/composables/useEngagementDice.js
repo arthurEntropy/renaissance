@@ -1,8 +1,8 @@
 import { ref, reactive, nextTick, computed } from 'vue'
-import EngagementRollService from '@/services/EngagementRollService'
-import engagementSessionService from '@/services/EngagementSessionService'
+import EngagementRollService from '@/services/engagementRollService'
+import engagementSessionService from '@/services/engagementSessionService'
 import PlayerSides from '@/constants/playerSides'
-import { getDiceFontClass, getDiceFontMaxClass } from '../../utils/diceFontUtils'
+import { getDiceFontClass, getDiceFontMaxClass } from '@utils/diceFontUtils'
 import { DiceStatus } from '@/constants/diceStatus'
 
 export function useEngagementDice(character = null, allEquipment = null) {

@@ -74,7 +74,7 @@
 
 <script>
 import { Editor, EditorContent } from '@tiptap/vue-3'
-import { getDiceFontClass, parseDiceFontClass } from '../../../../utils/diceFontUtils'
+import { getDiceFontClass, parseDiceFontClass } from '@utils/diceFontUtils'
 import StarterKit from '@tiptap/starter-kit'
 import Link from '@tiptap/extension-link'
 import Image from '@tiptap/extension-image'

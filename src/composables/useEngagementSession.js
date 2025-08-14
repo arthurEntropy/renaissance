@@ -1,6 +1,6 @@
 import { ref, reactive, computed } from 'vue'
 import SessionStatus from '@/constants/sessionStatus'
-import engagementSessionService from '@/services/EngagementSessionService'
+import engagementSessionService from '@/services/engagementSessionService'
 
 export function useEngagementSession() {
   const sessionId = ref(null)

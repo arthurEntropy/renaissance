@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import RulesService from '@/services/RulesService.js'
+import RulesService from '@/services/rulesService.js'
 
 export const useRulesStore = defineStore('rules', () => {
   const sections = ref([])

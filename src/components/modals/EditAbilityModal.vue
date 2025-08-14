@@ -86,9 +86,9 @@
 
 <script setup>
 import { useEditForm } from '@/composables/useEditForm'
-import TextEditor from '@/components/TextEditor.vue'
-import SourceDropdown from '@/components/SourceDropdown.vue'
-import ActionButton from '@/components/ActionButton.vue'
+import TextEditor from '@/components/ui/forms/TextEditor.vue'
+import SourceDropdown from '@/components/ui/forms/SourceDropdown.vue'
+import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 
 // Props
 const props = defineProps({

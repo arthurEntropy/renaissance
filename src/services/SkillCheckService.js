@@ -1,6 +1,6 @@
 import axios from 'axios'
-import { getDiceFontClass } from '../../utils/diceFontUtils'
-import { RollTypes } from '../constants/rollTypes'
+import { getDiceFontClass } from '@utils/diceFontUtils'
+import { RollTypes } from '@/constants/rollTypes'
 
 class SkillCheckService {
   static latestRollResult = null

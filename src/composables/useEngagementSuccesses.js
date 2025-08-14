@@ -1,5 +1,5 @@
 import { ref, computed } from 'vue'
-import EngagementSuccessService from '@/services/EngagementSuccessService'
+import EngagementSuccessService from '@/services/engagementSuccessService'
 
 export function useEngagementSuccesses(character = null, allEquipment = null) {
   // State

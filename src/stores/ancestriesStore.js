@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import AncestryService from '@/services/AncestryService.js'
+import AncestryService from '@/services/ancestryService.js'
 
 export const useAncestriesStore = defineStore('ancestry', () => {
   const ancestries = ref([])

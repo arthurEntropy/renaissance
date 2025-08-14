@@ -85,7 +85,7 @@ import BaseCard from '@/components/ui/cards/BaseCard.vue'
 import BadgeDisplay from '@/components/ui/cards/BadgeDisplay.vue'
 import DescriptionBackground from '@/components/ui/cards/DescriptionBackground.vue'
 import EngagementSuccessService from '@/services/engagementSuccessService'
-import { getDiceFontMaxClass } from '../../../../utils/diceFontUtils'
+import { getDiceFontMaxClass } from '@utils/diceFontUtils'
 import { useTooltip } from '@/composables/useTooltip'
 
 export default {

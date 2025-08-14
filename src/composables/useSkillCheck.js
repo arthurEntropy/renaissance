@@ -1,5 +1,5 @@
 import { ref } from 'vue'
-import SkillCheckService from '@/services/SkillCheckService'
+import SkillCheckService from '@/services/skillCheckService'
 
 /**
  * Composable for managing skill checks and dice roll results

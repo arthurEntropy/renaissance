@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import CultureService from '@/services/CultureService.js'
+import CultureService from '@/services/cultureService.js'
 
 export const useCulturesStore = defineStore('culture', () => {
   const cultures = ref([])
