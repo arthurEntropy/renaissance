@@ -1,14 +1,5 @@
-export const SessionStatus = {
-  WAITING: 'waiting',
-  ACTIVE: 'active', 
-  ROLLING: 'rolling',
-  COMPLETED: 'completed',
-  CANCELLED: 'cancelled'
-}
+import { SESSION_STATUS } from '../../../../shared/constants/sessionStatus.js'
 
+// Re-export with frontend naming convention for backward compatibility
+export const SessionStatus = SESSION_STATUS
 export default SessionStatus
-
-// CommonJS compatibility for Node.js backend
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { SessionStatus }
-}

@@ -1,10 +1,10 @@
 import { ref, reactive, computed } from 'vue'
-import SessionStatus from '@/constants/sessionStatus'
+import { SESSION_STATUS } from '@shared/constants/sessionStatus.js'
 import engagementSessionService from '@/services/engagementSessionService'
 
 export function useEngagementSession() {
   const sessionId = ref(null)
-  const sessionStatus = ref(SessionStatus.WAITING)
+  const sessionStatus = ref(SESSION_STATUS.WAITING)
   const opponent = ref(null)
   const rollResults = ref(null)
   const userAccepted = ref(false)
@@ -59,7 +59,7 @@ export function useEngagementSession() {
       const alertMessage = characterName ? `${characterName} has exited the engagement.` : message
       alert(alertMessage)
       sessionId.value = null
-      sessionStatus.value = SessionStatus.WAITING
+      sessionStatus.value = SESSION_STATUS.WAITING
       opponent.value = null
     }
 
@@ -111,7 +111,7 @@ export function useEngagementSession() {
     // Only ask for user confirmation before exiting if there's an opponent and dice have already been rolled
     return opponent.value && 
            rollResults.value && 
-           sessionStatus.value === SessionStatus.COMPLETED &&
+           sessionStatus.value === SESSION_STATUS.COMPLETED &&
            !bothUsersAccepted.value
   }
 

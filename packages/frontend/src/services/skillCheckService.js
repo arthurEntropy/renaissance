@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { getDiceFontClass } from '@utils/diceFontUtils'
+import { getDiceFontClass } from '@shared/utils/diceFontUtils'
 import { RollTypes } from '@/constants/rollTypes'
 
 class SkillCheckService {

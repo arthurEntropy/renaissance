@@ -1,5 +1,6 @@
 
- // Utility functions for DiceFont CSS class generation
+// Utility functions for DiceFont CSS class generation
+// DiceFont uses classes like "df-d6-4" (d6 showing 4)
 
 export function getDiceFontClass(dieSize, value) {
   return `df-d${dieSize}-${value}`
@@ -10,7 +11,7 @@ export function getDiceFontMaxClass(dieSize) {
 }
 
 export function parseDiceFontClass(diceClass) {
-  const match = diceClass.match(/df-d(\d+)-(\d+)/) // Matches "df-d6-4" format
+  const match = diceClass.match(/df-d(\d+)-(\d+)/)
   if (match) {
     return {
       dieSize: parseInt(match[1], 10),

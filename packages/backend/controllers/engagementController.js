@@ -1,81 +1,53 @@
-const { v4: uuidv4 } = require('uuid');
+import { v4 as uuidv4 } from 'uuid'
+import { SESSION_STATUS } from '../../../shared/constants/sessionStatus.js'
 
-// In-memory storage for active engagement sessions
-const activeSessions = new Map();
+const activeSessions = new Map()
+let engagementIO = null
 
-// Store the socket.io namespace reference for global access
-let engagementIO = null;
-
-// Session data structure:
-// {
-//   id: string,
-//   createdAt: Date,
-//   users: [
-//     { id: string, name: string, ready: boolean, dice: [], success: [] }
-//   ],
-//   status: 'waiting' | 'active' | 'rolling' | 'completed'
-// }
+const SESSION_CLEANUP_INTERVAL = 5 * 60 * 1000 // 5 minutes
+const SESSION_MAX_AGE = 30 * 60 * 1000 // 30 minutes
+const ROLL_DELAY = 1500 // 1.5 seconds
 
 const setupSocketHandlers = (io) => {
-  // Namespace for engagement rolls
-  engagementIO = io.of('/engagement');
-  
-  // Keep track of the latest available session ID
-  let availableSessionId = null;
+  engagementIO = io.of('/engagement')
+  let availableSessionId = null
   
   engagementIO.on('connection', (socket) => {
-    
-    // Auto-join or create session
     socket.on('auto-join-or-create', ({ characterInfo, selectedDice, engagementSuccesses }) => {
-      // Check if there's an available session to join
       if (availableSessionId && activeSessions.has(availableSessionId)) {
-        const session = activeSessions.get(availableSessionId);
+        const session = activeSessions.get(availableSessionId)
         
-        // Make sure the session only has one user and is in waiting status
-        if (session.users.length === 1 && session.status === 'waiting') {
-          // Join the existing session
+        if (session.users.length === 1 && session.status === SESSION_STATUS.WAITING) {
           session.users.push({
             socketId: socket.id,
             characterInfo,
             selectedDice,
             engagementSuccesses,
             ready: true
-          });
+          })
           
-          // Update session status now that we have two users
-          session.status = 'active';
+          session.status = SESSION_STATUS.ACTIVE
+          socket.join(availableSessionId)
           
-          // Join the socket room
-          socket.join(availableSessionId);
-          
-          // Notify all users in the session about the update
           engagementIO.to(availableSessionId).emit('session-updated', { 
             sessionId: availableSessionId, 
             session 
-          });
+          })
           
-          // Save the session ID before clearing it
-          const joinedSessionId = availableSessionId;
+          const joinedSessionId = availableSessionId
+          availableSessionId = null
           
-          // Clear the available session now that it's full
-          availableSessionId = null;
-          
-          // Schedule the roll after a delay
           setTimeout(() => {
-            // Only proceed if session still exists and both users are still connected
-            const currentSession = activeSessions.get(joinedSessionId);
+            const currentSession = activeSessions.get(joinedSessionId)
             if (currentSession && currentSession.users.length === 2) {
-              performRoll(joinedSessionId);
+              performRoll(joinedSessionId)
             }
-          }, 1500); // TODO: Centralize roll animation delay so this is guaranteed to be in sync with the client
-          return;
+          }, ROLL_DELAY)
+          return
         }
       }
+      const sessionId = uuidv4()
       
-      // If we got here, we need to create a new session
-      const sessionId = uuidv4();
-      
-      // Create new session object
       const newSession = {
         id: sessionId,
         createdAt: new Date(),
@@ -88,195 +60,144 @@ const setupSocketHandlers = (io) => {
             ready: true
           }
         ],
-        status: 'waiting'
-      };
+        status: SESSION_STATUS.WAITING
+      }
       
-      // Store in our sessions map
-      activeSessions.set(sessionId, newSession);
-      
-      // Set this as the available session
-      availableSessionId = sessionId;
-      
-      // Join the socket room for this session
-      socket.join(sessionId);
-      
-      // Send back the session ID to the client
-      socket.emit('session-created', { sessionId, session: newSession });
-    });
+      activeSessions.set(sessionId, newSession)
+      availableSessionId = sessionId
+      socket.join(sessionId)
+      socket.emit('session-created', { sessionId, session: newSession })
+    })
     
-    // Handle user disconnect
     socket.on('disconnect', () => {
-      // Find any sessions this user was part of
       for (const [sessionId, session] of activeSessions.entries()) {
-        const userIndex = session.users.findIndex(user => user.socketId === socket.id);
+        const userIndex = session.users.findIndex(user => user.socketId === socket.id)
         
         if (userIndex !== -1) {
-          // Check if both users have accepted before sending alerts
-          const bothAccepted = session.users.length === 2 && 
-                              session.users.every(user => user.accepted === true);
+          const bothUsersAccepted = session.users.length === 2 && 
+                                   session.users.every(user => user.accepted === true)
           
-          // Get the leaving user's character name for the alert
-          const leavingUser = session.users[userIndex];
-          const characterName = leavingUser.characterInfo?.name;
+          const leavingUser = session.users[userIndex]
+          const characterName = leavingUser.characterInfo?.name
           
-          // Remove the user from the session
-          session.users.splice(userIndex, 1);
+          session.users.splice(userIndex, 1)
           
-          // If this was the available session and now it's empty, clear it
           if (sessionId === availableSessionId && session.users.length === 0) {
-            availableSessionId = null;
+            availableSessionId = null
           }
           
-          // If no users left, remove the session
           if (session.users.length === 0) {
-            activeSessions.delete(sessionId);
-          } else if (!bothAccepted) {
-            // Only notify remaining users if both hadn't already accepted
+            activeSessions.delete(sessionId)
+          } else if (!bothUsersAccepted) {
             engagementIO.to(sessionId).emit('session-cancelled', { 
               message: 'Opponent has left the engagement',
               characterName: characterName
-            });
+            })
           }
-          // If both had accepted, don't send any alert - this is a normal exit
         }
       }
-    });
+    })
     
-    // Cancel a session
     socket.on('cancel-session', ({ sessionId }) => {
       if (activeSessions.has(sessionId)) {
-        const session = activeSessions.get(sessionId);
+        const session = activeSessions.get(sessionId)
         
-        // Check if both users have accepted before sending alerts
-        const bothAccepted = session.users.length === 2 && 
-                            session.users.every(user => user.accepted === true);
+        const bothUsersAccepted = session.users.length === 2 && 
+                                 session.users.every(user => user.accepted === true)
         
-        // Find the user who is cancelling the session
-        const cancellingUser = session.users.find(user => user.socketId === socket.id);
-        const characterName = cancellingUser?.characterInfo?.name;
+        const cancellingUser = session.users.find(user => user.socketId === socket.id)
+        const characterName = cancellingUser?.characterInfo?.name
         
-        if (!bothAccepted) {
-          // Only notify users if both hadn't already accepted
+        if (!bothUsersAccepted) {
           engagementIO.to(sessionId).emit('session-cancelled', { 
             message: 'Opponent has left the engagement.',
             characterName: characterName
-          });
+          })
         }
         
-        // Remove the session
-        activeSessions.delete(sessionId);
+        activeSessions.delete(sessionId)
       }
-    });
+    })
     
-    // Handle updates to result indicators
     socket.on('update-result-indicator', ({ sessionId, index, state }) => {
       if (activeSessions.has(sessionId)) {
-        // Broadcast the indicator update to all other clients in the session
-        socket.to(sessionId).emit('result-indicator-updated', { index, state });
+        socket.to(sessionId).emit('result-indicator-updated', { index, state })
       }
-    });
+    })
 
-    // Handle die rerolls
     socket.on('reroll-die', ({ sessionId, player, diceIndex, newValue, characterId }) => {
       if (activeSessions.has(sessionId)) {
-        // Broadcast the reroll to all other users in the session
-        socket.to(sessionId).emit('die-rerolled', { player, diceIndex, newValue, characterId });
+        socket.to(sessionId).emit('die-rerolled', { player, diceIndex, newValue, characterId })
       }
-    });
+    })
 
-    // Handle success assignment updates
     socket.on('success-assignment-updated', ({ sessionId, characterId, player, diceIndex, successId }) => {
-      console.log('Backend received success assignment update:', { sessionId, characterId, player, diceIndex, successId });
       if (activeSessions.has(sessionId)) {
-        // Broadcast the success assignment to all other users in the session
-        console.log('Broadcasting success assignment to session:', sessionId);
-        socket.to(sessionId).emit('success-assignment-updated', { characterId, player, diceIndex, successId });
-      } else {
-        console.log('Session not found:', sessionId);
+        socket.to(sessionId).emit('success-assignment-updated', { characterId, player, diceIndex, successId })
       }
-    });
+    })
 
-    // Handle acceptance state updates
     socket.on('acceptance-state-updated', ({ sessionId, characterId, accepted }) => {
-      console.log('Backend received acceptance state update:', { sessionId, characterId, accepted });
       if (activeSessions.has(sessionId)) {
-        const session = activeSessions.get(sessionId);
+        const session = activeSessions.get(sessionId)
         
-        // Update the acceptance state for the user in the session
-        const user = session.users.find(u => u.characterInfo.id === characterId);
+        const user = session.users.find(u => u.characterInfo.id === characterId)
         if (user) {
-          user.accepted = accepted;
-          console.log('Updated user acceptance state:', user.characterInfo.name, 'accepted:', accepted);
+          user.accepted = accepted
         }
         
-        // Broadcast the acceptance state to all other users in the session
-        console.log('Broadcasting acceptance state to session:', sessionId);
-        socket.to(sessionId).emit('acceptance-state-updated', { characterId, accepted });
-      } else {
-        console.log('Session not found:', sessionId);
+        socket.to(sessionId).emit('acceptance-state-updated', { characterId, accepted })
       }
-    });
-  });
+    })
+  })
   
-  // Clean up stale sessions (runs every 5 minutes)
   setInterval(() => {
-    const now = new Date();
+    const now = new Date()
     for (const [sessionId, session] of activeSessions.entries()) {
-      // Remove sessions older than 30 minutes
-      const sessionAge = now - session.createdAt;
-      if (sessionAge > 30 * 60 * 1000) { // 30 minutes in milliseconds
-        activeSessions.delete(sessionId);
+      const sessionAge = now - session.createdAt
+      if (sessionAge > SESSION_MAX_AGE) {
+        activeSessions.delete(sessionId)
       }
     }
-  }, 5 * 60 * 1000); // 5 minutes in milliseconds
-};
+  }, SESSION_CLEANUP_INTERVAL)
+}
 
-// Perform the actual dice roll for both users
 function performRoll(sessionId) {
-  const session = activeSessions.get(sessionId);
+  const session = activeSessions.get(sessionId)
   if (!session) {
-    return;
+    return
   }
   
-  // Update session status
-  session.status = 'rolling';
+  session.status = SESSION_STATUS.ROLLING
   
-  // Roll dice for both users
   session.users.forEach(user => {
-    // Calculate roll results for this user
     user.rollResults = user.selectedDice.map(die => {
-      // Roll a die with the specified number of sides
-      return Math.floor(Math.random() * die) + 1;
-    });
+      return Math.floor(Math.random() * die) + 1
+    })
     
-    // Calculate total
-    user.rollTotal = user.rollResults.reduce((sum, value) => sum + value, 0);
-  });
+    user.rollTotal = user.rollResults.reduce((sum, value) => sum + value, 0)
+  })
   
-  // Determine winner (highest total wins)
   if (session.users[0].rollTotal > session.users[1].rollTotal) {
-    session.winner = 0;
+    session.winner = 0
   } else if (session.users[1].rollTotal > session.users[0].rollTotal) {
-    session.winner = 1;
+    session.winner = 1
   } else {
-    session.winner = -1; // Tie
+    session.winner = -1
   }
   
-  // Update session status
-  session.status = 'completed';
+  session.status = SESSION_STATUS.COMPLETED
   
-  // Broadcast results to all participants using the global socket.io reference
   if (engagementIO) {
     engagementIO.to(sessionId).emit('roll-results', { 
       session,
       timestamp: new Date()
-    });
+    })
   } else {
-    console.error('Cannot emit results: engagementIO is not initialized');
+    console.error('Cannot emit results: engagementIO is not initialized')
   }
-  
 }
 
-module.exports = {
+export {
   setupSocketHandlers
-};
+}

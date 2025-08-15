@@ -1,20 +1,28 @@
-require('dotenv').config({ path: '../../.env' })
-const express = require('express')
-const cors = require('cors')
-const http = require('http')
-const { Server } = require('socket.io')
-const {
+import { config } from 'dotenv'
+import { resolve, dirname } from 'path'
+import { fileURLToPath } from 'url'
+import express from 'express'
+import cors from 'cors'
+import { createServer } from 'http'
+import { Server } from 'socket.io'
+import {
   getAllEntities,
   createEntity,
   updateEntity,
   deleteEntity,
-} = require('./controllers/entityController.js')
-const { sendDiscordMessage } = require('./controllers/discordController.js')
-const { setupSocketHandlers } = require('./controllers/engagementController.js')
-const { getEntityNames } = require('./utils/fileService.js')
+} from './controllers/entityController.js'
+import { sendDiscordMessage } from './controllers/discordController.js'
+import { setupSocketHandlers } from './controllers/engagementController.js'
+import { getEntityNames } from './utils/fileService.js'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
+
+// Configure dotenv with the correct path to the .env file
+config({ path: resolve(__dirname, '../../.env') })
 
 const app = express()
-const server = http.createServer(app)
+const server = createServer(app)
 const io = new Server(server, {
   cors: {
     origin: '*', // TODO: Restrict this to frontend domain in production

@@ -119,7 +119,7 @@ import { useEditForm } from '@/composables/useEditForm'
 import TextEditor from '@/components/ui/forms/TextEditor.vue'
 import SourceDropdown from '@/components/ui/forms/SourceDropdown.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
-import { getDiceFontMaxClass } from '@utils/diceFontUtils'
+import { getDiceFontMaxClass } from '@shared/utils/diceFontUtils'
 
 // Props
 const props = defineProps({

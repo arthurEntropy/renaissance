@@ -1,23 +1,27 @@
-const {
+import {
   readdirSync,
   readFileSync,
   writeFileSync,
   renameSync,
   unlinkSync,
   existsSync,
-} = require('fs')
-const { join } = require('path')
-const { v4: uuidv4 } = require('uuid')
+} from 'fs'
+import { join, resolve, dirname } from 'path'
+import { fileURLToPath } from 'url'
+import { v4 as uuidv4 } from 'uuid'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
 
 // Base directory for all data entities (cultures, characters, etc.)
-const DATA_DIR = join(process.cwd(), '../../data')
+const DATA_DIR = resolve(process.cwd(), '../../data')
 
 const sanitizeFilename = (name) => {
   return name
     .trim()
     .toLowerCase()
-    .replace(/[^a-z0-9]/gi, '_') // Replace special characters with underscores
-    .replace(/_+/g, '_') // Remove multiple consecutive underscores
+    .replace(/[^a-z0-9]/gi, '_')
+    .replace(/_+/g, '_')
 }
 
 const getDirectory = (entity) => join(DATA_DIR, entity)
@@ -25,8 +29,8 @@ const getDirectory = (entity) => join(DATA_DIR, entity)
 const getEntityNames = () => {
   try {
     return readdirSync(DATA_DIR, { withFileTypes: true })
-      .filter((dirent) => dirent.isDirectory()) // Only include directories
-      .map((dirent) => dirent.name) // Get the folder names
+      .filter((directoryEntry) => directoryEntry.isDirectory())
+      .map((directoryEntry) => directoryEntry.name)
   } catch (err) {
     console.error('Error reading entity names from data directory:', err)
     throw new Error('Failed to retrieve entity names.')
@@ -55,12 +59,10 @@ const saveFile = (data, directory, oldName = null) => {
       data.id = uuidv4()
     }
 
-    // Sanitize the filename
     let baseFilename = sanitizeFilename(data.name)
     let filename = baseFilename + '.json'
     let filePath = join(directory, filename)
 
-    // Get all files in the directory
     const files = readdirSync(directory).filter((f) => f.endsWith('.json'))
 
     // Check for filename conflicts (different id, same name)
@@ -72,12 +74,11 @@ const saveFile = (data, directory, oldName = null) => {
         filePath = join(directory, filename)
         suffix++
       } else {
-        // Same id, safe to overwrite
-        break
+        break // Same id, safe to overwrite
       }
     }
 
-    // If old name exists and differs, first rename the old file to the new target path
+    // If old name exists and differs, handle renaming with conflict resolution
     if (oldName && oldName !== data.name) {
       const oldBaseFilename = sanitizeFilename(oldName)
       const oldFilename = oldBaseFilename + '.json'
@@ -99,19 +100,12 @@ const saveFile = (data, directory, oldName = null) => {
       // Only attempt rename if the old file actually exists and target differs
       if (existsSync(oldFilePath) && oldFilename !== filename) {
         renameSync(oldFilePath, filePath)
-      } else {
-        // If names are same or old file missing, continue with writing logic below
       }
     }
 
-    // Atomic write: write to temp file in same dir, then rename into place
-    const tempPath = join(
-      directory,
-      `.${filename}.tmp-${uuidv4()}`
-    )
-
+    // Atomic write using temporary file
+    const tempPath = join(directory, `.${filename}.tmp-${uuidv4()}`)
     writeFileSync(tempPath, JSON.stringify(data, null, 2), 'utf8')
-    // Rename is atomic on the same filesystem
     renameSync(tempPath, filePath)
   } catch (error) {
     console.error(`Error saving file: ${error.message}`)
@@ -130,7 +124,7 @@ const deleteFile = (name, directory) => {
   }
 }
 
-module.exports = {
+export {
   sanitizeFilename,
   getDirectory,
   getEntityNames,

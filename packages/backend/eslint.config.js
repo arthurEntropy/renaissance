@@ -6,7 +6,7 @@ export default [
   {
     languageOptions: {
       ecmaVersion: 2022,
-      sourceType: 'script', // CommonJS for backend
+      sourceType: 'module', // ES modules for backend
       globals: {
         ...globals.node
       }

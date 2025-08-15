@@ -53,7 +53,7 @@ import { useSuccessAssignment } from '@/composables/useSuccessAssignment';
 import { useEngagementDice } from '@/composables/useEngagementDice';
 import { useEngagementSuccesses } from '@/composables/useEngagementSuccesses';
 import { computed, watch, onMounted, onBeforeUnmount, toRef } from 'vue';
-import SessionStatus from '@/constants/sessionStatus';
+import { SESSION_STATUS } from '@shared/constants/sessionStatus.js';
 import PlayerSides from '@/constants/playerSides';
 import RollTypes from '@/constants/rollTypes';
 import EngagementResultTypes from '@/constants/engagementResultTypes';
@@ -203,7 +203,7 @@ export default {
         const showResults = computed(() => {
             return sessionManager.rollResults.value &&
                 sessionManager.rollResults.value.session &&
-                sessionManager.sessionStatus.value === SessionStatus.COMPLETED
+                sessionManager.sessionStatus.value === SESSION_STATUS.COMPLETED
         })
 
         const diceComparisons = computed(() => {
@@ -432,7 +432,7 @@ export default {
 
         const handleRollResults = ({ session }) => {
             sessionManager.rollResults.value = { session }
-            sessionManager.sessionStatus.value = SessionStatus.COMPLETED // Set status to completed
+            sessionManager.sessionStatus.value = SESSION_STATUS.COMPLETED // Set status to completed
 
             // Emit event to notify parent that engagement is now committed
             emit('engagement-committed')

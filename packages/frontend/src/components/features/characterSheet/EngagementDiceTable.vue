@@ -119,7 +119,7 @@ import EngagementRollModal from '@/components/features/characterSheet/modals/Eng
 import SuccessTooltip from '@/components/features/engagement/SuccessTooltip.vue';
 import EditButton from '@/components/ui/buttons/EditButton.vue';
 import ActionButton from '@/components/ui/buttons/ActionButton.vue';
-import { getDiceFontMaxClass } from '@utils/diceFontUtils'
+import { getDiceFontMaxClass } from '@shared/utils/diceFontUtils'
 import { useEngagementDice } from '@/composables/useEngagementDice'
 import { useEngagementSuccesses } from '@/composables/useEngagementSuccesses'
 import { useTooltip } from '@/composables/useTooltip'

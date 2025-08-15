@@ -16,7 +16,7 @@
           {{ latestRoll.characterName }} rolled
           <span class="skill-name">{{
             latestRoll.baseSkillName || latestRoll.skillName
-            }}</span>
+          }}</span>
           <span v-if="latestRoll.favoredStatus" :class="{
             'favored-modifier': latestRoll.favoredStatus === 'favored',
             'ill-favored-modifier': latestRoll.favoredStatus === 'ill-favored',
@@ -97,7 +97,7 @@
 
 <script setup>
 import { computed, ref } from 'vue'
-import { getDiceFontClass } from '@utils/diceFontUtils'
+import { getDiceFontClass } from '@shared/utils/diceFontUtils'
 import { RollTypes } from '@/constants/rollTypes'
 import { EngagementResultTypes } from '@/constants/engagementResultTypes'
 import DiceDisplay from './DiceDisplay.vue'

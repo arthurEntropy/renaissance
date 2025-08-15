@@ -29,7 +29,7 @@
 
 <script setup>
 import { computed } from 'vue'
-import { capitalizeFirstLetter } from '@utils/stringUtils'
+import { capitalizeFirstLetter } from '@shared/utils/stringUtils'
 import { useColumnConfig } from '@/composables/useColumnConfig'
 import { useSkillDice } from '@/composables/useSkillDice'
 import { useNestedPropertyUpdate } from '@/composables/useNestedPropertyUpdate'

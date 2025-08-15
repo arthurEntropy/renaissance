@@ -12,7 +12,7 @@
 </template>
 
 <script setup>
-import { getDiceFontClass } from '@utils/diceFontUtils'
+import { getDiceFontClass } from '@shared/utils/diceFontUtils'
 import { DICE_SIZES } from '@/constants/coreAbilityConfig'
 import DiceGroup from './DiceGroup.vue'
 

@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { getDiceFontClass, getDiceFontMaxClass } from '@utils/diceFontUtils'
+import { getDiceFontClass, getDiceFontMaxClass } from '@shared/utils/diceFontUtils'
 import { RollTypes } from '@/constants/rollTypes'
 import { EngagementWinnerTypes } from '@/constants/engagementWinnerTypes'
 import { PlayerSides } from '@/constants/playerSides'

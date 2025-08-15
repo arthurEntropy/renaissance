@@ -45,7 +45,7 @@
             <div class="conditions-row" v-for="(value, key) in selectedCharacter.conditions" :key="key">
               <span :class="{ 'condition-active': value }">{{
                 cap(key)
-                }}</span>
+              }}</span>
               <input type="checkbox" class="skill-checkbox" :class="{ 'condition-active-checkbox': value }"
                 v-model="selectedCharacter.conditions[key]" />
             </div>
@@ -104,7 +104,7 @@ import { useCharacterManagement } from '@/composables/useCharacterManagement'
 import { useSkillCheck } from '@/composables/useSkillCheck'
 import { useEquipmentManagement } from '@/composables/useEquipmentManagement'
 import { useCharacterArt } from '@/composables/useCharacterArt'
-import { capitalizeFirstLetter } from '@utils/stringUtils'
+import { capitalizeFirstLetter } from '@shared/utils/stringUtils'
 import SelectionCard from '@/components/ui/cards/ConceptCard.vue'
 import CharacterBioSection from '@/components/features/characterSheet/CharacterBioSection.vue'
 import CoreAbilityColumn from '@/components/features/characterSheet/CoreAbilityColumn.vue'

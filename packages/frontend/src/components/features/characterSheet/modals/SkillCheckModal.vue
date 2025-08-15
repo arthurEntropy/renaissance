@@ -66,7 +66,7 @@
 <script>
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import SkillCheckService from '@/services/skillCheckService'
-import { getDiceFontMaxClass } from '@utils/diceFontUtils'
+import { getDiceFontMaxClass } from '@shared/utils/diceFontUtils'
 
 export default {
   components: {
