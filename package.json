@@ -2,72 +2,21 @@
   "name": "renaissance",
   "version": "0.1.0",
   "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
-    "start": "node server.js",
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
-    "lint": "eslint --ext .js,.vue src"
-  },
-  "dependencies": {
-    "@tiptap/core": "^2.11.7",
-    "@tiptap/extension-image": "^2.12.0",
-    "@tiptap/extension-link": "^2.11.7",
-    "@tiptap/extension-text-align": "^2.11.7",
-    "@tiptap/pm": "^2.11.7",
-    "@tiptap/starter-kit": "^2.11.7",
-    "@tiptap/vue-3": "^2.11.7",
-    "@toast-ui/editor": "^3.2.2",
-    "@vavt/md-editor-extension": "^3.0.0",
-    "axios": "^1.7.9",
-    "cors": "^2.8.5",
-    "dompurify": "^3.1.6",
-    "dotenv": "^17.2.1",
-    "express": "^4.19.2",
-    "marked": "^15.0.11",
-    "md-editor-v3": "^5.5.0",
-    "pinia": "^3.0.1",
-    "socket.io": "^4.8.1",
-    "socket.io-client": "^4.8.1",
-    "uuid": "^11.1.0",
-    "vue": "^3.5.12",
-    "vue-router": "^4.4.0",
-    "vuedraggable": "^4.1.0"
+    "dev": "concurrently \"yarn workspace @renaissance/backend dev\" \"yarn workspace @renaissance/frontend dev\"",
+    "dev:frontend": "yarn workspace @renaissance/frontend dev",
+    "dev:backend": "yarn workspace @renaissance/backend dev",
+    "build": "yarn workspace @renaissance/frontend build",
+    "start": "yarn workspace @renaissance/backend start",
+    "lint": "yarn workspace @renaissance/frontend lint && yarn workspace @renaissance/backend lint",
+    "install:all": "yarn install"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^5.1.2",
-    "eslint": "^7.32.0",
-    "eslint-plugin-vue": "^8.0.3",
-    "prettier": "^3.5.3",
-    "vite": "^5.4.0"
+    "concurrently": "^9.2.0"
   },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
-    },
-    "extends": [
-      "plugin:vue/vue3-essential",
-      "eslint:recommended"
-    ],
-    "parserOptions": {
-      "ecmaVersion": 2022,
-      "sourceType": "module"
-    },
-    "globals": {
-      "defineProps": "readonly",
-      "defineEmits": "readonly",
-      "defineExpose": "readonly",
-      "withDefaults": "readonly"
-    },
-    "rules": {}
-  },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not dead",
-    "not ie 11"
-  ],
   "prettier": {
     "semi": false,
     "singleQuote": true
