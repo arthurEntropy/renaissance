@@ -1,4 +1,3 @@
-// src/stores/expansionsStore.js
 import { defineStore } from 'pinia'
 import ExpansionService from '@/services/expansionService'
 
@@ -15,6 +14,7 @@ export const useExpansionsStore = defineStore('expansions', {
         this.expansions = await ExpansionService.getAllExpansions()
         this.error = null
       } catch (e) {
+        console.error('Error fetching expansions:', e)
         this.error = e
       } finally {
         this.loading = false

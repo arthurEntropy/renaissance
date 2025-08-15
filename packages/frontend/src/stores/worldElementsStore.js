@@ -9,7 +9,7 @@ export const useWorldElementsStore = defineStore('worldElements', () => {
     try {
       worldElements.value = await WorldElementsService.getAllWorldElements()
     } catch (error) {
-      console.error('Failed to fetch world elements:', error)
+      console.error('Error fetching world elements:', error)
     }
   }
 

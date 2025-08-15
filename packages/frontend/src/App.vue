@@ -40,24 +40,28 @@
 </template>
 
 <script>
+import { ref, computed } from 'vue'
+import { useRoute } from 'vue-router'
+
 export default {
-  data() {
-    return {
-      menuOpen: false,
+  setup() {
+    const menuOpen = ref(false)
+    const route = useRoute()
+    const shouldShowOverlay = computed(() => route.meta?.overlay === true)
+
+    function toggleMenu() {
+      menuOpen.value = !menuOpen.value
     }
-  },
-  computed: {
-    shouldShowOverlay() {
-      return this.$route.meta?.overlay === true
-    },
-  },
-  methods: {
-    toggleMenu() {
-      this.menuOpen = !this.menuOpen
-    },
-    closeMenu() {
-      this.menuOpen = false
-    },
+    function closeMenu() {
+      menuOpen.value = false
+    }
+
+    return {
+      menuOpen,
+      shouldShowOverlay,
+      toggleMenu,
+      closeMenu,
+    }
   },
 }
 </script>

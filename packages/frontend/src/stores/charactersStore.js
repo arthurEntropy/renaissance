@@ -9,7 +9,7 @@ export const useCharactersStore = defineStore('characters', () => {
     try {
       characters.value = await CharacterService.getAllCharacters()
     } catch (error) {
-      console.error('Failed to fetch characters:', error)
+      console.error('Error fetching characters:', error)
     }
   }
 

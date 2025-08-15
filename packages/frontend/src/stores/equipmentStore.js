@@ -21,7 +21,7 @@ export const useEquipmentStore = defineStore('equipment', () => {
     try {
       equipment.value = await EquipmentService.getAllEquipment()
     } catch (error) {
-      console.error('Failed to fetch equipment:', error)
+      console.error('Error fetching equipment:', error)
     }
   }
 

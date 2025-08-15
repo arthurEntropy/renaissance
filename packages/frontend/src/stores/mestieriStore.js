@@ -9,7 +9,7 @@ export const useMestieriStore = defineStore('mestieri', () => {
     try {
       mestieri.value = await MestieriService.getAllMestieri()
     } catch (error) {
-      console.error('Failed to fetch mestieri:', error)
+      console.error('Error fetching mestieri:', error)
     }
   }
 

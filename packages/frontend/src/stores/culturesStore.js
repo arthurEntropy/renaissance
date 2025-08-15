@@ -9,7 +9,7 @@ export const useCulturesStore = defineStore('culture', () => {
     try {
       cultures.value = await CultureService.getAllCultures()
     } catch (error) {
-      console.error('Failed to fetch cultures:', error)
+      console.error('Error fetching cultures:', error)
     }
   }
 

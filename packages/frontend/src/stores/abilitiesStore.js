@@ -21,7 +21,7 @@ export const useAbilitiesStore = defineStore('abilities', () => {
     try {
       abilities.value = await AbilityService.getAllAbilities()
     } catch (error) {
-      console.error('Failed to fetch abilities:', error)
+      console.error('Error fetching abilities:', error)
     }
   }
 

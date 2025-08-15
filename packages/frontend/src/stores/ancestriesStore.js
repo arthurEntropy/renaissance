@@ -9,7 +9,7 @@ export const useAncestriesStore = defineStore('ancestry', () => {
     try {
       ancestries.value = await AncestryService.getAllAncestries()
     } catch (error) {
-      console.error('Failed to fetch ancestries:', error)
+      console.error('Error fetching ancestries:', error)
     }
   }
 

@@ -12,14 +12,14 @@ import AdminView from '@/pages/AdminView.vue'
 
 const routes = [
   { path: '/', component: TitlePage },
-  { path: '/characters', component: CharactersView },
+  { path: '/rules', name: 'Rules', component: RulesView },
   { path: '/ancestries', component: AncestriesView },
   { path: '/cultures', component: CulturesView },
   { path: '/mestieri', component: MestieriView },
-  { path: '/abilities', component: AbilitiesView, meta: { overlay: true } },
   { path: '/world-elements', component: WorldElementsView },
+  { path: '/characters', component: CharactersView },
+  { path: '/abilities', component: AbilitiesView, meta: { overlay: true } },
   { path: '/equipment', component: EquipmentView, meta: { overlay: true } },
-  { path: '/rules', name: 'Rules', component: RulesView },
   { path: '/admin', component: AdminView },
 ]
 
