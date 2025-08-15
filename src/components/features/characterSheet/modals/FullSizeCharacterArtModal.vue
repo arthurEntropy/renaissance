@@ -1,38 +1,54 @@
 <template>
   <div class="modal-overlay" @click="closeModal">
     <div class="modal-content" @click.stop>
-      <img :src="imageUrl" class="modal-image" />
-      <div class="change-link">
-        <a href="javascript:void(0)" @click="changeArt">Change</a>
+      <div class="image-wrapper edit-hover-area">
+        <img :src="imageUrl" class="modal-image" />
+        <!-- Edit button positioned at top right -->
+        <EditButton size="small" visibility="on-hover" class="edit-button-overlay" @click.stop="changeArt" />
       </div>
     </div>
   </div>
 </template>
 
-<script>
-export default {
-  props: {
-    imageUrl: {
-      type: String,
-      required: true,
-    },
+<script setup>
+import EditButton from '@/components/ui/buttons/EditButton.vue'
+
+const props = defineProps({
+  imageUrl: {
+    type: String,
+    required: true,
   },
-  emits: ['close', 'change-art'],
-  methods: {
-    closeModal() {
-      this.$emit('close')
-    },
-    changeArt() {
-      this.$emit('change-art')
-    },
-  },
+})
+
+const emit = defineEmits(['close', 'change-art'])
+
+const closeModal = () => {
+  emit('close')
+}
+
+const changeArt = () => {
+  emit('change-art')
 }
 </script>
 
 <style scoped>
+.image-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
 .modal-image {
   max-width: 100%;
   max-height: 80vh;
   object-fit: contain;
+  display: block;
+}
+
+/* Edit button overlay styling - matches ImageGallery */
+.edit-button-overlay {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: var(--z-raised);
 }
 </style>

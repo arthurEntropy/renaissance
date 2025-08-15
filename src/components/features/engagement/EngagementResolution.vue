@@ -152,10 +152,20 @@ const getWinnerAnnouncementClasses = computed(() => {
 
 .button {
     padding: var(--space-md) 20px;
+    margin: var(--space-md);
+    font-family: var(--font-family-primary);
+    font-size: var(--font-size-14);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-gray-light);
+    background-color: var(--color-gray-medium);
     border: none;
     border-radius: var(--radius-5);
     cursor: pointer;
-    font-weight: var(--font-weight-bold);
+    transition: var(--transition-background);
+}
+
+.button:hover {
+    background-color: var(--color-gray-light);
 }
 
 .accept-btn {
@@ -222,7 +232,7 @@ const getWinnerAnnouncementClasses = computed(() => {
     padding: 6px 12px;
     font-size: var(--font-size-14);
     flex-shrink: 0;
-    background-color: var(--color-gray-light);
+    background-color: var(--color-neutral);
     color: var(--color-gray-light);
     font-style: italic;
     font-weight: var(--font-weight-normal);
@@ -258,23 +268,16 @@ const getWinnerAnnouncementClasses = computed(() => {
 .winner-announcement {
     font-weight: var(--font-weight-bold);
     font-size: var(--font-size-16);
-    padding: var(--space-sm) 16px;
-    border-radius: var(--radius-5);
-    transition: var(--transition-all);
     flex: 1;
     text-align: center;
+    color: var(--color-text-primary);
 }
 
 .winner-announcement.both-accepted {
-    border: 3px solid var(--color-success);
-    box-shadow: var(--shadow-glow-success-lg);
-    background-color: var(--color-success);
+    color: var(--color-success);
 }
 
 .winner-announcement.draw-result {
-    border: 3px solid var(--color-warning);
-    box-shadow: var(--shadow-glow-warning-lg);
-    background-color: var(--color-warning);
-    color: var(--color-text-inverse);
+    color: var(--color-warning);
 }
 </style>

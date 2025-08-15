@@ -109,6 +109,6 @@ const stateClasses = computed(() => {
 }
 
 .state-active-checkbox {
-    box-shadow: var(--shadow-glow-condition);
+    box-shadow: var(--shadow-glow-danger-md);
 }
 </style>

@@ -601,7 +601,7 @@ export default {
 .content-display :deep(h3) {
   margin: 1.5em 0 0 0;
   font-size: var(--font-size-24);
-  color: var(--color-condition-glow);
+  color: var(--color-accent-cyan);
 }
 
 .content-display img {

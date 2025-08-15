@@ -4,6 +4,7 @@ import App from './App.vue'
 import router from './router'
 import '@/styles/design-tokens.css'
 import '@/styles/modals.css'
+import '@/styles/nav.css'
 import '@/styles/global.css'
 import '@/styles/concept-components.css'
 

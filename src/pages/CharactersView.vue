@@ -45,7 +45,7 @@
             <div class="conditions-row" v-for="(value, key) in selectedCharacter.conditions" :key="key">
               <span :class="{ 'condition-active': value }">{{
                 cap(key)
-              }}</span>
+                }}</span>
               <input type="checkbox" class="skill-checkbox" :class="{ 'condition-active-checkbox': value }"
                 v-model="selectedCharacter.conditions[key]" />
             </div>
@@ -410,7 +410,7 @@ onMounted(async () => {
 }
 
 .condition-active-checkbox {
-  box-shadow: var(--shadow-glow-condition);
+  box-shadow: var(--shadow-glow-danger-md);
 }
 
 .main-column {

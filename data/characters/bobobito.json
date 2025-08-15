@@ -20,7 +20,7 @@
       "ranks": 5,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 0
+      "diceMod": -1
     },
     {
       "name": "Dexterity",
@@ -54,8 +54,8 @@
       "name": "Insight",
       "ranks": 0,
       "isFavored": false,
-      "isIllFavored": false,
-      "diceMod": 0
+      "isIllFavored": true,
+      "diceMod": -1
     },
     {
       "name": "Courtesy",
@@ -90,7 +90,7 @@
       "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 0
+      "diceMod": -1
     },
     {
       "name": "Stealth",
@@ -139,7 +139,7 @@
   },
   "conditions": {
     "insecure": false,
-    "guilty": false,
+    "guilty": true,
     "angry": false,
     "afraid": false,
     "troubled": false

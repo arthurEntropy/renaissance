@@ -190,17 +190,17 @@ const getCircularPosition = (index, total) => {
 }
 
 .success {
-  color: var(--color-success);
+  color: var(--color-success-text);
   background-color: var(--color-success);
 }
 
 .failure {
-  color: var(--color-danger);
+  color: var(--color-danger-text);
   background-color: var(--color-danger);
 }
 
 .draw {
-  color: var(--color-warning);
+  color: var(--color-warning-text);
   background-color: var(--color-warning);
 }
 
@@ -248,7 +248,7 @@ const getCircularPosition = (index, total) => {
 
 .draw-count {
   font-size: var(--font-size-14);
-  color: var(--color-gray-medium);
+  color: var(--color-gray-light);
   font-style: italic;
 }
 

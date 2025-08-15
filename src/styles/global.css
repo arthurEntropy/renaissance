@@ -1,63 +1,104 @@
-a {
-  text-decoration: none;
-  color: var(--color-primary);
+/* ===== APP LAYOUT ===== */
+/* Overlay for readability on equipment/abilities pages */
+#app.overlay-background::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--overlay-black-medium);
+  z-index: var(--z-base);
+  pointer-events: none;
 }
+
+/* Centered content area with top padding for desktop nav */
+.content-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: var(--content-padding-desktop);
+}
+
+/* Mobile content area adjustment (top nav is hidden on mobile) */
+@media (max-width: calc(var(--breakpoint-lg) - 1px)) {
+  .content-area {
+    padding-top: var(--content-padding-mobile);
+  }
+}
+
+
+/* ===== BASE HTML/BODY STYLES ===== */
+/* TODO: Give the user a few options for background images */
+/* Currently a single background image */
+html,
+body {
+  background-size: cover;
+  background-image: url('https://cdn.midjourney.com/b380594a-e352-4deb-b7b0-c3fff0095472/0_3.png');
+  background-position: center;
+  background-attachment: fixed;
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  font-family: var(--font-family-primary);
+  overflow-x: hidden;
+}
+
+/* Mobile background positioning */
+@media (max-width: calc(var(--breakpoint-lg) - 1px)) {
+  html,
+  body {
+    /* All the cool stuff in the current background image is on the left */
+    background-position: left;
+  }
+}
+
+/* ===== GLOBAL ELEMENT STYLES ===== */
 
 label {
   font-size: var(--font-size-14);
-  color: var(--color-gray-medium);
+  color: var(--color-font-secondary);
+  padding-right: var(--space-xs);
 }
 
 input,
 textarea,
 select {
   font-family: var(--font-family-primary);
-  color: var(--color-white);
-  background-color: var(--color-black);
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-primary);
 }
 
-/* BUTTONS */
-.button {
-  padding: var(--space-md) 20px;
-  margin: var(--space-md);
-  font-family: var(--font-family-primary);
-  font-size: var(--font-size-14);
-  font-weight: var(--font-weight-bold);
-  color: var(--color-gray-light);
-  background-color: var(--color-gray-medium);
-  border: none;
-  border-radius: var(--radius-5);
-  cursor: pointer;
-  transition: var(--transition-background);
-}
-.button:hover {
-  background-color: var(--color-gray-light);
-}
-.button-primary {
-  background-color: var(--color-primary-hover);
-}
-.button-primary:hover {
-  background-color: var(--color-primary);
-}
-.button-danger {
-  background-color: var(--color-danger-hover);
-}
-.button-danger:hover {
-  background-color: var(--color-danger);
-}
-
-/* CHECKBOXES */
+/* ===== CHECKBOXES ===== */
+/* Custom styles to get dark background when unchecked */
 input[type='checkbox'] {
-  filter: invert(100%);
+  appearance: none;
+  -webkit-appearance: none;
   width: 16px;
   height: 16px;
-  accent-color: var(--color-gray-dark); /* Dice checkbox colors are inverted */
+  background-color: var(--color-bg-primary);
+  border: 1px solid var(--color-text-primary);
+  border-radius: 2px;
   cursor: pointer;
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
 }
 
-/* IMAGES */
+input[type='checkbox']:checked {
+  background-color: var(--color-bg-tertiary);
+  border-color: var(--color-bg-tertiary);
+}
+
+input[type='checkbox']:checked::after {
+  content: '✓';
+  position: absolute;
+  left: 2px;
+  color: var(--color-text-primary);
+  font-size: 12px;
+  font-weight: bold;
+}
+
+/* ===== IMAGES ===== */
 img {
-  max-width: 100%;
-  height: auto;
   display: block;
 }
