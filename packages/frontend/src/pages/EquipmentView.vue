@@ -72,7 +72,7 @@ const sortOptions = ref({
 
 // EQUIPMENT CRUD
 const createEquipment = async () => {
-  const newEquipment = await EquipmentService.createEquipment()
+  const newEquipment = await EquipmentService.create()
   await equipmentStore.fetchAllEquipment()
   const createdEquipment = equipmentStore.equipment.find(
     (item) => item.id === newEquipment.id,
@@ -81,7 +81,7 @@ const createEquipment = async () => {
 }
 
 const saveEditedEquipment = async (editedEquipment) => {
-  await EquipmentService.updateEquipment(editedEquipment)
+  await EquipmentService.update(editedEquipment)
   closeEditEquipmentModal()
   await equipmentStore.fetchAllEquipment()
 }
@@ -95,7 +95,7 @@ const deleteEquipment = async (equipmentItem) => {
       if (showEditEquipmentModal.value && editId === deleteId) {
         closeEditEquipmentModal()
       }
-      await EquipmentService.updateEquipment(equipmentToUpdate)
+      await EquipmentService.update(equipmentToUpdate)
       await equipmentStore.fetchAllEquipment()
     } catch (error) {
       console.error('Error deleting equipment:', error)
@@ -111,7 +111,7 @@ const sendEquipmentToChat = (equipment) => {
 
 const fetchEngagementSuccessOptions = async () => {
   try {
-    engagementSuccessOptions.value = await EngagementSuccessService.getAllEngagementSuccesses();
+    engagementSuccessOptions.value = await EngagementSuccessService.getAll();
   } catch (error) {
     console.error('Error fetching engagement success options:', error);
   }

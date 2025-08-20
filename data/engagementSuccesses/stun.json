@@ -1,0 +1,6 @@
+{
+  "id": "11",
+  "name": "Stun",
+  "description": "Your opponent briefly drops their guard. They automatically lose the next dice pair in this engagement, regardless of dice results. If this is the final pair, you win the engagement.",
+  "isDeleted": false
+}

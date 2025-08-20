@@ -87,7 +87,7 @@ export function useEngagementSuccesses(character = null, allEquipment = null) {
   // Methods
   const fetchEngagementSuccesses = async () => {
     try {
-      allEngagementSuccesses.value = await EngagementSuccessService.getAllEngagementSuccesses()
+      allEngagementSuccesses.value = await EngagementSuccessService.getAll()
     } catch (error) {
       console.error("Error fetching engagement successes:", error)
       allEngagementSuccesses.value = []

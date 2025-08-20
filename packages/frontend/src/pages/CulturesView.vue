@@ -20,8 +20,8 @@ const {
 } = useConceptView(culturesStore, CultureService, {
   itemsProperty: 'cultures',
   fetchMethod: 'fetchCultures',
-  createMethod: 'createCulture',
-  updateMethod: 'updateCulture',
+  createMethod: 'create',
+  updateMethod: 'update',
   filterDeleted: true,
   useSoftDelete: true
 })

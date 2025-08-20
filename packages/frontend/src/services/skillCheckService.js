@@ -4,6 +4,7 @@ import { RollTypes } from '@/constants/rollTypes'
 
 class SkillCheckService {
   static latestRollResult = null
+  static apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000'
 
   static getLatestRollResult() {
     return this.latestRollResult
@@ -11,14 +12,14 @@ class SkillCheckService {
 
   static makeSkillCheck(skill, character, targetNumber) {
     // Prepare the dice pool based on the skill and roll the dice.
-    const dice = this.prepareDicePool(skill)
-    const results = this.rollDice(dice)
+    const dicePool = this.prepareDicePool(skill)
+    const diceResults = this.rollDice(dicePool)
 
     // Check for twice miserable condition and handle auto-fail if applicable.
     if (
       character.states.twiceMiserable &&
       this.checkAndHandleAutoFailForTwiceMiserable(
-        results,
+        diceResults,
         skill.isFavored,
         skill.name,
         character,
@@ -29,65 +30,42 @@ class SkillCheckService {
     }
 
     // Handle favored and ill-favored logic and append favored/ill-favored status to skill name for output.
-    const skillModifier = this.handleFavoredAndIllFavored(results, skill)
+    const skillModifier = this.handleFavoredAndIllFavored(diceResults, skill)
     const skillName = skill.name + skillModifier
 
     // Calculate the total sum of the rolled dice and determine success.
     const totalSum = this.calculateTotalSum(
-      results,
+      diceResults,
       character.states.twiceWeary,
     )
-    const success = this.determineSuccess(totalSum, targetNumber)
+    const isSuccess = this.determineSuccess(totalSum, targetNumber)
 
     // Generate the footer text based on character conditions and states.
     const footer = this.generateFooter(character.conditions, character.states)
 
-    // Mark max value dice (12 for d12, 6 for d6)
-    results.forEach((r) => {
-      r.isMaxValue =
-        (r.die === 12 && r.roll === 12) || (r.die === 6 && r.roll === 6)
-      r.dropped = r.roll === 0 // Any dice with roll=0 were dropped by favored/ill-favored logic
-    })
+    // Mark max value dice and dropped dice
+    this.markSpecialDice(diceResults)
 
     // Create roll result object to be used in-app and sent to Discord.
-    const rollResult = {
-      type: RollTypes.SKILL_CHECK,
-      characterName: character.name,
-      skillName: skillName,
-      baseSkillName: skill.name,
-      total: totalSum,
-      targetNumber: targetNumber,
-      success: success,
-      diceSymbols: results.map((r) => r.symbol),
-      diceResults: results.map((r) => ({
-        type: r.die, // 12 or 6
-        value: r.roll, // The actual number rolled (0 for dropped dice)
-        symbol: r.symbol, // Symbol for Discord ouput
-        isMaxValue:
-          (r.die === 12 && r.roll === 12) || (r.die === 6 && r.roll === 6),
-        emoji: this.getDiceEmoji(r.die, r.roll === 0 ? r.originalRoll : r.roll),
-        dropped: r.roll === 0, // Was this die dropped by favored/ill-favored logic
-        displayValue: r.roll === 0 ? r.originalRoll : r.roll,
-        class: getDiceFontClass(r.die, r.roll === 0 ? r.originalRoll : r.roll), // For in-app display using DiceFont
-      })),
-      favoredStatus: skill.isFavored
-        ? 'favored'
-        : skill.isIllFavored
-          ? 'ill-favored'
-          : null,
-      footer: footer,
-      timestamp: Date.now(),
-    }
+    const rollResult = this.createRollResult(
+      skill,
+      character,
+      skillName,
+      totalSum,
+      targetNumber,
+      isSuccess,
+      diceResults,
+      footer,
+    )
 
     // Store latest roll
     this.latestRollResult = rollResult
 
     // Send to Discord
-    // TODO: Make this optional
     this.sendSkillCheckResultsToServer(
-      results.map((r) => r.symbol),
+      diceResults.map((r) => r.symbol),
       totalSum,
-      success,
+      isSuccess,
       skillName,
       footer,
       character.artUrls[0],
@@ -98,25 +76,62 @@ class SkillCheckService {
     return rollResult
   }
 
-  static prepareDicePool(skill) {
-    const dice = [{ sides: 12 }]
-
-    if (skill.isFavored || skill.isIllFavored) {
-      dice.push({ sides: 12 })
-    }
-
-    let totalD6 = skill.ranks + skill.diceMod
-    if (totalD6 < 0) totalD6 = 0
-
-    for (let i = 0; i < totalD6; i++) {
-      dice.push({ sides: 6 })
-    }
-
-    return dice
+  static markSpecialDice(diceResults) {
+    diceResults.forEach((result) => {
+      result.isMaxValue = result.die === result.roll
+      result.dropped = result.roll === 0 // Any dice with roll=0 were dropped by favored/ill-favored logic
+    })
   }
 
-  static rollDice(dice) {
-    return dice.map((die) => {
+  static createRollResult(skill, character, skillName, totalSum, targetNumber, isSuccess, diceResults, footer) {
+    return {
+      type: RollTypes.SKILL_CHECK,
+      characterName: character.name,
+      skillName: skillName,
+      baseSkillName: skill.name,
+      total: totalSum,
+      targetNumber: targetNumber,
+      success: isSuccess,
+      diceSymbols: diceResults.map((result) => result.symbol),
+      diceResults: diceResults.map((result) => ({
+        type: result.die, // 12 or 6
+        value: result.roll, // The actual number rolled (0 for dropped dice)
+        symbol: result.symbol, // Symbol for Discord output
+        isMaxValue: result.die === result.roll,
+        emoji: this.getDiceEmoji(result.die, result.roll === 0 ? result.originalRoll : result.roll),
+        dropped: result.roll === 0, // Was this die dropped by favored/ill-favored logic
+        displayValue: result.roll === 0 ? result.originalRoll : result.roll,
+        class: getDiceFontClass(result.die, result.roll === 0 ? result.originalRoll : result.roll), // For in-app display using DiceFont
+      })),
+      favoredStatus: skill.isFavored
+        ? 'favored'
+        : skill.isIllFavored
+          ? 'ill-favored'
+          : null,
+      footer: footer,
+      timestamp: Date.now(),
+    }
+  }
+
+  static prepareDicePool(skill) {
+    const dicePool = [{ sides: 12 }]
+
+    if (skill.isFavored || skill.isIllFavored) {
+      dicePool.push({ sides: 12 })
+    }
+
+    let totalD6Count = skill.ranks + skill.diceMod
+    if (totalD6Count < 0) totalD6Count = 0
+
+    for (let i = 0; i < totalD6Count; i++) {
+      dicePool.push({ sides: 6 })
+    }
+
+    return dicePool
+  }
+
+  static rollDice(dicePool) {
+    return dicePool.map((die) => {
       const roll = Math.floor(Math.random() * die.sides) + 1
       let symbol
       if (die.sides === 12) {
@@ -138,20 +153,20 @@ class SkillCheckService {
   }
 
   static checkAndHandleAutoFailForTwiceMiserable(
-    results,
+    diceResults,
     isFavored,
     skillName,
     character,
     targetNumber,
   ) {
-    const d12Rolls = results.filter((r) => r.die === 12).map((r) => r.roll)
+    const d12Rolls = diceResults.filter((result) => result.die === 12).map((result) => result.roll)
     const autoFail = isFavored
       ? d12Rolls.filter((roll) => roll === 11).length === 2
       : d12Rolls.includes(11)
 
     if (autoFail) {
       this.sendSkillCheckResultsToServer(
-        results.map((r) => r.symbol),
+        diceResults.map((result) => result.symbol),
         0,
         false,
         skillName,
@@ -165,23 +180,23 @@ class SkillCheckService {
     return autoFail
   }
 
-  static handleFavoredAndIllFavored(results, skill) {
+  static handleFavoredAndIllFavored(diceResults, skill) {
     if (!(skill.isFavored && skill.isIllFavored)) {
       if (skill.isFavored) {
-        this.handleFavored(results)
+        this.handleFavored(diceResults)
         return ' (favored)' // Return string to append to skill name
       }
       if (skill.isIllFavored) {
-        this.handleIllFavored(results)
+        this.handleIllFavored(diceResults)
         return ' (ill-favored)' // Return string to append to skill name
       }
     }
     return '' // No favored/ill-favored status to append
   }
 
-  static handleFavored(results) {
-    const d12Results = results.filter((r) => r.die === 12)
-    const d12Rolls = d12Results.map((r) => r.roll)
+  static handleFavored(diceResults) {
+    const d12Results = diceResults.filter((result) => result.die === 12)
+    const d12Rolls = d12Results.map((result) => result.roll)
 
     const highestD12Roll = d12Rolls.reduce((max, roll) => {
       if (roll === 11) return max
@@ -189,55 +204,55 @@ class SkillCheckService {
     }, 11)
 
     let keptOne = false
-    d12Results.forEach((r) => {
-      if (r.roll === highestD12Roll && !keptOne) {
+    d12Results.forEach((result) => {
+      if (result.roll === highestD12Roll && !keptOne) {
         keptOne = true
       } else {
-        r.originalRoll = r.roll // Preserve the original roll
-        r.roll = 0 // Mark as not contributing to total
+        result.originalRoll = result.roll // Preserve the original roll
+        result.roll = 0 // Mark as not contributing to total
       }
     })
   }
 
-  static handleIllFavored(results) {
+  static handleIllFavored(diceResults) {
     // Filter to get only d12 results
-    const d12Results = results.filter((r) => r.die === 12)
-    const d12Rolls = d12Results.map((r) => r.roll)
+    const d12Results = diceResults.filter((result) => result.die === 12)
+    const d12Rolls = d12Results.map((result) => result.roll)
 
     // Find the lowest roll, but if 11 is present, treat it as the lowest
     const lowestD12Roll = d12Rolls.includes(11) ? 11 : Math.min(...d12Rolls)
 
     // Find the first occurrence of the lowest roll and set it to 0
     let keptOne = false
-    d12Results.forEach((r) => {
-      if (r.roll === lowestD12Roll && !keptOne) {
+    d12Results.forEach((result) => {
+      if (result.roll === lowestD12Roll && !keptOne) {
         keptOne = true
       } else {
-        r.originalRoll = r.roll // Preserve the original roll
-        r.roll = 0 // Mark as not contributing to total
+        result.originalRoll = result.roll // Preserve the original roll
+        result.roll = 0 // Mark as not contributing to total
       }
     })
   }
 
-  static calculateTotalSum(results, isTwiceWeary) {
-    return results.reduce((sum, r) => {
+  static calculateTotalSum(diceResults, isTwiceWeary) {
+    return diceResults.reduce((sum, result) => {
       // If it's a d12 with value 11, treat it as 0
-      if (r.die === 12 && r.roll === 11) {
+      if (result.die === 12 && result.roll === 11) {
         return sum
       }
 
       // If dice were dropped due to favored/ill-favored (roll = 0), don't add
-      if (r.roll === 0) {
+      if (result.roll === 0) {
         return sum
       }
 
       // Apply Twice Weary rule (d6 rolls of 1-3 don't count toward total)
-      if (r.die === 6 && r.roll <= 3 && isTwiceWeary) {
+      if (result.die === 6 && result.roll <= 3 && isTwiceWeary) {
         return sum
       }
 
       // Otherwise, add the roll to the total
-      return sum + r.roll
+      return sum + result.roll
     }, 0)
   }
 
@@ -295,7 +310,7 @@ class SkillCheckService {
     characterName,
   ) {
     try {
-      await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/send-discord-message`, {
+      await axios.post(`${this.apiUrl}/send-discord-message`, {
         rollResults,
         total: totalSum,
         targetNumber,
@@ -307,7 +322,7 @@ class SkillCheckService {
       })
     } catch (error) {
       console.error('Error sending skill check:', error)
-      alert('Failed to send skill check. Check your connection or server.')
+      throw new Error('Failed to send skill check. Check your connection or server.')
     }
   }
 }

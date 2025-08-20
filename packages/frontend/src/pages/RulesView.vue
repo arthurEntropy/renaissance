@@ -225,7 +225,7 @@ export default {
       if (this.isContentEditMode) return
       try {
         // Create the new section and refresh the sections list
-        const newSection = await RulesService.createSection()
+        const newSection = await RulesService.create()
         await this.rulesStore.fetchRules()
 
         // Confirm the section was created and select it
@@ -251,7 +251,7 @@ export default {
 
     async saveSection() {
       if (this.currentSection) {
-        await RulesService.updateSection(this.currentSection)
+        await RulesService.update(this.currentSection)
         await this.rulesStore.fetchRules()
         this.unsavedChanges = false
       }
@@ -301,7 +301,7 @@ export default {
 
       try {
         this.sectionToDelete = null
-        await RulesService.updateSection(sectionToUpdate)
+        await RulesService.update(sectionToUpdate)
         await this.rulesStore.fetchRules()
         // If the deleted section was the current section, select another one
         if (this.currentSection && this.currentSection.id === deletedSectionId) {

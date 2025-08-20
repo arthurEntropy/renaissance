@@ -11,7 +11,7 @@ export function useConceptData(concept) {
 
   const fetchAbilities = async () => {
     try {
-      const allAbilities = await AbilityService.getAllAbilities()
+      const allAbilities = await AbilityService.getAll()
       abilities.value = allAbilities.filter(
         (ability) => ability.source === concept.value.id,
       )
@@ -22,7 +22,7 @@ export function useConceptData(concept) {
 
   const fetchEquipment = async () => {
     try {
-      const allEquipment = await EquipmentService.getAllEquipment()
+      const allEquipment = await EquipmentService.getAll()
       equipment.value = allEquipment.filter(
         (item) => item.source === concept.value.id,
       )

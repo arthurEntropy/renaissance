@@ -34,18 +34,14 @@ export function useCharacterManagement(allEquipment) {
     selectedCharacter.value = { ...updatedCharacter }
   }
 
-  const createNewCharacter = async () => {
-    const createdCharacter = await CharacterService.createCharacter()
+  const createCharacter = async () => {
+    const createdCharacter = await CharacterService.create()
     await characterStore.fetchCharacters()
-    const newCharacter = characterStore.characters.find(
-      (character) => character.id === createdCharacter.id
-    )
-    selectCharacter(newCharacter)
+    return createdCharacter
   }
 
   const deleteCharacter = (character) => {
-    CharacterService.deleteCharacter(character)
-    deselectCharacter()
+    CharacterService.delete(character)
   }
 
   // Centralized character stat watchers
@@ -136,7 +132,7 @@ export function useCharacterManagement(allEquipment) {
     selectCharacter,
     deselectCharacter,
     updateCharacter,
-    createNewCharacter,
+    createCharacter,
     deleteCharacter,
     watchCharacterStats
   }

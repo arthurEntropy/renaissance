@@ -20,8 +20,8 @@ const {
 } = useConceptView(mestieriStore, MestiereService, {
   itemsProperty: 'mestieri',
   fetchMethod: 'fetchMestieri',
-  createMethod: 'createMestiere',
-  updateMethod: 'updateMestiere',
+  createMethod: 'create',
+  updateMethod: 'update',
   filterDeleted: true,
   useSoftDelete: true
 })

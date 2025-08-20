@@ -22,22 +22,21 @@ import ExpansionService from '@/services/expansionService'
 const expansions = ref([])
 
 const fetchExpansions = async () => {
-    expansions.value = await ExpansionService.getAllExpansions()
+    expansions.value = await ExpansionService.getAll()
 }
 
 const addExpansion = async () => {
-    // Always create with a default name so the backend can generate a file
-    await ExpansionService.createExpansion({ name: 'New Expansion', logoUrl: '' })
+    await ExpansionService.create()
     await fetchExpansions()
 }
 
 const saveExpansion = async (expansion) => {
-    await ExpansionService.saveExpansion(expansion)
+    await ExpansionService.update(expansion)
     await fetchExpansions()
 }
 
 const deleteExpansion = async (expansion) => {
-    await ExpansionService.deleteExpansion(expansion)
+    await ExpansionService.delete(expansion)
     await fetchExpansions()
 }
 

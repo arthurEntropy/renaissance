@@ -145,7 +145,7 @@ export default {
 
     const fetchEngagementSuccesses = async () => {
       try {
-        const allSuccesses = await EngagementSuccessService.getAllEngagementSuccesses()
+        const allSuccesses = await EngagementSuccessService.getAll()
         engagementSuccesses.value = props.equipment.engagementSuccesses
           .map((id) => allSuccesses.find((success) => success.id === id))
           .filter((success) => success)

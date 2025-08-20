@@ -24,10 +24,10 @@ export const useSourcesStore = defineStore('sources', () => {
     isLoading.value = true
     try {
       const [ancestries, cultures, mestieri, worldElements] = await Promise.all([
-        AncestryService.getAllAncestries(),
-        CultureService.getAllCultures(),
-        MestieriService.getAllMestieri(),
-        WorldElementsService.getAllWorldElements(),
+        AncestryService.getAll(),
+        CultureService.getAll(),
+        MestieriService.getAll(),
+        WorldElementsService.getAll(),
       ])
 
       sources.value = { ancestries, cultures, mestieri, worldElements }

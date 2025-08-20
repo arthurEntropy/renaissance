@@ -1,0 +1,6 @@
+{
+  "id": "6",
+  "name": "Knockback",
+  "description": "You push your opponent back 5 ft. The engagement and attack may only proceed if the attacker uses 5 ft of additional movement. If this is your second Knockback in this engagement, your opponent falls prone. The engagement and attack may only proceed if the attacker uses half of their movement to stand up.",
+  "isDeleted": false
+}

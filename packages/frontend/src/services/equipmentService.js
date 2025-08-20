@@ -2,15 +2,9 @@ import BaseService from './baseService'
 
 class EquipmentService extends BaseService {
   constructor() {
-    super(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/equipment`, 'equipment')
+    super('/equipment', 'equipment')
   }
 
-  // CRUD METHODS
-  async createEquipment() {
-    return this.create()
-  }
-
-  // Equipment is the only entity that allows custom items to be created by the user
   async createCustomEquipment() {
     const customEquipment = this.getDefaultEntity()
     customEquipment.isCustom = true
@@ -18,22 +12,9 @@ class EquipmentService extends BaseService {
     return this.create(customEquipment)
   }
 
-  async getAllEquipment() {
-    return this.getAll()
-  }
-
-  async updateEquipment(equipment) {
-    return this.update(equipment)
-  }
-
-  async deleteEquipment(equipment) {
-    return this.delete(equipment)
-  }
-
-  // DEFAULT EQUIPMENT
   getDefaultEntity() {
     return {
-      id: null, // ID will be assigned by the backend
+      id: null,
       name: 'New Item',
       description: '',
       standardOfLiving: null,
@@ -46,7 +27,7 @@ class EquipmentService extends BaseService {
       skillMods: [],
       isDeleted: false,
       isCustom: false,
-      artUrl: null, // No default art for equipment
+      artUrl: null,
     }
   }
 }

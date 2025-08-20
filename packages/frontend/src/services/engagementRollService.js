@@ -4,8 +4,9 @@ import { RollTypes } from '@/constants/rollTypes'
 import { EngagementWinnerTypes } from '@/constants/engagementWinnerTypes'
 import { PlayerSides } from '@/constants/playerSides'
 
-class EngagementRollService {
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000'
 
+class EngagementRollService {
   static rollSingleDie(dieSize) {
     return Math.floor(Math.random() * dieSize) + 1
   }
@@ -15,20 +16,17 @@ class EngagementRollService {
       return []
     }
 
-    // Create dice objects with roll results and metadata
     const diceWithResults = diceArray.map((die, index) => {
       if (!rollResults) {
-        // No results yet - show rolling state with max die face
         return {
           die: die,
-          value: die, // Show max face while rolling
+          value: die,
           class: getDiceFontMaxClass(die),
           isRolling: true,
-          isMax: false, // Not actually max until rolled
+          isMax: false,
           originalIndex: index
         }
       } else {
-        // We have actual roll results
         const value = rollResults[index] || 1
         const isMax = value === die
         return {
@@ -42,12 +40,11 @@ class EngagementRollService {
       }
     })
 
-    // Sort by value (highest first), then by die size for ties
     return diceWithResults.sort((a, b) => {
       if (b.value !== a.value) {
         return b.value - a.value
       }
-      return b.die - a.die // Favor larger dice in ties
+      return b.die - a.die
     })
   }
 
@@ -56,9 +53,6 @@ class EngagementRollService {
     const comparisons = []
 
     for (let i = 0; i < pairCount; i++) {
-      // Check for manual override first
-      // "Manual" means a user has manually set a result via the indicators in the UI
-      // This allows for custom results that don't depend on actual die values
       if (manualResults[i]) {
         const manualResult = manualResults[i]
         const leftWins = manualResult.winnerCharacterId === userCharacterId
@@ -78,7 +72,6 @@ class EngagementRollService {
       const userDie = i < userDice.length ? userDice[i] : null
       const opponentDie = i < opponentDice.length ? opponentDice[i] : null
 
-      // Handle cases where one side has no die
       if (!userDie && opponentDie) {
         comparisons.push({
           leftWins: false,
@@ -105,7 +98,6 @@ class EngagementRollService {
         })
       } else if (userDie && opponentDie && !userDie.isRolling && !opponentDie.isRolling &&
                  userDie.value !== undefined && opponentDie.value !== undefined) {
-        // Both sides have dice with values
         const userWins = userDie.value > opponentDie.value
         const opponentWins = opponentDie.value > userDie.value
         const tie = userDie.value === opponentDie.value
@@ -131,12 +123,10 @@ class EngagementRollService {
   }
 
   static determineEngagementWinner(diceComparisons, userDice = [], opponentDice = []) {
-    // Special case: if both players have no dice, it's a tie
     if (userDice.length === 0 && opponentDice.length === 0) {
       return EngagementWinnerTypes.TIE
     }
 
-    // If no comparisons exist, return null
     if (!diceComparisons || diceComparisons.length === 0) {
       return null
     }
@@ -150,7 +140,6 @@ class EngagementRollService {
       } else if (comparison.rightWins) {
         opponentWins++
       }
-      // Ties don't count for either side
     })
 
     if (userWins > opponentWins) {
@@ -204,12 +193,8 @@ class EngagementRollService {
     if (targetUser && targetUser.rollResults && sortedDice && sortedDice[diceIndex]) {
       const rerolledDie = sortedDice[diceIndex]
 
-      // Find the original index of this specific die instance
       if (rerolledDie.originalIndex !== undefined) {
-        // Update the roll result at the original index
         targetUser.rollResults[rerolledDie.originalIndex] = newValue
-
-        // Recalculate total
         targetUser.rollTotal = targetUser.rollResults.reduce((sum, value) => sum + value, 0)
         return true
       }
@@ -220,7 +205,7 @@ class EngagementRollService {
 
   static async sendEngagementResultsToServer(engagementResults) {
     try {
-      await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/send-discord-message`, {
+      await axios.post(`${API_BASE_URL}/send-discord-message`, {
         type: RollTypes.ENGAGEMENT,
         ...engagementResults
       })

@@ -20,8 +20,8 @@ const {
 } = useConceptView(worldElementsStore, WorldElementService, {
   itemsProperty: 'worldElements',
   fetchMethod: 'fetchWorldElements',
-  createMethod: 'createWorldElement',
-  updateMethod: 'updateWorldElement',
+  createMethod: 'create',
+  updateMethod: 'update',
   filterDeleted: true,
   useSoftDelete: true
 })

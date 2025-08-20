@@ -70,7 +70,7 @@ const sortOptions = ref({
 
 // ABILITY CRUD
 const createAbility = async () => {
-  const newAbility = await AbilityService.createAbility()
+  const newAbility = await AbilityService.create()
   await abilitiesStore.fetchAllAbilities()
   const createdAbility = abilitiesStore.abilities.find(
     (ability) => ability.id === newAbility.id,
@@ -79,7 +79,7 @@ const createAbility = async () => {
 }
 
 const updateAbility = async (ability) => {
-  await AbilityService.updateAbility(ability)
+  await AbilityService.update(ability)
   await abilitiesStore.fetchAllAbilities()
 }
 
@@ -92,7 +92,7 @@ const deleteAbility = async (ability) => {
       if (showEditAbilityModal.value && editId === deleteId) {
         closeEditAbilityModal()
       }
-      await AbilityService.updateAbility(abilityToUpdate)
+      await AbilityService.update(abilityToUpdate)
       await abilitiesStore.fetchAllAbilities()
     } catch (error) {
       console.error('Error deleting ability:', error)
@@ -101,7 +101,7 @@ const deleteAbility = async (ability) => {
 }
 
 const saveEditedAbility = async (editedAbility) => {
-  await AbilityService.updateAbility(editedAbility)
+  await AbilityService.update(editedAbility)
   closeEditAbilityModal()
   await abilitiesStore.fetchAllAbilities()
 }

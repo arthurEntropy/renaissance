@@ -6,8 +6,8 @@
   ],
   "targetNumber": 12,
   "body": 4,
-  "heart": 1,
-  "wits": 1,
+  "heart": 2,
+  "wits": 2,
   "skills": [
     {
       "name": "Awe",
@@ -46,7 +46,7 @@
     },
     {
       "name": "Perform",
-      "ranks": 1,
+      "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0
@@ -88,7 +88,7 @@
     },
     {
       "name": "Awareness",
-      "ranks": 1,
+      "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0
@@ -116,20 +116,20 @@
     }
   ],
   "endurance": {
-    "current": 20,
+    "current": 7,
     "max": 20
   },
   "hope": {
-    "current": 3,
-    "max": 3
+    "current": 6,
+    "max": 6
   },
   "defense": {
-    "current": 11,
-    "max": 11
+    "current": 12,
+    "max": 12
   },
   "load": 0,
   "shadow": 0,
-  "injury": 5,
+  "injury": 0,
   "states": {
     "weary": false,
     "twiceWeary": false,
@@ -157,11 +157,9 @@
     "max": 0
   },
   "abilities": [
-    "4fbf9ccb-0fbb-45d0-9f8f-7b7fcfb811fb",
-    "ad7f2d4c-75cc-4b7c-8066-57eb1ccaf54a",
-    "9c92d5ba-7c73-4480-a357-d98ac4820c7d",
     "f1d0e5f7-bb30-4251-a575-8d31c113fe1a",
-    "1e289ca8-cf6a-4f0d-ad7c-a13fc8e1f381"
+    "1e289ca8-cf6a-4f0d-ad7c-a13fc8e1f381",
+    "9c92d5ba-7c73-4480-a357-d98ac4820c7d"
   ],
   "twiceWeary": true,
   "weary": true,
@@ -170,5 +168,9 @@
   ],
   "cultureIds": [
     "352c844b-6d4f-4b61-b475-315421a453e7"
+  ],
+  "engagementDice": [
+    12,
+    12
   ]
 }

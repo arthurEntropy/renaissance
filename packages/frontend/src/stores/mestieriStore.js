@@ -3,18 +3,26 @@ import { ref } from 'vue'
 import MestieriService from '@/services/mestiereService.js'
 
 export const useMestieriStore = defineStore('mestieri', () => {
+  // state
   const mestieri = ref([])
 
+  // actions
   const fetchMestieri = async () => {
     try {
-      mestieri.value = await MestieriService.getAllMestieri()
+      mestieri.value = await MestieriService.getAll()
     } catch (error) {
       console.error('Error fetching mestieri:', error)
     }
   }
 
+  // getters
+  const getMestiereById = (id) => {
+    return mestieri.value.find(mestiere => mestiere.id === id)
+  }
+
   return {
     mestieri,
     fetchMestieri,
+    getMestiereById,
   }
 })

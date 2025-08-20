@@ -7,7 +7,7 @@
           @click="handleSelectCharacter(character)" />
 
         <!-- New "Add" card with plus icon -->
-        <div class="add-concept-card" @click="createNewCharacter">
+        <div class="add-concept-card" @click="createCharacter">
           <div class="add-icon">+</div>
           <div class="add-text">Add Character</div>
         </div>
@@ -45,7 +45,7 @@
             <div class="conditions-row" v-for="(value, key) in selectedCharacter.conditions" :key="key">
               <span :class="{ 'condition-active': value }">{{
                 cap(key)
-              }}</span>
+                }}</span>
               <input type="checkbox" class="skill-checkbox" :class="{ 'condition-active-checkbox': value }"
                 v-model="selectedCharacter.conditions[key]" />
             </div>
@@ -145,7 +145,7 @@ const {
   selectCharacter,
   deselectCharacter,
   updateCharacter,
-  createNewCharacter,
+  createCharacter,
   deleteCharacter,
   watchCharacterStats
 } = useCharacterManagement(computed(() => equipmentStore.equipment))

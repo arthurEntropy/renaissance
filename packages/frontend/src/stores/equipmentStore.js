@@ -1,67 +1,33 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import EquipmentService from '@/services/equipmentService'
-import AncestryService from '@/services/ancestryService'
-import CultureService from '@/services/cultureService'
-import MestieriService from '@/services/mestiereService'
-import WorldElementsService from '@/services/worldElementService'
 import StandardOfLivingService from '@/services/standardOfLivingService'
 
 export const useEquipmentStore = defineStore('equipment', () => {
+  // state
   const equipment = ref([])
-  const sources = ref({
-    ancestries: [],
-    cultures: [],
-    mestieri: [],
-    worldElements: [],
-  })
   const standardsOfLiving = ref([])
 
+  // actions
   const fetchAllEquipment = async () => {
     try {
-      equipment.value = await EquipmentService.getAllEquipment()
+      equipment.value = await EquipmentService.getAll()
     } catch (error) {
       console.error('Error fetching equipment:', error)
     }
   }
 
-  const fetchAllSources = async () => {
-    try {
-      const [ancestries, cultures, mestieri, worldElements] = await Promise.all([
-        AncestryService.getAllAncestries(),
-        CultureService.getAllCultures(),
-        MestieriService.getAllMestieri(),
-        WorldElementsService.getAllWorldElements(),
-      ])
-
-      sources.value = {
-        ancestries,
-        cultures,
-        mestieri,
-        worldElements,
-      }
-    } catch (error) {
-      console.error('Error fetching sources:', error)
-    }
-  }
-
-  const getSourceById = (sourceId) => {
-    if (!sourceId) return null
-
-    return (
-      sources.value.ancestries.find((item) => item.id === sourceId) ||
-      sources.value.cultures.find((item) => item.id === sourceId) ||
-      sources.value.mestieri.find((item) => item.id === sourceId) ||
-      sources.value.worldElements.find((item) => item.id === sourceId)
-    )
-  }
-
   const fetchStandardsOfLiving = async () => {
     try {
-      standardsOfLiving.value = await StandardOfLivingService.getAllStandardsOfLiving()
+      standardsOfLiving.value = await StandardOfLivingService.getAll()
     } catch (error) {
       console.error('Error fetching standards of living:', error)
     }
+  }
+
+  // getters
+  const getEquipmentById = (id) => {
+    return equipment.value.find(item => item.id === id)
   }
 
   const getStandardOfLivingById = (solId) => {
@@ -71,12 +37,10 @@ export const useEquipmentStore = defineStore('equipment', () => {
 
   return {
     equipment,
-    sources,
     standardsOfLiving,
     fetchAllEquipment,
-    fetchAllSources,
-    getSourceById,
     fetchStandardsOfLiving,
+    getEquipmentById,
     getStandardOfLivingById,
   }
 })

@@ -20,9 +20,9 @@ const {
 } = useConceptView(ancestriesStore, AncestryService, {
   itemsProperty: 'ancestries',
   fetchMethod: 'fetchAncestries',
-  createMethod: 'createAncestry',
-  updateMethod: 'saveAncestry',
-  deleteMethod: 'deleteAncestry',
+  createMethod: 'create',
+  updateMethod: 'update',
+  deleteMethod: 'delete',
   useSoftDelete: false
 })
 </script>

@@ -1,4 +1,11 @@
 import BaseService from './baseService'
+import {
+  EFFECT_SKILL_MAPS,
+  CONDITION_AND_STATE_DICE_MOD,
+  MAX_ENDURANCE_MULTIPLIER,
+  MAX_HOPE_MULTIPLIER,
+  MAX_DEFENSE_BASE,
+} from '../constants/coreAbilityConfig'
 
 const defaultNewEquipmentItem = {
   id: '',
@@ -8,25 +15,13 @@ const defaultNewEquipmentItem = {
 
 class CharacterService extends BaseService {
   constructor() {
-    super(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/characters`, 'character')
+    super('/characters', 'character')
   }
 
-  // CRUD METHODS
-  async createCharacter() {
-    return this.create()
-  }
-
-  async getAllCharacters() {
-    return this.getAll()
-  }
-
+  // Semantic alias for update with equipment normalization
   async saveCharacter(character) {
     this.normalizeEquipmentFlags(character)
     return this.update(character)
-  }
-
-  async deleteCharacter(character) {
-    return this.delete(character)
   }
 
   // STAT CHANGE HANDLER METHODS
@@ -83,15 +78,15 @@ class CharacterService extends BaseService {
 
   // CALCULATIONS
   calculateMaxEndurance(character) {
-    character.endurance.max = character.body * 5
+    character.endurance.max = character.body * MAX_ENDURANCE_MULTIPLIER
   }
 
   calculateMaxHope(character) {
-    character.hope.max = character.heart * 3
+    character.hope.max = character.heart * MAX_HOPE_MULTIPLIER
   }
 
   calculateMaxDefense(character) {
-    character.defense.max = character.wits + 10
+    character.defense.max = character.wits + MAX_DEFENSE_BASE
   }
 
   calculateLoad(character, allEquipment) {
@@ -130,33 +125,12 @@ class CharacterService extends BaseService {
     }, 0)
   }
 
-  // DICE MODS & FAVORED STATUS
   updateDiceMods(character) {
-    // These maps define which skills are affected by each condition and state
-    const effectSkillMaps = {
-      conditions: {
-        insecure: ['Awe', 'Perform', 'Persuade'],
-        guilty: ['Strength', 'Insight', 'Awareness'],
-        angry: ['Dexterity', 'Courtesy', 'Stealth'],
-        afraid: ['Fortitude', 'Spirit', 'Lore'],
-        troubled: ['Craft', 'Aid', 'Riddle'],
-      },
-      states: {
-        weary: ['Awe', 'Strength', 'Dexterity', 'Fortitude', 'Craft'],
-        twiceWeary: [''],
-        miserable: ['Perform', 'Insight', 'Courtesy', 'Spirit', 'Aid'],
-        twiceMiserable: [''],
-        helpless: ['Persuade', 'Awareness', 'Stealth', 'Lore', 'Riddle'],
-        twiceHelpless: [''],
-      },
-    }
-
-    // The dice modifier for conditions and states
-    const conditionAndStateDiceMod = -1
-
     // Reset all dice modifiers to 0
     character.skills.forEach((skill) => {
       skill.diceMod = 0
+
+      // TODO: Migrate skill shape to shared types when ready
 
       // Apply mods from active effects
       character.activeEffects.forEach((effect) => {
@@ -171,9 +145,9 @@ class CharacterService extends BaseService {
       Object.keys(character.conditions).forEach((condition) => {
         if (
           character.conditions[condition] &&
-          effectSkillMaps.conditions[condition]?.includes(skill.name)
+          EFFECT_SKILL_MAPS.conditions[condition]?.includes(skill.name)
         ) {
-          skill.diceMod += conditionAndStateDiceMod
+          skill.diceMod += CONDITION_AND_STATE_DICE_MOD
         }
       })
 
@@ -181,9 +155,9 @@ class CharacterService extends BaseService {
       Object.keys(character.states).forEach((state) => {
         if (
           character.states[state] &&
-          effectSkillMaps.states[state]?.includes(skill.name)
+          EFFECT_SKILL_MAPS.states[state]?.includes(skill.name)
         ) {
-          skill.diceMod += conditionAndStateDiceMod
+          skill.diceMod += CONDITION_AND_STATE_DICE_MOD
         }
       })
     })
@@ -247,19 +221,21 @@ class CharacterService extends BaseService {
     }
   }
 
-  removeEquipmentItem(character, index) {
+  removeEquipmentItem(character, index, allEquipment) {
     if (index >= 0 && index < character.equipment.length) {
       character.equipment.splice(index, 1)
-      this.calculateLoad(character)
+      if (allEquipment) {
+        this.calculateLoad(character, allEquipment)
+      }
     }
   }
   
-  updateEquipmentItem(character, index, key, value) {
+  updateEquipmentItem(character, index, key, value, allEquipment) {
     if (index >= 0 && index < character.equipment.length) {
       character.equipment[index][key] = value
 
-      if (key === 'weight' || key === 'quantity' || key === 'isCarried') {
-        this.calculateLoad(character) // Recalculate load if weight, quantity, or carried status changes
+      if ((key === 'weight' || key === 'quantity' || key === 'isCarried') && allEquipment) {
+        this.calculateLoad(character, allEquipment)
       }
     }
   }
@@ -270,7 +246,7 @@ class CharacterService extends BaseService {
 
   getDefaultEntity() {
     return {
-      id: null, // ID will be assigned by the backend
+      id: null,
       name: 'New Character',
       pronouns: '',
       ancestries: '',

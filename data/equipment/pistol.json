@@ -1,0 +1,16 @@
+{
+  "id": "af250e04-5dcf-4f45-9b67-823ca63b3f04",
+  "name": "Pistol",
+  "description": "<p>Short Range, Dexterity vs Defense, d8 damage.</p>",
+  "standardOfLiving": null,
+  "source": null,
+  "weight": 1,
+  "isMelee": false,
+  "damageDice": [],
+  "engagementDice": [],
+  "engagementSuccesses": [],
+  "skillMods": [],
+  "isDeleted": false,
+  "isCustom": true,
+  "artUrl": null
+}

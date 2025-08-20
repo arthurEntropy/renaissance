@@ -2,32 +2,14 @@ import BaseService from './baseService'
 
 class RulesService extends BaseService {
   constructor() {
-    super(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/rules`, 'section')
+    super('/rules', 'section')
   }
 
-  // CRUD METHODS
-  async createSection() {
-    return this.create()
-  }
-
-  async getAllSections() {
-    return this.getAll()
-  }
-
-  async updateSection(section) {
-    return this.update(section)
-  }
-
-  async deleteSection(section) {
-    return this.delete(section)
-  }
-
-  // Rules sections are the only entities that have a specific order
   async reorderSections(sections) {
     try {
       const updatePromises = sections.map((section, index) => {
         const updatedSection = { ...section, index }
-        return this.updateSection(updatedSection)
+        return this.update(updatedSection)
       })
       await Promise.all(updatePromises)
       return sections
@@ -39,7 +21,7 @@ class RulesService extends BaseService {
 
   getDefaultEntity() {
     return {
-      id: null, // ID will be assigned by the backend
+      id: null,
       name: 'New Section',
       content: '',
       imageUrl: '',
