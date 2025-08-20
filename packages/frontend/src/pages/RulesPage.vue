@@ -182,7 +182,7 @@ export default {
         this.selectSection(this.filteredSections[0].id)
       }
     } catch (error) {
-      console.error('Error in RulesView created:', error)
+      console.error('Error in RulesPage created:', error)
     }
   },
 

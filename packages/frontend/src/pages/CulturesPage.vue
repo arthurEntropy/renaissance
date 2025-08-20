@@ -1,12 +1,12 @@
 <template>
-  <ConceptsView itemName="Culture" :concepts="cultures" :createConceptFn="createNewCulture"
+  <ConceptsLayout itemName="Culture" :concepts="cultures" :createConceptFn="createNewCulture"
     :updateConceptFn="updateCulture" :deleteConceptFn="deleteCulture" :refreshDataFn="refreshData" />
 </template>
 
 <script setup>
 import { useCulturesStore } from '@/stores/culturesStore'
 import CultureService from '@/services/cultureService'
-import ConceptsView from '@/components/ui/views/ConceptsView.vue'
+import ConceptsLayout from '@/components/ui/layouts/ConceptsLayout.vue'
 import { useConceptView } from '@/composables/useConceptView'
 
 const culturesStore = useCulturesStore()

@@ -1,12 +1,12 @@
 <template>
-  <ConceptsView itemName="World Element" :concepts="worldElements" :createConceptFn="createNewWorldElement"
+  <ConceptsLayout itemName="World Element" :concepts="worldElements" :createConceptFn="createNewWorldElement"
     :updateConceptFn="updateWorldElement" :deleteConceptFn="deleteWorldElement" :refreshDataFn="refreshData" />
 </template>
 
 <script setup>
 import { useWorldElementsStore } from '@/stores/worldElementsStore'
 import WorldElementService from '@/services/worldElementService'
-import ConceptsView from '@/components/ui/views/ConceptsView.vue'
+import ConceptsLayout from '@/components/ui/layouts/ConceptsLayout.vue'
 import { useConceptView } from '@/composables/useConceptView'
 
 const worldElementsStore = useWorldElementsStore()

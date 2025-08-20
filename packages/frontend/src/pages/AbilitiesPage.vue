@@ -1,14 +1,14 @@
 <template>
-  <ItemCardsView itemType="Ability" itemTypePlural="Abilities" :sources="sources" :items="abilities"
+  <ItemCardsLayout itemType="Ability" itemTypePlural="Abilities" :sources="sources" :items="abilities"
     :sortOptions="sortOptions" v-model:searchQuery="searchQuery" v-model:sourceFilter="sourceFilter"
-    v-model:sortOption="sortOption" @create="createAbility" ref="itemCardsView">
+    v-model:sortOption="sortOption" @create="createAbility" ref="itemCardsLayout">
 
     <!-- Item cards slot -->
     <template #item-cards="{ filteredItems }">
       <AbilityCard v-for="ability in filteredItems" :key="ability.id" :ability="ability" :editable="true"
         :sources="sources" @delete="deleteAbility(ability)" @update="updateAbility(ability)"
         @edit="openEditAbilityModal(ability)" @send-to-chat="sendAbilityToChat(ability)"
-        @height-changed="itemCardsView?.onCardHeightChanged()" :collapsible="false" />
+        @height-changed="itemCardsLayout?.onCardHeightChanged()" :collapsible="false" />
     </template>
 
     <!-- Modals slot -->
@@ -17,7 +17,7 @@
         @update="saveEditedAbility" @close="closeEditAbilityModal" @delete="deleteAbility(abilityToEdit)" />
     </template>
 
-  </ItemCardsView>
+  </ItemCardsLayout>
 </template>
 
 <script setup>
@@ -29,7 +29,7 @@ import { useSourcesStore } from '@/stores/sourcesStore'
 import AbilityService from '@/services/abilityService'
 import AbilityCard from '@/components/ui/cards/AbilityCard.vue'
 import EditAbilityModal from '@/components/modals/EditAbilityModal.vue'
-import ItemCardsView from '@/components/ui/views/ItemCardsView.vue'
+import ItemCardsLayout from '@/components/ui/layouts/ItemCardsLayout.vue'
 
 // Store
 const abilitiesStore = useAbilitiesStore()
@@ -48,7 +48,7 @@ const sourcesStore = useSourcesStore()
 const sources = sourcesStore.sources
 
 // Reactive state
-const itemCardsView = ref(null)
+const itemCardsLayout = ref(null)
 const sortOption = ref('')
 const searchQuery = ref('')
 const sourceFilter = ref('')
@@ -118,7 +118,7 @@ onMounted(async () => {
     // Sources will auto-fetch via useSources composable
     await abilitiesStore.fetchAllAbilities()
   } catch (error) {
-    console.error('Error initializing AbilitiesView:', error)
+    console.error('Error initializing AbilitiesPage:', error)
   }
 })
 </script>

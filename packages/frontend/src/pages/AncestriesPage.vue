@@ -1,12 +1,12 @@
 <template>
-  <ConceptsView itemName="Ancestry" :concepts="ancestries" :createConceptFn="createNewAncestry"
+  <ConceptsLayout itemName="Ancestry" :concepts="ancestries" :createConceptFn="createNewAncestry"
     :updateConceptFn="updateAncestry" :deleteConceptFn="deleteAncestry" :refreshDataFn="refreshData" />
 </template>
 
 <script setup>
 import { useAncestriesStore } from '@/stores/ancestriesStore'
 import AncestryService from '@/services/ancestryService'
-import ConceptsView from '@/components/ui/views/ConceptsView.vue'
+import ConceptsLayout from '@/components/ui/layouts/ConceptsLayout.vue'
 import { useConceptView } from '@/composables/useConceptView'
 
 const ancestriesStore = useAncestriesStore()

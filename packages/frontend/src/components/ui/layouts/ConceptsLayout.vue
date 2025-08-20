@@ -303,7 +303,7 @@ onMounted(async () => {
     ]);
     window.addEventListener('keydown', handleKeyNavigation);
   } catch (error) {
-    console.error('Error initializing ConceptsView:', error);
+    console.error('Error initializing ConceptsLayout:', error);
   }
 })
 

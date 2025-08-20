@@ -1,12 +1,12 @@
 <template>
-  <ConceptsView itemName="Mestiere" :concepts="mestieri" :createConceptFn="createNewMestiere"
+  <ConceptsLayout itemName="Mestiere" :concepts="mestieri" :createConceptFn="createNewMestiere"
     :updateConceptFn="updateMestiere" :deleteConceptFn="deleteMestiere" :refreshDataFn="refreshData" />
 </template>
 
 <script setup>
 import { useMestieriStore } from '@/stores/mestieriStore'
 import MestiereService from '@/services/mestiereService'
-import ConceptsView from '@/components/ui/views/ConceptsView.vue'
+import ConceptsLayout from '@/components/ui/layouts/ConceptsLayout.vue'
 import { useConceptView } from '@/composables/useConceptView'
 
 const mestieriStore = useMestieriStore()

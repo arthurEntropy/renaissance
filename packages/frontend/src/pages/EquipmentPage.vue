@@ -1,13 +1,13 @@
 <template>
-  <ItemCardsView itemType="Equipment" itemTypePlural="Equipment" :sources="sources" :items="equipment"
+  <ItemCardsLayout itemType="Equipment" itemTypePlural="Equipment" :sources="sources" :items="equipment"
     :sortOptions="sortOptions" v-model:searchQuery="searchQuery" v-model:sourceFilter="sourceFilter"
-    v-model:sortOption="sortOption" @create="createEquipment" ref="itemCardsView">
+    v-model:sortOption="sortOption" @create="createEquipment" ref="itemCardsLayout">
 
     <!-- Item cards slot -->
     <template #item-cards="{ filteredItems }">
       <EquipmentCard v-for="item in filteredItems" :key="item.id" :equipment="item" :editable="true" :sources="sources"
         :art-expanded="true" @edit="openEditEquipmentModal(item)" @send-to-chat="sendEquipmentToChat(item)"
-        @height-changed="itemCardsView?.onCardHeightChanged()" :collapsible="false" :showSource="true" />
+        @height-changed="itemCardsLayout?.onCardHeightChanged()" :collapsible="false" :showSource="true" />
     </template>
 
     <!-- Modals slot -->
@@ -17,7 +17,7 @@
         :engagement-success-options="engagementSuccessOptions" @update="saveEditedEquipment"
         @close="closeEditEquipmentModal" @delete="deleteEquipment(equipmentToEdit)" />
     </template>
-  </ItemCardsView>
+  </ItemCardsLayout>
 </template>
 
 <script setup>
@@ -30,7 +30,7 @@ import EquipmentService from '@/services/equipmentService'
 import EngagementSuccessService from '@/services/engagementSuccessService'
 import EquipmentCard from '@/components/ui/cards/EquipmentCard.vue'
 import EditEquipmentModal from '@/components/modals/EditEquipmentModal.vue'
-import ItemCardsView from '@/components/ui/views/ItemCardsView.vue'
+import ItemCardsLayout from '@/components/ui/layouts/ItemCardsLayout.vue'
 
 // Store
 const equipmentStore = useEquipmentStore()
@@ -49,7 +49,7 @@ const sourcesStore = useSourcesStore()
 const sources = sourcesStore.sources
 
 // Reactive state
-const itemCardsView = ref(null)
+const itemCardsLayout = ref(null)
 const sortOption = ref('')
 const searchQuery = ref('')
 const sourceFilter = ref('')
@@ -125,7 +125,7 @@ onMounted(async () => {
     await fetchEngagementSuccessOptions()
     await equipmentStore.fetchAllEquipment()
   } catch (error) {
-    console.error('Error initializing EquipmentView:', error)
+    console.error('Error initializing EquipmentPage:', error)
   }
 })
 </script>

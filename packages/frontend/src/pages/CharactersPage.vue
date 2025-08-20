@@ -45,7 +45,7 @@
             <div class="conditions-row" v-for="(value, key) in selectedCharacter.conditions" :key="key">
               <span :class="{ 'condition-active': value }">{{
                 cap(key)
-                }}</span>
+              }}</span>
               <input type="checkbox" class="skill-checkbox" :class="{ 'condition-active-checkbox': value }"
                 v-model="selectedCharacter.conditions[key]" />
             </div>
@@ -239,7 +239,7 @@ onMounted(async () => {
       equipmentStore.fetchAllEquipment()
     ])
   } catch (error) {
-    console.error('Error initializing CharactersView:', error)
+    console.error('Error initializing CharactersPage:', error)
   }
 })
 </script>
