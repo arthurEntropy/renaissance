@@ -79,7 +79,7 @@ import StarterKit from '@tiptap/starter-kit'
 import Link from '@tiptap/extension-link'
 import Image from '@tiptap/extension-image'
 import TextAlign from '@tiptap/extension-text-align'
-import DiceFontNode from '@/extensions/DiceFontNode'
+import DiceFontNode from '@/extensions/diceFontNode'
 
 export default {
   name: 'RichTextEditor',
