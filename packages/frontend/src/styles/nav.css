@@ -21,20 +21,20 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 20px;
+  padding: 0 var(--space-xl);
 }
 
 .top-nav a {
   color: var(--color-text-secondary);
   text-decoration: none;
-  padding: 0 10px;
+  padding: 0 var(--space-md);
   font-size: var(--font-size-14);
   letter-spacing: 1px;
   height: 100%;
   display: flex;
   align-items: center;
   position: relative;
-  transition: color var(--transition-normal);
+  transition: var(--transition-color);
 }
 
 .top-nav a:hover {
@@ -50,8 +50,8 @@
   content: '';
   position: absolute;
   bottom: 0;
-  left: 10px;
-  right: 10px;
+  left: var(--space-md);
+  right: var(--space-md);
   height: 2px;
   background: var(--color-white);
 }
@@ -67,7 +67,7 @@
   background: var(--overlay-black-medium);
   backdrop-filter: blur(5px);
   padding: var(--space-xl);
-  transition: left var(--transition-normal);
+  transition: var(--transition-all);
   display: none;
   /* Hidden on desktop by default */
   flex-direction: column;
@@ -80,7 +80,7 @@
 
 .menu-toggle {
   position: absolute;
-  top: 10px;
+  top: var(--space-md);
   right: -35px;
   width: 30px;
   height: 30px;
@@ -98,7 +98,7 @@
 .nav-menu nav {
   display: flex;
   flex-direction: column;
-  margin-top: 40px;
+  margin-top: var(--space-xl);
 }
 
 .nav-menu a {
@@ -106,7 +106,7 @@
   text-decoration: none;
   padding: var(--space-md);
   margin: var(--space-xs) 0;
-  transition: background-color var(--transition-normal);
+  transition: var(--transition-background);
 }
 
 .nav-menu a:hover {

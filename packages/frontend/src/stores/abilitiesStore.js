@@ -1,8 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import AbilityService from '@/services/abilityService'
-// Note: Source data is managed by the centralized sourcesStore
-import { useSourcesStore } from './sourcesStore'
 
 export const useAbilitiesStore = defineStore('abilities', () => {
   // state

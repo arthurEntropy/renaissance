@@ -29,8 +29,6 @@
 
 
 /* ===== BASE HTML/BODY STYLES ===== */
-/* TODO: Give the user a few options for background images */
-/* Currently a single background image */
 html,
 body {
   background-size: cover;
@@ -56,7 +54,7 @@ body {
 
 label {
   font-size: var(--font-size-14);
-  color: var(--color-font-secondary);
+  color: var(--color-text-secondary);
   padding-right: var(--space-xs);
 }
 

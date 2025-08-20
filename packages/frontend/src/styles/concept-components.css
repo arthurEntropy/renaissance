@@ -3,13 +3,13 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin-top: 1rem;
+  margin-top: var(--space-lg);
   text-align: left;
 }
 
 .section-header {
   font-weight: var(--font-weight-bold);
-  margin-bottom: 0.5rem;
+  margin-bottom: var(--space-sm);
   font-size: var(--font-size-32);
 }
 
@@ -18,25 +18,25 @@
   padding: var(--space-md);
   background: var(--overlay-white-heavy);
   border-radius: var(--radius-10);
-  margin-bottom: 10px;
+  margin-bottom: var(--space-md);
 }
 
 /* Editor item styles */
 .edit-item {
   background: var(--overlay-black-medium);
-  border: 1px solid var(--color-gray-medium);
+  border: 1px solid var(--color-border-primary);
   border-radius: var(--radius-5);
-  margin-bottom: 10px;
+  margin-bottom: var(--space-md);
   padding: var(--space-sm);
 }
 
 /* Alternative edit item style for lighter backgrounds */
 .edit-item-light {
   background: var(--overlay-white-subtle);
-  border: 1px solid var(--color-gray-medium);
+  border: 1px solid var(--color-border-primary);
   border-radius: var(--radius-5);
-  margin-bottom: 10px;
-  padding: 12px;
+  margin-bottom: var(--space-md);
+  padding: var(--space-sm);
 }
 
 /* Editor buttons container */
@@ -44,7 +44,7 @@
   display: flex;
   justify-content: space-between;
   gap: var(--space-md);
-  margin-top: 10px;
+  margin-top: var(--space-md);
 }
 
 .editor-buttons-start {
@@ -58,30 +58,28 @@
 /* GM Notes section styling */
 .toggle-gm-notes {
   background: none;
-  border: 1px solid var(--color-gray-medium);
-  color: var(--color-gray-light);
+  border: 1px solid var(--color-border-primary);
+  color: var(--color-text-secondary);
   border-radius: var(--radius-5);
-  padding: 2px 10px;
+  padding: var(--space-xs) var(--space-md);
   font-size: var(--font-size-15);
   cursor: pointer;
-  margin-bottom: 6px;
-  margin-top: 2px;
-  transition:
-    background 0.2s,
-    color 0.2s;
+  margin-bottom: var(--space-xs);
+  margin-top: var(--space-xs);
+  transition: var(--transition-color-bg);
 }
 
 .toggle-gm-notes:hover {
-  background: var(--color-gray-medium);
-  color: var(--color-white);
+  background: var(--color-bg-tertiary);
+  color: var(--color-text-primary);
 }
 
 .gm-notes {
   background: rgba(60, 60, 80, 0.85);
   color: #b0e0ff;
   border-radius: var(--radius-5);
-  padding: var(--space-sm) 10px;
-  margin-top: 6px;
+  padding: var(--space-sm) var(--space-md);
+  margin-top: var(--space-xs);
   font-size: var(--font-size-15);
   white-space: pre-line;
 }
@@ -90,7 +88,7 @@
 .two-column-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
+  gap: var(--space-sm);
   width: 100%;
 }
 
@@ -106,7 +104,7 @@
   align-items: center;
   z-index: var(--z-modal);
   overflow-y: auto;
-  padding: 20px;
+  padding: var(--space-xl);
 }
 
 .modal-overlay-dark {
@@ -131,15 +129,15 @@
 /* === EDIT BUTTON POSITIONING === */
 .edit-button-overlay {
   position: absolute;
-  top: 4px;
-  right: 4px;
+  top: var(--space-xs);
+  right: var(--space-xs);
   z-index: var(--z-modal);
 }
 
 .edit-button-overlay-large {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: var(--space-md);
+  right: var(--space-md);
   z-index: var(--z-raised);
 }
 
@@ -152,10 +150,10 @@
 /* === FORM INPUT STYLES === */
 .concept-input {
   background: var(--color-bg-secondary);
-  border: 1px solid var(--color-gray-medium);
+  border: 1px solid var(--color-border-primary);
   border-radius: var(--radius-5);
   color: var(--color-text-primary);
-  padding: var(--space-sm) 12px;
+  padding: var(--space-sm) var(--space-sm);
   font-size: var(--font-size-16);
 }
 
@@ -166,13 +164,13 @@
 
 .concept-input-large {
   font-size: var(--font-size-18);
-  padding: var(--space-md) 16px;
+  padding: var(--space-md) var(--space-lg);
 }
 
 .concept-input-title {
-  font-size: 2.5rem;
-  font-weight: bold;
-  padding: 8px 12px;
+  font-size: var(--font-size-40);
+  font-weight: var(--font-weight-bold);
+  padding: var(--space-sm) var(--space-sm);
   border: 2px solid var(--color-primary);
 }
 
@@ -181,14 +179,14 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  gap: 40px;
+  gap: var(--space-xl);
   padding: var(--space-xl);
 }
 
 .concept-layout-mobile {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: var(--space-xl);
   padding: var(--space-lg);
 }
 
@@ -207,7 +205,7 @@
   flex: 1;
   min-width: 400px;
   max-width: 710px;
-  gap: 1.5rem;
+  gap: var(--space-xl);
 }
 
 /* === DRAG AND DROP STYLES === */
@@ -215,19 +213,19 @@
   cursor: move;
   font-size: var(--font-size-20);
   color: var(--color-text-muted);
-  margin-right: 8px;
+  margin-right: var(--space-sm);
   user-select: none;
   transition: var(--transition-color);
 }
 
 .drag-handle:hover {
-  color: var(--color-gray-light);
+  color: var(--color-text-secondary);
 }
 
 .ghost-item {
   opacity: 0.5;
   background: var(--color-bg-secondary) !important;
-  border: 2px dashed var(--color-gray-medium) !important;
+  border: 2px dashed var(--color-border-primary) !important;
 }
 
 /* === CONTENT STYLING === */
@@ -253,8 +251,8 @@
 
 .helper-text {
   font-size: var(--font-size-14);
-  color: var(--color-gray-light);
-  margin-bottom: 10px;
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-md);
 }
 
 /* === BADGE AND CHIP STYLES === */
@@ -262,9 +260,9 @@
   display: inline-block;
   background: var(--color-bg-secondary);
   color: var(--color-text-primary);
-  border: 1px solid var(--color-gray-medium);
+  border: 1px solid var(--color-border-primary);
   border-radius: var(--radius-10);
-  padding: 2px 10px;
+  padding: var(--space-xs) var(--space-md);
   font-size: var(--font-size-15);
   line-height: var(--line-height-normal);
 }
@@ -276,7 +274,7 @@
   box-shadow: var(--shadow-elevation-sm);
   background: var(--color-bg-secondary);
   object-fit: cover;
-  border: 2px solid var(--color-gray-light);
+  border: 2px solid var(--color-text-secondary);
 }
 
 .expansion-badge-wrapper {
@@ -286,7 +284,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-left: 16px;
+  margin-left: var(--space-lg);
   z-index: var(--z-floating);
 }
 
@@ -294,18 +292,18 @@
 @media (max-width: var(--breakpoint-lg)) {
   .modal-overlay-base {
     align-items: flex-start;
-    padding: 10px;
+    padding: var(--space-md);
   }
   
   .modal-content-base {
     max-height: 95vh;
     border-radius: var(--radius-5);
-    margin-top: 10px;
+    margin-top: var(--space-md);
   }
 
   .concept-layout-desktop {
     flex-direction: column;
-    gap: 18px;
+    gap: var(--space-lg);
   }
   
   .concept-column-left,
@@ -314,7 +312,7 @@
   }
   
   .concept-column-left {
-    margin-bottom: 1rem;
+    margin-bottom: var(--space-lg);
   }
 }
 
