@@ -1,7 +1,8 @@
 import BaseService from './baseService'
 import {
-  EFFECT_SKILL_MAPS,
-  CONDITION_AND_STATE_DICE_MOD,
+  CONDITION_AFFECTED_SKILLS,
+  STATE_AFFECTED_SKILLS,
+  CONDITION_AND_STATE_DICE_MODIFIER,
   MAX_ENDURANCE_MULTIPLIER,
   MAX_HOPE_MULTIPLIER,
   MAX_DEFENSE_BASE,
@@ -145,9 +146,9 @@ class CharacterService extends BaseService {
       Object.keys(character.conditions).forEach((condition) => {
         if (
           character.conditions[condition] &&
-          EFFECT_SKILL_MAPS.conditions[condition]?.includes(skill.name)
+          CONDITION_AFFECTED_SKILLS[condition]?.includes(skill.name)
         ) {
-          skill.diceMod += CONDITION_AND_STATE_DICE_MOD
+          skill.diceMod += CONDITION_AND_STATE_DICE_MODIFIER
         }
       })
 
@@ -155,9 +156,9 @@ class CharacterService extends BaseService {
       Object.keys(character.states).forEach((state) => {
         if (
           character.states[state] &&
-          EFFECT_SKILL_MAPS.states[state]?.includes(skill.name)
+          STATE_AFFECTED_SKILLS[state]?.includes(skill.name)
         ) {
-          skill.diceMod += CONDITION_AND_STATE_DICE_MOD
+          skill.diceMod += CONDITION_AND_STATE_DICE_MODIFIER
         }
       })
     })

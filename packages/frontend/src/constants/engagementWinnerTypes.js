@@ -1,7 +1,7 @@
 export const EngagementWinnerTypes = {
   USER: 'user',
   OPPONENT: 'opponent',
-  TIE: 'tie'
+  TIE: 'tie',
 }
 
 export default EngagementWinnerTypes

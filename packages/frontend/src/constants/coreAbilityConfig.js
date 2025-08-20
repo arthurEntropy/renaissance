@@ -35,29 +35,34 @@ export const CORE_ABILITY_COLUMNS = {
 }
 
 // Skills affected by conditions and states
-export const EFFECT_SKILL_MAPS = {
-  conditions: {
-    insecure: ['Awe', 'Perform', 'Persuade'],
-    guilty: ['Strength', 'Insight', 'Awareness'],
-    angry: ['Dexterity', 'Courtesy', 'Stealth'],
-    afraid: ['Fortitude', 'Spirit', 'Lore'],
-    troubled: ['Craft', 'Aid', 'Riddle'],
-  },
-  states: {
-    weary: ['Awe', 'Strength', 'Dexterity', 'Fortitude', 'Craft'],
-    twiceWeary: [''],
-    miserable: ['Perform', 'Insight', 'Courtesy', 'Spirit', 'Aid'],
-    twiceMiserable: [''],
-    helpless: ['Persuade', 'Awareness', 'Stealth', 'Lore', 'Riddle'],
-    twiceHelpless: [''],
-  },
+export const CONDITION_AFFECTED_SKILLS = {
+  insecure: ['Awe', 'Perform', 'Persuade'],
+  guilty: ['Strength', 'Insight', 'Awareness'],
+  angry: ['Dexterity', 'Courtesy', 'Stealth'],
+  afraid: ['Fortitude', 'Spirit', 'Lore'],
+  troubled: ['Craft', 'Aid', 'Riddle'],
 }
 
+export const STATE_AFFECTED_SKILLS = {
+  weary: ['Awe', 'Strength', 'Dexterity', 'Fortitude', 'Craft'],
+  twiceWeary: [], // No additional skills affected
+  miserable: ['Perform', 'Insight', 'Courtesy', 'Spirit', 'Aid'],
+  twiceMiserable: [], // No additional skills affected
+  helpless: ['Persuade', 'Awareness', 'Stealth', 'Lore', 'Riddle'],
+  twiceHelpless: [], // No additional skills affected
+}
+
+// Character attribute multipliers and bases
 export const MAX_ENDURANCE_MULTIPLIER = 5
 export const MAX_HOPE_MULTIPLIER = 3
 export const MAX_DEFENSE_BASE = 10
 
+// Dice configuration
 export const DICE_COUNT = 5
-export const DICE_SIZES = { D6: 6, D12: 12 }
+export const DICE_SIZES = { 
+  D6: 6, 
+  D12: 12,
+}
 
-export const CONDITION_AND_STATE_DICE_MOD = -1
+// Modifiers
+export const CONDITION_AND_STATE_DICE_MODIFIER = -1

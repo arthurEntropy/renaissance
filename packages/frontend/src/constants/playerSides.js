@@ -1,6 +1,6 @@
 export const PlayerSides = {
   USER: 'user',
-  OPPONENT: 'opponent'
+  OPPONENT: 'opponent',
 }
 
 export default PlayerSides
