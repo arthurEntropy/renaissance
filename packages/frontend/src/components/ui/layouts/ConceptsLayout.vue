@@ -1,7 +1,7 @@
 <template>
   <div class="concepts-view">
-    <!-- Filter Controls -->
-    <div class="filter-controls">
+    <!-- Filter Controls (conditionally shown) -->
+    <div v-if="showFilters" class="filter-controls">
       <input type="text" v-model="searchQuery" class="search-input" placeholder="Search..." />
       <select v-model="expansionFilter" class="expansion-filter">
         <option value="">All Expansions</option>
@@ -19,28 +19,37 @@
       </div>
     </div>
 
-    <!-- Concept Detail Modal with Navigation Arrows -->
+    <!-- Modal with Navigation Arrows (support different modal components) -->
     <div v-if="showConceptDetail" class="modal-container">
       <button class="navigate-button prev" @click="navigateConcept(-1)" :disabled="!hasPreviousConcept"
         :title="hasPreviousConcept ? 'Previous (← Left Arrow)' : 'No previous item'">
         &lsaquo;
       </button>
-      <ConceptDetailModal :key="conceptDetailKey" :concept="selectedConcept" :editable="true"
+
+      <!-- Character Sheet Modal -->
+      <CharacterSheetModal v-if="modalComponent === 'CharacterSheetModal'" :key="`character-${conceptDetailKey}`"
+        :character="selectedConcept" v-bind="customModalProps" @close="closeConceptDetail"
+        @update:character="updateConcept" @delete:character="deleteConcept" />
+
+      <!-- Concept Detail Modal -->
+      <ConceptDetailModal v-else :key="`concept-${conceptDetailKey}`" :concept="selectedConcept" :editable="true"
         @close="closeConceptDetail" @update="updateConcept" @edit-ability="editAbility"
         @edit-equipment="editEquipment" />
+
       <button class="navigate-button next" @click="navigateConcept(1)" :disabled="!hasNextConcept"
         :title="hasNextConcept ? 'Next (→ Right Arrow)' : 'No next item'">
         &rsaquo;
       </button>
     </div>
 
-    <!-- Edit Ability Modal -->
-    <EditAbilityModal v-if="showEditAbilityModal" :ability="selectedAbility" :sources="sources"
-      @update="saveEditedAbility" @close="closeEditAbilityModal" @delete="deleteAbility" />
+    <!-- Edit Ability Modal (only shown when not using custom modal component) -->
+    <EditAbilityModal v-if="showEditAbilityModal && modalComponent === 'ConceptDetailModal'" :ability="selectedAbility"
+      :sources="sources" @update="saveEditedAbility" @close="closeEditAbilityModal" @delete="deleteAbility" />
 
-    <!-- Edit Equipment Modal -->
-    <EditEquipmentModal v-if="showEditEquipmentModal" :equipment="selectedEquipment" :sources="sources"
-      @update="saveEditedEquipment" @close="closeEditEquipmentModal" />
+    <!-- Edit Equipment Modal (only shown when not using custom modal component) -->
+    <EditEquipmentModal v-if="showEditEquipmentModal && modalComponent === 'ConceptDetailModal'"
+      :equipment="selectedEquipment" :sources="sources" @update="saveEditedEquipment"
+      @close="closeEditEquipmentModal" />
   </div>
 </template>
 
@@ -53,6 +62,7 @@ import { useEditModal } from '@/composables/useEditModal'
 import { useSourcesStore } from '@/stores/sourcesStore'
 import ConceptCard from '@/components/ui/cards/ConceptCard.vue'
 import ConceptDetailModal from '@/components/features/conceptDetail/ConceptDetailModal.vue'
+import CharacterSheetModal from '@/components/features/characterSheet/CharacterSheetModal.vue'
 import EditAbilityModal from '@/components/modals/EditAbilityModal.vue'
 import EditEquipmentModal from '@/components/modals/EditEquipmentModal.vue'
 import AbilityService from '@/services/abilityService'
@@ -83,6 +93,19 @@ const props = defineProps({
   refreshDataFn: {
     type: Function,
     required: true,
+  },
+  // New optional props for character support
+  showFilters: {
+    type: Boolean,
+    default: true,
+  },
+  modalComponent: {
+    type: String,
+    default: 'ConceptDetailModal',
+  },
+  customModalProps: {
+    type: Object,
+    default: () => ({}),
   },
 })
 
@@ -144,16 +167,21 @@ const conceptsWithLogo = computed(() => {
 
 const filteredConcepts = computed(() => {
   let filtered = conceptsWithLogo.value
-  if (expansionFilter.value) {
-    filtered = filtered.filter(c => c.expansion === expansionFilter.value)
+
+  // Only apply filters if filtering is enabled
+  if (props.showFilters) {
+    if (expansionFilter.value) {
+      filtered = filtered.filter(c => c.expansion === expansionFilter.value)
+    }
+    if (searchQuery.value.trim()) {
+      const q = searchQuery.value.trim().toLowerCase()
+      filtered = filtered.filter(c =>
+        (c.name && c.name.toLowerCase().includes(q)) ||
+        (c.description && c.description.toLowerCase().includes(q))
+      )
+    }
   }
-  if (searchQuery.value.trim()) {
-    const q = searchQuery.value.trim().toLowerCase()
-    filtered = filtered.filter(c =>
-      (c.name && c.name.toLowerCase().includes(q)) ||
-      (c.description && c.description.toLowerCase().includes(q))
-    )
-  }
+
   return filtered
 })
 
@@ -183,20 +211,20 @@ const updateConcept = async (updatedConcept) => {
   }
 }
 
-// Deleting a concept is a rare operation, so we'll just manually delete the data file for now.
-// const deleteConcept = async (concept) => {
-//   try {
-//     await props.deleteConceptFn(concept)
-//     // Close the detail view if open
-//     if (selectedConcept.value?.id === concept.id) {
-//       closeConceptDetail()
-//     }
-//     // Refresh the list
-//     await props.refreshDataFn()
-//   } catch (error) {
-//     console.error(`Error deleting ${props.itemName}:`, error)
-//   }
-// }
+// Delete concept handler
+const deleteConcept = async (concept) => {
+  try {
+    await props.deleteConceptFn(concept)
+    // Close the detail view if open
+    if (selectedConcept.value?.id === concept.id) {
+      closeConceptDetail()
+    }
+    // Refresh the list
+    await props.refreshDataFn()
+  } catch (error) {
+    console.error(`Error deleting ${props.itemName}:`, error)
+  }
+}
 
 // Detail view
 const openConceptDetail = (concept) => {
