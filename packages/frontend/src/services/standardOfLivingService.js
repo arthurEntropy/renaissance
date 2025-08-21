@@ -2,7 +2,7 @@ import BaseService from './baseService.js'
 
 class StandardOfLivingService extends BaseService {
   constructor() {
-    super('standardsOfLiving')
+    super('/standardsOfLiving', 'standard of living')
   }
 }
 

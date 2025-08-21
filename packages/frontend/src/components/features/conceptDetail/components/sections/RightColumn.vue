@@ -57,8 +57,8 @@ defineProps({
         default: () => []
     },
     sources: {
-        type: Array,
-        default: () => []
+        type: Object,
+        default: () => ({})
     },
     isEditMode: {
         type: Boolean,

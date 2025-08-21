@@ -28,7 +28,7 @@ export function useEquipmentManagement() {
       await EquipmentService.updateEquipment(updatedEquipment)
 
       // Refresh the equipment list to ensure the new item is included
-      await equipmentStore.fetchAllEquipment()
+      await equipmentStore.fetch()
 
       // The character will be automatically updated through watchers
     } catch (error) {

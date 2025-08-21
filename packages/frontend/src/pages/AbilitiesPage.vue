@@ -71,7 +71,7 @@ const sortOptions = ref({
 // ABILITY CRUD
 const createAbility = async () => {
   const newAbility = await AbilityService.create()
-  await abilitiesStore.fetchAllAbilities()
+  await abilitiesStore.fetch()
   const createdAbility = abilitiesStore.abilities.find(
     (ability) => ability.id === newAbility.id,
   )
@@ -80,7 +80,7 @@ const createAbility = async () => {
 
 const updateAbility = async (ability) => {
   await AbilityService.update(ability)
-  await abilitiesStore.fetchAllAbilities()
+  await abilitiesStore.fetch()
 }
 
 const deleteAbility = async (ability) => {
@@ -93,7 +93,7 @@ const deleteAbility = async (ability) => {
         closeEditAbilityModal()
       }
       await AbilityService.update(abilityToUpdate)
-      await abilitiesStore.fetchAllAbilities()
+      await abilitiesStore.fetch()
     } catch (error) {
       console.error('Error deleting ability:', error)
     }
@@ -103,7 +103,7 @@ const deleteAbility = async (ability) => {
 const saveEditedAbility = async (editedAbility) => {
   await AbilityService.update(editedAbility)
   closeEditAbilityModal()
-  await abilitiesStore.fetchAllAbilities()
+  await abilitiesStore.fetch()
 }
 
 // OTHER METHODS
@@ -115,7 +115,7 @@ const sendAbilityToChat = (_ability) => {
 onMounted(async () => {
   try {
     // Sources will auto-fetch via useSources composable
-    await abilitiesStore.fetchAllAbilities()
+    await abilitiesStore.fetch()
   } catch (error) {
     console.error('Error initializing AbilitiesPage:', error)
   }

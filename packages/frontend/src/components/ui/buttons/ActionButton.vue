@@ -124,12 +124,6 @@ const handleClick = (event) => {
     min-height: var(--btn-min-height-sm);
 }
 
-.action-btn--medium {
-    padding: var(--btn-padding-sm);
-    font-size: var(--btn-font-size-sm);
-    min-height: var(--btn-min-height-md);
-}
-
 .action-btn--large {
     padding: var(--btn-padding-md);
     font-size: var(--btn-font-size-md);

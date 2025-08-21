@@ -1,22 +1,24 @@
 <template>
-  <div class="selection-card" @click="$emit('select', item)">
-    <div v-if="item.expansionLogoUrl" class="expansion-logo-badge-wrapper">
-      <img :src="item.expansionLogoUrl" alt="Expansion Logo" class="expansion-logo-badge" />
+  <div class="selection-card" @click="$emit('select', concept)">
+    <div v-if="concept.expansionLogoUrl" class="expansion-logo-badge-wrapper">
+      <img :src="concept.expansionLogoUrl" alt="Expansion Logo" class="expansion-logo-badge" />
     </div>
-    <img :src="item.artUrls[0]" :alt="item.name" class="selection-card-image" />
-    <p class="selection-card-name">{{ item.name }}</p>
+    <img :src="concept.artUrls[0]" :alt="concept.name" class="selection-card-image" />
+    <p class="selection-card-name">{{ concept.name }}</p>
   </div>
 </template>
 
 <script setup>
 defineProps({
-  item: { type: Object, required: true },
+  concept: { type: Object, required: true },
 })
 
 defineEmits(['select'])
 </script>
 
 <style scoped>
+@import '@/styles/design-tokens.css';
+
 .selection-card {
   display: flex;
   flex-direction: column;
@@ -42,7 +44,7 @@ defineEmits(['select'])
   height: 200px;
   object-fit: cover;
   object-position: top;
-  margin-bottom: 10px;
+  margin-bottom: var(--space-sm);
 }
 
 .selection-card-name {
@@ -50,7 +52,7 @@ defineEmits(['select'])
   font-weight: var(--font-weight-normal);
   text-align: center;
   max-width: 200px;
-  margin: 0px;
+  margin: 0;
 }
 
 /* Expansion logo badge */

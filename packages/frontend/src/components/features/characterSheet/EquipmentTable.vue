@@ -344,7 +344,7 @@ const addCustomEquipment = async () => {
     emit('update-character', props.character)
 
     // Refresh equipment store to ensure the new item is available
-    await equipmentStore.fetchAllEquipment()
+    await equipmentStore.fetch()
 
     // Find the full equipment object from the updated equipment list
     const fullEquipment = (equipmentStore.equipment || []).find(

@@ -4,15 +4,15 @@
     : ''
     " :storeInstance="equipmentStore" :initialCollapsed="collapsed" :editable="editable" :showSource="showSource"
     @edit="$emit('edit', equipment)" :collapsible="collapsible">
-    <!-- Large image slot -->
-    <template #large-image>
+    <!-- Expandable image -->
+    <template #image>
       <div v-if="showLargeImage" class="large-image-container" @click.stop="toggleImage">
         <img :src="equipment.artUrl" :alt="equipment.name" class="large-image" />
       </div>
     </template>
 
-    <!-- Content slot -->
-    <template #content>
+    <!-- Main description and content -->
+    <template #description>
       <!-- Art and Description Row -->
       <div class="content-wrapper">
         <div class="art-and-sol" v-if="!showLargeImage">
@@ -22,7 +22,9 @@
         </div>
         <!-- Description section - show if available -->
         <div class="content-sections">
-          <DescriptionBackground :content="equipment.description" />
+          <CardDescription v-if="equipment.description" :content="equipment.description">
+            <!-- No badge in CardDescription for EquipmentCard - use BaseCard badges slot instead -->
+          </CardDescription>
           <!-- Dice section - show independently if it's a melee weapon -->
           <template v-if="equipment.isMelee">
             <div class="dice-description-row">
@@ -52,12 +54,6 @@
       </div>
     </template>
 
-    <!-- Badge slot (Standard of Living) -->
-    <template #badge>
-      <BadgeDisplay v-if="showSolBadge && equipment.standardOfLiving" type="sol" :value="equipment.standardOfLiving"
-        position="bottom-left" />
-    </template>
-
     <!-- Footer slot for engagement successes -->
     <template #footer>
       <div v-if="!collapsed" class="engagement-successes">
@@ -66,6 +62,12 @@
           {{ success.name }}
         </span>
       </div>
+    </template>
+
+    <!-- Overlay badges - Always show SOL badge at card level -->
+    <template #badges>
+      <BadgeDisplay v-if="showSolBadge && equipment.standardOfLiving" type="sol" :value="equipment.standardOfLiving"
+        position="bottom-left" />
     </template>
   </base-card>
 
@@ -78,125 +80,106 @@
   </teleport>
 </template>
 
-<script>
+<script setup>
 import { ref, computed, onMounted } from 'vue'
 import { useEquipmentStore } from '@/stores/equipmentStore'
 import BaseCard from '@/components/ui/cards/BaseCard.vue'
 import BadgeDisplay from '@/components/ui/cards/BadgeDisplay.vue'
-import DescriptionBackground from '@/components/ui/cards/DescriptionBackground.vue'
+import CardDescription from '@/components/ui/cards/CardDescription.vue'
 import EngagementSuccessService from '@/services/engagementSuccessService'
 import { getDiceFontMaxClass } from '@shared/utils/diceFontUtils'
 import { useTooltip } from '@/composables/useTooltip'
 
-export default {
-  inheritAttrs: false,
-  components: {
-    BaseCard,
-    BadgeDisplay,
-    DescriptionBackground,
+defineOptions({
+  inheritAttrs: false
+})
+
+const props = defineProps({
+  equipment: {
+    type: Object,
+    required: true,
   },
-  emits: ['edit', 'delete', 'send-to-chat', 'height-changed'],
-  props: {
-    equipment: {
-      type: Object,
-      required: true,
-    },
-    collapsed: {
-      type: Boolean,
-      default: false,
-    },
-    editable: {
-      type: Boolean,
-      default: false,
-    },
-    collapsible: {
-      type: Boolean,
-      default: false,
-    },
-    showSolBadge: {
-      type: Boolean,
-      default: true,
-    },
-    artExpanded: {
-      type: Boolean,
-      default: false,
-    },
-    showSource: {
-      type: Boolean,
-      default: true,
-    },
+  collapsed: {
+    type: Boolean,
+    default: false,
   },
+  editable: {
+    type: Boolean,
+    default: false,
+  },
+  collapsible: {
+    type: Boolean,
+    default: false,
+  },
+  showSolBadge: {
+    type: Boolean,
+    default: true,
+  },
+  artExpanded: {
+    type: Boolean,
+    default: false,
+  },
+  showSource: {
+    type: Boolean,
+    default: true,
+  },
+})
 
-  setup(props) {
-    // Store
-    const equipmentStore = useEquipmentStore()
+defineEmits(['edit', 'delete', 'send-to-chat', 'height-changed'])
 
-    // Tooltip functionality
-    const tooltip = useTooltip()
+// Store
+const equipmentStore = useEquipmentStore()
 
-    // Reactive state
-    const engagementSuccesses = ref([])
-    const showLargeImage = ref(props.artExpanded)
+// Tooltip functionality
+const tooltip = useTooltip()
 
-    // Methods
-    const toggleImage = () => {
-      showLargeImage.value = !showLargeImage.value
-    }
+// Reactive state
+const engagementSuccesses = ref([])
+const showLargeImage = ref(props.artExpanded)
 
-    const fetchEngagementSuccesses = async () => {
-      try {
-        const allSuccesses = await EngagementSuccessService.getAll()
-        engagementSuccesses.value = props.equipment.engagementSuccesses
-          .map((id) => allSuccesses.find((success) => success.id === id))
-          .filter((success) => success)
-      } catch (error) {
-        console.error('Error fetching engagement successes:', error)
-        engagementSuccesses.value = []
-      }
-    }
+// Methods
+const toggleImage = () => {
+  showLargeImage.value = !showLargeImage.value
+}
 
-    const startSuccessTooltip = (success, event) => {
-      tooltip.startTooltip('success', success.description, event)
-    }
-
-    const clearSuccessTooltip = () => {
-      tooltip.clearTooltip('success')
-    }
-
-    // Lifecycle
-    onMounted(async () => {
-      await fetchEngagementSuccesses()
-    })
-
-    return {
-      // Store
-      equipmentStore,
-
-      // State
-      engagementSuccesses,
-      showLargeImage,
-
-      // Tooltip
-      tooltipSuccess: computed(() => tooltip.getTooltip('success')),
-      tooltipPosition: tooltip.position,
-
-      // Methods
-      getDiceFontMaxClass,
-      toggleImage,
-      fetchEngagementSuccesses,
-      startSuccessTooltip,
-      clearSuccessTooltip,
-    }
+const fetchEngagementSuccesses = async () => {
+  try {
+    const allSuccesses = await EngagementSuccessService.getAll()
+    engagementSuccesses.value = props.equipment.engagementSuccesses
+      .map((id) => allSuccesses.find((success) => success.id === id))
+      .filter((success) => success)
+  } catch (error) {
+    console.error('Error fetching engagement successes:', error)
+    engagementSuccesses.value = []
   }
 }
+
+const startSuccessTooltip = (success, event) => {
+  tooltip.startTooltip('success', success.description, event)
+}
+
+const clearSuccessTooltip = () => {
+  tooltip.clearTooltip('success')
+}
+
+// Computed properties
+const tooltipSuccess = computed(() => tooltip.getTooltip('success'))
+const tooltipPosition = tooltip.position
+
+// Lifecycle
+onMounted(async () => {
+  await fetchEngagementSuccesses()
+})
 </script>
 
 <style scoped>
+@import '@/styles/design-tokens.css';
+
 .content-wrapper {
   display: flex;
   gap: var(--space-md);
   align-items: flex-start;
-  padding-top: 10px;
+  padding-top: var(--space-sm);
 }
 
 .art-and-sol {
@@ -227,7 +210,7 @@ export default {
   width: 100%;
   height: auto;
   border-radius: var(--radius-5);
-  margin-top: 10px;
+  margin-top: var(--space-sm);
 }
 
 /* Dice Section */
@@ -235,7 +218,7 @@ export default {
   display: flex;
   justify-content: space-between;
   gap: var(--space-md);
-  margin-top: 10px;
+  margin-top: var(--space-sm);
 }
 
 .dice-section {
@@ -246,7 +229,7 @@ export default {
 
 .dice-section-background {
   background-color: var(--overlay-black-medium);
-  padding: 3px 0 3px 0;
+  padding: var(--space-xs) 0 var(--space-xs) 0;
   border-radius: var(--radius-5);
   text-align: center;
   width: 100%;
@@ -292,13 +275,13 @@ export default {
   flex-wrap: wrap;
   justify-content: center;
   gap: var(--space-xs);
-  margin-top: 10px;
+  margin-top: var(--space-sm);
 }
 
 .engagement-success-pill {
   background-color: var(--overlay-black-medium);
-  color: white;
-  padding: var(--space-xs) 10px;
+  color: var(--color-white);
+  padding: var(--space-xs) var(--space-sm);
   border-radius: var(--radius-15);
   font-size: var(--font-size-10);
   text-align: center;
@@ -321,8 +304,8 @@ export default {
   position: fixed;
   z-index: var(--z-modal);
   background: var(--overlay-black-heavy);
-  color: #fff;
-  padding: 14px;
+  color: var(--color-white);
+  padding: var(--space-md);
   border-radius: var(--radius-10);
   font-size: var(--font-size-14);
   pointer-events: none;

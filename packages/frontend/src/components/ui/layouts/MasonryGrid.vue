@@ -7,12 +7,12 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount, nextTick } from 'vue'
 
-// Debounce function to limit rapid-fire resize events
-function debounce(fn, delay) {
+// Debounce utility to limit rapid-fire resize events
+function debounce(func, delay) {
   let timeoutId
   return function (...args) {
     clearTimeout(timeoutId)
-    timeoutId = setTimeout(() => fn.apply(this, args), delay)
+    timeoutId = setTimeout(() => func.apply(this, args), delay)
   }
 }
 
@@ -30,8 +30,8 @@ const columnCount = ref(1)
 
 function calculateColumnCount() {
   const containerWidth = masonryContainer.value?.clientWidth || 0
-  let count = Math.floor((containerWidth + props.gap) / (props.columnWidth + props.gap))
-  columnCount.value = Math.max(1, count)
+  const availableColumns = Math.floor((containerWidth + props.gap) / (props.columnWidth + props.gap))
+  columnCount.value = Math.max(1, availableColumns)
 }
 
 function initMasonry() {
@@ -69,11 +69,12 @@ function setSpanForElement(element) {
 }
 
 function observeChildElements() {
-  // cleanup first
-  childResizeObservers.forEach((o) => o && o.disconnect())
+  // Clean up existing observers
+  childResizeObservers.forEach((observer) => observer && observer.disconnect())
   childResizeObservers = []
 
-  const debouncedSetSpan = debounce((el) => setSpanForElement(el), 50)
+  const RESIZE_DEBOUNCE_DELAY = 50
+  const debouncedSetSpan = debounce((element) => setSpanForElement(element), RESIZE_DEBOUNCE_DELAY)
 
   const children = Array.from(masonryContainer.value?.children || [])
   children.forEach((child) => {
@@ -87,10 +88,11 @@ function observeChildElements() {
 onMounted(() => {
   initMasonry()
 
+  const LAYOUT_UPDATE_DEBOUNCE_DELAY = 50
   const debouncedUpdate = debounce(() => {
     calculateColumnCount()
     updateLayout()
-  }, 50)
+  }, LAYOUT_UPDATE_DEBOUNCE_DELAY)
 
   resizeObserver = new ResizeObserver(debouncedUpdate)
   if (masonryContainer.value) resizeObserver.observe(masonryContainer.value)
@@ -105,22 +107,24 @@ onMounted(() => {
 
   observeChildElements()
 
+  // Allow DOM to settle before final layout calculation
   nextTick(() => {
+    const INITIAL_LAYOUT_DELAY = 100
     setTimeout(() => {
       calculateColumnCount()
       updateLayout()
-    }, 100)
+    }, INITIAL_LAYOUT_DELAY)
   })
 })
 
 onBeforeUnmount(() => {
   if (resizeObserver) resizeObserver.disconnect()
   if (mutationObserver) mutationObserver.disconnect()
-  childResizeObservers.forEach((o) => o && o.disconnect())
+  childResizeObservers.forEach((observer) => observer && observer.disconnect())
   childResizeObservers = []
 })
 
-// expose updateLayout so parents can call via ref
+// Expose updateLayout so parents can call via ref
 defineExpose({ updateLayout })
 </script>
 
@@ -135,7 +139,5 @@ defineExpose({ updateLayout })
 .masonry-grid>* {
   box-sizing: border-box;
   overflow: hidden;
-  /* Prevent overflow from causing layout issues */
-  /* Remove min-width and max-width constraints as we're setting exact width */
 }
 </style>

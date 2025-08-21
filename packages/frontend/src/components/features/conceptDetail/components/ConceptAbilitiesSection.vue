@@ -13,7 +13,7 @@
 import { computed } from 'vue'
 import ConceptSection from './ConceptSection.vue'
 import AbilityCard from '@/components/ui/cards/AbilityCard.vue'
-import MasonryGrid from '@/components/ui/cards/MasonryGrid.vue'
+import MasonryGrid from '@/components/ui/layouts/MasonryGrid.vue'
 
 const props = defineProps({
     abilities: {
@@ -25,8 +25,8 @@ const props = defineProps({
         default: false
     },
     sources: {
-        type: Array,
-        default: () => []
+        type: Object,
+        default: () => ({ ancestries: [], cultures: [], mestieri: [], worldElements: [] })
     }
 })
 

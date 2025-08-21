@@ -34,6 +34,14 @@
     <!-- Settings Modal -->
     <SettingsModal :visible="showSettingsModal" :settings="tempSettings" @update:settings="tempSettings = $event"
       @save="saveSettings" @cancel="closeSettingsModal" />
+
+    <!-- Edit Ability Modal -->
+    <EditAbilityModal v-if="showEditAbilityModal" :ability="selectedAbility" :sources="sources"
+      @update="saveEditedAbility" @close="closeEditAbilityModal" @delete="deleteAbility" />
+
+    <!-- Edit Equipment Modal -->
+    <EditEquipmentModal v-if="showEditEquipmentModal" :equipment="selectedEquipment" :sources="sources"
+      @update="saveEditedEquipment" @close="closeEditEquipmentModal" />
   </div>
 </template>
 
@@ -44,16 +52,25 @@ import LeftColumn from './components/sections/LeftColumn.vue'
 import RightColumn from './components/sections/RightColumn.vue'
 import MobileLayout from './components/sections/MobileLayout.vue'
 import SettingsModal from './components/ConceptSettingsModal.vue'
+import EditAbilityModal from '@/components/modals/EditAbilityModal.vue'
+import EditEquipmentModal from '@/components/modals/EditEquipmentModal.vue'
 
 // Composables
 import { useConceptEditMode } from './composables/useConceptEditMode'
 import { useConceptData } from './composables/useConceptData'
 import { useUnsavedChanges } from './composables/useUnsavedChanges'
 import { useResponsiveLayout } from '@/composables/useResponsiveLayout'
+import { useEditModal } from '@/composables/useEditModal'
 
 // Store imports
 import { useExpansionsStore } from '@/stores/expansionsStore'
 import { useSourcesStore } from '@/stores/sourcesStore'
+import { useAbilitiesStore } from '@/stores/abilitiesStore'
+import { useEquipmentStore } from '@/stores/equipmentStore'
+
+// Service imports
+import AbilityService from '@/services/abilityService'
+import EquipmentService from '@/services/equipmentService'
 
 // Props
 const props = defineProps({
@@ -68,12 +85,29 @@ const props = defineProps({
 })
 
 // Emits
-const emit = defineEmits(['close', 'update', 'edit-ability', 'edit-equipment', 'edit-mode-change'])
+const emit = defineEmits(['close', 'update', 'edit-mode-change'])
 
 // Stores
 const expansionStore = useExpansionsStore()
 const sourcesStore = useSourcesStore()
+const abilitiesStore = useAbilitiesStore()
+const equipmentStore = useEquipmentStore()
 const sources = sourcesStore.sources
+
+// Edit modals
+const {
+  showModal: showEditAbilityModal,
+  itemToEdit: selectedAbility,
+  openModal: openAbilityModal,
+  closeModal: closeEditAbilityModal
+} = useEditModal()
+
+const {
+  showModal: showEditEquipmentModal,
+  itemToEdit: selectedEquipment,
+  openModal: openEquipmentModal,
+  closeModal: closeEditEquipmentModal
+} = useEditModal()
 
 // Local reactive state
 const localConcept = ref({})
@@ -217,12 +251,42 @@ const updateHooks = (newHooks) => {
 
 const emitAbilityEdit = (ability) => {
   if (!isEditMode.value) return
-  emit('edit-ability', ability)
+  openAbilityModal(ability)
 }
 
 const emitEquipmentEdit = (equipmentItem) => {
   if (!isEditMode.value) return
-  emit('edit-equipment', equipmentItem)
+  openEquipmentModal(equipmentItem)
+}
+
+const saveEditedAbility = async (editedAbility) => {
+  try {
+    await AbilityService.update(editedAbility)
+    closeEditAbilityModal()
+    abilitiesStore.fetch()
+  } catch (error) {
+    console.error('Error updating ability:', error)
+  }
+}
+
+const deleteAbility = async (ability) => {
+  try {
+    const updatedAbility = { ...ability, isDeleted: true }
+    await AbilityService.update(updatedAbility)
+    closeEditAbilityModal()
+  } catch (error) {
+    console.error('Error deleting ability:', error)
+  }
+}
+
+const saveEditedEquipment = async (editedEquipment) => {
+  try {
+    await EquipmentService.updateEquipment(editedEquipment)
+    closeEditEquipmentModal()
+    equipmentStore.fetch()
+  } catch (error) {
+    console.error('Error updating equipment:', error)
+  }
 }
 
 // Settings modal methods
@@ -242,7 +306,7 @@ const saveSettings = () => {
 // Lifecycle
 onMounted(async () => {
   try {
-    await expansionStore.loadExpansions()
+    await expansionStore.fetch()
     expansions.value = expansionStore.expansions
   } catch (error) {
     console.error('Error initializing ConceptDetailModal:', error)

@@ -1,31 +1,20 @@
 <template>
   <div class="concepts-view">
     <!-- Filter Controls (conditionally shown) -->
-    <div v-if="showFilters" class="filter-controls">
-      <input type="text" v-model="searchQuery" class="search-input" placeholder="Search..." />
-      <select v-model="expansionFilter" class="expansion-filter">
-        <option value="">All Expansions</option>
-        <option v-for="exp in expansions" :key="exp.id" :value="exp.id">{{ exp.name }}</option>
-      </select>
-    </div>
+    <Filters v-if="showFilters" v-model:search-query="searchQuery" v-model:primary-filter="expansionFilter"
+      :search-placeholder="`Search ${itemName.toLowerCase()}s...`" :primary-filter-options="expansionFilterOptions"
+      primary-filter-label="All Expansions" primary-filter-class="expansion-filter" />
 
     <!-- Selection Cards -->
     <div class="concepts-container">
-      <ConceptCard v-for="concept in filteredConcepts" :key="concept.id" :item="concept" :sources="sources"
-        @click="openConceptDetail(concept)" />
-      <div class="add-concept-card" @click="createConcept">
-        <div class="add-icon">+</div>
-        <div class="add-text">Add {{ itemName }}</div>
-      </div>
+      <ConceptCard v-for="concept in filteredConcepts" :key="concept.id" :concept="concept" :sources="sources"
+        @select="openConceptDetail" />
+      <AddConceptCard :concept-name="itemName" @click="createConcept" />
     </div>
 
-    <!-- Modal with Navigation Arrows (support different modal components) -->
-    <div v-if="showConceptDetail" class="modal-container">
-      <button class="navigate-button prev" @click="navigateConcept(-1)" :disabled="!hasPreviousConcept"
-        :title="hasPreviousConcept ? 'Previous (← Left Arrow)' : 'No previous item'">
-        &lsaquo;
-      </button>
-
+    <!-- Modal with Navigation Controls -->
+    <NavigationControls v-if="showConceptDetail" :has-previous="hasPreviousConcept" :has-next="hasNextConcept"
+      @navigate="navigateConcept">
       <!-- Character Sheet Modal -->
       <CharacterSheetModal v-if="modalComponent === 'CharacterSheetModal'" :key="`character-${conceptDetailKey}`"
         :character="selectedConcept" v-bind="customModalProps" @close="closeConceptDetail"
@@ -33,40 +22,21 @@
 
       <!-- Concept Detail Modal -->
       <ConceptDetailModal v-else :key="`concept-${conceptDetailKey}`" :concept="selectedConcept" :editable="true"
-        @close="closeConceptDetail" @update="updateConcept" @edit-ability="editAbility"
-        @edit-equipment="editEquipment" />
-
-      <button class="navigate-button next" @click="navigateConcept(1)" :disabled="!hasNextConcept"
-        :title="hasNextConcept ? 'Next (→ Right Arrow)' : 'No next item'">
-        &rsaquo;
-      </button>
-    </div>
-
-    <!-- Edit Ability Modal (only shown when not using custom modal component) -->
-    <EditAbilityModal v-if="showEditAbilityModal && modalComponent === 'ConceptDetailModal'" :ability="selectedAbility"
-      :sources="sources" @update="saveEditedAbility" @close="closeEditAbilityModal" @delete="deleteAbility" />
-
-    <!-- Edit Equipment Modal (only shown when not using custom modal component) -->
-    <EditEquipmentModal v-if="showEditEquipmentModal && modalComponent === 'ConceptDetailModal'"
-      :equipment="selectedEquipment" :sources="sources" @update="saveEditedEquipment"
-      @close="closeEditEquipmentModal" />
+        @close="closeConceptDetail" @update="updateConcept" />
+    </NavigationControls>
   </div>
 </template>
 
 <script setup>
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
-import { useAbilitiesStore } from '@/stores/abilitiesStore'
-import { useEquipmentStore } from '@/stores/equipmentStore'
 import { useExpansionsStore } from '@/stores/expansionsStore'
-import { useEditModal } from '@/composables/useEditModal'
 import { useSourcesStore } from '@/stores/sourcesStore'
 import ConceptCard from '@/components/ui/cards/ConceptCard.vue'
+import AddConceptCard from '@/components/ui/cards/AddConceptCard.vue'
+import Filters from '@/components/ui/Filters.vue'
+import NavigationControls from '@/components/ui/NavigationControls.vue'
 import ConceptDetailModal from '@/components/features/conceptDetail/ConceptDetailModal.vue'
 import CharacterSheetModal from '@/components/features/characterSheet/CharacterSheetModal.vue'
-import EditAbilityModal from '@/components/modals/EditAbilityModal.vue'
-import EditEquipmentModal from '@/components/modals/EditEquipmentModal.vue'
-import AbilityService from '@/services/abilityService'
-import EquipmentService from '@/services/equipmentService'
 
 // Props
 const props = defineProps({
@@ -94,7 +64,6 @@ const props = defineProps({
     type: Function,
     required: true,
   },
-  // New optional props for character support
   showFilters: {
     type: Boolean,
     default: true,
@@ -109,31 +78,10 @@ const props = defineProps({
   },
 })
 
-// Stores
-const abilitiesStore = useAbilitiesStore()
-const equipmentStore = useEquipmentStore()
 const expansionStore = useExpansionsStore()
-
-// Modal management using composables
-const {
-  showModal: showEditAbilityModal,
-  itemToEdit: selectedAbility,
-  openModal: openAbilityModal,
-  closeModal: closeEditAbilityModal
-} = useEditModal()
-
-const {
-  showModal: showEditEquipmentModal,
-  itemToEdit: selectedEquipment,
-  openModal: openEquipmentModal,
-  closeModal: closeEditEquipmentModal
-} = useEditModal()
-
-// Sources management
 const sourcesStore = useSourcesStore()
 const sources = sourcesStore.sources
 
-// Reactive state
 const selectedConcept = ref(null)
 const showConceptDetail = ref(false)
 const expansions = ref([])
@@ -141,18 +89,21 @@ const conceptDetailKey = ref(0)
 const searchQuery = ref('')
 const expansionFilter = ref('')
 
-// Computed properties
-const currentIndex = computed(() => {
-  if (!selectedConcept.value) return -1;
-  return props.concepts.findIndex(c => c.id === selectedConcept.value.id);
-})
+const expansionFilterOptions = computed(() => ({
+  grouped: false,
+  items: expansions.value || []
+}))
 
 const hasPreviousConcept = computed(() => {
-  return currentIndex.value > 0;
+  if (!selectedConcept.value) return false;
+  const currentIndex = props.concepts.findIndex(c => c.id === selectedConcept.value.id);
+  return currentIndex > 0;
 })
 
 const hasNextConcept = computed(() => {
-  return currentIndex.value < props.concepts.length - 1 && currentIndex.value >= 0;
+  if (!selectedConcept.value) return false;
+  const currentIndex = props.concepts.findIndex(c => c.id === selectedConcept.value.id);
+  return currentIndex < props.concepts.length - 1 && currentIndex >= 0;
 })
 
 const conceptsWithLogo = computed(() => {
@@ -168,30 +119,30 @@ const conceptsWithLogo = computed(() => {
 const filteredConcepts = computed(() => {
   let filtered = conceptsWithLogo.value
 
-  // Only apply filters if filtering is enabled
-  if (props.showFilters) {
-    if (expansionFilter.value) {
-      filtered = filtered.filter(c => c.expansion === expansionFilter.value)
-    }
-    if (searchQuery.value.trim()) {
-      const q = searchQuery.value.trim().toLowerCase()
-      filtered = filtered.filter(c =>
-        (c.name && c.name.toLowerCase().includes(q)) ||
-        (c.description && c.description.toLowerCase().includes(q))
-      )
-    }
+  if (!props.showFilters) {
+    return filtered
+  }
+
+  if (searchQuery.value) {
+    const query = searchQuery.value.toLowerCase()
+    filtered = filtered.filter((concept) =>
+      concept.name?.toLowerCase().includes(query) ||
+      concept.description?.toLowerCase().includes(query)
+    )
+  }
+
+  if (expansionFilter.value) {
+    filtered = filtered.filter((concept) => concept.expansion === expansionFilter.value)
   }
 
   return filtered
 })
 
-// CONCEPT CRUD
 const createConcept = async () => {
   try {
     const createdConcept = await props.createConceptFn()
     await props.refreshDataFn()
 
-    // Open the detail view for the new concept
     selectedConcept.value = createdConcept
     showConceptDetail.value = true
   } catch (error) {
@@ -202,41 +153,35 @@ const createConcept = async () => {
 const updateConcept = async (updatedConcept) => {
   try {
     await props.updateConceptFn(updatedConcept)
-    // Update the selected concept
     selectedConcept.value = updatedConcept
-    // Refresh the list
     await props.refreshDataFn()
   } catch (error) {
     console.error(`Error updating ${props.itemName}:`, error)
   }
 }
 
-// Delete concept handler
 const deleteConcept = async (concept) => {
   try {
     await props.deleteConceptFn(concept)
-    // Close the detail view if open
     if (selectedConcept.value?.id === concept.id) {
       closeConceptDetail()
     }
-    // Refresh the list
     await props.refreshDataFn()
   } catch (error) {
     console.error(`Error deleting ${props.itemName}:`, error)
   }
 }
 
-// Detail view
 const openConceptDetail = (concept) => {
   selectedConcept.value = concept
   showConceptDetail.value = true
-  conceptDetailKey.value++ // force modal refresh
+  conceptDetailKey.value++
 }
 
 const navigateConcept = (direction) => {
   if (!selectedConcept.value) return;
-  const idx = currentIndex.value;
-  const newIndex = idx + direction;
+  const currentIndex = props.concepts.findIndex(c => c.id === selectedConcept.value.id);
+  const newIndex = currentIndex + direction;
   if (newIndex < 0 || newIndex >= props.concepts.length) return;
   selectedConcept.value = props.concepts[newIndex];
   conceptDetailKey.value++;
@@ -247,55 +192,9 @@ const closeConceptDetail = () => {
   showConceptDetail.value = false
 }
 
-// Ability editing
-const editAbility = (ability) => {
-  openAbilityModal(ability)
-}
-
-const saveEditedAbility = async (editedAbility) => {
-  try {
-    await AbilityService.updateAbility(editedAbility)
-    closeEditAbilityModal()
-    // Refresh the data to ensure changes are reflected
-    abilitiesStore.fetchAllAbilities()
-  } catch (error) {
-    console.error('Error updating ability:', error)
-  }
-}
-
-const deleteAbility = async (ability) => {
-  try {
-    // Mark as deleted
-    const updatedAbility = { ...ability, isDeleted: true }
-    await AbilityService.updateAbility(updatedAbility)
-    closeEditAbilityModal()
-  } catch (error) {
-    console.error('Error deleting ability:', error)
-  }
-}
-
-// Equipment editing
-const editEquipment = (equipment) => {
-  openEquipmentModal(equipment)
-}
-
-const saveEditedEquipment = async (editedEquipment) => {
-  try {
-    await EquipmentService.updateEquipment(editedEquipment)
-    closeEditEquipmentModal()
-    // Refresh the data to ensure changes are reflected
-    equipmentStore.fetchAllEquipment()
-  } catch (error) {
-    console.error('Error updating equipment:', error)
-  }
-}
-
-// Keyboard navigation
 const handleKeyNavigation = (event) => {
-  // Only process keyboard navigation when concept detail is shown
   if (!showConceptDetail.value) return;
 
-  // Ignore keyboard events when user is in an input field
   if (event.target.tagName === 'INPUT' ||
     event.target.tagName === 'TEXTAREA' ||
     event.target.isContentEditable) {
@@ -319,16 +218,10 @@ const handleKeyNavigation = (event) => {
   }
 }
 
-// Lifecycle
 onMounted(async () => {
   try {
-    await expansionStore.fetchExpansions()
+    await expansionStore.fetch()
     expansions.value = expansionStore.expansions
-    // Sources will auto-fetch via useSources composable
-    await Promise.all([
-      abilitiesStore.fetchAllAbilities(),
-      equipmentStore.fetchAllEquipment()
-    ]);
     window.addEventListener('keydown', handleKeyNavigation);
   } catch (error) {
     console.error('Error initializing ConceptsLayout:', error);
@@ -348,161 +241,10 @@ onBeforeUnmount(() => {
   width: 90%;
 }
 
-.filter-controls {
-  display: flex;
-  gap: 1rem;
-  width: 100%;
-  max-width: 60%;
-  margin-bottom: 1rem;
-  padding: 0 2rem;
-  z-index: var(--z-overlay);
-}
-
-.search-input {
-  flex: 2;
-  padding: var(--space-sm) 12px;
-  border: 1px solid var(--color-gray-medium);
-  border-radius: var(--radius-5);
-  background-color: var(--overlay-black-medium);
-  font-size: var(--font-size-16);
-}
-
-.expansion-filter {
-  flex: 1;
-  padding: var(--space-sm) 12px;
-  border: 1px solid var(--color-gray-medium);
-  border-radius: var(--radius-5);
-  background-color: var(--overlay-black-medium);
-  font-size: var(--font-size-16);
-  color: white;
-}
-
-.expansion-filter option {
-  background-color: var(--overlay-black-heavy);
-  padding: var(--space-sm);
-}
-
-.search-input::placeholder {
-  color: var(--color-gray-light);
-}
-
-.search-input:focus,
-.expansion-filter:focus {
-  outline: none;
-  border-color: var(--color-gray-light);
-  box-shadow: var(--shadow-glow-sm);
-}
-
 .concepts-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   padding-bottom: 50px;
-}
-
-.add-concept-card {
-  width: 250px;
-  height: 270px;
-  background: var(--overlay-white-medium);
-  border: 2px dashed var(--overlay-white-subtle);
-  border-radius: var(--radius-10);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: var(--transition-all);
-  margin: var(--space-md);
-}
-
-.add-concept-card:hover {
-  background: var(--overlay-white-subtle);
-  border-color: var(--overlay-white-medium);
-}
-
-.add-icon {
-  font-size: var(--font-size-32);
-  font-weight: var(--font-weight-light);
-  color: var(--color-gray-light);
-  margin-bottom: 10px;
-}
-
-.add-text {
-  color: var(--color-gray-light);
-  font-size: var(--font-size-16);
-}
-
-/* Navigation styling */
-.modal-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100%;
-  z-index: var(--z-modal);
-}
-
-.navigate-button {
-  position: fixed;
-  top: 50%;
-  padding-bottom: 7px;
-  transform: translateY(-50%);
-  background: var(--overlay-black-medium);
-  color: white;
-  border: none;
-  border-radius: var(--radius-full);
-  width: 60px;
-  height: 60px;
-  font-size: var(--font-size-40);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  z-index: var(--z-tooltip);
-  transition: var(--transition-all);
-}
-
-.navigate-button:hover:not(:disabled) {
-  background: var(--overlay-white-medium);
-}
-
-.navigate-button:disabled {
-  opacity: 0.3;
-  cursor: not-allowed;
-}
-
-.navigate-button.prev {
-  left: 30px;
-}
-
-.navigate-button.next {
-  right: 30px;
-}
-
-@media (max-width: var(--breakpoint-sm)) {
-  .add-concept-card {
-    width: 80%;
-    margin-left: 10px;
-    margin-right: 10px;
-  }
-}
-
-@media (max-width: var(--breakpoint-md)) {
-  .navigate-button {
-    width: 40px;
-    height: 40px;
-    font-size: var(--font-size-24);
-  }
-
-  .navigate-button.prev {
-    left: 5px;
-  }
-
-  .navigate-button.next {
-    right: 5px;
-  }
 }
 </style>

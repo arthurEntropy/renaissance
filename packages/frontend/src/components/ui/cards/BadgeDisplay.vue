@@ -4,79 +4,70 @@
     </div>
 </template>
 
-<script>
+<script setup>
 import { computed } from 'vue'
 
-export default {
-    name: 'BadgeDisplay',
-    props: {
-        type: {
-            type: String,
-            required: true,
-            validator: (value) => ['xp', 'sol', 'custom'].includes(value)
-        },
-        value: {
-            type: [String, Number],
-            required: true
-        },
-        condition: {
-            type: Boolean,
-            default: true
-        },
-        position: {
-            type: String,
-            default: 'bottom-left',
-            validator: (value) => ['bottom-left', 'bottom-right', 'top-left', 'top-right'].includes(value)
-        },
-        customClass: {
-            type: String,
-            default: ''
-        },
-        title: {
-            type: String,
-            default: ''
-        }
+const props = defineProps({
+    type: {
+        type: String,
+        required: true,
+        validator: (value) => ['xp', 'sol', 'custom'].includes(value)
     },
-
-    setup(props) {
-        const showBadge = computed(() => {
-            return props.condition && props.value
-        })
-
-        const displayText = computed(() => {
-            switch (props.type) {
-                case 'xp':
-                    return `${props.value} XP`
-                case 'sol':
-                    return `${props.value} 🪙`
-                default:
-                    return props.value
-            }
-        })
-
-        const badgeClass = computed(() => {
-            const baseClass = 'badge-display'
-            const typeClass = `badge-${props.type}`
-            const positionClass = `badge-${props.position}`
-
-            return [
-                baseClass,
-                typeClass,
-                positionClass,
-                props.customClass
-            ].filter(Boolean).join(' ')
-        })
-
-        return {
-            showBadge,
-            displayText,
-            badgeClass
-        }
+    value: {
+        type: [String, Number],
+        required: true
+    },
+    condition: {
+        type: Boolean,
+        default: true
+    },
+    position: {
+        type: String,
+        default: 'bottom-left',
+        validator: (value) => ['bottom-left', 'bottom-right', 'top-left', 'top-right'].includes(value)
+    },
+    customClass: {
+        type: String,
+        default: ''
+    },
+    title: {
+        type: String,
+        default: ''
     }
-}
+})
+
+const showBadge = computed(() => {
+    return props.condition && props.value
+})
+
+const displayText = computed(() => {
+    switch (props.type) {
+        case 'xp':
+            return `${props.value} XP`
+        case 'sol':
+            return `${props.value} 🪙`
+        default:
+            return props.value
+    }
+})
+
+const badgeClass = computed(() => {
+    const baseClass = 'badge-display'
+    const typeClass = `badge-${props.type}`
+    const positionClass = `badge-${props.position}`
+
+    return [
+        baseClass,
+        typeClass,
+        positionClass,
+        props.customClass
+    ].filter(Boolean).join(' ')
+})
 </script>
 
 <style scoped>
+@import '@/styles/design-tokens.css';
+
 .badge-display {
     position: absolute;
     font-size: var(--font-size-14);
@@ -106,29 +97,29 @@ export default {
 
 /* Positioning */
 .badge-bottom-left {
-    bottom: 0px;
-    left: 0px;
+    bottom: 0;
+    left: 0;
     border-top-right-radius: var(--radius-10);
     border-bottom-left-radius: var(--radius-5);
 }
 
 .badge-bottom-right {
-    bottom: 0px;
-    right: 0px;
+    bottom: 0;
+    right: 0;
     border-top-left-radius: var(--radius-10);
     border-bottom-right-radius: var(--radius-5);
 }
 
 .badge-top-left {
-    top: 0px;
-    left: 0px;
+    top: 0;
+    left: 0;
     border-bottom-right-radius: var(--radius-10);
     border-top-left-radius: var(--radius-5);
 }
 
 .badge-top-right {
-    top: 0px;
-    right: 0px;
+    top: 0;
+    right: 0;
     border-bottom-left-radius: var(--radius-10);
     border-top-right-radius: var(--radius-5);
 }

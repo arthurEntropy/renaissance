@@ -1,9 +1,11 @@
 <template>
   <div ref="cardElement" class="base-card edit-hover-area" :class="{ collapsed: isCollapsed, collapsible: collapsible }"
     :style="cardStyle" @click="collapsible ? toggleCollapsed() : null">
+
     <!-- Floating Edit Button -->
     <EditButton v-if="editable" @click.stop="$emit('edit', item)" :title="`Edit ${itemType}`" size="small"
       visibility="on-hover" class="edit-button-floating" />
+
     <!-- Header Row -->
     <div class="card-header">
       <span v-if="collapsible" class="caret">{{ caretSymbol }}</span>
@@ -19,17 +21,16 @@
     <!-- Expandable Content -->
     <transition name="expand">
       <div v-if="!collapsible || !isCollapsed" class="card-content">
-        <!-- Move large image inside the collapsible area -->
-        <slot name="large-image"></slot>
-        <slot name="content"></slot>
-        <slot name="buttons"></slot>
+        <slot name="image"></slot>
+        <slot name="description"></slot>
+        <slot name="actions"></slot>
       </div>
     </transition>
 
-    <!-- XP or other badge -->
-    <slot name="badge"></slot>
+    <!-- Overlay badges (XP, SOL, etc.) -->
+    <slot name="badges"></slot>
 
-    <!-- Footer Slot -->
+    <!-- Footer content (engagement successes, etc.) -->
     <slot name="footer"></slot>
   </div>
 </template>
@@ -89,7 +90,7 @@ const cardStyle = computed(() => {
   }
 
   // Fallback
-  return { background: 'rgba(0, 0, 0, 0.85)' }
+  return { background: 'var(--overlay-black-heavy)' }
 })
 
 // Methods
@@ -150,11 +151,13 @@ onMounted(() => {
 </script>
 
 <style scoped>
+@import '@/styles/design-tokens.css';
+
 .base-card {
   border: 1px solid var(--color-gray-medium);
   border-radius: var(--radius-10);
   padding: var(--space-md);
-  margin-top: 5px;
+  margin-top: var(--space-xs);
   transition:
     background-color var(--transition-normal) ease,
     transform 0.2s ease;
@@ -187,7 +190,7 @@ onMounted(() => {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 10px;
+  margin-bottom: var(--space-sm);
 }
 
 .base-card.collapsed .card-header {
@@ -199,7 +202,7 @@ onMounted(() => {
 }
 
 .caret {
-  margin-right: 10px;
+  margin-right: var(--space-sm);
   font-size: var(--font-size-16);
   height: 20px;
   width: 20px;
@@ -208,7 +211,7 @@ onMounted(() => {
 
 .name-container {
   flex: 1;
-  margin-right: 10px;
+  margin-right: var(--space-sm);
   display: flex;
   align-items: center;
   position: relative;
@@ -224,7 +227,7 @@ onMounted(() => {
   font-size: var(--font-size-14);
   font-style: italic;
   color: var(--color-gray-light);
-  margin-left: 6px;
+  margin-left: var(--space-xs);
   vertical-align: middle;
 }
 
@@ -234,14 +237,14 @@ onMounted(() => {
   text-shadow: var(--text-shadow-outline);
   font-weight: var(--font-weight-semibold);
   letter-spacing: 0.01em;
-  margin-left: 8px;
+  margin-left: var(--space-xs);
   margin-right: 0;
 }
 
 .edit-button-floating {
   position: absolute;
-  top: 3px;
-  right: 3px;
+  top: var(--space-xs);
+  right: var(--space-xs);
   z-index: var(--z-interactive);
 }
 </style>

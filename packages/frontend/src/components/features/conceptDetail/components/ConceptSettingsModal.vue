@@ -105,7 +105,7 @@ watch(() => props.visible, (isVisible) => {
 
 // Lifecycle
 onMounted(async () => {
-  await expansionStore.fetchExpansions()
+  await expansionStore.fetch()
   expansions.value = expansionStore.expansions
   // Ensure expansionId is set from settings.expansion if present
   if (!localSettings.expansionId && props.settings.expansion) {

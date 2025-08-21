@@ -73,7 +73,7 @@ const sortOptions = ref({
 // EQUIPMENT CRUD
 const createEquipment = async () => {
   const newEquipment = await EquipmentService.create()
-  await equipmentStore.fetchAllEquipment()
+  await equipmentStore.fetch()
   const createdEquipment = equipmentStore.equipment.find(
     (item) => item.id === newEquipment.id,
   )
@@ -83,7 +83,7 @@ const createEquipment = async () => {
 const saveEditedEquipment = async (editedEquipment) => {
   await EquipmentService.update(editedEquipment)
   closeEditEquipmentModal()
-  await equipmentStore.fetchAllEquipment()
+  await equipmentStore.fetch()
 }
 
 const deleteEquipment = async (equipmentItem) => {
@@ -96,7 +96,7 @@ const deleteEquipment = async (equipmentItem) => {
         closeEditEquipmentModal()
       }
       await EquipmentService.update(equipmentToUpdate)
-      await equipmentStore.fetchAllEquipment()
+      await equipmentStore.fetch()
     } catch (error) {
       console.error('Error deleting equipment:', error)
     }
@@ -122,7 +122,7 @@ onMounted(async () => {
     // Sources will auto-fetch via useSources composable
     await equipmentStore.fetchStandardsOfLiving()
     await fetchEngagementSuccessOptions()
-    await equipmentStore.fetchAllEquipment()
+    await equipmentStore.fetch()
   } catch (error) {
     console.error('Error initializing EquipmentPage:', error)
   }

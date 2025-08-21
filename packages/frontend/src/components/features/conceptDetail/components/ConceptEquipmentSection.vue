@@ -12,7 +12,7 @@
 import { computed } from 'vue'
 import ConceptSection from './ConceptSection.vue'
 import EquipmentCard from '@/components/ui/cards/EquipmentCard.vue'
-import MasonryGrid from '@/components/ui/cards/MasonryGrid.vue'
+import MasonryGrid from '@/components/ui/layouts/MasonryGrid.vue'
 
 const props = defineProps({
     equipment: {
@@ -24,8 +24,8 @@ const props = defineProps({
         default: false
     },
     sources: {
-        type: Array,
-        default: () => []
+        type: Object,
+        default: () => ({})
     }
 })
 

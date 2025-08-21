@@ -136,7 +136,7 @@ onMounted(async () => {
 <style scoped>
 .rules-view {
   /* Adjusted to fit space below top nav */
-  margin-top: -20px;
+  margin-top: calc(-1 * var(--space-lg));
   height: 93.5vh;
   display: flex;
   flex-direction: column;
