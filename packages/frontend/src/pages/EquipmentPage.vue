@@ -1,13 +1,13 @@
 <template>
   <ItemCardsLayout itemType="Equipment" itemTypePlural="Equipment" :sources="sources" :items="equipment"
     :sortOptions="sortOptions" v-model:searchQuery="searchQuery" v-model:sourceFilter="sourceFilter"
-    v-model:sortOption="sortOption" @create="createEquipment" ref="itemCardsLayout">
+    v-model:sortOption="sortOption" @create="createEquipment" ref="layoutRef">
 
     <!-- Item cards slot -->
     <template #item-cards="{ filteredItems }">
       <EquipmentCard v-for="item in filteredItems" :key="item.id" :equipment="item" :editable="true" :sources="sources"
         :art-expanded="true" @edit="openEditEquipmentModal(item)" @send-to-chat="sendEquipmentToChat(item)"
-        @height-changed="itemCardsLayout?.onCardHeightChanged()" :collapsible="false" :showSource="true" />
+        @height-changed="layoutRef?.onCardHeightChanged()" :collapsible="false" :showSource="true" />
     </template>
 
     <!-- Modals slot -->
@@ -49,7 +49,7 @@ const sourcesStore = useSourcesStore()
 const sources = sourcesStore.sources
 
 // Reactive state
-const itemCardsLayout = ref(null)
+const layoutRef = ref(null)
 const sortOption = ref('')
 const searchQuery = ref('')
 const sourceFilter = ref('')
@@ -104,16 +104,15 @@ const deleteEquipment = async (equipmentItem) => {
 }
 
 // OTHER METHODS
-const sendEquipmentToChat = (equipment) => {
-  // TODO: Implement sending equipment to chat
-  console.log('Send to chat not yet implemented:', equipment)
+const sendEquipmentToChat = (_equipment) => {
+  // Placeholder for future chat integration
 }
 
 const fetchEngagementSuccessOptions = async () => {
   try {
-    engagementSuccessOptions.value = await EngagementSuccessService.getAll();
+    engagementSuccessOptions.value = await EngagementSuccessService.getAll()
   } catch (error) {
-    console.error('Error fetching engagement success options:', error);
+    console.error('Error fetching engagement success options:', error)
   }
 }
 

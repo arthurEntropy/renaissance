@@ -1,126 +1,21 @@
 <template>
     <div class="admin-page">
-        <h1>Expansions</h1>
-        <div class="expansion-list">
-            <div v-for="expansion in expansions" :key="expansion.id" class="expansion-item">
-                <input v-model="expansion.name" @blur="saveExpansion(expansion)" class="expansion-name-input"
-                    placeholder="Expansion Name" />
-                <input v-model="expansion.logoUrl" @blur="saveExpansion(expansion)" class="expansion-logo-input"
-                    placeholder="Logo URL" />
-                <img v-if="expansion.logoUrl" :src="expansion.logoUrl" class="expansion-logo-preview" />
-                <button class="delete-button" @click="deleteExpansion(expansion)">Delete</button>
-            </div>
-        </div>
-        <button class="add-button" @click="addExpansion">Add Expansion</button>
+        <h1>Admin</h1>
+        <ExpansionManager />
+        <!-- Future admin sections can be added here -->
     </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-import ExpansionService from '@/services/expansionService'
-
-const expansions = ref([])
-
-const fetchExpansions = async () => {
-    expansions.value = await ExpansionService.getAll()
-}
-
-const addExpansion = async () => {
-    await ExpansionService.create()
-    await fetchExpansions()
-}
-
-const saveExpansion = async (expansion) => {
-    await ExpansionService.update(expansion)
-    await fetchExpansions()
-}
-
-const deleteExpansion = async (expansion) => {
-    await ExpansionService.delete(expansion)
-    await fetchExpansions()
-}
-
-onMounted(fetchExpansions)
+import ExpansionManager from '@/components/features/admin/ExpansionManager.vue'
 </script>
 
 <style scoped>
 .admin-page {
     max-width: 700px;
-    margin: 40px auto;
-    padding: 30px;
+    margin: var(--space-xl);
+    padding: var(--space-xl);
     background: var(--color-bg-secondary);
     border-radius: var(--radius-10);
-}
-
-h1 {
-    font-size: var(--font-size-36);
-    margin-bottom: 2rem;
-}
-
-.expansion-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    margin-bottom: 2rem;
-}
-
-.expansion-item {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    background: var(--color-gray-dark);
-    padding: 1rem;
-    border-radius: var(--radius-10);
-}
-
-.expansion-name-input,
-.expansion-logo-input {
-    font-size: var(--font-size-18);
-    padding: 6px 10px;
-    border-radius: var(--radius-5);
-    border: 1px solid var(--color-gray-medium);
-    background: var(--color-bg-secondary);
-    color: var(--color-white);
-    width: 180px;
-}
-
-.expansion-logo-preview {
-    width: 48px;
-    height: 48px;
-    object-fit: contain;
-    border-radius: var(--radius-5);
-    background: var(--color-white);
-    border: 1px solid var(--color-gray-medium);
-}
-
-.delete-button {
-    background: var(--color-danger-hover);
-    color: var(--color-white);
-    border: none;
-    border-radius: var(--radius-5);
-    padding: 6px 12px;
-    cursor: pointer;
-    font-size: var(--font-size-16);
-    margin-left: auto;
-    transition: var(--transition-background);
-}
-
-.delete-button:hover {
-    background: var(--color-danger);
-}
-
-.add-button {
-    background: var(--color-success);
-    color: var(--color-white);
-    border: none;
-    border-radius: var(--radius-5);
-    padding: var(--space-md) 20px;
-    font-size: var(--font-size-18);
-    cursor: pointer;
-    transition: var(--transition-background);
-}
-
-.add-button:hover {
-    background: var(--color-success-hover);
 }
 </style>

@@ -9,7 +9,7 @@ export const useEquipmentStore = defineStore('equipment', () => {
   const standardsOfLiving = ref([])
 
   // actions
-  const fetchAllEquipment = async () => {
+  const fetch = async () => {
     try {
       equipment.value = await EquipmentService.getAll()
     } catch (error) {
@@ -26,7 +26,7 @@ export const useEquipmentStore = defineStore('equipment', () => {
   }
 
   // getters
-  const getEquipmentById = (id) => {
+  const getById = (id) => {
     return equipment.value.find(item => item.id === id)
   }
 
@@ -38,9 +38,9 @@ export const useEquipmentStore = defineStore('equipment', () => {
   return {
     equipment,
     standardsOfLiving,
-    fetchAllEquipment,
+    fetch,
     fetchStandardsOfLiving,
-    getEquipmentById,
+    getById,
     getStandardOfLivingById,
   }
 })

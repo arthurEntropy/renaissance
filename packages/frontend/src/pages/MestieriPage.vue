@@ -1,28 +1,16 @@
 <template>
-  <ConceptsLayout itemName="Mestiere" :concepts="mestieri" :createConceptFn="createNewMestiere"
-    :updateConceptFn="updateMestiere" :deleteConceptFn="deleteMestiere" :refreshDataFn="refreshData" />
+  <ConceptsLayout itemName="Mestiere" v-bind="layoutProps" />
 </template>
 
 <script setup>
 import { useMestieriStore } from '@/stores/mestieriStore'
 import MestiereService from '@/services/mestiereService'
 import ConceptsLayout from '@/components/ui/layouts/ConceptsLayout.vue'
-import { useConceptView } from '@/composables/useConceptView'
+import { useConceptsLayout } from '@/composables/useConceptsLayout'
 
 const mestieriStore = useMestieriStore()
 
-const {
-  concepts: mestieri,
-  createNew: createNewMestiere,
-  update: updateMestiere,
-  deleteItem: deleteMestiere,
-  refreshData
-} = useConceptView(mestieriStore, MestiereService, {
-  itemsProperty: 'mestieri',
-  fetchMethod: 'fetchMestieri',
-  createMethod: 'create',
-  updateMethod: 'update',
-  filterDeleted: true,
-  useSoftDelete: true
+const { layoutProps } = useConceptsLayout(mestieriStore, MestiereService, {
+  conceptsProperty: 'mestieri'
 })
 </script>

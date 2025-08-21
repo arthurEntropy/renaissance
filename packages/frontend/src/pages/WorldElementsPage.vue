@@ -1,28 +1,16 @@
 <template>
-  <ConceptsLayout itemName="World Element" :concepts="worldElements" :createConceptFn="createNewWorldElement"
-    :updateConceptFn="updateWorldElement" :deleteConceptFn="deleteWorldElement" :refreshDataFn="refreshData" />
+  <ConceptsLayout itemName="World Element" v-bind="layoutProps" />
 </template>
 
 <script setup>
 import { useWorldElementsStore } from '@/stores/worldElementsStore'
 import WorldElementService from '@/services/worldElementService'
 import ConceptsLayout from '@/components/ui/layouts/ConceptsLayout.vue'
-import { useConceptView } from '@/composables/useConceptView'
+import { useConceptsLayout } from '@/composables/useConceptsLayout'
 
 const worldElementsStore = useWorldElementsStore()
 
-const {
-  concepts: worldElements,
-  createNew: createNewWorldElement,
-  update: updateWorldElement,
-  deleteItem: deleteWorldElement,
-  refreshData
-} = useConceptView(worldElementsStore, WorldElementService, {
-  itemsProperty: 'worldElements',
-  fetchMethod: 'fetchWorldElements',
-  createMethod: 'create',
-  updateMethod: 'update',
-  filterDeleted: true,
-  useSoftDelete: true
+const { layoutProps } = useConceptsLayout(worldElementsStore, WorldElementService, {
+  conceptsProperty: 'worldElements'
 })
 </script>

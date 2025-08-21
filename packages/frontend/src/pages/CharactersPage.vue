@@ -1,12 +1,10 @@
 <template>
   <div class="character-view">
-    <!--CHARACTER SELECTION-->
     <div v-if="!selectedCharacter" class="character-selection">
       <div class="selection-cards-container">
         <SelectionCard v-for="character in filteredCharacters" :key="character.id" :item="character"
           @click="handleSelectCharacter(character)" />
 
-        <!-- New "Add" card with plus icon -->
         <div class="add-concept-card" @click="createCharacter">
           <div class="add-icon">+</div>
           <div class="add-text">Add Character</div>
@@ -14,22 +12,17 @@
       </div>
     </div>
 
-    <!--CHARACTER SHEET-->
     <div v-if="selectedCharacter" class="character-sheet">
       <div class="settings-icon" @click="openSettingsModal">⚙️</div>
       <p class="close-button" @click="handleDeselectCharacter">ⓧ</p>
 
-      <!-- Top section with bio and dice results -->
       <div class="top-section">
-        <!-- CHARACTER BIO SECTION-->
         <CharacterBioSection :character="selectedCharacter" :defaultArtUrl="defaultArtUrl || ''"
           @open-full-size-art="openFullSizeCharacterArtModal" @update-character="updateCharacter" />
 
-        <!-- DICE ROLL RESULTS -->
         <DiceRollResults :latestRoll="latestRoll" />
       </div>
 
-      <!-- CHARACTER STATS SECTION -->
       <div class="character-stats-section">
         <CoreAbilityColumn :character="selectedCharacter" column="body" @update-character="updateCharacter"
           @open-skill-check="openSkillCheckModal" />
@@ -38,20 +31,7 @@
         <CoreAbilityColumn :character="selectedCharacter" column="wits" @update-character="updateCharacter"
           @open-skill-check="openSkillCheckModal" />
 
-        <!-- Conditions Column -->
-        <div class="conditions-column-container">
-          <div class="conditions-column">
-            <div class="conditions-header">Conditions</div>
-            <div class="conditions-row" v-for="(value, key) in selectedCharacter.conditions" :key="key">
-              <span :class="{ 'condition-active': value }">{{
-                cap(key)
-              }}</span>
-              <input type="checkbox" class="skill-checkbox" :class="{ 'condition-active-checkbox': value }"
-                v-model="selectedCharacter.conditions[key]" />
-            </div>
-            <div class="conditions-row" style="border-bottom: none"></div>
-          </div>
-        </div>
+        <ConditionsColumn :character="selectedCharacter" @update:character="updateCharacter" />
 
         <!-- Three-column layout for Engagement, Equipment, and Abilities -->
         <div class="main-column">
@@ -64,13 +44,11 @@
             @edit-custom-equipment="openEditEquipmentModal" />
         </div>
         <div class="main-column">
-          <!-- Abilities Table -->
           <AbilitiesTable :character="selectedCharacter" :allAbilities="allAbilities"
             @update-character="updateCharacter" />
         </div>
       </div>
 
-      <!-- MODALS -->
       <FullSizeCharacterArtModal v-if="showFullSizeCharacterArtModal"
         :imageUrl="selectedCharacter.artUrls[0] || defaultArtUrl" @close="closeFullSizeCharacterArtModal"
         @change-art="handleOpenChangeCharacterArtModal" />
@@ -104,10 +82,10 @@ import { useCharacterManagement } from '@/composables/useCharacterManagement'
 import { useSkillCheck } from '@/composables/useSkillCheck'
 import { useEquipmentManagement } from '@/composables/useEquipmentManagement'
 import { useCharacterArt } from '@/composables/useCharacterArt'
-import { capitalizeFirstLetter } from '@shared/utils/stringUtils'
 import SelectionCard from '@/components/ui/cards/ConceptCard.vue'
 import CharacterBioSection from '@/components/features/characterSheet/CharacterBioSection.vue'
 import CoreAbilityColumn from '@/components/features/characterSheet/CoreAbilityColumn.vue'
+import ConditionsColumn from '@/components/features/characterSheet/ConditionsColumn.vue'
 import EquipmentTable from '@/components/features/characterSheet/EquipmentTable.vue'
 import AbilitiesTable from '@/components/features/characterSheet/AbilitiesTable.vue'
 import FullSizeCharacterArtModal from '@/components/features/characterSheet/modals/FullSizeCharacterArtModal.vue'
@@ -124,8 +102,10 @@ const characterStore = useCharactersStore()
 const equipmentStore = useEquipmentStore()
 const abilitiesStore = useAbilitiesStore()
 
-// Local helpers
-const cap = (s) => capitalizeFirstLetter(String(s || ''))
+// Computed properties from stores
+const filteredCharacters = computed(() => characterStore.filteredCharacters)
+const allEquipment = computed(() => equipmentStore.equipment)
+const allAbilities = computed(() => abilitiesStore.abilities)
 
 // Composables
 const {
@@ -148,7 +128,7 @@ const {
   createCharacter,
   deleteCharacter,
   watchCharacterStats
-} = useCharacterManagement(computed(() => equipmentStore.equipment))
+} = useCharacterManagement(allEquipment)
 
 const {
   showSkillCheckModal,
@@ -179,45 +159,25 @@ const {
   closeChangeCharacterArtModal
 } = useCharacterArt()
 
-// Computed properties
-const filteredCharacters = computed(() => {
-  return characterStore.characters.filter(
-    (character) => !character.isDeleted,
-  )
-})
-
-const allEquipment = computed(() => {
-  return equipmentStore.equipment
-})
-
-const allAbilities = computed(() => {
-  return abilitiesStore.abilities
-})
-
-// Enhanced delete character handler
 const handleDeleteCharacter = () => {
   deleteCharacter(selectedCharacter.value)
   closeDeleteConfirmationModal()
 }
 
-// Enhanced character selection handler
 const handleSelectCharacter = (character) => {
   selectCharacter(character)
   closeAllModals()
 }
 
-// Enhanced deselect character handler
 const handleDeselectCharacter = () => {
   deselectCharacter()
   latestRoll.value = null
 }
 
-// Enhanced open change art modal handler
 const handleOpenChangeCharacterArtModal = () => {
   openChangeCharacterArtModal(selectedCharacter.value)
 }
 
-// Modal close handler
 const closeAllModals = () => {
   closeFullSizeCharacterArtModal()
   closeChangeCharacterArtModal()
@@ -226,17 +186,14 @@ const closeAllModals = () => {
   closeDeleteConfirmationModal()
 }
 
-// Lifecycle
 onMounted(async () => {
   try {
-    // Initialize character stat watchers
     watchCharacterStats()
 
-    // Fetch data in parallel (sources will auto-fetch via useSources)
     await Promise.all([
-      characterStore.fetchCharacters(),
-      abilitiesStore.fetchAllAbilities(),
-      equipmentStore.fetchAllEquipment()
+      characterStore.fetch(),
+      abilitiesStore.fetch(),
+      equipmentStore.fetch()
     ])
   } catch (error) {
     console.error('Error initializing CharactersPage:', error)
@@ -252,7 +209,6 @@ onMounted(async () => {
   width: 100%;
 }
 
-/* CHARACTER SELECTION */
 .character-selection {
   display: flex;
   flex-direction: column;
@@ -264,7 +220,7 @@ onMounted(async () => {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  padding-bottom: 50px;
+  padding-bottom: var(--space-xl);
 }
 
 .add-concept-card {
@@ -291,7 +247,7 @@ onMounted(async () => {
   font-size: var(--font-size-32);
   font-weight: var(--font-weight-light);
   color: var(--overlay-white-heavy);
-  margin-bottom: 10px;
+  margin-bottom: var(--space-md);
 }
 
 .add-text {
@@ -321,8 +277,8 @@ onMounted(async () => {
 
 .settings-icon {
   position: absolute;
-  top: 10px;
-  left: 10px;
+  top: var(--space-md);
+  left: var(--space-md);
   font-size: var(--font-size-20);
   cursor: pointer;
   z-index: var(--z-raised);
@@ -330,8 +286,8 @@ onMounted(async () => {
 
 .close-button {
   position: absolute;
-  top: -10px;
-  right: 15px;
+  top: calc(-1 * var(--space-md));
+  right: var(--space-lg);
   z-index: var(--z-modal);
   font-size: var(--font-size-20);
   text-decoration: none;
@@ -360,57 +316,6 @@ onMounted(async () => {
     flex-direction: column;
     align-items: center;
   }
-}
-
-/* CONDITIONS COLUMN */
-.conditions-column-container {
-  display: flex;
-  flex-direction: column;
-  background-color: var(--color-black);
-  border-radius: var(--radius-5);
-}
-
-.conditions-column {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  flex: 1;
-  width: 100px;
-  margin: 0 20px 0 15px;
-}
-
-@media (max-width: var(--breakpoint-sm)) {
-  .conditions-column {
-    margin: 0 40px;
-  }
-}
-
-.conditions-header {
-  display: flex;
-  align-items: end;
-  margin: 12px 0px;
-  font-size: var(--font-size-14);
-  font-style: italic;
-  height: 28px;
-}
-
-.conditions-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  margin: var(--space-xs) 0;
-  height: 25px;
-  border-bottom: 1px solid var(--color-gray-dark);
-}
-
-.condition-active {
-  color: var(--color-danger);
-  text-shadow: var(--shadow-glow-sm-danger);
-}
-
-.condition-active-checkbox {
-  box-shadow: var(--shadow-glow-danger-md);
 }
 
 .main-column {

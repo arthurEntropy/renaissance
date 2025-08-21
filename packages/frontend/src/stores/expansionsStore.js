@@ -9,7 +9,7 @@ export const useExpansionsStore = defineStore('expansions', () => {
   const error = ref(null)
 
   // actions
-  const fetchExpansions = async () => {
+  const fetch = async () => {
     isLoading.value = true
     error.value = null
     try {
@@ -25,7 +25,7 @@ export const useExpansionsStore = defineStore('expansions', () => {
   const addExpansion = async (expansion) => {
     try {
       await ExpansionService.addExpansion(expansion)
-      await fetchExpansions()
+      await fetch()
     } catch (err) {
       console.error('Error adding expansion:', err)
       error.value = err.message
@@ -36,7 +36,7 @@ export const useExpansionsStore = defineStore('expansions', () => {
   const deleteExpansion = async (name) => {
     try {
       await ExpansionService.removeExpansion(name)
-      await fetchExpansions()
+      await fetch()
     } catch (err) {
       console.error('Error deleting expansion:', err)
       error.value = err.message
@@ -47,7 +47,7 @@ export const useExpansionsStore = defineStore('expansions', () => {
   const updateExpansion = async (name, updated) => {
     try {
       await ExpansionService.updateExpansion(name, updated)
-      await fetchExpansions()
+      await fetch()
     } catch (err) {
       console.error('Error updating expansion:', err)
       error.value = err.message
@@ -61,7 +61,7 @@ export const useExpansionsStore = defineStore('expansions', () => {
     isLoading,
     error,
     // actions
-    fetchExpansions,
+    fetch,
     addExpansion,
     deleteExpansion,
     updateExpansion,

@@ -8,9 +8,9 @@
         <EditButton size="small" visibility="on-hover" :is-edit-mode="isEditMode" @click="toggleEditMode" />
       </div>
       <div class="button-group">
-        <ActionButton variant="neutral" size="medium" text="Reset" :disabled="isEditMode || !hasExpendedDice"
+        <ActionButton variant="neutral" size="small" text="Reset" :disabled="isEditMode || !hasExpendedDice"
           @click="resetDice" />
-        <ActionButton variant="primary" size="medium" text="Roll" :disabled="isEditMode" @click="rollSelectedDice" />
+        <ActionButton variant="primary" size="small" text="Roll" :disabled="isEditMode" @click="rollSelectedDice" />
       </div>
     </div>
 

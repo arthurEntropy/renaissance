@@ -7,7 +7,7 @@ export const useAbilitiesStore = defineStore('abilities', () => {
   const abilities = ref([])
 
   // actions
-  const fetchAllAbilities = async () => {
+  const fetch = async () => {
     try {
       abilities.value = await AbilityService.getAll()
     } catch (error) {
@@ -16,13 +16,13 @@ export const useAbilitiesStore = defineStore('abilities', () => {
   }
 
   // getters
-  const getAbilityById = (id) => {
+  const getById = (id) => {
     return abilities.value.find(ability => ability.id === id)
   }
 
   return {
     abilities,
-    fetchAllAbilities,
-    getAbilityById,
+    fetch,
+    getById,
   }
 })

@@ -7,7 +7,7 @@ export const useAncestriesStore = defineStore('ancestries', () => {
   const ancestries = ref([])
 
   // actions
-  const fetchAncestries = async () => {
+  const fetch = async () => {
     try {
       ancestries.value = await AncestryService.getAll()
     } catch (error) {
@@ -16,13 +16,13 @@ export const useAncestriesStore = defineStore('ancestries', () => {
   }
 
   // getters
-  const getAncestryById = (id) => {
+  const getById = (id) => {
     return ancestries.value.find(ancestry => ancestry.id === id)
   }
 
   return {
     ancestries,
-    fetchAncestries,
-    getAncestryById,
+    fetch,
+    getById,
   }
 })

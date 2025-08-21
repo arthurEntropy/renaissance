@@ -1,19 +1,14 @@
 <template>
-  <div class="homepage">
+  <div class="title-page">
     <h1 class="main-title">Renaissance</h1>
   </div>
 </template>
 
-<script>
-export default {
-  name: 'HomePage',
-}
+<script setup>
 </script>
 
-<style>
-@import url('https://fonts.googleapis.com/css2?family=My+Soul&display=swap');
-
-.homepage {
+<style scoped>
+.title-page {
   display: flex;
   justify-content: center;
   align-items: center;

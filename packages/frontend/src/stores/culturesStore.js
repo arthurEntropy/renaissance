@@ -7,7 +7,7 @@ export const useCulturesStore = defineStore('cultures', () => {
   const cultures = ref([])
 
   // actions
-  const fetchCultures = async () => {
+  const fetch = async () => {
     try {
       cultures.value = await CultureService.getAll()
     } catch (error) {
@@ -16,13 +16,13 @@ export const useCulturesStore = defineStore('cultures', () => {
   }
 
   // getters
-  const getCultureById = (id) => {
+  const getById = (id) => {
     return cultures.value.find(culture => culture.id === id)
   }
 
   return {
     cultures,
-    fetchCultures,
-    getCultureById,
+    fetch,
+    getById,
   }
 })

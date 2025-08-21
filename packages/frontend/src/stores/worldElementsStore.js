@@ -7,7 +7,7 @@ export const useWorldElementsStore = defineStore('worldElements', () => {
   const worldElements = ref([])
 
   // actions
-  const fetchWorldElements = async () => {
+  const fetch = async () => {
     try {
       worldElements.value = await WorldElementsService.getAll()
     } catch (error) {
@@ -16,13 +16,13 @@ export const useWorldElementsStore = defineStore('worldElements', () => {
   }
 
   // getters
-  const getWorldElementById = (id) => {
+  const getById = (id) => {
     return worldElements.value.find(worldElement => worldElement.id === id)
   }
 
   return {
     worldElements,
-    fetchWorldElements,
-    getWorldElementById,
+    fetch,
+    getById,
   }
 })

@@ -5,7 +5,7 @@ import EngagementSuccessService from '@/services/engagementSuccessService'
 export const useEngagementSuccessesStore = defineStore('engagementSuccesses', () => {
   const engagementSuccesses = ref([])
 
-  const fetchEngagementSuccesses = async () => {
+  const fetch = async () => {
     try {
       engagementSuccesses.value = await EngagementSuccessService.getAll()
     } catch (error) {
@@ -13,13 +13,13 @@ export const useEngagementSuccessesStore = defineStore('engagementSuccesses', ()
     }
   }
 
-  const getEngagementSuccessById = (id) => {
+  const getById = (id) => {
     return engagementSuccesses.value.find(success => success.id === id)
   }
 
   return {
     engagementSuccesses,
-    fetchEngagementSuccesses,
-    getEngagementSuccessById,
+    fetch,
+    getById,
   }
 })

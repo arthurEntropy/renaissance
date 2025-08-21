@@ -101,9 +101,7 @@
   /* Special shadows */
   --shadow-inset-fade: inset 200px 0 100px -50px var(--color-bg-primary); /* Special inset fade */
   --shadow-none: none;                                                    /* No shadow */
-  
 
-  
   
   /* === SPACING === */
   --space-xs: 0.3125rem; /* 5px */

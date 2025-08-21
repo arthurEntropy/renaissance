@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import CharacterService from '@/services/characterService'
 
 export const useCharactersStore = defineStore('characters', () => {
@@ -7,7 +7,7 @@ export const useCharactersStore = defineStore('characters', () => {
   const characters = ref([])
 
   // actions
-  const fetchCharacters = async () => {
+  const fetch = async () => {
     try {
       characters.value = await CharacterService.getAll()
     } catch (error) {
@@ -16,13 +16,18 @@ export const useCharactersStore = defineStore('characters', () => {
   }
 
   // getters
-  const getCharacterById = (id) => {
+  const getById = (id) => {
     return characters.value.find(character => character.id === id)
   }
 
+  const filteredCharacters = computed(() => {
+    return characters.value.filter(character => !character.isDeleted)
+  })
+
   return {
     characters,
-    fetchCharacters,
-    getCharacterById,
+    fetch,
+    getById,
+    filteredCharacters,
   }
 })

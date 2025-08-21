@@ -1,28 +1,16 @@
 <template>
-  <ConceptsLayout itemName="Ancestry" :concepts="ancestries" :createConceptFn="createNewAncestry"
-    :updateConceptFn="updateAncestry" :deleteConceptFn="deleteAncestry" :refreshDataFn="refreshData" />
+  <ConceptsLayout itemName="Ancestry" v-bind="layoutProps" />
 </template>
 
 <script setup>
 import { useAncestriesStore } from '@/stores/ancestriesStore'
 import AncestryService from '@/services/ancestryService'
 import ConceptsLayout from '@/components/ui/layouts/ConceptsLayout.vue'
-import { useConceptView } from '@/composables/useConceptView'
+import { useConceptsLayout } from '@/composables/useConceptsLayout'
 
 const ancestriesStore = useAncestriesStore()
 
-const {
-  concepts: ancestries,
-  createNew: createNewAncestry,
-  update: updateAncestry,
-  deleteItem: deleteAncestry,
-  refreshData
-} = useConceptView(ancestriesStore, AncestryService, {
-  itemsProperty: 'ancestries',
-  fetchMethod: 'fetchAncestries',
-  createMethod: 'create',
-  updateMethod: 'update',
-  deleteMethod: 'delete',
-  useSoftDelete: false
+const { layoutProps } = useConceptsLayout(ancestriesStore, AncestryService, {
+  conceptsProperty: 'ancestries'
 })
 </script>

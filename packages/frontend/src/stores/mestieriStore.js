@@ -7,7 +7,7 @@ export const useMestieriStore = defineStore('mestieri', () => {
   const mestieri = ref([])
 
   // actions
-  const fetchMestieri = async () => {
+  const fetch = async () => {
     try {
       mestieri.value = await MestieriService.getAll()
     } catch (error) {
@@ -16,13 +16,13 @@ export const useMestieriStore = defineStore('mestieri', () => {
   }
 
   // getters
-  const getMestiereById = (id) => {
+  const getById = (id) => {
     return mestieri.value.find(mestiere => mestiere.id === id)
   }
 
   return {
     mestieri,
-    fetchMestieri,
-    getMestiereById,
+    fetch,
+    getById,
   }
 })

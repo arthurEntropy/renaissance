@@ -1,14 +1,14 @@
 <template>
   <ItemCardsLayout itemType="Ability" itemTypePlural="Abilities" :sources="sources" :items="abilities"
     :sortOptions="sortOptions" v-model:searchQuery="searchQuery" v-model:sourceFilter="sourceFilter"
-    v-model:sortOption="sortOption" @create="createAbility" ref="itemCardsLayout">
+    v-model:sortOption="sortOption" @create="createAbility" ref="layoutRef">
 
     <!-- Item cards slot -->
     <template #item-cards="{ filteredItems }">
       <AbilityCard v-for="ability in filteredItems" :key="ability.id" :ability="ability" :editable="true"
         :sources="sources" @delete="deleteAbility(ability)" @update="updateAbility(ability)"
         @edit="openEditAbilityModal(ability)" @send-to-chat="sendAbilityToChat(ability)"
-        @height-changed="itemCardsLayout?.onCardHeightChanged()" :collapsible="false" />
+        @height-changed="layoutRef?.onCardHeightChanged()" :collapsible="false" />
     </template>
 
     <!-- Modals slot -->
@@ -48,7 +48,7 @@ const sourcesStore = useSourcesStore()
 const sources = sourcesStore.sources
 
 // Reactive state
-const itemCardsLayout = ref(null)
+const layoutRef = ref(null)
 const sortOption = ref('')
 const searchQuery = ref('')
 const sourceFilter = ref('')
@@ -107,9 +107,8 @@ const saveEditedAbility = async (editedAbility) => {
 }
 
 // OTHER METHODS
-const sendAbilityToChat = (ability) => {
-  // TODO: Implement sending ability to chat
-  console.log('Send to chat not yet implemented:', ability)
+const sendAbilityToChat = (_ability) => {
+  // Placeholder for future chat integration
 }
 
 // Lifecycle

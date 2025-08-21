@@ -18,7 +18,7 @@ export const useStandardsOfLivingStore = defineStore('standardsOfLiving', () => 
   })
 
   // actions
-  const fetchStandardsOfLiving = async () => {
+  const fetch = async () => {
     isLoading.value = true
     error.value = null
     try {
@@ -78,7 +78,7 @@ export const useStandardsOfLivingStore = defineStore('standardsOfLiving', () => 
     getStandardOfLivingById,
     getStandardOfLivingByName,
     // actions
-    fetchStandardsOfLiving,
+    fetch,
     createStandardOfLiving,
     updateStandardOfLiving,
     deleteStandardOfLiving,

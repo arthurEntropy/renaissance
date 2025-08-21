@@ -1,28 +1,16 @@
 <template>
-  <ConceptsLayout itemName="Culture" :concepts="cultures" :createConceptFn="createNewCulture"
-    :updateConceptFn="updateCulture" :deleteConceptFn="deleteCulture" :refreshDataFn="refreshData" />
+  <ConceptsLayout itemName="Culture" v-bind="layoutProps" />
 </template>
 
 <script setup>
 import { useCulturesStore } from '@/stores/culturesStore'
 import CultureService from '@/services/cultureService'
 import ConceptsLayout from '@/components/ui/layouts/ConceptsLayout.vue'
-import { useConceptView } from '@/composables/useConceptView'
+import { useConceptsLayout } from '@/composables/useConceptsLayout'
 
 const culturesStore = useCulturesStore()
 
-const {
-  concepts: cultures,
-  createNew: createNewCulture,
-  update: updateCulture,
-  deleteItem: deleteCulture,
-  refreshData
-} = useConceptView(culturesStore, CultureService, {
-  itemsProperty: 'cultures',
-  fetchMethod: 'fetchCultures',
-  createMethod: 'create',
-  updateMethod: 'update',
-  filterDeleted: true,
-  useSoftDelete: true
+const { layoutProps } = useConceptsLayout(culturesStore, CultureService, {
+  conceptsProperty: 'cultures'
 })
 </script>

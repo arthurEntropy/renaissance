@@ -47,7 +47,7 @@
           <template v-else>
             <span class="character-name" @click.stop="startEditingWithRefs('name')">{{
               character.name || 'Unnamed Character'
-              }}</span>
+            }}</span>
           </template>
 
           <!-- Pronouns (click to edit) -->
@@ -321,8 +321,8 @@ const handleOutsideClick = (event) => {
 }
 // Lifecycle hooks
 onMounted(() => {
-  ancestryStore.fetchAncestries()
-  cultureStore.fetchCultures()
+  ancestryStore.fetch()
+  cultureStore.fetch()
   document.addEventListener('click', handleOutsideClick)
 })
 
