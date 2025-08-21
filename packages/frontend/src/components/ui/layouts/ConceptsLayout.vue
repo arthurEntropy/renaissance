@@ -1,7 +1,7 @@
 <template>
   <div class="concepts-view">
     <!-- Filter Controls (conditionally shown) -->
-    <Filters v-if="showFilters" v-model:search-query="searchQuery" v-model:primary-filter="expansionFilter"
+    <FilterControls v-if="showFilters" v-model:search-query="searchQuery" v-model:primary-filter="expansionFilter"
       :search-placeholder="`Search ${itemName.toLowerCase()}s...`" :primary-filter-options="expansionFilterOptions"
       primary-filter-label="All Expansions" primary-filter-class="expansion-filter" />
 
@@ -33,7 +33,7 @@ import { useExpansionsStore } from '@/stores/expansionsStore'
 import { useSourcesStore } from '@/stores/sourcesStore'
 import ConceptCard from '@/components/ui/cards/ConceptCard.vue'
 import AddConceptCard from '@/components/ui/cards/AddConceptCard.vue'
-import Filters from '@/components/ui/Filters.vue'
+import FilterControls from '@/components/ui/FilterControls.vue'
 import NavigationControls from '@/components/ui/NavigationControls.vue'
 import ConceptDetailModal from '@/components/features/conceptDetail/ConceptDetailModal.vue'
 import CharacterSheetModal from '@/components/features/characterSheet/CharacterSheetModal.vue'

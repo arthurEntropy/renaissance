@@ -19,7 +19,7 @@
 import { ref, computed, watch } from 'vue'
 import EditButton from '@/components/ui/buttons/EditButton.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
-import TextEditor from '@/components/ui/forms/TextEditor.vue'
+import TextEditor from '@/components/ui/textEditor/TextEditor.vue'
 import { useInlineEditor } from '../composables/useInlineEditor'
 import { sanitizeHtml } from '@/utils/sanitizeHtml'
 

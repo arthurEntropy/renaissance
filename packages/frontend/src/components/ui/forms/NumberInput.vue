@@ -25,14 +25,14 @@ const emit = defineEmits(['update:modelValue'])
 const sizeClass = computed(() => `number-input-${props.size}`)
 const inputClass = computed(() => `input-${props.size}`)
 
-function increment() {
+const increment = () => {
   if (props.max === null || props.modelValue < props.max) {
     const next = Math.min(props.modelValue + props.step, props.max ?? Infinity)
     emit('update:modelValue', next)
   }
 }
 
-function decrement() {
+const decrement = () => {
   if (props.min === null || props.modelValue > props.min) {
     const next = Math.max(props.modelValue - props.step, props.min ?? -Infinity)
     emit('update:modelValue', next)
@@ -41,23 +41,25 @@ function decrement() {
 </script>
 
 <style scoped>
+@import '@/styles/design-tokens.css';
+
 .number-input-container {
   position: relative;
   display: inline-block;
 }
 
 .number-input-tiny {
-  height: 16px;
+  height: var(--space-lg);
   width: 40px;
 }
 
 .number-input-small {
-  height: 20px;
+  height: var(--space-xl);
   width: 40px;
 }
 
 .number-input-large {
-  height: 24px;
+  height: var(--space-2xl);
   width: 40px;
 }
 
@@ -68,10 +70,9 @@ input[type='number'] {
   background-color: var(--overlay-white-subtle);
   border: 1px solid var(--color-gray-medium);
   border-radius: var(--radius-5);
-  color: white;
+  color: var(--color-white);
   text-align: center;
-  padding: 0 14px 0 4px;
-  /* Add right padding to make room for buttons */
+  padding: 0 var(--space-sm) 0 var(--space-xs);
   width: 100%;
   box-sizing: border-box;
 }
@@ -94,41 +95,32 @@ input[type='number']::-webkit-outer-spin-button {
   font-size: var(--font-size-20);
 }
 
-/* Spinner buttons styling */
 .spinner-buttons {
   position: absolute;
   top: 1px;
-  /* Account for input border */
   bottom: 1px;
-  /* Account for input border */
   right: 1px;
-  /* Position just inside the input border */
-  width: 12px;
+  width: var(--space-md);
   display: flex;
   flex-direction: column;
   opacity: 0;
   transition: var(--transition-opacity);
   pointer-events: none;
-  /* Initially hidden from interaction */
   z-index: var(--z-overlay);
-  /* Ensure buttons are above input */
   border-radius: 0 var(--radius-5) var(--radius-5) 0;
-  /* Match input's right border radius */
   overflow: hidden;
-  /* Ensure buttons don't exceed container */
 }
 
 .number-input-container:hover .spinner-buttons {
   opacity: 1;
   pointer-events: auto;
-  /* Enable interaction on hover */
 }
 
 .spinner-up,
 .spinner-down {
   background: var(--overlay-black-medium);
   border: none;
-  color: white;
+  color: var(--color-white);
   padding: 0;
   height: 50%;
   width: 100%;

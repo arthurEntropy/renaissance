@@ -1,7 +1,7 @@
 <template>
   <div class="item-cards-view">
     <!-- Search and Filter Controls -->
-    <Filters v-model:search-query="searchQueryLocal" v-model:primary-filter="sourceFilterLocal"
+    <FilterControls v-model:search-query="searchQueryLocal" v-model:primary-filter="sourceFilterLocal"
       v-model:sort-option="sortOptionLocal" :search-placeholder="`Search ${itemTypePlural.toLowerCase()}...`"
       :primary-filter-options="sourceFilterOptions" primary-filter-label="All Sources"
       primary-filter-class="source-filter" :sort-options="sortOptions" :show-add-button="true"
@@ -9,7 +9,7 @@
       <template #additional-filters>
         <slot name="additional-filters"></slot>
       </template>
-    </Filters>
+    </FilterControls>
 
     <!-- Item Cards-->
     <MasonryGrid :column-width="350" :gap="20" :row-height="10" class="cards-container" ref="masonryGrid">
@@ -22,7 +22,7 @@
 
 <script setup>
 import MasonryGrid from '@/components/ui/layouts/MasonryGrid.vue'
-import Filters from '@/components/ui/Filters.vue'
+import FilterControls from '@/components/ui/FilterControls.vue'
 import { computed, ref } from 'vue'
 
 const props = defineProps({
@@ -61,12 +61,7 @@ const sortOptionLocal = computed({
 
 const sourceFilterOptions = computed(() => ({
   grouped: true,
-  groups: {
-    'Ancestries': props.sources.ancestries || [],
-    'Cultures': props.sources.cultures || [],
-    'Mestieri': props.sources.mestieri || [],
-    'World Elements': props.sources.worldElements || []
-  }
+  sources: props.sources
 }))
 
 const filteredItems = computed(() => {

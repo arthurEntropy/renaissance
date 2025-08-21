@@ -200,6 +200,9 @@
   --breakpoint-md: 768px;     /* Medium screens (tablets) */
   --breakpoint-lg: 1024px;    /* Large screens (desktop) */
   
+  /* === WIDTHS === */
+  --width-modal: 500px;        /* Standard modal width */
+  
 
   /* === BUTTON SPECIFIC === */
   --btn-padding-sm: 2px var(--space-sm);  /* 2px top/bottom, 8px left/right */

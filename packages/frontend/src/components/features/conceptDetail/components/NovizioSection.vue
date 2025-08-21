@@ -132,7 +132,7 @@
 
 <script setup>
 import { ref, computed, watch } from 'vue'
-import TextEditor from '@/components/ui/forms/TextEditor.vue'
+import TextEditor from '@/components/ui/textEditor/TextEditor.vue'
 import ConceptSection from './ConceptSection.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import { useEditMode } from '@/composables/useEditMode'

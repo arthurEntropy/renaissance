@@ -47,7 +47,7 @@
           <template v-else>
             <span class="character-name" @click.stop="startEditingWithRefs('name')">{{
               character.name || 'Unnamed Character'
-            }}</span>
+              }}</span>
           </template>
 
           <!-- Pronouns (click to edit) -->
@@ -161,7 +161,7 @@ import { useInlineEditor } from '@/composables/useInlineEditor'
 import { useModal } from '@/composables/useModal'
 import { useTagSelector } from '@/composables/useTagSelector'
 import { formatText } from '@shared/utils/stringUtils'
-import TextEditor from '@/components/ui/forms/TextEditor.vue'
+import TextEditor from '@/components/ui/textEditor/TextEditor.vue'
 import NumberInput from '@/components/ui/forms/NumberInput.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import { sanitizeHtml } from '@/utils/sanitizeHtml'

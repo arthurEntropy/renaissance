@@ -48,7 +48,7 @@ defineEmits(['navigate'])
     padding-bottom: 7px;
     transform: translateY(-50%);
     background: var(--overlay-black-medium);
-    color: white;
+    color: var(--color-white);
     border: none;
     border-radius: var(--radius-full);
     width: 60px;

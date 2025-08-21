@@ -16,11 +16,7 @@
 
             <!-- Grouped options (for sources) -->
             <template v-else>
-                <optgroup v-for="(group, groupName) in primaryFilterOptions.groups" :key="groupName" :label="groupName">
-                    <option v-for="item in group" :key="item.id" :value="item.id">
-                        {{ item.name }}
-                    </option>
-                </optgroup>
+                <SourceOptionsGroup :sources="primaryFilterOptions.sources" />
             </template>
         </select>
 
@@ -44,10 +40,11 @@
 </template>
 
 <script setup>
-import { defineModel, computed } from 'vue'
+import { defineModel } from 'vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
+import SourceOptionsGroup from '@/components/ui/forms/SourceOptionsGroup.vue'
 
-const props = defineProps({
+defineProps({
     // Search
     searchPlaceholder: {
         type: String,
@@ -126,12 +123,12 @@ const sortOption = defineModel('sortOption')
     border-radius: var(--radius-5);
     background-color: var(--overlay-black-medium);
     font-size: var(--font-size-16);
-    color: white;
+    color: var(--color-white);
 }
 
 .primary-filter optgroup,
 .sort-filter optgroup {
-    background-color: black;
+    background-color: var(--color-black);
 }
 
 .primary-filter option,
