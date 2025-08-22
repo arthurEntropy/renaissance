@@ -147,7 +147,7 @@
   "equipment": [
     {
       "id": "58c57499-9eef-49d4-9273-7674c60fae77",
-      "quantity": 1,
+      "quantity": 2,
       "isCarried": true,
       "isWielding": true,
       "index": 0,
@@ -207,8 +207,8 @@
   "personalityAndBackground": "Seasoned squire nearing retirement. Has a bird named Xixixaxa. Has a brother-in-law who owns a shaved ice stand. Never stops smiling.",
   "xp": 5,
   "mp": {
-    "current": 0,
-    "max": 0
+    "current": 5,
+    "max": 5
   },
   "current": "9",
   "ancestryIds": [

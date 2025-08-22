@@ -28,7 +28,7 @@ import { useEditModal } from '@/composables/useEditModal'
 import { useSourcesStore } from '@/stores/sourcesStore'
 import AbilityService from '@/services/abilityService'
 import AbilityCard from '@/components/ui/cards/AbilityCard.vue'
-import EditAbilityModal from '@/components/modals/EditAbilityModal.vue'
+import EditAbilityModal from '@/components/editModals/EditAbilityModal.vue'
 import ItemCardsLayout from '@/components/ui/layouts/ItemCardsLayout.vue'
 
 // Store

@@ -211,6 +211,13 @@
         "isCustom": false,
         "artUrl": "https://cdn.midjourney.com/489cca4d-20f9-4f1f-8394-88738a1ae0d7/0_3.png"
       }
+    },
+    {
+      "id": "36e20697-3fe0-4b07-9b39-c4a144986ea5",
+      "quantity": 1,
+      "isCarried": true,
+      "isWielding": false,
+      "index": 2
     }
   ],
   "activeEffects": [
@@ -263,5 +270,6 @@
     "11"
   ],
   "weary": false,
-  "miserable": false
+  "miserable": false,
+  "expansionLogoUrl": ""
 }

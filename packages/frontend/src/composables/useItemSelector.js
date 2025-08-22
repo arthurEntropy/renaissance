@@ -3,8 +3,15 @@ import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 /**
  * Composable for managing item selector/dropdown functionality
  * Used in components that have searchable item selectors with source grouping
+ * @param {Ref} allItems - Reactive array of all items to search through
+ * @param {Object} sources - Sources object for grouping
+ * @param {Object} getSourceUtils - Utilities for source management
+ * @param {Object} options - Configuration options
+ * @param {Array<string>} options.searchFields - Fields to search in (default: ['name', 'description'])
  */
-export function useItemSelector(allItems, sources, getSourceUtils) {
+export function useItemSelector(allItems, sources, getSourceUtils, options = {}) {
+  // Configuration
+  const searchFields = options.searchFields || ['name', 'description']
   // State
   const showSelector = ref(false)
   const searchQuery = ref('')
@@ -40,11 +47,12 @@ export function useItemSelector(allItems, sources, getSourceUtils) {
       return
     }
 
-    filteredItems.value = (allItems.value || []).filter(
-      (item) =>
-        item.name.toLowerCase().includes(query) ||
-        (item.description && item.description.toLowerCase().includes(query)),
-    )
+    filteredItems.value = (allItems.value || []).filter((item) => {
+      return searchFields.some(field => {
+        const fieldValue = item[field]
+        return fieldValue && fieldValue.toLowerCase().includes(query)
+      })
+    })
   }
 
   // Grouped items computed property

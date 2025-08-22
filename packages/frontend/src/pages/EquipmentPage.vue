@@ -29,7 +29,7 @@ import { useSourcesStore } from '@/stores/sourcesStore'
 import EquipmentService from '@/services/equipmentService'
 import EngagementSuccessService from '@/services/engagementSuccessService'
 import EquipmentCard from '@/components/ui/cards/EquipmentCard.vue'
-import EditEquipmentModal from '@/components/modals/EditEquipmentModal.vue'
+import EditEquipmentModal from '@/components/editModals/EditEquipmentModal.vue'
 import ItemCardsLayout from '@/components/ui/layouts/ItemCardsLayout.vue'
 
 // Store

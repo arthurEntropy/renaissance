@@ -37,11 +37,30 @@ export function useEquipmentManagement() {
     }
   }
 
+  const deleteEquipment = async (equipment) => {
+    try {
+      // Delete the equipment from the backend
+      await EquipmentService.delete(equipment)
+
+      // Refresh the equipment list to reflect the deletion
+      await equipmentStore.fetch()
+
+      // Close the edit modal
+      closeEditEquipmentModal()
+
+      // The character will be automatically updated through watchers
+    } catch (error) {
+      console.error('Error deleting equipment:', error)
+      throw error // Re-throw to allow caller to handle
+    }
+  }
+
   return {
     showEditEquipmentModal,
     equipmentToEdit,
     openEditEquipmentModal,
     closeEditEquipmentModal,
-    saveEditedEquipment
+    saveEditedEquipment,
+    deleteEquipment
   }
 }

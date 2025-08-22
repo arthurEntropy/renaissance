@@ -52,8 +52,8 @@ import LeftColumn from './components/sections/LeftColumn.vue'
 import RightColumn from './components/sections/RightColumn.vue'
 import MobileLayout from './components/sections/MobileLayout.vue'
 import SettingsModal from './components/ConceptSettingsModal.vue'
-import EditAbilityModal from '@/components/modals/EditAbilityModal.vue'
-import EditEquipmentModal from '@/components/modals/EditEquipmentModal.vue'
+import EditAbilityModal from '@/components/editModals/EditAbilityModal.vue'
+import EditEquipmentModal from '@/components/editModals/EditEquipmentModal.vue'
 
 // Composables
 import { useConceptEditMode } from './composables/useConceptEditMode'

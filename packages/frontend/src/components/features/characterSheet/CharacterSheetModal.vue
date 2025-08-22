@@ -24,7 +24,7 @@
                 <ConditionsColumn :character="localCharacter" @update:character="updateCharacter" />
 
                 <div class="main-column">
-                    <EngagementDiceTable :character="localCharacter" :allEquipment="allEquipment"
+                    <EngagementTable :character="localCharacter" :allEquipment="allEquipment"
                         @update:character="updateCharacter" @engagement-results="handleEngagementResults" />
                 </div>
                 <div class="main-column">
@@ -58,7 +58,7 @@
             @close="closeDeleteConfirmationModal" @confirm="handleDeleteCharacter" />
 
         <EditEquipmentModal v-if="showEditEquipmentModal" :equipment="equipmentToEdit" @update="saveEditedEquipment"
-            @close="closeEditEquipmentModal" @delete="openDeleteConfirmationModal" />
+            @close="closeEditEquipmentModal" @delete="deleteEquipment" />
     </div>
 </template>
 
@@ -71,16 +71,16 @@ import { useCharacterArt } from '@/composables/useCharacterArt'
 import CharacterBioSection from '@/components/features/characterSheet/CharacterBioSection.vue'
 import CoreAbilityColumn from '@/components/features/characterSheet/CoreAbilityColumn.vue'
 import ConditionsColumn from '@/components/features/characterSheet/ConditionsColumn.vue'
-import EquipmentTable from '@/components/features/characterSheet/EquipmentTable.vue'
-import AbilitiesTable from '@/components/features/characterSheet/AbilitiesTable.vue'
-import EngagementDiceTable from '@/components/features/characterSheet/EngagementDiceTable.vue'
+import EquipmentTable from '@/components/features/characterSheet/equipmentTable/EquipmentTable.vue'
+import AbilitiesTable from '@/components/features/characterSheet/abilitiesTable/AbilitiesTable.vue'
+import EngagementTable from '@/components/features/characterSheet/engagementTable'
 import DiceRollResults from '@/components/features/characterSheet/DiceRollResults.vue'
 import FullSizeCharacterArtModal from '@/components/features/characterSheet/modals/FullSizeCharacterArtModal.vue'
 import ChangeCharacterArtModal from '@/components/features/characterSheet/modals/ChangeCharacterArtModal.vue'
 import SkillCheckModal from '@/components/features/characterSheet/modals/SkillCheckModal.vue'
 import CharacterSettingsModal from '@/components/features/characterSheet/modals/CharacterSettingsModal.vue'
 import DeleteConfirmationModal from '@/components/features/characterSheet/modals/DeleteConfirmationModal.vue'
-import EditEquipmentModal from '@/components/modals/EditEquipmentModal.vue'
+import EditEquipmentModal from '@/components/editModals/EditEquipmentModal.vue'
 
 const props = defineProps({
     character: {
@@ -138,7 +138,8 @@ const {
     equipmentToEdit,
     openEditEquipmentModal,
     closeEditEquipmentModal,
-    saveEditedEquipment
+    saveEditedEquipment,
+    deleteEquipment
 } = useEquipmentManagement()
 
 // Character art functionality

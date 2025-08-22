@@ -145,7 +145,22 @@
     "afraid": false,
     "troubled": false
   },
-  "equipment": [],
+  "equipment": [
+    {
+      "id": "f026c8af-51de-447b-ae92-ed56a645224c",
+      "quantity": 1,
+      "isCarried": true,
+      "isWielding": true,
+      "index": 2
+    },
+    {
+      "id": "83757d92-985c-46ed-b112-03e9278adafc",
+      "quantity": 1,
+      "isCarried": true,
+      "isWielding": true,
+      "index": 3
+    }
+  ],
   "activeEffects": [],
   "personalityAndBackground": "<p></p>",
   "cultures": "Guildford",
@@ -172,5 +187,6 @@
   "engagementDice": [
     12,
     12
-  ]
+  ],
+  "expansionLogoUrl": ""
 }

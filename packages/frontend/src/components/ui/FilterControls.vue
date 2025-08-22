@@ -42,7 +42,7 @@
 <script setup>
 import { defineModel } from 'vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
-import SourceOptionsGroup from '@/components/ui/forms/SourceOptionsGroup.vue'
+import SourceOptionsGroup from '@/components/ui/selectors/SourceOptionsGroup.vue'
 
 defineProps({
     // Search

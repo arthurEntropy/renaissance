@@ -57,10 +57,7 @@
     <!-- Footer slot for engagement successes -->
     <template #footer>
       <div v-if="!collapsed" class="engagement-successes">
-        <span v-for="success in engagementSuccesses" :key="success.id" class="engagement-success-pill"
-          @mouseenter="startSuccessTooltip(success, $event)" @mouseleave="clearSuccessTooltip">
-          {{ success.name }}
-        </span>
+        <SuccessChip v-for="success in engagementSuccesses" :key="success.id" :success="success" />
       </div>
     </template>
 
@@ -70,14 +67,6 @@
         position="bottom-left" />
     </template>
   </base-card>
-
-  <!-- Tooltip for engagement success description -->
-  <teleport to="body">
-    <div v-if="tooltipSuccess" class="success-tooltip"
-      :style="{ top: `${tooltipPosition.y}px`, left: `${tooltipPosition.x}px` }">
-      {{ tooltipSuccess }}
-    </div>
-  </teleport>
 </template>
 
 <script setup>
@@ -86,9 +75,9 @@ import { useEquipmentStore } from '@/stores/equipmentStore'
 import BaseCard from '@/components/ui/cards/BaseCard.vue'
 import BadgeDisplay from '@/components/ui/cards/BadgeDisplay.vue'
 import CardDescription from '@/components/ui/cards/CardDescription.vue'
+import SuccessChip from '@/components/ui/chips/SuccessChip.vue'
 import EngagementSuccessService from '@/services/engagementSuccessService'
 import { getDiceFontMaxClass } from '@shared/utils/diceFontUtils'
-import { useTooltip } from '@/composables/useTooltip'
 
 defineOptions({
   inheritAttrs: false
@@ -130,9 +119,6 @@ defineEmits(['edit', 'delete', 'send-to-chat', 'height-changed'])
 // Store
 const equipmentStore = useEquipmentStore()
 
-// Tooltip functionality
-const tooltip = useTooltip()
-
 // Reactive state
 const engagementSuccesses = ref([])
 const showLargeImage = ref(props.artExpanded)
@@ -153,18 +139,6 @@ const fetchEngagementSuccesses = async () => {
     engagementSuccesses.value = []
   }
 }
-
-const startSuccessTooltip = (success, event) => {
-  tooltip.startTooltip('success', success.description, event)
-}
-
-const clearSuccessTooltip = () => {
-  tooltip.clearTooltip('success')
-}
-
-// Computed properties
-const tooltipSuccess = computed(() => tooltip.getTooltip('success'))
-const tooltipPosition = tooltip.position
 
 // Lifecycle
 onMounted(async () => {
@@ -278,39 +252,10 @@ onMounted(async () => {
   margin-top: var(--space-sm);
 }
 
-.engagement-success-pill {
-  background-color: var(--overlay-black-medium);
-  color: var(--color-white);
-  padding: var(--space-xs) var(--space-sm);
-  border-radius: var(--radius-15);
-  font-size: var(--font-size-10);
-  text-align: center;
-  cursor: help;
-}
-
-.engagement-success-pill:hover {
-  background-color: var(--overlay-white-medium);
-}
-
 .content-sections {
   flex: 1;
   display: flex;
   flex-direction: column;
   gap: var(--space-md);
-}
-
-/* Tooltip */
-.success-tooltip {
-  position: fixed;
-  z-index: var(--z-modal);
-  background: var(--overlay-black-heavy);
-  color: var(--color-white);
-  padding: var(--space-md);
-  border-radius: var(--radius-10);
-  font-size: var(--font-size-14);
-  pointer-events: none;
-  box-shadow: var(--shadow-elevation-lg);
-  max-width: 260px;
-  white-space: pre-line;
 }
 </style>

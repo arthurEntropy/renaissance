@@ -1,6 +1,6 @@
 <template>
   <div class="rich-editor-wrapper">
-    <TextEditorToolbar :editor="editor" @setLink="setLink" @insertImage="insertImage"
+    <TextEditorToolbar v-if="editor" :editor="editor" @setLink="setLink" @insertImage="insertImage"
       @insertDiceFontCharacter="insertDiceFontCharacter" />
 
     <editor-content :editor="editor" @click.stop />
