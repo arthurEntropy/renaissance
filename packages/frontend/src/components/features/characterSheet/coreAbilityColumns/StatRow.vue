@@ -6,7 +6,7 @@
         <template v-if="type === 'range'">
             <NumberInput :model-value="value.current" @update:model-value="$emit('update', 'current', $event)" :min="0"
                 size="small" />
-            <span>/</span>
+            <span class="range-separator">/</span>
             <NumberInput :model-value="value.max" @update:model-value="$emit('update', 'max', $event)" :min="0"
                 size="small" />
         </template>
@@ -22,8 +22,6 @@
                 class="skill-checkbox" :class="{ 'state-active-checkbox': firstState }" />
             <input type="checkbox" :checked="secondState" @change="$emit('update', 'second', $event.target.checked)"
                 class="skill-checkbox" :class="{ 'state-active-checkbox': secondState }" />
-            <span></span> <!-- Empty span for alignment -->
-            <span></span> <!-- Empty span for alignment -->
         </template>
     </div>
 </template>
@@ -84,7 +82,7 @@ const stateClasses = computed(() => {
     align-items: center;
     height: 25px;
     width: 100%;
-    margin-top: 10px;
+    margin-top: var(--space-sm);
 }
 
 .virtue-row {
@@ -96,11 +94,17 @@ const stateClasses = computed(() => {
 }
 
 .state-row {
-    grid-template-columns: 35% 10% 10% 45%;
+    grid-template-columns: 35% 15% 15%;
 }
 
 .skill-name {
     font-size: var(--font-size-14);
+}
+
+.range-separator {
+    text-align: center;
+    font-size: var(--font-size-14);
+    color: var(--color-text-muted);
 }
 
 .state-active {

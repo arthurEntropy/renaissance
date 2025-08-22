@@ -50,7 +50,7 @@ const getDiceClasses = (diceIndex) => {
 .dice-group {
     display: flex;
     gap: var(--space-xs);
-    margin: 0 4px;
+    margin: 0 var(--space-xs);
 }
 
 .dice-icon {

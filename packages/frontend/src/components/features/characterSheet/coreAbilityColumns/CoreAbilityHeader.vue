@@ -28,7 +28,7 @@ defineEmits(['update'])
 .core-ability-header {
     display: flex;
     align-items: center;
-    margin-bottom: 10px;
+    margin-bottom: var(--space-sm);
     height: 28px;
     gap: var(--space-md);
 }

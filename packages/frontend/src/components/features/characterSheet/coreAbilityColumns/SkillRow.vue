@@ -77,7 +77,7 @@ defineEmits(['open-skill-check', 'dice-click'])
 
 .d12-icon {
     margin-left: auto;
-    margin-right: 8px;
+    margin-right: var(--space-xs);
     width: 25px;
     text-align: center;
     border-radius: var(--radius-5);
