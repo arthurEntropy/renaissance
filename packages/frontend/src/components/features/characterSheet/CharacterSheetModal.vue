@@ -1,16 +1,14 @@
 <template>
     <div class="modal-overlay" @click.self="handleClose">
-        <!-- Character Sheet Header -->
         <div class="character-sheet-header">
             <div class="settings-icon" @click="openSettingsModal">⚙️</div>
         </div>
 
+        <!-- Character Sheet Content -->
         <div class="modal-content-base character-sheet-content">
             <div class="top-section">
-                <CharacterBioSection :character="localCharacter" :defaultArtUrl="defaultArtUrl || ''"
-                    @open-full-size-art="openFullSizeCharacterArtModal" @update-character="updateCharacter" />
-
                 <DiceRollResults :latestRoll="latestRoll" />
+                <CharacterBioSection :character="localCharacter" @update-character="updateCharacter" />
             </div>
 
             <div class="character-stats-section">
@@ -20,7 +18,6 @@
                     @open-skill-check="openSkillCheckModal" />
                 <CoreAbilityColumn :character="localCharacter" column="wits" @update-character="updateCharacter"
                     @open-skill-check="openSkillCheckModal" />
-
                 <ConditionsColumn :character="localCharacter" @update:character="updateCharacter" />
 
                 <div class="main-column">
@@ -39,14 +36,7 @@
             </div>
         </div>
 
-        <!-- Character Sheet Modals -->
-        <FullSizeCharacterArtModal v-if="showFullSizeCharacterArtModal"
-            :imageUrl="localCharacter.artUrls[0] || defaultArtUrl" @close="closeFullSizeCharacterArtModal"
-            @change-art="handleOpenChangeCharacterArtModal" />
-
-        <ChangeCharacterArtModal v-if="showChangeCharacterArtModal" :initialArtUrl="localCharacter.artUrls[0] || ''"
-            :character="localCharacter" @close="closeChangeCharacterArtModal" @update-character="updateCharacter" />
-
+        <!-- Modals -->
         <SkillCheckModal v-if="showSkillCheckModal" :character="localCharacter" :selectedSkillName="selectedSkillName"
             :defaultTargetNumber="getLastTargetNumber()" @close="closeSkillCheckModal"
             @update-target-number="updateLastTargetNumber" />
@@ -67,16 +57,13 @@ import { ref, watch } from 'vue'
 import { useModal } from '@/composables/useModal'
 import { useSkillCheck } from '@/composables/useSkillCheck'
 import { useEquipmentManagement } from '@/composables/useEquipmentManagement'
-import { useCharacterArt } from '@/composables/useCharacterArt'
-import CharacterBioSection from '@/components/features/characterSheet/CharacterBioSection.vue'
+import CharacterBioSection from '@/components/features/characterSheet/characterBioSection/CharacterBioSection.vue'
 import CoreAbilityColumn from '@/components/features/characterSheet/coreAbilityColumns/CoreAbilityColumn.vue'
 import ConditionsColumn from '@/components/features/characterSheet/ConditionsColumn.vue'
 import EquipmentTable from '@/components/features/characterSheet/equipmentTable/EquipmentTable.vue'
 import AbilitiesTable from '@/components/features/characterSheet/abilitiesTable/AbilitiesTable.vue'
 import EngagementTable from '@/components/features/characterSheet/engagementTable/EngagementTable.vue'
 import DiceRollResults from '@/components/features/characterSheet/DiceRollResults.vue'
-import FullSizeCharacterArtModal from '@/components/features/characterSheet/modals/FullSizeCharacterArtModal.vue'
-import ChangeCharacterArtModal from '@/components/features/characterSheet/modals/ChangeCharacterArtModal.vue'
 import SkillCheckModal from '@/components/features/characterSheet/modals/SkillCheckModal.vue'
 import CharacterSettingsModal from '@/components/features/characterSheet/modals/CharacterSettingsModal.vue'
 import DeleteConfirmationModal from '@/components/features/characterSheet/modals/DeleteConfirmationModal.vue'
@@ -142,17 +129,6 @@ const {
     deleteEquipment
 } = useEquipmentManagement()
 
-// Character art functionality
-const {
-    showFullSizeCharacterArtModal,
-    showChangeCharacterArtModal,
-    defaultArtUrl,
-    openFullSizeCharacterArtModal,
-    closeFullSizeCharacterArtModal,
-    openChangeCharacterArtModal,
-    closeChangeCharacterArtModal
-} = useCharacterArt()
-
 // Character update handler
 const updateCharacter = (updatedCharacter) => {
     localCharacter.value = { ...updatedCharacter }
@@ -169,11 +145,6 @@ const handleDeleteCharacter = () => {
     emit('delete:character', localCharacter.value)
     closeDeleteConfirmationModal()
     handleClose()
-}
-
-// Open change art modal handler
-const handleOpenChangeCharacterArtModal = () => {
-    openChangeCharacterArtModal(localCharacter.value)
 }
 </script>
 

@@ -242,7 +242,7 @@
   "pronouns": "she/her",
   "ancestries": "Dwarf",
   "cultures": "Ered Luin",
-  "personalityAndBackground": "<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy.</p><p>The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. </p>",
+  "personalityAndBackground": "<p>It is a long established fact that a reader will be TEST distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy.</p><p>The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.</p>",
   "xp": 10,
   "mp": {
     "current": 2,
@@ -255,12 +255,10 @@
     "31c4d609-7d0f-40da-9197-2cddb3cdd58b"
   ],
   "ancestryIds": [
-    "adc655c1-1d9c-433f-a0eb-41f93cf3ee07",
-    6
+    "adc655c1-1d9c-433f-a0eb-41f93cf3ee07"
   ],
   "cultureIds": [
-    "75800953-4adb-405f-a4ab-a599573ca533",
-    "5c67bedd-8e73-4add-b46b-9b911bf0fd59"
+    "75800953-4adb-405f-a4ab-a599573ca533"
   ],
   "engagementDice": [
     12,
@@ -271,5 +269,6 @@
   ],
   "weary": false,
   "miserable": false,
-  "expansionLogoUrl": ""
+  "expansionLogoUrl": "",
+  "mestiereId": "96e062f8-646e-49f4-8eec-d92bd5fb77c4"
 }

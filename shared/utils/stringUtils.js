@@ -10,3 +10,9 @@ export function formatText(text) {
     .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
     .replace(/\*(.*?)\*/g, '<em>$1</em>')
 }
+
+export function isValidImageUrl(url) {
+  if (!url) return false
+  const urlPattern = /^(https?:\/\/.*\.(?:png|jpg|jpeg|gif|webp))$/i
+  return urlPattern.test(url)
+}

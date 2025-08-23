@@ -28,7 +28,7 @@
 </template>
 
 <script setup>
-import { ref, toRef, computed } from 'vue'
+import { ref, toRef } from 'vue'
 import EngagementRollModal from '@/components/features/characterSheet/modals/EngagementRollModal.vue'
 import TableHeader from '@/components/ui/tables/TableHeader.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'

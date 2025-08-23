@@ -25,7 +25,7 @@
 import { ref } from 'vue'
 
 // Props
-const props = defineProps({
+defineProps({
     success: {
         type: Object,
         required: true
