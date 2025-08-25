@@ -45,10 +45,6 @@ defineProps({
     box-shadow: var(--shadow-inset-fade);
 }
 
-.side-image::before {
-    display: none;
-}
-
 /* Placeholder for when no image is set */
 .add-image-placeholder {
     display: flex;
@@ -58,7 +54,7 @@ defineProps({
     background: var(--overlay-black-medium);
     color: var(--color-gray-light);
     font-style: italic;
-    border: 2px dashed var(--color-gray-medium);
+    border: var(--border-width-2) dashed var(--color-gray-medium);
     border-radius: var(--radius-10);
 }
 
@@ -67,17 +63,13 @@ defineProps({
     .image-side {
         position: relative;
         width: 100%;
-        height: 200px;
-        margin-top: 20px;
+        height: var(--height-200);
+        margin-top: var(--spacing-20);
     }
 
     .side-image {
         position: relative;
-        height: 200px;
-    }
-
-    .side-image::before {
-        width: 30%;
+        height: var(--height-200);
     }
 }
 </style>

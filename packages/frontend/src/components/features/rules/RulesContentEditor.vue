@@ -74,7 +74,7 @@ const safeSectionHtml = computed(() => {
 
 /* Section header and name styles */
 .section-name-container {
-  margin-bottom: 20px;
+  margin-bottom: var(--space-xl);
   position: relative;
   z-index: var(--z-floating);
 }
@@ -84,7 +84,7 @@ const safeSectionHtml = computed(() => {
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid var(--overlay-white-medium);
-  padding-bottom: 10px;
+  padding-bottom: var(--space-md);
 }
 
 .section-name-container h2 {
@@ -99,10 +99,10 @@ const safeSectionHtml = computed(() => {
   background: var(--overlay-white-heavy);
   border: 1px solid var(--color-gray-medium);
   padding: var(--space-md);
-  color: var(--color-white);
+  color: var(--color-text-primary);
   font-size: var(--font-size-24);
   font-weight: var(--font-weight-bold);
-  margin-right: 10px;
+  margin-right: var(--space-md);
   flex: 1;
 }
 
@@ -116,12 +116,12 @@ const safeSectionHtml = computed(() => {
   display: flex;
   align-items: center;
   gap: var(--space-md);
-  margin-bottom: 15px;
+  margin-bottom: var(--space-lg);
 }
 
 .image-url-container label {
   font-size: var(--font-size-14);
-  color: var(--color-gray-light);
+  color: var(--color-text-secondary);
 }
 
 .image-url-input {
@@ -129,7 +129,7 @@ const safeSectionHtml = computed(() => {
   background: var(--overlay-white-heavy);
   border: 1px solid var(--color-gray-medium);
   padding: var(--space-sm);
-  color: var(--color-white);
+  color: var(--color-text-primary);
   border-radius: var(--radius-5);
 }
 
@@ -156,7 +156,7 @@ const safeSectionHtml = computed(() => {
   width: 100%;
   height: auto;
   display: block;
-  margin: 0.5em 0;
+  margin: var(--space-sm) 0;
 }
 
 /* Responsive adjustments */
@@ -166,10 +166,6 @@ const safeSectionHtml = computed(() => {
     padding: var(--space-lg);
     overflow-y: visible;
     height: auto;
-  }
-
-  .section-content-container {
-    padding-right: 0;
   }
 }
 </style>

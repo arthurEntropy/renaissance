@@ -93,7 +93,7 @@ defineEmits([
 }
 
 .rules-nav-header {
-  padding: 0 15px 15px;
+  padding: 0 var(--space-lg) var(--space-lg);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -105,7 +105,7 @@ defineEmits([
 }
 
 .bottom-actions {
-  padding: var(--space-md) 15px;
+  padding: var(--space-md) var(--space-lg);
   display: flex;
   justify-content: center;
 }
@@ -119,11 +119,9 @@ defineEmits([
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: var(--space-md) 15px;
+  padding: var(--space-md) var(--space-lg);
   cursor: pointer;
-  transition:
-    background-color 0.2s,
-    color 0.2s;
+  transition: var(--transition-color-bg);
   border-bottom: 1px solid var(--overlay-white-subtle);
 }
 
@@ -170,7 +168,7 @@ defineEmits([
 
 .delete-section {
   cursor: pointer;
-  padding: 0 5px;
+  padding: 0 var(--space-xs);
 }
 
 .delete-section:hover {
