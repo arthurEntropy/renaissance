@@ -32,7 +32,7 @@
     </div>
 
     <!-- Settings Modal -->
-    <SettingsModal :visible="showSettingsModal" :settings="tempSettings" @update:settings="tempSettings = $event"
+    <ConceptSettingsModal :visible="showSettingsModal" :settings="tempSettings" @update:settings="tempSettings = $event"
       @save="saveSettings" @cancel="closeSettingsModal" />
 
     <!-- Edit Ability Modal -->
@@ -51,7 +51,7 @@ import ConceptHeader from './components/ConceptHeader.vue'
 import LeftColumn from './components/layouts/LeftColumn.vue'
 import RightColumn from './components/layouts/RightColumn.vue'
 import MobileLayout from './components/layouts/MobileLayout.vue'
-import SettingsModal from './components/SettingsModal.vue'
+import ConceptSettingsModal from './components/ConceptSettingsModal.vue'
 import { useConceptUpdates } from '@/composables/useConceptUpdates'
 import EditAbilityModal from '@/components/editModals/EditAbilityModal.vue'
 import EditEquipmentModal from '@/components/editModals/EditEquipmentModal.vue'
