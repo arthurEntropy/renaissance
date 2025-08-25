@@ -1,5 +1,5 @@
 <template>
-    <div class="engagement-resolution">
+    <section class="engagement-resolution">
         <div class="result-label">Result:</div>
         <div class="result-row">
             <button class="button accept-btn user-accept" :class="getUserAcceptClasses" :disabled="!canAccept"
@@ -9,11 +9,11 @@
             <div class="winner-announcement" :class="getWinnerAnnouncementClasses">
                 {{ winnerText }}
             </div>
-            <button class="button opponent-status-btn" :class="getOpponentStatusClasses" disabled>
+            <div class="opponent-status-btn" :class="getOpponentStatusClasses">
                 {{ opponentAccepted ? '✓' : 'Waiting...' }}
-            </button>
+            </div>
         </div>
-    </div>
+    </section>
 </template>
 
 <script setup>
@@ -151,7 +151,7 @@ const getWinnerAnnouncementClasses = computed(() => {
 }
 
 .button {
-    padding: var(--space-md) 20px;
+    padding: var(--space-md) var(--space-lg);
     margin: var(--space-md);
     font-family: var(--font-family-primary);
     font-size: var(--font-size-14);
@@ -171,7 +171,7 @@ const getWinnerAnnouncementClasses = computed(() => {
 .accept-btn {
     min-width: 60px;
     width: 80px;
-    padding: 6px 12px;
+    padding: var(--space-xs) var(--space-md);
     font-size: var(--font-size-14);
     flex-shrink: 0;
     transition: var(--transition-all);
@@ -229,13 +229,15 @@ const getWinnerAnnouncementClasses = computed(() => {
 .opponent-status-btn {
     min-width: 60px;
     width: 80px;
-    padding: 6px 12px;
+    padding: var(--space-xs) var(--space-md);
     font-size: var(--font-size-14);
     flex-shrink: 0;
     background-color: var(--color-neutral);
     color: var(--color-gray-light);
     font-style: italic;
     font-weight: var(--font-weight-normal);
+    border: none;
+    border-radius: var(--radius-5);
     cursor: default;
 }
 

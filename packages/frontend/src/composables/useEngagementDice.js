@@ -467,6 +467,51 @@ export function useEngagementDice(character = null, allEquipment = null) {
     opponentSortedOrder.value = null
   }
 
+  // Dice styling and UI logic
+  function getDiceClasses(die, index, side) {
+    const classes = []
+
+    if (die.isRolling || isRerolling(index, side)) {
+      classes.push(`rolling-die-${(index % 3) + 1}`)
+    } else {
+      classes.push('result-die')
+    }
+
+    if (die.isMax) {
+      classes.push('max-result')
+    }
+
+    if (isRerolling(index, side)) {
+      classes.push('rerolling')
+    }
+
+    return classes
+  }
+
+  function isRerolling(index, side = PlayerSides.USER) {
+    return rerollingDice.has(`${side}-${index}`)
+  }
+
+  function getColumnClasses(side, isOpponent, showResults, winner) {
+    const classes = []
+
+    if (isOpponent) {
+      classes.push('opponent-column')
+    } else {
+      classes.push('user-column')
+    }
+
+    if (showResults && winner) {
+      if ((winner === 'user' && !isOpponent) || (winner === 'opponent' && isOpponent)) {
+        classes.push('winner-column')
+      } else if (winner !== 'tie') {
+        classes.push('loser-column')
+      }
+    }
+
+    return classes
+  }
+
   return {
     // State
     manualResults,
@@ -504,6 +549,11 @@ export function useEngagementDice(character = null, allEquipment = null) {
     resetDice,
     markSelectedDiceAsExpended,
     addUserAddedDie,
-    removeUserAddedDie
+    removeUserAddedDie,
+
+    // Methods - dice styling and UI
+    getDiceClasses,
+    isRerolling,
+    getColumnClasses
   }
 }

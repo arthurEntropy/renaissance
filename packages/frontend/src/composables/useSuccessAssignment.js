@@ -73,6 +73,29 @@ export function useSuccessAssignment() {
     return assignedSuccesses[key] || null
   }
 
+  function getSuccessById(successId, allEngagementSuccesses) {
+    return allEngagementSuccesses.find(s => s.id === successId)
+  }
+
+  function onSuccessDragStart(event, success, canEdit) {
+    if (!canEdit) {
+      event.preventDefault()
+      return
+    }
+    event.dataTransfer.setData('application/json', JSON.stringify(success))
+    event.dataTransfer.effectAllowed = 'copy'
+  }
+
+  function onSuccessDrop(event, player, diceIndex, characterId) {
+    event.preventDefault()
+    try {
+      const successData = JSON.parse(event.dataTransfer.getData('application/json'))
+      handleSuccessDrop(player, diceIndex, successData, characterId)
+    } catch (error) {
+      console.error('Error handling success drop:', error)
+    }
+  }
+
   return {
     // State
     assignedSuccesses,
@@ -83,6 +106,9 @@ export function useSuccessAssignment() {
     handleRemoteSuccessAssignment,
     getSuccessName,
     resetAssignments,
-    getDieAssignment
+    getDieAssignment,
+    getSuccessById,
+    onSuccessDragStart,
+    onSuccessDrop
   }
 }

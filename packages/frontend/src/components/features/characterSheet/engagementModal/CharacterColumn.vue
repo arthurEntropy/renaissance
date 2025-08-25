@@ -1,11 +1,11 @@
 <template>
-    <div class="engagement-column" :class="columnClasses">
-        <div v-if="character" class="character-info">
+    <section class="engagement-column" :class="columnClasses">
+        <header v-if="character" class="character-info">
             <h3>{{ character.name }}</h3>
             <div class="character-art">
-                <img :src="characterArtUrl" alt="Character Art" class="character-art-thumbnail">
+                <img :src="characterArtUrl" :alt="`${character.name} character art`" class="character-art-thumbnail">
             </div>
-        </div>
+        </header>
 
         <div v-if="character" class="dice-section">
             <div class="dice-list">
@@ -20,12 +20,9 @@
                     <div v-if="die.isMax && showResults && !isOpponent" class="success-drop-zone left-side"
                         :class="{ disabled: !canEdit }" @drop="canEdit ? onSuccessDrop($event, index) : null"
                         @dragover.prevent @dragenter.prevent>
-                        <div v-if="assignedSuccesses[`${side}-${index}`]" class="assigned-success-pill"
-                            @mouseenter="emit('start-success-tooltip', getSuccessById(assignedSuccesses[`${side}-${index}`]), $event)"
-                            @mouseleave="emit('clear-success-tooltip')">
-                            {{ getSuccessName(assignedSuccesses[`${side}-${index}`]) }}
-                            <span v-if="canEdit" class="remove-success-btn"
-                                @click.stop="emit('remove-success-assignment', side, index)">×</span>
+                        <div v-if="assignedSuccesses[`${side}-${index}`]" class="assigned-success-container">
+                            <SuccessChip :success="getSuccessById(assignedSuccesses[`${side}-${index}`])"
+                                :removable="canEdit" @remove="emit('remove-success-assignment', side, index)" />
                         </div>
                         <div v-else class="success-outline"></div>
                     </div>
@@ -36,18 +33,16 @@
                     </span>
 
                     <!-- Reroll hover link - only for user's own dice -->
-                    <div v-if="showResults && !die.isRolling && !isRerolling(index) &&
+                    <button v-if="showResults && !die.isRolling && !isRerolling(index) &&
                         hoverStates[`${side}-${index}`] && canEdit && !isOpponent" class="reroll-hover"
                         @click="emit('reroll-die', side, index)">
                         Reroll
-                    </div>
+                    </button>
 
                     <!-- Success assignment display (right side for opponent) -->
                     <div v-if="die.isMax && showResults && isOpponent" class="success-display-zone right-side">
-                        <div v-if="assignedSuccesses[`${side}-${index}`]" class="assigned-success-pill"
-                            @mouseenter="emit('start-success-tooltip', getSuccessById(assignedSuccesses[`${side}-${index}`]), $event)"
-                            @mouseleave="emit('clear-success-tooltip')">
-                            {{ getSuccessName(assignedSuccesses[`${side}-${index}`]) }}
+                        <div v-if="assignedSuccesses[`${side}-${index}`]" class="assigned-success-container">
+                            <SuccessChip :success="getSuccessById(assignedSuccesses[`${side}-${index}`])" />
                         </div>
                         <div v-else class="success-outline"></div>
                     </div>
@@ -62,13 +57,9 @@
                     No engagement successes available
                 </div>
                 <div v-else class="success-pills">
-                    <span v-for="success in successes" :key="success.id"
-                        class="engagement-success-pill draggable-success" :draggable="canEdit && !isOpponent"
-                        @dragstart="!isOpponent ? onSuccessDragStart($event, success) : null"
-                        @mouseenter="emit('start-success-tooltip', success, $event)"
-                        @mouseleave="emit('clear-success-tooltip')">
-                        {{ success.name }}
-                    </span>
+                    <SuccessChip v-for="success in successes" :key="success.id" :success="success"
+                        class="draggable-success" :draggable="canEdit && !isOpponent"
+                        @dragstart="!isOpponent ? onSuccessDragStart($event, success) : null" />
                 </div>
             </div>
         </div>
@@ -84,12 +75,13 @@
                 <p>Waiting for an opponent to join...</p>
             </div>
         </div>
-    </div>
+    </section>
 </template>
 
 <script setup>
 import { computed } from 'vue'
 import EngagementWinnerTypes from '@/constants/engagementWinnerTypes'
+import SuccessChip from '@/components/ui/chips/SuccessChip.vue'
 
 // Props
 const props = defineProps({
@@ -152,9 +144,7 @@ const emit = defineEmits([
     'show-reroll-hover',
     'reroll-die',
     'success-drop',
-    'remove-success-assignment',
-    'start-success-tooltip',
-    'clear-success-tooltip'
+    'remove-success-assignment'
 ])
 
 // Computed properties
@@ -215,11 +205,6 @@ const getSuccessById = (successId) => {
     return props.allEngagementSuccesses.find(s => s.id === successId);
 }
 
-const getSuccessName = (successId) => {
-    const success = getSuccessById(successId);
-    return success ? success.name : 'Unknown Success';
-}
-
 const onSuccessDragStart = (event, success) => {
     if (!props.canEdit) {
         event.preventDefault();
@@ -263,7 +248,7 @@ const onSuccessDrop = (event, diceIndex) => {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 15px;
+    margin-bottom: var(--space-md);
 }
 
 .character-art {
@@ -281,7 +266,7 @@ const onSuccessDrop = (event, diceIndex) => {
 }
 
 .dice-section {
-    margin-top: 10px;
+    margin-top: var(--space-sm);
     flex: 1;
 }
 
@@ -289,9 +274,9 @@ const onSuccessDrop = (event, diceIndex) => {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 12px;
-    margin-top: 10px;
-    padding-bottom: 10px;
+    gap: var(--space-md);
+    margin-top: var(--space-sm);
+    padding-bottom: var(--space-sm);
 }
 
 .dice-container {
@@ -315,12 +300,12 @@ const onSuccessDrop = (event, diceIndex) => {
 
 .success-drop-zone.left-side {
     right: 100%;
-    margin-right: 8px;
+    margin-right: var(--space-xs);
 }
 
 .success-display-zone.right-side {
     left: 100%;
-    margin-left: 8px;
+    margin-left: var(--space-xs);
 }
 
 .success-outline {
@@ -345,58 +330,6 @@ const onSuccessDrop = (event, diceIndex) => {
 .success-drop-zone:hover .success-outline {
     border-color: var(--color-accent-gold);
     background-color: var(--overlay-white-subtle);
-}
-
-.assigned-success-pill {
-    background-color: var(--color-accent-gold);
-    color: var(--overlay-black-heavy);
-    padding: 2px 8px;
-    border-radius: var(--radius-10);
-    font-size: var(--font-size-10);
-    font-weight: var(--font-weight-bold);
-    text-align: center;
-    max-width: 50px;
-    overflow: visible;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    cursor: help;
-    transition: var(--transition-background);
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.assigned-success-pill:hover {
-    background-color: var(--color-accent-gold);
-}
-
-.remove-success-btn {
-    position: absolute;
-    top: -4px;
-    right: -4px;
-    width: 14px;
-    height: 14px;
-    background-color: var(--color-danger);
-    color: var(--color-text-primary);
-    border-radius: var(--radius-full);
-    font-size: var(--font-size-10);
-    font-weight: var(--font-weight-bold);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    line-height: var(--line-height-none);
-    transition: var(--transition-all);
-}
-
-.assigned-success-pill:hover .remove-success-btn {
-    display: flex;
-}
-
-.remove-success-btn:hover {
-    background-color: var(--color-danger);
-    transform: scale(1.1);
 }
 
 .draggable-success {
@@ -437,8 +370,9 @@ const onSuccessDrop = (event, diceIndex) => {
     transform: translate(-50%, -50%);
     background-color: var(--color-accent-gold);
     color: var(--overlay-black-heavy);
-    padding: var(--space-xs) 8px;
+    padding: var(--space-xs) var(--space-xs);
     border-radius: var(--radius-5);
+    border: none;
     font-size: var(--font-size-14);
     font-weight: var(--font-weight-bold);
     cursor: pointer;
@@ -570,8 +504,8 @@ const onSuccessDrop = (event, diceIndex) => {
 }
 
 .engagement-successes-section {
-    margin-top: 20px;
-    padding-top: 15px;
+    margin-top: var(--space-lg);
+    padding-top: var(--space-md);
     margin-top: auto;
 }
 
@@ -580,7 +514,7 @@ const onSuccessDrop = (event, diceIndex) => {
 }
 
 .engagement-successes-list {
-    margin-top: 10px;
+    margin-top: var(--space-sm);
 }
 
 .success-pills {
@@ -588,22 +522,6 @@ const onSuccessDrop = (event, diceIndex) => {
     flex-wrap: wrap;
     justify-content: center;
     gap: var(--space-xs);
-}
-
-.engagement-success-pill {
-    background-color: var(--color-gray-dark);
-    color: var(--color-text-primary);
-    padding: var(--space-xs) 10px;
-    border-radius: var(--radius-15);
-    font-size: var(--font-size-10);
-    text-align: center;
-    cursor: help;
-    transition: var(--transition-background);
-    display: inline-block;
-}
-
-.engagement-success-pill:hover {
-    background-color: var(--overlay-white-medium);
 }
 
 .waiting-for-opponent {
@@ -614,7 +532,7 @@ const onSuccessDrop = (event, diceIndex) => {
 }
 
 .placeholder-message {
-    padding: 40px 20px;
+    padding: var(--space-2xl) var(--space-lg);
     text-align: center;
     color: var(--color-text-muted);
     font-style: italic;
@@ -624,12 +542,12 @@ const onSuccessDrop = (event, diceIndex) => {
     display: flex;
     justify-content: center;
     gap: var(--space-sm);
-    margin-bottom: 15px;
+    margin-bottom: var(--space-md);
 }
 
 .pulse-dot {
-    width: 12px;
-    height: 12px;
+    width: var(--space-md);
+    height: var(--space-md);
     background-color: var(--color-text-muted);
     border-radius: var(--radius-full);
     animation: pulse 1.5s infinite ease-in-out;
@@ -674,6 +592,6 @@ const onSuccessDrop = (event, diceIndex) => {
 h3 {
     margin: 0;
     text-align: center;
-    margin-bottom: 10px;
+    margin-bottom: var(--space-sm);
 }
 </style>

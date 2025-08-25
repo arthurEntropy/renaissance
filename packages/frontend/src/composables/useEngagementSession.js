@@ -107,6 +107,28 @@ export function useEngagementSession() {
     return !userAccepted.value && !opponentAccepted.value
   })
 
+  // UI state computed properties
+  const shouldShowComparisons = computed(() => {
+    return rollResults.value && 
+           rollResults.value.session && 
+           sessionStatus.value === SESSION_STATUS.COMPLETED && 
+           opponent.value
+  })
+
+  const shouldShowResolution = computed(() => {
+    return opponent.value
+  })
+
+  const shouldShowCancelButton = computed(() => {
+    return !opponent.value
+  })
+
+  const showResults = computed(() => {
+    return rollResults.value &&
+           rollResults.value.session &&
+           sessionStatus.value === SESSION_STATUS.COMPLETED
+  })
+
   function shouldShowExitConfirmation() {
     // Only ask for user confirmation before exiting if there's an opponent and dice have already been rolled
     return opponent.value && 
@@ -160,6 +182,10 @@ export function useEngagementSession() {
     // Computed
     bothUsersAccepted,
     canEditResults,
+    shouldShowComparisons,
+    shouldShowResolution,
+    shouldShowCancelButton,
+    showResults,
     shouldShowExitConfirmation,
     
     // Methods

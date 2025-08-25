@@ -74,7 +74,7 @@ function getCaretClasses(comparison) {
     z-index: var(--z-interactive);
     pointer-events: none;
     width: 100px;
-    margin-top: 12px;
+    margin-top: var(--space-md);
 }
 
 .comparison-indicator {
@@ -90,7 +90,7 @@ function getCaretClasses(comparison) {
     box-shadow: var(--shadow-elevation-sm);
     height: 28px;
     left: -7px;
-    margin-top: 7px;
+    margin-top: -3px;
 }
 
 .comparison-indicator.user-wins-pair,
@@ -128,7 +128,7 @@ function getCaretClasses(comparison) {
 }
 
 .indicator-caret {
-    padding: 0px 5px;
+    padding: 0 var(--space-xs);
     color: var(--color-text-primary);
     font-size: var(--font-size-14);
     font-weight: var(--font-weight-bold);
