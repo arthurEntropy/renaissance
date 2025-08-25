@@ -5,7 +5,7 @@
     <div v-if="isSectionEditing && editable" class="section-editor">
       <p class="helper-text">Paste embed codes from Spotify or Apple Music</p>
       <div class="url-container">
-        <div v-for="(playlist, idx) in localPlaylists" :key="'playlist-' + idx" class="edit-item-light">
+        <div v-for="(playlist, index) in localPlaylists" :key="'playlist-' + index" class="edit-item-light">
           <div class="playlist-service-selector">
             <select v-model="playlist.service" class="service-select">
               <option value="spotify">Spotify</option>
@@ -15,11 +15,11 @@
           <input type="text" v-model="playlist.embedCode" class="modal-input playlist-input"
             placeholder="Paste embed code" />
           <div class="url-buttons">
-            <ActionButton variant="neutral" size="small" text="▲" @click="movePlaylist(idx, -1)" :disabled="idx === 0"
-              title="Move Up" type="button" />
-            <ActionButton variant="neutral" size="small" text="▼" @click="movePlaylist(idx, 1)"
-              :disabled="idx === localPlaylists.length - 1" title="Move Down" type="button" />
-            <ActionButton variant="danger" size="small" text="✕" @click="removePlaylist(idx)" title="Remove"
+            <ActionButton variant="neutral" size="small" text="▲" @click="movePlaylist(index, -1)"
+              :disabled="index === 0" title="Move Up" type="button" />
+            <ActionButton variant="neutral" size="small" text="▼" @click="movePlaylist(index, 1)"
+              :disabled="index === localPlaylists.length - 1" title="Move Down" type="button" />
+            <ActionButton variant="danger" size="small" text="✕" @click="removePlaylist(index)" title="Remove"
               type="button" />
           </div>
         </div>
@@ -151,17 +151,17 @@ const addPlaylist = () => {
   })
 }
 
-const removePlaylist = (idx) => {
-  localPlaylists.value.splice(idx, 1)
+const removePlaylist = (index) => {
+  localPlaylists.value.splice(index, 1)
 }
 
-const movePlaylist = (idx, direction) => {
+const movePlaylist = (index, direction) => {
   const playlists = localPlaylists.value
-  const newIdx = idx + direction
-  if (newIdx >= 0 && newIdx < playlists.length) {
-    [playlists[idx], playlists[newIdx]] = [
-      playlists[newIdx],
-      playlists[idx],
+  const newIndex = index + direction
+  if (newIndex >= 0 && newIndex < playlists.length) {
+    [playlists[index], playlists[newIndex]] = [
+      playlists[newIndex],
+      playlists[index],
     ]
   }
 }
@@ -203,17 +203,11 @@ watch(localPlaylists, () => {
   }
 }, { deep: true })
 
-watch(() => props.editable, (val) => {
-  if (val) {
-    isSectionEditing.value = false
-  } else if (isSectionEditing.value) {
-    if (editMode.hasUnsavedChanges(localPlaylists.value)) {
-      cancelPlaylistEdit()
-    } else {
-      cancelPlaylistEdit()
-    }
-    isSectionEditing.value = false
+watch(() => props.editable, (newEditable) => {
+  if (!newEditable && isSectionEditing.value) {
+    cancelPlaylistEdit()
   }
+  isSectionEditing.value = false
 })
 </script>
 
@@ -222,7 +216,7 @@ watch(() => props.editable, (val) => {
 .helper-text {
   font-size: var(--font-size-14);
   color: var(--color-gray-light);
-  margin-bottom: 10px;
+  margin-bottom: var(--space-xs);
 }
 
 .playlist-toggle {
@@ -272,24 +266,24 @@ watch(() => props.editable, (val) => {
   display: flex;
   flex-direction: column;
   gap: var(--space-md);
-  margin-bottom: 10px;
+  margin-bottom: var(--space-xs);
 }
 
 .url-buttons {
   display: flex;
   justify-content: flex-end;
   gap: var(--space-xs);
-  margin-top: 5px;
+  margin-top: var(--space-xs);
 }
 
 .playlist-service-selector {
-  margin-bottom: 8px;
+  margin-bottom: var(--space-xs);
 }
 
 .service-select {
   padding: var(--space-xs);
   background: var(--overlay-white-medium);
-  border: 1px solid var(--color-gray-medium);
+  border: var(--border-width-sm) solid var(--color-gray-medium);
   color: var(--color-text-secondary);
   border-radius: var(--radius-5);
 }

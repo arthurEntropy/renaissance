@@ -52,8 +52,8 @@ const props = defineProps({
     type: Object,
     default: () => ({
       backgroundImage: '',
-      color1: '#ffffff',
-      color2: '#000000',
+      color1: 'var(--color-white)',
+      color2: 'var(--color-black)',
     }),
   },
 })
@@ -67,8 +67,8 @@ const expansionStore = useExpansionsStore()
 // Reactive state
 const localSettings = reactive({
   backgroundImage: '',
-  color1: '#ffffff',
-  color2: '#000000',
+  color1: 'var(--color-white)',
+  color2: 'var(--color-black)',
   expansionId: '',
 })
 
@@ -116,7 +116,7 @@ onMounted(async () => {
 
 <style scoped>
 .settings-modal {
-  width: 400px;
+  width: var(--width-modal);
   text-align: left;
 }
 
@@ -124,7 +124,7 @@ onMounted(async () => {
   display: flex;
   justify-content: flex-end;
   gap: var(--space-md);
-  margin-top: 20px;
+  margin-top: var(--space-lg);
 }
 
 input[type='color'] {
@@ -132,7 +132,7 @@ input[type='color'] {
   height: 30px;
   border: none;
   cursor: pointer;
-  margin: 0 10px;
+  margin: 0 var(--space-xs);
 }
 
 .modal-input {
@@ -148,7 +148,7 @@ input[type='color'] {
 label {
   display: block;
   color: var(--color-text-secondary);
-  margin-right: 5px;
+  margin-right: var(--space-xs);
 }
 
 .form-group {

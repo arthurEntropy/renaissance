@@ -25,8 +25,8 @@ const props = defineProps({
         default: false
     },
     sources: {
-        type: Object,
-        default: () => ({ ancestries: [], cultures: [], mestieri: [], worldElements: [] })
+        type: Array,
+        default: () => []
     }
 })
 
@@ -47,6 +47,4 @@ const sortedAbilities = computed(() => {
 })
 </script>
 
-<style scoped>
-/* No component-specific styles needed - using shared cards-container */
-</style>
+<style scoped></style>

@@ -15,7 +15,7 @@
 
 .modal-content {
   position: relative;
-  background: var(--color-bg-primary);
+  background: var(--overlay-black-heavy);
   padding: var(--space-xl);
   border-radius: var(--radius-10);
   box-shadow: var(--shadow-elevation-sm);

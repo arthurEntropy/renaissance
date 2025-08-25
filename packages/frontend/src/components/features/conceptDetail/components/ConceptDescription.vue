@@ -96,7 +96,7 @@ watch(() => props.description, (newDesc) => {
 .description-editor-buttons {
     display: flex;
     justify-content: flex-start;
-    margin-top: 10px;
+    margin-top: var(--space-xs);
 }
 
 .concept-description {
@@ -110,6 +110,6 @@ watch(() => props.description, (newDesc) => {
 .editable-description {
     background: var(--color-bg-secondary);
     border-radius: var(--radius-10);
-    padding: 16px;
+    padding: var(--space-md);
 }
 </style>

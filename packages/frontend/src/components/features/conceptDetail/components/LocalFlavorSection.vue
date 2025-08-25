@@ -175,11 +175,7 @@ watch(() => props.editable, (val) => {
   if (val) {
     isSectionEditing.value = false
   } else if (isSectionEditing.value) {
-    if (editMode.hasUnsavedChanges(localData.value)) {
-      cancelEdit()
-    } else {
-      cancelEdit()
-    }
+    cancelEdit()
     isSectionEditing.value = false
   }
 })

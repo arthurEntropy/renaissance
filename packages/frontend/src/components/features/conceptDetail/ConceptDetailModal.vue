@@ -48,10 +48,11 @@
 <script setup>
 import { ref, computed, watch, onMounted } from 'vue'
 import ConceptHeader from './components/ConceptHeader.vue'
-import LeftColumn from './components/sections/LeftColumn.vue'
-import RightColumn from './components/sections/RightColumn.vue'
-import MobileLayout from './components/sections/MobileLayout.vue'
-import SettingsModal from './components/ConceptSettingsModal.vue'
+import LeftColumn from './components/layouts/LeftColumn.vue'
+import RightColumn from './components/layouts/RightColumn.vue'
+import MobileLayout from './components/layouts/MobileLayout.vue'
+import SettingsModal from './components/SettingsModal.vue'
+import { useConceptUpdates } from '@/composables/useConceptUpdates'
 import EditAbilityModal from '@/components/editModals/EditAbilityModal.vue'
 import EditEquipmentModal from '@/components/editModals/EditEquipmentModal.vue'
 
@@ -92,7 +93,9 @@ const expansionStore = useExpansionsStore()
 const sourcesStore = useSourcesStore()
 const abilitiesStore = useAbilitiesStore()
 const equipmentStore = useEquipmentStore()
-const sources = sourcesStore.sources
+
+// Store data
+const sources = computed(() => sourcesStore.sources)
 
 // Edit modals
 const {
@@ -114,8 +117,8 @@ const localConcept = ref({})
 const showSettingsModal = ref(false)
 const tempSettings = ref({
   backgroundImage: '',
-  color1: '#ffffff',
-  color2: '#000000',
+  color1: 'var(--color-white)',
+  color2: 'var(--color-black)',
 })
 const expansions = ref([])
 
@@ -141,6 +144,19 @@ const {
 const {
   isDesktop
 } = useResponsiveLayout()
+
+// Concept updates
+const {
+  updateName,
+  updateDescription,
+  updateFeaturedArt,
+  updateFaces,
+  updatePlaces,
+  updateNovizio,
+  updatePlaylists,
+  updateHooks,
+  updateLocalFlavor
+} = useConceptUpdates(localConcept, emitUpdateEvent)
 
 // Computed properties
 const expansion = computed(() => {
@@ -201,52 +217,6 @@ const handleClose = () => {
   } else {
     emit('close')
   }
-}
-
-// Update methods
-const updateName = (newName) => {
-  localConcept.value.name = newName
-  emitUpdateEvent()
-}
-
-const updateDescription = (newDescription) => {
-  localConcept.value.description = newDescription
-  emitUpdateEvent()
-}
-
-const updateFeaturedArt = (newImages) => {
-  localConcept.value.artUrls = [...newImages]
-  emitUpdateEvent()
-}
-
-const updateFaces = (newImages) => {
-  localConcept.value.faces = [...newImages]
-  emitUpdateEvent()
-}
-
-const updatePlaces = (newImages) => {
-  localConcept.value.places = [...newImages]
-  emitUpdateEvent()
-}
-
-const updateNovizio = (newNovizio) => {
-  localConcept.value.novizio = newNovizio
-  emitUpdateEvent()
-}
-
-const updatePlaylists = (newPlaylists) => {
-  localConcept.value.playlists = newPlaylists
-  emitUpdateEvent()
-}
-
-const updateLocalFlavor = (newLocalFlavor) => {
-  Object.assign(localConcept.value, newLocalFlavor)
-  emitUpdateEvent()
-}
-
-const updateHooks = (newHooks) => {
-  localConcept.value.hooks = newHooks
-  emitUpdateEvent()
 }
 
 const emitAbilityEdit = (ability) => {

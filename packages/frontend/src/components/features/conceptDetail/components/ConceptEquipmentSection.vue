@@ -24,8 +24,8 @@ const props = defineProps({
         default: false
     },
     sources: {
-        type: Object,
-        default: () => ({})
+        type: Array,
+        default: () => []
     }
 })
 

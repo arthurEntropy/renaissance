@@ -38,13 +38,13 @@
       <div class="thumbs-grid" :style="{ 'grid-template-columns': `repeat(${gridColumns}, 1fr)` }">
         <!-- Editable mode -->
         <template v-if="editable">
-          <draggable v-model="localImages" class="draggable-container" handle=".thumb-drag-handle" item-key="idx"
+          <draggable v-model="localImages" class="draggable-container" handle=".thumb-drag-handle" item-key="index"
             animation="150" ghost-class="ghost-thumb" @end="onDragEnd">
-            <template #item="{ element: img, index: idx }">
+            <template #item="{ element: img, index }">
               <div class="thumb-wrapper">
                 <div class="thumb-drag-handle" title="Drag to reorder">⋮⋮</div>
-                <img :src="img" :alt="`Thumbnail ${idx + 1}`" class="thumb-image" @click="selectImage(idx)" />
-                <div v-if="selectedIndex === idx" class="thumb-selected-overlay"></div>
+                <img :src="img" :alt="`Thumbnail ${index + 1}`" class="thumb-image" @click="selectImage(index)" />
+                <div v-if="selectedIndex === index" class="thumb-selected-overlay"></div>
               </div>
             </template>
           </draggable>
@@ -59,9 +59,9 @@
 
         <!-- Non-editable mode -->
         <template v-else>
-          <div v-for="(img, idx) in images" :key="img + idx" class="thumb-wrapper" @click="selectImage(idx)">
-            <img :src="img" :alt="`Thumbnail ${idx + 1}`" class="thumb-image" />
-            <div v-if="selectedIndex === idx" class="thumb-selected-overlay"></div>
+          <div v-for="(img, index) in images" :key="img + index" class="thumb-wrapper" @click="selectImage(index)">
+            <img :src="img" :alt="`Thumbnail ${index + 1}`" class="thumb-image" />
+            <div v-if="selectedIndex === index" class="thumb-selected-overlay"></div>
           </div>
         </template>
       </div>
@@ -125,8 +125,8 @@ const editUrlInput = ref(null)
 const addUrlInput = ref(null)
 
 // Navigation methods
-const selectImage = (idx) => {
-  selectedIndex.value = idx
+const selectImage = (index) => {
+  selectedIndex.value = index
 }
 
 const prevImage = () => {
@@ -191,7 +191,7 @@ const deleteImage = () => {
 
     // Create a new array without the deleted image
     const updatedImages = localImages.value.filter(
-      (_, idx) => idx !== indexToDelete,
+      (_, index) => index !== indexToDelete,
     )
 
     // Adjust the selected index if necessary
@@ -330,7 +330,7 @@ watch(() => props.images, (newImages) => {
   border: none;
   color: var(--color-text-primary);
   font-size: var(--font-size-24);
-  padding: var(--space-xs) 10px;
+  padding: var(--space-xs);
   cursor: pointer;
   opacity: 0;
   transition: opacity var(--transition-normal);
@@ -342,20 +342,20 @@ watch(() => props.images, (newImages) => {
 }
 
 .nav-button.left {
-  left: 10px;
-  height: 50px;
+  left: var(--space-xs);
+  height: var(--space-xxl);
 }
 
 .nav-button.right {
-  right: 10px;
-  height: 50px;
+  right: var(--space-xs);
+  height: var(--space-xxl);
 }
 
 /* Edit button overlay styling */
 .edit-button-overlay {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: var(--space-xs);
+  right: var(--space-xs);
   z-index: var(--z-raised);
 }
 
@@ -379,20 +379,20 @@ watch(() => props.images, (newImages) => {
   padding: var(--space-xl);
   border-radius: var(--radius-10);
   width: 80%;
-  max-width: 500px;
+  max-width: var(--size-xl);
 }
 
 .edit-modal-content h3 {
   margin-top: 0;
-  margin-bottom: 15px;
+  margin-bottom: var(--space-sm);
 }
 
 .url-input {
   width: 100%;
-  padding: var(--space-sm) 12px;
-  margin-bottom: 15px;
+  padding: var(--space-sm);
+  margin-bottom: var(--space-sm);
   background: var(--color-bg-secondary);
-  border: 1px solid var(--color-gray-medium);
+  border: var(--border-width-sm) solid var(--color-gray-medium);
   border-radius: var(--radius-5);
   color: var(--color-text-primary);
   font-size: var(--font-size-16);
@@ -414,7 +414,7 @@ watch(() => props.images, (newImages) => {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   /* Default, will be overridden */
-  gap: 12px;
+  gap: var(--space-sm);
   width: 100%;
 }
 
@@ -431,13 +431,13 @@ watch(() => props.images, (newImages) => {
 /* Drag handle for editable mode */
 .thumb-drag-handle {
   position: absolute;
-  top: 5px;
-  left: 5px;
+  top: var(--space-xs);
+  left: var(--space-xs);
   font-size: var(--font-size-16);
   color: var(--color-text-primary);
   background: var(--overlay-white-medium);
   border-radius: var(--radius-5);
-  padding: 2px;
+  padding: var(--space-xs);
   cursor: grab;
   opacity: 0;
   transition: var(--transition-opacity);
@@ -451,7 +451,7 @@ watch(() => props.images, (newImages) => {
 .ghost-thumb {
   opacity: 0.5;
   background: var(--overlay-white-subtle);
-  border: 2px dashed var(--color-gray-medium);
+  border: var(--border-width-md) dashed var(--color-gray-medium);
 }
 
 .thumb-image {
@@ -472,7 +472,7 @@ watch(() => props.images, (newImages) => {
   bottom: 0;
   background: var(--overlay-white-medium);
   border-radius: var(--radius-10);
-  border: 2px solid var(--color-gray-medium);
+  border: var(--border-width-md) solid var(--color-gray-medium);
   pointer-events: none;
 }
 
@@ -487,7 +487,7 @@ watch(() => props.images, (newImages) => {
 .add-image-placeholder {
   width: 100%;
   aspect-ratio: 1/1;
-  border: 2px dashed var(--color-gray-medium);
+  border: var(--border-width-md) dashed var(--color-gray-medium);
   border-radius: var(--radius-10);
   display: flex;
   align-items: center;
@@ -510,25 +510,25 @@ watch(() => props.images, (newImages) => {
   display: flex;
   justify-content: flex-end;
   gap: var(--space-md);
-  margin-top: 15px;
+  margin-top: var(--space-sm);
 }
 
 /* These styles will override the global modal styles */
 :deep(.modal-content) {
-  min-width: 350px;
+  min-width: var(--size-lg);
 }
 
 :deep(.modal-input) {
   background: var(--color-bg-secondary);
   color: var(--color-text-primary);
-  border: 1px solid var(--color-gray-medium);
+  border: var(--border-width-sm) solid var(--color-gray-medium);
   border-radius: var(--radius-5);
 }
 
 /* Centered modal title */
 :deep(.modal-content h3) {
   color: var(--color-text-primary);
-  margin-bottom: 15px;
+  margin-bottom: var(--space-sm);
   text-align: center;
 }
 

@@ -48,13 +48,9 @@
     <div v-else>
       <InfoCard v-for="hook in localHooks" :key="hook.id" :title="hook.name" :content="hook.description">
         <template #additional-content>
-          <button class="toggle-gm-notes" @click="toggleGMNotes(hook.id)">
-            {{
-              shownGMNotes && shownGMNotes[hook.id]
-                ? 'Hide GM Notes'
-                : 'View GM Notes'
-            }}
-          </button>
+          <ActionButton variant="neutral" size="small"
+            :text="shownGMNotes && shownGMNotes[hook.id] ? 'Hide GM Notes' : 'View GM Notes'"
+            @click="toggleGMNotes(hook.id)" />
           <div v-if="shownGMNotes && shownGMNotes[hook.id]" class="gm-notes" v-html="safeGMNotes(hook.gmNotes)"></div>
         </template>
       </InfoCard>
@@ -194,11 +190,7 @@ watch(() => props.editable, (val) => {
   if (val) {
     isSectionEditing.value = false
   } else if (isSectionEditing.value) {
-    if (editMode.hasUnsavedChanges(localHooks.value)) {
-      editMode.cancelEdit()
-    } else {
-      editMode.cancelEdit()
-    }
+    editMode.cancelEdit()
     isSectionEditing.value = false
   }
 })
@@ -220,7 +212,7 @@ watch(() => props.editable, (val) => {
 
 .hook-caret {
   cursor: pointer;
-  padding: var(--space-xs) 8px 4px 2px;
+  padding: var(--space-xs);
   user-select: none;
 }
 
@@ -230,7 +222,7 @@ watch(() => props.editable, (val) => {
 }
 
 .hook-fields {
-  padding: var(--space-md) 10px 5px 24px;
+  padding: var(--space-md) var(--space-xs) var(--space-xs) var(--space-xl);
   display: flex;
   flex-direction: column;
   gap: var(--space-md);
@@ -245,6 +237,15 @@ watch(() => props.editable, (val) => {
 .delete-hook-container {
   display: flex;
   justify-content: flex-end;
-  margin-top: 5px;
+  margin-top: var(--space-xs);
+}
+
+.gm-notes {
+  margin-top: var(--space-xs);
+  padding: var(--space-xs);
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-5);
+  font-style: italic;
+  color: var(--color-text-secondary);
 }
 </style>

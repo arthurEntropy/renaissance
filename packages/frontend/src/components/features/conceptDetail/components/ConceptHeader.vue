@@ -30,11 +30,11 @@ defineEmits(['toggle-edit-mode', 'open-settings'])
 <style scoped>
 .admin-controls {
     position: fixed;
-    top: 20px;
-    right: 20px;
+    top: var(--space-lg);
+    right: var(--space-lg);
     z-index: var(--z-modal-controls);
     display: flex;
-    gap: 8px;
+    gap: var(--space-xs);
     align-items: center;
 }
 
@@ -45,13 +45,13 @@ defineEmits(['toggle-edit-mode', 'open-settings'])
     width: auto;
     height: auto;
     cursor: pointer;
-    font-size: 24px;
+    font-size: var(--font-size-24);
     display: flex;
     align-items: center;
     justify-content: center;
     box-shadow: none;
     transition: transform 0.2s ease;
-    padding: 4px;
+    padding: var(--space-xxs);
 }
 
 .settings-button:hover {

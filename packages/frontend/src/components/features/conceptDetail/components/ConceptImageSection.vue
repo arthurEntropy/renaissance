@@ -40,3 +40,5 @@ const hasImages = computed(() => {
     return props.images && props.images.length > 0
 })
 </script>
+
+<style scoped></style>

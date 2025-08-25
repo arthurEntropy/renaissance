@@ -271,11 +271,7 @@ watch(() => props.editable, (val) => {
   if (val) {
     isSectionEditing.value = false
   } else if (isSectionEditing.value) {
-    if (editMode.hasUnsavedChanges(localNovizio.value)) {
-      cancelEdit()
-    } else {
-      cancelEdit()
-    }
+    cancelEdit()
     isSectionEditing.value = false
   }
 })
@@ -288,7 +284,7 @@ watch(() => props.editable, (val) => {
   cursor: pointer;
   opacity: 0.7;
   transition: var(--transition-opacity);
-  margin-left: 10px;
+  margin-left: var(--space-xs);
 }
 
 .edit-field-indicator:hover {
@@ -301,7 +297,7 @@ watch(() => props.editable, (val) => {
   max-width: 220px;
   margin-left: 0.5rem;
   margin-right: 0.5rem;
-  padding: var(--space-xs) 8px;
+  padding: var(--space-xs);
   border-radius: var(--radius-5);
   border: 1px solid var(--color-gray-medium);
   background: var(--color-bg-secondary);
@@ -323,7 +319,7 @@ watch(() => props.editable, (val) => {
 .novizio-section {
   background: var(--overlay-black-heavy) !important;
   border-radius: var(--radius-10);
-  padding: 18px 18px 10px 18px;
+  padding: var(--space-lg);
   margin-top: 1rem;
   margin-bottom: 1rem;
   color: var(--color-text-primary);
@@ -340,8 +336,8 @@ watch(() => props.editable, (val) => {
   font-size: var(--font-size-18);
   margin-bottom: 1.1rem;
   margin-top: -0.3rem;
-  padding-left: 2px;
-  padding-right: 2px;
+  padding-left: var(--space-xs);
+  padding-right: var(--space-xs);
 }
 
 .novizio-subsection {
@@ -349,7 +345,7 @@ watch(() => props.editable, (val) => {
 }
 
 .novizio-placeholder {
-  color: var(--text-tertiary);
+  color: var(--color-text-muted);
   font-size: var(--font-size-15);
   margin-top: 0.2rem;
   margin-left: 0.5rem;
@@ -383,7 +379,7 @@ watch(() => props.editable, (val) => {
   background: var(--color-gray-light);
   border-radius: var(--radius-5);
   border: 1px solid var(--color-bg-secondary);
-  padding: 2px;
+  padding: var(--space-xs);
 }
 
 .martial-label {
@@ -393,7 +389,7 @@ watch(() => props.editable, (val) => {
 }
 
 .martial-placeholder {
-  color: var(--text-tertiary);
+  color: var(--color-text-muted);
   font-size: var(--font-size-15);
   margin-left: 0.5rem;
 }
@@ -403,14 +399,14 @@ watch(() => props.editable, (val) => {
   color: var(--color-text-primary);
   border: 1px solid var(--color-gray-medium);
   border-radius: var(--radius-10);
-  padding: 2px 10px;
+  padding: var(--space-xs) var(--space-xs);
   font-size: var(--font-size-15);
   line-height: var(--line-height-normal);
   display: inline-block;
 }
 
 .martial-training-none {
-  color: var(--text-tertiary);
+  color: var(--color-text-muted);
   font-size: var(--font-size-16);
   margin-left: 0.5rem;
   margin-top: 0.2rem;

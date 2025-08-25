@@ -50,13 +50,13 @@ defineEmits(['toggle-edit'])
     display: flex;
     flex-direction: column;
     width: 100%;
-    margin-top: 1rem;
+    margin-top: var(--space-lg);
     text-align: left;
 }
 
 .section-header {
     font-weight: var(--font-weight-bold);
-    margin-bottom: 0.5rem;
+    margin-bottom: var(--space-sm);
     font-size: var(--font-size-32);
 }
 
@@ -68,7 +68,7 @@ defineEmits(['toggle-edit'])
 }
 
 .empty-section-placeholder {
-    padding: 24px;
+    padding: var(--space-xl);
     text-align: center;
     color: var(--color-text-tertiary);
     font-style: italic;

@@ -50,6 +50,4 @@ defineEmits([
 ])
 </script>
 
-<style scoped>
-/* No component-specific styles needed - using shared concept-column-left */
-</style>
+<style scoped></style>

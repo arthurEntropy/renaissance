@@ -22,8 +22,8 @@ const safeContent = computed(() => sanitizeHtml(props.content))
 .info-card {
   background: var(--overlay-black-medium);
   border-radius: var(--radius-10);
-  padding: 12px 16px;
-  margin-bottom: 12px;
+  padding: var(--space-xs) var(--space-md);
+  margin-bottom: var(--space-xs);
   width: 100%;
   box-sizing: border-box;
 }
@@ -32,9 +32,9 @@ const safeContent = computed(() => sanitizeHtml(props.content))
   font-weight: var(--font-weight-bold);
   color: var(--color-accent-gold);
   font-size: var(--font-size-20);
-  margin-bottom: 8px;
+  margin-bottom: var(--space-xs);
   border-bottom: 1px solid var(--color-accent-gold);
-  padding-bottom: 4px;
+  padding-bottom: var(--space-xs);
 }
 
 .info-card-content {

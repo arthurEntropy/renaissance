@@ -88,11 +88,11 @@ const enhancedStartEdit = async () => {
     align-items: center;
     justify-content: space-between;
     position: relative;
-    gap: 16px;
+    gap: var(--space-md);
 }
 
 .concept-title {
-    font-size: 2.5rem;
+    font-size: var(--font-size-40);
     font-weight: bold;
     color: var(--color-text-primary);
     margin: 0;
