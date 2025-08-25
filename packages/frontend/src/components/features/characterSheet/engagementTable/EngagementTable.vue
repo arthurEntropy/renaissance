@@ -29,7 +29,7 @@
 
 <script setup>
 import { ref, toRef } from 'vue'
-import EngagementRollModal from '@/components/features/characterSheet/modals/EngagementRollModal.vue'
+import EngagementRollModal from '@/components/features/characterSheet/engagementModal/EngagementRollModal.vue'
 import TableHeader from '@/components/ui/tables/TableHeader.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import EngagementDiceDisplay from './EngagementDiceDisplay.vue'

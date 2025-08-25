@@ -34,7 +34,6 @@ const handleCharacterUpdate = (updatedCharacter) => {
   border-radius: var(--radius-5);
   padding: var(--space-lg);
   position: relative;
-  margin-bottom: 10px;
   flex: 3;
 }
 

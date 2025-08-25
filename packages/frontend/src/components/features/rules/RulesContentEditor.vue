@@ -30,7 +30,7 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits, computed } from 'vue'
+import { computed } from 'vue'
 import TextEditor from '@/components/ui/textEditor/TextEditor.vue'
 import EditButton from '@/components/ui/buttons/EditButton.vue'
 import { sanitizeHtml } from '@/utils/sanitizeHtml'

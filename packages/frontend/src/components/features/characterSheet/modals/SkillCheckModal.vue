@@ -63,201 +63,186 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import { ref, computed, watch } from 'vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import SkillCheckService from '@/services/skillCheckService'
 import { getDiceFontMaxClass } from '@shared/utils/diceFontUtils'
 
-export default {
-  components: {
-    ActionButton
+const props = defineProps({
+  character: {
+    type: Object,
+    required: true,
   },
-  props: {
-    character: {
-      type: Object,
-      required: true,
-    },
-    selectedSkillName: {
-      type: String,
-      default: '',
-    },
-    defaultTargetNumber: {
-      type: Number,
-      default: 20,
-    },
+  selectedSkillName: {
+    type: String,
+    default: '',
   },
-  emits: ['close', 'update-target-number'],
-  data() {
-    return {
-      localCharacter: { ...this.character },
-      localSelectedSkillName: this.selectedSkillName || '',
-      localTargetNumber: this.defaultTargetNumber, // Use the prop instead of hardcoding
-      rollParameters: {
-        name: '',
-        isFavored: false,
-        isIllFavored: false,
-        ranks: 0,
-        diceMod: 0,
-      },
-      diceModOptions: [
-        { value: -5, label: '-5d' },
-        { value: -4, label: '-4d' },
-        { value: -3, label: '-3d' },
-        { value: -2, label: '-2d' },
-        { value: -1, label: '-1d' },
-        { value: 0, label: 'none' },
-        { value: 1, label: '+1d' },
-        { value: 2, label: '+2d' },
-        { value: 3, label: '+3d' },
-        { value: 4, label: '+4d' },
-        { value: 5, label: '+5d' },
-      ],
-      targetNumberOptions: [6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30],
+  defaultTargetNumber: {
+    type: Number,
+    default: 20,
+  },
+})
+
+const emit = defineEmits(['close', 'update-target-number'])
+
+// Reactive state
+const localCharacter = ref({ ...props.character })
+const localSelectedSkillName = ref(props.selectedSkillName || '')
+const localTargetNumber = ref(props.defaultTargetNumber)
+const rollParameters = ref({
+  name: '',
+  isFavored: false,
+  isIllFavored: false,
+  ranks: 0,
+  diceMod: 0,
+})
+
+// Constants
+const diceModOptions = [
+  { value: -5, label: '-5d' },
+  { value: -4, label: '-4d' },
+  { value: -3, label: '-3d' },
+  { value: -2, label: '-2d' },
+  { value: -1, label: '-1d' },
+  { value: 0, label: 'none' },
+  { value: 1, label: '+1d' },
+  { value: 2, label: '+2d' },
+  { value: 3, label: '+3d' },
+  { value: 4, label: '+4d' },
+  { value: 5, label: '+5d' },
+]
+
+const targetNumberOptions = [6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30]
+
+// Computed properties
+const selectedSkill = computed(() => {
+  return localCharacter.value.skills.find(
+    (skill) => skill.name === localSelectedSkillName.value,
+  ) || null
+})
+
+const favoredStatus = computed({
+  get() {
+    if (rollParameters.value.isFavored) return 'favored'
+    if (rollParameters.value.isIllFavored) return 'illfavored'
+    return 'flat'
+  },
+  set(value) {
+    if (value === 'favored') {
+      rollParameters.value.isFavored = true
+      rollParameters.value.isIllFavored = false
+    } else if (value === 'illfavored') {
+      rollParameters.value.isFavored = false
+      rollParameters.value.isIllFavored = true
+    } else {
+      rollParameters.value.isFavored = false
+      rollParameters.value.isIllFavored = false
     }
   },
-  computed: {
-    selectedSkill() {
-      return (
-        this.localCharacter.skills.find(
-          (skill) => skill.name === this.localSelectedSkillName,
-        ) || null
-      )
-    },
-    favoredStatus: {
-      get() {
-        if (this.rollParameters.isFavored) return 'favored'
-        if (this.rollParameters.isIllFavored) return 'illfavored'
-        return 'flat'
-      },
-      set(value) {
-        if (value === 'favored') {
-          this.rollParameters.isFavored = true
-          this.rollParameters.isIllFavored = false
-        } else if (value === 'illfavored') {
-          this.rollParameters.isFavored = false
-          this.rollParameters.isIllFavored = true
-        } else {
-          this.rollParameters.isFavored = false
-          this.rollParameters.isIllFavored = false
-        }
-      },
-    },
-    d12DicePool() {
-      // Only show 2d12 for favored/ill-favored rolls, otherwise show 1d12
-      const count =
-        this.rollParameters.isFavored || this.rollParameters.isIllFavored
-          ? 2
-          : 1
+})
 
-      return Array(count)
-        .fill()
-        .map(() => ({
-          type: 12,
-          diceClass: getDiceFontMaxClass(12),
-        }))
-    },
-    d6DicePool() {
-      if (!this.selectedSkill) return []
+const d12DicePool = computed(() => {
+  const count = rollParameters.value.isFavored || rollParameters.value.isIllFavored ? 2 : 1
 
-      const dicePool = []
-      const ranks = this.selectedSkill.ranks
-      const diceMod = this.rollParameters.diceMod
+  return Array(count)
+    .fill()
+    .map(() => ({
+      type: 12,
+      diceClass: getDiceFontMaxClass(12),
+    }))
+})
 
-      // Generate d6 dice with proper styling
-      for (let i = 0; i < ranks; i++) {
-        // If i is within the negative dice mod range from the end, mark as subtracted
-        const isSubtracted = diceMod < 0 && i >= ranks + diceMod
+const d6DicePool = computed(() => {
+  if (!selectedSkill.value) return []
 
-        dicePool.push({
-          type: 6,
-          diceClass: getDiceFontMaxClass(6),
-          isSubtracted: isSubtracted,
-          isAdded: false,
-        })
-      }
+  const dicePool = []
+  const ranks = selectedSkill.value.ranks
+  const diceMod = rollParameters.value.diceMod
 
-      // Add dice for positive dice mod
-      if (diceMod > 0) {
-        for (let i = 0; i < Math.min(diceMod, 5 - ranks); i++) {
-          dicePool.push({
-            type: 6,
-            diceClass: getDiceFontMaxClass(6),
-            isAdded: true,
-            isSubtracted: false,
-          })
-        }
-      }
+  // Generate d6 dice with proper styling
+  for (let i = 0; i < ranks; i++) {
+    const isSubtracted = diceMod < 0 && i >= ranks + diceMod
 
-      return dicePool
-    },
-  },
-  watch: {
-    character: {
-      handler(newCharacter) {
-        this.localCharacter = { ...newCharacter }
-        this.localSelectedSkillName = this.selectedSkillName || ''
-        this.updateRollParameters()
-      },
-      immediate: true,
-    },
-    selectedSkillName: {
-      handler(newSkillName) {
-        this.localSelectedSkillName = newSkillName || ''
-        this.updateRollParameters()
-      },
-      immediate: true,
-    },
-    localSelectedSkillName: {
-      handler() {
-        this.updateRollParameters()
-      },
-    },
-  },
-  methods: {
-    closeModal() {
-      // Emit the current target number back to the parent
-      this.$emit('update-target-number', this.localTargetNumber)
-      this.$emit('close')
-    },
-    updateRollParameters() {
-      if (this.selectedSkill) {
-        // Initialize roll parameters from the selected skill
-        this.rollParameters = {
-          name: this.selectedSkill.name,
-          isFavored: this.selectedSkill.isFavored,
-          isIllFavored: this.selectedSkill.isIllFavored,
-          ranks: this.selectedSkill.ranks,
-          diceMod: 0, // Reset dice mod to 0 for each new skill
-        }
-      } else {
-        this.rollParameters = {
-          name: '',
-          isFavored: false,
-          isIllFavored: false,
-          ranks: 0,
-          diceMod: 0,
-        }
-      }
-    },
-    rollSkillCheck() {
-      if (!this.localSelectedSkillName) {
-        alert('Please select a skill before rolling.')
-        return
-      }
+    dicePool.push({
+      type: 6,
+      diceClass: getDiceFontMaxClass(6),
+      isSubtracted: isSubtracted,
+      isAdded: false,
+    })
+  }
 
-      // Use the adjusted roll parameters
-      SkillCheckService.makeSkillCheck(
-        this.rollParameters,
-        this.localCharacter,
-        this.localTargetNumber,
-      )
+  // Add dice for positive dice mod
+  if (diceMod > 0) {
+    for (let i = 0; i < Math.min(diceMod, 5 - ranks); i++) {
+      dicePool.push({
+        type: 6,
+        diceClass: getDiceFontMaxClass(6),
+        isAdded: true,
+        isSubtracted: false,
+      })
+    }
+  }
 
-      // Emit the current target number back to the parent
-      this.$emit('update-target-number', this.localTargetNumber)
-      this.closeModal()
-    },
-  },
+  return dicePool
+})
+
+// Methods
+function updateRollParameters() {
+  if (selectedSkill.value) {
+    rollParameters.value = {
+      name: selectedSkill.value.name,
+      isFavored: selectedSkill.value.isFavored,
+      isIllFavored: selectedSkill.value.isIllFavored,
+      ranks: selectedSkill.value.ranks,
+      diceMod: 0,
+    }
+  } else {
+    rollParameters.value = {
+      name: '',
+      isFavored: false,
+      isIllFavored: false,
+      ranks: 0,
+      diceMod: 0,
+    }
+  }
 }
+
+function closeModal() {
+  emit('update-target-number', localTargetNumber.value)
+  emit('close')
+}
+
+function rollSkillCheck() {
+  if (!localSelectedSkillName.value) {
+    return
+  }
+
+  SkillCheckService.makeSkillCheck(
+    rollParameters.value,
+    localCharacter.value,
+    localTargetNumber.value,
+  )
+
+  emit('update-target-number', localTargetNumber.value)
+  closeModal()
+}
+
+// Watchers
+watch(() => props.character, (newCharacter) => {
+  localCharacter.value = { ...newCharacter }
+  localSelectedSkillName.value = props.selectedSkillName || ''
+  updateRollParameters()
+}, { immediate: true })
+
+watch(() => props.selectedSkillName, (newSkillName) => {
+  localSelectedSkillName.value = newSkillName || ''
+  updateRollParameters()
+}, { immediate: true })
+
+watch(localSelectedSkillName, () => {
+  updateRollParameters()
+})
 </script>
 
 <style scoped>
@@ -274,7 +259,7 @@ export default {
 .header-row {
   width: 100%;
   text-align: center;
-  margin-bottom: 15px;
+  margin-bottom: var(--space-lg);
 }
 
 .header-row h2 {
@@ -285,7 +270,7 @@ export default {
   display: flex;
   justify-content: center;
   gap: var(--space-lg);
-  margin-bottom: 20px;
+  margin-bottom: var(--space-xl);
 }
 
 .modal-skill-dropdown,
@@ -300,21 +285,18 @@ export default {
 
 /* Styling for favored dropdown options */
 select option.favored-option {
-  color: var(--semantic-success);
-  /* Green for favored */
+  color: var(--color-success);
   font-weight: var(--font-weight-bold);
 }
 
 select option.illfavored-option {
   color: var(--color-danger);
-  /* Red for ill-favored */
   font-weight: var(--font-weight-bold);
 }
 
 .dice-preview {
   width: fit-content;
   min-width: 280px;
-  /* Space for 7 dice (2d12 + 5d6) */
   max-width: 300px;
   padding: var(--space-lg);
   background-color: var(--overlay-white-subtle);
@@ -339,24 +321,24 @@ select option.illfavored-option {
 
 /* Favored/ill-favored d12 styling */
 .dice-symbol.favored-die i {
-  color: var(--semantic-success);
-  text-shadow: var(--shadow-glow-success-md);
+  color: var(--color-success);
+  text-shadow: var(--shadow-glow-success-sm);
 }
 
 .dice-symbol.illfavored-die i {
   color: var(--color-danger);
-  text-shadow: var(--shadow-glow-danger-md);
+  text-shadow: var(--shadow-glow-danger-sm);
 }
 
 /* Added/subtracted d6 styling */
 .dice-symbol.added-die i {
-  color: var(--semantic-success);
-  text-shadow: var(--shadow-glow-success-md);
+  color: var(--color-success);
+  text-shadow: var(--shadow-glow-success-sm);
 }
 
 .dice-symbol.subtracted-die i {
   color: var(--color-danger);
-  text-shadow: var(--shadow-glow-danger-md);
+  text-shadow: var(--shadow-glow-danger-sm);
 }
 
 .section-label {
@@ -373,12 +355,12 @@ select option.illfavored-option {
   gap: var(--space-sm);
   justify-content: center;
   width: 100%;
-  margin-bottom: 15px;
+  margin-bottom: var(--space-lg);
 }
 
 .dice-mod-option,
 .target-number-option {
-  padding: 6px 10px;
+  padding: var(--space-sm) var(--space-md);
   border: 1px solid var(--color-gray-medium);
   border-radius: var(--radius-5);
   cursor: pointer;
@@ -396,20 +378,18 @@ select option.illfavored-option {
 .target-number-option.selected {
   background-color: var(--color-primary);
   color: var(--color-primary-text);
-  /* Better contrast with gold */
   border-color: var(--color-primary);
 }
 
 .button {
-  margin-top: 20px;
-  padding: var(--space-md) 30px;
+  margin-top: var(--space-xl);
+  padding: var(--space-md) var(--space-xl);
   font-size: var(--font-size-16);
 }
 
 .button-primary {
   background-color: var(--color-primary);
   color: var(--color-primary-text);
-  /* Better contrast with gold */
   border: none;
   border-radius: var(--radius-5);
   cursor: pointer;
@@ -422,7 +402,6 @@ select option.illfavored-option {
 }
 
 .button-primary:not(:disabled):hover {
-  background-color: var(--color-neutral);
-  /* Slightly darker gold on hover */
+  background-color: var(--color-primary-hover);
 }
 </style>

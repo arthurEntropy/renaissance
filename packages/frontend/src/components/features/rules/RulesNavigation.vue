@@ -45,7 +45,6 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits } from 'vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import EditButton from '@/components/ui/buttons/EditButton.vue'
 import draggable from 'vuedraggable'

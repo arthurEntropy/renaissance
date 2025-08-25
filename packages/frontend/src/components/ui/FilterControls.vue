@@ -40,7 +40,6 @@
 </template>
 
 <script setup>
-import { defineModel } from 'vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import SourceOptionsGroup from '@/components/ui/selectors/SourceOptionsGroup.vue'
 
@@ -146,6 +145,6 @@ const sortOption = defineModel('sortOption')
 .sort-filter:focus {
     outline: none;
     border-color: var(--color-gray-light);
-    box-shadow: var(--shadow-glow-sm);
+    box-shadow:var(--shadow-glow-sm);
 }
 </style>

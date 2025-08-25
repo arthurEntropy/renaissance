@@ -36,7 +36,7 @@ import AddConceptCard from '@/components/ui/cards/AddConceptCard.vue'
 import FilterControls from '@/components/ui/FilterControls.vue'
 import NavigationControls from '@/components/ui/NavigationControls.vue'
 import ConceptDetailModal from '@/components/features/conceptDetail/ConceptDetailModal.vue'
-import CharacterSheetModal from '@/components/features/characterSheet/CharacterSheetModal.vue'
+import CharacterSheetModal from '@/components/features/characterSheet/CharacterSheet.vue'
 
 // Props
 const props = defineProps({

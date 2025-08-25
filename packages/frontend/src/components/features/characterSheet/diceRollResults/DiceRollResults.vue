@@ -2,8 +2,6 @@
   <div class="dice-roll-results">
     <div v-if="latestRoll" class="roll-content">
       <div class="roll-title">
-
-        <!-- Engagement Roll Title -->
         <span v-if="isEngagement">
           ⚔️ Engagement:
           <span class="skill-name">{{ latestRoll.characterName }}</span>
@@ -11,12 +9,11 @@
           <span class="skill-name">{{ latestRoll.opponentName }}</span>
         </span>
 
-        <!-- Skill Check Title with Favored/Ill-Favored -->
         <span v-else>
           {{ latestRoll.characterName }} rolled
           <span class="skill-name">{{
             latestRoll.baseSkillName || latestRoll.skillName
-          }}</span>
+            }}</span>
           <span v-if="latestRoll.favoredStatus" :class="{
             'favored-modifier': latestRoll.favoredStatus === 'favored',
             'ill-favored-modifier': latestRoll.favoredStatus === 'ill-favored',
@@ -26,34 +23,26 @@
         </span>
       </div>
 
-      <!-- Outcome display -->
       <transition name="outcome-fade" appear>
-        <!-- Only show if not rolling, conditional styling for both engagement and skill checks -->
         <div v-if="!isRolling" class="roll-outcome" :class="{
           success: isEngagement ? latestRoll.result === EngagementResultTypes.WIN : latestRoll.success,
           failure: isEngagement ? latestRoll.result === EngagementResultTypes.LOSS : !latestRoll.success,
           draw: isEngagement && latestRoll.result === EngagementResultTypes.DRAW
         }">
-          <!-- Display outcome text for engagement -->
           <span v-if="isEngagement">
             {{ latestRoll.result === EngagementResultTypes.WIN ? 'WIN' : latestRoll.result ===
               EngagementResultTypes.DRAW ? 'DRAW' : 'LOSS' }}
           </span>
-          <!-- Display outcome text for skill checks -->
           <span v-else>
             {{ latestRoll.success ? 'SUCCESS' : 'FAILURE' }}
           </span>
         </div>
       </transition>
 
-      <!-- Placeholder when rolling -->
       <div v-if="isRolling" class="roll-outcome-placeholder"></div>
 
-      <!-- Roll/Engagement Results Display -->
       <transition name="simple-fade" appear>
-        <!-- Only show numbers if not rolling -->
         <div v-if="!isRolling" class="roll-numbers">
-          <!-- Engagement Results Display -->
           <span v-if="isEngagement" class="engagement-score">
             <span class="user-wins">{{ latestRoll.userWins }}</span>
             <span class="score-separator">to</span>
@@ -63,7 +52,6 @@
                 'draws' }}
             </span>
           </span>
-          <!-- Skill Check Results Display -->
           <span v-else>
             <span class="roll-total">{{ latestRoll.total }}</span>
             <span class="roll-target">{{ latestRoll.targetNumber }}</span>
@@ -71,13 +59,10 @@
         </div>
       </transition>
 
-      <!-- Placeholder when rolling -->
       <div v-if="isRolling" class="roll-numbers-placeholder"></div>
 
-      <!-- Dice display component -->
       <DiceDisplay ref="diceDisplayRef" :rollData="latestRoll" :isEngagement="isEngagement" />
 
-      <!-- Footer for additional skill check info -->
       <div v-if="!isEngagement && latestRoll.footer" class="roll-footer">
         {{ latestRoll.footer }}
       </div>
@@ -299,7 +284,7 @@ const getCircularPosition = (index, total) => {
   font-size: var(--font-size-14);
   color: var(--color-gray-medium);
   opacity: 0;
-  transition: opacity var(--transition-normal) ease;
+  transition: var(--transition-opacity);
   pointer-events: none;
   text-align: center;
   white-space: nowrap;
@@ -350,25 +335,9 @@ const getCircularPosition = (index, total) => {
 /* Empty placeholder with same height during rolling */
 .roll-outcome-placeholder {
   height: 29px;
-  /* Match the height of the outcome div */
 }
 
-/* Animation for the roll numbers */
-@keyframes fadeInNumbers {
-  0% {
-    opacity: 0;
-    transform: translateY(-5px);
-  }
-
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Placeholder for roll numbers during animation */
 .roll-numbers-placeholder {
   height: 30px;
-  /* Match height of roll-numbers */
 }
 </style>

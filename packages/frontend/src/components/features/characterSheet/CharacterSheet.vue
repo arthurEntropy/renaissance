@@ -5,7 +5,7 @@
         </div>
 
         <!-- Character Sheet Content -->
-        <div class="modal-content-base character-sheet-content">
+        <div class="modal-content-base">
             <div class="top-section">
                 <DiceRollResults :latestRoll="latestRoll" />
                 <CharacterBioSection :character="localCharacter" @update-character="updateCharacter" />
@@ -41,11 +41,8 @@
             :defaultTargetNumber="getLastTargetNumber()" @close="closeSkillCheckModal"
             @update-target-number="updateLastTargetNumber" />
 
-        <CharacterSettingsModal v-if="showSettingsModal" @close="closeSettingsModal"
-            @delete="openDeleteConfirmationModal" />
-
-        <DeleteConfirmationModal v-if="showDeleteConfirmationModal" :name="localCharacter.name"
-            @close="closeDeleteConfirmationModal" @confirm="handleDeleteCharacter" />
+        <CharacterSettingsModal v-if="showSettingsModal" :characterName="localCharacter.name"
+            @close="closeSettingsModal" @delete="handleDeleteCharacter" />
 
         <EditEquipmentModal v-if="showEditEquipmentModal" :equipment="equipmentToEdit" @update="saveEditedEquipment"
             @close="closeEditEquipmentModal" @delete="deleteEquipment" />
@@ -59,14 +56,13 @@ import { useSkillCheck } from '@/composables/useSkillCheck'
 import { useEquipmentManagement } from '@/composables/useEquipmentManagement'
 import CharacterBioSection from '@/components/features/characterSheet/characterBioSection/CharacterBioSection.vue'
 import CoreAbilityColumn from '@/components/features/characterSheet/coreAbilityColumns/CoreAbilityColumn.vue'
-import ConditionsColumn from '@/components/features/characterSheet/ConditionsColumn.vue'
+import ConditionsColumn from '@/components/features/characterSheet/conditions/ConditionsColumn.vue'
 import EquipmentTable from '@/components/features/characterSheet/equipmentTable/EquipmentTable.vue'
 import AbilitiesTable from '@/components/features/characterSheet/abilitiesTable/AbilitiesTable.vue'
 import EngagementTable from '@/components/features/characterSheet/engagementTable/EngagementTable.vue'
-import DiceRollResults from '@/components/features/characterSheet/DiceRollResults.vue'
+import DiceRollResults from '@/components/features/characterSheet/diceRollResults/DiceRollResults.vue'
 import SkillCheckModal from '@/components/features/characterSheet/modals/SkillCheckModal.vue'
 import CharacterSettingsModal from '@/components/features/characterSheet/modals/CharacterSettingsModal.vue'
-import DeleteConfirmationModal from '@/components/features/characterSheet/modals/DeleteConfirmationModal.vue'
 import EditEquipmentModal from '@/components/editModals/EditEquipmentModal.vue'
 
 const props = defineProps({
@@ -99,12 +95,6 @@ const {
     isOpen: showSettingsModal,
     openModal: openSettingsModal,
     closeModal: closeSettingsModal
-} = useModal()
-
-const {
-    isOpen: showDeleteConfirmationModal,
-    openModal: openDeleteConfirmationModal,
-    closeModal: closeDeleteConfirmationModal
 } = useModal()
 
 // Skill check functionality
@@ -143,7 +133,7 @@ const handleClose = () => {
 // Delete character handler
 const handleDeleteCharacter = () => {
     emit('delete:character', localCharacter.value)
-    closeDeleteConfirmationModal()
+    closeSettingsModal()
     handleClose()
 }
 </script>
@@ -179,7 +169,15 @@ const handleDeleteCharacter = () => {
     font-size: var(--font-size-20);
     cursor: pointer;
     color: var(--color-text-primary);
+    padding: var(--space-sm);
+    border-radius: var(--radius-3);
+    transition: var(--transition-color);
     z-index: var(--z-raised);
+}
+
+.settings-icon:hover {
+    color: var(--color-primary);
+    background-color: var(--overlay-white-subtle);
 }
 
 .modal-content-base {
@@ -191,9 +189,6 @@ const handleDeleteCharacter = () => {
     overflow-y: auto;
     position: relative;
     margin-top: calc(var(--space-xl) * 2);
-}
-
-.character-sheet-content {
     padding: var(--space-xl);
     display: flex;
     flex-direction: column;
@@ -223,10 +218,17 @@ const handleDeleteCharacter = () => {
     gap: var(--space-md);
 }
 
+@media (max-width: var(--breakpoint-lg)) {
+    .character-stats-section {
+        gap: var(--space-sm);
+    }
+}
+
 .main-column {
     display: flex;
     flex-direction: column;
     flex: 1;
+    min-width: 280px;
 }
 
 @media (max-width: var(--breakpoint-sm)) {
@@ -234,9 +236,6 @@ const handleDeleteCharacter = () => {
         margin: 0;
         max-height: 100vh;
         border-radius: 0;
-    }
-
-    .character-sheet-content {
         padding: var(--space-md);
     }
 }

@@ -120,13 +120,6 @@ const saveChanges = () => {
     flex-direction: column;
     flex: 3;
     position: relative;
-    height: 180px;
-}
-
-.section-label {
-    color: var(--color-gray-light);
-    font-size: var(--font-size-14);
-    margin-bottom: 5px;
 }
 
 .bio-content {
@@ -148,8 +141,8 @@ const saveChanges = () => {
 .bio-text {
     line-height: var(--line-height-normal);
     display: -webkit-box;
-    -webkit-line-clamp: 10;
-    line-clamp: 10;
+    -webkit-line-clamp: 7;
+    line-clamp: 7;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -157,7 +150,6 @@ const saveChanges = () => {
 
 .bio-text :deep(p) {
     margin: 0;
-    margin-bottom: 0.5em;
 }
 
 .bio-text :deep(p:last-child) {

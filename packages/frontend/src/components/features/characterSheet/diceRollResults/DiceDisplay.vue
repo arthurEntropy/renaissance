@@ -1,5 +1,4 @@
 <template>
-    <!-- Dice display (for skill checks, not engagement) -->
     <div v-if="shouldShowDice" class="roll-dice">
         <span v-for="(die, index) in displayDice" :key="index" class="dice-symbol" :class="{
             'dropped-die': !isRolling && die.dropped,
@@ -9,11 +8,10 @@
             <i :class="die.class"></i>
             <span v-if="!isRolling && die.emoji" class="dice-emoji">{{
                 die.emoji
-                }}</span>
+            }}</span>
         </span>
     </div>
 
-    <!-- Empty space for engagement to maintain layout consistency -->
     <div v-else class="engagement-dice-placeholder"></div>
 </template>
 
@@ -130,7 +128,6 @@ defineExpose({
 .max-value-die {
     animation: fadeInGlow 0.8s ease-in forwards;
     animation-delay: 0.1s;
-    /* Slight delay after roll ends */
 }
 
 /* Keyframes for dropped die effect */
@@ -150,7 +147,6 @@ defineExpose({
 .dropped-die {
     animation: fadeInStrikethrough 0.8s ease-in forwards;
     animation-delay: 0.1s;
-    /* Slight delay after roll ends */
 }
 
 /* Keyframes for dropped die line */
@@ -177,7 +173,6 @@ defineExpose({
     opacity: 0;
     animation: fadeInLine 0.8s ease-in forwards;
     animation-delay: 0.3s;
-    /* Slightly more delay for the line */
 }
 
 .dice-emoji {
@@ -187,10 +182,8 @@ defineExpose({
     font-size: var(--font-size-16);
     transform: translate(5px, 5px);
     opacity: 0;
-    /* Start invisible */
     animation: fadeIn 0.5s ease-in forwards;
     animation-delay: 0.4s;
-    /* Appear after other effects */
 }
 
 @keyframes fadeIn {

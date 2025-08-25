@@ -44,10 +44,10 @@
 <script>
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import EngagementRollService from '@/services/engagementRollService';
-import CharacterColumn from '@/components/features/engagement/CharacterColumn.vue';
-import ResultIndicators from '@/components/features/engagement/ResultIndicators.vue';
-import EngagementResolution from '@/components/features/engagement/EngagementResolution.vue';
-import SuccessTooltip from '@/components/features/engagement/SuccessTooltip.vue';
+import CharacterColumn from './CharacterColumn.vue';
+import ResultIndicators from './ResultIndicators.vue';
+import EngagementResolution from './EngagementResolution.vue';
+import SuccessTooltip from './SuccessTooltip.vue';
 import { useEngagementSession } from '@/composables/useEngagementSession';
 import { useSuccessAssignment } from '@/composables/useSuccessAssignment';
 import { useEngagementDice } from '@/composables/useEngagementDice';
