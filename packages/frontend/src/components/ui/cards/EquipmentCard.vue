@@ -15,7 +15,7 @@
     <template #description>
       <!-- Art and Description Row -->
       <div class="content-wrapper">
-        <div class="art-and-sol" v-if="!showLargeImage">
+        <div class="art-and-keeping" v-if="!showLargeImage">
           <div class="small-image-container" @click.stop="toggleImage">
             <img v-if="equipment.artUrl" :src="equipment.artUrl" :alt="equipment.name" class="equipment-image" />
           </div>
@@ -61,9 +61,9 @@
       </div>
     </template>
 
-    <!-- Overlay badges - Always show SOL badge at card level -->
+    <!-- Overlay badges -->
     <template #badges>
-      <BadgeDisplay v-if="showSolBadge && equipment.standardOfLiving" type="sol" :value="equipment.standardOfLiving"
+      <BadgeDisplay v-if="showKeepingBadge && equipment.keeping" type="keeping" :value="equipment.keeping"
         position="bottom-left" />
     </template>
   </base-card>
@@ -100,7 +100,7 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  showSolBadge: {
+  showKeepingBadge: {
     type: Boolean,
     default: true,
   },
@@ -156,7 +156,7 @@ onMounted(async () => {
   padding-top: var(--space-sm);
 }
 
-.art-and-sol {
+.art-and-keeping {
   display: flex;
   flex-direction: column;
   align-items: center;

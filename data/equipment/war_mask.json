@@ -2,7 +2,7 @@
   "id": "8fcc499f-651c-48cf-9cf8-d1ce989acd29",
   "name": "War Mask",
   "description": "Super cool and weird and Björkish war mask. Grants Favored to Awe once per rest.",
-  "standardOfLiving": "4",
+  "keeping": "4",
   "source": "75800953-4adb-405f-a4ab-a599573ca533",
   "weight": 1,
   "isMelee": false,

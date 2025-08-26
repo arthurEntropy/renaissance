@@ -17,7 +17,7 @@ class EquipmentService extends BaseService {
       id: null,
       name: 'New Item',
       description: '',
-      standardOfLiving: null,
+      keeping: null,
       source: null,
       weight: 0,
       isMelee: false,

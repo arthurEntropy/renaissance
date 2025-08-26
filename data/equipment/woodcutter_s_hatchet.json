@@ -2,7 +2,7 @@
   "id": "a3bd3d0a-2394-4f9e-811a-72c9e390177a",
   "name": "Woodcutter's Hatchet",
   "description": "",
-  "standardOfLiving": "1",
+  "keeping": "1",
   "source": "0c876a74-a89b-42dc-b76a-4592a0478d81",
   "weight": 3,
   "isMelee": true,

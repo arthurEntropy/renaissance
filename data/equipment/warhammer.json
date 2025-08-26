@@ -2,7 +2,7 @@
   "id": "44d287b1-6675-40d3-86df-d5a965330e62",
   "name": "Warhammer",
   "description": "",
-  "standardOfLiving": "2",
+  "keeping": "2",
   "source": "8221b753-1564-447e-b26a-4c95761d2714",
   "weight": 5,
   "isMelee": true,

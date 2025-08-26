@@ -2,7 +2,7 @@
   "id": "973a606c-4f16-4f0f-afe7-0734d705272c",
   "name": "Bear Charm",
   "description": "<p>A cool metal and gemstone bear, I guess? TEST</p>",
-  "standardOfLiving": "3",
+  "keeping": "3",
   "source": "75800953-4adb-405f-a4ab-a599573ca533",
   "weight": 0.5,
   "isMelee": true,

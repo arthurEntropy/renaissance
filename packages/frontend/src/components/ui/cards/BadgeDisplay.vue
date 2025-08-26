@@ -11,7 +11,7 @@ const props = defineProps({
     type: {
         type: String,
         required: true,
-        validator: (value) => ['xp', 'sol', 'custom'].includes(value)
+        validator: (value) => ['xp', 'keeping', 'custom'].includes(value)
     },
     value: {
         type: [String, Number],
@@ -44,7 +44,7 @@ const displayText = computed(() => {
     switch (props.type) {
         case 'xp':
             return `${props.value} XP`
-        case 'sol':
+        case 'keeping':
             return `${props.value} 🪙`
         default:
             return props.value
@@ -84,7 +84,7 @@ const badgeClass = computed(() => {
     color: var(--color-black);
 }
 
-.badge-sol {
+.badge-keeping {
     background-color: var(--color-primary);
     color: var(--color-text-inverse);
     padding: 2px 8px 4px 8px;

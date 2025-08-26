@@ -13,7 +13,7 @@
     <!-- Modals slot -->
     <template #modals>
       <EditEquipmentModal v-if="showEditEquipmentModal" :equipment="equipmentToEdit" :all-equipment="equipment"
-        :standards-of-living="equipmentStore.standardsOfLiving" :sources="sources"
+        :keeping-options="equipmentStore.keeping" :sources="sources"
         :engagement-success-options="engagementSuccessOptions" @update="saveEditedEquipment"
         @close="closeEditEquipmentModal" @delete="deleteEquipment(equipmentToEdit)" />
     </template>
@@ -120,7 +120,7 @@ const fetchEngagementSuccessOptions = async () => {
 onMounted(async () => {
   try {
     // Sources will auto-fetch via useSources composable
-    await equipmentStore.fetchStandardsOfLiving()
+    await equipmentStore.fetchKeeping()
     await fetchEngagementSuccessOptions()
     await equipmentStore.fetch()
   } catch (error) {

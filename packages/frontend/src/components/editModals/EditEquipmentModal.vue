@@ -50,12 +50,12 @@
               <SourceDropdown v-model="editedEquipment.source" id="source" />
             </div>
 
-            <!-- Standard of Living -->
+            <!-- Keeping -->
             <div class="form-column">
-              <label for="standardOfLiving" class="left-aligned">Standard of Living:</label>
-              <select id="standardOfLiving" v-model="editedEquipment.standardOfLiving" class="modal-input">
-                <option v-for="sol in standardsOfLiving" :key="sol.id" :value="sol.id">
-                  {{ sol.name }} ({{ sol.cost }})
+              <label for="keeping" class="left-aligned">Keeping:</label>
+              <select id="keeping" v-model="editedEquipment.keeping" class="modal-input">
+                <option v-for="keeping in keepingOptions" :key="keeping.id" :value="keeping.id">
+                  {{ keeping.name }} ({{ keeping.cost }})
                 </option>
               </select>
             </div>
@@ -136,7 +136,7 @@ const props = defineProps({
     type: Array,
     default: () => [],
   },
-  standardsOfLiving: {
+  keepingOptions: {
     type: Array,
     default: () => [],
   },

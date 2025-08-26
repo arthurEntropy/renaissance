@@ -2,7 +2,7 @@
   "id": "ee88a7d2-a4fa-423f-b332-0008ba84e5f7",
   "name": "Hand Axe",
   "description": "",
-  "standardOfLiving": "2",
+  "keeping": "2",
   "source": "72dc5437-4072-4e9e-8e9f-0316fab002bb",
   "weight": 3,
   "isMelee": true,

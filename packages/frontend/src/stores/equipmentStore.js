@@ -1,46 +1,51 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import EquipmentService from '@/services/equipmentService'
-import StandardOfLivingService from '@/services/standardOfLivingService'
+import equipmentService from '../services/equipmentService.js'
+import KeepingService from '@/services/keepingService'
 
 export const useEquipmentStore = defineStore('equipment', () => {
   // state
   const equipment = ref([])
-  const standardsOfLiving = ref([])
+  const keeping = ref([])
 
-  // actions
   const fetch = async () => {
     try {
-      equipment.value = await EquipmentService.getAll()
-    } catch (error) {
-      console.error('Error fetching equipment:', error)
+      equipment.value = await equipmentService.getAll()
+    } catch (err) {
+      console.error('Error fetching equipment:', err)
     }
   }
 
-  const fetchStandardsOfLiving = async () => {
+  const fetchKeeping = async () => {
     try {
-      standardsOfLiving.value = await StandardOfLivingService.getAll()
+      keeping.value = await KeepingService.getAll()
     } catch (error) {
-      console.error('Error fetching standards of living:', error)
+      console.error('Error fetching keeping:', error)
     }
   }
 
-  // getters
-  const getById = (id) => {
-    return equipment.value.find(item => item.id === id)
+  const create = async (equipment) => {
+    try {
+      const newEquipment = await equipmentService.create(equipment)
+      equipment.value.push(newEquipment)
+      return newEquipment
+    } catch (error) {
+      console.error('Error creating equipment:', error)
+      throw error
+    }
   }
 
-  const getStandardOfLivingById = (solId) => {
-    if (!solId) return null
-    return standardsOfLiving.value.find((sol) => sol.id === solId)
+  const getKeepingById = (keepingId) => {
+    if (!keepingId) return null
+    return keeping.value.find((keeping) => keeping.id === keepingId)
   }
 
   return {
     equipment,
-    standardsOfLiving,
+    keeping,
     fetch,
-    fetchStandardsOfLiving,
-    getById,
-    getStandardOfLivingById,
+    fetchKeeping,
+    create,
+    getKeepingById,
   }
 })

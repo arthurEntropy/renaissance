@@ -2,7 +2,7 @@
   "id": "eed4a0ac-94b1-4623-aecb-e93f816e1788",
   "name": "Longsword",
   "description": "",
-  "standardOfLiving": "4",
+  "keeping": "4",
   "source": "92110fd8-eae9-47d9-94a4-9873ef8b6c8d",
   "weight": 1,
   "isMelee": true,
