@@ -95,7 +95,17 @@ const abilitiesStore = useAbilitiesStore()
 const equipmentStore = useEquipmentStore()
 
 // Store data
-const sources = computed(() => sourcesStore.sources)
+const sources = computed(() => {
+  const storeData = sourcesStore.sources
+  if (!storeData) return []
+
+  return [
+    ...(storeData.ancestries || []),
+    ...(storeData.cultures || []),
+    ...(storeData.mestieri || []),
+    ...(storeData.worldElements || [])
+  ]
+})
 
 // Edit modals
 const {
@@ -135,6 +145,35 @@ const {
   hasUnsavedChanges,
   confirmIfUnsaved
 } = useUnsavedChanges()
+
+// Methods - defined early to avoid temporal dead zone issues
+const emitUpdateEvent = () => {
+  try {
+    // Create a clean copy excluding methods and non-data properties
+    const cleanConcept = {
+      ...localConcept.value,
+      artUrls: [...(localConcept.value.artUrls || [])],
+      faces: [...(localConcept.value.faces || [])],
+      places: [...(localConcept.value.places || [])],
+      hooks: localConcept.value.hooks?.map(
+        ({ id, name, description, gmNotes }) => ({
+          id,
+          name,
+          description,
+          gmNotes,
+        }),
+      ) || [],
+      playlists: localConcept.value.playlists?.map(({ service, embedCode }) => ({
+        service,
+        embedCode,
+      })) || [],
+    }
+
+    emit('update', cleanConcept)
+  } catch (error) {
+    console.error('Error in emitUpdateEvent:', error)
+  }
+}
 
 const {
   abilities,
@@ -179,34 +218,6 @@ watch(() => props.concept, (newConcept) => {
 const handleToggleEditMode = () => {
   toggleEditMode(() => emitUpdateEvent())
   emit('edit-mode-change', isEditMode.value)
-}
-
-const emitUpdateEvent = () => {
-  try {
-    // Create a clean copy excluding methods and non-data properties
-    const cleanConcept = {
-      ...localConcept.value,
-      artUrls: [...(localConcept.value.artUrls || [])],
-      faces: [...(localConcept.value.faces || [])],
-      places: [...(localConcept.value.places || [])],
-      hooks: localConcept.value.hooks?.map(
-        ({ id, name, description, gmNotes }) => ({
-          id,
-          name,
-          description,
-          gmNotes,
-        }),
-      ) || [],
-      playlists: localConcept.value.playlists?.map(({ service, embedCode }) => ({
-        service,
-        embedCode,
-      })) || [],
-    }
-
-    emit('update', cleanConcept)
-  } catch (error) {
-    console.error('Error in emitUpdateEvent:', error)
-  }
 }
 
 const handleClose = () => {
