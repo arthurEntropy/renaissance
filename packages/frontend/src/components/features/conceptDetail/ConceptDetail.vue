@@ -290,7 +290,7 @@ onMounted(async () => {
     await expansionStore.fetch()
     expansions.value = expansionStore.expansions
   } catch (error) {
-    console.error('Error initializing ConceptDetailModal:', error)
+    console.error('Error initializing ConceptDetail:', error)
   }
 })
 </script>

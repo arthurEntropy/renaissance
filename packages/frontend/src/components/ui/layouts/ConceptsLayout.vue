@@ -22,7 +22,7 @@
         @update:character="updateConcept" @delete:character="deleteConcept" />
 
       <!-- Concept Detail Modal -->
-      <ConceptDetailModal v-else :key="`concept-${conceptDetailKey}`" :concept="selectedConcept" :editable="true"
+      <ConceptDetail v-else :key="`concept-${conceptDetailKey}`" :concept="selectedConcept" :editable="true"
         @close="closeConceptDetail" @update="updateConcept" />
     </NavigationControls>
   </div>
@@ -36,7 +36,7 @@ import ConceptCard from '@/components/ui/cards/ConceptCard.vue'
 import AddConceptCard from '@/components/ui/cards/AddConceptCard.vue'
 import FilterControls from '@/components/ui/FilterControls.vue'
 import NavigationControls from '@/components/ui/NavigationControls.vue'
-import ConceptDetailModal from '@/components/features/conceptDetail/ConceptDetailModal.vue'
+import ConceptDetail from '@/components/features/conceptDetail/ConceptDetail.vue'
 import CharacterSheetModal from '@/components/features/characterSheet/CharacterSheet.vue'
 
 // Props
@@ -71,7 +71,7 @@ const props = defineProps({
   },
   modalComponent: {
     type: String,
-    default: 'ConceptDetailModal',
+    default: 'ConceptDetail',
   },
   customModalProps: {
     type: Object,
