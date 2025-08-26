@@ -17,14 +17,14 @@
     },
     {
       "name": "Strength",
-      "ranks": 0,
+      "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0
     },
     {
       "name": "Dexterity",
-      "ranks": 2,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0

@@ -2,7 +2,7 @@
   "id": "5cf59dc8-6c6e-4063-9a9a-c756d41f9d6d",
   "name": "Grung Dagger",
   "description": "When you deal damage with this dagger, the target must roll Fortitude, TN 12, or take 1 injury. They must repeat the roll at the beginning of each of their turns until they beat it.",
-  "standardOfLiving": "1",
+  "keeping": "1",
   "source": "72dc5437-4072-4e9e-8e9f-0316fab002bb",
   "weight": 1,
   "isMelee": true,

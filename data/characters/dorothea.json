@@ -126,7 +126,7 @@
     "current": 13,
     "max": 11
   },
-  "load": 15,
+  "load": 0,
   "shadow": 0,
   "injury": 0,
   "states": {
@@ -154,7 +154,7 @@
         "id": "2121d925-27f0-40ee-9d7f-2cc67b90141c",
         "name": "Adirian Hand Axe",
         "description": "",
-        "standardOfLiving": "1",
+        "keeping": "1",
         "source": "68fadf5d-6661-4611-bb38-deaf05f01d45",
         "weight": 1,
         "isMelee": true,
@@ -184,7 +184,7 @@
         "id": "bccb6c9c-bb15-4679-a0ce-a2e330b0aae0",
         "name": "Azcan Dagger",
         "description": "",
-        "standardOfLiving": "1",
+        "keeping": "1",
         "source": "a3a54cb6-09c4-42e3-b142-3053b7c1d4e8",
         "weight": 1,
         "isMelee": true,

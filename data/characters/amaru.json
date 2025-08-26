@@ -154,7 +154,7 @@
         "id": "44d287b1-6675-40d3-86df-d5a965330e62",
         "name": "Kerok Warhammer",
         "description": "",
-        "standardOfLiving": "2",
+        "keeping": "2",
         "source": "75800953-4adb-405f-a4ab-a599573ca533",
         "weight": 5,
         "isMelee": true,

@@ -2,7 +2,7 @@
   "id": "1b51a7b9-ad28-4238-808b-fdb82cd70698",
   "name": "Acrobat's Pole",
   "description": "<p>Two-handed, Length: 15 ft, Reach: 10 ft</p>",
-  "standardOfLiving": "3",
+  "keeping": "3",
   "source": "83d190cb-0e05-4392-a5b1-f8a8017f505b",
   "weight": 15,
   "isMelee": true,

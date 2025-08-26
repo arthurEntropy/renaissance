@@ -156,7 +156,7 @@
         "artUrl": "https://cdn.midjourney.com/ca2dd46f-000f-4c7f-b942-d32f5c8e3625/0_3.png",
         "name": "Longsword",
         "description": "A super cool sharp sword that deals 2d6 damage on a hit.",
-        "standardOfLiving": "4",
+        "keeping": "4",
         "source": "75800953-4adb-405f-a4ab-a599573ca533",
         "weight": 2,
         "isMelee": true,
@@ -193,7 +193,7 @@
         "id": "37a98252-6881-4aaf-bc6c-4091c1b70e1b",
         "name": "Iliyanite Dagger",
         "description": "Once per rest, you may call upon the Iliyanite magic embedded within this dagger to bend and extend it into a greater weapon for a moment, changing its damage die to 1d6 for one attack.",
-        "standardOfLiving": "1",
+        "keeping": "1",
         "source": "68fadf5d-6661-4611-bb38-deaf05f01d45",
         "weight": 0.5,
         "isMelee": true,
@@ -211,6 +211,13 @@
         "isCustom": false,
         "artUrl": "https://cdn.midjourney.com/489cca4d-20f9-4f1f-8394-88738a1ae0d7/0_3.png"
       }
+    },
+    {
+      "id": "36e20697-3fe0-4b07-9b39-c4a144986ea5",
+      "quantity": 1,
+      "isCarried": true,
+      "isWielding": false,
+      "index": 2
     }
   ],
   "activeEffects": [
@@ -235,7 +242,7 @@
   "pronouns": "she/her",
   "ancestries": "Dwarf",
   "cultures": "Ered Luin",
-  "personalityAndBackground": "<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy.</p><p>The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. </p>",
+  "personalityAndBackground": "<p>It is a long established fact that a reader will be TEST distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy.</p><p>The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.</p>",
   "xp": 10,
   "mp": {
     "current": 2,
@@ -261,5 +268,7 @@
     "11"
   ],
   "weary": false,
-  "miserable": false
+  "miserable": false,
+  "expansionLogoUrl": "",
+  "mestiereId": "96e062f8-646e-49f4-8eec-d92bd5fb77c4"
 }

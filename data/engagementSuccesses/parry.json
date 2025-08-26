@@ -1,0 +1,6 @@
+{
+  "id": "8",
+  "name": "Parry",
+  "description": "You deflect your opponent's incoming attack. If your opponent's die is higher than yours in this pairing, you win the pairing.",
+  "isDeleted": false
+}

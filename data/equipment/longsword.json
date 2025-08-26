@@ -3,7 +3,7 @@
   "artUrl": "https://cdn.midjourney.com/ca2dd46f-000f-4c7f-b942-d32f5c8e3625/0_3.png",
   "name": "Longsword",
   "description": "A super cool sharp sword that deals 2d6 damage on a hit.",
-  "standardOfLiving": "4",
+  "keeping": "4",
   "source": "75800953-4adb-405f-a4ab-a599573ca533",
   "weight": 2,
   "isMelee": true,

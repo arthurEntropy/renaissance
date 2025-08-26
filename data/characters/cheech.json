@@ -7,7 +7,7 @@
   "pronouns": "she/her",
   "ancestries": "Halfling",
   "cultures": "I Castagne",
-  "personalityAndBackground": "From an isolated village in the remote giant chestnut (castagne) forest. Wears armor crafted from chestnut hulls. Uncultured, kind, fierce, loyal.",
+  "personalityAndBackground": "<p>From an isolated village in the remote giant chestnut (castagne) forest. Wears armor crafted from chestnut hulls. Uncultured, kind, fierce, loyal.</p>",
   "xp": 10,
   "mp": {
     "current": 3,
@@ -158,7 +158,8 @@
       "id": "64992fd9-1594-4cab-b232-b570e0e53ece",
       "quantity": 6,
       "isCarried": true,
-      "index": 0
+      "index": 0,
+      "isWielding": true
     }
   ],
   "activeEffects": [
@@ -179,5 +180,16 @@
         }
       ]
     }
+  ],
+  "expansionLogoUrl": "",
+  "ancestryIds": [
+    "77e4f81a-728f-49a7-a013-4d6f666353e2"
+  ],
+  "cultureIds": [
+    "61e2ce55-1954-4e8e-b1b3-b249ae915fa7"
+  ],
+  "mestiereId": "10f46ecd-e6f5-4d3b-b510-d4035ab24f56",
+  "abilities": [
+    "ed6d2d46-d275-45e4-b62f-3a3aaa40b6be"
   ]
 }
