@@ -63,7 +63,7 @@
 
     <!-- Overlay badges -->
     <template #badges>
-      <BadgeDisplay v-if="showKeepingBadge && equipment.keeping" type="keeping" :value="equipment.keeping"
+      <BadgeDisplay v-if="showKeepingBadge && equipment.keeping && !collapsed" type="keeping" :value="equipment.keeping"
         position="bottom-left" />
     </template>
   </base-card>

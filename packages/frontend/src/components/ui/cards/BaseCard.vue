@@ -27,7 +27,7 @@
       </div>
     </transition>
 
-    <!-- Overlay badges (XP, SOL, etc.) -->
+    <!-- Overlay badges (XP, Keeping) -->
     <slot name="badges"></slot>
 
     <!-- Footer content (engagement successes, etc.) -->

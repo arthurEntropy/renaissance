@@ -18,7 +18,7 @@
           <div class="equipment-card-col">
             <EquipmentCard v-if="row.equipment" :equipment="row.equipment" :collapsed="getCollapsedState(row.equipment)"
               @update:collapsed="setCollapsedState(row.equipment, $event)" :editable="row.equipment.isCustom"
-              class="equipment-card" @edit="editCustomItem" :collapsible="true" :show-sol-badge="false" />
+              class="equipment-card" @edit="editCustomItem" :collapsible="true" :show-keeping-badge="false" />
 
             <span v-else class="missing-equipment">Unknown item</span>
 
