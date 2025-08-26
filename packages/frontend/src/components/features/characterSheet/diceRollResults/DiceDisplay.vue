@@ -8,7 +8,7 @@
             <i :class="die.class"></i>
             <span v-if="!isRolling && die.emoji" class="dice-emoji">{{
                 die.emoji
-            }}</span>
+                }}</span>
         </span>
     </div>
 
@@ -133,13 +133,13 @@ defineExpose({
 /* Keyframes for dropped die effect */
 @keyframes fadeInStrikethrough {
     0% {
+        color: var(--color-white);
         opacity: 1;
-        text-decoration: none;
     }
 
     100% {
-        opacity: 0.5;
-        text-decoration: line-through;
+        color: var(--color-gray-medium);
+        opacity: 0.7;
     }
 }
 
@@ -156,11 +156,11 @@ defineExpose({
     }
 
     100% {
-        opacity: 0.7;
+        opacity: 1;
     }
 }
 
-/* Add line with animation */
+/* Add diagonal line with animation */
 .dropped-die::after {
     content: '';
     position: absolute;
@@ -169,7 +169,9 @@ defineExpose({
     right: 0;
     height: 2px;
     background-color: var(--color-danger);
-    transform: translateY(-50%);
+    transform: translateY(-50%) rotate(-45deg);
+    pointer-events: none;
+    z-index: var(--z-overlay);
     opacity: 0;
     animation: fadeInLine 0.8s ease-in forwards;
     animation-delay: 0.3s;
