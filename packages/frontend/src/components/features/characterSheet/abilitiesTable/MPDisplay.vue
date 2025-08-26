@@ -46,8 +46,8 @@ const updateMax = (value) => {
 
 .mp-container {
     background-color: var(--color-gray-dark);
-    padding: var(--space-xs) 15px;
-    border-radius: var(--radius-5);
+    padding: var(--space-xs) var(--space-lg);
+    border-radius: var(--radius-15);
     display: flex;
     align-items: center;
     gap: var(--space-xs);

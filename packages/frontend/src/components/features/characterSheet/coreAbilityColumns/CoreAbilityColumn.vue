@@ -1,5 +1,5 @@
 <template>
-  <div class="core-ability-column">
+  <CharacterSheetSection custom-class="core-ability-column" min-width="270px" max-width="320px">
     <!-- Core Ability Header -->
     <CoreAbilityHeader :title="columnConfig.title" :value="coreAbilityValue"
       @update="updateNestedProperty(columnConfig.coreAbilityKey, $event)" />
@@ -24,7 +24,7 @@
         const stateKey = field === 'first' ? columnConfig.firstStateKey : columnConfig.secondStateKey
         updateNestedProperty(`states.${stateKey}`, value)
       }" />
-  </div>
+  </CharacterSheetSection>
 </template>
 
 <script setup>
@@ -33,6 +33,7 @@ import { capitalizeFirstLetter } from '@shared/utils/stringUtils'
 import { useColumnConfig } from '@/composables/useColumnConfig'
 import { useSkillDice } from '@/composables/useSkillDice'
 import { useNestedPropertyUpdate } from '@/composables/useNestedPropertyUpdate'
+import CharacterSheetSection from '@/components/ui/containers/CharacterSheetSection.vue'
 import CoreAbilityHeader from './CoreAbilityHeader.vue'
 import SkillRow from './SkillRow.vue'
 import StatRow from './StatRow.vue'
@@ -83,14 +84,9 @@ const { updateNestedProperty } = useNestedPropertyUpdate(
 
 <style scoped>
 .core-ability-column {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
   align-items: center;
-  background-color: var(--color-black);
-  border-radius: var(--radius-5);
-  padding: var(--space-lg);
   width: 270px;
   max-width: 270px;
+  flex: 1;
 }
 </style>

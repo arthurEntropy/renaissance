@@ -1,5 +1,5 @@
 <template>
-    <div class="character-bio-section">
+    <CharacterSheetSection min-width="200px" max-width="300px">
 
         <!-- In-Sheet Bio Display -->
         <div class="bio-content edit-hover-area" @click="openViewModal">
@@ -40,13 +40,14 @@
                 </div>
             </div>
         </div>
-    </div>
+    </CharacterSheetSection>
 </template>
 
 <script setup>
 import { ref, computed } from 'vue'
 import { formatText } from '@shared/utils/stringUtils'
 import { sanitizeHtml } from '@/utils/sanitizeHtml'
+import CharacterSheetSection from '@/components/ui/containers/CharacterSheetSection.vue'
 import TextEditor from '@/components/ui/textEditor/TextEditor.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import EditButton from '@/components/ui/buttons/EditButton.vue'
@@ -115,13 +116,6 @@ const saveChanges = () => {
 }
 </script>
 <style scoped>
-.character-bio-section {
-    display: flex;
-    flex-direction: column;
-    flex: 3;
-    position: relative;
-}
-
 .bio-content {
     position: relative;
     padding: var(--space-md);

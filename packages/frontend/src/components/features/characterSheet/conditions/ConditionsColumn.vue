@@ -1,6 +1,6 @@
 <template>
     <div class="conditions-column-container">
-        <div class="conditions-column">
+        <CharacterSheetSection custom-class="conditions-column">
             <div class="conditions-header">Conditions</div>
             <div class="conditions-row" v-for="(value, key) in character.conditions" :key="key">
                 <span :class="{ 'condition-active': value }">{{
@@ -10,12 +10,13 @@
                     :checked="value" @change="updateCondition(key, $event.target.checked)" />
             </div>
             <div class="conditions-row" style="border-bottom: none"></div>
-        </div>
+        </CharacterSheetSection>
     </div>
 </template>
 
 <script setup>
 import { capitalizeFirstLetter } from '@shared/utils/stringUtils'
+import CharacterSheetSection from '@/components/ui/containers/CharacterSheetSection.vue'
 
 const props = defineProps({
     character: {
@@ -44,17 +45,11 @@ const updateCondition = (conditionKey, value) => {
 .conditions-column-container {
     display: flex;
     flex-direction: column;
-    background-color: var(--color-black);
-    border-radius: var(--radius-5);
 }
 
 .conditions-column {
-    display: flex;
-    flex-direction: column;
     align-items: center;
-    flex: 1;
     width: 100px;
-    margin: 0 var(--space-xl) 0 var(--space-lg);
 }
 
 @media (max-width: var(--breakpoint-sm)) {
@@ -66,7 +61,7 @@ const updateCondition = (conditionKey, value) => {
 .conditions-header {
     display: flex;
     align-items: end;
-    margin: 12px 0;
+    margin: 4px 0;
     font-size: var(--font-size-14);
     font-style: italic;
     height: 28px;
