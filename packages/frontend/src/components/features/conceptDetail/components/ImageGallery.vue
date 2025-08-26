@@ -5,7 +5,7 @@
       @mouseleave="showNav = false">
       <button v-if="showNav && images.length > 1" class="nav-button left" @click.stop="prevImage"
         aria-label="Previous image">
-        ◀
+        <ChevronLeftIcon class="nav-icon" />
       </button>
 
       <img :src="images[selectedIndex]" :alt="`Image ${selectedIndex + 1}`" class="enlarged-image" />
@@ -16,14 +16,15 @@
 
       <button v-if="showNav && images.length > 1" class="nav-button right" @click.stop="nextImage"
         aria-label="Next image">
-        ▶
+        <ChevronRightIcon class="nav-icon" />
       </button>
 
-      <!-- Edit Modal - moved outside of conditional rendering -->
+      <!-- Edit Modal -->
       <div v-if="editModalOpen" class="edit-modal" @click.stop>
         <div class="edit-modal-content">
-          <h3>Edit Image</h3>
-          <input type="text" v-model="editImageUrl" class="url-input" placeholder="Image URL" ref="editUrlInput" />
+          <label for="edit-image-url" class="url-label">Image URL:</label>
+          <input type="text" v-model="editImageUrl" class="url-input" placeholder="Image URL" ref="editUrlInput"
+            id="edit-image-url" />
           <div class="edit-modal-buttons">
             <ActionButton variant="danger" size="small" text="Delete" @click.stop="deleteImage" />
             <ActionButton variant="neutral" size="small" text="Cancel" @click.stop="closeEditModal" />
@@ -86,6 +87,7 @@ import { ref, watch, nextTick } from 'vue'
 import draggable from 'vuedraggable'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import EditButton from '@/components/ui/buttons/EditButton.vue'
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/vue/24/outline'
 
 // Props
 const props = defineProps({
@@ -328,13 +330,26 @@ watch(() => props.images, (newImages) => {
   transform: translateY(-50%);
   background: var(--overlay-black-medium);
   border: none;
-  color: var(--color-text-primary);
-  font-size: var(--font-size-24);
-  padding: var(--space-xs);
+  color: var(--color-white);
+  border-radius: var(--radius-full);
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
   opacity: 0;
   transition: opacity var(--transition-normal);
   z-index: var(--z-raised);
+}
+
+.nav-button:hover {
+  background: var(--overlay-black-heavy);
+}
+
+.nav-icon {
+  width: 20px;
+  height: 20px;
 }
 
 .enlarged-image-wrapper:hover .nav-button {
@@ -343,12 +358,10 @@ watch(() => props.images, (newImages) => {
 
 .nav-button.left {
   left: var(--space-xs);
-  height: var(--space-xxl);
 }
 
 .nav-button.right {
   right: var(--space-xs);
-  height: var(--space-xxl);
 }
 
 /* Edit button overlay styling */
@@ -387,8 +400,16 @@ watch(() => props.images, (newImages) => {
   margin-bottom: var(--space-sm);
 }
 
+.url-label {
+  display: block;
+  margin-bottom: var(--space-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  font-size: var(--font-size-16);
+}
+
 .url-input {
-  width: 100%;
+  width: 95%;
   padding: var(--space-sm);
   margin-bottom: var(--space-sm);
   background: var(--color-bg-secondary);
@@ -472,7 +493,7 @@ watch(() => props.images, (newImages) => {
   bottom: 0;
   background: var(--overlay-white-medium);
   border-radius: var(--radius-10);
-  border: var(--border-width-md) solid var(--color-gray-medium);
+  border: var(--border-width-md) solid var(--color-border-secondary);
   pointer-events: none;
 }
 
@@ -487,22 +508,24 @@ watch(() => props.images, (newImages) => {
 .add-image-placeholder {
   width: 100%;
   aspect-ratio: 1/1;
-  border: var(--border-width-md) dashed var(--color-gray-medium);
+  background: var(--color-bg-secondary);
+  border: 2px dashed var(--color-border-secondary);
   border-radius: var(--radius-10);
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: var(--transition-background);
+  transition: var(--transition-all);
 }
 
 .add-image-thumb:hover .add-image-placeholder {
-  background-color: var(--overlay-white-subtle);
-  border-color: var(--color-gray-medium);
+  background: var(--overlay-white-subtle);
+  border-color: var(--color-white);
 }
 
 .add-icon {
-  font-size: var(--font-size-30);
-  color: var(--color-gray-medium);
+  font-size: var(--font-size-32);
+  font-weight: var(--font-weight-light);
+  color: var(--color-gray-light);
 }
 
 /* Modal buttons styling */

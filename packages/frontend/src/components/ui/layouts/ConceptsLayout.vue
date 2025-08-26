@@ -15,6 +15,7 @@
     <!-- Modal with Navigation Controls -->
     <NavigationControls v-if="showConceptDetail" :has-previous="hasPreviousConcept" :has-next="hasNextConcept"
       @navigate="navigateConcept">
+
       <!-- Character Sheet Modal -->
       <CharacterSheetModal v-if="modalComponent === 'CharacterSheetModal'" :key="`character-${conceptDetailKey}`"
         :character="selectedConcept" v-bind="customModalProps" @close="closeConceptDetail"
