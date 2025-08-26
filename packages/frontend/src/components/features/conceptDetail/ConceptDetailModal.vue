@@ -298,7 +298,7 @@ onMounted(async () => {
 <style scoped>
 /* Component-specific overrides */
 .modal-content {
-  max-width: 1400px;
+  max-width: 1275px;
 }
 
 /* Global styles */

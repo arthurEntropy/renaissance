@@ -188,7 +188,7 @@ const handleDeleteCharacter = () => {
     max-height: 90vh;
     overflow-y: auto;
     position: relative;
-    margin-top: calc(var(--space-xl) * 2);
+    margin-top: 20px;
     padding: var(--space-xl);
     display: flex;
     flex-direction: column;
