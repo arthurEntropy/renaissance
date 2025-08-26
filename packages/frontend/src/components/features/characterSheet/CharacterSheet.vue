@@ -7,9 +7,9 @@
         <!-- Character Sheet Content -->
         <div class="modal-content, modal-content-base">
             <div class="top-section">
-                <DiceRollResults :latestRoll="latestRoll" />
                 <CharacterProfile :character="localCharacter" @update-character="updateCharacter" />
                 <CharacterBio :character="localCharacter" @update-character="updateCharacter" />
+                <DiceRollResults :latestRoll="latestRoll" />
             </div>
 
             <div class="character-stats-section">
@@ -44,10 +44,11 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue'
+import { computed } from 'vue'
 import { useModal } from '@/composables/useModal'
 import { useSkillCheck } from '@/composables/useSkillCheck'
 import { useEquipmentManagement } from '@/composables/useEquipmentManagement'
+import { useCharacterManagement } from '@/composables/useCharacterManagement'
 import CharacterProfile from '@/components/features/characterSheet/characterProfile/CharacterProfile.vue'
 import CharacterBio from '@/components/features/characterSheet/characterBio/CharacterBio.vue'
 import CoreAbilityColumn from '@/components/features/characterSheet/coreAbilityColumns/CoreAbilityColumn.vue'
@@ -61,10 +62,6 @@ import CharacterSettingsModal from '@/components/features/characterSheet/modals/
 import EditEquipmentModal from '@/components/editModals/EditEquipmentModal.vue'
 
 const props = defineProps({
-    character: {
-        type: Object,
-        required: true
-    },
     allEquipment: {
         type: Array,
         default: () => []
@@ -77,13 +74,18 @@ const props = defineProps({
 
 const emit = defineEmits(['close', 'update:character', 'delete:character'])
 
-// Local character state for immediate updates
-const localCharacter = ref({ ...props.character })
+// Character management with automatic watchers
+const {
+    selectedCharacter,
+    updateCharacter: updateCharacterService,
+    watchCharacterStats
+} = useCharacterManagement(computed(() => props.allEquipment || []))
 
-// Watch for prop changes and sync local state
-watch(() => props.character, (newCharacter) => {
-    localCharacter.value = { ...newCharacter }
-}, { deep: true })
+// Start watching for automatic state recalculation
+watchCharacterStats()
+
+// Use selectedCharacter as localCharacter for backward compatibility
+const localCharacter = selectedCharacter
 
 // Modal management
 const {
@@ -116,7 +118,8 @@ const {
 
 // Character update handler
 const updateCharacter = (updatedCharacter) => {
-    localCharacter.value = { ...updatedCharacter }
+    // Use the character management service which triggers automatic watchers
+    updateCharacterService(updatedCharacter)
     emit('update:character', updatedCharacter)
 }
 

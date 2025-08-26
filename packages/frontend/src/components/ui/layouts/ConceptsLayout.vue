@@ -18,8 +18,8 @@
 
       <!-- Character Sheet Modal -->
       <CharacterSheetModal v-if="modalComponent === 'CharacterSheetModal'" :key="`character-${conceptDetailKey}`"
-        :character="selectedConcept" v-bind="customModalProps" @close="closeConceptDetail"
-        @update:character="updateConcept" @delete:character="deleteConcept" />
+        v-bind="customModalProps" @close="closeConceptDetail" @update:character="updateConcept"
+        @delete:character="deleteConcept" />
 
       <!-- Concept Detail Modal -->
       <ConceptDetail v-else :key="`concept-${conceptDetailKey}`" :concept="selectedConcept" :editable="true"
@@ -32,6 +32,7 @@
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import { useExpansionsStore } from '@/stores/expansionsStore'
 import { useSourcesStore } from '@/stores/sourcesStore'
+import { useCharactersStore } from '@/stores/charactersStore'
 import ConceptCard from '@/components/ui/cards/ConceptCard.vue'
 import AddConceptCard from '@/components/ui/cards/AddConceptCard.vue'
 import FilterControls from '@/components/ui/FilterControls.vue'
@@ -81,6 +82,7 @@ const props = defineProps({
 
 const expansionStore = useExpansionsStore()
 const sourcesStore = useSourcesStore()
+const charactersStore = useCharactersStore()
 const sources = sourcesStore.sources
 
 const selectedConcept = ref(null)
@@ -175,6 +177,12 @@ const deleteConcept = async (concept) => {
 
 const openConceptDetail = (concept) => {
   selectedConcept.value = concept
+
+  // If this is a character modal, also set it as the selected character in the store
+  if (props.modalComponent === 'CharacterSheetModal') {
+    charactersStore.selectCharacter(concept)
+  }
+
   showConceptDetail.value = true
   conceptDetailKey.value++
 }
@@ -185,10 +193,21 @@ const navigateConcept = (direction) => {
   const newIndex = currentIndex + direction;
   if (newIndex < 0 || newIndex >= props.concepts.length) return;
   selectedConcept.value = props.concepts[newIndex];
+
+  // If this is a character modal, also update the selected character in the store
+  if (props.modalComponent === 'CharacterSheetModal') {
+    charactersStore.selectCharacter(selectedConcept.value)
+  }
+
   conceptDetailKey.value++;
 }
 
 const closeConceptDetail = () => {
+  // If this is a character modal, deselect the character in the store
+  if (props.modalComponent === 'CharacterSheetModal') {
+    charactersStore.deselectCharacter()
+  }
+
   selectedConcept.value = null
   showConceptDetail.value = false
 }

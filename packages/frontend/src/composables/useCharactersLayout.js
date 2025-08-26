@@ -52,8 +52,8 @@ export function useCharactersLayout(charactersStore, equipmentStore, abilitiesSt
     showFilters: false,
     modalComponent: 'CharacterSheetModal',
     customModalProps: {
-      allEquipment: allEquipment.value,
-      allAbilities: allAbilities.value,
+      allEquipment: allEquipment.value || [],
+      allAbilities: allAbilities.value || [],
     }
   }))
 

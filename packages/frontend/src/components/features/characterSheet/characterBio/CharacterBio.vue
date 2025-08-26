@@ -1,5 +1,5 @@
 <template>
-    <CharacterSheetSection min-width="200px" max-width="300px">
+    <CharacterSheetSection min-width="200px" max-width="400px">
 
         <!-- In-Sheet Bio Display -->
         <div class="bio-content edit-hover-area" @click="openViewModal">

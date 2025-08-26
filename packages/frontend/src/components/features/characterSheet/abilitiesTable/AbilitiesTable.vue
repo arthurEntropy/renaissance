@@ -1,5 +1,5 @@
 <template>
-  <CharacterSheetSection max-width="320px">
+  <CharacterSheetSection max-width="375px">
 
     <!-- Table Header -->
     <TableHeader title="Abilities" :is-edit-mode="isEditMode" @toggle-edit="toggleEditMode">

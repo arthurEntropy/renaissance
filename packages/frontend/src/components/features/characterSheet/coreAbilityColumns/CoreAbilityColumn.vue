@@ -12,11 +12,11 @@
 
     <!-- Virtue Row -->
     <StatRow type="range" :label="columnConfig.virtueLabel" :value="virtueValue"
-      @update="(field, value) => updateNestedProperty(`${columnConfig.virtueKey}.${field}`, value)" />
+      @update="(field, value) => updateVirtueWeakness(`${columnConfig.virtueKey}.${field}`, value)" />
 
     <!-- Weakness Row -->
     <StatRow type="single" :label="columnConfig.weaknessLabel" :value="weaknessValue"
-      @update="updateNestedProperty(columnConfig.weaknessKey, $event)" />
+      @update="(value) => updateVirtueWeakness(columnConfig.weaknessKey, value)" />
 
     <!-- State Row -->
     <StatRow type="state" :label="capitalizeFirstLetter(columnConfig.firstStateKey)" :first-state="firstStateValue"
@@ -80,6 +80,11 @@ const { updateNestedProperty } = useNestedPropertyUpdate(
   computed(() => props.character),
   updateCharacter
 )
+
+// Custom handler for virtue/weakness updates
+const updateVirtueWeakness = (key, value) => {
+  updateNestedProperty(key, value)
+}
 </script>
 
 <style scoped>

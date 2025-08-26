@@ -94,7 +94,7 @@ const stateClasses = computed(() => {
 }
 
 .state-row {
-    grid-template-columns: 35% 15% 15%;
+    grid-template-columns: 34% 8% 8%;
 }
 
 .skill-name {

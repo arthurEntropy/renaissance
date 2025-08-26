@@ -28,39 +28,51 @@ class CharacterService extends BaseService {
   // STAT CHANGE HANDLER METHODS
   handleBodyChange(character) {
     this.calculateMaxEndurance(character)
+    this.calculateWeary(character)
+    this.handleStatesChange(character)
   }
   
   handleHeartChange(character) {
     this.calculateMaxHope(character)
+    this.calculateMiserable(character)
+    this.handleStatesChange(character)
   }
 
   handleWitsChange(character) {
     this.calculateMaxDefense(character)
+    this.calculateHelpless(character)
+    this.handleStatesChange(character)
   }
 
   handleEnduranceChange(character, allEquipment) {
     this.calculateLoad(character, allEquipment)
     this.calculateWeary(character)
+    this.handleStatesChange(character)
   }
 
   handleHopeChange(character) {
     this.calculateMiserable(character)
+    this.handleStatesChange(character)
   }
 
   handleDefenseChange(character) {
     this.calculateHelpless(character)
+    this.handleStatesChange(character)
   }
 
   handleLoadChange(character) {
     this.calculateWeary(character)
+    this.handleStatesChange(character)
   }
 
   handleShadowChange(character) {
     this.calculateMiserable(character)
+    this.handleStatesChange(character)
   }
 
   handleInjuryChange(character) {
     this.calculateHelpless(character)
+    this.handleStatesChange(character)
   }
 
   handleStatesChange(character) {
@@ -118,6 +130,10 @@ class CharacterService extends BaseService {
   }
 
   getTotalWeightCarried(character, allEquipment) {
+    if (!Array.isArray(allEquipment)) {
+      return 0
+    }
+    
     return character.equipment.reduce((sum, item) => {
       const equipment = allEquipment.find((eq) => eq.id === item.id)
       return item.isCarried && equipment

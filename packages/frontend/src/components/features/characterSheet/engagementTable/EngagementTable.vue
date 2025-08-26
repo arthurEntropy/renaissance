@@ -1,5 +1,5 @@
 <template>
-  <CharacterSheetSection max-width="320px">
+  <CharacterSheetSection max-width="325px">
 
     <TableHeader title="Engagement" :is-edit-mode="isEditMode" @toggle-edit="toggleEditMode">
       <template #header-right>

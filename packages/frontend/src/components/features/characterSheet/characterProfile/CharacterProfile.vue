@@ -1,5 +1,5 @@
 <template>
-  <CharacterSheetSection custom-class="character-profile" min-width="300px" max-width="390px">
+  <CharacterSheetSection custom-class="character-profile" min-width="350px" max-width="390px">
     <CharacterArt :character="character" @update-character="handleCharacterUpdate" />
     <CharacterVitals :character="character" @update-character="handleCharacterUpdate" />
 

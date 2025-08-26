@@ -5,6 +5,7 @@ import CharacterService from '@/services/characterService'
 export const useCharactersStore = defineStore('characters', () => {
   // state
   const characters = ref([])
+  const selectedCharacter = ref(null)
 
   // actions
   const fetch = async () => {
@@ -13,6 +14,14 @@ export const useCharactersStore = defineStore('characters', () => {
     } catch (error) {
       console.error('Error fetching characters:', error)
     }
+  }
+
+  const selectCharacter = (character) => {
+    selectedCharacter.value = character
+  }
+
+  const deselectCharacter = () => {
+    selectedCharacter.value = null
   }
 
   // getters
@@ -26,7 +35,10 @@ export const useCharactersStore = defineStore('characters', () => {
 
   return {
     characters,
+    selectedCharacter,
     fetch,
+    selectCharacter,
+    deselectCharacter,
     getById,
     filteredCharacters,
   }

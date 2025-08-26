@@ -76,6 +76,7 @@ export function useCharacterManagement(allEquipment) {
     // Derived stats watchers
     watch(() => selectedCharacter.value?.endurance, () => {
       if (!selectedCharacter.value || !selectedCharacter.value.endurance) return
+      if (!allEquipment.value || !Array.isArray(allEquipment.value)) return
       CharacterService.handleEnduranceChange(
         selectedCharacter.value,
         allEquipment.value
@@ -119,7 +120,7 @@ export function useCharacterManagement(allEquipment) {
     }, { deep: true })
 
     watch(() => selectedCharacter.value?.equipment, () => {
-      if (!selectedCharacter.value || !selectedCharacter.value.equipment || !allEquipment.value) return
+      if (!selectedCharacter.value || !selectedCharacter.value.equipment || !allEquipment.value || !Array.isArray(allEquipment.value)) return
       CharacterService.handleEquipmentChange(
         selectedCharacter.value,
         allEquipment.value

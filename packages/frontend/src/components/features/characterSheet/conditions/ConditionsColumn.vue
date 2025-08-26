@@ -17,6 +17,7 @@
 <script setup>
 import { capitalizeFirstLetter } from '@shared/utils/stringUtils'
 import CharacterSheetSection from '@/components/ui/containers/CharacterSheetSection.vue'
+import CharacterService from '@/services/characterService'
 
 const props = defineProps({
     character: {
@@ -37,6 +38,8 @@ const updateCondition = (conditionKey, value) => {
             [conditionKey]: value
         }
     }
+    CharacterService.updateDiceMods(updatedCharacter)
+    CharacterService.updateFavoredStatus(updatedCharacter)
     emit('update:character', updatedCharacter)
 }
 </script>
