@@ -11,19 +11,22 @@
       </div>
     </div>
 
-    <div class="section-content-container">
-      <!-- Image URL input and text editor - visible when in content edit mode -->
-      <div v-if="isContentEditMode" class="image-url-container">
-        <label for="section-image-url">Side Image URL:</label>
-        <input id="section-image-url" type="text" :value="currentSection.imageUrl"
-          @input="$emit('updateImageUrl', $event.target.value)" class="image-url-input"
-          placeholder="Enter image URL (optional)" />
-      </div>
-      <TextEditor v-if="isContentEditMode" :modelValue="currentSection.content"
-        @update:modelValue="$emit('updateContent', $event)" height="calc(100vh - 200px)" />
+    <!-- Scrollable content container -->
+    <div class="scrollable-content">
+      <div class="section-content-container">
+        <!-- Image URL input and text editor - visible when in content edit mode -->
+        <div v-if="isContentEditMode" class="image-url-container">
+          <label for="section-image-url">Side Image URL:</label>
+          <input id="section-image-url" type="text" :value="currentSection.imageUrl"
+            @input="$emit('updateImageUrl', $event.target.value)" class="image-url-input"
+            placeholder="Enter image URL (optional)" />
+        </div>
+        <TextEditor v-if="isContentEditMode" :modelValue="currentSection.content"
+          @update:modelValue="$emit('updateContent', $event)" :autoHeight="true" />
 
-      <!-- Section content when not in content edit mode -->
-      <div v-else class="content-display" v-html="safeSectionHtml">
+        <!-- Section content when not in content edit mode -->
+        <div v-else class="content-display" v-html="safeSectionHtml">
+        </div>
       </div>
     </div>
   </div>
@@ -64,19 +67,27 @@ const safeSectionHtml = computed(() => {
 
 <style scoped>
 .content-side {
-  width: 65%;
+  width: 60%;
   height: 100%;
-  padding: var(--space-xl);
   position: relative;
   z-index: var(--z-raised);
-  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Section header and name styles */
 .section-name-container {
-  margin-bottom: var(--space-xl);
   position: relative;
+  background: var(--color-bg-primary);
   z-index: var(--z-floating);
+  padding: var(--space-xl) var(--space-xl) 0 var(--space-xl);
+  flex-shrink: 0;
+}
+
+.scrollable-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0 var(--space-xl) var(--space-xl) var(--space-xl);
 }
 
 .section-header {
@@ -109,6 +120,7 @@ const safeSectionHtml = computed(() => {
 /* Content container */
 .section-content-container {
   position: relative;
+  margin-bottom: 100px;
 }
 
 /* Image URL input styles */
@@ -137,6 +149,12 @@ const safeSectionHtml = computed(() => {
 .content-display {
   text-align: left;
   line-height: var(--line-height-loose);
+  font-size: var(--font-size-16);
+}
+
+.content-display :deep(p) {
+  font-size: var(--font-size-16);
+  line-height: var(--line-height-loose);
 }
 
 .content-display :deep(h2) {
@@ -152,8 +170,15 @@ const safeSectionHtml = computed(() => {
   color: var(--color-accent-cyan);
 }
 
+.content-display :deep(img) {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: var(--space-sm) 0;
+}
+
 .content-display img {
-  width: 100%;
+  max-width: 100%;
   height: auto;
   display: block;
   margin: var(--space-sm) 0;

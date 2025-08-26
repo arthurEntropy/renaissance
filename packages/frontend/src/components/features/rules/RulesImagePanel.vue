@@ -33,16 +33,20 @@ defineProps({
     top: 0;
     height: 100%;
     z-index: var(--z-overlay);
+    pointer-events: none;
 }
 
 /* Image styles */
 .side-image {
-    position: sticky;
-    top: 0;
-    height: 100%;
+    position: fixed;
+    top: var(--nav-height);
+    right: calc((100vw - 80vw) / 2);
+    width: calc(80vw * 0.45);
+    height: calc(100vh - var(--nav-height));
     background-size: cover;
     background-position: right;
-    box-shadow: var(--shadow-inset-fade);
+    box-shadow: inset 300px 0 100px -50px var(--color-bg-primary);
+    pointer-events: auto;
 }
 
 /* Placeholder for when no image is set */

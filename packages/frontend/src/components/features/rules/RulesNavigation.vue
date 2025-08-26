@@ -20,8 +20,9 @@
           <!-- Edit controls -->
           <div class="section-controls">
             <span class="drag-handle" name="Drag to reorder">⋮⋮</span>
-            <span class="delete-section" @click.stop="$emit('confirmDeleteSection', element)"
-              name="Delete section">×</span>
+            <span class="delete-section" @click.stop="$emit('confirmDeleteSection', element)" name="Delete section">
+              <XMarkIcon class="delete-icon" />
+            </span>
           </div>
         </div>
       </template>
@@ -48,6 +49,7 @@
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import EditButton from '@/components/ui/buttons/EditButton.vue'
 import draggable from 'vuedraggable'
+import { XMarkIcon } from '@heroicons/vue/24/outline'
 
 defineProps({
   filteredSections: {
@@ -86,7 +88,7 @@ defineEmits([
 /* Navigation sidebar styles */
 .rules-navigation {
   width: 250px;
-  background: var(--color-bg-secondary);
+  background: var(--overlay-white-subtle);
   padding: var(--space-lg) 0;
   display: flex;
   flex-direction: column;
@@ -123,6 +125,7 @@ defineEmits([
   cursor: pointer;
   transition: var(--transition-color-bg);
   border-bottom: 1px solid var(--overlay-white-subtle);
+  min-height: 26px;
 }
 
 .rule-section-item:hover {
@@ -155,6 +158,7 @@ defineEmits([
   display: flex;
   gap: var(--space-xs);
   opacity: 0.5;
+  min-width: 30px;
 }
 
 .rule-section-item:hover .section-controls {
@@ -169,6 +173,13 @@ defineEmits([
 .delete-section {
   cursor: pointer;
   padding: 0 var(--space-xs);
+  display: flex;
+  align-items: center;
+}
+
+.delete-icon {
+  width: 16px;
+  height: 16px;
 }
 
 .delete-section:hover {
