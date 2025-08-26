@@ -2,19 +2,20 @@
     <div class="navigation-controls">
         <button class="navigate-button prev" @click="$emit('navigate', -1)" :disabled="!hasPrevious"
             :title="hasPrevious ? 'Previous (← Left Arrow)' : 'No previous item'">
-            &lsaquo;
+            <ChevronLeftIcon class="nav-icon" />
         </button>
 
         <slot />
 
         <button class="navigate-button next" @click="$emit('navigate', 1)" :disabled="!hasNext"
             :title="hasNext ? 'Next (→ Right Arrow)' : 'No next item'">
-            &rsaquo;
+            <ChevronRightIcon class="nav-icon" />
         </button>
     </div>
 </template>
 
 <script setup>
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/vue/24/outline'
 defineProps({
     hasPrevious: {
         type: Boolean,
@@ -45,7 +46,6 @@ defineEmits(['navigate'])
 .navigate-button {
     position: fixed;
     top: 50%;
-    padding-bottom: 7px;
     transform: translateY(-50%);
     background: var(--overlay-black-medium);
     color: var(--color-white);
@@ -53,13 +53,17 @@ defineEmits(['navigate'])
     border-radius: var(--radius-full);
     width: 60px;
     height: 60px;
-    font-size: var(--font-size-40);
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     z-index: var(--z-tooltip);
     transition: var(--transition-all);
+}
+
+.nav-icon {
+    width: 28px;
+    height: 28px;
 }
 
 .navigate-button:hover:not(:disabled) {
@@ -83,7 +87,11 @@ defineEmits(['navigate'])
     .navigate-button {
         width: 40px;
         height: 40px;
-        font-size: var(--font-size-24);
+    }
+
+    .nav-icon {
+        width: 20px;
+        height: 20px;
     }
 
     .navigate-button.prev {

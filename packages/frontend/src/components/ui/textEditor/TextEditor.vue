@@ -9,14 +9,14 @@
 </template>
 
 <script setup>
-import { ref, watch, onMounted, onBeforeUnmount, nextTick } from 'vue'
+import { ref, watch, onMounted, onBeforeUnmount, nextTick, computed } from 'vue'
 import { Editor, EditorContent } from '@tiptap/vue-3'
 import { getDiceFontClass, parseDiceFontClass } from '@shared/utils/diceFontUtils'
 import StarterKit from '@tiptap/starter-kit'
 import Link from '@tiptap/extension-link'
 import Image from '@tiptap/extension-image'
 import TextAlign from '@tiptap/extension-text-align'
-import DiceFontNode from '@/extensions/diceFontNode'
+import DiceFontNode from '@/extensions/DiceFontNode'
 import TextEditorToolbar from './TextEditorToolbar.vue'
 
 const props = defineProps({
@@ -46,6 +46,8 @@ const emit = defineEmits(['update:modelValue'])
 
 const editor = ref()
 const dynamicHeight = ref(props.height)
+const maxHeight = computed(() => props.autoHeight ? 'none' : '420px')
+const proseMirrorMaxHeight = computed(() => props.autoHeight ? 'none' : '400px')
 
 const updateHeight = () => {
   if (!props.autoHeight) return
@@ -55,9 +57,9 @@ const updateHeight = () => {
       pm.style.height = 'auto'
       const scrollHeight = pm.scrollHeight
       const minHeight = 200
-      const newHeight = Math.max(minHeight, scrollHeight)
+      const newHeight = Math.max(minHeight, scrollHeight + 50)
       dynamicHeight.value = newHeight + 'px'
-      pm.style.height = dynamicHeight.value
+      pm.style.height = 'auto'
     }
   })
 }
@@ -193,7 +195,7 @@ defineExpose({
   height: v-bind(dynamicHeight);
   min-height: 100px;
   overflow-y: auto;
-  max-height: 420px;
+  max-height: v-bind(maxHeight);
   width: 100%;
 }
 
@@ -209,9 +211,9 @@ defineExpose({
   min-height: 100px;
   overflow-y: auto;
   height: v-bind(dynamicHeight);
-  max-height: 400px;
+  max-height: v-bind(proseMirrorMaxHeight);
   box-sizing: border-box;
-  font-size: var(--font-size-18);
+  font-size: var(--font-size-16);
   line-height: var(--line-height-normal);
 }
 
@@ -253,7 +255,7 @@ defineExpose({
 
 :deep(.ProseMirror img),
 :deep(.editor-image) {
-  width: 100%;
+  max-width: 100%;
   height: auto;
   display: block;
   margin: 0.5em 0;

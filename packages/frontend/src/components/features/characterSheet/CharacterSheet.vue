@@ -5,10 +5,11 @@
         </div>
 
         <!-- Character Sheet Content -->
-        <div class="modal-content-base">
+        <div class="modal-content, modal-content-base">
             <div class="top-section">
+                <CharacterProfile :character="localCharacter" @update-character="updateCharacter" />
+                <CharacterBio :character="localCharacter" @update-character="updateCharacter" />
                 <DiceRollResults :latestRoll="latestRoll" />
-                <CharacterBioSection :character="localCharacter" @update-character="updateCharacter" />
             </div>
 
             <div class="character-stats-section">
@@ -19,20 +20,13 @@
                 <CoreAbilityColumn :character="localCharacter" column="wits" @update-character="updateCharacter"
                     @open-skill-check="openSkillCheckModal" />
                 <ConditionsColumn :character="localCharacter" @update:character="updateCharacter" />
-
-                <div class="main-column">
-                    <EngagementTable :character="localCharacter" :allEquipment="allEquipment"
-                        @update:character="updateCharacter" @engagement-results="handleEngagementResults" />
-                </div>
-                <div class="main-column">
-                    <EquipmentTable :equipment="localCharacter.equipment" :allEquipment="allEquipment"
-                        :character="localCharacter" @update-character="updateCharacter"
-                        @edit-custom-equipment="openEditEquipmentModal" />
-                </div>
-                <div class="main-column">
-                    <AbilitiesTable :character="localCharacter" :allAbilities="allAbilities"
-                        @update-character="updateCharacter" />
-                </div>
+                <EngagementTable :character="localCharacter" :allEquipment="allEquipment"
+                    @update:character="updateCharacter" @engagement-results="handleEngagementResults" />
+                <EquipmentTable :equipment="localCharacter.equipment" :allEquipment="allEquipment"
+                    :character="localCharacter" @update-character="updateCharacter"
+                    @edit-custom-equipment="openEditEquipmentModal" />
+                <AbilitiesTable :character="localCharacter" :allAbilities="allAbilities"
+                    @update-character="updateCharacter" />
             </div>
         </div>
 
@@ -50,11 +44,13 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue'
+import { computed } from 'vue'
 import { useModal } from '@/composables/useModal'
 import { useSkillCheck } from '@/composables/useSkillCheck'
 import { useEquipmentManagement } from '@/composables/useEquipmentManagement'
-import CharacterBioSection from '@/components/features/characterSheet/characterBioSection/CharacterBioSection.vue'
+import { useCharacterManagement } from '@/composables/useCharacterManagement'
+import CharacterProfile from '@/components/features/characterSheet/characterProfile/CharacterProfile.vue'
+import CharacterBio from '@/components/features/characterSheet/characterBio/CharacterBio.vue'
 import CoreAbilityColumn from '@/components/features/characterSheet/coreAbilityColumns/CoreAbilityColumn.vue'
 import ConditionsColumn from '@/components/features/characterSheet/conditions/ConditionsColumn.vue'
 import EquipmentTable from '@/components/features/characterSheet/equipmentTable/EquipmentTable.vue'
@@ -66,10 +62,6 @@ import CharacterSettingsModal from '@/components/features/characterSheet/modals/
 import EditEquipmentModal from '@/components/editModals/EditEquipmentModal.vue'
 
 const props = defineProps({
-    character: {
-        type: Object,
-        required: true
-    },
     allEquipment: {
         type: Array,
         default: () => []
@@ -82,13 +74,18 @@ const props = defineProps({
 
 const emit = defineEmits(['close', 'update:character', 'delete:character'])
 
-// Local character state for immediate updates
-const localCharacter = ref({ ...props.character })
+// Character management with automatic watchers
+const {
+    selectedCharacter,
+    updateCharacter: updateCharacterService,
+    watchCharacterStats
+} = useCharacterManagement(computed(() => props.allEquipment || []))
 
-// Watch for prop changes and sync local state
-watch(() => props.character, (newCharacter) => {
-    localCharacter.value = { ...newCharacter }
-}, { deep: true })
+// Start watching for automatic state recalculation
+watchCharacterStats()
+
+// Use selectedCharacter as localCharacter for backward compatibility
+const localCharacter = selectedCharacter
 
 // Modal management
 const {
@@ -121,7 +118,8 @@ const {
 
 // Character update handler
 const updateCharacter = (updatedCharacter) => {
-    localCharacter.value = { ...updatedCharacter }
+    // Use the character management service which triggers automatic watchers
+    updateCharacterService(updatedCharacter)
     emit('update:character', updatedCharacter)
 }
 
@@ -139,19 +137,8 @@ const handleDeleteCharacter = () => {
 </script>
 
 <style scoped>
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: var(--overlay-black-medium);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: var(--z-modal);
-    overflow-y: auto;
-    padding: var(--space-md);
+.modal-content {
+    max-width: 1275px;
 }
 
 .character-sheet-header {
@@ -188,7 +175,7 @@ const handleDeleteCharacter = () => {
     max-height: 90vh;
     overflow-y: auto;
     position: relative;
-    margin-top: calc(var(--space-xl) * 2);
+    margin-top: 20px;
     padding: var(--space-xl);
     display: flex;
     flex-direction: column;
@@ -198,9 +185,9 @@ const handleDeleteCharacter = () => {
 .top-section {
     display: flex;
     width: 100%;
-    gap: var(--space-md);
-    justify-content: space-between;
-    margin-bottom: var(--space-md);
+    gap: var(--space-lg);
+    justify-content: center;
+    margin-bottom: var(--space-lg);
 }
 
 @media (max-width: var(--breakpoint-md)) {
@@ -215,20 +202,13 @@ const handleDeleteCharacter = () => {
     flex-wrap: wrap;
     width: 100%;
     justify-content: center;
-    gap: var(--space-md);
+    gap: var(--space-lg);
 }
 
 @media (max-width: var(--breakpoint-lg)) {
     .character-stats-section {
-        gap: var(--space-sm);
+        gap: var(--space-md);
     }
-}
-
-.main-column {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    min-width: 280px;
 }
 
 @media (max-width: var(--breakpoint-sm)) {

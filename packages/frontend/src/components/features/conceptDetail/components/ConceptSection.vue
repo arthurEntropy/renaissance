@@ -69,6 +69,7 @@ defineEmits(['toggle-edit'])
 
 .empty-section-placeholder {
     padding: var(--space-xl);
+    margin: var(--space-md) 0;
     text-align: center;
     color: var(--color-text-tertiary);
     font-style: italic;

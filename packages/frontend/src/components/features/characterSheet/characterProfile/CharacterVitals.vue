@@ -26,12 +26,6 @@
             </div>
         </div>
 
-        <!-- XP Badge -->
-        <div class="xp-badge">
-            <span class="xp-label">XP:</span>
-            <NumberInput :model-value="character.xp || 0" @update:model-value="updateXP" :min="0" size="small" />
-        </div>
-
         <!-- Edit Modal -->
         <CharacterVitalsEditModal v-if="isEditModalOpen" :character="character" @close="closeEditModal"
             @update-character="handleCharacterUpdate" />
@@ -44,7 +38,6 @@ import { useAncestriesStore } from '@/stores/ancestriesStore'
 import { useCulturesStore } from '@/stores/culturesStore'
 import { useMestieriStore } from '@/stores/mestieriStore'
 import EditButton from '@/components/ui/buttons/EditButton.vue'
-import NumberInput from '@/components/ui/forms/NumberInput.vue'
 import CharacterVitalsEditModal from './CharacterVitalsEditModal.vue'
 
 const ancestryStore = useAncestriesStore()
@@ -96,10 +89,6 @@ const handleCharacterUpdate = (updatedCharacter) => {
     emit('update-character', updatedCharacter)
 }
 
-const updateXP = (newValue) => {
-    emit('update-character', { ...props.character, xp: newValue })
-}
-
 onMounted(() => {
     ancestryStore.fetch()
     cultureStore.fetch()
@@ -111,13 +100,14 @@ onMounted(() => {
 .vitals-info {
     position: relative;
     flex: 1;
-    min-width: 200px;
+    min-width: 0;
+    overflow: hidden;
 }
 
 .edit-button-overlay {
     position: absolute;
-    top: var(--space-xs);
-    right: var(--space-sm);
+    top: 0;
+    right: 0;
     z-index: var(--z-raised);
 }
 
@@ -133,6 +123,8 @@ onMounted(() => {
     margin: 0;
     font-size: var(--font-size-24);
     color: var(--color-white);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 .character-pronouns {
@@ -163,6 +155,8 @@ onMounted(() => {
 .vitals-value {
     color: var(--color-white);
     font-size: var(--font-size-14);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 @media (max-width: calc(var(--breakpoint-md) - 1px)) {
@@ -175,24 +169,5 @@ onMounted(() => {
         margin-left: 0;
         margin-top: var(--space-xs);
     }
-}
-
-.xp-badge {
-    position: absolute;
-    bottom: 0px;
-    right: 0px;
-    display: flex;
-    align-items: center;
-    gap: var(--space-xs);
-    background-color: var(--color-gray-dark);
-    padding: var(--space-xs) var(--space-md);
-    /* Top left radius */
-    border-top-left-radius: var(--radius-5);
-}
-
-.xp-label {
-    font-size: var(--font-size-14);
-    margin-right: 5px;
-    font-style: italic;
 }
 </style>

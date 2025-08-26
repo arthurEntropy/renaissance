@@ -30,7 +30,7 @@ defineEmits(['select'])
   cursor: pointer;
   width: 200px;
   position: relative;
-  border: 2px solid var(--color-gray-dark);
+  box-shadow: var(--shadow-glow-sm);
 }
 
 /* White glow on hover */

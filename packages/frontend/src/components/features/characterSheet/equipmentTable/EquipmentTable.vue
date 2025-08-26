@@ -1,5 +1,5 @@
 <template>
-  <div class="equipment-table">
+  <CharacterSheetSection max-width="375px">
     <TableHeader title="Equipment" :is-edit-mode="isEditMode" @toggle-edit="toggleEditMode">
       <template #header-right>
         <EquipmentWeight :equipment-rows="characterEquipmentRows" />
@@ -18,7 +18,7 @@
           <div class="equipment-card-col">
             <EquipmentCard v-if="row.equipment" :equipment="row.equipment" :collapsed="getCollapsedState(row.equipment)"
               @update:collapsed="setCollapsedState(row.equipment, $event)" :editable="row.equipment.isCustom"
-              class="equipment-card" @edit="editCustomItem" :collapsible="true" :show-sol-badge="false" />
+              class="equipment-card" @edit="editCustomItem" :collapsible="true" :show-keeping-badge="false" />
 
             <span v-else class="missing-equipment">Unknown item</span>
 
@@ -45,7 +45,7 @@
       </template>
     </ItemSelector>
 
-  </div>
+  </CharacterSheetSection>
 </template>
 
 <script setup>
@@ -58,6 +58,7 @@ import TableHeader from '@/components/ui/tables/TableHeader.vue'
 import FloatingEditControls from '@/components/ui/controls/FloatingEditControls.vue'
 import ItemSelector from '@/components/ui/selectors/ItemSelector.vue'
 import AddButton from '@/components/ui/buttons/AddButton.vue'
+import CharacterSheetSection from '@/components/ui/containers/CharacterSheetSection.vue'
 import draggable from 'vuedraggable'
 import { useTableEditMode } from '@/composables/useTableEditMode'
 import { useItemManagement } from '@/composables/useItemManagement'
@@ -238,16 +239,6 @@ const closeEquipmentSelector = () => {
 </script>
 
 <style scoped>
-.equipment-table {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  background-color: var(--overlay-black-heavy);
-  padding: var(--space-lg);
-  border-radius: var(--radius-5);
-  position: relative;
-}
-
 .equipment-list {
   width: 100%;
   min-width: 0;
@@ -303,13 +294,5 @@ const closeEquipmentSelector = () => {
   background: var(--overlay-white-subtle);
   border: 2px dashed var(--color-gray-light);
   border-radius: var(--radius-5);
-}
-
-@media (max-width: var(--breakpoint-sm)) {
-  .equipment-table {
-    width: 95%;
-    margin: var(--space-md);
-    padding: var(--space-md);
-  }
 }
 </style>

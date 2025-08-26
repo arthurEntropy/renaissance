@@ -1,5 +1,5 @@
 <template>
-  <div class="engagement-table">
+  <CharacterSheetSection max-width="325px">
 
     <TableHeader title="Engagement" :is-edit-mode="isEditMode" @toggle-edit="toggleEditMode">
       <template #header-right>
@@ -24,7 +24,7 @@
       :dropdownPosition="dropdownPosition" @remove-success="removeUserAddedSuccess" @add-success="toggleSuccessDropdown"
       @select-success="addUserAddedSuccess" />
 
-  </div>
+  </CharacterSheetSection>
 </template>
 
 <script setup>
@@ -32,6 +32,7 @@ import { ref, toRef } from 'vue'
 import EngagementRollModal from '@/components/features/characterSheet/engagementModal/EngagementRollModal.vue'
 import TableHeader from '@/components/ui/tables/TableHeader.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
+import CharacterSheetSection from '@/components/ui/containers/CharacterSheetSection.vue'
 import EngagementDiceDisplay from './EngagementDiceDisplay.vue'
 import EngagementSuccessDisplay from './EngagementSuccessDisplay.vue'
 import { useTableEditMode } from '@/composables/useTableEditMode'
@@ -148,16 +149,6 @@ successManager.fetchEngagementSuccesses()
 </script>
 
 <style scoped>
-.engagement-table {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  background-color: var(--color-black);
-  padding: var(--space-lg);
-  border-radius: var(--radius-5);
-  position: relative;
-}
-
 .button-group {
   display: flex;
   gap: var(--space-sm);
@@ -165,12 +156,5 @@ successManager.fetchEngagementSuccesses()
 
 .engagement-dice-content {
   width: 100%;
-}
-
-@media (max-width: var(--breakpoint-sm)) {
-  .engagement-table {
-    width: 90%;
-    padding: var(--space-md);
-  }
 }
 </style>

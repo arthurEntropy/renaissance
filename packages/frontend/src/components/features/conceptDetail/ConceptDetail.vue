@@ -290,7 +290,7 @@ onMounted(async () => {
     await expansionStore.fetch()
     expansions.value = expansionStore.expansions
   } catch (error) {
-    console.error('Error initializing ConceptDetailModal:', error)
+    console.error('Error initializing ConceptDetail:', error)
   }
 })
 </script>
@@ -298,7 +298,7 @@ onMounted(async () => {
 <style scoped>
 /* Component-specific overrides */
 .modal-content {
-  max-width: 1400px;
+  max-width: 1275px;
 }
 
 /* Global styles */

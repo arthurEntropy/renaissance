@@ -1,5 +1,5 @@
 <template>
-  <div class="dice-roll-results">
+  <CharacterSheetSection custom-class="dice-roll-results" min-width="250px" max-width="250px">
     <div v-if="latestRoll" class="roll-content">
       <div class="roll-title">
         <span v-if="isEngagement">
@@ -77,7 +77,7 @@
         <div class="hover-text">Roll results will appear here.</div>
       </div>
     </div>
-  </div>
+  </CharacterSheetSection>
 </template>
 
 <script setup>
@@ -85,6 +85,7 @@ import { computed, ref } from 'vue'
 import { getDiceFontClass } from '@shared/utils/diceFontUtils'
 import { RollTypes } from '@/constants/rollTypes'
 import { EngagementResultTypes } from '@/constants/engagementResultTypes'
+import CharacterSheetSection from '@/components/ui/containers/CharacterSheetSection.vue'
 import DiceDisplay from './DiceDisplay.vue'
 
 // Props
@@ -125,16 +126,9 @@ const getCircularPosition = (index, total) => {
 
 <style scoped>
 .dice-roll-results {
-  background-color: var(--color-black);
-  border-radius: var(--radius-5);
-  padding: var(--space-md);
   align-self: stretch;
-  display: flex;
-  flex-direction: column;
   justify-content: center;
-  flex: 1;
-  min-width: 200px;
-  margin-bottom: 10px;
+  align-items: center;
 }
 
 .roll-content {

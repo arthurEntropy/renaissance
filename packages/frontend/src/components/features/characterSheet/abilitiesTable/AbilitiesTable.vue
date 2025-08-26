@@ -1,5 +1,5 @@
 <template>
-  <div class="abilities-table">
+  <CharacterSheetSection max-width="375px">
 
     <!-- Table Header -->
     <TableHeader title="Abilities" :is-edit-mode="isEditMode" @toggle-edit="toggleEditMode">
@@ -43,7 +43,7 @@
       :get-source-name="sourceUtils.getSourceName" @close="toggleAbilitySelector" @select="selectAbility"
       @search="handleAbilitySearch" />
 
-  </div>
+  </CharacterSheetSection>
 </template>
 
 <script setup>
@@ -53,6 +53,7 @@ import TableHeader from '@/components/ui/tables/TableHeader.vue'
 import FloatingEditControls from '@/components/ui/controls/FloatingEditControls.vue'
 import ItemSelector from '@/components/ui/selectors/ItemSelector.vue'
 import AddButton from '@/components/ui/buttons/AddButton.vue'
+import CharacterSheetSection from '@/components/ui/containers/CharacterSheetSection.vue'
 import MPDisplay from './MPDisplay.vue'
 import draggable from 'vuedraggable'
 import { useTableEditMode } from '@/composables/useTableEditMode'
@@ -159,16 +160,6 @@ const selectAbility = (ability) => {
 </script>
 
 <style scoped>
-.abilities-table {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  background-color: var(--color-black);
-  padding: var(--space-lg);
-  border-radius: var(--radius-5);
-  position: relative;
-}
-
 .abilities-list,
 .abilities-edit-list {
   width: 100%;
@@ -210,12 +201,6 @@ const selectAbility = (ability) => {
 }
 
 @media (max-width: var(--breakpoint-sm)) {
-  .abilities-table {
-    width: 80%;
-    margin: var(--space-md);
-    padding: var(--space-md);
-  }
-
   .ability-card {
     width: 90%;
   }

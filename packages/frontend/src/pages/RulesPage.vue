@@ -135,12 +135,12 @@ onMounted(async () => {
 
 <style scoped>
 .rules-view {
-  /* Adjusted to fit space below top nav */
-  margin-top: calc(-1 * var(--space-lg));
-  height: 93.5vh;
+  margin-top: -18px;
+  height: calc(100vh - 50px);
   display: flex;
   flex-direction: column;
   width: 80%;
+  overflow: hidden;
 }
 
 .rules-container {
@@ -170,6 +170,7 @@ onMounted(async () => {
   display: flex;
   height: 100%;
   position: relative;
+  overflow-y: auto;
 }
 
 /* Section content styles */

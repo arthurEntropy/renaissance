@@ -29,8 +29,8 @@ const totalWeight = computed(() => {
     display: flex;
     align-items: center;
     background-color: var(--color-gray-dark);
-    padding: var(--space-xs) 10px;
-    border-radius: var(--radius-5);
+    padding: var(--space-xs) var(--space-lg);
+    border-radius: var(--radius-15);
     width: auto;
     gap: var(--space-xs);
 }
