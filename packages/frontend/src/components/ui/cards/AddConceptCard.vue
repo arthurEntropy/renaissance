@@ -20,11 +20,10 @@ defineEmits(['click'])
 @import '@/styles/design-tokens.css';
 
 .add-concept-card {
-    width: 250px;
-    height: 270px;
+    width: 200px;
     background: var(--overlay-white-medium);
-    border: 2px dashed var(--overlay-white-subtle);
-    border-radius: var(--radius-10);
+    border: 2px dashed var(--color-gray-light);
+    border-radius: var(--radius-5);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -32,11 +31,12 @@ defineEmits(['click'])
     cursor: pointer;
     transition: var(--transition-all);
     margin: var(--space-md);
+    padding: var(--space-xl);
 }
 
 .add-concept-card:hover {
     background: var(--overlay-white-subtle);
-    border-color: var(--overlay-white-medium);
+    border-color: var(--color-white);
 }
 
 .add-icon {
