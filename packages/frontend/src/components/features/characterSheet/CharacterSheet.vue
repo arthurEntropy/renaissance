@@ -10,7 +10,8 @@
                 <CharacterProfile :character="localCharacter" @update-character="updateCharacter" />
                 <CharacterBio :character="localCharacter" @update-character="updateCharacter" />
                 <DiceRollResults :latestRoll="latestRoll" />
-                <CustomDiceRoller :character="localCharacter" @update-character="updateCharacter" />
+                <CustomDiceRoller :character="localCharacter" @update-character="updateCharacter"
+                    @custom-roll="handleCustomRollResult" />
             </div>
 
             <div class="character-stats-section">
@@ -27,13 +28,13 @@
                 <AbilitiesTable :character="localCharacter" :allAbilities="allAbilities"
                     @update-character="updateCharacter" />
                 <EngagementTable :character="localCharacter" :allEquipment="allEquipment"
-                    @update:character="updateCharacter" @engagement-results="handleEngagementResults" />
+                    @update:character="updateCharacter" @engagement-results="handleEngagementResult" />
             </div>
         </div>
 
         <!-- Modals -->
         <SkillCheckModal v-if="showSkillCheckModal" :character="localCharacter" :selectedSkillName="selectedSkillName"
-            :defaultTargetNumber="getLastTargetNumber()" @close="closeSkillCheckModal"
+            :defaultTargetNumber="getLastTargetNumber()" @close="closeSkillCheckModalAndUpdate"
             @update-target-number="updateLastTargetNumber" />
 
         <CharacterSettingsModal v-if="showSettingsModal" :characterName="localCharacter.name"
@@ -48,6 +49,7 @@
 import { computed } from 'vue'
 import { useModal } from '@/composables/useModal'
 import { useSkillCheck } from '@/composables/useSkillCheck'
+import { useDiceResults } from '@/composables/useDiceResults'
 import { useEquipmentManagement } from '@/composables/useEquipmentManagement'
 import { useCharacterManagement } from '@/composables/useCharacterManagement'
 import CharacterProfile from '@/components/features/characterSheet/characterProfile/CharacterProfile.vue'
@@ -96,17 +98,29 @@ const {
     closeModal: closeSettingsModal
 } = useModal()
 
-// Skill check functionality
+// Skill check modal functionality
 const {
     showSkillCheckModal,
     selectedSkillName,
-    latestRoll,
     openSkillCheckModal,
     closeSkillCheckModal,
-    handleEngagementResults,
     getLastTargetNumber,
     updateLastTargetNumber
 } = useSkillCheck()
+
+// Dice results management
+const {
+    latestRoll,
+    handleEngagementResult,
+    handleCustomRollResult,
+    updateLatestRoll
+} = useDiceResults()
+
+// Enhanced close skill check modal to update latest roll
+const closeSkillCheckModalAndUpdate = () => {
+    closeSkillCheckModal()
+    updateLatestRoll()
+}
 
 // Equipment management
 const {

@@ -9,11 +9,16 @@
           <span class="skill-name">{{ latestRoll.opponentName }}</span>
         </span>
 
+        <span v-else-if="isCustomRoll">
+          {{ latestRoll.characterName }} rolled
+          <span class="skill-name">{{ latestRoll.skillName }}</span>
+        </span>
+
         <span v-else>
           {{ latestRoll.characterName }} rolled
           <span class="skill-name">{{
             latestRoll.baseSkillName || latestRoll.skillName
-            }}</span>
+          }}</span>
           <span v-if="latestRoll.favoredStatus" :class="{
             'favored-modifier': latestRoll.favoredStatus === 'favored',
             'ill-favored-modifier': latestRoll.favoredStatus === 'ill-favored',
@@ -24,7 +29,7 @@
       </div>
 
       <transition name="outcome-fade" appear>
-        <div v-if="!isRolling" class="roll-outcome" :class="{
+        <div v-if="!isRolling && !isCustomRoll" class="roll-outcome" :class="{
           success: isEngagement ? latestRoll.result === EngagementResultTypes.WIN : latestRoll.success,
           failure: isEngagement ? latestRoll.result === EngagementResultTypes.LOSS : !latestRoll.success,
           draw: isEngagement && latestRoll.result === EngagementResultTypes.DRAW
@@ -50,6 +55,12 @@
             <span v-if="latestRoll.drawCount && latestRoll.drawCount > 0" class="draw-count">
               , <span class="draw-number">{{ latestRoll.drawCount }}</span> {{ latestRoll.drawCount === 1 ? 'draw' :
                 'draws' }}
+            </span>
+          </span>
+          <span v-else-if="isCustomRoll">
+            <span class="roll-total custom-roll">{{ latestRoll.total }}</span>
+            <span v-if="latestRoll.modifier !== 0" class="roll-breakdown">
+              ({{ latestRoll.diceTotal }}{{ latestRoll.modifier >= 0 ? '+' : '' }}{{ latestRoll.modifier }})
             </span>
           </span>
           <span v-else>
@@ -102,6 +113,10 @@ const diceDisplayRef = ref(null)
 // Computed properties
 const isEngagement = computed(() => {
   return props.latestRoll && props.latestRoll.type === RollTypes.ENGAGEMENT
+})
+
+const isCustomRoll = computed(() => {
+  return props.latestRoll && props.latestRoll.type === RollTypes.CUSTOM_ROLL
 })
 
 const isRolling = computed(() => {
@@ -195,7 +210,7 @@ const getCircularPosition = (index, total) => {
   font-weight: var(--font-weight-bold);
 }
 
-.roll-total::after {
+.roll-total:not(.custom-roll)::after {
   content: ' / ';
   color: var(--color-gray-medium);
   margin: 0 2px;
@@ -204,6 +219,13 @@ const getCircularPosition = (index, total) => {
 .roll-target {
   font-size: var(--font-size-20);
   color: var(--color-gray-light);
+}
+
+.roll-breakdown {
+  font-size: var(--font-size-14);
+  color: var(--color-gray-light);
+  font-style: italic;
+  margin-left: var(--space-xs);
 }
 
 .engagement-score {
