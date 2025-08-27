@@ -402,6 +402,7 @@ class CharacterService extends BaseService {
         afraid: false,
         troubled: false,
       },
+      speed: 0,
       equipment: [],
       artUrls: [CharacterService.DEFAULT_ART_URL],
       activeEffects: [],

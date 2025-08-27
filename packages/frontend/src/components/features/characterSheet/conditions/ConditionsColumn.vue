@@ -5,11 +5,19 @@
             <div class="conditions-row" v-for="(value, key) in character.conditions" :key="key">
                 <span :class="{ 'condition-active': value }">{{
                     capitalize(key)
-                    }}</span>
+                }}</span>
                 <input type="checkbox" class="skill-checkbox" :class="{ 'condition-active-checkbox': value }"
                     :checked="value" @change="updateCondition(key, $event.target.checked)" />
             </div>
             <div class="conditions-row" style="border-bottom: none"></div>
+        </CharacterSheetSection>
+
+        <CharacterSheetSection custom-class="speed-column">
+            <div class="speed-row">
+                <span class="speed-name">Speed</span>
+                <NumberInput :model-value="character.speed || 0" @update:model-value="updateSpeed" :min="0"
+                    size="small" />
+            </div>
         </CharacterSheetSection>
     </div>
 </template>
@@ -17,6 +25,7 @@
 <script setup>
 import { capitalizeFirstLetter } from '@shared/utils/stringUtils'
 import CharacterSheetSection from '@/components/ui/containers/CharacterSheetSection.vue'
+import NumberInput from '@/components/ui/forms/NumberInput.vue'
 import CharacterService from '@/services/characterService'
 
 const props = defineProps({
@@ -42,6 +51,14 @@ const updateCondition = (conditionKey, value) => {
     CharacterService.updateFavoredStatus(updatedCharacter)
     emit('update:character', updatedCharacter)
 }
+
+const updateSpeed = (value) => {
+    const updatedCharacter = {
+        ...props.character,
+        speed: value
+    }
+    emit('update:character', updatedCharacter)
+}
 </script>
 
 <style scoped>
@@ -55,9 +72,19 @@ const updateCondition = (conditionKey, value) => {
     width: 100px;
 }
 
+.speed-column {
+    align-items: center;
+    width: 100px;
+    margin-top: var(--space-lg);
+}
+
 @media (max-width: var(--breakpoint-sm)) {
     .conditions-column {
         margin: 0 calc(var(--space-xl) * 2);
+    }
+
+    .speed-column {
+        margin: var(--space-md) calc(var(--space-xl) * 2) 0;
     }
 }
 
@@ -78,6 +105,18 @@ const updateCondition = (conditionKey, value) => {
     margin: var(--space-xs) 0;
     height: 25px;
     border-bottom: 1px solid var(--color-gray-dark);
+}
+
+.speed-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 25px;
+}
+
+.speed-name {
+    font-size: var(--font-size-14);
 }
 
 .condition-active {
