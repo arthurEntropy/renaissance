@@ -21,13 +21,13 @@
                 <CoreAbilityColumn :character="localCharacter" column="wits" @update-character="updateCharacter"
                     @open-skill-check="openSkillCheckModal" />
                 <ConditionsColumn :character="localCharacter" @update:character="updateCharacter" />
-                <EngagementTable :character="localCharacter" :allEquipment="allEquipment"
-                    @update:character="updateCharacter" @engagement-results="handleEngagementResults" />
                 <EquipmentTable :equipment="localCharacter.equipment" :allEquipment="allEquipment"
                     :character="localCharacter" @update-character="updateCharacter"
                     @edit-custom-equipment="openEditEquipmentModal" />
                 <AbilitiesTable :character="localCharacter" :allAbilities="allAbilities"
                     @update-character="updateCharacter" />
+                <EngagementTable :character="localCharacter" :allEquipment="allEquipment"
+                    @update:character="updateCharacter" @engagement-results="handleEngagementResults" />
             </div>
         </div>
 
