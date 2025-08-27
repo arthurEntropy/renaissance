@@ -10,6 +10,7 @@
                 <CharacterProfile :character="localCharacter" @update-character="updateCharacter" />
                 <CharacterBio :character="localCharacter" @update-character="updateCharacter" />
                 <DiceRollResults :latestRoll="latestRoll" />
+                <CustomDiceRoller :character="localCharacter" @update-character="updateCharacter" />
             </div>
 
             <div class="character-stats-section">
@@ -60,6 +61,7 @@ import DiceRollResults from '@/components/features/characterSheet/diceRollResult
 import SkillCheckModal from '@/components/features/characterSheet/modals/SkillCheckModal.vue'
 import CharacterSettingsModal from '@/components/features/characterSheet/modals/CharacterSettingsModal.vue'
 import EditEquipmentModal from '@/components/editModals/EditEquipmentModal.vue'
+import CustomDiceRoller from './customDiceRoller/CustomDiceRoller.vue'
 
 const props = defineProps({
     allEquipment: {

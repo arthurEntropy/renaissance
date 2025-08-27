@@ -61,12 +61,12 @@ const getDiceClasses = (diceIndex) => {
 
 .d6-icon {
     opacity: 0.4;
-    color: var(--color-gray-light);
+    color: var(--color-text-secondary);
 }
 
 .dice-active {
     opacity: 1;
-    color: var(--color-gray-light);
+    color: var(--color-text-primary);
 }
 
 .dice-added {
