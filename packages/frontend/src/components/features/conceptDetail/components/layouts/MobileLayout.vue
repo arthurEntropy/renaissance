@@ -13,7 +13,7 @@
 
         <!-- 3. Traits & Abilities -->
         <ConceptAbilitiesSection :abilities="abilities" :is-edit-mode="isEditMode" :sources="sources"
-            @edit-ability="$emit('edit-ability', $event)" />
+            :conceptId="concept.id" @edit-ability="$emit('edit-ability', $event)" @add-ability="$emit('add-ability')" />
 
         <!-- 4. Faces -->
         <ConceptImageSection title="Faces" :images="concept.faces || []" :is-edit-mode="isEditMode" :grid-columns="3"
@@ -42,7 +42,8 @@
 
         <!-- 8. Wares (Equipment) -->
         <ConceptEquipmentSection :equipment="equipment" :is-edit-mode="isEditMode" :sources="sources"
-            @edit-equipment="$emit('edit-equipment', $event)" />
+            :conceptId="concept.id" @edit-equipment="$emit('edit-equipment', $event)"
+            @add-equipment="$emit('add-equipment')" />
 
         <!-- 9. Playlists -->
         <PlaylistSection :playlists="concept.playlists || []" :editable="isEditMode"
@@ -106,6 +107,8 @@ defineEmits([
     'update:novizio',
     'edit-ability',
     'edit-equipment',
+    'add-ability',
+    'add-equipment',
     'unsaved-changes',
     'reset-unsaved-changes'
 ])

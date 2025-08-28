@@ -5,6 +5,10 @@
             <EquipmentCard v-for="item in equipment" :key="item.id" :equipment="item" :editable="isEditMode"
                 :sources="sources" @edit="$emit('edit-equipment', item)" :collapsible="false" :showSource="false" />
         </MasonryGrid>
+        <div class="add-button-container">
+            <AddButton :show="isEditMode" @click="$emit('add-equipment')" title="Add new item"
+                position="bottom-center" />
+        </div>
     </ConceptSection>
 </template>
 
@@ -13,6 +17,7 @@ import { computed } from 'vue'
 import ConceptSection from './ConceptSection.vue'
 import EquipmentCard from '@/components/ui/cards/EquipmentCard.vue'
 import MasonryGrid from '@/components/ui/layouts/MasonryGrid.vue'
+import AddButton from '@/components/ui/buttons/AddButton.vue'
 
 const props = defineProps({
     equipment: {
@@ -26,10 +31,14 @@ const props = defineProps({
     sources: {
         type: Array,
         default: () => []
+    },
+    conceptId: {
+        type: String,
+        default: null
     }
 })
 
-defineEmits(['edit-equipment'])
+defineEmits(['edit-equipment', 'add-equipment'])
 
 const hasEquipment = computed(() => {
     return props.equipment && props.equipment.length > 0
@@ -37,5 +46,11 @@ const hasEquipment = computed(() => {
 </script>
 
 <style scoped>
-/* No component-specific styles needed - using shared cards-container */
+.add-button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    position: relative;
+    min-height: 40px;
+}
 </style>

@@ -17,7 +17,8 @@
         <RightColumn :concept="localConcept" :abilities="abilities" :equipment="equipment" :sources="sources"
           :is-edit-mode="isEditMode" :expansion="expansion" @update:name="updateName"
           @update:description="updateDescription" @update:local-flavor="updateLocalFlavor" @update:hooks="updateHooks"
-          @edit-ability="emitAbilityEdit" @edit-equipment="emitEquipmentEdit" @unsaved-changes="onSectionUnsavedChanges"
+          @edit-ability="emitAbilityEdit" @edit-equipment="emitEquipmentEdit" @add-ability="createNewAbility"
+          @add-equipment="createNewEquipment" @unsaved-changes="onSectionUnsavedChanges"
           @reset-unsaved-changes="onSectionResetUnsavedChanges" />
       </div>
 
@@ -27,8 +28,8 @@
         @update:name="updateName" @update:description="updateDescription" @update:local-flavor="updateLocalFlavor"
         @update:hooks="updateHooks" @update:faces="updateFaces" @update:places="updatePlaces"
         @update:playlists="updatePlaylists" @update:novizio="updateNovizio" @edit-ability="emitAbilityEdit"
-        @edit-equipment="emitEquipmentEdit" @unsaved-changes="onSectionUnsavedChanges"
-        @reset-unsaved-changes="onSectionResetUnsavedChanges" />
+        @edit-equipment="emitEquipmentEdit" @add-ability="createNewAbility" @add-equipment="createNewEquipment"
+        @unsaved-changes="onSectionUnsavedChanges" @reset-unsaved-changes="onSectionResetUnsavedChanges" />
     </div>
 
     <!-- Settings Modal -->
@@ -177,7 +178,8 @@ const emitUpdateEvent = () => {
 
 const {
   abilities,
-  equipment
+  equipment,
+  refreshData
 } = useConceptData(localConcept)
 
 const {
@@ -244,7 +246,8 @@ const saveEditedAbility = async (editedAbility) => {
   try {
     await AbilityService.update(editedAbility)
     closeEditAbilityModal()
-    abilitiesStore.fetch()
+    await abilitiesStore.fetch()
+    refreshData()
   } catch (error) {
     console.error('Error updating ability:', error)
   }
@@ -255,6 +258,8 @@ const deleteAbility = async (ability) => {
     const updatedAbility = { ...ability, isDeleted: true }
     await AbilityService.update(updatedAbility)
     closeEditAbilityModal()
+    await abilitiesStore.fetch()
+    refreshData()
   } catch (error) {
     console.error('Error deleting ability:', error)
   }
@@ -262,9 +267,10 @@ const deleteAbility = async (ability) => {
 
 const saveEditedEquipment = async (editedEquipment) => {
   try {
-    await EquipmentService.updateEquipment(editedEquipment)
+    await EquipmentService.update(editedEquipment)
     closeEditEquipmentModal()
-    equipmentStore.fetch()
+    await equipmentStore.fetch()
+    refreshData()
   } catch (error) {
     console.error('Error updating equipment:', error)
   }
@@ -293,6 +299,57 @@ onMounted(async () => {
     console.error('Error initializing ConceptDetail:', error)
   }
 })
+
+// Create new abilities and equipment with concept as source
+const createNewAbility = async () => {
+  try {
+    // Create a new ability with the concept as the source
+    const newAbilityData = {
+      ...AbilityService.getDefaultEntity(),
+      source: localConcept.value.id
+    }
+
+    const newAbility = await AbilityService.create(newAbilityData)
+    await abilitiesStore.fetch()
+    refreshData()
+
+    // Find the created ability and open the edit modal
+    const createdAbility = abilitiesStore.abilities.find(
+      (ability) => ability.id === newAbility.id
+    )
+
+    if (createdAbility) {
+      openAbilityModal(createdAbility)
+    }
+  } catch (error) {
+    console.error('Error creating new ability:', error)
+  }
+}
+
+const createNewEquipment = async () => {
+  try {
+    // Create a new equipment with the concept as the source
+    const newEquipmentData = {
+      ...EquipmentService.getDefaultEntity(),
+      source: localConcept.value.id
+    }
+
+    const newEquipment = await EquipmentService.create(newEquipmentData)
+    await equipmentStore.fetch()
+    refreshData()
+
+    // Find the created equipment and open the edit modal
+    const createdEquipment = equipmentStore.equipment.find(
+      (item) => item.id === newEquipment.id
+    )
+
+    if (createdEquipment) {
+      openEquipmentModal(createdEquipment)
+    }
+  } catch (error) {
+    console.error('Error creating new equipment:', error)
+  }
+}
 </script>
 
 <style scoped>

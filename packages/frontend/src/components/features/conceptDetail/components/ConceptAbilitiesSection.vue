@@ -6,6 +6,10 @@
                 :sources="sources" :collapsible="false" :improvements="ability.improvements || []"
                 @edit="$emit('edit-ability', ability)" :showSource="false" />
         </MasonryGrid>
+        <div class="add-button-container">
+            <AddButton :show="isEditMode" @click="$emit('add-ability')" title="Add new ability"
+                position="bottom-center" />
+        </div>
     </ConceptSection>
 </template>
 
@@ -14,6 +18,7 @@ import { computed } from 'vue'
 import ConceptSection from './ConceptSection.vue'
 import AbilityCard from '@/components/ui/cards/AbilityCard.vue'
 import MasonryGrid from '@/components/ui/layouts/MasonryGrid.vue'
+import AddButton from '@/components/ui/buttons/AddButton.vue'
 
 const props = defineProps({
     abilities: {
@@ -27,10 +32,14 @@ const props = defineProps({
     sources: {
         type: Array,
         default: () => []
+    },
+    conceptId: {
+        type: String,
+        default: null
     }
 })
 
-defineEmits(['edit-ability'])
+defineEmits(['edit-ability', 'add-ability'])
 
 const hasAbilities = computed(() => {
     return props.abilities && props.abilities.length > 0
@@ -47,4 +56,12 @@ const sortedAbilities = computed(() => {
 })
 </script>
 
-<style scoped></style>
+<style scoped>
+.add-button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    position: relative;
+    min-height: 40px;
+}
+</style>

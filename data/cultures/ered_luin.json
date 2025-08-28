@@ -68,5 +68,6 @@
   "backgroundImage": "https://cdn.midjourney.com/8235fdcd-c55b-4cc8-a9fe-0a3fa65bde93/0_2.png",
   "color1": "#ffffff",
   "color2": "#000000",
-  "isDeleted": false
+  "isDeleted": false,
+  "expansionLogoUrl": ""
 }
