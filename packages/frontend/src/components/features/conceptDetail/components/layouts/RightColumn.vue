@@ -10,7 +10,7 @@
 
         <!-- Traits & Abilities -->
         <ConceptAbilitiesSection :abilities="abilities" :is-edit-mode="isEditMode" :sources="sources"
-            @edit-ability="$emit('edit-ability', $event)" />
+            :conceptId="concept.id" @edit-ability="$emit('edit-ability', $event)" @add-ability="$emit('add-ability')" />
 
         <!-- Local Flavor -->
         <LocalFlavorSection :data="{
@@ -31,7 +31,8 @@
 
         <!-- Wares -->
         <ConceptEquipmentSection :equipment="equipment" :is-edit-mode="isEditMode" :sources="sources"
-            @edit-equipment="$emit('edit-equipment', $event)" />
+            :conceptId="concept.id" @edit-equipment="$emit('edit-equipment', $event)"
+            @add-equipment="$emit('add-equipment')" />
     </div>
 </template>
 
@@ -77,6 +78,8 @@ defineEmits([
     'update:hooks',
     'edit-ability',
     'edit-equipment',
+    'add-ability',
+    'add-equipment',
     'unsaved-changes',
     'reset-unsaved-changes'
 ])
