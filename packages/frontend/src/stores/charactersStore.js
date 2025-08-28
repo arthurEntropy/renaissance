@@ -33,6 +33,11 @@ export const useCharactersStore = defineStore('characters', () => {
     return characters.value.filter(character => !character.isDeleted)
   })
 
+  // Check if there's a selected character
+  const hasSelectedCharacter = computed(() => {
+    return selectedCharacter.value !== null
+  })
+
   return {
     characters,
     selectedCharacter,
@@ -41,5 +46,6 @@ export const useCharactersStore = defineStore('characters', () => {
     deselectCharacter,
     getById,
     filteredCharacters,
+    hasSelectedCharacter,
   }
 })
