@@ -8,7 +8,7 @@ import CustomRollService from '@/services/customRollService'
  */
 export function useCustomDice(character) {
   // Use base dice management for core functionality
-  const { dieTypes, diceCounts, resetCounts, getDiceList } = useDiceManagement([4, 6, 8, 10, 12, 20])
+  const { dieTypes, diceCounts, resetCounts } = useDiceManagement([4, 6, 8, 10, 12, 20])
   
   // Custom roll specific state
   const modifier = ref(0)

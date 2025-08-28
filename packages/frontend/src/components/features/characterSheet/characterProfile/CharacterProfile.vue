@@ -41,7 +41,6 @@ const updateXP = (newValue) => {
   gap: var(--space-md);
   position: relative;
   overflow: hidden;
-  min-width: 0;
 }
 
 .xp-badge {
@@ -49,8 +48,8 @@ const updateXP = (newValue) => {
   bottom: 0px;
   right: 0px;
   display: flex;
-  align-items: center;
   gap: var(--space-xs);
+  align-items: center;
   background-color: var(--color-gray-dark);
   padding: var(--space-xs) var(--space-md);
   border-top-left-radius: var(--radius-15);
@@ -59,7 +58,6 @@ const updateXP = (newValue) => {
 
 .xp-label {
   font-size: var(--font-size-12);
-  margin-right: 5px;
   font-style: italic;
 }
 

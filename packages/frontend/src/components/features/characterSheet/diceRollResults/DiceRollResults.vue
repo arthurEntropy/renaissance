@@ -1,5 +1,18 @@
 <template>
-  <CharacterSheetSection custom-class="dice-roll-results" min-width="250px" max-width="250px">
+  <CharacterSheetSection custom-class="dice-roll-results" min-width="250px" max-width="250px"
+    @mouseenter="handleMouseEnter" @mouseleave="handleMouseLeave">
+    <!-- Custom Dice Button -->
+    <transition name="simple-fade">
+      <template v-if="customDiceRollerOpen || showCustomDiceButton">
+        <button class="roll-toggle-button" :class="{ 'custom-roller-open': customDiceRollerOpen }"
+          @click="handleToggleCustomDice"
+          :title="customDiceRollerOpen ? 'Close Custom Dice Roller' : 'Open Custom Dice Roller'">
+          <ChevronLeftIcon v-if="customDiceRollerOpen" class="button-icon" />
+          <ChevronRightIcon v-else class="button-icon" />
+        </button>
+      </template>
+    </transition>
+
     <div v-if="latestRoll" class="roll-content">
       <div class="roll-title">
         <span v-if="isEngagement">
@@ -98,6 +111,7 @@ import { RollTypes } from '@/constants/rollTypes'
 import { EngagementResultTypes } from '@/constants/engagementResultTypes'
 import CharacterSheetSection from '@/components/ui/containers/CharacterSheetSection.vue'
 import DiceDisplay from './DiceDisplay.vue'
+import { ChevronRightIcon, ChevronLeftIcon } from '@heroicons/vue/24/outline'
 
 // Props
 const props = defineProps({
@@ -105,10 +119,20 @@ const props = defineProps({
     type: Object,
     default: null,
   },
+  customDiceRollerOpen: {
+    type: Boolean,
+    default: false,
+  },
 })
+
+// Define emits
+const emit = defineEmits(['toggle-custom-dice'])
 
 // Component refs
 const diceDisplayRef = ref(null)
+
+// Reactive state
+const showCustomDiceButton = ref(false)
 
 // Computed properties
 const isEngagement = computed(() => {
@@ -124,6 +148,18 @@ const isRolling = computed(() => {
 })
 
 // Methods
+const handleToggleCustomDice = () => {
+  emit('toggle-custom-dice')
+}
+
+const handleMouseEnter = () => {
+  showCustomDiceButton.value = true
+}
+
+const handleMouseLeave = () => {
+  showCustomDiceButton.value = false
+}
+
 const getCircularPosition = (index, total) => {
   const radius = 50 // pixels from center
   const angle = (index * 2 * Math.PI) / total - Math.PI / 2 // Start from top
@@ -141,7 +177,6 @@ const getCircularPosition = (index, total) => {
 
 <style scoped>
 .dice-roll-results {
-  align-self: stretch;
   justify-content: center;
   align-items: center;
 }
@@ -150,7 +185,6 @@ const getCircularPosition = (index, total) => {
   display: flex;
   flex-direction: column;
   gap: var(--space-sm);
-  height: 100%;
   justify-content: space-between;
 }
 
@@ -355,5 +389,39 @@ const getCircularPosition = (index, total) => {
 
 .roll-numbers-placeholder {
   height: 30px;
+}
+
+
+.roll-toggle-button {
+  position: absolute;
+  top: var(--space-xs);
+  right: var(--space-xs);
+  background: var(--color-gray-dark);
+  border: none;
+  border-radius: var(--radius-5);
+  color: var(--color-text-primary);
+  padding: var(--space-xs);
+  cursor: pointer;
+  z-index: var(--z-overlay);
+  transition: var(--transition-all);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+}
+
+.roll-toggle-button:hover {
+  background: var(--color-bg-secondary);
+  transform: scale(1.05);
+}
+
+.button-icon {
+  width: 16px;
+  height: 16px;
+}
+
+.dice-roll-results {
+  position: relative;
 }
 </style>

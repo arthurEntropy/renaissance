@@ -21,7 +21,7 @@ defineEmits(['click'])
 
 .add-concept-card {
     width: 200px;
-    background: var(--color-bg-secondary);
+    background: var(--overlay-white-subtle);
     border: 2px dashed var(--color-border-secondary);
     border-radius: var(--radius-5);
     display: flex;
@@ -35,7 +35,7 @@ defineEmits(['click'])
 }
 
 .add-concept-card:hover {
-    background: var(--overlay-white-subtle);
+    background-color: var(--overlay-black-heavy);
     border-color: var(--color-white);
 }
 

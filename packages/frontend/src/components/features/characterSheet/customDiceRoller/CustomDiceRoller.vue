@@ -16,12 +16,10 @@
 
             <!-- Action Buttons -->
             <div class="button-row">
-                <button @click="handleRoll" :disabled="!hasAnyDice || isRolling" class="roll-button">
-                    {{ isRolling ? 'Rolling...' : 'Roll' }}
-                </button>
-                <button @click="clearAllDice" :disabled="!hasAnyDice && modifier === 0" class="clear-button">
-                    Clear
-                </button>
+                <ActionButton variant="primary" size="small" text="Roll" :disabled="!hasAnyDice || isRolling"
+                    @click="handleRoll" />
+                <ActionButton variant="neutral" size="small" text="Clear" :disabled="!hasAnyDice && modifier === 0"
+                    @click="clearAllDice" />
             </div>
         </div>
     </CharacterSheetSection>
@@ -31,6 +29,7 @@
 import { computed } from 'vue'
 import CharacterSheetSection from '@/components/ui/containers/CharacterSheetSection.vue'
 import NumberInput from '@/components/ui/forms/NumberInput.vue'
+import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import { getDiceFontMaxClass } from '@shared/utils/diceFontUtils'
 import { useCustomDice } from '@/composables/useCustomDice'
 
@@ -88,10 +87,10 @@ const handleRoll = async () => {
 }
 
 .die-icon {
-    font-size: var(--font-size-16);
+    font-size: var(--font-size-36);
     color: var(--color-gray-light);
     flex-shrink: 0;
-    width: 20px;
+    width: 40px;
     text-align: center;
 }
 
@@ -152,5 +151,9 @@ const handleRoll = async () => {
 .clear-button:disabled {
     opacity: 0.5;
     cursor: not-allowed;
+}
+
+.custom-dice-roller {
+    position: relative;
 }
 </style>
