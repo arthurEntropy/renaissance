@@ -35,6 +35,5 @@ defineEmits(['update'])
 
 h2 {
     margin: 0;
-    font-size: var(--font-size-20);
 }
 </style>

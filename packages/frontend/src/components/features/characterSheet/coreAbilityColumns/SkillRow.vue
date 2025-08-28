@@ -56,7 +56,7 @@ defineEmits(['open-skill-check', 'dice-click'])
 }
 
 .skill-name-clickable {
-    color: var(--color-accent-gold);
+    color: var(--color-primary);
     text-align: left;
     flex: 1;
     max-width: 85px;

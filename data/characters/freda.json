@@ -13,105 +13,105 @@
       "ranks": 3,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": -3
+      "diceMod": -2
     },
     {
       "name": "Strength",
       "ranks": 0,
       "isFavored": false,
-      "isIllFavored": true,
-      "diceMod": -1
+      "isIllFavored": false,
+      "diceMod": 0
     },
     {
       "name": "Dexterity",
       "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": -1
+      "diceMod": 0
     },
     {
       "name": "Fortitude",
       "ranks": 5,
       "isFavored": true,
       "isIllFavored": false,
-      "diceMod": -1
+      "diceMod": 0
     },
     {
       "name": "Craft",
       "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": -1
+      "diceMod": 0
     },
     {
       "name": "Perform",
       "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": -1
+      "diceMod": 0
     },
     {
       "name": "Insight",
       "ranks": 0,
       "isFavored": false,
-      "isIllFavored": true,
-      "diceMod": -1
+      "isIllFavored": false,
+      "diceMod": 0
     },
     {
       "name": "Courtesy",
       "ranks": 0,
       "isFavored": false,
-      "isIllFavored": true,
-      "diceMod": -1
+      "isIllFavored": false,
+      "diceMod": 0
     },
     {
       "name": "Spirit",
       "ranks": 3,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": -1
+      "diceMod": 0
     },
     {
       "name": "Aid",
       "ranks": 0,
       "isFavored": false,
-      "isIllFavored": true,
-      "diceMod": -1
+      "isIllFavored": false,
+      "diceMod": 0
     },
     {
       "name": "Persuade",
-      "ranks": 1,
-      "isFavored": false,
-      "isIllFavored": true,
-      "diceMod": -2
-    },
-    {
-      "name": "Awareness",
-      "ranks": 0,
-      "isFavored": false,
-      "isIllFavored": true,
-      "diceMod": -1
-    },
-    {
-      "name": "Stealth",
-      "ranks": 0,
-      "isFavored": false,
-      "isIllFavored": true,
-      "diceMod": -1
-    },
-    {
-      "name": "Lore",
       "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": -1
     },
     {
+      "name": "Awareness",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0
+    },
+    {
+      "name": "Stealth",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0
+    },
+    {
+      "name": "Lore",
+      "ranks": 1,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0
+    },
+    {
       "name": "Riddle",
       "ranks": 0,
       "isFavored": false,
-      "isIllFavored": true,
-      "diceMod": -1
+      "isIllFavored": false,
+      "diceMod": 0
     }
   ],
   "endurance": {
@@ -126,16 +126,16 @@
     "current": 10,
     "max": 13
   },
-  "load": 12.5,
-  "shadow": 9,
-  "injury": 14,
+  "load": 0,
+  "shadow": 0,
+  "injury": 0,
   "states": {
-    "weary": true,
-    "twiceWeary": true,
-    "miserable": true,
+    "weary": false,
+    "twiceWeary": false,
+    "miserable": false,
     "twiceMiserable": false,
-    "helpless": true,
-    "twiceHelpless": true
+    "helpless": false,
+    "twiceHelpless": false
   },
   "conditions": {
     "insecure": true,
@@ -147,7 +147,7 @@
   "equipment": [
     {
       "id": "37a98252-6881-4aaf-bc6c-4091c1b70e1b",
-      "quantity": 1,
+      "quantity": 2,
       "isCarried": true,
       "isWielding": true,
       "index": 0,
@@ -176,7 +176,7 @@
     },
     {
       "id": "58c57499-9eef-49d4-9273-7674c60fae77",
-      "quantity": 12,
+      "quantity": 1,
       "isCarried": true,
       "isWielding": true,
       "index": 1,
@@ -263,5 +263,6 @@
   "weary": false,
   "miserable": false,
   "expansionLogoUrl": "",
-  "mestiereId": "96e062f8-646e-49f4-8eec-d92bd5fb77c4"
+  "mestiereId": "96e062f8-646e-49f4-8eec-d92bd5fb77c4",
+  "speed": 30
 }

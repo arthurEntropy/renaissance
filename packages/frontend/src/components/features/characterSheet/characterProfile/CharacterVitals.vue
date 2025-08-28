@@ -4,7 +4,7 @@
 
         <!-- Name and Pronouns -->
         <div class="character-name-container">
-            <span class="character-name">{{ character.name || 'Unnamed Character' }}</span>
+            <h2 class="character-name">{{ character.name || 'Unnamed Character' }}</h2>
             <span v-if="character.pronouns" class="character-pronouns">({{ character.pronouns }})</span>
         </div>
 
@@ -121,8 +121,6 @@ onMounted(() => {
 
 .character-name {
     margin: 0;
-    font-size: var(--font-size-24);
-    color: var(--color-white);
     word-wrap: break-word;
     overflow-wrap: break-word;
 }

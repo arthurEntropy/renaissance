@@ -58,7 +58,7 @@
   
   /* ===== BACKGROUNDS & OVERLAYS ===== */
   --color-bg-primary: var(--color-black);        /* Pure black backgrounds */
-  --color-bg-secondary: #161616;                 /* Dark gray backgrounds */
+  --color-bg-secondary: #101010;                 /* Dark gray backgrounds */
   --color-bg-tertiary: var(--color-gray-medium); /* Medium gray backgrounds */
   --color-bg-overlay: var(--overlay-black-medium); /* Modal overlays */
   

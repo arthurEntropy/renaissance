@@ -3,7 +3,8 @@ import axios from 'axios'
 const COLORS = {
   SUCCESS: 0x00ff00, // Green
   FAILURE: 0xff0000, // Red
-  DRAW: 0xffeb3b // Yellow
+  DRAW: 0xffeb3b, // Yellow
+  NEUTRAL: 0x808080 // Gray
 }
 
 const createEngagementEmbed = (data) => {
@@ -68,6 +69,33 @@ const createSkillCheckEmbed = (data) => {
   }
 }
 
+const createCustomRollEmbed = (data) => {
+  const { rollResults, total, name: characterName, footer, image } = data
+  
+  return {
+    title: `${characterName || 'Someone'} rolled custom dice`,
+    color: COLORS.NEUTRAL,
+    thumbnail: {
+      url: image,
+    },
+    fields: [
+      {
+        name: 'Total',
+        value: `${total}`,
+        inline: true,
+      },
+      {
+        name: 'Dice Results',
+        value: rollResults || 'No dice were rolled',
+        inline: false,
+      },
+    ],
+    footer: {
+      text: footer || '',
+    },
+  }
+}
+
 const sendDiscordMessage = async (req, res) => {
   const DISCORD_WEBHOOK_URL = process.env.DISCORD_WEBHOOK_URL
   
@@ -76,14 +104,22 @@ const sendDiscordMessage = async (req, res) => {
   }
 
   try {
-    const { characterName, opponentName, result, userWins, opponentWins, drawCount } = req.body
+    const { characterName, opponentName, result, userWins, opponentWins, drawCount, skill } = req.body
 
     if (characterName && opponentName) {
+      // Engagement roll
       const embed = createEngagementEmbed(req.body)
       const payload = { embeds: [embed] }
       await axios.post(DISCORD_WEBHOOK_URL, payload)
       res.json({ message: 'Engagement sent to Discord!' })
+    } else if (skill === 'Custom Roll') {
+      // Custom roll
+      const embed = createCustomRollEmbed(req.body)
+      const payload = { embeds: [embed] }
+      await axios.post(DISCORD_WEBHOOK_URL, payload)
+      res.json({ message: 'Custom roll sent to Discord!' })
     } else {
+      // Skill check
       const embed = createSkillCheckEmbed(req.body)
       const payload = { embeds: [embed] }
       await axios.post(DISCORD_WEBHOOK_URL, payload)

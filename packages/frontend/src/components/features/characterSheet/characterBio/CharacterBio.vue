@@ -1,5 +1,5 @@
 <template>
-    <CharacterSheetSection min-width="200px" max-width="400px">
+    <CharacterSheetSection min-width="200px" max-width="450px">
 
         <!-- In-Sheet Bio Display -->
         <div class="bio-content edit-hover-area" @click="openViewModal">
@@ -135,8 +135,8 @@ const saveChanges = () => {
 .bio-text {
     line-height: var(--line-height-normal);
     display: -webkit-box;
-    -webkit-line-clamp: 7;
-    line-clamp: 7;
+    -webkit-line-clamp: 8;
+    line-clamp: 8;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;

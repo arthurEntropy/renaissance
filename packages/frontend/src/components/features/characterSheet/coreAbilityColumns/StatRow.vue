@@ -86,7 +86,7 @@ const stateClasses = computed(() => {
 }
 
 .virtue-row {
-    grid-template-columns: 35% 19% 8% 19% 19%;
+    grid-template-columns: 35% 12% 8% 12%
 }
 
 .weakness-row {

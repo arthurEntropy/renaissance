@@ -67,7 +67,7 @@ input[type='number'] {
   -moz-appearance: textfield;
   -webkit-appearance: textfield;
   appearance: textfield;
-  background-color: var(--overlay-white-subtle);
+  background-color: var(--color-bg-primary);
   border: 1px solid var(--color-gray-medium);
   border-radius: var(--radius-5);
   color: var(--color-white);

@@ -6,33 +6,43 @@
 
         <!-- Character Sheet Content -->
         <div class="modal-content, modal-content-base">
-            <div class="top-section">
-                <CharacterProfile :character="localCharacter" @update-character="updateCharacter" />
-                <CharacterBio :character="localCharacter" @update-character="updateCharacter" />
-                <DiceRollResults :latestRoll="latestRoll" />
+            <div class="scrollable-content">
+                <div class="top-section">
+                    <CharacterProfile :character="localCharacter" @update-character="updateCharacter" />
+                    <CharacterBio :character="localCharacter" @update-character="updateCharacter" />
+                    <DiceRollResults :latestRoll="latestRoll" :customDiceRollerOpen="showCustomDiceRoller"
+                        @toggle-custom-dice="toggleCustomDiceRoller" />
+                </div>
+
+                <div class="character-stats-section">
+                    <CoreAbilityColumn :character="localCharacter" column="body" @update-character="updateCharacter"
+                        @open-skill-check="openSkillCheckModal" />
+                    <CoreAbilityColumn :character="localCharacter" column="heart" @update-character="updateCharacter"
+                        @open-skill-check="openSkillCheckModal" />
+                    <CoreAbilityColumn :character="localCharacter" column="wits" @update-character="updateCharacter"
+                        @open-skill-check="openSkillCheckModal" />
+                    <ConditionsColumn :character="localCharacter" @update:character="updateCharacter" />
+                    <EquipmentTable :equipment="localCharacter.equipment" :allEquipment="allEquipment"
+                        :character="localCharacter" @update-character="updateCharacter"
+                        @edit-custom-equipment="openEditEquipmentModal" />
+                    <AbilitiesTable :character="localCharacter" :allAbilities="allAbilities"
+                        @update-character="updateCharacter" />
+                    <EngagementTable :character="localCharacter" :allEquipment="allEquipment"
+                        @update:character="updateCharacter" @engagement-results="handleEngagementResult" />
+                </div>
             </div>
 
-            <div class="character-stats-section">
-                <CoreAbilityColumn :character="localCharacter" column="body" @update-character="updateCharacter"
-                    @open-skill-check="openSkillCheckModal" />
-                <CoreAbilityColumn :character="localCharacter" column="heart" @update-character="updateCharacter"
-                    @open-skill-check="openSkillCheckModal" />
-                <CoreAbilityColumn :character="localCharacter" column="wits" @update-character="updateCharacter"
-                    @open-skill-check="openSkillCheckModal" />
-                <ConditionsColumn :character="localCharacter" @update:character="updateCharacter" />
-                <EngagementTable :character="localCharacter" :allEquipment="allEquipment"
-                    @update:character="updateCharacter" @engagement-results="handleEngagementResults" />
-                <EquipmentTable :equipment="localCharacter.equipment" :allEquipment="allEquipment"
-                    :character="localCharacter" @update-character="updateCharacter"
-                    @edit-custom-equipment="openEditEquipmentModal" />
-                <AbilitiesTable :character="localCharacter" :allAbilities="allAbilities"
-                    @update-character="updateCharacter" />
-            </div>
+            <!-- Pop-out Custom Dice Roller -->
+            <transition name="slide-fade">
+                <CustomDiceRoller v-if="showCustomDiceRoller" :character="localCharacter"
+                    @update-character="updateCharacter" @custom-roll="handleCustomRollResult"
+                    class="pop-out-dice-roller" />
+            </transition>
         </div>
 
         <!-- Modals -->
         <SkillCheckModal v-if="showSkillCheckModal" :character="localCharacter" :selectedSkillName="selectedSkillName"
-            :defaultTargetNumber="getLastTargetNumber()" @close="closeSkillCheckModal"
+            :defaultTargetNumber="getLastTargetNumber()" @close="closeSkillCheckModalAndUpdate"
             @update-target-number="updateLastTargetNumber" />
 
         <CharacterSettingsModal v-if="showSettingsModal" :characterName="localCharacter.name"
@@ -44,9 +54,10 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { useModal } from '@/composables/useModal'
 import { useSkillCheck } from '@/composables/useSkillCheck'
+import { useDiceResults } from '@/composables/useDiceResults'
 import { useEquipmentManagement } from '@/composables/useEquipmentManagement'
 import { useCharacterManagement } from '@/composables/useCharacterManagement'
 import CharacterProfile from '@/components/features/characterSheet/characterProfile/CharacterProfile.vue'
@@ -60,6 +71,7 @@ import DiceRollResults from '@/components/features/characterSheet/diceRollResult
 import SkillCheckModal from '@/components/features/characterSheet/modals/SkillCheckModal.vue'
 import CharacterSettingsModal from '@/components/features/characterSheet/modals/CharacterSettingsModal.vue'
 import EditEquipmentModal from '@/components/editModals/EditEquipmentModal.vue'
+import CustomDiceRoller from './customDiceRoller/CustomDiceRoller.vue'
 
 const props = defineProps({
     allEquipment: {
@@ -94,17 +106,36 @@ const {
     closeModal: closeSettingsModal
 } = useModal()
 
-// Skill check functionality
+// Skill check modal functionality
 const {
     showSkillCheckModal,
     selectedSkillName,
-    latestRoll,
     openSkillCheckModal,
     closeSkillCheckModal,
-    handleEngagementResults,
     getLastTargetNumber,
     updateLastTargetNumber
 } = useSkillCheck()
+
+// Dice results management
+const {
+    latestRoll,
+    handleEngagementResult,
+    handleCustomRollResult,
+    updateLatestRoll
+} = useDiceResults()
+
+// Enhanced close skill check modal to update latest roll
+const closeSkillCheckModalAndUpdate = () => {
+    closeSkillCheckModal()
+    updateLatestRoll()
+}
+
+// Custom dice roller management
+const showCustomDiceRoller = ref(false)
+
+const toggleCustomDiceRoller = () => {
+    showCustomDiceRoller.value = !showCustomDiceRoller.value
+}
 
 // Equipment management
 const {
@@ -137,10 +168,6 @@ const handleDeleteCharacter = () => {
 </script>
 
 <style scoped>
-.modal-content {
-    max-width: 1275px;
-}
-
 .character-sheet-header {
     position: absolute;
     top: var(--space-md);
@@ -171,12 +198,16 @@ const handleDeleteCharacter = () => {
     background: var(--overlay-black-heavy);
     border-radius: var(--radius-5);
     max-width: 1200px;
-    width: 100%;
-    max-height: 90vh;
-    overflow-y: auto;
+    overflow: visible;
     position: relative;
-    margin-top: 20px;
-    padding: var(--space-xl);
+    margin-top: -7px;
+    padding: var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.scrollable-content {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -209,6 +240,31 @@ const handleDeleteCharacter = () => {
     .character-stats-section {
         gap: var(--space-md);
     }
+}
+
+.pop-out-dice-roller {
+    position: absolute;
+    top: 15px;
+    right: -100px;
+    z-index: var(--z-modal-controls);
+    border-radius: var(--radius-5);
+    background: var(--color-bg-secondary);
+}
+
+/* Slide-fade transition */
+.slide-fade-enter-active,
+.slide-fade-leave-active {
+    transition: all var(--transition-normal);
+}
+
+.slide-fade-enter-from {
+    transform: translateX(-100%);
+    opacity: 0;
+}
+
+.slide-fade-leave-to {
+    transform: translateX(-100%);
+    opacity: 0;
 }
 
 @media (max-width: var(--breakpoint-sm)) {
