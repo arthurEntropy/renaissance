@@ -146,7 +146,9 @@ const createConcept = async () => {
     const createdConcept = await props.createConceptFn()
     await props.refreshDataFn()
 
-    selectedConcept.value = createdConcept
+    // Find the freshly fetched concept by id
+    const conceptFromStore = props.concepts.find(c => c.id === createdConcept.id)
+    selectedConcept.value = conceptFromStore || createdConcept
     showConceptDetail.value = true
   } catch (error) {
     console.error(`Error creating ${props.itemName}:`, error)

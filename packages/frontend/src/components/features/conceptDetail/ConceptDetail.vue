@@ -153,6 +153,7 @@ const emitUpdateEvent = () => {
     // Create a clean copy excluding methods and non-data properties
     const cleanConcept = {
       ...localConcept.value,
+      name: localConcept.value.name || '',
       artUrls: [...(localConcept.value.artUrls || [])],
       faces: [...(localConcept.value.faces || [])],
       places: [...(localConcept.value.places || [])],
