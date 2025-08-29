@@ -2,6 +2,10 @@
   <base-card :item="ability" itemType="ability" :metaInfo="traitOrMp" :storeInstance="abilitiesStore"
     :initialCollapsed="localCollapsed" :editable="editable" @edit="$emit('edit', ability)" :collapsible="collapsible"
     @update:collapsed="onBaseCardCollapsed" :showSource="showSource">
+
+    <!-- Add to character overlay -->
+    <AddToCharacterButton v-if="ability" :item="ability" type="ability" :addFn="addAbilityToCharacter" />
+
     <!-- Main description and content -->
     <template #description>
       <CardDescription :content="ability.description" size="small">
@@ -49,6 +53,8 @@ import { useAbilitiesStore } from '@/stores/abilitiesStore'
 import BaseCard from '@/components/ui/cards/BaseCard.vue'
 import BadgeDisplay from '@/components/ui/cards/BadgeDisplay.vue'
 import CardDescription from '@/components/ui/cards/CardDescription.vue'
+import AddToCharacterButton from '@/components/ui/cards/AddToCharacterButton.vue'
+import { useCharacterManagement } from '@/composables/useCharacterManagement'
 import { useCardCollapseState } from '@/composables/useCardCollapseState'
 
 const props = defineProps({
@@ -86,6 +92,7 @@ const emit = defineEmits(['edit', 'update', 'sendToChat', 'update:collapsed'])
 
 // Store
 const abilitiesStore = useAbilitiesStore()
+const { addAbilityToCharacter } = useCharacterManagement()
 
 // Collapse state management
 const { localCollapsed, onBaseCardCollapsed } = useCardCollapseState(props, emit)

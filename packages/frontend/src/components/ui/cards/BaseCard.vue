@@ -6,6 +6,9 @@
     <EditButton v-if="editable" @click.stop="$emit('edit', item)" :title="`Edit ${itemType}`" size="small"
       visibility="on-hover" class="edit-button-floating" />
 
+    <!-- Default slot for custom overlays -->
+    <slot></slot>
+
     <!-- Header Row -->
     <div class="card-header">
       <span v-if="collapsible" class="caret">{{ caretSymbol }}</span>
