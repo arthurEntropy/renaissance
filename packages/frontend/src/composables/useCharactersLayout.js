@@ -9,10 +9,7 @@ export function useCharactersLayout(charactersStore, equipmentStore, abilitiesSt
   const allAbilities = computed(() => abilitiesStore.abilities || [])
 
   const createCharacter = async () => {
-    const newCharacter = await characterService.create({
-      name: 'New Character',
-      // Add any default character properties here
-    })
+    const newCharacter = await characterService.create(characterService.getDefaultEntity())
     await charactersStore.fetch()
     return newCharacter
   }
