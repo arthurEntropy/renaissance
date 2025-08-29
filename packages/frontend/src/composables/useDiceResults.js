@@ -1,6 +1,7 @@
 import { ref } from 'vue'
 import SkillCheckService from '@/services/skillCheckService'
 import CustomRollService from '@/services/customRollService'
+import OpposedSkillCheckService from '@/services/opposedSkillCheckService'
 
 /**
  * Composable for managing dice roll results across all roll types
@@ -10,12 +11,13 @@ export function useDiceResults() {
   const latestRoll = ref(null)
 
   const updateLatestRoll = () => {
-    // Check skill check and custom roll services for latest results
+    // Check skill check, opposed skill check, and custom roll services for latest results
     const skillCheckResult = SkillCheckService.getLatestRollResult()
+    const opposedSkillCheckResult = OpposedSkillCheckService.getLatestRollResult()
     const customRollResult = CustomRollService.getLatestRollResult()
     
     // Collect all existing results
-    const results = [skillCheckResult, customRollResult].filter(Boolean)
+    const results = [skillCheckResult, opposedSkillCheckResult, customRollResult].filter(Boolean)
     
     if (results.length === 0) {
       latestRoll.value = null
@@ -35,6 +37,10 @@ export function useDiceResults() {
     latestRoll.value = engagementResult
   }
 
+  const handleOpposedSkillCheckResult = (opposedSkillCheckResult) => {
+    latestRoll.value = opposedSkillCheckResult
+  }
+
   const handleCustomRollResult = (customRollResult) => {
     latestRoll.value = customRollResult
   }
@@ -44,6 +50,7 @@ export function useDiceResults() {
     updateLatestRoll,
     handleSkillCheckResult,
     handleEngagementResult,
+    handleOpposedSkillCheckResult,
     handleCustomRollResult
   }
 }

@@ -13,6 +13,7 @@ import {
 } from './controllers/entityController.js'
 import { sendDiscordMessage } from './controllers/discordController.js'
 import { setupSocketHandlers } from './controllers/engagementController.js'
+import { setupSocketHandlers as setupOpposedSkillCheckHandlers } from './controllers/opposedSkillCheckController.js'
 import { getEntityNames } from './utils/fileService.js'
 
 const __filename = fileURLToPath(import.meta.url)
@@ -50,6 +51,7 @@ app.post('/send-discord-message', sendDiscordMessage)
 
 // Set up Socket.io handlers
 setupSocketHandlers(io)
+setupOpposedSkillCheckHandlers(io)
 
 // Start the server
 server.listen(PORT, () => {

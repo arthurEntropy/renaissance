@@ -1,21 +1,3 @@
-  flex: 1;
-  text-align: center;
-}
-.tn-desc-left {
-  text-align: left;
-}
-.tn-desc-right {
-  text-align: right;
-}
-.target-number-descriptors {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  margin-bottom: 4px;
-  font-size: var(--font-size-14);
-  color: var(--color-gray-dark);
-  font-weight: var(--font-weight-medium);
-}
 <template>
   <div class="modal-overlay" @click="closeModal">
     <div class="modal-content" @click.stop>
@@ -37,6 +19,11 @@
           <option value="illfavored" class="illfavored-option">
             Ill-Favored
           </option>
+        </select>
+
+        <select v-model="rollType" class="modal-roll-type-dropdown">
+          <option value="target-number">Against TN</option>
+          <option value="opposed">Opposed</option>
         </select>
       </div>
 
@@ -66,7 +53,7 @@
       </div>
 
       <!-- Target Number -->
-      <div class="target-number-section">
+      <div class="target-number-section" :class="{ disabled: rollType === 'opposed' }">
         <div class="section-label">Target Number:</div>
         <div class="target-number-descriptors">
           <span>Easy</span>
@@ -77,7 +64,7 @@
         </div>
         <div class="target-number-options">
           <ActionButton v-for="tn in targetNumberOptions" :key="tn" variant="outline" size="large" :text="tn.toString()"
-            :selected="localTargetNumber === tn" @click="localTargetNumber = tn" />
+            :selected="localTargetNumber === tn" :disabled="rollType === 'opposed'" @click="localTargetNumber = tn" />
         </div>
       </div>
 
@@ -108,12 +95,16 @@ const props = defineProps({
   },
 })
 
-const emit = defineEmits(['close', 'update-target-number'])
+const emit = defineEmits(['close', 'update-target-number', 'opposed-skill-check-result', 'start-opposed-skill-check'])
+
+// Composables
+// Remove the unused startOpposedSkillCheck import since we're using emit instead
 
 // Reactive state
 const localCharacter = ref({ ...props.character })
 const localSelectedSkillName = ref(props.selectedSkillName || '')
 const localTargetNumber = ref(props.defaultTargetNumber)
+const rollType = ref('target-number')
 const rollParameters = ref({
   name: '',
   isFavored: false,
@@ -242,13 +233,32 @@ function rollSkillCheck() {
     return
   }
 
-  SkillCheckService.makeSkillCheck(
-    rollParameters.value,
-    localCharacter.value,
-    localTargetNumber.value,
-  )
+  if (rollType.value === 'opposed') {
+    // Emit signal to start opposed skill check session
+    const skillCheckConfig = {
+      name: rollParameters.value.name,
+      isFavored: rollParameters.value.isFavored,
+      isIllFavored: rollParameters.value.isIllFavored,
+      ranks: rollParameters.value.ranks,
+      diceMod: rollParameters.value.diceMod
+    }
 
-  emit('update-target-number', localTargetNumber.value)
+    // Emit the config to the parent component to start the opposed session
+    emit('start-opposed-skill-check', {
+      character: localCharacter.value,
+      skillCheckConfig
+    })
+  } else {
+    // Regular skill check against target number
+    SkillCheckService.makeSkillCheck(
+      rollParameters.value,
+      localCharacter.value,
+      localTargetNumber.value,
+    )
+
+    emit('update-target-number', localTargetNumber.value)
+  }
+
   closeModal()
 }
 
@@ -298,7 +308,8 @@ watch(localSelectedSkillName, () => {
 }
 
 .modal-skill-dropdown,
-.modal-favored-dropdown {
+.modal-favored-dropdown,
+.modal-roll-type-dropdown {
   padding: var(--space-sm);
   font-size: var(--font-size-16);
   background: var(--color-bg-secondary);
@@ -393,5 +404,14 @@ select option.illfavored-option {
   font-style: italic;
   font-size: var(--font-size-14);
   color: var(--color-text-muted);
+}
+
+.target-number-section.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.target-number-section.disabled .target-number-descriptors {
+  color: var(--color-gray-dark);
 }
 </style>
