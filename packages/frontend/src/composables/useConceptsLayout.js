@@ -8,8 +8,8 @@ export function useConceptsLayout(store, service, options = {}) {
 
   const concepts = computed(() => store[conceptsProperty] || [])
 
-  const createConcept = async (concept) => {
-    const newConcept = await service.create(concept)
+  const createConcept = async () => {
+    const newConcept = await service.create(service.getDefaultEntity())
     await store.fetch()
     return newConcept
   }

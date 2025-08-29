@@ -21,6 +21,7 @@ defineEmits(['click'])
 
 .add-concept-card {
     width: 200px;
+    height: 228px;
     background: var(--overlay-white-subtle);
     border: 2px dashed var(--color-border-secondary);
     border-radius: var(--radius-5);
