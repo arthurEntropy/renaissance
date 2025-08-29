@@ -1,3 +1,21 @@
+  flex: 1;
+  text-align: center;
+}
+.tn-desc-left {
+  text-align: left;
+}
+.tn-desc-right {
+  text-align: right;
+}
+.target-number-descriptors {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 4px;
+  font-size: var(--font-size-14);
+  color: var(--color-gray-dark);
+  font-weight: var(--font-weight-medium);
+}
 <template>
   <div class="modal-overlay" @click="closeModal">
     <div class="modal-content" @click.stop>
@@ -23,10 +41,8 @@
       </div>
 
       <div class="dice-mod-options">
-        <span v-for="mod in diceModOptions" :key="mod.value" class="dice-mod-option"
-          :class="{ selected: rollParameters.diceMod === mod.value }" @click="rollParameters.diceMod = mod.value">
-          {{ mod.label }}
-        </span>
+        <ActionButton v-for="mod in diceModOptions" :key="mod.value" variant="outline" size="large" :text="mod.label"
+          :selected="rollParameters.diceMod === mod.value" @click="rollParameters.diceMod = mod.value" />
       </div>
 
       <div class="dice-preview" v-if="localSelectedSkillName">
@@ -49,12 +65,20 @@
         </div>
       </div>
 
-      <div class="section-label">Target Number:</div>
-      <div class="target-number-options">
-        <span v-for="tn in targetNumberOptions" :key="tn === null ? 'none' : tn" class="target-number-option"
-          :class="{ selected: localTargetNumber === tn }" @click="localTargetNumber = tn">
-          {{ tn === null ? 'none' : tn }}
-        </span>
+      <!-- Target Number -->
+      <div class="target-number-section">
+        <div class="section-label">Target Number:</div>
+        <div class="target-number-descriptors">
+          <span>Easy</span>
+          <span>Moderate</span>
+          <span>Difficult</span>
+          <span>Extreme</span>
+          <span>Legendary</span>
+        </div>
+        <div class="target-number-options">
+          <ActionButton v-for="tn in targetNumberOptions" :key="tn" variant="outline" size="large" :text="tn.toString()"
+            :selected="localTargetNumber === tn" @click="localTargetNumber = tn" />
+        </div>
       </div>
 
       <ActionButton variant="primary" size="large" text="Roll" @click="rollSkillCheck"
@@ -89,7 +113,7 @@ const emit = defineEmits(['close', 'update-target-number'])
 // Reactive state
 const localCharacter = ref({ ...props.character })
 const localSelectedSkillName = ref(props.selectedSkillName || '')
-const localTargetNumber = ref(null)
+const localTargetNumber = ref(props.defaultTargetNumber)
 const rollParameters = ref({
   name: '',
   isFavored: false,
@@ -113,7 +137,7 @@ const diceModOptions = [
   { value: 5, label: '+5d' },
 ]
 
-const targetNumberOptions = [null, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30]
+const targetNumberOptions = [6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30]
 
 // Computed properties
 const selectedSkill = computed(() => {
@@ -342,9 +366,7 @@ select option.illfavored-option {
 }
 
 .section-label {
-  width: 100%;
-  text-align: center;
-  margin: var(--space-md) 0 5px;
+  margin: var(--space-lg);
   font-weight: var(--font-weight-bold);
 }
 
@@ -358,50 +380,18 @@ select option.illfavored-option {
   margin-bottom: var(--space-lg);
 }
 
-.dice-mod-option,
-.target-number-option {
-  padding: var(--space-sm) var(--space-md);
-  border: 1px solid var(--color-gray-medium);
-  border-radius: var(--radius-5);
-  cursor: pointer;
-  text-align: center;
-  background-color: var(--color-bg-secondary);
-  transition: var(--transition-all);
+.target-number-section {
+  margin-top: var(--space-lg);
+  margin-bottom: var(--space-xl);
 }
 
-.dice-mod-option:hover,
-.target-number-option:hover {
-  background-color: var(--color-bg-secondary);
-}
-
-.dice-mod-option.selected,
-.target-number-option.selected {
-  background-color: var(--color-primary);
-  color: var(--color-primary-text);
-  border-color: var(--color-primary);
-}
-
-.button {
-  margin-top: var(--space-xl);
-  padding: var(--space-md) var(--space-xl);
-  font-size: var(--font-size-16);
-}
-
-.button-primary {
-  background-color: var(--color-primary);
-  color: var(--color-primary-text);
-  border: none;
-  border-radius: var(--radius-5);
-  cursor: pointer;
-}
-
-.button-primary:disabled {
-  background-color: var(--color-gray-light);
-  cursor: not-allowed;
+.target-number-descriptors {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 4px;
+  font-style: italic;
+  font-size: var(--font-size-14);
   color: var(--color-text-muted);
-}
-
-.button-primary:not(:disabled):hover {
-  background-color: var(--color-primary-hover);
 }
 </style>
