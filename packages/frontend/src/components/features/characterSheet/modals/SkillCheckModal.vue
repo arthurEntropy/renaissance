@@ -51,13 +51,13 @@
 
       <div class="section-label">Target Number:</div>
       <div class="target-number-options">
-        <span v-for="tn in targetNumberOptions" :key="tn" class="target-number-option"
+        <span v-for="tn in targetNumberOptions" :key="tn === null ? 'none' : tn" class="target-number-option"
           :class="{ selected: localTargetNumber === tn }" @click="localTargetNumber = tn">
-          {{ tn }}
+          {{ tn === null ? 'none' : tn }}
         </span>
       </div>
 
-      <ActionButton variant="primary" size="small" text="Roll" @click="rollSkillCheck"
+      <ActionButton variant="primary" size="large" text="Roll" @click="rollSkillCheck"
         :disabled="!localSelectedSkillName" />
     </div>
   </div>
@@ -89,7 +89,7 @@ const emit = defineEmits(['close', 'update-target-number'])
 // Reactive state
 const localCharacter = ref({ ...props.character })
 const localSelectedSkillName = ref(props.selectedSkillName || '')
-const localTargetNumber = ref(props.defaultTargetNumber)
+const localTargetNumber = ref(null)
 const rollParameters = ref({
   name: '',
   isFavored: false,
@@ -113,7 +113,7 @@ const diceModOptions = [
   { value: 5, label: '+5d' },
 ]
 
-const targetNumberOptions = [6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30]
+const targetNumberOptions = [null, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30]
 
 // Computed properties
 const selectedSkill = computed(() => {
