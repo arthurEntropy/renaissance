@@ -203,11 +203,8 @@ const navigateConcept = (direction) => {
 }
 
 const closeConceptDetail = () => {
-  // If this is a character modal, deselect the character in the store
-  if (props.modalComponent === 'CharacterSheetModal') {
-    charactersStore.deselectCharacter()
-  }
-
+  // We no longer deselect the character when closing the character sheet
+  // This allows the selection to be "sticky"
   selectedConcept.value = null
   showConceptDetail.value = false
 }
@@ -243,6 +240,16 @@ onMounted(async () => {
     await expansionStore.fetch()
     expansions.value = expansionStore.expansions
     window.addEventListener('keydown', handleKeyNavigation);
+
+    // If this is the CharactersPage and there's already a selected character,
+    // automatically open its character sheet
+    if (props.modalComponent === 'CharacterSheetModal' && charactersStore.hasSelectedCharacter) {
+      const selectedCharacter = charactersStore.selectedCharacter
+      const character = props.concepts.find(c => c.id === selectedCharacter.id)
+      if (character) {
+        openConceptDetail(character)
+      }
+    }
   } catch (error) {
     console.error('Error initializing ConceptsLayout:', error);
   }

@@ -192,7 +192,9 @@
   --z-modal-content: 1001;
   --z-modal-controls: 1002;
   --z-tooltip: 1100;
-  
+
+  /* Global Badge */
+  --z-badge: 1200;
 
   /* === BREAKPOINTS (for reference in JS) === */
   /* Industry standard breakpoints */

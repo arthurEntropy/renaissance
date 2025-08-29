@@ -31,6 +31,9 @@
       </div>
     </div>
 
+    <!-- Selected Character Badge -->
+    <SelectedCharacterBadge />
+
     <!-- Main Content -->
     <div class="content-area">
       <router-view />
@@ -42,8 +45,12 @@
 <script>
 import { ref, computed } from 'vue'
 import { useRoute } from 'vue-router'
+import SelectedCharacterBadge from '@/components/features/characterSelection/SelectedCharacterBadge.vue'
 
 export default {
+  components: {
+    SelectedCharacterBadge
+  },
   setup() {
     const menuOpen = ref(false)
     const route = useRoute()

@@ -4,6 +4,10 @@
     : ''
     " :storeInstance="equipmentStore" :initialCollapsed="collapsed" :editable="editable" :showSource="showSource"
     @edit="$emit('edit', equipment)" :collapsible="collapsible">
+
+    <!-- Add to character overlay -->
+    <AddToCharacterButton v-if="equipment" :item="equipment" type="equipment" :addFn="addEquipmentToCharacter" />
+
     <!-- Expandable image -->
     <template #image>
       <div v-if="showLargeImage" class="large-image-container" @click.stop="toggleImage">
@@ -75,9 +79,11 @@ import { useEquipmentStore } from '@/stores/equipmentStore'
 import BaseCard from '@/components/ui/cards/BaseCard.vue'
 import BadgeDisplay from '@/components/ui/cards/BadgeDisplay.vue'
 import CardDescription from '@/components/ui/cards/CardDescription.vue'
+import AddToCharacterButton from '@/components/ui/cards/AddToCharacterButton.vue'
 import SuccessChip from '@/components/ui/chips/SuccessChip.vue'
 import EngagementSuccessService from '@/services/engagementSuccessService'
 import { getDiceFontMaxClass } from '@shared/utils/diceFontUtils'
+import { useCharacterManagement } from '@/composables/useCharacterManagement'
 
 defineOptions({
   inheritAttrs: false
@@ -118,6 +124,7 @@ defineEmits(['edit', 'delete', 'send-to-chat', 'height-changed'])
 
 // Store
 const equipmentStore = useEquipmentStore()
+const { addEquipmentToCharacter } = useCharacterManagement()
 
 // Reactive state
 const engagementSuccesses = ref([])

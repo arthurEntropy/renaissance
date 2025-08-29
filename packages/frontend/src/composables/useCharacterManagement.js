@@ -128,6 +128,26 @@ export function useCharacterManagement(allEquipment) {
     }, { deep: true })
   }
 
+  const addAbilityToCharacter = (ability) => {
+    const char = selectedCharacter.value
+    if (!char || !ability || !ability.id) return false
+    if (!Array.isArray(char.abilities)) char.abilities = []
+    if (char.abilities.includes(ability.id)) return false
+    char.abilities.push(ability.id)
+    CharacterService.saveCharacter(char)
+    return true
+  }
+
+  const addEquipmentToCharacter = (equipment) => {
+    const char = selectedCharacter.value
+    if (!char || !equipment || !equipment.id) return false
+    if (!Array.isArray(char.equipment)) char.equipment = []
+    if (char.equipment.some(item => item.id === equipment.id)) return false
+    char.equipment.push({ id: equipment.id, quantity: 1, isCarried: true })
+    CharacterService.saveCharacter(char)
+    return true
+  }
+
   return {
     selectedCharacter,
     selectCharacter,
@@ -135,6 +155,8 @@ export function useCharacterManagement(allEquipment) {
     updateCharacter,
     createCharacter,
     deleteCharacter,
-    watchCharacterStats
+    watchCharacterStats,
+    addAbilityToCharacter,
+    addEquipmentToCharacter
   }
 }
