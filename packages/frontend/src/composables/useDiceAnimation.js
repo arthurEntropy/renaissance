@@ -1,11 +1,12 @@
 import { ref } from 'vue'
+import { DICE_ROLL_DURATION } from '@/constants/animationDurations'
 import { getRandomDiceFontClass } from '@shared/utils/diceFontUtils'
 
 export function useDiceAnimation() {
   // Animation state
   const isRolling = ref(false)
   const rollStartTime = ref(null)
-  const rollDuration = ref(1500) // 1.5 seconds
+  const rollDuration = ref(DICE_ROLL_DURATION)
   const animatedDice = ref([])
   const lastRollId = ref(null)
 

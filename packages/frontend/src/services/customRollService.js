@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { rollSingleDie } from '@/utils/diceUtils'
 import { RollTypes } from '@/constants/rollTypes'
 import { getDiceFontClass } from '@shared/utils/diceFontUtils'
 
@@ -50,7 +51,7 @@ class CustomRollService {
 
   static rollDice(dicePool) {
     return dicePool.map((die) => {
-      const roll = Math.floor(Math.random() * die.sides) + 1
+      const roll = rollSingleDie(die.sides)
       return { die: die.sides, roll: roll }
     })
   }

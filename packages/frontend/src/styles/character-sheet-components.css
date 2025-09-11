@@ -1,0 +1,124 @@
+/* === CHARACTER COLUMN BASE STYLES === */
+.character-column-base {
+  flex: 1;
+  border: 2px solid var(--color-gray-light);
+  border-radius: var(--radius-5);
+  padding: var(--space-lg);
+  background-color: var(--color-bg-primary);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/* Column side variations */
+.opponent-column {
+  background-color: var(--color-black);
+}
+
+/* Column result state variations */
+.winner-column {
+  border-color: var(--color-success);
+  box-shadow: var(--shadow-glow-success-sm);
+}
+
+.loser-column {
+  border-color: var(--color-danger);
+  box-shadow: var(--shadow-glow-danger-sm);
+}
+
+/* === WAITING STATES === */
+.waiting-for-opponent {
+  height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-bottom: var(--space-md);
+}
+
+.placeholder-message {
+  padding: var(--space-2xl) var(--space-lg);
+  text-align: center;
+  color: var(--color-text-muted);
+}
+
+/* === WAITING ANIMATION === */
+.waiting-animation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-xs);
+  margin-bottom: var(--space-lg);
+}
+
+.pulse-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--color-text-muted);
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.pulse-dot:nth-child(2) {
+  animation-delay: 0.5s;
+}
+
+.pulse-dot:nth-child(3) {
+  animation-delay: 1s;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+/* === DICE RESULT STATES === */
+.total-value {
+  font-size: 3rem;
+  font-weight: var(--font-weight-bold);
+}
+
+.total-value.winner {
+  color: var(--color-success);
+  text-shadow: var(--shadow-glow-success-sm);
+}
+
+.total-value.loser {
+  color: var(--color-danger);
+  text-shadow: var(--shadow-glow-danger-sm);
+}
+
+.total-value.tie {
+  color: var(--color-warning);
+  text-shadow: var(--shadow-glow-warning-sm);
+}
+
+/* === SKILL STATUS VARIATIONS === */
+.favored-status {
+  display: block;
+  font-size: var(--font-size-12);
+  margin-top: var(--space-xs);
+}
+
+.favored-status.favored {
+  color: var(--color-success);
+}
+
+.favored-status.ill-favored {
+  color: var(--color-danger);
+}
+
+.favored-status.placeholder {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.placeholder-text {
+  line-height: inherit;
+}

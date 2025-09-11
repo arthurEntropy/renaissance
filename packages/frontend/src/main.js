@@ -7,6 +7,7 @@ import '@/styles/modals.css'
 import '@/styles/nav.css'
 import '@/styles/global.css'
 import '@/styles/concept-components.css'
+import '@/styles/character-sheet-components.css'
 
 const app = createApp(App)
 app.use(createPinia())

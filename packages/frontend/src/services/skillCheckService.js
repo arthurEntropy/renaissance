@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { getDiceFontClass } from '@shared/utils/diceFontUtils'
+import { getDiceEmoji } from '@/utils/diceUtils'
 import { RollTypes } from '@/constants/rollTypes'
 
 class SkillCheckService {
@@ -8,6 +9,41 @@ class SkillCheckService {
 
   static getLatestRollResult() {
     return this.latestRollResult
+  }
+
+  static makeOpposedSkillCheck(skill, character) {
+    // Prepare the dice pool based on the skill and roll the dice.
+    const dicePool = this.prepareDicePool(skill)
+    const diceResults = this.rollDice(dicePool)
+
+    // Handle favored and ill-favored logic
+    this.handleFavoredAndIllFavored(diceResults, skill)
+
+    // Calculate the total sum of the rolled dice
+    const totalSum = this.calculateTotalSum(
+      diceResults,
+      character.states.twiceWeary,
+    )
+
+    // Mark max value dice and dropped dice
+    this.markSpecialDice(diceResults)
+
+    // Add index to each die result for backend compatibility
+    diceResults.forEach((result, index) => {
+      result.index = index
+      // Ensure originalRoll is set for dropped dice
+      if (result.roll === 0 && !result.originalRoll) {
+        result.originalRoll = result.roll
+      }
+    })
+
+    // Return the roll data (no Discord sending or success determination for opposed checks)
+    return {
+      diceResults: diceResults,
+      totalSum: totalSum,
+      skillConfig: skill,
+      characterInfo: character
+    }
   }
 
   static makeSkillCheck(skill, character, targetNumber) {
@@ -98,7 +134,7 @@ class SkillCheckService {
         value: result.roll, // The actual number rolled (0 for dropped dice)
         symbol: result.symbol, // Symbol for Discord output
         isMaxValue: result.die === result.roll,
-        emoji: this.getDiceEmoji(result.die, result.roll === 0 ? result.originalRoll : result.roll),
+        emoji: getDiceEmoji(result.die, result.roll === 0 ? result.originalRoll : result.roll),
         dropped: result.roll === 0, // Was this die dropped by favored/ill-favored logic
         displayValue: result.roll === 0 ? result.originalRoll : result.roll,
         class: getDiceFontClass(result.die, result.roll === 0 ? result.originalRoll : result.roll), // For in-app display using DiceFont
@@ -287,16 +323,6 @@ class SkillCheckService {
 
     // Concatenate conditions and states as a comma-separated string
     return footerText.join(', ') || ''
-  }
-
-  static getDiceEmoji(dieType, value) {
-    if (dieType === 12) {
-      if (value === 12) return '🌞' // For 'Sol'
-      if (value === 11) return '💀' // For 'Morte'
-    } else if (dieType === 6 && value === 6) {
-      return '✨' // For successes on success dice
-    }
-    return null
   }
 
   static async sendSkillCheckResultsToServer(

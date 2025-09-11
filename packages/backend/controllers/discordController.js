@@ -69,6 +69,43 @@ const createSkillCheckEmbed = (data) => {
   }
 }
 
+const createOpposedSkillCheckEmbed = (data) => {
+  const { 
+    characterName, 
+    opponentName, 
+    skillName, 
+    opponentSkillName,
+    userTotal, 
+    opponentTotal, 
+    winner 
+  } = data
+  
+  let color = COLORS.NEUTRAL
+  if (winner === 'user') {
+    color = COLORS.SUCCESS
+  } else if (winner === 'opponent') {
+    color = COLORS.FAILURE
+  }
+  
+  return {
+    title: `${characterName} vs ${opponentName} - Opposed Skill Check`,
+    description: winner === 'tie' ? '**TIE**' : `**${winner === 'user' ? characterName : opponentName} WINS**`,
+    color: color,
+    fields: [
+      {
+        name: characterName,
+        value: `${skillName}: ${userTotal}`,
+        inline: true,
+      },
+      {
+        name: opponentName,
+        value: `${opponentSkillName}: ${opponentTotal}`,
+        inline: true,
+      },
+    ],
+  }
+}
+
 const createCustomRollEmbed = (data) => {
   const { rollResults, total, name: characterName, footer, image } = data
   
@@ -104,9 +141,15 @@ const sendDiscordMessage = async (req, res) => {
   }
 
   try {
-    const { characterName, opponentName, result, userWins, opponentWins, drawCount, skill } = req.body
+    const { characterName, opponentName, skill, type } = req.body
 
-    if (characterName && opponentName) {
+    if (type === 'opposed_skill_check') {
+      // Opposed skill check
+      const embed = createOpposedSkillCheckEmbed(req.body)
+      const payload = { embeds: [embed] }
+      await axios.post(DISCORD_WEBHOOK_URL, payload)
+      res.json({ message: 'Opposed skill check sent to Discord!' })
+    } else if (characterName && opponentName) {
       // Engagement roll
       const embed = createEngagementEmbed(req.body)
       const payload = { embeds: [embed] }

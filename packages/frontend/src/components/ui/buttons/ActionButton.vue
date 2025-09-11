@@ -28,7 +28,7 @@ const props = defineProps({
     variant: {
         type: String,
         default: 'neutral',
-        validator: (value) => ['primary', 'neutral', 'danger', 'success'].includes(value)
+        validator: (value) => ['primary', 'neutral', 'danger', 'success', 'outline'].includes(value)
     },
 
     size: {
@@ -61,6 +61,11 @@ const props = defineProps({
     loading: {
         type: Boolean,
         default: false
+    },
+
+    selected: {
+        type: Boolean,
+        default: false
     }
 })
 
@@ -74,7 +79,8 @@ const buttonClasses = computed(() => {
         {
             'action-btn--disabled': props.disabled,
             'action-btn--loading': props.loading,
-            'action-btn--with-icon': props.icon
+            'action-btn--with-icon': props.icon,
+            'action-btn--selected': props.selected
         }
     ].filter(Boolean)
 })
@@ -186,6 +192,29 @@ const handleClick = (event) => {
 
 .action-btn--success:active:not(.action-btn--disabled):not(.action-btn--loading) {
     background-color: var(--color-success-active);
+}
+
+/* Outline */
+.action-btn--outline {
+    background-color: var(--color-bg-secondary);
+    color: var(--color-text-primary);
+    border: 1px solid var(--color-gray-medium);
+}
+
+.action-btn--outline:hover:not(.action-btn--disabled):not(.action-btn--loading) {
+    background-color: var(--color-primary-hover);
+}
+
+.action-btn--outline:active:not(.action-btn--disabled):not(.action-btn--loading) {
+    background-color: var(--color-primary);
+    color: var(--color-primary-text);
+    border-color: var(--color-primary);
+}
+
+.action-btn--outline.action-btn--selected {
+    background-color: var(--color-primary);
+    color: var(--color-primary-text);
+    border-color: var(--color-primary);
 }
 
 /* === STATE VARIANTS === */

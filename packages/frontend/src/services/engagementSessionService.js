@@ -154,6 +154,8 @@ class EngagementSessionService {
         newValue,
         characterId
       })
+    } else {
+      console.log('❌ Frontend rerollDie failed:', { hasSocket: !!this.socket, hasSessionId: !!this.sessionId })
     }
   }
 
@@ -175,6 +177,25 @@ class EngagementSessionService {
         sessionId: this.sessionId,
         characterId,
         accepted
+      })
+    }
+  }
+
+  submitRollResults(rollResults, characterId) {
+    if (this.socket && this.sessionId) {
+      this.socket.emit('submit-roll-results', {
+        sessionId: this.sessionId,
+        rollResults,
+        characterId
+      })
+    }
+  }
+
+  completeSession(winner) {
+    if (this.socket && this.sessionId) {
+      this.socket.emit('complete-session', {
+        sessionId: this.sessionId,
+        winner
       })
     }
   }

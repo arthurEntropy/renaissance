@@ -1,168 +1,154 @@
-import { ref, reactive, computed } from 'vue'
-import { SESSION_STATUS } from '@shared/constants/sessionStatus.js'
+import { watch, computed } from 'vue'
 import engagementSessionService from '@/services/engagementSessionService'
+import EngagementRollService from '@/services/engagementRollService'
+import EngagementResultTypes from '@/constants/engagementResultTypes'
+import EngagementWinnerTypes from '@/constants/engagementWinnerTypes'
+import RollTypes from '@/constants/rollTypes'
+import { DICE_ROLL_DURATION } from '@/constants/animationDurations'
+import { useBaseSession } from './useBaseSession.js'
+import { SESSION_STATUS } from '@shared/constants/sessionStatus.js'
 
 export function useEngagementSession() {
-  const sessionId = ref(null)
-  const sessionStatus = ref(SESSION_STATUS.WAITING)
-  const opponent = ref(null)
-  const rollResults = ref(null)
-  const userAccepted = ref(false)
-  const opponentAccepted = ref(false)
+  // Use base session functionality
+  const baseSession = useBaseSession(engagementSessionService)
 
-  const eventHandlers = reactive({
-    sessionCreated: null,
-    sessionUpdated: null,
-    sessionCancelled: null,
-    rollResults: null,
-    resultIndicatorUpdated: null,
-    dieRerolled: null,
-    successAssignmentUpdated: null,
-    acceptanceStateUpdated: null
-  })
-
-  function initializeSession(character, selectedDice, characterSuccessIds, resultIndicatorCallback, dieRerolledCallback, successAssignmentCallback, rollResultsCallback) {
-    // Connect to the WebSocket if not already connected
-    engagementSessionService.connect()
-    
-    engagementSessionService.autoJoinOrCreate(character, selectedDice, characterSuccessIds)
-
-    // Setup event listeners with the provided callbacks
-    setupEngagementListeners(character, resultIndicatorCallback, dieRerolledCallback, successAssignmentCallback, rollResultsCallback)
-  }
-
-  function setupEngagementListeners(character, diceComparisonIndicatorHandler, dieRerolledHandler, successAssignmentUpdatedHandler, rollResultsHandler) {
-    // Session created handler
-    eventHandlers.sessionCreated = ({ sessionId: newSessionId, session }) => {
-      sessionId.value = newSessionId
-      sessionStatus.value = session.status
-    }
-
-    // Session updated handler
-    eventHandlers.sessionUpdated = ({ session }) => {
-      sessionId.value = session.id
-      sessionStatus.value = session.status
-
-      // Find opponent (the other user in the session)
-      if (session.users && session.users.length === 2) {
-        const otherUser = session.users.find(user =>
-          user.characterInfo.id !== character.id)
-
-        if (otherUser) {
-          opponent.value = otherUser
-        }
-      }
-    }
-
-    // Session cancelled handler
-    eventHandlers.sessionCancelled = ({ message, characterName }) => {
-      const alertMessage = characterName ? `${characterName} has exited the engagement.` : message
-      alert(alertMessage)
-      sessionId.value = null
-      sessionStatus.value = SESSION_STATUS.WAITING
-      opponent.value = null
-    }
-
-    // Acceptance state updated handler
-    eventHandlers.acceptanceStateUpdated = ({ characterId, accepted }) => {
-      // Don't process our own acceptance state updates because we handle those directly in the component
-      if (characterId === character.id) {
-        return
-      }
-
-      // Update opponent's acceptance state
-      if (opponent.value && characterId === opponent.value.characterInfo.id) {
-        opponentAccepted.value = accepted
-      }
-    }
-
-    // Passed-in handlers
-    eventHandlers.rollResults = rollResultsHandler
-    eventHandlers.resultIndicatorUpdated = diceComparisonIndicatorHandler
-    eventHandlers.dieRerolled = dieRerolledHandler
-    eventHandlers.successAssignmentUpdated = successAssignmentUpdatedHandler
-
-    // Register all event listeners
-    engagementSessionService.on('session-created', eventHandlers.sessionCreated)
-    engagementSessionService.on('session-updated', eventHandlers.sessionUpdated)
-    engagementSessionService.on('session-cancelled', eventHandlers.sessionCancelled)
-    engagementSessionService.on('roll-results', eventHandlers.rollResults)
-    engagementSessionService.on('acceptance-state-updated', eventHandlers.acceptanceStateUpdated)
-    engagementSessionService.on('result-indicator-updated', eventHandlers.resultIndicatorUpdated)
-    engagementSessionService.on('die-rerolled', eventHandlers.dieRerolled)
-    engagementSessionService.on('success-assignment-updated', eventHandlers.successAssignmentUpdated)
-  }
-
-  function updateUserAcceptance(characterId, accepted) {
-    userAccepted.value = accepted
-    engagementSessionService.updateAcceptanceState(characterId, accepted)
-  }
-
-  const bothUsersAccepted = computed(() => {
-    return userAccepted.value && opponentAccepted.value
-  })
-
-  const canEditResults = computed(() => {
-    // Results can only be edited if neither user has accepted
-    return !userAccepted.value && !opponentAccepted.value
-  })
-
-  // UI state computed properties
+  // Computed properties for session-specific UI state
   const shouldShowComparisons = computed(() => {
-    return rollResults.value && 
-           rollResults.value.session && 
-           sessionStatus.value === SESSION_STATUS.COMPLETED && 
-           opponent.value
+    return baseSession.showResults.value && baseSession.opponent.value
   })
 
   const shouldShowResolution = computed(() => {
-    return opponent.value
+    return baseSession.opponent.value
   })
 
-  const shouldShowCancelButton = computed(() => {
-    return !opponent.value
-  })
+  function generateEngagementResults(winner, userWins, opponentWins, drawCount, character, opponent) {
+    if (!opponent || !baseSession.showResults.value) {
+      return null
+    }
 
-  const showResults = computed(() => {
-    return rollResults.value &&
-           rollResults.value.session &&
-           sessionStatus.value === SESSION_STATUS.COMPLETED
-  })
+    // Determine the result from the user's perspective
+    let result
+    switch (winner) {
+      case EngagementWinnerTypes.USER:
+        result = EngagementResultTypes.WIN
+        break
+      case EngagementWinnerTypes.OPPONENT:
+        result = EngagementResultTypes.LOSS
+        break
+      case EngagementWinnerTypes.TIE:
+        result = EngagementResultTypes.DRAW
+        break
+      default:
+        result = EngagementResultTypes.DRAW
+    }
 
-  function shouldShowExitConfirmation() {
-    // Only ask for user confirmation before exiting if there's an opponent and dice have already been rolled
-    return opponent.value && 
-           rollResults.value && 
-           sessionStatus.value === SESSION_STATUS.COMPLETED &&
-           !bothUsersAccepted.value
+    // Format the engagement result
+    const engagementResult = {
+      type: RollTypes.ENGAGEMENT,
+      characterName: character.name,
+      opponentName: opponent.characterInfo.name,
+      result: result,
+      userWins: userWins,
+      opponentWins: opponentWins,
+      drawCount: drawCount,
+      timestamp: Date.now()
+    }
+
+    // Send engagement results to Discord
+    EngagementRollService.sendEngagementResultsToServer(engagementResult)
+
+    return engagementResult
   }
 
-  function cancelSession() {
-    if (sessionId.value) {
-      engagementSessionService.cancelSession()
+  function initializeSession(character, selectedDice, characterSuccessIds, resultIndicatorCallback, dieRerolledCallback, successAssignmentCallback, rollResultsCallback) {
+    // Reset acceptance state for fresh session
+    baseSession.resetAcceptanceState()
+    
+    // Setup event listeners with engagement specific callbacks
+    const callbacks = {
+      sessionType: 'engagement',
+      onRollResults: rollResultsCallback,
+      onResultIndicatorUpdated: resultIndicatorCallback,
+      onDieRerolled: dieRerolledCallback
     }
+
+    baseSession.setupBaseEventHandlers(character, callbacks)
+
+    // Setup engagement specific event handlers
+    setupEngagementSpecificHandlers(selectedDice, character, successAssignmentCallback)
+    
+    // Initialize connection and auto-join
+    baseSession.initializeConnection(() => {
+      engagementSessionService.autoJoinOrCreate(character, selectedDice, characterSuccessIds)
+    })
+  }
+
+  function setupEngagementSpecificHandlers(selectedDice, currentCharacter, successAssignmentCallback) {
+    // Watch for session status changes to trigger rolling
+    watch(() => baseSession.sessionStatus.value, (newStatus, oldStatus) => {
+      // When session becomes ACTIVE and we haven't rolled yet, start rolling
+      if (newStatus === SESSION_STATUS.ACTIVE && oldStatus === SESSION_STATUS.WAITING) {
+        // Generate roll results for engagement using selected dice
+        const diceResults = selectedDice.map(dieSize => 
+          EngagementRollService.rollSingleDie(dieSize)
+        )
+        
+        const rollResult = {
+          diceResults,
+          totalSum: diceResults.reduce((sum, value) => sum + value, 0)
+        }
+        
+        // Wait for roll animation duration before submitting results
+        setTimeout(() => {
+          engagementSessionService.submitRollResults(rollResult, currentCharacter.id)
+        }, DICE_ROLL_DURATION)
+      }
+    })
+
+    // Watch for when both users have results to calculate winner and complete session
+    watch(() => baseSession.sessionData.value?.users, (users) => {
+      if (users?.length === 2 && users.every(u => u.rollResults && u.rollTotal !== undefined)) {
+        
+        // Only complete if session is still active (not already completed)
+        if (baseSession.sessionStatus.value === SESSION_STATUS.ACTIVE) {
+          // Calculate winner based on total sums
+          let winner
+          if (users[0].rollTotal > users[1].rollTotal) {
+            winner = 0
+          } else if (users[1].rollTotal > users[0].rollTotal) {
+            winner = 1
+          } else {
+            winner = -1 // tie
+          }
+          
+          // Complete the session with the calculated winner
+          engagementSessionService.completeSession(winner)
+        }
+      }
+    }, { deep: true, immediate: true })
+
+    // Success assignment updated handler
+    const successAssignmentHandler = ({ characterId, player, diceIndex, successId }) => {
+      if (successAssignmentCallback) {
+        successAssignmentCallback({ characterId, player, diceIndex, successId })
+      }
+    }
+
+    // Register the handlers
+    engagementSessionService.on('success-assignment-updated', successAssignmentHandler)
+
+    // Store handlers for cleanup
+    baseSession.eventHandlers.successAssignmentUpdated = successAssignmentHandler
   }
 
   function cleanupEventListeners() {
-    Object.entries(eventHandlers).forEach(([eventName, handler]) => {
-      if (handler) {
-        const eventMap = {
-          sessionCreated: 'session-created',
-          sessionUpdated: 'session-updated',
-          sessionCancelled: 'session-cancelled',
-          rollResults: 'roll-results',
-          resultIndicatorUpdated: 'result-indicator-updated',
-          dieRerolled: 'die-rerolled',
-          successAssignmentUpdated: 'success-assignment-updated',
-          acceptanceStateUpdated: 'acceptance-state-updated'
-        }
-        
-        const socketEvent = eventMap[eventName]
-        if (socketEvent) {
-          engagementSessionService.off(socketEvent, handler)
-        }
-      }
-    })
+    // Clean up base event listeners
+    baseSession.cleanupEventListeners()
+
+    // Clean up engagement specific handlers
+    if (baseSession.eventHandlers.successAssignmentUpdated) {
+      engagementSessionService.off('success-assignment-updated', baseSession.eventHandlers.successAssignmentUpdated)
+    }
   }
 
   function disconnect() {
@@ -171,27 +157,33 @@ export function useEngagementSession() {
   }
 
   return {
-    // State
-    sessionId,
-    sessionStatus,
-    opponent,
-    rollResults,
-    userAccepted,
-    opponentAccepted,
+    // State from base
+    sessionId: baseSession.sessionId,
+    sessionStatus: baseSession.sessionStatus,
+    sessionData: baseSession.sessionData,
+    opponent: baseSession.opponent,
+    rollResults: baseSession.rollResults,
+    userAccepted: baseSession.userAccepted,
+    opponentAccepted: baseSession.opponentAccepted,
     
-    // Computed
-    bothUsersAccepted,
-    canEditResults,
+    // Computed from base
+    bothUsersAccepted: baseSession.bothUsersAccepted,
+    canEditResults: baseSession.canEditResults,
+    showResults: baseSession.showResults,
+    shouldShowExitConfirmation: baseSession.shouldShowExitConfirmation,
+    shouldShowCancelButton: baseSession.shouldShowCancelButton,
+    
+    // Session-specific computed properties
     shouldShowComparisons,
     shouldShowResolution,
-    shouldShowCancelButton,
-    showResults,
-    shouldShowExitConfirmation,
     
-    // Methods
+    // Methods from base
+    updateUserAcceptance: baseSession.updateUserAcceptance,
+    cancelSession: baseSession.cancelSession,
+    
+    // Specific methods
+    generateEngagementResults,
     initializeSession,
-    updateUserAcceptance,
-    cancelSession,
     cleanupEventListeners,
     disconnect
   }

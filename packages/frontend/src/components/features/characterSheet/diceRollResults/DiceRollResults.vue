@@ -1,6 +1,6 @@
 <template>
-  <CharacterSheetSection custom-class="dice-roll-results" min-width="250px" max-width="250px"
-    @mouseenter="handleMouseEnter" @mouseleave="handleMouseLeave">
+  <CharacterSheetSection custom-class="dice-roll-results" :min-width="`${CONTAINER_WIDTH}px`"
+    :max-width="`${CONTAINER_WIDTH}px`" @mouseenter="handleMouseEnter" @mouseleave="handleMouseLeave">
     <!-- Custom Dice Button -->
     <transition name="simple-fade">
       <template v-if="customDiceRollerOpen || showCustomDiceButton">
@@ -20,6 +20,15 @@
           <span class="skill-name">{{ latestRoll.characterName }}</span>
           vs
           <span class="skill-name">{{ latestRoll.opponentName }}</span>
+        </span>
+
+        <span v-else-if="isOpposedSkillCheck">
+          🎯 Opposed:
+          <span class="skill-name">{{ latestRoll.characterName }}</span>
+          ({{ latestRoll.skillName }})
+          vs
+          <span class="skill-name">{{ latestRoll.opponentName }}</span>
+          ({{ latestRoll.opponentSkillName }})
         </span>
 
         <span v-else-if="isCustomRoll">
@@ -43,13 +52,16 @@
 
       <transition name="outcome-fade" appear>
         <div v-if="!isRolling && !isCustomRoll" class="roll-outcome" :class="{
-          success: isEngagement ? latestRoll.result === EngagementResultTypes.WIN : latestRoll.success,
-          failure: isEngagement ? latestRoll.result === EngagementResultTypes.LOSS : !latestRoll.success,
-          draw: isEngagement && latestRoll.result === EngagementResultTypes.DRAW
+          success: isEngagement ? latestRoll.result === EngagementResultTypes.WIN : isOpposedSkillCheck ? latestRoll.winner === 'user' : latestRoll.success,
+          failure: isEngagement ? latestRoll.result === EngagementResultTypes.LOSS : isOpposedSkillCheck ? latestRoll.winner === 'opponent' : !latestRoll.success,
+          draw: (isEngagement && latestRoll.result === EngagementResultTypes.DRAW) || (isOpposedSkillCheck && latestRoll.winner === 'tie')
         }">
           <span v-if="isEngagement">
             {{ latestRoll.result === EngagementResultTypes.WIN ? 'WIN' : latestRoll.result ===
               EngagementResultTypes.DRAW ? 'DRAW' : 'LOSS' }}
+          </span>
+          <span v-else-if="isOpposedSkillCheck">
+            {{ latestRoll.winner === 'user' ? 'WIN' : latestRoll.winner === 'tie' ? 'TIE' : 'LOSS' }}
           </span>
           <span v-else>
             {{ latestRoll.success ? 'SUCCESS' : 'FAILURE' }}
@@ -70,6 +82,11 @@
                 'draws' }}
             </span>
           </span>
+          <span v-else-if="isOpposedSkillCheck" class="opposed-score">
+            <span class="user-total">{{ latestRoll.userTotal }}</span>
+            <span class="score-separator">vs</span>
+            <span class="opponent-total">{{ latestRoll.opponentTotal }}</span>
+          </span>
           <span v-else-if="isCustomRoll">
             <span class="roll-total custom-roll">{{ latestRoll.total }}</span>
             <span v-if="latestRoll.modifier !== 0" class="roll-breakdown">
@@ -85,7 +102,8 @@
 
       <div v-if="isRolling" class="roll-numbers-placeholder"></div>
 
-      <DiceDisplay ref="diceDisplayRef" :rollData="latestRoll" :isEngagement="isEngagement" />
+      <DiceDisplay ref="diceDisplayRef" :rollData="latestRoll" :isEngagement="isEngagement" :canReroll="true"
+        :isOpponent="false" :containerWidth="CONTAINER_WIDTH" />
 
       <div v-if="!isEngagement && latestRoll.footer" class="roll-footer">
         {{ latestRoll.footer }}
@@ -131,12 +149,19 @@ const emit = defineEmits(['toggle-custom-dice'])
 // Component refs
 const diceDisplayRef = ref(null)
 
+// Constants
+const CONTAINER_WIDTH = 250 // pixels
+
 // Reactive state
 const showCustomDiceButton = ref(false)
 
 // Computed properties
 const isEngagement = computed(() => {
   return props.latestRoll && props.latestRoll.type === RollTypes.ENGAGEMENT
+})
+
+const isOpposedSkillCheck = computed(() => {
+  return props.latestRoll && props.latestRoll.type === RollTypes.OPPOSED_SKILL_CHECK
 })
 
 const isCustomRoll = computed(() => {
@@ -262,7 +287,8 @@ const getCircularPosition = (index, total) => {
   margin-left: var(--space-xs);
 }
 
-.engagement-score {
+.engagement-score,
+.opposed-score {
   display: flex;
   align-items: center;
   gap: var(--space-sm);
@@ -270,7 +296,9 @@ const getCircularPosition = (index, total) => {
 
 .user-wins,
 .opponent-wins,
-.draw-number {
+.draw-number,
+.user-total,
+.opponent-total {
   font-size: var(--font-size-20);
   font-weight: var(--font-weight-bold);
   color: var(--color-white);

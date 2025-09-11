@@ -20,13 +20,16 @@
             Ill-Favored
           </option>
         </select>
+
+        <select v-model="rollType" class="modal-roll-type-dropdown">
+          <option value="target-number">Against TN</option>
+          <option value="opposed">Opposed</option>
+        </select>
       </div>
 
       <div class="dice-mod-options">
-        <span v-for="mod in diceModOptions" :key="mod.value" class="dice-mod-option"
-          :class="{ selected: rollParameters.diceMod === mod.value }" @click="rollParameters.diceMod = mod.value">
-          {{ mod.label }}
-        </span>
+        <ActionButton v-for="mod in diceModOptions" :key="mod.value" variant="outline" size="large" :text="mod.label"
+          :selected="rollParameters.diceMod === mod.value" @click="rollParameters.diceMod = mod.value" />
       </div>
 
       <div class="dice-preview" v-if="localSelectedSkillName">
@@ -49,15 +52,23 @@
         </div>
       </div>
 
-      <div class="section-label">Target Number:</div>
-      <div class="target-number-options">
-        <span v-for="tn in targetNumberOptions" :key="tn" class="target-number-option"
-          :class="{ selected: localTargetNumber === tn }" @click="localTargetNumber = tn">
-          {{ tn }}
-        </span>
+      <!-- Target Number -->
+      <div class="target-number-section" :class="{ disabled: rollType === 'opposed' }">
+        <div class="section-label">Target Number:</div>
+        <div class="target-number-descriptors">
+          <span>Easy</span>
+          <span>Moderate</span>
+          <span>Difficult</span>
+          <span>Extreme</span>
+          <span>Legendary</span>
+        </div>
+        <div class="target-number-options">
+          <ActionButton v-for="tn in targetNumberOptions" :key="tn" variant="outline" size="large" :text="tn.toString()"
+            :selected="localTargetNumber === tn" :disabled="rollType === 'opposed'" @click="localTargetNumber = tn" />
+        </div>
       </div>
 
-      <ActionButton variant="primary" size="small" text="Roll" @click="rollSkillCheck"
+      <ActionButton variant="primary" size="large" text="Roll" @click="rollSkillCheck"
         :disabled="!localSelectedSkillName" />
     </div>
   </div>
@@ -68,6 +79,7 @@ import { ref, computed, watch } from 'vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import SkillCheckService from '@/services/skillCheckService'
 import { getDiceFontMaxClass } from '@shared/utils/diceFontUtils'
+import { useSkillDice } from '@/composables/useSkillDice'
 
 const props = defineProps({
   character: {
@@ -84,12 +96,15 @@ const props = defineProps({
   },
 })
 
-const emit = defineEmits(['close', 'update-target-number'])
+const emit = defineEmits(['close', 'update-target-number', 'opposed-skill-check-result', 'start-opposed-skill-check'])
+
+const { buildDiceSet } = useSkillDice()
 
 // Reactive state
 const localCharacter = ref({ ...props.character })
 const localSelectedSkillName = ref(props.selectedSkillName || '')
 const localTargetNumber = ref(props.defaultTargetNumber)
+const rollType = ref('target-number')
 const rollParameters = ref({
   name: '',
   isFavored: false,
@@ -142,50 +157,22 @@ const favoredStatus = computed({
   },
 })
 
-const d12DicePool = computed(() => {
-  const count = rollParameters.value.isFavored || rollParameters.value.isIllFavored ? 2 : 1
+const dicePool = computed(() => {
+  if (!selectedSkill.value) return { d12Dice: [], d6Dice: [] }
 
-  return Array(count)
-    .fill()
-    .map(() => ({
-      type: 12,
-      diceClass: getDiceFontMaxClass(12),
-    }))
+  const allDice = buildDiceSet(rollParameters.value, {
+    includeDiceClass: true,
+    getDiceFontMaxClass
+  })
+
+  return {
+    d12Dice: allDice.filter(die => die.type === 12),
+    d6Dice: allDice.filter(die => die.type === 6)
+  }
 })
 
-const d6DicePool = computed(() => {
-  if (!selectedSkill.value) return []
-
-  const dicePool = []
-  const ranks = selectedSkill.value.ranks
-  const diceMod = rollParameters.value.diceMod
-
-  // Generate d6 dice with proper styling
-  for (let i = 0; i < ranks; i++) {
-    const isSubtracted = diceMod < 0 && i >= ranks + diceMod
-
-    dicePool.push({
-      type: 6,
-      diceClass: getDiceFontMaxClass(6),
-      isSubtracted: isSubtracted,
-      isAdded: false,
-    })
-  }
-
-  // Add dice for positive dice mod
-  if (diceMod > 0) {
-    for (let i = 0; i < Math.min(diceMod, 5 - ranks); i++) {
-      dicePool.push({
-        type: 6,
-        diceClass: getDiceFontMaxClass(6),
-        isAdded: true,
-        isSubtracted: false,
-      })
-    }
-  }
-
-  return dicePool
-})
+const d12DicePool = computed(() => dicePool.value.d12Dice)
+const d6DicePool = computed(() => dicePool.value.d6Dice)
 
 // Methods
 function updateRollParameters() {
@@ -218,13 +205,32 @@ function rollSkillCheck() {
     return
   }
 
-  SkillCheckService.makeSkillCheck(
-    rollParameters.value,
-    localCharacter.value,
-    localTargetNumber.value,
-  )
+  if (rollType.value === 'opposed') {
+    // Emit signal to start opposed skill check session
+    const skillCheckConfig = {
+      name: rollParameters.value.name,
+      isFavored: rollParameters.value.isFavored,
+      isIllFavored: rollParameters.value.isIllFavored,
+      ranks: rollParameters.value.ranks,
+      diceMod: rollParameters.value.diceMod
+    }
 
-  emit('update-target-number', localTargetNumber.value)
+    // Emit the config to the parent component to start the opposed session
+    emit('start-opposed-skill-check', {
+      character: localCharacter.value,
+      skillCheckConfig
+    })
+  } else {
+    // Regular skill check against target number
+    SkillCheckService.makeSkillCheck(
+      rollParameters.value,
+      localCharacter.value,
+      localTargetNumber.value,
+    )
+
+    emit('update-target-number', localTargetNumber.value)
+  }
+
   closeModal()
 }
 
@@ -274,7 +280,8 @@ watch(localSelectedSkillName, () => {
 }
 
 .modal-skill-dropdown,
-.modal-favored-dropdown {
+.modal-favored-dropdown,
+.modal-roll-type-dropdown {
   padding: var(--space-sm);
   font-size: var(--font-size-16);
   background: var(--color-bg-secondary);
@@ -342,9 +349,7 @@ select option.illfavored-option {
 }
 
 .section-label {
-  width: 100%;
-  text-align: center;
-  margin: var(--space-md) 0 5px;
+  margin: var(--space-lg);
   font-weight: var(--font-weight-bold);
 }
 
@@ -358,50 +363,27 @@ select option.illfavored-option {
   margin-bottom: var(--space-lg);
 }
 
-.dice-mod-option,
-.target-number-option {
-  padding: var(--space-sm) var(--space-md);
-  border: 1px solid var(--color-gray-medium);
-  border-radius: var(--radius-5);
-  cursor: pointer;
-  text-align: center;
-  background-color: var(--color-bg-secondary);
-  transition: var(--transition-all);
+.target-number-section {
+  margin-top: var(--space-lg);
+  margin-bottom: var(--space-xl);
 }
 
-.dice-mod-option:hover,
-.target-number-option:hover {
-  background-color: var(--color-bg-secondary);
-}
-
-.dice-mod-option.selected,
-.target-number-option.selected {
-  background-color: var(--color-primary);
-  color: var(--color-primary-text);
-  border-color: var(--color-primary);
-}
-
-.button {
-  margin-top: var(--space-xl);
-  padding: var(--space-md) var(--space-xl);
-  font-size: var(--font-size-16);
-}
-
-.button-primary {
-  background-color: var(--color-primary);
-  color: var(--color-primary-text);
-  border: none;
-  border-radius: var(--radius-5);
-  cursor: pointer;
-}
-
-.button-primary:disabled {
-  background-color: var(--color-gray-light);
-  cursor: not-allowed;
+.target-number-descriptors {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 4px;
+  font-style: italic;
+  font-size: var(--font-size-14);
   color: var(--color-text-muted);
 }
 
-.button-primary:not(:disabled):hover {
-  background-color: var(--color-primary-hover);
+.target-number-section.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.target-number-section.disabled .target-number-descriptors {
+  color: var(--color-gray-dark);
 }
 </style>

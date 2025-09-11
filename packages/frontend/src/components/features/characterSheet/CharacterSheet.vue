@@ -43,7 +43,12 @@
         <!-- Modals -->
         <SkillCheckModal v-if="showSkillCheckModal" :character="localCharacter" :selectedSkillName="selectedSkillName"
             :defaultTargetNumber="getLastTargetNumber()" @close="closeSkillCheckModalAndUpdate"
-            @update-target-number="updateLastTargetNumber" />
+            @update-target-number="updateLastTargetNumber" @opposed-skill-check-result="handleOpposedSkillCheckResult"
+            @start-opposed-skill-check="handleStartOpposedSkillCheck" />
+
+        <OpposedSkillCheckModal v-if="showOpposedSkillCheckModal" :character="localCharacter"
+            :session-manager="sessionManager" @close="closeOpposedSkillCheckModal"
+            @skill-check-result="handleOpposedSkillCheckResult" />
 
         <CharacterSettingsModal v-if="showSettingsModal" :characterName="localCharacter.name"
             @close="closeSettingsModal" @delete="handleDeleteCharacter" />
@@ -57,6 +62,7 @@
 import { computed, ref } from 'vue'
 import { useModal } from '@/composables/useModal'
 import { useSkillCheck } from '@/composables/useSkillCheck'
+import { useOpposedSkillCheck } from '@/composables/useOpposedSkillCheck'
 import { useDiceResults } from '@/composables/useDiceResults'
 import { useEquipmentManagement } from '@/composables/useEquipmentManagement'
 import { useCharacterManagement } from '@/composables/useCharacterManagement'
@@ -69,6 +75,7 @@ import AbilitiesTable from '@/components/features/characterSheet/abilitiesTable/
 import EngagementTable from '@/components/features/characterSheet/engagementTable/EngagementTable.vue'
 import DiceRollResults from '@/components/features/characterSheet/diceRollResults/DiceRollResults.vue'
 import SkillCheckModal from '@/components/features/characterSheet/modals/SkillCheckModal.vue'
+import OpposedSkillCheckModal from '@/components/features/characterSheet/rollModal/OpposedSkillCheckModal.vue'
 import CharacterSettingsModal from '@/components/features/characterSheet/modals/CharacterSettingsModal.vue'
 import EditEquipmentModal from '@/components/editModals/EditEquipmentModal.vue'
 import CustomDiceRoller from './customDiceRoller/CustomDiceRoller.vue'
@@ -116,10 +123,19 @@ const {
     updateLastTargetNumber
 } = useSkillCheck()
 
+// Opposed skill check modal management
+const { showOpposedSkillCheckModal, sessionManager } = useOpposedSkillCheck()
+
+const closeOpposedSkillCheckModal = () => {
+    sessionManager.disconnect()
+    showOpposedSkillCheckModal.value = false
+}
+
 // Dice results management
 const {
     latestRoll,
     handleEngagementResult,
+    handleOpposedSkillCheckResult: handleOpposedSkillCheckResultFromService,
     handleCustomRollResult,
     updateLatestRoll
 } = useDiceResults()
@@ -128,6 +144,33 @@ const {
 const closeSkillCheckModalAndUpdate = () => {
     closeSkillCheckModal()
     updateLatestRoll()
+}
+
+// Opposed skill check result handler
+const handleOpposedSkillCheckResult = (result) => {
+    handleOpposedSkillCheckResultFromService(result)
+    closeSkillCheckModal()
+}
+
+// Handler for starting opposed skill check from SkillCheckModal
+const handleStartOpposedSkillCheck = ({ character, skillCheckConfig }) => {
+    // Close the skill check modal
+    closeSkillCheckModal()
+
+    // Start the opposed skill check session
+    sessionManager.initializeSession(
+        character,
+        skillCheckConfig,
+        null, // resultIndicatorCallback - not needed for basic implementation
+        null, // dieRerolledCallback - not needed for basic implementation
+        (result) => {
+            // Handle the final result
+            handleOpposedSkillCheckResultFromService(result)
+        }
+    )
+
+    // Show the opposed skill check modal
+    showOpposedSkillCheckModal.value = true
 }
 
 // Custom dice roller management

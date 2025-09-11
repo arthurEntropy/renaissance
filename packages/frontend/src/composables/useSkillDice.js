@@ -1,4 +1,6 @@
 import CharacterService from '@/services/characterService'
+import { buildDiceSet, processDiceResults, getEmojiForDieResult, getFavoredStatus } from '@/utils/diceUtils'
+import { getDiceFontClass, getDiceFontMaxClass } from '@shared/utils/diceFontUtils'
 
 /**
  * Composable for managing skill dice interactions
@@ -38,9 +40,8 @@ export function useSkillDice(character, updateCallback) {
   }
 
   const getStyleClassForFavoredStatus = (skill) => {
-    if (skill.isFavored && !skill.isIllFavored) return 'favored'
-    if (skill.isIllFavored && !skill.isFavored) return 'ill-favored'
-    return ''
+    const status = getFavoredStatus(skill)
+    return status || ''
   }
 
   const handleDiceClick = (skillName, diceIndex) => {
@@ -61,11 +62,86 @@ export function useSkillDice(character, updateCallback) {
     updateCallback(updatedCharacter)
   }
 
+  const buildDiceSetForSkill = (skillConfig, options = {}) => {
+    return buildDiceSet(skillConfig, options)
+  }
+
+  const getEmojiForDie = (result) => {
+    return getEmojiForDieResult(result)
+  }
+
+  const processDiceResultsForCharacter = (rollResults, characterId, getDiceFontClass) => {
+    return processDiceResults(rollResults, characterId, getDiceFontClass)
+  }
+
+  // Sort skill check dice according to standard rules (includes dropped dice)
+  const sortSkillCheckDice = (diceArray, rollResults) => {
+    if (!diceArray || !Array.isArray(diceArray) || diceArray.length === 0) {
+      return []
+    }
+
+    const diceWithResults = diceArray.map((die, index) => {
+      if (!rollResults) {
+        // No results yet - show rolling state
+        return {
+          die: die,
+          value: die,
+          class: getDiceFontMaxClass(die),
+          isRolling: true,
+          isMax: false,
+          originalIndex: index,
+          dropped: false
+        }
+      } else {
+        // Handle complex format with potential drops for skill checks
+        let value, dropped = false
+        
+        if (rollResults[index] && typeof rollResults[index] === 'object') {
+          const result = rollResults[index]
+          value = result.roll
+          dropped = value === 0
+          // For display, show original roll if dropped
+          value = dropped ? result.originalRoll : value
+        } else {
+          // Simple number result
+          value = rollResults[index] || 1
+        }
+        
+        const isMax = value === die && value > 0 && !dropped
+        
+        return {
+          die: die,
+          value: value,
+          class: getDiceFontClass(die, value),
+          isRolling: false,
+          isMax: isMax,
+          originalIndex: index,
+          dropped: dropped
+        }
+      }
+    })
+
+    // Include dropped dice for skill checks
+    // Sort by die type first (d12s first), then by value (highest first)
+    return diceWithResults.sort((a, b) => {
+      // First sort by die type (d12s before d6s)
+      if (a.die !== b.die) {
+        return b.die - a.die
+      }
+      // Then sort by value (highest first)
+      return b.value - a.value
+    })
+  }
+
   return {
     isRankActive,
     isDiceAdded,
     isDiceSubtracted,
     getStyleClassForFavoredStatus,
-    handleDiceClick
+    handleDiceClick,
+    buildDiceSet: buildDiceSetForSkill,
+    getEmojiForDie,
+    processDiceResults: processDiceResultsForCharacter,
+    sortSkillCheckDice
   }
 }

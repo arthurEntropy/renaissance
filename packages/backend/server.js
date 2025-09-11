@@ -12,7 +12,7 @@ import {
   deleteEntity,
 } from './controllers/entityController.js'
 import { sendDiscordMessage } from './controllers/discordController.js'
-import { setupSocketHandlers } from './controllers/engagementController.js'
+import { setupEngagementHandlers, setupOpposedSkillCheckHandlers } from './controllers/sessionController.js'
 import { getEntityNames } from './utils/fileService.js'
 
 const __filename = fileURLToPath(import.meta.url)
@@ -49,7 +49,8 @@ entities.forEach((entity) => {
 app.post('/send-discord-message', sendDiscordMessage)
 
 // Set up Socket.io handlers
-setupSocketHandlers(io)
+setupEngagementHandlers(io)
+setupOpposedSkillCheckHandlers(io)
 
 // Start the server
 server.listen(PORT, () => {
