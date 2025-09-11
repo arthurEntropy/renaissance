@@ -1,18 +1,44 @@
 <template>
-    <div v-if="shouldShowDice" class="roll-dice">
-        <span v-for="(die, index) in truncatedDice.dice" :key="index" class="dice-symbol" :class="{
-            'dropped-die': !isRolling && die.dropped,
-            'max-value-die': !isRolling && die.isMaxValue,
-            'dice-rolling': isRolling,
-        }" :style="{ animationDelay: `${index * 50}ms` }">
-            <i :class="die.class"></i>
-            <span v-if="!isRolling && die.emoji && !isCustomRoll" class="dice-emoji">{{
-                die.emoji
-                }}</span>
-        </span>
-        <span v-if="truncatedDice.showEllipsis" class="dice-ellipsis" @click="openModal">
-            ...
-        </span>
+    <div v-if="shouldShowDice" class="roll-dice"
+        @mouseenter="canReroll && !isOpponent && state === 'completed' ? showDiceHover = true : null"
+        @mouseleave="canReroll && !isOpponent && state === 'completed' ? showDiceHover = false : null">
+
+        <!-- Waiting/Rolling state -->
+        <div v-if="state === 'waiting' || state === 'rolling'" class="dice-state-container">
+            <div class="dice-row">
+                <span v-for="(die, index) in waitingDiceDisplay" :key="`${state}-${index}`"
+                    class="dice-symbol dice-rolling" :style="{ animationDelay: `${index * 100}ms` }">
+                    <i :class="die.class"></i>
+                </span>
+            </div>
+        </div>
+
+        <!-- Completed state -->
+        <div v-else class="completed-dice-state">
+            <span v-for="(die, index) in truncatedDice.dice" :key="index" class="dice-symbol" :class="{
+                'dropped-die': !isRolling && die.dropped,
+                'max-value-die': !isRolling && die.isMaxValue,
+                'dice-rolling': isRolling,
+            }" :style="{
+                animationDelay: `${index * 50}ms`,
+                fontSize: `${diceSize}px`
+            }">
+                <i :class="die.class"></i>
+                <span v-if="!isRolling && die.emoji && !isCustomRoll" class="dice-emoji">{{
+                    die.emoji
+                    }}</span>
+            </span>
+            <span v-if="truncatedDice.showEllipsis" class="dice-ellipsis" :style="{ fontSize: `${diceSize}px` }"
+                @click="openModal">
+                ...
+            </span>
+
+            <!-- Reroll button (on hover) -->
+            <button v-if="canReroll && !isOpponent && showDiceHover && !isRolling" class="reroll-hover-all"
+                @click="emit('reroll-all-dice')">
+                Reroll
+            </button>
+        </div>
 
         <!-- Modal for showing all dice -->
         <div v-if="showModal" class="modal-overlay" @click="closeModal">
@@ -43,8 +69,8 @@
 import { computed, watch, onMounted, ref } from 'vue'
 import { useDiceAnimation } from '@/composables/useDiceAnimation'
 import { RollTypes } from '@/constants/rollTypes'
+import { getDiceFontClass } from '@shared/utils/diceFontUtils'
 
-// Props
 const props = defineProps({
     rollData: {
         type: Object,
@@ -54,30 +80,78 @@ const props = defineProps({
         type: Boolean,
         default: false,
     },
+    canReroll: {
+        type: Boolean,
+        default: false,
+    },
+    isOpponent: {
+        type: Boolean,
+        default: false,
+    },
+    state: {
+        type: String,
+        default: 'completed',
+        validator: (value) => ['waiting', 'rolling', 'completed'].includes(value)
+    },
+    waitingDice: {
+        type: Array,
+        default: () => []
+    },
+    containerWidth: {
+        type: Number,
+        default: 250,
+    },
 })
 
-// Composables
+const emit = defineEmits(['reroll-all-dice'])
+
 const { isRolling, startRollAnimation, getDisplayDice } = useDiceAnimation()
 
-// Modal state
-const showModal = ref(false)
+const DICE_SIZES = {
+    LARGE: 36,  // var(--font-size-36)
+    MEDIUM: 30, // var(--font-size-30)
+    SMALL: 24   // var(--font-size-24)
+}
 
-// Computed properties
+const DICE_SIZE_THRESHOLDS = {
+    MEDIUM: 6,  // 6+ dice use medium size
+    SMALL: 8    // 8+ dice use small size
+}
+
+const showModal = ref(false)
+const showDiceHover = ref(false)
+
 const isCustomRoll = computed(() => {
     return props.rollData?.type === RollTypes.CUSTOM_ROLL
 })
+
+const diceSize = computed(() => {
+    const diceCount = displayDice.value?.length || 0
+    if (diceCount >= DICE_SIZE_THRESHOLDS.SMALL) return DICE_SIZES.SMALL
+    if (diceCount >= DICE_SIZE_THRESHOLDS.MEDIUM) return DICE_SIZES.MEDIUM
+    return DICE_SIZES.LARGE
+})
+
 const maxDiceForTwoLines = computed(() => {
-    // Estimate based on container width (250px) and dice size + gap
-    const containerWidth = 250
-    const gapSize = 8 // var(--space-xs)
-    const diceSize = displayDice.value?.length >= 8 ? 24 : displayDice.value?.length >= 6 ? 30 : 36
-    const diceWithGap = diceSize + gapSize
+    const containerWidth = props.containerWidth
+    const gapSize = 8 // Gap size between dice in pixels
+    const diceWithGap = diceSize.value + gapSize
     const dicePerLine = Math.floor(containerWidth / diceWithGap)
     return dicePerLine * 2 // Two lines
 })
 
 const displayDice = computed(() => {
     return getDisplayDice(props.rollData?.diceResults)
+})
+
+const waitingDiceDisplay = computed(() => {
+    if (!props.waitingDice || props.waitingDice.length === 0) return []
+
+    return props.waitingDice.map((die, index) => ({
+        type: die.type,
+        class: getDiceFontClass(die.type, die.type), // Use the die type as the value for consistent display
+        originalIndex: index
+    }))
 })
 
 const truncatedDice = computed(() => {
@@ -99,19 +173,18 @@ const shouldShowDice = computed(() => {
     return !props.isEngagement
 })
 
-// Helper function to trigger animation
 const triggerRollAnimation = () => {
     startRollAnimation(props.rollData, props.isEngagement)
 }
 
-// Modal methods
 const openModal = () => {
     showModal.value = true
 }
 
 const closeModal = () => {
     showModal.value = false
-}// Watchers
+}
+
 watch(() => props.rollData, (newValue, oldValue) => {
     if (
         newValue &&
@@ -121,16 +194,15 @@ watch(() => props.rollData, (newValue, oldValue) => {
     }
 })
 
-// Lifecycle
 onMounted(() => {
     if (props.rollData) {
         triggerRollAnimation()
     }
 })
 
-// Expose isRolling state to parent
 defineExpose({
-    isRolling
+    isRolling,
+    triggerRollAnimation
 })
 </script>
 
@@ -142,7 +214,7 @@ defineExpose({
     gap: var(--space-xs);
     padding: var(--space-xs) 0;
     max-height: calc(2 * (var(--font-size-36) + var(--space-xs) + 4px));
-    overflow: hidden;
+    overflow: visible;
     position: relative;
 }
 
@@ -157,15 +229,6 @@ defineExpose({
     position: relative;
     opacity: 1;
     text-decoration: none;
-}
-
-/* When there are many dice, make them smaller */
-.roll-dice:has(.dice-symbol:nth-child(n + 6)) .dice-symbol {
-    font-size: var(--font-size-30);
-}
-
-.roll-dice:has(.dice-symbol:nth-child(n + 8)) .dice-symbol {
-    font-size: var(--font-size-24);
 }
 
 /* Define transition for all dice */
@@ -268,15 +331,6 @@ defineExpose({
 
 .dice-ellipsis:hover {
     color: var(--color-text-primary);
-}
-
-/* Adjust ellipsis size when dice are smaller */
-.roll-dice:has(.dice-symbol:nth-child(n + 6)) .dice-ellipsis {
-    font-size: var(--font-size-30);
-}
-
-.roll-dice:has(.dice-symbol:nth-child(n + 8)) .dice-ellipsis {
-    font-size: var(--font-size-24);
 }
 
 .modal-overlay {
@@ -439,5 +493,60 @@ defineExpose({
     perspective: 1000px;
     transform-style: preserve-3d;
     display: inline-block;
+}
+
+/* Waiting and rolling states */
+.dice-state-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-md);
+    position: relative;
+}
+
+.dice-state-container .dice-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    align-items: center;
+    justify-content: center;
+}
+
+.dice-state-container .dice-symbol {
+    animation: rollDice 2s ease-in-out infinite;
+}
+
+.completed-dice-state {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+/* Reroll button styling */
+.reroll-hover-all {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--color-accent-gold);
+    color: var(--overlay-black-heavy);
+    padding: var(--space-xs) var(--space-xs);
+    border-radius: var(--radius-5);
+    border: none;
+    font-size: var(--font-size-14);
+    font-weight: var(--font-weight-bold);
+    cursor: pointer;
+    z-index: var(--z-interactive);
+    transition: var(--transition-all);
+    box-shadow: var(--shadow-elevation-sm);
+    text-shadow: var(--shadow-none);
+}
+
+.reroll-hover-all:hover {
+    background-color: var(--color-accent-gold);
+    transform: translate(-50%, -50%) scale(1.1);
 }
 </style>

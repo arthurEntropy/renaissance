@@ -141,7 +141,7 @@ const sendDiscordMessage = async (req, res) => {
   }
 
   try {
-    const { characterName, opponentName, result, userWins, opponentWins, drawCount, skill, type } = req.body
+    const { characterName, opponentName, skill, type } = req.body
 
     if (type === 'opposed_skill_check') {
       // Opposed skill check

@@ -75,7 +75,7 @@ import AbilitiesTable from '@/components/features/characterSheet/abilitiesTable/
 import EngagementTable from '@/components/features/characterSheet/engagementTable/EngagementTable.vue'
 import DiceRollResults from '@/components/features/characterSheet/diceRollResults/DiceRollResults.vue'
 import SkillCheckModal from '@/components/features/characterSheet/modals/SkillCheckModal.vue'
-import OpposedSkillCheckModal from '@/components/features/characterSheet/modals/OpposedSkillCheckModal.vue'
+import OpposedSkillCheckModal from '@/components/features/characterSheet/rollModal/OpposedSkillCheckModal.vue'
 import CharacterSettingsModal from '@/components/features/characterSheet/modals/CharacterSettingsModal.vue'
 import EditEquipmentModal from '@/components/editModals/EditEquipmentModal.vue'
 import CustomDiceRoller from './customDiceRoller/CustomDiceRoller.vue'

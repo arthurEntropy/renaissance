@@ -1,45 +1,54 @@
 import axios from 'axios'
-import { getDiceFontClass, getDiceFontMaxClass } from '@shared/utils/diceFontUtils'
 import { RollTypes } from '@/constants/rollTypes'
 import { EngagementWinnerTypes } from '@/constants/engagementWinnerTypes'
 import { PlayerSides } from '@/constants/playerSides'
+import { rollSingleDie } from '@/utils/diceUtils'
+import { getDiceFontClass, getDiceFontMaxClass } from '@shared/utils/diceFontUtils'
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000'
 
 class EngagementRollService {
   static rollSingleDie(dieSize) {
-    return Math.floor(Math.random() * dieSize) + 1
+    return rollSingleDie(dieSize)
   }
 
   static sortEngagementDice(diceArray, rollResults) {
+    // Sort dice according to engagement rules (highest value first, then highest die size)
+    // No dropped dice in engagement rolls
     if (!diceArray || !Array.isArray(diceArray) || diceArray.length === 0) {
       return []
     }
 
     const diceWithResults = diceArray.map((die, index) => {
       if (!rollResults) {
+        // No results yet - show rolling state
         return {
           die: die,
           value: die,
           class: getDiceFontMaxClass(die),
           isRolling: true,
           isMax: false,
-          originalIndex: index
+          originalIndex: index,
+          dropped: false
         }
       } else {
+        // Simple number result for engagement
         const value = rollResults[index] || 1
-        const isMax = value === die
+        const isMax = value === die && value > 0
+        
         return {
           die: die,
           value: value,
           class: getDiceFontClass(die, value),
           isRolling: false,
           isMax: isMax,
-          originalIndex: index
+          originalIndex: index,
+          dropped: false
         }
       }
     })
 
+    // Sort by value (highest first), then by die size (highest first)
     return diceWithResults.sort((a, b) => {
       if (b.value !== a.value) {
         return b.value - a.value

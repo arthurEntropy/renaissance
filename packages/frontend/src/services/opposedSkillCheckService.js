@@ -1,6 +1,7 @@
-import axios from 'axios'
 import { getDiceFontClass, getDiceFontMaxClass } from '@shared/utils/diceFontUtils'
-import { RollTypes } from '@/constants/rollTypes'
+import { rollSingleDie, formatDiceResults, getFavoredStatus } from '@/utils/diceUtils'
+import RollTypes from '@/constants/rollTypes'
+import axios from 'axios'
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000'
 
@@ -12,7 +13,7 @@ class OpposedSkillCheckService {
   }
 
   static rollSingleDie(dieSize) {
-    return Math.floor(Math.random() * dieSize) + 1
+    return rollSingleDie(dieSize)
   }
 
   static sortSkillCheckDice(diceArray, rollResults) {
@@ -20,8 +21,10 @@ class OpposedSkillCheckService {
       return []
     }
 
+    // Sort skill check dice (includes dropped dice)
     const diceWithResults = diceArray.map((die, index) => {
       if (!rollResults) {
+        // No results yet - show rolling state
         return {
           die: die,
           value: die,
@@ -32,15 +35,26 @@ class OpposedSkillCheckService {
           dropped: false
         }
       } else {
-        const result = rollResults[index]
-        const value = result.roll
-        const isMax = value === die && value > 0
-        const dropped = value === 0
+        // Handle complex format with potential drops for skill checks
+        let value, dropped = false
+        
+        if (rollResults[index] && typeof rollResults[index] === 'object') {
+          const result = rollResults[index]
+          value = result.roll
+          dropped = value === 0
+          // For display, show original roll if dropped
+          value = dropped ? result.originalRoll : value
+        } else {
+          // Simple number result
+          value = rollResults[index] || 1
+        }
+        
+        const isMax = value === die && value > 0 && !dropped
         
         return {
           die: die,
-          value: dropped ? result.originalRoll : value,
-          class: getDiceFontClass(die, dropped ? result.originalRoll : value),
+          value: value,
+          class: getDiceFontClass(die, value),
           isRolling: false,
           isMax: isMax,
           originalIndex: index,
@@ -49,16 +63,15 @@ class OpposedSkillCheckService {
       }
     })
 
+    // Include dropped dice for skill checks
+    // Sort by die type first (d12s first), then by value (highest first)
     return diceWithResults.sort((a, b) => {
-      // Sort by value (highest first), but dropped dice go to end
-      if (a.dropped && !b.dropped) return 1
-      if (!a.dropped && b.dropped) return -1
-      if (a.dropped && b.dropped) return 0
-      
-      if (b.value !== a.value) {
-        return b.value - a.value
+      // First sort by die type (d12s before d6s)
+      if (a.die !== b.die) {
+        return b.die - a.die
       }
-      return b.die - a.die
+      // Then sort by value (highest first)
+      return b.value - a.value
     })
   }
 
@@ -80,7 +93,25 @@ class OpposedSkillCheckService {
       return null
     }
 
-    const winner = this.determineOpposedWinner(userSession.rollTotal, opponentSession.rollTotal)
+    // Use server's winner determination instead of client-side calculation
+    let winner = 'tie'
+    if (session.winner !== null && session.winner !== undefined) {
+      // Server winner is 0-indexed: 0 = first user, 1 = second user
+      const winnerIndex = session.winner
+      const winnerUser = session.users[winnerIndex]
+      
+      if (winnerUser) {
+        // Determine winner relative to current user
+        if (winnerUser.characterInfo.id === userCharacterId) {
+          winner = 'user'
+        } else {
+          winner = 'opponent'
+        }
+      }
+    } else {
+      // Fallback to client-side calculation if server doesn't provide winner
+      winner = this.determineOpposedWinner(userSession.rollTotal, opponentSession.rollTotal)
+    }
     
     const result = {
       type: RollTypes.OPPOSED_SKILL_CHECK,
@@ -91,10 +122,10 @@ class OpposedSkillCheckService {
       userTotal: userSession.rollTotal,
       opponentTotal: opponentSession.rollTotal,
       winner: winner,
-      userDiceResults: this.formatDiceResults(userSession.rollResults),
-      opponentDiceResults: this.formatDiceResults(opponentSession.rollResults),
-      userFavoredStatus: this.getFavoredStatus(userSession.skillCheckConfig),
-      opponentFavoredStatus: this.getFavoredStatus(opponentSession.skillCheckConfig),
+      userDiceResults: formatDiceResults(userSession.rollResults),
+      opponentDiceResults: formatDiceResults(opponentSession.rollResults),
+      userFavoredStatus: getFavoredStatus(userSession.skillCheckConfig),
+      opponentFavoredStatus: getFavoredStatus(opponentSession.skillCheckConfig),
       timestamp: Date.now(),
       session: session
     }
@@ -103,69 +134,33 @@ class OpposedSkillCheckService {
     return result
   }
 
-  static formatDiceResults(rollResults) {
-    return rollResults.map(result => ({
-      type: result.die,
-      value: result.roll,
-      displayValue: result.roll === 0 ? result.originalRoll : result.roll,
-      symbol: result.symbol,
-      isMaxValue: result.die === result.roll && result.roll > 0,
-      dropped: result.roll === 0,
-      class: getDiceFontClass(result.die, result.roll === 0 ? result.originalRoll : result.roll),
-      emoji: this.getDiceEmoji(result.die, result.roll === 0 ? result.originalRoll : result.roll)
-    }))
-  }
-
-  static getFavoredStatus(skillConfig) {
-    if (skillConfig.isFavored) return 'favored'
-    if (skillConfig.isIllFavored) return 'ill-favored'
-    return null
-  }
-
-  static getDiceEmoji(dieSize, roll) {
-    if (dieSize === 12) {
-      if (roll === 12) return '🌞'
-      if (roll === 11) return '💀'
-      return null
-    } else if (dieSize === 6 && roll === 6) {
-      return '✨'
-    }
-    return null
-  }
-
   static updateRollResultsAfterReroll(rollResults, player, diceIndex, newValue, characterId, opponentSocketId, sortedDice) {
-    if (!rollResults || !rollResults.session) return false
-
-    let targetUser
-
-    if (player === 'user') {
-      targetUser = rollResults.session.users.find(
-        user => user.characterInfo.id === characterId
-      )
-    } else {
-      targetUser = rollResults.session.users.find(
-        user => user.socketId === opponentSocketId
-      )
+    // Update roll results after a reroll for skill checks
+    if (!rollResults || !rollResults.session || !rollResults.session.users) {
+      return rollResults
     }
+
+    // Find the target user
+    const targetUser = rollResults.session.users.find(user => 
+      (player === 'user' && user.id === characterId) ||
+      (player === 'opponent' && user.id !== characterId)
+    )
 
     if (targetUser && targetUser.rollResults && sortedDice && sortedDice[diceIndex]) {
       const rerolledDie = sortedDice[diceIndex]
-
+      
       if (rerolledDie.originalIndex !== undefined) {
-        const originalResult = targetUser.rollResults[rerolledDie.originalIndex]
-        originalResult.roll = newValue
-        originalResult.originalRoll = newValue
-        
-        // Recalculate total
-        targetUser.rollTotal = targetUser.rollResults
-          .filter(result => result.roll > 0)
-          .reduce((sum, result) => sum + result.roll, 0)
-        
-        return true
+        if (typeof targetUser.rollResults[rerolledDie.originalIndex] === 'object') {
+          // Complex format - update the roll value
+          targetUser.rollResults[rerolledDie.originalIndex].roll = newValue
+        } else {
+          // Simple format - update the value directly
+          targetUser.rollResults[rerolledDie.originalIndex] = newValue
+        }
       }
     }
 
-    return false
+    return rollResults
   }
 
   static async sendOpposedSkillCheckResultsToServer(opposedSkillCheckResults) {

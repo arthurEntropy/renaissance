@@ -1,6 +1,6 @@
 <template>
-  <CharacterSheetSection custom-class="dice-roll-results" min-width="250px" max-width="250px"
-    @mouseenter="handleMouseEnter" @mouseleave="handleMouseLeave">
+  <CharacterSheetSection custom-class="dice-roll-results" :min-width="`${CONTAINER_WIDTH}px`"
+    :max-width="`${CONTAINER_WIDTH}px`" @mouseenter="handleMouseEnter" @mouseleave="handleMouseLeave">
     <!-- Custom Dice Button -->
     <transition name="simple-fade">
       <template v-if="customDiceRollerOpen || showCustomDiceButton">
@@ -40,7 +40,7 @@
           {{ latestRoll.characterName }} rolled
           <span class="skill-name">{{
             latestRoll.baseSkillName || latestRoll.skillName
-            }}</span>
+          }}</span>
           <span v-if="latestRoll.favoredStatus" :class="{
             'favored-modifier': latestRoll.favoredStatus === 'favored',
             'ill-favored-modifier': latestRoll.favoredStatus === 'ill-favored',
@@ -102,7 +102,8 @@
 
       <div v-if="isRolling" class="roll-numbers-placeholder"></div>
 
-      <DiceDisplay ref="diceDisplayRef" :rollData="latestRoll" :isEngagement="isEngagement" />
+      <DiceDisplay ref="diceDisplayRef" :rollData="latestRoll" :isEngagement="isEngagement" :canReroll="true"
+        :isOpponent="false" :containerWidth="CONTAINER_WIDTH" />
 
       <div v-if="!isEngagement && latestRoll.footer" class="roll-footer">
         {{ latestRoll.footer }}
@@ -147,6 +148,9 @@ const emit = defineEmits(['toggle-custom-dice'])
 
 // Component refs
 const diceDisplayRef = ref(null)
+
+// Constants
+const CONTAINER_WIDTH = 250 // pixels
 
 // Reactive state
 const showCustomDiceButton = ref(false)

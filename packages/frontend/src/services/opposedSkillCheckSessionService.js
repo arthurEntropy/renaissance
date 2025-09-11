@@ -1,165 +1,97 @@
-import { io } from 'socket.io-client'
+import BaseSessionService from './baseSessionService.js'
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000'
-
-class OpposedSkillCheckSessionService {
+class OpposedSkillCheckSessionService extends BaseSessionService {
   constructor() {
-    this.socket = null
-    this.sessionId = null
-    this.listeners = new Map()
-  }
-
-  connect() {
-    if (this.socket) return
-    
-    this.socket = io(`${API_BASE_URL}/opposed-skill-check`, {
+    super('opposed-skill-check', {
       reconnection: true,
       reconnectionDelay: 1000,
-      reconnectionAttempts: 5
-    })
-
-    this.socket.on('connect', () => {
-      this._notifyListeners('connection-status', { connected: true })
-    })
-
-    this.socket.on('disconnect', (reason) => {
-      this._notifyListeners('connection-status', { connected: false, reason })
-    })
-
-    this.socket.on('error', (error) => {
-      console.error('OpposedSkillCheckService: WebSocket error:', error)
-      this._notifyListeners('error', error)
-    })
-
-    this.socket.on('session-created', ({ sessionId, session }) => {
-      this.sessionId = sessionId
-      this._notifyListeners('session-created', { sessionId, session })
-    })
-
-    this.socket.on('session-updated', ({ session }) => {
-      if (!this.sessionId && session.id) {
-        this.sessionId = session.id
-      }
-      this._notifyListeners('session-updated', { session })
-    })
-
-    this.socket.on('user-left', ({ session, message }) => {
-      this._notifyListeners('user-left', { session, message })
-    })
-
-    this.socket.on('session-cancelled', ({ message, characterName }) => {
-      this._notifyListeners('session-cancelled', { message, characterName })
-      this.sessionId = null
-    })
-
-    this.socket.on('roll-results', ({ session, timestamp }) => {
-      this._notifyListeners('roll-results', { session, timestamp })
-    })
-    
-    this.socket.on('result-indicator-updated', ({ index, state }) => {
-      this._notifyListeners('result-indicator-updated', { index, state })
-    })
-
-    this.socket.on('acceptance-state-updated', ({ characterId, accepted }) => {
-      this._notifyListeners('acceptance-state-updated', { characterId, accepted })
-    })
-
-    this.socket.on('die-rerolled', ({ player, diceIndex, newValue, characterId }) => {
-      this._notifyListeners('die-rerolled', { player, diceIndex, newValue, characterId })
+      reconnectionAttempts: 5,
+      timeout: 20000
     })
   }
 
-  disconnect() {
-    if (this.socket) {
-      this.socket.disconnect()
-      this.socket = null
-      this.sessionId = null
-      this.listeners.clear()
-    }
+  // Service-specific socket event handlers
+  _setupServiceSpecificHandlers() {
+    this.socket.on('start-reroll', ({ sessionId, rerollingCharacterId, timestamp }) => {
+      this._notifyListeners('start-reroll', { sessionId, rerollingCharacterId, timestamp })
+    })
   }
 
+  // Service-specific methods
   autoJoinOrCreate(characterInfo, skillCheckConfig) {
-    if (!this.socket) this.connect()
-    
-    this.socket.emit('auto-join-or-create', {
-      characterInfo,
-      skillCheckConfig
-    })
+    try {
+      if (!this.socket) this.connect()
+      
+      if (!this.socket || !this.socket.connected) {
+        console.error('OpposedSkillCheckService: Cannot auto-join, not connected to server')
+        this._notifyListeners('connection-error', { error: 'Not connected to server' })
+        return
+      }
+
+      this.socket.emit('auto-join-or-create', {
+        characterInfo,
+        skillCheckConfig
+      })
+    } catch (error) {
+      console.error('OpposedSkillCheckService: Error in auto-join-or-create:', error)
+      this._notifyListeners('error', { error: 'Failed to join or create session' })
+    }
   }
 
   cancelSession() {
-    if (this.socket && this.sessionId) {
-      this.socket.emit('cancel-session', { sessionId: this.sessionId })
-      this.sessionId = null
-    }
+    this._safeEmit('cancel-session', {})
+    this.sessionId = null
   }
 
-  on(event, callback) {
-    if (!this.listeners.has(event)) {
-      this.listeners.set(event, [])
-    }
-    this.listeners.get(event).push(callback)
-  }
-
-  off(event, callback) {
-    if (this.listeners.has(event)) {
-      const callbacks = this.listeners.get(event)
-      const index = callbacks.indexOf(callback)
-      if (index !== -1) {
-        callbacks.splice(index, 1)
+  async rerollAllDice(sessionId, side, newValues, characterId) {
+    try {
+      if (!this.socket || !this.socket.connected) {
+        console.error('OpposedSkillCheckService: Socket not connected for reroll all dice')
+        this._notifyListeners('connection-error', { error: 'Not connected to server' })
+        return
       }
-      if (callbacks.length === 0) {
-        this.listeners.delete(event)
+
+      this.socket.emit('reroll-all-dice', { 
+        sessionId, 
+        side, 
+        newValues, 
+        characterId 
+      })
+    } catch (error) {
+      console.error('OpposedSkillCheckService: Error rerolling all dice:', error)
+      this._notifyListeners('error', { error: 'Failed to reroll all dice' })
+    }
+  }
+
+  async rerollSkillCheck(sessionId, rerollingCharacterId) {
+    try {
+      if (!this.socket || !this.socket.connected) {
+        console.error('OpposedSkillCheckService: Socket not connected for reroll skill check')
+        this._notifyListeners('connection-error', { error: 'Not connected to server' })
+        return
       }
-    }
-  }
 
-  _notifyListeners(event, data) {
-    if (this.listeners.has(event)) {
-      for (const callback of this.listeners.get(event)) {
-        callback(data)
-      }
-    }
-  }
-
-  getSessionId() {
-    return this.sessionId
-  }
-
-  isConnected() {
-    return this.socket && this.socket.connected
-  }
-  
-  updateResultIndicator(index, state) {
-    if (this.socket && this.sessionId) {
-      this.socket.emit('update-result-indicator', {
-        sessionId: this.sessionId,
-        index,
-        state
+      this.socket.emit('reroll-skill-check', { 
+        sessionId, 
+        rerollingCharacterId 
       })
+    } catch (error) {
+      console.error('OpposedSkillCheckService: Error rerolling skill check:', error)
+      this._notifyListeners('error', { error: 'Failed to reroll skill check' })
     }
   }
 
-  rerollDie(player, diceIndex, newValue, characterId) {
-    if (this.socket && this.sessionId) {
-      this.socket.emit('reroll-die', {
-        sessionId: this.sessionId,
-        player,
-        diceIndex,
-        newValue,
-        characterId
-      })
-    }
+  submitRollResults(rollResults, characterId) {
+    this._safeEmit('submit-roll-results', {
+      rollResults,
+      characterId
+    })
   }
 
-  updateAcceptanceState(characterId, accepted) {
-    if (this.socket && this.sessionId) {
-      this.socket.emit('acceptance-state-updated', {
-        sessionId: this.sessionId,
-        characterId,
-        accepted
-      })
-    }
+  completeSession(winner) {
+    this._safeEmit('complete-session', {
+      winner
+    })
   }
 }
 

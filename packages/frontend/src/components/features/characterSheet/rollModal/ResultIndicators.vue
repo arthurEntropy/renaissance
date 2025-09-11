@@ -1,18 +1,18 @@
 <template>
-    <div class="floating-comparisons">
-        <div v-for="(comparison, index) in comparisons" :key="index" class="comparison-indicator"
-            :class="getComparisonClasses(comparison)" :style="{ top: `${190 + (comparison.index * 48)}px` }">
+    <div class="result-indicators-container">
+        <div v-for="(dicePair, index) in dicePairs" :key="index" class="result-indicator"
+            :class="getComparisonClasses(dicePair)" :style="{ top: getIndicatorPosition(dicePair) }">
             <div class="indicator-circle"
-                :class="{ 'winner': comparison.leftWins, 'loser': !comparison.leftWins && !comparison.tie }">
+                :class="{ 'winner': dicePair.leftWins, 'loser': !dicePair.leftWins && !dicePair.tie }">
             </div>
             <div class="indicator-caret" @click.stop="canEdit ? $emit('toggle-result', index) : null"
-                :class="getCaretClasses(comparison)">
-                <span v-if="comparison.tie">◉</span>
-                <span v-else-if="comparison.leftWins">◀</span>
+                :class="getCaretClasses(dicePair)">
+                <span v-if="dicePair.tie">◉</span>
+                <span v-else-if="dicePair.leftWins">◀</span>
                 <span v-else>▶</span>
             </div>
             <div class="indicator-circle"
-                :class="{ 'winner': comparison.rightWins, 'loser': !comparison.rightWins && !comparison.tie }">
+                :class="{ 'winner': dicePair.rightWins, 'loser': !dicePair.rightWins && !dicePair.tie }">
             </div>
         </div>
     </div>
@@ -21,24 +21,32 @@
 <script setup>
 import EngagementWinnerTypes from '@/constants/engagementWinnerTypes'
 
+// TODO: Make these calulated based on height of character info section of column
+const INDICATOR_BASE_OFFSET = 225 // Base top position in pixels
+const INDICATOR_SPACING = 48 // Vertical spacing between indicators in pixels
+
 const props = defineProps({
-    comparisons: { type: Array, default: () => [] },
+    dicePairs: { type: Array, default: () => [] },
     canEdit: { type: Boolean, default: false },
-    engagementWinner: { type: String, default: null },
+    winner: { type: String, default: null },
 })
 
 defineEmits(['toggle-result'])
 
+function getIndicatorPosition(dicePair) {
+    return `${INDICATOR_BASE_OFFSET + (dicePair.index * INDICATOR_SPACING)}px`
+}
+
 function getComparisonClasses(comparison) {
     const classes = []
 
-    if (comparison.leftWins && props.engagementWinner === EngagementWinnerTypes.USER) {
+    if (comparison.leftWins && props.winner === EngagementWinnerTypes.USER) {
         classes.push('user-wins-pair')
-    } else if (comparison.rightWins && props.engagementWinner === EngagementWinnerTypes.OPPONENT) {
+    } else if (comparison.rightWins && props.winner === EngagementWinnerTypes.OPPONENT) {
         classes.push('opponent-wins-pair')
-    } else if (comparison.leftWins && props.engagementWinner === EngagementWinnerTypes.OPPONENT) {
+    } else if (comparison.leftWins && props.winner === EngagementWinnerTypes.OPPONENT) {
         classes.push('user-loses-pair')
-    } else if (comparison.rightWins && props.engagementWinner === EngagementWinnerTypes.USER) {
+    } else if (comparison.rightWins && props.winner === EngagementWinnerTypes.USER) {
         classes.push('opponent-loses-pair')
     } else if (comparison.tie) {
         classes.push('tie-pair')
@@ -67,17 +75,16 @@ function getCaretClasses(comparison) {
 </script>
 
 <style scoped>
-.floating-comparisons {
+.result-indicators-container {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
     z-index: var(--z-interactive);
     pointer-events: none;
     width: 100px;
-    margin-top: var(--space-md);
 }
 
-.comparison-indicator {
+.result-indicator {
     position: absolute;
     display: flex;
     align-items: center;
@@ -90,22 +97,21 @@ function getCaretClasses(comparison) {
     box-shadow: var(--shadow-elevation-sm);
     height: 28px;
     left: -7px;
-    margin-top: -3px;
 }
 
-.comparison-indicator.user-wins-pair,
-.comparison-indicator.opponent-wins-pair {
+.result-indicator.user-wins-pair,
+.result-indicator.opponent-wins-pair {
     border: 2px solid var(--color-success);
     box-shadow: var(--shadow-glow-success-lg);
 }
 
-.comparison-indicator.user-loses-pair,
-.comparison-indicator.opponent-loses-pair {
+.result-indicator.user-loses-pair,
+.result-indicator.opponent-loses-pair {
     border: 2px solid var(--color-danger);
     box-shadow: var(--shadow-glow-danger-sm);
 }
 
-.comparison-indicator.tie-pair {
+.result-indicator.tie-pair {
     border: 2px solid var(--color-warning);
     box-shadow: var(--shadow-glow-warning-sm);
 }

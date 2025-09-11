@@ -79,6 +79,7 @@ import { ref, computed, watch } from 'vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import SkillCheckService from '@/services/skillCheckService'
 import { getDiceFontMaxClass } from '@shared/utils/diceFontUtils'
+import { useSkillDice } from '@/composables/useSkillDice'
 
 const props = defineProps({
   character: {
@@ -97,8 +98,7 @@ const props = defineProps({
 
 const emit = defineEmits(['close', 'update-target-number', 'opposed-skill-check-result', 'start-opposed-skill-check'])
 
-// Composables
-// Remove the unused startOpposedSkillCheck import since we're using emit instead
+const { buildDiceSet } = useSkillDice()
 
 // Reactive state
 const localCharacter = ref({ ...props.character })
@@ -157,50 +157,22 @@ const favoredStatus = computed({
   },
 })
 
-const d12DicePool = computed(() => {
-  const count = rollParameters.value.isFavored || rollParameters.value.isIllFavored ? 2 : 1
+const dicePool = computed(() => {
+  if (!selectedSkill.value) return { d12Dice: [], d6Dice: [] }
 
-  return Array(count)
-    .fill()
-    .map(() => ({
-      type: 12,
-      diceClass: getDiceFontMaxClass(12),
-    }))
+  const allDice = buildDiceSet(rollParameters.value, {
+    includeDiceClass: true,
+    getDiceFontMaxClass
+  })
+
+  return {
+    d12Dice: allDice.filter(die => die.type === 12),
+    d6Dice: allDice.filter(die => die.type === 6)
+  }
 })
 
-const d6DicePool = computed(() => {
-  if (!selectedSkill.value) return []
-
-  const dicePool = []
-  const ranks = selectedSkill.value.ranks
-  const diceMod = rollParameters.value.diceMod
-
-  // Generate d6 dice with proper styling
-  for (let i = 0; i < ranks; i++) {
-    const isSubtracted = diceMod < 0 && i >= ranks + diceMod
-
-    dicePool.push({
-      type: 6,
-      diceClass: getDiceFontMaxClass(6),
-      isSubtracted: isSubtracted,
-      isAdded: false,
-    })
-  }
-
-  // Add dice for positive dice mod
-  if (diceMod > 0) {
-    for (let i = 0; i < Math.min(diceMod, 5 - ranks); i++) {
-      dicePool.push({
-        type: 6,
-        diceClass: getDiceFontMaxClass(6),
-        isAdded: true,
-        isSubtracted: false,
-      })
-    }
-  }
-
-  return dicePool
-})
+const d12DicePool = computed(() => dicePool.value.d12Dice)
+const d6DicePool = computed(() => dicePool.value.d6Dice)
 
 // Methods
 function updateRollParameters() {
