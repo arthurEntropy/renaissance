@@ -3,9 +3,8 @@
     <!-- Search and Filter Controls -->
     <FilterControls v-model:search-query="searchQueryLocal" v-model:primary-filter="sourceFilterLocal"
       v-model:sort-option="sortOptionLocal" :search-placeholder="`Search ${itemTypePlural.toLowerCase()}...`"
-      :primary-filter-options="sourceFilterOptions" primary-filter-label="All Sources"
-      primary-filter-class="source-filter" :sort-options="sortOptions" :show-add-button="true"
-      :add-button-text="`+ Add ${itemType}`" @create="createItem">
+      :primary-filter-options="sourceFilterOptions" primary-filter-label="All Sources" :sort-options="sortOptions"
+      :show-add-button="true" :add-button-text="`+ Add ${itemType}`" @create="createItem">
       <template #additional-filters>
         <slot name="additional-filters"></slot>
       </template>
