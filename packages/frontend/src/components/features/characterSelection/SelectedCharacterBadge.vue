@@ -134,7 +134,7 @@ const deselectCharacter = () => {
 .character-name-tooltip {
     position: absolute;
     bottom: -30px;
-    left: 50%;
+    left: 0;
     transform: translateX(-50%) translateY(10px);
     background-color: var(--overlay-black-heavy);
     color: var(--color-text-primary);
