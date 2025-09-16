@@ -3,28 +3,23 @@
     <div class="modal-content" @click.stop>
       <div class="header-row">
         <h2>{{ localCharacter.name }} rolling</h2>
-      </div>
-
-      <div class="skill-selection-row">
-        <select v-model="localSelectedSkillName" class="modal-skill-dropdown">
+        <select v-model="localSelectedSkillName" class="modal-skill-dropdown"
+          :class="{ 'skill-selected': localSelectedSkillName }">
           <option disabled value="">Select a skill</option>
           <option v-for="skill in localCharacter.skills" :key="skill.name" :value="skill.name">
             {{ skill.name }}
           </option>
         </select>
+      </div>
 
-        <select v-model="favoredStatus" class="modal-favored-dropdown">
-          <option value="favored" class="favored-option">Favored</option>
-          <option value="flat">Flat</option>
-          <option value="illfavored" class="illfavored-option">
-            Ill-Favored
-          </option>
-        </select>
-
-        <select v-model="rollType" class="modal-roll-type-dropdown">
-          <option value="target-number">Against TN</option>
-          <option value="opposed">Opposed</option>
-        </select>
+      <!-- Favored Status Toggle -->
+      <div class="favored-status-toggle">
+        <ActionButton variant="outline" size="large" text="Ill-Favored" :selected="favoredStatus === 'illfavored'"
+          @click="favoredStatus = 'illfavored'" />
+        <ActionButton variant="outline" size="large" text="Flat" :selected="favoredStatus === 'flat'"
+          @click="favoredStatus = 'flat'" />
+        <ActionButton variant="outline" size="large" text="Favored" :selected="favoredStatus === 'favored'"
+          @click="favoredStatus = 'favored'" />
       </div>
 
       <div class="dice-mod-options">
@@ -52,9 +47,16 @@
         </div>
       </div>
 
-      <!-- Target Number -->
+      <!-- Roll Type Toggle -->
+      <div class="roll-type-toggle">
+        <ActionButton variant="outline" size="large" text="Opposed" :selected="rollType === 'opposed'"
+          @click="rollType = 'opposed'" />
+        <ActionButton variant="outline" size="large" text="Against TN:" :selected="rollType === 'target-number'"
+          @click="rollType = 'target-number'" />
+      </div>
+
+      <!-- Target Number Section -->
       <div class="target-number-section" :class="{ disabled: rollType === 'opposed' }">
-        <div class="section-label">Target Number:</div>
         <div class="target-number-descriptors">
           <span>Easy</span>
           <span>Moderate</span>
@@ -64,7 +66,7 @@
         </div>
         <div class="target-number-options">
           <ActionButton v-for="tn in targetNumberOptions" :key="tn" variant="outline" size="large" :text="tn.toString()"
-            :selected="localTargetNumber === tn" :disabled="rollType === 'opposed'" @click="localTargetNumber = tn" />
+            :selected="localTargetNumber === tn" :disabled="rollType === 'opposed'" @click="toggleTargetNumber(tn)" />
         </div>
       </div>
 
@@ -91,8 +93,8 @@ const props = defineProps({
     default: '',
   },
   defaultTargetNumber: {
-    type: Number,
-    default: 20,
+    type: [Number, null],
+    default: null,
   },
 })
 
@@ -103,7 +105,7 @@ const { buildDiceSet } = useSkillDice()
 // Reactive state
 const localCharacter = ref({ ...props.character })
 const localSelectedSkillName = ref(props.selectedSkillName || '')
-const localTargetNumber = ref(props.defaultTargetNumber)
+const localTargetNumber = ref(props.defaultTargetNumber || null)
 const rollType = ref('target-number')
 const rollParameters = ref({
   name: '',
@@ -182,7 +184,7 @@ function updateRollParameters() {
       isFavored: selectedSkill.value.isFavored,
       isIllFavored: selectedSkill.value.isIllFavored,
       ranks: selectedSkill.value.ranks,
-      diceMod: 0,
+      diceMod: selectedSkill.value.diceMod || 0,
     }
   } else {
     rollParameters.value = {
@@ -193,6 +195,12 @@ function updateRollParameters() {
       diceMod: 0,
     }
   }
+}
+
+function toggleTargetNumber(tn) {
+  // If the clicked target number is already selected, deselect it (set to null)
+  // Otherwise, select the clicked target number
+  localTargetNumber.value = localTargetNumber.value === tn ? null : tn
 }
 
 function closeModal() {
@@ -264,7 +272,10 @@ watch(localSelectedSkillName, () => {
 
 .header-row {
   width: 100%;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-md);
   margin-bottom: var(--space-lg);
 }
 
@@ -290,7 +301,13 @@ watch(localSelectedSkillName, () => {
   border-radius: var(--radius-5);
 }
 
-/* Styling for favored dropdown options */
+.modal-skill-dropdown.skill-selected {
+  background: var(--color-primary);
+  color: var(--color-black);
+  border-color: var(--color-primary);
+  font-weight: var(--font-weight-semibold);
+}
+
 select option.favored-option {
   color: var(--color-success);
   font-weight: var(--font-weight-bold);
@@ -326,7 +343,6 @@ select option.illfavored-option {
   transition: var(--transition-all);
 }
 
-/* Favored/ill-favored d12 styling */
 .dice-symbol.favored-die i {
   color: var(--color-success);
   text-shadow: var(--shadow-glow-success-sm);
@@ -337,7 +353,6 @@ select option.illfavored-option {
   text-shadow: var(--shadow-glow-danger-sm);
 }
 
-/* Added/subtracted d6 styling */
 .dice-symbol.added-die i {
   color: var(--color-success);
   text-shadow: var(--shadow-glow-success-sm);
@@ -351,6 +366,20 @@ select option.illfavored-option {
 .section-label {
   margin: var(--space-lg);
   font-weight: var(--font-weight-bold);
+}
+
+.roll-type-toggle {
+  display: flex;
+  gap: var(--space-sm);
+  justify-content: center;
+  margin-bottom: var(--space-lg);
+}
+
+.favored-status-toggle {
+  display: flex;
+  gap: var(--space-sm);
+  justify-content: center;
+  margin-bottom: var(--space-lg);
 }
 
 .dice-mod-options,
