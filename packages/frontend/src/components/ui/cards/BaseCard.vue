@@ -13,8 +13,9 @@
     <div class="card-header">
       <span v-if="collapsible" class="caret">{{ caretSymbol }}</span>
       <div class="name-container">
-        <span class="item-name"><strong>{{ item.name }}</strong></span>
-        <span v-if="sourceName && showSource" class="source-name">({{ sourceName }})</span>
+        <span class="item-name" :title="sourceName && showSource ? `Source: ${sourceName}` : null">
+          <strong>{{ item.name }}</strong>
+        </span>
       </div>
       <div class="item-info" v-if="metaInfo">
         <em>{{ metaInfo }}</em>
@@ -224,14 +225,6 @@ onMounted(() => {
   font-size: var(--font-size-16);
   text-shadow: var(--text-shadow-outline);
   word-wrap: break-word;
-}
-
-.source-name {
-  font-size: var(--font-size-14);
-  font-style: italic;
-  color: var(--color-gray-light);
-  margin-left: var(--space-xs);
-  vertical-align: middle;
 }
 
 .item-info {

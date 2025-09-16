@@ -3,7 +3,7 @@
     <!-- Filter Controls (conditionally shown) -->
     <FilterControls v-if="showFilters" v-model:search-query="searchQuery" v-model:primary-filter="expansionFilter"
       :search-placeholder="`Search ${itemName.toLowerCase()}s...`" :primary-filter-options="expansionFilterOptions"
-      primary-filter-label="All Expansions" primary-filter-class="expansion-filter" />
+      primary-filter-label="All Expansions" />
 
     <!-- Selection Cards -->
     <div class="concepts-container">
@@ -99,14 +99,14 @@ const expansionFilterOptions = computed(() => ({
 
 const hasPreviousConcept = computed(() => {
   if (!selectedConcept.value) return false;
-  const currentIndex = props.concepts.findIndex(c => c.id === selectedConcept.value.id);
+  const currentIndex = filteredConcepts.value.findIndex(c => c.id === selectedConcept.value.id);
   return currentIndex > 0;
 })
 
 const hasNextConcept = computed(() => {
   if (!selectedConcept.value) return false;
-  const currentIndex = props.concepts.findIndex(c => c.id === selectedConcept.value.id);
-  return currentIndex < props.concepts.length - 1 && currentIndex >= 0;
+  const currentIndex = filteredConcepts.value.findIndex(c => c.id === selectedConcept.value.id);
+  return currentIndex < filteredConcepts.value.length - 1 && currentIndex >= 0;
 })
 
 const conceptsWithLogo = computed(() => {
@@ -191,10 +191,10 @@ const openConceptDetail = (concept) => {
 
 const navigateConcept = (direction) => {
   if (!selectedConcept.value) return;
-  const currentIndex = props.concepts.findIndex(c => c.id === selectedConcept.value.id);
+  const currentIndex = filteredConcepts.value.findIndex(c => c.id === selectedConcept.value.id);
   const newIndex = currentIndex + direction;
-  if (newIndex < 0 || newIndex >= props.concepts.length) return;
-  selectedConcept.value = props.concepts[newIndex];
+  if (newIndex < 0 || newIndex >= filteredConcepts.value.length) return;
+  selectedConcept.value = filteredConcepts.value[newIndex];
 
   // If this is a character modal, also update the selected character in the store
   if (props.modalComponent === 'CharacterSheetModal') {

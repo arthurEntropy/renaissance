@@ -1,6 +1,6 @@
 <template>
-    <div class="add-to-character-overlay" @click.stop>
-        <ActionButton v-if="hasSelectedCharacter" :variant="alreadyAdded ? 'neutral' : 'primary'" size="small"
+    <div v-if="hasSelectedCharacter" class="add-to-character-overlay" @click.stop>
+        <ActionButton :variant="alreadyAdded ? 'neutral' : 'primary'" size="small"
             :text="alreadyAdded ? `✓ Added to ${selectedCharacterName}` : `+ Add to ${selectedCharacterName}`"
             :disabled="alreadyAdded" @click="handleAdd" />
     </div>

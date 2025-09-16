@@ -4,7 +4,8 @@
     @update:collapsed="onBaseCardCollapsed" :showSource="showSource">
 
     <!-- Add to character overlay -->
-    <AddToCharacterButton v-if="ability" :item="ability" type="ability" :addFn="addAbilityToCharacter" />
+    <AddToCharacterButton v-if="ability && showAddToCharacter" :item="ability" type="ability"
+      :addFn="addAbilityToCharacter" />
 
     <!-- Main description and content -->
     <template #description>
@@ -83,6 +84,10 @@ const props = defineProps({
     default: () => []
   },
   showSource: {
+    type: Boolean,
+    default: true,
+  },
+  showAddToCharacter: {
     type: Boolean,
     default: true,
   },
@@ -165,7 +170,7 @@ const toggleImprovements = () => {
   bottom: -10px;
   background: var(--color-primary);
   color: var(--color-black);
-  font-size: var(--font-size-14);
+  font-size: var(--font-size-10);
   font-family: inherit;
   font-weight: var(--font-weight-bold);
   border: none;
