@@ -6,29 +6,31 @@
 
         <!-- Character Sheet Content -->
         <div class="modal-content, modal-content-base">
-            <div class="scrollable-content">
-                <div class="top-section">
-                    <CharacterProfile :character="localCharacter" @update-character="updateCharacter" />
-                    <CharacterBio :character="localCharacter" @update-character="updateCharacter" />
-                    <DiceRollResults :latestRoll="latestRoll" :customDiceRollerOpen="showCustomDiceRoller"
-                        @toggle-custom-dice="toggleCustomDiceRoller" />
-                </div>
+            <div class="scrollable-wrapper">
+                <div class="scrollable-content">
+                    <div class="top-section">
+                        <CharacterProfile :character="localCharacter" @update-character="updateCharacter" />
+                        <CharacterBio :character="localCharacter" @update-character="updateCharacter" />
+                        <DiceRollResults :latestRoll="latestRoll" :customDiceRollerOpen="showCustomDiceRoller"
+                            @toggle-custom-dice="toggleCustomDiceRoller" />
+                    </div>
 
-                <div class="character-stats-section">
-                    <CoreAbilityColumn :character="localCharacter" column="body" @update-character="updateCharacter"
-                        @open-skill-check="openSkillCheckModal" />
-                    <CoreAbilityColumn :character="localCharacter" column="heart" @update-character="updateCharacter"
-                        @open-skill-check="openSkillCheckModal" />
-                    <CoreAbilityColumn :character="localCharacter" column="wits" @update-character="updateCharacter"
-                        @open-skill-check="openSkillCheckModal" />
-                    <ConditionsColumn :character="localCharacter" @update:character="updateCharacter" />
-                    <EquipmentTable :equipment="localCharacter.equipment" :allEquipment="allEquipment"
-                        :character="localCharacter" @update-character="updateCharacter"
-                        @edit-custom-equipment="openEditEquipmentModal" />
-                    <AbilitiesTable :character="localCharacter" :allAbilities="allAbilities"
-                        @update-character="updateCharacter" />
-                    <EngagementTable :character="localCharacter" :allEquipment="allEquipment"
-                        @update:character="updateCharacter" @engagement-results="handleEngagementResult" />
+                    <div class="character-stats-section">
+                        <CoreAbilityColumn :character="localCharacter" column="body" @update-character="updateCharacter"
+                            @open-skill-check="openSkillCheckModal" />
+                        <CoreAbilityColumn :character="localCharacter" column="heart"
+                            @update-character="updateCharacter" @open-skill-check="openSkillCheckModal" />
+                        <CoreAbilityColumn :character="localCharacter" column="wits" @update-character="updateCharacter"
+                            @open-skill-check="openSkillCheckModal" />
+                        <ConditionsColumn :character="localCharacter" @update:character="updateCharacter" />
+                        <EquipmentTable :equipment="localCharacter.equipment" :allEquipment="allEquipment"
+                            :character="localCharacter" @update-character="updateCharacter"
+                            @edit-custom-equipment="openEditEquipmentModal" />
+                        <AbilitiesTable :character="localCharacter" :allAbilities="allAbilities"
+                            @update-character="updateCharacter" />
+                        <EngagementTable :character="localCharacter" :allEquipment="allEquipment"
+                            @update:character="updateCharacter" @engagement-results="handleEngagementResult" />
+                    </div>
                 </div>
             </div>
 
@@ -242,18 +244,31 @@ const handleDeleteCharacter = () => {
     border-radius: var(--radius-5);
     max-width: 1200px;
     overflow: visible;
+    /* Keep visible for dice roller positioning */
     position: relative;
     margin-top: -7px;
     padding: var(--space-lg);
     display: flex;
     flex-direction: column;
     align-items: center;
+    max-height: calc(100vh - 2 * var(--space-lg));
+    /* Ensure modal fits in viewport */
+}
+
+.scrollable-wrapper {
+    width: 100%;
+    max-height: 100%;
+    overflow-y: auto;
+    overflow-x: visible;
+    /* Allow horizontal overflow for any wide content */
 }
 
 .scrollable-content {
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-bottom: var(--space-lg);
+    /* Add bottom padding for scroll clearance */
 }
 
 .top-section {
@@ -288,7 +303,7 @@ const handleDeleteCharacter = () => {
 .pop-out-dice-roller {
     position: absolute;
     top: 15px;
-    right: -100px;
+    right: -105px;
     z-index: var(--z-modal-controls);
     border-radius: var(--radius-5);
     background: var(--color-bg-secondary);
@@ -301,12 +316,12 @@ const handleDeleteCharacter = () => {
 }
 
 .slide-fade-enter-from {
-    transform: translateX(-100%);
+    transform: translateX(-30%);
     opacity: 0;
 }
 
 .slide-fade-leave-to {
-    transform: translateX(-100%);
+    transform: translateX(-30%);
     opacity: 0;
 }
 
@@ -316,6 +331,10 @@ const handleDeleteCharacter = () => {
         max-height: 100vh;
         border-radius: 0;
         padding: var(--space-md);
+    }
+
+    .scrollable-wrapper {
+        max-height: calc(100vh - 2 * var(--space-md));
     }
 }
 </style>
