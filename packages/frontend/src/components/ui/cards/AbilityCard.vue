@@ -170,7 +170,7 @@ const toggleImprovements = () => {
   bottom: -10px;
   background: var(--color-primary);
   color: var(--color-black);
-  font-size: var(--font-size-14);
+  font-size: var(--font-size-10);
   font-family: inherit;
   font-weight: var(--font-weight-bold);
   border: none;
