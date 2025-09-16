@@ -151,6 +151,11 @@
       "isCarried": true,
       "isWielding": true,
       "index": 0
+    },
+    {
+      "id": "0b57b3d5-d2af-4b02-b05a-3c4428ba69a4",
+      "quantity": 1,
+      "isCarried": true
     }
   ],
   "activeEffects": [],

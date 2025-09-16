@@ -6,7 +6,8 @@
     @edit="$emit('edit', equipment)" :collapsible="collapsible">
 
     <!-- Add to character overlay -->
-    <AddToCharacterButton v-if="equipment" :item="equipment" type="equipment" :addFn="addEquipmentToCharacter" />
+    <AddToCharacterButton v-if="equipment && showAddToCharacter" :item="equipment" type="equipment"
+      :addFn="addEquipmentToCharacter" />
 
     <!-- Expandable image -->
     <template #image>
@@ -115,6 +116,10 @@ const props = defineProps({
     default: false,
   },
   showSource: {
+    type: Boolean,
+    default: true,
+  },
+  showAddToCharacter: {
     type: Boolean,
     default: true,
   },
