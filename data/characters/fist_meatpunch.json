@@ -150,7 +150,7 @@
       "id": "f026c8af-51de-447b-ae92-ed56a645224c",
       "quantity": 1,
       "isCarried": true,
-      "isWielding": true,
+      "isWielding": false,
       "index": 2
     },
     {
