@@ -198,6 +198,13 @@
       "isCarried": true,
       "isWielding": false,
       "index": 2
+    },
+    {
+      "id": "29eb84b1-777e-43b0-a989-16df364b5cca",
+      "quantity": 1,
+      "isCarried": true,
+      "isWielding": false,
+      "index": 3
     }
   ],
   "activeEffects": [],
