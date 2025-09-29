@@ -42,18 +42,33 @@ defineEmits(['remove'])
 // Tooltip state
 const showTooltip = ref(false)
 const tooltipPosition = ref({ x: 0, y: 0 })
+const tooltipTimer = ref(null)
 
 // Tooltip methods
 const startTooltip = (event) => {
+    // Clear any existing timer
+    if (tooltipTimer.value) {
+        clearTimeout(tooltipTimer.value)
+    }
+
+    // Set up the tooltip position relative to the element
     const rect = event.target.getBoundingClientRect()
     tooltipPosition.value = {
         x: rect.left + rect.width / 2,
-        y: rect.top - 10
+        y: rect.bottom + 10
     }
-    showTooltip.value = true
+
+    // Show tooltip after delay
+    tooltipTimer.value = setTimeout(() => {
+        showTooltip.value = true
+    }, 750)
 }
 
 const clearTooltip = () => {
+    if (tooltipTimer.value) {
+        clearTimeout(tooltipTimer.value)
+        tooltipTimer.value = null
+    }
     showTooltip.value = false
 }
 </script>
@@ -73,7 +88,7 @@ const clearTooltip = () => {
 }
 
 .success-chip:hover {
-    background-color: var(--color-bg-secondary);
+    text-shadow: var(--shadow-glow-lg);
 }
 
 .success-chip.removable {
@@ -103,13 +118,13 @@ const clearTooltip = () => {
 .success-tooltip {
     position: fixed;
     z-index: var(--z-modal);
-    background: var(--color-bg-secondary);
+    background: var(--color-bg-primary);
     color: var(--color-text-primary);
-    padding: 14px;
+    padding: var(--space-lg);
+    border: 1px solid var(--color-gray-medium);
     border-radius: var(--radius-10);
     font-size: var(--font-size-14);
     pointer-events: none;
-    box-shadow: var(--shadow-elevation-lg);
     max-width: 260px;
     white-space: pre-line;
     text-align: left;

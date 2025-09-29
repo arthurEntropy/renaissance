@@ -78,18 +78,33 @@ defineEmits(['toggle-dice', 'remove-die', 'add-die', 'select-die'])
 // Tooltip state
 const tooltipDice = ref(null)
 const tooltipPosition = ref({ x: 0, y: 0 })
+const tooltipTimer = ref(null)
 
 // Tooltip methods
 const startDiceTooltip = (diceInfo, event) => {
+    // Clear any existing timer
+    if (tooltipTimer.value) {
+        clearTimeout(tooltipTimer.value)
+    }
+
+    // Set up the tooltip position relative to the element
     const rect = event.target.getBoundingClientRect()
     tooltipPosition.value = {
         x: rect.left + rect.width / 2,
-        y: rect.top - 10
+        y: rect.bottom
     }
-    tooltipDice.value = diceInfo
+
+    // Show tooltip after delay
+    tooltipTimer.value = setTimeout(() => {
+        tooltipDice.value = diceInfo
+    }, 750)
 }
 
 const clearDiceTooltip = () => {
+    if (tooltipTimer.value) {
+        clearTimeout(tooltipTimer.value)
+        tooltipTimer.value = null
+    }
     tooltipDice.value = null
 }
 </script>
@@ -117,6 +132,11 @@ const clearDiceTooltip = () => {
     transition: var(--transition-all);
     position: relative;
     display: inline-block;
+}
+
+/* first child of each dice-icon should glow gold on hover */
+.dice-icon:first-child:hover {
+    text-shadow: var(--shadow-glow-sm);
 }
 
 .remove-die-button {
@@ -211,13 +231,13 @@ const clearDiceTooltip = () => {
 .dice-tooltip {
     position: fixed;
     z-index: var(--z-modal);
-    background: var(--color-bg-secondary);
+    background: var(--color-bg-primary);
     color: var(--color-text-primary);
-    padding: 14px;
+    padding: var(--space-sm);
     border-radius: var(--radius-10);
     font-size: var(--font-size-14);
     pointer-events: none;
-    box-shadow: var(--shadow-elevation-lg);
+    border: 1px solid var(--color-gray-medium);
     max-width: 260px;
     white-space: pre-line;
 }
