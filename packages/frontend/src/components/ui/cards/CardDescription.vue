@@ -37,21 +37,11 @@ const safeContent = computed(() => sanitizeHtml(props.content))
 
 .card-description {
     background-color: var(--overlay-black-heavy);
-    padding: 1px var(--space-sm);
+    padding: 1px var(--space-lg);
     border-radius: var(--radius-5);
     text-align: left;
     font-size: var(--font-size-14);
     position: relative;
-}
-
-.card-description.small {
-    padding: 1px var(--space-sm);
-    font-size: var(--font-size-13);
-}
-
-.card-description.large {
-    padding: var(--space-lg);
-    font-size: var(--font-size-16);
 }
 
 .card-description.improvement {
