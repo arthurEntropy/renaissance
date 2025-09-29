@@ -13,7 +13,8 @@
     {
       "name": "Nothing To Lose",
       "description": "<p>Whenever you make an attack while your current Endurance is less than 1/4 your maximum Endurance, take an additional +1d to either the attack roll or damage roll, your choice.</p>",
-      "xp": 10
+      "xp": 10,
+      "id": "3a6b3769-f951-5d8b-b708-1b5a4d54f329"
     }
   ]
 }

@@ -8,7 +8,7 @@ import {
 } from 'fs'
 import { join, resolve, dirname } from 'path'
 import { fileURLToPath } from 'url'
-import { v4 as uuidv4 } from 'uuid'
+import { v4 as uuidv4, v5 as uuidv5 } from 'uuid'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
@@ -16,12 +16,40 @@ const __dirname = dirname(__filename)
 // Base directory for all data entities (cultures, characters, etc.)
 const DATA_DIR = resolve(process.cwd(), '../../data')
 
+// Namespace UUID for deterministic improvement ID generation
+const IMPROVEMENT_NAMESPACE = '6ba7b810-9dad-11d1-80b4-00c04fd430c8'
+
 const sanitizeFilename = (name) => {
   return name
     .trim()
     .toLowerCase()
     .replace(/[^a-z0-9]/gi, '_')
     .replace(/_+/g, '_')
+}
+
+/**
+ * Generate a deterministic UUID for an improvement based on ability ID and improvement name
+ * This ensures consistency across environments and multiple runs
+ */
+const generateDeterministicImprovementId = (abilityId, improvementName) => {
+  const seed = `${abilityId}-${improvementName.trim().toLowerCase()}`
+  return uuidv5(seed, IMPROVEMENT_NAMESPACE)
+}
+
+/**
+ * Ensure all improvements in an ability have unique IDs
+ * This is called automatically when saving ability data
+ */
+const ensureImprovementIds = (abilityData) => {
+  if (abilityData.improvements && Array.isArray(abilityData.improvements)) {
+    abilityData.improvements.forEach((improvement) => {
+      if (!improvement.id && improvement.name) {
+        // Generate deterministic ID based on ability ID and improvement name
+        improvement.id = generateDeterministicImprovementId(abilityData.id, improvement.name)
+      }
+    })
+  }
+  return abilityData
 }
 
 const getDirectory = (entity) => join(DATA_DIR, entity)
@@ -57,6 +85,11 @@ const saveFile = (data, directory, oldName = null) => {
     // Generate a new ID if one doesn't exist
     if (!data.id) {
       data.id = uuidv4()
+    }
+
+    // Special handling for abilities: ensure improvements have IDs
+    if (directory.endsWith('abilities')) {
+      data = ensureImprovementIds(data)
     }
 
     let baseFilename = sanitizeFilename(data.name)

@@ -19,7 +19,8 @@
           <CardDescription v-if="impr.description" :content="impr.description" additional-classes="improvement">
             <template #badge>
               <BadgeDisplay v-if="impr.xp" type="xp" :value="impr.xp" position="bottom-left"
-                custom-class="improvement-badge" />
+                custom-class="improvement-badge" :interactive="showImprovementToggle && !!character"
+                :is-owned="isImprovementOwned(impr.id)" :improvement-id="impr.id" @toggle="handleImprovementToggle" />
             </template>
           </CardDescription>
         </div>
@@ -51,6 +52,7 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { useAbilitiesStore } from '@/stores/abilitiesStore'
+import { useAbilityImprovements } from '@/composables/useAbilityImprovements'
 import BaseCard from '@/components/ui/cards/BaseCard.vue'
 import BadgeDisplay from '@/components/ui/cards/BadgeDisplay.vue'
 import CardDescription from '@/components/ui/cards/CardDescription.vue'
@@ -91,13 +93,25 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
+  // New props for improvement tracking
+  character: {
+    type: Object,
+    default: null
+  },
+  showImprovementToggle: {
+    type: Boolean,
+    default: false
+  }
 })
 
-const emit = defineEmits(['edit', 'update', 'sendToChat', 'update:collapsed'])
+const emit = defineEmits(['edit', 'update', 'sendToChat', 'update:collapsed', 'update:character'])
 
 // Store
 const abilitiesStore = useAbilitiesStore()
 const { addAbilityToCharacter } = useCharacterManagement()
+
+// Ability improvements composable
+const { hasImprovement, toggleImprovement } = useAbilityImprovements()
 
 // Collapse state management
 const { localCollapsed, onBaseCardCollapsed } = useCardCollapseState(props, emit)
@@ -134,6 +148,19 @@ const sendAbilityToChat = () => {
 
 const toggleImprovements = () => {
   showImprovements.value = !showImprovements.value
+}
+
+// Improvement management methods
+const isImprovementOwned = (improvementId) => {
+  if (!props.character || !improvementId) return false
+  return hasImprovement(props.character, props.ability.id, improvementId)
+}
+
+const handleImprovementToggle = (improvementId) => {
+  if (!props.character || !improvementId) return
+
+  const updatedCharacter = toggleImprovement(props.character, props.ability.id, improvementId)
+  emit('update:character', updatedCharacter)
 }
 </script>
 

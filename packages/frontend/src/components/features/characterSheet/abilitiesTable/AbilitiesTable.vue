@@ -13,7 +13,8 @@
       <AbilityCard v-for="ability in sortedAbilities" :key="ability.id" :ability="ability"
         :collapsed="getCollapsedState(ability)" @update:collapsed="setCollapsedState(ability, $event)"
         class="ability-card" :collapsible="true" :improvements="ability.improvements || []" :show-xp-badge="false"
-        :show-add-to-character="false" />
+        :show-add-to-character="false" :character="character" :show-improvement-toggle="true"
+        @update:character="handleCharacterUpdate" />
     </div>
 
     <!-- Draggable Abilities List (only in edit mode) -->
@@ -27,7 +28,8 @@
 
           <AbilityCard v-if="ability" :ability="ability" :collapsed="getCollapsedState(ability)"
             @update:collapsed="setCollapsedState(ability, $event)" class="ability-card" :collapsible="true"
-            :show-xp-badge="false" :show-add-to-character="false" />
+            :show-xp-badge="false" :show-add-to-character="false" :character="character" :show-improvement-toggle="true"
+            @update:character="handleCharacterUpdate" />
 
           <span v-else class="missing-ability">Unknown ability</span>
 
@@ -155,6 +157,11 @@ const selectAbility = (ability) => {
   })
 
   toggleAbilitySelector()
+}
+
+// Handle character updates from improvement changes
+const handleCharacterUpdate = (updatedCharacter) => {
+  emit('update-character', updatedCharacter)
 }
 
 

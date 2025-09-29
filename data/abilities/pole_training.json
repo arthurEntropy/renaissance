@@ -13,17 +13,20 @@
     {
       "name": "Vault",
       "description": "<p>Once per turn, you may choose one:</p><ul><li><p>Your jump distance is doubled for your next jump this turn.</p></li><li><p>The height of vertical surface you can run up is doubled this turn.</p></li></ul><p>In either case, the increase does not cost you additional movement.</p>",
-      "xp": 5
+      "xp": 5,
+      "id": "760035e3-1fef-5572-b37a-3ce81e5a1fe9"
     },
     {
       "name": "Spin Attack",
       "description": "<p>When wielding a pole, you may spend 2 MP and spend an action to attack all adjacent foes with a spinning attack.</p>",
-      "xp": 5
+      "xp": 5,
+      "id": "19a4a68e-f275-56f3-9b3e-5e968dd31c9f"
     },
     {
       "name": "Ground Spin",
       "description": "<p>When you use the Spin Attack ability, you may spend 1 additional MP to roll Dexterity vs Dexterity against each foe you hit, knocking prone each foe that loses their roll.</p>",
-      "xp": 5
+      "xp": 5,
+      "id": "890e9d98-2642-5a4b-912c-653892fc4d2d"
     }
   ]
 }

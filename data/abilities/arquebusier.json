@@ -13,7 +13,8 @@
     {
       "name": "Hand Cannoneer",
       "description": "<p>You are trained in the use of hand cannons, a special weapon type.</p>",
-      "xp": 5
+      "xp": 5,
+      "id": "8282b6fb-4c1f-56a2-8ba3-08bc100a4876"
     }
   ]
 }

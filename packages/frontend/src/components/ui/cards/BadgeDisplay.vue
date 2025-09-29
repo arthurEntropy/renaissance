@@ -1,11 +1,12 @@
 <template>
-    <div v-if="showBadge" :class="badgeClass" :title="title">
+    <div v-if="showBadge" :class="badgeClass" :title="computedTitle" @click="handleClick" @mouseenter="handleMouseEnter"
+        @mouseleave="handleMouseLeave">
         {{ displayText }}
     </div>
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 
 const props = defineProps({
     type: {
@@ -33,14 +34,59 @@ const props = defineProps({
     title: {
         type: String,
         default: ''
+    },
+    // Interactive improvement badge props
+    interactive: {
+        type: Boolean,
+        default: false
+    },
+    isOwned: {
+        type: Boolean,
+        default: false
+    },
+    improvementId: {
+        type: String,
+        default: null
     }
 })
+
+const emit = defineEmits(['toggle'])
+
+// Reactive state for hover
+const isHovering = ref(false)
 
 const showBadge = computed(() => {
     return props.condition && props.value
 })
 
+const handleClick = () => {
+    if (props.interactive && props.improvementId) {
+        emit('toggle', props.improvementId)
+    }
+}
+
+const handleMouseEnter = () => {
+    if (props.interactive) {
+        isHovering.value = true
+    }
+}
+
+const handleMouseLeave = () => {
+    if (props.interactive) {
+        isHovering.value = false
+    }
+}
+
 const displayText = computed(() => {
+    // Interactive improvement badge text
+    if (props.interactive) {
+        if (isHovering.value) {
+            return props.isOwned ? '- Remove' : '+ Add'
+        }
+        return props.isOwned ? '✓' : `${props.value} XP`
+    }
+
+    // Standard badge text
     switch (props.type) {
         case 'xp':
             return `${props.value} XP`
@@ -51,16 +97,36 @@ const displayText = computed(() => {
     }
 })
 
+const computedTitle = computed(() => {
+    if (props.interactive) {
+        if (props.isOwned) {
+            return isHovering.value ? 'Click to remove this improvement' : 'You have this improvement'
+        }
+        return isHovering.value ? 'Click to add this improvement' : `Costs ${props.value} XP`
+    }
+    return props.title
+})
+
 const badgeClass = computed(() => {
     const baseClass = 'badge-display'
-    const typeClass = `badge-${props.type}`
+    let typeClass = `badge-${props.type}`
     const positionClass = `badge-${props.position}`
+
+    // Interactive badge styling
+    if (props.interactive) {
+        if (props.isOwned) {
+            typeClass = isHovering.value ? 'badge-interactive-owned-hover' : 'badge-interactive-owned'
+        } else {
+            typeClass = isHovering.value ? 'badge-interactive-available-hover' : 'badge-interactive-available'
+        }
+    }
 
     return [
         baseClass,
         typeClass,
         positionClass,
-        props.customClass
+        props.customClass,
+        props.interactive ? 'badge-interactive' : ''
     ].filter(Boolean).join(' ')
 })
 </script>
@@ -87,6 +153,33 @@ const badgeClass = computed(() => {
 .badge-keeping {
     background-color: var(--color-primary);
     color: var(--color-black);
+}
+
+/* Interactive badge states */
+.badge-interactive {
+    cursor: pointer;
+    transition: var(--transition-all);
+    pointer-events: auto;
+}
+
+.badge-interactive-available {
+    background-color: var(--color-primary);
+    color: var(--color-black);
+}
+
+.badge-interactive-available-hover {
+    background-color: var(--color-accent-gold);
+    color: var(--color-black);
+}
+
+.badge-interactive-owned {
+    background-color: var(--color-bg-tertiary);
+    color: var(--color-text-primary);
+}
+
+.badge-interactive-owned-hover {
+    background-color: var(--color-danger-hover);
+    color: var(--color-white);
 }
 
 /* Positioning */

@@ -13,7 +13,8 @@
     {
       "name": "Third Attack",
       "description": "<p>Three attacks instead.</p>",
-      "xp": 30
+      "xp": 30,
+      "id": "81cff859-42e5-5774-a870-d06914c22386"
     }
   ]
 }
