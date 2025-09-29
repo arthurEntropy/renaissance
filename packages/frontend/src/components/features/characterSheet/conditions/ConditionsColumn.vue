@@ -9,7 +9,6 @@
                 <input type="checkbox" class="skill-checkbox" :class="{ 'condition-active-checkbox': value }"
                     :checked="value" @change="updateCondition(key, $event.target.checked)" />
             </div>
-            <div class="conditions-row" style="border-bottom: none"></div>
         </CharacterSheetSection>
 
         <CharacterSheetSection custom-class="speed-column">
@@ -65,17 +64,18 @@ const updateSpeed = (value) => {
 .conditions-column-container {
     display: flex;
     flex-direction: column;
+    gap: var(--space-lg);
 }
 
 .conditions-column {
     align-items: center;
     width: 100px;
+    padding-bottom: 44px;
 }
 
 .speed-column {
     align-items: center;
     width: 100px;
-    margin-top: var(--space-lg);
 }
 
 @media (max-width: var(--breakpoint-sm)) {

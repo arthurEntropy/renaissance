@@ -11,7 +11,7 @@
   "skills": [
     {
       "name": "Awe",
-      "ranks": 0,
+      "ranks": 3,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0
@@ -162,7 +162,7 @@
     }
   ],
   "activeEffects": [],
-  "personalityAndBackground": "<p></p>",
+  "personalityAndBackground": "<p>This is a test</p>",
   "cultures": "Guildford",
   "pronouns": "he/him",
   "ancestries": "Human",
@@ -179,7 +179,7 @@
   "twiceWeary": true,
   "weary": true,
   "ancestryIds": [
-    1
+    "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
   ],
   "cultureIds": [
     "352c844b-6d4f-4b61-b475-315421a453e7"
@@ -188,5 +188,6 @@
     12,
     12
   ],
-  "expansionLogoUrl": ""
+  "expansionLogoUrl": "",
+  "mestiereId": "e0a69b6f-38f9-4fa5-a1ef-5e5777299e82"
 }

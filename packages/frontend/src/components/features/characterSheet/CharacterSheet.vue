@@ -292,6 +292,7 @@ const handleDeleteCharacter = () => {
     width: 100%;
     justify-content: center;
     gap: var(--space-lg);
+    align-items: flex-start;
 }
 
 @media (max-width: var(--breakpoint-lg)) {
@@ -304,7 +305,7 @@ const handleDeleteCharacter = () => {
     position: absolute;
     top: 15px;
     right: -105px;
-    z-index: var(--z-modal-controls);
+    z-index: var(--z-interactive);
     border-radius: var(--radius-5);
     background: var(--color-bg-secondary);
 }

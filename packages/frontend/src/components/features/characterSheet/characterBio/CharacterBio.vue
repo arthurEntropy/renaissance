@@ -28,7 +28,7 @@
         <div v-if="isEditModalOpen" class="modal-overlay edit-modal-overlay" @click="handleEditOverlayClick">
             <div class="modal-content" @click.stop>
                 <div class="modal-body">
-                    <TextEditor v-model="editedContent"
+                    <TextEditor v-model="editedContent" auto-height="true"
                         placeholder="Describe your character's personality, history, and notable bio..."
                         height="300px" />
                 </div>
@@ -122,6 +122,8 @@ const saveChanges = () => {
     background-color: var(--color-dark-gray);
     border-radius: var(--radius-5);
     height: 100%;
+    width: 100%;
+    box-sizing: border-box;
     font-size: var(--font-size-12);
     cursor: pointer;
     transition: var(--transition-background);
