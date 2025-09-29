@@ -99,7 +99,7 @@ const handleQuantityChange = (value) => {
     align-items: center;
     padding: 4px 8px;
     background-color: var(--overlay-white-medium);
-    border-radius: 0 0 var(--radius-5) var(--radius-5);
+    border-radius: var(--radius-10);
     width: 100%;
     margin-left: 0;
     box-sizing: border-box;
@@ -130,7 +130,14 @@ const handleQuantityChange = (value) => {
     width: 12px;
     height: 12px;
     cursor: pointer;
-    margin-left: 10px;
+    margin-left: var(--space-sm);
+    font-size: var(--font-size-10);
+    left: 0px;
+}
+
+.equipment-checkbox:checked:after {
+    left: 0px;
+    top: -2px;
 }
 
 .disabled-checkbox {
