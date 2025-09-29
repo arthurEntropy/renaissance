@@ -434,7 +434,6 @@ watch(() => props.images, (newImages) => {
 .thumbs-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  /* Default, will be overridden */
   gap: var(--space-sm);
   width: 100%;
 }
@@ -493,7 +492,7 @@ watch(() => props.images, (newImages) => {
   bottom: 0;
   background: var(--overlay-white-medium);
   border-radius: var(--radius-10);
-  border: var(--border-width-md) solid var(--color-border-secondary);
+  border: 2px solid var(--color-gray-light);
   pointer-events: none;
 }
 

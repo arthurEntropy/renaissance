@@ -101,10 +101,6 @@ const enhancedStartEdit = async () => {
     position: relative;
 }
 
-.concept-title:hover {
-    color: var(--color-primary);
-}
-
 .editable-title {
     flex: 1;
 }

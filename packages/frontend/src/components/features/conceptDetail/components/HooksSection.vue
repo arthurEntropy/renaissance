@@ -1,6 +1,7 @@
 <template>
   <ConceptSection title="Hooks" :has-content="hasHooks" :is-edit-mode="editable" :show-edit-button="editable"
     :is-section-editing="isSectionEditing" @toggle-edit="toggleHooksEditing" empty-message="No hooks added yet.">
+
     <!-- Edit mode for hooks -->
     <div v-if="isSectionEditing && editable" class="section-editor">
       <draggable v-model="localHooks" item-key="id" handle=".drag-handle" animation="200" ghost-class="ghost-hook"
@@ -48,9 +49,11 @@
     <div v-else>
       <InfoCard v-for="hook in localHooks" :key="hook.id" :title="hook.name" :content="hook.description">
         <template #additional-content>
-          <ActionButton variant="neutral" size="small"
-            :text="shownGMNotes && shownGMNotes[hook.id] ? 'Hide GM Notes' : 'View GM Notes'"
-            @click="toggleGMNotes(hook.id)" />
+          <div class="gm-notes-controls">
+            <ActionButton variant="neutral" size="small"
+              :text="shownGMNotes && shownGMNotes[hook.id] ? 'Hide GM Notes' : 'View GM Notes'"
+              @click="toggleGMNotes(hook.id)" />
+          </div>
           <div v-if="shownGMNotes && shownGMNotes[hook.id]" class="gm-notes" v-html="safeGMNotes(hook.gmNotes)"></div>
         </template>
       </InfoCard>
@@ -235,6 +238,12 @@ watch(() => props.editable, (val) => {
 }
 
 .delete-hook-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: var(--space-xs);
+}
+
+.gm-notes-controls {
   display: flex;
   justify-content: flex-end;
   margin-top: var(--space-xs);
