@@ -12,7 +12,8 @@
     <div v-if="!isEditMode" class="abilities-list">
       <AbilityCard v-for="ability in sortedAbilities" :key="ability.id" :ability="ability"
         :collapsed="getCollapsedState(ability)" @update:collapsed="setCollapsedState(ability, $event)"
-        class="ability-card" :collapsible="true" :show-xp-badge="false" :show-add-to-character="false" />
+        class="ability-card" :collapsible="true" :improvements="ability.improvements || []" :show-xp-badge="false"
+        :show-add-to-character="false" />
     </div>
 
     <!-- Draggable Abilities List (only in edit mode) -->

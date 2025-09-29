@@ -2,9 +2,6 @@
     <div class="modal-overlay" @click="handleOverlayClick">
         <div class="modal-content" @click.stop>
 
-            <!-- Header -->
-            <h2 class="modal-header centered">Edit Character Vitals</h2>
-
             <!-- Scrollable Form Content -->
             <div class="modal-body">
                 <form @submit.prevent="saveChanges">

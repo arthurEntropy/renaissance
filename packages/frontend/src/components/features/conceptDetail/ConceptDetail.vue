@@ -357,6 +357,7 @@ const createNewEquipment = async () => {
 /* Component-specific overrides */
 .modal-content {
   max-width: 1275px;
+  border: none;
 }
 
 /* Global styles */

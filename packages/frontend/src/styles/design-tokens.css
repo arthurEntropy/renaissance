@@ -73,13 +73,13 @@
 
   /* === SHADOWS & GLOWS === */
   /* Elevation shadows */
-  --shadow-elevation-sm: 0 2px 8px var(--overlay-black-medium);          /* Small elevation */
-  --shadow-elevation-lg: 0 2px 12px var(--overlay-black-medium);         /* Large elevation */
+  --shadow-elevation-sm: 0 2px 8px var(--color-black);          /* Small elevation */
+  --shadow-elevation-lg: 0 2px 12px var(--color-black);         /* Large elevation */
 
   /* Glow effects */
-  --shadow-glow-sm: 0 0 5px var(--overlay-white-subtle);                 /* Small glow */
-  --shadow-glow-md: 0 0 8px var(--overlay-white-medium);                 /* Medium glow */
-  --shadow-glow-lg: 0 0 10px var(--overlay-white-medium);                /* Large glow */
+  --shadow-glow-sm: 0 0 5px var(--color-white);                 /* Small glow */
+  --shadow-glow-md: 0 0 8px var(--color-white);                 /* Medium glow */
+  --shadow-glow-lg: 0 0 10px var(--color-white);                /* Large glow */
 
   /* Semantic color glows */
   --shadow-glow-success-sm: 0 0 5px var(--color-success);                /* Success glow (small) */

@@ -10,7 +10,7 @@
   "engagementDice": [],
   "engagementSuccesses": [],
   "skillMods": [],
-  "isDeleted": false,
+  "isDeleted": true,
   "isCustom": true,
   "artUrl": null
 }

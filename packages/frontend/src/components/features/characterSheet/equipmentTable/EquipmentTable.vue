@@ -100,7 +100,6 @@ const { sources, sourceUtils } = useSourceUtils()
 // Equipment selector state
 const showEquipmentSelector = ref(false)
 const showChoiceMode = ref(true)
-const equipmentSearchQuery = ref('')
 
 // Equipment choice options
 const equipmentChoiceOptions = [
@@ -117,7 +116,7 @@ const equipmentChoiceOptions = [
 ]
 
 // Equipment grouping and filtering
-const { groupedItems: groupedEquipment, filterItems: filterEquipment } = useItemSelector(
+const { groupedItems: groupedEquipment, filterItems: filterEquipment, searchQuery: equipmentSearchQuery } = useItemSelector(
   computed(() => props.allEquipment || []),
   sources,
   sourceUtils,
@@ -218,7 +217,7 @@ const selectEquipment = (equipment) => {
 
 const handleEquipmentSearch = (query) => {
   equipmentSearchQuery.value = query
-  filterEquipment(query)
+  filterEquipment()
 }
 
 const handleEquipmentChoice = (choice) => {

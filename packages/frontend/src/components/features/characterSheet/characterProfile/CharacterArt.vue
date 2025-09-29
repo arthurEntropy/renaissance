@@ -144,7 +144,6 @@ div {
     min-width: 400px;
     padding: var(--space-lg);
     background: var(--color-bg-primary);
-    border-radius: var(--border-radius-lg);
 }
 
 /* Full-size image modal specific */

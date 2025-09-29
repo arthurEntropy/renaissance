@@ -86,13 +86,7 @@ const badgeClass = computed(() => {
 
 .badge-keeping {
     background-color: var(--color-primary);
-    color: var(--color-text-inverse);
-    padding: 2px 8px 4px 8px;
-}
-
-.badge-custom {
-    background-color: var(--color-gray-medium);
-    color: var(--color-white);
+    color: var(--color-black);
 }
 
 /* Positioning */

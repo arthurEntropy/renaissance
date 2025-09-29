@@ -47,7 +47,6 @@ const emit = defineEmits(['update:modelValue'])
 const editor = ref()
 const dynamicHeight = ref(props.height)
 const maxHeight = computed(() => props.autoHeight ? 'none' : '420px')
-const proseMirrorMaxHeight = computed(() => props.autoHeight ? 'none' : '400px')
 
 const updateHeight = () => {
   if (!props.autoHeight) return
@@ -194,7 +193,6 @@ defineExpose({
   flex-direction: column;
   height: v-bind(dynamicHeight);
   min-height: 100px;
-  overflow-y: auto;
   max-height: v-bind(maxHeight);
   width: 100%;
 }
@@ -209,9 +207,8 @@ defineExpose({
   padding: var(--space-md);
   padding-bottom: var(--space-2xl);
   min-height: 100px;
-  overflow-y: auto;
-  height: v-bind(dynamicHeight);
-  max-height: v-bind(proseMirrorMaxHeight);
+  flex: 1;
+  outline: none;
   box-sizing: border-box;
   font-size: var(--font-size-16);
   line-height: var(--line-height-normal);
