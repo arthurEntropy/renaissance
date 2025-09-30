@@ -13,7 +13,8 @@
     {
       "name": "Fists of Fury",
       "description": "<p>Your damage die for unarmed attacks and attacks with improvised weapons increases to a d8.</p>",
-      "xp": 10
+      "xp": 10,
+      "id": "c0cce62d-03a8-5654-92e9-c354f4233834"
     }
   ]
 }

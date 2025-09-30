@@ -1,7 +1,7 @@
 <template>
   <base-card :item="ability" itemType="ability" :metaInfo="traitOrMp" :storeInstance="abilitiesStore"
-    :initialCollapsed="localCollapsed" :editable="editable" @edit="$emit('edit', ability)" :collapsible="collapsible"
-    @update:collapsed="onBaseCardCollapsed" :showSource="showSource">
+    :collapsed="collapsed" :editable="editable" @edit="$emit('edit', ability)" :collapsible="collapsible"
+    @update:collapsed="$emit('update:collapsed', $event)" :showSource="showSource">
 
     <!-- Add to character overlay -->
     <AddToCharacterButton v-if="ability && showAddToCharacter" :item="ability" type="ability"
@@ -10,20 +10,17 @@
     <!-- Main description and content -->
     <template #description>
       <CardDescription :content="ability.description" size="small">
-        <!-- No badge in CardDescription for AbilityCard - use BaseCard badges slot instead -->
+        <!-- XP badge positioned relative to main description when improvements are shown -->
+        <template #badge>
+          <BadgeDisplay v-if="showXpBadge && ability.xp && showImprovements" type="xp" :value="ability.xp"
+            position="bottom-left" custom-class="improvement-badge" />
+        </template>
       </CardDescription>
 
-      <div v-if="improvements && improvements.length && showImprovements" class="improvements-pile">
-        <div v-for="(impr) in improvements" :key="impr.id || impr.title" class="improvement-desc-block">
-          <div class="improvement-title">{{ impr.name }}</div>
-          <CardDescription v-if="impr.description" :content="impr.description" additional-classes="improvement">
-            <template #badge>
-              <BadgeDisplay v-if="impr.xp" type="xp" :value="impr.xp" position="bottom-left"
-                custom-class="improvement-badge" />
-            </template>
-          </CardDescription>
-        </div>
-      </div>
+      <!-- Ability improvements -->
+      <AbilityImprovements :improvements="improvements" :character="character" :ability-id="ability.id"
+        :show-improvement-toggle="showImprovementToggle" :show-improvements="showImprovements"
+        @toggle-improvement="handleImprovementToggle" />
     </template>
 
     <!-- Action buttons -->
@@ -35,15 +32,17 @@
       <button class="bottom-buttons send-to-chat-button" @click.stop="sendAbilityToChat" title="Send to chat">
         💬
       </button>
-      <button v-if="improvements && improvements.length" class="bottom-buttons improvements-toggle-button"
-        @click.stop="toggleImprovements" :title="showImprovements ? 'Hide improvements' : 'Show improvements'">
+      <!-- In abilities table context: only show button if there are unowned improvements -->
+      <button v-if="hasImprovements" class="bottom-buttons improvements-toggle-button" @click.stop="toggleImprovements"
+        :title="showImprovements ? 'Hide unowned improvements' : 'Show unowned improvements'">
         Improvements <span>{{ showImprovements ? '▲' : '▼' }}</span>
       </button>
     </template>
 
-    <!-- Overlay badges - Always show XP badge at card level -->
+    <!-- Overlay badges - Show XP badge at card level when improvements are not shown -->
     <template #badges>
-      <BadgeDisplay v-if="showXpBadge && ability.xp" type="xp" :value="ability.xp" position="bottom-left" />
+      <BadgeDisplay v-if="showXpBadge && ability.xp && !showImprovements" type="xp" :value="ability.xp"
+        position="bottom-left" />
     </template>
   </base-card>
 </template>
@@ -51,12 +50,13 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { useAbilitiesStore } from '@/stores/abilitiesStore'
+import { useAbilityImprovements } from '@/composables/useAbilityImprovements'
 import BaseCard from '@/components/ui/cards/BaseCard.vue'
 import BadgeDisplay from '@/components/ui/cards/BadgeDisplay.vue'
 import CardDescription from '@/components/ui/cards/CardDescription.vue'
 import AddToCharacterButton from '@/components/ui/cards/AddToCharacterButton.vue'
+import AbilityImprovements from '@/components/ui/cards/AbilityImprovements.vue'
 import { useCharacterManagement } from '@/composables/useCharacterManagement'
-import { useCardCollapseState } from '@/composables/useCardCollapseState'
 
 const props = defineProps({
   ability: {
@@ -91,20 +91,32 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
+  // New props for improvement tracking
+  character: {
+    type: Object,
+    default: null
+  },
+  showImprovementToggle: {
+    type: Boolean,
+    default: false
+  },
+  showImprovements: {
+    type: Boolean,
+    default: false
+  }
 })
 
-const emit = defineEmits(['edit', 'update', 'sendToChat', 'update:collapsed'])
+const emit = defineEmits(['edit', 'update', 'sendToChat', 'update:collapsed', 'update:character', 'update:showImprovements', 'height-changed'])
 
 // Store
 const abilitiesStore = useAbilitiesStore()
 const { addAbilityToCharacter } = useCharacterManagement()
 
-// Collapse state management
-const { localCollapsed, onBaseCardCollapsed } = useCardCollapseState(props, emit)
+// Ability improvements composable
+const { hasImprovement, toggleImprovement } = useAbilityImprovements()
 
 // Reactive state
 const isActive = ref(props.ability.isActive)
-const showImprovements = ref(false)
 
 // Computed properties
 const traitOrMp = computed(() => {
@@ -133,7 +145,41 @@ const sendAbilityToChat = () => {
 }
 
 const toggleImprovements = () => {
-  showImprovements.value = !showImprovements.value
+  const newShowImprovements = !props.showImprovements
+
+  if (!newShowImprovements) {
+    // Improvements are collapsing - start animation immediately, then notify masonry
+    emit('update:showImprovements', newShowImprovements)
+    setTimeout(() => {
+      emit('height-changed')
+    }, 550) // After animation completes (500ms + buffer)
+  } else {
+    // Improvements are expanding - instantly show content (invisible), measure, then animate
+    emit('update:showImprovements', newShowImprovements)
+
+    // Wait for DOM to update, then notify masonry and start visual animation
+    setTimeout(() => {
+      emit('height-changed')
+    }, 10) // Just enough time for DOM to update
+  }
+}
+
+// Computed properties for button display
+const hasImprovements = computed(() => {
+  if (props.showImprovementToggle) {
+    // In character context: check if there are any unowned improvements
+    if (!props.character || !props.improvements.length) return false
+    return props.improvements.some(improvement => !hasImprovement(props.character, props.ability.id, improvement.id))
+  }
+  // In non-character context: check if improvements exist
+  return props.improvements && props.improvements.length > 0
+})
+
+const handleImprovementToggle = (improvementId) => {
+  if (!props.character || !improvementId) return
+
+  const updatedCharacter = toggleImprovement(props.character, props.ability.id, improvementId)
+  emit('update:character', updatedCharacter)
 }
 </script>
 
@@ -188,29 +234,5 @@ const toggleImprovements = () => {
 
 .improvements-toggle-button:hover {
   background: var(--color-accent-gold);
-}
-
-.improvements-pile {
-  margin-top: var(--space-sm);
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-md);
-}
-
-.improvement-desc-block {
-  width: 100%;
-  margin: 0;
-  padding: 0;
-}
-
-.improvement-desc-block:last-child {
-  margin-bottom: var(--space-sm);
-}
-
-.improvement-title {
-  font-size: var(--font-size-15);
-  font-weight: var(--font-weight-bold);
-  margin-bottom: var(--space-xs);
-  margin-top: var(--space-xs);
 }
 </style>

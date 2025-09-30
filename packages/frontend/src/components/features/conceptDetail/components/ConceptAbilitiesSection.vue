@@ -1,10 +1,12 @@
 <template>
     <ConceptSection title="Traits & Abilities" :has-content="hasAbilities" :is-edit-mode="isEditMode"
         empty-message="No abilities added yet. Create abilities in the 'Abilities' section and assign them to this concept.">
-        <MasonryGrid :column-width="350" :gap="10" :row-height="10" class="cards-container">
+        <MasonryGrid ref="masonryGridRef" :column-width="350" :gap="10" :row-height="10" class="cards-container">
             <AbilityCard v-for="ability in sortedAbilities" :key="ability.id" :ability="ability" :editable="isEditMode"
                 :sources="sources" :collapsible="false" :improvements="ability.improvements || []"
-                @edit="$emit('edit-ability', ability)" :showSource="false" />
+                :showImprovements="getAbilityShowImprovements(ability.id)"
+                @update:showImprovements="updateAbilityShowImprovements(ability.id, $event)"
+                @height-changed="handleCardHeightChanged" @edit="$emit('edit-ability', ability)" :showSource="false" />
         </MasonryGrid>
         <div class="add-button-container">
             <AddButton :show="isEditMode" @click="$emit('add-ability')" title="Add new ability"
@@ -14,7 +16,7 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import ConceptSection from './ConceptSection.vue'
 import AbilityCard from '@/components/ui/cards/AbilityCard.vue'
 import MasonryGrid from '@/components/ui/layouts/MasonryGrid.vue'
@@ -40,6 +42,25 @@ const props = defineProps({
 })
 
 defineEmits(['edit-ability', 'add-ability'])
+
+// State for tracking improvement visibility per ability
+const improvementVisibility = ref(new Map())
+const masonryGridRef = ref(null)
+
+const getAbilityShowImprovements = (abilityId) => {
+    return improvementVisibility.value.get(abilityId) || false
+}
+
+const updateAbilityShowImprovements = (abilityId, showImprovements) => {
+    improvementVisibility.value.set(abilityId, showImprovements)
+}
+
+const handleCardHeightChanged = () => {
+    // Update masonry layout when card heights change
+    if (masonryGridRef.value) {
+        masonryGridRef.value.updateLayout()
+    }
+}
 
 const hasAbilities = computed(() => {
     return props.abilities && props.abilities.length > 0

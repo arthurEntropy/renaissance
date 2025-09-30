@@ -13,17 +13,20 @@
     {
       "name": "Long Throw",
       "description": "<p>You may spend a half action and 1 MP to target a foe within medium range without the ill-favored penalty, or a foe within long range with the ill-favored penalty.</p>",
-      "xp": 5
+      "xp": 5,
+      "id": "303b2836-27a8-5a89-bb01-fbe0bc0b4f6d"
     },
     {
       "name": "Pinning Throw",
       "description": "<p>Each time you roll max damage on a damage die for your shuriken, if the foe is adjacent to a wall or other sturdy, inanimate object, they are pinned to that object and must spend a half action on their turn to free themselves (multiple pinnings require multiple half actions).</p>",
-      "xp": 5
+      "xp": 5,
+      "id": "6614bab2-b939-5e62-8a31-1fd53b34172c"
     },
     {
       "name": "Piercing Throw",
       "description": "<p>Each time you roll max damage on a damage die for your shuriken, you inflict 1 injury on the foe.</p>",
-      "xp": 10
+      "xp": 10,
+      "id": "71feffcb-fe72-586a-bf4d-8130ce64a7d5"
     }
   ]
 }

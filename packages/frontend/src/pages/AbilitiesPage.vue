@@ -8,7 +8,9 @@
       <AbilityCard v-for="ability in filteredItems" :key="ability.id" :ability="ability" :editable="true"
         :sources="sources" @delete="deleteAbility(ability)" @update="updateAbility(ability)"
         @edit="openEditAbilityModal(ability)" @send-to-chat="sendAbilityToChat(ability)"
-        @height-changed="layoutRef?.onCardHeightChanged()" :collapsible="false" />
+        @height-changed="layoutRef?.onCardHeightChanged()" :collapsible="false"
+        :improvements="ability.improvements || []" :showImprovements="getAbilityShowImprovements(ability.id)"
+        @update:showImprovements="updateAbilityShowImprovements(ability.id, $event)" />
     </template>
 
     <!-- Modals slot -->
@@ -52,6 +54,17 @@ const layoutRef = ref(null)
 const sortOption = ref('')
 const searchQuery = ref('')
 const sourceFilter = ref('')
+
+// State for tracking improvement visibility per ability
+const improvementVisibility = ref(new Map())
+
+const getAbilityShowImprovements = (abilityId) => {
+  return improvementVisibility.value.get(abilityId) || false
+}
+
+const updateAbilityShowImprovements = (abilityId, showImprovements) => {
+  improvementVisibility.value.set(abilityId, showImprovements)
+}
 
 const sortOptions = ref({
   'Name': [

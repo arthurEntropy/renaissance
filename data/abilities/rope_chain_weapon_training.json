@@ -13,12 +13,14 @@
     {
       "name": "Grappling",
       "description": "<p>When you land a hit with a rope or chain weapon, you may spend 1 MP to attempt to grapple the foe, rolling Dexterity vs Dexterity.</p><p>If the foe is grappled, they may attempt to free themself at the beginning of each of their turns by rolling Strength against your original Dexterity roll to grapple them. If you are no longer holding the grappling weapon, their roll is favored. You or anyone else can free them by using a half action, no roll required.</p><p>While grappled, you may use an action to attempt to pull them up to 1/4 your speed or knock them prone, Strength vs Strength.</p>",
-      "xp": 5
+      "xp": 5,
+      "id": "8ab4398d-585e-58db-ae9a-42e03c43b4d3"
     },
     {
       "name": "Reach",
       "description": "<p>Your reach with rope and chain weapons increases to short range.</p>",
-      "xp": 10
+      "xp": 10,
+      "id": "fc3f90a9-f954-5257-82a6-d1fd1203c886"
     }
   ]
 }

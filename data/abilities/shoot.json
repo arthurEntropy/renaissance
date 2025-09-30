@@ -14,27 +14,32 @@
     {
       "name": "Reach",
       "description": "<p>Your range increases to medium range.</p>",
-      "xp": 5
+      "xp": 5,
+      "id": "86926b49-494e-51ce-8642-16c0f336b6a1"
     },
     {
       "name": "Bank Shot",
       "description": "<p>You may bounce your orb off a surface or object as part of its trajectory. The total distance covered must still be within range.</p>",
-      "xp": 5
+      "xp": 5,
+      "id": "5e8beb2f-2fec-5bcc-a873-c1a404951d89"
     },
     {
       "name": "From Downtown",
       "description": "<p>You may choose to roll ill-favored to aim at a target up to double your range. If you do so and deal damage to a target beyond your usual range, the damage is tripled.</p>",
-      "xp": 10
+      "xp": 10,
+      "id": "b600d6d5-bf3f-58d7-9a58-71bca4c091e7"
     },
     {
       "name": "Boomshakalaka",
       "description": "<p>Your base damage increases to 2d4+BODY.</p>",
-      "xp": 10
+      "xp": 10,
+      "id": "da676126-e037-5ec4-bdf8-b378a94ff48b"
     },
     {
       "name": "Traveling",
       "description": "<p>When you hit a target, instead of expending charges to deal damage, you may expend all charges to teleport to the orb's location.</p>",
-      "xp": 10
+      "xp": 10,
+      "id": "ce5d10a1-a2c0-5c74-a35d-1a5ca8e09815"
     }
   ]
 }

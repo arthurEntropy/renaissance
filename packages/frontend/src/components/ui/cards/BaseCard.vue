@@ -1,5 +1,5 @@
 <template>
-  <div ref="cardElement" class="base-card edit-hover-area" :class="{ collapsed: isCollapsed, collapsible: collapsible }"
+  <div ref="cardElement" class="base-card edit-hover-area" :class="{ collapsed: collapsed, collapsible: collapsible }"
     :style="cardStyle" @click="collapsible ? toggleCollapsed() : null">
 
     <!-- Floating Edit Button -->
@@ -24,7 +24,7 @@
 
     <!-- Expandable Content -->
     <transition name="expand">
-      <div v-if="!collapsible || !isCollapsed" class="card-content">
+      <div v-if="!collapsible || !collapsed" class="card-content">
         <slot name="image"></slot>
         <slot name="description"></slot>
         <slot name="actions"></slot>
@@ -49,7 +49,7 @@ const props = defineProps({
   itemType: { type: String, default: 'item' },
   metaInfo: { type: String, default: '' },
   storeInstance: { type: Object, required: false, default: null },
-  initialCollapsed: { type: Boolean, default: false },
+  collapsed: { type: Boolean, default: false },
   editable: { type: Boolean, default: false },
   collapsible: { type: Boolean, default: true },
   showSource: { type: Boolean, default: true },
@@ -66,11 +66,10 @@ const getSourceName = sourcesStore.getSourceName
 const cardElement = ref(null)
 
 // Reactive state
-const isCollapsed = ref(props.initialCollapsed)
 const sourceName = ref('')
 
 // Computed properties
-const caretSymbol = computed(() => (isCollapsed.value ? '▶' : '▼'))
+const caretSymbol = computed(() => (props.collapsed ? '▶' : '▼'))
 
 const cardStyle = computed(() => {
   // First check for item's own background
@@ -99,7 +98,23 @@ const cardStyle = computed(() => {
 
 // Methods
 const toggleCollapsed = () => {
-  isCollapsed.value = !isCollapsed.value
+  const newCollapsed = !props.collapsed
+
+  if (newCollapsed) {
+    // Card is collapsing - start animation immediately, then notify masonry
+    emit('update:collapsed', newCollapsed)
+    setTimeout(() => {
+      emit('height-changed')
+    }, 550) // After animation completes (500ms + buffer)
+  } else {
+    // Card is expanding - instantly show content (invisible), then notify masonry
+    emit('update:collapsed', newCollapsed)
+
+    // Wait for DOM to update, then notify masonry
+    setTimeout(() => {
+      emit('height-changed')
+    }, 10) // Just enough time for DOM to update
+  }
 }
 
 const setSpanSize = () => {
@@ -134,17 +149,6 @@ watch(
   },
   { immediate: true },
 )
-
-watch(isCollapsed, (newVal, oldVal) => {
-  if (newVal !== oldVal) {
-    emit('update:collapsed', newVal)
-    nextTick(() => {
-      setTimeout(() => {
-        emit('height-changed')
-      }, 300)
-    })
-  }
-})
 
 // Lifecycle
 onMounted(() => {
@@ -242,5 +246,36 @@ onMounted(() => {
   top: var(--space-xs);
   right: var(--space-xs);
   z-index: var(--z-interactive);
+}
+
+/* Expand/Collapse transition for card content */
+.expand-enter-active,
+.expand-leave-active {
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+.expand-enter-from {
+  opacity: 0;
+  max-height: 0;
+  transform: translateY(-20px);
+}
+
+.expand-leave-to {
+  opacity: 0;
+  max-height: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  transform: translateY(-10px);
+}
+
+.expand-enter-to,
+.expand-leave-from {
+  opacity: 1;
+  max-height: 2000px;
+  /* Large enough for typical card content */
+  transform: translateY(0);
 }
 </style>

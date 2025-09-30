@@ -10,10 +10,13 @@
 
     <!-- Static Abilities List (only in view mode) -->
     <div v-if="!isEditMode" class="abilities-list">
-      <AbilityCard v-for="ability in sortedAbilities" :key="ability.id" :ability="ability"
-        :collapsed="getCollapsedState(ability)" @update:collapsed="setCollapsedState(ability, $event)"
-        class="ability-card" :collapsible="true" :improvements="ability.improvements || []" :show-xp-badge="false"
-        :show-add-to-character="false" />
+      <AbilityCard v-for="ability in sortedAbilities" :key="`ability-${ability.id}`" :ability="ability"
+        :collapsed="ability.collapsed" @update:collapsed="updateAbilityCollapsed(ability, $event)" class="ability-card"
+        :collapsible="true" :improvements="ability.improvements || []" :show-xp-badge="false"
+        :show-add-to-character="false" :character="character" :show-improvement-toggle="true"
+        :showImprovements="ability.showImprovements"
+        @update:showImprovements="updateAbilityShowImprovements(ability, $event)"
+        @update:character="handleCharacterUpdate" />
     </div>
 
     <!-- Draggable Abilities List (only in edit mode) -->
@@ -25,9 +28,12 @@
           <FloatingEditControls v-if="isEditMode" :index="index" delete-title="Remove ability"
             drag-title="Drag to reorder" @delete="removeAbility" />
 
-          <AbilityCard v-if="ability" :ability="ability" :collapsed="getCollapsedState(ability)"
-            @update:collapsed="setCollapsedState(ability, $event)" class="ability-card" :collapsible="true"
-            :show-xp-badge="false" :show-add-to-character="false" />
+          <AbilityCard v-if="ability" :ability="ability" :collapsed="ability.collapsed"
+            @update:collapsed="updateAbilityCollapsed(ability, $event)" class="ability-card" :collapsible="true"
+            :show-xp-badge="false" :show-add-to-character="false" :character="character" :show-improvement-toggle="true"
+            :showImprovements="ability.showImprovements"
+            @update:showImprovements="updateAbilityShowImprovements(ability, $event)"
+            @update:character="handleCharacterUpdate" :key="`edit-ability-${ability.id}`" />
 
           <span v-else class="missing-ability">Unknown ability</span>
 
@@ -59,7 +65,6 @@ import MPDisplay from './MPDisplay.vue'
 import draggable from 'vuedraggable'
 import { useTableEditMode } from '@/composables/useTableEditMode'
 import { useItemManagement } from '@/composables/useItemManagement'
-import { useCollapseState } from '@/composables/useCollapseState'
 import { useDragAndDrop } from '@/composables/useDragAndDrop'
 import { useItemSelector } from '@/composables/useItemSelector'
 import { useSourceUtils } from '@/composables/useSourceUtils'
@@ -91,8 +96,6 @@ const abilityManagement = useItemManagement(
   'ability'
 )
 
-const { getCollapsedState, setCollapsedState } = useCollapseState(true)
-
 // Source management
 const { sources, sourceUtils } = useSourceUtils()
 
@@ -120,9 +123,14 @@ const { characterAbilityObjects: characterAbilities } = useCharacterAbilities(
 
 // Drag and drop functionality
 const updateAbilityOrder = (newOrder) => {
-  // Extract the IDs from the ability objects in the new order
-  const updatedAbilityIds = newOrder.map((ability) => ability.id)
-  abilityManagement.reorderItems(updatedAbilityIds)
+  // Extract the ability objects with their metadata from the new order
+  const updatedAbilities = newOrder.map((ability) => ({
+    id: ability.id,
+    collapsed: ability.collapsed,
+    showImprovements: ability.showImprovements
+  }))
+
+  abilityManagement.reorderItems(updatedAbilities)
 }
 
 const {
@@ -148,13 +156,54 @@ const handleAbilitySearch = (value) => {
 }
 
 const selectAbility = (ability) => {
-  // Add ability to character's abilities list using the item management composable
-  abilityManagement.addItem(ability.id, {
+  // Add ability to character's abilities list with default collapsed and showImprovements state
+  abilityManagement.addItem({ id: ability.id, collapsed: true, showImprovements: false }, {
     preventDuplicates: true,
-    compareProperty: null // Compare the actual values since we're storing IDs
+    compareProperty: 'id' // Compare by ID property since we're now storing objects
   })
 
   toggleAbilitySelector()
+}
+
+// Handle character updates from improvement changes
+const handleCharacterUpdate = (updatedCharacter) => {
+  emit('update-character', updatedCharacter)
+}
+
+// Handle ability collapsed state changes
+const updateAbilityCollapsed = (ability, collapsed) => {
+  // Find the ability in the character's abilities array and update its collapsed state
+  const updatedAbilities = props.character.abilities.map(abilityObj => {
+    if (abilityObj.id === ability.id) {
+      return { ...abilityObj, collapsed }
+    }
+    return abilityObj
+  })
+
+  const updatedCharacter = {
+    ...props.character,
+    abilities: updatedAbilities
+  }
+
+  emit('update-character', updatedCharacter)
+}
+
+// Handle ability showImprovements state changes
+const updateAbilityShowImprovements = (ability, showImprovements) => {
+  // Find the ability in the character's abilities array and update its showImprovements state
+  const updatedAbilities = props.character.abilities.map(abilityObj => {
+    if (abilityObj.id === ability.id) {
+      return { ...abilityObj, showImprovements }
+    }
+    return abilityObj
+  })
+
+  const updatedCharacter = {
+    ...props.character,
+    abilities: updatedAbilities
+  }
+
+  emit('update-character', updatedCharacter)
 }
 
 

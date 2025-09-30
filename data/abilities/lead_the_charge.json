@@ -14,7 +14,8 @@
     {
       "name": "Break Their Line",
       "description": "<p>You may take an additional -3 Defense and give all allies within medium range an additional +1d to their attack rolls until the start of your next turn.</p>",
-      "xp": 20
+      "xp": 20,
+      "id": "7ec5f21f-f20d-5267-add7-6ca70ea052e8"
     }
   ]
 }
