@@ -60,6 +60,15 @@ function updateLayout() {
   Array.from(container.children).forEach((child) => setSpanForElement(child))
 }
 
+// Enhanced updateLayout with optional delay for smooth animations
+function updateLayoutDelayed(delay = 0) {
+  if (delay > 0) {
+    setTimeout(() => updateLayout(), delay)
+  } else {
+    updateLayout()
+  }
+}
+
 function setSpanForElement(element) {
   if (!element || element.offsetParent === null) return
   element.style.width = `${props.columnWidth}px`
@@ -73,7 +82,7 @@ function observeChildElements() {
   childResizeObservers.forEach((observer) => observer && observer.disconnect())
   childResizeObservers = []
 
-  const RESIZE_DEBOUNCE_DELAY = 50
+  const RESIZE_DEBOUNCE_DELAY = 20 // Reduced from 50ms for faster response during animations
   const debouncedSetSpan = debounce((element) => setSpanForElement(element), RESIZE_DEBOUNCE_DELAY)
 
   const children = Array.from(masonryContainer.value?.children || [])
@@ -88,7 +97,7 @@ function observeChildElements() {
 onMounted(() => {
   initMasonry()
 
-  const LAYOUT_UPDATE_DEBOUNCE_DELAY = 50
+  const LAYOUT_UPDATE_DEBOUNCE_DELAY = 20 // Reduced from 50ms for faster updates during animations
   const debouncedUpdate = debounce(() => {
     calculateColumnCount()
     updateLayout()
@@ -125,7 +134,7 @@ onBeforeUnmount(() => {
 })
 
 // Expose updateLayout so parents can call via ref
-defineExpose({ updateLayout })
+defineExpose({ updateLayout, updateLayoutDelayed })
 </script>
 
 <style scoped>

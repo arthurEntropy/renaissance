@@ -2,7 +2,7 @@
   <base-card v-bind="$attrs" :item="equipment" itemType="equipment" :metaInfo="equipment.weight
     ? `${equipment.weight} ${equipment.weight === 1 ? 'lb' : 'lbs'}`
     : ''
-    " :storeInstance="equipmentStore" :initialCollapsed="collapsed" :editable="editable" :showSource="showSource"
+    " :storeInstance="equipmentStore" :collapsed="collapsed" :editable="editable" :showSource="showSource"
     @edit="$emit('edit', equipment)" :collapsible="collapsible">
 
     <!-- Add to character overlay -->

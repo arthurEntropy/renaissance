@@ -172,9 +172,19 @@
     "max": 0
   },
   "abilities": [
-    "f1d0e5f7-bb30-4251-a575-8d31c113fe1a",
-    "1e289ca8-cf6a-4f0d-ad7c-a13fc8e1f381",
-    "9c92d5ba-7c73-4480-a357-d98ac4820c7d"
+    {
+      "id": "f1d0e5f7-bb30-4251-a575-8d31c113fe1a",
+      "collapsed": false,
+      "showImprovements": true
+    },
+    {
+      "id": "1e289ca8-cf6a-4f0d-ad7c-a13fc8e1f381",
+      "collapsed": false
+    },
+    {
+      "id": "9c92d5ba-7c73-4480-a357-d98ac4820c7d",
+      "collapsed": true
+    }
   ],
   "twiceWeary": true,
   "weary": true,
@@ -192,8 +202,9 @@
   "mestiereId": "e0a69b6f-38f9-4fa5-a1ef-5e5777299e82",
   "abilityImprovements": {
     "f1d0e5f7-bb30-4251-a575-8d31c113fe1a": {
-      "a277f343-4a95-51c2-a376-74b16ab9bb7c": true,
-      "854306d6-d3b2-5b9d-a387-1474c611803b": true
+      "a277f343-4a95-51c2-a376-74b16ab9bb7c": false,
+      "854306d6-d3b2-5b9d-a387-1474c611803b": true,
+      "4e322b63-bbe9-5b70-9009-f475813e0728": false
     }
   }
 }

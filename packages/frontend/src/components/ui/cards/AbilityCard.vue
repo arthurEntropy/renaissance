@@ -1,7 +1,7 @@
 <template>
   <base-card :item="ability" itemType="ability" :metaInfo="traitOrMp" :storeInstance="abilitiesStore"
-    :initialCollapsed="localCollapsed" :editable="editable" @edit="$emit('edit', ability)" :collapsible="collapsible"
-    @update:collapsed="onBaseCardCollapsed" :showSource="showSource">
+    :collapsed="collapsed" :editable="editable" @edit="$emit('edit', ability)" :collapsible="collapsible"
+    @update:collapsed="$emit('update:collapsed', $event)" :showSource="showSource">
 
     <!-- Add to character overlay -->
     <AddToCharacterButton v-if="ability && showAddToCharacter" :item="ability" type="ability"
@@ -10,21 +10,62 @@
     <!-- Main description and content -->
     <template #description>
       <CardDescription :content="ability.description" size="small">
-        <!-- No badge in CardDescription for AbilityCard - use BaseCard badges slot instead -->
+        <!-- XP badge positioned relative to main description when improvements are shown -->
+        <template #badge>
+          <BadgeDisplay v-if="showXpBadge && ability.xp && showImprovements" type="xp" :value="ability.xp"
+            position="bottom-left" custom-class="improvement-badge" />
+        </template>
       </CardDescription>
 
-      <div v-if="improvements && improvements.length && showImprovements" class="improvements-pile">
-        <div v-for="(impr) in improvements" :key="impr.id || impr.title" class="improvement-desc-block">
-          <div class="improvement-title">{{ impr.name }}</div>
-          <CardDescription v-if="impr.description" :content="impr.description" additional-classes="improvement">
-            <template #badge>
-              <BadgeDisplay v-if="impr.xp" type="xp" :value="impr.xp" position="bottom-left"
-                custom-class="improvement-badge" :interactive="showImprovementToggle && !!character"
-                :is-owned="isImprovementOwned(impr.id)" :improvement-id="impr.id" @toggle="handleImprovementToggle" />
-            </template>
-          </CardDescription>
+      <!-- Always show owned improvements when card is expanded (abilities table context) -->
+      <transition name="expand-improvements">
+        <div v-if="showImprovementToggle && hasOwnedImprovements" class="improvements-pile">
+          <div v-for="(impr) in ownedImprovements" :key="impr.id || impr.title" class="improvement-desc-block">
+            <div class="improvement-title improvement-owned">{{ impr.name }}</div>
+            <CardDescription v-if="impr.description" :content="impr.description" additional-classes="improvement">
+              <template #badge>
+                <BadgeDisplay v-if="impr.xp" type="xp" :value="impr.xp" position="bottom-left"
+                  custom-class="improvement-badge" :interactive="showImprovementToggle && !!character" :is-owned="true"
+                  :improvement-id="impr.id" @toggle="handleImprovementToggle" />
+              </template>
+            </CardDescription>
+          </div>
         </div>
-      </div>
+      </transition>
+
+      <!-- Conditionally show unowned improvements when toggle is enabled (abilities table context) -->
+      <transition name="expand-improvements">
+        <div v-if="showImprovementToggle && hasUnownedImprovements && showImprovements" class="improvements-pile">
+          <div v-for="(impr) in unownedImprovements" :key="impr.id || impr.title" class="improvement-desc-block">
+            <div class="improvement-title improvement-unowned">{{ impr.name }}</div>
+            <CardDescription v-if="impr.description" :content="impr.description"
+              additional-classes="improvement improvement-unowned">
+              <template #badge>
+                <BadgeDisplay v-if="impr.xp" type="xp" :value="impr.xp" position="bottom-left"
+                  custom-class="improvement-badge improvement-badge-unowned"
+                  :interactive="showImprovementToggle && !!character" :is-owned="false" :improvement-id="impr.id"
+                  @toggle="handleImprovementToggle" />
+              </template>
+            </CardDescription>
+          </div>
+        </div>
+      </transition>
+
+      <!-- Show all improvements in non-abilities table contexts (legacy behavior) -->
+      <transition name="expand-improvements">
+        <div v-if="!showImprovementToggle && improvements && improvements.length && showImprovements"
+          class="improvements-pile">
+          <div v-for="(impr) in unownedImprovements" :key="impr.id || impr.title" class="improvement-desc-block">
+            <div class="improvement-title">{{ impr.name }}</div>
+            <CardDescription v-if="impr.description" :content="impr.description" additional-classes="improvement">
+              <template #badge>
+                <BadgeDisplay v-if="impr.xp" type="xp" :value="impr.xp" position="bottom-left"
+                  custom-class="improvement-badge" :interactive="false" :is-owned="false" />
+              </template>
+            </CardDescription>
+          </div>
+        </div>
+      </transition>
     </template>
 
     <!-- Action buttons -->
@@ -36,15 +77,18 @@
       <button class="bottom-buttons send-to-chat-button" @click.stop="sendAbilityToChat" title="Send to chat">
         💬
       </button>
-      <button v-if="improvements && improvements.length" class="bottom-buttons improvements-toggle-button"
-        @click.stop="toggleImprovements" :title="showImprovements ? 'Hide improvements' : 'Show improvements'">
+      <!-- In abilities table context: only show button if there are unowned improvements -->
+      <button v-if="showImprovementToggle ? hasUnownedImprovements : (improvements && improvements.length)"
+        class="bottom-buttons improvements-toggle-button" @click.stop="toggleImprovements"
+        :title="showImprovements ? 'Hide unowned improvements' : 'Show unowned improvements'">
         Improvements <span>{{ showImprovements ? '▲' : '▼' }}</span>
       </button>
     </template>
 
-    <!-- Overlay badges - Always show XP badge at card level -->
+    <!-- Overlay badges - Show XP badge at card level when improvements are not shown -->
     <template #badges>
-      <BadgeDisplay v-if="showXpBadge && ability.xp" type="xp" :value="ability.xp" position="bottom-left" />
+      <BadgeDisplay v-if="showXpBadge && ability.xp && !showImprovements" type="xp" :value="ability.xp"
+        position="bottom-left" />
     </template>
   </base-card>
 </template>
@@ -58,7 +102,6 @@ import BadgeDisplay from '@/components/ui/cards/BadgeDisplay.vue'
 import CardDescription from '@/components/ui/cards/CardDescription.vue'
 import AddToCharacterButton from '@/components/ui/cards/AddToCharacterButton.vue'
 import { useCharacterManagement } from '@/composables/useCharacterManagement'
-import { useCardCollapseState } from '@/composables/useCardCollapseState'
 
 const props = defineProps({
   ability: {
@@ -101,10 +144,14 @@ const props = defineProps({
   showImprovementToggle: {
     type: Boolean,
     default: false
+  },
+  showImprovements: {
+    type: Boolean,
+    default: false
   }
 })
 
-const emit = defineEmits(['edit', 'update', 'sendToChat', 'update:collapsed', 'update:character'])
+const emit = defineEmits(['edit', 'update', 'sendToChat', 'update:collapsed', 'update:character', 'update:showImprovements', 'height-changed'])
 
 // Store
 const abilitiesStore = useAbilitiesStore()
@@ -113,12 +160,8 @@ const { addAbilityToCharacter } = useCharacterManagement()
 // Ability improvements composable
 const { hasImprovement, toggleImprovement } = useAbilityImprovements()
 
-// Collapse state management
-const { localCollapsed, onBaseCardCollapsed } = useCardCollapseState(props, emit)
-
 // Reactive state
 const isActive = ref(props.ability.isActive)
-const showImprovements = ref(false)
 
 // Computed properties
 const traitOrMp = computed(() => {
@@ -136,6 +179,36 @@ const traitOrMp = computed(() => {
   return parts.join(', ')
 })
 
+// Separate computed properties for owned and unowned improvements
+const ownedImprovements = computed(() => {
+  if (!props.improvements || !props.improvements.length) return []
+
+  // Only separate in abilities table context
+  if (!props.showImprovementToggle || !props.character) {
+    return [] // In other contexts, we don't distinguish owned vs unowned
+  }
+
+  return props.improvements
+    .filter(improvement => isImprovementOwned(improvement.id))
+    .sort((a, b) => (a.xp || 0) - (b.xp || 0))
+})
+
+const unownedImprovements = computed(() => {
+  if (!props.improvements || !props.improvements.length) return []
+
+  // Only separate in abilities table context
+  if (!props.showImprovementToggle || !props.character) {
+    return [...props.improvements].sort((a, b) => (a.xp || 0) - (b.xp || 0)) // Show all in other contexts
+  }
+
+  return props.improvements
+    .filter(improvement => !isImprovementOwned(improvement.id))
+    .sort((a, b) => (a.xp || 0) - (b.xp || 0))
+})
+
+const hasOwnedImprovements = computed(() => ownedImprovements.value.length > 0)
+const hasUnownedImprovements = computed(() => unownedImprovements.value.length > 0)
+
 // Methods
 const toggleActive = () => {
   isActive.value = !isActive.value
@@ -147,7 +220,23 @@ const sendAbilityToChat = () => {
 }
 
 const toggleImprovements = () => {
-  showImprovements.value = !showImprovements.value
+  const newShowImprovements = !props.showImprovements
+
+  if (!newShowImprovements) {
+    // Improvements are collapsing - start animation immediately, then notify masonry
+    emit('update:showImprovements', newShowImprovements)
+    setTimeout(() => {
+      emit('height-changed')
+    }, 550) // After animation completes (500ms + buffer)
+  } else {
+    // Improvements are expanding - instantly show content (invisible), measure, then animate
+    emit('update:showImprovements', newShowImprovements)
+
+    // Wait for DOM to update, then notify masonry and start visual animation
+    setTimeout(() => {
+      emit('height-changed')
+    }, 10) // Just enough time for DOM to update
+  }
 }
 
 // Improvement management methods
@@ -239,5 +328,69 @@ const handleImprovementToggle = (improvementId) => {
   font-weight: var(--font-weight-bold);
   margin-bottom: var(--space-xs);
   margin-top: var(--space-xs);
+  transition: var(--transition-color);
+}
+
+.improvement-title.improvement-unowned {
+  color: var(--color-text-secondary);
+}
+
+.improvement-desc-block:hover .improvement-title.improvement-unowned {
+  color: var(--color-text-primary);
+}
+
+.improvement-title.improvement-owned {
+  color: var(--color-text-primary);
+}
+
+:deep(.card-description.improvement.improvement-unowned) {
+  color: var(--color-text-secondary);
+  transition: var(--transition-color);
+}
+
+.improvement-desc-block:hover :deep(.card-description.improvement.improvement-unowned) {
+  color: var(--color-text-primary);
+}
+
+/* Unowned improvement badge styling */
+:deep(.improvement-badge-unowned) {
+  background-color: var(--color-bg-tertiary) !important;
+  transition: var(--transition-background);
+}
+
+/* When hovering over the improvement block (title/description), change badge color */
+.improvement-desc-block:hover :deep(.improvement-badge-unowned) {
+  background-color: var(--color-primary) !important;
+}
+
+/* Improvements expand/collapse transition */
+.expand-improvements-enter-active,
+.expand-improvements-leave-active {
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+.expand-improvements-enter-from {
+  opacity: 0;
+  max-height: 0;
+  transform: translateY(-20px);
+}
+
+.expand-improvements-leave-to {
+  opacity: 0;
+  max-height: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  transform: translateY(-10px);
+}
+
+.expand-improvements-enter-to,
+.expand-improvements-leave-from {
+  opacity: 1;
+  max-height: 1000px;
+  /* Large enough for typical improvements */
+  transform: translateY(0);
 }
 </style>

@@ -114,6 +114,20 @@ const filteredItems = computed(() => {
 const createItem = () => {
   emit('create')
 }
+
+// Method to handle card height changes
+const onCardHeightChanged = (delay = 0) => {
+  if (masonryGrid.value) {
+    if (delay > 0) {
+      masonryGrid.value.updateLayoutDelayed(delay)
+    } else {
+      masonryGrid.value.updateLayout()
+    }
+  }
+}
+
+// Expose the method so parent components can call it
+defineExpose({ onCardHeightChanged })
 </script>
 
 <style scoped>

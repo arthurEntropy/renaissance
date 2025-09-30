@@ -1,6 +1,6 @@
 <template>
-    <div v-if="showBadge" :class="badgeClass" :title="computedTitle" @click="handleClick" @mouseenter="handleMouseEnter"
-        @mouseleave="handleMouseLeave">
+    <div v-if="showBadge" :class="badgeClass" :title="computedTitle" @click.stop="handleClick"
+        @mouseenter="handleMouseEnter" @mouseleave="handleMouseLeave">
         {{ displayText }}
     </div>
 </template>
@@ -173,8 +173,8 @@ const badgeClass = computed(() => {
 }
 
 .badge-interactive-owned {
-    background-color: var(--color-bg-tertiary);
-    color: var(--color-text-primary);
+    background-color: var(--color-primary);
+    color: var(--color-black);
 }
 
 .badge-interactive-owned-hover {
