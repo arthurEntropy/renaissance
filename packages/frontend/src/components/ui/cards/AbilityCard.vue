@@ -17,55 +17,10 @@
         </template>
       </CardDescription>
 
-      <!-- Always show owned improvements when card is expanded (abilities table context) -->
-      <transition name="expand-improvements">
-        <div v-if="showImprovementToggle && hasOwnedImprovements" class="improvements-pile">
-          <div v-for="(impr) in ownedImprovements" :key="impr.id || impr.title" class="improvement-desc-block">
-            <div class="improvement-title improvement-owned">{{ impr.name }}</div>
-            <CardDescription v-if="impr.description" :content="impr.description" additional-classes="improvement">
-              <template #badge>
-                <BadgeDisplay v-if="impr.xp" type="xp" :value="impr.xp" position="bottom-left"
-                  custom-class="improvement-badge" :interactive="showImprovementToggle && !!character" :is-owned="true"
-                  :improvement-id="impr.id" @toggle="handleImprovementToggle" />
-              </template>
-            </CardDescription>
-          </div>
-        </div>
-      </transition>
-
-      <!-- Conditionally show unowned improvements when toggle is enabled (abilities table context) -->
-      <transition name="expand-improvements">
-        <div v-if="showImprovementToggle && hasUnownedImprovements && showImprovements" class="improvements-pile">
-          <div v-for="(impr) in unownedImprovements" :key="impr.id || impr.title" class="improvement-desc-block">
-            <div class="improvement-title improvement-unowned">{{ impr.name }}</div>
-            <CardDescription v-if="impr.description" :content="impr.description"
-              additional-classes="improvement improvement-unowned">
-              <template #badge>
-                <BadgeDisplay v-if="impr.xp" type="xp" :value="impr.xp" position="bottom-left"
-                  custom-class="improvement-badge improvement-badge-unowned"
-                  :interactive="showImprovementToggle && !!character" :is-owned="false" :improvement-id="impr.id"
-                  @toggle="handleImprovementToggle" />
-              </template>
-            </CardDescription>
-          </div>
-        </div>
-      </transition>
-
-      <!-- Show all improvements in non-abilities table contexts (legacy behavior) -->
-      <transition name="expand-improvements">
-        <div v-if="!showImprovementToggle && improvements && improvements.length && showImprovements"
-          class="improvements-pile">
-          <div v-for="(impr) in unownedImprovements" :key="impr.id || impr.title" class="improvement-desc-block">
-            <div class="improvement-title">{{ impr.name }}</div>
-            <CardDescription v-if="impr.description" :content="impr.description" additional-classes="improvement">
-              <template #badge>
-                <BadgeDisplay v-if="impr.xp" type="xp" :value="impr.xp" position="bottom-left"
-                  custom-class="improvement-badge" :interactive="false" :is-owned="false" />
-              </template>
-            </CardDescription>
-          </div>
-        </div>
-      </transition>
+      <!-- Ability improvements -->
+      <AbilityImprovements :improvements="improvements" :character="character" :ability-id="ability.id"
+        :show-improvement-toggle="showImprovementToggle" :show-improvements="showImprovements"
+        @toggle-improvement="handleImprovementToggle" />
     </template>
 
     <!-- Action buttons -->
@@ -78,8 +33,7 @@
         💬
       </button>
       <!-- In abilities table context: only show button if there are unowned improvements -->
-      <button v-if="showImprovementToggle ? hasUnownedImprovements : (improvements && improvements.length)"
-        class="bottom-buttons improvements-toggle-button" @click.stop="toggleImprovements"
+      <button v-if="hasImprovements" class="bottom-buttons improvements-toggle-button" @click.stop="toggleImprovements"
         :title="showImprovements ? 'Hide unowned improvements' : 'Show unowned improvements'">
         Improvements <span>{{ showImprovements ? '▲' : '▼' }}</span>
       </button>
@@ -101,6 +55,7 @@ import BaseCard from '@/components/ui/cards/BaseCard.vue'
 import BadgeDisplay from '@/components/ui/cards/BadgeDisplay.vue'
 import CardDescription from '@/components/ui/cards/CardDescription.vue'
 import AddToCharacterButton from '@/components/ui/cards/AddToCharacterButton.vue'
+import AbilityImprovements from '@/components/ui/cards/AbilityImprovements.vue'
 import { useCharacterManagement } from '@/composables/useCharacterManagement'
 
 const props = defineProps({
@@ -179,36 +134,6 @@ const traitOrMp = computed(() => {
   return parts.join(', ')
 })
 
-// Separate computed properties for owned and unowned improvements
-const ownedImprovements = computed(() => {
-  if (!props.improvements || !props.improvements.length) return []
-
-  // Only separate in abilities table context
-  if (!props.showImprovementToggle || !props.character) {
-    return [] // In other contexts, we don't distinguish owned vs unowned
-  }
-
-  return props.improvements
-    .filter(improvement => isImprovementOwned(improvement.id))
-    .sort((a, b) => (a.xp || 0) - (b.xp || 0))
-})
-
-const unownedImprovements = computed(() => {
-  if (!props.improvements || !props.improvements.length) return []
-
-  // Only separate in abilities table context
-  if (!props.showImprovementToggle || !props.character) {
-    return [...props.improvements].sort((a, b) => (a.xp || 0) - (b.xp || 0)) // Show all in other contexts
-  }
-
-  return props.improvements
-    .filter(improvement => !isImprovementOwned(improvement.id))
-    .sort((a, b) => (a.xp || 0) - (b.xp || 0))
-})
-
-const hasOwnedImprovements = computed(() => ownedImprovements.value.length > 0)
-const hasUnownedImprovements = computed(() => unownedImprovements.value.length > 0)
-
 // Methods
 const toggleActive = () => {
   isActive.value = !isActive.value
@@ -239,11 +164,16 @@ const toggleImprovements = () => {
   }
 }
 
-// Improvement management methods
-const isImprovementOwned = (improvementId) => {
-  if (!props.character || !improvementId) return false
-  return hasImprovement(props.character, props.ability.id, improvementId)
-}
+// Computed properties for button display
+const hasImprovements = computed(() => {
+  if (props.showImprovementToggle) {
+    // In character context: check if there are any unowned improvements
+    if (!props.character || !props.improvements.length) return false
+    return props.improvements.some(improvement => !hasImprovement(props.character, props.ability.id, improvement.id))
+  }
+  // In non-character context: check if improvements exist
+  return props.improvements && props.improvements.length > 0
+})
 
 const handleImprovementToggle = (improvementId) => {
   if (!props.character || !improvementId) return
@@ -304,93 +234,5 @@ const handleImprovementToggle = (improvementId) => {
 
 .improvements-toggle-button:hover {
   background: var(--color-accent-gold);
-}
-
-.improvements-pile {
-  margin-top: var(--space-sm);
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-md);
-}
-
-.improvement-desc-block {
-  width: 100%;
-  margin: 0;
-  padding: 0;
-}
-
-.improvement-desc-block:last-child {
-  margin-bottom: var(--space-sm);
-}
-
-.improvement-title {
-  font-size: var(--font-size-15);
-  font-weight: var(--font-weight-bold);
-  margin-bottom: var(--space-xs);
-  margin-top: var(--space-xs);
-  transition: var(--transition-color);
-}
-
-.improvement-title.improvement-unowned {
-  color: var(--color-text-secondary);
-}
-
-.improvement-desc-block:hover .improvement-title.improvement-unowned {
-  color: var(--color-text-primary);
-}
-
-.improvement-title.improvement-owned {
-  color: var(--color-text-primary);
-}
-
-:deep(.card-description.improvement.improvement-unowned) {
-  color: var(--color-text-secondary);
-  transition: var(--transition-color);
-}
-
-.improvement-desc-block:hover :deep(.card-description.improvement.improvement-unowned) {
-  color: var(--color-text-primary);
-}
-
-/* Unowned improvement badge styling */
-:deep(.improvement-badge-unowned) {
-  background-color: var(--color-bg-tertiary) !important;
-  transition: var(--transition-background);
-}
-
-/* When hovering over the improvement block (title/description), change badge color */
-.improvement-desc-block:hover :deep(.improvement-badge-unowned) {
-  background-color: var(--color-primary) !important;
-}
-
-/* Improvements expand/collapse transition */
-.expand-improvements-enter-active,
-.expand-improvements-leave-active {
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  overflow: hidden;
-}
-
-.expand-improvements-enter-from {
-  opacity: 0;
-  max-height: 0;
-  transform: translateY(-20px);
-}
-
-.expand-improvements-leave-to {
-  opacity: 0;
-  max-height: 0;
-  margin-top: 0;
-  margin-bottom: 0;
-  padding-top: 0;
-  padding-bottom: 0;
-  transform: translateY(-10px);
-}
-
-.expand-improvements-enter-to,
-.expand-improvements-leave-from {
-  opacity: 1;
-  max-height: 1000px;
-  /* Large enough for typical improvements */
-  transform: translateY(0);
 }
 </style>
