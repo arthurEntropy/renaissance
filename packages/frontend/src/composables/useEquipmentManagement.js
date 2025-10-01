@@ -25,7 +25,7 @@ export function useEquipmentManagement() {
   const saveEditedEquipment = async (updatedEquipment) => {
     try {
       // Save the updated equipment to the backend
-      await EquipmentService.updateEquipment(updatedEquipment)
+      await EquipmentService.update(updatedEquipment)
 
       // Refresh the equipment list to ensure the new item is included
       await equipmentStore.fetch()
