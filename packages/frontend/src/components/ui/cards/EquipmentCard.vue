@@ -75,7 +75,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import { useEquipmentStore } from '@/stores/equipmentStore'
 import BaseCard from '@/components/ui/cards/BaseCard.vue'
 import BadgeDisplay from '@/components/ui/cards/BadgeDisplay.vue'
@@ -125,7 +125,7 @@ const props = defineProps({
   },
 })
 
-defineEmits(['edit', 'delete', 'send-to-chat', 'height-changed'])
+const emit = defineEmits(['edit', 'delete', 'send-to-chat', 'height-changed', 'update:art-expanded'])
 
 // Store
 const equipmentStore = useEquipmentStore()
@@ -135,9 +135,16 @@ const { addEquipmentToCharacter } = useCharacterManagement()
 const engagementSuccesses = ref([])
 const showLargeImage = ref(props.artExpanded)
 
+// Watch for external artExpanded prop changes
+watch(() => props.artExpanded, (newValue) => {
+  showLargeImage.value = newValue
+})
+
 // Methods
 const toggleImage = () => {
-  showLargeImage.value = !showLargeImage.value
+  const newValue = !showLargeImage.value
+  showLargeImage.value = newValue
+  emit('update:art-expanded', newValue)
 }
 
 const fetchEngagementSuccesses = async () => {

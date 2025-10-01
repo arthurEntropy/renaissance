@@ -3,7 +3,8 @@
         empty-message="No wares added yet.">
         <MasonryGrid :column-width="350" :gap="10" :row-height="10" class="cards-container">
             <EquipmentCard v-for="item in equipment" :key="item.id" :equipment="item" :editable="isEditMode"
-                :sources="sources" @edit="$emit('edit-equipment', item)" :collapsible="false" :showSource="false" />
+                :sources="sources" :art-expanded="true" @edit="$emit('edit-equipment', item)" :collapsible="false"
+                :showSource="false" />
         </MasonryGrid>
         <div class="add-button-container">
             <AddButton :show="isEditMode" @click="$emit('add-equipment')" title="Add new item"

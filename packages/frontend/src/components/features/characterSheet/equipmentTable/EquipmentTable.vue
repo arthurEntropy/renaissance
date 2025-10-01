@@ -16,8 +16,9 @@
             @delete="removeEquipmentItem" />
 
           <div class="equipment-card-col">
-            <EquipmentCard v-if="row.equipment" :equipment="row.equipment" :collapsed="getCollapsedState(row.equipment)"
-              @update:collapsed="setCollapsedState(row.equipment, $event)" :editable="row.equipment.isCustom"
+            <EquipmentCard v-if="row.equipment" :equipment="row.equipment" :collapsed="row.collapsed || false"
+              @update:collapsed="updateEquipmentCollapsed(row, $event)" :art-expanded="row.artExpanded || false"
+              @update:art-expanded="updateEquipmentArtExpanded(row, $event)" :editable="row.equipment.isCustom"
               class="equipment-card" @edit="editCustomItem" :collapsible="true" :show-keeping-badge="false"
               :show-add-to-character="false" />
 
@@ -63,7 +64,6 @@ import CharacterSheetSection from '@/components/ui/containers/CharacterSheetSect
 import draggable from 'vuedraggable'
 import { useTableEditMode } from '@/composables/useTableEditMode'
 import { useItemManagement } from '@/composables/useItemManagement'
-import { useCollapseState } from '@/composables/useCollapseState'
 import { useDragAndDrop } from '@/composables/useDragAndDrop'
 import { useItemSelector } from '@/composables/useItemSelector'
 import { useSourceUtils } from '@/composables/useSourceUtils'
@@ -91,8 +91,6 @@ const equipmentManagement = useItemManagement(
   'equipment',
   'item'
 )
-
-const { getCollapsedState, setCollapsedState } = useCollapseState(true)
 
 // Source management
 const { sources, sourceUtils } = useSourceUtils()
@@ -204,6 +202,8 @@ const selectEquipment = (equipment) => {
     quantity: 1,
     isCarried: true,
     isWielding: false,
+    collapsed: true,
+    artExpanded: false,
   }
 
   CharacterService.addSpecificEquipmentItem(
@@ -233,6 +233,42 @@ const handleEquipmentChoice = (choice) => {
 const closeEquipmentSelector = () => {
   showEquipmentSelector.value = false
   showChoiceMode.value = true
+}
+
+// Handle equipment collapsed state changes
+const updateEquipmentCollapsed = (equipmentRow, collapsed) => {
+  // Find the equipment item in the character's equipment array and update its collapsed state
+  const updatedEquipment = props.character.equipment.map(equipmentObj => {
+    if (equipmentObj.id === equipmentRow.id) {
+      return { ...equipmentObj, collapsed }
+    }
+    return equipmentObj
+  })
+
+  const updatedCharacter = {
+    ...props.character,
+    equipment: updatedEquipment
+  }
+
+  emit('update-character', updatedCharacter)
+}
+
+// Handle equipment art expanded state changes
+const updateEquipmentArtExpanded = (equipmentRow, artExpanded) => {
+  // Find the equipment item in the character's equipment array and update its artExpanded state
+  const updatedEquipment = props.character.equipment.map(equipmentObj => {
+    if (equipmentObj.id === equipmentRow.id) {
+      return { ...equipmentObj, artExpanded }
+    }
+    return equipmentObj
+  })
+
+  const updatedCharacter = {
+    ...props.character,
+    equipment: updatedEquipment
+  }
+
+  emit('update-character', updatedCharacter)
 }
 
 

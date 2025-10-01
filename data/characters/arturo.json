@@ -144,32 +144,7 @@
     "afraid": false,
     "troubled": true
   },
-  "equipment": [
-    {
-      "name": "Rations",
-      "weight": 1,
-      "quantity": 10,
-      "isCarried": true
-    },
-    {
-      "name": "Grappling Hook",
-      "weight": 2,
-      "quantity": 2,
-      "isCarried": true
-    },
-    {
-      "name": "Tinderbox",
-      "weight": 1,
-      "quantity": 1,
-      "isCarried": true
-    },
-    {
-      "name": "Hams",
-      "weight": 5,
-      "quantity": 9,
-      "isCarried": true
-    }
-  ],
+  "equipment": [],
   "activeEffects": [
     {
       "name": "Weird But Entertaining",
@@ -198,5 +173,6 @@
     "current": 3,
     "max": 5
   },
-  "current": "17"
+  "current": "17",
+  "expansionLogoUrl": ""
 }

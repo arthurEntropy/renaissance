@@ -144,69 +144,7 @@
     "afraid": false,
     "troubled": false
   },
-  "equipment": [
-    {
-      "id": "58c57499-9eef-49d4-9273-7674c60fae77",
-      "quantity": 2,
-      "isCarried": true,
-      "isWielding": true,
-      "index": 0,
-      "equipment": {
-        "id": "58c57499-9eef-49d4-9273-7674c60fae77",
-        "artUrl": "https://cdn.midjourney.com/ca2dd46f-000f-4c7f-b942-d32f5c8e3625/0_3.png",
-        "name": "Longsword",
-        "description": "A super cool sharp sword that deals 2d6 damage on a hit.",
-        "keeping": "4",
-        "source": "75800953-4adb-405f-a4ab-a599573ca533",
-        "weight": 2,
-        "isMelee": true,
-        "damageDice": [
-          8
-        ],
-        "engagementDice": [
-          6,
-          6
-        ],
-        "engagementSuccesses": [
-          "5",
-          "7",
-          "8",
-          "10"
-        ],
-        "skillMods": [
-          {
-            "name": "Stealth",
-            "diceMod": -1,
-            "isFavored": false,
-            "isIllFavored": false
-          }
-        ],
-        "isDeleted": false,
-        "isCustom": false
-      }
-    },
-    {
-      "id": "37a98252-6881-4aaf-bc6c-4091c1b70e1b",
-      "quantity": 1,
-      "isCarried": true,
-      "isWielding": true,
-      "index": 1
-    },
-    {
-      "id": "79a4cbaf-ff79-4d5d-bd4e-8c7a6fb275d0",
-      "quantity": 1,
-      "isCarried": true,
-      "isWielding": true,
-      "index": 2
-    },
-    {
-      "id": "29eb84b1-777e-43b0-a989-16df364b5cca",
-      "quantity": 1,
-      "isCarried": true,
-      "isWielding": true,
-      "index": 3
-    }
-  ],
+  "equipment": [],
   "activeEffects": [],
   "pronouns": "he/him",
   "ancestries": "Human",

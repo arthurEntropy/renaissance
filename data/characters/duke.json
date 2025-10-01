@@ -150,15 +150,7 @@
     "afraid": false,
     "troubled": false
   },
-  "equipment": [
-    {
-      "id": "44d287b1-6675-40d3-86df-d5a965330e62",
-      "quantity": 1,
-      "isCarried": true,
-      "isWielding": true,
-      "index": 0
-    }
-  ],
+  "equipment": [],
   "artUrls": [
     "https://cdn.midjourney.com/b75951b3-d21b-4e00-b7c8-c81fc16c043e/0_2.png"
   ],
@@ -169,5 +161,6 @@
   "engagementDice": [
     12,
     12
-  ]
+  ],
+  "expansionLogoUrl": ""
 }

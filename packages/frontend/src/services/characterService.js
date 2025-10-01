@@ -12,6 +12,8 @@ const defaultNewEquipmentItem = {
   id: '',
   quantity: 1,
   isCarried: true,
+  collapsed: true,
+  artExpanded: false,
 }
 
 class CharacterService extends BaseService {
@@ -231,6 +233,8 @@ class CharacterService extends BaseService {
           : true, // Default to carried
       isWielding: equipmentItem.isWielding || false, // Default to not wielding
       index: maxIndex + 1, // Put the new item at the end of the list
+      collapsed: equipmentItem.collapsed !== undefined ? equipmentItem.collapsed : true, // Default to collapsed
+      artExpanded: equipmentItem.artExpanded !== undefined ? equipmentItem.artExpanded : false, // Default to not expanded
     })
 
     if (allEquipment) {

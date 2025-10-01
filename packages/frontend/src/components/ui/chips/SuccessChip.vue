@@ -55,7 +55,7 @@ const startTooltip = (event) => {
     const rect = event.target.getBoundingClientRect()
     tooltipPosition.value = {
         x: rect.left + rect.width / 2,
-        y: rect.bottom + 10
+        y: rect.bottom + 5
     }
 
     // Show tooltip after delay
