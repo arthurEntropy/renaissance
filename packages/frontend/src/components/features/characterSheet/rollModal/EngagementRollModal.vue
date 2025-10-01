@@ -229,7 +229,7 @@ onBeforeUnmount(() => {
 
 <style scoped>
 .engagement-roll-modal {
-    width: 400px;
+    width: 450px;
     max-width: 90vw;
     max-height: 85vh;
     overflow-y: auto;

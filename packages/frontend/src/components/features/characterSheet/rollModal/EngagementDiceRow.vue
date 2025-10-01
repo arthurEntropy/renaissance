@@ -18,11 +18,10 @@
             <span v-if="die.isMax && !isRerolling(index)" class="max-indicator">✨</span>
         </span>
 
-        <!-- Reroll hover link - only for user's own dice -->
-        <button v-if="showResults && !die.isRolling && !isRerolling(index) &&
-            isHovered(index) && canEdit && !isOpponent" class="reroll-hover" @click="$emit('reroll', side, index)">
-            Reroll
-        </button>
+        <!-- Reroll hover button - only for user's own dice -->
+        <ActionButton v-if="showResults && !die.isRolling && !isRerolling(index) &&
+            isHovered(index) && canEdit && !isOpponent" variant="neutral" size="small" text="Reroll"
+            class="reroll-hover" @click="$emit('reroll', side, index)" />
 
         <!-- Success assignment display (right side for opponent) -->
         <div v-if="die.isMax && showResults && isOpponent" class="success-display-zone right-side">
@@ -38,6 +37,7 @@
 <script setup>
 import { ref } from 'vue'
 import SuccessChip from '@/components/ui/chips/SuccessChip.vue'
+import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 
 const props = defineProps({
     die: {
@@ -205,23 +205,7 @@ const onSuccessDrop = (event) => {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: var(--color-accent-gold);
-    color: var(--overlay-black-heavy);
-    padding: var(--space-xs) var(--space-xs);
-    border-radius: var(--radius-5);
-    border: none;
-    font-size: var(--font-size-14);
-    font-weight: var(--font-weight-bold);
-    cursor: pointer;
     z-index: var(--z-interactive);
-    transition: var(--transition-all);
-    box-shadow: var(--shadow-elevation-sm);
-    text-shadow: var(--shadow-none);
-}
-
-.reroll-hover:hover {
-    background-color: var(--color-accent-gold);
-    transform: translate(-50%, -50%) scale(1.1);
 }
 
 .dice-symbol i {

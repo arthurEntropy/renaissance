@@ -196,14 +196,14 @@
       "id": "79a4cbaf-ff79-4d5d-bd4e-8c7a6fb275d0",
       "quantity": 1,
       "isCarried": true,
-      "isWielding": false,
+      "isWielding": true,
       "index": 2
     },
     {
       "id": "29eb84b1-777e-43b0-a989-16df364b5cca",
       "quantity": 1,
       "isCarried": true,
-      "isWielding": false,
+      "isWielding": true,
       "index": 3
     }
   ],

@@ -78,7 +78,7 @@ const clearTooltip = () => {
     position: relative;
     background-color: var(--color-gray-dark);
     color: var(--color-text-primary);
-    padding: var(--space-xs) 10px;
+    padding: var(--space-xs) var(--space-md);
     border-radius: var(--radius-15);
     font-size: var(--font-size-10);
     text-align: center;
@@ -92,7 +92,8 @@ const clearTooltip = () => {
 }
 
 .success-chip.removable {
-    padding-left: 18px;
+    background-color: var(--color-primary);
+    color: var(--color-black);
 }
 
 .remove-chip-button {
@@ -101,18 +102,18 @@ const clearTooltip = () => {
     left: -5px;
     width: 14px;
     height: 14px;
-    background-color: var(--color-danger);
+    background-color: var(--color-bg-primary);
     color: var(--color-text-primary);
-    border: none;
+    border: 1px solid var(--color-text-primary);
     border-radius: var(--radius-full);
-    font-size: var(--font-size-10);
+    font-size: 8px;
     line-height: var(--line-height-none);
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     z-index: var(--z-interactive);
-    padding: 0;
+    padding: 2px 0 0 0;
 }
 
 .success-tooltip {
