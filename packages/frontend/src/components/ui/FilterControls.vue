@@ -99,10 +99,11 @@ const sortOption = defineModel('sortOption')
     display: flex;
     gap: var(--space-lg);
     width: 100%;
-    max-width: 60%;
-    margin-bottom: var(--space-lg);
+    max-width: 80%;
+    margin: 0 auto var(--space-lg) auto;
     padding: 0 var(--space-xl);
     z-index: var(--z-overlay);
+    justify-content: center;
 }
 
 .search-input {
@@ -145,6 +146,6 @@ const sortOption = defineModel('sortOption')
 .sort-filter:focus {
     outline: none;
     border-color: var(--color-gray-light);
-    box-shadow:var(--shadow-glow-sm);
+    box-shadow: var(--shadow-glow-sm);
 }
 </style>

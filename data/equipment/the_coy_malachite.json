@@ -1,0 +1,16 @@
+{
+  "id": "5b70ca3a-a01e-4209-98c7-3b8630f8a2ec",
+  "name": "The Coy Malachite",
+  "description": "<p>Gemstone brass knuckles</p>",
+  "keeping": "4",
+  "source": "5a639d7b-847a-468b-9bbe-5275d31fdf66",
+  "weight": 1,
+  "isMelee": false,
+  "damageDice": [],
+  "engagementDice": [],
+  "engagementSuccesses": [],
+  "skillMods": [],
+  "isDeleted": false,
+  "isCustom": true,
+  "artUrl": "https://cdn.midjourney.com/f308c5ca-848d-4b04-862c-0e81703f871f/0_0.png"
+}

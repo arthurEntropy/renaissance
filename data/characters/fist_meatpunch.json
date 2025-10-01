@@ -163,6 +163,24 @@
       "index": 3,
       "collapsed": false,
       "artExpanded": false
+    },
+    {
+      "id": "5b70ca3a-a01e-4209-98c7-3b8630f8a2ec",
+      "quantity": 1,
+      "isCarried": true,
+      "isWielding": false,
+      "index": 4,
+      "collapsed": false,
+      "artExpanded": false
+    },
+    {
+      "id": "29eb84b1-777e-43b0-a989-16df364b5cca",
+      "quantity": 1,
+      "isCarried": true,
+      "isWielding": false,
+      "index": 5,
+      "collapsed": false,
+      "artExpanded": false
     }
   ],
   "activeEffects": [],

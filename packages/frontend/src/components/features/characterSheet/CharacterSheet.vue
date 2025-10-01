@@ -55,19 +55,28 @@
         <CharacterSettingsModal v-if="showSettingsModal" :characterName="localCharacter.name"
             @close="closeSettingsModal" @delete="handleDeleteCharacter" />
 
-        <EditEquipmentModal v-if="showEditEquipmentModal" :equipment="equipmentToEdit" @update="saveEditedEquipment"
+        <EditEquipmentModal v-if="showEditEquipmentModal" :equipment="equipmentToEdit" :all-equipment="allEquipment"
+            :keeping-options="equipmentStore.keeping" :sources="sources"
+            :equipment-types="equipmentCategoriesStore.equipmentTypes"
+            :equipment-subtypes="equipmentCategoriesStore.equipmentSubtypes"
+            :equipment-grades="equipmentCategoriesStore.equipmentGrades"
+            :engagement-success-options="engagementSuccessOptions" @update="saveEditedEquipment"
             @close="closeEditEquipmentModal" @delete="deleteEquipment" />
     </div>
 </template>
 
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, ref, onMounted } from 'vue'
 import { useModal } from '@/composables/useModal'
 import { useSkillCheck } from '@/composables/useSkillCheck'
 import { useOpposedSkillCheck } from '@/composables/useOpposedSkillCheck'
 import { useDiceResults } from '@/composables/useDiceResults'
 import { useEquipmentManagement } from '@/composables/useEquipmentManagement'
 import { useCharacterManagement } from '@/composables/useCharacterManagement'
+import { useEquipmentStore } from '@/stores/equipmentStore'
+import { useEquipmentCategoriesStore } from '@/stores/equipmentCategoriesStore'
+import { useSourcesStore } from '@/stores/sourcesStore'
+import EngagementSuccessService from '@/services/engagementSuccessService'
 import CharacterProfile from '@/components/features/characterSheet/characterProfile/CharacterProfile.vue'
 import CharacterBio from '@/components/features/characterSheet/characterBio/CharacterBio.vue'
 import CoreAbilityColumn from '@/components/features/characterSheet/coreAbilityColumns/CoreAbilityColumn.vue'
@@ -94,6 +103,15 @@ const props = defineProps({
 })
 
 const emit = defineEmits(['close', 'update:character', 'delete:character'])
+
+// Stores
+const equipmentStore = useEquipmentStore()
+const equipmentCategoriesStore = useEquipmentCategoriesStore()
+const sourcesStore = useSourcesStore()
+const sources = sourcesStore.sources
+
+// Reactive state for modal data
+const engagementSuccessOptions = ref([])
 
 // Character management with automatic watchers
 const {
@@ -198,6 +216,26 @@ const updateCharacter = (updatedCharacter) => {
     updateCharacterService(updatedCharacter)
     emit('update:character', updatedCharacter)
 }
+
+// Fetch engagement success options for equipment modal
+const fetchEngagementSuccessOptions = async () => {
+    try {
+        engagementSuccessOptions.value = await EngagementSuccessService.getAll()
+    } catch (error) {
+        console.error('Error fetching engagement success options:', error)
+    }
+}
+
+// Lifecycle
+onMounted(async () => {
+    try {
+        await equipmentStore.fetchKeeping()
+        await equipmentCategoriesStore.fetchAll()
+        await fetchEngagementSuccessOptions()
+    } catch (error) {
+        console.error('Error initializing CharacterSheet data:', error)
+    }
+})
 
 // Modal close handler
 const handleClose = () => {

@@ -12,5 +12,8 @@
   "skillMods": [],
   "isDeleted": false,
   "isCustom": false,
-  "artUrl": "https://cdn.midjourney.com/73310d6b-811f-4609-9b83-9e8c1ce2d121/0_0.png"
+  "artUrl": "https://cdn.midjourney.com/73310d6b-811f-4609-9b83-9e8c1ce2d121/0_0.png",
+  "type": "2",
+  "subtype": "6",
+  "grade": "3"
 }

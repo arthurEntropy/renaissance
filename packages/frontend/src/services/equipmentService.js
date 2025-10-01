@@ -28,6 +28,9 @@ class EquipmentService extends BaseService {
       isDeleted: false,
       isCustom: false,
       artUrl: null,
+      type: null,
+      subtype: null,
+      grade: null,
     }
   }
 }

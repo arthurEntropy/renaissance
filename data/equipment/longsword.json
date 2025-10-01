@@ -27,5 +27,8 @@
     }
   ],
   "isDeleted": false,
-  "isCustom": false
+  "isCustom": false,
+  "type": "1",
+  "subtype": "1",
+  "grade": "4"
 }

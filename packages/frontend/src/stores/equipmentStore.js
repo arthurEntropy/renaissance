@@ -18,7 +18,9 @@ export const useEquipmentStore = defineStore('equipment', () => {
 
   const fetchKeeping = async () => {
     try {
-      keeping.value = await KeepingService.getAll()
+      const keepingData = await KeepingService.getAll()
+      // Sort keeping options by cost (low to high)
+      keeping.value = keepingData.sort((a, b) => a.cost - b.cost)
     } catch (error) {
       console.error('Error fetching keeping:', error)
     }

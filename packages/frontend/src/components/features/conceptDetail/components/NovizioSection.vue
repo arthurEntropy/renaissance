@@ -332,7 +332,7 @@ watch(() => props.editable, (val) => {
 }
 
 .novizio-intro-text {
-  color: var(--color-text-secondary);
+  color: var(--color-text-primary);
   font-size: var(--font-size-18);
   margin-bottom: 1.1rem;
   margin-top: -0.3rem;
@@ -345,7 +345,7 @@ watch(() => props.editable, (val) => {
 }
 
 .novizio-placeholder {
-  color: var(--color-text-muted);
+  color: var(--color-text-primary);
   font-size: var(--font-size-15);
   margin-top: 0.2rem;
   margin-left: 0.5rem;
