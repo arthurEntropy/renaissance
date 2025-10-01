@@ -28,7 +28,7 @@
         <div v-if="isEditModalOpen" class="modal-overlay edit-modal-overlay" @click="handleEditOverlayClick">
             <div class="modal-content" @click.stop>
                 <div class="modal-body">
-                    <TextEditor v-model="editedContent" auto-height="true"
+                    <TextEditor v-model="editedContent" :auto-height="true"
                         placeholder="Describe your character's personality, history, and notable bio..."
                         height="300px" />
                 </div>

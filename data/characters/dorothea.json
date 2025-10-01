@@ -226,7 +226,7 @@
   "pronouns": "she/her",
   "ancestries": "Halfling",
   "cultures": "Sila",
-  "personalityAndBackground": "<h1>Super cool orbmancer</h1><p>This is some <strong>example</strong> text.</p><h2>Heading 2</h2><p>This is some example text.</p><h3>Heading 3</h3><p>This is some example text.</p><h4>Heading 4</h4><p>This is some example text.</p>",
+  "personalityAndBackground": "<p>Super cool orbmancer</p><p>This is some <strong>example</strong> text</p>",
   "xp": 10,
   "mp": {
     "current": 3,
@@ -237,5 +237,6 @@
   ],
   "cultureIds": [
     "5a639d7b-847a-468b-9bbe-5275d31fdf66"
-  ]
+  ],
+  "expansionLogoUrl": ""
 }
