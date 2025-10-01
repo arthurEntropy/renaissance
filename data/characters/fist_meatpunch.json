@@ -11,14 +11,14 @@
   "skills": [
     {
       "name": "Awe",
-      "ranks": 3,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0
     },
     {
       "name": "Strength",
-      "ranks": 4,
+      "ranks": 3,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0
@@ -162,7 +162,7 @@
     }
   ],
   "activeEffects": [],
-  "personalityAndBackground": "<p>This is a test fsdf gdsljgkhdsklj gdslkjgh lakdsjg flksdhgf lkdsglkdsgldskglkdsfglkdsfglkdsgldksfgljdsfgldjsfgkjdsfgldsafgldgsfjldgfldgsjfg. </p><p>This is a test fsdf gdsljgkhdsklj gdslkjgh lakdsjg flksdhgf lkdsglkdsgldskglkdsfglkdsfglkdsgldksfgljdsfgldjsfgkjdsfgldsafgldgsfjldgfldgsjfg</p><p>This is a test fsdf gdsljgkhdsklj gdslkjgh lakdsjg flksdhgf lkdsglkdsgldskglkdsfglkdsfglkdsgldksfgljdsfgldjsfgkjdsfgldsafgldgsfjldgfldgsjfg</p><p>This is a test fsdf gdsljgkhdsklj gdslkjgh lakdsjg flksdhgf lkdsglkdsgldskglkdsfglkdsfglkdsgldksfgljdsfgldjsfgkjdsfgldsafgldgsfjldgfldgsjfg</p><p>This is a test fsdf gdsljgkhdsklj gdslkjgh lakdsjg flksdhgf lkdsglkdsgldskglkdsfglkdsfglkdsgldksfgljdsfgldjsfgkjdsfgldsafgldgsfjldgfldgsjfg</p><p>This is a test fsdf gdsljgkhdsklj gdslkjgh lakdsjg flksdhgf lkdsglkdsgldskglkdsfglkdsfglkdsgldksfgljdsfgldjsfgkjdsfgldsafgldgsfjldgfldgsjfg</p><p>This is a test fsdf gdsljgkhdsklj gdslkjgh lakdsjg flksdhgf lkdsglkdsgldskglkdsfglkdsfglkdsgldksfgljdsfgldjsfgkjdsfgldsafgldgsfjldgfldgsjfg</p><p>This is a test fsdf gdsljgkhdsklj gdslkjgh lakdsjg flksdhgf lkdsglkdsgldskglkdsfglkdsfglkdsgldksfgljdsfgldjsfgkjdsfgldsafgldgsfjldgfldgsjfg</p><p>This is a test fsdf gdsljgkhdsklj gdslkjgh lakdsjg flksdhgf lkdsglkdsgldskglkdsfglkdsfglkdsgldksfgljdsfgldjsfgkjdsfgldsafgldgsfjldgfldgsjfg<br></p><p>This is a test fsdf gdsljgkhdsklj gdslkjgh lakdsjg flksdhgf lkdsglkdsgldskglkdsfglkdsfglkdsgldksfgljdsfgldjsfgkjdsfgldsafgldgsfjldgfldgsjfg<br></p><p>This is a test fsdf gdsljgkhdsklj gdslkjgh lakdsjg flksdhgf lkdsglkdsgldskglkdsfglkdsfglkdsgldksfgljdsfgldjsfgkjdsfgldsafgldgsfjldgfldgsjfg<br></p><p>This is a test fsdf gdsljgkhdsklj gdslkjgh lakdsjg flksdhgf lkdsglkdsgldskglkdsfglkdsfglkdsgldksfgljdsfgldjsfgkjdsfgldsafgldgsfjldgfldgsjfg</p><p>This is a test fsdf gdsljgkhdsklj gdslkjgh lakdsjg flksdhgf lkdsglkdsgldskglkdsfglkdsfglkdsgldksfgljdsfgldjsfgkjdsfgldsafgldgsfjldgfldgsjfg<br></p><p>This is a test fsdf gdsljgkhdsklj gdslkjgh lakdsjg flksdhgf lkdsglkdsgldskglkdsfglkdsfglkdsgldksfgljdsfgldjsfgkjdsfgldsafgldgsfjldgfldgsjfg</p><p>This is a test fsdf gdsljgkhdsklj gdslkjgh lakdsjg flksdhgf lkdsglkdsgldskglkdsfglkdsfglkdsgldksfgljdsfgldjsfgkjdsfgldsafgldgsfjldgfldgsjfg</p><p>This is a test fsdf gdsljgkhdsklj gdslkjgh lakdsjg flksdhgf lkdsglkdsgldskglkdsfglkdsfglkdsgldksfgljdsfgldjsfgkjdsfgldsafgldgsfjldgfldgsjfg</p><p>This is a test fsdf gdsljgkhdsklj gdslkjgh lakdsjg flksdhgf lkdsglkdsgldskglkdsfglkdsfglkdsgldksfgljdsfgldjsfgkjdsfgldsafgldgsfjldgfldgsjfg</p>",
+  "personalityAndBackground": "<p>A strong fella with one normal-sized hand and one gargantuan one.</p>",
   "cultures": "Guildford",
   "pronouns": "he/him",
   "ancestries": "Human",

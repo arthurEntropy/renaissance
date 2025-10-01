@@ -215,11 +215,12 @@ const saveChanges = () => {
 }
 
 .modal-content {
-    max-width: var(--width-modal);
+    width: var(--width-modal);
 }
 
 /* Edit modal should be on top of view modal */
 .edit-modal-overlay {
     z-index: calc(var(--z-modal) + 1);
+    width: 100%;
 }
 </style>
