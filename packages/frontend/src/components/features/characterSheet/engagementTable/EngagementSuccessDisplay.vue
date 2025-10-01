@@ -4,7 +4,8 @@
             :removable="isEditMode && success.isUserAdded" @remove="$emit('remove-success', success.id)" />
 
         <div v-if="isEditMode" class="add-success-container">
-            <AddButton :show="true" size="small" position="inline" title="Add success" @click="$emit('add-success')" />
+            <AddButton :show="true" size="small" position="inline" title="Add success"
+                @click="$emit('add-success', $event)" />
         </div>
 
         <div v-if="successData.length === 0 && !isEditMode" class="no-successes-message">
@@ -80,7 +81,7 @@ defineEmits(['remove-success', 'add-success', 'select-success'])
 
 .success-dropdown {
     position: fixed;
-    background-color: var(--color-bg-secondary);
+    background-color: var(--color-bg-primary);
     border: 1px solid var(--color-gray-light);
     border-radius: var(--radius-5);
     padding: var(--space-sm);
@@ -97,7 +98,7 @@ defineEmits(['remove-success', 'add-success', 'select-success'])
     text-align: left;
     padding: var(--space-xs) 8px;
     margin-bottom: 3px;
-    background-color: var(--color-bg-tertiary);
+    background-color: var(--color-bg-secondary);
     color: var(--color-text-primary);
     border: none;
     border-radius: var(--radius-5);
@@ -108,7 +109,7 @@ defineEmits(['remove-success', 'add-success', 'select-success'])
 }
 
 .success-option:hover {
-    background-color: var(--color-bg-secondary);
+    background-color: var(--color-bg-tertiary);
 }
 
 .success-dropdown-empty {

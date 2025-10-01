@@ -26,7 +26,7 @@
                 <i :class="die.class"></i>
                 <span v-if="!isRolling && die.emoji && !isCustomRoll" class="dice-emoji">{{
                     die.emoji
-                    }}</span>
+                }}</span>
             </span>
             <span v-if="truncatedDice.showEllipsis" class="dice-ellipsis" :style="{ fontSize: `${diceSize}px` }"
                 @click="openModal">
@@ -34,10 +34,9 @@
             </span>
 
             <!-- Reroll button (on hover) -->
-            <button v-if="canReroll && !isOpponent && showDiceHover && !isRolling" class="reroll-hover-all"
-                @click="emit('reroll-all-dice')">
-                Reroll
-            </button>
+            <ActionButton v-if="canReroll && !isOpponent && showDiceHover && !isRolling && !isEngagementOrOpposedRoll"
+                variant="neutral" size="small" text="Reroll" class="reroll-hover-all"
+                @click="emit('reroll-all-dice')" />
         </div>
 
         <!-- Modal for showing all dice -->
@@ -55,7 +54,7 @@
                         <i :class="die.class"></i>
                         <span v-if="die.emoji && !isCustomRoll" class="dice-emoji">{{
                             die.emoji
-                            }}</span>
+                        }}</span>
                     </span>
                 </div>
             </div>
@@ -70,6 +69,7 @@ import { computed, watch, onMounted, ref } from 'vue'
 import { useDiceAnimation } from '@/composables/useDiceAnimation'
 import { RollTypes } from '@/constants/rollTypes'
 import { getDiceFontClass } from '@shared/utils/diceFontUtils'
+import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 
 const props = defineProps({
     rollData: {
@@ -123,6 +123,11 @@ const showDiceHover = ref(false)
 
 const isCustomRoll = computed(() => {
     return props.rollData?.type === RollTypes.CUSTOM_ROLL
+})
+
+const isEngagementOrOpposedRoll = computed(() => {
+    return props.rollData?.type === RollTypes.ENGAGEMENT ||
+        props.rollData?.type === RollTypes.OPPOSED_SKILL_CHECK
 })
 
 const diceSize = computed(() => {
@@ -525,28 +530,12 @@ defineExpose({
     position: relative;
 }
 
-/* Reroll button styling */
+/* Reroll button positioning */
 .reroll-hover-all {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: var(--color-accent-gold);
-    color: var(--overlay-black-heavy);
-    padding: var(--space-xs) var(--space-xs);
-    border-radius: var(--radius-5);
-    border: none;
-    font-size: var(--font-size-14);
-    font-weight: var(--font-weight-bold);
-    cursor: pointer;
     z-index: var(--z-interactive);
-    transition: var(--transition-all);
-    box-shadow: var(--shadow-elevation-sm);
-    text-shadow: var(--shadow-none);
-}
-
-.reroll-hover-all:hover {
-    background-color: var(--color-accent-gold);
-    transform: translate(-50%, -50%) scale(1.1);
 }
 </style>

@@ -18,10 +18,7 @@
 
             <div class="engagement-successes-section" :class="{ 'opponent-successes-hidden': isOpponent }">
                 <div class="engagement-successes-list">
-                    <div v-if="successes.length === 0" class="no-successes-message">
-                        No engagement successes available
-                    </div>
-                    <div v-else class="success-pills">
+                    <div v-if="successes.length > 0" class="success-pills">
                         <SuccessChip v-for="success in successes" :key="success.id" :success="success"
                             class="draggable-success" :draggable="canEdit && !isOpponent"
                             @dragstart="!isOpponent ? onSuccessDragStart($event, success) : null" />

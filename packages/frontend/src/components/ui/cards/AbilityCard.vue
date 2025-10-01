@@ -25,13 +25,17 @@
 
     <!-- Action buttons -->
     <template #actions>
-      <button v-if="ability.canBeActive" class="bottom-buttons toggle-active-button" @click.stop="toggleActive"
-        :title="isActive ? 'Make inactive' : 'Make active'">
+
+      <button v-if="showActionButtons && ability.canBeActive" class="bottom-buttons toggle-active-button"
+        @click.stop="toggleActive" :title="isActive ? 'Make inactive' : 'Make active'">
         {{ isActive ? '💨' : '💥' }}
       </button>
-      <button class="bottom-buttons send-to-chat-button" @click.stop="sendAbilityToChat" title="Send to chat">
+
+      <button v-if="showActionButtons" class="bottom-buttons send-to-chat-button" @click.stop="sendAbilityToChat"
+        title="Send to chat">
         💬
       </button>
+
       <!-- In abilities table context: only show button if there are unowned improvements -->
       <button v-if="hasImprovements" class="bottom-buttons improvements-toggle-button" @click.stop="toggleImprovements"
         :title="showImprovements ? 'Hide unowned improvements' : 'Show unowned improvements'">
@@ -90,6 +94,10 @@ const props = defineProps({
   showAddToCharacter: {
     type: Boolean,
     default: true,
+  },
+  showActionButtons: {
+    type: Boolean,
+    default: false,
   },
   // New props for improvement tracking
   character: {
@@ -188,7 +196,7 @@ const handleImprovementToggle = (improvementId) => {
 
 .bottom-buttons {
   position: absolute;
-  bottom: -4px;
+  bottom: -10px;
   background: none;
   border: none;
   color: var(--color-gray-light);

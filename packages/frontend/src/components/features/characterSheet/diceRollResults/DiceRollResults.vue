@@ -16,14 +16,14 @@
     <div v-if="latestRoll" class="roll-content">
       <div class="roll-title">
         <span v-if="isEngagement">
-          ⚔️ Engagement:
+          Engagement:
           <span class="skill-name">{{ latestRoll.characterName }}</span>
           vs
           <span class="skill-name">{{ latestRoll.opponentName }}</span>
         </span>
 
         <span v-else-if="isOpposedSkillCheck">
-          🎯 Opposed:
+          Opposed:
           <span class="skill-name">{{ latestRoll.characterName }}</span>
           ({{ latestRoll.skillName }})
           vs
@@ -50,26 +50,8 @@
         </span>
       </div>
 
-      <transition name="outcome-fade" appear>
-        <div v-if="!isRolling && !isCustomRoll" class="roll-outcome" :class="{
-          success: isEngagement ? latestRoll.result === EngagementResultTypes.WIN : isOpposedSkillCheck ? latestRoll.winner === 'user' : latestRoll.success,
-          failure: isEngagement ? latestRoll.result === EngagementResultTypes.LOSS : isOpposedSkillCheck ? latestRoll.winner === 'opponent' : !latestRoll.success,
-          draw: (isEngagement && latestRoll.result === EngagementResultTypes.DRAW) || (isOpposedSkillCheck && latestRoll.winner === 'tie')
-        }">
-          <span v-if="isEngagement">
-            {{ latestRoll.result === EngagementResultTypes.WIN ? 'WIN' : latestRoll.result ===
-              EngagementResultTypes.DRAW ? 'DRAW' : 'LOSS' }}
-          </span>
-          <span v-else-if="isOpposedSkillCheck">
-            {{ latestRoll.winner === 'user' ? 'WIN' : latestRoll.winner === 'tie' ? 'TIE' : 'LOSS' }}
-          </span>
-          <span v-else>
-            {{ latestRoll.success ? 'SUCCESS' : 'FAILURE' }}
-          </span>
-        </div>
-      </transition>
-
-      <div v-if="isRolling" class="roll-outcome-placeholder"></div>
+      <DiceDisplay ref="diceDisplayRef" :rollData="latestRoll" :isEngagement="isEngagement" :canReroll="true"
+        :isOpponent="false" :containerWidth="CONTAINER_WIDTH" />
 
       <transition name="simple-fade" appear>
         <div v-if="!isRolling" class="roll-numbers">
@@ -102,8 +84,26 @@
 
       <div v-if="isRolling" class="roll-numbers-placeholder"></div>
 
-      <DiceDisplay ref="diceDisplayRef" :rollData="latestRoll" :isEngagement="isEngagement" :canReroll="true"
-        :isOpponent="false" :containerWidth="CONTAINER_WIDTH" />
+      <transition name="outcome-fade" appear>
+        <div v-if="!isRolling && !isCustomRoll" class="roll-outcome" :class="{
+          success: isEngagement ? latestRoll.result === EngagementResultTypes.WIN : isOpposedSkillCheck ? latestRoll.winner === 'user' : latestRoll.success,
+          failure: isEngagement ? latestRoll.result === EngagementResultTypes.LOSS : isOpposedSkillCheck ? latestRoll.winner === 'opponent' : !latestRoll.success,
+          draw: (isEngagement && latestRoll.result === EngagementResultTypes.DRAW) || (isOpposedSkillCheck && latestRoll.winner === 'tie')
+        }">
+          <span v-if="isEngagement">
+            {{ latestRoll.result === EngagementResultTypes.WIN ? 'WIN' : latestRoll.result ===
+              EngagementResultTypes.DRAW ? 'DRAW' : 'LOSS' }}
+          </span>
+          <span v-else-if="isOpposedSkillCheck">
+            {{ latestRoll.winner === 'user' ? 'WIN' : latestRoll.winner === 'tie' ? 'TIE' : 'LOSS' }}
+          </span>
+          <span v-else>
+            {{ latestRoll.success ? 'SUCCESS' : 'FAILURE' }}
+          </span>
+        </div>
+      </transition>
+
+      <div v-if="isRolling" class="roll-outcome-placeholder"></div>
 
       <div v-if="!isEngagement && latestRoll.footer" class="roll-footer">
         {{ latestRoll.footer }}
@@ -317,9 +317,10 @@ const getCircularPosition = (index, total) => {
 
 .roll-footer {
   font-size: var(--font-size-14);
-  color: var(--color-gray-light);
+  color: var(--color-danger);
+  font-style: italic;
   text-align: center;
-  border-top: 1px solid var(--overlay-white-subtle);
+  border-top: 1px solid var(--color-gray-medium);
   padding-top: 5px;
 }
 

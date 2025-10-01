@@ -13,35 +13,35 @@
       "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": -2
+      "diceMod": -1
     },
     {
       "name": "Strength",
       "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": -1
+      "diceMod": 0
     },
     {
       "name": "Dexterity",
       "ranks": 3,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": -1
+      "diceMod": 0
     },
     {
       "name": "Fortitude",
       "ranks": 2,
       "isFavored": true,
       "isIllFavored": false,
-      "diceMod": -1
+      "diceMod": 0
     },
     {
       "name": "Craft",
       "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": -1
+      "diceMod": 0
     },
     {
       "name": "Perform",
@@ -126,12 +126,12 @@
     "current": 13,
     "max": 11
   },
-  "load": 27,
+  "load": 0,
   "shadow": 0,
   "injury": 1,
   "states": {
-    "weary": true,
-    "twiceWeary": true,
+    "weary": false,
+    "twiceWeary": false,
     "miserable": false,
     "twiceMiserable": false,
     "helpless": false,
@@ -144,38 +144,7 @@
     "afraid": false,
     "troubled": false
   },
-  "equipment": [
-    {
-      "id": "44d287b1-6675-40d3-86df-d5a965330e62",
-      "quantity": 9,
-      "isCarried": true,
-      "index": 0,
-      "equipment": {
-        "id": "44d287b1-6675-40d3-86df-d5a965330e62",
-        "name": "Kerok Warhammer",
-        "description": "",
-        "keeping": "2",
-        "source": "75800953-4adb-405f-a4ab-a599573ca533",
-        "weight": 5,
-        "isMelee": true,
-        "damageDice": [
-          12
-        ],
-        "engagementDice": [
-          8
-        ],
-        "engagementSuccesses": [
-          "3",
-          "6",
-          "11"
-        ],
-        "skillMods": [],
-        "isDeleted": false,
-        "isCustom": false,
-        "artUrl": "https://cdn.midjourney.com/c7ba970c-1c38-4805-91b7-6e2d84f7fe2a/0_3.png"
-      }
-    }
-  ],
+  "equipment": [],
   "activeEffects": [
     {
       "name": "Weird But Entertaining",
@@ -203,5 +172,6 @@
   "mp": {
     "current": 5,
     "max": 5
-  }
+  },
+  "expansionLogoUrl": ""
 }

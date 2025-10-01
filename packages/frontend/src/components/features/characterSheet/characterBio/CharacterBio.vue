@@ -28,7 +28,7 @@
         <div v-if="isEditModalOpen" class="modal-overlay edit-modal-overlay" @click="handleEditOverlayClick">
             <div class="modal-content" @click.stop>
                 <div class="modal-body">
-                    <TextEditor v-model="editedContent" auto-height="true"
+                    <TextEditor v-model="editedContent" :auto-height="true"
                         placeholder="Describe your character's personality, history, and notable bio..."
                         height="300px" />
                 </div>
@@ -215,11 +215,12 @@ const saveChanges = () => {
 }
 
 .modal-content {
-    max-width: var(--width-modal);
+    width: var(--width-modal);
 }
 
 /* Edit modal should be on top of view modal */
 .edit-modal-overlay {
     z-index: calc(var(--z-modal) + 1);
+    width: 100%;
 }
 </style>

@@ -144,26 +144,7 @@
     "afraid": false,
     "troubled": true
   },
-  "equipment": [
-    {
-      "name": "Rations",
-      "weight": 1,
-      "quantity": 10,
-      "isCarried": true
-    },
-    {
-      "name": "Grappling Hook",
-      "weight": 2,
-      "quantity": 2,
-      "isCarried": true
-    },
-    {
-      "name": "Tinderbox",
-      "weight": 1,
-      "quantity": 1,
-      "isCarried": true
-    }
-  ],
+  "equipment": [],
   "activeEffects": [
     {
       "name": "Weird But Entertaining",
@@ -191,5 +172,6 @@
   "mp": {
     "current": 3,
     "max": 5
-  }
+  },
+  "expansionLogoUrl": ""
 }

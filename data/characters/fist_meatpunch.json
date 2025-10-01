@@ -11,14 +11,14 @@
   "skills": [
     {
       "name": "Awe",
-      "ranks": 3,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0
     },
     {
       "name": "Strength",
-      "ranks": 4,
+      "ranks": 3,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0
@@ -150,19 +150,23 @@
       "id": "f026c8af-51de-447b-ae92-ed56a645224c",
       "quantity": 1,
       "isCarried": true,
-      "isWielding": false,
-      "index": 2
+      "isWielding": true,
+      "index": 2,
+      "collapsed": false,
+      "artExpanded": false
     },
     {
       "id": "83757d92-985c-46ed-b112-03e9278adafc",
       "quantity": 1,
       "isCarried": true,
       "isWielding": true,
-      "index": 3
+      "index": 3,
+      "collapsed": false,
+      "artExpanded": false
     }
   ],
   "activeEffects": [],
-  "personalityAndBackground": "<p>This is a test fsdf gdsljgkhdsklj gdslkjgh lakdsjg flksdhgf lkdsglkdsgldskglkdsfglkdsfglkdsgldksfgljdsfgldjsfgkjdsfgldsafgldgsfjldgfldgsjfg. </p><p>This is a test fsdf gdsljgkhdsklj gdslkjgh lakdsjg flksdhgf lkdsglkdsgldskglkdsfglkdsfglkdsgldksfgljdsfgldjsfgkjdsfgldsafgldgsfjldgfldgsjfg</p><p>This is a test fsdf gdsljgkhdsklj gdslkjgh lakdsjg flksdhgf lkdsglkdsgldskglkdsfglkdsfglkdsgldksfgljdsfgldjsfgkjdsfgldsafgldgsfjldgfldgsjfg</p><p>This is a test fsdf gdsljgkhdsklj gdslkjgh lakdsjg flksdhgf lkdsglkdsgldskglkdsfglkdsfglkdsgldksfgljdsfgldjsfgkjdsfgldsafgldgsfjldgfldgsjfg</p><p>This is a test fsdf gdsljgkhdsklj gdslkjgh lakdsjg flksdhgf lkdsglkdsgldskglkdsfglkdsfglkdsgldksfgljdsfgldjsfgkjdsfgldsafgldgsfjldgfldgsjfg</p><p>This is a test fsdf gdsljgkhdsklj gdslkjgh lakdsjg flksdhgf lkdsglkdsgldskglkdsfglkdsfglkdsgldksfgljdsfgldjsfgkjdsfgldsafgldgsfjldgfldgsjfg</p><p>This is a test fsdf gdsljgkhdsklj gdslkjgh lakdsjg flksdhgf lkdsglkdsgldskglkdsfglkdsfglkdsgldksfgljdsfgldjsfgkjdsfgldsafgldgsfjldgfldgsjfg</p><p>This is a test fsdf gdsljgkhdsklj gdslkjgh lakdsjg flksdhgf lkdsglkdsgldskglkdsfglkdsfglkdsgldksfgljdsfgldjsfgkjdsfgldsafgldgsfjldgfldgsjfg</p><p>This is a test fsdf gdsljgkhdsklj gdslkjgh lakdsjg flksdhgf lkdsglkdsgldskglkdsfglkdsfglkdsgldksfgljdsfgldjsfgkjdsfgldsafgldgsfjldgfldgsjfg<br></p><p>This is a test fsdf gdsljgkhdsklj gdslkjgh lakdsjg flksdhgf lkdsglkdsgldskglkdsfglkdsfglkdsgldksfgljdsfgldjsfgkjdsfgldsafgldgsfjldgfldgsjfg<br></p><p>This is a test fsdf gdsljgkhdsklj gdslkjgh lakdsjg flksdhgf lkdsglkdsgldskglkdsfglkdsfglkdsgldksfgljdsfgldjsfgkjdsfgldsafgldgsfjldgfldgsjfg<br></p><p>This is a test fsdf gdsljgkhdsklj gdslkjgh lakdsjg flksdhgf lkdsglkdsgldskglkdsfglkdsfglkdsgldksfgljdsfgldjsfgkjdsfgldsafgldgsfjldgfldgsjfg</p><p>This is a test fsdf gdsljgkhdsklj gdslkjgh lakdsjg flksdhgf lkdsglkdsgldskglkdsfglkdsfglkdsgldksfgljdsfgldjsfgkjdsfgldsafgldgsfjldgfldgsjfg<br></p><p>This is a test fsdf gdsljgkhdsklj gdslkjgh lakdsjg flksdhgf lkdsglkdsgldskglkdsfglkdsfglkdsgldksfgljdsfgldjsfgkjdsfgldsafgldgsfjldgfldgsjfg</p><p>This is a test fsdf gdsljgkhdsklj gdslkjgh lakdsjg flksdhgf lkdsglkdsgldskglkdsfglkdsfglkdsgldksfgljdsfgldjsfgkjdsfgldsafgldgsfjldgfldgsjfg</p><p>This is a test fsdf gdsljgkhdsklj gdslkjgh lakdsjg flksdhgf lkdsglkdsgldskglkdsfglkdsfglkdsgldksfgljdsfgldjsfgkjdsfgldsafgldgsfjldgfldgsjfg</p><p>This is a test fsdf gdsljgkhdsklj gdslkjgh lakdsjg flksdhgf lkdsglkdsgldskglkdsfglkdsfglkdsgldksfgljdsfgldjsfgkjdsfgldsafgldgsfjldgfldgsjfg</p>",
+  "personalityAndBackground": "<p>A strong fella with one normal-sized hand and one gargantuan one.</p>",
   "cultures": "Guildford",
   "pronouns": "he/him",
   "ancestries": "Human",
@@ -183,7 +187,7 @@
     },
     {
       "id": "9c92d5ba-7c73-4480-a357-d98ac4820c7d",
-      "collapsed": true
+      "collapsed": false
     }
   ],
   "twiceWeary": true,
@@ -194,10 +198,7 @@
   "cultureIds": [
     "352c844b-6d4f-4b61-b475-315421a453e7"
   ],
-  "engagementDice": [
-    12,
-    12
-  ],
+  "engagementDice": [],
   "expansionLogoUrl": "",
   "mestiereId": "e0a69b6f-38f9-4fa5-a1ef-5e5777299e82",
   "abilityImprovements": {
@@ -206,5 +207,6 @@
       "854306d6-d3b2-5b9d-a387-1474c611803b": true,
       "4e322b63-bbe9-5b70-9009-f475813e0728": false
     }
-  }
+  },
+  "engagementSuccesses": []
 }

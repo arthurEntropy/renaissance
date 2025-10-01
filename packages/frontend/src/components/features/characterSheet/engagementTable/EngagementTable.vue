@@ -16,13 +16,13 @@
       @engagement-committed="handleEngagementCommitted" @engagement-results="handleEngagementResults" />
 
     <EngagementDiceDisplay :diceData="allOwnedEngagementDice" :diceOptions="diceOptions" :isEditMode="isEditMode"
-      :showDropdown="showDiceDropdown" :dropdownPosition="dropdownPosition" @toggle-dice="toggleDiceStatus"
+      :showDropdown="showDiceDropdown" :dropdownPosition="diceDropdownPosition" @toggle-dice="toggleDiceStatus"
       @remove-die="removeUserAddedDie" @add-die="toggleDiceDropdown" @select-die="addUserAddedDie" />
 
     <EngagementSuccessDisplay :successData="allOwnedEngagementSuccesses"
       :availableSuccesses="availableEngagementSuccesses" :isEditMode="isEditMode" :showDropdown="showSuccessDropdown"
-      :dropdownPosition="dropdownPosition" @remove-success="removeUserAddedSuccess" @add-success="toggleSuccessDropdown"
-      @select-success="addUserAddedSuccess" />
+      :dropdownPosition="successDropdownPosition" @remove-success="removeUserAddedSuccess"
+      @add-success="toggleSuccessDropdown" @select-success="addUserAddedSuccess" />
 
   </CharacterSheetSection>
 </template>
@@ -84,7 +84,8 @@ const allOwnedEngagementSuccesses = successManager.allOwnedEngagementSuccesses
 const availableEngagementSuccesses = successManager.availableEngagementSuccesses
 const showDiceDropdown = diceDropdown.isOpen
 const showSuccessDropdown = successDropdown.isOpen
-const dropdownPosition = diceDropdown.position
+const diceDropdownPosition = diceDropdown.position
+const successDropdownPosition = successDropdown.position
 
 // Methods
 const updateCharacter = (updatedCharacter) => {
@@ -118,7 +119,7 @@ const handleEngagementResults = (engagementResult) => {
 
 const toggleDiceDropdown = (event) => {
   successDropdown.close()
-  diceDropdown.toggle(event, '.dice-dropdown', '.add-die-container')
+  diceDropdown.toggle(event, '.dice-dropdown', '.add-die-container button')
 }
 
 const addUserAddedDie = (die) => {
@@ -132,7 +133,7 @@ const removeUserAddedDie = (index) => {
 
 const toggleSuccessDropdown = (event) => {
   diceDropdown.close()
-  successDropdown.toggle(event, '.success-dropdown', '.add-success-container')
+  successDropdown.toggle(event, '.success-dropdown', '.add-success-container button')
 }
 
 const addUserAddedSuccess = (successId) => {
