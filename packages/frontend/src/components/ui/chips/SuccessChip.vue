@@ -91,9 +91,9 @@ const clearTooltip = () => {
     text-shadow: var(--shadow-glow-lg);
 }
 
+/* Currently does nothing but keeping in case we want to style removable chips differently at some point */
 .success-chip.removable {
-    background-color: var(--color-primary);
-    color: var(--color-black);
+    width: auto;
 }
 
 .remove-chip-button {

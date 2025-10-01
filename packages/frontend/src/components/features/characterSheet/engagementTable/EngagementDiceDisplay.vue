@@ -17,7 +17,7 @@
             </div>
 
             <div v-if="isEditMode" class="add-die-container">
-                <AddButton :show="true" position="inline" title="Add die" @click="$emit('add-die')" />
+                <AddButton :show="true" position="inline" title="Add die" @click="$emit('add-die', $event)" />
             </div>
         </div>
 
@@ -29,7 +29,7 @@
         <div v-if="showDropdown" class="dice-dropdown"
             :style="{ top: dropdownPosition.y + 'px', left: dropdownPosition.x + 'px' }">
             <button v-for="die in diceOptions" :key="die" class="die-option" @click="$emit('select-die', die)">
-                d{{ die }}
+                <i :class="getDiceFontMaxClass(die)"></i>
             </button>
         </div>
 
@@ -145,9 +145,9 @@ const clearDiceTooltip = () => {
     left: -2px;
     width: 16px;
     height: 16px;
-    background-color: var(--color-danger);
+    background-color: var(--color-bg-primary);
     color: var(--color-text-primary);
-    border: none;
+    border: 1px solid var(--color-text-primary);
     border-radius: var(--radius-full);
     font-size: var(--font-size-10);
     line-height: var(--line-height-none);
@@ -168,7 +168,7 @@ const clearDiceTooltip = () => {
 
 .dice-dropdown {
     position: fixed;
-    background-color: var(--color-bg-secondary);
+    background-color: var(--color-bg-primary);
     border: 1px solid var(--color-gray-light);
     border-radius: var(--radius-5);
     padding: var(--space-xs);
@@ -180,18 +180,19 @@ const clearDiceTooltip = () => {
 }
 
 .die-option {
-    padding: var(--space-xs) 10px;
-    background-color: var(--color-bg-tertiary);
+    padding: var(--space-xs) var(--space-md);
+    background-color: var(--color-bg-secondary);
     color: var(--color-text-primary);
     border: none;
     border-radius: var(--radius-5);
     cursor: pointer;
     font-family: inherit;
     transition: var(--transition-background);
+    font-size: var(--font-size-36);
 }
 
 .die-option:hover {
-    background-color: var(--color-bg-secondary);
+    background-color: var(--color-bg-tertiary);
 }
 
 .dice-icon.available {

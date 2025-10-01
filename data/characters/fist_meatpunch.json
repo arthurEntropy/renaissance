@@ -198,10 +198,7 @@
   "cultureIds": [
     "352c844b-6d4f-4b61-b475-315421a453e7"
   ],
-  "engagementDice": [
-    12,
-    12
-  ],
+  "engagementDice": [],
   "expansionLogoUrl": "",
   "mestiereId": "e0a69b6f-38f9-4fa5-a1ef-5e5777299e82",
   "abilityImprovements": {
@@ -210,5 +207,6 @@
       "854306d6-d3b2-5b9d-a387-1474c611803b": true,
       "4e322b63-bbe9-5b70-9009-f475813e0728": false
     }
-  }
+  },
+  "engagementSuccesses": []
 }
