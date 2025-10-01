@@ -9,6 +9,13 @@
     <AddToCharacterButton v-if="equipment && showAddToCharacter" :item="equipment" type="equipment"
       :addFn="addEquipmentToCharacter" />
 
+    <!-- Equipment Categories Display -->
+    <template #category>
+      <div v-if="equipmentCategoryDisplay && !collapsed">
+        <em>{{ equipmentCategoryDisplay }}</em>
+      </div>
+    </template>
+
     <!-- Expandable image -->
     <template #image>
       <div v-if="showLargeImage" class="large-image-container" @click.stop="toggleImage">
@@ -75,8 +82,9 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch } from 'vue'
+import { ref, onMounted, watch, computed } from 'vue'
 import { useEquipmentStore } from '@/stores/equipmentStore'
+import { useEquipmentCategoriesStore } from '@/stores/equipmentCategoriesStore'
 import BaseCard from '@/components/ui/cards/BaseCard.vue'
 import BadgeDisplay from '@/components/ui/cards/BadgeDisplay.vue'
 import CardDescription from '@/components/ui/cards/CardDescription.vue'
@@ -129,7 +137,31 @@ const emit = defineEmits(['edit', 'delete', 'send-to-chat', 'height-changed', 'u
 
 // Store
 const equipmentStore = useEquipmentStore()
+const equipmentCategoriesStore = useEquipmentCategoriesStore()
 const { addEquipmentToCharacter } = useCharacterManagement()
+
+// Computed properties
+const equipmentCategoryDisplay = computed(() => {
+  if (!props.equipment.type) return null
+
+  const type = equipmentCategoriesStore.getEquipmentTypeById(props.equipment.type)
+  const subtype = equipmentCategoriesStore.getEquipmentSubtypeById(props.equipment.subtype)
+  const grade = equipmentCategoriesStore.getEquipmentGradeById(props.equipment.grade)
+
+  let display = ''
+
+  if (type) {
+    display += type.name
+    if (subtype) {
+      display += ` - ${subtype.name}`
+    }
+    if (grade) {
+      display += `, ${grade.name}`
+    }
+  }
+
+  return display || null
+})
 
 // Reactive state
 const engagementSuccesses = ref([])
@@ -162,6 +194,10 @@ const fetchEngagementSuccesses = async () => {
 // Lifecycle
 onMounted(async () => {
   await fetchEngagementSuccesses()
+  // Ensure equipment categories are loaded for display
+  if (equipmentCategoriesStore.equipmentTypes.length === 0) {
+    await equipmentCategoriesStore.fetchAll()
+  }
 })
 </script>
 

@@ -57,6 +57,9 @@
 
         <EditEquipmentModal v-if="showEditEquipmentModal" :equipment="equipmentToEdit" :all-equipment="allEquipment"
             :keeping-options="equipmentStore.keeping" :sources="sources"
+            :equipment-types="equipmentCategoriesStore.equipmentTypes"
+            :equipment-subtypes="equipmentCategoriesStore.equipmentSubtypes"
+            :equipment-grades="equipmentCategoriesStore.equipmentGrades"
             :engagement-success-options="engagementSuccessOptions" @update="saveEditedEquipment"
             @close="closeEditEquipmentModal" @delete="deleteEquipment" />
     </div>
@@ -71,6 +74,7 @@ import { useDiceResults } from '@/composables/useDiceResults'
 import { useEquipmentManagement } from '@/composables/useEquipmentManagement'
 import { useCharacterManagement } from '@/composables/useCharacterManagement'
 import { useEquipmentStore } from '@/stores/equipmentStore'
+import { useEquipmentCategoriesStore } from '@/stores/equipmentCategoriesStore'
 import { useSourcesStore } from '@/stores/sourcesStore'
 import EngagementSuccessService from '@/services/engagementSuccessService'
 import CharacterProfile from '@/components/features/characterSheet/characterProfile/CharacterProfile.vue'
@@ -102,6 +106,7 @@ const emit = defineEmits(['close', 'update:character', 'delete:character'])
 
 // Stores
 const equipmentStore = useEquipmentStore()
+const equipmentCategoriesStore = useEquipmentCategoriesStore()
 const sourcesStore = useSourcesStore()
 const sources = sourcesStore.sources
 
@@ -225,6 +230,7 @@ const fetchEngagementSuccessOptions = async () => {
 onMounted(async () => {
     try {
         await equipmentStore.fetchKeeping()
+        await equipmentCategoriesStore.fetchAll()
         await fetchEngagementSuccessOptions()
     } catch (error) {
         console.error('Error initializing CharacterSheet data:', error)

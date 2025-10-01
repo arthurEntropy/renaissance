@@ -22,6 +22,11 @@
       </div>
     </div>
 
+    <!-- Category/Subtitle slot just under the name -->
+    <div class="categories">
+      <slot name="category"></slot>
+    </div>
+
     <!-- Expandable Content -->
     <transition name="expand">
       <div v-if="!collapsible || !collapsed" class="card-content">
@@ -198,7 +203,6 @@ onMounted(() => {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: var(--space-sm);
 }
 
 .base-card.collapsed .card-header {
@@ -277,5 +281,11 @@ onMounted(() => {
   max-height: 2000px;
   /* Large enough for typical card content */
   transform: translateY(0);
+}
+
+.categories {
+  font-size: var(--font-size-12);
+  color: var(--color-text-secondary);
+  text-shadow: var(--text-shadow-outline);
 }
 </style>

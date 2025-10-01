@@ -36,6 +36,43 @@
               :height="'250px'" :auto-height="true" />
           </div>
 
+          <!-- Equipment Categories -->
+          <div class="form-group row equipment-categories">
+            <!-- Type Dropdown -->
+            <div class="form-column">
+              <label for="equipmentType" class="left-aligned">Type:</label>
+              <select id="equipmentType" v-model="editedEquipment.type" class="modal-input" @change="onTypeChange">
+                <option value="">-- Select Type --</option>
+                <option v-for="type in equipmentTypes" :key="type.id" :value="type.id">
+                  {{ type.name }}
+                </option>
+              </select>
+            </div>
+
+            <!-- Subtype Dropdown -->
+            <div class="form-column">
+              <label for="equipmentSubtype" class="left-aligned">Subtype:</label>
+              <select id="equipmentSubtype" v-model="editedEquipment.subtype" class="modal-input"
+                :disabled="!editedEquipment.type">
+                <option value="">-- Select Subtype --</option>
+                <option v-for="subtype in availableSubtypes" :key="subtype.id" :value="subtype.id">
+                  {{ subtype.name }}
+                </option>
+              </select>
+            </div>
+
+            <!-- Grade Dropdown -->
+            <div class="form-column">
+              <label for="equipmentGrade" class="left-aligned">Grade:</label>
+              <select id="equipmentGrade" v-model="editedEquipment.grade" class="modal-input">
+                <option value="">-- Select Grade --</option>
+                <option v-for="grade in equipmentGrades" :key="grade.id" :value="grade.id">
+                  {{ grade.name }}
+                </option>
+              </select>
+            </div>
+          </div>
+
           <div class="form-group row">
 
             <!-- Weight -->
@@ -119,12 +156,17 @@
 </template>
 
 <script setup>
+import { computed } from 'vue'
 import { useDiceManagement } from '@/composables/useDiceManagement'
 import { useEditForm } from '@/composables/useEditForm'
+import { useEquipmentCategoriesStore } from '@/stores/equipmentCategoriesStore'
 import TextEditor from '@/components/ui/textEditor/TextEditor.vue'
 import SourceDropdown from '@/components/ui/selectors/SourceDropdown.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import { getDiceFontMaxClass } from '@shared/utils/diceFontUtils'
+
+// Equipment categories store
+const equipmentCategoriesStore = useEquipmentCategoriesStore()
 
 // Props
 const props = defineProps({
@@ -137,6 +179,18 @@ const props = defineProps({
     default: () => [],
   },
   keepingOptions: {
+    type: Array,
+    default: () => [],
+  },
+  equipmentTypes: {
+    type: Array,
+    default: () => [],
+  },
+  equipmentSubtypes: {
+    type: Array,
+    default: () => [],
+  },
+  equipmentGrades: {
     type: Array,
     default: () => [],
   },
@@ -180,6 +234,17 @@ const initializeDiceCounts = () => {
 
 // Initialize dice counts immediately
 initializeDiceCounts()
+
+// Equipment categories management
+const availableSubtypes = computed(() => {
+  if (!editedEquipment.value?.type) return []
+  return props.equipmentSubtypes.filter(subtype => subtype.typeId === editedEquipment.value.type)
+})
+
+const onTypeChange = () => {
+  // Clear subtype when type changes
+  editedEquipment.value.subtype = null
+}
 
 // Equipment management functions
 const saveDiceChanges = () => {
@@ -256,6 +321,19 @@ const handleOverlayClick = () => {
 
 .source-dropdown {
   flex: 1.5;
+}
+
+.equipment-categories {
+  margin: var(--space-md) 0;
+}
+
+.equipment-categories .form-column {
+  flex: 1;
+  margin-right: var(--space-md);
+}
+
+.equipment-categories .form-column:last-child {
+  margin-right: 0;
 }
 
 .melee-checkbox {

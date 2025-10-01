@@ -172,6 +172,15 @@
       "index": 4,
       "collapsed": false,
       "artExpanded": false
+    },
+    {
+      "id": "29eb84b1-777e-43b0-a989-16df364b5cca",
+      "quantity": 1,
+      "isCarried": true,
+      "isWielding": false,
+      "index": 5,
+      "collapsed": false,
+      "artExpanded": false
     }
   ],
   "activeEffects": [],
