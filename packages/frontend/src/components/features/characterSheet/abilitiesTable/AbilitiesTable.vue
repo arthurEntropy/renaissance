@@ -13,8 +13,8 @@
       <AbilityCard v-for="ability in sortedAbilities" :key="`ability-${ability.id}`" :ability="ability"
         :collapsed="ability.collapsed" @update:collapsed="updateAbilityCollapsed(ability, $event)" class="ability-card"
         :collapsible="true" :improvements="ability.improvements || []" :show-xp-badge="false"
-        :show-add-to-character="false" :character="character" :show-improvement-toggle="true"
-        :showImprovements="ability.showImprovements"
+        :show-add-to-character="false" :show-action-buttons="true" :character="character"
+        :show-improvement-toggle="true" :showImprovements="ability.showImprovements"
         @update:showImprovements="updateAbilityShowImprovements(ability, $event)"
         @update:character="handleCharacterUpdate" />
     </div>
@@ -30,8 +30,8 @@
 
           <AbilityCard v-if="ability" :ability="ability" :collapsed="ability.collapsed"
             @update:collapsed="updateAbilityCollapsed(ability, $event)" class="ability-card" :collapsible="true"
-            :show-xp-badge="false" :show-add-to-character="false" :character="character" :show-improvement-toggle="true"
-            :showImprovements="ability.showImprovements"
+            :show-xp-badge="false" :show-add-to-character="false" :show-action-buttons="true" :character="character"
+            :show-improvement-toggle="true" :showImprovements="ability.showImprovements"
             @update:showImprovements="updateAbilityShowImprovements(ability, $event)"
             @update:character="handleCharacterUpdate" :key="`edit-ability-${ability.id}`" />
 
