@@ -213,7 +213,7 @@ const badgeClass = computed(() => {
 
 /* Special styling for improvement badges */
 .badge-bottom-left.improvement-badge {
-    bottom: -5px;
+    bottom: -7px;
     border-bottom-left-radius: var(--radius-5);
 }
 </style>

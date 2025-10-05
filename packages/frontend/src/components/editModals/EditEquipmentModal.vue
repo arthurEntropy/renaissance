@@ -159,14 +159,11 @@
 import { computed } from 'vue'
 import { useDiceManagement } from '@/composables/useDiceManagement'
 import { useEditForm } from '@/composables/useEditForm'
-import { useEquipmentCategoriesStore } from '@/stores/equipmentCategoriesStore'
 import TextEditor from '@/components/ui/textEditor/TextEditor.vue'
 import SourceDropdown from '@/components/ui/selectors/SourceDropdown.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import { getDiceFontMaxClass } from '@shared/utils/diceFontUtils'
 
-// Equipment categories store
-const equipmentCategoriesStore = useEquipmentCategoriesStore()
 
 // Props
 const props = defineProps({
