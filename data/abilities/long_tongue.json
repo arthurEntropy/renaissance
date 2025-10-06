@@ -1,7 +1,7 @@
 {
   "id": "3023d595-cc9a-4109-9e99-d9f393806085",
   "name": "Long Tongue",
-  "description": "You have a long, sticky tongue that can extend to a length up to your speed and can be retracted at-will. Unsecured objects and creatures that weigh less than half your body weight automatically stick to the tongue and are dragged with it when retracted. Heavier objects require a Strengh check to pull and heavier creatures oppose with their own Strength check.",
+  "description": "<p>You have a long, sticky tongue that can be thrust out to a length up to half your speed as a half action. The tongue automatically sticks to stationary objects and willing targets. Roll Dexterity vs Dexterity against unwilling targets. If the tongue does not stick to anything, it automatically retracts.</p><p>Once the tongue is stuck, it remains stuck until you use a full action to remove it or another creature uses a full action to roll Strength vs Strength against you to remove it (you may choose to forfeit the roll).</p><p>While stuck, you may use a full action to attempt to pull the stuck object toward you. Inanimate objects of less than half your body weight are automatically pulled to you. Heaver objects require a Strength check of a difficulty determined by the GM. Roll Strength vs Strength to attempt to pull an unwilling creature (they may also do the same to attempt to pull you).</p><p><strong>Describe your tongue.</strong></p>",
   "isTrait": true,
   "canBeActive": false,
   "isActive": true,

@@ -1,7 +1,7 @@
 {
   "id": "ae41ad01-5ac7-48f5-a729-1c5da6cdf83e",
   "name": "Magic Affinity",
-  "description": "All your rolls to resist magical effects are favored. \n\nAdditionally, you have an extra pool of 4 MP that can be used for magic abilities from any Mestiere. This pool is replenished every sunrise, regardless of all other effects. Describe how this natural affinity for magic manifests in you.",
+  "description": "<p>All your opposed skill checks to resist or avoid magical effects are favored.</p><p>Additionally, you have an extra pool of 4 MP that can be used for magic abilities from any Mestiere. This pool is replenished every sunrise, regardless of all other effects.</p><p><strong>Describe how this natural affinity for magic manifests in you.</strong></p>",
   "isTrait": true,
   "canBeActive": false,
   "isActive": true,

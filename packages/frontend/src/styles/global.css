@@ -100,3 +100,25 @@ input[type='checkbox']:checked::after {
 img {
   display: block;
 }
+
+/* ===== SCROLLBARS ===== */
+/* Hide scrollbars for webkit browsers (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbars for all elements */
+* {
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;     /* Firefox */
+}
+
+/* Alternative approach - make scrollbars transparent for webkit */
+*::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: transparent;
+}

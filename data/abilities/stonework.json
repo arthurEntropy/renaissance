@@ -1,7 +1,7 @@
 {
   "id": "fc251bc8-4a9a-43c1-9ad1-2ed1c7a6fef7",
-  "name": "Stone & Story",
-  "description": "Your Craft and Lore skills are favored. Describe how you know what you know.",
+  "name": "Stonework",
+  "description": "<p>Your Craft rolls are favored when working with stone.</p><p><strong>Describe how your experience lets you shape stone adeptly.</strong></p>",
   "isTrait": true,
   "canBeActive": false,
   "isActive": true,
