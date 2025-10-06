@@ -1,6 +1,6 @@
 {
   "id": "2",
   "name": "Compass",
-  "description": "You move a quarter turn around your opponent, in a direction of your choosing, maintaining the same distance from them.",
+  "description": "You move around your opponent to any adjacent position.",
   "isDeleted": false
 }

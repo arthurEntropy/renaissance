@@ -1,0 +1,6 @@
+{
+  "id": "13",
+  "name": "Sunder",
+  "description": "You crack your opponent's armor. Choose one piece of their armor or their shield. That item grants 1 less Defense, permanently. If they have only natural armor, their current Defense is reduced by 1.",
+  "isDeleted": false
+}

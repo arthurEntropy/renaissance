@@ -1,6 +1,6 @@
 {
   "id": "1",
   "name": "Bind",
-  "description": "Your weapons lock together. The engagement ends and the result is a draw (the attack still proceeds).",
+  "description": "You and your opponent's weapons lock together. The engagement ends in a draw, immediately (the attack still proceeds).",
   "isDeleted": false
 }

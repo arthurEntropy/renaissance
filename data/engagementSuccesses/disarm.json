@@ -1,6 +1,6 @@
 {
   "id": "3",
   "name": "Disarm",
-  "description": "If you have already achieved one success in this engagement, your opponent drops their weapon. Remove any remaining engagement dice from that weapon from the engagement.",
+  "description": "Your opponent drops a wielded item of your choosing. You may only use this if you have already used another success in this engagement.",
   "isDeleted": false
 }
