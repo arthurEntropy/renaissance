@@ -2,8 +2,8 @@
   <base-card v-bind="$attrs" :item="equipment" itemType="equipment" :metaInfo="equipment.weight
     ? `${equipment.weight} ${equipment.weight === 1 ? 'lb' : 'lbs'}`
     : ''
-    " :storeInstance="equipmentStore" :collapsed="collapsed" :editable="editable" :showSource="showSource"
-    @edit="$emit('edit', equipment)" :collapsible="collapsible">
+    " :storeInstance="equipmentStore" :collapsed="collapsed" :editable="editable" :duplicatable="editable" :showSource="showSource"
+    @edit="$emit('edit', equipment)" @duplicate="handleDuplicate" :collapsible="collapsible">
 
     <!-- Add to character overlay -->
     <AddToCharacterButton v-if="equipment && showAddToCharacter" :item="equipment" type="equipment"
@@ -99,6 +99,7 @@ import CardDescription from '@/components/ui/cards/CardDescription.vue'
 import AddToCharacterButton from '@/components/ui/cards/AddToCharacterButton.vue'
 import SuccessChip from '@/components/ui/chips/SuccessChip.vue'
 import EngagementSuccessService from '@/services/engagementSuccessService'
+import EquipmentService from '@/services/equipmentService'
 import { getDiceFontMaxClass } from '@shared/utils/diceFontUtils'
 import { isWeapon } from '@shared/utils/equipmentUtils'
 import { useCharacterManagement } from '@/composables/useCharacterManagement'
@@ -142,7 +143,7 @@ const props = defineProps({
   },
 })
 
-const emit = defineEmits(['edit', 'delete', 'send-to-chat', 'height-changed', 'update:art-expanded'])
+const emit = defineEmits(['edit', 'duplicate', 'delete', 'send-to-chat', 'height-changed', 'update:art-expanded'])
 
 // Store
 const equipmentStore = useEquipmentStore()
@@ -239,6 +240,27 @@ const fetchEngagementSuccesses = async () => {
   } catch (error) {
     console.error('Error fetching engagement successes:', error)
     engagementSuccesses.value = []
+  }
+}
+
+const handleDuplicate = async () => {
+  try {
+    // Create a copy of the equipment data without the id
+    const duplicateData = { ...props.equipment }
+    delete duplicateData.id
+    
+    // Modify the name to indicate it's a copy
+    duplicateData.name = `${duplicateData.name} (Copy)`
+    
+    // Create the duplicate using the equipment service
+    const newEquipment = await EquipmentService.create(duplicateData)
+    
+    // Emit the duplicate event so parent components can handle it (like refreshing lists)
+    emit('duplicate', newEquipment)
+    
+    console.log('Equipment duplicated successfully:', newEquipment)
+  } catch (error) {
+    console.error('Error duplicating equipment:', error)
   }
 }
 

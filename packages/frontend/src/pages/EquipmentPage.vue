@@ -33,7 +33,7 @@
     <!-- Item cards slot -->
     <template #item-cards>
       <EquipmentCard v-for="item in filteredEquipment" :key="item.id" :equipment="item" :editable="true"
-        :sources="sources" :art-expanded="true" @edit="openEditEquipmentModal(item)"
+        :sources="sources" :art-expanded="true" @edit="openEditEquipmentModal(item)" @duplicate="handleDuplicateEquipment"
         @send-to-chat="sendEquipmentToChat(item)" @height-changed="layoutRef?.onCardHeightChanged()"
         :collapsible="false" :showSource="true" />
     </template>
@@ -211,6 +211,20 @@ const deleteEquipment = async (equipmentItem) => {
 // OTHER METHODS
 const sendEquipmentToChat = (_equipment) => {
   // Placeholder for future chat integration
+}
+
+const handleDuplicateEquipment = async (newEquipment) => {
+  try {
+    // Refresh the equipment list to include the new duplicate
+    await equipmentStore.fetch()
+    
+    // Trigger layout update for masonry
+    layoutRef?.value?.onCardHeightChanged()
+    
+    console.log('Equipment duplicated and list refreshed')
+  } catch (error) {
+    console.error('Error refreshing equipment list after duplication:', error)
+  }
 }
 
 const fetchEngagementSuccessOptions = async () => {
