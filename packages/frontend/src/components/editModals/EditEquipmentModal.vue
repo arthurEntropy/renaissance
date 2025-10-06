@@ -81,6 +81,32 @@
               <input type="number" id="weight" v-model.number="editedEquipment.weight" min="0" class="modal-input" />
             </div>
 
+            <!-- Length -->
+            <div class="form-column weight-input">
+              <label for="length" class="left-aligned">Length:</label>
+              <input type="number" id="length" v-model.number="editedEquipment.length" min="0" class="modal-input" />
+            </div>
+
+            <!-- Reach -->
+            <div class="form-column weight-input">
+              <label for="reach" class="left-aligned">Reach:</label>
+              <input type="number" id="reach" v-model.number="editedEquipment.reach" min="0" class="modal-input" />
+            </div>
+
+            <!-- Range -->
+            <div class="form-column">
+              <label for="range" class="left-aligned">Range:</label>
+              <select id="range" v-model="editedEquipment.range" class="modal-input">
+                <option value="">-- Select Range --</option>
+                <option v-for="range in equipmentRanges" :key="range.id" :value="range.id">
+                  {{ range.name }} ({{ range.distance }})
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group row">
+
             <!-- Source -->
             <div class="form-column source-dropdown">
               <label for="source" class="left-aligned">Source:</label>
@@ -98,16 +124,31 @@
             </div>
           </div>
 
-          <!-- Melee Weapon Checkbox -->
-          <div class="form-group centered melee-checkbox">
-            <label for="isMelee">
-              <input type="checkbox" id="isMelee" v-model="editedEquipment.isMelee" />
-              Melee Weapon
-            </label>
+          <!-- Weapon Properties -->
+          <div v-if="equipmentIsWeapon" class="form-group vertical">
+            <label>Weapon Properties:</label>
+            <div class="properties-inline">
+              <label for="twoHanded" class="property-checkbox">
+                <input type="checkbox" id="twoHanded" v-model="editedEquipment.twoHanded" />
+                Two-Handed
+              </label>
+              <label for="thrown" class="property-checkbox">
+                <input type="checkbox" id="thrown" v-model="editedEquipment.thrown" />
+                Thrown
+              </label>
+              <label for="finesse" class="property-checkbox">
+                <input type="checkbox" id="finesse" v-model="editedEquipment.finesse" />
+                Finesse
+              </label>
+              <label for="piercing" class="property-checkbox">
+                <input type="checkbox" id="piercing" v-model="editedEquipment.piercing" />
+                Piercing
+              </label>
+            </div>
           </div>
 
           <!-- Engagement Dice -->
-          <div v-if="editedEquipment.isMelee" class="form-group vertical">
+          <div v-if="equipmentIsWeapon" class="form-group vertical">
             <label>Engagement Dice:</label>
             <div class="dice-row">
               <div v-for="dieType in dieTypes" :key="'engagement-' + dieType" class="dice-column">
@@ -118,7 +159,7 @@
           </div>
 
           <!-- Damage Dice -->
-          <div v-if="editedEquipment.isMelee" class="form-group vertical">
+          <div v-if="equipmentIsWeapon" class="form-group vertical">
             <label>Damage Dice:</label>
             <div class="dice-row">
               <div v-for="dieType in dieTypes" :key="'damage-' + dieType" class="dice-column">
@@ -129,7 +170,7 @@
           </div>
 
           <!-- Engagement Successes -->
-          <div v-if="editedEquipment.isMelee" class="form-group vertical">
+          <div v-if="equipmentIsWeapon" class="form-group vertical">
             <label>Engagement Successes:</label>
             <div class="engagement-success-container">
               <div v-for="success in engagementSuccessOptions" :key="success.id" class="engagement-success-pill">
@@ -163,6 +204,7 @@ import TextEditor from '@/components/ui/textEditor/TextEditor.vue'
 import SourceDropdown from '@/components/ui/selectors/SourceDropdown.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import { getDiceFontMaxClass } from '@shared/utils/diceFontUtils'
+import { isWeapon } from '@shared/utils/equipmentUtils'
 
 
 // Props
@@ -188,6 +230,10 @@ const props = defineProps({
     default: () => [],
   },
   equipmentGrades: {
+    type: Array,
+    default: () => [],
+  },
+  equipmentRanges: {
     type: Array,
     default: () => [],
   },
@@ -232,6 +278,9 @@ const initializeDiceCounts = () => {
 // Initialize dice counts immediately
 initializeDiceCounts()
 
+// Computed properties
+const equipmentIsWeapon = computed(() => isWeapon(editedEquipment.value))
+
 // Equipment categories management
 const availableSubtypes = computed(() => {
   if (!editedEquipment.value?.type) return []
@@ -255,9 +304,15 @@ const saveEquipment = () => {
     return
   }
   saveDiceChanges()
-  // Ensure weight is a valid number
+  // Ensure numeric values are valid
   editedEquipment.value.weight = Number.isFinite(editedEquipment.value.weight)
     ? editedEquipment.value.weight
+    : 0
+  editedEquipment.value.length = Number.isFinite(editedEquipment.value.length)
+    ? editedEquipment.value.length
+    : 0
+  editedEquipment.value.reach = Number.isFinite(editedEquipment.value.reach)
+    ? editedEquipment.value.reach
     : 0
   save()
 }
@@ -308,7 +363,10 @@ const handleOverlayClick = () => {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: var(--space-xs);
+}
+
+.description :deep(.rich-editor-wrapper) {
+  width: 98%;
 }
 
 .weight-input {
@@ -318,15 +376,6 @@ const handleOverlayClick = () => {
 
 .source-dropdown {
   flex: 1.5;
-}
-
-.equipment-categories {
-  margin: var(--space-md) 0;
-}
-
-.equipment-categories .form-column {
-  flex: 1;
-  margin-right: var(--space-md);
 }
 
 .equipment-categories .form-column:last-child {
@@ -412,5 +461,42 @@ const handleOverlayClick = () => {
 
 .pill-checkbox:hover {
   border-color: var(--color-gray-medium);
+}
+
+/* Weapon Properties */
+.weapon-properties {
+  margin: var(--space-md) 0;
+}
+
+.properties-header {
+  display: block;
+  margin-bottom: var(--space-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.properties-inline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  margin-top: var(--space-sm);
+}
+
+.properties-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-sm);
+}
+
+.property-checkbox {
+  display: flex;
+  align-items: center;
+  font-size: var(--font-size-14);
+  color: var(--color-text-primary);
+  cursor: pointer;
+}
+
+.property-checkbox input[type="checkbox"] {
+  margin-right: var(--space-xs);
 }
 </style>

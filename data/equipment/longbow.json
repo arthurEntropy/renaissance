@@ -1,0 +1,30 @@
+{
+  "id": "ea0f2ce4-6e99-4fe2-aec7-580f120ef250",
+  "name": "Longbow",
+  "description": "<p>This is the description block.</p>",
+  "keeping": "2",
+  "source": "",
+  "weight": 4,
+  "length": 4,
+  "reach": 0,
+  "range": "5",
+  "twoHanded": true,
+  "thrown": false,
+  "finesse": false,
+  "piercing": true,
+  "damageDice": [
+    12
+  ],
+  "engagementDice": [],
+  "engagementSuccesses": [
+    "6",
+    "11"
+  ],
+  "skillMods": [],
+  "isDeleted": false,
+  "isCustom": false,
+  "artUrl": "",
+  "type": "1",
+  "subtype": "3",
+  "grade": "5"
+}

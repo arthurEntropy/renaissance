@@ -3,12 +3,14 @@ import { ref, computed } from 'vue'
 import EquipmentTypeService from '@/services/equipmentTypeService'
 import EquipmentSubtypeService from '@/services/equipmentSubtypeService'
 import EquipmentGradeService from '@/services/equipmentGradeService'
+import EquipmentRangeService from '@/services/equipmentRangeService'
 
 export const useEquipmentCategoriesStore = defineStore('equipmentCategories', () => {
   // state
   const equipmentTypes = ref([])
   const equipmentSubtypes = ref([])
   const equipmentGrades = ref([])
+  const equipmentRanges = ref([])
 
   // actions
   const fetchEquipmentTypes = async () => {
@@ -35,11 +37,20 @@ export const useEquipmentCategoriesStore = defineStore('equipmentCategories', ()
     }
   }
 
+  const fetchEquipmentRanges = async () => {
+    try {
+      equipmentRanges.value = await EquipmentRangeService.getAll()
+    } catch (error) {
+      console.error('Error fetching equipment ranges:', error)
+    }
+  }
+
   const fetchAll = async () => {
     await Promise.all([
       fetchEquipmentTypes(),
       fetchEquipmentSubtypes(),
-      fetchEquipmentGrades()
+      fetchEquipmentGrades(),
+      fetchEquipmentRanges()
     ])
   }
 
@@ -54,6 +65,10 @@ export const useEquipmentCategoriesStore = defineStore('equipmentCategories', ()
 
   const sortedEquipmentGrades = computed(() => {
     return [...equipmentGrades.value].sort((a, b) => parseInt(a.id) - parseInt(b.id))
+  })
+
+  const sortedEquipmentRanges = computed(() => {
+    return [...equipmentRanges.value].sort((a, b) => parseInt(a.id) - parseInt(b.id))
   })
 
   const getSubtypesByType = computed(() => (typeId) => {
@@ -79,20 +94,29 @@ export const useEquipmentCategoriesStore = defineStore('equipmentCategories', ()
     return equipmentGrades.value.find(grade => grade.id === gradeId)
   }
 
+  const getEquipmentRangeById = (rangeId) => {
+    if (!rangeId) return null
+    return equipmentRanges.value.find(range => range.id === rangeId)
+  }
+
   return {
     equipmentTypes: sortedEquipmentTypes,
     equipmentSubtypes: sortedEquipmentSubtypes,
     equipmentGrades: sortedEquipmentGrades,
+    equipmentRanges: sortedEquipmentRanges,
     rawEquipmentTypes: equipmentTypes,
     rawEquipmentSubtypes: equipmentSubtypes,
     rawEquipmentGrades: equipmentGrades,
+    rawEquipmentRanges: equipmentRanges,
     fetchEquipmentTypes,
     fetchEquipmentSubtypes,
     fetchEquipmentGrades,
+    fetchEquipmentRanges,
     fetchAll,
     getSubtypesByType,
     getEquipmentTypeById,
     getEquipmentSubtypeById,
     getEquipmentGradeById,
+    getEquipmentRangeById,
   }
 })

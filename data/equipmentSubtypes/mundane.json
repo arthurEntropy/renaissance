@@ -1,0 +1,7 @@
+{
+  "id": "13",
+  "name": "Mundane",
+  "typeId": "3",
+  "description": "Regular items without magical properties, including tools, accessories, and gear",
+  "isDeleted": false
+}

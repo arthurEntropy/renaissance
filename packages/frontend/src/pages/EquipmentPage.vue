@@ -45,6 +45,7 @@
         :equipment-types="equipmentCategoriesStore.equipmentTypes"
         :equipment-subtypes="equipmentCategoriesStore.equipmentSubtypes"
         :equipment-grades="equipmentCategoriesStore.equipmentGrades"
+        :equipment-ranges="equipmentCategoriesStore.equipmentRanges"
         :engagement-success-options="engagementSuccessOptions" @update="saveEditedEquipment"
         @close="closeEditEquipmentModal" @delete="deleteEquipment(equipmentToEdit)" />
     </template>

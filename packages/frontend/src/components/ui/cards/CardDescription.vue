@@ -22,7 +22,7 @@ const safeContent = computed(() => sanitizeHtml(props.content))
 @import '@/styles/design-tokens.css';
 
 .card-description {
-    background-color: var(--overlay-black-heavy);
+    background-color: var(--overlay-black-medium);
     padding: 1px var(--space-lg);
     border-radius: var(--radius-5);
     text-align: left;
