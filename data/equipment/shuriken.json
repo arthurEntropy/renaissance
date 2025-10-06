@@ -1,19 +1,19 @@
 {
-  "id": "33075523-803e-406c-bcda-fd631ff85b41",
-  "name": "Longbow",
-  "description": "Weight: 3-4. Length: 4-6.",
+  "id": "54c0d4a5-b536-47c2-bef6-3ccacb3dfa8d",
+  "name": "Shuriken",
+  "description": "",
   "keeping": null,
   "source": null,
-  "weight": 3,
-  "length": 4,
+  "weight": 1,
+  "length": 1,
   "reach": 0,
-  "range": "5",
-  "twoHanded": true,
-  "thrown": false,
-  "finesse": false,
+  "range": "3",
+  "twoHanded": false,
+  "thrown": true,
+  "finesse": true,
   "piercing": false,
   "damageDice": [
-    12
+    4
   ],
   "engagementDice": [],
   "engagementSuccesses": [],
@@ -22,6 +22,6 @@
   "isCustom": false,
   "artUrl": null,
   "type": "1",
-  "subtype": "3",
+  "subtype": "5",
   "grade": null
 }

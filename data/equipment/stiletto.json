@@ -1,19 +1,19 @@
 {
-  "id": "33075523-803e-406c-bcda-fd631ff85b41",
-  "name": "Longbow",
-  "description": "Weight: 3-4. Length: 4-6.",
+  "id": "80f9cebe-1f92-4397-a642-c6e7b3ab976f",
+  "name": "Stiletto",
+  "description": "",
   "keeping": null,
   "source": null,
-  "weight": 3,
-  "length": 4,
+  "weight": 1,
+  "length": 1,
   "reach": 0,
-  "range": "5",
-  "twoHanded": true,
+  "range": null,
+  "twoHanded": false,
   "thrown": false,
-  "finesse": false,
-  "piercing": false,
+  "finesse": true,
+  "piercing": true,
   "damageDice": [
-    12
+    8
   ],
   "engagementDice": [],
   "engagementSuccesses": [],
@@ -22,6 +22,6 @@
   "isCustom": false,
   "artUrl": null,
   "type": "1",
-  "subtype": "3",
+  "subtype": "1",
   "grade": null
 }

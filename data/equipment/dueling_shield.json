@@ -1,0 +1,31 @@
+{
+  "id": "e73e6f44-6dc3-471c-8646-65fc10b25b2a",
+  "name": "Dueling Shield",
+  "description": "Weight: 5-6. Length: 2-3. Shield.",
+  "keeping": null,
+  "source": null,
+  "weight": 5,
+  "length": 2,
+  "reach": 0,
+  "range": null,
+  "twoHanded": false,
+  "thrown": false,
+  "finesse": false,
+  "piercing": false,
+  "damageDice": [
+    8
+  ],
+  "engagementDice": [
+    8
+  ],
+  "engagementSuccesses": [
+    "6"
+  ],
+  "skillMods": [],
+  "isDeleted": false,
+  "isCustom": false,
+  "artUrl": null,
+  "type": "1",
+  "subtype": "1",
+  "grade": null
+}

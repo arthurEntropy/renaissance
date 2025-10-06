@@ -1,0 +1,31 @@
+{
+  "id": "de2b23d0-e686-4756-b2bf-27d68cf4c0cb",
+  "name": "Trident",
+  "description": "Weight: 3-5. Length: 3-5. Medium range and +1d damage if thrown underwater.",
+  "keeping": null,
+  "source": null,
+  "weight": 3,
+  "length": 3,
+  "reach": 0,
+  "range": "2",
+  "twoHanded": false,
+  "thrown": true,
+  "finesse": false,
+  "piercing": true,
+  "damageDice": [
+    6
+  ],
+  "engagementDice": [
+    6
+  ],
+  "engagementSuccesses": [
+    "1"
+  ],
+  "skillMods": [],
+  "isDeleted": false,
+  "isCustom": false,
+  "artUrl": null,
+  "type": "1",
+  "subtype": "1",
+  "grade": null
+}

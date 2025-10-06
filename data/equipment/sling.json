@@ -1,19 +1,19 @@
 {
-  "id": "33075523-803e-406c-bcda-fd631ff85b41",
-  "name": "Longbow",
-  "description": "Weight: 3-4. Length: 4-6.",
+  "id": "4a2e1262-1d29-4cba-a98b-8e897ce56952",
+  "name": "Sling",
+  "description": "Length: 1-2.",
   "keeping": null,
   "source": null,
   "weight": 3,
-  "length": 4,
+  "length": 1,
   "reach": 0,
-  "range": "5",
-  "twoHanded": true,
+  "range": "4",
+  "twoHanded": false,
   "thrown": false,
   "finesse": false,
   "piercing": false,
   "damageDice": [
-    12
+    4
   ],
   "engagementDice": [],
   "engagementSuccesses": [],

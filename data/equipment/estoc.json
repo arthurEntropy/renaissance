@@ -1,27 +1,29 @@
 {
-  "id": "33075523-803e-406c-bcda-fd631ff85b41",
-  "name": "Longbow",
-  "description": "Weight: 3-4. Length: 4-6.",
+  "id": "dc289482-6365-41f1-8a23-95a90d5458c3",
+  "name": "Estoc",
+  "description": "Weight: 4-6. Length: 3-4.",
   "keeping": null,
   "source": null,
-  "weight": 3,
-  "length": 4,
+  "weight": 4,
+  "length": 3,
   "reach": 0,
-  "range": "5",
+  "range": null,
   "twoHanded": true,
   "thrown": false,
   "finesse": false,
-  "piercing": false,
+  "piercing": true,
   "damageDice": [
-    12
+    10
   ],
-  "engagementDice": [],
+  "engagementDice": [
+    10
+  ],
   "engagementSuccesses": [],
   "skillMods": [],
   "isDeleted": false,
   "isCustom": false,
   "artUrl": null,
   "type": "1",
-  "subtype": "3",
+  "subtype": "1",
   "grade": null
 }

@@ -1,13 +1,13 @@
 {
-  "id": "33075523-803e-406c-bcda-fd631ff85b41",
-  "name": "Longbow",
-  "description": "Weight: 3-4. Length: 4-6.",
+  "id": "3ff42222-5c80-492e-95ea-4f1b1005964c",
+  "name": "Claymore",
+  "description": "Weight: 5-20. Length: 4-7.",
   "keeping": null,
   "source": null,
-  "weight": 3,
+  "weight": 5,
   "length": 4,
   "reach": 0,
-  "range": "5",
+  "range": null,
   "twoHanded": true,
   "thrown": false,
   "finesse": false,
@@ -15,13 +15,21 @@
   "damageDice": [
     12
   ],
-  "engagementDice": [],
-  "engagementSuccesses": [],
+  "engagementDice": [
+    12
+  ],
+  "engagementSuccesses": [
+    "1",
+    "3",
+    "6",
+    "11",
+    "13"
+  ],
   "skillMods": [],
   "isDeleted": false,
   "isCustom": false,
   "artUrl": null,
   "type": "1",
-  "subtype": "3",
+  "subtype": "1",
   "grade": null
 }

@@ -1,0 +1,33 @@
+{
+  "id": "6af9876d-e9a2-4709-9da5-eccb3644ebed",
+  "name": "Lance",
+  "description": "Weight: 6-10. Length: 7-10.",
+  "keeping": null,
+  "source": null,
+  "weight": 6,
+  "length": 7,
+  "reach": 5,
+  "range": null,
+  "twoHanded": true,
+  "thrown": false,
+  "finesse": false,
+  "piercing": true,
+  "damageDice": [
+    8
+  ],
+  "engagementDice": [
+    8
+  ],
+  "engagementSuccesses": [
+    "6",
+    "13",
+    "14"
+  ],
+  "skillMods": [],
+  "isDeleted": false,
+  "isCustom": false,
+  "artUrl": null,
+  "type": "1",
+  "subtype": "2",
+  "grade": null
+}

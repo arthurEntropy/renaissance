@@ -1,0 +1,31 @@
+{
+  "id": "7728d5cd-83b8-490a-afe8-947c6343e68c",
+  "name": "Pike",
+  "description": "Weight: 10-15. Length: 12-15.",
+  "keeping": null,
+  "source": null,
+  "weight": 10,
+  "length": 12,
+  "reach": 10,
+  "range": null,
+  "twoHanded": false,
+  "thrown": false,
+  "finesse": false,
+  "piercing": true,
+  "damageDice": [
+    12
+  ],
+  "engagementDice": [
+    12
+  ],
+  "engagementSuccesses": [
+    "14"
+  ],
+  "skillMods": [],
+  "isDeleted": false,
+  "isCustom": false,
+  "artUrl": null,
+  "type": "1",
+  "subtype": "2",
+  "grade": null
+}

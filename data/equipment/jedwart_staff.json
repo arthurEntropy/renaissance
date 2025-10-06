@@ -1,0 +1,33 @@
+{
+  "id": "f938cc0f-878f-4bca-aba3-eb48dfa6970d",
+  "name": "Jedwart Staff",
+  "description": "Weight: 4-9. Length: 5-8. Reach: 0-5.",
+  "keeping": null,
+  "source": null,
+  "weight": 4,
+  "length": 5,
+  "reach": 0,
+  "range": null,
+  "twoHanded": true,
+  "thrown": false,
+  "finesse": false,
+  "piercing": false,
+  "damageDice": [
+    8
+  ],
+  "engagementDice": [
+    8
+  ],
+  "engagementSuccesses": [
+    "1",
+    "6",
+    "11"
+  ],
+  "skillMods": [],
+  "isDeleted": false,
+  "isCustom": false,
+  "artUrl": null,
+  "type": "1",
+  "subtype": "2",
+  "grade": null
+}

@@ -1,0 +1,32 @@
+{
+  "id": "67771f83-e0b6-46a2-9fbb-7fffe9d763ac",
+  "name": "Acrobat's Pole",
+  "description": "Weight: 10-15. Length: 10-15. Reach: 5-10.",
+  "keeping": null,
+  "source": null,
+  "weight": 10,
+  "length": 10,
+  "reach": 5,
+  "range": null,
+  "twoHanded": true,
+  "thrown": false,
+  "finesse": true,
+  "piercing": false,
+  "damageDice": [
+    4
+  ],
+  "engagementDice": [
+    8
+  ],
+  "engagementSuccesses": [
+    "6",
+    "11"
+  ],
+  "skillMods": [],
+  "isDeleted": false,
+  "isCustom": false,
+  "artUrl": null,
+  "type": "1",
+  "subtype": "5",
+  "grade": null
+}

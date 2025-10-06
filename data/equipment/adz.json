@@ -1,0 +1,32 @@
+{
+  "id": "20538fb6-5046-40c4-b0bd-7c03ca2b3ed3",
+  "name": "Adz",
+  "description": "Weight: 2-5. Length: 2-3.",
+  "keeping": null,
+  "source": null,
+  "weight": 2,
+  "length": 2,
+  "reach": 0,
+  "range": null,
+  "twoHanded": false,
+  "thrown": false,
+  "finesse": false,
+  "piercing": false,
+  "damageDice": [
+    6
+  ],
+  "engagementDice": [
+    6
+  ],
+  "engagementSuccesses": [
+    "11",
+    "13"
+  ],
+  "skillMods": [],
+  "isDeleted": false,
+  "isCustom": false,
+  "artUrl": null,
+  "type": "1",
+  "subtype": "1",
+  "grade": null
+}

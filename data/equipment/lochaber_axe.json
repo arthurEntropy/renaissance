@@ -1,0 +1,33 @@
+{
+  "id": "5f569e16-5cde-4901-a408-e876262f3335",
+  "name": "Lochaber Axe",
+  "description": "Weight: 4-9. Length: 5-8. Reach: 0-5.",
+  "keeping": null,
+  "source": null,
+  "weight": 4,
+  "length": 5,
+  "reach": 0,
+  "range": null,
+  "twoHanded": true,
+  "thrown": false,
+  "finesse": false,
+  "piercing": false,
+  "damageDice": [
+    8
+  ],
+  "engagementDice": [
+    8
+  ],
+  "engagementSuccesses": [
+    "1",
+    "6",
+    "11"
+  ],
+  "skillMods": [],
+  "isDeleted": false,
+  "isCustom": false,
+  "artUrl": null,
+  "type": "1",
+  "subtype": "2",
+  "grade": null
+}

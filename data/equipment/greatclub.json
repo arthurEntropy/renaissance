@@ -1,13 +1,13 @@
 {
-  "id": "33075523-803e-406c-bcda-fd631ff85b41",
-  "name": "Longbow",
-  "description": "Weight: 3-4. Length: 4-6.",
+  "id": "0f540987-dc11-4385-880e-fe247302c9fa",
+  "name": "Greatclub",
+  "description": "Weight: 10-20. Length: 4-6.",
   "keeping": null,
   "source": null,
-  "weight": 3,
+  "weight": 10,
   "length": 4,
   "reach": 0,
-  "range": "5",
+  "range": null,
   "twoHanded": true,
   "thrown": false,
   "finesse": false,
@@ -15,13 +15,20 @@
   "damageDice": [
     12
   ],
-  "engagementDice": [],
-  "engagementSuccesses": [],
+  "engagementDice": [
+    12
+  ],
+  "engagementSuccesses": [
+    "3",
+    "6",
+    "11",
+    "13"
+  ],
   "skillMods": [],
   "isDeleted": false,
   "isCustom": false,
   "artUrl": null,
   "type": "1",
-  "subtype": "3",
+  "subtype": "1",
   "grade": null
 }

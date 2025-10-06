@@ -1,19 +1,19 @@
 {
-  "id": "33075523-803e-406c-bcda-fd631ff85b41",
-  "name": "Longbow",
-  "description": "Weight: 3-4. Length: 4-6.",
+  "id": "b7edd154-53c8-4867-a124-d3670527c021",
+  "name": "Blowpipe",
+  "description": "Weight: 1-2. Length: 3-9.",
   "keeping": null,
   "source": null,
-  "weight": 3,
-  "length": 4,
+  "weight": 1,
+  "length": 3,
   "reach": 0,
-  "range": "5",
+  "range": "3",
   "twoHanded": true,
   "thrown": false,
   "finesse": false,
   "piercing": false,
   "damageDice": [
-    12
+    4
   ],
   "engagementDice": [],
   "engagementSuccesses": [],

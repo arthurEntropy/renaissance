@@ -1,0 +1,33 @@
+{
+  "id": "a5dfa326-3d82-4ea9-bddd-3332b71f7cf8",
+  "name": "Backsword",
+  "description": "Weight: 2-3.",
+  "keeping": null,
+  "source": null,
+  "weight": 2,
+  "length": 3,
+  "reach": 0,
+  "range": null,
+  "twoHanded": false,
+  "thrown": false,
+  "finesse": false,
+  "piercing": false,
+  "damageDice": [
+    8
+  ],
+  "engagementDice": [
+    8
+  ],
+  "engagementSuccesses": [
+    "1",
+    "3",
+    "11"
+  ],
+  "skillMods": [],
+  "isDeleted": false,
+  "isCustom": false,
+  "artUrl": null,
+  "type": "1",
+  "subtype": "1",
+  "grade": null
+}

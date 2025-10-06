@@ -1,19 +1,19 @@
 {
-  "id": "33075523-803e-406c-bcda-fd631ff85b41",
-  "name": "Longbow",
-  "description": "Weight: 3-4. Length: 4-6.",
+  "id": "8df15476-9444-48e4-8a34-90206533ffc2",
+  "name": "Arbalest",
+  "description": "Weight: 10-15.",
   "keeping": null,
   "source": null,
-  "weight": 3,
-  "length": 4,
+  "weight": 10,
+  "length": 3,
   "reach": 0,
-  "range": "5",
+  "range": "4",
   "twoHanded": true,
   "thrown": false,
   "finesse": false,
-  "piercing": false,
+  "piercing": true,
   "damageDice": [
-    12
+    10
   ],
   "engagementDice": [],
   "engagementSuccesses": [],

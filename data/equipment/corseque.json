@@ -1,0 +1,33 @@
+{
+  "id": "1a4b8e32-4fd5-4eee-b1ba-bdcff70127a3",
+  "name": "Corseque",
+  "description": "Weight: 3-7. Length: 7-10.",
+  "keeping": null,
+  "source": null,
+  "weight": 3,
+  "length": 7,
+  "reach": 0,
+  "range": null,
+  "twoHanded": true,
+  "thrown": false,
+  "finesse": false,
+  "piercing": true,
+  "damageDice": [
+    8
+  ],
+  "engagementDice": [
+    8
+  ],
+  "engagementSuccesses": [
+    "1",
+    "12",
+    "14"
+  ],
+  "skillMods": [],
+  "isDeleted": false,
+  "isCustom": false,
+  "artUrl": null,
+  "type": "1",
+  "subtype": "2",
+  "grade": null
+}

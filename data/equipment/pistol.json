@@ -1,19 +1,19 @@
 {
-  "id": "33075523-803e-406c-bcda-fd631ff85b41",
-  "name": "Longbow",
-  "description": "Weight: 3-4. Length: 4-6.",
+  "id": "401f2969-13ed-415e-bd7a-2c121f592138",
+  "name": "Pistol",
+  "description": "Length: 1-2.",
   "keeping": null,
   "source": null,
-  "weight": 3,
-  "length": 4,
+  "weight": 1,
+  "length": 1,
   "reach": 0,
-  "range": "5",
-  "twoHanded": true,
+  "range": "2",
+  "twoHanded": false,
   "thrown": false,
   "finesse": false,
-  "piercing": false,
+  "piercing": true,
   "damageDice": [
-    12
+    6
   ],
   "engagementDice": [],
   "engagementSuccesses": [],
@@ -22,6 +22,6 @@
   "isCustom": false,
   "artUrl": null,
   "type": "1",
-  "subtype": "3",
+  "subtype": "4",
   "grade": null
 }
