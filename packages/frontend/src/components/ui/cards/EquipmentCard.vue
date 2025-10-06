@@ -2,8 +2,8 @@
   <base-card v-bind="$attrs" :item="equipment" itemType="equipment" :metaInfo="equipment.weight
     ? `${equipment.weight} ${equipment.weight === 1 ? 'lb' : 'lbs'}`
     : ''
-    " :storeInstance="equipmentStore" :collapsed="collapsed" :editable="editable" :duplicatable="editable" :showSource="showSource"
-    @edit="$emit('edit', equipment)" @duplicate="handleDuplicate" :collapsible="collapsible">
+    " :storeInstance="equipmentStore" :collapsed="collapsed" :editable="editable" :duplicatable="editable"
+    :showSource="showSource" @edit="$emit('edit', equipment)" @duplicate="handleDuplicate" :collapsible="collapsible">
 
     <!-- Add to character overlay -->
     <AddToCharacterButton v-if="equipment && showAddToCharacter" :item="equipment" type="equipment"
@@ -248,16 +248,16 @@ const handleDuplicate = async () => {
     // Create a copy of the equipment data without the id
     const duplicateData = { ...props.equipment }
     delete duplicateData.id
-    
+
     // Modify the name to indicate it's a copy
     duplicateData.name = `${duplicateData.name} (Copy)`
-    
+
     // Create the duplicate using the equipment service
     const newEquipment = await EquipmentService.create(duplicateData)
-    
+
     // Emit the duplicate event so parent components can handle it (like refreshing lists)
     emit('duplicate', newEquipment)
-    
+
     console.log('Equipment duplicated successfully:', newEquipment)
   } catch (error) {
     console.error('Error duplicating equipment:', error)

@@ -4,8 +4,8 @@
 
     <!-- Floating Action Buttons -->
     <div v-if="editable || duplicatable" class="floating-buttons">
-      <DuplicateButton v-if="duplicatable" @click.stop="$emit('duplicate', item)" :title="`Duplicate ${itemType}`" size="small"
-        visibility="on-hover" class="duplicate-button-floating" />
+      <DuplicateButton v-if="duplicatable" @click.stop="$emit('duplicate', item)" :title="`Duplicate ${itemType}`"
+        size="small" visibility="on-hover" class="duplicate-button-floating" />
       <EditButton v-if="editable" @click.stop="$emit('edit', item)" :title="`Edit ${itemType}`" size="small"
         visibility="on-hover" class="edit-button-floating" />
     </div>
