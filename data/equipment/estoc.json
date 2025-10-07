@@ -1,7 +1,7 @@
 {
-  "id": "dc289482-6365-41f1-8a23-95a90d5458c3",
-  "name": "Estoc",
-  "description": "Weight: 4-6. Length: 3-4.",
+  "id": "eea82a51-3e52-43aa-b985-f5748fc2176f",
+  "name": "ªEstoc",
+  "description": "Weight: 4-6. Length: 3-4",
   "keeping": null,
   "source": null,
   "weight": 4,
@@ -25,5 +25,5 @@
   "artUrl": null,
   "type": "1",
   "subtype": "1",
-  "grade": null
+  "grade": "4"
 }

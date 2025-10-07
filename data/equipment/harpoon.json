@@ -1,7 +1,7 @@
 {
-  "id": "efbb606a-78a2-4fa7-90bd-e226c65c1d8b",
-  "name": "Harpoon",
-  "description": "Weight: 5-7. Length: 4-6.",
+  "id": "26620522-f435-4704-bb6f-a50b52041173",
+  "name": "ªHarpoon",
+  "description": "Weight: 5-7. Length: 4-6",
   "keeping": null,
   "source": null,
   "weight": 5,
@@ -25,5 +25,5 @@
   "artUrl": null,
   "type": "1",
   "subtype": "2",
-  "grade": null
+  "grade": "2"
 }

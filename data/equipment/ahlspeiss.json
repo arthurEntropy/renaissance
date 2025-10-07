@@ -1,7 +1,7 @@
 {
-  "id": "b8842bd0-9ec0-433f-b5c3-c7f0cc39dc8e",
-  "name": "Ahlspeiss",
-  "description": "Weight: 6-10. Length: 7-10.",
+  "id": "ed2d6136-d371-4364-805c-9049c9fee61d",
+  "name": "ªAhlspeiss",
+  "description": "Weight: 6-10. Length: 7-10",
   "keeping": null,
   "source": null,
   "weight": 6,
@@ -19,9 +19,9 @@
     8
   ],
   "engagementSuccesses": [
-    "6",
     "13",
-    "14"
+    "14",
+    "6"
   ],
   "skillMods": [],
   "isDeleted": false,
@@ -29,5 +29,5 @@
   "artUrl": null,
   "type": "1",
   "subtype": "2",
-  "grade": null
+  "grade": "3"
 }

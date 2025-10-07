@@ -1,7 +1,7 @@
 {
-  "id": "120c6309-dded-4b71-8dd1-f8106535cc4c",
-  "name": "Crossbow",
-  "description": "Weight: 5-10.",
+  "id": "2fac397a-a8fa-4c29-a617-4a6a5e39c8c9",
+  "name": "ªCrossbow",
+  "description": "Weight: 5-10",
   "keeping": null,
   "source": null,
   "weight": 5,
@@ -23,5 +23,5 @@
   "artUrl": null,
   "type": "1",
   "subtype": "3",
-  "grade": null
+  "grade": "3"
 }

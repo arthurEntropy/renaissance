@@ -1,7 +1,7 @@
 {
-  "id": "8552eeec-b24d-4d6b-8b5f-30cc67c25eef",
-  "name": "Longsword",
-  "description": "Weight: 5-7. Length: 3-5.",
+  "id": "572d3dd3-6ee1-4745-a761-46c3cae1c71f",
+  "name": "ªLongsword",
+  "description": "Weight: 5-7. Length: 3-5",
   "keeping": null,
   "source": null,
   "weight": 5,
@@ -20,9 +20,9 @@
   ],
   "engagementSuccesses": [
     "1",
+    "11",
     "3",
-    "6",
-    "11"
+    "6"
   ],
   "skillMods": [],
   "isDeleted": false,
@@ -30,5 +30,5 @@
   "artUrl": null,
   "type": "1",
   "subtype": "1",
-  "grade": null
+  "grade": "4"
 }

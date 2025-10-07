@@ -1,7 +1,7 @@
 {
-  "id": "1a4b8e32-4fd5-4eee-b1ba-bdcff70127a3",
-  "name": "Corseque",
-  "description": "Weight: 3-7. Length: 7-10.",
+  "id": "68c1813a-a233-4252-bbda-ca81c001fa16",
+  "name": "ªCorseque",
+  "description": "Weight: 3-7. Length: 7-10",
   "keeping": null,
   "source": null,
   "weight": 3,
@@ -29,5 +29,5 @@
   "artUrl": null,
   "type": "1",
   "subtype": "2",
-  "grade": null
+  "grade": "3"
 }

@@ -1,7 +1,7 @@
 {
-  "id": "7bf77019-9b40-4b91-bcc1-4d8449af982f",
-  "name": "Hand Axe",
-  "description": "Weight: 1-2. Length: 1-2.",
+  "id": "6c670415-86d0-4294-8103-0d65aaf566c8",
+  "name": "ªHand Axe",
+  "description": "Weight: 1-2. Length: 1-2",
   "keeping": null,
   "source": null,
   "weight": 1,
@@ -25,5 +25,5 @@
   "artUrl": null,
   "type": "1",
   "subtype": "1",
-  "grade": null
+  "grade": "1"
 }

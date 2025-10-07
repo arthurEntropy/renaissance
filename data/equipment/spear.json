@@ -1,7 +1,7 @@
 {
-  "id": "3618c01e-d3ca-42a4-b1b2-6b7a57ea0ebc",
-  "name": "Spear",
-  "description": "Weight: 4-7. Length: 6-9.",
+  "id": "7fd1d1e2-39b1-4ce9-b408-adf919f21d78",
+  "name": "ªSpear",
+  "description": "Weight: 4-7. Length: 6-9",
   "keeping": null,
   "source": null,
   "weight": 4,
@@ -27,5 +27,5 @@
   "artUrl": null,
   "type": "1",
   "subtype": "2",
-  "grade": null
+  "grade": "3"
 }

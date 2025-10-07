@@ -1,7 +1,7 @@
 {
-  "id": "e2237e1e-3180-47e4-8ef9-cc4ce4b6e372",
-  "name": "Javelin",
-  "description": "Weight: 2-5. Length: 5-8.",
+  "id": "5ea94fa2-cd57-41e6-9c3e-3db0928c7976",
+  "name": "ªJavelin",
+  "description": "Weight: 2-5. Length: 5-8",
   "keeping": null,
   "source": null,
   "weight": 2,
@@ -23,5 +23,5 @@
   "artUrl": null,
   "type": "1",
   "subtype": "3",
-  "grade": null
+  "grade": "3"
 }

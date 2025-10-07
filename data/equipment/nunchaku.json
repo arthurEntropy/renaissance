@@ -1,7 +1,7 @@
 {
-  "id": "d0baaf02-3e67-4000-8f04-4a9e59e45ff2",
-  "name": "Nunchaku",
-  "description": "Weight: 2-3.",
+  "id": "a1b536a6-3e00-46b5-aaaf-50b89b960f2c",
+  "name": "ªNunchaku",
+  "description": "Weight: 2-3",
   "keeping": null,
   "source": null,
   "weight": 2,
@@ -12,10 +12,9 @@
   "thrown": false,
   "finesse": true,
   "piercing": false,
-  "damageDice": [
-    1
-  ],
+  "damageDice": [],
   "engagementDice": [
+    4,
     4
   ],
   "engagementSuccesses": [
@@ -27,5 +26,5 @@
   "artUrl": null,
   "type": "1",
   "subtype": "5",
-  "grade": null
+  "grade": "1"
 }

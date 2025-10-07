@@ -1,7 +1,7 @@
 {
-  "id": "7148ad25-4e14-4686-afca-7dfe1a516a0d",
-  "name": "Billhook",
-  "description": "Weight: 4-6. Length: 6-9.",
+  "id": "877fea16-4326-48dd-9a40-035a4c677373",
+  "name": "ªBillhook",
+  "description": "Weight: 4-6. Length: 6-9",
   "keeping": null,
   "source": null,
   "weight": 4,
@@ -30,5 +30,5 @@
   "artUrl": null,
   "type": "1",
   "subtype": "2",
-  "grade": null
+  "grade": "3"
 }

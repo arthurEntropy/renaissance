@@ -1,7 +1,7 @@
 {
-  "id": "565fcded-464e-48ba-ad35-3146fdd71531",
-  "name": "Cudgel",
-  "description": "Weight: 2-4. Length: 2-3.",
+  "id": "1dd7bbb3-5e7a-44e6-a552-f044dc3a3af0",
+  "name": "ªCudgel",
+  "description": "Weight: 2-4. Length: 2-3",
   "keeping": null,
   "source": null,
   "weight": 2,
@@ -27,5 +27,5 @@
   "artUrl": null,
   "type": "1",
   "subtype": "1",
-  "grade": null
+  "grade": "2"
 }

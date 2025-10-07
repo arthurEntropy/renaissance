@@ -1,7 +1,7 @@
 {
-  "id": "e73e6f44-6dc3-471c-8646-65fc10b25b2a",
-  "name": "Dueling Shield",
-  "description": "Weight: 5-6. Length: 2-3. Shield.",
+  "id": "274a7dda-0867-41c6-8b0a-6e7665cac125",
+  "name": "ªDueling Shield",
+  "description": "Weight: 5-6. Length: 2-3. Shield",
   "keeping": null,
   "source": null,
   "weight": 5,
@@ -27,5 +27,5 @@
   "artUrl": null,
   "type": "1",
   "subtype": "1",
-  "grade": null
+  "grade": "3"
 }

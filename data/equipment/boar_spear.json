@@ -1,7 +1,7 @@
 {
-  "id": "4f7a82ff-941b-4310-85fb-7d7ae1c81e95",
-  "name": "Boar Spear",
-  "description": "Weight: 2-5. Length: 5-7.",
+  "id": "6a8965fb-b341-4dcd-a199-10349855a6e6",
+  "name": "ªBoar Spear",
+  "description": "Weight: 2-5. Length: 5-7",
   "keeping": null,
   "source": null,
   "weight": 2,
@@ -27,5 +27,5 @@
   "artUrl": null,
   "type": "1",
   "subtype": "2",
-  "grade": null
+  "grade": "2"
 }

@@ -1,7 +1,7 @@
 {
-  "id": "6fa784c0-5118-4737-b7d8-fd4218bfca18",
-  "name": "Blowgun",
-  "description": "Weight: 1-2. Length: 3-9.",
+  "id": "4f19a73d-7830-4c9f-8425-f9f56b52053b",
+  "name": "ªBlowgun",
+  "description": "Weight: 1-2. Length: 3-9",
   "keeping": null,
   "source": null,
   "weight": 1,
@@ -23,5 +23,5 @@
   "artUrl": null,
   "type": "1",
   "subtype": "3",
-  "grade": null
+  "grade": "1"
 }

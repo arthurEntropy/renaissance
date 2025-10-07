@@ -1,7 +1,7 @@
 {
-  "id": "dd485601-9a27-464a-97ea-58ed0cfc3b00",
-  "name": "Hand Crossbow",
-  "description": "Length: 1-2.",
+  "id": "e76aa5a9-c1b4-4bad-819f-68883d6f6628",
+  "name": "ªHand Crossbow",
+  "description": "Length: 1-2",
   "keeping": null,
   "source": null,
   "weight": 5,
@@ -23,5 +23,5 @@
   "artUrl": null,
   "type": "1",
   "subtype": "3",
-  "grade": null
+  "grade": "2"
 }

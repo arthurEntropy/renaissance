@@ -1,7 +1,7 @@
 {
-  "id": "5fb8ad25-cb01-4872-a749-474e07692539",
-  "name": "Kusarigama",
-  "description": "Weight: 2-4. Length: 5-15. Reach: 0-10.",
+  "id": "262940d9-566b-4b4e-bcfb-843d8a3f9095",
+  "name": "ªKusarigama",
+  "description": "Weight: 2-4. Length: 5-15",
   "keeping": null,
   "source": null,
   "weight": 2,
@@ -20,8 +20,8 @@
   ],
   "engagementSuccesses": [
     "1",
-    "3",
-    "12"
+    "12",
+    "3"
   ],
   "skillMods": [],
   "isDeleted": false,
@@ -29,5 +29,5 @@
   "artUrl": null,
   "type": "1",
   "subtype": "5",
-  "grade": null
+  "grade": "3"
 }

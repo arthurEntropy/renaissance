@@ -1,7 +1,7 @@
 {
-  "id": "ea68a7ed-5b2e-4b89-aa19-4034ec51dbef",
-  "name": "Glaive",
-  "description": "Weight: 4-6. Length: 6-9.",
+  "id": "8d581a69-30f4-494f-ae42-efee12f54477",
+  "name": "ªGlaive",
+  "description": "Weight: 4-6. Length: 6-9",
   "keeping": null,
   "source": null,
   "weight": 4,
@@ -30,5 +30,5 @@
   "artUrl": null,
   "type": "1",
   "subtype": "2",
-  "grade": null
+  "grade": "3"
 }

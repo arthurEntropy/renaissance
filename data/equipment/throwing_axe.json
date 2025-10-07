@@ -1,7 +1,7 @@
 {
-  "id": "35fbb227-0f2d-4780-8bb4-d8053d12ba4e",
-  "name": "Throwing Axe",
-  "description": "Weight: 1-2. Length: 1-2.",
+  "id": "0f6e0b59-f29e-4beb-885b-6bd3acb3eb6d",
+  "name": "ªThrowing Axe",
+  "description": "Weight: 1-2. Length: 1-2",
   "keeping": null,
   "source": null,
   "weight": 1,
@@ -25,5 +25,5 @@
   "artUrl": null,
   "type": "1",
   "subtype": "1",
-  "grade": null
+  "grade": "1"
 }

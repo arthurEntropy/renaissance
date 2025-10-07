@@ -1,7 +1,7 @@
 {
-  "id": "d8a8dcb7-045d-4734-8632-2d3a4f363fec",
-  "name": "Broadsword",
-  "description": "Weight: 5-7. Length: 3-5.",
+  "id": "6ec19662-0f5e-477c-85fd-1f63ceaff294",
+  "name": "ªBroadsword",
+  "description": "Weight: 5-7. Length: 3-5",
   "keeping": null,
   "source": null,
   "weight": 5,
@@ -20,9 +20,9 @@
   ],
   "engagementSuccesses": [
     "1",
+    "11",
     "3",
-    "6",
-    "11"
+    "6"
   ],
   "skillMods": [],
   "isDeleted": false,
@@ -30,5 +30,5 @@
   "artUrl": null,
   "type": "1",
   "subtype": "1",
-  "grade": null
+  "grade": "4"
 }

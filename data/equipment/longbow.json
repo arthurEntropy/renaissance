@@ -1,7 +1,7 @@
 {
-  "id": "33075523-803e-406c-bcda-fd631ff85b41",
-  "name": "Longbow",
-  "description": "Weight: 3-4. Length: 4-6.",
+  "id": "6af1122e-84a6-4577-a0d3-8c64a0c33b96",
+  "name": "ªLongbow",
+  "description": "Weight: 3-4. Length: 4-6",
   "keeping": null,
   "source": null,
   "weight": 3,
@@ -23,5 +23,5 @@
   "artUrl": null,
   "type": "1",
   "subtype": "3",
-  "grade": null
+  "grade": "5"
 }

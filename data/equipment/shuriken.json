@@ -1,6 +1,6 @@
 {
-  "id": "54c0d4a5-b536-47c2-bef6-3ccacb3dfa8d",
-  "name": "Shuriken",
+  "id": "b8c0af0c-6267-4cc0-a545-cd182c21ea76",
+  "name": "ªShuriken",
   "description": "",
   "keeping": null,
   "source": null,
@@ -23,5 +23,5 @@
   "artUrl": null,
   "type": "1",
   "subtype": "5",
-  "grade": null
+  "grade": "1"
 }

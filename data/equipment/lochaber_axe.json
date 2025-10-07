@@ -1,7 +1,7 @@
 {
-  "id": "5f569e16-5cde-4901-a408-e876262f3335",
-  "name": "Lochaber Axe",
-  "description": "Weight: 4-9. Length: 5-8. Reach: 0-5.",
+  "id": "6b4c0653-9ebe-4d9f-8362-5645b7744012",
+  "name": "ªLochaber Axe",
+  "description": "Weight: 4-9. Length: 5-8",
   "keeping": null,
   "source": null,
   "weight": 4,
@@ -20,8 +20,8 @@
   ],
   "engagementSuccesses": [
     "1",
-    "6",
-    "11"
+    "11",
+    "6"
   ],
   "skillMods": [],
   "isDeleted": false,
@@ -29,5 +29,5 @@
   "artUrl": null,
   "type": "1",
   "subtype": "2",
-  "grade": null
+  "grade": "3"
 }

@@ -1,7 +1,7 @@
 {
-  "id": "e87fc13c-8780-454c-a3f9-205d2d485c26",
-  "name": "Executioner Sword",
-  "description": "Weight: 5-7. Length: 3-5.",
+  "id": "019426e9-8171-4e1d-a5be-ec355238e9b6",
+  "name": "ªExecutioner Sword",
+  "description": "Weight: 5-7. Length: 3-5",
   "keeping": null,
   "source": null,
   "weight": 5,
@@ -20,9 +20,9 @@
   ],
   "engagementSuccesses": [
     "1",
+    "11",
     "3",
-    "6",
-    "11"
+    "6"
   ],
   "skillMods": [],
   "isDeleted": false,
@@ -30,5 +30,5 @@
   "artUrl": null,
   "type": "1",
   "subtype": "1",
-  "grade": null
+  "grade": "4"
 }

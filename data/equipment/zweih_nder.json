@@ -1,7 +1,7 @@
 {
-  "id": "31d7696e-0e5c-451e-9a9c-836a16d5e72c",
-  "name": "Zweihänder",
-  "description": "Weight: 5-7. Length: 3-5.",
+  "id": "95ccd9e2-2701-4060-80af-265b5b3b7647",
+  "name": "ªZweihänder",
+  "description": "Weight: 5-7. Length: 3-5",
   "keeping": null,
   "source": null,
   "weight": 5,
@@ -20,9 +20,9 @@
   ],
   "engagementSuccesses": [
     "1",
+    "11",
     "3",
-    "6",
-    "11"
+    "6"
   ],
   "skillMods": [],
   "isDeleted": false,
@@ -30,5 +30,5 @@
   "artUrl": null,
   "type": "1",
   "subtype": "1",
-  "grade": null
+  "grade": "4"
 }

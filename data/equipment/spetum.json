@@ -1,7 +1,7 @@
 {
-  "id": "e7c0163e-8902-4ea5-ade7-aad60ca3b8c6",
-  "name": "Spetum",
-  "description": "Weight: 4-6. Length: 6-9.",
+  "id": "0843edad-eac4-425a-80bf-e5df5f7a1dd3",
+  "name": "ªSpetum",
+  "description": "Weight: 4-6. Length: 6-9",
   "keeping": null,
   "source": null,
   "weight": 4,
@@ -30,5 +30,5 @@
   "artUrl": null,
   "type": "1",
   "subtype": "2",
-  "grade": null
+  "grade": "3"
 }

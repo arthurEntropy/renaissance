@@ -1,33 +1,32 @@
 {
-  "id": "2a36b742-44f5-4515-87d2-1ab657a2962a",
-  "name": "Awl-Pike",
-  "description": "Weight: 6-10. Length: 7-10.",
+  "id": "b6fbf316-90b1-4514-8125-d8fb57a468ca",
+  "name": "ªAcrobat's Pole",
+  "description": "Weight: 10-15. Length: 10-15",
   "keeping": null,
   "source": null,
-  "weight": 6,
-  "length": 7,
+  "weight": 10,
+  "length": 10,
   "reach": 5,
   "range": null,
   "twoHanded": true,
   "thrown": false,
-  "finesse": false,
-  "piercing": true,
+  "finesse": true,
+  "piercing": false,
   "damageDice": [
-    8
+    4
   ],
   "engagementDice": [
     8
   ],
   "engagementSuccesses": [
-    "6",
-    "13",
-    "14"
+    "11",
+    "6"
   ],
   "skillMods": [],
   "isDeleted": false,
   "isCustom": false,
   "artUrl": null,
   "type": "1",
-  "subtype": "2",
-  "grade": null
+  "subtype": "5",
+  "grade": "4"
 }

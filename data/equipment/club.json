@@ -1,7 +1,7 @@
 {
-  "id": "d6eadc46-8759-4b27-a865-e7473c6c7f22",
-  "name": "Club",
-  "description": "Weight: 2-4. Length: 2-3.",
+  "id": "d588f665-f1fc-43f9-bba9-b7ff79efeeb3",
+  "name": "ªClub",
+  "description": "Weight: 2-4. Length: 2-3",
   "keeping": null,
   "source": null,
   "weight": 2,
@@ -27,5 +27,5 @@
   "artUrl": null,
   "type": "1",
   "subtype": "1",
-  "grade": null
+  "grade": "2"
 }

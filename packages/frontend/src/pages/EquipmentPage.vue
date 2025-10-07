@@ -84,7 +84,7 @@ const sources = sourcesStore.sources
 
 // Reactive state
 const layoutRef = ref(null)
-const sortOption = ref('')
+const sortOption = ref('name-asc')
 const searchQuery = ref('')
 const sourceFilter = ref('')
 const typeFilter = ref('')

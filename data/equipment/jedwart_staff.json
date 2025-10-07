@@ -1,7 +1,7 @@
 {
-  "id": "f938cc0f-878f-4bca-aba3-eb48dfa6970d",
-  "name": "Jedwart Staff",
-  "description": "Weight: 4-9. Length: 5-8. Reach: 0-5.",
+  "id": "6544b3cd-5220-43a2-9988-be04ee6bcbac",
+  "name": "ªJedwart Staff",
+  "description": "Weight: 4-9. Length: 5-8",
   "keeping": null,
   "source": null,
   "weight": 4,
@@ -20,8 +20,8 @@
   ],
   "engagementSuccesses": [
     "1",
-    "6",
-    "11"
+    "11",
+    "6"
   ],
   "skillMods": [],
   "isDeleted": false,
@@ -29,5 +29,5 @@
   "artUrl": null,
   "type": "1",
   "subtype": "2",
-  "grade": null
+  "grade": "3"
 }

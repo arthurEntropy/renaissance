@@ -1,7 +1,7 @@
 {
-  "id": "a2edc352-a0eb-4d47-9ab3-74b7fdcaa032",
-  "name": "Voulge",
-  "description": "Weight: 4-6. Length: 6-9.",
+  "id": "3f50aac5-5a7f-4765-8b8d-5cb441ce3d0e",
+  "name": "ªVoulge",
+  "description": "Weight: 4-6. Length: 6-9",
   "keeping": null,
   "source": null,
   "weight": 4,
@@ -30,5 +30,5 @@
   "artUrl": null,
   "type": "1",
   "subtype": "2",
-  "grade": null
+  "grade": "3"
 }

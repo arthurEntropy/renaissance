@@ -1,7 +1,7 @@
 {
-  "id": "20538fb6-5046-40c4-b0bd-7c03ca2b3ed3",
-  "name": "Adz",
-  "description": "Weight: 2-5. Length: 2-3.",
+  "id": "9f6f8464-6dd0-479a-b347-6c6729afbaaf",
+  "name": "ªAdz",
+  "description": "Weight: 2-5. Length: 2-3",
   "keeping": null,
   "source": null,
   "weight": 2,
@@ -28,5 +28,5 @@
   "artUrl": null,
   "type": "1",
   "subtype": "1",
-  "grade": null
+  "grade": "2"
 }

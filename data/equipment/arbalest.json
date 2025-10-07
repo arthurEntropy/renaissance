@@ -1,7 +1,7 @@
 {
-  "id": "8df15476-9444-48e4-8a34-90206533ffc2",
-  "name": "Arbalest",
-  "description": "Weight: 10-15.",
+  "id": "227bbbdb-894b-4f0a-b3e8-25333382fb33",
+  "name": "ªArbalest",
+  "description": "Weight: 10-15",
   "keeping": null,
   "source": null,
   "weight": 10,
@@ -23,5 +23,5 @@
   "artUrl": null,
   "type": "1",
   "subtype": "3",
-  "grade": null
+  "grade": "4"
 }

@@ -1,7 +1,7 @@
 {
-  "id": "4a2e1262-1d29-4cba-a98b-8e897ce56952",
-  "name": "Sling",
-  "description": "Length: 1-2.",
+  "id": "d752f93f-7b22-465c-95c7-99ddebdf1a37",
+  "name": "ªSling",
+  "description": "Length: 1-2",
   "keeping": null,
   "source": null,
   "weight": 3,
@@ -23,5 +23,5 @@
   "artUrl": null,
   "type": "1",
   "subtype": "3",
-  "grade": null
+  "grade": "1"
 }
