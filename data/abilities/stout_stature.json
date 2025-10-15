@@ -1,7 +1,7 @@
 {
   "id": "22b1ec3d-59a4-4cac-98a1-98a2286e9520",
   "name": "Stout Stature",
-  "description": "<p>When calculating Load, halve the total weight of all gear you're carrying, rounded up. Describe how you bear up under the weight.</p>",
+  "description": "<p><em>Your wide frame bears burdens with ease.</em></p><p>When calculating Load, halve the total weight of all gear you're carrying, rounded up.</p><p><strong>Describe how you bear up under the weight.</strong></p>",
   "isTrait": true,
   "canBeActive": false,
   "isActive": true,

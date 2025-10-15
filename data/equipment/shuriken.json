@@ -1,0 +1,27 @@
+{
+  "id": "b8c0af0c-6267-4cc0-a545-cd182c21ea76",
+  "name": "ªShuriken",
+  "description": "",
+  "keeping": null,
+  "source": null,
+  "weight": 1,
+  "length": 1,
+  "reach": 0,
+  "range": "3",
+  "twoHanded": false,
+  "thrown": true,
+  "finesse": true,
+  "piercing": false,
+  "damageDice": [
+    4
+  ],
+  "engagementDice": [],
+  "engagementSuccesses": [],
+  "skillMods": [],
+  "isDeleted": false,
+  "isCustom": false,
+  "artUrl": null,
+  "type": "1",
+  "subtype": "5",
+  "grade": "1"
+}

@@ -2,8 +2,8 @@
   <base-card v-bind="$attrs" :item="equipment" itemType="equipment" :metaInfo="equipment.weight
     ? `${equipment.weight} ${equipment.weight === 1 ? 'lb' : 'lbs'}`
     : ''
-    " :storeInstance="equipmentStore" :collapsed="collapsed" :editable="editable" :showSource="showSource"
-    @edit="$emit('edit', equipment)" :collapsible="collapsible">
+    " :storeInstance="equipmentStore" :collapsed="collapsed" :editable="editable" :duplicatable="editable"
+    :showSource="showSource" @edit="$emit('edit', equipment)" @duplicate="handleDuplicate" :collapsible="collapsible">
 
     <!-- Add to character overlay -->
     <AddToCharacterButton v-if="equipment && showAddToCharacter" :item="equipment" type="equipment"
@@ -18,7 +18,7 @@
 
     <!-- Expandable image -->
     <template #image>
-      <div v-if="showLargeImage" class="large-image-container" @click.stop="toggleImage">
+      <div v-if="showLargeImage && equipment.artUrl" class="large-image-container" @click.stop="toggleImage">
         <img :src="equipment.artUrl" :alt="equipment.name" class="large-image" />
       </div>
     </template>
@@ -27,26 +27,34 @@
     <template #description>
       <!-- Art and Description Row -->
       <div class="content-wrapper">
-        <div class="art-and-keeping" v-if="!showLargeImage">
+        <div class="art-and-keeping" v-if="!showLargeImage && equipment.artUrl">
           <div class="small-image-container" @click.stop="toggleImage">
-            <img v-if="equipment.artUrl" :src="equipment.artUrl" :alt="equipment.name" class="equipment-image" />
+            <img :src="equipment.artUrl" :alt="equipment.name" class="equipment-image" />
           </div>
         </div>
         <!-- Description section - show if available -->
         <div class="content-sections">
+          <!-- Equipment Properties -->
+          <div v-if="equipmentPropertiesDisplay" class="equipment-properties">
+            <em>{{ equipmentPropertiesDisplay }}</em>
+          </div>
+
           <CardDescription v-if="equipment.description" :content="equipment.description">
             <!-- No badge in CardDescription for EquipmentCard - use BaseCard badges slot instead -->
           </CardDescription>
-          <!-- Dice section - show independently if it's a melee weapon -->
-          <template v-if="equipment.isMelee">
+          <!-- Dice section - show independently if it's a weapon -->
+          <template v-if="isWeapon(equipment)">
             <div class="dice-description-row">
               <div class="dice-section">
                 <div class="dice-section-background">
                   <span class="dice-label">Engagement</span>
                   <div class="dice-icons">
-                    <span v-for="die in equipment.engagementDice" :key="'engagement-' + die" class="dice-icon">
-                      <i :class="getDiceFontMaxClass(die)"></i>
-                    </span>
+                    <template v-if="equipment.engagementDice && equipment.engagementDice.length > 0">
+                      <span v-for="die in equipment.engagementDice" :key="'engagement-' + die" class="dice-icon">
+                        <i :class="getDiceFontMaxClass(die)"></i>
+                      </span>
+                    </template>
+                    <span v-else class="dice-none">none</span>
                   </div>
                 </div>
               </div>
@@ -91,7 +99,9 @@ import CardDescription from '@/components/ui/cards/CardDescription.vue'
 import AddToCharacterButton from '@/components/ui/cards/AddToCharacterButton.vue'
 import SuccessChip from '@/components/ui/chips/SuccessChip.vue'
 import EngagementSuccessService from '@/services/engagementSuccessService'
+import EquipmentService from '@/services/equipmentService'
 import { getDiceFontMaxClass } from '@shared/utils/diceFontUtils'
+import { isWeapon } from '@shared/utils/equipmentUtils'
 import { useCharacterManagement } from '@/composables/useCharacterManagement'
 
 defineOptions({
@@ -133,7 +143,7 @@ const props = defineProps({
   },
 })
 
-const emit = defineEmits(['edit', 'delete', 'send-to-chat', 'height-changed', 'update:art-expanded'])
+const emit = defineEmits(['edit', 'duplicate', 'delete', 'send-to-chat', 'height-changed', 'update:art-expanded'])
 
 // Store
 const equipmentStore = useEquipmentStore()
@@ -163,7 +173,49 @@ const equipmentCategoryDisplay = computed(() => {
   return display || null
 })
 
-// Reactive state
+const equipmentPropertiesDisplay = computed(() => {
+  const sections = []
+
+  // Add length if greater than 0
+  if (props.equipment.length > 0) {
+    sections.push(`Length: ${props.equipment.length} ft`)
+  }
+
+  // Add reach if greater than 0
+  if (props.equipment.reach > 0) {
+    sections.push(`Reach: ${props.equipment.reach}`)
+  }
+
+  // Add range if set (name only, without distance)
+  if (props.equipment.range) {
+    const range = equipmentCategoriesStore.getEquipmentRangeById(props.equipment.range)
+    if (range) {
+      sections.push(`Range: ${range.name}`)
+    }
+  }
+
+  // Group weapon properties together
+  const weaponProperties = []
+  if (props.equipment.twoHanded) {
+    weaponProperties.push('Two-Handed')
+  }
+  if (props.equipment.thrown) {
+    weaponProperties.push('Thrown')
+  }
+  if (props.equipment.finesse) {
+    weaponProperties.push('Finesse')
+  }
+  if (props.equipment.piercing) {
+    weaponProperties.push('Piercing')
+  }
+
+  // Add weapon properties as a single section if any exist
+  if (weaponProperties.length > 0) {
+    sections.push(weaponProperties.join(', '))
+  }
+
+  return sections.length > 0 ? sections.join('  |  ') : null
+})// Reactive state
 const engagementSuccesses = ref([])
 const showLargeImage = ref(props.artExpanded)
 
@@ -188,6 +240,27 @@ const fetchEngagementSuccesses = async () => {
   } catch (error) {
     console.error('Error fetching engagement successes:', error)
     engagementSuccesses.value = []
+  }
+}
+
+const handleDuplicate = async () => {
+  try {
+    // Create a copy of the equipment data without the id
+    const duplicateData = { ...props.equipment }
+    delete duplicateData.id
+
+    // Modify the name to indicate it's a copy
+    duplicateData.name = `${duplicateData.name} (Copy)`
+
+    // Create the duplicate using the equipment service
+    const newEquipment = await EquipmentService.create(duplicateData)
+
+    // Emit the duplicate event so parent components can handle it (like refreshing lists)
+    emit('duplicate', newEquipment)
+
+    console.log('Equipment duplicated successfully:', newEquipment)
+  } catch (error) {
+    console.error('Error duplicating equipment:', error)
   }
 }
 
@@ -312,5 +385,21 @@ onMounted(async () => {
   display: flex;
   flex-direction: column;
   gap: var(--space-md);
+}
+
+.equipment-properties {
+  font-size: var(--font-size-12);
+  color: var(--color-text-primary);
+  text-shadow: var(--text-shadow-outline);
+  text-align: center;
+}
+
+.dice-none {
+  color: var(--color-text-secondary);
+  font-style: italic;
+  font-size: var(--font-size-12);
+  display: flex;
+  align-items: center;
+  height: 36px;
 }
 </style>

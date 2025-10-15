@@ -1,0 +1,33 @@
+{
+  "id": "0a86fc6b-2b46-4eea-a112-a29baedf0e7f",
+  "name": "ªBardiche",
+  "description": "Weight: 4-9. Length: 5-8",
+  "keeping": null,
+  "source": null,
+  "weight": 4,
+  "length": 5,
+  "reach": 0,
+  "range": null,
+  "twoHanded": true,
+  "thrown": false,
+  "finesse": false,
+  "piercing": false,
+  "damageDice": [
+    8
+  ],
+  "engagementDice": [
+    8
+  ],
+  "engagementSuccesses": [
+    "1",
+    "11",
+    "6"
+  ],
+  "skillMods": [],
+  "isDeleted": false,
+  "isCustom": false,
+  "artUrl": null,
+  "type": "1",
+  "subtype": "2",
+  "grade": "3"
+}

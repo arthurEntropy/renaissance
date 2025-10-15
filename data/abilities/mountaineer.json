@@ -1,7 +1,7 @@
 {
   "id": "0f5e0bb0-8f8d-4725-9e2f-9a57781e327b",
   "name": "Mountaineer",
-  "description": "<p><em>You are at home in the mountains. You'd as soon climb a cliff as a flight of stairs.</em></p><p>Your Strength and Dexterity checks are favored in mountainous terrain.</p>",
+  "description": "<p><em>You are at home in the mountains. You'd as soon climb a cliff as a flight of stairs.</em></p><p>Your Strength and Dexterity checks are favored in mountainous terrain.</p><p><strong>Describe how you keep your footing on uneven ground.</strong></p>",
   "isTrait": true,
   "canBeActive": false,
   "isActive": true,

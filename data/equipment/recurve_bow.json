@@ -1,0 +1,27 @@
+{
+  "id": "e7891adb-96ca-4f87-b8d5-cf94a0c6088b",
+  "name": "ªRecurve Bow",
+  "description": "Weight: 2-3. Length: 2-3",
+  "keeping": null,
+  "source": null,
+  "weight": 2,
+  "length": 2,
+  "reach": 0,
+  "range": "4",
+  "twoHanded": true,
+  "thrown": false,
+  "finesse": false,
+  "piercing": false,
+  "damageDice": [
+    10
+  ],
+  "engagementDice": [],
+  "engagementSuccesses": [],
+  "skillMods": [],
+  "isDeleted": false,
+  "isCustom": false,
+  "artUrl": null,
+  "type": "1",
+  "subtype": "3",
+  "grade": "4"
+}

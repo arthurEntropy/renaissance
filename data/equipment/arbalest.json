@@ -1,0 +1,27 @@
+{
+  "id": "227bbbdb-894b-4f0a-b3e8-25333382fb33",
+  "name": "ªArbalest",
+  "description": "Weight: 10-15",
+  "keeping": null,
+  "source": null,
+  "weight": 10,
+  "length": 3,
+  "reach": 0,
+  "range": "4",
+  "twoHanded": true,
+  "thrown": false,
+  "finesse": false,
+  "piercing": true,
+  "damageDice": [
+    10
+  ],
+  "engagementDice": [],
+  "engagementSuccesses": [],
+  "skillMods": [],
+  "isDeleted": false,
+  "isCustom": false,
+  "artUrl": null,
+  "type": "1",
+  "subtype": "3",
+  "grade": "4"
+}

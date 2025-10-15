@@ -1,0 +1,31 @@
+{
+  "id": "217d45ba-cfb4-42b2-969b-b18eca65f8b9",
+  "name": "ªGoedendag",
+  "description": "Weight: 3-5. Length: 4-6",
+  "keeping": null,
+  "source": null,
+  "weight": 3,
+  "length": 4,
+  "reach": 0,
+  "range": null,
+  "twoHanded": false,
+  "thrown": false,
+  "finesse": false,
+  "piercing": true,
+  "damageDice": [
+    8
+  ],
+  "engagementDice": [
+    8
+  ],
+  "engagementSuccesses": [
+    "11"
+  ],
+  "skillMods": [],
+  "isDeleted": false,
+  "isCustom": false,
+  "artUrl": null,
+  "type": "1",
+  "subtype": "1",
+  "grade": "3"
+}

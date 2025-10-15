@@ -1,7 +1,7 @@
 {
   "id": "de38ad38-f841-41b2-9b4e-e9028b7db3f5",
   "name": "Strong Leap",
-  "description": "You can leap a distance up to your speed.",
+  "description": "<p>You can leap a distance up to your speed. This distance counts as part of your movement.</p><p><strong>Describe your leap.</strong></p>",
   "isTrait": true,
   "canBeActive": false,
   "isActive": true,

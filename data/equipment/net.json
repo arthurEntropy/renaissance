@@ -1,0 +1,32 @@
+{
+  "id": "e39c88c7-067d-4458-a0ae-20231d4744bd",
+  "name": "ªNet",
+  "description": "Weight: 1-2. Length: 5-10. Ensnare",
+  "keeping": null,
+  "source": null,
+  "weight": 1,
+  "length": 5,
+  "reach": 5,
+  "range": "2",
+  "twoHanded": true,
+  "thrown": true,
+  "finesse": true,
+  "piercing": false,
+  "damageDice": [],
+  "engagementDice": [
+    4
+  ],
+  "engagementSuccesses": [
+    "1",
+    "12",
+    "14",
+    "3"
+  ],
+  "skillMods": [],
+  "isDeleted": false,
+  "isCustom": false,
+  "artUrl": null,
+  "type": "1",
+  "subtype": "5",
+  "grade": "2"
+}

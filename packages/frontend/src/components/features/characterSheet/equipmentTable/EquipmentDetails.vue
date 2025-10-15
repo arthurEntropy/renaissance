@@ -44,6 +44,7 @@
 import { computed } from 'vue'
 import NumberInput from '@/components/ui/forms/NumberInput.vue'
 import { formatWeight } from '@/utils/weightUtils'
+import { isWeapon } from '@shared/utils/equipmentUtils'
 
 const props = defineProps({
     equipmentRow: {
@@ -62,7 +63,7 @@ const emit = defineEmits(['update-carried', 'update-wielding', 'update-quantity'
 const canWield = computed(() => {
     return props.equipmentRow.isCarried &&
         props.equipmentRow.equipment &&
-        props.equipmentRow.equipment.isMelee
+        isWeapon(props.equipmentRow.equipment)
 })
 
 const displayWeight = computed(() => {

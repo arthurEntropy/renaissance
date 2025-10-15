@@ -1,0 +1,33 @@
+{
+  "id": "af4a86d6-19d6-449c-95ea-a31f79a296fa",
+  "name": "ªMilitary Fork",
+  "description": "Weight: 3-7. Length: 7-10",
+  "keeping": null,
+  "source": null,
+  "weight": 3,
+  "length": 7,
+  "reach": 0,
+  "range": null,
+  "twoHanded": true,
+  "thrown": false,
+  "finesse": false,
+  "piercing": true,
+  "damageDice": [
+    8
+  ],
+  "engagementDice": [
+    8
+  ],
+  "engagementSuccesses": [
+    "1",
+    "12",
+    "14"
+  ],
+  "skillMods": [],
+  "isDeleted": false,
+  "isCustom": false,
+  "artUrl": null,
+  "type": "1",
+  "subtype": "2",
+  "grade": "3"
+}

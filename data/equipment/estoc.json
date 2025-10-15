@@ -1,0 +1,29 @@
+{
+  "id": "eea82a51-3e52-43aa-b985-f5748fc2176f",
+  "name": "ªEstoc",
+  "description": "Weight: 4-6. Length: 3-4",
+  "keeping": null,
+  "source": null,
+  "weight": 4,
+  "length": 3,
+  "reach": 0,
+  "range": null,
+  "twoHanded": true,
+  "thrown": false,
+  "finesse": false,
+  "piercing": true,
+  "damageDice": [
+    10
+  ],
+  "engagementDice": [
+    10
+  ],
+  "engagementSuccesses": [],
+  "skillMods": [],
+  "isDeleted": false,
+  "isCustom": false,
+  "artUrl": null,
+  "type": "1",
+  "subtype": "1",
+  "grade": "4"
+}

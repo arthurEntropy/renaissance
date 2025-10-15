@@ -1,0 +1,31 @@
+{
+  "name": "Boar Spear",
+  "description": "",
+  "keeping": "2",
+  "source": null,
+  "weight": 3,
+  "length": 6,
+  "reach": 0,
+  "range": null,
+  "twoHanded": true,
+  "thrown": false,
+  "finesse": false,
+  "piercing": true,
+  "damageDice": [
+    6
+  ],
+  "engagementDice": [
+    6
+  ],
+  "engagementSuccesses": [
+    "11"
+  ],
+  "skillMods": [],
+  "isDeleted": false,
+  "isCustom": false,
+  "artUrl": "https://cdn.midjourney.com/c52ab061-2144-492c-a3e7-fe382a03f646/0_1.png",
+  "type": "1",
+  "subtype": "2",
+  "grade": "2",
+  "id": "63b70983-0120-43ef-af99-f0835014246b"
+}

@@ -1,26 +1,29 @@
 {
-  "id": "ee88a7d2-a4fa-423f-b332-0008ba84e5f7",
-  "name": "Hand Axe",
-  "description": "",
-  "keeping": "2",
-  "source": "72dc5437-4072-4e9e-8e9f-0316fab002bb",
-  "weight": 3,
-  "isMelee": true,
+  "id": "6c670415-86d0-4294-8103-0d65aaf566c8",
+  "name": "ªHand Axe",
+  "description": "Weight: 1-2. Length: 1-2",
+  "keeping": null,
+  "source": null,
+  "weight": 1,
+  "length": 1,
+  "reach": 0,
+  "range": "2",
+  "twoHanded": false,
+  "thrown": true,
+  "finesse": false,
+  "piercing": false,
   "damageDice": [
-    8
-  ],
-  "engagementDice": [
     6
   ],
+  "engagementDice": [],
   "engagementSuccesses": [
-    "8",
     "11"
   ],
   "skillMods": [],
   "isDeleted": false,
   "isCustom": false,
-  "artUrl": "https://cdn.midjourney.com/bee84fff-a044-4730-b63c-c3a5d71c14ad/0_3.png",
+  "artUrl": null,
   "type": "1",
   "subtype": "1",
-  "grade": "2"
+  "grade": "1"
 }

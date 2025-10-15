@@ -1,0 +1,31 @@
+{
+  "name": "Goedendag",
+  "description": "",
+  "keeping": "2",
+  "source": "0c876a74-a89b-42dc-b76a-4592a0478d81",
+  "weight": 5,
+  "length": 5,
+  "reach": 0,
+  "range": null,
+  "twoHanded": false,
+  "thrown": false,
+  "finesse": false,
+  "piercing": true,
+  "damageDice": [
+    8
+  ],
+  "engagementDice": [
+    8
+  ],
+  "engagementSuccesses": [
+    "11"
+  ],
+  "skillMods": [],
+  "isDeleted": false,
+  "isCustom": false,
+  "artUrl": "https://cdn.midjourney.com/20158a41-a2b6-499e-902e-637e309d0ead/0_2.png",
+  "type": "1",
+  "subtype": "1",
+  "grade": "3",
+  "id": "f5d38b8a-a9b7-480c-81bd-9852fc4501ec"
+}

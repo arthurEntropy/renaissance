@@ -1,0 +1,27 @@
+{
+  "id": "15f6de9d-5c81-44d0-97cb-01da7bc6ef83",
+  "name": "ªMusket",
+  "description": "Weight: 16-20",
+  "keeping": null,
+  "source": null,
+  "weight": 16,
+  "length": 6,
+  "reach": 0,
+  "range": "5",
+  "twoHanded": true,
+  "thrown": false,
+  "finesse": false,
+  "piercing": true,
+  "damageDice": [
+    10
+  ],
+  "engagementDice": [],
+  "engagementSuccesses": [],
+  "skillMods": [],
+  "isDeleted": false,
+  "isCustom": false,
+  "artUrl": null,
+  "type": "1",
+  "subtype": "4",
+  "grade": "4"
+}

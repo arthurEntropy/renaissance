@@ -1,0 +1,28 @@
+{
+  "id": "97719d45-3d68-4446-870b-3dbd81c75186",
+  "name": "ªHand Cannon",
+  "description": "Weight: 20-25. Length: 2-3",
+  "keeping": null,
+  "source": null,
+  "weight": 20,
+  "length": 2,
+  "reach": 0,
+  "range": "2",
+  "twoHanded": true,
+  "thrown": false,
+  "finesse": false,
+  "piercing": true,
+  "damageDice": [
+    12,
+    12
+  ],
+  "engagementDice": [],
+  "engagementSuccesses": [],
+  "skillMods": [],
+  "isDeleted": false,
+  "isCustom": false,
+  "artUrl": null,
+  "type": "1",
+  "subtype": "4",
+  "grade": "5"
+}

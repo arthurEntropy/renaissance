@@ -1,0 +1,27 @@
+{
+  "id": "546043f4-68f5-4926-a146-c18b9a8d7460",
+  "name": "ªStiletto",
+  "description": "",
+  "keeping": null,
+  "source": null,
+  "weight": 1,
+  "length": 1,
+  "reach": 0,
+  "range": null,
+  "twoHanded": false,
+  "thrown": false,
+  "finesse": true,
+  "piercing": true,
+  "damageDice": [
+    8
+  ],
+  "engagementDice": [],
+  "engagementSuccesses": [],
+  "skillMods": [],
+  "isDeleted": false,
+  "isCustom": false,
+  "artUrl": null,
+  "type": "1",
+  "subtype": "1",
+  "grade": "1"
+}

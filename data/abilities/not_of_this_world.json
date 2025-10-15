@@ -1,7 +1,7 @@
 {
   "id": "da39ee23-263d-4540-ae37-aea66100a451",
   "name": "Not Of This World",
-  "description": "<p>Even as you walk in this world, you are bound by strands to the spirit world, which underlies the world we know. Once per rest, you may open your senses to this connection, sensing nearby spiritual and magical beings. You get a vague sense of their power, domain or general intent. When you attempt to communicate with, influence or request a favor from such beings, your skill checks are favored. Describe how your connection manifests. Additionally, your ties to the world of spirits prevent you from following fully the ways of this world. Choose one: - You cannot sleep in beds. - You cannot use utensils to eat food. - You cannot enter a dwelling uninvited. Describe how you navigate this limitation.</p>",
+  "description": "<p><em>Even as you walk in this world, you are bound by strands to the spirit world, which underlies the world we know.</em></p><p>Once per rest, you may open your senses to this connection, sensing nearby spiritual and magical beings. You get a vague sense of their power, domain or general intent. When you attempt to communicate with, influence or request a favor from such beings, your skill checks are favored.</p><p><strong>Describe how your connection manifests.</strong></p><p>Additionally, your ties to the world of spirits prevent you from following fully the ways of this world. Choose one permanent effect:</p><ul><li><p>You cannot fall asleep in a bed.</p></li><li><p>You cannot use utensils to eat food.</p></li><li><p>You cannot enter a dwelling uninvited.</p></li></ul><p><strong>Describe how you navigate this limitation.</strong></p>",
   "isTrait": true,
   "canBeActive": false,
   "isActive": true,

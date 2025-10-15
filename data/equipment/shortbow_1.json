@@ -1,0 +1,27 @@
+{
+  "name": "Shortbow",
+  "description": "",
+  "keeping": "2",
+  "source": "0c876a74-a89b-42dc-b76a-4592a0478d81",
+  "weight": 2,
+  "length": 3,
+  "reach": 0,
+  "range": "4",
+  "twoHanded": true,
+  "thrown": false,
+  "finesse": false,
+  "piercing": false,
+  "damageDice": [
+    8
+  ],
+  "engagementDice": [],
+  "engagementSuccesses": [],
+  "skillMods": [],
+  "isDeleted": false,
+  "isCustom": false,
+  "artUrl": "https://cdn.midjourney.com/6c9c73fe-ed6f-45f7-a16f-c1873733568d/0_3.png",
+  "type": "1",
+  "subtype": "3",
+  "grade": "3",
+  "id": "064491f2-90d8-4097-933d-f6d09928afcf"
+}

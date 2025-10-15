@@ -1,0 +1,29 @@
+{
+  "id": "f4f5f49c-f543-4c2b-a94c-67047b2549b4",
+  "name": "ªFrancisca",
+  "description": "Weight: 1-2. Length: 1-2",
+  "keeping": null,
+  "source": null,
+  "weight": 1,
+  "length": 1,
+  "reach": 0,
+  "range": "2",
+  "twoHanded": false,
+  "thrown": true,
+  "finesse": false,
+  "piercing": false,
+  "damageDice": [
+    6
+  ],
+  "engagementDice": [],
+  "engagementSuccesses": [
+    "11"
+  ],
+  "skillMods": [],
+  "isDeleted": false,
+  "isCustom": false,
+  "artUrl": null,
+  "type": "1",
+  "subtype": "1",
+  "grade": "1"
+}

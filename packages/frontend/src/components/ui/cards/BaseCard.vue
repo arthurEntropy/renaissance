@@ -2,9 +2,13 @@
   <div ref="cardElement" class="base-card edit-hover-area" :class="{ collapsed: collapsed, collapsible: collapsible }"
     :style="cardStyle" @click="collapsible ? toggleCollapsed() : null">
 
-    <!-- Floating Edit Button -->
-    <EditButton v-if="editable" @click.stop="$emit('edit', item)" :title="`Edit ${itemType}`" size="small"
-      visibility="on-hover" class="edit-button-floating" />
+    <!-- Floating Action Buttons -->
+    <div v-if="editable || duplicatable" class="floating-buttons">
+      <DuplicateButton v-if="duplicatable" @click.stop="$emit('duplicate', item)" :title="`Duplicate ${itemType}`"
+        size="small" visibility="on-hover" class="duplicate-button-floating" />
+      <EditButton v-if="editable" @click.stop="$emit('edit', item)" :title="`Edit ${itemType}`" size="small"
+        visibility="on-hover" class="edit-button-floating" />
+    </div>
 
     <!-- Default slot for custom overlays -->
     <slot></slot>
@@ -48,6 +52,7 @@
 import { ref, computed, watch, onMounted, nextTick } from 'vue'
 import { useSourcesStore } from '@/stores/sourcesStore'
 import EditButton from '@/components/ui/buttons/EditButton.vue'
+import DuplicateButton from '@/components/ui/buttons/DuplicateButton.vue'
 
 const props = defineProps({
   item: { type: Object, required: true },
@@ -56,11 +61,12 @@ const props = defineProps({
   storeInstance: { type: Object, required: false, default: null },
   collapsed: { type: Boolean, default: false },
   editable: { type: Boolean, default: false },
+  duplicatable: { type: Boolean, default: false },
   collapsible: { type: Boolean, default: true },
   showSource: { type: Boolean, default: true },
 })
 
-const emit = defineEmits(['edit', 'update', 'send-to-chat', 'height-changed', 'update:collapsed'])
+const emit = defineEmits(['edit', 'duplicate', 'update', 'send-to-chat', 'height-changed', 'update:collapsed'])
 
 // Source management
 const sourcesStore = useSourcesStore()
@@ -245,11 +251,19 @@ onMounted(() => {
   margin-right: 0;
 }
 
-.edit-button-floating {
+.floating-buttons {
   position: absolute;
   top: var(--space-xs);
   right: var(--space-xs);
   z-index: var(--z-interactive);
+  display: flex;
+  gap: var(--space-xs);
+}
+
+.edit-button-floating,
+.duplicate-button-floating {
+  /* Positioning handled by parent .floating-buttons container */
+  position: static;
 }
 
 /* Expand/Collapse transition for card content */

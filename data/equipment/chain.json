@@ -1,0 +1,33 @@
+{
+  "id": "24eaa3b3-31dc-4359-89af-69fbbe5dd8c3",
+  "name": "ªChain",
+  "description": "Weight: 1-2. Length: 3-6",
+  "keeping": null,
+  "source": null,
+  "weight": 1,
+  "length": 3,
+  "reach": 0,
+  "range": null,
+  "twoHanded": false,
+  "thrown": false,
+  "finesse": true,
+  "piercing": false,
+  "damageDice": [
+    4
+  ],
+  "engagementDice": [
+    6
+  ],
+  "engagementSuccesses": [
+    "1",
+    "14",
+    "3"
+  ],
+  "skillMods": [],
+  "isDeleted": false,
+  "isCustom": false,
+  "artUrl": null,
+  "type": "1",
+  "subtype": "1",
+  "grade": "1"
+}

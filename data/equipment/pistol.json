@@ -1,16 +1,27 @@
 {
-  "id": "af250e04-5dcf-4f45-9b67-823ca63b3f04",
-  "name": "Pistol",
-  "description": "<p>Short Range, Dexterity vs Defense, d8 damage.</p>",
+  "id": "6646f42a-04c5-4284-ae1c-4d026a96521b",
+  "name": "ªPistol",
+  "description": "Length: 1-2",
   "keeping": null,
   "source": null,
   "weight": 1,
-  "isMelee": false,
-  "damageDice": [],
+  "length": 1,
+  "reach": 0,
+  "range": "2",
+  "twoHanded": false,
+  "thrown": false,
+  "finesse": false,
+  "piercing": true,
+  "damageDice": [
+    6
+  ],
   "engagementDice": [],
   "engagementSuccesses": [],
   "skillMods": [],
-  "isDeleted": true,
-  "isCustom": true,
-  "artUrl": null
+  "isDeleted": false,
+  "isCustom": false,
+  "artUrl": null,
+  "type": "1",
+  "subtype": "4",
+  "grade": "1"
 }

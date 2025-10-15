@@ -1,0 +1,29 @@
+{
+  "id": "be23f869-abbb-4b72-a155-65fd53c1a8c7",
+  "name": "ªAnguvigaq",
+  "description": "Weight: 5-7. Length: 4-6",
+  "keeping": null,
+  "source": null,
+  "weight": 5,
+  "length": 4,
+  "reach": 0,
+  "range": "3",
+  "twoHanded": false,
+  "thrown": true,
+  "finesse": false,
+  "piercing": true,
+  "damageDice": [
+    6
+  ],
+  "engagementDice": [
+    6
+  ],
+  "engagementSuccesses": [],
+  "skillMods": [],
+  "isDeleted": false,
+  "isCustom": false,
+  "artUrl": null,
+  "type": "1",
+  "subtype": "2",
+  "grade": "2"
+}

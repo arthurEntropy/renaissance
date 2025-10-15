@@ -1,7 +1,7 @@
 {
   "id": "e93bf0ca-ac0f-41d7-b825-f4d9c655ad2a",
   "name": "Mechanical Mind",
-  "description": "You have a natural aptitude for understanding how things work, and indulging your curiosity often pays off. Any time you succeed on a Craft roll performing a task you've never attempted before, you gain 1 XP.",
+  "description": "<p>You have a natural aptitude for understanding how things work, and indulging your curiosity often pays off. Any time you succeed on a Craft roll performing a task you've never attempted before, +1d, and you gain 1 XP.</p><p><strong>Describe your knack for the task.</strong></p>",
   "isTrait": true,
   "canBeActive": false,
   "isActive": true,

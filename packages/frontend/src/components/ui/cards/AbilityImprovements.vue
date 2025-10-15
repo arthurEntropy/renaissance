@@ -161,7 +161,7 @@ const getUnownedBadgeClasses = () => {
 }
 
 .improvement-title {
-    font-size: var(--font-size-15);
+    font-size: var(--font-size-14);
     font-weight: var(--font-weight-bold);
     margin-bottom: var(--space-xs);
     margin-top: var(--space-xs);

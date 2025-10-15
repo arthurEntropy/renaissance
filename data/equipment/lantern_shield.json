@@ -1,0 +1,32 @@
+{
+  "id": "f278760c-680d-4f34-a041-744ba7566e44",
+  "name": "ªLantern Shield",
+  "description": "Weight: 7-9. Length: 2-3. Shield, casts light in a cone out to short range",
+  "keeping": null,
+  "source": null,
+  "weight": 7,
+  "length": 2,
+  "reach": 0,
+  "range": null,
+  "twoHanded": false,
+  "thrown": false,
+  "finesse": false,
+  "piercing": false,
+  "damageDice": [
+    8
+  ],
+  "engagementDice": [
+    10,
+    8
+  ],
+  "engagementSuccesses": [
+    "6"
+  ],
+  "skillMods": [],
+  "isDeleted": false,
+  "isCustom": false,
+  "artUrl": null,
+  "type": "1",
+  "subtype": "1",
+  "grade": "4"
+}

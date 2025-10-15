@@ -1,0 +1,33 @@
+{
+  "id": "f8219c16-21e7-4b6d-8478-b86bfdee9dca",
+  "name": "ªLance",
+  "description": "Weight: 6-10. Length: 7-10",
+  "keeping": null,
+  "source": null,
+  "weight": 6,
+  "length": 7,
+  "reach": 5,
+  "range": null,
+  "twoHanded": true,
+  "thrown": false,
+  "finesse": false,
+  "piercing": true,
+  "damageDice": [
+    8
+  ],
+  "engagementDice": [
+    8
+  ],
+  "engagementSuccesses": [
+    "13",
+    "14",
+    "6"
+  ],
+  "skillMods": [],
+  "isDeleted": false,
+  "isCustom": false,
+  "artUrl": null,
+  "type": "1",
+  "subtype": "2",
+  "grade": "3"
+}

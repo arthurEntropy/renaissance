@@ -1,0 +1,33 @@
+{
+  "id": "dfa7ae27-401f-489b-8fa3-dd1b1598815d",
+  "name": "ªRapier",
+  "description": "Weight: 2-4. Length: 3-4",
+  "keeping": null,
+  "source": null,
+  "weight": 2,
+  "length": 3,
+  "reach": 0,
+  "range": null,
+  "twoHanded": false,
+  "thrown": false,
+  "finesse": true,
+  "piercing": false,
+  "damageDice": [
+    8
+  ],
+  "engagementDice": [
+    8
+  ],
+  "engagementSuccesses": [
+    "1",
+    "11",
+    "3"
+  ],
+  "skillMods": [],
+  "isDeleted": false,
+  "isCustom": false,
+  "artUrl": null,
+  "type": "1",
+  "subtype": "1",
+  "grade": "3"
+}

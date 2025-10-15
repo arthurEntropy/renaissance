@@ -1,0 +1,33 @@
+{
+  "id": "68c1813a-a233-4252-bbda-ca81c001fa16",
+  "name": "ªCorseque",
+  "description": "Weight: 3-7. Length: 7-10",
+  "keeping": null,
+  "source": null,
+  "weight": 3,
+  "length": 7,
+  "reach": 0,
+  "range": null,
+  "twoHanded": true,
+  "thrown": false,
+  "finesse": false,
+  "piercing": true,
+  "damageDice": [
+    8
+  ],
+  "engagementDice": [
+    8
+  ],
+  "engagementSuccesses": [
+    "1",
+    "12",
+    "14"
+  ],
+  "skillMods": [],
+  "isDeleted": false,
+  "isCustom": false,
+  "artUrl": null,
+  "type": "1",
+  "subtype": "2",
+  "grade": "3"
+}

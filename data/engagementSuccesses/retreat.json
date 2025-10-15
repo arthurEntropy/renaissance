@@ -1,6 +1,6 @@
 {
   "id": "9",
   "name": "Retreat",
-  "description": "You move back 5 ft. from your opponent. The engagement and attack may only continue if the attacker uses 5 ft of movement.",
+  "description": "You move 5 feet away from your opponent. The attacker in this engagement must spend additional movement to regain melee range. Otherwise, the engagement ends and no attack is made.",
   "isDeleted": false
 }

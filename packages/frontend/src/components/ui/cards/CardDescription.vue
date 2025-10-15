@@ -1,18 +1,4 @@
 <template>
-    <!-- 
-      CardDescription - Standardized description renderer with badge support
-      
-      Features:
-      - HTML content sanitization
-      - Size variants (normal, small, large)
-      - Badge slot overlay for absolute-positioned badges
-      - Consistent background and styling
-      
-      Badge Slot Usage:
-      - Use for BadgeDisplay components that need absolute positioning
-      - Badges will overlay content with proper z-index
-      - Standard pattern: <BadgeDisplay :xp="data.xp" :sol="data.sol" />
-    -->
     <div v-if="content" class="card-description" :class="additionalClasses">
         <div v-html="safeContent"></div>
         <slot name="badge"></slot>
@@ -36,18 +22,11 @@ const safeContent = computed(() => sanitizeHtml(props.content))
 @import '@/styles/design-tokens.css';
 
 .card-description {
-    background-color: var(--overlay-black-heavy);
+    background-color: var(--overlay-black-medium);
     padding: 1px var(--space-lg);
     border-radius: var(--radius-5);
     text-align: left;
     font-size: var(--font-size-14);
     position: relative;
-}
-
-.card-description.improvement {
-    padding: 1px var(--space-sm) var(--space-xs) var(--space-sm);
-    font-size: var(--font-size-13);
-    margin-top: var(--space-xs);
-    min-height: 24px;
 }
 </style>

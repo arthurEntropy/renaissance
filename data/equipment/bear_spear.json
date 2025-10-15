@@ -1,0 +1,31 @@
+{
+  "id": "0f90bb0e-f4dd-4d5e-a020-ec95c7366fc0",
+  "name": "ªBear Spear",
+  "description": "Weight: 2-5. Length: 5-7",
+  "keeping": null,
+  "source": null,
+  "weight": 2,
+  "length": 5,
+  "reach": 0,
+  "range": null,
+  "twoHanded": true,
+  "thrown": false,
+  "finesse": false,
+  "piercing": true,
+  "damageDice": [
+    6
+  ],
+  "engagementDice": [
+    6
+  ],
+  "engagementSuccesses": [
+    "11"
+  ],
+  "skillMods": [],
+  "isDeleted": false,
+  "isCustom": false,
+  "artUrl": null,
+  "type": "1",
+  "subtype": "2",
+  "grade": "2"
+}

@@ -1,0 +1,33 @@
+{
+  "id": "01fcb462-a6a5-471d-b80f-55732a775c0a",
+  "name": "ªBearded Axe",
+  "description": "Weight: 3-5. Length: 2-18",
+  "keeping": null,
+  "source": null,
+  "weight": 3,
+  "length": 2,
+  "reach": 0,
+  "range": null,
+  "twoHanded": true,
+  "thrown": false,
+  "finesse": false,
+  "piercing": false,
+  "damageDice": [
+    8
+  ],
+  "engagementDice": [
+    8
+  ],
+  "engagementSuccesses": [
+    "1",
+    "11",
+    "12"
+  ],
+  "skillMods": [],
+  "isDeleted": false,
+  "isCustom": false,
+  "artUrl": null,
+  "type": "1",
+  "subtype": "2",
+  "grade": "3"
+}

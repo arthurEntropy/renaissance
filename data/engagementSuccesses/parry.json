@@ -1,6 +1,6 @@
 {
   "id": "8",
   "name": "Parry",
-  "description": "You deflect your opponent's incoming attack. If your opponent's die is higher than yours in this pairing, you win the pairing.",
+  "description": "You deflect your opponent's incoming attack. You win this pair, regardless of who has the higher die result. If your opponent also uses Parry for this pair, the higher die result wins as normal.",
   "isDeleted": false
 }

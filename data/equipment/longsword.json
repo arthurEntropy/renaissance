@@ -1,33 +1,33 @@
 {
-  "id": "58c57499-9eef-49d4-9273-7674c60fae77",
-  "artUrl": "https://cdn.midjourney.com/ca2dd46f-000f-4c7f-b942-d32f5c8e3625/0_3.png",
-  "name": "Longsword",
-  "description": "A super cool sharp sword that deals 2d6 damage on a hit.",
-  "keeping": "4",
-  "source": "75800953-4adb-405f-a4ab-a599573ca533",
-  "weight": 2,
-  "isMelee": true,
+  "id": "572d3dd3-6ee1-4745-a761-46c3cae1c71f",
+  "name": "ªLongsword",
+  "description": "Weight: 5-7. Length: 3-5",
+  "keeping": null,
+  "source": null,
+  "weight": 5,
+  "length": 3,
+  "reach": 0,
+  "range": null,
+  "twoHanded": false,
+  "thrown": false,
+  "finesse": false,
+  "piercing": false,
   "damageDice": [
-    8
+    10
   ],
   "engagementDice": [
-    6,
-    6
+    10
   ],
   "engagementSuccesses": [
-    "8",
-    "1"
+    "1",
+    "11",
+    "3",
+    "6"
   ],
-  "skillMods": [
-    {
-      "name": "Stealth",
-      "diceMod": -1,
-      "isFavored": false,
-      "isIllFavored": false
-    }
-  ],
+  "skillMods": [],
   "isDeleted": false,
   "isCustom": false,
+  "artUrl": null,
   "type": "1",
   "subtype": "1",
   "grade": "4"

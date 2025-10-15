@@ -34,8 +34,8 @@
     <template #item-cards>
       <EquipmentCard v-for="item in filteredEquipment" :key="item.id" :equipment="item" :editable="true"
         :sources="sources" :art-expanded="true" @edit="openEditEquipmentModal(item)"
-        @send-to-chat="sendEquipmentToChat(item)" @height-changed="layoutRef?.onCardHeightChanged()"
-        :collapsible="false" :showSource="true" />
+        @duplicate="handleDuplicateEquipment" @send-to-chat="sendEquipmentToChat(item)"
+        @height-changed="layoutRef?.onCardHeightChanged()" :collapsible="false" :showSource="true" />
     </template>
 
     <!-- Modals slot -->
@@ -45,6 +45,7 @@
         :equipment-types="equipmentCategoriesStore.equipmentTypes"
         :equipment-subtypes="equipmentCategoriesStore.equipmentSubtypes"
         :equipment-grades="equipmentCategoriesStore.equipmentGrades"
+        :equipment-ranges="equipmentCategoriesStore.equipmentRanges"
         :engagement-success-options="engagementSuccessOptions" @update="saveEditedEquipment"
         @close="closeEditEquipmentModal" @delete="deleteEquipment(equipmentToEdit)" />
     </template>
@@ -83,7 +84,7 @@ const sources = sourcesStore.sources
 
 // Reactive state
 const layoutRef = ref(null)
-const sortOption = ref('')
+const sortOption = ref('name-asc')
 const searchQuery = ref('')
 const sourceFilter = ref('')
 const typeFilter = ref('')
@@ -210,6 +211,20 @@ const deleteEquipment = async (equipmentItem) => {
 // OTHER METHODS
 const sendEquipmentToChat = (_equipment) => {
   // Placeholder for future chat integration
+}
+
+const handleDuplicateEquipment = async (newEquipment) => {
+  try {
+    // Refresh the equipment list to include the new duplicate
+    await equipmentStore.fetch()
+
+    // Trigger layout update for masonry
+    layoutRef?.value?.onCardHeightChanged()
+
+    console.log('Equipment duplicated and list refreshed')
+  } catch (error) {
+    console.error('Error refreshing equipment list after duplication:', error)
+  }
 }
 
 const fetchEngagementSuccessOptions = async () => {

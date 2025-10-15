@@ -1,0 +1,29 @@
+{
+  "name": "Throwing Axe",
+  "description": "",
+  "keeping": "1",
+  "source": "5a639d7b-847a-468b-9bbe-5275d31fdf66",
+  "weight": 2,
+  "length": 2,
+  "reach": 0,
+  "range": "2",
+  "twoHanded": false,
+  "thrown": true,
+  "finesse": false,
+  "piercing": false,
+  "damageDice": [
+    6
+  ],
+  "engagementDice": [],
+  "engagementSuccesses": [
+    "11"
+  ],
+  "skillMods": [],
+  "isDeleted": false,
+  "isCustom": false,
+  "artUrl": "https://cdn.midjourney.com/d46f6f43-caaf-42e1-8aaa-7cb4117b9318/0_3.jpeg",
+  "type": "1",
+  "subtype": "1",
+  "grade": "1",
+  "id": "1a98852b-e310-4f56-b4b4-75af7f784149"
+}
