@@ -1,0 +1,33 @@
+{
+  "name": "Bearded Axe",
+  "description": "",
+  "keeping": "3",
+  "source": "5a639d7b-847a-468b-9bbe-5275d31fdf66",
+  "weight": 3,
+  "length": 4,
+  "reach": 0,
+  "range": null,
+  "twoHanded": true,
+  "thrown": false,
+  "finesse": false,
+  "piercing": false,
+  "damageDice": [
+    8
+  ],
+  "engagementDice": [
+    8
+  ],
+  "engagementSuccesses": [
+    "1",
+    "11",
+    "12"
+  ],
+  "skillMods": [],
+  "isDeleted": false,
+  "isCustom": false,
+  "artUrl": "https://cdn.midjourney.com/628b45e2-d9b4-4933-b56c-a9f74f179783/0_3.jpeg",
+  "type": "1",
+  "subtype": "2",
+  "grade": "3",
+  "id": "f248a20d-f79e-4fb9-a800-94e2145fc23a"
+}

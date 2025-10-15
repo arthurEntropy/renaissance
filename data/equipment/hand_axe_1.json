@@ -1,0 +1,29 @@
+{
+  "name": "Hand Axe",
+  "description": "",
+  "keeping": "1",
+  "source": "0c876a74-a89b-42dc-b76a-4592a0478d81",
+  "weight": 1,
+  "length": 1,
+  "reach": 0,
+  "range": "2",
+  "twoHanded": false,
+  "thrown": true,
+  "finesse": false,
+  "piercing": false,
+  "damageDice": [
+    6
+  ],
+  "engagementDice": [],
+  "engagementSuccesses": [
+    "11"
+  ],
+  "skillMods": [],
+  "isDeleted": false,
+  "isCustom": false,
+  "artUrl": "https://cdn.midjourney.com/878615c7-e854-4244-b8fe-1ef183cc89b9/0_3.png",
+  "type": "1",
+  "subtype": "1",
+  "grade": "1",
+  "id": "a2cd4316-f34a-49f8-8774-dcc0c9ab499a"
+}

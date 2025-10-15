@@ -1,34 +1,33 @@
 {
-  "id": "c4687d01-ef1a-4a63-b401-96614c785a7b",
-  "name": "Whip",
-  "description": "<p></p>",
-  "keeping": "1",
+  "name": "Sabre",
+  "description": "",
+  "keeping": "3",
   "source": "0c876a74-a89b-42dc-b76a-4592a0478d81",
-  "weight": 1,
-  "length": 6,
+  "weight": 2,
+  "length": 3,
   "reach": 0,
   "range": null,
   "twoHanded": false,
   "thrown": false,
-  "finesse": true,
+  "finesse": false,
   "piercing": false,
   "damageDice": [
-    4
+    8
   ],
   "engagementDice": [
-    4
+    8
   ],
   "engagementSuccesses": [
     "1",
     "11",
-    "14",
     "3"
   ],
   "skillMods": [],
   "isDeleted": false,
   "isCustom": false,
-  "artUrl": "https://cdn.midjourney.com/0675988b-f7f9-48eb-8261-4507c33dfccf/0_0.png",
+  "artUrl": "https://cdn.midjourney.com/e2d057d6-591a-4e58-8e65-d8f65e9ac613/0_0.png",
   "type": "1",
   "subtype": "1",
-  "grade": "1"
+  "grade": "3",
+  "id": "d543e3c1-9bab-4ddf-9842-2ce2293d866d"
 }

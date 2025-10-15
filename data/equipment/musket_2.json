@@ -1,0 +1,27 @@
+{
+  "name": "Musket",
+  "description": "",
+  "keeping": "2",
+  "source": "5a639d7b-847a-468b-9bbe-5275d31fdf66",
+  "weight": 20,
+  "length": 6,
+  "reach": 0,
+  "range": "5",
+  "twoHanded": true,
+  "thrown": false,
+  "finesse": false,
+  "piercing": true,
+  "damageDice": [
+    10
+  ],
+  "engagementDice": [],
+  "engagementSuccesses": [],
+  "skillMods": [],
+  "isDeleted": false,
+  "isCustom": false,
+  "artUrl": "https://cdn.midjourney.com/201e1356-d990-400d-97a6-a0a4dcae71e6/0_3.jpeg",
+  "type": "1",
+  "subtype": "4",
+  "grade": "4",
+  "id": "6341bbc6-9c9a-4c53-a603-132e368577b2"
+}

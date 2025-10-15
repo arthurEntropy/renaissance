@@ -1,11 +1,10 @@
 {
-  "id": "c4687d01-ef1a-4a63-b401-96614c785a7b",
-  "name": "Whip",
-  "description": "<p></p>",
+  "name": "Sickle",
+  "description": "",
   "keeping": "1",
   "source": "0c876a74-a89b-42dc-b76a-4592a0478d81",
   "weight": 1,
-  "length": 6,
+  "length": 1,
   "reach": 0,
   "range": null,
   "twoHanded": false,
@@ -20,15 +19,14 @@
   ],
   "engagementSuccesses": [
     "1",
-    "11",
-    "14",
-    "3"
+    "12"
   ],
   "skillMods": [],
   "isDeleted": false,
   "isCustom": false,
-  "artUrl": "https://cdn.midjourney.com/0675988b-f7f9-48eb-8261-4507c33dfccf/0_0.png",
+  "artUrl": "https://cdn.midjourney.com/63eb1ae2-97ea-4956-96f6-d5424e24ef22/0_2.png",
   "type": "1",
   "subtype": "1",
-  "grade": "1"
+  "grade": "1",
+  "id": "4a3da5ca-ab4d-40af-8da5-199fefeb0adb"
 }
