@@ -151,7 +151,13 @@ onMounted(() => {
       DiceFontNode,
     ],
     onUpdate: () => {
-      emit('update:modelValue', editor.value.getHTML())
+      const htmlContent = editor.value.getHTML()
+      // Check if content is effectively empty (just empty p tags or whitespace)
+      const isEmpty = htmlContent === '<p></p>' ||
+        htmlContent.replace(/<p><\/p>/g, '').trim() === '' ||
+        editor.value.getText().trim() === ''
+
+      emit('update:modelValue', isEmpty ? '' : htmlContent)
       if (props.autoHeight) {
         nextTick(updateHeight)
       }
