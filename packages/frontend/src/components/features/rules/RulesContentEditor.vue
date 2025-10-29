@@ -6,7 +6,7 @@
         <input v-if="isContentEditMode" type="text" :value="currentSection.name"
           @input="$emit('updateSectionName', $event.target.value)" class="section-name-input" />
         <h2 v-else>{{ currentSection.name }}</h2>
-        <EditButton :isEditMode="isContentEditMode" :disabled="isStructureEditMode" visibility="always"
+        <EditButton v-if="isAdmin" :isEditMode="isContentEditMode" :disabled="isStructureEditMode" visibility="always"
           @click="$emit('toggleContentEditMode')" />
       </div>
     </div>
@@ -34,9 +34,13 @@
 
 <script setup>
 import { computed } from 'vue'
+import { useAuthStore } from '@/stores/authStore'
 import TextEditor from '@/components/ui/textEditor/TextEditor.vue'
 import EditButton from '@/components/ui/buttons/EditButton.vue'
 import { sanitizeHtml } from '@/utils/sanitizeHtml'
+
+const authStore = useAuthStore()
+const isAdmin = computed(() => authStore.isAdmin)
 
 const props = defineProps({
   currentSection: {

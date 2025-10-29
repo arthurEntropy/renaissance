@@ -32,7 +32,7 @@
 
     <!-- Item cards slot -->
     <template #item-cards>
-      <EquipmentCard v-for="item in filteredEquipment" :key="item.id" :equipment="item" :editable="true"
+      <EquipmentCard v-for="item in filteredEquipment" :key="item.id" :equipment="item" :editable="isAdmin"
         :sources="sources" :art-expanded="true" @edit="openEditEquipmentModal(item)"
         @duplicate="handleDuplicateEquipment" @send-to-chat="sendEquipmentToChat(item)"
         @height-changed="layoutRef?.onCardHeightChanged()" :collapsible="false" :showSource="true" />
@@ -57,6 +57,7 @@ import { ref, onMounted, computed, watch } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useEquipmentStore } from '@/stores/equipmentStore'
 import { useEquipmentCategoriesStore } from '@/stores/equipmentCategoriesStore'
+import { useAuthStore } from '@/stores/authStore'
 import { useEditModal } from '@/composables/useEditModal'
 import { useSourcesStore } from '@/stores/sourcesStore'
 import EquipmentService from '@/services/equipmentService'
@@ -68,7 +69,11 @@ import ItemCardsLayout from '@/components/ui/layouts/ItemCardsLayout.vue'
 // Store
 const equipmentStore = useEquipmentStore()
 const equipmentCategoriesStore = useEquipmentCategoriesStore()
+const authStore = useAuthStore()
 const { equipment } = storeToRefs(equipmentStore)
+
+// Check if user is admin
+const isAdmin = computed(() => authStore.isAdmin)
 
 // Modal management
 const {
