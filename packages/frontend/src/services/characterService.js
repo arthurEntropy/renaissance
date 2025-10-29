@@ -269,6 +269,7 @@ class CharacterService extends BaseService {
     return {
       id: null,
       name: 'New Character',
+      isBeast: false,
       pronouns: '',
       ancestries: '',
       cultures: '',
@@ -418,6 +419,12 @@ class CharacterService extends BaseService {
   // Ensure equipment items consistently use `isCarried` and valid quantities
   normalizeEquipmentFlags(character) {
     if (!character || !Array.isArray(character.equipment)) return
+    
+    // Ensure isBeast property is present
+    if (character.isBeast === undefined) {
+      character.isBeast = false
+    }
+    
     character.equipment.forEach((item) => {
       if (item && (item.quantity === undefined || item.quantity < 1)) {
         item.quantity = 1

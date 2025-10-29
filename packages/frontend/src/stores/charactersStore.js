@@ -30,7 +30,11 @@ export const useCharactersStore = defineStore('characters', () => {
   }
 
   const filteredCharacters = computed(() => {
-    return characters.value.filter(character => !character.isDeleted)
+    return characters.value.filter(character => !character.isDeleted && !character.isBeast)
+  })
+
+  const filteredBeasts = computed(() => {
+    return characters.value.filter(character => !character.isDeleted && character.isBeast)
   })
 
   // Check if there's a selected character
@@ -46,6 +50,7 @@ export const useCharactersStore = defineStore('characters', () => {
     deselectCharacter,
     getById,
     filteredCharacters,
+    filteredBeasts,
     hasSelectedCharacter,
   }
 })

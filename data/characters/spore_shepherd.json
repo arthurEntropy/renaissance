@@ -1,0 +1,169 @@
+{
+  "id": "9d41ab46-de59-4506-8fb6-28ae6361dc88",
+  "name": "Spore Shepherd",
+  "isBeast": true,
+  "pronouns": "",
+  "ancestries": "",
+  "cultures": "",
+  "personalityAndBackground": "",
+  "xp": 0,
+  "mp": {
+    "current": 0,
+    "max": 0
+  },
+  "body": 0,
+  "heart": 0,
+  "wits": 0,
+  "skills": [
+    {
+      "name": "Awe",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0
+    },
+    {
+      "name": "Strength",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0
+    },
+    {
+      "name": "Dexterity",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0
+    },
+    {
+      "name": "Fortitude",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0
+    },
+    {
+      "name": "Craft",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0
+    },
+    {
+      "name": "Perform",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0
+    },
+    {
+      "name": "Insight",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0
+    },
+    {
+      "name": "Courtesy",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0
+    },
+    {
+      "name": "Spirit",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0
+    },
+    {
+      "name": "Aid",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0
+    },
+    {
+      "name": "Persuade",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0
+    },
+    {
+      "name": "Awareness",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0
+    },
+    {
+      "name": "Stealth",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0
+    },
+    {
+      "name": "Lore",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0
+    },
+    {
+      "name": "Riddle",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0
+    }
+  ],
+  "endurance": {
+    "current": 0,
+    "max": 0
+  },
+  "hope": {
+    "current": 0,
+    "max": 0
+  },
+  "defense": {
+    "current": 0,
+    "max": 0
+  },
+  "load": 0,
+  "shadow": 0,
+  "injury": 0,
+  "states": {
+    "weary": false,
+    "twiceWeary": false,
+    "miserable": false,
+    "twiceMiserable": false,
+    "helpless": false,
+    "twiceHelpless": false
+  },
+  "conditions": {
+    "insecure": false,
+    "guilty": false,
+    "angry": false,
+    "afraid": false,
+    "troubled": false
+  },
+  "speed": 0,
+  "equipment": [],
+  "abilities": [],
+  "abilityImprovements": {},
+  "artUrls": [
+    "https://cdn.midjourney.com/ef70ae15-2c8b-4912-9289-24c6ce6b0155/0_0.png"
+  ],
+  "activeEffects": [],
+  "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
+  "ownerEmail": "ljbrevoort@gmail.com",
+  "createdAt": "2025-10-29T20:01:02.828Z",
+  "ancestryIds": [],
+  "cultureIds": [],
+  "mestiereId": "",
+  "updatedAt": "2025-10-29T20:01:13.227Z"
+}

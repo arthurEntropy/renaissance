@@ -164,6 +164,12 @@ const createConcept = async () => {
     // Find the freshly fetched concept by id
     const conceptFromStore = props.concepts.find(c => c.id === createdConcept.id)
     selectedConcept.value = conceptFromStore || createdConcept
+
+    // If this is a character modal, also set it as the selected character in the store
+    if (props.modalComponent === 'CharacterSheetModal') {
+      charactersStore.selectCharacter(selectedConcept.value)
+    }
+
     showConceptDetail.value = true
   } catch (error) {
     console.error(`Error creating ${props.itemName}:`, error)

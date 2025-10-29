@@ -54,8 +54,7 @@ app.use((req, res, next) => {
   // Protected routes that require authentication
   const protectedRoutes = [
     '/auth',
-    '/users',
-    '/characters'
+    '/users'
   ]
   
   if (protectedRoutes.some(route => req.path.startsWith(route))) {
@@ -83,19 +82,11 @@ const entities = getEntityNames()
 
 // Dynamically create routes for each entity
 entities.forEach((entity) => {
-  if (entity === 'characters') {
-    // Characters require authentication and approval for all operations
-    app.get(`/${entity}`, requireAuth, requireApproved, getAllEntities(entity))
-    app.post(`/${entity}`, requireAuth, requireApproved, createEntity(entity))
-    app.put(`/${entity}/:id`, requireAuth, requireApproved, updateEntity(entity))
-    app.delete(`/${entity}/:id`, requireAuth, requireApproved, deleteEntity(entity))
-  } else {
-    // All other entities are public for reading, admin-only for writing
-    app.get(`/${entity}`, getAllEntities(entity))
-    app.post(`/${entity}`, requireAuth, requireAdmin, createEntity(entity))
-    app.put(`/${entity}/:id`, requireAuth, requireAdmin, updateEntity(entity))
-    app.delete(`/${entity}/:id`, requireAuth, requireAdmin, deleteEntity(entity))
-  }
+  // All entities are public for reading, admin-only for writing
+  app.get(`/${entity}`, getAllEntities(entity))
+  app.post(`/${entity}`, verifyToken, requireAuth, requireAdmin, createEntity(entity))
+  app.put(`/${entity}/:id`, verifyToken, requireAuth, requireAdmin, updateEntity(entity))
+  app.delete(`/${entity}/:id`, verifyToken, requireAuth, requireAdmin, deleteEntity(entity))
 })
 
 // Discord route

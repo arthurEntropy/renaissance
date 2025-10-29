@@ -16,6 +16,7 @@
         <router-link to="/mestieri" @click="closeMenu">MESTIERI</router-link>
         <router-link to="/world-elements" @click="closeMenu">WORLD ELEMENTS</router-link>
         <router-link v-if="authStore.isAuthenticated" to="/characters" @click="closeMenu">CHARACTERS</router-link>
+        <router-link to="/bestiary" @click="closeMenu">BESTIARY</router-link>
         <router-link to="/abilities" @click="closeMenu">ABILITIES</router-link>
         <router-link to="/equipment" @click="closeMenu">EQUIPMENT</router-link>
       </nav>
@@ -30,6 +31,7 @@
         <router-link to="/mestieri">MESTIERI</router-link>
         <router-link to="/world-elements">WORLD ELEMENTS</router-link>
         <router-link v-if="authStore.isAuthenticated" to="/characters">CHARACTERS</router-link>
+        <router-link to="/bestiary">BESTIARY</router-link>
         <router-link to="/abilities">ABILITIES</router-link>
         <router-link to="/equipment">EQUIPMENT</router-link>
       </div>
