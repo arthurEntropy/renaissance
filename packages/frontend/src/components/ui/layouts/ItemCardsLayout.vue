@@ -4,7 +4,7 @@
     <FilterControls v-model:search-query="searchQueryLocal" v-model:primary-filter="sourceFilterLocal"
       v-model:sort-option="sortOptionLocal" :search-placeholder="`Search ${itemTypePlural.toLowerCase()}...`"
       :primary-filter-options="sourceFilterOptions" primary-filter-label="All Sources" :sort-options="sortOptions"
-      :show-add-button="true" :add-button-text="`+ Add ${itemType}`" @create="createItem">
+      :show-add-button="isAdmin" :add-button-text="`+ Add ${itemType}`" @create="createItem">
       <template #additional-filters>
         <slot name="additional-filters"></slot>
       </template>
@@ -23,6 +23,10 @@
 import MasonryGrid from '@/components/ui/layouts/MasonryGrid.vue'
 import FilterControls from '@/components/ui/FilterControls.vue'
 import { computed, ref } from 'vue'
+import { useAuthStore } from '@/stores/authStore'
+
+const authStore = useAuthStore()
+const isAdmin = computed(() => authStore.isAdmin)
 
 const props = defineProps({
   itemType: { type: String, required: true },

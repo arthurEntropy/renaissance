@@ -9,7 +9,7 @@
     <div class="concepts-container">
       <ConceptCard v-for="concept in filteredConcepts" :key="concept.id" :concept="concept" :sources="sources"
         @select="openConceptDetail" />
-      <AddConceptCard :concept-name="itemName" @click="createConcept" />
+      <AddConceptCard v-if="isAdmin" :concept-name="itemName" @click="createConcept" />
     </div>
 
     <!-- Modal with Navigation Controls -->
@@ -22,7 +22,7 @@
         @delete:character="deleteConcept" />
 
       <!-- Concept Detail Modal -->
-      <ConceptDetail v-else :key="`concept-${conceptDetailKey}`" :concept="selectedConcept" :editable="true"
+      <ConceptDetail v-else :key="`concept-${conceptDetailKey}`" :concept="selectedConcept" :editable="isAdmin"
         @close="closeConceptDetail" @update="updateConcept" />
     </NavigationControls>
   </div>
@@ -33,6 +33,7 @@ import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import { useExpansionsStore } from '@/stores/expansionsStore'
 import { useSourcesStore } from '@/stores/sourcesStore'
 import { useCharactersStore } from '@/stores/charactersStore'
+import { useAuthStore } from '@/stores/authStore'
 import ConceptCard from '@/components/ui/cards/ConceptCard.vue'
 import AddConceptCard from '@/components/ui/cards/AddConceptCard.vue'
 import FilterControls from '@/components/ui/FilterControls.vue'
@@ -83,7 +84,11 @@ const props = defineProps({
 const expansionStore = useExpansionsStore()
 const sourcesStore = useSourcesStore()
 const charactersStore = useCharactersStore()
+const authStore = useAuthStore()
 const sources = sourcesStore.sources
+
+// Check if user is admin
+const isAdmin = computed(() => authStore.isAdmin)
 
 const selectedConcept = ref(null)
 const showConceptDetail = ref(false)

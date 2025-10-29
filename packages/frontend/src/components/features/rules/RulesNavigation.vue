@@ -2,7 +2,7 @@
   <div class="rules-navigation">
     <div class="rules-nav-header">
       <h3>Table of Contents</h3>
-      <EditButton :isEditMode="isStructureEditMode" :disabled="isContentEditMode" visibility="always"
+      <EditButton v-if="isAdmin" :isEditMode="isStructureEditMode" :disabled="isContentEditMode" visibility="always"
         @click="$emit('toggleStructureEditMode')" />
     </div>
 
@@ -46,10 +46,15 @@
 </template>
 
 <script setup>
+import { computed } from 'vue'
+import { useAuthStore } from '@/stores/authStore'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import EditButton from '@/components/ui/buttons/EditButton.vue'
 import draggable from 'vuedraggable'
 import { XMarkIcon } from '@heroicons/vue/24/outline'
+
+const authStore = useAuthStore()
+const isAdmin = computed(() => authStore.isAdmin)
 
 defineProps({
   filteredSections: {

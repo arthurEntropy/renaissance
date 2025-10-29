@@ -5,7 +5,7 @@
 
     <!-- Item cards slot -->
     <template #item-cards="{ filteredItems }">
-      <AbilityCard v-for="ability in filteredItems" :key="ability.id" :ability="ability" :editable="true"
+      <AbilityCard v-for="ability in filteredItems" :key="ability.id" :ability="ability" :editable="isAdmin"
         :sources="sources" @delete="deleteAbility(ability)" @update="updateAbility(ability)"
         @edit="openEditAbilityModal(ability)" @send-to-chat="sendAbilityToChat(ability)"
         @height-changed="layoutRef?.onCardHeightChanged()" :collapsible="false"
@@ -23,9 +23,10 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useAbilitiesStore } from '@/stores/abilitiesStore'
+import { useAuthStore } from '@/stores/authStore'
 import { useEditModal } from '@/composables/useEditModal'
 import { useSourcesStore } from '@/stores/sourcesStore'
 import AbilityService from '@/services/abilityService'
@@ -35,7 +36,11 @@ import ItemCardsLayout from '@/components/ui/layouts/ItemCardsLayout.vue'
 
 // Store
 const abilitiesStore = useAbilitiesStore()
+const authStore = useAuthStore()
 const { abilities } = storeToRefs(abilitiesStore)
+
+// Check if user is admin
+const isAdmin = computed(() => authStore.isAdmin)
 
 // Modal management
 const {
