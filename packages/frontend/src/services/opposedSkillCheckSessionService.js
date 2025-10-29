@@ -18,9 +18,9 @@ class OpposedSkillCheckSessionService extends BaseSessionService {
   }
 
   // Service-specific methods
-  autoJoinOrCreate(characterInfo, skillCheckConfig) {
+  async autoJoinOrCreate(characterInfo, skillCheckConfig) {
     try {
-      if (!this.socket) this.connect()
+      if (!this.socket) await this.connect()
       
       if (!this.socket || !this.socket.connected) {
         console.error('OpposedSkillCheckService: Cannot auto-join, not connected to server')

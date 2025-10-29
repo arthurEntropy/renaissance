@@ -147,39 +147,21 @@
   },
   "equipment": [
     {
-      "id": "f026c8af-51de-447b-ae92-ed56a645224c",
+      "id": "f248a20d-f79e-4fb9-a800-94e2145fc23a",
       "quantity": 1,
       "isCarried": true,
       "isWielding": true,
-      "index": 2,
-      "collapsed": false,
+      "index": 0,
+      "collapsed": true,
       "artExpanded": false
     },
     {
-      "id": "83757d92-985c-46ed-b112-03e9278adafc",
+      "id": "f339e1ee-39c8-4712-8baa-60129fd87ff0",
       "quantity": 1,
       "isCarried": true,
       "isWielding": true,
-      "index": 3,
-      "collapsed": false,
-      "artExpanded": false
-    },
-    {
-      "id": "5b70ca3a-a01e-4209-98c7-3b8630f8a2ec",
-      "quantity": 1,
-      "isCarried": true,
-      "isWielding": false,
-      "index": 4,
-      "collapsed": false,
-      "artExpanded": false
-    },
-    {
-      "id": "29eb84b1-777e-43b0-a989-16df364b5cca",
-      "quantity": 1,
-      "isCarried": true,
-      "isWielding": false,
-      "index": 5,
-      "collapsed": false,
+      "index": 1,
+      "collapsed": true,
       "artExpanded": false
     }
   ],
@@ -196,16 +178,16 @@
   "abilities": [
     {
       "id": "f1d0e5f7-bb30-4251-a575-8d31c113fe1a",
-      "collapsed": false,
+      "collapsed": true,
       "showImprovements": true
     },
     {
       "id": "1e289ca8-cf6a-4f0d-ad7c-a13fc8e1f381",
-      "collapsed": false
+      "collapsed": true
     },
     {
       "id": "9c92d5ba-7c73-4480-a357-d98ac4820c7d",
-      "collapsed": false
+      "collapsed": true
     }
   ],
   "twiceWeary": true,
@@ -226,5 +208,7 @@
       "4e322b63-bbe9-5b70-9009-f475813e0728": false
     }
   },
-  "engagementSuccesses": []
+  "engagementSuccesses": [],
+  "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
+  "updatedAt": "2025-10-29T01:15:28.339Z"
 }

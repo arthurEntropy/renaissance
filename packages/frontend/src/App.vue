@@ -5,13 +5,17 @@
     <!-- Mobile Side Menu -->
     <div class="nav-menu" :class="{ open: menuOpen }">
       <button class="menu-toggle" @click="toggleMenu">☰</button>
+      <!-- Mobile Auth Component -->
+      <div v-if="menuOpen" class="mobile-auth">
+        <AuthComponent />
+      </div>
       <nav v-if="menuOpen">
         <router-link to="/rules" @click="closeMenu">RULES</router-link>
         <router-link to="/ancestries" @click="closeMenu">ANCESTRIES</router-link>
         <router-link to="/cultures" @click="closeMenu">CULTURES</router-link>
         <router-link to="/mestieri" @click="closeMenu">MESTIERI</router-link>
         <router-link to="/world-elements" @click="closeMenu">WORLD ELEMENTS</router-link>
-        <router-link to="/characters" @click="closeMenu">CHARACTERS</router-link>
+        <router-link v-if="authStore.isAuthenticated" to="/characters" @click="closeMenu">CHARACTERS</router-link>
         <router-link to="/abilities" @click="closeMenu">ABILITIES</router-link>
         <router-link to="/equipment" @click="closeMenu">EQUIPMENT</router-link>
       </nav>
@@ -25,9 +29,14 @@
         <router-link to="/cultures">CULTURES</router-link>
         <router-link to="/mestieri">MESTIERI</router-link>
         <router-link to="/world-elements">WORLD ELEMENTS</router-link>
-        <router-link to="/characters">CHARACTERS</router-link>
+        <router-link v-if="authStore.isAuthenticated" to="/characters">CHARACTERS</router-link>
         <router-link to="/abilities">ABILITIES</router-link>
         <router-link to="/equipment">EQUIPMENT</router-link>
+      </div>
+
+      <!-- Desktop Auth Component -->
+      <div class="desktop-auth">
+        <AuthComponent />
       </div>
     </div>
 
@@ -36,24 +45,38 @@
 
     <!-- Main Content -->
     <div class="content-area">
-      <router-view />
+      <!-- Not invited modal -->
+      <NotInvitedModal v-if="authStore.notInvited" @close="authStore.clearNotInvited()" />
+
+      <!-- Username setup modal -->
+      <UsernameSetup v-else-if="authStore.isAuthenticated && authStore.needsUsername" />
+
+      <router-view v-else />
     </div>
 
   </div>
 </template>
 
 <script>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
+import { useAuthStore } from '@/stores/authStore'
 import SelectedCharacterBadge from '@/components/features/characterSelection/SelectedCharacterBadge.vue'
+import AuthComponent from '@/components/features/auth/AuthComponent.vue'
+import UsernameSetup from '@/components/features/auth/UsernameSetup.vue'
+import NotInvitedModal from '@/components/features/auth/NotInvitedModal.vue'
 
 export default {
   components: {
-    SelectedCharacterBadge
+    SelectedCharacterBadge,
+    AuthComponent,
+    UsernameSetup,
+    NotInvitedModal
   },
   setup() {
     const menuOpen = ref(false)
     const route = useRoute()
+    const authStore = useAuthStore()
     const shouldShowOverlay = computed(() => route.meta?.overlay === true)
 
     function toggleMenu() {
@@ -63,9 +86,14 @@ export default {
       menuOpen.value = false
     }
 
+    onMounted(() => {
+      authStore.initializeAuth()
+    })
+
     return {
       menuOpen,
       shouldShowOverlay,
+      authStore,
       toggleMenu,
       closeMenu,
     }

@@ -2,7 +2,7 @@
   <div class="concepts-view">
     <!-- Filter Controls (conditionally shown) -->
     <FilterControls v-if="showFilters" v-model:search-query="searchQuery" v-model:primary-filter="expansionFilter"
-      :search-placeholder="`Search ${itemName.toLowerCase()}s...`" :primary-filter-options="expansionFilterOptions"
+      :search-placeholder="`Search ${itemNamePlural}...`" :primary-filter-options="expansionFilterOptions"
       primary-filter-label="All Expansions" />
 
     <!-- Selection Cards -->
@@ -91,6 +91,16 @@ const expansions = ref([])
 const conceptDetailKey = ref(0)
 const searchQuery = ref('')
 const expansionFilter = ref('')
+
+// Proper pluralization for item names
+const itemNamePlural = computed(() => {
+  const name = props.itemName.toLowerCase()
+  // Handle special cases
+  if (name === 'ancestry') return 'ancestries'
+  if (name === 'mestiere') return 'mestieri'
+  // Default: add 's'
+  return `${name}s`
+})
 
 const expansionFilterOptions = computed(() => ({
   grouped: false,

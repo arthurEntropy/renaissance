@@ -1,6 +1,4 @@
 import { config } from 'dotenv'
-import { resolve, dirname } from 'path'
-import { fileURLToPath } from 'url'
 import express from 'express'
 import cors from 'cors'
 import { createServer } from 'http'
@@ -14,12 +12,26 @@ import {
 import { sendDiscordMessage } from './controllers/discordController.js'
 import { setupEngagementHandlers, setupOpposedSkillCheckHandlers } from './controllers/sessionController.js'
 import { getEntityNames } from './utils/fileService.js'
+import { verifyToken, requireAuth, requireAdmin, requireApproved } from './middleware/auth.js'
+import { socketAuthMiddleware, socketRequireApproved } from './middleware/socketAuth.js'
+import {
+  syncUserProfile,
+  getCurrentUserProfile,
+  updateCurrentUserProfile,
+  getAllUsers,
+  updateUser,
+  deleteUser,
+} from './controllers/userController.js'
+import { getAuth } from './config/firebase.js'
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = dirname(__filename)
+// Load environment variables
+config({ path: new URL('../../.env', import.meta.url) })
 
-// Configure dotenv with the correct path to the .env file
-config({ path: resolve(__dirname, '../../.env') })
+// Initialize Firebase Admin
+const auth = getAuth()
+if (!auth) {
+  console.error('Failed to initialize Firebase Admin')
+}
 
 const app = express()
 const server = createServer(app)
@@ -29,20 +41,61 @@ const io = new Server(server, {
     methods: ['GET', 'POST']
   }
 })
+
+// Apply authentication middleware to all socket connections
+io.use(socketAuthMiddleware)
+io.use(socketRequireApproved)
 const PORT = process.env.PORT || 3000
 
 app.use(express.json())
 app.use(cors())
+
+app.use((req, res, next) => {
+  // Protected routes that require authentication
+  const protectedRoutes = [
+    '/auth',
+    '/users',
+    '/characters'
+  ]
+  
+  if (protectedRoutes.some(route => req.path.startsWith(route))) {
+    return verifyToken(req, res, next)
+  }
+  
+  // All other routes are public
+  next()
+})
+
+// Auth routes
+app.post('/auth/sync-profile', requireAuth, syncUserProfile)
+
+// User profile routes
+app.get('/users/profile', requireAuth, getCurrentUserProfile)
+app.put('/users/profile', requireAuth, updateCurrentUserProfile)
+
+// Admin user management routes
+app.get('/users/admin/all', requireAuth, requireAdmin, getAllUsers)
+app.put('/users/admin/:userId', requireAuth, requireAdmin, updateUser)
+app.delete('/users/admin/:userId', requireAuth, requireAdmin, deleteUser)
 
 // Dynamically retrieve entity names from the "data" directory
 const entities = getEntityNames()
 
 // Dynamically create routes for each entity
 entities.forEach((entity) => {
-  app.get(`/${entity}`, getAllEntities(entity))
-  app.post(`/${entity}`, createEntity(entity))
-  app.put(`/${entity}/:id`, updateEntity(entity))
-  app.delete(`/${entity}/:id`, deleteEntity(entity)) // Currently only soft-deleting across the app, but leaving in place for future.
+  if (entity === 'characters') {
+    // Characters require authentication and approval for all operations
+    app.get(`/${entity}`, requireAuth, requireApproved, getAllEntities(entity))
+    app.post(`/${entity}`, requireAuth, requireApproved, createEntity(entity))
+    app.put(`/${entity}/:id`, requireAuth, requireApproved, updateEntity(entity))
+    app.delete(`/${entity}/:id`, requireAuth, requireApproved, deleteEntity(entity))
+  } else {
+    // All other entities are public for reading, admin-only for writing
+    app.get(`/${entity}`, getAllEntities(entity))
+    app.post(`/${entity}`, requireAuth, requireAdmin, createEntity(entity))
+    app.put(`/${entity}/:id`, requireAuth, requireAdmin, updateEntity(entity))
+    app.delete(`/${entity}/:id`, requireAuth, requireAdmin, deleteEntity(entity))
+  }
 })
 
 // Discord route

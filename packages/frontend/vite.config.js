@@ -5,6 +5,8 @@ import path from 'path'
 
 export default defineConfig(() => {
   return {
+    // Load .env file from the root of the project
+    envDir: '../../',
     plugins: [
       vue(),
       eslint({

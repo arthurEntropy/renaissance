@@ -213,7 +213,7 @@ const sendEquipmentToChat = (_equipment) => {
   // Placeholder for future chat integration
 }
 
-const handleDuplicateEquipment = async (newEquipment) => {
+const handleDuplicateEquipment = async () => {
   try {
     // Refresh the equipment list to include the new duplicate
     await equipmentStore.fetch()
