@@ -1,13 +1,13 @@
 <template>
     <div class="admin-page">
-        <h1>Admin</h1>
+        <UserManager />
         <ExpansionManager />
-        <!-- Future admin sections can be added here -->
     </div>
 </template>
 
 <script setup>
 import ExpansionManager from '@/components/features/admin/ExpansionManager.vue'
+import UserManager from '@/components/features/admin/UserManager.vue'
 </script>
 
 <style scoped>

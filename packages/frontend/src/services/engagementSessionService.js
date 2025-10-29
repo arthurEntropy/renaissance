@@ -1,4 +1,5 @@
 import { io } from 'socket.io-client'
+import AuthService from './authService'
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000'
 
@@ -9,27 +10,43 @@ class EngagementSessionService {
     this.listeners = new Map()
   }
 
-  connect() {
+  async connect() {
     if (this.socket) return
     
-    this.socket = io(`${API_BASE_URL}/engagement`, {
-      reconnection: true,
-      reconnectionDelay: 1000,
-      reconnectionAttempts: 5
-    })
+    try {
+      // Get authentication token
+      const token = await AuthService.getIdToken()
+      
+      if (!token) {
+        throw new Error('Authentication required for multiplayer sessions')
+      }
 
-    this.socket.on('connect', () => {
-      this._notifyListeners('connection-status', { connected: true })
-    })
+      this.socket = io(`${API_BASE_URL}/engagement`, {
+        reconnection: true,
+        reconnectionDelay: 1000,
+        reconnectionAttempts: 5,
+        auth: {
+          token: token
+        }
+      })
 
-    this.socket.on('disconnect', (reason) => {
-      this._notifyListeners('connection-status', { connected: false, reason })
-    })
+      this.socket.on('connect', () => {
+        this._notifyListeners('connection-status', { connected: true })
+      })
 
-    this.socket.on('error', (error) => {
-      console.error('EngagementService: WebSocket error:', error)
+      this.socket.on('disconnect', (reason) => {
+        this._notifyListeners('connection-status', { connected: false, reason })
+      })
+
+      this.socket.on('error', (error) => {
+        console.error('EngagementService: WebSocket error:', error)
+        this._notifyListeners('error', error)
+      })
+    } catch (error) {
+      console.error('Failed to connect to engagement session:', error)
       this._notifyListeners('error', error)
-    })
+      throw error
+    }
 
     this.socket.on('session-created', ({ sessionId, session }) => {
       this.sessionId = sessionId
@@ -82,8 +99,8 @@ class EngagementSessionService {
     }
   }
 
-  autoJoinOrCreate(characterInfo, selectedDice, engagementSuccesses) {
-    if (!this.socket) this.connect()
+  async autoJoinOrCreate(characterInfo, selectedDice, engagementSuccesses) {
+    if (!this.socket) await this.connect()
     
     this.socket.emit('auto-join-or-create', {
       characterInfo,

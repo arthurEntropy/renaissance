@@ -1,4 +1,5 @@
 import axios from 'axios'
+import AuthService from './authService'
 
 class BaseService {
   constructor(endpoint, entityName) {
@@ -6,10 +7,22 @@ class BaseService {
     this.entityName = entityName
   }
 
+  // Get authentication headers
+  async getAuthHeaders() {
+    const token = await AuthService.getIdToken()
+    return token ? { Authorization: `Bearer ${token}` } : {}
+  }
+
   async create(defaultEntity = null) {
     const newEntity = defaultEntity || this.getDefaultEntity()
     try {
-      const response = await axios.post(this.baseUrl, newEntity)
+      const authHeaders = await this.getAuthHeaders()
+      const response = await axios.post(this.baseUrl, newEntity, {
+        headers: {
+          'Content-Type': 'application/json',
+          ...authHeaders
+        }
+      })
       return response.data
     } catch (error) {
       console.error(`Error creating ${this.entityName}:`, error)
@@ -19,7 +32,10 @@ class BaseService {
 
   async getAll() {
     try {
-      const response = await axios.get(this.baseUrl)
+      const authHeaders = await this.getAuthHeaders()
+      const response = await axios.get(this.baseUrl, {
+        headers: authHeaders
+      })
       return response.data
     } catch (error) {
       console.error(`Error getting all ${this.entityName}s:`, error)
@@ -29,7 +45,13 @@ class BaseService {
 
   async update(entity) {
     try {
-      const response = await axios.put(`${this.baseUrl}/${entity.id}`, entity)
+      const authHeaders = await this.getAuthHeaders()
+      const response = await axios.put(`${this.baseUrl}/${entity.id}`, entity, {
+        headers: {
+          'Content-Type': 'application/json',
+          ...authHeaders
+        }
+      })
       return response.data
     } catch (error) {
       console.error(`Error updating ${this.entityName}:`, error)

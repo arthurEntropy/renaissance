@@ -1,0 +1,18 @@
+{
+  "id": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
+  "email": "ljbrevoort@gmail.com",
+  "name": "arthurentropy",
+  "photoURL": "https://lh3.googleusercontent.com/a/ACg8ocIDCWC--pbJd5A0CjJ5Yo4aDaNzaJ19wwOuYJw5plZnba0127ph=s96-c",
+  "role": "admin",
+  "status": "approved",
+  "needsUsername": false,
+  "createdAt": "2025-10-24T18:03:45.214Z",
+  "lastLoginAt": "2025-10-29T17:27:00.765Z",
+  "isDeleted": false,
+  "preferences": {
+    "theme": "dark",
+    "notifications": true
+  },
+  "characters": [],
+  "lastUpdatedAt": "2025-10-24T18:06:19.174Z"
+}

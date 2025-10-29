@@ -15,7 +15,7 @@
 }
 
 .top-nav-content {
-  max-width: 1200px;
+  max-width: 70vw;
   margin: 0 auto;
   height: 100%;
   display: flex;
@@ -121,14 +121,14 @@
 }
 
 /* === RESPONSIVE NAVIGATION === */
-@media (min-width: var(--breakpoint-lg)) {
+@media (min-width: 1024px) {
   .nav-menu {
     display: none !important;
     /* Hide entire mobile menu on desktop */
   }
 }
 
-@media (max-width: calc(var(--breakpoint-lg) - 1px)) {
+@media (max-width: 1023px) {
   .top-nav {
     display: none;
     /* Hide top nav on mobile */

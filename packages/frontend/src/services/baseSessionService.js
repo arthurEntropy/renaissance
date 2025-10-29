@@ -1,4 +1,5 @@
 import { io } from 'socket.io-client'
+import AuthService from './authService'
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000'
 
@@ -21,13 +22,25 @@ class BaseSessionService {
     }
   }
 
-  connect() {
+  async connect() {
     if (this.socket && this.socket.connected) {
       return
     }
     
     try {
-      this.socket = io(`${API_BASE_URL}/${this.namespace}`, this.config)
+      // Get authentication token
+      const token = await AuthService.getIdToken()
+      
+      if (!token) {
+        throw new Error('Authentication required for multiplayer sessions')
+      }
+
+      this.socket = io(`${API_BASE_URL}/${this.namespace}`, {
+        ...this.config,
+        auth: {
+          token: token
+        }
+      })
 
       // Set up common event handlers
       this.socket.on('connect', () => {

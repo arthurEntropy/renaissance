@@ -6,15 +6,12 @@ import {
   unlinkSync,
   existsSync,
 } from 'fs'
-import { join, resolve, dirname } from 'path'
+import { join } from 'path'
 import { fileURLToPath } from 'url'
 import { v4 as uuidv4, v5 as uuidv5 } from 'uuid'
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = dirname(__filename)
-
 // Base directory for all data entities (cultures, characters, etc.)
-const DATA_DIR = resolve(process.cwd(), '../../data')
+const DATA_DIR = fileURLToPath(new URL('../../../data', import.meta.url))
 
 // Namespace UUID for deterministic improvement ID generation
 const IMPROVEMENT_NAMESPACE = '6ba7b810-9dad-11d1-80b4-00c04fd430c8'

@@ -1,4 +1,15 @@
 import axios from 'axios'
+import { readFileSync } from 'fs'
+
+// Load Discord webhook configuration
+let discordConfig = { webhookUrl: null }
+if (process.env.DISCORD_WEBHOOK_PATH) {
+  try {
+    discordConfig = JSON.parse(readFileSync(process.env.DISCORD_WEBHOOK_PATH, 'utf8'))
+  } catch (error) {
+    console.error('Error loading Discord webhook config:', error.message)
+  }
+}
 
 const COLORS = {
   SUCCESS: 0x00ff00, // Green
@@ -134,7 +145,7 @@ const createCustomRollEmbed = (data) => {
 }
 
 const sendDiscordMessage = async (req, res) => {
-  const DISCORD_WEBHOOK_URL = process.env.DISCORD_WEBHOOK_URL
+  const DISCORD_WEBHOOK_URL = discordConfig.webhookUrl
   
   if (!DISCORD_WEBHOOK_URL) {
     return res.status(500).json({ error: 'Discord webhook URL not configured' })

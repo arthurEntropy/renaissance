@@ -27,6 +27,23 @@
   }
 }
 
+/* ===== AUTH COMPONENT NAVIGATION STYLES ===== */
+.desktop-auth {
+  position: absolute;
+  right: var(--space-xl);
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  z-index: 1;
+}
+
+.mobile-auth {
+  border-bottom: 1px solid var(--color-gray-medium);
+  margin-bottom: var(--space-md);
+  padding-bottom: var(--space-md);
+}
+
 
 /* ===== BASE HTML/BODY STYLES ===== */
 html,
