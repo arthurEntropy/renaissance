@@ -5,17 +5,17 @@
             <div class="conditions-row" v-for="(value, key) in character.conditions" :key="key">
                 <span :class="{ 'condition-active': value }">{{
                     capitalize(key)
-                }}</span>
+                    }}</span>
                 <input type="checkbox" class="skill-checkbox" :class="{ 'condition-active-checkbox': value }"
-                    :checked="value" @change="updateCondition(key, $event.target.checked)" />
+                    :checked="value" :disabled="!isEditMode" @change="updateCondition(key, $event.target.checked)" />
             </div>
         </CharacterSheetSection>
 
         <CharacterSheetSection custom-class="speed-column">
             <div class="speed-row">
                 <span class="speed-name">Speed</span>
-                <NumberInput :model-value="character.speed || 0" @update:model-value="updateSpeed" :min="0"
-                    size="small" />
+                <NumberInput :model-value="character.speed || 0" :disabled="!isEditMode"
+                    @update:model-value="updateSpeed" :min="0" size="small" />
             </div>
         </CharacterSheetSection>
     </div>
@@ -31,6 +31,10 @@ const props = defineProps({
     character: {
         type: Object,
         required: true
+    },
+    isEditMode: {
+        type: Boolean,
+        default: false
     }
 })
 

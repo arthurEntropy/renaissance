@@ -1,6 +1,7 @@
 <template>
   <CharacterSheetSection max-width="375px">
-    <TableHeader title="Equipment" :is-edit-mode="isEditMode" @toggle-edit="toggleEditMode">
+    <TableHeader title="Equipment" :is-edit-mode="internalEditMode" :show-edit-button="canEdit"
+      @toggle-edit="toggleEditMode">
       <template #header-right>
         <EquipmentWeight :equipment-rows="characterEquipmentRows" />
       </template>
@@ -8,12 +9,12 @@
 
     <!-- Draggable Item Rows -->
     <draggable v-model="sortedEquipmentRows" handle=".drag-handle" item-key="id" @end="onDragEnd"
-      ghost-class="ghost-equipment-row" animation="150" :disabled="!isEditMode" class="equipment-list">
+      ghost-class="ghost-equipment-row" animation="150" :disabled="!internalEditMode" class="equipment-list">
       <template #item="{ element: row, index }">
         <div class="equipment-row">
 
-          <FloatingEditControls v-if="isEditMode" :index="index" delete-title="Remove item" drag-title="Drag to reorder"
-            @delete="removeEquipmentItem" />
+          <FloatingEditControls v-if="internalEditMode" :index="index" delete-title="Remove item"
+            drag-title="Drag to reorder" @delete="removeEquipmentItem" />
 
           <div class="equipment-card-col">
             <EquipmentCard v-if="row.equipment" :equipment="row.equipment" :collapsed="row.collapsed || false"
@@ -24,8 +25,9 @@
 
             <span v-else class="missing-equipment">Unknown item</span>
 
-            <EquipmentDetails :equipment-row="row" :index="index" @update-carried="handleCarriedChange"
-              @update-wielding="handleWieldingChange" @update-quantity="handleQuantityChange" />
+            <EquipmentDetails :equipment-row="row" :index="index" :is-edit-mode="internalEditMode"
+              @update-carried="handleCarriedChange" @update-wielding="handleWieldingChange"
+              @update-quantity="handleQuantityChange" />
 
           </div>
         </div>
@@ -76,14 +78,21 @@ import { BookOpenIcon, PlusIcon } from '@heroicons/vue/24/outline'
 const props = defineProps({
   equipment: Array,
   allEquipment: Array,
-  character: Object
+  character: Object,
+  isEditMode: {
+    type: Boolean,
+    default: false
+  }
 })
 
 // Emits
 const emit = defineEmits(['update-character', 'edit-custom-equipment'])
 
-// Composables
-const { isEditMode, toggleEditMode, showAddButton } = useTableEditMode()
+// Internal edit mode management
+const { isEditMode: internalEditMode, toggleEditMode, showAddButton } = useTableEditMode()
+
+// canEdit is true if the parent allows editing (character sheet edit mode)
+const canEdit = computed(() => props.isEditMode)
 
 // Item management for equipment
 const equipmentManagement = useItemManagement(

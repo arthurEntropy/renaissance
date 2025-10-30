@@ -1,26 +1,26 @@
 <template>
   <CharacterSheetSection custom-class="core-ability-column" min-width="270px" max-width="320px">
     <!-- Core Ability Header -->
-    <CoreAbilityHeader :title="columnConfig.title" :value="coreAbilityValue"
+    <CoreAbilityHeader :title="columnConfig.title" :value="coreAbilityValue" :is-edit-mode="isEditMode"
       @update="updateNestedProperty(columnConfig.coreAbilityKey, $event)" />
 
     <!-- Skills -->
-    <SkillRow v-for="skill in skills" :key="skill.name" :skill="skill" :is-rank-active="isRankActive"
-      :is-dice-added="isDiceAdded" :is-dice-subtracted="isDiceSubtracted"
+    <SkillRow v-for="skill in skills" :key="skill.name" :skill="skill" :is-edit-mode="isEditMode"
+      :is-rank-active="isRankActive" :is-dice-added="isDiceAdded" :is-dice-subtracted="isDiceSubtracted"
       :get-style-class-for-favored-status="getStyleClassForFavoredStatus"
       @open-skill-check="$emit('open-skill-check', $event)" @dice-click="handleDiceClick" />
 
     <!-- Virtue Row -->
-    <StatRow type="range" :label="columnConfig.virtueLabel" :value="virtueValue"
+    <StatRow type="range" :label="columnConfig.virtueLabel" :value="virtueValue" :is-edit-mode="isEditMode"
       @update="(field, value) => updateVirtueWeakness(`${columnConfig.virtueKey}.${field}`, value)" />
 
     <!-- Weakness Row -->
-    <StatRow type="single" :label="columnConfig.weaknessLabel" :value="weaknessValue"
+    <StatRow type="single" :label="columnConfig.weaknessLabel" :value="weaknessValue" :is-edit-mode="isEditMode"
       @update="(value) => updateVirtueWeakness(columnConfig.weaknessKey, value)" />
 
     <!-- State Row -->
     <StatRow type="state" :label="capitalizeFirstLetter(columnConfig.firstStateKey)" :first-state="firstStateValue"
-      :second-state="secondStateValue" @update="(field, value) => {
+      :second-state="secondStateValue" :is-edit-mode="isEditMode" @update="(field, value) => {
         const stateKey = field === 'first' ? columnConfig.firstStateKey : columnConfig.secondStateKey
         updateNestedProperty(`states.${stateKey}`, value)
       }" />
@@ -48,6 +48,10 @@ const props = defineProps({
     type: String,
     required: true,
   },
+  isEditMode: {
+    type: Boolean,
+    default: false
+  }
 })
 
 // Emits

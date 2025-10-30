@@ -1,7 +1,8 @@
 <template>
     <div class="core-ability-header">
         <h2>{{ title }}</h2>
-        <NumberInput :model-value="value" @update:model-value="$emit('update', $event)" :min="0" size="large" />
+        <NumberInput :model-value="value" :disabled="!isEditMode" @update:model-value="$emit('update', $event)" :min="0"
+            size="large" />
     </div>
 </template>
 
@@ -17,6 +18,10 @@ defineProps({
     value: {
         type: Number,
         required: true
+    },
+    isEditMode: {
+        type: Boolean,
+        default: false
     }
 })
 

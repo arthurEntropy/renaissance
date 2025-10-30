@@ -1,9 +1,11 @@
 <template>
     <div class="mp-container">
         <span class="mp-label">MP:</span>
-        <NumberInput :model-value="mp.current" @update:model-value="updateCurrent" :min="0" size="small" />
+        <NumberInput :model-value="mp.current" :disabled="!isEditMode" @update:model-value="updateCurrent" :min="0"
+            size="small" />
         <span>/</span>
-        <NumberInput :model-value="mp.max" @update:model-value="updateMax" :min="0" size="small" />
+        <NumberInput :model-value="mp.max" :disabled="!isEditMode" @update:model-value="updateMax" :min="0"
+            size="small" />
     </div>
 </template>
 
@@ -17,6 +19,10 @@ const props = defineProps({
         validator: (value) => {
             return value && typeof value.current === 'number' && typeof value.max === 'number'
         }
+    },
+    isEditMode: {
+        type: Boolean,
+        default: false
     }
 })
 

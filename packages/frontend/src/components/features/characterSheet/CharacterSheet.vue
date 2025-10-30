@@ -9,27 +9,31 @@
             <div class="scrollable-wrapper">
                 <div class="scrollable-content">
                     <div class="top-section">
-                        <CharacterProfile :character="localCharacter" @update-character="updateCharacter" />
-                        <CharacterBio :character="localCharacter" @update-character="updateCharacter" />
+                        <CharacterProfile :character="localCharacter" :is-edit-mode="isEditMode"
+                            @update-character="updateCharacter" />
+                        <CharacterBio :character="localCharacter" :is-edit-mode="isEditMode"
+                            @update-character="updateCharacter" />
                         <DiceRollResults :latestRoll="latestRoll" :customDiceRollerOpen="showCustomDiceRoller"
                             @toggle-custom-dice="toggleCustomDiceRoller" />
                     </div>
 
                     <div class="character-stats-section">
-                        <CoreAbilityColumn :character="localCharacter" column="body" @update-character="updateCharacter"
-                            @open-skill-check="openSkillCheckModal" />
-                        <CoreAbilityColumn :character="localCharacter" column="heart"
+                        <CoreAbilityColumn :character="localCharacter" :is-edit-mode="isEditMode" column="body"
                             @update-character="updateCharacter" @open-skill-check="openSkillCheckModal" />
-                        <CoreAbilityColumn :character="localCharacter" column="wits" @update-character="updateCharacter"
-                            @open-skill-check="openSkillCheckModal" />
-                        <ConditionsColumn :character="localCharacter" @update:character="updateCharacter" />
+                        <CoreAbilityColumn :character="localCharacter" :is-edit-mode="isEditMode" column="heart"
+                            @update-character="updateCharacter" @open-skill-check="openSkillCheckModal" />
+                        <CoreAbilityColumn :character="localCharacter" :is-edit-mode="isEditMode" column="wits"
+                            @update-character="updateCharacter" @open-skill-check="openSkillCheckModal" />
+                        <ConditionsColumn :character="localCharacter" :is-edit-mode="isEditMode"
+                            @update:character="updateCharacter" />
                         <EquipmentTable :equipment="localCharacter.equipment" :allEquipment="allEquipment"
-                            :character="localCharacter" @update-character="updateCharacter"
+                            :character="localCharacter" :is-edit-mode="isEditMode" @update-character="updateCharacter"
                             @edit-custom-equipment="openEditEquipmentModal" />
                         <AbilitiesTable :character="localCharacter" :allAbilities="allAbilities"
-                            @update-character="updateCharacter" />
+                            :is-edit-mode="isEditMode" @update-character="updateCharacter" />
                         <EngagementTable :character="localCharacter" :allEquipment="allEquipment"
-                            @update:character="updateCharacter" @engagement-results="handleEngagementResult" />
+                            :is-edit-mode="isEditMode" @update:character="updateCharacter"
+                            @engagement-results="handleEngagementResult" />
                     </div>
                 </div>
             </div>
@@ -73,6 +77,7 @@ import { useOpposedSkillCheck } from '@/composables/useOpposedSkillCheck'
 import { useDiceResults } from '@/composables/useDiceResults'
 import { useEquipmentManagement } from '@/composables/useEquipmentManagement'
 import { useCharacterManagement } from '@/composables/useCharacterManagement'
+import { useCharacterEditMode } from '@/composables/useCharacterEditMode'
 import { useEquipmentStore } from '@/stores/equipmentStore'
 import { useEquipmentCategoriesStore } from '@/stores/equipmentCategoriesStore'
 import { useSourcesStore } from '@/stores/sourcesStore'
@@ -125,6 +130,18 @@ watchCharacterStats()
 
 // Use selectedCharacter as localCharacter for backward compatibility
 const localCharacter = selectedCharacter
+
+// Edit mode management - auto-enable if user has permission
+const {
+    isEditMode,
+    canEdit,
+    enableEditMode
+} = useCharacterEditMode(localCharacter)
+
+// Auto-enable edit mode if user has permission
+if (canEdit.value) {
+    enableEditMode()
+}
 
 // Modal management
 const {
@@ -212,6 +229,9 @@ const {
 
 // Character update handler
 const updateCharacter = (updatedCharacter) => {
+    // Only allow updates in edit mode
+    if (!isEditMode.value) return
+
     // Use the character management service which triggers automatic watchers
     updateCharacterService(updatedCharacter)
     emit('update:character', updatedCharacter)
@@ -257,7 +277,7 @@ const handleDeleteCharacter = () => {
     left: var(--space-md);
     right: var(--space-md);
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
     z-index: var(--z-modal-controls);
 }

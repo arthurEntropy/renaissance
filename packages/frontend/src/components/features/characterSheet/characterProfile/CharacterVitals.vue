@@ -1,6 +1,7 @@
 <template>
     <div class="vitals-info edit-hover-area">
-        <EditButton size="small" visibility="on-hover" class="edit-button-overlay" @click="openEditModal" />
+        <EditButton v-if="isEditMode" size="small" visibility="on-hover" class="edit-button-overlay"
+            @click="openEditModal" />
 
         <!-- Name and Pronouns -->
         <div class="character-name-container">
@@ -49,6 +50,10 @@ const props = defineProps({
         type: Object,
         required: true,
     },
+    isEditMode: {
+        type: Boolean,
+        default: false
+    }
 })
 
 const emit = defineEmits(['update-character'])

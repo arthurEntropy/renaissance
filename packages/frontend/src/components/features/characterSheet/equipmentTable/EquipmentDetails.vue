@@ -4,7 +4,7 @@
             <!-- Carried Checkbox -->
             <div class="detail-item checkbox-item">
                 <input type="checkbox" class="equipment-checkbox" :checked="equipmentRow.isCarried"
-                    @change="handleCarriedChange($event.target.checked)" />
+                    :disabled="!isEditMode" @change="handleCarriedChange($event.target.checked)" />
                 <em class="carried-label">carried</em>
             </div>
 
@@ -12,7 +12,7 @@
             <div class="detail-item checkbox-item">
                 <input type="checkbox" class="equipment-checkbox" :class="{
                     'disabled-checkbox': !canWield
-                }" :checked="equipmentRow.isWielding" :disabled="!canWield"
+                }" :checked="equipmentRow.isWielding" :disabled="!canWield || !isEditMode"
                     @change="handleWieldingChange($event.target.checked)" />
                 <em class="carried-label" :class="{
                     'disabled-text': !canWield
@@ -25,8 +25,8 @@
                 <!-- Quantity -->
                 <div class="detail-item">
                     <em class="carried-label">qty</em>
-                    <NumberInput :model-value="equipmentRow.quantity" @update:model-value="handleQuantityChange"
-                        :min="1" size="tiny" class="quantity-input" />
+                    <NumberInput :model-value="equipmentRow.quantity" :disabled="!isEditMode"
+                        @update:model-value="handleQuantityChange" :min="1" size="tiny" class="quantity-input" />
                 </div>
 
                 <!-- Carried Weight -->
@@ -54,6 +54,10 @@ const props = defineProps({
     index: {
         type: Number,
         required: true
+    },
+    isEditMode: {
+        type: Boolean,
+        default: false
     }
 })
 

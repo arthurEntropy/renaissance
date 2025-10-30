@@ -6,7 +6,7 @@
         <i class="dice-icon d12-icon"
             :class="[getDiceFontClass(DICE_SIZES.D12, DICE_SIZES.D12), getStyleClassForFavoredStatus(skill)]">
         </i>
-        <DiceGroup :skill="skill" :is-rank-active="isRankActive" :is-dice-added="isDiceAdded"
+        <DiceGroup :skill="skill" :is-edit-mode="isEditMode" :is-rank-active="isRankActive" :is-dice-added="isDiceAdded"
             :is-dice-subtracted="isDiceSubtracted" @dice-click="$emit('dice-click', skill.name, $event)" />
     </div>
 </template>
@@ -21,6 +21,10 @@ defineProps({
     skill: {
         type: Object,
         required: true
+    },
+    isEditMode: {
+        type: Boolean,
+        default: false
     },
     isRankActive: {
         type: Function,
@@ -71,7 +75,6 @@ defineEmits(['open-skill-check', 'dice-click'])
 
 .dice-icon {
     font-size: var(--font-size-24);
-    cursor: pointer;
     transition: var(--transition-color), opacity var(--transition-normal);
 }
 

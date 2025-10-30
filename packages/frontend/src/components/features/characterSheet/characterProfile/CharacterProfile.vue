@@ -1,12 +1,13 @@
 <template>
   <CharacterSheetSection custom-class="character-profile" min-width="350px" max-width="390px">
-    <CharacterArt :character="character" @update-character="handleCharacterUpdate" />
-    <CharacterVitals :character="character" @update-character="handleCharacterUpdate" />
+    <CharacterArt :character="character" :is-edit-mode="isEditMode" @update-character="handleCharacterUpdate" />
+    <CharacterVitals :character="character" :is-edit-mode="isEditMode" @update-character="handleCharacterUpdate" />
 
     <!-- XP Badge -->
     <div class="xp-badge">
       <span class="xp-label">XP:</span>
-      <NumberInput :model-value="character.xp || 0" @update:model-value="updateXP" :min="0" size="small" />
+      <NumberInput :model-value="character.xp || 0" :disabled="!isEditMode" @update:model-value="updateXP" :min="0"
+        size="small" />
     </div>
   </CharacterSheetSection>
 </template>
@@ -17,11 +18,15 @@ import CharacterVitals from './CharacterVitals.vue'
 import CharacterSheetSection from '@/components/ui/containers/CharacterSheetSection.vue'
 import NumberInput from '@/components/ui/forms/NumberInput.vue'
 
-const { character } = defineProps({
+const { character, isEditMode } = defineProps({
   character: {
     type: Object,
     required: true,
   },
+  isEditMode: {
+    type: Boolean,
+    default: false
+  }
 })
 
 const emit = defineEmits(['update-character'])
