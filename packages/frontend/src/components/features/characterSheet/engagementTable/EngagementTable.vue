@@ -4,7 +4,7 @@
     <TableHeader title="Engagement" :is-edit-mode="internalEditMode" :show-edit-button="canEdit"
       @toggle-edit="toggleEditMode">
       <template #header-right>
-        <div class="button-group">
+        <div v-if="canEdit" class="button-group">
           <ActionButton variant="neutral" size="small" text="Reset" :disabled="internalEditMode || !hasExpendedDice"
             @click="resetDice" />
           <ActionButton variant="primary" size="small" text="Roll" :disabled="internalEditMode"

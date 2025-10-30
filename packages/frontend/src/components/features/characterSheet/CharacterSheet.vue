@@ -14,7 +14,7 @@
                         <CharacterBio :character="localCharacter" :is-edit-mode="isEditMode"
                             @update-character="updateCharacter" />
                         <DiceRollResults :latestRoll="latestRoll" :customDiceRollerOpen="showCustomDiceRoller"
-                            @toggle-custom-dice="toggleCustomDiceRoller" />
+                            :is-edit-mode="isEditMode" @toggle-custom-dice="toggleCustomDiceRoller" />
                     </div>
 
                     <div class="character-stats-section">

@@ -3,7 +3,7 @@
     :max-width="`${CONTAINER_WIDTH}px`" @mouseenter="handleMouseEnter" @mouseleave="handleMouseLeave">
     <!-- Custom Dice Button -->
     <transition name="simple-fade">
-      <template v-if="customDiceRollerOpen || showCustomDiceButton">
+      <template v-if="isEditMode && (customDiceRollerOpen || showCustomDiceButton)">
         <button class="roll-toggle-button" :class="{ 'custom-roller-open': customDiceRollerOpen }"
           @click="handleToggleCustomDice"
           :title="customDiceRollerOpen ? 'Close Custom Dice Roller' : 'Open Custom Dice Roller'">
@@ -40,7 +40,7 @@
           {{ latestRoll.characterName }} rolled
           <span class="skill-name">{{
             latestRoll.baseSkillName || latestRoll.skillName
-          }}</span>
+            }}</span>
           <span v-if="latestRoll.favoredStatus" :class="{
             'favored-modifier': latestRoll.favoredStatus === 'favored',
             'ill-favored-modifier': latestRoll.favoredStatus === 'ill-favored',
@@ -138,6 +138,10 @@ const props = defineProps({
     default: null,
   },
   customDiceRollerOpen: {
+    type: Boolean,
+    default: false,
+  },
+  isEditMode: {
     type: Boolean,
     default: false,
   },

@@ -2,7 +2,8 @@
     <div class="table-header edit-trigger">
         <div class="header-left">
             <h2>{{ title }}</h2>
-            <EditButton size="small" visibility="on-hover" :is-edit-mode="isEditMode" @click="$emit('toggle-edit')" />
+            <EditButton v-if="showEditButton" size="small" visibility="on-hover" :is-edit-mode="isEditMode"
+                @click="$emit('toggle-edit')" />
         </div>
         <div class="header-right">
             <slot name="header-right" />
@@ -21,6 +22,10 @@ defineProps({
     isEditMode: {
         type: Boolean,
         default: false
+    },
+    showEditButton: {
+        type: Boolean,
+        default: true
     }
 })
 
