@@ -1,7 +1,7 @@
 <template>
-  <ItemCardsLayout itemType="Equipment" itemTypePlural="Equipment" :sources="sources" :items="equipment"
+  <ItemCardsLayout itemType="Equipment" itemTypePlural="Equipment" :sources="sources" :items="paginatedEquipment"
     :sortOptions="sortOptions" v-model:searchQuery="searchQuery" v-model:sourceFilter="sourceFilter"
-    v-model:sortOption="sortOption" @create="createEquipment" ref="layoutRef">
+    v-model:sortOption="sortOption" :hasMore="hasMore" @create="createEquipment" @loadMore="loadMore" ref="layoutRef">
 
     <!-- Additional filters slot for equipment categories -->
     <template #additional-filters>
@@ -60,6 +60,7 @@ import { useEquipmentCategoriesStore } from '@/stores/equipmentCategoriesStore'
 import { useAuthStore } from '@/stores/authStore'
 import { useEditModal } from '@/composables/useEditModal'
 import { useSourcesStore } from '@/stores/sourcesStore'
+import { useInfiniteScroll } from '@/composables/useInfiniteScroll'
 import EquipmentService from '@/services/equipmentService'
 import EngagementSuccessService from '@/services/engagementSuccessService'
 import EquipmentCard from '@/components/ui/cards/EquipmentCard.vue'
@@ -105,8 +106,8 @@ const filteredSubtypes = computed(() => {
   return equipmentCategoriesStore.getSubtypesByType(typeFilter.value)
 })
 
-// Custom filtering that includes category filters
-const filteredEquipment = computed(() => {
+// Computed property for filtered equipment (before pagination)
+const allFilteredEquipment = computed(() => {
   let filtered = [...equipment.value].filter(item => !item.isDeleted)
 
   // Apply search filter
@@ -163,6 +164,20 @@ const filteredEquipment = computed(() => {
   }
 
   return filtered
+})
+
+// Convert to ref for infinite scroll
+const allFilteredEquipmentRef = computed(() => allFilteredEquipment.value)
+
+// Infinite scroll setup with filtered equipment
+const { paginatedItems: paginatedEquipment, loadMore, hasMore, reset } = useInfiniteScroll(allFilteredEquipmentRef, 50)
+
+// Custom filtering that includes category filters - now uses paginated equipment
+const filteredEquipment = computed(() => {
+  // Since allFilteredEquipment already applies all filters,
+  // and paginatedEquipment is a subset of it,
+  // we just return the paginated items directly
+  return paginatedEquipment.value
 })
 
 const sortOptions = ref({
@@ -244,6 +259,13 @@ const fetchEngagementSuccessOptions = async () => {
 watch(typeFilter, () => {
   // Clear subtype filter when type changes
   subtypeFilter.value = ''
+  // Reset pagination when filters change
+  reset()
+})
+
+watch([searchQuery, sourceFilter, subtypeFilter, gradeFilter, sortOption], () => {
+  // Reset pagination when any filter changes
+  reset()
 })
 
 // Lifecycle

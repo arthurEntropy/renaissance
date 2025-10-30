@@ -1,7 +1,7 @@
 <template>
-  <ItemCardsLayout itemType="Ability" itemTypePlural="Abilities" :sources="sources" :items="abilities"
+  <ItemCardsLayout itemType="Ability" itemTypePlural="Abilities" :sources="sources" :items="paginatedAbilities"
     :sortOptions="sortOptions" v-model:searchQuery="searchQuery" v-model:sourceFilter="sourceFilter"
-    v-model:sortOption="sortOption" @create="createAbility" ref="layoutRef">
+    v-model:sortOption="sortOption" :hasMore="hasMore" @create="createAbility" @loadMore="loadMore" ref="layoutRef">
 
     <!-- Item cards slot -->
     <template #item-cards="{ filteredItems }">
@@ -29,6 +29,7 @@ import { useAbilitiesStore } from '@/stores/abilitiesStore'
 import { useAuthStore } from '@/stores/authStore'
 import { useEditModal } from '@/composables/useEditModal'
 import { useSourcesStore } from '@/stores/sourcesStore'
+import { useInfiniteScroll } from '@/composables/useInfiniteScroll'
 import AbilityService from '@/services/abilityService'
 import AbilityCard from '@/components/ui/cards/AbilityCard.vue'
 import EditAbilityModal from '@/components/editModals/EditAbilityModal.vue'
@@ -59,6 +60,9 @@ const layoutRef = ref(null)
 const sortOption = ref('')
 const searchQuery = ref('')
 const sourceFilter = ref('')
+
+// Infinite scroll setup
+const { paginatedItems: paginatedAbilities, loadMore, hasMore } = useInfiniteScroll(abilities, 50)
 
 // State for tracking improvement visibility per ability
 const improvementVisibility = ref(new Map())
