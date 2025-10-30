@@ -1,7 +1,8 @@
 <template>
     <ConceptSection :title="showTitle ? title : ''" :has-content="hasImages" :is-edit-mode="isEditMode"
         :empty-message="`No ${title.toLowerCase()} added yet.`">
-        <ImageGallery :images="images" :editable="isEditMode" :grid-columns="gridColumns"
+        <ImageGallery :images="images" :editable="isEditMode" :grid-columns="gridColumns" :mode="mode"
+            :auto-source-type="autoSourceType" :auto-source-id="autoSourceId"
             @update:images="$emit('update:images', $event)" />
     </ConceptSection>
 </template>
@@ -31,12 +32,31 @@ const props = defineProps({
     gridColumns: {
         type: Number,
         default: 5
+    },
+    mode: {
+        type: String,
+        default: 'manual',
+        validator: (value) => ['manual', 'auto'].includes(value)
+    },
+    autoSourceType: {
+        type: String,
+        default: 'faces',
+        validator: (value) => ['faces', 'places'].includes(value)
+    },
+    autoSourceId: {
+        type: String,
+        default: null
     }
 })
 
 defineEmits(['update:images'])
 
 const hasImages = computed(() => {
+    // In auto mode, check art store; in manual mode, check props
+    if (props.mode === 'auto') {
+        // Images will be determined by ImageGallery component
+        return true // Always show the section in auto mode
+    }
     return props.images && props.images.length > 0
 })
 </script>

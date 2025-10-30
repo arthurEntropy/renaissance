@@ -1,20 +1,20 @@
 <template>
   <div class="image-gallery">
     <!-- Enlarged image section (only shown when images exist) -->
-    <div v-if="images.length > 0" class="enlarged-image-wrapper edit-hover-area" @mouseenter="showNav = true"
+    <div v-if="displayImages.length > 0" class="enlarged-image-wrapper edit-hover-area" @mouseenter="showNav = true"
       @mouseleave="showNav = false">
-      <button v-if="showNav && images.length > 1" class="nav-button left" @click.stop="prevImage"
+      <button v-if="showNav && displayImages.length > 1" class="nav-button left" @click.stop="prevImage"
         aria-label="Previous image">
         <ChevronLeftIcon class="nav-icon" />
       </button>
 
-      <img :src="images[selectedIndex]" :alt="`Image ${selectedIndex + 1}`" class="enlarged-image" />
+      <img :src="displayImages[selectedIndex]" :alt="`Image ${selectedIndex + 1}`" class="enlarged-image" />
 
-      <!-- Edit button -->
-      <EditButton v-if="editable" size="small" visibility="on-hover" class="edit-button-overlay"
+      <!-- Edit button - only in manual mode -->
+      <EditButton v-if="editable && mode === 'manual'" size="small" visibility="on-hover" class="edit-button-overlay"
         @click.stop="openEditModal" />
 
-      <button v-if="showNav && images.length > 1" class="nav-button right" @click.stop="nextImage"
+      <button v-if="showNav && displayImages.length > 1" class="nav-button right" @click.stop="nextImage"
         aria-label="Next image">
         <ChevronRightIcon class="nav-icon" />
       </button>
@@ -35,10 +35,11 @@
     </div>
 
     <!-- Thumbnails grid -->
-    <div v-if="editable || images.length > 1" class="thumbs-container" :style="{ '--grid-columns': gridColumns }">
+    <div v-if="(editable && mode === 'manual') || displayImages.length > 1" class="thumbs-container"
+      :style="{ '--grid-columns': gridColumns }">
       <div class="thumbs-grid" :style="{ 'grid-template-columns': `repeat(${gridColumns}, 1fr)` }">
-        <!-- Editable mode -->
-        <template v-if="editable">
+        <!-- Editable mode (manual only) -->
+        <template v-if="editable && mode === 'manual'">
           <draggable v-model="localImages" class="draggable-container" handle=".thumb-drag-handle" item-key="index"
             animation="150" ghost-class="ghost-thumb" @end="onDragEnd">
             <template #item="{ element: img, index }">
@@ -58,9 +59,10 @@
           </div>
         </template>
 
-        <!-- Non-editable mode -->
+        <!-- Non-editable mode or auto mode -->
         <template v-else>
-          <div v-for="(img, index) in images" :key="img + index" class="thumb-wrapper" @click="selectImage(index)">
+          <div v-for="(img, index) in displayImages" :key="img + index" class="thumb-wrapper"
+            @click="selectImage(index)">
             <img :src="img" :alt="`Thumbnail ${index + 1}`" class="thumb-image" />
             <div v-if="selectedIndex === index" class="thumb-selected-overlay"></div>
           </div>
@@ -83,11 +85,12 @@
 </template>
 
 <script setup>
-import { ref, watch, nextTick } from 'vue'
+import { ref, watch, nextTick, computed } from 'vue'
 import draggable from 'vuedraggable'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import EditButton from '@/components/ui/buttons/EditButton.vue'
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/vue/24/outline'
+import { useArtStore } from '@/stores/artStore'
 
 // Props
 const props = defineProps({
@@ -107,10 +110,37 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  mode: {
+    type: String,
+    default: 'manual',
+    validator: (value) => ['manual', 'auto'].includes(value)
+  },
+  autoSourceType: {
+    type: String,
+    default: 'faces',
+    validator: (value) => ['faces', 'places'].includes(value)
+  },
+  autoSourceId: {
+    type: String,
+    default: null
+  }
 })
 
 // Emits
 const emit = defineEmits(['update:images', 'edit', 'delete', 'add'])
+
+// Store for auto mode
+const artStore = useArtStore()
+
+// Computed images based on mode
+const displayImages = computed(() => {
+  if (props.mode === 'auto' && props.autoSourceId) {
+    // Fetch images from art store
+    return artStore.getByTypeAndSource(props.autoSourceType, props.autoSourceId)
+  }
+  // Manual mode - use provided images
+  return props.images
+})
 
 // Reactive state
 const selectedIndex = ref(props.initialIndex)
@@ -133,12 +163,12 @@ const selectImage = (index) => {
 
 const prevImage = () => {
   selectedIndex.value =
-    (selectedIndex.value - 1 + localImages.value.length) %
-    localImages.value.length
+    (selectedIndex.value - 1 + displayImages.value.length) %
+    displayImages.value.length
 }
 
 const nextImage = () => {
-  selectedIndex.value = (selectedIndex.value + 1) % localImages.value.length
+  selectedIndex.value = (selectedIndex.value + 1) % displayImages.value.length
 }
 
 // Edit existing image methods

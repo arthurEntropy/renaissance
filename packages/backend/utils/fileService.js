@@ -89,7 +89,9 @@ const saveFile = (data, directory, oldName = null) => {
       data = ensureImprovementIds(data)
     }
 
-    let baseFilename = sanitizeFilename(data.name)
+    // For entities without names (like art), use ID as filename
+    const useName = data.name !== undefined && data.name !== null
+    let baseFilename = useName ? sanitizeFilename(data.name) : data.id
     let filename = baseFilename + '.json'
     let filePath = join(directory, filename)
 
@@ -109,7 +111,7 @@ const saveFile = (data, directory, oldName = null) => {
     }
 
     // If old name exists and differs, handle renaming with conflict resolution
-    if (oldName && oldName !== data.name) {
+    if (oldName && oldName !== data.name && useName) {
       const oldBaseFilename = sanitizeFilename(oldName)
       const oldFilename = oldBaseFilename + '.json'
       const oldFilePath = join(directory, oldFilename)

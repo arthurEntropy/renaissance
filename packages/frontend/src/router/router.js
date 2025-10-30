@@ -12,6 +12,7 @@ import WorldElementsPage from '@/pages/WorldElementsPage.vue'
 import EquipmentPage from '@/pages/EquipmentPage.vue'
 import RulesPage from '@/pages/RulesPage.vue'
 import AdminPage from '@/pages/AdminPage.vue'
+import ArtPage from '@/pages/ArtPage.vue'
 
 const routes = [
   { path: '/', component: TitlePage },
@@ -37,6 +38,11 @@ const routes = [
     path: '/equipment', 
     component: EquipmentPage, 
     meta: { overlay: true } 
+  },
+  { 
+    path: '/art', 
+    component: ArtPage,
+    meta: { requiresAuth: true, requiresAdmin: true }
   },
   { 
     path: '/admin', 

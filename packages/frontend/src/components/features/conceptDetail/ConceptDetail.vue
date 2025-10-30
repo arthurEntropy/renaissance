@@ -69,6 +69,7 @@ import { useExpansionsStore } from '@/stores/expansionsStore'
 import { useSourcesStore } from '@/stores/sourcesStore'
 import { useAbilitiesStore } from '@/stores/abilitiesStore'
 import { useEquipmentStore } from '@/stores/equipmentStore'
+import { useArtStore } from '@/stores/artStore'
 
 // Service imports
 import AbilityService from '@/services/abilityService'
@@ -94,6 +95,7 @@ const expansionStore = useExpansionsStore()
 const sourcesStore = useSourcesStore()
 const abilitiesStore = useAbilitiesStore()
 const equipmentStore = useEquipmentStore()
+const artStore = useArtStore()
 
 // Store data
 const sources = computed(() => {
@@ -296,6 +298,8 @@ onMounted(async () => {
   try {
     await expansionStore.fetch()
     expansions.value = expansionStore.expansions
+    // Fetch art store for auto-populated galleries
+    await artStore.fetch()
   } catch (error) {
     console.error('Error initializing ConceptDetail:', error)
   }
