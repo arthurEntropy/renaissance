@@ -1,8 +1,9 @@
 <template>
   <div class="number-input-container" :class="sizeClass">
-    <input type="number" :value="modelValue" @input="$emit('update:modelValue', Number(($event.target).value))"
-      :min="min" :max="max" :step="step" :class="inputClass" />
-    <div class="spinner-buttons">
+    <input type="number" :value="modelValue" :disabled="disabled"
+      @input="$emit('update:modelValue', Number(($event.target).value))" :min="min" :max="max" :step="step"
+      :class="inputClass" />
+    <div v-if="!disabled" class="spinner-buttons">
       <button @click="increment" class="spinner-up">▲</button>
       <button @click="decrement" class="spinner-down">▼</button>
     </div>
@@ -18,6 +19,7 @@ const props = defineProps({
   max: { type: Number, default: null },
   step: { type: Number, default: 1 },
   size: { type: String, default: 'small', validator: (v) => ['tiny', 'small', 'large'].includes(v) },
+  disabled: { type: Boolean, default: false }
 })
 
 const emit = defineEmits(['update:modelValue'])
@@ -81,6 +83,11 @@ input[type='number']::-webkit-inner-spin-button,
 input[type='number']::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+input[type='number']:disabled {
+  opacity: 0.7;
+  cursor: default;
 }
 
 .input-tiny {

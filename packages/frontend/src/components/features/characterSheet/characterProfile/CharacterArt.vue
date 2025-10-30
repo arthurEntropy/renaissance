@@ -2,7 +2,7 @@
     <div>
         <div class="character-art-container edit-hover-area">
             <img :src="characterImageUrl" class="character-art-image" @click="openModal" />
-            <EditButton size="small" visibility="on-hover" class="edit-button-overlay-small"
+            <EditButton v-if="isEditMode" size="small" visibility="on-hover" class="edit-button-overlay-small"
                 @click.stop="openChangeArtModal" />
         </div>
 
@@ -10,7 +10,7 @@
         <div v-if="fullSizeModal.isOpen.value" class="modal-overlay" @click="fullSizeModal.closeModal">
             <div class="modal-content image-container edit-hover-area" @click.stop>
                 <img :src="characterImageUrl" class="modal-image" />
-                <EditButton size="small" visibility="on-hover" class="edit-button-overlay"
+                <EditButton v-if="isEditMode" size="small" visibility="on-hover" class="edit-button-overlay"
                     @click.stop="openChangeArtModal" />
             </div>
         </div>
@@ -44,6 +44,10 @@ const props = defineProps({
         type: Object,
         required: true,
     },
+    isEditMode: {
+        type: Boolean,
+        default: false
+    }
 })
 
 // Emits

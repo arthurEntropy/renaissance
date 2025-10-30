@@ -1,12 +1,14 @@
 <template>
   <CharacterSheetSection max-width="325px">
 
-    <TableHeader title="Engagement" :is-edit-mode="isEditMode" @toggle-edit="toggleEditMode">
+    <TableHeader title="Engagement" :is-edit-mode="internalEditMode" :show-edit-button="canEdit"
+      @toggle-edit="toggleEditMode">
       <template #header-right>
-        <div class="button-group">
-          <ActionButton variant="neutral" size="small" text="Reset" :disabled="isEditMode || !hasExpendedDice"
+        <div v-if="canEdit" class="button-group">
+          <ActionButton variant="neutral" size="small" text="Reset" :disabled="internalEditMode || !hasExpendedDice"
             @click="resetDice" />
-          <ActionButton variant="primary" size="small" text="Roll" :disabled="isEditMode" @click="rollSelectedDice" />
+          <ActionButton variant="primary" size="small" text="Roll" :disabled="internalEditMode"
+            @click="rollSelectedDice" />
         </div>
       </template>
     </TableHeader>
@@ -15,20 +17,21 @@
       :allEngagementSuccesses="allEngagementSuccesses" :allEquipment="allEquipment" @close="closeEngagementRollModal"
       @engagement-committed="handleEngagementCommitted" @engagement-results="handleEngagementResults" />
 
-    <EngagementDiceDisplay :diceData="allOwnedEngagementDice" :diceOptions="diceOptions" :isEditMode="isEditMode"
+    <EngagementDiceDisplay :diceData="allOwnedEngagementDice" :diceOptions="diceOptions" :isEditMode="internalEditMode"
       :showDropdown="showDiceDropdown" :dropdownPosition="diceDropdownPosition" @toggle-dice="toggleDiceStatus"
       @remove-die="removeUserAddedDie" @add-die="toggleDiceDropdown" @select-die="addUserAddedDie" />
 
     <EngagementSuccessDisplay :successData="allOwnedEngagementSuccesses"
-      :availableSuccesses="availableEngagementSuccesses" :isEditMode="isEditMode" :showDropdown="showSuccessDropdown"
-      :dropdownPosition="successDropdownPosition" @remove-success="removeUserAddedSuccess"
-      @add-success="toggleSuccessDropdown" @select-success="addUserAddedSuccess" />
+      :availableSuccesses="availableEngagementSuccesses" :isEditMode="internalEditMode"
+      :showDropdown="showSuccessDropdown" :dropdownPosition="successDropdownPosition"
+      @remove-success="removeUserAddedSuccess" @add-success="toggleSuccessDropdown"
+      @select-success="addUserAddedSuccess" />
 
   </CharacterSheetSection>
 </template>
 
 <script setup>
-import { ref, toRef } from 'vue'
+import { ref, toRef, computed } from 'vue'
 import EngagementRollModal from '@/components/features/characterSheet/rollModal/EngagementRollModal.vue'
 import TableHeader from '@/components/ui/tables/TableHeader.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
@@ -49,18 +52,25 @@ const props = defineProps({
   allEquipment: {
     type: Array,
     default: () => [],
+  },
+  isEditMode: {
+    type: Boolean,
+    default: false
   }
 })
 
 // Emits
 const emit = defineEmits(['update:character', 'engagement-results'])
 
+// Internal edit mode management
+const { isEditMode: internalEditMode, toggleEditMode } = useTableEditMode()
+
+// Character sheet edit mode only controls whether edit button is visible
+const canEdit = computed(() => props.isEditMode)
+
 // Initialize composable with reactive references
 const characterRef = toRef(props, 'character')
 const allEquipmentRef = toRef(props, 'allEquipment')
-
-// Composables
-const { isEditMode, toggleEditMode } = useTableEditMode()
 
 const diceManager = useEngagementDice(characterRef, allEquipmentRef)
 const successManager = useEngagementSuccesses(characterRef, allEquipmentRef)

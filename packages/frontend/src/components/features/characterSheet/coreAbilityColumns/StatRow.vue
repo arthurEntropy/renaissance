@@ -4,24 +4,27 @@
 
         <!-- Range type (virtue: current/max) -->
         <template v-if="type === 'range'">
-            <NumberInput :model-value="value.current" @update:model-value="$emit('update', 'current', $event)" :min="0"
-                size="small" />
+            <NumberInput :model-value="value.current" :disabled="!isEditMode"
+                @update:model-value="$emit('update', 'current', $event)" :min="0" size="small" />
             <span class="range-separator">/</span>
-            <NumberInput :model-value="value.max" @update:model-value="$emit('update', 'max', $event)" :min="0"
-                size="small" />
+            <NumberInput :model-value="value.max" :disabled="!isEditMode"
+                @update:model-value="$emit('update', 'max', $event)" :min="0" size="small" />
         </template>
 
         <!-- Single value type (weakness) -->
         <template v-else-if="type === 'single'">
-            <NumberInput :model-value="value" @update:model-value="$emit('update', $event)" :min="0" size="small" />
+            <NumberInput :model-value="value" :disabled="!isEditMode" @update:model-value="$emit('update', $event)"
+                :min="0" size="small" />
         </template>
 
         <!-- Checkbox type (states) -->
         <template v-else-if="type === 'state'">
-            <input type="checkbox" :checked="firstState" @change="$emit('update', 'first', $event.target.checked)"
-                class="skill-checkbox" :class="{ 'state-active-checkbox': firstState }" />
-            <input type="checkbox" :checked="secondState" @change="$emit('update', 'second', $event.target.checked)"
-                class="skill-checkbox" :class="{ 'state-active-checkbox': secondState }" />
+            <input type="checkbox" :checked="firstState" :disabled="!isEditMode"
+                @change="$emit('update', 'first', $event.target.checked)" class="skill-checkbox"
+                :class="{ 'state-active-checkbox': firstState }" />
+            <input type="checkbox" :checked="secondState" :disabled="!isEditMode"
+                @change="$emit('update', 'second', $event.target.checked)" class="skill-checkbox"
+                :class="{ 'state-active-checkbox': secondState }" />
         </template>
     </div>
 </template>
@@ -40,6 +43,10 @@ const props = defineProps({
     label: {
         type: String,
         required: true
+    },
+    isEditMode: {
+        type: Boolean,
+        default: false
     },
     value: {
         type: [Object, Number],

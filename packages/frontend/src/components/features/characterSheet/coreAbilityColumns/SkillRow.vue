@@ -1,12 +1,13 @@
 <template>
     <div class="skill-row">
-        <span class="skill-name-clickable" @click="$emit('open-skill-check', skill.name)">
+        <span :class="['skill-name', { 'skill-name-clickable': isEditMode, 'skill-name-disabled': !isEditMode }]"
+            @click="isEditMode && $emit('open-skill-check', skill.name)">
             {{ skill.name }}
         </span>
         <i class="dice-icon d12-icon"
             :class="[getDiceFontClass(DICE_SIZES.D12, DICE_SIZES.D12), getStyleClassForFavoredStatus(skill)]">
         </i>
-        <DiceGroup :skill="skill" :is-rank-active="isRankActive" :is-dice-added="isDiceAdded"
+        <DiceGroup :skill="skill" :is-edit-mode="isEditMode" :is-rank-active="isRankActive" :is-dice-added="isDiceAdded"
             :is-dice-subtracted="isDiceSubtracted" @dice-click="$emit('dice-click', skill.name, $event)" />
     </div>
 </template>
@@ -21,6 +22,10 @@ defineProps({
     skill: {
         type: Object,
         required: true
+    },
+    isEditMode: {
+        type: Boolean,
+        default: false
     },
     isRankActive: {
         type: Function,
@@ -55,23 +60,30 @@ defineEmits(['open-skill-check', 'dice-click'])
     border-bottom: 1px solid var(--color-gray-dark);
 }
 
-.skill-name-clickable {
-    color: var(--color-primary);
+.skill-name {
     text-align: left;
     flex: 1;
     max-width: 85px;
-    cursor: pointer;
     transition: var(--transition-color) ease-in-out;
 }
 
+.skill-name-clickable {
+    color: var(--color-primary);
+    cursor: pointer;
+}
+
 .skill-name-clickable:hover {
-    color: var(--color-white);
+    color: var(--color-text-primary);
     text-shadow: var(--shadow-glow-sm-gold);
+}
+
+.skill-name-disabled {
+    color: var(--color-primary);
+    cursor: default;
 }
 
 .dice-icon {
     font-size: var(--font-size-24);
-    cursor: pointer;
     transition: var(--transition-color), opacity var(--transition-normal);
 }
 

@@ -3,7 +3,7 @@
 
         <!-- In-Sheet Bio Display -->
         <div class="bio-content edit-hover-area" @click="openViewModal">
-            <EditButton size="small" visibility="on-hover" class="edit-button-overlay-small"
+            <EditButton v-if="isEditMode" size="small" visibility="on-hover" class="edit-button-overlay-small"
                 @click.stop="openEditModal" />
             <template v-if="character.personalityAndBackground">
                 <div v-html="safeFormattedBio" class="bio-text"></div>
@@ -14,7 +14,7 @@
         <!-- Full-Size View Modal -->
         <div v-if="isViewModalOpen && !isEditModalOpen" class="modal-overlay" @click="closeViewModal">
             <div class="modal-content view-modal edit-hover-area" @click.stop>
-                <EditButton size="small" visibility="on-hover" class="edit-button-overlay"
+                <EditButton v-if="isEditMode" size="small" visibility="on-hover" class="edit-button-overlay"
                     @click.stop="openEditModal" />
                 <div class="full-text-content">
                     <div v-if="character.personalityAndBackground" v-html="safeFormattedBio" class="full-text">
@@ -57,6 +57,10 @@ const props = defineProps({
         type: Object,
         required: true,
     },
+    isEditMode: {
+        type: Boolean,
+        default: false
+    }
 })
 
 const emit = defineEmits(['update-character'])

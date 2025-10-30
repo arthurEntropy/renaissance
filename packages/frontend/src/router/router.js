@@ -3,6 +3,7 @@ import { useAuthStore } from '@/stores/authStore'
 import AuthService from '@/services/authService'
 import TitlePage from '@/pages/TitlePage.vue'
 import CharactersPage from '@/pages/CharactersPage.vue'
+import BestiaryPage from '@/pages/BestiaryPage.vue'
 import AncestriesPage from '@/pages/AncestriesPage.vue'
 import CulturesPage from '@/pages/CulturesPage.vue'
 import MestieriPage from '@/pages/MestieriPage.vue'
@@ -21,8 +22,11 @@ const routes = [
   { path: '/world-elements', component: WorldElementsPage },
   { 
     path: '/characters', 
-    component: CharactersPage,
-    meta: { requiresAuth: true, requiresApproval: true }
+    component: CharactersPage
+  },
+  { 
+    path: '/bestiary', 
+    component: BestiaryPage
   },
   { 
     path: '/abilities', 

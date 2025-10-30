@@ -2,14 +2,16 @@
   <CharacterSheetSection max-width="375px">
 
     <!-- Table Header -->
-    <TableHeader title="Abilities" :is-edit-mode="isEditMode" @toggle-edit="toggleEditMode">
+    <TableHeader title="Abilities" :is-edit-mode="internalEditMode" :show-edit-button="canEdit"
+      @toggle-edit="toggleEditMode">
       <template #header-right>
-        <MPDisplay :mp="character.mp" @update:mp="(mpData) => emit('update-character', { ...character, mp: mpData })" />
+        <MPDisplay :mp="character.mp" :is-edit-mode="canEdit"
+          @update:mp="(mpData) => emit('update-character', { ...character, mp: mpData })" />
       </template>
     </TableHeader>
 
     <!-- Static Abilities List (only in view mode) -->
-    <div v-if="!isEditMode" class="abilities-list">
+    <div v-if="!internalEditMode" class="abilities-list">
       <AbilityCard v-for="ability in sortedAbilities" :key="`ability-${ability.id}`" :ability="ability"
         :collapsed="ability.collapsed" @update:collapsed="updateAbilityCollapsed(ability, $event)" class="ability-card"
         :collapsible="true" :improvements="ability.improvements || []" :show-xp-badge="false"
@@ -25,7 +27,7 @@
       <template #item="{ element: ability, index }">
         <div class="ability-row">
 
-          <FloatingEditControls v-if="isEditMode" :index="index" delete-title="Remove ability"
+          <FloatingEditControls v-if="internalEditMode" :index="index" delete-title="Remove ability"
             drag-title="Drag to reorder" @delete="removeAbility" />
 
           <AbilityCard v-if="ability" :ability="ability" :collapsed="ability.collapsed"
@@ -79,14 +81,24 @@ const props = defineProps({
   allAbilities: {
     type: Array,
     default: () => [],
+  },
+  isEditMode: {
+    type: Boolean,
+    default: false
   }
 })
 
 // Emits
 const emit = defineEmits(['update-character'])
 
-// Composables
-const { isEditMode, toggleEditMode, showAddButton } = useTableEditMode()
+// Internal edit mode management
+const { isEditMode: internalEditMode, toggleEditMode } = useTableEditMode()
+
+// Character sheet edit mode only controls whether edit button is visible
+const canEdit = computed(() => props.isEditMode)
+
+// Show add button when internal edit mode is active
+const showAddButton = computed(() => internalEditMode.value)
 
 // Item management for abilities
 const abilityManagement = useItemManagement(
@@ -141,7 +153,7 @@ const {
 // Methods
 // Ability Management
 const removeAbility = (index) => {
-  if (!isEditMode.value) return
+  if (!internalEditMode.value) return
 
   abilityManagement.removeItem(index, {
     getDisplayName: (ability) => ability?.name || 'this ability',

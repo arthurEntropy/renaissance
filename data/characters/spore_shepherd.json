@@ -1,24 +1,30 @@
 {
-  "id": 2,
-  "name": "Fist Meatpunch",
-  "artUrls": [
-    "https://cdn.midjourney.com/579f1913-10e8-438c-9d1d-949151eb171c/0_0.png"
-  ],
-  "targetNumber": 12,
-  "body": 4,
-  "heart": 2,
-  "wits": 2,
+  "id": "9d41ab46-de59-4506-8fb6-28ae6361dc88",
+  "name": "Spore Shepherd",
+  "isBeast": true,
+  "pronouns": "",
+  "ancestries": "",
+  "cultures": "",
+  "personalityAndBackground": "",
+  "xp": 0,
+  "mp": {
+    "current": 0,
+    "max": 0
+  },
+  "body": 0,
+  "heart": 0,
+  "wits": 0,
   "skills": [
     {
       "name": "Awe",
-      "ranks": 1,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0
     },
     {
       "name": "Strength",
-      "ranks": 3,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0
@@ -46,7 +52,7 @@
     },
     {
       "name": "Perform",
-      "ranks": 2,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0
@@ -88,7 +94,7 @@
     },
     {
       "name": "Awareness",
-      "ranks": 2,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0
@@ -116,16 +122,16 @@
     }
   ],
   "endurance": {
-    "current": 7,
-    "max": 20
+    "current": 0,
+    "max": 0
   },
   "hope": {
-    "current": 6,
-    "max": 6
+    "current": 0,
+    "max": 0
   },
   "defense": {
-    "current": 12,
-    "max": 12
+    "current": 0,
+    "max": 0
   },
   "load": 0,
   "shadow": 0,
@@ -145,72 +151,19 @@
     "afraid": false,
     "troubled": false
   },
-  "equipment": [
-    {
-      "id": "f248a20d-f79e-4fb9-a800-94e2145fc23a",
-      "quantity": 1,
-      "isCarried": true,
-      "isWielding": true,
-      "index": 0,
-      "collapsed": true,
-      "artExpanded": false
-    },
-    {
-      "id": "f339e1ee-39c8-4712-8baa-60129fd87ff0",
-      "quantity": 1,
-      "isCarried": true,
-      "isWielding": true,
-      "index": 1,
-      "collapsed": true,
-      "artExpanded": false
-    }
+  "speed": 0,
+  "equipment": [],
+  "abilities": [],
+  "abilityImprovements": {},
+  "artUrls": [
+    "https://cdn.midjourney.com/ef70ae15-2c8b-4912-9289-24c6ce6b0155/0_0.png"
   ],
   "activeEffects": [],
-  "personalityAndBackground": "<p>A strong fella with one normal-sized hand and one gargantuan one.</p>",
-  "cultures": "Guildford",
-  "pronouns": "he/him",
-  "ancestries": "Human",
-  "xp": 0,
-  "mp": {
-    "current": 0,
-    "max": 0
-  },
-  "abilities": [
-    {
-      "id": "f1d0e5f7-bb30-4251-a575-8d31c113fe1a",
-      "collapsed": true,
-      "showImprovements": true
-    },
-    {
-      "id": "1e289ca8-cf6a-4f0d-ad7c-a13fc8e1f381",
-      "collapsed": true
-    },
-    {
-      "id": "9c92d5ba-7c73-4480-a357-d98ac4820c7d",
-      "collapsed": true
-    }
-  ],
-  "twiceWeary": true,
-  "weary": true,
-  "ancestryIds": [
-    "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
-  ],
-  "cultureIds": [
-    "352c844b-6d4f-4b61-b475-315421a453e7"
-  ],
-  "engagementDice": [],
-  "expansionLogoUrl": "",
-  "mestiereId": "e0a69b6f-38f9-4fa5-a1ef-5e5777299e82",
-  "abilityImprovements": {
-    "f1d0e5f7-bb30-4251-a575-8d31c113fe1a": {
-      "a277f343-4a95-51c2-a376-74b16ab9bb7c": false,
-      "854306d6-d3b2-5b9d-a387-1474c611803b": true,
-      "4e322b63-bbe9-5b70-9009-f475813e0728": false
-    }
-  },
-  "engagementSuccesses": [],
-  "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2025-10-30T13:27:38.720Z",
-  "isBeast": false,
-  "speed": 0
+  "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
+  "ownerEmail": "ljbrevoort@gmail.com",
+  "createdAt": "2025-10-29T20:01:02.828Z",
+  "ancestryIds": [],
+  "cultureIds": [],
+  "mestiereId": "",
+  "updatedAt": "2025-10-29T20:01:13.227Z"
 }

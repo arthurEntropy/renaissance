@@ -1,7 +1,8 @@
 <template>
     <div class="dice-group">
         <i v-for="(n, diceIndex) in DICE_COUNT" :key="diceIndex" :class="getDiceClasses(diceIndex)"
-            @click="$emit('dice-click', diceIndex)" class="dice-icon d6-icon">
+            @click="isEditMode ? $emit('dice-click', diceIndex) : null" class="dice-icon d6-icon"
+            :style="{ cursor: isEditMode ? 'pointer' : 'default' }">
         </i>
     </div>
 </template>
@@ -15,6 +16,10 @@ const props = defineProps({
     skill: {
         type: Object,
         required: true
+    },
+    isEditMode: {
+        type: Boolean,
+        default: false
     },
     isRankActive: {
         type: Function,
