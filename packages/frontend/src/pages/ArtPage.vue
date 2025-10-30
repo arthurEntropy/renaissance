@@ -7,28 +7,39 @@
 
         <!-- Filters -->
         <div class="art-filters">
-            <div class="filter-group">
-                <label for="type-filter">Type:</label>
-                <select id="type-filter" v-model="typeFilter" class="filter-select">
-                    <option value="">All Types</option>
-                    <option value="faces">Faces</option>
-                    <option value="places">Places</option>
-                    <option value="maps">Maps</option>
-                </select>
+            <!-- Type Filter with Toggle Buttons -->
+            <div class="type-toggle">
+                <button type="button" class="type-button faces" :class="{ selected: typeFilters.includes('faces') }"
+                    @click="toggleTypeFilter('faces')">
+                    <UserCircleIcon class="icon-sm" />
+                    <span>Faces</span>
+                </button>
+                <button type="button" class="type-button places" :class="{ selected: typeFilters.includes('places') }"
+                    @click="toggleTypeFilter('places')">
+                    <PhotoIcon class="icon-sm" />
+                    <span>Places</span>
+                </button>
+                <button type="button" class="type-button maps" :class="{ selected: typeFilters.includes('maps') }"
+                    @click="toggleTypeFilter('maps')">
+                    <MapIcon class="icon-sm" />
+                    <span>Maps</span>
+                </button>
             </div>
 
-            <div class="filter-group">
-                <label for="source-filter">Source:</label>
-                <select id="source-filter" v-model="sourceFilter" class="filter-select">
-                    <option value="">All Sources</option>
-                    <SourceOptionsGroup />
-                </select>
-            </div>
+            <!-- Source Filter with Dropdown -->
+            <select v-model="sourceFilter" @change="addSourceFilter" class="filter-select">
+                <option value="">Filter by tags...</option>
+                <SourceOptionsGroup />
+            </select>
 
-            <div class="filter-group search-group">
-                <label for="url-search">Search URL:</label>
-                <input id="url-search" v-model="searchQuery" type="text" class="filter-input"
-                    placeholder="Search by URL..." />
+            <!-- Selected Source Tags -->
+            <div v-if="sourceFilters.length > 0" class="selected-chips">
+                <div v-for="sourceId in sourceFilters" :key="sourceId" class="chip">
+                    <span class="chip-text">{{ getSourceName(sourceId) }}</span>
+                    <button class="chip-remove" @click="removeSourceFilter(sourceId)" type="button">
+                        <XMarkIcon class="chip-icon" />
+                    </button>
+                </div>
             </div>
         </div>
 
@@ -49,35 +60,37 @@
         </div>
 
         <!-- Art Grid -->
-        <div v-if="paginatedArt.length > 0" class="art-grid">
-            <div v-for="artItem in paginatedArt" :key="artItem.id" class="art-card" @click="openEditModal(artItem)">
-                <div class="art-image">
-                    <img :src="artItem.url" :alt="`Art ${artItem.id}`" />
-                </div>
-                <div class="art-info">
-                    <div class="art-tags">
-                        <span class="art-type" :class="artItem.tags.type">
-                            <UserCircleIcon v-if="artItem.tags.type === 'faces'" class="icon-sm" />
-                            <PhotoIcon v-if="artItem.tags.type === 'places'" class="icon-sm" />
-                            <MapIcon v-if="artItem.tags.type === 'maps'" class="icon-sm" />
-                        </span>
-                        <span v-for="sourceId in artItem.tags.sources" :key="sourceId" class="art-source-tag">
-                            {{ getSourceName(sourceId) }}
-                        </span>
+        <div class="art-grid-container">
+            <div v-if="paginatedArt.length > 0" class="art-grid">
+                <div v-for="artItem in paginatedArt" :key="artItem.id" class="art-card" @click="openEditModal(artItem)">
+                    <div class="art-image">
+                        <img :src="artItem.url" :alt="`Art ${artItem.id}`" />
+                    </div>
+                    <div class="art-info">
+                        <div class="art-tags">
+                            <span class="art-type" :class="artItem.tags.type">
+                                <UserCircleIcon v-if="artItem.tags.type === 'faces'" class="icon-sm" />
+                                <PhotoIcon v-if="artItem.tags.type === 'places'" class="icon-sm" />
+                                <MapIcon v-if="artItem.tags.type === 'maps'" class="icon-sm" />
+                            </span>
+                            <span v-for="sourceId in artItem.tags.sources" :key="sourceId" class="art-source-tag">
+                                {{ getSourceName(sourceId) }}
+                            </span>
+                        </div>
                     </div>
                 </div>
+            </div>
+
+            <!-- Empty State -->
+            <div v-else-if="filteredArt.length === 0" class="empty-state">
+                <p>No art found matching your filters.</p>
+                <ActionButton variant="primary" size="large" text="Add First Art" @click="openAddModal" />
             </div>
         </div>
 
         <!-- Loading indicator for infinite scroll -->
         <div v-if="hasMore" class="loading-indicator" ref="loadingIndicatorRef">
             <span class="loading-text">Loading more art...</span>
-        </div>
-
-        <!-- Empty State -->
-        <div v-else-if="filteredArt.length === 0" class="empty-state">
-            <p>No art found matching your filters.</p>
-            <ActionButton variant="primary" size="large" text="Add First Art" @click="openAddModal" />
         </div>
 
         <!-- Edit Modal -->
@@ -95,16 +108,16 @@ import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import EditArtModal from '@/components/editModals/EditArtModal.vue'
 import SourceOptionsGroup from '@/components/ui/selectors/SourceOptionsGroup.vue'
 import ArtService from '@/services/artService'
-import { UserCircleIcon, PhotoIcon, MapIcon } from '@heroicons/vue/24/outline'
+import { UserCircleIcon, PhotoIcon, MapIcon, XMarkIcon } from '@heroicons/vue/24/outline'
 
 // Stores
 const artStore = useArtStore()
 const sourcesStore = useSourcesStore()
 
 // State
-const typeFilter = ref('')
+const typeFilters = ref([])
+const sourceFilters = ref([])
 const sourceFilter = ref('')
-const searchQuery = ref('')
 const showEditModal = ref(false)
 const selectedArt = ref(null)
 const loadingIndicatorRef = ref(null)
@@ -114,23 +127,15 @@ let intersectionObserver = null
 const filteredArt = computed(() => {
     let filtered = artStore.art
 
-    // Filter by type
-    if (typeFilter.value) {
-        filtered = filtered.filter(art => art.tags.type === typeFilter.value)
+    // Filter by types (if any selected)
+    if (typeFilters.value.length > 0) {
+        filtered = filtered.filter(art => typeFilters.value.includes(art.tags.type))
     }
 
-    // Filter by source
-    if (sourceFilter.value) {
+    // Filter by sources (must match ALL selected sources)
+    if (sourceFilters.value.length > 0) {
         filtered = filtered.filter(art =>
-            art.tags.sources.includes(sourceFilter.value)
-        )
-    }
-
-    // Filter by search query
-    if (searchQuery.value.trim()) {
-        const query = searchQuery.value.toLowerCase()
-        filtered = filtered.filter(art =>
-            art.url.toLowerCase().includes(query)
+            sourceFilters.value.every(sourceId => art.tags.sources.includes(sourceId))
         )
     }
 
@@ -184,6 +189,30 @@ const getSourceName = (sourceId) => {
     ]
     const source = allSources.find(s => s.id === sourceId)
     return source ? source.name : 'Unknown'
+}
+
+// Filter methods
+const toggleTypeFilter = (type) => {
+    const index = typeFilters.value.indexOf(type)
+    if (index > -1) {
+        typeFilters.value.splice(index, 1)
+    } else {
+        typeFilters.value.push(type)
+    }
+}
+
+const addSourceFilter = () => {
+    if (sourceFilter.value && !sourceFilters.value.includes(sourceFilter.value)) {
+        sourceFilters.value.push(sourceFilter.value)
+    }
+    sourceFilter.value = ''
+}
+
+const removeSourceFilter = (sourceId) => {
+    const index = sourceFilters.value.indexOf(sourceId)
+    if (index > -1) {
+        sourceFilters.value.splice(index, 1)
+    }
 }
 
 // Methods
@@ -271,6 +300,7 @@ onBeforeUnmount(() => {
 <style scoped>
 .art-page {
     max-width: 1400px;
+    min-width: min(100%, 1200px);
     margin: 0 auto;
     padding: var(--space-xl);
 }
@@ -289,25 +319,122 @@ onBeforeUnmount(() => {
 
 /* Filters */
 .art-filters {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    display: flex;
+    flex-direction: row;
+    align-items: center;
     gap: var(--space-md);
     margin-bottom: var(--space-lg);
     padding: var(--space-lg);
     background: var(--color-bg-secondary);
     border-radius: var(--radius-10);
+    flex-wrap: wrap;
 }
 
-.filter-group {
+.type-toggle {
     display: flex;
-    flex-direction: column;
-    gap: var(--space-xs);
+    gap: var(--space-sm);
 }
 
-.filter-group label {
+.type-button {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--radius-5);
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: var(--transition-all);
+    opacity: 0.5;
     font-size: var(--font-size-14);
     font-weight: var(--font-weight-semibold);
+    white-space: nowrap;
+}
+
+.type-button.faces {
+    background: rgba(59, 130, 246, 0.2);
+    color: rgb(96, 165, 250);
+}
+
+.type-button.places {
+    background: rgba(16, 185, 129, 0.2);
+    color: rgb(52, 211, 153);
+}
+
+.type-button.maps {
+    background: rgba(239, 68, 68, 0.2);
+    color: rgb(248, 113, 113);
+}
+
+.type-button.selected {
+    opacity: 1;
+    border-color: currentColor;
+}
+
+.type-button:hover {
+    opacity: 0.8;
+}
+
+.type-button.selected:hover {
+    opacity: 1;
+}
+
+.filter-select {
+    min-width: 200px;
+    padding: var(--space-sm) var(--space-md);
+    background: var(--color-bg-primary);
+    border: 1px solid var(--color-border-secondary);
+    border-radius: var(--radius-5);
     color: var(--color-text-primary);
+    font-size: var(--font-size-14);
+}
+
+.filter-select:focus {
+    outline: none;
+    border-color: var(--color-primary);
+}
+
+.selected-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    align-items: center;
+}
+
+.chip {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    padding: var(--space-xs) var(--space-sm);
+    background: var(--color-primary);
+    color: var(--color-primary-text);
+    border-radius: var(--radius-5);
+    font-size: var(--font-size-11);
+    font-weight: var(--font-weight-semibold);
+}
+
+.chip-text {
+    line-height: 1;
+}
+
+.chip-remove {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--color-primary-text);
+    transition: var(--transition-opacity);
+}
+
+.chip-remove:hover {
+    opacity: 0.7;
+}
+
+.chip-icon {
+    width: 14px;
+    height: 14px;
 }
 
 .filter-select,
@@ -318,16 +445,6 @@ onBeforeUnmount(() => {
     border-radius: var(--radius-5);
     color: var(--color-text-primary);
     font-size: var(--font-size-14);
-}
-
-.filter-select:focus,
-.filter-input:focus {
-    outline: none;
-    border-color: var(--color-primary);
-}
-
-.search-group {
-    grid-column: span 2;
 }
 
 /* Stats */
@@ -348,10 +465,38 @@ onBeforeUnmount(() => {
 }
 
 /* Art Grid */
+.art-grid-container {
+    min-width: 100%;
+}
+
 .art-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: var(--space-lg);
+}
+
+@media (min-width: 1400px) {
+    .art-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width: 1100px) {
+    .art-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .art-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .art-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 .art-card {
@@ -445,10 +590,16 @@ onBeforeUnmount(() => {
 /* Empty State */
 .empty-state {
     text-align: center;
-    padding: var(--space-xl);
+    padding: var(--space-xl) var(--space-lg);
     background: var(--color-bg-secondary);
     border-radius: var(--radius-10);
     color: var(--color-text-secondary);
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
 }
 
 .empty-state p {
