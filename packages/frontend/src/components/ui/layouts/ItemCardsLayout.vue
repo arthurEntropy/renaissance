@@ -1,5 +1,5 @@
 <template>
-  <div class="item-cards-view">
+  <div class="item-cards-view" ref="containerRef">
     <!-- Search and Filter Controls -->
     <FilterControls v-model:search-query="searchQueryLocal" v-model:primary-filter="sourceFilterLocal"
       v-model:sort-option="sortOptionLocal" :search-placeholder="`Search ${itemTypePlural.toLowerCase()}...`"
@@ -15,6 +15,11 @@
       <slot name="item-cards" :filtered-items="filteredItems"></slot>
     </MasonryGrid>
 
+    <!-- Loading indicator -->
+    <div v-if="hasMore" class="loading-indicator" ref="loadingIndicatorRef">
+      <span class="loading-text">Loading more items...</span>
+    </div>
+
     <slot name="modals"></slot>
   </div>
 </template>
@@ -22,7 +27,7 @@
 <script setup>
 import MasonryGrid from '@/components/ui/layouts/MasonryGrid.vue'
 import FilterControls from '@/components/ui/FilterControls.vue'
-import { computed, ref } from 'vue'
+import { computed, ref, onMounted, onBeforeUnmount } from 'vue'
 import { useAuthStore } from '@/stores/authStore'
 
 const authStore = useAuthStore()
@@ -41,11 +46,15 @@ const props = defineProps({
   sortOption: { type: String, default: '' },
   sortOptions: { type: Object, default: () => ({}) },
   items: { type: Array, default: () => [] },
+  hasMore: { type: Boolean, default: false },
 })
 
-const emit = defineEmits(['update:searchQuery', 'update:sourceFilter', 'update:sortOption', 'update:filteredItems', 'create'])
+const emit = defineEmits(['update:searchQuery', 'update:sourceFilter', 'update:sortOption', 'update:filteredItems', 'create', 'loadMore'])
 
 const masonryGrid = ref(null)
+const containerRef = ref(null)
+const loadingIndicatorRef = ref(null)
+let intersectionObserver = null
 
 const searchQueryLocal = computed({
   get: () => props.searchQuery,
@@ -130,6 +139,37 @@ const onCardHeightChanged = (delay = 0) => {
   }
 }
 
+// Setup intersection observer for infinite scroll
+const setupIntersectionObserver = () => {
+  if (!loadingIndicatorRef.value) return
+
+  intersectionObserver = new IntersectionObserver(
+    (entries) => {
+      const entry = entries[0]
+      if (entry.isIntersecting && props.hasMore) {
+        emit('loadMore')
+      }
+    },
+    {
+      root: null,
+      rootMargin: '100px',
+      threshold: 0.1,
+    }
+  )
+
+  intersectionObserver.observe(loadingIndicatorRef.value)
+}
+
+onMounted(() => {
+  setupIntersectionObserver()
+})
+
+onBeforeUnmount(() => {
+  if (intersectionObserver) {
+    intersectionObserver.disconnect()
+  }
+})
+
 // Expose the method so parent components can call it
 defineExpose({ onCardHeightChanged })
 </script>
@@ -147,5 +187,17 @@ defineExpose({ onCardHeightChanged })
 .cards-container {
   padding: var(--space-sm);
   overflow: visible;
+}
+
+.loading-indicator {
+  padding: var(--space-lg);
+  text-align: center;
+  width: 100%;
+}
+
+.loading-text {
+  color: var(--color-gray-light);
+  font-size: var(--font-size-14);
+  font-style: italic;
 }
 </style>
