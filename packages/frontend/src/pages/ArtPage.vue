@@ -1,67 +1,79 @@
 <template>
     <div class="art-page">
-        <div class="art-header">
-            <h1>Art Library</h1>
-            <ActionButton variant="primary" size="large" text="+ Add Art" @click="openAddModal" />
-        </div>
+        <!-- Filters and Controls -->
+        <div class="filters-container">
+            <div class="filters-row">
+                <!-- Type Filter with Toggle Buttons -->
+                <div class="type-toggle">
+                    <button type="button" class="type-button faces" :class="{ selected: typeFilters.includes('faces') }"
+                        @click="toggleTypeFilter('faces')">
+                        <UserCircleIcon class="icon-sm" />
+                        <span>Faces</span>
+                    </button>
+                    <button type="button" class="type-button places"
+                        :class="{ selected: typeFilters.includes('places') }" @click="toggleTypeFilter('places')">
+                        <PhotoIcon class="icon-sm" />
+                        <span>Places</span>
+                    </button>
+                    <button type="button" class="type-button maps" :class="{ selected: typeFilters.includes('maps') }"
+                        @click="toggleTypeFilter('maps')">
+                        <MapIcon class="icon-sm" />
+                        <span>Maps</span>
+                    </button>
+                </div>
 
-        <!-- Filters -->
-        <div class="art-filters">
-            <!-- Type Filter with Toggle Buttons -->
-            <div class="type-toggle">
-                <button type="button" class="type-button faces" :class="{ selected: typeFilters.includes('faces') }"
-                    @click="toggleTypeFilter('faces')">
-                    <UserCircleIcon class="icon-sm" />
-                    <span>Faces</span>
-                </button>
-                <button type="button" class="type-button places" :class="{ selected: typeFilters.includes('places') }"
-                    @click="toggleTypeFilter('places')">
-                    <PhotoIcon class="icon-sm" />
-                    <span>Places</span>
-                </button>
-                <button type="button" class="type-button maps" :class="{ selected: typeFilters.includes('maps') }"
-                    @click="toggleTypeFilter('maps')">
-                    <MapIcon class="icon-sm" />
-                    <span>Maps</span>
-                </button>
-            </div>
+                <!-- Source Filter with Dropdown -->
+                <select v-model="sourceFilter" @change="addSourceFilter" class="filter-select">
+                    <option value="">Filter by tags...</option>
+                    <SourceOptionsGroup />
+                </select>
 
-            <!-- Source Filter with Dropdown -->
-            <select v-model="sourceFilter" @change="addSourceFilter" class="filter-select">
-                <option value="">Filter by tags...</option>
-                <SourceOptionsGroup />
-            </select>
+                <!-- Selected Source Tags -->
+                <div v-if="sourceFilters.length > 0" class="selected-chips">
+                    <div v-for="sourceId in sourceFilters" :key="sourceId" class="chip">
+                        <span class="chip-text">{{ getSourceName(sourceId) }}</span>
+                        <button class="chip-remove" @click="removeSourceFilter(sourceId)" type="button">
+                            <XMarkIcon class="chip-icon" />
+                        </button>
+                    </div>
+                </div>
 
-            <!-- Selected Source Tags -->
-            <div v-if="sourceFilters.length > 0" class="selected-chips">
-                <div v-for="sourceId in sourceFilters" :key="sourceId" class="chip">
-                    <span class="chip-text">{{ getSourceName(sourceId) }}</span>
-                    <button class="chip-remove" @click="removeSourceFilter(sourceId)" type="button">
-                        <XMarkIcon class="chip-icon" />
+                <!-- Size Toggle -->
+                <div class="size-toggle">
+                    <button type="button" class="size-button" :class="{ selected: gridSize === 'large' }"
+                        @click="gridSize = 'large'">
+                        Large
+                    </button>
+                    <button type="button" class="size-button" :class="{ selected: gridSize === 'small' }"
+                        @click="gridSize = 'small'">
+                        Small
                     </button>
                 </div>
             </div>
-        </div>
 
-        <!-- Stats -->
-        <div class="art-stats">
-            <span class="stat-item">
-                Total: <strong>{{ filteredArt.length }}</strong>
-            </span>
-            <span class="stat-item">
-                Faces: <strong>{{ faceCount }}</strong>
-            </span>
-            <span class="stat-item">
-                Places: <strong>{{ placeCount }}</strong>
-            </span>
-            <span class="stat-item">
-                Maps: <strong>{{ mapCount }}</strong>
-            </span>
+            <!-- Stats Row -->
+            <div class="stats-row">
+                <div class="stats-items">
+                    <span class="stat-item">
+                        Total: <strong>{{ filteredArt.length }}</strong>
+                    </span>
+                    <span class="stat-item">
+                        Faces: <strong>{{ faceCount }}</strong>
+                    </span>
+                    <span class="stat-item">
+                        Places: <strong>{{ placeCount }}</strong>
+                    </span>
+                    <span class="stat-item">
+                        Maps: <strong>{{ mapCount }}</strong>
+                    </span>
+                </div>
+                <ActionButton variant="primary" size="small" text="+ Add Art" @click="openAddModal" />
+            </div>
         </div>
 
         <!-- Art Grid -->
         <div class="art-grid-container">
-            <div v-if="paginatedArt.length > 0" class="art-grid">
+            <div v-if="paginatedArt.length > 0" class="art-grid" :class="`grid-size-${gridSize}`">
                 <div v-for="artItem in paginatedArt" :key="artItem.id" class="art-card" @click="openEditModal(artItem)">
                     <div class="art-image">
                         <img :src="artItem.url" :alt="`Art ${artItem.id}`" />
@@ -115,6 +127,7 @@ const artStore = useArtStore()
 const sourcesStore = useSourcesStore()
 
 // State
+const gridSize = ref('large')
 const typeFilters = ref([])
 const sourceFilters = ref([])
 const sourceFilter = ref('')
@@ -305,29 +318,77 @@ onBeforeUnmount(() => {
     padding: var(--space-xl);
 }
 
-.art-header {
+/* Filters Container */
+.filters-container {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: var(--space-xl);
-}
-
-.art-header h1 {
-    margin: 0;
-    color: var(--color-text-primary);
-}
-
-/* Filters */
-.art-filters {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+    flex-direction: column;
     gap: var(--space-md);
     margin-bottom: var(--space-lg);
     padding: var(--space-lg);
     background: var(--color-bg-secondary);
     border-radius: var(--radius-10);
+}
+
+.filters-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--space-md);
     flex-wrap: wrap;
+}
+
+.stats-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-lg);
+    font-size: var(--font-size-14);
+    color: var(--color-text-secondary);
+    padding-top: var(--space-md);
+    border-top: 1px solid var(--color-border-secondary);
+}
+
+.stats-items {
+    display: flex;
+    gap: var(--space-lg);
+}
+
+.stat-item strong {
+    color: var(--color-text-primary);
+    font-weight: var(--font-weight-bold);
+}
+
+/* Size Toggle */
+.size-toggle {
+    display: flex;
+    gap: var(--space-xs);
+    background: var(--color-bg-primary);
+    padding: var(--space-xs);
+    border-radius: var(--radius-5);
+    margin-left: auto;
+}
+
+.size-button {
+    padding: var(--space-sm) var(--space-lg);
+    background: transparent;
+    border: none;
+    border-radius: var(--radius-5);
+    color: var(--color-text-secondary);
+    font-family: var(--font-family-base);
+    font-size: var(--font-size-14);
+    font-weight: var(--font-weight-semibold);
+    cursor: pointer;
+    transition: var(--transition-all);
+}
+
+.size-button:hover {
+    background: var(--color-bg-tertiary);
+    color: var(--color-text-primary);
+}
+
+.size-button.selected {
+    background: var(--color-gray-medium);
+    color: var(--color-text-primary);
 }
 
 .type-toggle {
@@ -447,56 +508,97 @@ onBeforeUnmount(() => {
     font-size: var(--font-size-14);
 }
 
-/* Stats */
-.art-stats {
-    display: flex;
-    gap: var(--space-lg);
-    margin-bottom: var(--space-lg);
-    padding: var(--space-md);
-    background: var(--color-bg-secondary);
-    border-radius: var(--radius-5);
-    font-size: var(--font-size-14);
-    color: var(--color-text-secondary);
-}
-
-.stat-item strong {
-    color: var(--color-text-primary);
-    font-weight: var(--font-weight-bold);
-}
-
 /* Art Grid */
 .art-grid-container {
     min-width: 100%;
 }
 
-.art-grid {
+/* Large Grid (default) */
+.art-grid.grid-size-large {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: var(--space-lg);
 }
 
 @media (min-width: 1400px) {
-    .art-grid {
+    .art-grid.grid-size-large {
         grid-template-columns: repeat(4, 1fr);
     }
 }
 
 @media (max-width: 1100px) {
-    .art-grid {
+    .art-grid.grid-size-large {
         grid-template-columns: repeat(3, 1fr);
     }
 }
 
 @media (max-width: 768px) {
-    .art-grid {
+    .art-grid.grid-size-large {
         grid-template-columns: repeat(2, 1fr);
     }
 }
 
 @media (max-width: 480px) {
-    .art-grid {
+    .art-grid.grid-size-large {
         grid-template-columns: 1fr;
     }
+}
+
+/* Small Grid (1/4 size - 8 columns) */
+.art-grid.grid-size-small {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: var(--space-md);
+}
+
+@media (min-width: 1400px) {
+    .art-grid.grid-size-small {
+        grid-template-columns: repeat(8, 1fr);
+    }
+}
+
+@media (max-width: 1100px) {
+    .art-grid.grid-size-small {
+        grid-template-columns: repeat(6, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .art-grid.grid-size-small {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .art-grid.grid-size-small {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Small size adjustments */
+.art-grid.grid-size-small .art-card {
+    border-radius: var(--radius-5);
+}
+
+.art-grid.grid-size-small .art-image {
+    aspect-ratio: 1;
+}
+
+.art-grid.grid-size-small .art-info {
+    padding: var(--space-xs);
+}
+
+.art-grid.grid-size-small .art-tags {
+    gap: 2px;
+}
+
+.art-grid.grid-size-small .art-type {
+    padding: 2px 4px;
+}
+
+.art-grid.grid-size-small .art-source-tag {
+    padding: 2px 4px;
+    font-size: var(--font-size-10);
 }
 
 .art-card {
@@ -566,8 +668,8 @@ onBeforeUnmount(() => {
     border-radius: var(--radius-5);
     font-size: var(--font-size-11);
     font-weight: var(--font-weight-semibold);
-    background: var(--color-primary);
-    color: var(--color-primary-text);
+    background: var(--color-gray-dark);
+    color: var(--color-text-secondary);
 }
 
 .icon-sm {
