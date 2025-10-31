@@ -34,10 +34,7 @@ export function useInfiniteScroll(items, itemsPerPage = 50) {
 
   // Watch for changes in the items array and reset pagination
   watch(() => items.value.length, () => {
-    // Only reset if we're not on the first page and items changed
-    if (currentPage.value > 1) {
-      reset()
-    }
+    reset()
   })
 
   return {
