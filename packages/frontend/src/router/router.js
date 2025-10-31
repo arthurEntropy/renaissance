@@ -17,16 +17,29 @@ import ArtPage from '@/pages/ArtPage.vue'
 const routes = [
   { path: '/', component: TitlePage },
   { path: '/rules', name: 'Rules', component: RulesPage },
+  { path: '/rules/:id', component: RulesPage },
   { path: '/ancestries', component: AncestriesPage },
+  { path: '/ancestries/:id', component: AncestriesPage },
   { path: '/cultures', component: CulturesPage },
+  { path: '/cultures/:id', component: CulturesPage },
   { path: '/mestieri', component: MestieriPage },
+  { path: '/mestieri/:id', component: MestieriPage },
   { path: '/world-elements', component: WorldElementsPage },
+  { path: '/world-elements/:id', component: WorldElementsPage },
   { 
     path: '/characters', 
     component: CharactersPage
   },
   { 
+    path: '/characters/:id', 
+    component: CharactersPage
+  },
+  { 
     path: '/bestiary', 
+    component: BestiaryPage
+  },
+  { 
+    path: '/bestiary/:id', 
     component: BestiaryPage
   },
   { 
@@ -62,6 +75,14 @@ router.beforeEach(async (to, from, next) => {
   
   // Wait for auth to be ready
   await AuthService.waitForAuth()
+  
+  // If authenticated, wait for user profile to load before checking roles
+  if (authStore.isAuthenticated && authStore.loading) {
+    // Wait for profile to finish loading
+    while (authStore.loading) {
+      await new Promise(resolve => setTimeout(resolve, 50))
+    }
+  }
   
   // Check if route requires authentication
   if (to.meta.requiresAuth) {

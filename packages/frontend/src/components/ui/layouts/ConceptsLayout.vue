@@ -29,7 +29,8 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
+import { ref, computed, onMounted, onBeforeUnmount, watch } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import { useExpansionsStore } from '@/stores/expansionsStore'
 import { useSourcesStore } from '@/stores/sourcesStore'
 import { useCharactersStore } from '@/stores/charactersStore'
@@ -85,6 +86,8 @@ const expansionStore = useExpansionsStore()
 const sourcesStore = useSourcesStore()
 const charactersStore = useCharactersStore()
 const authStore = useAuthStore()
+const route = useRoute()
+const router = useRouter()
 const sources = sourcesStore.sources
 
 // Check if user is admin
@@ -208,6 +211,15 @@ const openConceptDetail = (concept) => {
 
   showConceptDetail.value = true
   conceptDetailKey.value++
+
+  // Create URL-friendly name (convert to lowercase, replace spaces with hyphens)
+  const urlName = concept.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')
+
+  // Update URL with concept name (only if not already there)
+  if (route.params.id !== urlName) {
+    const basePath = route.path.split('/').slice(0, 2).join('/')
+    router.push(`${basePath}/${urlName}`)
+  }
 }
 
 const navigateConcept = (direction) => {
@@ -223,6 +235,13 @@ const navigateConcept = (direction) => {
   }
 
   conceptDetailKey.value++;
+
+  // Create URL-friendly name
+  const urlName = selectedConcept.value.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')
+
+  // Update URL with new concept name
+  const basePath = route.path.split('/').slice(0, 2).join('/')
+  router.push(`${basePath}/${urlName}`)
 }
 
 const closeConceptDetail = () => {
@@ -230,6 +249,12 @@ const closeConceptDetail = () => {
   // This allows the selection to be "sticky"
   selectedConcept.value = null
   showConceptDetail.value = false
+
+  // Return to base route without ID (only if currently on a detail route)
+  if (route.params.id) {
+    const basePath = route.path.split('/').slice(0, 2).join('/')
+    router.push(basePath)
+  }
 }
 
 const handleKeyNavigation = (event) => {
@@ -264,9 +289,22 @@ onMounted(async () => {
     expansions.value = expansionStore.expansions
     window.addEventListener('keydown', handleKeyNavigation);
 
+    // Check if there's a name in the route
+    if (route.params.id) {
+      // Wait for concepts to be loaded
+      await props.refreshDataFn()
+      // Convert URL name back to find matching concept (case-insensitive comparison)
+      const urlName = route.params.id.toLowerCase()
+      const conceptToOpen = props.concepts.find(c =>
+        c.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '') === urlName
+      )
+      if (conceptToOpen) {
+        openConceptDetail(conceptToOpen)
+      }
+    }
     // If this is the CharactersPage and there's already a selected character,
     // automatically open its character sheet
-    if (props.modalComponent === 'CharacterSheetModal' && charactersStore.hasSelectedCharacter) {
+    else if (props.modalComponent === 'CharacterSheetModal' && charactersStore.hasSelectedCharacter) {
       const selectedCharacter = charactersStore.selectedCharacter
       const character = props.concepts.find(c => c.id === selectedCharacter.id)
       if (character) {
@@ -275,6 +313,31 @@ onMounted(async () => {
     }
   } catch (error) {
     console.error('Error initializing ConceptsLayout:', error);
+  }
+})
+
+// Watch for route changes (browser back/forward)
+watch(() => route.params.id, (newId, oldId) => {
+  if (newId !== oldId) {
+    if (newId) {
+      // Convert URL name to find matching concept
+      const urlName = newId.toLowerCase()
+      const conceptToOpen = props.concepts.find(c =>
+        c.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '') === urlName
+      )
+      if (conceptToOpen) {
+        selectedConcept.value = conceptToOpen
+        if (props.modalComponent === 'CharacterSheetModal') {
+          charactersStore.selectCharacter(conceptToOpen)
+        }
+        showConceptDetail.value = true
+        conceptDetailKey.value++
+      }
+    } else {
+      // No ID in route, close the modal
+      selectedConcept.value = null
+      showConceptDetail.value = false
+    }
   }
 })
 
