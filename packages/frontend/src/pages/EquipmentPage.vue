@@ -28,6 +28,12 @@
           {{ grade.name }}
         </option>
       </select>
+
+      <!-- Template Toggle (Admin Only) -->
+      <label v-if="isAdmin" class="template-toggle">
+        <input type="checkbox" v-model="showTemplates" />
+        <span>Show Templates</span>
+      </label>
     </template>
 
     <!-- Item cards slot -->
@@ -96,6 +102,7 @@ const sourceFilter = ref('')
 const typeFilter = ref('')
 const subtypeFilter = ref('')
 const gradeFilter = ref('')
+const showTemplates = ref(false)
 const engagementSuccessOptions = ref([])
 
 // Computed properties
@@ -109,6 +116,11 @@ const filteredSubtypes = computed(() => {
 // Computed property for filtered equipment (before pagination)
 const allFilteredEquipment = computed(() => {
   let filtered = [...equipment.value].filter(item => !item.isDeleted)
+
+  // Exclude templates unless showTemplates is true (for admins)
+  if (!showTemplates.value) {
+    filtered = filtered.filter(item => !item.isTemplate)
+  }
 
   // Apply search filter
   if (searchQuery.value) {
@@ -263,7 +275,7 @@ watch(typeFilter, () => {
   reset()
 })
 
-watch([searchQuery, sourceFilter, subtypeFilter, gradeFilter, sortOption], () => {
+watch([searchQuery, sourceFilter, subtypeFilter, gradeFilter, sortOption, showTemplates], () => {
   // Reset pagination when any filter changes
   reset()
 })
@@ -310,5 +322,34 @@ onMounted(async () => {
   opacity: 0.5;
   cursor: not-allowed;
   background-color: var(--overlay-black-heavy);
+}
+
+.template-toggle {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  background-color: var(--overlay-black-medium);
+  border: 1px solid var(--color-gray-medium);
+  border-radius: var(--radius-5);
+  font-size: var(--font-size-16);
+  color: var(--color-white);
+  cursor: pointer;
+  user-select: none;
+}
+
+.template-toggle:hover {
+  border-color: var(--color-gray-light);
+  box-shadow: var(--shadow-glow-sm);
+}
+
+.template-toggle input[type="checkbox"] {
+  cursor: pointer;
+  width: 16px;
+  height: 16px;
+}
+
+.template-toggle span {
+  white-space: nowrap;
 }
 </style>

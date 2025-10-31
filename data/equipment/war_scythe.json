@@ -1,6 +1,6 @@
 {
   "id": "eb03f4cf-af0c-4eb1-b7f8-2f07db11db63",
-  "name": "ªWar Scythe",
+  "name": "War Scythe",
   "description": "Weight: 4-9. Length: 5-8",
   "keeping": null,
   "source": null,
@@ -29,5 +29,6 @@
   "artUrl": null,
   "type": "1",
   "subtype": "2",
-  "grade": "3"
+  "grade": "3",
+  "isTemplate": true
 }

@@ -1,6 +1,6 @@
 {
   "id": "678634cf-fbeb-4862-8c52-abc1304b2a5f",
-  "name": "ªDagger",
+  "name": "Dagger",
   "description": "",
   "keeping": null,
   "source": null,
@@ -25,5 +25,6 @@
   "artUrl": null,
   "type": "1",
   "subtype": "1",
-  "grade": "1"
+  "grade": "1",
+  "isTemplate": true
 }

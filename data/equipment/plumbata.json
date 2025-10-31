@@ -1,6 +1,6 @@
 {
   "id": "458df0ce-5ac4-4787-912a-148864e8220e",
-  "name": "ªPlumbata",
+  "name": "Plumbata",
   "description": "Length: 1-2",
   "keeping": null,
   "source": null,
@@ -23,5 +23,6 @@
   "artUrl": null,
   "type": "1",
   "subtype": "3",
-  "grade": "1"
+  "grade": "1",
+  "isTemplate": true
 }

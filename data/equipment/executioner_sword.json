@@ -1,6 +1,6 @@
 {
   "id": "019426e9-8171-4e1d-a5be-ec355238e9b6",
-  "name": "ªExecutioner Sword",
+  "name": "Executioner Sword",
   "description": "Weight: 5-7. Length: 3-5",
   "keeping": null,
   "source": null,
@@ -30,5 +30,6 @@
   "artUrl": null,
   "type": "1",
   "subtype": "1",
-  "grade": "4"
+  "grade": "4",
+  "isTemplate": true
 }

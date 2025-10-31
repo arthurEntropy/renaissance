@@ -1,6 +1,6 @@
 {
   "id": "af4a86d6-19d6-449c-95ea-a31f79a296fa",
-  "name": "ªMilitary Fork",
+  "name": "Military Fork",
   "description": "Weight: 3-7. Length: 7-10",
   "keeping": null,
   "source": null,
@@ -29,5 +29,6 @@
   "artUrl": null,
   "type": "1",
   "subtype": "2",
-  "grade": "3"
+  "grade": "3",
+  "isTemplate": true
 }

@@ -27,7 +27,7 @@
 <script setup>
 import MasonryGrid from '@/components/ui/layouts/MasonryGrid.vue'
 import FilterControls from '@/components/ui/FilterControls.vue'
-import { computed, ref, onMounted, onBeforeUnmount } from 'vue'
+import { computed, ref, onMounted, onBeforeUnmount, watch } from 'vue'
 import { useAuthStore } from '@/stores/authStore'
 
 const authStore = useAuthStore()
@@ -143,6 +143,11 @@ const onCardHeightChanged = (delay = 0) => {
 const setupIntersectionObserver = () => {
   if (!loadingIndicatorRef.value) return
 
+  // Disconnect existing observer if any
+  if (intersectionObserver) {
+    intersectionObserver.disconnect()
+  }
+
   intersectionObserver = new IntersectionObserver(
     (entries) => {
       const entry = entries[0]
@@ -168,6 +173,14 @@ onBeforeUnmount(() => {
   if (intersectionObserver) {
     intersectionObserver.disconnect()
   }
+})
+
+// Watch for changes in hasMore and items to reset the observer
+watch([() => props.hasMore, () => props.items.length], () => {
+  // Use nextTick to ensure DOM has updated
+  setTimeout(() => {
+    setupIntersectionObserver()
+  }, 10)
 })
 
 // Expose the method so parent components can call it

@@ -1,6 +1,6 @@
 {
   "id": "e39c88c7-067d-4458-a0ae-20231d4744bd",
-  "name": "ªNet",
+  "name": "Net",
   "description": "Weight: 1-2. Length: 5-10. Ensnare",
   "keeping": null,
   "source": null,
@@ -28,5 +28,6 @@
   "artUrl": null,
   "type": "1",
   "subtype": "5",
-  "grade": "2"
+  "grade": "2",
+  "isTemplate": true
 }

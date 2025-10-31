@@ -1,6 +1,6 @@
 {
   "id": "546043f4-68f5-4926-a146-c18b9a8d7460",
-  "name": "ªStiletto",
+  "name": "Stiletto",
   "description": "",
   "keeping": null,
   "source": null,
@@ -23,5 +23,6 @@
   "artUrl": null,
   "type": "1",
   "subtype": "1",
-  "grade": "1"
+  "grade": "1",
+  "isTemplate": true
 }

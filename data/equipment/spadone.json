@@ -1,6 +1,6 @@
 {
   "id": "e3f768d4-3be2-4973-a61a-d4aba9275336",
-  "name": "ªSpadone",
+  "name": "Spadone",
   "description": "Weight: 5-20. Length: 4-7",
   "keeping": null,
   "source": null,
@@ -31,5 +31,6 @@
   "artUrl": null,
   "type": "1",
   "subtype": "1",
-  "grade": "5"
+  "grade": "5",
+  "isTemplate": true
 }

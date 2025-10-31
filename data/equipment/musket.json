@@ -1,6 +1,6 @@
 {
   "id": "15f6de9d-5c81-44d0-97cb-01da7bc6ef83",
-  "name": "ªMusket",
+  "name": "Musket",
   "description": "Weight: 16-20",
   "keeping": null,
   "source": null,
@@ -23,5 +23,6 @@
   "artUrl": null,
   "type": "1",
   "subtype": "4",
-  "grade": "4"
+  "grade": "4",
+  "isTemplate": true
 }

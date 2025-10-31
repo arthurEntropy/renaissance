@@ -1,6 +1,6 @@
 {
   "id": "b1f32235-ab87-4fd1-ac37-7c88ba2a021a",
-  "name": "ªBlowpipe",
+  "name": "Blowpipe",
   "description": "Weight: 1-2. Length: 3-9",
   "keeping": null,
   "source": null,
@@ -23,5 +23,6 @@
   "artUrl": null,
   "type": "1",
   "subtype": "3",
-  "grade": "1"
+  "grade": "1",
+  "isTemplate": true
 }

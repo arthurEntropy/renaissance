@@ -1,6 +1,6 @@
 {
   "id": "6ec19662-0f5e-477c-85fd-1f63ceaff294",
-  "name": "ªBroadsword",
+  "name": "Broadsword",
   "description": "Weight: 5-7. Length: 3-5",
   "keeping": null,
   "source": null,
@@ -30,5 +30,6 @@
   "artUrl": null,
   "type": "1",
   "subtype": "1",
-  "grade": "4"
+  "grade": "4",
+  "isTemplate": true
 }

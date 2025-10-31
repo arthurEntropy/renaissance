@@ -1,6 +1,6 @@
 {
   "id": "192ce8ab-c25e-4d7f-9955-197ded4fbe1b",
-  "name": "ªBec de Corbin",
+  "name": "Bec de Corbin",
   "description": "Weight: 5-8. Length: 5-8",
   "keeping": null,
   "source": null,
@@ -33,5 +33,6 @@
   "artUrl": null,
   "type": "1",
   "subtype": "2",
-  "grade": "3"
+  "grade": "3",
+  "isTemplate": true
 }

@@ -1,6 +1,6 @@
 {
   "id": "af68aa5c-997f-42f4-a669-539c4efb86b5",
-  "name": "ªArquebus",
+  "name": "Arquebus",
   "description": "Weight: 6-15. Length: 4-6",
   "keeping": null,
   "source": null,
@@ -23,5 +23,6 @@
   "artUrl": null,
   "type": "1",
   "subtype": "4",
-  "grade": "3"
+  "grade": "3",
+  "isTemplate": true
 }

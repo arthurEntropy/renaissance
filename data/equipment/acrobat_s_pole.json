@@ -1,6 +1,6 @@
 {
   "id": "b6fbf316-90b1-4514-8125-d8fb57a468ca",
-  "name": "ªAcrobat's Pole",
+  "name": "Acrobat's Pole",
   "description": "Weight: 10-15. Length: 10-15",
   "keeping": null,
   "source": null,
@@ -28,5 +28,6 @@
   "artUrl": null,
   "type": "1",
   "subtype": "5",
-  "grade": "4"
+  "grade": "4",
+  "isTemplate": true
 }

@@ -1,6 +1,6 @@
 {
   "id": "8819da40-1dd5-4ef0-ae73-46882e51c9cc",
-  "name": "ªShortsword",
+  "name": "Shortsword",
   "description": "Weight: 2-3",
   "keeping": null,
   "source": null,
@@ -29,5 +29,6 @@
   "artUrl": null,
   "type": "1",
   "subtype": "1",
-  "grade": "3"
+  "grade": "3",
+  "isTemplate": true
 }

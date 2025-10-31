@@ -1,6 +1,6 @@
 {
   "id": "01fcb462-a6a5-471d-b80f-55732a775c0a",
-  "name": "ªBearded Axe",
+  "name": "Bearded Axe",
   "description": "Weight: 3-5. Length: 2-18",
   "keeping": null,
   "source": null,
@@ -29,5 +29,6 @@
   "artUrl": null,
   "type": "1",
   "subtype": "2",
-  "grade": "3"
+  "grade": "3",
+  "isTemplate": true
 }

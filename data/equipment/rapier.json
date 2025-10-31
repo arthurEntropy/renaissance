@@ -1,6 +1,6 @@
 {
   "id": "dfa7ae27-401f-489b-8fa3-dd1b1598815d",
-  "name": "ªRapier",
+  "name": "Rapier",
   "description": "Weight: 2-4. Length: 3-4",
   "keeping": null,
   "source": null,
@@ -29,5 +29,6 @@
   "artUrl": null,
   "type": "1",
   "subtype": "1",
-  "grade": "3"
+  "grade": "3",
+  "isTemplate": true
 }

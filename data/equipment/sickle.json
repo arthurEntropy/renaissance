@@ -1,6 +1,6 @@
 {
   "id": "2fad233b-f812-4ea2-88e9-1392de02b390",
-  "name": "ªSickle",
+  "name": "Sickle",
   "description": "Weight: 1-2. Length: 1-2",
   "keeping": null,
   "source": null,
@@ -28,5 +28,6 @@
   "artUrl": null,
   "type": "1",
   "subtype": "1",
-  "grade": "1"
+  "grade": "1",
+  "isTemplate": true
 }

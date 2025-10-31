@@ -1,6 +1,6 @@
 {
   "id": "2fac397a-a8fa-4c29-a617-4a6a5e39c8c9",
-  "name": "ªCrossbow",
+  "name": "Crossbow",
   "description": "Weight: 5-10",
   "keeping": null,
   "source": null,
@@ -23,5 +23,6 @@
   "artUrl": null,
   "type": "1",
   "subtype": "3",
-  "grade": "3"
+  "grade": "3",
+  "isTemplate": true
 }

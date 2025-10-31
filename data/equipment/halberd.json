@@ -1,6 +1,6 @@
 {
   "id": "826452b9-5742-43e0-b6f3-e0ceaa67e783",
-  "name": "ªHalberd",
+  "name": "Halberd",
   "description": "Weight: 5-8. Length: 5-8",
   "keeping": null,
   "source": null,
@@ -33,5 +33,6 @@
   "artUrl": null,
   "type": "1",
   "subtype": "2",
-  "grade": "3"
+  "grade": "3",
+  "isTemplate": true
 }

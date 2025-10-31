@@ -1,6 +1,6 @@
 {
   "id": "7d4ec723-f067-472a-9120-451b4205bc68",
-  "name": "ªMesser",
+  "name": "Messer",
   "description": "Weight: 2-3",
   "keeping": null,
   "source": null,
@@ -29,5 +29,6 @@
   "artUrl": null,
   "type": "1",
   "subtype": "1",
-  "grade": "3"
+  "grade": "3",
+  "isTemplate": true
 }

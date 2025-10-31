@@ -1,6 +1,6 @@
 {
   "id": "262940d9-566b-4b4e-bcfb-843d8a3f9095",
-  "name": "ªKusarigama",
+  "name": "Kusarigama",
   "description": "Weight: 2-4. Length: 5-15",
   "keeping": null,
   "source": null,
@@ -29,5 +29,6 @@
   "artUrl": null,
   "type": "1",
   "subtype": "5",
-  "grade": "3"
+  "grade": "3",
+  "isTemplate": true
 }

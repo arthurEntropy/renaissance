@@ -1,6 +1,6 @@
 {
   "id": "5010e473-bbb9-4d96-8478-86fd6b072dfa",
-  "name": "ªSabre",
+  "name": "Sabre",
   "description": "Weight: 2-3",
   "keeping": null,
   "source": null,
@@ -29,5 +29,6 @@
   "artUrl": null,
   "type": "1",
   "subtype": "1",
-  "grade": "3"
+  "grade": "3",
+  "isTemplate": true
 }
