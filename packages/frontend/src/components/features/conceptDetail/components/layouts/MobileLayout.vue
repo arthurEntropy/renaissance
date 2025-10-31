@@ -2,7 +2,8 @@
     <div class="concept-layout-mobile">
         <!-- 1. Featured Art -->
         <ConceptImageSection title="Featured Art" :show-title="false" :images="concept.artUrls || []"
-            :is-edit-mode="isEditMode" :grid-columns="3" @update:images="$emit('update:featured-art', $event)" />
+            :is-edit-mode="isEditMode" :grid-columns="3" mode="manual"
+            @update:images="$emit('update:featured-art', $event)" />
 
         <!-- 2. Concept title and description -->
         <ConceptTitle :concept="concept" :is-edit-mode="isEditMode" :expansion="expansion"
@@ -15,9 +16,9 @@
         <ConceptAbilitiesSection :abilities="abilities" :is-edit-mode="isEditMode" :sources="sources"
             :conceptId="concept.id" @edit-ability="$emit('edit-ability', $event)" @add-ability="$emit('add-ability')" />
 
-        <!-- 4. Faces -->
-        <ConceptImageSection title="Faces" :images="concept.faces || []" :is-edit-mode="isEditMode" :grid-columns="3"
-            @update:images="$emit('update:faces', $event)" />
+        <!-- 4. Faces - Auto Mode -->
+        <ConceptImageSection title="Faces" :images="[]" :is-edit-mode="isEditMode" :grid-columns="3" mode="auto"
+            auto-source-type="faces" :auto-source-id="concept.id" />
 
         <!-- 5. Local Flavor -->
         <LocalFlavorSection :data="{
@@ -31,9 +32,9 @@
             @unsaved-changes="$emit('unsaved-changes', $event)"
             @reset-unsaved-changes="$emit('reset-unsaved-changes')" />
 
-        <!-- 6. Places -->
-        <ConceptImageSection title="Places" :images="concept.places || []" :is-edit-mode="isEditMode" :grid-columns="3"
-            @update:images="$emit('update:places', $event)" />
+        <!-- 6. Places - Auto Mode -->
+        <ConceptImageSection title="Places" :images="[]" :is-edit-mode="isEditMode" :grid-columns="3" mode="auto"
+            auto-source-type="places" :auto-source-id="concept.id" />
 
         <!-- 7. Hooks -->
         <HooksSection :hooks="concept.hooks || []" :editable="isEditMode" @update="$emit('update:hooks', $event)"

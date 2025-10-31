@@ -1,0 +1,41 @@
+import { ref } from 'vue'
+
+export function useArtModal() {
+    const showEditModal = ref(false)
+    const selectedArt = ref(null)
+    const isMultiEdit = ref(false)
+
+    const openAddModal = () => {
+        selectedArt.value = null
+        isMultiEdit.value = false
+        showEditModal.value = true
+    }
+
+    const openEditModal = (artItem) => {
+        selectedArt.value = artItem
+        isMultiEdit.value = false
+        showEditModal.value = true
+    }
+
+    const openMultiEditModal = () => {
+        selectedArt.value = null
+        isMultiEdit.value = true
+        showEditModal.value = true
+    }
+
+    const closeEditModal = () => {
+        showEditModal.value = false
+        selectedArt.value = null
+        isMultiEdit.value = false
+    }
+
+    return {
+        showEditModal,
+        selectedArt,
+        isMultiEdit,
+        openAddModal,
+        openEditModal,
+        openMultiEditModal,
+        closeEditModal,
+    }
+}

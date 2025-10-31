@@ -152,8 +152,8 @@
       "isCarried": true,
       "isWielding": true,
       "index": 0,
-      "collapsed": true,
-      "artExpanded": false
+      "collapsed": false,
+      "artExpanded": true
     },
     {
       "id": "f339e1ee-39c8-4712-8baa-60129fd87ff0",
@@ -161,8 +161,8 @@
       "isCarried": true,
       "isWielding": true,
       "index": 1,
-      "collapsed": true,
-      "artExpanded": false
+      "collapsed": false,
+      "artExpanded": true
     }
   ],
   "activeEffects": [],
@@ -178,16 +178,17 @@
   "abilities": [
     {
       "id": "f1d0e5f7-bb30-4251-a575-8d31c113fe1a",
-      "collapsed": true,
-      "showImprovements": true
+      "collapsed": false,
+      "showImprovements": false
     },
     {
       "id": "1e289ca8-cf6a-4f0d-ad7c-a13fc8e1f381",
-      "collapsed": true
+      "collapsed": false,
+      "showImprovements": false
     },
     {
       "id": "9c92d5ba-7c73-4480-a357-d98ac4820c7d",
-      "collapsed": true
+      "collapsed": false
     }
   ],
   "twiceWeary": true,
@@ -210,7 +211,7 @@
   },
   "engagementSuccesses": [],
   "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2025-10-30T13:27:38.720Z",
+  "updatedAt": "2025-10-31T11:41:48.189Z",
   "isBeast": false,
   "speed": 0
 }

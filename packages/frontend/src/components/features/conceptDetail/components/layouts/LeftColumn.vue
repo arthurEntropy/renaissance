@@ -2,20 +2,21 @@
     <div class="concept-column-left">
         <!-- Featured Art -->
         <ConceptImageSection title="Featured Art" :show-title="false" :images="concept.artUrls || []"
-            :is-edit-mode="isEditMode" :grid-columns="5" @update:images="$emit('update:featured-art', $event)" />
+            :is-edit-mode="isEditMode" :grid-columns="5" mode="manual"
+            @update:images="$emit('update:featured-art', $event)" />
 
         <!-- Novizio Section -->
         <NovizioSection ref="novizioSection" :novizio="concept.novizio" :editable="isEditMode"
             @update="$emit('update:novizio', $event)" @unsaved-changes="$emit('unsaved-changes', $event)"
             @reset-unsaved-changes="$emit('reset-unsaved-changes')" />
 
-        <!-- Faces -->
-        <ConceptImageSection title="Faces" :images="concept.faces || []" :is-edit-mode="isEditMode" :grid-columns="5"
-            @update:images="$emit('update:faces', $event)" />
+        <!-- Faces - Auto Mode -->
+        <ConceptImageSection title="Faces" :images="[]" :is-edit-mode="isEditMode" :grid-columns="5" mode="auto"
+            auto-source-type="faces" :auto-source-id="concept.id" />
 
-        <!-- Places -->
-        <ConceptImageSection title="Places" :images="concept.places || []" :is-edit-mode="isEditMode" :grid-columns="5"
-            @update:images="$emit('update:places', $event)" />
+        <!-- Places - Auto Mode -->
+        <ConceptImageSection title="Places" :images="[]" :is-edit-mode="isEditMode" :grid-columns="5" mode="auto"
+            auto-source-type="places" :auto-source-id="concept.id" />
 
         <!-- Playlists -->
         <PlaylistSection :playlists="concept.playlists || []" :editable="isEditMode"

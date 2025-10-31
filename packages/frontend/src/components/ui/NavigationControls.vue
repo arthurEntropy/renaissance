@@ -83,12 +83,6 @@ defineEmits(['navigate'])
     right: 30px;
 }
 
-@media (max-width: 1600px) {
-    .navigate-button {
-        display: none;
-    }
-}
-
 @media (max-width: var(--breakpoint-md)) {
     .navigate-button {
         width: 40px;
