@@ -1,6 +1,6 @@
 {
   "id": "de051f9d-ff72-4c62-a6a0-1f44f25e675c",
-  "name": "ªFlail",
+  "name": "Flail",
   "description": "Weight: 2-4. Length: 2-3",
   "keeping": null,
   "source": null,
@@ -30,5 +30,6 @@
   "artUrl": null,
   "type": "1",
   "subtype": "1",
-  "grade": "3"
+  "grade": "3",
+  "isTemplate": true
 }

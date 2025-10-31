@@ -1,6 +1,6 @@
 {
   "id": "eb971b96-92b0-457a-9cd3-c2aed7395e80",
-  "name": "ªMontante",
+  "name": "Montante",
   "description": "Weight: 5-7. Length: 3-5",
   "keeping": null,
   "source": null,
@@ -30,5 +30,6 @@
   "artUrl": null,
   "type": "1",
   "subtype": "1",
-  "grade": "4"
+  "grade": "4",
+  "isTemplate": true
 }

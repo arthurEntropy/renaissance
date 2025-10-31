@@ -1,6 +1,6 @@
 {
   "id": "a27debf0-f462-4e9a-9dcc-0da6aae7e575",
-  "name": "ªPike",
+  "name": "Pike",
   "description": "Weight: 10-15. Length: 12-15",
   "keeping": null,
   "source": null,
@@ -27,5 +27,6 @@
   "artUrl": null,
   "type": "1",
   "subtype": "2",
-  "grade": "5"
+  "grade": "5",
+  "isTemplate": true
 }

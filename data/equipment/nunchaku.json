@@ -1,6 +1,6 @@
 {
   "id": "a1b536a6-3e00-46b5-aaaf-50b89b960f2c",
-  "name": "ªNunchaku",
+  "name": "Nunchaku",
   "description": "Weight: 2-3",
   "keeping": null,
   "source": null,
@@ -26,5 +26,6 @@
   "artUrl": null,
   "type": "1",
   "subtype": "5",
-  "grade": "1"
+  "grade": "1",
+  "isTemplate": true
 }

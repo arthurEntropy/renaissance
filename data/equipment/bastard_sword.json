@@ -1,6 +1,6 @@
 {
   "id": "5597fd4e-198b-4832-9565-7c706b2198f4",
-  "name": "ªBastard Sword",
+  "name": "Bastard Sword",
   "description": "Weight: 5-7. Length: 3-5",
   "keeping": null,
   "source": null,
@@ -30,5 +30,6 @@
   "artUrl": null,
   "type": "1",
   "subtype": "1",
-  "grade": "4"
+  "grade": "4",
+  "isTemplate": true
 }

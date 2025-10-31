@@ -1,6 +1,6 @@
 {
   "id": "0d36d285-6f82-4634-aa08-ccd25da280a3",
-  "name": "ªArming Sword",
+  "name": "Arming Sword",
   "description": "Weight: 2-3",
   "keeping": null,
   "source": null,
@@ -29,5 +29,6 @@
   "artUrl": null,
   "type": "1",
   "subtype": "1",
-  "grade": "3"
+  "grade": "3",
+  "isTemplate": true
 }

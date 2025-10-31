@@ -1,6 +1,6 @@
 {
   "id": "d06188ad-495d-4c0a-a164-aaf2f3157a31",
-  "name": "ªBacksword",
+  "name": "Backsword",
   "description": "Weight: 2-3",
   "keeping": null,
   "source": null,
@@ -29,5 +29,6 @@
   "artUrl": null,
   "type": "1",
   "subtype": "1",
-  "grade": "3"
+  "grade": "3",
+  "isTemplate": true
 }

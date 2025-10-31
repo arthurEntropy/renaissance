@@ -1,6 +1,6 @@
 {
   "id": "f278760c-680d-4f34-a041-744ba7566e44",
-  "name": "ªLantern Shield",
+  "name": "Lantern Shield",
   "description": "Weight: 7-9. Length: 2-3. Shield, casts light in a cone out to short range",
   "keeping": null,
   "source": null,
@@ -28,5 +28,6 @@
   "artUrl": null,
   "type": "1",
   "subtype": "1",
-  "grade": "4"
+  "grade": "4",
+  "isTemplate": true
 }

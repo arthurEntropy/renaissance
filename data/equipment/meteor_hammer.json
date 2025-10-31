@@ -1,6 +1,6 @@
 {
   "id": "ed2a27c2-bf3c-4ceb-aa9f-c6294eb4f3d3",
-  "name": "ªMeteor Hammer",
+  "name": "Meteor Hammer",
   "description": "Weight: 1-7. Length: 5-20",
   "keeping": null,
   "source": null,
@@ -26,5 +26,6 @@
   "artUrl": null,
   "type": "1",
   "subtype": "5",
-  "grade": "4"
+  "grade": "4",
+  "isTemplate": true
 }

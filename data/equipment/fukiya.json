@@ -1,6 +1,6 @@
 {
   "id": "771a79aa-ddea-4263-80f6-bae898e99bb4",
-  "name": "ªFukiya",
+  "name": "Fukiya",
   "description": "Weight: 1-2. Length: 3-9",
   "keeping": null,
   "source": null,
@@ -23,5 +23,6 @@
   "artUrl": null,
   "type": "1",
   "subtype": "3",
-  "grade": "1"
+  "grade": "1",
+  "isTemplate": true
 }

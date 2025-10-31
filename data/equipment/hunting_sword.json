@@ -1,6 +1,6 @@
 {
   "id": "f51575df-26a6-4240-a8c3-41ffdf4c4833",
-  "name": "ªHunting Sword",
+  "name": "Hunting Sword",
   "description": "Weight: 2-3. Length: 2-3",
   "keeping": null,
   "source": null,
@@ -27,5 +27,6 @@
   "artUrl": null,
   "type": "1",
   "subtype": "1",
-  "grade": "2"
+  "grade": "2",
+  "isTemplate": true
 }

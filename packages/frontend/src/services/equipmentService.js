@@ -33,6 +33,7 @@ class EquipmentService extends BaseService {
       skillMods: [],
       isDeleted: false,
       isCustom: false,
+      isTemplate: false,
       artUrl: null,
       type: null,
       subtype: null,

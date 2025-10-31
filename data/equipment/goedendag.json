@@ -1,6 +1,6 @@
 {
   "id": "217d45ba-cfb4-42b2-969b-b18eca65f8b9",
-  "name": "ªGoedendag",
+  "name": "Goedendag",
   "description": "Weight: 3-5. Length: 4-6",
   "keeping": null,
   "source": null,
@@ -27,5 +27,6 @@
   "artUrl": null,
   "type": "1",
   "subtype": "1",
-  "grade": "3"
+  "grade": "3",
+  "isTemplate": true
 }

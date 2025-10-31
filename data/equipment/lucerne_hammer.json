@@ -1,6 +1,6 @@
 {
   "id": "8e77348e-7250-4ddc-908a-548f351dc67e",
-  "name": "ªLucerne Hammer",
+  "name": "Lucerne Hammer",
   "description": "Weight: 5-8. Length: 5-8",
   "keeping": null,
   "source": null,
@@ -33,5 +33,6 @@
   "artUrl": null,
   "type": "1",
   "subtype": "2",
-  "grade": "3"
+  "grade": "3",
+  "isTemplate": true
 }

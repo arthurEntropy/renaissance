@@ -1,6 +1,6 @@
 {
   "id": "d07f1a3e-d692-40f6-b4d7-1571cc5f0a23",
-  "name": "ªBlackjack",
+  "name": "Blackjack",
   "description": "Weight: 2-4. Length: 2-3",
   "keeping": null,
   "source": null,
@@ -27,5 +27,6 @@
   "artUrl": null,
   "type": "1",
   "subtype": "1",
-  "grade": "2"
+  "grade": "2",
+  "isTemplate": true
 }

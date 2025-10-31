@@ -1,6 +1,6 @@
 {
   "id": "83cd507d-e5b1-4d1a-b93d-080bb4ec32aa",
-  "name": "ªFauchard",
+  "name": "Fauchard",
   "description": "Weight: 4-6. Length: 6-9",
   "keeping": null,
   "source": null,
@@ -30,5 +30,6 @@
   "artUrl": null,
   "type": "1",
   "subtype": "2",
-  "grade": "3"
+  "grade": "3",
+  "isTemplate": true
 }

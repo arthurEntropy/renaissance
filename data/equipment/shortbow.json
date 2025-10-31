@@ -1,6 +1,6 @@
 {
   "id": "f3e1f9fd-075b-45bb-9ca6-bf63881451b0",
-  "name": "ªShortbow",
+  "name": "Shortbow",
   "description": "Weight: 2-3",
   "keeping": null,
   "source": null,
@@ -23,5 +23,6 @@
   "artUrl": null,
   "type": "1",
   "subtype": "3",
-  "grade": "3"
+  "grade": "3",
+  "isTemplate": true
 }

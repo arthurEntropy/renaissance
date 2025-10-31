@@ -1,6 +1,6 @@
 {
   "id": "d752f93f-7b22-465c-95c7-99ddebdf1a37",
-  "name": "ªSling",
+  "name": "Sling",
   "description": "Length: 1-2",
   "keeping": null,
   "source": null,
@@ -23,5 +23,6 @@
   "artUrl": null,
   "type": "1",
   "subtype": "3",
-  "grade": "1"
+  "grade": "1",
+  "isTemplate": true
 }

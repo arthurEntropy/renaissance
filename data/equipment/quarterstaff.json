@@ -1,6 +1,6 @@
 {
   "id": "a6a9a2b7-589d-4b73-8ffa-f3e71e4b4432",
-  "name": "ªQuarterstaff",
+  "name": "Quarterstaff",
   "description": "Weight: 4-7. Length: 6-9",
   "keeping": null,
   "source": null,
@@ -27,5 +27,6 @@
   "artUrl": null,
   "type": "1",
   "subtype": "1",
-  "grade": "2"
+  "grade": "2",
+  "isTemplate": true
 }

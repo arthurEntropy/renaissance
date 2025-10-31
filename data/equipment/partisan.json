@@ -1,6 +1,6 @@
 {
   "id": "9274b1fa-3010-4b14-9421-a7f3836d7f90",
-  "name": "ªPartisan",
+  "name": "Partisan",
   "description": "Weight: 4-6. Length: 6-9",
   "keeping": null,
   "source": null,
@@ -30,5 +30,6 @@
   "artUrl": null,
   "type": "1",
   "subtype": "2",
-  "grade": "3"
+  "grade": "3",
+  "isTemplate": true
 }

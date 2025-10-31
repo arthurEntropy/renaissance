@@ -1,6 +1,6 @@
 {
   "id": "6646f42a-04c5-4284-ae1c-4d026a96521b",
-  "name": "ªPistol",
+  "name": "Pistol",
   "description": "Length: 1-2",
   "keeping": null,
   "source": null,
@@ -23,5 +23,6 @@
   "artUrl": null,
   "type": "1",
   "subtype": "4",
-  "grade": "1"
+  "grade": "1",
+  "isTemplate": true
 }

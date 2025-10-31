@@ -17,6 +17,14 @@
             </label>
           </div>
 
+          <!-- Template Checkbox -->
+          <div class="form-group centered">
+            <label for="isTemplate">
+              <input type="checkbox" id="isTemplate" v-model="editedEquipment.isTemplate" />
+              Template
+            </label>
+          </div>
+
           <!-- Name -->
           <div class="form-group vertical">
             <label for="name" class="left-aligned">Name:</label>

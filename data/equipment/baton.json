@@ -1,6 +1,6 @@
 {
   "id": "36d99299-2b3b-4efd-a245-48a1e488e018",
-  "name": "ªBaton",
+  "name": "Baton",
   "description": "Weight: 2-4. Length: 2-3",
   "keeping": null,
   "source": null,
@@ -27,5 +27,6 @@
   "artUrl": null,
   "type": "1",
   "subtype": "1",
-  "grade": "2"
+  "grade": "2",
+  "isTemplate": true
 }

@@ -1,6 +1,6 @@
 {
   "id": "be23f869-abbb-4b72-a155-65fd53c1a8c7",
-  "name": "ªAnguvigaq",
+  "name": "Anguvigaq",
   "description": "Weight: 5-7. Length: 4-6",
   "keeping": null,
   "source": null,
@@ -25,5 +25,6 @@
   "artUrl": null,
   "type": "1",
   "subtype": "2",
-  "grade": "2"
+  "grade": "2",
+  "isTemplate": true
 }

@@ -1,6 +1,6 @@
 {
   "id": "43d9fa84-113a-4b5f-92a0-4cd85122e67f",
-  "name": "ªScimitar",
+  "name": "Scimitar",
   "description": "Weight: 2-3",
   "keeping": null,
   "source": null,
@@ -29,5 +29,6 @@
   "artUrl": null,
   "type": "1",
   "subtype": "1",
-  "grade": "3"
+  "grade": "3",
+  "isTemplate": true
 }
