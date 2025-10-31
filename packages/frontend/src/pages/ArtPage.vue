@@ -74,7 +74,9 @@
         <!-- Art Grid -->
         <div class="art-grid-container">
             <div v-if="paginatedArt.length > 0" class="art-grid" :class="`grid-size-${gridSize}`">
-                <div v-for="artItem in paginatedArt" :key="artItem.id" class="art-card" @click="openEditModal(artItem)">
+                <div v-for="artItem in paginatedArt" :key="artItem.id" class="art-card"
+                    :class="{ 'selected': selectedItems.includes(artItem.id) }"
+                    @click="handleCardClick($event, artItem)" :data-art-id="artItem.id">
                     <div class="art-image">
                         <img :src="artItem.url" :alt="`Art ${artItem.id}`" />
                     </div>
@@ -89,6 +91,10 @@
                                 {{ getSourceName(sourceId) }}
                             </span>
                         </div>
+                    </div>
+                    <!-- Selection indicator -->
+                    <div v-if="selectedItems.includes(artItem.id)" class="selection-indicator">
+                        <div class="selection-checkmark">✓</div>
                     </div>
                 </div>
             </div>
@@ -105,9 +111,17 @@
             <span class="loading-text">Loading more art...</span>
         </div>
 
+        <!-- Edit Multiple Button -->
+        <div v-if="selectedItems.length > 0" class="edit-multiple-bar">
+            <span class="selected-count">{{ selectedItems.length }} item{{ selectedItems.length !== 1 ? 's' : '' }}
+                selected</span>
+            <ActionButton variant="primary" size="large" text="Edit Multiple" @click="openMultiEditModal" />
+        </div>
+
         <!-- Edit Modal -->
         <EditArtModal v-if="showEditModal" :art="selectedArt" :hasPrevious="hasPreviousArt" :hasNext="hasNextArt"
-            @close="closeEditModal" @save="saveArt" @delete="deleteArt" @navigate="navigateArt" />
+            :isMultiEdit="isMultiEdit" :multiEditData="multiEditData" @close="closeEditModal" @save="saveArt"
+            @delete="deleteArt" @navigate="navigateArt" />
     </div>
 </template>
 
@@ -134,6 +148,8 @@ const sourceFilter = ref('')
 const showEditModal = ref(false)
 const selectedArt = ref(null)
 const loadingIndicatorRef = ref(null)
+const selectedItems = ref([])
+const isMultiEdit = ref(false)
 let intersectionObserver = null
 
 // Computed
@@ -192,6 +208,58 @@ const mapCount = computed(() => {
     return artStore.art.filter(art => art.tags.type === 'maps').length
 })
 
+// Multi-edit aggregated data
+const multiEditData = computed(() => {
+    if (!isMultiEdit.value || selectedItems.value.length === 0) {
+        return null
+    }
+
+    const selectedArts = selectedItems.value.map(id => artStore.getById(id)).filter(Boolean)
+
+    if (selectedArts.length === 0) {
+        return null
+    }
+
+    // Aggregate all unique sources from selected items
+    const allSources = new Set()
+    const sourceItemCounts = {} // Track how many items have each source
+
+    selectedArts.forEach(art => {
+        art.tags.sources.forEach(sourceId => {
+            allSources.add(sourceId)
+            sourceItemCounts[sourceId] = (sourceItemCounts[sourceId] || 0) + 1
+        })
+    })
+
+    // Determine which sources are on all items vs some items
+    const universalSources = [] // On all items
+    const partialSources = [] // On some but not all items
+
+    allSources.forEach(sourceId => {
+        if (sourceItemCounts[sourceId] === selectedArts.length) {
+            universalSources.push(sourceId)
+        } else {
+            partialSources.push(sourceId)
+        }
+    })
+
+    // For type, use the most common type, or 'faces' as default
+    const typeCounts = {}
+    selectedArts.forEach(art => {
+        typeCounts[art.tags.type] = (typeCounts[art.tags.type] || 0) + 1
+    })
+    const mostCommonType = Object.keys(typeCounts).reduce((a, b) =>
+        typeCounts[a] > typeCounts[b] ? a : b, 'faces'
+    )
+
+    return {
+        type: mostCommonType,
+        universalSources, // Sources that ALL items have
+        partialSources,   // Sources that SOME items have
+        itemCount: selectedArts.length
+    }
+})
+
 // Helper to get source name by ID
 const getSourceName = (sourceId) => {
     const allSources = [
@@ -231,23 +299,85 @@ const removeSourceFilter = (sourceId) => {
 // Methods
 const openAddModal = () => {
     selectedArt.value = null
+    isMultiEdit.value = false
     showEditModal.value = true
 }
 
 const openEditModal = (artItem) => {
     selectedArt.value = artItem
+    isMultiEdit.value = false
+    showEditModal.value = true
+}
+
+const openMultiEditModal = () => {
+    selectedArt.value = null
+    isMultiEdit.value = true
     showEditModal.value = true
 }
 
 const closeEditModal = () => {
     showEditModal.value = false
     selectedArt.value = null
+    isMultiEdit.value = false
+}
+
+// Multi-select methods
+const handleCardClick = (event, artItem) => {
+    if (event.shiftKey) {
+        // Toggle selection when shift is held
+        event.preventDefault()
+        toggleSelection(artItem.id)
+    } else if (selectedItems.value.length === 0) {
+        // Normal click behavior when no items selected
+        openEditModal(artItem)
+    }
+}
+
+const toggleSelection = (artId) => {
+    const index = selectedItems.value.indexOf(artId)
+    if (index > -1) {
+        selectedItems.value.splice(index, 1)
+    } else {
+        selectedItems.value.push(artId)
+    }
 }
 
 const saveArt = async (artData) => {
     try {
-        if (artData.id) {
-            // Update existing
+        if (artData.isMultiEdit) {
+            // Update multiple items with add/remove logic
+            const updates = selectedItems.value.map(async (artId) => {
+                const art = artStore.getById(artId)
+                if (art) {
+                    // Start with existing sources
+                    let updatedSources = [...art.tags.sources]
+
+                    // Remove sources that should be removed
+                    updatedSources = updatedSources.filter(id => !artData.sourcesToRemove.includes(id))
+
+                    // Add sources that should be added (avoid duplicates)
+                    artData.sourcesToAdd.forEach(id => {
+                        if (!updatedSources.includes(id)) {
+                            updatedSources.push(id)
+                        }
+                    })
+
+                    const updatedArt = {
+                        ...art,
+                        tags: {
+                            type: artData.type,
+                            sources: updatedSources
+                        }
+                    }
+                    await ArtService.update(updatedArt)
+                    artStore.updateArt(updatedArt)
+                }
+            })
+            await Promise.all(updates)
+            selectedItems.value = []
+            closeEditModal()
+        } else if (artData.id) {
+            // Update existing single item
             await ArtService.update(artData)
             artStore.updateArt(artData)
         } else {
@@ -387,7 +517,7 @@ onBeforeUnmount(() => {
 }
 
 .size-button.selected {
-    background: var(--color-gray-medium);
+    background: var(--color-bg-tertiary);
     color: var(--color-text-primary);
 }
 
@@ -707,6 +837,61 @@ onBeforeUnmount(() => {
 .empty-state p {
     margin-bottom: var(--space-lg);
     font-size: var(--font-size-18);
+}
+
+/* Selection state */
+.art-card {
+    position: relative;
+}
+
+.art-card.selected {
+    outline: 3px solid var(--color-text-primary);
+    outline-offset: -3px;
+}
+
+.selection-indicator {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 32px;
+    height: 32px;
+    background: var(--color-text-primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-elevation-md);
+    z-index: 10;
+}
+
+.selection-checkmark {
+    color: var(--color-primary-text);
+    font-size: var(--font-size-18);
+    font-weight: var(--font-weight-bold);
+    line-height: 1;
+}
+
+/* Edit Multiple Bar */
+.edit-multiple-bar {
+    position: fixed;
+    bottom: var(--space-xl);
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border-primary);
+    border-radius: var(--radius-10);
+    padding: var(--space-md) var(--space-lg);
+    box-shadow: var(--shadow-elevation-lg);
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    z-index: 100;
+}
+
+.selection-count {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-14);
+    font-weight: var(--font-weight-medium);
 }
 
 /* Responsive */
