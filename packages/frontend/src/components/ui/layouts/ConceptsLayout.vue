@@ -211,10 +211,10 @@ const openConceptDetail = (concept) => {
 
   showConceptDetail.value = true
   conceptDetailKey.value++
-  
+
   // Create URL-friendly name (convert to lowercase, replace spaces with hyphens)
   const urlName = concept.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')
-  
+
   // Update URL with concept name (only if not already there)
   if (route.params.id !== urlName) {
     const basePath = route.path.split('/').slice(0, 2).join('/')
@@ -235,10 +235,10 @@ const navigateConcept = (direction) => {
   }
 
   conceptDetailKey.value++;
-  
+
   // Create URL-friendly name
   const urlName = selectedConcept.value.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')
-  
+
   // Update URL with new concept name
   const basePath = route.path.split('/').slice(0, 2).join('/')
   router.push(`${basePath}/${urlName}`)
@@ -249,7 +249,7 @@ const closeConceptDetail = () => {
   // This allows the selection to be "sticky"
   selectedConcept.value = null
   showConceptDetail.value = false
-  
+
   // Return to base route without ID (only if currently on a detail route)
   if (route.params.id) {
     const basePath = route.path.split('/').slice(0, 2).join('/')
@@ -295,7 +295,7 @@ onMounted(async () => {
       await props.refreshDataFn()
       // Convert URL name back to find matching concept (case-insensitive comparison)
       const urlName = route.params.id.toLowerCase()
-      const conceptToOpen = props.concepts.find(c => 
+      const conceptToOpen = props.concepts.find(c =>
         c.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '') === urlName
       )
       if (conceptToOpen) {
@@ -322,7 +322,7 @@ watch(() => route.params.id, (newId, oldId) => {
     if (newId) {
       // Convert URL name to find matching concept
       const urlName = newId.toLowerCase()
-      const conceptToOpen = props.concepts.find(c => 
+      const conceptToOpen = props.concepts.find(c =>
         c.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '') === urlName
       )
       if (conceptToOpen) {
