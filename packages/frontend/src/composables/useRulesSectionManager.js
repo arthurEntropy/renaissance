@@ -1,9 +1,12 @@
 import { ref, watch, computed } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import { useRulesStore } from '@/stores/rulesStore'
 import RulesService from '@/services/rulesService'
 
 export function useRulesSectionManager() {
   const rulesStore = useRulesStore()
+  const route = useRoute()
+  const router = useRouter()
   
   // State
   const currentSection = ref(null)
@@ -26,8 +29,21 @@ export function useRulesSectionManager() {
     localSections.value = JSON.parse(JSON.stringify(newValue))
   }, { immediate: true })
   
+  // Watch for route changes (browser back/forward)
+  watch(() => route.params.id, (newId) => {
+    if (newId) {
+      const urlName = newId.toLowerCase()
+      const sectionFromUrl = filteredSections.value?.find(section =>
+        section.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '') === urlName
+      )
+      if (sectionFromUrl && currentSection.value?.id !== sectionFromUrl.id) {
+        selectSection(sectionFromUrl.id, { skipUrlUpdate: true })
+      }
+    }
+  })
+  
   // Methods
-  const selectSection = async (sectionId, { onUnsavedChanges } = {}) => {
+  const selectSection = async (sectionId, { onUnsavedChanges, skipUrlUpdate = false } = {}) => {
     // Skip if we're trying to select the already selected section
     if (currentSection.value?.id === sectionId) return
     
@@ -44,6 +60,14 @@ export function useRulesSectionManager() {
       currentSection.value = { ...section }
       selectedSectionId.value = sectionId
       localStorage.setItem('lastSelectedSectionId', sectionId)
+      
+      // Update URL with section name (only if not already there and not skipped)
+      if (!skipUrlUpdate) {
+        const urlName = section.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')
+        if (route.params.id !== urlName) {
+          router.push(`/rules/${urlName}`)
+        }
+      }
     }
   }
   
@@ -137,7 +161,19 @@ export function useRulesSectionManager() {
         .filter(section => !section.isDeleted)
         .sort((a, b) => a.index - b.index)
       
-      // Select the last selected section from localStorage if available
+      // First priority: Check if there's a section name in the URL
+      if (route.params.id) {
+        const urlName = route.params.id.toLowerCase()
+        const sectionFromUrl = availableSections.find(section =>
+          section.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '') === urlName
+        )
+        if (sectionFromUrl) {
+          await selectSection(sectionFromUrl.id, { skipUrlUpdate: true })
+          return
+        }
+      }
+      
+      // Second priority: Select the last selected section from localStorage if available
       const lastSelectedSectionId = localStorage.getItem('lastSelectedSectionId')
       const sectionExists = lastSelectedSectionId &&
         availableSections.some(section => section.id === lastSelectedSectionId)
