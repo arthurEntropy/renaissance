@@ -8,11 +8,13 @@ import { auth, googleProvider } from '@/config/firebase'
 class AuthService {
   constructor() {
     this.currentUser = null
+    this.authInitialized = false
     this.listeners = []
     
     // Listen for auth state changes
     onAuthStateChanged(auth, (user) => {
       this.currentUser = user
+      this.authInitialized = true
       this.notifyListeners(user)
     })
   }
@@ -145,7 +147,7 @@ class AuthService {
   // Wait for auth to be ready
   waitForAuth() {
     return new Promise((resolve) => {
-      if (this.currentUser !== undefined) {
+      if (this.authInitialized) {
         resolve(this.currentUser)
         return
       }

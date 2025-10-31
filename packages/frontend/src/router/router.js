@@ -63,6 +63,14 @@ router.beforeEach(async (to, from, next) => {
   // Wait for auth to be ready
   await AuthService.waitForAuth()
   
+  // If authenticated, wait for user profile to load before checking roles
+  if (authStore.isAuthenticated && authStore.loading) {
+    // Wait for profile to finish loading
+    while (authStore.loading) {
+      await new Promise(resolve => setTimeout(resolve, 50))
+    }
+  }
+  
   // Check if route requires authentication
   if (to.meta.requiresAuth) {
     if (!authStore.isAuthenticated) {
