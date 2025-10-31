@@ -58,8 +58,8 @@ export const useArtStore = defineStore('art', () => {
   const getByTypeAndSource = (type, sourceId) => {
     return art.value
       .filter(item => 
-        item.tags.type === type && 
-        item.tags.sources.includes(sourceId)
+        item?.tags?.type === type && 
+        item?.tags?.sources?.includes(sourceId)
       )
       .map(item => item.url)
   }
