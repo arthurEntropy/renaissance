@@ -41,6 +41,9 @@
 
                 <!-- Dropdown menu -->
                 <div v-if="dropdownOpen" class="dropdown-menu">
+                    <button @click.stop="openPreferences" class="dropdown-item">
+                        Preferences
+                    </button>
                     <router-link v-if="authStore.isAdmin" to="/admin" class="dropdown-item" @click.stop="closeDropdown">
                         Admin Panel
                     </router-link>
@@ -63,6 +66,8 @@ const signingIn = ref(false)
 const dropdownOpen = ref(false)
 const dropdownTrigger = ref(null)
 
+const emit = defineEmits(['openPreferences'])
+
 const toggleDropdown = () => {
     dropdownOpen.value = !dropdownOpen.value
 }
@@ -74,6 +79,11 @@ const closeDropdownMenu = (event) => {
 }
 
 const closeDropdown = () => {
+    dropdownOpen.value = false
+}
+
+const openPreferences = () => {
+    emit('openPreferences')
     dropdownOpen.value = false
 }
 

@@ -7,7 +7,7 @@
       <button class="menu-toggle" @click="toggleMenu">☰</button>
       <!-- Mobile Auth Component -->
       <div v-if="menuOpen" class="mobile-auth">
-        <AuthComponent />
+        <AuthComponent @open-preferences="openPreferences" />
       </div>
       <nav v-if="menuOpen">
         <router-link to="/rules" @click="closeMenu">RULES</router-link>
@@ -40,7 +40,7 @@
 
       <!-- Desktop Auth Component -->
       <div class="desktop-auth">
-        <AuthComponent />
+        <AuthComponent @open-preferences="openPreferences" />
       </div>
     </div>
 
@@ -55,6 +55,9 @@
       <!-- Username setup modal -->
       <UsernameSetup v-else-if="authStore.isAuthenticated && authStore.needsUsername" />
 
+      <!-- Preferences modal -->
+      <PreferencesModal v-else-if="showPreferencesModal" @close="closePreferences" />
+
       <router-view v-else />
     </div>
 
@@ -62,26 +65,46 @@
 </template>
 
 <script>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { useAuthStore } from '@/stores/authStore'
+import { useUserPreferencesStore } from '@/stores/userPreferencesStore'
+import { useBackgroundImagesStore } from '@/stores/backgroundImagesStore'
 import SelectedCharacterBadge from '@/components/features/characterSelection/SelectedCharacterBadge.vue'
 import AuthComponent from '@/components/features/auth/AuthComponent.vue'
 import UsernameSetup from '@/components/features/auth/UsernameSetup.vue'
 import NotInvitedModal from '@/components/features/auth/NotInvitedModal.vue'
+import PreferencesModal from '@/components/features/preferences/PreferencesModal.vue'
 
 export default {
   components: {
     SelectedCharacterBadge,
     AuthComponent,
     UsernameSetup,
-    NotInvitedModal
+    NotInvitedModal,
+    PreferencesModal
   },
   setup() {
     const menuOpen = ref(false)
     const route = useRoute()
     const authStore = useAuthStore()
+    const userPreferencesStore = useUserPreferencesStore()
+    const backgroundImagesStore = useBackgroundImagesStore()
     const shouldShowOverlay = computed(() => route.meta?.overlay === true)
+    const showPreferencesModal = ref(false)
+
+    // Apply background dynamically
+    const updateBackground = () => {
+      const bgUrl = userPreferencesStore.selectedBackgroundImage
+      if (bgUrl) {
+        // Set CSS variable for future compatibility
+        document.documentElement.style.setProperty('--background-image-url', `url('${bgUrl}')`)
+
+        // Also set directly with !important to override the CSS rule
+        document.documentElement.style.setProperty('background-image', `url('${bgUrl}')`, 'important')
+        document.body.style.setProperty('background-image', `url('${bgUrl}')`, 'important')
+      }
+    }
 
     function toggleMenu() {
       menuOpen.value = !menuOpen.value
@@ -90,16 +113,50 @@ export default {
       menuOpen.value = false
     }
 
-    onMounted(() => {
+    const openPreferences = () => {
+      showPreferencesModal.value = true
+    }
+
+    const closePreferences = () => {
+      showPreferencesModal.value = false
+    }
+
+    onMounted(async () => {
+      // Initialize auth listener
       authStore.initializeAuth()
+
+      // Wait for auth to be ready before proceeding
+      await authStore.checkAuthStatus()
+
+      // Load background images for all users
+      await backgroundImagesStore.fetch()
+
+      // Load user preferences if authenticated
+      if (authStore.isAuthenticated) {
+        await userPreferencesStore.fetchPreferences()
+      }
     })
+
+    // Watch for changes to selected background image
+    watch(
+      () => userPreferencesStore.selectedBackgroundImage,
+      (newBg) => {
+        if (newBg) {
+          updateBackground()
+        }
+      },
+      { immediate: true } // Run immediately with current value
+    )
 
     return {
       menuOpen,
       shouldShowOverlay,
       authStore,
+      showPreferencesModal,
       toggleMenu,
       closeMenu,
+      openPreferences,
+      closePreferences,
     }
   },
 }

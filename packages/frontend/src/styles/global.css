@@ -49,7 +49,7 @@
 html,
 body {
   background-size: cover;
-  background-image: url('https://cdn.midjourney.com/b380594a-e352-4deb-b7b0-c3fff0095472/0_3.png');
+  background-image: var(--background-image-url, url('https://cdn.midjourney.com/b380594a-e352-4deb-b7b0-c3fff0095472/0_3.png')) !important;
   background-position: center;
   background-attachment: fixed;
   background-color: var(--color-bg-primary);
