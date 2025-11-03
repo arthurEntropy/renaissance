@@ -67,6 +67,7 @@ import { useAuthStore } from '@/stores/authStore'
 import { useEditModal } from '@/composables/useEditModal'
 import { useSourcesStore } from '@/stores/sourcesStore'
 import { useInfiniteScroll } from '@/composables/useInfiniteScroll'
+import { useFilterPersistence } from '@/composables/useFilterPersistence'
 import EquipmentService from '@/services/equipmentService'
 import EngagementSuccessService from '@/services/engagementSuccessService'
 import EquipmentCard from '@/components/ui/cards/EquipmentCard.vue'
@@ -184,6 +185,17 @@ const allFilteredEquipmentRef = computed(() => allFilteredEquipment.value)
 // Infinite scroll setup with filtered equipment
 const { paginatedItems: paginatedEquipment, loadMore, hasMore, reset } = useInfiniteScroll(allFilteredEquipmentRef, 50)
 
+// Filter persistence
+const { initialize: initializeFilterPersistence } = useFilterPersistence('equipment', {
+  sortOption,
+  searchQuery,
+  sourceFilter,
+  typeFilter,
+  subtypeFilter,
+  gradeFilter,
+  showTemplates
+})
+
 // Custom filtering that includes category filters - now uses paginated equipment
 const filteredEquipment = computed(() => {
   // Since allFilteredEquipment already applies all filters,
@@ -283,6 +295,9 @@ watch([searchQuery, sourceFilter, subtypeFilter, gradeFilter, sortOption, showTe
 // Lifecycle
 onMounted(async () => {
   try {
+    // Initialize filter persistence
+    initializeFilterPersistence()
+    
     // Sources will auto-fetch via useSources composable
     await equipmentStore.fetchKeeping()
     await equipmentCategoriesStore.fetchAll()

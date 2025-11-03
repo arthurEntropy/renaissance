@@ -35,6 +35,7 @@ import { useExpansionsStore } from '@/stores/expansionsStore'
 import { useSourcesStore } from '@/stores/sourcesStore'
 import { useCharactersStore } from '@/stores/charactersStore'
 import { useAuthStore } from '@/stores/authStore'
+import { useFilterPersistence } from '@/composables/useFilterPersistence'
 import ConceptCard from '@/components/ui/cards/ConceptCard.vue'
 import AddConceptCard from '@/components/ui/cards/AddConceptCard.vue'
 import FilterControls from '@/components/ui/FilterControls.vue'
@@ -99,6 +100,16 @@ const expansions = ref([])
 const conceptDetailKey = ref(0)
 const searchQuery = ref('')
 const expansionFilter = ref('')
+
+// Filter persistence - use a storage key based on itemName
+const storageKey = computed(() => props.itemName.toLowerCase().replace(/\s+/g, '-'))
+const { initialize: initializeFilterPersistence } = useFilterPersistence(
+  storageKey.value,
+  {
+    searchQuery,
+    expansionFilter
+  }
+)
 
 // Proper pluralization for item names
 const itemNamePlural = computed(() => {
@@ -285,6 +296,9 @@ const handleKeyNavigation = (event) => {
 
 onMounted(async () => {
   try {
+    // Initialize filter persistence
+    initializeFilterPersistence()
+    
     await expansionStore.fetch()
     expansions.value = expansionStore.expansions
     window.addEventListener('keydown', handleKeyNavigation);

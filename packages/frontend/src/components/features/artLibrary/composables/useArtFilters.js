@@ -1,10 +1,23 @@
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
+import { useFilterPersistence } from '@/composables/useFilterPersistence'
 
 export function useArtFilters(artStore) {
     const gridSize = ref('large')
     const typeFilters = ref([])
     const sourceFilters = ref([])
     const sourceFilter = ref('')
+
+    // Filter persistence
+    const { initialize: initializeFilterPersistence } = useFilterPersistence('art', {
+        gridSize,
+        typeFilters,
+        sourceFilters
+    })
+
+    // Initialize on mount
+    onMounted(() => {
+        initializeFilterPersistence()
+    })
 
     const filteredArt = computed(() => {
         let filtered = artStore.art

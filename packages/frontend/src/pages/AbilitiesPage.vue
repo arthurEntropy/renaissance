@@ -30,6 +30,7 @@ import { useAuthStore } from '@/stores/authStore'
 import { useEditModal } from '@/composables/useEditModal'
 import { useSourcesStore } from '@/stores/sourcesStore'
 import { useInfiniteScroll } from '@/composables/useInfiniteScroll'
+import { useFilterPersistence } from '@/composables/useFilterPersistence'
 import AbilityService from '@/services/abilityService'
 import AbilityCard from '@/components/ui/cards/AbilityCard.vue'
 import EditAbilityModal from '@/components/editModals/EditAbilityModal.vue'
@@ -63,6 +64,13 @@ const sourceFilter = ref('')
 
 // Infinite scroll setup
 const { paginatedItems: paginatedAbilities, loadMore, hasMore } = useInfiniteScroll(abilities, 50)
+
+// Filter persistence
+const { initialize: initializeFilterPersistence } = useFilterPersistence('abilities', {
+  sortOption,
+  searchQuery,
+  sourceFilter
+})
 
 // State for tracking improvement visibility per ability
 const improvementVisibility = ref(new Map())
@@ -136,6 +144,9 @@ const sendAbilityToChat = (_ability) => {
 // Lifecycle
 onMounted(async () => {
   try {
+    // Initialize filter persistence
+    initializeFilterPersistence()
+    
     // Sources will auto-fetch via useSources composable
     await abilitiesStore.fetch()
   } catch (error) {
