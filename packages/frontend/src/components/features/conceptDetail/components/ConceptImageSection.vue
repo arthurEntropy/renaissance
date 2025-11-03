@@ -41,7 +41,7 @@ const props = defineProps({
     autoSourceType: {
         type: String,
         default: 'faces',
-        validator: (value) => ['faces', 'places'].includes(value)
+        validator: (value) => ['faces', 'places', 'maps'].includes(value)
     },
     autoSourceId: {
         type: String,
