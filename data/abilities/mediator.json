@@ -1,0 +1,12 @@
+{
+  "id": "9f467675-fb3c-4aa4-bfcf-9cdfd066b502",
+  "name": "Mediator",
+  "description": "<p>When you roll to de-escalate a situation, you roll with advantage. Describe how you help cooler heads prevail.</p>",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "6c11415a-8f95-4da2-95d8-26a858caffc3",
+  "isDeleted": false,
+  "mp": null,
+  "xp": null
+}

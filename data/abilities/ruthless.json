@@ -1,0 +1,12 @@
+{
+  "id": "d8527527-ef7f-44e6-9d47-2b24ae38ff21",
+  "name": "Ruthless",
+  "description": "<p>Whenever you defeat a foe, gain +1d on your next attack. Describe how you draw power from violence.</p>",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "372c0d28-68df-4202-8e2b-80f96c8928d6",
+  "isDeleted": false,
+  "mp": null,
+  "xp": null
+}

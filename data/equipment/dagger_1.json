@@ -1,0 +1,30 @@
+{
+  "name": "Dagger",
+  "description": "",
+  "keeping": "2",
+  "source": "55494a30-a1bb-47c3-aae9-2db3a5bfcb8b",
+  "weight": 1,
+  "length": 1,
+  "reach": 0,
+  "range": "2",
+  "twoHanded": false,
+  "thrown": true,
+  "finesse": true,
+  "piercing": false,
+  "damageDice": [
+    4
+  ],
+  "engagementDice": [
+    4
+  ],
+  "engagementSuccesses": [],
+  "skillMods": [],
+  "isDeleted": false,
+  "isCustom": false,
+  "artUrl": "https://cdn.midjourney.com/1165688d-c51c-4c51-af38-8a2348626989/0_3.png",
+  "type": "1",
+  "subtype": "1",
+  "grade": "1",
+  "isTemplate": false,
+  "id": "e7c57bc7-5009-45bd-81f0-c8011115862c"
+}

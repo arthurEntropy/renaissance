@@ -1,0 +1,12 @@
+{
+  "id": "85b6482f-63af-4096-af3b-fdb1b08af596",
+  "name": "Thrill Seeker",
+  "description": "<p>Each time you succeed on a Dexterity roll to avoid an attack, dodge an obstacle or otherwise skirt danger, you gain +1d on your next roll (doesn’t stack). Describe how you thrive on adrenaline.</p>",
+  "isTrait": false,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "5c67bedd-8e73-4add-b46b-9b911bf0fd59",
+  "isDeleted": false,
+  "mp": null,
+  "xp": null
+}

@@ -1,0 +1,12 @@
+{
+  "id": "4f01e99f-1a9f-4c76-9435-c116c4d6c958",
+  "name": "Resilience",
+  "description": "<p>Any time you are healed, you gain an additional 1 HP. Describe what’s keeping you on your feet.</p>",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "fa6eb60c-0895-4635-8124-ab50b0bac28e",
+  "isDeleted": false,
+  "mp": null,
+  "xp": null
+}

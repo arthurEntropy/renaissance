@@ -1,0 +1,12 @@
+{
+  "id": "6dc33bff-c958-4bcd-855b-2726d477f0fe",
+  "name": "Cloudwatcher",
+  "description": "<p>Once per day, you may accurately predict the weather for the next day (per DM). Describe how you read the signs.</p>",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "ccd8ce71-021b-425f-9720-fd0ee87e0140",
+  "isDeleted": false,
+  "mp": null,
+  "xp": null
+}

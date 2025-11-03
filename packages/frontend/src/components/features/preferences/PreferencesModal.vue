@@ -1,5 +1,5 @@
 <template>
-    <div class="modal-overlay" @click.self="closeModal">
+    <div class="modal-overlay preferences-modal-overlay" @click.self="closeModal">
         <div class="modal-content">
             <div class="modal-header">
                 <h2>Preferences</h2>
@@ -73,19 +73,19 @@ onMounted(async () => {
 </script>
 
 <style>
-/* Override modal-content max-width for preferences modal */
-.modal-overlay .modal-content {
+/* Override modal-content max-width for preferences modal only */
+.preferences-modal-overlay .modal-content {
     max-width: 800px;
 }
 
 /* Modal header customization for preferences */
-.modal-overlay .modal-header {
+.preferences-modal-overlay .modal-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.modal-overlay .modal-header h2 {
+.preferences-modal-overlay .modal-header h2 {
     color: var(--color-primary);
     font-size: var(--font-size-32);
     margin: 0;

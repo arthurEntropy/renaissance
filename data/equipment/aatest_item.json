@@ -16,7 +16,7 @@
   "engagementDice": [],
   "engagementSuccesses": [],
   "skillMods": [],
-  "isDeleted": false,
+  "isDeleted": true,
   "isCustom": false,
   "isTemplate": true,
   "artUrl": null,
