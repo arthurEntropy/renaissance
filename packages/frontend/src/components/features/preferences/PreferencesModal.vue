@@ -36,11 +36,6 @@ const userPreferencesStore = useUserPreferencesStore()
 
 const selectedBackgroundId = ref(null)
 
-// Get the default background
-const defaultBackground = computed(() => {
-    return backgroundImagesStore.backgroundImages.find(bg => bg.isDefault)
-})
-
 // Sort backgrounds by displayOrder
 const sortedBackgrounds = computed(() => {
     return [...backgroundImagesStore.backgroundImages].sort((a, b) => {

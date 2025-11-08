@@ -297,7 +297,7 @@ onMounted(async () => {
   try {
     // Initialize filter persistence
     initializeFilterPersistence()
-    
+
     // Sources will auto-fetch via useSources composable
     await equipmentStore.fetchKeeping()
     await equipmentCategoriesStore.fetchAll()

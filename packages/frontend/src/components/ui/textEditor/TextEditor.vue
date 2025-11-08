@@ -231,7 +231,7 @@ defineExpose({
   outline: none;
   box-sizing: border-box;
   font-size: var(--font-size-16);
-  line-height: var(--line-height-normal);
+  line-height: var(--line-height-loose);
 }
 
 :deep(.ProseMirror)>* {
@@ -246,19 +246,19 @@ defineExpose({
 :deep(.ProseMirror h2) {
   font-size: var(--font-size-36);
   margin: 1.5em 0 0 0;
-  color: var(--color-accent-gold);
+  color: var(--color-primary);
   font-weight: var(--font-weight-normal);
 }
 
 :deep(.ProseMirror h3) {
   margin: 1.5em 0 0 0;
   font-size: var(--font-size-24);
-  color: var(--color-accent-gold);
+  color: var(--color-accent-cyan);
 }
 
 :deep(.ProseMirror p) {
-  margin: 0.5em 0;
-  line-height: var(--line-height-normal);
+  font-size: var(--font-size-16);
+  line-height: var(--line-height-loose);
 }
 
 :deep(.ProseMirror ul) {

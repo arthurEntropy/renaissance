@@ -1,4 +1,4 @@
-import { watch, onMounted } from 'vue'
+import { watch } from 'vue'
 
 /**
  * Composable for persisting filter state to localStorage

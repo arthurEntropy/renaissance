@@ -298,7 +298,7 @@ onMounted(async () => {
   try {
     // Initialize filter persistence
     initializeFilterPersistence()
-    
+
     await expansionStore.fetch()
     expansions.value = expansionStore.expansions
     window.addEventListener('keydown', handleKeyNavigation);

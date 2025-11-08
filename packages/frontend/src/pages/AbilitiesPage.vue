@@ -146,7 +146,7 @@ onMounted(async () => {
   try {
     // Initialize filter persistence
     initializeFilterPersistence()
-    
+
     // Sources will auto-fetch via useSources composable
     await abilitiesStore.fetch()
   } catch (error) {

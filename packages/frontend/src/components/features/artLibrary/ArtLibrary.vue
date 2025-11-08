@@ -22,7 +22,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { ref, onMounted, onBeforeUnmount, watch } from 'vue'
 import { useArtStore } from '@/stores/artStore'
 import { useSourcesStore } from '@/stores/sourcesStore'
 import { useInfiniteScroll } from '@/composables/useInfiniteScroll'
@@ -114,6 +114,11 @@ const handleDelete = async (artData) => {
 const setupIntersectionObserver = () => {
     if (!loadingIndicatorRef.value) return
 
+    // Disconnect existing observer if any
+    if (intersectionObserver) {
+        intersectionObserver.disconnect()
+    }
+
     intersectionObserver = new IntersectionObserver(
         (entries) => {
             const entry = entries[0]
@@ -144,6 +149,14 @@ onBeforeUnmount(() => {
     if (intersectionObserver) {
         intersectionObserver.disconnect()
     }
+})
+
+// Watch for changes in hasMore and filteredArt to reset the observer
+watch([hasMore, () => filteredArt.value.length], () => {
+    // Use setTimeout to ensure DOM has updated
+    setTimeout(() => {
+        setupIntersectionObserver()
+    }, 10)
 })
 </script>
 

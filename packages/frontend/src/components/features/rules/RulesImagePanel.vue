@@ -45,7 +45,8 @@ defineProps({
     height: calc(100vh - var(--nav-height));
     background-size: cover;
     background-position: right;
-    box-shadow: inset 300px 0 100px -50px var(--color-bg-primary);
+    mask-image: linear-gradient(to right, transparent 0%, black 300px);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 300px);
     pointer-events: auto;
 }
 
