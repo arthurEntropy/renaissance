@@ -5,8 +5,13 @@ export function useArtModal() {
     const selectedArt = ref(null)
     const isMultiEdit = ref(false)
 
-    const openAddModal = () => {
-        selectedArt.value = null
+    const openAddModal = (initialTags = {}) => {
+        selectedArt.value = initialTags.type || initialTags.sources ? {
+            tags: {
+                type: initialTags.type || 'faces',
+                sources: initialTags.sources || []
+            }
+        } : null
         isMultiEdit.value = false
         showEditModal.value = true
     }

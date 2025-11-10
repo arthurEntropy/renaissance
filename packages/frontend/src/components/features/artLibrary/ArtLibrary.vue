@@ -2,10 +2,10 @@
     <div class="art-library">
         <ArtFilters v-model:gridSize="gridSize" v-model:typeFilters="typeFilters" v-model:sourceFilters="sourceFilters"
             v-model:sourceFilter="sourceFilter" :totalCount="filteredArt.length" :faceCount="faceCount"
-            :placeCount="placeCount" :mapCount="mapCount" @add="openAddModal" />
+            :placeCount="placeCount" :mapCount="mapCount" @add="handleOpenAddModal" />
 
         <ArtGrid :paginatedArt="paginatedArt" :gridSize="gridSize" :selectedItems="selectedItems"
-            @cardClick="handleCardClick" @add="openAddModal" />
+            @cardClick="handleCardClick" @add="handleOpenAddModal" />
 
         <!-- Loading indicator for infinite scroll -->
         <div v-if="hasMore" class="loading-indicator" ref="loadingIndicatorRef">
@@ -99,6 +99,23 @@ const handleCardClick = (event, artItem) => {
         // Normal click behavior when no items selected
         openEditModal(artItem)
     }
+}
+
+// Add modal handler with current filters
+const handleOpenAddModal = () => {
+    const initialTags = {}
+
+    // If only one type filter is selected, use it as the default type
+    if (typeFilters.value.length === 1) {
+        initialTags.type = typeFilters.value[0]
+    }
+
+    // Apply all selected source filters
+    if (sourceFilters.value.length > 0) {
+        initialTags.sources = [...sourceFilters.value]
+    }
+
+    openAddModal(initialTags)
 }
 
 // CRUD handlers

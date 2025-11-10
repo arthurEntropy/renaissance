@@ -20,11 +20,29 @@
                 </button>
             </div>
 
-            <!-- Source Filter with Dropdown -->
-            <select v-model="sourceFilter" @change="addSourceFilter" class="filter-select">
-                <option value="">Filter by tags...</option>
-                <SourceOptionsGroup />
-            </select>
+            <!-- Source Filter with Combobox -->
+            <div class="combobox-wrapper" ref="comboboxRef">
+                <input v-model="searchQuery" @focus="handleFocus" @input="showDropdown = true"
+                    @keydown.enter.prevent="selectFirstMatch" @keydown.down.prevent="navigateDown"
+                    @keydown.up.prevent="navigateUp" @keydown.escape="showDropdown = false"
+                    placeholder="Filter by tags..." class="filter-select combobox-input" type="text" />
+                <div v-if="showDropdown" class="dropdown-list">
+                    <template v-if="hasFilteredSources">
+                        <div v-for="(group, groupName) in filteredSources" :key="groupName" class="dropdown-group">
+                            <div class="dropdown-group-label">{{ groupName }}</div>
+                            <div v-for="(item, index) in group" :key="item.id"
+                                :class="['dropdown-option', { highlighted: highlightedIndex === getOptionIndex(groupName, index) }]"
+                                @click="selectSource(item.id)"
+                                @mouseenter="highlightedIndex = getOptionIndex(groupName, index)">
+                                {{ item.name }}
+                            </div>
+                        </div>
+                    </template>
+                    <div v-else class="dropdown-empty">
+                        No tags found
+                    </div>
+                </div>
+            </div>
 
             <!-- Selected Source Tags -->
             <div v-if="sourceFilters.length > 0" class="selected-chips">
@@ -71,10 +89,11 @@
 </template>
 
 <script setup>
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { UserCircleIcon, PhotoIcon, MapIcon, XMarkIcon } from '@heroicons/vue/24/outline'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
-import SourceOptionsGroup from '@/components/ui/selectors/SourceOptionsGroup.vue'
 import { useSourcesStore } from '@/stores/sourcesStore'
+import { SPECIAL_FILTERS } from '../composables/useArtFilters'
 
 defineProps({
     totalCount: {
@@ -104,7 +123,83 @@ const sourceFilter = defineModel('sourceFilter')
 
 const sourcesStore = useSourcesStore()
 
+// Combobox state
+const searchQuery = ref('')
+const showDropdown = ref(false)
+const highlightedIndex = ref(-1)
+const comboboxRef = ref(null)
+
+// Special filter options
+const specialFilterOptions = [
+    { id: SPECIAL_FILTERS.NO_TAGS, name: 'No Tags' },
+    { id: SPECIAL_FILTERS.NO_ANCESTRY, name: 'No Ancestry Tag' },
+    { id: SPECIAL_FILTERS.NO_CULTURE, name: 'No Culture Tag' },
+    { id: SPECIAL_FILTERS.NO_MESTIERI, name: 'No Mestieri Tag' }
+]
+
+// All sources organized by group
+const allSourceGroups = computed(() => ({
+    'Special Filters': specialFilterOptions,
+    'Ancestries': sourcesStore.sources.ancestries || [],
+    'Cultures': sourcesStore.sources.cultures || [],
+    'Mestieri': sourcesStore.sources.mestieri || [],
+    'World Elements': sourcesStore.sources.worldElements || []
+}))
+
+// Filtered sources based on search query
+const filteredSources = computed(() => {
+    const query = searchQuery.value.toLowerCase().trim()
+
+    if (!query) {
+        return allSourceGroups.value
+    }
+
+    const filtered = {}
+    for (const [groupName, items] of Object.entries(allSourceGroups.value)) {
+        const matchingItems = items.filter(item =>
+            item.name.toLowerCase().includes(query)
+        )
+        if (matchingItems.length > 0) {
+            filtered[groupName] = matchingItems
+        }
+    }
+    return filtered
+})
+
+// Check if there are any filtered sources to display
+const hasFilteredSources = computed(() => {
+    return Object.values(filteredSources.value).some(group => group.length > 0)
+})
+
+// Get flat list of all filtered options for keyboard navigation
+const flatFilteredOptions = computed(() => {
+    const options = []
+    for (const [groupName, items] of Object.entries(filteredSources.value)) {
+        items.forEach((item, index) => {
+            options.push({ groupName, index, item })
+        })
+    }
+    return options
+})
+
+// Get the global index for an option based on group and local index
+const getOptionIndex = (groupName, localIndex) => {
+    let globalIndex = 0
+    for (const [gName, items] of Object.entries(filteredSources.value)) {
+        if (gName === groupName) {
+            return globalIndex + localIndex
+        }
+        globalIndex += items.length
+    }
+    return -1
+}
+
 const getSourceName = (sourceId) => {
+    // Check if it's a special filter
+    const specialFilter = specialFilterOptions.find(f => f.id === sourceId)
+    if (specialFilter) return specialFilter.name
+
+    // Otherwise look in regular sources
     const allSources = [
         ...sourcesStore.sources.ancestries || [],
         ...sourcesStore.sources.cultures || [],
@@ -124,11 +219,45 @@ const toggleTypeFilter = (type) => {
     }
 }
 
-const addSourceFilter = () => {
-    if (sourceFilter.value && !sourceFilters.value.includes(sourceFilter.value)) {
-        sourceFilters.value.push(sourceFilter.value)
+const handleFocus = () => {
+    showDropdown.value = true
+}
+
+const selectSource = (sourceId) => {
+    if (sourceId && !sourceFilters.value.includes(sourceId)) {
+        sourceFilters.value.push(sourceId)
     }
-    sourceFilter.value = ''
+    searchQuery.value = ''
+    showDropdown.value = false
+    highlightedIndex.value = -1
+}
+
+const selectFirstMatch = () => {
+    if (flatFilteredOptions.value.length > 0) {
+        const firstOption = flatFilteredOptions.value[0]
+        selectSource(firstOption.item.id)
+    }
+}
+
+const navigateDown = () => {
+    if (flatFilteredOptions.value.length === 0) return
+    highlightedIndex.value = Math.min(
+        highlightedIndex.value + 1,
+        flatFilteredOptions.value.length - 1
+    )
+    if (highlightedIndex.value >= 0 && highlightedIndex.value < flatFilteredOptions.value.length) {
+        const option = flatFilteredOptions.value[highlightedIndex.value]
+        selectSource(option.item.id)
+    }
+}
+
+const navigateUp = () => {
+    if (flatFilteredOptions.value.length === 0) return
+    highlightedIndex.value = Math.max(highlightedIndex.value - 1, 0)
+    if (highlightedIndex.value >= 0 && highlightedIndex.value < flatFilteredOptions.value.length) {
+        const option = flatFilteredOptions.value[highlightedIndex.value]
+        selectSource(option.item.id)
+    }
 }
 
 const removeSourceFilter = (sourceId) => {
@@ -137,6 +266,21 @@ const removeSourceFilter = (sourceId) => {
         sourceFilters.value.splice(index, 1)
     }
 }
+
+// Click outside to close dropdown
+const handleClickOutside = (event) => {
+    if (comboboxRef.value && !comboboxRef.value.contains(event.target)) {
+        showDropdown.value = false
+    }
+}
+
+onMounted(() => {
+    document.addEventListener('click', handleClickOutside)
+})
+
+onUnmounted(() => {
+    document.removeEventListener('click', handleClickOutside)
+})
 </script>
 
 <style scoped>
@@ -148,6 +292,7 @@ const removeSourceFilter = (sourceId) => {
     padding: var(--space-lg);
     background: var(--color-bg-secondary);
     border-radius: var(--radius-10);
+    overflow: visible;
 }
 
 .filters-row {
@@ -156,6 +301,7 @@ const removeSourceFilter = (sourceId) => {
     align-items: center;
     gap: var(--space-md);
     flex-wrap: wrap;
+    position: relative;
 }
 
 .stats-row {
@@ -272,6 +418,68 @@ const removeSourceFilter = (sourceId) => {
 .filter-select:focus {
     outline: none;
     border-color: var(--color-primary);
+}
+
+.combobox-wrapper {
+    position: relative;
+    min-width: 200px;
+    flex-shrink: 0;
+}
+
+.combobox-input {
+    cursor: text;
+}
+
+.dropdown-list {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    right: 0;
+    max-height: 300px;
+    overflow-y: auto;
+    background: var(--color-bg-primary);
+    border: 1px solid var(--color-border-secondary);
+    border-radius: var(--radius-5);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    z-index: 1000;
+}
+
+.dropdown-group {
+    padding: var(--space-xs) 0;
+}
+
+.dropdown-group:not(:last-child) {
+    border-bottom: 1px solid var(--color-border-secondary);
+}
+
+.dropdown-group-label {
+    padding: var(--space-xs) var(--space-md);
+    font-size: var(--font-size-11);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.dropdown-option {
+    padding: var(--space-sm) var(--space-md);
+    cursor: pointer;
+    font-size: var(--font-size-14);
+    color: var(--color-text-primary);
+    transition: var(--transition-all);
+}
+
+.dropdown-option:hover,
+.dropdown-option.highlighted {
+    background: var(--color-bg-tertiary);
+    color: var(--color-primary);
+}
+
+.dropdown-empty {
+    padding: var(--space-md);
+    text-align: center;
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-14);
 }
 
 .selected-chips {
