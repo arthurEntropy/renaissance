@@ -6,6 +6,7 @@ class ArtService extends BaseService {
   }
 
   getDefaultEntity() {
+    const now = new Date().toISOString()
     return {
       id: null,
       url: '',
@@ -14,6 +15,8 @@ class ArtService extends BaseService {
         sources: [] // array of concept IDs
       },
       isDeleted: false,
+      createdAt: now,
+      lastModified: now,
     }
   }
 

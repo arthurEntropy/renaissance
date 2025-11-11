@@ -80,9 +80,18 @@ const getAllDataByDirectory = (directory) => {
 const saveFile = (data, directory, oldName = null) => {
   try {
     // Generate a new ID if one doesn't exist
-    if (!data.id) {
+    const isNew = !data.id
+    if (isNew) {
       data.id = uuidv4()
     }
+
+    // Handle timestamps
+    const now = new Date().toISOString()
+    if (isNew && !data.createdAt) {
+      data.createdAt = now
+    }
+    // Always update lastModified
+    data.lastModified = now
 
     // Special handling for abilities: ensure improvements have IDs
     if (directory.endsWith('abilities')) {

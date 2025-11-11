@@ -1,14 +1,15 @@
 <template>
     <div class="art-library">
         <ArtFilters v-model:gridSize="gridSize" v-model:typeFilters="typeFilters" v-model:sourceFilters="sourceFilters"
-            v-model:sourceFilter="sourceFilter" :totalCount="filteredArt.length" :faceCount="faceCount"
+            v-model:sourceFilter="sourceFilter" v-model:groupBy="groupBy" v-model:orderBy="orderBy"
+            v-model:showDuplicates="showDuplicates" :totalCount="filteredArt.length" :faceCount="faceCount"
             :placeCount="placeCount" :mapCount="mapCount" @add="handleOpenAddModal" />
 
-        <ArtGrid :paginatedArt="paginatedArt" :gridSize="gridSize" :selectedItems="selectedItems"
-            @cardClick="handleCardClick" @add="handleOpenAddModal" />
+        <ArtGrid :paginatedArt="paginatedArt" :groupedArt="groupedArt" :gridSize="gridSize"
+            :selectedItems="selectedItems" @cardClick="handleCardClick" @add="handleOpenAddModal" />
 
-        <!-- Loading indicator for infinite scroll -->
-        <div v-if="hasMore" class="loading-indicator" ref="loadingIndicatorRef">
+        <!-- Loading indicator for infinite scroll (only when not grouping) -->
+        <div v-if="hasMore && !groupBy" class="loading-indicator" ref="loadingIndicatorRef">
             <span class="loading-text">Loading more art...</span>
         </div>
 
@@ -47,7 +48,11 @@ const {
     typeFilters,
     sourceFilters,
     sourceFilter,
+    groupBy,
+    orderBy,
+    showDuplicates,
     filteredArt,
+    groupedArt,
     faceCount,
     placeCount,
     mapCount,
@@ -129,6 +134,9 @@ const handleDelete = async (artData) => {
 
 // Setup intersection observer for infinite scroll
 const setupIntersectionObserver = () => {
+    // Don't setup observer if grouping is active
+    if (groupBy.value) return
+
     if (!loadingIndicatorRef.value) return
 
     // Disconnect existing observer if any
@@ -168,8 +176,15 @@ onBeforeUnmount(() => {
     }
 })
 
-// Watch for changes in hasMore and filteredArt to reset the observer
-watch([hasMore, () => filteredArt.value.length], () => {
+// Watch for changes in hasMore, filteredArt, and groupBy to reset the observer
+watch([hasMore, () => filteredArt.value.length, groupBy], () => {
+    // Disconnect observer if grouping is active
+    if (groupBy.value && intersectionObserver) {
+        intersectionObserver.disconnect()
+        intersectionObserver = null
+        return
+    }
+
     // Use setTimeout to ensure DOM has updated
     setTimeout(() => {
         setupIntersectionObserver()

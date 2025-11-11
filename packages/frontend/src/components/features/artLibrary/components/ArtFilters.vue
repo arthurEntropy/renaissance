@@ -83,7 +83,38 @@
                     Maps: <strong>{{ mapCount }}</strong>
                 </span>
             </div>
-            <ActionButton variant="primary" size="small" text="+ Add Art" @click="$emit('add')" />
+
+            <div class="stats-controls">
+                <!-- Group By -->
+                <select v-model="groupBy" class="control-select">
+                    <option value="">Group by...</option>
+                    <option value="type">Type</option>
+                    <option value="ancestry">Ancestry</option>
+                    <option value="culture">Culture</option>
+                    <option value="mestieri">Mestieri</option>
+                    <option value="worldElement">World Element</option>
+                    <option value="dateAddedOldToNew">Date - Old to New</option>
+                    <option value="dateAddedNewToOld">Date - New to Old</option>
+                </select>
+
+                <!-- Order By -->
+                <select v-model="orderBy" class="control-select">
+                    <option value="">Order by...</option>
+                    <option value="type">Type</option>
+                    <option value="ancestry">Ancestry</option>
+                    <option value="culture">Culture</option>
+                    <option value="mestieri">Mestieri</option>
+                    <option value="worldElement">World Element</option>
+                    <option value="dateAddedOldToNew">Date - Old to New</option>
+                    <option value="dateAddedNewToOld">Date - New to Old</option>
+                </select>
+
+                <!-- Show Duplicates -->
+                <ActionButton :variant="showDuplicates ? 'danger' : 'neutral'" size="small"
+                    :text="showDuplicates ? 'Show All' : 'Show Duplicates'" @click="showDuplicates = !showDuplicates" />
+
+                <ActionButton variant="primary" size="small" text="+ Add Art" @click="$emit('add')" />
+            </div>
         </div>
     </div>
 </template>
@@ -120,6 +151,9 @@ const gridSize = defineModel('gridSize')
 const typeFilters = defineModel('typeFilters')
 const sourceFilters = defineModel('sourceFilters')
 const sourceFilter = defineModel('sourceFilter')
+const groupBy = defineModel('groupBy')
+const orderBy = defineModel('orderBy')
+const showDuplicates = defineModel('showDuplicates')
 
 const sourcesStore = useSourcesStore()
 
@@ -313,11 +347,40 @@ onUnmounted(() => {
     color: var(--color-text-secondary);
     padding-top: var(--space-md);
     border-top: 1px solid var(--color-border-secondary);
+    flex-wrap: wrap;
 }
 
 .stats-items {
     display: flex;
     gap: var(--space-lg);
+}
+
+.stats-controls {
+    display: flex;
+    gap: var(--space-md);
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.control-select {
+    min-width: 140px;
+    padding: var(--space-xs) var(--space-sm);
+    background: var(--color-bg-primary);
+    border: 1px solid var(--color-border-secondary);
+    border-radius: var(--radius-5);
+    color: var(--color-text-primary);
+    font-size: var(--font-size-13);
+    cursor: pointer;
+    transition: var(--transition-all);
+}
+
+.control-select:hover {
+    border-color: var(--color-border-primary);
+}
+
+.control-select:focus {
+    outline: none;
+    border-color: var(--color-primary);
 }
 
 .stat-item strong {
