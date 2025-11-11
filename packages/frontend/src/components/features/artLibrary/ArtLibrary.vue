@@ -1,14 +1,15 @@
 <template>
     <div class="art-library">
         <ArtFilters v-model:gridSize="gridSize" v-model:typeFilters="typeFilters" v-model:sourceFilters="sourceFilters"
-            v-model:sourceFilter="sourceFilter" :totalCount="filteredArt.length" :faceCount="faceCount"
-            :placeCount="placeCount" :mapCount="mapCount" @add="openAddModal" />
+            v-model:sourceFilter="sourceFilter" v-model:groupBy="groupBy" v-model:orderBy="orderBy"
+            v-model:showDuplicates="showDuplicates" :totalCount="filteredArt.length" :faceCount="faceCount"
+            :placeCount="placeCount" :mapCount="mapCount" @add="handleOpenAddModal" />
 
-        <ArtGrid :paginatedArt="paginatedArt" :gridSize="gridSize" :selectedItems="selectedItems"
-            @cardClick="handleCardClick" @add="openAddModal" />
+        <ArtGrid :paginatedArt="paginatedArt" :groupedArt="groupedArt" :gridSize="gridSize"
+            :selectedItems="selectedItems" @cardClick="handleCardClick" @add="handleOpenAddModal" />
 
-        <!-- Loading indicator for infinite scroll -->
-        <div v-if="hasMore" class="loading-indicator" ref="loadingIndicatorRef">
+        <!-- Loading indicator for infinite scroll (only when not grouping) -->
+        <div v-if="hasMore && !groupBy" class="loading-indicator" ref="loadingIndicatorRef">
             <span class="loading-text">Loading more art...</span>
         </div>
 
@@ -22,7 +23,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { ref, onMounted, onBeforeUnmount, watch } from 'vue'
 import { useArtStore } from '@/stores/artStore'
 import { useSourcesStore } from '@/stores/sourcesStore'
 import { useInfiniteScroll } from '@/composables/useInfiniteScroll'
@@ -47,7 +48,11 @@ const {
     typeFilters,
     sourceFilters,
     sourceFilter,
+    groupBy,
+    orderBy,
+    showDuplicates,
     filteredArt,
+    groupedArt,
     faceCount,
     placeCount,
     mapCount,
@@ -101,6 +106,23 @@ const handleCardClick = (event, artItem) => {
     }
 }
 
+// Add modal handler with current filters
+const handleOpenAddModal = () => {
+    const initialTags = {}
+
+    // If only one type filter is selected, use it as the default type
+    if (typeFilters.value.length === 1) {
+        initialTags.type = typeFilters.value[0]
+    }
+
+    // Apply all selected source filters
+    if (sourceFilters.value.length > 0) {
+        initialTags.sources = [...sourceFilters.value]
+    }
+
+    openAddModal(initialTags)
+}
+
 // CRUD handlers
 const handleSave = async (artData) => {
     await saveArt(artData, selectedItems, closeEditModal, clearSelection)
@@ -112,7 +134,15 @@ const handleDelete = async (artData) => {
 
 // Setup intersection observer for infinite scroll
 const setupIntersectionObserver = () => {
+    // Don't setup observer if grouping is active
+    if (groupBy.value) return
+
     if (!loadingIndicatorRef.value) return
+
+    // Disconnect existing observer if any
+    if (intersectionObserver) {
+        intersectionObserver.disconnect()
+    }
 
     intersectionObserver = new IntersectionObserver(
         (entries) => {
@@ -144,6 +174,21 @@ onBeforeUnmount(() => {
     if (intersectionObserver) {
         intersectionObserver.disconnect()
     }
+})
+
+// Watch for changes in hasMore, filteredArt, and groupBy to reset the observer
+watch([hasMore, () => filteredArt.value.length, groupBy], () => {
+    // Disconnect observer if grouping is active
+    if (groupBy.value && intersectionObserver) {
+        intersectionObserver.disconnect()
+        intersectionObserver = null
+        return
+    }
+
+    // Use setTimeout to ensure DOM has updated
+    setTimeout(() => {
+        setupIntersectionObserver()
+    }, 10)
 })
 </script>
 

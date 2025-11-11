@@ -1,0 +1,19 @@
+{
+  "id": "2e46823f-bec7-4d70-b323-dbc8b71c7739",
+  "name": "Drow",
+  "description": "",
+  "isDeleted": false,
+  "artUrls": [
+    "https://cdn.midjourney.com/0333b110-ab2f-4965-ae32-3c67dba0a0f3/0_2.png"
+  ],
+  "expansionLogoUrl": "",
+  "faces": [],
+  "places": [],
+  "backgroundImage": "",
+  "color1": "#ffffff",
+  "color2": "#000000",
+  "expansion": "824cad94-3a4a-4df3-b81a-ede17b84644b",
+  "hooks": [],
+  "playlists": [],
+  "names": ""
+}

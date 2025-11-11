@@ -1,6 +1,22 @@
 <template>
     <div class="art-grid-container">
-        <div v-if="paginatedArt.length > 0" class="art-grid" :class="`grid-size-${gridSize}`">
+        <!-- Grouped Display -->
+        <div v-if="groupedArt && groupedArt.length > 0" class="grouped-art">
+            <div v-for="(group, index) in groupedArt" :key="group.name" class="art-group">
+                <h3 class="group-header" @click="toggleGroup(index)">
+                    <ChevronRightIcon v-if="collapsedGroups[index]" class="chevron-icon" />
+                    <ChevronDownIcon v-else class="chevron-icon" />
+                    <span>{{ group.name }} <span class="group-count">({{ group.items.length }})</span></span>
+                </h3>
+                <div v-if="!collapsedGroups[index]" class="art-grid" :class="`grid-size-${gridSize}`">
+                    <ArtCard v-for="artItem in group.items" :key="artItem.id" :art="artItem"
+                        :isSelected="selectedItems.includes(artItem.id)" @click="handleCardClick" />
+                </div>
+            </div>
+        </div>
+
+        <!-- Standard Display (no grouping) -->
+        <div v-else-if="paginatedArt.length > 0" class="art-grid" :class="`grid-size-${gridSize}`">
             <ArtCard v-for="artItem in paginatedArt" :key="artItem.id" :art="artItem"
                 :isSelected="selectedItems.includes(artItem.id)" @click="handleCardClick" />
         </div>
@@ -14,13 +30,19 @@
 </template>
 
 <script setup>
+import { ref, watch } from 'vue'
+import { ChevronRightIcon, ChevronDownIcon } from '@heroicons/vue/24/outline'
 import ArtCard from './ArtCard.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 
-defineProps({
+const props = defineProps({
     paginatedArt: {
         type: Array,
         required: true
+    },
+    groupedArt: {
+        type: Array,
+        default: null
     },
     gridSize: {
         type: String,
@@ -34,6 +56,21 @@ defineProps({
 
 const emit = defineEmits(['cardClick', 'add'])
 
+// Track collapsed state for each group
+const collapsedGroups = ref({})
+
+// Reset collapsed state when grouped art changes
+watch(() => props.groupedArt, (newGroupedArt) => {
+    if (newGroupedArt) {
+        // Initialize all groups as expanded
+        collapsedGroups.value = {}
+    }
+}, { immediate: true })
+
+const toggleGroup = (index) => {
+    collapsedGroups.value[index] = !collapsedGroups.value[index]
+}
+
 const handleCardClick = (event, art) => {
     emit('cardClick', event, art)
 }
@@ -42,6 +79,51 @@ const handleCardClick = (event, art) => {
 <style scoped>
 .art-grid-container {
     min-width: 100%;
+}
+
+/* Grouped Display */
+.grouped-art {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+}
+
+.art-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+}
+
+.group-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    font-size: var(--font-size-20);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+    margin: 0;
+    padding-bottom: var(--space-sm);
+    border-bottom: 2px solid var(--color-border-secondary);
+    cursor: pointer;
+    user-select: none;
+    transition: var(--transition-color);
+}
+
+.group-header:hover {
+    color: var(--color-primary-hover);
+}
+
+.chevron-icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    transition: var(--transition-all);
+}
+
+.group-count {
+    font-size: var(--font-size-16);
+    font-weight: var(--font-weight-normal);
+    color: var(--color-text-secondary);
 }
 
 /* Large Grid (default) */

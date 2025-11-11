@@ -146,7 +146,7 @@ onMounted(async () => {
 .rules-container {
   display: flex;
   flex: 1;
-  background: var(--color-bg-primary);
+  background: var(--overlay-black-heavy);
   overflow: hidden;
 }
 

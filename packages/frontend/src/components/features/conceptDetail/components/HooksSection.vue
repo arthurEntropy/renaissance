@@ -21,14 +21,14 @@
             <div v-if="isHookExpanded(hook.id || idx)" class="hook-fields">
               <div class="hook-field">
                 <label>Description:</label>
-                <text-editor v-model="hook.description" placeholder="Description of the hook..." height="120px"
-                  :readonly="!editable" />
+                <text-editor v-model="hook.description" placeholder="Description of the hook..." :readonly="!editable"
+                  :auto-height="true" />
               </div>
 
               <div class="hook-field">
                 <label>GM Notes:</label>
-                <text-editor v-model="hook.gmNotes" placeholder="Notes only visible to the GM..." height="120px"
-                  :readonly="!editable" />
+                <text-editor v-model="hook.gmNotes" placeholder="Notes only visible to the GM..." :readonly="!editable"
+                  :auto-height="true" />
               </div>
 
               <div class="delete-hook-container">
@@ -251,7 +251,7 @@ watch(() => props.editable, (val) => {
 
 .gm-notes {
   margin-top: var(--space-xs);
-  padding: var(--space-xs);
+  padding: var(--space-md);
   background: var(--color-bg-secondary);
   border-radius: var(--radius-5);
   font-style: italic;

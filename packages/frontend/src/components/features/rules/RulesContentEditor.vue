@@ -82,7 +82,6 @@ const safeSectionHtml = computed(() => {
 /* Section header and name styles */
 .section-name-container {
   position: relative;
-  background: var(--color-bg-primary);
   z-index: var(--z-floating);
   padding: var(--space-xl) var(--space-xl) 0 var(--space-xl);
   flex-shrink: 0;

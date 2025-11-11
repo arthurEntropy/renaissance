@@ -7,12 +7,13 @@
   "status": "approved",
   "needsUsername": false,
   "createdAt": "2025-10-24T18:03:45.214Z",
-  "lastLoginAt": "2025-10-31T16:47:56.660Z",
+  "lastLoginAt": "2025-11-02T00:10:19.710Z",
   "isDeleted": false,
   "preferences": {
     "theme": "dark",
-    "notifications": true
+    "notifications": true,
+    "backgroundImageId": "1cf1ac16-e262-4739-823f-70d3352cf74f"
   },
   "characters": [],
-  "lastUpdatedAt": "2025-10-24T18:06:19.174Z"
+  "lastUpdatedAt": "2025-11-04T00:34:03.064Z"
 }

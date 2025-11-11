@@ -1,5 +1,5 @@
 <template>
-  <div class="rich-editor-wrapper">
+  <div class="rich-editor-wrapper" ref="editorWrapper" :data-auto-height="autoHeight || undefined">
     <TextEditorToolbar v-if="editor" :editor="editor" @setLink="setLink" @insertImage="insertImage"
       @insertDiceFontCharacter="insertDiceFontCharacter" />
 
@@ -45,13 +45,14 @@ const props = defineProps({
 const emit = defineEmits(['update:modelValue'])
 
 const editor = ref()
+const editorWrapper = ref()
 const dynamicHeight = ref(props.height)
 const maxHeight = computed(() => props.autoHeight ? 'none' : '420px')
 
 const updateHeight = () => {
-  if (!props.autoHeight) return
+  if (!props.autoHeight || !editorWrapper.value) return
   nextTick(() => {
-    const pm = document.querySelector('.ProseMirror')
+    const pm = editorWrapper.value?.querySelector('.ProseMirror')
     if (pm) {
       pm.style.height = 'auto'
       const scrollHeight = pm.scrollHeight
@@ -197,10 +198,23 @@ defineExpose({
   text-align: left;
   display: flex;
   flex-direction: column;
-  height: v-bind(dynamicHeight);
   min-height: 100px;
-  max-height: v-bind(maxHeight);
   width: 100%;
+}
+
+.rich-editor-wrapper:not([data-auto-height]) {
+  height: v-bind(dynamicHeight);
+  max-height: v-bind(maxHeight);
+}
+
+.rich-editor-wrapper[data-auto-height] {
+  height: auto;
+  max-height: none;
+}
+
+.rich-editor-wrapper[data-auto-height] :deep(.ProseMirror) {
+  height: auto;
+  overflow: visible;
 }
 
 .editor-loading {
@@ -217,7 +231,7 @@ defineExpose({
   outline: none;
   box-sizing: border-box;
   font-size: var(--font-size-16);
-  line-height: var(--line-height-normal);
+  line-height: var(--line-height-loose);
 }
 
 :deep(.ProseMirror)>* {
@@ -232,19 +246,19 @@ defineExpose({
 :deep(.ProseMirror h2) {
   font-size: var(--font-size-36);
   margin: 1.5em 0 0 0;
-  color: var(--color-accent-gold);
+  color: var(--color-primary);
   font-weight: var(--font-weight-normal);
 }
 
 :deep(.ProseMirror h3) {
   margin: 1.5em 0 0 0;
   font-size: var(--font-size-24);
-  color: var(--color-accent-gold);
+  color: var(--color-accent-cyan);
 }
 
 :deep(.ProseMirror p) {
-  margin: 0.5em 0;
-  line-height: var(--line-height-normal);
+  font-size: var(--font-size-16);
+  line-height: var(--line-height-loose);
 }
 
 :deep(.ProseMirror ul) {

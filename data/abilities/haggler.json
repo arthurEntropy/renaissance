@@ -1,0 +1,12 @@
+{
+  "id": "b5da66c8-9726-471d-8009-2ec7874528c3",
+  "name": "Haggler",
+  "description": "<p>You always get the lowest possible price when purchasing and always get the highest possible price when selling. Describe how you strike a bargain.</p>",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "6c11415a-8f95-4da2-95d8-26a858caffc3",
+  "isDeleted": false,
+  "mp": null,
+  "xp": null
+}

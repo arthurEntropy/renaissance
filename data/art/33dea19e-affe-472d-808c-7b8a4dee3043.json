@@ -1,6 +1,6 @@
 {
   "id": "33dea19e-affe-472d-808c-7b8a4dee3043",
-  "url": "https://cdn.midjourney.com/c522c116-174c-4e28-9d1f-6b0fb3e60425/0_3.png",
+  "url": "https://cdn.midjourney.com/17f78166-e347-4698-8b2d-19d750bbc873/0_1.png",
   "tags": {
     "type": "faces",
     "sources": [
@@ -8,5 +8,7 @@
       "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
     ]
   },
-  "isDeleted": false
+  "isDeleted": false,
+  "createdAt": "2025-11-04T02:02:08.048Z",
+  "lastModified": "2025-11-04T02:02:08.048Z"
 }

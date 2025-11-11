@@ -1,0 +1,12 @@
+{
+  "id": "fc4a01dc-cdcf-45bf-98b1-384da7d69832",
+  "name": "Giantkin Knowledge",
+  "description": "<p>When you roll to deduct or recall information about Giantkin works, you roll with advantage. Once per rest, you may spend 1 MP to identify the magical properties of a Giantkin work. The DM may require more MP for larger or more complex works. Describe how you gained this knowledge.</p>",
+  "isTrait": false,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "8221b753-1564-447e-b26a-4c95761d2714",
+  "isDeleted": false,
+  "mp": null,
+  "xp": null
+}

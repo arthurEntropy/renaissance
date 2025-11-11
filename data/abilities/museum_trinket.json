@@ -1,0 +1,12 @@
+{
+  "id": "13762ac7-ddf7-4644-9f90-703271954cec",
+  "name": "Museum Trinket",
+  "description": "<p>You possess an artifact from the University’s collection. Where did it come from? How did you get it? What does it do? If you lose or sell this item, what are the consequences? Work out the details with the group.</p>",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "2d359f20-1746-46aa-9533-b516352c6d1c",
+  "isDeleted": false,
+  "mp": null,
+  "xp": null
+}

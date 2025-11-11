@@ -209,6 +209,7 @@ onMounted(() => {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: var(--space-xs);
 }
 
 .base-card.collapsed .card-header {

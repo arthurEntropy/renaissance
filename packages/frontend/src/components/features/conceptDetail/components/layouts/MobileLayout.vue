@@ -36,17 +36,21 @@
         <ConceptImageSection title="Places" :images="[]" :is-edit-mode="isEditMode" :grid-columns="3" mode="auto"
             auto-source-type="places" :auto-source-id="concept.id" />
 
-        <!-- 7. Hooks -->
+        <!-- 7. Maps - Auto Mode -->
+        <ConceptImageSection title="Maps" :images="[]" :is-edit-mode="isEditMode" :grid-columns="3" mode="auto"
+            auto-source-type="maps" :auto-source-id="concept.id" />
+
+        <!-- 8. Hooks -->
         <HooksSection :hooks="concept.hooks || []" :editable="isEditMode" @update="$emit('update:hooks', $event)"
             @unsaved-changes="$emit('unsaved-changes', $event)"
             @reset-unsaved-changes="$emit('reset-unsaved-changes')" />
 
-        <!-- 8. Wares (Equipment) -->
+        <!-- 9. Wares (Equipment) -->
         <ConceptEquipmentSection :equipment="equipment" :is-edit-mode="isEditMode" :sources="sources"
             :conceptId="concept.id" @edit-equipment="$emit('edit-equipment', $event)"
             @add-equipment="$emit('add-equipment')" />
 
-        <!-- 9. Playlists -->
+        <!-- 10. Playlists -->
         <PlaylistSection :playlists="concept.playlists || []" :editable="isEditMode"
             @update="$emit('update:playlists', $event)" @unsaved-changes="$emit('unsaved-changes', $event)"
             @reset-unsaved-changes="$emit('reset-unsaved-changes')" />

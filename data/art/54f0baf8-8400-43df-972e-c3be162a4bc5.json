@@ -8,5 +8,7 @@
       "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
     ]
   },
-  "isDeleted": false
+  "isDeleted": false,
+  "createdAt": "2025-10-31T14:25:49.554Z",
+  "lastModified": "2025-10-31T14:25:49.554Z"
 }

@@ -18,6 +18,10 @@
         <ConceptImageSection title="Places" :images="[]" :is-edit-mode="isEditMode" :grid-columns="5" mode="auto"
             auto-source-type="places" :auto-source-id="concept.id" />
 
+        <!-- Maps - Auto Mode -->
+        <ConceptImageSection title="Maps" :images="[]" :is-edit-mode="isEditMode" :grid-columns="5" mode="auto"
+            auto-source-type="maps" :auto-source-id="concept.id" />
+
         <!-- Playlists -->
         <PlaylistSection :playlists="concept.playlists || []" :editable="isEditMode"
             @update="$emit('update:playlists', $event)" />

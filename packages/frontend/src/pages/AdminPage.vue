@@ -1,6 +1,7 @@
 <template>
     <div class="admin-page">
         <UserManager />
+        <BackgroundManager />
         <ExpansionManager />
     </div>
 </template>
@@ -8,6 +9,7 @@
 <script setup>
 import ExpansionManager from '@/components/features/admin/ExpansionManager.vue'
 import UserManager from '@/components/features/admin/UserManager.vue'
+import BackgroundManager from '@/components/features/admin/BackgroundManager.vue'
 </script>
 
 <style scoped>

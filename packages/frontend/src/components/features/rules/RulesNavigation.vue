@@ -93,7 +93,7 @@ defineEmits([
 /* Navigation sidebar styles */
 .rules-navigation {
   width: 250px;
-  background: var(--overlay-white-subtle);
+  background: var(--overlay-black-medium);
   padding: var(--space-lg) 0;
   display: flex;
   flex-direction: column;

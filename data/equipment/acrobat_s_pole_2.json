@@ -1,0 +1,33 @@
+{
+  "name": "Acrobat's Pole",
+  "description": "Weight: 10-15. Length: 10-15",
+  "keeping": "3",
+  "source": "83d190cb-0e05-4392-a5b1-f8a8017f505b",
+  "weight": 10,
+  "length": 10,
+  "reach": 5,
+  "range": null,
+  "twoHanded": true,
+  "thrown": false,
+  "finesse": true,
+  "piercing": false,
+  "damageDice": [
+    4
+  ],
+  "engagementDice": [
+    8
+  ],
+  "engagementSuccesses": [
+    "11",
+    "6"
+  ],
+  "skillMods": [],
+  "isDeleted": false,
+  "isCustom": false,
+  "artUrl": "https://cdn.midjourney.com/03333597-abc6-4336-b7f4-e98d98d1e772/0_1.png",
+  "type": "1",
+  "subtype": "5",
+  "grade": "4",
+  "isTemplate": false,
+  "id": "76d2126b-98f6-4d7c-9751-eaa2e43b0f1d"
+}

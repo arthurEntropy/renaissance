@@ -1,0 +1,35 @@
+{
+  "name": "Mace",
+  "description": "Weight: 2-4. Length: 2-3",
+  "keeping": "1",
+  "source": "34ea8807-b404-435c-a860-704b4a40df8f",
+  "weight": 2,
+  "length": 2,
+  "reach": 0,
+  "range": null,
+  "twoHanded": false,
+  "thrown": false,
+  "finesse": false,
+  "piercing": false,
+  "damageDice": [
+    8
+  ],
+  "engagementDice": [
+    8
+  ],
+  "engagementSuccesses": [
+    "11",
+    "13",
+    "3",
+    "6"
+  ],
+  "skillMods": [],
+  "isDeleted": false,
+  "isCustom": false,
+  "artUrl": "https://cdn.midjourney.com/4029dc4e-8914-439d-b9b3-bea09b059880/0_1.png",
+  "type": "1",
+  "subtype": "1",
+  "grade": "3",
+  "isTemplate": false,
+  "id": "4cfc4aeb-7007-41e7-a861-715688aed7db"
+}

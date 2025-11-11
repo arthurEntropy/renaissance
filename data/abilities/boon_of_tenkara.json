@@ -1,0 +1,12 @@
+{
+  "id": "9ee28e49-5f78-4a9a-a63f-d5cc40b800a5",
+  "name": "Boon of Tenkara",
+  "description": "<p>Roll a feat die. On a 7 or higher, you have access to the <em>Watershaping </em>Mestiere. Describe how you discovered that you possessed the Boon&nbsp; - or, alternately - how you discovered that you did <em>not</em> possess it.</p>",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "55cfd313-75c6-4f83-9361-39af123f6f38",
+  "isDeleted": false,
+  "mp": null,
+  "xp": null
+}

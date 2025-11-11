@@ -1,0 +1,12 @@
+{
+  "id": "e9e9868c-2788-467b-98bd-a2f3680bd5ff",
+  "name": "Learned",
+  "description": "<p>Once per quest, you may invoke your years of study to claim knowledge of a historical or cultural fact relevant to the current situation. The fact must be something that would have been documented in the University’s libraries and museums. Discuss with the group to determine the fact. Describe how you gained this knowledge.</p>",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "2d359f20-1746-46aa-9533-b516352c6d1c",
+  "isDeleted": false,
+  "mp": null,
+  "xp": null
+}

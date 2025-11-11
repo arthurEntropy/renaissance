@@ -1,0 +1,12 @@
+{
+  "id": "2fd206e0-8cae-42cf-a446-c0d772e7752a",
+  "name": "Beastmaster",
+  "description": "<p>When you roll to recall information about animals, you roll with advantage. Additionally, you can attempt to use any animal that can bear your weight as a mount. If the animal is unwilling, roll 1d6+WIS. If the result is higher than the animal’s current HP, you may mount it. Describe how you tame it.</p>",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "ccd8ce71-021b-425f-9720-fd0ee87e0140",
+  "isDeleted": false,
+  "mp": null,
+  "xp": null
+}

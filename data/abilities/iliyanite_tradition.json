@@ -1,0 +1,12 @@
+{
+  "id": "a26dd645-a2bf-4836-b5fc-d46b80f73402",
+  "name": "Iliyanite Tradition",
+  "description": "<p>You cannot speak. You have access to the Metalshaping section of the Earthshaping Mestiere.</p>",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "68fadf5d-6661-4611-bb38-deaf05f01d45",
+  "isDeleted": false,
+  "mp": null,
+  "xp": null
+}

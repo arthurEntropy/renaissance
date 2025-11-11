@@ -1,0 +1,12 @@
+{
+  "id": "35efb3f8-5601-4204-9008-ae486e255214",
+  "name": "Flametouched",
+  "description": "<p>You have access to the Flametouched Mestiere. Roll 3d6 with advantage. The result is the highest advancement you may achieve in this Mestiere. If and when you reach that limit, describe how you discover it.</p>",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "34ea8807-b404-435c-a860-704b4a40df8f",
+  "isDeleted": false,
+  "mp": null,
+  "xp": null
+}
