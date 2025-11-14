@@ -97,19 +97,20 @@ const searchQuery = ref('')
 const tagsSelectorRef = ref(null)
 
 // Watch for prop changes (when navigating between art items)
-watch(() => props.art, (newArt) => {
-    if (newArt) {
+// Don't update if we're already editing the same item (prevents overwriting during autosave)
+watch(() => props.art?.id, (newId, oldId) => {
+    if (newId !== oldId && props.art) {
         localArt.value = {
-            id: newArt.id || null,
-            url: newArt.url || '',
+            id: props.art.id || null,
+            url: props.art.url || '',
             tags: {
-                type: newArt.tags?.type || 'faces',
-                sources: newArt.tags?.sources || []
+                type: props.art.tags?.type || 'faces',
+                sources: props.art.tags?.sources || []
             },
-            isDeleted: newArt.isDeleted || false
+            isDeleted: props.art.isDeleted || false
         }
     }
-}, { deep: true })
+})
 
 // Autosave watcher with debounce
 let saveTimeout = null

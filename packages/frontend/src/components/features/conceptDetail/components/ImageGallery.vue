@@ -123,6 +123,10 @@ const props = defineProps({
   autoSourceId: {
     type: String,
     default: null
+  },
+  excludeUrls: {
+    type: Array,
+    default: () => []
   }
 })
 
@@ -136,7 +140,9 @@ const artStore = useArtStore()
 const displayImages = computed(() => {
   if (props.mode === 'auto' && props.autoSourceId) {
     // Fetch images from art store
-    return artStore.getByTypeAndSource(props.autoSourceType, props.autoSourceId)
+    const autoImages = artStore.getByTypeAndSource(props.autoSourceType, props.autoSourceId)
+    // Filter out excluded URLs
+    return autoImages.filter(url => !props.excludeUrls.includes(url))
   }
   // Manual mode - use provided images
   return props.images

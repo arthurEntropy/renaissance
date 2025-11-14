@@ -1,6 +1,6 @@
 {
   "id": "2",
   "name": "Compass",
-  "description": "You move around your opponent to any adjacent position.",
+  "description": "You move around your opponent to any position adjacent to them.",
   "isDeleted": false
 }

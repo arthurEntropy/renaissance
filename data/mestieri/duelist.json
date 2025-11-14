@@ -27,5 +27,6 @@
     "engagement": "<p><span class=\"dice-icon df-d4-4\" style=\"font-size: 36px;\"></span> <span class=\"dice-icon df-d4-4\" style=\"font-size: 36px;\"></span> x WITS</p>",
     "initialMaxMP": 3,
     "abilities": ""
-  }
+  },
+  "lastModified": "2025-11-14T19:04:47.188Z"
 }

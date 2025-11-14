@@ -18,7 +18,7 @@
 
         <!-- 4. Faces - Auto Mode -->
         <ConceptImageSection title="Faces" :images="[]" :is-edit-mode="isEditMode" :grid-columns="3" mode="auto"
-            auto-source-type="faces" :auto-source-id="concept.id" />
+            auto-source-type="faces" :auto-source-id="concept.id" :exclude-urls="concept.artUrls || []" />
 
         <!-- 5. Local Flavor -->
         <LocalFlavorSection :data="{
@@ -34,11 +34,11 @@
 
         <!-- 6. Places - Auto Mode -->
         <ConceptImageSection title="Places" :images="[]" :is-edit-mode="isEditMode" :grid-columns="3" mode="auto"
-            auto-source-type="places" :auto-source-id="concept.id" />
+            auto-source-type="places" :auto-source-id="concept.id" :exclude-urls="concept.artUrls || []" />
 
         <!-- 7. Maps - Auto Mode -->
         <ConceptImageSection title="Maps" :images="[]" :is-edit-mode="isEditMode" :grid-columns="3" mode="auto"
-            auto-source-type="maps" :auto-source-id="concept.id" />
+            auto-source-type="maps" :auto-source-id="concept.id" :exclude-urls="concept.artUrls || []" />
 
         <!-- 8. Hooks -->
         <HooksSection :hooks="concept.hooks || []" :editable="isEditMode" @update="$emit('update:hooks', $event)"

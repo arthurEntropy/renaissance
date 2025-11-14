@@ -29,5 +29,6 @@
     "engagement": "<p><span class=\"dice-icon dice-icon df-d4-4\" style=\"font-size: 36px;\"></span> <span class=\"dice-icon dice-icon df-d4-4\" style=\"font-size: 36px;\"></span> <span class=\"dice-icon dice-icon dice-icon df-d4-4\" style=\"font-size: 36px;\"></span> <span class=\"dice-icon dice-icon dice-icon df-d4-4\" style=\"font-size: 36px;\"></span></p>",
     "initialMaxMP": 5,
     "abilities": "<p>Nimble and choose one, ignoring its XP cost:</p><ul><li><p>Pole Training</p></li><li><p>Rope &amp; Chain Weapon Training</p></li><li><p>Shuriken Training</p></li><li><p>Pressure Point Training</p></li></ul>"
-  }
+  },
+  "lastModified": "2025-11-14T19:03:44.902Z"
 }

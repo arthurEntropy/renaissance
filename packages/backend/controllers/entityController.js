@@ -43,10 +43,9 @@ const createEntity = (entity) => (req, res) => {
     }
     
     saveFile(req.body, directory)
-    res.status(201).json({
-      message: `New record created in ${entity}`,
-      id: req.body.id,
-    })
+    
+    // Return the full saved entity (saveFile modifies req.body with id, timestamps, etc.)
+    res.status(201).json(req.body)
   } catch (error) {
     console.error(`Error creating new record in ${entity}:`, error)
     res.status(500).json({ error: `Error creating new record in ${entity}` })

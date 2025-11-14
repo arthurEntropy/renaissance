@@ -7,8 +7,9 @@
   "isActive": true,
   "source": "e10d7d9f-9d93-46b0-9846-d60241031644",
   "isDeleted": false,
-  "mp": 1,
+  "mp": 0,
   "xp": 10,
   "actionType": "Half Action",
-  "improvements": []
+  "improvements": [],
+  "lastModified": "2025-11-14T19:03:40.959Z"
 }
