@@ -1,15 +1,16 @@
 {
-  "message": "New record created in cultures.",
   "id": "f66ab54f-ef77-4d04-9ae3-ca575615a6d1",
-  "hooks": [],
-  "playlists": [],
+  "name": "Furulia",
+  "description": "<p>More than three centuries have passed since the trees last turned. The settlements of the Furu are all but abandoned as most of their number continue to scour the world for a way to rekindle their beloved Torches. Those who remain play host to a colony of spiritual pilgrims, but increasingly they find themselves stepping in to aid their ‘Neath-neighbors. Has the time of the Torches passed? Is the continued devotion of the Furu misplaced when so much suffering is happening nearby? The snowy, feathered brows of the Furu and their acolytes are furrowed…</p>",
+  "isDeleted": false,
   "artUrls": [
     "https://cdn.midjourney.com/68a6ab37-c6fe-4a85-bc41-e7f423de77c8/0_3.png"
   ],
   "faces": [],
   "places": [],
-  "name": "Furulia",
   "backgroundImage": "https://cdn.midjourney.com/a310900e-5039-463c-b5c8-097299af7013/0_1.png",
   "expansion": "e46f4320-a414-4300-95d5-397ba717d982",
-  "description": "<p>More than three centuries have passed since the trees last turned. The settlements of the Furu are all but abandoned as most of their number continue to scour the world for a way to rekindle their beloved Torches. Those who remain play host to a colony of spiritual pilgrims, but increasingly they find themselves stepping in to aid their ‘Neath-neighbors. Has the time of the Torches passed? Is the continued devotion of the Furu misplaced when so much suffering is happening nearby? The snowy, feathered brows of the Furu and their acolytes are furrowed…</p>"
+  "hooks": [],
+  "playlists": [],
+  "names": ""
 }
