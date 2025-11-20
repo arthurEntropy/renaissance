@@ -30,7 +30,7 @@ import { computed } from 'vue'
 import CharacterSheetSection from '@/components/ui/containers/CharacterSheetSection.vue'
 import NumberInput from '@/components/ui/forms/NumberInput.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
-import { getDiceFontMaxClass } from '@shared/utils/diceFontUtils'
+import { getDiceFontMaxClass } from '@/utils/diceFontUtils'
 import { useCustomDice } from '@/composables/useCustomDice'
 
 const props = defineProps({

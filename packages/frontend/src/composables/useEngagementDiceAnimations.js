@@ -3,7 +3,7 @@ import EngagementRollService from '@/services/engagementRollService'
 import engagementSessionService from '@/services/engagementSessionService'
 import PlayerSides from '@/constants/playerSides'
 import { DICE_ROLL_DURATION } from '@/constants/animationDurations'
-import { getDiceFontClass, getDiceFontMaxClass } from '@shared/utils/diceFontUtils'
+import { getDiceFontClass, getDiceFontMaxClass } from '@/utils/diceFontUtils'
 
 /**
  * Composable for managing reroll animations and UI effects

@@ -100,7 +100,7 @@ import AddToCharacterButton from '@/components/ui/cards/AddToCharacterButton.vue
 import SuccessChip from '@/components/ui/chips/SuccessChip.vue'
 import EngagementSuccessService from '@/services/engagementSuccessService'
 import EquipmentService from '@/services/equipmentService'
-import { getDiceFontMaxClass } from '@shared/utils/diceFontUtils'
+import { getDiceFontMaxClass } from '@/utils/diceFontUtils'
 import { isWeapon } from '@/utils/equipmentUtils'
 import { useCharacterManagement } from '@/composables/useCharacterManagement'
 

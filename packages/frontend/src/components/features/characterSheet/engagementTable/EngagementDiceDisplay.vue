@@ -46,7 +46,7 @@
 <script setup>
 import { ref } from 'vue'
 import AddButton from '@/components/ui/buttons/AddButton.vue'
-import { getDiceFontMaxClass } from '@shared/utils/diceFontUtils'
+import { getDiceFontMaxClass } from '@/utils/diceFontUtils'
 
 // Props
 defineProps({

@@ -1,6 +1,6 @@
 import CharacterService from '@/services/characterService'
 import { buildDiceSet, processDiceResults, getEmojiForDieResult, getFavoredStatus } from '@/utils/diceUtils'
-import { getDiceFontClass, getDiceFontMaxClass } from '@shared/utils/diceFontUtils'
+import { getDiceFontClass, getDiceFontMaxClass } from '@/utils/diceFontUtils'
 
 /**
  * Composable for managing skill dice interactions

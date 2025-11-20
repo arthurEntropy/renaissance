@@ -45,7 +45,7 @@
 
 <script setup>
 import { ref, computed } from 'vue'
-import { formatText } from '@shared/utils/stringUtils'
+import { marked } from 'marked'
 import { sanitizeHtml } from '@/utils/sanitizeHtml'
 import CharacterSheetSection from '@/components/ui/containers/CharacterSheetSection.vue'
 import TextEditor from '@/components/ui/textEditor/TextEditor.vue'
@@ -72,7 +72,8 @@ const editedContent = ref('')
 
 const safeFormattedBio = computed(() => {
     if (!props.character.personalityAndBackground) return ''
-    return sanitizeHtml(formatText(props.character.personalityAndBackground))
+    const html = marked.parse(props.character.personalityAndBackground, { breaks: true })
+    return sanitizeHtml(html)
 })
 
 const openViewModal = () => {

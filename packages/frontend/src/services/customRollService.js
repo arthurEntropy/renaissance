@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { rollSingleDie } from '@/utils/diceUtils'
 import { RollTypes } from '@/constants/rollTypes'
-import { getDiceFontClass } from '@shared/utils/diceFontUtils'
+import { getDiceFontClass } from '@/utils/diceFontUtils'
 
 class CustomRollService {
   static latestRollResult = null

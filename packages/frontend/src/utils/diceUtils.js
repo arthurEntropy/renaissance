@@ -1,4 +1,4 @@
-import { getDiceFontClass } from '@shared/utils/diceFontUtils'
+import { getDiceFontClass } from '@/utils/diceFontUtils'
 
 export function rollSingleDie(dieSize) {
   return Math.floor(Math.random() * dieSize) + 1

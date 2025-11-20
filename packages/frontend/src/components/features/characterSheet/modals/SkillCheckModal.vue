@@ -80,7 +80,7 @@
 import { ref, computed, watch } from 'vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import SkillCheckService from '@/services/skillCheckService'
-import { getDiceFontMaxClass } from '@shared/utils/diceFontUtils'
+import { getDiceFontMaxClass } from '@/utils/diceFontUtils'
 import { useSkillDice } from '@/composables/useSkillDice'
 
 const props = defineProps({

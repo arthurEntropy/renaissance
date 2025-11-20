@@ -43,7 +43,7 @@
 <script setup>
 import { computed, ref } from 'vue'
 import { SESSION_STATUS } from '@shared/constants/sessionStatus'
-import { getDiceFontClass } from '@shared/utils/diceFontUtils'
+import { getDiceFontClass } from '@/utils/diceFontUtils'
 import { useSkillDice } from '@/composables/useSkillDice'
 import BaseCharacterColumn from './BaseCharacterColumn.vue'
 import DiceDisplay from '@/components/features/characterSheet/diceRollResults/DiceDisplay.vue'

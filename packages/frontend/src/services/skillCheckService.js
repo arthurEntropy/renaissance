@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { getDiceFontClass } from '@shared/utils/diceFontUtils'
+import { getDiceFontClass } from '@/utils/diceFontUtils'
 import { getDiceEmoji } from '@/utils/diceUtils'
 import { RollTypes } from '@/constants/rollTypes'
 
