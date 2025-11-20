@@ -1,12 +1,17 @@
 {
   "id": 3,
-  "artUrls": [
-    "https://cdn.midjourney.com/b103377f-aac8-4932-a0ef-4f996901880d/0_3.png"
-  ],
   "name": "Cheech",
+  "isBeast": false,
   "pronouns": "she/her",
   "ancestries": "Halfling",
   "cultures": "I Castagne",
+  "ancestryIds": [
+    "77e4f81a-728f-49a7-a013-4d6f666353e2"
+  ],
+  "cultureIds": [
+    "61e2ce55-1954-4e8e-b1b3-b249ae915fa7"
+  ],
+  "mestiereId": "10f46ecd-e6f5-4d3b-b510-d4035ab24f56",
   "personalityAndBackground": "<p>From an isolated village in the remote giant chestnut (castagne) forest. Wears armor crafted from chestnut hulls. Uncultured, kind, fierce, loyal.</p>",
   "xp": 10,
   "mp": {
@@ -154,6 +159,8 @@
     "troubled": false
   },
   "equipment": [],
+  "abilities": [],
+  "abilityImprovements": {},
   "activeEffects": [
     {
       "name": "Weird But Entertaining",
@@ -173,12 +180,8 @@
       ]
     }
   ],
-  "ancestryIds": [
-    "77e4f81a-728f-49a7-a013-4d6f666353e2"
+  "artUrls": [
+    "https://cdn.midjourney.com/b103377f-aac8-4932-a0ef-4f996901880d/0_3.png"
   ],
-  "cultureIds": [
-    "61e2ce55-1954-4e8e-b1b3-b249ae915fa7"
-  ],
-  "mestiereId": "10f46ecd-e6f5-4d3b-b510-d4035ab24f56",
   "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1"
 }

@@ -1,9 +1,18 @@
 {
   "id": 7,
   "name": "Sethric",
-  "artUrls": [
-    "https://cdn.midjourney.com/197f94cf-5881-40eb-992f-01478aac1660/0_3.png"
-  ],
+  "isBeast": false,
+  "pronouns": "he/him",
+  "ancestries": "Dragonborn",
+  "cultures": "Talon's Folly",
+  "ancestryIds": [],
+  "cultureIds": [],
+  "personalityAndBackground": "Silversmith, practitioner of Dwarven resonant singing, precocious party animal.",
+  "xp": 10,
+  "mp": {
+    "current": 3,
+    "max": 5
+  },
   "body": 3,
   "heart": 2,
   "wits": 1,
@@ -145,6 +154,8 @@
     "troubled": true
   },
   "equipment": [],
+  "abilities": [],
+  "abilityImprovements": {},
   "activeEffects": [
     {
       "name": "Weird But Entertaining",
@@ -164,14 +175,8 @@
       ]
     }
   ],
-  "pronouns": "he/him",
-  "ancestries": "Dragonborn",
-  "cultures": "Talon's Folly",
-  "personalityAndBackground": "Silversmith, practitioner of Dwarven resonant singing, precocious party animal.",
-  "xp": 10,
-  "mp": {
-    "current": 3,
-    "max": 5
-  },
+  "artUrls": [
+    "https://cdn.midjourney.com/197f94cf-5881-40eb-992f-01478aac1660/0_3.png"
+  ],
   "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1"
 }

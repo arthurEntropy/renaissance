@@ -5,6 +5,9 @@
   "pronouns": "",
   "ancestries": "",
   "cultures": "",
+  "ancestryIds": [],
+  "cultureIds": [],
+  "mestiereId": "",
   "personalityAndBackground": "",
   "xp": 0,
   "mp": {
@@ -136,6 +139,7 @@
   "load": 0,
   "shadow": 0,
   "injury": 0,
+  "speed": 0,
   "states": {
     "weary": false,
     "twiceWeary": false,
@@ -151,19 +155,15 @@
     "afraid": false,
     "troubled": false
   },
-  "speed": 0,
   "equipment": [],
   "abilities": [],
   "abilityImprovements": {},
+  "activeEffects": [],
   "artUrls": [
     "https://cdn.midjourney.com/50436a93-c108-4e5a-9142-74abf3868c4e/0_1.png"
   ],
-  "activeEffects": [],
   "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
   "ownerEmail": "ljbrevoort@gmail.com",
   "createdAt": "2025-10-29T19:50:31.350Z",
-  "ancestryIds": [],
-  "cultureIds": [],
-  "mestiereId": "",
   "updatedAt": "2025-10-29T19:51:44.544Z"
 }

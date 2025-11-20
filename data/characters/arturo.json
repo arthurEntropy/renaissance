@@ -1,9 +1,18 @@
 {
   "id": 12,
   "name": "Arturo",
-  "artUrls": [
-    "https://cdn.midjourney.com/1a823ba8-dae5-4791-b9e9-0d7ea00cf5f4/0_2.png"
-  ],
+  "isBeast": false,
+  "pronouns": "he/him",
+  "ancestries": "Human",
+  "cultures": "Anuerismo",
+  "ancestryIds": [],
+  "cultureIds": [],
+  "personalityAndBackground": "Roving trader and purveyor of hams and jams, recently spent several months disguised as a ghost in The Swooning Swan spa.",
+  "xp": 10,
+  "mp": {
+    "current": 3,
+    "max": 5
+  },
   "body": 3,
   "heart": 2,
   "wits": 1,
@@ -145,6 +154,8 @@
     "troubled": true
   },
   "equipment": [],
+  "abilities": [],
+  "abilityImprovements": {},
   "activeEffects": [
     {
       "name": "Weird But Entertaining",
@@ -164,15 +175,8 @@
       ]
     }
   ],
-  "pronouns": "he/him",
-  "ancestries": "Human",
-  "cultures": "Anuerismo",
-  "personalityAndBackground": "Roving trader and purveyor of hams and jams, recently spent several months disguised as a ghost in The Swooning Swan spa.",
-  "xp": 10,
-  "mp": {
-    "current": 3,
-    "max": 5
-  },
-  "current": "17",
+  "artUrls": [
+    "https://cdn.midjourney.com/1a823ba8-dae5-4791-b9e9-0d7ea00cf5f4/0_2.png"
+  ],
   "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1"
 }

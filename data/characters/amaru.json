@@ -1,9 +1,18 @@
 {
   "id": 11,
   "name": "Amaru",
-  "artUrls": [
-    "https://cdn.midjourney.com/46f7df2d-65a2-44e8-90fd-c01738a187c3/0_0.png"
-  ],
+  "isBeast": false,
+  "pronouns": "he/him",
+  "ancestries": "Human",
+  "cultures": "Guildford",
+  "ancestryIds": [],
+  "cultureIds": [],
+  "personalityAndBackground": "Wizard of the Third Wizards' Guild of Guildford. Associate of Volans.",
+  "xp": 10,
+  "mp": {
+    "current": 5,
+    "max": 5
+  },
   "body": 3,
   "heart": 2,
   "wits": 1,
@@ -145,6 +154,8 @@
     "troubled": false
   },
   "equipment": [],
+  "abilities": [],
+  "abilityImprovements": {},
   "activeEffects": [
     {
       "name": "Weird But Entertaining",
@@ -164,14 +175,8 @@
       ]
     }
   ],
-  "pronouns": "he/him",
-  "ancestries": "Human",
-  "cultures": "Guildford",
-  "personalityAndBackground": "Wizard of the Third Wizards' Guild of Guildford. Associate of Volans.",
-  "xp": 10,
-  "mp": {
-    "current": 5,
-    "max": 5
-  },
+  "artUrls": [
+    "https://cdn.midjourney.com/46f7df2d-65a2-44e8-90fd-c01738a187c3/0_0.png"
+  ],
   "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1"
 }

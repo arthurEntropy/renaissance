@@ -1,9 +1,12 @@
 {
   "id": "3394b1a2-236d-45ca-9262-84c17a3b7015",
   "name": "Biko",
+  "isBeast": false,
   "pronouns": "he/him",
   "ancestries": "",
   "cultures": "",
+  "ancestryIds": [],
+  "cultureIds": [],
   "personalityAndBackground": "",
   "xp": 0,
   "mp": {
@@ -151,15 +154,17 @@
     "troubled": false
   },
   "equipment": [],
-  "artUrls": [
-    "https://cdn.midjourney.com/bb7f8092-0710-4aaf-9f26-e376a0cec04e/0_0.png"
-  ],
-  "activeEffects": [],
   "engagementDice": [
     4,
     4,
     4,
     4
+  ],
+  "abilities": [],
+  "abilityImprovements": {},
+  "activeEffects": [],
+  "artUrls": [
+    "https://cdn.midjourney.com/bb7f8092-0710-4aaf-9f26-e376a0cec04e/0_0.png"
   ],
   "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1"
 }
