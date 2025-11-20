@@ -1,0 +1,15 @@
+{
+  "id": "dacd9416-0204-4460-87c8-9ba69d4203ca",
+  "name": "Death From Above",
+  "description": "<p>When you make a successful melee attack at the end of a fall, +1d to the attack's damage roll per 10 ft of falling.</p>",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "e10d7d9f-9d93-46b0-9846-d60241031644",
+  "isDeleted": false,
+  "mp": "",
+  "xp": 10,
+  "actionType": "",
+  "lastModified": "2025-11-19T01:25:15.593Z",
+  "artUrl": "https://cdn.midjourney.com/679e1f97-1385-4ee0-871f-d2096c89165e/0_0.jpeg"
+}

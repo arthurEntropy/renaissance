@@ -27,7 +27,8 @@
     "firearms": "none",
     "armor": "all armor, all helms, all shields",
     "engagement": "<p><span class=\"dice-icon df-d6-6\" style=\"font-size: 36px;\"></span> <span class=\"dice-icon df-d6-6\" style=\"font-size: 36px;\"></span></p>",
-    "initialMaxMP": 5,
+    "initialMaxMP": 1,
     "abilities": "<p>Close Ranks, Jack Of All Blades, Rally</p>"
-  }
+  },
+  "lastModified": "2025-11-20T00:59:30.957Z"
 }

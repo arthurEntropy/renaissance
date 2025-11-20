@@ -1,7 +1,7 @@
 {
   "id": "71514016-e2a6-4a6d-97e7-df00d89d94d3",
   "name": "Tumble",
-  "description": "<p>Until the start of your next turn, whenever you would provoke an opportunity attack from a foe, first roll Dexterity vs Dexterity against them. If you win, you pass unhindered. If you lose, they make an opportunity attack as normal.</p>",
+  "description": "<p>This turn, whenever you would provoke an opportunity attack from a foe, first roll Dexterity vs Dexterity against them. If you win, you pass unhindered. If you lose, they make an opportunity attack as normal.</p>",
   "isTrait": false,
   "canBeActive": true,
   "isActive": true,
@@ -11,5 +11,6 @@
   "xp": 10,
   "actionType": "Half Action",
   "improvements": [],
-  "lastModified": "2025-11-14T19:03:40.959Z"
+  "lastModified": "2025-11-19T01:56:19.247Z",
+  "artUrl": "https://cdn.midjourney.com/7f4fb5aa-4af8-4988-985c-a3e09c26ac6f/0_0.png"
 }

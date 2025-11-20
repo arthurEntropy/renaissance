@@ -1,7 +1,7 @@
 {
   "id": "fafd1877-3ecf-4da7-a29a-e14e5a345a9d",
   "name": "Rope & Chain Weapon Training",
-  "description": "<p>You are trained in the use of rope and chain weapons, a special weapon type. When you attack with a rope or chain weapon, your reach with it is 15 ft.</p>",
+  "description": "<p>You are trained in the use of rope and chain weapons, a special weapon type.</p><p>Whenever you make an attack with a rope or chain weapon, you may spend any number of additional half actions before making the attack roll. On a hit, +1d damage for each half action you spent.</p>",
   "isTrait": true,
   "canBeActive": false,
   "isActive": true,
@@ -12,15 +12,17 @@
   "improvements": [
     {
       "name": "Grappling",
-      "description": "<p>When you land a hit with a rope or chain weapon, you may spend 1 MP to attempt to grapple the foe, rolling Dexterity vs Dexterity.</p><p>If the foe is grappled, they may attempt to free themself at the beginning of each of their turns by rolling Strength against your original Dexterity roll to grapple them. If you are no longer holding the grappling weapon, their roll is favored. You or anyone else can free them by using a half action, no roll required.</p><p>While grappled, you may use an action to attempt to pull them up to 1/4 your speed or knock them prone, Strength vs Strength.</p>",
+      "description": "<p>When you hit with a rope or chain weapon, you may spend half action to attempt to restrain the target, Dexterity vs Dexterity.</p><p>A restrained foe may try to break free at the start of their turn by rolling Strength against your original Dexterity result. If you are no longer holding the weapon, their attempt is favored. Any other combatant can free them with a half action (no roll required).</p><p>While restraining a foe, you cannot attack with that weapon. Instead, you may spend an action to pull them up to 1/4 your speed or to knock them prone.</p>",
       "xp": 5,
       "id": "8ab4398d-585e-58db-ae9a-42e03c43b4d3"
     },
     {
       "name": "Reach",
-      "description": "<p>Your reach with rope and chain weapons increases to short range.</p>",
+      "description": "<p>Once per turn, you may double the reach of a rope or chain weapon for one attack, but you must spend a half action to pull the weapon back to you before you can make another attack with it.</p>",
       "xp": 10,
       "id": "fc3f90a9-f954-5257-82a6-d1fd1203c886"
     }
-  ]
+  ],
+  "lastModified": "2025-11-15T21:03:56.738Z",
+  "artUrl": "https://cdn.midjourney.com/6ef96de4-223c-4823-976a-fbb274c6d61d/0_3.png"
 }

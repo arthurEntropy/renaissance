@@ -144,7 +144,24 @@
     "afraid": false,
     "troubled": false
   },
-  "equipment": [],
+  "equipment": [
+    {
+      "id": "01b42045-e490-457e-a533-875ea582d8f5",
+      "quantity": 1,
+      "isCarried": true,
+      "isWielding": true,
+      "artExpanded": true,
+      "collapsed": true
+    },
+    {
+      "id": "4d318ef9-5a9b-4c1d-a79d-f61b090f43fa",
+      "quantity": 1,
+      "isCarried": true,
+      "artExpanded": true,
+      "collapsed": true,
+      "isWielding": true
+    }
+  ],
   "activeEffects": [],
   "pronouns": "she/her",
   "ancestries": "Human",
@@ -168,5 +185,38 @@
     4
   ],
   "expansionLogoUrl": "",
-  "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1"
+  "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
+  "abilities": [
+    {
+      "id": "8e346eb3-1e72-4b3f-971c-497eac98a06c",
+      "collapsed": false,
+      "showImprovements": false
+    },
+    {
+      "id": "71514016-e2a6-4a6d-97e7-df00d89d94d3",
+      "collapsed": false,
+      "showImprovements": false
+    },
+    {
+      "id": "fafd1877-3ecf-4da7-a29a-e14e5a345a9d",
+      "collapsed": false,
+      "showImprovements": false
+    },
+    {
+      "id": "bd8f66a4-5849-483b-9123-b0085c0e5a5c",
+      "collapsed": false,
+      "showImprovements": false
+    }
+  ],
+  "isBeast": false,
+  "updatedAt": "2025-11-20T00:24:23.593Z",
+  "lastModified": "2025-11-20T00:24:23.593Z",
+  "abilityImprovements": {
+    "8e346eb3-1e72-4b3f-971c-497eac98a06c": {
+      "baa4641b-caf0-5680-abf1-5a6cae7c0f3d": true
+    },
+    "fafd1877-3ecf-4da7-a29a-e14e5a345a9d": {
+      "8ab4398d-585e-58db-ae9a-42e03c43b4d3": true
+    }
+  }
 }

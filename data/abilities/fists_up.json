@@ -1,7 +1,7 @@
 {
   "id": "1e289ca8-cf6a-4f0d-ad7c-a13fc8e1f381",
   "name": "Fists Up",
-  "description": "<p><em>You favor the raw simplicity of fists and whatever’s within reach.</em></p><p>When you make unarmed attacks or strike with an improvised weapon, your damage die is a d6. Also, you may make one attack per free hand each turn.</p><p>However, you are awkward with implements of combat: your attacks made with purpose-made weapons are ill-favored.</p><p><strong>Describe how your stripped-down style delivers a brutal blow.</strong></p>",
+  "description": "<p>When you make unarmed attacks or strike with an improvised weapon, your damage die is a d6. Also, you may make one attack per free hand each turn.</p><p><strong>Describe how your stripped-down style delivers a brutal blow.</strong></p>",
   "isTrait": true,
   "canBeActive": false,
   "isActive": true,
@@ -16,5 +16,6 @@
       "xp": 10,
       "id": "c0cce62d-03a8-5654-92e9-c354f4233834"
     }
-  ]
+  ],
+  "lastModified": "2025-11-20T03:01:14.985Z"
 }

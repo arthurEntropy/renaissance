@@ -1,12 +1,13 @@
 {
   "id": "f52ae657-c211-46bc-9dc7-7d1444f55711",
   "name": "Formidable",
-  "description": "<p><em>Your presence on the battlefield sends a clear message: fall back, or fall next.</em></p><p>Whenever you knock a foe unconscious, roll Awe vs Spirit against all other enemies within short range. Each foe that fails takes –1d to their next attack roll.</p><p><strong>Describe how your decisive blow shakes the will of those still standing.</strong></p>",
+  "description": "<p>Whenever you knock a foe unconscious, roll Awe vs Spirit against all other enemies within short range. Each foe that fails takes –1d to their next attack roll.</p>",
   "isTrait": true,
   "canBeActive": false,
   "isActive": true,
   "source": "1e4131c7-8a6f-422c-998a-5147600c946e",
   "isDeleted": false,
   "mp": null,
-  "xp": 10
+  "xp": 10,
+  "lastModified": "2025-11-20T00:38:57.135Z"
 }

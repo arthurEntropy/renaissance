@@ -1,7 +1,7 @@
 {
   "id": "bd3fe860-81bc-45cb-9f01-a2ac4efca67e",
   "name": "Shuriken Training",
-  "description": "<p>You are trained in the use of shuriken (small throwing blades), a special weapon type. When you use an action to attack with a shuriken weapon, you can attack foes within short range as a normal ranged attack or within medium range, ill-favored.</p>",
+  "description": "<p>You are trained in the use of shuriken (small throwing blades), a special weapon type. Your shuriken attacks cost a half action instead of an action.</p>",
   "isTrait": true,
   "canBeActive": false,
   "isActive": true,
@@ -12,13 +12,13 @@
   "improvements": [
     {
       "name": "Long Throw",
-      "description": "<p>You may spend a half action and 1 MP to target a foe within medium range without the ill-favored penalty, or a foe within long range with the ill-favored penalty.</p>",
+      "description": "<p>When you attack with shuriken, you may spend an additional half action to increase the weapon's range without the normal ill-favored penalty.</p>",
       "xp": 5,
       "id": "303b2836-27a8-5a89-bb01-fbe0bc0b4f6d"
     },
     {
       "name": "Pinning Throw",
-      "description": "<p>Each time you roll max damage on a damage die for your shuriken, if the foe is adjacent to a wall or other sturdy, inanimate object, they are pinned to that object and must spend a half action on their turn to free themselves (multiple pinnings require multiple half actions).</p>",
+      "description": "<p>Each time you roll max damage on a damage die for your shuriken, if the foe is adjacent to a wall or other sturdy, inanimate object, they are pinned to that object and must spend a half action on their turn to free themself (multiple pinnings require multiple half actions).</p>",
       "xp": 5,
       "id": "6614bab2-b939-5e62-8a31-1fd53b34172c"
     },
@@ -28,5 +28,7 @@
       "xp": 10,
       "id": "71feffcb-fe72-586a-bf4d-8130ce64a7d5"
     }
-  ]
+  ],
+  "lastModified": "2025-11-19T01:36:45.906Z",
+  "artUrl": "https://cdn.midjourney.com/69502990-fed8-4aa5-8a36-4132635df194/0_1.jpeg"
 }

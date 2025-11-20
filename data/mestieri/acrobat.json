@@ -4,11 +4,7 @@
   "hooks": [],
   "playlists": [],
   "artUrls": [
-    "https://cdn.midjourney.com/b0fff4ff-247e-48c6-ac5a-0a736dffb494/0_0.png",
-    "https://cdn.midjourney.com/89c08f33-5869-40cd-bca7-bd4b37e8d26e/0_3.png",
-    "https://cdn.midjourney.com/6ef96de4-223c-4823-976a-fbb274c6d61d/0_3.png",
-    "https://cdn.midjourney.com/5fedfccc-f63f-44be-acc3-0ef75dbeffb8/0_2.png",
-    "https://cdn.midjourney.com/7e4c6808-b882-4d90-ba6f-69fb33c1f403/0_1.png"
+    "https://cdn.midjourney.com/b0fff4ff-247e-48c6-ac5a-0a736dffb494/0_0.png"
   ],
   "faces": [],
   "places": [],
@@ -20,15 +16,24 @@
   "color2": "#000000",
   "expansion": "",
   "novizio": {
-    "flavorText": "<p>Your speed is doubled, but you have zero actions by default on your turn. To gain actions, you may spend your movement. For every 10 ft of movement you spend, you gain a half action. You may spend as much movement in this way as you choose each turn.</p>",
+    "flavorText": "",
     "melee": "light",
     "polearms": "",
     "ranged": "",
     "firearms": "",
     "armor": "",
     "engagement": "<p><span class=\"dice-icon dice-icon df-d4-4\" style=\"font-size: 36px;\"></span> <span class=\"dice-icon dice-icon df-d4-4\" style=\"font-size: 36px;\"></span> <span class=\"dice-icon dice-icon dice-icon df-d4-4\" style=\"font-size: 36px;\"></span> <span class=\"dice-icon dice-icon dice-icon df-d4-4\" style=\"font-size: 36px;\"></span></p>",
-    "initialMaxMP": 5,
-    "abilities": "<p>Nimble and choose one, ignoring its XP cost:</p><ul><li><p>Pole Training</p></li><li><p>Rope &amp; Chain Weapon Training</p></li><li><p>Shuriken Training</p></li><li><p>Pressure Point Training</p></li></ul>"
+    "initialMaxMP": "",
+    "abilities": "<p>Nimble and choose one, ignoring its XP cost: Pole Training, Rope &amp; Chain Weapon Training, Shuriken Training or Pressure Point Training</p>"
   },
-  "lastModified": "2025-11-14T19:03:44.902Z"
+  "lastModified": "2025-11-19T01:56:34.282Z",
+  "flavorText": "<p>Your speed is doubled, but you have zero actions by default on your turn. To gain actions, you may spend your movement. For every 10 ft of movement you spend, you gain a half action. You may spend as much movement in this way as you choose each turn.</p>",
+  "melee": "light",
+  "polearms": "",
+  "ranged": "",
+  "firearms": "",
+  "armor": "",
+  "engagement": "<p><span class=\"dice-icon dice-icon dice-icon df-d4-4\" style=\"font-size: 36px;\"></span> <span class=\"dice-icon dice-icon dice-icon df-d4-4\" style=\"font-size: 36px;\"></span> <span class=\"dice-icon dice-icon dice-icon dice-icon df-d4-4\" style=\"font-size: 36px;\"></span> <span class=\"dice-icon dice-icon dice-icon dice-icon df-d4-4\" style=\"font-size: 36px;\"></span>adsdfs</p>",
+  "initialMaxMP": 5,
+  "abilities": "<p>Nimble and choose one, ignoring its XP cost:</p><ul><li><p>Pole Training</p></li><li><p>Rope &amp; Chain Weapon Training</p></li><li><p>Shuriken Training</p></li><li><p>Pressure Point Training</p></li></ul>"
 }
