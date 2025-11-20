@@ -1,17 +1,17 @@
 {
-  "message": "New record created in mestieri.",
   "id": "1e4131c7-8a6f-422c-998a-5147600c946e",
-  "hooks": [],
-  "playlists": [],
+  "name": "Murato",
+  "description": "<p>The <em>Murato</em> is a walking bulwark, clad in steel and wielding fearsome weapons. Where others conserve energy, they expend it—trading their Endurance for devastating blows. They, endure longer by embracing the burden of their arms, and find power in stillness as much as motion. Through brutal efficiency, a Murato transforms fatigue into ferocity, and armor into an extension of their own flesh.</p><p>Play a Murato if you want to wield huge weapons, take big hits in stride and smash your enemies.</p>",
+  "isDeleted": false,
   "artUrls": [
     "https://cdn.midjourney.com/548d3344-a534-4bbf-96e2-09847110ee9e/0_0.png"
   ],
   "faces": [],
   "places": [],
-  "name": "Murato",
-  "description": "<p>The <em>Murato</em> is a walking bulwark, clad in steel and wielding fearsome weapons. Where others conserve energy, they expend it—trading their Endurance for devastating blows. They, endure longer by embracing the burden of their arms, and find power in stillness as much as motion. Through brutal efficiency, a Murato transforms fatigue into ferocity, and armor into an extension of their own flesh.</p><p>Play a Murato if you want to wield huge weapons, take big hits in stride and smash your enemies.</p>",
   "backgroundImage": "https://cdn.midjourney.com/cc9f465d-8684-468a-8a2f-2f1cc0d76cd4/0_2.png",
   "expansion": "",
+  "hooks": [],
+  "playlists": [],
   "novizio": {
     "flavorText": "<p></p>",
     "melee": "common, martial, heavy, great",
