@@ -9,6 +9,7 @@
   "isDeleted": false,
   "mp": null,
   "xp": null,
+  "artUrl": "https://cdn.midjourney.com/253c1666-8f42-4070-909d-f95c9f0736df/0_0.jpeg",
   "improvements": [
     {
       "name": "Hard To Pin Down",
@@ -29,6 +30,5 @@
       "id": "5101de51-b275-5117-9c02-8802f70655cc"
     }
   ],
-  "lastModified": "2025-11-19T01:05:16.316Z",
-  "artUrl": "https://cdn.midjourney.com/253c1666-8f42-4070-909d-f95c9f0736df/0_0.jpeg"
+  "lastModified": "2025-11-19T01:05:16.316Z"
 }

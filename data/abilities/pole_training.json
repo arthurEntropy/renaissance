@@ -9,6 +9,7 @@
   "isDeleted": false,
   "mp": null,
   "xp": 10,
+  "artUrl": "https://cdn.midjourney.com/7e4c6808-b882-4d90-ba6f-69fb33c1f403/0_1.png",
   "improvements": [
     {
       "name": "Vault",
@@ -29,6 +30,5 @@
       "id": "890e9d98-2642-5a4b-912c-653892fc4d2d"
     }
   ],
-  "lastModified": "2025-11-15T21:08:46.867Z",
-  "artUrl": "https://cdn.midjourney.com/7e4c6808-b882-4d90-ba6f-69fb33c1f403/0_1.png"
+  "lastModified": "2025-11-15T21:08:46.867Z"
 }

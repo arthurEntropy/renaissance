@@ -9,6 +9,7 @@
   "isDeleted": false,
   "mp": null,
   "xp": 10,
+  "artUrl": "https://cdn.midjourney.com/69502990-fed8-4aa5-8a36-4132635df194/0_1.jpeg",
   "improvements": [
     {
       "name": "Long Throw",
@@ -29,6 +30,5 @@
       "id": "71feffcb-fe72-586a-bf4d-8130ce64a7d5"
     }
   ],
-  "lastModified": "2025-11-19T01:36:45.906Z",
-  "artUrl": "https://cdn.midjourney.com/69502990-fed8-4aa5-8a36-4132635df194/0_1.jpeg"
+  "lastModified": "2025-11-19T01:36:45.906Z"
 }
