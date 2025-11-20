@@ -1,13 +1,17 @@
 {
   "id": "77e4f81a-728f-49a7-a013-4d6f666353e2",
   "name": "Halfling",
+  "description": "",
+  "isDeleted": false,
   "artUrls": [
     "https://cdn.midjourney.com/033e30ef-e853-44db-971b-ba105fd8a590/0_3.png"
   ],
-  "backgroundImage": "https://cdn.midjourney.com/3dbc16d9-7f07-4fdc-96c5-dd7090652889/0_0.png",
-  "hooks": [],
-  "playlists": [],
   "faces": [],
   "places": [],
+  "backgroundImage": "https://cdn.midjourney.com/3dbc16d9-7f07-4fdc-96c5-dd7090652889/0_0.png",
+  "expansion": "",
+  "hooks": [],
+  "playlists": [],
+  "names": "",
   "lastModified": "2025-11-20T15:49:30.468Z"
 }
