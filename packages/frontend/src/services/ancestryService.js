@@ -19,6 +19,11 @@ class AncestryService extends BaseService {
       hooks: [],
       playlists: [],
       names: '',
+      occupations: '',
+      publicHouses: '',
+      vittles: '',
+      pointsOfInterest: '',
+      floraFauna: '',
     }
   }
 }

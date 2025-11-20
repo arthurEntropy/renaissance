@@ -19,6 +19,11 @@ class WorldElementService extends BaseService {
       hooks: [],
       playlists: [],
       names: '',
+      occupations: '',
+      publicHouses: '',
+      vittles: '',
+      pointsOfInterest: '',
+      floraFauna: '',
     }
   }
 }
