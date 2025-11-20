@@ -1,7 +1,7 @@
 {
   "id": "50139dd2-1fa0-4152-a83b-583d6812157b",
   "name": "Crushing Force",
-  "description": "<p><em>Your blows land with such force that even a single strike can cripple your foe.</em></p><p>Whenever you roll the maximum on one or more damage dice for a melee attack, you may inflict Injury on your target.</p><p><strong>Describe how your heavy strike breaks through the enemy’s defenses.</strong></p>",
+  "description": "<p>Whenever you roll the maximum on one or more damage dice for a melee attack, you may inflict Injury on your target.</p>",
   "isTrait": true,
   "canBeActive": false,
   "isActive": true,
@@ -16,5 +16,6 @@
       "xp": 5,
       "id": "1f1e0fb6-2073-5871-aabf-9f1d0f391e3a"
     }
-  ]
+  ],
+  "lastModified": "2025-11-20T00:38:45.056Z"
 }

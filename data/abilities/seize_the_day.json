@@ -1,7 +1,7 @@
 {
   "id": "93062eed-66ba-49ab-a56a-790c184e541c",
   "name": "Seize The Day",
-  "description": "<p><em>In desperate moments, you summon the will to move faster and strike harder.</em></p><p>Once per round, you may spend 1 Hope to take +1 action on your turn.</p><p><strong>Describe how you push beyond your limits to gain the edge in the fight.</strong></p>",
+  "description": "<p>Once per round, you may spend 1 Hope to take +1 action on your turn.</p>",
   "isTrait": false,
   "canBeActive": false,
   "isActive": true,
@@ -10,5 +10,6 @@
   "mp": null,
   "xp": 10,
   "actionType": "Half Action",
-  "improvements": []
+  "improvements": [],
+  "lastModified": "2025-11-20T00:41:17.426Z"
 }

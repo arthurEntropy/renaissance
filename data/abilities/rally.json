@@ -1,7 +1,7 @@
 {
   "id": "324647ca-8a6f-4e3c-8c44-a7bdb8fb837f",
   "name": "Rally",
-  "description": "<p><em>You refuse to give up when the tide turns.</em></p><p>Once per rest, if your Endurance is down to less than half its maximum, regain Endurance equal to your BODY score.</p><p><strong>Describe how you keep fighting when others would falter.</strong></p>",
+  "description": "<p>Once per rest, if your current Endurance is equal to less than half its maximum, regain Endurance equal to your BODY score.</p>",
   "isTrait": false,
   "canBeActive": false,
   "isActive": true,
@@ -29,5 +29,6 @@
       "description": "<p>When you use your Rally ability, any adjacent allies also regain Endurance equal to their BODY score.</p>",
       "xp": 10
     }
-  ]
+  ],
+  "lastModified": "2025-11-20T00:45:28.361Z"
 }

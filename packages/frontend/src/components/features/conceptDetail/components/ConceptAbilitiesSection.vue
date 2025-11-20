@@ -6,7 +6,8 @@
                 :sources="sources" :collapsible="false" :improvements="ability.improvements || []"
                 :showImprovements="getAbilityShowImprovements(ability.id)"
                 @update:showImprovements="updateAbilityShowImprovements(ability.id, $event)"
-                @height-changed="handleCardHeightChanged" @edit="$emit('edit-ability', ability)" :showSource="false" />
+                @height-changed="handleCardHeightChanged" @edit="$emit('edit-ability', ability)" :showSource="false"
+                :character="character" :show-improvement-toggle="!!character" />
         </MasonryGrid>
         <div class="add-button-container">
             <AddButton :show="isEditMode" @click="$emit('add-ability')" title="Add new ability"
@@ -37,6 +38,10 @@ const props = defineProps({
     },
     conceptId: {
         type: String,
+        default: null
+    },
+    character: {
+        type: Object,
         default: null
     }
 })

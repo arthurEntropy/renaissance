@@ -2,7 +2,7 @@
     <ConceptSection :title="showTitle ? title : ''" :has-content="hasImages" :is-edit-mode="isEditMode"
         :empty-message="`No ${title.toLowerCase()} added yet.`">
         <ImageGallery :images="images" :editable="isEditMode" :grid-columns="gridColumns" :mode="mode"
-            :auto-source-type="autoSourceType" :auto-source-id="autoSourceId"
+            :auto-source-type="autoSourceType" :auto-source-id="autoSourceId" :exclude-urls="excludeUrls"
             @update:images="$emit('update:images', $event)" />
     </ConceptSection>
 </template>
@@ -11,6 +11,9 @@
 import { computed } from 'vue'
 import ConceptSection from './ConceptSection.vue'
 import ImageGallery from './ImageGallery.vue'
+import { useArtStore } from '@/stores/artStore'
+
+const artStore = useArtStore()
 
 const props = defineProps({
     title: {
@@ -46,6 +49,10 @@ const props = defineProps({
     autoSourceId: {
         type: String,
         default: null
+    },
+    excludeUrls: {
+        type: Array,
+        default: () => []
     }
 })
 
@@ -53,9 +60,11 @@ defineEmits(['update:images'])
 
 const hasImages = computed(() => {
     // In auto mode, check art store; in manual mode, check props
-    if (props.mode === 'auto') {
-        // Images will be determined by ImageGallery component
-        return true // Always show the section in auto mode
+    if (props.mode === 'auto' && props.autoSourceId) {
+        // Get images from art store and filter out excluded URLs
+        const autoImages = artStore.getByTypeAndSource(props.autoSourceType, props.autoSourceId)
+        const filteredImages = autoImages.filter(url => !props.excludeUrls.includes(url))
+        return filteredImages.length > 0
     }
     return props.images && props.images.length > 0
 })

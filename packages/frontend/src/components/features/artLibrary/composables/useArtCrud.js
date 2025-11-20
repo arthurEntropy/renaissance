@@ -42,7 +42,10 @@ export function useArtCrud(artStore) {
             } else {
                 // Create new
                 const newArt = await ArtService.create(artData)
-                artStore.addArt(newArt)
+                // Ensure the new art has all required fields before adding to store
+                if (newArt && newArt.id) {
+                    artStore.addArt(newArt)
+                }
                 closeModal()
             }
         } catch (error) {

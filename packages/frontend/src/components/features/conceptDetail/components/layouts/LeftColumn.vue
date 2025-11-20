@@ -12,15 +12,15 @@
 
         <!-- Faces - Auto Mode -->
         <ConceptImageSection title="Faces" :images="[]" :is-edit-mode="isEditMode" :grid-columns="5" mode="auto"
-            auto-source-type="faces" :auto-source-id="concept.id" />
+            auto-source-type="faces" :auto-source-id="concept.id" :exclude-urls="concept.artUrls || []" />
 
         <!-- Places - Auto Mode -->
         <ConceptImageSection title="Places" :images="[]" :is-edit-mode="isEditMode" :grid-columns="5" mode="auto"
-            auto-source-type="places" :auto-source-id="concept.id" />
+            auto-source-type="places" :auto-source-id="concept.id" :exclude-urls="concept.artUrls || []" />
 
         <!-- Maps - Auto Mode -->
         <ConceptImageSection title="Maps" :images="[]" :is-edit-mode="isEditMode" :grid-columns="5" mode="auto"
-            auto-source-type="maps" :auto-source-id="concept.id" />
+            auto-source-type="maps" :auto-source-id="concept.id" :exclude-urls="concept.artUrls || []" />
 
         <!-- Playlists -->
         <PlaylistSection :playlists="concept.playlists || []" :editable="isEditMode"

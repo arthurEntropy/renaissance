@@ -7,8 +7,9 @@
   "isActive": true,
   "source": "45ca935d-938b-4974-961c-4171cc388904",
   "isDeleted": false,
-  "mp": 1,
+  "mp": 0,
   "xp": 5,
   "actionType": "Reaction",
-  "improvements": []
+  "improvements": [],
+  "lastModified": "2025-11-14T19:05:00.492Z"
 }

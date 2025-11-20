@@ -10,7 +10,8 @@
 
         <!-- Traits & Abilities -->
         <ConceptAbilitiesSection :abilities="abilities" :is-edit-mode="isEditMode" :sources="sources"
-            :conceptId="concept.id" @edit-ability="$emit('edit-ability', $event)" @add-ability="$emit('add-ability')" />
+            :conceptId="concept.id" :character="character" @edit-ability="$emit('edit-ability', $event)"
+            @add-ability="$emit('add-ability')" />
 
         <!-- Local Flavor -->
         <LocalFlavorSection :data="{
@@ -66,6 +67,10 @@ defineProps({
         default: false
     },
     expansion: {
+        type: Object,
+        default: null
+    },
+    character: {
         type: Object,
         default: null
     }

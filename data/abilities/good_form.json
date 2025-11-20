@@ -1,7 +1,7 @@
 {
   "id": "c93d20c3-2fa2-4001-837d-cf38629b9c1a",
   "name": "Good Form",
-  "description": "<p>When you roll Engagement, you can always re-roll one die before resolving, and can re-roll additional dice for 1 MP each.</p><p>Whenever you roll the highest possible number on an Engagement die, you may spend it as if it were a Success.</p>",
+  "description": "<p>When you roll Engagement, you can always re-roll one die before resolving.</p><p>Whenever you roll the highest possible number on an Engagement die, you may spend it as if it were a Success.</p>",
   "isTrait": true,
   "canBeActive": false,
   "isActive": true,
@@ -28,5 +28,6 @@
       "xp": 10,
       "id": "b29299df-ece4-551a-a6c0-40b654d4d352"
     }
-  ]
+  ],
+  "lastModified": "2025-11-14T19:04:40.833Z"
 }

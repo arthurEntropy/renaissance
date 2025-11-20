@@ -14,9 +14,9 @@
     <div v-if="!internalEditMode" class="abilities-list">
       <AbilityCard v-for="ability in sortedAbilities" :key="`ability-${ability.id}`" :ability="ability"
         :collapsed="ability.collapsed" @update:collapsed="updateAbilityCollapsed(ability, $event)" class="ability-card"
-        :collapsible="true" :improvements="ability.improvements || []" :show-xp-badge="false"
+        :collapsible="true" :improvements="ability.improvements || []" :show-xp-badge="true"
         :show-add-to-character="false" :show-action-buttons="true" :character="character"
-        :show-improvement-toggle="true" :showImprovements="ability.showImprovements"
+        :show-improvement-toggle="true" :show-improvements="ability.showImprovements"
         @update:showImprovements="updateAbilityShowImprovements(ability, $event)"
         @update:character="handleCharacterUpdate" />
     </div>
@@ -32,8 +32,9 @@
 
           <AbilityCard v-if="ability" :ability="ability" :collapsed="ability.collapsed"
             @update:collapsed="updateAbilityCollapsed(ability, $event)" class="ability-card" :collapsible="true"
-            :show-xp-badge="false" :show-add-to-character="false" :show-action-buttons="true" :character="character"
-            :show-improvement-toggle="true" :showImprovements="ability.showImprovements"
+            :improvements="ability.improvements || []" :show-xp-badge="true" :show-add-to-character="false"
+            :show-action-buttons="true" :character="character" :show-improvement-toggle="true"
+            :show-improvements="ability.showImprovements"
             @update:showImprovements="updateAbilityShowImprovements(ability, $event)"
             @update:character="handleCharacterUpdate" :key="`edit-ability-${ability.id}`" />
 
@@ -186,8 +187,21 @@ const handleCharacterUpdate = (updatedCharacter) => {
 const updateAbilityCollapsed = (ability, collapsed) => {
   // Find the ability in the character's abilities array and update its collapsed state
   const updatedAbilities = props.character.abilities.map(abilityObj => {
-    if (abilityObj.id === ability.id) {
+    // Handle both old format (strings) and new format (objects)
+    const abilityId = typeof abilityObj === 'string' ? abilityObj : abilityObj.id
+
+    if (abilityId === ability.id) {
+      // Convert to object format if it's a string
+      if (typeof abilityObj === 'string') {
+        return { id: abilityId, collapsed }
+      }
+      // Update existing object
       return { ...abilityObj, collapsed }
+    }
+
+    // Return unchanged (convert strings to objects to maintain consistency)
+    if (typeof abilityObj === 'string') {
+      return { id: abilityObj, collapsed: true }
     }
     return abilityObj
   })
@@ -204,8 +218,21 @@ const updateAbilityCollapsed = (ability, collapsed) => {
 const updateAbilityShowImprovements = (ability, showImprovements) => {
   // Find the ability in the character's abilities array and update its showImprovements state
   const updatedAbilities = props.character.abilities.map(abilityObj => {
-    if (abilityObj.id === ability.id) {
+    // Handle both old format (strings) and new format (objects)
+    const abilityId = typeof abilityObj === 'string' ? abilityObj : abilityObj.id
+
+    if (abilityId === ability.id) {
+      // Convert to object format if it's a string
+      if (typeof abilityObj === 'string') {
+        return { id: abilityId, collapsed: true, showImprovements }
+      }
+      // Update existing object
       return { ...abilityObj, showImprovements }
+    }
+
+    // Return unchanged (convert strings to objects to maintain consistency)
+    if (typeof abilityObj === 'string') {
+      return { id: abilityObj, collapsed: true, showImprovements: false }
     }
     return abilityObj
   })

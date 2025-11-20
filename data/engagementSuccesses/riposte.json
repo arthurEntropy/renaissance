@@ -1,6 +1,6 @@
 {
   "id": "10",
   "name": "Riposte",
-  "description": "Make a melee attack against your opponent, skipping engagement. You may only use this if you have already used another success in this engagement.",
+  "description": "Make a melee attack against your opponent immediately, skipping engagement, then return to this engagement. You may only use this if you have already used another success in this engagement.",
   "isDeleted": false
 }

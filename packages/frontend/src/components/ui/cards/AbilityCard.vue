@@ -3,24 +3,44 @@
     :collapsed="collapsed" :editable="editable" @edit="$emit('edit', ability)" :collapsible="collapsible"
     @update:collapsed="$emit('update:collapsed', $event)" :showSource="showSource">
 
-    <!-- Add to character overlay -->
-    <AddToCharacterButton v-if="ability && showAddToCharacter" :item="ability" type="ability"
-      :addFn="addAbilityToCharacter" />
+    <!-- Expandable image -->
+    <template #image>
+      <div v-if="showLargeImage && ability.artUrl" class="large-image-container" @click.stop="toggleImage">
+        <img :src="ability.artUrl" :alt="ability.name" class="large-image" />
+      </div>
+    </template>
 
     <!-- Main description and content -->
     <template #description>
-      <CardDescription :content="ability.description" size="small">
-        <!-- XP badge positioned relative to main description when improvements are shown -->
-        <template #badge>
-          <BadgeDisplay v-if="showXpBadge && ability.xp && showImprovements" type="xp" :value="ability.xp"
-            position="bottom-left" custom-class="improvement-badge" />
-        </template>
-      </CardDescription>
+      <!-- Art and Description Row -->
+      <div class="content-wrapper">
+        <div class="art-container" v-if="!showLargeImage && ability.artUrl">
+          <div class="small-image-container" @click.stop="toggleImage">
+            <img :src="ability.artUrl" :alt="ability.name" class="ability-image" />
+          </div>
+        </div>
 
-      <!-- Ability improvements -->
-      <AbilityImprovements :improvements="improvements" :character="character" :ability-id="ability.id"
-        :show-improvement-toggle="showImprovementToggle" :show-improvements="showImprovements"
-        @toggle-improvement="handleImprovementToggle" />
+        <div class="content-sections">
+          <CardDescription :content="ability.description" size="small">
+            <!-- XP badge positioned relative to main description when improvements are shown -->
+            <template #badge>
+              <BadgeDisplay v-if="shouldShowBaseXpBadge && showImprovements" type="xp" :value="ability.xp"
+                position="bottom-left" custom-class="improvement-badge" />
+            </template>
+            <!-- Add to character overlay for base ability -->
+            <template #overlay>
+              <AddAbilityOverlay v-if="showAddToCharacter" :ability-id="ability.id"
+                @update:character="handleCharacterUpdate" />
+            </template>
+          </CardDescription>
+
+          <!-- Ability improvements -->
+          <AbilityImprovements :improvements="improvements" :character="character" :ability-id="ability.id"
+            :show-improvement-toggle="showImprovementToggle" :show-improvements="showImprovements"
+            :show-add-overlays="showAddToCharacter" @toggle-improvement="handleImprovementToggle"
+            @update:character="handleCharacterUpdate" />
+        </div>
+      </div>
     </template>
 
     <!-- Action buttons -->
@@ -38,27 +58,29 @@
 
       <!-- In abilities table context: only show button if there are unowned improvements -->
       <button v-if="hasImprovements" class="bottom-buttons improvements-toggle-button" @click.stop="toggleImprovements"
-        :title="showImprovements ? 'Hide unowned improvements' : 'Show unowned improvements'">
-        Improvements <span>{{ showImprovements ? '▲' : '▼' }}</span>
+        :title="showImprovements ? 'Hide improvements' : 'Show improvements'">
+        <ChevronUpIcon v-if="showImprovements" class="chevron-icon" />
+        <ChevronDownIcon v-else class="chevron-icon" />
       </button>
     </template>
 
     <!-- Overlay badges - Show XP badge at card level when improvements are not shown -->
     <template #badges>
-      <BadgeDisplay v-if="showXpBadge && ability.xp && !showImprovements" type="xp" :value="ability.xp"
+      <BadgeDisplay v-if="shouldShowBaseXpBadge && !showImprovements" type="xp" :value="ability.xp"
         position="bottom-left" />
     </template>
   </base-card>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
+import { ChevronUpIcon, ChevronDownIcon } from '@heroicons/vue/24/outline'
 import { useAbilitiesStore } from '@/stores/abilitiesStore'
 import { useAbilityImprovements } from '@/composables/useAbilityImprovements'
 import BaseCard from '@/components/ui/cards/BaseCard.vue'
 import BadgeDisplay from '@/components/ui/cards/BadgeDisplay.vue'
 import CardDescription from '@/components/ui/cards/CardDescription.vue'
-import AddToCharacterButton from '@/components/ui/cards/AddToCharacterButton.vue'
+import AddAbilityOverlay from '@/components/ui/cards/AddAbilityOverlay.vue'
 import AbilityImprovements from '@/components/ui/cards/AbilityImprovements.vue'
 import { useCharacterManagement } from '@/composables/useCharacterManagement'
 
@@ -111,10 +133,14 @@ const props = defineProps({
   showImprovements: {
     type: Boolean,
     default: false
-  }
+  },
+  artExpanded: {
+    type: Boolean,
+    default: true,
+  },
 })
 
-const emit = defineEmits(['edit', 'update', 'sendToChat', 'update:collapsed', 'update:character', 'update:showImprovements', 'height-changed'])
+const emit = defineEmits(['edit', 'update', 'sendToChat', 'update:collapsed', 'update:character', 'update:showImprovements', 'height-changed', 'update:art-expanded'])
 
 // Store
 const abilitiesStore = useAbilitiesStore()
@@ -125,6 +151,12 @@ const { hasImprovement, toggleImprovement } = useAbilityImprovements()
 
 // Reactive state
 const isActive = ref(props.ability.isActive)
+const showLargeImage = ref(props.artExpanded)
+
+// Watch for external artExpanded prop changes
+watch(() => props.artExpanded, (newValue) => {
+  showLargeImage.value = newValue
+})
 
 // Computed properties
 const traitOrMp = computed(() => {
@@ -142,7 +174,27 @@ const traitOrMp = computed(() => {
   return parts.join(', ')
 })
 
+const characterHasBaseAbility = computed(() => {
+  if (!props.character || !Array.isArray(props.character.abilities)) return false
+
+  // Handle both old format (string IDs) and new format (objects with id property)
+  return props.character.abilities.some(abilityObj => {
+    const abilityId = typeof abilityObj === 'string' ? abilityObj : abilityObj.id
+    return abilityId === props.ability.id
+  })
+})
+
+const shouldShowBaseXpBadge = computed(() => {
+  return props.showXpBadge && props.ability.xp && !characterHasBaseAbility.value
+})
+
 // Methods
+const toggleImage = () => {
+  const newValue = !showLargeImage.value
+  showLargeImage.value = newValue
+  emit('update:art-expanded', newValue)
+}
+
 const toggleActive = () => {
   isActive.value = !isActive.value
   emit('update', { ...props.ability, isActive: isActive.value })
@@ -189,10 +241,59 @@ const handleImprovementToggle = (improvementId) => {
   const updatedCharacter = toggleImprovement(props.character, props.ability.id, improvementId)
   emit('update:character', updatedCharacter)
 }
+
+const handleCharacterUpdate = (updatedCharacter) => {
+  emit('update:character', updatedCharacter)
+}
 </script>
 
 <style scoped>
 @import '@/styles/design-tokens.css';
+
+.content-wrapper {
+  display: flex;
+  gap: var(--space-md);
+  align-items: flex-start;
+  padding-top: var(--space-sm);
+}
+
+.art-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.ability-image {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: var(--radius-5);
+  cursor: pointer;
+}
+
+/* Large Image */
+.large-image-container {
+  width: 100%;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.large-image {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-5);
+  margin-top: var(--space-sm);
+}
+
+.content-sections {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
 
 .bottom-buttons {
   position: absolute;
@@ -230,7 +331,7 @@ const handleImprovementToggle = (improvementId) => {
   border: none;
   border-top-right-radius: var(--radius-10);
   border-top-left-radius: var(--radius-10);
-  padding: var(--space-xs) var(--space-sm) var(--space-xs) var(--space-sm);
+  padding: 4px var(--space-lg) 2px var(--space-lg);
   cursor: pointer;
   transition: var(--transition-color-bg);
   z-index: var(--z-interactive);
@@ -242,5 +343,11 @@ const handleImprovementToggle = (improvementId) => {
 
 .improvements-toggle-button:hover {
   background: var(--color-accent-gold);
+}
+
+.chevron-icon {
+  width: 16px;
+  height: 16px;
+  stroke-width: 2.5;
 }
 </style>

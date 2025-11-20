@@ -4,9 +4,7 @@
   "hooks": [],
   "playlists": [],
   "artUrls": [
-    "https://cdn.midjourney.com/3f3366f2-b7f5-4b6e-82ec-a71150a47d9b/0_1.png",
-    "https://cdn.midjourney.com/a6b3f94a-e210-4344-86b8-f2cd538214a6/0_1.png",
-    "https://cdn.midjourney.com/1fddb7d9-50d0-4678-948d-ae23b9541f03/0_2.png"
+    "https://cdn.midjourney.com/3f3366f2-b7f5-4b6e-82ec-a71150a47d9b/0_1.png"
   ],
   "faces": [],
   "places": [],
@@ -16,5 +14,6 @@
   "backgroundImage": "https://cdn.midjourney.com/bcbc84cf-af8a-4f0d-97b1-7b9f3434f075/0_2.jpeg",
   "color1": "#ffffff",
   "color2": "#000000",
-  "expansion": ""
+  "expansion": "",
+  "lastModified": "2025-11-14T19:19:57.028Z"
 }

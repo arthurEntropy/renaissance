@@ -1,13 +1,14 @@
 {
   "id": "5a5ae563-7c4a-44dd-8dd9-398e3eafa1cd",
   "name": "Ready For Anything",
-  "description": "<p><em>Your hands know the weight and balance of every weapon—you’re never caught unready.</em></p><p>Once per round, you may switch weapons as a free action instead of a half action.</p><p><strong>Describe how you draw the right weapon for the moment.</strong></p>",
+  "description": "<p>Once per round, you may switch weapons as a free action instead of a half action.</p>",
   "isTrait": true,
   "canBeActive": false,
   "isActive": true,
   "source": "d4dce5e2-e767-464d-91f0-c40b47f788b3",
-  "isDeleted": false,
+  "isDeleted": true,
   "mp": null,
   "xp": 5,
-  "improvements": []
+  "improvements": [],
+  "lastModified": "2025-11-20T00:47:40.824Z"
 }

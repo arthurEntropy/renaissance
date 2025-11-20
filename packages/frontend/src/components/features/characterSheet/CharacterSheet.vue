@@ -229,8 +229,23 @@ const {
 
 // Character update handler
 const updateCharacter = (updatedCharacter) => {
-    // Only allow updates in edit mode
-    if (!isEditMode.value) return
+    // Always allow UI state updates (collapsed/showImprovements)
+    // Only require edit mode for actual character data changes
+    const isUIStateUpdate = updatedCharacter.abilities?.some((ability, index) => {
+        const oldAbility = localCharacter.value.abilities?.[index]
+        if (!oldAbility) return false
+
+        const oldId = typeof oldAbility === 'string' ? oldAbility : oldAbility.id
+        const newId = typeof ability === 'string' ? ability : ability.id
+
+        // If it's the same ability with only UI state changes, allow it
+        return oldId === newId &&
+            (ability.collapsed !== oldAbility.collapsed ||
+                ability.showImprovements !== oldAbility.showImprovements)
+    })
+
+    // Block non-UI updates when not in edit mode
+    if (!isEditMode.value && !isUIStateUpdate) return
 
     // Use the character management service which triggers automatic watchers
     updateCharacterService(updatedCharacter)

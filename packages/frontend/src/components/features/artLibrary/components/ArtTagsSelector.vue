@@ -36,11 +36,12 @@ const props = defineProps({
 
 defineEmits(['update:searchQuery', 'toggle'])
 
+const searchInputRef = ref(null)
+
 defineExpose({
-    searchInputRef: ref(null)
+    searchInputRef
 })
 
-const searchInputRef = ref(null)
 const sourcesStore = useSourcesStore()
 
 const sourceGroups = computed(() => ({

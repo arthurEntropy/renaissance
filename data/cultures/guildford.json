@@ -4,7 +4,7 @@
   "hooks": [],
   "playlists": [],
   "artUrls": [
-    "https://cdn.midjourney.com/7a665c83-c9de-4fb4-b8bd-bc3999fc3d71/0_2.png"
+    "https://cdn.midjourney.com/d27e51cd-53d3-402c-82fc-38e94f6dec4e/0_0.jpeg"
   ],
   "faces": [
     "https://cdn.midjourney.com/80ac604f-5931-4667-ae83-2cfa18502c72/0_1.png",
@@ -42,5 +42,7 @@
   "publicHouses": "The Healthy Chicken, The Empty Coinpurse, The Fey Chestnut, Ratbridge Tavern, Guilder’s Respite, The Fifth Tower, Bellman’s Flask, The Blood Flag, Lions' Club, The Very Secure Hotel",
   "vittles": "Poppyseed Bread, Blood Sausage, Roasted Leeks with Vinegar, Aged Goat Cheese, Herbed Lentils, Salted Carp, Honeyed Chestnuts, Caraway Crackers, Pickled Beets, Garlic Chicken Pottage, Plum Brandy, Spiced Goulash, Smoked Duck Leg, Beetroot Tart, Mulled Wine",
   "pointsOfInterest": "The Guild Bridges, The Museum Of Obsolescence, Thieves' Guild Tower, The Knights' Guild Arena, The First Wizards' Guild, The Second Wizards' Guild, The Third Wizard's Guild, The First Secular Armorer's Guild, Ropeson's Finest Ropes, Congress Of Independent Rangers, Jacques Jacqueson's Combat Training, The Whither Wastes",
-  "floraFauna": "Twilight Ivy, Black Rose, Rue, Mandrake, Elder Tree, Saffron Crocus, Sewer Rat, Bridge Owl, Canal Pike, Clockwork Beetle, Gutter Cat, Grey Heron, Basilisk Wyrmling, Night Toad, Gilded Moth"
+  "floraFauna": "Twilight Ivy, Black Rose, Rue, Mandrake, Elder Tree, Saffron Crocus, Sewer Rat, Bridge Owl, Canal Pike, Clockwork Beetle, Gutter Cat, Grey Heron, Basilisk Wyrmling, Night Toad, Gilded Moth",
+  "description": "<p>Guildford cut its teeth on keeping secrets. When magic was outlawed, you would have taken it for a perfectly mundane city. But say the right word to a baker or wink just so at a greengrocer and they would take you through a hidden doorway and into the real city - a veritable hive of sword and sorcery.</p><p>Here were hundreds of secret factions - conjurers, abjurers, </p>",
+  "lastModified": "2025-11-12T21:31:00.324Z"
 }

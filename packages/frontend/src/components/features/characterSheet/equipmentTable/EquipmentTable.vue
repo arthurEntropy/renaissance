@@ -25,7 +25,7 @@
 
             <span v-else class="missing-equipment">Unknown item</span>
 
-            <EquipmentDetails :equipment-row="row" :index="index" :is-edit-mode="internalEditMode"
+            <EquipmentDetails :equipment-row="row" :index="index" :is-edit-mode="canEdit"
               @update-carried="handleCarriedChange" @update-wielding="handleWieldingChange"
               @update-quantity="handleQuantityChange" />
 

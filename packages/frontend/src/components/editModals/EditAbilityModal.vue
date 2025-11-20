@@ -15,6 +15,12 @@
             <input type="text" id="name" v-model="editedAbility.name" class="modal-input" />
           </div>
 
+          <!-- Art URL -->
+          <div class="form-group vertical">
+            <label for="artUrl" class="left-aligned">Art URL:</label>
+            <input type="text" id="artUrl" v-model="editedAbility.artUrl" class="modal-input" />
+          </div>
+
           <!-- Description -->
           <div class="form-group vertical description">
             <label for="description" class="left-aligned">Description:</label>
