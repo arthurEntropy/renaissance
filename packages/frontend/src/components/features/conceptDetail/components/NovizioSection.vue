@@ -43,7 +43,7 @@
       </div>
       <div class="novizio-subsection">
         <strong>Engagement</strong>
-        <text-editor v-model="localNovizio.engagement" placeholder="Engagement..." height="80px"
+        <text-editor v-model="localNovizio.engagement" placeholder="Engagement..." height="80px" :auto-height="true"
           class="novizio-text-editor" />
       </div>
       <div class="novizio-subsection">
@@ -53,7 +53,7 @@
       </div>
       <div class="novizio-subsection">
         <strong>Abilities</strong>
-        <text-editor v-model="localNovizio.abilities" placeholder="Abilities..." height="80px"
+        <text-editor v-model="localNovizio.abilities" placeholder="Abilities..." height="80px" :auto-height="true"
           class="novizio-text-editor" />
       </div>
       <div class="edit-field-buttons">
@@ -211,9 +211,9 @@ const safeAbilities = computed(() => sanitizeHtml(props.novizio?.abilities))
 // Methods
 const toggleEdit = () => {
   if (isSectionEditing.value) {
-    // Save changes
-    editMode.saveEdit(localNovizio.value)
+    // Save changes - set editing to false BEFORE save to prevent watcher race condition
     isSectionEditing.value = false
+    editMode.saveEdit(localNovizio.value)
   } else {
     // Start editing
     editMode.startEdit(localNovizio.value)
@@ -222,8 +222,8 @@ const toggleEdit = () => {
 }
 
 const saveEdit = () => {
-  editMode.saveEdit(localNovizio.value)
   isSectionEditing.value = false
+  editMode.saveEdit(localNovizio.value)
 }
 
 const cancelEdit = () => {
@@ -257,7 +257,11 @@ defineExpose({
 // Watchers
 watch(() => props.novizio, (newVal) => {
   if (!isSectionEditing.value) {
-    localNovizio.value = newVal ? { ...newVal } : getDefaultNovizio()
+    const newData = newVal ? { ...newVal } : getDefaultNovizio()
+    // Only update if the data is actually different
+    if (JSON.stringify(newData) !== JSON.stringify(localNovizio.value)) {
+      localNovizio.value = newData
+    }
   }
 }, { deep: true })
 
@@ -267,10 +271,17 @@ watch(localNovizio, () => {
   }
 }, { deep: true })
 
-watch(() => props.editable, (val) => {
-  if (val) {
-    isSectionEditing.value = false
-  } else if (isSectionEditing.value) {
+watch(() => props.editable, (newVal, oldVal) => {
+  // When parent exits edit mode, save any unsaved changes in the section
+  if (oldVal === true && newVal === false && isSectionEditing.value) {
+    // Save before exiting
+    if (editMode.hasUnsavedChanges(localNovizio.value)) {
+      saveEdit()
+    } else {
+      isSectionEditing.value = false
+    }
+  } else if (!newVal && isSectionEditing.value) {
+    // Parent is not in edit mode, so section shouldn't be editing
     cancelEdit()
     isSectionEditing.value = false
   }

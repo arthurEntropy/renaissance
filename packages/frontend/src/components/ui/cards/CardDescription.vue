@@ -1,12 +1,13 @@
 <template>
-    <div v-if="content" class="card-description" :class="additionalClasses">
+    <div v-if="content" class="card-description" :class="[additionalClasses, { 'has-overlay': hasOverlay }]">
         <div v-html="safeContent"></div>
         <slot name="badge"></slot>
+        <slot name="overlay"></slot>
     </div>
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, useSlots } from 'vue'
 import { sanitizeHtml } from '@/utils/sanitizeHtml'
 
 const props = defineProps({
@@ -15,6 +16,8 @@ const props = defineProps({
     size: { type: String, default: 'normal', validator: (v) => ['small', 'normal', 'large'].includes(v) }
 })
 
+const slots = useSlots()
+const hasOverlay = computed(() => !!slots.overlay)
 const safeContent = computed(() => sanitizeHtml(props.content))
 </script>
 
@@ -28,5 +31,10 @@ const safeContent = computed(() => sanitizeHtml(props.content))
     text-align: left;
     font-size: var(--font-size-14);
     position: relative;
+}
+
+.card-description.has-overlay:hover :deep(.add-ability-overlay) {
+    opacity: 1;
+    pointer-events: all;
 }
 </style>

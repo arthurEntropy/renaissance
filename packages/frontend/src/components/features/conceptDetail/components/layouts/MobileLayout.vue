@@ -14,7 +14,8 @@
 
         <!-- 3. Traits & Abilities -->
         <ConceptAbilitiesSection :abilities="abilities" :is-edit-mode="isEditMode" :sources="sources"
-            :conceptId="concept.id" @edit-ability="$emit('edit-ability', $event)" @add-ability="$emit('add-ability')" />
+            :conceptId="concept.id" :character="character" @edit-ability="$emit('edit-ability', $event)"
+            @add-ability="$emit('add-ability')" />
 
         <!-- 4. Faces - Auto Mode -->
         <ConceptImageSection title="Faces" :images="[]" :is-edit-mode="isEditMode" :grid-columns="3" mode="auto"
@@ -95,6 +96,10 @@ defineProps({
         default: false
     },
     expansion: {
+        type: Object,
+        default: null
+    },
+    character: {
         type: Object,
         default: null
     }

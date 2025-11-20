@@ -15,7 +15,7 @@
 
         <!-- Right Column -->
         <RightColumn :concept="localConcept" :abilities="abilities" :equipment="equipment" :sources="sources"
-          :is-edit-mode="isEditMode" :expansion="expansion" @update:name="updateName"
+          :is-edit-mode="isEditMode" :expansion="expansion" :character="selectedCharacter" @update:name="updateName"
           @update:description="updateDescription" @update:local-flavor="updateLocalFlavor" @update:hooks="updateHooks"
           @edit-ability="emitAbilityEdit" @edit-equipment="emitEquipmentEdit" @add-ability="createNewAbility"
           @add-equipment="createNewEquipment" @unsaved-changes="onSectionUnsavedChanges"
@@ -24,12 +24,13 @@
 
       <!-- Mobile Layout: Single Column -->
       <MobileLayout v-else :concept="localConcept" :abilities="abilities" :equipment="equipment" :sources="sources"
-        :is-edit-mode="isEditMode" :expansion="expansion" @update:featured-art="updateFeaturedArt"
-        @update:name="updateName" @update:description="updateDescription" @update:local-flavor="updateLocalFlavor"
-        @update:hooks="updateHooks" @update:faces="updateFaces" @update:places="updatePlaces"
-        @update:playlists="updatePlaylists" @update:novizio="updateNovizio" @edit-ability="emitAbilityEdit"
-        @edit-equipment="emitEquipmentEdit" @add-ability="createNewAbility" @add-equipment="createNewEquipment"
-        @unsaved-changes="onSectionUnsavedChanges" @reset-unsaved-changes="onSectionResetUnsavedChanges" />
+        :is-edit-mode="isEditMode" :expansion="expansion" :character="selectedCharacter"
+        @update:featured-art="updateFeaturedArt" @update:name="updateName" @update:description="updateDescription"
+        @update:local-flavor="updateLocalFlavor" @update:hooks="updateHooks" @update:faces="updateFaces"
+        @update:places="updatePlaces" @update:playlists="updatePlaylists" @update:novizio="updateNovizio"
+        @edit-ability="emitAbilityEdit" @edit-equipment="emitEquipmentEdit" @add-ability="createNewAbility"
+        @add-equipment="createNewEquipment" @unsaved-changes="onSectionUnsavedChanges"
+        @reset-unsaved-changes="onSectionResetUnsavedChanges" />
     </div>
 
     <!-- Settings Modal -->
@@ -63,6 +64,7 @@ import { useConceptData } from './composables/useConceptData'
 import { useUnsavedChanges } from './composables/useUnsavedChanges'
 import { useResponsiveLayout } from '@/composables/useResponsiveLayout'
 import { useEditModal } from '@/composables/useEditModal'
+import { useCharacterManagement } from '@/composables/useCharacterManagement'
 
 // Store imports
 import { useExpansionsStore } from '@/stores/expansionsStore'
@@ -148,6 +150,9 @@ const {
   hasUnsavedChanges,
   confirmIfUnsaved
 } = useUnsavedChanges()
+
+// Get selected character from the character management composable
+const { selectedCharacter } = useCharacterManagement()
 
 // Methods - defined early to avoid temporal dead zone issues
 const emitUpdateEvent = () => {

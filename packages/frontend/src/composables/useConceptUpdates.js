@@ -7,7 +7,7 @@ export function useConceptUpdates(localConcept, emitUpdateEvent) {
     if (Array.isArray(value)) {
       localConcept.value[property] = [...value]
     } else if (typeof value === 'object' && value !== null) {
-      Object.assign(localConcept.value, value)
+      localConcept.value[property] = { ...value }
     } else {
       localConcept.value[property] = value
     }

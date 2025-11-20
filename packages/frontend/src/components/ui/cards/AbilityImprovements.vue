@@ -7,10 +7,9 @@
                     <div class="improvement-title improvement-owned">{{ impr.name }}</div>
                     <CardDescription v-if="impr.description" :content="impr.description"
                         additional-classes="improvement">
-                        <template #badge>
-                            <BadgeDisplay v-if="impr.xp" type="xp" :value="impr.xp" position="bottom-left"
-                                custom-class="improvement-badge" :interactive="isInteractive" :is-owned="true"
-                                :improvement-id="impr.id" @toggle="handleImprovementToggle" />
+                        <template #overlay>
+                            <AddAbilityOverlay v-if="showAddOverlays" :ability-id="abilityId" :improvement-id="impr.id"
+                                @update:character="handleCharacterUpdate" />
                         </template>
                     </CardDescription>
                 </div>
@@ -31,6 +30,10 @@
                                 :custom-class="getUnownedBadgeClasses()" :interactive="isInteractive" :is-owned="false"
                                 :improvement-id="impr.id" @toggle="handleImprovementToggle" />
                         </template>
+                        <template #overlay>
+                            <AddAbilityOverlay v-if="showAddOverlays" :ability-id="abilityId" :improvement-id="impr.id"
+                                @update:character="handleCharacterUpdate" />
+                        </template>
                     </CardDescription>
                 </div>
             </div>
@@ -43,6 +46,7 @@ import { computed } from 'vue'
 import { useAbilityImprovements } from '@/composables/useAbilityImprovements'
 import CardDescription from '@/components/ui/cards/CardDescription.vue'
 import BadgeDisplay from '@/components/ui/cards/BadgeDisplay.vue'
+import AddAbilityOverlay from '@/components/ui/cards/AddAbilityOverlay.vue'
 
 const props = defineProps({
     improvements: {
@@ -64,10 +68,14 @@ const props = defineProps({
     showImprovements: {
         type: Boolean,
         default: false
+    },
+    showAddOverlays: {
+        type: Boolean,
+        default: false
     }
 })
 
-const emit = defineEmits(['toggle-improvement'])
+const emit = defineEmits(['toggle-improvement', 'update:character'])
 
 // Composable for improvement management
 const { hasImprovement } = useAbilityImprovements()
@@ -121,6 +129,10 @@ const isImprovementOwned = (improvementId) => {
 
 const handleImprovementToggle = (improvementId) => {
     emit('toggle-improvement', improvementId)
+}
+
+const handleCharacterUpdate = (updatedCharacter) => {
+    emit('update:character', updatedCharacter)
 }
 
 const getUnownedDescriptionClasses = () => {
