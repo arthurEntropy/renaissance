@@ -1,4 +1,5 @@
 {
+  "id": "2205ff30-ca18-4b7c-9315-fdd1423837ae",
   "name": "Dagger",
   "description": "",
   "keeping": "4",
@@ -21,10 +22,9 @@
   "skillMods": [],
   "isDeleted": false,
   "isCustom": false,
+  "isTemplate": false,
   "artUrl": "https://cdn.midjourney.com/9a36f9db-9982-43d2-a174-e3c99d274eb5/0_2.png",
   "type": "1",
   "subtype": "1",
-  "grade": "1",
-  "isTemplate": false,
-  "id": "2205ff30-ca18-4b7c-9315-fdd1423837ae"
+  "grade": "1"
 }
