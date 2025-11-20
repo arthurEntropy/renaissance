@@ -101,7 +101,7 @@ import SuccessChip from '@/components/ui/chips/SuccessChip.vue'
 import EngagementSuccessService from '@/services/engagementSuccessService'
 import EquipmentService from '@/services/equipmentService'
 import { getDiceFontMaxClass } from '@shared/utils/diceFontUtils'
-import { isWeapon } from '@shared/utils/equipmentUtils'
+import { isWeapon } from '@/utils/equipmentUtils'
 import { useCharacterManagement } from '@/composables/useCharacterManagement'
 
 defineOptions({

@@ -44,7 +44,7 @@
 import { computed } from 'vue'
 import NumberInput from '@/components/ui/forms/NumberInput.vue'
 import { formatWeight } from '@/utils/weightUtils'
-import { isWeapon } from '@shared/utils/equipmentUtils'
+import { isWeapon } from '@/utils/equipmentUtils'
 
 const props = defineProps({
     equipmentRow: {
