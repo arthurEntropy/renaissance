@@ -16,8 +16,6 @@ class CultureService extends BaseService {
       faces: [],
       places: [],
       backgroundImage: '',
-      color1: '#ffffff',
-      color2: '#000000',
       expansion: '',
       hooks: [],
       playlists: [],

@@ -10,14 +10,6 @@
           placeholder="https://example.com/image.png" />
       </div>
 
-      <!-- Colors -->
-      <div class="form-group">
-        <label for="color1">Primary Color:</label>
-        <input type="color" id="color1" v-model="localSettings.color1" />
-        <label for="color2">Secondary Color:</label>
-        <input type="color" id="color2" v-model="localSettings.color2" />
-      </div>
-
       <!-- Expansion Dropdown -->
       <div class="form-group">
         <label for="expansion">Expansion:</label>
@@ -52,8 +44,6 @@ const props = defineProps({
     type: Object,
     default: () => ({
       backgroundImage: '',
-      color1: 'var(--color-white)',
-      color2: 'var(--color-black)',
     }),
   },
 })
@@ -67,8 +57,6 @@ const expansionStore = useExpansionsStore()
 // Reactive state
 const localSettings = reactive({
   backgroundImage: '',
-  color1: 'var(--color-white)',
-  color2: 'var(--color-black)',
   expansionId: '',
 })
 
