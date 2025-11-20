@@ -410,7 +410,6 @@ class CharacterService extends BaseService {
       speed: 0,
       equipment: [],
       abilities: [],
-      abilityImprovements: {},
       artUrls: [CharacterService.DEFAULT_ART_URL],
       activeEffects: [],
     }

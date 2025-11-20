@@ -80,9 +80,9 @@ app.delete('/users/admin/:userId', requireAuth, requireAdmin, deleteUser)
 // Dynamically retrieve entity names from the "data" directory
 const entities = getEntityNames()
 
-// Dynamically create routes for each entity
+// Dynamically create CRUD routes for each data entity
 entities.forEach((entity) => {
-  // All entities are public for reading, admin-only for writing
+  // All data entities are public for reading, admin-only for writing
   app.get(`/${entity}`, getAllEntities(entity))
   app.post(`/${entity}`, verifyToken, requireAuth, requireAdmin, createEntity(entity))
   app.put(`/${entity}/:id`, verifyToken, requireAuth, requireAdmin, updateEntity(entity))

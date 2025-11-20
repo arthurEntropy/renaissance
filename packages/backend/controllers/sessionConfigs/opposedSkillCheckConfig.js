@@ -39,6 +39,7 @@ export const opposedSkillCheckConfig = {
     (socket, { activeSessions, sessionIO }) => {
       socket.on('complete-session', ({ sessionId, winner }) => {
         const session = activeSessions.get(sessionId)
+        
         // If session exists and is active, store the winner and mark complete
         if (session && session.status === SESSION_STATUS.ACTIVE) {
           session.winner = winner

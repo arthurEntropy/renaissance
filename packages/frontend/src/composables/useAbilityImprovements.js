@@ -1,6 +1,6 @@
 /**
  * Composable for managing character ability improvements
- * Handles ID-based improvement tracking
+ * Handles ID-based improvement tracking within the abilities array
  */
 export function useAbilityImprovements() {
   
@@ -12,11 +12,12 @@ export function useAbilityImprovements() {
    * @returns {boolean} Whether the character has the improvement
    */
   const hasImprovement = (character, abilityId, improvementId) => {
-    if (!character?.abilityImprovements) {
+    if (!character?.abilities) {
       return false
     }
     
-    return character.abilityImprovements[abilityId]?.[improvementId] || false
+    const ability = character.abilities.find(a => a.id === abilityId)
+    return ability?.improvements?.[improvementId] || false
   }
 
   /**
@@ -27,18 +28,25 @@ export function useAbilityImprovements() {
    * @returns {Object} Updated character object
    */
   const toggleImprovement = (character, abilityId, improvementId) => {
-    // Ensure the abilityImprovements structure exists
-    if (!character.abilityImprovements) {
-      character.abilityImprovements = {}
+    if (!character.abilities) {
+      character.abilities = []
     }
     
-    if (!character.abilityImprovements[abilityId]) {
-      character.abilityImprovements[abilityId] = {}
+    const ability = character.abilities.find(a => a.id === abilityId)
+    
+    if (!ability) {
+      console.warn(`Cannot toggle improvement for unknown ability: ${abilityId}`)
+      return { ...character }
+    }
+    
+    // Ensure improvements object exists
+    if (!ability.improvements) {
+      ability.improvements = {}
     }
     
     // Toggle the improvement status
-    const currentStatus = character.abilityImprovements[abilityId][improvementId] || false
-    character.abilityImprovements[abilityId][improvementId] = !currentStatus
+    const currentStatus = ability.improvements[improvementId] || false
+    ability.improvements[improvementId] = !currentStatus
     
     return { ...character }
   }
@@ -51,16 +59,23 @@ export function useAbilityImprovements() {
    * @returns {Object} Updated character object
    */
   const addImprovement = (character, abilityId, improvementId) => {
-    // Ensure the abilityImprovements structure exists
-    if (!character.abilityImprovements) {
-      character.abilityImprovements = {}
+    if (!character.abilities) {
+      character.abilities = []
     }
     
-    if (!character.abilityImprovements[abilityId]) {
-      character.abilityImprovements[abilityId] = {}
+    const ability = character.abilities.find(a => a.id === abilityId)
+    
+    if (!ability) {
+      console.warn(`Cannot add improvement to unknown ability: ${abilityId}`)
+      return { ...character }
     }
     
-    character.abilityImprovements[abilityId][improvementId] = true
+    // Ensure improvements object exists
+    if (!ability.improvements) {
+      ability.improvements = {}
+    }
+    
+    ability.improvements[improvementId] = true
     
     return { ...character }
   }
@@ -73,21 +88,22 @@ export function useAbilityImprovements() {
    * @returns {Object} Updated character object
    */
   const removeImprovement = (character, abilityId, improvementId) => {
-    if (!character?.abilityImprovements?.[abilityId]) {
+    if (!character?.abilities) {
+      return character
+    }
+    
+    const ability = character.abilities.find(a => a.id === abilityId)
+    
+    if (!ability?.improvements) {
       return character
     }
     
     // Remove the specific improvement
-    delete character.abilityImprovements[abilityId][improvementId]
+    delete ability.improvements[improvementId]
     
-    // Clean up empty ability objects
-    if (Object.keys(character.abilityImprovements[abilityId]).length === 0) {
-      delete character.abilityImprovements[abilityId]
-    }
-    
-    // Clean up empty abilityImprovements object
-    if (Object.keys(character.abilityImprovements).length === 0) {
-      delete character.abilityImprovements
+    // Clean up empty improvements object
+    if (Object.keys(ability.improvements).length === 0) {
+      delete ability.improvements
     }
     
     return { ...character }
@@ -100,11 +116,17 @@ export function useAbilityImprovements() {
    * @returns {Array} Array of improvement IDs the character has
    */
   const getCharacterImprovements = (character, abilityId) => {
-    if (!character?.abilityImprovements?.[abilityId]) {
+    if (!character?.abilities) {
       return []
     }
     
-    return Object.entries(character.abilityImprovements[abilityId])
+    const ability = character.abilities.find(a => a.id === abilityId)
+    
+    if (!ability?.improvements) {
+      return []
+    }
+    
+    return Object.entries(ability.improvements)
       .filter(([_, hasImprovement]) => hasImprovement)
       .map(([improvementId, _]) => improvementId)
   }
@@ -118,37 +140,41 @@ export function useAbilityImprovements() {
   const validateCharacterImprovements = (character, allAbilities) => {
     const issues = []
     
-    if (!character?.abilityImprovements) {
+    if (!character?.abilities) {
       return issues
     }
 
-    // Create lookup maps for validation
+    // Create lookup map for validation
     const abilityMap = new Map(allAbilities.map(ability => [ability.id, ability]))
     
-    Object.entries(character.abilityImprovements).forEach(([abilityId, improvements]) => {
-      const ability = abilityMap.get(abilityId)
+    character.abilities.forEach(charAbility => {
+      if (!charAbility.improvements) {
+        return
+      }
       
-      if (!ability) {
+      const abilityData = abilityMap.get(charAbility.id)
+      
+      if (!abilityData) {
         issues.push({
           type: 'missing_ability',
-          abilityId,
-          message: `Character has improvements for unknown ability: ${abilityId}`
+          abilityId: charAbility.id,
+          message: `Character has improvements for unknown ability: ${charAbility.id}`
         })
         return
       }
       
       // Check each improvement
-      Object.entries(improvements).forEach(([improvementId, hasImprovement]) => {
+      Object.entries(charAbility.improvements).forEach(([improvementId, hasImprovement]) => {
         if (hasImprovement) {
-          const improvementExists = ability.improvements?.some(imp => imp.id === improvementId)
+          const improvementExists = abilityData.improvements?.some(imp => imp.id === improvementId)
           
           if (!improvementExists) {
             issues.push({
               type: 'missing_improvement',
-              abilityId,
+              abilityId: charAbility.id,
               improvementId,
-              abilityName: ability.name,
-              message: `Character has unknown improvement ${improvementId} for ability ${ability.name}`
+              abilityName: abilityData.name,
+              message: `Character has unknown improvement ${improvementId} for ability ${abilityData.name}`
             })
           }
         }
@@ -173,47 +199,49 @@ export function useAbilityImprovements() {
     
     console.warn(`Cleaning up ${issues.length} invalid improvement references`)
     
-    // Create lookup maps
+    // Create lookup map
     const abilityMap = new Map(allAbilities.map(ability => [ability.id, ability]))
     
-    if (!character.abilityImprovements) {
+    if (!character.abilities) {
       return character
     }
     
     // Clean up invalid references
-    const cleanedImprovements = {}
-    
-    Object.entries(character.abilityImprovements).forEach(([abilityId, improvements]) => {
-      const ability = abilityMap.get(abilityId)
+    character.abilities.forEach(charAbility => {
+      if (!charAbility.improvements) {
+        return
+      }
       
-      if (!ability) {
-        console.warn(`Removing improvements for unknown ability: ${abilityId}`)
+      const abilityData = abilityMap.get(charAbility.id)
+      
+      if (!abilityData) {
+        console.warn(`Removing improvements for unknown ability: ${charAbility.id}`)
+        delete charAbility.improvements
         return
       }
       
       const validImprovements = {}
       
-      Object.entries(improvements).forEach(([improvementId, hasImprovement]) => {
+      Object.entries(charAbility.improvements).forEach(([improvementId, hasImprovement]) => {
         if (hasImprovement) {
-          const improvementExists = ability.improvements?.some(imp => imp.id === improvementId)
+          const improvementExists = abilityData.improvements?.some(imp => imp.id === improvementId)
           
           if (improvementExists) {
             validImprovements[improvementId] = hasImprovement
           } else {
-            console.warn(`Removing unknown improvement ${improvementId} from ability ${ability.name}`)
+            console.warn(`Removing unknown improvement ${improvementId} from ability ${abilityData.name}`)
           }
         }
       })
       
       if (Object.keys(validImprovements).length > 0) {
-        cleanedImprovements[abilityId] = validImprovements
+        charAbility.improvements = validImprovements
+      } else {
+        delete charAbility.improvements
       }
     })
     
-    return {
-      ...character,
-      abilityImprovements: cleanedImprovements
-    }
+    return { ...character }
   }
 
   return {

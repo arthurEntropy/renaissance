@@ -19,13 +19,18 @@ export function useCharacterAbilities(characterAbilities, allAbilities, orderPro
           
           if (!ability) return null
           
-          // Merge the base ability with character-specific metadata
+          // Extract character-specific metadata (excluding 'improvements' which is special)
           const characterMetadata = typeof abilityObj === 'object' ? abilityObj : {}
+          const { improvements: characterImprovements, ...otherMetadata } = characterMetadata
           
           return { 
-            ...ability, 
-            ...characterMetadata, // Includes collapsed state and any other character-specific data
-            // Provide defaults for new properties
+            ...ability, // Base ability data with improvements array (definitions)
+            ...otherMetadata, // Character-specific metadata (collapsed, showImprovements, etc.)
+            // Explicitly preserve the improvements array from the ability definition
+            improvements: ability.improvements || [],
+            // Store character's improvement ownership separately if needed
+            characterImprovements: characterImprovements || {},
+            // Provide defaults for UI state properties
             collapsed: characterMetadata.collapsed ?? true,
             showImprovements: characterMetadata.showImprovements ?? false,
             [orderProperty]: index 

@@ -5,7 +5,7 @@ import {
   deleteFile,
 } from '../utils/fileService.js'
 
-// These are generic CRUD operations for all entities.
+// These are generic CRUD operations for all data entities.
 // They are designed to be used with the routes defined in server.js.
 // The routes are created dynamically based on the entity names in the "data" directory.
 

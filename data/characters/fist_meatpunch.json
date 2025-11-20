@@ -185,7 +185,12 @@
     {
       "id": "f1d0e5f7-bb30-4251-a575-8d31c113fe1a",
       "collapsed": false,
-      "showImprovements": false
+      "showImprovements": false,
+      "improvements": {
+        "a277f343-4a95-51c2-a376-74b16ab9bb7c": false,
+        "854306d6-d3b2-5b9d-a387-1474c611803b": true,
+        "4e322b63-bbe9-5b70-9009-f475813e0728": false
+      }
     },
     {
       "id": "1e289ca8-cf6a-4f0d-ad7c-a13fc8e1f381",
@@ -197,13 +202,6 @@
       "collapsed": false
     }
   ],
-  "abilityImprovements": {
-    "f1d0e5f7-bb30-4251-a575-8d31c113fe1a": {
-      "a277f343-4a95-51c2-a376-74b16ab9bb7c": false,
-      "854306d6-d3b2-5b9d-a387-1474c611803b": true,
-      "4e322b63-bbe9-5b70-9009-f475813e0728": false
-    }
-  },
   "activeEffects": [],
   "artUrls": [
     "https://cdn.midjourney.com/579f1913-10e8-438c-9d1d-949151eb171c/0_0.png"

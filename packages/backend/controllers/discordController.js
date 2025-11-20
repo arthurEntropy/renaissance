@@ -155,24 +155,28 @@ const sendDiscordMessage = async (req, res) => {
     const { characterName, opponentName, skill, type } = req.body
 
     if (type === 'opposed_skill_check') {
+
       // Opposed skill check
       const embed = createOpposedSkillCheckEmbed(req.body)
       const payload = { embeds: [embed] }
       await axios.post(DISCORD_WEBHOOK_URL, payload)
       res.json({ message: 'Opposed skill check sent to Discord!' })
     } else if (characterName && opponentName) {
+
       // Engagement roll
       const embed = createEngagementEmbed(req.body)
       const payload = { embeds: [embed] }
       await axios.post(DISCORD_WEBHOOK_URL, payload)
       res.json({ message: 'Engagement sent to Discord!' })
     } else if (skill === 'Custom Roll') {
+
       // Custom roll
       const embed = createCustomRollEmbed(req.body)
       const payload = { embeds: [embed] }
       await axios.post(DISCORD_WEBHOOK_URL, payload)
       res.json({ message: 'Custom roll sent to Discord!' })
     } else {
+      
       // Skill check
       const embed = createSkillCheckEmbed(req.body)
       const payload = { embeds: [embed] }

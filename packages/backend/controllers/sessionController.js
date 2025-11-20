@@ -40,8 +40,8 @@ function createSessionController(config) {
     }, SESSION_CLEANUP_INTERVAL)
   }
 
-  // We only send a cancellation message if both users haven't accepted results
-  // If both users have accepted, the session is completed successfully        
+  // We only send a cancellation message if both users haven't accepted results.
+  // If both users have accepted, the session is completed successfully, so we don't notify.     
   const sendCancellationMessage = (sessionId, session, characterName) => {
     const bothUsersAccepted = session.users.length === 2 && 
                              session.users.every(user => user.accepted === true)
