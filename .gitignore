@@ -10,9 +10,16 @@ Thumbs.db
 # Dependencies
 node_modules
 
+# Yarn
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+.pnp.*
+
 # Build outputs
-/dist
-/dist-ssr
+dist
+dist-ssr
 *.local
 
 # Environment files
@@ -42,7 +49,8 @@ coverage
 
 # Editor directories and files
 .idea
-.vscode
+.vscode/*.log
+.vscode/settings.json
 *.suo
 *.ntvs*
 *.njsproj

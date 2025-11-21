@@ -124,7 +124,7 @@
 
 <script setup>
 import { computed, ref } from 'vue'
-import { getDiceFontClass } from '@shared/utils/diceFontUtils'
+import { getDiceFontClass } from '@/utils/diceFontUtils'
 import { RollTypes } from '@/constants/rollTypes'
 import { EngagementResultTypes } from '@/constants/engagementResultTypes'
 import CharacterSheetSection from '@/components/ui/containers/CharacterSheetSection.vue'

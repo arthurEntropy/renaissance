@@ -1,4 +1,4 @@
-import { getDiceFontClass, getDiceFontMaxClass } from '@shared/utils/diceFontUtils'
+import { getDiceFontClass, getDiceFontMaxClass } from '@/utils/diceFontUtils'
 import { rollSingleDie, formatDiceResults, getFavoredStatus } from '@/utils/diceUtils'
 import RollTypes from '@/constants/rollTypes'
 import axios from 'axios'

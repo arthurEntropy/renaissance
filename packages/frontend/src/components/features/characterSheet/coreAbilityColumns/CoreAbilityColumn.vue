@@ -19,8 +19,9 @@
       @update="(value) => updateVirtueWeakness(columnConfig.weaknessKey, value)" />
 
     <!-- State Row -->
-    <StatRow type="state" :label="capitalizeFirstLetter(columnConfig.firstStateKey)" :first-state="firstStateValue"
-      :second-state="secondStateValue" :is-edit-mode="isEditMode" @update="(field, value) => {
+    <StatRow type="state"
+      :label="columnConfig.firstStateKey.charAt(0).toUpperCase() + columnConfig.firstStateKey.slice(1).toLowerCase()"
+      :first-state="firstStateValue" :second-state="secondStateValue" :is-edit-mode="isEditMode" @update="(field, value) => {
         const stateKey = field === 'first' ? columnConfig.firstStateKey : columnConfig.secondStateKey
         updateNestedProperty(`states.${stateKey}`, value)
       }" />
@@ -29,7 +30,6 @@
 
 <script setup>
 import { computed } from 'vue'
-import { capitalizeFirstLetter } from '@shared/utils/stringUtils'
 import { useColumnConfig } from '@/composables/useColumnConfig'
 import { useSkillDice } from '@/composables/useSkillDice'
 import { useNestedPropertyUpdate } from '@/composables/useNestedPropertyUpdate'

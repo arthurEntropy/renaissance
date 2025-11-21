@@ -1,184 +1,58 @@
 import axios from 'axios'
 import { readFileSync } from 'fs'
+import {
+  createEngagementEmbed,
+  createSkillCheckEmbed,
+  createOpposedSkillCheckEmbed,
+  createCustomRollEmbed
+} from '../services/discordEmbedService.js'
 
-// Load Discord webhook configuration
-let discordConfig = { webhookUrl: null }
-if (process.env.DISCORD_WEBHOOK_PATH) {
-  try {
-    discordConfig = JSON.parse(readFileSync(process.env.DISCORD_WEBHOOK_PATH, 'utf8'))
-  } catch (error) {
-    console.error('Error loading Discord webhook config:', error.message)
-  }
-}
+let discordConfig = null
 
-const COLORS = {
-  SUCCESS: 0x00ff00, // Green
-  FAILURE: 0xff0000, // Red
-  DRAW: 0xffeb3b, // Yellow
-  NEUTRAL: 0x808080 // Gray
-}
-
-const createEngagementEmbed = (data) => {
-  const { characterName, opponentName, result, userWins, opponentWins, drawCount } = data
-  const winner = result === 'win' ? characterName : result === 'loss' ? opponentName : null
-  const description = result === 'draw' ? 'DRAW' : `**${winner.toUpperCase()} WINS**`
-  
-  return {
-    title: `⚔️ Engagement: ${characterName} vs ${opponentName}`,
-    description,
-    color: result === 'draw' ? COLORS.DRAW : (result === 'win' ? COLORS.SUCCESS : COLORS.FAILURE),
-    fields: [
-      {
-        name: characterName,
-        value: `${userWins}`,
-        inline: true,
-      },
-      {
-        name: opponentName,
-        value: `${opponentWins}`,
-        inline: true,
-      },
-      {
-        name: 'Draws',
-        value: `${drawCount}`,
-        inline: true,
-      },
-    ],
+function getDiscordConfig() {
+  if (discordConfig === null) {
+    discordConfig = { webhookUrl: null }
+    if (process.env.DISCORD_WEBHOOK_PATH) {
+      try {
+        discordConfig = JSON.parse(readFileSync(process.env.DISCORD_WEBHOOK_PATH, 'utf8'))
+        console.log('Discord webhook configuration loaded')
+      } catch (error) {
+        console.error('Error loading Discord webhook config:', error.message)
+      }
+    } else {
+      console.warn('DISCORD_WEBHOOK_PATH environment variable not set')
+    }
   }
-}
-
-const createSkillCheckEmbed = (data) => {
-  const { rollResults, total, targetNumber, name: characterName, skill, success, footer, image } = data
-  
-  return {
-    title: `${characterName || 'Someone'} rolled ${skill || 'a skill check'}`,
-    description: success ? '**SUCCESS**' : '**FAILURE**',
-    color: success ? COLORS.SUCCESS : COLORS.FAILURE,
-    thumbnail: {
-      url: image,
-    },
-    fields: [
-      {
-        name: 'Result',
-        value: `${total}`,
-        inline: true,
-      },
-      {
-        name: 'Target',
-        value: `${targetNumber}`,
-        inline: true,
-      },
-      {
-        name: 'Rolls',
-        value: rollResults ? rollResults.join(', ') : 'No dice were rolled',
-        inline: false,
-      },
-    ],
-    footer: {
-      text: footer,
-    },
-  }
-}
-
-const createOpposedSkillCheckEmbed = (data) => {
-  const { 
-    characterName, 
-    opponentName, 
-    skillName, 
-    opponentSkillName,
-    userTotal, 
-    opponentTotal, 
-    winner 
-  } = data
-  
-  let color = COLORS.NEUTRAL
-  if (winner === 'user') {
-    color = COLORS.SUCCESS
-  } else if (winner === 'opponent') {
-    color = COLORS.FAILURE
-  }
-  
-  return {
-    title: `${characterName} vs ${opponentName} - Opposed Skill Check`,
-    description: winner === 'tie' ? '**TIE**' : `**${winner === 'user' ? characterName : opponentName} WINS**`,
-    color: color,
-    fields: [
-      {
-        name: characterName,
-        value: `${skillName}: ${userTotal}`,
-        inline: true,
-      },
-      {
-        name: opponentName,
-        value: `${opponentSkillName}: ${opponentTotal}`,
-        inline: true,
-      },
-    ],
-  }
-}
-
-const createCustomRollEmbed = (data) => {
-  const { rollResults, total, name: characterName, footer, image } = data
-  
-  return {
-    title: `${characterName || 'Someone'} rolled custom dice`,
-    color: COLORS.NEUTRAL,
-    thumbnail: {
-      url: image,
-    },
-    fields: [
-      {
-        name: 'Total',
-        value: `${total}`,
-        inline: true,
-      },
-      {
-        name: 'Dice Results',
-        value: rollResults || 'No dice were rolled',
-        inline: false,
-      },
-    ],
-    footer: {
-      text: footer || '',
-    },
-  }
+  return discordConfig
 }
 
 const sendDiscordMessage = async (req, res) => {
-  const DISCORD_WEBHOOK_URL = discordConfig.webhookUrl
+  const config = getDiscordConfig()
+  const DISCORD_WEBHOOK_URL = config.webhookUrl
   
   if (!DISCORD_WEBHOOK_URL) {
-    return res.status(500).json({ error: 'Discord webhook URL not configured' })
+    console.log('Discord webhook URL not configured - skipping Discord notification')
+    return res.status(200).json({ message: 'Discord not configured - message not sent' })
   }
 
   try {
     const { characterName, opponentName, skill, type } = req.body
+    let embed
 
     if (type === 'opposed_skill_check') {
-      // Opposed skill check
-      const embed = createOpposedSkillCheckEmbed(req.body)
-      const payload = { embeds: [embed] }
-      await axios.post(DISCORD_WEBHOOK_URL, payload)
-      res.json({ message: 'Opposed skill check sent to Discord!' })
+      embed = createOpposedSkillCheckEmbed(req.body)
     } else if (characterName && opponentName) {
-      // Engagement roll
-      const embed = createEngagementEmbed(req.body)
-      const payload = { embeds: [embed] }
-      await axios.post(DISCORD_WEBHOOK_URL, payload)
-      res.json({ message: 'Engagement sent to Discord!' })
+      embed = createEngagementEmbed(req.body)
     } else if (skill === 'Custom Roll') {
-      // Custom roll
-      const embed = createCustomRollEmbed(req.body)
-      const payload = { embeds: [embed] }
-      await axios.post(DISCORD_WEBHOOK_URL, payload)
-      res.json({ message: 'Custom roll sent to Discord!' })
+      embed = createCustomRollEmbed(req.body)
     } else {
-      // Skill check
-      const embed = createSkillCheckEmbed(req.body)
-      const payload = { embeds: [embed] }
-      await axios.post(DISCORD_WEBHOOK_URL, payload)
-      res.json({ message: 'Message sent to Discord!' })
+      embed = createSkillCheckEmbed(req.body)
     }
+
+    const payload = { embeds: [embed] }
+    await axios.post(DISCORD_WEBHOOK_URL, payload)
+    
+    res.json({ message: 'Message sent to Discord!' })
   } catch (error) {
     console.error('Error sending to Discord:', error.message)
     res.status(500).json({ error: 'Failed to send message to Discord', details: error.message })

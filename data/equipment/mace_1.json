@@ -1,4 +1,5 @@
 {
+  "id": "4cfc4aeb-7007-41e7-a861-715688aed7db",
   "name": "Mace",
   "description": "Weight: 2-4. Length: 2-3",
   "keeping": "1",
@@ -26,10 +27,9 @@
   "skillMods": [],
   "isDeleted": false,
   "isCustom": false,
+  "isTemplate": false,
   "artUrl": "https://cdn.midjourney.com/4029dc4e-8914-439d-b9b3-bea09b059880/0_1.png",
   "type": "1",
   "subtype": "1",
-  "grade": "3",
-  "isTemplate": false,
-  "id": "4cfc4aeb-7007-41e7-a861-715688aed7db"
+  "grade": "3"
 }

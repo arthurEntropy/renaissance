@@ -20,9 +20,9 @@
   "skillMods": [],
   "isDeleted": false,
   "isCustom": false,
+  "isTemplate": true,
   "artUrl": null,
   "type": "1",
   "subtype": "5",
-  "grade": "1",
-  "isTemplate": true
+  "grade": "1"
 }

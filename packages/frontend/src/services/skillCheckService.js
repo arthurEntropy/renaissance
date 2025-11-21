@@ -1,7 +1,8 @@
 import axios from 'axios'
-import { getDiceFontClass } from '@shared/utils/diceFontUtils'
+import { getDiceFontClass } from '@/utils/diceFontUtils'
 import { getDiceEmoji } from '@/utils/diceUtils'
 import { RollTypes } from '@/constants/rollTypes'
+import { DIE_TYPE, SPECIAL_ROLLS, TWICE_WEARY_THRESHOLD } from '../../../../shared/constants/dice.js'
 
 class SkillCheckService {
   static latestRollResult = null
@@ -99,7 +100,7 @@ class SkillCheckService {
 
     // Send to Discord
     this.sendSkillCheckResultsToServer(
-      diceResults.map((r) => r.symbol),
+      diceResults,
       totalSum,
       isSuccess,
       skillName,
@@ -128,16 +129,14 @@ class SkillCheckService {
       total: totalSum,
       targetNumber: targetNumber,
       success: isSuccess,
-      diceSymbols: diceResults.map((result) => result.symbol),
       diceResults: diceResults.map((result) => ({
-        type: result.die, // 12 or 6
-        value: result.roll, // The actual number rolled (0 for dropped dice)
-        symbol: result.symbol, // Symbol for Discord output
+        type: result.die,
+        value: result.roll,
         isMaxValue: result.die === result.roll,
         emoji: getDiceEmoji(result.die, result.roll === 0 ? result.originalRoll : result.roll),
-        dropped: result.roll === 0, // Was this die dropped by favored/ill-favored logic
+        dropped: result.roll === 0,
         displayValue: result.roll === 0 ? result.originalRoll : result.roll,
-        class: getDiceFontClass(result.die, result.roll === 0 ? result.originalRoll : result.roll), // For in-app display using DiceFont
+        class: getDiceFontClass(result.die, result.roll === 0 ? result.originalRoll : result.roll),
       })),
       favoredStatus: skill.isFavored
         ? 'favored'
@@ -150,17 +149,17 @@ class SkillCheckService {
   }
 
   static prepareDicePool(skill) {
-    const dicePool = [{ sides: 12 }]
+    const dicePool = [{ sides: DIE_TYPE.D12 }]
 
     if (skill.isFavored || skill.isIllFavored) {
-      dicePool.push({ sides: 12 })
+      dicePool.push({ sides: DIE_TYPE.D12 })
     }
 
     let totalD6Count = skill.ranks + skill.diceMod
     if (totalD6Count < 0) totalD6Count = 0
 
     for (let i = 0; i < totalD6Count; i++) {
-      dicePool.push({ sides: 6 })
+      dicePool.push({ sides: DIE_TYPE.D6 })
     }
 
     return dicePool
@@ -169,22 +168,7 @@ class SkillCheckService {
   static rollDice(dicePool) {
     return dicePool.map((die) => {
       const roll = Math.floor(Math.random() * die.sides) + 1
-      let symbol
-      if (die.sides === 12) {
-        if (roll === 12) {
-          symbol = '⭓12🌞'
-        } else if (roll === 11) {
-          symbol = '⭓11💀'
-        } else {
-          symbol = `⭓${roll}`
-        }
-      } else if (die.sides === 6 && roll === 6) {
-        symbol = `◽️6✨`
-      } else {
-        symbol = `◽️${roll}`
-      }
-
-      return { die: die.sides, roll: roll, symbol: symbol }
+      return { die: die.sides, roll: roll }
     })
   }
 
@@ -195,14 +179,14 @@ class SkillCheckService {
     character,
     targetNumber,
   ) {
-    const d12Rolls = diceResults.filter((result) => result.die === 12).map((result) => result.roll)
+    const d12Rolls = diceResults.filter((result) => result.die === DIE_TYPE.D12).map((result) => result.roll)
     const autoFail = isFavored
-      ? d12Rolls.filter((roll) => roll === 11).length === 2
-      : d12Rolls.includes(11)
+      ? d12Rolls.filter((roll) => roll === SPECIAL_ROLLS.MORTE).length === 2
+      : d12Rolls.includes(SPECIAL_ROLLS.MORTE)
 
     if (autoFail) {
       this.sendSkillCheckResultsToServer(
-        diceResults.map((result) => result.symbol),
+        diceResults,
         0,
         false,
         skillName,
@@ -231,13 +215,13 @@ class SkillCheckService {
   }
 
   static handleFavored(diceResults) {
-    const d12Results = diceResults.filter((result) => result.die === 12)
+    const d12Results = diceResults.filter((result) => result.die === DIE_TYPE.D12)
     const d12Rolls = d12Results.map((result) => result.roll)
 
     const highestD12Roll = d12Rolls.reduce((max, roll) => {
-      if (roll === 11) return max
-      return max === 11 || roll > max ? roll : max
-    }, 11)
+      if (roll === SPECIAL_ROLLS.MORTE) return max
+      return max === SPECIAL_ROLLS.MORTE || roll > max ? roll : max
+    }, SPECIAL_ROLLS.MORTE)
 
     let keptOne = false
     d12Results.forEach((result) => {
@@ -252,11 +236,11 @@ class SkillCheckService {
 
   static handleIllFavored(diceResults) {
     // Filter to get only d12 results
-    const d12Results = diceResults.filter((result) => result.die === 12)
+    const d12Results = diceResults.filter((result) => result.die === DIE_TYPE.D12)
     const d12Rolls = d12Results.map((result) => result.roll)
 
-    // Find the lowest roll, but if 11 is present, treat it as the lowest
-    const lowestD12Roll = d12Rolls.includes(11) ? 11 : Math.min(...d12Rolls)
+    // Find the lowest roll, but if Morte (11) is present, treat it as the lowest
+    const lowestD12Roll = d12Rolls.includes(SPECIAL_ROLLS.MORTE) ? SPECIAL_ROLLS.MORTE : Math.min(...d12Rolls)
 
     // Find the first occurrence of the lowest roll and set it to 0
     let keptOne = false
@@ -272,8 +256,8 @@ class SkillCheckService {
 
   static calculateTotalSum(diceResults, isTwiceWeary) {
     return diceResults.reduce((sum, result) => {
-      // If it's a d12 with value 11, treat it as 0
-      if (result.die === 12 && result.roll === 11) {
+      // If it's a d12 with Morte (11), treat it as 0
+      if (result.die === DIE_TYPE.D12 && result.roll === SPECIAL_ROLLS.MORTE) {
         return sum
       }
 
@@ -283,7 +267,7 @@ class SkillCheckService {
       }
 
       // Apply Twice Weary rule (d6 rolls of 1-3 don't count toward total)
-      if (result.die === 6 && result.roll <= 3 && isTwiceWeary) {
+      if (result.die === DIE_TYPE.D6 && result.roll <= TWICE_WEARY_THRESHOLD && isTwiceWeary) {
         return sum
       }
 
@@ -347,8 +331,7 @@ class SkillCheckService {
         image,
       })
     } catch (error) {
-      console.error('Error sending skill check:', error)
-      throw new Error('Failed to send skill check. Check your connection or server.')
+      console.warn('Could not send to Discord:', error.response?.data?.message || error.message)
     }
   }
 }

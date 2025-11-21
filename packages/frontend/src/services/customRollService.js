@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { rollSingleDie } from '@/utils/diceUtils'
 import { RollTypes } from '@/constants/rollTypes'
-import { getDiceFontClass } from '@shared/utils/diceFontUtils'
+import { getDiceFontClass } from '@/utils/diceFontUtils'
 
 class CustomRollService {
   static latestRollResult = null
@@ -78,11 +78,9 @@ class CustomRollService {
       modifier: modifier,
       targetNumber: null, // Custom rolls don't have target numbers
       success: null, // Custom rolls don't have success/failure
-      diceSymbols: [], // Not used for custom rolls
       diceResults: diceResults.map((result) => ({
         type: result.die, // Die size (4, 6, 8, 10, 12, 20)
         value: result.roll, // The actual number rolled
-        symbol: '', // Not used for custom rolls
         isMaxValue: result.die === result.roll,
         emoji: null, // No emojis for custom rolls
         dropped: false, // Custom rolls don't drop dice

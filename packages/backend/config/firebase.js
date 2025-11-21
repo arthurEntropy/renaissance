@@ -6,7 +6,7 @@ import { fileURLToPath } from 'url'
 let app = null
 let isInitialized = false
 
-// Lazy initialization function
+// Lazy initialization
 function initializeFirebaseAdmin() {
   if (isInitialized) {
     return app
@@ -54,7 +54,7 @@ function initializeFirebaseAdmin() {
   return app
 }
 
-// Get Firebase Auth instance (with lazy initialization)
+// Get Firebase Auth instance
 export const getAuth = () => {
   const firebaseApp = initializeFirebaseAdmin()
   return firebaseApp ? admin.auth() : null

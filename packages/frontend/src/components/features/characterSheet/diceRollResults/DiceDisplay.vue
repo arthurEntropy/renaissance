@@ -68,7 +68,7 @@
 import { computed, watch, onMounted, ref } from 'vue'
 import { useDiceAnimation } from '@/composables/useDiceAnimation'
 import { RollTypes } from '@/constants/rollTypes'
-import { getDiceFontClass } from '@shared/utils/diceFontUtils'
+import { getDiceFontClass } from '@/utils/diceFontUtils'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 
 const props = defineProps({

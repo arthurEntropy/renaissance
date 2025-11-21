@@ -1,4 +1,5 @@
 {
+  "id": "f339e1ee-39c8-4712-8baa-60129fd87ff0",
   "name": "Rogatina",
   "description": "",
   "keeping": "2",
@@ -23,9 +24,9 @@
   "skillMods": [],
   "isDeleted": false,
   "isCustom": false,
+  "isTemplate": false,
   "artUrl": "https://cdn.midjourney.com/38865055-9301-4e6e-bd99-909fc84309ec/0_1.jpeg",
   "type": "1",
   "subtype": "2",
-  "grade": "2",
-  "id": "f339e1ee-39c8-4712-8baa-60129fd87ff0"
+  "grade": "2"
 }

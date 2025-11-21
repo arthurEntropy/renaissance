@@ -1,4 +1,5 @@
 {
+  "id": "76d2126b-98f6-4d7c-9751-eaa2e43b0f1d",
   "name": "Acrobat's Pole",
   "description": "Weight: 10-15. Length: 10-15",
   "keeping": "3",
@@ -24,10 +25,9 @@
   "skillMods": [],
   "isDeleted": false,
   "isCustom": false,
+  "isTemplate": false,
   "artUrl": "https://cdn.midjourney.com/03333597-abc6-4336-b7f4-e98d98d1e772/0_1.png",
   "type": "1",
   "subtype": "5",
-  "grade": "4",
-  "isTemplate": false,
-  "id": "76d2126b-98f6-4d7c-9751-eaa2e43b0f1d"
+  "grade": "4"
 }

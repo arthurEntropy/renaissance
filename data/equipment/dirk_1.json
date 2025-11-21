@@ -1,4 +1,5 @@
 {
+  "id": "e43614f2-91e1-495f-9d4f-7cdc4d87d3be",
   "name": "Dirk",
   "description": "",
   "keeping": "2",
@@ -21,9 +22,9 @@
   "skillMods": [],
   "isDeleted": false,
   "isCustom": false,
+  "isTemplate": false,
   "artUrl": "https://cdn.midjourney.com/9a838374-65cf-44cf-a3ab-13712656528f/0_1.jpeg",
   "type": "1",
   "subtype": "1",
-  "grade": "1",
-  "id": "e43614f2-91e1-495f-9d4f-7cdc4d87d3be"
+  "grade": "1"
 }

@@ -1,4 +1,5 @@
 {
+  "id": "b69c879e-a758-47b6-a3a4-b81dfd12eaaf",
   "name": "Zweihänder",
   "description": "",
   "keeping": "4",
@@ -26,9 +27,9 @@
   "skillMods": [],
   "isDeleted": false,
   "isCustom": false,
+  "isTemplate": false,
   "artUrl": "https://cdn.midjourney.com/eb579f55-8327-4384-a574-cf25711f2a04/0_0.jpeg",
   "type": "1",
   "subtype": "1",
-  "grade": "4",
-  "id": "b69c879e-a758-47b6-a3a4-b81dfd12eaaf"
+  "grade": "4"
 }

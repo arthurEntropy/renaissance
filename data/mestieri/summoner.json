@@ -1,8 +1,8 @@
 {
-  "message": "New record created in mestieri.",
   "id": "558abd15-f90f-40d7-80d8-df73a37f977c",
-  "hooks": [],
-  "playlists": [],
+  "name": "Summoner",
+  "description": "",
+  "isDeleted": false,
   "artUrls": [
     "https://cdn.midjourney.com/b4a69efb-4573-427d-b5b2-3bf49c18753c/0_1.png",
     "https://cdn.midjourney.com/7bceb743-e8a1-4479-99db-c676637e586f/0_0.jpeg",
@@ -12,10 +12,14 @@
   ],
   "faces": [],
   "places": [],
-  "name": "Summoner",
-  "expansionLogoUrl": "",
   "backgroundImage": "https://cdn.midjourney.com/7f7891f0-b3cb-45ec-92a2-738839651f59/0_3.png",
-  "color1": "#ffffff",
-  "color2": "#000000",
-  "expansion": ""
+  "expansion": "",
+  "hooks": [],
+  "playlists": [],
+  "names": "",
+  "occupations": "",
+  "publicHouses": "",
+  "vittles": "",
+  "pointsOfInterest": "",
+  "floraFauna": ""
 }

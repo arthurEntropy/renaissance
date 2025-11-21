@@ -1,17 +1,21 @@
 {
-  "message": "New record created in cultures.",
   "id": "3531c0c2-5f33-4421-ab1f-24e2e6ba82a1",
-  "hooks": [],
-  "playlists": [],
+  "name": "Madumareans",
+  "description": "<p>Once an obscure, isolated cult of the sea-goddess Madumare founded around a sacrificial wave-altar, Karto Graffikos’ discovery of giant mineralized bones in the region swelled the Madumareans’ numbers in the ensuing decades. When an Iago University expedition to the nearby ruins of Eanna accidentally flooded the bay with cursed goo, the Madumareans’ wrath was great enough to invade and sack much of the University. Alas, the encircling goo proved insurmountable and the cult-turned-civilization was forced to migrate south across the salt flats to make another humble beginning. Despite a dramatic and cleansing wave sent over their original home by Madumare herself, the Madumareans remain downtrodden and destitute in their southern outpost, seemingly bereft of their former zeal. Forgotten on his remote island, Elder Brother continues his undying solitude…</p>",
+  "isDeleted": false,
   "artUrls": [
     "https://cdn.midjourney.com/12b56a1d-b2ef-48d8-addf-80bb16c7fa50/0_1.png"
   ],
   "faces": [],
   "places": [],
-  "name": "Madumareans",
   "backgroundImage": "",
-  "color1": "#ffffff",
-  "color2": "#000000",
   "expansion": "e46f4320-a414-4300-95d5-397ba717d982",
-  "description": "<p>Once an obscure, isolated cult of the sea-goddess Madumare founded around a sacrificial wave-altar, Karto Graffikos’ discovery of giant mineralized bones in the region swelled the Madumareans’ numbers in the ensuing decades. When an Iago University expedition to the nearby ruins of Eanna accidentally flooded the bay with cursed goo, the Madumareans’ wrath was great enough to invade and sack much of the University. Alas, the encircling goo proved insurmountable and the cult-turned-civilization was forced to migrate south across the salt flats to make another humble beginning. Despite a dramatic and cleansing wave sent over their original home by Madumare herself, the Madumareans remain downtrodden and destitute in their southern outpost, seemingly bereft of their former zeal. Forgotten on his remote island, Elder Brother continues his undying solitude…</p>"
+  "hooks": [],
+  "playlists": [],
+  "names": "",
+  "occupations": "",
+  "publicHouses": "",
+  "vittles": "",
+  "pointsOfInterest": "",
+  "floraFauna": ""
 }

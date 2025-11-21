@@ -6,14 +6,16 @@
   "artUrls": [
     "https://cdn.midjourney.com/831b273e-9002-4112-ba61-082d83341ba6/0_3.png"
   ],
-  "expansionLogoUrl": "",
   "faces": [],
   "places": [],
   "backgroundImage": "",
-  "color1": "#ffffff",
-  "color2": "#000000",
   "expansion": "824cad94-3a4a-4df3-b81a-ede17b84644b",
   "hooks": [],
   "playlists": [],
-  "names": ""
+  "names": "",
+  "occupations": "",
+  "publicHouses": "",
+  "vittles": "",
+  "pointsOfInterest": "",
+  "floraFauna": ""
 }

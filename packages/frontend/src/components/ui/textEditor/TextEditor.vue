@@ -11,7 +11,7 @@
 <script setup>
 import { ref, watch, onMounted, onBeforeUnmount, nextTick, computed } from 'vue'
 import { Editor, EditorContent } from '@tiptap/vue-3'
-import { getDiceFontClass, parseDiceFontClass } from '@shared/utils/diceFontUtils'
+import { getDiceFontClass, parseDiceFontClass } from '@/utils/diceFontUtils'
 import StarterKit from '@tiptap/starter-kit'
 import Link from '@tiptap/extension-link'
 import Image from '@tiptap/extension-image'

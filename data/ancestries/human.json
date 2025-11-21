@@ -1,19 +1,22 @@
 {
   "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
   "name": "Human",
+  "description": "",
+  "isDeleted": false,
   "artUrls": [
-    "https://cdn.midjourney.com/6996ccd1-d214-4f22-ac97-21f819a25e36/0_1.png",
-    "https://cdn.midjourney.com/d67ac338-0cf6-49c9-96f1-e875a1822380/0_3.png",
-    "https://cdn.midjourney.com/bf74233c-82c3-49ce-89b6-6c6dea5caa62/0_0.png",
-    "https://cdn.midjourney.com/c6c09cf3-2d0b-47f9-a5a3-42aa8df54fd7/0_2.png",
-    "https://cdn.midjourney.com/2453093b-e1af-42d2-a47b-759e2fbaff9b/0_3.png"
+    "https://cdn.midjourney.com/6996ccd1-d214-4f22-ac97-21f819a25e36/0_1.png"
   ],
-  "color1": "#d5955b",
-  "color2": "#58230c",
+  "faces": [],
+  "places": [],
   "backgroundImage": "https://cdn.midjourney.com/ff414bb0-35be-42bf-96ef-5d641fd368fb/0_0.png",
-  "expansionLogoUrl": "",
+  "expansion": "",
   "hooks": [],
   "playlists": [],
-  "faces": [],
-  "places": []
+  "names": "",
+  "occupations": "",
+  "publicHouses": "",
+  "vittles": "",
+  "pointsOfInterest": "",
+  "floraFauna": "",
+  "lastModified": "2025-11-20T15:51:19.245Z"
 }

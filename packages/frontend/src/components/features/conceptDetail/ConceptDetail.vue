@@ -132,8 +132,6 @@ const localConcept = ref({})
 const showSettingsModal = ref(false)
 const tempSettings = ref({
   backgroundImage: '',
-  color1: 'var(--color-white)',
-  color2: 'var(--color-black)',
 })
 const expansions = ref([])
 

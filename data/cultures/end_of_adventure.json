@@ -1,17 +1,21 @@
 {
-  "message": "New record created in cultures.",
   "id": "5c67bedd-8e73-4add-b46b-9b911bf0fd59",
-  "hooks": [],
-  "playlists": [],
+  "name": "End Of Adventure",
+  "description": "<p>It is not easy to get to End of Adventure. The deadly outer currents, a sheer range of mountain cliffs, an impassable swamp and the eruptive ruins of Eanna conspire to make this one of the least-accessible places in all of Iago - which is exactly why its residents came here. Its accidental founding by stranded balloonists a century ago is evidenced by the many dirigibles traveling between precariously-built structures. Here, feats of daring are cause for public celebration - often rowdy and excessive. But even as some new record is set, some limit cast down in triumph, there are some whose eyes come to rest on the southern horizon, which remains untested…</p>",
+  "isDeleted": false,
   "artUrls": [
     "https://cdn.midjourney.com/6600e48a-a9b5-4901-8630-f771a58abcba/0_3.png"
   ],
   "faces": [],
   "places": [],
-  "name": "End Of Adventure",
   "backgroundImage": "",
-  "color1": "#ffffff",
-  "color2": "#000000",
   "expansion": "e46f4320-a414-4300-95d5-397ba717d982",
-  "description": "<p>It is not easy to get to End of Adventure. The deadly outer currents, a sheer range of mountain cliffs, an impassable swamp and the eruptive ruins of Eanna conspire to make this one of the least-accessible places in all of Iago - which is exactly why its residents came here. Its accidental founding by stranded balloonists a century ago is evidenced by the many dirigibles traveling between precariously-built structures. Here, feats of daring are cause for public celebration - often rowdy and excessive. But even as some new record is set, some limit cast down in triumph, there are some whose eyes come to rest on the southern horizon, which remains untested…</p>"
+  "hooks": [],
+  "playlists": [],
+  "names": "",
+  "occupations": "",
+  "publicHouses": "",
+  "vittles": "",
+  "pointsOfInterest": "",
+  "floraFauna": ""
 }

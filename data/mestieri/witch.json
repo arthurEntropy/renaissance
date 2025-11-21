@@ -1,8 +1,8 @@
 {
-  "message": "New record created in mestieri.",
   "id": "162ae4db-7a67-4770-8a2c-7e9883da14f6",
-  "hooks": [],
-  "playlists": [],
+  "name": "Witch",
+  "description": "<p>WWW class, converted</p>",
+  "isDeleted": false,
   "artUrls": [
     "https://cdn.midjourney.com/fe0937e2-1487-47ce-a095-ee00d3b72155/0_0.png",
     "https://cdn.midjourney.com/d9671242-e91a-488a-be73-37e5fbb6a372/0_3.jpeg",
@@ -12,7 +12,14 @@
   ],
   "faces": [],
   "places": [],
-  "name": "Witch",
-  "expansionLogoUrl": "",
-  "description": "<p>WWW class, converted</p>"
+  "backgroundImage": "",
+  "expansion": "",
+  "hooks": [],
+  "playlists": [],
+  "names": "",
+  "occupations": "",
+  "publicHouses": "",
+  "vittles": "",
+  "pointsOfInterest": "",
+  "floraFauna": ""
 }

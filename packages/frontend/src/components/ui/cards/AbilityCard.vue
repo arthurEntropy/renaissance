@@ -82,7 +82,6 @@ import BadgeDisplay from '@/components/ui/cards/BadgeDisplay.vue'
 import CardDescription from '@/components/ui/cards/CardDescription.vue'
 import AddAbilityOverlay from '@/components/ui/cards/AddAbilityOverlay.vue'
 import AbilityImprovements from '@/components/ui/cards/AbilityImprovements.vue'
-import { useCharacterManagement } from '@/composables/useCharacterManagement'
 
 const props = defineProps({
   ability: {
@@ -144,7 +143,6 @@ const emit = defineEmits(['edit', 'update', 'sendToChat', 'update:collapsed', 'u
 
 // Store
 const abilitiesStore = useAbilitiesStore()
-const { addAbilityToCharacter } = useCharacterManagement()
 
 // Ability improvements composable
 const { hasImprovement, toggleImprovement } = useAbilityImprovements()

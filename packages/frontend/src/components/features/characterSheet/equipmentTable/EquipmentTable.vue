@@ -71,7 +71,7 @@ import { useItemSelector } from '@/composables/useItemSelector'
 import { useSourceUtils } from '@/composables/useSourceUtils'
 import { useCharacterEquipment } from '@/composables/useCharacterEquipment'
 import { useCustomEquipment } from '@/composables/useCustomEquipment'
-import { isWeapon } from '@shared/utils/equipmentUtils'
+import { isWeapon } from '@/utils/equipmentUtils'
 import { BookOpenIcon, PlusIcon } from '@heroicons/vue/24/outline'
 
 // Props

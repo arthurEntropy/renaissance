@@ -1,4 +1,5 @@
 {
+  "id": "f248a20d-f79e-4fb9-a800-94e2145fc23a",
   "name": "Bearded Axe",
   "description": "",
   "keeping": "3",
@@ -25,9 +26,9 @@
   "skillMods": [],
   "isDeleted": false,
   "isCustom": false,
+  "isTemplate": false,
   "artUrl": "https://cdn.midjourney.com/628b45e2-d9b4-4933-b56c-a9f74f179783/0_3.jpeg",
   "type": "1",
   "subtype": "2",
-  "grade": "3",
-  "id": "f248a20d-f79e-4fb9-a800-94e2145fc23a"
+  "grade": "3"
 }

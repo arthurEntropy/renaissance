@@ -1,9 +1,20 @@
 {
   "id": 5,
   "name": "Natsu",
-  "artUrls": [
-    "https://cdn.midjourney.com/a6773dd7-3da8-4349-9212-b021c7aa09f7/0_2.png"
+  "isBeast": false,
+  "pronouns": "they/them",
+  "ancestries": "Human",
+  "cultures": "Asana Commune",
+  "ancestryIds": [
+    1
   ],
+  "cultureIds": [],
+  "personalityAndBackground": "Arrived too late to join the Asana Commune before it was destroyed. Squatting in the ruins. Big speech impediment.",
+  "xp": 10,
+  "mp": {
+    "current": 3,
+    "max": 5
+  },
   "body": 3,
   "heart": 2,
   "wits": 1,
@@ -145,6 +156,7 @@
     "troubled": false
   },
   "equipment": [],
+  "abilities": [],
   "activeEffects": [
     {
       "name": "Weird But Entertaining",
@@ -164,17 +176,8 @@
       ]
     }
   ],
-  "pronouns": "they/them",
-  "ancestries": "Human",
-  "cultures": "Asana Commune",
-  "personalityAndBackground": "Arrived too late to join the Asana Commune before it was destroyed. Squatting in the ruins. Big speech impediment.",
-  "xp": 10,
-  "mp": {
-    "current": 3,
-    "max": 5
-  },
-  "ancestryIds": [
-    1
+  "artUrls": [
+    "https://cdn.midjourney.com/a6773dd7-3da8-4349-9212-b021c7aa09f7/0_2.png"
   ],
   "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1"
 }

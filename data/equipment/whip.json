@@ -27,6 +27,7 @@
   "skillMods": [],
   "isDeleted": false,
   "isCustom": false,
+  "isTemplate": false,
   "artUrl": "https://cdn.midjourney.com/0675988b-f7f9-48eb-8261-4507c33dfccf/0_0.png",
   "type": "1",
   "subtype": "1",

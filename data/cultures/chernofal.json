@@ -1,18 +1,21 @@
 {
-  "message": "New record created in cultures.",
   "id": "7016610e-ddf9-415b-8711-3b1c5fff241c",
-  "hooks": [],
-  "playlists": [],
+  "name": "Chernofal",
+  "description": "<p>Travelers and traders moving through the Commonwealth face an ever-changing patchwork of local and regional laws as the Democracy Pits churn out newfangled ideas, seemingly by the hour. Goods dearly bought in Esil might be confiscated at Terinsay, having just been banned at the local Pit meeting the night before. Despite this messiness, the many towns remain united by their oft-stated commitments to Democracy, mining and agriculture, though the products of their work are increasingly demanded by Sila to support its explosive growth. Indeed, the capital seems less and less interested in the hinterland that birthed it, even as the Monte dei Paschi banking houses seem to take more and more interest in the region…</p>",
+  "isDeleted": false,
   "artUrls": [
     "https://cdn.midjourney.com/fa3515eb-27bf-4510-973d-f6a84cdfa3db/0_1.png"
   ],
   "faces": [],
   "places": [],
-  "name": "Chernofal",
   "backgroundImage": "https://cdn.midjourney.com/713ca3be-8022-48d1-8456-cd56ec91f28b/0_1.png",
-  "color1": "#ffffff",
-  "color2": "#000000",
   "expansion": "e46f4320-a414-4300-95d5-397ba717d982",
-  "expansionLogoUrl": "https://cdn.midjourney.com/a74946da-ccb3-4540-89e9-751411b6bb7c/0_1.png",
-  "description": "<p>Travelers and traders moving through the Commonwealth face an ever-changing patchwork of local and regional laws as the Democracy Pits churn out newfangled ideas, seemingly by the hour. Goods dearly bought in Esil might be confiscated at Terinsay, having just been banned at the local Pit meeting the night before. Despite this messiness, the many towns remain united by their oft-stated commitments to Democracy, mining and agriculture, though the products of their work are increasingly demanded by Sila to support its explosive growth. Indeed, the capital seems less and less interested in the hinterland that birthed it, even as the Monte dei Paschi banking houses seem to take more and more interest in the region…</p>"
+  "hooks": [],
+  "playlists": [],
+  "names": "",
+  "occupations": "",
+  "publicHouses": "",
+  "vittles": "",
+  "pointsOfInterest": "",
+  "floraFauna": ""
 }

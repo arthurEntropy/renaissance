@@ -1,6 +1,6 @@
 import CharacterService from '@/services/characterService'
-import { buildDiceSet, processDiceResults, getEmojiForDieResult, getFavoredStatus } from '@/utils/diceUtils'
-import { getDiceFontClass, getDiceFontMaxClass } from '@shared/utils/diceFontUtils'
+import { buildDiceSet, processDiceResults, getFavoredStatus, getDiceEmoji } from '@/utils/diceUtils'
+import { getDiceFontClass, getDiceFontMaxClass } from '@/utils/diceFontUtils'
 
 /**
  * Composable for managing skill dice interactions
@@ -66,8 +66,8 @@ export function useSkillDice(character, updateCallback) {
     return buildDiceSet(skillConfig, options)
   }
 
-  const getEmojiForDie = (result) => {
-    return getEmojiForDieResult(result)
+  const getEmojiForDie = (die, roll) => {
+    return getDiceEmoji(die, roll)
   }
 
   const processDiceResultsForCharacter = (rollResults, characterId, getDiceFontClass) => {

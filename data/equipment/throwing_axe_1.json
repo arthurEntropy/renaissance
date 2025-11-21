@@ -1,4 +1,5 @@
 {
+  "id": "1a98852b-e310-4f56-b4b4-75af7f784149",
   "name": "Throwing Axe",
   "description": "",
   "keeping": "1",
@@ -21,9 +22,9 @@
   "skillMods": [],
   "isDeleted": false,
   "isCustom": false,
+  "isTemplate": false,
   "artUrl": "https://cdn.midjourney.com/d46f6f43-caaf-42e1-8aaa-7cb4117b9318/0_3.jpeg",
   "type": "1",
   "subtype": "1",
-  "grade": "1",
-  "id": "1a98852b-e310-4f56-b4b4-75af7f784149"
+  "grade": "1"
 }

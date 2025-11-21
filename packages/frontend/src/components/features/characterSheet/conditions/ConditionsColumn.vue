@@ -5,7 +5,7 @@
             <div class="conditions-row" v-for="(value, key) in character.conditions" :key="key">
                 <span :class="{ 'condition-active': value }">{{
                     capitalize(key)
-                    }}</span>
+                }}</span>
                 <input type="checkbox" class="skill-checkbox" :class="{ 'condition-active-checkbox': value }"
                     :checked="value" :disabled="!isEditMode" @change="updateCondition(key, $event.target.checked)" />
             </div>
@@ -22,7 +22,6 @@
 </template>
 
 <script setup>
-import { capitalizeFirstLetter } from '@shared/utils/stringUtils'
 import CharacterSheetSection from '@/components/ui/containers/CharacterSheetSection.vue'
 import NumberInput from '@/components/ui/forms/NumberInput.vue'
 import CharacterService from '@/services/characterService'
@@ -40,7 +39,10 @@ const props = defineProps({
 
 const emit = defineEmits(['update:character'])
 
-const capitalize = (s) => capitalizeFirstLetter(String(s || ''))
+const capitalize = (s) => {
+    const str = String(s || '')
+    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase()
+}
 
 const updateCondition = (conditionKey, value) => {
     const updatedCharacter = {

@@ -1,18 +1,17 @@
 {
-  "message": "New record created in cultures.",
   "id": "c114dc0e-d6ca-4115-be35-684dead36de2",
-  "hooks": [],
-  "playlists": [],
+  "name": "The Underdark",
+  "description": "",
+  "isDeleted": false,
   "artUrls": [
     "https://cdn.midjourney.com/fd3657d5-7bcf-4343-84fc-617829d64e2e/0_0.png"
   ],
   "faces": [],
   "places": [],
-  "name": "The Underdark",
   "backgroundImage": "",
-  "color1": "#ffffff",
-  "color2": "#000000",
   "expansion": "824cad94-3a4a-4df3-b81a-ede17b84644b",
+  "hooks": [],
+  "playlists": [],
   "names": "Gregorik, Ilona, Radomir, Zsófia, Marek, Anika, Vlas, Erzsé, Tibor, Daciana, Emil, Klara, Istvan, Mirela, Vojtek, Lenka, Oskar, Bela, Florika, Andor",
   "occupations": "Fungus Cartographer, Tunnel Lampwright, Chitin Smith, Sporespoken Courier, Imperial Relic Hunter, Mold Taxidermist, Glowworm Shepherd, Bone Archivist, Echo Scout, Collapse Watcher, Crypt Fencer, Vein Surveyor, Lichen Apothecary, Vault Mason, Myco-Chronicler",
   "publicHouses": "The Velvet Spore, The Red Grotto, Hollowglass Bar, Soot and Lichen, The Last Railcar, Stag in the Deep",

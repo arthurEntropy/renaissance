@@ -1,17 +1,21 @@
 {
-  "message": "New record created in cultures.",
   "id": "01869d39-1961-4c8d-941d-744ce1d51bbd",
-  "hooks": [],
-  "playlists": [],
+  "name": "Monte dei Paschi",
+  "description": "<p>Founded 600 years ago on the shores of Lake Bracciano, the Monte dei Paschi Banking Houses represented the first formal cooperation between several races, united in their worship of a new ascendant, Greed. A strict isolationist policy during the Potluck Plague years protected the Banking Houses’ wealth and positioned them to draw together even more wealth in the aftermath. Today, the city that has grown up around the Banking Houses is a veritable shrine of opulence and the undisputed center of finance and diplomacy in Iago, as evidenced by the successful world economic summit of 573, which saw the dei Paschi financial standards win acceptance by many of the world’s cultures. When the influence of cold, hard coinage flows everywhere…Greed will not only be good, Greed will be a god…</p>",
+  "isDeleted": false,
   "artUrls": [
     "https://cdn.midjourney.com/2103a7cb-730b-4460-bf52-ca68fd685c11/0_2.png"
   ],
   "faces": [],
   "places": [],
-  "name": "Monte dei Paschi",
   "backgroundImage": "",
-  "color1": "#ffffff",
-  "color2": "#000000",
   "expansion": "e46f4320-a414-4300-95d5-397ba717d982",
-  "description": "<p>Founded 600 years ago on the shores of Lake Bracciano, the Monte dei Paschi Banking Houses represented the first formal cooperation between several races, united in their worship of a new ascendant, Greed. A strict isolationist policy during the Potluck Plague years protected the Banking Houses’ wealth and positioned them to draw together even more wealth in the aftermath. Today, the city that has grown up around the Banking Houses is a veritable shrine of opulence and the undisputed center of finance and diplomacy in Iago, as evidenced by the successful world economic summit of 573, which saw the dei Paschi financial standards win acceptance by many of the world’s cultures. When the influence of cold, hard coinage flows everywhere…Greed will not only be good, Greed will be a god…</p>"
+  "hooks": [],
+  "playlists": [],
+  "names": "",
+  "occupations": "",
+  "publicHouses": "",
+  "vittles": "",
+  "pointsOfInterest": "",
+  "floraFauna": ""
 }

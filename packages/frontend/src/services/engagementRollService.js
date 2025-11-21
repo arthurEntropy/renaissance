@@ -3,7 +3,7 @@ import { RollTypes } from '@/constants/rollTypes'
 import { EngagementWinnerTypes } from '@/constants/engagementWinnerTypes'
 import { PlayerSides } from '@/constants/playerSides'
 import { rollSingleDie } from '@/utils/diceUtils'
-import { getDiceFontClass, getDiceFontMaxClass } from '@shared/utils/diceFontUtils'
+import { getDiceFontClass, getDiceFontMaxClass } from '@/utils/diceFontUtils'
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000'
 
