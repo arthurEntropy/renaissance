@@ -43,7 +43,6 @@
 <script setup>
 import { computed } from 'vue'
 import NumberInput from '@/components/ui/forms/NumberInput.vue'
-import { formatWeight } from '@/utils/weightUtils'
 import { isWeapon } from '@/utils/equipmentUtils'
 
 const props = defineProps({
@@ -72,7 +71,11 @@ const canWield = computed(() => {
 
 const displayWeight = computed(() => {
     if (props.equipmentRow.isCarried && props.equipmentRow.equipment) {
-        return formatWeight(props.equipmentRow.equipment.weight * props.equipmentRow.quantity)
+        const value = props.equipmentRow.equipment.weight * props.equipmentRow.quantity
+        if (typeof value !== 'number' || isNaN(value)) {
+            return '0'
+        }
+        return Number.isInteger(value) ? value.toString() : value.toFixed(1)
     }
     return '0'
 })

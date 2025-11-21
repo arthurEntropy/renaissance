@@ -7,7 +7,6 @@
 
 <script setup>
 import { computed } from 'vue'
-import { calculateTotalWeight } from '@/utils/weightUtils'
 
 const props = defineProps({
     equipmentRows: {
@@ -18,7 +17,12 @@ const props = defineProps({
 })
 
 const totalWeight = computed(() => {
-    return calculateTotalWeight(props.equipmentRows)
+    return Math.round(
+        props.equipmentRows.reduce((sum, row) => {
+            if (!row.equipment) return sum
+            return row.isCarried ? sum + row.equipment.weight * row.quantity : sum
+        }, 0)
+    )
 })
 </script>
 
