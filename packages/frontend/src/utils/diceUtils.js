@@ -1,15 +1,15 @@
 import { getDiceFontClass } from '@/utils/diceFontUtils'
 import { DIE_TYPE, SPECIAL_ROLLS, EMOJI } from '../../../../shared/constants/dice.js'
 
-export function rollSingleDie(dieSize) {
-  return Math.floor(Math.random() * dieSize) + 1
+export function rollSingleDie(dieType) {
+  return Math.floor(Math.random() * dieType) + 1
 }
 
-export function getDiceEmoji(dieSize, roll) {
-  if (dieSize === DIE_TYPE.D12) {
-    if (roll === SPECIAL_ROLLS.SOL) return EMOJI.SOL
-    if (roll === SPECIAL_ROLLS.MORTE) return EMOJI.MORTE
-  } else if (dieSize === DIE_TYPE.D6 && roll === SPECIAL_ROLLS.SUCCESS) {
+export function getDiceEmoji(dieType, dieRoll) {
+  if (dieType === DIE_TYPE.D12) {
+    if (dieRoll === SPECIAL_ROLLS.SOL) return EMOJI.SOL
+    if (dieRoll === SPECIAL_ROLLS.MORTE) return EMOJI.MORTE
+  } else if (dieType === DIE_TYPE.D6 && dieRoll === SPECIAL_ROLLS.SUCCESS) {
     return EMOJI.SUCCESS
   }
   return null
@@ -88,7 +88,7 @@ export function buildDiceSet(skillConfig, options = {}) {
   // Add d12 dice (1 for flat, 2 for favored/ill-favored)
   const d12Count = skillConfig.isFavored || skillConfig.isIllFavored ? 2 : 1
   for (let i = 0; i < d12Count; i++) {
-    const die = { type: DIE_TYPE.D12, category: 'd12' }
+    const die = { type: DIE_TYPE.D12 }
     if (includeDiceClass && getDiceFontMaxClass) {
       die.diceClass = getDiceFontMaxClass(DIE_TYPE.D12)
     }
@@ -105,7 +105,6 @@ export function buildDiceSet(skillConfig, options = {}) {
     
     const die = {
       type: DIE_TYPE.D6,
-      category: 'd6',
       isSubtracted,
       isAdded: false
     }
@@ -124,7 +123,6 @@ export function buildDiceSet(skillConfig, options = {}) {
     for (let i = 0; i < maxAdditionalDice; i++) {
       const die = {
         type: DIE_TYPE.D6,
-        category: 'd6',
         isSubtracted: false,
         isAdded: true
       }

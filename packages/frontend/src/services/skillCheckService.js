@@ -2,7 +2,7 @@ import axios from 'axios'
 import { getDiceFontClass } from '@/utils/diceFontUtils'
 import { getDiceEmoji } from '@/utils/diceUtils'
 import { RollTypes } from '@/constants/rollTypes'
-import { DIE_TYPE, SPECIAL_ROLLS, TWICE_WEARY_THRESHOLD } from '../../../../../shared/constants/dice.js'
+import { DIE_TYPE, SPECIAL_ROLLS, TWICE_WEARY_THRESHOLD } from '../../../../shared/constants/dice.js'
 
 class SkillCheckService {
   static latestRollResult = null
