@@ -1,35 +1,35 @@
 import { getDiceFontClass } from '@/utils/diceFontUtils'
 import { DIE_TYPE, SPECIAL_ROLLS, EMOJI } from '../../../../shared/constants/dice.js'
 
-export function rollSingleDie(dieType) {
-  return Math.floor(Math.random() * dieType) + 1
+export function rollSingleDie(dieSides) {
+  return Math.floor(Math.random() * dieSides) + 1
 }
 
-export function getDiceEmoji(dieType, dieRoll) {
-  if (dieType === DIE_TYPE.D12) {
-    if (dieRoll === SPECIAL_ROLLS.SOL) return EMOJI.SOL
-    if (dieRoll === SPECIAL_ROLLS.MORTE) return EMOJI.MORTE
-  } else if (dieType === DIE_TYPE.D6 && dieRoll === SPECIAL_ROLLS.SUCCESS) {
+export function getDiceEmoji(dieSides, dieRollValue) {
+  if (dieSides === DIE_TYPE.D12) {
+    if (dieRollValue === SPECIAL_ROLLS.SOL) return EMOJI.SOL
+    if (dieRollValue === SPECIAL_ROLLS.MORTE) return EMOJI.MORTE
+  } else if (dieSides === DIE_TYPE.D6 && dieRollValue === SPECIAL_ROLLS.SUCCESS) {
     return EMOJI.SUCCESS
   }
   return null
 }
 
-function getDisplayValue(result) {
-  return result.roll === 0 ? result.originalRoll : result.roll
+function getDisplayDieRollValue(result) {
+  return result.dieRollValue === 0 ? result.originalDieRollValue : result.dieRollValue
 }
 
 export function formatDiceResults(rollResults) {
   return rollResults.map(result => {
-    const displayValue = getDisplayValue(result)
+    const displayDieRollValue = getDisplayDieRollValue(result)
     return {
-      type: result.die,
-      value: result.roll,
-      displayValue,
-      isMaxValue: result.die === result.roll && result.roll > 0,
-      dropped: result.roll === 0,
-      class: getDiceFontClass(result.die, displayValue),
-      emoji: getDiceEmoji(result.die, displayValue)
+      dieSides: result.dieSides,
+      dieRollValue: result.dieRollValue,
+      displayDieRollValue,
+      rolledMaxValue: result.dieSides === result.dieRollValue && result.dieRollValue > 0,
+      isDropped: result.dieRollValue === 0,
+      cssClass: getDiceFontClass(result.dieSides, displayDieRollValue),
+      emoji: getDiceEmoji(result.dieSides, displayDieRollValue)
     }
   })
 }
@@ -48,34 +48,34 @@ export function processDiceResults(rollResults, characterId, getDiceFontClassFn 
   const fontClassFn = getDiceFontClassFn || getDiceFontClass
 
   return userSession.rollResults.map((result, index) => {
-    const displayValue = getDisplayValue(result)
+    const displayDieRollValue = getDisplayDieRollValue(result)
     return {
-      type: result.die,
-      value: displayValue,
-      displayValue,
-      dropped: result.roll === 0,
-      isMaxValue: result.die === result.roll && result.roll > 0,
-      originalIndex: index,
-      emoji: getDiceEmoji(result.die, displayValue),
-      class: fontClassFn(result.die, displayValue)
+      dieSides: result.dieSides,
+      dieRollValue: displayDieRollValue,
+      displayDieRollValue,
+      isDropped: result.dieRollValue === 0,
+      rolledMaxValue: result.dieSides === result.dieRollValue && result.dieRollValue > 0,
+      poolIndex: index,
+      emoji: getDiceEmoji(result.dieSides, displayDieRollValue),
+      cssClass: fontClassFn(result.dieSides, displayDieRollValue)
     }
   }).sort((a, b) => {
     // First, sort by die type (d12s first, then d6s)
-    if (a.type !== b.type) {
-      return b.type - a.type
+    if (a.dieSides !== b.dieSides) {
+      return b.dieSides - a.dieSides
     }
 
     // Within same die type, sort by value (highest first), but dropped dice go to end
-    if (a.dropped && !b.dropped) return 1
-    if (!a.dropped && b.dropped) return -1
-    if (a.dropped && b.dropped) return 0
+    if (a.isDropped && !b.isDropped) return 1
+    if (!a.isDropped && b.isDropped) return -1
+    if (a.isDropped && b.isDropped) return 0
 
-    if (b.value !== a.value) {
-      return b.value - a.value
+    if (b.dieRollValue !== a.dieRollValue) {
+      return b.dieRollValue - a.dieRollValue
     }
 
     // If same type and value, maintain original order
-    return a.originalIndex - b.originalIndex
+    return a.poolIndex - b.poolIndex
   })
 }
 
@@ -88,9 +88,9 @@ export function buildDiceSet(skillConfig, options = {}) {
   // Add d12 dice (1 for flat, 2 for favored/ill-favored)
   const d12Count = skillConfig.isFavored || skillConfig.isIllFavored ? 2 : 1
   for (let i = 0; i < d12Count; i++) {
-    const die = { type: DIE_TYPE.D12 }
+    const die = { dieSides: DIE_TYPE.D12 }
     if (includeDiceClass && getDiceFontMaxClass) {
-      die.diceClass = getDiceFontMaxClass(DIE_TYPE.D12)
+      die.cssClass = getDiceFontMaxClass(DIE_TYPE.D12)
     }
     dice.push(die)
   }
@@ -104,13 +104,13 @@ export function buildDiceSet(skillConfig, options = {}) {
     const isSubtracted = diceMod < 0 && i >= baseRanks + diceMod
     
     const die = {
-      type: DIE_TYPE.D6,
+      dieSides: DIE_TYPE.D6,
       isSubtracted,
       isAdded: false
     }
     
     if (includeDiceClass && getDiceFontMaxClass) {
-      die.diceClass = getDiceFontMaxClass(DIE_TYPE.D6)
+      die.cssClass = getDiceFontMaxClass(DIE_TYPE.D6)
     }
     
     dice.push(die)
@@ -122,13 +122,13 @@ export function buildDiceSet(skillConfig, options = {}) {
     const maxAdditionalDice = Math.min(diceMod, MAX_RANKS - baseRanks)
     for (let i = 0; i < maxAdditionalDice; i++) {
       const die = {
-        type: DIE_TYPE.D6,
+        dieSides: DIE_TYPE.D6,
         isSubtracted: false,
         isAdded: true
       }
       
       if (includeDiceClass && getDiceFontMaxClass) {
-        die.diceClass = getDiceFontMaxClass(DIE_TYPE.D6)
+        die.cssClass = getDiceFontMaxClass(DIE_TYPE.D6)
       }
       
       dice.push(die)

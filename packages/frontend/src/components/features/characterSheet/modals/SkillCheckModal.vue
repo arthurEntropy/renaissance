@@ -168,8 +168,8 @@ const dicePool = computed(() => {
   })
 
   return {
-    d12Dice: allDice.filter(die => die.type === 12),
-    d6Dice: allDice.filter(die => die.type === 6)
+    d12Dice: allDice.filter(die => die.dieSides === 12),
+    d6Dice: allDice.filter(die => die.dieSides === 6)
   }
 })
 

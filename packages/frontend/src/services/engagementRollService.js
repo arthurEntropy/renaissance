@@ -23,37 +23,37 @@ class EngagementRollService {
       if (!rollResults) {
         // No results yet - show rolling state
         return {
-          die: die,
-          value: die,
-          class: getDiceFontMaxClass(die),
+          dieSides: die,
+          dieRollValue: die,
+          cssClass: getDiceFontMaxClass(die),
           isRolling: true,
-          isMax: false,
-          originalIndex: index,
-          dropped: false
+          rolledMaxValue: false,
+          poolIndex: index,
+          isDropped: false
         }
       } else {
         // Simple number result for engagement
         const value = rollResults[index] || 1
-        const isMax = value === die && value > 0
+        const rolledMaxValue = value === die && value > 0
         
         return {
-          die: die,
-          value: value,
-          class: getDiceFontClass(die, value),
+          dieSides: die,
+          dieRollValue: value,
+          cssClass: getDiceFontClass(die, value),
           isRolling: false,
-          isMax: isMax,
-          originalIndex: index,
-          dropped: false
+          rolledMaxValue: rolledMaxValue,
+          poolIndex: index,
+          isDropped: false
         }
       }
     })
 
     // Sort by value (highest first), then by die size (highest first)
     return diceWithResults.sort((a, b) => {
-      if (b.value !== a.value) {
-        return b.value - a.value
+      if (b.dieRollValue !== a.dieRollValue) {
+        return b.dieRollValue - a.dieRollValue
       }
-      return b.die - a.die
+      return b.dieSides - a.dieSides
     })
   }
 
@@ -106,10 +106,10 @@ class EngagementRollService {
           winnerCharacterId: null
         })
       } else if (userDie && opponentDie && !userDie.isRolling && !opponentDie.isRolling &&
-                 userDie.value !== undefined && opponentDie.value !== undefined) {
-        const userWins = userDie.value > opponentDie.value
-        const opponentWins = opponentDie.value > userDie.value
-        const tie = userDie.value === opponentDie.value
+                 userDie.dieRollValue !== undefined && opponentDie.dieRollValue !== undefined) {
+        const userWins = userDie.dieRollValue > opponentDie.dieRollValue
+        const opponentWins = opponentDie.dieRollValue > userDie.dieRollValue
+        const tie = userDie.dieRollValue === opponentDie.dieRollValue
 
         let winnerCharacterId = null
         if (userWins) {
@@ -202,8 +202,8 @@ class EngagementRollService {
     if (targetUser && targetUser.rollResults && sortedDice && sortedDice[diceIndex]) {
       const rerolledDie = sortedDice[diceIndex]
 
-      if (rerolledDie.originalIndex !== undefined) {
-        targetUser.rollResults[rerolledDie.originalIndex] = newValue
+      if (rerolledDie.poolIndex !== undefined) {
+        targetUser.rollResults[rerolledDie.poolIndex] = newValue
         targetUser.rollTotal = targetUser.rollResults.reduce((sum, value) => sum + value, 0)
         return true
       }

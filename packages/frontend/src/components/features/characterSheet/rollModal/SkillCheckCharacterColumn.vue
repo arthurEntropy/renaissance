@@ -194,14 +194,14 @@ const rollData = computed(() => {
     } else {
         // Use skill config dice for animation (during rerolls or when no results)
         diceResults = allDice.value.map(die => ({
-            type: die.type,
-            value: die.type, // Use max value for animation placeholder
-            displayValue: die.type,
-            dropped: false,
-            isMaxValue: true,
-            originalIndex: 0,
+            dieSides: die.dieSides,
+            dieRollValue: die.dieSides, // Use max value for animation placeholder
+            displayDieRollValue: die.dieSides,
+            isDropped: false,
+            rolledMaxValue: true,
+            poolIndex: 0,
             emoji: null,
-            class: getDiceFontClass(die.type, die.type) // Max value class for animation
+            cssClass: getDiceFontClass(die.dieSides, die.dieSides) // Max value class for animation
         }))
     }
 

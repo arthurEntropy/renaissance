@@ -2,7 +2,7 @@
     <div class="dice-row" @mouseenter="setHoverState(index, true)" @mouseleave="setHoverState(index, false)">
 
         <!-- Success assignment drop zone/display (left side for user) -->
-        <div v-if="die.isMax && showResults && !isOpponent" class="success-drop-zone left-side"
+        <div v-if="die.rolledMaxValue && showResults && !isOpponent" class="success-drop-zone left-side"
             :class="{ disabled: !canEdit }" @drop="canEdit ? onSuccessDrop($event) : null" @dragover.prevent
             @dragenter.prevent>
             <div v-if="assignedSuccesses[`${side}-${index}`]" class="assigned-success-container">
@@ -14,8 +14,8 @@
 
         <!-- Die display -->
         <span class="dice-symbol" :class="getDiceClasses(die, index)">
-            <i :class="die.class"></i>
-            <span v-if="die.isMax && !isRerolling(index)" class="max-indicator">✨</span>
+            <i :class="die.cssClass"></i>
+            <span v-if="die.rolledMaxValue && !isRerolling(index)" class="max-indicator">✨</span>
         </span>
 
         <!-- Reroll hover button - only for user's own dice -->
@@ -24,7 +24,7 @@
             class="reroll-hover" @click="$emit('reroll', side, index)" />
 
         <!-- Success assignment display (right side for opponent) -->
-        <div v-if="die.isMax && showResults && isOpponent" class="success-display-zone right-side">
+        <div v-if="die.rolledMaxValue && showResults && isOpponent" class="success-display-zone right-side">
             <div v-if="assignedSuccesses[`${side}-${index}`]" class="assigned-success-container">
                 <SuccessChip :success="getSuccessById(assignedSuccesses[`${side}-${index}`])" />
             </div>
@@ -95,7 +95,7 @@ const getDiceClasses = (die, index) => {
         classes.push('result-die')
     }
 
-    if (die.isMax) {
+    if (die.rolledMaxValue) {
         classes.push('max-result')
     }
 

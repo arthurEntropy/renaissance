@@ -26,39 +26,39 @@ class OpposedSkillCheckService {
       if (!rollResults) {
         // No results yet - show rolling state
         return {
-          die: die,
-          value: die,
-          class: getDiceFontMaxClass(die),
+          dieSides: die,
+          dieRollValue: die,
+          cssClass: getDiceFontMaxClass(die),
           isRolling: true,
-          isMax: false,
-          originalIndex: index,
-          dropped: false
+          rolledMaxValue: false,
+          poolIndex: index,
+          isDropped: false
         }
       } else {
         // Handle complex format with potential drops for skill checks
-        let value, dropped = false
+        let value, isDropped = false
         
         if (rollResults[index] && typeof rollResults[index] === 'object') {
           const result = rollResults[index]
-          value = result.roll
-          dropped = value === 0
+          value = result.dieRollValue
+          isDropped = value === 0
           // For display, show original roll if dropped
-          value = dropped ? result.originalRoll : value
+          value = isDropped ? result.originalDieRollValue : value
         } else {
           // Simple number result
           value = rollResults[index] || 1
         }
         
-        const isMax = value === die && value > 0 && !dropped
+        const rolledMaxValue = value === die && value > 0 && !isDropped
         
         return {
-          die: die,
-          value: value,
-          class: getDiceFontClass(die, value),
+          dieSides: die,
+          dieRollValue: value,
+          cssClass: getDiceFontClass(die, value),
           isRolling: false,
-          isMax: isMax,
-          originalIndex: index,
-          dropped: dropped
+          rolledMaxValue: rolledMaxValue,
+          poolIndex: index,
+          isDropped: isDropped
         }
       }
     })
@@ -67,11 +67,11 @@ class OpposedSkillCheckService {
     // Sort by die type first (d12s first), then by value (highest first)
     return diceWithResults.sort((a, b) => {
       // First sort by die type (d12s before d6s)
-      if (a.die !== b.die) {
-        return b.die - a.die
+      if (a.dieSides !== b.dieSides) {
+        return b.dieSides - a.dieSides
       }
       // Then sort by value (highest first)
-      return b.value - a.value
+      return b.dieRollValue - a.dieRollValue
     })
   }
 
@@ -149,13 +149,13 @@ class OpposedSkillCheckService {
     if (targetUser && targetUser.rollResults && sortedDice && sortedDice[diceIndex]) {
       const rerolledDie = sortedDice[diceIndex]
       
-      if (rerolledDie.originalIndex !== undefined) {
-        if (typeof targetUser.rollResults[rerolledDie.originalIndex] === 'object') {
+      if (rerolledDie.poolIndex !== undefined) {
+        if (typeof targetUser.rollResults[rerolledDie.poolIndex] === 'object') {
           // Complex format - update the roll value
-          targetUser.rollResults[rerolledDie.originalIndex].roll = newValue
+          targetUser.rollResults[rerolledDie.poolIndex].dieRollValue = newValue
         } else {
           // Simple format - update the value directly
-          targetUser.rollResults[rerolledDie.originalIndex] = newValue
+          targetUser.rollResults[rerolledDie.poolIndex] = newValue
         }
       }
     }

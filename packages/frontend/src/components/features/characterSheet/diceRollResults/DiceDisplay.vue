@@ -8,7 +8,7 @@
             <div class="dice-row">
                 <span v-for="(die, index) in waitingDiceDisplay" :key="`${state}-${index}`"
                     class="dice-symbol dice-rolling" :style="{ animationDelay: `${index * 100}ms` }">
-                    <i :class="die.class"></i>
+                    <i :class="die.cssClass"></i>
                 </span>
             </div>
         </div>
@@ -16,14 +16,14 @@
         <!-- Completed state -->
         <div v-else class="completed-dice-state">
             <span v-for="(die, index) in truncatedDice.dice" :key="index" class="dice-symbol" :class="{
-                'dropped-die': !isRolling && die.dropped,
-                'max-value-die': !isRolling && die.isMaxValue,
+                'dropped-die': !isRolling && die.isDropped,
+                'max-value-die': !isRolling && die.rolledMaxValue,
                 'dice-rolling': isRolling,
             }" :style="{
                 animationDelay: `${index * 50}ms`,
                 fontSize: `${diceSize}px`
             }">
-                <i :class="die.class"></i>
+                <i :class="die.cssClass"></i>
                 <span v-if="!isRolling && die.emoji && !isCustomRoll" class="dice-emoji">{{
                     die.emoji
                 }}</span>
@@ -48,10 +48,10 @@
                 </div>
                 <div class="modal-dice-display">
                     <span v-for="(die, index) in displayDice" :key="index" class="modal-dice-symbol" :class="{
-                        'dropped-die': die.dropped,
-                        'max-value-die': die.isMaxValue,
+                        'dropped-die': die.isDropped,
+                        'max-value-die': die.rolledMaxValue,
                     }">
-                        <i :class="die.class"></i>
+                        <i :class="die.cssClass"></i>
                         <span v-if="die.emoji && !isCustomRoll" class="dice-emoji">{{
                             die.emoji
                         }}</span>
@@ -153,9 +153,9 @@ const waitingDiceDisplay = computed(() => {
     if (!props.waitingDice || props.waitingDice.length === 0) return []
 
     return props.waitingDice.map((die, index) => ({
-        type: die.type,
-        class: getDiceFontClass(die.type, die.type), // Use the die type as the value for consistent display
-        originalIndex: index
+        dieSides: die.dieSides,
+        cssClass: getDiceFontClass(die.dieSides, die.dieSides), // Use the die type as the value for consistent display
+        poolIndex: index
     }))
 })
 
