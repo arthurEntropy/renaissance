@@ -31,10 +31,10 @@ class SkillCheckService {
 
     // Add index to each die result for backend compatibility
     diceResults.forEach((result, index) => {
-      result.index = index
-      // Ensure originalRoll is set for dropped dice
-      if (result.roll === 0 && !result.originalRoll) {
-        result.originalRoll = result.roll
+      result.poolIndex = index
+      // Ensure originalDieRollValue is set for dropped dice
+      if (result.dieRollValue === 0 && !result.originalDieRollValue) {
+        result.originalDieRollValue = result.dieRollValue
       }
     })
 
@@ -115,8 +115,8 @@ class SkillCheckService {
 
   static markSpecialDice(diceResults) {
     diceResults.forEach((result) => {
-      result.isMaxValue = result.die === result.roll
-      result.dropped = result.roll === 0 // Any dice with roll=0 were dropped by favored/ill-favored logic
+      result.rolledMaxValue = result.dieSides === result.dieRollValue
+      result.isDropped = result.dieRollValue === 0 // Any dice with dieRollValue=0 were dropped by favored/ill-favored logic
     })
   }
 
@@ -130,13 +130,13 @@ class SkillCheckService {
       targetNumber: targetNumber,
       success: isSuccess,
       diceResults: diceResults.map((result) => ({
-        type: result.die,
-        value: result.roll,
-        isMaxValue: result.die === result.roll,
-        emoji: getDiceEmoji(result.die, result.roll === 0 ? result.originalRoll : result.roll),
-        dropped: result.roll === 0,
-        displayValue: result.roll === 0 ? result.originalRoll : result.roll,
-        class: getDiceFontClass(result.die, result.roll === 0 ? result.originalRoll : result.roll),
+        dieSides: result.dieSides,
+        dieRollValue: result.dieRollValue,
+        rolledMaxValue: result.dieSides === result.dieRollValue,
+        emoji: getDiceEmoji(result.dieSides, result.dieRollValue === 0 ? result.originalDieRollValue : result.dieRollValue),
+        isDropped: result.dieRollValue === 0,
+        displayDieRollValue: result.dieRollValue === 0 ? result.originalDieRollValue : result.dieRollValue,
+        cssClass: getDiceFontClass(result.dieSides, result.dieRollValue === 0 ? result.originalDieRollValue : result.dieRollValue),
       })),
       favoredStatus: skill.isFavored
         ? 'favored'
@@ -149,17 +149,17 @@ class SkillCheckService {
   }
 
   static prepareDicePool(skill) {
-    const dicePool = [{ sides: DIE_TYPE.D12 }]
+    const dicePool = [{ dieSides: DIE_TYPE.D12 }]
 
     if (skill.isFavored || skill.isIllFavored) {
-      dicePool.push({ sides: DIE_TYPE.D12 })
+      dicePool.push({ dieSides: DIE_TYPE.D12 })
     }
 
     let totalD6Count = skill.ranks + skill.diceMod
     if (totalD6Count < 0) totalD6Count = 0
 
     for (let i = 0; i < totalD6Count; i++) {
-      dicePool.push({ sides: DIE_TYPE.D6 })
+      dicePool.push({ dieSides: DIE_TYPE.D6 })
     }
 
     return dicePool
@@ -167,8 +167,8 @@ class SkillCheckService {
 
   static rollDice(dicePool) {
     return dicePool.map((die) => {
-      const roll = Math.floor(Math.random() * die.sides) + 1
-      return { die: die.sides, roll: roll }
+      const roll = Math.floor(Math.random() * die.dieSides) + 1
+      return { dieSides: die.dieSides, dieRollValue: roll }
     })
   }
 
@@ -179,7 +179,7 @@ class SkillCheckService {
     character,
     targetNumber,
   ) {
-    const d12Rolls = diceResults.filter((result) => result.die === DIE_TYPE.D12).map((result) => result.roll)
+    const d12Rolls = diceResults.filter((result) => result.dieSides === DIE_TYPE.D12).map((result) => result.dieRollValue)
     const autoFail = isFavored
       ? d12Rolls.filter((roll) => roll === SPECIAL_ROLLS.MORTE).length === 2
       : d12Rolls.includes(SPECIAL_ROLLS.MORTE)
@@ -215,8 +215,8 @@ class SkillCheckService {
   }
 
   static handleFavored(diceResults) {
-    const d12Results = diceResults.filter((result) => result.die === DIE_TYPE.D12)
-    const d12Rolls = d12Results.map((result) => result.roll)
+    const d12Results = diceResults.filter((result) => result.dieSides === DIE_TYPE.D12)
+    const d12Rolls = d12Results.map((result) => result.dieRollValue)
 
     const highestD12Roll = d12Rolls.reduce((max, roll) => {
       if (roll === SPECIAL_ROLLS.MORTE) return max
@@ -225,19 +225,19 @@ class SkillCheckService {
 
     let keptOne = false
     d12Results.forEach((result) => {
-      if (result.roll === highestD12Roll && !keptOne) {
+      if (result.dieRollValue === highestD12Roll && !keptOne) {
         keptOne = true
       } else {
-        result.originalRoll = result.roll // Preserve the original roll
-        result.roll = 0 // Mark as not contributing to total
+        result.originalDieRollValue = result.dieRollValue // Preserve the original roll
+        result.dieRollValue = 0 // Mark as not contributing to total
       }
     })
   }
 
   static handleIllFavored(diceResults) {
     // Filter to get only d12 results
-    const d12Results = diceResults.filter((result) => result.die === DIE_TYPE.D12)
-    const d12Rolls = d12Results.map((result) => result.roll)
+    const d12Results = diceResults.filter((result) => result.dieSides === DIE_TYPE.D12)
+    const d12Rolls = d12Results.map((result) => result.dieRollValue)
 
     // Find the lowest roll, but if Morte (11) is present, treat it as the lowest
     const lowestD12Roll = d12Rolls.includes(SPECIAL_ROLLS.MORTE) ? SPECIAL_ROLLS.MORTE : Math.min(...d12Rolls)
@@ -245,11 +245,11 @@ class SkillCheckService {
     // Find the first occurrence of the lowest roll and set it to 0
     let keptOne = false
     d12Results.forEach((result) => {
-      if (result.roll === lowestD12Roll && !keptOne) {
+      if (result.dieRollValue === lowestD12Roll && !keptOne) {
         keptOne = true
       } else {
-        result.originalRoll = result.roll // Preserve the original roll
-        result.roll = 0 // Mark as not contributing to total
+        result.originalDieRollValue = result.dieRollValue // Preserve the original roll
+        result.dieRollValue = 0 // Mark as not contributing to total
       }
     })
   }
@@ -257,22 +257,22 @@ class SkillCheckService {
   static calculateTotalSum(diceResults, isTwiceWeary) {
     return diceResults.reduce((sum, result) => {
       // If it's a d12 with Morte (11), treat it as 0
-      if (result.die === DIE_TYPE.D12 && result.roll === SPECIAL_ROLLS.MORTE) {
+      if (result.dieSides === DIE_TYPE.D12 && result.dieRollValue === SPECIAL_ROLLS.MORTE) {
         return sum
       }
 
-      // If dice were dropped due to favored/ill-favored (roll = 0), don't add
-      if (result.roll === 0) {
+      // If dice were dropped due to favored/ill-favored (dieRollValue = 0), don't add
+      if (result.dieRollValue === 0) {
         return sum
       }
 
       // Apply Twice Weary rule (d6 rolls of 1-3 don't count toward total)
-      if (result.die === DIE_TYPE.D6 && result.roll <= TWICE_WEARY_THRESHOLD && isTwiceWeary) {
+      if (result.dieSides === DIE_TYPE.D6 && result.dieRollValue <= TWICE_WEARY_THRESHOLD && isTwiceWeary) {
         return sum
       }
 
       // Otherwise, add the roll to the total
-      return sum + result.roll
+      return sum + result.dieRollValue
     }, 0)
   }
 

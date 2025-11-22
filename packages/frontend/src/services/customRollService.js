@@ -36,7 +36,7 @@ class CustomRollService {
     this.latestRollResult = rollResult
 
     // Send to Discord
-    const rollResultsForDiscord = diceResults.map((r) => `${r.roll} (d${r.die})`).join(', ')
+    const rollResultsForDiscord = diceResults.map((r) => `${r.dieRollValue} (d${r.dieSides})`).join(', ')
     this.sendCustomRollToServer(
       rollResultsForDiscord,
       diceTotal,
@@ -51,19 +51,19 @@ class CustomRollService {
 
   static rollDice(dicePool) {
     return dicePool.map((die) => {
-      const roll = rollSingleDie(die.sides)
-      return { die: die.sides, roll: roll }
+      const roll = rollSingleDie(die.dieSides)
+      return { dieSides: die.dieSides, dieRollValue: roll }
     })
   }
 
   static calculateDiceTotal(diceResults) {
-    return diceResults.reduce((sum, result) => sum + result.roll, 0)
+    return diceResults.reduce((sum, result) => sum + result.dieRollValue, 0)
   }
 
   static markSpecialDice(diceResults) {
     diceResults.forEach((result) => {
-      result.isMaxValue = result.die === result.roll
-      result.dropped = false // Custom rolls don't have dropped dice
+      result.rolledMaxValue = result.dieSides === result.dieRollValue
+      result.isDropped = false // Custom rolls don't have dropped dice
     })
   }
 
@@ -79,13 +79,13 @@ class CustomRollService {
       targetNumber: null, // Custom rolls don't have target numbers
       success: null, // Custom rolls don't have success/failure
       diceResults: diceResults.map((result) => ({
-        type: result.die, // Die size (4, 6, 8, 10, 12, 20)
-        value: result.roll, // The actual number rolled
-        isMaxValue: result.die === result.roll,
+        dieSides: result.dieSides, // Die size (4, 6, 8, 10, 12, 20)
+        dieRollValue: result.dieRollValue, // The actual number rolled
+        rolledMaxValue: result.dieSides === result.dieRollValue,
         emoji: null, // No emojis for custom rolls
-        dropped: false, // Custom rolls don't drop dice
-        displayValue: result.roll,
-        class: getDiceFontClass(result.die, result.roll), // For in-app display using DiceFont
+        isDropped: false, // Custom rolls don't drop dice
+        displayDieRollValue: result.dieRollValue,
+        cssClass: getDiceFontClass(result.dieSides, result.dieRollValue), // For in-app display using DiceFont
       })),
       favoredStatus: null, // Custom rolls don't have favored status
       footer: '', // No footer for custom rolls

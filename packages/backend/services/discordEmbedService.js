@@ -14,18 +14,18 @@ const DIE_SYMBOL = {
 
 export function formatDiceSymbol(dieResult) {
   try {
-    const { die, roll } = dieResult
-    const displayRoll = roll === 0 && dieResult.originalRoll ? dieResult.originalRoll : roll
+    const { dieSides, dieRollValue } = dieResult
+    const displayDieRollValue = dieRollValue === 0 && dieResult.originalDieRollValue ? dieResult.originalDieRollValue : dieRollValue
     
-    if (die === DIE_TYPE.D12) {
-      if (displayRoll === SPECIAL_ROLLS.SOL) return `${DIE_SYMBOL.D12}${SPECIAL_ROLLS.SOL}${EMOJI.SOL}`
-      if (displayRoll === SPECIAL_ROLLS.MORTE) return `${DIE_SYMBOL.D12}${SPECIAL_ROLLS.MORTE}${EMOJI.MORTE}`
-      return `${DIE_SYMBOL.D12}${displayRoll}`
-    } else if (die === DIE_TYPE.D6) {
-      if (displayRoll === SPECIAL_ROLLS.SUCCESS) return `${DIE_SYMBOL.D6}${SPECIAL_ROLLS.SUCCESS}${EMOJI.SUCCESS}`
-      return `${DIE_SYMBOL.D6}${displayRoll}`
+    if (dieSides === DIE_TYPE.D12) {
+      if (displayDieRollValue === SPECIAL_ROLLS.SOL) return `${DIE_SYMBOL.D12}${SPECIAL_ROLLS.SOL}${EMOJI.SOL}`
+      if (displayDieRollValue === SPECIAL_ROLLS.MORTE) return `${DIE_SYMBOL.D12}${SPECIAL_ROLLS.MORTE}${EMOJI.MORTE}`
+      return `${DIE_SYMBOL.D12}${displayDieRollValue}`
+    } else if (dieSides === DIE_TYPE.D6) {
+      if (displayDieRollValue === SPECIAL_ROLLS.SUCCESS) return `${DIE_SYMBOL.D6}${SPECIAL_ROLLS.SUCCESS}${EMOJI.SUCCESS}`
+      return `${DIE_SYMBOL.D6}${displayDieRollValue}`
     }
-    return `${displayRoll}`
+    return `${displayDieRollValue}`
   } catch (error) {
     console.error('Error formatting dice symbol:', error, 'for result:', dieResult)
     return '?'
