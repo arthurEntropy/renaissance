@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import ExpansionService from '@/services/expansionService'
+import ExpansionService from '@/services/entities/expansionService'
 
 export const useExpansionsStore = defineStore('expansions', () => {
   // state

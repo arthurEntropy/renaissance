@@ -19,13 +19,12 @@ class AuthService {
     })
   }
 
-  // Sign in with Google
+  // Currently only Google sign-in is supported
   async signInWithGoogle() {
     try {
       const result = await signInWithPopup(auth, googleProvider)
       const user = result.user
       
-      // Create or update user profile on backend
       await this.syncUserProfile(user)
       
       return { user }
@@ -35,7 +34,6 @@ class AuthService {
     }
   }
 
-  // Sign out
   async signOut() {
     try {
       await signOut(auth)
@@ -47,17 +45,14 @@ class AuthService {
     }
   }
 
-  // Get current user
   getCurrentUser() {
     return this.currentUser
   }
 
-  // Check if user is authenticated
   isAuthenticated() {
     return this.currentUser !== null
   }
 
-  // Get user token
   async getIdToken() {
     if (!this.currentUser) return null
     try {
@@ -68,7 +63,6 @@ class AuthService {
     }
   }
 
-  // Get user claims (roles, etc.)
   async getIdTokenResult() {
     if (!this.currentUser) return null
     try {
@@ -79,13 +73,11 @@ class AuthService {
     }
   }
 
-  // Check if user has admin role
   async isAdmin() {
     const tokenResult = await this.getIdTokenResult()
     return tokenResult?.claims?.role === 'admin'
   }
 
-  // Sync user profile with backend
   async syncUserProfile(user) {
     try {
       const token = await user.getIdToken()
@@ -120,7 +112,6 @@ class AuthService {
     }
   }
 
-  // Subscribe to auth state changes
   onAuthStateChange(callback) {
     this.listeners.push(callback)
     
@@ -133,7 +124,6 @@ class AuthService {
     }
   }
 
-  // Notify all listeners of auth state changes
   notifyListeners(user) {
     this.listeners.forEach(callback => {
       try {
@@ -144,7 +134,6 @@ class AuthService {
     })
   }
 
-  // Wait for auth to be ready
   waitForAuth() {
     return new Promise((resolve) => {
       if (this.authInitialized) {

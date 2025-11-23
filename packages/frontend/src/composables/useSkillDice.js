@@ -1,4 +1,4 @@
-import CharacterService from '@/services/characterService'
+import CharacterService from '@/services/entities/characterService'
 import { buildDiceSet, processDiceResults, getFavoredStatus, getDiceEmoji } from '@/utils/diceUtils'
 import { getDiceFontClass, getDiceFontMaxClass } from '@/utils/diceFontUtils'
 

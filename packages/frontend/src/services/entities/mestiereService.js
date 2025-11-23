@@ -1,14 +1,14 @@
-import BaseService from './baseService'
+import BaseEntityService from './baseEntityService'
 
-class CultureService extends BaseService {
+class MestiereService extends BaseEntityService {
   constructor() {
-    super('/cultures', 'culture')
+    super('/mestieri', 'mestiere')
   }
 
   getDefaultEntity() {
     return {
       id: null,
-      name: 'New Culture',
+      name: 'New Mestiere',
       description: '',
       isDeleted: false,
       artUrls: ['https://cdn.midjourney.com/a8a36740-b7d3-4aef-bea3-a95039bec06f/0_2.png'],
@@ -28,4 +28,4 @@ class CultureService extends BaseService {
   }
 }
 
-export default new CultureService()
+export default new MestiereService()

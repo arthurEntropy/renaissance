@@ -1,12 +1,11 @@
-import BaseService from './baseService'
-import AuthService from './authService'
+import BaseEntityService from './baseEntityService'
+import AuthService from '../auth/authService'
 
-class UserService extends BaseService {
+class UserService extends BaseEntityService {
   constructor() {
     super('/users', 'user')
   }
 
-  // Get current user's profile
   async getCurrentProfile() {
     try {
       const token = await AuthService.getIdToken()
@@ -27,7 +26,6 @@ class UserService extends BaseService {
     }
   }
 
-  // Update current user's profile
   async updateCurrentProfile(updates) {
     try {
       const token = await AuthService.getIdToken()
@@ -51,7 +49,6 @@ class UserService extends BaseService {
     }
   }
 
-  // Admin: Get all users
   async getAllUsers() {
     try {
       const token = await AuthService.getIdToken()
@@ -72,7 +69,6 @@ class UserService extends BaseService {
     }
   }
 
-  // Admin: Update user
   async updateUser(userId, updates) {
     try {
       const token = await AuthService.getIdToken()
@@ -96,7 +92,6 @@ class UserService extends BaseService {
     }
   }
 
-  // Admin: Delete user
   async deleteUser(userId) {
     try {
       const token = await AuthService.getIdToken()
@@ -118,12 +113,10 @@ class UserService extends BaseService {
     }
   }
 
-  // Admin: Approve user
   async approveUser(userId) {
     return this.updateUser(userId, { status: 'approved' })
   }
 
-  // Admin: Set user role
   async setUserRole(userId, role) {
     return this.updateUser(userId, { role })
   }

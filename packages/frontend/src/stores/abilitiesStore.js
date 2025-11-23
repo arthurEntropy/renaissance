@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import AbilityService from '@/services/abilityService'
+import AbilityService from '@/services/entities/abilityService'
 
 export const useAbilitiesStore = defineStore('abilities', () => {
   // state

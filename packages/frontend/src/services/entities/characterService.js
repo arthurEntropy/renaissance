@@ -1,4 +1,4 @@
-import BaseService from './baseService'
+import BaseEntityService from './baseEntityService'
 import {
   CONDITION_AFFECTED_SKILLS,
   STATE_AFFECTED_SKILLS,
@@ -6,7 +6,7 @@ import {
   MAX_ENDURANCE_MULTIPLIER,
   MAX_HOPE_MULTIPLIER,
   MAX_DEFENSE_BASE,
-} from '../constants/coreAbilityConfig'
+} from '../../constants/coreAbilityConfig'
 
 const defaultNewEquipmentItem = {
   id: '',
@@ -16,7 +16,7 @@ const defaultNewEquipmentItem = {
   artExpanded: false,
 }
 
-class CharacterService extends BaseService {
+class CharacterService extends BaseEntityService {
   constructor() {
     super('/characters', 'character')
   }

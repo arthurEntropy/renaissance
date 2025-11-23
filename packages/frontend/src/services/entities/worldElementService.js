@@ -1,6 +1,6 @@
-import BaseService from './baseService'
+import BaseEntityService from './baseEntityService'
 
-class WorldElementService extends BaseService {
+class WorldElementService extends BaseEntityService {
   constructor() {
     super('/worldelements', 'world element')
   }

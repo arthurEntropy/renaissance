@@ -1,6 +1,6 @@
-import BaseService from './baseService'
+import BaseEntityService from './baseEntityService'
 
-class BackgroundImageService extends BaseService {
+class BackgroundImageService extends BaseEntityService {
   constructor() {
     super('/backgroundImages', 'backgroundImage')
   }

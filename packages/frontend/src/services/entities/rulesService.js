@@ -1,6 +1,6 @@
-import BaseService from './baseService'
+import BaseEntityService from './baseEntityService'
 
-class RulesService extends BaseService {
+class RulesService extends BaseEntityService {
   constructor() {
     super('/rules', 'section')
   }

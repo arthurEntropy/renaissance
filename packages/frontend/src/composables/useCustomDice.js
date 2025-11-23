@@ -1,6 +1,6 @@
 import { ref, computed } from 'vue'
 import { useDiceManagement } from './useDiceManagement'
-import CustomRollService from '@/services/customRollService'
+import CustomRollService from '@/services/rolls/customRollService'
 
 /**
  * Composable for managing custom dice rolls

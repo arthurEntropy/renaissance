@@ -1,6 +1,6 @@
-import BaseService from './baseService.js'
+import BaseEntityService from './baseEntityService'
 
-class EquipmentSubtypeService extends BaseService {
+class EquipmentSubtypeService extends BaseEntityService {
   constructor() {
     super('/equipmentSubtypes', 'equipmentSubtype')
   }

@@ -54,7 +54,7 @@
 
 <script setup>
 import { ref, computed } from 'vue'
-import CharacterService from '@/services/characterService'
+import CharacterService from '@/services/entities/characterService'
 import EquipmentCard from '@/components/ui/cards/EquipmentCard.vue'
 import EquipmentWeight from './EquipmentWeight.vue'
 import EquipmentDetails from './EquipmentDetails.vue'

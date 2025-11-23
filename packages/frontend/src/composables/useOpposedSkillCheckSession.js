@@ -2,9 +2,9 @@ import { ref, computed, watch } from 'vue'
 import { SESSION_STATUS } from '@shared/constants/sessionStatus.js'
 import { PlayerSides } from '@/constants/playerSides.js'
 import { DICE_ROLL_DURATION } from '@/constants/animationDurations'
-import opposedSkillCheckSessionService from '@/services/opposedSkillCheckSessionService'
-import OpposedSkillCheckService from '@/services/opposedSkillCheckService'
-import SkillCheckService from '@/services/skillCheckService'
+import opposedSkillCheckSessionService from '@/services/sessions/opposedSkillCheckSessionService'
+import OpposedSkillCheckService from '@/services/rolls/opposedSkillCheckService'
+import SkillCheckService from '@/services/rolls/skillCheckService'
 import { useBaseSession } from './useBaseSession.js'
 
 export function useOpposedSkillCheckSession() {

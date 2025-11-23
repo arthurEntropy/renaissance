@@ -1,6 +1,6 @@
-import BaseService from './baseService'
+import BaseEntityService from './baseEntityService'
 
-class ArtService extends BaseService {
+class ArtService extends BaseEntityService {
   constructor() {
     super('/art', 'art')
   }
@@ -11,8 +11,8 @@ class ArtService extends BaseService {
       id: null,
       url: '',
       tags: {
-        type: 'faces', // 'faces' | 'places'
-        sources: [] // array of concept IDs
+        type: 'faces',
+        sources: []
       },
       isDeleted: false,
       createdAt: now,
@@ -20,13 +20,6 @@ class ArtService extends BaseService {
     }
   }
 
-  /**
-   * Helper method to filter art by type and source
-   * @param {Array} allArt - Array of all art items
-   * @param {string} type - 'faces' or 'places'
-   * @param {string} sourceId - Concept ID
-   * @returns {Array} Array of URLs
-   */
   getByTypeAndSource(allArt, type, sourceId) {
     return allArt
       .filter(art => 

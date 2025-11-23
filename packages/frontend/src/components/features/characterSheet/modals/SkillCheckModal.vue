@@ -79,7 +79,7 @@
 <script setup>
 import { ref, computed, watch } from 'vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
-import SkillCheckService from '@/services/skillCheckService'
+import SkillCheckService from '@/services/rolls/skillCheckService'
 import { getDiceFontMaxClass } from '@/utils/diceFontUtils'
 import { useSkillDice } from '@/composables/useSkillDice'
 

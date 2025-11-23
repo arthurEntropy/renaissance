@@ -1,6 +1,6 @@
-import BaseService from './baseService'
+import BaseEntityService from './baseEntityService'
 
-class AncestryService extends BaseService {
+class AncestryService extends BaseEntityService {
   constructor() {
     super('/ancestries', 'ancestry')
   }

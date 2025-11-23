@@ -1,6 +1,6 @@
-import BaseService from './baseService'
+import BaseEntityService from './baseEntityService'
 
-class EngagementSuccessService extends BaseService {
+class EngagementSuccessService extends BaseEntityService {
   constructor() {
     super('/engagementsuccesses', 'engagement success')
   }

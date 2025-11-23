@@ -1,6 +1,6 @@
 import { computed, watch } from 'vue'
 import { useCharactersStore } from '@/stores/charactersStore'
-import CharacterService from '@/services/characterService'
+import CharacterService from '@/services/entities/characterService'
 
 /**
  * Composable for managing character selection, updates, and stat watching

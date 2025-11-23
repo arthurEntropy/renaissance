@@ -1,13 +1,12 @@
 import axios from 'axios'
-import AuthService from './authService'
+import AuthService from '../auth/authService'
 
-class BaseService {
+class BaseEntityService {
   constructor(endpoint, entityName) {
     this.baseUrl = `${import.meta.env.VITE_API_URL || 'http://localhost:3000'}${endpoint}`
     this.entityName = entityName
   }
 
-  // Get authentication headers
   async getAuthHeaders() {
     const token = await AuthService.getIdToken()
     return token ? { Authorization: `Bearer ${token}` } : {}
@@ -69,4 +68,4 @@ class BaseService {
   }
 }
 
-export default BaseService
+export default BaseEntityService

@@ -4,7 +4,7 @@
 
 <script setup>
 import { useCulturesStore } from '@/stores/culturesStore'
-import CultureService from '@/services/cultureService'
+import CultureService from '@/services/entities/cultureService'
 import ConceptsLayout from '@/components/ui/layouts/ConceptsLayout.vue'
 import { useConceptsLayout } from '@/composables/useConceptsLayout'
 

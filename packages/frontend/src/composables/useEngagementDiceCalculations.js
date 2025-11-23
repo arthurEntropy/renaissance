@@ -1,4 +1,4 @@
-import EngagementRollService from '@/services/engagementRollService'
+import EngagementRollService from '@/services/rolls/engagementRollService'
 import PlayerSides from '@/constants/playerSides'
 
 /**

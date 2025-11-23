@@ -1,4 +1,4 @@
-import ArtService from '@/services/artService'
+import ArtService from '@/services/entities/artService'
 
 export function useArtCrud(artStore) {
     const saveArt = async (artData, selectedItems, closeModal, clearSelection) => {

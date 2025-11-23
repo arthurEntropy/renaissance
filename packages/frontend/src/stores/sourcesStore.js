@@ -1,9 +1,9 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import AncestryService from '@/services/ancestryService'
-import CultureService from '@/services/cultureService'
-import MestieriService from '@/services/mestiereService'
-import WorldElementsService from '@/services/worldElementService'
+import AncestryService from '@/services/entities/ancestryService'
+import CultureService from '@/services/entities/cultureService'
+import MestieriService from '@/services/entities/mestiereService'
+import WorldElementsService from '@/services/entities/worldElementService'
 
 export const useSourcesStore = defineStore('sources', () => {
   // state

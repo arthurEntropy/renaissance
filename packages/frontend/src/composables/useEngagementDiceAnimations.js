@@ -1,6 +1,6 @@
 import { ref, reactive, computed, nextTick } from 'vue'
-import EngagementRollService from '@/services/engagementRollService'
-import engagementSessionService from '@/services/engagementSessionService'
+import EngagementRollService from '@/services/rolls/engagementRollService'
+import engagementSessionService from '@/services/sessions/engagementSessionService'
 import PlayerSides from '@/constants/playerSides'
 import { DICE_ROLL_DURATION } from '@/constants/animationDurations'
 import { getDiceFontClass, getDiceFontMaxClass } from '@/utils/diceFontUtils'

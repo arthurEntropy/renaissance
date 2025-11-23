@@ -4,7 +4,7 @@
 
 <script setup>
 import { useWorldElementsStore } from '@/stores/worldElementsStore'
-import WorldElementService from '@/services/worldElementService'
+import WorldElementService from '@/services/entities/worldElementService'
 import ConceptsLayout from '@/components/ui/layouts/ConceptsLayout.vue'
 import { useConceptsLayout } from '@/composables/useConceptsLayout'
 

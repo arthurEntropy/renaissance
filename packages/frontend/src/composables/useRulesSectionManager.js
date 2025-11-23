@@ -1,7 +1,7 @@
 import { ref, watch, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useRulesStore } from '@/stores/rulesStore'
-import RulesService from '@/services/rulesService'
+import RulesService from '@/services/entities/rulesService'
 
 export function useRulesSectionManager() {
   const rulesStore = useRulesStore()

@@ -1,6 +1,6 @@
 import { ref } from 'vue'
-import EquipmentService from '@/services/equipmentService'
-import CharacterService from '@/services/characterService'
+import EquipmentService from '@/services/entities/equipmentService'
+import CharacterService from '@/services/entities/characterService'
 import { useEquipmentStore } from '@/stores/equipmentStore'
 
 /**

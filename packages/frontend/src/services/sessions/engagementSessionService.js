@@ -1,5 +1,5 @@
 import { io } from 'socket.io-client'
-import AuthService from './authService'
+import AuthService from '../auth/authService'
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000'
 

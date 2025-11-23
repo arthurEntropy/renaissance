@@ -5,10 +5,12 @@
     <!-- Mobile Side Menu -->
     <div class="nav-menu" :class="{ open: menuOpen }">
       <button class="menu-toggle" @click="toggleMenu">☰</button>
+
       <!-- Mobile Auth Component -->
       <div v-if="menuOpen" class="mobile-auth">
         <AuthComponent @open-preferences="openPreferences" />
       </div>
+
       <nav v-if="menuOpen">
         <router-link to="/rules" @click="closeMenu">RULES</router-link>
         <router-link to="/ancestries" @click="closeMenu">ANCESTRIES</router-link>
@@ -58,6 +60,7 @@
       <!-- Preferences modal -->
       <PreferencesModal v-else-if="showPreferencesModal" @close="closePreferences" />
 
+      <!-- Main router view -->
       <router-view v-else />
     </div>
 
@@ -97,10 +100,9 @@ export default {
     const updateBackground = () => {
       const bgUrl = userPreferencesStore.selectedBackgroundImage
       if (bgUrl) {
-        // Set CSS variable for future compatibility
+        // TODO: Figure out how to obviate the need for all three settings here.
+        // All three are needed: CSS variable for global.css, html for documentElement, body for body element
         document.documentElement.style.setProperty('--background-image-url', `url('${bgUrl}')`)
-
-        // Also set directly with !important to override the CSS rule
         document.documentElement.style.setProperty('background-image', `url('${bgUrl}')`, 'important')
         document.body.style.setProperty('background-image', `url('${bgUrl}')`, 'important')
       }
@@ -145,7 +147,7 @@ export default {
           updateBackground()
         }
       },
-      { immediate: true } // Run immediately with current value
+      { immediate: true }
     )
 
     return {

@@ -5,7 +5,7 @@
             <div class="conditions-row" v-for="(value, key) in character.conditions" :key="key">
                 <span :class="{ 'condition-active': value }">{{
                     capitalize(key)
-                }}</span>
+                    }}</span>
                 <input type="checkbox" class="skill-checkbox" :class="{ 'condition-active-checkbox': value }"
                     :checked="value" :disabled="!isEditMode" @change="updateCondition(key, $event.target.checked)" />
             </div>
@@ -24,7 +24,7 @@
 <script setup>
 import CharacterSheetSection from '@/components/ui/containers/CharacterSheetSection.vue'
 import NumberInput from '@/components/ui/forms/NumberInput.vue'
-import CharacterService from '@/services/characterService'
+import CharacterService from '@/services/entities/characterService'
 
 const props = defineProps({
     character: {

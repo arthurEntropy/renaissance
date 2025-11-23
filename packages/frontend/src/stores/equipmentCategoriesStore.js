@@ -1,9 +1,9 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
-import EquipmentTypeService from '@/services/equipmentTypeService'
-import EquipmentSubtypeService from '@/services/equipmentSubtypeService'
-import EquipmentGradeService from '@/services/equipmentGradeService'
-import EquipmentRangeService from '@/services/equipmentRangeService'
+import EquipmentTypeService from '@/services/entities/equipmentTypeService'
+import EquipmentSubtypeService from '@/services/entities/equipmentSubtypeService'
+import EquipmentGradeService from '@/services/entities/equipmentGradeService'
+import EquipmentRangeService from '@/services/entities/equipmentRangeService'
 
 export const useEquipmentCategoriesStore = defineStore('equipmentCategories', () => {
   // state

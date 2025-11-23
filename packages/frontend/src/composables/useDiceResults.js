@@ -1,7 +1,7 @@
 import { ref } from 'vue'
-import SkillCheckService from '@/services/skillCheckService'
-import CustomRollService from '@/services/customRollService'
-import OpposedSkillCheckService from '@/services/opposedSkillCheckService'
+import SkillCheckService from '@/services/rolls/skillCheckService'
+import CustomRollService from '@/services/rolls/customRollService'
+import OpposedSkillCheckService from '@/services/rolls/opposedSkillCheckService'
 
 /**
  * Composable for managing dice roll results across all roll types

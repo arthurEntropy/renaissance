@@ -1,6 +1,6 @@
 import { watch, computed } from 'vue'
-import engagementSessionService from '@/services/engagementSessionService'
-import EngagementRollService from '@/services/engagementRollService'
+import engagementSessionService from '@/services/sessions/engagementSessionService'
+import EngagementRollService from '@/services/rolls/engagementRollService'
 import EngagementResultTypes from '@/constants/engagementResultTypes'
 import EngagementWinnerTypes from '@/constants/engagementWinnerTypes'
 import RollTypes from '@/constants/rollTypes'

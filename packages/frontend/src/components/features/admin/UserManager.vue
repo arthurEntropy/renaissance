@@ -59,7 +59,7 @@
 import { ref, computed, onMounted } from 'vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import UserCard from './UserCard.vue'
-import UserService from '@/services/userService'
+import UserService from '@/services/entities/userService'
 
 const users = ref([])
 const loading = ref(true)

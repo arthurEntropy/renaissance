@@ -4,7 +4,7 @@
 
 <script setup>
 import { useMestieriStore } from '@/stores/mestieriStore'
-import MestiereService from '@/services/mestiereService'
+import MestiereService from '@/services/entities/mestiereService'
 import ConceptsLayout from '@/components/ui/layouts/ConceptsLayout.vue'
 import { useConceptsLayout } from '@/composables/useConceptsLayout'
 
