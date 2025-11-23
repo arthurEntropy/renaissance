@@ -1,5 +1,6 @@
 import { io } from 'socket.io-client'
 import AuthService from '../auth/authService'
+import { SOCKET_CONFIG } from '@shared/constants/socketConfig.js'
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000'
 
@@ -15,9 +16,9 @@ class BaseSessionService {
     this.listeners = new Map()
     this.config = {
       reconnection: true,
-      reconnectionDelay: 1000,
-      reconnectionAttempts: 5,
-      timeout: 20000,
+      reconnectionDelay: SOCKET_CONFIG.RECONNECTION_DELAY,
+      reconnectionAttempts: SOCKET_CONFIG.RECONNECTION_ATTEMPTS,
+      timeout: SOCKET_CONFIG.TIMEOUT,
       ...config
     }
   }
@@ -95,8 +96,8 @@ class BaseSessionService {
         this._notifyListeners('acceptance-state-updated', { characterId, accepted })
       })
 
-      this.socket.on('rerolled', ({ player, diceIndex, newValue, characterId }) => {
-        this._notifyListeners('rerolled', { player, diceIndex, newValue, characterId })
+      this.socket.on('die-rerolled', ({ player, diceIndex, newValue, characterId }) => {
+        this._notifyListeners('die-rerolled', { player, diceIndex, newValue, characterId })
       })
 
       // Set up service-specific event handlers
@@ -180,7 +181,7 @@ class BaseSessionService {
   rerollDie(player, diceIndex, newValue, characterId) {
     try {
       if (this.socket && this.sessionId) {
-        this.socket.emit('reroll', {
+        this.socket.emit('reroll-die', {
           sessionId: this.sessionId,
           player,
           diceIndex,
@@ -212,6 +213,24 @@ class BaseSessionService {
       console.error(`${this.constructor.name}: Error updating acceptance state:`, error)
       this._notifyListeners('error', { error: 'Failed to update acceptance state' })
     }
+  }
+
+  cancelSession() {
+    this._safeEmit('cancel-session', {})
+    this.sessionId = null
+  }
+
+  submitRollResults(rollResults, characterId) {
+    this._safeEmit('submit-roll-results', {
+      rollResults,
+      characterId
+    })
+  }
+
+  completeSession(winner) {
+    this._safeEmit('complete-session', {
+      winner
+    })
   }
 
   // Protected methods for subclasses to override
