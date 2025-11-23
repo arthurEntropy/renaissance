@@ -1,4 +1,5 @@
 import BaseEntityService from './baseEntityService'
+import { createDefaultBackgroundImage } from '@shared/types'
 
 class BackgroundImageService extends BaseEntityService {
   constructor() {
@@ -6,11 +7,7 @@ class BackgroundImageService extends BaseEntityService {
   }
 
   getDefaultEntity() {
-    return {
-      id: null,
-      imageUrl: '',
-      isDeleted: false,
-    }
+    return createDefaultBackgroundImage()
   }
 }
 

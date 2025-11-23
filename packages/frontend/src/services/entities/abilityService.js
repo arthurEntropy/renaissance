@@ -1,4 +1,5 @@
 import BaseEntityService from './baseEntityService'
+import { createDefaultAbility } from '@shared/types'
 
 class AbilityService extends BaseEntityService {
   constructor() {
@@ -6,18 +7,7 @@ class AbilityService extends BaseEntityService {
   }
 
   getDefaultEntity() {
-    return {
-      id: null,
-      name: 'New Ability',
-      description: '',
-      isTrait: false,
-      canBeActive: false,
-      isActive: true,
-      source: null,
-      isDeleted: false,
-      mp: null,
-      xp: null,
-    }
+    return createDefaultAbility()
   }
 }
 

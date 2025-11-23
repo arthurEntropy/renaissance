@@ -1,6 +1,6 @@
 import { ref, watch } from 'vue'
 import AbilityService from '@/services/entities/abilityService'
-import EquipmentService from '@/services/entities/equipmentService'
+import EquipmentService from '@/services/entities/equipment/equipmentService'
 
 /**
  * Composable for managing concept-related data fetching

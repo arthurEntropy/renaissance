@@ -1,4 +1,5 @@
 import BaseEntityService from './baseEntityService'
+import { createDefaultRulesSection } from '@shared/types'
 
 class RulesService extends BaseEntityService {
   constructor() {
@@ -20,14 +21,7 @@ class RulesService extends BaseEntityService {
   }
 
   getDefaultEntity() {
-    return {
-      id: null,
-      name: 'New Section',
-      content: '',
-      imageUrl: '',
-      index: 0,
-      isDeleted: false,
-    }
+    return createDefaultRulesSection()
   }
 }
 

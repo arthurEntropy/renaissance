@@ -1,4 +1,5 @@
 import BaseEntityService from './baseEntityService'
+import { createDefaultArt } from '@shared/types'
 
 class ArtService extends BaseEntityService {
   constructor() {
@@ -6,27 +7,7 @@ class ArtService extends BaseEntityService {
   }
 
   getDefaultEntity() {
-    const now = new Date().toISOString()
-    return {
-      id: null,
-      url: '',
-      tags: {
-        type: 'faces',
-        sources: []
-      },
-      isDeleted: false,
-      createdAt: now,
-      lastModified: now,
-    }
-  }
-
-  getByTypeAndSource(allArt, type, sourceId) {
-    return allArt
-      .filter(art => 
-        art.tags.type === type && 
-        art.tags.sources.includes(sourceId)
-      )
-      .map(art => art.url)
+    return createDefaultArt()
   }
 }
 

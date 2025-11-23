@@ -1,4 +1,5 @@
 import BaseEntityService from './baseEntityService'
+import { createDefaultExpansion } from '@shared/types'
 
 class ExpansionService extends BaseEntityService {
   constructor() {
@@ -6,12 +7,7 @@ class ExpansionService extends BaseEntityService {
   }
 
   getDefaultEntity() {
-    return {
-      id: null,
-      name: 'New Expansion',
-      logoUrl: '',
-      isDeleted: false,
-    }
+    return createDefaultExpansion()
   }
 }
 

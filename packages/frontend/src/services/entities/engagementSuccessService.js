@@ -1,4 +1,5 @@
 import BaseEntityService from './baseEntityService'
+import { createDefaultEngagementSuccess } from '@shared/types'
 
 class EngagementSuccessService extends BaseEntityService {
   constructor() {
@@ -6,12 +7,7 @@ class EngagementSuccessService extends BaseEntityService {
   }
 
   getDefaultEntity() {
-    return {
-      id: null,
-      name: 'New Engagement Success',
-      description: '',
-      isDeleted: false,
-    }
+    return createDefaultEngagementSuccess()
   }
 }
 

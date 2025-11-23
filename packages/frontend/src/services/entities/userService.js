@@ -1,5 +1,6 @@
 import BaseEntityService from './baseEntityService'
-import AuthService from '../auth/authService'
+import { createDefaultUser } from '@shared/types'
+import axios from 'axios'
 
 class UserService extends BaseEntityService {
   constructor() {
@@ -8,18 +9,11 @@ class UserService extends BaseEntityService {
 
   async getCurrentProfile() {
     try {
-      const token = await AuthService.getIdToken()
-      const response = await fetch(`${this.baseUrl}/profile`, {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
+      const authHeaders = await this.getAuthHeaders()
+      const response = await axios.get(`${this.baseUrl}/profile`, {
+        headers: authHeaders
       })
-      
-      if (!response.ok) {
-        throw new Error('Failed to get user profile')
-      }
-      
-      return await response.json()
+      return response.data
     } catch (error) {
       console.error('Error getting current user profile:', error)
       throw error
@@ -28,21 +22,14 @@ class UserService extends BaseEntityService {
 
   async updateCurrentProfile(updates) {
     try {
-      const token = await AuthService.getIdToken()
-      const response = await fetch(`${this.baseUrl}/profile`, {
-        method: 'PUT',
+      const authHeaders = await this.getAuthHeaders()
+      const response = await axios.put(`${this.baseUrl}/profile`, updates, {
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify(updates)
+          ...authHeaders
+        }
       })
-      
-      if (!response.ok) {
-        throw new Error('Failed to update user profile')
-      }
-      
-      return await response.json()
+      return response.data
     } catch (error) {
       console.error('Error updating user profile:', error)
       throw error
@@ -51,18 +38,11 @@ class UserService extends BaseEntityService {
 
   async getAllUsers() {
     try {
-      const token = await AuthService.getIdToken()
-      const response = await fetch(`${this.baseUrl}/admin/all`, {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
+      const authHeaders = await this.getAuthHeaders()
+      const response = await axios.get(`${this.baseUrl}/admin/all`, {
+        headers: authHeaders
       })
-      
-      if (!response.ok) {
-        throw new Error('Failed to get all users')
-      }
-      
-      return await response.json()
+      return response.data
     } catch (error) {
       console.error('Error getting all users:', error)
       throw error
@@ -71,21 +51,14 @@ class UserService extends BaseEntityService {
 
   async updateUser(userId, updates) {
     try {
-      const token = await AuthService.getIdToken()
-      const response = await fetch(`${this.baseUrl}/admin/${userId}`, {
-        method: 'PUT',
+      const authHeaders = await this.getAuthHeaders()
+      const response = await axios.put(`${this.baseUrl}/admin/${userId}`, updates, {
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify(updates)
+          ...authHeaders
+        }
       })
-      
-      if (!response.ok) {
-        throw new Error('Failed to update user')
-      }
-      
-      return await response.json()
+      return response.data
     } catch (error) {
       console.error('Error updating user:', error)
       throw error
@@ -94,19 +67,11 @@ class UserService extends BaseEntityService {
 
   async deleteUser(userId) {
     try {
-      const token = await AuthService.getIdToken()
-      const response = await fetch(`${this.baseUrl}/admin/${userId}`, {
-        method: 'DELETE',
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
+      const authHeaders = await this.getAuthHeaders()
+      const response = await axios.delete(`${this.baseUrl}/admin/${userId}`, {
+        headers: authHeaders
       })
-      
-      if (!response.ok) {
-        throw new Error('Failed to delete user')
-      }
-      
-      return await response.json()
+      return response.data
     } catch (error) {
       console.error('Error deleting user:', error)
       throw error
@@ -122,19 +87,7 @@ class UserService extends BaseEntityService {
   }
 
   getDefaultEntity() {
-    return {
-      id: null,
-      email: '',
-      name: '',
-      role: 'user',
-      status: 'pending',
-      isDeleted: false,
-      preferences: {
-        theme: 'dark',
-        notifications: true,
-      },
-      characters: [],
-    }
+    return createDefaultUser()
   }
 }
 

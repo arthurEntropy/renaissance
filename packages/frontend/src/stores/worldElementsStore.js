@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import WorldElementsService from '@/services/entities/worldElementService.js'
+import WorldElementsService from '@/services/entities/gameConcepts/worldElementService.js'
 
 export const useWorldElementsStore = defineStore('worldElements', () => {
   // state
