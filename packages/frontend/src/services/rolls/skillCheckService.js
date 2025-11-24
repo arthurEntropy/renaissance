@@ -1,16 +1,10 @@
-import axios from 'axios'
 import { getDiceFontClass } from '@/utils/diceFontUtils'
 import { getDiceEmoji } from '@/utils/diceUtils'
 import { RollTypes } from '@/constants/rollTypes'
 import { DIE_TYPE, SPECIAL_ROLLS, TWICE_WEARY_THRESHOLD } from '../../../../../shared/constants/dice.js'
+import BaseRollService from './baseRollService.js'
 
-class SkillCheckService {
-  static latestRollResult = null
-  static apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000'
-
-  static getLatestRollResult() {
-    return this.latestRollResult
-  }
+class SkillCheckService extends BaseRollService {
 
   static makeOpposedSkillCheck(skill, character) {
     // Prepare the dice pool based on the skill and roll the dice.
@@ -320,7 +314,7 @@ class SkillCheckService {
     characterName,
   ) {
     try {
-      await axios.post(`${this.apiUrl}/send-discord-message`, {
+      return this.sendToDiscord({
         rollResults,
         total: totalSum,
         targetNumber,
@@ -331,7 +325,7 @@ class SkillCheckService {
         image,
       })
     } catch (error) {
-      console.warn('Could not send to Discord:', error.response?.data?.message || error.message)
+      console.warn('Could not send to Discord:', error.message)
     }
   }
 }

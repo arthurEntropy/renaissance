@@ -1,20 +1,9 @@
 import { getDiceFontClass, getDiceFontMaxClass } from '@/utils/diceFontUtils'
-import { rollSingleDie, formatDiceResults, getFavoredStatus } from '@/utils/diceUtils'
+import { formatDiceResults, getFavoredStatus } from '@/utils/diceUtils'
 import RollTypes from '@/constants/rollTypes'
-import axios from 'axios'
+import BaseRollService from './baseRollService.js'
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000'
-
-class OpposedSkillCheckService {
-  static latestRollResult = null
-
-  static getLatestRollResult() {
-    return this.latestRollResult
-  }
-
-  static rollSingleDie(dieSize) {
-    return rollSingleDie(dieSize)
-  }
+class OpposedSkillCheckService extends BaseRollService {
 
   static sortSkillCheckDice(diceArray, rollResults) {
     if (!diceArray || !Array.isArray(diceArray) || diceArray.length === 0) {
@@ -134,45 +123,11 @@ class OpposedSkillCheckService {
     return result
   }
 
-  static updateRollResultsAfterReroll(rollResults, player, diceIndex, newValue, characterId, opponentSocketId, sortedDice) {
-    // Update roll results after a reroll for skill checks
-    if (!rollResults || !rollResults.session || !rollResults.session.users) {
-      return rollResults
-    }
-
-    // Find the target user
-    const targetUser = rollResults.session.users.find(user => 
-      (player === 'user' && user.id === characterId) ||
-      (player === 'opponent' && user.id !== characterId)
-    )
-
-    if (targetUser && targetUser.rollResults && sortedDice && sortedDice[diceIndex]) {
-      const rerolledDie = sortedDice[diceIndex]
-      
-      if (rerolledDie.poolIndex !== undefined) {
-        if (typeof targetUser.rollResults[rerolledDie.poolIndex] === 'object') {
-          // Complex format - update the roll value
-          targetUser.rollResults[rerolledDie.poolIndex].dieRollValue = newValue
-        } else {
-          // Simple format - update the value directly
-          targetUser.rollResults[rerolledDie.poolIndex] = newValue
-        }
-      }
-    }
-
-    return rollResults
-  }
-
   static async sendOpposedSkillCheckResultsToServer(opposedSkillCheckResults) {
-    try {
-      await axios.post(`${API_BASE_URL}/send-discord-message`, {
-        type: RollTypes.OPPOSED_SKILL_CHECK,
-        ...opposedSkillCheckResults
-      })
-    } catch (error) {
-      console.error('Error sending opposed skill check results:', error)
-      alert('Failed to send opposed skill check results. Check your connection or server.')
-    }
+    return this.sendToDiscord({
+      type: RollTypes.OPPOSED_SKILL_CHECK,
+      ...opposedSkillCheckResults
+    })
   }
 }
 

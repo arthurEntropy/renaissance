@@ -1,16 +1,10 @@
-import axios from 'axios'
 import { RollTypes } from '@/constants/rollTypes'
 import { EngagementWinnerTypes } from '@/constants/engagementWinnerTypes'
 import { PlayerSides } from '@/constants/playerSides'
-import { rollSingleDie } from '@/utils/diceUtils'
 import { getDiceFontClass, getDiceFontMaxClass } from '@/utils/diceFontUtils'
+import BaseRollService from './baseRollService.js'
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000'
-
-class EngagementRollService {
-  static rollSingleDie(dieSize) {
-    return rollSingleDie(dieSize)
-  }
+class EngagementRollService extends BaseRollService {
 
   static sortEngagementDice(diceArray, rollResults) {
     // Sort dice according to engagement rules (highest value first, then highest die size)
@@ -184,6 +178,17 @@ class EngagementRollService {
     }).length
   }
 
+  static async sendEngagementResultsToServer(engagementResults) {
+    return this.sendToDiscord({
+      type: RollTypes.ENGAGEMENT,
+      ...engagementResults
+    })
+  }
+
+  /**
+   * Update engagement roll results after a die is rerolled
+   * Engagement uses simple number arrays for roll results
+   */
   static updateRollResultsAfterReroll(rollResults, player, diceIndex, newValue, characterId, opponentSocketId, sortedDice) {
     if (!rollResults || !rollResults.session) return false
 
@@ -210,18 +215,6 @@ class EngagementRollService {
     }
 
     return false
-  }
-
-  static async sendEngagementResultsToServer(engagementResults) {
-    try {
-      await axios.post(`${API_BASE_URL}/send-discord-message`, {
-        type: RollTypes.ENGAGEMENT,
-        ...engagementResults
-      })
-    } catch (error) {
-      console.error('Error sending engagement results:', error)
-      alert('Failed to send engagement results. Check your connection or server.')
-    }
   }
 }
 

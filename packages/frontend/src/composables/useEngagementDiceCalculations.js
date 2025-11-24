@@ -39,21 +39,44 @@ export function useEngagementDiceCalculations(diceState) {
   }
 
   // Helper function to update existing sorted dice with new values
-  function updateExistingOrder(existingOrder, newSortedDice) {
-    existingOrder.forEach((sortedDie) => {
-      const originalDie = newSortedDice.find(d => d.originalIndex === sortedDie.originalIndex)
-      if (originalDie) {
-        sortedDie.value = originalDie.value
-        sortedDie.class = originalDie.class
-        sortedDie.isMax = originalDie.isMax
-        sortedDie.isRolling = originalDie.isRolling
+  function updateExistingOrder(existingOrder, newSortedDice, rerollingDice, side) {
+    // Check if any values actually changed
+    let hasChanges = false
+    
+    const updatedOrder = existingOrder.map((sortedDie, index) => {
+      // If this die is currently rerolling, preserve its state (don't update from rollResults)
+      if (rerollingDice && side) {
+        const rerollKey = `${side}-${index}`
+        if (rerollingDice.has(rerollKey)) {
+          return sortedDie
+        }
       }
+
+      const originalDie = newSortedDice.find(d => d.poolIndex === sortedDie.poolIndex)
+      if (originalDie) {
+        // Check if any relevant properties changed
+        if (sortedDie.dieRollValue !== originalDie.dieRollValue ||
+            sortedDie.rolledMaxValue !== originalDie.rolledMaxValue ||
+            sortedDie.isRolling !== originalDie.isRolling) {
+          hasChanges = true
+          return {
+            ...sortedDie,
+            dieRollValue: originalDie.dieRollValue,
+            cssClass: originalDie.cssClass,
+            rolledMaxValue: originalDie.rolledMaxValue,
+            isRolling: originalDie.isRolling
+          }
+        }
+      }
+      return sortedDie
     })
-    return existingOrder
+    
+    // Only return new array if something actually changed
+    return hasChanges ? updatedOrder : existingOrder
   }
 
   // Core dice sorting logic
-  function getSortedDice(selectedDice, rollResults, characterId, side = PlayerSides.USER, opponent = null) {
+  function getSortedDice(selectedDice, rollResults, characterId, side = PlayerSides.USER, opponent = null, rerollingDice = null) {
     // Early return for invalid input
     if (!selectedDice || !Array.isArray(selectedDice) || selectedDice.length === 0) {
       return []
@@ -72,45 +95,46 @@ export function useEngagementDiceCalculations(diceState) {
     if (!sortDoneRef.value) {
       sortedOrderRef.value = sortedDice
       sortDoneRef.value = true
+      return sortedDice
     }
 
-    // Return existing sorted order with updated values, or the newly sorted dice
-    const existingOrder = sortedOrderRef.value
-    if (existingOrder) {
-      return updateExistingOrder(existingOrder, sortedDice)
-    }
-
-    return sortedDice
+    // Update existing sorted order with new values
+    // Return the updated order directly without storing to avoid infinite loops
+    // The order is preserved in sortedOrderRef, but values are updated each time
+    return updateExistingOrder(sortedOrderRef.value, sortedDice, rerollingDice, side)
   }
 
-  function getSortedUserDice(selectedDice, sessionData, rollResults, characterId) {
-    // Use sessionData as the source of truth for dice values, with fallback to rollResults
-    const rollResultsFromSession = sessionData ? {
+  function getSortedUserDice(selectedDice, sessionData, rollResults, characterId, rerollingDice = null) {
+    // Use rollResults as the source of truth for dice values, with fallback to sessionData
+    const rollResultsFromSession = rollResults || (sessionData ? {
       session: sessionData
-    } : rollResults
+    } : null)
 
     return getSortedDice(
       selectedDice,
       rollResultsFromSession,
       characterId,
-      PlayerSides.USER
+      PlayerSides.USER,
+      null,
+      rerollingDice
     )
   }
 
-  function getSortedOpponentDice(opponentData, sessionData, rollResults, characterId) {
+  function getSortedOpponentDice(opponentData, sessionData, rollResults, characterId, rerollingDice = null) {
     if (!opponentData) return []
 
-    // Use sessionData as the source of truth for dice values, with fallback to rollResults
-    const rollResultsFromSession = sessionData ? {
+    // Use rollResults as the source of truth for dice values, with fallback to sessionData
+    const rollResultsFromSession = rollResults || (sessionData ? {
       session: sessionData
-    } : rollResults
+    } : null)
 
     return getSortedDice(
       opponentData.selectedDice,
       rollResultsFromSession,
       characterId,
       PlayerSides.OPPONENT,
-      opponentData
+      opponentData,
+      rerollingDice
     )
   }
 
@@ -136,7 +160,7 @@ export function useEngagementDiceCalculations(diceState) {
         // Use previous value during animation
         return {
           ...die,
-          value: die.previousValue
+          dieRollValue: die.previousValue
         }
       }
       return die

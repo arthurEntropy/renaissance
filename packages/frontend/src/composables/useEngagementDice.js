@@ -96,8 +96,10 @@ export function useEngagementDice(character = null, allEquipment = null) {
     
     // Methods - calculations
     getSortedDice: calculations.getSortedDice,
-    getSortedUserDice: calculations.getSortedUserDice,
-    getSortedOpponentDice: calculations.getSortedOpponentDice,
+    getSortedUserDice: (selectedDice, sessionData, rollResults, characterId) => 
+      calculations.getSortedUserDice(selectedDice, sessionData, rollResults, characterId, animations.rerollingDice),
+    getSortedOpponentDice: (opponentData, sessionData, rollResults, characterId) => 
+      calculations.getSortedOpponentDice(opponentData, sessionData, rollResults, characterId, animations.rerollingDice),
     getStableDicePairs: enhancedAnimations.getStableDicePairs,
     getStableEngagementWinner: enhancedAnimations.getStableEngagementWinner,
     calculateWinCounts: calculations.calculateWinCounts,

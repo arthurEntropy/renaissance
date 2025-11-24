@@ -1,15 +1,9 @@
-import axios from 'axios'
 import { rollSingleDie } from '@/utils/diceUtils'
 import { RollTypes } from '@/constants/rollTypes'
 import { getDiceFontClass } from '@/utils/diceFontUtils'
+import BaseRollService from './baseRollService.js'
 
-class CustomRollService {
-  static latestRollResult = null
-  static apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000'
-
-  static getLatestRollResult() {
-    return this.latestRollResult
-  }
+class CustomRollService extends BaseRollService {
 
   static makeCustomRoll(dicePool, modifier, character) {
     // Prepare the dice pool and roll the dice
@@ -101,19 +95,14 @@ class CustomRollService {
     characterName,
     image
   ) {
-    try {
-      await axios.post(`${this.apiUrl}/send-discord-message`, {
-        rollResults: rollResults, // Already formatted as "3 (d4), 5 (d6), 12 (d20)"
-        total: finalTotal,
-        name: characterName || 'Unnamed Character',
-        skill: 'Custom Roll',
-        footer: modifier !== 0 ? `Dice: ${diceTotal}, Modifier: ${modifier >= 0 ? '+' : ''}${modifier}` : '',
-        image: image || '', // Character image
-      })
-    } catch (error) {
-      console.error('Error sending custom roll to Discord:', error)
-      throw new Error('Failed to send custom roll. Check your connection or server.')
-    }
+    return this.sendToDiscord({
+      rollResults: rollResults, // Already formatted as "3 (d4), 5 (d6), 12 (d20)"
+      total: finalTotal,
+      name: characterName || 'Unnamed Character',
+      skill: 'Custom Roll',
+      footer: modifier !== 0 ? `Dice: ${diceTotal}, Modifier: ${modifier >= 0 ? '+' : ''}${modifier}` : '',
+      image: image || '', // Character image
+    })
   }
 }
 

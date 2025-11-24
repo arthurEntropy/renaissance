@@ -5,6 +5,7 @@ import EngagementResultTypes from '@/constants/engagementResultTypes'
 import EngagementWinnerTypes from '@/constants/engagementWinnerTypes'
 import RollTypes from '@/constants/rollTypes'
 import { DICE_ROLL_DURATION } from '@/constants/animationDurations'
+import { rollSingleDie } from '@/utils/diceUtils'
 import { useBaseSession } from './useBaseSession.js'
 import { SESSION_STATUS } from '@shared/constants/sessionStatus.js'
 
@@ -90,7 +91,7 @@ export function useEngagementSession() {
       if (newStatus === SESSION_STATUS.ACTIVE && oldStatus === SESSION_STATUS.WAITING) {
         // Generate roll results for engagement using selected dice
         const diceResults = selectedDice.map(dieSize => 
-          EngagementRollService.rollSingleDie(dieSize)
+          rollSingleDie(dieSize)
         )
         
         const rollResult = {
