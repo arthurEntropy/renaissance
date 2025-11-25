@@ -75,7 +75,7 @@ const {
   firstStateLabel,
   firstStateValue,
   secondStateKey,
-  secondStateLabel,
+  secondStateLabel: _secondStateLabel,
   secondStateValue,
   skills
 } = useColumnConfig(computed(() => props.column), computed(() => props.character))

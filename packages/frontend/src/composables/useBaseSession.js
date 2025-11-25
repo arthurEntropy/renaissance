@@ -1,5 +1,6 @@
 import { ref, computed } from 'vue'
 import { SESSION_STATUS } from '@shared/constants/sessionStatus.js'
+import { SESSION_EVENTS } from '@shared/constants/sessionEvents.js'
 
 /**
  * Base composable for session management that provides common state,
@@ -95,6 +96,20 @@ export function useBaseSession(sessionService) {
       }
     }
 
+    // Session expired handler
+    eventHandlers.sessionExpired = ({ message, sessionId: expiredSessionId }) => {
+      const sessionType = callbacks.sessionType || 'session'
+      const alertMessage = message || `${sessionType.charAt(0).toUpperCase() + sessionType.slice(1)} expired due to inactivity`
+      alert(alertMessage)
+      sessionId.value = null
+      sessionStatus.value = SESSION_STATUS.WAITING
+      opponent.value = null
+
+      if (callbacks.onSessionExpired) {
+        callbacks.onSessionExpired({ message, sessionId: expiredSessionId })
+      }
+    }
+
     // Acceptance state updated handler
     eventHandlers.acceptanceStateUpdated = ({ characterId, accepted }) => {
       // Don't process our own acceptance state updates
@@ -141,13 +156,13 @@ export function useBaseSession(sessionService) {
 
   function getSocketEventName(eventName) {
     const eventMap = {
-      sessionCreated: 'session-created',
-      sessionUpdated: 'session-updated',
-      sessionCancelled: 'session-cancelled',
-      rollResults: 'roll-results',
-      resultIndicatorUpdated: 'result-indicator-updated',
-      dieRerolled: 'die-rerolled',
-      acceptanceStateUpdated: 'acceptance-state-updated'
+      sessionCreated: SESSION_EVENTS.SESSION_CREATED,
+      sessionUpdated: SESSION_EVENTS.SESSION_UPDATED,
+      sessionCancelled: SESSION_EVENTS.SESSION_CANCELLED,
+      sessionExpired: SESSION_EVENTS.SESSION_EXPIRED,
+      rollResults: SESSION_EVENTS.SESSION_COMPLETED,
+      resultIndicatorUpdated: SESSION_EVENTS.RESULT_INDICATOR_UPDATED,
+      acceptanceStateUpdated: SESSION_EVENTS.ACCEPTANCE_STATE_UPDATED
     }
     return eventMap[eventName] || eventName
   }
@@ -166,11 +181,11 @@ export function useBaseSession(sessionService) {
         if (connected) {
           autoJoinCallback()
           // Remove the listener after successful join attempt
-          sessionService.off('connection-status', connectionHandler)
+          sessionService.off(SESSION_EVENTS.CONNECTION_STATUS, connectionHandler)
         }
       }
       
-      sessionService.on('connection-status', connectionHandler)
+      sessionService.on(SESSION_EVENTS.CONNECTION_STATUS, connectionHandler)
     }
   }
 

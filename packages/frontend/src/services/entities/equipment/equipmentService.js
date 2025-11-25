@@ -6,6 +6,7 @@ class EquipmentService extends BaseEntityService {
     super('/equipment', 'equipment')
   }
 
+  // Convenience method to create a new custom equipment item
   async createCustomEquipment() {
     const customEquipment = this.getDefaultEntity()
     customEquipment.isCustom = true

@@ -1,4 +1,5 @@
 import { SESSION_STATUS } from '../../../../shared/constants/sessionStatus.js'
+import { SESSION_EVENTS } from '../../../../shared/constants/sessionEvents.js'
 
 export const opposedSkillCheckConfig = {
   namespace: '/opposed-skill-check',
@@ -14,7 +15,7 @@ export const opposedSkillCheckConfig = {
   additionalSocketHandlers: [
 
     (socket, { activeSessions, sessionIO }) => {
-      socket.on('submit-roll-results', ({ sessionId, rollResults, characterId }) => {
+      socket.on(SESSION_EVENTS.SUBMIT_ROLL_RESULTS, ({ sessionId, rollResults, characterId }) => {
         if (activeSessions.has(sessionId)) {
           const session = activeSessions.get(sessionId)
           if (!session) return
@@ -29,7 +30,7 @@ export const opposedSkillCheckConfig = {
           user.isAutoFail = rollResults.isAutoFail || false
 
           // Emit session update so both players see the new session state
-          sessionIO.to(sessionId).emit('session-updated', { 
+          sessionIO.to(sessionId).emit(SESSION_EVENTS.SESSION_UPDATED, { 
             sessionId, 
             session 
           })
@@ -38,14 +39,14 @@ export const opposedSkillCheckConfig = {
     },
 
     (socket, { activeSessions, sessionIO }) => {
-      socket.on('complete-session', ({ sessionId, winner }) => {
+      socket.on(SESSION_EVENTS.COMPLETE_SESSION, ({ sessionId, winner }) => {
         const session = activeSessions.get(sessionId)
         
         // If session exists and is active, mark complete with the winner determined by frontend
         if (session && session.status === SESSION_STATUS.ACTIVE) {
           session.winner = winner
           session.status = SESSION_STATUS.COMPLETED
-          sessionIO.to(sessionId).emit('roll-results', { 
+          sessionIO.to(sessionId).emit(SESSION_EVENTS.SESSION_COMPLETED, { 
             session,
             timestamp: new Date()
           })
@@ -55,7 +56,7 @@ export const opposedSkillCheckConfig = {
 
     // Handle skill check rerolls
     (socket, { activeSessions, sessionIO }) => {
-      socket.on('reroll-skill-check', ({ sessionId, rerollingCharacterId }) => {
+      socket.on(SESSION_EVENTS.REROLL_SKILL_CHECK, ({ sessionId, rerollingCharacterId }) => {
         if (activeSessions.has(sessionId)) {
           const session = activeSessions.get(sessionId)
           if (!session || session.users.length !== 2) return
@@ -74,13 +75,13 @@ export const opposedSkillCheckConfig = {
           session.status = SESSION_STATUS.ACTIVE
 
           // Emit session update so frontend sees the cleared results
-          sessionIO.to(sessionId).emit('session-updated', { 
+          sessionIO.to(sessionId).emit(SESSION_EVENTS.SESSION_UPDATED, { 
             sessionId, 
             session 
           })
 
           // Signal the rerolling client to perform their new roll
-          sessionIO.to(sessionId).emit('start-reroll', { 
+          sessionIO.to(sessionId).emit(SESSION_EVENTS.START_REROLL, { 
             sessionId,
             rerollingCharacterId,
             timestamp: new Date()

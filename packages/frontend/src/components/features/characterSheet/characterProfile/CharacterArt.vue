@@ -33,7 +33,6 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { useModal } from '@/composables/useModal'
-import CharacterService from '@/services/entities/characterService'
 import EditButton from '@/components/ui/buttons/EditButton.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 

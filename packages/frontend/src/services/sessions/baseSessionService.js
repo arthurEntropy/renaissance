@@ -1,19 +1,17 @@
 import { io } from 'socket.io-client'
 import AuthService from '../auth/authService'
 import { SOCKET_CONFIG } from '@shared/constants/socketConfig.js'
+import { SESSION_EVENTS } from '@shared/constants/sessionEvents.js'
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000'
 
-/**
- * Base class for session services that provides common socket management,
- * event handling, and session lifecycle functionality.
- */
 class BaseSessionService {
   constructor(namespace, config = {}) {
     this.namespace = namespace
     this.socket = null
     this.sessionId = null
     this.listeners = new Map()
+    this.connectionInProgress = false
     this.config = {
       reconnection: true,
       reconnectionDelay: SOCKET_CONFIG.RECONNECTION_DELAY,
@@ -24,9 +22,16 @@ class BaseSessionService {
   }
 
   async connect() {
+    // Prevent race conditions from multiple rapid connect() calls
     if (this.socket && this.socket.connected) {
-      return
+      return Promise.resolve()
     }
+    
+    if (this.connectionInProgress) {
+      return Promise.resolve()
+    }
+    
+    this.connectionInProgress = true
     
     try {
       // Get authentication token
@@ -44,78 +49,95 @@ class BaseSessionService {
       })
 
       // Set up common event handlers
-      this.socket.on('connect', () => {
-        this._notifyListeners('connection-status', { connected: true })
+      this.socket.on(SESSION_EVENTS.CONNECT, () => {
+        this.connectionInProgress = false
+        this._notifyListeners(SESSION_EVENTS.CONNECTION_STATUS, { connected: true })
       })
 
-      this.socket.on('disconnect', (reason) => {
-        this._notifyListeners('connection-status', { connected: false, reason })
+      this.socket.on(SESSION_EVENTS.DISCONNECT, (reason) => {
+        this._notifyListeners(SESSION_EVENTS.CONNECTION_STATUS, { connected: false, reason })
       })
 
-      this.socket.on('connect_error', (error) => {
+      this.socket.on(SESSION_EVENTS.CONNECT_ERROR, (error) => {
+        this.connectionInProgress = false
         console.error(`${this.constructor.name}: Connection error:`, error)
-        this._notifyListeners('connection-error', { error: error.message || 'Connection failed' })
       })
 
-      this.socket.on('error', (error) => {
+      this.socket.on(SESSION_EVENTS.ERROR, (error) => {
         console.error(`${this.constructor.name}: WebSocket error:`, error)
-        this._notifyListeners('error', error)
+        this._notifyListeners(SESSION_EVENTS.ERROR, error)
       })
 
       // Common session events
-      this.socket.on('session-created', ({ sessionId, session }) => {
+      this.socket.on(SESSION_EVENTS.SESSION_CREATED, ({ sessionId, session }) => {
         this.sessionId = sessionId
-        this._notifyListeners('session-created', { sessionId, session })
+        this._notifyListeners(SESSION_EVENTS.SESSION_CREATED, { sessionId, session })
       })
 
-      this.socket.on('session-updated', ({ session }) => {
+      this.socket.on(SESSION_EVENTS.SESSION_UPDATED, ({ session }) => {
+        // Handle cases where session-created might not fire first
+        // (e.g., reconnection scenarios or race conditions)
         if (!this.sessionId && session.id) {
           this.sessionId = session.id
         }
-        this._notifyListeners('session-updated', { session })
+        this._notifyListeners(SESSION_EVENTS.SESSION_UPDATED, { session })
       })
 
-      this.socket.on('user-left', ({ session, message }) => {
-        this._notifyListeners('user-left', { session, message })
+      this.socket.on(SESSION_EVENTS.USER_LEFT, ({ session, message }) => {
+        this._notifyListeners(SESSION_EVENTS.USER_LEFT, { session, message })
       })
 
-      this.socket.on('session-cancelled', ({ message, characterName }) => {
-        this._notifyListeners('session-cancelled', { message, characterName })
+      this.socket.on(SESSION_EVENTS.SESSION_CANCELLED, ({ message, characterName }) => {
+        this._notifyListeners(SESSION_EVENTS.SESSION_CANCELLED, { message, characterName })
         this.sessionId = null
       })
 
-      this.socket.on('roll-results', ({ session, timestamp }) => {
-        this._notifyListeners('roll-results', { session, timestamp })
+      this.socket.on(SESSION_EVENTS.SESSION_EXPIRED, ({ message, sessionId }) => {
+        this._notifyListeners(SESSION_EVENTS.SESSION_EXPIRED, { message, sessionId })
+        this.sessionId = null
+      })
+
+      this.socket.on(SESSION_EVENTS.SESSION_COMPLETED, ({ session, timestamp }) => {
+        this._notifyListeners(SESSION_EVENTS.SESSION_COMPLETED, { session, timestamp })
       })
       
-      this.socket.on('result-indicator-updated', ({ index, state }) => {
-        this._notifyListeners('result-indicator-updated', { index, state })
+      this.socket.on(SESSION_EVENTS.RESULT_INDICATOR_UPDATED, ({ index, state }) => {
+        this._notifyListeners(SESSION_EVENTS.RESULT_INDICATOR_UPDATED, { index, state })
       })
 
-      this.socket.on('acceptance-state-updated', ({ characterId, accepted }) => {
-        this._notifyListeners('acceptance-state-updated', { characterId, accepted })
-      })
-
-      this.socket.on('die-rerolled', ({ player, diceIndex, newValue, characterId }) => {
-        this._notifyListeners('die-rerolled', { player, diceIndex, newValue, characterId })
+      this.socket.on(SESSION_EVENTS.ACCEPTANCE_STATE_UPDATED, ({ characterId, accepted }) => {
+        this._notifyListeners(SESSION_EVENTS.ACCEPTANCE_STATE_UPDATED, { characterId, accepted })
       })
 
       // Set up service-specific event handlers
       this._setupServiceSpecificHandlers()
       
+      return Promise.resolve()
+      
     } catch (error) {
+      this.connectionInProgress = false
       console.error(`${this.constructor.name}: Failed to create socket connection:`, error)
-      this._notifyListeners('connection-error', { error: 'Failed to initialize connection' })
+      
+      // Clean up partially initialized socket
+      if (this.socket) {
+        this.socket.disconnect()
+        this.socket = null
+      }
+      
+      return Promise.reject(error)
     }
   }
 
   disconnect() {
     try {
       if (this.socket) {
+        // Remove all socket event listeners to prevent memory leaks
+        this.socket.removeAllListeners()
         this.socket.disconnect()
         this.socket = null
       }
       this.sessionId = null
+      this.connectionInProgress = false
       this.listeners.clear()
     } catch (error) {
       console.error(`${this.constructor.name}: Error during disconnect:`, error)
@@ -143,14 +165,6 @@ class BaseSessionService {
     }
   }
 
-  _notifyListeners(event, data) {
-    if (this.listeners.has(event)) {
-      for (const callback of this.listeners.get(event)) {
-        callback(data)
-      }
-    }
-  }
-
   // Common utility methods
   getSessionId() {
     return this.sessionId
@@ -164,7 +178,7 @@ class BaseSessionService {
   updateResultIndicator(index, state) {
     try {
       if (this.socket && this.sessionId) {
-        this.socket.emit('update-result-indicator', {
+        this.socket.emit(SESSION_EVENTS.RESULT_INDICATOR_UPDATED, {
           sessionId: this.sessionId,
           index,
           state
@@ -174,34 +188,14 @@ class BaseSessionService {
       }
     } catch (error) {
       console.error(`${this.constructor.name}: Error updating result indicator:`, error)
-      this._notifyListeners('error', { error: 'Failed to update result indicator' })
-    }
-  }
-
-  rerollDie(player, diceIndex, newValue, characterId) {
-    try {
-      if (this.socket && this.sessionId) {
-        this.socket.emit('reroll-die', {
-          sessionId: this.sessionId,
-          player,
-          diceIndex,
-          newValue,
-          characterId
-        })
-      } else {
-        console.warn(`${this.constructor.name}: Cannot reroll die - no active socket or session`)
-        this._notifyListeners('error', { error: 'Cannot reroll - not connected' })
-      }
-    } catch (error) {
-      console.error(`${this.constructor.name}: Error rerolling die:`, error)
-      this._notifyListeners('error', { error: 'Failed to reroll die' })
+      this._notifyListeners(SESSION_EVENTS.ERROR, { error: 'Failed to update result indicator' })
     }
   }
 
   updateAcceptanceState(characterId, accepted) {
     try {
       if (this.socket && this.sessionId) {
-        this.socket.emit('acceptance-state-updated', {
+        this.socket.emit(SESSION_EVENTS.ACCEPTANCE_STATE_UPDATED, {
           sessionId: this.sessionId,
           characterId,
           accepted
@@ -211,34 +205,35 @@ class BaseSessionService {
       }
     } catch (error) {
       console.error(`${this.constructor.name}: Error updating acceptance state:`, error)
-      this._notifyListeners('error', { error: 'Failed to update acceptance state' })
+      this._notifyListeners(SESSION_EVENTS.ERROR, { error: 'Failed to update acceptance state' })
     }
   }
 
   cancelSession() {
-    this._safeEmit('cancel-session', {})
+    this._safeEmit(SESSION_EVENTS.CANCEL_SESSION, {})
     this.sessionId = null
   }
 
   submitRollResults(rollResults, characterId) {
-    this._safeEmit('submit-roll-results', {
+    this._safeEmit(SESSION_EVENTS.SUBMIT_ROLL_RESULTS, {
       rollResults,
       characterId
     })
   }
 
   completeSession(winner) {
-    this._safeEmit('complete-session', {
+    this._safeEmit(SESSION_EVENTS.COMPLETE_SESSION, {
       winner
     })
   }
 
-  // Protected methods for subclasses to override
+  // Protected methods for subclasses to override/use
+  // @protected
   _setupServiceSpecificHandlers() {
     // Override in subclasses to add service-specific socket event handlers
   }
 
-  // Protected helper for safe socket emission
+  // @protected
   _safeEmit(event, data) {
     try {
       if (this.socket && this.sessionId) {
@@ -248,11 +243,20 @@ class BaseSessionService {
         })
       } else {
         console.warn(`${this.constructor.name}: Cannot emit ${event} - no active socket or session`)
-        this._notifyListeners('error', { error: `Cannot ${event} - not connected` })
+        this._notifyListeners(SESSION_EVENTS.ERROR, { error: `Cannot ${event} - not connected` })
       }
     } catch (error) {
       console.error(`${this.constructor.name}: Error emitting ${event}:`, error)
-      this._notifyListeners('error', { error: `Failed to ${event}` })
+      this._notifyListeners(SESSION_EVENTS.ERROR, { error: `Failed to ${event}` })
+    }
+  }
+
+  // @protected
+  _notifyListeners(event, data) {
+    if (this.listeners.has(event)) {
+      for (const callback of this.listeners.get(event)) {
+        callback(data)
+      }
     }
   }
 }

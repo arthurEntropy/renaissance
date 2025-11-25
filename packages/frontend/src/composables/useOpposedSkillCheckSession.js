@@ -1,5 +1,6 @@
 import { ref, computed, watch } from 'vue'
 import { SESSION_STATUS } from '@shared/constants/sessionStatus.js'
+import { SESSION_EVENTS } from '@shared/constants/sessionEvents.js'
 import { WINNER } from '@shared/constants/winner.js'
 import { PlayerSides } from '@/constants/playerSides.js'
 import { DICE_ROLL_DURATION } from '@/constants/animationDurations'
@@ -235,7 +236,7 @@ export function useOpposedSkillCheckSession() {
     }
 
     // Register the handlers
-    opposedSkillCheckSessionService.on('start-reroll', startRerollHandler)
+    opposedSkillCheckSessionService.on(SESSION_EVENTS.START_REROLL, startRerollHandler)
 
     // Store handlers for cleanup
     baseSession.eventHandlers.startReroll = startRerollHandler
@@ -276,7 +277,7 @@ export function useOpposedSkillCheckSession() {
 
     // Clean up opposed skill check specific handlers
     if (baseSession.eventHandlers.startReroll) {
-      opposedSkillCheckSessionService.off('start-reroll', baseSession.eventHandlers.startReroll)
+      opposedSkillCheckSessionService.off(SESSION_EVENTS.START_REROLL, baseSession.eventHandlers.startReroll)
     }
   }
 

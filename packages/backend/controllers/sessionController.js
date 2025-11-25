@@ -1,5 +1,6 @@
 import { v4 as uuidv4 } from 'uuid'
 import { SESSION_STATUS } from '../../../shared/constants/sessionStatus.js'
+import { SESSION_EVENTS } from '../../../shared/constants/sessionEvents.js'
 import { opposedSkillCheckConfig } from './sessionConfigs/opposedSkillCheckConfig.js'
 import { engagementConfig } from './sessionConfigs/engagementConfig.js'
 
@@ -34,6 +35,11 @@ function createSessionController(config) {
       for (const [sessionId, session] of activeSessions.entries()) {
         const sessionAge = now - session.createdAt
         if (sessionAge > SESSION_MAX_AGE) {
+          // Notify all connected clients before cleanup
+          sessionIO.to(sessionId).emit(SESSION_EVENTS.SESSION_EXPIRED, {
+            message: `${sessionType.charAt(0).toUpperCase() + sessionType.slice(1)} expired due to inactivity`,
+            sessionId
+          })
           activeSessions.delete(sessionId)
         }
       }
@@ -47,7 +53,7 @@ function createSessionController(config) {
                              session.users.every(user => user.accepted === true)
     
     if (!bothUsersAccepted) {
-      sessionIO.to(sessionId).emit('session-cancelled', { 
+      sessionIO.to(sessionId).emit(SESSION_EVENTS.SESSION_CANCELLED, { 
         message: `Opponent has left the ${sessionType}`,
         characterName: characterName
       })
@@ -57,7 +63,7 @@ function createSessionController(config) {
   // Handlers used by all session types
   const setupCommonHandlers = (socket) => {
 
-    socket.on('auto-join-or-create', (data) => {
+    socket.on(SESSION_EVENTS.AUTO_JOIN_OR_CREATE, (data) => {
       if (availableSessionId && activeSessions.has(availableSessionId)) {
         const session = activeSessions.get(availableSessionId)
         
@@ -70,7 +76,7 @@ function createSessionController(config) {
           session.status = SESSION_STATUS.ACTIVE
           socket.join(availableSessionId)
           
-          sessionIO.to(availableSessionId).emit('session-updated', { 
+          sessionIO.to(availableSessionId).emit(SESSION_EVENTS.SESSION_UPDATED, { 
             sessionId: availableSessionId, 
             session 
           })
@@ -96,10 +102,10 @@ function createSessionController(config) {
       activeSessions.set(sessionId, newSession)
       availableSessionId = sessionId
       socket.join(sessionId)
-      socket.emit('session-created', { sessionId, session: newSession })
+      socket.emit(SESSION_EVENTS.SESSION_CREATED, { sessionId, session: newSession })
     })
 
-    socket.on('disconnect', () => {
+    socket.on(SESSION_EVENTS.DISCONNECT, () => {
       for (const [sessionId, session] of activeSessions.entries()) {
         const userIndex = session.users.findIndex(user => user.socketId === socket.id)
         
@@ -125,7 +131,7 @@ function createSessionController(config) {
       }
     })
 
-    socket.on('cancel-session', ({ sessionId }) => {
+    socket.on(SESSION_EVENTS.CANCEL_SESSION, ({ sessionId }) => {
       if (activeSessions.has(sessionId)) {
         const session = activeSessions.get(sessionId)
         
@@ -139,7 +145,7 @@ function createSessionController(config) {
       }
     })
 
-    socket.on('acceptance-state-updated', ({ sessionId, characterId, accepted }) => {
+    socket.on(SESSION_EVENTS.ACCEPTANCE_STATE_UPDATED, ({ sessionId, characterId, accepted }) => {
       if (activeSessions.has(sessionId)) {
         const session = activeSessions.get(sessionId)
         
@@ -148,7 +154,7 @@ function createSessionController(config) {
           user.accepted = accepted
         }
         
-        socket.to(sessionId).emit('acceptance-state-updated', { characterId, accepted })
+        socket.to(sessionId).emit(SESSION_EVENTS.ACCEPTANCE_STATE_UPDATED, { characterId, accepted })
       }
     })
   }

@@ -1,4 +1,5 @@
 import { SESSION_STATUS } from '../../../../shared/constants/sessionStatus.js'
+import { SESSION_EVENTS } from '../../../../shared/constants/sessionEvents.js'
 
 export const engagementConfig = {
   namespace: '/engagement',
@@ -15,15 +16,15 @@ export const engagementConfig = {
   additionalSocketHandlers: [
 
     (socket, { activeSessions }) => {
-      socket.on('update-result-indicator', ({ sessionId, index, state }) => {
+      socket.on(SESSION_EVENTS.RESULT_INDICATOR_UPDATED, ({ sessionId, index, state }) => {
         if (activeSessions.has(sessionId)) {
-          socket.to(sessionId).emit('result-indicator-updated', { index, state })
+          socket.to(sessionId).emit(SESSION_EVENTS.RESULT_INDICATOR_UPDATED, { index, state })
         }
       })
     },
     
     (socket, { activeSessions, sessionIO }) => {
-      socket.on('submit-roll-results', ({ sessionId, rollResults, characterId }) => {
+      socket.on(SESSION_EVENTS.SUBMIT_ROLL_RESULTS, ({ sessionId, rollResults, characterId }) => {
         if (activeSessions.has(sessionId)) {
           const session = activeSessions.get(sessionId)
           if (!session) return
@@ -40,7 +41,7 @@ export const engagementConfig = {
             : 0
 
           // Emit session update so both players see the new session state
-          sessionIO.to(sessionId).emit('session-updated', { 
+          sessionIO.to(sessionId).emit(SESSION_EVENTS.SESSION_UPDATED, { 
             sessionId, 
             session 
           })
@@ -49,14 +50,14 @@ export const engagementConfig = {
     },
     
     (socket, { activeSessions, sessionIO }) => {
-      socket.on('complete-session', ({ sessionId, winner }) => {
+      socket.on(SESSION_EVENTS.COMPLETE_SESSION, ({ sessionId, winner }) => {
         const session = activeSessions.get(sessionId)
 
         // If session exists and is active, store the winner and mark complete
         if (session && session.status === SESSION_STATUS.ACTIVE) {
           session.winner = winner
           session.status = SESSION_STATUS.COMPLETED
-          sessionIO.to(sessionId).emit('roll-results', { 
+          sessionIO.to(sessionId).emit(SESSION_EVENTS.SESSION_COMPLETED, { 
             session,
             timestamp: new Date()
           })
@@ -65,15 +66,15 @@ export const engagementConfig = {
     },
     
     (socket, { activeSessions }) => {
-      socket.on('success-assignment-updated', ({ sessionId, characterId, player, diceIndex, successId }) => {
+      socket.on(SESSION_EVENTS.SUCCESS_ASSIGNMENT_UPDATED, ({ sessionId, characterId, player, diceIndex, successId }) => {
         if (activeSessions.has(sessionId)) {
-          socket.to(sessionId).emit('success-assignment-updated', { characterId, player, diceIndex, successId })
+          socket.to(sessionId).emit(SESSION_EVENTS.SUCCESS_ASSIGNMENT_UPDATED, { characterId, player, diceIndex, successId })
         }
       })
     },
     
     (socket, { activeSessions, sessionIO }) => {
-      socket.on('reroll-die', ({ sessionId, player, diceIndex, newValue, characterId }) => {
+      socket.on(SESSION_EVENTS.REROLL_DIE, ({ sessionId, player, diceIndex, newValue, characterId }) => {
         if (activeSessions.has(sessionId)) {
           const session = activeSessions.get(sessionId)
           
@@ -90,13 +91,13 @@ export const engagementConfig = {
             user.rollTotal = user.rollResults.reduce((sum, die) => sum + (die.dieRollValue || 0), 0)
             
             // Emit session update so both players see the new session state
-            sessionIO.to(sessionId).emit('session-updated', { 
+            sessionIO.to(sessionId).emit(SESSION_EVENTS.SESSION_UPDATED, { 
               sessionId, 
               session 
             })
             
             // Also emit the die-rerolled event for any UI animations
-            sessionIO.to(sessionId).emit('die-rerolled', { player, diceIndex, newValue, characterId })
+            sessionIO.to(sessionId).emit(SESSION_EVENTS.DIE_REROLLED, { player, diceIndex, newValue, characterId })
           } else {
             console.log('❌ Cannot reroll die: invalid user or rollResults state')
           }

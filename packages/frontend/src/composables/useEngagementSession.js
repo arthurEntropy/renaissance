@@ -8,6 +8,7 @@ import RollTypes from '@/constants/rollTypes'
 import { DICE_ROLL_DURATION } from '@/constants/animationDurations'
 import { useBaseSession } from './useBaseSession.js'
 import { SESSION_STATUS } from '@shared/constants/sessionStatus.js'
+import { SESSION_EVENTS } from '@shared/constants/sessionEvents.js'
 
 export function useEngagementSession() {
   // Use base session functionality
@@ -140,7 +141,7 @@ export function useEngagementSession() {
     }
 
     // Register the handlers
-    engagementSessionService.on('success-assignment-updated', successAssignmentHandler)
+    engagementSessionService.on(SESSION_EVENTS.SUCCESS_ASSIGNMENT_UPDATED, successAssignmentHandler)
 
     // Store handlers for cleanup
     baseSession.eventHandlers.successAssignmentUpdated = successAssignmentHandler
@@ -152,7 +153,7 @@ export function useEngagementSession() {
 
     // Clean up engagement specific handlers
     if (baseSession.eventHandlers.successAssignmentUpdated) {
-      engagementSessionService.off('success-assignment-updated', baseSession.eventHandlers.successAssignmentUpdated)
+      engagementSessionService.off(SESSION_EVENTS.SUCCESS_ASSIGNMENT_UPDATED, baseSession.eventHandlers.successAssignmentUpdated)
     }
   }
 
