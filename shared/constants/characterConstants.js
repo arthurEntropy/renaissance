@@ -3,6 +3,33 @@ export const MAX_HOPE_MULTIPLIER = 3
 export const MAX_DEFENSE_BASE = 10
 export const MAX_SKILL_RANKS = 5
 
+export const CORE_ABILITIES = {
+  BODY: 'body',
+  HEART: 'heart',
+  WITS: 'wits'
+}
+
+export const VIRTUES = {
+  ENDURANCE: { key: 'endurance', coreAbility: 'body', label: 'Endurance' },
+  HOPE: { key: 'hope', coreAbility: 'heart', label: 'Hope' },
+  DEFENSE: { key: 'defense', coreAbility: 'wits', label: 'Defense' }
+}
+
+export const WEAKNESSES = {
+  LOAD: { key: 'load', coreAbility: 'body', label: 'Load' },
+  SHADOW: { key: 'shadow', coreAbility: 'heart', label: 'Shadow' },
+  INJURY: { key: 'injury', coreAbility: 'wits', label: 'Injury' }
+}
+
+export const STATES = {
+  WEARY: { key: 'weary', coreAbility: 'body', label: 'Weary' },
+  TWICE_WEARY: { key: 'twiceWeary', coreAbility: 'body', label: 'Twice Weary' },
+  MISERABLE: { key: 'miserable', coreAbility: 'heart', label: 'Miserable' },
+  TWICE_MISERABLE: { key: 'twiceMiserable', coreAbility: 'heart', label: 'Twice Miserable' },
+  HELPLESS: { key: 'helpless', coreAbility: 'wits', label: 'Helpless' },
+  TWICE_HELPLESS: { key: 'twiceHelpless', coreAbility: 'wits', label: 'Twice Helpless' }
+}
+
 export const CONDITION_AFFECTED_SKILLS = {
   insecure: ['Awe', 'Perform', 'Persuade'],
   guilty: ['Strength', 'Insight', 'Awareness'],

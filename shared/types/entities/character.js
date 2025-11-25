@@ -3,6 +3,7 @@ import { createBaseEntity } from './gameEntity.js'
 /**
  * @typedef {Object} Skill
  * @property {string} name - Skill name
+ * @property {string} coreAbility - Core ability this skill is associated with ('body', 'heart', or 'wits')
  * @property {number} ranks - Number of ranks in this skill
  * @property {boolean} isFavored - Whether this skill is favored
  * @property {boolean} isIllFavored - Whether this skill is ill-favored
@@ -13,6 +14,7 @@ import { createBaseEntity } from './gameEntity.js'
  * @typedef {Object} StatPool
  * @property {number} current - Current value
  * @property {number} max - Maximum value
+ * @property {string} coreAbility - Core ability this stat is associated with ('body', 'heart', or 'wits')
  */
 
 /**
@@ -106,25 +108,25 @@ export function createDefaultCharacter() {
     heart: 0,
     wits: 0,
     skills: [
-      { name: 'Awe', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
-      { name: 'Strength', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
-      { name: 'Dexterity', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
-      { name: 'Fortitude', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
-      { name: 'Craft', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
-      { name: 'Perform', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
-      { name: 'Insight', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
-      { name: 'Courtesy', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
-      { name: 'Spirit', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
-      { name: 'Aid', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
-      { name: 'Persuade', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
-      { name: 'Awareness', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
-      { name: 'Stealth', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
-      { name: 'Lore', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
-      { name: 'Riddle', ranks: 0, isFavored: false, isIllFavored: true, diceMod: 0 },
+      { name: 'Awe', coreAbility: 'body', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
+      { name: 'Strength', coreAbility: 'body', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
+      { name: 'Dexterity', coreAbility: 'body', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
+      { name: 'Fortitude', coreAbility: 'body', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
+      { name: 'Craft', coreAbility: 'body', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
+      { name: 'Perform', coreAbility: 'heart', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
+      { name: 'Insight', coreAbility: 'heart', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
+      { name: 'Courtesy', coreAbility: 'heart', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
+      { name: 'Spirit', coreAbility: 'heart', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
+      { name: 'Aid', coreAbility: 'heart', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
+      { name: 'Persuade', coreAbility: 'wits', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
+      { name: 'Awareness', coreAbility: 'wits', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
+      { name: 'Stealth', coreAbility: 'wits', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
+      { name: 'Lore', coreAbility: 'wits', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
+      { name: 'Riddle', coreAbility: 'wits', ranks: 0, isFavored: false, isIllFavored: true, diceMod: 0 },
     ],
-    endurance: { current: 0, max: 0 },
-    hope: { current: 0, max: 0 },
-    defense: { current: 0, max: 0 },
+    endurance: { current: 0, max: 0, coreAbility: 'body' },
+    hope: { current: 0, max: 0, coreAbility: 'heart' },
+    defense: { current: 0, max: 0, coreAbility: 'wits' },
     load: 0,
     shadow: 0,
     injury: 0,

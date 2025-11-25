@@ -1,8 +1,8 @@
 <template>
   <CharacterSheetSection custom-class="core-ability-column" min-width="270px" max-width="320px">
     <!-- Core Ability Header -->
-    <CoreAbilityHeader :title="columnConfig.title" :value="coreAbilityValue" :is-edit-mode="isEditMode"
-      @update="updateNestedProperty(columnConfig.coreAbilityKey, $event)" />
+    <CoreAbilityHeader :title="coreAbilityTitle" :value="coreAbilityValue" :is-edit-mode="isEditMode"
+      @update="updateNestedProperty(coreAbilityKey, $event)" />
 
     <!-- Skills -->
     <SkillRow v-for="skill in skills" :key="skill.name" :skill="skill" :is-edit-mode="isEditMode"
@@ -11,18 +11,17 @@
       @open-skill-check="$emit('open-skill-check', $event)" @dice-click="handleDiceClick" />
 
     <!-- Virtue Row -->
-    <StatRow type="range" :label="columnConfig.virtueLabel" :value="virtueValue" :is-edit-mode="isEditMode"
-      @update="(field, value) => updateVirtueWeakness(`${columnConfig.virtueKey}.${field}`, value)" />
+    <StatRow type="range" :label="virtueLabel" :value="virtueValue" :is-edit-mode="isEditMode"
+      @update="(field, value) => updateVirtueWeakness(`${virtueKey}.${field}`, value)" />
 
     <!-- Weakness Row -->
-    <StatRow type="single" :label="columnConfig.weaknessLabel" :value="weaknessValue" :is-edit-mode="isEditMode"
-      @update="(value) => updateVirtueWeakness(columnConfig.weaknessKey, value)" />
+    <StatRow type="single" :label="weaknessLabel" :value="weaknessValue" :is-edit-mode="isEditMode"
+      @update="(value) => updateVirtueWeakness(weaknessKey, value)" />
 
     <!-- State Row -->
-    <StatRow type="state"
-      :label="columnConfig.firstStateKey.charAt(0).toUpperCase() + columnConfig.firstStateKey.slice(1).toLowerCase()"
-      :first-state="firstStateValue" :second-state="secondStateValue" :is-edit-mode="isEditMode" @update="(field, value) => {
-        const stateKey = field === 'first' ? columnConfig.firstStateKey : columnConfig.secondStateKey
+    <StatRow type="state" :label="firstStateLabel" :first-state="firstStateValue" :second-state="secondStateValue"
+      :is-edit-mode="isEditMode" @update="(field, value) => {
+        const stateKey = field === 'first' ? firstStateKey : secondStateKey
         updateNestedProperty(`states.${stateKey}`, value)
       }" />
   </CharacterSheetSection>
@@ -63,11 +62,20 @@ const updateCharacter = (updatedCharacter) => {
 }
 
 const {
-  config: columnConfig,
+  coreAbilityKey,
   coreAbilityValue,
+  coreAbilityTitle,
+  virtueLabel,
+  virtueKey,
   virtueValue,
+  weaknessLabel,
+  weaknessKey,
   weaknessValue,
+  firstStateKey,
+  firstStateLabel,
   firstStateValue,
+  secondStateKey,
+  secondStateLabel,
   secondStateValue,
   skills
 } = useColumnConfig(computed(() => props.column), computed(() => props.character))
