@@ -40,7 +40,7 @@
           {{ latestRoll.characterName }} rolled
           <span class="skill-name">{{
             latestRoll.baseSkillName || latestRoll.skillName
-            }}</span>
+          }}</span>
           <span v-if="latestRoll.favoredStatus" :class="{
             'favored-modifier': latestRoll.favoredStatus === 'favored',
             'ill-favored-modifier': latestRoll.favoredStatus === 'ill-favored',
@@ -51,7 +51,7 @@
       </div>
 
       <DiceDisplay ref="diceDisplayRef" :rollData="latestRoll" :isEngagement="isEngagement" :canReroll="true"
-        :isOpponent="false" :containerWidth="CONTAINER_WIDTH" />
+        :isOpponent="false" :containerWidth="CONTAINER_WIDTH" @reroll-all-dice="handleRerollAllDice" />
 
       <transition name="simple-fade" appear>
         <div v-if="!isRolling" class="roll-numbers">
@@ -86,16 +86,16 @@
 
       <transition name="outcome-fade" appear>
         <div v-if="!isRolling && !isCustomRoll" class="roll-outcome" :class="{
-          success: isEngagement ? latestRoll.result === EngagementResultTypes.WIN : isOpposedSkillCheck ? latestRoll.winner === 'user' : latestRoll.success,
-          failure: isEngagement ? latestRoll.result === EngagementResultTypes.LOSS : isOpposedSkillCheck ? latestRoll.winner === 'opponent' : !latestRoll.success,
-          draw: (isEngagement && latestRoll.result === EngagementResultTypes.DRAW) || (isOpposedSkillCheck && latestRoll.winner === 'tie')
+          success: isEngagement ? latestRoll.result === EngagementResultTypes.WIN : isOpposedSkillCheck ? latestRoll.winner === WINNER.USER : latestRoll.success,
+          failure: isEngagement ? latestRoll.result === EngagementResultTypes.LOSS : isOpposedSkillCheck ? latestRoll.winner === WINNER.OPPONENT : !latestRoll.success,
+          draw: (isEngagement && latestRoll.result === EngagementResultTypes.DRAW) || (isOpposedSkillCheck && latestRoll.winner === WINNER.TIE)
         }">
           <span v-if="isEngagement">
             {{ latestRoll.result === EngagementResultTypes.WIN ? 'WIN' : latestRoll.result ===
               EngagementResultTypes.DRAW ? 'DRAW' : 'LOSS' }}
           </span>
           <span v-else-if="isOpposedSkillCheck">
-            {{ latestRoll.winner === 'user' ? 'WIN' : latestRoll.winner === 'tie' ? 'TIE' : 'LOSS' }}
+            {{ latestRoll.winner === WINNER.USER ? 'WIN' : latestRoll.winner === WINNER.TIE ? 'TIE' : 'LOSS' }}
           </span>
           <span v-else>
             {{ latestRoll.success ? 'SUCCESS' : 'FAILURE' }}
@@ -127,6 +127,7 @@ import { computed, ref } from 'vue'
 import { getDiceFontClass } from '@/utils/diceFontUtils'
 import { RollTypes } from '@/constants/rollTypes'
 import { EngagementResultTypes } from '@/constants/engagementResultTypes'
+import { WINNER } from '@shared/constants/winner.js'
 import CharacterSheetSection from '@/components/ui/containers/CharacterSheetSection.vue'
 import DiceDisplay from './DiceDisplay.vue'
 import { ChevronRightIcon, ChevronLeftIcon } from '@heroicons/vue/24/outline'
@@ -148,7 +149,7 @@ const props = defineProps({
 })
 
 // Define emits
-const emit = defineEmits(['toggle-custom-dice'])
+const emit = defineEmits(['toggle-custom-dice', 'reroll-all-dice'])
 
 // Component refs
 const diceDisplayRef = ref(null)
@@ -179,6 +180,10 @@ const isRolling = computed(() => {
 // Methods
 const handleToggleCustomDice = () => {
   emit('toggle-custom-dice')
+}
+
+const handleRerollAllDice = () => {
+  emit('reroll-all-dice')
 }
 
 const handleMouseEnter = () => {

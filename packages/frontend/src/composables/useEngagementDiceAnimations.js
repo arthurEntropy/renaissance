@@ -1,10 +1,11 @@
 import { ref, reactive, computed, nextTick } from 'vue'
 import EngagementRollService from '@/services/rolls/engagementRollService'
+import DiceRoller from '@/services/rolls/utils/DiceRoller'
 import engagementSessionService from '@/services/sessions/engagementSessionService'
 import PlayerSides from '@/constants/playerSides'
 import { DICE_ROLL_DURATION } from '@/constants/animationDurations'
 import { getDiceFontClass, getDiceFontMaxClass } from '@/utils/diceFontUtils'
-import { rollSingleDie } from '@/utils/diceUtils'
+import { WINNER } from '@shared/constants/winner.js'
 
 /**
  * Composable for managing reroll animations and UI effects
@@ -109,7 +110,7 @@ export function useEngagementDiceAnimations() {
       targetDie.rolledMaxValue = false
 
       // Roll new value
-      const newValue = rollSingleDie(originalDieSize)
+      const newValue = DiceRoller.rollDie(originalDieSize)
       const isNewMax = newValue === originalDieSize
 
       // Broadcast the reroll to other players using poolIndex (original array position)
@@ -262,9 +263,9 @@ export function useEngagementDiceAnimations() {
     }
 
     if (showResults && winner) {
-      if ((winner === 'user' && !isOpponent) || (winner === 'opponent' && isOpponent)) {
+      if ((winner === WINNER.USER && !isOpponent) || (winner === WINNER.OPPONENT && isOpponent)) {
         classes.push('winner-column')
-      } else if (winner !== 'tie') {
+      } else if (winner !== WINNER.TIE) {
         classes.push('loser-column')
       }
     }

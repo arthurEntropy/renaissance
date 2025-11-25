@@ -26,6 +26,7 @@ export const opposedSkillCheckConfig = {
           // Store roll results in session state
           user.rollResults = rollResults.diceResults
           user.rollTotal = rollResults.totalSum
+          user.isAutoFail = rollResults.isAutoFail || false
 
           // Emit session update so both players see the new session state
           sessionIO.to(sessionId).emit('session-updated', { 
@@ -40,7 +41,7 @@ export const opposedSkillCheckConfig = {
       socket.on('complete-session', ({ sessionId, winner }) => {
         const session = activeSessions.get(sessionId)
         
-        // If session exists and is active, store the winner and mark complete
+        // If session exists and is active, mark complete with the winner determined by frontend
         if (session && session.status === SESSION_STATUS.ACTIVE) {
           session.winner = winner
           session.status = SESSION_STATUS.COMPLETED
@@ -67,6 +68,7 @@ export const opposedSkillCheckConfig = {
           const rerollingUser = session.users[rerollingUserIndex]
           rerollingUser.rollResults = null
           rerollingUser.rollTotal = undefined
+          rerollingUser.isAutoFail = false
 
           // Set session status back to ACTIVE so frontend knows reroll is in progress
           session.status = SESSION_STATUS.ACTIVE

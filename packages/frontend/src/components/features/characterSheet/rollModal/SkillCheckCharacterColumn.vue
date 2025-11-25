@@ -43,6 +43,7 @@
 <script setup>
 import { computed, ref } from 'vue'
 import { SESSION_STATUS } from '@shared/constants/sessionStatus'
+import { WINNER } from '@shared/constants/winner.js'
 import { getDiceFontClass } from '@/utils/diceFontUtils'
 import { useSkillDice } from '@/composables/useSkillDice'
 import BaseCharacterColumn from './BaseCharacterColumn.vue'
@@ -95,7 +96,7 @@ const emit = defineEmits([
     'reroll-all-dice'
 ])
 
-const { buildDiceSet, processDiceResults } = useSkillDice()
+const { buildDiceSet } = useSkillDice()
 
 const diceDisplayRef = ref(null)
 
@@ -111,15 +112,15 @@ const isWinner = computed(() => {
     if (props.sessionStatus !== SESSION_STATUS.COMPLETED || !props.winner || isRolling.value) {
         return false
     }
-    return (props.winner === 'user' && !props.isOpponent) ||
-        (props.winner === 'opponent' && props.isOpponent)
+    return (props.winner === WINNER.USER && !props.isOpponent) ||
+        (props.winner === WINNER.OPPONENT && props.isOpponent)
 })
 
 const isLoser = computed(() => {
     if (props.sessionStatus !== SESSION_STATUS.COMPLETED || !props.winner || isRolling.value) {
         return false
     }
-    return props.winner !== 'tie' && !isWinner.value
+    return props.winner !== WINNER.TIE && !isWinner.value
 })
 
 const favoredStatus = computed(() => {
@@ -135,17 +136,13 @@ const allDice = computed(() => {
 
 const sortedDice = computed(() => {
     // Early return if no roll results available
-    if (!props.rollResults?.session) {
+    if (!props.rollResults?.session || props.sessionStatus !== SESSION_STATUS.COMPLETED) {
         return []
     }
 
-    // For completed sessions, process and sort the dice
-    if (props.sessionStatus === SESSION_STATUS.COMPLETED) {
-        return processDiceResults(props.rollResults, props.character?.id, getDiceFontClass)
-    }
-
-    // For non-completed sessions (waiting, rolling), return empty array
-    return []
+    // Extract dice from session - already formatted and sorted by OpposedSkillCheckService
+    const userSession = props.rollResults.session.users.find(u => u.characterInfo.id === props.character?.id)
+    return userSession?.rollResults || []
 })
 
 const displayTotal = computed(() => {
@@ -165,7 +162,7 @@ const totalClass = computed(() => {
 
     if (isWinner.value) return 'winner'
     if (isLoser.value) return 'loser'
-    if (props.winner === 'tie') return 'tie'
+    if (props.winner === WINNER.TIE) return 'tie'
 
     return ''
 })

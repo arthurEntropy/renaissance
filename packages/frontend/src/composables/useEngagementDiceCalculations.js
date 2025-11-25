@@ -1,5 +1,6 @@
 import EngagementRollService from '@/services/rolls/engagementRollService'
 import PlayerSides from '@/constants/playerSides'
+import { RollTypes } from '@/constants/rollTypes'
 
 /**
  * Composable for dice calculations, comparisons, and winner determination
@@ -32,10 +33,15 @@ export function useEngagementDiceCalculations(diceState) {
       : rollResults.session.users.find(user => user.socketId === opponent?.socketId)
   }
 
-  // Helper function to sort dice with fallback handling
-  function sortDiceWithFallback(selectedDice, targetResults) {
-    const rollResultsToUse = targetResults?.rollResults || null
-    return EngagementRollService.sortEngagementDice(selectedDice, rollResultsToUse)
+  // Helper function to prepare dice for display
+  function prepareDiceForDisplay(selectedDice, targetResults) {
+    const rollResults = targetResults?.rollResults
+    
+    if (rollResults) {
+      return EngagementRollService.formatDiceForDisplay(rollResults, RollTypes.ENGAGEMENT)
+    } else {
+      return EngagementRollService.createMaxValueDiceResult(selectedDice, RollTypes.ENGAGEMENT)
+    }
   }
 
   // Helper function to update existing sorted dice with new values
@@ -85,8 +91,8 @@ export function useEngagementDiceCalculations(diceState) {
     // Find target results for this side/character
     const targetResults = findTargetResults(rollResults, characterId, side, opponent)
     
-    // Sort dice (handles both null results and valid results)
-    const sortedDice = sortDiceWithFallback(selectedDice, targetResults)
+    // Prepare dice for display (handles both rolling and rolled states)
+    const sortedDice = prepareDiceForDisplay(selectedDice, targetResults)
     
     // Get state references for this side
     const { sortDoneRef, sortedOrderRef } = getSideStateRefs(side)

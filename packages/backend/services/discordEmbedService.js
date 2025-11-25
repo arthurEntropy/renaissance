@@ -1,4 +1,5 @@
 import { DIE_TYPE, SPECIAL_ROLLS, EMOJI } from '../../../shared/constants/dice.js'
+import { WINNER } from '../../../shared/constants/winner.js'
 
 const COLORS = {
   SUCCESS: 0x00ff00,
@@ -40,7 +41,7 @@ export function createEngagementEmbed(data) {
   return {
     title: `⚔️ Engagement: ${characterName} vs ${opponentName}`,
     description,
-    color: result === 'draw' ? COLORS.DRAW : (result === 'win' ? COLORS.SUCCESS : COLORS.FAILURE),
+    color: COLORS.NEUTRAL,
     fields: [
       {
         name: characterName,
@@ -109,17 +110,10 @@ export function createOpposedSkillCheckEmbed(data) {
     winner 
   } = data
   
-  let color = COLORS.NEUTRAL
-  if (winner === 'user') {
-    color = COLORS.SUCCESS
-  } else if (winner === 'opponent') {
-    color = COLORS.FAILURE
-  }
-  
   return {
-    title: `${characterName} vs ${opponentName} - Opposed Skill Check`,
-    description: winner === 'tie' ? '**TIE**' : `**${winner === 'user' ? characterName : opponentName} WINS**`,
-    color: color,
+    title: `🤼‍♂️ Opposed Skill Check: ${characterName} vs ${opponentName}`,
+    description: winner === WINNER.TIE ? '**TIE**' : `**${winner === WINNER.USER ? characterName : opponentName} WINS**`,
+    color: COLORS.NEUTRAL,
     fields: [
       {
         name: characterName,

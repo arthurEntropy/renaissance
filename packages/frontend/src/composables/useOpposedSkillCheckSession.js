@@ -1,10 +1,10 @@
 import { ref, computed, watch } from 'vue'
 import { SESSION_STATUS } from '@shared/constants/sessionStatus.js'
+import { WINNER } from '@shared/constants/winner.js'
 import { PlayerSides } from '@/constants/playerSides.js'
 import { DICE_ROLL_DURATION } from '@/constants/animationDurations'
 import opposedSkillCheckSessionService from '@/services/sessions/opposedSkillCheckSessionService'
 import OpposedSkillCheckService from '@/services/rolls/opposedSkillCheckService'
-import SkillCheckService from '@/services/rolls/skillCheckService'
 import { useBaseSession } from './useBaseSession.js'
 
 export function useOpposedSkillCheckSession() {
@@ -85,7 +85,7 @@ export function useOpposedSkillCheckSession() {
     if (!session) return null
     
     // Handle tie case
-    if (session.winner === -1) return 'tie'
+    if (session.winner === -1) return WINNER.TIE
     
     // Handle no winner determined yet
     if (session.winner === null || session.winner === undefined) return null
@@ -94,7 +94,7 @@ export function useOpposedSkillCheckSession() {
     const winnerUser = session.users?.[session.winner]
     if (!winnerUser) return null
     
-    return winnerUser.characterInfo.id === currentCharacter.value.id ? 'user' : 'opponent'
+    return winnerUser.characterInfo.id === currentCharacter.value.id ? WINNER.USER : WINNER.OPPONENT
   })
 
   // Watch for changes in winner to store previous values
@@ -168,7 +168,7 @@ export function useOpposedSkillCheckSession() {
       // When session becomes ACTIVE and we haven't rolled yet, start rolling
       if (newStatus === SESSION_STATUS.ACTIVE && oldStatus === SESSION_STATUS.WAITING) {
         // Make a skill check for the current character
-        const rollResult = SkillCheckService.makeOpposedSkillCheck(userSkillConfig.value, currentCharacter.value)
+        const rollResult = OpposedSkillCheckService.makeOpposedSkillCheck(userSkillConfig.value, currentCharacter.value)
         
         // Wait for roll animation duration before submitting results
         setTimeout(() => {
@@ -224,7 +224,7 @@ export function useOpposedSkillCheckSession() {
       
       // Only perform the actual reroll if this is the character that initiated it
       if (rerollingIdStr === currentUserIdStr) {
-        const rollResult = SkillCheckService.makeOpposedSkillCheck(userSkillConfig.value, currentCharacter.value)
+        const rollResult = OpposedSkillCheckService.makeOpposedSkillCheck(userSkillConfig.value, currentCharacter.value)
         opposedSkillCheckSessionService.submitRollResults(rollResult, currentCharacter.value.id)
       }
       

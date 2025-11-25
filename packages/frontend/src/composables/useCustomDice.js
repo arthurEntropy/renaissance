@@ -62,7 +62,7 @@ export function useCustomDice(character) {
       
       Object.entries(diceCounts.value).forEach(([dieType, count]) => {
         for (let i = 0; i < count; i++) {
-          dicePool.push({ sides: parseInt(dieType) })
+          dicePool.push({ dieSides: parseInt(dieType) })
         }
       })
 

@@ -98,7 +98,7 @@ const props = defineProps({
   },
 })
 
-const emit = defineEmits(['close', 'update-target-number', 'opposed-skill-check-result', 'start-opposed-skill-check'])
+const emit = defineEmits(['close', 'update-target-number', 'skill-check-result', 'opposed-skill-check-result', 'start-opposed-skill-check'])
 
 const { buildDiceSet } = useSkillDice()
 
@@ -230,12 +230,14 @@ function rollSkillCheck() {
     })
   } else {
     // Regular skill check against target number
-    SkillCheckService.makeSkillCheck(
+    const rollResult = SkillCheckService.makeSkillCheck(
       rollParameters.value,
       localCharacter.value,
       localTargetNumber.value,
     )
 
+    // Emit the roll result to the parent
+    emit('skill-check-result', rollResult)
     emit('update-target-number', localTargetNumber.value)
   }
 

@@ -37,9 +37,13 @@ export function useDiceAnimation() {
 
     // Initialize animated dice array with random initial values
     animatedDice.value = rollData.diceResults.map((die) => {
+      // Generate random value for initial animation
+      const randomValue = Math.floor(Math.random() * die.dieSides) + 1
       return {
         ...die,
-        class: getRandomDiceFontClass(die.type),
+        dieRollValue: randomValue,
+        displayValue: randomValue,
+        cssClass: getRandomDiceFontClass(die.dieSides),
         isRolling: true,
       }
     })
@@ -63,19 +67,25 @@ export function useDiceAnimation() {
     const progress = Math.min(elapsed / rollDuration.value, 1)
 
     if (progress < 1) {
-      // Continue animation
+      // Continue animation - cycle through random values
       animatedDice.value = animatedDice.value.map((die, index) => {
-        // Determine if we should change the die face
-        // Change it every 20% of the time, but more frequently at the start
-        if (Math.random() < 0.5 / (progress * 5 + 0.5)) {
+        // Change the die value frequently to create cycling effect
+        // More frequent changes early in the animation
+        const changeFrequency = 0.3 + (progress * 0.3) // 0.3 to 0.6
+        
+        if (Math.random() < changeFrequency) {
+          const randomValue = Math.floor(Math.random() * die.dieSides) + 1
           return {
             ...die,
-            class: getRandomDiceFontClass(die.type),
+            dieRollValue: randomValue,
+            displayValue: randomValue,
+            cssClass: getRandomDiceFontClass(die.dieSides),
+            isRolling: true,
           }
         }
 
-        // As we get closer to the end, start showing the real values more often
-        if (progress > 0.7 && Math.random() < progress) {
+        // As we get closer to the end (70%+), occasionally show the real value
+        if (progress > 0.7 && Math.random() < (progress - 0.7) / 0.3) {
           const actualDie = finalDiceResults[index]
           return {
             ...actualDie,

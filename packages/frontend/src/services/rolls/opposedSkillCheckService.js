@@ -1,79 +1,28 @@
-import { getDiceFontClass, getDiceFontMaxClass } from '@/utils/diceFontUtils'
-import { formatDiceResults, getFavoredStatus } from '@/utils/diceUtils'
-import RollTypes from '@/constants/rollTypes'
+import { RollTypes } from '@/constants/rollTypes'
+import { WINNER } from '@shared/constants/winner.js'
+import DiscordAdapter from './utils/DiscordAdapter.js'
 import BaseRollService from './baseRollService.js'
 
 class OpposedSkillCheckService extends BaseRollService {
 
-  static sortSkillCheckDice(diceArray, rollResults) {
-    if (!diceArray || !Array.isArray(diceArray) || diceArray.length === 0) {
-      return []
-    }
-
-    // Sort skill check dice (includes dropped dice)
-    const diceWithResults = diceArray.map((die, index) => {
-      if (!rollResults) {
-        // No results yet - show rolling state
-        return {
-          dieSides: die,
-          dieRollValue: die,
-          cssClass: getDiceFontMaxClass(die),
-          isRolling: true,
-          rolledMaxValue: false,
-          poolIndex: index,
-          isDropped: false
-        }
-      } else {
-        // Handle complex format with potential drops for skill checks
-        let value, isDropped = false
-        
-        if (rollResults[index] && typeof rollResults[index] === 'object') {
-          const result = rollResults[index]
-          value = result.dieRollValue
-          isDropped = value === 0
-          // For display, show original roll if dropped
-          value = isDropped ? result.originalDieRollValue : value
-        } else {
-          // Simple number result
-          value = rollResults[index] || 1
-        }
-        
-        const rolledMaxValue = value === die && value > 0 && !isDropped
-        
-        return {
-          dieSides: die,
-          dieRollValue: value,
-          cssClass: getDiceFontClass(die, value),
-          isRolling: false,
-          rolledMaxValue: rolledMaxValue,
-          poolIndex: index,
-          isDropped: isDropped
-        }
-      }
-    })
-
-    // Include dropped dice for skill checks
-    // Sort by die type first (d12s first), then by value (highest first)
-    return diceWithResults.sort((a, b) => {
-      // First sort by die type (d12s before d6s)
-      if (a.dieSides !== b.dieSides) {
-        return b.dieSides - a.dieSides
-      }
-      // Then sort by value (highest first)
-      return b.dieRollValue - a.dieRollValue
-    })
-  }
-
-  static determineOpposedWinner(userTotal, opponentTotal) {
-    if (userTotal > opponentTotal) {
-      return 'user'
-    } else if (opponentTotal > userTotal) {
-      return 'opponent'
-    } else {
-      return 'tie'
+  // Initial roll is an isolated step, since opponent's results are not yet known
+  static makeOpposedSkillCheck(skill, character) {
+    const { diceResults, total, isAutoFail } = this.performSkillCheckRoll(skill, character)
+    
+    // Format dice for display (adds CSS classes, emojis, and sorts them)
+    const formattedDiceResults = this.formatDiceForDisplay(diceResults, RollTypes.OPPOSED_SKILL_CHECK)
+    
+    return {
+      diceResults: formattedDiceResults,
+      totalSum: total,
+      isAutoFail: isAutoFail,
+      skillConfig: skill,
+      characterInfo: character
     }
   }
 
+  // Result object is created as a separate step, since we need both users' results.
+  // It's also independent from sending to Discord because users need to review and accept the result first.
   static createOpposedSkillCheckResult(session, userCharacterId, opponentCharacterId) {
     const userSession = session.users.find(u => u.characterInfo.id === userCharacterId)
     const opponentSession = session.users.find(u => u.characterInfo.id === opponentCharacterId)
@@ -82,28 +31,9 @@ class OpposedSkillCheckService extends BaseRollService {
       return null
     }
 
-    // Use server's winner determination instead of client-side calculation
-    let winner = 'tie'
-    if (session.winner !== null && session.winner !== undefined) {
-      // Server winner is 0-indexed: 0 = first user, 1 = second user
-      const winnerIndex = session.winner
-      const winnerUser = session.users[winnerIndex]
-      
-      if (winnerUser) {
-        // Determine winner relative to current user
-        if (winnerUser.characterInfo.id === userCharacterId) {
-          winner = 'user'
-        } else {
-          winner = 'opponent'
-        }
-      }
-    } else {
-      // Fallback to client-side calculation if server doesn't provide winner
-      winner = this.determineOpposedWinner(userSession.rollTotal, opponentSession.rollTotal)
-    }
+    const winner = this._determineWinner(session, userCharacterId)
     
-    const result = {
-      type: RollTypes.OPPOSED_SKILL_CHECK,
+    const result = this.createRollResult(RollTypes.OPPOSED_SKILL_CHECK, {
       characterName: userSession.characterInfo.name,
       opponentName: opponentSession.characterInfo.name,
       skillName: userSession.skillCheckConfig.name,
@@ -111,23 +41,49 @@ class OpposedSkillCheckService extends BaseRollService {
       userTotal: userSession.rollTotal,
       opponentTotal: opponentSession.rollTotal,
       winner: winner,
-      userDiceResults: formatDiceResults(userSession.rollResults),
-      opponentDiceResults: formatDiceResults(opponentSession.rollResults),
-      userFavoredStatus: getFavoredStatus(userSession.skillCheckConfig),
-      opponentFavoredStatus: getFavoredStatus(opponentSession.skillCheckConfig),
-      timestamp: Date.now(),
+      userDiceResults: userSession.rollResults,
+      opponentDiceResults: opponentSession.rollResults,
+      userFavoredStatus: this.getFavoredStatus(userSession.skillCheckConfig),
+      opponentFavoredStatus: this.getFavoredStatus(opponentSession.skillCheckConfig),
       session: session
-    }
+    })
 
-    this.latestRollResult = result
     return result
   }
 
-  static async sendOpposedSkillCheckResultsToServer(opposedSkillCheckResults) {
-    return this.sendToDiscord({
-      type: RollTypes.OPPOSED_SKILL_CHECK,
-      ...opposedSkillCheckResults
-    })
+  // Separate method to create and send to Discord in one step, for when the result is accepted by both users.
+  static async sendOpposedSkillCheckToDiscord(session, userCharacterId, opponentCharacterId) {
+    const result = this.createOpposedSkillCheckResult(session, userCharacterId, opponentCharacterId)
+    if (result) {
+      await DiscordAdapter.sendOpposedSkillCheck(result)
+    }
+  }
+
+  static _determineWinner(session, userCharacterId) {
+    if (session.winner !== null && session.winner !== undefined) {
+      // Server winner is 0-indexed: 0 = first user, 1 = second user
+      const winnerUser = session.users[session.winner]
+      
+      if (winnerUser) {
+        return winnerUser.characterInfo.id === userCharacterId ? WINNER.USER : WINNER.OPPONENT
+      }
+    }
+    
+    // Fallback to client-side calculation if server doesn't provide winner
+    const userSession = session.users.find(u => u.characterInfo.id === userCharacterId)
+    const opponentSession = session.users.find(u => u.characterInfo.id !== userCharacterId)
+    
+    if (userSession && opponentSession) {
+      return this._determineOpposedWinner(userSession.rollTotal, opponentSession.rollTotal)
+    }
+    
+    return WINNER.TIE
+  }
+
+  static _determineOpposedWinner(userTotal, opponentTotal) {
+    if (userTotal > opponentTotal) return WINNER.USER
+    if (opponentTotal > userTotal) return WINNER.OPPONENT
+    return WINNER.TIE
   }
 }
 

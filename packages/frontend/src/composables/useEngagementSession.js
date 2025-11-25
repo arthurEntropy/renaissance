@@ -1,11 +1,11 @@
 import { watch, computed } from 'vue'
 import engagementSessionService from '@/services/sessions/engagementSessionService'
 import EngagementRollService from '@/services/rolls/engagementRollService'
+import DiceRoller from '@/services/rolls/utils/DiceRoller.js'
 import EngagementResultTypes from '@/constants/engagementResultTypes'
 import EngagementWinnerTypes from '@/constants/engagementWinnerTypes'
 import RollTypes from '@/constants/rollTypes'
 import { DICE_ROLL_DURATION } from '@/constants/animationDurations'
-import { rollSingleDie } from '@/utils/diceUtils'
 import { useBaseSession } from './useBaseSession.js'
 import { SESSION_STATUS } from '@shared/constants/sessionStatus.js'
 
@@ -89,14 +89,18 @@ export function useEngagementSession() {
     watch(() => baseSession.sessionStatus.value, (newStatus, oldStatus) => {
       // When session becomes ACTIVE and we haven't rolled yet, start rolling
       if (newStatus === SESSION_STATUS.ACTIVE && oldStatus === SESSION_STATUS.WAITING) {
-        // Generate roll results for engagement using selected dice
-        const diceResults = selectedDice.map(dieSize => 
-          rollSingleDie(dieSize)
-        )
+        // Generate roll results
+        const dicePool = selectedDice.map((die, index) => ({
+          ...die,
+          poolIndex: index
+        }))
+        
+        const diceResults = DiceRoller.rollPool(dicePool)
+        const totalSum = diceResults.reduce((sum, die) => sum + die.dieRollValue, 0)
         
         const rollResult = {
           diceResults,
-          totalSum: diceResults.reduce((sum, value) => sum + value, 0)
+          totalSum
         }
         
         // Wait for roll animation duration before submitting results
