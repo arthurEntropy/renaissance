@@ -5,7 +5,7 @@
             {{ skill.name }}
         </span>
         <i class="dice-icon d12-icon"
-            :class="[getDiceFontClass(DICE_SIZES.D12, DICE_SIZES.D12), getStyleClassForFavoredStatus(skill)]">
+            :class="[getDiceFontClass(DIE_TYPE.D12, DIE_TYPE.D12), getStyleClassForFavoredStatus(skill)]">
         </i>
         <DiceGroup :skill="skill" :is-edit-mode="isEditMode" :is-rank-active="isRankActive" :is-dice-added="isDiceAdded"
             :is-dice-subtracted="isDiceSubtracted" @dice-click="$emit('dice-click', skill.name, $event)" />
@@ -14,7 +14,7 @@
 
 <script setup>
 import { getDiceFontClass } from '@/utils/diceFontUtils'
-import { DICE_SIZES } from '@/constants/coreAbilityConfig'
+import { DIE_TYPE } from '@shared/constants/dice'
 import DiceGroup from './DiceGroup.vue'
 
 // Props

@@ -1,8 +1,9 @@
-import CharacterService from '@/services/entities/characterService'
+import * as CharacterUtils from '@shared/types/entities/characterUtils'
 import { getDiceFontClass } from '@/utils/diceFontUtils'
 import BaseRollService from '@/services/rolls/baseRollService'
 import { RollTypes } from '@/constants/rollTypes'
 import { DIE_TYPE } from '@shared/constants/dice.js'
+import { MAX_SKILL_RANKS } from '@shared/constants/characterConstants'
 
 /**
  * Composable for managing skill dice interactions
@@ -49,8 +50,7 @@ export function useSkillDice(character, updateCallback) {
     
     // Add dice for positive dice mod, up to max ranks
     if (diceMod > 0) {
-      const MAX_RANKS = 5 // Maximum ranks allowed
-      const maxAdditionalDice = Math.min(diceMod, MAX_RANKS - baseRanks)
+      const maxAdditionalDice = Math.min(diceMod, MAX_SKILL_RANKS - baseRanks)
       for (let i = 0; i < maxAdditionalDice; i++) {
         const die = {
           dieSides: DIE_TYPE.D6,
@@ -120,7 +120,7 @@ export function useSkillDice(character, updateCallback) {
       })
     }
 
-    CharacterService.updateFavoredStatus(updatedCharacter)
+    CharacterUtils.updateFavoredStatus(updatedCharacter)
     updateCallback(updatedCharacter)
   }
 

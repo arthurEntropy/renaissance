@@ -54,7 +54,7 @@
 
 <script setup>
 import { ref, computed } from 'vue'
-import CharacterService from '@/services/entities/characterService'
+import * as CharacterUtils from '@shared/types/entities/characterUtils'
 import EquipmentCard from '@/components/ui/cards/EquipmentCard.vue'
 import EquipmentWeight from './EquipmentWeight.vue'
 import EquipmentDetails from './EquipmentDetails.vue'
@@ -216,7 +216,7 @@ const selectEquipment = (equipment) => {
     artExpanded: false,
   }
 
-  CharacterService.addSpecificEquipmentItem(
+  CharacterUtils.addSpecificEquipmentItem(
     props.character,
     newItem,
     props.allEquipment,

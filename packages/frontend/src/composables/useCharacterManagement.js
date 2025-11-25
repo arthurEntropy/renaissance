@@ -1,6 +1,7 @@
 import { computed, watch } from 'vue'
 import { useCharactersStore } from '@/stores/charactersStore'
 import CharacterService from '@/services/entities/characterService'
+import * as CharacterUtils from '@shared/types/entities/characterUtils'
 
 /**
  * Composable for managing character selection, updates, and stat watching
@@ -50,7 +51,7 @@ export function useCharacterManagement(allEquipment) {
     watch(selectedCharacter, (newCharacter) => {
       if (!newCharacter) return
       const timeoutId = setTimeout(() => {
-        CharacterService.saveCharacter(newCharacter)
+        CharacterService.update(newCharacter)
       }, 500) // Only save after 0.5 seconds to avoid too many saves
       
       // Store timeout for potential cleanup
@@ -60,24 +61,24 @@ export function useCharacterManagement(allEquipment) {
     // Core stats watchers
     watch(() => selectedCharacter.value?.body, () => {
       if (!selectedCharacter.value || selectedCharacter.value.body === undefined) return
-      CharacterService.handleBodyChange(selectedCharacter.value)
+      CharacterUtils.handleBodyChange(selectedCharacter.value)
     })
 
     watch(() => selectedCharacter.value?.heart, () => {
       if (!selectedCharacter.value || selectedCharacter.value.heart === undefined) return
-      CharacterService.handleHeartChange(selectedCharacter.value)
+      CharacterUtils.handleHeartChange(selectedCharacter.value)
     })
 
     watch(() => selectedCharacter.value?.wits, () => {
       if (!selectedCharacter.value || selectedCharacter.value.wits === undefined) return
-      CharacterService.handleWitsChange(selectedCharacter.value)
+      CharacterUtils.handleWitsChange(selectedCharacter.value)
     })
 
     // Derived stats watchers
     watch(() => selectedCharacter.value?.endurance, () => {
       if (!selectedCharacter.value || !selectedCharacter.value.endurance) return
       if (!allEquipment.value || !Array.isArray(allEquipment.value)) return
-      CharacterService.handleEnduranceChange(
+      CharacterUtils.handleEnduranceChange(
         selectedCharacter.value,
         allEquipment.value
       )
@@ -85,43 +86,43 @@ export function useCharacterManagement(allEquipment) {
 
     watch(() => selectedCharacter.value?.hope, () => {
       if (!selectedCharacter.value || !selectedCharacter.value.hope) return
-      CharacterService.handleHopeChange(selectedCharacter.value)
+      CharacterUtils.handleHopeChange(selectedCharacter.value)
     }, { deep: true })
 
     watch(() => selectedCharacter.value?.defense, () => {
       if (!selectedCharacter.value || !selectedCharacter.value.defense) return
-      CharacterService.handleDefenseChange(selectedCharacter.value)
+      CharacterUtils.handleDefenseChange(selectedCharacter.value)
     }, { deep: true })
 
     watch(() => selectedCharacter.value?.load, () => {
       if (!selectedCharacter.value || selectedCharacter.value.load === undefined) return
-      CharacterService.handleLoadChange(selectedCharacter.value)
+      CharacterUtils.handleLoadChange(selectedCharacter.value)
     })
 
     watch(() => selectedCharacter.value?.shadow, () => {
       if (!selectedCharacter.value || selectedCharacter.value.shadow === undefined) return
-      CharacterService.handleShadowChange(selectedCharacter.value)
+      CharacterUtils.handleShadowChange(selectedCharacter.value)
     })
 
     watch(() => selectedCharacter.value?.injury, () => {
       if (!selectedCharacter.value || selectedCharacter.value.injury === undefined) return
-      CharacterService.handleInjuryChange(selectedCharacter.value)
+      CharacterUtils.handleInjuryChange(selectedCharacter.value)
     })
 
     // Complex state watchers
     watch(() => selectedCharacter.value?.states, () => {
       if (!selectedCharacter.value || !selectedCharacter.value.states) return
-      CharacterService.handleStatesChange(selectedCharacter.value)
+      CharacterUtils.handleStatesChange(selectedCharacter.value)
     }, { deep: true })
 
     watch(() => selectedCharacter.value?.conditions, () => {
       if (!selectedCharacter.value || !selectedCharacter.value.conditions) return
-      CharacterService.handleConditionsChange(selectedCharacter.value)
+      CharacterUtils.handleConditionsChange(selectedCharacter.value)
     }, { deep: true })
 
     watch(() => selectedCharacter.value?.equipment, () => {
       if (!selectedCharacter.value || !selectedCharacter.value.equipment || !allEquipment.value || !Array.isArray(allEquipment.value)) return
-      CharacterService.handleEquipmentChange(
+      CharacterUtils.handleEquipmentChange(
         selectedCharacter.value,
         allEquipment.value
       )
@@ -134,7 +135,7 @@ export function useCharacterManagement(allEquipment) {
     if (!Array.isArray(char.abilities)) char.abilities = []
     if (char.abilities.includes(ability.id)) return false
     char.abilities.push(ability.id)
-    CharacterService.saveCharacter(char)
+    CharacterService.update(char)
     return true
   }
 
@@ -144,7 +145,7 @@ export function useCharacterManagement(allEquipment) {
     if (!Array.isArray(char.equipment)) char.equipment = []
     if (char.equipment.some(item => item.id === equipment.id)) return false
     char.equipment.push({ id: equipment.id, quantity: 1, isCarried: true })
-    CharacterService.saveCharacter(char)
+    CharacterService.update(char)
     return true
   }
 

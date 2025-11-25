@@ -1,6 +1,6 @@
 <template>
     <div class="dice-group">
-        <i v-for="(n, diceIndex) in DICE_COUNT" :key="diceIndex" :class="getDiceClasses(diceIndex)"
+        <i v-for="(n, diceIndex) in MAX_SKILL_RANKS" :key="diceIndex" :class="getDiceClasses(diceIndex)"
             @click="isEditMode ? $emit('dice-click', diceIndex) : null" class="dice-icon d6-icon"
             :style="{ cursor: isEditMode ? 'pointer' : 'default' }">
         </i>
@@ -9,7 +9,8 @@
 
 <script setup>
 import { getDiceFontClass } from '@/utils/diceFontUtils'
-import { DICE_COUNT, DICE_SIZES } from '@/constants/coreAbilityConfig'
+import { MAX_SKILL_RANKS } from '@shared/constants/characterConstants'
+import { DIE_TYPE } from '@shared/constants/dice'
 
 // Props
 const props = defineProps({
@@ -41,7 +42,7 @@ defineEmits(['dice-click'])
 // Methods
 const getDiceClasses = (diceIndex) => {
     return [
-        getDiceFontClass(DICE_SIZES.D6, DICE_SIZES.D6),
+        getDiceFontClass(DIE_TYPE.D6, DIE_TYPE.D6),
         {
             'dice-active': props.isRankActive(props.skill, diceIndex),
             'dice-added': props.isDiceAdded(props.skill, diceIndex),

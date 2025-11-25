@@ -6,6 +6,7 @@ class RulesService extends BaseEntityService {
     super('/rules', 'section')
   }
 
+  // Batch update sections with new indices
   async reorderSections(sections) {
     try {
       const updatePromises = sections.map((section, index) => {

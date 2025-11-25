@@ -61,7 +61,7 @@ const tempArtUrl = ref('')
 
 // Computed properties
 const characterImageUrl = computed(() => {
-    return props.character.artUrls?.[0] ?? CharacterService.DEFAULT_ART_URL
+    return props.character.artUrls?.[0] ?? ''
 })
 
 // Helper function
