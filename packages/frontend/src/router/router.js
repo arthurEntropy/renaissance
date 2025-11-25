@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { useAuthStore } from '@/stores/authStore'
-import AuthService from '@/services/authService'
+import AuthService from '@/services/auth/authService'
 import TitlePage from '@/pages/TitlePage.vue'
 import CharactersPage from '@/pages/CharactersPage.vue'
 import BestiaryPage from '@/pages/BestiaryPage.vue'

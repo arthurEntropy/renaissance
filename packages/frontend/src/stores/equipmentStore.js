@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import equipmentService from '../services/equipmentService.js'
-import KeepingService from '@/services/keepingService'
+import equipmentService from '@/services/entities/equipment/equipmentService'
+import KeepingService from '@/services/entities/keepingService'
 
 export const useEquipmentStore = defineStore('equipment', () => {
   // state

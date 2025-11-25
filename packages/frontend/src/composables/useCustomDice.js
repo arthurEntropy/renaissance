@@ -1,6 +1,6 @@
 import { ref, computed } from 'vue'
 import { useDiceManagement } from './useDiceManagement'
-import CustomRollService from '@/services/customRollService'
+import CustomRollService from '@/services/rolls/customRollService'
 
 /**
  * Composable for managing custom dice rolls
@@ -62,7 +62,7 @@ export function useCustomDice(character) {
       
       Object.entries(diceCounts.value).forEach(([dieType, count]) => {
         for (let i = 0; i < count; i++) {
-          dicePool.push({ sides: parseInt(dieType) })
+          dicePool.push({ dieSides: parseInt(dieType) })
         }
       })
 

@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import MestieriService from '@/services/mestiereService.js'
+import MestieriService from '@/services/entities/gameConcepts/mestiereService.js'
 
 export const useMestieriStore = defineStore('mestieri', () => {
   // state

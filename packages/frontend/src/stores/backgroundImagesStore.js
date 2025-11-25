@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import BackgroundImageService from '@/services/backgroundImageService'
+import BackgroundImageService from '@/services/entities/backgroundImageService'
 
 export const useBackgroundImagesStore = defineStore('backgroundImages', () => {
   // state

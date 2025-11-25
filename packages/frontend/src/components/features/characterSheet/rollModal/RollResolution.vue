@@ -15,6 +15,7 @@
 
 <script setup>
 import { computed } from 'vue'
+import { WINNER } from '@shared/constants/winner.js'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 
 // Props
@@ -106,8 +107,8 @@ const winnerText = computed(() => {
 
 // Helper function to normalize winner types
 const normalizeWinner = (winner) => {
-    if (winner === 'draw') return 'tie'
-    if (winner === 'tie') return 'tie'
+    if (winner === 'draw') return WINNER.TIE
+    if (winner === WINNER.TIE) return WINNER.TIE
     return winner
 }
 
@@ -119,11 +120,11 @@ const getAcceptButtonVariant = computed(() => {
     const normalizedWinner = normalizeWinner(props.winner)
 
     switch (normalizedWinner) {
-        case 'user':
+        case WINNER.USER:
             return 'success'
-        case 'opponent':
+        case WINNER.OPPONENT:
             return 'danger'
-        case 'tie':
+        case WINNER.TIE:
             return 'primary'
         default:
             return 'neutral'
@@ -158,7 +159,7 @@ const getWinnerAnnouncementClasses = computed(() => {
         classes.push('both-accepted');
     }
 
-    if (normalizedWinner === 'tie') {
+    if (normalizedWinner === WINNER.TIE) {
         classes.push('draw-result');
     }
 

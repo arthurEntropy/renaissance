@@ -1,6 +1,6 @@
 import { ref } from 'vue'
 import { useEquipmentStore } from '@/stores/equipmentStore'
-import EquipmentService from '@/services/equipmentService'
+import EquipmentService from '@/services/entities/equipment/equipmentService'
 
 /**
  * Composable for managing equipment editing and related modals

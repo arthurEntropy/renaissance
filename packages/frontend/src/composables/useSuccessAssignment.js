@@ -1,5 +1,5 @@
 import { reactive } from 'vue'
-import engagementSessionService from '@/services/engagementSessionService'
+import engagementSessionService from '@/services/sessions/engagementSessionService'
 
 export function useSuccessAssignment() {
   // Success assignment state

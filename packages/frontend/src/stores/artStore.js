@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import ArtService from '@/services/artService'
+import ArtService from '@/services/entities/artService'
 
 export const useArtStore = defineStore('art', () => {
   // state

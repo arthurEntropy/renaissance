@@ -24,7 +24,7 @@
 <script setup>
 import CharacterSheetSection from '@/components/ui/containers/CharacterSheetSection.vue'
 import NumberInput from '@/components/ui/forms/NumberInput.vue'
-import CharacterService from '@/services/characterService'
+import * as CharacterUtils from '@shared/types/entities/characterUtils'
 
 const props = defineProps({
     character: {
@@ -52,8 +52,8 @@ const updateCondition = (conditionKey, value) => {
             [conditionKey]: value
         }
     }
-    CharacterService.updateDiceMods(updatedCharacter)
-    CharacterService.updateFavoredStatus(updatedCharacter)
+    CharacterUtils.updateDiceMods(updatedCharacter)
+    CharacterUtils.updateFavoredStatus(updatedCharacter)
     emit('update:character', updatedCharacter)
 }
 

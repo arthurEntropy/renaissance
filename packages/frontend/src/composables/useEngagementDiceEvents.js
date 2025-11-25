@@ -1,5 +1,5 @@
 import { nextTick } from 'vue'
-import engagementSessionService from '@/services/engagementSessionService'
+import engagementSessionService from '@/services/sessions/engagementSessionService'
 
 /**
  * Composable for handling engagement dice events and user interactions

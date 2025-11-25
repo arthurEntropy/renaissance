@@ -1,6 +1,6 @@
 import { ref } from 'vue'
-import EquipmentService from '@/services/equipmentService'
-import CharacterService from '@/services/characterService'
+import EquipmentService from '@/services/entities/equipment/equipmentService'
+import * as CharacterUtils from '@shared/types/entities/characterUtils'
 import { useEquipmentStore } from '@/stores/equipmentStore'
 
 /**
@@ -26,7 +26,7 @@ export function useCustomEquipment(character, emit) {
         isWielding: false,
       }
 
-      CharacterService.addSpecificEquipmentItem(character.value, newItem)
+      CharacterUtils.addSpecificEquipmentItem(character.value, newItem)
       emit('update-character', character.value)
 
       await equipmentStore.fetch()

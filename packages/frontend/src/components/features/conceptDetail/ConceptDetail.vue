@@ -74,8 +74,8 @@ import { useEquipmentStore } from '@/stores/equipmentStore'
 import { useArtStore } from '@/stores/artStore'
 
 // Service imports
-import AbilityService from '@/services/abilityService'
-import EquipmentService from '@/services/equipmentService'
+import AbilityService from '@/services/entities/abilityService'
+import EquipmentService from '@/services/entities/equipment/equipmentService'
 
 // Props
 const props = defineProps({

@@ -28,6 +28,7 @@
 <script setup>
 import { computed, ref, onMounted } from 'vue'
 import { SESSION_STATUS } from '@shared/constants/sessionStatus'
+import OpposedSkillCheckService from '@/services/rolls/opposedSkillCheckService'
 import SkillCheckCharacterColumn from './SkillCheckCharacterColumn.vue'
 import RollResolution from './RollResolution.vue'
 
@@ -110,7 +111,26 @@ const toggleUserAccept = () => {
     if (sessionManager.updateUserAcceptance) {
         const newAccepted = !sessionManager.userAccepted.value
         sessionManager.updateUserAcceptance(props.character.id, newAccepted)
+
+        // Check if both users have now accepted
+        if (newAccepted && sessionManager.opponentAccepted?.value) {
+            emitOpposedSkillCheckResults()
+        }
     }
+}
+
+const emitOpposedSkillCheckResults = () => {
+    // Generate and send the opposed skill check result to Discord
+    if (!sessionManager.rollResults.value?.session) {
+        return
+    }
+
+    // Send to Discord
+    OpposedSkillCheckService.sendOpposedSkillCheckToDiscord(
+        sessionManager.rollResults.value.session,
+        props.character.id,
+        sessionManager.opponent.value?.characterInfo?.id
+    )
 }
 
 const rerollAllDice = (side) => {

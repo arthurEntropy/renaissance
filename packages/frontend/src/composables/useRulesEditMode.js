@@ -1,5 +1,5 @@
 import { ref } from 'vue'
-import RulesService from '@/services/rulesService'
+import RulesService from '@/services/entities/rulesService'
 import { useRulesStore } from '@/stores/rulesStore'
 
 export function useRulesEditMode() {

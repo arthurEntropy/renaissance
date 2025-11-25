@@ -1,9 +1,11 @@
 import { ref, reactive, computed, nextTick } from 'vue'
-import EngagementRollService from '@/services/engagementRollService'
-import engagementSessionService from '@/services/engagementSessionService'
+import EngagementRollService from '@/services/rolls/engagementRollService'
+import DiceRoller from '@/services/rolls/utils/DiceRoller'
+import engagementSessionService from '@/services/sessions/engagementSessionService'
 import PlayerSides from '@/constants/playerSides'
 import { DICE_ROLL_DURATION } from '@/constants/animationDurations'
 import { getDiceFontClass, getDiceFontMaxClass } from '@/utils/diceFontUtils'
+import { WINNER } from '@shared/constants/winner.js'
 
 /**
  * Composable for managing reroll animations and UI effects
@@ -92,7 +94,7 @@ export function useEngagementDiceAnimations() {
         return
       }
 
-      const originalDieSize = targetDie.die
+      const originalDieSize = targetDie.dieSides
 
       // Start blocking UI updates during animation
       if (sessionManager?.startRerolling) {
@@ -101,25 +103,25 @@ export function useEngagementDiceAnimations() {
 
       // Mark this die as re-rolling and store previous value for stable comparisons
       rerollingDice.add(rerollKey)
-      targetDie.previousValue = targetDie.value
+      targetDie.previousValue = targetDie.dieRollValue
 
       // Show max value while re-rolling
-      targetDie.class = getDiceFontMaxClass(originalDieSize)
-      targetDie.isMax = false
+      targetDie.cssClass = getDiceFontMaxClass(originalDieSize)
+      targetDie.rolledMaxValue = false
 
       // Roll new value
-      const newValue = EngagementRollService.rollSingleDie(originalDieSize)
+      const newValue = DiceRoller.rollDie(originalDieSize)
       const isNewMax = newValue === originalDieSize
 
-      // Broadcast the reroll to other players using originalIndex for consistent identification
-      engagementSessionService.rerollDie(player, targetDie.originalIndex, newValue, characterId)
+      // Broadcast the reroll to other players using poolIndex (original array position)
+      engagementSessionService.rerollDie(player, targetDie.poolIndex, newValue, characterId)
 
       // After animation completes, show new result
       setTimeout(() => {
         // Update the die with new result
-        targetDie.value = newValue
-        targetDie.class = getDiceFontClass(originalDieSize, newValue)
-        targetDie.isMax = isNewMax
+        targetDie.dieRollValue = newValue
+        targetDie.cssClass = getDiceFontClass(originalDieSize, newValue)
+        targetDie.rolledMaxValue = isNewMax
 
         // Update the roll results
         const opponentSocketId = opponent?.socketId
@@ -160,14 +162,14 @@ export function useEngagementDiceAnimations() {
       return
     }
 
-    // Find the die by its originalIndex
-    const targetDie = targetDice.find(die => die.originalIndex === originalDiceIndex)
+    // Find the die by its poolIndex
+    const targetDie = targetDice.find(die => die.poolIndex === originalDiceIndex)
     if (!targetDie) {
       return
     }
 
     // Get the current sorted position for the reroll animation key
-    const sortedPosition = targetDice.findIndex(die => die.originalIndex === originalDiceIndex)
+    const sortedPosition = targetDice.findIndex(die => die.poolIndex === originalDiceIndex)
     
     // For remote rerolls, always use 'opponent' as the side
     const rerollKey = `${PlayerSides.OPPONENT}-${sortedPosition}`
@@ -183,19 +185,19 @@ export function useEngagementDiceAnimations() {
     }
 
     // Store previous value for stable comparisons
-    targetDie.previousValue = targetDie.value
+    targetDie.previousValue = targetDie.dieRollValue
 
     // Show max value while rerolling
-    const originalDieSize = targetDie.die
-    targetDie.class = getDiceFontMaxClass(originalDieSize)
-    targetDie.isMax = false
+    const originalDieSize = targetDie.dieSides
+    targetDie.cssClass = getDiceFontMaxClass(originalDieSize)
+    targetDie.rolledMaxValue = false
 
     // After animation, show new result
     setTimeout(() => {
       const isNewMax = newValue === originalDieSize
-      targetDie.value = newValue
-      targetDie.class = getDiceFontClass(originalDieSize, newValue)
-      targetDie.isMax = isNewMax
+      targetDie.dieRollValue = newValue
+      targetDie.cssClass = getDiceFontClass(originalDieSize, newValue)
+      targetDie.rolledMaxValue = isNewMax
 
       // Update roll results with sorted position
       EngagementRollService.updateRollResultsAfterReroll(
@@ -261,9 +263,9 @@ export function useEngagementDiceAnimations() {
     }
 
     if (showResults && winner) {
-      if ((winner === 'user' && !isOpponent) || (winner === 'opponent' && isOpponent)) {
+      if ((winner === WINNER.USER && !isOpponent) || (winner === WINNER.OPPONENT && isOpponent)) {
         classes.push('winner-column')
-      } else if (winner !== 'tie') {
+      } else if (winner !== WINNER.TIE) {
         classes.push('loser-column')
       }
     }

@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import EngagementSuccessService from '@/services/engagementSuccessService'
+import EngagementSuccessService from '@/services/entities/engagementSuccessService'
 
 export const useEngagementSuccessesStore = defineStore('engagementSuccesses', () => {
   const engagementSuccesses = ref([])

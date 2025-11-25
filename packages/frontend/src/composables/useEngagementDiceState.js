@@ -87,7 +87,7 @@ export function useEngagementDiceState(character = null, allEquipment = null) {
   const selectedDiceValues = computed(() => {
     return allEngagementDice.value
       .filter(item => item.status === DiceStatus.SELECTED)
-      .map(item => item.die)
+      .map(item => ({ dieSides: item.die }))
   })
 
   const hasExpendedDice = computed(() => {

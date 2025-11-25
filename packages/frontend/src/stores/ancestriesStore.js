@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import AncestryService from '@/services/ancestryService.js'
+import AncestryService from '@/services/entities/gameConcepts/ancestryService.js'
 
 export const useAncestriesStore = defineStore('ancestries', () => {
   // state

@@ -26,118 +26,136 @@
       "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 0
+      "diceMod": 0,
+      "coreAbility": "body"
     },
     {
       "name": "Strength",
       "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 0
+      "diceMod": 0,
+      "coreAbility": "body"
     },
     {
       "name": "Dexterity",
       "ranks": 4,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 0
+      "diceMod": 0,
+      "coreAbility": "body"
     },
     {
       "name": "Fortitude",
       "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 0
+      "diceMod": 0,
+      "coreAbility": "body"
     },
     {
       "name": "Craft",
       "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 0
+      "diceMod": 0,
+      "coreAbility": "body"
     },
     {
       "name": "Perform",
       "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 0
+      "diceMod": 0,
+      "coreAbility": "heart"
     },
     {
       "name": "Insight",
       "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 0
+      "diceMod": 0,
+      "coreAbility": "heart"
     },
     {
       "name": "Courtesy",
       "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 0
+      "diceMod": 0,
+      "coreAbility": "heart"
     },
     {
       "name": "Spirit",
       "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 0
+      "diceMod": 0,
+      "coreAbility": "heart"
     },
     {
       "name": "Aid",
       "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 0
+      "diceMod": 0,
+      "coreAbility": "heart"
     },
     {
       "name": "Persuade",
       "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 0
+      "diceMod": 0,
+      "coreAbility": "wits"
     },
     {
       "name": "Awareness",
       "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 0
+      "diceMod": 0,
+      "coreAbility": "wits"
     },
     {
       "name": "Stealth",
       "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 0
+      "diceMod": 0,
+      "coreAbility": "wits"
     },
     {
       "name": "Lore",
       "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 0
+      "diceMod": 0,
+      "coreAbility": "wits"
     },
     {
       "name": "Riddle",
       "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 0
+      "diceMod": 0,
+      "coreAbility": "wits"
     }
   ],
   "endurance": {
     "current": 20,
-    "max": 20
+    "max": 20,
+    "coreAbility": "body"
   },
   "hope": {
     "current": 6,
-    "max": 6
+    "max": 6,
+    "coreAbility": "heart"
   },
   "defense": {
     "current": 13,
-    "max": 13
+    "max": 13,
+    "coreAbility": "wits"
   },
   "load": 0,
   "shadow": 0,
@@ -214,6 +232,6 @@
     "https://cdn.midjourney.com/545939d2-7091-4ee5-9e3d-479166b344af/0_3.png"
   ],
   "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2025-11-22T00:09:47.301Z",
-  "lastModified": "2025-11-22T00:09:47.301Z"
+  "updatedAt": "2025-11-25T02:17:34.882Z",
+  "lastModified": "2025-11-25T02:17:34.882Z"
 }

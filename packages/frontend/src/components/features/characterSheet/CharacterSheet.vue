@@ -14,7 +14,8 @@
                         <CharacterBio :character="localCharacter" :is-edit-mode="isEditMode"
                             @update-character="updateCharacter" />
                         <DiceRollResults :latestRoll="latestRoll" :customDiceRollerOpen="showCustomDiceRoller"
-                            :is-edit-mode="isEditMode" @toggle-custom-dice="toggleCustomDiceRoller" />
+                            :is-edit-mode="isEditMode" @toggle-custom-dice="toggleCustomDiceRoller"
+                            @reroll-all-dice="handleRerollDice" />
                     </div>
 
                     <div class="character-stats-section">
@@ -49,7 +50,8 @@
         <!-- Modals -->
         <SkillCheckModal v-if="showSkillCheckModal" :character="localCharacter" :selectedSkillName="selectedSkillName"
             :defaultTargetNumber="getLastTargetNumber()" @close="closeSkillCheckModalAndUpdate"
-            @update-target-number="updateLastTargetNumber" @opposed-skill-check-result="handleOpposedSkillCheckResult"
+            @update-target-number="updateLastTargetNumber" @skill-check-result="handleSkillCheckResult"
+            @opposed-skill-check-result="handleOpposedSkillCheckResult"
             @start-opposed-skill-check="handleStartOpposedSkillCheck" />
 
         <OpposedSkillCheckModal v-if="showOpposedSkillCheckModal" :character="localCharacter"
@@ -81,7 +83,7 @@ import { useCharacterEditMode } from '@/composables/useCharacterEditMode'
 import { useEquipmentStore } from '@/stores/equipmentStore'
 import { useEquipmentCategoriesStore } from '@/stores/equipmentCategoriesStore'
 import { useSourcesStore } from '@/stores/sourcesStore'
-import EngagementSuccessService from '@/services/engagementSuccessService'
+import EngagementSuccessService from '@/services/entities/engagementSuccessService'
 import CharacterProfile from '@/components/features/characterSheet/characterProfile/CharacterProfile.vue'
 import CharacterBio from '@/components/features/characterSheet/characterBio/CharacterBio.vue'
 import CoreAbilityColumn from '@/components/features/characterSheet/coreAbilityColumns/CoreAbilityColumn.vue'
@@ -171,16 +173,15 @@ const closeOpposedSkillCheckModal = () => {
 // Dice results management
 const {
     latestRoll,
+    handleSkillCheckResult,
     handleEngagementResult,
     handleOpposedSkillCheckResult: handleOpposedSkillCheckResultFromService,
-    handleCustomRollResult,
-    updateLatestRoll
+    handleCustomRollResult
 } = useDiceResults()
 
-// Enhanced close skill check modal to update latest roll
+// Close skill check modal handler
 const closeSkillCheckModalAndUpdate = () => {
     closeSkillCheckModal()
-    updateLatestRoll()
 }
 
 // Opposed skill check result handler
@@ -215,6 +216,32 @@ const showCustomDiceRoller = ref(false)
 
 const toggleCustomDiceRoller = () => {
     showCustomDiceRoller.value = !showCustomDiceRoller.value
+}
+
+// Reroll dice handler
+const handleRerollDice = () => {
+    const currentRoll = latestRoll.value
+    if (!currentRoll || !currentRoll._rerollData) {
+        console.warn('Cannot reroll - no reroll data available')
+        return
+    }
+
+    // Handle different roll types
+    if (currentRoll.type === 'skill_check') {
+        const { skill, character, targetNumber } = currentRoll._rerollData
+        import('@/services/rolls/skillCheckService').then(module => {
+            const rollResult = module.default.makeSkillCheck(skill, character, targetNumber)
+            latestRoll.value = rollResult
+        })
+    } else if (currentRoll.type === 'custom_roll') {
+        const { dicePool, modifier, character } = currentRoll._rerollData
+        import('@/services/rolls/customRollService').then(module => {
+            const rollResult = module.default.makeCustomRoll(dicePool, modifier, character)
+            latestRoll.value = rollResult
+        })
+    } else {
+        console.warn(`Reroll not supported for roll type: ${currentRoll.type}`)
+    }
 }
 
 // Equipment management

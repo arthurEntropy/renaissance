@@ -33,7 +33,6 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { useModal } from '@/composables/useModal'
-import CharacterService from '@/services/characterService'
 import EditButton from '@/components/ui/buttons/EditButton.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 
@@ -61,7 +60,7 @@ const tempArtUrl = ref('')
 
 // Computed properties
 const characterImageUrl = computed(() => {
-    return props.character.artUrls?.[0] ?? CharacterService.DEFAULT_ART_URL
+    return props.character.artUrls?.[0] ?? ''
 })
 
 // Helper function
