@@ -1,6 +1,7 @@
 {
-  "id": "1",
+  "id": "a1b2c3d4-e5f6-47a8-b9c0-d1e2f3a4b5c6",
   "name": "Bind",
   "description": "You and your opponent's weapons lock together. The engagement ends in a draw, immediately (the attack still proceeds).",
-  "isDeleted": false
+  "isDeleted": false,
+  "lastModified": "2025-11-26T19:03:26.226Z"
 }

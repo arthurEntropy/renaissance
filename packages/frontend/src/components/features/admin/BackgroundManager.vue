@@ -1,6 +1,5 @@
 <template>
     <div class="background-manager">
-        <h2>Background Images</h2>
         <div class="background-list">
             <div v-for="(background, index) in sortedBackgrounds" :key="background.id" class="background-item"
                 draggable="true" @dragstart="handleDragStart(index, $event)" @dragover.prevent="handleDragOver(index)"
@@ -132,15 +131,7 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.background-manager {
-    margin-bottom: 3rem;
-}
-
-h2 {
-    font-size: var(--font-size-32);
-    margin-bottom: 1.5rem;
-    color: var(--color-white);
-}
+.background-manager {}
 
 .background-list {
     display: flex;
@@ -188,7 +179,7 @@ h2 {
     background: var(--color-bg-secondary);
     color: var(--color-white);
     flex: 1;
-    min-width: 300px;
+    min-width: 0;
 }
 
 .background-preview {

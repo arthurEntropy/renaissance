@@ -1,16 +1,19 @@
 import { defineStore } from 'pinia'
-import { useBaseEntityStore } from './composables/useBaseEntityStore'
+import { useCrudEntityStore } from './composables/useBaseEntityStore'
 import EngagementSuccessService from '@/services/entities/engagementSuccessService'
 
 export const useEngagementSuccessesStore = defineStore('engagementSuccesses', () => {
-  const { items: engagementSuccesses, fetch, getById } = useBaseEntityStore(
-    EngagementSuccessService,
-    'engagement successes'
-  )
+  const base = useCrudEntityStore(EngagementSuccessService, 'engagementSuccess')
 
   return {
-    engagementSuccesses,
-    fetch,
-    getById,
+    items: base.items,
+    engagementSuccesses: base.items,
+    isLoading: base.isLoading,
+    error: base.error,
+    fetch: base.fetch,
+    getById: base.getById,
+    create: base.create,
+    update: base.update,
+    remove: base.remove,
   }
 })
