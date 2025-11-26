@@ -6,6 +6,7 @@ import { createBaseEntity } from '../gameEntity.js'
  * @property {string} name - Subtype name (e.g., "Sword", "Axe", "Bow")
  * @property {string|null} typeId - Parent equipment type UUID reference
  * @property {string} description - Detailed description
+ * @property {number} index - Sort order index
  * @property {boolean} isDeleted - Soft delete flag
  * @property {string} createdAt - ISO 8601 datetime string
  * @property {string} lastModified - ISO 8601 datetime string
@@ -21,5 +22,6 @@ export function createDefaultEquipmentSubtype() {
     name: 'New Subtype',
     typeId: null,
     description: '',
+    index: 0,
   }
 }

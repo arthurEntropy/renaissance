@@ -8,7 +8,7 @@ export const useEquipmentSubtypesStore = defineStore('equipmentSubtypes', () => 
 
   // Sorted computed property
   const equipmentSubtypes = computed(() => {
-    return [...base.items.value].sort((a, b) => parseInt(a.id) - parseInt(b.id))
+    return [...base.items.value].sort((a, b) => a.index - b.index)
   })
 
   // Get subtypes by type
@@ -16,7 +16,7 @@ export const useEquipmentSubtypesStore = defineStore('equipmentSubtypes', () => 
     if (!typeId) return []
     return base.items.value
       .filter(subtype => subtype.typeId === typeId)
-      .sort((a, b) => parseInt(a.id) - parseInt(b.id))
+      .sort((a, b) => a.index - b.index)
   }
 
   return {

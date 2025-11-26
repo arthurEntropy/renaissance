@@ -1,7 +1,8 @@
 {
-  "id": "11",
+  "id": "5ec6d867-7dbf-41c0-b196-3ada5985e6ea",
   "name": "Shield",
-  "typeId": "2",
+  "typeId": "1cc02e7b-cdaf-477c-a198-6be0ad5ab47f",
   "description": "Handheld defensive equipment",
+  "index": 10,
   "isDeleted": false
 }

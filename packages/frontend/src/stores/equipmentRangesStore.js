@@ -8,7 +8,7 @@ export const useEquipmentRangesStore = defineStore('equipmentRanges', () => {
 
   // Sorted computed property
   const equipmentRanges = computed(() => {
-    return [...base.items.value].sort((a, b) => parseInt(a.id) - parseInt(b.id))
+    return [...base.items.value].sort((a, b) => a.index - b.index)
   })
 
   return {

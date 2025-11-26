@@ -1,7 +1,8 @@
 {
-  "id": "13",
+  "id": "a352823a-b88d-4ddb-9356-5d7ea89e1b0c",
   "name": "Mundane",
-  "typeId": "3",
+  "typeId": "07e3c504-605e-495e-96d3-6b4177516821",
   "description": "Regular items without magical properties, including tools, accessories, and gear",
+  "index": 12,
   "isDeleted": false
 }
