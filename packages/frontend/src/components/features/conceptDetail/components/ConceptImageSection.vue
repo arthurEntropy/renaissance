@@ -63,7 +63,8 @@ const hasImages = computed(() => {
     if (props.mode === 'auto' && props.autoSourceId) {
         // Get images from art store and filter out excluded URLs
         const autoImages = artStore.getByTypeAndSource(props.autoSourceType, props.autoSourceId)
-        const filteredImages = autoImages.filter(url => !props.excludeUrls.includes(url))
+        const imageUrls = autoImages.map(item => item.url)
+        const filteredImages = imageUrls.filter(url => !props.excludeUrls.includes(url))
         return filteredImages.length > 0
     }
     return props.images && props.images.length > 0

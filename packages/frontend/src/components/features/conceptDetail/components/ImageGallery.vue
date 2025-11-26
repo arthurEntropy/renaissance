@@ -141,8 +141,9 @@ const displayImages = computed(() => {
   if (props.mode === 'auto' && props.autoSourceId) {
     // Fetch images from art store
     const autoImages = artStore.getByTypeAndSource(props.autoSourceType, props.autoSourceId)
+    const imageUrls = autoImages.map(item => item.url)
     // Filter out excluded URLs
-    return autoImages.filter(url => !props.excludeUrls.includes(url))
+    return imageUrls.filter(url => !props.excludeUrls.includes(url))
   }
   // Manual mode - use provided images
   return props.images

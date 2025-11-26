@@ -1,24 +1,12 @@
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
-import CultureService from '@/services/entities/gameConcepts/cultureService.js'
+import { useBaseEntityStore } from './composables/useBaseEntityStore'
+import CultureService from '@/services/entities/gameConcepts/cultureService'
 
 export const useCulturesStore = defineStore('cultures', () => {
-  // state
-  const cultures = ref([])
-
-  // actions
-  const fetch = async () => {
-    try {
-      cultures.value = await CultureService.getAll()
-    } catch (error) {
-      console.error('Error fetching cultures:', error)
-    }
-  }
-
-  // getters
-  const getById = (id) => {
-    return cultures.value.find(culture => culture.id === id)
-  }
+  const { items: cultures, fetch, getById } = useBaseEntityStore(
+    CultureService,
+    'cultures'
+  )
 
   return {
     cultures,

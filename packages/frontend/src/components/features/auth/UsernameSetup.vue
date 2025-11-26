@@ -22,10 +22,10 @@
 
 <script setup>
 import { ref } from 'vue'
-import { useAuthStore } from '@/stores/authStore'
+import { useUserStore } from '@/stores/userStore'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 
-const authStore = useAuthStore()
+const userStore = useUserStore()
 const username = ref('')
 const error = ref('')
 const submitting = ref(false)
@@ -58,7 +58,7 @@ const handleSubmit = async () => {
 
     try {
         submitting.value = true
-        await authStore.setUsername(username.value)
+        await userStore.update({ name: username.value })
     } catch (err) {
         error.value = err.message || 'Failed to set username'
     } finally {

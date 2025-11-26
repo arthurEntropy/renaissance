@@ -2,11 +2,16 @@ import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import AncestryService from '@/services/entities/gameConcepts/ancestryService'
 import CultureService from '@/services/entities/gameConcepts/cultureService'
-import MestieriService from '@/services/entities/gameConcepts/mestiereService'
-import WorldElementsService from '@/services/entities/gameConcepts/worldElementService'
+import MestiereService from '@/services/entities/gameConcepts/mestiereService'
+import WorldElementService from '@/services/entities/gameConcepts/worldElementService'
 
+/**
+ * Aggregator store for all game concept sources
+ * Provides centralized access to ancestries, cultures, mestieri, and world elements
+ * Used primarily for source selection in UI components
+ */
 export const useSourcesStore = defineStore('sources', () => {
-  // state
+  // State
   const sources = ref({
     ancestries: [],
     cultures: [],
@@ -14,38 +19,30 @@ export const useSourcesStore = defineStore('sources', () => {
     worldElements: [],
   })
   const isLoading = ref(false)
-  const hasLoaded = ref(false)
+  const error = ref(null)
 
-  // actions
-  const fetchSources = async (force = false) => {
-    if (hasLoaded.value && !force) return
-    if (isLoading.value) return
-
+  // Actions
+  const fetchSources = async () => {
     isLoading.value = true
+    error.value = null
     try {
       const [ancestries, cultures, mestieri, worldElements] = await Promise.all([
         AncestryService.getAll(),
         CultureService.getAll(),
-        MestieriService.getAll(),
-        WorldElementsService.getAll(),
+        MestiereService.getAll(),
+        WorldElementService.getAll(),
       ])
-
       sources.value = { ancestries, cultures, mestieri, worldElements }
-      hasLoaded.value = true
-    } catch (error) {
-      console.error('Error fetching sources:', error)
-      throw error
+    } catch (err) {
+      console.error('Error fetching sources:', err)
+      error.value = err.message
+      throw err
     } finally {
       isLoading.value = false
     }
   }
 
-  // auto-fetch on first use
-  if (!hasLoaded.value && !isLoading.value) {
-    fetchSources().catch((e) => console.error('Auto-fetch sources failed:', e))
-  }
-
-  // helpers
+  // Helpers
   const getSourceById = (sourceId) => {
     if (!sourceId) return null
     return (
@@ -79,7 +76,7 @@ export const useSourcesStore = defineStore('sources', () => {
   return {
     sources,
     isLoading,
-    hasLoaded,
+    error,
     fetchSources,
     getSourceById,
     getSourceName,

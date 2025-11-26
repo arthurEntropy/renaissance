@@ -1,21 +1,15 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
+import { useCrudEntityStore } from './composables/useBaseEntityStore'
 import CharacterService from '@/services/entities/characterService'
 
 export const useCharactersStore = defineStore('characters', () => {
-  // state
-  const characters = ref([])
+  const base = useCrudEntityStore(CharacterService, 'characters')
+
+  // Additional state for app-wide selected character feature
   const selectedCharacter = ref(null)
 
-  // actions
-  const fetch = async () => {
-    try {
-      characters.value = await CharacterService.getAll()
-    } catch (error) {
-      console.error('Error fetching characters:', error)
-    }
-  }
-
+  // Actions
   const selectCharacter = (character) => {
     selectedCharacter.value = character
   }
@@ -24,31 +18,31 @@ export const useCharactersStore = defineStore('characters', () => {
     selectedCharacter.value = null
   }
 
-  // getters
-  const getById = (id) => {
-    return characters.value.find(character => character.id === id)
-  }
-
+  // Computed properties
   const filteredCharacters = computed(() => {
-    return characters.value.filter(character => !character.isDeleted && !character.isBeast)
+    return base.items.value.filter(character => !character.isBeast)
   })
 
   const filteredBeasts = computed(() => {
-    return characters.value.filter(character => !character.isDeleted && character.isBeast)
+    return base.items.value.filter(character => character.isBeast)
   })
 
-  // Check if there's a selected character
   const hasSelectedCharacter = computed(() => {
     return selectedCharacter.value !== null
   })
 
   return {
-    characters,
+    characters: base.items,
     selectedCharacter,
-    fetch,
+    isLoading: base.isLoading,
+    error: base.error,
+    fetch: base.fetch,
+    create: base.create,
+    update: base.update,
+    remove: base.remove,
     selectCharacter,
     deselectCharacter,
-    getById,
+    getById: base.getById,
     filteredCharacters,
     filteredBeasts,
     hasSelectedCharacter,

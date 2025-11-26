@@ -55,7 +55,7 @@
       <NotInvitedModal v-if="authStore.notInvited" @close="authStore.clearNotInvited()" />
 
       <!-- Username setup modal -->
-      <UsernameSetup v-else-if="authStore.isAuthenticated && authStore.needsUsername" />
+      <UsernameSetup v-else-if="authStore.isAuthenticated && userStore.userProfile?.needsUsername" />
 
       <!-- Preferences modal -->
       <PreferencesModal v-else-if="showPreferencesModal" @close="closePreferences" />
@@ -71,7 +71,7 @@
 import { ref, computed, onMounted, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { useAuthStore } from '@/stores/authStore'
-import { useUserPreferencesStore } from '@/stores/userPreferencesStore'
+import { useUserStore } from '@/stores/userStore'
 import { useBackgroundImagesStore } from '@/stores/backgroundImagesStore'
 import SelectedCharacterBadge from '@/components/features/characterSelection/SelectedCharacterBadge.vue'
 import AuthComponent from '@/components/features/auth/AuthComponent.vue'
@@ -91,14 +91,25 @@ export default {
     const menuOpen = ref(false)
     const route = useRoute()
     const authStore = useAuthStore()
-    const userPreferencesStore = useUserPreferencesStore()
+    const userStore = useUserStore()
     const backgroundImagesStore = useBackgroundImagesStore()
     const shouldShowOverlay = computed(() => route.meta?.overlay === true)
     const showPreferencesModal = ref(false)
 
+    // Compute selected background image from user preferences
+    const selectedBackgroundImage = computed(() => {
+      const backgroundImageId = userStore.userProfile?.preferences?.backgroundImageId
+      if (!backgroundImageId) return null
+
+      const selectedImage = backgroundImagesStore.backgroundImages.find(
+        img => img.id === backgroundImageId
+      )
+      return selectedImage?.imageUrl || null
+    })
+
     // Apply background dynamically
     const updateBackground = () => {
-      const bgUrl = userPreferencesStore.selectedBackgroundImage
+      const bgUrl = selectedBackgroundImage.value
       if (bgUrl) {
         // TODO: Figure out how to obviate the need for all three settings here.
         // All three are needed: CSS variable for global.css, html for documentElement, body for body element
@@ -132,16 +143,11 @@ export default {
 
       // Load background images for all users
       await backgroundImagesStore.fetch()
-
-      // Load user preferences if authenticated
-      if (authStore.isAuthenticated) {
-        await userPreferencesStore.fetchPreferences()
-      }
     })
 
     // Watch for changes to selected background image
     watch(
-      () => userPreferencesStore.selectedBackgroundImage,
+      selectedBackgroundImage,
       (newBg) => {
         if (newBg) {
           updateBackground()

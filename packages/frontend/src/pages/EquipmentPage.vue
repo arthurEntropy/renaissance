@@ -8,7 +8,7 @@
       <!-- Type Filter -->
       <select v-model="typeFilter" class="category-filter">
         <option value="">All Types</option>
-        <option v-for="type in equipmentCategoriesStore.equipmentTypes" :key="type.id" :value="type.id">
+        <option v-for="type in equipmentTypesStore.items" :key="type.id" :value="type.id">
           {{ type.name }}
         </option>
       </select>
@@ -24,7 +24,7 @@
       <!-- Grade Filter -->
       <select v-model="gradeFilter" class="category-filter">
         <option value="">All Grades</option>
-        <option v-for="grade in equipmentCategoriesStore.equipmentGrades" :key="grade.id" :value="grade.id">
+        <option v-for="grade in equipmentGradesStore.items" :key="grade.id" :value="grade.id">
           {{ grade.name }}
         </option>
       </select>
@@ -47,13 +47,10 @@
     <!-- Modals slot -->
     <template #modals>
       <EditEquipmentModal v-if="showEditEquipmentModal" :equipment="equipmentToEdit" :all-equipment="equipment"
-        :keeping-options="equipmentStore.keeping" :sources="sources"
-        :equipment-types="equipmentCategoriesStore.equipmentTypes"
-        :equipment-subtypes="equipmentCategoriesStore.equipmentSubtypes"
-        :equipment-grades="equipmentCategoriesStore.equipmentGrades"
-        :equipment-ranges="equipmentCategoriesStore.equipmentRanges"
-        :engagement-success-options="engagementSuccessOptions" @update="saveEditedEquipment"
-        @close="closeEditEquipmentModal" @delete="deleteEquipment(equipmentToEdit)" />
+        :keeping-options="keepingStore.keeping" :sources="sources" :equipment-types="equipmentTypesStore.items"
+        :equipment-subtypes="equipmentSubtypesStore.items" :equipment-grades="equipmentGradesStore.items"
+        :equipment-ranges="equipmentRangesStore.items" :engagement-success-options="engagementSuccessOptions"
+        @update="saveEditedEquipment" @close="closeEditEquipmentModal" @delete="deleteEquipment(equipmentToEdit)" />
     </template>
   </ItemCardsLayout>
 </template>
@@ -62,7 +59,11 @@
 import { ref, onMounted, computed, watch } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useEquipmentStore } from '@/stores/equipmentStore'
-import { useEquipmentCategoriesStore } from '@/stores/equipmentCategoriesStore'
+import { useEquipmentTypesStore } from '@/stores/equipmentTypesStore'
+import { useEquipmentSubtypesStore } from '@/stores/equipmentSubtypesStore'
+import { useEquipmentGradesStore } from '@/stores/equipmentGradesStore'
+import { useEquipmentRangesStore } from '@/stores/equipmentRangesStore'
+import { useKeepingStore } from '@/stores/keepingStore'
 import { useAuthStore } from '@/stores/authStore'
 import { useEditModal } from '@/composables/useEditModal'
 import { useSourcesStore } from '@/stores/sourcesStore'
@@ -74,9 +75,13 @@ import EquipmentCard from '@/components/ui/cards/EquipmentCard.vue'
 import EditEquipmentModal from '@/components/editModals/EditEquipmentModal.vue'
 import ItemCardsLayout from '@/components/ui/layouts/ItemCardsLayout.vue'
 
-// Store
+// Stores
 const equipmentStore = useEquipmentStore()
-const equipmentCategoriesStore = useEquipmentCategoriesStore()
+const equipmentTypesStore = useEquipmentTypesStore()
+const equipmentSubtypesStore = useEquipmentSubtypesStore()
+const equipmentGradesStore = useEquipmentGradesStore()
+const equipmentRangesStore = useEquipmentRangesStore()
+const keepingStore = useKeepingStore()
 const authStore = useAuthStore()
 const { equipment } = storeToRefs(equipmentStore)
 
@@ -109,9 +114,9 @@ const engagementSuccessOptions = ref([])
 // Computed properties
 const filteredSubtypes = computed(() => {
   if (!typeFilter.value) {
-    return equipmentCategoriesStore.equipmentSubtypes
+    return equipmentSubtypesStore.items
   }
-  return equipmentCategoriesStore.getSubtypesByType(typeFilter.value)
+  return equipmentSubtypesStore.getSubtypesByType(typeFilter.value)
 })
 
 // Computed property for filtered equipment (before pagination)
@@ -299,8 +304,13 @@ onMounted(async () => {
     initializeFilterPersistence()
 
     // Sources will auto-fetch via useSources composable
-    await equipmentStore.fetchKeeping()
-    await equipmentCategoriesStore.fetchAll()
+    await keepingStore.fetch()
+    await Promise.all([
+      equipmentTypesStore.fetch(),
+      equipmentSubtypesStore.fetch(),
+      equipmentGradesStore.fetch(),
+      equipmentRangesStore.fetch()
+    ])
     await fetchEngagementSuccessOptions()
     await equipmentStore.fetch()
   } catch (error) {

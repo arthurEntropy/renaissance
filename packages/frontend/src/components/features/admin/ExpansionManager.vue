@@ -25,15 +25,15 @@ const expansionsStore = useExpansionsStore()
 const expansions = computed(() => expansionsStore.expansions)
 
 const handleAddExpansion = async () => {
-    await expansionsStore.addExpansion({ name: '', logoUrl: '' })
+    await expansionsStore.create({ name: '', logoUrl: '' })
 }
 
 const updateExpansion = async (name, expansion) => {
-    await expansionsStore.updateExpansion(name, expansion)
+    await expansionsStore.update(expansion)
 }
 
 const handleDeleteExpansion = async (expansion) => {
-    await expansionsStore.deleteExpansion(expansion.name)
+    await expansionsStore.remove(expansion)
 }
 
 onMounted(() => {
