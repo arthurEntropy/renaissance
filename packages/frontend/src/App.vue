@@ -160,6 +160,7 @@ export default {
       menuOpen,
       shouldShowOverlay,
       authStore,
+      userStore,
       showPreferencesModal,
       toggleMenu,
       closeMenu,

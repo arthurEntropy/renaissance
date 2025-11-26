@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import AuthService from '@/services/auth/authService'
 import router from '@/router/router'
+import { useUserStore } from './userStore'
 
 export const useAuthStore = defineStore('auth', () => {
   // State
@@ -13,17 +14,14 @@ export const useAuthStore = defineStore('auth', () => {
   // Getters
   const isAuthenticated = computed(() => user.value !== null)
   const isAdmin = computed(() => {
-    const { useUserStore } = require('./userStore')
     const userStore = useUserStore()
     return userStore.userProfile?.role === 'admin'
   })
   const isPending = computed(() => {
-    const { useUserStore } = require('./userStore')
     const userStore = useUserStore()
     return userStore.userProfile?.status === 'pending'
   })
   const isApproved = computed(() => {
-    const { useUserStore } = require('./userStore')
     const userStore = useUserStore()
     return userStore.userProfile?.status === 'approved'
   })
@@ -39,7 +37,6 @@ export const useAuthStore = defineStore('auth', () => {
       user.value = result.user
       
       // Fetch user profile from backend via userStore
-      const { useUserStore } = require('./userStore')
       const userStore = useUserStore()
       await userStore.fetch()
       
@@ -52,7 +49,6 @@ export const useAuthStore = defineStore('auth', () => {
         notInvited.value = true
         await AuthService.signOut()
         user.value = null
-        const { useUserStore } = require('./userStore')
         const userStore = useUserStore()
         userStore.userProfile = null
       }
@@ -75,7 +71,6 @@ export const useAuthStore = defineStore('auth', () => {
       user.value = null
       
       // Clear user profile
-      const { useUserStore } = require('./userStore')
       const userStore = useUserStore()
       userStore.userProfile = null
       
@@ -94,7 +89,6 @@ export const useAuthStore = defineStore('auth', () => {
       user.value = currentUser
       
       if (currentUser) {
-        const { useUserStore } = require('./userStore')
         const userStore = useUserStore()
         await userStore.fetch()
       }
@@ -109,17 +103,20 @@ export const useAuthStore = defineStore('auth', () => {
     AuthService.onAuthStateChange(async (firebaseUser) => {
       user.value = firebaseUser
       
-      if (firebaseUser) {
-        const { useUserStore } = require('./userStore')
-        const userStore = useUserStore()
-        await userStore.fetch()
-      } else {
-        const { useUserStore } = require('./userStore')
-        const userStore = useUserStore()
-        userStore.userProfile = null
+      try {
+        if (firebaseUser) {
+          const userStore = useUserStore()
+          await userStore.fetch()
+        } else {
+          const userStore = useUserStore()
+          userStore.userProfile = null
+        }
+      } catch (err) {
+        console.error('Error in auth state listener:', err)
+        error.value = err.message
+      } finally {
+        isLoading.value = false
       }
-      
-      isLoading.value = false
     })
   }
 
