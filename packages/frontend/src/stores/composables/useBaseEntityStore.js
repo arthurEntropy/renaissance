@@ -32,6 +32,7 @@ export function useBaseEntityStore(service, entityName) {
   }
   
   return {
+    allItems,
     items,
     isLoading,
     error,

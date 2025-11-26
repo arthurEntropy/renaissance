@@ -1,6 +1,5 @@
 <template>
     <div class="user-manager">
-        <h2>User Management</h2>
 
         <!-- Loading state -->
         <div v-if="loading" class="loading">

@@ -3,5 +3,6 @@
   "name": "Weapon",
   "description": "Equipment designed for combat and engagement",
   "index": 0,
-  "isDeleted": false
+  "isDeleted": false,
+  "lastModified": "2025-11-26T16:04:02.646Z"
 }

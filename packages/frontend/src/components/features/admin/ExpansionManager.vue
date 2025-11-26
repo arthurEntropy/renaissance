@@ -1,6 +1,5 @@
 <template>
     <div class="expansion-manager">
-        <h2>Expansions</h2>
         <div class="expansion-list">
             <div v-for="expansion in expansions" :key="expansion.id" class="expansion-item">
                 <input v-model="expansion.name" @blur="updateExpansion(expansion.name, expansion)"
@@ -70,13 +69,14 @@ h2 {
 
 .expansion-name-input,
 .expansion-logo-input {
-    font-size: var(--font-size-18);
+    font-size: var(--font-size-14);
     padding: 6px 10px;
     border-radius: var(--radius-5);
     border: 1px solid var(--color-gray-medium);
     background: var(--color-bg-secondary);
     color: var(--color-white);
-    width: 180px;
+    flex: 1;
+    min-width: 0;
 }
 
 .expansion-logo-preview {

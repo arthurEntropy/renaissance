@@ -1,10 +1,10 @@
 import { defineStore } from 'pinia'
 import { computed } from 'vue'
-import { useBaseEntityStore } from '@/stores/composables/useBaseEntityStore'
+import { useCrudEntityStore } from '@/stores/composables/useBaseEntityStore'
 import EquipmentRangeService from '@/services/entities/equipment/equipmentRangeService'
 
 export const useEquipmentRangesStore = defineStore('equipmentRanges', () => {
-  const base = useBaseEntityStore(EquipmentRangeService)
+  const base = useCrudEntityStore(EquipmentRangeService, 'equipmentRange')
 
   // Sorted computed property
   const equipmentRanges = computed(() => {
@@ -17,5 +17,8 @@ export const useEquipmentRangesStore = defineStore('equipmentRanges', () => {
     error: base.error,
     fetch: base.fetch,
     getById: base.getById,
+    create: base.create,
+    update: base.update,
+    remove: base.remove,
   }
 })
