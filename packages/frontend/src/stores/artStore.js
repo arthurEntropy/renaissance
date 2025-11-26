@@ -1,10 +1,10 @@
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
+import { computed } from 'vue'
+import { useCrudEntityStore } from './composables/useBaseEntityStore'
 import ArtService from '@/services/entities/artService'
 
 export const useArtStore = defineStore('art', () => {
-  // state
-  const art = ref([])
+  const base = useCrudEntityStore(ArtService, 'art')
 
   // Helper function to shuffle array using Fisher-Yates algorithm
   const shuffleArray = (array) => {
@@ -16,61 +16,26 @@ export const useArtStore = defineStore('art', () => {
     return shuffled
   }
 
-  // actions
-  const fetch = async () => {
-    try {
-      const fetchedArt = await ArtService.getAll()
-      art.value = shuffleArray(fetchedArt)
-    } catch (error) {
-      console.error('Error fetching art:', error)
-    }
-  }
+  // Shuffled art for visual variety on repeat viewings
+  // This computed will re-shuffle whenever base.items reference changes (on fetch)
+  const art = computed(() => shuffleArray(base.items.value))
 
-  const updateArt = (updatedArt) => {
-    const index = art.value.findIndex(item => item.id === updatedArt.id)
-    if (index !== -1) {
-      art.value[index] = updatedArt
-    }
-  }
-
-  const addArt = (newArt) => {
-    art.value.push(newArt)
-  }
-
-  const removeArt = (artId) => {
-    const index = art.value.findIndex(item => item.id === artId)
-    if (index !== -1) {
-      art.value.splice(index, 1)
-    }
-  }
-
-  // getters
-  const getById = (id) => {
-    return art.value.find(item => item.id === id)
-  }
-
-  /**
-   * Get art URLs filtered by type and source
-   * @param {string} type - 'faces' or 'places'
-   * @param {string} sourceId - Concept ID
-   * @returns {Array} Array of image URLs
-   */
   const getByTypeAndSource = (type, sourceId) => {
-    return art.value
-      .filter(item => 
-        item?.tags?.type === type && 
-        item?.tags?.sources?.includes(sourceId)
-      )
-      .map(item => item.url)
+    return art.value.filter(item => 
+      item?.tags?.type === type && 
+      item?.tags?.sources?.includes(sourceId)
+    )
   }
 
   return {
     art,
-    fetch,
-    updateArt,
-    addArt,
-    removeArt,
-    getById,
+    isLoading: base.isLoading,
+    error: base.error,
+    fetch: base.fetch,
+    create: base.create,
+    update: base.update,
+    remove: base.remove,
+    getById: base.getById,
     getByTypeAndSource,
   }
 })

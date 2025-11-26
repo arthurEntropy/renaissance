@@ -27,12 +27,12 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import { useBackgroundImagesStore } from '@/stores/backgroundImagesStore'
-import { useUserPreferencesStore } from '@/stores/userPreferencesStore'
+import { useUserStore } from '@/stores/userStore'
 
 const emit = defineEmits(['close'])
 
 const backgroundImagesStore = useBackgroundImagesStore()
-const userPreferencesStore = useUserPreferencesStore()
+const userStore = useUserStore()
 
 const selectedBackgroundId = ref(null)
 
@@ -49,7 +49,12 @@ const sortedBackgrounds = computed(() => {
 const selectBackground = async (backgroundId) => {
     selectedBackgroundId.value = backgroundId
     try {
-        await userPreferencesStore.setBackgroundImage(backgroundId)
+        await userStore.update({
+            preferences: {
+                ...(userStore.userProfile?.preferences || {}),
+                backgroundImageId: backgroundId
+            }
+        })
     } catch (error) {
         console.error('Error updating background preference:', error)
         alert('Failed to update background preference. Please try again.')
@@ -62,8 +67,7 @@ const closeModal = () => {
 
 onMounted(async () => {
     await backgroundImagesStore.fetch()
-    await userPreferencesStore.fetchPreferences()
-    selectedBackgroundId.value = userPreferencesStore.preferences?.backgroundImageId || null
+    selectedBackgroundId.value = userStore.userProfile?.preferences?.backgroundImageId || null
 })
 </script>
 

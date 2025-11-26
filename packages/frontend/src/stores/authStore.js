@@ -2,35 +2,43 @@ import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import AuthService from '@/services/auth/authService'
 import router from '@/router/router'
+import { useUserStore } from './userStore'
 
 export const useAuthStore = defineStore('auth', () => {
   // State
   const user = ref(null)
-  const userProfile = ref(null)
-  const loading = ref(true)
+  const isLoading = ref(true)
   const error = ref(null)
   const notInvited = ref(false)
 
   // Getters
   const isAuthenticated = computed(() => user.value !== null)
-  const isAdmin = computed(() => userProfile.value?.role === 'admin')
-  const isPending = computed(() => userProfile.value?.status === 'pending')
-  const isApproved = computed(() => userProfile.value?.status === 'approved')
-  const needsUsername = computed(() => userProfile.value?.needsUsername === true)
-  const displayName = computed(() => userProfile.value?.name || user.value?.displayName || user.value?.email || 'User')
+  const isAdmin = computed(() => {
+    const userStore = useUserStore()
+    return userStore.userProfile?.role === 'admin'
+  })
+  const isPending = computed(() => {
+    const userStore = useUserStore()
+    return userStore.userProfile?.status === 'pending'
+  })
+  const isApproved = computed(() => {
+    const userStore = useUserStore()
+    return userStore.userProfile?.status === 'approved'
+  })
 
   // Actions
   const signInWithGoogle = async () => {
     try {
       error.value = null
       notInvited.value = false
-      loading.value = true
+      isLoading.value = true
       
       const result = await AuthService.signInWithGoogle()
       user.value = result.user
       
-      // Fetch user profile from backend
-      await fetchUserProfile()
+      // Fetch user profile from backend via userStore
+      const userStore = useUserStore()
+      await userStore.fetch()
       
       return result
     } catch (err) {
@@ -41,12 +49,13 @@ export const useAuthStore = defineStore('auth', () => {
         notInvited.value = true
         await AuthService.signOut()
         user.value = null
-        userProfile.value = null
+        const userStore = useUserStore()
+        userStore.userProfile = null
       }
       
       throw err
     } finally {
-      loading.value = false
+      isLoading.value = false
     }
   }
 
@@ -60,7 +69,10 @@ export const useAuthStore = defineStore('auth', () => {
       error.value = null
       await AuthService.signOut()
       user.value = null
-      userProfile.value = null
+      
+      // Clear user profile
+      const userStore = useUserStore()
+      userStore.userProfile = null
       
       // Redirect to title page
       router.push('/')
@@ -70,88 +82,48 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
 
-  const fetchUserProfile = async () => {
-    if (!user.value) return
-    
-    try {
-      const token = await AuthService.getIdToken()
-      const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/users/profile`, {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      })
-      
-      if (response.ok) {
-        userProfile.value = await response.json()
-      }
-    } catch (err) {
-      console.error('Error fetching user profile:', err)
-    }
-  }
-
-  const updateUserProfile = async (updates) => {
-    if (!user.value) return
-    
-    try {
-      const token = await AuthService.getIdToken()
-      const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/users/profile`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify(updates)
-      })
-      
-      if (response.ok) {
-        userProfile.value = await response.json()
-      }
-    } catch (err) {
-      console.error('Error updating user profile:', err)
-      throw err
-    }
-  }
-
-  const setUsername = async (username) => {
-    await updateUserProfile({ name: username })
-  }
-
   const checkAuthStatus = async () => {
     try {
-      loading.value = true
+      isLoading.value = true
       const currentUser = await AuthService.waitForAuth()
       user.value = currentUser
       
       if (currentUser) {
-        await fetchUserProfile()
+        const userStore = useUserStore()
+        await userStore.fetch()
       }
     } catch (err) {
       error.value = err.message
     } finally {
-      loading.value = false
+      isLoading.value = false
     }
   }
 
-  // Initialize auth listener
-  const initializeAuth = () => {
+  const initializeAuthListener = () => {
     AuthService.onAuthStateChange(async (firebaseUser) => {
       user.value = firebaseUser
       
-      if (firebaseUser) {
-        await fetchUserProfile()
-      } else {
-        userProfile.value = null
+      try {
+        if (firebaseUser) {
+          const userStore = useUserStore()
+          await userStore.fetch()
+        } else {
+          const userStore = useUserStore()
+          userStore.userProfile = null
+        }
+      } catch (err) {
+        console.error('Error in auth state listener:', err)
+        error.value = err.message
+      } finally {
+        isLoading.value = false
       }
-      
-      loading.value = false
     })
   }
 
   return {
     // State
     user,
-    userProfile,
-    loading,
+    isLoading,
     error,
     notInvited,
     
@@ -160,17 +132,12 @@ export const useAuthStore = defineStore('auth', () => {
     isAdmin,
     isPending,
     isApproved,
-    needsUsername,
-    displayName,
     
     // Actions
     signInWithGoogle,
     signOut,
-    fetchUserProfile,
-    updateUserProfile,
-    setUsername,
     checkAuthStatus,
-    initializeAuth,
+    initializeAuth: initializeAuthListener,
     clearNotInvited
   }
 })

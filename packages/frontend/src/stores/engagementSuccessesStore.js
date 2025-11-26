@@ -1,21 +1,12 @@
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
+import { useBaseEntityStore } from './composables/useBaseEntityStore'
 import EngagementSuccessService from '@/services/entities/engagementSuccessService'
 
 export const useEngagementSuccessesStore = defineStore('engagementSuccesses', () => {
-  const engagementSuccesses = ref([])
-
-  const fetch = async () => {
-    try {
-      engagementSuccesses.value = await EngagementSuccessService.getAll()
-    } catch (error) {
-      console.error('Error fetching engagement successes:', error)
-    }
-  }
-
-  const getById = (id) => {
-    return engagementSuccesses.value.find(success => success.id === id)
-  }
+  const { items: engagementSuccesses, fetch, getById } = useBaseEntityStore(
+    EngagementSuccessService,
+    'engagement successes'
+  )
 
   return {
     engagementSuccesses,

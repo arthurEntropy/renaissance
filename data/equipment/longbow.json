@@ -7,7 +7,7 @@
   "weight": 3,
   "length": 4,
   "reach": 0,
-  "range": "5",
+  "range": "a352823a-b88d-4ddb-9356-5d7ea89e1b0c",
   "twoHanded": true,
   "thrown": false,
   "finesse": false,
@@ -22,7 +22,7 @@
   "isCustom": false,
   "isTemplate": true,
   "artUrl": null,
-  "type": "1",
-  "subtype": "3",
-  "grade": "5"
+  "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
+  "subtype": "b4946b09-e149-4896-8129-6d7d8b58a6ff",
+  "grade": "a9023254-92ed-4c54-9840-5a7577c1aa1f"
 }

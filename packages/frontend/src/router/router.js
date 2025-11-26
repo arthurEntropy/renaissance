@@ -77,10 +77,10 @@ router.beforeEach(async (to, from, next) => {
   await AuthService.waitForAuth()
   
   // If authenticated, wait for user profile to load before checking roles
-  if (authStore.isAuthenticated && authStore.loading) {
-    // Wait for profile to finish loading
-    while (authStore.loading) {
-      await new Promise(resolve => setTimeout(resolve, 50))
+  if (authStore.isAuthenticated && authStore.isLoading) {
+    // Wait for auth to finish loading
+    while (authStore.isLoading) {
+      await new Promise(resolve => setTimeout(resolve, 100))
     }
   }
   

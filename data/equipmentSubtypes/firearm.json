@@ -1,7 +1,8 @@
 {
-  "id": "4",
+  "id": "866abdf6-aad3-4527-abc4-ba8115755301",
   "name": "Firearm",
-  "typeId": "1",
+  "typeId": "9b22f01b-1c40-4f10-abec-00b4d279197f",
   "description": "Gunpowder-based ranged weapons",
+  "index": 3,
   "isDeleted": false
 }

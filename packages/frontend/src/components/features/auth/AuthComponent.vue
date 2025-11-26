@@ -1,7 +1,7 @@
 <template>
     <div class="auth-component">
         <!-- Loading state -->
-        <div v-if="authStore.loading" class="auth-loading">
+        <div v-if="authStore.isLoading" class="auth-loading">
             <p>Loading...</p>
         </div>
 
@@ -19,7 +19,7 @@
         <div v-else-if="authStore.isPending" class="auth-pending">
             <div class="user-info">
                 <img v-if="authStore.user?.photoURL" :src="authStore.user.photoURL" class="user-avatar" />
-                <span class="user-name">{{ authStore.displayName }}</span>
+                <span class="user-name">{{ userStore.displayName }}</span>
             </div>
             <p class="pending-message">
                 Your account is pending approval. Please wait for an administrator to approve your access.
@@ -37,7 +37,8 @@
                         clip-rule="evenodd" />
                 </svg>
 
-                <span class="user-name">{{ authStore.displayName }}</span>
+                <span class="user-name">{{ userStore.userProfile?.name || authStore.user?.displayName ||
+                    authStore.user?.email || 'User' }}</span>
 
                 <!-- Dropdown menu -->
                 <div v-if="dropdownOpen" class="dropdown-menu">
@@ -59,9 +60,11 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
 import { useAuthStore } from '@/stores/authStore'
+import { useUserStore } from '@/stores/userStore'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 
 const authStore = useAuthStore()
+const userStore = useUserStore()
 const signingIn = ref(false)
 const dropdownOpen = ref(false)
 const dropdownTrigger = ref(null)

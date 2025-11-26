@@ -76,7 +76,7 @@ const handleDrop = async (dropIndex) => {
     const updates = []
     for (let i = 0; i < items.length; i++) {
         const updated = { ...items[i], displayOrder: i }
-        updates.push(backgroundImagesStore.updateBackgroundImage(updated))
+        updates.push(backgroundImagesStore.update(updated))
     }
 
     // Wait for all updates to complete
@@ -93,7 +93,7 @@ const handleDragEnd = () => {
 
 const handleAddBackground = async () => {
     const maxOrder = Math.max(...backgroundImages.value.map(b => b.displayOrder ?? 0), -1)
-    await backgroundImagesStore.addBackgroundImage({
+    await backgroundImagesStore.create({
         imageUrl: '',
         displayOrder: maxOrder + 1,
         isDefault: false
@@ -102,7 +102,7 @@ const handleAddBackground = async () => {
 
 const updateBackground = async (background) => {
     if (background.imageUrl) {
-        await backgroundImagesStore.updateBackgroundImage(background)
+        await backgroundImagesStore.update(background)
     }
 }
 
@@ -111,18 +111,18 @@ const handleSetDefault = async (background) => {
     for (const bg of backgroundImages.value) {
         if (bg.id !== background.id && bg.isDefault) {
             bg.isDefault = false
-            await backgroundImagesStore.updateBackgroundImage(bg)
+            await backgroundImagesStore.update(bg)
         }
     }
 
     // Set default on this one
     background.isDefault = true
-    await backgroundImagesStore.updateBackgroundImage(background)
+    await backgroundImagesStore.update(background)
 }
 
 const handleDeleteBackground = async (background) => {
     if (confirm('Delete this background image?')) {
-        await backgroundImagesStore.deleteBackgroundImage(background)
+        await backgroundImagesStore.remove(background)
     }
 }
 

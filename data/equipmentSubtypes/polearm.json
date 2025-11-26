@@ -1,7 +1,8 @@
 {
-  "id": "2",
+  "id": "3d4f28d9-d757-4789-b3a2-0e9fffda4fc0",
   "name": "Polearm",
-  "typeId": "1",
+  "typeId": "9b22f01b-1c40-4f10-abec-00b4d279197f",
   "description": "Long-hafted weapons for reach advantage",
+  "index": 1,
   "isDeleted": false
 }

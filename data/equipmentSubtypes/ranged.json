@@ -1,7 +1,8 @@
 {
-  "id": "3",
+  "id": "b4946b09-e149-4896-8129-6d7d8b58a6ff",
   "name": "Ranged",
-  "typeId": "1",
+  "typeId": "9b22f01b-1c40-4f10-abec-00b4d279197f",
   "description": "Projectile weapons for distance combat",
+  "index": 2,
   "isDeleted": false
 }

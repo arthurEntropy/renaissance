@@ -92,7 +92,10 @@
 <script setup>
 import { ref, onMounted, watch, computed } from 'vue'
 import { useEquipmentStore } from '@/stores/equipmentStore'
-import { useEquipmentCategoriesStore } from '@/stores/equipmentCategoriesStore'
+import { useEquipmentTypesStore } from '@/stores/equipmentTypesStore'
+import { useEquipmentSubtypesStore } from '@/stores/equipmentSubtypesStore'
+import { useEquipmentGradesStore } from '@/stores/equipmentGradesStore'
+import { useEquipmentRangesStore } from '@/stores/equipmentRangesStore'
 import BaseCard from '@/components/ui/cards/BaseCard.vue'
 import BadgeDisplay from '@/components/ui/cards/BadgeDisplay.vue'
 import CardDescription from '@/components/ui/cards/CardDescription.vue'
@@ -145,18 +148,21 @@ const props = defineProps({
 
 const emit = defineEmits(['edit', 'duplicate', 'delete', 'send-to-chat', 'height-changed', 'update:art-expanded'])
 
-// Store
+// Stores
 const equipmentStore = useEquipmentStore()
-const equipmentCategoriesStore = useEquipmentCategoriesStore()
+const equipmentTypesStore = useEquipmentTypesStore()
+const equipmentSubtypesStore = useEquipmentSubtypesStore()
+const equipmentGradesStore = useEquipmentGradesStore()
+const equipmentRangesStore = useEquipmentRangesStore()
 const { addEquipmentToCharacter } = useCharacterManagement()
 
 // Computed properties
 const equipmentCategoryDisplay = computed(() => {
   if (!props.equipment.type) return null
 
-  const type = equipmentCategoriesStore.getEquipmentTypeById(props.equipment.type)
-  const subtype = equipmentCategoriesStore.getEquipmentSubtypeById(props.equipment.subtype)
-  const grade = equipmentCategoriesStore.getEquipmentGradeById(props.equipment.grade)
+  const type = equipmentTypesStore.getById(props.equipment.type)
+  const subtype = equipmentSubtypesStore.getById(props.equipment.subtype)
+  const grade = equipmentGradesStore.getById(props.equipment.grade)
 
   let display = ''
 
@@ -188,7 +194,7 @@ const equipmentPropertiesDisplay = computed(() => {
 
   // Add range if set (name only, without distance)
   if (props.equipment.range) {
-    const range = equipmentCategoriesStore.getEquipmentRangeById(props.equipment.range)
+    const range = equipmentRangesStore.getById(props.equipment.range)
     if (range) {
       sections.push(`Range: ${range.name}`)
     }
@@ -268,8 +274,13 @@ const handleDuplicate = async () => {
 onMounted(async () => {
   await fetchEngagementSuccesses()
   // Ensure equipment categories are loaded for display
-  if (equipmentCategoriesStore.equipmentTypes.length === 0) {
-    await equipmentCategoriesStore.fetchAll()
+  if (equipmentTypesStore.items.length === 0) {
+    await Promise.all([
+      equipmentTypesStore.fetch(),
+      equipmentSubtypesStore.fetch(),
+      equipmentGradesStore.fetch(),
+      equipmentRangesStore.fetch()
+    ])
   }
 })
 </script>

@@ -29,7 +29,7 @@ export function useArtCrud(artStore) {
                             }
                         }
                         await ArtService.update(updatedArt)
-                        artStore.updateArt(updatedArt)
+                        artStore.update(updatedArt)
                     }
                 })
                 await Promise.all(updates)
@@ -38,13 +38,13 @@ export function useArtCrud(artStore) {
             } else if (artData.id) {
                 // Update existing single item
                 await ArtService.update(artData)
-                artStore.updateArt(artData)
+                artStore.update(artData)
             } else {
                 // Create new
                 const newArt = await ArtService.create(artData)
                 // Ensure the new art has all required fields before adding to store
                 if (newArt && newArt.id) {
-                    artStore.addArt(newArt)
+                    artStore.create(newArt)
                 }
                 closeModal()
             }
@@ -57,7 +57,7 @@ export function useArtCrud(artStore) {
     const deleteArt = async (artData, closeModal) => {
         try {
             await ArtService.delete(artData)
-            artStore.removeArt(artData.id)
+            artStore.remove(artData)
             closeModal()
         } catch (error) {
             console.error('Error deleting art:', error)

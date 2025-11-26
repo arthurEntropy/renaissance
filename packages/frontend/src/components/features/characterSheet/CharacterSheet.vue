@@ -62,10 +62,8 @@
             @close="closeSettingsModal" @delete="handleDeleteCharacter" />
 
         <EditEquipmentModal v-if="showEditEquipmentModal" :equipment="equipmentToEdit" :all-equipment="allEquipment"
-            :keeping-options="equipmentStore.keeping" :sources="sources"
-            :equipment-types="equipmentCategoriesStore.equipmentTypes"
-            :equipment-subtypes="equipmentCategoriesStore.equipmentSubtypes"
-            :equipment-grades="equipmentCategoriesStore.equipmentGrades"
+            :keeping-options="keepingStore.keeping" :sources="sources" :equipment-types="equipmentTypesStore.items"
+            :equipment-subtypes="equipmentSubtypesStore.items" :equipment-grades="equipmentGradesStore.items"
             :engagement-success-options="engagementSuccessOptions" @update="saveEditedEquipment"
             @close="closeEditEquipmentModal" @delete="deleteEquipment" />
     </div>
@@ -80,8 +78,10 @@ import { useDiceResults } from '@/composables/useDiceResults'
 import { useEquipmentManagement } from '@/composables/useEquipmentManagement'
 import { useCharacterManagement } from '@/composables/useCharacterManagement'
 import { useCharacterEditMode } from '@/composables/useCharacterEditMode'
-import { useEquipmentStore } from '@/stores/equipmentStore'
-import { useEquipmentCategoriesStore } from '@/stores/equipmentCategoriesStore'
+import { useEquipmentTypesStore } from '@/stores/equipmentTypesStore'
+import { useEquipmentSubtypesStore } from '@/stores/equipmentSubtypesStore'
+import { useEquipmentGradesStore } from '@/stores/equipmentGradesStore'
+import { useKeepingStore } from '@/stores/keepingStore'
 import { useSourcesStore } from '@/stores/sourcesStore'
 import EngagementSuccessService from '@/services/entities/engagementSuccessService'
 import CharacterProfile from '@/components/features/characterSheet/characterProfile/CharacterProfile.vue'
@@ -112,8 +112,10 @@ const props = defineProps({
 const emit = defineEmits(['close', 'update:character', 'delete:character'])
 
 // Stores
-const equipmentStore = useEquipmentStore()
-const equipmentCategoriesStore = useEquipmentCategoriesStore()
+const equipmentTypesStore = useEquipmentTypesStore()
+const equipmentSubtypesStore = useEquipmentSubtypesStore()
+const equipmentGradesStore = useEquipmentGradesStore()
+const keepingStore = useKeepingStore()
 const sourcesStore = useSourcesStore()
 const sources = sourcesStore.sources
 
@@ -291,8 +293,12 @@ const fetchEngagementSuccessOptions = async () => {
 // Lifecycle
 onMounted(async () => {
     try {
-        await equipmentStore.fetchKeeping()
-        await equipmentCategoriesStore.fetchAll()
+        await keepingStore.fetch()
+        await Promise.all([
+            equipmentTypesStore.fetch(),
+            equipmentSubtypesStore.fetch(),
+            equipmentGradesStore.fetch()
+        ])
         await fetchEngagementSuccessOptions()
     } catch (error) {
         console.error('Error initializing CharacterSheet data:', error)

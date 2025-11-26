@@ -1,31 +1,18 @@
 import { defineStore } from 'pinia'
-import { ref, computed } from 'vue'
-import RulesService from '@/services/entities/rulesService.js'
+import { computed } from 'vue'
+import { useBaseEntityStore } from './composables/useBaseEntityStore'
+import RulesService from '@/services/entities/rulesService'
 
 export const useRulesStore = defineStore('rules', () => {
-  // state
-  const sections = ref([])
+  const { items: sections, fetch, getById } = useBaseEntityStore(
+    RulesService,
+    'rules'
+  )
 
-  // actions
-  const fetch = async () => {
-    try {
-      sections.value = await RulesService.getAll()
-    } catch (error) {
-      console.error('Error fetching sections:', error)
-    }
-  }
-
-  // getters
-  const getById = (id) => {
-    return sections.value.find(section => section.id === id)
-  }
-
+  // Computed property for sorted sections
   const filteredSections = computed(() => {
-    // Filter out deleted and sort sections by index
     return sections.value
-      ? [...sections.value]
-        .filter(section => !section.isDeleted)
-        .sort((a, b) => a.index - b.index)
+      ? [...sections.value].sort((a, b) => a.index - b.index)
       : []
   })
 
