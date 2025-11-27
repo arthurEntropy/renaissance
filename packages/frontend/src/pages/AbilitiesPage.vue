@@ -147,7 +147,8 @@ onMounted(async () => {
     // Initialize filter persistence
     initializeFilterPersistence()
 
-    // Sources will auto-fetch via useSources composable
+    // Fetch sources for background images
+    await sourcesStore.fetchSources()
     await abilitiesStore.fetch()
   } catch (error) {
     console.error('Error initializing AbilitiesPage:', error)

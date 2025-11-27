@@ -299,6 +299,7 @@ const saveSettings = () => {
 // Lifecycle
 onMounted(async () => {
   try {
+    await sourcesStore.fetchSources()
     await expansionStore.fetch()
     expansions.value = expansionStore.expansions
     // Fetch art store for auto-populated galleries

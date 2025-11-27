@@ -70,8 +70,6 @@ const emit = defineEmits(['edit', 'duplicate', 'update', 'send-to-chat', 'height
 
 // Source management
 const sourcesStore = useSourcesStore()
-const getSourceById = sourcesStore.getSourceById
-const getSourceName = sourcesStore.getSourceName
 
 // Template ref
 const cardElement = ref(null)
@@ -93,7 +91,7 @@ const cardStyle = computed(() => {
   }
 
   // Then check source's background
-  const source = getSourceById(props.item.source)
+  const source = sourcesStore.getSourceById(props.item.source)
   if (source && source.backgroundImage) {
     return {
       backgroundImage: `url(${source.backgroundImage})`,
@@ -141,7 +139,7 @@ const updateSourceName = () => {
     sourceName.value = 'Unknown'
     return
   }
-  sourceName.value = getSourceName(props.item.source)
+  sourceName.value = sourcesStore.getSourceName(props.item.source)
 }
 
 // Watchers

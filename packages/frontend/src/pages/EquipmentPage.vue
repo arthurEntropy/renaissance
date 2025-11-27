@@ -303,7 +303,8 @@ onMounted(async () => {
     // Initialize filter persistence
     initializeFilterPersistence()
 
-    // Sources will auto-fetch via useSources composable
+    // Fetch sources for background images
+    await sourcesStore.fetchSources()
     await keepingStore.fetch()
     await Promise.all([
       equipmentTypesStore.fetch(),

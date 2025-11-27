@@ -293,6 +293,7 @@ const fetchEngagementSuccessOptions = async () => {
 // Lifecycle
 onMounted(async () => {
     try {
+        await sourcesStore.fetchSources()
         await keepingStore.fetch()
         await Promise.all([
             equipmentTypesStore.fetch(),
