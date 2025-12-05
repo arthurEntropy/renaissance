@@ -1,7 +1,6 @@
 {
   "imageUrl": "https://cdn.midjourney.com/27217c25-b258-48e6-a4e8-34a84b94bccd/0_2.png",
-  "displayOrder": 3,
-  "isDefault": false,
+  "index": 3,
   "id": "ae03a8ab-ab88-47b1-9075-176e527ae836",
   "lastModified": "2025-11-26T16:44:16.727Z"
 }

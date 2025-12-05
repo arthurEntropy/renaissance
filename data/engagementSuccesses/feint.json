@@ -2,5 +2,6 @@
   "id": "d4e5f6a7-b8c9-40d1-e2f3-a4b5c6d7e8f9",
   "name": "Feint",
   "description": "You may reroll one of your engagement dice.",
+  "index": 3,
   "isDeleted": false
 }

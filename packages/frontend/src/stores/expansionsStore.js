@@ -6,7 +6,7 @@ export const useExpansionsStore = defineStore('expansions', () => {
   const base = useCrudEntityStore(ExpansionService, 'expansions')
 
   return {
-    expansions: base.items,
+    items: base.items,
     isLoading: base.isLoading,
     error: base.error,
     fetch: base.fetch,

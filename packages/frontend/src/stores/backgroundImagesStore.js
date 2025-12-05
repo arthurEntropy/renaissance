@@ -6,7 +6,7 @@ export const useBackgroundImagesStore = defineStore('backgroundImages', () => {
   const base = useCrudEntityStore(BackgroundImageService, 'background images')
 
   return {
-    backgroundImages: base.items,
+    items: base.items,
     isLoading: base.isLoading,
     error: base.error,
     fetch: base.fetch,

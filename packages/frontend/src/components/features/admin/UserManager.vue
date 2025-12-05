@@ -1,61 +1,64 @@
 <template>
-    <div class="user-manager">
+    <CollapsibleAdminSection title="User Management">
+        <div class="user-manager">
 
-        <!-- Loading state -->
-        <div v-if="loading" class="loading">
-            <p>Loading users...</p>
-        </div>
+            <!-- Loading state -->
+            <div v-if="loading" class="loading">
+                <p>Loading users...</p>
+            </div>
 
-        <!-- Error state -->
-        <div v-else-if="error" class="error">
-            <p>Error loading users: {{ error }}</p>
-            <ActionButton variant="primary" text="Retry" @click="loadUsers" />
-        </div>
+            <!-- Error state -->
+            <div v-else-if="error" class="error">
+                <p>Error loading users: {{ error }}</p>
+                <ActionButton variant="primary" text="Retry" @click="loadUsers" />
+            </div>
 
-        <!-- User list -->
-        <div v-else class="users-list">
-            <!-- Pending users -->
-            <div v-if="pendingUsers.length > 0" class="user-section">
-                <h3>Pending Approval ({{ pendingUsers.length }})</h3>
-                <div class="user-cards">
-                    <div v-for="user in pendingUsers" :key="user.id" class="user-card pending">
-                        <UserCard :user="user" @approve="approveUser" @reject="rejectUser"
-                            @update-role="updateUserRole" />
+            <!-- User list -->
+            <div v-else class="users-list">
+                <!-- Pending users -->
+                <div v-if="pendingUsers.length > 0" class="user-section">
+                    <h3>Pending Approval ({{ pendingUsers.length }})</h3>
+                    <div class="user-cards">
+                        <div v-for="user in pendingUsers" :key="user.id" class="user-card pending">
+                            <UserCard :user="user" @approve="approveUser" @reject="rejectUser"
+                                @update-role="updateUserRole" />
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Approved users -->
-            <div v-if="approvedUsers.length > 0" class="user-section">
-                <h3>Approved Users ({{ approvedUsers.length }})</h3>
-                <div class="user-cards">
-                    <div v-for="user in approvedUsers" :key="user.id" class="user-card approved">
-                        <UserCard :user="user" @suspend="suspendUser" @update-role="updateUserRole"
-                            @delete="deleteUser" />
+                <!-- Approved users -->
+                <div v-if="approvedUsers.length > 0" class="user-section">
+                    <h3>Approved Users ({{ approvedUsers.length }})</h3>
+                    <div class="user-cards">
+                        <div v-for="user in approvedUsers" :key="user.id" class="user-card approved">
+                            <UserCard :user="user" @suspend="suspendUser" @update-role="updateUserRole"
+                                @delete="deleteUser" />
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Admin users -->
-            <div v-if="adminUsers.length > 0" class="user-section">
-                <h3>Administrators ({{ adminUsers.length }})</h3>
-                <div class="user-cards">
-                    <div v-for="user in adminUsers" :key="user.id" class="user-card admin">
-                        <UserCard :user="user" @update-role="updateUserRole" @delete="deleteUser" />
+                <!-- Admin users -->
+                <div v-if="adminUsers.length > 0" class="user-section">
+                    <h3>Administrators ({{ adminUsers.length }})</h3>
+                    <div class="user-cards">
+                        <div v-for="user in adminUsers" :key="user.id" class="user-card admin">
+                            <UserCard :user="user" @update-role="updateUserRole" @delete="deleteUser" />
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- No users message -->
-            <div v-if="users.length === 0" class="no-users">
-                <p>No users found.</p>
+                <!-- No users message -->
+                <div v-if="users.length === 0" class="no-users">
+                    <p>No users found.</p>
+                </div>
             </div>
         </div>
-    </div>
+    </CollapsibleAdminSection>
 </template>
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
+import CollapsibleAdminSection from './CollapsibleAdminSection.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import UserCard from './UserCard.vue'
 import UserService from '@/services/entities/userService'
@@ -148,24 +151,7 @@ onMounted(() => {
     loadUsers()
 })
 </script>
-
 <style scoped>
-.user-manager {
-    margin-bottom: 3rem;
-}
-
-h2 {
-    font-size: var(--font-size-32);
-    margin-bottom: 1.5rem;
-    color: var(--color-white);
-}
-
-h3 {
-    font-size: var(--font-size-24);
-    margin-bottom: 1rem;
-    color: var(--color-white);
-}
-
 .loading,
 .error {
     text-align: center;

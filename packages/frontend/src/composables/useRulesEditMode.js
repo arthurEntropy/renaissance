@@ -2,6 +2,10 @@ import { ref } from 'vue'
 import RulesService from '@/services/entities/rulesService'
 import { useRulesStore } from '@/stores/rulesStore'
 
+/**
+ * Composable for managing rules edit modes
+ * Handles content/structure edit states, unsaved changes detection, and save operations
+ */
 export function useRulesEditMode() {
   const rulesStore = useRulesStore()
   

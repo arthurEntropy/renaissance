@@ -101,7 +101,7 @@ export default {
       const backgroundImageId = userStore.userProfile?.preferences?.backgroundImageId
       if (!backgroundImageId) return null
 
-      const selectedImage = backgroundImagesStore.backgroundImages.find(
+      const selectedImage = backgroundImagesStore.items.find(
         img => img.id === backgroundImageId
       )
       return selectedImage?.imageUrl || null
