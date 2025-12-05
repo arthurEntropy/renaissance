@@ -3,6 +3,10 @@ import { useRoute, useRouter } from 'vue-router'
 import { useRulesStore } from '@/stores/rulesStore'
 import RulesService from '@/services/entities/rulesService'
 
+/**
+ * Composable for managing rules sections
+ * Handles section CRUD operations, navigation, URL routing, and localStorage persistence
+ */
 export function useRulesSectionManager() {
   const rulesStore = useRulesStore()
   const route = useRoute()

@@ -3,7 +3,6 @@
     <div class="rules-container">
 
       <!-- NAVIGATION -->
-      <!-- TABLE OF CONTENTS NAV BAR -->
       <RulesNavigation :filteredSections="filteredSections" :currentSection="currentSection"
         :localSections="localSections" :isStructureEditMode="isStructureEditMode" :isContentEditMode="isContentEditMode"
         @selectSection="handleSelectSection" @toggleStructureEditMode="handleToggleStructureEditMode"
@@ -78,7 +77,7 @@ const {
   updateContent,
 } = useRulesContentUpdates(currentSection, markAsChanged)
 
-// Enhanced methods that integrate composables
+// Event Handlers
 const handleSelectSection = async (sectionId) => {
   await selectSection(sectionId, {
     onUnsavedChanges: async () => {
@@ -96,22 +95,18 @@ const handleCreateNewSection = async () => {
 
   await createNewSection({
     onSuccess: () => {
-      toggleStructureEditMode() // Exit structure edit mode
+      toggleStructureEditMode()
       setTimeout(() => {
-        toggleContentEditMode(currentSection.value) // Enter content edit mode for new section
-        markAsChanged() // Mark as changed
-      }, 100)
+        toggleContentEditMode(currentSection.value)
+        markAsChanged()
+      }, 100) // Slight delay to ensure UI updates
     }
   })
 }
 
-const handleToggleContentEditMode = () => {
-  toggleContentEditMode(currentSection.value)
-}
+const handleToggleContentEditMode = () => toggleContentEditMode(currentSection.value)
 
-const handleToggleStructureEditMode = () => {
-  toggleStructureEditMode()
-}
+const handleToggleStructureEditMode = () => toggleStructureEditMode()
 
 const handleConfirmDeleteSection = (section) => {
   if (!canPerformAction('delete-section')) return
@@ -123,13 +118,8 @@ const handleUpdateSectionsOrder = () => {
   updateSectionsOrder()
 }
 
-// Lifecycle
 onMounted(async () => {
-  try {
-    await initializeSections()
-  } catch (error) {
-    console.error('Error in RulesPage mounted:', error)
-  }
+  await initializeSections()
 })
 </script>
 

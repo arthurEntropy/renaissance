@@ -7,7 +7,6 @@ export const useEngagementSuccessesStore = defineStore('engagementSuccesses', ()
 
   return {
     items: base.items,
-    engagementSuccesses: base.items,
     isLoading: base.isLoading,
     error: base.error,
     fetch: base.fetch,

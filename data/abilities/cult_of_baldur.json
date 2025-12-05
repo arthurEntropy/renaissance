@@ -1,12 +1,13 @@
 {
   "id": "2f5eb357-d8dc-48c4-ade1-900496c7fd9c",
   "name": "Cult of Baldur",
-  "description": "<p>Once per quest, you may call upon the spirit of Baldur for guidance. Describe how you commune with the spirit. You may ask Baldur three questions from the Intuizione list, but they may be of a wider scope than the current situation. DM/group discretion.</p>",
+  "description": "<p>Once per quest, you may call upon the spirit of Baldur for guidance. You may ask him one question and the GM will provide an answer.</p><p>Baldur is not omnipotent, nor does he have any special knowledge of recent events. He will provide generally sound advice based on the information you give him, though he has a bias toward action and the pursuit of your personal goals (and/or his own goals, if that is part of your campaign world).</p><p><strong>Describe how you commune with the spirit of Baldur.</strong></p>",
   "isTrait": true,
   "canBeActive": false,
   "isActive": true,
   "source": "34ea8807-b404-435c-a860-704b4a40df8f",
   "isDeleted": false,
   "mp": null,
-  "xp": null
+  "xp": null,
+  "lastModified": "2025-11-27T12:17:33.457Z"
 }

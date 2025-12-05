@@ -2,5 +2,6 @@
   "id": "c9d0e1f2-a3b4-45c6-d7e8-f9a0b1c2d3e4",
   "name": "Retreat",
   "description": "You move 5 feet away from your opponent. The attacker in this engagement must spend additional movement to regain melee range. Otherwise, the engagement ends and no attack is made.",
+  "index": 9,
   "isDeleted": false
 }

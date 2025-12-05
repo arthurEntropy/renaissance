@@ -10,12 +10,10 @@ import { useEquipmentStore } from '@/stores/equipmentStore'
 import { useAbilitiesStore } from '@/stores/abilitiesStore'
 import CharacterService from '@/services/entities/characterService'
 
-// Stores
 const charactersStore = useCharactersStore()
 const equipmentStore = useEquipmentStore()
 const abilitiesStore = useAbilitiesStore()
 
-// Use the bestiary layout composable
 const { layoutProps } = useBestiaryLayout(
     charactersStore,
     equipmentStore,

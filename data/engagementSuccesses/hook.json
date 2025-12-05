@@ -2,5 +2,6 @@
   "id": "f2a3b4c5-d6e7-48f9-a0b1-c2d3e4f5a6b7",
   "name": "Hook",
   "description": "Choose one piece of your opponent's armor or their shield. They lose the benefits of that item until their next turn.",
+  "index": 4,
   "isDeleted": false
 }

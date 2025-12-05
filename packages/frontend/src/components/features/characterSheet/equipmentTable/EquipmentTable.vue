@@ -71,7 +71,7 @@ import { useItemSelector } from '@/composables/useItemSelector'
 import { useSourceUtils } from '@/composables/useSourceUtils'
 import { useCharacterEquipment } from '@/composables/useCharacterEquipment'
 import { useCustomEquipment } from '@/composables/useCustomEquipment'
-import { isWeapon } from '@/utils/equipmentUtils'
+import { EQUIPMENT_TYPES } from '@/constants/equipmentTypes'
 import { BookOpenIcon, PlusIcon } from '@heroicons/vue/24/outline'
 
 // Props
@@ -190,7 +190,7 @@ const handleWieldingChange = (index, isWielding) => {
 
   const canWield = currentItem.isCarried &&
     equipmentRow.equipment &&
-    isWeapon(equipmentRow.equipment)
+    equipmentRow.equipment.type === EQUIPMENT_TYPES.WEAPON
 
   const shouldWield = isWielding && canWield
   equipmentManagement.updateItem(index, { isWielding: shouldWield })

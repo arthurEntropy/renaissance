@@ -9,13 +9,13 @@
             <div class="preferences-section">
                 <h3>Background Image</h3>
                 <div class="background-options">
-                    <!-- Show all backgrounds in order, with default badge -->
-                    <div v-for="background in sortedBackgrounds" :key="background.id" class="background-option"
-                        :class="{ selected: selectedBackgroundId === background.id || (selectedBackgroundId === null && background.isDefault) }"
+                    <!-- Show all backgrounds in order, first one is default -->
+                    <div v-for="(background, index) in sortedBackgrounds" :key="background.id" class="background-option"
+                        :class="{ selected: selectedBackgroundId === background.id || (selectedBackgroundId === null && index === 0) }"
                         @click="selectBackground(background.id)">
                         <img :src="background.imageUrl" :alt="`Background`" class="background-thumbnail" />
-                        <div v-if="background.isDefault" class="default-badge">Default</div>
-                        <div v-if="selectedBackgroundId === background.id || (selectedBackgroundId === null && background.isDefault)"
+                        <div v-if="index === 0" class="default-badge">Default</div>
+                        <div v-if="selectedBackgroundId === background.id || (selectedBackgroundId === null && index === 0)"
                             class="selected-indicator">✓</div>
                     </div>
                 </div>
@@ -36,11 +36,11 @@ const userStore = useUserStore()
 
 const selectedBackgroundId = ref(null)
 
-// Sort backgrounds by displayOrder
+// Sort backgrounds by index
 const sortedBackgrounds = computed(() => {
-    return [...backgroundImagesStore.backgroundImages].sort((a, b) => {
-        const orderA = a.displayOrder ?? 999
-        const orderB = b.displayOrder ?? 999
+    return [...backgroundImagesStore.items].sort((a, b) => {
+        const orderA = a.index ?? 999
+        const orderB = b.index ?? 999
         if (orderA !== orderB) return orderA - orderB
         return (a.id || '').localeCompare(b.id || '')
     })

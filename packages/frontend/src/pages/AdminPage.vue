@@ -1,49 +1,85 @@
 <template>
     <div class="admin-page">
-        <CollapsibleSection title="User Management">
-            <UserManager />
-        </CollapsibleSection>
+        <UserManager />
 
-        <CollapsibleSection title="Background Images">
-            <BackgroundManager />
-        </CollapsibleSection>
+        <AdminListManager title="Background Images" item-name="Background" :store="backgroundImagesStore"
+            :default-item="{ imageUrl: '', index: 0 }">
+            <template #fields="{ item, update }">
+                <input v-model="item.imageUrl" @blur="update" class="url-input" placeholder="Image URL" />
+                <img v-if="item.imageUrl" :src="item.imageUrl" class="preview" alt="Background preview" />
+            </template>
+        </AdminListManager>
 
-        <CollapsibleSection title="Expansions">
-            <ExpansionManager />
-        </CollapsibleSection>
+        <AdminListManager title="Expansions" item-name="Expansion" :store="expansionsStore"
+            :default-item="{ name: '', logoUrl: '', index: 0 }">
+            <template #fields="{ item, update }">
+                <input v-model="item.name" @blur="update" class="name-input" placeholder="Expansion Name" />
+                <input v-model="item.logoUrl" @blur="update" class="logo-input" placeholder="Logo URL" />
+                <img v-if="item.logoUrl" :src="item.logoUrl" class="logo-preview" alt="Logo preview" />
+            </template>
+        </AdminListManager>
 
-        <CollapsibleSection title="Equipment Types">
-            <EquipmentTypeManager />
-        </CollapsibleSection>
+        <AdminListManager title="Equipment Types" item-name="Type" :store="equipmentTypesStore"
+            :default-item="{ name: '', description: '', index: 0 }">
+            <template #fields="{ item, update }">
+                <input v-model="item.name" @blur="update" class="field-input" placeholder="Type Name" />
+                <input v-model="item.description" @blur="update" class="field-input flex-1" placeholder="Description" />
+            </template>
+        </AdminListManager>
 
-        <CollapsibleSection title="Equipment Subtypes">
-            <EquipmentSubtypeManager />
-        </CollapsibleSection>
+        <AdminListManager title="Equipment Subtypes" item-name="Subtype" :store="equipmentSubtypesStore"
+            :group-by-store="equipmentTypesStore" group-by-key="typeId"
+            :default-item="{ name: '', description: '', typeId: null, index: 0 }">
+            <template #fields="{ item, update }">
+                <input v-model="item.name" @blur="update" class="field-input" placeholder="Subtype Name" />
+                <input v-model="item.description" @blur="update" class="field-input flex-1" placeholder="Description" />
+            </template>
+        </AdminListManager>
 
-        <CollapsibleSection title="Equipment Grades">
-            <EquipmentGradeManager />
-        </CollapsibleSection>
+        <AdminListManager title="Equipment Grades" item-name="Grade" :store="equipmentGradesStore"
+            :default-item="{ name: '', description: '', index: 0 }">
+            <template #fields="{ item, update }">
+                <input v-model="item.name" @blur="update" class="field-input" placeholder="Grade Name" />
+                <input v-model="item.description" @blur="update" class="field-input flex-1" placeholder="Description" />
+            </template>
+        </AdminListManager>
 
-        <CollapsibleSection title="Equipment Ranges">
-            <EquipmentRangeManager />
-        </CollapsibleSection>
+        <AdminListManager title="Equipment Ranges" item-name="Range" :store="equipmentRangesStore"
+            :default-item="{ name: '', distance: '', index: 0 }">
+            <template #fields="{ item, update }">
+                <input v-model="item.name" @blur="update" class="field-input" placeholder="Range Name" />
+                <input v-model="item.distance" @blur="update" class="field-input flex-1" placeholder="Distance" />
+            </template>
+        </AdminListManager>
 
-        <CollapsibleSection title="Engagement Successes">
-            <EngagementSuccessManager />
-        </CollapsibleSection>
+        <AdminListManager title="Engagement Successes" item-name="Success" :store="engagementSuccessesStore"
+            :default-item="{ name: '', description: '', index: 0 }">
+            <template #fields="{ item, update }">
+                <input v-model="item.name" @blur="update" class="field-input" placeholder="Success Name" />
+                <input v-model="item.description" @blur="update" class="field-input flex-1" placeholder="Description" />
+            </template>
+        </AdminListManager>
     </div>
 </template>
 
 <script setup>
-import CollapsibleSection from '@/components/features/admin/CollapsibleSection.vue'
-import ExpansionManager from '@/components/features/admin/ExpansionManager.vue'
+import AdminListManager from '@/components/features/admin/AdminListManager.vue'
 import UserManager from '@/components/features/admin/UserManager.vue'
-import BackgroundManager from '@/components/features/admin/BackgroundManager.vue'
-import EquipmentTypeManager from '@/components/features/admin/EquipmentTypeManager.vue'
-import EquipmentSubtypeManager from '@/components/features/admin/EquipmentSubtypeManager.vue'
-import EquipmentGradeManager from '@/components/features/admin/EquipmentGradeManager.vue'
-import EquipmentRangeManager from '@/components/features/admin/EquipmentRangeManager.vue'
-import EngagementSuccessManager from '@/components/features/admin/EngagementSuccessManager.vue'
+import { useBackgroundImagesStore } from '@/stores/backgroundImagesStore'
+import { useExpansionsStore } from '@/stores/expansionsStore'
+import { useEquipmentTypesStore } from '@/stores/equipmentTypesStore'
+import { useEquipmentSubtypesStore } from '@/stores/equipmentSubtypesStore'
+import { useEquipmentGradesStore } from '@/stores/equipmentGradesStore'
+import { useEquipmentRangesStore } from '@/stores/equipmentRangesStore'
+import { useEngagementSuccessesStore } from '@/stores/engagementSuccessesStore'
+
+const backgroundImagesStore = useBackgroundImagesStore()
+const expansionsStore = useExpansionsStore()
+const equipmentTypesStore = useEquipmentTypesStore()
+const equipmentSubtypesStore = useEquipmentSubtypesStore()
+const equipmentGradesStore = useEquipmentGradesStore()
+const equipmentRangesStore = useEquipmentRangesStore()
+const engagementSuccessesStore = useEngagementSuccessesStore()
 </script>
 
 <style scoped>

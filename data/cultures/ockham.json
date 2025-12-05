@@ -1,7 +1,7 @@
 {
   "id": "0c876a74-a89b-42dc-b76a-4592a0478d81",
   "name": "Ockham",
-  "description": "<p>This is a town that gets burnt to the ground. Your story can start it before it happens or after it happens, but it happens.</p><p>Before it happens, it's the center of trade for the valley of the River Troutbeck: a broad, green, bread-basket region that includes the outlying hamlets of Eashing, Wattle and Send. There is a different festival nearly every week, each drawing a different patchwork of folk from the surrounding fields and hills. The land is plentiful and life is thundering blissful towards death.</p><p>After it happens - and it's up to you when and why and how it happens - it is a place agape, newly awake to the full depth of cruelty and horror that this world contains. There is a wandering time, a casting-about for meaning. But as the people begin to dig through the charred ruin of their former lives, they pick out the nails from the ashes. What will they do with their anger? What will they become?</p>",
+  "description": "<p>This is a town that gets burnt to the ground. Your story can start before it happens or after it happens, but it happens.</p><p>Before it happens, it's the center of trade for the valley of the River Troutbeck: a broad, green, bread-basket region that includes the outlying hamlets of Eashing, Wattle and Send. There is a different festival nearly every week, each drawing a different patchwork of folk from the surrounding fields and hills. The land is plentiful and life is thundering blissful towards death.</p><p>After it happens - and it's up to you when and why and how it happens - it is a place agape, newly awake to the full depth of cruelty and horror that this world contains. There is a wandering time, a casting-about for meaning. But as the people begin to dig through the charred ruin of their former lives, they pick out the nails from the ashes. What will they do with their anger? What will they become?</p>",
   "isDeleted": false,
   "artUrls": [
     "https://cdn.midjourney.com/9eeb3810-b3f8-41e0-bfb4-2b29c9dd0808/0_0.jpeg"
@@ -45,5 +45,6 @@
   "publicHouses": "The Stripey Pig, The Green Woman, The Sack and Sickle, Stickney's Tavern, The Shepherd's Legs",
   "vittles": "Cider, Mead, Barley Bread, Oat Porridge, Smoked Eel, Salted Pork, Stewed Lentils, Hard Cheese, Fresh Apples, Pickled Onions, Roasted Turnips, Honey Cakes, Black Pudding, Small Beer, Snipe-On-A-Stick",
   "pointsOfInterest": "The Festival Square, The Grand Fountain, The Exchange House, The Tithing Barn, The Hollow Tree",
-  "floraFauna": "Oak, Willow, Hawthorn, Elderberry, Wild Garlic, Nettles, Foxglove, Crow, Hedgehog, Badger, Red Deer, Pike, Barn Owl, Stoat, LarkTEST"
+  "floraFauna": "Oak, Willow, Hawthorn, Elderberry, Wild Garlic, Nettles, Foxglove, Crow, Hedgehog, Badger, Red Deer, Pike, Barn Owl, Stoat, LarkTEST",
+  "lastModified": "2025-11-27T12:27:43.746Z"
 }
