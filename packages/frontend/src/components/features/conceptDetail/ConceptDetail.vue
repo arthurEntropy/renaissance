@@ -301,7 +301,7 @@ onMounted(async () => {
   try {
     await sourcesStore.fetchSources()
     await expansionStore.fetch()
-    expansions.value = expansionStore.expansions
+    expansions.value = expansionStore.items
     // Fetch art store for auto-populated galleries
     await artStore.fetch()
   } catch (error) {
