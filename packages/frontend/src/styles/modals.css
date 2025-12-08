@@ -15,14 +15,15 @@
 
 .modal-content {
   position: relative;
-  background: var(--overlay-black-heavy);
+  background: var(--color-bg-primary);
   padding: var(--space-xl);
   border-radius: var(--radius-10);
-  border: var(--color-gray-medium) 1px solid;
+  box-shadow: var(--shadow-elevation-sm);
   text-align: center;
   max-height: 90vh;
   max-width: 90%;
   overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .modal-header {

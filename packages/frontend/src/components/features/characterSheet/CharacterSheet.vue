@@ -5,7 +5,7 @@
         </div>
 
         <!-- Character Sheet Content -->
-        <div class="modal-content, modal-content-base">
+        <div class="modal-content">
             <div class="scrollable-wrapper">
                 <div class="scrollable-content">
                     <div class="top-section">
@@ -346,7 +346,7 @@ const handleDeleteCharacter = () => {
     background-color: var(--overlay-white-subtle);
 }
 
-.modal-content-base {
+.modal-content {
     background: var(--overlay-black-heavy);
     border-radius: var(--radius-5);
     max-width: 1200px;
@@ -434,7 +434,7 @@ const handleDeleteCharacter = () => {
 }
 
 @media (max-width: var(--breakpoint-sm)) {
-    .modal-content-base {
+    .modal-content {
         margin: 0;
         max-height: 100vh;
         border-radius: 0;

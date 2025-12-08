@@ -4,7 +4,7 @@
     <ConceptHeader :editable="editable" :is-edit-mode="isEditMode" @toggle-edit-mode="handleToggleEditMode"
       @open-settings="openSettingsModal" />
 
-    <div class="modal-content-base modal-content">
+    <div class="modal-content">
       <!-- Desktop Layout: Left/Right Columns -->
       <div v-if="isDesktop" class="concept-layout-desktop">
         <!-- Left Column -->

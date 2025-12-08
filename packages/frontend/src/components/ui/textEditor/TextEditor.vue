@@ -225,7 +225,7 @@ defineExpose({
 
 :deep(.ProseMirror) {
   padding: var(--space-md);
-  padding-bottom: var(--space-2xl);
+  padding-bottom: var(--space-xl);
   min-height: 100px;
   flex: 1;
   outline: none;

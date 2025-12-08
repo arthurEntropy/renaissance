@@ -208,8 +208,8 @@
 
   /* === BUTTON SPECIFIC === */
   --btn-padding-sm: 2px var(--space-sm);  /* 2px top/bottom, 8px left/right */
-  --btn-padding-md: var(--space-sm) 16px;
-  --btn-padding-lg: 16px 24px;
+  --btn-padding-md: var(--space-sm) var(--space-lg);
+  --btn-padding-lg: var(--space-lg) var(--space-xl);
   
   --btn-font-size-sm: var(--font-size-14);
   --btn-font-size-md: var(--font-size-14);

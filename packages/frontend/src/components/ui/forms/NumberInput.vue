@@ -61,7 +61,7 @@ const decrement = () => {
 }
 
 .number-input-large {
-  height: var(--space-2xl);
+  height: var(--space-xl);
   width: 40px;
 }
 

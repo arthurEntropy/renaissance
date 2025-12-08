@@ -203,7 +203,7 @@ const handleOverlayClick = () => {
 }
 
 .icon-btn:disabled {
-  color: var(--color-text-tertiary);
+  color: var(--color-text-secondary);
   cursor: default;
 }
 
