@@ -215,7 +215,7 @@ const getUnownedBadgeClasses = () => {
 /* Improvements expand/collapse transition */
 .expand-improvements-enter-active,
 .expand-improvements-leave-active {
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all var(--transition-medium);
     overflow: hidden;
 }
 

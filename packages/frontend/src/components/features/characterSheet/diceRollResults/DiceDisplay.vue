@@ -26,7 +26,7 @@
                 <i :class="die.cssClass"></i>
                 <span v-if="!isRolling && die.emoji && !isCustomRoll" class="dice-emoji">{{
                     die.emoji
-                }}</span>
+                    }}</span>
             </span>
             <span v-if="truncatedDice.showEllipsis" class="dice-ellipsis" :style="{ fontSize: `${diceSize}px` }"
                 @click="openModal">
@@ -54,7 +54,7 @@
                         <i :class="die.cssClass"></i>
                         <span v-if="die.emoji && !isCustomRoll" class="dice-emoji">{{
                             die.emoji
-                        }}</span>
+                            }}</span>
                     </span>
                 </div>
             </div>
@@ -239,9 +239,9 @@ defineExpose({
 /* Define transition for all dice */
 .dice-symbol:not(.dice-rolling) {
     transition:
-        color 0.8s ease-in,
-        text-shadow 0.8s ease-in,
-        opacity 0.8s ease-in;
+        color var(--duration-slow) ease-in,
+        text-shadow var(--duration-slow) ease-in,
+        opacity var(--duration-slow) ease-in;
 }
 
 /* Keyframes for max value glow effect */
@@ -259,7 +259,7 @@ defineExpose({
 
 /* Apply animation to max value dice */
 .max-value-die {
-    animation: fadeInGlow 0.8s ease-in forwards;
+    animation: fadeInGlow var(--duration-slow) ease-in forwards;
     animation-delay: 0.1s;
 }
 
@@ -278,7 +278,7 @@ defineExpose({
 
 /* Apply animation to dropped dice */
 .dropped-die {
-    animation: fadeInStrikethrough 0.8s ease-in forwards;
+    animation: fadeInStrikethrough var(--duration-slow) ease-in forwards;
     animation-delay: 0.1s;
 }
 
@@ -306,7 +306,7 @@ defineExpose({
     pointer-events: none;
     z-index: var(--z-overlay);
     opacity: 0;
-    animation: fadeInLine 0.8s ease-in forwards;
+    animation: fadeInLine var(--duration-slow) ease-in forwards;
     animation-delay: 0.3s;
 }
 
@@ -317,7 +317,7 @@ defineExpose({
     font-size: var(--font-size-16);
     transform: translate(5px, 5px);
     opacity: 0;
-    animation: fadeIn 0.5s ease-in forwards;
+    animation: fadeIn var(--duration-medium) ease-in forwards;
     animation-delay: 0.4s;
 }
 
@@ -331,7 +331,7 @@ defineExpose({
     align-items: center;
     justify-content: center;
     min-width: 1em;
-    transition: color 0.2s ease;
+    transition: color var(--duration-fast) ease;
 }
 
 .dice-ellipsis:hover {
@@ -387,7 +387,7 @@ defineExpose({
     align-items: center;
     justify-content: center;
     border-radius: var(--radius-5);
-    transition: color 0.2s ease, background-color 0.2s ease;
+    transition: color var(--duration-fast) ease, background-color var(--duration-fast) ease;
 }
 
 .close-button:hover {
@@ -407,9 +407,9 @@ defineExpose({
     font-size: var(--font-size-36);
     position: relative;
     transition:
-        color 0.8s ease-in,
-        text-shadow 0.8s ease-in,
-        opacity 0.8s ease-in;
+        color var(--duration-slow) ease-in,
+        text-shadow var(--duration-slow) ease-in,
+        opacity var(--duration-slow) ease-in;
 }
 
 .modal-dice-symbol.max-value-die {
@@ -494,7 +494,7 @@ defineExpose({
 }
 
 .dice-rolling {
-    animation: rollDice 1.5s ease-out;
+    animation: rollDice var(--duration-dice-roll) ease-out;
     perspective: 1000px;
     transform-style: preserve-3d;
     display: inline-block;

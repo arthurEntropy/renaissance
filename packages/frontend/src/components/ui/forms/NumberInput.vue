@@ -18,7 +18,7 @@ const props = defineProps({
   min: { type: Number, default: null },
   max: { type: Number, default: null },
   step: { type: Number, default: 1 },
-  size: { type: String, default: 'small', validator: (v) => ['tiny', 'small', 'large'].includes(v) },
+  size: { type: String, default: 'small', validator: (v) => ['small', 'large'].includes(v) },
   disabled: { type: Boolean, default: false }
 })
 
@@ -50,16 +50,7 @@ const decrement = () => {
   display: inline-block;
 }
 
-.number-input-tiny {
-  height: var(--space-lg);
-  width: 40px;
-}
-
-.number-input-small {
-  height: var(--space-xl);
-  width: 40px;
-}
-
+.number-input-small,
 .number-input-large {
   height: var(--space-xl);
   width: 40px;

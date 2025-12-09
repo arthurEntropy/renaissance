@@ -251,7 +251,7 @@ onMounted(async () => {
     background: var(--color-gray-dark);
     padding: 1rem;
     border-radius: var(--radius-10);
-    transition: all 0.2s;
+    transition: all var(--duration-fast);
 }
 
 .list-item.sortable {

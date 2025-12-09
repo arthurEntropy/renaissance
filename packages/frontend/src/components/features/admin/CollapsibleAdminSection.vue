@@ -43,7 +43,7 @@ const toggle = () => {
     cursor: pointer;
     user-select: none;
     padding: 0.5rem 0;
-    transition: color 0.2s;
+    transition: color var(--duration-fast);
 }
 
 .section-header:hover {

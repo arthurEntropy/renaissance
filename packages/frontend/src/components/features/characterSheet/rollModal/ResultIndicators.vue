@@ -126,7 +126,7 @@ function getCaretClasses(comparison) {
 .indicator-circle.winner {
     background-color: var(--color-white);
     box-shadow: var(--shadow-glow-lg);
-    animation: pulse-win 1.5s infinite;
+    animation: pulse-win var(--duration-dice-roll) infinite;
 }
 
 .indicator-circle.loser {

@@ -163,8 +163,25 @@
   
 
   /* === TRANSITIONS === */
-  /* Base duration */
-  --transition-normal: 0.3s ease;
+  /* Base durations */
+  --duration-instant: 100ms;   /* Near-instant feedback */
+  --duration-fast: 200ms;      /* Quick UI responses */
+  --duration-normal: 300ms;    /* Standard transitions */
+  --duration-medium: 500ms;    /* Deliberate UI changes */
+  --duration-slow: 800ms;      /* Emphasis animations */
+
+  /* Special durations */
+  --duration-dice-roll: 1500ms;  /* Dice roll animations (matches DICE_ROLL_DURATION JS constant) */
+
+  /* Easing functions */
+  --ease-standard: ease;
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Transition presets (legacy - use duration tokens for new code) */
+  --transition-normal: var(--duration-normal) var(--ease-standard);
+  --transition-fast: var(--duration-fast) var(--ease-standard);
+  --transition-medium: var(--duration-medium) var(--ease-smooth);
+  --transition-slow: var(--duration-slow) var(--ease-standard);
   
   /* Core semantic transitions (most commonly used) */
   --transition-all: all var(--transition-normal);

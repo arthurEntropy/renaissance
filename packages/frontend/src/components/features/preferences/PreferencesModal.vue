@@ -105,7 +105,7 @@ onMounted(async () => {
     align-items: center;
     justify-content: center;
     border-radius: var(--radius-5);
-    transition: background-color 0.2s;
+    transition: background-color var(--duration-fast);
 }
 
 .close-button:hover {
@@ -134,7 +134,7 @@ onMounted(async () => {
     border: 2px solid var(--color-gray-medium);
     border-radius: var(--radius-10);
     overflow: hidden;
-    transition: all 0.2s;
+    transition: all var(--duration-fast);
     background: var(--color-bg-primary);
     aspect-ratio: 16 / 9;
 }

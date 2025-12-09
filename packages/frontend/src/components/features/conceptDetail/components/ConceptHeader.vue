@@ -50,7 +50,7 @@ defineEmits(['toggle-edit-mode', 'open-settings'])
     align-items: center;
     justify-content: center;
     box-shadow: none;
-    transition: transform 0.2s ease;
+    transition: transform var(--duration-fast) ease;
     padding: var(--space-xxs);
 }
 

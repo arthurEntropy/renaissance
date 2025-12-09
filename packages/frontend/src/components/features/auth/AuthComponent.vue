@@ -166,7 +166,7 @@ const handleSignOut = async () => {
     height: 16px;
     color: var(--color-primary);
     opacity: 0;
-    transition: opacity 0.2s;
+    transition: opacity var(--duration-fast);
 }
 
 .user-dropdown:hover .chevron-icon {
@@ -177,7 +177,7 @@ const handleSignOut = async () => {
     color: var(--color-primary);
     font-size: var(--font-size-14);
     font-weight: 500;
-    transition: filter 0.2s;
+    transition: filter var(--duration-fast);
 }
 
 .user-dropdown:hover .user-name {
@@ -210,6 +210,6 @@ const handleSignOut = async () => {
     text-align: left;
     text-decoration: none;
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: background-color var(--duration-fast);
 }
 </style>

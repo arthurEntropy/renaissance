@@ -268,7 +268,7 @@ onMounted(() => {
 /* Expand/Collapse transition for card content */
 .expand-enter-active,
 .expand-leave-active {
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all var(--transition-medium);
   overflow: hidden;
 }
 

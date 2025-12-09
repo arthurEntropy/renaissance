@@ -12,8 +12,7 @@ import { sanitizeHtml } from '@/utils/sanitizeHtml'
 
 const props = defineProps({
     content: { type: String, required: true },
-    additionalClasses: { type: [String, Array, Object], default: '' },
-    size: { type: String, default: 'normal', validator: (v) => ['small', 'normal', 'large'].includes(v) }
+    additionalClasses: { type: [String, Array, Object], default: '' }
 })
 
 const slots = useSlots()
