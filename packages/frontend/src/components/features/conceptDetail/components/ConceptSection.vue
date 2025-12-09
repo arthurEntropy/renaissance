@@ -71,7 +71,7 @@ defineEmits(['toggle-edit'])
     padding: var(--space-xl);
     margin: var(--space-md) 0;
     text-align: center;
-    color: var(--color-text-tertiary);
+    color: var(--color-text-secondary);
     font-style: italic;
     background: var(--color-bg-secondary);
     border: 2px dashed var(--color-border-secondary);

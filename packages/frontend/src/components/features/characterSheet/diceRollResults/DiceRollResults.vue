@@ -40,7 +40,7 @@
           {{ latestRoll.characterName }} rolled
           <span class="skill-name">{{
             latestRoll.baseSkillName || latestRoll.skillName
-          }}</span>
+            }}</span>
           <span v-if="latestRoll.favoredStatus" :class="{
             'favored-modifier': latestRoll.favoredStatus === 'favored',
             'ill-favored-modifier': latestRoll.favoredStatus === 'ill-favored',
@@ -384,7 +384,7 @@ const getCircularPosition = (index, total) => {
 
 /* Vue transition for outcome */
 .outcome-fade-enter-active {
-  animation: fadeInOutcome 0.6s ease-out;
+  animation: fadeInOutcome 600ms ease-out;
 }
 
 .outcome-fade-enter-from {
@@ -394,7 +394,7 @@ const getCircularPosition = (index, total) => {
 
 /* Vue transition for numbers */
 .simple-fade-enter-active {
-  transition: all 0.6s ease-out;
+  transition: all 600ms ease-out;
   transition-delay: 0.2s;
 }
 

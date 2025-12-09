@@ -126,25 +126,27 @@ const handleRoll = async () => {
     padding: var(--space-xs);
     font-size: var(--font-size-12);
     border: 1px solid var(--color-gray-dark);
-    border-radius: var(--radius-3);
-    background-color: var(--color-background-secondary);
-    color: var(--color-text-primary);
     cursor: pointer;
     transition: var(--transition-all);
 }
 
+.clear-button {
+    background-color: var(--color-bg-secondary);
+    color: var(--color-text-primary);
+}
+
 .roll-button {
-    background-color: var(--color-accent-primary);
+    background-color: var(--color-primary);
     color: var(--color-white);
     font-weight: var(--font-weight-bold);
 }
 
 .roll-button:hover:not(:disabled) {
-    background-color: var(--color-accent-primary-hover);
+    background-color: var(--color-primary-hover);
 }
 
 .clear-button:hover:not(:disabled) {
-    background-color: var(--color-background-tertiary);
+    background-color: var(--color-bg-tertiary);
 }
 
 .roll-button:disabled,

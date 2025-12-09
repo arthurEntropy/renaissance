@@ -26,7 +26,7 @@
                 <div class="detail-item">
                     <em class="carried-label">qty</em>
                     <NumberInput :model-value="equipmentRow.quantity" :disabled="!isEditMode"
-                        @update:model-value="handleQuantityChange" :min="1" size="tiny" class="quantity-input" />
+                        @update:model-value="handleQuantityChange" :min="1" size="small" class="quantity-input" />
                 </div>
 
                 <!-- Carried Weight -->
@@ -173,5 +173,10 @@ const handleQuantityChange = (value) => {
     display: inline-block;
     min-width: 25px;
     text-align: right;
+}
+
+.quantity-input {
+    width: 40px;
+    font-size: var(--font-size-12);
 }
 </style>

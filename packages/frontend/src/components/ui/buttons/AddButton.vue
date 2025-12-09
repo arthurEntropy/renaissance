@@ -24,8 +24,8 @@ const props = defineProps({
     },
     size: {
         type: String,
-        default: 'medium',
-        validator: (value) => ['small', 'medium'].includes(value)
+        default: 'large',
+        validator: (value) => ['small', 'large'].includes(value)
     },
     position: {
         type: String,
@@ -43,7 +43,7 @@ const buttonClass = computed(() => {
     if (props.size === 'small') {
         classes.push('add-button--small')
     } else {
-        classes.push('add-button--medium')
+        classes.push('add-button--large')
     }
 
     // Color variants
@@ -66,7 +66,7 @@ const buttonClass = computed(() => {
 })
 
 const iconClass = computed(() => {
-    return props.size === 'small' ? 'add-button__icon--small' : 'add-button__icon--medium'
+    return props.size === 'small' ? 'add-button__icon--small' : 'add-button__icon--large'
 })
 </script>
 
@@ -91,7 +91,7 @@ const iconClass = computed(() => {
     height: 20px;
 }
 
-.add-button--medium {
+.add-button--large {
     width: 24px;
     height: 24px;
     z-index: var(--z-dropdown);
@@ -103,7 +103,7 @@ const iconClass = computed(() => {
     height: 12px;
 }
 
-.add-button__icon--medium {
+.add-button__icon--large {
     width: 16px;
     height: 16px;
 }

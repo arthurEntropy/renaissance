@@ -74,7 +74,7 @@ defineEmits(['open-skill-check', 'dice-click'])
 
 .skill-name-clickable:hover {
     color: var(--color-text-primary);
-    text-shadow: var(--shadow-glow-sm-gold);
+    text-shadow: var(--shadow-glow-gold-sm);
 }
 
 .skill-name-disabled {
@@ -98,11 +98,11 @@ defineEmits(['open-skill-check', 'dice-click'])
 /* Conditional styles */
 .favored {
     color: var(--color-success);
-    text-shadow: var(--shadow-glow-sm-success);
+    text-shadow: var(--shadow-glow-success-sm);
 }
 
 .ill-favored {
     color: var(--color-danger);
-    text-shadow: var(--shadow-glow-sm-danger);
+    text-shadow: var(--shadow-glow-danger-sm);
 }
 </style>

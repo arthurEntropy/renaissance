@@ -300,7 +300,7 @@ onMounted(async () => {
     initializeFilterPersistence()
 
     await expansionStore.fetch()
-    expansions.value = expansionStore.expansions
+    expansions.value = expansionStore.items
     window.addEventListener('keydown', handleKeyNavigation);
 
     // Check if there's a name in the route
