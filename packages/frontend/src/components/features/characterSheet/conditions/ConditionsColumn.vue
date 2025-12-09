@@ -5,7 +5,7 @@
             <div class="conditions-row" v-for="(value, key) in character.conditions" :key="key">
                 <span :class="{ 'condition-active': value }">{{
                     capitalize(key)
-                }}</span>
+                    }}</span>
                 <input type="checkbox" class="skill-checkbox" :class="{ 'condition-active-checkbox': value }"
                     :checked="value" :disabled="!isEditMode" @change="updateCondition(key, $event.target.checked)" />
             </div>
@@ -127,7 +127,7 @@ const updateSpeed = (value) => {
 
 .condition-active {
     color: var(--color-danger);
-    text-shadow: var(--shadow-glow-sm-danger);
+    text-shadow: var(--shadow-glow-danger-sm);
 }
 
 .condition-active-checkbox {

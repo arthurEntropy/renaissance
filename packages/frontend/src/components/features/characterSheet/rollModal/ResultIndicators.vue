@@ -158,7 +158,7 @@ function getCaretClasses(comparison) {
 
 .indicator-caret.tie {
     color: var(--color-warning);
-    text-shadow: var(--shadow-glow-sm-warning);
+    text-shadow: var(--shadow-glow-warning-sm);
 }
 
 .indicator-caret.left-wins {
