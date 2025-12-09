@@ -11,16 +11,20 @@ export const useAuthStore = defineStore('auth', () => {
   const error = ref(null)
   const notInvited = ref(false)
 
-  // Getters
+  // Getters - derive from user profile in userStore
   const isAuthenticated = computed(() => user.value !== null)
+  
+  // Role and status checks use the userStore's profile
   const isAdmin = computed(() => {
     const userStore = useUserStore()
     return userStore.userProfile?.role === 'admin'
   })
+  
   const isPending = computed(() => {
     const userStore = useUserStore()
     return userStore.userProfile?.status === 'pending'
   })
+  
   const isApproved = computed(() => {
     const userStore = useUserStore()
     return userStore.userProfile?.status === 'approved'
