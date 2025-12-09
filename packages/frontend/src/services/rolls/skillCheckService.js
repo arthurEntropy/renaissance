@@ -1,6 +1,5 @@
 import { RollTypes } from '@/constants/rollTypes'
-import { CHARACTER_STATE_LABELS } from '@/constants/characterStates.js'
-import { CHARACTER_CONDITION_LABELS } from '@/constants/characterConditions.js'
+import { CONDITIONS, STATES } from '@shared/constants/characterConstants.js'
 import { SKILL_STATUS } from '@/constants/skillStatus.js'
 import DiscordAdapter from './utils/DiscordAdapter.js'
 import BaseRollService from './baseRollService.js'
@@ -57,16 +56,22 @@ class SkillCheckService extends BaseRollService {
     const footerText = []
 
     // Add conditions to footer text
-    Object.keys(conditions).forEach((condition) => {
-      if (conditions[condition]) {
-        footerText.push(CHARACTER_CONDITION_LABELS[condition])
+    Object.keys(conditions).forEach((conditionKey) => {
+      if (conditions[conditionKey]) {
+        const condition = Object.values(CONDITIONS).find(c => c.key === conditionKey)
+        if (condition) {
+          footerText.push(condition.label)
+        }
       }
     })
 
     // Add states to footer text
-    Object.keys(states).forEach((state) => {
-      if (states[state]) {
-        footerText.push(CHARACTER_STATE_LABELS[state])
+    Object.keys(states).forEach((stateKey) => {
+      if (states[stateKey]) {
+        const state = Object.values(STATES).find(s => s.key === stateKey)
+        if (state) {
+          footerText.push(state.label)
+        }
       }
     })
 

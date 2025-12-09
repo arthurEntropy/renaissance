@@ -1,5 +1,5 @@
 import EngagementRollService from '@/services/rolls/engagementRollService'
-import PlayerSides from '@/constants/playerSides'
+import { PlayerSides } from '@/constants/playerSides'
 import { RollTypes } from '@/constants/rollTypes'
 
 /**

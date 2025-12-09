@@ -21,6 +21,14 @@ export const WEAKNESSES = {
   INJURY: { key: 'injury', coreAbility: 'wits', label: 'Injury' }
 }
 
+export const CONDITIONS = {
+  INSECURE: { key: 'insecure', label: 'Insecure' },
+  GUILTY: { key: 'guilty', label: 'Guilty' },
+  ANGRY: { key: 'angry', label: 'Angry' },
+  AFRAID: { key: 'afraid', label: 'Afraid' },
+  TROUBLED: { key: 'troubled', label: 'Troubled' }
+}
+
 export const STATES = {
   WEARY: { key: 'weary', coreAbility: 'body', label: 'Weary' },
   TWICE_WEARY: { key: 'twiceWeary', coreAbility: 'body', label: 'Twice Weary' },
