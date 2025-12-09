@@ -18,8 +18,8 @@ function getCancelToken(config) {
   // Generate request ID from method + url
   const requestId = `${config.method}:${config.url}`
   
-  // Cancel any existing request with same ID
-  if (activeRequests.has(requestId)) {
+  // Only auto-cancel if explicitly requested via config.cancelDuplicates
+  if (config.cancelDuplicates && activeRequests.has(requestId)) {
     const existingController = activeRequests.get(requestId)
     existingController.abort()
   }
