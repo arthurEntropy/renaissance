@@ -1,5 +1,5 @@
 import { RollTypes } from '@/constants/rollTypes'
-import DiscordAdapter from './utils/DiscordAdapter.js'
+import eventBus, { ROLL_EVENTS } from '../events/eventBus'
 import BaseRollService from './baseRollService.js'
 
 class CustomRollService extends BaseRollService {
@@ -37,8 +37,8 @@ class CustomRollService extends BaseRollService {
       }
     })
     
-    // Send to Discord
-    DiscordAdapter.sendCustomRoll(rollResult, character)
+    // Emit event for external integrations
+    eventBus.emit(ROLL_EVENTS.CUSTOM_ROLL, { rollResult, character })
     
     return rollResult
   }

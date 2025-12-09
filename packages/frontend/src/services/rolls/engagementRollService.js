@@ -1,6 +1,6 @@
 import { WINNER } from '@shared/constants/winner.js'
 import { PlayerSides } from '@/constants/playerSides'
-import DiscordAdapter from './utils/DiscordAdapter.js'
+import eventBus, { ROLL_EVENTS } from '../events/eventBus'
 import BaseRollService from './baseRollService.js'
 
 class EngagementRollService extends BaseRollService {
@@ -175,8 +175,8 @@ class EngagementRollService extends BaseRollService {
     return false
   }
 
-  static async sendEngagementResultsToServer(engagementResults) {
-    return DiscordAdapter.sendEngagement(engagementResults)
+  static emitEngagementResult(engagementResults) {
+    eventBus.emit(ROLL_EVENTS.ENGAGEMENT, { engagementResult: engagementResults })
   }
 }
 
