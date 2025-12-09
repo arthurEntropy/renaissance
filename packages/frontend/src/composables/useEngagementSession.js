@@ -2,9 +2,9 @@ import { watch, computed } from 'vue'
 import engagementSessionService from '@/services/sessions/engagementSessionService'
 import EngagementRollService from '@/services/rolls/engagementRollService'
 import DiceRoller from '@/services/rolls/utils/DiceRoller.js'
-import EngagementResultTypes from '@/constants/engagementResultTypes'
-import EngagementWinnerTypes from '@/constants/engagementWinnerTypes'
-import RollTypes from '@/constants/rollTypes'
+import { EngagementResultTypes } from '@/constants/engagementResultTypes'
+import { WINNER } from '@shared/constants/winner.js'
+import { RollTypes } from '@/constants/rollTypes'
 import { DICE_ROLL_DURATION } from '@/constants/animationDurations'
 import { useBaseSession } from './useBaseSession.js'
 import { SESSION_STATUS } from '@shared/constants/sessionStatus.js'
@@ -31,13 +31,13 @@ export function useEngagementSession() {
     // Determine the result from the user's perspective
     let result
     switch (winner) {
-      case EngagementWinnerTypes.USER:
+      case WINNER.USER:
         result = EngagementResultTypes.WIN
         break
-      case EngagementWinnerTypes.OPPONENT:
+      case WINNER.OPPONENT:
         result = EngagementResultTypes.LOSS
         break
-      case EngagementWinnerTypes.TIE:
+      case WINNER.TIE:
         result = EngagementResultTypes.DRAW
         break
       default:

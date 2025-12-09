@@ -32,7 +32,7 @@
 
 <script setup>
 import { computed } from 'vue'
-import EngagementWinnerTypes from '@/constants/engagementWinnerTypes'
+import { WINNER } from '@shared/constants/winner.js'
 import SuccessChip from '@/components/ui/chips/SuccessChip.vue'
 import BaseCharacterColumn from './BaseCharacterColumn.vue'
 import EngagementDiceRow from './EngagementDiceRow.vue'
@@ -95,15 +95,15 @@ const isWinner = computed(() => {
     if (!props.showResults || !props.winner) {
         return false
     }
-    return (props.winner === EngagementWinnerTypes.USER && !props.isOpponent) ||
-        (props.winner === EngagementWinnerTypes.OPPONENT && props.isOpponent)
+    return (props.winner === WINNER.USER && !props.isOpponent) ||
+        (props.winner === WINNER.OPPONENT && props.isOpponent)
 })
 
 const isLoser = computed(() => {
     if (!props.showResults || !props.winner) {
         return false
     }
-    return props.winner !== EngagementWinnerTypes.TIE && !isWinner.value
+    return props.winner !== WINNER.TIE && !isWinner.value
 })
 
 const onSuccessDragStart = (event, success) => {

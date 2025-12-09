@@ -71,7 +71,7 @@ import { useItemSelector } from '@/composables/useItemSelector'
 import { useSourceUtils } from '@/composables/useSourceUtils'
 import { useCharacterEquipment } from '@/composables/useCharacterEquipment'
 import { useCustomEquipment } from '@/composables/useCustomEquipment'
-import { EQUIPMENT_TYPES } from '@/constants/equipmentTypes'
+import { useEquipmentTypesStore } from '@/stores/equipmentTypesStore'
 import { BookOpenIcon, PlusIcon } from '@heroicons/vue/24/outline'
 
 // Props
@@ -87,6 +87,9 @@ const props = defineProps({
 
 // Emits
 const emit = defineEmits(['update-character', 'edit-custom-equipment'])
+
+// Equipment types store
+const equipmentTypesStore = useEquipmentTypesStore()
 
 // Internal edit mode management
 const { isEditMode: internalEditMode, toggleEditMode, showAddButton } = useTableEditMode()
@@ -188,9 +191,11 @@ const handleWieldingChange = (index, isWielding) => {
   const currentItem = props.character.equipment[index]
   const equipmentRow = characterEquipmentRows.value[index]
 
-  const canWield = currentItem.isCarried &&
-    equipmentRow.equipment &&
-    equipmentRow.equipment.type === EQUIPMENT_TYPES.WEAPON
+  let canWield = false
+  if (currentItem.isCarried && equipmentRow.equipment) {
+    const equipmentType = equipmentTypesStore.getById(equipmentRow.equipment.type)
+    canWield = equipmentType?.name === 'Weapon'
+  }
 
   const shouldWield = isWielding && canWield
   equipmentManagement.updateItem(index, { isWielding: shouldWield })

@@ -212,7 +212,6 @@ import TextEditor from '@/components/ui/textEditor/TextEditor.vue'
 import SourceDropdown from '@/components/ui/selectors/SourceDropdown.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import { getDiceFontMaxClass } from '@/utils/diceFontUtils'
-import { EQUIPMENT_TYPES } from '@/constants/equipmentTypes'
 
 
 // Props
@@ -287,7 +286,11 @@ const initializeDiceCounts = () => {
 initializeDiceCounts()
 
 // Computed properties
-const equipmentIsWeapon = computed(() => editedEquipment.value?.type === EQUIPMENT_TYPES.WEAPON)
+const equipmentIsWeapon = computed(() => {
+  if (!editedEquipment.value?.type) return false
+  const equipmentType = props.equipmentTypes.find(t => t.id === editedEquipment.value.type)
+  return equipmentType?.name === 'Weapon'
+})
 
 // Equipment categories management
 const availableSubtypes = computed(() => {

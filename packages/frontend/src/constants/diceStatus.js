@@ -3,5 +3,3 @@ export const DiceStatus = {
   SELECTED: 'selected',
   EXPENDED: 'expended',
 }
-
-export default DiceStatus

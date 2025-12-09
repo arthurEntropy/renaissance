@@ -3,5 +3,3 @@ export const EngagementResultTypes = {
   LOSS: 'loss',
   DRAW: 'draw',
 }
-
-export default EngagementResultTypes

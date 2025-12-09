@@ -1,4 +1,4 @@
-import { EngagementWinnerTypes } from '@/constants/engagementWinnerTypes'
+import { WINNER } from '@shared/constants/winner.js'
 import { PlayerSides } from '@/constants/playerSides'
 import DiscordAdapter from './utils/DiscordAdapter.js'
 import BaseRollService from './baseRollService.js'
@@ -86,7 +86,7 @@ class EngagementRollService extends BaseRollService {
   static determineEngagementWinner(diceComparisons, userDice = [], opponentDice = []) {
     // Deal with cases where one or both players have no dice
     if (userDice.length === 0 && opponentDice.length === 0) {
-      return EngagementWinnerTypes.TIE
+      return WINNER.TIE
     }
 
     if (!diceComparisons || diceComparisons.length === 0) {
@@ -107,11 +107,11 @@ class EngagementRollService extends BaseRollService {
 
     // Determine overall winner
     if (userWins > opponentWins) {
-      return EngagementWinnerTypes.USER
+      return WINNER.USER
     } else if (opponentWins > userWins) {
-      return EngagementWinnerTypes.OPPONENT
+      return WINNER.OPPONENT
     } else {
-      return EngagementWinnerTypes.TIE
+      return WINNER.TIE
     }
   }
 

@@ -43,7 +43,7 @@
             <!-- No badge in CardDescription for EquipmentCard - use BaseCard badges slot instead -->
           </CardDescription>
           <!-- Dice section - show independently if it's a weapon -->
-          <template v-if="equipment.type === EQUIPMENT_TYPES.WEAPON">
+          <template v-if="isWeapon">
             <div class="dice-description-row">
               <div class="dice-section">
                 <div class="dice-section-background">
@@ -104,7 +104,6 @@ import SuccessChip from '@/components/ui/chips/SuccessChip.vue'
 import EngagementSuccessService from '@/services/entities/engagementSuccessService'
 import EquipmentService from '@/services/entities/equipment/equipmentService'
 import { getDiceFontMaxClass } from '@/utils/diceFontUtils'
-import { EQUIPMENT_TYPES } from '@/constants/equipmentTypes'
 import { useCharacterManagement } from '@/composables/useCharacterManagement'
 
 defineOptions({
@@ -157,6 +156,11 @@ const equipmentRangesStore = useEquipmentRangesStore()
 const { addEquipmentToCharacter } = useCharacterManagement()
 
 // Computed properties
+const isWeapon = computed(() => {
+  const type = equipmentTypesStore.getById(props.equipment.type)
+  return type?.name === 'Weapon'
+})
+
 const equipmentCategoryDisplay = computed(() => {
   if (!props.equipment.type) return null
 

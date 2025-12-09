@@ -43,7 +43,9 @@
 <script setup>
 import { computed } from 'vue'
 import NumberInput from '@/components/ui/forms/NumberInput.vue'
-import { EQUIPMENT_TYPES } from '@/constants/equipmentTypes'
+import { useEquipmentTypesStore } from '@/stores/equipmentTypesStore'
+
+const equipmentTypesStore = useEquipmentTypesStore()
 
 const props = defineProps({
     equipmentRow: {
@@ -64,9 +66,11 @@ const emit = defineEmits(['update-carried', 'update-wielding', 'update-quantity'
 
 // Computed properties
 const canWield = computed(() => {
-    return props.equipmentRow.isCarried &&
-        props.equipmentRow.equipment &&
-        props.equipmentRow.equipment.type === EQUIPMENT_TYPES.WEAPON
+    if (!props.equipmentRow.isCarried || !props.equipmentRow.equipment) {
+        return false
+    }
+    const equipmentType = equipmentTypesStore.getById(props.equipmentRow.equipment.type)
+    return equipmentType?.name === 'Weapon'
 })
 
 const displayWeight = computed(() => {

@@ -19,7 +19,7 @@
 </template>
 
 <script setup>
-import EngagementWinnerTypes from '@/constants/engagementWinnerTypes'
+import { WINNER } from '@shared/constants/winner.js'
 
 // TODO: Make these calulated based on height of character info section of column
 const INDICATOR_BASE_OFFSET = 225 // Base top position in pixels
@@ -40,13 +40,13 @@ function getIndicatorPosition(dicePair) {
 function getComparisonClasses(comparison) {
     const classes = []
 
-    if (comparison.leftWins && props.winner === EngagementWinnerTypes.USER) {
+    if (comparison.leftWins && props.winner === WINNER.USER) {
         classes.push('user-wins-pair')
-    } else if (comparison.rightWins && props.winner === EngagementWinnerTypes.OPPONENT) {
+    } else if (comparison.rightWins && props.winner === WINNER.OPPONENT) {
         classes.push('opponent-wins-pair')
-    } else if (comparison.leftWins && props.winner === EngagementWinnerTypes.OPPONENT) {
+    } else if (comparison.leftWins && props.winner === WINNER.OPPONENT) {
         classes.push('user-loses-pair')
-    } else if (comparison.rightWins && props.winner === EngagementWinnerTypes.USER) {
+    } else if (comparison.rightWins && props.winner === WINNER.USER) {
         classes.push('opponent-loses-pair')
     } else if (comparison.tie) {
         classes.push('tie-pair')
