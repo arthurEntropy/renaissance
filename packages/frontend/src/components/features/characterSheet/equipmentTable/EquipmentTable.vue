@@ -64,7 +64,7 @@ import ItemSelector from '@/components/ui/selectors/ItemSelector.vue'
 import AddButton from '@/components/ui/buttons/AddButton.vue'
 import CharacterSheetSection from '@/components/ui/containers/CharacterSheetSection.vue'
 import draggable from 'vuedraggable'
-import { useTableEditMode } from '@/composables/useTableEditMode'
+import { useSimpleEditMode } from '@/composables/useEditMode'
 import { useItemManagement } from '@/composables/useItemManagement'
 import { useDragAndDrop } from '@/composables/useDragAndDrop'
 import { useItemSelector } from '@/composables/useItemSelector'
@@ -92,10 +92,13 @@ const emit = defineEmits(['update-character', 'edit-custom-equipment'])
 const equipmentTypesStore = useEquipmentTypesStore()
 
 // Internal edit mode management
-const { isEditMode: internalEditMode, toggleEditMode, showAddButton } = useTableEditMode()
+const { isEditMode: internalEditMode, toggleEditMode } = useSimpleEditMode()
 
 // canEdit is true if the parent allows editing (character sheet edit mode)
 const canEdit = computed(() => props.isEditMode)
+
+// FAB visibility - only show in edit mode
+const showAddButton = computed(() => internalEditMode.value)
 
 // Item management for equipment
 const equipmentManagement = useItemManagement(

@@ -98,7 +98,7 @@
 </template>
 
 <script setup>
-import { useEditForm } from '@/composables/useEditForm'
+import { ref, computed } from 'vue'
 import TextEditor from '@/components/ui/textEditor/TextEditor.vue'
 import SourceDropdown from '@/components/ui/selectors/SourceDropdown.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
@@ -114,14 +114,29 @@ const props = defineProps({
 // Emits
 const emit = defineEmits(['update', 'delete', 'close'])
 
-// Composables
-const {
-  editedData: editedAbility,
-  save,
-  deleteItem,
-  cancel,
-  hasChanges
-} = useEditForm(props.ability, emit)
+// Form data management
+const originalAbility = ref(JSON.parse(JSON.stringify(props.ability)))
+const editedAbility = ref(JSON.parse(JSON.stringify(props.ability)))
+
+const hasChanges = computed(() => {
+  return JSON.stringify(originalAbility.value) !== JSON.stringify(editedAbility.value)
+})
+
+const save = () => {
+  emit('update', editedAbility.value)
+  emit('close')
+}
+
+const deleteItem = () => {
+  const name = editedAbility.value.name || 'this ability'
+  if (confirm(`Are you sure you want to delete "${name}"?`)) {
+    emit('delete', editedAbility.value)
+  }
+}
+
+const cancel = () => {
+  emit('close')
+}
 
 // Improvement management functions
 const addImprovement = () => {

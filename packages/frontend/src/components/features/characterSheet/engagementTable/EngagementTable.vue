@@ -17,11 +17,12 @@
       :allEngagementSuccesses="allEngagementSuccesses" :allEquipment="allEquipment" @close="closeEngagementRollModal"
       @engagement-committed="handleEngagementCommitted" @engagement-results="handleEngagementResults" />
 
-    <EngagementDiceDisplay :diceData="allOwnedEngagementDice" :diceOptions="diceOptions" :isEditMode="internalEditMode"
-      :showDropdown="showDiceDropdown" :dropdownPosition="diceDropdownPosition" @toggle-dice="toggleDiceStatus"
-      @remove-die="removeUserAddedDie" @add-die="toggleDiceDropdown" @select-die="addUserAddedDie" />
+    <EngagementDiceDisplay ref="diceDisplayRef" :diceData="allOwnedEngagementDice" :diceOptions="diceOptions"
+      :isEditMode="internalEditMode" :showDropdown="showDiceDropdown" :dropdownPosition="diceDropdownPosition"
+      @toggle-dice="toggleDiceStatus" @remove-die="removeUserAddedDie" @add-die="toggleDiceDropdown"
+      @select-die="addUserAddedDie" />
 
-    <EngagementSuccessDisplay :successData="allOwnedEngagementSuccesses"
+    <EngagementSuccessDisplay ref="successDisplayRef" :successData="allOwnedEngagementSuccesses"
       :availableSuccesses="availableEngagementSuccesses" :isEditMode="internalEditMode"
       :showDropdown="showSuccessDropdown" :dropdownPosition="successDropdownPosition"
       @remove-success="removeUserAddedSuccess" @add-success="toggleSuccessDropdown"
@@ -38,7 +39,7 @@ import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import CharacterSheetSection from '@/components/ui/containers/CharacterSheetSection.vue'
 import EngagementDiceDisplay from './EngagementDiceDisplay.vue'
 import EngagementSuccessDisplay from './EngagementSuccessDisplay.vue'
-import { useTableEditMode } from '@/composables/useTableEditMode'
+import { useSimpleEditMode } from '@/composables/useEditMode'
 import { useEngagementDice } from '@/composables/useEngagementDice'
 import { useEngagementSuccesses } from '@/composables/useEngagementSuccesses'
 import { useDropdown } from '@/composables/useDropdown'
@@ -63,7 +64,7 @@ const props = defineProps({
 const emit = defineEmits(['update:character', 'engagement-results'])
 
 // Internal edit mode management
-const { isEditMode: internalEditMode, toggleEditMode } = useTableEditMode()
+const { isEditMode: internalEditMode, toggleEditMode } = useSimpleEditMode()
 
 // Character sheet edit mode only controls whether edit button is visible
 const canEdit = computed(() => props.isEditMode)
@@ -78,6 +79,10 @@ const successManager = useEngagementSuccesses(characterRef, allEquipmentRef)
 // UI composables
 const diceDropdown = useDropdown()
 const successDropdown = useDropdown()
+
+// Template refs
+const diceDisplayRef = ref(null)
+const successDisplayRef = ref(null)
 
 // Local UI state
 const diceOptions = ref([4, 6, 8, 10, 12, 20])
@@ -129,7 +134,11 @@ const handleEngagementResults = (engagementResult) => {
 
 const toggleDiceDropdown = (event) => {
   successDropdown.close()
-  diceDropdown.toggle(event, '.dice-dropdown', '.add-die-container button')
+  const triggerEl = event.target.closest('button')
+  const dropdownEl = diceDisplayRef.value?.$el.querySelector('.dice-dropdown')
+  if (triggerEl && dropdownEl) {
+    diceDropdown.open(triggerEl, dropdownEl)
+  }
 }
 
 const addUserAddedDie = (die) => {
@@ -143,7 +152,11 @@ const removeUserAddedDie = (index) => {
 
 const toggleSuccessDropdown = (event) => {
   diceDropdown.close()
-  successDropdown.toggle(event, '.success-dropdown', '.add-success-container button')
+  const triggerEl = event.target.closest('button')
+  const dropdownEl = successDisplayRef.value?.$el.querySelector('.success-dropdown')
+  if (triggerEl && dropdownEl) {
+    successDropdown.open(triggerEl, dropdownEl)
+  }
 }
 
 const addUserAddedSuccess = (successId) => {

@@ -66,7 +66,7 @@ import AddButton from '@/components/ui/buttons/AddButton.vue'
 import CharacterSheetSection from '@/components/ui/containers/CharacterSheetSection.vue'
 import MPDisplay from './MPDisplay.vue'
 import draggable from 'vuedraggable'
-import { useTableEditMode } from '@/composables/useTableEditMode'
+import { useSimpleEditMode } from '@/composables/useEditMode'
 import { useItemManagement } from '@/composables/useItemManagement'
 import { useDragAndDrop } from '@/composables/useDragAndDrop'
 import { useItemSelector } from '@/composables/useItemSelector'
@@ -93,7 +93,7 @@ const props = defineProps({
 const emit = defineEmits(['update-character'])
 
 // Internal edit mode management
-const { isEditMode: internalEditMode, toggleEditMode } = useTableEditMode()
+const { isEditMode: internalEditMode, toggleEditMode } = useSimpleEditMode()
 
 // Character sheet edit mode only controls whether edit button is visible
 const canEdit = computed(() => props.isEditMode)

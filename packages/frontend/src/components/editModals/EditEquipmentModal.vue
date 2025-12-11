@@ -205,9 +205,8 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { ref, computed } from 'vue'
 import { useDiceManagement } from '@/composables/useDiceManagement'
-import { useEditForm } from '@/composables/useEditForm'
 import TextEditor from '@/components/ui/textEditor/TextEditor.vue'
 import SourceDropdown from '@/components/ui/selectors/SourceDropdown.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
@@ -253,14 +252,29 @@ const props = defineProps({
 // Emits
 const emit = defineEmits(['update', 'delete', 'close'])
 
-// Composables
-const {
-  editedData: editedEquipment,
-  save,
-  deleteItem,
-  cancel,
-  hasChanges
-} = useEditForm(props.equipment, emit)
+// Form data management
+const originalEquipment = ref(JSON.parse(JSON.stringify(props.equipment)))
+const editedEquipment = ref(JSON.parse(JSON.stringify(props.equipment)))
+
+const hasChanges = computed(() => {
+  return JSON.stringify(originalEquipment.value) !== JSON.stringify(editedEquipment.value)
+})
+
+const save = () => {
+  emit('update', editedEquipment.value)
+  emit('close')
+}
+
+const deleteItem = () => {
+  const name = editedEquipment.value.name || 'this equipment'
+  if (confirm(`Are you sure you want to delete "${name}"?`)) {
+    emit('delete', editedEquipment.value)
+  }
+}
+
+const cancel = () => {
+  emit('close')
+}
 
 // Dice management composables
 const {

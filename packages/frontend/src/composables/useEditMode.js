@@ -1,13 +1,5 @@
 import { ref } from 'vue'
 
-/**
- * Composable for managing edit mode state with backup/restore functionality
- * @param {Object} options - Configuration options
- * @param {Function} options.onSave - Callback when saving changes
- * @param {Function} options.onCancel - Callback when canceling changes
- * @param {Function} options.onStartEdit - Callback when starting edit mode
- * @returns {Object} Edit mode utilities
- */
 export function useEditMode(options = {}) {
   const { onSave = () => {}, onCancel = () => {}, onStartEdit = () => {} } = options
   
@@ -55,27 +47,49 @@ export function useEditMode(options = {}) {
   }
 }
 
-/**
- * Simple edit mode for basic toggle functionality
- * Use this for simpler components that don't need backup/restore
- */
-export function useSimpleEditMode() {
+// For components that don't need data backup/restore functionality
+export function useSimpleEditMode(options = {}) {
+  const {
+    onEnterEdit = () => {},
+    onExitEdit = () => {}
+  } = options
+
   const isEditMode = ref(false)
 
   const toggleEditMode = () => {
+    const wasEditMode = isEditMode.value
     isEditMode.value = !isEditMode.value
+
+    if (isEditMode.value && !wasEditMode) {
+      onEnterEdit()
+    } else if (!isEditMode.value && wasEditMode) {
+      onExitEdit()
+    }
   }
 
   const setEditMode = (value) => {
+    const wasEditMode = isEditMode.value
     isEditMode.value = value
+
+    if (isEditMode.value && !wasEditMode) {
+      onEnterEdit()
+    } else if (!isEditMode.value && wasEditMode) {
+      onExitEdit()
+    }
   }
 
   const exitEditMode = () => {
-    isEditMode.value = false
+    if (isEditMode.value) {
+      isEditMode.value = false
+      onExitEdit()
+    }
   }
 
   const enterEditMode = () => {
-    isEditMode.value = true
+    if (!isEditMode.value) {
+      isEditMode.value = true
+      onEnterEdit()
+    }
   }
 
   return {
