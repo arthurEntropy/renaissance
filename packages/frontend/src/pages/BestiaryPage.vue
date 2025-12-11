@@ -4,7 +4,7 @@
 
 <script setup>
 import ConceptsLayout from '@/components/ui/layouts/ConceptsLayout.vue'
-import { useBestiaryLayout } from '@/composables/useBestiaryLayout'
+import { useCharactersLayout } from '@/composables/useCharactersLayout'
 import { useCharactersStore } from '@/stores/charactersStore'
 import { useEquipmentStore } from '@/stores/equipmentStore'
 import { useAbilitiesStore } from '@/stores/abilitiesStore'
@@ -14,10 +14,11 @@ const charactersStore = useCharactersStore()
 const equipmentStore = useEquipmentStore()
 const abilitiesStore = useAbilitiesStore()
 
-const { layoutProps } = useBestiaryLayout(
+const { layoutProps } = useCharactersLayout(
     charactersStore,
     equipmentStore,
     abilitiesStore,
-    CharacterService
+    CharacterService,
+    { isBeast: true }
 )
 </script>

@@ -1,15 +1,23 @@
 import { computed, onMounted } from 'vue'
 
-/**
- * Composable for managing character layouts with consistent CRUD operations
- */
-export function useCharactersLayout(charactersStore, equipmentStore, abilitiesStore, characterService) {
-  const characters = computed(() => charactersStore.filteredCharacters || [])
+export function useCharactersLayout(charactersStore, equipmentStore, abilitiesStore, characterService, options = {}) {
+  const { isBeast = false } = options
+  
+  const characters = computed(() => 
+    isBeast 
+      ? (charactersStore.filteredBeasts || [])
+      : (charactersStore.filteredCharacters || [])
+  )
   const allEquipment = computed(() => equipmentStore.equipment || [])
   const allAbilities = computed(() => abilitiesStore.abilities || [])
 
   const createCharacter = async () => {
-    const newCharacter = await characterService.create(characterService.getDefaultEntity())
+    const defaultEntity = characterService.getDefaultEntity()
+    if (isBeast) {
+      defaultEntity.isBeast = true
+      defaultEntity.name = 'New Beast'
+    }
+    const newCharacter = await characterService.create(defaultEntity)
     await charactersStore.fetch()
     return newCharacter
   }
@@ -33,19 +41,16 @@ export function useCharactersLayout(charactersStore, equipmentStore, abilitiesSt
     ])
   }
 
-  // Auto-fetch data when component mounts
   onMounted(() => {
     refreshData()
   })
 
-  // Computed props for ConceptsLayout configured for characters
   const layoutProps = computed(() => ({
     concepts: characters.value,
     createConceptFn: createCharacter,
     updateConceptFn: updateCharacter,
     deleteConceptFn: deleteCharacter,
     refreshDataFn: refreshData,
-    // Character-specific customizations
     showFilters: false,
     modalComponent: 'CharacterSheetModal',
     customModalProps: {
@@ -55,7 +60,6 @@ export function useCharactersLayout(charactersStore, equipmentStore, abilitiesSt
   }))
 
   return {
-    // For direct use
     characters,
     allEquipment,
     allAbilities,
@@ -63,7 +67,6 @@ export function useCharactersLayout(charactersStore, equipmentStore, abilitiesSt
     updateCharacter,
     deleteCharacter,
     refreshData,
-    // For ConceptsLayout
     layoutProps
   }
 }

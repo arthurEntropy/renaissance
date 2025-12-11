@@ -48,7 +48,7 @@
 </template>
 
 <script setup>
-import { ref, computed, watch, onMounted } from 'vue'
+import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue'
 import ConceptHeader from './components/ConceptHeader.vue'
 import LeftColumn from './components/layouts/LeftColumn.vue'
 import RightColumn from './components/layouts/RightColumn.vue'
@@ -62,7 +62,6 @@ import EditEquipmentModal from '@/components/editModals/EditEquipmentModal.vue'
 import { useConceptEditMode } from './composables/useConceptEditMode'
 import { useConceptData } from './composables/useConceptData'
 import { useUnsavedChanges } from './composables/useUnsavedChanges'
-import { useResponsiveLayout } from '@/composables/useResponsiveLayout'
 import { useEditModal } from '@/composables/useEditModal'
 import { useCharacterManagement } from '@/composables/useCharacterManagement'
 
@@ -188,9 +187,15 @@ const {
   refreshData
 } = useConceptData(localConcept)
 
-const {
-  isDesktop
-} = useResponsiveLayout()
+// Responsive layout
+const isMobile = ref(false)
+const breakpoint = 1024
+
+const updateLayout = () => {
+  isMobile.value = window.innerWidth < breakpoint
+}
+
+const isDesktop = computed(() => !isMobile.value)
 
 // Concept updates
 const {
@@ -290,23 +295,23 @@ const openSettingsModal = () => {
 const closeSettingsModal = () => {
   showSettingsModal.value = false
 }
-
-const saveSettings = () => {
-  // Handle settings save logic here
-  showSettingsModal.value = false
-}
-
 // Lifecycle
 onMounted(async () => {
+  updateLayout()
+  window.addEventListener('resize', updateLayout)
+
   try {
     await sourcesStore.fetchSources()
     await expansionStore.fetch()
     expansions.value = expansionStore.items
-    // Fetch art store for auto-populated galleries
     await artStore.fetch()
   } catch (error) {
     console.error('Error initializing ConceptDetail:', error)
   }
+})
+
+onBeforeUnmount(() => {
+  window.removeEventListener('resize', updateLayout)
 })
 
 // Create new abilities and equipment with concept as source
