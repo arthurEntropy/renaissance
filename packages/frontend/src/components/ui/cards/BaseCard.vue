@@ -152,7 +152,7 @@ watch(
 )
 
 watch(
-  sourcesStore.sources,
+  () => sourcesStore.sources,
   () => {
     updateSourceName()
   },
