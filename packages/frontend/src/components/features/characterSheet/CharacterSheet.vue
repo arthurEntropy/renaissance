@@ -163,7 +163,6 @@ const enableEditMode = () => {
 // Auto-enable edit mode if user has permission
 if (canEdit.value) {
     enableEditMode()
-} enableEditMode()
 }
 
 // Modal management
@@ -193,10 +192,6 @@ const updateLastTargetNumber = (targetNumber) => { lastTargetNumber.value = targ
 // Opposed skill check modal management
 const showOpposedSkillCheckModal = ref(false)
 const sessionManager = useOpposedSkillCheckSession()
-
-const openOpposedSkillCheckModal = () => {
-    showOpposedSkillCheckModal.value = true
-}
 
 const closeOpposedSkillCheckModal = () => {
     showOpposedSkillCheckModal.value = false

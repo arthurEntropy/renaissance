@@ -26,7 +26,7 @@
                 <i :class="die.cssClass"></i>
                 <span v-if="!isRolling && die.emoji && !isCustomRoll" class="dice-emoji">{{
                     die.emoji
-                }}</span>
+                    }}</span>
             </span>
             <span v-if="truncatedDice.showEllipsis" class="dice-ellipsis" :style="{ fontSize: `${diceSize}px` }"
                 @click="openModal">
@@ -54,7 +54,7 @@
                         <i :class="die.cssClass"></i>
                         <span v-if="die.emoji && !isCustomRoll" class="dice-emoji">{{
                             die.emoji
-                        }}</span>
+                            }}</span>
                     </span>
                 </div>
             </div>
@@ -178,13 +178,6 @@ const animateRoll = (rollId, finalDiceResults) => {
 
 const getDisplayDice = (finalDiceResults = []) => {
     return isRolling.value ? animatedDice.value : finalDiceResults
-}
-
-const resetAnimation = () => {
-    isRolling.value = false
-    rollStartTime.value = null
-    animatedDice.value = []
-    lastRollId.value = null
 }
 
 const DICE_SIZES = {

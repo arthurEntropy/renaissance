@@ -122,8 +122,6 @@ onMounted(async () => {
 const characterSuccesses = computed(() => {
     return engagementSuccesses.allOwnedEngagementSuccesses.value
 })
-}
-
 
 const toggleResult = diceManager.createToggleResultHandler(sessionManager, props.character, toRef(props, 'selectedDice'))
 const rerollDie = diceManager.createRerollDieHandler(sessionManager, props.character, toRef(props, 'selectedDice'), { assignedSuccesses })
@@ -133,12 +131,27 @@ const handleSuccessDrop = (player, diceIndex, successData) => {
 }
 
 const removeSuccessAssignment = (player, diceIndex) => {
+    clearSuccessAssignment(player, diceIndex, props.character.id)
+}
+
+const winCounts = computed(() => {
     return diceManager.getWinCounts(sessionManager, props.character, toRef(props, 'selectedDice'))
 })
 
 const userWinCount = computed(() => winCounts.value.userWins)
 const opponentWinCount = computed(() => winCounts.value.opponentWins)
 const drawCount = computed(() => winCounts.value.draws)
+
+const engagementWinner = computed(() => {
+    return diceManager.getEngagementWinner(sessionManager, props.character, toRef(props, 'selectedDice'))
+})
+
+// Success manager object for generateColumnProps
+const successManager = {
+    handleSuccessDrop: handleSuccessDropInternal,
+    removeSuccessAssignment: (player, diceIndex) => clearSuccessAssignment(player, diceIndex, props.character.id),
+    assignedSuccesses
+}
 
 const columnProps = computed(() => {
     return diceManager.generateColumnProps(
@@ -167,17 +180,6 @@ const closeModal = () => {
     sessionManager.disconnect()
 
     emit('close')
-}
-
-const toggleResult = diceManager.createToggleResultHandler(sessionManager, props.character, toRef(props, 'selectedDice'))
-const rerollDie = diceManager.createRerollDieHandler(sessionManager, props.character, toRef(props, 'selectedDice'), successManager)
-
-const handleSuccessDrop = (player, diceIndex, successData) => {
-    successManager.handleSuccessDrop(player, diceIndex, successData, props.character.id)
-}
-
-const removeSuccessAssignment = (player, diceIndex) => {
-    clearSuccessAssignment(player, diceIndex, props.character.id)
 }
 
 const toggleUserAccept = () => {

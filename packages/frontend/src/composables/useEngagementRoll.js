@@ -7,7 +7,6 @@ import { PlayerSides } from '@/constants/playerSides'
 import { RollTypes } from '@/constants/rollTypes'
 import { DICE_ROLL_DURATION } from '@/constants/animationDurations'
 import { getDiceFontClass, getDiceFontMaxClass } from '@/utils/diceFontUtils'
-import { WINNER } from '@shared/constants/winner.js'
 
 export function useEngagementRoll(character = null, allEquipment = null) {
   // ==================== STATE ====================
@@ -97,10 +96,6 @@ export function useEngagementRoll(character = null, allEquipment = null) {
 
   // ==================== COMPUTED - DICE STATUS ====================
   
-  const hasSelectedDice = computed(() => {
-    return Object.values(diceStatuses).includes(DiceStatus.SELECTED)
-  })
-
   const selectedDiceValues = computed(() => {
     return allOwnedEngagementDice.value
       .filter(item => item.status === DiceStatus.SELECTED)
@@ -187,13 +182,6 @@ export function useEngagementRoll(character = null, allEquipment = null) {
     sortedOrder.value = null
     opponentInitialSortDone.value = false
     opponentSortedOrder.value = null
-  }
-
-  function resetDiceState() {
-    manualResults.value = []
-    Object.keys(diceStatuses).forEach(key => delete diceStatuses[key])
-    resetSortingState()
-    resetAnimationState()
   }
 
   // ==================== METHODS - CALCULATIONS ====================

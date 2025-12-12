@@ -27,7 +27,6 @@
 
 <script setup>
 import { computed } from 'vue'
-import { useCharactersStore } from '@/stores/charactersStore'
 import { useColumnConfig } from '@/composables/useColumnConfig'
 import * as CharacterUtils from '@shared/types/entities/characterUtils'
 import CharacterSheetSection from '@/components/ui/containers/CharacterSheetSection.vue'
@@ -49,8 +48,6 @@ const props = defineProps({
     default: false
   }
 })
-
-const emit = defineEmits(['open-skill-check'])
 
 // Wrap character in computed for reactivity
 const character = computed(() => props.character)
