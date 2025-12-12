@@ -68,9 +68,9 @@ import { useSimpleEditMode } from '@/composables/useEditMode'
 import { useDragAndDrop } from '@/composables/useDragAndDrop'
 import CharacterService from '@/services/entities/characterService'
 import { useItemSelector } from '@/composables/useItemSelector'
-import { useSourceUtils } from '@/composables/useSourceUtils'
 import { useCharacterAbilities } from '@/composables/useCharacterAbilities'
 import { useCharactersStore } from '@/stores/charactersStore'
+import { useSourcesStore } from '@/stores/sourcesStore'
 
 // Props
 const props = defineProps({
@@ -102,13 +102,13 @@ const canEdit = computed(() => props.isEditMode)
 const showAddButton = computed(() => internalEditMode.value)
 
 // Source management
-const { sources, sourceUtils } = useSourceUtils()
+const sourcesStore = useSourcesStore()
 
 // Item selector for abilities
 const abilitySelector = useItemSelector(
   computed(() => props.allAbilities),
-  sources,
-  sourceUtils,
+  sourcesStore.sources,
+  sourcesStore,
   { searchFields: ['name'] } // Only search ability names, not descriptions
 )
 

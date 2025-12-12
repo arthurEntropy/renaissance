@@ -67,11 +67,11 @@ import { useSimpleEditMode } from '@/composables/useEditMode'
 import { useDragAndDrop } from '@/composables/useDragAndDrop'
 import CharacterService from '@/services/entities/characterService'
 import { useItemSelector } from '@/composables/useItemSelector'
-import { useSourceUtils } from '@/composables/useSourceUtils'
 import { useCharacterEquipment } from '@/composables/useCharacterEquipment'
 import { useEquipmentTypesStore } from '@/stores/equipmentTypesStore'
 import { useEquipmentStore } from '@/stores/equipmentStore'
 import { useCharactersStore } from '@/stores/charactersStore'
+import { useSourcesStore } from '@/stores/sourcesStore'
 import EquipmentService from '@/services/entities/equipment/equipmentService'
 import * as CharacterUtils from '@shared/types/entities/characterUtils'
 import { BookOpenIcon, PlusIcon } from '@heroicons/vue/24/outline'
@@ -106,7 +106,7 @@ const canEdit = computed(() => props.isEditMode)
 const showAddButton = computed(() => internalEditMode.value)
 
 // Source management
-const { sources, sourceUtils } = useSourceUtils()
+const sourcesStore = useSourcesStore()
 
 // Equipment selector state
 const showEquipmentSelector = ref(false)
@@ -129,8 +129,8 @@ const equipmentChoiceOptions = [
 // Equipment grouping and filtering
 const { groupedItems: groupedEquipment, filterItems: filterEquipment, searchQuery: equipmentSearchQuery } = useItemSelector(
   computed(() => props.allEquipment || []),
-  sources,
-  sourceUtils,
+  sourcesStore.sources,
+  sourcesStore,
   { searchFields: ['name'] } // Only search equipment names
 )
 

@@ -1,16 +1,5 @@
-/**
- * Composable for managing character ability improvements
- * Handles ID-based improvement tracking within the abilities array
- */
 export function useAbilityImprovements() {
   
-  /**
-   * Check if a character has a specific improvement
-   * @param {Object} character - The character object
-   * @param {string} abilityId - The ability ID
-   * @param {string} improvementId - The improvement ID
-   * @returns {boolean} Whether the character has the improvement
-   */
   const hasImprovement = (character, abilityId, improvementId) => {
     if (!character?.abilities) {
       return false
@@ -20,13 +9,6 @@ export function useAbilityImprovements() {
     return ability?.improvements?.[improvementId] || false
   }
 
-  /**
-   * Toggle an improvement for a character
-   * @param {Object} character - The character object to modify
-   * @param {string} abilityId - The ability ID
-   * @param {string} improvementId - The improvement ID
-   * @returns {Object} Updated character object
-   */
   const toggleImprovement = (character, abilityId, improvementId) => {
     if (!character.abilities) {
       character.abilities = []
@@ -51,13 +33,6 @@ export function useAbilityImprovements() {
     return { ...character }
   }
 
-  /**
-   * Add an improvement to a character
-   * @param {Object} character - The character object to modify
-   * @param {string} abilityId - The ability ID
-   * @param {string} improvementId - The improvement ID
-   * @returns {Object} Updated character object
-   */
   const addImprovement = (character, abilityId, improvementId) => {
     if (!character.abilities) {
       character.abilities = []
@@ -80,13 +55,6 @@ export function useAbilityImprovements() {
     return { ...character }
   }
 
-  /**
-   * Remove an improvement from a character
-   * @param {Object} character - The character object to modify
-   * @param {string} abilityId - The ability ID
-   * @param {string} improvementId - The improvement ID
-   * @returns {Object} Updated character object
-   */
   const removeImprovement = (character, abilityId, improvementId) => {
     if (!character?.abilities) {
       return character
@@ -109,12 +77,6 @@ export function useAbilityImprovements() {
     return { ...character }
   }
 
-  /**
-   * Get all improvements for a specific ability that the character has
-   * @param {Object} character - The character object
-   * @param {string} abilityId - The ability ID
-   * @returns {Array} Array of improvement IDs the character has
-   */
   const getCharacterImprovements = (character, abilityId) => {
     if (!character?.abilities) {
       return []
@@ -131,12 +93,6 @@ export function useAbilityImprovements() {
       .map(([improvementId, _]) => improvementId)
   }
 
-  /**
-   * Validate that all referenced improvements exist in the abilities data
-   * @param {Object} character - The character object
-   * @param {Array} allAbilities - All abilities with their improvements
-   * @returns {Array} Array of validation issues
-   */
   const validateCharacterImprovements = (character, allAbilities) => {
     const issues = []
     
@@ -184,12 +140,6 @@ export function useAbilityImprovements() {
     return issues
   }
 
-  /**
-   * Clean up invalid improvement references from character data
-   * @param {Object} character - The character object to clean
-   * @param {Array} allAbilities - All abilities with their improvements
-   * @returns {Object} Cleaned character object
-   */
   const cleanupCharacterImprovements = (character, allAbilities) => {
     const issues = validateCharacterImprovements(character, allAbilities)
     
