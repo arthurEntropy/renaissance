@@ -67,7 +67,6 @@ import draggable from 'vuedraggable'
 import { useSimpleEditMode } from '@/composables/useEditMode'
 import CharacterService from '@/services/entities/characterService'
 import { useItemSelector } from '@/composables/useItemSelector'
-import { useCharacterAbilities } from '@/composables/useCharacterAbilities'
 import { useCharactersStore } from '@/stores/charactersStore'
 import { useSourcesStore } from '@/stores/sourcesStore'
 
@@ -118,12 +117,31 @@ const groupedAbilities = abilitySelector.groupedItems
 const toggleAbilitySelector = abilitySelector.toggleSelector
 const filterAbilities = abilitySelector.filterItems
 
-// Character abilities transformation
-const { characterAbilityObjects: characterAbilities } = useCharacterAbilities(
-  computed(() => props.character.abilities),
-  computed(() => props.allAbilities),
-  'order'
-)
+// Character abilities - merge character refs with full ability definitions
+const characterAbilities = computed(() => {
+  const allAbilitiesArray = props.allAbilities || []
+  return (
+    props.character.abilities
+      ?.map((abilityObj, index) => {
+        const ability = allAbilitiesArray.find((a) => a.id === abilityObj.id)
+
+        if (!ability) return null
+
+        const { improvements: characterImprovements, ...otherMetadata } = abilityObj
+
+        return {
+          ...ability,
+          ...otherMetadata,
+          improvements: ability.improvements || [],
+          characterImprovements: characterImprovements || {},
+          collapsed: abilityObj.collapsed ?? true,
+          showImprovements: abilityObj.showImprovements ?? false,
+          order: index
+        }
+      })
+      .filter((ability) => ability !== null) || []
+  )
+})
 
 // Drag and drop - sorted abilities with reorder callback
 const sortedAbilities = computed({

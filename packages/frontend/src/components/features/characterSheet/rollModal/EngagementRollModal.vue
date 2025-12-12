@@ -38,12 +38,12 @@ import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import EngagementCharacterColumn from './EngagementCharacterColumn.vue'
 import ResultIndicators from './ResultIndicators.vue'
 import RollResolution from './RollResolution.vue'
-import { computed, onMounted, onBeforeUnmount, toRef } from 'vue'
+import { computed, onMounted, onBeforeUnmount, toRef, reactive } from 'vue'
 import { SESSION_STATUS } from '@shared/constants/sessionStatus.js'
 import { useEngagementSession } from '@/composables/useEngagementSession'
-import { useSuccessAssignment } from '@/composables/useSuccessAssignment'
 import { useEngagementRoll } from '@/composables/useEngagementRoll'
 import { useEngagementSuccesses } from '@/composables/useEngagementSuccesses'
+import engagementSessionService from '@/services/sessions/engagementSessionService'
 
 const props = defineProps({
     character: {
@@ -67,9 +67,53 @@ const props = defineProps({
 const emit = defineEmits(['close', 'engagement-committed', 'engagement-results'])
 
 const sessionManager = useEngagementSession()
-const successManager = useSuccessAssignment()
 const diceManager = useEngagementRoll()
 const engagementSuccesses = useEngagementSuccesses(toRef(props, 'character'), toRef(props, 'allEquipment'))
+
+// Success assignment state
+const assignedSuccesses = reactive({})
+
+function handleSuccessDropInternal(player, diceIndex, successData, characterId) {
+    const key = `${player}-${diceIndex}`
+    const previousAssignment = assignedSuccesses[key]
+    const newAssignment = successData.id
+
+    if (previousAssignment !== newAssignment) {
+        assignedSuccesses[key] = newAssignment
+        engagementSessionService.updateSuccessAssignment(characterId, player, diceIndex, newAssignment)
+    }
+}
+
+function clearSuccessAssignment(player, diceIndex, characterId) {
+    const key = `${player}-${diceIndex}`
+
+    if (assignedSuccesses[key]) {
+        delete assignedSuccesses[key]
+        engagementSessionService.updateSuccessAssignment(characterId, player, diceIndex, null)
+    }
+}
+
+function handleRemoteSuccessAssignment(characterId, player, diceIndex, successId, currentCharacterId, opponent) {
+    if (characterId === currentCharacterId) return
+
+    let targetKey
+    if (opponent && characterId === opponent.characterInfo.id) {
+        targetKey = `opponent-${diceIndex}`
+    } else {
+        console.log('Unknown character ID:', characterId)
+        return
+    }
+
+    if (successId) {
+        assignedSuccesses[targetKey] = successId
+    } else {
+        delete assignedSuccesses[targetKey]
+    }
+}
+
+function resetAssignments() {
+    Object.keys(assignedSuccesses).forEach(key => delete assignedSuccesses[key])
+}
 
 onMounted(async () => {
     await engagementSuccesses.fetchEngagementSuccesses()
@@ -78,16 +122,17 @@ onMounted(async () => {
 const characterSuccesses = computed(() => {
     return engagementSuccesses.allOwnedEngagementSuccesses.value
 })
+}
 
-const dicePairs = computed(() => {
-    return diceManager.getDicePairs(sessionManager, props.character, toRef(props, 'selectedDice'))
-})
 
-const engagementWinner = computed(() => {
-    return diceManager.getEngagementWinner(sessionManager, props.character, toRef(props, 'selectedDice'))
-})
+const toggleResult = diceManager.createToggleResultHandler(sessionManager, props.character, toRef(props, 'selectedDice'))
+const rerollDie = diceManager.createRerollDieHandler(sessionManager, props.character, toRef(props, 'selectedDice'), { assignedSuccesses })
 
-const winCounts = computed(() => {
+const handleSuccessDrop = (player, diceIndex, successData) => {
+    handleSuccessDropInternal(player, diceIndex, successData, props.character.id)
+}
+
+const removeSuccessAssignment = (player, diceIndex) => {
     return diceManager.getWinCounts(sessionManager, props.character, toRef(props, 'selectedDice'))
 })
 
@@ -132,7 +177,7 @@ const handleSuccessDrop = (player, diceIndex, successData) => {
 }
 
 const removeSuccessAssignment = (player, diceIndex) => {
-    successManager.clearSuccessAssignment(player, diceIndex, props.character.id)
+    clearSuccessAssignment(player, diceIndex, props.character.id)
 }
 
 const toggleUserAccept = () => {
@@ -188,7 +233,7 @@ const handleDieRerolled = ({ player, diceIndex, newValue, characterId }) => {
 }
 
 const handleSuccessAssignmentUpdated = ({ characterId, player, diceIndex, successId }) => {
-    successManager.handleRemoteSuccessAssignment(
+    handleRemoteSuccessAssignment(
         characterId,
         player,
         diceIndex,
@@ -207,7 +252,7 @@ const handleRollResults = ({ session }) => {
 
     // Reset dice and success state for new results
     diceManager.resetSortingState()
-    successManager.resetAssignments()
+    resetAssignments()
 }
 
 onMounted(() => {

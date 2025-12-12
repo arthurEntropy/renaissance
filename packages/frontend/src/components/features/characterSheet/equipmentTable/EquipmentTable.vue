@@ -66,7 +66,6 @@ import draggable from 'vuedraggable'
 import { useSimpleEditMode } from '@/composables/useEditMode'
 import CharacterService from '@/services/entities/characterService'
 import { useItemSelector } from '@/composables/useItemSelector'
-import { useCharacterEquipment } from '@/composables/useCharacterEquipment'
 import { useEquipmentTypesStore } from '@/stores/equipmentTypesStore'
 import { useEquipmentStore } from '@/stores/equipmentStore'
 import { useCharactersStore } from '@/stores/charactersStore'
@@ -133,11 +132,17 @@ const { groupedItems: groupedEquipment, filterItems: filterEquipment, searchQuer
   { searchFields: ['name'] } // Only search equipment names
 )
 
-// Character equipment transformation
-const { characterEquipmentRows } = useCharacterEquipment(
-  computed(() => props.character.equipment),
-  computed(() => props.allEquipment)
-)
+// Character equipment transformation - merge character entries with full equipment definitions
+const characterEquipmentRows = computed(() => {
+  const allEquipmentArray = props.allEquipment || []
+  return props.character.equipment?.map((entry) => {
+    const equipment = allEquipmentArray.find((eq) => eq.id === entry.id)
+    return {
+      ...entry,
+      equipment,
+    }
+  }) || []
+})
 // Custom equipment creation
 const isCreatingCustom = ref(false)
 
