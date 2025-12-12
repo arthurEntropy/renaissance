@@ -42,7 +42,7 @@ import { computed, onMounted, onBeforeUnmount, toRef } from 'vue'
 import { SESSION_STATUS } from '@shared/constants/sessionStatus.js'
 import { useEngagementSession } from '@/composables/useEngagementSession'
 import { useSuccessAssignment } from '@/composables/useSuccessAssignment'
-import { useEngagementDice } from '@/composables/useEngagementDice'
+import { useEngagementRoll } from '@/composables/useEngagementRoll'
 import { useEngagementSuccesses } from '@/composables/useEngagementSuccesses'
 
 const props = defineProps({
@@ -68,7 +68,7 @@ const emit = defineEmits(['close', 'engagement-committed', 'engagement-results']
 
 const sessionManager = useEngagementSession()
 const successManager = useSuccessAssignment()
-const diceManager = useEngagementDice()
+const diceManager = useEngagementRoll()
 const engagementSuccesses = useEngagementSuccesses(toRef(props, 'character'), toRef(props, 'allEquipment'))
 
 onMounted(async () => {

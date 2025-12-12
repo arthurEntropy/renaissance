@@ -40,7 +40,7 @@ import CharacterSheetSection from '@/components/ui/containers/CharacterSheetSect
 import EngagementDiceDisplay from './EngagementDiceDisplay.vue'
 import EngagementSuccessDisplay from './EngagementSuccessDisplay.vue'
 import { useSimpleEditMode } from '@/composables/useEditMode'
-import { useEngagementDice } from '@/composables/useEngagementDice'
+import { useEngagementRoll } from '@/composables/useEngagementRoll'
 import { useEngagementSuccesses } from '@/composables/useEngagementSuccesses'
 import { useDropdown } from '@/composables/useDropdown'
 
@@ -73,7 +73,7 @@ const canEdit = computed(() => props.isEditMode)
 const characterRef = toRef(props, 'character')
 const allEquipmentRef = toRef(props, 'allEquipment')
 
-const diceManager = useEngagementDice(characterRef, allEquipmentRef)
+const diceManager = useEngagementRoll(characterRef, allEquipmentRef)
 const successManager = useEngagementSuccesses(characterRef, allEquipmentRef)
 
 // UI composables
