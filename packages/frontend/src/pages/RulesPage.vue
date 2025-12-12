@@ -46,7 +46,6 @@ import RulesContentEditor from '@/components/features/rules/RulesContentEditor.v
 import RulesImagePanel from '@/components/features/rules/RulesImagePanel.vue'
 import { useRulesStore } from '@/stores/rulesStore'
 import RulesService from '@/services/entities/rulesService'
-import { useRulesEditMode } from '@/composables/useRulesEditMode'
 
 // Router
 const route = useRoute()
@@ -219,17 +218,75 @@ const initializeSections = async () => {
   }
 }
 
-// Edit mode composable
-const {
-  isContentEditMode,
-  isStructureEditMode,
-  markAsChanged,
-  toggleContentEditMode,
-  toggleStructureEditMode,
-  exitContentEditMode,
-  handleUnsavedChanges,
-  canPerformAction,
-} = useRulesEditMode()
+// Edit mode state
+const isContentEditMode = ref(false)
+const isStructureEditMode = ref(false)
+const unsavedChanges = ref(false)
+
+const markAsChanged = () => {
+  unsavedChanges.value = true
+}
+
+const saveSection = async (section) => {
+  if (section) {
+    await RulesService.update(section)
+    await rulesStore.fetch()
+    unsavedChanges.value = false
+  }
+}
+
+const toggleContentEditMode = async (currentSection) => {
+  // Don't allow entering content edit mode if structure edit mode is active
+  if (isStructureEditMode.value) return false
+
+  if (isContentEditMode.value) {
+    await saveSection(currentSection)
+  }
+  isContentEditMode.value = !isContentEditMode.value
+  return true
+}
+
+const toggleStructureEditMode = () => {
+  // Don't allow entering structure edit mode if content edit mode is active
+  if (isContentEditMode.value) return false
+
+  isStructureEditMode.value = !isStructureEditMode.value
+  return true
+}
+
+const exitContentEditMode = () => {
+  isContentEditMode.value = false
+}
+
+const handleUnsavedChanges = async (currentSection) => {
+  if (isContentEditMode.value && unsavedChanges.value) {
+    if (confirm('You have unsaved changes. Do you want to save before continuing?')) {
+      await saveSection(currentSection)
+      return true
+    } else {
+      unsavedChanges.value = false
+      return true
+    }
+  }
+  return true
+}
+
+const canPerformAction = (action) => {
+  switch (action) {
+    case 'content-edit':
+      return !isStructureEditMode.value
+    case 'structure-edit':
+      return !isContentEditMode.value
+    case 'create-section':
+      return !isContentEditMode.value
+    case 'delete-section':
+      return !isContentEditMode.value
+    case 'reorder-sections':
+      return !isContentEditMode.value
+    default:
+      return true
+  }
+}
 
 // Content update helpers
 const updateSectionName = (newName) => {

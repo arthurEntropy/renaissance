@@ -69,9 +69,9 @@ import { computed, ref, onMounted } from 'vue'
 import { useModal } from '@/composables/useModal'
 import { useEditModal } from '@/composables/useEditModal'
 import { useOpposedSkillCheckSession } from '@/composables/useOpposedSkillCheckSession'
-import { useCharacterEditMode } from '@/composables/useCharacterEditMode'
 import { useCharacterStatWatchers } from '@/composables/useCharacterStatWatchers'
 import { useCharactersStore } from '@/stores/charactersStore'
+import { useAuthStore } from '@/stores/authStore'
 import { useEquipmentTypesStore } from '@/stores/equipmentTypesStore'
 import { useEquipmentSubtypesStore } from '@/stores/equipmentSubtypesStore'
 import { useEquipmentGradesStore } from '@/stores/equipmentGradesStore'
@@ -108,6 +108,7 @@ const props = defineProps({
 const emit = defineEmits(['close', 'delete:character'])
 
 // Stores
+const authStore = useAuthStore()
 const equipmentTypesStore = useEquipmentTypesStore()
 const equipmentSubtypesStore = useEquipmentSubtypesStore()
 const equipmentGradesStore = useEquipmentGradesStore()
@@ -131,20 +132,38 @@ const selectedCharacter = computed({
 
 // Use selectedCharacter as localCharacter for backward compatibility
 const localCharacter = selectedCharacter
-
 // Setup automatic character stat watchers for auto-save and recalculation
 useCharacterStatWatchers(selectedCharacter, computed(() => props.allEquipment || []))
 
-// Edit mode management - auto-enable if user has permission
-const {
-    isEditMode,
-    canEdit,
-    enableEditMode
-} = useCharacterEditMode(localCharacter)
+// Edit mode management
+const isEditMode = ref(false)
+
+const canEdit = computed(() => {
+    if (!localCharacter.value) return false
+
+    // Admins can edit everything
+    if (authStore.isAdmin) return true
+
+    // Beasts can only be edited by admins
+    if (localCharacter.value.isBeast) return false
+
+    // For regular characters, check ownership
+    if (!authStore.isAuthenticated) return false
+
+    // User can edit if they own the character
+    return localCharacter.value.userId === authStore.user?.uid
+})
+
+const enableEditMode = () => {
+    if (canEdit.value) {
+        isEditMode.value = true
+    }
+}
 
 // Auto-enable edit mode if user has permission
 if (canEdit.value) {
     enableEditMode()
+} enableEditMode()
 }
 
 // Modal management
