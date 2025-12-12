@@ -1,24 +1,25 @@
 <template>
     <div class="skill-row">
         <span :class="['skill-name', { 'skill-name-clickable': isEditMode, 'skill-name-disabled': !isEditMode }]"
-            @click="isEditMode && $emit('open-skill-check', skill.name)">
-            {{ skill.name }}
+            @click="isEditMode && $emit('open-skill-check', props.skill.name)">
+            {{ props.skill.name }}
         </span>
         <i class="dice-icon d12-icon"
-            :class="[getDiceFontClass(DIE_TYPE.D12, DIE_TYPE.D12), getStyleClassForFavoredStatus(skill)]">
+            :class="[getDiceFontClass(DIE_TYPE.D12, DIE_TYPE.D12), getStyleClassForFavoredStatus(props.skill)]">
         </i>
-        <DiceGroup :skill="skill" :is-edit-mode="isEditMode" :is-rank-active="isRankActive" :is-dice-added="isDiceAdded"
-            :is-dice-subtracted="isDiceSubtracted" @dice-click="$emit('dice-click', skill.name, $event)" />
+        <DiceGroup :skill="props.skill" :is-edit-mode="isEditMode"
+            @dice-click="$emit('dice-click', props.skill.name, $event)" />
     </div>
 </template>
 
 <script setup>
 import { getDiceFontClass } from '@/utils/diceFontUtils'
 import { DIE_TYPE } from '@shared/constants/dice'
+import BaseRollService from '@/services/rolls/baseRollService'
 import DiceGroup from './DiceGroup.vue'
 
 // Props
-defineProps({
+const props = defineProps({
     skill: {
         type: Object,
         required: true
@@ -26,24 +27,14 @@ defineProps({
     isEditMode: {
         type: Boolean,
         default: false
-    },
-    isRankActive: {
-        type: Function,
-        required: true
-    },
-    isDiceAdded: {
-        type: Function,
-        required: true
-    },
-    isDiceSubtracted: {
-        type: Function,
-        required: true
-    },
-    getStyleClassForFavoredStatus: {
-        type: Function,
-        required: true
     }
 })
+
+// Get favored status CSS class
+const getStyleClassForFavoredStatus = (skill) => {
+    const status = BaseRollService.getFavoredStatus(skill)
+    return status || ''
+}
 
 // Emits
 defineEmits(['open-skill-check', 'dice-click'])

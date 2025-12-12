@@ -64,7 +64,6 @@ import AddButton from '@/components/ui/buttons/AddButton.vue'
 import CharacterSheetSection from '@/components/ui/containers/CharacterSheetSection.vue'
 import draggable from 'vuedraggable'
 import { useSimpleEditMode } from '@/composables/useEditMode'
-import { useDragAndDrop } from '@/composables/useDragAndDrop'
 import CharacterService from '@/services/entities/characterService'
 import { useItemSelector } from '@/composables/useItemSelector'
 import { useCharacterEquipment } from '@/composables/useCharacterEquipment'
@@ -177,21 +176,19 @@ const createAndAddCustomEquipment = async () => {
   }
 }
 
-// Drag and drop functionality
-const updateEquipmentOrder = (newOrder) => {
-  const updatedEquipment = newOrder.map((item, index) => ({
-    ...item,
-    index: index,
-  }))
+// Drag and drop - sorted equipment with reorder callback
+const sortedEquipmentRows = computed({
+  get: () => [...characterEquipmentRows.value].sort((a, b) => (a.index || 0) - (b.index || 0)),
+  set: (newOrder) => {
+    const updatedEquipment = newOrder.map((item, index) => ({
+      ...item,
+      index: index,
+    }))
 
-  const updated = CharacterService.reorderItems(selectedCharacter.value, 'equipment', updatedEquipment)
-  if (updated) Object.assign(selectedCharacter.value, updated)
-}
-
-const {
-  sortedItems: sortedEquipmentRows,
-  onDragEnd
-} = useDragAndDrop(characterEquipmentRows, updateEquipmentOrder, 'index')
+    const updated = CharacterService.reorderItems(selectedCharacter.value, 'equipment', updatedEquipment)
+    if (updated) Object.assign(selectedCharacter.value, updated)
+  }
+})
 
 // Methods
 // Equipment Management

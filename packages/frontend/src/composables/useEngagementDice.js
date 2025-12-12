@@ -3,10 +3,8 @@ import { useEngagementDiceCalculations } from './useEngagementDiceCalculations'
 import { useEngagementDiceAnimations } from './useEngagementDiceAnimations'
 import { useEngagementDiceEvents } from './useEngagementDiceEvents'
 
-/**
- * Main composable that orchestrates all engagement dice functionality
- * Combines state, calculations, animations, and events into a unified interface
- */
+// Main orchestrator for engagement dice functionality.
+// Composes 4 sub-composables (state, calculations, animations, events) into unified interface.
 export function useEngagementDice(character = null, allEquipment = null) {
   // Initialize all sub-composables
   const diceState = useEngagementDiceState(character, allEquipment)

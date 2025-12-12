@@ -26,12 +26,12 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { ref, computed } from 'vue'
 import CharacterSheetSection from '@/components/ui/containers/CharacterSheetSection.vue'
 import NumberInput from '@/components/ui/forms/NumberInput.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import { getDiceFontMaxClass } from '@/utils/diceFontUtils'
-import { useCustomDice } from '@/composables/useCustomDice'
+import CustomRollService from '@/services/rolls/customRollService'
 
 const props = defineProps({
     character: {
@@ -42,17 +42,68 @@ const props = defineProps({
 
 const emit = defineEmits(['update-character', 'custom-roll'])
 
-// Use custom dice composable
-const {
-    dieTypes,
-    diceCounts,
-    modifier,
-    isRolling,
-    hasAnyDice,
-    updateDiceCount,
-    clearAllDice,
-    rollDice
-} = useCustomDice(computed(() => props.character))
+// Custom dice roller state
+const dieTypes = [4, 6, 8, 10, 12, 20]
+const diceCounts = ref({})
+const modifier = ref(0)
+const isRolling = ref(false)
+
+// Initialize dice counts to 0
+dieTypes.forEach(dieType => {
+    diceCounts.value[dieType] = 0
+})
+
+const hasAnyDice = computed(() => {
+    return Object.values(diceCounts.value).some(count => count > 0)
+})
+
+const updateDiceCount = (dieType, count) => {
+    const validCount = Math.max(0, Math.min(10, count || 0)) // Cap at 10 dice per type
+    diceCounts.value[dieType] = validCount
+}
+
+const clearAllDice = () => {
+    dieTypes.forEach(dieType => {
+        diceCounts.value[dieType] = 0
+    })
+    modifier.value = 0
+}
+
+const rollDice = async () => {
+    if (!hasAnyDice.value || isRolling.value) {
+        return null
+    }
+
+    isRolling.value = true
+
+    try {
+        // Convert dice counts to dice pool format expected by service
+        const dicePool = []
+
+        Object.entries(diceCounts.value).forEach(([dieType, count]) => {
+            for (let i = 0; i < count; i++) {
+                dicePool.push({ dieSides: parseInt(dieType) })
+            }
+        })
+
+        // Make the roll using the service
+        const rollResult = CustomRollService.makeCustomRoll(
+            dicePool,
+            modifier.value,
+            props.character || { name: 'Unknown Character', artUrls: [''] }
+        )
+
+        return rollResult
+    } catch (error) {
+        console.error('Error making custom roll:', error)
+        return null
+    } finally {
+        // Add a small delay to prevent rapid successive rolls
+        setTimeout(() => {
+            isRolling.value = false
+        }, 500)
+    }
+}
 
 // Handle roll execution
 const handleRoll = async () => {

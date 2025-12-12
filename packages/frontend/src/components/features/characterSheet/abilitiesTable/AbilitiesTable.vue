@@ -65,7 +65,6 @@ import CharacterSheetSection from '@/components/ui/containers/CharacterSheetSect
 import MPDisplay from './MPDisplay.vue'
 import draggable from 'vuedraggable'
 import { useSimpleEditMode } from '@/composables/useEditMode'
-import { useDragAndDrop } from '@/composables/useDragAndDrop'
 import CharacterService from '@/services/entities/characterService'
 import { useItemSelector } from '@/composables/useItemSelector'
 import { useCharacterAbilities } from '@/composables/useCharacterAbilities'
@@ -126,22 +125,20 @@ const { characterAbilityObjects: characterAbilities } = useCharacterAbilities(
   'order'
 )
 
-// Drag and drop functionality
-const updateAbilityOrder = (newOrder) => {
-  const updatedAbilities = newOrder.map((ability) => ({
-    id: ability.id,
-    collapsed: ability.collapsed,
-    showImprovements: ability.showImprovements
-  }))
+// Drag and drop - sorted abilities with reorder callback
+const sortedAbilities = computed({
+  get: () => [...characterAbilities.value].sort((a, b) => (a.order || 0) - (b.order || 0)),
+  set: (newOrder) => {
+    const updatedAbilities = newOrder.map((ability) => ({
+      id: ability.id,
+      collapsed: ability.collapsed,
+      showImprovements: ability.showImprovements
+    }))
 
-  const updated = CharacterService.reorderItems(selectedCharacter.value, 'abilities', updatedAbilities)
-  if (updated) Object.assign(selectedCharacter.value, updated)
-}
-
-const {
-  sortedItems: sortedAbilities,
-  onDragEnd
-} = useDragAndDrop(characterAbilities, updateAbilityOrder, 'order')
+    const updated = CharacterService.reorderItems(selectedCharacter.value, 'abilities', updatedAbilities)
+    if (updated) Object.assign(selectedCharacter.value, updated)
+  }
+})
 
 // Methods
 // Ability Management

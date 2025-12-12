@@ -45,7 +45,7 @@ import { computed, ref } from 'vue'
 import { SESSION_STATUS } from '@shared/constants/sessionStatus'
 import { WINNER } from '@shared/constants/winner.js'
 import { getDiceFontClass } from '@/utils/diceFontUtils'
-import { useSkillDice } from '@/composables/useSkillDice'
+import { buildDiceSetForSkill } from '@/utils/skillDiceUtils'
 import BaseCharacterColumn from './BaseCharacterColumn.vue'
 import DiceDisplay from '@/components/features/characterSheet/diceRollResults/DiceDisplay.vue'
 
@@ -96,8 +96,6 @@ const emit = defineEmits([
     'reroll-all-dice'
 ])
 
-const { buildDiceSet } = useSkillDice()
-
 const diceDisplayRef = ref(null)
 
 const isRolling = computed(() => {
@@ -131,7 +129,7 @@ const favoredStatus = computed(() => {
 })
 
 const allDice = computed(() => {
-    return buildDiceSet(props.skillCheckConfig)
+    return buildDiceSetForSkill(props.skillCheckConfig)
 })
 
 const sortedDice = computed(() => {

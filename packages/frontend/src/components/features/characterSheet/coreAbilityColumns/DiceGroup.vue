@@ -21,18 +21,6 @@ const props = defineProps({
     isEditMode: {
         type: Boolean,
         default: false
-    },
-    isRankActive: {
-        type: Function,
-        required: true
-    },
-    isDiceAdded: {
-        type: Function,
-        required: true
-    },
-    isDiceSubtracted: {
-        type: Function,
-        required: true
     }
 })
 
@@ -41,12 +29,34 @@ defineEmits(['dice-click'])
 
 // Methods
 const getDiceClasses = (diceIndex) => {
+    // Check if rank is active (from base ranks or positive dice mod)
+    const withinRanks = diceIndex < props.skill.ranks
+    const withinDiceMod =
+        diceIndex >= props.skill.ranks &&
+        diceIndex < props.skill.ranks + props.skill.diceMod &&
+        props.skill.diceMod > 0
+    const isActive = withinRanks || withinDiceMod
+
+    // Check if die is added by positive dice mod
+    const isAdded = (
+        diceIndex >= props.skill.ranks &&
+        diceIndex < props.skill.ranks + props.skill.diceMod &&
+        props.skill.diceMod > 0
+    )
+
+    // Check if die is subtracted by negative dice mod
+    const isSubtracted = (
+        props.skill.ranks - diceIndex <= Math.abs(props.skill.diceMod) &&
+        props.skill.diceMod < 0 &&
+        diceIndex < props.skill.ranks
+    )
+
     return [
         getDiceFontClass(DIE_TYPE.D6, DIE_TYPE.D6),
         {
-            'dice-active': props.isRankActive(props.skill, diceIndex),
-            'dice-added': props.isDiceAdded(props.skill, diceIndex),
-            'dice-subtracted': props.isDiceSubtracted(props.skill, diceIndex),
+            'dice-active': isActive,
+            'dice-added': isAdded,
+            'dice-subtracted': isSubtracted,
         },
     ]
 }

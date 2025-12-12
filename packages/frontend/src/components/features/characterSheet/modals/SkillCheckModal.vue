@@ -81,7 +81,7 @@ import { ref, computed, watch } from 'vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import SkillCheckService from '@/services/rolls/skillCheckService'
 import { getDiceFontMaxClass } from '@/utils/diceFontUtils'
-import { useSkillDice } from '@/composables/useSkillDice'
+import { buildDiceSetForSkill } from '@/utils/skillDiceUtils'
 
 const props = defineProps({
   character: {
@@ -99,8 +99,6 @@ const props = defineProps({
 })
 
 const emit = defineEmits(['close', 'update-target-number', 'skill-check-result', 'opposed-skill-check-result', 'start-opposed-skill-check'])
-
-const { buildDiceSet } = useSkillDice()
 
 // Reactive state
 const localCharacter = ref({ ...props.character })
@@ -162,7 +160,7 @@ const favoredStatus = computed({
 const dicePool = computed(() => {
   if (!selectedSkill.value) return { d12Dice: [], d6Dice: [] }
 
-  const allDice = buildDiceSet(rollParameters.value, {
+  const allDice = buildDiceSetForSkill(rollParameters.value, {
     includeDiceClass: true,
     getDiceFontMaxClass
   })

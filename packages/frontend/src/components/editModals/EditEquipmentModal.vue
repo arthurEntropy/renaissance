@@ -206,7 +206,6 @@
 
 <script setup>
 import { ref, computed } from 'vue'
-import { useDiceManagement } from '@/composables/useDiceManagement'
 import TextEditor from '@/components/ui/textEditor/TextEditor.vue'
 import SourceDropdown from '@/components/ui/selectors/SourceDropdown.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
@@ -276,28 +275,32 @@ const cancel = () => {
   emit('close')
 }
 
-// Dice management composables
-const {
-  dieTypes,
-  diceCounts: engagementDiceCounts,
-  initializeCounts: initializeEngagementDice,
-  getDiceList: getEngagementDiceList
-} = useDiceManagement()
+// Dice management - convert between array [4, 6, 6, 8] and count object {4: 1, 6: 2, 8: 1}
+const dieTypes = [4, 6, 8, 10, 12, 20]
+const engagementDiceCounts = ref({})
+const damageDiceCounts = ref({})
 
-const {
-  diceCounts: damageDiceCounts,
-  initializeCounts: initializeDamageDice,
-  getDiceList: getDamageDiceList
-} = useDiceManagement()
-
-// Initialize dice counts from equipment data
-const initializeDiceCounts = () => {
-  initializeEngagementDice(editedEquipment.value?.engagementDice || [])
-  initializeDamageDice(editedEquipment.value?.damageDice || [])
+const convertArrayToCounts = (diceArray) => {
+  const counts = {}
+  dieTypes.forEach((dieType) => {
+    counts[dieType] = diceArray.filter((die) => die === dieType).length
+  })
+  return counts
 }
 
-// Initialize dice counts immediately
-initializeDiceCounts()
+const convertCountsToArray = (diceCounts) => {
+  const diceArray = []
+  Object.entries(diceCounts).forEach(([dieType, count]) => {
+    for (let i = 0; i < count; i++) {
+      diceArray.push(Number(dieType))
+    }
+  })
+  return diceArray
+}
+
+// Initialize dice counts from equipment data
+engagementDiceCounts.value = convertArrayToCounts(editedEquipment.value?.engagementDice || [])
+damageDiceCounts.value = convertArrayToCounts(editedEquipment.value?.damageDice || [])
 
 // Computed properties
 const equipmentIsWeapon = computed(() => {
@@ -319,8 +322,8 @@ const onTypeChange = () => {
 
 // Equipment management functions
 const saveDiceChanges = () => {
-  editedEquipment.value.engagementDice = getEngagementDiceList()
-  editedEquipment.value.damageDice = getDamageDiceList()
+  editedEquipment.value.engagementDice = convertCountsToArray(engagementDiceCounts.value)
+  editedEquipment.value.damageDice = convertCountsToArray(damageDiceCounts.value)
 }
 
 const saveEquipment = () => {

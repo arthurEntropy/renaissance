@@ -6,8 +6,6 @@
 
     <!-- Skills -->
     <SkillRow v-for="skill in skills" :key="skill.name" :skill="skill" :is-edit-mode="isEditMode"
-      :is-rank-active="isRankActive" :is-dice-added="isDiceAdded" :is-dice-subtracted="isDiceSubtracted"
-      :get-style-class-for-favored-status="getStyleClassForFavoredStatus"
       @open-skill-check="$emit('open-skill-check', $event)" @dice-click="handleDiceClick" />
 
     <!-- Virtue Row -->
@@ -31,7 +29,7 @@
 import { computed } from 'vue'
 import { useCharactersStore } from '@/stores/charactersStore'
 import { useColumnConfig } from '@/composables/useColumnConfig'
-import { useSkillDice } from '@/composables/useSkillDice'
+import * as CharacterUtils from '@shared/types/entities/characterUtils'
 import CharacterSheetSection from '@/components/ui/containers/CharacterSheetSection.vue'
 import CoreAbilityHeader from './CoreAbilityHeader.vue'
 import SkillRow from './SkillRow.vue'
@@ -80,13 +78,23 @@ const {
   skills
 } = useColumnConfig(computed(() => props.column), character)
 
-const {
-  isRankActive,
-  isDiceAdded,
-  isDiceSubtracted,
-  getStyleClassForFavoredStatus,
-  handleDiceClick
-} = useSkillDice(character, updateCharacter)
+// Handle dice click for skill rank updates
+const handleDiceClick = (skillName, diceIndex) => {
+  const updatedCharacter = {
+    ...character.value,
+    skills: character.value.skills.map(skill => {
+      if (skill.name === skillName) {
+        const newRank = diceIndex + 1
+        const updatedRanks = newRank === skill.ranks ? skill.ranks - 1 : newRank
+        return { ...skill, ranks: updatedRanks }
+      }
+      return skill
+    })
+  }
+
+  CharacterUtils.updateFavoredStatus(updatedCharacter)
+  updateCharacter(updatedCharacter)
+}
 </script>
 
 <style scoped>

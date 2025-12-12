@@ -26,7 +26,7 @@
                 <i :class="die.cssClass"></i>
                 <span v-if="!isRolling && die.emoji && !isCustomRoll" class="dice-emoji">{{
                     die.emoji
-                    }}</span>
+                }}</span>
             </span>
             <span v-if="truncatedDice.showEllipsis" class="dice-ellipsis" :style="{ fontSize: `${diceSize}px` }"
                 @click="openModal">
@@ -54,7 +54,7 @@
                         <i :class="die.cssClass"></i>
                         <span v-if="die.emoji && !isCustomRoll" class="dice-emoji">{{
                             die.emoji
-                            }}</span>
+                        }}</span>
                     </span>
                 </div>
             </div>
@@ -66,9 +66,9 @@
 
 <script setup>
 import { computed, watch, onMounted, ref } from 'vue'
-import { useDiceAnimation } from '@/composables/useDiceAnimation'
 import { RollTypes } from '@/constants/rollTypes'
-import { getDiceFontClass } from '@/utils/diceFontUtils'
+import { getDiceFontClass, getRandomDiceFontClass } from '@/utils/diceFontUtils'
+import { DICE_ROLL_DURATION } from '@/constants/animationDurations'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 
 const props = defineProps({
@@ -105,7 +105,87 @@ const props = defineProps({
 
 const emit = defineEmits(['reroll-all-dice'])
 
-const { isRolling, startRollAnimation, getDisplayDice } = useDiceAnimation()
+// Dice animation state
+const isRolling = ref(false)
+const rollStartTime = ref(null)
+const rollDuration = ref(DICE_ROLL_DURATION)
+const animatedDice = ref([])
+const lastRollId = ref(null)
+
+const startRollAnimation = (rollData, skipAnimation = false) => {
+    if (skipAnimation || !rollData || !rollData.diceResults || rollData.diceResults.length === 0) {
+        isRolling.value = false
+        return
+    }
+
+    const currentRollId = Date.now()
+    lastRollId.value = currentRollId
+
+    animatedDice.value = rollData.diceResults.map((die) => {
+        const randomValue = Math.floor(Math.random() * die.dieSides) + 1
+        return {
+            ...die,
+            dieRollValue: randomValue,
+            displayValue: randomValue,
+            cssClass: getRandomDiceFontClass(die.dieSides),
+            isRolling: true,
+        }
+    })
+
+    isRolling.value = true
+    rollStartTime.value = Date.now()
+
+    animateRoll(currentRollId, rollData.diceResults)
+}
+
+const animateRoll = (rollId, finalDiceResults) => {
+    if (rollId !== lastRollId.value) return
+
+    const elapsed = Date.now() - rollStartTime.value
+    const progress = Math.min(elapsed / rollDuration.value, 1)
+
+    if (progress < 1) {
+        animatedDice.value = animatedDice.value.map((die, index) => {
+            const changeFrequency = 0.3 + (progress * 0.3)
+
+            if (Math.random() < changeFrequency) {
+                const randomValue = Math.floor(Math.random() * die.dieSides) + 1
+                return {
+                    ...die,
+                    dieRollValue: randomValue,
+                    displayValue: randomValue,
+                    cssClass: getRandomDiceFontClass(die.dieSides),
+                    isRolling: true,
+                }
+            }
+
+            if (progress > 0.7 && Math.random() < (progress - 0.7) / 0.3) {
+                const actualDie = finalDiceResults[index]
+                return {
+                    ...actualDie,
+                    isRolling: true,
+                }
+            }
+
+            return die
+        })
+
+        requestAnimationFrame(() => animateRoll(rollId, finalDiceResults))
+    } else {
+        isRolling.value = false
+    }
+}
+
+const getDisplayDice = (finalDiceResults = []) => {
+    return isRolling.value ? animatedDice.value : finalDiceResults
+}
+
+const resetAnimation = () => {
+    isRolling.value = false
+    rollStartTime.value = null
+    animatedDice.value = []
+    lastRollId.value = null
+}
 
 const DICE_SIZES = {
     LARGE: 36,  // var(--font-size-36)

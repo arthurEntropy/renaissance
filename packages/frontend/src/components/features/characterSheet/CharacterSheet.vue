@@ -68,9 +68,7 @@
 import { computed, ref, onMounted } from 'vue'
 import { useModal } from '@/composables/useModal'
 import { useEditModal } from '@/composables/useEditModal'
-import { useSkillCheck } from '@/composables/useSkillCheck'
-import { useOpposedSkillCheck } from '@/composables/useOpposedSkillCheck'
-import { useDiceResults } from '@/composables/useDiceResults'
+import { useOpposedSkillCheckSession } from '@/composables/useOpposedSkillCheckSession'
 import { useCharacterEditMode } from '@/composables/useCharacterEditMode'
 import { useCharacterStatWatchers } from '@/composables/useCharacterStatWatchers'
 import { useCharactersStore } from '@/stores/charactersStore'
@@ -156,32 +154,42 @@ const {
     closeModal: closeSettingsModal
 } = useModal()
 
-// Skill check modal functionality
-const {
-    showSkillCheckModal,
-    selectedSkillName,
-    openSkillCheckModal,
-    closeSkillCheckModal,
-    getLastTargetNumber,
-    updateLastTargetNumber
-} = useSkillCheck()
+// Skill check modal management
+const showSkillCheckModal = ref(false)
+const selectedSkillName = ref('')
+const lastTargetNumber = ref(null)
+
+const openSkillCheckModal = (skillName) => {
+    selectedSkillName.value = skillName
+    showSkillCheckModal.value = true
+}
+
+const closeSkillCheckModal = () => {
+    showSkillCheckModal.value = false
+}
+
+const getLastTargetNumber = () => lastTargetNumber.value
+const updateLastTargetNumber = (targetNumber) => { lastTargetNumber.value = targetNumber }
 
 // Opposed skill check modal management
-const { showOpposedSkillCheckModal, sessionManager } = useOpposedSkillCheck()
+const showOpposedSkillCheckModal = ref(false)
+const sessionManager = useOpposedSkillCheckSession()
+
+const openOpposedSkillCheckModal = () => {
+    showOpposedSkillCheckModal.value = true
+}
 
 const closeOpposedSkillCheckModal = () => {
-    sessionManager.disconnect()
     showOpposedSkillCheckModal.value = false
+    sessionManager.disconnect()
 }
 
 // Dice results management
-const {
-    latestRoll,
-    handleSkillCheckResult,
-    handleEngagementResult,
-    handleOpposedSkillCheckResult: handleOpposedSkillCheckResultFromService,
-    handleCustomRollResult
-} = useDiceResults()
+const latestRoll = ref(null)
+const handleSkillCheckResult = (result) => { latestRoll.value = result }
+const handleEngagementResult = (result) => { latestRoll.value = result }
+const handleOpposedSkillCheckResultFromService = (result) => { latestRoll.value = result }
+const handleCustomRollResult = (result) => { latestRoll.value = result }
 
 // Close skill check modal handler
 const closeSkillCheckModalAndUpdate = () => {
