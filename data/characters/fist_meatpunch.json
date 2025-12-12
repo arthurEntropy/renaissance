@@ -202,7 +202,7 @@
   "abilities": [
     {
       "id": "f1d0e5f7-bb30-4251-a575-8d31c113fe1a",
-      "collapsed": false,
+      "collapsed": true,
       "showImprovements": false,
       "improvements": {
         "a277f343-4a95-51c2-a376-74b16ab9bb7c": false,
@@ -212,12 +212,12 @@
     },
     {
       "id": "1e289ca8-cf6a-4f0d-ad7c-a13fc8e1f381",
-      "collapsed": false,
+      "collapsed": true,
       "showImprovements": false
     },
     {
       "id": "9c92d5ba-7c73-4480-a357-d98ac4820c7d",
-      "collapsed": false
+      "collapsed": true
     }
   ],
   "activeEffects": [],
@@ -225,6 +225,6 @@
     "https://cdn.midjourney.com/579f1913-10e8-438c-9d1d-949151eb171c/0_0.png"
   ],
   "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2025-12-12T16:21:52.190Z",
-  "lastModified": "2025-12-12T16:21:52.190Z"
+  "updatedAt": "2025-12-12T21:31:39.117Z",
+  "lastModified": "2025-12-12T21:31:39.117Z"
 }

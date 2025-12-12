@@ -461,14 +461,7 @@ export function useEngagementRoll(character = null, allEquipment = null) {
     }, animationDuration)
   }
 
-  function resetAnimationState() {
-    rerollingDice.clear()
-    isUpdatingResultLocally.value = false
-    previousDicePairs.value = []
-    previousEngagementWinner.value = null
-  }
-
-  // ==================== METHODS - EVENTS ====================
+  // ==================== METHODS - OPPONENT DICE ====================
   
   function toggleResult(index, diceComparisons, userCharacterId, opponentCharacterId) {
     if (isUpdatingResultLocally.value) {

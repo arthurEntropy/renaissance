@@ -51,6 +51,7 @@
 <script setup>
 import { ref, computed, watch, onMounted, nextTick } from 'vue'
 import { useSourcesStore } from '@/stores/sourcesStore'
+import { storeToRefs } from 'pinia'
 import EditButton from '@/components/ui/buttons/EditButton.vue'
 import DuplicateButton from '@/components/ui/buttons/DuplicateButton.vue'
 
@@ -70,6 +71,7 @@ const emit = defineEmits(['edit', 'duplicate', 'update', 'send-to-chat', 'height
 
 // Source management
 const sourcesStore = useSourcesStore()
+const { sources } = storeToRefs(sourcesStore)
 
 // Template ref
 const cardElement = ref(null)
@@ -91,7 +93,9 @@ const cardStyle = computed(() => {
   }
 
   // Then check source's background
-  const source = sourcesStore.getSourceById(props.item.source)
+  // Access sources.value to ensure reactivity
+  const source = sources.value ? sourcesStore.getSourceById(props.item.source) : null
+
   if (source && source.backgroundImage) {
     return {
       backgroundImage: `url(${source.backgroundImage})`,
@@ -102,7 +106,7 @@ const cardStyle = computed(() => {
   }
 
   // Fallback
-  return { background: 'var(--overlay-black-heavy)' }
+  return { backgroundColor: 'var(--overlay-black-heavy)' }
 })
 
 // Methods
@@ -152,11 +156,11 @@ watch(
 )
 
 watch(
-  () => sourcesStore.sources,
+  () => sources.value,
   () => {
     updateSourceName()
   },
-  { immediate: true },
+  { immediate: true, deep: true },
 )
 
 // Lifecycle

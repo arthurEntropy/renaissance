@@ -34,7 +34,7 @@
             :show-action-buttons="true" :character="character" :show-improvement-toggle="true"
             :show-improvements="ability.showImprovements"
             @update:showImprovements="updateAbilityShowImprovements(ability, $event)"
-            @update:character="handleCharacterUpdate" :key="`edit-ability-${ability.id}`" />
+            :key="`edit-ability-${ability.id}`" />
 
           <span v-else class="missing-ability">Unknown ability</span>
 
@@ -48,7 +48,7 @@
     <!-- Add Ability Selector Modal -->
     <ItemSelector :show="showAbilitySelector" title="Add Ability" :grouped-items="groupedAbilities"
       :search-query="abilitySearchQuery" search-placeholder="Search abilities..." no-items-message="No abilities found"
-      :get-source-name="sourceUtils.getSourceName" @close="toggleAbilitySelector" @select="selectAbility"
+      :get-source-name="sourcesStore.getSourceName" @close="toggleAbilitySelector" @select="selectAbility"
       @search="handleAbilitySearch" />
 
   </CharacterSheetSection>
@@ -69,6 +69,7 @@ import CharacterService from '@/services/entities/characterService'
 import { useItemSelector } from '@/composables/useItemSelector'
 import { useCharactersStore } from '@/stores/charactersStore'
 import { useSourcesStore } from '@/stores/sourcesStore'
+import { storeToRefs } from 'pinia'
 
 // Props
 const props = defineProps({
@@ -88,7 +89,7 @@ const props = defineProps({
 
 // Store
 const charactersStore = useCharactersStore()
-const selectedCharacter = charactersStore.selectedCharacter
+const { selectedCharacter } = storeToRefs(charactersStore)
 
 // Internal edit mode management
 const { isEditMode: internalEditMode, toggleEditMode } = useSimpleEditMode()
@@ -105,7 +106,6 @@ const sourcesStore = useSourcesStore()
 // Item selector for abilities
 const abilitySelector = useItemSelector(
   computed(() => props.allAbilities),
-  sourcesStore.sources,
   sourcesStore,
   { searchFields: ['name'] } // Only search ability names, not descriptions
 )
@@ -120,6 +120,7 @@ const filterAbilities = abilitySelector.filterItems
 // Character abilities - merge character refs with full ability definitions
 const characterAbilities = computed(() => {
   const allAbilitiesArray = props.allAbilities || []
+  if (!props.character?.abilities) return []
   return (
     props.character.abilities
       ?.map((abilityObj, index) => {
@@ -158,6 +159,10 @@ const sortedAbilities = computed({
   }
 })
 
+const onDragEnd = () => {
+  // Ability reordering handled by sortedAbilities setter
+}
+
 // Methods
 // Ability Management
 const removeAbility = (index) => {
@@ -191,17 +196,35 @@ const selectAbility = (ability) => {
 
 // Handle ability collapsed state changes
 const updateAbilityCollapsed = (ability, collapsed) => {
+  if (!selectedCharacter.value?.abilities) return
   const index = selectedCharacter.value.abilities.findIndex(a => a.id === ability.id)
   if (index !== -1) {
-    selectedCharacter.value.abilities[index].collapsed = collapsed
+    // Create a copy of the item with the new collapsed state
+    const updatedItem = { ...selectedCharacter.value.abilities[index], collapsed }
+
+    // Create a copy of the abilities array with the updated item to ensure reactivity
+    const newAbilities = [...selectedCharacter.value.abilities]
+    newAbilities[index] = updatedItem
+
+    // Update the character's abilities array
+    selectedCharacter.value.abilities = newAbilities
   }
 }
 
 // Handle ability showImprovements state changes
 const updateAbilityShowImprovements = (ability, showImprovements) => {
+  if (!selectedCharacter.value?.abilities) return
   const index = selectedCharacter.value.abilities.findIndex(a => a.id === ability.id)
   if (index !== -1) {
-    selectedCharacter.value.abilities[index].showImprovements = showImprovements
+    // Create a copy of the item with the new showImprovements state
+    const updatedItem = { ...selectedCharacter.value.abilities[index], showImprovements }
+
+    // Create a copy of the abilities array with the updated item to ensure reactivity
+    const newAbilities = [...selectedCharacter.value.abilities]
+    newAbilities[index] = updatedItem
+
+    // Update the character's abilities array
+    selectedCharacter.value.abilities = newAbilities
   }
 }
 

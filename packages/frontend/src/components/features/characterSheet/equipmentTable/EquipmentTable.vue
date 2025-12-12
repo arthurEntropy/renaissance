@@ -40,7 +40,7 @@
     <!-- Equipment Selector Modal -->
     <ItemSelector :show="showEquipmentSelector" title="Add Equipment" :grouped-items="groupedEquipment"
       :search-query="equipmentSearchQuery" search-placeholder="Search equipment..."
-      no-items-message="No equipment found" :get-source-name="sourceUtils.getSourceName"
+      no-items-message="No equipment found" :get-source-name="sourcesStore.getSourceName"
       :show-choice-mode="showChoiceMode" :choice-options="equipmentChoiceOptions" @close="closeEquipmentSelector"
       @select="selectEquipment" @search="handleEquipmentSearch" @choice="handleEquipmentChoice">
       <template #item-display="{ item }">
@@ -70,6 +70,7 @@ import { useEquipmentTypesStore } from '@/stores/equipmentTypesStore'
 import { useEquipmentStore } from '@/stores/equipmentStore'
 import { useCharactersStore } from '@/stores/charactersStore'
 import { useSourcesStore } from '@/stores/sourcesStore'
+import { storeToRefs } from 'pinia'
 import EquipmentService from '@/services/entities/equipment/equipmentService'
 import * as CharacterUtils from '@shared/types/entities/characterUtils'
 import { BookOpenIcon, PlusIcon } from '@heroicons/vue/24/outline'
@@ -90,7 +91,7 @@ const emit = defineEmits(['edit-custom-equipment'])
 
 // Stores
 const charactersStore = useCharactersStore()
-const selectedCharacter = charactersStore.selectedCharacter
+const { selectedCharacter } = storeToRefs(charactersStore)
 const equipmentTypesStore = useEquipmentTypesStore()
 const equipmentStore = useEquipmentStore()
 
@@ -127,7 +128,6 @@ const equipmentChoiceOptions = [
 // Equipment grouping and filtering
 const { groupedItems: groupedEquipment, filterItems: filterEquipment, searchQuery: equipmentSearchQuery } = useItemSelector(
   computed(() => props.allEquipment || []),
-  sourcesStore.sources,
   sourcesStore,
   { searchFields: ['name'] } // Only search equipment names
 )
@@ -135,14 +135,18 @@ const { groupedItems: groupedEquipment, filterItems: filterEquipment, searchQuer
 // Character equipment transformation - merge character entries with full equipment definitions
 const characterEquipmentRows = computed(() => {
   const allEquipmentArray = props.allEquipment || []
+  if (!props.character?.equipment) return []
   return props.character.equipment?.map((entry) => {
     const equipment = allEquipmentArray.find((eq) => eq.id === entry.id)
     return {
       ...entry,
       equipment,
+      collapsed: entry.collapsed ?? true,
+      artExpanded: entry.artExpanded ?? false,
     }
   }) || []
 })
+
 // Custom equipment creation
 const isCreatingCustom = ref(false)
 
@@ -194,6 +198,10 @@ const sortedEquipmentRows = computed({
     if (updated) Object.assign(selectedCharacter.value, updated)
   }
 })
+
+const onDragEnd = () => {
+  // Equipment reordering handled by sortedEquipmentRows setter
+}
 
 // Methods
 // Equipment Management
@@ -278,17 +286,35 @@ const closeEquipmentSelector = () => {
 
 // Handle equipment collapsed state changes
 const updateEquipmentCollapsed = (equipmentRow, collapsed) => {
+  if (!selectedCharacter.value?.equipment) return
   const index = selectedCharacter.value.equipment.findIndex(eq => eq.id === equipmentRow.id)
   if (index !== -1) {
-    selectedCharacter.value.equipment[index].collapsed = collapsed
+    // Create a copy of the item with the new collapsed state
+    const updatedItem = { ...selectedCharacter.value.equipment[index], collapsed }
+
+    // Create a copy of the equipment array with the updated item to ensure reactivity
+    const newEquipment = [...selectedCharacter.value.equipment]
+    newEquipment[index] = updatedItem
+
+    // Update the character's equipment array
+    selectedCharacter.value.equipment = newEquipment
   }
 }
 
 // Handle equipment art expanded state changes
 const updateEquipmentArtExpanded = (equipmentRow, artExpanded) => {
+  if (!selectedCharacter.value?.equipment) return
   const index = selectedCharacter.value.equipment.findIndex(eq => eq.id === equipmentRow.id)
   if (index !== -1) {
-    selectedCharacter.value.equipment[index].artExpanded = artExpanded
+    // Create a copy of the item with the new artExpanded state
+    const updatedItem = { ...selectedCharacter.value.equipment[index], artExpanded }
+
+    // Create a copy of the equipment array with the updated item to ensure reactivity
+    const newEquipment = [...selectedCharacter.value.equipment]
+    newEquipment[index] = updatedItem
+
+    // Update the character's equipment array
+    selectedCharacter.value.equipment = newEquipment
   }
 }
 

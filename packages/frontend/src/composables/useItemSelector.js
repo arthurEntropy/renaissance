@@ -1,6 +1,6 @@
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 
-export function useItemSelector(allItems, getSourceUtils, options = {}) {
+export function useItemSelector(allItems, sourcesStore, options = {}) {
   // Configuration
   const searchFields = options.searchFields || ['name', 'description']
   // State
@@ -65,7 +65,7 @@ export function useItemSelector(allItems, getSourceUtils, options = {}) {
         if (item.isCustom === true) {
           // Custom items go to the custom group
           grouped.custom.push(item)
-        } else if (!item.source || !getSourceUtils.getSourceById(item.source)) {
+        } else if (!item.source || !sourcesStore.getSourceById(item.source)) {
           // Items without a source or with an unrecognized source go to the general group
           grouped.general.push(item)
         } else {
@@ -95,8 +95,8 @@ export function useItemSelector(allItems, getSourceUtils, options = {}) {
     const sourceKeys = Object.keys(grouped)
       .filter((key) => key !== 'custom' && key !== 'general')
       .sort((a, b) => {
-        const sourceNameA = getSourceUtils.getSourceName(a)
-        const sourceNameB = getSourceUtils.getSourceName(b)
+        const sourceNameA = sourcesStore.getSourceName(a)
+        const sourceNameB = sourcesStore.getSourceName(b)
         return sourceNameA.localeCompare(sourceNameB)
       })
 
