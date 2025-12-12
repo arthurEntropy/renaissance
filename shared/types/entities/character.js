@@ -48,6 +48,14 @@ import { createBaseEntity } from './gameEntity.js'
  */
 
 /**
+ * @typedef {Object} CharacterAbilityItem
+ * @property {string} id - Ability ID reference
+ * @property {boolean} collapsed - Whether ability display is collapsed in UI
+ * @property {boolean} showImprovements - Whether improvements section is expanded in UI
+ * @property {Object.<string, boolean>} [improvements] - Map of improvement IDs to ownership status
+ */
+
+/**
  * @typedef {Object} ActiveEffect
  * @property {string} name - Effect name
  * @property {Object[]} skillsModified - Skills affected by this effect
@@ -82,7 +90,7 @@ import { createBaseEntity } from './gameEntity.js'
  * @property {CharacterConditions} conditions - Character conditions
  * @property {number} speed - Movement speed
  * @property {CharacterEquipmentItem[]} equipment - Equipped items
- * @property {string[]} abilities - Ability IDs
+ * @property {CharacterAbilityItem[]} abilities - Character abilities with UI state
  * @property {string[]} artUrls - Character art URLs
  * @property {ActiveEffect[]} activeEffects - Currently active effects
  * @property {string} createdAt - ISO 8601 datetime string

@@ -1,18 +1,10 @@
 import { watch } from 'vue'
 
-/**
- * Composable for persisting filter state to localStorage
- * @param {string} storageKey - Unique key for localStorage (e.g., 'abilities-filters')
- * @param {Object} filters - Object containing refs to persist
- * @returns {Object} Methods for managing persistence
- */
+// Persists filter states to browser localStorage across sessions.
 export function useFilterPersistence(storageKey, filters) {
   const STORAGE_PREFIX = 'renaissance-filters-'
   const fullKey = STORAGE_PREFIX + storageKey
 
-  /**
-   * Load filters from localStorage
-   */
   const loadFilters = () => {
     try {
       const stored = localStorage.getItem(fullKey)
@@ -31,9 +23,6 @@ export function useFilterPersistence(storageKey, filters) {
     }
   }
 
-  /**
-   * Save filters to localStorage
-   */
   const saveFilters = () => {
     try {
       const toStore = {}
@@ -49,38 +38,13 @@ export function useFilterPersistence(storageKey, filters) {
     }
   }
 
-  /**
-   * Clear stored filters
-   */
-  const clearStoredFilters = () => {
-    try {
-      localStorage.removeItem(fullKey)
-    } catch (error) {
-      console.error(`Error clearing filters for ${storageKey}:`, error)
-    }
-  }
-
-  /**
-   * Watch all filter refs and save on changes
-   */
   const setupWatchers = () => {
     Object.values(filters).forEach(filterRef => {
       watch(filterRef, saveFilters, { deep: true })
     })
   }
 
-  /**
-   * Initialize persistence (load on mount, watch for changes)
-   */
-  const initialize = () => {
-    loadFilters()
-    setupWatchers()
-  }
-
-  return {
-    loadFilters,
-    saveFilters,
-    clearStoredFilters,
-    initialize
-  }
+  // Auto-initialize immediately
+  loadFilters()
+  setupWatchers()
 }

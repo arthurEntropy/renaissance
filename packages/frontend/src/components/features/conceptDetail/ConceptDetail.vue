@@ -8,29 +8,21 @@
       <!-- Desktop Layout: Left/Right Columns -->
       <div v-if="isDesktop" class="concept-layout-desktop">
         <!-- Left Column -->
-        <LeftColumn :concept="localConcept" :is-edit-mode="isEditMode" @update:featured-art="updateFeaturedArt"
-          @update:novizio="updateNovizio" @update:faces="updateFaces" @update:places="updatePlaces"
-          @update:playlists="updatePlaylists" @unsaved-changes="onSectionUnsavedChanges"
+        <LeftColumn :is-edit-mode="isEditMode" @unsaved-changes="onSectionUnsavedChanges"
           @reset-unsaved-changes="onSectionResetUnsavedChanges" />
 
         <!-- Right Column -->
-        <RightColumn :concept="localConcept" :abilities="abilities" :equipment="equipment" :sources="sources"
-          :is-edit-mode="isEditMode" :expansion="expansion" :character="selectedCharacter" @update:name="updateName"
-          @update:description="updateDescription" @update:local-flavor="updateLocalFlavor" @update:hooks="updateHooks"
-          @edit-ability="emitAbilityEdit" @edit-equipment="emitEquipmentEdit" @add-ability="createNewAbility"
-          @add-equipment="createNewEquipment" @unsaved-changes="onSectionUnsavedChanges"
-          @reset-unsaved-changes="onSectionResetUnsavedChanges" />
+        <RightColumn :abilities="abilities" :equipment="equipment" :sources="sources" :is-edit-mode="isEditMode"
+          :expansion="expansion" :character="selectedCharacter" @edit-ability="emitAbilityEdit"
+          @edit-equipment="emitEquipmentEdit" @add-ability="createNewAbility" @add-equipment="createNewEquipment"
+          @unsaved-changes="onSectionUnsavedChanges" @reset-unsaved-changes="onSectionResetUnsavedChanges" />
       </div>
 
       <!-- Mobile Layout: Single Column -->
-      <MobileLayout v-else :concept="localConcept" :abilities="abilities" :equipment="equipment" :sources="sources"
-        :is-edit-mode="isEditMode" :expansion="expansion" :character="selectedCharacter"
-        @update:featured-art="updateFeaturedArt" @update:name="updateName" @update:description="updateDescription"
-        @update:local-flavor="updateLocalFlavor" @update:hooks="updateHooks" @update:faces="updateFaces"
-        @update:places="updatePlaces" @update:playlists="updatePlaylists" @update:novizio="updateNovizio"
-        @edit-ability="emitAbilityEdit" @edit-equipment="emitEquipmentEdit" @add-ability="createNewAbility"
-        @add-equipment="createNewEquipment" @unsaved-changes="onSectionUnsavedChanges"
-        @reset-unsaved-changes="onSectionResetUnsavedChanges" />
+      <MobileLayout v-else :abilities="abilities" :equipment="equipment" :sources="sources" :is-edit-mode="isEditMode"
+        :expansion="expansion" :character="selectedCharacter" @edit-ability="emitAbilityEdit"
+        @edit-equipment="emitEquipmentEdit" @add-ability="createNewAbility" @add-equipment="createNewEquipment"
+        @unsaved-changes="onSectionUnsavedChanges" @reset-unsaved-changes="onSectionResetUnsavedChanges" />
     </div>
 
     <!-- Settings Modal -->
@@ -48,38 +40,38 @@
 </template>
 
 <script setup>
-import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue'
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import ConceptHeader from './components/ConceptHeader.vue'
 import LeftColumn from './components/layouts/LeftColumn.vue'
 import RightColumn from './components/layouts/RightColumn.vue'
 import MobileLayout from './components/layouts/MobileLayout.vue'
 import ConceptSettingsModal from './components/ConceptSettingsModal.vue'
-import { useConceptUpdates } from '@/composables/useConceptUpdates'
 import EditAbilityModal from '@/components/editModals/EditAbilityModal.vue'
 import EditEquipmentModal from '@/components/editModals/EditEquipmentModal.vue'
 
 // Composables
 import { useConceptEditMode } from './composables/useConceptEditMode'
 import { useConceptData } from './composables/useConceptData'
-import { useUnsavedChanges } from './composables/useUnsavedChanges'
+import { useUnsavedChanges } from '@/composables/useUnsavedChanges'
 import { useEditModal } from '@/composables/useEditModal'
-import { useCharacterManagement } from '@/composables/useCharacterManagement'
 
 // Store imports
+import { useConceptsStore } from '@/stores/conceptsStore'
 import { useExpansionsStore } from '@/stores/expansionsStore'
 import { useSourcesStore } from '@/stores/sourcesStore'
 import { useAbilitiesStore } from '@/stores/abilitiesStore'
 import { useEquipmentStore } from '@/stores/equipmentStore'
 import { useArtStore } from '@/stores/artStore'
+import { useCharactersStore } from '@/stores/charactersStore'
 
 // Service imports
 import AbilityService from '@/services/entities/abilityService'
 import EquipmentService from '@/services/entities/equipment/equipmentService'
 
 // Props
-const props = defineProps({
-  concept: {
-    type: Object,
+const _props = defineProps({
+  itemName: {
+    type: String,
     required: true,
   },
   editable: {
@@ -89,9 +81,10 @@ const props = defineProps({
 })
 
 // Emits
-const emit = defineEmits(['close', 'update', 'edit-mode-change'])
+const emit = defineEmits(['close', 'edit-mode-change'])
 
 // Stores
+const conceptsStore = useConceptsStore()
 const expansionStore = useExpansionsStore()
 const sourcesStore = useSourcesStore()
 const abilitiesStore = useAbilitiesStore()
@@ -127,7 +120,6 @@ const {
 } = useEditModal()
 
 // Local reactive state
-const localConcept = ref({})
 const showSettingsModal = ref(false)
 const tempSettings = ref({
   backgroundImage: '',
@@ -147,45 +139,18 @@ const {
   hasUnsavedChanges,
   confirmIfUnsaved
 } = useUnsavedChanges()
+// Get selected character from store
+const charactersStore = useCharactersStore()
+const selectedCharacter = computed(() => charactersStore.selectedCharacter)
 
-// Get selected character from the character management composable
-const { selectedCharacter } = useCharacterManagement()
-
-// Methods - defined early to avoid temporal dead zone issues
-const emitUpdateEvent = () => {
-  try {
-    // Create a clean copy excluding methods and non-data properties
-    const cleanConcept = {
-      ...localConcept.value,
-      name: localConcept.value.name || '',
-      artUrls: [...(localConcept.value.artUrls || [])],
-      faces: [...(localConcept.value.faces || [])],
-      places: [...(localConcept.value.places || [])],
-      hooks: localConcept.value.hooks?.map(
-        ({ id, name, description, gmNotes }) => ({
-          id,
-          name,
-          description,
-          gmNotes,
-        }),
-      ) || [],
-      playlists: localConcept.value.playlists?.map(({ service, embedCode }) => ({
-        service,
-        embedCode,
-      })) || [],
-    }
-
-    emit('update', cleanConcept)
-  } catch (error) {
-    console.error('Error in emitUpdateEvent:', error)
-  }
-}
+// Get concept from unified concepts store (reactive ref, can be mutated directly)
+const concept = computed(() => conceptsStore.selectedItem)
 
 const {
   abilities,
   equipment,
   refreshData
-} = useConceptData(localConcept)
+} = useConceptData(concept)
 
 // Responsive layout
 const isMobile = ref(false)
@@ -197,39 +162,15 @@ const updateLayout = () => {
 
 const isDesktop = computed(() => !isMobile.value)
 
-// Concept updates
-const {
-  updateName,
-  updateDescription,
-  updateFeaturedArt,
-  updateFaces,
-  updatePlaces,
-  updateNovizio,
-  updatePlaylists,
-  updateHooks,
-  updateLocalFlavor
-} = useConceptUpdates(localConcept, emitUpdateEvent)
-
 // Computed properties
 const expansion = computed(() => {
-  if (!localConcept.value.expansion) return null
-  return expansions.value.find(e => e.id === localConcept.value.expansion) || null
+  if (!concept.value?.expansion) return null
+  return expansions.value.find(e => e.id === concept.value.expansion) || null
 })
-
-// Watchers
-watch(() => props.concept, (newConcept) => {
-  // Deep clone the concept to avoid direct mutations
-  localConcept.value = JSON.parse(JSON.stringify(newConcept))
-  localConcept.value.hooks = localConcept.value.hooks || []
-  localConcept.value.playlists = localConcept.value.playlists || []
-  localConcept.value.artUrls = localConcept.value.artUrls || []
-  localConcept.value.faces = localConcept.value.faces || []
-  localConcept.value.places = localConcept.value.places || []
-}, { immediate: true })
 
 // Methods
 const handleToggleEditMode = () => {
-  toggleEditMode(() => emitUpdateEvent())
+  toggleEditMode()
   emit('edit-mode-change', isEditMode.value)
 }
 
@@ -295,6 +236,19 @@ const openSettingsModal = () => {
 const closeSettingsModal = () => {
   showSettingsModal.value = false
 }
+
+const saveSettings = () => {
+  if (!concept.value) return
+
+  if (tempSettings.value.backgroundImage) {
+    concept.value.backgroundImage = tempSettings.value.backgroundImage
+  }
+  if (tempSettings.value.expansionId) {
+    concept.value.expansion = tempSettings.value.expansionId
+  }
+  closeSettingsModal()
+}
+
 // Lifecycle
 onMounted(async () => {
   updateLayout()
@@ -317,10 +271,12 @@ onBeforeUnmount(() => {
 // Create new abilities and equipment with concept as source
 const createNewAbility = async () => {
   try {
+    if (!concept.value) return
+
     // Create a new ability with the concept as the source
     const newAbilityData = {
       ...AbilityService.getDefaultEntity(),
-      source: localConcept.value.id
+      source: concept.value.id
     }
 
     const newAbility = await AbilityService.create(newAbilityData)
@@ -342,10 +298,12 @@ const createNewAbility = async () => {
 
 const createNewEquipment = async () => {
   try {
+    if (!concept.value) return
+
     // Create a new equipment with the concept as the source
     const newEquipmentData = {
       ...EquipmentService.getDefaultEntity(),
-      source: localConcept.value.id
+      source: concept.value.id
     }
 
     const newEquipment = await EquipmentService.create(newEquipmentData)

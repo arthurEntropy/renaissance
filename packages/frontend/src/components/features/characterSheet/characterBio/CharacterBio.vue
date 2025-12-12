@@ -63,8 +63,6 @@ const props = defineProps({
     }
 })
 
-const emit = defineEmits(['update-character'])
-
 const isViewModalOpen = ref(false)
 const isEditModalOpen = ref(false)
 const shouldReturnToView = ref(false)
@@ -111,12 +109,12 @@ const handleEditOverlayClick = () => {
     }
 }
 
+import { useCharactersStore } from '@/stores/charactersStore'
+const charactersStore = useCharactersStore()
+const selectedCharacter = charactersStore.selectedCharacter
+
 const saveChanges = () => {
-    const updatedCharacter = {
-        ...props.character,
-        personalityAndBackground: editedContent.value,
-    }
-    emit('update-character', updatedCharacter)
+    selectedCharacter.value.personalityAndBackground = editedContent.value
     closeEditModal()
 }
 </script>

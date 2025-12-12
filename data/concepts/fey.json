@@ -1,0 +1,23 @@
+{
+  "id": "f00fe427-1bb5-472c-8abb-2a394730a40a",
+  "conceptType": "ANCESTRY",
+  "name": "Fey",
+  "description": "",
+  "isDeleted": false,
+  "artUrls": [
+    "https://cdn.midjourney.com/56acc187-316c-4d6a-aba8-f64ad6b5c126/0_2.png"
+  ],
+  "faces": [],
+  "places": [],
+  "backgroundImage": "https://cdn.midjourney.com/4295a2ed-3594-42e0-8f96-1a01c321af4a/0_1.png",
+  "expansion": "e46f4320-a414-4300-95d5-397ba717d982",
+  "hooks": [],
+  "playlists": [],
+  "names": "",
+  "occupations": "",
+  "publicHouses": "",
+  "vittles": "",
+  "pointsOfInterest": "",
+  "floraFauna": "",
+  "lastModified": "2025-11-20T15:43:11.288Z"
+}

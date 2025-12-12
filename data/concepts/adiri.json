@@ -1,0 +1,32 @@
+{
+  "id": "68fadf5d-6661-4611-bb38-deaf05f01d45",
+  "conceptType": "CULTURE",
+  "name": "Adiri",
+  "description": "<p>Its former power long since worn down by war, the Human-founded city-state of Adiri remains stubbornly independent from the united lands surrounding it. Here still the long tradition of champion warfare is practiced, augmented now by the Iliyanites’ metal-shaping, which also fills the city’s bazaars with one-of-a-kind armaments. Public displays of combative skill are the centerpiece of life in the city, and those who still remember the former aspirational glory of the Adirian Empire begin to look at neighboring lands with hungry eyes…</p><p></p><p>(Iliyanites)</p><p>While nominally residents of the city-state they inexplicably fought to defend centuries ago, the small, unspeaking population of Iliyanites maintains their tradition in isolated quarters within the walls of Adiri. When they do emerge, it is to gift some new crafting to the city, to participate in the ceremonial champion battles - shaping their fighting partners’ weapons as they spar - or to make their annual pilgrimage to the Iliyanite Sands, where their ancestors long dwelled and honed their magic. Of late, however, some of the younger generation have excommunicated themselves in order to seek other uses for their gift among the riot and bustle of the burgeoning towns and cities beyond the walls of Adiri…</p>",
+  "isDeleted": false,
+  "artUrls": [
+    "https://cdn.midjourney.com/9c3c1165-785a-40c6-8d0d-d191822012d7/0_1.png"
+  ],
+  "faces": [],
+  "places": [],
+  "backgroundImage": "https://cdn.midjourney.com/8d6a4126-e11c-41f2-90a6-9a829595bdbe/0_2.png",
+  "expansion": "e46f4320-a414-4300-95d5-397ba717d982",
+  "hooks": [],
+  "playlists": [
+    {
+      "service": "apple",
+      "embedCode": "<iframe allow=\"autoplay *; encrypted-media *;\" frameborder=\"0\" height=\"450\" style=\"width:100%;max-width:660px;overflow:hidden;background:transparent;\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation\" src=\"https://embed.music.apple.com/us/playlist/adiri-calm/pl.u-yZyVjV1CqRNX7y?theme=dark\"></iframe>"
+    },
+    {
+      "service": "apple",
+      "embedCode": "<iframe allow=\"autoplay *; encrypted-media *;\" frameborder=\"0\" height=\"450\" style=\"width:100%;max-width:660px;overflow:hidden;background:transparent;\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation\" src=\"https://embed.music.apple.com/us/playlist/adiri-action/pl.u-zPyLJL3uxaR5Xr?theme=dark\"></iframe>"
+    }
+  ],
+  "names": "Bakari, Asha, Jabari, Nia, Idrissa, Zuberi, Malika, Ayodele, Tariq, Imani, Sekou, Halima, Nuru, Kofi, Adama, Salif, Zara, Amadou, Kenza, Faizah",
+  "occupations": "Smith, Champion, Herder, Sandwalker Guide, Bazaar Merchant, Storykeeper, Herbalist, Water Bearer, Tiler, Drum Maker, Oracle, Armor Carver, Scribe, Sandglass Maker, Dancer",
+  "publicHouses": "The Bronze Fang, The Arena’s Edge, The Red Sand Cup, The Ember Gate, The Golden Horn,  Champion's Arms",
+  "vittles": "Spiced Lamb, Flatbread, Date Paste, Honeyed Millet, Roasted Chickpeas, Grilled Eggplant, Fig Jam, Stewed Okra, Mint Tea, Tamarind Juice, Fried Locusts, Almond Couscous, Pomegranate Seeds, Goat Stew, Smoked Fish",
+  "pointsOfInterest": "The Arena of Echoes, The Forge of Kings, The Painted Gate, The Moonlit Bazaar, The Whispering Obelisk, The Fountain of Ancestry",
+  "floraFauna": "Acacia, Baobab, Date Palm, Desert Rose, Henna, Myrrh, Scorpion, Dromedary, Monitor Lizard, Sand Cat, Jerboa, Desert Hawk, Horned Viper, Gazelle, Fire Beetle",
+  "lastModified": "2025-12-12T16:10:57.773Z"
+}

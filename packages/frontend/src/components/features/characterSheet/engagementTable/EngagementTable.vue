@@ -102,9 +102,14 @@ const showSuccessDropdown = successDropdown.isOpen
 const diceDropdownPosition = diceDropdown.position
 const successDropdownPosition = successDropdown.position
 
+// Store
+import { useCharactersStore } from '@/stores/charactersStore'
+const charactersStore = useCharactersStore()
+const selectedCharacter = charactersStore.selectedCharacter
+
 // Methods
 const updateCharacter = (updatedCharacter) => {
-  emit('update:character', updatedCharacter)
+  Object.assign(selectedCharacter.value, updatedCharacter)
 }
 
 const rollSelectedDice = () => {

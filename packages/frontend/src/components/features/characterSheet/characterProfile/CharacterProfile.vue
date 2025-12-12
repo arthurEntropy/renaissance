@@ -1,7 +1,7 @@
 <template>
   <CharacterSheetSection custom-class="character-profile" min-width="350px" max-width="390px">
-    <CharacterArt :character="character" :is-edit-mode="isEditMode" @update-character="handleCharacterUpdate" />
-    <CharacterVitals :character="character" :is-edit-mode="isEditMode" @update-character="handleCharacterUpdate" />
+    <CharacterArt :character="character" :is-edit-mode="isEditMode" />
+    <CharacterVitals :character="character" :is-edit-mode="isEditMode" />
 
     <!-- XP Badge -->
     <div class="xp-badge">
@@ -17,6 +17,7 @@ import CharacterArt from './CharacterArt.vue'
 import CharacterVitals from './CharacterVitals.vue'
 import CharacterSheetSection from '@/components/ui/containers/CharacterSheetSection.vue'
 import NumberInput from '@/components/ui/forms/NumberInput.vue'
+import { useCharactersStore } from '@/stores/charactersStore'
 
 const { character, isEditMode } = defineProps({
   character: {
@@ -29,14 +30,11 @@ const { character, isEditMode } = defineProps({
   }
 })
 
-const emit = defineEmits(['update-character'])
-
-const handleCharacterUpdate = (updatedCharacter) => {
-  emit('update-character', updatedCharacter)
-}
+const charactersStore = useCharactersStore()
+const selectedCharacter = charactersStore.selectedCharacter
 
 const updateXP = (newValue) => {
-  emit('update-character', { ...character, xp: newValue })
+  selectedCharacter.value.xp = newValue
 }
 </script>
 

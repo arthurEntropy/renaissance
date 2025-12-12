@@ -9,7 +9,8 @@
 <script setup>
 import { computed } from 'vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
-import { useCharacterManagement } from '@/composables/useCharacterManagement'
+import { useCharactersStore } from '@/stores/charactersStore'
+import CharacterService from '@/services/entities/characterService'
 
 const props = defineProps({
     item: {
@@ -24,7 +25,8 @@ const props = defineProps({
 
 const emit = defineEmits(['added'])
 
-const { selectedCharacter, addAbilityToCharacter, addEquipmentToCharacter } = useCharacterManagement()
+const charactersStore = useCharactersStore()
+const selectedCharacter = computed(() => charactersStore.selectedCharacter)
 const hasSelectedCharacter = computed(() => selectedCharacter.value != null)
 const selectedCharacterName = computed(() => selectedCharacter.value?.name || 'Character')
 
@@ -40,14 +42,19 @@ const alreadyAdded = computed(() => {
 })
 
 const handleAdd = () => {
-    if (alreadyAdded.value) return
-    let success = false
+    if (alreadyAdded.value || !selectedCharacter.value) return
+
+    let updatedCharacter = null
     if (props.type === 'ability') {
-        success = addAbilityToCharacter(props.item)
+        updatedCharacter = CharacterService.addAbilityToCharacter(selectedCharacter.value, props.item)
     } else if (props.type === 'equipment') {
-        success = addEquipmentToCharacter(props.item)
+        updatedCharacter = CharacterService.addEquipmentToCharacter(selectedCharacter.value, props.item)
     }
-    if (success) emit('added', props.item)
+
+    if (updatedCharacter) {
+        Object.assign(selectedCharacter.value, updatedCharacter)
+        emit('added', props.item)
+    }
 }
 </script>
 

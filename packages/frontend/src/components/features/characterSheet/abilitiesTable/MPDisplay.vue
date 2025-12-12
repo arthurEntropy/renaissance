@@ -11,8 +11,9 @@
 
 <script setup>
 import NumberInput from '@/components/ui/forms/NumberInput.vue'
+import { useCharactersStore } from '@/stores/charactersStore'
 
-const props = defineProps({
+defineProps({
     mp: {
         type: Object,
         required: true,
@@ -26,23 +27,18 @@ const props = defineProps({
     }
 })
 
-const emit = defineEmits(['update:mp'])
+const charactersStore = useCharactersStore()
+const selectedCharacter = charactersStore.selectedCharacter
 
 const updateCurrent = (value) => {
     if (!isNaN(value)) {
-        emit('update:mp', {
-            ...props.mp,
-            current: value,
-        })
+        selectedCharacter.value.mp.current = value
     }
 }
 
 const updateMax = (value) => {
     if (!isNaN(value)) {
-        emit('update:mp', {
-            ...props.mp,
-            max: value,
-        })
+        selectedCharacter.value.mp.max = value
     }
 }
 </script>

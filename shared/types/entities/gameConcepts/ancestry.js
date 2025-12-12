@@ -1,4 +1,4 @@
-import { createDefaultGameConcept } from './gameConcept.js'
+import { createDefaultGameConcept, ConceptType } from './gameConcept.js'
 
 /**
  * @typedef {import('./gameConcept.js').GameConcept} Ancestry
@@ -9,5 +9,5 @@ import { createDefaultGameConcept } from './gameConcept.js'
  * @returns {Ancestry}
  */
 export function createDefaultAncestry() {
-  return createDefaultGameConcept('Ancestry')
+  return createDefaultGameConcept(ConceptType.ANCESTRY)
 }

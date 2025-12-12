@@ -48,9 +48,6 @@ const props = defineProps({
     }
 })
 
-// Emits
-const emit = defineEmits(['update-character'])
-
 // Modal management
 const fullSizeModal = useModal()
 const changeArtModal = useModal()
@@ -80,13 +77,15 @@ const openChangeArtModal = () => {
     changeArtModal.openModal()
 }
 
+import { useCharactersStore } from '@/stores/charactersStore'
+const charactersStore = useCharactersStore()
+const selectedCharacter = charactersStore.selectedCharacter
+
 const saveArtUrl = () => {
-    const updatedCharacter = { ...props.character }
-    if (!updatedCharacter.artUrls) {
-        updatedCharacter.artUrls = []
+    if (!selectedCharacter.value.artUrls) {
+        selectedCharacter.value.artUrls = []
     }
-    updatedCharacter.artUrls[0] = tempArtUrl.value
-    emit('update-character', updatedCharacter)
+    selectedCharacter.value.artUrls[0] = tempArtUrl.value
     changeArtModal.closeModal()
 }
 

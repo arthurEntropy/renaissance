@@ -9,10 +9,8 @@
             <div class="scrollable-wrapper">
                 <div class="scrollable-content">
                     <div class="top-section">
-                        <CharacterProfile :character="localCharacter" :is-edit-mode="isEditMode"
-                            @update-character="updateCharacter" />
-                        <CharacterBio :character="localCharacter" :is-edit-mode="isEditMode"
-                            @update-character="updateCharacter" />
+                        <CharacterProfile :character="localCharacter" :is-edit-mode="isEditMode" />
+                        <CharacterBio :character="localCharacter" :is-edit-mode="isEditMode" />
                         <DiceRollResults :latestRoll="latestRoll" :customDiceRollerOpen="showCustomDiceRoller"
                             :is-edit-mode="isEditMode" @toggle-custom-dice="toggleCustomDiceRoller"
                             @reroll-all-dice="handleRerollDice" />
@@ -20,21 +18,19 @@
 
                     <div class="character-stats-section">
                         <CoreAbilityColumn :character="localCharacter" :is-edit-mode="isEditMode" column="body"
-                            @update-character="updateCharacter" @open-skill-check="openSkillCheckModal" />
+                            @open-skill-check="openSkillCheckModal" />
                         <CoreAbilityColumn :character="localCharacter" :is-edit-mode="isEditMode" column="heart"
-                            @update-character="updateCharacter" @open-skill-check="openSkillCheckModal" />
+                            @open-skill-check="openSkillCheckModal" />
                         <CoreAbilityColumn :character="localCharacter" :is-edit-mode="isEditMode" column="wits"
-                            @update-character="updateCharacter" @open-skill-check="openSkillCheckModal" />
-                        <ConditionsColumn :character="localCharacter" :is-edit-mode="isEditMode"
-                            @update:character="updateCharacter" />
+                            @open-skill-check="openSkillCheckModal" />
+                        <ConditionsColumn :character="localCharacter" :is-edit-mode="isEditMode" />
                         <EquipmentTable :equipment="localCharacter.equipment" :allEquipment="allEquipment"
-                            :character="localCharacter" :is-edit-mode="isEditMode" @update-character="updateCharacter"
+                            :character="localCharacter" :is-edit-mode="isEditMode"
                             @edit-custom-equipment="openEditEquipmentModal" />
                         <AbilitiesTable :character="localCharacter" :allAbilities="allAbilities"
-                            :is-edit-mode="isEditMode" @update-character="updateCharacter" />
+                            :is-edit-mode="isEditMode" />
                         <EngagementTable :character="localCharacter" :allEquipment="allEquipment"
-                            :is-edit-mode="isEditMode" @update:character="updateCharacter"
-                            @engagement-results="handleEngagementResult" />
+                            :is-edit-mode="isEditMode" @engagement-results="handleEngagementResult" />
                     </div>
                 </div>
             </div>
@@ -42,8 +38,7 @@
             <!-- Pop-out Custom Dice Roller -->
             <transition name="slide-fade">
                 <CustomDiceRoller v-if="showCustomDiceRoller" :character="localCharacter"
-                    @update-character="updateCharacter" @custom-roll="handleCustomRollResult"
-                    class="pop-out-dice-roller" />
+                    @custom-roll="handleCustomRollResult" class="pop-out-dice-roller" />
             </transition>
         </div>
 
@@ -72,18 +67,21 @@
 <script setup>
 import { computed, ref, onMounted } from 'vue'
 import { useModal } from '@/composables/useModal'
+import { useEditModal } from '@/composables/useEditModal'
 import { useSkillCheck } from '@/composables/useSkillCheck'
 import { useOpposedSkillCheck } from '@/composables/useOpposedSkillCheck'
 import { useDiceResults } from '@/composables/useDiceResults'
-import { useEquipmentManagement } from '@/composables/useEquipmentManagement'
-import { useCharacterManagement } from '@/composables/useCharacterManagement'
 import { useCharacterEditMode } from '@/composables/useCharacterEditMode'
+import { useCharacterStatWatchers } from '@/composables/useCharacterStatWatchers'
+import { useCharactersStore } from '@/stores/charactersStore'
 import { useEquipmentTypesStore } from '@/stores/equipmentTypesStore'
 import { useEquipmentSubtypesStore } from '@/stores/equipmentSubtypesStore'
 import { useEquipmentGradesStore } from '@/stores/equipmentGradesStore'
+import { useEquipmentStore } from '@/stores/equipmentStore'
 import { useKeepingStore } from '@/stores/keepingStore'
 import { useSourcesStore } from '@/stores/sourcesStore'
 import EngagementSuccessService from '@/services/entities/engagementSuccessService'
+import EquipmentService from '@/services/entities/equipment/equipmentService'
 import CharacterProfile from '@/components/features/characterSheet/characterProfile/CharacterProfile.vue'
 import CharacterBio from '@/components/features/characterSheet/characterBio/CharacterBio.vue'
 import CoreAbilityColumn from '@/components/features/characterSheet/coreAbilityColumns/CoreAbilityColumn.vue'
@@ -109,7 +107,7 @@ const props = defineProps({
     }
 })
 
-const emit = defineEmits(['close', 'update:character', 'delete:character'])
+const emit = defineEmits(['close', 'delete:character'])
 
 // Stores
 const equipmentTypesStore = useEquipmentTypesStore()
@@ -122,18 +120,22 @@ const sources = sourcesStore.sources
 // Reactive state for modal data
 const engagementSuccessOptions = ref([])
 
-// Character management with automatic watchers
-const {
-    selectedCharacter,
-    updateCharacter: updateCharacterService,
-    watchCharacterStats
-} = useCharacterManagement(computed(() => props.allEquipment || []))
-
-// Start watching for automatic state recalculation
-watchCharacterStats()
+// Get selected character from store
+const charactersStore = useCharactersStore()
+const selectedCharacter = computed({
+    get() {
+        return charactersStore.selectedCharacter
+    },
+    set(value) {
+        charactersStore.selectedCharacter = value
+    }
+})
 
 // Use selectedCharacter as localCharacter for backward compatibility
 const localCharacter = selectedCharacter
+
+// Setup automatic character stat watchers for auto-save and recalculation
+useCharacterStatWatchers(selectedCharacter, computed(() => props.allEquipment || []))
 
 // Edit mode management - auto-enable if user has permission
 const {
@@ -247,38 +249,34 @@ const handleRerollDice = () => {
 }
 
 // Equipment management
+const equipmentStore = useEquipmentStore()
+
 const {
-    showEditEquipmentModal,
-    equipmentToEdit,
-    openEditEquipmentModal,
-    closeEditEquipmentModal,
-    saveEditedEquipment,
-    deleteEquipment
-} = useEquipmentManagement()
+    showModal: showEditEquipmentModal,
+    itemToEdit: equipmentToEdit,
+    openModal: openEditEquipmentModal,
+    closeModal: closeEditEquipmentModal
+} = useEditModal()
 
-// Character update handler
-const updateCharacter = (updatedCharacter) => {
-    // Always allow UI state updates (collapsed/showImprovements)
-    // Only require edit mode for actual character data changes
-    const isUIStateUpdate = updatedCharacter.abilities?.some((ability, index) => {
-        const oldAbility = localCharacter.value.abilities?.[index]
-        if (!oldAbility) return false
+const saveEditedEquipment = async (updatedEquipment) => {
+    try {
+        await EquipmentService.update(updatedEquipment)
+        await equipmentStore.fetch()
+    } catch (error) {
+        console.error('Error saving equipment:', error)
+        throw error
+    }
+}
 
-        const oldId = typeof oldAbility === 'string' ? oldAbility : oldAbility.id
-        const newId = typeof ability === 'string' ? ability : ability.id
-
-        // If it's the same ability with only UI state changes, allow it
-        return oldId === newId &&
-            (ability.collapsed !== oldAbility.collapsed ||
-                ability.showImprovements !== oldAbility.showImprovements)
-    })
-
-    // Block non-UI updates when not in edit mode
-    if (!isEditMode.value && !isUIStateUpdate) return
-
-    // Use the character management service which triggers automatic watchers
-    updateCharacterService(updatedCharacter)
-    emit('update:character', updatedCharacter)
+const deleteEquipment = async (equipment) => {
+    try {
+        await EquipmentService.delete(equipment)
+        await equipmentStore.fetch()
+        closeEditEquipmentModal()
+    } catch (error) {
+        console.error('Error deleting equipment:', error)
+        throw error
+    }
 }
 
 // Fetch engagement success options for equipment modal

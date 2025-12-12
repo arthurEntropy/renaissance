@@ -35,15 +35,11 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
-import { useAncestriesStore } from '@/stores/ancestriesStore'
-import { useCulturesStore } from '@/stores/culturesStore'
-import { useMestieriStore } from '@/stores/mestieriStore'
+import { useConceptsStore } from '@/stores/conceptsStore'
 import EditButton from '@/components/ui/buttons/EditButton.vue'
 import CharacterVitalsEditModal from './CharacterVitalsEditModal.vue'
 
-const ancestryStore = useAncestriesStore()
-const cultureStore = useCulturesStore()
-const mestiereStore = useMestieriStore()
+const conceptsStore = useConceptsStore()
 
 const props = defineProps({
     character: {
@@ -56,13 +52,11 @@ const props = defineProps({
     }
 })
 
-const emit = defineEmits(['update-character'])
-
 const isEditModalOpen = ref(false)
 
 const displayAncestries = computed(() => {
     if (!props.character.ancestryIds?.length) return ''
-    return ancestryStore.ancestries
+    return conceptsStore.ancestries
         .filter(a => props.character.ancestryIds.includes(a.id))
         .map(a => a.name)
         .join(', ')
@@ -70,7 +64,7 @@ const displayAncestries = computed(() => {
 
 const displayCultures = computed(() => {
     if (!props.character.cultureIds?.length) return ''
-    return cultureStore.cultures
+    return conceptsStore.cultures
         .filter(c => props.character.cultureIds.includes(c.id))
         .map(c => c.name)
         .join(', ')
@@ -78,7 +72,7 @@ const displayCultures = computed(() => {
 
 const displayMestiere = computed(() => {
     if (!props.character.mestiereId) return ''
-    const mestiere = mestiereStore.mestieri.find(m => m.id === props.character.mestiereId)
+    const mestiere = conceptsStore.mestieri.find(m => m.id === props.character.mestiereId)
     return mestiere?.name || ''
 })
 
@@ -90,14 +84,16 @@ const closeEditModal = () => {
     isEditModalOpen.value = false
 }
 
+import { useCharactersStore } from '@/stores/charactersStore'
+const charactersStore = useCharactersStore()
+const selectedCharacter = charactersStore.selectedCharacter
+
 const handleCharacterUpdate = (updatedCharacter) => {
-    emit('update-character', updatedCharacter)
+    Object.assign(selectedCharacter.value, updatedCharacter)
 }
 
 onMounted(() => {
-    ancestryStore.fetch()
-    cultureStore.fetch()
-    mestiereStore.fetch()
+    conceptsStore.fetch()
 })
 </script>
 

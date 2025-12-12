@@ -3,14 +3,15 @@
 </template>
 
 <script setup>
-import { useCulturesStore } from '@/stores/culturesStore'
-import CultureService from '@/services/entities/gameConcepts/cultureService'
+import { useConceptsStore } from '@/stores/conceptsStore'
+import ConceptService from '@/services/entities/conceptService'
 import ConceptsLayout from '@/components/ui/layouts/ConceptsLayout.vue'
 import { useConceptsLayout } from '@/composables/useConceptsLayout'
 
-const culturesStore = useCulturesStore()
+const conceptsStore = useConceptsStore()
 
-const { layoutProps } = useConceptsLayout(culturesStore, CultureService, {
-  conceptsProperty: 'cultures'
+const { layoutProps } = useConceptsLayout(conceptsStore, ConceptService, {
+  conceptsProperty: 'cultures',
+  itemName: 'Culture'
 })
 </script>

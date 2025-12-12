@@ -138,21 +138,22 @@ import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import { useEditMode } from '@/composables/useEditMode'
 import { useUnsavedChanges } from '@/composables/useUnsavedChanges'
 import { sanitizeHtml } from '@/utils/sanitizeHtml'
+import { useConceptsStore } from '@/stores/conceptsStore'
 
 // Props
 const props = defineProps({
-  novizio: {
-    type: Object,
-    default: null,
-  },
   editable: {
     type: Boolean,
     default: false,
   },
 })
 
+// Get concept from store
+const conceptsStore = useConceptsStore()
+const concept = computed(() => conceptsStore.selectedItem)
+
 // Emits
-const emit = defineEmits(['update', 'unsaved-changes', 'reset-unsaved-changes'])
+const emit = defineEmits(['unsaved-changes', 'reset-unsaved-changes'])
 
 // Helper function to get default novizio structure
 const getDefaultNovizio = () => ({
@@ -168,13 +169,14 @@ const getDefaultNovizio = () => ({
 })
 
 // Reactive state
-const localNovizio = ref(props.novizio ? { ...props.novizio } : getDefaultNovizio())
+const localNovizio = ref(concept.value?.novizio ? { ...concept.value.novizio } : getDefaultNovizio())
 const isSectionEditing = ref(false)
 
 // Edit mode composable
 const editMode = useEditMode({
   onSave: () => {
-    emit('update', { ...localNovizio.value })
+    // Directly mutate concept.novizio
+    concept.value.novizio = { ...localNovizio.value }
     unsavedChanges.markAsSaved()
   },
   onCancel: (restoredData) => {
@@ -191,22 +193,24 @@ const unsavedChanges = useUnsavedChanges(emit, () => {
 })
 
 // Computed properties
+const novizio = computed(() => concept.value?.novizio)
+
 const hasAnyMartialTraining = computed(() => {
-  const n = props.novizio || {}
+  const n = concept.value?.novizio || {}
   return [n.melee, n.polearms, n.ranged, n.firearms, n.armor].some(val => val && val.trim() !== '')
 })
 
 const hasAnyNovizioData = computed(() => {
-  const n = props.novizio || {}
+  const n = concept.value?.novizio || {}
   return [n.flavorText, n.melee, n.polearms, n.ranged, n.firearms, n.armor, n.engagement, n.initialMaxMP, n.abilities].some(val => {
     if (typeof val === 'number') return val > 1
     return val && val.toString().trim() !== ''
   })
 })
 
-const safeFlavorText = computed(() => sanitizeHtml(props.novizio?.flavorText))
-const safeEngagement = computed(() => sanitizeHtml(props.novizio?.engagement))
-const safeAbilities = computed(() => sanitizeHtml(props.novizio?.abilities))
+const safeFlavorText = computed(() => sanitizeHtml(concept.value?.novizio?.flavorText))
+const safeEngagement = computed(() => sanitizeHtml(concept.value?.novizio?.engagement))
+const safeAbilities = computed(() => sanitizeHtml(concept.value?.novizio?.abilities))
 
 // Methods
 const toggleEdit = () => {
@@ -255,7 +259,7 @@ defineExpose({
 })
 
 // Watchers
-watch(() => props.novizio, (newVal) => {
+watch(() => concept.value?.novizio, (newVal) => {
   if (!isSectionEditing.value) {
     const newData = newVal ? { ...newVal } : getDefaultNovizio()
     // Only update if the data is actually different

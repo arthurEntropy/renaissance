@@ -6,8 +6,7 @@
     :showSource="showSource" @edit="$emit('edit', equipment)" @duplicate="handleDuplicate" :collapsible="collapsible">
 
     <!-- Add to character overlay -->
-    <AddToCharacterButton v-if="equipment && showAddToCharacter" :item="equipment" type="equipment"
-      :addFn="addEquipmentToCharacter" />
+    <AddToCharacterButton v-if="equipment && showAddToCharacter" :item="equipment" type="equipment" />
 
     <!-- Equipment Categories Display -->
     <template #category>
@@ -104,7 +103,6 @@ import SuccessChip from '@/components/ui/chips/SuccessChip.vue'
 import EngagementSuccessService from '@/services/entities/engagementSuccessService'
 import EquipmentService from '@/services/entities/equipment/equipmentService'
 import { getDiceFontMaxClass } from '@/utils/diceFontUtils'
-import { useCharacterManagement } from '@/composables/useCharacterManagement'
 
 defineOptions({
   inheritAttrs: false
@@ -153,7 +151,6 @@ const equipmentTypesStore = useEquipmentTypesStore()
 const equipmentSubtypesStore = useEquipmentSubtypesStore()
 const equipmentGradesStore = useEquipmentGradesStore()
 const equipmentRangesStore = useEquipmentRangesStore()
-const { addEquipmentToCharacter } = useCharacterManagement()
 
 // Computed properties
 const isWeapon = computed(() => {

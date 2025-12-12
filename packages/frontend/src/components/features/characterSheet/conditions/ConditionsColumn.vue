@@ -26,7 +26,7 @@ import CharacterSheetSection from '@/components/ui/containers/CharacterSheetSect
 import NumberInput from '@/components/ui/forms/NumberInput.vue'
 import * as CharacterUtils from '@shared/types/entities/characterUtils'
 
-const props = defineProps({
+defineProps({
     character: {
         type: Object,
         required: true
@@ -37,7 +37,9 @@ const props = defineProps({
     }
 })
 
-const emit = defineEmits(['update:character'])
+import { useCharactersStore } from '@/stores/charactersStore'
+const charactersStore = useCharactersStore()
+const selectedCharacter = charactersStore.selectedCharacter
 
 const capitalize = (s) => {
     const str = String(s || '')
@@ -45,24 +47,13 @@ const capitalize = (s) => {
 }
 
 const updateCondition = (conditionKey, value) => {
-    const updatedCharacter = {
-        ...props.character,
-        conditions: {
-            ...props.character.conditions,
-            [conditionKey]: value
-        }
-    }
-    CharacterUtils.updateDiceMods(updatedCharacter)
-    CharacterUtils.updateFavoredStatus(updatedCharacter)
-    emit('update:character', updatedCharacter)
+    selectedCharacter.value.conditions[conditionKey] = value
+    CharacterUtils.updateDiceMods(selectedCharacter.value)
+    CharacterUtils.updateFavoredStatus(selectedCharacter.value)
 }
 
 const updateSpeed = (value) => {
-    const updatedCharacter = {
-        ...props.character,
-        speed: value
-    }
-    emit('update:character', updatedCharacter)
+    selectedCharacter.value.speed = value
 }
 </script>
 

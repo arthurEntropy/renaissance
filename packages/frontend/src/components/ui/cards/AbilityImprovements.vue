@@ -75,7 +75,7 @@ const props = defineProps({
     }
 })
 
-const emit = defineEmits(['toggle-improvement', 'update:character'])
+const emit = defineEmits(['toggle-improvement'])
 
 // Composable for improvement management
 const { hasImprovement } = useAbilityImprovements()
@@ -129,10 +129,6 @@ const isImprovementOwned = (improvementId) => {
 
 const handleImprovementToggle = (improvementId) => {
     emit('toggle-improvement', improvementId)
-}
-
-const handleCharacterUpdate = (updatedCharacter) => {
-    emit('update:character', updatedCharacter)
 }
 
 const getUnownedDescriptionClasses = () => {

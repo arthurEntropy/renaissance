@@ -77,21 +77,22 @@ import InfoCard from './InfoCard.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import { useEditMode } from '@/composables/useEditMode'
 import { useUnsavedChanges } from '@/composables/useUnsavedChanges'
+import { useConceptsStore } from '@/stores/conceptsStore'
 
 // Props
 const props = defineProps({
-  data: {
-    type: Object,
-    required: true,
-  },
   editable: {
     type: Boolean,
     default: false,
   },
 })
 
+// Get concept from store
+const conceptsStore = useConceptsStore()
+const concept = computed(() => conceptsStore.selectedItem)
+
 // Emits
-const emit = defineEmits(['update', 'unsaved-changes', 'reset-unsaved-changes'])
+const emit = defineEmits(['unsaved-changes', 'reset-unsaved-changes'])
 
 // Reactive state
 const localData = ref({
@@ -106,7 +107,8 @@ const localData = ref({
 // Edit mode composable
 const editMode = useEditMode({
   onSave: (data) => {
-    emit('update', { ...data })
+    // Directly mutate concept properties
+    Object.assign(concept.value, data)
     unsavedChanges.markAsSaved()
   },
   onCancel: (restoredData) => {
@@ -161,8 +163,16 @@ const cancelEdit = () => {
 }
 
 // Watchers
-watch(() => props.data, (newValue) => {
-  localData.value = { ...newValue }
+watch(concept, (newConcept) => {
+  if (!newConcept) return
+  localData.value = {
+    names: newConcept.names || '',
+    occupations: newConcept.occupations || '',
+    publicHouses: newConcept.publicHouses || '',
+    vittles: newConcept.vittles || '',
+    pointsOfInterest: newConcept.pointsOfInterest || '',
+    floraFauna: newConcept.floraFauna || ''
+  }
 }, { immediate: true })
 
 watch(localData, () => {

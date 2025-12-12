@@ -70,21 +70,19 @@ import ConceptSection from './ConceptSection.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import { useEditMode } from '@/composables/useEditMode'
 import { sanitizeEmbedHtml } from '@/utils/sanitizeHtml'
+import { useConceptsStore } from '@/stores/conceptsStore'
 
 // Props
 const props = defineProps({
-  playlists: {
-    type: Array,
-    default: () => [],
-  },
   editable: {
     type: Boolean,
     default: false,
   },
 })
 
-// Emits
-const emit = defineEmits(['update'])
+// Get concept from store
+const conceptsStore = useConceptsStore()
+const concept = computed(() => conceptsStore.selectedItem)
 
 // Reactive state
 const playlistService = ref('apple')
@@ -95,7 +93,8 @@ const editMode = useEditMode({
   onSave: () => {
     // Process Apple Music embed codes to ensure dark theme
     processAppleEmbedCodes()
-    emit('update', localPlaylists.value)
+    // Directly mutate concept.playlists
+    concept.value.playlists = [...localPlaylists.value]
   },
   onCancel: (restoredData) => {
     if (restoredData) {
@@ -192,16 +191,9 @@ const processAppleEmbedCodes = () => {
 const safeEmbed = (html) => sanitizeEmbedHtml(html)
 
 // Watchers
-watch(() => props.playlists, (newPlaylists) => {
+watch(() => concept.value?.playlists, (newPlaylists) => {
   localPlaylists.value = JSON.parse(JSON.stringify(newPlaylists || []))
 }, { immediate: true })
-
-watch(localPlaylists, () => {
-  if (isSectionEditing.value) {
-    // Track changes for unsaved state detection
-    editMode.trackChanges(localPlaylists.value)
-  }
-}, { deep: true })
 
 watch(() => props.editable, (newEditable) => {
   if (!newEditable && isSectionEditing.value) {

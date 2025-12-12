@@ -1,0 +1,23 @@
+{
+  "id": "fffc6b74-d66f-4270-a8b4-e045433ae176",
+  "conceptType": "ANCESTRY",
+  "name": "Gnome",
+  "description": "",
+  "isDeleted": false,
+  "artUrls": [
+    "https://cdn.midjourney.com/353a461b-7107-4426-a4a8-c2e536ce42da/0_2.png"
+  ],
+  "faces": [],
+  "places": [],
+  "backgroundImage": "https://cdn.midjourney.com/a1d1d315-007f-468f-a4d6-bc7147f4efe7/0_2.png",
+  "expansion": "",
+  "hooks": [],
+  "playlists": [],
+  "names": "",
+  "occupations": "",
+  "publicHouses": "",
+  "vittles": "",
+  "pointsOfInterest": "",
+  "floraFauna": "",
+  "lastModified": "2025-11-20T15:45:38.860Z"
+}

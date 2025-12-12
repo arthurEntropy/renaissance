@@ -3,14 +3,15 @@
 </template>
 
 <script setup>
-import { useMestieriStore } from '@/stores/mestieriStore'
-import MestiereService from '@/services/entities/gameConcepts/mestiereService'
+import { useConceptsStore } from '@/stores/conceptsStore'
+import ConceptService from '@/services/entities/conceptService'
 import ConceptsLayout from '@/components/ui/layouts/ConceptsLayout.vue'
 import { useConceptsLayout } from '@/composables/useConceptsLayout'
 
-const mestieriStore = useMestieriStore()
+const conceptsStore = useConceptsStore()
 
-const { layoutProps } = useConceptsLayout(mestieriStore, MestiereService, {
-  conceptsProperty: 'mestieri'
+const { layoutProps } = useConceptsLayout(conceptsStore, ConceptService, {
+  conceptsProperty: 'mestieri',
+  itemName: 'Mestiere'
 })
 </script>

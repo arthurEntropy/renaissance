@@ -1,12 +1,6 @@
 import { ref, watch } from 'vue'
 import { useEditMode } from './useEditMode'
 
-/**
- * Composable for tracking unsaved changes and emitting appropriate events
- * @param {Function} emit - The emit function from the component
- * @param {Function} hasChanges - Function that returns boolean indicating if there are changes
- * @returns {Object} Unsaved changes utilities
- */
 export function useUnsavedChanges(emit, hasChanges) {
   const hasUnsavedChanges = ref(false)
 
@@ -42,12 +36,6 @@ export function useUnsavedChanges(emit, hasChanges) {
   }
 }
 
-/**
- * Composable that combines edit mode with unsaved changes tracking
- * @param {Function} emit - The emit function from the component
- * @param {Function} onUpdate - Callback when data should be updated
- * @returns {Object} Combined edit mode and unsaved changes utilities
- */
 export function useEditWithUnsavedChanges(emit, onUpdate = () => {}) {
   const editMode = useEditMode({
     onSave: (data) => {

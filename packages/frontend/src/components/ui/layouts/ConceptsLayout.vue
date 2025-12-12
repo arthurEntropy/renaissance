@@ -18,12 +18,11 @@
 
       <!-- Character Sheet Modal -->
       <CharacterSheetModal v-if="modalComponent === 'CharacterSheetModal'" :key="`character-${conceptDetailKey}`"
-        v-bind="customModalProps" @close="closeConceptDetail" @update:character="updateConcept"
-        @delete:character="deleteConcept" />
+        v-bind="customModalProps" @close="closeConceptDetail" @delete:character="deleteConcept" />
 
       <!-- Concept Detail Modal -->
-      <ConceptDetail v-else :key="`concept-${conceptDetailKey}`" :concept="selectedConcept" :editable="isAdmin"
-        @close="closeConceptDetail" @update="updateConcept" />
+      <ConceptDetail v-else :key="`concept-${conceptDetailKey}`" :item-name="itemName" :editable="isAdmin"
+        @close="closeConceptDetail" />
     </NavigationControls>
   </div>
 </template>
@@ -34,6 +33,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { useExpansionsStore } from '@/stores/expansionsStore'
 import { useSourcesStore } from '@/stores/sourcesStore'
 import { useCharactersStore } from '@/stores/charactersStore'
+import { useConceptsStore } from '@/stores/conceptsStore'
 import { useAuthStore } from '@/stores/authStore'
 import { useFilterPersistence } from '@/composables/useFilterPersistence'
 import ConceptCard from '@/components/ui/cards/ConceptCard.vue'
@@ -86,6 +86,7 @@ const props = defineProps({
 const expansionStore = useExpansionsStore()
 const sourcesStore = useSourcesStore()
 const charactersStore = useCharactersStore()
+const conceptsStore = useConceptsStore()
 const authStore = useAuthStore()
 const route = useRoute()
 const router = useRouter()
@@ -94,16 +95,41 @@ const sources = sourcesStore.sources
 // Check if user is admin
 const isAdmin = computed(() => authStore.isAdmin)
 
-const selectedConcept = ref(null)
+// Use store-based selection (like CharacterSheet pattern)
+const selectedConcept = computed(() => {
+  // For character modals, use charactersStore
+  if (props.modalComponent === 'CharacterSheetModal') {
+    return charactersStore.selectedCharacter
+  }
+  // For concept modals, use conceptsStore
+  return conceptsStore.selectedItem
+})
+
 const showConceptDetail = ref(false)
 const expansions = ref([])
 const conceptDetailKey = ref(0)
 const searchQuery = ref('')
 const expansionFilter = ref('')
 
-// Filter persistence - use a storage key based on itemName
+// Debounced auto-save for concept changes
+let saveTimeout = null
+watch(selectedConcept, (newVal) => {
+  if (!newVal || !showConceptDetail.value) return
+
+  if (saveTimeout) clearTimeout(saveTimeout)
+  saveTimeout = setTimeout(async () => {
+    try {
+      await props.updateConceptFn(newVal)
+      await props.refreshDataFn()
+    } catch (error) {
+      console.error(`Error auto-saving ${props.itemName}:`, error)
+    }
+  }, 500)
+}, { deep: true })
+
+// Filter persistence - auto-initializes based on itemName
 const storageKey = computed(() => props.itemName.toLowerCase().replace(/\s+/g, '-'))
-const { initialize: initializeFilterPersistence } = useFilterPersistence(
+useFilterPersistence(
   storageKey.value,
   {
     searchQuery,
@@ -177,26 +203,18 @@ const createConcept = async () => {
 
     // Find the freshly fetched concept by id
     const conceptFromStore = props.concepts.find(c => c.id === createdConcept.id)
-    selectedConcept.value = conceptFromStore || createdConcept
+    const conceptToSelect = conceptFromStore || createdConcept
 
-    // If this is a character modal, also set it as the selected character in the store
+    // Set selection in appropriate store
     if (props.modalComponent === 'CharacterSheetModal') {
-      charactersStore.selectCharacter(selectedConcept.value)
+      charactersStore.selectCharacter(conceptToSelect)
+    } else {
+      conceptsStore.selectItem(conceptToSelect)
     }
 
     showConceptDetail.value = true
   } catch (error) {
     console.error(`Error creating ${props.itemName}:`, error)
-  }
-}
-
-const updateConcept = async (updatedConcept) => {
-  try {
-    await props.updateConceptFn(updatedConcept)
-    selectedConcept.value = updatedConcept
-    await props.refreshDataFn()
-  } catch (error) {
-    console.error(`Error updating ${props.itemName}:`, error)
   }
 }
 
@@ -213,11 +231,11 @@ const deleteConcept = async (concept) => {
 }
 
 const openConceptDetail = (concept) => {
-  selectedConcept.value = concept
-
-  // If this is a character modal, also set it as the selected character in the store
+  // Set selection in appropriate store
   if (props.modalComponent === 'CharacterSheetModal') {
     charactersStore.selectCharacter(concept)
+  } else {
+    conceptsStore.selectItem(concept)
   }
 
   showConceptDetail.value = true
@@ -238,17 +256,20 @@ const navigateConcept = (direction) => {
   const currentIndex = filteredConcepts.value.findIndex(c => c.id === selectedConcept.value.id);
   const newIndex = currentIndex + direction;
   if (newIndex < 0 || newIndex >= filteredConcepts.value.length) return;
-  selectedConcept.value = filteredConcepts.value[newIndex];
 
-  // If this is a character modal, also update the selected character in the store
+  const newConcept = filteredConcepts.value[newIndex];
+
+  // Update selection in appropriate store
   if (props.modalComponent === 'CharacterSheetModal') {
-    charactersStore.selectCharacter(selectedConcept.value)
+    charactersStore.selectCharacter(newConcept)
+  } else {
+    conceptsStore.selectItem(newConcept)
   }
 
   conceptDetailKey.value++;
 
   // Create URL-friendly name
-  const urlName = selectedConcept.value.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')
+  const urlName = newConcept.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')
 
   // Update URL with new concept name
   const basePath = route.path.split('/').slice(0, 2).join('/')
@@ -256,9 +277,12 @@ const navigateConcept = (direction) => {
 }
 
 const closeConceptDetail = () => {
-  // We no longer deselect the character when closing the character sheet
-  // This allows the selection to be "sticky"
-  selectedConcept.value = null
+  // Deselect from appropriate store
+  // Note: We keep character selection "sticky" but clear concept selections
+  if (props.modalComponent !== 'CharacterSheetModal') {
+    conceptsStore.deselectItem()
+  }
+
   showConceptDetail.value = false
 
   // Return to base route without ID (only if currently on a detail route)
@@ -296,9 +320,6 @@ const handleKeyNavigation = (event) => {
 
 onMounted(async () => {
   try {
-    // Initialize filter persistence
-    initializeFilterPersistence()
-
     await expansionStore.fetch()
     expansions.value = expansionStore.items
     window.addEventListener('keydown', handleKeyNavigation);
@@ -340,16 +361,20 @@ watch(() => route.params.id, (newId, oldId) => {
         c.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '') === urlName
       )
       if (conceptToOpen) {
-        selectedConcept.value = conceptToOpen
+        // Set selection in appropriate store
         if (props.modalComponent === 'CharacterSheetModal') {
           charactersStore.selectCharacter(conceptToOpen)
+        } else {
+          conceptsStore.selectItem(conceptToOpen)
         }
         showConceptDetail.value = true
         conceptDetailKey.value++
       }
     } else {
       // No ID in route, close the modal
-      selectedConcept.value = null
+      if (props.modalComponent !== 'CharacterSheetModal') {
+        conceptsStore.deselectItem()
+      }
       showConceptDetail.value = false
     }
   }

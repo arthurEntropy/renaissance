@@ -2,7 +2,7 @@
   <CharacterSheetSection custom-class="core-ability-column" min-width="270px" max-width="320px">
     <!-- Core Ability Header -->
     <CoreAbilityHeader :title="coreAbilityTitle" :value="coreAbilityValue" :is-edit-mode="isEditMode"
-      @update="updateNestedProperty(coreAbilityKey, $event)" />
+      @update="character[coreAbilityKey.value] = $event" />
 
     <!-- Skills -->
     <SkillRow v-for="skill in skills" :key="skill.name" :skill="skill" :is-edit-mode="isEditMode"
@@ -12,36 +12,35 @@
 
     <!-- Virtue Row -->
     <StatRow type="range" :label="virtueLabel" :value="virtueValue" :is-edit-mode="isEditMode"
-      @update="(field, value) => updateVirtueWeakness(`${virtueKey}.${field}`, value)" />
+      @update="(field, value) => character[virtueKey.value][field] = value" />
 
     <!-- Weakness Row -->
     <StatRow type="single" :label="weaknessLabel" :value="weaknessValue" :is-edit-mode="isEditMode"
-      @update="(value) => updateVirtueWeakness(weaknessKey, value)" />
+      @update="(value) => character[weaknessKey.value] = value" />
 
     <!-- State Row -->
     <StatRow type="state" :label="firstStateLabel" :first-state="firstStateValue" :second-state="secondStateValue"
       :is-edit-mode="isEditMode" @update="(field, value) => {
-        const stateKey = field === 'first' ? firstStateKey : secondStateKey
-        updateNestedProperty(`states.${stateKey}`, value)
+        const stateKey = field === 'first' ? firstStateKey.value : secondStateKey.value
+        character.states[stateKey] = value
       }" />
   </CharacterSheetSection>
 </template>
 
 <script setup>
 import { computed } from 'vue'
+import { useCharactersStore } from '@/stores/charactersStore'
 import { useColumnConfig } from '@/composables/useColumnConfig'
 import { useSkillDice } from '@/composables/useSkillDice'
-import { useNestedPropertyUpdate } from '@/composables/useNestedPropertyUpdate'
 import CharacterSheetSection from '@/components/ui/containers/CharacterSheetSection.vue'
 import CoreAbilityHeader from './CoreAbilityHeader.vue'
 import SkillRow from './SkillRow.vue'
 import StatRow from './StatRow.vue'
 
-// Props
 const props = defineProps({
   character: {
     type: Object,
-    required: true,
+    required: true
   },
   column: {
     type: String,
@@ -53,12 +52,13 @@ const props = defineProps({
   }
 })
 
-// Emits
-const emit = defineEmits(['update-character', 'open-skill-check'])
+const emit = defineEmits(['open-skill-check'])
 
-// Composables
+// Wrap character in computed for reactivity
+const character = computed(() => props.character)
+
 const updateCharacter = (updatedCharacter) => {
-  emit('update-character', updatedCharacter)
+  Object.assign(props.character, updatedCharacter)
 }
 
 const {
@@ -78,7 +78,7 @@ const {
   secondStateLabel: _secondStateLabel,
   secondStateValue,
   skills
-} = useColumnConfig(computed(() => props.column), computed(() => props.character))
+} = useColumnConfig(computed(() => props.column), character)
 
 const {
   isRankActive,
@@ -86,17 +86,7 @@ const {
   isDiceSubtracted,
   getStyleClassForFavoredStatus,
   handleDiceClick
-} = useSkillDice(computed(() => props.character), updateCharacter)
-
-const { updateNestedProperty } = useNestedPropertyUpdate(
-  computed(() => props.character),
-  updateCharacter
-)
-
-// Custom handler for virtue/weakness updates
-const updateVirtueWeakness = (key, value) => {
-  updateNestedProperty(key, value)
-}
+} = useSkillDice(character, updateCharacter)
 </script>
 
 <style scoped>

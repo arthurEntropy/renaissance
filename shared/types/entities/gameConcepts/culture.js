@@ -1,4 +1,4 @@
-import { createDefaultGameConcept } from './gameConcept.js'
+import { createDefaultGameConcept, ConceptType } from './gameConcept.js'
 
 /**
  * @typedef {import('./gameConcept.js').GameConcept} Culture
@@ -9,5 +9,5 @@ import { createDefaultGameConcept } from './gameConcept.js'
  * @returns {Culture}
  */
 export function createDefaultCulture() {
-  return createDefaultGameConcept('Culture')
+  return createDefaultGameConcept(ConceptType.CULTURE)
 }

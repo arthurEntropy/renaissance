@@ -7,9 +7,25 @@ export function useBaseEntityStore(service, entityName) {
   const error = ref(null)
   const lastFetch = ref(null)
   
+  // Selection state (shared across all entity stores)
+  const selectedItem = ref(null)
+  
   // Computed property to filter out deleted items
   const items = computed(() => {
     return allItems.value.filter(item => !item.isDeleted)
+  })
+  
+  // Selection actions
+  const selectItem = (item) => {
+    selectedItem.value = item
+  }
+  
+  const deselectItem = () => {
+    selectedItem.value = null
+  }
+  
+  const hasSelectedItem = computed(() => {
+    return selectedItem.value !== null
   })
   
   // Clear error state
@@ -54,10 +70,14 @@ export function useBaseEntityStore(service, entityName) {
     isLoading,
     error,
     lastFetch,
+    selectedItem,
     fetch,
     refresh,
     getById,
     clearError,
+    selectItem,
+    deselectItem,
+    hasSelectedItem,
   }
 }
 

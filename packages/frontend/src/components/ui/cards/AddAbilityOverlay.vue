@@ -9,7 +9,8 @@
 <script setup>
 import { computed } from 'vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
-import { useCharacterManagement } from '@/composables/useCharacterManagement'
+import { useCharactersStore } from '@/stores/charactersStore'
+import CharacterService from '@/services/entities/characterService'
 import { useAbilityImprovements } from '@/composables/useAbilityImprovements'
 
 const props = defineProps({
@@ -23,9 +24,8 @@ const props = defineProps({
     },
 })
 
-const emit = defineEmits(['update:character'])
-
-const { selectedCharacter, addAbilityToCharacter } = useCharacterManagement()
+const charactersStore = useCharactersStore()
+const selectedCharacter = computed(() => charactersStore.selectedCharacter)
 const { hasImprovement, addImprovement } = useAbilityImprovements()
 
 const hasSelectedCharacter = computed(() => selectedCharacter.value != null)
@@ -56,10 +56,13 @@ const handleAdd = () => {
     if (props.improvementId) {
         // Add improvement to character
         const updatedCharacter = addImprovement(selectedCharacter.value, props.abilityId, props.improvementId)
-        emit('update:character', updatedCharacter)
+        Object.assign(selectedCharacter.value, updatedCharacter)
     } else {
         // Add base ability to character
-        addAbilityToCharacter({ id: props.abilityId })
+        const updatedCharacter = CharacterService.addAbilityToCharacter(selectedCharacter.value, { id: props.abilityId })
+        if (updatedCharacter) {
+            Object.assign(selectedCharacter.value, updatedCharacter)
+        }
     }
 }
 </script>

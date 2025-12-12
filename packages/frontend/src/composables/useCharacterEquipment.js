@@ -1,11 +1,9 @@
 import { computed } from 'vue'
 
-/**
- * Composable for transforming character equipment entries to include full equipment data
- * Handles the pattern of looking up equipment by ID and merging with character's equipment data
- * @param {Ref} characterEquipment - Reactive reference to character's equipment array
- * @param {Ref} allEquipment - Reactive reference to all available equipment
- */
+// Merges character equipment entries with full equipment definitions.
+// Character data stores minimal entries: {id, quantity, isCarried, isWielding, collapsed, etc.}
+// This composable joins them with full equipment definitions from the master equipment list,
+// avoiding data duplication while maintaining character-specific state like quantity and carry status.
 export function useCharacterEquipment(characterEquipment, allEquipment) {
   const characterEquipmentRows = computed(() => {
     const allEquipmentArray = allEquipment.value || []

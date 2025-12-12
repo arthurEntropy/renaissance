@@ -5,8 +5,7 @@
     <TableHeader title="Abilities" :is-edit-mode="internalEditMode" :show-edit-button="canEdit"
       @toggle-edit="toggleEditMode">
       <template #header-right>
-        <MPDisplay :mp="character.mp" :is-edit-mode="canEdit"
-          @update:mp="(mpData) => emit('update-character', { ...character, mp: mpData })" />
+        <MPDisplay :mp="selectedCharacter.mp" :is-edit-mode="canEdit" />
       </template>
     </TableHeader>
 
@@ -17,8 +16,7 @@
         :collapsible="true" :improvements="ability.improvements || []" :show-xp-badge="true"
         :show-add-to-character="false" :show-action-buttons="true" :character="character"
         :show-improvement-toggle="true" :show-improvements="ability.showImprovements"
-        @update:showImprovements="updateAbilityShowImprovements(ability, $event)"
-        @update:character="handleCharacterUpdate" />
+        @update:showImprovements="updateAbilityShowImprovements(ability, $event)" />
     </div>
 
     <!-- Draggable Abilities List (only in edit mode) -->
@@ -67,11 +65,12 @@ import CharacterSheetSection from '@/components/ui/containers/CharacterSheetSect
 import MPDisplay from './MPDisplay.vue'
 import draggable from 'vuedraggable'
 import { useSimpleEditMode } from '@/composables/useEditMode'
-import { useItemManagement } from '@/composables/useItemManagement'
 import { useDragAndDrop } from '@/composables/useDragAndDrop'
+import CharacterService from '@/services/entities/characterService'
 import { useItemSelector } from '@/composables/useItemSelector'
 import { useSourceUtils } from '@/composables/useSourceUtils'
 import { useCharacterAbilities } from '@/composables/useCharacterAbilities'
+import { useCharactersStore } from '@/stores/charactersStore'
 
 // Props
 const props = defineProps({
@@ -89,8 +88,9 @@ const props = defineProps({
   }
 })
 
-// Emits
-const emit = defineEmits(['update-character'])
+// Store
+const charactersStore = useCharactersStore()
+const selectedCharacter = charactersStore.selectedCharacter
 
 // Internal edit mode management
 const { isEditMode: internalEditMode, toggleEditMode } = useSimpleEditMode()
@@ -100,14 +100,6 @@ const canEdit = computed(() => props.isEditMode)
 
 // Show add button when internal edit mode is active
 const showAddButton = computed(() => internalEditMode.value)
-
-// Item management for abilities
-const abilityManagement = useItemManagement(
-  computed(() => props.character),
-  emit,
-  'abilities',
-  'ability'
-)
 
 // Source management
 const { sources, sourceUtils } = useSourceUtils()
@@ -136,14 +128,14 @@ const { characterAbilityObjects: characterAbilities } = useCharacterAbilities(
 
 // Drag and drop functionality
 const updateAbilityOrder = (newOrder) => {
-  // Extract the ability objects with their metadata from the new order
   const updatedAbilities = newOrder.map((ability) => ({
     id: ability.id,
     collapsed: ability.collapsed,
     showImprovements: ability.showImprovements
   }))
 
-  abilityManagement.reorderItems(updatedAbilities)
+  const updated = CharacterService.reorderItems(selectedCharacter.value, 'abilities', updatedAbilities)
+  if (updated) Object.assign(selectedCharacter.value, updated)
 }
 
 const {
@@ -156,10 +148,14 @@ const {
 const removeAbility = (index) => {
   if (!internalEditMode.value) return
 
-  abilityManagement.removeItem(index, {
-    getDisplayName: (ability) => ability?.name || 'this ability',
-    confirmMessage: (name) => `Are you sure you want to remove ${name} from your character?`
-  })
+  const ability = selectedCharacter.value.abilities[index]
+  const abilityData = props.allAbilities.find(a => a.id === ability.id)
+  const abilityName = abilityData?.name || 'this ability'
+
+  if (confirm(`Are you sure you want to remove ${abilityName}?`)) {
+    const updated = CharacterService.removeItem(selectedCharacter.value, 'abilities', index)
+    if (updated) Object.assign(selectedCharacter.value, updated)
+  }
 }
 
 // Ability Selector
@@ -169,80 +165,29 @@ const handleAbilitySearch = (value) => {
 }
 
 const selectAbility = (ability) => {
-  // Add ability to character's abilities list with default collapsed and showImprovements state
-  abilityManagement.addItem({ id: ability.id, collapsed: true, showImprovements: false }, {
-    preventDuplicates: true,
-    compareProperty: 'id' // Compare by ID property since we're now storing objects
+  const updated = CharacterService.addItem(selectedCharacter.value, 'abilities', {
+    id: ability.id,
+    collapsed: true,
+    showImprovements: false
   })
-
+  if (updated) Object.assign(selectedCharacter.value, updated)
   toggleAbilitySelector()
-}
-
-// Handle character updates from improvement changes
-const handleCharacterUpdate = (updatedCharacter) => {
-  emit('update-character', updatedCharacter)
 }
 
 // Handle ability collapsed state changes
 const updateAbilityCollapsed = (ability, collapsed) => {
-  // Find the ability in the character's abilities array and update its collapsed state
-  const updatedAbilities = props.character.abilities.map(abilityObj => {
-    // Handle both old format (strings) and new format (objects)
-    const abilityId = typeof abilityObj === 'string' ? abilityObj : abilityObj.id
-
-    if (abilityId === ability.id) {
-      // Convert to object format if it's a string
-      if (typeof abilityObj === 'string') {
-        return { id: abilityId, collapsed }
-      }
-      // Update existing object
-      return { ...abilityObj, collapsed }
-    }
-
-    // Return unchanged (convert strings to objects to maintain consistency)
-    if (typeof abilityObj === 'string') {
-      return { id: abilityObj, collapsed: true }
-    }
-    return abilityObj
-  })
-
-  const updatedCharacter = {
-    ...props.character,
-    abilities: updatedAbilities
+  const index = selectedCharacter.value.abilities.findIndex(a => a.id === ability.id)
+  if (index !== -1) {
+    selectedCharacter.value.abilities[index].collapsed = collapsed
   }
-
-  emit('update-character', updatedCharacter)
 }
 
 // Handle ability showImprovements state changes
 const updateAbilityShowImprovements = (ability, showImprovements) => {
-  // Find the ability in the character's abilities array and update its showImprovements state
-  const updatedAbilities = props.character.abilities.map(abilityObj => {
-    // Handle both old format (strings) and new format (objects)
-    const abilityId = typeof abilityObj === 'string' ? abilityObj : abilityObj.id
-
-    if (abilityId === ability.id) {
-      // Convert to object format if it's a string
-      if (typeof abilityObj === 'string') {
-        return { id: abilityId, collapsed: true, showImprovements }
-      }
-      // Update existing object
-      return { ...abilityObj, showImprovements }
-    }
-
-    // Return unchanged (convert strings to objects to maintain consistency)
-    if (typeof abilityObj === 'string') {
-      return { id: abilityObj, collapsed: true, showImprovements: false }
-    }
-    return abilityObj
-  })
-
-  const updatedCharacter = {
-    ...props.character,
-    abilities: updatedAbilities
+  const index = selectedCharacter.value.abilities.findIndex(a => a.id === ability.id)
+  if (index !== -1) {
+    selectedCharacter.value.abilities[index].showImprovements = showImprovements
   }
-
-  emit('update-character', updatedCharacter)
 }
 
 

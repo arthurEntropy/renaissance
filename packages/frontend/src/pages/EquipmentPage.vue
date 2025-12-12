@@ -194,8 +194,8 @@ const { paginatedItems: paginatedEquipment, loadMore, hasMore, reset } = useInfi
   50
 )
 
-// Filter persistence
-const { initialize: initializeFilterPersistence } = useFilterPersistence('equipment', {
+// Filter persistence - auto-initializes
+useFilterPersistence('equipment', {
   sortOption,
   searchQuery,
   sourceFilter,
@@ -258,7 +258,6 @@ const fetchEngagementSuccessOptions = async () => {
 // Data initialization
 const refreshData = async () => {
   try {
-    initializeFilterPersistence()
     await sourcesStore.fetchSources()
     await keepingStore.fetch()
     await Promise.all([

@@ -71,21 +71,22 @@ import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import { useEditMode } from '@/composables/useEditMode'
 import { useUnsavedChanges } from '@/composables/useUnsavedChanges'
 import { sanitizeHtml } from '@/utils/sanitizeHtml'
+import { useConceptsStore } from '@/stores/conceptsStore'
 
 // Props
 const props = defineProps({
-  hooks: {
-    type: Array,
-    default: () => [],
-  },
   editable: {
     type: Boolean,
     default: false,
   },
 })
 
+// Get concept from store
+const conceptsStore = useConceptsStore()
+const concept = computed(() => conceptsStore.selectedItem)
+
 // Emits
-const emit = defineEmits(['update', 'unsaved-changes', 'reset-unsaved-changes'])
+const emit = defineEmits(['unsaved-changes', 'reset-unsaved-changes'])
 
 // Reactive state
 const localHooks = ref([])
@@ -95,7 +96,8 @@ const shownGMNotes = ref({})
 // Edit mode composable
 const editMode = useEditMode({
   onSave: () => {
-    emit('update', [...localHooks.value])
+    // Directly mutate concept.hooks
+    concept.value.hooks = [...localHooks.value]
     unsavedChanges.markAsSaved()
   },
   onCancel: (restoredData) => {
@@ -143,7 +145,7 @@ const cancelHooksEdit = () => {
 }
 
 const saveHooksOrder = () => {
-  emit('update', [...localHooks.value])
+  concept.value.hooks = [...localHooks.value]
 }
 
 const addHook = () => {
@@ -179,7 +181,7 @@ const toggleGMNotes = (hookId) => {
 const safeGMNotes = (html) => sanitizeHtml(html)
 
 // Watchers
-watch(() => props.hooks, (newHooks) => {
+watch(() => concept.value?.hooks, (newHooks) => {
   localHooks.value = JSON.parse(JSON.stringify(newHooks || []))
 }, { immediate: true })
 

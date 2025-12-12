@@ -78,8 +78,8 @@ const sortOptions = ref({
 // Infinite scroll setup
 const { paginatedItems: paginatedAbilities, loadMore, hasMore } = useInfiniteScroll(abilities, 50)
 
-// Filter persistence
-const { initialize: initializeFilterPersistence } = useFilterPersistence('abilities', {
+// Filter persistence - auto-initializes
+useFilterPersistence('abilities', {
   sortOption,
   searchQuery,
   sourceFilter
@@ -135,7 +135,6 @@ const saveEditedAbility = async (editedAbility) => {
 // Data initialization
 const refreshData = async () => {
   try {
-    initializeFilterPersistence()
     await sourcesStore.fetchSources()
     await abilitiesStore.fetch()
   } catch (error) {

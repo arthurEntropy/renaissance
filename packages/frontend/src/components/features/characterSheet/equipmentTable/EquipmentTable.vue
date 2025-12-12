@@ -54,7 +54,6 @@
 
 <script setup>
 import { ref, computed } from 'vue'
-import * as CharacterUtils from '@shared/types/entities/characterUtils'
 import EquipmentCard from '@/components/ui/cards/EquipmentCard.vue'
 import EquipmentWeight from './EquipmentWeight.vue'
 import EquipmentDetails from './EquipmentDetails.vue'
@@ -65,13 +64,16 @@ import AddButton from '@/components/ui/buttons/AddButton.vue'
 import CharacterSheetSection from '@/components/ui/containers/CharacterSheetSection.vue'
 import draggable from 'vuedraggable'
 import { useSimpleEditMode } from '@/composables/useEditMode'
-import { useItemManagement } from '@/composables/useItemManagement'
 import { useDragAndDrop } from '@/composables/useDragAndDrop'
+import CharacterService from '@/services/entities/characterService'
 import { useItemSelector } from '@/composables/useItemSelector'
 import { useSourceUtils } from '@/composables/useSourceUtils'
 import { useCharacterEquipment } from '@/composables/useCharacterEquipment'
-import { useCustomEquipment } from '@/composables/useCustomEquipment'
 import { useEquipmentTypesStore } from '@/stores/equipmentTypesStore'
+import { useEquipmentStore } from '@/stores/equipmentStore'
+import { useCharactersStore } from '@/stores/charactersStore'
+import EquipmentService from '@/services/entities/equipment/equipmentService'
+import * as CharacterUtils from '@shared/types/entities/characterUtils'
 import { BookOpenIcon, PlusIcon } from '@heroicons/vue/24/outline'
 
 // Props
@@ -86,10 +88,13 @@ const props = defineProps({
 })
 
 // Emits
-const emit = defineEmits(['update-character', 'edit-custom-equipment'])
+const emit = defineEmits(['edit-custom-equipment'])
 
-// Equipment types store
+// Stores
+const charactersStore = useCharactersStore()
+const selectedCharacter = charactersStore.selectedCharacter
 const equipmentTypesStore = useEquipmentTypesStore()
+const equipmentStore = useEquipmentStore()
 
 // Internal edit mode management
 const { isEditMode: internalEditMode, toggleEditMode } = useSimpleEditMode()
@@ -99,14 +104,6 @@ const canEdit = computed(() => props.isEditMode)
 
 // FAB visibility - only show in edit mode
 const showAddButton = computed(() => internalEditMode.value)
-
-// Item management for equipment
-const equipmentManagement = useItemManagement(
-  computed(() => props.character),
-  emit,
-  'equipment',
-  'item'
-)
 
 // Source management
 const { sources, sourceUtils } = useSourceUtils()
@@ -142,12 +139,43 @@ const { characterEquipmentRows } = useCharacterEquipment(
   computed(() => props.character.equipment),
   computed(() => props.allEquipment)
 )
-
 // Custom equipment creation
-const { createAndAddCustomEquipment } = useCustomEquipment(
-  computed(() => props.character),
-  emit
-)
+const isCreatingCustom = ref(false)
+
+const createAndAddCustomEquipment = async () => {
+  if (isCreatingCustom.value) return
+
+  isCreatingCustom.value = true
+
+  try {
+    const createdEquipment = await EquipmentService.createCustomEquipment()
+
+    const newItem = {
+      id: createdEquipment.id,
+      quantity: 1,
+      isCarried: true,
+      isWielding: false,
+    }
+
+    CharacterUtils.addSpecificEquipmentItem(selectedCharacter.value, newItem)
+
+    await equipmentStore.fetch()
+
+    const fullEquipment = (equipmentStore.equipment || []).find(
+      (eq) => eq.id === createdEquipment.id
+    )
+
+    if (fullEquipment) {
+      emit('edit-custom-equipment', fullEquipment)
+    } else {
+      emit('edit-custom-equipment', createdEquipment.id)
+    }
+  } catch (error) {
+    console.error('Error adding custom equipment:', error)
+  } finally {
+    isCreatingCustom.value = false
+  }
+}
 
 // Drag and drop functionality
 const updateEquipmentOrder = (newOrder) => {
@@ -156,7 +184,8 @@ const updateEquipmentOrder = (newOrder) => {
     index: index,
   }))
 
-  equipmentManagement.reorderItems(updatedEquipment)
+  const updated = CharacterService.reorderItems(selectedCharacter.value, 'equipment', updatedEquipment)
+  if (updated) Object.assign(selectedCharacter.value, updated)
 }
 
 const {
@@ -168,30 +197,25 @@ const {
 // Equipment Management
 
 const removeEquipmentItem = (index) => {
-  equipmentManagement.removeItem(index, {
-    getDisplayName: (equipmentRow) => {
-      const equipment = equipmentRow?.equipment
-      return equipment ? equipment.name : 'this item'
-    },
-    confirmMessage: (name) => `Are you sure you want to remove ${name} from inventory?`
-  })
+  const equipmentRow = characterEquipmentRows.value[index]
+  const equipmentName = equipmentRow?.equipment?.name || 'this item'
+
+  if (confirm(`Are you sure you want to remove ${equipmentName}?`)) {
+    const updated = CharacterService.removeItem(selectedCharacter.value, 'equipment', index)
+    if (updated) Object.assign(selectedCharacter.value, updated)
+  }
 }
 
 const handleCarriedChange = (index, isCarried) => {
-  const updates = { isCarried: isCarried }
+  selectedCharacter.value.equipment[index].isCarried = isCarried
 
-  if (!isCarried) {
-    const currentItem = props.character.equipment[index]
-    if (currentItem.isWielding) {
-      updates.isWielding = false
-    }
+  if (!isCarried && selectedCharacter.value.equipment[index].isWielding) {
+    selectedCharacter.value.equipment[index].isWielding = false
   }
-
-  equipmentManagement.updateItem(index, updates)
 }
 
 const handleWieldingChange = (index, isWielding) => {
-  const currentItem = props.character.equipment[index]
+  const currentItem = selectedCharacter.value.equipment[index]
   const equipmentRow = characterEquipmentRows.value[index]
 
   let canWield = false
@@ -200,13 +224,11 @@ const handleWieldingChange = (index, isWielding) => {
     canWield = equipmentType?.name === 'Weapon'
   }
 
-  const shouldWield = isWielding && canWield
-  equipmentManagement.updateItem(index, { isWielding: shouldWield })
+  selectedCharacter.value.equipment[index].isWielding = isWielding && canWield
 }
 
 const handleQuantityChange = (index, quantity) => {
-  const validQuantity = Math.max(1, quantity)
-  equipmentManagement.updateItem(index, { quantity: validQuantity })
+  selectedCharacter.value.equipment[index].quantity = Math.max(1, quantity)
 }
 
 const editCustomItem = (equipment) => {
@@ -225,11 +247,10 @@ const selectEquipment = (equipment) => {
   }
 
   CharacterUtils.addSpecificEquipmentItem(
-    props.character,
+    selectedCharacter.value,
     newItem,
     props.allEquipment,
   )
-  emit('update-character', props.character)
   showEquipmentSelector.value = false
 }
 
@@ -255,38 +276,18 @@ const closeEquipmentSelector = () => {
 
 // Handle equipment collapsed state changes
 const updateEquipmentCollapsed = (equipmentRow, collapsed) => {
-  // Find the equipment item in the character's equipment array and update its collapsed state
-  const updatedEquipment = props.character.equipment.map(equipmentObj => {
-    if (equipmentObj.id === equipmentRow.id) {
-      return { ...equipmentObj, collapsed }
-    }
-    return equipmentObj
-  })
-
-  const updatedCharacter = {
-    ...props.character,
-    equipment: updatedEquipment
+  const index = selectedCharacter.value.equipment.findIndex(eq => eq.id === equipmentRow.id)
+  if (index !== -1) {
+    selectedCharacter.value.equipment[index].collapsed = collapsed
   }
-
-  emit('update-character', updatedCharacter)
 }
 
 // Handle equipment art expanded state changes
 const updateEquipmentArtExpanded = (equipmentRow, artExpanded) => {
-  // Find the equipment item in the character's equipment array and update its artExpanded state
-  const updatedEquipment = props.character.equipment.map(equipmentObj => {
-    if (equipmentObj.id === equipmentRow.id) {
-      return { ...equipmentObj, artExpanded }
-    }
-    return equipmentObj
-  })
-
-  const updatedCharacter = {
-    ...props.character,
-    equipment: updatedEquipment
+  const index = selectedCharacter.value.equipment.findIndex(eq => eq.id === equipmentRow.id)
+  if (index !== -1) {
+    selectedCharacter.value.equipment[index].artExpanded = artExpanded
   }
-
-  emit('update-character', updatedCharacter)
 }
 
 

@@ -6,7 +6,7 @@
   "ancestries": "Human",
   "cultures": "The Beast Marshes",
   "ancestryIds": [
-    1
+    "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
   ],
   "cultureIds": [
     "68fadf5d-6661-4611-bb38-deaf05f01d45"
@@ -182,14 +182,14 @@
       "isCarried": true,
       "isWielding": true,
       "artExpanded": true,
-      "collapsed": false
+      "collapsed": true
     },
     {
       "id": "4d318ef9-5a9b-4c1d-a79d-f61b090f43fa",
       "quantity": 1,
       "isCarried": true,
       "artExpanded": true,
-      "collapsed": false,
+      "collapsed": true,
       "isWielding": true
     }
   ],
@@ -202,7 +202,7 @@
   "abilities": [
     {
       "id": "8e346eb3-1e72-4b3f-971c-497eac98a06c",
-      "collapsed": false,
+      "collapsed": true,
       "showImprovements": false,
       "improvements": {
         "baa4641b-caf0-5680-abf1-5a6cae7c0f3d": true
@@ -210,12 +210,12 @@
     },
     {
       "id": "71514016-e2a6-4a6d-97e7-df00d89d94d3",
-      "collapsed": false,
+      "collapsed": true,
       "showImprovements": false
     },
     {
       "id": "fafd1877-3ecf-4da7-a29a-e14e5a345a9d",
-      "collapsed": false,
+      "collapsed": true,
       "showImprovements": false,
       "improvements": {
         "8ab4398d-585e-58db-ae9a-42e03c43b4d3": true
@@ -223,7 +223,7 @@
     },
     {
       "id": "bd8f66a4-5849-483b-9123-b0085c0e5a5c",
-      "collapsed": false,
+      "collapsed": true,
       "showImprovements": false
     }
   ],
@@ -232,6 +232,7 @@
     "https://cdn.midjourney.com/545939d2-7091-4ee5-9e3d-479166b344af/0_3.png"
   ],
   "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2025-11-25T02:17:34.882Z",
-  "lastModified": "2025-11-25T02:17:34.882Z"
+  "updatedAt": "2025-12-12T16:26:02.252Z",
+  "lastModified": "2025-12-12T16:26:02.252Z",
+  "mestiereId": ""
 }

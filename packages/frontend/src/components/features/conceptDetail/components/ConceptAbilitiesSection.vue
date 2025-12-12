@@ -7,7 +7,8 @@
                 :showImprovements="getAbilityShowImprovements(ability.id)"
                 @update:showImprovements="updateAbilityShowImprovements(ability.id, $event)"
                 @height-changed="handleCardHeightChanged" @edit="$emit('edit-ability', ability)" :showSource="false"
-                :character="character" :show-improvement-toggle="!!character" />
+                :character="character" :show-improvement-toggle="!!character"
+                :show-add-to-character="!!charactersStore.selectedCharacter" />
         </MasonryGrid>
         <div class="add-button-container">
             <AddButton :show="isEditMode" @click="$emit('add-ability')" title="Add new ability"
@@ -22,6 +23,9 @@ import ConceptSection from './ConceptSection.vue'
 import AbilityCard from '@/components/ui/cards/AbilityCard.vue'
 import MasonryGrid from '@/components/ui/layouts/MasonryGrid.vue'
 import AddButton from '@/components/ui/buttons/AddButton.vue'
+import { useCharactersStore } from '@/stores/charactersStore'
+
+const charactersStore = useCharactersStore()
 
 const props = defineProps({
     abilities: {

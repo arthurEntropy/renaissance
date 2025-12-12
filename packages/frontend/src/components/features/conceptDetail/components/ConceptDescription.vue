@@ -22,22 +22,21 @@ import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import TextEditor from '@/components/ui/textEditor/TextEditor.vue'
 import { useInlineEditor } from '../composables/useInlineEditor'
 import { sanitizeHtml } from '@/utils/sanitizeHtml'
+import { useConceptsStore } from '@/stores/conceptsStore'
 
 const props = defineProps({
-    description: {
-        type: String,
-        default: ''
-    },
     isEditMode: {
         type: Boolean,
         default: false
     }
 })
 
-const emit = defineEmits(['update:description'])
+// Get concept from store
+const conceptsStore = useConceptsStore()
+const concept = computed(() => conceptsStore.selectedItem)
 
 // Local reactive state
-const localDescription = ref(props.description)
+const localDescription = ref(concept.value?.description || '')
 const descriptionEditor = ref(null)
 
 // Inline editing functionality
@@ -47,7 +46,7 @@ const {
     saveEdit,
     cancelEdit: cancelDescriptionEdit
 } = useInlineEditor(
-    () => props.description,
+    () => concept.value?.description || '',
     (value) => {
         localDescription.value = value
     }
@@ -55,7 +54,7 @@ const {
 
 // Computed properties
 const safeDescription = computed(() => {
-    return sanitizeHtml(props.description || 'No description provided.')
+    return sanitizeHtml(concept.value?.description || 'No description provided.')
 })
 
 // Methods
@@ -70,19 +69,21 @@ const toggleEdit = () => {
 }
 
 const saveDescription = () => {
-    emit('update:description', localDescription.value)
+    if (concept.value) {
+        concept.value.description = localDescription.value
+    }
     saveEdit()
 }
 
 const cancelEdit = () => {
-    localDescription.value = props.description
+    localDescription.value = concept.value?.description || ''
     cancelDescriptionEdit()
 }
 
-// Watch for prop changes
-watch(() => props.description, (newDesc) => {
+// Watch for concept changes
+watch(() => concept.value?.description, (newDesc) => {
     if (!isEditingDescription.value) {
-        localDescription.value = newDesc
+        localDescription.value = newDesc || ''
     }
 })
 </script>

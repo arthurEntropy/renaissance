@@ -1,46 +1,23 @@
 import { defineStore } from 'pinia'
 import { computed } from 'vue'
-import { useAncestriesStore } from './ancestriesStore'
-import { useCulturesStore } from './culturesStore'
-import { useMestieriStore } from './mestieriStore'
-import { useWorldElementsStore } from './worldElementsStore'
+import { useConceptsStore } from './conceptsStore'
 
 export const useSourcesStore = defineStore('sources', () => {
-  const ancestriesStore = useAncestriesStore()
-  const culturesStore = useCulturesStore()
-  const mestieriStore = useMestieriStore()
-  const worldElementsStore = useWorldElementsStore()
+  const conceptsStore = useConceptsStore()
 
   const sources = computed(() => ({
-    ancestries: ancestriesStore.ancestries || [],
-    cultures: culturesStore.cultures || [],
-    mestieri: mestieriStore.mestieri || [],
-    worldElements: worldElementsStore.worldElements || [],
+    ancestries: conceptsStore.ancestries || [],
+    cultures: conceptsStore.cultures || [],
+    mestieri: conceptsStore.mestieri || [],
+    worldElements: conceptsStore.worldElements || [],
   }))
 
-  const isLoading = computed(
-    () =>
-      ancestriesStore.isLoading ||
-      culturesStore.isLoading ||
-      mestieriStore.isLoading ||
-      worldElementsStore.isLoading
-  )
+  const isLoading = computed(() => conceptsStore.isLoading)
 
-  const error = computed(
-    () =>
-      ancestriesStore.error ||
-      culturesStore.error ||
-      mestieriStore.error ||
-      worldElementsStore.error
-  )
+  const error = computed(() => conceptsStore.error)
 
   const fetchSources = async () => {
-    await Promise.all([
-      ancestriesStore.fetch(),
-      culturesStore.fetch(),
-      mestieriStore.fetch(),
-      worldElementsStore.fetch(),
-    ])
+    await conceptsStore.fetch()
   }
 
   const getSourceById = (sourceId) => {

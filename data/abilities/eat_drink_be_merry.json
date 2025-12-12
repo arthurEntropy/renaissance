@@ -1,12 +1,13 @@
 {
   "id": "11e062df-7e8b-476b-b43a-d8003661b2ff",
   "name": "Eat, Drink & Be Merry",
-  "description": "<p><em>You always pack a special drink or foodstuff and know when to bring it out at the right moment to boost morale.</em></p><p>Once per quest, upgrade the party's Keeping by 1 for one rest.</p><p><strong>Describe what you bring out to share.</strong></p>",
+  "description": "<p><em>You always pack a special drink or foodstuff and know when to bring it out at the right moment to boost morale.</em></p><p>Once per quest, upgrade the party's Keeping by 1 for one rest.</p><p><strong>Describe what you bring out to share.  TEST</strong></p>",
   "isTrait": true,
   "canBeActive": false,
   "isActive": true,
   "source": "0c876a74-a89b-42dc-b76a-4592a0478d81",
   "isDeleted": false,
   "mp": null,
-  "xp": null
+  "xp": null,
+  "lastModified": "2025-12-12T16:15:30.233Z"
 }

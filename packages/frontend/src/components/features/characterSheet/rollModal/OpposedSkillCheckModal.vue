@@ -120,13 +120,13 @@ const toggleUserAccept = () => {
 }
 
 const emitOpposedSkillCheckResults = () => {
-    // Generate and send the opposed skill check result to Discord
+    // Generate and emit the opposed skill check result
     if (!sessionManager.rollResults.value?.session) {
         return
     }
 
-    // Send to Discord
-    OpposedSkillCheckService.sendOpposedSkillCheckToDiscord(
+    // Emit the result (which triggers event handlers including Discord webhook)
+    OpposedSkillCheckService.emitOpposedSkillCheckResult(
         sessionManager.rollResults.value.session,
         props.character.id,
         sessionManager.opponent.value?.characterInfo?.id

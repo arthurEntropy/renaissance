@@ -1,39 +1,26 @@
 <template>
     <div class="concept-column-right">
         <!-- Title -->
-        <ConceptTitle :concept="concept" :is-edit-mode="isEditMode" :expansion="expansion"
-            @update:name="$emit('update:name', $event)" />
+        <ConceptTitle :is-edit-mode="isEditMode" :expansion="expansion" />
 
         <!-- Description -->
-        <ConceptDescription :description="concept.description" :is-edit-mode="isEditMode"
-            @update:description="$emit('update:description', $event)" />
+        <ConceptDescription :is-edit-mode="isEditMode" />
 
         <!-- Traits & Abilities -->
         <ConceptAbilitiesSection :abilities="abilities" :is-edit-mode="isEditMode" :sources="sources"
-            :conceptId="concept.id" :character="character" @edit-ability="$emit('edit-ability', $event)"
-            @add-ability="$emit('add-ability')" />
+            :character="character" @edit-ability="$emit('edit-ability', $event)" @add-ability="$emit('add-ability')" />
 
         <!-- Local Flavor -->
-        <LocalFlavorSection :data="{
-            names: concept.names,
-            occupations: concept.occupations,
-            publicHouses: concept.publicHouses,
-            vittles: concept.vittles,
-            pointsOfInterest: concept.pointsOfInterest,
-            floraFauna: concept.floraFauna,
-        }" :editable="isEditMode" @update="$emit('update:local-flavor', $event)"
-            @unsaved-changes="$emit('unsaved-changes', $event)"
+        <LocalFlavorSection :editable="isEditMode" @unsaved-changes="$emit('unsaved-changes', $event)"
             @reset-unsaved-changes="$emit('reset-unsaved-changes')" />
 
         <!-- Hooks -->
-        <HooksSection :hooks="concept.hooks || []" :editable="isEditMode" @update="$emit('update:hooks', $event)"
-            @unsaved-changes="$emit('unsaved-changes', $event)"
+        <HooksSection :editable="isEditMode" @unsaved-changes="$emit('unsaved-changes', $event)"
             @reset-unsaved-changes="$emit('reset-unsaved-changes')" />
 
         <!-- Wares -->
         <ConceptEquipmentSection :equipment="equipment" :is-edit-mode="isEditMode" :sources="sources"
-            :conceptId="concept.id" @edit-equipment="$emit('edit-equipment', $event)"
-            @add-equipment="$emit('add-equipment')" />
+            @edit-equipment="$emit('edit-equipment', $event)" @add-equipment="$emit('add-equipment')" />
     </div>
 </template>
 
@@ -46,10 +33,6 @@ import LocalFlavorSection from '../LocalFlavorSection.vue'
 import HooksSection from '../HooksSection.vue'
 
 defineProps({
-    concept: {
-        type: Object,
-        required: true
-    },
     abilities: {
         type: Array,
         default: () => []
@@ -77,10 +60,6 @@ defineProps({
 })
 
 defineEmits([
-    'update:name',
-    'update:description',
-    'update:local-flavor',
-    'update:hooks',
     'edit-ability',
     'edit-equipment',
     'add-ability',

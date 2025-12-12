@@ -1,0 +1,23 @@
+{
+  "id": "d5e3228b-1d04-4503-8ec6-3210d420c082",
+  "conceptType": "ANCESTRY",
+  "name": "Furu",
+  "description": "",
+  "isDeleted": false,
+  "artUrls": [
+    "https://cdn.midjourney.com/4d48d295-4aa2-46bb-9db0-448f8c241347/0_1.png"
+  ],
+  "faces": [],
+  "places": [],
+  "backgroundImage": "https://cdn.midjourney.com/7e60824c-94bc-4137-a4f5-5d1fe560553d/0_2.png",
+  "expansion": "e46f4320-a414-4300-95d5-397ba717d982",
+  "hooks": [],
+  "playlists": [],
+  "names": "",
+  "occupations": "",
+  "publicHouses": "",
+  "vittles": "",
+  "pointsOfInterest": "",
+  "floraFauna": "",
+  "lastModified": "2025-11-20T15:43:42.993Z"
+}

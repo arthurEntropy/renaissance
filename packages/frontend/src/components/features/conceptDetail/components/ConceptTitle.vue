@@ -22,12 +22,9 @@
 import { ref, computed } from 'vue'
 import EditButton from '@/components/ui/buttons/EditButton.vue'
 import { useInlineEditor } from '../composables/useInlineEditor'
+import { useConceptsStore } from '@/stores/conceptsStore'
 
 const props = defineProps({
-    concept: {
-        type: Object,
-        required: true
-    },
     isEditMode: {
         type: Boolean,
         default: false
@@ -38,10 +35,12 @@ const props = defineProps({
     }
 })
 
-const emit = defineEmits(['update:name'])
+// Get concept from store
+const conceptsStore = useConceptsStore()
+const concept = computed(() => conceptsStore.selectedItem)
 
 // Local reactive state
-const localTitle = ref(props.concept.name)
+const localTitle = ref(concept.value?.name || '')
 const titleInput = ref(null)
 
 // Inline editing functionality
@@ -52,7 +51,7 @@ const {
     cancelEdit: cancelTitleEdit,
     focusElement
 } = useInlineEditor(
-    () => props.concept.name,
+    () => concept.value?.name || '',
     (value) => {
         localTitle.value = value
     }
@@ -65,12 +64,14 @@ const expansionLogoUrl = computed(() => {
 
 // Methods
 const saveTitle = () => {
-    emit('update:name', localTitle.value)
+    if (concept.value) {
+        concept.value.name = localTitle.value
+    }
     saveEdit()
 }
 
 const cancelEdit = () => {
-    localTitle.value = props.concept.name
+    localTitle.value = concept.value?.name || ''
     cancelTitleEdit()
 }
 

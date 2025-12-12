@@ -4,7 +4,7 @@
         <MasonryGrid :column-width="350" :gap="10" :row-height="10" class="cards-container">
             <EquipmentCard v-for="item in equipment" :key="item.id" :equipment="item" :editable="isEditMode"
                 :sources="sources" :art-expanded="true" @edit="$emit('edit-equipment', item)" :collapsible="false"
-                :showSource="false" />
+                :showSource="false" :show-add-to-character="!!charactersStore.selectedCharacter" />
         </MasonryGrid>
         <div class="add-button-container">
             <AddButton :show="isEditMode" @click="$emit('add-equipment')" title="Add new item"
@@ -19,6 +19,9 @@ import ConceptSection from './ConceptSection.vue'
 import EquipmentCard from '@/components/ui/cards/EquipmentCard.vue'
 import MasonryGrid from '@/components/ui/layouts/MasonryGrid.vue'
 import AddButton from '@/components/ui/buttons/AddButton.vue'
+import { useCharactersStore } from '@/stores/charactersStore'
+
+const charactersStore = useCharactersStore()
 
 const props = defineProps({
     equipment: {

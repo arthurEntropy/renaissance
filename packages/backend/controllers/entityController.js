@@ -24,6 +24,14 @@ const getAllEntities = (entity) => (req, res) => {
       }
     }
     
+    // For concepts, filter by conceptType if query parameter provided
+    if (entity === 'concepts' && req.query.conceptType) {
+      const requestedTypes = req.query.conceptType.split(',').map(t => t.trim())
+      filteredEntities = filteredEntities.filter(concept =>
+        requestedTypes.includes(concept.conceptType)
+      )
+    }
+    
     res.json(filteredEntities)
   } catch (err) {
     console.error(`Error reading ${entity} directory:`, err)

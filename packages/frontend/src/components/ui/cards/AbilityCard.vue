@@ -29,16 +29,14 @@
             </template>
             <!-- Add to character overlay for base ability -->
             <template #overlay>
-              <AddAbilityOverlay v-if="showAddToCharacter" :ability-id="ability.id"
-                @update:character="handleCharacterUpdate" />
+              <AddAbilityOverlay v-if="showAddToCharacter" :ability-id="ability.id" />
             </template>
           </CardDescription>
 
           <!-- Ability improvements -->
           <AbilityImprovements :improvements="improvements" :character="character" :ability-id="ability.id"
             :show-improvement-toggle="showImprovementToggle" :show-improvements="showImprovements"
-            :show-add-overlays="showAddToCharacter" @toggle-improvement="handleImprovementToggle"
-            @update:character="handleCharacterUpdate" />
+            :show-add-overlays="showAddToCharacter" @toggle-improvement="handleImprovementToggle" />
         </div>
       </div>
     </template>
@@ -139,7 +137,7 @@ const props = defineProps({
   },
 })
 
-const emit = defineEmits(['edit', 'update', 'sendToChat', 'update:collapsed', 'update:character', 'update:showImprovements', 'height-changed', 'update:art-expanded'])
+const emit = defineEmits(['edit', 'update', 'sendToChat', 'update:collapsed', 'update:showImprovements', 'height-changed', 'update:art-expanded'])
 
 // Store
 const abilitiesStore = useAbilitiesStore()
@@ -237,11 +235,7 @@ const handleImprovementToggle = (improvementId) => {
   if (!props.character || !improvementId) return
 
   const updatedCharacter = toggleImprovement(props.character, props.ability.id, improvementId)
-  emit('update:character', updatedCharacter)
-}
-
-const handleCharacterUpdate = (updatedCharacter) => {
-  emit('update:character', updatedCharacter)
+  Object.assign(props.character, updatedCharacter)
 }
 </script>
 
