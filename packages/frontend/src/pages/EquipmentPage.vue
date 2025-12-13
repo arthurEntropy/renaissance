@@ -310,33 +310,6 @@ const allEquipment = equipment
 <style scoped>
 @import '@/styles/design-tokens.css';
 
-.category-filter {
-  padding: var(--space-sm) var(--space-md);
-  border: 1px solid var(--color-gray-medium);
-  border-radius: var(--radius-5);
-  background-color: var(--overlay-black-medium);
-  font-size: var(--font-size-16);
-  color: var(--color-white);
-  min-width: 120px;
-}
-
-.category-filter option {
-  background-color: var(--overlay-black-heavy);
-  padding: var(--space-sm);
-}
-
-.category-filter:focus {
-  outline: none;
-  border-color: var(--color-gray-light);
-  box-shadow: var(--shadow-glow-sm);
-}
-
-.category-filter:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-  background-color: var(--overlay-black-heavy);
-}
-
 .template-toggle {
   display: flex;
   align-items: center;

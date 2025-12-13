@@ -22,7 +22,7 @@
         <!-- Waiting for opponent placeholder -->
         <div v-else-if="!character" class="waiting-for-opponent">
             <div class="placeholder-message">
-                <WaitingAnimation />
+                <LoadingSpinner size="medium" />
                 <p>Waiting for an opponent to join...</p>
             </div>
         </div>
@@ -31,7 +31,7 @@
 
 <script setup>
 import { computed } from 'vue'
-import WaitingAnimation from '@/components/ui/WaitingAnimation.vue'
+import LoadingSpinner from '@/components/ui/LoadingSpinner.vue'
 
 const props = defineProps({
     character: {

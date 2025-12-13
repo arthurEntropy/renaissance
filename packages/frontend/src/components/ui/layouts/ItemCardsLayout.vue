@@ -4,7 +4,7 @@
     <FilterControls v-model:search-query="searchQueryLocal" v-model:primary-filter="sourceFilterLocal"
       v-model:sort-option="sortOptionLocal" :search-placeholder="`Search ${itemTypePlural.toLowerCase()}...`"
       :primary-filter-options="sourceFilterOptions" primary-filter-label="All Sources" :sort-options="sortOptions"
-      :show-add-button="isAdmin" :add-button-text="`+ Add ${itemType}`" @create="createItem">
+      :show-add-button="isAdmin" @create="createItem">
       <template #additional-filters>
         <slot name="additional-filters"></slot>
       </template>

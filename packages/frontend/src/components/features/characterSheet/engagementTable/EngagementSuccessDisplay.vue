@@ -32,12 +32,10 @@
 </template>
 
 <script setup>
-import { watch } from 'vue'
 import Chip from '@/components/ui/chips/Chip.vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 
-// Props
-const props = defineProps({
+defineProps({
     successData: {
         type: Array,
         default: () => []

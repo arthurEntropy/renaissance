@@ -32,7 +32,7 @@
 </template>
 
 <script setup>
-import { computed, watch } from 'vue'
+import { computed } from 'vue'
 import { WINNER } from '@shared/constants/winner.js'
 import Chip from '@/components/ui/chips/Chip.vue'
 import BaseCharacterColumn from './BaseCharacterColumn.vue'
