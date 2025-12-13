@@ -1,6 +1,6 @@
 <template>
     <div class="description-container edit-hover-area">
-        <EditButton v-if="isEditMode" @click="toggleEdit" :is-editing="isEditingDescription" title="Edit description"
+        <FloatingActionButton v-if="isEditMode" type="edit" @click="toggleEdit" :is-active="isEditingDescription"
             size="small" visibility="on-hover" class="edit-button-overlay" />
 
         <div v-if="isEditingDescription" class="editable-description">
@@ -17,7 +17,7 @@
 
 <script setup>
 import { ref, computed, watch } from 'vue'
-import EditButton from '@/components/ui/buttons/EditButton.vue'
+import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import TextEditor from '@/components/ui/textEditor/TextEditor.vue'
 import { useInlineEditor } from '../composables/useInlineEditor'

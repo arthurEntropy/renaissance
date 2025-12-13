@@ -2,16 +2,16 @@
     <div>
         <div class="character-art-container edit-hover-area">
             <img :src="characterImageUrl" class="character-art-image" @click="openModal" />
-            <EditButton v-if="isEditMode" size="small" visibility="on-hover" class="edit-button-overlay-small"
-                @click.stop="openChangeArtModal" />
+            <FloatingActionButton v-if="isEditMode" type="edit" size="small" visibility="on-hover"
+                class="edit-button-overlay-small" @click.stop="openChangeArtModal" />
         </div>
 
         <!-- Full Size Art Modal -->
         <div v-if="fullSizeModal.isOpen.value" class="modal-overlay" @click="fullSizeModal.closeModal">
             <div class="modal-content image-container edit-hover-area" @click.stop>
                 <img :src="characterImageUrl" class="modal-image" />
-                <EditButton v-if="isEditMode" size="small" visibility="on-hover" class="edit-button-overlay"
-                    @click.stop="openChangeArtModal" />
+                <FloatingActionButton v-if="isEditMode" type="edit" size="small" visibility="on-hover"
+                    class="edit-button-overlay" @click.stop="openChangeArtModal" />
             </div>
         </div>
 
@@ -33,7 +33,7 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { useModal } from '@/composables/useModal'
-import EditButton from '@/components/ui/buttons/EditButton.vue'
+import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 
 // Props

@@ -17,7 +17,7 @@
             </div>
 
             <div v-if="isEditMode" class="add-die-container">
-                <AddButton :show="true" position="inline" title="Add die" @click="$emit('add-die', $event)" />
+                <FloatingActionButton type="add" @click="$emit('add-die', $event)" />
             </div>
         </div>
 
@@ -45,7 +45,7 @@
 
 <script setup>
 import { ref } from 'vue'
-import AddButton from '@/components/ui/buttons/AddButton.vue'
+import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import { getDiceFontMaxClass } from '@/utils/diceFontUtils'
 
 // Props

@@ -6,9 +6,8 @@
                 :sources="sources" :art-expanded="true" @edit="$emit('edit-equipment', item)" :collapsible="false"
                 :showSource="false" :show-add-to-character="!!charactersStore.selectedCharacter" />
         </MasonryGrid>
-        <div class="add-button-container">
-            <AddButton :show="isEditMode" @click="$emit('add-equipment')" title="Add new item"
-                position="bottom-center" />
+        <div v-if="isEditMode" class="add-button-container">
+            <FloatingActionButton type="add" @click="$emit('add-equipment')" />
         </div>
     </ConceptSection>
 </template>
@@ -18,7 +17,7 @@ import { computed } from 'vue'
 import ConceptSection from './ConceptSection.vue'
 import EquipmentCard from '@/components/ui/cards/EquipmentCard.vue'
 import MasonryGrid from '@/components/ui/layouts/MasonryGrid.vue'
-import AddButton from '@/components/ui/buttons/AddButton.vue'
+import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import { useCharactersStore } from '@/stores/charactersStore'
 
 const charactersStore = useCharactersStore()

@@ -1,7 +1,7 @@
 <template>
     <div class="vitals-info edit-hover-area">
-        <EditButton v-if="isEditMode" size="small" visibility="on-hover" class="edit-button-overlay"
-            @click="openEditModal" />
+        <FloatingActionButton v-if="isEditMode" type="edit" size="small" visibility="on-hover"
+            class="edit-button-overlay" @click="openEditModal" />
 
         <!-- Name and Pronouns -->
         <div class="character-name-container">
@@ -36,7 +36,7 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import { useConceptsStore } from '@/stores/conceptsStore'
-import EditButton from '@/components/ui/buttons/EditButton.vue'
+import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import CharacterVitalsEditModal from './CharacterVitalsEditModal.vue'
 
 const conceptsStore = useConceptsStore()

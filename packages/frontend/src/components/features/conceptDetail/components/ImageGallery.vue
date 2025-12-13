@@ -11,8 +11,8 @@
       <img :src="displayImages[selectedIndex]" :alt="`Image ${selectedIndex + 1}`" class="enlarged-image" />
 
       <!-- Edit button - only in manual mode -->
-      <EditButton v-if="editable && mode === 'manual'" size="small" visibility="on-hover" class="edit-button-overlay"
-        @click.stop="openEditModal" />
+      <FloatingActionButton v-if="editable && mode === 'manual'" type="edit" size="small" visibility="on-hover"
+        class="edit-button-overlay" @click.stop="openEditModal" />
 
       <button v-if="showNav && displayImages.length > 1" class="nav-button right" @click.stop="nextImage"
         aria-label="Next image">
@@ -88,7 +88,7 @@
 import { ref, watch, nextTick, computed } from 'vue'
 import draggable from 'vuedraggable'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
-import EditButton from '@/components/ui/buttons/EditButton.vue'
+import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/vue/24/outline'
 import { useArtStore } from '@/stores/artStore'
 

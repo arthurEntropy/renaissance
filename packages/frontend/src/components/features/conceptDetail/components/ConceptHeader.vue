@@ -5,13 +5,13 @@
             ⚙️
         </button>
         <!-- Edit/Save button -->
-        <EditButton v-if="editable" size="large" visibility="always" :is-edit-mode="isEditMode"
+        <FloatingActionButton v-if="editable" type="edit" size="large" visibility="always" :is-active="isEditMode"
             @click="$emit('toggle-edit-mode')" />
     </div>
 </template>
 
 <script setup>
-import EditButton from '@/components/ui/buttons/EditButton.vue'
+import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 
 defineProps({
     editable: {

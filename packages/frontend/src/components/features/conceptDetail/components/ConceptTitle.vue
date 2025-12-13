@@ -7,7 +7,7 @@
         <template v-else>
             <h1 class="concept-title edit-hover-area" @click="enhancedStartEdit">
                 {{ concept.name }}
-                <EditButton v-if="isEditMode" @click="enhancedStartEdit" title="Edit title" size="small"
+                <FloatingActionButton v-if="isEditMode" type="edit" @click="enhancedStartEdit" size="small"
                     visibility="on-hover" />
             </h1>
             <div v-if="expansionLogoUrl" class="expansion-badge-wrapper"
@@ -20,7 +20,7 @@
 
 <script setup>
 import { ref, computed } from 'vue'
-import EditButton from '@/components/ui/buttons/EditButton.vue'
+import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import { useInlineEditor } from '../composables/useInlineEditor'
 import { useConceptsStore } from '@/stores/conceptsStore'
 

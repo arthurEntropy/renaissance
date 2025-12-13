@@ -10,9 +10,8 @@
                 :character="character" :show-improvement-toggle="!!character"
                 :show-add-to-character="!!charactersStore.selectedCharacter" />
         </MasonryGrid>
-        <div class="add-button-container">
-            <AddButton :show="isEditMode" @click="$emit('add-ability')" title="Add new ability"
-                position="bottom-center" />
+        <div v-if="isEditMode" class="add-button-container">
+            <FloatingActionButton type="add" @click="$emit('add-ability')" />
         </div>
     </ConceptSection>
 </template>
@@ -22,7 +21,7 @@ import { computed, ref } from 'vue'
 import ConceptSection from './ConceptSection.vue'
 import AbilityCard from '@/components/ui/cards/AbilityCard.vue'
 import MasonryGrid from '@/components/ui/layouts/MasonryGrid.vue'
-import AddButton from '@/components/ui/buttons/AddButton.vue'
+import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import { useCharactersStore } from '@/stores/charactersStore'
 
 const charactersStore = useCharactersStore()

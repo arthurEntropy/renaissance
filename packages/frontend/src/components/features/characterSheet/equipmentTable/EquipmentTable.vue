@@ -35,7 +35,7 @@
     </draggable>
 
     <!-- Add Item FAB (only in edit mode) -->
-    <AddButton :show="showAddButton" @click="showEquipmentSelector = true" title="Add item" />
+    <FloatingActionButton v-if="showAddButton" type="add" @click="showEquipmentSelector = true" />
 
     <!-- Equipment Selector Modal -->
     <ItemSelector :show="showEquipmentSelector" title="Add Equipment" :grouped-items="groupedEquipment"
@@ -60,7 +60,7 @@ import EquipmentDetails from './EquipmentDetails.vue'
 import TableHeader from '@/components/ui/tables/TableHeader.vue'
 import FloatingEditControls from '@/components/ui/controls/FloatingEditControls.vue'
 import ItemSelector from '@/components/ui/selectors/ItemSelector.vue'
-import AddButton from '@/components/ui/buttons/AddButton.vue'
+import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import CharacterSheetSection from '@/components/ui/containers/CharacterSheetSection.vue'
 import draggable from 'vuedraggable'
 import { useSimpleEditMode } from '@/composables/useEditMode'

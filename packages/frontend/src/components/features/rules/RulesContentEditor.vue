@@ -6,8 +6,8 @@
         <input v-if="isContentEditMode" type="text" :value="currentSection.name"
           @input="$emit('updateSectionName', $event.target.value)" class="section-name-input" />
         <h2 v-else>{{ currentSection.name }}</h2>
-        <EditButton v-if="isAdmin" :isEditMode="isContentEditMode" :disabled="isStructureEditMode" visibility="always"
-          @click="$emit('toggleContentEditMode')" />
+        <FloatingActionButton v-if="isAdmin" type="edit" :is-active="isContentEditMode" :disabled="isStructureEditMode"
+          visibility="always" @click="$emit('toggleContentEditMode')" />
       </div>
     </div>
 
@@ -36,7 +36,7 @@
 import { computed } from 'vue'
 import { useAuthStore } from '@/stores/authStore'
 import TextEditor from '@/components/ui/textEditor/TextEditor.vue'
-import EditButton from '@/components/ui/buttons/EditButton.vue'
+import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import { sanitizeHtml } from '@/utils/sanitizeHtml'
 
 const authStore = useAuthStore()

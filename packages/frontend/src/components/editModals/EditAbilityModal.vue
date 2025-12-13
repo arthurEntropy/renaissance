@@ -78,7 +78,7 @@
               <TextEditor v-model="impr.description" :placeholder="'Description'" :height="'80px'"
                 :auto-height="true" />
             </div>
-            <ActionButton variant="primary" size="small" icon="+" text="Add Improvement" @click="addImprovement"
+            <ActionButton variant="primary" size="small" text="+ Add Improvement" @click="addImprovement"
               type="button" />
           </div>
 

@@ -43,7 +43,7 @@
     </draggable>
 
     <!-- Add Ability FAB (only in edit mode) -->
-    <AddButton :show="showAddButton" @click="toggleAbilitySelector" title="Add ability" />
+    <FloatingActionButton v-if="showAddButton" type="add" @click="toggleAbilitySelector" />
 
     <!-- Add Ability Selector Modal -->
     <ItemSelector :show="showAbilitySelector" title="Add Ability" :grouped-items="groupedAbilities"
@@ -60,7 +60,7 @@ import AbilityCard from '@/components/ui/cards/AbilityCard.vue'
 import TableHeader from '@/components/ui/tables/TableHeader.vue'
 import FloatingEditControls from '@/components/ui/controls/FloatingEditControls.vue'
 import ItemSelector from '@/components/ui/selectors/ItemSelector.vue'
-import AddButton from '@/components/ui/buttons/AddButton.vue'
+import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import CharacterSheetSection from '@/components/ui/containers/CharacterSheetSection.vue'
 import MPDisplay from './MPDisplay.vue'
 import draggable from 'vuedraggable'

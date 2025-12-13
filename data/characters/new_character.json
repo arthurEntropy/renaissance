@@ -2,7 +2,7 @@
   "id": "1de73ab0-0743-44c0-82c0-b148e15b4f4b",
   "isDeleted": false,
   "createdAt": "2025-12-12T21:34:15.028Z",
-  "lastModified": "2025-12-12T21:34:15.629Z",
+  "lastModified": "2025-12-13T02:21:37.550Z",
   "name": "New Character",
   "isBeast": false,
   "pronouns": "",
@@ -181,5 +181,5 @@
   "activeEffects": [],
   "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
   "ownerEmail": "ljbrevoort@gmail.com",
-  "updatedAt": "2025-12-12T21:34:15.629Z"
+  "updatedAt": "2025-12-13T02:21:37.550Z"
 }

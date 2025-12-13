@@ -2,8 +2,8 @@
     <div class="concept-section" v-if="hasContent || isEditMode">
         <h2 v-if="title" class="section-header" :class="{ 'edit-hover-area': showEditButton }">
             {{ title }}
-            <EditButton v-if="showEditButton" :is-editing="isSectionEditing" @click="$emit('toggle-edit')"
-                :title="`Edit ${title.toLowerCase()}`" size="small" visibility="on-hover" />
+            <FloatingActionButton v-if="showEditButton" type="edit" :is-active="isSectionEditing"
+                @click="$emit('toggle-edit')" size="small" visibility="on-hover" />
         </h2>
         <div v-if="!hasContent && isEditMode && !isSectionEditing" class="empty-section-placeholder">
             {{ emptyMessage }}
@@ -13,7 +13,7 @@
 </template>
 
 <script setup>
-import EditButton from '@/components/ui/buttons/EditButton.vue'
+import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 
 defineProps({
     title: {

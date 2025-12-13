@@ -4,9 +4,9 @@
 
     <!-- Floating Action Buttons -->
     <div v-if="editable || duplicatable" class="floating-buttons">
-      <DuplicateButton v-if="duplicatable" @click.stop="$emit('duplicate', item)" :title="`Duplicate ${itemType}`"
-        size="small" visibility="on-hover" class="duplicate-button-floating" />
-      <EditButton v-if="editable" @click.stop="$emit('edit', item)" :title="`Edit ${itemType}`" size="small"
+      <FloatingActionButton v-if="duplicatable" type="duplicate" @click.stop="$emit('duplicate', item)" size="small"
+        visibility="on-hover" class="duplicate-button-floating" />
+      <FloatingActionButton v-if="editable" type="edit" @click.stop="$emit('edit', item)" size="small"
         visibility="on-hover" class="edit-button-floating" />
     </div>
 
@@ -52,8 +52,7 @@
 import { ref, computed, watch, onMounted, nextTick } from 'vue'
 import { useSourcesStore } from '@/stores/sourcesStore'
 import { storeToRefs } from 'pinia'
-import EditButton from '@/components/ui/buttons/EditButton.vue'
-import DuplicateButton from '@/components/ui/buttons/DuplicateButton.vue'
+import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 
 const props = defineProps({
   item: { type: Object, required: true },

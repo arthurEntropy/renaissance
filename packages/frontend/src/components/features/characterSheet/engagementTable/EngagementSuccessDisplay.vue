@@ -4,8 +4,7 @@
             :removable="isEditMode && success.isUserAdded" @remove="$emit('remove-success', success.id)" />
 
         <div v-if="isEditMode" class="add-success-container">
-            <AddButton :show="true" size="small" position="inline" title="Add success"
-                @click="$emit('add-success', $event)" />
+            <FloatingActionButton type="add" size="small" @click="$emit('add-success', $event)" />
         </div>
 
         <div v-if="successData.length === 0 && !isEditMode" class="no-successes-message">
@@ -32,7 +31,7 @@
 
 <script setup>
 import SuccessChip from '@/components/ui/chips/SuccessChip.vue'
-import AddButton from '@/components/ui/buttons/AddButton.vue'
+import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 
 // Props
 defineProps({
