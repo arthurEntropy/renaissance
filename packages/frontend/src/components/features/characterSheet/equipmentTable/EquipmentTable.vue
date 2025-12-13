@@ -13,8 +13,10 @@
       <template #item="{ element: row, index }">
         <div class="equipment-row">
 
-          <FloatingEditControls v-if="internalEditMode" :index="index" delete-title="Remove item"
-            drag-title="Drag to reorder" @delete="removeEquipmentItem" />
+          <div v-if="internalEditMode" class="floating-edit-controls">
+            <FloatingActionButton type="delete" size="small" visibility="always" @click="removeEquipmentItem(index)" />
+            <FloatingActionButton type="drag" size="small" visibility="always" class="drag-handle" />
+          </div>
 
           <div class="equipment-card-col">
             <EquipmentCard v-if="row.equipment" :equipment="row.equipment" :collapsed="row.collapsed || false"
@@ -58,9 +60,8 @@ import EquipmentCard from '@/components/ui/cards/EquipmentCard.vue'
 import EquipmentWeight from './EquipmentWeight.vue'
 import EquipmentDetails from './EquipmentDetails.vue'
 import TableHeader from '@/components/ui/tables/TableHeader.vue'
-import FloatingEditControls from '@/components/ui/controls/FloatingEditControls.vue'
-import ItemSelector from '@/components/ui/selectors/ItemSelector.vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
+import ItemSelector from '@/components/ui/selectors/ItemSelector.vue'
 import CharacterSheetSection from '@/components/ui/containers/CharacterSheetSection.vue'
 import draggable from 'vuedraggable'
 import { useSimpleEditMode } from '@/composables/useEditMode'
@@ -338,6 +339,17 @@ const updateEquipmentArtExpanded = (equipmentRow, artExpanded) => {
   flex-direction: row;
   align-items: flex-start;
   width: 100%;
+}
+
+.floating-edit-controls {
+  position: absolute;
+  left: -17px;
+  top: -3px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  z-index: var(--z-dropdown);
+  pointer-events: auto;
 }
 
 .equipment-card-col {

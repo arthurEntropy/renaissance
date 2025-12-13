@@ -6,13 +6,13 @@
 
 <script setup>
 import { computed } from 'vue'
-import { PlusIcon, DocumentDuplicateIcon, PencilIcon, CheckIcon } from '@heroicons/vue/24/outline'
+import { PlusIcon, DocumentDuplicateIcon, PencilIcon, CheckIcon, XMarkIcon, Bars3Icon } from '@heroicons/vue/24/outline'
 
 const props = defineProps({
     type: {
         type: String,
         required: true,
-        validator: (value) => ['edit', 'add', 'duplicate'].includes(value)
+        validator: (value) => ['edit', 'add', 'duplicate', 'delete', 'drag'].includes(value)
     },
 
     size: {
@@ -59,8 +59,12 @@ const iconComponent = computed(() => {
         return props.isActive ? CheckIcon : PencilIcon
     } else if (props.type === 'add') {
         return PlusIcon
-    } else {
+    } else if (props.type === 'duplicate') {
         return DocumentDuplicateIcon
+    } else if (props.type === 'delete') {
+        return XMarkIcon
+    } else {
+        return Bars3Icon
     }
 })
 
@@ -73,8 +77,12 @@ const tooltip = computed(() => {
         return props.isActive ? 'Exit Edit Mode' : 'Enter Edit Mode'
     } else if (props.type === 'add') {
         return 'Add'
-    } else {
+    } else if (props.type === 'duplicate') {
         return 'Duplicate'
+    } else if (props.type === 'delete') {
+        return 'Delete'
+    } else {
+        return 'Drag to reorder'
     }
 })
 </script>
@@ -150,6 +158,10 @@ const tooltip = computed(() => {
 .fab--add:hover:not(.fab--disabled) {
     background: var(--color-primary-hover);
     border-color: var(--color-primary-hover);
+}
+
+.fab--drag {
+    cursor: move;
 }
 
 /* === VISIBILITY VARIANTS === */

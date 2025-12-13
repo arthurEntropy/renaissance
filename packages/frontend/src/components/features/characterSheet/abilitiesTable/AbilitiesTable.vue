@@ -25,8 +25,10 @@
       <template #item="{ element: ability, index }">
         <div class="ability-row">
 
-          <FloatingEditControls v-if="internalEditMode" :index="index" delete-title="Remove ability"
-            drag-title="Drag to reorder" @delete="removeAbility" />
+          <div v-if="internalEditMode" class="floating-edit-controls">
+            <FloatingActionButton type="delete" size="small" visibility="always" @click="removeAbility(index)" />
+            <FloatingActionButton type="drag" size="small" visibility="always" class="drag-handle" />
+          </div>
 
           <AbilityCard v-if="ability" :ability="ability" :collapsed="ability.collapsed"
             @update:collapsed="updateAbilityCollapsed(ability, $event)" class="ability-card" :collapsible="true"
@@ -58,9 +60,8 @@
 import { computed } from 'vue'
 import AbilityCard from '@/components/ui/cards/AbilityCard.vue'
 import TableHeader from '@/components/ui/tables/TableHeader.vue'
-import FloatingEditControls from '@/components/ui/controls/FloatingEditControls.vue'
-import ItemSelector from '@/components/ui/selectors/ItemSelector.vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
+import ItemSelector from '@/components/ui/selectors/ItemSelector.vue'
 import CharacterSheetSection from '@/components/ui/containers/CharacterSheetSection.vue'
 import MPDisplay from './MPDisplay.vue'
 import draggable from 'vuedraggable'
@@ -249,6 +250,17 @@ const updateAbilityShowImprovements = (ability, showImprovements) => {
   flex-direction: row;
   align-items: flex-start;
   width: 100%;
+}
+
+.floating-edit-controls {
+  position: absolute;
+  left: -17px;
+  top: -3px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  z-index: var(--z-dropdown);
+  pointer-events: auto;
 }
 
 .ability-row .ability-card {
