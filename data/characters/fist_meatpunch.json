@@ -184,7 +184,7 @@
       "isCarried": true,
       "isWielding": true,
       "index": 0,
-      "collapsed": false,
+      "collapsed": true,
       "artExpanded": true
     },
     {
@@ -193,8 +193,14 @@
       "isCarried": true,
       "isWielding": true,
       "index": 1,
-      "collapsed": false,
+      "collapsed": true,
       "artExpanded": true
+    },
+    {
+      "id": "fa34252b-7e6d-446c-bf47-908bcea3bbcb",
+      "quantity": 1,
+      "isCarried": true,
+      "collapsed": false
     }
   ],
   "engagementDice": [],
@@ -225,6 +231,6 @@
     "https://cdn.midjourney.com/579f1913-10e8-438c-9d1d-949151eb171c/0_0.png"
   ],
   "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2025-12-12T21:31:39.117Z",
-  "lastModified": "2025-12-12T21:31:39.117Z"
+  "updatedAt": "2025-12-13T16:12:31.075Z",
+  "lastModified": "2025-12-13T16:12:31.075Z"
 }

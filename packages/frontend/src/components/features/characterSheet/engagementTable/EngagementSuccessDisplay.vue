@@ -1,7 +1,9 @@
 <template>
     <div class="engagement-successes">
-        <SuccessChip v-for="success in successData" :key="success.id" :success="success"
-            :removable="isEditMode && success.isUserAdded" @remove="$emit('remove-success', success.id)" />
+        <Chip v-for="success in successData" :key="success.id" :text="success.name" rounded="full"
+            :removable="isEditMode && success.isUserAdded"
+            :tooltip="{ description: success.description, sources: success.sources }"
+            @remove="$emit('remove-success', success.id)" />
 
         <div v-if="isEditMode" class="add-success-container">
             <FloatingActionButton type="add" size="small" @click="$emit('add-success', $event)" />
@@ -30,11 +32,12 @@
 </template>
 
 <script setup>
-import SuccessChip from '@/components/ui/chips/SuccessChip.vue'
+import { watch } from 'vue'
+import Chip from '@/components/ui/chips/Chip.vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 
 // Props
-defineProps({
+const props = defineProps({
     successData: {
         type: Array,
         default: () => []

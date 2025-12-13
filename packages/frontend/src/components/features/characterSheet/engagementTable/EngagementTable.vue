@@ -32,7 +32,7 @@
 </template>
 
 <script setup>
-import { ref, toRef, computed } from 'vue'
+import { ref, toRef, computed, onMounted } from 'vue'
 import EngagementRollModal from '@/components/features/characterSheet/rollModal/EngagementRollModal.vue'
 import TableHeader from '@/components/ui/tables/TableHeader.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
@@ -174,7 +174,9 @@ const removeUserAddedSuccess = (successId) => {
 }
 
 // Initialize success data
-successManager.fetchEngagementSuccesses()
+onMounted(async () => {
+  await successManager.fetchEngagementSuccesses()
+})
 </script>
 
 <style scoped>

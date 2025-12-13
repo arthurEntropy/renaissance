@@ -6,8 +6,11 @@
             :class="{ disabled: !canEdit }" @drop="canEdit ? onSuccessDrop($event) : null" @dragover.prevent
             @dragenter.prevent>
             <div v-if="assignedSuccesses[`${side}-${index}`]" class="assigned-success-container">
-                <SuccessChip :success="getSuccessById(assignedSuccesses[`${side}-${index}`])" :removable="canEdit"
-                    @remove="$emit('remove-success-assignment', side, index)" />
+                <Chip :text="getSuccessById(assignedSuccesses[`${side}-${index}`]).name" rounded="full"
+                    variant="success" :tooltip="{
+                        description: getSuccessById(assignedSuccesses[`${side}-${index}`]).description,
+                        sources: getSuccessById(assignedSuccesses[`${side}-${index}`]).sources
+                    }" :removable="canEdit" @remove="$emit('remove-success-assignment', side, index)" />
             </div>
             <div v-else class="success-outline"></div>
         </div>
@@ -26,7 +29,11 @@
         <!-- Success assignment display (right side for opponent) -->
         <div v-if="die.rolledMaxValue && showResults && isOpponent" class="success-display-zone right-side">
             <div v-if="assignedSuccesses[`${side}-${index}`]" class="assigned-success-container">
-                <SuccessChip :success="getSuccessById(assignedSuccesses[`${side}-${index}`])" />
+                <Chip :text="getSuccessById(assignedSuccesses[`${side}-${index}`]).name" rounded="full"
+                    variant="success" :tooltip="{
+                        description: getSuccessById(assignedSuccesses[`${side}-${index}`]).description,
+                        sources: getSuccessById(assignedSuccesses[`${side}-${index}`]).sources
+                    }" />
             </div>
             <div v-else class="success-outline"></div>
         </div>
@@ -36,7 +43,7 @@
 
 <script setup>
 import { ref } from 'vue'
-import SuccessChip from '@/components/ui/chips/SuccessChip.vue'
+import Chip from '@/components/ui/chips/Chip.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 
 const props = defineProps({

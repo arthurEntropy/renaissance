@@ -123,6 +123,10 @@ const characterSuccesses = computed(() => {
     return engagementSuccesses.allOwnedEngagementSuccesses.value
 })
 
+const dicePairs = computed(() => {
+    return diceManager.getDicePairs(sessionManager, props.character, toRef(props, 'selectedDice'))
+})
+
 const toggleResult = diceManager.createToggleResultHandler(sessionManager, props.character, toRef(props, 'selectedDice'))
 const rerollDie = diceManager.createRerollDieHandler(sessionManager, props.character, toRef(props, 'selectedDice'), { assignedSuccesses })
 

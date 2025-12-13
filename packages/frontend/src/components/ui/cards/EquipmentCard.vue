@@ -76,7 +76,8 @@
     <!-- Footer slot for engagement successes -->
     <template #footer>
       <div v-if="!collapsed" class="engagement-successes">
-        <SuccessChip v-for="success in engagementSuccesses" :key="success.id" :success="success" />
+        <Chip v-for="success in engagementSuccesses" :key="success.id" :text="success.name" rounded="full"
+          :tooltip="{ description: success.description, sources: success.sources }" />
       </div>
     </template>
 
@@ -99,7 +100,7 @@ import BaseCard from '@/components/ui/cards/BaseCard.vue'
 import BadgeDisplay from '@/components/ui/cards/BadgeDisplay.vue'
 import CardDescription from '@/components/ui/cards/CardDescription.vue'
 import AddToCharacterButton from '@/components/ui/cards/AddToCharacterButton.vue'
-import SuccessChip from '@/components/ui/chips/SuccessChip.vue'
+import Chip from '@/components/ui/chips/Chip.vue'
 import EngagementSuccessService from '@/services/entities/engagementSuccessService'
 import EquipmentService from '@/services/entities/equipment/equipmentService'
 import { getDiceFontMaxClass } from '@/utils/diceFontUtils'

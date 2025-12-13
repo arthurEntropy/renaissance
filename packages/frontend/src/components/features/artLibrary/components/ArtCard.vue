@@ -10,9 +10,7 @@
                     <PhotoIcon v-if="art.tags.type === 'places'" class="icon-sm" />
                     <MapIcon v-if="art.tags.type === 'maps'" class="icon-sm" />
                 </span>
-                <span v-for="sourceId in art.tags.sources" :key="sourceId" class="art-source-tag">
-                    {{ getSourceName(sourceId) }}
-                </span>
+                <Chip v-for="sourceId in art.tags.sources" :key="sourceId" :sourceId="sourceId" variant="secondary" />
             </div>
         </div>
         <!-- Selection indicator -->
@@ -24,7 +22,7 @@
 
 <script setup>
 import { UserCircleIcon, PhotoIcon, MapIcon } from '@heroicons/vue/24/outline'
-import { useSourcesStore } from '@/stores/sourcesStore'
+import Chip from '@/components/ui/chips/Chip.vue'
 
 const props = defineProps({
     art: {
@@ -38,19 +36,6 @@ const props = defineProps({
 })
 
 const emit = defineEmits(['click'])
-
-const sourcesStore = useSourcesStore()
-
-const getSourceName = (sourceId) => {
-    const allSources = [
-        ...sourcesStore.sources.ancestries || [],
-        ...sourcesStore.sources.cultures || [],
-        ...sourcesStore.sources.mestieri || [],
-        ...sourcesStore.sources.worldElements || []
-    ]
-    const source = allSources.find(s => s.id === sourceId)
-    return source ? source.name : 'Unknown'
-}
 
 const handleClick = (event) => {
     emit('click', event, props.art)
@@ -123,16 +108,6 @@ const handleClick = (event) => {
 .art-type.maps {
     background: rgba(239, 68, 68, 0.2);
     color: rgb(248, 113, 113);
-}
-
-.art-source-tag {
-    display: inline-block;
-    padding: var(--space-xs) var(--space-sm);
-    border-radius: var(--radius-5);
-    font-size: var(--font-size-11);
-    font-weight: var(--font-weight-semibold);
-    background: var(--color-gray-dark);
-    color: var(--color-text-secondary);
 }
 
 .icon-sm {
