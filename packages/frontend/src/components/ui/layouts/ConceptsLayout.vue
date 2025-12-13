@@ -147,10 +147,7 @@ const itemNamePlural = computed(() => {
   return `${name}s`
 })
 
-const expansionFilterOptions = computed(() => ({
-  grouped: false,
-  items: expansions.value || []
-}))
+const expansionFilterOptions = computed(() => expansions.value || [])
 
 const hasPreviousConcept = computed(() => {
   if (!selectedConcept.value) return false;

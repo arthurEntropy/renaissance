@@ -37,7 +37,9 @@
     </draggable>
 
     <!-- Add Item FAB (only in edit mode) -->
-    <FloatingActionButton v-if="showAddButton" type="add" @click="showEquipmentSelector = true" />
+    <div v-if="showAddButton" class="add-button-container">
+      <FloatingActionButton type="add" size="large" visibility="always" @click="showEquipmentSelector = true" />
+    </div>
 
     <!-- Equipment Selector Modal -->
     <ItemSelector :show="showEquipmentSelector" title="Add Equipment" :grouped-items="groupedEquipment"
@@ -55,7 +57,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import EquipmentCard from '@/components/ui/cards/EquipmentCard.vue'
 import EquipmentWeight from './EquipmentWeight.vue'
 import EquipmentDetails from './EquipmentDetails.vue'
@@ -104,6 +106,14 @@ const canEdit = computed(() => props.isEditMode)
 
 // FAB visibility - only show in edit mode
 const showAddButton = computed(() => internalEditMode.value)
+
+// DEBUG: Watch edit mode changes
+watch(internalEditMode, (newVal) => {
+  console.log('EquipmentTable internalEditMode changed:', newVal)
+})
+watch(showAddButton, (newVal) => {
+  console.log('EquipmentTable showAddButton changed:', newVal)
+})
 
 // Source management
 const sourcesStore = useSourcesStore()
@@ -389,5 +399,11 @@ const updateEquipmentArtExpanded = (equipmentRow, artExpanded) => {
   background: var(--overlay-white-subtle);
   border: 2px dashed var(--color-gray-light);
   border-radius: var(--radius-5);
+}
+
+.add-button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--space-md);
 }
 </style>

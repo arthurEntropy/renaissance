@@ -60,7 +60,7 @@ export function useItemSelector(allItems, sourcesStore, options = {}) {
 
     // Group items
     items
-      .filter((item) => !item.isDeleted)
+      .filter((item) => !item.isDeleted && !item.isTemplate)
       .forEach((item) => {
         if (item.isCustom === true) {
           // Custom items go to the custom group

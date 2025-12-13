@@ -1,44 +1,45 @@
 <template>
-    <div v-if="show" class="item-selector-container">
-        <div v-if="title" class="item-selector-title">
-            <h3>{{ title }}</h3>
-            <span @click="$emit('close')" class="close-selector">×</span>
-        </div>
-
-        <!-- Choice Mode: Show options for custom vs library -->
-        <div v-if="showChoiceMode && choiceOptions.length > 0" class="choice-options-container">
-            <div v-for="option in choiceOptions" :key="option.key" class="choice-option"
-                @click="$emit('choice', option.key)">
-                <component :is="option.icon" class="choice-option-icon" />
-                {{ option.label }}
+    <div v-if="show" class="modal-overlay" @click.self="$emit('close')">
+        <div class="modal-content item-selector" @click.stop>
+            <div v-if="title" class="modal-header">
+                <h3>{{ title }}</h3>
             </div>
-        </div>
 
-        <!-- Normal Mode: Show item selection -->
-        <template v-else>
-            <div class="item-selector-header">
-                <input type="text" :value="searchQuery" :placeholder="searchPlaceholder" class="item-search"
-                    @input="handleSearch" />
-                <span v-if="!title" @click="$emit('close')" class="close-selector">×</span>
-            </div>
-            <div class="item-options-container">
-                <template v-for="(items, source) in groupedItems" :key="source">
-                    <div class="item-source-group">
-                        <div class="source-header">{{ getSourceName(source) }}</div>
-                        <div v-for="item in items" :key="item.id" class="item-option" @click="$emit('select', item)">
-                            <slot name="item-display" :item="item">
-                                {{ item.name }}
-                                <span v-if="item.mp" class="item-cost">({{ item.mp }} MP)</span>
-                                <span v-if="item.weight" class="item-weight">({{ item.weight }} lbs)</span>
-                            </slot>
-                        </div>
-                    </div>
-                </template>
-                <div v-if="Object.keys(groupedItems).length === 0" class="no-items-message">
-                    {{ noItemsMessage }}
+            <!-- Choice Mode: Show options for custom vs library -->
+            <div v-if="showChoiceMode && choiceOptions.length > 0" class="choice-options-container">
+                <div v-for="option in choiceOptions" :key="option.key" class="choice-option"
+                    @click="$emit('choice', option.key)">
+                    <component :is="option.icon" class="choice-option-icon" />
+                    {{ option.label }}
                 </div>
             </div>
-        </template>
+
+            <!-- Normal Mode: Show item selection -->
+            <template v-else>
+                <div class="item-selector-header">
+                    <input type="text" :value="searchQuery" :placeholder="searchPlaceholder" class="item-search"
+                        @input="handleSearch" />
+                </div>
+                <div class="item-options-container">
+                    <template v-for="(items, source) in groupedItems" :key="source">
+                        <div class="item-source-group">
+                            <div class="source-header">{{ getSourceName(source) }}</div>
+                            <div v-for="item in items" :key="item.id" class="item-option"
+                                @click="$emit('select', item)">
+                                <slot name="item-display" :item="item">
+                                    {{ item.name }}
+                                    <span v-if="item.mp" class="item-cost">({{ item.mp }} MP)</span>
+                                    <span v-if="item.weight" class="item-weight">({{ item.weight }} lbs)</span>
+                                </slot>
+                            </div>
+                        </div>
+                    </template>
+                    <div v-if="Object.keys(groupedItems).length === 0" class="no-items-message">
+                        {{ noItemsMessage }}
+                    </div>
+                </div>
+            </template>
+        </div>
     </div>
 </template>
 
@@ -91,41 +92,23 @@ const handleSearch = (event) => {
 </script>
 
 <style scoped>
-.item-selector-container {
-    position: fixed;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+.item-selector {
     width: 80%;
     max-width: 500px;
     max-height: 80vh;
-    background-color: var(--color-bg-secondary);
-    border-radius: var(--radius-10);
-    z-index: var(--z-modal);
-    display: flex;
-    flex-direction: column;
-    box-shadow: var(--shadow-elevation-lg);
 }
 
-.item-selector-title {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: var(--space-lg) var(--space-lg) var(--space-md) var(--space-lg);
+.modal-header {
+    text-align: center;
+    padding-bottom: var(--space-md);
     border-bottom: 1px solid var(--overlay-white-subtle);
-    position: relative;
 }
 
-.item-selector-title h3 {
+.modal-header h3 {
     margin: 0;
     font-size: var(--font-size-24);
     font-weight: var(--font-weight-bold);
     color: var(--color-primary);
-}
-
-.item-selector-title .close-selector {
-    position: absolute;
-    right: var(--space-lg);
 }
 
 .item-selector-header {
@@ -149,17 +132,6 @@ const handleSearch = (event) => {
     background-color: var(--overlay-white-subtle);
     color: var(--color-white);
     font-size: var(--font-size-16);
-}
-
-.close-selector {
-    font-size: var(--font-size-24);
-    margin-left: 15px;
-    cursor: pointer;
-    color: var(--color-gray-light);
-}
-
-.close-selector:hover {
-    color: var(--color-white);
 }
 
 .choice-options-container {
@@ -197,6 +169,7 @@ const handleSearch = (event) => {
     overflow-y: auto;
     max-height: calc(80vh - 60px);
     padding: var(--space-md);
+    text-align: left;
 }
 
 .item-source-group {
@@ -205,7 +178,7 @@ const handleSearch = (event) => {
 
 .source-header {
     font-weight: var(--font-weight-bold);
-    color: var(--color-gray-light);
+    color: var(--color-primary);
     padding: var(--space-xs) 0;
     border-bottom: 1px solid var(--overlay-white-subtle);
     margin-bottom: 8px;
@@ -213,6 +186,7 @@ const handleSearch = (event) => {
 
 .item-option {
     padding: var(--space-sm) 12px;
+    padding-left: var(--space-lg);
     cursor: pointer;
     border-radius: var(--radius-5);
     transition: var(--transition-background);

@@ -1,14 +1,28 @@
 <template>
   <div class="item-cards-view" ref="containerRef">
     <!-- Search and Filter Controls -->
-    <FilterControls v-model:search-query="searchQueryLocal" v-model:primary-filter="sourceFilterLocal"
-      v-model:sort-option="sortOptionLocal" :search-placeholder="`Search ${itemTypePlural.toLowerCase()}...`"
-      :primary-filter-options="sourceFilterOptions" primary-filter-label="All Sources" :sort-options="sortOptions"
-      :show-add-button="isAdmin" @create="createItem">
-      <template #additional-filters>
-        <slot name="additional-filters"></slot>
-      </template>
-    </FilterControls>
+    <div class="filter-controls-wrapper">
+      <input type="text" v-model="searchQueryLocal" class="search-input"
+        :placeholder="`Search ${itemTypePlural.toLowerCase()}...`" aria-label="Search items" />
+
+      <SourceDropdown v-model="sourceFilterLocal" id="source-filter" placeholder="All Sources"
+        select-class="source-filter" />
+
+      <!-- Grouped Sort Options -->
+      <select v-if="sortOptions && Object.keys(sortOptions).length > 0" v-model="sortOptionLocal" class="sort-filter"
+        aria-label="Sort items">
+        <option value="">Sort by...</option>
+        <optgroup v-for="(options, group) in sortOptions" :key="group" :label="group">
+          <option v-for="option in options" :key="option.value" :value="option.value">
+            {{ option.label }}
+          </option>
+        </optgroup>
+      </select>
+
+      <slot name="additional-filters"></slot>
+
+      <ActionButton v-if="isAdmin" variant="primary" size="large" text="+ Add" @click="createItem" />
+    </div>
 
     <!-- Item Cards-->
     <MasonryGrid :column-width="350" :gap="20" :row-height="10" class="cards-container" ref="masonryGrid">
@@ -26,7 +40,8 @@
 
 <script setup>
 import MasonryGrid from '@/components/ui/layouts/MasonryGrid.vue'
-import FilterControls from '@/components/ui/FilterControls.vue'
+import SourceDropdown from '@/components/ui/selectors/SourceDropdown.vue'
+import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import { computed, ref, onMounted, onBeforeUnmount, watch } from 'vue'
 import { useAuthStore } from '@/stores/authStore'
 
@@ -36,11 +51,6 @@ const isAdmin = computed(() => authStore.isAdmin)
 const props = defineProps({
   itemType: { type: String, required: true },
   itemTypePlural: { type: String, required: true },
-  sources: {
-    type: Object,
-    required: true,
-    default: () => ({ ancestries: [], cultures: [], mestieri: [], worldElements: [] }),
-  },
   searchQuery: { type: String, default: '' },
   sourceFilter: { type: String, default: '' },
   sortOption: { type: String, default: '' },
@@ -70,11 +80,6 @@ const sortOptionLocal = computed({
   get: () => props.sortOption,
   set: (value) => emit('update:sortOption', value),
 })
-
-const sourceFilterOptions = computed(() => ({
-  grouped: true,
-  sources: props.sources
-}))
 
 const filteredItems = computed(() => {
   const query = searchQueryLocal.value.toLowerCase().trim()
@@ -195,6 +200,73 @@ defineExpose({ onCardHeightChanged })
   flex-direction: column;
   align-items: center;
   width: 90%;
+}
+
+.filter-controls-wrapper {
+  display: flex;
+  gap: var(--space-lg);
+  width: 100%;
+  max-width: 85%;
+  margin: 0 auto var(--space-lg) auto;
+  padding: 0 var(--space-xl);
+  z-index: var(--z-overlay);
+  justify-content: center;
+}
+
+.search-input {
+  flex: 2;
+  padding: var(--space-sm) var(--space-md);
+  border: 1px solid var(--color-gray-medium);
+  border-radius: var(--radius-5);
+  background-color: var(--overlay-black-medium);
+  font-size: var(--font-size-16);
+}
+
+.source-filter,
+.sort-filter,
+:deep(.category-filter) {
+  flex: 1;
+  padding: var(--space-sm) var(--space-md);
+  border: 1px solid var(--color-gray-medium);
+  border-radius: var(--radius-5);
+  background-color: var(--overlay-black-medium);
+  font-size: var(--font-size-16);
+  color: var(--color-white);
+}
+
+:deep(.category-filter) {
+  min-width: 120px;
+}
+
+.source-filter optgroup,
+.sort-filter optgroup {
+  background-color: var(--color-black);
+}
+
+.source-filter option,
+.sort-filter option,
+:deep(.category-filter option) {
+  background-color: var(--overlay-black-heavy);
+  padding: var(--space-sm);
+}
+
+.search-input::placeholder {
+  color: var(--color-gray-light);
+}
+
+.search-input:focus,
+.source-filter:focus,
+.sort-filter:focus,
+:deep(.category-filter:focus) {
+  outline: none;
+  border-color: var(--color-gray-light);
+  box-shadow: var(--shadow-glow-sm);
+}
+
+:deep(.category-filter:disabled) {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: var(--overlay-black-heavy);
 }
 
 .cards-container {

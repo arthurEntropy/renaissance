@@ -5,16 +5,9 @@
 
         <select v-model="primaryFilter" class="primary-filter" aria-label="Filter by category">
             <option value="">{{ primaryFilterLabel }}</option>
-
-            <template v-if="!primaryFilterOptions.grouped">
-                <option v-for="option in primaryFilterOptions.items" :key="option.id" :value="option.id">
-                    {{ option.name }}
-                </option>
-            </template>
-
-            <template v-else>
-                <SourceOptionsGroup :sources="primaryFilterOptions.sources" />
-            </template>
+            <option v-for="option in primaryFilterOptions" :key="option.id" :value="option.id">
+                {{ option.name }}
+            </option>
         </select>
 
         <select v-if="sortOptions && Object.keys(sortOptions).length > 0" v-model="sortOption" class="sort-filter"
@@ -35,7 +28,6 @@
 
 <script setup>
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
-import SourceOptionsGroup from '@/components/ui/selectors/SourceOptionsGroup.vue'
 
 defineProps({
     searchPlaceholder: {
@@ -44,7 +36,7 @@ defineProps({
     },
 
     primaryFilterOptions: {
-        type: Object,
+        type: Array,
         required: true,
     },
     primaryFilterLabel: {
@@ -92,8 +84,7 @@ const sortOption = defineModel('sortOption')
 }
 
 .primary-filter,
-.sort-filter,
-:deep(.category-filter) {
+.sort-filter {
     flex: 1;
     padding: var(--space-sm) var(--space-md);
     border: 1px solid var(--color-gray-medium);
@@ -103,18 +94,13 @@ const sortOption = defineModel('sortOption')
     color: var(--color-white);
 }
 
-:deep(.category-filter) {
-    min-width: 120px;
-}
-
 .primary-filter optgroup,
 .sort-filter optgroup {
     background-color: var(--color-black);
 }
 
 .primary-filter option,
-.sort-filter option,
-:deep(.category-filter option) {
+.sort-filter option {
     background-color: var(--overlay-black-heavy);
     padding: var(--space-sm);
 }
@@ -125,16 +111,9 @@ const sortOption = defineModel('sortOption')
 
 .search-input:focus,
 .primary-filter:focus,
-.sort-filter:focus,
-:deep(.category-filter:focus) {
+.sort-filter:focus {
     outline: none;
     border-color: var(--color-gray-light);
     box-shadow: var(--shadow-glow-sm);
-}
-
-:deep(.category-filter:disabled) {
-    opacity: 0.5;
-    cursor: not-allowed;
-    background-color: var(--overlay-black-heavy);
 }
 </style>

@@ -291,7 +291,6 @@ onMounted(() => {
 const layoutProps = computed(() => ({
   itemType: 'Equipment',
   itemTypePlural: 'Equipment',
-  sources: sources.value,
   items: paginatedEquipment.value,
   sortOptions: sortOptions.value,
   hasMore: hasMore.value,

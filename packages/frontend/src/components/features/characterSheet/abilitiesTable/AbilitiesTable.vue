@@ -45,7 +45,9 @@
     </draggable>
 
     <!-- Add Ability FAB (only in edit mode) -->
-    <FloatingActionButton v-if="showAddButton" type="add" @click="toggleAbilitySelector" />
+    <div v-if="showAddButton" class="add-button-container">
+      <FloatingActionButton type="add" size="large" visibility="always" @click="toggleAbilitySelector" />
+    </div>
 
     <!-- Add Ability Selector Modal -->
     <ItemSelector :show="showAbilitySelector" title="Add Ability" :grouped-items="groupedAbilities"
@@ -57,7 +59,7 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, watch } from 'vue'
 import AbilityCard from '@/components/ui/cards/AbilityCard.vue'
 import TableHeader from '@/components/ui/tables/TableHeader.vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
@@ -100,6 +102,14 @@ const canEdit = computed(() => props.isEditMode)
 
 // Show add button when internal edit mode is active
 const showAddButton = computed(() => internalEditMode.value)
+
+// DEBUG: Watch edit mode changes
+watch(internalEditMode, (newVal) => {
+  console.log('AbilitiesTable internalEditMode changed:', newVal)
+})
+watch(showAddButton, (newVal) => {
+  console.log('AbilitiesTable showAddButton changed:', newVal)
+})
 
 // Source management
 const sourcesStore = useSourcesStore()
@@ -282,6 +292,12 @@ const updateAbilityShowImprovements = (ability, showImprovements) => {
   background: var(--overlay-white-subtle);
   border: 2px dashed var(--color-gray-light);
   border-radius: var(--radius-5);
+}
+
+.add-button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--space-md);
 }
 
 @media (max-width: var(--breakpoint-sm)) {
