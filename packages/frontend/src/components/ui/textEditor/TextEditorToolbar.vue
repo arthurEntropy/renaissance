@@ -1,18 +1,17 @@
 <template>
     <div class="rich-editor-toolbar" v-if="props.editor">
-        <ToolbarGroup v-for="(group, groupIndex) in toolbarGroups" :key="groupIndex">
+        <div v-for="(group, groupIndex) in toolbarGroups" :key="groupIndex" class="toolbar-group">
             <ToolbarButton v-for="button in group" :key="button.key" :label="button.label" :icon="button.icon"
                 :title="button.title"
                 :is-active="typeof button.isActive === 'function' ? button.isActive(props.editor) : button.isActive"
                 :action="() => button.action(props.editor)" />
-        </ToolbarGroup>
+        </div>
     </div>
 </template>
 
 <script setup>
 import { computed } from 'vue'
 import ToolbarButton from './ToolbarButton.vue'
-import ToolbarGroup from './ToolbarGroup.vue'
 
 // HeroIcon imports
 import {
@@ -196,5 +195,21 @@ const toolbarGroups = computed(() => [
     top: 0;
     z-index: var(--z-interactive);
     padding: var(--space-xs);
+}
+
+.toolbar-group {
+    display: flex;
+    gap: var(--space-xs);
+    padding: 0 var(--space-sm);
+    border-right: 1px solid var(--color-gray-medium);
+}
+
+.toolbar-group:last-child {
+    border-right: none;
+    padding-right: 0;
+}
+
+.toolbar-group:first-child {
+    padding-left: 0;
 }
 </style>

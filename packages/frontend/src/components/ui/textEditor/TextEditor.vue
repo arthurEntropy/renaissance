@@ -19,6 +19,10 @@ import TextAlign from '@tiptap/extension-text-align'
 import DiceFontNode from '@/extensions/DiceFontNode'
 import TextEditorToolbar from './TextEditorToolbar.vue'
 
+const MIN_EDITOR_HEIGHT = 200
+const MAX_EDITOR_HEIGHT = 420
+const AUTO_HEIGHT_BUFFER = 50
+
 const props = defineProps({
   modelValue: {
     type: String,
@@ -30,7 +34,7 @@ const props = defineProps({
   },
   height: {
     type: String,
-    default: '200px',
+    default: `${MIN_EDITOR_HEIGHT}px`,
   },
   readonly: {
     type: Boolean,
@@ -47,7 +51,7 @@ const emit = defineEmits(['update:modelValue'])
 const editor = ref()
 const editorWrapper = ref()
 const dynamicHeight = ref(props.height)
-const maxHeight = computed(() => props.autoHeight ? 'none' : '420px')
+const maxHeight = computed(() => props.autoHeight ? 'none' : `${MAX_EDITOR_HEIGHT}px`)
 
 const updateHeight = () => {
   if (!props.autoHeight || !editorWrapper.value) return
@@ -56,8 +60,7 @@ const updateHeight = () => {
     if (pm) {
       pm.style.height = 'auto'
       const scrollHeight = pm.scrollHeight
-      const minHeight = 200
-      const newHeight = Math.max(minHeight, scrollHeight + 50)
+      const newHeight = Math.max(MIN_EDITOR_HEIGHT, scrollHeight + AUTO_HEIGHT_BUFFER)
       dynamicHeight.value = newHeight + 'px'
       pm.style.height = 'auto'
     }
