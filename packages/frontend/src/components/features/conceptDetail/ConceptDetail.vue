@@ -70,10 +70,6 @@ import EquipmentService from '@/services/entities/equipment/equipmentService'
 
 // Props
 const _props = defineProps({
-  itemName: {
-    type: String,
-    required: true,
-  },
   editable: {
     type: Boolean,
     default: false,
@@ -144,7 +140,7 @@ const charactersStore = useCharactersStore()
 const selectedCharacter = computed(() => charactersStore.selectedCharacter)
 
 // Get concept from unified concepts store (reactive ref, can be mutated directly)
-const concept = computed(() => conceptsStore.selectedItem)
+const concept = computed(() => conceptsStore.selectedConcept)
 
 const {
   abilities,

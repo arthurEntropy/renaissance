@@ -16,7 +16,7 @@ import { useConceptsStore } from '@/stores/conceptsStore'
 
 const artStore = useArtStore()
 const conceptsStore = useConceptsStore()
-const concept = computed(() => conceptsStore.selectedItem)
+const concept = computed(() => conceptsStore.selectedConcept)
 
 const props = defineProps({
     title: {

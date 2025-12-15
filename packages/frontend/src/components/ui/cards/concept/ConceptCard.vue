@@ -2,8 +2,7 @@
   <div class="concept-card" role="button" tabindex="0" :aria-label="`Select ${concept.name}`"
     @click="$emit('select', concept)" @keydown.enter="$emit('select', concept)"
     @keydown.space.prevent="$emit('select', concept)">
-    <img v-if="concept.expansionLogoUrl" :src="concept.expansionLogoUrl" alt="Expansion Logo"
-      class="expansion-logo-badge" />
+    <img v-if="expansionLogoUrl" :src="expansionLogoUrl" alt="Expansion Logo" class="expansion-logo-badge" />
     <img v-if="concept.artUrls?.[0]" :src="concept.artUrls[0]" :alt="`${concept.name} concept art`"
       class="concept-card-image" />
     <p class="concept-card-name">{{ concept.name }}</p>
@@ -11,8 +10,16 @@
 </template>
 
 <script setup>
-defineProps({
+import { computed } from 'vue'
+
+const props = defineProps({
   concept: { type: Object, required: true },
+  expansions: { type: Array, default: () => [] },
+})
+
+const expansionLogoUrl = computed(() => {
+  const expansion = props.expansions.find(e => e.id === props.concept.expansion)
+  return expansion?.logoUrl || ''
 })
 
 defineEmits(['select'])

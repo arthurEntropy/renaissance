@@ -1,14 +1,14 @@
 <template>
   <div class="concepts-view">
-    <!-- Filter Controls (conditionally shown) -->
-    <FilterControls v-if="showFilters" v-model:search-query="searchQuery" v-model:primary-filter="expansionFilter"
-      :search-placeholder="`Search ${itemNamePlural}...`" :primary-filter-options="expansionFilterOptions"
-      primary-filter-label="All Expansions" :show-add-button="isAdmin" @create="createConcept" />
+    <!-- Filter Controls -->
+    <FilterControls v-model:search-query="searchQuery" v-model:primary-filter="expansionFilter"
+      :search-placeholder="searchPlaceholder" :primary-filter-options="primaryFilterOptions"
+      :primary-filter-label="primaryFilterLabel" :show-add-button="isAdmin" @create="createConcept" />
 
     <!-- Selection Cards -->
-    <div class="concepts-container">
+    <div class="concept-cards-container">
       <ConceptCard v-for="concept in filteredConcepts" :key="concept.id" :concept="concept" :sources="sources"
-        @select="openConceptDetail" />
+        :expansions="expansionStore.items" @select="openConceptDetail" />
     </div>
 
     <!-- Modal with Navigation Controls -->
@@ -16,11 +16,11 @@
       @navigate="navigateConcept">
 
       <!-- Character Sheet Modal -->
-      <CharacterSheetModal v-if="modalComponent === 'CharacterSheetModal'" :key="`character-${conceptDetailKey}`"
-        v-bind="customModalProps" @close="closeConceptDetail" @delete:character="deleteConcept" />
+      <CharacterSheetModal v-if="modalComponent === 'CharacterSheetModal'" :key="`character-${props.selectedItem?.id}`"
+        @close="closeConceptDetail" />
 
       <!-- Concept Detail Modal -->
-      <ConceptDetail v-else :key="`concept-${conceptDetailKey}`" :item-name="itemName" :editable="isAdmin"
+      <ConceptDetail v-else :key="`concept-${props.selectedItem?.id}`" :editable="isAdmin"
         @close="closeConceptDetail" />
     </NavigationControls>
   </div>
@@ -31,10 +31,9 @@ import { ref, computed, onMounted, onBeforeUnmount, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useExpansionsStore } from '@/stores/expansionsStore'
 import { useSourcesStore } from '@/stores/sourcesStore'
-import { useCharactersStore } from '@/stores/charactersStore'
-import { useConceptsStore } from '@/stores/conceptsStore'
 import { useAuthStore } from '@/stores/authStore'
 import { useFilterPersistence } from '@/composables/useFilterPersistence'
+import { createSlug, findConceptBySlug, getBasePath } from '@/utils/urlHelpers'
 import ConceptCard from '@/components/ui/cards/concept/ConceptCard.vue'
 import FilterControls from '@/components/ui/FilterControls.vue'
 import NavigationControls from '@/components/ui/NavigationControls.vue'
@@ -43,31 +42,23 @@ import CharacterSheetModal from '@/components/features/characterSheet/CharacterS
 
 // Props
 const props = defineProps({
-  itemName: {
-    type: String,
-    required: true,
-  },
   concepts: {
     type: Array,
     default: () => [],
   },
-  createConceptFn: {
-    type: Function,
+  selectedItem: {
+    type: Object,
+    default: null,
+  },
+  storageKey: {
+    type: String,
     required: true,
   },
-  updateConceptFn: {
-    type: Function,
-    required: true,
+  stickySelection: {
+    type: Boolean,
+    default: false,
   },
-  deleteConceptFn: {
-    type: Function,
-    required: true,
-  },
-  refreshDataFn: {
-    type: Function,
-    required: true,
-  },
-  showFilters: {
+  showExpansionFilter: {
     type: Boolean,
     default: true,
   },
@@ -75,16 +66,12 @@ const props = defineProps({
     type: String,
     default: 'ConceptDetail',
   },
-  customModalProps: {
-    type: Object,
-    default: () => ({}),
-  },
 })
+
+const emit = defineEmits(['select', 'deselect', 'create'])
 
 const expansionStore = useExpansionsStore()
 const sourcesStore = useSourcesStore()
-const charactersStore = useCharactersStore()
-const conceptsStore = useConceptsStore()
 const authStore = useAuthStore()
 const route = useRoute()
 const router = useRouter()
@@ -93,89 +80,40 @@ const sources = sourcesStore.sources
 // Check if user is admin
 const isAdmin = computed(() => authStore.isAdmin)
 
-// Use store-based selection (like CharacterSheet pattern)
-const selectedConcept = computed(() => {
-  // For character modals, use charactersStore
-  if (props.modalComponent === 'CharacterSheetModal') {
-    return charactersStore.selectedCharacter
-  }
-  // For concept modals, use conceptsStore
-  return conceptsStore.selectedItem
-})
+// Filter configuration
+const searchPlaceholder = 'Search...'
+const primaryFilterLabel = 'All Expansions'
+const primaryFilterOptions = computed(() => props.showExpansionFilter ? expansionStore.items || [] : [])
 
 const showConceptDetail = ref(false)
-const expansions = ref([])
-const conceptDetailKey = ref(0)
 const searchQuery = ref('')
 const expansionFilter = ref('')
 
-// Debounced auto-save for concept changes
-let saveTimeout = null
-watch(selectedConcept, (newVal) => {
-  if (!newVal || !showConceptDetail.value) return
-
-  if (saveTimeout) clearTimeout(saveTimeout)
-  saveTimeout = setTimeout(async () => {
-    try {
-      await props.updateConceptFn(newVal)
-      await props.refreshDataFn()
-    } catch (error) {
-      console.error(`Error auto-saving ${props.itemName}:`, error)
-    }
-  }, 500)
-}, { deep: true })
-
-// Filter persistence - auto-initializes based on itemName
-const storageKey = computed(() => props.itemName.toLowerCase().replace(/\s+/g, '-'))
+// Filter persistence
 useFilterPersistence(
-  storageKey.value,
+  props.storageKey,
   {
     searchQuery,
     expansionFilter
   }
 )
 
-// Proper pluralization for item names
-const itemNamePlural = computed(() => {
-  const name = props.itemName.toLowerCase()
-  // Handle special cases
-  if (name === 'ancestry') return 'ancestries'
-  if (name === 'mestiere') return 'mestieri'
-  // Default: add 's'
-  return `${name}s`
+const currentIndex = computed(() => {
+  if (!props.selectedItem) return -1;
+  return filteredConcepts.value.findIndex(c => c.id === props.selectedItem.id);
 })
 
-const expansionFilterOptions = computed(() => expansions.value || [])
-
-const hasPreviousConcept = computed(() => {
-  if (!selectedConcept.value) return false;
-  const currentIndex = filteredConcepts.value.findIndex(c => c.id === selectedConcept.value.id);
-  return currentIndex > 0;
-})
+const hasPreviousConcept = computed(() => currentIndex.value > 0)
 
 const hasNextConcept = computed(() => {
-  if (!selectedConcept.value) return false;
-  const currentIndex = filteredConcepts.value.findIndex(c => c.id === selectedConcept.value.id);
-  return currentIndex < filteredConcepts.value.length - 1 && currentIndex >= 0;
-})
-
-const conceptsWithLogo = computed(() => {
-  return props.concepts.map(concept => {
-    const expansion = expansions.value.find(e => e.id === concept.expansion)
-    return {
-      ...concept,
-      expansionLogoUrl: expansion && expansion.logoUrl ? expansion.logoUrl : '',
-    }
-  })
+  const index = currentIndex.value;
+  return index >= 0 && index < filteredConcepts.value.length - 1;
 })
 
 const filteredConcepts = computed(() => {
-  let filtered = conceptsWithLogo.value
+  let filtered = props.concepts
 
-  if (!props.showFilters) {
-    return filtered
-  }
-
+  // Apply search query filter
   if (searchQuery.value) {
     const query = searchQuery.value.toLowerCase()
     filtered = filtered.filter((concept) =>
@@ -184,6 +122,7 @@ const filteredConcepts = computed(() => {
     )
   }
 
+  // Apply expansion filter
   if (expansionFilter.value) {
     filtered = filtered.filter((concept) => concept.expansion === expansionFilter.value)
   }
@@ -191,98 +130,49 @@ const filteredConcepts = computed(() => {
   return filtered
 })
 
-const createConcept = async () => {
-  try {
-    const createdConcept = await props.createConceptFn()
-    await props.refreshDataFn()
-
-    // Find the freshly fetched concept by id
-    const conceptFromStore = props.concepts.find(c => c.id === createdConcept.id)
-    const conceptToSelect = conceptFromStore || createdConcept
-
-    // Set selection in appropriate store
-    if (props.modalComponent === 'CharacterSheetModal') {
-      charactersStore.selectCharacter(conceptToSelect)
-    } else {
-      conceptsStore.selectItem(conceptToSelect)
-    }
-
-    showConceptDetail.value = true
-  } catch (error) {
-    console.error(`Error creating ${props.itemName}:`, error)
+const updateConceptUrl = (conceptName) => {
+  const slug = createSlug(conceptName)
+  if (route.params.id !== slug) {
+    const basePath = getBasePath(route.path)
+    router.push(`${basePath}/${slug}`)
   }
 }
 
-const deleteConcept = async (concept) => {
-  try {
-    await props.deleteConceptFn(concept)
-    if (selectedConcept.value?.id === concept.id) {
-      closeConceptDetail()
-    }
-    await props.refreshDataFn()
-  } catch (error) {
-    console.error(`Error deleting ${props.itemName}:`, error)
-  }
+const createConcept = () => {
+  emit('create')
+  showConceptDetail.value = true
 }
 
 const openConceptDetail = (concept) => {
-  // Set selection in appropriate store
-  if (props.modalComponent === 'CharacterSheetModal') {
-    charactersStore.selectCharacter(concept)
-  } else {
-    conceptsStore.selectItem(concept)
-  }
-
+  emit('select', concept)
   showConceptDetail.value = true
-  conceptDetailKey.value++
-
-  // Create URL-friendly name (convert to lowercase, replace spaces with hyphens)
-  const urlName = concept.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')
-
-  // Update URL with concept name (only if not already there)
-  if (route.params.id !== urlName) {
-    const basePath = route.path.split('/').slice(0, 2).join('/')
-    router.push(`${basePath}/${urlName}`)
-  }
+  updateConceptUrl(concept.name)
 }
 
 const navigateConcept = (direction) => {
-  if (!selectedConcept.value) return;
-  const currentIndex = filteredConcepts.value.findIndex(c => c.id === selectedConcept.value.id);
-  const newIndex = currentIndex + direction;
+  const index = currentIndex.value;
+  if (index === -1) return;
+
+  const newIndex = index + direction;
   if (newIndex < 0 || newIndex >= filteredConcepts.value.length) return;
 
   const newConcept = filteredConcepts.value[newIndex];
 
-  // Update selection in appropriate store
-  if (props.modalComponent === 'CharacterSheetModal') {
-    charactersStore.selectCharacter(newConcept)
-  } else {
-    conceptsStore.selectItem(newConcept)
-  }
-
-  conceptDetailKey.value++;
-
-  // Create URL-friendly name
-  const urlName = newConcept.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')
-
-  // Update URL with new concept name
-  const basePath = route.path.split('/').slice(0, 2).join('/')
-  router.push(`${basePath}/${urlName}`)
+  emit('select', newConcept)
+  updateConceptUrl(newConcept.name)
 }
 
 const closeConceptDetail = () => {
-  // Deselect from appropriate store
-  // Note: We keep character selection "sticky" but clear concept selections
-  if (props.modalComponent !== 'CharacterSheetModal') {
-    conceptsStore.deselectItem()
+  // Emit deselect event (unless sticky selection)
+  // Character selections remain "sticky" for active gameplay session
+  if (!props.stickySelection) {
+    emit('deselect')
   }
-
   showConceptDetail.value = false
 
   // Return to base route without ID (only if currently on a detail route)
   if (route.params.id) {
-    const basePath = route.path.split('/').slice(0, 2).join('/')
+    const basePath = getBasePath(route.path)
     router.push(basePath)
   }
 }
@@ -290,12 +180,13 @@ const closeConceptDetail = () => {
 const handleKeyNavigation = (event) => {
   if (!showConceptDetail.value) return;
 
+  // Ignore key events when focused on input fields
   if (event.target.tagName === 'INPUT' ||
     event.target.tagName === 'TEXTAREA' ||
     event.target.isContentEditable) {
     return;
   }
-
+  // Supporting arrow key navigation and Escape key to close
   switch (event.key) {
     case 'ArrowLeft':
       if (hasPreviousConcept.value) {
@@ -316,29 +207,21 @@ const handleKeyNavigation = (event) => {
 onMounted(async () => {
   try {
     await expansionStore.fetch()
-    expansions.value = expansionStore.items
     window.addEventListener('keydown', handleKeyNavigation);
 
-    // Check if there's a name in the route
+    // Check if there's a concept slug in the route
     if (route.params.id) {
-      // Wait for concepts to be loaded
-      await props.refreshDataFn()
-      // Convert URL name back to find matching concept (case-insensitive comparison)
-      const urlName = route.params.id.toLowerCase()
-      const conceptToOpen = props.concepts.find(c =>
-        c.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '') === urlName
-      )
+      const conceptToOpen = findConceptBySlug(props.concepts, route.params.id)
       if (conceptToOpen) {
         openConceptDetail(conceptToOpen)
       }
     }
-    // If this is the CharactersPage and there's already a selected character,
-    // automatically open its character sheet
-    else if (props.modalComponent === 'CharacterSheetModal' && charactersStore.hasSelectedCharacter) {
-      const selectedCharacter = charactersStore.selectedCharacter
-      const character = props.concepts.find(c => c.id === selectedCharacter.id)
-      if (character) {
-        openConceptDetail(character)
+    // If sticky selection is enabled and there's already a selected item,
+    // automatically open it (e.g., character sheet for active gameplay)
+    else if (props.stickySelection && props.selectedItem) {
+      const concept = props.concepts.find(c => c.id === props.selectedItem.id)
+      if (concept) {
+        openConceptDetail(concept)
       }
     }
   } catch (error) {
@@ -350,25 +233,15 @@ onMounted(async () => {
 watch(() => route.params.id, (newId, oldId) => {
   if (newId !== oldId) {
     if (newId) {
-      // Convert URL name to find matching concept
-      const urlName = newId.toLowerCase()
-      const conceptToOpen = props.concepts.find(c =>
-        c.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '') === urlName
-      )
+      const conceptToOpen = findConceptBySlug(props.concepts, newId)
       if (conceptToOpen) {
-        // Set selection in appropriate store
-        if (props.modalComponent === 'CharacterSheetModal') {
-          charactersStore.selectCharacter(conceptToOpen)
-        } else {
-          conceptsStore.selectItem(conceptToOpen)
-        }
+        emit('select', conceptToOpen)
         showConceptDetail.value = true
-        conceptDetailKey.value++
       }
     } else {
       // No ID in route, close the modal
-      if (props.modalComponent !== 'CharacterSheetModal') {
-        conceptsStore.deselectItem()
+      if (!props.stickySelection) {
+        emit('deselect')
       }
       showConceptDetail.value = false
     }
@@ -388,7 +261,7 @@ onBeforeUnmount(() => {
   width: 90%;
 }
 
-.concepts-container {
+.concept-cards-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;

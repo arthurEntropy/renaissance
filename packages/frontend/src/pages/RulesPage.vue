@@ -45,6 +45,7 @@ import RulesNavigation from '@/components/features/rules/RulesNavigation.vue'
 import RulesContentEditor from '@/components/features/rules/RulesContentEditor.vue'
 import RulesImagePanel from '@/components/features/rules/RulesImagePanel.vue'
 import { useRulesStore } from '@/stores/rulesStore'
+import { createSlug, findConceptBySlug } from '@/utils/urlHelpers'
 import RulesService from '@/services/entities/rulesService'
 
 // Router
@@ -75,10 +76,7 @@ watch(filteredSections, (newValue) => {
 // Watch for route changes (browser back/forward)
 watch(() => route.params.id, (newId) => {
   if (newId) {
-    const urlName = newId.toLowerCase()
-    const sectionFromUrl = filteredSections.value?.find(section =>
-      section.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '') === urlName
-    )
+    const sectionFromUrl = findConceptBySlug(filteredSections.value || [], newId)
     if (sectionFromUrl && currentSection.value?.id !== sectionFromUrl.id) {
       selectSection(sectionFromUrl.id, { skipUrlUpdate: true })
     }
@@ -101,9 +99,9 @@ const selectSection = async (sectionId, { onUnsavedChanges, skipUrlUpdate = fals
     localStorage.setItem('lastSelectedSectionId', sectionId)
 
     if (!skipUrlUpdate) {
-      const urlName = section.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')
-      if (route.params.id !== urlName) {
-        router.push(`/rules/${urlName}`)
+      const slug = createSlug(section.name)
+      if (route.params.id !== slug) {
+        router.push(`/rules/${slug}`)
       }
     }
   }
@@ -193,10 +191,7 @@ const initializeSections = async () => {
       .sort((a, b) => a.index - b.index)
 
     if (route.params.id) {
-      const urlName = route.params.id.toLowerCase()
-      const sectionFromUrl = availableSections.find(section =>
-        section.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '') === urlName
-      )
+      const sectionFromUrl = findConceptBySlug(availableSections, route.params.id)
       if (sectionFromUrl) {
         await selectSection(sectionFromUrl.id, { skipUrlUpdate: true })
         return

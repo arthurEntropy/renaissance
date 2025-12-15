@@ -8,8 +8,6 @@ export function useCharactersLayout(charactersStore, equipmentStore, abilitiesSt
       ? (charactersStore.filteredBeasts || [])
       : (charactersStore.filteredCharacters || [])
   )
-  const allEquipment = computed(() => equipmentStore.equipment || [])
-  const allAbilities = computed(() => abilitiesStore.abilities || [])
 
   const createCharacter = async () => {
     const defaultEntity = characterService.getDefaultEntity()
@@ -47,26 +45,44 @@ export function useCharactersLayout(charactersStore, equipmentStore, abilitiesSt
 
   const layoutProps = computed(() => ({
     concepts: characters.value,
-    createConceptFn: createCharacter,
-    updateConceptFn: updateCharacter,
-    deleteConceptFn: deleteCharacter,
-    refreshDataFn: refreshData,
-    showFilters: true,
-    modalComponent: 'CharacterSheetModal',
-    customModalProps: {
-      allEquipment: allEquipment.value || [],
-      allAbilities: allAbilities.value || [],
-    }
+    selectedItem: charactersStore.selectedCharacter,
+    storageKey: isBeast ? 'bestiary' : 'characters',
+    stickySelection: true,
+    showExpansionFilter: false,
+    modalComponent: 'CharacterSheetModal'
   }))
+
+  // Event handlers for ConceptsLayout
+  const handleSelect = (character) => {
+    charactersStore.selectCharacter(character)
+  }
+
+  const handleDeselect = () => {
+    // Characters don't deselect (sticky selection)
+  }
+
+  const handleCreate = async () => {
+    const defaultEntity = characterService.getDefaultEntity()
+    if (isBeast) {
+      defaultEntity.isBeast = true
+      defaultEntity.name = 'New Beast'
+    }
+    const newCharacter = await characterService.create(defaultEntity)
+    await charactersStore.fetch()
+    
+    // Select the newly created character
+    charactersStore.selectCharacter(newCharacter)
+  }
 
   return {
     characters,
-    allEquipment,
-    allAbilities,
     createCharacter,
     updateCharacter,
     deleteCharacter,
     refreshData,
-    layoutProps
+    layoutProps,
+    handleSelect,
+    handleDeselect,
+    handleCreate
   }
 }

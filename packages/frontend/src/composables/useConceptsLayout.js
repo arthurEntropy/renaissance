@@ -54,11 +54,33 @@ export function useConceptsLayout(store, service, options = {}) {
   // Computed props for ConceptsLayout
   const layoutProps = computed(() => ({
     concepts: concepts.value,
-    createConceptFn: createConcept,
-    updateConceptFn: updateConcept,
-    deleteConceptFn: deleteConcept,
-    refreshDataFn: refreshData
+    selectedItem: store.selectedConcept,
+    storageKey: conceptsProperty,
+    stickySelection: false
   }))
+
+  // Event handlers for ConceptsLayout
+  const handleSelect = (concept) => {
+    store.selectConcept(concept)
+  }
+
+  const handleDeselect = () => {
+    store.deselectConcept()
+  }
+
+  const handleCreate = async () => {
+    // For ConceptService, need to pass conceptType
+    const conceptType = ITEM_NAME_TO_CONCEPT_TYPE[itemName]
+    const defaultEntity = conceptType 
+      ? service.getDefaultEntity(conceptType)
+      : service.getDefaultEntity()
+    
+    const newConcept = await service.create(defaultEntity)
+    await store.fetch()
+    
+    // Select the newly created concept
+    store.selectConcept(newConcept)
+  }
 
   return {
     // For direct use
@@ -69,6 +91,11 @@ export function useConceptsLayout(store, service, options = {}) {
     refreshData,
     
     // For ConceptsLayout props (can be spread with v-bind)
-    layoutProps
+    layoutProps,
+    
+    // Event handlers
+    handleSelect,
+    handleDeselect,
+    handleCreate
   }
 }

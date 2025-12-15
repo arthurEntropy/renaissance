@@ -3,7 +3,8 @@
         <input type="text" v-model="searchQuery" class="search-input" :placeholder="searchPlaceholder"
             aria-label="Search items" />
 
-        <select v-model="primaryFilter" class="primary-filter" aria-label="Filter by category">
+        <select v-if="primaryFilterOptions && primaryFilterOptions.length > 0" v-model="primaryFilter"
+            class="primary-filter" aria-label="Filter by category">
             <option value="">{{ primaryFilterLabel }}</option>
             <option v-for="option in primaryFilterOptions" :key="option.id" :value="option.id">
                 {{ option.name }}
@@ -37,7 +38,7 @@ defineProps({
 
     primaryFilterOptions: {
         type: Array,
-        required: true,
+        default: () => [],
     },
     primaryFilterLabel: {
         type: String,

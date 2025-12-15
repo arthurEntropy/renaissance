@@ -150,7 +150,7 @@ const props = defineProps({
 
 // Get concept from store
 const conceptsStore = useConceptsStore()
-const concept = computed(() => conceptsStore.selectedItem)
+const concept = computed(() => conceptsStore.selectedConcept)
 
 // Emits
 const emit = defineEmits(['unsaved-changes', 'reset-unsaved-changes'])

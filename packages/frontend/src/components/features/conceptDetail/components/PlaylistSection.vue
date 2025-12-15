@@ -82,7 +82,7 @@ const props = defineProps({
 
 // Get concept from store
 const conceptsStore = useConceptsStore()
-const concept = computed(() => conceptsStore.selectedItem)
+const concept = computed(() => conceptsStore.selectedConcept)
 
 // Reactive state
 const playlistService = ref('apple')

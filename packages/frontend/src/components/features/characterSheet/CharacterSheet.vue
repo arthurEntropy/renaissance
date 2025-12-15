@@ -76,6 +76,7 @@ import { useEquipmentTypesStore } from '@/stores/equipmentTypesStore'
 import { useEquipmentSubtypesStore } from '@/stores/equipmentSubtypesStore'
 import { useEquipmentGradesStore } from '@/stores/equipmentGradesStore'
 import { useEquipmentStore } from '@/stores/equipmentStore'
+import { useAbilitiesStore } from '@/stores/abilitiesStore'
 import { useKeepingStore } from '@/stores/keepingStore'
 import { useSourcesStore } from '@/stores/sourcesStore'
 import EngagementSuccessService from '@/services/entities/engagementSuccessService'
@@ -94,21 +95,14 @@ import CharacterSettingsModal from '@/components/features/characterSheet/modals/
 import EditEquipmentModal from '@/components/editModals/EditEquipmentModal.vue'
 import CustomDiceRoller from './customDiceRoller/CustomDiceRoller.vue'
 
-const props = defineProps({
-    allEquipment: {
-        type: Array,
-        default: () => []
-    },
-    allAbilities: {
-        type: Array,
-        default: () => []
-    }
-})
-
 const emit = defineEmits(['close', 'delete:character'])
 
 // Stores
 const authStore = useAuthStore()
+const equipmentStore = useEquipmentStore()
+const abilitiesStore = useAbilitiesStore()
+const allEquipment = computed(() => equipmentStore.equipment || [])
+const allAbilities = computed(() => abilitiesStore.abilities || [])
 const equipmentTypesStore = useEquipmentTypesStore()
 const equipmentSubtypesStore = useEquipmentSubtypesStore()
 const equipmentGradesStore = useEquipmentGradesStore()
@@ -133,7 +127,7 @@ const selectedCharacter = computed({
 // Use selectedCharacter as localCharacter for backward compatibility
 const localCharacter = selectedCharacter
 // Setup automatic character stat watchers for auto-save and recalculation
-useCharacterStatWatchers(selectedCharacter, computed(() => props.allEquipment || []))
+useCharacterStatWatchers(selectedCharacter, allEquipment)
 
 // Edit mode management
 const isEditMode = ref(false)
@@ -271,8 +265,6 @@ const handleRerollDice = () => {
 }
 
 // Equipment management
-const equipmentStore = useEquipmentStore()
-
 const {
     showModal: showEditEquipmentModal,
     itemToEdit: equipmentToEdit,

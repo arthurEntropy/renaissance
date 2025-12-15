@@ -33,7 +33,7 @@ const props = defineProps({
 
 // Get concept from store
 const conceptsStore = useConceptsStore()
-const concept = computed(() => conceptsStore.selectedItem)
+const concept = computed(() => conceptsStore.selectedConcept)
 
 // Local reactive state
 const localDescription = ref(concept.value?.description || '')

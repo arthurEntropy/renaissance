@@ -1,5 +1,5 @@
 <template>
-  <ConceptsLayout itemName="Ancestry" v-bind="layoutProps" />
+  <ConceptsLayout v-bind="layoutProps" @select="handleSelect" @deselect="handleDeselect" @create="handleCreate" />
 </template>
 
 <script setup>
@@ -10,7 +10,7 @@ import { useConceptsLayout } from '@/composables/useConceptsLayout'
 
 const conceptsStore = useConceptsStore()
 
-const { layoutProps } = useConceptsLayout(conceptsStore, ConceptService, {
+const { layoutProps, handleSelect, handleDeselect, handleCreate } = useConceptsLayout(conceptsStore, ConceptService, {
   conceptsProperty: 'ancestries',
   itemName: 'Ancestry'
 })

@@ -69,10 +69,10 @@ export const useConceptsStore = defineStore('concepts', () => {
     worldElements,
     
     // Selection
-    selectedItem: base.selectedItem,
-    selectItem: base.selectItem,
-    deselectItem: base.deselectItem,
-    hasSelectedItem: base.hasSelectedItem,
+    selectedConcept: base.selectedItem,
+    selectConcept: base.selectItem,
+    deselectConcept: base.deselectItem,
+    hasSelectedConcept: base.hasSelectedItem,
     
     // Type-specific selections
     selectedAncestry,
