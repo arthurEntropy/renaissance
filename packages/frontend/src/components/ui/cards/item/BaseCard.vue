@@ -256,6 +256,11 @@ const handleCollapsed = () => {
   gap: var(--space-xs);
 }
 
+.base-card:hover .admin-buttons .fab--on-hover {
+  opacity: 1;
+  pointer-events: auto;
+}
+
 .categories {
   font-size: var(--font-size-12);
   color: var(--color-text-secondary);

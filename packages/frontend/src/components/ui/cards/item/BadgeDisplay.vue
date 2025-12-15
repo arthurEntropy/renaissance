@@ -79,12 +79,15 @@ const displayText = computed(() => {
 const badgeClass = computed(() => {
     const classes = ['badge-display', 'badge-bottom-left']
 
+    // Improvement badges get special positioning (extending below card)
+    if (props.improvementId) {
+        classes.push('improvement-badge')
+    }
+
     // Interactive badge styling
     if (props.isInteractive) {
         const interactiveClass = isHovering.value ? 'badge-interactive-available-hover' : 'badge-interactive-available'
-        classes.push('badge-interactive', interactiveClass)
-        // Interactive badges (unowned improvements) get additional styling and positioning
-        classes.push('improvement-badge-unowned', 'improvement-badge')
+        classes.push('badge-interactive', interactiveClass, 'improvement-badge-unowned')
     }
 
     return classes.join(' ')
@@ -123,12 +126,13 @@ const badgeClass = computed(() => {
 }
 
 .badge-bottom-left {
-    bottom: calc(-1 * var(--space-md));
+    bottom: 0;
     left: 0;
     border-top-right-radius: var(--radius-10);
     border-bottom-left-radius: var(--radius-5);
 }
 
+/* Improvement badges extend below the card */
 .badge-bottom-left.improvement-badge {
     bottom: calc(-1 * var(--space-md));
 }

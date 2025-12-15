@@ -1,6 +1,6 @@
 <template>
   <ItemCardsLayout v-model:searchQuery="searchQuery" v-model:sourceFilter="sourceFilter" v-model:sortOption="sortOption"
-    v-bind="layoutProps" ref="layoutRef">
+    v-bind="layoutProps" @create="createEquipment" @load-more="loadMore">
 
     <!-- Additional filters slot for equipment categories -->
     <template #additional-filters>
@@ -36,11 +36,17 @@
     </template>
 
     <!-- Item cards slot -->
-    <template #item-cards>
-      <EquipmentCard v-for="item in paginatedEquipment" :key="item.id" :equipment="item" :editable="isAdmin"
-        :sources="sources" :art-expanded="true" :engagement-success-options="engagementSuccessOptions"
-        @edit="openEditEquipmentModal(item)" @duplicate="handleDuplicateEquipment"
-        @height-changed="layoutRef?.onCardHeightChanged()" :collapsible="false" />
+    <template #item-cards="{ items }">
+      <EquipmentCard v-for="item in items" :key="item.id" :equipment="item" :editable="isAdmin" :sources="sources"
+        :art-expanded="true" :engagement-success-options="engagementSuccessOptions" @edit="openEditEquipmentModal(item)"
+        @duplicate="handleDuplicateEquipment" :collapsible="false" />
+    </template>
+
+    <!-- Loading indicator slot with ref for intersection observer -->
+    <template #loading-indicator="{ hasMore, isLoadingMore }">
+      <div v-if="hasMore" class="loading-indicator" ref="loadingIndicatorRef">
+        <span v-if="isLoadingMore" class="loading-text">Loading more items...</span>
+      </div>
     </template>
 
     <!-- Modals slot -->
@@ -67,6 +73,7 @@ import { useAuthStore } from '@/stores/authStore'
 import { useSourcesStore } from '@/stores/sourcesStore'
 import { useEditModal } from '@/composables/useEditModal'
 import { useInfiniteScroll } from '@/composables/useInfiniteScroll'
+import { useInfiniteScrollObserver } from '@/composables/useInfiniteScrollObserver'
 import { useFilterPersistence } from '@/composables/useFilterPersistence'
 import EquipmentService from '@/services/entities/equipment/equipmentService'
 import EngagementSuccessService from '@/services/entities/engagementSuccessService'
@@ -95,7 +102,6 @@ const {
 } = useEditModal()
 
 // Reactive state
-const layoutRef = ref(null)
 const sortOption = ref('name-asc')
 const searchQuery = ref('')
 const sourceFilter = ref('')
@@ -104,6 +110,7 @@ const subtypeFilter = ref('')
 const gradeFilter = ref('')
 const showTemplates = ref(false)
 const engagementSuccessOptions = ref([])
+const isLoadingMore = ref(false)
 
 // Computed properties
 const isAdmin = computed(() => authStore.isAdmin)
@@ -189,10 +196,17 @@ const allFilteredEquipment = computed(() => {
 })
 
 // Infinite scroll setup
-const { paginatedItems: paginatedEquipment, loadMore, hasMore, reset } = useInfiniteScroll(
+const { paginatedItems: paginatedEquipment, loadMore: loadMoreItems, hasMore, reset } = useInfiniteScroll(
   allFilteredEquipment,
   50
 )
+
+const loadMore = async () => {
+  isLoadingMore.value = true
+  loadMoreItems()
+  await new Promise(resolve => setTimeout(resolve, 100))
+  isLoadingMore.value = false
+}
 
 // Filter persistence - auto-initializes
 useFilterPersistence('equipment', {
@@ -241,7 +255,6 @@ const deleteEquipment = async (equipmentItem) => {
 const handleDuplicateEquipment = async () => {
   try {
     await equipmentStore.fetch()
-    layoutRef?.value?.onCardHeightChanged()
   } catch (error) {
     console.error('Error refreshing equipment list after duplication:', error)
   }
@@ -283,19 +296,23 @@ watch([searchQuery, sourceFilter, subtypeFilter, gradeFilter, sortOption, showTe
   reset()
 })
 
+// Setup infinite scroll observer
+const { observerRef: loadingIndicatorRef, setup: setupObserver } = useInfiniteScrollObserver(
+  loadMore,
+  hasMore
+)
+
 onMounted(() => {
   refreshData()
+  setupObserver()
 })
 
 // Layout props for ItemCardsLayout
 const layoutProps = computed(() => ({
-  itemType: 'Equipment',
-  itemTypePlural: 'Equipment',
   items: paginatedEquipment.value,
   sortOptions: sortOptions.value,
   hasMore: hasMore.value,
-  onCreate: createEquipment,
-  onLoadMore: loadMore
+  isLoadingMore: isLoadingMore.value,
 }))
 
 const equipmentTypes = computed(() => equipmentTypesStore.items)
@@ -336,5 +353,17 @@ const allEquipment = equipment
 
 .template-toggle span {
   white-space: nowrap;
+}
+
+.loading-indicator {
+  padding: var(--space-lg);
+  text-align: center;
+  width: 100%;
+}
+
+.loading-text {
+  color: var(--color-gray-light);
+  font-size: var(--font-size-14);
+  font-style: italic;
 }
 </style>

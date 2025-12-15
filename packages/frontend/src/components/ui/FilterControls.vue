@@ -85,7 +85,9 @@ const sortOption = defineModel('sortOption')
 }
 
 .primary-filter,
-.sort-filter {
+.sort-filter,
+:deep(.source-filter),
+:deep(.category-filter) {
     flex: 1;
     padding: var(--space-sm) var(--space-md);
     border: 1px solid var(--color-gray-medium);
@@ -95,13 +97,21 @@ const sortOption = defineModel('sortOption')
     color: var(--color-white);
 }
 
+:deep(.category-filter) {
+    min-width: 120px;
+}
+
 .primary-filter optgroup,
-.sort-filter optgroup {
+.sort-filter optgroup,
+:deep(.source-filter) optgroup,
+:deep(.category-filter) optgroup {
     background-color: var(--color-black);
 }
 
 .primary-filter option,
-.sort-filter option {
+.sort-filter option,
+:deep(.source-filter) option,
+:deep(.category-filter) option {
     background-color: var(--overlay-black-heavy);
     padding: var(--space-sm);
 }
@@ -112,9 +122,18 @@ const sortOption = defineModel('sortOption')
 
 .search-input:focus,
 .primary-filter:focus,
-.sort-filter:focus {
+.sort-filter:focus,
+:deep(.source-filter):focus,
+:deep(.category-filter):focus {
     outline: none;
     border-color: var(--color-gray-light);
     box-shadow: var(--shadow-glow-sm);
+}
+
+:deep(.source-filter):disabled,
+:deep(.category-filter):disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background-color: var(--overlay-black-heavy);
 }
 </style>

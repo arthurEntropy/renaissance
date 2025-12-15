@@ -209,7 +209,7 @@ onMounted(async () => {
     await expansionStore.fetch()
     window.addEventListener('keydown', handleKeyNavigation);
 
-    // Check if there's a concept slug in the route
+    // Auto-open concept if URL has an ID param
     if (route.params.id) {
       const conceptToOpen = findConceptBySlug(props.concepts, route.params.id)
       if (conceptToOpen) {
