@@ -1,10 +1,12 @@
 <template>
-  <div class="selection-card" @click="$emit('select', concept)">
-    <div v-if="concept.expansionLogoUrl" class="expansion-logo-badge-wrapper">
-      <img :src="concept.expansionLogoUrl" alt="Expansion Logo" class="expansion-logo-badge" />
-    </div>
-    <img :src="concept.artUrls[0]" :alt="concept.name" class="selection-card-image" />
-    <p class="selection-card-name">{{ concept.name }}</p>
+  <div class="concept-card" role="button" tabindex="0" :aria-label="`Select ${concept.name}`"
+    @click="$emit('select', concept)" @keydown.enter="$emit('select', concept)"
+    @keydown.space.prevent="$emit('select', concept)">
+    <img v-if="concept.expansionLogoUrl" :src="concept.expansionLogoUrl" alt="Expansion Logo"
+      class="expansion-logo-badge" />
+    <img v-if="concept.artUrls?.[0]" :src="concept.artUrls[0]" :alt="`${concept.name} concept art`"
+      class="concept-card-image" />
+    <p class="concept-card-name">{{ concept.name }}</p>
   </div>
 </template>
 
@@ -19,7 +21,7 @@ defineEmits(['select'])
 <style scoped>
 @import '@/styles/design-tokens.css';
 
-.selection-card {
+.concept-card {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -30,15 +32,14 @@ defineEmits(['select'])
   cursor: pointer;
   width: 200px;
   position: relative;
-}
-
-/* White glow on hover */
-.selection-card:hover {
-  box-shadow: var(--shadow-glow-lg);
   transition: box-shadow var(--transition-normal) ease;
 }
 
-.selection-card-image {
+.concept-card:hover {
+  box-shadow: var(--shadow-glow-lg);
+}
+
+.concept-card-image {
   width: 100%;
   height: 200px;
   object-fit: cover;
@@ -46,16 +47,14 @@ defineEmits(['select'])
   margin-bottom: var(--space-sm);
 }
 
-.selection-card-name {
+.concept-card-name {
   font-size: var(--font-size-20);
   font-weight: var(--font-weight-normal);
   text-align: center;
-  max-width: 200px;
   margin: 0;
 }
 
-/* Expansion logo badge */
-.expansion-logo-badge-wrapper {
+.expansion-logo-badge {
   position: absolute;
   bottom: 0;
   left: 50%;
@@ -63,19 +62,11 @@ defineEmits(['select'])
   z-index: var(--z-raised);
   width: 30px;
   height: 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  pointer-events: none;
-}
-
-.expansion-logo-badge {
-  width: 30px;
-  height: 30px;
   border-radius: var(--radius-full);
   box-shadow: var(--shadow-elevation-sm);
   background: var(--color-gray-dark);
   object-fit: cover;
   border: 2px solid var(--color-gray-dark);
+  pointer-events: none;
 }
 </style>

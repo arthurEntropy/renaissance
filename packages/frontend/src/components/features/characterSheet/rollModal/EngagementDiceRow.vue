@@ -6,7 +6,7 @@
             :class="{ disabled: !canEdit }" @drop="canEdit ? onSuccessDrop($event) : null" @dragover.prevent
             @dragenter.prevent>
             <div v-if="assignedSuccesses[`${side}-${index}`]" class="assigned-success-container">
-                <Chip :text="getSuccessById(assignedSuccesses[`${side}-${index}`]).name" rounded="full"
+                <ChipTag :text="getSuccessById(assignedSuccesses[`${side}-${index}`]).name" rounded="full"
                     variant="success" :tooltip="{
                         description: getSuccessById(assignedSuccesses[`${side}-${index}`]).description,
                         sources: getSuccessById(assignedSuccesses[`${side}-${index}`]).sources
@@ -29,7 +29,7 @@
         <!-- Success assignment display (right side for opponent) -->
         <div v-if="die.rolledMaxValue && showResults && isOpponent" class="success-display-zone right-side">
             <div v-if="assignedSuccesses[`${side}-${index}`]" class="assigned-success-container">
-                <Chip :text="getSuccessById(assignedSuccesses[`${side}-${index}`]).name" rounded="full"
+                <ChipTag :text="getSuccessById(assignedSuccesses[`${side}-${index}`]).name" rounded="full"
                     variant="success" :tooltip="{
                         description: getSuccessById(assignedSuccesses[`${side}-${index}`]).description,
                         sources: getSuccessById(assignedSuccesses[`${side}-${index}`]).sources
@@ -43,7 +43,7 @@
 
 <script setup>
 import { ref } from 'vue'
-import Chip from '@/components/ui/chips/Chip.vue'
+import ChipTag from '@/components/ui/chips/ChipTag.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 
 const props = defineProps({

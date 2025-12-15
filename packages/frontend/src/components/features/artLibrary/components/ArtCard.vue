@@ -10,7 +10,8 @@
                     <PhotoIcon v-if="art.tags.type === 'places'" class="icon-sm" />
                     <MapIcon v-if="art.tags.type === 'maps'" class="icon-sm" />
                 </span>
-                <Chip v-for="sourceId in art.tags.sources" :key="sourceId" :sourceId="sourceId" variant="secondary" />
+                <ChipTag v-for="sourceId in art.tags.sources" :key="sourceId" :sourceId="sourceId"
+                    variant="secondary" />
             </div>
         </div>
         <!-- Selection indicator -->
@@ -22,7 +23,7 @@
 
 <script setup>
 import { UserCircleIcon, PhotoIcon, MapIcon } from '@heroicons/vue/24/outline'
-import Chip from '@/components/ui/chips/Chip.vue'
+import ChipTag from '@/components/ui/chips/ChipTag.vue'
 
 const props = defineProps({
     art: {

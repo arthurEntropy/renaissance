@@ -51,7 +51,7 @@ export function useCharactersLayout(charactersStore, equipmentStore, abilitiesSt
     updateConceptFn: updateCharacter,
     deleteConceptFn: deleteCharacter,
     refreshDataFn: refreshData,
-    showFilters: false,
+    showFilters: true,
     modalComponent: 'CharacterSheetModal',
     customModalProps: {
       allEquipment: allEquipment.value || [],

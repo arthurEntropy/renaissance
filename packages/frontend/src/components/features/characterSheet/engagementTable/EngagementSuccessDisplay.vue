@@ -1,6 +1,6 @@
 <template>
     <div class="engagement-successes">
-        <Chip v-for="success in successData" :key="success.id" :text="success.name" rounded="full"
+        <ChipTag v-for="success in successData" :key="success.id" :text="success.name" rounded="full"
             :removable="isEditMode && success.isUserAdded"
             :tooltip="{ description: success.description, sources: success.sources }"
             @remove="$emit('remove-success', success.id)" />
@@ -32,7 +32,7 @@
 </template>
 
 <script setup>
-import Chip from '@/components/ui/chips/Chip.vue'
+import ChipTag from '@/components/ui/chips/ChipTag.vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 
 defineProps({

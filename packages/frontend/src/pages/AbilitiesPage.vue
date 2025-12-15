@@ -7,7 +7,7 @@
       <AbilityCard v-for="ability in filteredItems" :key="ability.id" :ability="ability" :editable="isAdmin"
         :sources="sources" @delete="deleteAbility(ability)" @update="updateAbility(ability)"
         @edit="openEditAbilityModal(ability)" @height-changed="layoutRef?.onCardHeightChanged()" :collapsible="false"
-        :improvements="ability.improvements || []" :showImprovements="getAbilityShowImprovements(ability.id)"
+        :showImprovements="getAbilityShowImprovements(ability.id)"
         @update:showImprovements="updateAbilityShowImprovements(ability.id, $event)" />
     </template>
 
@@ -30,7 +30,7 @@ import { useEditModal } from '@/composables/useEditModal'
 import { useInfiniteScroll } from '@/composables/useInfiniteScroll'
 import { useFilterPersistence } from '@/composables/useFilterPersistence'
 import AbilityService from '@/services/entities/abilityService'
-import AbilityCard from '@/components/ui/cards/AbilityCard.vue'
+import AbilityCard from '@/components/ui/cards/item/AbilityCard.vue'
 import EditAbilityModal from '@/components/editModals/EditAbilityModal.vue'
 import ItemCardsLayout from '@/components/ui/layouts/ItemCardsLayout.vue'
 

@@ -3,13 +3,12 @@
     <!-- Filter Controls (conditionally shown) -->
     <FilterControls v-if="showFilters" v-model:search-query="searchQuery" v-model:primary-filter="expansionFilter"
       :search-placeholder="`Search ${itemNamePlural}...`" :primary-filter-options="expansionFilterOptions"
-      primary-filter-label="All Expansions" />
+      primary-filter-label="All Expansions" :show-add-button="isAdmin" @create="createConcept" />
 
     <!-- Selection Cards -->
     <div class="concepts-container">
       <ConceptCard v-for="concept in filteredConcepts" :key="concept.id" :concept="concept" :sources="sources"
         @select="openConceptDetail" />
-      <AddConceptCard v-if="isAdmin" :concept-name="itemName" @click="createConcept" />
     </div>
 
     <!-- Modal with Navigation Controls -->
@@ -36,8 +35,7 @@ import { useCharactersStore } from '@/stores/charactersStore'
 import { useConceptsStore } from '@/stores/conceptsStore'
 import { useAuthStore } from '@/stores/authStore'
 import { useFilterPersistence } from '@/composables/useFilterPersistence'
-import ConceptCard from '@/components/ui/cards/ConceptCard.vue'
-import AddConceptCard from '@/components/ui/cards/AddConceptCard.vue'
+import ConceptCard from '@/components/ui/cards/concept/ConceptCard.vue'
 import FilterControls from '@/components/ui/FilterControls.vue'
 import NavigationControls from '@/components/ui/NavigationControls.vue'
 import ConceptDetail from '@/components/features/conceptDetail/ConceptDetail.vue'

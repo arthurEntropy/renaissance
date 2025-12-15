@@ -20,10 +20,9 @@
 
           <div class="equipment-card-col">
             <EquipmentCard v-if="row.equipment" :equipment="row.equipment" :collapsed="row.collapsed || false"
-              @update:collapsed="updateEquipmentCollapsed(row, $event)" :art-expanded="row.artExpanded || false"
-              @update:art-expanded="updateEquipmentArtExpanded(row, $event)" :editable="row.equipment.isCustom"
+              @update:collapsed="updateEquipmentCollapsed(row, $event)" :editable="row.equipment.isCustom"
               class="equipment-card" @edit="editCustomItem" :collapsible="true" :show-keeping-badge="false"
-              :show-add-to-character="false" />
+              :show-add-to-character="false" :engagement-success-options="[]" />
 
             <span v-else class="missing-equipment">Unknown item</span>
 
@@ -58,7 +57,7 @@
 
 <script setup>
 import { ref, computed, watch } from 'vue'
-import EquipmentCard from '@/components/ui/cards/EquipmentCard.vue'
+import EquipmentCard from '@/components/ui/cards/item/EquipmentCard.vue'
 import EquipmentWeight from './EquipmentWeight.vue'
 import EquipmentDetails from './EquipmentDetails.vue'
 import TableHeader from '@/components/ui/tables/TableHeader.vue'
@@ -153,7 +152,6 @@ const characterEquipmentRows = computed(() => {
       ...entry,
       equipment,
       collapsed: entry.collapsed ?? true,
-      artExpanded: entry.artExpanded ?? false,
     }
   }) || []
 })
@@ -264,7 +262,6 @@ const selectEquipment = (equipment) => {
     isCarried: true,
     isWielding: false,
     collapsed: true,
-    artExpanded: false,
   }
 
   CharacterUtils.addSpecificEquipmentItem(
@@ -302,23 +299,6 @@ const updateEquipmentCollapsed = (equipmentRow, collapsed) => {
   if (index !== -1) {
     // Create a copy of the item with the new collapsed state
     const updatedItem = { ...selectedCharacter.value.equipment[index], collapsed }
-
-    // Create a copy of the equipment array with the updated item to ensure reactivity
-    const newEquipment = [...selectedCharacter.value.equipment]
-    newEquipment[index] = updatedItem
-
-    // Update the character's equipment array
-    selectedCharacter.value.equipment = newEquipment
-  }
-}
-
-// Handle equipment art expanded state changes
-const updateEquipmentArtExpanded = (equipmentRow, artExpanded) => {
-  if (!selectedCharacter.value?.equipment) return
-  const index = selectedCharacter.value.equipment.findIndex(eq => eq.id === equipmentRow.id)
-  if (index !== -1) {
-    // Create a copy of the item with the new artExpanded state
-    const updatedItem = { ...selectedCharacter.value.equipment[index], artExpanded }
 
     // Create a copy of the equipment array with the updated item to ensure reactivity
     const newEquipment = [...selectedCharacter.value.equipment]

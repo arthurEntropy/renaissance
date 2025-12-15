@@ -19,7 +19,7 @@
             <div class="engagement-successes-section" :class="{ 'opponent-successes-hidden': isOpponent }">
                 <div class="engagement-successes-list">
                     <div v-if="successes.length > 0" class="success-pills">
-                        <Chip v-for="success in successes" :key="success.id" :text="success.name" rounded="full"
+                        <ChipTag v-for="success in successes" :key="success.id" :text="success.name" rounded="full"
                             :tooltip="{ description: success.description, sources: success.sources }"
                             class="draggable-success" :draggable="canEdit && !isOpponent"
                             @dragstart="!isOpponent ? onSuccessDragStart($event, success) : null" />
@@ -34,7 +34,7 @@
 <script setup>
 import { computed } from 'vue'
 import { WINNER } from '@shared/constants/winner.js'
-import Chip from '@/components/ui/chips/Chip.vue'
+import ChipTag from '@/components/ui/chips/ChipTag.vue'
 import BaseCharacterColumn from './BaseCharacterColumn.vue'
 import EngagementDiceRow from './EngagementDiceRow.vue'
 

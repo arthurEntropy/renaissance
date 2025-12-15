@@ -34,7 +34,7 @@ const props = defineProps({
   },
   height: {
     type: String,
-    default: `${MIN_EDITOR_HEIGHT}px`,
+    default: '200px', // Matching MIN_EDITOR_HEIGHT - can't reference local constants here
   },
   readonly: {
     type: Boolean,

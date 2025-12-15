@@ -202,8 +202,8 @@
   "abilities": [
     {
       "id": "8e346eb3-1e72-4b3f-971c-497eac98a06c",
-      "collapsed": true,
-      "showImprovements": false,
+      "collapsed": false,
+      "showImprovements": true,
       "improvements": {
         "baa4641b-caf0-5680-abf1-5a6cae7c0f3d": true
       }
@@ -232,7 +232,8 @@
     "https://cdn.midjourney.com/545939d2-7091-4ee5-9e3d-479166b344af/0_3.png"
   ],
   "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2025-12-14T00:23:31.604Z",
-  "lastModified": "2025-12-14T00:23:31.604Z",
-  "mestiereId": ""
+  "updatedAt": "2025-12-14T19:37:27.484Z",
+  "lastModified": "2025-12-14T19:37:27.484Z",
+  "mestiereId": "",
+  "expansionLogoUrl": ""
 }

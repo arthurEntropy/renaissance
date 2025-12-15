@@ -38,9 +38,9 @@
     <!-- Item cards slot -->
     <template #item-cards>
       <EquipmentCard v-for="item in paginatedEquipment" :key="item.id" :equipment="item" :editable="isAdmin"
-        :sources="sources" :art-expanded="true" @edit="openEditEquipmentModal(item)"
-        @duplicate="handleDuplicateEquipment" @height-changed="layoutRef?.onCardHeightChanged()" :collapsible="false"
-        :showSource="true" />
+        :sources="sources" :art-expanded="true" :engagement-success-options="engagementSuccessOptions"
+        @edit="openEditEquipmentModal(item)" @duplicate="handleDuplicateEquipment"
+        @height-changed="layoutRef?.onCardHeightChanged()" :collapsible="false" />
     </template>
 
     <!-- Modals slot -->
@@ -70,7 +70,7 @@ import { useInfiniteScroll } from '@/composables/useInfiniteScroll'
 import { useFilterPersistence } from '@/composables/useFilterPersistence'
 import EquipmentService from '@/services/entities/equipment/equipmentService'
 import EngagementSuccessService from '@/services/entities/engagementSuccessService'
-import EquipmentCard from '@/components/ui/cards/EquipmentCard.vue'
+import EquipmentCard from '@/components/ui/cards/item/EquipmentCard.vue'
 import EditEquipmentModal from '@/components/editModals/EditEquipmentModal.vue'
 import ItemCardsLayout from '@/components/ui/layouts/ItemCardsLayout.vue'
 

@@ -3,12 +3,10 @@
         empty-message="No abilities added yet. Create abilities in the 'Abilities' section and assign them to this concept.">
         <MasonryGrid ref="masonryGridRef" :column-width="350" :gap="10" :row-height="10" class="cards-container">
             <AbilityCard v-for="ability in sortedAbilities" :key="ability.id" :ability="ability" :editable="isEditMode"
-                :sources="sources" :collapsible="false" :improvements="ability.improvements || []"
-                :showImprovements="getAbilityShowImprovements(ability.id)"
+                :sources="sources" :collapsible="false" :showImprovements="getAbilityShowImprovements(ability.id)"
                 @update:showImprovements="updateAbilityShowImprovements(ability.id, $event)"
-                @height-changed="handleCardHeightChanged" @edit="$emit('edit-ability', ability)" :showSource="false"
-                :character="character" :show-improvement-toggle="!!character"
-                :show-add-to-character="!!charactersStore.selectedCharacter" />
+                @height-changed="handleCardHeightChanged" @edit="$emit('edit-ability', ability)" :character="character"
+                :show-improvement-toggle="!!character" :show-add-to-character="!!charactersStore.selectedCharacter" />
         </MasonryGrid>
         <div v-if="isEditMode" class="add-button-container">
             <FloatingActionButton type="add" @click="$emit('add-ability')" />
@@ -19,7 +17,7 @@
 <script setup>
 import { computed, ref } from 'vue'
 import ConceptSection from './ConceptSection.vue'
-import AbilityCard from '@/components/ui/cards/AbilityCard.vue'
+import AbilityCard from '@/components/ui/cards/item/AbilityCard.vue'
 import MasonryGrid from '@/components/ui/layouts/MasonryGrid.vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import { useCharactersStore } from '@/stores/charactersStore'

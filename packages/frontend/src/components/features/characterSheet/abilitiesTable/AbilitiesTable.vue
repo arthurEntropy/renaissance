@@ -13,10 +13,10 @@
     <div v-if="!internalEditMode" class="abilities-list">
       <AbilityCard v-for="ability in sortedAbilities" :key="`ability-${ability.id}`" :ability="ability"
         :collapsed="ability.collapsed" @update:collapsed="updateAbilityCollapsed(ability, $event)" class="ability-card"
-        :collapsible="true" :improvements="ability.improvements || []" :show-xp-badge="true"
-        :show-add-to-character="false" :show-action-buttons="true" :character="character"
-        :show-improvement-toggle="true" :show-improvements="ability.showImprovements"
-        @update:showImprovements="updateAbilityShowImprovements(ability, $event)" />
+        :collapsible="true" :show-xp-badge="true" :show-add-to-character="false" :show-action-buttons="true"
+        :character="character" :show-improvement-toggle="true" :show-improvements="ability.showImprovements"
+        @update:showImprovements="updateAbilityShowImprovements(ability, $event)"
+        :art-expanded="ability.artExpanded || true" @update:art-expanded="updateAbilityArtExpanded(ability, $event)" />
     </div>
 
     <!-- Draggable Abilities List (only in edit mode) -->
@@ -32,11 +32,11 @@
 
           <AbilityCard v-if="ability" :ability="ability" :collapsed="ability.collapsed"
             @update:collapsed="updateAbilityCollapsed(ability, $event)" class="ability-card" :collapsible="true"
-            :improvements="ability.improvements || []" :show-xp-badge="true" :show-add-to-character="false"
-            :show-action-buttons="true" :character="character" :show-improvement-toggle="true"
-            :show-improvements="ability.showImprovements"
+            :show-xp-badge="true" :show-add-to-character="false" :show-action-buttons="true" :character="character"
+            :show-improvement-toggle="true" :show-improvements="ability.showImprovements"
             @update:showImprovements="updateAbilityShowImprovements(ability, $event)"
-            :key="`edit-ability-${ability.id}`" />
+            :art-expanded="ability.artExpanded || false"
+            @update:art-expanded="updateAbilityArtExpanded(ability, $event)" :key="`edit-ability-${ability.id}`" />
 
           <span v-else class="missing-ability">Unknown ability</span>
 
@@ -60,7 +60,7 @@
 
 <script setup>
 import { computed, watch } from 'vue'
-import AbilityCard from '@/components/ui/cards/AbilityCard.vue'
+import AbilityCard from '@/components/ui/cards/item/AbilityCard.vue'
 import TableHeader from '@/components/ui/tables/TableHeader.vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import ItemSelector from '@/components/ui/selectors/ItemSelector.vue'
@@ -229,6 +229,23 @@ const updateAbilityShowImprovements = (ability, showImprovements) => {
   if (index !== -1) {
     // Create a copy of the item with the new showImprovements state
     const updatedItem = { ...selectedCharacter.value.abilities[index], showImprovements }
+
+    // Create a copy of the abilities array with the updated item to ensure reactivity
+    const newAbilities = [...selectedCharacter.value.abilities]
+    newAbilities[index] = updatedItem
+
+    // Update the character's abilities array
+    selectedCharacter.value.abilities = newAbilities
+  }
+}
+
+// Handle ability artExpanded state changes
+const updateAbilityArtExpanded = (ability, artExpanded) => {
+  if (!selectedCharacter.value?.abilities) return
+  const index = selectedCharacter.value.abilities.findIndex(a => a.id === ability.id)
+  if (index !== -1) {
+    // Create a copy of the item with the new artExpanded state
+    const updatedItem = { ...selectedCharacter.value.abilities[index], artExpanded }
 
     // Create a copy of the abilities array with the updated item to ensure reactivity
     const newAbilities = [...selectedCharacter.value.abilities]
