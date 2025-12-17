@@ -11,7 +11,7 @@
         <!-- Hidden trigger for infinite scroll observer -->
         <div v-if="hasMore && !groupBy" ref="loadingIndicatorRef" style="height: 1px;"></div>
 
-        <EditMultipleBar :selectedCount="selectedItems.length" @edit="openMultiEditModal" />
+        <EditMultipleBar :selectedCount="selectedItems.length" @edit="openMultiEditModal" @clear="clearSelection" />
 
         <EditArtModal v-if="showEditModal" :art="selectedArt" :hasPrevious="hasPreviousArt" :hasNext="hasNextArt"
             :isMultiEdit="isMultiEdit" :multiEditData="multiEditData" @close="closeEditModal" @save="handleSave"

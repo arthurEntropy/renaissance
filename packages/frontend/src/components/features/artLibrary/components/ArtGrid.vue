@@ -81,7 +81,6 @@ const handleCardClick = (event, art) => {
     min-width: 100%;
 }
 
-/* Grouped Display */
 .grouped-art {
     display: flex;
     flex-direction: column;

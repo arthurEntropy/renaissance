@@ -1,24 +1,8 @@
 <template>
-    <div v-if="!isMultiEdit" class="form-group url-type-row">
-        <label for="art-url">Image URL</label>
-        <input id="art-url" :value="url" @input="$emit('update:url', $event.target.value)" type="text"
-            class="modal-input" placeholder="https://..." />
-        <div class="type-toggle">
-            <button type="button" class="type-button" :class="{ 'faces': true, 'selected': selectedType === 'faces' }"
-                @click="$emit('update:type', 'faces')">
-                <UserCircleIcon class="icon-sm" />
-            </button>
-            <button type="button" class="type-button" :class="{ 'places': true, 'selected': selectedType === 'places' }"
-                @click="$emit('update:type', 'places')">
-                <PhotoIcon class="icon-sm" />
-            </button>
-            <button type="button" class="type-button" :class="{ 'maps': true, 'selected': selectedType === 'maps' }"
-                @click="$emit('update:type', 'maps')">
-                <MapIcon class="icon-sm" />
-            </button>
-        </div>
-    </div>
-    <div v-else class="form-group">
+    <div class="form-group" :class="{ 'url-type-row': !isMultiEdit }">
+        <label v-if="!isMultiEdit" for="art-url">Image URL</label>
+        <input v-if="!isMultiEdit" id="art-url" :value="url" @input="$emit('update:url', $event.target.value)"
+            type="text" class="modal-input" placeholder="https://..." />
         <div class="type-toggle">
             <button type="button" class="type-button" :class="{ 'faces': true, 'selected': selectedType === 'faces' }"
                 @click="$emit('update:type', 'faces')">
@@ -103,18 +87,18 @@ defineEmits(['update:url', 'update:type'])
 }
 
 .type-button.faces {
-    background: rgba(59, 130, 246, 0.2);
-    color: rgb(96, 165, 250);
+    background: var(--color-type-faces-bg);
+    color: var(--color-type-faces);
 }
 
 .type-button.places {
-    background: rgba(16, 185, 129, 0.2);
-    color: rgb(52, 211, 153);
+    background: var(--color-type-places-bg);
+    color: var(--color-type-places);
 }
 
 .type-button.maps {
-    background: rgba(239, 68, 68, 0.2);
-    color: rgb(248, 113, 113);
+    background: var(--color-type-maps-bg);
+    color: var(--color-type-maps);
 }
 
 .type-button.selected {

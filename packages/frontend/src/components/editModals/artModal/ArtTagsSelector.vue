@@ -175,27 +175,9 @@ const filteredGroups = computed(() => {
 }
 
 .source-item.selected {
-    background: rgba(59, 130, 246, 0.2);
+    background: var(--color-primary);
     border-color: var(--color-primary);
-    color: var(--color-primary);
+    color: var(--color-black);
     font-weight: var(--font-weight-semibold);
-}
-
-.sources-columns::-webkit-scrollbar {
-    width: 8px;
-}
-
-.sources-columns::-webkit-scrollbar-track {
-    background: var(--color-bg-tertiary);
-    border-radius: var(--radius-5);
-}
-
-.sources-columns::-webkit-scrollbar-thumb {
-    background: var(--color-border-secondary);
-    border-radius: var(--radius-5);
-}
-
-.sources-columns::-webkit-scrollbar-thumb:hover {
-    background: var(--color-border-primary);
 }
 </style>

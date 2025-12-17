@@ -35,13 +35,12 @@ const isPartialSource = (sourceId) => {
     gap: var(--space-xs);
     padding: 0;
     min-height: 40px;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
 }
 
 .selected-tags.empty {
     justify-content: center;
-    align-items: center;
 }
 
 .empty-message {

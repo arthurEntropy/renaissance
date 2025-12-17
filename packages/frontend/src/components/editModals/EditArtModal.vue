@@ -40,10 +40,10 @@
 import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import NavigationControls from '@/components/ui/NavigationControls.vue'
-import ArtImageSection from '@/components/features/artLibrary/components/ArtImageSection.vue'
-import ArtUrlTypeRow from '@/components/features/artLibrary/components/ArtUrlTypeRow.vue'
-import ArtTagsDisplay from '@/components/features/artLibrary/components/ArtTagsDisplay.vue'
-import ArtTagsSelector from '@/components/features/artLibrary/components/ArtTagsSelector.vue'
+import ArtImageSection from '@/components/editModals/artModal/ArtImageSection.vue'
+import ArtUrlTypeRow from '@/components/editModals/artModal/ArtUrlTypeRow.vue'
+import ArtTagsDisplay from '@/components/editModals/artModal/ArtTagsDisplay.vue'
+import ArtTagsSelector from '@/components/editModals/artModal/ArtTagsSelector.vue'
 import { useSourcesStore } from '@/stores/sourcesStore'
 
 const props = defineProps({

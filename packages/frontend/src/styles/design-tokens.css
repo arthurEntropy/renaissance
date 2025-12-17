@@ -44,6 +44,14 @@
   --color-accent-gold: #ffd700;       /* bright gold for accents */
   --color-accent-cyan: #06b6d4;    /* cyan for glows */
 
+  /* Art Type Colors */
+  --color-type-faces: rgb(96, 165, 250);        /* Blue for faces/portraits */
+  --color-type-faces-bg: rgba(59, 130, 246, 0.2);
+  --color-type-places: rgb(52, 211, 153);       /* Green for places/locations */
+  --color-type-places-bg: rgba(16, 185, 129, 0.2);
+  --color-type-maps: rgb(248, 113, 113);        /* Red for maps */
+  --color-type-maps-bg: rgba(239, 68, 68, 0.2);
+
   /* Text Colors */
   --color-text-primary: #ededed;                  /* Primary white text */
   --color-text-secondary: var(--color-gray-light); /* Secondary gray text */

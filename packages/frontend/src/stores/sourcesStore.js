@@ -12,6 +12,14 @@ export const useSourcesStore = defineStore('sources', () => {
     worldElements: conceptsStore.worldElements || [],
   }))
 
+  // Flat list of all sources for efficient lookups
+  const allSourcesFlat = computed(() => [
+    ...(conceptsStore.ancestries || []),
+    ...(conceptsStore.cultures || []),
+    ...(conceptsStore.mestieri || []),
+    ...(conceptsStore.worldElements || [])
+  ])
+
   const isLoading = computed(() => conceptsStore.isLoading)
 
   const error = computed(() => conceptsStore.error)
@@ -22,14 +30,8 @@ export const useSourcesStore = defineStore('sources', () => {
 
   const getSourceById = (sourceId) => {
     if (!sourceId) return null
-    return (
-      sources.value.ancestries.find((s) => s.id === sourceId) ||
-      sources.value.cultures.find((s) => s.id === sourceId) ||
-      sources.value.mestieri.find((s) => s.id === sourceId) ||
-      sources.value.worldElements.find((s) => s.id === sourceId) ||
-      null
-    )
-  }
+    return allSourcesFlat.value.find(s => s.id === sourceId) || null
+}
 
   const getSourceName = (sourceId) => {
     if (sourceId === 'general') return 'General'
@@ -52,6 +54,7 @@ export const useSourcesStore = defineStore('sources', () => {
 
   return {
     sources,
+    allSourcesFlat,
     isLoading,
     error,
     fetchSources,

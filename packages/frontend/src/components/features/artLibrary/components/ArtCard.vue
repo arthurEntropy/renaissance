@@ -1,14 +1,14 @@
 <template>
-    <div class="art-card" :class="{ 'selected': isSelected }" @click="handleClick" :data-art-id="art.id">
+    <div class="art-card" :class="{ 'selected': isSelected }" @click="handleClick" @keydown.enter="handleClick"
+        @keydown.space.prevent="handleClick" tabindex="0" role="button" :aria-label="`Select ${art.tags.type} art`"
+        :data-art-id="art.id">
         <div class="art-image">
-            <img :src="art.url" :alt="`Art ${art.id}`" />
+            <img :src="art.url" :alt="`${art.tags.type} art`" />
         </div>
         <div class="art-info">
             <div class="art-tags">
                 <span class="art-type" :class="art.tags.type">
-                    <UserCircleIcon v-if="art.tags.type === 'faces'" class="icon-sm" />
-                    <PhotoIcon v-if="art.tags.type === 'places'" class="icon-sm" />
-                    <MapIcon v-if="art.tags.type === 'maps'" class="icon-sm" />
+                    <component :is="typeIcon" class="icon-sm" />
                 </span>
                 <ChipTag v-for="sourceId in art.tags.sources" :key="sourceId" :sourceId="sourceId"
                     variant="secondary" />
@@ -16,13 +16,14 @@
         </div>
         <!-- Selection indicator -->
         <div v-if="isSelected" class="selection-indicator">
-            <div class="selection-checkmark">✓</div>
+            <CheckIcon class="selection-checkmark" />
         </div>
     </div>
 </template>
 
 <script setup>
-import { UserCircleIcon, PhotoIcon, MapIcon } from '@heroicons/vue/24/outline'
+import { computed } from 'vue'
+import { UserCircleIcon, PhotoIcon, MapIcon, CheckIcon } from '@heroicons/vue/24/outline'
 import ChipTag from '@/components/ui/chips/ChipTag.vue'
 
 const props = defineProps({
@@ -37,6 +38,15 @@ const props = defineProps({
 })
 
 const emit = defineEmits(['click'])
+
+const typeIcon = computed(() => {
+    const icons = {
+        faces: UserCircleIcon,
+        places: PhotoIcon,
+        maps: MapIcon
+    }
+    return icons[props.art.tags.type]
+})
 
 const handleClick = (event) => {
     emit('click', event, props.art)
@@ -97,18 +107,18 @@ const handleClick = (event) => {
 }
 
 .art-type.faces {
-    background: rgba(59, 130, 246, 0.2);
-    color: rgb(96, 165, 250);
+    background: var(--color-type-faces-bg);
+    color: var(--color-type-faces);
 }
 
 .art-type.places {
-    background: rgba(16, 185, 129, 0.2);
-    color: rgb(52, 211, 153);
+    background: var(--color-type-places-bg);
+    color: var(--color-type-places);
 }
 
 .art-type.maps {
-    background: rgba(239, 68, 68, 0.2);
-    color: rgb(248, 113, 113);
+    background: var(--color-type-maps-bg);
+    color: var(--color-type-maps);
 }
 
 .icon-sm {
@@ -132,9 +142,9 @@ const handleClick = (event) => {
 }
 
 .selection-checkmark {
+    width: 20px;
+    height: 20px;
     color: var(--color-primary-text);
-    font-size: var(--font-size-18);
-    font-weight: var(--font-weight-bold);
-    line-height: 1;
+    stroke-width: 3;
 }
 </style>

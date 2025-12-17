@@ -77,13 +77,7 @@ const displayText = computed(() => {
         return props.text
     }
     if (props.sourceId) {
-        const allSources = [
-            ...sourcesStore.sources.ancestries || [],
-            ...sourcesStore.sources.cultures || [],
-            ...sourcesStore.sources.mestieri || [],
-            ...sourcesStore.sources.worldElements || []
-        ]
-        const source = allSources.find(s => s.id === props.sourceId)
+        const source = sourcesStore.getSourceById(props.sourceId)
         return source ? source.name : 'Unknown'
     }
     return ''
