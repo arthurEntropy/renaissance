@@ -1,0 +1,45 @@
+.rich-text-content :deep(h2),
+.rich-text-content:deep(h2) {
+  font-size: var(--font-size-36);
+  margin: 1.5em 0 0 0;
+  color: var(--color-primary);
+  font-weight: var(--font-weight-normal);
+}
+
+.rich-text-content :deep(h3),
+.rich-text-content:deep(h3) {
+  margin: 1.5em 0 0 0;
+  font-size: var(--font-size-24);
+  color: var(--color-accent-cyan);
+}
+
+.rich-text-content :deep(p),
+.rich-text-content:deep(p) {
+  font-size: var(--font-size-16);
+  line-height: var(--line-height-loose);
+}
+
+.rich-text-content :deep(img),
+.rich-text-content:deep(img) {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: var(--space-sm) 0;
+}
+
+.rich-text-content :deep(a),
+.rich-text-content:deep(a) {
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
+.rich-text-content :deep(ul),
+.rich-text-content:deep(ul) {
+  padding-left: var(--space-xl);
+  margin: 0.5em 0;
+}
+
+.rich-text-content :deep(ul li),
+.rich-text-content:deep(ul li) {
+  margin-bottom: 0.3em;
+}

@@ -1,28 +1,23 @@
 <template>
     <div class="image-side">
-        <div class="side-image" :style="{
-            backgroundImage: currentSection.imageUrl
-                ? `url(${currentSection.imageUrl})`
-                : 'url(/images/side-decoration.jpg)',
+        <div v-if="currentSection.imageUrl" class="side-image" :style="{
+            backgroundImage: `url(${currentSection.imageUrl})`
         }">
-            <div v-if="isContentEditMode && !currentSection.imageUrl" class="add-image-placeholder">
-                <span>Add Side Image</span>
-            </div>
+        </div>
+        <div v-else-if="isContentEditMode" class="add-image-placeholder">
+            <span>Add Side Image</span>
         </div>
     </div>
 </template>
 
 <script setup>
-defineProps({
-    currentSection: {
-        type: Object,
-        required: true
-    },
-    isContentEditMode: {
-        type: Boolean,
-        required: true
-    }
-})
+import { computed, inject } from 'vue'
+import { useRulesStore } from '@/stores/rulesStore'
+
+const rulesStore = useRulesStore()
+const isContentEditMode = inject('isContentEditMode', false)
+
+const currentSection = computed(() => rulesStore.selectedSection || {})
 </script>
 
 <style scoped>
@@ -36,7 +31,6 @@ defineProps({
     pointer-events: none;
 }
 
-/* Image styles */
 .side-image {
     position: fixed;
     top: var(--nav-height);
@@ -50,7 +44,6 @@ defineProps({
     pointer-events: auto;
 }
 
-/* Placeholder for when no image is set */
 .add-image-placeholder {
     display: flex;
     align-items: center;
@@ -63,7 +56,6 @@ defineProps({
     border-radius: var(--radius-10);
 }
 
-/* Responsive adjustments */
 @media (max-width: var(--breakpoint-md)) {
     .image-side {
         position: relative;

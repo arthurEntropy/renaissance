@@ -3,24 +3,19 @@
     <div class="rules-container">
 
       <!-- NAVIGATION -->
-      <RulesNavigation :filteredSections="filteredSections" :currentSection="currentSection"
-        :localSections="localSections" :isStructureEditMode="isStructureEditMode" :isContentEditMode="isContentEditMode"
-        @selectSection="handleSelectSection" @toggleStructureEditMode="handleToggleStructureEditMode"
-        @createNewSection="handleCreateNewSection" @confirmDeleteSection="handleConfirmDeleteSection"
-        @updateSectionsOrder="handleUpdateSectionsOrder" @updateLocalSections="updateLocalSections" />
+      <RulesNavigation @selectSection="handleSelectSection" @update:isStructureEditMode="handleToggleStructureEditMode"
+        @sectionCreated="handleSectionCreated" />
 
       <!-- CONTENT AREA -->
       <div class="rules-content">
-        <div v-if="currentSection" class="rules-content-body">
+        <div v-if="rulesStore.selectedSection" class="rules-content-body">
           <div class="section-layout">
 
-            <!-- CONTENT EDITOR -->
-            <RulesContentEditor :currentSection="currentSection" :isContentEditMode="isContentEditMode"
-              :isStructureEditMode="isStructureEditMode" @toggleContentEditMode="handleToggleContentEditMode"
-              @updateSectionName="updateSectionName" @updateImageUrl="updateImageUrl" @updateContent="updateContent" />
+            <!-- CONTENT -->
+            <RulesContent />
 
             <!-- IMAGE PANEL -->
-            <RulesImagePanel :currentSection="currentSection" :isContentEditMode="isContentEditMode" />
+            <RulesImagePanel />
           </div>
         </div>
 
@@ -38,11 +33,11 @@
 </template>
 
 <script setup>
-import { ref, computed, watch, onMounted } from 'vue'
+import { ref, computed, watch, onMounted, provide } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import RulesNavigation from '@/components/features/rules/RulesNavigation.vue'
-import RulesContentEditor from '@/components/features/rules/RulesContentEditor.vue'
+import RulesContent from '@/components/features/rules/RulesContent.vue'
 import RulesImagePanel from '@/components/features/rules/RulesImagePanel.vue'
 import { useRulesStore } from '@/stores/rulesStore'
 import { createSlug, findConceptBySlug } from '@/utils/urlHelpers'
@@ -53,13 +48,6 @@ const route = useRoute()
 const router = useRouter()
 const rulesStore = useRulesStore()
 
-// Section management state
-const currentSection = ref(null)
-const selectedSectionId = ref(null)
-const localSections = ref([])
-const sectionToDelete = ref(null)
-
-// Computed
 const filteredSections = computed(() => {
   return rulesStore.sections
     ? [...rulesStore.sections]
@@ -68,34 +56,22 @@ const filteredSections = computed(() => {
     : []
 })
 
-// Watch for changes to filtered sections and update local copy
-watch(filteredSections, (newValue) => {
-  localSections.value = JSON.parse(JSON.stringify(newValue))
-}, { immediate: true })
-
 // Watch for route changes (browser back/forward)
 watch(() => route.params.id, (newId) => {
   if (newId) {
     const sectionFromUrl = findConceptBySlug(filteredSections.value || [], newId)
-    if (sectionFromUrl && currentSection.value?.id !== sectionFromUrl.id) {
+    if (sectionFromUrl && rulesStore.selectedSection?.id !== sectionFromUrl.id) {
       selectSection(sectionFromUrl.id, { skipUrlUpdate: true })
     }
   }
 })
 
-// Section management methods
-const selectSection = async (sectionId, { onUnsavedChanges, skipUrlUpdate = false } = {}) => {
-  if (currentSection.value?.id === sectionId) return
-
-  if (onUnsavedChanges) {
-    const shouldSave = await onUnsavedChanges()
-    if (shouldSave === false) return
-  }
+const selectSection = async (sectionId, { skipUrlUpdate = false } = {}) => {
+  if (rulesStore.selectedSection?.id === sectionId) return
 
   const section = filteredSections.value?.find(s => s.id === sectionId)
   if (section) {
-    currentSection.value = { ...section }
-    selectedSectionId.value = sectionId
+    rulesStore.selectSection(section)
     localStorage.setItem('lastSelectedSectionId', sectionId)
 
     if (!skipUrlUpdate) {
@@ -105,80 +81,6 @@ const selectSection = async (sectionId, { onUnsavedChanges, skipUrlUpdate = fals
       }
     }
   }
-}
-
-const createNewSection = async ({ onSuccess } = {}) => {
-  try {
-    const newSection = await RulesService.create()
-    await rulesStore.fetch()
-
-    const sectionToSelect = filteredSections.value?.find(
-      s => (s.id && s.id === newSection.id) || (!s.id && s.name === newSection.name)
-    )
-
-    if (sectionToSelect) {
-      await selectSection(sectionToSelect.id)
-      if (onSuccess) {
-        onSuccess(sectionToSelect)
-      }
-    } else {
-      console.error("Couldn't find the newly created section")
-    }
-
-    return newSection
-  } catch (error) {
-    console.error('Error creating new section:', error)
-    throw error
-  }
-}
-
-const confirmDeleteSection = (section) => {
-  sectionToDelete.value = section
-  if (window.confirm(`Are you sure you want to delete "${section.name}"?`)) {
-    return deleteSection()
-  } else {
-    sectionToDelete.value = null
-    return Promise.resolve(false)
-  }
-}
-
-const deleteSection = async () => {
-  if (!sectionToDelete.value) return
-
-  const deletedSectionId = sectionToDelete.value.id
-  const sectionToUpdate = { ...sectionToDelete.value, isDeleted: true }
-
-  try {
-    sectionToDelete.value = null
-    await RulesService.update(sectionToUpdate)
-    await rulesStore.fetch()
-
-    if (currentSection.value && currentSection.value.id === deletedSectionId) {
-      currentSection.value = null
-      if (filteredSections.value?.length > 0) {
-        selectSection(filteredSections.value[0].id)
-      }
-    }
-
-    return true
-  } catch (error) {
-    console.error('Error deleting section:', error)
-    throw error
-  }
-}
-
-const updateSectionsOrder = async () => {
-  try {
-    await RulesService.reorderSections(localSections.value)
-    await rulesStore.fetch()
-  } catch (error) {
-    console.error('Error updating section order:', error)
-    throw error
-  }
-}
-
-const updateLocalSections = (newSections) => {
-  localSections.value = newSections
 }
 
 const initializeSections = async () => {
@@ -214,137 +116,25 @@ const initializeSections = async () => {
 }
 
 // Edit mode state
-const isContentEditMode = ref(false)
 const isStructureEditMode = ref(false)
-const unsavedChanges = ref(false)
 
-const markAsChanged = () => {
-  unsavedChanges.value = true
-}
-
-const saveSection = async (section) => {
-  if (section) {
-    await RulesService.update(section)
-    await rulesStore.fetch()
-    unsavedChanges.value = false
-  }
-}
-
-const toggleContentEditMode = async (currentSection) => {
-  // Don't allow entering content edit mode if structure edit mode is active
-  if (isStructureEditMode.value) return false
-
-  if (isContentEditMode.value) {
-    await saveSection(currentSection)
-  }
-  isContentEditMode.value = !isContentEditMode.value
-  return true
-}
+provide('isStructureEditMode', isStructureEditMode)
 
 const toggleStructureEditMode = () => {
-  // Don't allow entering structure edit mode if content edit mode is active
-  if (isContentEditMode.value) return false
-
   isStructureEditMode.value = !isStructureEditMode.value
   return true
 }
 
-const exitContentEditMode = () => {
-  isContentEditMode.value = false
-}
-
-const handleUnsavedChanges = async (currentSection) => {
-  if (isContentEditMode.value && unsavedChanges.value) {
-    if (confirm('You have unsaved changes. Do you want to save before continuing?')) {
-      await saveSection(currentSection)
-      return true
-    } else {
-      unsavedChanges.value = false
-      return true
-    }
-  }
-  return true
-}
-
-const canPerformAction = (action) => {
-  switch (action) {
-    case 'content-edit':
-      return !isStructureEditMode.value
-    case 'structure-edit':
-      return !isContentEditMode.value
-    case 'create-section':
-      return !isContentEditMode.value
-    case 'delete-section':
-      return !isContentEditMode.value
-    case 'reorder-sections':
-      return !isContentEditMode.value
-    default:
-      return true
-  }
-}
-
-// Content update helpers
-const updateSectionName = (newName) => {
-  if (currentSection.value) {
-    currentSection.value.name = newName
-    markAsChanged()
-  }
-}
-
-const updateImageUrl = (newUrl) => {
-  if (currentSection.value) {
-    currentSection.value.imageUrl = newUrl
-    markAsChanged()
-  }
-}
-
-const updateContent = (newContent) => {
-  if (currentSection.value) {
-    currentSection.value.content = newContent
-    markAsChanged()
-  }
-}
-
 // Event Handlers
 const handleSelectSection = async (sectionId) => {
-  await selectSection(sectionId, {
-    onUnsavedChanges: async () => {
-      const shouldContinue = await handleUnsavedChanges(currentSection.value)
-      if (shouldContinue) {
-        exitContentEditMode()
-      }
-      return shouldContinue
-    }
-  })
+  await selectSection(sectionId)
 }
 
-const handleCreateNewSection = async () => {
-  if (!canPerformAction('create-section')) return
-
-  await createNewSection({
-    onSuccess: () => {
-      toggleStructureEditMode()
-      setTimeout(() => {
-        toggleContentEditMode(currentSection.value)
-        markAsChanged()
-      }, 100) // Slight delay to ensure UI updates
-    }
-  })
+const handleSectionCreated = (sectionId) => {
+  toggleStructureEditMode()
 }
-
-const handleToggleContentEditMode = () => toggleContentEditMode(currentSection.value)
 
 const handleToggleStructureEditMode = () => toggleStructureEditMode()
-
-const handleConfirmDeleteSection = (section) => {
-  if (!canPerformAction('delete-section')) return
-  confirmDeleteSection(section)
-}
-
-const handleUpdateSectionsOrder = () => {
-  if (!canPerformAction('reorder-sections')) return
-  updateSectionsOrder()
-}
 
 onMounted(async () => {
   await initializeSections()

@@ -1,31 +1,32 @@
 <template>
-  <div class="content-side">
-    <!-- Name with edit button and name edit field -->
+  <div class="rules-content-container">
+
+    <!-- Editable Section Name -->
     <div class="section-name-container">
       <div class="section-header">
-        <input v-if="isContentEditMode" type="text" :value="currentSection.name"
-          @input="$emit('updateSectionName', $event.target.value)" class="section-name-input" />
+        <input v-if="isContentEditMode" type="text" v-model="localSection.name" @input="unsavedChanges = true"
+          class="section-name-input" />
         <h2 v-else>{{ currentSection.name }}</h2>
         <FloatingActionButton v-if="isAdmin" type="edit" :is-active="isContentEditMode" :disabled="isStructureEditMode"
-          visibility="always" @click="$emit('toggleContentEditMode')" />
+          visibility="always" @click="toggleContentEditMode" />
       </div>
     </div>
 
     <!-- Scrollable content container -->
     <div class="scrollable-content">
       <div class="section-content-container">
-        <!-- Image URL input and text editor - visible when in content edit mode -->
+
+        <!-- EDIT MODE: Image URL input and text editor -->
         <div v-if="isContentEditMode" class="image-url-container">
           <label for="section-image-url">Side Image URL:</label>
-          <input id="section-image-url" type="text" :value="currentSection.imageUrl"
-            @input="$emit('updateImageUrl', $event.target.value)" class="image-url-input"
-            placeholder="Enter image URL (optional)" />
+          <input id="section-image-url" type="text" v-model="localSection.imageUrl" @input="unsavedChanges = true"
+            class="image-url-input" placeholder="Enter image URL (optional)" />
         </div>
-        <TextEditor v-if="isContentEditMode" :modelValue="currentSection.content"
-          @update:modelValue="$emit('updateContent', $event)" :autoHeight="true" />
+        <TextEditor v-if="isContentEditMode" v-model="localSection.content" @update:modelValue="unsavedChanges = true"
+          :autoHeight="true" />
 
-        <!-- Section content when not in content edit mode -->
-        <div v-else class="content-display" v-html="safeSectionHtml">
+        <!-- DISPLAY MODE: Section content when not in content edit mode -->
+        <div v-else class="content-display rich-text-content" v-html="safeSectionHtml">
         </div>
       </div>
     </div>
@@ -33,44 +34,70 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { ref, computed, watch, provide, inject } from 'vue'
 import { useAuthStore } from '@/stores/authStore'
+import { useRulesStore } from '@/stores/rulesStore'
 import TextEditor from '@/components/ui/textEditor/TextEditor.vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import { sanitizeHtml } from '@/utils/sanitizeHtml'
+import RulesService from '@/services/entities/rulesService'
 
 const authStore = useAuthStore()
+const rulesStore = useRulesStore()
 const isAdmin = computed(() => authStore.isAdmin)
+const isStructureEditMode = inject('isStructureEditMode', ref(false))
 
-const props = defineProps({
-  currentSection: {
-    type: Object,
-    required: true
-  },
-  isContentEditMode: {
-    type: Boolean,
-    required: true
-  },
-  isStructureEditMode: {
-    type: Boolean,
-    required: true
+const isContentEditMode = ref(false)
+const localSection = ref(null)
+const unsavedChanges = ref(false)
+
+// Provide edit mode to sibling components
+provide('isContentEditMode', isContentEditMode)
+
+const currentSection = computed(() => rulesStore.selectedSection)
+
+watch(currentSection, (newSection) => {
+  if (newSection) {
+    localSection.value = { ...newSection }
   }
-})
+}, { immediate: true })
 
-defineEmits([
-  'toggleContentEditMode',
-  'updateSectionName',
-  'updateImageUrl',
-  'updateContent'
-])
+watch(() => rulesStore.selectedSection?.id, () => {
+  if (isContentEditMode.value && unsavedChanges.value) {
+    if (confirm('You have unsaved changes. Do you want to save before continuing?')) {
+      saveSection()
+    }
+  }
+  isContentEditMode.value = false
+  unsavedChanges.value = false
+})
 
 const safeSectionHtml = computed(() => {
-  return sanitizeHtml(props.currentSection?.content || '')
+  return sanitizeHtml(currentSection.value?.content || '')
 })
+
+const saveSection = async () => {
+  if (localSection.value) {
+    await RulesService.update(localSection.value)
+    await rulesStore.fetch()
+    unsavedChanges.value = false
+  }
+}
+
+const toggleContentEditMode = async () => {
+  if (isStructureEditMode.value) return
+
+  if (isContentEditMode.value) {
+    await saveSection()
+  }
+  isContentEditMode.value = !isContentEditMode.value
+}
 </script>
 
 <style scoped>
-.content-side {
+@import '@/styles/rich-text-content.css';
+
+.rules-content-container {
   width: 60%;
   height: 100%;
   position: relative;
@@ -79,7 +106,6 @@ const safeSectionHtml = computed(() => {
   flex-direction: column;
 }
 
-/* Section header and name styles */
 .section-name-container {
   position: relative;
   z-index: var(--z-floating);
@@ -120,13 +146,11 @@ const safeSectionHtml = computed(() => {
   flex: 1;
 }
 
-/* Content container */
 .section-content-container {
   position: relative;
   margin-bottom: 100px;
 }
 
-/* Image URL input styles */
 .image-url-container {
   display: flex;
   align-items: center;
@@ -148,48 +172,14 @@ const safeSectionHtml = computed(() => {
   border-radius: var(--radius-5);
 }
 
-/* Section content styles */
 .content-display {
   text-align: left;
   line-height: var(--line-height-loose);
   font-size: var(--font-size-16);
 }
 
-.content-display :deep(p) {
-  font-size: var(--font-size-16);
-  line-height: var(--line-height-loose);
-}
-
-.content-display :deep(h2) {
-  font-size: var(--font-size-36);
-  margin: 1.5em 0 0 0;
-  color: var(--color-primary);
-  font-weight: var(--font-weight-normal);
-}
-
-.content-display :deep(h3) {
-  margin: 1.5em 0 0 0;
-  font-size: var(--font-size-24);
-  color: var(--color-accent-cyan);
-}
-
-.content-display :deep(img) {
-  max-width: 100%;
-  height: auto;
-  display: block;
-  margin: var(--space-sm) 0;
-}
-
-.content-display img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-  margin: var(--space-sm) 0;
-}
-
-/* Responsive adjustments */
 @media (max-width: var(--breakpoint-md)) {
-  .content-side {
+  .rules-content-container {
     width: 100%;
     padding: var(--space-lg);
     overflow-y: visible;
