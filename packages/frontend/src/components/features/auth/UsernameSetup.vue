@@ -1,5 +1,5 @@
 <template>
-    <div class="modal-overlay" @click.self="handleBackgroundClick">
+    <div class="modal-overlay">
         <div class="modal-content">
             <div class="modal-header">
                 <h2>Choose Your Username</h2>
@@ -7,7 +7,8 @@
 
             <form @submit.prevent="handleSubmit" class="username-form">
                 <input id="username" v-model="username" type="text" placeholder="Enter username" class="modal-input"
-                    :class="{ 'error': error }" @input="clearError" maxlength="20" pattern="[a-zA-Z0-9_]+" required />
+                    :class="{ 'error': error }" @input="clearError" maxlength="20" :pattern="USERNAME_PATTERN_STRING"
+                    required />
                 <span v-if="error" class="error-text">{{ error }}</span>
 
                 <div class="form-buttons">
@@ -25,6 +26,9 @@ import { ref } from 'vue'
 import { useUserStore } from '@/stores/userStore'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 
+const USERNAME_PATTERN = /^[a-zA-Z0-9_]+$/
+const USERNAME_PATTERN_STRING = '[a-zA-Z0-9_]+'
+
 const userStore = useUserStore()
 const username = ref('')
 const error = ref('')
@@ -41,7 +45,7 @@ const validateUsername = (value) => {
     if (value.length > 20) {
         return 'Username must be 20 characters or less'
     }
-    if (!/^[a-zA-Z0-9_]+$/.test(value)) {
+    if (!USERNAME_PATTERN.test(value)) {
         return 'Username can only contain letters, numbers, and underscores'
     }
     return null
@@ -64,11 +68,6 @@ const handleSubmit = async () => {
     } finally {
         submitting.value = false
     }
-}
-
-// Username modal should not close on background click since it's required
-const handleBackgroundClick = () => {
-    // Do nothing - username is required
 }
 </script>
 

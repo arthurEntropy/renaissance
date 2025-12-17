@@ -1,5 +1,5 @@
 <template>
-    <div class="selected-character-badge" v-if="character && !isCharacterSheetOpen" @click="navigateToCharacter">
+    <div class="selected-character-badge" v-if="character && !shouldHideBadge" @click="navigateToCharacter">
         <div class="character-portrait">
             <img :src="character.artUrls[0]" :alt="character.name" />
         </div>
@@ -11,7 +11,7 @@
 </template>
 
 <script setup>
-import { computed, onMounted, onUnmounted, ref } from 'vue'
+import { computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useCharactersStore } from '@/stores/charactersStore'
 import { XMarkIcon } from '@heroicons/vue/24/outline'
@@ -20,47 +20,17 @@ const router = useRouter()
 const route = useRoute()
 const charactersStore = useCharactersStore()
 
-// Computed property to get the selected character from the store
 const character = computed(() => charactersStore.selectedCharacter)
 
-// Check if character sheet is open
-const isCharacterSheetOpen = ref(false)
-
-// Function to check if the character sheet modal is open
-const checkCharacterSheetOpen = () => {
-    isCharacterSheetOpen.value = route.path === '/characters' &&
-        document.querySelector('.modal-overlay') !== null
-}
-
-// Set up and clean up DOM observation for character sheet presence
-onMounted(() => {
-    // Initial check
-    checkCharacterSheetOpen()
-
-    // Set up mutation observer to detect modal opening/closing
-    const targetNode = document.body
-    const config = { childList: true, subtree: true }
-
-    const observer = new MutationObserver(() => {
-        checkCharacterSheetOpen()
-    })
-
-    observer.observe(targetNode, config)
-
-    // Clean up observer on component unmount
-    onUnmounted(() => {
-        observer.disconnect()
-    })
+const shouldHideBadge = computed(() => {
+    // Hide badge when on characters page with a character sheet open (route has :id param)
+    return route.path.startsWith('/characters') && route.params.id
 })
 
-// Handler to navigate to the character sheet
 const navigateToCharacter = () => {
-    // Navigate to the characters page - the ConceptsLayout component will
-    // automatically detect the selected character and open its sheet
     router.push('/characters')
 }
 
-// Handler to deselect the character
 const deselectCharacter = () => {
     charactersStore.deselectCharacter()
 }
@@ -70,7 +40,6 @@ const deselectCharacter = () => {
 .selected-character-badge {
     position: fixed;
     top: calc(var(--space-lg) + 3rem);
-    /* Position below the nav bar */
     left: var(--space-lg);
     z-index: var(--z-badge);
     cursor: pointer;
@@ -134,7 +103,7 @@ const deselectCharacter = () => {
 .character-name-tooltip {
     position: absolute;
     bottom: -30px;
-    left: 0;
+    left: 50%;
     transform: translateX(-50%) translateY(10px);
     background-color: var(--overlay-black-heavy);
     color: var(--color-text-primary);
@@ -147,7 +116,6 @@ const deselectCharacter = () => {
     pointer-events: none;
 }
 
-/* Media query for mobile devices */
 @media (max-width: 768px) {
     .selected-character-badge {
         top: auto;
@@ -157,7 +125,6 @@ const deselectCharacter = () => {
 
     .close-button {
         opacity: 1;
-        /* Always visible on mobile */
     }
 
     .character-name-tooltip {

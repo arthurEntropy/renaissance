@@ -26,25 +26,25 @@
 
         <div class="user-actions">
             <!-- Pending user actions -->
-            <template v-if="user.status === 'pending'">
+            <template v-if="user.status === USER_STATUS.PENDING">
                 <ActionButton variant="success" size="small" text="Approve" @click="$emit('approve', user.id)" />
                 <ActionButton variant="danger" size="small" text="Reject" @click="$emit('reject', user.id)" />
             </template>
 
             <!-- Approved user actions -->
-            <template v-else-if="user.status === 'approved'">
+            <template v-else-if="user.status === USER_STATUS.APPROVED">
                 <ActionButton variant="danger" size="small" text="Suspend" @click="$emit('suspend', user.id)" />
                 <select v-model="selectedRole" @change="handleRoleChange" class="role-select">
-                    <option value="user">User</option>
-                    <option value="admin">Admin</option>
+                    <option :value="USER_ROLE.USER">User</option>
+                    <option :value="USER_ROLE.ADMIN">Admin</option>
                 </select>
             </template>
 
             <!-- Admin user actions -->
-            <template v-else-if="user.role === 'admin'">
+            <template v-else-if="user.role === USER_ROLE.ADMIN">
                 <select v-model="selectedRole" @change="handleRoleChange" class="role-select">
-                    <option value="admin">Admin</option>
-                    <option value="user">User</option>
+                    <option :value="USER_ROLE.ADMIN">Admin</option>
+                    <option :value="USER_ROLE.USER">User</option>
                 </select>
             </template>
 
@@ -58,6 +58,7 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { useAuthStore } from '@/stores/authStore'
+import { USER_STATUS, USER_ROLE } from '@shared/constants/userConstants'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 
 const props = defineProps({

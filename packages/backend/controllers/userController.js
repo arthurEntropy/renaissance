@@ -5,6 +5,7 @@ import {
 } from '../utils/fileService.js'
 import { getAuth } from '../config/firebase.js'
 import { isEmailAllowed } from '../utils/inviteService.js'
+import { USER_ROLE, USER_STATUS } from '../../../shared/constants/userConstants.js'
 
 const USERS_DIRECTORY = getDirectory('users')
 
@@ -66,8 +67,8 @@ export const syncUserProfile = async (req, res) => {
         // Use provided username, fallback to displayName or email prefix
         name: username || displayName || email.split('@')[0],
         photoURL: photoURL || '',
-        role: 'user', // Default role
-        status: 'approved', // Auto-approve invited users
+        role: USER_ROLE.USER, // Default role
+        status: USER_STATUS.APPROVED, // Auto-approve invited users
         needsUsername: !username, // Flag if user needs to set a username
         createdAt: new Date().toISOString(),
         lastLoginAt: new Date().toISOString(),

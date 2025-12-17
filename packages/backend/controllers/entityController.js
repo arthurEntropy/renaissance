@@ -4,6 +4,7 @@ import {
   saveFile,
   deleteFile,
 } from '../utils/fileService.js'
+import { USER_ROLE } from '../../../shared/constants/userConstants.js'
 
 // These are generic CRUD operations for all data entities.
 // They are designed to be used with the routes defined in server.js.
@@ -17,7 +18,7 @@ const getAllEntities = (entity) => (req, res) => {
     
     // For characters, filter by ownership unless user is admin
     if (entity === 'characters' && req.user) {
-      if (req.user.role !== 'admin') {
+      if (req.user.role !== USER_ROLE.ADMIN) {
         filteredEntities = filteredEntities.filter(character => 
           character.ownerId === req.user.uid
         )
@@ -71,7 +72,7 @@ const updateEntity = (entity) => (req, res) => {
     }
     
     // For characters, check ownership unless user is admin
-    if (entity === 'characters' && req.user && req.user.role !== 'admin') {
+    if (entity === 'characters' && req.user && req.user.role !== USER_ROLE.ADMIN) {
       if (existingEntity.ownerId !== req.user.uid) {
         return res.status(403).json({ error: 'You can only update your own characters' })
       }
@@ -103,7 +104,7 @@ const deleteEntity = (entity) => (req, res) => {
     }
     
     // For characters, check ownership unless user is admin
-    if (entity === 'characters' && req.user && req.user.role !== 'admin') {
+    if (entity === 'characters' && req.user && req.user.role !== USER_ROLE.ADMIN) {
       if (entityToDelete.ownerId !== req.user.uid) {
         return res.status(403).json({ error: 'You can only delete your own characters' })
       }

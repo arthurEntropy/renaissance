@@ -4,6 +4,7 @@ import {
   onAuthStateChanged
 } from 'firebase/auth'
 import { auth, googleProvider } from '@/config/firebase'
+import { USER_ROLE } from '@shared/constants/userConstants'
 
 class AuthService {
   constructor() {
@@ -75,7 +76,7 @@ class AuthService {
 
   async isAdmin() {
     const tokenResult = await this.getIdTokenResult()
-    return tokenResult?.claims?.role === 'admin'
+    return tokenResult?.claims?.role === USER_ROLE.ADMIN
   }
 
   async syncUserProfile(user) {

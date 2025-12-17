@@ -5,12 +5,40 @@
             <div v-for="group in groups" :key="group.id" class="group-section">
                 <h3 class="group-title">{{ group.name }}</h3>
 
-                <div class="item-list">
-                    <div v-for="(item, index) in getItemsByGroup(group.id)" :key="item.id" class="list-item"
-                        draggable="true" @dragstart="handleDragStart(group.id, index, $event)"
-                        @dragover.prevent="handleDragOver(group.id, index)" @drop="handleDrop(group.id, index)"
-                        @dragend="handleDragEnd" :class="{ 'dragging': isDragging(group.id, index), 'sortable': true }">
+                <draggable :list="getItemsByGroup(group.id)" item-key="id" handle=".drag-handle"
+                    ghost-class="ghost-item" class="item-list" @end="() => handleDragEnd(group.id)">
+                    <template #item="{ element: item }">
+                        <div class="list-item">
+                            <!-- Drag handle -->
+                            <div class="drag-handle" title="Drag to reorder">☰</div>
 
+                            <!-- Custom fields slot -->
+                            <slot name="fields" :item="item" :update="() => updateItem(item)">
+                                <!-- Default: single text input -->
+                                <input v-model="item.name" @blur="updateItem(item)" class="default-input"
+                                    placeholder="Name" />
+                            </slot>
+
+                            <!-- Index display -->
+                            <div class="index-display">{{ item.index }}</div>
+
+                            <!-- Delete button -->
+                            <ActionButton variant="danger" size="small" text="Delete" @click="handleDelete(item)" />
+                        </div>
+                    </template>
+                </draggable>
+
+                <!-- Add button for this group -->
+                <ActionButton variant="success" size="small" :text="`Add ${itemName}`" @click="handleAdd(group.id)" />
+            </div>
+        </template>
+
+        <!-- Non-grouped layout -->
+        <template v-else>
+            <draggable :list="sortedItems" item-key="id" handle=".drag-handle" ghost-class="ghost-item"
+                class="item-list" @end="() => handleDragEnd(null)">
+                <template #item="{ element: item }">
+                    <div class="list-item">
                         <!-- Drag handle -->
                         <div class="drag-handle" title="Drag to reorder">☰</div>
 
@@ -27,37 +55,8 @@
                         <!-- Delete button -->
                         <ActionButton variant="danger" size="small" text="Delete" @click="handleDelete(item)" />
                     </div>
-                </div>
-
-                <!-- Add button for this group -->
-                <ActionButton variant="success" size="small" :text="`Add ${itemName}`" @click="handleAdd(group.id)" />
-            </div>
-        </template>
-
-        <!-- Non-grouped layout -->
-        <template v-else>
-            <div class="item-list">
-                <div v-for="(item, index) in sortedItems" :key="item.id" class="list-item" draggable="true"
-                    @dragstart="handleDragStart(null, index, $event)" @dragover.prevent="handleDragOver(null, index)"
-                    @drop="handleDrop(null, index)" @dragend="handleDragEnd"
-                    :class="{ 'dragging': isDragging(null, index), 'sortable': true }">
-
-                    <!-- Drag handle -->
-                    <div class="drag-handle" title="Drag to reorder">☰</div>
-
-                    <!-- Custom fields slot -->
-                    <slot name="fields" :item="item" :update="() => updateItem(item)">
-                        <!-- Default: single text input -->
-                        <input v-model="item.name" @blur="updateItem(item)" class="default-input" placeholder="Name" />
-                    </slot>
-
-                    <!-- Index display -->
-                    <div class="index-display">{{ item.index }}</div>
-
-                    <!-- Delete button -->
-                    <ActionButton variant="danger" size="small" text="Delete" @click="handleDelete(item)" />
-                </div>
-            </div>
+                </template>
+            </draggable>
 
             <!-- Add button -->
             <ActionButton variant="success" :text="`Add ${itemName}`" @click="handleAdd()" />
@@ -66,9 +65,10 @@
 </template>
 
 <script setup>
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted } from 'vue'
 import CollapsibleAdminSection from './CollapsibleAdminSection.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
+import draggable from 'vuedraggable'
 
 const props = defineProps({
     title: {
@@ -102,96 +102,50 @@ const props = defineProps({
     }
 })
 
-// Get items from store
 const items = computed(() => props.store.items || [])
 
-// Get groups if grouping is enabled
 const groups = computed(() => {
     if (!props.groupByStore) return []
     return props.groupByStore.items || []
 })
 
-// Get items by group (for grouped layout)
 const getItemsByGroup = (groupId) => {
-    const groupItems = items.value.filter(item => item[props.groupByKey] === groupId)
-    return groupItems.sort((a, b) => {
+    return items.value.filter(item => item[props.groupByKey] === groupId).sort((a, b) => {
         const aVal = a.index ?? 999
         const bVal = b.index ?? 999
         return aVal - bVal
     })
 }
 
-// Sort items (for non-grouped layout)
 const sortedItems = computed(() => {
-    const itemsCopy = [...items.value]
-    return itemsCopy.sort((a, b) => {
+    return [...items.value].sort((a, b) => {
         const aVal = a.index ?? 999
         const bVal = b.index ?? 999
         return aVal - bVal
     })
 })
 
-// Drag and drop state
-const draggedGroupId = ref(null)
-const draggedIndex = ref(null)
+const handleDragEnd = async (groupId) => {
+    // Get the current list (either grouped or all items)
+    const currentList = groupId !== null ? getItemsByGroup(groupId) : sortedItems.value
 
-const handleDragStart = (groupId, index, event) => {
-    draggedGroupId.value = groupId
-    draggedIndex.value = index
-    event.dataTransfer.effectAllowed = 'move'
-}
-
-const handleDragOver = (groupId, _index) => {
-    // Only allow drop within same group (if grouped)
-    if (props.groupByStore && draggedGroupId.value !== groupId) {
-        return
-    }
-}
-
-const handleDrop = async (groupId, dropIndex) => {
-    if (draggedIndex.value === null || draggedIndex.value === dropIndex) {
-        draggedGroupId.value = null
-        draggedIndex.value = null
-        return
-    }
-
-    // Check group restriction for grouped layouts
-    if (props.groupByStore && draggedGroupId.value !== groupId) {
-        draggedGroupId.value = null
-        draggedIndex.value = null
-        return
-    }
-
-    // Get the appropriate item list
-    const itemsList = props.groupByStore ? getItemsByGroup(groupId) : sortedItems.value
-    const itemsCopy = itemsList.map(item => ({ ...item }))
-    const draggedItem = { ...itemsCopy[draggedIndex.value] }
-
-    // Remove and reinsert
-    itemsCopy.splice(draggedIndex.value, 1)
-    itemsCopy.splice(dropIndex, 0, draggedItem)
-
-    // Update index for all items
+    // Update index for all items in the list
     const updates = []
-    for (let i = 0; i < itemsCopy.length; i++) {
-        const updated = { ...itemsCopy[i], index: i }
-        updates.push(props.store.update(updated))
+    for (let i = 0; i < currentList.length; i++) {
+        const item = currentList[i]
+        if (item.index !== i) {
+            // Find the actual item in the store and update it
+            const storeItem = items.value.find(it => it.id === item.id)
+            if (storeItem) {
+                updates.push(props.store.update({ ...storeItem, index: i }))
+            }
+        }
     }
 
-    await Promise.all(updates)
-    await props.store.fetch()
-
-    draggedGroupId.value = null
-    draggedIndex.value = null
-}
-
-const handleDragEnd = () => {
-    draggedGroupId.value = null
-    draggedIndex.value = null
-}
-
-const isDragging = (groupId, index) => {
-    return draggedGroupId.value === groupId && draggedIndex.value === index
+    if (updates.length > 0) {
+        await Promise.all(updates)
+        await props.store.fetch()
+    }
 }
 
 // CRUD operations
@@ -252,9 +206,6 @@ onMounted(async () => {
     padding: 1rem;
     border-radius: var(--radius-10);
     transition: all var(--duration-fast);
-}
-
-.list-item.sortable {
     cursor: move;
 }
 
@@ -262,8 +213,9 @@ onMounted(async () => {
     background: var(--color-gray-medium);
 }
 
-.list-item.dragging {
-    opacity: 0.5;
+.ghost-item {
+    opacity: 0.4;
+    background: var(--color-primary);
 }
 
 .drag-handle {
@@ -313,7 +265,6 @@ onMounted(async () => {
     color: var(--color-primary);
 }
 
-/* Common field input styles for slotted content */
 :deep(.field-input),
 :deep(.url-input),
 :deep(.name-input),
