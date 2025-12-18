@@ -1,11 +1,17 @@
 <template>
   <ConceptSection title="Novizio" :has-content="hasAnyNovizioData" :is-edit-mode="editable" :show-edit-button="editable"
     :is-section-editing="isSectionEditing" @toggle-edit="toggleEdit" empty-message="No novizio data added yet.">
+
+    <!-- EDIT MODE -->
     <div v-if="isSectionEditing && editable">
-      <div class="novizio-intro-text">
-        <text-editor v-model="localNovizio.flavorText" placeholder="Flavor text..." height="80px" :auto-height="true"
+
+      <!-- Description -->
+      <div class="novizio-description">
+        <text-editor v-model="localNovizio.description" placeholder="Description..." height="80px" :auto-height="true"
           class="novizio-text-editor" />
       </div>
+
+      <!-- Martial Training -->
       <div class="novizio-subsection">
         <strong>Martial Training</strong>
         <div class="martial-training-list">
@@ -41,29 +47,42 @@
           </div>
         </div>
       </div>
+
+      <!-- Engagement -->
       <div class="novizio-subsection">
         <strong>Engagement</strong>
         <text-editor v-model="localNovizio.engagement" placeholder="Engagement..." height="80px" :auto-height="true"
           class="novizio-text-editor" />
       </div>
+
+      <!-- Mestieri Points -->
       <div class="novizio-subsection">
         <strong>Mestieri Points (MP)</strong>
         <input type="number" min="1" v-model.number="localNovizio.initialMaxMP" placeholder="Initial Max MP..."
           class="novizio-input" />
       </div>
+
+      <!-- Abilities -->
       <div class="novizio-subsection">
         <strong>Abilities</strong>
         <text-editor v-model="localNovizio.abilities" placeholder="Abilities..." height="80px" :auto-height="true"
           class="novizio-text-editor" />
       </div>
+
+      <!-- Cancel Button -->
       <div class="edit-field-buttons">
         <ActionButton variant="neutral" size="small" text="Cancel" @click="cancelEdit" />
       </div>
     </div>
+
+    <!-- DISPLAY MODE -->
     <div v-else>
-      <div class="novizio-intro-text" v-if="novizio && novizio.flavorText">
-        <i v-html="safeFlavorText"></i>
+      <!-- Description -->
+      <div class="novizio-description" v-if="novizio && novizio.description">
+        <i v-html="safeDescription"></i>
       </div>
+
+      <!-- Martial Training -->
       <div class="novizio-subsection" v-if="hasAnyNovizioData">
         <strong>Martial Training</strong>
         <div class="martial-training-list">
@@ -114,14 +133,20 @@
           </template>
         </div>
       </div>
+
+      <!-- Engagement -->
       <div class="novizio-subsection" v-if="hasAnyNovizioData && novizio && novizio.engagement">
         <strong>Engagement</strong>
         <div class="novizio-placeholder" v-html="safeEngagement"></div>
       </div>
+
+      <!-- Mestieri Points -->
       <div class="novizio-subsection" v-if="hasAnyNovizioData && novizio && novizio.initialMaxMP">
         <strong>Mestieri Points (MP)</strong>
         <div class="novizio-placeholder">Your maximum MP for this mestiere is {{ novizio.initialMaxMP }}.</div>
       </div>
+
+      <!-- Abilities -->
       <div class="novizio-subsection" v-if="hasAnyNovizioData && novizio && novizio.abilities">
         <strong>Abilities</strong>
         <div class="novizio-placeholder" v-html="safeAbilities"></div>
@@ -133,14 +158,11 @@
 <script setup>
 import { ref, computed, watch } from 'vue'
 import TextEditor from '@/components/ui/textEditor/TextEditor.vue'
-import ConceptSection from './ConceptSection.vue'
+import ConceptSection from '../shared/ConceptSection.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
-import { useEditMode } from '@/composables/useEditMode'
-import { useUnsavedChanges } from '@/composables/useUnsavedChanges'
 import { sanitizeHtml } from '@/utils/sanitizeHtml'
 import { useConceptsStore } from '@/stores/conceptsStore'
 
-// Props
 const props = defineProps({
   editable: {
     type: Boolean,
@@ -148,14 +170,9 @@ const props = defineProps({
   },
 })
 
-// Get concept from store
 const conceptsStore = useConceptsStore()
 const concept = computed(() => conceptsStore.selectedConcept)
 
-// Emits
-const emit = defineEmits(['unsaved-changes', 'reset-unsaved-changes'])
-
-// Helper function to get default novizio structure
 const getDefaultNovizio = () => ({
   flavorText: '',
   melee: '',
@@ -168,128 +185,54 @@ const getDefaultNovizio = () => ({
   abilities: ''
 })
 
-// Reactive state
-const localNovizio = ref(concept.value?.novizio ? { ...concept.value.novizio } : getDefaultNovizio())
+const localNovizio = ref(getDefaultNovizio())
 const isSectionEditing = ref(false)
 
-// Edit mode composable
-const editMode = useEditMode({
-  onSave: () => {
-    // Directly mutate concept.novizio
-    concept.value.novizio = { ...localNovizio.value }
-    unsavedChanges.markAsSaved()
-  },
-  onCancel: (restoredData) => {
-    if (restoredData) {
-      localNovizio.value = { ...restoredData }
-    }
-    unsavedChanges.markAsSaved()
-  }
-})
-
-// Unsaved changes composable
-const unsavedChanges = useUnsavedChanges(emit, () => {
-  return editMode.isEditing.value && editMode.hasUnsavedChanges(localNovizio.value)
-})
-
-// Computed properties
 const novizio = computed(() => concept.value?.novizio)
 
 const hasAnyMartialTraining = computed(() => {
   const n = concept.value?.novizio || {}
-  return [n.melee, n.polearms, n.ranged, n.firearms, n.armor].some(val => val && val.trim() !== '')
+  return [n.melee, n.polearms, n.ranged, n.firearms, n.armor].some(val => val?.trim())
 })
 
 const hasAnyNovizioData = computed(() => {
-  const n = concept.value?.novizio || {}
-  return [n.flavorText, n.melee, n.polearms, n.ranged, n.firearms, n.armor, n.engagement, n.initialMaxMP, n.abilities].some(val => {
-    if (typeof val === 'number') return val > 1
-    return val && val.toString().trim() !== ''
-  })
+  if (!concept.value?.novizio) return false
+  const n = concept.value.novizio
+  return [n.flavorText, n.melee, n.polearms, n.ranged, n.firearms, n.armor, n.engagement, n.abilities].some(val => val?.toString().trim()) || (n.initialMaxMP && n.initialMaxMP > 1)
 })
 
-const safeFlavorText = computed(() => sanitizeHtml(concept.value?.novizio?.flavorText))
+const safeDescription = computed(() => sanitizeHtml(concept.value?.novizio?.description))
 const safeEngagement = computed(() => sanitizeHtml(concept.value?.novizio?.engagement))
 const safeAbilities = computed(() => sanitizeHtml(concept.value?.novizio?.abilities))
 
-// Methods
-const toggleEdit = () => {
+const syncLocalNovizio = (sourceConcept) => {
+  if (!sourceConcept) return
+  localNovizio.value = sourceConcept.novizio ? { ...sourceConcept.novizio } : getDefaultNovizio()
+}
+
+const toggleEdit = async () => {
+  if (!props.editable) return
+
   if (isSectionEditing.value) {
-    // Save changes - set editing to false BEFORE save to prevent watcher race condition
+    if (concept.value) {
+      concept.value.novizio = { ...localNovizio.value }
+      await conceptsStore.update(concept.value)
+    }
     isSectionEditing.value = false
-    editMode.saveEdit(localNovizio.value)
   } else {
-    // Start editing
-    editMode.startEdit(localNovizio.value)
     isSectionEditing.value = true
   }
 }
 
-const saveEdit = () => {
-  isSectionEditing.value = false
-  editMode.saveEdit(localNovizio.value)
-}
-
 const cancelEdit = () => {
-  const restored = editMode.cancelEdit()
-  if (restored) {
-    localNovizio.value = { ...restored }
-  }
+  syncLocalNovizio(concept.value)
   isSectionEditing.value = false
 }
 
-// Called by parent when master Save is clicked
-const saveFromParent = () => {
-  if (isSectionEditing.value && editMode.hasUnsavedChanges(localNovizio.value)) {
-    saveEdit()
-  }
-}
-
-// Optionally, called by parent to cancel edits (e.g., on modal close)
-const cancelFromParent = () => {
-  if (isSectionEditing.value && editMode.hasUnsavedChanges(localNovizio.value)) {
-    cancelEdit()
-  }
-}
-
-// Expose methods for parent component
-defineExpose({
-  saveFromParent,
-  cancelFromParent
-})
-
-// Watchers
-watch(() => concept.value?.novizio, (newVal) => {
-  if (!isSectionEditing.value) {
-    const newData = newVal ? { ...newVal } : getDefaultNovizio()
-    // Only update if the data is actually different
-    if (JSON.stringify(newData) !== JSON.stringify(localNovizio.value)) {
-      localNovizio.value = newData
-    }
-  }
-}, { deep: true })
-
-watch(localNovizio, () => {
-  if (isSectionEditing.value) {
-    unsavedChanges.checkForChanges()
-  }
-}, { deep: true })
-
-watch(() => props.editable, (newVal, oldVal) => {
-  // When parent exits edit mode, save any unsaved changes in the section
-  if (oldVal === true && newVal === false && isSectionEditing.value) {
-    // Save before exiting
-    if (editMode.hasUnsavedChanges(localNovizio.value)) {
-      saveEdit()
-    } else {
-      isSectionEditing.value = false
-    }
-  } else if (!newVal && isSectionEditing.value) {
-    // Parent is not in edit mode, so section shouldn't be editing
-    cancelEdit()
-    isSectionEditing.value = false
-  }
-})
+watch(concept, (newConcept) => {
+  if (!newConcept || isSectionEditing.value) return
+  syncLocalNovizio(newConcept)
+}, { immediate: true })
 </script>
 
 <style scoped>
@@ -346,7 +289,7 @@ watch(() => props.editable, (newVal, oldVal) => {
   color: var(--color-text-primary);
 }
 
-.novizio-intro-text {
+.novizio-description {
   color: var(--color-text-primary);
   font-size: var(--font-size-18);
   margin-bottom: 1.1rem;

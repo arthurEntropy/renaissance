@@ -1,8 +1,11 @@
 <template>
     <div class="description-container edit-hover-area">
-        <FloatingActionButton v-if="isEditMode" type="edit" @click="toggleEdit" :is-active="isEditingDescription"
-            size="small" visibility="on-hover" class="edit-button-overlay" />
 
+        <!-- Edit button -->
+        <FloatingActionButton v-if="isEditMode" type="edit" @click="toggleEdit" :is-active="isEditingDescription"
+            size="small" visibility="always" class="edit-button-overlay" />
+
+        <!-- Edit mode -->
         <div v-if="isEditingDescription" class="editable-description">
             <TextEditor v-model="localDescription" height="200px" ref="descriptionEditor" placeholder="description"
                 :auto-height="true" />
@@ -11,7 +14,9 @@
             </div>
         </div>
 
-        <div v-else class="concept-description" @click="isEditMode && startEdit" v-html="safeDescription" />
+        <!-- Display mode -->
+        <div v-else class="concept-description" :class="{ 'cursor-pointer': isEditMode }" @click="startEdit"
+            v-html="safeDescription" />
     </div>
 </template>
 
@@ -20,7 +25,6 @@ import { ref, computed, watch } from 'vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import TextEditor from '@/components/ui/textEditor/TextEditor.vue'
-import { useInlineEditor } from '../composables/useInlineEditor'
 import { sanitizeHtml } from '@/utils/sanitizeHtml'
 import { useConceptsStore } from '@/stores/conceptsStore'
 
@@ -31,33 +35,20 @@ const props = defineProps({
     }
 })
 
-// Get concept from store
 const conceptsStore = useConceptsStore()
 const concept = computed(() => conceptsStore.selectedConcept)
 
-// Local reactive state
 const localDescription = ref(concept.value?.description || '')
-const descriptionEditor = ref(null)
+const isEditingDescription = ref(false)
 
-// Inline editing functionality
-const {
-    isEditing: isEditingDescription,
-    startEdit,
-    saveEdit,
-    cancelEdit: cancelDescriptionEdit
-} = useInlineEditor(
-    () => concept.value?.description || '',
-    (value) => {
-        localDescription.value = value
-    }
-)
-
-// Computed properties
 const safeDescription = computed(() => {
     return sanitizeHtml(concept.value?.description || 'No description provided.')
 })
 
-// Methods
+const startEdit = () => {
+    isEditingDescription.value = true
+}
+
 const toggleEdit = () => {
     if (!props.isEditMode) return
 
@@ -68,19 +59,19 @@ const toggleEdit = () => {
     }
 }
 
-const saveDescription = () => {
+const saveDescription = async () => {
     if (concept.value) {
         concept.value.description = localDescription.value
+        await conceptsStore.update(concept.value)
     }
-    saveEdit()
+    isEditingDescription.value = false
 }
 
 const cancelEdit = () => {
     localDescription.value = concept.value?.description || ''
-    cancelDescriptionEdit()
+    isEditingDescription.value = false
 }
 
-// Watch for concept changes
 watch(() => concept.value?.description, (newDesc) => {
     if (!isEditingDescription.value) {
         localDescription.value = newDesc || ''
@@ -89,7 +80,6 @@ watch(() => concept.value?.description, (newDesc) => {
 </script>
 
 <style scoped>
-/* Description styling */
 .description-container {
     position: relative;
 }

@@ -1,50 +1,43 @@
 <template>
   <div class="image-gallery">
-    <!-- Enlarged image section (only shown when images exist) -->
+
+    <!-- Main image with navigation controls and edit button -->
     <div v-if="displayImages.length > 0" class="enlarged-image-wrapper edit-hover-area" @mouseenter="showNav = true"
       @mouseleave="showNav = false">
+
+      <!-- Navigation button - previous image -->
       <button v-if="showNav && displayImages.length > 1" class="nav-button left" @click.stop="prevImage"
         aria-label="Previous image">
         <ChevronLeftIcon class="nav-icon" />
       </button>
 
+      <!-- Image -->
       <img :src="displayImages[selectedIndex]" :alt="`Image ${selectedIndex + 1}`" class="enlarged-image" />
 
       <!-- Edit button - only in manual mode -->
-      <FloatingActionButton v-if="editable && mode === 'manual'" type="edit" size="small" visibility="on-hover"
-        class="edit-button-overlay" @click.stop="openEditModal" />
+      <FloatingActionButton v-if="editable && mode === IMAGE_GALLERY_MODES.MANUAL" type="edit" size="small"
+        visibility="on-hover" class="edit-button-overlay" @click.stop="openEditModal" />
 
+      <!-- Navigation button - next image -->
       <button v-if="showNav && displayImages.length > 1" class="nav-button right" @click.stop="nextImage"
         aria-label="Next image">
         <ChevronRightIcon class="nav-icon" />
       </button>
-
-      <!-- Edit Modal -->
-      <div v-if="editModalOpen" class="edit-modal" @click.stop>
-        <div class="edit-modal-content">
-          <label for="edit-image-url" class="url-label">Image URL:</label>
-          <input type="text" v-model="editImageUrl" class="url-input" placeholder="Image URL" ref="editUrlInput"
-            id="edit-image-url" />
-          <div class="edit-modal-buttons">
-            <ActionButton variant="danger" size="small" text="Delete" @click.stop="deleteImage" />
-            <ActionButton variant="neutral" size="small" text="Cancel" @click.stop="closeEditModal" />
-            <ActionButton variant="success" size="small" text="Save" @click.stop="saveImageUrl" />
-          </div>
-        </div>
-      </div>
     </div>
 
     <!-- Thumbnails grid -->
-    <div v-if="(editable && mode === 'manual') || displayImages.length > 1" class="thumbs-container"
-      :style="{ '--grid-columns': gridColumns }">
-      <div class="thumbs-grid" :style="{ 'grid-template-columns': `repeat(${gridColumns}, 1fr)` }">
-        <!-- Editable mode (manual only) -->
-        <template v-if="editable && mode === 'manual'">
+    <div v-if="(editable && mode === IMAGE_GALLERY_MODES.MANUAL) || displayImages.length > 1" class="thumbs-container">
+      <div class="thumbs-grid">
+
+        <!-- Editable mode -->
+        <template v-if="editable && mode === IMAGE_GALLERY_MODES.MANUAL">
+
+          <!-- Draggable thumbnails -->
           <draggable v-model="localImages" class="draggable-container" handle=".thumb-drag-handle" item-key="index"
             animation="150" ghost-class="ghost-thumb" @end="onDragEnd">
             <template #item="{ element: img, index }">
               <div class="thumb-wrapper">
-                <div class="thumb-drag-handle" title="Drag to reorder">⋮⋮</div>
+                <FloatingActionButton type="drag" size="small" visibility="on-hover" class="thumb-drag-handle" />
                 <img :src="img" :alt="`Thumbnail ${index + 1}`" class="thumb-image" @click="selectImage(index)" />
                 <div v-if="selectedIndex === index" class="thumb-selected-overlay"></div>
               </div>
@@ -61,16 +54,19 @@
 
         <!-- Non-editable mode or auto mode -->
         <template v-else>
+
+          <!-- Thumbnails -->
           <div v-for="(img, index) in displayImages" :key="img + index" class="thumb-wrapper"
             @click="selectImage(index)">
             <img :src="img" :alt="`Thumbnail ${index + 1}`" class="thumb-image" />
             <div v-if="selectedIndex === index" class="thumb-selected-overlay"></div>
           </div>
+
         </template>
       </div>
     </div>
 
-    <!-- Add Image Modal (separate from edit modal, using global styles) -->
+    <!-- Add Image Modal -->
     <div v-if="addModalOpen" class="modal-overlay" @click.self="closeAddModal">
       <div class="modal-content">
         <h3>Add New Image</h3>
@@ -81,30 +77,36 @@
         </div>
       </div>
     </div>
+
+    <!-- Edit Image Modal -->
+    <div v-if="editModalOpen" class="modal-overlay" @click.self="closeEditModal">
+      <div class="modal-content">
+        <h3>Edit Image</h3>
+        <input type="text" v-model="editImageUrl" class="modal-input" placeholder="Enter image URL"
+          ref="editUrlInput" />
+        <div class="modal-buttons">
+          <ActionButton variant="danger" size="small" text="Delete" @click="deleteImage" />
+          <ActionButton variant="neutral" size="small" text="Cancel" @click="closeEditModal" />
+          <ActionButton variant="success" size="small" text="Save" @click="saveImageUrl" />
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup>
-import { ref, watch, nextTick, computed } from 'vue'
+import { ref, watch, computed, nextTick } from 'vue'
 import draggable from 'vuedraggable'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/vue/24/outline'
 import { useArtStore } from '@/stores/artStore'
+import { IMAGE_GALLERY_MODES, ART_TYPES } from '@shared/constants/artConstants.js'
 
-// Props
 const props = defineProps({
   images: {
     type: Array,
     required: true,
-  },
-  initialIndex: {
-    type: Number,
-    default: 0,
-  },
-  gridColumns: {
-    type: Number,
-    default: 5,
   },
   editable: {
     type: Boolean,
@@ -112,13 +114,13 @@ const props = defineProps({
   },
   mode: {
     type: String,
-    default: 'manual',
-    validator: (value) => ['manual', 'auto'].includes(value)
+    default: IMAGE_GALLERY_MODES.MANUAL,
+    validator: (value) => Object.values(IMAGE_GALLERY_MODES).includes(value)
   },
   autoSourceType: {
     type: String,
-    default: 'faces',
-    validator: (value) => ['faces', 'places', 'maps'].includes(value)
+    default: ART_TYPES.FACES,
+    validator: (value) => Object.values(ART_TYPES).includes(value)
   },
   autoSourceId: {
     type: String,
@@ -131,33 +133,28 @@ const props = defineProps({
 })
 
 // Emits
-const emit = defineEmits(['update:images', 'edit', 'delete', 'add'])
+const emit = defineEmits(['update:images'])
 
-// Store for auto mode
+// Stores
 const artStore = useArtStore()
 
-// Computed images based on mode
+// If auto mode, compute images from art store; else use provided images
 const displayImages = computed(() => {
-  if (props.mode === 'auto' && props.autoSourceId) {
-    // Fetch images from art store
+  if (props.mode === IMAGE_GALLERY_MODES.AUTO && props.autoSourceId) {
     const autoImages = artStore.getByTypeAndSource(props.autoSourceType, props.autoSourceId)
-    const imageUrls = autoImages.map(item => item.url)
-    // Filter out excluded URLs
-    return imageUrls.filter(url => !props.excludeUrls.includes(url))
+    return autoImages.map(item => item.url).filter(url => !props.excludeUrls.includes(url))
   }
-  // Manual mode - use provided images
   return props.images
 })
 
 // Reactive state
-const selectedIndex = ref(props.initialIndex)
+const selectedIndex = ref(0)
 const showNav = ref(false)
 const editModalOpen = ref(false)
 const addModalOpen = ref(false)
 const editImageUrl = ref('')
 const newImageUrl = ref('')
 const localImages = ref([...props.images])
-const isInternalChange = ref(false)
 
 // Template refs
 const editUrlInput = ref(null)
@@ -178,11 +175,9 @@ const nextImage = () => {
   selectedIndex.value = (selectedIndex.value + 1) % displayImages.value.length
 }
 
-// Edit existing image methods
 const openEditModal = () => {
   editImageUrl.value = localImages.value[selectedIndex.value]
   editModalOpen.value = true
-  // Focus the input field after the modal is rendered
   nextTick(() => {
     editUrlInput.value?.focus()
   })
@@ -195,70 +190,32 @@ const closeEditModal = () => {
 
 const saveImageUrl = () => {
   if (editImageUrl.value) {
-    // Set the flag to indicate an internal change
-    isInternalChange.value = true
-
-    // Update existing image
     const updatedImages = [...localImages.value]
     updatedImages[selectedIndex.value] = editImageUrl.value
-
-    // Update local copy
     localImages.value = updatedImages
-
-    // Emit events
     emit('update:images', updatedImages)
-    emit('edit', {
-      index: selectedIndex.value,
-      url: editImageUrl.value,
-    })
-
-    // Reset the flag after the next tick
-    nextTick(() => {
-      isInternalChange.value = false
-    })
   }
-
   closeEditModal()
 }
 
 const deleteImage = () => {
   if (confirm('Are you sure you want to delete this image?')) {
     const indexToDelete = selectedIndex.value
+    const updatedImages = localImages.value.filter((_, index) => index !== indexToDelete)
 
-    // Set the flag to indicate an internal change
-    isInternalChange.value = true
-
-    // Create a new array without the deleted image
-    const updatedImages = localImages.value.filter(
-      (_, index) => index !== indexToDelete,
-    )
-
-    // Adjust the selected index if necessary
     if (selectedIndex.value >= updatedImages.length) {
       selectedIndex.value = Math.max(0, updatedImages.length - 1)
     }
 
-    // Update local copy
     localImages.value = updatedImages
-
-    // Emit events
     emit('update:images', updatedImages)
-    emit('delete', indexToDelete)
-
-    // Reset the flag after the next tick
-    nextTick(() => {
-      isInternalChange.value = false
-    })
-
     closeEditModal()
   }
 }
 
-// Add new image methods
 const addNewImage = () => {
   newImageUrl.value = ''
   addModalOpen.value = true
-  // Focus the input field after the modal is rendered
   nextTick(() => {
     addUrlInput.value?.focus()
   })
@@ -271,81 +228,39 @@ const closeAddModal = () => {
 
 const saveNewImage = () => {
   if (newImageUrl.value) {
-    // Set the flag to indicate an internal change
-    isInternalChange.value = true
-
-    // Add new image to the array
     const updatedImages = [...localImages.value, newImageUrl.value]
-
-    // Select the new image
     selectedIndex.value = updatedImages.length - 1
-
-    // Update local copy
     localImages.value = updatedImages
-
-    // Emit events
     emit('update:images', updatedImages)
-    emit('add', newImageUrl.value)
-
-    // Reset the flag after the next tick
-    nextTick(() => {
-      isInternalChange.value = false
-    })
   }
-
   closeAddModal()
 }
 
-// Drag and drop method
 const onDragEnd = () => {
-  // Track the currently selected image URL before reordering
   const selectedImageUrl = localImages.value[selectedIndex.value]
+  const newSelectedIndex = localImages.value.findIndex(url => url === selectedImageUrl)
 
-  // Only emit if this is not already part of a recursive update
-  if (!isInternalChange.value) {
-    isInternalChange.value = true
-
-    // Find the new index of the previously selected image
-    const newSelectedIndex = localImages.value.findIndex(
-      (url) => url === selectedImageUrl,
-    )
-    if (newSelectedIndex !== -1) {
-      selectedIndex.value = newSelectedIndex
-    }
-
-    // Make a clean copy of the localImages array before emitting
-    const cleanImages = [...localImages.value]
-
-    // Use nextTick to ensure Vue's reactivity has settled
-    nextTick(() => {
-      // Emit the updated array
-      emit('update:images', cleanImages)
-
-      // Reset the flag after the update is processed
-      isInternalChange.value = false
-    })
+  if (newSelectedIndex !== -1) {
+    selectedIndex.value = newSelectedIndex
   }
+
+  emit('update:images', [...localImages.value])
 }
 
-// Watchers
-// Keep the watcher for external image changes
+// Watcher for external image changes
 watch(() => props.images, (newImages) => {
-  if (!isInternalChange.value) {
-    if (JSON.stringify(newImages) !== JSON.stringify(localImages.value)) {
-      localImages.value = [...newImages]
+  // Simple array comparison - if lengths differ or any URL differs, update
+  if (newImages.length !== localImages.value.length ||
+    newImages.some((url, i) => url !== localImages.value[i])) {
+    localImages.value = [...newImages]
 
-      if (selectedIndex.value >= newImages.length) {
-        selectedIndex.value = Math.max(0, newImages.length - 1)
-      }
+    if (selectedIndex.value >= newImages.length) {
+      selectedIndex.value = Math.max(0, newImages.length - 1)
     }
   }
-}, { deep: true })
+})
 </script>
 <style scoped>
-.image-gallery {
-  width: 100%;
-}
-
 .enlarged-image-wrapper {
   width: 100%;
   margin-bottom: 1rem;
@@ -357,8 +272,6 @@ watch(() => props.images, (newImages) => {
   object-fit: contain;
   border-radius: var(--radius-10);
   background: var(--color-bg-tertiary);
-  display: block;
-  margin: 0 auto;
 }
 
 .nav-button {
@@ -401,7 +314,6 @@ watch(() => props.images, (newImages) => {
   right: var(--space-xs);
 }
 
-/* Edit button overlay styling */
 .edit-button-overlay {
   position: absolute;
   top: var(--space-xs);
@@ -409,70 +321,13 @@ watch(() => props.images, (newImages) => {
   z-index: var(--z-raised);
 }
 
-/* Edit modal styling */
-.edit-modal {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: var(--overlay-black-medium);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: var(--z-interactive);
-  border-radius: var(--radius-10);
-}
-
-.edit-modal-content {
-  background: var(--color-bg-secondary);
-  padding: var(--space-xl);
-  border-radius: var(--radius-10);
-  width: 80%;
-  max-width: var(--size-xl);
-}
-
-.edit-modal-content h3 {
-  margin-top: 0;
-  margin-bottom: var(--space-sm);
-}
-
-.url-label {
-  display: block;
-  margin-bottom: var(--space-xs);
-  font-weight: var(--font-weight-semibold);
-  color: var(--color-text-primary);
-  font-size: var(--font-size-16);
-}
-
-.url-input {
-  width: 95%;
-  padding: var(--space-sm);
-  margin-bottom: var(--space-sm);
-  background: var(--color-bg-secondary);
-  border: var(--border-width-sm) solid var(--color-gray-medium);
-  border-radius: var(--radius-5);
-  color: var(--color-text-primary);
-  font-size: var(--font-size-16);
-}
-
-.edit-modal-buttons {
-  display: flex;
-  justify-content: flex-end;
-  gap: var(--space-md);
-}
-
-/* Thumbnail grid */
-.thumbs-container {
-  position: relative;
-  width: 100%;
-}
-
 .thumbs-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: var(--space-sm);
-  width: 100%;
+  gap: var(--space-xs);
+  padding: var(--space-xs);
+  background-color: var(--color-bg-primary);
+  border-radius: var(--radius-md);
 }
 
 .thumb-wrapper {
@@ -482,27 +337,13 @@ watch(() => props.images, (newImages) => {
 
 .draggable-container {
   display: contents;
-  /* Makes draggable children part of parent grid */
 }
 
-/* Drag handle for editable mode */
 .thumb-drag-handle {
   position: absolute;
   top: var(--space-xs);
   left: var(--space-xs);
-  font-size: var(--font-size-16);
-  color: var(--color-text-primary);
-  background: var(--overlay-white-medium);
-  border-radius: var(--radius-5);
-  padding: var(--space-xs);
-  cursor: grab;
-  opacity: 0;
-  transition: var(--transition-opacity);
   z-index: var(--z-floating);
-}
-
-.thumb-wrapper:hover .thumb-drag-handle {
-  opacity: 1;
 }
 
 .ghost-thumb {
@@ -523,22 +364,11 @@ watch(() => props.images, (newImages) => {
 
 .thumb-selected-overlay {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  inset: 0;
   background: var(--overlay-white-medium);
   border-radius: var(--radius-10);
   border: 2px solid var(--color-gray-light);
   pointer-events: none;
-}
-
-/* Add image thumbnail */
-.add-image-thumb {
-  width: auto;
-  min-width: auto;
-  max-width: none;
-  margin-top: 0;
 }
 
 .add-image-placeholder {
@@ -564,7 +394,6 @@ watch(() => props.images, (newImages) => {
   color: var(--color-gray-light);
 }
 
-/* Modal buttons styling */
 .modal-buttons {
   display: flex;
   justify-content: flex-end;
@@ -572,30 +401,14 @@ watch(() => props.images, (newImages) => {
   margin-top: var(--space-sm);
 }
 
-/* These styles will override the global modal styles */
-:deep(.modal-content) {
-  min-width: var(--size-lg);
-}
-
-:deep(.modal-input) {
-  background: var(--color-bg-secondary);
-  color: var(--color-text-primary);
-  border: var(--border-width-sm) solid var(--color-gray-medium);
-  border-radius: var(--radius-5);
-}
-
-/* Centered modal title */
-:deep(.modal-content h3) {
-  color: var(--color-text-primary);
-  margin-bottom: var(--space-sm);
-  text-align: center;
+.modal-content {
+  width: 30vw;
+  min-width: 400px;
 }
 
 @media (max-width: var(--breakpoint-sm)) {
   .thumbs-grid {
-    grid-template-columns: repeat(2,
-        1fr) !important;
-    /* Responsive: 2 columns on small screens */
+    grid-template-columns: repeat(2, 1fr) !important;
   }
 }
 </style>

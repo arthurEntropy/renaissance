@@ -2,35 +2,35 @@
   <ConceptSection title="Hooks" :has-content="hasHooks" :is-edit-mode="editable" :show-edit-button="editable"
     :is-section-editing="isSectionEditing" @toggle-edit="toggleHooksEditing" empty-message="No hooks added yet.">
 
-    <!-- Edit mode for hooks -->
+    <!-- EDIT MODE -->
     <div v-if="isSectionEditing && editable" class="section-editor">
-      <draggable v-model="localHooks" item-key="id" handle=".drag-handle" animation="200" ghost-class="ghost-hook"
-        @end="saveHooksOrder">
+      <draggable v-model="localHooks" :item-key="(item, index) => index" handle=".drag-handle" animation="200"
+        ghost-class="ghost-hook" @end="saveHooksOrder">
         <template #item="{ element: hook, index: idx }">
           <div class="edit-item hook-edit-card">
-            <!-- Hook header with drag handle, caret and name -->
+
+            <!-- Title with drag handle and expand/collapse button -->
             <div class="hook-header">
-              <span class="drag-handle" title="Drag to reorder">⋮⋮</span>
-              <span class="hook-caret" @click="toggleHookExpansion(hook.id || idx)">
-                {{ isHookExpanded(hook.id || idx) ? '▼' : '►' }}
-              </span>
+              <FloatingActionButton type="drag" size="small" visibility="always" class="drag-handle" />
+              <button class="hook-caret" @click="toggleHookExpansion(idx)" type="button">
+                <ChevronDownIcon v-if="isHookExpanded(idx)" class="caret-icon" />
+                <ChevronRightIcon v-else class="caret-icon" />
+              </button>
               <input type="text" v-model="hook.name" placeholder="Hook Name" class="modal-input hook-input" />
             </div>
 
-            <!-- Collapsible hook content -->
-            <div v-if="isHookExpanded(hook.id || idx)" class="hook-fields">
+            <!-- Collapsible content: description, GM Notes, Delete button -->
+            <div v-if="isHookExpanded(idx)" class="hook-fields">
               <div class="hook-field">
                 <label>Description:</label>
                 <text-editor v-model="hook.description" placeholder="Description of the hook..." :readonly="!editable"
                   :auto-height="true" />
               </div>
-
               <div class="hook-field">
                 <label>GM Notes:</label>
                 <text-editor v-model="hook.gmNotes" placeholder="Notes only visible to the GM..." :readonly="!editable"
                   :auto-height="true" />
               </div>
-
               <div class="delete-hook-container">
                 <ActionButton variant="danger" size="small" text="Delete Hook" @click="removeHook(idx)" />
               </div>
@@ -39,41 +39,41 @@
         </template>
       </draggable>
 
+      <!-- Editor buttons: Cancel and Add -->
       <div class="editor-buttons">
         <ActionButton variant="neutral" size="small" text="Cancel" @click="cancelHooksEdit" type="button" />
         <ActionButton variant="primary" size="small" text="+ Add" @click="addHook" type="button" />
       </div>
     </div>
 
-    <!-- Display mode for hooks -->
+    <!-- DISPLAY MODE -->
     <div v-else>
-      <InfoCard v-for="hook in localHooks" :key="hook.id" :title="hook.name" :content="hook.description">
+      <InfoCard v-for="(hook, idx) in localHooks" :key="'hook-' + idx" :title="hook.name" :content="hook.description">
         <template #additional-content>
           <div class="gm-notes-controls">
-            <ActionButton variant="neutral" size="small"
-              :text="shownGMNotes && shownGMNotes[hook.id] ? 'Hide GM Notes' : 'View GM Notes'"
-              @click="toggleGMNotes(hook.id)" />
+            <ActionButton variant="neutral" size="small" :text="shownGMNotes[idx] ? 'Hide GM Notes' : 'View GM Notes'"
+              @click="toggleGMNotes(idx)" />
           </div>
-          <div v-if="shownGMNotes && shownGMNotes[hook.id]" class="gm-notes" v-html="safeGMNotes(hook.gmNotes)"></div>
+          <div v-if="shownGMNotes[idx]" class="gm-notes" v-html="sanitizeHtml(hook.gmNotes)"></div>
         </template>
       </InfoCard>
     </div>
+
   </ConceptSection>
 </template>
 
 <script setup>
 import { ref, computed, watch } from 'vue'
 import draggable from 'vuedraggable'
+import { ChevronRightIcon, ChevronDownIcon } from '@heroicons/vue/24/outline'
 import TextEditor from '@/components/ui/textEditor/TextEditor.vue'
-import ConceptSection from './ConceptSection.vue'
-import InfoCard from './InfoCard.vue'
+import ConceptSection from '../shared/ConceptSection.vue'
+import InfoCard from '../shared/InfoCard.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
-import { useEditMode } from '@/composables/useEditMode'
-import { useUnsavedChanges } from '@/composables/useUnsavedChanges'
+import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import { sanitizeHtml } from '@/utils/sanitizeHtml'
 import { useConceptsStore } from '@/stores/conceptsStore'
 
-// Props
 const props = defineProps({
   editable: {
     type: Boolean,
@@ -81,128 +81,81 @@ const props = defineProps({
   },
 })
 
-// Get concept from store
 const conceptsStore = useConceptsStore()
-const concept = computed(() => conceptsStore.selectedItem)
-
-// Emits
-const emit = defineEmits(['unsaved-changes', 'reset-unsaved-changes'])
-
-// Reactive state
+const concept = computed(() => conceptsStore.selectedConcept)
 const localHooks = ref([])
 const expandedHooks = ref({})
 const shownGMNotes = ref({})
-
-// Edit mode composable
-const editMode = useEditMode({
-  onSave: () => {
-    // Directly mutate concept.hooks
-    concept.value.hooks = [...localHooks.value]
-    unsavedChanges.markAsSaved()
-  },
-  onCancel: (restoredData) => {
-    if (restoredData) {
-      localHooks.value = [...restoredData]
-    }
-    unsavedChanges.markAsSaved()
-  },
-  onStartEdit: () => {
-    unsavedChanges.markAsChanged()
-  }
-})
-
 const isSectionEditing = ref(false)
 
-// Unsaved changes composable
-const unsavedChanges = useUnsavedChanges(emit, () => {
-  return editMode.isEditing.value && editMode.hasUnsavedChanges(localHooks.value)
-})
-
-// Computed properties
 const hasHooks = computed(() => {
   return localHooks.value && localHooks.value.length > 0
 })
 
-// Methods
 const toggleHooksEditing = () => {
   if (!props.editable) return
 
-  if (!editMode.isEditing.value) {
-    editMode.startEdit(localHooks.value)
-    isSectionEditing.value = true
+  if (isSectionEditing.value) {
+    saveHooks()
   } else {
-    editMode.saveEdit(localHooks.value)
-    isSectionEditing.value = false
+    isSectionEditing.value = true
   }
 }
 
-const cancelHooksEdit = () => {
-  const restored = editMode.cancelEdit()
-  if (restored) {
-    localHooks.value = [...restored]
+const saveHooks = async () => {
+  if (concept.value) {
+    concept.value.hooks = [...localHooks.value]
+    await conceptsStore.update(concept.value)
   }
   isSectionEditing.value = false
 }
 
-const saveHooksOrder = () => {
-  concept.value.hooks = [...localHooks.value]
+const cancelHooksEdit = () => {
+  localHooks.value = [...(concept.value?.hooks || [])]
+  isSectionEditing.value = false
+}
+
+const saveHooksOrder = async () => {
+  if (concept.value) {
+    concept.value.hooks = [...localHooks.value]
+    await conceptsStore.update(concept.value)
+  }
 }
 
 const addHook = () => {
-  const hookId = crypto.randomUUID
-    ? crypto.randomUUID()
-    : Math.random().toString(36).slice(2)
+  const newIndex = localHooks.value.length
   localHooks.value.push({
-    id: hookId,
     name: '',
     description: '',
     gmNotes: '',
-    isDeleted: false,
   })
-  expandedHooks.value[hookId] = true
+  expandedHooks.value[newIndex] = true
 }
 
-const toggleHookExpansion = (hookId) => {
-  expandedHooks.value[hookId] = !expandedHooks.value[hookId]
+const toggleHookExpansion = (index) => {
+  expandedHooks.value[index] = !expandedHooks.value[index]
 }
 
-const isHookExpanded = (hookId) => {
-  return !!expandedHooks.value[hookId]
+const isHookExpanded = (index) => {
+  return !!expandedHooks.value[index]
 }
 
 const removeHook = (idx) => {
   localHooks.value.splice(idx, 1)
 }
 
-const toggleGMNotes = (hookId) => {
-  shownGMNotes.value[hookId] = !shownGMNotes.value[hookId]
+const toggleGMNotes = (index) => {
+  shownGMNotes.value[index] = !shownGMNotes.value[index]
 }
 
-const safeGMNotes = (html) => sanitizeHtml(html)
-
-// Watchers
 watch(() => concept.value?.hooks, (newHooks) => {
-  localHooks.value = JSON.parse(JSON.stringify(newHooks || []))
+  if (!isSectionEditing.value) {
+    localHooks.value = [...(newHooks || [])]
+  }
 }, { immediate: true })
-
-watch(localHooks, () => {
-  if (isSectionEditing.value) {
-    unsavedChanges.checkForChanges()
-  }
-}, { deep: true })
-
-watch(() => props.editable, (val) => {
-  if (val) {
-    isSectionEditing.value = false
-  } else if (isSectionEditing.value) {
-    editMode.cancelEdit()
-    isSectionEditing.value = false
-  }
-})
 </script>
 
 <style scoped>
-/* Hook-specific styling */
 .ghost-hook {
   opacity: 0.5;
   background: var(--color-bg-secondary) !important;
@@ -219,6 +172,17 @@ watch(() => props.editable, (val) => {
   cursor: pointer;
   padding: var(--space-xs);
   user-select: none;
+  background: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-primary);
+}
+
+.caret-icon {
+  width: 16px;
+  height: 16px;
 }
 
 .hook-input {

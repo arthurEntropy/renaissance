@@ -1,10 +1,10 @@
 <template>
   <div v-if="visible" class="modal-overlay" @click.self="cancel">
     <div class="modal-content settings-modal">
-      <h3>Card Style Settings</h3>
+      <h3>Ability/Equipment Card Style Settings</h3>
 
       <!-- Background Image URL -->
-      <div>
+      <div class="form-group">
         <label for="backgroundImage">Background Image URL:</label>
         <input type="text" id="backgroundImage" v-model="localSettings.backgroundImage" class="modal-input"
           placeholder="https://example.com/image.png" />
@@ -13,7 +13,7 @@
       <!-- Expansion Dropdown -->
       <div class="form-group">
         <label for="expansion">Expansion:</label>
-        <select id="expansion" v-model="localSettings.expansionId" class="modal-input">
+        <select id="expansion" v-model="localSettings.expansionId" class="modal-input expansion-select">
           <option value="">None</option>
           <option v-for="exp in expansions" :key="exp.id" :value="exp.id">
             {{ exp.name }}
@@ -30,75 +30,54 @@
 </template>
 
 <script setup>
-import { ref, reactive, watch, onMounted } from 'vue'
+import { reactive, computed, watch, onMounted } from 'vue'
 import { useExpansionsStore } from '@/stores/expansionsStore'
+import { useConceptsStore } from '@/stores/conceptsStore'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 
-// Props
 const props = defineProps({
   visible: {
     type: Boolean,
     default: false,
   },
-  settings: {
-    type: Object,
-    default: () => ({
-      backgroundImage: '',
-    }),
-  },
 })
 
-// Emits
-const emit = defineEmits(['update:settings', 'cancel', 'save'])
+const emit = defineEmits(['cancel', 'save'])
 
-// Store
-const expansionStore = useExpansionsStore()
+const expansionsStore = useExpansionsStore()
+const conceptsStore = useConceptsStore()
 
-// Reactive state
 const localSettings = reactive({
   backgroundImage: '',
   expansionId: '',
 })
 
-const expansions = ref([])
+const expansions = computed(() => expansionsStore.items)
 
-// Methods
 const save = () => {
-  emit('update:settings', { ...localSettings })
-  emit('save')
+  emit('save', { ...localSettings })
 }
 
 const cancel = () => {
   emit('cancel')
 }
 
-const updateLocalSettings = (newSettings) => {
-  Object.assign(localSettings, newSettings)
-  // If expansionId is not present, set it from the concept's expansion property if available
-  if (!('expansionId' in localSettings)) {
-    localSettings.expansionId = newSettings.expansion || ''
-  } else if (!localSettings.expansionId && newSettings.expansion) {
-    localSettings.expansionId = newSettings.expansion
+const loadSettings = () => {
+  const concept = conceptsStore.selectedConcept
+  if (concept) {
+    localSettings.backgroundImage = concept.backgroundImage || ''
+    localSettings.expansionId = concept.expansion || ''
   }
 }
 
-// Watchers
-watch(() => props.settings, updateLocalSettings, { immediate: true })
-
 watch(() => props.visible, (isVisible) => {
   if (isVisible) {
-    updateLocalSettings(props.settings)
+    loadSettings()
   }
 })
 
-// Lifecycle
 onMounted(async () => {
-  await expansionStore.fetch()
-  expansions.value = expansionStore.items
-  // Ensure expansionId is set from settings.expansion if present
-  if (!localSettings.expansionId && props.settings.expansion) {
-    localSettings.expansionId = props.settings.expansion
-  }
+  await expansionsStore.fetch()
 })
 </script>
 
@@ -115,14 +94,6 @@ onMounted(async () => {
   margin-top: var(--space-lg);
 }
 
-input[type='color'] {
-  width: 50px;
-  height: 30px;
-  border: none;
-  cursor: pointer;
-  margin: 0 var(--space-xs);
-}
-
 .modal-input {
   width: 100%;
   padding: var(--space-sm);
@@ -131,17 +102,21 @@ input[type='color'] {
   border: 1px solid var(--color-gray-medium);
   border-radius: var(--radius-5);
   color: var(--color-text-primary);
+  box-sizing: border-box;
 }
 
 label {
   display: block;
   color: var(--color-text-secondary);
-  margin-right: var(--space-xs);
+  margin-bottom: var(--space-xs);
 }
 
 .form-group {
-  display: flex;
-  align-items: center;
   margin: var(--space-lg) 0;
+}
+
+.expansion-select {
+  width: auto;
+  min-width: 200px;
 }
 </style>

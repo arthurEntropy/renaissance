@@ -1,46 +1,40 @@
 <template>
   <ConceptSection title="Local Flavor" :has-content="hasContent" :is-edit-mode="editable" :show-edit-button="editable"
     :is-section-editing="isSectionEditing" @toggle-edit="toggleEditing" empty-message="No local flavor added yet.">
-    <!-- Edit mode for local flavor data -->
+
+    <!-- EDIT MODE -->
     <div v-if="isSectionEditing && editable" class="section-editor">
-      <!-- existing edit form content -->
       <div class="two-column-grid">
-        <!-- Names -->
         <div class="flavor-edit-item">
           <label for="names">Names</label>
           <textarea id="names" v-model="localData.names" class="modal-input flavor-textarea"
             placeholder="Who might you meet?"></textarea>
         </div>
 
-        <!-- Occupations -->
         <div class="flavor-edit-item">
           <label for="occupations">Occupations</label>
           <textarea id="occupations" v-model="localData.occupations" class="modal-input flavor-textarea"
             placeholder="What do people do around here?"></textarea>
         </div>
 
-        <!-- Public Houses -->
         <div class="flavor-edit-item">
           <label for="publicHouses">Public Houses</label>
           <textarea id="publicHouses" v-model="localData.publicHouses" class="modal-input flavor-textarea"
             placeholder="Where can a traveler find hospitality?"></textarea>
         </div>
 
-        <!-- Points of Interest -->
         <div class="flavor-edit-item">
           <label for="pointsOfInterest">Points of Interest</label>
           <textarea id="pointsOfInterest" v-model="localData.pointsOfInterest" class="modal-input flavor-textarea"
             placeholder="What are the must-see spots?"></textarea>
         </div>
 
-        <!-- Vittles -->
         <div class="flavor-edit-item">
           <label for="vittles">Vittles</label>
           <textarea id="vittles" v-model="localData.vittles" class="modal-input flavor-textarea"
             placeholder="What's on the menu?"></textarea>
         </div>
 
-        <!-- Flora & Fauna -->
         <div class="flavor-edit-item">
           <label for="floraFauna">Flora & Fauna</label>
           <textarea id="floraFauna" v-model="localData.floraFauna" class="modal-input flavor-textarea"
@@ -53,7 +47,7 @@
       </div>
     </div>
 
-    <!-- Display mode for local flavor data -->
+    <!-- DISPLAY MODE -->
     <div v-else class="two-column-grid">
       <InfoCard v-if="localData.names" title="Names" :content="localData.names" />
 
@@ -72,14 +66,11 @@
 
 <script setup>
 import { ref, computed, watch } from 'vue'
-import ConceptSection from './ConceptSection.vue'
-import InfoCard from './InfoCard.vue'
+import ConceptSection from '../shared/ConceptSection.vue'
+import InfoCard from '../shared/InfoCard.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
-import { useEditMode } from '@/composables/useEditMode'
-import { useUnsavedChanges } from '@/composables/useUnsavedChanges'
 import { useConceptsStore } from '@/stores/conceptsStore'
 
-// Props
 const props = defineProps({
   editable: {
     type: Boolean,
@@ -87,14 +78,9 @@ const props = defineProps({
   },
 })
 
-// Get concept from store
 const conceptsStore = useConceptsStore()
 const concept = computed(() => conceptsStore.selectedConcept)
 
-// Emits
-const emit = defineEmits(['unsaved-changes', 'reset-unsaved-changes'])
-
-// Reactive state
 const localData = ref({
   names: '',
   occupations: '',
@@ -104,91 +90,47 @@ const localData = ref({
   floraFauna: '',
 })
 
-// Edit mode composable
-const editMode = useEditMode({
-  onSave: (data) => {
-    // Directly mutate concept properties
-    Object.assign(concept.value, data)
-    unsavedChanges.markAsSaved()
-  },
-  onCancel: (restoredData) => {
-    if (restoredData) {
-      localData.value = { ...restoredData }
-    }
-    unsavedChanges.markAsSaved()
-  },
-  onStartEdit: () => {
-    unsavedChanges.markAsChanged()
-  }
-})
-
 const isSectionEditing = ref(false)
 
-// Unsaved changes composable
-const unsavedChanges = useUnsavedChanges(emit, () => {
-  return editMode.isEditing.value && editMode.hasUnsavedChanges(localData.value)
-})
+const hasContent = computed(() =>
+  Object.values(localData.value).some(Boolean)
+)
 
-// Computed properties
-const hasContent = computed(() => {
-  return Boolean(
-    localData.value.names ||
-    localData.value.occupations ||
-    localData.value.publicHouses ||
-    localData.value.vittles ||
-    localData.value.pointsOfInterest ||
-    localData.value.floraFauna,
-  )
-})
+const syncLocalData = (sourceConcept) => {
+  if (!sourceConcept) return
+  localData.value = {
+    names: sourceConcept.names || '',
+    occupations: sourceConcept.occupations || '',
+    publicHouses: sourceConcept.publicHouses || '',
+    vittles: sourceConcept.vittles || '',
+    pointsOfInterest: sourceConcept.pointsOfInterest || '',
+    floraFauna: sourceConcept.floraFauna || ''
+  }
+}
 
-// Methods
-const toggleEditing = () => {
+const toggleEditing = async () => {
   if (!props.editable) return
 
-  if (!editMode.isEditing.value) {
-    editMode.startEdit(localData.value)
-    isSectionEditing.value = true
-  } else {
-    editMode.saveEdit(localData.value)
+  if (isSectionEditing.value) {
+    if (concept.value) {
+      Object.assign(concept.value, localData.value)
+      await conceptsStore.update(concept.value)
+    }
     isSectionEditing.value = false
+  } else {
+    isSectionEditing.value = true
   }
 }
 
 const cancelEdit = () => {
-  const restored = editMode.cancelEdit()
-  if (restored) {
-    localData.value = { ...restored }
-  }
+  syncLocalData(concept.value)
   isSectionEditing.value = false
 }
 
-// Watchers
 watch(concept, (newConcept) => {
-  if (!newConcept) return
-  localData.value = {
-    names: newConcept.names || '',
-    occupations: newConcept.occupations || '',
-    publicHouses: newConcept.publicHouses || '',
-    vittles: newConcept.vittles || '',
-    pointsOfInterest: newConcept.pointsOfInterest || '',
-    floraFauna: newConcept.floraFauna || ''
-  }
+  if (!newConcept || isSectionEditing.value) return
+  syncLocalData(newConcept)
 }, { immediate: true })
-
-watch(localData, () => {
-  if (isSectionEditing.value) {
-    unsavedChanges.checkForChanges()
-  }
-}, { deep: true })
-
-watch(() => props.editable, (val) => {
-  if (val) {
-    isSectionEditing.value = false
-  } else if (isSectionEditing.value) {
-    cancelEdit()
-    isSectionEditing.value = false
-  }
-})
 </script>
 
 <style scoped>

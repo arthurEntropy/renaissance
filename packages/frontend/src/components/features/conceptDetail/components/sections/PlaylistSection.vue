@@ -1,7 +1,8 @@
 <template>
   <ConceptSection title="Playlists" :has-content="hasPlaylists" :is-edit-mode="editable" :show-edit-button="editable"
     :is-section-editing="isSectionEditing" @toggle-edit="togglePlaylistEditing" empty-message="No playlists added yet.">
-    <!-- Playlist Editor -->
+
+    <!-- EDIT MODE -->
     <div v-if="isSectionEditing && editable" class="section-editor">
       <p class="helper-text">Paste embed codes from Spotify or Apple Music</p>
       <div class="url-container">
@@ -15,12 +16,11 @@
           <input type="text" v-model="playlist.embedCode" class="modal-input playlist-input"
             placeholder="Paste embed code" />
           <div class="url-buttons">
-            <ActionButton variant="neutral" size="small" text="▲" @click="movePlaylist(index, -1)"
-              :disabled="index === 0" title="Move Up" type="button" />
-            <ActionButton variant="neutral" size="small" text="▼" @click="movePlaylist(index, 1)"
-              :disabled="index === localPlaylists.length - 1" title="Move Down" type="button" />
-            <ActionButton variant="danger" size="small" text="✕" @click="removePlaylist(index)" title="Remove"
-              type="button" />
+            <FloatingActionButton type="edit" size="small" @click="movePlaylist(index, -1)" :disabled="index === 0"
+              title="Move Up" :icon="ChevronUpIcon" />
+            <FloatingActionButton type="edit" size="small" @click="movePlaylist(index, 1)"
+              :disabled="index === localPlaylists.length - 1" title="Move Down" :icon="ChevronDownIcon" />
+            <FloatingActionButton type="delete" size="small" @click="removePlaylist(index)" title="Remove" />
           </div>
         </div>
       </div>
@@ -30,8 +30,9 @@
       </div>
     </div>
 
-    <!-- Service Toggle (when not editing) -->
+    <!-- DISPLAY MODE -->
     <div v-else>
+      <!-- Service Toggle -->
       <div class="playlist-toggle">
         <button class="playlist-toggle-btn" :class="{ active: playlistService === 'apple' }"
           @click="playlistService = 'apple'">
@@ -66,13 +67,13 @@
 <script setup>
 import { ref, computed, watch } from 'vue'
 import '@/styles/concept-components.css'
-import ConceptSection from './ConceptSection.vue'
+import ConceptSection from '../shared/ConceptSection.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
-import { useEditMode } from '@/composables/useEditMode'
+import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
+import { ChevronUpIcon, ChevronDownIcon } from '@heroicons/vue/24/outline'
 import { sanitizeEmbedHtml } from '@/utils/sanitizeHtml'
 import { useConceptsStore } from '@/stores/conceptsStore'
 
-// Props
 const props = defineProps({
   editable: {
     type: Boolean,
@@ -80,32 +81,13 @@ const props = defineProps({
   },
 })
 
-// Get concept from store
 const conceptsStore = useConceptsStore()
 const concept = computed(() => conceptsStore.selectedConcept)
 
-// Reactive state
 const playlistService = ref('apple')
 const localPlaylists = ref([])
-
-// Edit mode composable
-const editMode = useEditMode({
-  onSave: () => {
-    // Process Apple Music embed codes to ensure dark theme
-    processAppleEmbedCodes()
-    // Directly mutate concept.playlists
-    concept.value.playlists = [...localPlaylists.value]
-  },
-  onCancel: (restoredData) => {
-    if (restoredData) {
-      localPlaylists.value = [...restoredData]
-    }
-  }
-})
-
 const isSectionEditing = ref(false)
 
-// Computed properties
 const hasPlaylists = computed(() => {
   return localPlaylists.value && localPlaylists.value.length > 0
 })
@@ -122,24 +104,28 @@ const hasOtherServicePlaylists = computed(() => {
   return localPlaylists.value.some((p) => p.service === otherService)
 })
 
-// Methods
-const togglePlaylistEditing = () => {
+const syncLocalPlaylists = (sourceConcept) => {
+  if (!sourceConcept) return
+  localPlaylists.value = sourceConcept.playlists ? [...sourceConcept.playlists] : []
+}
+
+const togglePlaylistEditing = async () => {
   if (!props.editable) return
 
-  if (!editMode.isEditing.value) {
-    editMode.startEdit(localPlaylists.value)
-    isSectionEditing.value = true
-  } else {
-    editMode.saveEdit(localPlaylists.value)
+  if (isSectionEditing.value) {
+    if (concept.value) {
+      processAppleEmbedCodes()
+      concept.value.playlists = [...localPlaylists.value]
+      await conceptsStore.update(concept.value)
+    }
     isSectionEditing.value = false
+  } else {
+    isSectionEditing.value = true
   }
 }
 
 const cancelPlaylistEdit = () => {
-  const restored = editMode.cancelEdit()
-  if (restored) {
-    localPlaylists.value = [...restored]
-  }
+  syncLocalPlaylists(concept.value)
   isSectionEditing.value = false
 }
 
@@ -166,7 +152,6 @@ const movePlaylist = (index, direction) => {
 }
 
 const processAppleEmbedCodes = () => {
-  // Function to ensure dark theme is set for Apple Music embeds
   localPlaylists.value.forEach((playlist) => {
     if (playlist.service === 'apple' && playlist.embedCode) {
       // Extract the src attribute
@@ -190,21 +175,13 @@ const processAppleEmbedCodes = () => {
 
 const safeEmbed = (html) => sanitizeEmbedHtml(html)
 
-// Watchers
-watch(() => concept.value?.playlists, (newPlaylists) => {
-  localPlaylists.value = JSON.parse(JSON.stringify(newPlaylists || []))
+watch(concept, (newConcept) => {
+  if (!newConcept || isSectionEditing.value) return
+  syncLocalPlaylists(newConcept)
 }, { immediate: true })
-
-watch(() => props.editable, (newEditable) => {
-  if (!newEditable && isSectionEditing.value) {
-    cancelPlaylistEdit()
-  }
-  isSectionEditing.value = false
-})
 </script>
 
 <style scoped>
-/* Component-specific styles */
 .helper-text {
   font-size: var(--font-size-14);
   color: var(--color-gray-light);
@@ -253,7 +230,6 @@ watch(() => props.editable, (newEditable) => {
   color: var(--color-gray-light);
 }
 
-/* URL containers and items */
 .url-container {
   display: flex;
   flex-direction: column;

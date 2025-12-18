@@ -3,7 +3,7 @@
         <h2 v-if="title" class="section-header" :class="{ 'edit-hover-area': showEditButton }">
             {{ title }}
             <FloatingActionButton v-if="showEditButton" type="edit" :is-active="isSectionEditing"
-                @click="$emit('toggle-edit')" size="small" visibility="on-hover" />
+                @click="$emit('toggle-edit')" size="small" visibility="always" />
         </h2>
         <div v-if="!hasContent && isEditMode && !isSectionEditing" class="empty-section-placeholder">
             {{ emptyMessage }}

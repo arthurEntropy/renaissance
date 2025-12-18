@@ -41,7 +41,6 @@ import RulesContent from '@/components/features/rules/RulesContent.vue'
 import RulesImagePanel from '@/components/features/rules/RulesImagePanel.vue'
 import { useRulesStore } from '@/stores/rulesStore'
 import { createSlug, findConceptBySlug } from '@/utils/urlHelpers'
-import RulesService from '@/services/entities/rulesService'
 
 // Router
 const route = useRoute()
@@ -130,7 +129,7 @@ const handleSelectSection = async (sectionId) => {
   await selectSection(sectionId)
 }
 
-const handleSectionCreated = (sectionId) => {
+const handleSectionCreated = () => {
   toggleStructureEditMode()
 }
 

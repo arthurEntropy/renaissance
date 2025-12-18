@@ -13,19 +13,16 @@
   "expansion": "",
   "hooks": [
     {
-      "id": "d2f3b0a2-4c5d-4b8c-9f6d-7a5e0f3b1c8e",
       "name": "The Missing Miners",
       "description": "A group of miners has gone missing in the mountains. The local authorities are looking for help to find them.",
       "gmNotes": "The miners were actually kidnapped by a group of bandits who are using the mines as a hideout."
     },
     {
-      "id": "c3f3b0a2-4c5d-4b8c-9f6d-7a5e0f3b1c8e",
       "name": "The Haunted Mine",
       "description": "A local mine is said to be haunted by the ghosts of miners who died in a cave-in. The locals are too scared to go near it.",
       "gmNotes": "The ghosts are actually just a group of bandits using the mine as a hideout."
     },
     {
-      "id": "b4f3b0a2-4c5d-4b8c-9f6d-7a5e0f3b1c8e",
       "name": "The Stolen Silver",
       "description": "A shipment of silver has gone missing on its way to the local market. The authorities are looking for help to find it.",
       "gmNotes": "The silver was actually stolen by a group of bandits who are using it to fund their operations."

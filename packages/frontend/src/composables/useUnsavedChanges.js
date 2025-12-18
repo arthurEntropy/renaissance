@@ -28,11 +28,20 @@ export function useUnsavedChanges(emit, hasChanges) {
     }
   }
 
+  const confirmIfUnsaved = (onConfirm, message = 'You have unsaved changes. Are you sure you want to continue?') => {
+    if (hasUnsavedChanges.value && !confirm(message)) {
+      return false
+    }
+    onConfirm()
+    return true
+  }
+
   return {
     hasUnsavedChanges,
     markAsChanged,
     markAsSaved,
-    checkForChanges
+    checkForChanges,
+    confirmIfUnsaved
   }
 }
 
