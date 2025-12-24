@@ -6,7 +6,7 @@ export function sanitizeHtml(html) {
   return DOMPurify.sanitize(html)
 }
 
-// Sanitizer for embeds (e.g., Spotify, Apple Music). Allows safe iframe usage.
+// Sanitizer for embeds (e.g., Apple Music). Allows safe iframe usage.
 export function sanitizeEmbedHtml(html) {
   if (!html) return ''
   return DOMPurify.sanitize(html, {

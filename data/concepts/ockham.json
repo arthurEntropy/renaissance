@@ -32,14 +32,8 @@
     }
   ],
   "playlists": [
-    {
-      "service": "apple",
-      "embedCode": "<iframe allow=\"autoplay *; encrypted-media *;\" frameborder=\"0\" height=\"450\" style=\"width:100%;max-width:660px;overflow:hidden;background:transparent;\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation\" src=\"https://embed.music.apple.com/us/playlist/ockham-before/pl.u-yZyVjgLCqRNX7y?theme=dark&theme=dark&theme=dark&theme=dark&theme=dark&theme=dark&theme=dark&theme=dark&theme=dark&theme=dark&theme=dark&theme=dark&theme=dark\"></iframe>"
-    },
-    {
-      "service": "apple",
-      "embedCode": "<iframe allow=\"autoplay *; encrypted-media *;\" frameborder=\"0\" height=\"450\" style=\"width:100%;max-width:660px;overflow:hidden;background:transparent;\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation\" src=\"https://embed.music.apple.com/us/playlist/ockham-after/pl.u-zPyLJMgCxaR5Xr?theme=dark&theme=dark&theme=dark&theme=dark&theme=dark&theme=dark&theme=dark&theme=dark&theme=dark&theme=dark&theme=dark&theme=dark&theme=dark\"></iframe>"
-    }
+    "<iframe allow=\"autoplay *; encrypted-media *;\" frameborder=\"0\" height=\"450\" style=\"width:100%;max-width:660px;overflow:hidden;background:transparent;\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation\" src=\"https://embed.music.apple.com/us/playlist/ockham-before/pl.u-yZyVjgLCqRNX7y?theme=dark&theme=dark&theme=dark&theme=dark&theme=dark&theme=dark&theme=dark&theme=dark&theme=dark&theme=dark&theme=dark&theme=dark&theme=dark&theme=dark&theme=dark\"></iframe>",
+    "<iframe allow=\"autoplay *; encrypted-media *;\" frameborder=\"0\" height=\"450\" style=\"width:100%;max-width:660px;overflow:hidden;background:transparent;\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation\" src=\"https://embed.music.apple.com/us/playlist/ockham-after/pl.u-zPyLJMgCxaR5Xr?theme=dark&theme=dark&theme=dark&theme=dark&theme=dark&theme=dark&theme=dark&theme=dark&theme=dark&theme=dark&theme=dark&theme=dark&theme=dark&theme=dark&theme=dark\"></iframe>"
   ],
   "names": "Hugh, Albie, Benedict, Miles, Rupert, Imogen, Harriet, Tamsin, Elspeth, Marnie, Rowan, Kit, Jules, Enid, Robin, Edmund, Cecily, Anselm, Lettice, Simeon TEST",
   "occupations": "Farmer, Shepherd, Miller, Broker, Blacksmith, Carpenter, Cooper, Weaver, Potter, Tanner, Carney, Butcher, Baker, Brewer, Chandler, Mason, Thatcher, Midwife",
@@ -47,5 +41,5 @@
   "vittles": "Cider, Mead, Barley Bread, Oat Porridge, Smoked Eel, Salted Pork, Stewed Lentils, Hard Cheese, Fresh Apples, Pickled Onions, Roasted Turnips, Honey Cakes, Black Pudding, Small Beer, Snipe-On-A-Stick",
   "pointsOfInterest": "The Festival Square, The Grand Fountain, The Exchange House, The Tithing Barn, The Hollow Tree",
   "floraFauna": "Oak, Willow, Hawthorn, Elderberry, Wild Garlic, Nettles, Foxglove, Crow, Hedgehog, Badger, Red Deer, Pike, Barn Owl, Stoat, LarkTEST",
-  "lastModified": "2025-12-18T01:36:22.398Z"
+  "lastModified": "2025-12-24T19:50:55.343Z"
 }

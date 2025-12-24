@@ -4,24 +4,27 @@
 
     <!-- EDIT MODE -->
     <div v-if="isSectionEditing && editable" class="section-editor">
-      <p class="helper-text">Paste embed codes from Spotify or Apple Music</p>
+      <p class="helper-text">Paste embed codes from Apple Music</p>
       <div class="url-container">
         <div v-for="(playlist, index) in localPlaylists" :key="'playlist-' + index" class="edit-item-light">
-          <div class="playlist-service-selector">
-            <select v-model="playlist.service" class="service-select">
-              <option value="spotify">Spotify</option>
-              <option value="apple">Apple Music</option>
-            </select>
-          </div>
-          <input type="text" v-model="playlist.embedCode" class="modal-input playlist-input"
-            placeholder="Paste embed code" />
           <div class="url-buttons">
-            <FloatingActionButton type="edit" size="small" @click="movePlaylist(index, -1)" :disabled="index === 0"
-              title="Move Up" :icon="ChevronUpIcon" />
-            <FloatingActionButton type="edit" size="small" @click="movePlaylist(index, 1)"
-              :disabled="index === localPlaylists.length - 1" title="Move Down" :icon="ChevronDownIcon" />
-            <FloatingActionButton type="delete" size="small" @click="removePlaylist(index)" title="Remove" />
+            <div v-if="extractPlaylistName(playlist)" class="playlist-name">
+              {{ extractPlaylistName(playlist) }}
+            </div>
+            <div class="button-group">
+              <ActionButton variant="neutral" size="small" @click="movePlaylist(index, -1)" :disabled="index === 0"
+                title="Move Up">
+                <ChevronUpIcon class="button-icon" />
+              </ActionButton>
+              <ActionButton variant="neutral" size="small" @click="movePlaylist(index, 1)"
+                :disabled="index === localPlaylists.length - 1" title="Move Down">
+                <ChevronDownIcon class="button-icon" />
+              </ActionButton>
+              <ActionButton variant="danger" size="small" @click="removePlaylist(index)" text="Remove" />
+            </div>
           </div>
+          <input type="text" v-model="localPlaylists[index]" class="modal-input playlist-input"
+            placeholder="Paste embed code" />
         </div>
       </div>
       <div class="editor-buttons">
@@ -32,33 +35,10 @@
 
     <!-- DISPLAY MODE -->
     <div v-else>
-      <!-- Service Toggle -->
-      <div class="playlist-toggle">
-        <button class="playlist-toggle-btn" :class="{ active: playlistService === 'apple' }"
-          @click="playlistService = 'apple'">
-          <i class="fa fa-music"></i> Apple Music
-        </button>
-        <button class="playlist-toggle-btn" :class="{ active: playlistService === 'spotify' }"
-          @click="playlistService = 'spotify'">
-          <i class="fa fa-spotify"></i> Spotify
-        </button>
-      </div>
-
       <!-- Playlist Embeds -->
       <div class="playlist-container">
-        <div v-for="(playlist, index) in filteredPlaylists" :key="`playlist-${index}`" class="playlist-embed"
-          v-html="safeEmbed(playlist.embedCode)"></div>
-        <div v-if="filteredPlaylists.length === 0" class="no-playlists">
-          No
-          {{
-            playlistService === 'spotify' ? 'Spotify' : 'Apple Music'
-          }}
-          playlists available.
-          <span v-if="hasOtherServicePlaylists">
-            Try switching to
-            {{ playlistService === 'spotify' ? 'Apple Music' : 'Spotify' }}.
-          </span>
-        </div>
+        <div v-for="(playlist, index) in localPlaylists" :key="`playlist-${index}`" class="playlist-embed"
+          v-html="safeEmbed(playlist)"></div>
       </div>
     </div>
   </ConceptSection>
@@ -69,7 +49,6 @@ import { ref, computed, watch } from 'vue'
 import '@/styles/concept-components.css'
 import ConceptSection from '../shared/ConceptSection.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
-import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import { ChevronUpIcon, ChevronDownIcon } from '@heroicons/vue/24/outline'
 import { sanitizeEmbedHtml } from '@/utils/sanitizeHtml'
 import { useConceptsStore } from '@/stores/conceptsStore'
@@ -84,24 +63,11 @@ const props = defineProps({
 const conceptsStore = useConceptsStore()
 const concept = computed(() => conceptsStore.selectedConcept)
 
-const playlistService = ref('apple')
 const localPlaylists = ref([])
 const isSectionEditing = ref(false)
 
 const hasPlaylists = computed(() => {
   return localPlaylists.value && localPlaylists.value.length > 0
-})
-
-const filteredPlaylists = computed(() => {
-  return localPlaylists.value.filter(
-    (playlist) => playlist.service === playlistService.value,
-  )
-})
-
-const hasOtherServicePlaylists = computed(() => {
-  const otherService =
-    playlistService.value === 'spotify' ? 'apple' : 'spotify'
-  return localPlaylists.value.some((p) => p.service === otherService)
 })
 
 const syncLocalPlaylists = (sourceConcept) => {
@@ -130,10 +96,7 @@ const cancelPlaylistEdit = () => {
 }
 
 const addPlaylist = () => {
-  localPlaylists.value.push({
-    service: 'spotify',
-    embedCode: '',
-  })
+  localPlaylists.value.push('')
 }
 
 const removePlaylist = (index) => {
@@ -151,25 +114,39 @@ const movePlaylist = (index, direction) => {
   }
 }
 
+const extractPlaylistName = (embedCode) => {
+  if (!embedCode) return ''
+  const match = embedCode.match(/\/playlist\/([^/]+)\/pl\.u-/)
+  if (match && match[1]) {
+    return match[1].split('-').map(word =>
+      word.charAt(0).toUpperCase() + word.slice(1)
+    ).join(' ')
+  }
+  return ''
+}
+
 const processAppleEmbedCodes = () => {
-  localPlaylists.value.forEach((playlist) => {
-    if (playlist.service === 'apple' && playlist.embedCode) {
+  localPlaylists.value = localPlaylists.value.map((embedCode) => {
+    if (embedCode) {
       // Extract the src attribute
-      const srcMatch = playlist.embedCode.match(/src="([^"]+)"/)
+      const srcMatch = embedCode.match(/src="([^"]+)"/)
       if (srcMatch && srcMatch[1]) {
         const originalSrc = srcMatch[1]
 
         // Add dark theme parameter if not already present
-        const newSrc =
-          originalSrc +
-          (originalSrc.includes('?') ? '&theme=dark' : '?theme=dark')
+        if (!originalSrc.includes('theme=dark')) {
+          const newSrc =
+            originalSrc +
+            (originalSrc.includes('?') ? '&theme=dark' : '?theme=dark')
 
-        // Replace the src in the embed code
-        playlist.embedCode = playlist.embedCode
-          .replace(`src="${originalSrc}"`, `src="${newSrc}"`)
-          .replace(`src='${originalSrc}'`, `src='${newSrc}'`)
+          // Replace the src in the embed code
+          return embedCode
+            .replace(`src="${originalSrc}"`, `src="${newSrc}"`)
+            .replace(`src='${originalSrc}'`, `src='${newSrc}'`)
+        }
       }
     }
+    return embedCode
   })
 }
 
@@ -186,28 +163,6 @@ watch(concept, (newConcept) => {
   font-size: var(--font-size-14);
   color: var(--color-gray-light);
   margin-bottom: var(--space-xs);
-}
-
-.playlist-toggle {
-  display: flex;
-  gap: var(--space-md);
-  margin-bottom: 15px;
-}
-
-.playlist-toggle-btn {
-  background: var(--overlay-black-medium);
-  border: 1px solid var(--color-gray-medium);
-  color: var(--color-gray-light);
-  padding: var(--space-sm) 16px;
-  border-radius: var(--radius-5);
-  cursor: pointer;
-  transition: var(--transition-all);
-}
-
-.playlist-toggle-btn.active {
-  background: var(--overlay-black-medium);
-  border-color: var(--color-accent-gold);
-  color: var(--color-text-primary);
 }
 
 .playlist-container {
@@ -239,21 +194,26 @@ watch(concept, (newConcept) => {
 
 .url-buttons {
   display: flex;
-  justify-content: flex-end;
-  gap: var(--space-xs);
-  margin-top: var(--space-xs);
-}
-
-.playlist-service-selector {
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-md);
   margin-bottom: var(--space-xs);
 }
 
-.service-select {
-  padding: var(--space-xs);
-  background: var(--overlay-white-medium);
-  border: var(--border-width-sm) solid var(--color-gray-medium);
-  color: var(--color-text-secondary);
-  border-radius: var(--radius-5);
+.button-group {
+  display: flex;
+  gap: var(--space-xs);
+}
+
+.playlist-name {
+  font-weight: 500;
+  color: var(--color-primary);
+  font-size: var(--font-size-14);
+}
+
+.button-icon {
+  width: 16px;
+  height: 16px;
 }
 
 .playlist-input {

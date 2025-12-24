@@ -13,14 +13,8 @@
   "expansion": "e46f4320-a414-4300-95d5-397ba717d982",
   "hooks": [],
   "playlists": [
-    {
-      "service": "apple",
-      "embedCode": "<iframe allow=\"autoplay *; encrypted-media *;\" frameborder=\"0\" height=\"450\" style=\"width:100%;max-width:660px;overflow:hidden;background:transparent;\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation\" src=\"https://embed.music.apple.com/us/playlist/adiri-calm/pl.u-yZyVjV1CqRNX7y?theme=dark\"></iframe>"
-    },
-    {
-      "service": "apple",
-      "embedCode": "<iframe allow=\"autoplay *; encrypted-media *;\" frameborder=\"0\" height=\"450\" style=\"width:100%;max-width:660px;overflow:hidden;background:transparent;\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation\" src=\"https://embed.music.apple.com/us/playlist/adiri-action/pl.u-zPyLJL3uxaR5Xr?theme=dark\"></iframe>"
-    }
+    "<iframe allow=\"autoplay *; encrypted-media *;\" frameborder=\"0\" height=\"450\" style=\"width:100%;max-width:660px;overflow:hidden;background:transparent;\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation\" src=\"https://embed.music.apple.com/us/playlist/adiri-calm/pl.u-yZyVjV1CqRNX7y?theme=dark\"></iframe>",
+    "<iframe allow=\"autoplay *; encrypted-media *;\" frameborder=\"0\" height=\"450\" style=\"width:100%;max-width:660px;overflow:hidden;background:transparent;\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation\" src=\"https://embed.music.apple.com/us/playlist/adiri-action/pl.u-zPyLJL3uxaR5Xr?theme=dark\"></iframe>"
   ],
   "names": "Bakari, Asha, Jabari, Nia, Idrissa, Zuberi, Malika, Ayodele, Tariq, Imani, Sekou, Halima, Nuru, Kofi, Adama, Salif, Zara, Amadou, Kenza, Faizah",
   "occupations": "Smith, Champion, Herder, Sandwalker Guide, Bazaar Merchant, Storykeeper, Herbalist, Water Bearer, Tiler, Drum Maker, Oracle, Armor Carver, Scribe, Sandglass Maker, Dancer",
