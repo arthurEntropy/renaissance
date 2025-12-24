@@ -3,7 +3,7 @@
     <div class="rules-container">
 
       <!-- NAVIGATION -->
-      <RulesNavigation @selectSection="handleSelectSection" @update:isStructureEditMode="handleToggleStructureEditMode"
+      <RulesNavigation @selectSection="handleSelectSection" @update:isStructureEditMode="toggleStructureEditMode"
         @sectionCreated="handleSectionCreated" />
 
       <!-- CONTENT AREA -->
@@ -121,7 +121,6 @@ provide('isStructureEditMode', isStructureEditMode)
 
 const toggleStructureEditMode = () => {
   isStructureEditMode.value = !isStructureEditMode.value
-  return true
 }
 
 // Event Handlers
@@ -132,8 +131,6 @@ const handleSelectSection = async (sectionId) => {
 const handleSectionCreated = () => {
   toggleStructureEditMode()
 }
-
-const handleToggleStructureEditMode = () => toggleStructureEditMode()
 
 onMounted(async () => {
   await initializeSections()
@@ -217,7 +214,6 @@ onMounted(async () => {
   padding: var(--space-xl);
 }
 
-/* Responsive adjustments */
 @media (max-width: var(--breakpoint-md)) {
   .rules-container {
     flex-direction: column;

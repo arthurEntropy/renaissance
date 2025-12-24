@@ -89,10 +89,14 @@
   border: none;
   border-radius: var(--radius-5);
   cursor: pointer;
-  font-size: var(--font-size-24);
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.menu-toggle .menu-icon {
+  width: 24px;
+  height: 24px;
 }
 
 .nav-menu nav {

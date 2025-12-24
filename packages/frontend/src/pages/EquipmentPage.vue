@@ -39,7 +39,7 @@
     <template #item-cards="{ items }">
       <EquipmentCard v-for="item in items" :key="item.id" :equipment="item" :editable="isAdmin" :duplicatable="isAdmin"
         :sources="sources" :art-expanded="true" :engagement-success-options="engagementSuccessOptions"
-        @edit="openEditEquipmentModal(item)" @duplicate="handleDuplicateEquipment" :collapsible="false" />
+        :collapsible="false" @edit="openEditEquipmentModal(item)" @duplicate="handleDuplicateEquipment" />
     </template>
 
     <!-- Loading indicator slot with ref for intersection observer -->
@@ -319,7 +319,7 @@ const equipmentSubtypes = computed(() => equipmentSubtypesStore.items)
 const equipmentGrades = computed(() => equipmentGradesStore.items)
 const equipmentRanges = computed(() => equipmentRangesStore.items)
 const keeping = computed(() => keepingStore.keeping)
-const allEquipment = equipment
+const allEquipment = computed(() => equipmentStore.equipment)
 </script>
 
 <style scoped>

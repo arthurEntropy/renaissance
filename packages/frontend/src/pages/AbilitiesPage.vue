@@ -5,8 +5,8 @@
     <!-- Item cards slot -->
     <template #item-cards="{ items }">
       <AbilityCard v-for="ability in items" :key="ability.id" :ability="ability" :editable="isAdmin" :sources="sources"
-        @delete="deleteAbility(ability)" @update="updateAbility(ability)" @edit="openEditAbilityModal(ability)"
-        :collapsible="false" :showImprovements="getAbilityShowImprovements(ability.id)"
+        :collapsible="false" :showImprovements="getAbilityShowImprovements(ability.id)" @delete="deleteAbility(ability)"
+        @update="updateAbility(ability)" @edit="openEditAbilityModal(ability)"
         @update:showImprovements="updateAbilityShowImprovements(ability.id, $event)" />
     </template>
 

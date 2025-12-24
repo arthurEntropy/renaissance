@@ -4,7 +4,9 @@
 
     <!-- Mobile Side Menu -->
     <div class="nav-menu" :class="{ open: menuOpen }">
-      <button class="menu-toggle" @click="toggleMenu">☰</button>
+      <button class="menu-toggle" @click="toggleMenu" aria-label="Toggle menu">
+        <Bars3Icon class="menu-icon" />
+      </button>
 
       <!-- Mobile Auth Component -->
       <div v-if="menuOpen" class="mobile-auth">
@@ -67,9 +69,10 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { ref, computed, onMounted, watch } from 'vue'
 import { useRoute } from 'vue-router'
+import { Bars3Icon } from '@heroicons/vue/24/outline'
 import { useAuthStore } from '@/stores/authStore'
 import { useUserStore } from '@/stores/userStore'
 import { useBackgroundImagesStore } from '@/stores/backgroundImagesStore'
@@ -79,94 +82,72 @@ import UsernameSetup from '@/components/features/auth/UsernameSetup.vue'
 import NotInvitedModal from '@/components/features/auth/NotInvitedModal.vue'
 import PreferencesModal from '@/components/features/preferences/PreferencesModal.vue'
 
-export default {
-  components: {
-    SelectedCharacterBadge,
-    AuthComponent,
-    UsernameSetup,
-    NotInvitedModal,
-    PreferencesModal
-  },
-  setup() {
-    const menuOpen = ref(false)
-    const route = useRoute()
-    const authStore = useAuthStore()
-    const userStore = useUserStore()
-    const backgroundImagesStore = useBackgroundImagesStore()
-    const shouldShowOverlay = computed(() => route.meta?.overlay === true)
-    const showPreferencesModal = ref(false)
+const menuOpen = ref(false)
+const route = useRoute()
+const authStore = useAuthStore()
+const userStore = useUserStore()
+const backgroundImagesStore = useBackgroundImagesStore()
+const shouldShowOverlay = computed(() => route.meta?.overlay === true)
+const showPreferencesModal = ref(false)
 
-    // Compute selected background image from user preferences
-    const selectedBackgroundImage = computed(() => {
-      const backgroundImageId = userStore.userProfile?.preferences?.backgroundImageId
-      if (!backgroundImageId) return null
+// Compute selected background image from user preferences
+const selectedBackgroundImage = computed(() => {
+  const backgroundImageId = userStore.userProfile?.preferences?.backgroundImageId
+  if (!backgroundImageId) return null
 
-      const selectedImage = backgroundImagesStore.items.find(
-        img => img.id === backgroundImageId
-      )
-      return selectedImage?.imageUrl || null
-    })
+  const selectedImage = backgroundImagesStore.items.find(
+    img => img.id === backgroundImageId
+  )
+  return selectedImage?.imageUrl || null
+})
 
-    // Apply background dynamically
-    const updateBackground = () => {
-      const bgUrl = selectedBackgroundImage.value
-      if (bgUrl) {
-        // TODO: Figure out how to obviate the need for all three settings here.
-        // All three are needed: CSS variable for global.css, html for documentElement, body for body element
-        document.documentElement.style.setProperty('--background-image-url', `url('${bgUrl}')`)
-        document.documentElement.style.setProperty('background-image', `url('${bgUrl}')`, 'important')
-        document.body.style.setProperty('background-image', `url('${bgUrl}')`, 'important')
-      }
-    }
-
-    function toggleMenu() {
-      menuOpen.value = !menuOpen.value
-    }
-    function closeMenu() {
-      menuOpen.value = false
-    }
-
-    const openPreferences = () => {
-      showPreferencesModal.value = true
-    }
-
-    const closePreferences = () => {
-      showPreferencesModal.value = false
-    }
-
-    onMounted(async () => {
-      // Initialize auth listener
-      authStore.initializeAuth()
-
-      // Wait for auth to be ready before proceeding
-      await authStore.checkAuthStatus()
-
-      // Load background images for all users
-      await backgroundImagesStore.fetch()
-    })
-
-    // Watch for changes to selected background image
-    watch(
-      selectedBackgroundImage,
-      (newBg) => {
-        if (newBg) {
-          updateBackground()
-        }
-      },
-      { immediate: true }
-    )
-
-    return {
-      menuOpen,
-      shouldShowOverlay,
-      authStore,
-      userStore,
-      showPreferencesModal,
-      toggleMenu,
-      closeMenu,
-      openPreferences,
-      closePreferences,
-    }
-  },
+// Apply background dynamically
+const updateBackground = () => {
+  const bgUrl = selectedBackgroundImage.value
+  if (bgUrl) {
+    // TODO: Figure out how to obviate the need for all three settings here.
+    // All three are needed: CSS variable for global.css, html for documentElement, body for body element
+    document.documentElement.style.setProperty('--background-image-url', `url('${bgUrl}')`)
+    document.documentElement.style.setProperty('background-image', `url('${bgUrl}')`, 'important')
+    document.body.style.setProperty('background-image', `url('${bgUrl}')`, 'important')
+  }
 }
+
+const toggleMenu = () => {
+  menuOpen.value = !menuOpen.value
+}
+
+const closeMenu = () => {
+  menuOpen.value = false
+}
+
+const openPreferences = () => {
+  showPreferencesModal.value = true
+}
+
+const closePreferences = () => {
+  showPreferencesModal.value = false
+}
+
+onMounted(async () => {
+  // Initialize auth listener
+  authStore.initializeAuth()
+
+  // Wait for auth to be ready before proceeding
+  await authStore.checkAuthStatus()
+
+  // Load background images for all users
+  await backgroundImagesStore.fetch()
+})
+
+// Watch for changes to selected background image
+watch(
+  selectedBackgroundImage,
+  (newBg) => {
+    if (newBg) {
+      updateBackground()
+    }
+  },
+  { immediate: true }
+)
 </script>
