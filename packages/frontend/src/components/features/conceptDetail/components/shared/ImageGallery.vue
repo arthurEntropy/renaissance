@@ -12,7 +12,7 @@
       </button>
 
       <!-- Image -->
-      <img :src="displayImages[selectedIndex]" :alt="`Image ${selectedIndex + 1}`" class="enlarged-image" />
+      <img :src="optimizedMainImage" :alt="`Image ${selectedIndex + 1}`" class="enlarged-image" />
 
       <!-- Edit button - only in manual mode -->
       <FloatingActionButton v-if="editable && mode === IMAGE_GALLERY_MODES.MANUAL" type="edit" size="small"
@@ -35,10 +35,11 @@
           <!-- Draggable thumbnails -->
           <draggable v-model="localImages" class="draggable-container" handle=".thumb-drag-handle" item-key="index"
             animation="150" ghost-class="ghost-thumb" @end="onDragEnd">
-            <template #item="{ element: img, index }">
+            <template #item="{ index }">
               <div class="thumb-wrapper">
                 <FloatingActionButton type="drag" size="small" visibility="on-hover" class="thumb-drag-handle" />
-                <img :src="img" :alt="`Thumbnail ${index + 1}`" class="thumb-image" @click="selectImage(index)" />
+                <img :src="optimizedThumbnails[index]" :alt="`Thumbnail ${index + 1}`" class="thumb-image"
+                  @click="selectImage(index)" />
                 <div v-if="selectedIndex === index" class="thumb-selected-overlay"></div>
               </div>
             </template>
@@ -58,7 +59,7 @@
           <!-- Thumbnails -->
           <div v-for="(img, index) in displayImages" :key="img + index" class="thumb-wrapper"
             @click="selectImage(index)">
-            <img :src="img" :alt="`Thumbnail ${index + 1}`" class="thumb-image" />
+            <img :src="optimizedThumbnails[index]" :alt="`Thumbnail ${index + 1}`" class="thumb-image" />
             <div v-if="selectedIndex === index" class="thumb-selected-overlay"></div>
           </div>
 
@@ -102,6 +103,7 @@ import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.v
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/vue/24/outline'
 import { useArtStore } from '@/stores/artStore'
 import { IMAGE_GALLERY_MODES, ART_TYPES } from '@shared/constants/artConstants.js'
+import { useOptimizedImage, useOptimizedImages } from '@/composables/useOptimizedImage'
 
 const props = defineProps({
   images: {
@@ -146,6 +148,10 @@ const displayImages = computed(() => {
   }
   return props.images
 })
+
+// Optimize images for display
+const optimizedMainImage = useOptimizedImage(() => displayImages.value[selectedIndex.value], 'large')
+const optimizedThumbnails = useOptimizedImages(displayImages, 'thumbnail')
 
 // Reactive state
 const selectedIndex = ref(0)

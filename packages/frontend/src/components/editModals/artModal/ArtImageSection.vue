@@ -5,7 +5,7 @@
     </div>
     <div v-else class="image-preview-section">
         <div v-if="url" class="image-preview">
-            <img :src="url" alt="Art preview" />
+            <img :src="optimizedUrl" alt="Art preview" />
         </div>
         <div v-else class="image-preview-placeholder" role="img" aria-label="No image preview available">
             <span>No image URL provided</span>
@@ -14,7 +14,9 @@
 </template>
 
 <script setup>
-defineProps({
+import { useOptimizedImage } from '@/composables/useOptimizedImage'
+
+const props = defineProps({
     url: {
         type: String,
         default: ''
@@ -24,6 +26,9 @@ defineProps({
         default: false
     }
 })
+
+// Use medium resolution for art preview in modal
+const optimizedUrl = useOptimizedImage(() => props.url, 'medium')
 </script>
 
 <style scoped>

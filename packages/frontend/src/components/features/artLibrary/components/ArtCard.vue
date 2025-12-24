@@ -3,7 +3,7 @@
         @keydown.space.prevent="handleClick" tabindex="0" role="button" :aria-label="`Select ${art.tags.type} art`"
         :data-art-id="art.id">
         <div class="art-image">
-            <img :src="art.url" :alt="`${art.tags.type} art`" />
+            <img :src="optimizedImageUrl" :alt="`${art.tags.type} art`" />
         </div>
         <div class="art-info">
             <div class="art-tags">
@@ -25,6 +25,7 @@
 import { computed } from 'vue'
 import { UserCircleIcon, PhotoIcon, MapIcon, CheckIcon } from '@heroicons/vue/24/outline'
 import ChipTag from '@/components/ui/chips/ChipTag.vue'
+import { useOptimizedImage } from '@/composables/useOptimizedImage'
 
 const props = defineProps({
     art: {
@@ -38,6 +39,9 @@ const props = defineProps({
 })
 
 const emit = defineEmits(['click'])
+
+// Optimize image URL for display
+const optimizedImageUrl = useOptimizedImage(() => props.art.url, 'small')
 
 const typeIcon = computed(() => {
     const icons = {

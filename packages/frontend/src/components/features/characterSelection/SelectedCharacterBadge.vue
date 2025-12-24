@@ -1,7 +1,7 @@
 <template>
     <div class="selected-character-badge" v-if="character && !shouldHideBadge" @click="navigateToCharacter">
         <div class="character-portrait">
-            <img :src="character.artUrls[0]" :alt="character.name" />
+            <img :src="optimizedCharacterArt" :alt="character.name" />
         </div>
         <div class="close-button" @click.stop="deselectCharacter">
             <XMarkIcon class="close-icon" />
@@ -15,12 +15,14 @@ import { computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useCharactersStore } from '@/stores/charactersStore'
 import { XMarkIcon } from '@heroicons/vue/24/outline'
+import { useOptimizedImage } from '@/composables/useOptimizedImage'
 
 const router = useRouter()
 const route = useRoute()
 const charactersStore = useCharactersStore()
 
 const character = computed(() => charactersStore.selectedCharacter)
+const optimizedCharacterArt = useOptimizedImage(() => character.value?.artUrls?.[0], 'thumbnail')
 
 const shouldHideBadge = computed(() => {
     // Hide badge when on characters page with a character sheet open (route has :id param)
