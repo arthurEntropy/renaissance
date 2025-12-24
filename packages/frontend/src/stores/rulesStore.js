@@ -4,7 +4,7 @@ import { useBaseEntityStore } from './composables/useBaseEntityStore'
 import RulesService from '@/services/entities/rulesService'
 
 export const useRulesStore = defineStore('rules', () => {
-  const { items: sections, fetch, getById } = useBaseEntityStore(
+  const { items: sections, fetch, refresh, getById } = useBaseEntityStore(
     RulesService,
     'rules'
   )
@@ -31,6 +31,7 @@ export const useRulesStore = defineStore('rules', () => {
     sections,
     selectedSection,
     fetch,
+    refresh,
     getById,
     filteredSections,
     selectSection,

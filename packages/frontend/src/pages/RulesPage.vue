@@ -25,7 +25,7 @@
             Select a section from the table of contents or create a new one.
           </p>
           <ActionButton v-if="filteredSections.length === 0" variant="primary" size="small" text="Create First Section"
-            @click="handleCreateNewSection" />
+            @click="toggleStructureEditMode" />
         </div>
       </div>
     </div>

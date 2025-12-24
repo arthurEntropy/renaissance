@@ -14,6 +14,10 @@ class RulesService extends BaseEntityService {
         return this.update(updatedSection)
       })
       await Promise.all(updatePromises)
+      
+      // Wait for filesystem to flush writes before returning
+      await new Promise(resolve => setTimeout(resolve, 100))
+      
       return sections
     } catch (error) {
       console.error('Error reordering sections:', error)
