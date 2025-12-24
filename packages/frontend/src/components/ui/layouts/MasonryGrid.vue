@@ -72,7 +72,7 @@ onMounted(() => {
   mutationObserver = new MutationObserver((mutations) => {
     // Recalculate layout when card content changes
     updateLayout()
-    
+
     // Watch for newly added images and attach load handlers
     mutations.forEach(mutation => {
       mutation.addedNodes.forEach(node => {

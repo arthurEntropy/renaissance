@@ -16,7 +16,7 @@
         <input v-model="confirmationInput" type="text" class="modal-input confirmation-input"
           placeholder="Type character name to confirm" @keyup.enter="confirmDeletion" />
         <div class="confirmation-actions">
-          <ActionButton variant="secondary" size="small" text="Cancel" @click="cancelDelete" />
+          <ActionButton variant="neutral" size="small" text="Cancel" @click="cancelDelete" />
           <ActionButton variant="danger" size="small" text="DELETE" :disabled="!isDeleteConfirmed"
             @click="confirmDeletion" />
         </div>

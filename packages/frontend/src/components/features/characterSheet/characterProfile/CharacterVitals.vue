@@ -97,7 +97,7 @@ const closeSettingsModal = () => {
 }
 
 const handleDeleteCharacter = async () => {
-    await charactersStore.delete(character.value.id)
+    await charactersStore.remove(character.value)
     closeSettingsModal()
     emit('close-sheet')
 }
