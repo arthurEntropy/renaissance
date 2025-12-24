@@ -29,18 +29,7 @@
     }
   ],
   "playlists": [
-    {
-      "service": "apple",
-      "embedCode": "<iframe allow=\"autoplay *; encrypted-media *;\" frameborder=\"0\" height=\"450\" style=\"width:100%;max-width:660px;overflow:hidden;background:transparent;\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation\" src=\"https://embed.music.apple.com/us/playlist/freda-songs/pl.u-pMylNMjUK7P3g1?theme=dark\"></iframe>"
-    },
-    {
-      "service": "spotify",
-      "embedCode": "<iframe style=\"border-radius:12px\" src=\"https://open.spotify.com/embed/playlist/1Vu9hzmbRcrtcXTHMnvMNT?utm_source=generator&theme=0\" width=\"100%\" height=\"352\" frameBorder=\"0\" allowfullscreen=\"\" allow=\"autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture\" loading=\"lazy\"></iframe>"
-    },
-    {
-      "service": "spotify",
-      "embedCode": ""
-    }
+    "<iframe allow=\"autoplay *; encrypted-media *;\" frameborder=\"0\" height=\"450\" style=\"width:100%;max-width:660px;overflow:hidden;background:transparent;\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation\" src=\"https://embed.music.apple.com/us/playlist/freda-songs/pl.u-pMylNMjUK7P3g1?theme=dark\"></iframe>"
   ],
   "names": "Freda, Heithur, Sigrid, Eldrin, Thrain, Eirik, Brynhild, Hilda, Gunnar, Astrid, Bjorn, Ingrid, Leif, Solveig, Ragnhild, Torsten, Freya, Halvar, Sigrun, Einar, Gudrun",
   "occupations": "Silversmith, Miner, Weaver, Jeweler",

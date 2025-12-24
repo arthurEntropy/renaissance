@@ -8,7 +8,9 @@
                     <div class="left-column">
                         <ArtImageSection :url="localArt.url" :isMultiEdit="isMultiEdit"
                             @openFullSize="openFullSizeModal" />
-                        :selectedType="localArt.tags.type" :isMultiEdit="isMultiEdit" />
+
+                        <ArtUrlTypeRow v-model:url="localArt.url" v-model:type="localArt.tags.type"
+                            :selectedType="localArt.tags.type" :isMultiEdit="isMultiEdit" />
 
                         <ArtTagsDisplay :selectedSources="localArt.tags.sources" :partialSources="partialSources"
                             @remove="removeSource" />
