@@ -113,16 +113,16 @@ watch(() => props.art?.id, (newId, oldId) => {
 })
 
 // Autosave watcher with debounce
-let saveTimeout = null
+const saveTimeout = ref(null)
 watch(localArt, (newValue) => {
     // Only autosave if we have a URL and this is not a new item and not multi-editing
     if (!isNew.value && !props.isMultiEdit && newValue.url.trim().length > 0) {
         // Clear existing timeout
-        if (saveTimeout) {
-            clearTimeout(saveTimeout)
+        if (saveTimeout.value) {
+            clearTimeout(saveTimeout.value)
         }
         // Debounce save by 500ms
-        saveTimeout = setTimeout(() => {
+        saveTimeout.value = setTimeout(() => {
             emit('save', { ...newValue })
         }, 500)
     }
@@ -231,6 +231,10 @@ onMounted(async () => {
 
 onUnmounted(() => {
     window.removeEventListener('keydown', handleKeyNavigation)
+    // Clean up any pending autosave timeout
+    if (saveTimeout.value) {
+        clearTimeout(saveTimeout.value)
+    }
 })
 </script>
 

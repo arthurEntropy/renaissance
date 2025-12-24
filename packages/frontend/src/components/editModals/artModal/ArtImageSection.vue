@@ -7,14 +7,14 @@
         <div v-if="url" class="image-preview">
             <img :src="url" alt="Art preview" />
         </div>
-        <div v-else class="image-preview-placeholder">
+        <div v-else class="image-preview-placeholder" role="img" aria-label="No image preview available">
             <span>No image URL provided</span>
         </div>
     </div>
 </template>
 
 <script setup>
-defineProps({
+const props = defineProps({
     url: {
         type: String,
         default: ''

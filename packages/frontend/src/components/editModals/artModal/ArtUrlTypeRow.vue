@@ -4,15 +4,15 @@
         <input v-if="!isMultiEdit" id="art-url" :value="url" @input="$emit('update:url', $event.target.value)"
             type="text" class="modal-input" placeholder="https://..." />
         <div class="type-toggle">
-            <button type="button" class="type-button" :class="{ 'faces': true, 'selected': selectedType === 'faces' }"
+            <button type="button" class="type-button faces" :class="{ 'selected': selectedType === 'faces' }"
                 @click="$emit('update:type', 'faces')">
                 <UserCircleIcon class="icon-sm" />
             </button>
-            <button type="button" class="type-button" :class="{ 'places': true, 'selected': selectedType === 'places' }"
+            <button type="button" class="type-button places" :class="{ 'selected': selectedType === 'places' }"
                 @click="$emit('update:type', 'places')">
                 <PhotoIcon class="icon-sm" />
             </button>
-            <button type="button" class="type-button" :class="{ 'maps': true, 'selected': selectedType === 'maps' }"
+            <button type="button" class="type-button maps" :class="{ 'selected': selectedType === 'maps' }"
                 @click="$emit('update:type', 'maps')">
                 <MapIcon class="icon-sm" />
             </button>
@@ -23,7 +23,7 @@
 <script setup>
 import { UserCircleIcon, PhotoIcon, MapIcon } from '@heroicons/vue/24/outline'
 
-defineProps({
+const props = defineProps({
     url: {
         type: String,
         default: ''

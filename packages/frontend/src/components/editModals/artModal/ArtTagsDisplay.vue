@@ -23,7 +23,7 @@ const props = defineProps({
 
 defineEmits(['remove'])
 
-const isPartialSource = (sourceId) => {
+function isPartialSource(sourceId) {
     return props.partialSources.includes(sourceId)
 }
 </script>
