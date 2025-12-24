@@ -62,8 +62,7 @@
 
     <!-- Keeping badge -->
     <template #badges>
-      <BadgeDisplay v-if="showKeepingBadge && equipment.keeping && !collapsed" type="keeping"
-        :value="equipment.keeping" />
+      <BadgeDisplay v-if="showKeepingBadge && keepingCost !== null && !collapsed" type="keeping" :value="keepingCost" />
     </template>
 
   </base-card>
@@ -75,6 +74,7 @@ import { useEquipmentTypesStore } from '@/stores/equipmentTypesStore'
 import { useEquipmentSubtypesStore } from '@/stores/equipmentSubtypesStore'
 import { useEquipmentGradesStore } from '@/stores/equipmentGradesStore'
 import { useEquipmentRangesStore } from '@/stores/equipmentRangesStore'
+import { useKeepingStore } from '@/stores/keepingStore'
 import BaseCard from '@/components/ui/cards/item/BaseCard.vue'
 import BadgeDisplay from '@/components/ui/cards/item/BadgeDisplay.vue'
 import ChipTag from '@/components/ui/chips/ChipTag.vue'
@@ -128,6 +128,7 @@ const equipmentTypesStore = useEquipmentTypesStore()
 const equipmentSubtypesStore = useEquipmentSubtypesStore()
 const equipmentGradesStore = useEquipmentGradesStore()
 const equipmentRangesStore = useEquipmentRangesStore()
+const keepingStore = useKeepingStore()
 
 // Computed properties
 const isWeapon = computed(() => {
@@ -211,6 +212,13 @@ const engagementSuccesses = computed(() => {
     .filter((success) => success)
 })
 
+const keepingCost = computed(() => {
+  if (!props.equipment.keeping) return null
+
+  const keeping = keepingStore.getById(props.equipment.keeping)
+  return keeping?.cost ?? null
+})
+
 // Methods
 
 const handleDuplicate = async () => {
@@ -240,7 +248,8 @@ onMounted(async () => {
       equipmentTypesStore.fetch(),
       equipmentSubtypesStore.fetch(),
       equipmentGradesStore.fetch(),
-      equipmentRangesStore.fetch()
+      equipmentRangesStore.fetch(),
+      keepingStore.fetch()
     ])
   }
 })
