@@ -5,10 +5,10 @@
                 @blur="saveTitle" @keyup.enter="saveTitle" @keyup.esc="cancelEdit" />
         </div>
         <template v-else>
-            <h1 class="concept-title edit-hover-area" @click="enhancedStartEdit">
+            <h1 class="concept-title edit-hover-area">
                 {{ concept.name }}
-                <EditButton v-if="isEditMode" @click="enhancedStartEdit" title="Edit title" size="small"
-                    visibility="on-hover" />
+                <FloatingActionButton v-if="isEditMode" type="edit" @click="enhancedStartEdit" size="small"
+                    visibility="always" />
             </h1>
             <div v-if="expansionLogoUrl" class="expansion-badge-wrapper"
                 :title="expansion ? `Expansion: ${expansion.name}` : 'Expansion'">
@@ -19,66 +19,55 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
-import EditButton from '@/components/ui/buttons/EditButton.vue'
-import { useInlineEditor } from '../composables/useInlineEditor'
+import { ref, computed, nextTick } from 'vue'
+import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
+import { useConceptsStore } from '@/stores/conceptsStore'
+import { useExpansionsStore } from '@/stores/expansionsStore'
 
 const props = defineProps({
-    concept: {
-        type: Object,
-        required: true
-    },
     isEditMode: {
         type: Boolean,
         default: false
-    },
-    expansion: {
-        type: Object,
-        default: null
     }
 })
 
-const emit = defineEmits(['update:name'])
+const conceptsStore = useConceptsStore()
+const concept = computed(() => conceptsStore.selectedConcept)
 
-// Local reactive state
-const localTitle = ref(props.concept.name)
-const titleInput = ref(null)
-
-// Inline editing functionality
-const {
-    isEditing: isEditingTitle,
-    startEdit,
-    saveEdit,
-    cancelEdit: cancelTitleEdit,
-    focusElement
-} = useInlineEditor(
-    () => props.concept.name,
-    (value) => {
-        localTitle.value = value
-    }
+const expansionsStore = useExpansionsStore()
+const expansion = computed(() =>
+    expansionsStore.items.find(e => e.id === concept.value?.expansion) || null
 )
 
-// Computed properties
+const localTitle = ref(concept.value?.name || '')
+const titleInput = ref(null)
+const isEditingTitle = ref(false)
+
 const expansionLogoUrl = computed(() => {
-    return props.expansion && props.expansion.logoUrl ? props.expansion.logoUrl : ''
+    return expansion.value?.logoUrl || ''
 })
 
-// Methods
-const saveTitle = () => {
-    emit('update:name', localTitle.value)
-    saveEdit()
+const saveTitle = async () => {
+    if (concept.value) {
+        concept.value.name = localTitle.value
+        await conceptsStore.update(concept.value)
+    }
+    isEditingTitle.value = false
 }
 
 const cancelEdit = () => {
-    localTitle.value = props.concept.name
-    cancelTitleEdit()
+    localTitle.value = concept.value?.name || ''
+    isEditingTitle.value = false
 }
 
-// Enhanced start edit to focus input
 const enhancedStartEdit = async () => {
     if (!props.isEditMode) return
-    startEdit()
-    await focusElement(titleInput)
+    isEditingTitle.value = true
+    await nextTick()
+    if (titleInput.value) {
+        titleInput.value.focus()
+        titleInput.value.select()
+    }
 }
 </script>
 
@@ -97,7 +86,6 @@ const enhancedStartEdit = async () => {
     color: var(--color-text-primary);
     margin: 0;
     line-height: 1.2;
-    cursor: pointer;
     position: relative;
 }
 

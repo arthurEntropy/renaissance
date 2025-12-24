@@ -3,7 +3,9 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h2>Preferences</h2>
-                <button class="close-button" @click="closeModal">×</button>
+                <button class="close-button" @click="closeModal" aria-label="Close">
+                    <XMarkIcon class="close-icon" />
+                </button>
             </div>
 
             <div class="preferences-section">
@@ -11,12 +13,11 @@
                 <div class="background-options">
                     <!-- Show all backgrounds in order, first one is default -->
                     <div v-for="(background, index) in sortedBackgrounds" :key="background.id" class="background-option"
-                        :class="{ selected: selectedBackgroundId === background.id || (selectedBackgroundId === null && index === 0) }"
+                        :class="{ selected: isSelected(background.id, index) }"
                         @click="selectBackground(background.id)">
                         <img :src="background.imageUrl" :alt="`Background`" class="background-thumbnail" />
                         <div v-if="index === 0" class="default-badge">Default</div>
-                        <div v-if="selectedBackgroundId === background.id || (selectedBackgroundId === null && index === 0)"
-                            class="selected-indicator">✓</div>
+                        <div v-if="isSelected(background.id, index)" class="selected-indicator">✓</div>
                     </div>
                 </div>
             </div>
@@ -28,6 +29,7 @@
 import { ref, computed, onMounted } from 'vue'
 import { useBackgroundImagesStore } from '@/stores/backgroundImagesStore'
 import { useUserStore } from '@/stores/userStore'
+import { XMarkIcon } from '@heroicons/vue/24/outline'
 
 const emit = defineEmits(['close'])
 
@@ -36,29 +38,39 @@ const userStore = useUserStore()
 
 const selectedBackgroundId = ref(null)
 
-// Sort backgrounds by index
+// Sort backgrounds by index (items without index go to end, then sort by id)
 const sortedBackgrounds = computed(() => {
     return [...backgroundImagesStore.items].sort((a, b) => {
-        const orderA = a.index ?? 999
-        const orderB = b.index ?? 999
-        if (orderA !== orderB) return orderA - orderB
+        // Items with index come before items without index
+        const aHasIndex = a.index != null
+        const bHasIndex = b.index != null
+
+        if (aHasIndex && !bHasIndex) return -1
+        if (!aHasIndex && bHasIndex) return 1
+
+        // Both have index: sort by index value
+        if (aHasIndex && bHasIndex) {
+            if (a.index !== b.index) return a.index - b.index
+        }
+
+        // Same index or both lack index: sort by id
         return (a.id || '').localeCompare(b.id || '')
     })
 })
 
+const isSelected = (backgroundId, index) => {
+    return selectedBackgroundId.value === backgroundId ||
+        (selectedBackgroundId.value === null && index === 0)
+}
+
 const selectBackground = async (backgroundId) => {
     selectedBackgroundId.value = backgroundId
-    try {
-        await userStore.update({
-            preferences: {
-                ...(userStore.userProfile?.preferences || {}),
-                backgroundImageId: backgroundId
-            }
-        })
-    } catch (error) {
-        console.error('Error updating background preference:', error)
-        alert('Failed to update background preference. Please try again.')
-    }
+    await userStore.update({
+        preferences: {
+            ...(userStore.userProfile?.preferences || {}),
+            backgroundImageId: backgroundId
+        }
+    })
 }
 
 const closeModal = () => {
@@ -71,45 +83,49 @@ onMounted(async () => {
 })
 </script>
 
-<style>
-/* Override modal-content max-width for preferences modal only */
-.preferences-modal-overlay .modal-content {
+<style scoped>
+.modal-content {
     max-width: 800px;
 }
 
-/* Modal header customization for preferences */
-.preferences-modal-overlay .modal-header {
+.modal-header {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
+    position: relative;
+    width: 100%;
 }
 
-.preferences-modal-overlay .modal-header h2 {
+.modal-header h2 {
+    flex: 1;
+    text-align: center;
     color: var(--color-primary);
     font-size: var(--font-size-32);
     margin: 0;
 }
-</style>
 
-<style scoped>
 .close-button {
+    position: absolute;
+    right: 0;
     background: none;
     border: none;
-    color: var(--color-white);
-    font-size: 2rem;
+    color: var(--color-gray-light);
     cursor: pointer;
-    padding: 0;
-    width: 32px;
-    height: 32px;
+    padding: var(--space-xs);
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: var(--radius-5);
-    transition: background-color var(--duration-fast);
+    transition: color var(--duration-fast);
 }
 
 .close-button:hover {
-    background-color: var(--overlay-black-medium);
+    color: var(--color-white);
+}
+
+.close-icon {
+    width: 24px;
+    height: 24px;
 }
 
 .preferences-section {

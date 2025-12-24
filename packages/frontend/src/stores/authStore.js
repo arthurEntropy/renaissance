@@ -3,6 +3,7 @@ import { ref, computed } from 'vue'
 import AuthService from '@/services/auth/authService'
 import router from '@/router/router'
 import { useUserStore } from './userStore'
+import { USER_STATUS, USER_ROLE } from '@shared/constants/userConstants'
 
 export const useAuthStore = defineStore('auth', () => {
   // State
@@ -11,19 +12,23 @@ export const useAuthStore = defineStore('auth', () => {
   const error = ref(null)
   const notInvited = ref(false)
 
-  // Getters
+  // Getters - derive from user profile in userStore
   const isAuthenticated = computed(() => user.value !== null)
+  
+  // Role and status checks use the userStore's profile
   const isAdmin = computed(() => {
     const userStore = useUserStore()
-    return userStore.userProfile?.role === 'admin'
+    return userStore.userProfile?.role === USER_ROLE.ADMIN
   })
+
   const isPending = computed(() => {
     const userStore = useUserStore()
-    return userStore.userProfile?.status === 'pending'
+    return userStore.userProfile?.status === USER_STATUS.PENDING
   })
+
   const isApproved = computed(() => {
     const userStore = useUserStore()
-    return userStore.userProfile?.status === 'approved'
+    return userStore.userProfile?.status === USER_STATUS.APPROVED
   })
 
   // Actions

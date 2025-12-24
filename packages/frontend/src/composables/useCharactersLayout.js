@@ -1,15 +1,21 @@
 import { computed, onMounted } from 'vue'
 
-/**
- * Composable for managing character layouts with consistent CRUD operations
- */
-export function useCharactersLayout(charactersStore, equipmentStore, abilitiesStore, characterService) {
-  const characters = computed(() => charactersStore.filteredCharacters || [])
-  const allEquipment = computed(() => equipmentStore.equipment || [])
-  const allAbilities = computed(() => abilitiesStore.abilities || [])
+export function useCharactersLayout(charactersStore, equipmentStore, abilitiesStore, characterService, options = {}) {
+  const { isBeast = false } = options
+  
+  const characters = computed(() => 
+    isBeast 
+      ? (charactersStore.filteredBeasts || [])
+      : (charactersStore.filteredCharacters || [])
+  )
 
   const createCharacter = async () => {
-    const newCharacter = await characterService.create(characterService.getDefaultEntity())
+    const defaultEntity = characterService.getDefaultEntity()
+    if (isBeast) {
+      defaultEntity.isBeast = true
+      defaultEntity.name = 'New Beast'
+    }
+    const newCharacter = await characterService.create(defaultEntity)
     await charactersStore.fetch()
     return newCharacter
   }
@@ -33,37 +39,50 @@ export function useCharactersLayout(charactersStore, equipmentStore, abilitiesSt
     ])
   }
 
-  // Auto-fetch data when component mounts
   onMounted(() => {
     refreshData()
   })
 
-  // Computed props for ConceptsLayout configured for characters
   const layoutProps = computed(() => ({
     concepts: characters.value,
-    createConceptFn: createCharacter,
-    updateConceptFn: updateCharacter,
-    deleteConceptFn: deleteCharacter,
-    refreshDataFn: refreshData,
-    // Character-specific customizations
-    showFilters: false,
-    modalComponent: 'CharacterSheetModal',
-    customModalProps: {
-      allEquipment: allEquipment.value || [],
-      allAbilities: allAbilities.value || [],
-    }
+    selectedItem: charactersStore.selectedCharacter,
+    storageKey: isBeast ? 'bestiary' : 'characters',
+    stickySelection: true,
+    showExpansionFilter: false,
+    modalComponent: 'CharacterSheetModal'
   }))
 
+  // Event handlers for ConceptsLayout
+  const handleSelect = (character) => {
+    charactersStore.selectCharacter(character)
+  }
+
+  const handleDeselect = () => {
+    // Characters don't deselect (sticky selection)
+  }
+
+  const handleCreate = async () => {
+    const defaultEntity = characterService.getDefaultEntity()
+    if (isBeast) {
+      defaultEntity.isBeast = true
+      defaultEntity.name = 'New Beast'
+    }
+    const newCharacter = await characterService.create(defaultEntity)
+    await charactersStore.fetch()
+    
+    // Select the newly created character
+    charactersStore.selectCharacter(newCharacter)
+  }
+
   return {
-    // For direct use
     characters,
-    allEquipment,
-    allAbilities,
     createCharacter,
     updateCharacter,
     deleteCharacter,
     refreshData,
-    // For ConceptsLayout
-    layoutProps
+    layoutProps,
+    handleSelect,
+    handleDeselect,
+    handleCreate
   }
 }

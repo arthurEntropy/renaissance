@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { useAuthStore } from '@/stores/authStore'
+import { watch } from 'vue'
 import AuthService from '@/services/auth/authService'
 import TitlePage from '@/pages/TitlePage.vue'
 import CharactersPage from '@/pages/CharactersPage.vue'
@@ -76,12 +77,21 @@ router.beforeEach(async (to, from, next) => {
   // Wait for auth to be ready
   await AuthService.waitForAuth()
   
-  // If authenticated, wait for user profile to load before checking roles
+  // If authenticated and loading, wait for user profile reactively
   if (authStore.isAuthenticated && authStore.isLoading) {
-    // Wait for auth to finish loading
-    while (authStore.isLoading) {
-      await new Promise(resolve => setTimeout(resolve, 100))
-    }
+    // Wait for loading to complete using a Promise with reactive watcher
+    await new Promise((resolve) => {
+      const stopWatch = watch(
+        () => authStore.isLoading,
+        (isLoading) => {
+          if (!isLoading) {
+            stopWatch() // Clean up watcher
+            resolve()
+          }
+        },
+        { immediate: true }
+      )
+    })
   }
   
   // Check if route requires authentication

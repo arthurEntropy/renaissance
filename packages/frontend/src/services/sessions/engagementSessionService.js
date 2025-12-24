@@ -14,6 +14,10 @@ class EngagementSessionService extends BaseSessionService {
     this.socket.on(SESSION_EVENTS.DIE_REROLLED, ({ player, diceIndex, newValue, characterId }) => {
       this._notifyListeners(SESSION_EVENTS.DIE_REROLLED, { player, diceIndex, newValue, characterId })
     })
+
+    this.socket.on(SESSION_EVENTS.RESULT_INDICATOR_UPDATED, ({ index, state }) => {
+      this._notifyListeners(SESSION_EVENTS.RESULT_INDICATOR_UPDATED, { index, state })
+    })
   }
 
   async autoJoinOrCreate(characterInfo, selectedDice, engagementSuccesses) {
@@ -63,6 +67,13 @@ class EngagementSessionService extends BaseSessionService {
       console.error(`${this.constructor.name}: Error rerolling die:`, error)
       this._notifyListeners(SESSION_EVENTS.ERROR, { error: 'Failed to reroll die' })
     }
+  }
+
+  updateResultIndicator(index, state) {
+    this._safeEmit(SESSION_EVENTS.RESULT_INDICATOR_UPDATED, {
+      index,
+      state
+    })
   }
 }
 

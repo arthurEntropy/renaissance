@@ -7,15 +7,6 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount, nextTick } from 'vue'
 
-// Debounce utility to limit rapid-fire resize events
-function debounce(func, delay) {
-  let timeoutId
-  return function (...args) {
-    clearTimeout(timeoutId)
-    timeoutId = setTimeout(() => func.apply(this, args), delay)
-  }
-}
-
 const props = defineProps({
   columnWidth: { type: Number, default: 300 },
   gap: { type: Number, default: 10 },
@@ -25,13 +16,29 @@ const props = defineProps({
 const masonryContainer = ref(null)
 let resizeObserver = null
 let mutationObserver = null
-let childResizeObservers = []
-const columnCount = ref(1)
 
 function calculateColumnCount() {
   const containerWidth = masonryContainer.value?.clientWidth || 0
   const availableColumns = Math.floor((containerWidth + props.gap) / (props.columnWidth + props.gap))
-  columnCount.value = Math.max(1, availableColumns)
+  return Math.max(1, availableColumns)
+}
+
+function setSpanForElement(element) {
+  if (!element || element.offsetParent === null) return
+  const height = element.getBoundingClientRect().height
+  const rowSpan = Math.ceil((height + props.gap) / (props.rowHeight + props.gap))
+  element.style.gridRowEnd = `span ${rowSpan}`
+}
+
+function updateLayout() {
+  const container = masonryContainer.value
+  if (!container) return
+
+  const columnCount = calculateColumnCount()
+  container.style.gridTemplateColumns = `repeat(${columnCount}, ${props.columnWidth}px)`
+
+  // Update row spans for all children
+  Array.from(container.children).forEach((child) => setSpanForElement(child))
 }
 
 function initMasonry() {
@@ -41,10 +48,6 @@ function initMasonry() {
   container.style.display = 'grid'
   container.style.gridAutoRows = `${props.rowHeight}px`
   container.style.gap = `${props.gap}px`
-  container.style.position = 'relative'
-
-  calculateColumnCount()
-  container.style.gridTemplateColumns = `repeat(${columnCount.value}, ${props.columnWidth}px)`
   container.style.justifyContent = 'center'
 
   nextTick(() => {
@@ -52,101 +55,55 @@ function initMasonry() {
   })
 }
 
-function updateLayout() {
-  const container = masonryContainer.value
-  if (!container) return
-
-  container.style.gridTemplateColumns = `repeat(${columnCount.value}, ${props.columnWidth}px)`
-  Array.from(container.children).forEach((child) => setSpanForElement(child))
-}
-
-// Enhanced updateLayout with optional delay for smooth animations
-function updateLayoutDelayed(delay = 0) {
-  if (delay > 0) {
-    setTimeout(() => updateLayout(), delay)
-  } else {
-    updateLayout()
-  }
-}
-
-function setSpanForElement(element) {
-  if (!element || element.offsetParent === null) return
-  element.style.width = `${props.columnWidth}px`
-  const height = element.getBoundingClientRect().height
-  const rowSpan = Math.ceil((height + props.gap) / (props.rowHeight + props.gap))
-  element.style.gridRowEnd = `span ${rowSpan}`
-}
-
-function observeChildElements() {
-  // Clean up existing observers
-  childResizeObservers.forEach((observer) => observer && observer.disconnect())
-  childResizeObservers = []
-
-  const RESIZE_DEBOUNCE_DELAY = 20 // Reduced from 50ms for faster response during animations
-  const debouncedSetSpan = debounce((element) => setSpanForElement(element), RESIZE_DEBOUNCE_DELAY)
-
-  const children = Array.from(masonryContainer.value?.children || [])
-  children.forEach((child) => {
-    child.style.width = `${props.columnWidth}px`
-    const observer = new ResizeObserver(() => debouncedSetSpan(child))
-    observer.observe(child)
-    childResizeObservers.push(observer)
-  })
-}
-
 onMounted(() => {
   initMasonry()
 
-  const LAYOUT_UPDATE_DEBOUNCE_DELAY = 20 // Reduced from 50ms for faster updates during animations
-  const debouncedUpdate = debounce(() => {
-    calculateColumnCount()
+  // Watch for container width changes (window resize, sidebar toggle, etc.)
+  resizeObserver = new ResizeObserver(() => {
     updateLayout()
-  }, LAYOUT_UPDATE_DEBOUNCE_DELAY)
-
-  resizeObserver = new ResizeObserver(debouncedUpdate)
-  if (masonryContainer.value) resizeObserver.observe(masonryContainer.value)
-
-  mutationObserver = new MutationObserver(() => {
-    debouncedUpdate()
-    observeChildElements()
   })
+
   if (masonryContainer.value) {
-    mutationObserver.observe(masonryContainer.value, { childList: true, subtree: false })
+    resizeObserver.observe(masonryContainer.value)
   }
 
-  observeChildElements()
-
-  // Allow DOM to settle before final layout calculation
-  nextTick(() => {
-    const INITIAL_LAYOUT_DELAY = 100
-    setTimeout(() => {
-      calculateColumnCount()
-      updateLayout()
-    }, INITIAL_LAYOUT_DELAY)
+  // Watch for content changes within children (e.g., improvements expanding/collapsing)
+  // This triggers when DOM changes happen inside cards, not just when cards are added/removed
+  mutationObserver = new MutationObserver(() => {
+    // Recalculate layout when card content changes
+    updateLayout()
   })
+
+  if (masonryContainer.value) {
+    mutationObserver.observe(masonryContainer.value, {
+      childList: true,  // Watch for cards being added/removed
+      subtree: true,    // Watch for changes inside cards (improvements expanding)
+      attributes: true, // Watch for attribute changes that might affect height
+      attributeFilter: ['class', 'style'] // Only watch relevant attributes
+    })
+  }
 })
 
 onBeforeUnmount(() => {
-  if (resizeObserver) resizeObserver.disconnect()
-  if (mutationObserver) mutationObserver.disconnect()
-  childResizeObservers.forEach((observer) => observer && observer.disconnect())
-  childResizeObservers = []
+  if (resizeObserver) {
+    resizeObserver.disconnect()
+  }
+  if (mutationObserver) {
+    mutationObserver.disconnect()
+  }
 })
 
-// Expose updateLayout so parents can call via ref
-defineExpose({ updateLayout, updateLayoutDelayed })
+// Expose updateLayout for manual layout recalculation if needed
+defineExpose({ updateLayout })
 </script>
-
 <style scoped>
 .masonry-grid {
   width: 100%;
   align-items: start;
   box-sizing: border-box;
-  min-height: 100px;
 }
 
 .masonry-grid>* {
   box-sizing: border-box;
-  overflow: hidden;
 }
 </style>

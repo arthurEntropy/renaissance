@@ -1,0 +1,34 @@
+{
+  "id": "e10d7d9f-9d93-46b0-9846-d60241031644",
+  "conceptType": "MESTIERE",
+  "name": "Acrobat",
+  "description": "<p>FLAVOR:</p><ul><li><p>Rogue-type agility, but without emphasis on sneakiness.</p></li><li><p>Hard to pin down</p></li><li><p>Significantly able to get into places others can't (PARKOUR!)</p></li></ul>",
+  "isDeleted": false,
+  "artUrls": [
+    "https://cdn.midjourney.com/b0fff4ff-247e-48c6-ac5a-0a736dffb494/0_0.png"
+  ],
+  "faces": [],
+  "places": [],
+  "backgroundImage": "https://cdn.midjourney.com/bb5d780e-88ee-4d7e-a4c0-94fe2eceb64f/0_3.png",
+  "expansion": "",
+  "hooks": [],
+  "playlists": [],
+  "names": "",
+  "occupations": "",
+  "publicHouses": "",
+  "vittles": "",
+  "pointsOfInterest": "",
+  "floraFauna": "",
+  "novizio": {
+    "flavorText": "",
+    "melee": "light",
+    "polearms": "",
+    "ranged": "",
+    "firearms": "",
+    "armor": "",
+    "engagement": "<p><span class=\"dice-icon dice-icon df-d4-4\" style=\"font-size: 36px;\"></span> <span class=\"dice-icon dice-icon df-d4-4\" style=\"font-size: 36px;\"></span> <span class=\"dice-icon dice-icon dice-icon df-d4-4\" style=\"font-size: 36px;\"></span> <span class=\"dice-icon dice-icon dice-icon df-d4-4\" style=\"font-size: 36px;\"></span></p>",
+    "initialMaxMP": "",
+    "abilities": "<p>Nimble and choose one, ignoring its XP cost: Pole Training, Rope &amp; Chain Weapon Training, Shuriken Training or Pressure Point Training</p>"
+  },
+  "lastModified": "2025-12-15T12:56:28.649Z"
+}

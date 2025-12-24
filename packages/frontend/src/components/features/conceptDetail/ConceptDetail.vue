@@ -1,74 +1,101 @@
 <template>
   <div class="modal-overlay" @click.self="handleClose">
     <!-- Admin Controls -->
-    <ConceptHeader :editable="editable" :is-edit-mode="isEditMode" @toggle-edit-mode="handleToggleEditMode"
-      @open-settings="openSettingsModal" />
+    <div class="admin-controls">
+      <FloatingActionButton v-if="isEditMode" type="settings" size="large" visibility="always"
+        @click="openSettingsModal" />
+      <FloatingActionButton v-if="editable" type="edit" size="large" visibility="always" :is-active="isEditMode"
+        @click="() => toggleEditMode()" />
+    </div>
 
     <div class="modal-content">
       <!-- Desktop Layout: Left/Right Columns -->
       <div v-if="isDesktop" class="concept-layout-desktop">
         <!-- Left Column -->
-        <LeftColumn :concept="localConcept" :is-edit-mode="isEditMode" @update:featured-art="updateFeaturedArt"
-          @update:novizio="updateNovizio" @update:faces="updateFaces" @update:places="updatePlaces"
-          @update:playlists="updatePlaylists" @unsaved-changes="onSectionUnsavedChanges"
-          @reset-unsaved-changes="onSectionResetUnsavedChanges" />
+        <div class="concept-column-left">
+          <ConceptImageSection title="Featured Art" :show-title="false" :is-edit-mode="isEditMode"
+            :mode="IMAGE_GALLERY_MODES.MANUAL" />
+          <NovizioSection :editable="isEditMode" />
+          <ConceptImageSection title="Faces" :is-edit-mode="isEditMode" :mode="IMAGE_GALLERY_MODES.AUTO"
+            :auto-source-type="ART_TYPES.FACES" />
+          <ConceptImageSection title="Places" :is-edit-mode="isEditMode" mode="auto" auto-source-type="places" />
+          <ConceptImageSection title="Maps" :is-edit-mode="isEditMode" mode="auto" auto-source-type="maps" />
+          <PlaylistSection :editable="isEditMode" />
+        </div>
 
         <!-- Right Column -->
-        <RightColumn :concept="localConcept" :abilities="abilities" :equipment="equipment" :sources="sources"
-          :is-edit-mode="isEditMode" :expansion="expansion" :character="selectedCharacter" @update:name="updateName"
-          @update:description="updateDescription" @update:local-flavor="updateLocalFlavor" @update:hooks="updateHooks"
-          @edit-ability="emitAbilityEdit" @edit-equipment="emitEquipmentEdit" @add-ability="createNewAbility"
-          @add-equipment="createNewEquipment" @unsaved-changes="onSectionUnsavedChanges"
-          @reset-unsaved-changes="onSectionResetUnsavedChanges" />
+        <div class="concept-column-right">
+          <ConceptTitle :is-edit-mode="isEditMode" />
+          <ConceptDescription :is-edit-mode="isEditMode" />
+          <ConceptAbilitiesSection :is-edit-mode="isEditMode" @edit-ability="openAbilityModal"
+            @add-ability="createNewAbility" />
+          <LocalFlavorSection :editable="isEditMode" />
+          <HooksSection :editable="isEditMode" />
+          <ConceptEquipmentSection :is-edit-mode="isEditMode" @edit-equipment="openEquipmentModal"
+            @add-equipment="createNewEquipment" />
+        </div>
       </div>
 
       <!-- Mobile Layout: Single Column -->
-      <MobileLayout v-else :concept="localConcept" :abilities="abilities" :equipment="equipment" :sources="sources"
-        :is-edit-mode="isEditMode" :expansion="expansion" :character="selectedCharacter"
-        @update:featured-art="updateFeaturedArt" @update:name="updateName" @update:description="updateDescription"
-        @update:local-flavor="updateLocalFlavor" @update:hooks="updateHooks" @update:faces="updateFaces"
-        @update:places="updatePlaces" @update:playlists="updatePlaylists" @update:novizio="updateNovizio"
-        @edit-ability="emitAbilityEdit" @edit-equipment="emitEquipmentEdit" @add-ability="createNewAbility"
-        @add-equipment="createNewEquipment" @unsaved-changes="onSectionUnsavedChanges"
-        @reset-unsaved-changes="onSectionResetUnsavedChanges" />
+      <div v-else class="concept-layout-mobile">
+        <ConceptImageSection title="Featured Art" :show-title="false" :is-edit-mode="isEditMode"
+          :mode="IMAGE_GALLERY_MODES.MANUAL" />
+        <ConceptTitle :is-edit-mode="isEditMode" />
+        <ConceptDescription :is-edit-mode="isEditMode" />
+        <ConceptAbilitiesSection :is-edit-mode="isEditMode" @edit-ability="openAbilityModal"
+          @add-ability="createNewAbility" />
+        <ConceptImageSection title="Faces" :is-edit-mode="isEditMode" :mode="IMAGE_GALLERY_MODES.AUTO"
+          :auto-source-type="ART_TYPES.PLACES" />
+        <HooksSection :editable="isEditMode" />
+        <ConceptImageSection title="Maps" :is-edit-mode="isEditMode" :mode="IMAGE_GALLERY_MODES.AUTO"
+          :auto-source-type="ART_TYPES.PLACES" />
+        <ConceptImageSection title="Maps" :is-edit-mode="isEditMode" :mode="IMAGE_GALLERY_MODES.AUTO"
+          :auto-source-type="ART_TYPES.MAPS" />
+        <HooksSection :editable="isEditMode" @unsaved-changes="onSectionUnsavedChanges"
+          @reset-unsaved-changes="onSectionResetUnsavedChanges" />
+        <ConceptEquipmentSection :is-edit-mode="isEditMode" @edit-equipment="openEquipmentModal"
+          @add-equipment="createNewEquipment" />
+        <PlaylistSection :editable="isEditMode" />
+        <NovizioSection :editable="isEditMode" />
+      </div>
     </div>
 
     <!-- Settings Modal -->
-    <ConceptSettingsModal :visible="showSettingsModal" :settings="tempSettings" @update:settings="tempSettings = $event"
-      @save="saveSettings" @cancel="closeSettingsModal" />
+    <ConceptSettingsModal :visible="showSettingsModal" @save="saveSettings" @cancel="closeSettingsModal" />
 
     <!-- Edit Ability Modal -->
-    <EditAbilityModal v-if="showEditAbilityModal" :ability="selectedAbility" :sources="sources"
-      @update="saveEditedAbility" @close="closeEditAbilityModal" @delete="deleteAbility" />
+    <EditAbilityModal v-if="showEditAbilityModal" :ability="selectedAbility" @update="saveEditedAbility"
+      @close="closeEditAbilityModal" @delete="deleteAbility" />
 
     <!-- Edit Equipment Modal -->
-    <EditEquipmentModal v-if="showEditEquipmentModal" :equipment="selectedEquipment" :sources="sources"
-      @update="saveEditedEquipment" @close="closeEditEquipmentModal" />
+    <EditEquipmentModal v-if="showEditEquipmentModal" :equipment="selectedEquipment" @update="saveEditedEquipment"
+      @close="closeEditEquipmentModal" @delete="deleteEquipment" />
   </div>
 </template>
 
 <script setup>
-import { ref, computed, watch, onMounted } from 'vue'
-import ConceptHeader from './components/ConceptHeader.vue'
-import LeftColumn from './components/layouts/LeftColumn.vue'
-import RightColumn from './components/layouts/RightColumn.vue'
-import MobileLayout from './components/layouts/MobileLayout.vue'
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
+import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
+import ConceptTitle from './components/ConceptTitle.vue'
+import ConceptDescription from './components/sections/ConceptDescription.vue'
+import ConceptAbilitiesSection from './components/sections/ConceptAbilitiesSection.vue'
+import ConceptEquipmentSection from './components/sections/ConceptEquipmentSection.vue'
+import ConceptImageSection from './components/sections/ConceptImageSection.vue'
+import LocalFlavorSection from './components/sections/LocalFlavorSection.vue'
+import HooksSection from './components/sections/HooksSection.vue'
+import PlaylistSection from './components/sections/PlaylistSection.vue'
+import NovizioSection from './components/sections/NovizioSection.vue'
 import ConceptSettingsModal from './components/ConceptSettingsModal.vue'
-import { useConceptUpdates } from '@/composables/useConceptUpdates'
 import EditAbilityModal from '@/components/editModals/EditAbilityModal.vue'
 import EditEquipmentModal from '@/components/editModals/EditEquipmentModal.vue'
 
 // Composables
-import { useConceptEditMode } from './composables/useConceptEditMode'
-import { useConceptData } from './composables/useConceptData'
-import { useUnsavedChanges } from './composables/useUnsavedChanges'
-import { useResponsiveLayout } from '@/composables/useResponsiveLayout'
+import { useUnsavedChanges } from '@/composables/useUnsavedChanges'
 import { useEditModal } from '@/composables/useEditModal'
-import { useCharacterManagement } from '@/composables/useCharacterManagement'
 
 // Store imports
+import { useConceptsStore } from '@/stores/conceptsStore'
 import { useExpansionsStore } from '@/stores/expansionsStore'
-import { useSourcesStore } from '@/stores/sourcesStore'
 import { useAbilitiesStore } from '@/stores/abilitiesStore'
 import { useEquipmentStore } from '@/stores/equipmentStore'
 import { useArtStore } from '@/stores/artStore'
@@ -76,13 +103,10 @@ import { useArtStore } from '@/stores/artStore'
 // Service imports
 import AbilityService from '@/services/entities/abilityService'
 import EquipmentService from '@/services/entities/equipment/equipmentService'
+import { IMAGE_GALLERY_MODES, ART_TYPES } from '@shared/constants/artConstants.js'
 
 // Props
-const props = defineProps({
-  concept: {
-    type: Object,
-    required: true,
-  },
+const _props = defineProps({
   editable: {
     type: Boolean,
     default: false,
@@ -90,27 +114,14 @@ const props = defineProps({
 })
 
 // Emits
-const emit = defineEmits(['close', 'update', 'edit-mode-change'])
+const emit = defineEmits(['close'])
 
 // Stores
-const expansionStore = useExpansionsStore()
-const sourcesStore = useSourcesStore()
+const conceptsStore = useConceptsStore()
+const expansionsStore = useExpansionsStore()
 const abilitiesStore = useAbilitiesStore()
 const equipmentStore = useEquipmentStore()
 const artStore = useArtStore()
-
-// Store data
-const sources = computed(() => {
-  const storeData = sourcesStore.sources
-  if (!storeData) return []
-
-  return [
-    ...(storeData.ancestries || []),
-    ...(storeData.cultures || []),
-    ...(storeData.mestieri || []),
-    ...(storeData.worldElements || [])
-  ]
-})
 
 // Edit modals
 const {
@@ -128,159 +139,106 @@ const {
 } = useEditModal()
 
 // Local reactive state
-const localConcept = ref({})
 const showSettingsModal = ref(false)
-const tempSettings = ref({
-  backgroundImage: '',
-})
-const expansions = ref([])
 
-// Composables
-const {
-  isEditMode,
-  hasUnsavedChanges: hasUnsavedSectionChanges,
-  toggleEditMode,
-  onSectionUnsavedChanges,
-  onSectionResetUnsavedChanges
-} = useConceptEditMode()
+// Edit mode state
+const isEditMode = ref(false)
+const hasUnsavedSectionChanges = ref(false)
 
-const {
-  hasUnsavedChanges,
-  confirmIfUnsaved
-} = useUnsavedChanges()
-
-// Get selected character from the character management composable
-const { selectedCharacter } = useCharacterManagement()
-
-// Methods - defined early to avoid temporal dead zone issues
-const emitUpdateEvent = () => {
-  try {
-    // Create a clean copy excluding methods and non-data properties
-    const cleanConcept = {
-      ...localConcept.value,
-      name: localConcept.value.name || '',
-      artUrls: [...(localConcept.value.artUrls || [])],
-      faces: [...(localConcept.value.faces || [])],
-      places: [...(localConcept.value.places || [])],
-      hooks: localConcept.value.hooks?.map(
-        ({ id, name, description, gmNotes }) => ({
-          id,
-          name,
-          description,
-          gmNotes,
-        }),
-      ) || [],
-      playlists: localConcept.value.playlists?.map(({ service, embedCode }) => ({
-        service,
-        embedCode,
-      })) || [],
-    }
-
-    emit('update', cleanConcept)
-  } catch (error) {
-    console.error('Error in emitUpdateEvent:', error)
+const toggleEditMode = (onSave) => {
+  if (isEditMode.value && onSave) {
+    onSave()
   }
+  isEditMode.value = !isEditMode.value
+}
+
+const onSectionUnsavedChanges = (hasChanges) => {
+  hasUnsavedSectionChanges.value = hasChanges
+}
+
+const onSectionResetUnsavedChanges = () => {
+  hasUnsavedSectionChanges.value = false
 }
 
 const {
-  abilities,
-  equipment,
-  refreshData
-} = useConceptData(localConcept)
+  confirmIfUnsaved
+} = useUnsavedChanges(emit, () => hasUnsavedSectionChanges.value)
 
-const {
-  isDesktop
-} = useResponsiveLayout()
+const selectedConcept = computed(() => conceptsStore.selectedConcept)
 
-// Concept updates
-const {
-  updateName,
-  updateDescription,
-  updateFeaturedArt,
-  updateFaces,
-  updatePlaces,
-  updateNovizio,
-  updatePlaylists,
-  updateHooks,
-  updateLocalFlavor
-} = useConceptUpdates(localConcept, emitUpdateEvent)
+// Responsive layout
+const MOBILE_BREAKPOINT = 1024
+const isMobile = ref(false)
 
-// Computed properties
-const expansion = computed(() => {
-  if (!localConcept.value.expansion) return null
-  return expansions.value.find(e => e.id === localConcept.value.expansion) || null
-})
+const updateLayout = () => {
+  isMobile.value = window.innerWidth < MOBILE_BREAKPOINT
+}
 
-// Watchers
-watch(() => props.concept, (newConcept) => {
-  // Deep clone the concept to avoid direct mutations
-  localConcept.value = JSON.parse(JSON.stringify(newConcept))
-  localConcept.value.hooks = localConcept.value.hooks || []
-  localConcept.value.playlists = localConcept.value.playlists || []
-  localConcept.value.artUrls = localConcept.value.artUrls || []
-  localConcept.value.faces = localConcept.value.faces || []
-  localConcept.value.places = localConcept.value.places || []
-}, { immediate: true })
+const isDesktop = computed(() => !isMobile.value)
 
 // Methods
-const handleToggleEditMode = () => {
-  toggleEditMode(() => emitUpdateEvent())
-  emit('edit-mode-change', isEditMode.value)
-}
-
 const handleClose = () => {
-  const hasChanges = hasUnsavedChanges.value || hasUnsavedSectionChanges.value
-
-  if (hasChanges) {
-    confirmIfUnsaved(() => emit('close'), 'You have unsaved changes. Are you sure you want to exit?')
-  } else {
-    emit('close')
-  }
+  confirmIfUnsaved(() => emit('close'))
 }
 
-const emitAbilityEdit = (ability) => {
-  if (!isEditMode.value) return
-  openAbilityModal(ability)
-}
-
-const emitEquipmentEdit = (equipmentItem) => {
-  if (!isEditMode.value) return
-  openEquipmentModal(equipmentItem)
-}
-
+// Ability and Equipment modal methods
 const saveEditedAbility = async (editedAbility) => {
-  try {
-    await AbilityService.update(editedAbility)
-    closeEditAbilityModal()
-    await abilitiesStore.fetch()
-    refreshData()
-  } catch (error) {
-    console.error('Error updating ability:', error)
-  }
+  await AbilityService.update(editedAbility)
+  closeEditAbilityModal()
+  await abilitiesStore.fetch()
 }
 
 const deleteAbility = async (ability) => {
-  try {
-    const updatedAbility = { ...ability, isDeleted: true }
-    await AbilityService.update(updatedAbility)
-    closeEditAbilityModal()
-    await abilitiesStore.fetch()
-    refreshData()
-  } catch (error) {
-    console.error('Error deleting ability:', error)
-  }
+  const updatedAbility = { ...ability, isDeleted: true }
+  await AbilityService.update(updatedAbility)
+  closeEditAbilityModal()
+  await abilitiesStore.fetch()
 }
 
 const saveEditedEquipment = async (editedEquipment) => {
-  try {
-    await EquipmentService.update(editedEquipment)
-    closeEditEquipmentModal()
-    await equipmentStore.fetch()
-    refreshData()
-  } catch (error) {
-    console.error('Error updating equipment:', error)
+  await EquipmentService.update(editedEquipment)
+  closeEditEquipmentModal()
+  await equipmentStore.fetch()
+}
+
+const deleteEquipment = async (equipment) => {
+  const updatedEquipment = { ...equipment, isDeleted: true }
+  await EquipmentService.update(updatedEquipment)
+  closeEditEquipmentModal()
+  await equipmentStore.fetch()
+}
+
+const createItemForConcept = async (service, store, storeItems, openModal) => {
+  if (!selectedConcept.value) return
+
+  // Create new item with the selected concept as source
+  const newItemData = {
+    ...service.getDefaultEntity(),
+    source: selectedConcept.value.id
+  }
+
+  const newItem = await service.create(newItemData)
+  await store.fetch()
+
+  const createdItem = storeItems.find(item => item.id === newItem.id)
+  if (createdItem) {
+    openModal(createdItem)
   }
 }
+
+const createNewAbility = () => createItemForConcept(
+  AbilityService,
+  abilitiesStore,
+  abilitiesStore.abilities,
+  openAbilityModal
+)
+
+const createNewEquipment = () => createItemForConcept(
+  EquipmentService,
+  equipmentStore,
+  equipmentStore.equipment,
+  openEquipmentModal
+)
 
 // Settings modal methods
 const openSettingsModal = () => {
@@ -291,88 +249,46 @@ const closeSettingsModal = () => {
   showSettingsModal.value = false
 }
 
-const saveSettings = () => {
-  // Handle settings save logic here
-  showSettingsModal.value = false
+const saveSettings = async (settings) => {
+  if (!selectedConcept.value) return
+
+  if (settings.backgroundImage !== undefined) {
+    selectedConcept.value.backgroundImage = settings.backgroundImage
+  }
+  if (settings.expansionId !== undefined) {
+    selectedConcept.value.expansion = settings.expansionId
+  }
+
+  await conceptsStore.update(selectedConcept.value)
+  closeSettingsModal()
 }
 
 // Lifecycle
 onMounted(async () => {
-  try {
-    await sourcesStore.fetchSources()
-    await expansionStore.fetch()
-    expansions.value = expansionStore.items
-    // Fetch art store for auto-populated galleries
-    await artStore.fetch()
-  } catch (error) {
-    console.error('Error initializing ConceptDetail:', error)
-  }
+  updateLayout()
+  window.addEventListener('resize', updateLayout)
+
+  await Promise.all([
+    expansionsStore.fetch(),
+    abilitiesStore.fetch(),
+    equipmentStore.fetch(),
+    artStore.fetch()
+  ])
 })
 
-// Create new abilities and equipment with concept as source
-const createNewAbility = async () => {
-  try {
-    // Create a new ability with the concept as the source
-    const newAbilityData = {
-      ...AbilityService.getDefaultEntity(),
-      source: localConcept.value.id
-    }
-
-    const newAbility = await AbilityService.create(newAbilityData)
-    await abilitiesStore.fetch()
-    refreshData()
-
-    // Find the created ability and open the edit modal
-    const createdAbility = abilitiesStore.abilities.find(
-      (ability) => ability.id === newAbility.id
-    )
-
-    if (createdAbility) {
-      openAbilityModal(createdAbility)
-    }
-  } catch (error) {
-    console.error('Error creating new ability:', error)
-  }
-}
-
-const createNewEquipment = async () => {
-  try {
-    // Create a new equipment with the concept as the source
-    const newEquipmentData = {
-      ...EquipmentService.getDefaultEntity(),
-      source: localConcept.value.id
-    }
-
-    const newEquipment = await EquipmentService.create(newEquipmentData)
-    await equipmentStore.fetch()
-    refreshData()
-
-    // Find the created equipment and open the edit modal
-    const createdEquipment = equipmentStore.equipment.find(
-      (item) => item.id === newEquipment.id
-    )
-
-    if (createdEquipment) {
-      openEquipmentModal(createdEquipment)
-    }
-  } catch (error) {
-    console.error('Error creating new equipment:', error)
-  }
-}
+onBeforeUnmount(() => {
+  window.removeEventListener('resize', updateLayout)
+})
 </script>
 
 <style scoped>
-/* Component-specific overrides */
-.modal-content {
-  max-width: 1275px;
-  border: none;
-}
-
-/* Global styles */
-:global(body.modal-open) {
-  overflow: hidden;
+.admin-controls {
   position: fixed;
-  width: 100%;
-  height: 100%;
+  top: var(--space-lg);
+  right: var(--space-lg);
+  z-index: var(--z-modal-controls);
+  display: flex;
+  gap: var(--space-xs);
+  align-items: center;
 }
 </style>

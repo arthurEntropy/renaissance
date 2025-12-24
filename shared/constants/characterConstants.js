@@ -53,3 +53,9 @@ export const STATE_AFFECTED_SKILLS = {
 }
 
 export const CONDITION_AND_STATE_DICE_MODIFIER = -1
+
+export const STAT_ROW_TYPES = {
+  RANGE: 'range',
+  SINGLE: 'single',
+  STATE: 'state'
+}

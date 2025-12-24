@@ -1,16 +1,17 @@
 <template>
-  <ConceptsLayout itemName="Ancestry" v-bind="layoutProps" />
+  <ConceptsLayout v-bind="layoutProps" @select="handleSelect" @deselect="handleDeselect" @create="handleCreate" />
 </template>
 
 <script setup>
-import { useAncestriesStore } from '@/stores/ancestriesStore'
-import AncestryService from '@/services/entities/gameConcepts/ancestryService'
+import { useConceptsStore } from '@/stores/conceptsStore'
+import ConceptService from '@/services/entities/conceptService'
 import ConceptsLayout from '@/components/ui/layouts/ConceptsLayout.vue'
 import { useConceptsLayout } from '@/composables/useConceptsLayout'
 
-const ancestriesStore = useAncestriesStore()
+const conceptsStore = useConceptsStore()
 
-const { layoutProps } = useConceptsLayout(ancestriesStore, AncestryService, {
-  conceptsProperty: 'ancestries'
+const { layoutProps, handleSelect, handleDeselect, handleCreate } = useConceptsLayout(conceptsStore, ConceptService, {
+  conceptsProperty: 'ancestries',
+  itemName: 'Ancestry'
 })
 </script>

@@ -1,24 +1,24 @@
 <template>
     <div>
         <div class="character-art-container edit-hover-area">
-            <img :src="characterImageUrl" class="character-art-image" @click="openModal" />
-            <EditButton v-if="isEditMode" size="small" visibility="on-hover" class="edit-button-overlay-small"
-                @click.stop="openChangeArtModal" />
+            <img :src="characterImageUrl" class="character-art-image" @click="openFullSizeArtModal" />
+            <FloatingActionButton v-if="canEdit" type="edit" size="small" visibility="on-hover"
+                class="edit-button-overlay-small" @click.stop="openEditModal" />
         </div>
 
         <!-- Full Size Art Modal -->
-        <div v-if="fullSizeModal.isOpen.value" class="modal-overlay" @click="fullSizeModal.closeModal">
+        <div v-if="fullSizeArtModal.isOpen.value" class="modal-overlay" @click="fullSizeArtModal.closeModal">
             <div class="modal-content image-container edit-hover-area" @click.stop>
                 <img :src="characterImageUrl" class="modal-image" />
-                <EditButton v-if="isEditMode" size="small" visibility="on-hover" class="edit-button-overlay"
-                    @click.stop="openChangeArtModal" />
+                <FloatingActionButton v-if="canEdit" type="edit" size="small" visibility="on-hover"
+                    class="edit-button-overlay" @click.stop="openEditModal" />
             </div>
         </div>
 
-        <!-- Change Art Modal -->
-        <div v-if="changeArtModal.isOpen.value" class="modal-overlay change-art-overlay"
-            @click="handleChangeArtOverlayClick">
-            <div class="modal-content change-art-modal" @click.stop>
+        <!-- Edit Modal -->
+        <div v-if="editModal.isOpen.value" class="modal-overlay edit-modal-overlay"
+            @click="handleEditModalOverlayClick">
+            <div class="modal-content edit-modal-content" @click.stop>
                 <h3>Change Character Art</h3>
                 <input type="text" v-model="tempArtUrl" class="modal-input" placeholder="Enter image URL" />
                 <div class="modal-actions">
@@ -33,74 +33,58 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { useModal } from '@/composables/useModal'
-import EditButton from '@/components/ui/buttons/EditButton.vue'
+import { useCharactersStore } from '@/stores/charactersStore'
+import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 
-// Props
-const props = defineProps({
-    character: {
-        type: Object,
-        required: true,
-    },
-    isEditMode: {
-        type: Boolean,
-        default: false
-    }
-})
+const charactersStore = useCharactersStore()
 
-// Emits
-const emit = defineEmits(['update-character'])
+const character = computed(() => charactersStore.selectedCharacter)
+const canEdit = computed(() => charactersStore.canEditSelectedCharacter)
 
-// Modal management
-const fullSizeModal = useModal()
-const changeArtModal = useModal()
+const fullSizeArtModal = useModal()
+const editModal = useModal()
 
-// State
 const tempArtUrl = ref('')
 
-// Computed properties
 const characterImageUrl = computed(() => {
-    return props.character.artUrls?.[0] ?? ''
+    return character.value?.artUrls?.[0] ?? ''
 })
 
-// Helper function
 const isValidImageUrl = (url) => {
     if (!url) return false
     const urlPattern = /^(https?:\/\/.*\.(?:png|jpg|jpeg|gif|webp))$/i
     return urlPattern.test(url)
 }
 
-// Methods
-const openModal = () => {
-    fullSizeModal.openModal()
+const openFullSizeArtModal = () => {
+    fullSizeArtModal.openModal()
 }
 
-const openChangeArtModal = () => {
-    tempArtUrl.value = props.character.artUrls?.[0] || ''
-    changeArtModal.openModal()
+const openEditModal = () => {
+    tempArtUrl.value = character.value?.artUrls?.[0] || ''
+    editModal.openModal()
 }
 
 const saveArtUrl = () => {
-    const updatedCharacter = { ...props.character }
-    if (!updatedCharacter.artUrls) {
-        updatedCharacter.artUrls = []
+    if (!character.value.artUrls) {
+        character.value.artUrls = []
     }
-    updatedCharacter.artUrls[0] = tempArtUrl.value
-    emit('update-character', updatedCharacter)
-    changeArtModal.closeModal()
+    character.value.artUrls[0] = tempArtUrl.value
+    editModal.closeModal()
 }
 
-const handleChangeArtOverlayClick = () => {
-    const originalUrl = props.character.artUrls?.[0] || ''
+const handleEditModalOverlayClick = () => {
+    const originalUrl = character.value?.artUrls?.[0] || ''
     const hasChanges = tempArtUrl.value !== originalUrl
 
     if (hasChanges) {
         const shouldDiscard = confirm('Discard unsaved changes?')
         if (shouldDiscard) {
-            changeArtModal.closeModal()
+            editModal.closeModal()
         }
     } else {
-        changeArtModal.closeModal()
+        editModal.closeModal()
     }
 }
 </script>
@@ -132,35 +116,21 @@ div {
     z-index: var(--z-raised);
 }
 
-/* Shared modal styles */
-.modal-overlay {
-    background-color: var(--overlay-black-heavy);
-    z-index: var(--z-modal);
-}
-
-.change-art-overlay {
+.edit-modal-overlay {
     z-index: calc(var(--z-modal) + 1);
 }
 
-.modal-content {
-    max-width: 90%;
-    max-height: 90%;
-}
-
-.change-art-modal {
+.edit-modal-content {
     width: auto;
-    max-width: 90%;
     min-width: 400px;
     padding: var(--space-lg);
     background: var(--color-bg-primary);
 }
 
-/* Full-size image modal specific */
 .image-container {
     position: relative;
     display: inline-block;
     padding: 0;
-    /* Override global modal padding for image container */
 }
 
 .modal-image {

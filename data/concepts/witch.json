@@ -1,0 +1,27 @@
+{
+  "id": "162ae4db-7a67-4770-8a2c-7e9883da14f6",
+  "conceptType": "MESTIERE",
+  "name": "Witch",
+  "description": "<p>WWW class, converted</p>",
+  "isDeleted": false,
+  "artUrls": [
+    "https://cdn.midjourney.com/fe0937e2-1487-47ce-a095-ee00d3b72155/0_0.png",
+    "https://cdn.midjourney.com/d9671242-e91a-488a-be73-37e5fbb6a372/0_3.jpeg",
+    "https://cdn.midjourney.com/f7ef74bf-7e3c-4694-956e-e196ee2a09b7/0_0.png",
+    "https://cdn.midjourney.com/a572700b-8525-47c5-957f-776f6d590c7c/0_1.jpeg",
+    "https://cdn.midjourney.com/52b359d7-bcda-4c02-87bd-e738321e0416/0_0.jpeg"
+  ],
+  "faces": [],
+  "places": [],
+  "backgroundImage": "",
+  "expansion": "",
+  "hooks": [],
+  "playlists": [],
+  "names": "",
+  "occupations": "",
+  "publicHouses": "",
+  "vittles": "",
+  "pointsOfInterest": "",
+  "floraFauna": "",
+  "lastModified": "2025-12-15T12:58:59.930Z"
+}

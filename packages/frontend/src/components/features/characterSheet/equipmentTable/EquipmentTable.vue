@@ -3,29 +3,31 @@
     <TableHeader title="Equipment" :is-edit-mode="internalEditMode" :show-edit-button="canEdit"
       @toggle-edit="toggleEditMode">
       <template #header-right>
-        <EquipmentWeight :equipment-rows="characterEquipmentRows" />
+        <EquipmentWeight :equipment-items="characterEquipment" />
       </template>
     </TableHeader>
 
-    <!-- Draggable Item Rows -->
-    <draggable v-model="sortedEquipmentRows" handle=".drag-handle" item-key="id" @end="onDragEnd"
-      ghost-class="ghost-equipment-row" animation="150" :disabled="!internalEditMode" class="equipment-list">
-      <template #item="{ element: row, index }">
-        <div class="equipment-row">
+    <!-- Draggable Equipment Items -->
+    <draggable v-model="sortedEquipment" handle=".drag-handle" item-key="id" ghost-class="ghost-item-row"
+      animation="150" :disabled="!internalEditMode" class="item-table-list">
+      <template #item="{ element: item, index }">
+        <div class="item-table-row">
 
-          <FloatingEditControls v-if="internalEditMode" :index="index" delete-title="Remove item"
-            drag-title="Drag to reorder" @delete="removeEquipmentItem" />
+          <div v-if="internalEditMode" class="floating-edit-controls">
+            <FloatingActionButton type="delete" size="small" visibility="always" @click="removeEquipmentItem(index)" />
+            <FloatingActionButton type="drag" size="small" visibility="always" class="drag-handle" />
+          </div>
 
           <div class="equipment-card-col">
-            <EquipmentCard v-if="row.equipment" :equipment="row.equipment" :collapsed="row.collapsed || false"
-              @update:collapsed="updateEquipmentCollapsed(row, $event)" :art-expanded="row.artExpanded || false"
-              @update:art-expanded="updateEquipmentArtExpanded(row, $event)" :editable="row.equipment.isCustom"
-              class="equipment-card" @edit="editCustomItem" :collapsible="true" :show-keeping-badge="false"
-              :show-add-to-character="false" />
+            <EquipmentCard v-if="item.equipment" :equipment="item.equipment" :collapsed="item.collapsed || false"
+              @update:collapsed="updateEquipmentCollapsed(item, $event)" :editable="item.equipment.isCustom"
+              class="item-table-card equipment-card" @edit="openEditEquipmentModal" :collapsible="true"
+              :show-keeping-badge="false" :show-add-to-character="false" :engagement-success-options="[]" />
 
-            <span v-else class="missing-equipment">Unknown item</span>
+            <span v-else class="missing-item">Unknown item</span>
 
-            <EquipmentDetails :equipment-row="row" :index="index" :is-edit-mode="canEdit"
+            <!-- Equipment Details (Carried, Wielding, Quantity, Weight Total) -->
+            <EquipmentDetails :equipment-item="item" :index="index" :is-edit-mode="canEdit"
               @update-carried="handleCarriedChange" @update-wielding="handleWieldingChange"
               @update-quantity="handleQuantityChange" />
 
@@ -35,85 +37,95 @@
     </draggable>
 
     <!-- Add Item FAB (only in edit mode) -->
-    <AddButton :show="showAddButton" @click="showEquipmentSelector = true" title="Add item" />
+    <div v-if="showAddButton" class="add-button-container">
+      <FloatingActionButton type="add" size="large" visibility="always" @click="showEquipmentSelector = true" />
+    </div>
 
     <!-- Equipment Selector Modal -->
     <ItemSelector :show="showEquipmentSelector" title="Add Equipment" :grouped-items="groupedEquipment"
       :search-query="equipmentSearchQuery" search-placeholder="Search equipment..."
-      no-items-message="No equipment found" :get-source-name="sourceUtils.getSourceName"
-      :show-choice-mode="showChoiceMode" :choice-options="equipmentChoiceOptions" @close="closeEquipmentSelector"
-      @select="selectEquipment" @search="handleEquipmentSearch" @choice="handleEquipmentChoice">
+      no-items-message="No equipment found" :get-source-name="sourcesStore.getSourceName"
+      :show-choice-mode="showChoiceMode" :choice-options="addEquipmentOptions" @close="closeEquipmentSelector"
+      @select="selectEquipment" @search="equipmentSearchQuery = $event" @choice="handleEquipmentChoice">
       <template #item-display="{ item }">
         {{ item.name }}
         <span class="equipment-weight">({{ item.weight }} lbs)</span>
       </template>
     </ItemSelector>
 
+    <!-- Edit Equipment Modal -->
+    <EditEquipmentModal v-if="showEditEquipmentModal" :equipment="equipmentToEdit" :all-equipment="allEquipment"
+      :keeping-options="keepingStore.keeping" :sources="sourcesStore.sources"
+      :equipment-types="equipmentTypesStore.items" :equipment-subtypes="equipmentSubtypesStore.items"
+      :equipment-grades="equipmentGradesStore.items" :engagement-success-options="engagementSuccessOptions"
+      @update="saveEditedEquipment" @close="closeEditEquipmentModal" @delete="deleteEquipment" />
+
   </CharacterSheetSection>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
-import * as CharacterUtils from '@shared/types/entities/characterUtils'
-import EquipmentCard from '@/components/ui/cards/EquipmentCard.vue'
+import { ref, computed, onMounted } from 'vue'
+import EquipmentCard from '@/components/ui/cards/item/EquipmentCard.vue'
 import EquipmentWeight from './EquipmentWeight.vue'
 import EquipmentDetails from './EquipmentDetails.vue'
 import TableHeader from '@/components/ui/tables/TableHeader.vue'
-import FloatingEditControls from '@/components/ui/controls/FloatingEditControls.vue'
+import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import ItemSelector from '@/components/ui/selectors/ItemSelector.vue'
-import AddButton from '@/components/ui/buttons/AddButton.vue'
 import CharacterSheetSection from '@/components/ui/containers/CharacterSheetSection.vue'
+import EditEquipmentModal from '@/components/editModals/EditEquipmentModal.vue'
 import draggable from 'vuedraggable'
-import { useTableEditMode } from '@/composables/useTableEditMode'
-import { useItemManagement } from '@/composables/useItemManagement'
-import { useDragAndDrop } from '@/composables/useDragAndDrop'
+import { useEditModal } from '@/composables/useEditModal'
+import CharacterService from '@/services/entities/characterService'
 import { useItemSelector } from '@/composables/useItemSelector'
-import { useSourceUtils } from '@/composables/useSourceUtils'
-import { useCharacterEquipment } from '@/composables/useCharacterEquipment'
-import { useCustomEquipment } from '@/composables/useCustomEquipment'
 import { useEquipmentTypesStore } from '@/stores/equipmentTypesStore'
+import { useEquipmentStore } from '@/stores/equipmentStore'
+import { useCharactersStore } from '@/stores/charactersStore'
+import { useSourcesStore } from '@/stores/sourcesStore'
+import { useKeepingStore } from '@/stores/keepingStore'
+import { useEquipmentSubtypesStore } from '@/stores/equipmentSubtypesStore'
+import { useEquipmentGradesStore } from '@/stores/equipmentGradesStore'
+import EquipmentService from '@/services/entities/equipment/equipmentService'
+import EngagementSuccessService from '@/services/entities/engagementSuccessService'
 import { BookOpenIcon, PlusIcon } from '@heroicons/vue/24/outline'
 
-// Props
 const props = defineProps({
-  equipment: Array,
-  allEquipment: Array,
-  character: Object,
   isEditMode: {
     type: Boolean,
     default: false
   }
 })
 
-// Emits
-const emit = defineEmits(['update-character', 'edit-custom-equipment'])
+const emit = defineEmits(['edit-custom-equipment'])
 
-// Equipment types store
+const charactersStore = useCharactersStore()
+const selectedCharacter = computed(() => charactersStore.selectedCharacter)
 const equipmentTypesStore = useEquipmentTypesStore()
+const equipmentStore = useEquipmentStore()
+const equipmentSubtypesStore = useEquipmentSubtypesStore()
+const equipmentGradesStore = useEquipmentGradesStore()
+const keepingStore = useKeepingStore()
+const sourcesStore = useSourcesStore()
 
-// Internal edit mode management
-const { isEditMode: internalEditMode, toggleEditMode, showAddButton } = useTableEditMode()
+const allEquipment = computed(() => equipmentStore.equipment || [])
+const engagementSuccessOptions = ref([])
 
-// canEdit is true if the parent allows editing (character sheet edit mode)
+const {
+  showModal: showEditEquipmentModal,
+  itemToEdit: equipmentToEdit,
+  openModal: openEditEquipmentModal,
+  closeModal: closeEditEquipmentModal
+} = useEditModal()
+
+const internalEditMode = ref(false)
+const toggleEditMode = () => { internalEditMode.value = !internalEditMode.value }
+
 const canEdit = computed(() => props.isEditMode)
+const showAddButton = computed(() => internalEditMode.value)
 
-// Item management for equipment
-const equipmentManagement = useItemManagement(
-  computed(() => props.character),
-  emit,
-  'equipment',
-  'item'
-)
-
-// Source management
-const { sources, sourceUtils } = useSourceUtils()
-
-// Equipment selector state
 const showEquipmentSelector = ref(false)
 const showChoiceMode = ref(true)
 
-// Equipment choice options
-const equipmentChoiceOptions = [
+const addEquipmentOptions = [
   {
     key: 'library',
     label: 'Add from Library',
@@ -126,113 +138,134 @@ const equipmentChoiceOptions = [
   }
 ]
 
-// Equipment grouping and filtering
-const { groupedItems: groupedEquipment, filterItems: filterEquipment, searchQuery: equipmentSearchQuery } = useItemSelector(
-  computed(() => props.allEquipment || []),
-  sources,
-  sourceUtils,
-  { searchFields: ['name'] } // Only search equipment names
+const { groupedItems: groupedEquipment, searchQuery: equipmentSearchQuery } = useItemSelector(
+  allEquipment,
+  sourcesStore,
+  { searchFields: ['name'] }
 )
 
-// Character equipment transformation
-const { characterEquipmentRows } = useCharacterEquipment(
-  computed(() => props.character.equipment),
-  computed(() => props.allEquipment)
-)
+const characterEquipment = computed(() => {
+  if (!selectedCharacter.value?.equipment) return []
+  return selectedCharacter.value.equipment.map((entry) => {
+    const equipment = allEquipment.value.find((eq) => eq.id === entry.id)
+    return {
+      ...entry,
+      equipment,
+      collapsed: entry.collapsed ?? true,
+    }
+  })
+})
 
-// Custom equipment creation
-const { createAndAddCustomEquipment } = useCustomEquipment(
-  computed(() => props.character),
-  emit
-)
+const isCreatingCustom = ref(false)
 
-// Drag and drop functionality
-const updateEquipmentOrder = (newOrder) => {
-  const updatedEquipment = newOrder.map((item, index) => ({
-    ...item,
-    index: index,
-  }))
+const createAndAddCustomEquipment = async () => {
+  if (isCreatingCustom.value) return
 
-  equipmentManagement.reorderItems(updatedEquipment)
+  isCreatingCustom.value = true
+
+  try {
+    const createdEquipment = await EquipmentService.createCustomEquipment()
+
+    const newItem = {
+      id: createdEquipment.id,
+      quantity: 1,
+      isCarried: true,
+      isWielding: false,
+    }
+
+    const updated = CharacterService.addItem(selectedCharacter.value, 'equipment', newItem)
+    if (updated) Object.assign(selectedCharacter.value, updated)
+
+    await equipmentStore.fetch()
+
+    const fullEquipment = (equipmentStore.equipment || []).find(
+      (eq) => eq.id === createdEquipment.id
+    )
+
+    if (fullEquipment) {
+      emit('edit-custom-equipment', fullEquipment)
+    } else {
+      emit('edit-custom-equipment', createdEquipment.id)
+    }
+  } catch (error) {
+    console.error('Error adding custom equipment:', error)
+  } finally {
+    isCreatingCustom.value = false
+  }
 }
 
-const {
-  sortedItems: sortedEquipmentRows,
-  onDragEnd
-} = useDragAndDrop(characterEquipmentRows, updateEquipmentOrder, 'index')
+const sortedEquipment = computed({
+  get: () => [...characterEquipment.value].sort((a, b) => (a.index || 0) - (b.index || 0)),
+  set: (newOrder) => {
+    const updatedEquipment = newOrder.map((item, index) => ({
+      ...item,
+      index: index,
+    }))
 
-// Methods
-// Equipment Management
+    const updated = CharacterService.reorderItems(selectedCharacter.value, 'equipment', updatedEquipment)
+    if (updated) Object.assign(selectedCharacter.value, updated)
+  }
+})
 
 const removeEquipmentItem = (index) => {
-  equipmentManagement.removeItem(index, {
-    getDisplayName: (equipmentRow) => {
-      const equipment = equipmentRow?.equipment
-      return equipment ? equipment.name : 'this item'
-    },
-    confirmMessage: (name) => `Are you sure you want to remove ${name} from inventory?`
-  })
+  const equipmentItem = characterEquipment.value[index]
+  const equipmentName = equipmentItem?.equipment?.name || 'this item'
+
+  if (confirm(`Are you sure you want to remove ${equipmentName}?`)) {
+    const updated = CharacterService.removeItem(selectedCharacter.value, 'equipment', index)
+    if (updated) Object.assign(selectedCharacter.value, updated)
+  }
 }
 
 const handleCarriedChange = (index, isCarried) => {
-  const updates = { isCarried: isCarried }
+  selectedCharacter.value.equipment[index].isCarried = isCarried
 
-  if (!isCarried) {
-    const currentItem = props.character.equipment[index]
-    if (currentItem.isWielding) {
-      updates.isWielding = false
-    }
+  if (!isCarried && selectedCharacter.value.equipment[index].isWielding) {
+    selectedCharacter.value.equipment[index].isWielding = false
   }
-
-  equipmentManagement.updateItem(index, updates)
 }
 
 const handleWieldingChange = (index, isWielding) => {
-  const currentItem = props.character.equipment[index]
-  const equipmentRow = characterEquipmentRows.value[index]
+  const currentItem = selectedCharacter.value.equipment[index]
+  const equipmentItem = characterEquipment.value[index]
 
   let canWield = false
-  if (currentItem.isCarried && equipmentRow.equipment) {
-    const equipmentType = equipmentTypesStore.getById(equipmentRow.equipment.type)
+  if (currentItem.isCarried && equipmentItem.equipment) {
+    const equipmentType = equipmentTypesStore.getById(equipmentItem.equipment.type)
     canWield = equipmentType?.name === 'Weapon'
   }
 
-  const shouldWield = isWielding && canWield
-  equipmentManagement.updateItem(index, { isWielding: shouldWield })
+  selectedCharacter.value.equipment[index].isWielding = isWielding && canWield
 }
 
 const handleQuantityChange = (index, quantity) => {
-  const validQuantity = Math.max(1, quantity)
-  equipmentManagement.updateItem(index, { quantity: validQuantity })
+  selectedCharacter.value.equipment[index].quantity = Math.max(1, quantity)
 }
 
-const editCustomItem = (equipment) => {
-  emit('edit-custom-equipment', equipment)
+const saveEditedEquipment = async (updatedEquipment) => {
+  await EquipmentService.update(updatedEquipment)
+  await equipmentStore.fetch()
+  closeEditEquipmentModal()
 }
 
-// Equipment Selector
+const deleteEquipment = async (equipment) => {
+  await EquipmentService.delete(equipment)
+  await equipmentStore.fetch()
+  closeEditEquipmentModal()
+}
+
 const selectEquipment = (equipment) => {
   const newItem = {
     id: equipment.id,
     quantity: 1,
     isCarried: true,
     isWielding: false,
-    collapsed: true,
-    artExpanded: false,
+    collapsed: false,
   }
 
-  CharacterUtils.addSpecificEquipmentItem(
-    props.character,
-    newItem,
-    props.allEquipment,
-  )
-  emit('update-character', props.character)
+  const updated = CharacterService.addItem(selectedCharacter.value, 'equipment', newItem)
+  if (updated) Object.assign(selectedCharacter.value, updated)
   showEquipmentSelector.value = false
-}
-
-const handleEquipmentSearch = (query) => {
-  equipmentSearchQuery.value = query
-  filterEquipment()
 }
 
 const handleEquipmentChoice = (choice) => {
@@ -250,100 +283,39 @@ const closeEquipmentSelector = () => {
   showChoiceMode.value = true
 }
 
-// Handle equipment collapsed state changes
-const updateEquipmentCollapsed = (equipmentRow, collapsed) => {
-  // Find the equipment item in the character's equipment array and update its collapsed state
-  const updatedEquipment = props.character.equipment.map(equipmentObj => {
-    if (equipmentObj.id === equipmentRow.id) {
-      return { ...equipmentObj, collapsed }
-    }
-    return equipmentObj
-  })
-
-  const updatedCharacter = {
-    ...props.character,
-    equipment: updatedEquipment
+const updateEquipmentCollapsed = (equipmentItem, collapsed) => {
+  if (!selectedCharacter.value?.equipment) return
+  const index = selectedCharacter.value.equipment.findIndex(eq => eq.id === equipmentItem.id)
+  if (index !== -1) {
+    selectedCharacter.value.equipment[index].collapsed = collapsed
   }
-
-  emit('update-character', updatedCharacter)
 }
 
-// Handle equipment art expanded state changes
-const updateEquipmentArtExpanded = (equipmentRow, artExpanded) => {
-  // Find the equipment item in the character's equipment array and update its artExpanded state
-  const updatedEquipment = props.character.equipment.map(equipmentObj => {
-    if (equipmentObj.id === equipmentRow.id) {
-      return { ...equipmentObj, artExpanded }
-    }
-    return equipmentObj
-  })
-
-  const updatedCharacter = {
-    ...props.character,
-    equipment: updatedEquipment
+onMounted(async () => {
+  try {
+    await keepingStore.fetch()
+    await Promise.all([
+      equipmentTypesStore.fetch(),
+      equipmentSubtypesStore.fetch(),
+      equipmentGradesStore.fetch()
+    ])
+    engagementSuccessOptions.value = await EngagementSuccessService.getAll()
+  } catch (error) {
+    console.error('Error initializing EquipmentTable data:', error)
   }
-
-  emit('update-character', updatedCharacter)
-}
-
-
+})
 </script>
 
 <style scoped>
-.equipment-list {
-  width: 100%;
-  min-width: 0;
-  max-width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-sm);
-}
+@import '@/styles/character-sheet-item-table.css';
 
-.equipment-row {
-  position: relative;
-  overflow: visible;
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  width: 100%;
+.equipment-card {
+  text-align: left;
 }
 
 .equipment-card-col {
-  flex: 1 1 0%;
   display: flex;
   flex-direction: column;
   width: 100%;
-  min-width: 0;
-  max-width: 100%;
-}
-
-.equipment-row .equipment-card {
-  flex: 1 1 0%;
-  width: 100% !important;
-  min-width: 0;
-  max-width: 100%;
-  padding: 7px;
-  text-align: left;
-  margin-bottom: 0;
-  box-sizing: border-box;
-}
-
-.missing-equipment {
-  color: var(--color-text-muted);
-  font-style: italic;
-  padding: var(--space-md);
-}
-
-.equipment-weight {
-  color: var(--color-gray-light);
-  font-size: var(--font-size-14);
-  margin-left: 5px;
-}
-
-.ghost-equipment-row {
-  opacity: 0.5;
-  background: var(--overlay-white-subtle);
-  border: 2px dashed var(--color-gray-light);
-  border-radius: var(--radius-5);
 }
 </style>

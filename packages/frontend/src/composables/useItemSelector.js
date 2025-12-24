@@ -1,15 +1,6 @@
-import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
+import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue'
 
-/**
- * Composable for managing item selector/dropdown functionality
- * Used in components that have searchable item selectors with source grouping
- * @param {Ref} allItems - Reactive array of all items to search through
- * @param {Object} sources - Sources object for grouping
- * @param {Object} getSourceUtils - Utilities for source management
- * @param {Object} options - Configuration options
- * @param {Array<string>} options.searchFields - Fields to search in (default: ['name', 'description'])
- */
-export function useItemSelector(allItems, sources, getSourceUtils, options = {}) {
+export function useItemSelector(allItems, sourcesStore, options = {}) {
   // Configuration
   const searchFields = options.searchFields || ['name', 'description']
   // State
@@ -17,7 +8,6 @@ export function useItemSelector(allItems, sources, getSourceUtils, options = {})
   const searchQuery = ref('')
   const filteredItems = ref([])
 
-  // Methods
   const toggleSelector = (event) => {
     if (event) {
       event.stopPropagation() // Prevent immediate closing
@@ -55,10 +45,12 @@ export function useItemSelector(allItems, sources, getSourceUtils, options = {})
     })
   }
 
-  // Grouped items computed property
+  // Auto-filter when search query changes
+  watch(searchQuery, filterItems)
+
   const groupedItems = computed(() => {
     const grouped = {
-      general: [], // For items without a source or with an unknown source
+      general: [], // Grouping for items without a source or with an unknown source
     }
 
     // Add custom group if any items have isCustom property
@@ -71,12 +63,12 @@ export function useItemSelector(allItems, sources, getSourceUtils, options = {})
 
     // Group items
     items
-      .filter((item) => !item.isDeleted)
+      .filter((item) => !item.isDeleted && !item.isTemplate)
       .forEach((item) => {
         if (item.isCustom === true) {
           // Custom items go to the custom group
           grouped.custom.push(item)
-        } else if (!item.source || !getSourceUtils.getSourceById(item.source)) {
+        } else if (!item.source || !sourcesStore.getSourceById(item.source)) {
           // Items without a source or with an unrecognized source go to the general group
           grouped.general.push(item)
         } else {
@@ -106,8 +98,8 @@ export function useItemSelector(allItems, sources, getSourceUtils, options = {})
     const sourceKeys = Object.keys(grouped)
       .filter((key) => key !== 'custom' && key !== 'general')
       .sort((a, b) => {
-        const sourceNameA = getSourceUtils.getSourceName(a)
-        const sourceNameB = getSourceUtils.getSourceName(b)
+        const sourceNameA = sourcesStore.getSourceName(a)
+        const sourceNameB = sourcesStore.getSourceName(b)
         return sourceNameA.localeCompare(sourceNameB)
       })
 
@@ -123,7 +115,6 @@ export function useItemSelector(allItems, sources, getSourceUtils, options = {})
     return orderedGrouped
   })
 
-  // Outside click handling
   const handleOutsideClick = (event) => {
     const selector = document.querySelector('.ability-selector-container, .equipment-selector-container')
     

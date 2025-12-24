@@ -1,4 +1,5 @@
 import { getAuth } from '../config/firebase.js'
+import { USER_ROLE, USER_STATUS } from '../../../shared/constants/userConstants.js'
 
 // Middleware to verify Firebase ID token
 export const verifyToken = async (req, res, next) => {
@@ -25,7 +26,7 @@ export const verifyToken = async (req, res, next) => {
       uid: decodedToken.uid,
       email: decodedToken.email,
       name: decodedToken.name,
-      role: decodedToken.role || 'user',
+      role: decodedToken.role || USER_ROLE.USER,
       ...decodedToken
     }
     
@@ -50,7 +51,7 @@ export const requireAdmin = (req, res, next) => {
     return res.status(401).json({ error: 'Authentication required' })
   }
   
-  if (req.user.role !== 'admin') {
+  if (req.user.role !== USER_ROLE.ADMIN) {
     return res.status(403).json({ error: 'Admin access required' })
   }
   
@@ -72,7 +73,7 @@ export const requireApproved = async (req, res, next) => {
       return res.status(403).json({ error: 'User profile not found' })
     }
     
-    if (userProfile.status !== 'approved' && userProfile.role !== 'admin') {
+    if (userProfile.status !== USER_STATUS.APPROVED && userProfile.role !== USER_ROLE.ADMIN) {
       return res.status(403).json({ 
         error: 'Account pending approval',
         status: userProfile.status 
@@ -96,7 +97,7 @@ export const requireOwnership = (resourceParam = 'id') => {
     }
     
     // Admin can access all resources
-    if (req.user.role === 'admin') {
+    if (req.user.role === USER_ROLE.ADMIN) {
       return next()
     }
     

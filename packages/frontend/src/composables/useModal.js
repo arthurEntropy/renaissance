@@ -1,9 +1,5 @@
 import { ref } from 'vue'
 
-/**
- * Composable for managing modal state and functionality
- * Handles open/close state, edit mode, and confirmation dialogs
- */
 export function useModal(options = {}) {
   const {
     confirmOnClose = false,

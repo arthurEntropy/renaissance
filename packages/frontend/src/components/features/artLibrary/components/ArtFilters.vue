@@ -71,16 +71,16 @@
         <div class="stats-row">
             <div class="stats-items">
                 <span class="stat-item">
-                    Total: <strong>{{ totalCount }}</strong>
+                    Total: <span class="stat-value">{{ totalCount }}</span>
                 </span>
                 <span class="stat-item">
-                    Faces: <strong>{{ faceCount }}</strong>
+                    Faces: <span class="stat-value">{{ faceCount }}</span>
                 </span>
                 <span class="stat-item">
-                    Places: <strong>{{ placeCount }}</strong>
+                    Places: <span class="stat-value">{{ placeCount }}</span>
                 </span>
                 <span class="stat-item">
-                    Maps: <strong>{{ mapCount }}</strong>
+                    Maps: <span class="stat-value">{{ mapCount }}</span>
                 </span>
             </div>
 
@@ -110,7 +110,7 @@
                 </select>
 
                 <!-- Show Duplicates -->
-                <ActionButton :variant="showDuplicates ? 'danger' : 'neutral'" size="small"
+                <ActionButton :variant="showDuplicates ? 'warning' : 'neutral'" size="small"
                     :text="showDuplicates ? 'Show All' : 'Show Duplicates'" @click="showDuplicates = !showDuplicates" />
 
                 <ActionButton variant="primary" size="small" text="+ Add Art" @click="$emit('add')" />
@@ -120,7 +120,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { ref, computed, watch, onUnmounted } from 'vue'
 import { UserCircleIcon, PhotoIcon, MapIcon, XMarkIcon } from '@heroicons/vue/24/outline'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import { useSourcesStore } from '@/stores/sourcesStore'
@@ -199,12 +199,10 @@ const filteredSources = computed(() => {
     return filtered
 })
 
-// Check if there are any filtered sources to display
 const hasFilteredSources = computed(() => {
     return Object.values(filteredSources.value).some(group => group.length > 0)
 })
 
-// Get flat list of all filtered options for keyboard navigation
 const flatFilteredOptions = computed(() => {
     const options = []
     for (const [groupName, items] of Object.entries(filteredSources.value)) {
@@ -215,7 +213,6 @@ const flatFilteredOptions = computed(() => {
     return options
 })
 
-// Get the global index for an option based on group and local index
 const getOptionIndex = (groupName, localIndex) => {
     let globalIndex = 0
     for (const [gName, items] of Object.entries(filteredSources.value)) {
@@ -228,19 +225,12 @@ const getOptionIndex = (groupName, localIndex) => {
 }
 
 const getSourceName = (sourceId) => {
-    // Check if it's a special filter
+    // Check if it's a special filter first
     const specialFilter = specialFilterOptions.find(f => f.id === sourceId)
     if (specialFilter) return specialFilter.name
 
-    // Otherwise look in regular sources
-    const allSources = [
-        ...sourcesStore.sources.ancestries || [],
-        ...sourcesStore.sources.cultures || [],
-        ...sourcesStore.sources.mestieri || [],
-        ...sourcesStore.sources.worldElements || []
-    ]
-    const source = allSources.find(s => s.id === sourceId)
-    return source ? source.name : 'Unknown'
+    // Otherwise use store's method
+    return sourcesStore.getSourceName(sourceId)
 }
 
 const toggleTypeFilter = (type) => {
@@ -266,7 +256,13 @@ const selectSource = (sourceId) => {
 }
 
 const selectFirstMatch = () => {
-    if (flatFilteredOptions.value.length > 0) {
+    // If something is highlighted, select it
+    if (highlightedIndex.value >= 0 && highlightedIndex.value < flatFilteredOptions.value.length) {
+        const option = flatFilteredOptions.value[highlightedIndex.value]
+        selectSource(option.item.id)
+    }
+    // Otherwise select first available option
+    else if (flatFilteredOptions.value.length > 0) {
         const firstOption = flatFilteredOptions.value[0]
         selectSource(firstOption.item.id)
     }
@@ -278,19 +274,11 @@ const navigateDown = () => {
         highlightedIndex.value + 1,
         flatFilteredOptions.value.length - 1
     )
-    if (highlightedIndex.value >= 0 && highlightedIndex.value < flatFilteredOptions.value.length) {
-        const option = flatFilteredOptions.value[highlightedIndex.value]
-        selectSource(option.item.id)
-    }
 }
 
 const navigateUp = () => {
     if (flatFilteredOptions.value.length === 0) return
     highlightedIndex.value = Math.max(highlightedIndex.value - 1, 0)
-    if (highlightedIndex.value >= 0 && highlightedIndex.value < flatFilteredOptions.value.length) {
-        const option = flatFilteredOptions.value[highlightedIndex.value]
-        selectSource(option.item.id)
-    }
 }
 
 const removeSourceFilter = (sourceId) => {
@@ -300,15 +288,22 @@ const removeSourceFilter = (sourceId) => {
     }
 }
 
-// Click outside to close dropdown
 const handleClickOutside = (event) => {
     if (comboboxRef.value && !comboboxRef.value.contains(event.target)) {
         showDropdown.value = false
     }
 }
 
-onMounted(() => {
-    document.addEventListener('click', handleClickOutside)
+// Only add click listener when dropdown is open
+watch(showDropdown, (isOpen) => {
+    if (isOpen) {
+        // Use setTimeout to avoid immediate triggering from the click that opened it
+        setTimeout(() => {
+            document.addEventListener('click', handleClickOutside)
+        }, 0)
+    } else {
+        document.removeEventListener('click', handleClickOutside)
+    }
 })
 
 onUnmounted(() => {
@@ -382,7 +377,11 @@ onUnmounted(() => {
     border-color: var(--color-primary);
 }
 
-.stat-item strong {
+.stat-item {
+    color: var(--color-text-secondary);
+}
+
+.stat-value {
     color: var(--color-text-primary);
     font-weight: var(--font-weight-bold);
 }
@@ -402,7 +401,6 @@ onUnmounted(() => {
     border: none;
     border-radius: var(--radius-5);
     color: var(--color-text-secondary);
-    font-family: var(--font-family-base);
     font-size: var(--font-size-14);
     font-weight: var(--font-weight-semibold);
     cursor: pointer;
@@ -417,6 +415,11 @@ onUnmounted(() => {
 .size-button.selected {
     background: var(--color-bg-tertiary);
     color: var(--color-text-primary);
+}
+
+.size-button:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
 }
 
 .type-toggle {
@@ -440,18 +443,18 @@ onUnmounted(() => {
 }
 
 .type-button.faces {
-    background: rgba(59, 130, 246, 0.2);
-    color: rgb(96, 165, 250);
+    background: var(--color-type-faces-bg);
+    color: var(--color-type-faces);
 }
 
 .type-button.places {
-    background: rgba(16, 185, 129, 0.2);
-    color: rgb(52, 211, 153);
+    background: var(--color-type-places-bg);
+    color: var(--color-type-places);
 }
 
 .type-button.maps {
-    background: rgba(239, 68, 68, 0.2);
-    color: rgb(248, 113, 113);
+    background: var(--color-type-maps-bg);
+    color: var(--color-type-maps);
 }
 
 .type-button.selected {
@@ -465,6 +468,11 @@ onUnmounted(() => {
 
 .type-button.selected:hover {
     opacity: 1;
+}
+
+.type-button:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
 }
 
 .filter-select {

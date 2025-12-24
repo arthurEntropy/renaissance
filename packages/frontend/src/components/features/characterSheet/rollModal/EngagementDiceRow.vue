@@ -3,11 +3,12 @@
 
         <!-- Success assignment drop zone/display (left side for user) -->
         <div v-if="die.rolledMaxValue && showResults && !isOpponent" class="success-drop-zone left-side"
-            :class="{ disabled: !canEdit }" @drop="canEdit ? onSuccessDrop($event) : null" @dragover.prevent
-            @dragenter.prevent>
-            <div v-if="assignedSuccesses[`${side}-${index}`]" class="assigned-success-container">
-                <SuccessChip :success="getSuccessById(assignedSuccesses[`${side}-${index}`])" :removable="canEdit"
-                    @remove="$emit('remove-success-assignment', side, index)" />
+            :class="{ disabled: !canEdit }" @drop="onSuccessDrop" @dragover.prevent @dragenter.prevent>
+            <div v-if="assignedSuccess" class="assigned-success-container">
+                <ChipTag :text="assignedSuccess.name" rounded="full" variant="success" :tooltip="{
+                    description: assignedSuccess.description,
+                    sources: assignedSuccess.sources
+                }" :removable="canEdit" @remove="handleRemoveSuccess" />
             </div>
             <div v-else class="success-outline"></div>
         </div>
@@ -15,18 +16,20 @@
         <!-- Die display -->
         <span class="dice-symbol" :class="getDiceClasses(die, index)">
             <i :class="die.cssClass"></i>
-            <span v-if="die.rolledMaxValue && !isRerolling(index)" class="max-indicator">✨</span>
+            <SparklesIcon v-if="die.rolledMaxValue && !isRerolling(index)" class="max-indicator" />
         </span>
 
         <!-- Reroll hover button - only for user's own dice -->
-        <ActionButton v-if="showResults && !die.isRolling && !isRerolling(index) &&
-            isHovered(index) && canEdit && !isOpponent" variant="neutral" size="small" text="Reroll"
-            class="reroll-hover" @click="$emit('reroll', side, index)" />
+        <ActionButton v-if="showRerollButton" variant="neutral" size="small" text="Reroll" class="reroll-hover"
+            @click="handleReroll" />
 
         <!-- Success assignment display (right side for opponent) -->
         <div v-if="die.rolledMaxValue && showResults && isOpponent" class="success-display-zone right-side">
-            <div v-if="assignedSuccesses[`${side}-${index}`]" class="assigned-success-container">
-                <SuccessChip :success="getSuccessById(assignedSuccesses[`${side}-${index}`])" />
+            <div v-if="assignedSuccess" class="assigned-success-container">
+                <ChipTag :text="assignedSuccess.name" rounded="full" variant="success" :tooltip="{
+                    description: assignedSuccess.description,
+                    sources: assignedSuccess.sources
+                }" />
             </div>
             <div v-else class="success-outline"></div>
         </div>
@@ -35,9 +38,21 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import SuccessChip from '@/components/ui/chips/SuccessChip.vue'
+import { ref, computed } from 'vue'
+import { SparklesIcon } from '@heroicons/vue/24/outline'
+import { useEngagementSuccesses } from '@/composables/useEngagementSuccesses'
+import { useEngagementSession } from '@/composables/useEngagementSession'
+import { useEngagementRoll } from '@/composables/useEngagementRoll'
+import { useCharactersStore } from '@/stores/charactersStore'
+import ChipTag from '@/components/ui/chips/ChipTag.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
+
+const engagementSuccesses = useEngagementSuccesses()
+const sessionManager = useEngagementSession()
+const diceManager = useEngagementRoll()
+const charactersStore = useCharactersStore()
+
+const character = computed(() => charactersStore.selectedCharacter)
 
 const props = defineProps({
     die: {
@@ -63,28 +78,50 @@ const props = defineProps({
     canEdit: {
         type: Boolean,
         default: true
-    },
-    assignedSuccesses: {
-        type: Object,
-        default: () => ({})
-    },
-    allEngagementSuccesses: {
-        type: Array,
-        default: () => []
-    },
-    rerollingDice: {
-        type: Set,
-        default: () => new Set()
     }
 })
 
-const emit = defineEmits([
-    'reroll',
-    'success-drop',
-    'remove-success-assignment'
-])
-
 const hoveredDiceIndex = ref(null)
+
+// Computed: Get assigned success with null safety
+const assignedSuccess = computed(() => {
+    const successId = engagementSuccesses.assignedSuccesses[`${props.side}-${props.index}`]
+    if (!successId) return null
+    return engagementSuccesses.allEngagementSuccesses.value.find(s => s.id === successId) || null
+})
+
+// Computed: Show reroll button when all conditions met
+const showRerollButton = computed(() => {
+    return props.showResults &&
+        !props.die.isRolling &&
+        !isRerolling(props.index) &&
+        isHovered(props.index) &&
+        props.canEdit &&
+        !props.isOpponent
+})
+
+// Create reroll handler
+const rerollDie = diceManager.createRerollDieHandler(
+    sessionManager,
+    character.value,
+    diceManager.committedDice.value,
+    { assignedSuccesses: engagementSuccesses.assignedSuccesses }
+)
+
+// Handle reroll for this die
+const handleReroll = () => {
+    rerollDie(props.side, props.index)
+}
+
+// Handle success drop
+const handleSuccessDrop = (successData) => {
+    engagementSuccesses.assignSuccess(props.side, props.index, successData, character.value.id)
+}
+
+// Handle removing success assignment
+const handleRemoveSuccess = () => {
+    engagementSuccesses.removeSuccess(props.side, props.index, character.value.id)
+}
 
 const getDiceClasses = (die, index) => {
     const classes = []
@@ -107,7 +144,11 @@ const getDiceClasses = (die, index) => {
 }
 
 const isRerolling = (index) => {
-    return props.rerollingDice.has(`${props.side}-${index}`)
+    const key = `${props.side}-${index}`
+    // Vue doesn't track Set.has() calls natively, so we access .size to trigger reactivity
+    // This ensures the component re-renders when the Set changes
+    const _ = diceManager.rerollingDice.value.size
+    return diceManager.rerollingDice.value.has(key)
 }
 
 const setHoverState = (index, isHovered) => {
@@ -120,15 +161,12 @@ const isHovered = (index) => {
     return hoveredDiceIndex.value === index
 }
 
-const getSuccessById = (successId) => {
-    return props.allEngagementSuccesses.find(s => s.id === successId)
-}
-
 const onSuccessDrop = (event) => {
+    if (!props.canEdit) return
     event.preventDefault()
     try {
         const successData = JSON.parse(event.dataTransfer.getData('application/json'))
-        emit('success-drop', props.side, props.index, successData)
+        handleSuccessDrop(successData)
     } catch (error) {
         console.error('Error handling success drop:', error)
     }
@@ -274,7 +312,8 @@ const onSuccessDrop = (event) => {
     position: absolute;
     top: -3px;
     right: -3px;
-    font-size: var(--font-size-14);
+    width: 16px;
+    height: 16px;
     color: var(--color-accent-gold);
     animation: sparkle 2s ease-in-out infinite;
 }

@@ -1,34 +1,55 @@
 <template>
     <section class="roll-resolution">
-        <div class="result-label">{{ resultLabel }}:</div>
+
+        <!-- Result label -->
+        <div class="result-label">Result:</div>
+
         <div class="result-row">
+
+            <!-- User accept button -->
             <ActionButton :variant="getAcceptButtonVariant" size="large" :disabled="!canAccept"
-                :text="userAccepted ? '✓' : acceptButtonText" @click="emit('toggle-user-accept')" class="accept-btn" />
+                @click="emit('toggle-user-accept')" class="accept-btn">
+                <template v-if="userAccepted">
+                    <CheckIcon class="check-icon" />
+                </template>
+                <template v-else>
+                    Accept
+                </template>
+            </ActionButton>
+
+            <!-- Winner announcement -->
             <div class="winner-announcement" :class="getWinnerAnnouncementClasses">
                 {{ winnerText }}
             </div>
-            <ActionButton :variant="getOpponentButtonVariant" size="large" :text="opponentAccepted ? '✓' : waitingText"
-                :disabled="true" class="opponent-status-btn" />
+
+            <!-- Opponent status button -->
+            <ActionButton :variant="getOpponentButtonVariant" size="large" :disabled="true" class="opponent-status-btn">
+                <template v-if="opponentAccepted">
+                    <CheckIcon class="check-icon" />
+                </template>
+                <template v-else>
+                    Waiting...
+                </template>
+            </ActionButton>
         </div>
     </section>
 </template>
 
 <script setup>
 import { computed } from 'vue'
+import { CheckIcon } from '@heroicons/vue/24/solid'
 import { WINNER } from '@shared/constants/winner.js'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
+import { useEngagementSession } from '@/composables/useEngagementSession'
+import { useEngagementRoll } from '@/composables/useEngagementRoll'
+import { useOpposedSkillCheckSession } from '@/composables/useOpposedSkillCheckSession'
+import { useCharactersStore } from '@/stores/charactersStore'
 
-// Props
 const props = defineProps({
-    // Common props for both modes
     mode: {
         type: String,
         required: true,
         validator: (value) => ['engagement', 'opposed-skill-check'].includes(value)
-    },
-    winner: {
-        type: String,
-        default: null // 'user', 'opponent', 'tie'/'draw'
     },
     userAccepted: {
         type: Boolean,
@@ -52,74 +73,52 @@ const props = defineProps({
     }
 })
 
-// Emits
 const emit = defineEmits(['toggle-user-accept'])
 
-// Mode-specific text constants
-const modeConfig = computed(() => {
+const sessionManager = useEngagementSession()
+const diceManager = useEngagementRoll()
+const opposedSessionManager = useOpposedSkillCheckSession()
+const charactersStore = useCharactersStore()
+
+// Get winner from appropriate composable based on mode
+const winner = computed(() => {
     if (props.mode === 'engagement') {
-        return {
-            resultLabel: 'Result',
-            acceptButton: 'Accept',
-            waitingText: 'Waiting...',
-            winText: 'wins',
-            tieText: 'Draw'
-        }
+        return diceManager.getEngagementWinner(
+            sessionManager,
+            charactersStore.selectedCharacter,
+            diceManager.committedDice.value
+        )
     } else {
-        return {
-            resultLabel: 'Result',
-            acceptButton: 'Accept',
-            waitingText: 'Waiting...',
-            winText: 'wins',
-            tieText: 'Tie'
-        }
+        // For opposed skill check, get winner from its session manager
+        return opposedSessionManager.winner.value
     }
 })
-
-// Computed properties for text
-const resultLabel = computed(() => modeConfig.value.resultLabel)
-const acceptButtonText = computed(() => modeConfig.value.acceptButton)
-const waitingText = computed(() => modeConfig.value.waitingText)
 
 const winnerText = computed(() => {
-    if (!props.winner) {
-        return '';
+    const winnerValue = winner.value
+
+    if (!winnerValue) {
+        return 'Calculating...'
     }
 
-    const config = modeConfig.value;
-
-    switch (props.winner) {
-        case 'user':
-            return props.mode === 'engagement'
-                ? `${props.characterName} ${config.winText}`
-                : `${props.characterName} ${config.winText}`;
-        case 'opponent':
-            return props.mode === 'engagement'
-                ? `${props.opponentName} ${config.winText}`
-                : `${props.opponentName} ${config.winText}`;
-        case 'tie':
-        case 'draw':
-            return config.tieText;
+    switch (winnerValue) {
+        case WINNER.USER:
+            return `${props.characterName} wins`
+        case WINNER.OPPONENT:
+            return `${props.opponentName} wins`
+        case WINNER.TIE:
+            return 'Draw'
         default:
-            return '';
+            return 'Calculating...'
     }
 })
-
-// Helper function to normalize winner types
-const normalizeWinner = (winner) => {
-    if (winner === 'draw') return WINNER.TIE
-    if (winner === WINNER.TIE) return WINNER.TIE
-    return winner
-}
 
 const getAcceptButtonVariant = computed(() => {
     if (!props.canAccept) {
         return 'neutral'
     }
 
-    const normalizedWinner = normalizeWinner(props.winner)
-
-    switch (normalizedWinner) {
+    switch (winner.value) {
         case WINNER.USER:
             return 'success'
         case WINNER.OPPONENT:
@@ -133,37 +132,34 @@ const getAcceptButtonVariant = computed(() => {
 
 const getOpponentButtonVariant = computed(() => {
     if (!props.opponentAccepted) {
-        return 'neutral' // Waiting state
+        return 'neutral'
     }
 
-    const normalizedWinner = normalizeWinner(props.winner)
-
-    // From opponent's perspective: if opponent won, it's success; if user won, it's danger; tie is neutral
-    switch (normalizedWinner) {
-        case 'opponent':
-            return 'success' // Opponent won
-        case 'user':
-            return 'danger'  // Opponent lost
-        case 'tie':
-            return 'neutral' // Draw/tie
+    // From opponent's perspective
+    switch (winner.value) {
+        case WINNER.OPPONENT:
+            return 'success'
+        case WINNER.USER:
+            return 'danger'
+        case WINNER.TIE:
+            return 'neutral'
         default:
             return 'neutral'
     }
 })
 
 const getWinnerAnnouncementClasses = computed(() => {
-    const classes = [];
-    const normalizedWinner = normalizeWinner(props.winner);
+    const classes = []
 
     if (props.userAccepted && props.opponentAccepted) {
-        classes.push('both-accepted');
+        classes.push('both-accepted')
     }
 
-    if (normalizedWinner === WINNER.TIE) {
-        classes.push('draw-result');
+    if (winner.value === WINNER.TIE) {
+        classes.push('draw-result')
     }
 
-    return classes;
+    return classes
 })
 </script>
 
@@ -210,5 +206,10 @@ const getWinnerAnnouncementClasses = computed(() => {
 
 .winner-announcement.draw-result {
     color: var(--color-warning);
+}
+
+.check-icon {
+    width: 20px;
+    height: 20px;
 }
 </style>

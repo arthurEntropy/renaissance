@@ -1,4 +1,4 @@
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed } from 'vue'
 import { useFilterPersistence } from '@/composables/useFilterPersistence'
 import { useSourcesStore } from '@/stores/sourcesStore'
 
@@ -20,19 +20,14 @@ export function useArtFilters(artStore) {
     const orderBy = ref('')
     const showDuplicates = ref(false)
 
-    // Filter persistence
-    const { initialize: initializeFilterPersistence } = useFilterPersistence('art', {
+    // Filter persistence - auto-initializes
+    useFilterPersistence('art', {
         gridSize,
         typeFilters,
         sourceFilters,
         groupBy,
         orderBy,
         showDuplicates
-    })
-
-    // Initialize on mount
-    onMounted(() => {
-        initializeFilterPersistence()
     })
 
     // Helper function to check if art has any tags from a specific category

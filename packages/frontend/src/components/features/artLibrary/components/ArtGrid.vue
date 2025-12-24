@@ -81,7 +81,6 @@ const handleCardClick = (event, art) => {
     min-width: 100%;
 }
 
-/* Grouped Display */
 .grouped-art {
     display: flex;
     flex-direction: column;
@@ -209,7 +208,7 @@ const handleCardClick = (event, art) => {
     padding: 2px 4px;
 }
 
-.art-grid.grid-size-small :deep(.art-source-tag) {
+.art-grid.grid-size-small :deep(.chip) {
     padding: 2px 4px;
     font-size: var(--font-size-10);
 }

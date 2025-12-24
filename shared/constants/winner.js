@@ -3,3 +3,9 @@ export const WINNER = {
   OPPONENT: 'opponent',
   TIE: 'tie'
 }
+
+export const WINNER_LABELS = {
+  [WINNER.USER]: 'WIN',
+  [WINNER.OPPONENT]: 'LOSS',
+  [WINNER.TIE]: 'TIE',
+}

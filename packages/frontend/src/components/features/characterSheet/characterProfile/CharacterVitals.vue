@@ -1,6 +1,7 @@
 <template>
     <div class="vitals-info edit-hover-area">
-        <EditButton v-if="isEditMode" size="small" visibility="on-hover" class="edit-button-overlay"
+        <FloatingActionButton type="settings" size="small" class="settings-button-overlay" @click="openSettingsModal" />
+        <FloatingActionButton v-if="canEdit" type="edit" size="small" visibility="on-hover" class="edit-button-overlay"
             @click="openEditModal" />
 
         <!-- Name and Pronouns -->
@@ -13,73 +14,70 @@
         <div class="vitals-details">
             <div class="vitals-detail">
                 <span class="vitals-label">Ancestries:</span>
-                <span class="vitals-value">{{ displayAncestries || 'None' }}</span>
+                <div class="vitals-value">
+                    <span v-if="!ancestries.length">None</span>
+                    <span v-for="(ancestry, index) in ancestries" :key="ancestry.id">
+                        {{ ancestry.name }}<span v-if="index < ancestries.length - 1">, </span>
+                    </span>
+                </div>
             </div>
 
             <div class="vitals-detail">
                 <span class="vitals-label">Cultures:</span>
-                <span class="vitals-value">{{ displayCultures || 'None' }}</span>
+                <div class="vitals-value">
+                    <span v-if="!cultures.length">None</span>
+                    <span v-for="(culture, index) in cultures" :key="culture.id">
+                        {{ culture.name }}<span v-if="index < cultures.length - 1">, </span>
+                    </span>
+                </div>
             </div>
 
             <div class="vitals-detail">
                 <span class="vitals-label">Mestiere:</span>
-                <span class="vitals-value">{{ displayMestiere || 'None' }}</span>
+                <div class="vitals-value">{{ mestiere?.name || 'None' }}</div>
             </div>
         </div>
 
         <!-- Edit Modal -->
-        <CharacterVitalsEditModal v-if="isEditModalOpen" :character="character" @close="closeEditModal"
-            @update-character="handleCharacterUpdate" />
+        <CharacterVitalsEditModal v-if="isEditModalOpen" @close="closeEditModal" />
+
+        <!-- Settings Modal -->
+        <CharacterSettingsModal v-if="showSettingsModal" @close="closeSettingsModal" @delete="handleDeleteCharacter" />
     </div>
 </template>
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
-import { useAncestriesStore } from '@/stores/ancestriesStore'
-import { useCulturesStore } from '@/stores/culturesStore'
-import { useMestieriStore } from '@/stores/mestieriStore'
-import EditButton from '@/components/ui/buttons/EditButton.vue'
+import { useCharactersStore } from '@/stores/charactersStore'
+import { useConceptsStore } from '@/stores/conceptsStore'
+import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import CharacterVitalsEditModal from './CharacterVitalsEditModal.vue'
+import CharacterSettingsModal from '@/components/features/characterSheet/modals/CharacterSettingsModal.vue'
 
-const ancestryStore = useAncestriesStore()
-const cultureStore = useCulturesStore()
-const mestiereStore = useMestieriStore()
+const charactersStore = useCharactersStore()
+const conceptsStore = useConceptsStore()
 
-const props = defineProps({
-    character: {
-        type: Object,
-        required: true,
-    },
-    isEditMode: {
-        type: Boolean,
-        default: false
-    }
-})
+const emit = defineEmits(['close-sheet'])
 
-const emit = defineEmits(['update-character'])
+const character = computed(() => charactersStore.selectedCharacter)
+const canEdit = computed(() => charactersStore.canEditSelectedCharacter)
 
 const isEditModalOpen = ref(false)
+const showSettingsModal = ref(false)
 
-const displayAncestries = computed(() => {
-    if (!props.character.ancestryIds?.length) return ''
-    return ancestryStore.ancestries
-        .filter(a => props.character.ancestryIds.includes(a.id))
-        .map(a => a.name)
-        .join(', ')
+const ancestries = computed(() => {
+    if (!character.value?.ancestryIds?.length) return []
+    return conceptsStore.ancestries.filter(a => character.value.ancestryIds.includes(a.id))
 })
 
-const displayCultures = computed(() => {
-    if (!props.character.cultureIds?.length) return ''
-    return cultureStore.cultures
-        .filter(c => props.character.cultureIds.includes(c.id))
-        .map(c => c.name)
-        .join(', ')
+const cultures = computed(() => {
+    if (!character.value?.cultureIds?.length) return []
+    return conceptsStore.cultures.filter(c => character.value.cultureIds.includes(c.id))
 })
 
-const displayMestiere = computed(() => {
-    if (!props.character.mestiereId) return ''
-    const mestiere = mestiereStore.mestieri.find(m => m.id === props.character.mestiereId)
-    return mestiere?.name || ''
+const mestiere = computed(() => {
+    if (!character.value?.mestiereId) return null
+    return conceptsStore.mestieri.find(m => m.id === character.value.mestiereId)
 })
 
 const openEditModal = () => {
@@ -90,14 +88,22 @@ const closeEditModal = () => {
     isEditModalOpen.value = false
 }
 
-const handleCharacterUpdate = (updatedCharacter) => {
-    emit('update-character', updatedCharacter)
+const openSettingsModal = () => {
+    showSettingsModal.value = true
+}
+
+const closeSettingsModal = () => {
+    showSettingsModal.value = false
+}
+
+const handleDeleteCharacter = async () => {
+    await charactersStore.delete(character.value.id)
+    closeSettingsModal()
+    emit('close-sheet')
 }
 
 onMounted(() => {
-    ancestryStore.fetch()
-    cultureStore.fetch()
-    mestiereStore.fetch()
+    conceptsStore.fetch()
 })
 </script>
 
@@ -113,6 +119,13 @@ onMounted(() => {
     position: absolute;
     top: 0;
     right: 0;
+    z-index: var(--z-raised);
+}
+
+.settings-button-overlay {
+    position: absolute;
+    top: 0;
+    right: 32px;
     z-index: var(--z-raised);
 }
 
@@ -141,12 +154,14 @@ onMounted(() => {
     display: flex;
     flex-direction: column;
     gap: var(--space-xs);
+    align-items: flex-start;
 }
 
 .vitals-detail {
     display: flex;
     flex-direction: column;
     gap: 2px;
+    align-items: flex-start;
 }
 
 .vitals-label {

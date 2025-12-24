@@ -62,15 +62,16 @@ import CollapsibleAdminSection from './CollapsibleAdminSection.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import UserCard from './UserCard.vue'
 import UserService from '@/services/entities/userService'
+import { USER_STATUS, USER_ROLE } from '@shared/constants/userConstants'
 
 const users = ref([])
 const loading = ref(true)
 const error = ref(null)
 
 // Computed user groups
-const pendingUsers = computed(() => users.value.filter(user => user.status === 'pending'))
-const approvedUsers = computed(() => users.value.filter(user => user.status === 'approved' && user.role === 'user'))
-const adminUsers = computed(() => users.value.filter(user => user.role === 'admin'))
+const pendingUsers = computed(() => users.value.filter(user => user.status === USER_STATUS.PENDING))
+const approvedUsers = computed(() => users.value.filter(user => user.status === USER_STATUS.APPROVED && user.role === USER_ROLE.USER))
+const adminUsers = computed(() => users.value.filter(user => user.role === USER_ROLE.ADMIN))
 
 const loadUsers = async () => {
     try {
@@ -88,7 +89,7 @@ const loadUsers = async () => {
 const approveUser = async (userId) => {
     try {
         await UserService.approveUser(userId)
-        await loadUsers() // Refresh the list
+        await loadUsers()
     } catch (err) {
         console.error('Error approving user:', err)
         alert('Failed to approve user: ' + err.message)
@@ -102,7 +103,7 @@ const rejectUser = async (userId) => {
 
     try {
         await UserService.deleteUser(userId)
-        await loadUsers() // Refresh the list
+        await loadUsers()
     } catch (err) {
         console.error('Error rejecting user:', err)
         alert('Failed to reject user: ' + err.message)
@@ -115,8 +116,8 @@ const suspendUser = async (userId) => {
     }
 
     try {
-        await UserService.updateUser(userId, { status: 'suspended' })
-        await loadUsers() // Refresh the list
+        await UserService.updateUser(userId, { status: USER_STATUS.SUSPENDED })
+        await loadUsers()
     } catch (err) {
         console.error('Error suspending user:', err)
         alert('Failed to suspend user: ' + err.message)
@@ -126,7 +127,7 @@ const suspendUser = async (userId) => {
 const updateUserRole = async (userId, role) => {
     try {
         await UserService.setUserRole(userId, role)
-        await loadUsers() // Refresh the list
+        await loadUsers()
     } catch (err) {
         console.error('Error updating user role:', err)
         alert('Failed to update user role: ' + err.message)
@@ -140,7 +141,7 @@ const deleteUser = async (userId) => {
 
     try {
         await UserService.deleteUser(userId)
-        await loadUsers() // Refresh the list
+        await loadUsers()
     } catch (err) {
         console.error('Error deleting user:', err)
         alert('Failed to delete user: ' + err.message)

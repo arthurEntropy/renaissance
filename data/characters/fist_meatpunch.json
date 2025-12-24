@@ -184,7 +184,7 @@
       "isCarried": true,
       "isWielding": true,
       "index": 0,
-      "collapsed": false,
+      "collapsed": true,
       "artExpanded": true
     },
     {
@@ -195,6 +195,12 @@
       "index": 1,
       "collapsed": false,
       "artExpanded": true
+    },
+    {
+      "id": "fa34252b-7e6d-446c-bf47-908bcea3bbcb",
+      "quantity": 1,
+      "isCarried": true,
+      "collapsed": false
     }
   ],
   "engagementDice": [],
@@ -203,7 +209,7 @@
     {
       "id": "f1d0e5f7-bb30-4251-a575-8d31c113fe1a",
       "collapsed": false,
-      "showImprovements": false,
+      "showImprovements": true,
       "improvements": {
         "a277f343-4a95-51c2-a376-74b16ab9bb7c": false,
         "854306d6-d3b2-5b9d-a387-1474c611803b": true,
@@ -225,6 +231,6 @@
     "https://cdn.midjourney.com/579f1913-10e8-438c-9d1d-949151eb171c/0_0.png"
   ],
   "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2025-11-20T00:09:21.307Z",
-  "lastModified": "2025-11-20T00:09:21.308Z"
+  "updatedAt": "2025-12-15T13:49:41.991Z",
+  "lastModified": "2025-12-15T13:49:41.991Z"
 }

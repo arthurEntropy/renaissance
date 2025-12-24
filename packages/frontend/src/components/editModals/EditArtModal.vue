@@ -40,10 +40,10 @@
 import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import NavigationControls from '@/components/ui/NavigationControls.vue'
-import ArtImageSection from '@/components/features/artLibrary/components/ArtImageSection.vue'
-import ArtUrlTypeRow from '@/components/features/artLibrary/components/ArtUrlTypeRow.vue'
-import ArtTagsDisplay from '@/components/features/artLibrary/components/ArtTagsDisplay.vue'
-import ArtTagsSelector from '@/components/features/artLibrary/components/ArtTagsSelector.vue'
+import ArtImageSection from '@/components/editModals/artModal/ArtImageSection.vue'
+import ArtUrlTypeRow from '@/components/editModals/artModal/ArtUrlTypeRow.vue'
+import ArtTagsDisplay from '@/components/editModals/artModal/ArtTagsDisplay.vue'
+import ArtTagsSelector from '@/components/editModals/artModal/ArtTagsSelector.vue'
 import { useSourcesStore } from '@/stores/sourcesStore'
 
 const props = defineProps({
@@ -113,16 +113,16 @@ watch(() => props.art?.id, (newId, oldId) => {
 })
 
 // Autosave watcher with debounce
-let saveTimeout = null
+const saveTimeout = ref(null)
 watch(localArt, (newValue) => {
     // Only autosave if we have a URL and this is not a new item and not multi-editing
     if (!isNew.value && !props.isMultiEdit && newValue.url.trim().length > 0) {
         // Clear existing timeout
-        if (saveTimeout) {
-            clearTimeout(saveTimeout)
+        if (saveTimeout.value) {
+            clearTimeout(saveTimeout.value)
         }
         // Debounce save by 500ms
-        saveTimeout = setTimeout(() => {
+        saveTimeout.value = setTimeout(() => {
             emit('save', { ...newValue })
         }, 500)
     }
@@ -231,6 +231,10 @@ onMounted(async () => {
 
 onUnmounted(() => {
     window.removeEventListener('keydown', handleKeyNavigation)
+    // Clean up any pending autosave timeout
+    if (saveTimeout.value) {
+        clearTimeout(saveTimeout.value)
+    }
 })
 </script>
 

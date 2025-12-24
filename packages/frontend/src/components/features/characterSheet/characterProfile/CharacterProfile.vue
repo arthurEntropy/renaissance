@@ -1,42 +1,34 @@
 <template>
-  <CharacterSheetSection custom-class="character-profile" min-width="350px" max-width="390px">
-    <CharacterArt :character="character" :is-edit-mode="isEditMode" @update-character="handleCharacterUpdate" />
-    <CharacterVitals :character="character" :is-edit-mode="isEditMode" @update-character="handleCharacterUpdate" />
+  <CharacterSheetSection custom-class="character-profile" min-width="300px" max-width="400px">
+    <CharacterArt />
+    <CharacterVitals @close-sheet="$emit('close-sheet')" />
 
     <!-- XP Badge -->
     <div class="xp-badge">
       <span class="xp-label">XP:</span>
-      <NumberInput :model-value="character.xp || 0" :disabled="!isEditMode" @update:model-value="updateXP" :min="0"
+      <NumberInput :model-value="character.xp || 0" :disabled="!canEdit" @update:model-value="updateXP" :min="0"
         size="small" />
     </div>
   </CharacterSheetSection>
 </template>
 
 <script setup>
+import { computed } from 'vue'
 import CharacterArt from './CharacterArt.vue'
 import CharacterVitals from './CharacterVitals.vue'
 import CharacterSheetSection from '@/components/ui/containers/CharacterSheetSection.vue'
 import NumberInput from '@/components/ui/forms/NumberInput.vue'
+import { useCharactersStore } from '@/stores/charactersStore'
 
-const { character, isEditMode } = defineProps({
-  character: {
-    type: Object,
-    required: true,
-  },
-  isEditMode: {
-    type: Boolean,
-    default: false
-  }
-})
+defineEmits(['close-sheet'])
 
-const emit = defineEmits(['update-character'])
+const charactersStore = useCharactersStore()
 
-const handleCharacterUpdate = (updatedCharacter) => {
-  emit('update-character', updatedCharacter)
-}
+const character = computed(() => charactersStore.selectedCharacter)
+const canEdit = computed(() => charactersStore.canEditSelectedCharacter)
 
 const updateXP = (newValue) => {
-  emit('update-character', { ...character, xp: newValue })
+  character.value.xp = newValue
 }
 </script>
 

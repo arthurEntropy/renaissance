@@ -1,5 +1,5 @@
 <template>
-  <ConceptsLayout itemName="Character" v-bind="layoutProps" />
+  <ConceptsLayout v-bind="layoutProps" @select="handleSelect" @deselect="handleDeselect" @create="handleCreate" />
 </template>
 
 <script setup>
@@ -14,7 +14,7 @@ const charactersStore = useCharactersStore()
 const equipmentStore = useEquipmentStore()
 const abilitiesStore = useAbilitiesStore()
 
-const { layoutProps } = useCharactersLayout(
+const { layoutProps, handleSelect, handleDeselect, handleCreate } = useCharactersLayout(
   charactersStore,
   equipmentStore,
   abilitiesStore,

@@ -2,10 +2,6 @@ import { ref, computed } from 'vue'
 import { SESSION_STATUS } from '@shared/constants/sessionStatus.js'
 import { SESSION_EVENTS } from '@shared/constants/sessionEvents.js'
 
-/**
- * Base composable for session management that provides common state,
- * event handling, and session lifecycle functionality.
- */
 export function useBaseSession(sessionService) {
   // Core session state
   const sessionId = ref(null)

@@ -1,58 +1,37 @@
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
-import AncestryService from '@/services/entities/gameConcepts/ancestryService'
-import CultureService from '@/services/entities/gameConcepts/cultureService'
-import MestiereService from '@/services/entities/gameConcepts/mestiereService'
-import WorldElementService from '@/services/entities/gameConcepts/worldElementService'
+import { computed } from 'vue'
+import { useConceptsStore } from './conceptsStore'
 
-/**
- * Aggregator store for all game concept sources
- * Provides centralized access to ancestries, cultures, mestieri, and world elements
- * Used primarily for source selection in UI components
- */
 export const useSourcesStore = defineStore('sources', () => {
-  // State
-  const sources = ref({
-    ancestries: [],
-    cultures: [],
-    mestieri: [],
-    worldElements: [],
-  })
-  const isLoading = ref(false)
-  const error = ref(null)
+  const conceptsStore = useConceptsStore()
 
-  // Actions
+  const sources = computed(() => ({
+    ancestries: conceptsStore.ancestries || [],
+    cultures: conceptsStore.cultures || [],
+    mestieri: conceptsStore.mestieri || [],
+    worldElements: conceptsStore.worldElements || [],
+  }))
+
+  // Flat list of all sources for efficient lookups
+  const allSourcesFlat = computed(() => [
+    ...(conceptsStore.ancestries || []),
+    ...(conceptsStore.cultures || []),
+    ...(conceptsStore.mestieri || []),
+    ...(conceptsStore.worldElements || [])
+  ])
+
+  const isLoading = computed(() => conceptsStore.isLoading)
+
+  const error = computed(() => conceptsStore.error)
+
   const fetchSources = async () => {
-    isLoading.value = true
-    error.value = null
-    try {
-      const [ancestries, cultures, mestieri, worldElements] = await Promise.all([
-        AncestryService.getAll(),
-        CultureService.getAll(),
-        MestiereService.getAll(),
-        WorldElementService.getAll(),
-      ])
-      sources.value = { ancestries, cultures, mestieri, worldElements }
-    } catch (err) {
-      console.error('Error fetching sources:', err)
-      error.value = err.message
-      throw err
-    } finally {
-      isLoading.value = false
-    }
+    await conceptsStore.fetch()
   }
 
-  // Helpers
   const getSourceById = (sourceId) => {
     if (!sourceId) return null
-    return (
-      sources.value.ancestries.find((s) => s.id === sourceId) ||
-      sources.value.cultures.find((s) => s.id === sourceId) ||
-      sources.value.mestieri.find((s) => s.id === sourceId) ||
-      sources.value.worldElements.find((s) => s.id === sourceId) ||
-      null
-    )
-  }
+    return allSourcesFlat.value.find(s => s.id === sourceId) || null
+}
 
   const getSourceName = (sourceId) => {
     if (sourceId === 'general') return 'General'
@@ -75,6 +54,7 @@ export const useSourcesStore = defineStore('sources', () => {
 
   return {
     sources,
+    allSourcesFlat,
     isLoading,
     error,
     fetchSources,

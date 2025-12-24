@@ -8,7 +8,15 @@ import opposedSkillCheckSessionService from '@/services/sessions/opposedSkillChe
 import OpposedSkillCheckService from '@/services/rolls/opposedSkillCheckService'
 import { useBaseSession } from './useBaseSession.js'
 
+// Singleton instance
+let opposedSkillCheckSessionInstance = null
+
 export function useOpposedSkillCheckSession() {
+  // Return existing instance if already created
+  if (opposedSkillCheckSessionInstance) {
+    return opposedSkillCheckSessionInstance
+  }
+
   // Use base session functionality
   const baseSession = useBaseSession(opposedSkillCheckSessionService)
 
@@ -105,7 +113,7 @@ export function useOpposedSkillCheckSession() {
     }
   })
 
-  function initializeSession(character, skillCheckConfig, resultIndicatorCallback, dieRerolledCallback, rollResultsCallback) {
+  function initializeSession(character, skillCheckConfig, _resultIndicatorCallback, _dieRerolledCallback, _rollResultsCallback) {
     // Reset acceptance state for fresh session
     baseSession.resetAcceptanceState()
     
@@ -113,10 +121,10 @@ export function useOpposedSkillCheckSession() {
     currentCharacter.value = character
     userSkillConfig.value = skillCheckConfig
     
-    // Setup event listeners with opposed skill check specific callbacks
+    // Setup event listeners - all handled internally now
     const callbacks = {
       sessionType: 'opposed skill check',
-      onRollResults: ({ session, timestamp }) => {
+      onRollResults: ({ session, _timestamp }) => {
         // Ensure session has the expected structure
         if (!session || !session.users || session.users.length < 2) {
           console.error('Invalid session structure for opposed skill check:', session)
@@ -131,25 +139,20 @@ export function useOpposedSkillCheckSession() {
           return
         }
         
-        // Create the opposed result for external callbacks
+        // Create the opposed result for Discord webhook
         const opposedResult = OpposedSkillCheckService.createOpposedSkillCheckResult(
           session,
           character.id,
           opponent.characterInfo.id
         )
         
-        // Call the external callback with the processed result
+        // Send to Discord if result was created
         if (opposedResult) {
-          rollResultsCallback(opposedResult, timestamp)
+          // Discord webhook is handled by the service internally
         } else {
           console.error('Failed to create opposed skill check result')
         }
-        
-        // Note: baseSession.rollResults is already set by the base handler to contain the session
-        // which is what the UI components expect
-      },
-      onResultIndicatorUpdated: resultIndicatorCallback,
-      onDieRerolled: dieRerolledCallback
+      }
     }
 
     baseSession.setupBaseEventHandlers(character, callbacks)
@@ -285,8 +288,39 @@ export function useOpposedSkillCheckSession() {
     cleanupEventListeners()
     opposedSkillCheckSessionService.disconnect()
   }
+  
+  // Simplified public API methods
+  function initialize(character, skillCheckConfig) {
+    initializeSession(character, skillCheckConfig)
+  }
+  
+  function cleanup() {
+    disconnect()
+  }
+  
+  // Alias for backwards compatibility
+  function startSession(character, skillCheckConfig) {
+    initialize(character, skillCheckConfig)
+  }
+  
+  // Generate results when both users accept
+  function generateResultsOnAccept() {
+    if (!baseSession.bothUsersAccepted.value) {
+      return null
+    }
+    
+    // Emit results via service
+    OpposedSkillCheckService.emitOpposedSkillCheckResult(
+      baseSession.rollResults.value.session,
+      currentCharacter.value?.id,
+      baseSession.opponent.value?.id
+    )
+    
+    return true
+  }
 
-  return {
+  // Create the return object
+  const returnObject = {
     // State from base
     sessionId: baseSession.sessionId,
     sessionStatus: baseSession.sessionStatus,
@@ -330,6 +364,16 @@ export function useOpposedSkillCheckSession() {
     setUserSkillConfig,
     cleanupEventListeners,
     disconnect,
-    rerollAllDice
+    rerollAllDice,
+    
+    // Public API methods
+    initialize,
+    cleanup,
+    startSession, // Alias for compatibility
+    generateResultsOnAccept
   }
+
+  // Store and return singleton instance
+  opposedSkillCheckSessionInstance = returnObject
+  return returnObject
 }

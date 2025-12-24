@@ -1,4 +1,5 @@
 import { createBaseEntity } from '../gameEntity.js'
+import { ConceptType, getConceptTypeLabel } from '../../../constants/conceptTypes.js'
 
 /**
  * Base structure for game concepts (Ancestry, Culture, Mestiere, WorldElement)
@@ -6,6 +7,7 @@ import { createBaseEntity } from '../gameEntity.js'
  *
  * @typedef {Object} GameConcept
  * @property {string|null} id - UUID identifier
+ * @property {string} conceptType - Type of concept (ANCESTRY, CULTURE, MESTIERE, WORLD_ELEMENT)
  * @property {string} name - Concept name
  * @property {string} description - Detailed description
  * @property {boolean} isDeleted - Soft delete flag
@@ -28,13 +30,20 @@ import { createBaseEntity } from '../gameEntity.js'
 
 /**
  * Creates a new default GameConcept
- * @param {string} conceptType - The type of concept (e.g., "Ancestry", "Culture")
+ * @param {string} conceptType - The type of concept (use ConceptType enum)
  * @returns {GameConcept}
  */
-export function createDefaultGameConcept(conceptType = 'Concept') {
+export function createDefaultGameConcept(conceptType) {
+  if (!conceptType) {
+    throw new Error('conceptType is required when creating a GameConcept')
+  }
+  
+  const label = getConceptTypeLabel(conceptType)
+  
   return {
     ...createBaseEntity(),
-    name: `New ${conceptType}`,
+    conceptType,
+    name: `New ${label}`,
     description: '',
     artUrls: ['https://cdn.midjourney.com/a8a36740-b7d3-4aef-bea3-a95039bec06f/0_2.png'],
     faces: [],
@@ -51,3 +60,6 @@ export function createDefaultGameConcept(conceptType = 'Concept') {
     floraFauna: '',
   }
 }
+
+// Re-export ConceptType for convenience
+export { ConceptType }

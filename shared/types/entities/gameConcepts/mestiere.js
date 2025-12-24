@@ -1,4 +1,4 @@
-import { createDefaultGameConcept } from './gameConcept.js'
+import { createDefaultGameConcept, ConceptType } from './gameConcept.js'
 
 /**
  * @typedef {import('./gameConcept.js').GameConcept} Mestiere
@@ -9,5 +9,5 @@ import { createDefaultGameConcept } from './gameConcept.js'
  * @returns {Mestiere}
  */
 export function createDefaultMestiere() {
-  return createDefaultGameConcept('Mestiere')
+  return createDefaultGameConcept(ConceptType.MESTIERE)
 }

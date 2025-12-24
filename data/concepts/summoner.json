@@ -1,0 +1,27 @@
+{
+  "id": "558abd15-f90f-40d7-80d8-df73a37f977c",
+  "conceptType": "MESTIERE",
+  "name": "Summoner",
+  "description": "",
+  "isDeleted": false,
+  "artUrls": [
+    "https://cdn.midjourney.com/b4a69efb-4573-427d-b5b2-3bf49c18753c/0_1.png",
+    "https://cdn.midjourney.com/7bceb743-e8a1-4479-99db-c676637e586f/0_0.jpeg",
+    "https://cdn.midjourney.com/7fc3453d-ea18-47a0-8cd8-abf5c7c62b4b/0_0.jpeg",
+    "https://cdn.midjourney.com/c3a80920-4e02-4bde-b0ca-2deae0517a2c/0_0.jpeg",
+    "https://cdn.midjourney.com/2d7d3494-4349-4d28-9eac-5196ae40f0d0/0_0.jpeg"
+  ],
+  "faces": [],
+  "places": [],
+  "backgroundImage": "https://cdn.midjourney.com/7f7891f0-b3cb-45ec-92a2-738839651f59/0_3.png",
+  "expansion": "",
+  "hooks": [],
+  "playlists": [],
+  "names": "",
+  "occupations": "",
+  "publicHouses": "",
+  "vittles": "",
+  "pointsOfInterest": "",
+  "floraFauna": "",
+  "lastModified": "2025-12-15T12:58:08.905Z"
+}

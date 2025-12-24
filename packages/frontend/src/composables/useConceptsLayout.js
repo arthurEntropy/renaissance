@@ -1,15 +1,32 @@
 import { computed, onMounted } from 'vue'
+import { ConceptType } from '@shared/constants/conceptTypes'
+
+/**
+ * Map item names to ConceptType enum values
+ */
+const ITEM_NAME_TO_CONCEPT_TYPE = {
+  'Ancestry': ConceptType.ANCESTRY,
+  'Culture': ConceptType.CULTURE,
+  'Mestiere': ConceptType.MESTIERE,
+  'World Element': ConceptType.WORLD_ELEMENT,
+}
 
 /**
  * Composable for managing concept layouts with consistent CRUD operations
  */
 export function useConceptsLayout(store, service, options = {}) {
-  const { conceptsProperty = 'concepts' } = options
+  const { conceptsProperty = 'concepts', itemName = '' } = options
 
   const concepts = computed(() => store[conceptsProperty] || [])
 
   const createConcept = async () => {
-    const newConcept = await service.create(service.getDefaultEntity())
+    // For ConceptService, need to pass conceptType
+    const conceptType = ITEM_NAME_TO_CONCEPT_TYPE[itemName]
+    const defaultEntity = conceptType 
+      ? service.getDefaultEntity(conceptType)
+      : service.getDefaultEntity()
+    
+    const newConcept = await service.create(defaultEntity)
     await store.fetch()
     return newConcept
   }
@@ -37,11 +54,33 @@ export function useConceptsLayout(store, service, options = {}) {
   // Computed props for ConceptsLayout
   const layoutProps = computed(() => ({
     concepts: concepts.value,
-    createConceptFn: createConcept,
-    updateConceptFn: updateConcept,
-    deleteConceptFn: deleteConcept,
-    refreshDataFn: refreshData
+    selectedItem: store.selectedConcept,
+    storageKey: conceptsProperty,
+    stickySelection: false
   }))
+
+  // Event handlers for ConceptsLayout
+  const handleSelect = (concept) => {
+    store.selectConcept(concept)
+  }
+
+  const handleDeselect = () => {
+    store.deselectConcept()
+  }
+
+  const handleCreate = async () => {
+    // For ConceptService, need to pass conceptType
+    const conceptType = ITEM_NAME_TO_CONCEPT_TYPE[itemName]
+    const defaultEntity = conceptType 
+      ? service.getDefaultEntity(conceptType)
+      : service.getDefaultEntity()
+    
+    const newConcept = await service.create(defaultEntity)
+    await store.fetch()
+    
+    // Select the newly created concept
+    store.selectConcept(newConcept)
+  }
 
   return {
     // For direct use
@@ -52,6 +91,11 @@ export function useConceptsLayout(store, service, options = {}) {
     refreshData,
     
     // For ConceptsLayout props (can be spread with v-bind)
-    layoutProps
+    layoutProps,
+    
+    // Event handlers
+    handleSelect,
+    handleDeselect,
+    handleCreate
   }
 }

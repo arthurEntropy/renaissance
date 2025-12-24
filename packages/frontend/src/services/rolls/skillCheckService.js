@@ -1,7 +1,7 @@
 import { RollTypes } from '@/constants/rollTypes'
 import { CONDITIONS, STATES } from '@shared/constants/characterConstants.js'
 import { SKILL_STATUS } from '@/constants/skillStatus.js'
-import DiscordAdapter from './utils/DiscordAdapter.js'
+import eventBus, { ROLL_EVENTS } from '../events/eventBus'
 import BaseRollService from './baseRollService.js'
 
 class SkillCheckService extends BaseRollService {
@@ -13,9 +13,12 @@ class SkillCheckService extends BaseRollService {
     // Determine success (auto-fail means not successful)
     const isSuccess = !isAutoFail && total >= targetNumber
     
-    // Build result and send to Discord
+    // Build result
     const rollResult = this._buildSkillCheckResult(skill, character, targetNumber, diceResults, total, isSuccess)
-    DiscordAdapter.sendSkillCheck(rollResult, character)
+    
+    // Emit event for external integrations (Discord, analytics, etc.)
+    eventBus.emit(ROLL_EVENTS.SKILL_CHECK, { rollResult, character })
+    
     return rollResult
   }
 

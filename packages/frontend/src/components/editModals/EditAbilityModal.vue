@@ -7,7 +7,7 @@
 
       <!-- Scrollable Form Content -->
       <div class="modal-body">
-        <form @submit.prevent="saveAbility">
+        <form @submit.prevent="save">
 
           <!-- Name -->
           <div class="form-group vertical">
@@ -70,15 +70,22 @@
                 <span class="xp-label">XP:</span>
                 <input type="number" v-model.number="impr.xp" placeholder="XP" class="modal-input improvement-xp-input"
                   min="0" />
-                <button type="button" class="icon-btn" @click="removeImprovement(idx)">❌</button>
-                <button type="button" class="icon-btn" @click="moveImprovementUp(idx)" :disabled="idx === 0">⬆️</button>
+                <button type="button" class="icon-btn" @click="removeImprovement(idx)" aria-label="Remove improvement">
+                  <XMarkIcon class="icon" />
+                </button>
+                <button type="button" class="icon-btn" @click="moveImprovementUp(idx)" :disabled="idx === 0"
+                  aria-label="Move up">
+                  <ArrowUpIcon class="icon" />
+                </button>
                 <button type="button" class="icon-btn" @click="moveImprovementDown(idx)"
-                  :disabled="idx === editedAbility.improvements.length - 1">⬇️</button>
+                  :disabled="idx === editedAbility.improvements.length - 1" aria-label="Move down">
+                  <ArrowDownIcon class="icon" />
+                </button>
               </div>
               <TextEditor v-model="impr.description" :placeholder="'Description'" :height="'80px'"
                 :auto-height="true" />
             </div>
-            <ActionButton variant="primary" size="small" icon="+" text="Add Improvement" @click="addImprovement"
+            <ActionButton variant="primary" size="small" text="+ Add Improvement" @click="addImprovement"
               type="button" />
           </div>
 
@@ -88,8 +95,9 @@
       <!-- Sticky Action Buttons -->
       <div class="modal-footer">
         <div class="form-buttons">
-          <ActionButton variant="success" size="small" text="Save" @click="saveAbility" type="button" />
-          <ActionButton variant="danger" size="small" text="Delete" @click="deleteAbility" type="button" />
+          <ActionButton variant="success" size="small" text="Save" @click="save" type="button" />
+          <ActionButton variant="danger" size="small" text="Delete" @click="() => deleteItem('ability')"
+            type="button" />
         </div>
       </div>
 
@@ -98,30 +106,23 @@
 </template>
 
 <script setup>
-import { useEditForm } from '@/composables/useEditForm'
+import { XMarkIcon, ArrowUpIcon, ArrowDownIcon } from '@heroicons/vue/24/outline'
 import TextEditor from '@/components/ui/textEditor/TextEditor.vue'
 import SourceDropdown from '@/components/ui/selectors/SourceDropdown.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
+import { useEditModalForm } from '@/composables/useEditModalForm'
 
-// Props
 const props = defineProps({
   ability: {
     type: Object,
-    required: true,
-  },
+    required: true
+  }
 })
 
-// Emits
 const emit = defineEmits(['update', 'delete', 'close'])
 
-// Composables
-const {
-  editedData: editedAbility,
-  save,
-  deleteItem,
-  cancel,
-  hasChanges
-} = useEditForm(props.ability, emit)
+// Use edit modal form composable
+const { editedData: editedAbility, hasChanges, save, deleteItem, handleOverlayClick } = useEditModalForm(props, emit)
 
 // Improvement management functions
 const addImprovement = () => {
@@ -136,7 +137,7 @@ const removeImprovement = (idx) => {
 const moveImprovementUp = (idx) => {
   if (idx > 0) {
     const arr = editedAbility.value.improvements
-      ;[arr[idx - 1], arr[idx]] = [arr[idx], arr[idx - 1]]
+    [arr[idx - 1], arr[idx]] = [arr[idx], arr[idx - 1]]
   }
 }
 
@@ -144,22 +145,6 @@ const moveImprovementDown = (idx) => {
   const arr = editedAbility.value.improvements
   if (idx < arr.length - 1) {
     [arr[idx], arr[idx + 1]] = [arr[idx + 1], arr[idx]]
-  }
-}
-
-// Ability-specific functions
-const saveAbility = () => save()
-const deleteAbility = () => deleteItem('ability')
-const closeModal = () => cancel()
-
-// Handle overlay click with unsaved changes check
-const handleOverlayClick = () => {
-  if (hasChanges.value) {
-    if (confirm('You have unsaved changes. Are you sure you want to discard them?')) {
-      closeModal()
-    }
-  } else {
-    closeModal()
   }
 }
 </script>
@@ -200,6 +185,11 @@ const handleOverlayClick = () => {
   cursor: pointer;
   color: var(--color-text-muted);
   transition: color var(--transition-normal);
+}
+
+.icon-btn .icon {
+  width: 16px;
+  height: 16px;
 }
 
 .icon-btn:disabled {

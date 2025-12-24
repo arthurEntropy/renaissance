@@ -27,6 +27,7 @@ export default [
         'ignoreRestSiblings': true
       }],
       'vue/no-unused-components': 'error',
+      'vue/multi-word-component-names': 'off',
       'no-empty': ['error', { 'allowEmptyCatch': true }],
       
       // TODO: BEFORE PRODUCTION - Change 'no-console' to 'error' and implement proper logging

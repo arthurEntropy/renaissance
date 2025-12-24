@@ -1,6 +1,6 @@
 import BaseEntityService from './baseEntityService'
 import { createDefaultUser } from '@shared/types'
-import axios from 'axios'
+import apiClient from '../api/apiClient'
 
 class UserService extends BaseEntityService {
   constructor() {
@@ -9,10 +9,7 @@ class UserService extends BaseEntityService {
 
   async getCurrentProfile() {
     try {
-      const authHeaders = await this.getAuthHeaders()
-      const response = await axios.get(`${this.baseUrl}/profile`, {
-        headers: authHeaders
-      })
+      const response = await apiClient.get('/users/profile')
       return response.data
     } catch (error) {
       console.error('Error getting current user profile:', error)
@@ -22,13 +19,7 @@ class UserService extends BaseEntityService {
 
   async updateCurrentProfile(updates) {
     try {
-      const authHeaders = await this.getAuthHeaders()
-      const response = await axios.put(`${this.baseUrl}/profile`, updates, {
-        headers: {
-          'Content-Type': 'application/json',
-          ...authHeaders
-        }
-      })
+      const response = await apiClient.put('/users/profile', updates)
       return response.data
     } catch (error) {
       console.error('Error updating user profile:', error)
@@ -38,10 +29,7 @@ class UserService extends BaseEntityService {
 
   async getAllUsers() {
     try {
-      const authHeaders = await this.getAuthHeaders()
-      const response = await axios.get(`${this.baseUrl}/admin/all`, {
-        headers: authHeaders
-      })
+      const response = await apiClient.get('/users/admin/all')
       return response.data
     } catch (error) {
       console.error('Error getting all users:', error)
@@ -51,13 +39,7 @@ class UserService extends BaseEntityService {
 
   async updateUser(userId, updates) {
     try {
-      const authHeaders = await this.getAuthHeaders()
-      const response = await axios.put(`${this.baseUrl}/admin/${userId}`, updates, {
-        headers: {
-          'Content-Type': 'application/json',
-          ...authHeaders
-        }
-      })
+      const response = await apiClient.put(`/users/admin/${userId}`, updates)
       return response.data
     } catch (error) {
       console.error('Error updating user:', error)
@@ -67,10 +49,7 @@ class UserService extends BaseEntityService {
 
   async deleteUser(userId) {
     try {
-      const authHeaders = await this.getAuthHeaders()
-      const response = await axios.delete(`${this.baseUrl}/admin/${userId}`, {
-        headers: authHeaders
-      })
+      const response = await apiClient.delete(`/users/admin/${userId}`)
       return response.data
     } catch (error) {
       console.error('Error deleting user:', error)

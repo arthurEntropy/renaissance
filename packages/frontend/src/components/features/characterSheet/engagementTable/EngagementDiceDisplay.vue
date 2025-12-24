@@ -1,23 +1,26 @@
 <template>
-    <div class="engagement-dice-content">
+    <div class="engagement-dice-display">
+        <!-- Dice Display -->
         <div v-if="diceData.length > 0 || isEditMode" class="dice-display">
 
             <div v-for="(diceInfo) in diceData" :key="diceInfo.statusKey" class="dice-icon-container"
                 :class="{ 'user-added-die': diceInfo.isUserAdded }">
 
-                <button v-if="isEditMode && diceInfo.isUserAdded" class="remove-die-button"
-                    @click="$emit('remove-die', diceInfo.userAddedIndex)">
-                    ✕
-                </button>
+                <FloatingActionButton v-if="isEditMode && diceInfo.isUserAdded" type="delete" size="small"
+                    visibility="always" @click="removeUserAddedDie(diceInfo.userAddedIndex)"
+                    class="remove-die-button" />
 
-                <span class="dice-icon" :class="diceInfo.status" @click="$emit('toggle-dice', diceInfo)"
-                    @mouseenter="startDiceTooltip(diceInfo, $event)" @mouseleave="clearDiceTooltip">
+                <span class="dice-icon" :class="diceInfo.status" role="button" tabindex="0"
+                    :aria-label="`d${diceInfo.die} from ${diceInfo.name} - ${diceInfo.status}`"
+                    @click="toggleDiceStatus(diceInfo)" @keydown.enter.prevent="toggleDiceStatus(diceInfo)"
+                    @keydown.space.prevent="toggleDiceStatus(diceInfo)" @mouseenter="startDiceTooltip(diceInfo, $event)"
+                    @mouseleave="clearDiceTooltip">
                     <i :class="getDiceFontMaxClass(diceInfo.die)"></i>
                 </span>
             </div>
 
             <div v-if="isEditMode" class="add-die-container">
-                <AddButton :show="true" position="inline" title="Add die" @click="$emit('add-die', $event)" />
+                <FloatingActionButton type="add" visibility="always" @click="toggleDropdown" />
             </div>
         </div>
 
@@ -26,16 +29,15 @@
         </div>
 
         <!-- Dice Selection Dropdown -->
-        <div v-if="showDropdown" class="dice-dropdown"
-            :style="{ top: dropdownPosition.y + 'px', left: dropdownPosition.x + 'px' }">
-            <button v-for="die in diceOptions" :key="die" class="die-option" @click="$emit('select-die', die)">
-                <i :class="getDiceFontMaxClass(die)"></i>
-            </button>
-        </div>
+        <ItemDropdown ref="dropdownRef" :show="dropdown.isVisible.value" :position="dropdown.position.value"
+            :items="diceOptions" item-key="value" item-label="value" custom-class="dice-grid" @select="handleSelectDie">
+            <template #item="{ item }">
+                <i :class="getDiceFontMaxClass(item)"></i>
+            </template>
+        </ItemDropdown>
 
         <!-- Dice Tooltip -->
-        <div v-if="tooltipDice" class="dice-tooltip"
-            :style="{ top: tooltipPosition.y + 'px', left: tooltipPosition.x + 'px' }">
+        <div v-if="tooltipDice" class="chip-tooltip" :style="tooltipStyle">
             <div class="tooltip-source">
                 From: {{ tooltipDice.name }}
             </div>
@@ -44,73 +46,64 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import AddButton from '@/components/ui/buttons/AddButton.vue'
+import { ref, nextTick } from 'vue'
+import { useTooltip, useFloatingElement } from '@/composables/useFloatingElement'
+import { useEngagementRoll } from '@/composables/useEngagementRoll'
+import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
+import ItemDropdown from '@/components/ui/dropdowns/ItemDropdown.vue'
 import { getDiceFontMaxClass } from '@/utils/diceFontUtils'
+import { STANDARD_DIE_SIZES } from '@shared/constants/dice'
 
-// Props
 defineProps({
-    diceData: {
-        type: Array,
-        default: () => []
-    },
     isEditMode: {
         type: Boolean,
         default: false
-    },
-    showDropdown: {
-        type: Boolean,
-        default: false
-    },
-    dropdownPosition: {
-        type: Object,
-        default: () => ({ x: 0, y: 0 })
-    },
-    diceOptions: {
-        type: Array,
-        default: () => [4, 6, 8, 10, 12, 20]
     }
 })
 
-// Emits
-defineEmits(['toggle-dice', 'remove-die', 'add-die', 'select-die'])
+const diceManager = useEngagementRoll()
+const diceData = diceManager.allOwnedEngagementDice
+const toggleDiceStatus = diceManager.toggleDiceStatus
+const addUserAddedDie = diceManager.addUserAddedDie
+const removeUserAddedDie = diceManager.removeUserAddedDie
+const diceOptions = STANDARD_DIE_SIZES
 
-// Tooltip state
-const tooltipDice = ref(null)
-const tooltipPosition = ref({ x: 0, y: 0 })
-const tooltipTimer = ref(null)
+const dropdown = useFloatingElement({
+    closeOnOutsideClick: true,
+    closeOnScroll: true,
+    adjustToViewport: true
+})
+const dropdownRef = ref(null)
 
-// Tooltip methods
+const { content: tooltipDice, style: tooltipStyle, show, hide } = useTooltip()
+
+const toggleDropdown = async (event) => {
+    const triggerEl = event.target.closest('button')
+    if (!triggerEl) return
+
+    dropdown.show(null, triggerEl)
+    await nextTick()
+    if (dropdownRef.value?.$el) {
+        dropdown.show(null, triggerEl, dropdownRef.value.$el)
+    }
+}
+
+const handleSelectDie = (die) => {
+    addUserAddedDie(die)
+    dropdown.hide()
+}
+
 const startDiceTooltip = (diceInfo, event) => {
-    // Clear any existing timer
-    if (tooltipTimer.value) {
-        clearTimeout(tooltipTimer.value)
-    }
-
-    // Set up the tooltip position relative to the element
-    const rect = event.target.getBoundingClientRect()
-    tooltipPosition.value = {
-        x: rect.left + rect.width / 2,
-        y: rect.bottom
-    }
-
-    // Show tooltip after delay
-    tooltipTimer.value = setTimeout(() => {
-        tooltipDice.value = diceInfo
-    }, 750)
+    show(diceInfo, event)
 }
 
 const clearDiceTooltip = () => {
-    if (tooltipTimer.value) {
-        clearTimeout(tooltipTimer.value)
-        tooltipTimer.value = null
-    }
-    tooltipDice.value = null
+    hide()
 }
 </script>
 
 <style scoped>
-.engagement-dice-content {
+.engagement-dice-display {
     width: 100%;
 }
 
@@ -118,8 +111,8 @@ const clearDiceTooltip = () => {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 3px;
-    margin-top: 15px;
+    gap: var(--space-xs);
+    margin-top: var(--space-sm);
 }
 
 .dice-icon-container {
@@ -132,71 +125,43 @@ const clearDiceTooltip = () => {
     transition: var(--transition-all);
     position: relative;
     display: inline-block;
+    z-index: 1;
 }
 
-/* first child of each dice-icon should glow gold on hover */
-.dice-icon:first-child:hover {
+.dice-icon:hover {
     text-shadow: var(--shadow-glow-sm);
 }
 
 .remove-die-button {
     position: absolute;
-    top: -2px;
-    left: -2px;
-    width: 16px;
-    height: 16px;
-    background-color: var(--color-bg-primary);
-    color: var(--color-text-primary);
-    border: 1px solid var(--color-text-primary);
-    border-radius: var(--radius-full);
-    font-size: var(--font-size-10);
-    line-height: var(--line-height-none);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    z-index: var(--z-interactive);
-    padding: 0;
+    top: calc(-1 * var(--space-xs));
+    left: calc(-1 * var(--space-xs));
+    z-index: 2;
 }
 
 .add-die-container {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-left: 5px;
+    margin-left: var(--space-xs);
 }
 
-.dice-dropdown {
-    position: fixed;
-    background-color: var(--color-bg-primary);
-    border: 1px solid var(--color-gray-light);
-    border-radius: var(--radius-5);
-    padding: var(--space-xs);
-    z-index: var(--z-dropdown);
+.add-die-container :deep(.fab) {
+    border-color: var(--color-text-primary) !important;
+}
+
+:deep(.dice-grid) {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: var(--space-xs);
-    box-shadow: var(--shadow-elevation-sm);
 }
 
-.die-option {
+:deep(.dice-grid .item-option) {
     padding: var(--space-xs) var(--space-md);
-    background-color: var(--color-bg-secondary);
-    color: var(--color-text-primary);
-    border: none;
-    border-radius: var(--radius-5);
-    cursor: pointer;
-    font-family: inherit;
-    transition: var(--transition-background);
+}
+
+:deep(.dice-grid .item-option i) {
     font-size: var(--font-size-36);
-}
-
-.die-option:hover {
-    background-color: var(--color-bg-tertiary);
-}
-
-.dice-icon.available {
-    color: inherit;
 }
 
 .dice-icon.selected {
@@ -229,22 +194,24 @@ const clearDiceTooltip = () => {
     margin-top: 10px;
 }
 
-.dice-tooltip {
+.chip-tooltip {
     position: fixed;
-    z-index: var(--z-modal);
+    z-index: var(--z-tooltip);
     background: var(--color-bg-primary);
     color: var(--color-text-primary);
     padding: var(--space-sm);
-    border-radius: var(--radius-10);
+    border-radius: var(--radius-5);
     font-size: var(--font-size-14);
     pointer-events: none;
-    border: 1px solid var(--color-gray-medium);
+    border: 1px solid var(--color-text-primary);
+    box-shadow: var(--shadow-elevation-md);
     max-width: 260px;
+    transform: translateX(-50%);
     white-space: pre-line;
 }
 
 .tooltip-source {
-    color: var(--color-primary);
+    color: var(--color-text-secondary);
     font-size: var(--font-size-10);
     font-style: italic;
 }

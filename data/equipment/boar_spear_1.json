@@ -19,7 +19,7 @@
     6
   ],
   "engagementSuccesses": [
-    "11"
+    "e1f2a3b4-c5d6-47e8-f9a0-b1c2d3e4f5a6"
   ],
   "skillMods": [],
   "isDeleted": false,
@@ -28,5 +28,6 @@
   "artUrl": "https://cdn.midjourney.com/c52ab061-2144-492c-a3e7-fe382a03f646/0_1.png",
   "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
   "subtype": "3d4f28d9-d757-4789-b3a2-0e9fffda4fc0",
-  "grade": "b92d3394-2c64-487f-8c90-c56ea1cbd3f3"
+  "grade": "b92d3394-2c64-487f-8c90-c56ea1cbd3f3",
+  "lastModified": "2025-12-13T02:53:45.523Z"
 }

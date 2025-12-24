@@ -1,16 +1,17 @@
 <template>
-  <ConceptsLayout itemName="Mestiere" v-bind="layoutProps" />
+  <ConceptsLayout v-bind="layoutProps" @select="handleSelect" @deselect="handleDeselect" @create="handleCreate" />
 </template>
 
 <script setup>
-import { useMestieriStore } from '@/stores/mestieriStore'
-import MestiereService from '@/services/entities/gameConcepts/mestiereService'
+import { useConceptsStore } from '@/stores/conceptsStore'
+import ConceptService from '@/services/entities/conceptService'
 import ConceptsLayout from '@/components/ui/layouts/ConceptsLayout.vue'
 import { useConceptsLayout } from '@/composables/useConceptsLayout'
 
-const mestieriStore = useMestieriStore()
+const conceptsStore = useConceptsStore()
 
-const { layoutProps } = useConceptsLayout(mestieriStore, MestiereService, {
-  conceptsProperty: 'mestieri'
+const { layoutProps, handleSelect, handleDeselect, handleCreate } = useConceptsLayout(conceptsStore, ConceptService, {
+  conceptsProperty: 'mestieri',
+  itemName: 'Mestiere'
 })
 </script>

@@ -1,12 +1,14 @@
 <template>
   <div class="modal-overlay" @click="closeModal">
     <div class="modal-content" @click.stop>
+
+      <!-- Header Row with Skill Dropdown -->
       <div class="header-row">
-        <h2>{{ localCharacter.name }} rolling</h2>
+        <h2>{{ props.character.name }} rolling</h2>
         <select v-model="localSelectedSkillName" class="modal-skill-dropdown"
-          :class="{ 'skill-selected': localSelectedSkillName }">
+          :class="{ 'skill-selected': localSelectedSkillName }" aria-label="Select skill">
           <option disabled value="">Select a skill</option>
-          <option v-for="skill in localCharacter.skills" :key="skill.name" :value="skill.name">
+          <option v-for="skill in props.character.skills" :key="skill.name" :value="skill.name">
             {{ skill.name }}
           </option>
         </select>
@@ -14,49 +16,48 @@
 
       <!-- Favored Status Toggle -->
       <div class="favored-status-toggle">
-        <ActionButton variant="outline" size="large" text="Ill-Favored" :selected="favoredStatus === 'illfavored'"
-          @click="favoredStatus = 'illfavored'" />
-        <ActionButton variant="outline" size="large" text="Flat" :selected="favoredStatus === 'flat'"
-          @click="favoredStatus = 'flat'" />
-        <ActionButton variant="outline" size="large" text="Favored" :selected="favoredStatus === 'favored'"
-          @click="favoredStatus = 'favored'" />
+        <ActionButton variant="outline" size="large" text="Ill-Favored"
+          :selected="favoredStatus === SKILL_STATUS.ILL_FAVORED" @click="favoredStatus = SKILL_STATUS.ILL_FAVORED" />
+        <ActionButton variant="outline" size="large" text="Flat" :selected="favoredStatus === null"
+          @click="favoredStatus = null" />
+        <ActionButton variant="outline" size="large" text="Favored" :selected="favoredStatus === SKILL_STATUS.FAVORED"
+          @click="favoredStatus = SKILL_STATUS.FAVORED" />
       </div>
 
+      <!-- Dice Mod Options -->
       <div class="dice-mod-options">
         <ActionButton v-for="mod in diceModOptions" :key="mod.value" variant="outline" size="large" :text="mod.label"
           :selected="rollParameters.diceMod === mod.value" @click="rollParameters.diceMod = mod.value" />
       </div>
 
-      <div class="dice-preview" v-if="localSelectedSkillName">
+      <!-- Dice Preview -->
+      <div class="dice-preview" v-if="localSelectedSkillName && selectedSkill">
         <div class="dice-pool">
-          <!-- Display d12 dice -->
-          <span v-for="(die, index) in d12DicePool" :key="`d12-${index}`" class="dice-symbol" :class="{
+          <span v-for="(die, index) in dicePool.d12Dice" :key="`d12-${index}`" class="dice-symbol" :class="{
             'favored-die': rollParameters.isFavored,
             'illfavored-die': rollParameters.isIllFavored,
           }">
-            <i :class="die.diceClass"></i>
+            <i :class="die.cssClass"></i>
           </span>
-
-          <!-- Display d6 dice -->
-          <span v-for="(die, index) in d6DicePool" :key="`d6-${index}`" class="dice-symbol" :class="{
+          <span v-for="(die, index) in dicePool.d6Dice" :key="`d6-${index}`" class="dice-symbol" :class="{
             'added-die': die.isAdded,
             'subtracted-die': die.isSubtracted,
           }">
-            <i :class="die.diceClass"></i>
+            <i :class="die.cssClass"></i>
           </span>
         </div>
       </div>
 
       <!-- Roll Type Toggle -->
       <div class="roll-type-toggle">
-        <ActionButton variant="outline" size="large" text="Opposed" :selected="rollType === 'opposed'"
-          @click="rollType = 'opposed'" />
-        <ActionButton variant="outline" size="large" text="Against TN:" :selected="rollType === 'target-number'"
-          @click="rollType = 'target-number'" />
+        <ActionButton variant="outline" size="large" text="Opposed"
+          :selected="rollType === RollTypes.OPPOSED_SKILL_CHECK" @click="rollType = RollTypes.OPPOSED_SKILL_CHECK" />
+        <ActionButton variant="outline" size="large" text="Against TN:" :selected="rollType === RollTypes.SKILL_CHECK"
+          @click="rollType = RollTypes.SKILL_CHECK" />
       </div>
 
-      <!-- Target Number Section -->
-      <div class="target-number-section" :class="{ disabled: rollType === 'opposed' }">
+      <!-- Target Number -->
+      <div class="target-number-section" :class="{ disabled: rollType === RollTypes.OPPOSED_SKILL_CHECK }">
         <div class="target-number-descriptors">
           <span>Easy</span>
           <span>Moderate</span>
@@ -66,10 +67,12 @@
         </div>
         <div class="target-number-options">
           <ActionButton v-for="tn in targetNumberOptions" :key="tn" variant="outline" size="large" :text="tn.toString()"
-            :selected="localTargetNumber === tn" :disabled="rollType === 'opposed'" @click="toggleTargetNumber(tn)" />
+            :selected="localTargetNumber === tn" :disabled="rollType === RollTypes.OPPOSED_SKILL_CHECK"
+            @click="toggleTargetNumber(tn)" />
         </div>
       </div>
 
+      <!-- Roll Button -->
       <ActionButton variant="primary" size="large" text="Roll" @click="rollSkillCheck"
         :disabled="!localSelectedSkillName" />
     </div>
@@ -78,10 +81,16 @@
 
 <script setup>
 import { ref, computed, watch } from 'vue'
+import { useRollsStore } from '@/stores/rollsStore'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import SkillCheckService from '@/services/rolls/skillCheckService'
 import { getDiceFontMaxClass } from '@/utils/diceFontUtils'
-import { useSkillDice } from '@/composables/useSkillDice'
+import { buildDiceSetForSkill } from '@/utils/skillDiceUtils'
+import { SKILL_STATUS } from '@/constants/skillStatus'
+import { RollTypes } from '@/constants/rollTypes'
+import { DIE_TYPE, DICE_MOD_RANGE, TARGET_NUMBERS } from '@shared/constants/dice'
+
+const rollsStore = useRollsStore()
 
 const props = defineProps({
   character: {
@@ -98,15 +107,11 @@ const props = defineProps({
   },
 })
 
-const emit = defineEmits(['close', 'update-target-number', 'skill-check-result', 'opposed-skill-check-result', 'start-opposed-skill-check'])
+const emit = defineEmits(['close', 'update-target-number', 'start-opposed-skill-check'])
 
-const { buildDiceSet } = useSkillDice()
-
-// Reactive state
-const localCharacter = ref({ ...props.character })
 const localSelectedSkillName = ref(props.selectedSkillName || '')
 const localTargetNumber = ref(props.defaultTargetNumber || null)
-const rollType = ref('target-number')
+const rollType = ref(RollTypes.SKILL_CHECK)
 const rollParameters = ref({
   name: '',
   isFavored: false,
@@ -115,41 +120,36 @@ const rollParameters = ref({
   diceMod: 0,
 })
 
-// Constants
-const diceModOptions = [
-  { value: -5, label: '-5d' },
-  { value: -4, label: '-4d' },
-  { value: -3, label: '-3d' },
-  { value: -2, label: '-2d' },
-  { value: -1, label: '-1d' },
-  { value: 0, label: 'none' },
-  { value: 1, label: '+1d' },
-  { value: 2, label: '+2d' },
-  { value: 3, label: '+3d' },
-  { value: 4, label: '+4d' },
-  { value: 5, label: '+5d' },
-]
+const diceModOptions = Array.from(
+  { length: DICE_MOD_RANGE.MAX - DICE_MOD_RANGE.MIN + 1 },
+  (_, i) => {
+    const value = DICE_MOD_RANGE.MIN + i
+    return {
+      value,
+      label: value === 0 ? 'none' : `${value > 0 ? '+' : ''}${value}d`
+    }
+  }
+)
 
-const targetNumberOptions = [6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30]
+const targetNumberOptions = TARGET_NUMBERS
 
-// Computed properties
 const selectedSkill = computed(() => {
-  return localCharacter.value.skills.find(
+  return props.character.skills.find(
     (skill) => skill.name === localSelectedSkillName.value,
   ) || null
 })
 
 const favoredStatus = computed({
   get() {
-    if (rollParameters.value.isFavored) return 'favored'
-    if (rollParameters.value.isIllFavored) return 'illfavored'
-    return 'flat'
+    if (rollParameters.value.isFavored) return SKILL_STATUS.FAVORED
+    if (rollParameters.value.isIllFavored) return SKILL_STATUS.ILL_FAVORED
+    return null
   },
   set(value) {
-    if (value === 'favored') {
+    if (value === SKILL_STATUS.FAVORED) {
       rollParameters.value.isFavored = true
       rollParameters.value.isIllFavored = false
-    } else if (value === 'illfavored') {
+    } else if (value === SKILL_STATUS.ILL_FAVORED) {
       rollParameters.value.isFavored = false
       rollParameters.value.isIllFavored = true
     } else {
@@ -162,19 +162,16 @@ const favoredStatus = computed({
 const dicePool = computed(() => {
   if (!selectedSkill.value) return { d12Dice: [], d6Dice: [] }
 
-  const allDice = buildDiceSet(rollParameters.value, {
+  const allDice = buildDiceSetForSkill(rollParameters.value, {
     includeDiceClass: true,
     getDiceFontMaxClass
   })
 
   return {
-    d12Dice: allDice.filter(die => die.dieSides === 12),
-    d6Dice: allDice.filter(die => die.dieSides === 6)
+    d12Dice: allDice.filter(die => die.dieSides === DIE_TYPE.D12),
+    d6Dice: allDice.filter(die => die.dieSides === DIE_TYPE.D6)
   }
 })
-
-const d12DicePool = computed(() => dicePool.value.d12Dice)
-const d6DicePool = computed(() => dicePool.value.d6Dice)
 
 // Methods
 function updateRollParameters() {
@@ -213,8 +210,7 @@ function rollSkillCheck() {
     return
   }
 
-  if (rollType.value === 'opposed') {
-    // Emit signal to start opposed skill check session
+  if (rollType.value === RollTypes.OPPOSED_SKILL_CHECK) {
     const skillCheckConfig = {
       name: rollParameters.value.name,
       isFavored: rollParameters.value.isFavored,
@@ -223,21 +219,18 @@ function rollSkillCheck() {
       diceMod: rollParameters.value.diceMod
     }
 
-    // Emit the config to the parent component to start the opposed session
     emit('start-opposed-skill-check', {
-      character: localCharacter.value,
+      character: props.character,
       skillCheckConfig
     })
   } else {
-    // Regular skill check against target number
     const rollResult = SkillCheckService.makeSkillCheck(
       rollParameters.value,
-      localCharacter.value,
+      props.character,
       localTargetNumber.value,
     )
 
-    // Emit the roll result to the parent
-    emit('skill-check-result', rollResult)
+    rollsStore.setRoll(rollResult)
     emit('update-target-number', localTargetNumber.value)
   }
 
@@ -245,13 +238,7 @@ function rollSkillCheck() {
 }
 
 // Watchers
-watch(() => props.character, (newCharacter) => {
-  localCharacter.value = { ...newCharacter }
-  localSelectedSkillName.value = props.selectedSkillName || ''
-  updateRollParameters()
-}, { immediate: true })
-
-watch(() => props.selectedSkillName, (newSkillName) => {
+watch(() => [props.character, props.selectedSkillName], ([, newSkillName]) => {
   localSelectedSkillName.value = newSkillName || ''
   updateRollParameters()
 }, { immediate: true })
@@ -285,16 +272,7 @@ watch(localSelectedSkillName, () => {
   margin: 0;
 }
 
-.skill-selection-row {
-  display: flex;
-  justify-content: center;
-  gap: var(--space-lg);
-  margin-bottom: var(--space-xl);
-}
-
-.modal-skill-dropdown,
-.modal-favored-dropdown,
-.modal-roll-type-dropdown {
+.modal-skill-dropdown {
   padding: var(--space-sm);
   font-size: var(--font-size-16);
   background: var(--color-bg-secondary);
@@ -308,16 +286,6 @@ watch(localSelectedSkillName, () => {
   color: var(--color-black);
   border-color: var(--color-primary);
   font-weight: var(--font-weight-semibold);
-}
-
-select option.favored-option {
-  color: var(--color-success);
-  font-weight: var(--font-weight-bold);
-}
-
-select option.illfavored-option {
-  color: var(--color-danger);
-  font-weight: var(--font-weight-bold);
 }
 
 .dice-preview {
@@ -345,29 +313,16 @@ select option.illfavored-option {
   transition: var(--transition-all);
 }
 
-.dice-symbol.favored-die i {
-  color: var(--color-success);
-  text-shadow: var(--shadow-glow-success-sm);
-}
-
-.dice-symbol.illfavored-die i {
-  color: var(--color-danger);
-  text-shadow: var(--shadow-glow-danger-sm);
-}
-
+.dice-symbol.favored-die i,
 .dice-symbol.added-die i {
   color: var(--color-success);
   text-shadow: var(--shadow-glow-success-sm);
 }
 
+.dice-symbol.illfavored-die i,
 .dice-symbol.subtracted-die i {
   color: var(--color-danger);
   text-shadow: var(--shadow-glow-danger-sm);
-}
-
-.section-label {
-  margin: var(--space-lg);
-  font-weight: var(--font-weight-bold);
 }
 
 .roll-type-toggle {
@@ -403,7 +358,7 @@ select option.illfavored-option {
   display: flex;
   justify-content: space-between;
   width: 100%;
-  margin-bottom: 4px;
+  margin-bottom: var(--space-xs);
   font-style: italic;
   font-size: var(--font-size-14);
   color: var(--color-text-muted);

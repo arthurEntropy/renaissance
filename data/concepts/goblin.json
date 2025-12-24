@@ -1,0 +1,23 @@
+{
+  "id": "6ff91bc4-122f-4e95-bb08-b577f1a94bb6",
+  "conceptType": "ANCESTRY",
+  "name": "Goblin",
+  "description": "",
+  "isDeleted": false,
+  "artUrls": [
+    "https://cdn.midjourney.com/33cf6394-1488-4dbf-b76d-e9205a9410cd/0_2.png"
+  ],
+  "faces": [],
+  "places": [],
+  "backgroundImage": "https://cdn.midjourney.com/787576dd-0a5c-4e70-a08a-a61ac19e4312/0_2.png",
+  "expansion": "",
+  "hooks": [],
+  "playlists": [],
+  "names": "",
+  "occupations": "",
+  "publicHouses": "",
+  "vittles": "",
+  "pointsOfInterest": "",
+  "floraFauna": "",
+  "lastModified": "2025-11-20T15:47:45.389Z"
+}

@@ -2,9 +2,11 @@ import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import { useCrudEntityStore } from './composables/useBaseEntityStore'
 import CharacterService from '@/services/entities/characterService'
+import { useAuthStore } from './authStore'
 
 export const useCharactersStore = defineStore('characters', () => {
   const base = useCrudEntityStore(CharacterService, 'characters')
+  const authStore = useAuthStore()
 
   // Additional state for app-wide selected character feature
   const selectedCharacter = ref(null)
@@ -31,6 +33,14 @@ export const useCharactersStore = defineStore('characters', () => {
     return selectedCharacter.value !== null
   })
 
+  const canEditSelectedCharacter = computed(() => {
+    if (!selectedCharacter.value) return false
+    if (authStore.isAdmin) return true
+    if (selectedCharacter.value.isBeast) return false
+    if (!authStore.isAuthenticated) return false
+    return selectedCharacter.value.userId === authStore.user?.uid
+  })
+
   return {
     characters: base.items,
     selectedCharacter,
@@ -46,5 +56,6 @@ export const useCharactersStore = defineStore('characters', () => {
     filteredCharacters,
     filteredBeasts,
     hasSelectedCharacter,
+    canEditSelectedCharacter,
   }
 })

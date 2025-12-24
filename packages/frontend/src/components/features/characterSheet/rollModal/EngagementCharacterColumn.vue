@@ -3,111 +3,127 @@
         :is-winner="isWinner" :is-loser="isLoser">
 
         <template #content>
-
+            <!-- Engagement Dice -->
             <div class="dice-display">
                 <div v-if="dice.length === 0" class="no-dice-message">
                     No dice selected
                 </div>
                 <EngagementDiceRow v-for="(die, index) in dice" :key="index" :die="die" :index="index" :side="side"
-                    :is-opponent="isOpponent" :show-results="showResults" :can-edit="canEdit"
-                    :assigned-successes="assignedSuccesses" :all-engagement-successes="allEngagementSuccesses"
-                    :rerolling-dice="rerollingDice" @reroll="(side, index) => emit('reroll', side, index)"
-                    @success-drop="(side, index, successData) => emit('success-drop', side, index, successData)"
-                    @remove-success-assignment="(side, index) => emit('remove-success-assignment', side, index)" />
+                    :is-opponent="isOpponent" :show-results="showResults" :can-edit="canEdit" />
             </div>
 
+            <!-- Engagement Successes -->
             <div class="engagement-successes-section" :class="{ 'opponent-successes-hidden': isOpponent }">
                 <div class="engagement-successes-list">
                     <div v-if="successes.length > 0" class="success-pills">
-                        <SuccessChip v-for="success in successes" :key="success.id" :success="success"
-                            class="draggable-success" :draggable="canEdit && !isOpponent"
-                            @dragstart="!isOpponent ? onSuccessDragStart($event, success) : null" />
+                        <ChipTag v-for="success in successes" :key="success.id" :text="success.name" rounded="full"
+                            :tooltip="{ description: success.description, sources: success.sources }"
+                            class="draggable-success" :draggable="canEdit"
+                            @dragstart="onSuccessDragStart($event, success)" />
                     </div>
                 </div>
             </div>
-
         </template>
     </BaseCharacterColumn>
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, onMounted } from 'vue'
 import { WINNER } from '@shared/constants/winner.js'
-import SuccessChip from '@/components/ui/chips/SuccessChip.vue'
+import { PlayerSides } from '@/constants/playerSides'
+import { useEngagementSuccesses } from '@/composables/useEngagementSuccesses'
+import { useEngagementSession } from '@/composables/useEngagementSession'
+import { useEngagementRoll } from '@/composables/useEngagementRoll'
+import { useCharactersStore } from '@/stores/charactersStore'
+import ChipTag from '@/components/ui/chips/ChipTag.vue'
 import BaseCharacterColumn from './BaseCharacterColumn.vue'
 import EngagementDiceRow from './EngagementDiceRow.vue'
 
 const props = defineProps({
-    character: {
-        type: Object,
-        default: null
-    },
-    dice: {
-        type: Array,
-        default: () => []
-    },
-    successes: {
-        type: Array,
-        default: () => []
-    },
-    assignedSuccesses: {
-        type: Object,
-        default: () => ({})
-    },
-    showResults: {
-        type: Boolean,
-        default: false
-    },
-    rerollingDice: {
-        type: Set,
-        default: () => new Set()
-    },
-    allEngagementSuccesses: {
-        type: Array,
-        default: () => []
-    },
-    winner: {
-        type: String,
-        default: null
-    },
-    side: {
-        type: String,
-        required: true
-    },
     isOpponent: {
         type: Boolean,
-        default: false
-    },
-    canEdit: {
-        type: Boolean,
-        default: true
+        required: true
     },
 })
 
-const emit = defineEmits([
-    'reroll',
-    'success-drop',
-    'remove-success-assignment'
-])
+const sessionManager = useEngagementSession()
+const diceManager = useEngagementRoll()
+const engagementSuccesses = useEngagementSuccesses()
+const charactersStore = useCharactersStore()
+
+// Only fetch engagement successes for the user side (not opponent)
+onMounted(async () => {
+    if (!props.isOpponent) {
+        await engagementSuccesses.fetchEngagementSuccesses()
+    }
+})
+
+// Determine side and character based on isOpponent
+const side = computed(() => props.isOpponent ? PlayerSides.OPPONENT : PlayerSides.USER)
+const character = computed(() => {
+    if (props.isOpponent) {
+        return sessionManager.opponent.value?.characterInfo || null
+    }
+    return charactersStore.selectedCharacter
+})
+
+// Get dice for this side
+const dice = computed(() => {
+    const rollResults = sessionManager.rollResults.value
+
+    if (props.isOpponent) {
+        const opponentChar = character.value
+        if (!opponentChar) return []
+
+        return diceManager.getSortedOpponentDice(
+            sessionManager.opponent.value,
+            sessionManager.sessionData?.value,
+            rollResults,
+            opponentChar.id
+        )
+    }
+    // For user, use getSortedDice with USER side
+    return diceManager.getSortedDice(
+        diceManager.committedDice.value,
+        rollResults,
+        character.value.id
+    )
+})
+
+// Get successes for this side
+const successes = computed(() => {
+    if (props.isOpponent) {
+        return []
+    }
+    return engagementSuccesses.allOwnedEngagementSuccesses.value
+})
+
+// Session state
+const showResults = computed(() => sessionManager.showResults.value)
+const canEdit = computed(() => sessionManager.canEditResults.value && !props.isOpponent)
+
+// Winner is always computed from user's perspective (selectedCharacter)
+// This determines UI styling for both user and opponent columns
+const winner = computed(() => diceManager.getEngagementWinner(sessionManager, charactersStore.selectedCharacter, diceManager.committedDice.value))
 
 // Winner/loser state for BaseCharacterColumn
 const isWinner = computed(() => {
-    if (!props.showResults || !props.winner) {
+    if (!showResults.value || !winner.value) {
         return false
     }
-    return (props.winner === WINNER.USER && !props.isOpponent) ||
-        (props.winner === WINNER.OPPONENT && props.isOpponent)
+    return (winner.value === WINNER.USER && !props.isOpponent) ||
+        (winner.value === WINNER.OPPONENT && props.isOpponent)
 })
 
 const isLoser = computed(() => {
-    if (!props.showResults || !props.winner) {
+    if (!showResults.value || !winner.value) {
         return false
     }
-    return props.winner !== WINNER.TIE && !isWinner.value
+    return winner.value !== WINNER.TIE && !isWinner.value
 })
 
 const onSuccessDragStart = (event, success) => {
-    if (!props.canEdit) {
+    if (!canEdit.value) {
         event.preventDefault()
         return
     }
@@ -124,16 +140,14 @@ const onSuccessDragStart = (event, success) => {
     gap: var(--space-md);
 }
 
-.no-dice-message,
-.no-successes-message {
+.no-dice-message {
     text-align: center;
     color: var(--color-text-muted);
-    margin-top: 10px;
+    margin-top: var(--space-sm);
     font-style: italic;
 }
 
 .engagement-successes-section {
-    margin-top: var(--space-lg);
     padding-top: var(--space-md);
     margin-top: auto;
 }

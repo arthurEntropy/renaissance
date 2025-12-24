@@ -2,8 +2,8 @@
     <div class="table-header edit-trigger">
         <div class="header-left">
             <h2>{{ title }}</h2>
-            <EditButton v-if="showEditButton" size="small" visibility="on-hover" :is-edit-mode="isEditMode"
-                @click="$emit('toggle-edit')" />
+            <FloatingActionButton v-if="showEditButton" type="edit" size="small" visibility="on-hover"
+                :is-active="isEditMode" @click="$emit('toggle-edit')" />
         </div>
         <div class="header-right">
             <slot name="header-right" />
@@ -12,7 +12,7 @@
 </template>
 
 <script setup>
-import EditButton from '@/components/ui/buttons/EditButton.vue'
+import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 
 defineProps({
     title: {

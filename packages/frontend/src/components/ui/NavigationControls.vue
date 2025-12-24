@@ -1,6 +1,7 @@
 <template>
     <div class="navigation-controls">
         <button class="navigate-button prev" @click="$emit('navigate', -1)" :disabled="!hasPrevious"
+            :aria-label="hasPrevious ? 'Navigate to previous item' : 'No previous item'"
             :title="hasPrevious ? 'Previous (← Left Arrow)' : 'No previous item'">
             <ChevronLeftIcon class="nav-icon" />
         </button>
@@ -8,6 +9,7 @@
         <slot />
 
         <button class="navigate-button next" @click="$emit('navigate', 1)" :disabled="!hasNext"
+            :aria-label="hasNext ? 'Navigate to next item' : 'No next item'"
             :title="hasNext ? 'Next (→ Right Arrow)' : 'No next item'">
             <ChevronRightIcon class="nav-icon" />
         </button>

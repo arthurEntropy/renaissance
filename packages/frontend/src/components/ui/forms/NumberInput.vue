@@ -1,18 +1,16 @@
 <template>
-  <div class="number-input-container" :class="sizeClass">
+  <div class="number-input-container">
     <input type="number" :value="modelValue" :disabled="disabled"
       @input="$emit('update:modelValue', Number(($event.target).value))" :min="min" :max="max" :step="step"
-      :class="inputClass" />
+      :class="`input-${size}`" />
     <div v-if="!disabled" class="spinner-buttons">
-      <button @click="increment" class="spinner-up">▲</button>
-      <button @click="decrement" class="spinner-down">▼</button>
+      <button @click="increment" class="spinner-up" aria-label="Increment" type="button">▲</button>
+      <button @click="decrement" class="spinner-down" aria-label="Decrement" type="button">▼</button>
     </div>
   </div>
 </template>
 
 <script setup>
-import { computed } from 'vue'
-
 const props = defineProps({
   modelValue: { type: Number, required: true },
   min: { type: Number, default: null },
@@ -23,9 +21,6 @@ const props = defineProps({
 })
 
 const emit = defineEmits(['update:modelValue'])
-
-const sizeClass = computed(() => `number-input-${props.size}`)
-const inputClass = computed(() => `input-${props.size}`)
 
 const increment = () => {
   if (props.max === null || props.modelValue < props.max) {
@@ -48,10 +43,6 @@ const decrement = () => {
 .number-input-container {
   position: relative;
   display: inline-block;
-}
-
-.number-input-small,
-.number-input-large {
   height: var(--space-xl);
   width: 40px;
 }
@@ -79,10 +70,6 @@ input[type='number']::-webkit-outer-spin-button {
 input[type='number']:disabled {
   opacity: 0.7;
   cursor: default;
-}
-
-.input-tiny {
-  font-size: var(--font-size-10);
 }
 
 .input-small {

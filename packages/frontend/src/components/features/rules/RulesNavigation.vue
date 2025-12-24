@@ -1,28 +1,28 @@
 <template>
   <div class="rules-navigation">
+
+    <!-- Header with edit toggle button -->
     <div class="rules-nav-header">
       <h3>Table of Contents</h3>
-      <EditButton v-if="isAdmin" :isEditMode="isStructureEditMode" :disabled="isContentEditMode" visibility="always"
-        @click="$emit('toggleStructureEditMode')" />
+      <FloatingActionButton v-if="isAdmin" type="edit" :is-active="isStructureEditMode" visibility="always"
+        @click="toggleStructureEditMode" />
     </div>
 
     <!-- Draggable rule sections when in structure edit mode -->
-    <draggable v-if="isStructureEditMode" :modelValue="localSections"
-      @update:modelValue="$emit('updateLocalSections', $event)" item-key="id" handle=".drag-handle"
-      ghost-class="ghost-section" @end="$emit('updateSectionsOrder')" class="rule-sections-list"
-      :disabled="isContentEditMode">
+    <draggable v-if="isStructureEditMode" :modelValue="localSections" @update:modelValue="updateLocalSections"
+      item-key="id" handle=".fab--drag" ghost-class="ghost-section" @end="updateSectionsOrder"
+      class="rule-sections-list">
       <template #item="{ element }">
         <div :class="[
           'rule-section-item',
-          { active: currentSection?.id === element.id },
-        ]" @click="$emit('selectSection', element.id)">
+          { active: rulesStore.selectedSection?.id === element.id },
+        ]" @click="selectSection(element.id)">
           <span class="section-name">{{ element.name }}</span>
           <!-- Edit controls -->
           <div class="section-controls">
-            <span class="drag-handle" name="Drag to reorder">⋮⋮</span>
-            <span class="delete-section" @click.stop="$emit('confirmDeleteSection', element)" name="Delete section">
-              <XMarkIcon class="delete-icon" />
-            </span>
+            <FloatingActionButton type="drag" size="small" visibility="always" />
+            <FloatingActionButton type="delete" size="small" visibility="always"
+              @click.stop="confirmDeleteSection(element)" />
           </div>
         </div>
       </template>
@@ -30,67 +30,111 @@
 
     <!-- Non-draggable rule sections when not in structure edit mode -->
     <div v-else class="rule-sections-list">
-      <div v-for="section in filteredSections" :key="section.id" :class="[
+      <div v-for="section in orderedSections" :key="section.id" :class="[
         'rule-section-item',
-        { active: currentSection?.id === section.id },
-      ]" @click="$emit('selectSection', section.id)">
+        { active: rulesStore.selectedSection?.id === section.id },
+      ]" @click="selectSection(section.id)">
         <span class="section-name">{{ section.name }}</span>
       </div>
     </div>
 
     <!-- Add new section button -->
     <div v-if="isStructureEditMode" class="bottom-actions">
-      <ActionButton variant="primary" size="small" text="+ Add" @click="$emit('createNewSection')" />
+      <ActionButton variant="primary" size="small" text="+ Add" @click="createNewSection" />
     </div>
   </div>
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { ref, computed, watch, inject } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/authStore'
+import { useRulesStore } from '@/stores/rulesStore'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
-import EditButton from '@/components/ui/buttons/EditButton.vue'
+import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import draggable from 'vuedraggable'
-import { XMarkIcon } from '@heroicons/vue/24/outline'
+import RulesService from '@/services/entities/rulesService'
+import { createSlug } from '@/utils/urlHelpers'
 
+const route = useRoute()
+const router = useRouter()
 const authStore = useAuthStore()
-const isAdmin = computed(() => authStore.isAdmin)
+const rulesStore = useRulesStore()
 
-defineProps({
-  filteredSections: {
-    type: Array,
-    required: true
-  },
-  currentSection: {
-    type: Object,
-    default: null
-  },
-  localSections: {
-    type: Array,
-    required: true
-  },
-  isStructureEditMode: {
-    type: Boolean,
-    required: true
-  },
-  isContentEditMode: {
-    type: Boolean,
-    required: true
-  }
+const isAdmin = computed(() => authStore.isAdmin)
+const isStructureEditMode = inject('isStructureEditMode', ref(false))
+
+const emit = defineEmits([
+  'selectSection',
+  'sectionCreated'
+])
+
+const orderedSections = computed(() => {
+  return rulesStore.sections
+    ? [...rulesStore.sections]
+      .filter(section => !section.isDeleted)
+      .sort((a, b) => a.index - b.index)
+    : []
 })
 
-defineEmits([
-  'selectSection',
-  'toggleStructureEditMode',
-  'createNewSection',
-  'confirmDeleteSection',
-  'updateSectionsOrder',
-  'updateLocalSections'
-])
+const localSections = ref([])
+
+watch(orderedSections, (newValue) => {
+  localSections.value = JSON.parse(JSON.stringify(newValue))
+}, { immediate: true })
+
+const selectSection = (sectionId) => {
+  const section = orderedSections.value.find(s => s.id === sectionId)
+  if (section) {
+    emit('selectSection', sectionId)
+    const slug = createSlug(section.name)
+    if (route.params.id !== slug) {
+      router.push(`/rules/${slug}`)
+    }
+  }
+}
+
+const toggleStructureEditMode = () => {
+  isStructureEditMode.value = !isStructureEditMode.value
+  emit('update:isStructureEditMode', isStructureEditMode.value)
+}
+
+const createNewSection = async () => {
+  const newSection = await RulesService.create()
+  await rulesStore.fetch()
+
+  const sectionToSelect = orderedSections.value.find(
+    s => (s.id && s.id === newSection.id) || (!s.id && s.name === newSection.name)
+  )
+
+  if (sectionToSelect) {
+    emit('sectionCreated', sectionToSelect.id)
+    selectSection(sectionToSelect.id)
+  }
+}
+
+const confirmDeleteSection = async (section) => {
+  if (window.confirm(`Are you sure you want to delete "${section.name}"?`)) {
+    await RulesService.update({ ...section, isDeleted: true })
+    await rulesStore.fetch()
+
+    if (rulesStore.selectedSection?.id === section.id && orderedSections.value.length > 0) {
+      selectSection(orderedSections.value[0].id)
+    }
+  }
+}
+
+const updateSectionsOrder = async () => {
+  await RulesService.reorderSections(localSections.value)
+  await rulesStore.fetch()
+}
+
+const updateLocalSections = (newSections) => {
+  localSections.value = newSections
+}
 </script>
 
 <style scoped>
-/* Navigation sidebar styles */
 .rules-navigation {
   width: 250px;
   background: var(--overlay-black-medium);
@@ -163,32 +207,11 @@ defineEmits([
   display: flex;
   gap: var(--space-xs);
   opacity: 0.5;
-  min-width: 30px;
+  min-width: 60px;
 }
 
 .rule-section-item:hover .section-controls {
   opacity: 1;
-}
-
-.drag-handle {
-  cursor: move;
-  user-select: none;
-}
-
-.delete-section {
-  cursor: pointer;
-  padding: 0 var(--space-xs);
-  display: flex;
-  align-items: center;
-}
-
-.delete-icon {
-  width: 16px;
-  height: 16px;
-}
-
-.delete-section:hover {
-  color: var(--color-danger);
 }
 
 .ghost-section {
@@ -196,7 +219,6 @@ defineEmits([
   background: var(--color-gray-dark);
 }
 
-/* Responsive adjustments */
 @media (max-width: var(--breakpoint-md)) {
   .rules-navigation {
     width: 100%;

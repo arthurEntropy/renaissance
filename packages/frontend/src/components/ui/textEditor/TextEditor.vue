@@ -3,7 +3,7 @@
     <TextEditorToolbar v-if="editor" :editor="editor" @setLink="setLink" @insertImage="insertImage"
       @insertDiceFontCharacter="insertDiceFontCharacter" />
 
-    <editor-content :editor="editor" @click.stop />
+    <editor-content class="rich-text-content" :editor="editor" @click.stop />
     <div v-if="!editor" class="editor-loading">Loading editor...</div>
   </div>
 </template>
@@ -19,6 +19,10 @@ import TextAlign from '@tiptap/extension-text-align'
 import DiceFontNode from '@/extensions/DiceFontNode'
 import TextEditorToolbar from './TextEditorToolbar.vue'
 
+const MIN_EDITOR_HEIGHT = 200
+const MAX_EDITOR_HEIGHT = 420
+const AUTO_HEIGHT_BUFFER = 50
+
 const props = defineProps({
   modelValue: {
     type: String,
@@ -30,7 +34,7 @@ const props = defineProps({
   },
   height: {
     type: String,
-    default: '200px',
+    default: '200px', // Matching MIN_EDITOR_HEIGHT - can't reference local constants here
   },
   readonly: {
     type: Boolean,
@@ -47,7 +51,7 @@ const emit = defineEmits(['update:modelValue'])
 const editor = ref()
 const editorWrapper = ref()
 const dynamicHeight = ref(props.height)
-const maxHeight = computed(() => props.autoHeight ? 'none' : '420px')
+const maxHeight = computed(() => props.autoHeight ? 'none' : `${MAX_EDITOR_HEIGHT}px`)
 
 const updateHeight = () => {
   if (!props.autoHeight || !editorWrapper.value) return
@@ -56,8 +60,7 @@ const updateHeight = () => {
     if (pm) {
       pm.style.height = 'auto'
       const scrollHeight = pm.scrollHeight
-      const minHeight = 200
-      const newHeight = Math.max(minHeight, scrollHeight + 50)
+      const newHeight = Math.max(MIN_EDITOR_HEIGHT, scrollHeight + AUTO_HEIGHT_BUFFER)
       dynamicHeight.value = newHeight + 'px'
       pm.style.height = 'auto'
     }
@@ -185,6 +188,7 @@ defineExpose({
 
 <style scoped>
 @import '@/styles/design-tokens.css';
+@import '@/styles/rich-text-content.css';
 
 .dicefont {
   font-family: var(--font-family-dice) !important;
@@ -236,46 +240,6 @@ defineExpose({
 
 :deep(.ProseMirror)>* {
   max-width: 100%;
-}
-
-:deep(.ProseMirror a) {
-  color: var(--color-primary);
-  text-decoration: underline;
-}
-
-:deep(.ProseMirror h2) {
-  font-size: var(--font-size-36);
-  margin: 1.5em 0 0 0;
-  color: var(--color-primary);
-  font-weight: var(--font-weight-normal);
-}
-
-:deep(.ProseMirror h3) {
-  margin: 1.5em 0 0 0;
-  font-size: var(--font-size-24);
-  color: var(--color-accent-cyan);
-}
-
-:deep(.ProseMirror p) {
-  font-size: var(--font-size-16);
-  line-height: var(--line-height-loose);
-}
-
-:deep(.ProseMirror ul) {
-  padding-left: var(--space-xl);
-  margin: 0.5em 0;
-}
-
-:deep(.ProseMirror ul li) {
-  margin-bottom: 0.3em;
-}
-
-:deep(.ProseMirror img),
-:deep(.editor-image) {
-  max-width: 100%;
-  height: auto;
-  display: block;
-  margin: 0.5em 0;
 }
 
 .editor-image {

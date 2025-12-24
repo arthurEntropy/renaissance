@@ -2,11 +2,15 @@
     <div v-if="selectedCount > 0" class="edit-multiple-bar">
         <span class="selected-count">{{ selectedCount }} item{{ selectedCount !== 1 ? 's' : '' }} selected</span>
         <ActionButton variant="primary" size="large" text="Edit Multiple" @click="$emit('edit')" />
+        <button type="button" class="close-button" @click="$emit('clear')" aria-label="Clear selection">
+            <XMarkIcon class="icon-sm" />
+        </button>
     </div>
 </template>
 
 <script setup>
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
+import { XMarkIcon } from '@heroicons/vue/24/outline'
 
 defineProps({
     selectedCount: {
@@ -15,7 +19,7 @@ defineProps({
     }
 })
 
-defineEmits(['edit'])
+defineEmits(['edit', 'clear'])
 </script>
 
 <style scoped>
@@ -39,5 +43,28 @@ defineEmits(['edit'])
     color: var(--color-text-secondary);
     font-size: var(--font-size-14);
     font-weight: var(--font-weight-medium);
+}
+
+.close-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-xs);
+    background: transparent;
+    border: none;
+    border-radius: var(--radius-5);
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    transition: var(--transition-all);
+}
+
+.close-button:hover {
+    background: var(--color-bg-tertiary);
+    color: var(--color-text-primary);
+}
+
+.icon-sm {
+    width: 20px;
+    height: 20px;
 }
 </style>

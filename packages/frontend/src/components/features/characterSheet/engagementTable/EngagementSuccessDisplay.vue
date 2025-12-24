@@ -1,75 +1,81 @@
 <template>
-    <div class="engagement-successes">
-        <SuccessChip v-for="success in successData" :key="success.id" :success="success"
-            :removable="isEditMode && success.isUserAdded" @remove="$emit('remove-success', success.id)" />
+    <div class="engagement-success-display">
 
+        <!-- Display existing engagement successes -->
+        <ChipTag v-for="success in successData" :key="success.id" :text="success.name" rounded="full"
+            :removable="isEditMode && success.isUserAdded"
+            :tooltip="{ description: success.description, sources: success.sources }"
+            @remove="removeUserAddedSuccess(success.id)" />
+
+        <!-- Add Success Button -->
         <div v-if="isEditMode" class="add-success-container">
-            <AddButton :show="true" size="small" position="inline" title="Add success"
-                @click="$emit('add-success', $event)" />
+            <FloatingActionButton type="add" size="small" visibility="always" @click="toggleDropdown" />
         </div>
 
+        <!-- No Successes Message -->
         <div v-if="successData.length === 0 && !isEditMode" class="no-successes-message">
             No engagement successes available
         </div>
-    </div>
 
-    <!-- Success Selection Dropdown -->
-    <div v-if="showDropdown" class="success-dropdown"
-        :style="{ top: dropdownPosition.y + 'px', left: dropdownPosition.x + 'px' }">
-
-        <div v-if="availableSuccesses.length > 0">
-            <button v-for="success in availableSuccesses" :key="success.id" class="success-option"
-                @click="$emit('select-success', success.id)">
-                {{ success.name }}
-            </button>
-        </div>
-
-        <div v-else class="success-dropdown-empty">
-            All engagement successes already owned
-        </div>
+        <!-- Success Selection Dropdown -->
+        <ItemDropdown ref="dropdownRef" :show="dropdown.isVisible.value" :position="dropdown.position.value"
+            :items="availableSuccesses" empty-message="All owned" @select="handleSelectSuccess" />
     </div>
 </template>
 
 <script setup>
-import SuccessChip from '@/components/ui/chips/SuccessChip.vue'
-import AddButton from '@/components/ui/buttons/AddButton.vue'
+import { ref, nextTick } from 'vue'
+import { useEngagementSuccesses } from '@/composables/useEngagementSuccesses'
+import { useFloatingElement } from '@/composables/useFloatingElement'
+import ChipTag from '@/components/ui/chips/ChipTag.vue'
+import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
+import ItemDropdown from '@/components/ui/dropdowns/ItemDropdown.vue'
 
-// Props
 defineProps({
-    successData: {
-        type: Array,
-        default: () => []
-    },
-    availableSuccesses: {
-        type: Array,
-        default: () => []
-    },
     isEditMode: {
         type: Boolean,
         default: false
-    },
-    showDropdown: {
-        type: Boolean,
-        default: false
-    },
-    dropdownPosition: {
-        type: Object,
-        default: () => ({ x: 0, y: 0 })
     }
 })
 
-// Emits
-defineEmits(['remove-success', 'add-success', 'select-success'])
+const successManager = useEngagementSuccesses()
+const successData = successManager.allOwnedEngagementSuccesses
+const availableSuccesses = successManager.availableEngagementSuccesses
+const addUserAddedSuccess = successManager.addUserAddedSuccess
+const removeUserAddedSuccess = successManager.removeUserAddedSuccess
+
+const dropdown = useFloatingElement({
+    closeOnOutsideClick: true,
+    closeOnScroll: true,
+    adjustToViewport: true
+})
+const dropdownRef = ref(null)
+
+const toggleDropdown = async (event) => {
+    const triggerEl = event.target.closest('button')
+    if (!triggerEl) return
+
+    dropdown.show(null, triggerEl)
+    await nextTick()
+    if (dropdownRef.value?.$el) {
+        dropdown.show(null, triggerEl, dropdownRef.value.$el)
+    }
+}
+
+const handleSelectSuccess = (success) => {
+    addUserAddedSuccess(success.id)
+    dropdown.hide()
+}
 </script>
 
 <style scoped>
-.engagement-successes {
+.engagement-success-display {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     gap: var(--space-xs);
-    margin-top: 10px;
+    margin-top: var(--space-lg);
     width: 100%;
 }
 
@@ -79,51 +85,10 @@ defineEmits(['remove-success', 'add-success', 'select-success'])
     justify-content: center;
 }
 
-.success-dropdown {
-    position: fixed;
-    background-color: var(--color-bg-primary);
-    border: 1px solid var(--color-gray-light);
-    border-radius: var(--radius-5);
-    padding: var(--space-sm);
-    z-index: var(--z-dropdown);
-    max-width: 250px;
-    max-height: 300px;
-    overflow-y: auto;
-    box-shadow: var(--shadow-elevation-sm);
-}
-
-.success-option {
-    display: block;
-    width: 100%;
-    text-align: left;
-    padding: var(--space-xs) 8px;
-    margin-bottom: 3px;
-    background-color: var(--color-bg-secondary);
-    color: var(--color-text-primary);
-    border: none;
-    border-radius: var(--radius-5);
-    cursor: pointer;
-    font-family: inherit;
-    font-size: var(--font-size-14);
-    transition: var(--transition-background);
-}
-
-.success-option:hover {
-    background-color: var(--color-bg-tertiary);
-}
-
-.success-dropdown-empty {
-    color: var(--color-text-muted);
-    font-style: italic;
-    padding: var(--space-xs);
-    text-align: center;
-    font-size: var(--font-size-14);
-}
-
 .no-successes-message {
     text-align: center;
     color: var(--color-text-muted);
-    margin-top: 5px;
+    margin-top: var(--space-md);
     font-size: var(--font-size-14);
 }
 </style>

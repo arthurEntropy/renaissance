@@ -1,6 +1,6 @@
 import { RollTypes } from '@/constants/rollTypes'
 import { WINNER } from '@shared/constants/winner.js'
-import DiscordAdapter from './utils/DiscordAdapter.js'
+import eventBus, { ROLL_EVENTS } from '../events/eventBus'
 import BaseRollService from './baseRollService.js'
 
 class OpposedSkillCheckService extends BaseRollService {
@@ -51,12 +51,13 @@ class OpposedSkillCheckService extends BaseRollService {
     return result
   }
 
-  // Separate method to create and send to Discord in one step, for when the result is accepted by both users.
-  static async sendOpposedSkillCheckToDiscord(session, userCharacterId, opponentCharacterId) {
+  // Separate method to emit event when result is accepted by both users
+  static emitOpposedSkillCheckResult(session, userCharacterId, opponentCharacterId) {
     const result = this.createOpposedSkillCheckResult(session, userCharacterId, opponentCharacterId)
     if (result) {
-      await DiscordAdapter.sendOpposedSkillCheck(result)
+      eventBus.emit(ROLL_EVENTS.OPPOSED_SKILL_CHECK, { opposedResult: result })
     }
+    return result
   }
 
   static _determineWinner(session, userCharacterId) {

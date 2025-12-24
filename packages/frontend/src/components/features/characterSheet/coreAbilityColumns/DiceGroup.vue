@@ -1,8 +1,7 @@
 <template>
     <div class="dice-group">
-        <i v-for="(n, diceIndex) in MAX_SKILL_RANKS" :key="diceIndex" :class="getDiceClasses(diceIndex)"
-            @click="isEditMode ? $emit('dice-click', diceIndex) : null" class="dice-icon d6-icon"
-            :style="{ cursor: isEditMode ? 'pointer' : 'default' }">
+        <i v-for="(_, diceIndex) in MAX_SKILL_RANKS" :key="diceIndex" :class="getDiceClasses(diceIndex)"
+            @click="handleDiceClick(diceIndex)" class="dice-icon d6-icon">
         </i>
     </div>
 </template>
@@ -12,41 +11,45 @@ import { getDiceFontClass } from '@/utils/diceFontUtils'
 import { MAX_SKILL_RANKS } from '@shared/constants/characterConstants'
 import { DIE_TYPE } from '@shared/constants/dice'
 
-// Props
 const props = defineProps({
     skill: {
         type: Object,
         required: true
     },
-    isEditMode: {
+    canEdit: {
         type: Boolean,
         default: false
-    },
-    isRankActive: {
-        type: Function,
-        required: true
-    },
-    isDiceAdded: {
-        type: Function,
-        required: true
-    },
-    isDiceSubtracted: {
-        type: Function,
-        required: true
     }
 })
 
-// Emits
-defineEmits(['dice-click'])
+const emit = defineEmits(['update-ranks'])
 
-// Methods
+const handleDiceClick = (diceIndex) => {
+    if (!props.canEdit) return
+
+    // Clicking on a die sets the ranks, unless it's already that rank, in which case it removes one rank
+    const newRank = diceIndex + 1
+    const updatedRanks = newRank === props.skill.ranks ? props.skill.ranks - 1 : newRank
+    emit('update-ranks', updatedRanks)
+}
+
 const getDiceClasses = (diceIndex) => {
+    const { ranks, diceMod = 0 } = props.skill
+
+    const withinRanks = diceIndex < ranks
+    const withinDiceMod = diceIndex >= ranks && diceIndex < ranks + diceMod && diceMod > 0
+    const isActive = withinRanks || withinDiceMod
+
+    const isAdded = withinDiceMod
+    const isSubtracted = ranks - diceIndex <= Math.abs(diceMod) && diceMod < 0 && diceIndex < ranks
+
     return [
         getDiceFontClass(DIE_TYPE.D6, DIE_TYPE.D6),
         {
-            'dice-active': props.isRankActive(props.skill, diceIndex),
-            'dice-added': props.isDiceAdded(props.skill, diceIndex),
-            'dice-subtracted': props.isDiceSubtracted(props.skill, diceIndex),
+            'dice-active': isActive,
+            'dice-added': isAdded,
+            'dice-subtracted': isSubtracted,
+            'can-edit': props.canEdit
         },
     ]
 }
@@ -61,7 +64,6 @@ const getDiceClasses = (diceIndex) => {
 
 .dice-icon {
     font-size: var(--font-size-24);
-    cursor: pointer;
     transition: var(--transition-color), opacity var(--transition-normal);
 }
 
@@ -83,5 +85,9 @@ const getDiceClasses = (diceIndex) => {
 .dice-subtracted {
     color: var(--color-danger);
     text-shadow: var(--shadow-glow-danger-sm);
+}
+
+.can-edit {
+    cursor: pointer;
 }
 </style>

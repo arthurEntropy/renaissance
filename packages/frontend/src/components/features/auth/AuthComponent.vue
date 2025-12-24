@@ -9,36 +9,30 @@
         <div v-else-if="!authStore.isAuthenticated" class="auth-login">
             <ActionButton @click="handleGoogleSignIn" variant="outline" size="large" :loading="signingIn"
                 :disabled="signingIn">
-                Sign In <img
-                    src="https://www.gstatic.com/marketing-cms/assets/images/d5/dc/cfe9ce8b4425b410b49b7f2dd3f3/g.webp=s48-fcrop64=1,00000000ffffffff-rw"
-                    alt="Google" class="google-icon" />
+                Sign In <img :src="GOOGLE_ICON_URL" alt="Google" class="google-icon" />
             </ActionButton>
         </div>
 
         <!-- Authenticated but pending approval -->
         <div v-else-if="authStore.isPending" class="auth-pending">
             <div class="user-info">
-                <img v-if="authStore.user?.photoURL" :src="authStore.user.photoURL" class="user-avatar" />
-                <span class="user-name">{{ userStore.displayName }}</span>
+                <span class="user-name">{{ displayName }}</span>
             </div>
             <p class="pending-message">
                 Your account is pending approval. Please wait for an administrator to approve your access.
             </p>
-            <button @click="handleSignOut" class="signout-btn">Sign Out</button>
+            <ActionButton @click="handleSignOut" variant="outline" :loading="signingOut" :disabled="signingOut">
+                Sign Out
+            </ActionButton>
         </div>
 
         <!-- Authenticated and approved (or needs username, but we show user info) -->
         <div v-else class="auth-user">
             <div class="user-dropdown" @click="toggleDropdown" ref="dropdownTrigger">
                 <!-- Chevron icon (shown on hover) -->
-                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd"
-                        d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
-                        clip-rule="evenodd" />
-                </svg>
+                <ChevronDownIcon class="chevron-icon" />
 
-                <span class="user-name">{{ userStore.userProfile?.name || authStore.user?.displayName ||
-                    authStore.user?.email || 'User' }}</span>
+                <span class="user-name">{{ displayName }}</span>
 
                 <!-- Dropdown menu -->
                 <div v-if="dropdownOpen" class="dropdown-menu">
@@ -58,18 +52,27 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { useAuthStore } from '@/stores/authStore'
 import { useUserStore } from '@/stores/userStore'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
+import { ChevronDownIcon } from '@heroicons/vue/24/outline'
+
+const GOOGLE_ICON_URL = 'https://www.gstatic.com/marketing-cms/assets/images/d5/dc/cfe9ce8b4425b410b49b7f2dd3f3/g.webp=s48-fcrop64=1,00000000ffffffff-rw'
 
 const authStore = useAuthStore()
 const userStore = useUserStore()
 const signingIn = ref(false)
+const signingOut = ref(false)
 const dropdownOpen = ref(false)
 const dropdownTrigger = ref(null)
 
 const emit = defineEmits(['openPreferences'])
+
+const displayName = computed(() => {
+    if (userStore.isLoading) return 'Loading...'
+    return userStore.userProfile?.name || authStore.user?.email || 'User'
+})
 
 const toggleDropdown = () => {
     dropdownOpen.value = !dropdownOpen.value
@@ -81,6 +84,14 @@ const closeDropdownMenu = (event) => {
     }
 }
 
+watch(dropdownOpen, (isOpen) => {
+    if (isOpen) {
+        document.addEventListener('click', closeDropdownMenu)
+    } else {
+        document.removeEventListener('click', closeDropdownMenu)
+    }
+})
+
 const closeDropdown = () => {
     dropdownOpen.value = false
 }
@@ -89,14 +100,6 @@ const openPreferences = () => {
     emit('openPreferences')
     dropdownOpen.value = false
 }
-
-onMounted(() => {
-    document.addEventListener('click', closeDropdownMenu)
-})
-
-onUnmounted(() => {
-    document.removeEventListener('click', closeDropdownMenu)
-})
 
 const handleGoogleSignIn = async () => {
     try {
@@ -112,9 +115,12 @@ const handleGoogleSignIn = async () => {
 const handleSignOut = async () => {
     dropdownOpen.value = false
     try {
+        signingOut.value = true
         await authStore.signOut()
     } catch (error) {
         console.error('Sign out failed:', error)
+    } finally {
+        signingOut.value = false
     }
 }
 </script>

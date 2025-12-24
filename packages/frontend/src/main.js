@@ -9,6 +9,9 @@ import '@/styles/global.css'
 import '@/styles/concept-components.css'
 import '@/styles/character-sheet-components.css'
 
+// Initialize Discord service (subscribes to roll events)
+import '@/services/discord/discordService'
+
 const app = createApp(App)
 app.use(createPinia())
 app.use(router)

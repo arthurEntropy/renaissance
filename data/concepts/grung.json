@@ -1,0 +1,23 @@
+{
+  "id": "9250fcc5-9bc9-4724-815d-4411e79d403c",
+  "conceptType": "ANCESTRY",
+  "name": "Grung",
+  "description": "",
+  "isDeleted": false,
+  "artUrls": [
+    "https://cdn.midjourney.com/6a52d112-8461-45a7-bf01-3c17367af7c8/0_1.png"
+  ],
+  "faces": [],
+  "places": [],
+  "backgroundImage": "https://cdn.midjourney.com/72d2011e-24c8-4d1c-a035-c3a9bda06b51/0_3.png",
+  "expansion": "e46f4320-a414-4300-95d5-397ba717d982",
+  "hooks": [],
+  "playlists": [],
+  "names": "",
+  "occupations": "",
+  "publicHouses": "",
+  "vittles": "",
+  "pointsOfInterest": "",
+  "floraFauna": "",
+  "lastModified": "2025-11-20T15:48:22.734Z"
+}

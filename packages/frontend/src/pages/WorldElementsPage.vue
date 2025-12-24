@@ -1,16 +1,17 @@
 <template>
-  <ConceptsLayout itemName="World Element" v-bind="layoutProps" />
+  <ConceptsLayout v-bind="layoutProps" @select="handleSelect" @deselect="handleDeselect" @create="handleCreate" />
 </template>
 
 <script setup>
-import { useWorldElementsStore } from '@/stores/worldElementsStore'
-import WorldElementService from '@/services/entities/gameConcepts/worldElementService'
+import { useConceptsStore } from '@/stores/conceptsStore'
+import ConceptService from '@/services/entities/conceptService'
 import ConceptsLayout from '@/components/ui/layouts/ConceptsLayout.vue'
 import { useConceptsLayout } from '@/composables/useConceptsLayout'
 
-const worldElementsStore = useWorldElementsStore()
+const conceptsStore = useConceptsStore()
 
-const { layoutProps } = useConceptsLayout(worldElementsStore, WorldElementService, {
-  conceptsProperty: 'worldElements'
+const { layoutProps, handleSelect, handleDeselect, handleCreate } = useConceptsLayout(conceptsStore, ConceptService, {
+  conceptsProperty: 'worldElements',
+  itemName: 'World Element'
 })
 </script>

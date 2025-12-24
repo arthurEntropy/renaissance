@@ -1,13 +1,5 @@
 import { ref } from 'vue'
 
-/**
- * Composable for managing edit mode state with backup/restore functionality
- * @param {Object} options - Configuration options
- * @param {Function} options.onSave - Callback when saving changes
- * @param {Function} options.onCancel - Callback when canceling changes
- * @param {Function} options.onStartEdit - Callback when starting edit mode
- * @returns {Object} Edit mode utilities
- */
 export function useEditMode(options = {}) {
   const { onSave = () => {}, onCancel = () => {}, onStartEdit = () => {} } = options
   
@@ -52,37 +44,5 @@ export function useEditMode(options = {}) {
     saveEdit,
     cancelEdit,
     hasUnsavedChanges
-  }
-}
-
-/**
- * Simple edit mode for basic toggle functionality
- * Use this for simpler components that don't need backup/restore
- */
-export function useSimpleEditMode() {
-  const isEditMode = ref(false)
-
-  const toggleEditMode = () => {
-    isEditMode.value = !isEditMode.value
-  }
-
-  const setEditMode = (value) => {
-    isEditMode.value = value
-  }
-
-  const exitEditMode = () => {
-    isEditMode.value = false
-  }
-
-  const enterEditMode = () => {
-    isEditMode.value = true
-  }
-
-  return {
-    isEditMode,
-    toggleEditMode,
-    setEditMode,
-    exitEditMode,
-    enterEditMode
   }
 }

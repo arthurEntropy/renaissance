@@ -180,12 +180,13 @@
           <!-- Engagement Successes -->
           <div v-if="equipmentIsWeapon" class="form-group vertical">
             <label>Engagement Successes:</label>
-            <div class="engagement-success-container">
-              <div v-for="success in engagementSuccessOptions" :key="success.id" class="engagement-success-pill">
+            <div class="properties-inline">
+              <label v-for="success in engagementSuccessOptions" :key="success.id" :for="'success-' + success.id"
+                class="property-checkbox">
                 <input type="checkbox" :id="'success-' + success.id" :value="success.id"
-                  v-model="editedEquipment.engagementSuccesses" class="pill-checkbox" />
-                <label :for="'success-' + success.id">{{ success.name }}</label>
-              </div>
+                  v-model="editedEquipment.engagementSuccesses" />
+                {{ success.name }}
+              </label>
             </div>
           </div>
 
@@ -196,7 +197,8 @@
       <div class="modal-footer">
         <div class="form-buttons">
           <ActionButton variant="success" size="small" text="Save" @click="saveEquipment" type="button" />
-          <ActionButton variant="danger" size="small" text="Delete" @click="deleteEquipment" type="button" />
+          <ActionButton variant="danger" size="small" text="Delete" @click="() => deleteItem('equipment')"
+            type="button" />
         </div>
       </div>
 
@@ -205,13 +207,13 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
-import { useDiceManagement } from '@/composables/useDiceManagement'
-import { useEditForm } from '@/composables/useEditForm'
+import { ref, computed } from 'vue'
 import TextEditor from '@/components/ui/textEditor/TextEditor.vue'
 import SourceDropdown from '@/components/ui/selectors/SourceDropdown.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
+import { useEditModalForm } from '@/composables/useEditModalForm'
 import { getDiceFontMaxClass } from '@/utils/diceFontUtils'
+import { STANDARD_DIE_SIZES } from '@shared/constants/dice'
 
 
 // Props
@@ -253,37 +255,35 @@ const props = defineProps({
 // Emits
 const emit = defineEmits(['update', 'delete', 'close'])
 
-// Composables
-const {
-  editedData: editedEquipment,
-  save,
-  deleteItem,
-  cancel,
-  hasChanges
-} = useEditForm(props.equipment, emit)
+// Use edit modal form composable
+const { editedData: editedEquipment, hasChanges, save: baseSave, deleteItem, handleOverlayClick } = useEditModalForm(props, emit)
 
-// Dice management composables
-const {
-  dieTypes,
-  diceCounts: engagementDiceCounts,
-  initializeCounts: initializeEngagementDice,
-  getDiceList: getEngagementDiceList
-} = useDiceManagement()
+// Dice management - convert between array [4, 6, 6, 8] and count object {4: 1, 6: 2, 8: 1}
+const dieTypes = STANDARD_DIE_SIZES
+const engagementDiceCounts = ref({})
+const damageDiceCounts = ref({})
 
-const {
-  diceCounts: damageDiceCounts,
-  initializeCounts: initializeDamageDice,
-  getDiceList: getDamageDiceList
-} = useDiceManagement()
-
-// Initialize dice counts from equipment data
-const initializeDiceCounts = () => {
-  initializeEngagementDice(editedEquipment.value?.engagementDice || [])
-  initializeDamageDice(editedEquipment.value?.damageDice || [])
+const convertArrayToCounts = (diceArray) => {
+  const counts = {}
+  dieTypes.forEach((dieType) => {
+    counts[dieType] = diceArray.filter((die) => die === dieType).length
+  })
+  return counts
 }
 
-// Initialize dice counts immediately
-initializeDiceCounts()
+const convertCountsToArray = (diceCounts) => {
+  const diceArray = []
+  Object.entries(diceCounts).forEach(([dieType, count]) => {
+    for (let i = 0; i < count; i++) {
+      diceArray.push(Number(dieType))
+    }
+  })
+  return diceArray
+}
+
+// Initialize dice counts from equipment data
+engagementDiceCounts.value = convertArrayToCounts(editedEquipment.value?.engagementDice || [])
+damageDiceCounts.value = convertArrayToCounts(editedEquipment.value?.damageDice || [])
 
 // Computed properties
 const equipmentIsWeapon = computed(() => {
@@ -305,13 +305,13 @@ const onTypeChange = () => {
 
 // Equipment management functions
 const saveDiceChanges = () => {
-  editedEquipment.value.engagementDice = getEngagementDiceList()
-  editedEquipment.value.damageDice = getDamageDiceList()
+  editedEquipment.value.engagementDice = convertCountsToArray(engagementDiceCounts.value)
+  editedEquipment.value.damageDice = convertCountsToArray(damageDiceCounts.value)
 }
 
 const saveEquipment = () => {
   if (!editedEquipment.value.id) {
-    console.error('Cannot save equipment: Missing ID')
+    alert('Cannot save equipment: Missing ID. Please try again or contact support.')
     return
   }
   saveDiceChanges()
@@ -325,21 +325,7 @@ const saveEquipment = () => {
   editedEquipment.value.reach = Number.isFinite(editedEquipment.value.reach)
     ? editedEquipment.value.reach
     : 0
-  save()
-}
-
-const deleteEquipment = () => deleteItem('equipment')
-const closeModal = () => cancel()
-
-// Handle overlay click with unsaved changes check
-const handleOverlayClick = () => {
-  if (hasChanges.value) {
-    if (confirm('You have unsaved changes. Are you sure you want to discard them?')) {
-      closeModal()
-    }
-  } else {
-    closeModal()
-  }
+  baseSave()
 }
 </script>
 
@@ -423,55 +409,6 @@ const handleOverlayClick = () => {
   font-size: var(--font-size-14);
   border: 1px solid var(--color-gray-light);
   border-radius: var(--radius-5);
-}
-
-/* Engagement success styles */
-.engagement-success-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-md);
-  margin-top: var(--space-sm);
-  padding: var(--space-md);
-}
-
-.engagement-success-pill {
-  display: flex;
-  align-items: center;
-  background-color: var(--overlay-black-heavy);
-  color: var(--color-text-secondary);
-  padding: var(--space-xs) var(--space-sm);
-  border-radius: var(--radius-15);
-  font-size: var(--font-size-14);
-  text-align: center;
-  gap: var(--space-xs);
-}
-
-.pill-checkbox {
-  appearance: none;
-  width: 16px;
-  height: 16px;
-  border: 2px solid var(--color-gray-light);
-  border-radius: var(--radius-5);
-  background-color: var(--overlay-black-heavy);
-  cursor: pointer;
-}
-
-.pill-checkbox:checked {
-  background-color: var(--color-white);
-  border-color: var(--color-white);
-}
-
-.pill-checkbox:checked::after {
-  content: '✔';
-  display: block;
-  color: var(--overlay-black-heavy);
-  font-size: var(--font-size-14);
-  text-align: center;
-  line-height: var(--line-height-normal);
-}
-
-.pill-checkbox:hover {
-  border-color: var(--color-gray-medium);
 }
 
 /* Weapon Properties */

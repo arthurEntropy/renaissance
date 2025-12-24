@@ -1,27 +1,18 @@
 <template>
     <div class="filter-controls">
-        <!-- Search Input -->
-        <input type="text" v-model="searchQuery" class="search-input" :placeholder="searchPlaceholder" />
+        <input type="text" v-model="searchQuery" class="search-input" :placeholder="searchPlaceholder"
+            aria-label="Search items" />
 
-        <!-- Primary Filter (Expansions or Sources) -->
-        <select v-model="primaryFilter" :class="primaryFilterClass">
+        <select v-if="primaryFilterOptions && primaryFilterOptions.length > 0" v-model="primaryFilter"
+            class="primary-filter" aria-label="Filter by category">
             <option value="">{{ primaryFilterLabel }}</option>
-
-            <!-- Simple options (for expansions) -->
-            <template v-if="!primaryFilterOptions.grouped">
-                <option v-for="option in primaryFilterOptions.items" :key="option.id" :value="option.id">
-                    {{ option.name }}
-                </option>
-            </template>
-
-            <!-- Grouped options (for sources) -->
-            <template v-else>
-                <SourceOptionsGroup :sources="primaryFilterOptions.sources" />
-            </template>
+            <option v-for="option in primaryFilterOptions" :key="option.id" :value="option.id">
+                {{ option.name }}
+            </option>
         </select>
 
-        <!-- Sort Filter (optional) -->
-        <select v-if="sortOptions && Object.keys(sortOptions).length > 0" v-model="sortOption" class="sort-filter">
+        <select v-if="sortOptions && Object.keys(sortOptions).length > 0" v-model="sortOption" class="sort-filter"
+            aria-label="Sort items">
             <option value="">Sort by...</option>
             <optgroup v-for="(options, group) in sortOptions" :key="group" :label="group">
                 <option v-for="option in options" :key="option.value" :value="option.value">
@@ -30,76 +21,54 @@
             </optgroup>
         </select>
 
-        <!-- Additional Filters Slot -->
         <slot name="additional-filters"></slot>
 
-        <!-- Add Button (optional) -->
-        <ActionButton v-if="showAddButton" variant="primary" size="large" :text="addButtonText"
-            @click="$emit('create')" />
+        <ActionButton v-if="showAddButton" variant="primary" size="large" text="+ Add" @click="$emit('create')" />
     </div>
 </template>
 
 <script setup>
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
-import SourceOptionsGroup from '@/components/ui/selectors/SourceOptionsGroup.vue'
 
 defineProps({
-    // Search
     searchPlaceholder: {
         type: String,
         default: 'Search...'
     },
 
-    // Primary filter (expansions or sources)
     primaryFilterOptions: {
-        type: Object,
-        required: true,
-        // Expected format:
-        // For simple list: { grouped: false, items: [{ id, name }] }
-        // For grouped: { grouped: true, groups: { "Group Name": [{ id, name }] } }
+        type: Array,
+        default: () => [],
     },
     primaryFilterLabel: {
         type: String,
         default: 'All Items'
     },
-    primaryFilterClass: {
-        type: String,
-        default: 'primary-filter'
-    },
 
-    // Sort options
     sortOptions: {
         type: Object,
         default: () => ({})
     },
 
-    // Add button
     showAddButton: {
         type: Boolean,
         default: false
-    },
-    addButtonText: {
-        type: String,
-        default: '+ Add'
     }
 })
 
 defineEmits(['create'])
 
-// Two-way binding with parent
 const searchQuery = defineModel('searchQuery')
 const primaryFilter = defineModel('primaryFilter')
 const sortOption = defineModel('sortOption')
 </script>
 
 <style scoped>
-@import '@/styles/design-tokens.css';
-
 .filter-controls {
     display: flex;
     gap: var(--space-lg);
     width: 100%;
-    max-width: 80%;
+    max-width: 85%;
     margin: 0 auto var(--space-lg) auto;
     padding: 0 var(--space-xl);
     z-index: var(--z-overlay);
@@ -116,7 +85,9 @@ const sortOption = defineModel('sortOption')
 }
 
 .primary-filter,
-.sort-filter {
+.sort-filter,
+:deep(.source-filter),
+:deep(.category-filter) {
     flex: 1;
     padding: var(--space-sm) var(--space-md);
     border: 1px solid var(--color-gray-medium);
@@ -126,13 +97,21 @@ const sortOption = defineModel('sortOption')
     color: var(--color-white);
 }
 
+:deep(.category-filter) {
+    min-width: 120px;
+}
+
 .primary-filter optgroup,
-.sort-filter optgroup {
+.sort-filter optgroup,
+:deep(.source-filter) optgroup,
+:deep(.category-filter) optgroup {
     background-color: var(--color-black);
 }
 
 .primary-filter option,
-.sort-filter option {
+.sort-filter option,
+:deep(.source-filter) option,
+:deep(.category-filter) option {
     background-color: var(--overlay-black-heavy);
     padding: var(--space-sm);
 }
@@ -143,9 +122,18 @@ const sortOption = defineModel('sortOption')
 
 .search-input:focus,
 .primary-filter:focus,
-.sort-filter:focus {
+.sort-filter:focus,
+:deep(.source-filter):focus,
+:deep(.category-filter):focus {
     outline: none;
     border-color: var(--color-gray-light);
     box-shadow: var(--shadow-glow-sm);
+}
+
+:deep(.source-filter):disabled,
+:deep(.category-filter):disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background-color: var(--overlay-black-heavy);
 }
 </style>

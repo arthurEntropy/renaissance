@@ -1,5 +1,5 @@
 <template>
-    <div class="modal-overlay" @click="handleOverlayClick">
+    <div class="modal-overlay" @click="closeModal">
         <div class="modal-content" @click.stop>
 
             <!-- Scrollable Form Content -->
@@ -26,7 +26,7 @@
                             <label for="ancestry1" class="left-aligned">Ancestries:</label>
                             <select v-model="formData.ancestryIds[0]" id="ancestry1" class="modal-input">
                                 <option value="">Select ancestry...</option>
-                                <option v-for="ancestry in ancestryStore.ancestries" :key="ancestry.id"
+                                <option v-for="ancestry in conceptsStore.ancestries" :key="ancestry.id"
                                     :value="ancestry.id">
                                     {{ ancestry.name }}
                                 </option>
@@ -36,7 +36,7 @@
                             <label for="ancestry2" class="left-aligned invisible-label">&nbsp;</label>
                             <select v-model="formData.ancestryIds[1]" id="ancestry2" class="modal-input">
                                 <option value="">Select ancestry...</option>
-                                <option v-for="ancestry in ancestryStore.ancestries" :key="ancestry.id"
+                                <option v-for="ancestry in conceptsStore.ancestries" :key="ancestry.id"
                                     :value="ancestry.id">
                                     {{ ancestry.name }}
                                 </option>
@@ -50,7 +50,7 @@
                             <label for="culture1" class="left-aligned">Cultures:</label>
                             <select v-model="formData.cultureIds[0]" id="culture1" class="modal-input">
                                 <option value="">Select culture...</option>
-                                <option v-for="culture in cultureStore.cultures" :key="culture.id" :value="culture.id">
+                                <option v-for="culture in conceptsStore.cultures" :key="culture.id" :value="culture.id">
                                     {{ culture.name }}
                                 </option>
                             </select>
@@ -59,7 +59,7 @@
                             <label for="culture2" class="left-aligned invisible-label">&nbsp;</label>
                             <select v-model="formData.cultureIds[1]" id="culture2" class="modal-input">
                                 <option value="">Select culture...</option>
-                                <option v-for="culture in cultureStore.cultures" :key="culture.id" :value="culture.id">
+                                <option v-for="culture in conceptsStore.cultures" :key="culture.id" :value="culture.id">
                                     {{ culture.name }}
                                 </option>
                             </select>
@@ -72,7 +72,7 @@
                             <label for="mestiere" class="left-aligned">Mestiere:</label>
                             <select v-model="formData.mestiereId" id="mestiere" class="modal-input">
                                 <option value="">Select mestiere...</option>
-                                <option v-for="mestiere in mestiereStore.mestieri" :key="mestiere.id"
+                                <option v-for="mestiere in conceptsStore.mestieri" :key="mestiere.id"
                                     :value="mestiere.id">
                                     {{ mestiere.name }}
                                 </option>
@@ -100,32 +100,27 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue'
-import { useAncestriesStore } from '@/stores/ancestriesStore'
-import { useCulturesStore } from '@/stores/culturesStore'
-import { useMestieriStore } from '@/stores/mestieriStore'
+import { ref, onMounted } from 'vue'
+import { useCharactersStore } from '@/stores/charactersStore'
+import { useConceptsStore } from '@/stores/conceptsStore'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 
-const props = defineProps({
-    character: { type: Object, required: true }
-})
+const charactersStore = useCharactersStore()
+const conceptsStore = useConceptsStore()
 
-const emit = defineEmits(['close', 'update-character'])
+const emit = defineEmits(['close'])
 
-const ancestryStore = useAncestriesStore()
-const cultureStore = useCulturesStore()
-const mestiereStore = useMestieriStore()
+const character = charactersStore.selectedCharacter
 
 const formData = ref({
     name: '',
     pronouns: '',
     ancestryIds: ['', ''],
     cultureIds: ['', ''],
-    mestiereId: '',
-    xp: 0
+    mestiereId: ''
 })
 
-watch(() => props.character, (character) => {
+onMounted(() => {
     const ancestryIds = character.ancestryIds || []
     const cultureIds = character.cultureIds || []
 
@@ -134,30 +129,24 @@ watch(() => props.character, (character) => {
         pronouns: character.pronouns || '',
         ancestryIds: [ancestryIds[0] || '', ancestryIds[1] || ''],
         cultureIds: [cultureIds[0] || '', cultureIds[1] || ''],
-        mestiereId: character.mestiereId || '',
-        xp: character.xp || 0
+        mestiereId: character.mestiereId || ''
     }
-}, { immediate: true })
+})
 
 const closeModal = () => {
     emit('close')
 }
 
 const saveChanges = () => {
+    // Filter out empty strings from ancestry and culture IDs before saving
     const filteredAncestryIds = formData.value.ancestryIds.filter(id => id !== '')
     const filteredCultureIds = formData.value.cultureIds.filter(id => id !== '')
 
-    const updatedCharacter = {
-        ...props.character,
+    Object.assign(character, {
         ...formData.value,
         ancestryIds: filteredAncestryIds,
         cultureIds: filteredCultureIds
-    }
-    emit('update-character', updatedCharacter)
-    closeModal()
-}
-
-const handleOverlayClick = () => {
+    })
     closeModal()
 }
 </script>
