@@ -96,10 +96,11 @@ const isNew = computed(() => !props.art || !props.art.id)
 const searchQuery = ref('')
 const tagsSelectorRef = ref(null)
 
-// Watch for prop changes (when navigating between art items)
-// Don't update if we're already editing the same item (prevents overwriting during autosave)
+let isLoadingNewItem = false
+
 watch(() => props.art?.id, (newId, oldId) => {
     if (newId !== oldId && props.art) {
+        isLoadingNewItem = true
         localArt.value = {
             id: props.art.id || null,
             url: props.art.url || '',
@@ -109,19 +110,22 @@ watch(() => props.art?.id, (newId, oldId) => {
             },
             isDeleted: props.art.isDeleted || false
         }
+        setTimeout(() => {
+            isLoadingNewItem = false
+        }, 0)
     }
 })
 
-// Autosave watcher with debounce
 const saveTimeout = ref(null)
 watch(localArt, (newValue) => {
-    // Only autosave if we have a URL and this is not a new item and not multi-editing
+    if (isLoadingNewItem) {
+        return
+    }
+
     if (!isNew.value && !props.isMultiEdit && newValue.url.trim().length > 0) {
-        // Clear existing timeout
         if (saveTimeout.value) {
             clearTimeout(saveTimeout.value)
         }
-        // Debounce save by 500ms
         saveTimeout.value = setTimeout(() => {
             emit('save', { ...newValue })
         }, 500)
