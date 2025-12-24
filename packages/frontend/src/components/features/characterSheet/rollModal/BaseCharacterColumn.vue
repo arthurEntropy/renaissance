@@ -6,7 +6,7 @@
             <header class="character-info">
                 <h3>{{ character.name }}</h3>
                 <div class="character-art">
-                    <img v-if="characterArtUrl" :src="characterArtUrl" :alt="`${character.name} character art`"
+                    <img v-if="characterArtUrl" :src="optimizedCharacterArt" :alt="`${character.name} character art`"
                         class="character-art-thumbnail">
                     <div v-else class="character-art-placeholder" role="img" aria-label="No character art available">
                     </div>
@@ -33,6 +33,7 @@
 <script setup>
 import { computed } from 'vue'
 import LoadingSpinner from '@/components/ui/LoadingSpinner.vue'
+import { useOptimizedImage } from '@/composables/useOptimizedImage'
 
 const props = defineProps({
     character: {
@@ -63,6 +64,9 @@ const characterArtUrl = computed(() => {
     if (!props.character) return null
     return props.character.artUrls?.[0] || null
 })
+
+// Optimize character art thumbnail
+const optimizedCharacterArt = useOptimizedImage(characterArtUrl, 'small')
 
 const columnClasses = computed(() => {
     const classes = []

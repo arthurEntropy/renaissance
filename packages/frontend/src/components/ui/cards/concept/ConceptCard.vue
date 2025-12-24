@@ -3,7 +3,7 @@
     @click="$emit('select', concept)" @keydown.enter="$emit('select', concept)"
     @keydown.space.prevent="$emit('select', concept)">
     <img v-if="expansionLogoUrl" :src="expansionLogoUrl" alt="Expansion Logo" class="expansion-logo-badge" />
-    <img v-if="concept.artUrls?.[0]" :src="concept.artUrls[0]" :alt="`${concept.name} concept art`"
+    <img v-if="concept.artUrls?.[0]" :src="optimizedConceptArtUrl" :alt="`${concept.name} concept art`"
       class="concept-card-image" />
     <p class="concept-card-name">{{ concept.name }}</p>
   </div>
@@ -11,11 +11,15 @@
 
 <script setup>
 import { computed } from 'vue'
+import { useOptimizedImage } from '@/composables/useOptimizedImage'
 
 const props = defineProps({
   concept: { type: Object, required: true },
   expansions: { type: Array, default: () => [] },
 })
+
+// Optimize concept art URL
+const optimizedConceptArtUrl = useOptimizedImage(() => props.concept.artUrls?.[0], 'small')
 
 const expansionLogoUrl = computed(() => {
   const expansion = props.expansions.find(e => e.id === props.concept.expansion)

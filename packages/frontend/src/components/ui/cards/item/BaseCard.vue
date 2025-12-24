@@ -43,7 +43,7 @@
       <div v-if="!collapsible || !collapsed" class="card-content">
 
         <!-- Art Image -->
-        <img v-if="item.artUrl" :src="item.artUrl" :alt="item.name" class="art-image" />
+        <img v-if="item.artUrl" :src="optimizedArtUrl" :alt="item.name" class="art-image" />
 
         <!-- Content sections for properties, description, and mechanics -->
         <div class="content-sections">
@@ -84,6 +84,7 @@ import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import CardDescription from '@/components/ui/cards/item/CardDescription.vue'
 import CharacterService from '@/services/entities/characterService'
 import { ItemType } from '@shared/constants/itemTypes'
+import { useOptimizedImage } from '@/composables/useOptimizedImage'
 
 const props = defineProps({
   item: { type: Object, required: true },
@@ -111,6 +112,9 @@ const sourceName = computed(() => {
 // Add to Character functionality
 const charactersStore = useCharactersStore()
 const selectedCharacter = computed(() => charactersStore.selectedCharacter)
+
+// Optimize art URL for display
+const optimizedArtUrl = useOptimizedImage(() => props.item.artUrl, 'small')
 const hasSelectedCharacter = computed(() => selectedCharacter.value != null)
 const selectedCharacterName = computed(() => selectedCharacter.value?.name || 'Character')
 

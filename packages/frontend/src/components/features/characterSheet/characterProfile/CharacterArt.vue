@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="character-art-container edit-hover-area">
-            <img :src="characterImageUrl" class="character-art-image" @click="openFullSizeArtModal" />
+            <img :src="optimizedCharacterImageUrl" class="character-art-image" @click="openFullSizeArtModal" />
             <FloatingActionButton v-if="canEdit" type="edit" size="small" visibility="on-hover"
                 class="edit-button-overlay-small" @click.stop="openEditModal" />
         </div>
@@ -9,7 +9,7 @@
         <!-- Full Size Art Modal -->
         <div v-if="fullSizeArtModal.isOpen.value" class="modal-overlay" @click="fullSizeArtModal.closeModal">
             <div class="modal-content image-container edit-hover-area" @click.stop>
-                <img :src="characterImageUrl" class="modal-image" />
+                <img :src="optimizedFullSizeImageUrl" class="modal-image" />
                 <FloatingActionButton v-if="canEdit" type="edit" size="small" visibility="on-hover"
                     class="edit-button-overlay" @click.stop="openEditModal" />
             </div>
@@ -36,6 +36,7 @@ import { useModal } from '@/composables/useModal'
 import { useCharactersStore } from '@/stores/charactersStore'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
+import { useOptimizedImage } from '@/composables/useOptimizedImage'
 
 const charactersStore = useCharactersStore()
 
@@ -50,6 +51,10 @@ const tempArtUrl = ref('')
 const characterImageUrl = computed(() => {
     return character.value?.artUrls?.[0] ?? ''
 })
+
+// Optimized image URLs for display
+const optimizedCharacterImageUrl = useOptimizedImage(characterImageUrl, 'medium')
+const optimizedFullSizeImageUrl = useOptimizedImage(characterImageUrl, 'xlarge')
 
 const isValidImageUrl = (url) => {
     if (!url) return false
