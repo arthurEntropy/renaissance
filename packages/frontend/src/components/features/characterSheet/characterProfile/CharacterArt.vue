@@ -7,13 +7,8 @@
         </div>
 
         <!-- Full Size Art Modal -->
-        <div v-if="fullSizeArtModal.isOpen.value" class="modal-overlay" @click="fullSizeArtModal.closeModal">
-            <div class="modal-content image-container edit-hover-area" @click.stop>
-                <img :src="optimizedFullSizeImageUrl" class="modal-image" />
-                <FloatingActionButton v-if="canEdit" type="edit" size="small" visibility="on-hover"
-                    class="edit-button-overlay" @click.stop="openEditModal" />
-            </div>
-        </div>
+        <FullSizeImageModal :is-open="fullSizeArtModal.isOpen.value" :image-url="characterImageUrl"
+            :show-edit-button="canEdit" @close="fullSizeArtModal.closeModal" @edit="openEditModal" />
 
         <!-- Edit Modal -->
         <div v-if="editModal.isOpen.value" class="modal-overlay edit-modal-overlay"
@@ -36,6 +31,7 @@ import { useModal } from '@/composables/useModal'
 import { useCharactersStore } from '@/stores/charactersStore'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
+import FullSizeImageModal from '@/components/ui/modals/FullSizeImageModal.vue'
 import { useOptimizedImage } from '@/composables/useOptimizedImage'
 
 const charactersStore = useCharactersStore()
@@ -52,9 +48,8 @@ const characterImageUrl = computed(() => {
     return character.value?.artUrls?.[0] ?? ''
 })
 
-// Optimized image URLs for display
+// Optimized image URL for display
 const optimizedCharacterImageUrl = useOptimizedImage(characterImageUrl, 'medium')
-const optimizedFullSizeImageUrl = useOptimizedImage(characterImageUrl, 'xlarge')
 
 const isValidImageUrl = (url) => {
     if (!url) return false
@@ -111,7 +106,7 @@ div {
     object-fit: cover;
     border-radius: var(--radius-5);
     box-shadow: var(--shadow-elevation-sm);
-    cursor: pointer;
+    cursor: zoom-in;
 }
 
 .edit-button-overlay-small {
@@ -130,26 +125,6 @@ div {
     min-width: 400px;
     padding: var(--space-lg);
     background: var(--color-bg-primary);
-}
-
-.image-container {
-    position: relative;
-    display: inline-block;
-    padding: 0;
-}
-
-.modal-image {
-    max-width: 100%;
-    max-height: 80vh;
-    object-fit: contain;
-    display: block;
-}
-
-.edit-button-overlay {
-    position: absolute;
-    top: var(--space-sm);
-    right: var(--space-sm);
-    z-index: var(--z-raised);
 }
 
 .modal-actions {

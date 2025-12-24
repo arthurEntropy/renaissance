@@ -6,10 +6,9 @@
                 <div class="modal-layout">
                     <!-- Left Column: Image and URL -->
                     <div class="left-column">
-                        <ArtImageSection :url="localArt.url" :isMultiEdit="isMultiEdit" />
-
-                        <ArtUrlTypeRow v-model:url="localArt.url" v-model:type="localArt.tags.type"
-                            :selectedType="localArt.tags.type" :isMultiEdit="isMultiEdit" />
+                        <ArtImageSection :url="localArt.url" :isMultiEdit="isMultiEdit"
+                            @openFullSize="openFullSizeModal" />
+                        :selectedType="localArt.tags.type" :isMultiEdit="isMultiEdit" />
 
                         <ArtTagsDisplay :selectedSources="localArt.tags.sources" :partialSources="partialSources"
                             @remove="removeSource" />
@@ -33,6 +32,10 @@
                 </div>
             </div>
         </div>
+
+        <!-- Full Size Image Modal -->
+        <FullSizeImageModal :is-open="fullSizeModalOpen" :image-url="localArt.url" :show-edit-button="false"
+            @close="closeFullSizeModal" />
     </NavigationControls>
 </template>
 
@@ -40,6 +43,7 @@
 import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import NavigationControls from '@/components/ui/NavigationControls.vue'
+import FullSizeImageModal from '@/components/ui/modals/FullSizeImageModal.vue'
 import ArtImageSection from '@/components/editModals/artModal/ArtImageSection.vue'
 import ArtUrlTypeRow from '@/components/editModals/artModal/ArtUrlTypeRow.vue'
 import ArtTagsDisplay from '@/components/editModals/artModal/ArtTagsDisplay.vue'
@@ -95,11 +99,21 @@ const partialSources = ref(props.multiEditData?.partialSources || [])
 const isNew = computed(() => !props.art || !props.art.id)
 const searchQuery = ref('')
 const tagsSelectorRef = ref(null)
+const fullSizeModalOpen = ref(false)
 
-// Watch for prop changes (when navigating between art items)
-// Don't update if we're already editing the same item (prevents overwriting during autosave)
+const openFullSizeModal = () => {
+    fullSizeModalOpen.value = true
+}
+
+const closeFullSizeModal = () => {
+    fullSizeModalOpen.value = false
+}
+
+let isLoadingNewItem = false
+
 watch(() => props.art?.id, (newId, oldId) => {
     if (newId !== oldId && props.art) {
+        isLoadingNewItem = true
         localArt.value = {
             id: props.art.id || null,
             url: props.art.url || '',
@@ -109,19 +123,22 @@ watch(() => props.art?.id, (newId, oldId) => {
             },
             isDeleted: props.art.isDeleted || false
         }
+        setTimeout(() => {
+            isLoadingNewItem = false
+        }, 0)
     }
 })
 
-// Autosave watcher with debounce
 const saveTimeout = ref(null)
 watch(localArt, (newValue) => {
-    // Only autosave if we have a URL and this is not a new item and not multi-editing
+    if (isLoadingNewItem) {
+        return
+    }
+
     if (!isNew.value && !props.isMultiEdit && newValue.url.trim().length > 0) {
-        // Clear existing timeout
         if (saveTimeout.value) {
             clearTimeout(saveTimeout.value)
         }
-        // Debounce save by 500ms
         saveTimeout.value = setTimeout(() => {
             emit('save', { ...newValue })
         }, 500)

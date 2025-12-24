@@ -4,7 +4,7 @@
         <p>Multiple items selected</p>
     </div>
     <div v-else class="image-preview-section">
-        <div v-if="url" class="image-preview">
+        <div v-if="url" class="image-preview clickable" @click="$emit('openFullSize')">
             <img :src="optimizedUrl" alt="Art preview" />
         </div>
         <div v-else class="image-preview-placeholder" role="img" aria-label="No image preview available">
@@ -26,6 +26,8 @@ const props = defineProps({
         default: false
     }
 })
+
+defineEmits(['openFullSize'])
 
 // Use medium resolution for art preview in modal
 const optimizedUrl = useOptimizedImage(() => props.url, 'medium')
@@ -67,6 +69,14 @@ const optimizedUrl = useOptimizedImage(() => props.url, 'medium')
     width: 100%;
     height: 100%;
     object-fit: contain;
+}
+
+.image-preview.clickable {
+    cursor: zoom-in;
+}
+
+.image-preview.clickable:hover {
+    opacity: 0.95;
 }
 
 .image-preview-placeholder {
