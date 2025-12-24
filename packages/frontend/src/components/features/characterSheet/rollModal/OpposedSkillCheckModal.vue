@@ -4,21 +4,20 @@
 
             <header class="header-row">
                 <h2 id="opposed-skill-check-title">Opposed Skill Check</h2>
+                <button class="close-button" @click="closeModal" aria-label="Close modal">
+                    <XMarkIcon class="icon" />
+                </button>
             </header>
 
             <main class="opposed-columns">
-                <SkillCheckCharacterColumn ref="userColumnRef" v-bind="userColumnProps"
-                    @reroll-all-dice="rerollAllDice" />
-                <SkillCheckCharacterColumn ref="opponentColumnRef" v-bind="opponentColumnProps"
-                    @reroll-all-dice="rerollAllDice" />
+                <SkillCheckCharacterColumn ref="userColumnRef" :is-opponent="false" />
+                <SkillCheckCharacterColumn ref="opponentColumnRef" :is-opponent="true" />
             </main>
 
             <footer class="modal-actions">
-                <RollResolution v-if="showResults && sessionManager.winner?.value" mode="opposed-skill-check"
-                    :winner="sessionManager.winner.value" :user-accepted="userAccepted"
-                    :opponent-accepted="opponentAccepted" :can-accept="showResults" :character-name="character.name"
-                    :opponent-name="sessionManager.opponent.value?.characterInfo?.name || 'Opponent'"
-                    @toggle-user-accept="toggleUserAccept" />
+                <RollResolution v-if="showResults" mode="opposed-skill-check" :user-accepted="userAccepted"
+                    :opponent-accepted="opponentAccepted" :can-accept="showResults" :character-name="characterName"
+                    :opponent-name="opponentName" @toggle-user-accept="toggleUserAccept" />
             </footer>
 
         </div>
@@ -26,123 +25,65 @@
 </template>
 
 <script setup>
-import { computed, ref, onMounted } from 'vue'
-import { SESSION_STATUS } from '@shared/constants/sessionStatus'
-import OpposedSkillCheckService from '@/services/rolls/opposedSkillCheckService'
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
+import { XMarkIcon } from '@heroicons/vue/24/outline'
+import { useOpposedSkillCheckSession } from '@/composables/useOpposedSkillCheckSession'
+import { useCharactersStore } from '@/stores/charactersStore'
 import SkillCheckCharacterColumn from './SkillCheckCharacterColumn.vue'
 import RollResolution from './RollResolution.vue'
 
+const sessionManager = useOpposedSkillCheckSession()
+const charactersStore = useCharactersStore()
+
 const props = defineProps({
-    character: {
+    initialSessionConfig: {
         type: Object,
-        required: true
-    },
-    sessionManager: {
-        type: Object,
-        required: true
+        default: null
     }
 })
 
-const emit = defineEmits(['close', 'skill-check-result'])
+const emit = defineEmits(['close'])
 
-const sessionManager = props.sessionManager
+const {
+    opponent,
+    shouldShowExitConfirmation,
+    userAccepted,
+    opponentAccepted,
+    showResults,
+    bothUsersAccepted
+} = sessionManager
 
-// Component refs for triggering animations
+const characterName = computed(() => charactersStore.selectedCharacter?.name || '')
+const opponentName = computed(() => opponent.value?.characterInfo?.name || 'Opponent')
+
 const userColumnRef = ref(null)
 const opponentColumnRef = ref(null)
 
-// Extract reactive state
-const userAccepted = sessionManager.userAccepted || { value: false }
-const opponentAccepted = sessionManager.opponentAccepted || { value: false }
-
-// Computed properties for column data
-const userColumnProps = computed(() => ({
-    character: props.character,
-    skillCheckConfig: sessionManager.userSkillConfig?.value,
-    rollResults: sessionManager.rollResults.value,
-    side: 'user',
-    isOpponent: false,
-    canEdit: sessionManager.canEditResults?.value || false,
-    sessionStatus: sessionManager.sessionStatus.value,
-    winner: sessionManager.winner?.value || null,
-    isRerolling: sessionManager.isRerolling?.value || false,
-    rerollingCharacterId: sessionManager.rerollingCharacterId?.value || null
-}))
-
-const opponentColumnProps = computed(() => ({
-    character: sessionManager.opponent.value?.characterInfo || null,
-    skillCheckConfig: sessionManager.opponent.value?.skillCheckConfig || null,
-    rollResults: sessionManager.rollResults.value,
-    side: 'opponent',
-    isOpponent: true,
-    canEdit: false,
-    sessionStatus: sessionManager.sessionStatus.value,
-    winner: sessionManager.winner?.value || null,
-    isRerolling: sessionManager.isRerolling?.value || false,
-    rerollingCharacterId: sessionManager.rerollingCharacterId?.value || null
-}))
-
-const showResults = computed(() => {
-    return sessionManager.rollResults.value &&
-        sessionManager.rollResults.value.session &&
-        sessionManager.sessionStatus.value === SESSION_STATUS.COMPLETED
-})
-
 const closeModal = () => {
-    // Check if we should show confirmation dialog
-    if (sessionManager.shouldShowExitConfirmation?.value) {
+    if (shouldShowExitConfirmation.value) {
         if (!confirm('Are you sure you want to leave this opposed skill check?')) {
-            return // User cancelled, don't close
+            return
         }
     }
-
-    // Reset acceptance state to prevent persistence across sessions
-    if (sessionManager.resetAcceptanceState) {
-        sessionManager.resetAcceptanceState()
-    }
-
-    // Clean up and disconnect
     sessionManager.cancelSession()
-    sessionManager.disconnect()
     emit('close')
 }
 
 const toggleUserAccept = () => {
-    if (sessionManager.updateUserAcceptance) {
-        const newAccepted = !sessionManager.userAccepted.value
-        sessionManager.updateUserAcceptance(props.character.id, newAccepted)
+    const character = charactersStore.selectedCharacter
+    sessionManager.updateUserAcceptance(character.id, !userAccepted.value)
 
-        // Check if both users have now accepted
-        if (newAccepted && sessionManager.opponentAccepted?.value) {
-            emitOpposedSkillCheckResults()
-        }
+    if (bothUsersAccepted.value) {
+        sessionManager.generateResultsOnAccept()
     }
 }
 
-const emitOpposedSkillCheckResults = () => {
-    // Generate and emit the opposed skill check result
-    if (!sessionManager.rollResults.value?.session) {
-        return
-    }
-
-    // Emit the result (which triggers event handlers including Discord webhook)
-    OpposedSkillCheckService.emitOpposedSkillCheckResult(
-        sessionManager.rollResults.value.session,
-        props.character.id,
-        sessionManager.opponent.value?.characterInfo?.id
-    )
-}
-
-const rerollAllDice = (side) => {
-    // Trigger a skill check reroll (preserves the other player's results)
-    // The animation will be triggered automatically when rerollingCharacterId changes
-    if (sessionManager.rerollAllDice) {
-        sessionManager.rerollAllDice(side, null, null, null)
-    }
-}
-
-// Register animation triggers with the session manager when component mounts
 onMounted(() => {
+    if (props.initialSessionConfig) {
+        const { character, skillCheckConfig } = props.initialSessionConfig
+        sessionManager.startSession(character, skillCheckConfig)
+    }
+
     if (sessionManager.setAnimationTrigger) {
         sessionManager.setAnimationTrigger('user', () => {
             if (userColumnRef.value) {
@@ -155,6 +96,10 @@ onMounted(() => {
             }
         })
     }
+})
+
+onBeforeUnmount(() => {
+    sessionManager.cleanup()
 })
 </script>
 
@@ -173,13 +118,40 @@ onMounted(() => {
 
 .header-row {
     padding: var(--space-lg);
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
 }
 
 .header-row h2 {
     margin: 0;
     color: var(--color-text-primary);
     font-size: var(--font-size-24);
+}
+
+.close-button {
+    position: absolute;
+    right: var(--space-lg);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: var(--space-xs);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text-secondary);
+    transition: var(--transition-normal);
+}
+
+.close-button:hover {
+    color: var(--color-text-primary);
+    transform: scale(1.1);
+}
+
+.close-button .icon {
+    width: 24px;
+    height: 24px;
 }
 
 .opposed-columns {

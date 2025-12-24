@@ -8,7 +8,8 @@
                 <div class="character-art">
                     <img v-if="characterArtUrl" :src="characterArtUrl" :alt="`${character.name} character art`"
                         class="character-art-thumbnail">
-                    <div v-else class="character-art-placeholder"></div>
+                    <div v-else class="character-art-placeholder" role="img" aria-label="No character art available">
+                    </div>
                 </div>
                 <slot name="additional-character-info" :character="character"></slot>
             </header>
@@ -16,11 +17,11 @@
 
         <!-- Main content area -->
         <div v-if="character" class="column-content">
-            <slot name="content" :character="character"></slot>
+            <slot name="content"></slot>
         </div>
 
         <!-- Waiting for opponent placeholder -->
-        <div v-else-if="!character" class="waiting-for-opponent">
+        <div v-else class="waiting-for-opponent">
             <div class="placeholder-message">
                 <LoadingSpinner size="medium" />
                 <p>Waiting for an opponent to join...</p>
@@ -46,7 +47,8 @@ const props = defineProps({
         type: Boolean,
         default: false
     },
-    // For different result determination logic
+    // Parent components compute winner/loser using their own logic
+    // (engagement comparisons, skill check totals, etc.) and pass down for styling
     isWinner: {
         type: Boolean,
         default: false
@@ -58,10 +60,8 @@ const props = defineProps({
 })
 
 const characterArtUrl = computed(() => {
-    if (!props.character) return null;
-    return (props.character.artUrls && props.character.artUrls.length > 0)
-        ? props.character.artUrls[0]
-        : null;
+    if (!props.character) return null
+    return props.character.artUrls?.[0] || null
 })
 
 const columnClasses = computed(() => {
@@ -135,6 +135,10 @@ const columnClasses = computed(() => {
 }
 
 .placeholder-message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-sm);
     font-size: var(--font-size-14);
     color: var(--color-text-secondary);
     text-align: center;

@@ -1,5 +1,5 @@
 <template>
-    <div class="modal-overlay" @click="handleOverlayClick">
+    <div class="modal-overlay" @click="closeModal">
         <div class="modal-content" @click.stop>
 
             <!-- Scrollable Form Content -->
@@ -100,28 +100,27 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue'
+import { ref, onMounted } from 'vue'
+import { useCharactersStore } from '@/stores/charactersStore'
 import { useConceptsStore } from '@/stores/conceptsStore'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 
-const props = defineProps({
-    character: { type: Object, required: true }
-})
+const charactersStore = useCharactersStore()
+const conceptsStore = useConceptsStore()
 
 const emit = defineEmits(['close'])
 
-const conceptsStore = useConceptsStore()
+const character = charactersStore.selectedCharacter
 
 const formData = ref({
     name: '',
     pronouns: '',
     ancestryIds: ['', ''],
     cultureIds: ['', ''],
-    mestiereId: '',
-    xp: 0
+    mestiereId: ''
 })
 
-watch(() => props.character, (character) => {
+onMounted(() => {
     const ancestryIds = character.ancestryIds || []
     const cultureIds = character.cultureIds || []
 
@@ -130,28 +129,24 @@ watch(() => props.character, (character) => {
         pronouns: character.pronouns || '',
         ancestryIds: [ancestryIds[0] || '', ancestryIds[1] || ''],
         cultureIds: [cultureIds[0] || '', cultureIds[1] || ''],
-        mestiereId: character.mestiereId || '',
-        xp: character.xp || 0
+        mestiereId: character.mestiereId || ''
     }
-}, { immediate: true })
+})
 
 const closeModal = () => {
     emit('close')
 }
 
 const saveChanges = () => {
+    // Filter out empty strings from ancestry and culture IDs before saving
     const filteredAncestryIds = formData.value.ancestryIds.filter(id => id !== '')
     const filteredCultureIds = formData.value.cultureIds.filter(id => id !== '')
 
-    Object.assign(props.character, {
+    Object.assign(character, {
         ...formData.value,
         ancestryIds: filteredAncestryIds,
         cultureIds: filteredCultureIds
     })
-    closeModal()
-}
-
-const handleOverlayClick = () => {
     closeModal()
 }
 </script>

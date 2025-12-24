@@ -2,31 +2,30 @@
     <div class="modal-overlay" @click="closeModal">
         <div class="modal-content engagement-roll-modal" @click.stop>
 
+            <!-- Header -->
             <header class="header-row">
                 <h2>Engagement</h2>
+                <button class="close-button" @click="closeModal" aria-label="Close modal">
+                    <XMarkIcon class="icon" />
+                </button>
             </header>
 
-            <ResultIndicators v-if="sessionManager.shouldShowComparisons" :dicePairs="dicePairs"
-                :winner="engagementWinner" :can-edit="sessionManager.canEditResults.value"
-                @toggle-result="toggleResult" />
-
+            <!-- Main engagement display -->
+            <ResultIndicators v-if="shouldShowComparisons" :can-edit="canEditResults" />
             <main class="engagement-columns">
-                <EngagementCharacterColumn v-bind="userColumnProps" @reroll="rerollDie"
-                    @success-drop="handleSuccessDrop" @remove-success-assignment="removeSuccessAssignment" />
-                <EngagementCharacterColumn v-bind="opponentColumnProps" />
+                <EngagementCharacterColumn :is-opponent="false" />
+                <EngagementCharacterColumn :is-opponent="true" />
             </main>
 
+            <!-- Footer actions -->
             <footer class="modal-actions">
-                <!-- Cancel button while waiting -->
-                <ActionButton v-if="!sessionManager.opponent" variant="neutral" size="small" text="Cancel"
-                    @click="closeModal" />
+                <!-- Cancel button: shown while waiting for opponent to join -->
+                <ActionButton v-if="!opponent" variant="neutral" size="small" text="Cancel" @click="closeModal" />
 
-                <RollResolution v-if="sessionManager.shouldShowResolution" mode="engagement" :winner="engagementWinner"
-                    :user-accepted="sessionManager.userAccepted.value"
-                    :opponent-accepted="sessionManager.opponentAccepted.value"
-                    :can-accept="sessionManager.showResults.value" :character-name="character.name"
-                    :opponent-name="sessionManager.opponent.value?.characterInfo?.name || 'Opponent'"
-                    @toggle-user-accept="toggleUserAccept" />
+                <!-- Roll resolution: shown once opponent has joined -->
+                <RollResolution v-if="shouldShowResolution" mode="engagement" :user-accepted="userAccepted"
+                    :opponent-accepted="opponentAccepted" :can-accept="showResults" :character-name="character.name"
+                    :opponent-name="opponentName" @toggle-user-accept="toggleUserAccept" />
             </footer>
 
         </div>
@@ -34,248 +33,68 @@
 </template>
 
 <script setup>
+import { XMarkIcon } from '@heroicons/vue/24/outline'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import EngagementCharacterColumn from './EngagementCharacterColumn.vue'
 import ResultIndicators from './ResultIndicators.vue'
 import RollResolution from './RollResolution.vue'
-import { computed, onMounted, onBeforeUnmount, toRef, reactive } from 'vue'
-import { SESSION_STATUS } from '@shared/constants/sessionStatus.js'
+import { computed, onMounted, onBeforeUnmount } from 'vue'
+
 import { useEngagementSession } from '@/composables/useEngagementSession'
 import { useEngagementRoll } from '@/composables/useEngagementRoll'
-import { useEngagementSuccesses } from '@/composables/useEngagementSuccesses'
-import engagementSessionService from '@/services/sessions/engagementSessionService'
+import { useCharactersStore } from '@/stores/charactersStore'
 
-const props = defineProps({
-    character: {
-        type: Object,
-        required: true,
-    },
-    selectedDice: {
-        type: Array,
-        required: true,
-    },
-    allEngagementSuccesses: {
-        type: Array,
-        default: () => []
-    },
-    allEquipment: {
-        type: Array,
-        default: () => []
-    }
-})
+const emit = defineEmits(['close'])
 
-const emit = defineEmits(['close', 'engagement-committed', 'engagement-results'])
+const charactersStore = useCharactersStore()
+const character = computed(() => charactersStore.selectedCharacter)
 
 const sessionManager = useEngagementSession()
 const diceManager = useEngagementRoll()
-const engagementSuccesses = useEngagementSuccesses(toRef(props, 'character'), toRef(props, 'allEquipment'))
 
-// Success assignment state
-const assignedSuccesses = reactive({})
+const {
+    opponent,
+    shouldShowComparisons,
+    shouldShowResolution,
+    canEditResults,
+    shouldShowExitConfirmation,
+    userAccepted,
+    opponentAccepted,
+    showResults,
+    bothUsersAccepted
+} = sessionManager
 
-function handleSuccessDropInternal(player, diceIndex, successData, characterId) {
-    const key = `${player}-${diceIndex}`
-    const previousAssignment = assignedSuccesses[key]
-    const newAssignment = successData.id
+const opponentName = computed(() =>
+    opponent.value?.characterInfo?.name || 'Opponent'
+)
 
-    if (previousAssignment !== newAssignment) {
-        assignedSuccesses[key] = newAssignment
-        engagementSessionService.updateSuccessAssignment(characterId, player, diceIndex, newAssignment)
-    }
-}
-
-function clearSuccessAssignment(player, diceIndex, characterId) {
-    const key = `${player}-${diceIndex}`
-
-    if (assignedSuccesses[key]) {
-        delete assignedSuccesses[key]
-        engagementSessionService.updateSuccessAssignment(characterId, player, diceIndex, null)
-    }
-}
-
-function handleRemoteSuccessAssignment(characterId, player, diceIndex, successId, currentCharacterId, opponent) {
-    if (characterId === currentCharacterId) return
-
-    let targetKey
-    if (opponent && characterId === opponent.characterInfo.id) {
-        targetKey = `opponent-${diceIndex}`
-    } else {
-        console.log('Unknown character ID:', characterId)
-        return
-    }
-
-    if (successId) {
-        assignedSuccesses[targetKey] = successId
-    } else {
-        delete assignedSuccesses[targetKey]
-    }
-}
-
-function resetAssignments() {
-    Object.keys(assignedSuccesses).forEach(key => delete assignedSuccesses[key])
-}
-
-onMounted(async () => {
-    await engagementSuccesses.fetchEngagementSuccesses()
+onMounted(() => {
+    sessionManager.initialize(character.value, diceManager.committedDice.value)
 })
 
-const characterSuccesses = computed(() => {
-    return engagementSuccesses.allOwnedEngagementSuccesses.value
+onBeforeUnmount(() => {
+    sessionManager.cleanup()
 })
-
-const dicePairs = computed(() => {
-    return diceManager.getDicePairs(sessionManager, props.character, toRef(props, 'selectedDice'))
-})
-
-const toggleResult = diceManager.createToggleResultHandler(sessionManager, props.character, toRef(props, 'selectedDice'))
-const rerollDie = diceManager.createRerollDieHandler(sessionManager, props.character, toRef(props, 'selectedDice'), { assignedSuccesses })
-
-const handleSuccessDrop = (player, diceIndex, successData) => {
-    handleSuccessDropInternal(player, diceIndex, successData, props.character.id)
-}
-
-const removeSuccessAssignment = (player, diceIndex) => {
-    clearSuccessAssignment(player, diceIndex, props.character.id)
-}
-
-const winCounts = computed(() => {
-    return diceManager.getWinCounts(sessionManager, props.character, toRef(props, 'selectedDice'))
-})
-
-const userWinCount = computed(() => winCounts.value.userWins)
-const opponentWinCount = computed(() => winCounts.value.opponentWins)
-const drawCount = computed(() => winCounts.value.draws)
-
-const engagementWinner = computed(() => {
-    return diceManager.getEngagementWinner(sessionManager, props.character, toRef(props, 'selectedDice'))
-})
-
-// Success manager object for generateColumnProps
-const successManager = {
-    handleSuccessDrop: handleSuccessDropInternal,
-    removeSuccessAssignment: (player, diceIndex) => clearSuccessAssignment(player, diceIndex, props.character.id),
-    assignedSuccesses
-}
-
-const columnProps = computed(() => {
-    return diceManager.generateColumnProps(
-        sessionManager,
-        successManager,
-        props.character,
-        toRef(props, 'selectedDice'),
-        characterSuccesses.value,
-        props.allEngagementSuccesses
-    )
-})
-
-const userColumnProps = computed(() => columnProps.value.userColumnProps)
-const opponentColumnProps = computed(() => columnProps.value.opponentColumnProps)
 
 const closeModal = () => {
-    // Check if we should show confirmation dialog
-    if (sessionManager.shouldShowExitConfirmation.value) {
+    if (shouldShowExitConfirmation.value) {
         if (!confirm('Are you sure you want to leave this engagement?')) {
-            return // User cancelled, don't close
+            return
         }
     }
-
-    // Clean up and disconnect
     sessionManager.cancelSession()
-    sessionManager.disconnect()
-
     emit('close')
 }
 
 const toggleUserAccept = () => {
-    const newAccepted = !sessionManager.userAccepted.value
-    sessionManager.updateUserAcceptance(props.character.id, newAccepted)
+    sessionManager.updateUserAcceptance(character.value.id, !userAccepted.value)
 
-    if (sessionManager.bothUsersAccepted.value) {
-        emitEngagementResults()
+    if (bothUsersAccepted.value) {
+        // Results are automatically saved to rollsStore by sessionManager
+        sessionManager.generateResultsOnAccept(character.value, opponent.value)
     }
 }
 
-const emitEngagementResults = () => {
-    const engagementResult = sessionManager.generateEngagementResults(
-        engagementWinner.value,
-        userWinCount.value,
-        opponentWinCount.value,
-        drawCount.value,
-        props.character,
-        sessionManager.opponent.value
-    )
-
-    if (engagementResult) {
-        emit('engagement-results', engagementResult)
-    }
-}
-
-const handleDiceComparisonIndicatorUpdated = ({ index, state }) => {
-    diceManager.handleRemoteResultUpdate(index, state)
-}
-
-const handleDieRerolled = ({ player, diceIndex, newValue, characterId }) => {
-    if (characterId === props.character.id) return // Don't process our own rerolls
-
-    const sortedOpponentDice = diceManager.getSortedOpponentDice(
-        sessionManager.opponent.value,
-        sessionManager.sessionData?.value,
-        sessionManager.rollResults.value,
-        props.character.id
-    )
-
-    diceManager.handleRemoteDieReroll(
-        player,
-        diceIndex,
-        newValue,
-        characterId,
-        props.character.id,
-        sortedOpponentDice,
-        sessionManager.rollResults.value,
-        sessionManager.opponent.value,
-        diceManager.DICE_ROLL_DURATION,
-        { startRerolling: diceManager.startRerolling, stopRerolling: diceManager.stopRerolling }
-    )
-}
-
-const handleSuccessAssignmentUpdated = ({ characterId, player, diceIndex, successId }) => {
-    handleRemoteSuccessAssignment(
-        characterId,
-        player,
-        diceIndex,
-        successId,
-        props.character.id,
-        sessionManager.opponent.value
-    )
-}
-
-const handleRollResults = ({ session }) => {
-    sessionManager.rollResults.value = { session }
-    sessionManager.sessionStatus.value = SESSION_STATUS.COMPLETED // Set status to completed
-
-    // Emit event to notify parent that engagement is now committed
-    emit('engagement-committed')
-
-    // Reset dice and success state for new results
-    diceManager.resetSortingState()
-    resetAssignments()
-}
-
-onMounted(() => {
-    sessionManager.initializeSession(
-        props.character,
-        props.selectedDice,
-        characterSuccesses.value.map(s => s.id),
-        handleDiceComparisonIndicatorUpdated,
-        handleDieRerolled,
-        handleSuccessAssignmentUpdated,
-        handleRollResults
-    )
-})
-
-onBeforeUnmount(() => {
-    sessionManager.disconnect()
-})
 </script>
 
 <style scoped>
@@ -300,6 +119,30 @@ onBeforeUnmount(() => {
     text-align: center;
     margin: 0;
     color: var(--color-text-primary);
+}
+
+.close-button {
+    position: absolute;
+    right: 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: var(--space-xs);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text-secondary);
+    transition: var(--transition-normal);
+}
+
+.close-button:hover {
+    color: var(--color-text-primary);
+    transform: scale(1.1);
+}
+
+.close-button .icon {
+    width: 24px;
+    height: 24px;
 }
 
 .engagement-columns {

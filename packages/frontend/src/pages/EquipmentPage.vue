@@ -37,9 +37,9 @@
 
     <!-- Item cards slot -->
     <template #item-cards="{ items }">
-      <EquipmentCard v-for="item in items" :key="item.id" :equipment="item" :editable="isAdmin" :sources="sources"
-        :art-expanded="true" :engagement-success-options="engagementSuccessOptions" @edit="openEditEquipmentModal(item)"
-        @duplicate="handleDuplicateEquipment" :collapsible="false" />
+      <EquipmentCard v-for="item in items" :key="item.id" :equipment="item" :editable="isAdmin" :duplicatable="isAdmin"
+        :sources="sources" :art-expanded="true" :engagement-success-options="engagementSuccessOptions"
+        @edit="openEditEquipmentModal(item)" @duplicate="handleDuplicateEquipment" :collapsible="false" />
     </template>
 
     <!-- Loading indicator slot with ref for intersection observer -->
@@ -62,7 +62,6 @@
 
 <script setup>
 import { ref, computed, onMounted, watch } from 'vue'
-import { storeToRefs } from 'pinia'
 import { useEquipmentStore } from '@/stores/equipmentStore'
 import { useEquipmentTypesStore } from '@/stores/equipmentTypesStore'
 import { useEquipmentSubtypesStore } from '@/stores/equipmentSubtypesStore'
@@ -91,7 +90,7 @@ const keepingStore = useKeepingStore()
 const authStore = useAuthStore()
 const sourcesStore = useSourcesStore()
 
-const { equipment } = storeToRefs(equipmentStore)
+const equipment = computed(() => equipmentStore.equipment)
 
 // Modal management
 const {

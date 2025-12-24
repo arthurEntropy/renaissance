@@ -1,7 +1,7 @@
 <template>
     <div class="core-ability-header">
         <h2>{{ title }}</h2>
-        <NumberInput :model-value="value" :disabled="!isEditMode" @update:model-value="$emit('update', $event)" :min="0"
+        <NumberInput :model-value="value" :disabled="!canEdit" @update:model-value="$emit('update', $event)" :min="0"
             size="large" />
     </div>
 </template>
@@ -9,7 +9,6 @@
 <script setup>
 import NumberInput from '@/components/ui/forms/NumberInput.vue'
 
-// Props
 defineProps({
     title: {
         type: String,
@@ -19,13 +18,12 @@ defineProps({
         type: Number,
         required: true
     },
-    isEditMode: {
+    canEdit: {
         type: Boolean,
         default: false
     }
 })
 
-// Emits
 defineEmits(['update'])
 </script>
 
@@ -34,11 +32,14 @@ defineEmits(['update'])
     display: flex;
     align-items: center;
     margin-bottom: var(--space-sm);
-    height: 28px;
     gap: var(--space-md);
 }
 
 h2 {
     margin: 0;
+}
+
+.number-input-container {
+    top: -4px;
 }
 </style>

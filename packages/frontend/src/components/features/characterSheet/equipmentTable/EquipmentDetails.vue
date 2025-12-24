@@ -3,7 +3,7 @@
         <div class="details-content">
             <!-- Carried Checkbox -->
             <div class="detail-item checkbox-item">
-                <input type="checkbox" class="equipment-checkbox" :checked="equipmentRow.isCarried"
+                <input type="checkbox" class="equipment-checkbox" :checked="equipmentItem.isCarried"
                     :disabled="!isEditMode" @change="handleCarriedChange($event.target.checked)" />
                 <em class="carried-label">carried</em>
             </div>
@@ -12,7 +12,7 @@
             <div class="detail-item checkbox-item">
                 <input type="checkbox" class="equipment-checkbox" :class="{
                     'disabled-checkbox': !canWield
-                }" :checked="equipmentRow.isWielding" :disabled="!canWield || !isEditMode"
+                }" :checked="equipmentItem.isWielding" :disabled="!canWield || !isEditMode"
                     @change="handleWieldingChange($event.target.checked)" />
                 <em class="carried-label" :class="{
                     'disabled-text': !canWield
@@ -25,7 +25,7 @@
                 <!-- Quantity -->
                 <div class="detail-item">
                     <em class="carried-label">qty</em>
-                    <NumberInput :model-value="equipmentRow.quantity" :disabled="!isEditMode"
+                    <NumberInput :model-value="equipmentItem.quantity" :disabled="!isEditMode"
                         @update:model-value="handleQuantityChange" :min="1" size="small" class="quantity-input" />
                 </div>
 
@@ -48,7 +48,7 @@ import { useEquipmentTypesStore } from '@/stores/equipmentTypesStore'
 const equipmentTypesStore = useEquipmentTypesStore()
 
 const props = defineProps({
-    equipmentRow: {
+    equipmentItem: {
         type: Object,
         required: true
     },
@@ -66,16 +66,16 @@ const emit = defineEmits(['update-carried', 'update-wielding', 'update-quantity'
 
 // Computed properties
 const canWield = computed(() => {
-    if (!props.equipmentRow.isCarried || !props.equipmentRow.equipment) {
+    if (!props.equipmentItem.isCarried || !props.equipmentItem.equipment) {
         return false
     }
-    const equipmentType = equipmentTypesStore.getById(props.equipmentRow.equipment.type)
+    const equipmentType = equipmentTypesStore.getById(props.equipmentItem.equipment.type)
     return equipmentType?.name === 'Weapon'
 })
 
 const displayWeight = computed(() => {
-    if (props.equipmentRow.isCarried && props.equipmentRow.equipment) {
-        const value = props.equipmentRow.equipment.weight * props.equipmentRow.quantity
+    if (props.equipmentItem.isCarried && props.equipmentItem.equipment) {
+        const value = props.equipmentItem.equipment.weight * props.equipmentItem.quantity
         if (typeof value !== 'number' || isNaN(value)) {
             return '0'
         }

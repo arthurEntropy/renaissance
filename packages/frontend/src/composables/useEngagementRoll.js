@@ -7,13 +7,23 @@ import { PlayerSides } from '@/constants/playerSides'
 import { RollTypes } from '@/constants/rollTypes'
 import { DICE_ROLL_DURATION } from '@/constants/animationDurations'
 import { getDiceFontClass, getDiceFontMaxClass } from '@/utils/diceFontUtils'
+import { useCharactersStore } from '@/stores/charactersStore'
+import { useEquipmentStore } from '@/stores/equipmentStore'
 
-export function useEngagementRoll(character = null, allEquipment = null) {
-  // ==================== STATE ====================
+// Singleton state - shared across all instances
+let sharedState = null
+
+function createSharedState() {
+  const charactersStore = useCharactersStore()
+  const equipmentStore = useEquipmentStore()
   
+  const character = computed(() => charactersStore.selectedCharacter)
+  const allEquipment = computed(() => equipmentStore.equipment || [])
+
   // Dice state
   const diceStatuses = reactive({})
   const manualResults = ref([])
+  const committedDice = ref([]) // Snapshot of dice committed to current engagement
   
   // Sorting state
   const initialSortDone = ref(false)
@@ -22,13 +32,54 @@ export function useEngagementRoll(character = null, allEquipment = null) {
   const opponentSortedOrder = ref(null)
   
   // Animation state
-  const rerollingDice = reactive(new Set())
+  const rerollingDice = ref(new Set())
   const isUpdatingResultLocally = ref(false)
   const isRerolling = ref(false)
   
   // Stable state for reroll animations
   const previousDicePairs = ref([])
   const previousEngagementWinner = ref(null)
+
+  return {
+    character,
+    allEquipment,
+    diceStatuses,
+    manualResults,
+    committedDice,
+    initialSortDone,
+    sortedOrder,
+    opponentInitialSortDone,
+    opponentSortedOrder,
+    rerollingDice,
+    isUpdatingResultLocally,
+    isRerolling,
+    previousDicePairs,
+    previousEngagementWinner
+  }
+}
+
+export function useEngagementRoll() {
+  // Initialize singleton state on first use
+  if (!sharedState) {
+    sharedState = createSharedState()
+  }
+
+  const {
+    character,
+    allEquipment,
+    diceStatuses,
+    manualResults,
+    committedDice,
+    initialSortDone,
+    sortedOrder,
+    opponentInitialSortDone,
+    opponentSortedOrder,
+    rerollingDice,
+    isUpdatingResultLocally,
+    isRerolling,
+    previousDicePairs,
+    previousEngagementWinner
+  } = sharedState
 
   // ==================== COMPUTED - DICE DATA ====================
   
@@ -94,8 +145,6 @@ export function useEngagementRoll(character = null, allEquipment = null) {
     return allDice.sort((a, b) => a.die - b.die)
   })
 
-  // ==================== COMPUTED - DICE STATUS ====================
-  
   const selectedDiceValues = computed(() => {
     return allOwnedEngagementDice.value
       .filter(item => item.status === DiceStatus.SELECTED)
@@ -149,32 +198,19 @@ export function useEngagementRoll(character = null, allEquipment = null) {
     })
   }
 
-  function addUserAddedDie(die, updateCharacterCallback) {
-    if (!character?.value || !updateCharacterCallback) return
+  function addUserAddedDie(die) {
+    if (!character?.value) return
 
-    const currentDice = character.value.engagementDice || []
-    const updatedDice = [...currentDice, die]
-
-    const updatedCharacter = {
-      ...character.value,
-      engagementDice: updatedDice
+    if (!character.value.engagementDice) {
+      character.value.engagementDice = []
     }
-
-    updateCharacterCallback(updatedCharacter)
+    character.value.engagementDice.push(die)
   }
 
-  function removeUserAddedDie(index, updateCharacterCallback) {
-    if (!character?.value || !updateCharacterCallback) return
+  function removeUserAddedDie(index) {
+    if (!character?.value?.engagementDice) return
 
-    const currentDice = character.value.engagementDice || []
-    const updatedDice = currentDice.filter((_, i) => i !== index)
-
-    const updatedCharacter = {
-      ...character.value,
-      engagementDice: updatedDice
-    }
-
-    updateCharacterCallback(updatedCharacter)
+    character.value.engagementDice.splice(index, 1)
   }
 
   function resetSortingState() {
@@ -194,7 +230,7 @@ export function useEngagementRoll(character = null, allEquipment = null) {
       // If this die is currently rerolling, preserve its state
       if (side) {
         const rerollKey = `${side}-${index}`
-        if (rerollingDice.has(rerollKey)) {
+        if (rerollingDice.value.has(rerollKey)) {
           return sortedDie
         }
       }
@@ -268,7 +304,7 @@ export function useEngagementRoll(character = null, allEquipment = null) {
     // Get stable dice for comparison (use previous values during reroll animations)
     const stableUserDice = userDice.map((die, index) => {
       const rerollKey = `${PlayerSides.USER}-${index}`
-      if (rerollingDice.has(rerollKey) && die.previousValue !== undefined) {
+      if (rerollingDice.value.has(rerollKey) && die.previousValue !== undefined) {
         return { ...die, dieRollValue: die.previousValue }
       }
       return die
@@ -276,7 +312,7 @@ export function useEngagementRoll(character = null, allEquipment = null) {
     
     const stableOpponentDice = opponentDice.map((die, index) => {
       const rerollKey = `${PlayerSides.OPPONENT}-${index}`
-      if (rerollingDice.has(rerollKey) && die.previousValue !== undefined) {
+      if (rerollingDice.value.has(rerollKey) && die.previousValue !== undefined) {
         return { ...die, dieRollValue: die.previousValue }
       }
       return die
@@ -313,7 +349,10 @@ export function useEngagementRoll(character = null, allEquipment = null) {
     isRerolling.value = false
   }
 
-  // Stable as in keeping previous values during reroll animations
+  // ==================== METHODS - STABLE STATE (ANIMATIONS) ====================
+  
+  // Returns dice pairs with stable values during reroll animations
+  // This prevents UI flickering by showing previous values until animation completes
   function getStableDicePairs(userDice, opponentDice, userCharacterId, opponentCharacterId) {
     if (hasRerollingDice.value && previousDicePairs.value.length > 0) {
       return previousDicePairs.value
@@ -328,7 +367,8 @@ export function useEngagementRoll(character = null, allEquipment = null) {
     return pairs
   }
 
-  // Stable as in keeping previous winner during reroll animations
+  // Returns winner with stable value during reroll animations
+  // This prevents winner indicator from jumping around while dice are rerolling
   function getStableEngagementWinner(dicePairs, userDice, opponentDice) {
     if (hasRerollingDice.value && previousEngagementWinner.value !== null) {
       return previousEngagementWinner.value
@@ -363,7 +403,7 @@ export function useEngagementRoll(character = null, allEquipment = null) {
         sessionManager.startRerolling()
       }
 
-      rerollingDice.add(rerollKey)
+      rerollingDice.value = new Set(rerollingDice.value).add(rerollKey)
       targetDie.previousValue = targetDie.dieRollValue
       targetDie.cssClass = getDiceFontMaxClass(originalDieSize)
       targetDie.rolledMaxValue = false
@@ -392,7 +432,9 @@ export function useEngagementRoll(character = null, allEquipment = null) {
         recalculateResults()
 
         nextTick(() => {
-          rerollingDice.delete(rerollKey)
+          const newSet = new Set(rerollingDice.value)
+          newSet.delete(rerollKey)
+          rerollingDice.value = newSet
           delete targetDie.previousValue
 
           if (sessionManager?.stopRerolling) {
@@ -418,8 +460,8 @@ export function useEngagementRoll(character = null, allEquipment = null) {
     const sortedPosition = targetDice.findIndex(die => die.poolIndex === originalDiceIndex)
     const rerollKey = `${PlayerSides.OPPONENT}-${sortedPosition}`
 
-    if (!rerollingDice.has(rerollKey)) {
-      rerollingDice.add(rerollKey)
+    if (!rerollingDice.value.has(rerollKey)) {
+      rerollingDice.value = new Set(rerollingDice.value).add(rerollKey)
       
       if (sessionManager?.startRerolling) {
         sessionManager.startRerolling()
@@ -451,7 +493,9 @@ export function useEngagementRoll(character = null, allEquipment = null) {
       recalculateResults()
 
       nextTick(() => {
-        rerollingDice.delete(rerollKey)
+        const newSet = new Set(rerollingDice.value)
+        newSet.delete(rerollKey)
+        rerollingDice.value = newSet
         delete targetDie.previousValue
 
         if (sessionManager?.stopRerolling) {
@@ -651,60 +695,14 @@ export function useEngagementRoll(character = null, allEquipment = null) {
     )
   }
 
-  function generateColumnProps(sessionManager, successManager, character, selectedDiceRef, characterSuccesses, allEngagementSuccesses) {
-    const selectedDice = selectedDiceRef.value || selectedDiceRef
-    const winner = getEngagementWinner(sessionManager, character, selectedDice)
-    
-    const commonProps = {
-      assignedSuccesses: successManager.assignedSuccesses,
-      showResults: sessionManager.showResults.value,
-      rerollingDice: rerollingDice,
-      allEngagementSuccesses: allEngagementSuccesses,
-      winner: winner
-    }
-
-    const userDice = getSortedUserDice(
-      selectedDice,
-      sessionManager.sessionData?.value,
-      sessionManager.rollResults.value,
-      character.id
-    )
-
-    const opponentDice = getSortedOpponentDice(
-      sessionManager.opponent.value,
-      sessionManager.sessionData?.value,
-      sessionManager.rollResults.value,
-      character.id
-    )
-
-    const userColumnProps = {
-      ...commonProps,
-      character: character,
-      dice: userDice,
-      successes: characterSuccesses,
-      side: PlayerSides.USER,
-      isOpponent: false,
-      canEdit: sessionManager.canEditResults.value
-    }
-
-    const opponentColumnProps = {
-      ...commonProps,
-      character: sessionManager.opponent.value?.characterInfo || null,
-      dice: opponentDice,
-      successes: [],
-      side: PlayerSides.OPPONENT,
-      isOpponent: true,
-      canEdit: false
-    }
-
-    return { userColumnProps, opponentColumnProps }
-  }
-
   // ==================== RETURN ====================
   
   return {
     // Constants
     DICE_ROLL_DURATION,
+    
+    // Refs - committed state
+    committedDice,
     
     // Computed - dice data
     allOwnedEngagementDice,
@@ -724,8 +722,10 @@ export function useEngagementRoll(character = null, allEquipment = null) {
     // Rerolling control (used by EngagementRollModal)
     startRerolling,
     stopRerolling,
+    rerollingDice,
     
     // Calculations (used by EngagementRollModal)
+    getSortedDice,
     getSortedOpponentDice,
     
     // Animations (used by EngagementRollModal)
@@ -739,7 +739,6 @@ export function useEngagementRoll(character = null, allEquipment = null) {
     // High-level integration (used by EngagementRollModal)
     getDicePairs,
     getEngagementWinner,
-    getWinCounts,
-    generateColumnProps
+    getWinCounts
   }
 }

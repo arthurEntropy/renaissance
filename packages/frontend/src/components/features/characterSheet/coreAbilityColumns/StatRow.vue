@@ -1,28 +1,28 @@
 <template>
     <div :class="rowClass">
-        <span class="skill-name" :class="stateClasses">{{ label }}</span>
+        <span class="stat-name" :class="stateClasses">{{ label }}</span>
 
         <!-- Range type (virtue: current/max) -->
-        <template v-if="type === 'range'">
-            <NumberInput :model-value="value.current" :disabled="!isEditMode"
+        <template v-if="type === STAT_ROW_TYPES.RANGE">
+            <NumberInput :model-value="value.current" :disabled="!canEdit"
                 @update:model-value="$emit('update', 'current', $event)" :min="0" size="small" />
             <span class="range-separator">/</span>
-            <NumberInput :model-value="value.max" :disabled="!isEditMode"
+            <NumberInput :model-value="value.max" :disabled="!canEdit"
                 @update:model-value="$emit('update', 'max', $event)" :min="0" size="small" />
         </template>
 
         <!-- Single value type (weakness) -->
-        <template v-else-if="type === 'single'">
-            <NumberInput :model-value="value" :disabled="!isEditMode" @update:model-value="$emit('update', $event)"
+        <template v-else-if="type === STAT_ROW_TYPES.SINGLE">
+            <NumberInput :model-value="value" :disabled="!canEdit" @update:model-value="$emit('update', $event)"
                 :min="0" size="small" />
         </template>
 
         <!-- Checkbox type (states) -->
-        <template v-else-if="type === 'state'">
-            <input type="checkbox" :checked="firstState" :disabled="!isEditMode"
+        <template v-else-if="type === STAT_ROW_TYPES.STATE">
+            <input type="checkbox" :checked="firstState" :disabled="!canEdit"
                 @change="$emit('update', 'first', $event.target.checked)" class="skill-checkbox"
                 :class="{ 'state-active-checkbox': firstState }" />
-            <input type="checkbox" :checked="secondState" :disabled="!isEditMode"
+            <input type="checkbox" :checked="secondState" :disabled="!canEdit"
                 @change="$emit('update', 'second', $event.target.checked)" class="skill-checkbox"
                 :class="{ 'state-active-checkbox': secondState }" />
         </template>
@@ -30,21 +30,22 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, toRefs } from 'vue'
 import NumberInput from '@/components/ui/forms/NumberInput.vue'
+import { STAT_ROW_TYPES } from '@shared/constants/characterConstants'
 
 // Props
 const props = defineProps({
     type: {
         type: String,
         required: true,
-        validator: value => ['range', 'single', 'state'].includes(value)
+        validator: value => Object.values(STAT_ROW_TYPES).includes(value)
     },
     label: {
         type: String,
         required: true
     },
-    isEditMode: {
+    canEdit: {
         type: Boolean,
         default: false
     },
@@ -62,21 +63,21 @@ const props = defineProps({
     }
 })
 
-// Emits
+const { type, label, canEdit, value, firstState, secondState } = toRefs(props)
+
 defineEmits(['update'])
 
-// Computed
 const rowClass = computed(() => {
     return {
-        'virtue-row': props.type === 'range',
-        'weakness-row': props.type === 'single',
-        'state-row': props.type === 'state'
+        'virtue-row': type.value === STAT_ROW_TYPES.RANGE,
+        'weakness-row': type.value === STAT_ROW_TYPES.SINGLE,
+        'state-row': type.value === STAT_ROW_TYPES.STATE
     }
 })
 
 const stateClasses = computed(() => {
     return {
-        'state-active': props.type === 'state' && props.firstState
+        'state-active': type.value === STAT_ROW_TYPES.STATE && firstState.value
     }
 })
 </script>
@@ -87,25 +88,26 @@ const stateClasses = computed(() => {
 .state-row {
     display: grid;
     align-items: center;
-    height: 25px;
+    min-height: 25px;
     width: 100%;
     margin-top: var(--space-sm);
 }
 
 .virtue-row {
-    grid-template-columns: 35% 12% 8% 12%
+    grid-template-columns: 40% 12% 8% 12%
 }
 
 .weakness-row {
-    grid-template-columns: 35% 65%;
+    grid-template-columns: 40% 65%;
 }
 
 .state-row {
-    grid-template-columns: 34% 8% 8%;
+    grid-template-columns: 39% 8% 8%;
 }
 
-.skill-name {
+.stat-name {
     font-size: var(--font-size-14);
+    text-align: left;
 }
 
 .range-separator {

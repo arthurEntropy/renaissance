@@ -1,7 +1,7 @@
 <template>
   <base-card v-bind="$attrs" :item="equipment"
     :metaInfo="equipment.weight ? `${equipment.weight} ${equipment.weight === 1 ? 'lb' : 'lbs'}` : ''"
-    :collapsed="collapsed" :editable="editable" :duplicatable="editable" :collapsible="collapsible"
+    :collapsed="collapsed" :editable="editable" :duplicatable="duplicatable" :collapsible="collapsible"
     :showAddToCharacter="showAddToCharacter" :itemType="ItemType.EQUIPMENT" @edit="$emit('edit', equipment)"
     @duplicate="handleDuplicate">
 
@@ -96,6 +96,10 @@ const props = defineProps({
     default: false,
   },
   editable: {
+    type: Boolean,
+    default: false,
+  },
+  duplicatable: {
     type: Boolean,
     default: false,
   },

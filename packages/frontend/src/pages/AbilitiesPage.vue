@@ -28,7 +28,6 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
-import { storeToRefs } from 'pinia'
 import { useAbilitiesStore } from '@/stores/abilitiesStore'
 import { useAuthStore } from '@/stores/authStore'
 import { useSourcesStore } from '@/stores/sourcesStore'
@@ -46,7 +45,7 @@ const abilitiesStore = useAbilitiesStore()
 const authStore = useAuthStore()
 const sourcesStore = useSourcesStore()
 
-const { abilities } = storeToRefs(abilitiesStore)
+const abilities = computed(() => abilitiesStore.abilities)
 
 // Modal management
 const {

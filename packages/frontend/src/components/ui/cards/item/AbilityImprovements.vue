@@ -158,6 +158,7 @@ const handleImprovementToggle = (improvementId) => {
     font-weight: var(--font-weight-bold);
     margin-bottom: var(--space-xs);
     margin-top: var(--space-xs);
+    text-align: left;
     transition: var(--transition-color);
 }
 

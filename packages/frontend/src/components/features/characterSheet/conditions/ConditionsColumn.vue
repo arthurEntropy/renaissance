@@ -1,58 +1,59 @@
 <template>
     <div class="conditions-column-container">
+
+        <!-- Conditions -->
         <CharacterSheetSection custom-class="conditions-column">
             <div class="conditions-header">Conditions</div>
-            <div class="conditions-row" v-for="(value, key) in character.conditions" :key="key">
-                <span :class="{ 'condition-active': value }">{{
-                    capitalize(key)
-                    }}</span>
+            <div class="conditions-row" v-for="(value, key) in selectedCharacter?.conditions" :key="key">
+                <span :class="{ 'condition-active': value }">{{ capitalize(key) }}</span>
                 <input type="checkbox" class="skill-checkbox" :class="{ 'condition-active-checkbox': value }"
-                    :checked="value" :disabled="!isEditMode" @change="updateCondition(key, $event.target.checked)" />
+                    :checked="value" :disabled="!isEditMode" :aria-label="`${capitalize(key)} condition`"
+                    @change="updateCondition(key, $event.target.checked)" />
             </div>
         </CharacterSheetSection>
 
+        <!-- Speed -->
         <CharacterSheetSection custom-class="speed-column">
             <div class="speed-row">
                 <span class="speed-name">Speed</span>
-                <NumberInput :model-value="character.speed || 0" :disabled="!isEditMode"
-                    @update:model-value="updateSpeed" :min="0" size="small" />
+                <NumberInput :model-value="selectedCharacter?.speed || 0" :disabled="!isEditMode"
+                    @update:model-value="updateSpeed" :min="0" size="small" aria-label="Character speed" />
             </div>
         </CharacterSheetSection>
     </div>
 </template>
 
 <script setup>
+import { computed } from 'vue'
 import CharacterSheetSection from '@/components/ui/containers/CharacterSheetSection.vue'
 import NumberInput from '@/components/ui/forms/NumberInput.vue'
+import { useCharactersStore } from '@/stores/charactersStore'
 import * as CharacterUtils from '@shared/types/entities/characterUtils'
 
 defineProps({
-    character: {
-        type: Object,
-        required: true
-    },
     isEditMode: {
         type: Boolean,
         default: false
     }
 })
 
-import { useCharactersStore } from '@/stores/charactersStore'
 const charactersStore = useCharactersStore()
-const selectedCharacter = charactersStore.selectedCharacter
+const selectedCharacter = computed(() => charactersStore.selectedCharacter)
 
-const capitalize = (s) => {
-    const str = String(s || '')
-    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase()
+const capitalize = (str) => {
+    const s = String(str || '')
+    return s.charAt(0).toUpperCase() + s.slice(1).toLowerCase()
 }
 
 const updateCondition = (conditionKey, value) => {
+    if (!selectedCharacter.value) return
     selectedCharacter.value.conditions[conditionKey] = value
     CharacterUtils.updateDiceMods(selectedCharacter.value)
     CharacterUtils.updateFavoredStatus(selectedCharacter.value)
 }
 
 const updateSpeed = (value) => {
+    if (!selectedCharacter.value) return
     selectedCharacter.value.speed = value
 }
 </script>
@@ -88,7 +89,7 @@ const updateSpeed = (value) => {
 .conditions-header {
     display: flex;
     align-items: end;
-    margin: 4px 0;
+    margin: 5px 0;
     font-size: var(--font-size-14);
     font-style: italic;
     height: 28px;

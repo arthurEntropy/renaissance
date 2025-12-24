@@ -210,6 +210,7 @@ import TextEditor from '@/components/ui/textEditor/TextEditor.vue'
 import SourceDropdown from '@/components/ui/selectors/SourceDropdown.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import { getDiceFontMaxClass } from '@/utils/diceFontUtils'
+import { STANDARD_DIE_SIZES } from '@shared/constants/dice'
 
 
 // Props
@@ -276,7 +277,7 @@ const cancel = () => {
 }
 
 // Dice management - convert between array [4, 6, 6, 8] and count object {4: 1, 6: 2, 8: 1}
-const dieTypes = [4, 6, 8, 10, 12, 20]
+const dieTypes = STANDARD_DIE_SIZES
 const engagementDiceCounts = ref({})
 const damageDiceCounts = ref({})
 

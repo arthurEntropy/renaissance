@@ -79,7 +79,6 @@
 import { computed } from 'vue'
 import { useSourcesStore } from '@/stores/sourcesStore'
 import { useCharactersStore } from '@/stores/charactersStore'
-import { storeToRefs } from 'pinia'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import CardDescription from '@/components/ui/cards/item/CardDescription.vue'
@@ -102,7 +101,7 @@ const emit = defineEmits(['edit', 'duplicate', 'update', 'send-to-chat', 'height
 
 // Source management
 const sourcesStore = useSourcesStore()
-const { sources } = storeToRefs(sourcesStore)
+const sources = computed(() => sourcesStore.sources)
 
 const sourceName = computed(() => {
   if (!props.item.source) return 'Unknown'

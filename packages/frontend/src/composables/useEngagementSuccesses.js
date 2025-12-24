@@ -1,9 +1,36 @@
-import { ref, computed } from 'vue'
+import { ref, computed, reactive } from 'vue'
 import EngagementSuccessService from '@/services/entities/engagementSuccessService'
+import engagementSessionService from '@/services/sessions/engagementSessionService'
+import { useCharactersStore } from '@/stores/charactersStore'
+import { useEquipmentStore } from '@/stores/equipmentStore'
 
-export function useEngagementSuccesses(character = null, allEquipment = null) {
-  // State
+// Singleton state - shared across all instances
+let sharedState = null
+
+function createSharedState() {
+  const charactersStore = useCharactersStore()
+  const equipmentStore = useEquipmentStore()
+  
+  const character = computed(() => charactersStore.selectedCharacter)
+  const allEquipment = computed(() => equipmentStore.equipment || [])
   const allEngagementSuccesses = ref([])
+  const assignedSuccesses = reactive({})
+
+  return {
+    character,
+    allEquipment,
+    allEngagementSuccesses,
+    assignedSuccesses
+  }
+}
+
+export function useEngagementSuccesses() {
+  // Initialize singleton state on first use
+  if (!sharedState) {
+    sharedState = createSharedState()
+  }
+
+  const { character, allEquipment, allEngagementSuccesses, assignedSuccesses } = sharedState
 
   // Computed properties for success data processing
   const equipmentEngagementSuccesses = computed(() => {
@@ -94,37 +121,71 @@ export function useEngagementSuccesses(character = null, allEquipment = null) {
     }
   }
 
-  const addUserAddedSuccess = (successId, updateCharacterCallback) => {
-    if (!character?.value || !updateCharacterCallback) return
+  const addUserAddedSuccess = (successId) => {
+    if (!character?.value) return
 
-    const currentSuccesses = character.value.engagementSuccesses || []
-    const updatedSuccesses = [...currentSuccesses, successId]
-
-    const updatedCharacter = {
-      ...character.value,
-      engagementSuccesses: updatedSuccesses
+    if (!character.value.engagementSuccesses) {
+      character.value.engagementSuccesses = []
     }
-
-    updateCharacterCallback(updatedCharacter)
+    character.value.engagementSuccesses.push(successId)
   }
 
-  const removeUserAddedSuccess = (successId, updateCharacterCallback) => {
-    if (!character?.value || !updateCharacterCallback) return
+  const removeUserAddedSuccess = (successId) => {
+    if (!character?.value?.engagementSuccesses) return
 
-    const currentSuccesses = character.value.engagementSuccesses || []
-    const updatedSuccesses = currentSuccesses.filter(id => id !== successId)
+    const index = character.value.engagementSuccesses.indexOf(successId)
+    if (index > -1) {
+      character.value.engagementSuccesses.splice(index, 1)
+    }
+  }
 
-    const updatedCharacter = {
-      ...character.value,
-      engagementSuccesses: updatedSuccesses
+  // Success assignment management
+  const assignSuccess = (player, diceIndex, successData, characterId) => {
+    const key = `${player}-${diceIndex}`
+    const previousAssignment = assignedSuccesses[key]
+    const newAssignment = successData.id
+
+    if (previousAssignment !== newAssignment) {
+      assignedSuccesses[key] = newAssignment
+      engagementSessionService.updateSuccessAssignment(characterId, player, diceIndex, newAssignment)
+    }
+  }
+
+  const clearAssignment = (player, diceIndex, characterId) => {
+    const key = `${player}-${diceIndex}`
+
+    if (assignedSuccesses[key]) {
+      delete assignedSuccesses[key]
+      engagementSessionService.updateSuccessAssignment(characterId, player, diceIndex, null)
+    }
+  }
+
+  const handleRemoteAssignment = (characterId, player, diceIndex, successId, currentCharacterId, opponent) => {
+    if (characterId === currentCharacterId) return
+
+    let targetKey
+    if (opponent && opponent.characterInfo && characterId === opponent.characterInfo.id) {
+      targetKey = `opponent-${diceIndex}`
+    } else {
+      console.warn('Unknown character ID for remote assignment:', characterId, 'opponent:', opponent)
+      return
     }
 
-    updateCharacterCallback(updatedCharacter)
+    if (successId) {
+      assignedSuccesses[targetKey] = successId
+    } else {
+      delete assignedSuccesses[targetKey]
+    }
+  }
+
+  const resetAssignments = () => {
+    Object.keys(assignedSuccesses).forEach(key => delete assignedSuccesses[key])
   }
 
   return {
     // State
     allEngagementSuccesses,
+    assignedSuccesses,
     
     // Computed properties
     equipmentEngagementSuccesses,
@@ -135,6 +196,10 @@ export function useEngagementSuccesses(character = null, allEquipment = null) {
     // Methods
     fetchEngagementSuccesses,
     addUserAddedSuccess,
-    removeUserAddedSuccess
+    removeUserAddedSuccess,
+    assignSuccess,
+    clearAssignment,
+    handleRemoteAssignment,
+    resetAssignments
   }
 }

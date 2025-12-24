@@ -1,4 +1,4 @@
-import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
+import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue'
 
 export function useItemSelector(allItems, sourcesStore, options = {}) {
   // Configuration
@@ -44,6 +44,9 @@ export function useItemSelector(allItems, sourcesStore, options = {}) {
       })
     })
   }
+
+  // Auto-filter when search query changes
+  watch(searchQuery, filterItems)
 
   const groupedItems = computed(() => {
     const grouped = {

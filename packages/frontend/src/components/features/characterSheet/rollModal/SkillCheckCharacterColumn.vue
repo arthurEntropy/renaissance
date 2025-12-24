@@ -1,6 +1,6 @@
 <template>
-    <BaseCharacterColumn :character="character" :is-opponent="isOpponent"
-        :show-results="sessionStatus === SESSION_STATUS.COMPLETED" :is-winner="isWinner" :is-loser="isLoser">
+    <BaseCharacterColumn :character="character" :is-opponent="isOpponent" :show-results="showResults"
+        :is-winner="isWinner" :is-loser="isLoser">
 
         <!-- Skill info -->
         <template #additional-character-info>
@@ -22,16 +22,15 @@
             <div class="dice-section">
                 <DiceDisplay ref="diceDisplayRef" :rollData="rollData" :isEngagement="false"
                     :canReroll="canEdit && !isOpponent" :isOpponent="isOpponent" :state="diceDisplayState"
-                    :waitingDice="allDice" @reroll-all-dice="emit('reroll-all-dice', side)" />
+                    :waitingDice="allDice" @reroll-all-dice="sessionManager.rerollAllDice(side, null, null, null)" />
 
-                <!-- Total display (only show when completed and not rolling) -->
-                <div v-if="sessionStatus === SESSION_STATUS.COMPLETED && !isRolling" class="total-display">
+                <!-- Total display -->
+                <div v-if="showTotalValue" class="total-display">
                     <div class="total-value" :class="totalClass">{{ displayTotal }}</div>
                 </div>
 
-                <!-- Total placeholder while waiting, rolling, or during animation -->
-                <div v-else-if="sessionStatus === SESSION_STATUS.WAITING || sessionStatus === SESSION_STATUS.ROLLING || (sessionStatus === SESSION_STATUS.COMPLETED && isRolling)"
-                    class="total-display">
+                <!-- Total placeholder -->
+                <div v-else-if="showTotalPlaceholder" class="total-display">
                     <div class="total-placeholder"></div>
                 </div>
             </div>
@@ -44,129 +43,108 @@
 import { computed, ref } from 'vue'
 import { SESSION_STATUS } from '@shared/constants/sessionStatus'
 import { WINNER } from '@shared/constants/winner.js'
+import { PlayerSides } from '@/constants/playerSides'
 import { getDiceFontClass } from '@/utils/diceFontUtils'
 import { buildDiceSetForSkill } from '@/utils/skillDiceUtils'
+import { useOpposedSkillCheckSession } from '@/composables/useOpposedSkillCheckSession'
+import { useCharactersStore } from '@/stores/charactersStore'
 import BaseCharacterColumn from './BaseCharacterColumn.vue'
-import DiceDisplay from '@/components/features/characterSheet/diceRollResults/DiceDisplay.vue'
+import DiceDisplay from '@/components/features/characterSheet/diceBox/DiceDisplay.vue'
 
 const props = defineProps({
-    character: {
-        type: Object,
-        default: null
-    },
-    skillCheckConfig: {
-        type: Object,
-        default: null
-    },
-    rollResults: {
-        type: Object,
-        default: null
-    },
-    sessionStatus: {
-        type: String,
-        default: SESSION_STATUS.WAITING
-    },
-    side: {
-        type: String,
-        required: true
-    },
     isOpponent: {
         type: Boolean,
-        default: false
-    },
-    canEdit: {
-        type: Boolean,
-        default: true
-    },
-    winner: {
-        type: String,
-        default: null
-    },
-    isRerolling: {
-        type: Boolean,
-        default: false
-    },
-    rerollingCharacterId: {
-        type: String,
-        default: null
+        required: true
     }
 })
 
-const emit = defineEmits([
-    'reroll-all-dice'
-])
+const sessionManager = useOpposedSkillCheckSession()
+const charactersStore = useCharactersStore()
 
 const diceDisplayRef = ref(null)
+
+// Determine side and character based on isOpponent
+const side = computed(() => props.isOpponent ? PlayerSides.OPPONENT : PlayerSides.USER)
+const character = computed(() => {
+    if (props.isOpponent) {
+        return sessionManager.opponent.value?.characterInfo || null
+    }
+    return charactersStore.selectedCharacter
+})
+
+const skillCheckConfig = computed(() => {
+    if (props.isOpponent) {
+        return sessionManager.opponent.value?.skillCheckConfig || null
+    }
+    return sessionManager.userSkillConfig.value
+})
+
+const sessionStatus = computed(() => sessionManager.sessionStatus.value)
+const showResults = computed(() => sessionStatus.value === SESSION_STATUS.COMPLETED)
+const canEdit = computed(() => sessionManager.canEditResults.value && !props.isOpponent)
+
+// Winner is always computed from user's perspective (selectedCharacter)
+// This determines UI styling for both user and opponent columns
+const winner = computed(() => sessionManager.winner.value)
+
+// Get this character's session data from roll results
+const userSession = computed(() => {
+    if (!sessionManager.rollResults.value?.session || !showResults.value) {
+        return null
+    }
+    return sessionManager.rollResults.value.session.users.find(u => u.characterInfo.id === character.value?.id)
+})
 
 const isRolling = computed(() => {
     return diceDisplayRef.value?.isRolling || false
 })
 
-const isThisCharacterRerolling = computed(() => {
-    return props.isRerolling && props.rerollingCharacterId === String(props.character?.id)
-})
-
 const isWinner = computed(() => {
-    if (props.sessionStatus !== SESSION_STATUS.COMPLETED || !props.winner || isRolling.value) {
+    if (!showResults.value || !winner.value) {
         return false
     }
-    return (props.winner === WINNER.USER && !props.isOpponent) ||
-        (props.winner === WINNER.OPPONENT && props.isOpponent)
+    return (winner.value === WINNER.USER && !props.isOpponent) ||
+        (winner.value === WINNER.OPPONENT && props.isOpponent)
 })
 
 const isLoser = computed(() => {
-    if (props.sessionStatus !== SESSION_STATUS.COMPLETED || !props.winner || isRolling.value) {
+    if (!showResults.value || !winner.value) {
         return false
     }
-    return props.winner !== WINNER.TIE && !isWinner.value
+    return winner.value !== WINNER.TIE && !isWinner.value
 })
 
 const favoredStatus = computed(() => {
-    if (!props.skillCheckConfig) return null
-    if (props.skillCheckConfig.isFavored) return 'favored'
-    if (props.skillCheckConfig.isIllFavored) return 'ill-favored'
+    if (!skillCheckConfig.value) return null
+    if (skillCheckConfig.value.isFavored) return 'favored'
+    if (skillCheckConfig.value.isIllFavored) return 'ill-favored'
     return null
 })
 
 const allDice = computed(() => {
-    return buildDiceSetForSkill(props.skillCheckConfig)
+    return buildDiceSetForSkill(skillCheckConfig.value)
 })
 
 const sortedDice = computed(() => {
-    // Early return if no roll results available
-    if (!props.rollResults?.session || props.sessionStatus !== SESSION_STATUS.COMPLETED) {
-        return []
-    }
-
-    // Extract dice from session - already formatted and sorted by OpposedSkillCheckService
-    const userSession = props.rollResults.session.users.find(u => u.characterInfo.id === props.character?.id)
-    return userSession?.rollResults || []
+    return userSession.value?.rollResults || []
 })
 
 const displayTotal = computed(() => {
-    if (!props.rollResults?.session || props.sessionStatus !== SESSION_STATUS.COMPLETED) {
-        return 0
-    }
-
-    const userSession = props.rollResults.session.users.find(u =>
-        u.characterInfo.id === props.character?.id
-    )
-
-    return userSession?.rollTotal || 0
+    return userSession.value?.rollTotal || 0
 })
 
 const totalClass = computed(() => {
-    if (props.sessionStatus !== SESSION_STATUS.COMPLETED || !props.winner) return ''
+    if (!showResults.value || !winner.value) return ''
 
     if (isWinner.value) return 'winner'
     if (isLoser.value) return 'loser'
-    if (props.winner === WINNER.TIE) return 'tie'
+    if (winner.value === WINNER.TIE) return 'tie'
 
     return ''
 })
 
 const diceDisplayState = computed(() => {
-    switch (props.sessionStatus) {
+    switch (sessionStatus.value) {
         case SESSION_STATUS.WAITING:
             return 'waiting'
         case SESSION_STATUS.ROLLING:
@@ -178,34 +156,36 @@ const diceDisplayState = computed(() => {
     }
 })
 
+const showTotalValue = computed(() => showResults.value && !isRolling.value)
+const showTotalPlaceholder = computed(() => !showResults.value || isRolling.value)
+
 const rollData = computed(() => {
-    // For animation purposes, we need dice data even during rerolls
-    // Use allDice (from skill config) if we're rerolling or have no results yet
+    // DiceDisplay requires dice data for rolling animation
+    // Use skill config dice as placeholders when results aren't available yet
     let diceResults
 
-    if (props.sessionStatus === SESSION_STATUS.COMPLETED && sortedDice.value.length > 0 && !isThisCharacterRerolling.value) {
-        // Use actual results if we have them and not rerolling
+    if (showResults.value && sortedDice.value.length > 0) {
+        // Use actual results from session
         diceResults = sortedDice.value
     } else {
-        // Use skill config dice for animation (during rerolls or when no results)
+        // Use skill config dice as placeholders for animation
         diceResults = allDice.value.map(die => ({
             dieSides: die.dieSides,
-            dieRollValue: die.dieSides, // Use max value for animation placeholder
+            dieRollValue: die.dieSides,
             displayDieRollValue: die.dieSides,
             isDropped: false,
             rolledMaxValue: true,
             poolIndex: 0,
             emoji: null,
-            cssClass: getDiceFontClass(die.dieSides, die.dieSides) // Max value class for animation
+            cssClass: getDiceFontClass(die.dieSides, die.dieSides)
         }))
     }
 
-    // Always return an object, even if no results yet
     return {
         type: 'OPPOSED_SKILL_CHECK',
         diceResults: diceResults,
-        characterName: props.character?.name || 'Unknown',
-        skillName: props.skillCheckConfig?.name || 'Unknown Skill'
+        characterName: character.value?.name || 'Unknown',
+        skillName: skillCheckConfig.value?.name || 'Unknown Skill'
     }
 })
 
@@ -234,6 +214,24 @@ defineExpose({
     color: var(--color-text-primary);
 }
 
+.favored-status {
+    display: inline-block;
+    margin-left: var(--space-xs);
+    font-size: var(--font-size-12);
+}
+
+.favored-status.favored {
+    color: var(--color-success);
+}
+
+.favored-status.ill-favored {
+    color: var(--color-danger);
+}
+
+.favored-status.placeholder {
+    opacity: 0;
+}
+
 .dice-section {
     margin-top: var(--space-sm);
     position: relative;
@@ -250,6 +248,25 @@ defineExpose({
     text-align: center;
     padding: var(--space-md);
     border-radius: var(--radius-5);
+}
+
+.total-value {
+    font-size: 3rem;
+    font-weight: var(--font-weight-bold);
+    line-height: 1;
+    color: var(--color-text-primary);
+}
+
+.total-value.winner {
+    color: var(--color-success);
+}
+
+.total-value.loser {
+    color: var(--color-danger);
+}
+
+.total-value.tie {
+    color: var(--color-warning);
 }
 
 .total-placeholder {

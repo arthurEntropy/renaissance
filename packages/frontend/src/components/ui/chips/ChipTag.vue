@@ -9,11 +9,11 @@
 
         <!-- Tooltip -->
         <teleport to="body" v-if="tooltip">
-            <div v-if="showTooltip" class="chip-tooltip"
-                :style="{ top: tooltipPosition.y + 'px', left: tooltipPosition.x + 'px' }">
-                <div v-if="tooltip.description" class="tooltip-description">{{ tooltip.description }}</div>
-                <div v-if="tooltip.sources && tooltip.sources.length > 0" class="tooltip-source">
-                    From: {{ tooltip.sources.join(', ') }}
+            <div v-if="showTooltip" class="chip-tooltip" :style="tooltipStyle">
+                <div v-if="tooltipContent?.description" class="tooltip-description">{{ tooltipContent.description }}
+                </div>
+                <div v-if="tooltipContent?.sources && tooltipContent.sources.length > 0" class="tooltip-source">
+                    From: {{ tooltipContent.sources.join(', ') }}
                 </div>
             </div>
         </teleport>
@@ -27,9 +27,10 @@ export default {
 </script>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { computed } from 'vue'
 import { XMarkIcon } from '@heroicons/vue/24/outline'
 import { useSourcesStore } from '@/stores/sourcesStore'
+import { useTooltip } from '@/composables/useFloatingElement'
 
 const props = defineProps({
     // Display text (direct or via sourceId lookup)
@@ -83,36 +84,15 @@ const displayText = computed(() => {
     return ''
 })
 
-// Tooltip state
-const showTooltip = ref(false)
-const tooltipPosition = ref({ x: 0, y: 0 })
-const tooltipTimer = ref(null)
+const { content: tooltipContent, style: tooltipStyle, isVisible: showTooltip, show, hide } = useTooltip()
 
-// Tooltip methods
 const startTooltip = (event) => {
     if (!props.tooltip) return
-
-    if (tooltipTimer.value) {
-        clearTimeout(tooltipTimer.value)
-    }
-
-    const rect = event.target.getBoundingClientRect()
-    tooltipPosition.value = {
-        x: rect.left + rect.width / 2,
-        y: rect.bottom + 5
-    }
-
-    tooltipTimer.value = setTimeout(() => {
-        showTooltip.value = true
-    }, 750)
+    show(props.tooltip, event)
 }
 
 const clearTooltip = () => {
-    if (tooltipTimer.value) {
-        clearTimeout(tooltipTimer.value)
-        tooltipTimer.value = null
-    }
-    showTooltip.value = false
+    hide()
 }
 </script>
 

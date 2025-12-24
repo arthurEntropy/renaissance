@@ -9,7 +9,7 @@
 import { computed } from 'vue'
 
 const props = defineProps({
-    equipmentRows: {
+    equipmentItems: {
         type: Array,
         required: true,
         default: () => []
@@ -18,9 +18,9 @@ const props = defineProps({
 
 const totalWeight = computed(() => {
     return Math.round(
-        props.equipmentRows.reduce((sum, row) => {
-            if (!row.equipment) return sum
-            return row.isCarried ? sum + row.equipment.weight * row.quantity : sum
+        props.equipmentItems.reduce((sum, item) => {
+            if (!item.equipment) return sum
+            return item.isCarried ? sum + item.equipment.weight * item.quantity : sum
         }, 0)
     )
 })

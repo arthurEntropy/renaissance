@@ -5,11 +5,16 @@
             <div class="indicator-circle"
                 :class="{ 'winner': dicePair.leftWins, 'loser': !dicePair.leftWins && !dicePair.tie }">
             </div>
-            <div class="indicator-caret" @click.stop="canEdit ? $emit('toggle-result', index) : null"
-                :class="getCaretClasses(dicePair)">
-                <span v-if="dicePair.tie">◉</span>
-                <span v-else-if="dicePair.leftWins">◀</span>
-                <span v-else>▶</span>
+            <div class="indicator-caret" @click.stop="toggleResult(index)" :class="getCaretClasses(dicePair)">
+                <!-- Tie: filled circle -->
+                <svg v-if="dicePair.tie" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                    class="caret-icon">
+                    <circle cx="12" cy="12" r="6" />
+                </svg>
+                <!-- Left wins -->
+                <ChevronLeftIcon v-else-if="dicePair.leftWins" class="caret-icon" />
+                <!-- Right wins -->
+                <ChevronRightIcon v-else class="caret-icon" />
             </div>
             <div class="indicator-circle"
                 :class="{ 'winner': dicePair.rightWins, 'loser': !dicePair.rightWins && !dicePair.tie }">
@@ -19,19 +24,39 @@
 </template>
 
 <script setup>
+import { computed } from 'vue'
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/vue/24/solid'
 import { WINNER } from '@shared/constants/winner.js'
+import { useEngagementSession } from '@/composables/useEngagementSession'
+import { useEngagementRoll } from '@/composables/useEngagementRoll'
+import { useCharactersStore } from '@/stores/charactersStore'
 
-// TODO: Make these calulated based on height of character info section of column
+// TODO: Make these calculated based on height of character info section of column
 const INDICATOR_BASE_OFFSET = 225 // Base top position in pixels
 const INDICATOR_SPACING = 48 // Vertical spacing between indicators in pixels
 
 const props = defineProps({
-    dicePairs: { type: Array, default: () => [] },
-    canEdit: { type: Boolean, default: false },
-    winner: { type: String, default: null },
+    canEdit: {
+        type: Boolean,
+        default: false
+    }
 })
 
-defineEmits(['toggle-result'])
+const charactersStore = useCharactersStore()
+const sessionManager = useEngagementSession()
+const diceManager = useEngagementRoll()
+
+const character = computed(() => charactersStore.selectedCharacter)
+
+// Compute dice pairs and winner internally
+const dicePairs = computed(() => diceManager.getDicePairs(sessionManager, character.value, diceManager.committedDice.value))
+const winner = computed(() => diceManager.getEngagementWinner(sessionManager, character.value, diceManager.committedDice.value))
+
+const toggleResult = diceManager.createToggleResultHandler(
+    sessionManager,
+    character.value,
+    diceManager.committedDice.value
+)
 
 function getIndicatorPosition(dicePair) {
     return `${INDICATOR_BASE_OFFSET + (dicePair.index * INDICATOR_SPACING)}px`
@@ -40,13 +65,13 @@ function getIndicatorPosition(dicePair) {
 function getComparisonClasses(comparison) {
     const classes = []
 
-    if (comparison.leftWins && props.winner === WINNER.USER) {
+    if (comparison.leftWins && winner.value === WINNER.USER) {
         classes.push('user-wins-pair')
-    } else if (comparison.rightWins && props.winner === WINNER.OPPONENT) {
+    } else if (comparison.rightWins && winner.value === WINNER.OPPONENT) {
         classes.push('opponent-wins-pair')
-    } else if (comparison.leftWins && props.winner === WINNER.OPPONENT) {
+    } else if (comparison.leftWins && winner.value === WINNER.OPPONENT) {
         classes.push('user-loses-pair')
-    } else if (comparison.rightWins && props.winner === WINNER.USER) {
+    } else if (comparison.rightWins && winner.value === WINNER.USER) {
         classes.push('opponent-loses-pair')
     } else if (comparison.tie) {
         classes.push('tie-pair')
@@ -146,6 +171,11 @@ function getCaretClasses(comparison) {
     margin-top: 2px;
 }
 
+.caret-icon {
+    width: 16px;
+    height: 16px;
+}
+
 .indicator-caret.clickable {
     cursor: pointer;
     pointer-events: auto;
@@ -161,10 +191,7 @@ function getCaretClasses(comparison) {
     text-shadow: var(--shadow-glow-warning-sm);
 }
 
-.indicator-caret.left-wins {
-    color: var(--color-text-primary);
-}
-
+.indicator-caret.left-wins,
 .indicator-caret.right-wins {
     color: var(--color-text-primary);
 }

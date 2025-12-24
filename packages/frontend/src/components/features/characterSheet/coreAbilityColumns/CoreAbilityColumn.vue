@@ -1,60 +1,57 @@
 <template>
-  <CharacterSheetSection custom-class="core-ability-column" min-width="270px" max-width="320px">
-    <!-- Core Ability Header -->
-    <CoreAbilityHeader :title="coreAbilityTitle" :value="coreAbilityValue" :is-edit-mode="isEditMode"
-      @update="character[coreAbilityKey.value] = $event" />
+  <CharacterSheetSection custom-class="core-ability-column" min-width="270px" max-width="310px">
+    <CoreAbilityHeader :title="coreAbilityTitle" :value="coreAbilityValue" :can-edit="canEdit"
+      @update="updateCoreAbility" />
 
-    <!-- Skills -->
-    <SkillRow v-for="skill in skills" :key="skill.name" :skill="skill" :is-edit-mode="isEditMode"
-      @open-skill-check="$emit('open-skill-check', $event)" @dice-click="handleDiceClick" />
+    <SkillRow v-for="skill in skills" :key="skill.name" :skill="skill" :can-edit="canEdit"
+      @open-skill-check="openSkillCheckModal" @update-ranks="handleRanksUpdate" />
 
-    <!-- Virtue Row -->
-    <StatRow type="range" :label="virtueLabel" :value="virtueValue" :is-edit-mode="isEditMode"
-      @update="(field, value) => character[virtueKey.value][field] = value" />
+    <StatRow :type="STAT_ROW_TYPES.RANGE" :label="virtueLabel" :value="virtueValue" :can-edit="canEdit"
+      @update="updateVirtue" />
 
-    <!-- Weakness Row -->
-    <StatRow type="single" :label="weaknessLabel" :value="weaknessValue" :is-edit-mode="isEditMode"
-      @update="(value) => character[weaknessKey.value] = value" />
+    <StatRow :type="STAT_ROW_TYPES.SINGLE" :label="weaknessLabel" :value="weaknessValue" :can-edit="canEdit"
+      @update="updateWeakness" />
 
-    <!-- State Row -->
-    <StatRow type="state" :label="firstStateLabel" :first-state="firstStateValue" :second-state="secondStateValue"
-      :is-edit-mode="isEditMode" @update="(field, value) => {
-        const stateKey = field === 'first' ? firstStateKey.value : secondStateKey.value
-        character.states[stateKey] = value
-      }" />
+    <StatRow :type="STAT_ROW_TYPES.STATE" :label="firstStateLabel" :first-state="firstStateValue"
+      :second-state="secondStateValue" :can-edit="canEdit" @update="updateState" />
+
+    <SkillCheckModal v-if="skillCheckModal.isOpen.value && character" :character="character"
+      :selectedSkillName="selectedSkillName" :defaultTargetNumber="rollsStore.lastTargetNumber"
+      @close="skillCheckModal.closeModal" @update-target-number="rollsStore.setLastTargetNumber"
+      @start-opposed-skill-check="handleStartOpposedSkillCheck" />
+
+    <OpposedSkillCheckModal v-if="opposedSkillCheckModal.isOpen.value && character" :character="character"
+      :initial-session-config="opposedSessionConfig" @close="opposedSkillCheckModal.closeModal" />
   </CharacterSheetSection>
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
+import { useModal } from '@/composables/useModal'
 import { useColumnConfig } from '@/composables/useColumnConfig'
+import { useRollsStore } from '@/stores/rollsStore'
+import { useCharactersStore } from '@/stores/charactersStore'
+import { STAT_ROW_TYPES } from '@shared/constants/characterConstants'
 import * as CharacterUtils from '@shared/types/entities/characterUtils'
 import CharacterSheetSection from '@/components/ui/containers/CharacterSheetSection.vue'
 import CoreAbilityHeader from './CoreAbilityHeader.vue'
 import SkillRow from './SkillRow.vue'
 import StatRow from './StatRow.vue'
+import SkillCheckModal from '@/components/features/characterSheet/modals/SkillCheckModal.vue'
+import OpposedSkillCheckModal from '@/components/features/characterSheet/rollModal/OpposedSkillCheckModal.vue'
 
 const props = defineProps({
-  character: {
-    type: Object,
-    required: true
-  },
   column: {
     type: String,
     required: true,
-  },
-  isEditMode: {
-    type: Boolean,
-    default: false
   }
 })
 
-// Wrap character in computed for reactivity
-const character = computed(() => props.character)
+const rollsStore = useRollsStore()
+const charactersStore = useCharactersStore()
 
-const updateCharacter = (updatedCharacter) => {
-  Object.assign(props.character, updatedCharacter)
-}
+const character = computed(() => charactersStore.selectedCharacter)
+const canEdit = computed(() => charactersStore.canEditSelectedCharacter)
 
 const {
   coreAbilityKey,
@@ -70,35 +67,52 @@ const {
   firstStateLabel,
   firstStateValue,
   secondStateKey,
-  secondStateLabel: _secondStateLabel,
   secondStateValue,
   skills
 } = useColumnConfig(computed(() => props.column), character)
 
-// Handle dice click for skill rank updates
-const handleDiceClick = (skillName, diceIndex) => {
-  const updatedCharacter = {
-    ...character.value,
-    skills: character.value.skills.map(skill => {
-      if (skill.name === skillName) {
-        const newRank = diceIndex + 1
-        const updatedRanks = newRank === skill.ranks ? skill.ranks - 1 : newRank
-        return { ...skill, ranks: updatedRanks }
-      }
-      return skill
-    })
-  }
+const updateCoreAbility = (newValue) => {
+  character.value[coreAbilityKey.value] = newValue
+}
 
-  CharacterUtils.updateFavoredStatus(updatedCharacter)
-  updateCharacter(updatedCharacter)
+const updateVirtue = (field, value) => {
+  character.value[virtueKey.value][field] = value
+}
+
+const updateWeakness = (value) => {
+  character.value[weaknessKey.value] = value
+}
+
+const updateState = (field, value) => {
+  const stateKey = field === 'first' ? firstStateKey.value : secondStateKey.value
+  character.value.states[stateKey] = value
+}
+
+const handleRanksUpdate = (skillName, newRanks) => {
+  const skill = character.value.skills.find(s => s.name === skillName)
+  skill.ranks = newRanks
+  CharacterUtils.updateFavoredStatus(character.value)
+}
+
+const skillCheckModal = useModal()
+const opposedSkillCheckModal = useModal()
+const selectedSkillName = ref('')
+const opposedSessionConfig = ref(null)
+
+const openSkillCheckModal = (skillName) => {
+  selectedSkillName.value = skillName
+  skillCheckModal.openModal()
+}
+
+const handleStartOpposedSkillCheck = (config) => {
+  skillCheckModal.closeModal()
+  opposedSessionConfig.value = config
+  opposedSkillCheckModal.openModal()
 }
 </script>
 
 <style scoped>
 .core-ability-column {
   align-items: center;
-  width: 270px;
-  max-width: 270px;
-  flex: 1;
 }
 </style>

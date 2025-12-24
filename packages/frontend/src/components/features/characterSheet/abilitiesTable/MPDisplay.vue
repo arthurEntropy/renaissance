@@ -1,26 +1,20 @@
 <template>
     <div class="mp-container">
         <span class="mp-label">MP:</span>
-        <NumberInput :model-value="mp.current" :disabled="!isEditMode" @update:model-value="updateCurrent" :min="0"
-            size="small" />
+        <NumberInput :model-value="selectedCharacter.mp.current" :disabled="!isEditMode"
+            @update:model-value="updateCurrent" :min="0" size="small" />
         <span>/</span>
-        <NumberInput :model-value="mp.max" :disabled="!isEditMode" @update:model-value="updateMax" :min="0"
-            size="small" />
+        <NumberInput :model-value="selectedCharacter.mp.max" :disabled="!isEditMode" @update:model-value="updateMax"
+            :min="0" size="small" />
     </div>
 </template>
 
 <script setup>
+import { computed } from 'vue'
 import NumberInput from '@/components/ui/forms/NumberInput.vue'
 import { useCharactersStore } from '@/stores/charactersStore'
 
 defineProps({
-    mp: {
-        type: Object,
-        required: true,
-        validator: (value) => {
-            return value && typeof value.current === 'number' && typeof value.max === 'number'
-        }
-    },
     isEditMode: {
         type: Boolean,
         default: false
@@ -28,7 +22,7 @@ defineProps({
 })
 
 const charactersStore = useCharactersStore()
-const selectedCharacter = charactersStore.selectedCharacter
+const selectedCharacter = computed(() => charactersStore.selectedCharacter)
 
 const updateCurrent = (value) => {
     if (!isNaN(value)) {
