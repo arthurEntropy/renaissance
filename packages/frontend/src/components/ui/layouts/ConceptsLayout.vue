@@ -248,6 +248,16 @@ watch(() => route.params.id, (newId, oldId) => {
   }
 })
 
+// Watch for concepts to be loaded and open detail if URL has ID param
+watch(() => props.concepts, (newConcepts) => {
+  if (newConcepts.length > 0 && route.params.id && !showConceptDetail.value) {
+    const conceptToOpen = findConceptBySlug(newConcepts, route.params.id)
+    if (conceptToOpen) {
+      openConceptDetail(conceptToOpen)
+    }
+  }
+}, { immediate: true })
+
 onBeforeUnmount(() => {
   window.removeEventListener('keydown', handleKeyNavigation);
 })

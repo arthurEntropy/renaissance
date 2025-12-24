@@ -1,8 +1,8 @@
 <template>
     <div class="concept-header-container">
         <div v-if="isEditingTitle" class="editable-title">
-            <input type="text" v-model="localTitle" class="concept-input concept-input-title" ref="titleInput"
-                @blur="saveTitle" @keyup.enter="saveTitle" @keyup.esc="cancelEdit" />
+            <input type="text" v-model="localTitle" class="title-input" ref="titleInput" @blur="saveTitle"
+                @keyup.enter="saveTitle" @keyup.esc="cancelEdit" />
         </div>
         <template v-else>
             <h1 class="concept-title edit-hover-area">
@@ -91,5 +91,19 @@ const enhancedStartEdit = async () => {
 
 .editable-title {
     flex: 1;
+}
+
+.title-input {
+    text-align: left;
+    font-size: var(--font-size-40);
+    font-weight: bold;
+    color: var(--color-text-primary);
+    background: transparent;
+    padding: 0;
+    width: 100%;
+}
+
+.title-input:focus {
+    outline: none;
 }
 </style>
