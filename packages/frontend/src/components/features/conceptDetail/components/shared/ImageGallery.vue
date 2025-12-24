@@ -12,7 +12,8 @@
       </button>
 
       <!-- Image -->
-      <img :src="optimizedMainImage" :alt="`Image ${selectedIndex + 1}`" class="enlarged-image" />
+      <img :src="optimizedMainImage" :alt="`Image ${selectedIndex + 1}`" class="enlarged-image"
+        @click="openFullSizeModal" />
 
       <!-- Edit button - only in manual mode -->
       <FloatingActionButton v-if="editable && mode === IMAGE_GALLERY_MODES.MANUAL" type="edit" size="small"
@@ -92,6 +93,11 @@
         </div>
       </div>
     </div>
+
+    <!-- Full Size Image Modal -->
+    <FullSizeImageModal :is-open="fullSizeModalOpen" :image-url="displayImages[selectedIndex] || ''"
+      :show-edit-button="editable && mode === IMAGE_GALLERY_MODES.MANUAL" @close="closeFullSizeModal"
+      @edit="openEditModal" />
   </div>
 </template>
 
@@ -100,6 +106,7 @@ import { ref, watch, computed, nextTick } from 'vue'
 import draggable from 'vuedraggable'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
+import FullSizeImageModal from '@/components/ui/modals/FullSizeImageModal.vue'
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/vue/24/outline'
 import { useArtStore } from '@/stores/artStore'
 import { IMAGE_GALLERY_MODES, ART_TYPES } from '@shared/constants/artConstants.js'
@@ -158,6 +165,7 @@ const selectedIndex = ref(0)
 const showNav = ref(false)
 const editModalOpen = ref(false)
 const addModalOpen = ref(false)
+const fullSizeModalOpen = ref(false)
 const editImageUrl = ref('')
 const newImageUrl = ref('')
 const localImages = ref([...props.images])
@@ -192,6 +200,14 @@ const openEditModal = () => {
 const closeEditModal = () => {
   editModalOpen.value = false
   editImageUrl.value = ''
+}
+
+const openFullSizeModal = () => {
+  fullSizeModalOpen.value = true
+}
+
+const closeFullSizeModal = () => {
+  fullSizeModalOpen.value = false
 }
 
 const saveImageUrl = () => {
@@ -278,6 +294,7 @@ watch(() => props.images, (newImages) => {
   object-fit: contain;
   border-radius: var(--radius-10);
   background: var(--color-bg-tertiary);
+  cursor: zoom-in;
 }
 
 .nav-button {
