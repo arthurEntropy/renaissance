@@ -256,7 +256,7 @@ const props = defineProps({
 const emit = defineEmits(['update', 'delete', 'close'])
 
 // Use edit modal form composable
-const { editedData: editedEquipment, hasChanges, save: baseSave, deleteItem, handleOverlayClick } = useEditModalForm(props, emit)
+const { editedData: editedEquipment, save: baseSave, deleteItem, handleOverlayClick } = useEditModalForm(props, emit)
 
 // Dice management - convert between array [4, 6, 6, 8] and count object {4: 1, 6: 2, 8: 1}
 const dieTypes = STANDARD_DIE_SIZES

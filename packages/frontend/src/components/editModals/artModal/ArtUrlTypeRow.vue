@@ -23,7 +23,7 @@
 <script setup>
 import { UserCircleIcon, PhotoIcon, MapIcon } from '@heroicons/vue/24/outline'
 
-const props = defineProps({
+defineProps({
     url: {
         type: String,
         default: ''

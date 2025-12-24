@@ -122,7 +122,7 @@ const props = defineProps({
 const emit = defineEmits(['update', 'delete', 'close'])
 
 // Use edit modal form composable
-const { editedData: editedAbility, hasChanges, save, deleteItem, handleOverlayClick } = useEditModalForm(props, emit)
+const { editedData: editedAbility, save, deleteItem, handleOverlayClick } = useEditModalForm(props, emit)
 
 // Improvement management functions
 const addImprovement = () => {
@@ -137,7 +137,7 @@ const removeImprovement = (idx) => {
 const moveImprovementUp = (idx) => {
   if (idx > 0) {
     const arr = editedAbility.value.improvements
-    [arr[idx - 1], arr[idx]] = [arr[idx], arr[idx - 1]]
+      ;[arr[idx - 1], arr[idx]] = [arr[idx], arr[idx - 1]]
   }
 }
 
