@@ -66,7 +66,8 @@ const isStructureEditMode = inject('isStructureEditMode', ref(false))
 
 const emit = defineEmits([
   'selectSection',
-  'sectionCreated'
+  'sectionCreated',
+  'update:isStructureEditMode'
 ])
 
 const orderedSections = computed(() => {
@@ -83,6 +84,20 @@ watch(orderedSections, (newValue) => {
   localSections.value = JSON.parse(JSON.stringify(newValue))
 }, { immediate: true })
 
+// Track pending save operations
+const pendingSave = ref(null)
+
+// Refresh sections when exiting edit mode to ensure latest order is displayed
+watch(isStructureEditMode, async (newValue) => {
+  if (!newValue) {
+    // Wait for any pending save to complete before fetching
+    if (pendingSave.value) {
+      await pendingSave.value
+    }
+    await rulesStore.refresh()
+  }
+})
+
 const selectSection = (sectionId) => {
   const section = orderedSections.value.find(s => s.id === sectionId)
   if (section) {
@@ -95,13 +110,12 @@ const selectSection = (sectionId) => {
 }
 
 const toggleStructureEditMode = () => {
-  isStructureEditMode.value = !isStructureEditMode.value
-  emit('update:isStructureEditMode', isStructureEditMode.value)
+  emit('update:isStructureEditMode', !isStructureEditMode.value)
 }
 
 const createNewSection = async () => {
   const newSection = await RulesService.create()
-  await rulesStore.fetch()
+  await rulesStore.refresh()
 
   const sectionToSelect = orderedSections.value.find(
     s => (s.id && s.id === newSection.id) || (!s.id && s.name === newSection.name)
@@ -116,7 +130,7 @@ const createNewSection = async () => {
 const confirmDeleteSection = async (section) => {
   if (window.confirm(`Are you sure you want to delete "${section.name}"?`)) {
     await RulesService.update({ ...section, isDeleted: true })
-    await rulesStore.fetch()
+    await rulesStore.refresh()
 
     if (rulesStore.selectedSection?.id === section.id && orderedSections.value.length > 0) {
       selectSection(orderedSections.value[0].id)
@@ -125,8 +139,14 @@ const confirmDeleteSection = async (section) => {
 }
 
 const updateSectionsOrder = async () => {
-  await RulesService.reorderSections(localSections.value)
-  await rulesStore.fetch()
+  const savePromise = (async () => {
+    await RulesService.reorderSections(localSections.value)
+    await rulesStore.refresh()
+  })()
+
+  pendingSave.value = savePromise
+  await savePromise
+  pendingSave.value = null
 }
 
 const updateLocalSections = (newSections) => {

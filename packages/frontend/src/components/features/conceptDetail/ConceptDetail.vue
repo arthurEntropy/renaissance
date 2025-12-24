@@ -1,5 +1,6 @@
 <template>
   <div class="modal-overlay" @click.self="handleClose">
+
     <!-- Admin Controls -->
     <div class="admin-controls">
       <FloatingActionButton v-if="isEditMode" type="settings" size="large" visibility="always"
@@ -9,8 +10,10 @@
     </div>
 
     <div class="modal-content">
+
       <!-- Desktop Layout: Left/Right Columns -->
       <div v-if="isDesktop" class="concept-layout-desktop">
+
         <!-- Left Column -->
         <div class="concept-column-left">
           <ConceptImageSection title="Featured Art" :show-title="false" :is-edit-mode="isEditMode"
@@ -71,6 +74,7 @@
     <EditEquipmentModal v-if="showEditEquipmentModal" :equipment="selectedEquipment" @update="saveEditedEquipment"
       @close="closeEditEquipmentModal" @delete="deleteEquipment" />
   </div>
+
 </template>
 
 <script setup>

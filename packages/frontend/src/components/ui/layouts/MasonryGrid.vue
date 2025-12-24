@@ -69,9 +69,23 @@ onMounted(() => {
 
   // Watch for content changes within children (e.g., improvements expanding/collapsing)
   // This triggers when DOM changes happen inside cards, not just when cards are added/removed
-  mutationObserver = new MutationObserver(() => {
+  mutationObserver = new MutationObserver((mutations) => {
     // Recalculate layout when card content changes
     updateLayout()
+
+    // Watch for newly added images and attach load handlers
+    mutations.forEach(mutation => {
+      mutation.addedNodes.forEach(node => {
+        if (node.nodeType === 1) { // Element node
+          const images = node.querySelectorAll ? node.querySelectorAll('img') : []
+          images.forEach(img => {
+            if (!img.complete) {
+              img.addEventListener('load', handleImageLoad, { once: true })
+            }
+          })
+        }
+      })
+    })
   })
 
   if (masonryContainer.value) {
@@ -80,6 +94,14 @@ onMounted(() => {
       subtree: true,    // Watch for changes inside cards (improvements expanding)
       attributes: true, // Watch for attribute changes that might affect height
       attributeFilter: ['class', 'style'] // Only watch relevant attributes
+    })
+
+    // Attach load handlers to existing images
+    const existingImages = masonryContainer.value.querySelectorAll('img')
+    existingImages.forEach(img => {
+      if (!img.complete) {
+        img.addEventListener('load', handleImageLoad, { once: true })
+      }
     })
   }
 })
@@ -92,6 +114,13 @@ onBeforeUnmount(() => {
     mutationObserver.disconnect()
   }
 })
+
+function handleImageLoad() {
+  // Recalculate layout when an image loads
+  nextTick(() => {
+    updateLayout()
+  })
+}
 
 // Expose updateLayout for manual layout recalculation if needed
 defineExpose({ updateLayout })
