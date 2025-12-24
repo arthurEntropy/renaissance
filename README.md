@@ -23,6 +23,10 @@ Let me be unequivocal: this game is a sort of head cheese of parts both invented
 - **Rich Text:** TipTap editor with custom dice font integration
 - **Styling:** CSS custom properties with design tokens
 
+## Contributing
+
+See [`CONTRIBUTING.md`](CONTRIBUTING.md) for contribution guidelines and [`docs/DEVELOPMENT-GUIDE.md`](docs/DEVELOPMENT-GUIDE.md) for comprehensive development patterns and standards.
+
 ## Requirements
 
 - Node.js 18+
