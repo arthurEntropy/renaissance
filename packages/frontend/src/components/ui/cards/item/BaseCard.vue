@@ -54,9 +54,12 @@
           <slot name="properties"></slot>
 
           <!-- Main description -->
-          <CardDescription v-if="item.description" :content="item.description">
+          <CardDescription v-if="item.description || $slots['after-description']" :content="item.description">
             <template #badge>
               <slot name="description-badge"></slot>
+            </template>
+            <template #successes>
+              <slot name="after-description"></slot>
             </template>
           </CardDescription>
 

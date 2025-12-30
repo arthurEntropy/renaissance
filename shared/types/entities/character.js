@@ -52,6 +52,7 @@ import { createBaseEntity } from './gameEntity.js'
  * @property {string} id - Ability ID reference
  * @property {boolean} collapsed - Whether ability display is collapsed in UI
  * @property {boolean} showImprovements - Whether improvements section is expanded in UI
+ * @property {boolean} showSuccesses - Whether successes section is expanded in UI
  * @property {Object.<string, boolean>} [improvements] - Map of improvement IDs to ownership status
  */
 

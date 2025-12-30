@@ -7,7 +7,9 @@
       <AbilityCard v-for="ability in items" :key="ability.id" :ability="ability" :editable="isAdmin" :sources="sources"
         :collapsible="false" :showImprovements="getAbilityShowImprovements(ability.id)" @delete="deleteAbility(ability)"
         @update="updateAbility(ability)" @edit="openEditAbilityModal(ability)"
-        @update:showImprovements="updateAbilityShowImprovements(ability.id, $event)" />
+        @update:showImprovements="updateAbilityShowImprovements(ability.id, $event)"
+        :showSuccesses="getAbilityShowSuccesses(ability.id)"
+        @update:showSuccesses="updateAbilityShowSuccesses(ability.id, $event)" />
     </template>
 
     <!-- Loading indicator slot with ref for intersection observer -->
@@ -60,6 +62,7 @@ const sortOption = ref('')
 const searchQuery = ref('')
 const sourceFilter = ref('')
 const improvementVisibility = ref(new Map())
+const successesVisibility = ref(new Map())
 const isLoadingMore = ref(false)
 
 // Computed properties
@@ -153,6 +156,15 @@ const getAbilityShowImprovements = (abilityId) => {
 
 const updateAbilityShowImprovements = (abilityId, showImprovements) => {
   improvementVisibility.value.set(abilityId, showImprovements)
+}
+
+// Successes visibility methods
+const getAbilityShowSuccesses = (abilityId) => {
+  return successesVisibility.value.get(abilityId) || false
+}
+
+const updateAbilityShowSuccesses = (abilityId, showSuccesses) => {
+  successesVisibility.value.set(abilityId, showSuccesses)
 }
 
 // CRUD operations

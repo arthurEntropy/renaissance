@@ -1,7 +1,10 @@
 <template>
-    <div v-if="content" class="card-description" :class="additionalClasses">
+    <div v-if="content || $slots.successes" class="card-description" :class="additionalClasses">
         <div class="text-stroke" v-html="safeContent"></div>
         <slot name="badge"></slot>
+
+        <!-- Successes section (within same container) -->
+        <slot name="successes"></slot>
     </div>
 </template>
 

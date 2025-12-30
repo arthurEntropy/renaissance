@@ -9,6 +9,12 @@
         :asImprovementBadge="true" />
     </template>
 
+    <!-- Successes section (appears after description) -->
+    <template #after-description>
+      <SuccessesSection v-if="ability.successes" :successes="ability.successes" :is-expanded="showSuccesses"
+        @update:isExpanded="toggleSuccesses" />
+    </template>
+
     <!-- Ability improvements -->
     <template #mechanics>
       <AbilityImprovements :ability="ability" :character="character" :show-improvement-toggle="showImprovementToggle"
@@ -51,6 +57,7 @@ import { useAbilityImprovements } from '@/composables/useAbilityImprovements'
 import BaseCard from '@/components/ui/cards/item/BaseCard.vue'
 import BadgeDisplay from '@/components/ui/cards/item/BadgeDisplay.vue'
 import AbilityImprovements from '@/components/ui/cards/item/AbilityImprovements.vue'
+import SuccessesSection from '@/components/ui/cards/item/SuccessesSection.vue'
 import { ItemType } from '@shared/constants/itemTypes'
 
 const props = defineProps({
@@ -95,9 +102,14 @@ const props = defineProps({
     type: Boolean,
     default: false
   },
+  // Props for successes management
+  showSuccesses: {
+    type: Boolean,
+    default: false
+  },
 })
 
-const emit = defineEmits(['edit', 'update', 'sendToChat', 'update:collapsed', 'update:showImprovements', 'height-changed'])
+const emit = defineEmits(['edit', 'update', 'sendToChat', 'update:collapsed', 'update:showImprovements', 'update:showSuccesses', 'height-changed'])
 
 // Ability improvements composable
 const { hasImprovement, toggleImprovement } = useAbilityImprovements()
@@ -137,6 +149,11 @@ const sendAbilityToChat = () => {
 
 const toggleImprovements = () => {
   emit('update:showImprovements', !props.showImprovements)
+  emit('height-changed')
+}
+
+const toggleSuccesses = () => {
+  emit('update:showSuccesses', !props.showSuccesses)
   emit('height-changed')
 }
 

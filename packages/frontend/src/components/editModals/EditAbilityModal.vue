@@ -28,6 +28,13 @@
               :height="'250px'" :auto-height="true" />
           </div>
 
+          <!-- Successes -->
+          <div class="form-group vertical description">
+            <label for="successes" class="left-aligned">Successes (✨, 🌞, 💀):</label>
+            <TextEditor v-model="editedAbility.successes" :placeholder="'Enter success outcomes...'" :height="'150px'"
+              :auto-height="true" />
+          </div>
+
           <!-- MP, XP, and Type -->
           <div class="form-group centered">
             <label for="mp">MP:</label>

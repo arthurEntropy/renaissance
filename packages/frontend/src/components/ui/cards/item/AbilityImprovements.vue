@@ -160,6 +160,9 @@ const handleImprovementToggle = (improvementId) => {
     margin-top: var(--space-xs);
     text-align: left;
     transition: var(--transition-color);
+    -webkit-text-stroke: 3px var(--color-black);
+    -webkit-text-fill-color: var(--color-text-primary);
+    paint-order: stroke fill;
 }
 
 .improvement-title.improvement-unowned {
