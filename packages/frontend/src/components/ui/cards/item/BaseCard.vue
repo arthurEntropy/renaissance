@@ -145,7 +145,7 @@ const handleAddToCharacter = () => {
   }
 
   if (updatedCharacter) {
-    charactersStore.updateCharacter(updatedCharacter)
+    charactersStore.update(updatedCharacter)
   }
 }
 
