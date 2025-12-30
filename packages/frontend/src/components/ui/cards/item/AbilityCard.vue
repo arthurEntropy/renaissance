@@ -5,7 +5,8 @@
 
     <!-- XP badge positioned relative to main description when improvements are shown -->
     <template #description-badge>
-      <BadgeDisplay v-if="shouldShowBaseXpBadge && showImprovements" type="xp" :value="ability.xp" />
+      <BadgeDisplay v-if="shouldShowBaseXpBadge && showImprovements" type="xp" :value="ability.xp"
+        :asImprovementBadge="true" />
     </template>
 
     <!-- Ability improvements -->

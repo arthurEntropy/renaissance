@@ -1,6 +1,6 @@
 {
   "id": "fa0a07e3-e7bc-453b-9cdd-c7ae06000467",
-  "name": "Marching Kit",
+  "name": "Bear Up",
   "description": "<p>Halve the weight of armor and shields you're carrying when calculating load.</p>",
   "isTrait": true,
   "canBeActive": false,
@@ -10,5 +10,6 @@
   "mp": null,
   "xp": 10,
   "actionType": "",
-  "lastModified": "2025-11-20T00:40:54.525Z"
+  "lastModified": "2025-12-27T01:21:20.502Z",
+  "artUrl": "https://cdn.midjourney.com/9561fa2a-86a3-46d5-a86c-abcf843b50fa/0_2.png"
 }

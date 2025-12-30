@@ -43,3 +43,41 @@
 .rich-text-content:deep(ul li) {
   margin-bottom: 0.3em;
 }
+
+/* Table styles */
+.rich-text-content :deep(table),
+.rich-text-content:deep(table) {
+  border-collapse: collapse;
+  width: 100%;
+  margin: var(--space-md) 0;
+  overflow: hidden;
+  font-size: var(--font-size-12);
+  line-height: 1.2;
+}
+
+.rich-text-content :deep(th),
+.rich-text-content:deep(th),
+.rich-text-content :deep(td),
+.rich-text-content:deep(td) {
+  border: 1px solid var(--color-gray-medium);
+  padding: var(--space-xs) var(--space-sm);
+  text-align: left;
+  vertical-align: middle;
+}
+
+.rich-text-content :deep(th),
+.rich-text-content:deep(th) {
+  background-color: var(--color-gray-dark);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+}
+
+.rich-text-content :deep(tr:nth-child(even) td),
+.rich-text-content:deep(tr:nth-child(even) td) {
+  background-color: var(--overlay-black-medium);
+}
+
+.rich-text-content :deep(tr:nth-child(odd) td),
+.rich-text-content:deep(tr:nth-child(odd) td) {
+  background-color: var(--color-gray-dark);
+}

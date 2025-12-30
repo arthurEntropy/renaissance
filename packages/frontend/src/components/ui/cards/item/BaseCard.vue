@@ -24,17 +24,17 @@
 
       <!-- Item Name -->
       <div class="name-container">
-        <strong class="item-name">{{ item.name }}</strong>
+        <strong class="item-name text-stroke-thick">{{ item.name }}</strong>
       </div>
 
       <!-- Meta Info (e.g., weight, action cost, trait, MP) -->
-      <div class="item-info" v-if="metaInfo">
+      <div class="item-info text-stroke-thick" v-if="metaInfo">
         <em>{{ metaInfo }}</em>
       </div>
     </div>
 
     <!-- Category slot -->
-    <div class="categories">
+    <div class="categories text-stroke">
       <slot name="category"></slot>
     </div>
 
@@ -43,7 +43,9 @@
       <div v-if="!collapsible || !collapsed" class="card-content">
 
         <!-- Art Image -->
-        <img v-if="item.artUrl" :src="optimizedArtUrl" :alt="item.name" class="art-image" />
+        <div v-if="item.artUrl" class="art-frame">
+          <img :src="optimizedArtUrl" :alt="item.name" class="art-image" />
+        </div>
 
         <!-- Content sections for properties, description, and mechanics -->
         <div class="content-sections">
@@ -200,7 +202,7 @@ const handleCollapsed = () => {
   left: 0;
   width: 100%;
   height: 100%;
-  background: var(--overlay-black-medium);
+  background: var(--overlay-black-subtle);
   z-index: var(--z-overlay);
   pointer-events: none;
 }
@@ -235,14 +237,12 @@ const handleCollapsed = () => {
 
 .item-name {
   font-size: var(--font-size-16);
-  text-shadow: var(--text-shadow-outline);
   word-wrap: break-word;
 }
 
 .item-info {
   font-size: var(--font-size-13);
   color: var(--color-white);
-  text-shadow: var(--text-shadow-outline);
   font-weight: var(--font-weight-semibold);
   letter-spacing: 0.01em;
   margin-left: var(--space-xs);
@@ -267,15 +267,29 @@ const handleCollapsed = () => {
 .categories {
   font-size: var(--font-size-12);
   color: var(--color-text-secondary);
-  text-shadow: var(--text-shadow-outline);
+}
+
+.art-frame {
+  margin-top: var(--space-sm);
+  position: relative;
+  /* Black border 10px away from the image */
+  border: 1px solid var(--overlay-black-heavy);
+  /* 10px space between border and image with beveling */
+  padding: var(--space-xs);
+  /* Beveled frame effect: dark on top/right, light on bottom/left */
+  box-shadow:
+    inset 10px 10px 6px var(--overlay-black-medium),
+    /* Dark shadow top-left */
+    inset -10px -10px 6px var(--overlay-white-heavy);
+  /* Light highlight bottom-right */
 }
 
 .art-image {
   width: 100%;
-  height: auto;
-  border-radius: var(--radius-5);
-  margin-top: var(--space-sm);
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
   display: block;
+  border-radius: 2px;
 }
 
 .content-sections {

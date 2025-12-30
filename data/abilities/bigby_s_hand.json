@@ -1,0 +1,16 @@
+{
+  "id": "dd5827a8-6fb7-4b9f-8c94-c7d6dd900fe4",
+  "isDeleted": false,
+  "createdAt": "2025-12-29T23:12:01.525Z",
+  "lastModified": "2025-12-30T01:15:21.187Z",
+  "name": "Bigby's Hand",
+  "description": "<p>You create a translucent hand made of pure force within long range. It is as big as you are and is a construct creature. Roll Lore. The hand has Defense equal to the result, Endurance equal to twice the result and ranks in Strength equal to one quarter of the result. Its speed is 40 ft. The spell lasts up to one minute.</p><p>While the spell lasts, you may use a half action to move the hand up to its speed and/or take an action. It can make a melee attack, dealing 4d8 on a hit, or may attempt to grapple, push or otherwise interact with creatures and objects. It is incapable of actions requiring delicate movement. The hand grants half cover when standing behind it.</p><p>✨: You may add WITS to the hand's damage rolls.</p><p>✨: The hand also has ranks in Dexterity equal to one quarter of the Lore roll result and can perform delicate movements.</p><p>✨: The hand is trained in the use of heavy melee and heavy polearm weapons. If it wields a weapon, it can access any abilities it has that you yourself could access.</p>",
+  "isTrait": false,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
+  "mp": 5,
+  "xp": null,
+  "artUrl": "https://cdn.midjourney.com/d158e07f-8be8-4697-8785-b929427f03e4/0_2.png",
+  "actionType": "Action"
+}

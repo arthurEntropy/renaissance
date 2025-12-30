@@ -1,7 +1,7 @@
 {
   "id": "6949c26b-a3a5-44c1-ae6c-175fad763f37",
   "name": "Jack Of All Blades",
-  "description": "<p>For each engagement die provided by equipment you’re wearing or wielding, you add more die of the same type to your pool of engagement dice.</p>",
+  "description": "<p>For each engagement die provided by equipment you’re wearing or wielding, you add one more die of the same type to your pool of engagement dice.</p>",
   "isTrait": true,
   "canBeActive": false,
   "isActive": true,
@@ -17,5 +17,6 @@
       "id": "ce3f8022-7bc9-5ae4-9b87-c1efb6b2bef2"
     }
   ],
-  "lastModified": "2025-11-20T00:44:42.380Z"
+  "lastModified": "2025-12-27T02:01:05.578Z",
+  "artUrl": "https://cdn.midjourney.com/ff461dde-aa41-493f-b9d1-0566139666bf/0_0.png"
 }
