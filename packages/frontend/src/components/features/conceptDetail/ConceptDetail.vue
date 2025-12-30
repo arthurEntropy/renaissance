@@ -188,15 +188,15 @@ const handleClose = () => {
 // Ability and Equipment modal methods
 const saveEditedAbility = async (editedAbility) => {
   await AbilityService.update(editedAbility)
+  await abilitiesStore.fetch(true) // Force fetch to bypass cache
   closeEditAbilityModal()
-  await abilitiesStore.fetch()
 }
 
 const deleteAbility = async (ability) => {
   const updatedAbility = { ...ability, isDeleted: true }
   await AbilityService.update(updatedAbility)
+  await abilitiesStore.fetch(true) // Force fetch to bypass cache
   closeEditAbilityModal()
-  await abilitiesStore.fetch()
 }
 
 const saveEditedEquipment = async (editedEquipment) => {

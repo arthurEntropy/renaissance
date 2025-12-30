@@ -84,4 +84,23 @@ const safeContent = computed(() => sanitizeHtml(props.content))
     margin: 0;
     padding: 0;
 }
+
+/* Bulleted list styles */
+.card-description :deep(ul) {
+    padding-left: var(--space-lg);
+    margin: var(--space-xs) 0;
+}
+
+.card-description :deep(ul:last-child) {
+    margin-bottom: var(--space-lg);
+}
+
+.card-description :deep(ul li) {
+    margin-bottom: var(--space-xs);
+}
+
+.card-description :deep(ul li p) {
+    margin: 0;
+    padding: 0;
+}
 </style>

@@ -41,6 +41,7 @@
               <option value="Half Action">Half Action</option>
               <option value="Free Action">Free Action</option>
               <option value="Reaction">Reaction</option>
+              <option value="Ritual">Ritual</option>
             </select>
           </div>
 
