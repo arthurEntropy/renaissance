@@ -16,6 +16,10 @@ import StarterKit from '@tiptap/starter-kit'
 import Link from '@tiptap/extension-link'
 import Image from '@tiptap/extension-image'
 import TextAlign from '@tiptap/extension-text-align'
+import Table from '@tiptap/extension-table'
+import TableRow from '@tiptap/extension-table-row'
+import TableHeader from '@tiptap/extension-table-header'
+import TableCell from '@tiptap/extension-table-cell'
 import DiceFontNode from '@/extensions/DiceFontNode'
 import TextEditorToolbar from './TextEditorToolbar.vue'
 
@@ -152,6 +156,15 @@ onMounted(() => {
       TextAlign.configure({
         types: ['heading', 'paragraph'],
       }),
+      Table.configure({
+        resizable: true,
+        HTMLAttributes: {
+          class: 'editor-table',
+        },
+      }),
+      TableRow,
+      TableHeader,
+      TableCell,
       DiceFontNode,
     ],
     onUpdate: () => {
@@ -247,5 +260,43 @@ defineExpose({
   height: auto;
   display: block;
   margin: 0 auto;
+}
+
+/* Table styles in editor */
+:deep(.ProseMirror table) {
+  border-collapse: collapse;
+  width: 100%;
+  margin: var(--space-sm) 0;
+  font-size: var(--font-size-12);
+  line-height: 1.2;
+}
+
+:deep(.ProseMirror th),
+:deep(.ProseMirror td) {
+  border: 1px solid var(--color-gray-medium);
+  padding: var(--space-xs) var(--space-sm);
+  text-align: left;
+  vertical-align: middle;
+  min-width: 50px;
+}
+
+:deep(.ProseMirror th) {
+  background-color: var(--color-gray-dark);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+}
+
+:deep(.ProseMirror tr:nth-child(even) td) {
+  background-color: var(--overlay-black-medium);
+}
+
+:deep(.ProseMirror tr:nth-child(odd) td) {
+  background-color: var(--color-gray-dark);
+}
+
+:deep(.ProseMirror td p),
+:deep(.ProseMirror th p) {
+  margin: 0;
+  padding: 0;
 }
 </style>

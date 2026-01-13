@@ -14,7 +14,7 @@
 
     <!-- Properties (length, reach, range, attributes) -->
     <template #properties>
-      <div v-if="equipmentPropertiesDisplay" class="equipment-properties">
+      <div v-if="equipmentPropertiesDisplay" class="equipment-properties text-stroke">
         <em>{{ equipmentPropertiesDisplay }}</em>
       </div>
     </template>
@@ -26,14 +26,14 @@
         <!-- Engagement dice -->
         <div class="dice-section">
           <div class="dice-section-background">
-            <span class="dice-label">Engagement</span>
+            <span class="dice-label text-stroke">Engagement</span>
             <div class="dice-icons">
               <template v-if="equipment.engagementDice && equipment.engagementDice.length > 0">
-                <span v-for="die in equipment.engagementDice" :key="'engagement-' + die" class="dice-icon">
+                <span v-for="die in equipment.engagementDice" :key="'engagement-' + die" class="dice-icon text-stroke">
                   <i :class="getDiceFontMaxClass(die)"></i>
                 </span>
               </template>
-              <span v-else class="dice-none">none</span>
+              <span v-else class="dice-none text-stroke">none</span>
             </div>
           </div>
         </div>
@@ -41,9 +41,9 @@
         <!-- Damage dice -->
         <div class="dice-section">
           <div class="dice-section-background">
-            <span class="dice-label">Damage</span>
+            <span class="dice-label text-stroke">Damage</span>
             <div class="dice-icons">
-              <span v-for="die in equipment.damageDice" :key="'damage-' + die" class="dice-icon">
+              <span v-for="die in equipment.damageDice" :key="'damage-' + die" class="dice-icon text-stroke">
                 <i :class="getDiceFontMaxClass(die)"></i>
               </span>
             </div>
@@ -266,8 +266,9 @@ onMounted(async () => {
 }
 
 .dice-section-background {
-  background-color: var(--overlay-black-medium);
-  padding: var(--space-xs) 0 var(--space-xs) 0;
+  background-color: var(--overlay-black-heavy);
+  padding: var(--space-xs);
+  border: 1px solid var(--overlay-black-heavy);
   border-radius: var(--radius-5);
   text-align: center;
   width: 100%;
@@ -275,6 +276,12 @@ onMounted(async () => {
   flex-direction: column;
   align-items: center;
   justify-content: left;
+  /* Raised bevel effect: light on top/left, dark on bottom/right */
+  box-shadow:
+    inset 1px 1px 6px var(--overlay-white-heavy),
+    /* Light highlight top-left */
+    inset -1px -1px 6px var(--overlay-black-medium);
+  /* Dark shadow bottom-right */
 }
 
 .dice-label {
@@ -317,13 +324,14 @@ onMounted(async () => {
 .equipment-properties {
   font-size: var(--font-size-12);
   color: var(--color-text-primary);
-  text-shadow: var(--text-shadow-outline);
   text-align: center;
 }
 
 .dice-none {
   color: var(--color-text-secondary);
   font-style: italic;
+  -webkit-text-stroke: 2px var(--color-black);
+  paint-order: stroke fill;
   font-size: var(--font-size-12);
   display: flex;
   align-items: center;

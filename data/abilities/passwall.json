@@ -1,0 +1,17 @@
+{
+  "id": "8fe4471b-ed0e-432f-8ef2-631bd5401aa2",
+  "isDeleted": false,
+  "createdAt": "2026-01-01T14:22:07.185Z",
+  "lastModified": "2026-01-01T14:54:57.833Z",
+  "name": "Passwall",
+  "description": "<p><em>Concentration, up to 1 minute.</em></p><p>You create a temporary passage through a barrier with a flat surface within short range. Roll Lore. The result is the maximum number of feet that the passage may be in any dimension. If the barrier is made of metal, halve the roll result. The barrier remains structurally stable while the passage is in place.</p><p>Any objects or creatures that are within the passage when the spell ends are pushed violently out of the nearest end of the passage, taking 1d6 damage for every 5 ft pushed.</p><p><strong>Describe the passage you create.</strong></p>",
+  "isTrait": false,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
+  "mp": 5,
+  "xp": 25,
+  "successes": "<p>✨: Double the result of the Lore roll.</p><p>🌞: You may choose to have the passage remain in place, without concentration, until dispelled.</p><p>💀: The passage is unstable. Check a condition. Every time a creature enters the passage, roll a d8. On a 1, the spell ends.</p>",
+  "actionType": "Action",
+  "artUrl": "https://cdn.midjourney.com/c3118299-946c-482d-a457-149a8958b1b7/0_0.jpeg"
+}

@@ -1,6 +1,6 @@
 <template>
     <div class="rich-editor-toolbar" v-if="props.editor">
-        <div v-for="(group, groupIndex) in toolbarGroups" :key="groupIndex" class="toolbar-group">
+        <div v-for="(group, groupIndex) in visibleToolbarGroups" :key="groupIndex" class="toolbar-group">
             <ToolbarButton v-for="button in group" :key="button.key" :label="button.label" :icon="button.icon"
                 :title="button.title"
                 :is-active="typeof button.isActive === 'function' ? button.isActive(props.editor) : button.isActive"
@@ -24,7 +24,8 @@ import {
     Bars3BottomRightIcon,
     Bars4Icon,
     ListBulletIcon,
-    LinkSlashIcon
+    LinkSlashIcon,
+    TableCellsIcon,
 } from '@heroicons/vue/24/outline'
 
 const props = defineProps({
@@ -35,6 +36,18 @@ const props = defineProps({
 })
 
 const emit = defineEmits(['setLink', 'insertImage', 'insertDiceFontCharacter'])
+
+// Filter out buttons that are disabled (hide them instead)
+const visibleToolbarGroups = computed(() => {
+    return toolbarGroups.value.map(group =>
+        group.filter(button => {
+            if (typeof button.disabled === 'function') {
+                return !button.disabled(props.editor)
+            }
+            return !button.disabled
+        })
+    ).filter(group => group.length > 0) // Remove empty groups
+})
 
 // Toolbar configuration grouped by functionality
 const toolbarGroups = computed(() => [
@@ -162,6 +175,7 @@ const toolbarGroups = computed(() => [
             action: (editor) => editor.chain().focus().unsetLink().run()
         }
     ],
+
     // Media & Special Content Group
     [
         {
@@ -177,6 +191,73 @@ const toolbarGroups = computed(() => [
             title: 'Insert DiceFont Character',
             isActive: () => false,
             action: () => emit('insertDiceFontCharacter')
+        }
+    ],
+
+    // Table Group
+    [
+        {
+            key: 'insertTable',
+            icon: TableCellsIcon,
+            title: 'Insert Table (3x3)',
+            isActive: () => false,
+            action: (editor) => editor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run()
+        },
+        {
+            key: 'addColumnBefore',
+            label: '+ ←',
+            title: 'Add Column Before',
+            isActive: () => false,
+            disabled: (editor) => !editor?.can().addColumnBefore(),
+            action: (editor) => editor.chain().focus().addColumnBefore().run()
+        },
+        {
+            key: 'addColumnAfter',
+            label: '+ →',
+            title: 'Add Column After',
+            isActive: () => false,
+            disabled: (editor) => !editor?.can().addColumnAfter(),
+            action: (editor) => editor.chain().focus().addColumnAfter().run()
+        },
+        {
+            key: 'deleteColumn',
+            label: '- ↕',
+            title: 'Delete Column',
+            isActive: () => false,
+            disabled: (editor) => !editor?.can().deleteColumn(),
+            action: (editor) => editor.chain().focus().deleteColumn().run()
+        },
+        {
+            key: 'addRowBefore',
+            label: '+ ↑',
+            title: 'Add Row Before',
+            isActive: () => false,
+            disabled: (editor) => !editor?.can().addRowBefore(),
+            action: (editor) => editor.chain().focus().addRowBefore().run()
+        },
+        {
+            key: 'addRowAfter',
+            label: '+ ↓',
+            title: 'Add Row After',
+            isActive: () => false,
+            disabled: (editor) => !editor?.can().addRowAfter(),
+            action: (editor) => editor.chain().focus().addRowAfter().run()
+        },
+        {
+            key: 'deleteRow',
+            label: '- ↔',
+            title: 'Delete Row',
+            isActive: () => false,
+            disabled: (editor) => !editor?.can().deleteRow(),
+            action: (editor) => editor.chain().focus().deleteRow().run()
+        },
+        {
+            key: 'deleteTable',
+            label: '✕',
+            title: 'Delete Table',
+            isActive: () => false,
+            disabled: (editor) => !editor?.can().deleteTable(),
+            action: (editor) => editor.chain().focus().deleteTable().run()
         }
     ]
 ])
@@ -200,7 +281,7 @@ const toolbarGroups = computed(() => [
 .toolbar-group {
     display: flex;
     gap: var(--space-xs);
-    padding: 0 var(--space-sm);
+    padding: 0 var(--space-xs);
     border-right: 1px solid var(--color-gray-medium);
 }
 

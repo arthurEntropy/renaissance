@@ -12,6 +12,7 @@ import { createBaseEntity } from './gameEntity.js'
  * @property {boolean} isDeleted - Soft delete flag
  * @property {number|null} mp - Mestiere point cost
  * @property {number|null} xp - Experience point cost
+ * @property {string|null} manaCost - Mana cost string for Channeler spells (e.g., '2WUB')
  * @property {string} createdAt - ISO 8601 datetime string
  * @property {string} lastModified - ISO 8601 datetime string
  */
@@ -31,5 +32,6 @@ export function createDefaultAbility() {
     source: null,
     mp: null,
     xp: null,
+    manaCost: null, // Only for Channeler spells
   }
 }

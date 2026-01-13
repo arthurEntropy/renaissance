@@ -1,0 +1,18 @@
+{
+  "id": "109b7300-df80-4697-92ac-ead98366c6d2",
+  "isDeleted": false,
+  "createdAt": "2026-01-13T01:43:13.790Z",
+  "lastModified": "2026-01-13T02:17:54.447Z",
+  "name": "Bind",
+  "description": "<p><em>Trigger: a creature within medium range casts a spell.</em></p><p>The creature must spend a half action or half their movement to continue casting the spell.</p><p>Check a Condition.</p><p><strong>Describe how you interrupt them.</strong></p>",
+  "isTrait": false,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
+  "mp": null,
+  "xp": 5,
+  "manaCost": "U",
+  "actionType": "Reaction",
+  "successes": "",
+  "artUrl": "https://cdn.midjourney.com/66581de7-4bbe-4d35-a51f-92a7b004e5ba/0_1.png"
+}

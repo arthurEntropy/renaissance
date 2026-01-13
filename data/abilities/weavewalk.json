@@ -1,0 +1,18 @@
+{
+  "id": "87ffb138-5b53-4c1a-990c-ed0be79061aa",
+  "isDeleted": false,
+  "createdAt": "2025-12-30T18:21:30.310Z",
+  "lastModified": "2025-12-31T15:11:33.132Z",
+  "name": "Weavewalk",
+  "description": "<p>You phase out and remain phased out while the spell lasts. Roll Lore. The result is the duration of the spell, in minutes.</p><p><strong>Describe how you phase out.</strong></p>",
+  "isTrait": false,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
+  "mp": 7,
+  "xp": 35,
+  "actionType": "Action",
+  "artUrl": "https://cdn.midjourney.com/d4f5e659-79c8-456b-89f6-7162bfc3c0ef/0_2.png",
+  "improvements": [],
+  "successes": "<p>✨: Double the spell duration.</p><p>🌞: The spell lasts for up to one day.</p><p>💀: Roll a d8 at the end of each minute while the spell lasts. On a 1, you immediately phase in, the spell ends and you check a condition.</p>"
+}

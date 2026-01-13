@@ -2,12 +2,19 @@
   <ItemCardsLayout v-model:searchQuery="searchQuery" v-model:sourceFilter="sourceFilter" v-model:sortOption="sortOption"
     v-bind="layoutProps" @create="createAbility" @load-more="loadMore">
 
+    <!-- Additional filters slot for mana color filter -->
+    <template #additional-filters>
+      <ManaColorFilter v-model="manaColorFilter" />
+    </template>
+
     <!-- Item cards slot -->
     <template #item-cards="{ items }">
       <AbilityCard v-for="ability in items" :key="ability.id" :ability="ability" :editable="isAdmin" :sources="sources"
         :collapsible="false" :showImprovements="getAbilityShowImprovements(ability.id)" @delete="deleteAbility(ability)"
         @update="updateAbility(ability)" @edit="openEditAbilityModal(ability)"
-        @update:showImprovements="updateAbilityShowImprovements(ability.id, $event)" />
+        @update:showImprovements="updateAbilityShowImprovements(ability.id, $event)"
+        :showSuccesses="getAbilityShowSuccesses(ability.id)"
+        @update:showSuccesses="updateAbilityShowSuccesses(ability.id, $event)" />
     </template>
 
     <!-- Loading indicator slot with ref for intersection observer -->
@@ -39,6 +46,8 @@ import AbilityService from '@/services/entities/abilityService'
 import AbilityCard from '@/components/ui/cards/item/AbilityCard.vue'
 import EditAbilityModal from '@/components/editModals/EditAbilityModal.vue'
 import ItemCardsLayout from '@/components/ui/layouts/ItemCardsLayout.vue'
+import ManaColorFilter from '@/components/ui/mana/ManaColorFilter.vue'
+import { calculateTotalManaCost, getManaCostColors } from '@shared/utils/calculateManaCost'
 
 // Stores
 const abilitiesStore = useAbilitiesStore()
@@ -59,7 +68,9 @@ const {
 const sortOption = ref('')
 const searchQuery = ref('')
 const sourceFilter = ref('')
+const manaColorFilter = ref([])
 const improvementVisibility = ref(new Map())
+const successesVisibility = ref(new Map())
 const isLoadingMore = ref(false)
 
 // Computed properties
@@ -78,6 +89,10 @@ const sortOptions = ref({
   'XP': [
     { value: 'xp-asc', label: 'XP (Low to High)' },
     { value: 'xp-desc', label: 'XP (High to Low)' },
+  ],
+  'Mana Cost': [
+    { value: 'manaCost-asc', label: 'Mana Cost (Low to High)' },
+    { value: 'manaCost-desc', label: 'Mana Cost (High to Low)' },
   ],
 })
 
@@ -103,23 +118,41 @@ const allFilteredAbilities = computed(() => {
     })
   }
 
+  // Apply mana color filter
+  if (manaColorFilter.value.length > 0) {
+    filtered = filtered.filter((item) => {
+      const colors = getManaCostColors(item.manaCost)
+      // Check if the ability contains all selected colors
+      return manaColorFilter.value.every(color => colors.has(color))
+    })
+  }
+
   // Apply sorting
   if (sortOption.value) {
     const [field, direction] = sortOption.value.split('-')
     filtered.sort((a, b) => {
-      const aValue = a?.[field]
-      const bValue = b?.[field]
-
-      // Handle null/undefined values
-      if (aValue == null && bValue == null) return 0
-      if (aValue == null) return 1
-      if (bValue == null) return -1
-
       let comparison = 0
+
       if (field === 'name') {
+        const aValue = a?.[field]
+        const bValue = b?.[field]
+        // Handle null/undefined values for name
+        if (aValue == null && bValue == null) return 0
+        if (aValue == null) return 1
+        if (bValue == null) return -1
         comparison = String(aValue).localeCompare(String(bValue))
+      } else if (field === 'manaCost') {
+        // Calculate total mana cost
+        const aCost = calculateTotalManaCost(a?.manaCost)
+        const bCost = calculateTotalManaCost(b?.manaCost)
+        comparison = aCost - bCost
       } else {
-        comparison = Number(aValue) - Number(bValue)
+        const aValue = a?.[field]
+        const bValue = b?.[field]
+        // For numeric fields (MP, XP), treat null/undefined as 0
+        const aNum = aValue == null ? 0 : Number(aValue)
+        const bNum = bValue == null ? 0 : Number(bValue)
+        comparison = aNum - bNum
       }
 
       return direction === 'asc' ? comparison : -comparison
@@ -143,7 +176,8 @@ const loadMore = async () => {
 useFilterPersistence('abilities', {
   sortOption,
   searchQuery,
-  sourceFilter
+  sourceFilter,
+  manaColorFilter
 })
 
 // Improvement visibility methods
@@ -153,6 +187,15 @@ const getAbilityShowImprovements = (abilityId) => {
 
 const updateAbilityShowImprovements = (abilityId, showImprovements) => {
   improvementVisibility.value.set(abilityId, showImprovements)
+}
+
+// Successes visibility methods
+const getAbilityShowSuccesses = (abilityId) => {
+  return successesVisibility.value.get(abilityId) || false
+}
+
+const updateAbilityShowSuccesses = (abilityId, showSuccesses) => {
+  successesVisibility.value.set(abilityId, showSuccesses)
 }
 
 // CRUD operations
@@ -190,7 +233,7 @@ const deleteAbility = async (ability) => {
 const saveEditedAbility = async (editedAbility) => {
   await AbilityService.update(editedAbility)
   closeEditAbilityModal()
-  await abilitiesStore.fetch()
+  await abilitiesStore.fetch(true)
 }
 
 // Data initialization

@@ -2,7 +2,7 @@
   "id": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
   "conceptType": "MESTIERE",
   "name": "Arcanist",
-  "description": "<p>FLAVOR:</p><ul><li><p>Wizards are finding the inner workings of all the other extant magic traditions, and maybe some new bits</p></li><li><p>Namecloaking?</p></li><li><p>Deities and natural forces don't like what they're doing, will resist or deter</p></li></ul><p>WEAPONS:</p><ul><li><p>none</p></li></ul><p>ENGAGEMENT:</p><ul><li><p>none</p></li></ul><p>ABILITIES:</p><ul><li><p>Classic wizard shit, manipulating objects, people's names on spells (should feel academic)</p></li><li><p>Lingua arcana, ability to make new spells. Can also pick up new ones from written sources.</p></li><li><p>Weird grab-bag of bits from other traditions, but not many and somehow distorted. Maybe some sort of hunt threshold that triggers wrath if you meddle too much.</p></li></ul>",
+  "description": "<p><em>Masters of Structure, Authors of the Unfinished</em></p><p>Arcanists approach magic as a <strong>system to be understood, mapped, and ultimately rewritten</strong>. Through disciplined study and formal instruction, they learn the underlying structures that govern spells: how energy flows, how space bends, how symbols compel reality to behave. To an Arcanist, magic is not mysterious—it is <em>unfinished</em>.</p><p>Rather than specializing in a single expression of power, Arcanists cultivate <strong>breadth over intensity</strong>, assembling solutions from many traditions at once. Their spells favor preparation, control, and inevitability, constructing advantages long before a conflict begins. Where others react, Arcanists anticipate. Where others improvise, Arcanists architect.</p><p>At the highest levels, master Arcanists cease to merely cast spells at all, instead <strong>authoring new ones</strong>, expanding the known boundaries of magic itself.</p><p>Magic is a language.<br>Arcanists are the ones adding new grammar.</p><h3><strong>Domains of Magic</strong></h3><p>Arcanists excel at magic that is deliberate, constructed, and systemic:</p><ul><li><p><strong>Spatial manipulation</strong>: teleportation, extradimensional spaces, gravity</p></li><li><p><strong>Force and containment</strong>: barriers, wards, suspension, suppression</p></li><li><p><strong>Transformation and fabrication</strong>: reshaping matter and form</p></li><li><p><strong>Arcane logistics</strong>: shelters, storage, servants, magical infrastructure</p></li><li><p><strong>Meta-magic</strong>: countering, dispelling, identifying, and rewriting spells</p></li><li><p><strong>Reality overrides</strong>: time, simulacra, and wish-level effects</p></li></ul><h3><strong>Taboo: Faith Without Understanding</strong></h3><p>Arcanists refuse to accept magic without comprehension. Power justified by tradition, destiny, or divine authority alone is deeply suspect.</p><blockquote><p><em>Magic must be knowable—or it is unfinished.</em></p></blockquote><h3><strong>Fault Lines</strong></h3><ul><li><p><strong>Votaries</strong> outsource understanding; <strong>Wildhearts</strong> romanticize ignorance.</p></li><li><p>Arcanists see themselves as responsible innovators—and are often seen as dangerous meddlers.</p></li></ul>",
   "isDeleted": false,
   "artUrls": [
     "https://cdn.midjourney.com/46f7df2d-65a2-44e8-90fd-c01738a187c3/0_0.png",
@@ -13,7 +13,7 @@
   ],
   "faces": [],
   "places": [],
-  "backgroundImage": "https://cdn.midjourney.com/9f0df945-537e-43ff-9523-ea0525473cbe/0_2.jpeg",
+  "backgroundImage": "https://cdn.midjourney.com/0ad1709c-0643-4b49-b96d-09fe9583f562/0_3.png",
   "expansion": "",
   "hooks": [],
   "playlists": [],
@@ -23,5 +23,5 @@
   "vittles": "",
   "pointsOfInterest": "",
   "floraFauna": "",
-  "lastModified": "2025-12-15T12:56:33.197Z"
+  "lastModified": "2025-12-30T01:53:12.401Z"
 }

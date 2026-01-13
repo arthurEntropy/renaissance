@@ -51,7 +51,8 @@ class CharacterService extends BaseEntityService {
     return this.addItem(character, 'abilities', { 
       id: ability.id, 
       collapsed: true, 
-      showImprovements: false 
+      showImprovements: false,
+      showSuccesses: false
     })
   }
 

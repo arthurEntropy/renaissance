@@ -1,0 +1,17 @@
+{
+  "id": "b5534e7f-c4e9-466e-a87d-8e1da0380642",
+  "isDeleted": false,
+  "createdAt": "2026-01-01T14:56:42.089Z",
+  "lastModified": "2026-01-01T18:08:35.192Z",
+  "name": "Jump",
+  "description": "<p>A creature you touch can jump twice as high and three times as far as normal for the next minute. Roll Lore to see if you trigger any additional effects.</p><p><strong>Describe the jump.</strong></p>",
+  "isTrait": false,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
+  "mp": 1,
+  "xp": 5,
+  "actionType": "Action",
+  "successes": "<p>✨: The target can also run up vertical surfaces up to half their speed.</p><p>🌞: You may target two creatures.</p><p>💀: The target is immediately thrown 20 ft in the air, taking falling damage as normal. If they hit a ceiling or other object, they take an additional 1d6 damage.</p>",
+  "artUrl": "https://cdn.midjourney.com/ba6978e2-f31c-445a-a314-b117cf3e9cb9/0_2.jpeg"
+}

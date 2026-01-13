@@ -1,7 +1,7 @@
 {
   "id": "30ade4bc-27c7-4bb5-a674-00cbd0fc294b",
   "name": "Dagger",
-  "description": "",
+  "description": "<p>Once per rest, you may spend a half action to ignite the blade. Until the beginning of your next turn, this deals +1d damage.</p>",
   "keeping": "3c4d5e6f-7a8b-4c9d-0e1f-2a3b4c5d6e7f",
   "source": "34ea8807-b404-435c-a860-704b4a40df8f",
   "weight": 1,
@@ -23,8 +23,9 @@
   "isDeleted": false,
   "isCustom": false,
   "isTemplate": false,
-  "artUrl": "https://cdn.midjourney.com/244f97e7-5ccc-44ba-8cbd-6b47b080d867/0_3.png",
+  "artUrl": "https://cdn.midjourney.com/8cdadc84-4cdf-4308-98b1-8e06a3ec0806/0_0.png",
   "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
   "subtype": "ab765755-b7c9-47ac-b62f-34f069e00dc3",
-  "grade": "ad30b114-3c19-413f-aad2-5f270bd95684"
+  "grade": "ad30b114-3c19-413f-aad2-5f270bd95684",
+  "lastModified": "2025-12-27T02:03:28.323Z"
 }

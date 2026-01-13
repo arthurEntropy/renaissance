@@ -2,7 +2,7 @@
   "id": "937d52da-0ebf-4d74-b3ee-be395f2f5d0a",
   "conceptType": "MESTIERE",
   "name": "Wildheart",
-  "description": "<p>This needs more thought, but initial instincts are:</p><ul><li><p>Druid, but more exclusively rooted to the natural world</p></li><li><p>Consider porting over some Ranger abilities</p></li><li><p>Ties to the heart of the earth? Getting at some big unknown world core concept?</p></li><li><p>Should be able to summon rivers to surge, change weather, etc.</p></li><li><p>Melee but with natural weapons (claws, teeth, etc.). Maybe you can choose an aspect of an animal to always have available for combat.</p></li><li><p>Wild shape but more interesting</p></li></ul>",
+  "description": "<p><em>Voices of the Living World</em></p><p>Wildhearts draw their magic from the living world itself: soil and root, tooth and wing, growth and rot. They are not masters of nature, but participants in it, adapting as the environment changes and allowing its rhythms to shape their own abilities.</p><p>Each Wildheart walks alongside an animal guide whose instincts and form influence their path. Their magic entangles, regenerates, poisons, and transforms, favoring persistence over spectacle.</p><p>Nature does not rush.<br>Neither do Wildhearts.</p><h3><strong>Domains of Magic</strong></h3><p>Wildhearts wield magic born of ecosystems and instinct:</p><ul><li><p><strong>Plants and animals</strong> as allies and weapons</p></li><li><p><strong>Growth, decay, poison, and disease</strong></p></li><li><p><strong>Environmental control</strong> and area denial</p></li><li><p><strong>Shapeshifting and adaptation</strong></p></li><li><p><strong>Endurance and regeneration</strong> through symbiosis</p></li></ul><h3><strong>Taboo: Extraction</strong></h3><p>Wildhearts reject magic that takes without giving back.</p><blockquote><p><em>Nothing lives alone.</em></p></blockquote><h3><strong>Fault Lines</strong></h3><ul><li><p><strong>Arcanists</strong> reduce life to equations.</p></li><li><p><strong>Votaries</strong> claim authority over what Wildhearts consider inviolate.</p></li></ul>",
   "isDeleted": false,
   "artUrls": [
     "https://cdn.midjourney.com/0f16b519-2f2d-44ac-833a-1d49cf30ddf1/0_3.png",
@@ -23,5 +23,5 @@
   "vittles": "",
   "pointsOfInterest": "",
   "floraFauna": "",
-  "lastModified": "2025-12-15T12:58:39.739Z"
+  "lastModified": "2025-12-29T19:32:05.030Z"
 }

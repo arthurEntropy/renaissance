@@ -1,0 +1,16 @@
+{
+  "id": "ad4fbe65-f072-4d41-98b4-7e41e645acf1",
+  "isDeleted": false,
+  "createdAt": "2026-01-03T23:29:17.509Z",
+  "lastModified": "2026-01-04T22:37:42.587Z",
+  "name": "Tremor",
+  "description": "<p>Roll Spirit vs Dexterity against each creature within short range. On a win, they take 1 damage.</p><p><strong>Describe how the ground breaks and shifts.</strong></p>",
+  "isTrait": false,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
+  "mp": null,
+  "xp": null,
+  "manaCost": "G",
+  "actionType": "Action"
+}

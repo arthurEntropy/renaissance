@@ -1,0 +1,17 @@
+{
+  "id": "e71d1ead-efd9-4d2c-a9c3-9f937f93847c",
+  "isDeleted": false,
+  "createdAt": "2025-12-31T04:25:14.257Z",
+  "lastModified": "2026-01-01T02:02:40.151Z",
+  "name": "Force Cube",
+  "description": "<p><em>Concentration, up to 1 hour.</em></p><p>You conjure a cube of magical force in a space within long range. Roll Lore; the result determines the length of each side of the cube in feet.</p><p>Any creature or object fully enclosed by the cube when it appears is trapped inside and cannot leave it by non-magical means.</p><p>Any creature partially within the cube when it forms must roll Dexterity vs your initial Lore roll. On a win, the creature moves to the nearest space outside the cube. On a loss, the creature is forced fully inside the cube.</p><p>The cube may be opaque or translucent (your choice). Sound and spells cannot pass through it.</p><p><strong>Describe how the cube appears.</strong></p>",
+  "isTrait": false,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
+  "mp": 7,
+  "xp": 35,
+  "actionType": "Action",
+  "successes": "<p>✨ Dexterity rolls made to avoid being trapped when the cube appears are ill-favored.</p><p>🌞 The cube also blocks teleportation and movement through ethereal or phased states.</p><p>💀 The spell misfires around you. Roll Dexterity opposed by your own initial Lore roll. On a win, you evade the effect. On a loss, check a condition, and you are encased in a membrane of force, unable to move or take actions until the membrane is broken by at least 1 damage.</p>",
+  "artUrl": "https://cdn.midjourney.com/f51616b9-ca90-4b4f-b41f-94dbd17aedec/0_0.jpeg"
+}

@@ -1,0 +1,17 @@
+{
+  "id": "316b84c2-2f3c-449e-9d93-0a611c8b55c3",
+  "isDeleted": false,
+  "createdAt": "2025-12-30T15:34:50.260Z",
+  "lastModified": "2026-01-01T01:45:07.625Z",
+  "name": "Detect Magic",
+  "description": "<p><em>Concentration, up to 10 minutes.</em></p><p>While this spell is active, you sense the presence of magic within short range.</p><p>If you sense magic in this way, you may use your action to see a faint aura around any visible creature or object in range that bears magic. The color of the aura gives you a vague sense of the nature of the magic.</p><p>Each time you do this, roll Lore to see if you trigger any additional effects.</p><p><strong>Describe how you sense magic around you.</strong></p>",
+  "isTrait": false,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
+  "mp": 1,
+  "xp": 5,
+  "successes": "<p>✨: The range of this spell increases to medium.</p><p>🌞: You learn which spells are currently effecting the creature or object.</p><p>💀: Your probing senses reach too far. Hostile creatures within long range are alerted to your presence, though not your precise location. Check a condition.</p>",
+  "artUrl": "https://cdn.midjourney.com/6d30df46-0897-4798-86b3-84e804e3cdb5/0_2.png",
+  "actionType": "Action"
+}

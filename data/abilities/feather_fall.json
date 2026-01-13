@@ -1,0 +1,25 @@
+{
+  "id": "15170e88-f451-4302-b772-8ca96aa9ca65",
+  "isDeleted": false,
+  "createdAt": "2025-12-31T02:40:02.823Z",
+  "lastModified": "2025-12-31T15:08:52.587Z",
+  "name": "Feather Fall",
+  "description": "<p>Choose up to five falling creatures within medium range. Roll Lore against a difficulty of 10 + the number of chosen creatures.</p><p>On a pass, each affected creature’s descent slows to a controlled pace, allowing them to land safely and on their feet. This effect lasts for one minute.</p><p>On a failure, their fall is only partially slowed. If a creature lands before the spell ends, it takes half the normal falling damage.</p><p><strong>Describe how you slow the fall.</strong></p>",
+  "isTrait": false,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
+  "mp": 1,
+  "xp": 5,
+  "actionType": "Reaction",
+  "successes": "<p>✨: All affected creatures are able to guide their movement as they fall, moving up to half their speed horizontally.</p><p>🌞: All affected creatures stop falling immediately. While the spell lasts, they may move through the air in any direction they choose except upward.</p><p>💀: The spell misfires: it does not slow falling at all and pushes each target 15 feet away from you. Check a condition.</p>",
+  "improvements": [
+    {
+      "name": "Precious Cargo",
+      "description": "<p>You may also target objects with this spell. Each object must weigh 300 lbs or less.</p>",
+      "xp": 5,
+      "id": "58a05e75-05a6-4244-9c87-74b4f0f3c8e3"
+    }
+  ],
+  "artUrl": "https://cdn.midjourney.com/0d8d2f7b-2ab0-454a-b853-366ab56aa55c/0_0.png"
+}

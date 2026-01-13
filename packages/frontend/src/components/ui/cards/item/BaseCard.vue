@@ -24,17 +24,21 @@
 
       <!-- Item Name -->
       <div class="name-container">
-        <strong class="item-name">{{ item.name }}</strong>
+        <strong class="item-name text-stroke-thick">{{ item.name }}</strong>
       </div>
 
-      <!-- Meta Info (e.g., weight, action cost, trait, MP) -->
-      <div class="item-info" v-if="metaInfo">
-        <em>{{ metaInfo }}</em>
+      <!-- Meta Info (e.g., weight, action cost, trait, MP, mana cost) -->
+      <div class="item-info text-stroke-thick" v-if="showMetaInfo">
+        <em v-if="showManaCost">
+          <span v-if="metaInfo">{{ metaInfo }}, </span>
+          <ManaCostDisplay :cost="item.manaCost" />
+        </em>
+        <em v-else>{{ metaInfo }}</em>
       </div>
     </div>
 
     <!-- Category slot -->
-    <div class="categories">
+    <div class="categories text-stroke">
       <slot name="category"></slot>
     </div>
 
@@ -43,7 +47,9 @@
       <div v-if="!collapsible || !collapsed" class="card-content">
 
         <!-- Art Image -->
-        <img v-if="item.artUrl" :src="optimizedArtUrl" :alt="item.name" class="art-image" />
+        <div v-if="item.artUrl" class="art-frame">
+          <img :src="optimizedArtUrl" :alt="item.name" class="art-image" />
+        </div>
 
         <!-- Content sections for properties, description, and mechanics -->
         <div class="content-sections">
@@ -52,9 +58,12 @@
           <slot name="properties"></slot>
 
           <!-- Main description -->
-          <CardDescription v-if="item.description" :content="item.description">
+          <CardDescription v-if="item.description || $slots['after-description']" :content="item.description">
             <template #badge>
               <slot name="description-badge"></slot>
+            </template>
+            <template #successes>
+              <slot name="after-description"></slot>
             </template>
           </CardDescription>
 
@@ -73,6 +82,7 @@
     <!-- Footer content (engagement successes, etc.) -->
     <slot name="footer"></slot>
   </div>
+
 </template>
 
 <script setup>
@@ -85,6 +95,18 @@ import CardDescription from '@/components/ui/cards/item/CardDescription.vue'
 import CharacterService from '@/services/entities/characterService'
 import { ItemType } from '@shared/constants/itemTypes'
 import { useOptimizedImage } from '@/composables/useOptimizedImage'
+import ManaCostDisplay from '@/components/ui/mana/ManaCostDisplay.vue'
+
+// Show mana cost if ability has manaCost and source is Channeler
+const showManaCost = computed(() => {
+  if (!props.item.manaCost) return false
+  const source = sourcesStore.getSourceById(props.item.source)
+  return source && source.name && source.name.toLowerCase() === 'channeler'
+})
+
+const showMetaInfo = computed(() => {
+  return !!props.metaInfo || showManaCost.value
+})
 
 const props = defineProps({
   item: { type: Object, required: true },
@@ -140,7 +162,7 @@ const handleAddToCharacter = () => {
   }
 
   if (updatedCharacter) {
-    charactersStore.updateCharacter(updatedCharacter)
+    charactersStore.update(updatedCharacter)
   }
 }
 
@@ -171,7 +193,6 @@ const handleExpanded = () => {
 const handleCollapsed = () => {
   emit('height-changed')
 }
-
 </script>
 
 <style scoped>
@@ -200,7 +221,7 @@ const handleCollapsed = () => {
   left: 0;
   width: 100%;
   height: 100%;
-  background: var(--overlay-black-medium);
+  background: var(--overlay-black-subtle);
   z-index: var(--z-overlay);
   pointer-events: none;
 }
@@ -235,14 +256,12 @@ const handleCollapsed = () => {
 
 .item-name {
   font-size: var(--font-size-16);
-  text-shadow: var(--text-shadow-outline);
   word-wrap: break-word;
 }
 
 .item-info {
   font-size: var(--font-size-13);
   color: var(--color-white);
-  text-shadow: var(--text-shadow-outline);
   font-weight: var(--font-weight-semibold);
   letter-spacing: 0.01em;
   margin-left: var(--space-xs);
@@ -267,15 +286,29 @@ const handleCollapsed = () => {
 .categories {
   font-size: var(--font-size-12);
   color: var(--color-text-secondary);
-  text-shadow: var(--text-shadow-outline);
+}
+
+.art-frame {
+  margin-top: var(--space-sm);
+  position: relative;
+  border-top: 1px solid var(--overlay-black-heavy);
+  border-left: 1px solid var(--overlay-black-heavy);
+  border-right: 1px solid var(--overlay-black-subtle);
+  border-bottom: 1px solid var(--overlay-black-subtle);
+  padding: var(--space-xs);
+  box-shadow:
+    inset 10px 10px 6px var(--overlay-black-medium),
+    /* Dark shadow top-left */
+    inset -10px -10px 6px var(--overlay-white-heavy);
+  /* Light highlight bottom-right */
 }
 
 .art-image {
   width: 100%;
-  height: auto;
-  border-radius: var(--radius-5);
-  margin-top: var(--space-sm);
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
   display: block;
+  border-radius: 2px;
 }
 
 .content-sections {

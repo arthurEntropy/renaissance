@@ -46,22 +46,22 @@ const handleClick = () => {
     background: var(--color-gray-medium);
     border: none;
     color: var(--color-white);
-    padding: var(--space-xs);
+    padding: 2px;
     border-radius: var(--radius-5);
     cursor: pointer;
     font-weight: var(--font-weight-bold);
-    font-size: var(--font-size-13);
-    line-height: var(--line-height-normal);
+    font-size: var(--font-size-11);
+    line-height: 1;
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 20px;
-    width: 20px;
+    min-height: 19px;
+    min-width: 19px;
 }
 
 .toolbar-button .icon {
-    width: 14px;
-    height: 14px;
+    width: 12px;
+    height: 12px;
 }
 
 .toolbar-button.is-active {

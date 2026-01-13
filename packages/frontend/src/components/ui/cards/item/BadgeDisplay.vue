@@ -29,6 +29,10 @@ const props = defineProps({
     improvementId: {
         type: String,
         default: null
+    },
+    asImprovementBadge: {
+        type: Boolean,
+        default: false
     }
 })
 
@@ -80,7 +84,7 @@ const badgeClass = computed(() => {
     const classes = ['badge-display', 'badge-bottom-left']
 
     // Improvement badges get special positioning (extending below card)
-    if (props.improvementId) {
+    if (props.improvementId || props.asImprovementBadge) {
         classes.push('improvement-badge')
     }
 

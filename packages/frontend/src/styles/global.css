@@ -45,6 +45,17 @@
 }
 
 
+/* ===== TEXT STROKE UTILITIES ===== */
+.text-stroke {
+  -webkit-text-stroke: 2px var(--color-black);
+  paint-order: stroke fill;
+}
+
+.text-stroke-thick {
+  -webkit-text-stroke: 3px var(--color-black);
+  paint-order: stroke fill;
+}
+
 /* ===== BASE HTML/BODY STYLES ===== */
 html,
 body {

@@ -24,7 +24,9 @@
             @update:collapsed="updateAbilityCollapsed(ability, $event)" class="item-table-card ability-card"
             :collapsible="true" :show-xp-badge="true" :show-add-to-character="false" :show-action-buttons="true"
             :character="selectedCharacter" :show-improvement-toggle="true" :show-improvements="ability.showImprovements"
-            @update:showImprovements="updateAbilityShowImprovements(ability, $event)" />
+            @update:showImprovements="updateAbilityShowImprovements(ability, $event)"
+            :show-successes="ability.showSuccesses"
+            @update:showSuccesses="updateAbilityShowSuccesses(ability, $event)" />
 
           <span v-else class="missing-item">Unknown ability</span>
 
@@ -111,6 +113,7 @@ const characterAbilities = computed(() => {
           characterImprovements: characterImprovements || {},
           collapsed: abilityObj.collapsed ?? true,
           showImprovements: abilityObj.showImprovements ?? false,
+          showSuccesses: abilityObj.showSuccesses ?? false,
           order: index
         }
       })
@@ -124,7 +127,8 @@ const sortedAbilities = computed({
     const updatedAbilities = newOrder.map((ability) => ({
       id: ability.id,
       collapsed: ability.collapsed,
-      showImprovements: ability.showImprovements
+      showImprovements: ability.showImprovements,
+      showSuccesses: ability.showSuccesses
     }))
 
     const updated = CharacterService.reorderItems(selectedCharacter.value, 'abilities', updatedAbilities)
@@ -149,7 +153,8 @@ const selectAbility = (ability) => {
   const updated = CharacterService.addItem(selectedCharacter.value, 'abilities', {
     id: ability.id,
     collapsed: false, // Default to expanded
-    showImprovements: false // Default to hiding improvements
+    showImprovements: false, // Default to hiding improvements
+    showSuccesses: false // Default to hiding successes
   })
   if (updated) Object.assign(selectedCharacter.value, updated)
   toggleAbilitySelector()
@@ -168,6 +173,14 @@ const updateAbilityShowImprovements = (ability, showImprovements) => {
   const index = selectedCharacter.value.abilities.findIndex(a => a.id === ability.id)
   if (index !== -1) {
     selectedCharacter.value.abilities[index].showImprovements = showImprovements
+  }
+}
+
+const updateAbilityShowSuccesses = (ability, showSuccesses) => {
+  if (!selectedCharacter.value?.abilities) return
+  const index = selectedCharacter.value.abilities.findIndex(a => a.id === ability.id)
+  if (index !== -1) {
+    selectedCharacter.value.abilities[index].showSuccesses = showSuccesses
   }
 }
 

@@ -172,7 +172,41 @@
     "troubled": false
   },
   "equipment": [],
-  "abilities": [],
+  "abilities": [
+    {
+      "id": "b3152cba-8a7b-4b4b-addd-bcf50e567e2a",
+      "collapsed": true,
+      "showImprovements": true,
+      "showSuccesses": false,
+      "improvements": {
+        "bbad14e4-d64f-42cb-b177-b1f8e0c065f1": true
+      }
+    },
+    {
+      "id": "538c910c-e768-4d55-a1e6-dfb205792307",
+      "collapsed": true,
+      "showImprovements": true,
+      "showSuccesses": false,
+      "improvements": {
+        "c8cfa367-3a46-4536-8928-f33ae1a2fb06": true
+      }
+    },
+    {
+      "id": "15170e88-f451-4302-b772-8ca96aa9ca65",
+      "collapsed": true,
+      "showImprovements": true,
+      "showSuccesses": false,
+      "improvements": {
+        "58a05e75-05a6-4244-9c87-74b4f0f3c8e3": true
+      }
+    },
+    {
+      "id": "e71d1ead-efd9-4d2c-a9c3-9f937f93847c",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false
+    }
+  ],
   "activeEffects": [
     {
       "name": "Weird But Entertaining",
@@ -196,6 +230,6 @@
     "https://cdn.midjourney.com/46f7df2d-65a2-44e8-90fd-c01738a187c3/0_0.png"
   ],
   "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2025-12-15T16:19:21.760Z",
-  "lastModified": "2025-12-15T16:19:21.760Z"
+  "updatedAt": "2026-01-02T15:35:21.416Z",
+  "lastModified": "2026-01-02T15:35:21.416Z"
 }

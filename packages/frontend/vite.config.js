@@ -2,6 +2,7 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import eslint from 'vite-plugin-eslint'
 import path from 'path'
+import svgLoader from 'vite-svg-loader';
 
 export default defineConfig(() => {
   return {
@@ -9,6 +10,7 @@ export default defineConfig(() => {
     envDir: '../../',
     plugins: [
       vue(),
+      svgLoader(),
       eslint({
         include: ['src/**/*.js', 'src/**/*.vue'],
         exclude: ['node_modules', 'dist'],

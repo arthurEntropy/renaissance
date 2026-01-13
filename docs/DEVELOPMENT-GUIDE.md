@@ -15,6 +15,7 @@
 6. [Code Quality Guidelines](#code-quality-guidelines)
 7. [Accessibility Requirements](#accessibility-requirements)
 8. [Common Anti-Patterns](#common-anti-patterns)
+9. [Mana Cost & Channeler Spells](#mana-cost--channeler-spells)
 
 ---
 
@@ -816,3 +817,36 @@ When reviewing code or writing new features, check:
 - **Pages**: `AbilitiesPage.vue`, `RulesPage.vue`, `ArtPage.vue`
 
 See `component-review-tracker.md` for detailed notes on every component's architecture and refactoring history.
+
+---
+
+## Mana Cost & Channeler Spells
+
+### Data Model
+
+- Abilities may have an optional `manaCost` string (e.g., `2WUB`) for Channeler spells.
+- Mana color enum: `white`, `blue`, `black`, `red`, `green`, `colorless` (see `shared/constants/manaColors.js`).
+
+### Design Tokens
+
+- Mana color tokens: `--mana-white`, `--mana-blue`, `--mana-black`, `--mana-red`, `--mana-green`, `--mana-colorless` (see `design-tokens.css`).
+
+### UI Components
+
+- **ManaSymbol.vue**: Renders a colored circle with an alchemical symbol or digit for colorless.
+- **ManaCostDisplay.vue**: Parses a mana cost string and displays a sequence of `ManaSymbol` components.
+
+### Editing
+
+- `EditAbilityModal.vue` shows a mana cost input only if the source is Channeler.
+- Input is validated as a string (e.g., `2WUB`).
+
+### Display
+
+- `BaseCard.vue` metaInfo slot displays mana cost (using `ManaCostDisplay`) for Channeler spells.
+
+### Example Usage
+
+```vue
+<ManaCostDisplay cost="2WUB" />
+```

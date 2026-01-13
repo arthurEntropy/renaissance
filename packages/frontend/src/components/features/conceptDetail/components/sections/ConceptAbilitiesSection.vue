@@ -6,7 +6,8 @@
                 :sources="sources" :collapsible="false" :showImprovements="getAbilityShowImprovements(ability.id)"
                 @update:showImprovements="updateAbilityShowImprovements(ability.id, $event)"
                 @edit="$emit('edit-ability', ability)" :character="character" :show-improvement-toggle="!!character"
-                :show-add-to-character="!!character" />
+                :show-add-to-character="!!character" :showSuccesses="getAbilityShowSuccesses(ability.id)"
+                @update:showSuccesses="updateAbilityShowSuccesses(ability.id, $event)" />
         </MasonryGrid>
         <div v-if="isEditMode" class="add-button-container">
             <FloatingActionButton type="add" visibility="always" @click="$emit('add-ability')" />
@@ -51,6 +52,8 @@ const hasAbilities = computed(() => abilities.value?.length > 0)
 
 // Track improvement visibility per ability
 const improvementVisibility = ref(new Map())
+// Track successes visibility per ability
+const successesVisibility = ref(new Map())
 
 const getAbilityShowImprovements = (abilityId) => {
     return improvementVisibility.value.get(abilityId) || false
@@ -58,6 +61,14 @@ const getAbilityShowImprovements = (abilityId) => {
 
 const updateAbilityShowImprovements = (abilityId, showImprovements) => {
     improvementVisibility.value.set(abilityId, showImprovements)
+}
+
+const getAbilityShowSuccesses = (abilityId) => {
+    return successesVisibility.value.get(abilityId) || false
+}
+
+const updateAbilityShowSuccesses = (abilityId, showSuccesses) => {
+    successesVisibility.value.set(abilityId, showSuccesses)
 }
 
 // Sorted abilities by XP cost, then name
