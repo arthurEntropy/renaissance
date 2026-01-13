@@ -8,7 +8,6 @@
 import { computed } from 'vue'
 import ManaSymbol from './ManaSymbol.vue'
 import { parseManaCost } from '@shared/utils/parseManaCost'
-import { ManaColor } from '@shared/constants/manaColors'
 
 const props = defineProps({
     cost: { type: String, required: true },

@@ -1,0 +1,18 @@
+{
+  "id": "5dd0d10d-c1f1-47c3-928b-de41e260c3d4",
+  "isDeleted": false,
+  "createdAt": "2026-01-13T02:22:50.039Z",
+  "lastModified": "2026-01-13T02:47:14.296Z",
+  "name": "Wavestride",
+  "description": "<p><em>Concentration, up to 1 minute.</em></p><p>While the spell lasts, you are propelled by water, enhancing your movement. Your base speed is doubled, and the water can move or hold you in midair at any angle, so long as you are no further than half your speed from a solid surface.</p><p>Release <em>(Insecure)</em>: You create a tendril of water that you can use to strike your foes. On your turn, for each tendril, you may use a half action to roll Spirit vs Dexterity against a creature within short range of you or any point along the column of water supporting you. On a win, they take 2d8 damage. Half on a loss.</p>",
+  "isTrait": false,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
+  "mp": null,
+  "xp": 25,
+  "manaCost": "3UU",
+  "actionType": "Half Action",
+  "artUrl": "https://cdn.midjourney.com/e0ffc130-4bde-4039-a7b4-5490fe7a2f0b/0_0.png",
+  "successes": "<p>✨: +1d damage.</p><p>🌞: They are knocked prone.</p><p>💀: The tendril is destroyed. Remove one mana from your mana pool.</p>"
+}

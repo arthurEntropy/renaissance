@@ -1,0 +1,18 @@
+{
+  "id": "5ea56661-3fdb-4156-a5f9-045a64ba3f4e",
+  "isDeleted": false,
+  "createdAt": "2026-01-13T01:31:15.176Z",
+  "lastModified": "2026-01-13T02:19:46.536Z",
+  "name": "Water Whip",
+  "description": "<p>Roll Spirit vs Dexterity against a creature within short range. On a win, they take 1d8 damage. Half on a loss.</p><p>Either way, check a condition.</p><p><strong>Describe your water whip.</strong></p>",
+  "isTrait": false,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
+  "mp": null,
+  "xp": null,
+  "manaCost": "U",
+  "actionType": "Action",
+  "successes": "<p>✨: +1d damage.</p><p>✨: You may target one additional creature within range.</p><p>🌞: They are knocked prone.</p><p>💀: -1d damage. Check an additional condition.</p>",
+  "artUrl": "https://cdn.midjourney.com/6bbc6763-e56d-4c74-be40-c606ca49d003/0_2.png"
+}
