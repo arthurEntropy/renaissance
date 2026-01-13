@@ -1,0 +1,17 @@
+{
+  "id": "58baa847-7425-499c-be87-46712966fa63",
+  "isDeleted": false,
+  "createdAt": "2026-01-02T22:32:59.702Z",
+  "lastModified": "2026-01-12T18:54:43.548Z",
+  "name": "Furious Attack",
+  "description": "<p>Choose yourself or an ally within short range. Until the beginning of your next turn:</p><ul><li><p>The target may take one additional action on their turn.</p></li><li><p>The target cannot use reactions.</p></li><li><p>Attack rolls against the target are favored (skip engagement).</p></li></ul><p>Check a Condition.</p><p><strong>Describe you urge them (or yourself) into battle.</strong></p>",
+  "isTrait": false,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
+  "mp": null,
+  "xp": 5,
+  "manaCost": "R",
+  "artUrl": "https://cdn.midjourney.com/fd11d9e9-ac82-48e8-b01b-220f68d02407/0_0.png",
+  "actionType": "Half Action"
+}

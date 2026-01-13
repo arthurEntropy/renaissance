@@ -1,0 +1,17 @@
+{
+  "id": "82b81f56-5292-45d0-8baf-778b5c217308",
+  "isDeleted": false,
+  "createdAt": "2025-12-31T15:12:37.444Z",
+  "lastModified": "2026-01-01T01:42:29.322Z",
+  "name": "Mending",
+  "description": "<p><em>Casting time: 1 minute.</em></p><p>You repair a single break or tear in an object you touch, leaving no trace of the damage, as long as the break or tear is no larger than 1 ft in any dimension.</p><p><strong>Describe how you make the repair.</strong></p>",
+  "isTrait": false,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
+  "mp": 0,
+  "xp": "",
+  "actionType": "Ritual",
+  "successes": "",
+  "artUrl": "https://cdn.midjourney.com/bde80867-6289-462b-b753-a14d9f0cd4b0/0_0.jpeg"
+}

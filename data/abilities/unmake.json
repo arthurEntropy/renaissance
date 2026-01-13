@@ -1,0 +1,17 @@
+{
+  "id": "923589e5-d20f-4d1e-90f9-e48dde46f8b5",
+  "isDeleted": false,
+  "createdAt": "2025-12-30T16:40:17.828Z",
+  "lastModified": "2026-01-01T03:32:21.140Z",
+  "name": "Unmake",
+  "description": "<p>A thin ray of light flashes from your pointing finger toward a creature or object you can see within medium range.</p><p>If the target is a creature, roll Lore vs Dexterity. On a loss, the target rolls Injury. On a win, the target takes 10d6 + 40 damage. If this damage reduces the target to 0 Endurance, its body is disintegrated into scattered points of light. The creature dies immediately, leaving no physical remains.</p><p>If the target is an object, roll Lore (ill-favored if the object is magical), then halve the result. If the object’s largest dimension, in feet, is less than or equal to the halved result, the object is completely disintegrated. Otherwise, a portion of the object up to that size is disintegrated instead.</p><p><strong>Describe how you unmake your target.</strong></p>",
+  "isTrait": false,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
+  "mp": 6,
+  "xp": 30,
+  "actionType": "Action",
+  "successes": "<p>✨: You may shape the spell so as to avoid disintegrating a particular portion of the target or a particular item that the creature is carrying.</p><p>🌞: If the target is a creature, the damage dice increase to d8s. If the target is an object, do not halve the result of the Lore role.</p><p>💀: The energy of the spell is more than you can handle. You cast the spell, but you also take 2d6 damage, roll Injury and check a condition.</p>",
+  "artUrl": "https://cdn.midjourney.com/25fef22a-e56b-4eb1-adae-9819dbb309fc/0_0.png"
+}

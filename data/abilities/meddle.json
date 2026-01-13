@@ -1,0 +1,17 @@
+{
+  "id": "a71010fe-d7dc-41c9-ba68-0dd2a01d50d3",
+  "isDeleted": false,
+  "createdAt": "2026-01-02T22:18:37.668Z",
+  "lastModified": "2026-01-03T22:34:01.088Z",
+  "name": "Meddle",
+  "description": "<p>When a creature within medium range makes a skill check, after the roll is made but before the outcome is resolved, the roll becomes favored or ill-favored (your choice).</p><p>Check a Condition.</p><p><strong>Describe how you intervene.</strong></p>",
+  "isTrait": false,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
+  "mp": null,
+  "xp": 5,
+  "manaCost": "U",
+  "artUrl": "https://cdn.midjourney.com/4f432f28-89e5-4640-9d6f-43a54cf94468/0_1.png",
+  "actionType": "Reaction"
+}

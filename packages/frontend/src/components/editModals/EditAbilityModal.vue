@@ -35,7 +35,7 @@
               :auto-height="true" />
           </div>
 
-          <!-- MP, XP, and Type -->
+          <!-- MP, XP, Type -->
           <div class="form-group centered">
             <label for="mp">MP:</label>
             <input type="number" id="mp" v-model.number="editedAbility.mp" class="modal-input small-input" />
@@ -67,6 +67,13 @@
               <input type="checkbox" id="canBeActive" v-model="editedAbility.canBeActive" />
               Can Be Active
             </label>
+          </div>
+
+          <!-- Mana Cost: Only show if source is Channeler -->
+          <div class="form-group centered" v-if="isChannelerSource">
+            <label for="manaCost">Mana Cost:</label>
+            <input type="text" id="manaCost" v-model="editedAbility.manaCost" class="modal-input small-input"
+              placeholder="e.g. 2WUB" pattern="^[0-9]*[WUBRGwubrg]*$" title="Mana cost (e.g. 2WUB)" />
           </div>
 
           <!-- Improvements Section -->
@@ -119,6 +126,8 @@ import TextEditor from '@/components/ui/textEditor/TextEditor.vue'
 import SourceDropdown from '@/components/ui/selectors/SourceDropdown.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import { useEditModalForm } from '@/composables/useEditModalForm'
+import { computed } from 'vue'
+import { useSourcesStore } from '@/stores/sourcesStore'
 
 const props = defineProps({
   ability: {
@@ -131,6 +140,13 @@ const emit = defineEmits(['update', 'delete', 'close'])
 
 // Use edit modal form composable
 const { editedData: editedAbility, save, deleteItem, handleOverlayClick } = useEditModalForm(props, emit)
+
+// Channeler source check
+const sourcesStore = useSourcesStore()
+const isChannelerSource = computed(() => {
+  const source = sourcesStore.getSourceById(editedAbility.value.source)
+  return source && source.name && source.name.toLowerCase() === 'channeler'
+})
 
 // Improvement management functions
 const addImprovement = () => {

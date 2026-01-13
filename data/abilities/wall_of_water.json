@@ -1,0 +1,18 @@
+{
+  "id": "25794391-43aa-4d59-8d64-6bd13c3a127d",
+  "isDeleted": false,
+  "createdAt": "2026-01-02T22:20:05.540Z",
+  "lastModified": "2026-01-03T22:40:02.304Z",
+  "name": "Wall of Water",
+  "description": "<p><em>Concentration, up to 1 minute.</em></p><p>You move water from a large source within long range and create a wall of water 10 ft high, 25 ft long and 5 ft thick. The wall may be any arrangement of contiguous 5 ft segments you choose.</p><p>When you create the wall, roll Spirit vs Dexterity against each creature that is within the wall. After it's created, roll Fortitude vs Strength against any creature that enters the wall.</p><p>In either case, on a win, the creature takes 1d8 damage and is pushed out of the wall, away from you. On a loss, it takes half damage and may exit the wall in any direction it chooses.</p><p>Release (<em>Insecure</em>):</p><ul><li><p>The wall may be an additional 5 ft high and 10 ft long.</p></li><li><p>+1d Damage</p></li><li><p>Each turn, you may use an action to move any number of 5 ft wall segments up to 10 ft (the segments must remain contiguous).</p></li></ul><p><strong>Describe how you create the wall.</strong></p>",
+  "isTrait": false,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
+  "mp": null,
+  "xp": 20,
+  "manaCost": "2UU",
+  "artUrl": "https://cdn.midjourney.com/675c975c-9497-4023-8f8b-ad1bd83420c9/0_3.png",
+  "actionType": "Action",
+  "successes": "<p>✨: Win or lose, the creature is knocked prone when it leaves the wall this turn.</p><p>🌞: An item the creature is carrying is pulled from their grip and remains inside the segment of wall they entered.</p><p>💀: Win or lose, the segment of the wall that the creature entered is destroyed.</p>"
+}

@@ -1,7 +1,7 @@
 <template>
     <div v-if="successes" class="successes-section">
         <!-- Divider with expand/collapse button -->
-        <div class="divider-container">
+        <div v-if="successes" class="divider-container">
             <div class="divider-line"></div>
             <button @click.stop="toggleExpanded" class="emoji-toggle-button"
                 :title="isExpanded ? 'Hide successes' : 'Show successes'">
@@ -88,8 +88,9 @@ const toggleExpanded = () => {
     background: var(--color-black);
     border: 1px solid var(--color-gray-medium);
     border-radius: var(--radius-full);
-    padding: var(--space-sm);
+    padding: var(--space-xs);
     cursor: pointer;
+    font-size: var(--font-size-12);
     line-height: var(--line-height-none);
     transition: var(--transition-color-bg);
     display: flex;
@@ -97,7 +98,7 @@ const toggleExpanded = () => {
     justify-content: center;
     min-height: 24px;
     box-shadow: var(--shadow-elevation-sm);
-    width: 80px;
+    width: 70px;
 }
 
 .emoji-toggle-button:hover {

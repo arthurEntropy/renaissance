@@ -27,9 +27,13 @@
         <strong class="item-name text-stroke-thick">{{ item.name }}</strong>
       </div>
 
-      <!-- Meta Info (e.g., weight, action cost, trait, MP) -->
-      <div class="item-info text-stroke-thick" v-if="metaInfo">
-        <em>{{ metaInfo }}</em>
+      <!-- Meta Info (e.g., weight, action cost, trait, MP, mana cost) -->
+      <div class="item-info text-stroke-thick" v-if="showMetaInfo">
+        <em v-if="showManaCost">
+          <span v-if="metaInfo">{{ metaInfo }}, </span>
+          <ManaCostDisplay :cost="item.manaCost" />
+        </em>
+        <em v-else>{{ metaInfo }}</em>
       </div>
     </div>
 
@@ -78,6 +82,7 @@
     <!-- Footer content (engagement successes, etc.) -->
     <slot name="footer"></slot>
   </div>
+
 </template>
 
 <script setup>
@@ -90,6 +95,18 @@ import CardDescription from '@/components/ui/cards/item/CardDescription.vue'
 import CharacterService from '@/services/entities/characterService'
 import { ItemType } from '@shared/constants/itemTypes'
 import { useOptimizedImage } from '@/composables/useOptimizedImage'
+import ManaCostDisplay from '@/components/ui/mana/ManaCostDisplay.vue'
+
+// Show mana cost if ability has manaCost and source is Channeler
+const showManaCost = computed(() => {
+  if (!props.item.manaCost) return false
+  const source = sourcesStore.getSourceById(props.item.source)
+  return source && source.name && source.name.toLowerCase() === 'channeler'
+})
+
+const showMetaInfo = computed(() => {
+  return !!props.metaInfo || showManaCost.value
+})
 
 const props = defineProps({
   item: { type: Object, required: true },
@@ -176,7 +193,6 @@ const handleExpanded = () => {
 const handleCollapsed = () => {
   emit('height-changed')
 }
-
 </script>
 
 <style scoped>
@@ -275,11 +291,11 @@ const handleCollapsed = () => {
 .art-frame {
   margin-top: var(--space-sm);
   position: relative;
-  /* Black border 10px away from the image */
-  border: 1px solid var(--overlay-black-heavy);
-  /* 10px space between border and image with beveling */
+  border-top: 1px solid var(--overlay-black-heavy);
+  border-left: 1px solid var(--overlay-black-heavy);
+  border-right: 1px solid var(--overlay-black-subtle);
+  border-bottom: 1px solid var(--overlay-black-subtle);
   padding: var(--space-xs);
-  /* Beveled frame effect: dark on top/right, light on bottom/left */
   box-shadow:
     inset 10px 10px 6px var(--overlay-black-medium),
     /* Dark shadow top-left */

@@ -213,7 +213,7 @@ const handleImprovementToggle = (improvementId) => {
   font-weight: var(--font-weight-bold);
   border-top-right-radius: var(--radius-10);
   border-top-left-radius: var(--radius-10);
-  padding: 4px var(--space-lg) 2px var(--space-lg);
+  padding: 2px var(--space-lg) 0 var(--space-lg);
   cursor: pointer;
   transition: var(--transition-color-bg);
   z-index: var(--z-interactive);

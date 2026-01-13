@@ -1,0 +1,17 @@
+{
+  "id": "75c839af-c925-4c70-a312-c7c3b0307d92",
+  "isDeleted": false,
+  "createdAt": "2026-01-03T22:40:44.913Z",
+  "lastModified": "2026-01-12T18:54:22.592Z",
+  "name": "Extract Vitality",
+  "description": "<p>Roll Spirit vs Fortitude against a creature within short range. On a win, it takes 1d4 damage and you regain that amount of Endurance. On a loss, it takes 1 damage and you regain 1 Endurance.</p><p>Either way, check a Condition.</p><p><strong>Describe how you extract and imbibe their energy.</strong></p>",
+  "isTrait": false,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
+  "mp": null,
+  "xp": 5,
+  "manaCost": "B",
+  "successes": "<p>✨: Roll an additional d4.</p><p>🌞: They instead take HEART damage and you regain HEART Endurance.</p><p>💀: Check an additional condition.</p>",
+  "artUrl": "https://cdn.midjourney.com/668c2b10-ac78-42af-8ee2-356e16bf8842/0_3.png"
+}

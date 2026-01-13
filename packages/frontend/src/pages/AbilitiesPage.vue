@@ -113,16 +113,18 @@ const allFilteredAbilities = computed(() => {
       const aValue = a?.[field]
       const bValue = b?.[field]
 
-      // Handle null/undefined values
-      if (aValue == null && bValue == null) return 0
-      if (aValue == null) return 1
-      if (bValue == null) return -1
-
       let comparison = 0
       if (field === 'name') {
+        // Handle null/undefined values for name
+        if (aValue == null && bValue == null) return 0
+        if (aValue == null) return 1
+        if (bValue == null) return -1
         comparison = String(aValue).localeCompare(String(bValue))
       } else {
-        comparison = Number(aValue) - Number(bValue)
+        // For numeric fields (MP, XP), treat null/undefined as 0
+        const aNum = aValue == null ? 0 : Number(aValue)
+        const bNum = bValue == null ? 0 : Number(bValue)
+        comparison = aNum - bNum
       }
 
       return direction === 'asc' ? comparison : -comparison
@@ -202,7 +204,7 @@ const deleteAbility = async (ability) => {
 const saveEditedAbility = async (editedAbility) => {
   await AbilityService.update(editedAbility)
   closeEditAbilityModal()
-  await abilitiesStore.fetch()
+  await abilitiesStore.fetch(true)
 }
 
 // Data initialization

@@ -1,0 +1,17 @@
+{
+  "id": "8c97d183-dde7-47d8-93ae-9bc74e98d391",
+  "isDeleted": false,
+  "createdAt": "2026-01-03T23:02:36.802Z",
+  "lastModified": "2026-01-03T23:27:58.461Z",
+  "name": "Darkness",
+  "description": "<p><em>Concentration, up to 10 minutes.</em></p><p>Choose a point or object within short range. Magical darkness emanates out from it to short range. If you chose an object, the darkness moves with the object.</p><p>Mundane light and natural vision do not pierce the darkness. Only light or sight granted by a spell with a greater XP cost that this one can penetrate the darkness.</p><p>Release <em>(Fear)</em>:</p><ul><li><p>+Range to the darkness' radius.</p></li><li><p>The darkness is also deathly cold. Creatures that enter or begin their turn in the darkness take 1d4 damage.</p></li><li><p>You can see through the darkness as if it weren't there.</p></li></ul>",
+  "isTrait": false,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
+  "mp": null,
+  "xp": 20,
+  "manaCost": "2BB",
+  "artUrl": "https://cdn.midjourney.com/bb212dff-0976-43b1-ae2f-8fc25c861935/0_2.png",
+  "actionType": "Action"
+}
