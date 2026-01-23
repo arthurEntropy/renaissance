@@ -2,7 +2,7 @@
   "id": "e6403fa0-7fca-4475-bed9-263ed934e684",
   "isDeleted": false,
   "createdAt": "2026-01-13T02:08:30.379Z",
-  "lastModified": "2026-01-13T02:18:28.354Z",
+  "lastModified": "2026-01-23T16:42:06.498Z",
   "name": "Refract",
   "description": "<p>Uncheck a Condition. If you did, convert up to 3 mana in your mana pool to any color.</p><p><strong>Describe how you change your mana.</strong></p>",
   "isTrait": false,
@@ -10,8 +10,8 @@
   "isActive": true,
   "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
   "mp": null,
-  "xp": 15,
-  "manaCost": "1UU",
+  "xp": 10,
+  "manaCost": "1U",
   "actionType": "Half Action",
   "artUrl": "https://cdn.midjourney.com/25ef0929-fe68-4c8f-8689-1bef7e140152/0_3.png"
 }

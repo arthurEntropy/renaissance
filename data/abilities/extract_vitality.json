@@ -2,7 +2,7 @@
   "id": "75c839af-c925-4c70-a312-c7c3b0307d92",
   "isDeleted": false,
   "createdAt": "2026-01-03T22:40:44.913Z",
-  "lastModified": "2026-01-12T18:54:22.592Z",
+  "lastModified": "2026-01-23T16:46:24.693Z",
   "name": "Extract Vitality",
   "description": "<p>Roll Spirit vs Fortitude against a creature within short range. On a win, it takes 1d4 damage and you regain that amount of Endurance. On a loss, it takes 1 damage and you regain 1 Endurance.</p><p>Either way, check a Condition.</p><p><strong>Describe how you extract and imbibe their energy.</strong></p>",
   "isTrait": false,

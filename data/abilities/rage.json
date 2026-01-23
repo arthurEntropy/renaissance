@@ -1,0 +1,16 @@
+{
+  "id": "a2841450-e975-4fef-875c-0a7f91a0250c",
+  "isDeleted": false,
+  "createdAt": "2026-01-22T15:59:31.881Z",
+  "lastModified": "2026-01-22T16:04:51.983Z",
+  "name": "Rage",
+  "description": "<p>Choose yourself or a creature within short range. The next time the target deals damage on its turn, it gains an additional action and its damage rolls get +1d until the end of its turn.</p><p>Check a Condition.</p>",
+  "isTrait": false,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
+  "mp": null,
+  "xp": 15,
+  "manaCost": "2R",
+  "actionType": "Half Action"
+}

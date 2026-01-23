@@ -47,7 +47,7 @@
       <div v-if="!collapsible || !collapsed" class="card-content">
 
         <!-- Art Image -->
-        <div v-if="item.artUrl" class="art-frame">
+        <div v-if="item.artUrl && showArtwork" class="art-frame">
           <img :src="optimizedArtUrl" :alt="item.name" class="art-image" />
         </div>
 
@@ -89,6 +89,7 @@
 import { computed } from 'vue'
 import { useSourcesStore } from '@/stores/sourcesStore'
 import { useCharactersStore } from '@/stores/charactersStore'
+import { useUserStore } from '@/stores/userStore'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import CardDescription from '@/components/ui/cards/item/CardDescription.vue'
@@ -125,6 +126,10 @@ const emit = defineEmits(['edit', 'duplicate', 'update', 'send-to-chat', 'height
 // Source management
 const sourcesStore = useSourcesStore()
 const sources = computed(() => sourcesStore.sources)
+
+// User preferences
+const userStore = useUserStore()
+const showArtwork = computed(() => userStore.userProfile?.preferences?.showArtwork ?? true)
 
 const sourceName = computed(() => {
   if (!props.item.source) return 'Unknown'

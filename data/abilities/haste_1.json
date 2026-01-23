@@ -1,0 +1,16 @@
+{
+  "id": "4b6d9c51-b6c8-4730-a07b-fc692321c402",
+  "isDeleted": false,
+  "createdAt": "2026-01-22T15:55:24.304Z",
+  "lastModified": "2026-01-22T19:54:04.520Z",
+  "name": "Haste",
+  "description": "<p>Choose yourself or an ally within short range. For the next minute, that creature's speed increases by 10 feet, their Dexterity rolls are favored and they take -2 Defense.</p><p>Check a condition.</p>",
+  "isTrait": false,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
+  "mp": null,
+  "xp": 5,
+  "manaCost": "R",
+  "actionType": "Half Action"
+}

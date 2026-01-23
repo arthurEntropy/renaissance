@@ -1,0 +1,16 @@
+{
+  "id": "97ce4d11-c35f-4545-b09a-c18e0322413f",
+  "isDeleted": false,
+  "createdAt": "2026-01-23T16:29:32.183Z",
+  "lastModified": "2026-01-23T16:31:02.745Z",
+  "name": "Deny",
+  "description": "<p><em>Trigger: a creature within medium range would take damage from an attack.</em></p><p>Prevent all damage from a single attack. Check a Condition.</p>",
+  "isTrait": false,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
+  "mp": null,
+  "xp": 10,
+  "manaCost": "WW",
+  "actionType": "Reaction"
+}

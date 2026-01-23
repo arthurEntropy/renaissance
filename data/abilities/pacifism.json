@@ -1,0 +1,17 @@
+{
+  "id": "9bd3cdd7-5ae7-4d1a-b185-c3ed8fa8824f",
+  "isDeleted": false,
+  "createdAt": "2026-01-23T15:59:07.738Z",
+  "lastModified": "2026-01-23T16:25:58.379Z",
+  "name": "Pacifism",
+  "description": "<p>Uncheck any number of Conditions. For each Condition unchecked (twice for Troubled), roll Spirit vs Spirit against a creature within medium range. On a win, the creature clears all Conditions and cannot attack or be targeted by attacks until the start of your next turn. On a loss, it only clears all Conditions.</p>",
+  "isTrait": false,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
+  "mp": null,
+  "xp": 30,
+  "manaCost": "4WW",
+  "successes": "<p><strong>✨:</strong> The creature’s speed is reduced to 0 until the start of your next turn.</p><p><strong>🌞:</strong> On a win, the effect instead lasts 1 minute.</p><p><strong>💀:</strong> The spell has no effect. Check two Conditions.</p>",
+  "actionType": "Action"
+}

@@ -41,8 +41,9 @@ const safeSuccesses = computed(() => sanitizeHtml(props.successes || ''))
 const uniqueEmojis = computed(() => {
     if (!props.successes) return ''
 
-    // Match emoji at the start of paragraphs (e.g., "✨:", "🌞:", "💀:")
-    const emojiRegex = /<p>([\u{1F300}-\u{1F9FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}✨🌞💀])/gu
+    // Match emoji at the start of paragraphs, allowing for HTML tags like <strong>
+    // Matches patterns like: <p>✨: or <p><strong>✨:</strong>
+    const emojiRegex = /<p>(?:<[^>]+>)*([\u{1F300}-\u{1F9FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}✨🌞💀])/gu
     const matches = [...props.successes.matchAll(emojiRegex)]
 
     // Get unique emoji

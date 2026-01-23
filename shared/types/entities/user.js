@@ -4,6 +4,7 @@ import { createBaseEntity } from './gameEntity.js'
  * @typedef {Object} UserPreferences
  * @property {string} theme - UI theme preference
  * @property {boolean} notifications - Notification preference
+ * @property {boolean} showArtwork - Whether to show artwork on cards
  */
 
 /**
@@ -34,6 +35,7 @@ export function createDefaultUser() {
     preferences: {
       theme: 'dark',
       notifications: true,
+      showArtwork: true,
     },
     characters: [],
   }

@@ -12,9 +12,10 @@
   "preferences": {
     "theme": "dark",
     "notifications": true,
-    "backgroundImageId": "1cf1ac16-e262-4739-823f-70d3352cf74f"
+    "backgroundImageId": "1cf1ac16-e262-4739-823f-70d3352cf74f",
+    "showArtwork": false
   },
   "characters": [],
-  "lastUpdatedAt": "2025-12-17T14:41:58.774Z",
-  "lastModified": "2025-12-17T14:41:58.774Z"
+  "lastUpdatedAt": "2026-01-23T15:55:06.460Z",
+  "lastModified": "2026-01-23T15:55:06.460Z"
 }

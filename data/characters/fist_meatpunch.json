@@ -208,7 +208,7 @@
   "abilities": [
     {
       "id": "f1d0e5f7-bb30-4251-a575-8d31c113fe1a",
-      "collapsed": false,
+      "collapsed": true,
       "showImprovements": true,
       "improvements": {
         "a277f343-4a95-51c2-a376-74b16ab9bb7c": false,
@@ -231,6 +231,6 @@
     "https://cdn.midjourney.com/579f1913-10e8-438c-9d1d-949151eb171c/0_0.png"
   ],
   "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2025-12-15T13:49:41.991Z",
-  "lastModified": "2025-12-15T13:49:41.991Z"
+  "updatedAt": "2026-01-22T16:25:23.375Z",
+  "lastModified": "2026-01-22T16:25:23.375Z"
 }
