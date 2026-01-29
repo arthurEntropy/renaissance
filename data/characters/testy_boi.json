@@ -1,160 +1,157 @@
 {
-  "id": 11,
-  "name": "Amaru",
+  "id": "271fd0d4-77f2-4b5e-b390-42521c4c4dfe",
+  "isDeleted": false,
+  "createdAt": "2026-01-29T00:54:19.091Z",
+  "lastModified": "2026-01-29T00:57:19.530Z",
+  "name": "Testy Boi",
   "isBeast": false,
-  "pronouns": "he/him",
-  "ancestries": "Human",
-  "cultures": "Guildford",
-  "ancestryIds": [
-    "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
-  ],
-  "cultureIds": [
-    "352c844b-6d4f-4b61-b475-315421a453e7"
-  ],
-  "personalityAndBackground": "Wizard of the Third Wizards' Guild of Guildford. Associate of Volans.",
-  "xp": 10,
+  "pronouns": "",
+  "ancestries": "",
+  "cultures": "",
+  "personalityAndBackground": "",
+  "xp": 0,
   "mp": {
-    "current": 5,
-    "max": 5
+    "current": 0,
+    "max": 0
   },
-  "body": 2,
-  "heart": 3,
-  "wits": 4,
+  "body": 0,
+  "heart": 0,
+  "wits": 0,
   "skills": [
     {
       "name": "Awe",
+      "coreAbility": "body",
       "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 0,
-      "coreAbility": "body"
+      "diceMod": 0
     },
     {
       "name": "Strength",
+      "coreAbility": "body",
       "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 0,
-      "coreAbility": "body"
+      "diceMod": 0
     },
     {
       "name": "Dexterity",
-      "ranks": 2,
+      "coreAbility": "body",
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 0,
-      "coreAbility": "body"
+      "diceMod": 0
     },
     {
       "name": "Fortitude",
+      "coreAbility": "body",
       "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 0,
-      "coreAbility": "body"
+      "diceMod": 0
     },
     {
       "name": "Craft",
+      "coreAbility": "body",
       "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 0,
-      "coreAbility": "body"
+      "diceMod": 0
     },
     {
       "name": "Perform",
+      "coreAbility": "heart",
       "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 0,
-      "coreAbility": "heart"
+      "diceMod": 0
     },
     {
       "name": "Insight",
-      "ranks": 1,
+      "coreAbility": "heart",
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 0,
-      "coreAbility": "heart"
+      "diceMod": 0
     },
     {
       "name": "Courtesy",
-      "ranks": 2,
+      "coreAbility": "heart",
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 0,
-      "coreAbility": "heart"
+      "diceMod": 0
     },
     {
       "name": "Spirit",
+      "coreAbility": "heart",
       "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 0,
-      "coreAbility": "heart"
+      "diceMod": 0
     },
     {
       "name": "Aid",
+      "coreAbility": "heart",
       "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 0,
-      "coreAbility": "heart"
+      "diceMod": 0
     },
     {
       "name": "Persuade",
+      "coreAbility": "wits",
       "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 0,
-      "coreAbility": "wits"
+      "diceMod": 0
     },
     {
       "name": "Awareness",
-      "ranks": 1,
+      "coreAbility": "wits",
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 0,
-      "coreAbility": "wits"
+      "diceMod": 0
     },
     {
       "name": "Stealth",
+      "coreAbility": "wits",
       "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 0,
-      "coreAbility": "wits"
+      "diceMod": 0
     },
     {
       "name": "Lore",
-      "ranks": 3,
-      "isFavored": false,
-      "isIllFavored": false,
-      "diceMod": 0,
-      "coreAbility": "wits"
-    },
-    {
-      "name": "Riddle",
+      "coreAbility": "wits",
       "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 0,
-      "coreAbility": "wits"
+      "diceMod": 0
+    },
+    {
+      "name": "Riddle",
+      "coreAbility": "wits",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0
     }
   ],
   "endurance": {
-    "current": 10,
-    "max": 10,
+    "current": 0,
+    "max": 0,
     "coreAbility": "body"
   },
   "hope": {
-    "current": 9,
-    "max": 9,
+    "current": 0,
+    "max": 0,
     "coreAbility": "heart"
   },
   "defense": {
-    "current": 14,
-    "max": 14,
+    "current": 0,
+    "max": 10,
     "coreAbility": "wits"
   },
   "load": 0,
@@ -175,27 +172,30 @@
     "afraid": false,
     "troubled": false
   },
+  "speed": 0,
   "equipment": [],
   "abilities": [
-    {
-      "id": "ad7f2d4c-75cc-4b7c-8066-57eb1ccaf54a",
-      "collapsed": true,
-      "showImprovements": false,
-      "showSuccesses": false
-    },
     {
       "id": "4fbf9ccb-0fbb-45d0-9f8f-7b7fcfb811fb",
       "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false
+    },
+    {
+      "id": "ad7f2d4c-75cc-4b7c-8066-57eb1ccaf54a",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false
     }
   ],
-  "activeEffects": [],
   "artUrls": [
-    "https://cdn.midjourney.com/46f7df2d-65a2-44e8-90fd-c01738a187c3/0_0.png"
+    "https://cdn.midjourney.com/a8a36740-b7d3-4aef-bea3-a95039bec06f/0_2.png"
   ],
-  "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2026-01-29T00:53:55.420Z",
-  "lastModified": "2026-01-29T00:53:55.420Z",
-  "mestiereId": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa"
+  "activeEffects": [],
+  "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
+  "ownerEmail": "ljbrevoort@gmail.com",
+  "ancestryIds": [],
+  "cultureIds": [],
+  "mestiereId": "",
+  "updatedAt": "2026-01-29T00:57:19.530Z"
 }

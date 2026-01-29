@@ -143,8 +143,8 @@
     }
   ],
   "endurance": {
-    "current": 14,
-    "max": 14,
+    "current": 15,
+    "max": 15,
     "coreAbility": "body"
   },
   "hope": {
@@ -187,5 +187,7 @@
   "artUrls": [
     "https://cdn.midjourney.com/33a4c041-49a8-4234-8e65-54d65bc7033b/0_0.png"
   ],
-  "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1"
+  "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
+  "updatedAt": "2026-01-28T20:39:10.843Z",
+  "lastModified": "2026-01-28T20:39:10.843Z"
 }

@@ -1,0 +1,16 @@
+{
+  "id": "09d253f8-93b4-4b2e-bf35-e7739d5d4b22",
+  "isDeleted": false,
+  "createdAt": "2026-01-27T22:10:05.522Z",
+  "lastModified": "2026-01-28T16:00:28.334Z",
+  "name": "Guiding Light",
+  "description": "<p><em>Concentration, up to 1 minute.</em></p><p>Choose a creature within short range. That creature may ignore the effects of one State of your choice. You are instead affected by that same State.</p><p>Check a Condition.</p>",
+  "isTrait": false,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
+  "mp": null,
+  "xp": "",
+  "manaCost": "W",
+  "actionType": "Half Action"
+}

@@ -2,7 +2,7 @@
   "id": "39a3e592-7836-4333-b336-64e75694dc98",
   "isDeleted": false,
   "createdAt": "2026-01-22T15:43:13.160Z",
-  "lastModified": "2026-01-22T15:44:11.379Z",
+  "lastModified": "2026-01-28T20:17:16.703Z",
   "name": "Dark Ritual",
   "description": "<p>Add BBB to your mana pool. Check 2 conditions.</p>",
   "isTrait": false,
@@ -10,7 +10,7 @@
   "isActive": true,
   "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
   "mp": null,
-  "xp": 5,
+  "xp": "",
   "manaCost": "B",
   "actionType": "Half Action"
 }

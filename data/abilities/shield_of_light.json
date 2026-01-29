@@ -1,0 +1,16 @@
+{
+  "id": "a57f9fe4-8513-42db-bdde-2bd022a253b6",
+  "isDeleted": false,
+  "createdAt": "2026-01-27T21:27:47.446Z",
+  "lastModified": "2026-01-28T16:00:50.065Z",
+  "name": "Shield of Light",
+  "description": "<p><em>Concentration, up to one minute.</em></p><p>Choose a creature within short range. That creature takes +3 Defense and you take -1 Defense.</p><p>Check a Condition.</p>",
+  "isTrait": false,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
+  "mp": null,
+  "xp": "",
+  "manaCost": "1W",
+  "actionType": "Half Action"
+}
