@@ -1,5 +1,5 @@
 <template>
-    <div class="mp-container">
+    <div v-if="selectedCharacter?.mp" class="mp-container">
         <span class="mp-label">MP:</span>
         <NumberInput :model-value="selectedCharacter.mp.current" :disabled="!isEditMode"
             @update:model-value="updateCurrent" :min="0" size="small" />

@@ -148,7 +148,7 @@ export const updateCurrentUserProfile = async (req, res) => {
     
     // Need to handle potential filename change if username changed
     const oldName = userProfile.name
-    saveFile(updatedProfile, USERS_DIRECTORY, oldName)
+    saveFile(updatedProfile, USERS_DIRECTORY, oldName, userProfile.id)
     res.json(updatedProfile)
   } catch (error) {
     console.error('Error updating user profile:', error)
@@ -196,7 +196,7 @@ export const updateUser = async (req, res) => {
       lastUpdatedAt: new Date().toISOString(),
     }
     
-    saveFile(updatedProfile, USERS_DIRECTORY)
+    saveFile(updatedProfile, USERS_DIRECTORY, userProfile.name, userProfile.id)
     
     // Update Firebase custom claims
     const auth = getAuth()
