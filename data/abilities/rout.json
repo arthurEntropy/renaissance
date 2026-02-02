@@ -1,15 +1,15 @@
 {
   "id": "5dfebb16-f7a3-44d1-9c7a-a575812ff676",
   "name": "Rout",
-  "description": "<p>When you knock a foe unconscious, you may use your reaction and spend 5 Hope to give you and your allies a temporary +1d to all attack rolls.</p><p>At the end of each of your turns, if you or an ally knocked another foe unconscious this round, the bonus increases by an additional +1d. Otherwise, this effects ends.</p>",
+  "description": "<p><em>Trigger: You knock a foe unconscious.</em></p><p>You and all allies within medium range get +1d to all attack rolls.</p><p>At the end of each of your turns, if you or an ally knocked another foe unconscious this round, the bonus increases by an additional +1d. Otherwise, this effects ends.</p>",
   "isTrait": false,
   "canBeActive": true,
   "isActive": true,
   "source": "d4dce5e2-e767-464d-91f0-c40b47f788b3",
   "isDeleted": false,
-  "mp": 0,
+  "mp": 3,
   "xp": 20,
   "actionType": "Reaction",
-  "lastModified": "2025-12-27T01:59:34.034Z",
+  "lastModified": "2026-02-02T01:08:42.392Z",
   "artUrl": "https://cdn.midjourney.com/8e96861c-81c9-4b4f-bf0e-0e9b36ef17ea/0_0.png"
 }

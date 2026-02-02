@@ -2,7 +2,7 @@
   "id": "7f923efd-91ce-4967-bc8f-9166bcd32eec",
   "isDeleted": false,
   "createdAt": "2026-01-28T02:53:55.992Z",
-  "lastModified": "2026-01-28T16:01:06.634Z",
+  "lastModified": "2026-01-29T21:34:13.546Z",
   "name": "Unburden",
   "description": "<p>An adjacent creature may uncheck a Condition. If they do, you check a Condition.</p><p>Alternately, you may cast this spell as a reaction when an adjacent creature would check a Condition. If you do, you check a Condition instead.</p><p>Either way, you may only cast this spell once per rest.</p>",
   "isTrait": false,
@@ -12,5 +12,6 @@
   "mp": null,
   "xp": "",
   "manaCost": "3W",
-  "actionType": "Action"
+  "actionType": "Action",
+  "artUrl": "https://cdn.midjourney.com/fe12c9bb-2f7b-471c-b63f-a6740e45fae6/0_0.png"
 }

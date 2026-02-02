@@ -2,7 +2,7 @@
   "id": "46827f4f-7010-41b7-aa15-f5a00b96a6cf",
   "isDeleted": false,
   "createdAt": "2026-01-28T20:37:38.278Z",
-  "lastModified": "2026-01-28T20:38:50.594Z",
+  "lastModified": "2026-01-30T01:00:57.619Z",
   "name": "Envy",
   "description": "<p><em>Concentration, up to 1 minute.</em></p><p>Choose a creature within medium range. It gets -1 rank to a skill of your choice and you get +1 rank in the same skill.</p><p>Check a Condition.</p>",
   "isTrait": false,
@@ -12,5 +12,6 @@
   "mp": null,
   "xp": null,
   "manaCost": "1BB",
-  "actionType": "Half Action"
+  "actionType": "Half Action",
+  "artUrl": "https://cdn.midjourney.com/3718509c-c6bb-49ba-b00a-24c03712245f/0_3.png"
 }

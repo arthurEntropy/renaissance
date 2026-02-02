@@ -2,7 +2,7 @@
   "id": "75c839af-c925-4c70-a312-c7c3b0307d92",
   "isDeleted": false,
   "createdAt": "2026-01-03T22:40:44.913Z",
-  "lastModified": "2026-01-28T21:00:18.147Z",
+  "lastModified": "2026-01-30T01:19:44.501Z",
   "name": "Extract Vitality",
   "description": "<p>Uncheck a Condition. If you did, roll Spirit vs Fortitude against a creature within short range. On a win, it takes 1d4 damage and you regain that amount of Endurance. On a loss, it takes 1 damage and you regain 1 Endurance.</p>",
   "isTrait": false,
@@ -13,5 +13,5 @@
   "xp": "",
   "manaCost": "2B",
   "successes": "<p>✨: Roll an additional d4.</p><p>🌞: Add HEART to each roll.</p><p>💀: Check a Condition.</p>",
-  "artUrl": "https://cdn.midjourney.com/668c2b10-ac78-42af-8ee2-356e16bf8842/0_3.png"
+  "artUrl": "https://cdn.midjourney.com/5743b277-5c5d-426d-9657-848fe78294a8/0_2.png"
 }

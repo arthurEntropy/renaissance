@@ -13,9 +13,9 @@
     "theme": "dark",
     "notifications": true,
     "backgroundImageId": "1cf1ac16-e262-4739-823f-70d3352cf74f",
-    "showArtwork": false
+    "showArtwork": true
   },
   "characters": [],
-  "lastUpdatedAt": "2026-01-28T16:31:12.391Z",
-  "lastModified": "2026-01-28T16:31:12.391Z"
+  "lastUpdatedAt": "2026-01-29T02:08:13.187Z",
+  "lastModified": "2026-01-29T02:08:13.187Z"
 }

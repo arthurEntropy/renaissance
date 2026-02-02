@@ -1,7 +1,7 @@
 {
   "id": "2f40fa98-f90a-4eb8-b626-999b000fa4b2",
   "name": "Tough",
-  "description": "<p>Your maximum Endurance is instead 6 times your BODY score.</p>",
+  "description": "<p>Your maximum Endurance is instead 6 times your BODY score.</p><p>You start each combat with 0 MP. At any time during combat, as a free action, you may spend 2 Endurance to gain 1 MP.</p>",
   "isTrait": true,
   "canBeActive": false,
   "isActive": true,
@@ -9,5 +9,20 @@
   "isDeleted": false,
   "mp": null,
   "xp": null,
-  "lastModified": "2025-11-20T00:38:02.177Z"
+  "lastModified": "2026-01-31T01:58:19.386Z",
+  "improvements": [
+    {
+      "name": "Measured Step",
+      "description": "<p>At the beginning of each of your turns, you may choose to reduce your speed for the round. For each 5 feet you reduce it by, ignore 5 lbs of weight from the equipment you're carrying when calculating Load.</p>",
+      "xp": 15,
+      "id": "1d81ceb0-1bff-4b4d-9659-4f47ab1a4f6e"
+    },
+    {
+      "name": "Mighty",
+      "description": "<p>Each time you roll damage for a melee attack, instead of adding your BODY score to the result, add twice your BODY score.</p>",
+      "xp": 30,
+      "id": "6423364a-eaaf-468b-8717-b00df6dfb0ec"
+    }
+  ],
+  "artUrl": "https://cdn.midjourney.com/126d9d4d-00de-4181-b446-b48192667554/0_1.png"
 }

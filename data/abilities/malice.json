@@ -2,7 +2,7 @@
   "id": "cb26a2d9-be12-4a79-8e98-d230d71f5530",
   "isDeleted": false,
   "createdAt": "2026-01-28T19:58:50.261Z",
-  "lastModified": "2026-01-28T20:06:01.189Z",
+  "lastModified": "2026-01-30T00:52:09.132Z",
   "name": "Malice",
   "description": "<p><em>Trigger: You roll damage for an attack.</em></p><p>Uncheck any number of Conditions. For each Condition you unchecked (twice for Afraid), take +1d on the roll and lose 2 Endurance.</p>",
   "isTrait": false,
@@ -12,5 +12,6 @@
   "mp": null,
   "xp": null,
   "manaCost": "BB",
-  "actionType": "Reaction"
+  "actionType": "Reaction",
+  "artUrl": "https://cdn.midjourney.com/cee6942d-7a50-4945-aa9d-367257ef6cc8/0_0.png"
 }

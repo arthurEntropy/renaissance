@@ -2,7 +2,7 @@
   "id": "e8bf3d3c-63f7-462d-a69e-c112780b72da",
   "isDeleted": false,
   "createdAt": "2026-01-27T21:35:42.155Z",
-  "lastModified": "2026-01-28T16:00:31.209Z",
+  "lastModified": "2026-01-30T00:32:24.408Z",
   "name": "Shared Wound",
   "description": "<p><em>Trigger: A creature within short range becomes the target of an attack.</em></p><p>Redirect half the damage from the attack to yourself. If the attack causes the creature to roll Injury, redirect half the Injury to yourself.</p><p>Check a Condition.</p>",
   "isTrait": false,
@@ -12,5 +12,6 @@
   "mp": null,
   "xp": "",
   "manaCost": "W",
-  "actionType": "Reaction"
+  "actionType": "Reaction",
+  "artUrl": "https://cdn.midjourney.com/dccd89e2-a3d8-40e0-bc29-af17d669e4c4/0_0.png"
 }

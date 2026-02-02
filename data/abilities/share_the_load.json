@@ -2,7 +2,7 @@
   "id": "ff53f4dd-375c-45db-bae1-401a013fd8a7",
   "isDeleted": false,
   "createdAt": "2026-01-28T15:20:38.529Z",
-  "lastModified": "2026-01-28T16:00:47.045Z",
+  "lastModified": "2026-01-29T21:26:30.773Z",
   "name": "Share the Load",
   "description": "<p><em>Concentration, up to 1 minute.</em></p><p>Choose a creature within short range. That creature's load score is halved and your load score increases by the same amount.</p><p>Check a Condition.</p>",
   "isTrait": false,
@@ -12,5 +12,6 @@
   "mp": null,
   "xp": "",
   "manaCost": "1W",
-  "actionType": "Half Action"
+  "actionType": "Half Action",
+  "artUrl": "https://cdn.midjourney.com/6ce82b45-eb1a-4c03-9e3e-441f3dbc3c08/0_0.png"
 }

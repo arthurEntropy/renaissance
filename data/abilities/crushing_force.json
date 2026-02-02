@@ -1,21 +1,16 @@
 {
   "id": "50139dd2-1fa0-4152-a83b-583d6812157b",
   "name": "Crushing Force",
-  "description": "<p>Whenever you roll the maximum on one or more damage dice for a melee attack, you may inflict Injury on your target.</p>",
-  "isTrait": true,
+  "description": "<p><em>Trigger: You roll the maximum on one or more damage dice for a melee attack.</em></p><p>The target of the attack rolls Injury.</p>",
+  "isTrait": false,
   "canBeActive": false,
   "isActive": true,
   "source": "1e4131c7-8a6f-422c-998a-5147600c946e",
   "isDeleted": false,
-  "mp": null,
-  "xp": 10,
-  "improvements": [
-    {
-      "name": "Beheading",
-      "description": "<p>When you inflict Injury on a foe, if the Injury causes them to become Twice Helpless, their head is severed or crushed, as appropriate for your weapon. Their Endurance is immediately reduced to 0.</p>",
-      "xp": 5,
-      "id": "1f1e0fb6-2073-5871-aabf-9f1d0f391e3a"
-    }
-  ],
-  "lastModified": "2025-11-20T00:38:45.056Z"
+  "mp": 1,
+  "xp": 20,
+  "improvements": [],
+  "lastModified": "2026-02-01T01:04:36.677Z",
+  "actionType": "Reaction",
+  "artUrl": "https://cdn.midjourney.com/6412e052-7934-415a-a950-709b4ee5cb76/0_0.png"
 }

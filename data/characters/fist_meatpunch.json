@@ -18,9 +18,9 @@
     "current": 0,
     "max": 0
   },
-  "body": 4,
-  "heart": 2,
-  "wits": 2,
+  "body": 6,
+  "heart": 3,
+  "wits": 5,
   "skills": [
     {
       "name": "Awe",
@@ -32,7 +32,7 @@
     },
     {
       "name": "Strength",
-      "ranks": 3,
+      "ranks": 4,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -40,7 +40,7 @@
     },
     {
       "name": "Dexterity",
-      "ranks": 0,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -72,7 +72,7 @@
     },
     {
       "name": "Insight",
-      "ranks": 0,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -104,7 +104,7 @@
     },
     {
       "name": "Persuade",
-      "ranks": 0,
+      "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -112,7 +112,7 @@
     },
     {
       "name": "Awareness",
-      "ranks": 2,
+      "ranks": 3,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -144,24 +144,24 @@
     }
   ],
   "endurance": {
-    "current": 7,
-    "max": 20,
+    "current": 30,
+    "max": 30,
     "coreAbility": "body"
   },
   "hope": {
-    "current": 6,
-    "max": 6,
+    "current": 9,
+    "max": 9,
     "coreAbility": "heart"
   },
   "defense": {
-    "current": 12,
-    "max": 12,
+    "current": 15,
+    "max": 15,
     "coreAbility": "wits"
   },
   "load": 0,
   "shadow": 0,
   "injury": 0,
-  "speed": 0,
+  "speed": 30,
   "states": {
     "weary": false,
     "twiceWeary": false,
@@ -177,39 +177,19 @@
     "afraid": false,
     "troubled": false
   },
-  "equipment": [
-    {
-      "id": "f248a20d-f79e-4fb9-a800-94e2145fc23a",
-      "quantity": 1,
-      "isCarried": true,
-      "isWielding": true,
-      "index": 0,
-      "collapsed": true,
-      "artExpanded": true
-    },
-    {
-      "id": "f339e1ee-39c8-4712-8baa-60129fd87ff0",
-      "quantity": 1,
-      "isCarried": true,
-      "isWielding": true,
-      "index": 1,
-      "collapsed": false,
-      "artExpanded": true
-    },
-    {
-      "id": "fa34252b-7e6d-446c-bf47-908bcea3bbcb",
-      "quantity": 1,
-      "isCarried": true,
-      "collapsed": false
-    }
+  "equipment": [],
+  "engagementDice": [
+    12,
+    12
   ],
-  "engagementDice": [],
-  "engagementSuccesses": [],
+  "engagementSuccesses": [
+    "e1f2a3b4-c5d6-47e8-f9a0-b1c2d3e4f5a6"
+  ],
   "abilities": [
     {
       "id": "f1d0e5f7-bb30-4251-a575-8d31c113fe1a",
-      "collapsed": true,
-      "showImprovements": true,
+      "collapsed": false,
+      "showImprovements": false,
       "improvements": {
         "a277f343-4a95-51c2-a376-74b16ab9bb7c": false,
         "854306d6-d3b2-5b9d-a387-1474c611803b": true,
@@ -223,7 +203,37 @@
     },
     {
       "id": "9c92d5ba-7c73-4480-a357-d98ac4820c7d",
-      "collapsed": false
+      "collapsed": true
+    },
+    {
+      "id": "2588e590-6bc7-4f42-aada-1f89bf7f1843",
+      "collapsed": false,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "bdc10a98-d189-4917-9330-9fadb116c8e8",
+      "collapsed": false,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "5ca90b33-0407-46a9-9854-01eda52a5d51",
+      "collapsed": false,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "329b5305-71b2-49f2-93b5-985e92576f02",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "b485f7a7-ecf2-4899-8eb6-16de70aad279",
+      "collapsed": false,
+      "showImprovements": false,
+      "showSuccesses": false
     }
   ],
   "activeEffects": [],
@@ -231,6 +241,6 @@
     "https://cdn.midjourney.com/579f1913-10e8-438c-9d1d-949151eb171c/0_0.png"
   ],
   "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2026-01-22T16:25:23.375Z",
-  "lastModified": "2026-01-22T16:25:23.375Z"
+  "updatedAt": "2026-01-29T13:28:07.042Z",
+  "lastModified": "2026-01-29T13:28:07.042Z"
 }

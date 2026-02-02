@@ -2,7 +2,7 @@
   "id": "8a64a1b0-2ee2-4b5c-b603-59a4742eaa51",
   "isDeleted": false,
   "createdAt": "2026-01-28T20:24:08.764Z",
-  "lastModified": "2026-01-28T20:43:08.387Z",
+  "lastModified": "2026-01-30T01:01:54.068Z",
   "name": "Bad Blood",
   "description": "<p>Once per rest: Roll Spirit vs Spirit against a creature within medium range. On a win, that creature checks a Condition. On a loss, its next attack roll against you is favored.</p><p>Either way, you check a Condition.</p>",
   "isTrait": false,
@@ -13,5 +13,6 @@
   "xp": null,
   "manaCost": "2B",
   "successes": "<p>✨: On a loss, no effect.</p><p>🌞: Repeat the roll, with the same effects. Check another Condition.</p><p>💀: Check an additional Condition.</p>",
-  "actionType": "Action"
+  "actionType": "Action",
+  "artUrl": "https://cdn.midjourney.com/6dd82fae-6c5c-4e4f-bf66-f91c7b59e348/0_1.png"
 }

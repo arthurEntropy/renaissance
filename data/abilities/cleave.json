@@ -1,14 +1,15 @@
 {
   "id": "82fad9cc-9de8-49c3-a192-ae96a981007d",
   "name": "Cleave",
-  "description": "<p>When you hit with a melee attack, you may hit another adjacent foe with a glancing blow, dealing BODY damage to them.</p>",
+  "description": "<p><em>Trigger: You hit a creature with a melee attack.</em></p><p>You may hit another adjacent creature with a glancing blow, dealing BODY damage to them.</p>",
   "isTrait": false,
   "canBeActive": false,
   "isActive": true,
   "source": "1e4131c7-8a6f-422c-998a-5147600c946e",
   "isDeleted": false,
-  "mp": null,
+  "mp": 1,
   "xp": 5,
   "actionType": "Reaction",
-  "lastModified": "2025-11-20T00:38:15.737Z"
+  "lastModified": "2026-02-01T01:02:39.925Z",
+  "artUrl": "https://cdn.midjourney.com/ff15e619-f33b-4e24-8748-6f3aa5f74428/0_1.png"
 }

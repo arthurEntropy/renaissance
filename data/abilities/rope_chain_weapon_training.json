@@ -13,7 +13,7 @@
   "improvements": [
     {
       "name": "Grappling",
-      "description": "<p>When you hit with a rope or chain weapon, you may spend half action to attempt to restrain the target, Dexterity vs Dexterity.</p><p>A restrained foe may try to break free at the start of their turn by rolling Strength against your original Dexterity result. If you are no longer holding the weapon, their attempt is favored. Any other combatant can free them with a half action (no roll required).</p><p>While restraining a foe, you cannot attack with that weapon. Instead, you may spend an action to pull them up to 1/4 your speed or to knock them prone.</p>",
+      "description": "<p>When you hit with a rope or chain weapon, you may spend a half action to attempt to restrain the target. Roll Dexterity vs Dexterity. On a win, the target is restrained. On a loss, no effect.</p><p>A restrained creature may try to break free on their turn by spending an action and rolling Strength against your original Dexterity result. If you are no longer holding the weapon, their roll is favored. Any adjacent creature can free them by spending a half action (no roll required).</p><p>While restraining a foe, you cannot attack with the restraining weapon. Instead, you may spend an action to pull them up to 1/4 your speed toward you or knock them prone.</p>",
       "xp": 5,
       "id": "8ab4398d-585e-58db-ae9a-42e03c43b4d3"
     },
@@ -24,5 +24,5 @@
       "id": "fc3f90a9-f954-5257-82a6-d1fd1203c886"
     }
   ],
-  "lastModified": "2025-12-26T18:07:35.984Z"
+  "lastModified": "2026-02-01T01:51:59.011Z"
 }

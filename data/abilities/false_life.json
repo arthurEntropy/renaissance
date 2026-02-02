@@ -2,7 +2,7 @@
   "id": "ed857510-1a7b-4b26-9f4b-277e3baa5655",
   "isDeleted": false,
   "createdAt": "2026-01-28T20:18:06.077Z",
-  "lastModified": "2026-01-28T20:42:18.439Z",
+  "lastModified": "2026-01-30T01:40:04.613Z",
   "name": "False Life",
   "description": "<p>Double your current Endurance.</p><p>Check a Condition.</p><p>For the next minute, at the beginning of each of your turns, if your current Endurance is greater than your BODY score, you lose BODY Endurance.</p>",
   "isTrait": false,
@@ -12,5 +12,6 @@
   "mp": null,
   "xp": null,
   "manaCost": "BBB",
-  "actionType": "Action"
+  "actionType": "Action",
+  "artUrl": "https://cdn.midjourney.com/c68107ef-1847-4f1e-92f1-10e02e410fca/0_3.png"
 }

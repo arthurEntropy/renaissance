@@ -13,7 +13,7 @@
   "improvements": [
     {
       "name": "Inspiring",
-      "description": "<p>Whenever you roll 🌞 on an attack roll, an ally within short range can use their reaction to make a melee attack.</p>",
+      "description": "<p>Whenever you roll 🌞 on an attack roll, an ally within short range may use their reaction to make a melee attack.</p>",
       "xp": 5,
       "id": "fe501c7d-0d44-5dee-b652-025ff40791ad"
     },
@@ -23,5 +23,7 @@
       "xp": 5,
       "id": "c4d67aa6-fa4b-5cd8-9259-75b810f28afa"
     }
-  ]
+  ],
+  "lastModified": "2026-02-01T03:09:05.931Z",
+  "artUrl": "https://cdn.midjourney.com/2a5f27b4-8cc0-4e50-b0c0-9b5abbca6af9/0_2.png"
 }

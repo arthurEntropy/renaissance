@@ -2,7 +2,7 @@
   "id": "a2841450-e975-4fef-875c-0a7f91a0250c",
   "isDeleted": false,
   "createdAt": "2026-01-22T15:59:31.881Z",
-  "lastModified": "2026-01-28T19:43:43.089Z",
+  "lastModified": "2026-01-30T01:57:02.928Z",
   "name": "Rage",
   "description": "<p><em>Concentration, up to 1 minute.</em></p><p>Choose a creature within short range. It gets +1d to its damage rolls, -2 Defense and damage rolls for attacks targeting it get -1d.</p><p>Check a Condition.</p>",
   "isTrait": false,
@@ -12,5 +12,6 @@
   "mp": null,
   "xp": "",
   "manaCost": "2R",
-  "actionType": "Half Action"
+  "actionType": "Half Action",
+  "artUrl": "https://cdn.midjourney.com/1181ceaf-04cd-4567-a4b5-ca71208575b9/0_0.png"
 }

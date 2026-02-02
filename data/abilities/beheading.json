@@ -1,0 +1,17 @@
+{
+  "id": "98d0673c-dc45-427e-af3a-ac674889654a",
+  "isDeleted": false,
+  "createdAt": "2026-01-31T00:50:31.258Z",
+  "lastModified": "2026-02-01T01:05:36.296Z",
+  "name": "Beheading",
+  "description": "<p>When you inflict Injury on a creature, if the Injury causes them to become Twice Helpless, their head is severed or crushed (as appropriate for your weapon), their Endurance is reduced to 0 and they die immediately.</p>",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "1e4131c7-8a6f-422c-998a-5147600c946e",
+  "mp": null,
+  "xp": 30,
+  "manaCost": null,
+  "actionType": "",
+  "artUrl": "https://cdn.midjourney.com/52a4e098-f8ec-495a-a67f-719b981ead7e/0_0.png"
+}

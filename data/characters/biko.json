@@ -5,15 +5,19 @@
   "pronouns": "he/him",
   "ancestries": "",
   "cultures": "",
-  "ancestryIds": [],
-  "cultureIds": [],
+  "ancestryIds": [
+    "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+  ],
+  "cultureIds": [
+    "5c67bedd-8e73-4add-b46b-9b911bf0fd59"
+  ],
   "personalityAndBackground": "",
   "xp": 0,
   "mp": {
     "current": 0,
     "max": 0
   },
-  "body": 3,
+  "body": 5,
   "heart": 2,
   "wits": 2,
   "skills": [
@@ -27,7 +31,7 @@
     },
     {
       "name": "Strength",
-      "ranks": 2,
+      "ranks": 3,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -35,7 +39,7 @@
     },
     {
       "name": "Dexterity",
-      "ranks": 1,
+      "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -67,7 +71,7 @@
     },
     {
       "name": "Insight",
-      "ranks": 0,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -91,7 +95,7 @@
     },
     {
       "name": "Aid",
-      "ranks": 1,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -107,7 +111,7 @@
     },
     {
       "name": "Awareness",
-      "ranks": 1,
+      "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -115,7 +119,7 @@
     },
     {
       "name": "Stealth",
-      "ranks": 1,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -139,8 +143,8 @@
     }
   ],
   "endurance": {
-    "current": 15,
-    "max": 15,
+    "current": 25,
+    "max": 25,
     "coreAbility": "body"
   },
   "hope": {
@@ -171,19 +175,77 @@
     "afraid": false,
     "troubled": false
   },
-  "equipment": [],
+  "equipment": [
+    {
+      "id": "30ade4bc-27c7-4bb5-a674-00cbd0fc294b",
+      "quantity": 1,
+      "isCarried": true,
+      "collapsed": false
+    },
+    {
+      "id": "b69c879e-a758-47b6-a3a4-b81dfd12eaaf",
+      "quantity": 1,
+      "isCarried": true,
+      "collapsed": false,
+      "isWielding": true
+    }
+  ],
   "engagementDice": [
     4,
     4,
     4,
     4
   ],
-  "abilities": [],
+  "abilities": [
+    {
+      "id": "4fbf9ccb-0fbb-45d0-9f8f-7b7fcfb811fb",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "ad7f2d4c-75cc-4b7c-8066-57eb1ccaf54a",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "7eb3559b-8cd5-49ce-b047-a627e30db31c",
+      "collapsed": false,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "359a4615-81a7-4cd1-a23f-22b50b7d1f93",
+      "collapsed": false,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "de2e226f-c1e2-489e-9f70-353153421262",
+      "collapsed": false,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "df41e010-07b6-40bf-bc67-ec2a01c9b95d",
+      "collapsed": false,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "c93d20c3-2fa2-4001-837d-cf38629b9c1a",
+      "collapsed": false,
+      "showImprovements": false,
+      "showSuccesses": false
+    }
+  ],
   "activeEffects": [],
   "artUrls": [
     "https://cdn.midjourney.com/bb7f8092-0710-4aaf-9f26-e376a0cec04e/0_0.png"
   ],
   "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2025-12-15T14:09:16.225Z",
-  "lastModified": "2025-12-15T14:09:16.225Z"
+  "updatedAt": "2026-01-29T01:11:48.034Z",
+  "lastModified": "2026-01-29T01:11:48.034Z",
+  "mestiereId": "4eccfe5d-de19-4bc5-8c9c-374d793d67f0"
 }
