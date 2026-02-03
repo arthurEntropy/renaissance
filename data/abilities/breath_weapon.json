@@ -1,7 +1,7 @@
 {
   "id": "25daccec-9dc4-469a-93ce-af13e853fc8e",
   "name": "Breath Weapon",
-  "description": "<p><em>Your draconic heritage has endowed you with a modest</em></p><p>Once per rest, you exhale a cone-shaped burst of a volatile energy or substance. The length and width of the burst are both 10+BODY. Roll Fortitude vs Dexterity against all creatures within the cone, dealing 2d6 damage on each win. If your BODY score is 10 or more, the damage increases to 4d6.</p><p>The nature of your breath weapon is based on your <em>Draconic Affinity</em>. If you do not have the <em>Draconic Affinity</em> trait, choose one for the purpose of this ability, but you do not gain the protective benefits of that affinity and you take half damage from this ability when you use it.</p><p><strong>Describe the burst and its effects.</strong></p>",
+  "description": "<p>Once per rest, you exhale a burst of volatile energy or substance. Roll Fortitude vs Dexterity against a creature within short range, dealing damage equal to half your BODY score in d6s on a win, or half damage on a loss.</p><p>The nature of your breath weapon is based on your <em>Draconic Affinity</em>. If you do not have the <em>Draconic Affinity</em> trait, choose one for the purpose of this ability, but you do not gain the protective benefits of that affinity and you take half damage from this ability when you use it.</p><p><strong>Describe the burst and its effects.</strong></p>",
   "isTrait": false,
   "canBeActive": false,
   "isActive": true,
@@ -9,5 +9,7 @@
   "isDeleted": false,
   "mp": null,
   "xp": null,
-  "actionType": "Action"
+  "actionType": "Action",
+  "lastModified": "2026-02-02T01:43:53.644Z",
+  "artUrl": "https://cdn.midjourney.com/7c42fd35-b29d-44ec-a2a0-99290323cd46/0_3.png"
 }

@@ -1,12 +1,14 @@
 {
   "id": "22b1ec3d-59a4-4cac-98a1-98a2286e9520",
   "name": "Stout Stature",
-  "description": "<p><em>Your wide frame bears burdens with ease.</em></p><p>When calculating Load, halve the total weight of all gear you're carrying, rounded up.</p><p><strong>Describe how you bear up under the weight.</strong></p>",
+  "description": "<p>When calculating Load, halve the total weight of all gear you're carrying, rounded up.</p><p><strong>Describe how you bear up under the weight.</strong></p>",
   "isTrait": true,
   "canBeActive": false,
   "isActive": true,
   "source": "adc655c1-1d9c-433f-a0eb-41f93cf3ee07",
   "isDeleted": false,
   "mp": null,
-  "xp": null
+  "xp": null,
+  "lastModified": "2026-02-02T01:54:09.828Z",
+  "artUrl": "https://cdn.midjourney.com/fc7c2206-2313-4aab-b5fb-a467f2889844/0_2.png"
 }

@@ -1,0 +1,15 @@
+{
+  "id": "04e9acb0-df69-44eb-8c7f-8bbcf28ca22d",
+  "name": "Craft Vessel",
+  "description": "<p><em>Casting time: 10 minutes.</em></p><p>You transform a mundane object into a magic Vessel capable of capturing and holding a creature. The object may be anything with an opening that can be sealed - a glass phial, a seashell, an iron flask, a wooden box, etc. You adorn the with object with special components of your choosing.</p><p>The overall Keeping of the object and components determines the Vessel’s quality. If you spend...</p><ul><li><p>1 treasure (Modest): <strong>Standard Vessel</strong></p></li><li><p>2 treasure (Comfortable): <strong>Great Vessel</strong></p></li><li><p>3 treasure (Prosperous): <strong>Ultra Vessel</strong></p></li><li><p>4 treasure (Opulent): <strong>Maestro Vessel</strong></p></li></ul><p>When you use a Vessel for your <em>Capture</em> ability, subtract the Vessel's keeping from the creature's CR when determining whether it is captured.</p><p><strong>Describe the Vessel you create.</strong></p>",
+  "isTrait": false,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "558abd15-f90f-40d7-80d8-df73a37f977c",
+  "isDeleted": false,
+  "mp": null,
+  "xp": null,
+  "actionType": "Ritual",
+  "lastModified": "2026-02-03T00:35:15.745Z",
+  "artUrl": "https://cdn.midjourney.com/bcd0021e-3b95-4ad4-ba8e-22ecc9bda838/0_0.png"
+}

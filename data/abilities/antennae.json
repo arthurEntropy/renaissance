@@ -1,12 +1,14 @@
 {
   "id": "366982d4-7d65-4b32-b808-be39ccea385e",
   "name": "Antennae",
-  "description": "<p><em>Your antennae provide you with a sixth sense.</em></p><p>Once per rest, you may perceive your surroundings without sight and can sense the surface emotions of nearby creatures for a few moments. You cannot use this ability if your antennae are covered.</p><p><strong>Describe how you experience this sense and how it appears to others.</strong></p>",
+  "description": "<p>Once per rest, you may perceive your surroundings without sight and can sense the surface emotions of nearby creatures for a few moments. You cannot use this ability if your antennae are covered.</p><p><strong>Describe how you experience this sense and how it appears to others.</strong></p>",
   "isTrait": true,
   "canBeActive": false,
   "isActive": true,
   "source": "d7578278-c801-410b-b194-12b555042f29",
   "isDeleted": false,
   "mp": null,
-  "xp": null
+  "xp": null,
+  "artUrl": "https://cdn.midjourney.com/aa895194-c9ae-4207-bb71-fcddbce70f62/0_2.png",
+  "lastModified": "2026-02-02T02:00:02.563Z"
 }

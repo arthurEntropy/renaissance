@@ -1,0 +1,15 @@
+{
+  "id": "5092874a-b8c2-457f-8d89-f5ea60089dc9",
+  "isDeleted": true,
+  "createdAt": "2026-02-02T20:52:19.470Z",
+  "lastModified": "2026-02-02T20:56:59.815Z",
+  "name": "Beastkeeper",
+  "description": "<p>Your maximum</p>",
+  "isTrait": false,
+  "canBeActive": false,
+  "isActive": true,
+  "source": null,
+  "mp": null,
+  "xp": null,
+  "manaCost": null
+}
