@@ -1,0 +1,18 @@
+{
+  "id": "e693653e-0a59-445d-8936-b85deec84f53",
+  "isDeleted": false,
+  "createdAt": "2026-02-05T00:03:53.280Z",
+  "lastModified": "2026-02-05T00:20:33.334Z",
+  "name": "Breath of Belladonna",
+  "description": "<p>You consume a handful of belladonna berries. You take 1d4 damage from their poison, then exhale a poisonous cloud. Roll Spirit vs Fortitude against each creature within short range. On each win, the creature takes 3d10 damage. Half damage on a loss</p>",
+  "isTrait": false,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "162ae4db-7a67-4770-8a2c-7e9883da14f6",
+  "mp": 3,
+  "xp": 15,
+  "manaCost": null,
+  "successes": "<p>✨: The creature is Weary for 1 round.</p><p>🌞: The creature must roll Fortitude against your original Spirit roll at the beginning of each of its turns. On each win, it takes 1d4 damage. On a loss, the effect ends.</p>",
+  "artUrl": "https://cdn.midjourney.com/e4082548-8e5e-4597-88a6-1e8048ff9fcb/0_3.png",
+  "actionType": "Action"
+}

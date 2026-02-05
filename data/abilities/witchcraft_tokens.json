@@ -1,0 +1,16 @@
+{
+  "id": "e5f027b7-ef18-461e-9c0c-5b549df17af2",
+  "isDeleted": false,
+  "createdAt": "2026-02-04T01:14:05.208Z",
+  "lastModified": "2026-02-04T14:49:43.331Z",
+  "name": "Witchcraft Tokens",
+  "description": "<p>You may store a single charge of one of your Witch spells in a small, mundane object by crafting it into a Token over the course of 1 hour. At the end of that hour, you pay the spell’s MP cost (if any) and roll Craft against a difficulty equal to the spell’s XP cost. On a success, the spell is stored; on a failure, the object remains mundane.</p><p>A creature holding your Token may cast the stored spell using your stats as if you had cast it. If the spell requires concentration, the creature concentrates. After the spell is cast, the Token becomes mundane.</p><p>You may maintain up to three active Tokens at a time. Creating a Token beyond this limit causes the oldest Token you created to lose its magic.</p>",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "162ae4db-7a67-4770-8a2c-7e9883da14f6",
+  "mp": null,
+  "xp": null,
+  "manaCost": null,
+  "artUrl": "https://cdn.midjourney.com/fd832e14-6a40-45aa-b573-c0ea9cd69fe1/0_1.png"
+}

@@ -1,0 +1,25 @@
+{
+  "id": "670a86d8-f547-40c4-b4fd-2a5979022960",
+  "isDeleted": false,
+  "createdAt": "2026-02-05T00:21:28.638Z",
+  "lastModified": "2026-02-05T00:46:25.282Z",
+  "name": "Cleansing Ward",
+  "description": "<p>You touch a creature. For the next hour, any time a spell would impose lingering effects upon the creature, all of the spell's effects instead end at the beginning of the creature's next turn.</p>",
+  "isTrait": false,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "162ae4db-7a67-4770-8a2c-7e9883da14f6",
+  "mp": 2,
+  "xp": 5,
+  "manaCost": null,
+  "actionType": "Action",
+  "improvements": [
+    {
+      "name": "Shared Ward",
+      "description": "<p>You may spend 2 additional MP to extend the benefits of this spell to one additional creature you touch.</p>",
+      "xp": 15,
+      "id": "6aab7b8b-eeb0-462c-bdfc-41841f590ce9"
+    }
+  ],
+  "artUrl": "https://cdn.midjourney.com/50c600d6-fa65-40de-883b-fa517ecc9a68/0_2.png"
+}

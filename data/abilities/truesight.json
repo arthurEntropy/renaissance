@@ -1,0 +1,16 @@
+{
+  "id": "20ba54d3-db4a-4850-ba60-22ea5fd0e760",
+  "isDeleted": false,
+  "createdAt": "2026-02-04T15:34:16.889Z",
+  "lastModified": "2026-02-04T16:14:52.920Z",
+  "name": "Truesight",
+  "description": "<p>You have enhanced sight out to medium range, or within any line of sight within the bounds of your Sanctum. You can see through magical light and darkness as if it weren't there. You see the true nature of creatures and objects that are invisible, magically altered or phased out.</p>",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "162ae4db-7a67-4770-8a2c-7e9883da14f6",
+  "mp": null,
+  "xp": 40,
+  "manaCost": null,
+  "artUrl": "https://cdn.midjourney.com/39047c95-06ef-42d4-b53d-d64d508f2250/0_2.png"
+}

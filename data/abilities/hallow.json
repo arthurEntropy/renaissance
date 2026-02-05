@@ -1,0 +1,17 @@
+{
+  "id": "5a41192a-6484-43eb-a0b6-7b8ccdb9f9d4",
+  "isDeleted": false,
+  "createdAt": "2026-02-04T13:52:12.966Z",
+  "lastModified": "2026-02-04T16:24:07.181Z",
+  "name": "Hallow",
+  "description": "<p><strong>Casting Time:</strong> 1 day, or 1 hour if you are within your Sanctum.</p><p>You imbue an area with power. The area can have a radius up to medium range. When you complete the casting, choose one of the following effects:</p><ul><li><p><strong>Courage:</strong> Any number of creatures you choose can’t be frightened while in the area.</p></li><li><p><strong>Darkness/Light:</strong> Magical darkness or light, of a quality you choose, fills the area.</p></li><li><p><strong>Repose:</strong> Dead bodies interred in the area can’t be turned into undead.</p></li><li><p><strong>Fear:</strong> Any number of creatures you choose are frightened while in the area.</p></li><li><p><strong>Peace:</strong> All attack rolls made within the area are ill-favored, and all damage rolls take −1d.</p></li><li><p><strong>Tongues:</strong> Creatures can communicate with any other creature in the area, even if they don’t share a common language.</p></li></ul><p>The effect lasts until you dispel it. Only creatures whose Challenge is greater than this spell’s XP cost, and spells with higher XP cost this this spell, can ignore, override or dispel the effect.</p>",
+  "isTrait": false,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "162ae4db-7a67-4770-8a2c-7e9883da14f6",
+  "mp": null,
+  "xp": 30,
+  "manaCost": null,
+  "actionType": "Ritual",
+  "artUrl": "https://cdn.midjourney.com/323fc203-1df8-44cd-a585-144b39aaedb2/0_3.png"
+}

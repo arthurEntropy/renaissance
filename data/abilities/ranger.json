@@ -1,0 +1,16 @@
+{
+  "id": "f48f7fa7-e9a2-482d-b7ee-0e195471f7c8",
+  "isDeleted": false,
+  "createdAt": "2026-02-03T21:18:18.268Z",
+  "lastModified": "2026-02-03T21:25:57.145Z",
+  "name": "Ranger",
+  "description": "<p>Your max MP increases to 10.</p>",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "10f46ecd-e6f5-4d3b-b510-d4035ab24f56",
+  "mp": null,
+  "xp": 30,
+  "manaCost": null,
+  "artUrl": "https://cdn.midjourney.com/bc61cd45-f99b-4c1b-b58e-0b32952a52db/0_1.png"
+}

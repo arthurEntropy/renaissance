@@ -1,0 +1,24 @@
+{
+  "id": "0697db22-c8a1-4c8c-afb3-8b14a82b2c8d",
+  "isDeleted": false,
+  "createdAt": "2026-02-04T01:37:37.066Z",
+  "lastModified": "2026-02-04T15:02:23.598Z",
+  "name": "Witch's Familiar",
+  "description": "<p>You form a magical bond with a creature of your choice with a Challenge of 0.</p><ul><li><p><strong>Witch’s Bond:</strong> Your familiar’s maximum Endurance is equal to either its natural maximum or your combined BODY, HEART, and WITS scores, whichever is higher.</p></li><li><p><strong>Telepathic Connection:</strong> You can communicate telepathically with your familiar at any distance. As a half action, you may see and hear through your familiar’s senses for 1 round.</p></li><li><p><strong>Combat &amp; Revival:</strong> Your familiar rolls its own initiative and acts on its own turn. When it would be reduced to 0 Endurance, you may spend 1 MP as a free action to reduce it to 1 Endurance instead. If your familiar dies, their body vanishes, and you can perform a ritual to revive them during a short or long rest. The ritual requires ingredients of Opulent Keeping (cost: 4 treasure), and your familiar returns to life at maximum Endurance in a space within short range of you.</p></li></ul><p>You may only have one familiar at a time. Choosing a new familiar severs the bond with the previous one.</p>",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "162ae4db-7a67-4770-8a2c-7e9883da14f6",
+  "mp": null,
+  "xp": null,
+  "manaCost": null,
+  "artUrl": "https://cdn.midjourney.com/56d8e396-a423-4297-9057-18ff25f01505/0_0.png",
+  "improvements": [
+    {
+      "name": "Magical Assistant",
+      "description": "<p>When you cast a spell that requires touch or adjacency, your familiar may deliver the spell as if it had cast it, provided it is within long range and uses its reaction. You use your own stats for the spell.<br></p><p>Once per rest, if you lose concentration due to damage or unconsciousness, your familiar may assume concentration as a reaction if it is within long range. At the start of your next turn, you may reclaim concentration as a half action; otherwise, the spell ends.</p>",
+      "xp": 10,
+      "id": "35e3ba2a-bf53-4ce0-81dd-8044ee998b95"
+    }
+  ]
+}

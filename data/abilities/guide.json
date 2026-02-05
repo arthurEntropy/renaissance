@@ -1,0 +1,16 @@
+{
+  "id": "9d6d82e0-bc0d-4f68-85dd-c2f3e2e17597",
+  "isDeleted": false,
+  "createdAt": "2026-02-03T17:41:38.479Z",
+  "lastModified": "2026-02-03T19:12:22.831Z",
+  "name": "Guide",
+  "description": "<p>While traveling in natural areas, once per day, choose two effects, which are available to you for that day:</p><ul><li><p><strong>Navigator: </strong>You always know which direction is North.</p></li><li><p><strong>Skulk: </strong>You and your companions' Stealth checks get +2d.</p></li><li><p><strong>Scout: </strong>You and your companions cannot be surprised in combat.</p></li><li><p><strong>Expert: </strong>Once per rest, when a companion would fail a skill check, you may choose to have them re-roll.</p></li><li><p><strong>Tracker: </strong>You automatically notice any tracks left by creatures who have passed through the area within the past 3 days. You learn the approximate size and number of the creatures.</p></li><li><p><strong>Forager</strong>: You can increase the Keeping of the Quest for one rest per day.</p></li></ul>",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "10f46ecd-e6f5-4d3b-b510-d4035ab24f56",
+  "mp": null,
+  "xp": null,
+  "manaCost": null,
+  "artUrl": "https://cdn.midjourney.com/4e298128-da1c-4483-8ef3-6775baa0eeaa/0_2.png"
+}

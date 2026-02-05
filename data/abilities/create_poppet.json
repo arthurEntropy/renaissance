@@ -1,0 +1,25 @@
+{
+  "id": "139e5a9e-7ed1-4cf3-9d03-447ea4c3c274",
+  "isDeleted": false,
+  "createdAt": "2026-02-04T14:34:08.684Z",
+  "lastModified": "2026-02-05T03:56:25.476Z",
+  "name": "Create Poppet",
+  "description": "<p>Choose a creature you can see. You fashion a tiny doll that crudely resembles the creature. For the next minute, while you are holding the doll, once per round, you may spend a half action to achieve one of the following effects, choosing each effect only once:</p><ul><li><p>The creature regains HEART Endurance.</p></li><li><p>The creature takes +1d to a skill of your choice.</p></li><li><p>The creature clears a Condition.</p></li></ul><p>When you use the doll for the third time, it is destroyed, leaving its heart behind in the form of a seed. Until the spell ends, any creature can eat the seed as a half action. A creature that does so gains 2d8 temporary Endurance.</p>",
+  "isTrait": false,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "162ae4db-7a67-4770-8a2c-7e9883da14f6",
+  "mp": 1,
+  "xp": 10,
+  "manaCost": null,
+  "improvements": [
+    {
+      "name": "Malicious Intent",
+      "description": "<p>You may choose from these additional effects:</p><ul><li><p>The creature takes 1 damage.</p></li><li><p>The creature takes -1d to a skill of your choice for 1 round.</p></li><li><p>The creature checks a Condition.</p></li></ul>",
+      "xp": 10,
+      "id": "41eccff5-2510-46b1-afad-61586c83e559"
+    }
+  ],
+  "actionType": "Action",
+  "artUrl": "https://cdn.midjourney.com/cfa4c1ed-a5bb-4886-b7d8-fabf30f1c48c/0_1.png"
+}
