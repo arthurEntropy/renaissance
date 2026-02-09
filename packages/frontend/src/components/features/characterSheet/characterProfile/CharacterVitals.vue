@@ -17,7 +17,8 @@
                 <div class="vitals-value">
                     <span v-if="!ancestries.length">None</span>
                     <span v-for="(ancestry, index) in ancestries" :key="ancestry.id">
-                        {{ ancestry.name }}<span v-if="index < ancestries.length - 1">, </span>
+                        <router-link :to="`/ancestries/${createSlug(ancestry.name)}`" class="concept-link">{{
+                            ancestry.name }}</router-link><span v-if="index < ancestries.length - 1">, </span>
                     </span>
                 </div>
             </div>
@@ -27,14 +28,19 @@
                 <div class="vitals-value">
                     <span v-if="!cultures.length">None</span>
                     <span v-for="(culture, index) in cultures" :key="culture.id">
-                        {{ culture.name }}<span v-if="index < cultures.length - 1">, </span>
+                        <router-link :to="`/cultures/${createSlug(culture.name)}`" class="concept-link">{{ culture.name
+                        }}</router-link><span v-if="index < cultures.length - 1">, </span>
                     </span>
                 </div>
             </div>
 
             <div class="vitals-detail">
                 <span class="vitals-label">Mestiere:</span>
-                <div class="vitals-value">{{ mestiere?.name || 'None' }}</div>
+                <div class="vitals-value">
+                    <span v-if="!mestiere">None</span>
+                    <router-link v-else :to="`/mestieri/${createSlug(mestiere.name)}`" class="concept-link">{{
+                        mestiere.name }}</router-link>
+                </div>
             </div>
         </div>
 
@@ -50,6 +56,7 @@
 import { ref, computed, onMounted } from 'vue'
 import { useCharactersStore } from '@/stores/charactersStore'
 import { useConceptsStore } from '@/stores/conceptsStore'
+import { createSlug } from '@/utils/urlHelpers'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import CharacterVitalsEditModal from './CharacterVitalsEditModal.vue'
 import CharacterSettingsModal from '@/components/features/characterSheet/modals/CharacterSettingsModal.vue'
