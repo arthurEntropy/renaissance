@@ -6,13 +6,13 @@
 
 <script setup>
 import { computed } from 'vue'
-import { PlusIcon, DocumentDuplicateIcon, PencilIcon, CheckIcon, XMarkIcon, Bars3Icon, Cog6ToothIcon } from '@heroicons/vue/24/outline'
+import { PlusIcon, DocumentDuplicateIcon, PencilIcon, CheckIcon, XMarkIcon, Bars3Icon, Cog6ToothIcon, ArrowPathIcon } from '@heroicons/vue/24/outline'
 
 const props = defineProps({
     type: {
         type: String,
         required: true,
-        validator: (value) => ['edit', 'add', 'duplicate', 'delete', 'drag', 'settings'].includes(value)
+        validator: (value) => ['edit', 'add', 'duplicate', 'delete', 'drag', 'settings', 'refresh'].includes(value)
     },
 
     size: {
@@ -65,6 +65,8 @@ const iconComponent = computed(() => {
         return XMarkIcon
     } else if (props.type === 'settings') {
         return Cog6ToothIcon
+    } else if (props.type === 'refresh') {
+        return ArrowPathIcon
     } else {
         return Bars3Icon
     }
@@ -85,6 +87,8 @@ const tooltip = computed(() => {
         return 'Duplicate'
     } else if (props.type === 'delete') {
         return 'Delete'
+    } else if (props.type === 'refresh') {
+        return 'Reset to maximum'
     } else {
         return 'Drag to reorder'
     }
