@@ -2,7 +2,7 @@
   "id": "e693653e-0a59-445d-8936-b85deec84f53",
   "isDeleted": false,
   "createdAt": "2026-02-05T00:03:53.280Z",
-  "lastModified": "2026-02-05T00:20:33.334Z",
+  "lastModified": "2026-02-05T21:40:28.327Z",
   "name": "Breath of Belladonna",
   "description": "<p>You consume a handful of belladonna berries. You take 1d4 damage from their poison, then exhale a poisonous cloud. Roll Spirit vs Fortitude against each creature within short range. On each win, the creature takes 3d10 damage. Half damage on a loss</p>",
   "isTrait": false,

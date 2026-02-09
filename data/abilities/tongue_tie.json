@@ -1,0 +1,17 @@
+{
+  "id": "4eea948f-f3a2-46db-a275-ffaf6ac60815",
+  "isDeleted": false,
+  "createdAt": "2026-02-05T19:08:32.026Z",
+  "lastModified": "2026-02-05T19:19:19.769Z",
+  "name": "Tongue Tie",
+  "description": "<p><em>Concentration, up to 8 hours.</em></p><p>Roll Spirit vs Spirit against a creature within medium range. On a win, choose a topic of conversation. Whenever the creature attempts to speak about the chosen topic, you, or this spell, a phenomenon or your choice spills forth from its lips instead of words:</p><ul><li><p>Tiny toads, snakes, moths or other vermin</p></li><li><p>Short-lived wildflowers in full bloom</p></li><li><p>Black filth or bile</p></li><li><p>Fairy tales and nursery rhymes</p></li><li><p>Unflattering, unrelated truths about itself or those they are addressing</p></li></ul><p>Telepathic communication circumvents this spell, but writing about the subject results in crude drawings of the chosen phenomenon.</p><p>If you have caught the creature in a lie, or if it was rude or ungrateful after you granted a request from it, the creature's Spirit roll is ill-favored, the spell doesn’t require concentration, and the effect is permanent unless removed by magic. You can also choose to end the spell by using an action to dismiss it.</p>",
+  "isTrait": false,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "162ae4db-7a67-4770-8a2c-7e9883da14f6",
+  "mp": 2,
+  "xp": 5,
+  "manaCost": null,
+  "actionType": "Action",
+  "artUrl": "https://cdn.midjourney.com/754dd7b4-aa29-491f-88ba-b8063c1c7461/0_1.png"
+}

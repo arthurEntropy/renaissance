@@ -2,15 +2,15 @@
   "id": "25f86390-64e9-499a-88b7-d3b7586813e3",
   "isDeleted": false,
   "createdAt": "2026-02-04T02:43:33.417Z",
-  "lastModified": "2026-02-04T15:56:39.138Z",
+  "lastModified": "2026-02-05T21:33:49.977Z",
   "name": "Sanctum",
   "description": "<p><em>Casting Time: 8 hours</em></p><p>You transform a place where you have completed a long rest into your Sanctum. If the location is owned or inhabited, you must have the owner’s permission. You define the Sanctum’s boundaries, which must be small enough that you could walk its perimeter within one hour.</p><p>After the Sanctum has existed for at least 7 days, your presence wards it against magical and spiritual intrusion. Sound cannot cross its boundary, and the barrier appears dark, fog-shrouded, or otherwise obscured, preventing sight through it. Magical sensors cannot appear within the Sanctum or pass through its perimeter, creatures inside cannot be targeted by effects that read or influence their minds or senses, and nothing may teleport into or out of the area.</p><p>You may only maintain one Sanctum at a time. Creating a new one causes the old Sanctum to go dormant. Restoring a dormant Sanctum requires another 8 hours of work and 7 days to regain its full protections.</p>",
   "isTrait": false,
   "canBeActive": false,
   "isActive": true,
   "source": "162ae4db-7a67-4770-8a2c-7e9883da14f6",
-  "mp": null,
-  "xp": 30,
+  "mp": 7,
+  "xp": 35,
   "manaCost": null,
   "artUrl": "https://cdn.midjourney.com/976941c4-4463-4c61-9ddb-553710a7e15a/0_3.png",
   "improvements": [
@@ -26,5 +26,6 @@
       "xp": 20,
       "id": "9ffd67dc-2220-49c6-81e4-5dbf51d56192"
     }
-  ]
+  ],
+  "actionType": "Ritual"
 }
