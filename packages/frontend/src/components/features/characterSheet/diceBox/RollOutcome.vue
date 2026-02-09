@@ -9,7 +9,7 @@
                     <span class="opponent-wins">{{ rollData.opponentWins }}</span>
                     <span v-if="rollData.drawCount && rollData.drawCount > 0" class="draw-count">
                         , <span class="draw-number">{{ rollData.drawCount }}</span> {{ rollData.drawCount === 1 ? 'draw'
-                        : 'draws' }}
+                            : 'draws' }}
                     </span>
                 </span>
                 <span v-else-if="isOpposedSkillCheck" class="opposed-score">
@@ -17,7 +17,7 @@
                     <span class="score-separator">vs</span>
                     <span class="opponent-total">{{ rollData.opponentTotal }}</span>
                 </span>
-                <span v-else-if="isCustomRoll">
+                <span v-else-if="isCustomRoll || isInitiative">
                     <span class="roll-total custom-roll">{{ rollData.total }}</span>
                     <span v-if="rollData.modifier !== 0" class="roll-breakdown">
                         ({{ rollData.diceTotal }}{{ rollData.modifier >= 0 ? '+' : '' }}{{ rollData.modifier }})
@@ -32,7 +32,7 @@
 
         <!-- Roll Outcome Banner -->
         <transition name="outcome-fade" appear>
-            <div v-if="!isRolling && !isCustomRoll" class="roll-outcome" :class="outcomeClass">
+            <div v-if="!isRolling && !isCustomRoll && !isInitiative" class="roll-outcome" :class="outcomeClass">
                 {{ outcomeText }}
             </div>
         </transition>
@@ -66,6 +66,10 @@ const props = defineProps({
     isCustomRoll: {
         type: Boolean,
         required: true
+    },
+    isInitiative: {
+        type: Boolean,
+        default: false
     },
     isRolling: {
         type: Boolean,
