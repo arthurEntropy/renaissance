@@ -1,13 +1,16 @@
 {
   "id": "f52ae657-c211-46bc-9dc7-7d1444f55711",
   "name": "Formidable",
-  "description": "<p>Whenever you knock a foe unconscious, roll Awe vs Spirit against all other enemies within short range. Each foe that fails takes –1d to their next attack roll.</p>",
-  "isTrait": true,
+  "description": "<p><em>Trigger: You knock a creature unconscious.</em></p><p>Roll Awe vs Spirit against any number of creatures within short range. On each win, that creature checks two Conditions. On each loss, the creature checks one Condition.</p>",
+  "isTrait": false,
   "canBeActive": false,
   "isActive": true,
   "source": "1e4131c7-8a6f-422c-998a-5147600c946e",
   "isDeleted": false,
   "mp": null,
   "xp": 10,
-  "lastModified": "2025-11-20T00:38:57.135Z"
+  "lastModified": "2026-01-31T01:13:14.545Z",
+  "actionType": "Reaction",
+  "successes": "<p>✨: Win or lose, each creature takes -1d to attack rolls against you for 1 round.</p><p>🌞: Win or lose, each creature may not move closer to you for 1 round.</p><p>💀: Check a Condition.</p>",
+  "artUrl": "https://cdn.midjourney.com/86161bbc-5177-4631-9c1b-cf6b40aa4fc0/0_3.png"
 }

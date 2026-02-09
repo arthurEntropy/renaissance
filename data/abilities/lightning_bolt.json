@@ -1,0 +1,18 @@
+{
+  "id": "8a762dde-2929-4301-8b05-30f57350bdec",
+  "isDeleted": false,
+  "createdAt": "2026-01-22T16:09:04.055Z",
+  "lastModified": "2026-01-30T02:02:34.619Z",
+  "name": "Lightning Bolt",
+  "description": "<p>Uncheck a Condition. If you did, roll Spirit vs Dexterity against a creature within long range. On a win, it takes 2d6 damage. On a loss, it takes half damage.</p><p>If the unchecked Condition was Anger, +1d damage.</p>",
+  "isTrait": false,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
+  "mp": null,
+  "xp": "",
+  "manaCost": "1RR",
+  "successes": "<p>✨: +1d damage.</p><p><strong>🌞:</strong> You may chain this attack to another creature within short range of the previous target. Roll Spirit vs Dexterity. On a win, the target takes 2d6 damage and you may continue chaining. On a loss, the target takes half damage and the chain ends.</p><p>💀: Check a condition.</p>",
+  "actionType": "Action",
+  "artUrl": "https://cdn.midjourney.com/3e81b6ab-4495-44ec-acc7-64178947158e/0_3.png"
+}

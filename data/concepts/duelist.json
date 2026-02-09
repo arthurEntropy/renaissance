@@ -5,9 +5,7 @@
   "description": "<p>FLAVOR:</p><ul><li><p>Duelist</p></li><li><p>Precision combat, maneuverability</p></li><li><p>Must maintain good form!</p></li></ul><p>WEAPONS</p><ul><li><p>Light, common, light firearms</p></li><li><p>Light armor, no helms</p></li></ul><p>ENGAGEMENT:</p><ul><li><p>Many small dice</p></li><li><p>Lots of success options, fancy</p></li></ul><p>ABILITIES</p><ul><li><p>Form: benefits while maintaining, penalties while out of form</p></li><li><p>Dual wielding</p></li><li><p>Extra movement as reaction?</p></li></ul>",
   "isDeleted": false,
   "artUrls": [
-    "https://cdn.midjourney.com/bb7f8092-0710-4aaf-9f26-e376a0cec04e/0_0.png",
-    "https://cdn.midjourney.com/662cb7a7-d174-4632-a697-5f2858d360a5/0_0.png",
-    "https://cdn.midjourney.com/d9fd3b49-70e1-4b87-8869-5a1d78af1afa/0_3.jpeg"
+    "https://cdn.midjourney.com/bb7f8092-0710-4aaf-9f26-e376a0cec04e/0_0.png"
   ],
   "faces": [],
   "places": [],
@@ -28,9 +26,10 @@
     "ranged": "",
     "firearms": "light",
     "armor": "light",
-    "engagement": "<p><span class=\"dice-icon df-d4-4\" style=\"font-size: 36px;\"></span> <span class=\"dice-icon df-d4-4\" style=\"font-size: 36px;\"></span> x WITS</p>",
-    "initialMaxMP": 3,
-    "abilities": ""
+    "engagement": "<p><span class=\"dice-icon dice-icon dice-icon df-d4-4\" style=\"font-size: 36px;\"></span> <span class=\"dice-icon dice-icon dice-icon df-d4-4\" style=\"font-size: 36px;\"></span> x WITS</p><p>You have the <em>Compass, Feint, Invitation, Parry, Manchette, Retreat </em>and <em>Riposte</em> Engagement successes.</p>",
+    "initialMaxMP": 0,
+    "abilities": "<p>You start each Combat with 0 MP. You earn MP by winning Engagements, via your <em>Good Form</em> ability.</p>",
+    "description": "<p>You have the Demand Satisfaction and Good Form abilities. Also choose one of these additional abilities, ignoring its XP cost:</p><ul><li><p>Press Advantage</p></li><li><p>Quick Draw</p></li><li><p>Lunge</p></li></ul>"
   },
-  "lastModified": "2025-12-15T12:57:39.554Z"
+  "lastModified": "2026-01-30T16:26:59.213Z"
 }

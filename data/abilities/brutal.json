@@ -1,13 +1,15 @@
 {
   "id": "3a04ff42-11fc-45fc-9eac-a80595e6d374",
   "name": "Brutal",
-  "description": "<p>When you inflict Injury on a foe, they roll their Injury check twice and keep the worse result.</p>",
-  "isTrait": true,
+  "description": "<p><em>Trigger: Your attack inflicts Injury on a creature.</em></p><p>They roll Injury twice and keep the worst result.</p>",
+  "isTrait": false,
   "canBeActive": false,
   "isActive": true,
   "source": "1e4131c7-8a6f-422c-998a-5147600c946e",
   "isDeleted": false,
-  "mp": null,
-  "xp": 10,
-  "lastModified": "2025-11-20T00:38:36.268Z"
+  "mp": 1,
+  "xp": 5,
+  "lastModified": "2026-01-31T01:23:52.433Z",
+  "actionType": "Reaction",
+  "artUrl": "https://cdn.midjourney.com/f0c5e443-6c8b-4c33-b42f-3e69795eb82a/0_3.png"
 }

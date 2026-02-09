@@ -1,14 +1,16 @@
 {
   "id": "7eb3559b-8cd5-49ce-b047-a627e30db31c",
   "name": "Demand Satisfaction",
-  "description": "<p>Roll Awe vs Spirit against a foe who can see and hear you. If you win, the foe's attacks against combatants other than you are ill-favored for the next three rounds. If you attack any combatant other than the foe, the effect ends.</p>",
+  "description": "<p>Roll Courtesy vs Courtesy against a creature who can see and hear you.</p><p>On a win, the creature's attacks against creatures other than you are ill-favored for the next round. If you make an attack against any creature other than the target, the attack is ill-favored and this effect ends.</p><p>On a loss, for the next minute, your rolls for repeat attempts to use this ability on that creature are ill-favored.</p><p></p>",
   "isTrait": false,
   "canBeActive": false,
   "isActive": true,
   "source": "4eccfe5d-de19-4bc5-8c9c-374d793d67f0",
   "isDeleted": false,
-  "mp": 0,
+  "mp": "",
   "xp": null,
   "actionType": "Half Action",
-  "lastModified": "2025-11-14T19:04:13.950Z"
+  "lastModified": "2026-02-01T01:27:25.616Z",
+  "artUrl": "https://cdn.midjourney.com/17f373ad-681f-4373-af05-c9a27440b460/0_1.png",
+  "successes": "<p>✨: On a win, the effect lasts for 3 rounds.</p><p>🌞: On a win, the effect lasts for one minute.</p><p>💀: Check a Condition.</p>"
 }

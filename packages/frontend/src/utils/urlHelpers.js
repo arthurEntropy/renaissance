@@ -1,4 +1,8 @@
 export function createSlug(name) {
+  if (!name || typeof name !== 'string') {
+    console.warn('[urlHelpers] Invalid name provided to createSlug:', name)
+    return ''
+  }
   return name
     .toLowerCase()
     .replace(/\s+/g, '-')

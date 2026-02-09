@@ -1,0 +1,15 @@
+{
+  "id": "78d79425-1301-4b9a-81d5-09198c293318",
+  "isDeleted": true,
+  "createdAt": "2026-01-29T19:06:31.448Z",
+  "lastModified": "2026-01-29T19:13:36.232Z",
+  "name": "New Ability",
+  "description": "<p>There is a simple, unrefined game of competitive strength that is near and dear to you, for personal or cultural reasons. Choose a game like armwrestling, competitive pushups, shin-kicking, face-slapping, or invent your own. Any time you are able to convince a leader of a group to play the game with you, </p>",
+  "isTrait": false,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "e0a69b6f-38f9-4fa5-a1ef-5e5777299e82",
+  "mp": null,
+  "xp": null,
+  "manaCost": null
+}

@@ -2,14 +2,10 @@
   "id": "558abd15-f90f-40d7-80d8-df73a37f977c",
   "conceptType": "MESTIERE",
   "name": "Summoner",
-  "description": "",
+  "description": "<p>A pouch of carved glass phials rattles at your hip. Each one glows faintly with an inner light—beast-souls suspended in crystalline stasis, waiting to be called forth. You reach for one, feel its warmth pulse against your palm, and uncork it with practiced fingers. Reality shivers as fur and scale and claw materialize beside you, a creature both wild and bound, answering your silent command.</p><p>Summoners are masters of the ancient art of capturing creatures in magical Vessels and calling them to battle. Through patient training and deepening bonds of Friendship, they transform wild beasts into loyal companions. They must balance the challenge of capturing powerful creatures with the XP cost required, all while nurturing relationships that can grow from tentative captivity to unbreakable trust. Their creatures fight alongside them in combat, using transferred actions from the Summoner to strike, defend, and adapt.</p><p>Play a Summoner if you want to build a team of unique creatures, develop meaningful bonds with non-humanoid allies, and approach each encounter with a versatile roster of companions whose strengths you can mix and match to meet any challenge.</p>",
   "isDeleted": false,
   "artUrls": [
-    "https://cdn.midjourney.com/b4a69efb-4573-427d-b5b2-3bf49c18753c/0_1.png",
-    "https://cdn.midjourney.com/7bceb743-e8a1-4479-99db-c676637e586f/0_0.jpeg",
-    "https://cdn.midjourney.com/7fc3453d-ea18-47a0-8cd8-abf5c7c62b4b/0_0.jpeg",
-    "https://cdn.midjourney.com/c3a80920-4e02-4bde-b0ca-2deae0517a2c/0_0.jpeg",
-    "https://cdn.midjourney.com/2d7d3494-4349-4d28-9eac-5196ae40f0d0/0_0.jpeg"
+    "https://cdn.midjourney.com/b4a69efb-4573-427d-b5b2-3bf49c18753c/0_1.png"
   ],
   "faces": [],
   "places": [],
@@ -23,5 +19,17 @@
   "vittles": "",
   "pointsOfInterest": "",
   "floraFauna": "",
-  "lastModified": "2025-12-15T12:58:08.905Z"
+  "lastModified": "2026-02-03T00:44:00.222Z",
+  "novizio": {
+    "flavorText": "",
+    "melee": "light, common",
+    "polearms": "",
+    "ranged": "",
+    "firearms": "",
+    "armor": "light",
+    "engagement": "",
+    "initialMaxMP": "",
+    "abilities": "",
+    "description": "<p>You have 3 Standard Vessels. They can all be the same or you can have a mix of Vessels.</p><p><strong>Describe your Vessels and how you created them.</strong></p><p>Choose a non-humanoid creature of Challenge 10 or less that inhabits your home biome, or a biome you have travelled through recently. That creature is already captured in one of your 3 starting Vessels and has a Friendship score of 3.</p><p><strong>Describe how you captured this creature.</strong></p>"
+  }
 }

@@ -1,12 +1,15 @@
 {
   "id": "359a4615-81a7-4cd1-a23f-22b50b7d1f93",
   "name": "Quick Draw",
-  "description": "<p>Once per rest, when a foe makes an attack against you, if you have a free hand, you may use your reaction to draw and fire a light firearm at them before their attack roll.</p>",
-  "isTrait": true,
+  "description": "<p><em>Trigger: A creature enters Engagement with you.</em></p><p>If you have a free hand, you draw and fire a light firearm at your opponent before rolling Engagement.</p>",
+  "isTrait": false,
   "canBeActive": false,
   "isActive": true,
   "source": "4eccfe5d-de19-4bc5-8c9c-374d793d67f0",
   "isDeleted": false,
-  "mp": null,
-  "xp": 5
+  "mp": 3,
+  "xp": 5,
+  "actionType": "Reaction",
+  "lastModified": "2026-01-30T18:01:40.905Z",
+  "artUrl": "https://cdn.midjourney.com/3981fdcd-d38d-45af-bfe2-20ff626b49d9/0_1.png"
 }

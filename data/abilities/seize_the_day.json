@@ -1,16 +1,16 @@
 {
   "id": "93062eed-66ba-49ab-a56a-790c184e541c",
   "name": "Seize The Day",
-  "description": "<p>Once per round, you may spend 1 Hope to take +1 action on your turn.</p>",
+  "description": "<p>Take another turn immediately after this one.</p>",
   "isTrait": false,
   "canBeActive": false,
   "isActive": true,
   "source": "d4dce5e2-e767-464d-91f0-c40b47f788b3",
   "isDeleted": false,
-  "mp": null,
+  "mp": 5,
   "xp": 10,
   "actionType": "Half Action",
   "improvements": [],
-  "lastModified": "2025-12-27T01:23:49.616Z",
+  "lastModified": "2026-02-02T01:07:00.840Z",
   "artUrl": "https://cdn.midjourney.com/94512610-dc73-40ad-996f-113029631dce/0_0.png"
 }

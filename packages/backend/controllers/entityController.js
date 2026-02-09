@@ -85,8 +85,10 @@ const updateEntity = (entity) => (req, res) => {
       req.body.updatedAt = new Date().toISOString()
     }
 
-    saveFile(req.body, directory, existingEntity.name)
-    res.status(200).json({ message: `Record updated successfully in ${entity}` })
+    saveFile(req.body, directory, existingEntity.name, existingEntity.id)
+    
+    // Return the updated entity
+    res.status(200).json(req.body)
   } catch (error) {
     console.error(`Error updating record in ${entity}:`, error)
     res.status(500).json({ error: `Failed to update record in ${entity}` })

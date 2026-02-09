@@ -1,14 +1,15 @@
 {
   "id": "976032f0-f2e9-42c3-8c1d-6b4ff73ce454",
   "name": "Keep Swinging",
-  "description": "<p>Once per round: you may make one extra attack this turn. You lose 5 Endurance.</p>",
+  "description": "<p>Once per round: Make a melee attack.</p>",
   "isTrait": false,
   "canBeActive": false,
   "isActive": true,
   "source": "1e4131c7-8a6f-422c-998a-5147600c946e",
   "isDeleted": false,
-  "mp": null,
-  "xp": 10,
+  "mp": 5,
+  "xp": 25,
   "actionType": "Half Action",
-  "lastModified": "2025-11-20T00:39:05.849Z"
+  "lastModified": "2026-02-01T01:05:03.571Z",
+  "artUrl": "https://cdn.midjourney.com/4fb54952-dfa1-404b-b837-c37f4d0448e9/0_3.png"
 }

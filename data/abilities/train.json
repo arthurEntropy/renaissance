@@ -1,0 +1,16 @@
+{
+  "id": "1fbe03dd-9c5f-4224-bcbf-1bdac72673a0",
+  "isDeleted": false,
+  "createdAt": "2026-02-02T15:29:38.065Z",
+  "lastModified": "2026-02-02T21:27:25.850Z",
+  "name": "Train",
+  "description": "<p>At any time, as a free action, you may spend your captured creatures' XP to increase their core abilities and skill ranks or to acquire new abilities. You may also use your XP for this purpose, though you cannot use one creature's XP to benefit another creature.</p><p>Additionally, once per day, you may spend 1 hour while out of combat to train one of your captured creatures.</p><p>At the end of the hour, repeat the roll you made to capture it (Awe, Spirit or Persuade) against a Difficulty equal to the creature's Challenge Rating minus the creature's Vessel's Keeping and its current Friendship.</p><p>On a win, you and the creature both gain XP based on the roll: 1 XP for Awe, 2 XP for Spirit, 3 XP for Persuade. On a loss, you gain no XP. Either way, if the creature's Friendship is less than 5, it increases by 1.</p><p><strong>Describe how you train your creature.</strong></p>",
+  "isTrait": true,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "558abd15-f90f-40d7-80d8-df73a37f977c",
+  "mp": null,
+  "xp": null,
+  "manaCost": null,
+  "artUrl": "https://cdn.midjourney.com/378f8987-a1ad-491e-8bfb-92cb250bb7d0/0_3.png"
+}

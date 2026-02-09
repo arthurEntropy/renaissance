@@ -1,14 +1,14 @@
 {
   "id": "df41e010-07b6-40bf-bc67-ec2a01c9b95d",
   "name": "Dual Wielding",
-  "description": "<p>You gain +1 Defense while wielding a separate melee weapon in each hand.</p><p>When you attack with one of these weapons and miss, you may immediately make a follow-up attack with the other weapon if it is light, using the same Engagement result as the first attack.</p>",
+  "description": "<p>You gain +2 Defense while wielding a separate melee weapon in each hand.</p><p>When you make an attack with one of these weapons and miss, you may immediately make a follow-up attack with the other weapon if it is light, using the same Engagement result as the first attack.</p>",
   "isTrait": true,
   "canBeActive": false,
   "isActive": true,
   "source": "4eccfe5d-de19-4bc5-8c9c-374d793d67f0",
   "isDeleted": false,
   "mp": null,
-  "xp": 10,
+  "xp": 15,
   "improvements": [
     {
       "name": "Ambidextrous",
@@ -22,5 +22,7 @@
       "xp": 10,
       "id": "5cdf24a8-94a3-54a9-8d29-e31c0a213826"
     }
-  ]
+  ],
+  "lastModified": "2026-01-30T17:41:23.200Z",
+  "artUrl": "https://cdn.midjourney.com/0cb0d2db-0e05-44b2-ae69-ec45913d8bc9/0_0.png"
 }

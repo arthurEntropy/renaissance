@@ -41,6 +41,16 @@ export const useCharactersStore = defineStore('characters', () => {
     return selectedCharacter.value.userId === authStore.user?.uid
   })
 
+  // Wrap update to sync selectedCharacter
+  const update = async (entity) => {
+    const updatedEntity = await base.update(entity)
+    // If the updated entity is the currently selected character, update the reference
+    if (selectedCharacter.value && selectedCharacter.value.id === updatedEntity.id) {
+      selectedCharacter.value = updatedEntity
+    }
+    return updatedEntity
+  }
+
   return {
     characters: base.items,
     selectedCharacter,
@@ -48,7 +58,7 @@ export const useCharactersStore = defineStore('characters', () => {
     error: base.error,
     fetch: base.fetch,
     create: base.create,
-    update: base.update,
+    update,
     remove: base.remove,
     selectCharacter,
     deselectCharacter,

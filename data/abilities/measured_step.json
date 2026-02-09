@@ -1,13 +1,13 @@
 {
   "id": "4837f5fd-7866-4803-a00a-fb9906c2d88f",
   "name": "Measured Step",
-  "description": "<p>At the beginning of each of your turns, you may choose to reduce your movement for the round. For each 5 feet you reduce it by, ignore 5 lbs of weight from your weapons and armor when calculating Load.</p>",
+  "description": "<p>At the beginning of each of your turns, you may choose to reduce your movement for the round. For each 5 feet you reduce it by, ignore 5 lbs of weight from the equipment you're carrying when calculating Load.</p>",
   "isTrait": true,
   "canBeActive": false,
   "isActive": true,
   "source": "1e4131c7-8a6f-422c-998a-5147600c946e",
-  "isDeleted": false,
+  "isDeleted": true,
   "mp": null,
   "xp": 10,
-  "lastModified": "2025-11-20T00:39:16.548Z"
+  "lastModified": "2026-01-31T00:45:43.326Z"
 }

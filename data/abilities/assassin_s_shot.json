@@ -1,0 +1,17 @@
+{
+  "id": "41988eb5-709a-4f65-972d-ac2e2c5b2ee0",
+  "isDeleted": false,
+  "createdAt": "2026-02-03T15:30:26.965Z",
+  "lastModified": "2026-02-03T21:37:04.779Z",
+  "name": "Assassin's Shot",
+  "description": "<p>If your next ranged attack is against a creature that cannot see or hear you, the attack inflicts Injury on any hit.</p>",
+  "isTrait": false,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "10f46ecd-e6f5-4d3b-b510-d4035ab24f56",
+  "mp": 3,
+  "xp": 15,
+  "manaCost": null,
+  "actionType": "Half Action",
+  "artUrl": "https://cdn.midjourney.com/d504ea7b-6da3-439e-9abb-5e75a1c351e0/0_1.png"
+}

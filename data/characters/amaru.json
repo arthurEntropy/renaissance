@@ -5,29 +5,33 @@
   "pronouns": "he/him",
   "ancestries": "Human",
   "cultures": "Guildford",
-  "ancestryIds": [],
-  "cultureIds": [],
+  "ancestryIds": [
+    "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+  ],
+  "cultureIds": [
+    "352c844b-6d4f-4b61-b475-315421a453e7"
+  ],
   "personalityAndBackground": "Wizard of the Third Wizards' Guild of Guildford. Associate of Volans.",
   "xp": 10,
   "mp": {
-    "current": 5,
-    "max": 5
+    "current": 7,
+    "max": 18
   },
   "body": 3,
-  "heart": 2,
-  "wits": 1,
+  "heart": 5,
+  "wits": 6,
   "skills": [
     {
       "name": "Awe",
-      "ranks": 2,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": -1,
+      "diceMod": 0,
       "coreAbility": "body"
     },
     {
       "name": "Strength",
-      "ranks": 2,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -35,7 +39,7 @@
     },
     {
       "name": "Dexterity",
-      "ranks": 3,
+      "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -43,15 +47,15 @@
     },
     {
       "name": "Fortitude",
-      "ranks": 2,
-      "isFavored": true,
+      "ranks": 1,
+      "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
       "coreAbility": "body"
     },
     {
       "name": "Craft",
-      "ranks": 2,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -59,15 +63,15 @@
     },
     {
       "name": "Perform",
-      "ranks": 1,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 1,
+      "diceMod": 0,
       "coreAbility": "heart"
     },
     {
       "name": "Insight",
-      "ranks": 2,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -83,7 +87,7 @@
     },
     {
       "name": "Spirit",
-      "ranks": 0,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -99,7 +103,7 @@
     },
     {
       "name": "Persuade",
-      "ranks": 1,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -123,7 +127,7 @@
     },
     {
       "name": "Lore",
-      "ranks": 1,
+      "ranks": 4,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -131,7 +135,7 @@
     },
     {
       "name": "Riddle",
-      "ranks": 0,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -139,23 +143,23 @@
     }
   ],
   "endurance": {
-    "current": 10,
+    "current": 15,
     "max": 15,
     "coreAbility": "body"
   },
   "hope": {
-    "current": 12,
-    "max": 6,
+    "current": 15,
+    "max": 15,
     "coreAbility": "heart"
   },
   "defense": {
-    "current": 13,
-    "max": 11,
+    "current": 16,
+    "max": 16,
     "coreAbility": "wits"
   },
   "load": 0,
   "shadow": 0,
-  "injury": 1,
+  "injury": 0,
   "states": {
     "weary": false,
     "twiceWeary": false,
@@ -171,65 +175,71 @@
     "afraid": false,
     "troubled": false
   },
-  "equipment": [],
+  "equipment": [
+    {
+      "id": "e7c57bc7-5009-45bd-81f0-c8011115862c",
+      "quantity": 1,
+      "isCarried": true,
+      "isWielding": false,
+      "collapsed": true
+    }
+  ],
   "abilities": [
     {
-      "id": "b3152cba-8a7b-4b4b-addd-bcf50e567e2a",
+      "id": "ad7f2d4c-75cc-4b7c-8066-57eb1ccaf54a",
       "collapsed": true,
-      "showImprovements": true,
-      "showSuccesses": false,
-      "improvements": {
-        "bbad14e4-d64f-42cb-b177-b1f8e0c065f1": true
-      }
+      "showImprovements": false,
+      "showSuccesses": false
     },
     {
-      "id": "538c910c-e768-4d55-a1e6-dfb205792307",
+      "id": "4fbf9ccb-0fbb-45d0-9f8f-7b7fcfb811fb",
       "collapsed": true,
-      "showImprovements": true,
-      "showSuccesses": false,
-      "improvements": {
-        "c8cfa367-3a46-4536-8928-f33ae1a2fb06": true
-      }
+      "showImprovements": false,
+      "showSuccesses": false
     },
     {
       "id": "15170e88-f451-4302-b772-8ca96aa9ca65",
       "collapsed": true,
-      "showImprovements": true,
-      "showSuccesses": false,
-      "improvements": {
-        "58a05e75-05a6-4244-9c87-74b4f0f3c8e3": true
-      }
+      "showImprovements": false,
+      "showSuccesses": false
     },
     {
-      "id": "e71d1ead-efd9-4d2c-a9c3-9f937f93847c",
+      "id": "b5534e7f-c4e9-466e-a87d-8e1da0380642",
       "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false
-    }
-  ],
-  "activeEffects": [
+    },
     {
-      "name": "Weird But Entertaining",
-      "skillsModified": [
-        {
-          "name": "Awe",
-          "diceMod": -1,
-          "makeFavored": false,
-          "makeIllFavored": false
-        },
-        {
-          "name": "Perform",
-          "diceMod": 1,
-          "makeFavored": false,
-          "makeIllFavored": false
-        }
-      ]
+      "id": "b3152cba-8a7b-4b4b-addd-bcf50e567e2a",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "dd5827a8-6fb7-4b9f-8c94-c7d6dd900fe4",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "923589e5-d20f-4d1e-90f9-e48dde46f8b5",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "e71d1ead-efd9-4d2c-a9c3-9f937f93847c",
+      "collapsed": false,
+      "showImprovements": false,
+      "showSuccesses": true
     }
   ],
+  "activeEffects": [],
   "artUrls": [
     "https://cdn.midjourney.com/46f7df2d-65a2-44e8-90fd-c01738a187c3/0_0.png"
   ],
   "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2026-01-02T15:35:21.416Z",
-  "lastModified": "2026-01-02T15:35:21.416Z"
+  "updatedAt": "2026-01-29T02:51:54.128Z",
+  "lastModified": "2026-01-29T02:51:54.128Z",
+  "mestiereId": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa"
 }

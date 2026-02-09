@@ -1,14 +1,18 @@
 {
-  "id": "de2e226f-c1e2-489e-9f70-353153421262",
+  "id": "2afaa6d7-93d1-401b-8051-61e4b8ab752b",
+  "isDeleted": false,
+  "createdAt": "2026-01-30T13:41:36.413Z",
+  "lastModified": "2026-02-01T01:29:14.828Z",
   "name": "Press Advantage",
-  "description": "<p>You may expend 4 Engagement dice to make one extra melee attack this turn.</p>",
+  "description": "<p><em>Trigger: You win an Engagement.</em></p><p>Your opponent takes -1 Defense. This effect is cumulative and persists as long as you and the opponent remain engaged.</p>",
   "isTrait": false,
   "canBeActive": false,
   "isActive": true,
   "source": "4eccfe5d-de19-4bc5-8c9c-374d793d67f0",
-  "isDeleted": false,
-  "mp": 0,
-  "xp": 10,
-  "actionType": "Half Action",
-  "lastModified": "2025-11-14T19:04:08.245Z"
+  "mp": 1,
+  "xp": 5,
+  "manaCost": null,
+  "actionType": "Reaction",
+  "successes": "",
+  "artUrl": "https://cdn.midjourney.com/6b84044e-4d98-4a5c-a9bb-a667f5e514b5/0_0.png"
 }

@@ -1,0 +1,18 @@
+{
+  "id": "8d9b4191-4c71-4d62-9344-800fe50787ab",
+  "isDeleted": false,
+  "createdAt": "2026-01-28T20:52:00.930Z",
+  "lastModified": "2026-01-30T01:06:00.787Z",
+  "name": "Pestilence",
+  "description": "<p><em>Concentration, up to 1 minute.</em></p><p>Uncheck any number of Conditions. At the beginning of each of your turns, you take 1d4 damage. Then, for each Condition you unchecked (twice for Afraid), roll Spirit vs Fortitude against one creature within medium range. On a win, that creature takes 1d4+HEART damage. Half damage on a loss.</p>",
+  "isTrait": false,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
+  "mp": null,
+  "xp": null,
+  "manaCost": "4BB",
+  "successes": "<p>✨: +1d damage.</p><p>🌞: You do not take damage at the beginning of each of your turns.</p><p>💀: Check two Conditions.</p>",
+  "actionType": "Action",
+  "artUrl": "https://cdn.midjourney.com/32ebdcee-741a-4cf3-a6e7-1d6359b9d1b1/0_3.png"
+}

@@ -1,7 +1,7 @@
 {
   "id": "1e289ca8-cf6a-4f0d-ad7c-a13fc8e1f381",
   "name": "Fists Up",
-  "description": "<p>When you make unarmed attacks or strike with an improvised weapon, your damage die is a d6. Also, you may make one attack per free hand each turn.</p><p><strong>Describe how your stripped-down style delivers a brutal blow.</strong></p>",
+  "description": "<p>You may make one attack per free hand each turn.</p><p>When you make unarmed attacks or attack with an improvised weapon, your damage die for the attack is a d6.</p><p><strong>Describe how your stripped-down style delivers a brutal blow.</strong></p>",
   "isTrait": true,
   "canBeActive": false,
   "isActive": true,
@@ -13,9 +13,16 @@
     {
       "name": "Fists of Fury",
       "description": "<p>Your damage die for unarmed attacks and attacks with improvised weapons increases to a d8.</p>",
-      "xp": 10,
+      "xp": 15,
       "id": "c0cce62d-03a8-5654-92e9-c354f4233834"
+    },
+    {
+      "name": "Sting Like A Bee",
+      "description": "<p>Your damage die for unarmed attacks and attacks with improvised weapons increases to a d10.</p>",
+      "xp": 30,
+      "id": "cd9bad53-973c-437d-8dbf-170e407660d5"
     }
   ],
-  "lastModified": "2025-11-20T03:01:14.985Z"
+  "lastModified": "2026-01-29T14:11:00.011Z",
+  "artUrl": "https://cdn.midjourney.com/e5d5231e-2d99-47b2-aa1d-b3dc4970239d/0_3.png"
 }

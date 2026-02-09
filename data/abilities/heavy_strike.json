@@ -1,14 +1,15 @@
 {
   "id": "3f084b3d-ff7a-462c-a55c-0ea52dac6332",
   "name": "Heavy Strike",
-  "description": "<p>Take +1d to either your attack or damage rolls this turn. You lose 2 Endurance.</p>",
+  "description": "<p>Take +1d to either your attack or damage rolls this turn.</p>",
   "isTrait": false,
   "canBeActive": false,
   "isActive": true,
   "source": "1e4131c7-8a6f-422c-998a-5147600c946e",
   "isDeleted": false,
-  "mp": null,
+  "mp": 1,
   "xp": "",
   "actionType": "Half Action",
-  "lastModified": "2025-11-20T00:35:12.841Z"
+  "lastModified": "2026-01-31T01:52:44.717Z",
+  "artUrl": "https://cdn.midjourney.com/d4445702-664a-4619-8204-84852b11813f/0_2.png"
 }

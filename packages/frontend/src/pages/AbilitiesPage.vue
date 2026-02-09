@@ -202,10 +202,7 @@ const updateAbilityShowSuccesses = (abilityId, showSuccesses) => {
 const createAbility = async () => {
   const newAbility = await AbilityService.create()
   await abilitiesStore.fetch()
-  const createdAbility = abilitiesStore.abilities.find(
-    (ability) => ability.id === newAbility.id,
-  )
-  openEditAbilityModal(createdAbility)
+  openEditAbilityModal(newAbility)
 }
 
 const updateAbility = async (ability) => {

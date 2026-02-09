@@ -60,7 +60,7 @@ const getAllDataByDirectory = (directory) => {
   }
 }
 
-const saveFile = (data, directory, oldName = null) => {
+const saveFile = (data, directory, oldName = null, existingId = null) => {
   try {
     // Generate a new ID if one doesn't exist
     const isNew = !data.id
@@ -89,6 +89,45 @@ const saveFile = (data, directory, oldName = null) => {
 
     const files = readdirSync(directory).filter((f) => f.endsWith('.json'))
 
+    // If updating an existing entity, find and remove the old file first
+    let oldFilePath = null
+    let oldFileName = null
+    if (!isNew && existingId) {
+      // Find the existing file by ID
+      const matchingFiles = []
+      for (const file of files) {
+        const existingFilePath = join(directory, file)
+        try {
+          const existingData = JSON.parse(readFileSync(existingFilePath, 'utf8'))
+          if (existingData.id === existingId) {
+            matchingFiles.push({ file, path: existingFilePath, name: existingData.name })
+          }
+        } catch (err) {
+          // Skip files that can't be parsed
+          console.warn(`Could not parse file ${file}:`, err.message)
+        }
+      }
+      
+      // Warn if multiple files have the same ID (data corruption)
+      if (matchingFiles.length > 1) {
+        console.error(`WARNING: Found ${matchingFiles.length} files with ID ${existingId}:`)
+        matchingFiles.forEach(f => console.error(`  - ${f.file} (name: "${f.name}")`))
+      }
+      
+      // Use the first matching file, or if oldName provided, prefer file with matching name
+      if (matchingFiles.length > 0) {
+        let targetFile = matchingFiles[0]
+        if (oldName) {
+          const nameMatch = matchingFiles.find(f => f.name === oldName)
+          if (nameMatch) {
+            targetFile = nameMatch
+          }
+        }
+        oldFilePath = targetFile.path
+        oldFileName = targetFile.name
+      }
+    }
+
     // Check for filename conflicts (different id, same name)
     let suffix = 1
     while (files.includes(filename)) {
@@ -103,14 +142,11 @@ const saveFile = (data, directory, oldName = null) => {
     }
 
     // If old name exists and differs, handle renaming with conflict resolution
-    if (oldName && oldName !== data.name && useName) {
-      const oldBaseFilename = sanitizeFilename(oldName)
-      const oldFilename = oldBaseFilename + '.json'
-      const oldFilePath = join(directory, oldFilename)
-
+    if (oldName && oldName !== data.name && useName && oldFilePath) {
+      // We have an old file to rename
       // Handle renaming conflicts (ensure target filename isn't another entity)
       let renameSuffix = 1
-      while (files.includes(filename) && oldFilename !== filename) {
+      while (files.includes(filename)) {
         const existingDataAtTarget = JSON.parse(readFileSync(join(directory, filename), 'utf8'))
         if (existingDataAtTarget.id !== data.id) {
           filename = `${baseFilename}_${renameSuffix}.json`
@@ -120,17 +156,28 @@ const saveFile = (data, directory, oldName = null) => {
           break
         }
       }
-
-      // Only attempt rename if the old file actually exists and target differs
-      if (existsSync(oldFilePath) && oldFilename !== filename) {
-        renameSync(oldFilePath, filePath)
-      }
     }
 
     // Atomic write using temporary file
     const tempPath = join(directory, `.${filename}.tmp-${uuidv4()}`)
     writeFileSync(tempPath, JSON.stringify(data, null, 2), 'utf8')
     renameSync(tempPath, filePath)
+
+    // Remove the old file if it exists and is different from the new file
+    if (oldFilePath && oldFilePath !== filePath && existsSync(oldFilePath)) {
+      // Additional safety: verify the file still has the same ID before deleting
+      try {
+        const fileToDelete = JSON.parse(readFileSync(oldFilePath, 'utf8'))
+        if (fileToDelete.id === data.id) {
+          console.log(`Removing old file: ${oldFilePath} (replacing with ${filePath})`)
+          unlinkSync(oldFilePath)
+        } else {
+          console.error(`SAFETY CHECK FAILED: File ${oldFilePath} has ID ${fileToDelete.id}, expected ${data.id}. Not deleting.`)
+        }
+      } catch (err) {
+        console.error(`Error verifying file before deletion: ${err.message}`)
+      }
+    }
   } catch (error) {
     console.error(`Error saving file: ${error.message}`)
     throw new Error(`Error saving file: ${error.message}`)

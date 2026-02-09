@@ -1,5 +1,7 @@
 <template>
     <div class="admin-page">
+        <UserSettings />
+
         <UserManager />
 
         <AdminListManager title="Background Images" item-name="Background" :store="backgroundImagesStore"
@@ -65,6 +67,7 @@
 <script setup>
 import AdminListManager from '@/components/features/admin/AdminListManager.vue'
 import UserManager from '@/components/features/admin/UserManager.vue'
+import UserSettings from '@/components/features/admin/UserSettings.vue'
 import { useBackgroundImagesStore } from '@/stores/backgroundImagesStore'
 import { useExpansionsStore } from '@/stores/expansionsStore'
 import { useEquipmentTypesStore } from '@/stores/equipmentTypesStore'

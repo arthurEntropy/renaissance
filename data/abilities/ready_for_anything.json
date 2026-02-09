@@ -1,7 +1,7 @@
 {
   "id": "5a5ae563-7c4a-44dd-8dd9-398e3eafa1cd",
   "name": "Ready For Anything",
-  "description": "<p>Once per round, you may switch weapons as a free action instead of a half action.</p>",
+  "description": "<p>Once per round, you may switch one wielded equipment item for another as a free action instead of a half action.</p>",
   "isTrait": true,
   "canBeActive": false,
   "isActive": true,
@@ -10,6 +10,6 @@
   "mp": null,
   "xp": 5,
   "improvements": [],
-  "lastModified": "2025-12-27T00:43:05.766Z",
+  "lastModified": "2026-02-02T01:09:25.170Z",
   "artUrl": "https://cdn.midjourney.com/2367672a-820d-46f0-b84b-38fb267157d7/0_1.png"
 }

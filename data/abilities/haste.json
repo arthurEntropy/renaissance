@@ -1,25 +1,17 @@
 {
-  "id": "50ac36f0-481a-491c-9671-0688b06d4255",
+  "id": "4b6d9c51-b6c8-4730-a07b-fc692321c402",
   "isDeleted": false,
-  "createdAt": "2025-12-31T00:15:23.069Z",
-  "lastModified": "2025-12-31T15:09:13.498Z",
+  "createdAt": "2026-01-22T15:55:24.304Z",
+  "lastModified": "2026-01-30T02:13:39.353Z",
   "name": "Haste",
-  "description": "<p><em>Concentration, up to 1 minute.</em></p><p>Choose one:</p><ul><li><p>Your speed doubles.</p></li><li><p>+1 action on each of your turns.</p></li><li><p>+2 Defense</p></li><li><p>Your Dexterity rolls are favored.</p></li></ul><p>Roll Lore to see if you trigger any additional effects.</p><p><strong>Describe the spell's effects.</strong></p>",
+  "description": "<p><em>Concentration, up to 1 minute.</em></p><p>Choose a creature within short range. That creature's speed increases by 10 feet, their Dexterity rolls are favored and they take -2 Defense.</p><p>Check a condition.</p>",
   "isTrait": false,
   "canBeActive": false,
   "isActive": true,
-  "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
-  "mp": 3,
-  "xp": 15,
-  "successes": "<p>✨: Choose one additional effect.</p><p>🌞: Choose two additional effects.</p><p>💀: Your heart races wildly. Check two conditions.</p>",
-  "improvements": [
-    {
-      "name": "Quicken",
-      "description": "<p>You may target another creature within short range with this spell.</p>",
-      "xp": 10,
-      "id": "fdcfeaa5-ba54-4725-a418-080d5af3d654"
-    }
-  ],
-  "artUrl": "https://cdn.midjourney.com/6c9fe199-7ae4-42f2-922b-87e06c1a49fc/0_1.png",
-  "actionType": "Half Action"
+  "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
+  "mp": null,
+  "xp": "",
+  "manaCost": "R",
+  "actionType": "Half Action",
+  "artUrl": "https://cdn.midjourney.com/96c00886-633b-4063-addc-2247aa5f61f0/0_3.png"
 }

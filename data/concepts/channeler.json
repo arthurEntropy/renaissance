@@ -2,7 +2,7 @@
   "id": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
   "conceptType": "MESTIERE",
   "name": "Channeler",
-  "description": "<p><em>Living Conduits of Raw Power</em></p><p>Channelers do not study magic—they <strong>generate it</strong>. Power wells up from within them, raw and volatile, and is shaped only at the moment of release. Their bodies and wills act as conduits, converting inner mana into fire, storm, ice, and catastrophe.</p><p>Channeler magic is immediate, overwhelming, and difficult to restrain. Subtlety has no place here; their spells announce themselves with thunder and flame, tearing through enemies and landscapes alike. As Channelers grow in strength, they learn not finesse, but <strong>capacity</strong>—how much power they can unleash before the world, or they themselves, give way.</p><p>Where others negotiate with the world,<br>Channelers <strong>impose themselves upon it</strong>.</p><h3><strong>Domains of Magic</strong></h3><p>Channelers dominate spells that are explosive, elemental, and environment-altering:</p><ul><li><p><strong>Elemental destruction</strong>: fire, lightning, cold, thunder, acid</p></li><li><p><strong>Weather and catastrophe</strong>: storms, earthquakes, floods</p></li><li><p><strong>Battlefield reshaping</strong> through force and terrain</p></li><li><p><strong>Siege-scale magic</strong> capable of mass devastation</p></li><li><p><strong>Momentum and projection</strong>, favoring direct solutions over control</p></li></ul><h3><strong>Taboo: Restraint</strong></h3><p>Channelers loathe hesitation and dilution. Suppressing power for safety or etiquette feels like cowardice.</p><blockquote><p><em>Power unused is power wasted.</em></p></blockquote><h3><strong>Fault Lines</strong></h3><ul><li><p><strong>Witches</strong> see Channelers as catastrophes in waiting.</p></li><li><p><strong>Arcanists</strong> frustrate them with overplanning and abstraction.</p></li></ul>",
+  "description": "",
   "isDeleted": false,
   "artUrls": [
     "https://cdn.midjourney.com/3f3366f2-b7f5-4b6e-82ec-a71150a47d9b/0_1.png"
@@ -19,5 +19,17 @@
   "vittles": "",
   "pointsOfInterest": "",
   "floraFauna": "",
-  "lastModified": "2026-01-02T20:16:23.782Z"
+  "lastModified": "2026-01-30T13:32:18.913Z",
+  "novizio": {
+    "flavorText": "",
+    "melee": "",
+    "polearms": "",
+    "ranged": "",
+    "firearms": "",
+    "armor": "",
+    "engagement": "",
+    "initialMaxMP": 1,
+    "abilities": "",
+    "description": "<p>You have the <em>Channel</em> ability, plus one ability of your choosing of each mana color.</p><p>If you check all five Conditions, you mana pool is emptied.</p>"
+  }
 }

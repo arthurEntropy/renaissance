@@ -1,0 +1,17 @@
+{
+  "id": "e16d680a-03ea-4d8f-947a-c47b9cf67353",
+  "isDeleted": false,
+  "createdAt": "2026-02-03T15:27:36.365Z",
+  "lastModified": "2026-02-03T19:19:38.697Z",
+  "name": "Long Shot",
+  "description": "<p>You may double the range of your next ranged attack without incurring the ill-favored penalty.</p>",
+  "isTrait": false,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "10f46ecd-e6f5-4d3b-b510-d4035ab24f56",
+  "mp": 1,
+  "xp": 5,
+  "manaCost": null,
+  "actionType": "Half Action",
+  "artUrl": "https://cdn.midjourney.com/0e09f594-6243-4b18-bd6d-c837fb277510/0_0.png"
+}

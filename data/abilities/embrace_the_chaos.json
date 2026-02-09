@@ -1,7 +1,7 @@
 {
   "id": "f1d0e5f7-bb30-4251-a575-8d31c113fe1a",
   "name": "Embrace The Chaos",
-  "description": "<p>Whenever a combatant within short range takes damage from a source other than you, you gain a chaos token. On your turn, you may spend chaos tokens to gain +1d each on skill checks.</p><p>Unused tokens are lost at the end of your turn—unless you hit and deal damage. If you do, you may pass any remaining tokens to any number of creatures within short range. Recipients must use these tokens on their next turn or lose them.</p><p><strong>Describe how you turn the chaos of battle to your advantage.</strong></p>",
+  "description": "<p>Whenever a creature within short range takes damage, you gain 1 MP.</p><p>MP may be spent on your abilities but also, on your turn, you may convert MP, one for one, into +1d bonuses on skill checks.</p><p>At the end of each of your turns, your MP is reduced to 0 —unless you hit with an attack and deal damage. If you did, convert all remaining MP, one for one, to +1d skill check bonuses and distribute them among any number of other creatures within short range. Recipients must use these bonuses on their next turn or lose them.</p><p><strong>Describe how you turn the chaos of battle to your advantage.</strong></p>",
   "isTrait": true,
   "canBeActive": false,
   "isActive": true,
@@ -12,22 +12,23 @@
   "improvements": [
     {
       "name": "Bloodlust",
-      "description": "<p>Once per round, you may spend one chaos token to add a bonus die to a damage roll instead of a skill check. Bonus dice you pass to others can still only be used on skill checks.</p>",
+      "description": "<p>Once per round, you may convert 1 MP to a +1d damage roll bonus.</p>",
       "xp": 5,
       "id": "854306d6-d3b2-5b9d-a387-1474c611803b"
     },
     {
       "name": "Chaos Reigns",
-      "description": "<p>You also gain chaos tokens for damage dealt to combatants within medium range.</p>",
+      "description": "<p>You also gain MP for damage dealt to creatures within medium range.</p>",
       "xp": 10,
       "id": "a277f343-4a95-51c2-a376-74b16ab9bb7c"
     },
     {
       "name": "Love A Good Fight",
-      "description": "<p>You can exchange chaos tokens to gain a d12 engagement die for your next engagement. Tokens you pass to others can still only be used on skill checks.</p>",
+      "description": "<p>On your turn, you may convert any number of MP to d12 engagement dice, which expire after 1 round. These cannot be passed to other creatures.</p>",
       "xp": 10,
       "id": "4e322b63-bbe9-5b70-9009-f475813e0728"
     }
   ],
-  "lastModified": "2025-11-20T03:00:35.034Z"
+  "lastModified": "2026-01-29T18:23:11.134Z",
+  "artUrl": "https://cdn.midjourney.com/197512d3-8d16-4826-8cc9-5f9c4b663ecf/0_1.png"
 }

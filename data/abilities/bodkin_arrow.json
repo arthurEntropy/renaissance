@@ -1,0 +1,17 @@
+{
+  "id": "4b472223-80bd-437d-b57e-2ff52ab2a3eb",
+  "isDeleted": false,
+  "createdAt": "2026-02-03T15:48:11.553Z",
+  "lastModified": "2026-02-03T19:16:04.339Z",
+  "name": "Bodkin Arrow",
+  "description": "<p>You may halve the range of your next ranged attack to take +1d to the attack roll.</p>",
+  "isTrait": false,
+  "canBeActive": false,
+  "isActive": true,
+  "source": "10f46ecd-e6f5-4d3b-b510-d4035ab24f56",
+  "mp": 1,
+  "xp": 5,
+  "manaCost": null,
+  "actionType": "Half Action",
+  "artUrl": "https://cdn.midjourney.com/ac8cffef-6a21-4f9c-a83b-19a737ed45d5/0_1.png"
+}
