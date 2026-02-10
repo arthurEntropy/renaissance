@@ -1,6 +1,5 @@
 <template>
     <div class="vitals-info edit-hover-area">
-        <FloatingActionButton type="settings" size="small" class="settings-button-overlay" @click="openSettingsModal" />
         <FloatingActionButton v-if="canEdit" type="edit" size="small" visibility="on-hover" class="edit-button-overlay"
             @click="openEditModal" />
 
@@ -29,7 +28,7 @@
                     <span v-if="!cultures.length">None</span>
                     <span v-for="(culture, index) in cultures" :key="culture.id">
                         <router-link :to="`/cultures/${createSlug(culture.name)}`" class="concept-link">{{ culture.name
-                            }}</router-link><span v-if="index < cultures.length - 1">, </span>
+                        }}</router-link><span v-if="index < cultures.length - 1">, </span>
                     </span>
                 </div>
             </div>
@@ -46,9 +45,6 @@
 
         <!-- Edit Modal -->
         <CharacterVitalsEditModal v-if="isEditModalOpen" @close="closeEditModal" />
-
-        <!-- Settings Modal -->
-        <CharacterSettingsModal v-if="showSettingsModal" @close="closeSettingsModal" @delete="handleDeleteCharacter" />
     </div>
 </template>
 
@@ -59,7 +55,6 @@ import { useConceptsStore } from '@/stores/conceptsStore'
 import { createSlug } from '@/utils/urlHelpers'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import CharacterVitalsEditModal from './CharacterVitalsEditModal.vue'
-import CharacterSettingsModal from '@/components/features/characterSheet/modals/CharacterSettingsModal.vue'
 
 const charactersStore = useCharactersStore()
 const conceptsStore = useConceptsStore()
@@ -70,7 +65,6 @@ const character = computed(() => charactersStore.selectedCharacter)
 const canEdit = computed(() => charactersStore.canEditSelectedCharacter)
 
 const isEditModalOpen = ref(false)
-const showSettingsModal = ref(false)
 
 const ancestries = computed(() => {
     if (!character.value?.ancestryIds?.length) return []
@@ -93,20 +87,6 @@ const openEditModal = () => {
 
 const closeEditModal = () => {
     isEditModalOpen.value = false
-}
-
-const openSettingsModal = () => {
-    showSettingsModal.value = true
-}
-
-const closeSettingsModal = () => {
-    showSettingsModal.value = false
-}
-
-const handleDeleteCharacter = async () => {
-    await charactersStore.remove(character.value)
-    closeSettingsModal()
-    emit('close-sheet')
 }
 
 onMounted(() => {

@@ -30,7 +30,6 @@ import { useCharacterStatWatchers } from '@/composables/useCharacterStatWatchers
 import { useCharactersStore } from '@/stores/charactersStore'
 import { CORE_ABILITIES } from '@shared/constants/characterConstants'
 import CharacterProfile from '@/components/features/characterSheet/characterProfile/CharacterProfile.vue'
-import CharacterBio from '@/components/features/characterSheet/characterBio/CharacterBio.vue'
 import CoreAbilityColumn from '@/components/features/characterSheet/coreAbilityColumns/CoreAbilityColumn.vue'
 import ConditionsColumn from '@/components/features/characterSheet/conditions/ConditionsColumn.vue'
 import EquipmentTable from '@/components/features/characterSheet/equipmentTable/EquipmentTable.vue'
