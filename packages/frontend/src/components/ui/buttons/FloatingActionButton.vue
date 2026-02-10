@@ -7,13 +7,13 @@
 
 <script setup>
 import { computed } from 'vue'
-import { PlusIcon, DocumentDuplicateIcon, PencilIcon, CheckIcon, XMarkIcon, Bars3Icon, Cog6ToothIcon, ArrowPathIcon } from '@heroicons/vue/24/outline'
+import { PlusIcon, DocumentDuplicateIcon, PencilIcon, CheckIcon, XMarkIcon, Bars3Icon, Cog6ToothIcon, ArrowPathIcon, BookOpenIcon } from '@heroicons/vue/24/outline'
 
 const props = defineProps({
     type: {
         type: String,
         required: true,
-        validator: (value) => ['edit', 'add', 'duplicate', 'delete', 'drag', 'settings', 'refresh', 'dice', 'initiative'].includes(value)
+        validator: (value) => ['edit', 'add', 'duplicate', 'delete', 'drag', 'settings', 'refresh', 'dice', 'initiative', 'notes'].includes(value)
     },
 
     size: {
@@ -81,6 +81,8 @@ const iconComponent = computed(() => {
         return Cog6ToothIcon
     } else if (props.type === 'refresh') {
         return ArrowPathIcon
+    } else if (props.type === 'notes') {
+        return BookOpenIcon
     } else {
         return Bars3Icon
     }
@@ -107,6 +109,8 @@ const tooltip = computed(() => {
         return 'Custom Dice Roll'
     } else if (props.type === 'initiative') {
         return 'Roll Initiative'
+    } else if (props.type === 'notes') {
+        return 'Bio & Notes'
     } else {
         return 'Drag to reorder'
     }

@@ -6,12 +6,14 @@
   "ancestries": "Human",
   "cultures": "Guildford",
   "ancestryIds": [
-    "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+    "ba7af7ad-54d2-4b45-86ad-71781d4cdb33",
+    "f9e8d7c6-b5a4-9382-7165-0f9e8d7c6b5a"
   ],
   "cultureIds": [
-    "352c844b-6d4f-4b61-b475-315421a453e7"
+    "61e2ce55-1954-4e8e-b1b3-b249ae915fa7",
+    "01869d39-1961-4c8d-941d-744ce1d51bbd"
   ],
-  "mestiereId": "e0a69b6f-38f9-4fa5-a1ef-5e5777299e82",
+  "mestiereId": "45ca935d-938b-4974-961c-4171cc388904",
   "personalityAndBackground": "<p>A strong fella with one normal-sized hand and one gargantuan one.</p>",
   "xp": 0,
   "mp": {
@@ -188,7 +190,7 @@
   "abilities": [
     {
       "id": "f1d0e5f7-bb30-4251-a575-8d31c113fe1a",
-      "collapsed": false,
+      "collapsed": true,
       "showImprovements": false,
       "improvements": {
         "a277f343-4a95-51c2-a376-74b16ab9bb7c": false,
@@ -198,7 +200,7 @@
     },
     {
       "id": "1e289ca8-cf6a-4f0d-ad7c-a13fc8e1f381",
-      "collapsed": false,
+      "collapsed": true,
       "showImprovements": false
     },
     {
@@ -207,19 +209,19 @@
     },
     {
       "id": "2588e590-6bc7-4f42-aada-1f89bf7f1843",
-      "collapsed": false,
+      "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false
     },
     {
       "id": "bdc10a98-d189-4917-9330-9fadb116c8e8",
-      "collapsed": false,
+      "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false
     },
     {
       "id": "5ca90b33-0407-46a9-9854-01eda52a5d51",
-      "collapsed": false,
+      "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false
     },
@@ -231,7 +233,7 @@
     },
     {
       "id": "b485f7a7-ecf2-4899-8eb6-16de70aad279",
-      "collapsed": false,
+      "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false
     }
@@ -241,6 +243,6 @@
     "https://cdn.midjourney.com/579f1913-10e8-438c-9d1d-949151eb171c/0_0.png"
   ],
   "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2026-02-09T21:19:54.909Z",
-  "lastModified": "2026-02-09T21:19:54.909Z"
+  "updatedAt": "2026-02-10T00:48:51.380Z",
+  "lastModified": "2026-02-10T00:48:51.380Z"
 }
