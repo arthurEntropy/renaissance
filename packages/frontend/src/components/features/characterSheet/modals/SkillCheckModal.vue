@@ -26,7 +26,7 @@
 
       <!-- Dice Mod Options -->
       <div class="dice-mod-options">
-        <ActionButton v-for="mod in diceModOptions" :key="mod.value" variant="outline" size="large" :text="mod.label"
+        <ActionButton v-for="mod in diceModOptions" :key="mod.value" variant="outline" size="small" :text="mod.label"
           :selected="rollParameters.diceMod === mod.value" @click="rollParameters.diceMod = mod.value" />
       </div>
 
@@ -52,8 +52,8 @@
       <div class="roll-type-toggle">
         <ActionButton variant="outline" size="large" text="Opposed"
           :selected="rollType === RollTypes.OPPOSED_SKILL_CHECK" @click="rollType = RollTypes.OPPOSED_SKILL_CHECK" />
-        <ActionButton variant="outline" size="large" text="Against TN:" :selected="rollType === RollTypes.SKILL_CHECK"
-          @click="rollType = RollTypes.SKILL_CHECK" />
+        <ActionButton variant="outline" size="large" text="Against Difficulty"
+          :selected="rollType === RollTypes.SKILL_CHECK" @click="rollType = RollTypes.SKILL_CHECK" />
       </div>
 
       <!-- Target Number -->
@@ -66,7 +66,7 @@
           <span>Legendary</span>
         </div>
         <div class="target-number-options">
-          <ActionButton v-for="tn in targetNumberOptions" :key="tn" variant="outline" size="large" :text="tn.toString()"
+          <ActionButton v-for="tn in targetNumberOptions" :key="tn" variant="outline" size="small" :text="tn.toString()"
             :selected="localTargetNumber === tn" :disabled="rollType === RollTypes.OPPOSED_SKILL_CHECK"
             @click="toggleTargetNumber(tn)" />
         </div>

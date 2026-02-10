@@ -24,15 +24,16 @@
                     </span>
                 </span>
                 <span v-else>
-                    <span class="roll-total">{{ rollData.total }}</span>
-                    <span class="roll-target">{{ rollData.targetNumber }}</span>
+                    <span class="roll-total" :class="{ 'has-target': hasTargetNumber }">{{ rollData.total }}</span>
+                    <span v-if="hasTargetNumber" class="roll-target">{{ rollData.targetNumber }}</span>
                 </span>
             </div>
         </transition>
 
         <!-- Roll Outcome Banner -->
         <transition name="outcome-fade" appear>
-            <div v-if="!isRolling && !isCustomRoll && !isInitiative" class="roll-outcome" :class="outcomeClass">
+            <div v-if="!isRolling && !isCustomRoll && !isInitiative && shouldShowOutcome" class="roll-outcome"
+                :class="outcomeClass">
                 {{ outcomeText }}
             </div>
         </transition>
@@ -75,6 +76,19 @@ const props = defineProps({
         type: Boolean,
         required: true
     }
+})
+
+const hasTargetNumber = computed(() => {
+    return props.rollData.targetNumber !== null && props.rollData.targetNumber !== undefined
+})
+
+const shouldShowOutcome = computed(() => {
+    // Always show outcome for engagements and opposed skill checks
+    if (props.isEngagement || props.isOpposedSkillCheck) {
+        return true
+    }
+    // For regular skill checks, only show if there's a target number
+    return hasTargetNumber.value
 })
 
 const outcomeClass = computed(() => {
@@ -135,7 +149,7 @@ const outcomeText = computed(() => {
     font-weight: var(--font-weight-bold);
 }
 
-.roll-total:not(.custom-roll)::after {
+.roll-total.has-target::after {
     content: ' / ';
     color: var(--color-gray-medium);
     margin: 0 var(--space-2xs);
