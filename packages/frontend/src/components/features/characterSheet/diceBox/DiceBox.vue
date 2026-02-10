@@ -56,7 +56,7 @@ const charactersStore = useCharactersStore()
 
 const diceDisplayRef = ref(null)
 
-const CONTAINER_WIDTH = 280
+const CONTAINER_WIDTH = 310
 
 const customDiceRollerOpen = ref(false)
 

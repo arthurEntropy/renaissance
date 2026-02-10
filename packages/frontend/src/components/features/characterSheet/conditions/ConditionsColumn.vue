@@ -63,12 +63,13 @@ const updateSpeed = (value) => {
     display: flex;
     flex-direction: column;
     gap: var(--space-lg);
+    padding-top: 1px;
 }
 
 .conditions-column {
     align-items: center;
     width: 100px;
-    padding-bottom: 44px;
+    padding-bottom: 43px;
 }
 
 .speed-column {

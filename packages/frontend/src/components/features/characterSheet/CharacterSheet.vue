@@ -6,8 +6,8 @@
                 <!-- Top Row -->
                 <div class="top-section">
                     <CharacterProfile @close-sheet="handleClose" />
-                    <CharacterBio />
                     <DiceBox />
+                    <EngagementTable :can-edit="canEdit" />
                 </div>
 
                 <!-- Character Stats and Details -->
@@ -18,7 +18,6 @@
                     <ConditionsColumn :is-edit-mode="canEdit" />
                     <EquipmentTable :is-edit-mode="canEdit" />
                     <AbilitiesTable :canEdit="canEdit" />
-                    <EngagementTable :can-edit="canEdit" />
                 </div>
             </div>
         </div>
