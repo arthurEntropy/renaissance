@@ -4,6 +4,8 @@
 
         <!-- Range type (virtue: current/max) -->
         <template v-if="type === STAT_ROW_TYPES.RANGE">
+            <FloatingActionButton v-if="canEdit" class="reset-button" type="refresh" size="small" visibility="on-hover"
+                @click="emit('reset')" />
             <NumberInput :model-value="value.current" :disabled="!canEdit"
                 @update:model-value="$emit('update', 'current', $event)" :min="0" size="small" />
             <span class="range-separator">/</span>
@@ -32,6 +34,7 @@
 <script setup>
 import { computed, toRefs } from 'vue'
 import NumberInput from '@/components/ui/forms/NumberInput.vue'
+import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import { STAT_ROW_TYPES } from '@shared/constants/characterConstants'
 
 // Props
@@ -65,7 +68,7 @@ const props = defineProps({
 
 const { type, label, canEdit, value, firstState, secondState } = toRefs(props)
 
-defineEmits(['update'])
+const emit = defineEmits(['update', 'reset'])
 
 const rowClass = computed(() => {
     return {
@@ -91,10 +94,21 @@ const stateClasses = computed(() => {
     min-height: 25px;
     width: 100%;
     margin-top: var(--space-sm);
+    position: relative;
 }
 
 .virtue-row {
-    grid-template-columns: 40% 12% 8% 12%
+    grid-template-columns: 31% 28px 12% 8% 12%;
+}
+
+.virtue-row .reset-button {
+    justify-self: end;
+    margin-right: 4px;
+}
+
+.virtue-row:hover .reset-button {
+    opacity: 1;
+    pointer-events: auto;
 }
 
 .weakness-row {

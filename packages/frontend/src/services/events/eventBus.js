@@ -82,7 +82,8 @@ export const ROLL_EVENTS = {
   SKILL_CHECK: 'roll:skill-check',
   CUSTOM_ROLL: 'roll:custom',
   ENGAGEMENT: 'roll:engagement',
-  OPPOSED_SKILL_CHECK: 'roll:opposed-skill-check'
+  OPPOSED_SKILL_CHECK: 'roll:opposed-skill-check',
+  INITIATIVE_ROLL: 'roll:initiative'
 }
 
 export default eventBus

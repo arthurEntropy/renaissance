@@ -1,18 +1,19 @@
 <template>
     <button type="button" :disabled="disabled" :class="buttonClasses" :title="tooltip" @click="$emit('click', $event)">
-        <component :is="iconComponent" :class="iconClass" />
+        <span v-if="isEmoji" :class="iconClass">{{ emojiContent }}</span>
+        <component v-else :is="iconComponent" :class="iconClass" />
     </button>
 </template>
 
 <script setup>
 import { computed } from 'vue'
-import { PlusIcon, DocumentDuplicateIcon, PencilIcon, CheckIcon, XMarkIcon, Bars3Icon, Cog6ToothIcon } from '@heroicons/vue/24/outline'
+import { PlusIcon, DocumentDuplicateIcon, PencilIcon, CheckIcon, XMarkIcon, Bars3Icon, Cog6ToothIcon, ArrowPathIcon } from '@heroicons/vue/24/outline'
 
 const props = defineProps({
     type: {
         type: String,
         required: true,
-        validator: (value) => ['edit', 'add', 'duplicate', 'delete', 'drag', 'settings'].includes(value)
+        validator: (value) => ['edit', 'add', 'duplicate', 'delete', 'drag', 'settings', 'refresh', 'dice', 'initiative'].includes(value)
     },
 
     size: {
@@ -54,6 +55,19 @@ const buttonClasses = computed(() => {
     ].filter(Boolean)
 })
 
+const isEmoji = computed(() => {
+    return ['dice', 'initiative'].includes(props.type)
+})
+
+const emojiContent = computed(() => {
+    if (props.type === 'dice') {
+        return '🎲'
+    } else if (props.type === 'initiative') {
+        return '⚔️'
+    }
+    return ''
+})
+
 const iconComponent = computed(() => {
     if (props.type === 'edit') {
         return props.isActive ? CheckIcon : PencilIcon
@@ -65,6 +79,8 @@ const iconComponent = computed(() => {
         return XMarkIcon
     } else if (props.type === 'settings') {
         return Cog6ToothIcon
+    } else if (props.type === 'refresh') {
+        return ArrowPathIcon
     } else {
         return Bars3Icon
     }
@@ -85,6 +101,12 @@ const tooltip = computed(() => {
         return 'Duplicate'
     } else if (props.type === 'delete') {
         return 'Delete'
+    } else if (props.type === 'refresh') {
+        return 'Reset to maximum'
+    } else if (props.type === 'dice') {
+        return 'Custom Dice Roll'
+    } else if (props.type === 'initiative') {
+        return 'Roll Initiative'
     } else {
         return 'Drag to reorder'
     }
@@ -146,11 +168,21 @@ const tooltip = computed(() => {
 .fab__icon--small {
     width: 14px;
     height: 14px;
+    font-size: 11px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .fab__icon--large {
     width: 18px;
     height: 18px;
+    font-size: 14px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* === TYPE VARIANTS === */

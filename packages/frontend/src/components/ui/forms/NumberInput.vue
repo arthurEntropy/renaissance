@@ -1,8 +1,8 @@
 <template>
   <div class="number-input-container">
     <input type="number" :value="modelValue" :disabled="disabled"
-      @input="$emit('update:modelValue', Number(($event.target).value))" :min="min" :max="max" :step="step"
-      :class="`input-${size}`" />
+      @input="$emit('update:modelValue', Number(($event.target).value))" @keydown.enter="($event.target).blur()"
+      :min="min" :max="max" :step="step" :class="`input-${size}`" />
     <div v-if="!disabled" class="spinner-buttons">
       <button @click="increment" class="spinner-up" aria-label="Increment" type="button">▲</button>
       <button @click="decrement" class="spinner-down" aria-label="Decrement" type="button">▼</button>
@@ -82,8 +82,8 @@ input[type='number']:disabled {
 
 .spinner-buttons {
   position: absolute;
-  top: 1px;
-  bottom: 1px;
+  top: 2px;
+  bottom: 0px;
   right: 1px;
   width: var(--space-md);
   display: flex;

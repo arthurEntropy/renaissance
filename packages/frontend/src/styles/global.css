@@ -80,6 +80,16 @@ body {
 
 /* ===== GLOBAL ELEMENT STYLES ===== */
 
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: var(--transition-color);
+}
+
+a:hover {
+  color: var(--color-text-primary);
+}
+
 label {
   font-size: var(--font-size-14);
   color: var(--color-text-secondary);

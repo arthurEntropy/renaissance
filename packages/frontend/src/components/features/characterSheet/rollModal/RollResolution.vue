@@ -209,7 +209,7 @@ const getWinnerAnnouncementClasses = computed(() => {
 }
 
 .check-icon {
-    width: 20px;
-    height: 20px;
+    width: 14px;
+    height: 14px;
 }
 </style>

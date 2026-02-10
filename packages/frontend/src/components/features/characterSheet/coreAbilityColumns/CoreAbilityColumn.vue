@@ -7,7 +7,7 @@
       @open-skill-check="openSkillCheckModal" @update-ranks="handleRanksUpdate" />
 
     <StatRow :type="STAT_ROW_TYPES.RANGE" :label="virtueLabel" :value="virtueValue" :can-edit="canEdit"
-      @update="updateVirtue" />
+      @update="updateVirtue" @reset="resetVirtue" />
 
     <StatRow :type="STAT_ROW_TYPES.SINGLE" :label="weaknessLabel" :value="weaknessValue" :can-edit="canEdit"
       @update="updateWeakness" />
@@ -77,6 +77,10 @@ const updateCoreAbility = (newValue) => {
 
 const updateVirtue = (field, value) => {
   character.value[virtueKey.value][field] = value
+}
+
+const resetVirtue = () => {
+  character.value[virtueKey.value].current = character.value[virtueKey.value].max
 }
 
 const updateWeakness = (value) => {

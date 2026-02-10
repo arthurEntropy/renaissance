@@ -21,6 +21,11 @@
             <span class="skill-name">{{ rollData.skillName }}</span>
         </span>
 
+        <span v-else-if="isInitiative">
+            {{ rollData.characterName }} rolled
+            <span class="skill-name">Initiative</span>
+        </span>
+
         <span v-else>
             {{ rollData.characterName }} rolled
             <span class="skill-name">{{ rollData.baseSkillName || rollData.skillName }}</span>
@@ -51,6 +56,10 @@ defineProps({
     isCustomRoll: {
         type: Boolean,
         required: true
+    },
+    isInitiative: {
+        type: Boolean,
+        default: false
     }
 })
 </script>
