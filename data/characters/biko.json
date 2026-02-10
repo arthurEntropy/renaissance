@@ -199,13 +199,13 @@
   "abilities": [
     {
       "id": "4fbf9ccb-0fbb-45d0-9f8f-7b7fcfb811fb",
-      "collapsed": true,
+      "collapsed": false,
       "showImprovements": false,
       "showSuccesses": false
     },
     {
       "id": "ad7f2d4c-75cc-4b7c-8066-57eb1ccaf54a",
-      "collapsed": true,
+      "collapsed": false,
       "showImprovements": false,
       "showSuccesses": false
     },
@@ -245,7 +245,7 @@
     "https://cdn.midjourney.com/bb7f8092-0710-4aaf-9f26-e376a0cec04e/0_0.png"
   ],
   "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2026-01-29T01:11:48.034Z",
-  "lastModified": "2026-01-29T01:11:48.034Z",
+  "updatedAt": "2026-02-10T18:04:04.272Z",
+  "lastModified": "2026-02-10T18:04:04.272Z",
   "mestiereId": "4eccfe5d-de19-4bc5-8c9c-374d793d67f0"
 }

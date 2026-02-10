@@ -1,5 +1,5 @@
 <template>
-  <CharacterSheetSection max-width="375px">
+  <CharacterSheetSection>
 
     <!-- Table Header -->
     <TableHeader title="Abilities" :is-edit-mode="internalEditMode" :show-edit-button="canEdit"
@@ -9,30 +9,20 @@
       </template>
     </TableHeader>
 
-    <!-- Draggable Abilities List -->
-    <draggable v-model="sortedAbilities" handle=".drag-handle" item-key="id" ghost-class="ghost-item-row"
-      animation="150" :disabled="!internalEditMode" class="item-table-list">
-      <template #item="{ element: ability, index }">
-        <div class="item-table-row">
+    <!-- Masonry Grid with Abilities -->
+    <MasonryGrid :column-width="375" :gap="20" :row-height="10" class="abilities-masonry" ref="masonryGridRef">
+      <div v-for="(ability, index) in characterAbilities" :key="ability.id" class="masonry-item">
 
-          <div v-if="internalEditMode" class="floating-edit-controls">
-            <FloatingActionButton type="delete" size="small" visibility="always" @click="removeAbility(index)" />
-            <FloatingActionButton type="drag" size="small" visibility="always" class="drag-handle" />
-          </div>
+        <AbilityCard v-if="ability" :ability="ability" :collapsed="ability.collapsed" class="ability-card"
+          :collapsible="false" :show-xp-badge="true" :show-add-to-character="false" :show-action-buttons="true"
+          :character="selectedCharacter" :show-improvement-toggle="true" :show-improvements="ability.showImprovements"
+          @update:showImprovements="updateAbilityShowImprovements(ability, $event)"
+          :show-successes="ability.showSuccesses" @update:showSuccesses="updateAbilityShowSuccesses(ability, $event)"
+          :deletable="internalEditMode" @delete="removeAbility(index)" />
 
-          <AbilityCard v-if="ability" :ability="ability" :collapsed="ability.collapsed"
-            @update:collapsed="updateAbilityCollapsed(ability, $event)" class="item-table-card ability-card"
-            :collapsible="true" :show-xp-badge="true" :show-add-to-character="false" :show-action-buttons="true"
-            :character="selectedCharacter" :show-improvement-toggle="true" :show-improvements="ability.showImprovements"
-            @update:showImprovements="updateAbilityShowImprovements(ability, $event)"
-            :show-successes="ability.showSuccesses"
-            @update:showSuccesses="updateAbilityShowSuccesses(ability, $event)" />
-
-          <span v-else class="missing-item">Unknown ability</span>
-
-        </div>
-      </template>
-    </draggable>
+        <span v-else class="missing-item">Unknown ability</span>
+      </div>
+    </MasonryGrid>
 
     <!-- Add Ability FAB (only in edit mode) -->
     <div v-if="showAddButton" class="add-button-container">
@@ -49,14 +39,14 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, ref, nextTick, onMounted } from 'vue'
 import AbilityCard from '@/components/ui/cards/item/AbilityCard.vue'
 import TableHeader from '@/components/ui/tables/TableHeader.vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import ItemSelector from '@/components/ui/selectors/ItemSelector.vue'
 import CharacterSheetSection from '@/components/ui/containers/CharacterSheetSection.vue'
 import MPDisplay from './MPDisplay.vue'
-import draggable from 'vuedraggable'
+import MasonryGrid from '@/components/ui/layouts/MasonryGrid.vue'
 import CharacterService from '@/services/entities/characterService'
 import { useItemSelector } from '@/composables/useItemSelector'
 import { useCharactersStore } from '@/stores/charactersStore'
@@ -74,6 +64,8 @@ const charactersStore = useCharactersStore()
 const selectedCharacter = computed(() => charactersStore.selectedCharacter)
 const abilitiesStore = useAbilitiesStore()
 const allAbilities = computed(() => abilitiesStore.abilities || [])
+
+const masonryGridRef = ref(null)
 
 const internalEditMode = ref(false)
 const toggleEditMode = () => { internalEditMode.value = !internalEditMode.value }
@@ -99,7 +91,7 @@ const characterAbilities = computed(() => {
   if (!selectedCharacter.value?.abilities) return []
   return (
     selectedCharacter.value.abilities
-      ?.map((abilityObj, index) => {
+      ?.map((abilityObj) => {
         const ability = allAbilitiesArray.find((a) => a.id === abilityObj.id)
 
         if (!ability) return null
@@ -113,27 +105,11 @@ const characterAbilities = computed(() => {
           characterImprovements: characterImprovements || {},
           collapsed: abilityObj.collapsed ?? true,
           showImprovements: abilityObj.showImprovements ?? false,
-          showSuccesses: abilityObj.showSuccesses ?? false,
-          order: index
+          showSuccesses: abilityObj.showSuccesses ?? false
         }
       })
       .filter((ability) => ability !== null) || []
   )
-})
-
-const sortedAbilities = computed({
-  get: () => [...characterAbilities.value].sort((a, b) => (a.order || 0) - (b.order || 0)),
-  set: (newOrder) => {
-    const updatedAbilities = newOrder.map((ability) => ({
-      id: ability.id,
-      collapsed: ability.collapsed,
-      showImprovements: ability.showImprovements,
-      showSuccesses: ability.showSuccesses
-    }))
-
-    const updated = CharacterService.reorderItems(selectedCharacter.value, 'abilities', updatedAbilities)
-    if (updated) Object.assign(selectedCharacter.value, updated)
-  }
 })
 
 const removeAbility = (index) => {
@@ -160,19 +136,19 @@ const selectAbility = (ability) => {
   toggleAbilitySelector()
 }
 
-const updateAbilityCollapsed = (ability, collapsed) => {
-  if (!selectedCharacter.value?.abilities) return
-  const index = selectedCharacter.value.abilities.findIndex(a => a.id === ability.id)
-  if (index !== -1) {
-    selectedCharacter.value.abilities[index].collapsed = collapsed
-  }
-}
-
 const updateAbilityShowImprovements = (ability, showImprovements) => {
   if (!selectedCharacter.value?.abilities) return
   const index = selectedCharacter.value.abilities.findIndex(a => a.id === ability.id)
   if (index !== -1) {
     selectedCharacter.value.abilities[index].showImprovements = showImprovements
+    // Trigger layout update when improvements toggle
+    nextTick(() => {
+      setTimeout(() => {
+        if (masonryGridRef.value?.updateLayout) {
+          masonryGridRef.value.updateLayout()
+        }
+      }, 50)
+    })
   }
 }
 
@@ -181,13 +157,42 @@ const updateAbilityShowSuccesses = (ability, showSuccesses) => {
   const index = selectedCharacter.value.abilities.findIndex(a => a.id === ability.id)
   if (index !== -1) {
     selectedCharacter.value.abilities[index].showSuccesses = showSuccesses
+    // Trigger layout update when successes toggle
+    nextTick(() => {
+      setTimeout(() => {
+        if (masonryGridRef.value?.updateLayout) {
+          masonryGridRef.value.updateLayout()
+        }
+      }, 50)
+    })
   }
 }
+
+// Ensure initial layout calculation after mount
+onMounted(() => {
+  nextTick(() => {
+    setTimeout(() => {
+      if (masonryGridRef.value?.updateLayout) {
+        masonryGridRef.value.updateLayout()
+      }
+    }, 100)
+  })
+})
 
 </script>
 
 <style scoped>
-@import '@/styles/character-sheet-item-table.css';
+.missing-item {
+  color: var(--color-text-muted);
+  font-style: italic;
+  padding: var(--space-md);
+}
+
+.add-button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--space-md);
+}
 
 @media (max-width: var(--breakpoint-sm)) {
   .ability-card {

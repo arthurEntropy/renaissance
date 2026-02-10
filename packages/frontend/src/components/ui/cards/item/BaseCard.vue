@@ -5,7 +5,9 @@
     :title="sourceName ? `Source: ${sourceName}` : null">
 
     <!-- Admin Buttons -->
-    <div v-if="editable || duplicatable" class="admin-buttons">
+    <div v-if="editable || duplicatable || deletable" class="admin-buttons">
+      <FloatingActionButton v-if="deletable" type="delete" @click.stop="$emit('delete', item)" size="small"
+        visibility="on-hover" class="delete-button-floating" />
       <FloatingActionButton v-if="duplicatable" type="duplicate" @click.stop="$emit('duplicate', item)" size="small"
         visibility="on-hover" class="duplicate-button-floating" />
       <FloatingActionButton v-if="editable" type="edit" @click.stop="$emit('edit', item)" size="small"
@@ -115,13 +117,14 @@ const props = defineProps({
   collapsed: { type: Boolean, default: false },
   editable: { type: Boolean, default: false },
   duplicatable: { type: Boolean, default: false },
+  deletable: { type: Boolean, default: false },
   collapsible: { type: Boolean, default: true },
   showSource: { type: Boolean, default: true },
   showAddToCharacter: { type: Boolean, default: false },
   itemType: { type: String, default: ItemType.ABILITY },
 })
 
-const emit = defineEmits(['edit', 'duplicate', 'update', 'send-to-chat', 'height-changed', 'update:collapsed'])
+const emit = defineEmits(['edit', 'duplicate', 'delete', 'update', 'send-to-chat', 'height-changed', 'update:collapsed'])
 
 // Source management
 const sourcesStore = useSourcesStore()

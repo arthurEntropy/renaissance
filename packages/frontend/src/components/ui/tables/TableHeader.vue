@@ -4,6 +4,7 @@
             <h2>{{ title }}</h2>
             <FloatingActionButton v-if="showEditButton" type="edit" size="small" visibility="on-hover"
                 :is-active="isEditMode" @click="$emit('toggle-edit')" />
+            <slot name="header-left" />
         </div>
         <div class="header-right">
             <slot name="header-right" />

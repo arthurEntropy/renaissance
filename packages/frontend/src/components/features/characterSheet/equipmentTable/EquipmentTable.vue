@@ -1,5 +1,5 @@
 <template>
-  <CharacterSheetSection max-width="375px">
+  <CharacterSheetSection>
     <TableHeader title="Equipment" :is-edit-mode="internalEditMode" :show-edit-button="canEdit"
       @toggle-edit="toggleEditMode">
       <template #header-right>
@@ -7,34 +7,26 @@
       </template>
     </TableHeader>
 
-    <!-- Draggable Equipment Items -->
-    <draggable v-model="sortedEquipment" handle=".drag-handle" item-key="id" ghost-class="ghost-item-row"
-      animation="150" :disabled="!internalEditMode" class="item-table-list">
-      <template #item="{ element: item, index }">
-        <div class="item-table-row">
+    <!-- Masonry Grid with Equipment Items -->
+    <MasonryGrid :column-width="375" :gap="15" :row-height="10" class="equipment-masonry" ref="masonryGridRef">
+      <div v-for="(item, index) in characterEquipment" :key="item.id" class="masonry-item">
 
-          <div v-if="internalEditMode" class="floating-edit-controls">
-            <FloatingActionButton type="delete" size="small" visibility="always" @click="removeEquipmentItem(index)" />
-            <FloatingActionButton type="drag" size="small" visibility="always" class="drag-handle" />
-          </div>
+        <div class="equipment-card-col">
+          <EquipmentCard v-if="item.equipment" :equipment="item.equipment" :collapsed="item.collapsed || false"
+            :editable="item.equipment.isCustom" class="equipment-card" @edit="openEditEquipmentModal"
+            :collapsible="false" :show-keeping-badge="false" :show-add-to-character="false"
+            :engagement-success-options="[]" :deletable="internalEditMode" @delete="removeEquipmentItem(index)" />
 
-          <div class="equipment-card-col">
-            <EquipmentCard v-if="item.equipment" :equipment="item.equipment" :collapsed="item.collapsed || false"
-              @update:collapsed="updateEquipmentCollapsed(item, $event)" :editable="item.equipment.isCustom"
-              class="item-table-card equipment-card" @edit="openEditEquipmentModal" :collapsible="true"
-              :show-keeping-badge="false" :show-add-to-character="false" :engagement-success-options="[]" />
+          <span v-else class="missing-item">Unknown item</span>
 
-            <span v-else class="missing-item">Unknown item</span>
+          <!-- Equipment Details (Carried, Wielding, Quantity, Weight Total) -->
+          <EquipmentDetails :equipment-item="item" :index="index" :is-edit-mode="canEdit"
+            @update-carried="handleCarriedChange" @update-wielding="handleWieldingChange"
+            @update-quantity="handleQuantityChange" />
 
-            <!-- Equipment Details (Carried, Wielding, Quantity, Weight Total) -->
-            <EquipmentDetails :equipment-item="item" :index="index" :is-edit-mode="canEdit"
-              @update-carried="handleCarriedChange" @update-wielding="handleWieldingChange"
-              @update-quantity="handleQuantityChange" />
-
-          </div>
         </div>
-      </template>
-    </draggable>
+      </div>
+    </MasonryGrid>
 
     <!-- Add Item FAB (only in edit mode) -->
     <div v-if="showAddButton" class="add-button-container">
@@ -73,7 +65,7 @@ import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.v
 import ItemSelector from '@/components/ui/selectors/ItemSelector.vue'
 import CharacterSheetSection from '@/components/ui/containers/CharacterSheetSection.vue'
 import EditEquipmentModal from '@/components/editModals/EditEquipmentModal.vue'
-import draggable from 'vuedraggable'
+import MasonryGrid from '@/components/ui/layouts/MasonryGrid.vue'
 import { useEditModal } from '@/composables/useEditModal'
 import CharacterService from '@/services/entities/characterService'
 import { useItemSelector } from '@/composables/useItemSelector'
@@ -118,6 +110,8 @@ const {
 
 const internalEditMode = ref(false)
 const toggleEditMode = () => { internalEditMode.value = !internalEditMode.value }
+
+const masonryGridRef = ref(null)
 
 const canEdit = computed(() => props.isEditMode)
 const showAddButton = computed(() => internalEditMode.value)
@@ -193,19 +187,6 @@ const createAndAddCustomEquipment = async () => {
     isCreatingCustom.value = false
   }
 }
-
-const sortedEquipment = computed({
-  get: () => [...characterEquipment.value].sort((a, b) => (a.index || 0) - (b.index || 0)),
-  set: (newOrder) => {
-    const updatedEquipment = newOrder.map((item, index) => ({
-      ...item,
-      index: index,
-    }))
-
-    const updated = CharacterService.reorderItems(selectedCharacter.value, 'equipment', updatedEquipment)
-    if (updated) Object.assign(selectedCharacter.value, updated)
-  }
-})
 
 const removeEquipmentItem = (index) => {
   const equipmentItem = characterEquipment.value[index]
@@ -283,14 +264,6 @@ const closeEquipmentSelector = () => {
   showChoiceMode.value = true
 }
 
-const updateEquipmentCollapsed = (equipmentItem, collapsed) => {
-  if (!selectedCharacter.value?.equipment) return
-  const index = selectedCharacter.value.equipment.findIndex(eq => eq.id === equipmentItem.id)
-  if (index !== -1) {
-    selectedCharacter.value.equipment[index].collapsed = collapsed
-  }
-}
-
 onMounted(async () => {
   try {
     await keepingStore.fetch()
@@ -307,15 +280,15 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-@import '@/styles/character-sheet-item-table.css';
-
-.equipment-card {
-  text-align: left;
+.missing-item {
+  color: var(--color-text-muted);
+  font-style: italic;
+  padding: var(--space-md);
 }
 
-.equipment-card-col {
+.add-button-container {
   display: flex;
-  flex-direction: column;
-  width: 100%;
+  justify-content: center;
+  margin-top: var(--space-md);
 }
 </style>

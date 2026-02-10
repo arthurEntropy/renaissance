@@ -28,7 +28,7 @@
                     <span v-if="!cultures.length">None</span>
                     <span v-for="(culture, index) in cultures" :key="culture.id">
                         <router-link :to="`/cultures/${createSlug(culture.name)}`" class="concept-link">{{ culture.name
-                        }}</router-link><span v-if="index < cultures.length - 1">, </span>
+                            }}</router-link><span v-if="index < cultures.length - 1">, </span>
                     </span>
                 </div>
             </div>
@@ -58,8 +58,6 @@ import CharacterVitalsEditModal from './CharacterVitalsEditModal.vue'
 
 const charactersStore = useCharactersStore()
 const conceptsStore = useConceptsStore()
-
-const emit = defineEmits(['close-sheet'])
 
 const character = computed(() => charactersStore.selectedCharacter)
 const canEdit = computed(() => charactersStore.canEditSelectedCharacter)
