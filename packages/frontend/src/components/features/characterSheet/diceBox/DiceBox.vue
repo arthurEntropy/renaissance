@@ -10,24 +10,27 @@
       @click="toggleCustomDiceRoller" />
 
     <!-- Custom Dice Roller View -->
-    <div v-show="customDiceRollerOpen" class="custom-roller-view">
+    <div v-show="customDiceRollerOpen" class="custom-roller-view view-container">
       <CustomDiceRoller @roll-complete="handleRollComplete" />
     </div>
 
     <!-- Roll Results Display -->
-    <div v-if="!customDiceRollerOpen && latestRoll" class="roll-content">
-      <RollTitle :rollData="latestRoll" :isEngagement="isEngagement" :isOpposedSkillCheck="isOpposedSkillCheck"
-        :isCustomRoll="isCustomRoll" :isInitiative="isInitiative" />
+    <div v-show="!customDiceRollerOpen && latestRoll" class="roll-content view-container">
+      <template v-if="latestRoll">
+        <RollTitle :rollData="latestRoll" :isEngagement="isEngagement" :isOpposedSkillCheck="isOpposedSkillCheck"
+          :isCustomRoll="isCustomRoll" :isInitiative="isInitiative" />
 
-      <DiceDisplay ref="diceDisplayRef" :key="latestRoll?.timestamp" :rollData="latestRoll" :isEngagement="isEngagement"
-        :canReroll="true" :isOpponent="false" :containerWidth="CONTAINER_WIDTH" @reroll-all-dice="rollsStore.reroll" />
+        <DiceDisplay ref="diceDisplayRef" :key="latestRoll?.timestamp" :rollData="latestRoll"
+          :isEngagement="isEngagement" :canReroll="true" :isOpponent="false" :containerWidth="CONTAINER_WIDTH"
+          @reroll-all-dice="rollsStore.reroll" />
 
-      <RollOutcome :rollData="latestRoll" :isEngagement="isEngagement" :isOpposedSkillCheck="isOpposedSkillCheck"
-        :isCustomRoll="isCustomRoll" :isInitiative="isInitiative" :isRolling="isRolling" />
+        <RollOutcome :rollData="latestRoll" :isEngagement="isEngagement" :isOpposedSkillCheck="isOpposedSkillCheck"
+          :isCustomRoll="isCustomRoll" :isInitiative="isInitiative" :isRolling="isRolling" />
+      </template>
     </div>
 
     <!-- Empty State -->
-    <div v-if="!customDiceRollerOpen && !latestRoll" class="empty-state-container">
+    <div v-show="!customDiceRollerOpen && !latestRoll" class="empty-state-container view-container">
       <EmptyRollState />
     </div>
 
@@ -102,6 +105,11 @@ const isRolling = computed(() => {
   position: relative;
   justify-content: center;
   align-items: center;
+  min-height: 180px;
+}
+
+.view-container {
+  transition: opacity var(--duration-fast) var(--ease-standard);
 }
 
 .roll-content {

@@ -17,7 +17,7 @@
 </template>
 
 <script setup>
-import { computed, watch, onMounted, ref } from 'vue'
+import { computed, watch, ref } from 'vue'
 import { RollTypes } from '@/constants/rollTypes'
 import { getDiceFontClass, getRandomDiceFontClass } from '@/utils/diceFontUtils'
 import { DICE_ROLL_DURATION } from '@/constants/animationDurations'
@@ -235,13 +235,7 @@ watch(() => props.rollData, (newValue, oldValue) => {
     ) {
         triggerRollAnimation()
     }
-})
-
-onMounted(() => {
-    if (props.rollData) {
-        triggerRollAnimation()
-    }
-})
+}, { immediate: true })
 
 defineExpose({
     isRolling,
