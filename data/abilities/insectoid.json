@@ -2,7 +2,6 @@
   "id": "38a03db2-ed78-4d42-9df2-195bc2e24748",
   "name": "Insectoid",
   "description": "<p><em>Your insect-like form allows you to go where others cannot.</em></p><p>Choose wings or adhesion. If you chose wings, you can fly. If you chose adhesion, you can crawl up walls and hang from ceilings. Either way, you cannot perform these feats while Weary.</p><p><strong>Describe how your unique physiology allows you to move in this way.</strong></p>",
-  "isTrait": true,
   "canBeActive": false,
   "isActive": true,
   "source": "d7578278-c801-410b-b194-12b555042f29",
@@ -10,5 +9,6 @@
   "mp": null,
   "xp": null,
   "artUrl": "https://cdn.midjourney.com/10f1a66c-e7ac-4f9e-a1e9-7a5b62154853/0_3.png",
-  "lastModified": "2026-02-02T02:13:23.712Z"
+  "lastModified": "2026-02-12T21:37:52.070Z",
+  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
 }

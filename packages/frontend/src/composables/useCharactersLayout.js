@@ -1,7 +1,10 @@
 import { computed, onMounted } from 'vue'
+import { useActionTypesStore } from '@/stores/actionTypesStore'
 
 export function useCharactersLayout(charactersStore, equipmentStore, abilitiesStore, characterService, options = {}) {
   const { isBeast = false } = options
+  
+  const actionTypesStore = useActionTypesStore()
   
   const characters = computed(() => 
     isBeast 
@@ -35,7 +38,8 @@ export function useCharactersLayout(charactersStore, equipmentStore, abilitiesSt
     await Promise.all([
       charactersStore.fetch(),
       equipmentStore.fetch(),
-      abilitiesStore.fetch()
+      abilitiesStore.fetch(),
+      actionTypesStore.fetch()
     ])
   }
 

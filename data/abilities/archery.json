@@ -2,7 +2,6 @@
   "id": "ed6d2d46-d275-45e4-b62f-3a3aaa40b6be",
   "name": "Archery",
   "description": "<p>When you attack with a ranged weapon, upgrade the weapon's damage dice by one type (d6 becomes d8, etc.).</p>",
-  "isTrait": true,
   "canBeActive": false,
   "isActive": true,
   "source": "10f46ecd-e6f5-4d3b-b510-d4035ab24f56",
@@ -29,6 +28,7 @@
       "id": "b285a26b-6169-4d68-b919-253ca92805b5"
     }
   ],
-  "lastModified": "2026-02-03T21:11:50.912Z",
-  "artUrl": "https://cdn.midjourney.com/671119d2-099c-4a4f-a123-bdbeefeac90b/0_0.png"
+  "lastModified": "2026-02-12T21:37:52.055Z",
+  "artUrl": "https://cdn.midjourney.com/671119d2-099c-4a4f-a123-bdbeefeac90b/0_0.png",
+  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
 }

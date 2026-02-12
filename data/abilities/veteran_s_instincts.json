@@ -2,13 +2,13 @@
   "id": "b11eb6ec-7cd1-4bf0-92d0-574786ed6b52",
   "name": "Veteran's Instincts",
   "description": "<p>At the beginning of each combat, for each level of <em>Swagger </em>you have, choose one:</p><ul><li><p>Your initiative roll is favored.</p></li><li><p>Two of your allies' initiative rolls are favored.</p></li><li><p>Choose up to three creatures within medium range. You learn their current defense scores.</p></li></ul>",
-  "isTrait": true,
   "canBeActive": false,
   "isActive": true,
   "source": "45ca935d-938b-4974-961c-4171cc388904",
   "isDeleted": false,
   "mp": null,
   "xp": 5,
-  "lastModified": "2026-02-01T02:29:16.672Z",
-  "artUrl": "https://cdn.midjourney.com/e97dd9c5-a80c-4ddc-894f-3b48053b02d5/0_1.png"
+  "lastModified": "2026-02-12T21:37:52.081Z",
+  "artUrl": "https://cdn.midjourney.com/e97dd9c5-a80c-4ddc-894f-3b48053b02d5/0_1.png",
+  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
 }

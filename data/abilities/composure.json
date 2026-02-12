@@ -2,17 +2,15 @@
   "id": "18d87a10-1a25-493c-a549-7644744788f1",
   "isDeleted": false,
   "createdAt": "2026-01-30T16:58:31.702Z",
-  "lastModified": "2026-01-30T18:08:18.360Z",
+  "lastModified": "2026-02-12T21:37:52.061Z",
   "name": "Composure",
   "description": "<p>You may spend any number of MP to gain an equal number of d4 Engagement dice.</p>",
-  "isTrait": false,
   "canBeActive": false,
   "isActive": true,
   "source": "4eccfe5d-de19-4bc5-8c9c-374d793d67f0",
   "mp": null,
   "xp": 10,
   "manaCost": null,
-  "actionType": "Half Action",
   "improvements": [
     {
       "name": "Poise",
@@ -21,5 +19,6 @@
       "id": "8efc52bd-b89a-469a-8728-ab800c5e3c66"
     }
   ],
-  "artUrl": "https://cdn.midjourney.com/7f80d922-d8f5-4210-9e85-92eb5c5501ce/0_0.png"
+  "artUrl": "https://cdn.midjourney.com/7f80d922-d8f5-4210-9e85-92eb5c5501ce/0_0.png",
+  "type": "c3d4e5f6-a1b2-4c3d-be0f-9a8b7c6d5e4f"
 }

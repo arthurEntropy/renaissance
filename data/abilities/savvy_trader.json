@@ -2,12 +2,12 @@
   "id": "b2fc670c-2837-45a5-a8cb-0b9223acc76c",
   "name": "Savvy Trader",
   "description": "<p>You're good at negotiating good deals for shit. You roll Persuade favored when making a cool business deal.</p>",
-  "isTrait": true,
   "canBeActive": false,
   "isActive": true,
   "source": "75800953-4adb-405f-a4ab-a599573ca533",
   "isDeleted": false,
   "mp": null,
   "xp": null,
-  "lastModified": "2025-11-20T18:20:54.977Z"
+  "lastModified": "2026-02-12T21:37:52.077Z",
+  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
 }

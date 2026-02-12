@@ -2,16 +2,14 @@
   "id": "538c910c-e768-4d55-a1e6-dfb205792307",
   "isDeleted": false,
   "createdAt": "2025-12-30T03:36:13.465Z",
-  "lastModified": "2026-01-01T01:46:15.801Z",
+  "lastModified": "2026-02-12T21:37:52.062Z",
   "name": "Creation",
   "description": "<p><em>Casting Time: 1 minute. Concentration, up to 1 day.</em></p><p>You pull arcane energy out of the weave and shape it into a temporary, nonliving object of organic matter (wood, cloth, etc.) in a space within short range. The object must be of a form and material you have seen before and can be no larger than 5 ft in any dimension.</p><p>Roll Lore to see if you trigger any additional effects.</p><p><strong>Describe what you create.</strong></p>",
-  "isTrait": false,
   "canBeActive": false,
   "isActive": true,
   "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
   "mp": 5,
   "xp": 25,
-  "actionType": "Ritual",
   "artUrl": "https://cdn.midjourney.com/3501eeb2-f9a6-41ad-8604-4ad940e53ccb/0_0.png",
   "successes": "<p>✨: The object may be made of stone.</p><p>✨: Up to half of the object may be made of metal.</p><p>🌞: The whole object may be made of any combination of materials you have seen.</p><p>💀: You lose control of the energy you're gathering together and the object explodes. Roll Lore vs Dexterity against all creatures within short range. On a win, they take 2d6 damage and check a condition. You also check a condition.</p>",
   "improvements": [
@@ -21,5 +19,6 @@
       "xp": 10,
       "id": "c8cfa367-3a46-4536-8928-f33ae1a2fb06"
     }
-  ]
+  ],
+  "type": "f6a1b2c3-d4e5-4f6a-eb3c-2d1e0f9a8b7c"
 }

@@ -2,16 +2,15 @@
   "id": "81324e29-139e-4dfd-bd96-e185fad53f40",
   "isDeleted": false,
   "createdAt": "2026-02-05T20:45:08.373Z",
-  "lastModified": "2026-02-05T20:56:08.727Z",
+  "lastModified": "2026-02-12T21:37:52.083Z",
   "name": "Wyrding",
   "description": "<p>In a fit of shakes and spasms, you take on a monstrous semi-humanoid shape unique to you and your magic. When you cast this spell, you gain 20 temporary Endurance. Describe your new form and choose one of the following benefits:</p><ul><li><p>You gain huge, molting feathers and a flying speed of 30 feet.</p></li><li><p>You gain squamous skin, the ability to breathe underwater, and a swimming speed of 60 feet.</p></li><li><p>You gain a shaggy fur hide and you Defense becomes 13+HEART.</p></li></ul><p>Additionally, your Strength and Dexterity rolls are favored. As a half action, you can make a melee spell attack against an adjacent creature. On a hit, you deal 2d10 damage.</p><p>These effects last for 1 minute. You may end the Wyrding early as an action. If the spell doesn't end early, at the end of the minute, you become trapped in your Wyrding form and lose the ability to speak, read, write, understand language, or cast spells that require speech until this lingering effect is ended by magic.</p><p></p>",
-  "isTrait": false,
   "canBeActive": false,
   "isActive": true,
   "source": "162ae4db-7a67-4770-8a2c-7e9883da14f6",
   "mp": 4,
   "xp": 20,
   "manaCost": null,
-  "actionType": "Action",
-  "artUrl": "https://cdn.midjourney.com/815561e8-a658-46f3-a640-da197c5bd3a2/0_0.png"
+  "artUrl": "https://cdn.midjourney.com/815561e8-a658-46f3-a640-da197c5bd3a2/0_0.png",
+  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e"
 }

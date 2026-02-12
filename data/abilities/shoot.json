@@ -2,14 +2,12 @@
   "id": "e246953b-6f39-44d1-9669-fb92ac7bc9f9",
   "name": "Shoot",
   "description": "<p>You throw your orb at a target within short range. Roll Dexterity vs Defense. On a hit, the orb deals 1d4+BODY base damage, plus an additional 1d4 for each charge it contains. The charges are expended, and the orb magically returns to you, propelled by its own magic force.</p><p>On a miss, it deals no damage, retains and charges it contains, and falls to the ground in a space adjacent to the target (GM's choice). You must either move to retrieve it or use a half action to recall the orb to magically to you.</p>",
-  "isTrait": false,
   "canBeActive": false,
   "isActive": true,
   "source": "a07490af-2d77-4968-9adc-0a2a7c84ef70",
   "isDeleted": false,
   "mp": null,
   "xp": null,
-  "actionType": "Action",
   "improvements": [
     {
       "name": "Reach",
@@ -41,5 +39,7 @@
       "xp": 10,
       "id": "ce5d10a1-a2c0-5c74-a35d-1a5ca8e09815"
     }
-  ]
+  ],
+  "lastModified": "2026-02-12T21:37:52.078Z",
+  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e"
 }

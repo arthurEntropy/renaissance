@@ -2,7 +2,6 @@
   "id": "738255ac-87f1-45a5-91ff-c2144b92b5e3",
   "name": "Lucky",
   "description": "<p><em>Trigger: You roll </em>💀<em> Morte.</em></p><p>Once per rest, you may re-roll the feat die. You must use the new roll result. The original roll still counts toward Bane/Boon.</p><p><strong>Describe how you cheat fate.</strong></p>",
-  "isTrait": true,
   "canBeActive": false,
   "isActive": true,
   "source": "77e4f81a-728f-49a7-a013-4d6f666353e2",
@@ -10,6 +9,6 @@
   "mp": null,
   "xp": null,
   "artUrl": "https://cdn.midjourney.com/c9d63c27-fb38-43a2-98ef-cc41ea9a28e3/0_2.png",
-  "lastModified": "2026-02-03T02:44:15.802Z",
-  "actionType": "Reaction"
+  "lastModified": "2026-02-12T21:37:52.072Z",
+  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
 }

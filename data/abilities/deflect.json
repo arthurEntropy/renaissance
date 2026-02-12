@@ -2,16 +2,15 @@
   "id": "e16343e2-35aa-4a42-b8f3-9105aad87780",
   "isDeleted": false,
   "createdAt": "2026-01-27T21:30:12.553Z",
-  "lastModified": "2026-01-29T21:06:48.107Z",
+  "lastModified": "2026-02-12T21:37:52.063Z",
   "name": "Deflect",
   "description": "<p><em>Trigger: A creature within short range takes damage from an attack.</em></p><p>Reduce the damage by 1d4+HEART.</p><p>Check a Condition.</p>",
-  "isTrait": false,
   "canBeActive": false,
   "isActive": true,
   "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
   "mp": null,
   "xp": "",
   "manaCost": "W",
-  "actionType": "Reaction",
-  "artUrl": "https://cdn.midjourney.com/1ca00016-555f-4c8c-8f3c-070044d06775/0_0.png"
+  "artUrl": "https://cdn.midjourney.com/1ca00016-555f-4c8c-8f3c-070044d06775/0_0.png",
+  "type": "e5f6a1b2-c3d4-4e5f-da2b-1c0d9e8f7a6b"
 }

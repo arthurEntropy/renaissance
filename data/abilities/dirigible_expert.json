@@ -2,11 +2,11 @@
   "id": "58053504-5c3c-4a1d-ad1f-e880fbee1ef3",
   "name": "Dirigible Expert",
   "description": "<p>You know how to operate and repair lighter-than-air-craft. If you have access to the necessary materials, you can construct an air vessel. It takes one day per passenger capacity to build and costs you 1 Endurance per hour per passenger to keep aloft. Describe the work, the finished product and how you operate the craft.</p>",
-  "isTrait": false,
   "canBeActive": false,
   "isActive": true,
   "source": "5c67bedd-8e73-4add-b46b-9b911bf0fd59",
   "isDeleted": false,
   "mp": null,
-  "xp": null
+  "xp": null,
+  "lastModified": "2026-02-12T21:22:31.629Z"
 }

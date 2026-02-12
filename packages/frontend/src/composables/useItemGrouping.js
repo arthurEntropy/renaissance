@@ -49,7 +49,9 @@ function groupBySource(items, sourcesStore) {
   return Object.values(groups).sort((a, b) => {
     if (a.name === 'No Source') return 1
     if (b.name === 'No Source') return -1
-    return a.name.localeCompare(b.name)
+    const nameA = (a.name || '').replace(/^The /i, '').toLowerCase()
+    const nameB = (b.name || '').replace(/^The /i, '').toLowerCase()
+    return nameA.localeCompare(nameB)
   })
 }
 

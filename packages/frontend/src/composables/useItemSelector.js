@@ -81,9 +81,13 @@ export function useItemSelector(allItems, sourcesStore, options = {}) {
         }
       })
 
-    // Sort items within each group by name
+    // Sort items within each group by name, ignoring "The " prefix
     Object.keys(grouped).forEach((key) => {
-      grouped[key].sort((a, b) => a.name.localeCompare(b.name))
+      grouped[key].sort((a, b) => {
+        const nameA = (a.name || '').replace(/^The /i, '').toLowerCase()
+        const nameB = (b.name || '').replace(/^The /i, '').toLowerCase()
+        return nameA.localeCompare(nameB)
+      })
     })
 
     // Return a new ordered object to control the display order
@@ -94,12 +98,12 @@ export function useItemSelector(allItems, sourcesStore, options = {}) {
       orderedGrouped.general = grouped.general
     }
 
-    // 2. Add all other source groups (sorted alphabetically by source name)
+    // 2. Add all other source groups (sorted alphabetically by source name, ignoring "The " prefix)
     const sourceKeys = Object.keys(grouped)
       .filter((key) => key !== 'custom' && key !== 'general')
       .sort((a, b) => {
-        const sourceNameA = sourcesStore.getSourceName(a)
-        const sourceNameB = sourcesStore.getSourceName(b)
+        const sourceNameA = (sourcesStore.getSourceName(a) || '').replace(/^The /i, '')
+        const sourceNameB = (sourcesStore.getSourceName(b) || '').replace(/^The /i, '')
         return sourceNameA.localeCompare(sourceNameB)
       })
 

@@ -2,11 +2,12 @@
   "id": "34799d66-7466-4505-8013-dcfe8c5e8614",
   "name": "Fortune Telling",
   "description": "<p><em>In your time among the paper-lanterned streets and bohemian shops of Chobham, you've seen how fortune telling - real or not - can sway people's actions.</em></p><p>Choose a technique like palm reading, astrology or reading tea leaves. Once per long rest, you can read someone's fortune, granting them +1d to their next check made that day with a relevant skill (GM discretion).</p><p><strong>Describe your technique. Do you believe that you're actually telling the future or is it an effective placebo?</strong></p>",
-  "isTrait": true,
   "canBeActive": false,
   "isActive": true,
   "source": "55494a30-a1bb-47c3-aae9-2db3a5bfcb8b",
   "isDeleted": false,
   "mp": null,
-  "xp": null
+  "xp": null,
+  "lastModified": "2026-02-12T21:37:52.068Z",
+  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
 }

@@ -2,14 +2,13 @@
   "id": "fa0a07e3-e7bc-453b-9cdd-c7ae06000467",
   "name": "Bear Up",
   "description": "<p>Halve the weight of armor and shields you're carrying when calculating load.</p>",
-  "isTrait": true,
   "canBeActive": false,
   "isActive": true,
   "source": "d4dce5e2-e767-464d-91f0-c40b47f788b3",
   "isDeleted": false,
   "mp": null,
   "xp": 30,
-  "actionType": "",
-  "lastModified": "2026-02-02T01:02:55.705Z",
-  "artUrl": "https://cdn.midjourney.com/9561fa2a-86a3-46d5-a86c-abcf843b50fa/0_2.png"
+  "lastModified": "2026-02-12T21:37:52.057Z",
+  "artUrl": "https://cdn.midjourney.com/9561fa2a-86a3-46d5-a86c-abcf843b50fa/0_2.png",
+  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
 }

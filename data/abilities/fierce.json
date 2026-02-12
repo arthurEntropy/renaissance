@@ -2,16 +2,15 @@
   "id": "7b2d897e-f83c-4bd6-97bb-33a1e85fd08f",
   "isDeleted": false,
   "createdAt": "2026-01-28T19:45:23.522Z",
-  "lastModified": "2026-01-30T01:47:04.636Z",
+  "lastModified": "2026-02-12T21:37:52.067Z",
   "name": "Fierce",
   "description": "<p>Choose a creature within short range. That creature gains 3 single-use d12 Engagement dice that may only be used when the creature is the attacker in the Engagement. At the end of one minute, any of these dice that have not been used are forfeited.</p><p>Check a Condition.</p>",
-  "isTrait": false,
   "canBeActive": false,
   "isActive": true,
   "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
   "mp": null,
   "xp": null,
   "manaCost": "1R",
-  "actionType": "Half Action",
-  "artUrl": "https://cdn.midjourney.com/cbb98325-1ddd-446b-87d6-76ba9016b5ce/0_0.png"
+  "artUrl": "https://cdn.midjourney.com/cbb98325-1ddd-446b-87d6-76ba9016b5ce/0_0.png",
+  "type": "c3d4e5f6-a1b2-4c3d-be0f-9a8b7c6d5e4f"
 }

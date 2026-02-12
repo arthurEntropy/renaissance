@@ -2,10 +2,9 @@
   "id": "b308ec76-149a-480c-a2f6-f8a98272e659",
   "isDeleted": false,
   "createdAt": "2026-02-04T01:59:02.224Z",
-  "lastModified": "2026-02-05T19:07:26.266Z",
+  "lastModified": "2026-02-12T21:37:52.076Z",
   "name": "Retributive Curses",
   "description": "<p>A creature becomes a target for retribution when it transgresses against you in one of the following ways:</p><ul><li><p><strong>Harm</strong>. The creature attacks or deals damage to you, your familiar, or a creature holding a Token or Talisman you created.</p></li><li><p><strong>Threat</strong>. The creature forces you to make an opposed skill check against them.</p></li><li><p><strong>Betrayal</strong>. The creature intentionally breaks a promise to you.</p></li></ul><p>As a Reaction when a creature within medium range commits such a transgression, you can place one of the following curses on it:</p><p><strong>Bloodguilt</strong>. The first time on a turn that the creature deals damage to another creature, it takes 1d6+BODY damage and checks a Condition.</p><p><strong>Leaden Shoes</strong>. The creature's speed is reduced to 5 ft and it can’t make opportunity attacks.</p><p><strong>Uncanny Jinx.</strong> The creature takes -1d to all skill checks.</p><p><strong>Vengeful Gleam</strong>. The target glows with a green witch-light. It can’t benefit from magical effects that obscure it, alter its appearance or make it invisible, and attacks against it are favored if the attacker can see it.</p><p>The curse lasts for 1 minute. It ends early if the cursed creature dies, you apply a different Retributive Curse to the creature, or you choose to end the curse as an action. You can use this feature HEART times per rest.</p>",
-  "isTrait": true,
   "canBeActive": false,
   "isActive": true,
   "source": "162ae4db-7a67-4770-8a2c-7e9883da14f6",
@@ -26,5 +25,6 @@
       "xp": 30,
       "id": "8813833d-cc68-4fa2-a661-2c7b5eed0028"
     }
-  ]
+  ],
+  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
 }

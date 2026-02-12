@@ -2,11 +2,12 @@
   "id": "7b55612d-b325-4761-94cc-3f3e28deec35",
   "name": "Seaworthy",
   "description": "<p>You know how to operate and repair water vessels. If you have access to the necessary materials, you can construct a water vessel. It takes one day per passenger capacity to build. Describe the work and the finished product.</p>",
-  "isTrait": true,
   "canBeActive": false,
   "isActive": true,
   "source": "55cfd313-75c6-4f83-9361-39af123f6f38",
   "isDeleted": false,
   "mp": null,
-  "xp": null
+  "xp": null,
+  "lastModified": "2026-02-12T21:37:52.077Z",
+  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
 }

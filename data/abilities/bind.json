@@ -2,17 +2,16 @@
   "id": "109b7300-df80-4697-92ac-ead98366c6d2",
   "isDeleted": false,
   "createdAt": "2026-01-13T01:43:13.790Z",
-  "lastModified": "2026-01-29T19:52:15.125Z",
+  "lastModified": "2026-02-12T21:37:52.057Z",
   "name": "Bind",
   "description": "<p>Uncheck a Condition. If you did, roll Spirit vs Strength against a creature within medium range. On a win, their speed is reduced to 0 until the beginning of your next turn. No effect on a loss.</p><p>If the Condition you unchecked was Troubled, you may instead target a creature within long range.</p>",
-  "isTrait": false,
   "canBeActive": false,
   "isActive": true,
   "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
   "mp": null,
   "xp": "",
   "manaCost": "2WW",
-  "actionType": "Action",
   "successes": "<p>✨: The target cannot make opportunity attacks until the beginning of your next turn.</p><p>✨: The target drops an object it's holding, chosen at random.</p><p><strong>🌞:</strong> At the beginning of your next turn, repeat the roll against the same target. On a win, reapply the effect; on a loss, it ends. Repeat this on each of your turns until the spell ends.</p><p>💀: Check an additional Condition.</p>",
-  "artUrl": "https://cdn.midjourney.com/5e4f32d9-0a8b-4a3a-ae53-5e58791e0c64/0_3.png"
+  "artUrl": "https://cdn.midjourney.com/5e4f32d9-0a8b-4a3a-ae53-5e58791e0c64/0_3.png",
+  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e"
 }

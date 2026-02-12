@@ -2,14 +2,13 @@
   "id": "92c5bb49-f863-4fc6-a60c-890646ba20a2",
   "name": "Pull One",
   "description": "<p>Draw one card from your Cartomancy deck.</p>",
-  "isTrait": false,
   "canBeActive": false,
   "isActive": true,
   "source": "96e062f8-646e-49f4-8eec-d92bd5fb77c4",
   "isDeleted": false,
   "mp": null,
   "xp": null,
-  "actionType": "Half Action",
   "artUrl": "https://cdn.midjourney.com/2c0eb2bb-562d-4135-895e-e64a5a78acf9/0_1.png",
-  "lastModified": "2026-01-30T02:27:58.628Z"
+  "lastModified": "2026-02-12T21:37:52.075Z",
+  "type": "c3d4e5f6-a1b2-4c3d-be0f-9a8b7c6d5e4f"
 }

@@ -2,10 +2,9 @@
   "id": "0be14c83-458a-41f4-b5ac-29c2b4266ea5",
   "isDeleted": false,
   "createdAt": "2026-02-03T17:41:38.381Z",
-  "lastModified": "2026-02-03T21:07:46.340Z",
+  "lastModified": "2026-02-12T21:37:52.081Z",
   "name": "Trapper",
   "description": "<p>You are skilled in crafting, setting and concealing a variety of traps. You have 3 traps, which you can set using the <em>Set Trap</em> ability. Each trap weighs 10 lbs and can inflict the following effects on the trapped creature:</p><ul><li><p><strong>Pierce: </strong>The trap deals 3d4 damage to the trapped creature.</p></li><li><p><strong>Clamp: </strong>The trapped creature's speed is halved. It may spend an action on its turn to roll Strength against a difficulty of 12 to end this effect.</p></li><li><p><strong>Trip: </strong>The trapped creature is knocked prone.</p></li><li><p><strong>Foil: </strong>The trapped creature checks a Condition.</p></li></ul>",
-  "isTrait": true,
   "canBeActive": false,
   "isActive": true,
   "source": "10f46ecd-e6f5-4d3b-b510-d4035ab24f56",
@@ -33,5 +32,6 @@
       "id": "df4cfb23-804d-40a2-8640-67d3f78a6134"
     }
   ],
-  "artUrl": "https://cdn.midjourney.com/cbd5ecf2-01db-4418-9d64-505c58264a0d/0_2.png"
+  "artUrl": "https://cdn.midjourney.com/cbd5ecf2-01db-4418-9d64-505c58264a0d/0_2.png",
+  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
 }

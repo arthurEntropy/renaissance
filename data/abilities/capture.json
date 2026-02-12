@@ -2,10 +2,9 @@
   "id": "4024366e-242c-448a-b5da-5a811ad78aa7",
   "isDeleted": false,
   "createdAt": "2026-02-02T15:01:56.336Z",
-  "lastModified": "2026-02-03T00:37:20.683Z",
+  "lastModified": "2026-02-12T21:37:52.060Z",
   "name": "Capture",
   "description": "<p>You throw an empty Vessel at a non-humanoid creature within medium range. Roll Awe, Spirit, or Persuade. If the creature’s current Endurance is less than half its maximum, the roll is favored.</p><ul><li><p>On a result below the creature’s Challenge score, the Vessel bursts.</p></li><li><p>On a result equal to or greater than its Challenge score: subtract the roll result from the Challenge score. The remainder is the XP cost to capture the creature. If you do not pay this cost, the Vessel bursts.</p></li></ul><p>When you capture a creature, also apply the following based on the skill you used:</p><ul><li><p>Awe: Mark BODY; the creature gains 1 Friendship.</p></li><li><p>Spirit: Mark HEART; the creature gains 2 Friendship.</p></li><li><p>Persuade: Mark WITS; the creature gains 3 Friendship.</p></li></ul><p>Skills under the marked core ability cost double the normal amount of XP to increase for that creature.</p><p><strong>Describe how you attempt to capture the creature.</strong></p>",
-  "isTrait": false,
   "canBeActive": false,
   "isActive": true,
   "source": "558abd15-f90f-40d7-80d8-df73a37f977c",
@@ -13,6 +12,6 @@
   "xp": null,
   "manaCost": null,
   "successes": "<p>✨: The creature costs 1 less XP to capture.</p><p>🌞: The creature costs 5 less XP to capture and gains an additional 1 Friendship on a capture.</p><p>💀: If you capture the creature, it has 0 levels of friendship. If you do not capture the creature, its attack rolls against you are favored for the next minute.</p>",
-  "actionType": "Action",
-  "artUrl": "https://cdn.midjourney.com/4299bbcc-7ba9-432c-aa67-85311a95f207/0_1.png"
+  "artUrl": "https://cdn.midjourney.com/4299bbcc-7ba9-432c-aa67-85311a95f207/0_1.png",
+  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e"
 }

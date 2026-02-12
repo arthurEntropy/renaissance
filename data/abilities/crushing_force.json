@@ -2,7 +2,6 @@
   "id": "50139dd2-1fa0-4152-a83b-583d6812157b",
   "name": "Crushing Force",
   "description": "<p><em>Trigger: You roll the maximum on one or more damage dice for a melee attack.</em></p><p>The target of the attack rolls Injury.</p>",
-  "isTrait": false,
   "canBeActive": false,
   "isActive": true,
   "source": "1e4131c7-8a6f-422c-998a-5147600c946e",
@@ -10,7 +9,7 @@
   "mp": 1,
   "xp": 20,
   "improvements": [],
-  "lastModified": "2026-02-01T01:04:36.677Z",
-  "actionType": "Reaction",
-  "artUrl": "https://cdn.midjourney.com/6412e052-7934-415a-a950-709b4ee5cb76/0_0.png"
+  "lastModified": "2026-02-12T21:37:52.062Z",
+  "artUrl": "https://cdn.midjourney.com/6412e052-7934-415a-a950-709b4ee5cb76/0_0.png",
+  "type": "e5f6a1b2-c3d4-4e5f-da2b-1c0d9e8f7a6b"
 }

@@ -2,10 +2,9 @@
   "id": "f9d84c50-94fa-4540-b3c2-e7334d6f16f4",
   "isDeleted": false,
   "createdAt": "2025-12-30T14:52:32.421Z",
-  "lastModified": "2026-01-01T14:41:11.131Z",
+  "lastModified": "2026-02-12T21:37:52.063Z",
   "name": "Demiplane",
   "description": "<p>You conjure a magical door upon a flat surface within medium range. This door opens into a demiplane of your design, formed from stable, harmless materials of your choosing.</p><p>Roll Lore. The result determines the total number of feet that may be divided between the doorway’s height and width, as well as the maximum size, in feet, of the demiplane in any single dimension.</p><p>The door persists for one hour, or until you dismiss it. When the door vanishes, any creatures or objects within the demiplane remain there.</p><p>Each time you cast this spell, you may either create a new demiplane, access a demiplane you have previously created, or access a demiplane created by another caster, provided you have personally been within it before.</p><p><strong>Describe the door and the demiplane.</strong></p>",
-  "isTrait": false,
   "canBeActive": false,
   "isActive": true,
   "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
@@ -13,5 +12,5 @@
   "xp": 40,
   "successes": "<p>✨: Double your roll result for the purposes of determining maximum dimensions of the door and demiplane.</p><p>🌞: You may use an action to cause the door to disappear and reappear in the same location at-will for up to one hour.</p><p>💀: The door to the demiplane is unstable. Check a condition. Each time a creature passes through the door, roll a d8. On a 1, the door collapses and the creature must roll Dexterity against the result of your initial Lore roll or take 6d6 damage.</p>",
   "artUrl": "https://cdn.midjourney.com/ecb9d70a-d171-4810-ab54-faa8060b336f/0_1.png",
-  "actionType": "Action"
+  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e"
 }

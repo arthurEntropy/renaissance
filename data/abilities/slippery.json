@@ -2,14 +2,13 @@
   "id": "a52f7c3a-4275-4043-b716-3bd4ff896e0f",
   "name": "Slippery",
   "description": "<p><em>When you engage your instinct to flee, your small, nimble form helps you save your own skin.</em></p><p>Once per rest, your movement does not provoke an attacks of opportunity this turn.</p><p><strong>Describe how you slip past their defenses.</strong></p>",
-  "isTrait": false,
   "canBeActive": false,
   "isActive": true,
   "source": "6ff91bc4-122f-4e95-bb08-b577f1a94bb6",
   "isDeleted": false,
   "mp": null,
   "xp": null,
-  "lastModified": "2026-02-03T03:05:29.711Z",
+  "lastModified": "2026-02-12T21:37:52.078Z",
   "artUrl": "https://cdn.midjourney.com/a1f122cc-a880-4314-9f99-6d36a0688147/0_2.png",
-  "actionType": "Half Action"
+  "type": "c3d4e5f6-a1b2-4c3d-be0f-9a8b7c6d5e4f"
 }

@@ -2,7 +2,6 @@
   "id": "bd3fe860-81bc-45cb-9f01-a2ac4efca67e",
   "name": "Shuriken Training",
   "description": "<p>You are trained in the use of shuriken (small throwing blades), a special weapon type. Your shuriken attacks cost a half action instead of an action.</p>",
-  "isTrait": true,
   "canBeActive": false,
   "isActive": true,
   "source": "e10d7d9f-9d93-46b0-9846-d60241031644",
@@ -30,5 +29,6 @@
       "id": "71feffcb-fe72-586a-bf4d-8130ce64a7d5"
     }
   ],
-  "lastModified": "2026-02-01T01:53:46.909Z"
+  "lastModified": "2026-02-12T21:37:52.078Z",
+  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
 }

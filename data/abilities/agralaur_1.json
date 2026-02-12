@@ -2,11 +2,12 @@
   "id": "05f788f2-cf7a-4bf0-a65c-e41bbe0f5ea3",
   "name": "Agralaur 1",
   "description": "<p>This is a placeholder for an ability</p>",
-  "isTrait": true,
   "canBeActive": false,
   "isActive": true,
   "source": "c02c53d1-b456-45d0-a048-6fc941cacc03",
   "isDeleted": false,
   "mp": null,
-  "xp": null
+  "xp": null,
+  "lastModified": "2026-02-12T21:37:52.054Z",
+  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
 }

@@ -2,11 +2,12 @@
   "id": "bff3275c-9070-4571-93a5-4e280a8af4b1",
   "name": "Speech of Beast & Leaf",
   "description": "<p>You have the ability to communicate in a limited manner with beasts and plants. They can understand the meaning of your words, though you have no special ability to understand them in return.</p><p><strong>Describe how you communicate with them.</strong></p>",
-  "isTrait": true,
   "canBeActive": false,
   "isActive": true,
   "source": "134acec3-0e13-42e1-9d75-7999340d458c",
   "isDeleted": false,
   "mp": null,
-  "xp": null
+  "xp": null,
+  "lastModified": "2026-02-12T21:37:52.079Z",
+  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
 }

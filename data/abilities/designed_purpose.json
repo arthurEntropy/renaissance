@@ -2,11 +2,12 @@
   "id": "b7daf873-507b-4797-8011-7ba2954fa662",
   "name": "Designed Purpose",
   "description": "<p>You were built to perform a specific task. Determine that task through discussion with the group. The task should be something quite specific and unrelated to adventuring (though you may certainly find ways to make use of it while adventuring). Unless circumstances explicitly prevent it, you automatically succeed whenever you perform that task.</p><p><strong>Describe how your design gives you an advantage.</strong></p>",
-  "isTrait": true,
   "canBeActive": false,
   "isActive": true,
   "source": "cfd7bf18-3a9a-4b4e-a9a9-c7069dd822c3",
   "isDeleted": false,
   "mp": null,
-  "xp": null
+  "xp": null,
+  "lastModified": "2026-02-12T21:37:52.063Z",
+  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
 }

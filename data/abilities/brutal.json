@@ -2,14 +2,13 @@
   "id": "3a04ff42-11fc-45fc-9eac-a80595e6d374",
   "name": "Brutal",
   "description": "<p><em>Trigger: Your attack inflicts Injury on a creature.</em></p><p>They roll Injury twice and keep the worst result.</p>",
-  "isTrait": false,
   "canBeActive": false,
   "isActive": true,
   "source": "1e4131c7-8a6f-422c-998a-5147600c946e",
   "isDeleted": false,
   "mp": 1,
   "xp": 5,
-  "lastModified": "2026-01-31T01:23:52.433Z",
-  "actionType": "Reaction",
-  "artUrl": "https://cdn.midjourney.com/f0c5e443-6c8b-4c33-b42f-3e69795eb82a/0_3.png"
+  "lastModified": "2026-02-12T21:37:52.059Z",
+  "artUrl": "https://cdn.midjourney.com/f0c5e443-6c8b-4c33-b42f-3e69795eb82a/0_3.png",
+  "type": "e5f6a1b2-c3d4-4e5f-da2b-1c0d9e8f7a6b"
 }

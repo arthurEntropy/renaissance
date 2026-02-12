@@ -2,17 +2,15 @@
   "id": "f942516f-3b3d-47d8-ba14-d73f21f9d49f",
   "isDeleted": false,
   "createdAt": "2026-02-03T19:59:27.976Z",
-  "lastModified": "2026-02-03T21:37:13.618Z",
+  "lastModified": "2026-02-12T21:37:52.070Z",
   "name": "Horn Blast",
   "description": "<p>You blow a blast on your hunting horn, which can be heard up to a mile away. Choose one of the following effects (choose each effect once per rest):</p><ul><li><p>Each ally within far range takes +1d to their next skill check.</p></li><li><p>Each foe within far range takes -1d to their next skill check.</p></li><li><p>All creatures within far range do not provoke attacks of opportunity for the next round.</p></li></ul>",
-  "isTrait": false,
   "canBeActive": false,
   "isActive": true,
   "source": "10f46ecd-e6f5-4d3b-b510-d4035ab24f56",
   "mp": 2,
   "xp": 10,
   "manaCost": null,
-  "actionType": "Action",
   "artUrl": "https://cdn.midjourney.com/e7bd62a1-f3a1-49b6-860c-dc5c77763c84/0_0.png",
   "successes": "",
   "improvements": [
@@ -22,5 +20,6 @@
       "xp": 15,
       "id": "b9f693b6-5262-4583-b4d8-adbc9ad7ffec"
     }
-  ]
+  ],
+  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e"
 }

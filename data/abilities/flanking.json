@@ -2,14 +2,12 @@
   "id": "5d4dd6b7-e553-4661-842a-fb80a6cf21fd",
   "name": "Flanking",
   "description": "<p>When you and one or more allies are engaged with the same foe, each of you gains +1d to attack rolls against that foe.</p>",
-  "isTrait": true,
   "canBeActive": false,
   "isActive": true,
   "source": "d4dce5e2-e767-464d-91f0-c40b47f788b3",
   "isDeleted": false,
   "mp": null,
   "xp": 15,
-  "actionType": "",
   "improvements": [
     {
       "name": "Team Strike",
@@ -24,6 +22,7 @@
       "id": "7b6ffab3-6ac0-5741-8d96-983c15798232"
     }
   ],
-  "lastModified": "2025-12-27T01:37:58.394Z",
-  "artUrl": "https://cdn.midjourney.com/f833da99-6422-419e-8144-9ba32695770a/0_1.png"
+  "lastModified": "2026-02-12T21:37:52.067Z",
+  "artUrl": "https://cdn.midjourney.com/f833da99-6422-419e-8144-9ba32695770a/0_1.png",
+  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
 }

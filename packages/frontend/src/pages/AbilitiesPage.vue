@@ -38,13 +38,13 @@ import { ref, computed, onMounted } from 'vue'
 import { useAbilitiesStore } from '@/stores/abilitiesStore'
 import { useAuthStore } from '@/stores/authStore'
 import { useSourcesStore } from '@/stores/sourcesStore'
+import { useActionTypesStore } from '@/stores/actionTypesStore'
 import { useEditModal } from '@/composables/useEditModal'
 import { useInfiniteScroll } from '@/composables/useInfiniteScroll'
 import { useInfiniteScrollObserver } from '@/composables/useInfiniteScrollObserver'
 import { useFilterPersistence } from '@/composables/useFilterPersistence'
 import { sortItems } from '@/utils/sortItems'
 import { ABILITY_SORT_OPTIONS } from '@/constants/sortOptions'
-import AbilityService from '@/services/entities/abilityService'
 import AbilityCard from '@/components/ui/cards/item/AbilityCard.vue'
 import EditAbilityModal from '@/components/editModals/EditAbilityModal.vue'
 import ItemCardsLayout from '@/components/ui/layouts/ItemCardsLayout.vue'
@@ -55,6 +55,7 @@ import { getManaCostColors } from '@shared/utils/calculateManaCost'
 const abilitiesStore = useAbilitiesStore()
 const authStore = useAuthStore()
 const sourcesStore = useSourcesStore()
+const actionTypesStore = useActionTypesStore()
 
 const abilities = computed(() => abilitiesStore.abilities)
 
@@ -153,14 +154,18 @@ const updateAbilityShowSuccesses = (abilityId, showSuccesses) => {
 
 // CRUD operations
 const createAbility = async () => {
-  const newAbility = await AbilityService.create()
-  await abilitiesStore.fetch()
+  // Apply current source filter to new ability
+  const initialData = {}
+  if (sourceFilter.value) {
+    initialData.source = sourceFilter.value
+  }
+
+  const newAbility = await abilitiesStore.create(initialData)
   openEditAbilityModal(newAbility)
 }
 
 const updateAbility = async (ability) => {
-  await AbilityService.update(ability)
-  await abilitiesStore.fetch()
+  await abilitiesStore.update(ability)
 }
 
 const deleteAbility = async (ability) => {
@@ -172,8 +177,7 @@ const deleteAbility = async (ability) => {
       if (showEditAbilityModal.value && editId === deleteId) {
         closeEditAbilityModal()
       }
-      await AbilityService.update(abilityToUpdate)
-      await abilitiesStore.fetch()
+      await abilitiesStore.update(abilityToUpdate)
     } catch (error) {
       console.error('Error deleting ability:', error)
     }
@@ -181,14 +185,14 @@ const deleteAbility = async (ability) => {
 }
 
 const saveEditedAbility = async (editedAbility) => {
-  await AbilityService.update(editedAbility)
+  await abilitiesStore.update(editedAbility)
   closeEditAbilityModal()
-  await abilitiesStore.fetch(true)
 }
 
 // Data initialization
 const refreshData = async () => {
   try {
+    await actionTypesStore.fetch()
     await sourcesStore.fetchSources()
     await abilitiesStore.fetch()
   } catch (error) {

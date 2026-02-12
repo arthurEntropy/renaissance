@@ -2,11 +2,11 @@
   "id": "bf1ad1ea-3e1e-49f7-a874-ca6fff7a108b",
   "name": "Read the Signs",
   "description": "<p>When you roll to observe or predict the actions of Gods and Ascendants, you roll with advantage. Describe how you arrive at your interpretation.</p>",
-  "isTrait": false,
   "canBeActive": false,
   "isActive": true,
   "source": "3531c0c2-5f33-4421-ab1f-24e2e6ba82a1",
   "isDeleted": false,
   "mp": null,
-  "xp": null
+  "xp": null,
+  "lastModified": "2026-02-12T21:22:31.650Z"
 }

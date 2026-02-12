@@ -2,13 +2,13 @@
   "id": "5ca90b33-0407-46a9-9854-01eda52a5d51",
   "name": "Stoop To My Level",
   "description": "<p>You are subject to no penalties when prone - attacks against you are not favored and your attacks are not ill-favored.</p><p>Additionally, while prone, you may use a half action and spend 1 MP to roll Strength vs Dexterity against an adjacent foe. On a win, they are knocked prone.</p>",
-  "isTrait": true,
   "canBeActive": false,
   "isActive": true,
   "source": "e0a69b6f-38f9-4fa5-a1ef-5e5777299e82",
   "isDeleted": false,
   "mp": null,
   "xp": 5,
-  "lastModified": "2026-01-29T14:50:06.842Z",
-  "artUrl": "https://cdn.midjourney.com/1620c630-07ae-4cfc-891b-dea7854da871/0_3.png"
+  "lastModified": "2026-02-12T21:37:52.079Z",
+  "artUrl": "https://cdn.midjourney.com/1620c630-07ae-4cfc-891b-dea7854da871/0_3.png",
+  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
 }

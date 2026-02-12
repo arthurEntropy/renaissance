@@ -2,16 +2,15 @@
   "id": "f4e2b81d-977a-4321-92f4-e36c9765b46d",
   "isDeleted": false,
   "createdAt": "2026-01-29T18:23:54.853Z",
-  "lastModified": "2026-01-29T19:03:34.961Z",
+  "lastModified": "2026-02-12T21:37:52.080Z",
   "name": "The Ol' One-Two",
   "description": "<p><em>Trigger: You hit and deal damage with an attack on your turn.</em></p><p>You may immediately make one additional unarmed melee attack, skipping Engagement.</p>",
-  "isTrait": false,
   "canBeActive": false,
   "isActive": true,
   "source": "e0a69b6f-38f9-4fa5-a1ef-5e5777299e82",
   "mp": 3,
   "xp": 20,
   "manaCost": null,
-  "actionType": "Reaction",
-  "artUrl": "https://cdn.midjourney.com/d48965ca-2a13-4d87-9cd9-079947e2c471/0_0.png"
+  "artUrl": "https://cdn.midjourney.com/d48965ca-2a13-4d87-9cd9-079947e2c471/0_0.png",
+  "type": "e5f6a1b2-c3d4-4e5f-da2b-1c0d9e8f7a6b"
 }

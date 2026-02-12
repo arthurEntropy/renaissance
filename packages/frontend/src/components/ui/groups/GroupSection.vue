@@ -23,7 +23,7 @@ import { ref } from 'vue'
 import { ChevronRightIcon, ChevronDownIcon } from '@heroicons/vue/24/outline'
 import MasonryGrid from '@/components/ui/layouts/MasonryGrid.vue'
 
-const props = defineProps({
+defineProps({
     group: {
         type: Object,
         required: true,
