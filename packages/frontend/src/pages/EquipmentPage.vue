@@ -74,6 +74,8 @@ import { useEditModal } from '@/composables/useEditModal'
 import { useInfiniteScroll } from '@/composables/useInfiniteScroll'
 import { useInfiniteScrollObserver } from '@/composables/useInfiniteScrollObserver'
 import { useFilterPersistence } from '@/composables/useFilterPersistence'
+import { sortItems } from '@/utils/sortItems'
+import { EQUIPMENT_SORT_OPTIONS } from '@/constants/sortOptions'
 import EquipmentService from '@/services/entities/equipment/equipmentService'
 import EngagementSuccessService from '@/services/entities/engagementSuccessService'
 import EquipmentCard from '@/components/ui/cards/item/EquipmentCard.vue'
@@ -122,20 +124,7 @@ const filteredSubtypes = computed(() => {
   return equipmentSubtypesStore.getSubtypesByType(typeFilter.value)
 })
 
-const sortOptions = ref({
-  'Name': [
-    { value: 'name-asc', label: 'Name (A-Z)' },
-    { value: 'name-desc', label: 'Name (Z-A)' },
-  ],
-  'Weight': [
-    { value: 'weight-asc', label: 'Weight (Light to Heavy)' },
-    { value: 'weight-desc', label: 'Weight (Heavy to Light)' },
-  ],
-  'Keeping': [
-    { value: 'keeping-asc', label: 'Keeping (Low to High)' },
-    { value: 'keeping-desc', label: 'Keeping (High to Low)' },
-  ],
-})
+const sortOptions = ref(EQUIPMENT_SORT_OPTIONS)
 
 // Filtering and sorting logic
 const allFilteredEquipment = computed(() => {
@@ -170,28 +159,7 @@ const allFilteredEquipment = computed(() => {
     filtered = filtered.filter(item => item.grade === gradeFilter.value)
   }
 
-  if (sortOption.value) {
-    const [field, direction] = sortOption.value.split('-')
-    filtered.sort((a, b) => {
-      const aValue = a?.[field]
-      const bValue = b?.[field]
-
-      if (aValue == null && bValue == null) return 0
-      if (aValue == null) return 1
-      if (bValue == null) return -1
-
-      let comparison = 0
-      if (field === 'name') {
-        comparison = String(aValue).localeCompare(String(bValue))
-      } else {
-        comparison = Number(aValue) - Number(bValue)
-      }
-
-      return direction === 'asc' ? comparison : -comparison
-    })
-  }
-
-  return filtered
+  return sortItems(filtered, sortOption.value)
 })
 
 // Infinite scroll setup

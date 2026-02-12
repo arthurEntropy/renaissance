@@ -52,8 +52,8 @@ const props = defineProps({
         type: Object,
         required: true
     },
-    index: {
-        type: Number,
+    itemId: {
+        type: String,
         required: true
     },
     isEditMode: {
@@ -86,19 +86,17 @@ const displayWeight = computed(() => {
 
 // Event handlers
 const handleCarriedChange = (isCarried) => {
-    emit('update-carried', props.index, isCarried)
+    emit('update-carried', props.itemId, isCarried)
 }
 
 const handleWieldingChange = (isWielding) => {
-    // Only allow wielding if the item can be wielded
     const shouldWield = isWielding && canWield.value
-    emit('update-wielding', props.index, shouldWield)
+    emit('update-wielding', props.itemId, shouldWield)
 }
 
 const handleQuantityChange = (value) => {
-    // Ensure minimum quantity of 1
     const quantity = Math.max(1, value)
-    emit('update-quantity', props.index, quantity)
+    emit('update-quantity', props.itemId, quantity)
 }
 </script>
 

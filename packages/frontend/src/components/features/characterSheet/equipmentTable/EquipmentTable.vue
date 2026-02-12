@@ -1,40 +1,67 @@
 <template>
   <CharacterSheetSection>
-    <TableHeader title="Equipment" :is-edit-mode="internalEditMode" :show-edit-button="canEdit"
-      @toggle-edit="toggleEditMode">
+    <TableHeader title="Equipment" :is-edit-mode="internalEditMode" :show-edit-button="canEdit" collapsible
+      :is-collapsed="isCollapsed" @toggle-collapse="isCollapsed = !isCollapsed" @toggle-edit="toggleEditMode">
+      <template #header-left>
+        <FloatingActionButton v-if="internalEditMode" type="add" size="small" visibility="always"
+          @click="showEquipmentSelector = true" />
+      </template>
+      <template #header-center>
+        <div v-show="!isCollapsed && internalEditMode" class="header-controls">
+          <SortingDropdown v-model="groupingOption" :options="groupingOptions" placeholder="Group by..." />
+          <SortingDropdown v-model="equipmentSortOption" :options="sortOptions" placeholder="Order by..." />
+        </div>
+      </template>
       <template #header-right>
         <EquipmentWeight :equipment-items="characterEquipment" />
       </template>
     </TableHeader>
 
-    <!-- Masonry Grid with Equipment Items -->
-    <MasonryGrid :column-width="375" :gap="15" :row-height="10" class="equipment-masonry" ref="masonryGridRef">
-      <div v-for="(item, index) in characterEquipment" :key="item.id" class="masonry-item">
-
-        <div class="equipment-card-col">
-          <EquipmentCard v-if="item.equipment" :equipment="item.equipment" :collapsed="item.collapsed || false"
-            :editable="item.equipment.isCustom" class="equipment-card" @edit="openEditEquipmentModal"
-            :collapsible="false" :show-keeping-badge="false" :show-add-to-character="false"
-            :engagement-success-options="[]" :deletable="internalEditMode" @delete="removeEquipmentItem(index)" />
-
-          <span v-else class="missing-item">Unknown item</span>
-
-          <!-- Equipment Details (Carried, Wielding, Quantity, Weight Total) -->
-          <EquipmentDetails :equipment-item="item" :index="index" :is-edit-mode="canEdit"
-            @update-carried="handleCarriedChange" @update-wielding="handleWieldingChange"
-            @update-quantity="handleQuantityChange" />
-
-        </div>
+    <div v-if="!isCollapsed">
+      <!-- Empty State: No Equipment -->
+      <div v-if="characterEquipment.length === 0" class="empty-table-state">
+        <p class="empty-table-message">No equipment yet</p>
+        <p v-if="internalEditMode" class="empty-table-hint">Click the + button above to add your first equipment</p>
       </div>
-    </MasonryGrid>
 
-    <!-- Add Item FAB (only in edit mode) -->
-    <div v-if="showAddButton" class="add-button-container">
-      <FloatingActionButton type="add" size="large" visibility="always" @click="showEquipmentSelector = true" />
+      <!-- Grouped Display -->
+      <GroupedMasonryGrid v-else-if="hasEquipmentGrouping" :column-width="375" :gap="15" :row-height="10"
+        :grouped-items="groupedEquipmentItems" class="equipment-masonry" ref="masonryGridRef">
+        <template #default="{ item }">
+          <div class="equipment-card-col">
+            <EquipmentCard v-if="item.equipment" :equipment="item.equipment" :collapsed="item.collapsed || false"
+              :editable="item.equipment.isCustom" class="equipment-card" @edit="openEditEquipmentModal"
+              :collapsible="false" :show-keeping-badge="false" :show-add-to-character="false"
+              :engagement-success-options="[]" :deletable="internalEditMode" @delete="removeEquipmentItem(item.id)" />
+            <span v-else class="missing-item">Unknown item</span>
+
+            <EquipmentDetails :equipment-item="item" :item-id="item.id" :is-edit-mode="canEdit"
+              @update-carried="handleCarriedChange" @update-wielding="handleWieldingChange"
+              @update-quantity="handleQuantityChange" />
+          </div>
+        </template>
+      </GroupedMasonryGrid>
+
+      <!-- Ungrouped Display -->
+      <MasonryGrid v-else :column-width="375" :gap="15" :row-height="10" class="equipment-masonry" ref="masonryGridRef">
+        <div v-for="item in characterEquipment" :key="item.id" class="masonry-item">
+          <div class="equipment-card-col">
+            <EquipmentCard v-if="item.equipment" :equipment="item.equipment" :collapsed="item.collapsed || false"
+              :editable="item.equipment.isCustom" class="equipment-card" @edit="openEditEquipmentModal"
+              :collapsible="false" :show-keeping-badge="false" :show-add-to-character="false"
+              :engagement-success-options="[]" :deletable="internalEditMode" @delete="removeEquipmentItem(item.id)" />
+            <span v-else class="missing-item">Unknown item</span>
+
+            <EquipmentDetails :equipment-item="item" :item-id="item.id" :is-edit-mode="canEdit"
+              @update-carried="handleCarriedChange" @update-wielding="handleWieldingChange"
+              @update-quantity="handleQuantityChange" />
+          </div>
+        </div>
+      </MasonryGrid>
     </div>
 
     <!-- Equipment Selector Modal -->
-    <ItemSelector :show="showEquipmentSelector" title="Add Equipment" :grouped-items="groupedEquipment"
+    <ItemSelector :show="showEquipmentSelector" title="Add Equipment" :grouped-items="groupedEquipmentForSelector"
       :search-query="equipmentSearchQuery" search-placeholder="Search equipment..."
       no-items-message="No equipment found" :get-source-name="sourcesStore.getSourceName"
       :show-choice-mode="showChoiceMode" :choice-options="addEquipmentOptions" @close="closeEquipmentSelector"
@@ -56,7 +83,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, watch } from 'vue'
 import EquipmentCard from '@/components/ui/cards/item/EquipmentCard.vue'
 import EquipmentWeight from './EquipmentWeight.vue'
 import EquipmentDetails from './EquipmentDetails.vue'
@@ -65,10 +92,15 @@ import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.v
 import ItemSelector from '@/components/ui/selectors/ItemSelector.vue'
 import CharacterSheetSection from '@/components/ui/containers/CharacterSheetSection.vue'
 import EditEquipmentModal from '@/components/editModals/EditEquipmentModal.vue'
+import GroupedMasonryGrid from '@/components/ui/layouts/GroupedMasonryGrid.vue'
 import MasonryGrid from '@/components/ui/layouts/MasonryGrid.vue'
+import SortingDropdown from '@/components/ui/dropdowns/SortingDropdown.vue'
 import { useEditModal } from '@/composables/useEditModal'
 import CharacterService from '@/services/entities/characterService'
 import { useItemSelector } from '@/composables/useItemSelector'
+import { useItemGrouping } from '@/composables/useItemGrouping'
+import { sortItems } from '@/utils/sortItems'
+import { EQUIPMENT_SORT_OPTIONS } from '@/constants/sortOptions'
 import { useEquipmentTypesStore } from '@/stores/equipmentTypesStore'
 import { useEquipmentStore } from '@/stores/equipmentStore'
 import { useCharactersStore } from '@/stores/charactersStore'
@@ -109,12 +141,38 @@ const {
 } = useEditModal()
 
 const internalEditMode = ref(false)
+const isCollapsed = ref(false)
+
 const toggleEditMode = () => { internalEditMode.value = !internalEditMode.value }
 
 const masonryGridRef = ref(null)
 
+const sortOptions = EQUIPMENT_SORT_OPTIONS
+
+const groupingOptions = [
+  { value: 'source', label: 'Source' }
+]
+
+// Grouping and Sorting state
+const groupingOption = computed({
+  get: () => selectedCharacter.value?.groupEquipmentBySource ? 'source' : '',
+  set: (value) => {
+    if (selectedCharacter.value) {
+      selectedCharacter.value.groupEquipmentBySource = (value === 'source')
+    }
+  }
+})
+
+const equipmentSortOption = computed({
+  get: () => selectedCharacter.value?.equipmentSortOption || 'name-asc',
+  set: (value) => {
+    if (selectedCharacter.value) {
+      selectedCharacter.value.equipmentSortOption = value
+    }
+  }
+})
+
 const canEdit = computed(() => props.isEditMode)
-const showAddButton = computed(() => internalEditMode.value)
 
 const showEquipmentSelector = ref(false)
 const showChoiceMode = ref(true)
@@ -132,7 +190,7 @@ const addEquipmentOptions = [
   }
 ]
 
-const { groupedItems: groupedEquipment, searchQuery: equipmentSearchQuery } = useItemSelector(
+const { groupedItems: groupedEquipmentForSelector, searchQuery: equipmentSearchQuery } = useItemSelector(
   allEquipment,
   sourcesStore,
   { searchFields: ['name'] }
@@ -140,7 +198,8 @@ const { groupedItems: groupedEquipment, searchQuery: equipmentSearchQuery } = us
 
 const characterEquipment = computed(() => {
   if (!selectedCharacter.value?.equipment) return []
-  return selectedCharacter.value.equipment.map((entry) => {
+
+  const equipment = selectedCharacter.value.equipment.map((entry) => {
     const equipment = allEquipment.value.find((eq) => eq.id === entry.id)
     return {
       ...entry,
@@ -148,7 +207,33 @@ const characterEquipment = computed(() => {
       collapsed: entry.collapsed ?? true,
     }
   })
+
+  return sortItems(
+    equipment.map(item => ({ ...item, ...item.equipment })),
+    equipmentSortOption.value
+  ).map(sorted => {
+    const original = equipment.find(e => e.id === sorted.id)
+    return {
+      id: sorted.id,
+      quantity: original.quantity,
+      isCarried: original.isCarried,
+      isWielding: original.isWielding,
+      collapsed: original.collapsed,
+      source: sorted.source,
+      equipment: sorted.equipment
+    }
+  })
 })
+
+const { groupedItems: groupedEquipmentItems, hasGrouping: hasEquipmentGrouping } = useItemGrouping(
+  characterEquipment,
+  computed(() => !!selectedCharacter.value?.groupEquipmentBySource),
+  sourcesStore
+)
+
+watch(characterEquipment, () => {
+  masonryGridRef.value?.updateLayout()
+}, { deep: true })
 
 const isCreatingCustom = ref(false)
 
@@ -188,8 +273,13 @@ const createAndAddCustomEquipment = async () => {
   }
 }
 
-const removeEquipmentItem = (index) => {
-  const equipmentItem = characterEquipment.value[index]
+const removeEquipmentItem = (itemId) => {
+  if (!internalEditMode.value || !selectedCharacter.value?.equipment) return
+
+  const index = selectedCharacter.value.equipment.findIndex(e => e.id === itemId)
+  if (index === -1) return
+
+  const equipmentItem = characterEquipment.value.find(e => e.id === itemId)
   const equipmentName = equipmentItem?.equipment?.name || 'this item'
 
   if (confirm(`Are you sure you want to remove ${equipmentName}?`)) {
@@ -198,7 +288,15 @@ const removeEquipmentItem = (index) => {
   }
 }
 
-const handleCarriedChange = (index, isCarried) => {
+const getEquipmentIndex = (itemId) => {
+  if (!selectedCharacter.value?.equipment) return -1
+  return selectedCharacter.value.equipment.findIndex(e => e.id === itemId)
+}
+
+const handleCarriedChange = (itemId, isCarried) => {
+  const index = getEquipmentIndex(itemId)
+  if (index === -1) return
+
   selectedCharacter.value.equipment[index].isCarried = isCarried
 
   if (!isCarried && selectedCharacter.value.equipment[index].isWielding) {
@@ -206,12 +304,15 @@ const handleCarriedChange = (index, isCarried) => {
   }
 }
 
-const handleWieldingChange = (index, isWielding) => {
+const handleWieldingChange = (itemId, isWielding) => {
+  const index = getEquipmentIndex(itemId)
+  if (index === -1) return
+
   const currentItem = selectedCharacter.value.equipment[index]
-  const equipmentItem = characterEquipment.value[index]
+  const equipmentItem = characterEquipment.value.find(e => e.id === itemId)
 
   let canWield = false
-  if (currentItem.isCarried && equipmentItem.equipment) {
+  if (currentItem.isCarried && equipmentItem?.equipment) {
     const equipmentType = equipmentTypesStore.getById(equipmentItem.equipment.type)
     canWield = equipmentType?.name === 'Weapon'
   }
@@ -219,7 +320,10 @@ const handleWieldingChange = (index, isWielding) => {
   selectedCharacter.value.equipment[index].isWielding = isWielding && canWield
 }
 
-const handleQuantityChange = (index, quantity) => {
+const handleQuantityChange = (itemId, quantity) => {
+  const index = getEquipmentIndex(itemId)
+  if (index === -1) return
+
   selectedCharacter.value.equipment[index].quantity = Math.max(1, quantity)
 }
 
@@ -286,9 +390,36 @@ onMounted(async () => {
   padding: var(--space-md);
 }
 
+.empty-table-state {
+  padding: var(--space-2xl) var(--space-xl);
+  text-align: center;
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-4);
+  margin: var(--space-lg) 0;
+}
+
+.empty-table-message {
+  font-size: var(--font-size-18);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  margin: 0 0 var(--space-sm) 0;
+}
+
+.empty-table-hint {
+  font-size: var(--font-size-14);
+  color: var(--color-text-tertiary);
+  margin: 0;
+}
+
 .add-button-container {
   display: flex;
   justify-content: center;
   margin-top: var(--space-md);
+}
+
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
 }
 </style>

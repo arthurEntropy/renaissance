@@ -245,7 +245,9 @@
     "https://cdn.midjourney.com/bb7f8092-0710-4aaf-9f26-e376a0cec04e/0_0.png"
   ],
   "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2026-02-10T18:04:04.272Z",
-  "lastModified": "2026-02-10T18:04:04.272Z",
-  "mestiereId": "4eccfe5d-de19-4bc5-8c9c-374d793d67f0"
+  "updatedAt": "2026-02-12T14:06:16.677Z",
+  "lastModified": "2026-02-12T14:06:16.677Z",
+  "mestiereId": "4eccfe5d-de19-4bc5-8c9c-374d793d67f0",
+  "groupEquipmentBySource": false,
+  "equipmentSortOption": "keeping-asc"
 }
