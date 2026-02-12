@@ -152,7 +152,13 @@ const updateAbilityShowSuccesses = (abilityId, showSuccesses) => {
 
 // CRUD operations
 const createAbility = async () => {
-  const newAbility = await abilitiesStore.create()
+  // Apply current source filter to new ability
+  const initialData = {}
+  if (sourceFilter.value) {
+    initialData.source = sourceFilter.value
+  }
+  
+  const newAbility = await abilitiesStore.create(initialData)
   openEditAbilityModal(newAbility)
 }
 

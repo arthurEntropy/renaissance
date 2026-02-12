@@ -187,7 +187,22 @@ useFilterPersistence('equipment', {
 
 // CRUD operations
 const createEquipment = async () => {
-  const newEquipment = await equipmentStore.create()
+  // Apply current filters to new equipment
+  const initialData = {}
+  if (sourceFilter.value) {
+    initialData.source = sourceFilter.value
+  }
+  if (typeFilter.value) {
+    initialData.type = typeFilter.value
+  }
+  if (subtypeFilter.value) {
+    initialData.subtype = subtypeFilter.value
+  }
+  if (gradeFilter.value) {
+    initialData.grade = gradeFilter.value
+  }
+  
+  const newEquipment = await equipmentStore.create(initialData)
   const createdEquipment = equipmentStore.equipment.find(
     (item) => item.id === newEquipment.id,
   )
