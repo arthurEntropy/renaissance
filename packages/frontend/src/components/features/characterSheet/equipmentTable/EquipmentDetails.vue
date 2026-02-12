@@ -111,6 +111,7 @@ const handleQuantityChange = (value) => {
     background-color: var(--overlay-white-medium);
     border-radius: var(--radius-10);
     width: 100%;
+    min-width: 0;
     margin-left: 0;
     box-sizing: border-box;
 }

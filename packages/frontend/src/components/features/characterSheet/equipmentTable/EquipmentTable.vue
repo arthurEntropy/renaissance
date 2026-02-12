@@ -17,7 +17,7 @@
       </template>
     </TableHeader>
 
-    <div v-if="!isCollapsed">
+    <div v-if="!isCollapsed" class="equipment-content">
       <!-- Empty State: No Equipment -->
       <div v-if="characterEquipment.length === 0" class="empty-table-state">
         <p class="empty-table-message">No equipment yet</p>
@@ -28,34 +28,30 @@
       <GroupedMasonryGrid v-else-if="hasEquipmentGrouping" :column-width="350" :gap="20" :row-height="10"
         :grouped-items="groupedEquipmentItems" class="equipment-masonry" ref="masonryGridRef">
         <template #default="{ item }">
-          <div class="equipment-card-col">
-            <EquipmentCard v-if="item.equipment" :equipment="item.equipment" :collapsed="item.collapsed || false"
-              :editable="item.equipment.isCustom" class="equipment-card" @edit="openEditEquipmentModal"
-              :collapsible="false" :show-keeping-badge="false" :show-add-to-character="false"
-              :engagement-success-options="[]" :deletable="internalEditMode" @delete="removeEquipmentItem(item.id)" />
-            <span v-else class="missing-item">Unknown item</span>
+          <EquipmentCard v-if="item.equipment" :equipment="item.equipment" :collapsed="item.collapsed || false"
+            :editable="item.equipment.isCustom" class="equipment-card" @edit="openEditEquipmentModal"
+            :collapsible="false" :show-keeping-badge="false" :show-add-to-character="false"
+            :engagement-success-options="[]" :deletable="internalEditMode" @delete="removeEquipmentItem(item.id)" />
+          <span v-else class="missing-item">Unknown item</span>
 
-            <EquipmentDetails :equipment-item="item" :item-id="item.id" :is-edit-mode="canEdit"
-              @update-carried="handleCarriedChange" @update-wielding="handleWieldingChange"
-              @update-quantity="handleQuantityChange" />
-          </div>
+          <EquipmentDetails v-if="item.equipment" :equipment-item="item" :item-id="item.id" :is-edit-mode="canEdit"
+            @update-carried="handleCarriedChange" @update-wielding="handleWieldingChange"
+            @update-quantity="handleQuantityChange" />
         </template>
       </GroupedMasonryGrid>
 
       <!-- Ungrouped Display -->
       <MasonryGrid v-else :column-width="350" :gap="20" :row-height="10" class="equipment-masonry" ref="masonryGridRef">
         <div v-for="item in characterEquipment" :key="item.id" class="masonry-item">
-          <div class="equipment-card-col">
-            <EquipmentCard v-if="item.equipment" :equipment="item.equipment" :collapsed="item.collapsed || false"
-              :editable="item.equipment.isCustom" class="equipment-card" @edit="openEditEquipmentModal"
-              :collapsible="false" :show-keeping-badge="false" :show-add-to-character="false"
-              :engagement-success-options="[]" :deletable="internalEditMode" @delete="removeEquipmentItem(item.id)" />
-            <span v-else class="missing-item">Unknown item</span>
+          <EquipmentCard v-if="item.equipment" :equipment="item.equipment" :collapsed="item.collapsed || false"
+            :editable="item.equipment.isCustom" class="equipment-card" @edit="openEditEquipmentModal"
+            :collapsible="false" :show-keeping-badge="false" :show-add-to-character="false"
+            :engagement-success-options="[]" :deletable="internalEditMode" @delete="removeEquipmentItem(item.id)" />
+          <span v-else class="missing-item">Unknown item</span>
 
-            <EquipmentDetails :equipment-item="item" :item-id="item.id" :is-edit-mode="canEdit"
-              @update-carried="handleCarriedChange" @update-wielding="handleWieldingChange"
-              @update-quantity="handleQuantityChange" />
-          </div>
+          <EquipmentDetails v-if="item.equipment" :equipment-item="item" :item-id="item.id" :is-edit-mode="canEdit"
+            @update-carried="handleCarriedChange" @update-wielding="handleWieldingChange"
+            @update-quantity="handleQuantityChange" />
         </div>
       </MasonryGrid>
     </div>
@@ -83,7 +79,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, watch } from 'vue'
+import { ref, computed, onMounted, watch, nextTick } from 'vue'
 import EquipmentCard from '@/components/ui/cards/item/EquipmentCard.vue'
 import EquipmentWeight from './EquipmentWeight.vue'
 import EquipmentDetails from './EquipmentDetails.vue'
@@ -235,6 +231,14 @@ watch(characterEquipment, () => {
   masonryGridRef.value?.updateLayout()
 }, { deep: true })
 
+watch(isCollapsed, (newVal) => {
+  if (!newVal) {
+    nextTick(() => {
+      masonryGridRef.value?.updateLayout()
+    })
+  }
+})
+
 const isCreatingCustom = ref(false)
 
 const createAndAddCustomEquipment = async () => {
@@ -377,6 +381,7 @@ onMounted(async () => {
       equipmentGradesStore.fetch()
     ])
     engagementSuccessOptions.value = await EngagementSuccessService.getAll()
+    masonryGridRef.value?.updateLayout()
   } catch (error) {
     console.error('Error initializing EquipmentTable data:', error)
   }
@@ -421,5 +426,10 @@ onMounted(async () => {
   display: flex;
   align-items: center;
   gap: var(--space-md);
+}
+
+.equipment-content {
+  width: 100%;
+  min-width: 0;
 }
 </style>
