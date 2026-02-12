@@ -44,7 +44,6 @@ import { useInfiniteScrollObserver } from '@/composables/useInfiniteScrollObserv
 import { useFilterPersistence } from '@/composables/useFilterPersistence'
 import { sortItems } from '@/utils/sortItems'
 import { ABILITY_SORT_OPTIONS } from '@/constants/sortOptions'
-import AbilityService from '@/services/entities/abilityService'
 import AbilityCard from '@/components/ui/cards/item/AbilityCard.vue'
 import EditAbilityModal from '@/components/editModals/EditAbilityModal.vue'
 import ItemCardsLayout from '@/components/ui/layouts/ItemCardsLayout.vue'
@@ -153,14 +152,12 @@ const updateAbilityShowSuccesses = (abilityId, showSuccesses) => {
 
 // CRUD operations
 const createAbility = async () => {
-  const newAbility = await AbilityService.create()
-  await abilitiesStore.fetch()
+  const newAbility = await abilitiesStore.create()
   openEditAbilityModal(newAbility)
 }
 
 const updateAbility = async (ability) => {
-  await AbilityService.update(ability)
-  await abilitiesStore.fetch()
+  await abilitiesStore.update(ability)
 }
 
 const deleteAbility = async (ability) => {
@@ -172,8 +169,7 @@ const deleteAbility = async (ability) => {
       if (showEditAbilityModal.value && editId === deleteId) {
         closeEditAbilityModal()
       }
-      await AbilityService.update(abilityToUpdate)
-      await abilitiesStore.fetch()
+      await abilitiesStore.update(abilityToUpdate)
     } catch (error) {
       console.error('Error deleting ability:', error)
     }
@@ -181,9 +177,8 @@ const deleteAbility = async (ability) => {
 }
 
 const saveEditedAbility = async (editedAbility) => {
-  await AbilityService.update(editedAbility)
+  await abilitiesStore.update(editedAbility)
   closeEditAbilityModal()
-  await abilitiesStore.fetch(true)
 }
 
 // Data initialization

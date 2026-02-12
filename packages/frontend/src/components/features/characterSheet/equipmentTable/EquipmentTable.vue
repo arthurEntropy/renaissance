@@ -104,7 +104,6 @@ import { useSourcesStore } from '@/stores/sourcesStore'
 import { useKeepingStore } from '@/stores/keepingStore'
 import { useEquipmentSubtypesStore } from '@/stores/equipmentSubtypesStore'
 import { useEquipmentGradesStore } from '@/stores/equipmentGradesStore'
-import EquipmentService from '@/services/entities/equipment/equipmentService'
 import EngagementSuccessService from '@/services/entities/engagementSuccessService'
 import { BookOpenIcon, PlusIcon } from '@heroicons/vue/24/outline'
 
@@ -247,7 +246,7 @@ const createAndAddCustomEquipment = async () => {
   isCreatingCustom.value = true
 
   try {
-    const createdEquipment = await EquipmentService.createCustomEquipment()
+    const createdEquipment = await equipmentStore.createCustomEquipment()
 
     const newItem = {
       id: createdEquipment.id,
@@ -332,14 +331,12 @@ const handleQuantityChange = (itemId, quantity) => {
 }
 
 const saveEditedEquipment = async (updatedEquipment) => {
-  await EquipmentService.update(updatedEquipment)
-  await equipmentStore.fetch()
+  await equipmentStore.update(updatedEquipment)
   closeEditEquipmentModal()
 }
 
 const deleteEquipment = async (equipment) => {
-  await EquipmentService.delete(equipment)
-  await equipmentStore.fetch()
+  await equipmentStore.remove(equipment)
   closeEditEquipmentModal()
 }
 

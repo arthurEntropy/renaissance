@@ -5,7 +5,6 @@ export function useBaseEntityStore(service, entityName) {
   const allItems = ref([])
   const isLoading = ref(false)
   const error = ref(null)
-  const lastFetch = ref(null)
   
   // Selection state (shared across all entity stores)
   const selectedItem = ref(null)
@@ -34,17 +33,11 @@ export function useBaseEntityStore(service, entityName) {
   }
   
   // Actions
-  const fetch = async (force = false) => {
-    // Skip if recently fetched (unless forced)
-    if (!force && lastFetch.value && Date.now() - lastFetch.value < 30000) {
-      return
-    }
-
+  const fetch = async () => {
     isLoading.value = true
     error.value = null // Clear error on new request
     try {
       allItems.value = await service.getAll()
-      lastFetch.value = Date.now()
     } catch (err) {
       console.error(`Error fetching ${entityName}:`, err)
       error.value = err.message
@@ -52,11 +45,6 @@ export function useBaseEntityStore(service, entityName) {
     } finally {
       isLoading.value = false
     }
-  }
-
-  // Invalidate cache and refetch
-  const refresh = async () => {
-    return fetch(true)
   }
   
   // Getters
@@ -69,10 +57,8 @@ export function useBaseEntityStore(service, entityName) {
     items,
     isLoading,
     error,
-    lastFetch,
     selectedItem,
     fetch,
-    refresh,
     getById,
     clearError,
     selectItem,
@@ -91,7 +77,6 @@ export function useCrudEntityStore(service, entityName) {
     try {
       const newEntity = await service.create(entity)
       base.allItems.value.push(newEntity)
-      base.lastFetch.value = Date.now() // Update cache timestamp
       return newEntity
     } catch (err) {
       console.error(`Error creating ${entityName}:`, err)
@@ -118,7 +103,6 @@ export function useCrudEntityStore(service, entityName) {
       if (index !== -1) {
         base.allItems.value[index] = updated
       }
-      base.lastFetch.value = Date.now() // Update cache timestamp
       return updated
     } catch (err) {
       // Rollback on error
@@ -144,7 +128,6 @@ export function useCrudEntityStore(service, entityName) {
     
     try {
       await service.delete(entity)
-      base.lastFetch.value = Date.now() // Update cache timestamp
     } catch (err) {
       // Rollback on error
       if (index !== -1 && original) {

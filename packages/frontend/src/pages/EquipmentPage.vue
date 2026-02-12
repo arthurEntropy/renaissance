@@ -76,7 +76,6 @@ import { useInfiniteScrollObserver } from '@/composables/useInfiniteScrollObserv
 import { useFilterPersistence } from '@/composables/useFilterPersistence'
 import { sortItems } from '@/utils/sortItems'
 import { EQUIPMENT_SORT_OPTIONS } from '@/constants/sortOptions'
-import EquipmentService from '@/services/entities/equipment/equipmentService'
 import EngagementSuccessService from '@/services/entities/engagementSuccessService'
 import EquipmentCard from '@/components/ui/cards/item/EquipmentCard.vue'
 import EditEquipmentModal from '@/components/editModals/EditEquipmentModal.vue'
@@ -188,8 +187,7 @@ useFilterPersistence('equipment', {
 
 // CRUD operations
 const createEquipment = async () => {
-  const newEquipment = await EquipmentService.create()
-  await equipmentStore.fetch()
+  const newEquipment = await equipmentStore.create()
   const createdEquipment = equipmentStore.equipment.find(
     (item) => item.id === newEquipment.id,
   )
@@ -197,9 +195,8 @@ const createEquipment = async () => {
 }
 
 const saveEditedEquipment = async (editedEquipment) => {
-  await EquipmentService.update(editedEquipment)
+  await equipmentStore.update(editedEquipment)
   closeEditEquipmentModal()
-  await equipmentStore.fetch()
 }
 
 const deleteEquipment = async (equipmentItem) => {
@@ -211,8 +208,7 @@ const deleteEquipment = async (equipmentItem) => {
       if (showEditEquipmentModal.value && editId === deleteId) {
         closeEditEquipmentModal()
       }
-      await EquipmentService.update(equipmentToUpdate)
-      await equipmentStore.fetch()
+      await equipmentStore.update(equipmentToUpdate)
     } catch (error) {
       console.error('Error deleting equipment:', error)
     }

@@ -104,9 +104,6 @@ import { useAbilitiesStore } from '@/stores/abilitiesStore'
 import { useEquipmentStore } from '@/stores/equipmentStore'
 import { useArtStore } from '@/stores/artStore'
 
-// Service imports
-import AbilityService from '@/services/entities/abilityService'
-import EquipmentService from '@/services/entities/equipment/equipmentService'
 import { IMAGE_GALLERY_MODES, ART_TYPES } from '@shared/constants/artConstants.js'
 
 // Props
@@ -187,42 +184,37 @@ const handleClose = () => {
 
 // Ability and Equipment modal methods
 const saveEditedAbility = async (editedAbility) => {
-  await AbilityService.update(editedAbility)
-  await abilitiesStore.fetch(true) // Force fetch to bypass cache
+  await abilitiesStore.update(editedAbility)
   closeEditAbilityModal()
 }
 
 const deleteAbility = async (ability) => {
   const updatedAbility = { ...ability, isDeleted: true }
-  await AbilityService.update(updatedAbility)
-  await abilitiesStore.fetch(true) // Force fetch to bypass cache
+  await abilitiesStore.update(updatedAbility)
   closeEditAbilityModal()
 }
 
 const saveEditedEquipment = async (editedEquipment) => {
-  await EquipmentService.update(editedEquipment)
+  await equipmentStore.update(editedEquipment)
   closeEditEquipmentModal()
-  await equipmentStore.fetch()
 }
 
 const deleteEquipment = async (equipment) => {
   const updatedEquipment = { ...equipment, isDeleted: true }
-  await EquipmentService.update(updatedEquipment)
+  await equipmentStore.update(updatedEquipment)
   closeEditEquipmentModal()
-  await equipmentStore.fetch()
 }
 
-const createItemForConcept = async (service, store, storeItems, openModal) => {
+const createItemForConcept = async (store, storeItems, openModal, initialData = {}) => {
   if (!selectedConcept.value) return
 
   // Create new item with the selected concept as source
   const newItemData = {
-    ...service.getDefaultEntity(),
+    ...initialData,
     source: selectedConcept.value.id
   }
 
-  const newItem = await service.create(newItemData)
-  await store.fetch()
+  const newItem = await store.create(newItemData)
 
   const createdItem = storeItems.find(item => item.id === newItem.id)
   if (createdItem) {
@@ -231,14 +223,12 @@ const createItemForConcept = async (service, store, storeItems, openModal) => {
 }
 
 const createNewAbility = () => createItemForConcept(
-  AbilityService,
   abilitiesStore,
   abilitiesStore.abilities,
   openAbilityModal
 )
 
 const createNewEquipment = () => createItemForConcept(
-  EquipmentService,
   equipmentStore,
   equipmentStore.equipment,
   openEquipmentModal

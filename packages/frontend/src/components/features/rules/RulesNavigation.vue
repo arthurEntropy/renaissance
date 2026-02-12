@@ -94,7 +94,7 @@ watch(isStructureEditMode, async (newValue) => {
     if (pendingSave.value) {
       await pendingSave.value
     }
-    await rulesStore.refresh()
+    await rulesStore.fetch()
   }
 })
 
@@ -114,8 +114,7 @@ const toggleStructureEditMode = () => {
 }
 
 const createNewSection = async () => {
-  const newSection = await RulesService.create()
-  await rulesStore.refresh()
+  const newSection = await rulesStore.create()
 
   const sectionToSelect = orderedSections.value.find(
     s => (s.id && s.id === newSection.id) || (!s.id && s.name === newSection.name)
@@ -129,8 +128,7 @@ const createNewSection = async () => {
 
 const confirmDeleteSection = async (section) => {
   if (window.confirm(`Are you sure you want to delete "${section.name}"?`)) {
-    await RulesService.update({ ...section, isDeleted: true })
-    await rulesStore.refresh()
+    await rulesStore.update({ ...section, isDeleted: true })
 
     if (rulesStore.selectedSection?.id === section.id && orderedSections.value.length > 0) {
       selectSection(orderedSections.value[0].id)
@@ -141,7 +139,7 @@ const confirmDeleteSection = async (section) => {
 const updateSectionsOrder = async () => {
   const savePromise = (async () => {
     await RulesService.reorderSections(localSections.value)
-    await rulesStore.refresh()
+    await rulesStore.fetch()
   })()
 
   pendingSave.value = savePromise

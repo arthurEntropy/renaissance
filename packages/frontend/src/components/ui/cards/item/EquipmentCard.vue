@@ -70,6 +70,7 @@
 
 <script setup>
 import { onMounted, computed } from 'vue'
+import { useEquipmentStore } from '@/stores/equipmentStore'
 import { useEquipmentTypesStore } from '@/stores/equipmentTypesStore'
 import { useEquipmentSubtypesStore } from '@/stores/equipmentSubtypesStore'
 import { useEquipmentGradesStore } from '@/stores/equipmentGradesStore'
@@ -78,7 +79,6 @@ import { useKeepingStore } from '@/stores/keepingStore'
 import BaseCard from '@/components/ui/cards/item/BaseCard.vue'
 import BadgeDisplay from '@/components/ui/cards/item/BadgeDisplay.vue'
 import ChipTag from '@/components/ui/chips/ChipTag.vue'
-import EquipmentService from '@/services/entities/equipment/equipmentService'
 import { getDiceFontMaxClass } from '@/utils/diceFontUtils'
 import { ItemType } from '@shared/constants/itemTypes'
 
@@ -124,6 +124,7 @@ const props = defineProps({
 const emit = defineEmits(['edit', 'duplicate', 'height-changed'])
 
 // Stores
+const equipmentStore = useEquipmentStore()
 const equipmentTypesStore = useEquipmentTypesStore()
 const equipmentSubtypesStore = useEquipmentSubtypesStore()
 const equipmentGradesStore = useEquipmentGradesStore()
@@ -230,8 +231,8 @@ const handleDuplicate = async () => {
     // Modify the name to indicate it's a copy
     duplicateData.name = `${duplicateData.name} (Copy)`
 
-    // Create the duplicate using the equipment service
-    const newEquipment = await EquipmentService.create(duplicateData)
+    // Create the duplicate using the equipment store
+    const newEquipment = await equipmentStore.create(duplicateData)
 
     // Emit the duplicate event
     emit('duplicate', newEquipment)

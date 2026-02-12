@@ -1,15 +1,14 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
-import { useBaseEntityStore } from './composables/useBaseEntityStore'
+import { useCrudEntityStore } from './composables/useBaseEntityStore'
 import RulesService from '@/services/entities/rulesService'
 
 export const useRulesStore = defineStore('rules', () => {
-  const { items: sections, fetch, refresh, getById } = useBaseEntityStore(
-    RulesService,
-    'rules'
-  )
+  const base = useCrudEntityStore(RulesService, 'rules')
 
   const selectedSection = ref(null)
+
+  const sections = computed(() => base.items.value)
 
   const filteredSections = computed(() => {
     return sections.value
@@ -30,9 +29,11 @@ export const useRulesStore = defineStore('rules', () => {
   return {
     sections,
     selectedSection,
-    fetch,
-    refresh,
-    getById,
+    fetch: base.fetch,
+    create: base.create,
+    update: base.update,
+    remove: base.remove,
+    getById: base.getById,
     filteredSections,
     selectSection,
     deselectSection,

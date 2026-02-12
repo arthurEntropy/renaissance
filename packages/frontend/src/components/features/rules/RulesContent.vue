@@ -40,7 +40,6 @@ import { useRulesStore } from '@/stores/rulesStore'
 import TextEditor from '@/components/ui/textEditor/TextEditor.vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import { sanitizeHtml } from '@/utils/sanitizeHtml'
-import RulesService from '@/services/entities/rulesService'
 
 const authStore = useAuthStore()
 const rulesStore = useRulesStore()
@@ -78,8 +77,7 @@ const safeSectionHtml = computed(() => {
 
 const saveSection = async () => {
   if (localSection.value) {
-    await RulesService.update(localSection.value)
-    await rulesStore.fetch()
+    await rulesStore.update(localSection.value)
     unsavedChanges.value = false
   }
 }
