@@ -25,7 +25,7 @@
       </div>
 
       <!-- Grouped Display -->
-      <GroupedMasonryGrid v-else-if="hasEquipmentGrouping" :column-width="375" :gap="15" :row-height="10"
+      <GroupedMasonryGrid v-else-if="hasEquipmentGrouping" :column-width="350" :gap="20" :row-height="10"
         :grouped-items="groupedEquipmentItems" class="equipment-masonry" ref="masonryGridRef">
         <template #default="{ item }">
           <div class="equipment-card-col">
@@ -43,7 +43,7 @@
       </GroupedMasonryGrid>
 
       <!-- Ungrouped Display -->
-      <MasonryGrid v-else :column-width="375" :gap="15" :row-height="10" class="equipment-masonry" ref="masonryGridRef">
+      <MasonryGrid v-else :column-width="350" :gap="20" :row-height="10" class="equipment-masonry" ref="masonryGridRef">
         <div v-for="item in characterEquipment" :key="item.id" class="masonry-item">
           <div class="equipment-card-col">
             <EquipmentCard v-if="item.equipment" :equipment="item.equipment" :collapsed="item.collapsed || false"

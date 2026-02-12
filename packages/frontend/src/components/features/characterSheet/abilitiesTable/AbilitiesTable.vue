@@ -27,7 +27,7 @@
       </div>
 
       <!-- Grouped Display -->
-      <GroupedMasonryGrid v-else-if="hasAbilityGrouping" :column-width="375" :gap="20" :row-height="10"
+      <GroupedMasonryGrid v-else-if="hasAbilityGrouping" :column-width="350" :gap="20" :row-height="10"
         :grouped-items="groupedAbilities" class="abilities-masonry" ref="masonryGridRef">
         <template #default="{ item }">
           <AbilityCard v-if="item" :ability="item" :collapsed="item.collapsed" class="ability-card" :collapsible="false"
@@ -41,7 +41,7 @@
       </GroupedMasonryGrid>
 
       <!-- Ungrouped Display -->
-      <MasonryGrid v-else :column-width="375" :gap="20" :row-height="10" class="abilities-masonry" ref="masonryGridRef">
+      <MasonryGrid v-else :column-width="350" :gap="20" :row-height="10" class="abilities-masonry" ref="masonryGridRef">
         <div v-for="ability in characterAbilities" :key="ability.id" class="masonry-item">
           <AbilityCard v-if="ability" :ability="ability" :collapsed="ability.collapsed" class="ability-card"
             :collapsible="false" :show-xp-badge="true" :show-add-to-character="false" :show-action-buttons="true"

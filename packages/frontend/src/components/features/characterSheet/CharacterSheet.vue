@@ -56,7 +56,7 @@ const handleClose = () => {
 .modal-content {
     background: var(--overlay-black-heavy);
     border-radius: var(--radius-5);
-    max-width: 1200px;
+    max-width: 1120px;
     position: relative;
     margin-top: -7px;
     padding: var(--space-lg);
