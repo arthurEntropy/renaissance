@@ -2,16 +2,15 @@
   "id": "ec5cca33-66bb-4976-b205-877ba1b01a4b",
   "isDeleted": false,
   "createdAt": "2026-01-28T15:10:11.604Z",
-  "lastModified": "2026-01-29T21:08:14.294Z",
+  "lastModified": "2026-02-12T21:38:41.868Z",
   "name": "Blade Guardian",
   "description": "<p><em>Concentration, up to one minute.</em></p><p>Choose a creature within short range. It gains a number of temporary d4 Engagement dice equal to your HEART score, which remain until the spell ends. While the spell is active, you automatically lose Engagements.</p><p>Check a condition.</p>",
-  "isTrait": false,
   "canBeActive": false,
   "isActive": true,
   "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
   "mp": null,
   "xp": "",
   "manaCost": "1W",
-  "actionType": "Half Action",
-  "artUrl": "https://cdn.midjourney.com/36b5c7c6-40a6-4c4a-8495-54a6012a7dbc/0_0.png"
+  "artUrl": "https://cdn.midjourney.com/36b5c7c6-40a6-4c4a-8495-54a6012a7dbc/0_0.png",
+  "type": "c3d4e5f6-a1b2-4c3d-be0f-9a8b7c6d5e4f"
 }

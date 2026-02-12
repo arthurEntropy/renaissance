@@ -2,7 +2,6 @@
   "id": "f5182393-253b-4bd9-b41a-b92e8f91b334",
   "name": "Arquebusier",
   "description": "<p>You are trained in the use of heavy firearms.</p>",
-  "isTrait": true,
   "canBeActive": false,
   "isActive": true,
   "source": "45ca935d-938b-4974-961c-4171cc388904",
@@ -18,5 +17,6 @@
     }
   ],
   "artUrl": "https://cdn.midjourney.com/b91d942e-9baa-4035-b3e2-26a9d45fdb00/0_3.png",
-  "lastModified": "2026-02-01T02:56:54.888Z"
+  "lastModified": "2026-02-12T21:37:52.056Z",
+  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
 }

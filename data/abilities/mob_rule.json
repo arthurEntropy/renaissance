@@ -2,11 +2,12 @@
   "id": "c78c5f87-8c9d-4b14-a82e-e3f2b688f161",
   "name": "Mob Rule",
   "description": "<p>When attempting to influence a crowd, your rolls are favored.</p>",
-  "isTrait": true,
   "canBeActive": false,
   "isActive": true,
   "source": "372c0d28-68df-4202-8e2b-80f96c8928d6",
   "isDeleted": false,
   "mp": null,
-  "xp": null
+  "xp": null,
+  "lastModified": "2026-02-12T21:37:52.073Z",
+  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
 }

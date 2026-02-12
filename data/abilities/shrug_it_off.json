@@ -2,14 +2,13 @@
   "id": "8eac2e82-547f-4474-b01e-07a7374eb98e",
   "name": "Shrug It Off",
   "description": "<p><em>Trigger: You lose an opposed skill check.</em></p><p>You may re-roll.</p><p>You may use this ability once per rest for each level of <em>Swagger</em> you have.</p>",
-  "isTrait": false,
   "canBeActive": false,
   "isActive": true,
   "source": "45ca935d-938b-4974-961c-4171cc388904",
   "isDeleted": false,
   "mp": 1,
   "xp": 5,
-  "actionType": "Reaction",
-  "lastModified": "2026-02-01T03:05:47.124Z",
-  "artUrl": "https://cdn.midjourney.com/d0685b2e-1024-4ed7-9d93-877bc589103c/0_0.png"
+  "lastModified": "2026-02-12T21:37:52.078Z",
+  "artUrl": "https://cdn.midjourney.com/d0685b2e-1024-4ed7-9d93-877bc589103c/0_0.png",
+  "type": "e5f6a1b2-c3d4-4e5f-da2b-1c0d9e8f7a6b"
 }

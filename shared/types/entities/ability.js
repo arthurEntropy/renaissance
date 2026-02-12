@@ -5,7 +5,7 @@ import { createBaseEntity } from './gameEntity.js'
  * @property {string|null} id - UUID identifier
  * @property {string} name - Ability name
  * @property {string} description - Detailed description
- * @property {boolean} isTrait - Whether this is a trait
+ * @property {string|null} type - Ability type ID reference (trait, action, half action, etc.)
  * @property {boolean} canBeActive - Whether this ability can be toggled active/inactive
  * @property {boolean} isActive - Current active state
  * @property {string|null} source - Source concept ID (ancestry, culture, mestiere, world element)
@@ -26,7 +26,7 @@ export function createDefaultAbility() {
     ...createBaseEntity(),
     name: 'New Ability',
     description: '',
-    isTrait: false,
+    type: null,
     canBeActive: false,
     isActive: true,
     source: null,

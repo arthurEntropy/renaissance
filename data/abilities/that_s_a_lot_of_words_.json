@@ -2,14 +2,13 @@
   "id": "b485f7a7-ecf2-4899-8eb6-16de70aad279",
   "name": "That's A Lot Of Words...",
   "description": "<p><em>Trigger: A foe targets you with an ability that would require you to make an opposed roll.</em></p><p>You may roll with Strength instead of the skill specified by the ability.</p><p><strong>Describe how your body endures what your mind or spirit might not.</strong></p>",
-  "isTrait": false,
   "canBeActive": false,
   "isActive": true,
   "source": "e0a69b6f-38f9-4fa5-a1ef-5e5777299e82",
   "isDeleted": false,
   "mp": 2,
   "xp": 10,
-  "actionType": "Reaction",
-  "lastModified": "2026-01-29T16:00:41.238Z",
-  "artUrl": "https://cdn.midjourney.com/a8e9803f-a916-4c18-a716-88307d5e83f3/0_1.png"
+  "lastModified": "2026-02-12T21:37:52.080Z",
+  "artUrl": "https://cdn.midjourney.com/a8e9803f-a916-4c18-a716-88307d5e83f3/0_1.png",
+  "type": "e5f6a1b2-c3d4-4e5f-da2b-1c0d9e8f7a6b"
 }

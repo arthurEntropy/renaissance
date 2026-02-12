@@ -2,17 +2,15 @@
   "id": "51d0523f-8778-4ceb-9cce-2a47a6b46088",
   "isDeleted": false,
   "createdAt": "2026-02-04T02:22:28.711Z",
-  "lastModified": "2026-02-04T14:54:34.129Z",
+  "lastModified": "2026-02-12T21:37:52.082Z",
   "name": "Witchcraft Talismans",
   "description": "<p>A Talisman is crafted and functions in the same way a Token, except as noted below:</p><ul><li><p>Crafting a Talisman requires 1 full day of work, which may be divided into non-consecutive hours.</p></li><li><p>When you store a spell in a Talisman, the MP you expend is also subtracted from your max MP. Casting a spell from a Talisman expends its charge, but the Talisman remains magical and the charge is restored at dawn. A Talisman may store multiple spells or multiple charges of the same spell.</p></li><li><p>You always know the direction and distance to any Talisman you have created, unless it is phased out.</p></li><li><p>As an action while you can see a Talisman, you may reclaim the sacrificed max MP. The Talisman immediately becomes mundane, and you regain the max MP. If the Talisman is destroyed, the MP is likewise recovered.</p></li></ul><p>You may maintain any number of Talismans.</p>",
-  "isTrait": true,
   "canBeActive": false,
   "isActive": true,
   "source": "162ae4db-7a67-4770-8a2c-7e9883da14f6",
   "mp": null,
   "xp": 20,
   "manaCost": null,
-  "actionType": "",
   "artUrl": "https://cdn.midjourney.com/d39c3efe-4b5a-4f2a-afc7-4598b2d2d3b0/0_0.png",
   "improvements": [
     {
@@ -21,5 +19,6 @@
       "xp": 30,
       "id": "92704700-fd1c-449d-b606-5fa43613ca7a"
     }
-  ]
+  ],
+  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
 }

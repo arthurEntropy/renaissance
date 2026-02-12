@@ -2,11 +2,12 @@
   "id": "dc284954-7d4b-4b94-91bc-c27d2d79452e",
   "name": "Culture of Sacrifice",
   "description": "<p>Once per rest, you may offer a sacrificial object to a body of water. Describe how you do so and how the object is destroyed or rendered unusable. DM has discretion on whether the object is substantial enough. If so, start or add to a sacrifice tally. Then, roll 2d6. On a 12, choose one:</p><ul><li><p>The body of water comes to life and intervenes on your behalf as interpreted by the DM and in accordance with the tally amount.</p></li><li><p>The body of water surrounds you like armor and offers a boon of +forward equal to the tally, to be used on your next Move involving physical action, after which it dissipates.</p></li></ul>",
-  "isTrait": true,
   "canBeActive": false,
   "isActive": true,
   "source": "3531c0c2-5f33-4421-ab1f-24e2e6ba82a1",
   "isDeleted": false,
   "mp": null,
-  "xp": null
+  "xp": null,
+  "lastModified": "2026-02-12T21:37:52.062Z",
+  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
 }

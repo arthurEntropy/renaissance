@@ -2,7 +2,6 @@
   "id": "4fbf9ccb-0fbb-45d0-9f8f-7b7fcfb811fb",
   "name": "Adaptable",
   "description": "<p>Any time you gain XP, you gain 1 additional XP.</p><p><strong>Describe how you learn quickly.</strong></p>",
-  "isTrait": true,
   "canBeActive": false,
   "isActive": true,
   "source": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
@@ -10,5 +9,6 @@
   "mp": null,
   "xp": null,
   "artUrl": "https://cdn.midjourney.com/02166992-54ac-4087-94b1-09500adaa309/0_1.png",
-  "lastModified": "2026-02-03T02:14:40.784Z"
+  "lastModified": "2026-02-12T21:37:52.054Z",
+  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
 }

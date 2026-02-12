@@ -2,7 +2,6 @@
   "id": "8e346eb3-1e72-4b3f-971c-497eac98a06c",
   "name": "Nimble",
   "description": "<p>Your base speed is doubled, but you start each turn with no actions. You may convert movement into actions at a rate of 10 ft per half action, spending as much movement as you like each turn.</p><p>Additionally, your jump distance and height are doubled, you can run up vertical surfaces up to 1/4 your speed as if it were flat ground, and you take no damage from falling up to 1/4 your speed if all your limbs are free.</p>",
-  "isTrait": true,
   "canBeActive": false,
   "isActive": true,
   "source": "e10d7d9f-9d93-46b0-9846-d60241031644",
@@ -30,5 +29,6 @@
       "id": "5101de51-b275-5117-9c02-8802f70655cc"
     }
   ],
-  "lastModified": "2026-02-01T01:38:54.955Z"
+  "lastModified": "2026-02-12T21:37:52.074Z",
+  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
 }

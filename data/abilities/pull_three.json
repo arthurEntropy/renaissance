@@ -2,16 +2,15 @@
   "id": "a9ab7a95-f2e4-4811-a639-394bacafb0e9",
   "isDeleted": false,
   "createdAt": "2026-01-30T02:29:22.589Z",
-  "lastModified": "2026-01-30T02:30:06.499Z",
+  "lastModified": "2026-02-12T21:37:52.075Z",
   "name": "Pull Three",
   "description": "<p>Draw three cards from your Cartomancy deck.</p>",
-  "isTrait": false,
   "canBeActive": false,
   "isActive": true,
   "source": "96e062f8-646e-49f4-8eec-d92bd5fb77c4",
   "mp": null,
   "xp": null,
   "manaCost": null,
-  "actionType": "Action",
-  "artUrl": "https://cdn.midjourney.com/405db2bb-e6eb-42ec-9d01-f370c0e0ca44/0_3.png"
+  "artUrl": "https://cdn.midjourney.com/405db2bb-e6eb-42ec-9d01-f370c0e0ca44/0_3.png",
+  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e"
 }

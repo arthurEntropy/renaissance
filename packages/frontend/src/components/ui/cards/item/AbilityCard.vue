@@ -54,6 +54,7 @@
 import { computed } from 'vue'
 import { ChevronUpIcon, ChevronDownIcon } from '@heroicons/vue/24/outline'
 import { useAbilityImprovements } from '@/composables/useAbilityImprovements'
+import { useActionTypesStore } from '@/stores/actionTypesStore'
 import BaseCard from '@/components/ui/cards/item/BaseCard.vue'
 import BadgeDisplay from '@/components/ui/cards/item/BadgeDisplay.vue'
 import AbilityImprovements from '@/components/ui/cards/item/AbilityImprovements.vue'
@@ -114,16 +115,21 @@ const emit = defineEmits(['edit', 'update', 'sendToChat', 'update:collapsed', 'u
 // Ability improvements composable
 const { hasImprovement, toggleImprovement } = useAbilityImprovements()
 
+// Action types store
+const actionTypesStore = useActionTypesStore()
+
 // Reactive state
 const isActive = computed(() => props.ability.isActive)
 
 // Computed properties
 const traitOrMp = computed(() => {
   const parts = []
-  if (props.ability.actionType) {
-    parts.push(props.ability.actionType.toLowerCase())
+  if (props.ability.type) {
+    const abilityType = actionTypesStore.getById(props.ability.type)
+    if (abilityType) {
+      parts.push(abilityType.name.toLowerCase())
+    }
   }
-  if (props.ability.isTrait) parts.push('trait')
   if (props.ability.mp) parts.push(`${props.ability.mp} MP`)
   return parts.join(', ')
 })

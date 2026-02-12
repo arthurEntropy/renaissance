@@ -2,16 +2,15 @@
   "id": "3ca01729-73bf-4ff8-99e9-74fa401ed09d",
   "isDeleted": false,
   "createdAt": "2026-01-30T02:39:08.174Z",
-  "lastModified": "2026-02-01T01:33:52.602Z",
+  "lastModified": "2026-02-12T21:37:52.074Z",
   "name": "Oblation",
   "description": "<p>Play one card from your hand. Trigger all effects on the card, from top to bottom, then remove the card from your Cartomancy deck permanently.</p>",
-  "isTrait": false,
   "canBeActive": false,
   "isActive": true,
   "source": "96e062f8-646e-49f4-8eec-d92bd5fb77c4",
   "mp": 1,
   "xp": null,
   "manaCost": null,
-  "actionType": "Half Action",
-  "artUrl": "https://cdn.midjourney.com/bb2e182b-9c2c-420c-8f05-b43d72b5f5d9/0_0.png"
+  "artUrl": "https://cdn.midjourney.com/bb2e182b-9c2c-420c-8f05-b43d72b5f5d9/0_0.png",
+  "type": "c3d4e5f6-a1b2-4c3d-be0f-9a8b7c6d5e4f"
 }

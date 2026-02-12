@@ -2,7 +2,6 @@
   "id": "bbf8f9d6-45a6-4703-9388-b771935d4a0a",
   "name": "Pressure Point Training",
   "description": "<p>You are trained in special pressure point techniques. You may use an action to make a pressure point attack, rolling Dexterity vs Defense against an adjacent creature. If you win the roll, choose one:</p><ul><li><p>They check a Condition.</p></li><li><p>Their speed is reduced by 5 ft.</p></li><li><p>They take -1d to all rolls under BODY for 1 round.</p></li><li><p>They cannot use reactions for 1 round.</p></li></ul><p>You may make multiple pressure point attacks each turn. The effects are cumulative.</p>",
-  "isTrait": true,
   "canBeActive": false,
   "isActive": true,
   "source": "e10d7d9f-9d93-46b0-9846-d60241031644",
@@ -24,5 +23,6 @@
       "id": "d6ced026-b5ab-557f-9f10-d6fa092e7cd9"
     }
   ],
-  "lastModified": "2026-02-01T01:48:02.935Z"
+  "lastModified": "2026-02-12T21:37:52.075Z",
+  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
 }

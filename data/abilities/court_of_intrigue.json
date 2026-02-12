@@ -2,11 +2,12 @@
   "id": "603f37e3-851a-49f8-a21c-c94e6ae40a0f",
   "name": "Court of Intrigue",
   "description": "<p>Your Awe, Perform and Persuade skills are favored.</p><p><strong>Describe what allows you to understand and influence others.</strong></p>",
-  "isTrait": true,
   "canBeActive": false,
   "isActive": true,
   "source": "83d190cb-0e05-4392-a5b1-f8a8017f505b",
   "isDeleted": false,
   "mp": null,
-  "xp": null
+  "xp": null,
+  "lastModified": "2026-02-12T21:37:52.062Z",
+  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
 }

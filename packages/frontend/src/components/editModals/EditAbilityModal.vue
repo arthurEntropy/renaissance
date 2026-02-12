@@ -42,14 +42,7 @@
             <label for="xp">XP:</label>
             <input type="number" id="xp" v-model.number="editedAbility.xp" class="modal-input small-input" />
             <label for="actionType">Type:</label>
-            <select id="actionType" v-model="editedAbility.actionType" class="modal-input small-input">
-              <option value="">--</option>
-              <option value="Action">Action</option>
-              <option value="Half Action">Half Action</option>
-              <option value="Free Action">Free Action</option>
-              <option value="Reaction">Reaction</option>
-              <option value="Ritual">Ritual</option>
-            </select>
+            <ActionTypeDropdown v-model="editedAbility.type" id="actionType" select-class="modal-input small-input" />
           </div>
 
           <div class="form-group centered">
@@ -58,11 +51,7 @@
             <label for="source">Source:</label>
             <SourceDropdown v-model="editedAbility.source" id="source" />
 
-            <!-- Trait and Can-Be-Active Checkboxes -->
-            <label for="isTrait">
-              <input type="checkbox" id="isTrait" v-model="editedAbility.isTrait" />
-              Trait
-            </label>
+            <!-- Can-Be-Active Checkbox -->
             <label for="canBeActive">
               <input type="checkbox" id="canBeActive" v-model="editedAbility.canBeActive" />
               Can Be Active
@@ -124,6 +113,7 @@
 import { XMarkIcon, ArrowUpIcon, ArrowDownIcon } from '@heroicons/vue/24/outline'
 import TextEditor from '@/components/ui/textEditor/TextEditor.vue'
 import SourceDropdown from '@/components/ui/selectors/SourceDropdown.vue'
+import ActionTypeDropdown from '@/components/ui/selectors/ActionTypeDropdown.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import { useEditModalForm } from '@/composables/useEditModalForm'
 import { computed } from 'vue'

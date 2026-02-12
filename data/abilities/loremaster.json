@@ -2,11 +2,12 @@
   "id": "7e55ed19-1588-4c98-9cc6-338f3af0acc0",
   "name": "Loremaster",
   "description": "<p>Once per rest, you may roll <em>Lore</em> in place of any other skill. Describe what tale you’re drawing on to help with the situation.</p>",
-  "isTrait": true,
   "canBeActive": false,
   "isActive": true,
   "source": "f66ab54f-ef77-4d04-9ae3-ca575615a6d1",
   "isDeleted": false,
   "mp": null,
-  "xp": null
+  "xp": null,
+  "lastModified": "2026-02-12T21:37:52.072Z",
+  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
 }

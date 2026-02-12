@@ -2,11 +2,12 @@
   "id": "ef00cc69-1e2e-4697-abfb-102cca7daca7",
   "name": "Glamour",
   "description": "<p><em>You can conceal your true form, changing your physical appearance.</em></p><p>Choose a humanoid form that is similar in stature to your true form. The details of your appearance when wearing your glamour are up to you, but are the same each time you wear it and must include at least one feature hinting at your true form. You may assume and drop your glamour at-will as a free action.</p><p><strong>Describe your glamour.</strong></p><p>Once per rest, you may further exert this power to turn invisible for one turn as a free action.</p><p><strong>Describe how you vanish into thin air.</strong></p>",
-  "isTrait": true,
   "canBeActive": false,
   "isActive": true,
   "source": "f00fe427-1bb5-472c-8abb-2a394730a40a",
   "isDeleted": false,
   "mp": null,
-  "xp": null
+  "xp": null,
+  "lastModified": "2026-02-12T21:37:52.068Z",
+  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
 }

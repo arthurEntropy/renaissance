@@ -2,10 +2,9 @@
   "id": "d994bf53-7fdc-4b2c-88f5-c22c92b2c2f6",
   "isDeleted": false,
   "createdAt": "2026-01-30T02:32:06.470Z",
-  "lastModified": "2026-02-01T01:36:56.117Z",
+  "lastModified": "2026-02-12T21:37:52.076Z",
   "name": "Reading",
   "description": "<p>Make a prediction using three cards from your hand. After one minute, discard the prediction.</p><p>Alternately, you may spend 1 minute to make the prediction. If you do so, the prediction persists indefinitely, until you choose to discard it.</p><p>Whenever one of your predictions occurs, you gain 1 MP.</p>",
-  "isTrait": false,
   "canBeActive": false,
   "isActive": true,
   "source": "96e062f8-646e-49f4-8eec-d92bd5fb77c4",
@@ -13,5 +12,5 @@
   "xp": null,
   "manaCost": null,
   "artUrl": "https://cdn.midjourney.com/316a1f9a-f839-49b5-89ac-db4581e154a5/0_0.png",
-  "actionType": "Half Action"
+  "type": "c3d4e5f6-a1b2-4c3d-be0f-9a8b7c6d5e4f"
 }

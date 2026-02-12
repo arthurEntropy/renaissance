@@ -2,14 +2,13 @@
   "id": "2f40fa98-f90a-4eb8-b626-999b000fa4b2",
   "name": "Tough",
   "description": "<p>Your maximum Endurance is instead 6 times your BODY score.</p><p>You start each combat with 0 MP. At any time during combat, as a free action, you may spend 2 Endurance to gain 1 MP.</p>",
-  "isTrait": true,
   "canBeActive": false,
   "isActive": true,
   "source": "1e4131c7-8a6f-422c-998a-5147600c946e",
   "isDeleted": false,
   "mp": null,
   "xp": null,
-  "lastModified": "2026-01-31T01:58:19.386Z",
+  "lastModified": "2026-02-12T21:37:52.080Z",
   "improvements": [
     {
       "name": "Measured Step",
@@ -24,5 +23,6 @@
       "id": "6423364a-eaaf-468b-8717-b00df6dfb0ec"
     }
   ],
-  "artUrl": "https://cdn.midjourney.com/126d9d4d-00de-4181-b446-b48192667554/0_1.png"
+  "artUrl": "https://cdn.midjourney.com/126d9d4d-00de-4181-b446-b48192667554/0_1.png",
+  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
 }

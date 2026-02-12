@@ -2,14 +2,12 @@
   "id": "c447c4d5-d5f1-4f1a-9246-cb3881d30ed8",
   "name": "Aura Of Experience",
   "description": "<p>Allies within short range get +1d to attack rolls.</p><p>Additionally, for each different Culture of origin among the weapons and armor you are wielding or wearing, your max MP increases by 1, up to 5 additional MP.</p>",
-  "isTrait": true,
   "canBeActive": false,
   "isActive": true,
   "source": "45ca935d-938b-4974-961c-4171cc388904",
   "isDeleted": false,
   "mp": "",
   "xp": null,
-  "actionType": "",
   "improvements": [
     {
       "name": "Inspiring",
@@ -24,6 +22,7 @@
       "id": "c4d67aa6-fa4b-5cd8-9259-75b810f28afa"
     }
   ],
-  "lastModified": "2026-02-01T03:09:05.931Z",
-  "artUrl": "https://cdn.midjourney.com/2a5f27b4-8cc0-4e50-b0c0-9b5abbca6af9/0_2.png"
+  "lastModified": "2026-02-12T21:37:52.056Z",
+  "artUrl": "https://cdn.midjourney.com/2a5f27b4-8cc0-4e50-b0c0-9b5abbca6af9/0_2.png",
+  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
 }

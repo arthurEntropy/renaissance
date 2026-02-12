@@ -2,7 +2,6 @@
   "id": "75e1dc58-f195-4e23-be00-24dfbbc1a757",
   "name": "Everyone Has A Price",
   "description": "<p>Whenever you roll Insight to determine how to influence someone with a bribe or material gain, your roll is favored. If the roll succeeds and you attempt to Persuade them, that roll is also favored.</p>",
-  "isTrait": true,
   "canBeActive": false,
   "isActive": true,
   "source": "45ca935d-938b-4974-961c-4171cc388904",
@@ -10,5 +9,6 @@
   "mp": null,
   "xp": "",
   "artUrl": "https://cdn.midjourney.com/43b8eaf3-0c67-4929-8783-58c668944514/0_0.png",
-  "lastModified": "2026-02-01T03:20:45.353Z"
+  "lastModified": "2026-02-12T21:37:52.066Z",
+  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
 }

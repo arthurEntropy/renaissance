@@ -2,12 +2,12 @@
   "id": "372e7eaa-734d-4e68-aad9-edeac49762f5",
   "name": "Mighty",
   "description": "<p>When making a damage roll, instead of adding your BODY score to the roll, add twice your BODY score.</p>",
-  "isTrait": true,
   "canBeActive": false,
   "isActive": true,
   "source": "1e4131c7-8a6f-422c-998a-5147600c946e",
   "isDeleted": true,
   "mp": null,
   "xp": 15,
-  "lastModified": "2026-01-31T00:44:31.267Z"
+  "lastModified": "2026-02-12T21:37:52.073Z",
+  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
 }

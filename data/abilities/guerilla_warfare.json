@@ -2,11 +2,11 @@
   "id": "72f30b9a-0c59-41dc-a5a0-a5e72b22f017",
   "name": "Guerilla Warfare",
   "description": "<p>You roll with advantage to hide in natural areas and have advantage on attack rolls when hidden. Describe how you take advantage of the surrounding terrain.</p>",
-  "isTrait": false,
   "canBeActive": false,
   "isActive": true,
   "source": "72dc5437-4072-4e9e-8e9f-0316fab002bb",
   "isDeleted": false,
   "mp": null,
-  "xp": null
+  "xp": null,
+  "lastModified": "2026-02-12T21:22:31.635Z"
 }

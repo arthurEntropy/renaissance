@@ -2,12 +2,12 @@
   "id": "35efb3f8-5601-4204-9008-ae486e255214",
   "name": "Flametouched",
   "description": "<p>You can conjure, manipulate and snuff out flames up to the size of a campfire at-will.</p><p>Once per rest, when you hit with a melee attack, you may add 1d6 to the damage roll.</p>",
-  "isTrait": true,
   "canBeActive": false,
   "isActive": true,
   "source": "34ea8807-b404-435c-a860-704b4a40df8f",
   "isDeleted": false,
   "mp": null,
   "xp": null,
-  "lastModified": "2026-02-12T03:12:00.051Z"
+  "lastModified": "2026-02-12T21:37:52.067Z",
+  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
 }

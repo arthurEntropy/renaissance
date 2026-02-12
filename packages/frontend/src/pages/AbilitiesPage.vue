@@ -38,6 +38,7 @@ import { ref, computed, onMounted } from 'vue'
 import { useAbilitiesStore } from '@/stores/abilitiesStore'
 import { useAuthStore } from '@/stores/authStore'
 import { useSourcesStore } from '@/stores/sourcesStore'
+import { useActionTypesStore } from '@/stores/actionTypesStore'
 import { useEditModal } from '@/composables/useEditModal'
 import { useInfiniteScroll } from '@/composables/useInfiniteScroll'
 import { useInfiniteScrollObserver } from '@/composables/useInfiniteScrollObserver'
@@ -54,6 +55,7 @@ import { getManaCostColors } from '@shared/utils/calculateManaCost'
 const abilitiesStore = useAbilitiesStore()
 const authStore = useAuthStore()
 const sourcesStore = useSourcesStore()
+const actionTypesStore = useActionTypesStore()
 
 const abilities = computed(() => abilitiesStore.abilities)
 
@@ -190,6 +192,7 @@ const saveEditedAbility = async (editedAbility) => {
 // Data initialization
 const refreshData = async () => {
   try {
+    await actionTypesStore.fetch()
     await sourcesStore.fetchSources()
     await abilitiesStore.fetch()
   } catch (error) {
