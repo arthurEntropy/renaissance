@@ -1,5 +1,5 @@
 <template>
-  <CharacterSheetSection custom-class="core-ability-column" min-width="270px" max-width="310px">
+  <CharacterSheetSection custom-class="core-ability-column" min-width="270px" max-width="285px">
     <CoreAbilityHeader :title="coreAbilityTitle" :value="coreAbilityValue" :can-edit="canEdit"
       @update="updateCoreAbility" />
 

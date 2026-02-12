@@ -6,8 +6,8 @@
                 <!-- Top Row -->
                 <div class="top-section">
                     <CharacterProfile @close-sheet="handleClose" />
-                    <CharacterBio />
                     <DiceBox />
+                    <EngagementTable :can-edit="canEdit" />
                 </div>
 
                 <!-- Character Stats and Details -->
@@ -18,7 +18,6 @@
                     <ConditionsColumn :is-edit-mode="canEdit" />
                     <EquipmentTable :is-edit-mode="canEdit" />
                     <AbilitiesTable :canEdit="canEdit" />
-                    <EngagementTable :can-edit="canEdit" />
                 </div>
             </div>
         </div>
@@ -31,7 +30,6 @@ import { useCharacterStatWatchers } from '@/composables/useCharacterStatWatchers
 import { useCharactersStore } from '@/stores/charactersStore'
 import { CORE_ABILITIES } from '@shared/constants/characterConstants'
 import CharacterProfile from '@/components/features/characterSheet/characterProfile/CharacterProfile.vue'
-import CharacterBio from '@/components/features/characterSheet/characterBio/CharacterBio.vue'
 import CoreAbilityColumn from '@/components/features/characterSheet/coreAbilityColumns/CoreAbilityColumn.vue'
 import ConditionsColumn from '@/components/features/characterSheet/conditions/ConditionsColumn.vue'
 import EquipmentTable from '@/components/features/characterSheet/equipmentTable/EquipmentTable.vue'
@@ -58,7 +56,7 @@ const handleClose = () => {
 .modal-content {
     background: var(--overlay-black-heavy);
     border-radius: var(--radius-5);
-    max-width: 1200px;
+    max-width: 1120px;
     position: relative;
     margin-top: -7px;
     padding: var(--space-lg);

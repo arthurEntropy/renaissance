@@ -4,6 +4,8 @@
 
             <!-- Scrollable Form Content -->
             <div class="modal-body">
+                <h2 class="profile-title">Character Profile</h2>
+
                 <form @submit.prevent="saveChanges">
 
                     <!-- Name and Pronouns -->
@@ -85,6 +87,30 @@
                     </div>
 
                 </form>
+
+                <!-- Settings Section -->
+                <div class="settings-section">
+                    <div class="settings-divider"></div>
+
+                    <div v-if="!showDeleteConfirmation" class="settings-content">
+                        <h3 class="settings-title">Character Settings</h3>
+                        <ActionButton variant="danger" size="small" text="Delete Character" @click="initiateDelete" />
+                    </div>
+
+                    <div v-else class="delete-confirmation">
+                        <h3 class="confirmation-title">Confirm Deletion</h3>
+                        <p class="confirmation-text">
+                            Type <strong>{{ character.name }}</strong> to confirm deletion:
+                        </p>
+                        <input v-model="confirmationInput" type="text" class="modal-input confirmation-input"
+                            placeholder="Type character name to confirm" @keyup.enter="confirmDeletion" />
+                        <div class="confirmation-actions">
+                            <ActionButton variant="neutral" size="small" text="Cancel" @click="cancelDelete" />
+                            <ActionButton variant="danger" size="small" text="DELETE" :disabled="!isDeleteConfirmed"
+                                @click="confirmDeletion" />
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <!-- Sticky Action Buttons -->
@@ -100,7 +126,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useCharactersStore } from '@/stores/charactersStore'
 import { useConceptsStore } from '@/stores/conceptsStore'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
@@ -118,6 +144,14 @@ const formData = ref({
     ancestryIds: ['', ''],
     cultureIds: ['', ''],
     mestiereId: ''
+})
+
+// Delete confirmation state
+const showDeleteConfirmation = ref(false)
+const confirmationInput = ref('')
+
+const isDeleteConfirmed = computed(() => {
+    return confirmationInput.value === character.name
 })
 
 onMounted(() => {
@@ -148,6 +182,27 @@ const saveChanges = () => {
         cultureIds: filteredCultureIds
     })
     closeModal()
+}
+
+// Delete functionality
+const initiateDelete = () => {
+    showDeleteConfirmation.value = true
+}
+
+const cancelDelete = () => {
+    showDeleteConfirmation.value = false
+    confirmationInput.value = ''
+}
+
+const confirmDeletion = async () => {
+    if (isDeleteConfirmed.value && character) {
+        try {
+            await charactersStore.deleteCharacter(character._id)
+            closeModal()
+        } catch (error) {
+            console.error('Failed to delete character:', error)
+        }
+    }
 }
 </script>
 
@@ -214,5 +269,67 @@ const saveChanges = () => {
 .modal-input-placeholder {
     height: 1px;
     visibility: hidden;
+}
+
+/* Settings Section Styles */
+.profile-title {
+    margin: 0 0 var(--space-lg) 0;
+    font-size: var(--font-size-24);
+    color: var(--color-text-primary);
+    text-align: center;
+}
+
+.settings-section {
+    margin-top: var(--space-xl);
+}
+
+.settings-divider {
+    height: 1px;
+    background-color: var(--color-gray-medium);
+    margin-bottom: var(--space-lg);
+}
+
+.settings-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    align-items: center;
+}
+
+.settings-title {
+    margin: 0;
+    font-size: var(--font-size-18);
+    color: var(--color-text-primary);
+}
+
+.delete-confirmation {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    align-items: center;
+}
+
+.confirmation-title {
+    margin: 0;
+    color: var(--color-danger);
+    font-size: var(--font-size-18);
+}
+
+.confirmation-text {
+    text-align: center;
+    color: var(--color-text-primary);
+    margin: 0;
+}
+
+.confirmation-input {
+    text-align: center;
+    width: 100%;
+    max-width: 300px;
+}
+
+.confirmation-actions {
+    display: flex;
+    gap: var(--space-md);
+    justify-content: center;
 }
 </style>

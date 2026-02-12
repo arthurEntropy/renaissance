@@ -101,8 +101,8 @@ div {
 }
 
 .character-art-image {
-    width: 170px;
-    height: 170px;
+    width: 185px;
+    height: 185px;
     object-fit: cover;
     border-radius: var(--radius-5);
     box-shadow: var(--shadow-elevation-sm);

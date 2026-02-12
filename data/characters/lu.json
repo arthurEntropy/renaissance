@@ -2,7 +2,7 @@
   "id": "271fd0d4-77f2-4b5e-b390-42521c4c4dfe",
   "isDeleted": false,
   "createdAt": "2026-01-29T00:54:19.091Z",
-  "lastModified": "2026-01-30T02:55:45.112Z",
+  "lastModified": "2026-02-10T13:34:28.351Z",
   "name": "Lu",
   "isBeast": false,
   "pronouns": "he/him",
@@ -177,13 +177,13 @@
   "abilities": [
     {
       "id": "4fbf9ccb-0fbb-45d0-9f8f-7b7fcfb811fb",
-      "collapsed": true,
+      "collapsed": false,
       "showImprovements": false,
       "showSuccesses": false
     },
     {
       "id": "ad7f2d4c-75cc-4b7c-8066-57eb1ccaf54a",
-      "collapsed": true,
+      "collapsed": false,
       "showImprovements": false,
       "showSuccesses": false
     },
@@ -248,12 +248,6 @@
       "showSuccesses": false
     },
     {
-      "id": "8a762dde-2929-4301-8b05-30f57350bdec",
-      "collapsed": false,
-      "showImprovements": false,
-      "showSuccesses": false
-    },
-    {
       "id": "92417d74-0eb3-45f3-8b15-5d68cec4ad7f",
       "collapsed": false,
       "showImprovements": false,
@@ -309,5 +303,5 @@
     "c02c53d1-b456-45d0-a048-6fc941cacc03"
   ],
   "mestiereId": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
-  "updatedAt": "2026-01-30T02:55:45.112Z"
+  "updatedAt": "2026-02-10T13:34:28.350Z"
 }

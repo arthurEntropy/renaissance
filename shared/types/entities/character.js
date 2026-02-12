@@ -57,6 +57,7 @@ import { createBaseEntity } from './gameEntity.js'
  */
 
 /**
+
  * @typedef {Object} ActiveEffect
  * @property {string} name - Effect name
  * @property {Object[]} skillsModified - Skills affected by this effect
@@ -94,6 +95,10 @@ import { createBaseEntity } from './gameEntity.js'
  * @property {CharacterAbilityItem[]} abilities - Character abilities with UI state
  * @property {string[]} artUrls - Character art URLs
  * @property {ActiveEffect[]} activeEffects - Currently active effects
+ * @property {boolean} groupAbilitiesBySource - Whether to group abilities by source
+ * @property {boolean} groupEquipmentBySource - Whether to group equipment by source
+ * @property {string} abilitySortOption - Sort option for abilities
+ * @property {string} equipmentSortOption - Sort option for equipment
  * @property {string} createdAt - ISO 8601 datetime string
  * @property {string} lastModified - ISO 8601 datetime string
  */
@@ -159,5 +164,9 @@ export function createDefaultCharacter() {
     abilities: [],
     artUrls: ['https://cdn.midjourney.com/a8a36740-b7d3-4aef-bea3-a95039bec06f/0_2.png'],
     activeEffects: [],
+    groupAbilitiesBySource: false,
+    groupEquipmentBySource: false,
+    abilitySortOption: 'name-asc',
+    equipmentSortOption: 'name-asc',
   }
 }

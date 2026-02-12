@@ -5,8 +5,7 @@ Welcome! This guide will help you understand our codebase and contribute effecti
 ## Quick Start
 
 1. **Read the Development Guide**: See [`docs/DEVELOPMENT-GUIDE.md`](docs/DEVELOPMENT-GUIDE.md) for comprehensive patterns and standards
-2. **Check the Review Tracker**: [`component-review-tracker.md`](component-review-tracker.md) documents every component's architecture
-3. **Follow the Code Review Checklist**: Found at the end of the Development Guide
+2. **Follow the Code Review Checklist**: Found at the end of the Development Guide
 
 ## Core Principles
 

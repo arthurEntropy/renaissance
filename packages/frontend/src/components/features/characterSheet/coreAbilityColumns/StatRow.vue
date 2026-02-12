@@ -98,7 +98,7 @@ const stateClasses = computed(() => {
 }
 
 .virtue-row {
-    grid-template-columns: 31% 28px 12% 8% 12%;
+    grid-template-columns: 75px 30px 40px 30px 0px;
 }
 
 .virtue-row .reset-button {
@@ -112,15 +112,15 @@ const stateClasses = computed(() => {
 }
 
 .weakness-row {
-    grid-template-columns: 40% 65%;
+    grid-template-columns: 37% 63%;
 }
 
 .state-row {
-    grid-template-columns: 39% 8% 8%;
+    grid-template-columns: 36% 8% 8%;
 }
 
 .stat-name {
-    font-size: var(--font-size-14);
+    font-size: var(--font-size-15);
     text-align: left;
 }
 

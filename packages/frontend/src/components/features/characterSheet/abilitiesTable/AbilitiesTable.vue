@@ -1,46 +1,61 @@
 <template>
-  <CharacterSheetSection max-width="375px">
+  <CharacterSheetSection>
 
     <!-- Table Header -->
-    <TableHeader title="Abilities" :is-edit-mode="internalEditMode" :show-edit-button="canEdit"
-      @toggle-edit="toggleEditMode">
+    <TableHeader title="Abilities" :is-edit-mode="internalEditMode" :show-edit-button="canEdit" collapsible
+      :is-collapsed="isCollapsed" @toggle-collapse="isCollapsed = !isCollapsed" @toggle-edit="toggleEditMode">
+      <template #header-left>
+        <FloatingActionButton v-if="internalEditMode" type="add" size="small" visibility="always"
+          @click="toggleAbilitySelector" />
+      </template>
+      <template #header-center>
+        <div v-show="!isCollapsed && internalEditMode" class="header-controls">
+          <SortingDropdown v-model="groupingOption" :options="groupingOptions" placeholder="Group by..." />
+          <SortingDropdown v-model="abilitySortOption" :options="sortOptions" placeholder="Order by..." />
+        </div>
+      </template>
       <template #header-right>
         <MPDisplay :is-edit-mode="canEdit" />
       </template>
     </TableHeader>
 
-    <!-- Draggable Abilities List -->
-    <draggable v-model="sortedAbilities" handle=".drag-handle" item-key="id" ghost-class="ghost-item-row"
-      animation="150" :disabled="!internalEditMode" class="item-table-list">
-      <template #item="{ element: ability, index }">
-        <div class="item-table-row">
+    <div v-if="!isCollapsed" class="abilities-content">
+      <!-- Empty State: No Abilities -->
+      <div v-if="characterAbilities.length === 0" class="empty-table-state">
+        <p class="empty-table-message">No abilities</p>
+        <p v-if="internalEditMode" class="empty-table-hint">Click the + button above to add your first ability</p>
+      </div>
 
-          <div v-if="internalEditMode" class="floating-edit-controls">
-            <FloatingActionButton type="delete" size="small" visibility="always" @click="removeAbility(index)" />
-            <FloatingActionButton type="drag" size="small" visibility="always" class="drag-handle" />
-          </div>
+      <!-- Grouped Display -->
+      <GroupedMasonryGrid v-else-if="hasAbilityGrouping" :column-width="350" :gap="20" :row-height="10"
+        :grouped-items="groupedAbilities" class="abilities-masonry" ref="masonryGridRef">
+        <template #default="{ item }">
+          <AbilityCard v-if="item" :ability="item" :collapsed="item.collapsed" class="ability-card" :collapsible="false"
+            :show-xp-badge="true" :show-add-to-character="false" :show-action-buttons="true"
+            :character="selectedCharacter" :show-improvement-toggle="true" :show-improvements="item.showImprovements"
+            @update:showImprovements="updateAbilityShowImprovements(item, $event)" :show-successes="item.showSuccesses"
+            @update:showSuccesses="updateAbilityShowSuccesses(item, $event)" :deletable="internalEditMode"
+            @delete="removeAbilityById(item.id)" />
+          <span v-else class="missing-item">Unknown ability</span>
+        </template>
+      </GroupedMasonryGrid>
 
-          <AbilityCard v-if="ability" :ability="ability" :collapsed="ability.collapsed"
-            @update:collapsed="updateAbilityCollapsed(ability, $event)" class="item-table-card ability-card"
-            :collapsible="true" :show-xp-badge="true" :show-add-to-character="false" :show-action-buttons="true"
+      <!-- Ungrouped Display -->
+      <MasonryGrid v-else :column-width="350" :gap="20" :row-height="10" class="abilities-masonry" ref="masonryGridRef">
+        <div v-for="ability in characterAbilities" :key="ability.id" class="masonry-item">
+          <AbilityCard v-if="ability" :ability="ability" :collapsed="ability.collapsed" class="ability-card"
+            :collapsible="false" :show-xp-badge="true" :show-add-to-character="false" :show-action-buttons="true"
             :character="selectedCharacter" :show-improvement-toggle="true" :show-improvements="ability.showImprovements"
             @update:showImprovements="updateAbilityShowImprovements(ability, $event)"
-            :show-successes="ability.showSuccesses"
-            @update:showSuccesses="updateAbilityShowSuccesses(ability, $event)" />
-
+            :show-successes="ability.showSuccesses" @update:showSuccesses="updateAbilityShowSuccesses(ability, $event)"
+            :deletable="internalEditMode" @delete="removeAbilityById(ability.id)" />
           <span v-else class="missing-item">Unknown ability</span>
-
         </div>
-      </template>
-    </draggable>
-
-    <!-- Add Ability FAB (only in edit mode) -->
-    <div v-if="showAddButton" class="add-button-container">
-      <FloatingActionButton type="add" size="large" visibility="always" @click="toggleAbilitySelector" />
+      </MasonryGrid>
     </div>
 
     <!-- Add Ability Selector Modal -->
-    <ItemSelector :show="showAbilitySelector" title="Add Ability" :grouped-items="groupedAbilities"
+    <ItemSelector :show="showAbilitySelector" title="Add Ability" :grouped-items="groupedAbilitiesForSelector"
       :search-query="abilitySearchQuery" search-placeholder="Search abilities..." no-items-message="No abilities found"
       :get-source-name="sourcesStore.getSourceName" @close="toggleAbilitySelector" @select="selectAbility"
       @search="abilitySearchQuery = $event" />
@@ -49,16 +64,21 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, ref, onMounted, watch } from 'vue'
 import AbilityCard from '@/components/ui/cards/item/AbilityCard.vue'
 import TableHeader from '@/components/ui/tables/TableHeader.vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import ItemSelector from '@/components/ui/selectors/ItemSelector.vue'
 import CharacterSheetSection from '@/components/ui/containers/CharacterSheetSection.vue'
 import MPDisplay from './MPDisplay.vue'
-import draggable from 'vuedraggable'
+import GroupedMasonryGrid from '@/components/ui/layouts/GroupedMasonryGrid.vue'
+import MasonryGrid from '@/components/ui/layouts/MasonryGrid.vue'
+import SortingDropdown from '@/components/ui/dropdowns/SortingDropdown.vue'
 import CharacterService from '@/services/entities/characterService'
 import { useItemSelector } from '@/composables/useItemSelector'
+import { useItemGrouping } from '@/composables/useItemGrouping'
+import { sortItems } from '@/utils/sortItems'
+import { ABILITY_SORT_OPTIONS } from '@/constants/sortOptions'
 import { useCharactersStore } from '@/stores/charactersStore'
 import { useAbilitiesStore } from '@/stores/abilitiesStore'
 import { useSourcesStore } from '@/stores/sourcesStore'
@@ -75,18 +95,72 @@ const selectedCharacter = computed(() => charactersStore.selectedCharacter)
 const abilitiesStore = useAbilitiesStore()
 const allAbilities = computed(() => abilitiesStore.abilities || [])
 
+const masonryGridRef = ref(null)
+
+const sortOptions = ABILITY_SORT_OPTIONS
+
+const groupingOptions = [
+  { value: 'source', label: 'Source' }
+]
+
+// Grouping and Sorting state
+const groupingOption = computed({
+  get: () => selectedCharacter.value?.groupAbilitiesBySource ? 'source' : '',
+  set: (value) => {
+    if (selectedCharacter.value) {
+      selectedCharacter.value.groupAbilitiesBySource = (value === 'source')
+    }
+  }
+})
+
+const abilitySortOption = computed({
+  get: () => selectedCharacter.value?.abilitySortOption || 'name-asc',
+  set: (value) => {
+    if (selectedCharacter.value) {
+      selectedCharacter.value.abilitySortOption = value
+    }
+  }
+})
+
 const internalEditMode = ref(false)
+const isCollapsed = ref(false)
+
 const toggleEditMode = () => { internalEditMode.value = !internalEditMode.value }
 
 const canEdit = computed(() => props.canEdit)
-const showAddButton = computed(() => internalEditMode.value)
 
 const sourcesStore = useSourcesStore()
+
+const characterAbilities = computed(() => {
+  const allAbilitiesArray = allAbilities.value || []
+  if (!selectedCharacter.value?.abilities) return []
+
+  const abilities = selectedCharacter.value.abilities
+    ?.map((abilityObj) => {
+      const ability = allAbilitiesArray.find((a) => a.id === abilityObj.id)
+      if (!ability) return null
+
+      const { improvements: characterImprovements, ...otherMetadata } = abilityObj
+
+      return {
+        ...ability,
+        ...otherMetadata,
+        improvements: ability.improvements || [],
+        characterImprovements: characterImprovements || {},
+        collapsed: abilityObj.collapsed ?? true,
+        showImprovements: abilityObj.showImprovements ?? false,
+        showSuccesses: abilityObj.showSuccesses ?? false
+      }
+    })
+    .filter((ability) => ability !== null) || []
+
+  return sortItems(abilities, abilitySortOption.value)
+})
 
 const {
   showSelector: showAbilitySelector,
   searchQuery: abilitySearchQuery,
-  groupedItems: groupedAbilities,
+  groupedItems: groupedAbilitiesForSelector,
   toggleSelector: toggleAbilitySelector
 } = useItemSelector(
   allAbilities,
@@ -94,50 +168,21 @@ const {
   { searchFields: ['name'] }
 )
 
-const characterAbilities = computed(() => {
-  const allAbilitiesArray = allAbilities.value || []
-  if (!selectedCharacter.value?.abilities) return []
-  return (
-    selectedCharacter.value.abilities
-      ?.map((abilityObj, index) => {
-        const ability = allAbilitiesArray.find((a) => a.id === abilityObj.id)
+const { groupedItems: groupedAbilities, hasGrouping: hasAbilityGrouping } = useItemGrouping(
+  characterAbilities,
+  computed(() => !!selectedCharacter.value?.groupAbilitiesBySource),
+  sourcesStore
+)
 
-        if (!ability) return null
+watch(characterAbilities, () => {
+  masonryGridRef.value?.updateLayout()
+}, { deep: true })
 
-        const { improvements: characterImprovements, ...otherMetadata } = abilityObj
+const removeAbilityById = (abilityId) => {
+  if (!internalEditMode.value || !selectedCharacter.value?.abilities) return
 
-        return {
-          ...ability,
-          ...otherMetadata,
-          improvements: ability.improvements || [],
-          characterImprovements: characterImprovements || {},
-          collapsed: abilityObj.collapsed ?? true,
-          showImprovements: abilityObj.showImprovements ?? false,
-          showSuccesses: abilityObj.showSuccesses ?? false,
-          order: index
-        }
-      })
-      .filter((ability) => ability !== null) || []
-  )
-})
-
-const sortedAbilities = computed({
-  get: () => [...characterAbilities.value].sort((a, b) => (a.order || 0) - (b.order || 0)),
-  set: (newOrder) => {
-    const updatedAbilities = newOrder.map((ability) => ({
-      id: ability.id,
-      collapsed: ability.collapsed,
-      showImprovements: ability.showImprovements,
-      showSuccesses: ability.showSuccesses
-    }))
-
-    const updated = CharacterService.reorderItems(selectedCharacter.value, 'abilities', updatedAbilities)
-    if (updated) Object.assign(selectedCharacter.value, updated)
-  }
-})
-
-const removeAbility = (index) => {
-  if (!internalEditMode.value || !selectedCharacter.value?.abilities?.[index]) return
+  const index = selectedCharacter.value.abilities.findIndex(a => a.id === abilityId)
+  if (index === -1) return
 
   const ability = selectedCharacter.value.abilities[index]
   const abilityData = allAbilities.value.find(a => a.id === ability.id)
@@ -160,14 +205,6 @@ const selectAbility = (ability) => {
   toggleAbilitySelector()
 }
 
-const updateAbilityCollapsed = (ability, collapsed) => {
-  if (!selectedCharacter.value?.abilities) return
-  const index = selectedCharacter.value.abilities.findIndex(a => a.id === ability.id)
-  if (index !== -1) {
-    selectedCharacter.value.abilities[index].collapsed = collapsed
-  }
-}
-
 const updateAbilityShowImprovements = (ability, showImprovements) => {
   if (!selectedCharacter.value?.abilities) return
   const index = selectedCharacter.value.abilities.findIndex(a => a.id === ability.id)
@@ -184,10 +221,56 @@ const updateAbilityShowSuccesses = (ability, showSuccesses) => {
   }
 }
 
+onMounted(() => {
+  masonryGridRef.value?.updateLayout()
+})
+
 </script>
 
 <style scoped>
-@import '@/styles/character-sheet-item-table.css';
+.missing-item {
+  color: var(--color-text-muted);
+  font-style: italic;
+  padding: var(--space-md);
+}
+
+.empty-table-state {
+  padding: var(--space-2xl) var(--space-xl);
+  text-align: center;
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-4);
+  margin: var(--space-lg) 0;
+}
+
+.empty-table-message {
+  font-size: var(--font-size-18);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  margin: 0 0 var(--space-sm) 0;
+}
+
+.empty-table-hint {
+  font-size: var(--font-size-14);
+  color: var(--color-text-tertiary);
+  margin: 0;
+}
+
+.add-button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--space-md);
+}
+
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.abilities-content {
+  width: 100%;
+  min-width: 0;
+}
 
 @media (max-width: var(--breakpoint-sm)) {
   .ability-card {

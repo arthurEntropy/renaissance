@@ -180,14 +180,19 @@
       "id": "30ade4bc-27c7-4bb5-a674-00cbd0fc294b",
       "quantity": 1,
       "isCarried": true,
-      "collapsed": false
+      "collapsed": true
     },
     {
       "id": "b69c879e-a758-47b6-a3a4-b81dfd12eaaf",
       "quantity": 1,
       "isCarried": true,
-      "collapsed": false,
+      "collapsed": true,
       "isWielding": true
+    },
+    {
+      "id": "c4687d01-ef1a-4a63-b401-96614c785a7b",
+      "quantity": 1,
+      "isCarried": true
     }
   ],
   "engagementDice": [
@@ -199,7 +204,7 @@
   "abilities": [
     {
       "id": "4fbf9ccb-0fbb-45d0-9f8f-7b7fcfb811fb",
-      "collapsed": true,
+      "collapsed": false,
       "showImprovements": false,
       "showSuccesses": false
     },
@@ -217,13 +222,13 @@
     },
     {
       "id": "359a4615-81a7-4cd1-a23f-22b50b7d1f93",
-      "collapsed": false,
+      "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false
     },
     {
       "id": "de2e226f-c1e2-489e-9f70-353153421262",
-      "collapsed": false,
+      "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false
     },
@@ -235,7 +240,7 @@
     },
     {
       "id": "c93d20c3-2fa2-4001-837d-cf38629b9c1a",
-      "collapsed": false,
+      "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false
     }
@@ -245,7 +250,11 @@
     "https://cdn.midjourney.com/bb7f8092-0710-4aaf-9f26-e376a0cec04e/0_0.png"
   ],
   "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2026-01-29T01:11:48.034Z",
-  "lastModified": "2026-01-29T01:11:48.034Z",
-  "mestiereId": "4eccfe5d-de19-4bc5-8c9c-374d793d67f0"
+  "updatedAt": "2026-02-12T16:40:26.553Z",
+  "lastModified": "2026-02-12T16:40:26.553Z",
+  "mestiereId": "4eccfe5d-de19-4bc5-8c9c-374d793d67f0",
+  "groupEquipmentBySource": false,
+  "equipmentSortOption": "keeping-asc",
+  "groupAbilitiesBySource": false,
+  "abilitySortOption": ""
 }

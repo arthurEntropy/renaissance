@@ -1,6 +1,5 @@
 <template>
     <div class="vitals-info edit-hover-area">
-        <FloatingActionButton type="settings" size="small" class="settings-button-overlay" @click="openSettingsModal" />
         <FloatingActionButton v-if="canEdit" type="edit" size="small" visibility="on-hover" class="edit-button-overlay"
             @click="openEditModal" />
 
@@ -46,9 +45,6 @@
 
         <!-- Edit Modal -->
         <CharacterVitalsEditModal v-if="isEditModalOpen" @close="closeEditModal" />
-
-        <!-- Settings Modal -->
-        <CharacterSettingsModal v-if="showSettingsModal" @close="closeSettingsModal" @delete="handleDeleteCharacter" />
     </div>
 </template>
 
@@ -59,18 +55,14 @@ import { useConceptsStore } from '@/stores/conceptsStore'
 import { createSlug } from '@/utils/urlHelpers'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import CharacterVitalsEditModal from './CharacterVitalsEditModal.vue'
-import CharacterSettingsModal from '@/components/features/characterSheet/modals/CharacterSettingsModal.vue'
 
 const charactersStore = useCharactersStore()
 const conceptsStore = useConceptsStore()
-
-const emit = defineEmits(['close-sheet'])
 
 const character = computed(() => charactersStore.selectedCharacter)
 const canEdit = computed(() => charactersStore.canEditSelectedCharacter)
 
 const isEditModalOpen = ref(false)
-const showSettingsModal = ref(false)
 
 const ancestries = computed(() => {
     if (!character.value?.ancestryIds?.length) return []
@@ -93,20 +85,6 @@ const openEditModal = () => {
 
 const closeEditModal = () => {
     isEditModalOpen.value = false
-}
-
-const openSettingsModal = () => {
-    showSettingsModal.value = true
-}
-
-const closeSettingsModal = () => {
-    showSettingsModal.value = false
-}
-
-const handleDeleteCharacter = async () => {
-    await charactersStore.remove(character.value)
-    closeSettingsModal()
-    emit('close-sheet')
 }
 
 onMounted(() => {
@@ -148,6 +126,7 @@ onMounted(() => {
     margin: 0;
     word-wrap: break-word;
     overflow-wrap: break-word;
+    text-align: left;
 }
 
 .character-pronouns {
@@ -173,7 +152,7 @@ onMounted(() => {
 
 .vitals-label {
     color: var(--color-gray-light);
-    font-size: var(--font-size-12);
+    font-size: var(--font-size-11);
     font-weight: 500;
 }
 
@@ -182,6 +161,7 @@ onMounted(() => {
     font-size: var(--font-size-14);
     word-wrap: break-word;
     overflow-wrap: break-word;
+    text-align: left;
 }
 
 @media (max-width: calc(var(--breakpoint-md) - 1px)) {

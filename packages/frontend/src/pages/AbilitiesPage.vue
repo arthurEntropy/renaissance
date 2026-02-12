@@ -42,12 +42,14 @@ import { useEditModal } from '@/composables/useEditModal'
 import { useInfiniteScroll } from '@/composables/useInfiniteScroll'
 import { useInfiniteScrollObserver } from '@/composables/useInfiniteScrollObserver'
 import { useFilterPersistence } from '@/composables/useFilterPersistence'
+import { sortItems } from '@/utils/sortItems'
+import { ABILITY_SORT_OPTIONS } from '@/constants/sortOptions'
 import AbilityService from '@/services/entities/abilityService'
 import AbilityCard from '@/components/ui/cards/item/AbilityCard.vue'
 import EditAbilityModal from '@/components/editModals/EditAbilityModal.vue'
 import ItemCardsLayout from '@/components/ui/layouts/ItemCardsLayout.vue'
 import ManaColorFilter from '@/components/ui/mana/ManaColorFilter.vue'
-import { calculateTotalManaCost, getManaCostColors } from '@shared/utils/calculateManaCost'
+import { getManaCostColors } from '@shared/utils/calculateManaCost'
 
 // Stores
 const abilitiesStore = useAbilitiesStore()
@@ -77,24 +79,7 @@ const isLoadingMore = ref(false)
 const isAdmin = computed(() => authStore.isAdmin)
 const sources = computed(() => sourcesStore.sources)
 
-const sortOptions = ref({
-  'Name': [
-    { value: 'name-asc', label: 'Name (A-Z)' },
-    { value: 'name-desc', label: 'Name (Z-A)' },
-  ],
-  'MP': [
-    { value: 'mp-asc', label: 'MP (Low to High)' },
-    { value: 'mp-desc', label: 'MP (High to Low)' },
-  ],
-  'XP': [
-    { value: 'xp-asc', label: 'XP (Low to High)' },
-    { value: 'xp-desc', label: 'XP (High to Low)' },
-  ],
-  'Mana Cost': [
-    { value: 'manaCost-asc', label: 'Mana Cost (Low to High)' },
-    { value: 'manaCost-desc', label: 'Mana Cost (High to Low)' },
-  ],
-})
+const sortOptions = ref(ABILITY_SORT_OPTIONS)
 
 // Filtered and sorted abilities (before pagination)
 const allFilteredAbilities = computed(() => {
@@ -127,39 +112,7 @@ const allFilteredAbilities = computed(() => {
     })
   }
 
-  // Apply sorting
-  if (sortOption.value) {
-    const [field, direction] = sortOption.value.split('-')
-    filtered.sort((a, b) => {
-      let comparison = 0
-
-      if (field === 'name') {
-        const aValue = a?.[field]
-        const bValue = b?.[field]
-        // Handle null/undefined values for name
-        if (aValue == null && bValue == null) return 0
-        if (aValue == null) return 1
-        if (bValue == null) return -1
-        comparison = String(aValue).localeCompare(String(bValue))
-      } else if (field === 'manaCost') {
-        // Calculate total mana cost
-        const aCost = calculateTotalManaCost(a?.manaCost)
-        const bCost = calculateTotalManaCost(b?.manaCost)
-        comparison = aCost - bCost
-      } else {
-        const aValue = a?.[field]
-        const bValue = b?.[field]
-        // For numeric fields (MP, XP), treat null/undefined as 0
-        const aNum = aValue == null ? 0 : Number(aValue)
-        const bNum = bValue == null ? 0 : Number(bValue)
-        comparison = aNum - bNum
-      }
-
-      return direction === 'asc' ? comparison : -comparison
-    })
-  }
-
-  return filtered
+  return sortItems(filtered, sortOption.value)
 })
 
 // Infinite scroll setup - paginate the filtered results
