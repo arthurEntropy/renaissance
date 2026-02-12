@@ -1,8 +1,8 @@
 <template>
   <!-- Card Container -->
   <div ref="cardElement" class="base-card" :class="{ collapsed: collapsed, collapsible: collapsible }"
-    :style="cardStyle" @click="collapsible ? toggleCollapsed() : null"
-    :title="sourceName ? `Source: ${sourceName}` : null">
+    :style="cardStyle" @click="collapsible ? toggleCollapsed() : null" @mouseenter="handleCardMouseEnter"
+    @mouseleave="handleCardMouseLeave" :title="sourceName ? `Source: ${sourceName}` : null">
 
     <!-- Admin Buttons -->
     <div v-if="editable || duplicatable || deletable" class="admin-buttons">
@@ -200,6 +200,18 @@ const handleExpanded = () => {
 
 const handleCollapsed = () => {
   emit('height-changed')
+}
+
+const handleCardMouseEnter = () => {
+  if (props.showAddToCharacter && hasSelectedCharacter.value) {
+    charactersStore.setAddToCharacterHovering(true)
+  }
+}
+
+const handleCardMouseLeave = () => {
+  if (props.showAddToCharacter && hasSelectedCharacter.value) {
+    charactersStore.setAddToCharacterHovering(false)
+  }
 }
 </script>
 

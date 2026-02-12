@@ -157,7 +157,7 @@ const createAbility = async () => {
   if (sourceFilter.value) {
     initialData.source = sourceFilter.value
   }
-  
+
   const newAbility = await abilitiesStore.create(initialData)
   openEditAbilityModal(newAbility)
 }

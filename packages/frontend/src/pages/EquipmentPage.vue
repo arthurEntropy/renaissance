@@ -201,7 +201,7 @@ const createEquipment = async () => {
   if (gradeFilter.value) {
     initialData.grade = gradeFilter.value
   }
-  
+
   const newEquipment = await equipmentStore.create(initialData)
   const createdEquipment = equipmentStore.equipment.find(
     (item) => item.id === newEquipment.id,
