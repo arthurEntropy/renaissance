@@ -19,10 +19,10 @@
       </template>
     </TableHeader>
 
-    <div v-if="!isCollapsed">
+    <div v-if="!isCollapsed" class="abilities-content">
       <!-- Empty State: No Abilities -->
       <div v-if="characterAbilities.length === 0" class="empty-table-state">
-        <p class="empty-table-message">No abilities yet</p>
+        <p class="empty-table-message">No abilities</p>
         <p v-if="internalEditMode" class="empty-table-hint">Click the + button above to add your first ability</p>
       </div>
 
@@ -265,6 +265,11 @@ onMounted(() => {
   display: flex;
   align-items: center;
   gap: var(--space-md);
+}
+
+.abilities-content {
+  width: 100%;
+  min-width: 0;
 }
 
 @media (max-width: var(--breakpoint-sm)) {

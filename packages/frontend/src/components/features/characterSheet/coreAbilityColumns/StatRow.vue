@@ -120,7 +120,7 @@ const stateClasses = computed(() => {
 }
 
 .stat-name {
-    font-size: var(--font-size-14);
+    font-size: var(--font-size-15);
     text-align: left;
 }
 

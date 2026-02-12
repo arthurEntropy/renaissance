@@ -1,6 +1,5 @@
 <template>
-  <CharacterSheetSection custom-class="dice-box edit-hover-area" :min-width="`${CONTAINER_WIDTH}px`"
-    :max-width="`${CONTAINER_WIDTH}px`">
+  <CharacterSheetSection custom-class="dice-box edit-hover-area">
 
     <FloatingActionButton v-if="canEdit && !customDiceRollerOpen" type="initiative" size="small" visibility="on-hover"
       class="initiative-button" @click="handleInitiativeRoll" />

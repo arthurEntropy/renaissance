@@ -20,7 +20,7 @@
     <div v-if="!isCollapsed" class="equipment-content">
       <!-- Empty State: No Equipment -->
       <div v-if="characterEquipment.length === 0" class="empty-table-state">
-        <p class="empty-table-message">No equipment yet</p>
+        <p class="empty-table-message">No equipment</p>
         <p v-if="internalEditMode" class="empty-table-hint">Click the + button above to add your first equipment</p>
       </div>
 

@@ -1,5 +1,5 @@
 <template>
-  <CharacterSheetSection custom-class="character-profile" min-width="300px" max-width="440px">
+  <CharacterSheetSection custom-class="character-profile" min-width="400px">
     <CharacterArt />
     <CharacterVitals @close-sheet="$emit('close-sheet')" />
 
