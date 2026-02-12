@@ -127,6 +127,7 @@ const filteredConcepts = computed(() => {
     filtered = filtered.filter((concept) => concept.expansion === expansionFilter.value)
   }
 
+  // Concepts are already sorted by conceptsStore
   return filtered
 })
 

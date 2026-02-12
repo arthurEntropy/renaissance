@@ -7,21 +7,30 @@ import { ConceptType } from '@shared/constants/conceptTypes'
 export const useConceptsStore = defineStore('concepts', () => {
   const base = useCrudEntityStore(ConceptService, 'concepts')
   
-  // Filtered computed properties by type
+  // Helper function to sort concepts, ignoring "The " prefix
+  const sortByName = (items) => {
+    return [...items].sort((a, b) => {
+      const nameA = (a.name || '').replace(/^The /i, '').toLowerCase()
+      const nameB = (b.name || '').replace(/^The /i, '').toLowerCase()
+      return nameA.localeCompare(nameB)
+    })
+  }
+  
+  // Filtered and sorted computed properties by type
   const ancestries = computed(() => 
-    base.items.value.filter(c => c.conceptType === ConceptType.ANCESTRY)
+    sortByName(base.items.value.filter(c => c.conceptType === ConceptType.ANCESTRY))
   )
   
   const cultures = computed(() => 
-    base.items.value.filter(c => c.conceptType === ConceptType.CULTURE)
+    sortByName(base.items.value.filter(c => c.conceptType === ConceptType.CULTURE))
   )
   
   const mestieri = computed(() => 
-    base.items.value.filter(c => c.conceptType === ConceptType.MESTIERE)
+    sortByName(base.items.value.filter(c => c.conceptType === ConceptType.MESTIERE))
   )
   
   const worldElements = computed(() => 
-    base.items.value.filter(c => c.conceptType === ConceptType.WORLD_ELEMENT)
+    sortByName(base.items.value.filter(c => c.conceptType === ConceptType.WORLD_ELEMENT))
   )
   
   // Type-specific selected items (computed from base.selectedItem)
