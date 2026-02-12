@@ -111,6 +111,8 @@ import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/vue/24/outline'
 import { useArtStore } from '@/stores/artStore'
 import { IMAGE_GALLERY_MODES, ART_TYPES } from '@shared/constants/artConstants.js'
 import { useOptimizedImage, useOptimizedImages } from '@/composables/useOptimizedImage'
+import { useImagePreloader } from '@/composables/useImagePreloader'
+import { getOptimizedImageUrl } from '@/utils/imageOptimization'
 
 const props = defineProps({
   images: {
@@ -156,12 +158,15 @@ const displayImages = computed(() => {
   return props.images
 })
 
-// Optimize images for display
-const optimizedMainImage = useOptimizedImage(() => displayImages.value[selectedIndex.value], 'large')
-const optimizedThumbnails = useOptimizedImages(displayImages, 'thumbnail')
-
 // Reactive state
 const selectedIndex = ref(0)
+
+// Optimize images for display
+const optimizedMainImage = useOptimizedImage(() => displayImages.value[selectedIndex.value], 'medium')
+const optimizedThumbnails = useOptimizedImages(displayImages, 'thumbnail')
+
+// Preload adjacent images for instant navigation
+useImagePreloader(displayImages, selectedIndex, 'medium', getOptimizedImageUrl)
 const showNav = ref(false)
 const editModalOpen = ref(false)
 const addModalOpen = ref(false)
