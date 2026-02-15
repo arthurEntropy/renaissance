@@ -3,7 +3,7 @@
     <input type="number" :value="modelValue" :disabled="disabled"
       @input="$emit('update:modelValue', Number(($event.target).value))" @keydown.enter="($event.target).blur()"
       :min="min" :max="max" :step="step" :class="`input-${size}`" />
-    <div v-if="!disabled" class="spinner-buttons">
+    <div v-if="!disabled" :class="['spinner-buttons', `spinner-buttons-${size}`]">
       <button @click="increment" class="spinner-up" aria-label="Increment" type="button">▲</button>
       <button @click="decrement" class="spinner-down" aria-label="Decrement" type="button">▼</button>
     </div>
@@ -16,7 +16,7 @@ const props = defineProps({
   min: { type: Number, default: null },
   max: { type: Number, default: null },
   step: { type: Number, default: 1 },
-  size: { type: String, default: 'small', validator: (v) => ['small', 'large'].includes(v) },
+  size: { type: String, default: 'small', validator: (v) => ['tiny', 'small', 'large'].includes(v) },
   disabled: { type: Boolean, default: false }
 })
 
@@ -72,6 +72,10 @@ input[type='number']:disabled {
   cursor: default;
 }
 
+.input-tiny {
+  font-size: var(--font-size-12);
+}
+
 .input-small {
   font-size: var(--font-size-16);
 }
@@ -82,8 +86,6 @@ input[type='number']:disabled {
 
 .spinner-buttons {
   position: absolute;
-  top: 2px;
-  bottom: 0px;
   right: 1px;
   width: var(--space-md);
   display: flex;
@@ -94,6 +96,21 @@ input[type='number']:disabled {
   z-index: var(--z-overlay);
   border-radius: 0 var(--radius-5) var(--radius-5) 0;
   overflow: hidden;
+}
+
+.spinner-buttons-tiny {
+  top: 2px;
+  width: 10px;
+}
+
+.spinner-buttons-small {
+  top: 2px;
+  bottom: 0px;
+}
+
+.spinner-buttons-large {
+  top: 3px;
+  right: 2px;
 }
 
 .number-input-container:hover .spinner-buttons {
@@ -114,6 +131,11 @@ input[type='number']:disabled {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.spinner-buttons-tiny .spinner-up,
+.spinner-buttons-tiny .spinner-down {
+  font-size: 6px;
 }
 
 .spinner-up {

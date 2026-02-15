@@ -40,7 +40,7 @@ const totalWeight = computed(() => {
 }
 
 .total-weight-carried {
-    font-size: var(--font-size-10);
+    font-size: var(--font-size-12);
     font-style: italic;
     white-space: nowrap;
     margin-top: 2px;

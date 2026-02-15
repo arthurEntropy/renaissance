@@ -431,4 +431,13 @@ onMounted(async () => {
   width: 100%;
   min-width: 0;
 }
+
+.equipment-card {
+  position: relative;
+  z-index: 1;
+}
+
+.masonry-item {
+  position: relative;
+}
 </style>

@@ -148,8 +148,8 @@
     "coreAbility": "body"
   },
   "hope": {
-    "current": 6,
-    "max": 6,
+    "current": 4,
+    "max": 4,
     "coreAbility": "heart"
   },
   "defense": {
@@ -187,7 +187,7 @@
       "quantity": 1,
       "isCarried": true,
       "collapsed": true,
-      "isWielding": true
+      "isWielding": false
     },
     {
       "id": "2f54077d-56bd-46a6-9ad5-a7acdc7a90cf",
@@ -252,8 +252,8 @@
     "https://cdn.midjourney.com/bb7f8092-0710-4aaf-9f26-e376a0cec04e/0_0.png"
   ],
   "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2026-02-15T01:04:03.603Z",
-  "lastModified": "2026-02-15T01:04:03.603Z",
+  "updatedAt": "2026-02-15T16:11:26.810Z",
+  "lastModified": "2026-02-15T16:11:26.810Z",
   "mestiereId": "4eccfe5d-de19-4bc5-8c9c-374d793d67f0",
   "groupEquipmentBySource": false,
   "equipmentSortOption": "keeping-asc",
