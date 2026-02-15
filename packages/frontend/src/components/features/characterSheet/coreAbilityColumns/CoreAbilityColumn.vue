@@ -10,10 +10,13 @@
       @update="updateVirtue" @reset="resetVirtue" />
 
     <StatRow :type="STAT_ROW_TYPES.SINGLE" :label="weaknessLabel" :value="weaknessValue" :can-edit="canEdit"
-      @update="updateWeakness" />
+      :show-auto-calc-button="showLoadAutoCalcButton" :is-auto-calc="isLoadAuto" @update="updateWeakness"
+      @calculate="handleCalculateLoad" @toggle-auto-calc="handleToggleLoadAutoCalc" />
 
     <StatRow :type="STAT_ROW_TYPES.STATE" :label="firstStateLabel" :first-state="firstStateValue"
-      :second-state="secondStateValue" :can-edit="canEdit" @update="updateState" />
+      :second-state="secondStateValue" :can-edit="canEdit" :show-auto-calc-button="showStatesAutoCalcButton"
+      :is-auto-calc="isStatesAuto" @update="updateState" @calculate="handleCalculateStates"
+      @toggle-auto-calc="handleToggleStatesAutoCalc" />
 
     <SkillCheckModal v-if="skillCheckModal.isOpen.value && character" :character="character"
       :selectedSkillName="selectedSkillName" :defaultTargetNumber="rollsStore.lastTargetNumber"
@@ -31,6 +34,7 @@ import { useModal } from '@/composables/useModal'
 import { useColumnConfig } from '@/composables/useColumnConfig'
 import { useRollsStore } from '@/stores/rollsStore'
 import { useCharactersStore } from '@/stores/charactersStore'
+import { useEquipmentStore } from '@/stores/equipmentStore'
 import { STAT_ROW_TYPES } from '@shared/constants/characterConstants'
 import * as CharacterUtils from '@shared/types/entities/characterUtils'
 import CharacterSheetSection from '@/components/ui/containers/CharacterSheetSection.vue'
@@ -49,9 +53,11 @@ const props = defineProps({
 
 const rollsStore = useRollsStore()
 const charactersStore = useCharactersStore()
+const equipmentStore = useEquipmentStore()
 
 const character = computed(() => charactersStore.selectedCharacter)
 const canEdit = computed(() => charactersStore.canEditSelectedCharacter)
+const allEquipment = computed(() => equipmentStore.equipment || [])
 
 const {
   coreAbilityKey,
@@ -85,6 +91,49 @@ const resetVirtue = () => {
 
 const updateWeakness = (value) => {
   character.value[weaknessKey.value] = value
+}
+
+// Auto-calculation computed properties
+const isLoadAuto = computed(() => character.value?.autoCalculations?.load ?? true)
+const isStatesAuto = computed(() => character.value?.autoCalculations?.statesAndEffects ?? true)
+const showLoadAutoCalcButton = computed(() => weaknessKey.value === 'load')
+const showStatesAutoCalcButton = computed(() => true) // Always show for states
+
+// Auto-calculation handlers
+const handleCalculateLoad = () => {
+  if (!character.value) return
+  character.value.load = CharacterUtils.calculateLoad(character.value, allEquipment.value)
+}
+
+const handleCalculateStates = () => {
+  if (!character.value) return
+  CharacterUtils.updateAllStates(character.value)
+  CharacterUtils.updateDiceMods(character.value)
+  CharacterUtils.updateFavoredStatus(character.value)
+}
+
+const handleToggleLoadAutoCalc = () => {
+  if (!character.value) return
+  if (!character.value.autoCalculations) {
+    character.value.autoCalculations = { load: true, statesAndEffects: true }
+  }
+  character.value.autoCalculations.load = !character.value.autoCalculations.load
+  // If turning on auto, calculate immediately
+  if (character.value.autoCalculations.load) {
+    handleCalculateLoad()
+  }
+}
+
+const handleToggleStatesAutoCalc = () => {
+  if (!character.value) return
+  if (!character.value.autoCalculations) {
+    character.value.autoCalculations = { load: true, statesAndEffects: true }
+  }
+  character.value.autoCalculations.statesAndEffects = !character.value.autoCalculations.statesAndEffects
+  // If turning on auto, calculate immediately
+  if (character.value.autoCalculations.statesAndEffects) {
+    handleCalculateStates()
+  }
 }
 
 const updateState = (field, value) => {

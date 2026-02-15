@@ -99,6 +99,9 @@ import { createBaseEntity } from './gameEntity.js'
  * @property {boolean} groupEquipmentBySource - Whether to group equipment by source
  * @property {string} abilitySortOption - Sort option for abilities
  * @property {string} equipmentSortOption - Sort option for equipment
+ * @property {Object} autoCalculations - Auto-calculation settings
+ * @property {boolean} autoCalculations.load - Whether to auto-calculate load
+ * @property {boolean} autoCalculations.statesAndEffects - Whether to auto-apply states and effects
  * @property {string} createdAt - ISO 8601 datetime string
  * @property {string} lastModified - ISO 8601 datetime string
  */
@@ -168,5 +171,9 @@ export function createDefaultCharacter() {
     groupEquipmentBySource: false,
     abilitySortOption: 'name-asc',
     equipmentSortOption: 'name-asc',
+    autoCalculations: {
+      load: true,
+      statesAndEffects: true,
+    },
   }
 }

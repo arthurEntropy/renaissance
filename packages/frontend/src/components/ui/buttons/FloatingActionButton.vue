@@ -1,19 +1,22 @@
 <template>
-    <button type="button" :disabled="disabled" :class="buttonClasses" :title="tooltip" @click="$emit('click', $event)">
-        <span v-if="isEmoji" :class="iconClass">{{ emojiContent }}</span>
+    <button type="button" :disabled="disabled" :class="buttonClasses" :title="tooltip" @click="handleClick"
+        @mousedown="handleMouseDown" @mouseup="handleMouseUp" @mouseleave="handleMouseUp" @touchstart="handleTouchStart"
+        @touchend="handleTouchEnd" @touchcancel="handleTouchEnd">
+        <span v-if="isAutoCalcText" class="auto-text">AUTO</span>
+        <span v-else-if="isEmoji" :class="iconClass">{{ emojiContent }}</span>
         <component v-else :is="iconComponent" :class="iconClass" />
     </button>
 </template>
 
 <script setup>
-import { computed } from 'vue'
-import { PlusIcon, DocumentDuplicateIcon, PencilIcon, CheckIcon, XMarkIcon, Bars3Icon, Cog6ToothIcon, ArrowPathIcon, BookOpenIcon } from '@heroicons/vue/24/outline'
+import { computed, ref } from 'vue'
+import { PlusIcon, DocumentDuplicateIcon, PencilIcon, CheckIcon, XMarkIcon, Bars3Icon, Cog6ToothIcon, ArrowPathIcon, BookOpenIcon, CalculatorIcon } from '@heroicons/vue/24/outline'
 
 const props = defineProps({
     type: {
         type: String,
         required: true,
-        validator: (value) => ['edit', 'add', 'duplicate', 'delete', 'drag', 'settings', 'refresh', 'dice', 'initiative', 'notes'].includes(value)
+        validator: (value) => ['edit', 'add', 'duplicate', 'delete', 'drag', 'settings', 'refresh', 'dice', 'initiative', 'notes', 'auto-calc'].includes(value)
     },
 
     size: {
@@ -29,6 +32,7 @@ const props = defineProps({
     },
 
     // Only used for edit type - indicates active/editing state
+    // For auto-calc type - indicates auto mode (true) vs manual mode (false)
     isActive: {
         type: Boolean,
         default: false
@@ -40,7 +44,68 @@ const props = defineProps({
     }
 })
 
-defineEmits(['click'])
+const emit = defineEmits(['click', 'long-press'])
+
+// Long-press detection
+const LONG_PRESS_DURATION = 500
+let longPressTimer = null
+const isLongPress = ref(false)
+
+const handleClick = (e) => {
+    if (!isLongPress.value) {
+        emit('click', e)
+    }
+}
+
+const startLongPress = () => {
+    isLongPress.value = false
+    longPressTimer = setTimeout(() => {
+        isLongPress.value = true
+        emit('long-press')
+    }, LONG_PRESS_DURATION)
+}
+
+const cancelLongPress = () => {
+    if (longPressTimer) {
+        clearTimeout(longPressTimer)
+        longPressTimer = null
+    }
+}
+
+const handleMouseDown = () => {
+    if (props.type === 'auto-calc') {
+        startLongPress()
+    }
+}
+
+const handleMouseUp = () => {
+    if (props.type === 'auto-calc') {
+        cancelLongPress()
+        setTimeout(() => {
+            isLongPress.value = false
+        }, 50)
+    }
+}
+
+const handleTouchStart = (e) => {
+    if (props.type === 'auto-calc') {
+        e.preventDefault()
+        startLongPress()
+    }
+}
+
+const handleTouchEnd = (e) => {
+    if (props.type === 'auto-calc') {
+        e.preventDefault()
+        cancelLongPress()
+        if (!isLongPress.value) {
+            emit('click', e)
+        }
+        setTimeout(() => {
+            isLongPress.value = false
+        }, 50)
+    }
+}
 
 const buttonClasses = computed(() => {
     return [
@@ -53,6 +118,10 @@ const buttonClasses = computed(() => {
             'fab--disabled': props.disabled
         }
     ].filter(Boolean)
+})
+
+const isAutoCalcText = computed(() => {
+    return props.type === 'auto-calc' && props.isActive
 })
 
 const isEmoji = computed(() => {
@@ -83,6 +152,8 @@ const iconComponent = computed(() => {
         return ArrowPathIcon
     } else if (props.type === 'notes') {
         return BookOpenIcon
+    } else if (props.type === 'auto-calc') {
+        return CalculatorIcon
     } else {
         return Bars3Icon
     }
@@ -111,6 +182,8 @@ const tooltip = computed(() => {
         return 'Roll Initiative'
     } else if (props.type === 'notes') {
         return 'Bio & Notes'
+    } else if (props.type === 'auto-calc') {
+        return props.isActive ? 'Auto mode (long-press to toggle)' : 'Manual mode (click to calculate, long-press to toggle)'
     } else {
         return 'Drag to reorder'
     }
@@ -177,6 +250,7 @@ const tooltip = computed(() => {
     display: flex;
     align-items: center;
     justify-content: center;
+    color: var(--color-primary);
 }
 
 .fab__icon--large {
@@ -187,6 +261,7 @@ const tooltip = computed(() => {
     display: flex;
     align-items: center;
     justify-content: center;
+    color: var(--color-primary);
 }
 
 /* === TYPE VARIANTS === */
@@ -202,6 +277,22 @@ const tooltip = computed(() => {
 
 .fab--drag {
     cursor: move;
+}
+
+.fab--auto-calc {
+    /* Same styling as other FABs */
+}
+
+.auto-text {
+    font-size: 7px;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+    letter-spacing: 0.3px;
+    line-height: 1;
+}
+
+.fab--auto-calc:not(.fab--active) .fab__icon--small {
+    color: var(--color-primary);
 }
 
 /* === VISIBILITY VARIANTS === */

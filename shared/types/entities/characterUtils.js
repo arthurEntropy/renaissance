@@ -81,6 +81,12 @@ export function calculateHelplessStates(character) {
   return { helpless, twiceHelpless }
 }
 
+export function updateAllStates(character) {
+  Object.assign(character.states, calculateWearyStates(character))
+  Object.assign(character.states, calculateMiserableStates(character))
+  Object.assign(character.states, calculateHelplessStates(character))
+}
+
 // ========================================
 // DICE MODIFIERS AND FAVORED STATUS
 // ========================================

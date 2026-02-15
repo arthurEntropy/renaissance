@@ -15,12 +15,18 @@
 
         <!-- Single value type (weakness) -->
         <template v-else-if="type === STAT_ROW_TYPES.SINGLE">
+            <FloatingActionButton v-if="canEdit && showAutoCalcButton" class="auto-calc-button" type="auto-calc"
+                size="small" visibility="on-hover" :is-active="isAutoCalc" :disabled="!canEdit"
+                @click="handleAutoCalcClick" @long-press="emit('toggle-auto-calc')" />
             <NumberInput :model-value="value" :disabled="!canEdit" @update:model-value="$emit('update', $event)"
                 :min="0" size="small" />
         </template>
 
         <!-- Checkbox type (states) -->
         <template v-else-if="type === STAT_ROW_TYPES.STATE">
+            <FloatingActionButton v-if="canEdit && showAutoCalcButton" class="auto-calc-button" type="auto-calc"
+                size="small" visibility="on-hover" :is-active="isAutoCalc" :disabled="!canEdit"
+                @click="handleAutoCalcClick" @long-press="emit('toggle-auto-calc')" />
             <input type="checkbox" :checked="firstState" :disabled="!canEdit"
                 @change="$emit('update', 'first', $event.target.checked)" class="skill-checkbox"
                 :class="{ 'state-active-checkbox': firstState }" />
@@ -63,18 +69,35 @@ const props = defineProps({
     secondState: {
         type: Boolean,
         default: false
+    },
+    showAutoCalcButton: {
+        type: Boolean,
+        default: false
+    },
+    isAutoCalc: {
+        type: Boolean,
+        default: true
     }
 })
 
-const { type, label, canEdit, value, firstState, secondState } = toRefs(props)
+const { type, label, canEdit, value, firstState, secondState, showAutoCalcButton, isAutoCalc } = toRefs(props)
 
-const emit = defineEmits(['update', 'reset'])
+const emit = defineEmits(['update', 'reset', 'calculate', 'toggle-auto-calc'])
+
+const handleAutoCalcClick = () => {
+    // Only emit calculate if in manual mode
+    if (!isAutoCalc.value) {
+        emit('calculate')
+    }
+}
 
 const rowClass = computed(() => {
     return {
         'virtue-row': type.value === STAT_ROW_TYPES.RANGE,
         'weakness-row': type.value === STAT_ROW_TYPES.SINGLE,
-        'state-row': type.value === STAT_ROW_TYPES.STATE
+        'weakness-row--with-button': type.value === STAT_ROW_TYPES.SINGLE && showAutoCalcButton.value,
+        'state-row': type.value === STAT_ROW_TYPES.STATE,
+        'state-row--with-button': type.value === STAT_ROW_TYPES.STATE && showAutoCalcButton.value
     }
 })
 
@@ -115,8 +138,40 @@ const stateClasses = computed(() => {
     grid-template-columns: 37% 63%;
 }
 
+.weakness-row--with-button {
+    grid-template-columns: 75px 30px 65px;
+}
+
+.weakness-row--with-button .auto-calc-button {
+    justify-self: end;
+    margin-right: 4px;
+}
+
+.weakness-row--with-button:hover .auto-calc-button {
+    opacity: 1;
+    pointer-events: auto;
+}
+
 .state-row {
     grid-template-columns: 36% 8% 8%;
+}
+
+.state-row input[type="checkbox"] {
+    margin-left: 1px;
+}
+
+.state-row--with-button {
+    grid-template-columns: 75px 30px 8% 8%;
+}
+
+.state-row--with-button .auto-calc-button {
+    justify-self: end;
+    margin-right: 4px;
+}
+
+.state-row--with-button:hover .auto-calc-button {
+    opacity: 1;
+    pointer-events: auto;
 }
 
 .stat-name {

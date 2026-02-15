@@ -15,17 +15,26 @@ export function useCharacterStatWatchers(selectedCharacter, allEquipment) {
   // Core stats watchers
   watch(() => selectedCharacter.value?.body, () => {
     if (!selectedCharacter.value || selectedCharacter.value.body === undefined) return
-    CharacterUtils.handleBodyChange(selectedCharacter.value)
+    // Only auto-calculate if statesAndEffects is enabled (body change affects states)
+    if (selectedCharacter.value.autoCalculations?.statesAndEffects ?? true) {
+      CharacterUtils.handleBodyChange(selectedCharacter.value)
+    }
   })
 
   watch(() => selectedCharacter.value?.heart, () => {
     if (!selectedCharacter.value || selectedCharacter.value.heart === undefined) return
-    CharacterUtils.handleHeartChange(selectedCharacter.value)
+    // Only auto-calculate if statesAndEffects is enabled (heart change affects states)
+    if (selectedCharacter.value.autoCalculations?.statesAndEffects ?? true) {
+      CharacterUtils.handleHeartChange(selectedCharacter.value)
+    }
   })
 
   watch(() => selectedCharacter.value?.wits, () => {
     if (!selectedCharacter.value || selectedCharacter.value.wits === undefined) return
-    CharacterUtils.handleWitsChange(selectedCharacter.value)
+    // Only auto-calculate if statesAndEffects is enabled (wits change affects states)
+    if (selectedCharacter.value.autoCalculations?.statesAndEffects ?? true) {
+      CharacterUtils.handleWitsChange(selectedCharacter.value)
+    }
   })
 
   // Derived stats watchers
@@ -33,49 +42,70 @@ export function useCharacterStatWatchers(selectedCharacter, allEquipment) {
     if (!selectedCharacter.value || !selectedCharacter.value.endurance) return
     const equipment = allEquipment.value || []
     if (!Array.isArray(equipment)) return
-    CharacterUtils.handleEnduranceChange(selectedCharacter.value, equipment)
+    // Check both load and statesAndEffects flags
+    const autoLoad = selectedCharacter.value.autoCalculations?.load ?? true
+    const autoStates = selectedCharacter.value.autoCalculations?.statesAndEffects ?? true
+    if (autoLoad || autoStates) {
+      CharacterUtils.handleEnduranceChange(selectedCharacter.value, equipment)
+    }
   }, { deep: true })
 
   watch(() => selectedCharacter.value?.hope, () => {
     if (!selectedCharacter.value || !selectedCharacter.value.hope) return
-    CharacterUtils.handleHopeChange(selectedCharacter.value)
+    if (selectedCharacter.value.autoCalculations?.statesAndEffects ?? true) {
+      CharacterUtils.handleHopeChange(selectedCharacter.value)
+    }
   }, { deep: true })
 
   watch(() => selectedCharacter.value?.defense, () => {
     if (!selectedCharacter.value || !selectedCharacter.value.defense) return
-    CharacterUtils.handleDefenseChange(selectedCharacter.value)
+    if (selectedCharacter.value.autoCalculations?.statesAndEffects ?? true) {
+      CharacterUtils.handleDefenseChange(selectedCharacter.value)
+    }
   }, { deep: true })
 
   watch(() => selectedCharacter.value?.load, () => {
     if (!selectedCharacter.value || selectedCharacter.value.load === undefined) return
-    CharacterUtils.handleLoadChange(selectedCharacter.value)
+    if (selectedCharacter.value.autoCalculations?.statesAndEffects ?? true) {
+      CharacterUtils.handleLoadChange(selectedCharacter.value)
+    }
   })
 
   watch(() => selectedCharacter.value?.shadow, () => {
     if (!selectedCharacter.value || selectedCharacter.value.shadow === undefined) return
-    CharacterUtils.handleShadowChange(selectedCharacter.value)
+    if (selectedCharacter.value.autoCalculations?.statesAndEffects ?? true) {
+      CharacterUtils.handleShadowChange(selectedCharacter.value)
+    }
   })
 
   watch(() => selectedCharacter.value?.injury, () => {
     if (!selectedCharacter.value || selectedCharacter.value.injury === undefined) return
-    CharacterUtils.handleInjuryChange(selectedCharacter.value)
+    if (selectedCharacter.value.autoCalculations?.statesAndEffects ?? true) {
+      CharacterUtils.handleInjuryChange(selectedCharacter.value)
+    }
   })
 
   // Complex state watchers
   watch(() => selectedCharacter.value?.states, () => {
     if (!selectedCharacter.value || !selectedCharacter.value.states) return
-    CharacterUtils.handleStatesChange(selectedCharacter.value)
+    if (selectedCharacter.value.autoCalculations?.statesAndEffects ?? true) {
+      CharacterUtils.handleStatesChange(selectedCharacter.value)
+    }
   }, { deep: true })
 
   watch(() => selectedCharacter.value?.conditions, () => {
     if (!selectedCharacter.value || !selectedCharacter.value.conditions) return
-    CharacterUtils.handleConditionsChange(selectedCharacter.value)
+    if (selectedCharacter.value.autoCalculations?.statesAndEffects ?? true) {
+      CharacterUtils.handleConditionsChange(selectedCharacter.value)
+    }
   }, { deep: true })
 
   watch(() => selectedCharacter.value?.equipment, () => {
     if (!selectedCharacter.value || !selectedCharacter.value.equipment) return
     const equipment = allEquipment.value || []
     if (!Array.isArray(equipment)) return
-    CharacterUtils.handleEquipmentChange(selectedCharacter.value, equipment)
+    if (selectedCharacter.value.autoCalculations?.load ?? true) {
+      CharacterUtils.handleEquipmentChange(selectedCharacter.value, equipment)
+    }
   }, { deep: true })
 }
