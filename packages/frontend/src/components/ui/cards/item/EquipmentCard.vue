@@ -15,6 +15,12 @@
       </div>
     </template>
 
+    <!-- Keeping badge positioned relative to main description when improvements are shown -->
+    <template #description-badge>
+      <BadgeDisplay v-if="showKeepingBadge && keepingCost !== null && showImprovements" type="keeping"
+        :value="keepingCost" :asImprovementBadge="true" />
+    </template>
+
     <template #after-description>
       <div v-if="isWeapon" class="dice-display-section">
 
@@ -72,9 +78,10 @@
       </button>
     </template>
 
-    <!-- Keeping badge -->
+    <!-- Overlay badges - Show keeping badge at card level when improvements are not shown -->
     <template #badges>
-      <BadgeDisplay v-if="showKeepingBadge && keepingCost !== null && !collapsed" type="keeping" :value="keepingCost" />
+      <BadgeDisplay v-if="showKeepingBadge && keepingCost !== null && !showImprovements" type="keeping"
+        :value="keepingCost" />
     </template>
 
   </base-card>
