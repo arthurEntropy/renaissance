@@ -7,8 +7,8 @@ import { DICE_ROLL_DURATION } from '@/constants/animationDurations'
 import opposedSkillCheckSessionService from '@/services/sessions/opposedSkillCheckSessionService'
 import OpposedSkillCheckService from '@/services/rolls/opposedSkillCheckService'
 import { useBaseSession } from './useBaseSession.js'
+import { useRollsStore } from '@/stores/rollsStore'
 
-// Singleton instance
 let opposedSkillCheckSessionInstance = null
 
 export function useOpposedSkillCheckSession() {
@@ -17,8 +17,9 @@ export function useOpposedSkillCheckSession() {
     return opposedSkillCheckSessionInstance
   }
 
-  // Use base session functionality
   const baseSession = useBaseSession(opposedSkillCheckSessionService)
+  
+  const rollsStore = useRollsStore()
 
   // Simple rerolling state to block UI updates during animations
   const isRerolling = ref(false)
@@ -309,14 +310,19 @@ export function useOpposedSkillCheckSession() {
       return null
     }
     
-    // Emit results via service
-    OpposedSkillCheckService.emitOpposedSkillCheckResult(
+    // Create and emit results via service
+    const result = OpposedSkillCheckService.emitOpposedSkillCheckResult(
       baseSession.rollResults.value.session,
       currentCharacter.value?.id,
-      baseSession.opponent.value?.id
+      baseSession.opponent.value?.characterInfo?.id
     )
     
-    return true
+    // Store result in rollsStore to display in DiceBox
+    if (result) {
+      rollsStore.setRoll(result)
+    }
+    
+    return result
   }
 
   // Create the return object
