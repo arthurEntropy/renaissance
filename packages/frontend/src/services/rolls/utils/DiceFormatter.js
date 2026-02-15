@@ -4,11 +4,17 @@ import { DIE_TYPE, SPECIAL_ROLLS, EMOJI } from '@shared/constants/dice.js'
 
 class DiceFormatter {
 
-  static getDiceEmoji(dieSides, dieRollValue) {
-    if (dieSides === DIE_TYPE.D12) {
+  static getDiceEmoji(dieSides, dieRollValue, rolledMaxValue = false, rollType = null) {
+    // Only check for Sol/Morte on d12s in skill checks, not engagement
+    const isSkillCheckType = rollType === RollTypes.SKILL_CHECK || rollType === RollTypes.OPPOSED_SKILL_CHECK
+    
+    if (dieSides === DIE_TYPE.D12 && isSkillCheckType) {
       if (dieRollValue === SPECIAL_ROLLS.SOL) return EMOJI.SOL
       if (dieRollValue === SPECIAL_ROLLS.MORTE) return EMOJI.MORTE
     } else if (dieSides === DIE_TYPE.D6 && dieRollValue === SPECIAL_ROLLS.SUCCESS) {
+      return EMOJI.SUCCESS
+    } else if (rolledMaxValue && dieRollValue === dieSides) {
+      // For any die that rolled max value (engagement dice, initiative, etc.)
       return EMOJI.SUCCESS
     }
     return null
@@ -32,7 +38,7 @@ class DiceFormatter {
     return this.sortByRollType(rollingDice, rollType)
   }
 
-  static addDisplayData(diceResults) {
+  static addDisplayData(diceResults, rollType = null) {
     return diceResults.map(result => {
       // For dropped dice, display the original value
       const valueToDisplay = result.isDropped 
@@ -41,7 +47,7 @@ class DiceFormatter {
       
       result.displayValue = valueToDisplay
       result.cssClass = getDiceFontClass(result.dieSides, valueToDisplay)
-      result.emoji = this.getDiceEmoji(result.dieSides, valueToDisplay)
+      result.emoji = this.getDiceEmoji(result.dieSides, valueToDisplay, result.rolledMaxValue, rollType)
       
       return result
     })

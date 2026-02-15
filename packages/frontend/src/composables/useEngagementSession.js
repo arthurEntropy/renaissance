@@ -2,6 +2,8 @@ import { watch, computed, ref } from 'vue'
 import engagementSessionService from '@/services/sessions/engagementSessionService'
 import EngagementRollService from '@/services/rolls/engagementRollService'
 import DiceRoller from '@/services/rolls/utils/DiceRoller.js'
+import DiceFormatter from '@/services/rolls/utils/DiceFormatter.js'
+import DiceProcessor from '@/services/rolls/utils/DiceProcessor.js'
 import { EngagementResultTypes } from '@/constants/engagementResultTypes'
 import { WINNER } from '@shared/constants/winner.js'
 import { RollTypes } from '@/constants/rollTypes'
@@ -66,6 +68,21 @@ export function useEngagementSession() {
         result = EngagementResultTypes.DRAW
     }
 
+    // Extract user's dice from session data for display
+    let userDiceResults = null
+    if (baseSession.rollResults.value?.session?.users) {
+      const userSession = baseSession.rollResults.value.session.users.find(
+        u => u.characterInfo.id === character.id
+      )
+      if (userSession?.rollResults) {
+        // Format the dice for display (add CSS classes, emojis, sort)
+        userDiceResults = [...userSession.rollResults]
+        DiceProcessor.markMaxValueDice(userDiceResults)
+        DiceFormatter.addDisplayData(userDiceResults, RollTypes.ENGAGEMENT)
+        DiceFormatter.sortByRollType(userDiceResults, RollTypes.ENGAGEMENT)
+      }
+    }
+
     // Format the engagement result
     const engagementResult = {
       type: RollTypes.ENGAGEMENT,
@@ -75,6 +92,7 @@ export function useEngagementSession() {
       userWins: userWins,
       opponentWins: opponentWins,
       drawCount: drawCount,
+      diceResults: userDiceResults, // Add user's dice for display in DiceBox
       timestamp: Date.now()
     }
 
@@ -131,6 +149,13 @@ export function useEngagementSession() {
         // Reset dice and success state for new results
         diceManager.resetSortingState()
         successManager.resetAssignments()
+      },
+      onAcceptanceStateUpdated: ({ _characterId, accepted }) => {
+        // When opponent accepts, check if both users have now accepted
+        // This ensures the first user to accept also gets results when the second user accepts
+        if (accepted && baseSession.userAccepted.value && baseSession.opponentAccepted.value) {
+          generateResultsOnAccept(currentCharacter.value, baseSession.opponent.value)
+        }
       }
     }
 
