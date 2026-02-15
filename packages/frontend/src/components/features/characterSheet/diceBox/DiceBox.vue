@@ -102,9 +102,10 @@ const isRolling = computed(() => {
 <style scoped>
 .dice-box {
   position: relative;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-start;
+  align-items: flex-start;
   min-height: 180px;
+  padding-top: 40px;
 }
 
 .view-container {

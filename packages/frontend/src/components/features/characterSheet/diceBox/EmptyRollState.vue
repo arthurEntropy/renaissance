@@ -34,7 +34,7 @@ const getCircularPosition = (index, total) => {
 .no-roll {
     color: var(--color-gray-light);
     text-align: center;
-    padding: var(--space-xl) 0;
+    padding-top: var(--space-sm);
     height: 100%;
     display: flex;
     align-items: center;
