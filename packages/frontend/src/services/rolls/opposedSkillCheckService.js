@@ -41,6 +41,7 @@ class OpposedSkillCheckService extends BaseRollService {
       userTotal: userSession.rollTotal,
       opponentTotal: opponentSession.rollTotal,
       winner: winner,
+      diceResults: userSession.rollResults, // User's dice for display in DiceBox
       userDiceResults: userSession.rollResults,
       opponentDiceResults: opponentSession.rollResults,
       userFavoredStatus: this.getFavoredStatus(userSession.skillCheckConfig),

@@ -213,6 +213,7 @@ const truncatedDice = computed(() => {
 })
 
 const shouldShowDice = computed(() => {
+    // Show dice for all roll types except engagement
     return !props.isEngagement
 })
 

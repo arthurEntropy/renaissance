@@ -153,6 +153,13 @@ export function useOpposedSkillCheckSession() {
         } else {
           console.error('Failed to create opposed skill check result')
         }
+      },
+      onAcceptanceStateUpdated: ({ _characterId, accepted }) => {
+        // When opponent accepts, check if both users have now accepted
+        // This ensures the first user to accept also gets results when the second user accepts
+        if (accepted && baseSession.userAccepted.value && baseSession.opponentAccepted.value) {
+          generateResultsOnAccept()
+        }
       }
     }
 
