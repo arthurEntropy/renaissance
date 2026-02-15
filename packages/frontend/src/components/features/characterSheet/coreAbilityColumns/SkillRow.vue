@@ -4,8 +4,10 @@
             {{ skill.name }}
         </span>
         <div v-if="canEdit" class="manual-dice-mod-controls">
-            <button @click="incrementManualDiceMod" class="manual-spinner manual-spinner-up" aria-label="Add manual dice" type="button">▲</button>
-            <button @click="decrementManualDiceMod" class="manual-spinner manual-spinner-down" aria-label="Subtract manual dice" type="button">▼</button>
+            <button @click="incrementManualDiceMod" class="manual-spinner manual-spinner-up"
+                aria-label="Add manual dice" type="button">▲</button>
+            <button @click="decrementManualDiceMod" class="manual-spinner manual-spinner-down"
+                aria-label="Subtract manual dice" type="button">▼</button>
         </div>
         <i class="dice-icon d12-icon"
             :class="[getDiceFontClass(DIE_TYPE.D12, DIE_TYPE.D12), getStyleClassForFavoredStatus(skill)]">

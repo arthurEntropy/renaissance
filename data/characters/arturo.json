@@ -65,7 +65,8 @@
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 1,
-      "coreAbility": "heart"
+      "coreAbility": "heart",
+      "manualDiceMod": -1
     },
     {
       "name": "Insight",
@@ -199,6 +200,6 @@
     "https://cdn.midjourney.com/1a823ba8-dae5-4791-b9e9-0d7ea00cf5f4/0_2.png"
   ],
   "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2026-02-15T17:21:10.222Z",
-  "lastModified": "2026-02-15T17:21:10.222Z"
+  "updatedAt": "2026-02-15T18:10:57.332Z",
+  "lastModified": "2026-02-15T18:10:57.332Z"
 }
