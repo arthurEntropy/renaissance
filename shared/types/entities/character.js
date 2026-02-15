@@ -7,7 +7,8 @@ import { createBaseEntity } from './gameEntity.js'
  * @property {number} ranks - Number of ranks in this skill
  * @property {boolean} isFavored - Whether this skill is favored
  * @property {boolean} isIllFavored - Whether this skill is ill-favored
- * @property {number} diceMod - Dice modifier from conditions/states/effects
+ * @property {number} diceMod - Dice modifier from conditions/states/effects (auto-calculated)
+ * @property {number} manualDiceMod - Manual dice modifier set by user
  */
 
 /**
@@ -125,21 +126,21 @@ export function createDefaultCharacter() {
     heart: 0,
     wits: 0,
     skills: [
-      { name: 'Awe', coreAbility: 'body', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
-      { name: 'Strength', coreAbility: 'body', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
-      { name: 'Dexterity', coreAbility: 'body', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
-      { name: 'Fortitude', coreAbility: 'body', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
-      { name: 'Craft', coreAbility: 'body', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
-      { name: 'Perform', coreAbility: 'heart', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
-      { name: 'Insight', coreAbility: 'heart', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
-      { name: 'Courtesy', coreAbility: 'heart', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
-      { name: 'Spirit', coreAbility: 'heart', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
-      { name: 'Aid', coreAbility: 'heart', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
-      { name: 'Persuade', coreAbility: 'wits', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
-      { name: 'Awareness', coreAbility: 'wits', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
-      { name: 'Stealth', coreAbility: 'wits', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
-      { name: 'Lore', coreAbility: 'wits', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0 },
-      { name: 'Riddle', coreAbility: 'wits', ranks: 0, isFavored: false, isIllFavored: true, diceMod: 0 },
+      { name: 'Awe', coreAbility: 'body', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0, manualDiceMod: 0 },
+      { name: 'Strength', coreAbility: 'body', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0, manualDiceMod: 0 },
+      { name: 'Dexterity', coreAbility: 'body', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0, manualDiceMod: 0 },
+      { name: 'Fortitude', coreAbility: 'body', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0, manualDiceMod: 0 },
+      { name: 'Craft', coreAbility: 'body', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0, manualDiceMod: 0 },
+      { name: 'Perform', coreAbility: 'heart', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0, manualDiceMod: 0 },
+      { name: 'Insight', coreAbility: 'heart', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0, manualDiceMod: 0 },
+      { name: 'Courtesy', coreAbility: 'heart', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0, manualDiceMod: 0 },
+      { name: 'Spirit', coreAbility: 'heart', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0, manualDiceMod: 0 },
+      { name: 'Aid', coreAbility: 'heart', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0, manualDiceMod: 0 },
+      { name: 'Persuade', coreAbility: 'wits', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0, manualDiceMod: 0 },
+      { name: 'Awareness', coreAbility: 'wits', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0, manualDiceMod: 0 },
+      { name: 'Stealth', coreAbility: 'wits', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0, manualDiceMod: 0 },
+      { name: 'Lore', coreAbility: 'wits', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0, manualDiceMod: 0 },
+      { name: 'Riddle', coreAbility: 'wits', ranks: 0, isFavored: false, isIllFavored: true, diceMod: 0, manualDiceMod: 0 },
     ],
     endurance: { current: 0, max: 0, coreAbility: 'body' },
     hope: { current: 0, max: 0, coreAbility: 'heart' },

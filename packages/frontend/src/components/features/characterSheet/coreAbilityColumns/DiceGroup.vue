@@ -34,14 +34,15 @@ const handleDiceClick = (diceIndex) => {
 }
 
 const getDiceClasses = (diceIndex) => {
-    const { ranks, diceMod = 0 } = props.skill
+    const { ranks, diceMod = 0, manualDiceMod = 0 } = props.skill
+    const totalDiceMod = diceMod + manualDiceMod
 
     const withinRanks = diceIndex < ranks
-    const withinDiceMod = diceIndex >= ranks && diceIndex < ranks + diceMod && diceMod > 0
+    const withinDiceMod = diceIndex >= ranks && diceIndex < ranks + totalDiceMod && totalDiceMod > 0
     const isActive = withinRanks || withinDiceMod
 
     const isAdded = withinDiceMod
-    const isSubtracted = ranks - diceIndex <= Math.abs(diceMod) && diceMod < 0 && diceIndex < ranks
+    const isSubtracted = ranks - diceIndex <= Math.abs(totalDiceMod) && totalDiceMod < 0 && diceIndex < ranks
 
     return [
         getDiceFontClass(DIE_TYPE.D6, DIE_TYPE.D6),

@@ -47,15 +47,17 @@
       "isFavored": true,
       "isIllFavored": false,
       "diceMod": 0,
-      "coreAbility": "body"
+      "coreAbility": "body",
+      "manualDiceMod": 0
     },
     {
       "name": "Craft",
       "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": -1,
-      "coreAbility": "body"
+      "diceMod": 0,
+      "coreAbility": "body",
+      "manualDiceMod": -1
     },
     {
       "name": "Perform",
@@ -93,8 +95,8 @@
       "name": "Aid",
       "ranks": 0,
       "isFavored": false,
-      "isIllFavored": true,
-      "diceMod": -1,
+      "isIllFavored": false,
+      "diceMod": 0,
       "coreAbility": "heart"
     },
     {
@@ -103,7 +105,8 @@
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "coreAbility": "wits"
+      "coreAbility": "wits",
+      "manualDiceMod": 0
     },
     {
       "name": "Awareness",
@@ -133,8 +136,8 @@
       "name": "Riddle",
       "ranks": 0,
       "isFavored": false,
-      "isIllFavored": true,
-      "diceMod": -1,
+      "isIllFavored": false,
+      "diceMod": 0,
       "coreAbility": "wits"
     }
   ],
@@ -169,7 +172,7 @@
     "guilty": false,
     "angry": false,
     "afraid": false,
-    "troubled": true
+    "troubled": false
   },
   "equipment": [],
   "abilities": [],
@@ -195,5 +198,7 @@
   "artUrls": [
     "https://cdn.midjourney.com/1a823ba8-dae5-4791-b9e9-0d7ea00cf5f4/0_2.png"
   ],
-  "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1"
+  "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
+  "updatedAt": "2026-02-15T17:21:10.222Z",
+  "lastModified": "2026-02-15T17:21:10.222Z"
 }

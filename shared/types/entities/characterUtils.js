@@ -141,8 +141,9 @@ export function updateFavoredStatus(character) {
   if (!character?.skills) return
 
   character.skills.forEach((skill) => {
-    // Check if ill-favored based on ranks + diceMod
-    skill.isIllFavored = (skill.ranks || 0) + (skill.diceMod || 0) < 0
+    // Check if ill-favored based on ranks + diceMod + manualDiceMod
+    const totalDiceMod = (skill.diceMod || 0) + (skill.manualDiceMod || 0)
+    skill.isIllFavored = (skill.ranks || 0) + totalDiceMod < 0
 
     // Apply favored/ill-favored from active effects
     if (character.activeEffects) {

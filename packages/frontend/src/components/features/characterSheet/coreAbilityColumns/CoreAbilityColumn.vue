@@ -4,7 +4,8 @@
       @update="updateCoreAbility" />
 
     <SkillRow v-for="skill in skills" :key="skill.name" :skill="skill" :can-edit="canEdit"
-      @open-skill-check="openSkillCheckModal" @update-ranks="handleRanksUpdate" />
+      @open-skill-check="openSkillCheckModal" @update-ranks="handleRanksUpdate"
+      @update-manual-dice-mod="handleManualDiceModUpdate" />
 
     <StatRow :type="STAT_ROW_TYPES.RANGE" :label="virtueLabel" :value="virtueValue" :can-edit="canEdit"
       @update="updateVirtue" @reset="resetVirtue" />
@@ -144,6 +145,12 @@ const updateState = (field, value) => {
 const handleRanksUpdate = (skillName, newRanks) => {
   const skill = character.value.skills.find(s => s.name === skillName)
   skill.ranks = newRanks
+  CharacterUtils.updateFavoredStatus(character.value)
+}
+
+const handleManualDiceModUpdate = (skillName, newManualDiceMod) => {
+  const skill = character.value.skills.find(s => s.name === skillName)
+  skill.manualDiceMod = newManualDiceMod
   CharacterUtils.updateFavoredStatus(character.value)
 }
 
