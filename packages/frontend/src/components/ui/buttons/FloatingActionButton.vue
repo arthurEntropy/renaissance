@@ -3,7 +3,7 @@
         @mousedown="handleMouseDown" @mouseup="handleMouseUp" @mouseleave="handleMouseUp" @touchstart="handleTouchStart"
         @touchend="handleTouchEnd" @touchcancel="handleTouchEnd">
         <span v-if="isAutoCalcText" class="auto-text">AUTO</span>
-        <span v-else-if="isEmoji" :class="iconClass">{{ emojiContent }}</span>
+        <span v-else-if="isImageIcon" :class="[iconClass, 'fab__icon--image']" :style="imageIconStyle"></span>
         <component v-else :is="iconComponent" :class="iconClass" />
     </button>
 </template>
@@ -11,6 +11,8 @@
 <script setup>
 import { computed, ref } from 'vue'
 import { PlusIcon, DocumentDuplicateIcon, PencilIcon, CheckIcon, XMarkIcon, Bars3Icon, Cog6ToothIcon, ArrowPathIcon, BookOpenIcon, CalculatorIcon } from '@heroicons/vue/24/outline'
+import crossedSwordsIcon from '@/assets/icons/crossed_swords.png'
+import dieIcon from '@/assets/icons/die.png'
 
 const props = defineProps({
     type: {
@@ -124,17 +126,35 @@ const isAutoCalcText = computed(() => {
     return props.type === 'auto-calc' && props.isActive
 })
 
-const isEmoji = computed(() => {
+const isImageIcon = computed(() => {
     return ['dice', 'initiative'].includes(props.type)
 })
 
-const emojiContent = computed(() => {
+const imageIconStyle = computed(() => {
     if (props.type === 'dice') {
-        return '🎲'
+        return {
+            maskImage: `url(${dieIcon})`,
+            WebkitMaskImage: `url(${dieIcon})`,
+            maskSize: 'contain',
+            WebkitMaskSize: 'contain',
+            maskRepeat: 'no-repeat',
+            WebkitMaskRepeat: 'no-repeat',
+            maskPosition: 'center',
+            WebkitMaskPosition: 'center'
+        }
     } else if (props.type === 'initiative') {
-        return '⚔️'
+        return {
+            maskImage: `url(${crossedSwordsIcon})`,
+            WebkitMaskImage: `url(${crossedSwordsIcon})`,
+            maskSize: 'contain',
+            WebkitMaskSize: 'contain',
+            maskRepeat: 'no-repeat',
+            WebkitMaskRepeat: 'no-repeat',
+            maskPosition: 'center',
+            WebkitMaskPosition: 'center'
+        }
     }
-    return ''
+    return {}
 })
 
 const iconComponent = computed(() => {
@@ -262,6 +282,11 @@ const tooltip = computed(() => {
     align-items: center;
     justify-content: center;
     color: var(--color-primary);
+}
+
+/* === IMAGE ICON STYLES === */
+.fab__icon--image {
+    background-color: var(--color-primary);
 }
 
 /* === TYPE VARIANTS === */
