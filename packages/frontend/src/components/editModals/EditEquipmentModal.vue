@@ -190,6 +190,42 @@
             </div>
           </div>
 
+          <!-- Successes (✨/🌞/💀 style outcomes) -->
+          <div class="form-group vertical description">
+            <label for="successes" class="left-aligned">Successes (✨, 🌞, 💀):</label>
+            <TextEditor v-model="editedEquipment.successes" :placeholder="'Enter success outcomes...'" :height="'150px'"
+              :auto-height="true" />
+          </div>
+
+          <!-- Improvements Section -->
+          <div class="form-group vertical">
+            <label class="left-aligned">Improvements:</label>
+            <div v-for="(impr, idx) in editedEquipment.improvements" :key="impr.id || idx"
+              class="improvement-edit-block">
+              <div class="improvement-card-row">
+                <input type="text" v-model="impr.name" placeholder="Name" class="modal-input improvement-name-input" />
+                <span class="xp-label">XP:</span>
+                <input type="number" v-model.number="impr.xp" placeholder="XP" class="modal-input improvement-xp-input"
+                  min="0" />
+                <button type="button" class="icon-btn" @click="removeImprovement(idx)" aria-label="Remove improvement">
+                  <XMarkIcon class="icon" />
+                </button>
+                <button type="button" class="icon-btn" @click="moveImprovementUp(idx)" :disabled="idx === 0"
+                  aria-label="Move up">
+                  <ArrowUpIcon class="icon" />
+                </button>
+                <button type="button" class="icon-btn" @click="moveImprovementDown(idx)"
+                  :disabled="idx === editedEquipment.improvements.length - 1" aria-label="Move down">
+                  <ArrowDownIcon class="icon" />
+                </button>
+              </div>
+              <TextEditor v-model="impr.description" :placeholder="'Description'" :height="'80px'"
+                :auto-height="true" />
+            </div>
+            <ActionButton variant="primary" size="small" text="+ Add Improvement" @click="addImprovement"
+              type="button" />
+          </div>
+
         </form>
       </div>
 
@@ -208,6 +244,7 @@
 
 <script setup>
 import { ref, computed } from 'vue'
+import { XMarkIcon, ArrowUpIcon, ArrowDownIcon } from '@heroicons/vue/24/outline'
 import TextEditor from '@/components/ui/textEditor/TextEditor.vue'
 import SourceDropdown from '@/components/ui/selectors/SourceDropdown.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
@@ -326,6 +363,30 @@ const saveEquipment = () => {
     ? editedEquipment.value.reach
     : 0
   baseSave()
+}
+
+// Improvement management functions
+const addImprovement = () => {
+  if (!editedEquipment.value.improvements) editedEquipment.value.improvements = []
+  editedEquipment.value.improvements.push({ name: '', description: '', xp: 0 })
+}
+
+const removeImprovement = (idx) => {
+  editedEquipment.value.improvements.splice(idx, 1)
+}
+
+const moveImprovementUp = (idx) => {
+  if (idx > 0) {
+    const arr = editedEquipment.value.improvements
+      ;[arr[idx - 1], arr[idx]] = [arr[idx], arr[idx - 1]]
+  }
+}
+
+const moveImprovementDown = (idx) => {
+  const arr = editedEquipment.value.improvements
+  if (idx < arr.length - 1) {
+    [arr[idx], arr[idx + 1]] = [arr[idx + 1], arr[idx]]
+  }
 }
 </script>
 
@@ -446,5 +507,62 @@ const saveEquipment = () => {
 
 .property-checkbox input[type="checkbox"] {
   margin-right: var(--space-xs);
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  padding: 0 var(--space-xs);
+  font-size: var(--font-size-16);
+  line-height: var(--line-height-none);
+  cursor: pointer;
+  color: var(--color-text-muted);
+  transition: color var(--transition-normal);
+}
+
+.icon-btn .icon {
+  width: 16px;
+  height: 16px;
+}
+
+.icon-btn:disabled {
+  color: var(--color-text-secondary);
+  cursor: default;
+}
+
+.icon-btn:not(:disabled):hover {
+  color: var(--color-bg-secondary);
+}
+
+.improvement-edit-block {
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-5);
+  margin-bottom: var(--space-md);
+  padding: var(--space-md);
+}
+
+.improvement-card-row {
+  display: flex;
+  gap: var(--space-xs);
+  align-items: center;
+  margin-bottom: var(--space-xs);
+}
+
+.xp-label {
+  color: var(--color-gray-light);
+  font-size: var(--font-size-13);
+  margin-right: var(--space-xs);
+  margin-left: var(--space-xs);
+}
+
+.improvement-xp-input {
+  flex: 1 1 0;
+  min-width: 0;
+  text-align: center;
+}
+
+.improvement-name-input {
+  flex: 4 1 0;
+  min-width: 0;
 }
 </style>

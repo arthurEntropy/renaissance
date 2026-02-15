@@ -1,5 +1,5 @@
 <template>
-    <div class="ability-improvements">
+    <div class="improvements-section">
         <!-- Always show owned improvements when in character context -->
         <transition name="expand-improvements">
             <div v-if="hasOwnedImprovements" class="improvements-stack">
@@ -22,7 +22,8 @@
                         :additional-classes="unownedDescriptionClasses">
                         <template #badge>
                             <BadgeDisplay v-if="impr.xp" type="xp" :value="impr.xp" :isInteractive="isInteractive"
-                                :is-owned="false" :improvement-id="impr.id" @toggle="handleImprovementToggle" />
+                                :is-owned="false" :improvement-id="impr.id" :asImprovementBadge="true"
+                                @toggle="handleImprovementToggle" />
                         </template>
                     </CardDescription>
                 </div>
@@ -33,14 +34,20 @@
 
 <script setup>
 import { computed } from 'vue'
-import { useAbilityImprovements } from '@/composables/useAbilityImprovements'
+import { useItemImprovements } from '@/composables/useItemImprovements'
 import CardDescription from '@/components/ui/cards/item/CardDescription.vue'
 import BadgeDisplay from '@/components/ui/cards/item/BadgeDisplay.vue'
 
 const props = defineProps({
-    ability: {
+    item: {
         type: Object,
         required: true
+    },
+    // Item type: 'abilities' or 'equipment'
+    itemType: {
+        type: String,
+        required: true,
+        validator: (value) => ['abilities', 'equipment'].includes(value)
     },
     // Optional character context for improvement ownership
     character: {
@@ -59,18 +66,18 @@ const props = defineProps({
 
 const emit = defineEmits(['toggle-improvement'])
 
-// Composable for improvement management
-const { hasImprovement } = useAbilityImprovements()
+// Use improvements composable
+const { hasImprovement } = useItemImprovements(props.itemType)
 
 // Computed properties
-const improvements = computed(() => props.ability.improvements || [])
+const improvements = computed(() => props.item.improvements || [])
 
 const isInteractive = computed(() => props.showImprovementToggle && !!props.character)
 
 // Helper function - must be defined before computed properties that use it
 const isImprovementOwned = (improvementId) => {
     if (!props.character || !improvementId) return false
-    return hasImprovement(props.character, props.ability.id, improvementId)
+    return hasImprovement(props.character, props.item.id, improvementId)
 }
 
 // Partition improvements into owned/un-owned

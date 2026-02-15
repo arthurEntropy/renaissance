@@ -39,11 +39,6 @@
       </div>
     </div>
 
-    <!-- Category slot -->
-    <div class="categories text-stroke">
-      <slot name="category"></slot>
-    </div>
-
     <!-- Expandable Content -->
     <transition name="expand" @after-enter="handleExpanded" @after-leave="handleCollapsed">
       <div v-if="!collapsible || !collapsed" class="card-content">
@@ -60,11 +55,15 @@
           <slot name="properties"></slot>
 
           <!-- Main description -->
-          <CardDescription v-if="item.description || $slots['after-description']" :content="item.description">
+          <CardDescription v-if="item.description || $slots['before-description'] || $slots['after-description']"
+            :content="item.description">
+            <template #before-description>
+              <slot name="before-description"></slot>
+            </template>
             <template #badge>
               <slot name="description-badge"></slot>
             </template>
-            <template #successes>
+            <template #after-description>
               <slot name="after-description"></slot>
             </template>
           </CardDescription>
@@ -301,11 +300,6 @@ const handleCardMouseLeave = () => {
 .base-card:hover .admin-buttons .fab--on-hover {
   opacity: 1;
   pointer-events: auto;
-}
-
-.categories {
-  font-size: var(--font-size-12);
-  color: var(--color-text-secondary);
 }
 
 .art-frame {
