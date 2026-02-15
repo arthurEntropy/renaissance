@@ -88,6 +88,11 @@ const badgeClass = computed(() => {
         classes.push('improvement-badge')
     }
 
+    // Owned badge styling
+    if (props.isOwned) {
+        classes.push('badge-owned')
+    }
+
     // Interactive badge styling
     if (props.isInteractive) {
         const interactiveClass = isHovering.value ? 'badge-interactive-available-hover' : 'badge-interactive-available'
@@ -111,6 +116,10 @@ const badgeClass = computed(() => {
     z-index: var(--z-interactive);
     background-color: var(--color-primary);
     color: var(--color-black);
+}
+
+.badge-owned {
+    background-color: var(--color-bg-tertiary);
 }
 
 .badge-interactive {

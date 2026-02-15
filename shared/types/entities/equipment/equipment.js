@@ -23,6 +23,14 @@ import { createBaseEntity } from '../gameEntity.js'
  */
 
 /**
+ * @typedef {Object} EquipmentImprovement
+ * @property {string} id - Improvement UUID
+ * @property {string} name - Improvement name
+ * @property {string} description - Improvement description (HTML)
+ * @property {number} xp - Experience point cost
+ */
+
+/**
  * @typedef {Object} Equipment
  * @property {string|null} id - UUID identifier
  * @property {string} name - Equipment name
@@ -39,8 +47,10 @@ import { createBaseEntity } from '../gameEntity.js'
  * @property {boolean} piercing - Whether item has piercing property
  * @property {DamageDie[]} damageDice - Damage dice configuration
  * @property {EngagementDie[]} engagementDice - Engagement dice configuration
- * @property {string[]} engagementSuccesses - Engagement success UUIDs
+ * @property {string[]} engagementSuccesses - Engagement success UUIDs (ChipTag style)
  * @property {SkillMod[]} skillMods - Skill modifiers granted by this equipment
+ * @property {EquipmentImprovement[]} [improvements] - Equipment improvements with XP costs
+ * @property {string|null} [successes] - Success outcomes HTML (✨/🌞/💀 style, like abilities)
  * @property {boolean} isDeleted - Soft delete flag
  * @property {boolean} isCustom - Whether this is custom/user-created equipment
  * @property {boolean} isTemplate - Whether this is a template for creating new equipment
@@ -75,6 +85,8 @@ export function createDefaultEquipment() {
     engagementDice: [],
     engagementSuccesses: [],
     skillMods: [],
+    improvements: [],
+    successes: null,
     isCustom: false,
     isTemplate: false,
     artUrl: null,

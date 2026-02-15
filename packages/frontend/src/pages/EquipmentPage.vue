@@ -39,7 +39,11 @@
     <template #item-cards="{ items }">
       <EquipmentCard v-for="item in items" :key="item.id" :equipment="item" :editable="isAdmin" :duplicatable="isAdmin"
         :sources="sources" :art-expanded="true" :engagement-success-options="engagementSuccessOptions"
-        :collapsible="false" @edit="openEditEquipmentModal(item)" @duplicate="handleDuplicateEquipment" />
+        :collapsible="false" :showImprovements="getEquipmentShowImprovements(item.id)"
+        :showSuccesses="getEquipmentShowSuccesses(item.id)" @edit="openEditEquipmentModal(item)"
+        @duplicate="handleDuplicateEquipment"
+        @update:showImprovements="updateEquipmentShowImprovements(item.id, $event)"
+        @update:showSuccesses="updateEquipmentShowSuccesses(item.id, $event)" />
     </template>
 
     <!-- Loading indicator slot with ref for intersection observer -->
@@ -111,6 +115,8 @@ const gradeFilter = ref('')
 const showTemplates = ref(false)
 const engagementSuccessOptions = ref([])
 const isLoadingMore = ref(false)
+const improvementVisibility = ref(new Map())
+const successesVisibility = ref(new Map())
 
 // Computed properties
 const isAdmin = computed(() => authStore.isAdmin)
@@ -184,6 +190,24 @@ useFilterPersistence('equipment', {
   gradeFilter,
   showTemplates
 })
+
+// Improvement visibility methods
+const getEquipmentShowImprovements = (equipmentId) => {
+  return improvementVisibility.value.get(equipmentId) || false
+}
+
+const updateEquipmentShowImprovements = (equipmentId, showImprovements) => {
+  improvementVisibility.value.set(equipmentId, showImprovements)
+}
+
+// Successes visibility methods
+const getEquipmentShowSuccesses = (equipmentId) => {
+  return successesVisibility.value.get(equipmentId) || false
+}
+
+const updateEquipmentShowSuccesses = (equipmentId, showSuccesses) => {
+  successesVisibility.value.set(equipmentId, showSuccesses)
+}
 
 // CRUD operations
 const createEquipment = async () => {

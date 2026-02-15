@@ -1,7 +1,14 @@
 <template>
-    <div v-if="content || $slots.successes" class="card-description" :class="additionalClasses">
+    <div v-if="content || $slots.successes || $slots['before-description'] || $slots['after-description']"
+        class="card-description" :class="additionalClasses">
+        <!-- Content to display before the description -->
+        <slot name="before-description"></slot>
+
         <div class="text-stroke" v-html="safeContent"></div>
         <slot name="badge"></slot>
+
+        <!-- Content to display after the description -->
+        <slot name="after-description"></slot>
 
         <!-- Successes section (within same container) -->
         <slot name="successes"></slot>

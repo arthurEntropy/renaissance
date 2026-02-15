@@ -1,39 +1,41 @@
 <template>
     <div class="equipment-row-details">
         <div class="details-content">
-            <!-- Carried Checkbox -->
-            <div class="detail-item checkbox-item">
-                <input type="checkbox" class="equipment-checkbox" :checked="equipmentItem.isCarried"
-                    :disabled="!isEditMode" @change="handleCarriedChange($event.target.checked)" />
-                <em class="carried-label">carried</em>
-            </div>
-
-            <!-- Wielding Checkbox -->
-            <div class="detail-item checkbox-item">
-                <input type="checkbox" class="equipment-checkbox" :class="{
-                    'disabled-checkbox': !canWield
-                }" :checked="equipmentItem.isWielding" :disabled="!canWield || !isEditMode"
-                    @change="handleWieldingChange($event.target.checked)" />
-                <em class="carried-label" :class="{
-                    'disabled-text': !canWield
-                }">
-                    wielding
-                </em>
-            </div>
-
-            <div class="detail-item">
-                <!-- Quantity -->
-                <div class="detail-item">
-                    <em class="carried-label">qty</em>
-                    <NumberInput :model-value="equipmentItem.quantity" :disabled="!isEditMode"
-                        @update:model-value="handleQuantityChange" :min="1" size="small" class="quantity-input" />
+            <!-- Checkbox Group -->
+            <div class="checkbox-group">
+                <div class="detail-item checkbox-item">
+                    <input type="checkbox" class="equipment-checkbox" :checked="equipmentItem.isCarried"
+                        :disabled="!isEditMode" @change="handleCarriedChange($event.target.checked)" />
+                    <em class="carried-label">Carried</em>
                 </div>
 
-                <!-- Carried Weight -->
+                <div class="detail-item checkbox-item">
+                    <input type="checkbox" class="equipment-checkbox" :class="{
+                        'disabled-checkbox': !canWield
+                    }" :checked="equipmentItem.isWielding" :disabled="!canWield || !isEditMode"
+                        @change="handleWieldingChange($event.target.checked)" />
+                    <em class="carried-label" :class="{
+                        'disabled-text': !canWield
+                    }">
+                        Wielding
+                    </em>
+                </div>
+            </div>
+
+            <!-- Divider -->
+            <div class="details-divider"></div>
+
+            <!-- Quantity and Weight Group -->
+            <div class="quantity-weight-group">
+                <div class="detail-item">
+                    <em class="carried-label">Qty:</em>
+                    <NumberInput :model-value="equipmentItem.quantity" :disabled="!isEditMode"
+                        @update:model-value="handleQuantityChange" :min="1" size="tiny" class="quantity-input" />
+                </div>
+
                 <div class="detail-item carried-weight">
-                    <em class="carried-label">=</em>
                     <span>{{ displayWeight }}</span>
-                    <em class="carried-label">lbs</em>
+                    <em class="carried-label"> lbs total</em>
                 </div>
             </div>
         </div>
@@ -107,12 +109,14 @@ const handleQuantityChange = (value) => {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 4px 8px;
+    padding: 24px 8px 4px 8px;
     background-color: var(--overlay-white-medium);
+    border: 1px solid var(--color-gray-medium);
     border-radius: var(--radius-10);
     width: 100%;
     min-width: 0;
     margin-left: 0;
+    margin-top: -20px;
     box-sizing: border-box;
 }
 
@@ -120,17 +124,31 @@ const handleQuantityChange = (value) => {
     display: flex;
     flex-direction: row;
     flex-grow: 1;
-    justify-content: space-between;
     align-items: center;
-    font-size: var(--font-size-14);
+    gap: var(--space-md);
+    font-size: var(--font-size-12);
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    flex: 1;
+    justify-content: center;
+}
+
+.quantity-weight-group {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    flex: 1;
+    justify-content: center;
 }
 
 .detail-item {
     display: flex;
     align-items: center;
     gap: 2px;
-    flex-grow: 1;
-    justify-content: flex-start;
 }
 
 .checkbox-item {
@@ -163,13 +181,12 @@ const handleQuantityChange = (value) => {
 .carried-label {
     font-style: italic;
     color: var(--color-text-secondary);
+    margin-left: 2px;
 }
 
 .carried-weight {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-size: var(--font-size-14);
+    font-weight: bold;
+    font-size: var(--font-size-12);
 }
 
 .carried-weight span {
@@ -179,7 +196,18 @@ const handleQuantityChange = (value) => {
 }
 
 .quantity-input {
+    top: 2px;
     width: 40px;
     font-size: var(--font-size-12);
+}
+
+.details-divider {
+    width: 1px;
+    align-self: stretch;
+    background: linear-gradient(to bottom,
+            transparent,
+            var(--color-border-primary) 20%,
+            var(--color-border-primary) 80%,
+            transparent);
 }
 </style>
