@@ -295,6 +295,8 @@ export function useOpposedSkillCheckSession() {
   function disconnect() {
     cleanupEventListeners()
     opposedSkillCheckSessionService.disconnect()
+    // Reset singleton instance to null so a fresh instance is created next time
+    opposedSkillCheckSessionInstance = null
   }
   
   // Simplified public API methods

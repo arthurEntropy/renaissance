@@ -290,6 +290,8 @@ export function useEngagementSession() {
   function disconnect() {
     cleanupEventListeners()
     engagementSessionService.disconnect()
+    // Reset singleton instance to null so a fresh instance is created next time
+    engagementSessionInstance = null
   }
   
   // Simplified initialize method (public API)
