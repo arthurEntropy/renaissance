@@ -105,7 +105,7 @@ input[type='number']:disabled {
 
 .spinner-buttons-small {
   top: 2px;
-  bottom: 0px;
+  bottom: -1px;
 }
 
 .spinner-buttons-large {
@@ -122,7 +122,7 @@ input[type='number']:disabled {
 .spinner-down {
   background: var(--overlay-black-medium);
   border: none;
-  color: var(--color-white);
+  color: var(--color-primary);
   padding: 0;
   height: 50%;
   width: 100%;

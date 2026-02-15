@@ -15,7 +15,11 @@
         </div>
       </template>
       <template #header-right>
-        <MPDisplay :is-edit-mode="canEdit" />
+        <div class="mp-display-container">
+          <FloatingActionButton v-if="canEdit" class="mp-reset-button" type="refresh" size="small" visibility="on-hover"
+            @click="resetMP" />
+          <MPDisplay :is-edit-mode="canEdit" />
+        </div>
       </template>
     </TableHeader>
 
@@ -221,6 +225,12 @@ const updateAbilityShowSuccesses = (ability, showSuccesses) => {
   }
 }
 
+const resetMP = () => {
+  if (selectedCharacter.value?.mp) {
+    selectedCharacter.value.mp.current = selectedCharacter.value.mp.max
+  }
+}
+
 onMounted(() => {
   masonryGridRef.value?.updateLayout()
 })
@@ -228,6 +238,21 @@ onMounted(() => {
 </script>
 
 <style scoped>
+.mp-display-container {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.mp-reset-button {
+  margin-right: var(--space-xs);
+}
+
+.mp-display-container:hover .mp-reset-button {
+  opacity: 1;
+  pointer-events: auto;
+}
+
 .missing-item {
   color: var(--color-text-muted);
   font-style: italic;
