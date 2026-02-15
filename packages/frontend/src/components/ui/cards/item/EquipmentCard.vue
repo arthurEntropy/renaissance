@@ -18,7 +18,7 @@
     <!-- Keeping badge positioned relative to main description when improvements are shown -->
     <template #description-badge>
       <BadgeDisplay v-if="showKeepingBadge && keepingCost !== null && showImprovements" type="keeping"
-        :value="keepingCost" :asImprovementBadge="true" />
+        :value="keepingCost" :is-owned="characterHasBaseEquipment" :asImprovementBadge="true" />
     </template>
 
     <template #after-description>
@@ -81,7 +81,7 @@
     <!-- Overlay badges - Show keeping badge at card level when improvements are not shown -->
     <template #badges>
       <BadgeDisplay v-if="showKeepingBadge && keepingCost !== null && !showImprovements" type="keeping"
-        :value="keepingCost" />
+        :value="keepingCost" :is-owned="characterHasBaseEquipment" />
     </template>
 
   </base-card>
@@ -96,6 +96,7 @@ import { useEquipmentSubtypesStore } from '@/stores/equipmentSubtypesStore'
 import { useEquipmentGradesStore } from '@/stores/equipmentGradesStore'
 import { useEquipmentRangesStore } from '@/stores/equipmentRangesStore'
 import { useKeepingStore } from '@/stores/keepingStore'
+import { useCharactersStore } from '@/stores/charactersStore'
 import { useItemImprovements } from '@/composables/useItemImprovements'
 import BaseCard from '@/components/ui/cards/item/BaseCard.vue'
 import BadgeDisplay from '@/components/ui/cards/item/BadgeDisplay.vue'
@@ -171,6 +172,7 @@ const equipmentSubtypesStore = useEquipmentSubtypesStore()
 const equipmentGradesStore = useEquipmentGradesStore()
 const equipmentRangesStore = useEquipmentRangesStore()
 const keepingStore = useKeepingStore()
+const charactersStore = useCharactersStore()
 
 // Item improvements composable
 const { toggleImprovement } = useItemImprovements('equipment')
@@ -262,6 +264,14 @@ const keepingCost = computed(() => {
 
   const keeping = keepingStore.getById(props.equipment.keeping)
   return keeping?.cost ?? null
+})
+
+const characterHasBaseEquipment = computed(() => {
+  // Use prop if provided, otherwise fall back to store's selected character
+  const char = props.character || charactersStore.selectedCharacter
+  if (!char || !Array.isArray(char.equipment)) return false
+
+  return char.equipment.some(equipmentObj => equipmentObj.id === props.equipment.id)
 })
 
 const hasImprovements = computed(() => {

@@ -190,9 +190,11 @@
       "isWielding": true
     },
     {
-      "id": "c4687d01-ef1a-4a63-b401-96614c785a7b",
+      "id": "2f54077d-56bd-46a6-9ad5-a7acdc7a90cf",
       "quantity": 1,
-      "isCarried": true
+      "isCarried": true,
+      "isWielding": false,
+      "collapsed": false
     }
   ],
   "engagementDice": [
@@ -241,7 +243,7 @@
     {
       "id": "c93d20c3-2fa2-4001-837d-cf38629b9c1a",
       "collapsed": true,
-      "showImprovements": false,
+      "showImprovements": true,
       "showSuccesses": false
     }
   ],
@@ -250,8 +252,8 @@
     "https://cdn.midjourney.com/bb7f8092-0710-4aaf-9f26-e376a0cec04e/0_0.png"
   ],
   "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2026-02-12T16:40:26.553Z",
-  "lastModified": "2026-02-12T16:40:26.553Z",
+  "updatedAt": "2026-02-15T01:04:03.603Z",
+  "lastModified": "2026-02-15T01:04:03.603Z",
   "mestiereId": "4eccfe5d-de19-4bc5-8c9c-374d793d67f0",
   "groupEquipmentBySource": false,
   "equipmentSortOption": "keeping-asc",

@@ -194,7 +194,7 @@ const handleImprovementToggle = (improvementId) => {
 }
 
 :deep(.improvement-badge-unowned) {
-    background-color: var(--color-bg-tertiary) !important;
+    background-color: var(--color-primary-hover) !important;
     transition: var(--transition-background);
 }
 

@@ -6,7 +6,7 @@
     <!-- XP badge positioned relative to main description when improvements are shown -->
     <template #description-badge>
       <BadgeDisplay v-if="shouldShowBaseXpBadge && showImprovements" type="xp" :value="ability.xp"
-        :asImprovementBadge="true" />
+        :is-owned="characterHasBaseAbility" :asImprovementBadge="true" />
     </template>
 
     <!-- Successes section (appears after description) -->
@@ -46,7 +46,8 @@
 
     <!-- Overlay badges - Show XP badge at card level when improvements are not shown -->
     <template #badges>
-      <BadgeDisplay v-if="shouldShowBaseXpBadge && !showImprovements" type="xp" :value="ability.xp" />
+      <BadgeDisplay v-if="shouldShowBaseXpBadge && !showImprovements" type="xp" :value="ability.xp"
+        :is-owned="characterHasBaseAbility" />
     </template>
   </base-card>
 </template>
@@ -56,6 +57,7 @@ import { computed } from 'vue'
 import { ChevronUpIcon, ChevronDownIcon } from '@heroicons/vue/24/outline'
 import { useItemImprovements } from '@/composables/useItemImprovements'
 import { useActionTypesStore } from '@/stores/actionTypesStore'
+import { useCharactersStore } from '@/stores/charactersStore'
 import BaseCard from '@/components/ui/cards/item/BaseCard.vue'
 import BadgeDisplay from '@/components/ui/cards/item/BadgeDisplay.vue'
 import ImprovementsSection from '@/components/ui/cards/item/ImprovementsSection.vue'
@@ -116,8 +118,9 @@ const emit = defineEmits(['edit', 'update', 'sendToChat', 'update:collapsed', 'u
 // Item improvements composable
 const { toggleImprovement } = useItemImprovements('abilities')
 
-// Action types store
+// Stores
 const actionTypesStore = useActionTypesStore()
+const charactersStore = useCharactersStore()
 
 // Reactive state
 const isActive = computed(() => props.ability.isActive)
@@ -136,13 +139,15 @@ const traitOrMp = computed(() => {
 })
 
 const characterHasBaseAbility = computed(() => {
-  if (!props.character || !Array.isArray(props.character.abilities)) return false
+  // Use prop if provided, otherwise fall back to store's selected character
+  const char = props.character || charactersStore.selectedCharacter
+  if (!char || !Array.isArray(char.abilities)) return false
 
-  return props.character.abilities.some(abilityObj => abilityObj.id === props.ability.id)
+  return char.abilities.some(abilityObj => abilityObj.id === props.ability.id)
 })
 
 const shouldShowBaseXpBadge = computed(() => {
-  return props.showXpBadge && props.ability.xp && !characterHasBaseAbility.value
+  return props.showXpBadge && props.ability.xp
 })
 
 // Methods
