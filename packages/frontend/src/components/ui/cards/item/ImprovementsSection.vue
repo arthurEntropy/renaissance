@@ -6,7 +6,12 @@
                 <div v-for="(impr) in ownedImprovements" :key="impr.id" class="improvement-desc-block">
                     <div class="improvement-title improvement-owned">{{ impr.name }}</div>
                     <CardDescription v-if="impr.description" :content="impr.description"
-                        additional-classes="improvement" />
+                        additional-classes="improvement">
+                        <template #badge>
+                            <BadgeDisplay v-if="impr.xp" type="xp" :value="impr.xp" :is-owned="true"
+                                :asImprovementBadge="true" />
+                        </template>
+                    </CardDescription>
                 </div>
             </div>
         </transition>
@@ -22,8 +27,8 @@
                         :additional-classes="unownedDescriptionClasses">
                         <template #badge>
                             <BadgeDisplay v-if="impr.xp" type="xp" :value="impr.xp" :isInteractive="isInteractive"
-                                :is-owned="isImprovementOwned(impr.id)" :improvement-id="impr.id" :asImprovementBadge="true"
-                                @toggle="handleImprovementToggle" />
+                                :is-owned="isImprovementOwned(impr.id)" :improvement-id="impr.id"
+                                :asImprovementBadge="true" @toggle="handleImprovementToggle" />
                         </template>
                     </CardDescription>
                 </div>

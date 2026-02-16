@@ -3,10 +3,10 @@
     @edit="$emit('edit', ability)" :collapsible="collapsible" @update:collapsed="$emit('update:collapsed', $event)"
     :showAddToCharacter="showAddToCharacter" :itemType="ItemType.ABILITY">
 
-    <!-- XP badge positioned relative to main description when improvements are shown -->
+    <!-- XP badge positioned relative to main description when character owns any improvements OR when improvements are expanded -->
     <template #description-badge>
-      <BadgeDisplay v-if="shouldShowBaseXpBadge && showImprovements" type="xp" :value="ability.xp"
-        :is-owned="characterHasBaseAbility" :asImprovementBadge="true" />
+      <BadgeDisplay v-if="shouldShowBaseXpBadge && (characterOwnsAnyImprovements || showImprovements)" type="xp"
+        :value="ability.xp" :is-owned="characterHasBaseAbility" :asImprovementBadge="true" />
     </template>
 
     <!-- Successes section (appears after description) -->
@@ -36,18 +36,18 @@
         💬
       </button>
 
-      <!-- In abilities table context: only show button if there are unowned improvements -->
-      <button v-if="hasImprovements" class="bottom-buttons improvements-toggle-button" @click.stop="toggleImprovements"
-        :title="showImprovements ? 'Hide improvements' : 'Show improvements'">
+      <!-- Show improvements toggle button only if not all improvements are owned -->
+      <button v-if="hasImprovements && !characterOwnsAllImprovements" class="bottom-buttons improvements-toggle-button"
+        @click.stop="toggleImprovements" :title="showImprovements ? 'Hide improvements' : 'Show improvements'">
         <ChevronUpIcon v-if="showImprovements" class="chevron-icon" />
         <ChevronDownIcon v-else class="chevron-icon" />
       </button>
     </template>
 
-    <!-- Overlay badges - Show XP badge at card level when improvements are not shown -->
+    <!-- Overlay badges - Show XP badge at card level when character owns no improvements AND improvements are collapsed -->
     <template #badges>
-      <BadgeDisplay v-if="shouldShowBaseXpBadge && !showImprovements" type="xp" :value="ability.xp"
-        :is-owned="characterHasBaseAbility" />
+      <BadgeDisplay v-if="shouldShowBaseXpBadge && !characterOwnsAnyImprovements && !showImprovements" type="xp"
+        :value="ability.xp" :is-owned="characterHasBaseAbility" />
     </template>
   </base-card>
 </template>
@@ -116,7 +116,7 @@ const props = defineProps({
 const emit = defineEmits(['edit', 'update', 'sendToChat', 'update:collapsed', 'update:showImprovements', 'update:showSuccesses', 'height-changed'])
 
 // Item improvements composable
-const { toggleImprovement } = useItemImprovements('abilities')
+const { toggleImprovement, getCharacterImprovements } = useItemImprovements('abilities')
 
 // Stores
 const actionTypesStore = useActionTypesStore()
@@ -148,6 +148,18 @@ const characterHasBaseAbility = computed(() => {
 
 const shouldShowBaseXpBadge = computed(() => {
   return props.showXpBadge && props.ability.xp
+})
+
+const characterOwnsAnyImprovements = computed(() => {
+  if (!props.character || !hasImprovements.value) return false
+  const ownedImprovements = getCharacterImprovements(props.character, props.ability.id)
+  return ownedImprovements.length > 0
+})
+
+const characterOwnsAllImprovements = computed(() => {
+  if (!props.character || !hasImprovements.value) return false
+  const ownedImprovements = getCharacterImprovements(props.character, props.ability.id)
+  return ownedImprovements.length === props.ability.improvements.length
 })
 
 // Methods

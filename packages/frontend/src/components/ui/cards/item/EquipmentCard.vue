@@ -15,10 +15,11 @@
       </div>
     </template>
 
-    <!-- Keeping badge positioned relative to main description when improvements are shown -->
+    <!-- Keeping badge positioned relative to main description when character owns any improvements OR when improvements are expanded -->
     <template #description-badge>
-      <BadgeDisplay v-if="showKeepingBadge && keepingCost !== null && showImprovements" type="keeping"
-        :value="keepingCost" :is-owned="characterHasBaseEquipment" :asImprovementBadge="true" />
+      <BadgeDisplay
+        v-if="showKeepingBadge && keepingCost !== null && (characterOwnsAnyImprovements || showImprovements)"
+        type="keeping" :value="keepingCost" :is-owned="characterHasBaseEquipment" :asImprovementBadge="true" />
     </template>
 
     <template #after-description>
@@ -71,17 +72,19 @@
 
     <!-- Action buttons -->
     <template #buttons>
-      <button v-if="hasImprovements" class="bottom-buttons improvements-toggle-button" @click.stop="toggleImprovements"
-        :title="showImprovements ? 'Hide improvements' : 'Show improvements'">
+      <!-- Show improvements toggle button only if not all improvements are owned -->
+      <button v-if="hasImprovements && !characterOwnsAllImprovements" class="bottom-buttons improvements-toggle-button"
+        @click.stop="toggleImprovements" :title="showImprovements ? 'Hide improvements' : 'Show improvements'">
         <ChevronUpIcon v-if="showImprovements" class="chevron-icon" />
         <ChevronDownIcon v-else class="chevron-icon" />
       </button>
     </template>
 
-    <!-- Overlay badges - Show keeping badge at card level when improvements are not shown -->
+    <!-- Overlay badges - Show keeping badge at card level when character owns no improvements AND improvements are collapsed -->
     <template #badges>
-      <BadgeDisplay v-if="showKeepingBadge && keepingCost !== null && !showImprovements" type="keeping"
-        :value="keepingCost" :is-owned="characterHasBaseEquipment" />
+      <BadgeDisplay
+        v-if="showKeepingBadge && keepingCost !== null && !characterOwnsAnyImprovements && !showImprovements"
+        type="keeping" :value="keepingCost" :is-owned="characterHasBaseEquipment" />
     </template>
 
   </base-card>
@@ -175,7 +178,7 @@ const keepingStore = useKeepingStore()
 const charactersStore = useCharactersStore()
 
 // Item improvements composable
-const { toggleImprovement } = useItemImprovements('equipment')
+const { toggleImprovement, getCharacterImprovements } = useItemImprovements('equipment')
 
 // Computed properties
 const isWeapon = computed(() => {
@@ -276,6 +279,18 @@ const characterHasBaseEquipment = computed(() => {
 
 const hasImprovements = computed(() => {
   return props.equipment.improvements && props.equipment.improvements.length > 0
+})
+
+const characterOwnsAnyImprovements = computed(() => {
+  if (!props.character || !hasImprovements.value) return false
+  const ownedImprovements = getCharacterImprovements(props.character, props.equipment.id)
+  return ownedImprovements.length > 0
+})
+
+const characterOwnsAllImprovements = computed(() => {
+  if (!props.character || !hasImprovements.value) return false
+  const ownedImprovements = getCharacterImprovements(props.character, props.equipment.id)
+  return ownedImprovements.length === props.equipment.improvements.length
 })
 
 // Methods

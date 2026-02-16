@@ -249,7 +249,10 @@
       "id": "c93d20c3-2fa2-4001-837d-cf38629b9c1a",
       "collapsed": true,
       "showImprovements": true,
-      "showSuccesses": false
+      "showSuccesses": false,
+      "improvements": {
+        "9c694b3a-f5d5-5a55-999c-09514ea7c995": true
+      }
     }
   ],
   "activeEffects": [],
@@ -257,8 +260,8 @@
     "https://cdn.midjourney.com/bb7f8092-0710-4aaf-9f26-e376a0cec04e/0_0.png"
   ],
   "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2026-02-16T02:24:39.901Z",
-  "lastModified": "2026-02-16T02:24:39.901Z",
+  "updatedAt": "2026-02-16T02:38:39.843Z",
+  "lastModified": "2026-02-16T02:38:39.843Z",
   "mestiereId": "4eccfe5d-de19-4bc5-8c9c-374d793d67f0",
   "groupEquipmentBySource": false,
   "equipmentSortOption": "keeping-asc",
