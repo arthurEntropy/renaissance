@@ -1,13 +1,15 @@
 import { watch } from 'vue'
-import CharacterService from '@/services/entities/characterService'
 import * as CharacterUtils from '@shared/types/entities/characterUtils'
+import { useCharactersStore } from '@/stores/charactersStore'
 
 export function useCharacterStatWatchers(selectedCharacter, allEquipment) {
+  const charactersStore = useCharactersStore()
+
   // Main character save watcher with debouncing
   watch(selectedCharacter, (newCharacter) => {
     if (!newCharacter) return
     const timeoutId = setTimeout(() => {
-      CharacterService.update(newCharacter)
+      charactersStore.update(newCharacter)
     }, 500)
     return () => clearTimeout(timeoutId)
   }, { deep: true })

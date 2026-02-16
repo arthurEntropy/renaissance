@@ -30,9 +30,9 @@
         <template #default="{ item }">
           <EquipmentCard v-if="item.equipment" :equipment="item.equipment" :collapsed="item.collapsed || false"
             :editable="item.equipment.isCustom" class="equipment-card" @edit="openEditEquipmentModal"
-            :collapsible="false" :show-keeping-badge="true" :show-add-to-character="false"
-            :character="selectedCharacter" :engagement-success-options="[]" :deletable="internalEditMode"
-            @delete="removeEquipmentItem(item.id)" />
+            @update="handleCharacterUpdate" :collapsible="false" :show-keeping-badge="true"
+            :show-add-to-character="false" :character="selectedCharacter" :engagement-success-options="[]"
+            :deletable="internalEditMode" @delete="removeEquipmentItem(item.id)" />
           <span v-else class="missing-item">Unknown item</span>
 
           <EquipmentDetails v-if="item.equipment" :equipment-item="item" :item-id="item.id" :is-edit-mode="canEdit"
@@ -46,9 +46,9 @@
         <div v-for="item in characterEquipment" :key="item.id" class="masonry-item">
           <EquipmentCard v-if="item.equipment" :equipment="item.equipment" :collapsed="item.collapsed || false"
             :editable="item.equipment.isCustom" class="equipment-card" @edit="openEditEquipmentModal"
-            :collapsible="false" :show-keeping-badge="true" :show-add-to-character="false"
-            :character="selectedCharacter" :engagement-success-options="[]" :deletable="internalEditMode"
-            @delete="removeEquipmentItem(item.id)" />
+            @update="handleCharacterUpdate" :collapsible="false" :show-keeping-badge="true"
+            :show-add-to-character="false" :character="selectedCharacter" :engagement-success-options="[]"
+            :deletable="internalEditMode" @delete="removeEquipmentItem(item.id)" />
           <span v-else class="missing-item">Unknown item</span>
 
           <EquipmentDetails v-if="item.equipment" :equipment-item="item" :item-id="item.id" :is-edit-mode="canEdit"
@@ -330,6 +330,12 @@ const handleQuantityChange = (itemId, quantity) => {
   if (index === -1) return
 
   selectedCharacter.value.equipment[index].quantity = Math.max(1, quantity)
+}
+
+const handleCharacterUpdate = (updatedCharacter) => {
+  if (updatedCharacter && selectedCharacter.value) {
+    Object.assign(selectedCharacter.value, updatedCharacter)
+  }
 }
 
 const saveEditedEquipment = async (updatedEquipment) => {

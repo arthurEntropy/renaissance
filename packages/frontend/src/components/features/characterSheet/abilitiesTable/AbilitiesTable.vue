@@ -37,9 +37,9 @@
           <AbilityCard v-if="item" :ability="item" :collapsed="item.collapsed" class="ability-card" :collapsible="false"
             :show-xp-badge="true" :show-add-to-character="false" :show-action-buttons="true"
             :character="selectedCharacter" :show-improvement-toggle="true" :show-improvements="item.showImprovements"
-            @update:showImprovements="updateAbilityShowImprovements(item, $event)" :show-successes="item.showSuccesses"
-            @update:showSuccesses="updateAbilityShowSuccesses(item, $event)" :deletable="internalEditMode"
-            @delete="removeAbilityById(item.id)" />
+            @update="handleCharacterUpdate" @update:showImprovements="updateAbilityShowImprovements(item, $event)"
+            :show-successes="item.showSuccesses" @update:showSuccesses="updateAbilityShowSuccesses(item, $event)"
+            :deletable="internalEditMode" @delete="removeAbilityById(item.id)" />
           <span v-else class="missing-item">Unknown ability</span>
         </template>
       </GroupedMasonryGrid>
@@ -50,7 +50,7 @@
           <AbilityCard v-if="ability" :ability="ability" :collapsed="ability.collapsed" class="ability-card"
             :collapsible="false" :show-xp-badge="true" :show-add-to-character="false" :show-action-buttons="true"
             :character="selectedCharacter" :show-improvement-toggle="true" :show-improvements="ability.showImprovements"
-            @update:showImprovements="updateAbilityShowImprovements(ability, $event)"
+            @update="handleCharacterUpdate" @update:showImprovements="updateAbilityShowImprovements(ability, $event)"
             :show-successes="ability.showSuccesses" @update:showSuccesses="updateAbilityShowSuccesses(ability, $event)"
             :deletable="internalEditMode" @delete="removeAbilityById(ability.id)" />
           <span v-else class="missing-item">Unknown ability</span>
@@ -222,6 +222,12 @@ const updateAbilityShowSuccesses = (ability, showSuccesses) => {
   const index = selectedCharacter.value.abilities.findIndex(a => a.id === ability.id)
   if (index !== -1) {
     selectedCharacter.value.abilities[index].showSuccesses = showSuccesses
+  }
+}
+
+const handleCharacterUpdate = (updatedCharacter) => {
+  if (updatedCharacter && selectedCharacter.value) {
+    Object.assign(selectedCharacter.value, updatedCharacter)
   }
 }
 
