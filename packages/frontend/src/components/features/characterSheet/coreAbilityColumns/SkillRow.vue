@@ -3,6 +3,12 @@
         <span :class="['skill-name', { 'skill-name-clickable': canEdit }]" @click="handleSkillClick">
             {{ skill.name }}
         </span>
+        <div v-if="canEdit" class="manual-dice-mod-controls">
+            <button @click="incrementManualDiceMod" class="manual-spinner manual-spinner-up"
+                aria-label="Add manual dice" type="button">▲</button>
+            <button @click="decrementManualDiceMod" class="manual-spinner manual-spinner-down"
+                aria-label="Subtract manual dice" type="button">▼</button>
+        </div>
         <i class="dice-icon d12-icon"
             :class="[getDiceFontClass(DIE_TYPE.D12, DIE_TYPE.D12), getStyleClassForFavoredStatus(skill)]">
         </i>
@@ -27,7 +33,7 @@ const props = defineProps({
     }
 })
 
-const emit = defineEmits(['open-skill-check', 'update-ranks'])
+const emit = defineEmits(['open-skill-check', 'update-ranks', 'update-manual-dice-mod'])
 
 const getStyleClassForFavoredStatus = (skill) => {
     const status = BaseRollService.getFavoredStatus(skill)
@@ -38,6 +44,16 @@ const handleSkillClick = () => {
     if (props.canEdit) {
         emit('open-skill-check', props.skill.name)
     }
+}
+
+const incrementManualDiceMod = () => {
+    const currentMod = props.skill.manualDiceMod || 0
+    emit('update-manual-dice-mod', props.skill.name, currentMod + 1)
+}
+
+const decrementManualDiceMod = () => {
+    const currentMod = props.skill.manualDiceMod || 0
+    emit('update-manual-dice-mod', props.skill.name, currentMod - 1)
 }
 </script>
 
@@ -80,6 +96,58 @@ const handleSkillClick = () => {
     width: 25px;
     text-align: center;
     border-radius: var(--radius-5);
+}
+
+.manual-dice-mod-controls {
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
+    margin-right: var(--space-xs);
+    opacity: 0;
+    transition: var(--transition-opacity);
+    pointer-events: none;
+    width: 14px;
+}
+
+.skill-row:hover .manual-dice-mod-controls {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.manual-spinner {
+    background: var(--overlay-black-medium);
+    border: none;
+    color: var(--color-white);
+    padding: 0;
+    height: 12px;
+    width: 100%;
+    font-size: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+.manual-spinner-up {
+    border-radius: var(--radius-5) var(--radius-5) 0 0;
+    color: var(--color-success);
+}
+
+.manual-spinner-up:hover {
+    background: var(--overlay-black-heavy);
+    text-shadow: var(--shadow-glow-success-sm);
+}
+
+.manual-spinner-down {
+    border-radius: 0 0 var(--radius-5) var(--radius-5);
+    color: var(--color-danger);
+    border-top: 1px solid var(--color-gray-dark);
+}
+
+.manual-spinner-down:hover {
+    background: var(--overlay-black-heavy);
+    text-shadow: var(--shadow-glow-danger-sm);
 }
 
 .favored {

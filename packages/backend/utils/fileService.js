@@ -76,8 +76,8 @@ const saveFile = (data, directory, oldName = null, existingId = null) => {
     // Always update lastModified
     data.lastModified = now
 
-    // Special handling for abilities: ensure improvements have IDs
-    if (directory.endsWith('abilities')) {
+    // Special handling for abilities and equipment: ensure improvements have IDs
+    if (directory.endsWith('abilities') || directory.endsWith('equipment')) {
       data = ensureImprovementIds(data)
     }
 

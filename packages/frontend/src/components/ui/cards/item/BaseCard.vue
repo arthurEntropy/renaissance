@@ -1,8 +1,8 @@
 <template>
   <!-- Card Container -->
   <div ref="cardElement" class="base-card" :class="{ collapsed: collapsed, collapsible: collapsible }"
-    :style="cardStyle" @click="collapsible ? toggleCollapsed() : null" @mouseenter="handleCardMouseEnter"
-    @mouseleave="handleCardMouseLeave" :title="sourceName ? `Source: ${sourceName}` : null">
+    :style="cardStyle" @click="collapsible ? toggleCollapsed() : null"
+    :title="sourceName ? `Source: ${sourceName}` : null">
 
     <!-- Admin Buttons -->
     <div v-if="editable || duplicatable || deletable" class="admin-buttons">
@@ -12,13 +12,6 @@
         visibility="on-hover" class="duplicate-button-floating" />
       <FloatingActionButton v-if="editable" type="edit" @click.stop="$emit('edit', item)" size="small"
         visibility="on-hover" class="edit-button-floating" />
-    </div>
-
-    <!-- Add-to-Character Overlay/Button -->
-    <div v-if="showAddToCharacter && hasSelectedCharacter" class="add-to-character-overlay" @click.stop>
-      <ActionButton :variant="alreadyAddedToSelectedCharacter ? 'neutral' : 'primary'" size="small"
-        :text="alreadyAddedToSelectedCharacter ? `✓ Added to ${selectedCharacterName}` : `+ Add to ${selectedCharacterName}`"
-        :disabled="alreadyAddedToSelectedCharacter" @click="handleAddToCharacter" />
     </div>
 
     <!-- Header Row -->
@@ -89,12 +82,9 @@
 <script setup>
 import { computed } from 'vue'
 import { useSourcesStore } from '@/stores/sourcesStore'
-import { useCharactersStore } from '@/stores/charactersStore'
 import { useUserStore } from '@/stores/userStore'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
-import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import CardDescription from '@/components/ui/cards/item/CardDescription.vue'
-import CharacterService from '@/services/entities/characterService'
 import { ItemType } from '@shared/constants/itemTypes'
 import { useOptimizedImage } from '@/composables/useOptimizedImage'
 import ManaCostDisplay from '@/components/ui/mana/ManaCostDisplay.vue'
@@ -119,7 +109,6 @@ const props = defineProps({
   deletable: { type: Boolean, default: false },
   collapsible: { type: Boolean, default: true },
   showSource: { type: Boolean, default: true },
-  showAddToCharacter: { type: Boolean, default: false },
   itemType: { type: String, default: ItemType.ABILITY },
 })
 
@@ -138,40 +127,8 @@ const sourceName = computed(() => {
   return sourcesStore.getSourceName(props.item.source)
 })
 
-// Add to Character functionality
-const charactersStore = useCharactersStore()
-const selectedCharacter = computed(() => charactersStore.selectedCharacter)
-
 // Optimize art URL for display
 const optimizedArtUrl = useOptimizedImage(() => props.item.artUrl, 'small')
-const hasSelectedCharacter = computed(() => selectedCharacter.value != null)
-const selectedCharacterName = computed(() => selectedCharacter.value?.name || 'Character')
-
-const alreadyAddedToSelectedCharacter = computed(() => {
-  const char = selectedCharacter.value
-  if (!char) return false
-  if (props.itemType === ItemType.ABILITY) {
-    return Array.isArray(char.abilities) && char.abilities.some(abilityObj => abilityObj.id === props.item.id)
-  } else if (props.itemType === ItemType.EQUIPMENT) {
-    return Array.isArray(char.equipment) && char.equipment.some(item => item.id === props.item.id)
-  }
-  return false
-})
-
-const handleAddToCharacter = () => {
-  if (alreadyAddedToSelectedCharacter.value || !selectedCharacter.value) return
-
-  let updatedCharacter = null
-  if (props.itemType === ItemType.ABILITY) {
-    updatedCharacter = CharacterService.addAbilityToCharacter(selectedCharacter.value, props.item)
-  } else if (props.itemType === ItemType.EQUIPMENT) {
-    updatedCharacter = CharacterService.addEquipmentToCharacter(selectedCharacter.value, props.item)
-  }
-
-  if (updatedCharacter) {
-    charactersStore.update(updatedCharacter)
-  }
-}
 
 const cardStyle = computed(() => {
   const source = sources.value ? sourcesStore.getSourceById(props.item.source) : null
@@ -199,18 +156,6 @@ const handleExpanded = () => {
 
 const handleCollapsed = () => {
   emit('height-changed')
-}
-
-const handleCardMouseEnter = () => {
-  if (props.showAddToCharacter && hasSelectedCharacter.value) {
-    charactersStore.setAddToCharacterHovering(true)
-  }
-}
-
-const handleCardMouseLeave = () => {
-  if (props.showAddToCharacter && hasSelectedCharacter.value) {
-    charactersStore.setAddToCharacterHovering(false)
-  }
 }
 </script>
 
@@ -359,30 +304,5 @@ const handleCardMouseLeave = () => {
 .expand-leave-from {
   opacity: 1;
   transform: translateY(0);
-}
-
-.add-to-character-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: var(--overlay-black-medium);
-  z-index: var(--z-interactive);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  transition: var(--transition-opacity);
-  pointer-events: none;
-  border-radius: var(--radius-10);
-}
-
-.base-card:hover>.add-to-character-overlay {
-  opacity: 1;
-}
-
-.add-to-character-overlay .action-btn {
-  pointer-events: auto;
 }
 </style>

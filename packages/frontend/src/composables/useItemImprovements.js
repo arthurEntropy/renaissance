@@ -13,48 +13,91 @@ export function useItemImprovements(itemType) {
 
   const toggleImprovement = (character, itemId, improvementId) => {
     if (!character[itemsProperty]) {
-      character[itemsProperty] = []
+      return {
+        ...character,
+        [itemsProperty]: []
+      }
     }
     
-    const item = character[itemsProperty].find(i => i.id === itemId)
+    const itemIndex = character[itemsProperty].findIndex(i => i.id === itemId)
     
-    if (!item) {
+    if (itemIndex === -1) {
       console.warn(`Cannot toggle improvement for unknown ${itemType.slice(0, -1)}: ${itemId}`)
       return { ...character }
     }
     
-    // Ensure improvements object exists
-    if (!item.improvements) {
-      item.improvements = {}
+    const item = character[itemsProperty][itemIndex]
+    const currentImprovements = item.improvements || {}
+    const currentStatus = currentImprovements[improvementId] || false
+    
+    // Create new improvements object
+    const newImprovements = {
+      ...currentImprovements,
+      [improvementId]: !currentStatus
     }
     
-    // Toggle the improvement status
-    const currentStatus = item.improvements[improvementId] || false
-    item.improvements[improvementId] = !currentStatus
+    // Create new item with updated improvements
+    const newItem = {
+      ...item,
+      improvements: newImprovements
+    }
     
-    return { ...character }
+    // Create new items array with the updated item
+    const newItems = [
+      ...character[itemsProperty].slice(0, itemIndex),
+      newItem,
+      ...character[itemsProperty].slice(itemIndex + 1)
+    ]
+    
+    // Return new character with updated items array
+    return {
+      ...character,
+      [itemsProperty]: newItems
+    }
   }
 
   const addImprovement = (character, itemId, improvementId) => {
     if (!character[itemsProperty]) {
-      character[itemsProperty] = []
+      return {
+        ...character,
+        [itemsProperty]: []
+      }
     }
     
-    const item = character[itemsProperty].find(i => i.id === itemId)
+    const itemIndex = character[itemsProperty].findIndex(i => i.id === itemId)
     
-    if (!item) {
+    if (itemIndex === -1) {
       console.warn(`Cannot add improvement to unknown ${itemType.slice(0, -1)}: ${itemId}`)
       return { ...character }
     }
     
-    // Ensure improvements object exists
-    if (!item.improvements) {
-      item.improvements = {}
+    const item = character[itemsProperty][itemIndex]
+    const currentImprovements = item.improvements || {}
+    
+    // Create new improvements object
+    const newImprovements = {
+      ...currentImprovements,
+      [improvementId]: true
     }
     
-    item.improvements[improvementId] = true
+    // Create new item with updated improvements
+    const newItem = {
+      ...item,
+      improvements: newImprovements
+    }
     
-    return { ...character }
+    // Create new items array with the updated item
+    const newItems = [
+      ...character[itemsProperty].slice(0, itemIndex),
+      newItem,
+      ...character[itemsProperty].slice(itemIndex + 1)
+    ]
+    
+    // Return new character with updated items array
+    return {
+      ...character,
+      [itemsProperty]: newItems
+    }
   }
 
   const removeImprovement = (character, itemId, improvementId) => {
@@ -62,21 +105,40 @@ export function useItemImprovements(itemType) {
       return character
     }
     
-    const item = character[itemsProperty].find(i => i.id === itemId)
+    const itemIndex = character[itemsProperty].findIndex(i => i.id === itemId)
     
-    if (!item?.improvements) {
+    if (itemIndex === -1 || !character[itemsProperty][itemIndex]?.improvements) {
       return character
     }
     
-    // Remove the specific improvement
-    delete item.improvements[improvementId]
+    const item = character[itemsProperty][itemIndex]
+    const currentImprovements = { ...item.improvements }
     
-    // Clean up empty improvements object
-    if (Object.keys(item.improvements).length === 0) {
-      delete item.improvements
+    // Remove the specific improvement
+    delete currentImprovements[improvementId]
+    
+    // Create new item
+    const newItem = { ...item }
+    
+    // Clean up empty improvements object or set new improvements
+    if (Object.keys(currentImprovements).length === 0) {
+      delete newItem.improvements
+    } else {
+      newItem.improvements = currentImprovements
     }
     
-    return { ...character }
+    // Create new items array with the updated item
+    const newItems = [
+      ...character[itemsProperty].slice(0, itemIndex),
+      newItem,
+      ...character[itemsProperty].slice(itemIndex + 1)
+    ]
+    
+    // Return new character with updated items array
+    return {
+      ...character,
+      [itemsProperty]: newItems
+    }
   }
 
   const getCharacterImprovements = (character, itemId) => {

@@ -213,7 +213,9 @@ const truncatedDice = computed(() => {
 })
 
 const shouldShowDice = computed(() => {
-    return !props.isEngagement
+    // Show dice if diceResults are available
+    // Previously engagement didn't have diceResults, but now it does
+    return props.rollData?.diceResults && props.rollData.diceResults.length > 0
 })
 
 const triggerRollAnimation = () => {

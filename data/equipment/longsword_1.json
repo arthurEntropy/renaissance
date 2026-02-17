@@ -13,7 +13,8 @@
   "finesse": false,
   "piercing": false,
   "damageDice": [
-    10
+    6,
+    8
   ],
   "engagementDice": [
     10
@@ -32,5 +33,5 @@
   "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
   "subtype": "ab765755-b7c9-47ac-b62f-34f069e00dc3",
   "grade": "ebcc2bcb-8221-4ca0-bef3-000fb7e59e96",
-  "lastModified": "2025-12-26T19:35:55.240Z"
+  "lastModified": "2026-02-17T19:50:08.610Z"
 }

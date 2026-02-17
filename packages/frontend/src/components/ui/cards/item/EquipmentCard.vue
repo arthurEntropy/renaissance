@@ -2,8 +2,7 @@
   <base-card v-bind="$attrs" :item="equipment"
     :metaInfo="equipment.weight ? `${equipment.weight} ${equipment.weight === 1 ? 'lb' : 'lbs'}` : ''"
     :collapsed="collapsed" :editable="editable" :duplicatable="duplicatable" :collapsible="collapsible"
-    :showAddToCharacter="showAddToCharacter" :itemType="ItemType.EQUIPMENT" @edit="$emit('edit', equipment)"
-    @duplicate="handleDuplicate">
+    :itemType="ItemType.EQUIPMENT" @edit="$emit('edit', equipment)" @duplicate="handleDuplicate">
 
     <!-- Description with categories, properties, dice, and successes -->
     <template #before-description>
@@ -15,10 +14,12 @@
       </div>
     </template>
 
-    <!-- Keeping badge positioned relative to main description when improvements are shown -->
+    <!-- Keeping badge positioned relative to main description when character owns any improvements OR when improvements are expanded -->
     <template #description-badge>
-      <BadgeDisplay v-if="showKeepingBadge && keepingCost !== null && showImprovements" type="keeping"
-        :value="keepingCost" :is-owned="characterHasBaseEquipment" :asImprovementBadge="true" />
+      <BadgeDisplay
+        v-if="showKeepingBadge && keepingCost !== null && (characterOwnsAnyImprovements || showImprovements)"
+        type="keeping" :value="keepingCost" :is-owned="characterHasBaseEquipment" :asImprovementBadge="true"
+        :is-interactive="!!character && !characterHasBaseEquipment" @toggle="handleBaseEquipmentToggle" />
     </template>
 
     <template #after-description>
@@ -71,17 +72,20 @@
 
     <!-- Action buttons -->
     <template #buttons>
-      <button v-if="hasImprovements" class="bottom-buttons improvements-toggle-button" @click.stop="toggleImprovements"
-        :title="showImprovements ? 'Hide improvements' : 'Show improvements'">
+      <!-- Show improvements toggle button only if not all improvements are owned -->
+      <button v-if="hasImprovements && !characterOwnsAllImprovements" class="bottom-buttons improvements-toggle-button"
+        @click.stop="toggleImprovements" :title="showImprovements ? 'Hide improvements' : 'Show improvements'">
         <ChevronUpIcon v-if="showImprovements" class="chevron-icon" />
         <ChevronDownIcon v-else class="chevron-icon" />
       </button>
     </template>
 
-    <!-- Overlay badges - Show keeping badge at card level when improvements are not shown -->
+    <!-- Overlay badges - Show keeping badge at card level when character owns no improvements AND improvements are collapsed -->
     <template #badges>
-      <BadgeDisplay v-if="showKeepingBadge && keepingCost !== null && !showImprovements" type="keeping"
-        :value="keepingCost" :is-owned="characterHasBaseEquipment" />
+      <BadgeDisplay
+        v-if="showKeepingBadge && keepingCost !== null && !characterOwnsAnyImprovements && !showImprovements"
+        type="keeping" :value="keepingCost" :is-owned="characterHasBaseEquipment"
+        :is-interactive="!!character && !characterHasBaseEquipment" @toggle="handleBaseEquipmentToggle" />
     </template>
 
   </base-card>
@@ -103,6 +107,7 @@ import BadgeDisplay from '@/components/ui/cards/item/BadgeDisplay.vue'
 import ChipTag from '@/components/ui/chips/ChipTag.vue'
 import ImprovementsSection from '@/components/ui/cards/item/ImprovementsSection.vue'
 import SuccessesSection from '@/components/ui/cards/item/SuccessesSection.vue'
+import CharacterService from '@/services/entities/characterService'
 import { getDiceFontMaxClass } from '@/utils/diceFontUtils'
 import { ItemType } from '@shared/constants/itemTypes'
 
@@ -135,10 +140,6 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
-  showAddToCharacter: {
-    type: Boolean,
-    default: true,
-  },
   engagementSuccessOptions: {
     type: Array,
     default: () => [],
@@ -163,7 +164,7 @@ const props = defineProps({
   },
 })
 
-const emit = defineEmits(['edit', 'duplicate', 'height-changed', 'update:showImprovements', 'update:showSuccesses'])
+const emit = defineEmits(['edit', 'duplicate', 'update', 'height-changed', 'update:showImprovements', 'update:showSuccesses'])
 
 // Stores
 const equipmentStore = useEquipmentStore()
@@ -175,7 +176,7 @@ const keepingStore = useKeepingStore()
 const charactersStore = useCharactersStore()
 
 // Item improvements composable
-const { toggleImprovement } = useItemImprovements('equipment')
+const { toggleImprovement, getCharacterImprovements } = useItemImprovements('equipment')
 
 // Computed properties
 const isWeapon = computed(() => {
@@ -278,6 +279,18 @@ const hasImprovements = computed(() => {
   return props.equipment.improvements && props.equipment.improvements.length > 0
 })
 
+const characterOwnsAnyImprovements = computed(() => {
+  if (!props.character || !hasImprovements.value) return false
+  const ownedImprovements = getCharacterImprovements(props.character, props.equipment.id)
+  return ownedImprovements.length > 0
+})
+
+const characterOwnsAllImprovements = computed(() => {
+  if (!props.character || !hasImprovements.value) return false
+  const ownedImprovements = getCharacterImprovements(props.character, props.equipment.id)
+  return ownedImprovements.length === props.equipment.improvements.length
+})
+
 // Methods
 const toggleImprovements = () => {
   emit('update:showImprovements', !props.showImprovements)
@@ -292,6 +305,17 @@ const handleImprovementToggle = (improvementId) => {
 
   const updatedCharacter = toggleImprovement(props.character, props.equipment.id, improvementId)
   emit('update', updatedCharacter)
+}
+
+const handleBaseEquipmentToggle = () => {
+  if (!props.character || characterHasBaseEquipment.value) return
+
+  // Add the base equipment to the character using CharacterService
+  const updatedCharacter = CharacterService.addEquipmentToCharacter(props.character, props.equipment)
+
+  if (updatedCharacter) {
+    charactersStore.update(updatedCharacter)
+  }
 }
 
 const handleDuplicate = async () => {

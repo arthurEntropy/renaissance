@@ -14,8 +14,8 @@
   "personalityAndBackground": "",
   "xp": 0,
   "mp": {
-    "current": 0,
-    "max": 0
+    "current": 5,
+    "max": 5
   },
   "body": 5,
   "heart": 2,
@@ -59,7 +59,8 @@
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "coreAbility": "body"
+      "coreAbility": "body",
+      "manualDiceMod": 0
     },
     {
       "name": "Perform",
@@ -180,7 +181,11 @@
       "id": "30ade4bc-27c7-4bb5-a674-00cbd0fc294b",
       "quantity": 1,
       "isCarried": true,
-      "collapsed": true
+      "collapsed": true,
+      "showImprovements": true,
+      "improvements": {
+        "a1b2c3d4-e5f6-7890-1234-567890abcdef": true
+      }
     },
     {
       "id": "b69c879e-a758-47b6-a3a4-b81dfd12eaaf",
@@ -195,6 +200,11 @@
       "isCarried": true,
       "isWielding": false,
       "collapsed": false
+    },
+    {
+      "id": "43b5ef83-6a24-4912-93c2-29487b0b9f91",
+      "quantity": 1,
+      "isCarried": true
     }
   ],
   "engagementDice": [
@@ -237,13 +247,26 @@
     {
       "id": "df41e010-07b6-40bf-bc67-ec2a01c9b95d",
       "collapsed": false,
-      "showImprovements": false,
-      "showSuccesses": false
+      "showImprovements": true,
+      "showSuccesses": false,
+      "improvements": {
+        "f1a6c2ee-f7f0-543b-b088-d69b048bd612": true,
+        "5cdf24a8-94a3-54a9-8d29-e31c0a213826": true
+      }
     },
     {
       "id": "c93d20c3-2fa2-4001-837d-cf38629b9c1a",
       "collapsed": true,
       "showImprovements": true,
+      "showSuccesses": false,
+      "improvements": {
+        "9c694b3a-f5d5-5a55-999c-09514ea7c995": true
+      }
+    },
+    {
+      "id": "2afaa6d7-93d1-401b-8051-61e4b8ab752b",
+      "collapsed": true,
+      "showImprovements": false,
       "showSuccesses": false
     }
   ],
@@ -252,11 +275,15 @@
     "https://cdn.midjourney.com/bb7f8092-0710-4aaf-9f26-e376a0cec04e/0_0.png"
   ],
   "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2026-02-15T16:11:26.810Z",
-  "lastModified": "2026-02-15T16:11:26.810Z",
+  "updatedAt": "2026-02-17T19:00:22.258Z",
+  "lastModified": "2026-02-17T19:00:22.258Z",
   "mestiereId": "4eccfe5d-de19-4bc5-8c9c-374d793d67f0",
   "groupEquipmentBySource": false,
   "equipmentSortOption": "keeping-asc",
   "groupAbilitiesBySource": false,
-  "abilitySortOption": ""
+  "abilitySortOption": "",
+  "autoCalculations": {
+    "load": true,
+    "statesAndEffects": true
+  }
 }

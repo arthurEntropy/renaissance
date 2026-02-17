@@ -1,12 +1,13 @@
 <template>
   <base-card :item="ability" :metaInfo="traitOrMp" :collapsed="collapsed" :editable="editable"
     @edit="$emit('edit', ability)" :collapsible="collapsible" @update:collapsed="$emit('update:collapsed', $event)"
-    :showAddToCharacter="showAddToCharacter" :itemType="ItemType.ABILITY">
+    :itemType="ItemType.ABILITY">
 
-    <!-- XP badge positioned relative to main description when improvements are shown -->
+    <!-- XP badge positioned relative to main description when character owns any improvements OR when improvements are expanded -->
     <template #description-badge>
-      <BadgeDisplay v-if="shouldShowBaseXpBadge && showImprovements" type="xp" :value="ability.xp"
-        :is-owned="characterHasBaseAbility" :asImprovementBadge="true" />
+      <BadgeDisplay v-if="shouldShowBaseXpBadge && (characterOwnsAnyImprovements || showImprovements)" type="xp"
+        :value="ability.xp" :is-owned="characterHasBaseAbility" :asImprovementBadge="true"
+        :is-interactive="!!character && !characterHasBaseAbility" @toggle="handleBaseAbilityToggle" />
     </template>
 
     <!-- Successes section (appears after description) -->
@@ -36,18 +37,19 @@
         💬
       </button>
 
-      <!-- In abilities table context: only show button if there are unowned improvements -->
-      <button v-if="hasImprovements" class="bottom-buttons improvements-toggle-button" @click.stop="toggleImprovements"
-        :title="showImprovements ? 'Hide improvements' : 'Show improvements'">
+      <!-- Show improvements toggle button only if not all improvements are owned -->
+      <button v-if="hasImprovements && !characterOwnsAllImprovements" class="bottom-buttons improvements-toggle-button"
+        @click.stop="toggleImprovements" :title="showImprovements ? 'Hide improvements' : 'Show improvements'">
         <ChevronUpIcon v-if="showImprovements" class="chevron-icon" />
         <ChevronDownIcon v-else class="chevron-icon" />
       </button>
     </template>
 
-    <!-- Overlay badges - Show XP badge at card level when improvements are not shown -->
+    <!-- Overlay badges - Show XP badge at card level when character owns no improvements AND improvements are collapsed -->
     <template #badges>
-      <BadgeDisplay v-if="shouldShowBaseXpBadge && !showImprovements" type="xp" :value="ability.xp"
-        :is-owned="characterHasBaseAbility" />
+      <BadgeDisplay v-if="shouldShowBaseXpBadge && !characterOwnsAnyImprovements && !showImprovements" type="xp"
+        :value="ability.xp" :is-owned="characterHasBaseAbility"
+        :is-interactive="!!character && !characterHasBaseAbility" @toggle="handleBaseAbilityToggle" />
     </template>
   </base-card>
 </template>
@@ -62,6 +64,7 @@ import BaseCard from '@/components/ui/cards/item/BaseCard.vue'
 import BadgeDisplay from '@/components/ui/cards/item/BadgeDisplay.vue'
 import ImprovementsSection from '@/components/ui/cards/item/ImprovementsSection.vue'
 import SuccessesSection from '@/components/ui/cards/item/SuccessesSection.vue'
+import CharacterService from '@/services/entities/characterService'
 import { ItemType } from '@shared/constants/itemTypes'
 
 const props = defineProps({
@@ -82,10 +85,6 @@ const props = defineProps({
     default: false,
   },
   showXpBadge: {
-    type: Boolean,
-    default: true,
-  },
-  showAddToCharacter: {
     type: Boolean,
     default: true,
   },
@@ -116,7 +115,7 @@ const props = defineProps({
 const emit = defineEmits(['edit', 'update', 'sendToChat', 'update:collapsed', 'update:showImprovements', 'update:showSuccesses', 'height-changed'])
 
 // Item improvements composable
-const { toggleImprovement } = useItemImprovements('abilities')
+const { toggleImprovement, getCharacterImprovements } = useItemImprovements('abilities')
 
 // Stores
 const actionTypesStore = useActionTypesStore()
@@ -150,6 +149,18 @@ const shouldShowBaseXpBadge = computed(() => {
   return props.showXpBadge && props.ability.xp
 })
 
+const characterOwnsAnyImprovements = computed(() => {
+  if (!props.character || !hasImprovements.value) return false
+  const ownedImprovements = getCharacterImprovements(props.character, props.ability.id)
+  return ownedImprovements.length > 0
+})
+
+const characterOwnsAllImprovements = computed(() => {
+  if (!props.character || !hasImprovements.value) return false
+  const ownedImprovements = getCharacterImprovements(props.character, props.ability.id)
+  return ownedImprovements.length === props.ability.improvements.length
+})
+
 // Methods
 const toggleActive = () => {
   emit('update', { ...props.ability, isActive: !isActive.value })
@@ -179,6 +190,17 @@ const handleImprovementToggle = (improvementId) => {
 
   const updatedCharacter = toggleImprovement(props.character, props.ability.id, improvementId)
   emit('update', updatedCharacter)
+}
+
+const handleBaseAbilityToggle = () => {
+  if (!props.character || characterHasBaseAbility.value) return
+
+  // Add the base ability to the character using CharacterService
+  const updatedCharacter = CharacterService.addAbilityToCharacter(props.character, props.ability)
+
+  if (updatedCharacter) {
+    charactersStore.update(updatedCharacter)
+  }
 }
 </script>
 

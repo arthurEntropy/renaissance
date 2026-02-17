@@ -6,8 +6,9 @@
                 :sources="sources" :collapsible="false" :showImprovements="getAbilityShowImprovements(ability.id)"
                 @update:showImprovements="updateAbilityShowImprovements(ability.id, $event)"
                 @edit="$emit('edit-ability', ability)" :character="character" :show-improvement-toggle="!!character"
-                :show-add-to-character="!!character" :showSuccesses="getAbilityShowSuccesses(ability.id)"
-                @update:showSuccesses="updateAbilityShowSuccesses(ability.id, $event)" />
+                :showSuccesses="getAbilityShowSuccesses(ability.id)"
+                @update:showSuccesses="updateAbilityShowSuccesses(ability.id, $event)"
+                @update="handleCharacterUpdate" />
         </MasonryGrid>
         <div v-if="isEditMode" class="add-button-container">
             <FloatingActionButton type="add" visibility="always" @click="$emit('add-ability')" />
@@ -80,6 +81,12 @@ const sortedAbilities = computed(() => {
         return (a.name || '').localeCompare(b.name || '')
     })
 })
+
+const handleCharacterUpdate = async (updatedCharacter) => {
+    if (updatedCharacter && character.value) {
+        await charactersStore.update(updatedCharacter)
+    }
+}
 </script>
 
 <style scoped>

@@ -6,7 +6,12 @@
                 <div v-for="(impr) in ownedImprovements" :key="impr.id" class="improvement-desc-block">
                     <div class="improvement-title improvement-owned">{{ impr.name }}</div>
                     <CardDescription v-if="impr.description" :content="impr.description"
-                        additional-classes="improvement" />
+                        additional-classes="improvement">
+                        <template #badge>
+                            <BadgeDisplay v-if="impr.xp" type="xp" :value="impr.xp" :is-owned="true"
+                                :asImprovementBadge="true" />
+                        </template>
+                    </CardDescription>
                 </div>
             </div>
         </transition>
@@ -22,8 +27,8 @@
                         :additional-classes="unownedDescriptionClasses">
                         <template #badge>
                             <BadgeDisplay v-if="impr.xp" type="xp" :value="impr.xp" :isInteractive="isInteractive"
-                                :is-owned="false" :improvement-id="impr.id" :asImprovementBadge="true"
-                                @toggle="handleImprovementToggle" />
+                                :is-owned="isImprovementOwned(impr.id)" :improvement-id="impr.id"
+                                :asImprovementBadge="true" @toggle="handleImprovementToggle" />
                         </template>
                     </CardDescription>
                 </div>
@@ -81,7 +86,7 @@ const isImprovementOwned = (improvementId) => {
 }
 
 // Partition improvements into owned/un-owned
-const { ownedImprovements, unownedImprovements } = computed(() => {
+const partitionedImprovements = computed(() => {
     if (!improvements.value.length) {
         return { ownedImprovements: [], unownedImprovements: [] }
     }
@@ -109,16 +114,19 @@ const { ownedImprovements, unownedImprovements } = computed(() => {
     unowned.sort((a, b) => (a.xp || 0) - (b.xp || 0))
 
     return { ownedImprovements: owned, unownedImprovements: unowned }
-}).value
+})
+
+const ownedImprovements = computed(() => partitionedImprovements.value.ownedImprovements)
+const unownedImprovements = computed(() => partitionedImprovements.value.unownedImprovements)
 
 const hasOwnedImprovements = computed(() => {
-    return props.showImprovementToggle && ownedImprovements.length > 0
+    return props.showImprovementToggle && ownedImprovements.value.length > 0
 })
 
 const shouldShowUnownedImprovements = computed(() => {
     // In character context: show unowned improvements only when toggle is enabled
     if (props.showImprovementToggle) {
-        return unownedImprovements.length > 0 && props.showImprovements
+        return unownedImprovements.value.length > 0 && props.showImprovements
     }
 
     // In non-character context: show all improvements when enabled (read-only)

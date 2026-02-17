@@ -4,7 +4,8 @@
         <MasonryGrid :column-width="350" :gap="10" :row-height="10" class="cards-container">
             <EquipmentCard v-for="item in equipment" :key="item.id" :equipment="item" :editable="isEditMode"
                 :sources="sources" :art-expanded="true" :engagement-success-options="[]" :character="character"
-                @edit="$emit('edit-equipment', item)" :collapsible="false" :show-add-to-character="!!character" />
+                :show-improvement-toggle="!!character" @edit="$emit('edit-equipment', item)" :collapsible="false"
+                @update="handleCharacterUpdate" />
         </MasonryGrid>
         <div v-if="isEditMode" class="add-button-container">
             <FloatingActionButton type="add" visibility="always" @click="$emit('add-equipment')" />
@@ -46,6 +47,12 @@ const equipment = computed(() =>
 )
 
 const hasEquipment = computed(() => equipment.value.length > 0)
+
+const handleCharacterUpdate = async (updatedCharacter) => {
+    if (updatedCharacter && character.value) {
+        await charactersStore.update(updatedCharacter)
+    }
+}
 </script>
 
 <style scoped>

@@ -3,7 +3,7 @@
         <div class="dice-showcase">
             <span v-for="(dieType, index) in SHOWCASE_DICE" :key="dieType" class="showcase-die"
                 :style="getCircularPosition(index, SHOWCASE_DICE.length)">
-                <i :class="getDiceFontClass(dieType, Math.ceil(dieType / 2))"></i>
+                <i :class="getDiceFontClass(dieType, dieType)"></i>
             </span>
             <div class="hover-text">Roll results will appear here.</div>
         </div>
@@ -34,7 +34,7 @@ const getCircularPosition = (index, total) => {
 .no-roll {
     color: var(--color-gray-light);
     text-align: center;
-    padding: var(--space-xl) 0;
+    padding-top: var(--space-sm);
     height: 100%;
     display: flex;
     align-items: center;

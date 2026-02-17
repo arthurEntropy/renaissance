@@ -40,7 +40,7 @@ class BaseRollService {
     DiceProcessor.markMaxValueDice(diceResults)
     
     // Add CSS classes and emojis (mutates)
-    DiceFormatter.addDisplayData(diceResults)
+    DiceFormatter.addDisplayData(diceResults, rollType)
     
     // Sort based on roll type
     return DiceFormatter.sortByRollType(diceResults, rollType)

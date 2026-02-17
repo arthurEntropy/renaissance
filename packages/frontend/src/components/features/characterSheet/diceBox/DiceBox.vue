@@ -1,10 +1,10 @@
 <template>
   <CharacterSheetSection custom-class="dice-box edit-hover-area">
 
-    <FloatingActionButton v-if="canEdit && !customDiceRollerOpen" type="initiative" size="small" visibility="on-hover"
+    <FloatingActionButton v-if="canEdit && !customDiceRollerOpen" type="initiative" size="large" visibility="on-hover"
       class="initiative-button" @click="handleInitiativeRoll" />
 
-    <FloatingActionButton v-if="canEdit" :type="customDiceRollerOpen ? 'delete' : 'dice'" size="small"
+    <FloatingActionButton v-if="canEdit" :type="customDiceRollerOpen ? 'delete' : 'dice'" size="large"
       visibility="on-hover" :is-active="customDiceRollerOpen" class="dice-roller-toggle"
       @click="toggleCustomDiceRoller" />
 
@@ -102,9 +102,10 @@ const isRolling = computed(() => {
 <style scoped>
 .dice-box {
   position: relative;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-start;
+  align-items: flex-start;
   min-height: 180px;
+  padding-top: 40px;
 }
 
 .view-container {

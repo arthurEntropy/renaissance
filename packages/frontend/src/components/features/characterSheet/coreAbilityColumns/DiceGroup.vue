@@ -1,12 +1,14 @@
 <template>
     <div class="dice-group">
         <i v-for="(_, diceIndex) in MAX_SKILL_RANKS" :key="diceIndex" :class="getDiceClasses(diceIndex)"
-            @click="handleDiceClick(diceIndex)" class="dice-icon d6-icon">
+            @click="handleDiceClick(diceIndex)" @mouseenter="hoveredIndex = diceIndex" @mouseleave="hoveredIndex = null"
+            class="dice-icon d6-icon">
         </i>
     </div>
 </template>
 
 <script setup>
+import { ref } from 'vue'
 import { getDiceFontClass } from '@/utils/diceFontUtils'
 import { MAX_SKILL_RANKS } from '@shared/constants/characterConstants'
 import { DIE_TYPE } from '@shared/constants/dice'
@@ -24,6 +26,8 @@ const props = defineProps({
 
 const emit = defineEmits(['update-ranks'])
 
+const hoveredIndex = ref(null)
+
 const handleDiceClick = (diceIndex) => {
     if (!props.canEdit) return
 
@@ -34,14 +38,21 @@ const handleDiceClick = (diceIndex) => {
 }
 
 const getDiceClasses = (diceIndex) => {
-    const { ranks, diceMod = 0 } = props.skill
+    const { ranks, diceMod = 0, manualDiceMod = 0 } = props.skill
+    const totalDiceMod = diceMod + manualDiceMod
+
+    // Determine if we should show hover preview
+    const showHoverPreview = props.canEdit && hoveredIndex.value !== null
+
+    // Preview logic: show ranks up to hovered index
+    const withinHoverPreview = showHoverPreview && diceIndex <= hoveredIndex.value
 
     const withinRanks = diceIndex < ranks
-    const withinDiceMod = diceIndex >= ranks && diceIndex < ranks + diceMod && diceMod > 0
+    const withinDiceMod = diceIndex >= ranks && diceIndex < ranks + totalDiceMod && totalDiceMod > 0
     const isActive = withinRanks || withinDiceMod
 
     const isAdded = withinDiceMod
-    const isSubtracted = ranks - diceIndex <= Math.abs(diceMod) && diceMod < 0 && diceIndex < ranks
+    const isSubtracted = ranks - diceIndex <= Math.abs(totalDiceMod) && totalDiceMod < 0 && diceIndex < ranks
 
     return [
         getDiceFontClass(DIE_TYPE.D6, DIE_TYPE.D6),
@@ -49,6 +60,7 @@ const getDiceClasses = (diceIndex) => {
             'dice-active': isActive,
             'dice-added': isAdded,
             'dice-subtracted': isSubtracted,
+            'dice-hover-preview': withinHoverPreview && !isAdded && !isSubtracted,
             'can-edit': props.canEdit
         },
     ]
@@ -85,6 +97,11 @@ const getDiceClasses = (diceIndex) => {
 .dice-subtracted {
     color: var(--color-danger);
     text-shadow: var(--shadow-glow-danger-sm);
+}
+
+.dice-hover-preview {
+    opacity: 1;
+    color: var(--color-text-primary);
 }
 
 .can-edit {

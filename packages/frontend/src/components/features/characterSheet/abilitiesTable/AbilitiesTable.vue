@@ -15,7 +15,11 @@
         </div>
       </template>
       <template #header-right>
-        <MPDisplay :is-edit-mode="canEdit" />
+        <div class="mp-display-container">
+          <FloatingActionButton v-if="canEdit" class="mp-reset-button" type="refresh" size="small" visibility="on-hover"
+            @click="resetMP" />
+          <MPDisplay :is-edit-mode="canEdit" />
+        </div>
       </template>
     </TableHeader>
 
@@ -33,9 +37,9 @@
           <AbilityCard v-if="item" :ability="item" :collapsed="item.collapsed" class="ability-card" :collapsible="false"
             :show-xp-badge="true" :show-add-to-character="false" :show-action-buttons="true"
             :character="selectedCharacter" :show-improvement-toggle="true" :show-improvements="item.showImprovements"
-            @update:showImprovements="updateAbilityShowImprovements(item, $event)" :show-successes="item.showSuccesses"
-            @update:showSuccesses="updateAbilityShowSuccesses(item, $event)" :deletable="internalEditMode"
-            @delete="removeAbilityById(item.id)" />
+            @update="handleCharacterUpdate" @update:showImprovements="updateAbilityShowImprovements(item, $event)"
+            :show-successes="item.showSuccesses" @update:showSuccesses="updateAbilityShowSuccesses(item, $event)"
+            :deletable="internalEditMode" @delete="removeAbilityById(item.id)" />
           <span v-else class="missing-item">Unknown ability</span>
         </template>
       </GroupedMasonryGrid>
@@ -46,7 +50,7 @@
           <AbilityCard v-if="ability" :ability="ability" :collapsed="ability.collapsed" class="ability-card"
             :collapsible="false" :show-xp-badge="true" :show-add-to-character="false" :show-action-buttons="true"
             :character="selectedCharacter" :show-improvement-toggle="true" :show-improvements="ability.showImprovements"
-            @update:showImprovements="updateAbilityShowImprovements(ability, $event)"
+            @update="handleCharacterUpdate" @update:showImprovements="updateAbilityShowImprovements(ability, $event)"
             :show-successes="ability.showSuccesses" @update:showSuccesses="updateAbilityShowSuccesses(ability, $event)"
             :deletable="internalEditMode" @delete="removeAbilityById(ability.id)" />
           <span v-else class="missing-item">Unknown ability</span>
@@ -221,6 +225,18 @@ const updateAbilityShowSuccesses = (ability, showSuccesses) => {
   }
 }
 
+const handleCharacterUpdate = (updatedCharacter) => {
+  if (updatedCharacter && selectedCharacter.value) {
+    Object.assign(selectedCharacter.value, updatedCharacter)
+  }
+}
+
+const resetMP = () => {
+  if (selectedCharacter.value?.mp) {
+    selectedCharacter.value.mp.current = selectedCharacter.value.mp.max
+  }
+}
+
 onMounted(() => {
   masonryGridRef.value?.updateLayout()
 })
@@ -228,6 +244,21 @@ onMounted(() => {
 </script>
 
 <style scoped>
+.mp-display-container {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.mp-reset-button {
+  margin-right: var(--space-xs);
+}
+
+.mp-display-container:hover .mp-reset-button {
+  opacity: 1;
+  pointer-events: auto;
+}
+
 .missing-item {
   color: var(--color-text-muted);
   font-style: italic;

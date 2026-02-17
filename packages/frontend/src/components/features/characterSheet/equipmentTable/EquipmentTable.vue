@@ -30,9 +30,10 @@
         <template #default="{ item }">
           <EquipmentCard v-if="item.equipment" :equipment="item.equipment" :collapsed="item.collapsed || false"
             :editable="item.equipment.isCustom" class="equipment-card" @edit="openEditEquipmentModal"
-            :collapsible="false" :show-keeping-badge="true" :show-add-to-character="false"
-            :character="selectedCharacter" :engagement-success-options="[]" :deletable="internalEditMode"
-            @delete="removeEquipmentItem(item.id)" />
+            @update="handleCharacterUpdate" :collapsible="false" :show-keeping-badge="true"
+            :character="selectedCharacter" :show-improvement-toggle="true" :show-improvements="item.showImprovements"
+            @update:showImprovements="updateEquipmentShowImprovements(item, $event)" :engagement-success-options="[]"
+            :deletable="internalEditMode" @delete="removeEquipmentItem(item.id)" />
           <span v-else class="missing-item">Unknown item</span>
 
           <EquipmentDetails v-if="item.equipment" :equipment-item="item" :item-id="item.id" :is-edit-mode="canEdit"
@@ -46,9 +47,10 @@
         <div v-for="item in characterEquipment" :key="item.id" class="masonry-item">
           <EquipmentCard v-if="item.equipment" :equipment="item.equipment" :collapsed="item.collapsed || false"
             :editable="item.equipment.isCustom" class="equipment-card" @edit="openEditEquipmentModal"
-            :collapsible="false" :show-keeping-badge="true" :show-add-to-character="false"
-            :character="selectedCharacter" :engagement-success-options="[]" :deletable="internalEditMode"
-            @delete="removeEquipmentItem(item.id)" />
+            @update="handleCharacterUpdate" :collapsible="false" :show-keeping-badge="true"
+            :character="selectedCharacter" :show-improvement-toggle="true" :show-improvements="item.showImprovements"
+            @update:showImprovements="updateEquipmentShowImprovements(item, $event)" :engagement-success-options="[]"
+            :deletable="internalEditMode" @delete="removeEquipmentItem(item.id)" />
           <span v-else class="missing-item">Unknown item</span>
 
           <EquipmentDetails v-if="item.equipment" :equipment-item="item" :item-id="item.id" :is-edit-mode="canEdit"
@@ -202,6 +204,7 @@ const characterEquipment = computed(() => {
       ...entry,
       equipment,
       collapsed: entry.collapsed ?? true,
+      showImprovements: entry.showImprovements ?? false,
     }
   })
 
@@ -216,6 +219,7 @@ const characterEquipment = computed(() => {
       isCarried: original.isCarried,
       isWielding: original.isWielding,
       collapsed: original.collapsed,
+      showImprovements: original.showImprovements,
       source: sorted.source,
       equipment: sorted.equipment
     }
@@ -330,6 +334,20 @@ const handleQuantityChange = (itemId, quantity) => {
   if (index === -1) return
 
   selectedCharacter.value.equipment[index].quantity = Math.max(1, quantity)
+}
+
+const handleCharacterUpdate = (updatedCharacter) => {
+  if (updatedCharacter && selectedCharacter.value) {
+    Object.assign(selectedCharacter.value, updatedCharacter)
+  }
+}
+
+const updateEquipmentShowImprovements = (item, showImprovements) => {
+  if (!selectedCharacter.value?.equipment) return
+  const index = selectedCharacter.value.equipment.findIndex(e => e.id === item.id)
+  if (index !== -1) {
+    selectedCharacter.value.equipment[index].showImprovements = showImprovements
+  }
 }
 
 const saveEditedEquipment = async (updatedEquipment) => {
