@@ -9,7 +9,8 @@
                         additional-classes="improvement">
                         <template #badge>
                             <BadgeDisplay v-if="impr.xp" type="xp" :value="impr.xp" :is-owned="true"
-                                :asImprovementBadge="true" />
+                                :isInteractive="isInteractive" :improvement-id="impr.id" :asImprovementBadge="true"
+                                @toggle="handleImprovementToggle" />
                         </template>
                     </CardDescription>
                 </div>

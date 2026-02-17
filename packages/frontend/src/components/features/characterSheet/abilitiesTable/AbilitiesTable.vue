@@ -38,8 +38,7 @@
             :show-xp-badge="true" :show-add-to-character="false" :show-action-buttons="true"
             :character="selectedCharacter" :show-improvement-toggle="true" :show-improvements="item.showImprovements"
             @update="handleCharacterUpdate" @update:showImprovements="updateAbilityShowImprovements(item, $event)"
-            :show-successes="item.showSuccesses" @update:showSuccesses="updateAbilityShowSuccesses(item, $event)"
-            :deletable="internalEditMode" @delete="removeAbilityById(item.id)" />
+            :show-successes="item.showSuccesses" @update:showSuccesses="updateAbilityShowSuccesses(item, $event)" />
           <span v-else class="missing-item">Unknown ability</span>
         </template>
       </GroupedMasonryGrid>
@@ -51,8 +50,8 @@
             :collapsible="false" :show-xp-badge="true" :show-add-to-character="false" :show-action-buttons="true"
             :character="selectedCharacter" :show-improvement-toggle="true" :show-improvements="ability.showImprovements"
             @update="handleCharacterUpdate" @update:showImprovements="updateAbilityShowImprovements(ability, $event)"
-            :show-successes="ability.showSuccesses" @update:showSuccesses="updateAbilityShowSuccesses(ability, $event)"
-            :deletable="internalEditMode" @delete="removeAbilityById(ability.id)" />
+            :show-successes="ability.showSuccesses"
+            @update:showSuccesses="updateAbilityShowSuccesses(ability, $event)" />
           <span v-else class="missing-item">Unknown ability</span>
         </div>
       </MasonryGrid>
@@ -181,22 +180,6 @@ const { groupedItems: groupedAbilities, hasGrouping: hasAbilityGrouping } = useI
 watch(characterAbilities, () => {
   masonryGridRef.value?.updateLayout()
 }, { deep: true })
-
-const removeAbilityById = (abilityId) => {
-  if (!internalEditMode.value || !selectedCharacter.value?.abilities) return
-
-  const index = selectedCharacter.value.abilities.findIndex(a => a.id === abilityId)
-  if (index === -1) return
-
-  const ability = selectedCharacter.value.abilities[index]
-  const abilityData = allAbilities.value.find(a => a.id === ability.id)
-  const abilityName = abilityData?.name || 'this ability'
-
-  if (confirm(`Are you sure you want to remove ${abilityName}?`)) {
-    const updated = CharacterService.removeItem(selectedCharacter.value, 'abilities', index)
-    if (updated) Object.assign(selectedCharacter.value, updated)
-  }
-}
 
 const selectAbility = (ability) => {
   const updated = CharacterService.addItem(selectedCharacter.value, 'abilities', {
