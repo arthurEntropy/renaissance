@@ -1,12 +1,13 @@
 <template>
   <base-card :item="ability" :metaInfo="traitOrMp" :collapsed="collapsed" :editable="editable"
     @edit="$emit('edit', ability)" :collapsible="collapsible" @update:collapsed="$emit('update:collapsed', $event)"
-    :showAddToCharacter="showAddToCharacter" :itemType="ItemType.ABILITY">
+    :itemType="ItemType.ABILITY">
 
     <!-- XP badge positioned relative to main description when character owns any improvements OR when improvements are expanded -->
     <template #description-badge>
       <BadgeDisplay v-if="shouldShowBaseXpBadge && (characterOwnsAnyImprovements || showImprovements)" type="xp"
-        :value="ability.xp" :is-owned="characterHasBaseAbility" :asImprovementBadge="true" />
+        :value="ability.xp" :is-owned="characterHasBaseAbility" :asImprovementBadge="true"
+        :is-interactive="!!character && !characterHasBaseAbility" @toggle="handleBaseAbilityToggle" />
     </template>
 
     <!-- Successes section (appears after description) -->
@@ -47,7 +48,8 @@
     <!-- Overlay badges - Show XP badge at card level when character owns no improvements AND improvements are collapsed -->
     <template #badges>
       <BadgeDisplay v-if="shouldShowBaseXpBadge && !characterOwnsAnyImprovements && !showImprovements" type="xp"
-        :value="ability.xp" :is-owned="characterHasBaseAbility" />
+        :value="ability.xp" :is-owned="characterHasBaseAbility"
+        :is-interactive="!!character && !characterHasBaseAbility" @toggle="handleBaseAbilityToggle" />
     </template>
   </base-card>
 </template>
@@ -62,6 +64,7 @@ import BaseCard from '@/components/ui/cards/item/BaseCard.vue'
 import BadgeDisplay from '@/components/ui/cards/item/BadgeDisplay.vue'
 import ImprovementsSection from '@/components/ui/cards/item/ImprovementsSection.vue'
 import SuccessesSection from '@/components/ui/cards/item/SuccessesSection.vue'
+import CharacterService from '@/services/entities/characterService'
 import { ItemType } from '@shared/constants/itemTypes'
 
 const props = defineProps({
@@ -82,10 +85,6 @@ const props = defineProps({
     default: false,
   },
   showXpBadge: {
-    type: Boolean,
-    default: true,
-  },
-  showAddToCharacter: {
     type: Boolean,
     default: true,
   },
@@ -191,6 +190,17 @@ const handleImprovementToggle = (improvementId) => {
 
   const updatedCharacter = toggleImprovement(props.character, props.ability.id, improvementId)
   emit('update', updatedCharacter)
+}
+
+const handleBaseAbilityToggle = () => {
+  if (!props.character || characterHasBaseAbility.value) return
+
+  // Add the base ability to the character using CharacterService
+  const updatedCharacter = CharacterService.addAbilityToCharacter(props.character, props.ability)
+
+  if (updatedCharacter) {
+    charactersStore.update(updatedCharacter)
+  }
 }
 </script>
 

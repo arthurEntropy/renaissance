@@ -43,7 +43,8 @@
         :showSuccesses="getEquipmentShowSuccesses(item.id)" @edit="openEditEquipmentModal(item)"
         @duplicate="handleDuplicateEquipment"
         @update:showImprovements="updateEquipmentShowImprovements(item.id, $event)"
-        @update:showSuccesses="updateEquipmentShowSuccesses(item.id, $event)" />
+        @update:showSuccesses="updateEquipmentShowSuccesses(item.id, $event)" :character="selectedCharacter"
+        :show-improvement-toggle="!!selectedCharacter" @update="handleCharacterUpdate" />
     </template>
 
     <!-- Loading indicator slot with ref for intersection observer -->
@@ -74,6 +75,7 @@ import { useEquipmentRangesStore } from '@/stores/equipmentRangesStore'
 import { useKeepingStore } from '@/stores/keepingStore'
 import { useAuthStore } from '@/stores/authStore'
 import { useSourcesStore } from '@/stores/sourcesStore'
+import { useCharactersStore } from '@/stores/charactersStore'
 import { useEditModal } from '@/composables/useEditModal'
 import { useInfiniteScroll } from '@/composables/useInfiniteScroll'
 import { useInfiniteScrollObserver } from '@/composables/useInfiniteScrollObserver'
@@ -94,8 +96,10 @@ const equipmentRangesStore = useEquipmentRangesStore()
 const keepingStore = useKeepingStore()
 const authStore = useAuthStore()
 const sourcesStore = useSourcesStore()
+const charactersStore = useCharactersStore()
 
 const equipment = computed(() => equipmentStore.equipment)
+const selectedCharacter = computed(() => charactersStore.selectedCharacter)
 
 // Modal management
 const {
@@ -207,6 +211,12 @@ const getEquipmentShowSuccesses = (equipmentId) => {
 
 const updateEquipmentShowSuccesses = (equipmentId, showSuccesses) => {
   successesVisibility.value.set(equipmentId, showSuccesses)
+}
+
+const handleCharacterUpdate = async (updatedCharacter) => {
+  if (updatedCharacter && selectedCharacter.value) {
+    await charactersStore.update(updatedCharacter)
+  }
 }
 
 // CRUD operations

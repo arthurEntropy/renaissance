@@ -2,8 +2,7 @@
   <base-card v-bind="$attrs" :item="equipment"
     :metaInfo="equipment.weight ? `${equipment.weight} ${equipment.weight === 1 ? 'lb' : 'lbs'}` : ''"
     :collapsed="collapsed" :editable="editable" :duplicatable="duplicatable" :collapsible="collapsible"
-    :showAddToCharacter="showAddToCharacter" :itemType="ItemType.EQUIPMENT" @edit="$emit('edit', equipment)"
-    @duplicate="handleDuplicate">
+    :itemType="ItemType.EQUIPMENT" @edit="$emit('edit', equipment)" @duplicate="handleDuplicate">
 
     <!-- Description with categories, properties, dice, and successes -->
     <template #before-description>
@@ -19,7 +18,8 @@
     <template #description-badge>
       <BadgeDisplay
         v-if="showKeepingBadge && keepingCost !== null && (characterOwnsAnyImprovements || showImprovements)"
-        type="keeping" :value="keepingCost" :is-owned="characterHasBaseEquipment" :asImprovementBadge="true" />
+        type="keeping" :value="keepingCost" :is-owned="characterHasBaseEquipment" :asImprovementBadge="true"
+        :is-interactive="!!character && !characterHasBaseEquipment" @toggle="handleBaseEquipmentToggle" />
     </template>
 
     <template #after-description>
@@ -84,7 +84,8 @@
     <template #badges>
       <BadgeDisplay
         v-if="showKeepingBadge && keepingCost !== null && !characterOwnsAnyImprovements && !showImprovements"
-        type="keeping" :value="keepingCost" :is-owned="characterHasBaseEquipment" />
+        type="keeping" :value="keepingCost" :is-owned="characterHasBaseEquipment"
+        :is-interactive="!!character && !characterHasBaseEquipment" @toggle="handleBaseEquipmentToggle" />
     </template>
 
   </base-card>
@@ -106,6 +107,7 @@ import BadgeDisplay from '@/components/ui/cards/item/BadgeDisplay.vue'
 import ChipTag from '@/components/ui/chips/ChipTag.vue'
 import ImprovementsSection from '@/components/ui/cards/item/ImprovementsSection.vue'
 import SuccessesSection from '@/components/ui/cards/item/SuccessesSection.vue'
+import CharacterService from '@/services/entities/characterService'
 import { getDiceFontMaxClass } from '@/utils/diceFontUtils'
 import { ItemType } from '@shared/constants/itemTypes'
 
@@ -138,10 +140,6 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
-  showAddToCharacter: {
-    type: Boolean,
-    default: true,
-  },
   engagementSuccessOptions: {
     type: Array,
     default: () => [],
@@ -166,7 +164,7 @@ const props = defineProps({
   },
 })
 
-const emit = defineEmits(['edit', 'duplicate', 'height-changed', 'update:showImprovements', 'update:showSuccesses'])
+const emit = defineEmits(['edit', 'duplicate', 'update', 'height-changed', 'update:showImprovements', 'update:showSuccesses'])
 
 // Stores
 const equipmentStore = useEquipmentStore()
@@ -307,6 +305,17 @@ const handleImprovementToggle = (improvementId) => {
 
   const updatedCharacter = toggleImprovement(props.character, props.equipment.id, improvementId)
   emit('update', updatedCharacter)
+}
+
+const handleBaseEquipmentToggle = () => {
+  if (!props.character || characterHasBaseEquipment.value) return
+
+  // Add the base equipment to the character using CharacterService
+  const updatedCharacter = CharacterService.addEquipmentToCharacter(props.character, props.equipment)
+
+  if (updatedCharacter) {
+    charactersStore.update(updatedCharacter)
+  }
 }
 
 const handleDuplicate = async () => {

@@ -1,6 +1,5 @@
 <template>
-    <div class="selected-character-badge" :class="{ 'badge-pulse': shouldAnimate }" v-if="character && !shouldHideBadge"
-        @click="navigateToCharacter">
+    <div class="selected-character-badge" v-if="character && !shouldHideBadge" @click="navigateToCharacter">
         <div class="character-portrait">
             <img :src="optimizedCharacterArt" :alt="character.name" />
         </div>
@@ -23,7 +22,6 @@ const route = useRoute()
 const charactersStore = useCharactersStore()
 
 const character = computed(() => charactersStore.selectedCharacter)
-const shouldAnimate = computed(() => charactersStore.isAddToCharacterHovering)
 const optimizedCharacterArt = useOptimizedImage(() => character.value?.artUrls?.[0], 'thumbnail')
 
 const shouldHideBadge = computed(() => {
@@ -48,10 +46,6 @@ const deselectCharacter = () => {
     z-index: var(--z-badge);
     cursor: pointer;
     transition: transform var(--transition-normal);
-}
-
-.selected-character-badge.badge-pulse {
-    transform: scale(1.25);
 }
 
 .selected-character-badge:hover {

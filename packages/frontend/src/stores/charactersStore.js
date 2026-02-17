@@ -10,7 +10,6 @@ export const useCharactersStore = defineStore('characters', () => {
 
   // Additional state for app-wide selected character feature
   const selectedCharacter = ref(null)
-  const isAddToCharacterHovering = ref(false)
 
   // Actions
   const selectCharacter = (character) => {
@@ -19,10 +18,6 @@ export const useCharactersStore = defineStore('characters', () => {
 
   const deselectCharacter = () => {
     selectedCharacter.value = null
-  }
-
-  const setAddToCharacterHovering = (isHovering) => {
-    isAddToCharacterHovering.value = isHovering
   }
 
   // Computed properties
@@ -59,7 +54,6 @@ export const useCharactersStore = defineStore('characters', () => {
   return {
     characters: base.items,
     selectedCharacter,
-    isAddToCharacterHovering,
     isLoading: base.isLoading,
     error: base.error,
     fetch: base.fetch,
@@ -68,7 +62,6 @@ export const useCharactersStore = defineStore('characters', () => {
     remove: base.remove,
     selectCharacter,
     deselectCharacter,
-    setAddToCharacterHovering,
     getById: base.getById,
     filteredCharacters,
     filteredBeasts,

@@ -181,7 +181,11 @@
       "id": "30ade4bc-27c7-4bb5-a674-00cbd0fc294b",
       "quantity": 1,
       "isCarried": true,
-      "collapsed": true
+      "collapsed": true,
+      "showImprovements": true,
+      "improvements": {
+        "a1b2c3d4-e5f6-7890-1234-567890abcdef": true
+      }
     },
     {
       "id": "b69c879e-a758-47b6-a3a4-b81dfd12eaaf",
@@ -196,6 +200,11 @@
       "isCarried": true,
       "isWielding": false,
       "collapsed": false
+    },
+    {
+      "id": "43b5ef83-6a24-4912-93c2-29487b0b9f91",
+      "quantity": 1,
+      "isCarried": true
     }
   ],
   "engagementDice": [
@@ -253,6 +262,12 @@
       "improvements": {
         "9c694b3a-f5d5-5a55-999c-09514ea7c995": true
       }
+    },
+    {
+      "id": "2afaa6d7-93d1-401b-8051-61e4b8ab752b",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false
     }
   ],
   "activeEffects": [],
@@ -260,8 +275,8 @@
     "https://cdn.midjourney.com/bb7f8092-0710-4aaf-9f26-e376a0cec04e/0_0.png"
   ],
   "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2026-02-16T02:38:39.843Z",
-  "lastModified": "2026-02-16T02:38:39.843Z",
+  "updatedAt": "2026-02-17T19:00:22.258Z",
+  "lastModified": "2026-02-17T19:00:22.258Z",
   "mestiereId": "4eccfe5d-de19-4bc5-8c9c-374d793d67f0",
   "groupEquipmentBySource": false,
   "equipmentSortOption": "keeping-asc",

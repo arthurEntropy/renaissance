@@ -11,10 +11,11 @@
     <template #item-cards="{ items }">
       <AbilityCard v-for="ability in items" :key="ability.id" :ability="ability" :editable="isAdmin" :sources="sources"
         :collapsible="false" :showImprovements="getAbilityShowImprovements(ability.id)" @delete="deleteAbility(ability)"
-        @update="updateAbility(ability)" @edit="openEditAbilityModal(ability)"
+        @update="handleUpdate" @edit="openEditAbilityModal(ability)"
         @update:showImprovements="updateAbilityShowImprovements(ability.id, $event)"
         :showSuccesses="getAbilityShowSuccesses(ability.id)"
-        @update:showSuccesses="updateAbilityShowSuccesses(ability.id, $event)" />
+        @update:showSuccesses="updateAbilityShowSuccesses(ability.id, $event)" :character="selectedCharacter"
+        :show-improvement-toggle="!!selectedCharacter" />
     </template>
 
     <!-- Loading indicator slot with ref for intersection observer -->
@@ -39,6 +40,7 @@ import { useAbilitiesStore } from '@/stores/abilitiesStore'
 import { useAuthStore } from '@/stores/authStore'
 import { useSourcesStore } from '@/stores/sourcesStore'
 import { useActionTypesStore } from '@/stores/actionTypesStore'
+import { useCharactersStore } from '@/stores/charactersStore'
 import { useEditModal } from '@/composables/useEditModal'
 import { useInfiniteScroll } from '@/composables/useInfiniteScroll'
 import { useInfiniteScrollObserver } from '@/composables/useInfiniteScrollObserver'
@@ -56,8 +58,10 @@ const abilitiesStore = useAbilitiesStore()
 const authStore = useAuthStore()
 const sourcesStore = useSourcesStore()
 const actionTypesStore = useActionTypesStore()
+const charactersStore = useCharactersStore()
 
 const abilities = computed(() => abilitiesStore.abilities)
+const selectedCharacter = computed(() => charactersStore.selectedCharacter)
 
 // Modal management
 const {
@@ -164,8 +168,15 @@ const createAbility = async () => {
   openEditAbilityModal(newAbility)
 }
 
-const updateAbility = async (ability) => {
-  await abilitiesStore.update(ability)
+const handleUpdate = async (data) => {
+  // Handle both ability updates (from toggleActive) and character updates (from improvement toggles)
+  if (data.abilities || data.equipment) {
+    // This is a character update
+    await charactersStore.update(data)
+  } else {
+    // This is an ability update
+    await abilitiesStore.update(data)
+  }
 }
 
 const deleteAbility = async (ability) => {

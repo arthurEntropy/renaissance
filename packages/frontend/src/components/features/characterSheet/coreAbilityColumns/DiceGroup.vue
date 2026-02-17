@@ -43,7 +43,6 @@ const getDiceClasses = (diceIndex) => {
 
     // Determine if we should show hover preview
     const showHoverPreview = props.canEdit && hoveredIndex.value !== null
-    const hoveredRank = hoveredIndex.value + 1
 
     // Preview logic: show ranks up to hovered index
     const withinHoverPreview = showHoverPreview && diceIndex <= hoveredIndex.value

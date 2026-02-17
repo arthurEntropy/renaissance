@@ -1,12 +1,19 @@
 <template>
     <div v-if="showBadge" :class="badgeClass" @click.stop="handleClick" @mouseenter="handleMouseEnter"
         @mouseleave="handleMouseLeave">
-        {{ displayText }}
+        <template v-if="type === 'keeping'">
+            {{ displayValue }}
+            <img :src="keepingIcon" alt="keeping" class="keeping-icon" />
+        </template>
+        <template v-else>
+            {{ displayText }}
+        </template>
     </div>
 </template>
 
 <script setup>
 import { computed, ref } from 'vue'
+import keepingIcon from '@/assets/icons/keeping.png'
 
 const props = defineProps({
     type: {
@@ -45,28 +52,41 @@ const showBadge = computed(() => {
     return !!props.value
 })
 
+// Badge should only be interactive if it's marked as interactive AND not owned
+const isActuallyInteractive = computed(() => {
+    return props.isInteractive && !props.isOwned
+})
+
 const handleClick = () => {
-    if (props.isInteractive && props.improvementId) {
+    if (isActuallyInteractive.value) {
         emit('toggle', props.improvementId)
     }
 }
 
 const handleMouseEnter = () => {
-    if (props.isInteractive) {
+    if (isActuallyInteractive.value) {
         isHovering.value = true
     }
 }
 
 const handleMouseLeave = () => {
-    if (props.isInteractive) {
+    if (isActuallyInteractive.value) {
         isHovering.value = false
     }
 }
 
+const displayValue = computed(() => {
+    return props.value
+})
+
 const displayText = computed(() => {
     // Interactive badge text (on hover vs normal)
-    if (props.isInteractive) {
-        return isHovering.value ? '+ Add' : `${props.value} XP`
+    if (isActuallyInteractive.value) {
+        if (isHovering.value) {
+            return '+ Add'
+        }
+        // Show normal badge text when not hovering
+        return props.type === 'xp' ? `${props.value} XP` : props.value
     }
 
     // Standard badge text
@@ -74,7 +94,7 @@ const displayText = computed(() => {
         case 'xp':
             return `${props.value} XP`
         case 'keeping':
-            return `${props.value} 🪙`
+            return props.value
         default:
             return props.value
     }
@@ -94,7 +114,7 @@ const badgeClass = computed(() => {
     }
 
     // Interactive badge styling
-    if (props.isInteractive) {
+    if (isActuallyInteractive.value) {
         const interactiveClass = isHovering.value ? 'badge-interactive-available-hover' : 'badge-interactive-available'
         classes.push('badge-interactive', interactiveClass, 'improvement-badge-unowned')
     }
@@ -145,8 +165,20 @@ const badgeClass = computed(() => {
     border-bottom-left-radius: var(--radius-5);
 }
 
-/* Improvement badges extend below the card */
 .badge-bottom-left.improvement-badge {
     bottom: calc(-1 * var(--space-md));
+}
+
+.keeping-icon {
+    width: var(--font-size-14);
+    height: var(--font-size-14);
+    position: relative;
+    bottom: 1px;
+    margin-left: 2px !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    margin-right: 0 !important;
+    vertical-align: middle;
+    display: inline-block !important;
 }
 </style>
