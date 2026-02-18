@@ -77,6 +77,10 @@ import { createBaseEntity } from './gameEntity.js'
  * @property {string} ancestries - Ancestry IDs (comma-separated)
  * @property {string} cultures - Culture IDs (comma-separated)
  * @property {string} personalityAndBackground - Character background text
+ * @property {number} age - Character age
+ * @property {number} heightFeet - Character height (feet)
+ * @property {number} heightInches - Character height (inches)
+ * @property {number} weight - Character weight
  * @property {number} xp - Experience points
  * @property {StatPool} mp - Mestiere points
  * @property {number} body - Body attribute
@@ -120,6 +124,10 @@ export function createDefaultCharacter() {
     ancestries: '',
     cultures: '',
     personalityAndBackground: '',
+    age: 0,
+    heightFeet: 0,
+    heightInches: 0,
+    weight: 0,
     xp: 0,
     mp: { current: 0, max: 0 },
     body: 0,

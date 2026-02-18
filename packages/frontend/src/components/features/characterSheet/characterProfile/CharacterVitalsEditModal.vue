@@ -86,6 +86,30 @@
                         </div>
                     </div>
 
+                    <!-- Physical Stats -->
+                    <div class="form-group row">
+                        <div class="form-column">
+                            <label for="age" class="left-aligned">Age:</label>
+                            <input id="age" type="number" min="0" v-model.number="formData.age" class="modal-input"
+                                placeholder="0" />
+                        </div>
+                        <div class="form-column">
+                            <label for="heightFeet" class="left-aligned">Height (ft):</label>
+                            <input id="heightFeet" type="number" min="0" v-model.number="formData.heightFeet"
+                                class="modal-input" placeholder="0" />
+                        </div>
+                        <div class="form-column">
+                            <label for="heightInches" class="left-aligned">Height (in):</label>
+                            <input id="heightInches" type="number" min="0" max="11"
+                                v-model.number="formData.heightInches" class="modal-input" placeholder="0" />
+                        </div>
+                        <div class="form-column">
+                            <label for="weight" class="left-aligned">Weight (lbs):</label>
+                            <input id="weight" type="number" min="0" v-model.number="formData.weight"
+                                class="modal-input" placeholder="0" />
+                        </div>
+                    </div>
+
                 </form>
 
                 <!-- Settings Section -->
@@ -143,7 +167,11 @@ const formData = ref({
     pronouns: '',
     ancestryIds: ['', ''],
     cultureIds: ['', ''],
-    mestiereId: ''
+    mestiereId: '',
+    age: 0,
+    heightFeet: 0,
+    heightInches: 0,
+    weight: 0
 })
 
 // Delete confirmation state
@@ -163,7 +191,11 @@ onMounted(() => {
         pronouns: character.pronouns || '',
         ancestryIds: [ancestryIds[0] || '', ancestryIds[1] || ''],
         cultureIds: [cultureIds[0] || '', cultureIds[1] || ''],
-        mestiereId: character.mestiereId || ''
+        mestiereId: character.mestiereId || '',
+        age: character.age || 0,
+        heightFeet: character.heightFeet || 0,
+        heightInches: character.heightInches || 0,
+        weight: character.weight || 0
     }
 })
 
