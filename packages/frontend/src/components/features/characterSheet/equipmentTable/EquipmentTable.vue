@@ -33,7 +33,7 @@
             @update="handleCharacterUpdate" :collapsible="false" :show-keeping-badge="true"
             :character="selectedCharacter" :show-improvement-toggle="true" :show-improvements="item.showImprovements"
             @update:showImprovements="updateEquipmentShowImprovements(item, $event)" :engagement-success-options="[]"
-            :enable-damage-roll="true" @roll-damage="handleDamageRoll" />
+            :enable-damage-roll="true" @roll-damage="handleDamageRoll" @roll-link="handleRollLink" />
           <span v-else class="missing-item">Unknown item</span>
 
           <EquipmentDetails v-if="item.equipment" :equipment-item="item" :item-id="item.id" :is-edit-mode="canEdit"
@@ -50,7 +50,7 @@
             @update="handleCharacterUpdate" :collapsible="false" :show-keeping-badge="true"
             :character="selectedCharacter" :show-improvement-toggle="true" :show-improvements="item.showImprovements"
             @update:showImprovements="updateEquipmentShowImprovements(item, $event)" :engagement-success-options="[]"
-            :enable-damage-roll="true" @roll-damage="handleDamageRoll" />
+            :enable-damage-roll="true" @roll-damage="handleDamageRoll" @roll-link="handleRollLink" />
           <span v-else class="missing-item">Unknown item</span>
 
           <EquipmentDetails v-if="item.equipment" :equipment-item="item" :item-id="item.id" :is-edit-mode="canEdit"
@@ -79,6 +79,10 @@
       :equipment-grades="equipmentGradesStore.items" :engagement-success-options="engagementSuccessOptions"
       @update="saveEditedEquipment" @close="closeEditEquipmentModal" @delete="deleteEquipment" />
 
+    <!-- Skill Check Modal -->
+    <SkillCheckModal v-if="showSkillCheckModal" :selected-skill-name="rollLinkSkill" :character="selectedCharacter"
+      :default-roll-type="rollLinkRollType" @close="showSkillCheckModal = false" />
+
   </CharacterSheetSection>
 </template>
 
@@ -95,6 +99,7 @@ import EditEquipmentModal from '@/components/editModals/EditEquipmentModal.vue'
 import GroupedMasonryGrid from '@/components/ui/layouts/GroupedMasonryGrid.vue'
 import MasonryGrid from '@/components/ui/layouts/MasonryGrid.vue'
 import SortingDropdown from '@/components/ui/dropdowns/SortingDropdown.vue'
+import SkillCheckModal from '@/components/features/characterSheet/modals/SkillCheckModal.vue'
 import { useEditModal } from '@/composables/useEditModal'
 import CharacterService from '@/services/entities/characterService'
 import { useItemSelector } from '@/composables/useItemSelector'
@@ -111,6 +116,8 @@ import { useEquipmentGradesStore } from '@/stores/equipmentGradesStore'
 import { useRollsStore } from '@/stores/rollsStore'
 import EngagementSuccessService from '@/services/entities/engagementSuccessService'
 import DamageRollService from '@/services/rolls/damageRollService'
+import CustomRollService from '@/services/rolls/customRollService'
+import { RollTypes } from '@/constants/rollTypes'
 import { BookOpenIcon, PlusIcon } from '@heroicons/vue/24/outline'
 
 const props = defineProps({
@@ -144,6 +151,11 @@ const {
 
 const internalEditMode = ref(false)
 const isCollapsed = ref(false)
+
+// Roll link modal refs
+const showSkillCheckModal = ref(false)
+const rollLinkSkill = ref(null)
+const rollLinkRollType = ref(null)
 
 const toggleEditMode = () => { internalEditMode.value = !internalEditMode.value }
 
@@ -328,6 +340,84 @@ const handleDamageRoll = (equipment) => {
   const rollResult = DamageRollService.makeEquipmentDamageRoll(equipment, selectedCharacter.value)
   if (rollResult) {
     rollsStore.setRoll(rollResult)
+  }
+}
+
+const handleRollLink = (rollData) => {
+  if (!selectedCharacter.value) return
+
+  if (rollData.type === 'skill-check' || rollData.type === 'opposed-skill-check') {
+    rollLinkSkill.value = rollData.skill
+    rollLinkRollType.value = rollData.type === 'opposed-skill-check'
+      ? RollTypes.OPPOSED_SKILL_CHECK
+      : RollTypes.SKILL_CHECK
+    showSkillCheckModal.value = true
+  } else if (rollData.type === 'damage-roll') {
+    // Transform dice format from [{count, sides}] to [{dieSides}...]
+    const dicePool = []
+    rollData.dice.forEach(die => {
+      for (let i = 0; i < die.count; i++) {
+        dicePool.push({ dieSides: die.sides })
+      }
+    })
+
+    // Calculate modifier value
+    let modifierValue = 0
+    let modifierLabel = 'Modifier'
+
+    if (rollData.modifier) {
+      if (rollData.modifier.type === 'stat') {
+        const statName = rollData.modifier.value.toLowerCase()
+        modifierValue = selectedCharacter.value[statName] || 0
+        modifierLabel = rollData.modifier.value
+      } else if (rollData.modifier.type === 'number') {
+        modifierValue = rollData.modifier.value
+      }
+    }
+
+    const rollResult = DamageRollService.makeDamageRoll(
+      dicePool,
+      modifierValue,
+      selectedCharacter.value,
+      {
+        sourceName: 'Description',
+        modifierLabel,
+        footer: modifierValue !== 0 ? `${modifierValue >= 0 ? '+' : ''}${modifierLabel}` : undefined
+      }
+    )
+    if (rollResult) {
+      rollsStore.setRoll(rollResult)
+    }
+  } else if (rollData.type === 'custom-roll') {
+    // Transform dice format from [{count, sides}] to [{dieSides}...]
+    const dicePool = []
+    rollData.dice.forEach(die => {
+      for (let i = 0; i < die.count; i++) {
+        dicePool.push({ dieSides: die.sides })
+      }
+    })
+
+    // Calculate modifier value
+    let modifierValue = 0
+
+    if (rollData.modifier) {
+      if (rollData.modifier.type === 'stat') {
+        const statName = rollData.modifier.value.toLowerCase()
+        modifierValue = selectedCharacter.value[statName] || 0
+      } else if (rollData.modifier.type === 'number') {
+        modifierValue = rollData.modifier.value
+      }
+    }
+
+    const rollResult = CustomRollService.makeCustomRoll(
+      dicePool,
+      modifierValue,
+      selectedCharacter.value,
+      { label: rollData.linkText }
+    )
+    if (rollResult) {
+      rollsStore.setRoll(rollResult)
+    }
   }
 }
 

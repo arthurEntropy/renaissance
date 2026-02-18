@@ -2,7 +2,8 @@
   <base-card v-bind="$attrs" :item="equipment"
     :metaInfo="equipment.weight ? `${equipment.weight} ${equipment.weight === 1 ? 'lb' : 'lbs'}` : ''"
     :collapsed="collapsed" :editable="editable" :duplicatable="duplicatable" :collapsible="collapsible"
-    :itemType="ItemType.EQUIPMENT" @edit="$emit('edit', equipment)" @duplicate="handleDuplicate">
+    :itemType="ItemType.EQUIPMENT" @edit="$emit('edit', equipment)" @duplicate="handleDuplicate"
+    @roll-link="$emit('roll-link', $event)">
 
     <!-- Description with categories, properties, dice, and successes -->
     <template #before-description>
@@ -174,7 +175,7 @@ const props = defineProps({
   }
 })
 
-const emit = defineEmits(['edit', 'duplicate', 'update', 'height-changed', 'update:showImprovements', 'update:showSuccesses', 'roll-damage'])
+const emit = defineEmits(['edit', 'duplicate', 'update', 'height-changed', 'update:showImprovements', 'update:showSuccesses', 'roll-damage', 'roll-link'])
 
 // Stores
 const equipmentStore = useEquipmentStore()

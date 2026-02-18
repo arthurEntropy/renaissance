@@ -218,6 +218,12 @@
       "id": "6c9a4bb8-84f1-41ba-af09-ad6e65f7b9cc",
       "quantity": 1,
       "isCarried": true
+    },
+    {
+      "id": "35d95303-a550-457a-97b5-00c2eda8e9ee",
+      "quantity": 1,
+      "isCarried": true,
+      "isWielding": false
     }
   ],
   "engagementDice": [
@@ -284,6 +290,30 @@
       "improvements": {
         "8efc52bd-b89a-469a-8728-ab800c5e3c66": false
       }
+    },
+    {
+      "id": "bd8f66a4-5849-483b-9123-b0085c0e5a5c",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "b9271b66-5772-4ec2-ba0c-5a8f4b6cc525",
+      "collapsed": false,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "8d9b4191-4c71-4d62-9344-800fe50787ab",
+      "collapsed": false,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "e16343e2-35aa-4a42-b8f3-9105aad87780",
+      "collapsed": false,
+      "showImprovements": false,
+      "showSuccesses": false
     }
   ],
   "activeEffects": [],
@@ -291,8 +321,8 @@
     "https://cdn.midjourney.com/bb7f8092-0710-4aaf-9f26-e376a0cec04e/0_0.png"
   ],
   "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2026-02-18T18:47:29.717Z",
-  "lastModified": "2026-02-18T18:47:29.717Z",
+  "updatedAt": "2026-02-18T19:39:08.227Z",
+  "lastModified": "2026-02-18T19:39:08.227Z",
   "mestiereId": "4eccfe5d-de19-4bc5-8c9c-374d793d67f0",
   "groupEquipmentBySource": false,
   "equipmentSortOption": "keeping-asc",
@@ -304,14 +334,15 @@
   },
   "rollStats": {
     "skillChecks": {
-      "attempts": 15,
-      "successes": 12,
-      "totalSum": 250,
+      "attempts": 16,
+      "successes": 13,
+      "totalSum": 252,
       "bestTotal": 27,
       "hardestSuccess": 15,
       "bySkill": {
         "Strength": 14,
-        "Awareness": 1
+        "Awareness": 1,
+        "Spirit": 1
       },
       "solCount": 2,
       "morteCount": 1,

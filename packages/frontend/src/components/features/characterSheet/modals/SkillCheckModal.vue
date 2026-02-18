@@ -111,6 +111,10 @@ const props = defineProps({
     type: [Number, null],
     default: null,
   },
+  defaultRollType: {
+    type: String,
+    default: RollTypes.SKILL_CHECK,
+  },
 })
 
 const emit = defineEmits(['close', 'update-difficulty', 'start-opposed-skill-check'])
@@ -118,7 +122,7 @@ const emit = defineEmits(['close', 'update-difficulty', 'start-opposed-skill-che
 const localSelectedSkillName = ref(props.selectedSkillName || '')
 const localDifficulty = ref(props.defaultDifficulty || null)
 const sendToDiscord = ref(true)
-const rollType = ref(RollTypes.SKILL_CHECK)
+const rollType = ref(props.defaultRollType)
 const rollParameters = ref({
   name: '',
   isFavored: false,
