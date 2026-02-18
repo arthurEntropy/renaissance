@@ -9,6 +9,7 @@ export const useRollsStore = defineStore('rolls', () => {
   const charactersStore = useCharactersStore()
 
   let persistTimeout = null
+  const displayedRollKeys = new Set()
 
   // Current roll result displayed in DiceRollResults
   const latestRoll = ref(null)
@@ -18,9 +19,12 @@ export const useRollsStore = defineStore('rolls', () => {
 
   // Set the latest roll result
   function setRoll(rollResult, characterOverride = null) {
-    latestRoll.value = rollResult
-
     const targetCharacter = characterOverride || charactersStore.selectedCharacter
+    latestRoll.value = {
+      ...rollResult,
+      rollCharacterId: targetCharacter?.id || null
+    }
+
     if (targetCharacter) {
       applyRollToCharacterStats(targetCharacter, rollResult)
 
@@ -48,6 +52,16 @@ export const useRollsStore = defineStore('rolls', () => {
   // Clear the current roll
   function clearRoll() {
     latestRoll.value = null
+  }
+
+  function hasDisplayedRollKey(rollKey) {
+    if (!rollKey) return false
+    return displayedRollKeys.has(rollKey)
+  }
+
+  function markRollKeyDisplayed(rollKey) {
+    if (!rollKey) return
+    displayedRollKeys.add(rollKey)
   }
 
   // Reroll the current roll (if reroll data exists)
@@ -100,6 +114,8 @@ export const useRollsStore = defineStore('rolls', () => {
     setRoll,
     setLastDifficulty,
     clearRoll,
+    hasDisplayedRollKey,
+    markRollKeyDisplayed,
     reroll
   }
 })
