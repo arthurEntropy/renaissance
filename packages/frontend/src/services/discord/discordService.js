@@ -26,8 +26,9 @@ class DiscordService {
     this.enabled = enabled
   }
 
-  async sendSkillCheck({ rollResult, character }) {
+  async sendSkillCheck({ rollResult, character, integrations }) {
     if (!this.enabled) return
+    if (integrations?.discord === false) return
 
     try {
       const payload = {
@@ -47,8 +48,9 @@ class DiscordService {
     }
   }
 
-  async sendCustomRoll({ rollResult, character }) {
+  async sendCustomRoll({ rollResult, character, integrations }) {
     if (!this.enabled) return
+    if (integrations?.discord === false) return
 
     try {
       const rollResultsText = rollResult.diceResults
@@ -89,8 +91,9 @@ class DiscordService {
     }
   }
 
-  async sendOpposedSkillCheck({ opposedResult }) {
+  async sendOpposedSkillCheck({ opposedResult, integrations }) {
     if (!this.enabled) return
+    if (integrations?.discord === false) return
 
     try {
       const payload = {

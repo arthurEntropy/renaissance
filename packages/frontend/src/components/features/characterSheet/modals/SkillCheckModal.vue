@@ -75,6 +75,12 @@
       <!-- Roll Button -->
       <ActionButton variant="primary" size="large" text="Roll" @click="rollSkillCheck"
         :disabled="!localSelectedSkillName" />
+
+      <!-- Discord Toggle -->
+      <label class="discord-toggle" for="send-to-discord">
+        <input id="send-to-discord" v-model="sendToDiscord" type="checkbox" />
+        <span>Send to Discord</span>
+      </label>
     </div>
   </div>
 </template>
@@ -111,6 +117,7 @@ const emit = defineEmits(['close', 'update-target-number', 'start-opposed-skill-
 
 const localSelectedSkillName = ref(props.selectedSkillName || '')
 const localTargetNumber = ref(props.defaultTargetNumber || null)
+const sendToDiscord = ref(true)
 const rollType = ref(RollTypes.SKILL_CHECK)
 const rollParameters = ref({
   name: '',
@@ -221,13 +228,15 @@ function rollSkillCheck() {
 
     emit('start-opposed-skill-check', {
       character: props.character,
-      skillCheckConfig
+      skillCheckConfig,
+      sendToDiscord: sendToDiscord.value
     })
   } else {
     const rollResult = SkillCheckService.makeSkillCheck(
       rollParameters.value,
       props.character,
       localTargetNumber.value,
+      { sendToDiscord: sendToDiscord.value }
     )
 
     rollsStore.setRoll(rollResult)
@@ -371,5 +380,21 @@ watch(localSelectedSkillName, () => {
 
 .target-number-section.disabled .target-number-descriptors {
   color: var(--color-gray-dark);
+}
+
+.discord-toggle {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  margin-top: var(--space-sm);
+  font-size: var(--font-size-14);
+  color: var(--color-text-muted);
+  user-select: none;
+}
+
+.discord-toggle input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  margin: 0;
 }
 </style>

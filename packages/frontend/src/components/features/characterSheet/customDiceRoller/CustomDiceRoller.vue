@@ -22,6 +22,11 @@
                     @click="clearAllDice" />
             </div>
         </div>
+
+        <label class="discord-toggle" for="custom-send-to-discord">
+            <input id="custom-send-to-discord" v-model="sendToDiscord" type="checkbox" />
+            <span>Send to Discord</span>
+        </label>
     </div>
 </template>
 
@@ -47,6 +52,7 @@ const ROLL_DELAY_MS = 500
 const diceCounts = ref({})
 const modifier = ref(0)
 const isRolling = ref(false)
+const sendToDiscord = ref(true)
 
 // Initialize dice counts to 0
 DIE_TYPES.forEach(dieType => {
@@ -86,7 +92,8 @@ const handleRoll = async () => {
         const rollResult = CustomRollService.makeCustomRoll(
             dicePool,
             modifier.value,
-            character || { name: 'Unknown Character', artUrls: [''] }
+            character || { name: 'Unknown Character', artUrls: [''] },
+            { sendToDiscord: sendToDiscord.value }
         )
 
         rollsStore.setRoll(rollResult)
@@ -161,5 +168,21 @@ const handleRoll = async () => {
 .action-buttons {
     display: flex;
     gap: var(--space-xs);
+}
+
+.discord-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-xs);
+    font-size: var(--font-size-14);
+    color: var(--color-text-muted);
+    user-select: none;
+}
+
+.discord-toggle input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    margin: 0;
 }
 </style>

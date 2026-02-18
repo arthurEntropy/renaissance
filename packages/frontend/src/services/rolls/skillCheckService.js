@@ -6,7 +6,7 @@ import BaseRollService from './baseRollService.js'
 
 class SkillCheckService extends BaseRollService {
 
-  static makeSkillCheck(skill, character, targetNumber) {
+  static makeSkillCheck(skill, character, targetNumber, options = {}) {
     // Perform the skill check roll (handles auto-fail check internally)
     const { diceResults, total, isAutoFail } = this.performSkillCheckRoll(skill, character)
     
@@ -17,7 +17,13 @@ class SkillCheckService extends BaseRollService {
     const rollResult = this._buildSkillCheckResult(skill, character, targetNumber, diceResults, total, isSuccess)
     
     // Emit event for external integrations (Discord, analytics, etc.)
-    eventBus.emit(ROLL_EVENTS.SKILL_CHECK, { rollResult, character })
+    eventBus.emit(ROLL_EVENTS.SKILL_CHECK, {
+      rollResult,
+      character,
+      integrations: {
+        discord: options.sendToDiscord !== false
+      }
+    })
     
     return rollResult
   }

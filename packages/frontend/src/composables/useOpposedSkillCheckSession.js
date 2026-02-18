@@ -53,6 +53,7 @@ export function useOpposedSkillCheckSession() {
   const currentCharacter = ref(null)
   const currentDiceManager = ref(null)
   const userSkillConfig = ref(null)
+  const sendToDiscord = ref(true)
 
   // Store previous winner for stable display during reroll animations
   const previousWinner = ref(null)
@@ -114,13 +115,14 @@ export function useOpposedSkillCheckSession() {
     }
   })
 
-  function initializeSession(character, skillCheckConfig, _resultIndicatorCallback, _dieRerolledCallback, _rollResultsCallback) {
+  function initializeSession(character, skillCheckConfig, options = {}, _resultIndicatorCallback, _dieRerolledCallback, _rollResultsCallback) {
     // Reset acceptance state for fresh session
     baseSession.resetAcceptanceState()
     
     // Store the character and skill config for use in computed properties
     currentCharacter.value = character
     userSkillConfig.value = skillCheckConfig
+    sendToDiscord.value = options.sendToDiscord !== false
     
     // Setup event listeners - all handled internally now
     const callbacks = {
@@ -300,8 +302,8 @@ export function useOpposedSkillCheckSession() {
   }
   
   // Simplified public API methods
-  function initialize(character, skillCheckConfig) {
-    initializeSession(character, skillCheckConfig)
+  function initialize(character, skillCheckConfig, options = {}) {
+    initializeSession(character, skillCheckConfig, options)
   }
   
   function cleanup() {
@@ -309,8 +311,8 @@ export function useOpposedSkillCheckSession() {
   }
   
   // Alias for backwards compatibility
-  function startSession(character, skillCheckConfig) {
-    initialize(character, skillCheckConfig)
+  function startSession(character, skillCheckConfig, options = {}) {
+    initialize(character, skillCheckConfig, options)
   }
   
   // Generate results when both users accept
@@ -323,7 +325,8 @@ export function useOpposedSkillCheckSession() {
     const result = OpposedSkillCheckService.emitOpposedSkillCheckResult(
       baseSession.rollResults.value.session,
       currentCharacter.value?.id,
-      baseSession.opponent.value?.characterInfo?.id
+      baseSession.opponent.value?.characterInfo?.id,
+      { sendToDiscord: sendToDiscord.value }
     )
     
     // Store result in rollsStore to display in DiceBox
