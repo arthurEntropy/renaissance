@@ -195,6 +195,35 @@ const deleteFile = (name, directory) => {
   }
 }
 
+const deleteFileById = (id, directory) => {
+  try {
+    const files = readdirSync(directory).filter((file) => file.endsWith('.json'))
+    let targetPath = null
+
+    for (const file of files) {
+      const filePath = join(directory, file)
+      try {
+        const data = JSON.parse(readFileSync(filePath, 'utf8'))
+        if (data?.id === id) {
+          targetPath = filePath
+          break
+        }
+      } catch (err) {
+        console.warn(`Could not parse file ${file}:`, err.message)
+      }
+    }
+
+    if (!targetPath) {
+      throw new Error(`No file found with id ${id}`)
+    }
+
+    unlinkSync(targetPath)
+  } catch (error) {
+    console.error(`Error deleting file by id: ${error.message}`)
+    throw new Error(`Error deleting file by id: ${error.message}`)
+  }
+}
+
 export {
   sanitizeFilename,
   getDirectory,
@@ -202,4 +231,5 @@ export {
   getAllDataByDirectory,
   saveFile,
   deleteFile,
+  deleteFileById,
 }

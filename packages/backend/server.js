@@ -9,6 +9,10 @@ import {
   updateEntity,
   deleteEntity,
 } from './controllers/entityController.js'
+import {
+  scanCleanup,
+  deleteCleanupItems,
+} from './controllers/adminCleanupController.js'
 import { sendDiscordMessage } from './controllers/discordController.js'
 import { setupEngagementHandlers, setupOpposedSkillCheckHandlers } from './controllers/sessionController.js'
 import { getEntityNames } from './utils/fileService.js'
@@ -76,6 +80,10 @@ app.put('/users/profile', requireAuth, updateCurrentUserProfile)
 app.get('/users/admin/all', requireAuth, requireAdmin, getAllUsers)
 app.put('/users/admin/:userId', requireAuth, requireAdmin, updateUser)
 app.delete('/users/admin/:userId', requireAuth, requireAdmin, deleteUser)
+
+// Admin cleanup routes
+app.get('/admin/cleanup/scan', verifyToken, requireAuth, requireAdmin, scanCleanup)
+app.post('/admin/cleanup/delete', verifyToken, requireAuth, requireAdmin, deleteCleanupItems)
 
 // Dynamically retrieve entity names from the "data" directory
 const entities = getEntityNames()

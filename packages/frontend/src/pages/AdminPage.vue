@@ -4,6 +4,8 @@
 
         <UserManager />
 
+        <AdminCleanupPanel />
+
         <AdminListManager title="Background Images" item-name="Background" :store="backgroundImagesStore"
             :default-item="{ imageUrl: '', index: 0 }">
             <template #fields="{ item, update }">
@@ -66,6 +68,7 @@
 
 <script setup>
 import AdminListManager from '@/components/features/admin/AdminListManager.vue'
+import AdminCleanupPanel from '@/components/features/admin/AdminCleanupPanel.vue'
 import UserManager from '@/components/features/admin/UserManager.vue'
 import UserSettings from '@/components/features/admin/UserSettings.vue'
 import { useBackgroundImagesStore } from '@/stores/backgroundImagesStore'
