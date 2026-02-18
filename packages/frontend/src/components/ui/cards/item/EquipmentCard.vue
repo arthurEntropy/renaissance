@@ -2,7 +2,8 @@
   <base-card v-bind="$attrs" :item="equipment"
     :metaInfo="equipment.weight ? `${equipment.weight} ${equipment.weight === 1 ? 'lb' : 'lbs'}` : ''"
     :collapsed="collapsed" :editable="editable" :duplicatable="duplicatable" :collapsible="collapsible"
-    :itemType="ItemType.EQUIPMENT" @edit="$emit('edit', equipment)" @duplicate="handleDuplicate">
+    :itemType="ItemType.EQUIPMENT" @edit="$emit('edit', equipment)" @duplicate="handleDuplicate"
+    @roll-link="$emit('roll-link', $event)">
 
     <!-- Description with categories, properties, dice, and successes -->
     <template #before-description>
@@ -42,12 +43,18 @@
         <div class="dice-divider"></div>
 
         <!-- Damage dice -->
-        <div class="dice-group">
+        <div class="dice-group" :class="{ 'dice-group--clickable': enableDamageRoll }">
           <span class="dice-label text-stroke">Damage</span>
           <div class="dice-icons">
-            <span v-for="die in equipment.damageDice" :key="'damage-' + die" class="dice-icon text-stroke">
-              <i :class="getDiceFontMaxClass(die)"></i>
-            </span>
+            <template v-for="(die, index) in equipment.damageDice" :key="`damage-${index}-${die}`">
+              <button v-if="enableDamageRoll" type="button" class="damage-roll-button dice-icon text-stroke"
+                title="Roll damage" @click.stop="handleDamageRoll">
+                <i :class="getDiceFontMaxClass(die)"></i>
+              </button>
+              <span v-else class="dice-icon text-stroke">
+                <i :class="getDiceFontMaxClass(die)"></i>
+              </span>
+            </template>
           </div>
         </div>
       </div>
@@ -162,9 +169,13 @@ const props = defineProps({
     type: Boolean,
     default: false
   },
+  enableDamageRoll: {
+    type: Boolean,
+    default: false
+  }
 })
 
-const emit = defineEmits(['edit', 'duplicate', 'update', 'height-changed', 'update:showImprovements', 'update:showSuccesses'])
+const emit = defineEmits(['edit', 'duplicate', 'update', 'height-changed', 'update:showImprovements', 'update:showSuccesses', 'roll-damage', 'roll-link'])
 
 // Stores
 const equipmentStore = useEquipmentStore()
@@ -300,6 +311,14 @@ const toggleSuccesses = () => {
   emit('update:showSuccesses', !props.showSuccesses)
 }
 
+const handleDamageRoll = () => {
+  if (!props.enableDamageRoll || !Array.isArray(props.equipment?.damageDice) || props.equipment.damageDice.length === 0) {
+    return
+  }
+
+  emit('roll-damage', props.equipment)
+}
+
 const handleImprovementToggle = (improvementId) => {
   if (!props.character) return
 
@@ -407,6 +426,20 @@ onMounted(async () => {
 
 .dice-icon {
   font-size: var(--font-size-48);
+}
+
+.damage-roll-button {
+  background: none;
+  border: none;
+  padding-top: 4px;
+  color: inherit;
+  cursor: pointer;
+  transition: color var(--transition-fast);
+}
+
+.dice-group--clickable:hover .damage-roll-button,
+.dice-group--clickable:hover .damage-roll-button i {
+  color: var(--color-primary);
 }
 
 /* Engagement Successes */

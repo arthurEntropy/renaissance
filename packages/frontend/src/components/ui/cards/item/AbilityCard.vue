@@ -1,7 +1,7 @@
 <template>
   <base-card :item="ability" :metaInfo="traitOrMp" :collapsed="collapsed" :editable="editable"
     @edit="$emit('edit', ability)" :collapsible="collapsible" @update:collapsed="$emit('update:collapsed', $event)"
-    :itemType="ItemType.ABILITY">
+    @roll-link="$emit('roll-link', $event)" :itemType="ItemType.ABILITY">
 
     <!-- XP badge positioned relative to main description when character owns any improvements OR when improvements are expanded -->
     <template #description-badge>
@@ -20,7 +20,7 @@
     <template #mechanics>
       <ImprovementsSection :item="ability" :item-type="'abilities'" :character="character"
         :show-improvement-toggle="showImprovementToggle" :show-improvements="showImprovements"
-        @toggle-improvement="handleImprovementToggle" />
+        @toggle-improvement="handleImprovementToggle" @roll-link="$emit('roll-link', $event)" />
     </template>
 
     <!-- Action buttons -->
@@ -112,7 +112,7 @@ const props = defineProps({
   },
 })
 
-const emit = defineEmits(['edit', 'update', 'sendToChat', 'update:collapsed', 'update:showImprovements', 'update:showSuccesses', 'height-changed'])
+const emit = defineEmits(['edit', 'update', 'sendToChat', 'update:collapsed', 'update:showImprovements', 'update:showSuccesses', 'height-changed', 'roll-link'])
 
 // Item improvements composable
 const { toggleImprovement, getCharacterImprovements } = useItemImprovements('abilities')

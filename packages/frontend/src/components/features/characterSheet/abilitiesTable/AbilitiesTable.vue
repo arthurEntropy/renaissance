@@ -38,7 +38,8 @@
             :show-xp-badge="true" :show-add-to-character="false" :show-action-buttons="true"
             :character="selectedCharacter" :show-improvement-toggle="true" :show-improvements="item.showImprovements"
             @update="handleCharacterUpdate" @update:showImprovements="updateAbilityShowImprovements(item, $event)"
-            :show-successes="item.showSuccesses" @update:showSuccesses="updateAbilityShowSuccesses(item, $event)" />
+            :show-successes="item.showSuccesses" @update:showSuccesses="updateAbilityShowSuccesses(item, $event)"
+            @roll-link="handleRollLink" />
           <span v-else class="missing-item">Unknown ability</span>
         </template>
       </GroupedMasonryGrid>
@@ -50,8 +51,8 @@
             :collapsible="false" :show-xp-badge="true" :show-add-to-character="false" :show-action-buttons="true"
             :character="selectedCharacter" :show-improvement-toggle="true" :show-improvements="ability.showImprovements"
             @update="handleCharacterUpdate" @update:showImprovements="updateAbilityShowImprovements(ability, $event)"
-            :show-successes="ability.showSuccesses"
-            @update:showSuccesses="updateAbilityShowSuccesses(ability, $event)" />
+            :show-successes="ability.showSuccesses" @update:showSuccesses="updateAbilityShowSuccesses(ability, $event)"
+            @roll-link="handleRollLink" />
           <span v-else class="missing-item">Unknown ability</span>
         </div>
       </MasonryGrid>
@@ -62,6 +63,10 @@
       :search-query="abilitySearchQuery" search-placeholder="Search abilities..." no-items-message="No abilities found"
       :get-source-name="sourcesStore.getSourceName" @close="toggleAbilitySelector" @select="selectAbility"
       @search="abilitySearchQuery = $event" />
+
+    <!-- Skill Check Modal -->
+    <SkillCheckModal v-if="showSkillCheckModal" :selected-skill-name="rollLinkSkill" :character="selectedCharacter"
+      :default-roll-type="rollLinkRollType" @close="showSkillCheckModal = false" />
 
   </CharacterSheetSection>
 </template>
@@ -77,6 +82,7 @@ import MPDisplay from './MPDisplay.vue'
 import GroupedMasonryGrid from '@/components/ui/layouts/GroupedMasonryGrid.vue'
 import MasonryGrid from '@/components/ui/layouts/MasonryGrid.vue'
 import SortingDropdown from '@/components/ui/dropdowns/SortingDropdown.vue'
+import SkillCheckModal from '@/components/features/characterSheet/modals/SkillCheckModal.vue'
 import CharacterService from '@/services/entities/characterService'
 import { useItemSelector } from '@/composables/useItemSelector'
 import { useItemGrouping } from '@/composables/useItemGrouping'
@@ -85,6 +91,10 @@ import { ABILITY_SORT_OPTIONS } from '@/constants/sortOptions'
 import { useCharactersStore } from '@/stores/charactersStore'
 import { useAbilitiesStore } from '@/stores/abilitiesStore'
 import { useSourcesStore } from '@/stores/sourcesStore'
+import { useRollsStore } from '@/stores/rollsStore'
+import DamageRollService from '@/services/rolls/damageRollService'
+import CustomRollService from '@/services/rolls/customRollService'
+import { RollTypes } from '@/constants/rollTypes'
 
 const props = defineProps({
   canEdit: {
@@ -99,6 +109,13 @@ const abilitiesStore = useAbilitiesStore()
 const allAbilities = computed(() => abilitiesStore.abilities || [])
 
 const masonryGridRef = ref(null)
+
+const rollsStore = useRollsStore()
+
+// Roll link modal refs
+const showSkillCheckModal = ref(false)
+const rollLinkSkill = ref(null)
+const rollLinkRollType = ref(null)
 
 const sortOptions = ABILITY_SORT_OPTIONS
 
@@ -211,6 +228,84 @@ const updateAbilityShowSuccesses = (ability, showSuccesses) => {
 const handleCharacterUpdate = (updatedCharacter) => {
   if (updatedCharacter && selectedCharacter.value) {
     Object.assign(selectedCharacter.value, updatedCharacter)
+  }
+}
+
+const handleRollLink = (rollData) => {
+  if (!selectedCharacter.value) return
+
+  if (rollData.type === 'skill-check' || rollData.type === 'opposed-skill-check') {
+    rollLinkSkill.value = rollData.skill
+    rollLinkRollType.value = rollData.type === 'opposed-skill-check'
+      ? RollTypes.OPPOSED_SKILL_CHECK
+      : RollTypes.SKILL_CHECK
+    showSkillCheckModal.value = true
+  } else if (rollData.type === 'damage-roll') {
+    // Transform dice format from [{count, sides}] to [{dieSides}...]
+    const dicePool = []
+    rollData.dice.forEach(die => {
+      for (let i = 0; i < die.count; i++) {
+        dicePool.push({ dieSides: die.sides })
+      }
+    })
+
+    // Calculate modifier value
+    let modifierValue = 0
+    let modifierLabel = 'Modifier'
+
+    if (rollData.modifier) {
+      if (rollData.modifier.type === 'stat') {
+        const statName = rollData.modifier.value.toLowerCase()
+        modifierValue = selectedCharacter.value[statName] || 0
+        modifierLabel = rollData.modifier.value
+      } else if (rollData.modifier.type === 'number') {
+        modifierValue = rollData.modifier.value
+      }
+    }
+
+    const rollResult = DamageRollService.makeDamageRoll(
+      dicePool,
+      modifierValue,
+      selectedCharacter.value,
+      {
+        sourceName: 'Description',
+        modifierLabel,
+        footer: modifierValue !== 0 ? `${modifierValue >= 0 ? '+' : ''}${modifierLabel}` : undefined
+      }
+    )
+    if (rollResult) {
+      rollsStore.setRoll(rollResult)
+    }
+  } else if (rollData.type === 'custom-roll') {
+    // Transform dice format from [{count, sides}] to [{dieSides}...]
+    const dicePool = []
+    rollData.dice.forEach(die => {
+      for (let i = 0; i < die.count; i++) {
+        dicePool.push({ dieSides: die.sides })
+      }
+    })
+
+    // Calculate modifier value
+    let modifierValue = 0
+
+    if (rollData.modifier) {
+      if (rollData.modifier.type === 'stat') {
+        const statName = rollData.modifier.value.toLowerCase()
+        modifierValue = selectedCharacter.value[statName] || 0
+      } else if (rollData.modifier.type === 'number') {
+        modifierValue = rollData.modifier.value
+      }
+    }
+
+    const rollResult = CustomRollService.makeCustomRoll(
+      dicePool,
+      modifierValue,
+      selectedCharacter.value,
+      { label: rollData.linkText }
+    )
+    if (rollResult) {
+      rollsStore.setRoll(rollResult)
+    }
   }
 }
 

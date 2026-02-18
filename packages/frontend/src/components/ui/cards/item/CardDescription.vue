@@ -1,6 +1,6 @@
 <template>
     <div v-if="content || $slots.successes || $slots['before-description'] || $slots['after-description']"
-        class="card-description" :class="additionalClasses">
+        class="card-description" :class="additionalClasses" @click="handleDescriptionClick">
         <!-- Content to display before the description -->
         <slot name="before-description"></slot>
 
@@ -18,13 +18,35 @@
 <script setup>
 import { computed } from 'vue'
 import { sanitizeHtml } from '@/utils/sanitizeHtml'
+import { autoLinkifyRolls } from '@/utils/autoLinkifyRolls'
 
 const props = defineProps({
     content: { type: String, required: true },
     additionalClasses: { type: [String, Array, Object], default: '' }
 })
 
-const safeContent = computed(() => sanitizeHtml(props.content))
+const emit = defineEmits(['roll-link'])
+
+const safeContent = computed(() => {
+    const sanitized = sanitizeHtml(props.content)
+    return autoLinkifyRolls(sanitized)
+})
+
+function handleDescriptionClick(event) {
+    const target = event.target
+
+    // Check if click was on a roll link
+    if (target.tagName === 'A' && target.classList.contains('roll-link')) {
+        event.preventDefault()
+
+        try {
+            const rollData = JSON.parse(target.dataset.rollAction)
+            emit('roll-link', rollData)
+        } catch (err) {
+            console.error('Failed to parse roll action data:', err)
+        }
+    }
+}
 </script>
 
 <style scoped>
@@ -112,5 +134,16 @@ const safeContent = computed(() => sanitizeHtml(props.content))
 .card-description :deep(ul li p) {
     margin: 0;
     padding: 0;
+}
+
+/* Auto-linkified roll links */
+.card-description :deep(.roll-link) {
+    color: var(--color-primary);
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.card-description :deep(.roll-link:hover) {
+    color: var(--color-accent-gold);
 }
 </style>

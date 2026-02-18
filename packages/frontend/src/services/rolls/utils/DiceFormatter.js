@@ -63,6 +63,7 @@ class DiceFormatter {
         return this.sortForSkillCheck(diceResults)
       case RollTypes.ENGAGEMENT:
         return this.sortForEngagement(diceResults)
+      case RollTypes.DAMAGE:
       case RollTypes.CUSTOM_ROLL:
       default:
         // No sorting needed - preserve original pool order

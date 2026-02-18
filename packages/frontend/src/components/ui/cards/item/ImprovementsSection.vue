@@ -6,7 +6,7 @@
                 <div v-for="(impr) in ownedImprovements" :key="impr.id" class="improvement-desc-block">
                     <div class="improvement-title improvement-owned">{{ impr.name }}</div>
                     <CardDescription v-if="impr.description" :content="impr.description"
-                        additional-classes="improvement">
+                        additional-classes="improvement" @roll-link="emit('roll-link', $event)">
                         <template #badge>
                             <BadgeDisplay v-if="impr.xp" type="xp" :value="impr.xp" :is-owned="true"
                                 :isInteractive="isInteractive" :improvement-id="impr.id" :asImprovementBadge="true"
@@ -25,7 +25,7 @@
                         impr.name }}
                     </div>
                     <CardDescription v-if="impr.description" :content="impr.description"
-                        :additional-classes="unownedDescriptionClasses">
+                        :additional-classes="unownedDescriptionClasses" @roll-link="emit('roll-link', $event)">
                         <template #badge>
                             <BadgeDisplay v-if="impr.xp" type="xp" :value="impr.xp" :isInteractive="isInteractive"
                                 :is-owned="isImprovementOwned(impr.id)" :improvement-id="impr.id"
@@ -70,7 +70,7 @@ const props = defineProps({
     }
 })
 
-const emit = defineEmits(['toggle-improvement'])
+const emit = defineEmits(['toggle-improvement', 'roll-link'])
 
 // Use improvements composable
 const { hasImprovement } = useItemImprovements(props.itemType)

@@ -81,6 +81,7 @@ const eventBus = new EventBus()
 export const ROLL_EVENTS = {
   SKILL_CHECK: 'roll:skill-check',
   CUSTOM_ROLL: 'roll:custom',
+  DAMAGE_ROLL: 'roll:damage',
   ENGAGEMENT: 'roll:engagement',
   OPPOSED_SKILL_CHECK: 'roll:opposed-skill-check',
   INITIATIVE_ROLL: 'roll:initiative',

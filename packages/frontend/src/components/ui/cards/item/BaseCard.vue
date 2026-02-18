@@ -49,7 +49,7 @@
 
           <!-- Main description -->
           <CardDescription v-if="item.description || $slots['before-description'] || $slots['after-description']"
-            :content="item.description">
+            :content="item.description" @roll-link="emit('roll-link', $event)">
             <template #before-description>
               <slot name="before-description"></slot>
             </template>
@@ -112,7 +112,7 @@ const props = defineProps({
   itemType: { type: String, default: ItemType.ABILITY },
 })
 
-const emit = defineEmits(['edit', 'duplicate', 'delete', 'update', 'send-to-chat', 'height-changed', 'update:collapsed'])
+const emit = defineEmits(['edit', 'duplicate', 'delete', 'update', 'send-to-chat', 'height-changed', 'update:collapsed', 'roll-link'])
 
 // Source management
 const sourcesStore = useSourcesStore()

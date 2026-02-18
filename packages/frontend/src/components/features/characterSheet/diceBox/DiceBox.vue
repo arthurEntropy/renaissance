@@ -20,14 +20,15 @@
     <div v-show="!customDiceRollerOpen && latestRoll" class="roll-content view-container">
       <template v-if="latestRoll">
         <RollTitle :rollData="latestRoll" :isEngagement="isEngagement" :isOpposedSkillCheck="isOpposedSkillCheck"
-          :isCustomRoll="isCustomRoll" :isInitiative="isInitiative" :isInjury="isInjury" />
+          :isCustomRoll="isCustomRoll" :isDamage="isDamage" :isInitiative="isInitiative" :isInjury="isInjury" />
 
         <DiceDisplay ref="diceDisplayRef" :key="latestRoll?.timestamp" :rollData="latestRoll"
           :isEngagement="isEngagement" :canReroll="true" :isOpponent="false" :containerWidth="CONTAINER_WIDTH"
           @reroll-all-dice="rollsStore.reroll" />
 
         <RollOutcome :rollData="latestRoll" :isEngagement="isEngagement" :isOpposedSkillCheck="isOpposedSkillCheck"
-          :isCustomRoll="isCustomRoll" :isInitiative="isInitiative" :isInjury="isInjury" :isRolling="isRolling" />
+          :isCustomRoll="isCustomRoll" :isDamage="isDamage" :isInitiative="isInitiative" :isInjury="isInjury"
+          :isRolling="isRolling" />
       </template>
     </div>
 
@@ -100,6 +101,10 @@ const isOpposedSkillCheck = computed(() => {
 
 const isCustomRoll = computed(() => {
   return latestRoll.value && latestRoll.value.type === RollTypes.CUSTOM_ROLL
+})
+
+const isDamage = computed(() => {
+  return latestRoll.value && latestRoll.value.type === RollTypes.DAMAGE
 })
 
 const isInitiative = computed(() => {

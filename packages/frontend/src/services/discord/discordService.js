@@ -7,6 +7,7 @@ class DiscordService {
     this.enabled = true
     this.handleSkillCheck = this.sendSkillCheck.bind(this)
     this.handleCustomRoll = this.sendCustomRoll.bind(this)
+    this.handleDamageRoll = this.sendDamageRoll.bind(this)
     this.handleEngagement = this.sendEngagement.bind(this)
     this.handleOpposedSkillCheck = this.sendOpposedSkillCheck.bind(this)
     this.handleInitiativeRoll = this.sendInitiativeRoll.bind(this)
@@ -17,6 +18,7 @@ class DiscordService {
   init() {
     eventBus.on(ROLL_EVENTS.SKILL_CHECK, this.handleSkillCheck)
     eventBus.on(ROLL_EVENTS.CUSTOM_ROLL, this.handleCustomRoll)
+    eventBus.on(ROLL_EVENTS.DAMAGE_ROLL, this.handleDamageRoll)
     eventBus.on(ROLL_EVENTS.ENGAGEMENT, this.handleEngagement)
     eventBus.on(ROLL_EVENTS.OPPOSED_SKILL_CHECK, this.handleOpposedSkillCheck)
     eventBus.on(ROLL_EVENTS.INITIATIVE_ROLL, this.handleInitiativeRoll)
@@ -26,6 +28,7 @@ class DiscordService {
   destroy() {
     eventBus.off(ROLL_EVENTS.SKILL_CHECK, this.handleSkillCheck)
     eventBus.off(ROLL_EVENTS.CUSTOM_ROLL, this.handleCustomRoll)
+    eventBus.off(ROLL_EVENTS.DAMAGE_ROLL, this.handleDamageRoll)
     eventBus.off(ROLL_EVENTS.ENGAGEMENT, this.handleEngagement)
     eventBus.off(ROLL_EVENTS.OPPOSED_SKILL_CHECK, this.handleOpposedSkillCheck)
     eventBus.off(ROLL_EVENTS.INITIATIVE_ROLL, this.handleInitiativeRoll)
@@ -83,6 +86,27 @@ class DiscordService {
       await apiClient.post('/send-discord-message', payload)
     } catch (error) {
       console.warn('Discord notification failed for custom roll:', error)
+    }
+  }
+
+  async sendDamageRoll({ rollResult, character, integrations }) {
+    if (!this.enabled) return
+    if (integrations?.discord === false) return
+
+    try {
+      const payload = {
+        type: RollTypes.DAMAGE,
+        name: character.name || 'Unnamed Character',
+        skill: rollResult.skillName || 'Damage Roll',
+        total: rollResult.total,
+        rollResults: rollResult.diceResults,
+        footer: rollResult.footer || '',
+        image: character.artUrls?.[0] || ''
+      }
+
+      await apiClient.post('/send-discord-message', payload)
+    } catch (error) {
+      console.warn('Discord notification failed for damage roll:', error)
     }
   }
 
