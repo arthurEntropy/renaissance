@@ -16,8 +16,10 @@
 </template>
 
 <script setup>
-import { ref, watch, nextTick } from 'vue'
+import { ref, watch, nextTick, onBeforeUnmount } from 'vue'
 import GroupSection from '@/components/ui/groups/GroupSection.vue'
+
+const LAYOUT_UPDATE_DEBOUNCE_MS = 100
 
 const props = defineProps({
     groupedItems: {
@@ -39,6 +41,7 @@ const props = defineProps({
 })
 
 const groupSectionRefs = ref([])
+let layoutUpdateTimeout = null
 
 // Track collapsed state for all groups
 const groupCollapsedState = ref(new Map())
@@ -54,11 +57,11 @@ const toggleGroupCollapse = (index) => {
     groupCollapsedState.value.set(groupKey, newCollapsed)
 
     nextTick(() => {
-        updateLayout()
+        updateLayoutImmediate()
     })
 }
 
-const updateLayout = () => {
+const updateLayoutImmediate = () => {
     groupSectionRefs.value.forEach(groupSection => {
         if (groupSection?.updateLayout) {
             groupSection.updateLayout()
@@ -66,11 +69,27 @@ const updateLayout = () => {
     })
 }
 
+const updateLayout = () => {
+    // Debounced layout update to prevent flickering
+    if (layoutUpdateTimeout) {
+        clearTimeout(layoutUpdateTimeout)
+    }
+    layoutUpdateTimeout = setTimeout(() => {
+        updateLayoutImmediate()
+        layoutUpdateTimeout = null
+    }, LAYOUT_UPDATE_DEBOUNCE_MS)
+}
+
 watch(() => props.groupedItems, () => {
-    nextTick(() => {
-        updateLayout()
-    })
-}, { deep: true })
+    updateLayout()
+}, { deep: true, flush: 'post' })
+
+onBeforeUnmount(() => {
+    if (layoutUpdateTimeout) {
+        clearTimeout(layoutUpdateTimeout)
+        layoutUpdateTimeout = null
+    }
+})
 
 defineExpose({ updateLayout })
 </script>
