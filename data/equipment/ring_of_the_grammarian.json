@@ -1,0 +1,17 @@
+{
+  "id": "b2235478-d2a6-4ccd-8cde-bd7efc35fd59",
+  "createdAt": "2026-02-18T13:58:03.946Z",
+  "lastModified": "2026-02-18T13:59:27.238Z",
+  "name": "Ring of the Grammarian",
+  "artUrl": "https://cdn.midjourney.com/ba258b2a-6926-4ffe-ba17-e63aeb29a0a6/0_0.png",
+  "description": "<p>Once per rest, you may replace one letter of a spell's name with one other letter. The GM then interprets the new spell name, defining an effect of similar potency.</p>",
+  "type": "07e3c504-605e-495e-96d3-6b4177516821",
+  "subtype": "179c7626-c5b3-4b49-85fe-241258743ff7",
+  "grade": "",
+  "keeping": "5e6f7a8b-9c0d-4e1f-2a3b-4c5d6e7f8a9b",
+  "engagementDice": [],
+  "damageDice": [],
+  "weight": 0,
+  "length": 0,
+  "reach": 0
+}

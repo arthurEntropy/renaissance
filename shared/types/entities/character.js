@@ -42,7 +42,7 @@ import { createBaseEntity } from './gameEntity.js'
  * @property {string} id - Equipment ID reference
  * @property {number} quantity - Number of items
  * @property {boolean} isCarried - Whether item is currently carried
- * @property {boolean} [isWielding] - Whether weapon is currently wielded
+ * @property {boolean} [isWielding] - Whether item is currently wielded
  * @property {number} index - Display order index
  * @property {boolean} collapsed - Whether item display is collapsed in UI
  * @property {boolean} artExpanded - Whether art view is expanded in UI

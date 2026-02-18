@@ -301,15 +301,7 @@ const handleWieldingChange = (itemId, isWielding) => {
   if (index === -1) return
 
   const currentItem = selectedCharacter.value.equipment[index]
-  const equipmentItem = characterEquipment.value.find(e => e.id === itemId)
-
-  let canWield = false
-  if (currentItem.isCarried && equipmentItem?.equipment) {
-    const equipmentType = equipmentTypesStore.getById(equipmentItem.equipment.type)
-    canWield = equipmentType?.name === 'Weapon'
-  }
-
-  selectedCharacter.value.equipment[index].isWielding = isWielding && canWield
+  selectedCharacter.value.equipment[index].isWielding = isWielding && currentItem.isCarried
 }
 
 const handleQuantityChange = (itemId, quantity) => {
