@@ -11,8 +11,9 @@
       @update="updateVirtue" @reset="resetVirtue" />
 
     <StatRow :type="STAT_ROW_TYPES.SINGLE" :label="weaknessLabel" :value="weaknessValue" :can-edit="canEdit"
-      :show-auto-calc-button="showLoadAutoCalcButton" :is-auto-calc="isLoadAuto" @update="updateWeakness"
-      @calculate="handleCalculateLoad" @toggle-auto-calc="handleToggleLoadAutoCalc" />
+      :show-auto-calc-button="showLoadAutoCalcButton" :show-injury-roll-button="showInjuryRollButton"
+      :is-auto-calc="isLoadAuto" @update="updateWeakness" @calculate="handleCalculateLoad"
+      @toggle-auto-calc="handleToggleLoadAutoCalc" @roll-injury="handleInjuryRoll" />
 
     <StatRow :type="STAT_ROW_TYPES.STATE" :label="firstStateLabel" :first-state="firstStateValue"
       :second-state="secondStateValue" :can-edit="canEdit" :show-auto-calc-button="showStatesAutoCalcButton"
@@ -20,8 +21,8 @@
       @toggle-auto-calc="handleToggleStatesAutoCalc" />
 
     <SkillCheckModal v-if="skillCheckModal.isOpen.value && character" :character="character"
-      :selectedSkillName="selectedSkillName" :defaultTargetNumber="rollsStore.lastTargetNumber"
-      @close="skillCheckModal.closeModal" @update-target-number="rollsStore.setLastTargetNumber"
+      :selectedSkillName="selectedSkillName" :defaultDifficulty="rollsStore.lastDifficulty"
+      @close="skillCheckModal.closeModal" @update-difficulty="rollsStore.setLastDifficulty"
       @start-opposed-skill-check="handleStartOpposedSkillCheck" />
 
     <OpposedSkillCheckModal v-if="opposedSkillCheckModal.isOpen.value && character" :character="character"
@@ -38,6 +39,7 @@ import { useCharactersStore } from '@/stores/charactersStore'
 import { useEquipmentStore } from '@/stores/equipmentStore'
 import { STAT_ROW_TYPES } from '@shared/constants/characterConstants'
 import * as CharacterUtils from '@shared/types/entities/characterUtils'
+import InjuryRollService from '@/services/rolls/injuryRollService'
 import CharacterSheetSection from '@/components/ui/containers/CharacterSheetSection.vue'
 import CoreAbilityHeader from './CoreAbilityHeader.vue'
 import SkillRow from './SkillRow.vue'
@@ -94,10 +96,17 @@ const updateWeakness = (value) => {
   character.value[weaknessKey.value] = value
 }
 
+const handleInjuryRoll = () => {
+  if (!character.value) return
+  const rollResult = InjuryRollService.makeInjuryRoll(character.value)
+  rollsStore.setRoll(rollResult)
+}
+
 // Auto-calculation computed properties
 const isLoadAuto = computed(() => character.value?.autoCalculations?.load ?? true)
 const isStatesAuto = computed(() => character.value?.autoCalculations?.statesAndEffects ?? true)
 const showLoadAutoCalcButton = computed(() => weaknessKey.value === 'load')
+const showInjuryRollButton = computed(() => weaknessKey.value === 'injury')
 const showStatesAutoCalcButton = computed(() => true) // Always show for states
 
 // Auto-calculation handlers

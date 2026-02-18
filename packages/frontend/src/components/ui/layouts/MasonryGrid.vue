@@ -7,6 +7,8 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount, nextTick } from 'vue'
 
+const LAYOUT_UPDATE_DEBOUNCE_MS = 100
+
 const props = defineProps({
   columnWidth: { type: Number, default: 300 },
   gap: { type: Number, default: 10 },
@@ -16,6 +18,7 @@ const props = defineProps({
 const masonryContainer = ref(null)
 let resizeObserver = null
 let mutationObserver = null
+let layoutUpdateTimeout = null
 
 function calculateColumnCount() {
   const containerWidth = masonryContainer.value?.clientWidth || 0
@@ -30,7 +33,7 @@ function setSpanForElement(element) {
   element.style.gridRowEnd = `span ${rowSpan}`
 }
 
-function updateLayout() {
+function updateLayoutImmediate() {
   const container = masonryContainer.value
   if (!container) return
 
@@ -39,6 +42,17 @@ function updateLayout() {
 
   // Update row spans for all children
   Array.from(container.children).forEach((child) => setSpanForElement(child))
+}
+
+function updateLayout() {
+  // Debounced layout update to prevent flickering
+  if (layoutUpdateTimeout) {
+    clearTimeout(layoutUpdateTimeout)
+  }
+  layoutUpdateTimeout = setTimeout(() => {
+    updateLayoutImmediate()
+    layoutUpdateTimeout = null
+  }, LAYOUT_UPDATE_DEBOUNCE_MS)
 }
 
 function initMasonry() {
@@ -51,7 +65,7 @@ function initMasonry() {
   container.style.justifyContent = 'center'
 
   nextTick(() => {
-    updateLayout()
+    updateLayoutImmediate()
   })
 }
 
@@ -60,7 +74,7 @@ onMounted(() => {
 
   // Watch for container width changes (window resize, sidebar toggle, etc.)
   resizeObserver = new ResizeObserver(() => {
-    updateLayout()
+    updateLayoutImmediate()
   })
 
   if (masonryContainer.value) {
@@ -107,6 +121,10 @@ onMounted(() => {
 })
 
 onBeforeUnmount(() => {
+  if (layoutUpdateTimeout) {
+    clearTimeout(layoutUpdateTimeout)
+    layoutUpdateTimeout = null
+  }
   if (resizeObserver) {
     resizeObserver.disconnect()
   }

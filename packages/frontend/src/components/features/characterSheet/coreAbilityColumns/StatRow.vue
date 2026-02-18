@@ -15,6 +15,8 @@
 
         <!-- Single value type (weakness) -->
         <template v-else-if="type === STAT_ROW_TYPES.SINGLE">
+            <FloatingActionButton v-if="canEdit && showInjuryRollButton" class="injury-roll-button" type="injury"
+                size="small" visibility="on-hover" @click="emit('roll-injury')" />
             <FloatingActionButton v-if="canEdit && showAutoCalcButton" class="auto-calc-button" type="auto-calc"
                 size="small" visibility="on-hover" :is-active="isAutoCalc" :disabled="!canEdit"
                 @click="handleAutoCalcClick" @long-press="emit('toggle-auto-calc')" />
@@ -74,15 +76,19 @@ const props = defineProps({
         type: Boolean,
         default: false
     },
+    showInjuryRollButton: {
+        type: Boolean,
+        default: false
+    },
     isAutoCalc: {
         type: Boolean,
         default: true
     }
 })
 
-const { type, label, canEdit, value, firstState, secondState, showAutoCalcButton, isAutoCalc } = toRefs(props)
+const { type, label, canEdit, value, firstState, secondState, showAutoCalcButton, showInjuryRollButton, isAutoCalc } = toRefs(props)
 
-const emit = defineEmits(['update', 'reset', 'calculate', 'toggle-auto-calc'])
+const emit = defineEmits(['update', 'reset', 'calculate', 'toggle-auto-calc', 'roll-injury'])
 
 const handleAutoCalcClick = () => {
     // Only emit calculate if in manual mode
@@ -95,7 +101,7 @@ const rowClass = computed(() => {
     return {
         'virtue-row': type.value === STAT_ROW_TYPES.RANGE,
         'weakness-row': type.value === STAT_ROW_TYPES.SINGLE,
-        'weakness-row--with-button': type.value === STAT_ROW_TYPES.SINGLE && showAutoCalcButton.value,
+        'weakness-row--with-button': type.value === STAT_ROW_TYPES.SINGLE && (showAutoCalcButton.value || showInjuryRollButton.value),
         'state-row': type.value === STAT_ROW_TYPES.STATE,
         'state-row--with-button': type.value === STAT_ROW_TYPES.STATE && showAutoCalcButton.value
     }
@@ -147,7 +153,17 @@ const stateClasses = computed(() => {
     margin-right: 4px;
 }
 
+.weakness-row--with-button .injury-roll-button {
+    justify-self: end;
+    margin-right: 4px;
+}
+
 .weakness-row--with-button:hover .auto-calc-button {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.weakness-row--with-button:hover .injury-roll-button {
     opacity: 1;
     pointer-events: auto;
 }

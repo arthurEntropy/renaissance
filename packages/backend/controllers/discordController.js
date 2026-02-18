@@ -4,7 +4,8 @@ import {
   createEngagementEmbed,
   createSkillCheckEmbed,
   createOpposedSkillCheckEmbed,
-  createCustomRollEmbed
+  createCustomRollEmbed,
+  createSimpleRollEmbed
 } from '../services/discordEmbedService.js'
 
 let discordConfig = null
@@ -41,6 +42,8 @@ const sendDiscordMessage = async (req, res) => {
 
     if (type === 'opposed_skill_check') {
       embed = createOpposedSkillCheckEmbed(req.body)
+    } else if (type === 'injury' || type === 'initiative') {
+      embed = createSimpleRollEmbed(req.body)
     } else if (characterName && opponentName) {
       embed = createEngagementEmbed(req.body)
     } else if (skill === 'Custom Roll') {

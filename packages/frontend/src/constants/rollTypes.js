@@ -4,4 +4,5 @@ export const RollTypes = {
   OPPOSED_SKILL_CHECK: 'opposed_skill_check',
   CUSTOM_ROLL: 'custom_roll',
   INITIATIVE: 'initiative',
+  INJURY: 'injury',
 }

@@ -1,18 +1,46 @@
-import { watch } from 'vue'
+import { watch, onUnmounted } from 'vue'
 import * as CharacterUtils from '@shared/types/entities/characterUtils'
 import { useCharactersStore } from '@/stores/charactersStore'
+
+const SAVE_DEBOUNCE_MS = 500
 
 export function useCharacterStatWatchers(selectedCharacter, allEquipment) {
   const charactersStore = useCharactersStore()
 
   // Main character save watcher with debouncing
+  let saveTimeout = null
+  let isSaving = false
+  
   watch(selectedCharacter, (newCharacter) => {
-    if (!newCharacter) return
-    const timeoutId = setTimeout(() => {
-      charactersStore.update(newCharacter)
-    }, 500)
-    return () => clearTimeout(timeoutId)
-  }, { deep: true })
+    if (!newCharacter || isSaving) return
+    
+    // Clear any existing timeout
+    if (saveTimeout) {
+      clearTimeout(saveTimeout)
+    }
+    
+    // Set new timeout for saving
+    saveTimeout = setTimeout(async () => {
+      isSaving = true
+      try {
+        await charactersStore.update(newCharacter)
+      } finally {
+        isSaving = false
+        saveTimeout = null
+      }
+    }, SAVE_DEBOUNCE_MS)
+  }, { 
+    deep: true,
+    flush: 'post' // Run after component updates to batch changes
+  })
+
+  // Cleanup on unmount
+  onUnmounted(() => {
+    if (saveTimeout) {
+      clearTimeout(saveTimeout)
+      saveTimeout = null
+    }
+  })
 
   // Core stats watchers
   watch(() => selectedCharacter.value?.body, () => {

@@ -19,7 +19,7 @@
       <BadgeDisplay
         v-if="showKeepingBadge && keepingCost !== null && (characterOwnsAnyImprovements || showImprovements)"
         type="keeping" :value="keepingCost" :is-owned="characterHasBaseEquipment" :asImprovementBadge="true"
-        :is-interactive="!!character && !characterHasBaseEquipment" @toggle="handleBaseEquipmentToggle" />
+        :is-interactive="!!character" @toggle="handleBaseEquipmentToggle" />
     </template>
 
     <template #after-description>
@@ -84,8 +84,8 @@
     <template #badges>
       <BadgeDisplay
         v-if="showKeepingBadge && keepingCost !== null && !characterOwnsAnyImprovements && !showImprovements"
-        type="keeping" :value="keepingCost" :is-owned="characterHasBaseEquipment"
-        :is-interactive="!!character && !characterHasBaseEquipment" @toggle="handleBaseEquipmentToggle" />
+        type="keeping" :value="keepingCost" :is-owned="characterHasBaseEquipment" :is-interactive="!!character"
+        @toggle="handleBaseEquipmentToggle" />
     </template>
 
   </base-card>
@@ -308,13 +308,24 @@ const handleImprovementToggle = (improvementId) => {
 }
 
 const handleBaseEquipmentToggle = () => {
-  if (!props.character || characterHasBaseEquipment.value) return
+  if (!props.character) return
 
-  // Add the base equipment to the character using CharacterService
-  const updatedCharacter = CharacterService.addEquipmentToCharacter(props.character, props.equipment)
+  if (characterHasBaseEquipment.value) {
+    // Remove the equipment and all its improvements
+    const equipmentIndex = props.character.equipment.findIndex(e => e.id === props.equipment.id)
+    if (equipmentIndex === -1) return
 
-  if (updatedCharacter) {
-    charactersStore.update(updatedCharacter)
+    const updatedCharacter = CharacterService.removeItem(props.character, 'equipment', equipmentIndex)
+    if (updatedCharacter) {
+      emit('update', updatedCharacter)
+    }
+  } else {
+    // Add the base equipment to the character using CharacterService
+    const updatedCharacter = CharacterService.addEquipmentToCharacter(props.character, props.equipment)
+
+    if (updatedCharacter) {
+      emit('update', updatedCharacter)
+    }
   }
 }
 

@@ -42,7 +42,7 @@ import { createBaseEntity } from './gameEntity.js'
  * @property {string} id - Equipment ID reference
  * @property {number} quantity - Number of items
  * @property {boolean} isCarried - Whether item is currently carried
- * @property {boolean} [isWielding] - Whether weapon is currently wielded
+ * @property {boolean} [isWielding] - Whether item is currently wielded
  * @property {number} index - Display order index
  * @property {boolean} collapsed - Whether item display is collapsed in UI
  * @property {boolean} artExpanded - Whether art view is expanded in UI
@@ -77,6 +77,10 @@ import { createBaseEntity } from './gameEntity.js'
  * @property {string} ancestries - Ancestry IDs (comma-separated)
  * @property {string} cultures - Culture IDs (comma-separated)
  * @property {string} personalityAndBackground - Character background text
+ * @property {number} age - Character age
+ * @property {number} heightFeet - Character height (feet)
+ * @property {number} heightInches - Character height (inches)
+ * @property {number} weight - Character weight
  * @property {number} xp - Experience points
  * @property {StatPool} mp - Mestiere points
  * @property {number} body - Body attribute
@@ -103,6 +107,20 @@ import { createBaseEntity } from './gameEntity.js'
  * @property {Object} autoCalculations - Auto-calculation settings
  * @property {boolean} autoCalculations.load - Whether to auto-calculate load
  * @property {boolean} autoCalculations.statesAndEffects - Whether to auto-apply states and effects
+ * @property {Object} rollStats - Aggregate roll statistics for this character
+ * @property {Object} rollStats.skillChecks - Skill check statistics
+ * @property {number} rollStats.skillChecks.attempts - Number of skill checks attempted
+ * @property {number} rollStats.skillChecks.successes - Number of successful skill checks
+ * @property {number} rollStats.skillChecks.totalSum - Sum of all skill check totals
+ * @property {number|null} rollStats.skillChecks.bestTotal - Highest skill check total
+ * @property {number|null} rollStats.skillChecks.hardestSuccess - Highest difficulty successfully beaten
+ * @property {Object.<string, number>} rollStats.skillChecks.bySkill - Skill usage counts
+ * @property {number} rollStats.skillChecks.solCount - Number of Sol outcomes rolled on d12
+ * @property {number} rollStats.skillChecks.morteCount - Number of Morte outcomes rolled on d12
+ * @property {number} rollStats.skillChecks.successCount - Number of d6 successes rolled
+ * @property {Object} rollStats.contests - Contest result statistics
+ * @property {Object} rollStats.contests.engagement - Engagement win/loss/draw counts
+ * @property {Object} rollStats.contests.opposed - Opposed skill check win/loss/draw counts
  * @property {string} createdAt - ISO 8601 datetime string
  * @property {string} lastModified - ISO 8601 datetime string
  */
@@ -120,6 +138,10 @@ export function createDefaultCharacter() {
     ancestries: '',
     cultures: '',
     personalityAndBackground: '',
+    age: 0,
+    heightFeet: 0,
+    heightInches: 0,
+    weight: 0,
     xp: 0,
     mp: { current: 0, max: 0 },
     body: 0,
@@ -175,6 +197,23 @@ export function createDefaultCharacter() {
     autoCalculations: {
       load: true,
       statesAndEffects: true,
+    },
+    rollStats: {
+      skillChecks: {
+        attempts: 0,
+        successes: 0,
+        totalSum: 0,
+        bestTotal: null,
+        hardestSuccess: null,
+        bySkill: {},
+        solCount: 0,
+        morteCount: 0,
+        successCount: 0,
+      },
+      contests: {
+        engagement: { wins: 0, losses: 0, draws: 0 },
+        opposed: { wins: 0, losses: 0, draws: 0 },
+      },
     },
   }
 }

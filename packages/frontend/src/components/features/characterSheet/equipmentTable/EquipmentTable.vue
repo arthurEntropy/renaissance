@@ -32,8 +32,7 @@
             :editable="item.equipment.isCustom" class="equipment-card" @edit="openEditEquipmentModal"
             @update="handleCharacterUpdate" :collapsible="false" :show-keeping-badge="true"
             :character="selectedCharacter" :show-improvement-toggle="true" :show-improvements="item.showImprovements"
-            @update:showImprovements="updateEquipmentShowImprovements(item, $event)" :engagement-success-options="[]"
-            :deletable="internalEditMode" @delete="removeEquipmentItem(item.id)" />
+            @update:showImprovements="updateEquipmentShowImprovements(item, $event)" :engagement-success-options="[]" />
           <span v-else class="missing-item">Unknown item</span>
 
           <EquipmentDetails v-if="item.equipment" :equipment-item="item" :item-id="item.id" :is-edit-mode="canEdit"
@@ -49,8 +48,7 @@
             :editable="item.equipment.isCustom" class="equipment-card" @edit="openEditEquipmentModal"
             @update="handleCharacterUpdate" :collapsible="false" :show-keeping-badge="true"
             :character="selectedCharacter" :show-improvement-toggle="true" :show-improvements="item.showImprovements"
-            @update:showImprovements="updateEquipmentShowImprovements(item, $event)" :engagement-success-options="[]"
-            :deletable="internalEditMode" @delete="removeEquipmentItem(item.id)" />
+            @update:showImprovements="updateEquipmentShowImprovements(item, $event)" :engagement-success-options="[]" />
           <span v-else class="missing-item">Unknown item</span>
 
           <EquipmentDetails v-if="item.equipment" :equipment-item="item" :item-id="item.id" :is-edit-mode="canEdit"
@@ -282,21 +280,6 @@ const createAndAddCustomEquipment = async () => {
   }
 }
 
-const removeEquipmentItem = (itemId) => {
-  if (!internalEditMode.value || !selectedCharacter.value?.equipment) return
-
-  const index = selectedCharacter.value.equipment.findIndex(e => e.id === itemId)
-  if (index === -1) return
-
-  const equipmentItem = characterEquipment.value.find(e => e.id === itemId)
-  const equipmentName = equipmentItem?.equipment?.name || 'this item'
-
-  if (confirm(`Are you sure you want to remove ${equipmentName}?`)) {
-    const updated = CharacterService.removeItem(selectedCharacter.value, 'equipment', index)
-    if (updated) Object.assign(selectedCharacter.value, updated)
-  }
-}
-
 const getEquipmentIndex = (itemId) => {
   if (!selectedCharacter.value?.equipment) return -1
   return selectedCharacter.value.equipment.findIndex(e => e.id === itemId)
@@ -318,15 +301,7 @@ const handleWieldingChange = (itemId, isWielding) => {
   if (index === -1) return
 
   const currentItem = selectedCharacter.value.equipment[index]
-  const equipmentItem = characterEquipment.value.find(e => e.id === itemId)
-
-  let canWield = false
-  if (currentItem.isCarried && equipmentItem?.equipment) {
-    const equipmentType = equipmentTypesStore.getById(equipmentItem.equipment.type)
-    canWield = equipmentType?.name === 'Weapon'
-  }
-
-  selectedCharacter.value.equipment[index].isWielding = isWielding && canWield
+  selectedCharacter.value.equipment[index].isWielding = isWielding && currentItem.isCarried
 }
 
 const handleQuantityChange = (itemId, quantity) => {

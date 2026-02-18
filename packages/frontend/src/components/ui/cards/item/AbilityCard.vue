@@ -6,8 +6,8 @@
     <!-- XP badge positioned relative to main description when character owns any improvements OR when improvements are expanded -->
     <template #description-badge>
       <BadgeDisplay v-if="shouldShowBaseXpBadge && (characterOwnsAnyImprovements || showImprovements)" type="xp"
-        :value="ability.xp" :is-owned="characterHasBaseAbility" :asImprovementBadge="true"
-        :is-interactive="!!character && !characterHasBaseAbility" @toggle="handleBaseAbilityToggle" />
+        :value="ability.xp" :is-owned="characterHasBaseAbility" :asImprovementBadge="true" :is-interactive="!!character"
+        @toggle="handleBaseAbilityToggle" />
     </template>
 
     <!-- Successes section (appears after description) -->
@@ -48,8 +48,8 @@
     <!-- Overlay badges - Show XP badge at card level when character owns no improvements AND improvements are collapsed -->
     <template #badges>
       <BadgeDisplay v-if="shouldShowBaseXpBadge && !characterOwnsAnyImprovements && !showImprovements" type="xp"
-        :value="ability.xp" :is-owned="characterHasBaseAbility"
-        :is-interactive="!!character && !characterHasBaseAbility" @toggle="handleBaseAbilityToggle" />
+        :value="ability.xp" :is-owned="characterHasBaseAbility" :is-interactive="!!character"
+        @toggle="handleBaseAbilityToggle" />
     </template>
   </base-card>
 </template>
@@ -193,13 +193,24 @@ const handleImprovementToggle = (improvementId) => {
 }
 
 const handleBaseAbilityToggle = () => {
-  if (!props.character || characterHasBaseAbility.value) return
+  if (!props.character) return
 
-  // Add the base ability to the character using CharacterService
-  const updatedCharacter = CharacterService.addAbilityToCharacter(props.character, props.ability)
+  if (characterHasBaseAbility.value) {
+    // Remove the ability and all its improvements
+    const abilityIndex = props.character.abilities.findIndex(a => a.id === props.ability.id)
+    if (abilityIndex === -1) return
 
-  if (updatedCharacter) {
-    charactersStore.update(updatedCharacter)
+    const updatedCharacter = CharacterService.removeItem(props.character, 'abilities', abilityIndex)
+    if (updatedCharacter) {
+      emit('update', updatedCharacter)
+    }
+  } else {
+    // Add the base ability to the character using CharacterService
+    const updatedCharacter = CharacterService.addAbilityToCharacter(props.character, props.ability)
+
+    if (updatedCharacter) {
+      emit('update', updatedCharacter)
+    }
   }
 }
 </script>

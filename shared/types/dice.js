@@ -48,7 +48,7 @@
  * @property {string} baseSkillName - Base skill name without modifiers
  * @property {DiceResult[]} diceResults - Array of individual die roll results
  * @property {number} total - Sum of all effective die rolls
- * @property {number} targetNumber - Target number to beat
+ * @property {number} difficulty - Difficulty to beat
  * @property {boolean} success - Whether the roll succeeded
  * @property {string|null} favoredStatus - 'favored', 'ill-favored', or null
  * @property {string} footer - Conditions/states text
@@ -65,7 +65,7 @@
  * @property {number} diceTotal - Sum of all die rolls before modifier
  * @property {number} modifier - Modifier applied to the roll
  * @property {number} total - Final total (diceTotal + modifier)
- * @property {null} targetNumber - Always null for custom rolls
+ * @property {null} difficulty - Always null for custom rolls
  * @property {null} success - Always null for custom rolls
  * @property {null} favoredStatus - Always null for custom rolls
  * @property {string} footer - Empty string for custom rolls

@@ -56,25 +56,31 @@
           :selected="rollType === RollTypes.SKILL_CHECK" @click="rollType = RollTypes.SKILL_CHECK" />
       </div>
 
-      <!-- Target Number -->
-      <div class="target-number-section" :class="{ disabled: rollType === RollTypes.OPPOSED_SKILL_CHECK }">
-        <div class="target-number-descriptors">
+      <!-- Difficulty -->
+      <div class="difficulty-section" :class="{ disabled: rollType === RollTypes.OPPOSED_SKILL_CHECK }">
+        <div class="difficulty-descriptors">
           <span>Easy</span>
           <span>Moderate</span>
           <span>Difficult</span>
           <span>Extreme</span>
           <span>Legendary</span>
         </div>
-        <div class="target-number-options">
-          <ActionButton v-for="tn in targetNumberOptions" :key="tn" variant="outline" size="small" :text="tn.toString()"
-            :selected="localTargetNumber === tn" :disabled="rollType === RollTypes.OPPOSED_SKILL_CHECK"
-            @click="toggleTargetNumber(tn)" />
+        <div class="difficulty-options">
+          <ActionButton v-for="difficulty in difficultyOptions" :key="difficulty" variant="outline" size="small"
+            :text="difficulty.toString()" :selected="localDifficulty === difficulty"
+            :disabled="rollType === RollTypes.OPPOSED_SKILL_CHECK" @click="toggleDifficulty(difficulty)" />
         </div>
       </div>
 
       <!-- Roll Button -->
       <ActionButton variant="primary" size="large" text="Roll" @click="rollSkillCheck"
         :disabled="!localSelectedSkillName" />
+
+      <!-- Discord Toggle -->
+      <label class="discord-toggle" for="send-to-discord">
+        <input id="send-to-discord" v-model="sendToDiscord" type="checkbox" />
+        <span>Send to Discord</span>
+      </label>
     </div>
   </div>
 </template>
@@ -88,7 +94,7 @@ import { getDiceFontMaxClass } from '@/utils/diceFontUtils'
 import { buildDiceSetForSkill } from '@/utils/skillDiceUtils'
 import { SKILL_STATUS } from '@/constants/skillStatus'
 import { RollTypes } from '@/constants/rollTypes'
-import { DIE_TYPE, DICE_MOD_RANGE, TARGET_NUMBERS } from '@shared/constants/dice'
+import { DIE_TYPE, DICE_MOD_RANGE, DIFFICULTY_VALUES } from '@shared/constants/dice'
 
 const rollsStore = useRollsStore()
 
@@ -101,16 +107,17 @@ const props = defineProps({
     type: String,
     default: '',
   },
-  defaultTargetNumber: {
+  defaultDifficulty: {
     type: [Number, null],
     default: null,
   },
 })
 
-const emit = defineEmits(['close', 'update-target-number', 'start-opposed-skill-check'])
+const emit = defineEmits(['close', 'update-difficulty', 'start-opposed-skill-check'])
 
 const localSelectedSkillName = ref(props.selectedSkillName || '')
-const localTargetNumber = ref(props.defaultTargetNumber || null)
+const localDifficulty = ref(props.defaultDifficulty || null)
+const sendToDiscord = ref(true)
 const rollType = ref(RollTypes.SKILL_CHECK)
 const rollParameters = ref({
   name: '',
@@ -131,7 +138,7 @@ const diceModOptions = Array.from(
   }
 )
 
-const targetNumberOptions = TARGET_NUMBERS
+const difficultyOptions = DIFFICULTY_VALUES
 
 const selectedSkill = computed(() => {
   return props.character.skills.find(
@@ -194,14 +201,12 @@ function updateRollParameters() {
   }
 }
 
-function toggleTargetNumber(tn) {
-  // If the clicked target number is already selected, deselect it (set to null)
-  // Otherwise, select the clicked target number
-  localTargetNumber.value = localTargetNumber.value === tn ? null : tn
+function toggleDifficulty(difficulty) {
+  localDifficulty.value = localDifficulty.value === difficulty ? null : difficulty
 }
 
 function closeModal() {
-  emit('update-target-number', localTargetNumber.value)
+  emit('update-difficulty', localDifficulty.value)
   emit('close')
 }
 
@@ -221,17 +226,19 @@ function rollSkillCheck() {
 
     emit('start-opposed-skill-check', {
       character: props.character,
-      skillCheckConfig
+      skillCheckConfig,
+      sendToDiscord: sendToDiscord.value
     })
   } else {
     const rollResult = SkillCheckService.makeSkillCheck(
       rollParameters.value,
       props.character,
-      localTargetNumber.value,
+      localDifficulty.value,
+      { sendToDiscord: sendToDiscord.value }
     )
 
     rollsStore.setRoll(rollResult)
-    emit('update-target-number', localTargetNumber.value)
+    emit('update-difficulty', localDifficulty.value)
   }
 
   closeModal()
@@ -340,7 +347,7 @@ watch(localSelectedSkillName, () => {
 }
 
 .dice-mod-options,
-.target-number-options {
+.difficulty-options {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-sm);
@@ -349,12 +356,12 @@ watch(localSelectedSkillName, () => {
   margin-bottom: var(--space-lg);
 }
 
-.target-number-section {
+.difficulty-section {
   margin-top: var(--space-lg);
   margin-bottom: var(--space-xl);
 }
 
-.target-number-descriptors {
+.difficulty-descriptors {
   display: flex;
   justify-content: space-between;
   width: 100%;
@@ -364,12 +371,28 @@ watch(localSelectedSkillName, () => {
   color: var(--color-text-muted);
 }
 
-.target-number-section.disabled {
+.difficulty-section.disabled {
   opacity: 0.5;
   pointer-events: none;
 }
 
-.target-number-section.disabled .target-number-descriptors {
+.difficulty-section.disabled .difficulty-descriptors {
   color: var(--color-gray-dark);
+}
+
+.discord-toggle {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  margin-top: var(--space-sm);
+  font-size: var(--font-size-14);
+  color: var(--color-text-muted);
+  user-select: none;
+}
+
+.discord-toggle input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  margin: 0;
 }
 </style>

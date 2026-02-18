@@ -5,35 +5,46 @@ import { RollTypes } from '@/constants/rollTypes'
 class DiscordService {
   constructor() {
     this.enabled = true
+    this.handleSkillCheck = this.sendSkillCheck.bind(this)
+    this.handleCustomRoll = this.sendCustomRoll.bind(this)
+    this.handleEngagement = this.sendEngagement.bind(this)
+    this.handleOpposedSkillCheck = this.sendOpposedSkillCheck.bind(this)
+    this.handleInitiativeRoll = this.sendInitiativeRoll.bind(this)
+    this.handleInjuryRoll = this.sendInjuryRoll.bind(this)
     this.init()
   }
 
   init() {
-    eventBus.on(ROLL_EVENTS.SKILL_CHECK, this.sendSkillCheck.bind(this))
-    eventBus.on(ROLL_EVENTS.CUSTOM_ROLL, this.sendCustomRoll.bind(this))
-    eventBus.on(ROLL_EVENTS.ENGAGEMENT, this.sendEngagement.bind(this))
-    eventBus.on(ROLL_EVENTS.OPPOSED_SKILL_CHECK, this.sendOpposedSkillCheck.bind(this))
+    eventBus.on(ROLL_EVENTS.SKILL_CHECK, this.handleSkillCheck)
+    eventBus.on(ROLL_EVENTS.CUSTOM_ROLL, this.handleCustomRoll)
+    eventBus.on(ROLL_EVENTS.ENGAGEMENT, this.handleEngagement)
+    eventBus.on(ROLL_EVENTS.OPPOSED_SKILL_CHECK, this.handleOpposedSkillCheck)
+    eventBus.on(ROLL_EVENTS.INITIATIVE_ROLL, this.handleInitiativeRoll)
+    eventBus.on(ROLL_EVENTS.INJURY_ROLL, this.handleInjuryRoll)
   }
 
   destroy() {
-    eventBus.off(ROLL_EVENTS.SKILL_CHECK, this.sendSkillCheck)
-    eventBus.off(ROLL_EVENTS.CUSTOM_ROLL, this.sendCustomRoll)
-    eventBus.off(ROLL_EVENTS.ENGAGEMENT, this.sendEngagement)
-    eventBus.off(ROLL_EVENTS.OPPOSED_SKILL_CHECK, this.sendOpposedSkillCheck)
+    eventBus.off(ROLL_EVENTS.SKILL_CHECK, this.handleSkillCheck)
+    eventBus.off(ROLL_EVENTS.CUSTOM_ROLL, this.handleCustomRoll)
+    eventBus.off(ROLL_EVENTS.ENGAGEMENT, this.handleEngagement)
+    eventBus.off(ROLL_EVENTS.OPPOSED_SKILL_CHECK, this.handleOpposedSkillCheck)
+    eventBus.off(ROLL_EVENTS.INITIATIVE_ROLL, this.handleInitiativeRoll)
+    eventBus.off(ROLL_EVENTS.INJURY_ROLL, this.handleInjuryRoll)
   }
 
   setEnabled(enabled) {
     this.enabled = enabled
   }
 
-  async sendSkillCheck({ rollResult, character }) {
+  async sendSkillCheck({ rollResult, character, integrations }) {
     if (!this.enabled) return
+    if (integrations?.discord === false) return
 
     try {
       const payload = {
         rollResults: rollResult.diceResults,
         total: rollResult.total,
-        targetNumber: rollResult.targetNumber,
+        difficulty: rollResult.difficulty,
         name: character.name || 'Unnamed Character',
         skill: rollResult.skillName,
         success: rollResult.success,
@@ -47,8 +58,9 @@ class DiscordService {
     }
   }
 
-  async sendCustomRoll({ rollResult, character }) {
+  async sendCustomRoll({ rollResult, character, integrations }) {
     if (!this.enabled) return
+    if (integrations?.discord === false) return
 
     try {
       const rollResultsText = rollResult.diceResults
@@ -89,8 +101,9 @@ class DiscordService {
     }
   }
 
-  async sendOpposedSkillCheck({ opposedResult }) {
+  async sendOpposedSkillCheck({ opposedResult, integrations }) {
     if (!this.enabled) return
+    if (integrations?.discord === false) return
 
     try {
       const payload = {
@@ -101,6 +114,46 @@ class DiscordService {
       await apiClient.post('/send-discord-message', payload)
     } catch (error) {
       console.warn('Discord notification failed for opposed skill check:', error)
+    }
+  }
+
+  async sendInjuryRoll({ rollResult, character }) {
+    if (!this.enabled) return
+
+    try {
+      const payload = {
+        type: RollTypes.INJURY,
+        name: character.name || 'Unnamed Character',
+        skill: 'Injury',
+        total: rollResult.total,
+        rollResults: rollResult.diceResults,
+        footer: rollResult.footer || '',
+        image: character.artUrls?.[0] || ''
+      }
+
+      await apiClient.post('/send-discord-message', payload)
+    } catch (error) {
+      console.warn('Discord notification failed for injury roll:', error)
+    }
+  }
+
+  async sendInitiativeRoll({ rollResult, character }) {
+    if (!this.enabled) return
+
+    try {
+      const payload = {
+        type: RollTypes.INITIATIVE,
+        name: character.name || 'Unnamed Character',
+        skill: 'Initiative',
+        total: rollResult.total,
+        rollResults: rollResult.diceResults,
+        footer: rollResult.footer || '',
+        image: character.artUrls?.[0] || ''
+      }
+
+      await apiClient.post('/send-discord-message', payload)
+    } catch (error) {
+      console.warn('Discord notification failed for initiative roll:', error)
     }
   }
 }

@@ -10,13 +10,10 @@
                 </div>
 
                 <div class="detail-item checkbox-item">
-                    <input type="checkbox" class="equipment-checkbox" :class="{
-                        'disabled-checkbox': !canWield
-                    }" :checked="equipmentItem.isWielding" :disabled="!canWield || !isEditMode"
+                    <input type="checkbox" class="equipment-checkbox" :checked="equipmentItem.isWielding"
+                        :disabled="!equipmentItem.isCarried || !isEditMode"
                         @change="handleWieldingChange($event.target.checked)" />
-                    <em class="carried-label" :class="{
-                        'disabled-text': !canWield
-                    }">
+                    <em class="carried-label">
                         Wielding
                     </em>
                 </div>
@@ -45,9 +42,6 @@
 <script setup>
 import { computed } from 'vue'
 import NumberInput from '@/components/ui/forms/NumberInput.vue'
-import { useEquipmentTypesStore } from '@/stores/equipmentTypesStore'
-
-const equipmentTypesStore = useEquipmentTypesStore()
 
 const props = defineProps({
     equipmentItem: {
@@ -66,15 +60,6 @@ const props = defineProps({
 
 const emit = defineEmits(['update-carried', 'update-wielding', 'update-quantity'])
 
-// Computed properties
-const canWield = computed(() => {
-    if (!props.equipmentItem.isCarried || !props.equipmentItem.equipment) {
-        return false
-    }
-    const equipmentType = equipmentTypesStore.getById(props.equipmentItem.equipment.type)
-    return equipmentType?.name === 'Weapon'
-})
-
 const displayWeight = computed(() => {
     if (props.equipmentItem.isCarried && props.equipmentItem.equipment) {
         const value = props.equipmentItem.equipment.weight * props.equipmentItem.quantity
@@ -92,7 +77,7 @@ const handleCarriedChange = (isCarried) => {
 }
 
 const handleWieldingChange = (isWielding) => {
-    const shouldWield = isWielding && canWield.value
+    const shouldWield = isWielding && props.equipmentItem.isCarried
     emit('update-wielding', props.itemId, shouldWield)
 }
 
@@ -167,15 +152,6 @@ const handleQuantityChange = (value) => {
 .equipment-checkbox:checked:after {
     left: 0px;
     top: -2px;
-}
-
-.disabled-checkbox {
-    opacity: 0.5;
-    cursor: not-allowed;
-}
-
-.disabled-text {
-    color: var(--color-text-muted);
 }
 
 .carried-label {

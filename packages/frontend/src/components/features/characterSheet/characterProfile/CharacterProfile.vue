@@ -1,6 +1,10 @@
 <template>
   <CharacterSheetSection custom-class="character-profile" min-width="400px">
-    <CharacterArt />
+    <div class="art-column">
+      <CharacterArt />
+      <CharacterPhysicalStats :age="character.age || 0" :height-feet="character.heightFeet || 0"
+        :height-inches="character.heightInches || 0" :weight="character.weight || 0" />
+    </div>
     <CharacterVitals @close-sheet="$emit('close-sheet')" />
 
     <!-- Bio & Notes Button -->
@@ -9,8 +13,8 @@
     <!-- XP Badge -->
     <div class="xp-badge">
       <span class="xp-label">XP:</span>
-      <NumberInput :model-value="character.xp || 0" :disabled="!canEdit" @update:model-value="updateXP" :min="0"
-        size="small" />
+      <NumberInput :model-value="character.xp || 0" :disabled="!canEdit" @update:model-value="character.xp = $event"
+        :min="0" size="small" />
     </div>
 
     <!-- Bio Modal (View/Edit) -->
@@ -28,6 +32,27 @@
         <!-- Edit Mode -->
         <template v-else>
           <div class="modal-body">
+            <div class="profile-fields-grid">
+              <label class="profile-field">
+                <span>Age</span>
+                <NumberInput :model-value="editedAge" @update:model-value="editedAge = $event" :min="0" size="small" />
+              </label>
+              <label class="profile-field">
+                <span>Feet</span>
+                <NumberInput :model-value="editedHeightFeet" @update:model-value="editedHeightFeet = $event" :min="0"
+                  size="small" />
+              </label>
+              <label class="profile-field">
+                <span>Inches</span>
+                <NumberInput :model-value="editedHeightInches" @update:model-value="editedHeightInches = $event"
+                  :min="0" :max="11" size="small" />
+              </label>
+              <label class="profile-field">
+                <span>Weight</span>
+                <NumberInput :model-value="editedWeight" @update:model-value="editedWeight = $event" :min="0"
+                  size="small" />
+              </label>
+            </div>
             <TextEditor v-model="editedContent" :auto-height="true" :placeholder="EMPTY_BIO_MESSAGE" height="300px" />
           </div>
           <div class="modal-footer">
@@ -46,6 +71,7 @@ import { ref, computed } from 'vue'
 import { marked } from 'marked'
 import { sanitizeHtml } from '@/utils/sanitizeHtml'
 import CharacterArt from './CharacterArt.vue'
+import CharacterPhysicalStats from './CharacterPhysicalStats.vue'
 import CharacterVitals from './CharacterVitals.vue'
 import CharacterSheetSection from '@/components/ui/containers/CharacterSheetSection.vue'
 import NumberInput from '@/components/ui/forms/NumberInput.vue'
@@ -61,10 +87,6 @@ const charactersStore = useCharactersStore()
 const character = computed(() => charactersStore.selectedCharacter)
 const canEdit = computed(() => charactersStore.canEditSelectedCharacter)
 
-const updateXP = (newValue) => {
-  character.value.xp = newValue
-}
-
 // Bio Modal State
 const EMPTY_BIO_MESSAGE = "What's your vibe? What's your story? Where are you going?"
 
@@ -73,6 +95,10 @@ const hasBio = computed(() => !!character.value?.personalityAndBackground)
 const isModalOpen = ref(false)
 const isEditMode = ref(false)
 const editedContent = ref('')
+const editedAge = ref(0)
+const editedHeightFeet = ref(0)
+const editedHeightInches = ref(0)
+const editedWeight = ref(0)
 
 const safeFormattedBio = computed(() => {
   if (!hasBio.value) return ''
@@ -81,7 +107,13 @@ const safeFormattedBio = computed(() => {
 })
 
 const hasUnsavedChanges = computed(() => {
-  return editedContent.value !== (character.value?.personalityAndBackground || '')
+  return (
+    editedContent.value !== (character.value?.personalityAndBackground || '') ||
+    editedAge.value !== (character.value?.age || 0) ||
+    editedHeightFeet.value !== (character.value?.heightFeet || 0) ||
+    editedHeightInches.value !== (character.value?.heightInches || 0) ||
+    editedWeight.value !== (character.value?.weight || 0)
+  )
 })
 
 const openModal = () => {
@@ -91,6 +123,10 @@ const openModal = () => {
 
 const startEdit = () => {
   editedContent.value = character.value?.personalityAndBackground || ''
+  editedAge.value = character.value?.age || 0
+  editedHeightFeet.value = character.value?.heightFeet || 0
+  editedHeightInches.value = character.value?.heightInches || 0
+  editedWeight.value = character.value?.weight || 0
   isEditMode.value = true
 }
 
@@ -113,6 +149,10 @@ const handleOverlayClick = () => {
 const saveChanges = () => {
   if (character.value) {
     character.value.personalityAndBackground = editedContent.value
+    character.value.age = editedAge.value
+    character.value.heightFeet = editedHeightFeet.value
+    character.value.heightInches = editedHeightInches.value
+    character.value.weight = editedWeight.value
     isEditMode.value = false
   }
 }
@@ -124,6 +164,12 @@ const saveChanges = () => {
   gap: var(--space-md);
   position: relative;
   overflow: hidden;
+}
+
+.art-column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
 }
 
 .notes-button {
@@ -172,6 +218,24 @@ const saveChanges = () => {
   max-height: 80vh;
   overflow-y: auto;
   text-align: left;
+}
+
+.profile-fields-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-md);
+  margin-bottom: var(--space-md);
+}
+
+.profile-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  font-size: var(--font-size-12);
+}
+
+.profile-field span {
+  color: var(--color-gray-light);
 }
 
 .full-text-content h2 {

@@ -80,8 +80,8 @@ const toggleUserAccept = () => {
 
 onMounted(() => {
     if (props.initialSessionConfig) {
-        const { character, skillCheckConfig } = props.initialSessionConfig
-        sessionManager.startSession(character, skillCheckConfig)
+        const { character, skillCheckConfig, sendToDiscord } = props.initialSessionConfig
+        sessionManager.startSession(character, skillCheckConfig, { sendToDiscord })
     }
 
     if (sessionManager.setAnimationTrigger) {

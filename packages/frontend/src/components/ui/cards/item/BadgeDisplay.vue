@@ -1,7 +1,7 @@
 <template>
     <div v-if="showBadge" :class="badgeClass" @click.stop="handleClick" @mouseenter="handleMouseEnter"
         @mouseleave="handleMouseLeave">
-        <template v-if="type === 'keeping'">
+        <template v-if="type === 'keeping' && !isHovering">
             {{ displayValue }}
             <img :src="keepingIcon" alt="keeping" class="keeping-icon" />
         </template>
@@ -52,9 +52,9 @@ const showBadge = computed(() => {
     return !!props.value
 })
 
-// Badge should only be interactive if it's marked as interactive AND not owned
+// Badge is interactive if marked as interactive (regardless of ownership status)
 const isActuallyInteractive = computed(() => {
-    return props.isInteractive && !props.isOwned
+    return props.isInteractive
 })
 
 const handleClick = () => {
@@ -83,7 +83,8 @@ const displayText = computed(() => {
     // Interactive badge text (on hover vs normal)
     if (isActuallyInteractive.value) {
         if (isHovering.value) {
-            return '+ Add'
+            // Show "- Remove" for owned items, "+ Add" for unowned
+            return props.isOwned ? '- Remove' : '+ Add'
         }
         // Show normal badge text when not hovering
         return props.type === 'xp' ? `${props.value} XP` : props.value
@@ -108,15 +109,25 @@ const badgeClass = computed(() => {
         classes.push('improvement-badge')
     }
 
-    // Owned badge styling
-    if (props.isOwned) {
-        classes.push('badge-owned')
-    }
-
     // Interactive badge styling
     if (isActuallyInteractive.value) {
-        const interactiveClass = isHovering.value ? 'badge-interactive-available-hover' : 'badge-interactive-available'
-        classes.push('badge-interactive', interactiveClass, 'improvement-badge-unowned')
+        classes.push('badge-interactive')
+
+        if (props.isOwned) {
+            // Owned badges: show owned style when not hovering, warning style when hovering
+            if (isHovering.value) {
+                classes.push('badge-interactive-remove-hover')
+            } else {
+                classes.push('badge-owned')
+            }
+        } else {
+            // Unowned badges use primary/accent colors
+            const interactiveClass = isHovering.value ? 'badge-interactive-available-hover' : 'badge-interactive-available'
+            classes.push(interactiveClass, 'improvement-badge-unowned')
+        }
+    } else if (props.isOwned) {
+        // Non-interactive owned badges
+        classes.push('badge-owned')
     }
 
     return classes.join(' ')
@@ -156,6 +167,11 @@ const badgeClass = computed(() => {
 .badge-interactive-available-hover {
     background-color: var(--color-accent-gold);
     color: var(--color-black);
+}
+
+.badge-interactive-remove-hover {
+    background-color: var(--color-danger);
+    color: var(--color-danger-text);
 }
 
 .badge-bottom-left {

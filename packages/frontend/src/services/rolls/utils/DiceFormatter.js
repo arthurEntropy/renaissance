@@ -5,10 +5,12 @@ import { DIE_TYPE, SPECIAL_ROLLS, EMOJI } from '@shared/constants/dice.js'
 class DiceFormatter {
 
   static getDiceEmoji(dieSides, dieRollValue, rolledMaxValue = false, rollType = null) {
-    // Only check for Sol/Morte on d12s in skill checks, not engagement
-    const isSkillCheckType = rollType === RollTypes.SKILL_CHECK || rollType === RollTypes.OPPOSED_SKILL_CHECK
+    // Check for Sol/Morte on d12s for feat-die based roll types
+    const isFeatDieType = rollType === RollTypes.SKILL_CHECK ||
+      rollType === RollTypes.OPPOSED_SKILL_CHECK ||
+      rollType === RollTypes.INJURY
     
-    if (dieSides === DIE_TYPE.D12 && isSkillCheckType) {
+    if (dieSides === DIE_TYPE.D12 && isFeatDieType) {
       if (dieRollValue === SPECIAL_ROLLS.SOL) return EMOJI.SOL
       if (dieRollValue === SPECIAL_ROLLS.MORTE) return EMOJI.MORTE
     } else if (dieSides === DIE_TYPE.D6 && dieRollValue === SPECIAL_ROLLS.SUCCESS) {
@@ -57,6 +59,7 @@ class DiceFormatter {
     switch (rollType) {
       case RollTypes.SKILL_CHECK:
       case RollTypes.OPPOSED_SKILL_CHECK:
+      case RollTypes.INJURY:
         return this.sortForSkillCheck(diceResults)
       case RollTypes.ENGAGEMENT:
         return this.sortForEngagement(diceResults)

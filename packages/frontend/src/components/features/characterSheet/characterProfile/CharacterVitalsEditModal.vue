@@ -86,6 +86,30 @@
                         </div>
                     </div>
 
+                    <!-- Physical Stats -->
+                    <div class="form-group row">
+                        <div class="form-column">
+                            <label for="age" class="left-aligned">Age:</label>
+                            <input id="age" type="number" min="0" v-model.number="formData.age" class="modal-input"
+                                placeholder="0" />
+                        </div>
+                        <div class="form-column">
+                            <label for="heightFeet" class="left-aligned">Height (ft):</label>
+                            <input id="heightFeet" type="number" min="0" v-model.number="formData.heightFeet"
+                                class="modal-input" placeholder="0" />
+                        </div>
+                        <div class="form-column">
+                            <label for="heightInches" class="left-aligned">Height (in):</label>
+                            <input id="heightInches" type="number" min="0" max="11"
+                                v-model.number="formData.heightInches" class="modal-input" placeholder="0" />
+                        </div>
+                        <div class="form-column">
+                            <label for="weight" class="left-aligned">Weight (lbs):</label>
+                            <input id="weight" type="number" min="0" v-model.number="formData.weight"
+                                class="modal-input" placeholder="0" />
+                        </div>
+                    </div>
+
                 </form>
 
                 <!-- Settings Section -->
@@ -111,6 +135,8 @@
                         </div>
                     </div>
                 </div>
+
+                <CharacterRollStats @reset-stats="resetStats" />
             </div>
 
             <!-- Sticky Action Buttons -->
@@ -129,7 +155,9 @@
 import { ref, computed, onMounted } from 'vue'
 import { useCharactersStore } from '@/stores/charactersStore'
 import { useConceptsStore } from '@/stores/conceptsStore'
+import { createEmptyRollStats } from '@/services/rolls/rollStatsService'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
+import CharacterRollStats from './CharacterRollStats.vue'
 
 const charactersStore = useCharactersStore()
 const conceptsStore = useConceptsStore()
@@ -143,7 +171,11 @@ const formData = ref({
     pronouns: '',
     ancestryIds: ['', ''],
     cultureIds: ['', ''],
-    mestiereId: ''
+    mestiereId: '',
+    age: 0,
+    heightFeet: 0,
+    heightInches: 0,
+    weight: 0
 })
 
 // Delete confirmation state
@@ -163,7 +195,11 @@ onMounted(() => {
         pronouns: character.pronouns || '',
         ancestryIds: [ancestryIds[0] || '', ancestryIds[1] || ''],
         cultureIds: [cultureIds[0] || '', cultureIds[1] || ''],
-        mestiereId: character.mestiereId || ''
+        mestiereId: character.mestiereId || '',
+        age: character.age || 0,
+        heightFeet: character.heightFeet || 0,
+        heightInches: character.heightInches || 0,
+        weight: character.weight || 0
     }
 })
 
@@ -184,6 +220,13 @@ const saveChanges = () => {
     closeModal()
 }
 
+const resetStats = () => {
+    const shouldReset = confirm('Reset all tracked character roll stats?')
+    if (!shouldReset) return
+
+    character.rollStats = createEmptyRollStats()
+}
+
 // Delete functionality
 const initiateDelete = () => {
     showDeleteConfirmation.value = true
@@ -195,14 +238,10 @@ const cancelDelete = () => {
 }
 
 const confirmDeletion = async () => {
-    if (isDeleteConfirmed.value && character) {
-        try {
-            await charactersStore.deleteCharacter(character._id)
-            closeModal()
-        } catch (error) {
-            console.error('Failed to delete character:', error)
-        }
-    }
+    if (!isDeleteConfirmed.value || !character) return
+
+    await charactersStore.deleteCharacter(character._id)
+    closeModal()
 }
 </script>
 

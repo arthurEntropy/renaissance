@@ -4,7 +4,7 @@ import BaseRollService from './baseRollService.js'
 
 class CustomRollService extends BaseRollService {
 
-  static makeCustomRoll(dicePool, modifier, character) {
+  static makeCustomRoll(dicePool, modifier, character, options = {}) {
     // Roll the dice
     let diceResults = this.rollDicePool(dicePool)
     
@@ -25,7 +25,7 @@ class CustomRollService extends BaseRollService {
       total: finalTotal,
       diceTotal: diceTotal,
       modifier: modifier,
-      targetNumber: null,
+      difficulty: null,
       success: null,
       diceResults: formattedDiceResults,
       favoredStatus: null,
@@ -38,7 +38,13 @@ class CustomRollService extends BaseRollService {
     })
     
     // Emit event for external integrations
-    eventBus.emit(ROLL_EVENTS.CUSTOM_ROLL, { rollResult, character })
+    eventBus.emit(ROLL_EVENTS.CUSTOM_ROLL, {
+      rollResult,
+      character,
+      integrations: {
+        discord: options.sendToDiscord !== false
+      }
+    })
     
     return rollResult
   }

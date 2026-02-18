@@ -53,10 +53,15 @@ class OpposedSkillCheckService extends BaseRollService {
   }
 
   // Separate method to emit event when result is accepted by both users
-  static emitOpposedSkillCheckResult(session, userCharacterId, opponentCharacterId) {
+  static emitOpposedSkillCheckResult(session, userCharacterId, opponentCharacterId, options = {}) {
     const result = this.createOpposedSkillCheckResult(session, userCharacterId, opponentCharacterId)
     if (result) {
-      eventBus.emit(ROLL_EVENTS.OPPOSED_SKILL_CHECK, { opposedResult: result })
+      eventBus.emit(ROLL_EVENTS.OPPOSED_SKILL_CHECK, {
+        opposedResult: result,
+        integrations: {
+          discord: options.sendToDiscord !== false
+        }
+      })
     }
     return result
   }
