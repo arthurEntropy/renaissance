@@ -42,7 +42,7 @@ const sendDiscordMessage = async (req, res) => {
 
     if (type === 'opposed_skill_check') {
       embed = createOpposedSkillCheckEmbed(req.body)
-    } else if (type === 'injury' || type === 'initiative') {
+    } else if (type === 'injury' || type === 'initiative' || type === 'damage') {
       embed = createSimpleRollEmbed(req.body)
     } else if (characterName && opponentName) {
       embed = createEngagementEmbed(req.body)

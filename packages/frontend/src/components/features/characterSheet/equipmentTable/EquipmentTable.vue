@@ -32,7 +32,8 @@
             :editable="item.equipment.isCustom" class="equipment-card" @edit="openEditEquipmentModal"
             @update="handleCharacterUpdate" :collapsible="false" :show-keeping-badge="true"
             :character="selectedCharacter" :show-improvement-toggle="true" :show-improvements="item.showImprovements"
-            @update:showImprovements="updateEquipmentShowImprovements(item, $event)" :engagement-success-options="[]" />
+            @update:showImprovements="updateEquipmentShowImprovements(item, $event)" :engagement-success-options="[]"
+            :enable-damage-roll="true" @roll-damage="handleDamageRoll" />
           <span v-else class="missing-item">Unknown item</span>
 
           <EquipmentDetails v-if="item.equipment" :equipment-item="item" :item-id="item.id" :is-edit-mode="canEdit"
@@ -48,7 +49,8 @@
             :editable="item.equipment.isCustom" class="equipment-card" @edit="openEditEquipmentModal"
             @update="handleCharacterUpdate" :collapsible="false" :show-keeping-badge="true"
             :character="selectedCharacter" :show-improvement-toggle="true" :show-improvements="item.showImprovements"
-            @update:showImprovements="updateEquipmentShowImprovements(item, $event)" :engagement-success-options="[]" />
+            @update:showImprovements="updateEquipmentShowImprovements(item, $event)" :engagement-success-options="[]"
+            :enable-damage-roll="true" @roll-damage="handleDamageRoll" />
           <span v-else class="missing-item">Unknown item</span>
 
           <EquipmentDetails v-if="item.equipment" :equipment-item="item" :item-id="item.id" :is-edit-mode="canEdit"
@@ -106,7 +108,9 @@ import { useSourcesStore } from '@/stores/sourcesStore'
 import { useKeepingStore } from '@/stores/keepingStore'
 import { useEquipmentSubtypesStore } from '@/stores/equipmentSubtypesStore'
 import { useEquipmentGradesStore } from '@/stores/equipmentGradesStore'
+import { useRollsStore } from '@/stores/rollsStore'
 import EngagementSuccessService from '@/services/entities/engagementSuccessService'
+import DamageRollService from '@/services/rolls/damageRollService'
 import { BookOpenIcon, PlusIcon } from '@heroicons/vue/24/outline'
 
 const props = defineProps({
@@ -126,6 +130,7 @@ const equipmentSubtypesStore = useEquipmentSubtypesStore()
 const equipmentGradesStore = useEquipmentGradesStore()
 const keepingStore = useKeepingStore()
 const sourcesStore = useSourcesStore()
+const rollsStore = useRollsStore()
 
 const allEquipment = computed(() => equipmentStore.equipment || [])
 const engagementSuccessOptions = ref([])
@@ -314,6 +319,15 @@ const handleQuantityChange = (itemId, quantity) => {
 const handleCharacterUpdate = (updatedCharacter) => {
   if (updatedCharacter && selectedCharacter.value) {
     Object.assign(selectedCharacter.value, updatedCharacter)
+  }
+}
+
+const handleDamageRoll = (equipment) => {
+  if (!equipment || !selectedCharacter.value) return
+
+  const rollResult = DamageRollService.makeEquipmentDamageRoll(equipment, selectedCharacter.value)
+  if (rollResult) {
+    rollsStore.setRoll(rollResult)
   }
 }
 

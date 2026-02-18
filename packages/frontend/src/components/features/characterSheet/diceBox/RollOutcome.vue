@@ -19,7 +19,7 @@
                     <span class="score-separator">vs</span>
                     <span class="roll-number opponent-total">{{ rollData.opponentTotal }}</span>
                 </span>
-                <span v-else-if="isCustomRoll || isInitiative || isInjury">
+                <span v-else-if="isCustomRoll || isDamage || isInitiative || isInjury">
                     <span class="roll-number roll-total custom-roll">{{ rollData.total }}</span>
                     <span v-if="rollData.modifier !== 0" class="roll-breakdown">
                         ({{ rollData.diceTotal }}{{ rollData.modifier >= 0 ? '+' : '' }}{{ rollData.modifier }})
@@ -66,6 +66,10 @@ const props = defineProps({
     isCustomRoll: {
         type: Boolean,
         required: true
+    },
+    isDamage: {
+        type: Boolean,
+        default: false
     },
     isInitiative: {
         type: Boolean,

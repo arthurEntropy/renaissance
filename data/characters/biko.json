@@ -213,6 +213,11 @@
       "id": "b2235478-d2a6-4ccd-8cde-bd7efc35fd59",
       "quantity": 1,
       "isCarried": true
+    },
+    {
+      "id": "6c9a4bb8-84f1-41ba-af09-ad6e65f7b9cc",
+      "quantity": 1,
+      "isCarried": true
     }
   ],
   "engagementDice": [
@@ -286,8 +291,8 @@
     "https://cdn.midjourney.com/bb7f8092-0710-4aaf-9f26-e376a0cec04e/0_0.png"
   ],
   "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2026-02-18T16:55:00.222Z",
-  "lastModified": "2026-02-18T16:55:00.222Z",
+  "updatedAt": "2026-02-18T18:47:29.717Z",
+  "lastModified": "2026-02-18T18:47:29.717Z",
   "mestiereId": "4eccfe5d-de19-4bc5-8c9c-374d793d67f0",
   "groupEquipmentBySource": false,
   "equipmentSortOption": "keeping-asc",
