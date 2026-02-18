@@ -24,7 +24,7 @@
 
         <DiceDisplay ref="diceDisplayRef" :key="latestRoll?.timestamp" :rollData="latestRoll"
           :isEngagement="isEngagement" :canReroll="true" :isOpponent="false" :containerWidth="CONTAINER_WIDTH"
-          @reroll-all-dice="rollsStore.reroll" />
+          :skip-animation="shouldSkipRollAnimation" @reroll-all-dice="rollsStore.reroll" />
 
         <RollOutcome :rollData="latestRoll" :isEngagement="isEngagement" :isOpposedSkillCheck="isOpposedSkillCheck"
           :isCustomRoll="isCustomRoll" :isDamage="isDamage" :isInitiative="isInitiative" :isInjury="isInjury"
@@ -41,7 +41,7 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, ref, watch, nextTick } from 'vue'
 import { RollTypes } from '@/constants/rollTypes'
 import CharacterSheetSection from '@/components/ui/containers/CharacterSheetSection.vue'
 import DiceDisplay from './DiceDisplay.vue'
@@ -89,7 +89,38 @@ const handleInjuryRoll = () => {
 }
 
 const canEdit = computed(() => charactersStore.canEditSelectedCharacter)
-const latestRoll = computed(() => rollsStore.latestRoll)
+const latestRoll = computed(() => {
+  const selectedCharacterId = charactersStore.selectedCharacter?.id
+  if (!selectedCharacterId || !rollsStore.latestRoll) {
+    return null
+  }
+
+  return rollsStore.latestRoll.rollCharacterId === selectedCharacterId
+    ? rollsStore.latestRoll
+    : null
+})
+
+const currentRollDisplayKey = computed(() => {
+  if (!latestRoll.value?.timestamp || !latestRoll.value?.rollCharacterId) {
+    return null
+  }
+
+  return `${latestRoll.value.rollCharacterId}_${latestRoll.value.timestamp}`
+})
+
+const shouldSkipRollAnimation = computed(() => {
+  return !!currentRollDisplayKey.value && rollsStore.hasDisplayedRollKey(currentRollDisplayKey.value)
+})
+
+watch(currentRollDisplayKey, (newKey, oldKey) => {
+  if (!newKey || newKey === oldKey || rollsStore.hasDisplayedRollKey(newKey)) {
+    return
+  }
+
+  nextTick(() => {
+    rollsStore.markRollKeyDisplayed(newKey)
+  })
+})
 
 const isEngagement = computed(() => {
   return latestRoll.value && latestRoll.value.type === RollTypes.ENGAGEMENT
