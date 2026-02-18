@@ -1,4 +1,4 @@
-import { ref, reactive, computed, nextTick } from 'vue'
+import { ref, reactive, computed, nextTick, watch } from 'vue'
 import { DiceStatus } from '@/constants/diceStatus'
 import EngagementRollService from '@/services/rolls/engagementRollService'
 import DiceRoller from '@/services/rolls/utils/DiceRoller'
@@ -24,6 +24,91 @@ function createSharedState() {
   const diceStatuses = reactive({})
   const manualResults = ref([])
   const committedDice = ref([]) // Snapshot of dice committed to current engagement
+
+  const loadDiceStatusesFromCharacter = () => {
+    const persistedStatuses = character.value?.engagementDiceStatuses
+    const normalizedStatuses = persistedStatuses && typeof persistedStatuses === 'object' && !Array.isArray(persistedStatuses)
+      ? persistedStatuses
+      : {}
+
+    Object.keys(diceStatuses).forEach(key => {
+      delete diceStatuses[key]
+    })
+
+    Object.entries(normalizedStatuses).forEach(([key, status]) => {
+      if (Object.values(DiceStatus).includes(status)) {
+        diceStatuses[key] = status
+      }
+    })
+  }
+
+  const getValidStatusKeys = () => {
+    const keys = new Set()
+
+    const equippedItems = character.value?.equipment || []
+    const equipmentById = new Map((allEquipment.value || []).map(item => [item.id, item]))
+
+    equippedItems
+      .filter(item => item.isWielding)
+      .forEach(item => {
+        const equipment = equipmentById.get(item.id)
+        const dice = equipment?.engagementDice || []
+
+        dice.forEach((_, dieIndex) => {
+          keys.add(`${item.id}_${dieIndex}`)
+        })
+      })
+
+    const userAddedDice = character.value?.engagementDice || []
+    userAddedDice.forEach((_, index) => {
+      keys.add(`user_added_${index}`)
+    })
+
+    return keys
+  }
+
+  const pruneStaleDiceStatuses = () => {
+    const validKeys = getValidStatusKeys()
+    let removedAny = false
+
+    Object.keys(diceStatuses).forEach(key => {
+      if (!validKeys.has(key)) {
+        delete diceStatuses[key]
+        removedAny = true
+      }
+    })
+
+    return removedAny
+  }
+
+  const persistDiceStatusesToCharacter = () => {
+    if (!character.value) {
+      return
+    }
+
+    character.value.engagementDiceStatuses = { ...diceStatuses }
+  }
+
+  watch(
+    () => character.value?.id,
+    () => {
+      loadDiceStatusesFromCharacter()
+      pruneStaleDiceStatuses()
+    },
+    { immediate: true }
+  )
+
+  watch(
+    () => {
+      const validKeys = Array.from(getValidStatusKeys()).sort()
+      return `${character.value?.id || 'no-character'}|${validKeys.join('|')}`
+    },
+    () => {
+      if (pruneStaleDiceStatuses()) {
+        persistDiceStatusesToCharacter()
+      }
+    }
+  )
   
   // Sorting state
   const initialSortDone = ref(false)
@@ -44,6 +129,7 @@ function createSharedState() {
     character,
     allEquipment,
     diceStatuses,
+    persistDiceStatusesToCharacter,
     manualResults,
     committedDice,
     initialSortDone,
@@ -68,6 +154,7 @@ export function useEngagementRoll() {
     character,
     allEquipment,
     diceStatuses,
+    persistDiceStatusesToCharacter,
     manualResults,
     committedDice,
     initialSortDone,
@@ -180,6 +267,7 @@ export function useEngagementRoll() {
     }
 
     diceStatuses[diceInfo.statusKey] = newStatus
+    persistDiceStatusesToCharacter()
   }
 
   function resetDice() {
@@ -188,14 +276,22 @@ export function useEngagementRoll() {
     }
 
     Object.keys(diceStatuses).forEach(key => delete diceStatuses[key])
+    persistDiceStatusesToCharacter()
   }
 
   function markSelectedDiceAsExpended() {
+    let hasChanges = false
+
     Object.keys(diceStatuses).forEach(key => {
       if (diceStatuses[key] === DiceStatus.SELECTED) {
         diceStatuses[key] = DiceStatus.EXPENDED
+        hasChanges = true
       }
     })
+
+    if (hasChanges) {
+      persistDiceStatusesToCharacter()
+    }
   }
 
   function addUserAddedDie(die) {
@@ -210,7 +306,34 @@ export function useEngagementRoll() {
   function removeUserAddedDie(index) {
     if (!character?.value?.engagementDice) return
 
+    const previousStatuses = { ...diceStatuses }
+
     character.value.engagementDice.splice(index, 1)
+
+    Object.keys(diceStatuses).forEach(key => {
+      if (key.startsWith('user_added_')) {
+        delete diceStatuses[key]
+      }
+    })
+
+    Object.entries(previousStatuses).forEach(([key, status]) => {
+      if (!key.startsWith('user_added_')) {
+        return
+      }
+
+      const previousIndex = Number(key.replace('user_added_', ''))
+      if (!Number.isInteger(previousIndex)) {
+        return
+      }
+
+      if (previousIndex < index) {
+        diceStatuses[`user_added_${previousIndex}`] = status
+      } else if (previousIndex > index) {
+        diceStatuses[`user_added_${previousIndex - 1}`] = status
+      }
+    })
+
+    persistDiceStatusesToCharacter()
   }
 
   function resetSortingState() {
