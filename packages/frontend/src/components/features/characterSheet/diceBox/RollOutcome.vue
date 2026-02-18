@@ -27,10 +27,10 @@
                 </span>
                 <span v-else>
                     <span class="roll-number roll-total"
-                        :class="[{ 'has-target': hasTargetNumber }, hasTargetNumber && outcomeClass]">{{
+                        :class="[{ 'has-difficulty': hasDifficulty }, hasDifficulty && outcomeClass]">{{
                             rollData.total
                         }}</span>
-                    <span v-if="hasTargetNumber" class="roll-number roll-target">{{ rollData.targetNumber }}</span>
+                    <span v-if="hasDifficulty" class="roll-number roll-difficulty">{{ rollData.difficulty }}</span>
                 </span>
             </div>
         </div>
@@ -81,8 +81,8 @@ const props = defineProps({
     }
 })
 
-const hasTargetNumber = computed(() => {
-    return props.rollData.targetNumber !== null && props.rollData.targetNumber !== undefined
+const hasDifficulty = computed(() => {
+    return props.rollData.difficulty !== null && props.rollData.difficulty !== undefined
 })
 
 const pendingReveal = ref(false)
@@ -188,14 +188,14 @@ onUnmounted(() => {
     transition: var(--transition-fast);
 }
 
-.roll-total.has-target::after {
+.roll-total.has-difficulty::after {
     content: ' / ';
     color: var(--color-gray-medium);
     margin: 0 var(--space-2xs);
     text-shadow: none;
 }
 
-.roll-target {
+.roll-difficulty {
     color: var(--color-gray-light);
 }
 

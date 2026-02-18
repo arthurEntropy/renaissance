@@ -6,15 +6,15 @@ import BaseRollService from './baseRollService.js'
 
 class SkillCheckService extends BaseRollService {
 
-  static makeSkillCheck(skill, character, targetNumber, options = {}) {
+  static makeSkillCheck(skill, character, difficulty, options = {}) {
     // Perform the skill check roll (handles auto-fail check internally)
     const { diceResults, total, isAutoFail } = this.performSkillCheckRoll(skill, character)
     
     // Determine success (auto-fail means not successful)
-    const isSuccess = !isAutoFail && total >= targetNumber
+    const isSuccess = !isAutoFail && total >= difficulty
     
     // Build result
-    const rollResult = this._buildSkillCheckResult(skill, character, targetNumber, diceResults, total, isSuccess)
+    const rollResult = this._buildSkillCheckResult(skill, character, difficulty, diceResults, total, isSuccess)
     
     // Emit event for external integrations (Discord, analytics, etc.)
     eventBus.emit(ROLL_EVENTS.SKILL_CHECK, {
@@ -28,7 +28,7 @@ class SkillCheckService extends BaseRollService {
     return rollResult
   }
 
-  static _buildSkillCheckResult(skill, character, targetNumber, diceResults, total, success) {
+  static _buildSkillCheckResult(skill, character, difficulty, diceResults, total, success) {
     const skillName = this._formatSkillNameWithFavoredStatus(skill)
     const footer = this._generateFooter(character.conditions, character.states)
     const formattedDiceResults = this.formatDiceForDisplay(diceResults, RollTypes.SKILL_CHECK)
@@ -38,7 +38,7 @@ class SkillCheckService extends BaseRollService {
       skillName: skillName,
       baseSkillName: skill.name,
       total: total,
-      targetNumber: targetNumber,
+      difficulty: difficulty,
       success: success,
       diceResults: formattedDiceResults,
       favoredStatus: this.getFavoredStatus(skill),
@@ -46,7 +46,7 @@ class SkillCheckService extends BaseRollService {
       _rerollData: {
         skill: { ...skill },
         character: { ...character },
-        targetNumber: targetNumber
+        difficulty: difficulty
       }
     })
   }

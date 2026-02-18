@@ -38,7 +38,7 @@ class InjuryRollService extends BaseRollService {
       total: injuryApplied,
       diceTotal: featDieResult,
       modifier: 0,
-      targetNumber: null,
+      difficulty: null,
       success: null,
       diceResults: formattedDiceResults,
       favoredStatus: null,

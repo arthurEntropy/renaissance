@@ -5,17 +5,17 @@ export const useRollsStore = defineStore('rolls', () => {
   // Current roll result displayed in DiceRollResults
   const latestRoll = ref(null)
 
-  // Last target number used in skill checks (for defaulting next roll)
-  const lastTargetNumber = ref(null)
+  // Last difficulty used in skill checks (for defaulting next roll)
+  const lastDifficulty = ref(null)
 
   // Set the latest roll result
   function setRoll(rollResult) {
     latestRoll.value = rollResult
   }
 
-  // Update the last target number used
-  function setLastTargetNumber(targetNumber) {
-    lastTargetNumber.value = targetNumber
+  // Update the last difficulty used
+  function setLastDifficulty(difficulty) {
+    lastDifficulty.value = difficulty
   }
 
   // Clear the current roll
@@ -33,9 +33,9 @@ export const useRollsStore = defineStore('rolls', () => {
 
     // Handle different roll types
     if (currentRoll.type === 'skill_check') {
-      const { skill, character, targetNumber } = currentRoll._rerollData
+      const { skill, character, difficulty } = currentRoll._rerollData
       const module = await import('@/services/rolls/skillCheckService')
-      const rollResult = module.default.makeSkillCheck(skill, character, targetNumber)
+      const rollResult = module.default.makeSkillCheck(skill, character, difficulty)
       latestRoll.value = rollResult
     } else if (currentRoll.type === 'custom_roll') {
       const { dicePool, modifier, character } = currentRoll._rerollData
@@ -59,9 +59,9 @@ export const useRollsStore = defineStore('rolls', () => {
 
   return {
     latestRoll,
-    lastTargetNumber,
+    lastDifficulty,
     setRoll,
-    setLastTargetNumber,
+    setLastDifficulty,
     clearRoll,
     reroll
   }

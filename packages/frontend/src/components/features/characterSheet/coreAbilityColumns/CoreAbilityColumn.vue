@@ -21,8 +21,8 @@
       @toggle-auto-calc="handleToggleStatesAutoCalc" />
 
     <SkillCheckModal v-if="skillCheckModal.isOpen.value && character" :character="character"
-      :selectedSkillName="selectedSkillName" :defaultTargetNumber="rollsStore.lastTargetNumber"
-      @close="skillCheckModal.closeModal" @update-target-number="rollsStore.setLastTargetNumber"
+      :selectedSkillName="selectedSkillName" :defaultDifficulty="rollsStore.lastDifficulty"
+      @close="skillCheckModal.closeModal" @update-difficulty="rollsStore.setLastDifficulty"
       @start-opposed-skill-check="handleStartOpposedSkillCheck" />
 
     <OpposedSkillCheckModal v-if="opposedSkillCheckModal.isOpen.value && character" :character="character"

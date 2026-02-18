@@ -63,7 +63,7 @@ export function createEngagementEmbed(data) {
 }
 
 export function createSkillCheckEmbed(data) {
-  const { rollResults, total, targetNumber, name: characterName, skill, success, footer, image } = data
+  const { rollResults, total, difficulty, name: characterName, skill, success, footer, image } = data
   
   const formattedRolls = Array.isArray(rollResults)
     ? rollResults.map(result => formatDiceSymbol(result)).join(', ')
@@ -83,8 +83,8 @@ export function createSkillCheckEmbed(data) {
         inline: true,
       },
       {
-        name: 'Target',
-        value: `${targetNumber}`,
+        name: 'Difficulty',
+        value: `${difficulty}`,
         inline: true,
       },
       {

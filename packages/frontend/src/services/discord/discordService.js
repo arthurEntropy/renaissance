@@ -44,7 +44,7 @@ class DiscordService {
       const payload = {
         rollResults: rollResult.diceResults,
         total: rollResult.total,
-        targetNumber: rollResult.targetNumber,
+        difficulty: rollResult.difficulty,
         name: character.name || 'Unnamed Character',
         skill: rollResult.skillName,
         success: rollResult.success,
