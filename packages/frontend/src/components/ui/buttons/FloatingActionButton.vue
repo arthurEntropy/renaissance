@@ -13,12 +13,13 @@ import { computed, ref } from 'vue'
 import { PlusIcon, DocumentDuplicateIcon, PencilIcon, CheckIcon, XMarkIcon, Bars3Icon, Cog6ToothIcon, ArrowPathIcon, BookOpenIcon, CalculatorIcon } from '@heroicons/vue/24/outline'
 import crossedSwordsIcon from '@/assets/icons/crossed_swords.png'
 import dieIcon from '@/assets/icons/die.png'
+import injuryIcon from '@/assets/icons/injury.png'
 
 const props = defineProps({
     type: {
         type: String,
         required: true,
-        validator: (value) => ['edit', 'add', 'duplicate', 'delete', 'drag', 'settings', 'refresh', 'dice', 'initiative', 'notes', 'auto-calc'].includes(value)
+        validator: (value) => ['edit', 'add', 'duplicate', 'delete', 'drag', 'settings', 'refresh', 'dice', 'initiative', 'injury', 'notes', 'auto-calc'].includes(value)
     },
 
     size: {
@@ -127,7 +128,7 @@ const isAutoCalcText = computed(() => {
 })
 
 const isImageIcon = computed(() => {
-    return ['dice', 'initiative'].includes(props.type)
+    return ['dice', 'initiative', 'injury'].includes(props.type)
 })
 
 const imageIconStyle = computed(() => {
@@ -146,6 +147,17 @@ const imageIconStyle = computed(() => {
         return {
             maskImage: `url(${crossedSwordsIcon})`,
             WebkitMaskImage: `url(${crossedSwordsIcon})`,
+            maskSize: 'contain',
+            WebkitMaskSize: 'contain',
+            maskRepeat: 'no-repeat',
+            WebkitMaskRepeat: 'no-repeat',
+            maskPosition: 'center',
+            WebkitMaskPosition: 'center'
+        }
+    } else if (props.type === 'injury') {
+        return {
+            maskImage: `url(${injuryIcon})`,
+            WebkitMaskImage: `url(${injuryIcon})`,
             maskSize: 'contain',
             WebkitMaskSize: 'contain',
             maskRepeat: 'no-repeat',
@@ -200,6 +212,8 @@ const tooltip = computed(() => {
         return 'Custom Dice Roll'
     } else if (props.type === 'initiative') {
         return 'Roll Initiative'
+    } else if (props.type === 'injury') {
+        return 'Roll Injury'
     } else if (props.type === 'notes') {
         return 'Bio & Notes'
     } else if (props.type === 'auto-calc') {

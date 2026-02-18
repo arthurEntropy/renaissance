@@ -2,52 +2,53 @@
     <div class="roll-outcome-container">
         <!-- Roll Numbers -->
         <div class="roll-numbers">
-            <transition name="fade-in" appear>
-                <div v-if="!isRolling" class="roll-numbers-content">
-                    <span v-if="isEngagement" class="engagement-score">
-                        <span class="roll-number user-wins" :class="outcomeClass">{{ rollData.userWins }}</span>
-                        <span class="score-separator">to</span>
-                        <span class="roll-number opponent-wins">{{ rollData.opponentWins }}</span>
-                        <span v-if="rollData.drawCount && rollData.drawCount > 0" class="draw-count">
-                            , <span class="roll-number draw-number">{{ rollData.drawCount }}</span> {{
-                                rollData.drawCount
-                                    === 1 ? 'draw'
-                            : 'draws' }}
-                        </span>
+            <div class="roll-numbers-content" :class="{ 'roll-numbers-content--hidden': shouldHideRollNumbers }">
+                <span v-if="isEngagement" class="engagement-score">
+                    <span class="roll-number user-wins" :class="outcomeClass">{{ rollData.userWins }}</span>
+                    <span class="score-separator">to</span>
+                    <span class="roll-number opponent-wins">{{ rollData.opponentWins }}</span>
+                    <span v-if="rollData.drawCount && rollData.drawCount > 0" class="draw-count">
+                        , <span class="roll-number draw-number">{{ rollData.drawCount }}</span> {{
+                            rollData.drawCount
+                                === 1 ? 'draw'
+                                : 'draws' }}
                     </span>
-                    <span v-else-if="isOpposedSkillCheck" class="opposed-score">
-                        <span class="roll-number user-total" :class="outcomeClass">{{ rollData.userTotal }}</span>
-                        <span class="score-separator">vs</span>
-                        <span class="roll-number opponent-total">{{ rollData.opponentTotal }}</span>
+                </span>
+                <span v-else-if="isOpposedSkillCheck" class="opposed-score">
+                    <span class="roll-number user-total" :class="outcomeClass">{{ rollData.userTotal }}</span>
+                    <span class="score-separator">vs</span>
+                    <span class="roll-number opponent-total">{{ rollData.opponentTotal }}</span>
+                </span>
+                <span v-else-if="isCustomRoll || isInitiative || isInjury">
+                    <span class="roll-number roll-total custom-roll">{{ rollData.total }}</span>
+                    <span v-if="rollData.modifier !== 0" class="roll-breakdown">
+                        ({{ rollData.diceTotal }}{{ rollData.modifier >= 0 ? '+' : '' }}{{ rollData.modifier }})
                     </span>
-                    <span v-else-if="isCustomRoll || isInitiative">
-                        <span class="roll-number roll-total custom-roll">{{ rollData.total }}</span>
-                        <span v-if="rollData.modifier !== 0" class="roll-breakdown">
-                            ({{ rollData.diceTotal }}{{ rollData.modifier >= 0 ? '+' : '' }}{{ rollData.modifier }})
-                        </span>
-                    </span>
-                    <span v-else>
-                        <span class="roll-number roll-total"
-                            :class="[{ 'has-target': hasTargetNumber }, hasTargetNumber && outcomeClass]">{{
-                                rollData.total
-                            }}</span>
-                        <span v-if="hasTargetNumber" class="roll-number roll-target">{{ rollData.targetNumber }}</span>
-                    </span>
-                </div>
-            </transition>
+                </span>
+                <span v-else>
+                    <span class="roll-number roll-total"
+                        :class="[{ 'has-target': hasTargetNumber }, hasTargetNumber && outcomeClass]">{{
+                            rollData.total
+                        }}</span>
+                    <span v-if="hasTargetNumber" class="roll-number roll-target">{{ rollData.targetNumber }}</span>
+                </span>
+            </div>
         </div>
 
         <!-- Roll Footer -->
-        <div v-if="!isEngagement && rollData.footer" class="roll-footer">
+        <div v-if="!isEngagement && rollData.footer" class="roll-footer"
+            :class="{ 'roll-footer--hidden': shouldHideRollNumbers }">
             {{ rollData.footer }}
         </div>
     </div>
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, onUnmounted, ref, watch } from 'vue'
 import { EngagementResultTypes } from '@/constants/engagementResultTypes'
 import { WINNER } from '@shared/constants/winner.js'
+
+const REVEAL_FALLBACK_DELAY = 75
 
 const props = defineProps({
     rollData: {
@@ -70,6 +71,10 @@ const props = defineProps({
         type: Boolean,
         default: false
     },
+    isInjury: {
+        type: Boolean,
+        default: false
+    },
     isRolling: {
         type: Boolean,
         required: true
@@ -78,6 +83,21 @@ const props = defineProps({
 
 const hasTargetNumber = computed(() => {
     return props.rollData.targetNumber !== null && props.rollData.targetNumber !== undefined
+})
+
+const pendingReveal = ref(false)
+const rollStarted = ref(false)
+let revealFallbackTimer = null
+
+const clearRevealFallbackTimer = () => {
+    if (revealFallbackTimer) {
+        clearTimeout(revealFallbackTimer)
+        revealFallbackTimer = null
+    }
+}
+
+const shouldHideRollNumbers = computed(() => {
+    return props.isRolling || pendingReveal.value
 })
 
 const outcomeClass = computed(() => {
@@ -102,6 +122,41 @@ const outcomeClass = computed(() => {
         failure: !props.rollData.success
     }
 })
+
+watch(() => props.rollData?.timestamp, (timestamp) => {
+    clearRevealFallbackTimer()
+
+    if (!timestamp || props.isEngagement) {
+        pendingReveal.value = false
+        rollStarted.value = false
+        return
+    }
+
+    pendingReveal.value = true
+    rollStarted.value = false
+
+    revealFallbackTimer = setTimeout(() => {
+        if (!rollStarted.value && !props.isRolling) {
+            pendingReveal.value = false
+        }
+    }, REVEAL_FALLBACK_DELAY)
+}, { immediate: true })
+
+watch(() => props.isRolling, (isCurrentlyRolling) => {
+    if (isCurrentlyRolling) {
+        rollStarted.value = true
+        return
+    }
+
+    if (rollStarted.value) {
+        pendingReveal.value = false
+        clearRevealFallbackTimer()
+    }
+}, { immediate: true })
+
+onUnmounted(() => {
+    clearRevealFallbackTimer()
+})
 </script>
 
 <style scoped>
@@ -116,6 +171,12 @@ const outcomeClass = computed(() => {
     justify-content: center;
     gap: var(--space-xs);
     align-items: center;
+    transition: var(--transition-opacity);
+}
+
+.roll-numbers-content--hidden {
+    opacity: 0;
+    transition: none;
 }
 
 .roll-number {
@@ -194,13 +255,11 @@ const outcomeClass = computed(() => {
     text-align: center;
     border-top: 1px solid var(--color-gray-medium);
     padding-top: var(--space-xs);
+    transition: var(--transition-opacity);
 }
 
-.fade-in-enter-active {
-    transition: opacity 600ms ease-out;
-}
-
-.fade-in-enter-from {
+.roll-footer--hidden {
     opacity: 0;
+    transition: none;
 }
 </style>

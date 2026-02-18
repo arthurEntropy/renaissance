@@ -155,3 +155,34 @@ export function createCustomRollEmbed(data) {
     },
   }
 }
+
+export function createSimpleRollEmbed(data) {
+  const { rollResults, total, name: characterName, skill, footer, image } = data
+
+  const formattedRolls = Array.isArray(rollResults)
+    ? rollResults.map(result => formatDiceSymbol(result)).join(', ')
+    : rollResults || 'No dice were rolled'
+
+  return {
+    title: `${characterName || 'Someone'} rolled ${skill || 'dice'}`,
+    color: COLORS.NEUTRAL,
+    thumbnail: {
+      url: image,
+    },
+    fields: [
+      {
+        name: 'Total',
+        value: `${total}`,
+        inline: true,
+      },
+      {
+        name: 'Rolls',
+        value: formattedRolls,
+        inline: false,
+      },
+    ],
+    footer: {
+      text: footer || '',
+    },
+  }
+}

@@ -26,6 +26,11 @@
             <span class="skill-name">Initiative</span>
         </span>
 
+        <span v-else-if="isInjury">
+            {{ rollData.characterName }} rolled
+            <span class="skill-name">Injury</span>
+        </span>
+
         <span v-else>
             {{ rollData.characterName }} rolled
             <span class="skill-name">{{ rollData.baseSkillName || rollData.skillName }}</span>
@@ -58,6 +63,10 @@ defineProps({
         required: true
     },
     isInitiative: {
+        type: Boolean,
+        default: false
+    },
+    isInjury: {
         type: Boolean,
         default: false
     }

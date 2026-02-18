@@ -4,6 +4,9 @@
     <FloatingActionButton v-if="canEdit && !customDiceRollerOpen" type="initiative" size="large" visibility="on-hover"
       class="initiative-button" @click="handleInitiativeRoll" />
 
+    <FloatingActionButton v-if="canEdit && !customDiceRollerOpen" type="injury" size="large" visibility="on-hover"
+      class="injury-button" @click="handleInjuryRoll" />
+
     <FloatingActionButton v-if="canEdit" :type="customDiceRollerOpen ? 'delete' : 'dice'" size="large"
       visibility="on-hover" :is-active="customDiceRollerOpen" class="dice-roller-toggle"
       @click="toggleCustomDiceRoller" />
@@ -17,14 +20,14 @@
     <div v-show="!customDiceRollerOpen && latestRoll" class="roll-content view-container">
       <template v-if="latestRoll">
         <RollTitle :rollData="latestRoll" :isEngagement="isEngagement" :isOpposedSkillCheck="isOpposedSkillCheck"
-          :isCustomRoll="isCustomRoll" :isInitiative="isInitiative" />
+          :isCustomRoll="isCustomRoll" :isInitiative="isInitiative" :isInjury="isInjury" />
 
         <DiceDisplay ref="diceDisplayRef" :key="latestRoll?.timestamp" :rollData="latestRoll"
           :isEngagement="isEngagement" :canReroll="true" :isOpponent="false" :containerWidth="CONTAINER_WIDTH"
           @reroll-all-dice="rollsStore.reroll" />
 
         <RollOutcome :rollData="latestRoll" :isEngagement="isEngagement" :isOpposedSkillCheck="isOpposedSkillCheck"
-          :isCustomRoll="isCustomRoll" :isInitiative="isInitiative" :isRolling="isRolling" />
+          :isCustomRoll="isCustomRoll" :isInitiative="isInitiative" :isInjury="isInjury" :isRolling="isRolling" />
       </template>
     </div>
 
@@ -49,6 +52,7 @@ import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.v
 import { useRollsStore } from '@/stores/rollsStore'
 import { useCharactersStore } from '@/stores/charactersStore'
 import InitiativeRollService from '@/services/rolls/initiativeRollService'
+import InjuryRollService from '@/services/rolls/injuryRollService'
 
 const rollsStore = useRollsStore()
 const charactersStore = useCharactersStore()
@@ -75,6 +79,14 @@ const handleInitiativeRoll = () => {
   rollsStore.setRoll(rollResult)
 }
 
+const handleInjuryRoll = () => {
+  const character = charactersStore.selectedCharacter
+  if (!character) return
+
+  const rollResult = InjuryRollService.makeInjuryRoll(character)
+  rollsStore.setRoll(rollResult)
+}
+
 const canEdit = computed(() => charactersStore.canEditSelectedCharacter)
 const latestRoll = computed(() => rollsStore.latestRoll)
 
@@ -94,6 +106,10 @@ const isInitiative = computed(() => {
   return latestRoll.value && latestRoll.value.type === RollTypes.INITIATIVE
 })
 
+const isInjury = computed(() => {
+  return latestRoll.value && latestRoll.value.type === RollTypes.INJURY
+})
+
 const isRolling = computed(() => {
   return diceDisplayRef.value?.isRolling || false
 })
@@ -106,6 +122,7 @@ const isRolling = computed(() => {
   align-items: flex-start;
   min-height: 180px;
   padding-top: 40px;
+  --action-button-offset-step: var(--btn-min-height-md);
 }
 
 .view-container {
@@ -135,7 +152,14 @@ const isRolling = computed(() => {
 .initiative-button {
   position: absolute;
   top: var(--space-md);
-  right: calc(var(--space-md) + 36px);
+  right: calc(var(--space-md) + (var(--action-button-offset-step) * 2));
+  z-index: var(--z-raised);
+}
+
+.injury-button {
+  position: absolute;
+  top: var(--space-md);
+  right: calc(var(--space-md) + var(--action-button-offset-step));
   z-index: var(--z-raised);
 }
 

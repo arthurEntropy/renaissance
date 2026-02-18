@@ -47,6 +47,11 @@ export const useRollsStore = defineStore('rolls', () => {
       const module = await import('@/services/rolls/initiativeRollService')
       const rollResult = module.default.makeInitiativeRoll(character)
       latestRoll.value = rollResult
+    } else if (currentRoll.type === 'injury') {
+      const { character } = currentRoll._rerollData
+      const module = await import('@/services/rolls/injuryRollService')
+      const rollResult = module.default.makeInjuryRoll(character)
+      latestRoll.value = rollResult
     } else {
       console.warn(`Reroll not supported for roll type: ${currentRoll.type}`)
     }
