@@ -107,6 +107,20 @@ import { createBaseEntity } from './gameEntity.js'
  * @property {Object} autoCalculations - Auto-calculation settings
  * @property {boolean} autoCalculations.load - Whether to auto-calculate load
  * @property {boolean} autoCalculations.statesAndEffects - Whether to auto-apply states and effects
+ * @property {Object} rollStats - Aggregate roll statistics for this character
+ * @property {Object} rollStats.skillChecks - Skill check statistics
+ * @property {number} rollStats.skillChecks.attempts - Number of skill checks attempted
+ * @property {number} rollStats.skillChecks.successes - Number of successful skill checks
+ * @property {number} rollStats.skillChecks.totalSum - Sum of all skill check totals
+ * @property {number|null} rollStats.skillChecks.bestTotal - Highest skill check total
+ * @property {number|null} rollStats.skillChecks.hardestSuccess - Highest difficulty successfully beaten
+ * @property {Object.<string, number>} rollStats.skillChecks.bySkill - Skill usage counts
+ * @property {number} rollStats.skillChecks.solCount - Number of Sol outcomes rolled on d12
+ * @property {number} rollStats.skillChecks.morteCount - Number of Morte outcomes rolled on d12
+ * @property {number} rollStats.skillChecks.successCount - Number of d6 successes rolled
+ * @property {Object} rollStats.contests - Contest result statistics
+ * @property {Object} rollStats.contests.engagement - Engagement win/loss/draw counts
+ * @property {Object} rollStats.contests.opposed - Opposed skill check win/loss/draw counts
  * @property {string} createdAt - ISO 8601 datetime string
  * @property {string} lastModified - ISO 8601 datetime string
  */
@@ -183,6 +197,23 @@ export function createDefaultCharacter() {
     autoCalculations: {
       load: true,
       statesAndEffects: true,
+    },
+    rollStats: {
+      skillChecks: {
+        attempts: 0,
+        successes: 0,
+        totalSum: 0,
+        bestTotal: null,
+        hardestSuccess: null,
+        bySkill: {},
+        solCount: 0,
+        morteCount: 0,
+        successCount: 0,
+      },
+      contests: {
+        engagement: { wins: 0, losses: 0, draws: 0 },
+        opposed: { wins: 0, losses: 0, draws: 0 },
+      },
     },
   }
 }

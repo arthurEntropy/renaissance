@@ -1,7 +1,15 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
+import { useCharactersStore } from '@/stores/charactersStore'
+import { applyRollToCharacterStats } from '@/services/rolls/rollStatsService'
+
+const ROLL_STATS_PERSIST_DELAY_MS = 250
 
 export const useRollsStore = defineStore('rolls', () => {
+  const charactersStore = useCharactersStore()
+
+  let persistTimeout = null
+
   // Current roll result displayed in DiceRollResults
   const latestRoll = ref(null)
 
@@ -9,8 +17,27 @@ export const useRollsStore = defineStore('rolls', () => {
   const lastDifficulty = ref(null)
 
   // Set the latest roll result
-  function setRoll(rollResult) {
+  function setRoll(rollResult, characterOverride = null) {
     latestRoll.value = rollResult
+
+    const targetCharacter = characterOverride || charactersStore.selectedCharacter
+    if (targetCharacter) {
+      applyRollToCharacterStats(targetCharacter, rollResult)
+
+      if (persistTimeout) {
+        clearTimeout(persistTimeout)
+      }
+
+      persistTimeout = setTimeout(async () => {
+        try {
+          await charactersStore.update(targetCharacter)
+        } catch (error) {
+          console.error('Failed to persist roll stats:', error)
+        } finally {
+          persistTimeout = null
+        }
+      }, ROLL_STATS_PERSIST_DELAY_MS)
+    }
   }
 
   // Update the last difficulty used
@@ -36,22 +63,22 @@ export const useRollsStore = defineStore('rolls', () => {
       const { skill, character, difficulty } = currentRoll._rerollData
       const module = await import('@/services/rolls/skillCheckService')
       const rollResult = module.default.makeSkillCheck(skill, character, difficulty)
-      latestRoll.value = rollResult
+      setRoll(rollResult)
     } else if (currentRoll.type === 'custom_roll') {
       const { dicePool, modifier, character } = currentRoll._rerollData
       const module = await import('@/services/rolls/customRollService')
       const rollResult = module.default.makeCustomRoll(dicePool, modifier, character)
-      latestRoll.value = rollResult
+      setRoll(rollResult)
     } else if (currentRoll.type === 'initiative') {
       const { character } = currentRoll._rerollData
       const module = await import('@/services/rolls/initiativeRollService')
       const rollResult = module.default.makeInitiativeRoll(character)
-      latestRoll.value = rollResult
+      setRoll(rollResult)
     } else if (currentRoll.type === 'injury') {
       const { character } = currentRoll._rerollData
       const module = await import('@/services/rolls/injuryRollService')
       const rollResult = module.default.makeInjuryRoll(character)
-      latestRoll.value = rollResult
+      setRoll(rollResult)
     } else {
       console.warn(`Reroll not supported for roll type: ${currentRoll.type}`)
     }

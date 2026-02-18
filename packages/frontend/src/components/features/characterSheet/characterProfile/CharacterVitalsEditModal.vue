@@ -135,6 +135,8 @@
                         </div>
                     </div>
                 </div>
+
+                <CharacterRollStats @reset-stats="resetStats" />
             </div>
 
             <!-- Sticky Action Buttons -->
@@ -153,7 +155,9 @@
 import { ref, computed, onMounted } from 'vue'
 import { useCharactersStore } from '@/stores/charactersStore'
 import { useConceptsStore } from '@/stores/conceptsStore'
+import { createEmptyRollStats } from '@/services/rolls/rollStatsService'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
+import CharacterRollStats from './CharacterRollStats.vue'
 
 const charactersStore = useCharactersStore()
 const conceptsStore = useConceptsStore()
@@ -216,6 +220,13 @@ const saveChanges = () => {
     closeModal()
 }
 
+const resetStats = () => {
+    const shouldReset = confirm('Reset all tracked character roll stats?')
+    if (!shouldReset) return
+
+    character.rollStats = createEmptyRollStats()
+}
+
 // Delete functionality
 const initiateDelete = () => {
     showDeleteConfirmation.value = true
@@ -227,14 +238,10 @@ const cancelDelete = () => {
 }
 
 const confirmDeletion = async () => {
-    if (isDeleteConfirmed.value && character) {
-        try {
-            await charactersStore.deleteCharacter(character._id)
-            closeModal()
-        } catch (error) {
-            console.error('Failed to delete character:', error)
-        }
-    }
+    if (!isDeleteConfirmed.value || !character) return
+
+    await charactersStore.deleteCharacter(character._id)
+    closeModal()
 }
 </script>
 
