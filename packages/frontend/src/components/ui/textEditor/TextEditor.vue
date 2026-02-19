@@ -9,7 +9,7 @@
 </template>
 
 <script setup>
-import { ref, watch, onMounted, onBeforeUnmount, nextTick, computed } from 'vue'
+import { ref, watch, onMounted, onBeforeUnmount, nextTick } from 'vue'
 import { Editor, EditorContent } from '@tiptap/vue-3'
 import { getDiceFontClass, parseDiceFontClass } from '@/utils/diceFontUtils'
 import StarterKit from '@tiptap/starter-kit'
@@ -24,7 +24,6 @@ import DiceFontNode from '@/extensions/DiceFontNode'
 import TextEditorToolbar from './TextEditorToolbar.vue'
 
 const MIN_EDITOR_HEIGHT = 200
-const MAX_EDITOR_HEIGHT = 420
 const AUTO_HEIGHT_BUFFER = 50
 
 const props = defineProps({
@@ -55,7 +54,6 @@ const emit = defineEmits(['update:modelValue'])
 const editor = ref()
 const editorWrapper = ref()
 const dynamicHeight = ref(props.height)
-const maxHeight = computed(() => props.autoHeight ? 'none' : `${MAX_EDITOR_HEIGHT}px`)
 
 const updateHeight = () => {
   if (!props.autoHeight || !editorWrapper.value) return
@@ -130,6 +128,12 @@ watch(() => props.modelValue, (newValue) => {
   }
   if (props.autoHeight) {
     nextTick(updateHeight)
+  }
+})
+
+watch(() => props.height, (newHeight) => {
+  if (!props.autoHeight) {
+    dynamicHeight.value = newHeight
   }
 })
 
@@ -221,12 +225,21 @@ defineExpose({
 
 .rich-editor-wrapper:not([data-auto-height]) {
   height: v-bind(dynamicHeight);
-  max-height: v-bind(maxHeight);
 }
 
 .rich-editor-wrapper[data-auto-height] {
   height: auto;
   max-height: none;
+}
+
+.rich-text-content {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.rich-editor-wrapper[data-auto-height] .rich-text-content {
+  overflow: visible;
 }
 
 .rich-editor-wrapper[data-auto-height] :deep(.ProseMirror) {

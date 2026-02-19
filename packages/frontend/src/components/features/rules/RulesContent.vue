@@ -13,8 +13,8 @@
     </div>
 
     <!-- Scrollable content container -->
-    <div class="scrollable-content">
-      <div class="section-content-container">
+    <div class="scrollable-content" :class="{ 'editing-content': isContentEditMode }">
+      <div class="section-content-container" :class="{ 'editing-content': isContentEditMode }">
 
         <!-- EDIT MODE: Image URL input and text editor -->
         <div v-if="isContentEditMode" class="image-url-container">
@@ -23,7 +23,7 @@
             class="image-url-input" placeholder="Enter image URL (optional)" />
         </div>
         <TextEditor v-if="isContentEditMode" v-model="localSection.content" @update:modelValue="unsavedChanges = true"
-          :autoHeight="true" />
+          class="section-text-editor" height="100%" />
 
         <!-- DISPLAY MODE: Section content when not in content edit mode -->
         <div v-else class="content-display rich-text-content" v-html="safeSectionHtml">
@@ -117,6 +117,13 @@ const toggleContentEditMode = async () => {
   padding: 0 var(--space-xl) var(--space-xl) var(--space-xl);
 }
 
+.scrollable-content.editing-content {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+}
+
 .section-header {
   display: flex;
   align-items: center;
@@ -147,6 +154,19 @@ const toggleContentEditMode = async () => {
 .section-content-container {
   position: relative;
   margin-bottom: 100px;
+}
+
+.section-content-container.editing-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  margin-bottom: 0;
+}
+
+.section-text-editor {
+  flex: 1;
+  min-height: 0;
 }
 
 .image-url-container {
