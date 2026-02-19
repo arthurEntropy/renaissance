@@ -284,7 +284,7 @@ const tooltip = computed(() => {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--color-primary);
+    color: var(--color-text-primary);
 }
 
 .fab__icon--large {
@@ -295,7 +295,7 @@ const tooltip = computed(() => {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--color-primary);
+    color: var(--color-text-primary);
 }
 
 /* === IMAGE ICON STYLES === */
