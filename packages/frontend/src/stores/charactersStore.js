@@ -43,7 +43,16 @@ export const useCharactersStore = defineStore('characters', () => {
 
   // Wrap update to sync selectedCharacter
   const update = async (entity) => {
+    if (selectedCharacter.value?.id === entity?.id) {
+      selectedCharacter.value = entity
+    }
+
     const updatedEntity = await base.update(entity)
+
+    if (selectedCharacter.value?.id === updatedEntity?.id) {
+      selectedCharacter.value = updatedEntity
+    }
+
     return updatedEntity
   }
 
