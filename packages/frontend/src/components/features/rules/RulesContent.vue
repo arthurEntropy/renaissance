@@ -13,7 +13,7 @@
     </div>
 
     <!-- Scrollable content container -->
-    <div class="scrollable-content" :class="{ 'editing-content': isContentEditMode }">
+    <div class="scrollable-content" ref="scrollableContent" :class="{ 'editing-content': isContentEditMode }">
       <div class="section-content-container" :class="{ 'editing-content': isContentEditMode }">
 
         <!-- EDIT MODE: Image URL input and text editor -->
@@ -34,7 +34,7 @@
 </template>
 
 <script setup>
-import { ref, computed, watch, provide, inject } from 'vue'
+import { ref, computed, watch, provide, inject, nextTick } from 'vue'
 import { useAuthStore } from '@/stores/authStore'
 import { useRulesStore } from '@/stores/rulesStore'
 import TextEditor from '@/components/ui/textEditor/TextEditor.vue'
@@ -50,6 +50,10 @@ const isContentEditMode = ref(false)
 const localSection = ref(null)
 const unsavedChanges = ref(false)
 
+// Scroll position tracking
+const scrollableContent = ref(null)
+const scrollPositions = {}
+
 // Provide edit mode to sibling components
 provide('isContentEditMode', isContentEditMode)
 
@@ -61,7 +65,12 @@ watch(currentSection, (newSection) => {
   }
 }, { immediate: true })
 
-watch(() => rulesStore.selectedSection?.id, () => {
+watch(() => rulesStore.selectedSection?.id, async (newId, oldId) => {
+  // Save scroll position of the section we're leaving
+  if (oldId && scrollableContent.value) {
+    scrollPositions[oldId] = scrollableContent.value.scrollTop
+  }
+
   if (isContentEditMode.value && unsavedChanges.value) {
     if (confirm('You have unsaved changes. Do you want to save before continuing?')) {
       saveSection()
@@ -69,6 +78,12 @@ watch(() => rulesStore.selectedSection?.id, () => {
   }
   isContentEditMode.value = false
   unsavedChanges.value = false
+
+  // Restore saved scroll position, or start at top for first visit
+  await nextTick()
+  if (scrollableContent.value) {
+    scrollableContent.value.scrollTop = scrollPositions[newId] ?? 0
+  }
 })
 
 const safeSectionHtml = computed(() => {
