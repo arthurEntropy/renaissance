@@ -2,7 +2,7 @@
   "id": "77e4f81a-728f-49a7-a013-4d6f666353e2",
   "conceptType": "ANCESTRY",
   "name": "Halfling",
-  "description": "",
+  "description": "<p>Of modest height and build, Halflings are lighter on their feet than almost anyone has a right to be. Their senses are sharp, their reflexes quicker than their size implies, and they have a long-established reputation for appearing in exactly the place you weren't watching.</p>",
   "isDeleted": false,
   "artUrls": [
     "https://cdn.midjourney.com/033e30ef-e853-44db-971b-ba105fd8a590/0_3.png"
@@ -19,5 +19,5 @@
   "vittles": "",
   "pointsOfInterest": "",
   "floraFauna": "",
-  "lastModified": "2026-02-03T02:43:18.260Z"
+  "lastModified": "2026-02-25T14:25:14.291Z"
 }

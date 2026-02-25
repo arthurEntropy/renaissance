@@ -2,7 +2,7 @@
   "id": "ba7af7ad-54d2-4b45-86ad-71781d4cdb33",
   "conceptType": "ANCESTRY",
   "name": "Dragonborn",
-  "description": "Born of some ancient, improbable union lost to living knowledge, the Dragonborn bear the strength of dragons with the mere frame of a humanoid form. Some cultivate these unusual gifts and wield them with pride. Others see them as a burden to be overcome. All stand out in a crowd - typically tall and imposing, with scales and horns of many colors.",
+  "description": "<p>Born of some ancient, improbable union lost to living knowledge, the Dragonborn bear the strength of dragons within the frame of a humanoid form. Some cultivate these unusual gifts and wield them with pride. Others see them as a burden to be overcome. All stand out in a crowd - typically tall and imposing, with scales and horns of many colors.</p>",
   "isDeleted": false,
   "artUrls": [
     "https://cdn.midjourney.com/d36b8637-3c46-48f3-9a7b-b98750195974/0_2.png"
@@ -19,6 +19,6 @@
   "vittles": "",
   "pointsOfInterest": "",
   "floraFauna": "",
-  "lastModified": "2025-12-13T19:14:19.102Z",
+  "lastModified": "2026-02-25T13:26:19.115Z",
   "expansionLogoUrl": "https://cdn.midjourney.com/a74946da-ccb3-4540-89e9-751411b6bb7c/0_1.png"
 }
