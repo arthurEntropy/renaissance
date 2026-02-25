@@ -2,7 +2,7 @@
   "id": "15bb5476-5cca-48ee-a6a0-95b0ea6cc803",
   "conceptType": "ANCESTRY",
   "name": "Ropekin",
-  "description": "<p>The Ropekin are, somehow, made of rope. Braided, knotted, coiled where a torso ought to be — they are humanoid in every functional respect and entirely inexplicable in material. Legend has it that a sailor fell in love with their ship that they attempted to bring it to life, but only succeeded in imbuing the ship's rigging with vitality. The Ropekin themselves are largely unbothered by the mystery.</p>",
+  "description": "<p>The Ropekin are, somehow, made of rope. Braided, knotted, coiled where a torso ought to be — they are humanoid in every functional respect and entirely inexplicable in material. Legend has it that a sailor fell in love with their ship that they attempted to bring it to life, but only succeeded in imbuing the ship's rigging with vitality. The Ropekin themselves are largely unbothered by the mystery.</p><p><strong><em>Height</em></strong><em>: 4-7' </em>| <strong><em>Weight</em></strong><em>: 50-175 lbs </em>| <strong><em>Average Lifespan</em></strong><em>: undying </em>| <strong><em>Speed</em></strong><em>: 30</em></p>",
   "isDeleted": false,
   "artUrls": [
     "https://cdn.midjourney.com/1f42e7e8-da85-44ac-8046-f92d3e42e178/0_0.png"
@@ -19,5 +19,5 @@
   "vittles": "",
   "pointsOfInterest": "",
   "floraFauna": "",
-  "lastModified": "2026-02-25T14:31:52.483Z"
+  "lastModified": "2026-02-25T19:30:44.290Z"
 }

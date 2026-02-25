@@ -2,7 +2,7 @@
   "id": "2e46823f-bec7-4d70-b323-dbc8b71c7739",
   "conceptType": "ANCESTRY",
   "name": "Drow",
-  "description": "<p>Distant kin to surface Elves, the Drow have spent uncountable generations dwelling in the lightless places beneath the world. Their eyes are wide and luminous, built to catch even the faintest glimmer in absolute dark. Their skin runs from deep grey to dark violet, and their hair is almost universally white. Whatever estrangement first drove them underground is ancient enough to be legend now — what remains is simply a people shaped wholly by the deep.</p>",
+  "description": "<p>Distant kin to surface Elves, the Drow have spent uncountable generations dwelling in the lightless places beneath the world. Their eyes are wide and luminous, built to catch even the faintest glimmer in absolute dark. Their skin runs from deep grey to dark violet, and their hair is almost universally white. Whatever estrangement first drove them underground is ancient enough to be legend now — what remains is simply a people shaped wholly by the deep.</p><p><strong><em>Height</em></strong><em>: 5-6' </em>| <strong><em>Weight</em></strong><em>: 75-225 lbs </em>| <strong><em>Average Lifespan</em></strong><em>: undying </em>| <strong><em>Speed</em></strong><em>: 30</em></p>",
   "isDeleted": false,
   "artUrls": [
     "https://cdn.midjourney.com/0333b110-ab2f-4965-ae32-3c67dba0a0f3/0_2.png"
@@ -19,5 +19,5 @@
   "vittles": "",
   "pointsOfInterest": "",
   "floraFauna": "",
-  "lastModified": "2026-02-25T14:09:32.091Z"
+  "lastModified": "2026-02-25T19:26:00.944Z"
 }
