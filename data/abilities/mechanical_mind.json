@@ -1,13 +1,14 @@
 {
   "id": "e93bf0ca-ac0f-41d7-b825-f4d9c655ad2a",
   "name": "Mechanical Mind",
-  "description": "<p><em>You have a natural aptitude for understanding how things work, and indulging your curiosity often pays off.</em></p><p>Any time you succeed on a Craft roll performing a task you've never attempted before, +1d, and you gain 1 XP.</p><p><strong>Describe your knack for the task.</strong></p>",
+  "description": "<p><em>You have a natural aptitude for understanding how things work, and indulging your curiosity often pays off.</em></p><p>Any time you attempt a Craft roll to perform a task you've never attempted before, +1d. On a pass, gain 1 XP.</p><p><strong>Describe your knack for the task.</strong></p>",
   "canBeActive": false,
   "isActive": true,
   "source": "fffc6b74-d66f-4270-a8b4-e045433ae176",
   "isDeleted": false,
   "mp": null,
   "xp": null,
-  "lastModified": "2026-02-12T21:37:52.073Z",
-  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
+  "lastModified": "2026-02-26T15:06:06.749Z",
+  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d",
+  "artUrl": "https://cdn.midjourney.com/3abbfdc7-3ad7-4364-a10c-d50bf2dff88b/0_2.png"
 }

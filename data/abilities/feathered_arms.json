@@ -1,13 +1,14 @@
 {
   "id": "46867e87-36a8-412c-81e4-278b6374cbe0",
   "name": "Feathered Arms",
-  "description": "<p><em>You can use your wing-like arms to glide from any height safely to the ground.</em></p><p>Once per rest, you can propel yourself to a height equal to your speed. This counts as your movement. If you don’t perch at that height, you glide back down.</p><p>Your body makes no sound while gliding, but things you are wearing or carrying may.</p><p><strong>Describe your winged movement.</strong></p>",
+  "description": "<p><em>The vestigial wing-like quality of your arms allows you limited movement through the air.</em></p><p>You can use your wing-like arms to glide from any height safely to the ground, moving horizontally up to your Speed, or twice your Speed if you use the Sprint action in conjunction with the glide. Your body makes no sound while gliding, but things you are wearing or carrying may.</p><p>Once per rest, you can flap your arms to propel yourself to a height up to your Speed. If you don’t perch at that height, you immediately glide back down.</p><p><strong>Describe your movement.</strong></p>",
   "canBeActive": false,
   "isActive": true,
   "source": "d5e3228b-1d04-4503-8ec6-3210d420c082",
   "isDeleted": false,
   "mp": null,
   "xp": null,
-  "lastModified": "2026-02-12T21:37:52.066Z",
-  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
+  "lastModified": "2026-02-26T14:01:42.799Z",
+  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d",
+  "artUrl": "https://cdn.midjourney.com/122fa0a8-4c57-4125-a9cd-a573a8fd97a5/0_0.png"
 }

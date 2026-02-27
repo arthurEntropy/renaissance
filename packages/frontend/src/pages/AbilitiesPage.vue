@@ -96,7 +96,12 @@ const allFilteredAbilities = computed(() => {
 
   // Apply source filter
   if (sourceFilterValue) {
-    filtered = filtered.filter((item) => item.source === sourceFilterValue)
+    if (sourceFilterValue.startsWith('type:')) {
+      const sourceType = sourceFilterValue.slice(5)
+      filtered = filtered.filter((item) => sourcesStore.getSourceType(item.source) === sourceType)
+    } else {
+      filtered = filtered.filter((item) => item.source === sourceFilterValue)
+    }
   }
 
   // Apply search query
@@ -228,6 +233,7 @@ const layoutProps = computed(() => ({
   sortOptions: sortOptions.value,
   hasMore: hasMore.value,
   isLoadingMore: isLoadingMore.value,
+  showSourceGroupOptions: true,
 }))
 </script>
 
