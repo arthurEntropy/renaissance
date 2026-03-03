@@ -198,7 +198,7 @@ const hasAnyMartialTraining = computed(() => {
 const hasAnyNovizioData = computed(() => {
   if (!concept.value?.novizio) return false
   const n = concept.value.novizio
-  return [n.flavorText, n.melee, n.polearms, n.ranged, n.firearms, n.armor, n.engagement, n.abilities].some(val => val?.toString().trim()) || (n.initialMaxMP && n.initialMaxMP > 1)
+  return [n.flavorText, n.melee, n.polearms, n.ranged, n.firearms, n.armor, n.engagement, n.abilities].some(val => val?.toString().trim()) || n.initialMaxMP > 1
 })
 
 const safeDescription = computed(() => sanitizeHtml(concept.value?.novizio?.description))

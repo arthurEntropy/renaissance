@@ -71,7 +71,11 @@
       @close="closeEditAbilityModal" @delete="deleteAbility" />
 
     <!-- Edit Equipment Modal -->
-    <EditEquipmentModal v-if="showEditEquipmentModal" :equipment="selectedEquipment" @update="saveEditedEquipment"
+    <EditEquipmentModal v-if="showEditEquipmentModal" :equipment="selectedEquipment"
+      :all-equipment="equipmentStore.equipment" :keeping-options="keepingStore.keeping"
+      :equipment-types="equipmentTypesStore.items" :equipment-subtypes="equipmentSubtypesStore.items"
+      :equipment-grades="equipmentGradesStore.items" :equipment-ranges="equipmentRangesStore.items"
+      :engagement-success-options="engagementSuccessOptions" @update="saveEditedEquipment"
       @close="closeEditEquipmentModal" @delete="deleteEquipment" />
   </div>
 
@@ -102,7 +106,14 @@ import { useConceptsStore } from '@/stores/conceptsStore'
 import { useExpansionsStore } from '@/stores/expansionsStore'
 import { useAbilitiesStore } from '@/stores/abilitiesStore'
 import { useEquipmentStore } from '@/stores/equipmentStore'
+import { useEquipmentTypesStore } from '@/stores/equipmentTypesStore'
+import { useEquipmentSubtypesStore } from '@/stores/equipmentSubtypesStore'
+import { useEquipmentGradesStore } from '@/stores/equipmentGradesStore'
+import { useEquipmentRangesStore } from '@/stores/equipmentRangesStore'
+import { useKeepingStore } from '@/stores/keepingStore'
+import { useActionTypesStore } from '@/stores/actionTypesStore'
 import { useArtStore } from '@/stores/artStore'
+import EngagementSuccessService from '@/services/entities/engagementSuccessService'
 
 import { IMAGE_GALLERY_MODES, ART_TYPES } from '@shared/constants/artConstants.js'
 
@@ -122,7 +133,14 @@ const conceptsStore = useConceptsStore()
 const expansionsStore = useExpansionsStore()
 const abilitiesStore = useAbilitiesStore()
 const equipmentStore = useEquipmentStore()
+const equipmentTypesStore = useEquipmentTypesStore()
+const equipmentSubtypesStore = useEquipmentSubtypesStore()
+const equipmentGradesStore = useEquipmentGradesStore()
+const equipmentRangesStore = useEquipmentRangesStore()
+const keepingStore = useKeepingStore()
+const actionTypesStore = useActionTypesStore()
 const artStore = useArtStore()
+const engagementSuccessOptions = ref([])
 
 // Edit modals
 const {
@@ -266,8 +284,15 @@ onMounted(async () => {
     expansionsStore.fetch(),
     abilitiesStore.fetch(),
     equipmentStore.fetch(),
+    equipmentTypesStore.fetch(),
+    equipmentSubtypesStore.fetch(),
+    equipmentGradesStore.fetch(),
+    equipmentRangesStore.fetch(),
+    keepingStore.fetch(),
+    actionTypesStore.fetch(),
     artStore.fetch()
   ])
+  engagementSuccessOptions.value = await EngagementSuccessService.getAll()
 })
 
 onBeforeUnmount(() => {

@@ -1,13 +1,14 @@
 {
   "id": "0704fd08-ce09-40a6-9db0-62ff6e7839f7",
   "name": "Free Throw",
-  "description": "<p>When you take damage from a foe, use your Shoot ability as a reaction to attack that foe if it’s within range, dealing half damage on a hit.</p>",
+  "description": "<p><em>Trigger: A creature within your Orb's range deals damage to you with an Attack.</em></p><p>Make an Attack against that creature with your Orb.</p>",
   "canBeActive": false,
   "isActive": true,
   "source": "a07490af-2d77-4968-9adc-0a2a7c84ef70",
   "isDeleted": false,
-  "mp": 1,
+  "mp": "",
   "xp": 10,
-  "lastModified": "2026-02-12T21:37:52.068Z",
-  "type": "e5f6a1b2-c3d4-4e5f-da2b-1c0d9e8f7a6b"
+  "lastModified": "2026-03-02T21:47:32.306Z",
+  "type": "e5f6a1b2-c3d4-4e5f-da2b-1c0d9e8f7a6b",
+  "artUrl": "https://cdn.midjourney.com/65ca68eb-56a8-4ff7-a7ec-a28989deab28/0_2.png"
 }
