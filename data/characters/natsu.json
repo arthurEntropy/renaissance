@@ -6,9 +6,13 @@
   "ancestries": "Human",
   "cultures": "Asana Commune",
   "ancestryIds": [
-    1
+    "77e4f81a-728f-49a7-a013-4d6f666353e2",
+    "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
   ],
-  "cultureIds": [],
+  "cultureIds": [
+    "352c844b-6d4f-4b61-b475-315421a453e7",
+    "cdc93466-8327-4096-a8c2-04cccf3e3835"
+  ],
   "personalityAndBackground": "Arrived too late to join the Asana Commune before it was destroyed. Squatting in the ruins. Big speech impediment.",
   "xp": 10,
   "mp": {
@@ -21,7 +25,7 @@
   "skills": [
     {
       "name": "Awe",
-      "ranks": 1,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": -1,
@@ -47,7 +51,7 @@
     {
       "name": "Fortitude",
       "ranks": 0,
-      "isFavored": true,
+      "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
       "coreAbility": "body",
@@ -104,7 +108,7 @@
     },
     {
       "name": "Persuade",
-      "ranks": 3,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -128,7 +132,7 @@
     },
     {
       "name": "Lore",
-      "ranks": 2,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -208,13 +212,13 @@
     "https://cdn.midjourney.com/a6773dd7-3da8-4349-9212-b021c7aa09f7/0_2.png"
   ],
   "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2026-03-03T18:44:12.353Z",
-  "lastModified": "2026-03-03T18:44:12.353Z",
+  "updatedAt": "2026-03-03T21:18:25.873Z",
+  "lastModified": "2026-03-03T21:18:25.873Z",
   "mestiereId": "937d52da-0ebf-4d74-b3ee-be395f2f5d0a",
-  "age": 0,
-  "heightFeet": 0,
-  "heightInches": 0,
-  "weight": 0,
+  "age": 23,
+  "heightFeet": 4,
+  "heightInches": 10,
+  "weight": 95,
   "rollStats": {
     "skillChecks": {
       "attempts": 3,
@@ -242,5 +246,10 @@
         "draws": 0
       }
     }
-  }
+  },
+  "biomeTags": [
+    "forest",
+    "cold",
+    "civilized"
+  ]
 }
