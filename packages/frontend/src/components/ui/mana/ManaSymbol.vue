@@ -9,11 +9,11 @@
 
 import { computed } from 'vue'
 import { ManaColor } from '@shared/constants/manaColors'
-import whitePng from './svgs/white.png'
-import bluePng from './svgs/blue.png'
-import blackPng from './svgs/black.png'
-import redPng from './svgs/red.png'
-import greenPng from './svgs/green.png'
+import whitePng from './pngs/white.png'
+import bluePng from './pngs/blue.png'
+import blackPng from './pngs/black.png'
+import redPng from './pngs/red.png'
+import greenPng from './pngs/green.png'
 
 const props = defineProps({
     color: { type: String, required: true }, // ManaColor
