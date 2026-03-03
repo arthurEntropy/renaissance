@@ -2,7 +2,7 @@
   "id": "e40c3cff-9f6b-4940-ae41-cef878821a75",
   "conceptType": "ANCESTRY",
   "name": "Tritoni",
-  "description": "",
+  "description": "<p>The Tritoni are descended from creatures that chose the water but never surrendered the lung. Bipedal and broadly humanoid, they are built for the ocean in ways that become apparent on land. Their gills require daily attention above the waterline, and their movements are slower on dry ground than in open water.</p><p><strong><em>Height</em></strong><em>: 5-6' </em>| <strong><em>Weight</em></strong><em>: 125-400 lbs </em>| <strong><em>Average Lifespan</em></strong><em>: 70 years </em>| <strong><em>Speed</em></strong><em>: 30</em></p>",
   "isDeleted": false,
   "artUrls": [
     "https://cdn.midjourney.com/10cd953d-17f2-4495-bf14-f6c9fe24a8b0/0_3.png"
@@ -19,5 +19,5 @@
   "vittles": "",
   "pointsOfInterest": "",
   "floraFauna": "",
-  "lastModified": "2026-02-03T01:07:37.783Z"
+  "lastModified": "2026-02-25T19:47:48.462Z"
 }

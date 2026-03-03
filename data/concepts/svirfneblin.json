@@ -2,14 +2,14 @@
   "id": "1c61dcb1-937a-44fe-9c69-3cd588e9dcb7",
   "conceptType": "ANCESTRY",
   "name": "Svirfneblin",
-  "description": "",
+  "description": "<p>The Svirfneblin share the Gnome's curiosity, but compressed and directed inward — down through layers of stone and precision, toward the very small and the very exact. They are most at home underground, carrying the careful stillness of people who have learned not to make unnecessary noise in the dark. They also have a constitutional tendency to speak at considerable length on subjects of personal interest, and to continue well past the point at which their audience has given up following.</p><p><strong><em>Height</em></strong><em>: 2-3' </em>| <strong><em>Weight</em></strong><em>: 20-75 lbs </em>| <strong><em>Average Lifespan</em></strong><em>: 200 years </em>| <strong><em>Speed</em></strong><em>: 20</em></p>",
   "isDeleted": false,
   "artUrls": [
     "https://cdn.midjourney.com/63d1805a-ac93-410e-ae5d-4626c5194e29/0_0.png"
   ],
   "faces": [],
   "places": [],
-  "backgroundImage": "",
+  "backgroundImage": "https://cdn.midjourney.com/87414dca-15df-4ece-88d8-ef0605045b6e/0_2.png",
   "expansion": "824cad94-3a4a-4df3-b81a-ede17b84644b",
   "hooks": [],
   "playlists": [],
@@ -19,5 +19,5 @@
   "vittles": "",
   "pointsOfInterest": "",
   "floraFauna": "",
-  "lastModified": "2025-12-15T14:52:48.204Z"
+  "lastModified": "2026-02-26T20:04:08.765Z"
 }

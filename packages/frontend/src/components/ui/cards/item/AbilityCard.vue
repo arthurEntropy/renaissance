@@ -146,7 +146,7 @@ const characterHasBaseAbility = computed(() => {
 })
 
 const shouldShowBaseXpBadge = computed(() => {
-  return props.showXpBadge && props.ability.xp
+  return props.showXpBadge && props.ability.xp !== undefined && props.ability.xp !== null
 })
 
 const characterOwnsAnyImprovements = computed(() => {

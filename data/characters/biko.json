@@ -35,7 +35,8 @@
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "coreAbility": "body"
+      "coreAbility": "body",
+      "manualDiceMod": 0
     },
     {
       "name": "Dexterity",
@@ -224,6 +225,11 @@
       "quantity": 1,
       "isCarried": true,
       "isWielding": false
+    },
+    {
+      "id": "f94fb100-aed0-4a42-89a4-3a793439b842",
+      "quantity": 1,
+      "isCarried": true
     }
   ],
   "engagementDice": [
@@ -312,6 +318,24 @@
     {
       "id": "e16343e2-35aa-4a42-b8f3-9105aad87780",
       "collapsed": false,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "3f8b04db-fe8e-4569-8670-092ea46a06cf",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "f906a23e-b95d-421a-b4ed-b094c3086497",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "8f9c579e-1089-4532-a10a-3cf5115bb403",
+      "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false
     }

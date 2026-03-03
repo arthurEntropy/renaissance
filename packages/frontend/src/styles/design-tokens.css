@@ -11,12 +11,12 @@
   --color-gray-light: #aaaaaa;        /* Light gray - text, placeholders */
 
   /* === MANA COLORS (MTG accurate) === */
-  --mana-white: #fffce0;      /* White mana (MTG) */
-  --mana-blue: #8accff;       /* Blue mana (MTG) */
-  --mana-black: #9e919e;      /* Black mana (MTG) */
-  --mana-red: #ef8d8d;        /* Red mana (MTG) */
-  --mana-green: #b3e8b2;      /* Green mana (MTG) */
-  --mana-colorless: #bdbdbd;  /* Colorless mana (MTG) */
+  --mana-white: #9a9673;      /* White mana (MTG) */
+  --mana-blue: #004479;       /* Blue mana (MTG) */
+  --mana-black: #3e2d3e;      /* Black mana (MTG) */
+  --mana-red: #711010;        /* Red mana (MTG) */
+  --mana-green: #4c804a;      /* Green mana (MTG) */
+  --mana-colorless: #454545;  /* Colorless mana (MTG) */
   
   /* Primary */
   --color-primary: #daa520;           /* goldenrod */

@@ -2,14 +2,14 @@
   "id": "b6f7cc3e-f689-4cd9-a8ed-73bf5e7f0fef",
   "conceptType": "ANCESTRY",
   "name": "Musteval",
-  "description": "",
+  "description": "<p>Mouselike in feature and modest in stature, the Musteval are easy to underestimate. They carry within them a quiet attunement to divine presence, like an ear for music. Sacred beings find the Musteval unusually easy to hear, and are in turn unusually willing to listen.</p><p><strong><em>Height</em></strong><em>: 3-4' </em>| <strong><em>Weight</em></strong><em>: 30-100 lbs </em>| <strong><em>Average Lifespan</em></strong><em>: 100 years </em>| <strong><em>Speed</em></strong><em>: 25</em></p>",
   "isDeleted": false,
   "artUrls": [
     "https://cdn.midjourney.com/7a1fcf86-49b5-4371-b51c-de1799128ab6/0_3.jpeg"
   ],
   "faces": [],
   "places": [],
-  "backgroundImage": "",
+  "backgroundImage": "https://cdn.midjourney.com/ecc09774-1264-4f1e-9778-593263887818/0_3.png",
   "expansion": "824cad94-3a4a-4df3-b81a-ede17b84644b",
   "hooks": [],
   "playlists": [],
@@ -18,5 +18,6 @@
   "publicHouses": "",
   "vittles": "",
   "pointsOfInterest": "",
-  "floraFauna": ""
+  "floraFauna": "",
+  "lastModified": "2026-02-26T16:26:03.589Z"
 }

@@ -9,7 +9,7 @@
   ],
   "faces": [],
   "places": [],
-  "backgroundImage": "https://cdn.midjourney.com/4f5dd755-f648-4d58-8175-f66b94ea2352/0_2.jpeg",
+  "backgroundImage": "https://cdn.midjourney.com/4f5dd755-f648-4d58-8175-f66b94ea2352/0_0.png",
   "expansion": "",
   "hooks": [],
   "playlists": [],
@@ -19,5 +19,17 @@
   "vittles": "",
   "pointsOfInterest": "",
   "floraFauna": "",
-  "lastModified": "2025-12-15T12:58:08.107Z"
+  "lastModified": "2026-03-02T19:33:56.495Z",
+  "novizio": {
+    "flavorText": "",
+    "melee": "",
+    "polearms": "",
+    "ranged": "",
+    "firearms": "",
+    "armor": "",
+    "engagement": "",
+    "initialMaxMP": 0,
+    "abilities": "",
+    "description": "<p>You have the <em>Initiate's Orb</em> Equipment item, which has a small object of personal significance at its center. Describe the object and why you chose it.</p>"
+  }
 }

@@ -1,13 +1,14 @@
 {
   "id": "da39ee23-263d-4540-ae37-aea66100a451",
   "name": "Not Of This World",
-  "description": "<p><em>Even as you walk in this world, you are bound by strands to the spirit world, which underlies the world we know.</em></p><p>Once per rest, you may open your senses to this connection, sensing nearby spiritual and magical beings. You get a vague sense of their power, domain or general intent. When you attempt to communicate with, influence or request a favor from such beings, your skill checks are favored.</p><p><strong>Describe how your connection manifests.</strong></p><p>Additionally, your ties to the world of spirits prevent you from following fully the ways of this world. Choose one permanent effect:</p><ul><li><p>You cannot fall asleep in a bed.</p></li><li><p>You cannot use utensils to eat food.</p></li><li><p>You cannot enter a dwelling uninvited.</p></li></ul><p><strong>Describe how you navigate this limitation.</strong></p>",
+  "description": "<p><em>Even as you walk in this world, you are bound by strands to the spirit world, which underlies the world we know.</em></p><p>You gain 1 rank in Spirit.</p><p>Once per rest, you may spend an action to open your senses to the spirit world, sensing nearby spiritual and magical beings. You get a vague sense of their power, domain or general intent. When you attempt to communicate with, influence or request a favor from such beings, your Skill Checks are Favored.</p><p><strong>Describe how your connection manifests.</strong></p><p>Your ties to the world of spirits prevent you from following fully the ways of this world. Choose one permanent effect:</p><ul><li><p>You cannot fall asleep in a bed.</p></li><li><p>You cannot use utensils to eat food.</p></li><li><p>You cannot enter a dwelling uninvited.</p></li></ul><p><strong>Describe how you navigate this limitation.</strong></p>",
   "canBeActive": false,
   "isActive": true,
   "source": "f00fe427-1bb5-472c-8abb-2a394730a40a",
   "isDeleted": false,
   "mp": null,
   "xp": null,
-  "lastModified": "2026-02-12T21:37:52.074Z",
-  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
+  "lastModified": "2026-02-26T03:36:53.989Z",
+  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d",
+  "artUrl": "https://cdn.midjourney.com/5c8c018f-f753-4c58-a422-6aaf23e6e141/0_0.png"
 }

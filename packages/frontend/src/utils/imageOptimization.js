@@ -17,7 +17,7 @@ export function optimizeMidjourneyUrl(url, resolution = MIDJOURNEY_RESOLUTIONS.M
     resolution = MIDJOURNEY_RESOLUTIONS.MEDIUM
   }
 
-  const pattern = /https:\/\/cdn\.midjourney\.com\/([\w-]+)\/([\d_]+)\.(png|jpeg|jpg)/
+  const pattern = /^https:\/\/cdn\.midjourney\.com\/([\w-]+)\/([^/?#]+)\.(png|jpeg|jpg)(?:[?#].*)?$/i
   const match = url.match(pattern)
 
   if (!match) {
@@ -25,7 +25,8 @@ export function optimizeMidjourneyUrl(url, resolution = MIDJOURNEY_RESOLUTIONS.M
     return url
   }
 
-  const [, uuid, gridIndex] = match
+  const [, uuid, imageId] = match
+  const gridIndex = imageId.replace(/_\d+_[A-Za-z]$/, '')
 
   return `https://cdn.midjourney.com/${uuid}/${gridIndex}_${resolution}_N.${format}`
 }

@@ -1,13 +1,14 @@
 {
   "id": "9c077803-607e-4cda-9f46-8f71d7778857",
   "name": "Finger Spin",
-  "description": "<p>You spin your orb on your finger, charging it with magical energy. Roll Dexterity as many times as you choose, up to your BODY score. For each result above 10, add 1 charge to your orb. If you roll 9 or less, you lose the spin and this ability adds no charges to the orb. If all your rolls are above 10, this ability does not expend a half action.</p>",
+  "description": "<p>You spin your Orb on your finger, charging it with magical energy. Roll Dexterity against your Orb's Difficulty. On a pass, the Orb is charged with 1 MP. On a failure, the Orb discharges all of its MP.</p><p>You may repeat the roll any number of times, increasing the Difficulty by 2 each time.</p>",
   "canBeActive": false,
   "isActive": true,
   "source": "a07490af-2d77-4968-9adc-0a2a7c84ef70",
   "isDeleted": false,
-  "mp": 1,
+  "mp": "",
   "xp": 10,
-  "lastModified": "2026-02-12T21:37:52.067Z",
-  "type": "c3d4e5f6-a1b2-4c3d-be0f-9a8b7c6d5e4f"
+  "lastModified": "2026-03-02T20:01:57.749Z",
+  "type": "c3d4e5f6-a1b2-4c3d-be0f-9a8b7c6d5e4f",
+  "artUrl": "https://cdn.midjourney.com/2d7d702d-a4f1-4846-8a58-69e591e12b05/0_3.png"
 }

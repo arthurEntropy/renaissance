@@ -2,14 +2,14 @@
   "id": "f5cda222-6c69-4ae9-bc0d-761729cd8e2e",
   "conceptType": "ANCESTRY",
   "name": "Elf",
-  "description": "",
+  "description": "<p>Elves move through the world with an uncommon physical lightness, as though gravity has a slightly looser hold on them than on most. They tend toward keen senses and an unmistakable affinity for growing things, open water, and the night sky. Their draw toward fine craft and jeweled work is well-attested. None of this makes them better than anyone else — only particular.</p><p><strong><em>Height</em></strong><em>: 5-6' </em>| <strong><em>Weight</em></strong><em>: 75-225 lbs </em>| <strong><em>Average Lifespan</em></strong><em>: undying </em>| <strong><em>Speed</em></strong><em>: 30</em></p>",
   "isDeleted": false,
   "artUrls": [
     "https://cdn.midjourney.com/831b273e-9002-4112-ba61-082d83341ba6/0_3.png"
   ],
   "faces": [],
   "places": [],
-  "backgroundImage": "",
+  "backgroundImage": "https://cdn.midjourney.com/9fc7e11e-6c4c-4063-921f-111239ba6d01/0_3.png",
   "expansion": "824cad94-3a4a-4df3-b81a-ede17b84644b",
   "hooks": [],
   "playlists": [],
@@ -18,5 +18,6 @@
   "publicHouses": "",
   "vittles": "",
   "pointsOfInterest": "",
-  "floraFauna": ""
+  "floraFauna": "",
+  "lastModified": "2026-02-26T02:48:20.076Z"
 }

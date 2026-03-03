@@ -26,12 +26,26 @@ export const useRulesStore = defineStore('rules', () => {
     selectedSection.value = null
   }
 
+  const update = async (section) => {
+    if (selectedSection.value?.id === section?.id) {
+      selectedSection.value = section
+    }
+
+    const updatedSection = await base.update(section)
+
+    if (selectedSection.value?.id === updatedSection?.id) {
+      selectedSection.value = updatedSection
+    }
+
+    return updatedSection
+  }
+
   return {
     sections,
     selectedSection,
     fetch: base.fetch,
     create: base.create,
-    update: base.update,
+    update,
     remove: base.remove,
     getById: base.getById,
     filteredSections,

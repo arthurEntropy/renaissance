@@ -2,14 +2,14 @@
   "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
   "conceptType": "ANCESTRY",
   "name": "Human",
-  "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam sit amet turpis odio. Interdum et malesuada fames ac ante ipsum primis in faucibus. Curabitur vel velit auctor nisl semper euismod ut a turpis. Quisque at dui condimentum sapien convallis eleifend. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aliquam vel neque nisl. Proin id nunc augue. Morbi bibendum lectus id leo fermentum suscipit. Quisque commodo et velit sed tincidunt.</p>",
+  "description": "<p>Humans are not the strongest, nor the quickest, nor the longest-lived. What they are is adaptable — constitutionally, stubbornly so. Where other peoples are often shaped by a deep affinity for one way of being, Humans are shaped by the capacity to adapt. It is a less dramatic gift than most, and rarer than it looks.</p><p><strong><em>Height</em></strong><em>: 5-6' </em>| <strong><em>Weight</em></strong><em>: 100-350 lbs </em>| <strong><em>Average Lifespan</em></strong><em>: 80 years </em>| <strong><em>Speed</em></strong><em>: 30</em></p>",
   "isDeleted": false,
   "artUrls": [
     "https://cdn.midjourney.com/6996ccd1-d214-4f22-ac97-21f819a25e36/0_1.png"
   ],
   "faces": [],
   "places": [],
-  "backgroundImage": "https://cdn.midjourney.com/ff414bb0-35be-42bf-96ef-5d641fd368fb/0_0.png",
+  "backgroundImage": "https://cdn.midjourney.com/58959018-cd89-433d-a3dd-9c00b5012c64/0_3.png",
   "expansion": "",
   "hooks": [],
   "playlists": [],
@@ -19,5 +19,5 @@
   "vittles": "",
   "pointsOfInterest": "",
   "floraFauna": "",
-  "lastModified": "2026-02-03T02:18:01.663Z"
+  "lastModified": "2026-02-26T16:10:54.862Z"
 }

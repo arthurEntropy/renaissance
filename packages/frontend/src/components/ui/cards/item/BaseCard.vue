@@ -49,7 +49,7 @@
 
           <!-- Main description -->
           <CardDescription v-if="item.description || $slots['before-description'] || $slots['after-description']"
-            :content="item.description" @roll-link="emit('roll-link', $event)">
+            :content="item.description || ''" @roll-link="emit('roll-link', $event)">
             <template #before-description>
               <slot name="before-description"></slot>
             </template>

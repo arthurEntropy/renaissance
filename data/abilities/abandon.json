@@ -1,14 +1,14 @@
 {
   "id": "f906a23e-b95d-421a-b4ed-b094c3086497",
   "name": "Abandon",
-  "description": "<p><em>When roused, you are readily capable of suppressing your sense of self-preservation.</em></p><p>Once per rest, you may use your reaction to choose one:</p><ul><li><p>Re-roll a skill check. Roll Injury.</p></li><li><p>Double the damage you deal for a single attack. You take damage equal to half of the new total.</p></li></ul><p><strong>Describe how you throw caution to the wind.</strong></p>",
+  "description": "<p><em>When roused, you are readily capable of suppressing your sense of self-preservation.</em></p><p>Once per rest, you may use your reaction to choose one:</p><ul><li><p>Re-roll a Skill Check. Roll Injury.</p></li><li><p>Double the damage you deal for a single Attack. You take damage equal to half of the new total.</p></li></ul><p><strong>Describe how you throw caution to the wind.</strong></p>",
   "canBeActive": false,
   "isActive": true,
   "source": "6ff91bc4-122f-4e95-bb08-b577f1a94bb6",
   "isDeleted": false,
   "mp": null,
-  "xp": null,
+  "xp": 0,
   "artUrl": "https://cdn.midjourney.com/d304b922-5c40-4c99-85b4-fa7ac10fc95d/0_3.png",
-  "lastModified": "2026-02-12T21:37:52.053Z",
+  "lastModified": "2026-02-26T15:19:02.173Z",
   "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
 }

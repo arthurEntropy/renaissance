@@ -8,7 +8,7 @@
       <!-- Source Filter -->
       <template #additional-filters>
         <SourceDropdown v-model="sourceFilterLocal" id="source-filter" placeholder="All Sources"
-          select-class="source-filter" />
+          select-class="source-filter" :show-group-options="showSourceGroupOptions" />
 
         <!-- Additional filters slot for parent (e.g., equipment categories) -->
         <slot name="additional-filters"></slot>
@@ -49,6 +49,7 @@ const props = defineProps({
   items: { type: Array, default: () => [] },
   hasMore: { type: Boolean, default: false },
   isLoadingMore: { type: Boolean, default: false },
+  showSourceGroupOptions: { type: Boolean, default: false },
 })
 
 const emit = defineEmits(['update:searchQuery', 'update:sourceFilter', 'update:sortOption', 'create', 'load-more'])

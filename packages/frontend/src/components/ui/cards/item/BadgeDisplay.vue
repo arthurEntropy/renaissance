@@ -49,7 +49,7 @@ const emit = defineEmits(['toggle'])
 const isHovering = ref(false)
 
 const showBadge = computed(() => {
-    return !!props.value
+    return props.value !== undefined && props.value !== null
 })
 
 // Badge is interactive if marked as interactive (regardless of ownership status)

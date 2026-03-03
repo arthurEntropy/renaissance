@@ -1,7 +1,7 @@
 {
   "id": "553ec305-0d83-47f9-9398-2036831d8235",
   "name": "Echolocation",
-  "description": "<p>You emit a loud clicking noise which can be heard up to long range if you are out of water and thrice that distance underwater. You become aware of the general location, size and relative movement of objects within range.</p><p><strong>Describe the sound and how it reverberates in the space around you.</strong></p>",
+  "description": "<p>You emit a loud clicking noise which can be heard up to long range if you are out of water and thrice that distance underwater. You become aware of the location, size and relative movement of objects within range.</p><p><strong>Describe the sound and how it reverberates in the space around you.</strong></p>",
   "canBeActive": false,
   "isActive": true,
   "source": "e40c3cff-9f6b-4940-ae41-cef878821a75",
@@ -9,6 +9,6 @@
   "mp": null,
   "xp": null,
   "artUrl": "https://cdn.midjourney.com/a4bfb6cd-25a0-4838-ac32-4cd6dc76369a/0_3.png",
-  "lastModified": "2026-02-12T21:37:52.065Z",
+  "lastModified": "2026-02-25T19:51:55.927Z",
   "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
 }
