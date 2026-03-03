@@ -63,6 +63,10 @@ const props = defineProps({
         type: Number,
         default: 250,
     },
+    skipAnimation: {
+        type: Boolean,
+        default: false,
+    },
 })
 
 const emit = defineEmits(['reroll-all-dice'])
@@ -219,7 +223,7 @@ const shouldShowDice = computed(() => {
 })
 
 const triggerRollAnimation = () => {
-    startRollAnimation(props.rollData, props.isEngagement)
+    startRollAnimation(props.rollData, props.isEngagement || props.skipAnimation)
 }
 
 const openModal = () => {

@@ -99,6 +99,7 @@ import { createBaseEntity } from './gameEntity.js'
  * @property {CharacterEquipmentItem[]} equipment - Equipped items
  * @property {CharacterAbilityItem[]} abilities - Character abilities with UI state
  * @property {string[]} artUrls - Character art URLs
+ * @property {Object.<string, string>} engagementDiceStatuses - Saved engagement die statuses keyed by die identifier
  * @property {ActiveEffect[]} activeEffects - Currently active effects
  * @property {boolean} groupAbilitiesBySource - Whether to group abilities by source
  * @property {boolean} groupEquipmentBySource - Whether to group equipment by source
@@ -189,6 +190,7 @@ export function createDefaultCharacter() {
     equipment: [],
     abilities: [],
     artUrls: ['https://cdn.midjourney.com/a8a36740-b7d3-4aef-bea3-a95039bec06f/0_2.png'],
+    engagementDiceStatuses: {},
     activeEffects: [],
     groupAbilitiesBySource: false,
     groupEquipmentBySource: false,

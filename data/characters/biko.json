@@ -345,8 +345,8 @@
     "https://cdn.midjourney.com/bb7f8092-0710-4aaf-9f26-e376a0cec04e/0_0.png"
   ],
   "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2026-02-25T21:08:14.410Z",
-  "lastModified": "2026-02-25T21:08:14.410Z",
+  "updatedAt": "2026-02-18T21:17:15.292Z",
+  "lastModified": "2026-02-18T21:17:15.292Z",
   "mestiereId": "4eccfe5d-de19-4bc5-8c9c-374d793d67f0",
   "groupEquipmentBySource": false,
   "equipmentSortOption": "keeping-asc",
@@ -358,19 +358,20 @@
   },
   "rollStats": {
     "skillChecks": {
-      "attempts": 16,
-      "successes": 13,
-      "totalSum": 252,
+      "attempts": 21,
+      "successes": 18,
+      "totalSum": 314,
       "bestTotal": 27,
       "hardestSuccess": 15,
       "bySkill": {
-        "Strength": 14,
+        "Strength": 17,
         "Awareness": 1,
-        "Spirit": 1
+        "Spirit": 1,
+        "Dexterity": 2
       },
       "solCount": 2,
-      "morteCount": 1,
-      "successCount": 4
+      "morteCount": 2,
+      "successCount": 6
     },
     "contests": {
       "engagement": {
@@ -388,5 +389,10 @@
   "age": 27,
   "heightFeet": 6,
   "heightInches": 7,
-  "weight": 195
+  "weight": 195,
+  "engagementDiceStatuses": {
+    "user_added_1": "expended",
+    "user_added_2": "selected",
+    "user_added_3": "selected"
+  }
 }
