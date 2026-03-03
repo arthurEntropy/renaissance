@@ -115,6 +115,10 @@ const props = defineProps({
     type: String,
     default: RollTypes.SKILL_CHECK,
   },
+  defaultDiceMod: {
+    type: Number,
+    default: 0,
+  },
 })
 
 const emit = defineEmits(['close', 'update-difficulty', 'start-opposed-skill-check'])
@@ -192,7 +196,7 @@ function updateRollParameters() {
       isFavored: selectedSkill.value.isFavored,
       isIllFavored: selectedSkill.value.isIllFavored,
       ranks: selectedSkill.value.ranks,
-      diceMod: selectedSkill.value.diceMod || 0,
+      diceMod: (selectedSkill.value.diceMod || 0) + props.defaultDiceMod,
     }
   } else {
     rollParameters.value = {

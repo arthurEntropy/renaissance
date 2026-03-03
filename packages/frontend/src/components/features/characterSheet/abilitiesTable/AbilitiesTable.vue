@@ -66,7 +66,8 @@
 
     <!-- Skill Check Modal -->
     <SkillCheckModal v-if="showSkillCheckModal" :selected-skill-name="rollLinkSkill" :character="selectedCharacter"
-      :default-roll-type="rollLinkRollType" @close="showSkillCheckModal = false" />
+      :default-roll-type="rollLinkRollType" :default-dice-mod="rollLinkBiomeDiceMod"
+      @close="showSkillCheckModal = false" />
 
   </CharacterSheetSection>
 </template>
@@ -116,6 +117,7 @@ const rollsStore = useRollsStore()
 const showSkillCheckModal = ref(false)
 const rollLinkSkill = ref(null)
 const rollLinkRollType = ref(null)
+const rollLinkBiomeDiceMod = ref(0)
 
 const sortOptions = ABILITY_SORT_OPTIONS
 
@@ -239,6 +241,7 @@ const handleRollLink = (rollData) => {
     rollLinkRollType.value = rollData.type === 'opposed-skill-check'
       ? RollTypes.OPPOSED_SKILL_CHECK
       : RollTypes.SKILL_CHECK
+    rollLinkBiomeDiceMod.value = rollData.biomeDiceMod ?? 0
     showSkillCheckModal.value = true
   } else if (rollData.type === 'damage-roll') {
     // Transform dice format from [{count, sides}] to [{dieSides}...]
@@ -248,6 +251,9 @@ const handleRollLink = (rollData) => {
         dicePool.push({ dieSides: die.sides })
       }
     })
+
+    // Apply biome dice modifier
+    const adjustedPool = applyBiomeDiceMod(dicePool, rollData.biomeDiceMod ?? 0)
 
     // Calculate modifier value
     let modifierValue = 0
@@ -264,7 +270,7 @@ const handleRollLink = (rollData) => {
     }
 
     const rollResult = DamageRollService.makeDamageRoll(
-      dicePool,
+      adjustedPool,
       modifierValue,
       selectedCharacter.value,
       {
@@ -285,6 +291,9 @@ const handleRollLink = (rollData) => {
       }
     })
 
+    // Apply biome dice modifier
+    const adjustedPool = applyBiomeDiceMod(dicePool, rollData.biomeDiceMod ?? 0)
+
     // Calculate modifier value
     let modifierValue = 0
 
@@ -298,7 +307,7 @@ const handleRollLink = (rollData) => {
     }
 
     const rollResult = CustomRollService.makeCustomRoll(
-      dicePool,
+      adjustedPool,
       modifierValue,
       selectedCharacter.value,
       { label: rollData.linkText }
@@ -313,6 +322,23 @@ const resetMP = () => {
   if (selectedCharacter.value?.mp) {
     selectedCharacter.value.mp.current = selectedCharacter.value.mp.max
   }
+}
+
+// Positive mod: Add any number of dice of the same type as the last die in the pool.
+// Negative mod: Remove dice from the end of the pool, minimimum of 0 dice.
+function applyBiomeDiceMod(pool, mod) {
+  if (mod === 0 || pool.length === 0) return pool
+  const result = [...pool]
+  if (mod > 0) {
+    const templateDie = result[result.length - 1]
+    for (let i = 0; i < mod; i++) {
+      result.push({ dieSides: templateDie.dieSides })
+    }
+  } else {
+    const removeCount = Math.min(Math.abs(mod), result.length)
+    result.splice(result.length - removeCount, removeCount)
+  }
+  return result
 }
 
 onMounted(() => {

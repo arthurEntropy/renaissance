@@ -1,12 +1,12 @@
 // Enum for mana colors
-export const ManaColor = Object.freeze({
+export const ManaColor = {
   WHITE: 'white',
   BLUE: 'blue',
   BLACK: 'black',
   RED: 'red',
   GREEN: 'green',
   COLORLESS: 'colorless', // aka "any"
-});
+}
 
 // Order for display
 export const MANA_COLOR_ORDER = [

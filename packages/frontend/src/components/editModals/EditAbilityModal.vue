@@ -65,6 +65,15 @@
               placeholder="e.g. 2WUB" pattern="^[0-9]*[WUBRGwubrg]*$" title="Mana cost (e.g. 2WUB)" />
           </div>
 
+          <!-- Biome Tags: Only show if source is Wildheart -->
+          <div class="form-group vertical" v-if="isWildheartSource">
+            <label class="left-aligned">Biome Tags:</label>
+            <BiomeTagsCyclePicker :augment-tags="editedAbility.biomeTagsAugment"
+              :inhibit-tags="editedAbility.biomeTagsInhibit"
+              @update:augment-tags="editedAbility.biomeTagsAugment = $event"
+              @update:inhibit-tags="editedAbility.biomeTagsInhibit = $event" />
+          </div>
+
           <!-- Improvements Section -->
           <div class="form-group vertical">
             <label class="left-aligned">Improvements:</label>
@@ -115,8 +124,9 @@ import TextEditor from '@/components/ui/textEditor/TextEditor.vue'
 import SourceDropdown from '@/components/ui/selectors/SourceDropdown.vue'
 import ActionTypeDropdown from '@/components/ui/selectors/ActionTypeDropdown.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
+import BiomeTagsCyclePicker from '@/components/ui/biome/BiomeTagsCyclePicker.vue'
 import { useEditModalForm } from '@/composables/useEditModalForm'
-import { computed } from 'vue'
+import { computed, watch } from 'vue'
 import { useSourcesStore } from '@/stores/sourcesStore'
 
 const props = defineProps({
@@ -137,6 +147,20 @@ const isChannelerSource = computed(() => {
   const source = sourcesStore.getSourceById(editedAbility.value.source)
   return source && source.name && source.name.toLowerCase() === 'channeler'
 })
+
+// Wildheart source check — gates biome tag pickers
+const isWildheartSource = computed(() => {
+  const source = sourcesStore.getSourceById(editedAbility.value.source)
+  return source?.name?.toLowerCase() === 'wildheart'
+})
+
+// Ensure biome tag arrays are initialized when the ability is a Wildheart ability
+watch(isWildheartSource, (isWildheart) => {
+  if (isWildheart) {
+    if (!editedAbility.value.biomeTagsAugment) editedAbility.value.biomeTagsAugment = []
+    if (!editedAbility.value.biomeTagsInhibit) editedAbility.value.biomeTagsInhibit = []
+  }
+}, { immediate: true })
 
 // Improvement management functions
 const addImprovement = () => {
@@ -245,5 +269,19 @@ const moveImprovementDown = (idx) => {
 .improvement-name-input {
   flex: 4 1 0;
   min-width: 0;
+}
+
+.biome-label {
+  font-size: var(--font-size-13);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: 2px;
+}
+
+.biome-label.augment-label {
+  color: var(--color-success);
+}
+
+.biome-label.inhibit-label {
+  color: var(--color-danger);
 }
 </style>
