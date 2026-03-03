@@ -20,6 +20,6 @@ const parsed = computed(() => parseManaCost(props.cost))
 .mana-cost-display {
     display: inline-flex;
     align-items: center;
-    gap: 0.1em;
+    gap: 0.2em;
 }
 </style>

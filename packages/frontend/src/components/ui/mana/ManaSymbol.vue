@@ -1,7 +1,7 @@
 <template>
     <span class="mana-symbol" :class="colorClass" :title="colorTitle">
         <span v-if="isColorless" class="mana-digit">{{ value }}</span>
-        <component v-else :is="svgComponent" class="mana-svg" />
+        <img v-else :src="imgSrc" class="mana-img" :alt="colorTitle" />
     </span>
 </template>
 
@@ -9,11 +9,11 @@
 
 import { computed } from 'vue'
 import { ManaColor } from '@shared/constants/manaColors'
-import WhiteSvg from './svgs/white.svg'
-import BlueSvg from './svgs/blue.svg'
-import BlackSvg from './svgs/black.svg'
-import RedSvg from './svgs/red.svg'
-import GreenSvg from './svgs/green.svg'
+import whitePng from './svgs/white.png'
+import bluePng from './svgs/blue.png'
+import blackPng from './svgs/black.png'
+import redPng from './svgs/red.png'
+import greenPng from './svgs/green.png'
 
 const props = defineProps({
     color: { type: String, required: true }, // ManaColor
@@ -24,18 +24,18 @@ const isColorless = computed(() => props.color === ManaColor.COLORLESS)
 const colorClass = computed(() => `mana-${props.color}`)
 const colorTitle = computed(() => props.color.charAt(0).toUpperCase() + props.color.slice(1))
 
-const svgComponent = computed(() => {
+const imgSrc = computed(() => {
     switch (props.color) {
         case ManaColor.WHITE:
-            return WhiteSvg
+            return whitePng
         case ManaColor.BLUE:
-            return BlueSvg
+            return bluePng
         case ManaColor.BLACK:
-            return BlackSvg
+            return blackPng
         case ManaColor.RED:
-            return RedSvg
+            return redPng
         case ManaColor.GREEN:
-            return GreenSvg
+            return greenPng
         default:
             return null
     }
@@ -49,18 +49,28 @@ const svgComponent = computed(() => {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 1.1em;
-    height: 1.1em;
-    margin: 0 0.5px;
+    width: 16px;
+    height: 15px;
+    padding: 1.5px 1px 1px 1px;
     position: relative;
     border: 1px solid var(--border-color, var(--color-black));
     border-radius: 50%;
-    box-shadow: -1px 1px 0 0 rgba(0, 0, 0, 1);
+    box-shadow: -1px 1px 0 0 rgba(0, 0, 0, 1), inset -0.5px 0.5px 0 0 rgba(255, 255, 255, 0.45);
+    overflow: hidden;
+}
+
+.mana-symbol::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(225deg, rgba(255, 255, 255, 0.55) 0%, rgba(0, 0, 0, 0.55) 100%);
+    mix-blend-mode: overlay;
+    pointer-events: none;
 }
 
 .mana-colorless {
     background: var(--mana-colorless);
-    color: var(--color-black);
+    color: var(--color-white);
     font-weight: bold;
     --border-color: var(--mana-colorless);
 }
@@ -69,15 +79,18 @@ const svgComponent = computed(() => {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.2em;
+    font-size: 1.1em;
     line-height: 1;
-    font-family: inherit;
+    margin-left: -2px;
     -webkit-text-stroke: 0px var(--color-black);
 }
 
-.mana-svg {
+.mana-img {
     display: block;
-    fill: var(--color-black);
+    width: 90%;
+    height: 90%;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
 }
 
 .mana-white {
@@ -85,21 +98,9 @@ const svgComponent = computed(() => {
     --border-color: var(--mana-white);
 }
 
-.mana-white .mana-svg {
-    width: 100%;
-    height: 100%;
-    transform: scale(1.2) translate(-3%, 0);
-}
-
 .mana-blue {
     background: var(--mana-blue);
     --border-color: var(--mana-blue);
-}
-
-.mana-blue .mana-svg {
-    width: 100%;
-    height: 100%;
-    transform: scale(1.1);
 }
 
 .mana-black {
@@ -107,31 +108,13 @@ const svgComponent = computed(() => {
     --border-color: var(--mana-black);
 }
 
-.mana-black .mana-svg {
-    width: 100%;
-    height: 100%;
-    transform: scale(1.1) translate(0, 2%);
-}
-
 .mana-red {
     background: var(--mana-red);
     --border-color: var(--mana-red);
 }
 
-.mana-red .mana-svg {
-    width: 100%;
-    height: 100%;
-    transform: scale(1.2, 1);
-}
-
 .mana-green {
     background: var(--mana-green);
     --border-color: var(--mana-green);
-}
-
-.mana-green .mana-svg {
-    width: 100%;
-    height: 100%;
-    transform: scale(1.3) translate(1%, -8%);
 }
 </style>
