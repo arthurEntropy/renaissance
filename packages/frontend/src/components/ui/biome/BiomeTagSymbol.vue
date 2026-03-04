@@ -17,7 +17,7 @@ import forestPng from '@/assets/biome/forest.png'
 import plainsPng from '@/assets/biome/plains.png'
 import mountainPng from '@/assets/biome/mountain.png'
 import desertPng from '@/assets/biome/desert.png'
-import swampPng from '@/assets/biome/swamp.png'
+import wetlandPng from '@/assets/biome/wetland.png'
 import waterPng from '@/assets/biome/water.png'
 import undergroundPng from '@/assets/biome/underground.png'
 // PNG imports — Climate
@@ -35,7 +35,7 @@ const TAG_PNGS = {
     [BiomeTag.PLAINS]: plainsPng,
     [BiomeTag.MOUNTAIN]: mountainPng,
     [BiomeTag.DESERT]: desertPng,
-    [BiomeTag.SWAMP]: swampPng,
+    [BiomeTag.WETLAND]: wetlandPng,
     [BiomeTag.WATER]: waterPng,
     [BiomeTag.UNDERGROUND]: undergroundPng,
     [BiomeTag.COLD]: coldPng,
