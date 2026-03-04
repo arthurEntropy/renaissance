@@ -41,8 +41,6 @@ export const useBiomeStore = defineStore('biome', () => {
       next.add(tag)
     }
     activeTags.value = next
-    // Manual tag edit disassociates the selected preset
-    selectedBiomeId.value = null
     persistBiomeTagsToCharacter()
   }
 

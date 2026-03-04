@@ -1,5 +1,8 @@
 // Environment tags used by Biomes to augment or inhibit ability rolls
 
+// Placeholder art shown when no biome preset is selected
+export const CUSTOM_BIOME_ART_URL = 'https://cdn.midjourney.com/8c252045-8599-4514-bf8d-392600a91730/0_3.png'
+
 export const BiomeTagEffect = {
   AUGMENT: 'augment',
   INHIBIT: 'inhibit',
