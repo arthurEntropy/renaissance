@@ -6,9 +6,13 @@
   "ancestries": "Human",
   "cultures": "Asana Commune",
   "ancestryIds": [
-    1
+    "77e4f81a-728f-49a7-a013-4d6f666353e2",
+    "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
   ],
-  "cultureIds": [],
+  "cultureIds": [
+    "352c844b-6d4f-4b61-b475-315421a453e7",
+    "cdc93466-8327-4096-a8c2-04cccf3e3835"
+  ],
   "personalityAndBackground": "Arrived too late to join the Asana Commune before it was destroyed. Squatting in the ruins. Big speech impediment.",
   "xp": 10,
   "mp": {
@@ -16,16 +20,17 @@
     "max": 5
   },
   "body": 3,
-  "heart": 2,
-  "wits": 1,
+  "heart": 4,
+  "wits": 2,
   "skills": [
     {
       "name": "Awe",
-      "ranks": 2,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": -1,
-      "coreAbility": "body"
+      "coreAbility": "body",
+      "manualDiceMod": 1
     },
     {
       "name": "Strength",
@@ -46,10 +51,11 @@
     {
       "name": "Fortitude",
       "ranks": 0,
-      "isFavored": true,
+      "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "coreAbility": "body"
+      "coreAbility": "body",
+      "manualDiceMod": 0
     },
     {
       "name": "Craft",
@@ -61,11 +67,12 @@
     },
     {
       "name": "Perform",
-      "ranks": 1,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 1,
-      "coreAbility": "heart"
+      "coreAbility": "heart",
+      "manualDiceMod": -1
     },
     {
       "name": "Insight",
@@ -77,7 +84,7 @@
     },
     {
       "name": "Courtesy",
-      "ranks": 2,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -85,7 +92,7 @@
     },
     {
       "name": "Spirit",
-      "ranks": 0,
+      "ranks": 3,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -101,7 +108,7 @@
     },
     {
       "name": "Persuade",
-      "ranks": 3,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -125,7 +132,7 @@
     },
     {
       "name": "Lore",
-      "ranks": 2,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -146,13 +153,13 @@
     "coreAbility": "body"
   },
   "hope": {
-    "current": 12,
-    "max": 6,
+    "current": 8,
+    "max": 8,
     "coreAbility": "heart"
   },
   "defense": {
     "current": 13,
-    "max": 11,
+    "max": 12,
     "coreAbility": "wits"
   },
   "load": 0,
@@ -174,7 +181,14 @@
     "troubled": false
   },
   "equipment": [],
-  "abilities": [],
+  "abilities": [
+    {
+      "id": "90315f32-f485-498d-8d83-f8dad2f32882",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false
+    }
+  ],
   "activeEffects": [
     {
       "name": "Weird But Entertaining",
@@ -198,6 +212,45 @@
     "https://cdn.midjourney.com/a6773dd7-3da8-4349-9212-b021c7aa09f7/0_2.png"
   ],
   "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2025-12-12T03:52:36.113Z",
-  "lastModified": "2025-12-12T03:52:36.113Z"
+  "updatedAt": "2026-03-04T16:26:30.692Z",
+  "lastModified": "2026-03-04T16:26:30.692Z",
+  "mestiereId": "937d52da-0ebf-4d74-b3ee-be395f2f5d0a",
+  "age": 23,
+  "heightFeet": 4,
+  "heightInches": 10,
+  "weight": 95,
+  "rollStats": {
+    "skillChecks": {
+      "attempts": 3,
+      "successes": 0,
+      "totalSum": 28,
+      "bestTotal": 15,
+      "hardestSuccess": null,
+      "bySkill": {
+        "Dexterity": 1,
+        "Spirit": 2
+      },
+      "solCount": 0,
+      "morteCount": 0,
+      "successCount": 0
+    },
+    "contests": {
+      "engagement": {
+        "wins": 0,
+        "losses": 0,
+        "draws": 0
+      },
+      "opposed": {
+        "wins": 0,
+        "losses": 0,
+        "draws": 0
+      }
+    }
+  },
+  "biomeTags": [
+    "desert",
+    "water",
+    "hot"
+  ],
+  "biomeId": "445e5729-7035-4cf2-8a31-507a75019832"
 }

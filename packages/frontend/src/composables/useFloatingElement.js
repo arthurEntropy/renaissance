@@ -58,6 +58,16 @@ export function useFloatingElement(options = {}) {
       clearTimeout(delayTimer.value)
     }
 
+    // Clean up any existing listeners before registering new ones
+    if (outsideClickListener.value) {
+      document.removeEventListener('click', outsideClickListener.value)
+      outsideClickListener.value = null
+    }
+    if (scrollListener.value) {
+      window.removeEventListener('scroll', scrollListener.value, true)
+      scrollListener.value = null
+    }
+
     // Get trigger element from event or direct element
     const trigger = triggerSource?.target || triggerSource
     if (!trigger) return
@@ -96,7 +106,10 @@ export function useFloatingElement(options = {}) {
 
       // Set up scroll listener
       if (closeOnScroll) {
-        scrollListener.value = () => hide()
+        scrollListener.value = (event) => {
+          if (floatingEl && floatingEl.contains(event.target)) return
+          hide()
+        }
         window.addEventListener('scroll', scrollListener.value, true)
       }
     }

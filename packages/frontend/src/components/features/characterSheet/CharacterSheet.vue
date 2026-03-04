@@ -18,6 +18,7 @@
                     <ConditionsColumn :is-edit-mode="canEdit" />
                     <EquipmentTable :is-edit-mode="canEdit" />
                     <AbilitiesTable :canEdit="canEdit" />
+                    <BiomeSection v-if="showBiomeSection" />
                 </div>
             </div>
         </div>
@@ -28,7 +29,9 @@
 import { computed } from 'vue'
 import { useCharacterStatWatchers } from '@/composables/useCharacterStatWatchers'
 import { useCharactersStore } from '@/stores/charactersStore'
+import { useConceptsStore } from '@/stores/conceptsStore'
 import { CORE_ABILITIES } from '@shared/constants/characterConstants'
+import { BIOME_MESTIERI } from '@shared/constants/biomeTags'
 import CharacterProfile from '@/components/features/characterSheet/characterProfile/CharacterProfile.vue'
 import CoreAbilityColumn from '@/components/features/characterSheet/coreAbilityColumns/CoreAbilityColumn.vue'
 import ConditionsColumn from '@/components/features/characterSheet/conditions/ConditionsColumn.vue'
@@ -36,16 +39,24 @@ import EquipmentTable from '@/components/features/characterSheet/equipmentTable/
 import AbilitiesTable from '@/components/features/characterSheet/abilitiesTable/AbilitiesTable.vue'
 import EngagementTable from '@/components/features/characterSheet/engagementTable/EngagementTable.vue'
 import DiceBox from '@/components/features/characterSheet/diceBox/DiceBox.vue'
+import BiomeSection from '@/components/features/characterSheet/biome/BiomeSection.vue'
 
 const emit = defineEmits(['close'])
 
 const charactersStore = useCharactersStore()
+const conceptsStore = useConceptsStore()
 
 const selectedCharacter = computed(() => charactersStore.selectedCharacter)
 
 useCharacterStatWatchers(selectedCharacter, computed(() => []))
 
 const canEdit = computed(() => charactersStore.canEditSelectedCharacter)
+
+const showBiomeSection = computed(() => {
+    if (!selectedCharacter.value?.mestiereId) return false
+    const mestiere = conceptsStore.mestieri.find(m => m.id === selectedCharacter.value.mestiereId)
+    return mestiere != null && BIOME_MESTIERI.includes(mestiere.name.toLowerCase())
+})
 
 const handleClose = () => {
     emit('close')

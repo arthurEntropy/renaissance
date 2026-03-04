@@ -1,0 +1,15 @@
+{
+  "name": "Foothills",
+  "description": "Rolling terrain at the base of a mountain range, transitioning between open lowland plains and steeper highland elevations.",
+  "artUrl": "https://cdn.midjourney.com/af841182-5d8e-4ee9-863e-aa702d50df38/0_2.png",
+  "tags": [
+    "forest",
+    "plains",
+    "mountain",
+    "temperate"
+  ],
+  "index": 12,
+  "id": "3a2baff7-4f75-42b8-9174-4194d6636dd9",
+  "createdAt": "2026-03-04T13:54:37.411Z",
+  "lastModified": "2026-03-04T15:38:24.130Z"
+}

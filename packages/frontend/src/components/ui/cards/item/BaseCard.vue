@@ -48,9 +48,12 @@
           <slot name="properties"></slot>
 
           <!-- Main description -->
-          <CardDescription v-if="item.description || $slots['before-description'] || $slots['after-description']"
+          <CardDescription
+            v-if="item.description || showBiomeTags || $slots['before-description'] || $slots['after-description']"
             :content="item.description || ''" @roll-link="emit('roll-link', $event)">
             <template #before-description>
+              <BiomeTagDisplay v-if="showBiomeTags" :augment-tags="item.biomeTagsAugment || []"
+                :inhibit-tags="item.biomeTagsInhibit || []" :active-tags="biomeStore.activeTags" />
               <slot name="before-description"></slot>
             </template>
             <template #badge>
@@ -83,11 +86,13 @@
 import { computed } from 'vue'
 import { useSourcesStore } from '@/stores/sourcesStore'
 import { useUserStore } from '@/stores/userStore'
+import { useBiomeStore } from '@/stores/biomeStore'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import CardDescription from '@/components/ui/cards/item/CardDescription.vue'
 import { ItemType } from '@shared/constants/itemTypes'
 import { useOptimizedImage } from '@/composables/useOptimizedImage'
 import ManaCostDisplay from '@/components/ui/mana/ManaCostDisplay.vue'
+import BiomeTagDisplay from '@/components/ui/biome/BiomeTagDisplay.vue'
 
 // Show mana cost if ability has manaCost and source is Channeler
 const showManaCost = computed(() => {
@@ -95,6 +100,11 @@ const showManaCost = computed(() => {
   const source = sourcesStore.getSourceById(props.item.source)
   return source && source.name && source.name.toLowerCase() === 'channeler'
 })
+
+// Show biome tags if the item has any augment or inhibit tags defined
+const showBiomeTags = computed(() =>
+  props.item.biomeTagsAugment?.length > 0 || props.item.biomeTagsInhibit?.length > 0
+)
 
 const showMetaInfo = computed(() => {
   return !!props.metaInfo || showManaCost.value
@@ -117,6 +127,9 @@ const emit = defineEmits(['edit', 'duplicate', 'delete', 'update', 'send-to-chat
 // Source management
 const sourcesStore = useSourcesStore()
 const sources = computed(() => sourcesStore.sources)
+
+// Biome store for active tags
+const biomeStore = useBiomeStore()
 
 // User preferences
 const userStore = useUserStore()

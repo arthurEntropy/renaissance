@@ -1,0 +1,15 @@
+{
+  "name": "Lowlands",
+  "description": "Low-lying flat terrain bordering rivers or coasts, prone to seasonal flooding and the gradual formation of wetlands.",
+  "artUrl": "https://cdn.midjourney.com/a7b2ab61-2ee6-4763-9aec-a51397cee700/0_3.png",
+  "tags": [
+    "plains",
+    "wetland",
+    "water",
+    "temperate"
+  ],
+  "index": 20,
+  "id": "cb070326-aa44-43e8-a299-f0cda68c67fb",
+  "createdAt": "2026-03-04T13:54:37.411Z",
+  "lastModified": "2026-03-04T14:46:36.322Z"
+}

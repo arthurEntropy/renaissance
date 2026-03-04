@@ -1,0 +1,15 @@
+{
+  "name": "Swamp",
+  "description": "A forested wetland where trees stand in still or slow-moving water, thriving in warm, humid, low-lying conditions.",
+  "artUrl": "https://cdn.midjourney.com/d3b33d84-16d0-4b19-851d-c95f423404ae/0_0.png",
+  "tags": [
+    "forest",
+    "wetland",
+    "water",
+    "hot"
+  ],
+  "index": 31,
+  "id": "b3d789b0-cf4d-46d4-a571-5ed79d357d62",
+  "createdAt": "2026-03-04T13:54:37.411Z",
+  "lastModified": "2026-03-04T15:10:39.853Z"
+}

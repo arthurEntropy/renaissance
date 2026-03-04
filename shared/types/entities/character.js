@@ -191,6 +191,8 @@ export function createDefaultCharacter() {
     abilities: [],
     artUrls: ['https://cdn.midjourney.com/a8a36740-b7d3-4aef-bea3-a95039bec06f/0_2.png'],
     engagementDiceStatuses: {},
+    biomeTags: [],
+    biomeId: null,
     activeEffects: [],
     groupAbilitiesBySource: false,
     groupEquipmentBySource: false,

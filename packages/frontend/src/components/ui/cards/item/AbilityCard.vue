@@ -1,7 +1,7 @@
 <template>
   <base-card :item="ability" :metaInfo="traitOrMp" :collapsed="collapsed" :editable="editable"
     @edit="$emit('edit', ability)" :collapsible="collapsible" @update:collapsed="$emit('update:collapsed', $event)"
-    @roll-link="$emit('roll-link', $event)" :itemType="ItemType.ABILITY">
+    @roll-link="handleRollLinkWithBiome" :itemType="ItemType.ABILITY" :class="biomeLinkClass">
 
     <!-- XP badge positioned relative to main description when character owns any improvements OR when improvements are expanded -->
     <template #description-badge>
@@ -60,6 +60,7 @@ import { ChevronUpIcon, ChevronDownIcon } from '@heroicons/vue/24/outline'
 import { useItemImprovements } from '@/composables/useItemImprovements'
 import { useActionTypesStore } from '@/stores/actionTypesStore'
 import { useCharactersStore } from '@/stores/charactersStore'
+import { useBiomeStore } from '@/stores/biomeStore'
 import BaseCard from '@/components/ui/cards/item/BaseCard.vue'
 import BadgeDisplay from '@/components/ui/cards/item/BadgeDisplay.vue'
 import ImprovementsSection from '@/components/ui/cards/item/ImprovementsSection.vue'
@@ -120,6 +121,7 @@ const { toggleImprovement, getCharacterImprovements } = useItemImprovements('abi
 // Stores
 const actionTypesStore = useActionTypesStore()
 const charactersStore = useCharactersStore()
+const biomeStore = useBiomeStore()
 
 // Reactive state
 const isActive = computed(() => props.ability.isActive)
@@ -148,6 +150,27 @@ const characterHasBaseAbility = computed(() => {
 const shouldShowBaseXpBadge = computed(() => {
   return props.showXpBadge && props.ability.xp !== undefined && props.ability.xp !== null
 })
+
+const biomeDiceMod = computed(() => {
+  const augment = (props.ability.biomeTagsAugment || []).filter(t => biomeStore.activeTags.has(t)).length
+  const inhibit = (props.ability.biomeTagsInhibit || []).filter(t => biomeStore.activeTags.has(t)).length
+  return augment - inhibit
+})
+
+// CSS class applied to the card to recolor roll links based on net biome modifier
+const biomeLinkClass = computed(() => {
+  if (biomeDiceMod.value > 0) return 'biome-links-positive'
+  if (biomeDiceMod.value < 0) return 'biome-links-negative'
+  return null
+})
+
+// Intercept roll-link events and enrich with biome dice modifier
+function handleRollLinkWithBiome(rollData) {
+  emit('roll-link', {
+    ...rollData,
+    biomeDiceMod: biomeDiceMod.value,
+  })
+}
 
 const characterOwnsAnyImprovements = computed(() => {
   if (!props.character || !hasImprovements.value) return false
@@ -261,6 +284,23 @@ const handleBaseAbilityToggle = () => {
 
 .improvements-toggle-button:hover {
   background: var(--color-accent-gold);
+}
+
+/* Dynamic roll-link color based on net biome modifier */
+.biome-links-positive :deep(.roll-link) {
+  color: var(--color-success);
+}
+
+.biome-links-positive :deep(.roll-link:hover) {
+  color: var(--color-success-hover);
+}
+
+.biome-links-negative :deep(.roll-link) {
+  color: var(--color-danger);
+}
+
+.biome-links-negative :deep(.roll-link:hover) {
+  color: var(--color-danger-hover);
 }
 
 .chevron-icon {

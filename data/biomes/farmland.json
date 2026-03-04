@@ -1,0 +1,14 @@
+{
+  "name": "Farmland",
+  "description": "Cultivated agricultural land shaped by centuries of human activity, featuring plowed fields, managed soils, and hedgerow boundaries.",
+  "artUrl": "https://cdn.midjourney.com/6525cbf5-002d-40bd-a91a-c5b27929c4aa/0_1.png",
+  "tags": [
+    "plains",
+    "temperate",
+    "civilized"
+  ],
+  "index": 10,
+  "id": "2a47dc2b-a4b5-4eca-84cb-6f0075d381c9",
+  "createdAt": "2026-03-04T13:54:37.411Z",
+  "lastModified": "2026-03-04T14:25:03.257Z"
+}
