@@ -24,6 +24,7 @@ export * from './entities/equipment/equipmentGrade.js'
 export * from './entities/equipment/equipmentRange.js'
 
 // Other entities
+export * from './entities/biome.js'
 export * from './entities/ability.js'
 export * from './entities/art.js'
 export * from './entities/backgroundImage.js'

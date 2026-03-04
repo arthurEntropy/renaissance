@@ -19,9 +19,6 @@
                                     placeholder="Name" />
                             </slot>
 
-                            <!-- Index display -->
-                            <div class="index-display">{{ item.index }}</div>
-
                             <!-- Delete button -->
                             <ActionButton variant="danger" size="small" text="Delete" @click="handleDelete(item)" />
                         </div>
@@ -48,9 +45,6 @@
                             <input v-model="item.name" @blur="updateItem(item)" class="default-input"
                                 placeholder="Name" />
                         </slot>
-
-                        <!-- Index display -->
-                        <div class="index-display">{{ item.index }}</div>
 
                         <!-- Delete button -->
                         <ActionButton variant="danger" size="small" text="Delete" @click="handleDelete(item)" />
@@ -229,14 +223,6 @@ onMounted(async () => {
 
 .drag-handle:active {
     cursor: grabbing;
-}
-
-.index-display {
-    font-size: var(--font-size-14);
-    color: var(--color-gray-light);
-    min-width: 30px;
-    text-align: center;
-    flex-shrink: 0;
 }
 
 .default-input {

@@ -11,11 +11,14 @@
 
         <!-- All three groups in one horizontal row -->
         <div v-if="!isCollapsed" class="biome-row">
+            <!-- Biome preset picker -->
+            <BiomePicker />
+
             <template v-for="(group, idx) in BIOME_TAG_GROUPS_ORDERED" :key="group.label">
                 <!-- Gradient divider between groups -->
                 <div v-if="idx > 0" class="group-divider" />
 
-                <div class="biome-group">
+                <div class="biome-group" :class="{ 'biome-group-terrain': group.groupKey === BiomeTagGroup.TERRAIN }">
                     <span class="biome-group-label">{{ group.label }}</span>
                     <div class="biome-group-tags">
                         <button v-for="tag in group.tags" :key="tag" type="button" class="biome-tag-btn"
@@ -32,18 +35,26 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, ref, onMounted } from 'vue'
 import { useBiomeStore } from '@/stores/biomeStore'
+import { useBiomesStore } from '@/stores/biomesStore'
 import { BiomeTagGroup, BIOME_TAG_GROUPS, BIOME_TAG_GROUP_LABELS, BIOME_TAG_LABELS } from '@shared/constants/biomeTags'
 import CharacterSheetSection from '@/components/ui/containers/CharacterSheetSection.vue'
 import TableHeader from '@/components/ui/tables/TableHeader.vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import BiomeTagSymbol from '@/components/ui/biome/BiomeTagSymbol.vue'
+import BiomePicker from './BiomePicker.vue'
 
 const biomeStore = useBiomeStore()
+const biomesStore = useBiomesStore()
 const isCollapsed = ref(false)
 
+onMounted(() => {
+    biomesStore.fetch()
+})
+
 const BIOME_TAG_GROUPS_ORDERED = Object.values(BiomeTagGroup).map(group => ({
+    groupKey: group,
     label: BIOME_TAG_GROUP_LABELS[group],
     tags: BIOME_TAG_GROUPS[group],
 }))
@@ -89,6 +100,10 @@ function tagTitle(tag) {
     gap: var(--space-xs);
     flex: 1 1 0;
     min-width: 0;
+}
+
+.biome-group-terrain {
+    flex: 1.5 1 0;
 }
 
 .biome-group-label {

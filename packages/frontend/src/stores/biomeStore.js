@@ -4,6 +4,7 @@ import { useCharactersStore } from '@/stores/charactersStore'
 
 export const useBiomeStore = defineStore('biome', () => {
   const activeTags = ref(new Set())
+  const selectedBiomeId = ref(null)
 
   const charactersStore = useCharactersStore()
   const character = computed(() => charactersStore.selectedCharacter)
@@ -11,11 +12,13 @@ export const useBiomeStore = defineStore('biome', () => {
   const loadBiomeTagsFromCharacter = () => {
     const stored = character.value?.biomeTags
     activeTags.value = Array.isArray(stored) ? new Set(stored) : new Set()
+    selectedBiomeId.value = character.value?.biomeId ?? null
   }
 
   const persistBiomeTagsToCharacter = () => {
     if (!character.value) return
     character.value.biomeTags = [...activeTags.value]
+    character.value.biomeId = selectedBiomeId.value
   }
 
   watch(
@@ -38,13 +41,28 @@ export const useBiomeStore = defineStore('biome', () => {
       next.add(tag)
     }
     activeTags.value = next
+    // Manual tag edit disassociates the selected preset
+    selectedBiomeId.value = null
     persistBiomeTagsToCharacter()
   }
 
   function clearAll() {
     activeTags.value = new Set()
+    selectedBiomeId.value = null
     persistBiomeTagsToCharacter()
   }
 
-  return { activeTags, isTagActive, toggleTag, clearAll }
+  function selectBiome(biome) {
+    activeTags.value = new Set(biome.tags)
+    selectedBiomeId.value = biome.id
+    persistBiomeTagsToCharacter()
+  }
+
+  // Clears the selected preset ID without touching active tags (custom mode)
+  function deselectBiome() {
+    selectedBiomeId.value = null
+    persistBiomeTagsToCharacter()
+  }
+
+  return { activeTags, selectedBiomeId, isTagActive, toggleTag, clearAll, selectBiome, deselectBiome }
 })
