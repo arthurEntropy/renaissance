@@ -1,0 +1,13 @@
+{
+  "name": "Volcanic",
+  "description": "Terrain shaped by active or recent volcanism, featuring lava fields, ash plains, fumaroles, and starkly barren mineral landscapes.",
+  "artUrl": "https://cdn.midjourney.com/448904e0-342e-4911-a896-158445c893b5/0_0.png",
+  "tags": [
+    "mountain",
+    "hot"
+  ],
+  "index": 37,
+  "id": "c0cfcf80-f18c-418b-b1a1-a98cbc61dba6",
+  "createdAt": "2026-03-04T13:54:37.411Z",
+  "lastModified": "2026-03-04T15:48:59.158Z"
+}

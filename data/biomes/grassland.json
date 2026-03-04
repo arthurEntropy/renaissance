@@ -1,0 +1,13 @@
+{
+  "name": "Grassland",
+  "description": "Open, level terrain carpeted by grasses and herbaceous plants, sustaining large herds of grazing animals in a temperate climate.",
+  "artUrl": "https://cdn.midjourney.com/ac1ea0ad-f6d7-4cc1-8722-9afa0ef1e9bf/0_3.png",
+  "tags": [
+    "plains",
+    "temperate"
+  ],
+  "index": 15,
+  "id": "7c0cc85a-296f-420b-b38b-cfe78b174b78",
+  "createdAt": "2026-03-04T13:54:37.411Z",
+  "lastModified": "2026-03-04T15:42:15.010Z"
+}
