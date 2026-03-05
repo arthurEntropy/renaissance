@@ -1,0 +1,15 @@
+{
+  "source": "937d52da-0ebf-4d74-b3ee-be395f2f5d0a",
+  "id": "6bcf3cfa-c9bf-45eb-b598-6a78ac5de507",
+  "createdAt": "2026-03-04T17:45:52.446Z",
+  "lastModified": "2026-03-05T16:43:15.208Z",
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": [
+    "civilized"
+  ],
+  "name": "Animal Friendship",
+  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
+  "description": "<p><em>General</em></p><p>Choose a non-humanoid creature within short range. You and the creature must be able to see and hear each other. If the creature's WITS score is 4 or higher, the spell has no effect.</p><p>Otherwise, roll Persuade vs Insight. On a win, for the next day, the creature is convinced that you mean it no harm. No effect on a loss.</p><p>If you or an ally attack the creature, the spell ends.</p>",
+  "xp": 5,
+  "mp": 1
+}

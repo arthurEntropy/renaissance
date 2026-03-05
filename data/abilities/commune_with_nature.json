@@ -1,0 +1,22 @@
+{
+  "source": "937d52da-0ebf-4d74-b3ee-be395f2f5d0a",
+  "id": "c133b572-75fe-4fa9-9340-f9c9214a118e",
+  "createdAt": "2026-03-04T18:45:16.599Z",
+  "lastModified": "2026-03-05T16:44:00.228Z",
+  "biomeTagsAugment": [
+    "forest",
+    "plains",
+    "wetland",
+    "water"
+  ],
+  "biomeTagsInhibit": [
+    "civilized",
+    "desert"
+  ],
+  "name": "Commune With Nature",
+  "description": "<p><em>General</em></p><p><em>Casting time: 1 minute.</em></p><p>You briefly commune with the living world to learn of your surroundings. Roll Spirit. Divide the result by 5; the total is the number of miles around you that your awareness extends. Choose two:</p><ul><li><p>Terrain and bodies of water</p></li><li><p>Prevalent plants, minerals, animals, and peoples</p></li><li><p>Powerful deities or spirits</p></li><li><p>Buildings</p></li></ul><p>You learn the direction, distance, and general nature of the chosen elements within range. This communion grants knowledge, not sensory perception.</p>",
+  "type": "f6a1b2c3-d4e5-4f6a-eb3c-2d1e0f9a8b7c",
+  "mp": 5,
+  "xp": 25,
+  "successes": "<p>✨: Choose another element from the list.</p><p>🌞: Choose one location within your range of awareness. For 5 seconds, you can see or hear (choose one) as if you were in that location.</p>"
+}

@@ -1,0 +1,13 @@
+{
+  "source": "937d52da-0ebf-4d74-b3ee-be395f2f5d0a",
+  "id": "99dcccd5-c742-4034-b387-73fbae56e6c8",
+  "createdAt": "2026-03-04T18:02:15.117Z",
+  "lastModified": "2026-03-05T16:43:27.551Z",
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": [],
+  "name": "Awaken",
+  "description": "<p><em>General</em></p><p><em>Casting time: 1 hour</em></p><p>Choose a creature or plant within short range that has a WITS score of 3 or less. You must remain within short range of the target while casting the spell.</p><p>The target gain the ability to speak one language that you know, and its WITS score increases to 4. You choose which Skills it gains ranks in to reflect the increase.</p><p>If the target is a plant, it gains the ability to move its limbs, roots, vines, creepers, and so forth, it gains senses similar to a human’s and the GM chooses other statistics appropriate for the awakened plant.</p><p>The target is charmed by you for 1 day or until you or an ally cause it harm. After the day expires, the creature or plant remains awakened and chooses whether to remain friendly to you, based on how you treated it while it was charmed.</p>",
+  "type": "f6a1b2c3-d4e5-4f6a-eb3c-2d1e0f9a8b7c",
+  "xp": 25,
+  "mp": 5
+}

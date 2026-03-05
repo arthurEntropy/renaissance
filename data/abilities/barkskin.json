@@ -1,0 +1,13 @@
+{
+  "source": "937d52da-0ebf-4d74-b3ee-be395f2f5d0a",
+  "id": "ff8d6a0f-0207-4213-b06a-660dc6a74cb9",
+  "createdAt": "2026-03-04T18:16:18.038Z",
+  "lastModified": "2026-03-05T16:43:31.041Z",
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": [],
+  "name": "Barkskin",
+  "description": "<p><em>Way of the Green</em></p><p><em>Concentration, up to 1 hour.</em></p><p>You touch a willing creature. That creature's skin thickens and takes on a rough, bark-like appearance, granting it +5 Defense.</p>",
+  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
+  "mp": 2,
+  "xp": 10
+}

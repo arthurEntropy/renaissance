@@ -1,0 +1,20 @@
+{
+  "source": "937d52da-0ebf-4d74-b3ee-be395f2f5d0a",
+  "id": "bf46275c-3a65-425f-b449-355d18a580a3",
+  "createdAt": "2026-03-04T19:17:21.584Z",
+  "lastModified": "2026-03-05T16:09:35.579Z",
+  "biomeTagsAugment": [
+    "wetland",
+    "hot",
+    "civilized",
+    "corrupted"
+  ],
+  "biomeTagsInhibit": [
+    "cold"
+  ],
+  "description": "<p><em>Way of the Spore</em></p><p>You draw forth disease from your symbiotes and inflict it upon a creature you touch. Roll Spirit vs. Fortitude against the target. On a loss, the disease fails to take hold. On a win, record your roll result as this spell’s Difficulty, then choose one of the following diseases:</p><ul><li><p><strong>Blinding Sickness.</strong> The creature’s eyes swell shut; it becomes Blinded.</p></li><li><p><strong>Fever.</strong> A raging fever wracks the creature. Its Strength rolls are Ill-Favored and its Defense is reduced by half your HEART score.</p></li><li><p><strong>Seizure.</strong> The creature is overcome with violent shaking. It falls prone and automatically fails all Dexterity Skill Checks.</p></li><li><p><strong>Flesh Rot.</strong> The creature’s flesh decays. Its Awe, Perform, Courtesy, and Persuade rolls are Ill-Favored.</p></li><li><p><strong>Delusion.</strong> The creature’s mind clouds. Its Insight, Awareness, Lore, and Riddle rolls are Ill-Favored.</p></li></ul><p>The disease lasts up to 7 days. At the end of each day, the affected creature rolls Fortitude against the spell’s Difficulty. On a success, the disease ends.</p><p>Whenever an infected creature touches another creature, that creature must roll Fortitude against the spell’s Difficulty. On a failure, it contracts the same disease.</p><p>Each time a creature successfully resists or ends the disease, reduce the spell’s Difficulty by 1.</p>",
+  "name": "Contagion",
+  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
+  "mp": 5,
+  "xp": 25
+}
