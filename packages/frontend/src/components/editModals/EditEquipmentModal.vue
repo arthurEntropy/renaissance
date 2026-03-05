@@ -9,19 +9,19 @@
       <div class="modal-body">
         <form @submit.prevent="saveEquipment">
 
-          <!-- Custom Item Checkbox -->
+          <!-- Flags: Custom, Template, Magic -->
           <div class="form-group centered">
             <label for="isCustom">
               <input type="checkbox" id="isCustom" v-model="editedEquipment.isCustom" />
-              Custom Item
+              Custom
             </label>
-          </div>
-
-          <!-- Template Checkbox -->
-          <div class="form-group centered">
             <label for="isTemplate">
               <input type="checkbox" id="isTemplate" v-model="editedEquipment.isTemplate" />
               Template
+            </label>
+            <label for="isMagical">
+              <input type="checkbox" id="isMagical" v-model="editedEquipment.isMagical" />
+              Magic
             </label>
           </div>
 

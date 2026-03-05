@@ -49,8 +49,11 @@
 
           <!-- Main description -->
           <CardDescription
-            v-if="item.description || showBiomeTags || $slots['before-description'] || $slots['after-description']"
+            v-if="item.description || showBiomeTags || showMagicalBadge || $slots['before-description'] || $slots['after-description']"
             :content="item.description || ''" @roll-link="emit('roll-link', $event)">
+            <template v-if="showMagicalBadge" #top-badge>
+              <div class="magical-badge" :style="magicalBadgeStyle">{{ magicalBadgeText }}</div>
+            </template>
             <template #before-description>
               <BiomeTagDisplay v-if="showBiomeTags" :augment-tags="item.biomeTagsAugment || []"
                 :inhibit-tags="item.biomeTagsInhibit || []" :active-tags="biomeStore.activeTags" />
@@ -87,6 +90,7 @@ import { computed } from 'vue'
 import { useSourcesStore } from '@/stores/sourcesStore'
 import { useUserStore } from '@/stores/userStore'
 import { useBiomeStore } from '@/stores/biomeStore'
+import { useAbilitySchoolsStore } from '@/stores/abilitySchoolsStore'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import CardDescription from '@/components/ui/cards/item/CardDescription.vue'
 import { ItemType } from '@shared/constants/itemTypes'
@@ -94,22 +98,7 @@ import { useOptimizedImage } from '@/composables/useOptimizedImage'
 import ManaCostDisplay from '@/components/ui/mana/ManaCostDisplay.vue'
 import BiomeTagDisplay from '@/components/ui/biome/BiomeTagDisplay.vue'
 
-// Show mana cost if ability has manaCost and source is Channeler
-const showManaCost = computed(() => {
-  if (!props.item.manaCost) return false
-  const source = sourcesStore.getSourceById(props.item.source)
-  return source && source.name && source.name.toLowerCase() === 'channeler'
-})
-
-// Show biome tags if the item has any augment or inhibit tags defined
-const showBiomeTags = computed(() =>
-  props.item.biomeTagsAugment?.length > 0 || props.item.biomeTagsInhibit?.length > 0
-)
-
-const showMetaInfo = computed(() => {
-  return !!props.metaInfo || showManaCost.value
-})
-
+// Props and emits
 const props = defineProps({
   item: { type: Object, required: true },
   metaInfo: { type: String, default: '' },
@@ -124,24 +113,23 @@ const props = defineProps({
 
 const emit = defineEmits(['edit', 'duplicate', 'delete', 'update', 'send-to-chat', 'height-changed', 'update:collapsed', 'roll-link'])
 
-// Source management
+// Stores
+const abilitySchoolsStore = useAbilitySchoolsStore()
 const sourcesStore = useSourcesStore()
-const sources = computed(() => sourcesStore.sources)
-
-// Biome store for active tags
 const biomeStore = useBiomeStore()
-
-// User preferences
 const userStore = useUserStore()
+
+// Composables
+const optimizedArtUrl = useOptimizedImage(() => props.item.artUrl, 'small')
+
+// Computed properties
+const sources = computed(() => sourcesStore.sources)
 const showArtwork = computed(() => userStore.userProfile?.preferences?.showArtwork ?? true)
 
 const sourceName = computed(() => {
   if (!props.item.source) return 'Unknown'
   return sourcesStore.getSourceName(props.item.source)
 })
-
-// Optimize art URL for display
-const optimizedArtUrl = useOptimizedImage(() => props.item.artUrl, 'small')
 
 const cardStyle = computed(() => {
   const source = sources.value ? sourcesStore.getSourceById(props.item.source) : null
@@ -157,6 +145,47 @@ const cardStyle = computed(() => {
   // Fallback background
   return { backgroundColor: 'var(--color-bg-secondary)' }
 })
+
+// Show mana cost if ability has manaCost and source is Channeler
+const showManaCost = computed(() => {
+  if (!props.item.manaCost) return false
+  const source = sourcesStore.getSourceById(props.item.source)
+  return source && source.name && source.name.toLowerCase() === 'channeler'
+})
+
+// Show biome tags if the item has any augment or inhibit tags defined
+const showBiomeTags = computed(() =>
+  props.item.biomeTagsAugment?.length > 0 || props.item.biomeTagsInhibit?.length > 0
+)
+
+// Show magical badge if the item is marked as magical, or if it has a school selected
+const showMagicalBadge = computed(() => !!props.item.isMagical || !!props.item.school)
+
+// Badge label: "SPELL" or "SPELL — School" for abilities, "MAGIC" for equipment
+const magicalBadgeText = computed(() => {
+  if (props.itemType !== ItemType.ABILITY) return 'MAGIC'
+  const schoolName = props.item.school
+    ? abilitySchoolsStore.getById(props.item.school)?.name
+    : null
+  // Fall back to 'SPELL' if school data isn't loaded yet
+  return schoolName ? `SPELL \u2014 ${schoolName}` : 'SPELL'
+})
+
+// Badge color: school color at 80% opacity, or default cyan
+const magicalBadgeStyle = computed(() => {
+  const school = props.item.school ? abilitySchoolsStore.getById(props.item.school) : null
+  const color = school?.color
+  if (color && /^#[0-9a-f]{6}$/i.test(color)) {
+    // Parse hex to rgb for opacity support
+    const r = parseInt(color.slice(1, 3), 16)
+    const g = parseInt(color.slice(3, 5), 16)
+    const b = parseInt(color.slice(5, 7), 16)
+    return { '--badge-color': `rgba(${r}, ${g}, ${b}, 0.8)` }
+  }
+  return { '--badge-color': 'rgba(6, 182, 212, 0.8)' }
+})
+
+const showMetaInfo = computed(() => !!props.metaInfo || showManaCost.value)
 
 // Methods
 const toggleCollapsed = () => {
@@ -221,6 +250,35 @@ const handleCollapsed = () => {
 
 .base-card.collapsible {
   cursor: pointer;
+}
+
+.magical-badge {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--badge-color, rgba(6, 182, 212, 0.8));
+  color: var(--color-black);
+  font-size: var(--font-size-10);
+  font-weight: var(--font-weight-bold);
+  padding: 3px 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+  z-index: var(--z-raised);
+  pointer-events: none;
+  line-height: 1.4;
+}
+
+.magical-badge::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 7px solid var(--badge-color, rgba(6, 182, 212, 0.8));
 }
 
 .name-container {

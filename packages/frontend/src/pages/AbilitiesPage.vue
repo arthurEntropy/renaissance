@@ -41,6 +41,7 @@ import { useAuthStore } from '@/stores/authStore'
 import { useSourcesStore } from '@/stores/sourcesStore'
 import { useActionTypesStore } from '@/stores/actionTypesStore'
 import { useCharactersStore } from '@/stores/charactersStore'
+import { useAbilitySchoolsStore } from '@/stores/abilitySchoolsStore'
 import { useEditModal } from '@/composables/useEditModal'
 import { useInfiniteScroll } from '@/composables/useInfiniteScroll'
 import { useInfiniteScrollObserver } from '@/composables/useInfiniteScrollObserver'
@@ -59,6 +60,7 @@ const authStore = useAuthStore()
 const sourcesStore = useSourcesStore()
 const actionTypesStore = useActionTypesStore()
 const charactersStore = useCharactersStore()
+const abilitySchoolsStore = useAbilitySchoolsStore()
 
 const abilities = computed(() => abilitiesStore.abilities)
 const selectedCharacter = computed(() => charactersStore.selectedCharacter)
@@ -210,6 +212,7 @@ const refreshData = async () => {
   try {
     await actionTypesStore.fetch()
     await sourcesStore.fetchSources()
+    await abilitySchoolsStore.fetch() // Pre-load schools for BaseCard badge rendering
     await abilitiesStore.fetch()
   } catch (error) {
     console.error('Error initializing AbilitiesPage:', error)

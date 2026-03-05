@@ -1,6 +1,10 @@
 <template>
-    <div v-if="content || $slots.successes || $slots['before-description'] || $slots['after-description']"
-        class="card-description" :class="additionalClasses" @click="handleDescriptionClick">
+    <div v-if="content || $slots.successes || $slots['before-description'] || $slots['after-description'] || $slots['top-badge']"
+        class="card-description" :class="[additionalClasses, { 'has-top-badge': !!$slots['top-badge'] }]"
+        @click="handleDescriptionClick">
+        <!-- Bookmark badge for magic items/abilities -->
+        <slot name="top-badge"></slot>
+
         <!-- Content to display before the description -->
         <slot name="before-description"></slot>
 
@@ -70,6 +74,10 @@ function handleDescriptionClick(event) {
 
 .card-description>div {
     padding: 1px var(--space-md);
+}
+
+.card-description.has-top-badge {
+    padding-top: var(--space-md);
 }
 
 /* Scale embedded images to fit within description width */

@@ -54,6 +54,7 @@ import { createBaseEntity } from '../gameEntity.js'
  * @property {boolean} isDeleted - Soft delete flag
  * @property {boolean} isCustom - Whether this is custom/user-created equipment
  * @property {boolean} isTemplate - Whether this is a template for creating new equipment
+ * @property {boolean} isMagical - Whether this equipment is magical in nature
  * @property {string|null} artUrl - Art image URL
  * @property {string|null} type - Equipment type UUID reference
  * @property {string|null} subtype - Equipment subtype UUID reference
@@ -87,6 +88,7 @@ export function createDefaultEquipment() {
     skillMods: [],
     improvements: [],
     successes: null,
+    isMagical: false,
     isCustom: false,
     isTemplate: false,
     artUrl: null,
