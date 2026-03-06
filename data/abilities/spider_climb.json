@@ -2,12 +2,13 @@
   "source": "937d52da-0ebf-4d74-b3ee-be395f2f5d0a",
   "id": "50e4a0ae-39d7-46ae-821b-2c50be32f07c",
   "createdAt": "2026-03-05T15:55:04.209Z",
-  "lastModified": "2026-03-05T16:47:32.248Z",
+  "lastModified": "2026-03-05T19:56:42.203Z",
   "biomeTagsAugment": [],
   "biomeTagsInhibit": [],
   "name": "Spider Climb",
-  "description": "<p><em>Way of the Hive</em></p><p><em>Concentration, up to 1 hour.</em></p><p>One willing creature you touch grows four spider legs from its torso. The legs are proportionate to the creature and allow it to move up, down, and across vertical surfaces and upside down along ceilings, while leaving its hands and legs free.</p>",
+  "description": "<p><em>Concentration, up to 1 hour.</em></p><p>One willing creature you touch grows four spider legs from its torso. The legs are proportionate to the creature and allow it to move up, down, and across vertical surfaces and upside down along ceilings, while leaving its hands and legs free.</p>",
   "mp": 2,
   "xp": 10,
-  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e"
+  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
+  "school": "6e98ce47-8b88-47ce-b348-a443d89bac83"
 }

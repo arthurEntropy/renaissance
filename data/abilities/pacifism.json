@@ -13,5 +13,6 @@
   "manaCost": "4WW",
   "successes": "<p><strong>✨:</strong> The creature’s speed is reduced to 0 until the start of your next turn.</p><p><strong>🌞:</strong> On a win, the effect instead lasts 1 minute.</p><p><strong>💀:</strong> The spell has no effect on this creature. Check two Conditions.</p>",
   "artUrl": "https://cdn.midjourney.com/4b787bdc-7770-4932-8d2f-3aaf75b3effa/0_3.png",
-  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e"
+  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
+  "isMagical": true
 }

@@ -2,7 +2,7 @@
   "id": "dd5827a8-6fb7-4b9f-8c94-c7d6dd900fe4",
   "isDeleted": false,
   "createdAt": "2025-12-29T23:12:01.525Z",
-  "lastModified": "2026-02-12T21:37:52.077Z",
+  "lastModified": "2026-03-05T21:47:37.099Z",
   "name": "Rigel's Big Hand",
   "description": "<p><em>Concentration, up to one minute.</em></p><p>You create a translucent hand made of pure force in a space within short range. It is as big as you are and is a construct creature. Roll Lore. The hand has Endurance equal to the result, Defense equal to half the result, ranks in Strength equal to one quarter of the result and a number of d12 Engagement dice equal to one eight of the result. Its speed is 40 ft.</p><p>While the spell lasts, you may use a half action to move the hand up to its speed and allow it to take an action. It can make a melee attack, dealing 4d8 on a hit, or may attempt to grapple, push or otherwise interact with creatures and objects. It is incapable of actions requiring delicate movement. The hand grants half cover when standing behind it.</p><p><strong>Describe the hand and how you control it.</strong></p>",
   "successes": "<p>✨: You may add WITS to the hand's damage rolls.</p><p>✨: The hand also has ranks in Dexterity equal to one quarter of the Lore roll result and can perform delicate movements.</p><p>🌞: The hand deals an additional 2d8 damage and its speed is doubled.</p><p>💀: The hand turns against you. It moves to be adjacent to you and makes its melee attack against you, then the spell ends. Check a condition.</p>",
@@ -12,5 +12,7 @@
   "mp": 5,
   "xp": 25,
   "artUrl": "https://cdn.midjourney.com/644e4f35-c53d-44a0-a5de-e79daaf3104c/0_1.png",
-  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e"
+  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
+  "isMagical": true,
+  "school": "0341bd63-648c-48c2-ba5d-ce92322e5a09"
 }

@@ -2,7 +2,7 @@
   "source": "937d52da-0ebf-4d74-b3ee-be395f2f5d0a",
   "id": "9a047b93-d2c2-4de0-ae7e-0fa06b459a29",
   "createdAt": "2026-03-05T14:16:22.074Z",
-  "lastModified": "2026-03-05T16:07:49.528Z",
+  "lastModified": "2026-03-05T19:56:00.304Z",
   "biomeTagsAugment": [
     "wetland",
     "forest"
@@ -10,5 +10,7 @@
   "biomeTagsInhibit": [],
   "description": "<p><em>Way of the Spore</em></p><p>Your symbiotes exude a spray of poison. Roll Spirit vs Fortitude against an Adjacent creature. On a win, 1d12 damage. On a loss, half damage.</p><p><strong>Describe the poison.</strong></p>",
   "name": "Poison Spray",
-  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e"
+  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
+  "isMagical": true,
+  "school": "c1bc149a-25c9-4414-a736-1a6cdffb5719"
 }

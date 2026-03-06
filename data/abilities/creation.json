@@ -2,7 +2,7 @@
   "id": "538c910c-e768-4d55-a1e6-dfb205792307",
   "isDeleted": false,
   "createdAt": "2025-12-30T03:36:13.465Z",
-  "lastModified": "2026-02-12T21:37:52.062Z",
+  "lastModified": "2026-03-05T21:18:27.155Z",
   "name": "Creation",
   "description": "<p><em>Casting Time: 1 minute. Concentration, up to 1 day.</em></p><p>You pull arcane energy out of the weave and shape it into a temporary, nonliving object of organic matter (wood, cloth, etc.) in a space within short range. The object must be of a form and material you have seen before and can be no larger than 5 ft in any dimension.</p><p>Roll Lore to see if you trigger any additional effects.</p><p><strong>Describe what you create.</strong></p>",
   "canBeActive": false,
@@ -20,5 +20,7 @@
       "id": "c8cfa367-3a46-4536-8928-f33ae1a2fb06"
     }
   ],
-  "type": "f6a1b2c3-d4e5-4f6a-eb3c-2d1e0f9a8b7c"
+  "type": "f6a1b2c3-d4e5-4f6a-eb3c-2d1e0f9a8b7c",
+  "isMagical": true,
+  "school": "dae8a70f-3f7a-4357-8fe4-972f863be65b"
 }

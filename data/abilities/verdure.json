@@ -2,12 +2,14 @@
   "source": "937d52da-0ebf-4d74-b3ee-be395f2f5d0a",
   "id": "9183a545-a700-468f-88b5-95e4a93ad760",
   "createdAt": "2026-03-05T00:48:02.841Z",
-  "lastModified": "2026-03-05T16:08:44.762Z",
+  "lastModified": "2026-03-05T19:57:29.771Z",
   "biomeTagsAugment": [],
   "biomeTagsInhibit": [],
   "name": "Verdure",
-  "description": "<p><em>Way of the Green</em></p><p>Choose a point within Long Range. All mundane plants within Long Range of that point become thick and overgrown, becoming difficult terrain. You can exclude areas within the spell's range from this effect as you choose.</p><p>Alternately, you may choose to cast this spell as a ritual, over 8 hours. If you do, for the next year, all the plants within the spell's range achieve exceptional growth and yield twice the normal amount of food when harvested.</p>",
+  "description": "<p>Choose a point within Long Range. All mundane plants within Long Range of that point become thick and overgrown, becoming difficult terrain. You can exclude areas within the spell's range from this effect as you choose.</p><p>Alternately, you may choose to cast this spell as a ritual, over 8 hours. If you do, for the next year, all the plants within the spell's range achieve exceptional growth and yield twice the normal amount of food when harvested.</p>",
   "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
   "mp": 3,
-  "xp": 15
+  "xp": 15,
+  "school": "f8572abf-975d-4007-b007-4cbe9bfdec01",
+  "isMagical": true
 }

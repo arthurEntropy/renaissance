@@ -2,10 +2,11 @@
   "source": "937d52da-0ebf-4d74-b3ee-be395f2f5d0a",
   "id": "260b0a4b-fcf8-43ae-ae53-92f5c2efbdb6",
   "createdAt": "2026-03-04T21:29:59.091Z",
-  "lastModified": "2026-03-05T16:44:42.247Z",
+  "lastModified": "2026-03-05T19:58:19.490Z",
   "biomeTagsAugment": [],
   "biomeTagsInhibit": [],
   "name": "Wild Attunement",
-  "description": "<p><em>General</em></p><p>You are perpetually attuned to the plants and animals around you. While in natural areas, you always know the next day’s weather and gain advance awareness of impending natural disasters such as earthquakes, floods, or hurricanes.</p><p>Additionally, you may spend an Action to influence nearby life:</p><ul><li><p>Cause a plant within Short Range to bloom.</p></li><li><p>Cause an animal within Medium Range to make a sound, emit an odor, pick up or drop a small object, or take another simple action.</p></li></ul><p>An affected animal may only perform actions that are natural to it and within its normal physical capabilities. You cannot compel it to perform complex tasks, act against its instincts, or attempt behaviors it would not reasonably attempt on its own.</p><p><strong>Describe your connection with nature.</strong></p>",
-  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
+  "description": "<p>You are perpetually attuned to the plants and animals around you. While in natural areas, you always know the next day’s weather and gain advance awareness of impending natural disasters such as earthquakes, floods, or hurricanes.</p><p>Additionally, you may spend an Action to influence nearby life:</p><ul><li><p>Cause a plant within Short Range to bloom.</p></li><li><p>Cause an animal within Medium Range to make a sound, emit an odor, pick up or drop a small object, or take another simple action.</p></li></ul><p>An affected animal may only perform actions that are natural to it and within its normal physical capabilities. You cannot compel it to perform complex tasks, act against its instincts, or attempt behaviors it would not reasonably attempt on its own.</p><p><strong>Describe your connection with nature.</strong></p>",
+  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d",
+  "isMagical": false
 }

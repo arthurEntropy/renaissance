@@ -2,7 +2,7 @@
   "source": "937d52da-0ebf-4d74-b3ee-be395f2f5d0a",
   "id": "fdc9ab63-b9b4-41de-a869-d2274cea32ec",
   "createdAt": "2026-03-04T18:21:43.269Z",
-  "lastModified": "2026-03-05T16:09:16.944Z",
+  "lastModified": "2026-03-05T19:25:54.078Z",
   "biomeTagsAugment": [
     "desert",
     "hot",
@@ -15,9 +15,11 @@
     "enchanted"
   ],
   "name": "Blight",
-  "description": "<p><em>Way of the Spore</em></p><p>Choose a creature within short range. You drain moisture and vitality from it.</p><p>Roll Spirit vs Fortitude. On a win, the target takes 8d8+HEART damage. On a loss, half damage. This spell has no effect on undead or constructs.</p><p>If you target a plant creature, its roll is Ill-Favored and the spell automatically deals maximum damage to it. If you target an ordinary plant, it simply withers and dies.</p>",
+  "description": "<p>Choose a creature within short range. You drain moisture and vitality from it.</p><p>Roll Spirit vs Fortitude. On a win, the target takes 8d8+HEART damage. On a loss, half damage. This spell has no effect on undead or constructs.</p><p>If you target a plant creature, its roll is Ill-Favored and the spell automatically deals maximum damage to it. If you target an ordinary plant, it simply withers and dies.</p>",
   "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
   "mp": 4,
   "xp": 20,
-  "successes": "<p>✨: +1d damage.</p><p>🌞: You regain Endurance equal to half the damage dealt.</p>"
+  "successes": "<p>✨: +1d damage.</p><p>🌞: You regain Endurance equal to half the damage dealt.</p>",
+  "school": "c1bc149a-25c9-4414-a736-1a6cdffb5719",
+  "isMagical": false
 }

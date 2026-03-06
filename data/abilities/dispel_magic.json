@@ -2,7 +2,7 @@
   "id": "918a1494-ba66-47e5-991f-6dbfef8698a8",
   "isDeleted": false,
   "createdAt": "2025-12-30T18:21:22.293Z",
-  "lastModified": "2026-02-12T21:37:52.064Z",
+  "lastModified": "2026-03-05T21:37:17.421Z",
   "name": "Dispel Magic",
   "description": "<p>Choose one creature, object, or magical effect within far range. Any spells affecting or producing the target immediately end if their XP cost is less than this spell's XP cost.</p><p>For spells of equal XP cost, roll Lore against a 10. For spells of greater cost, the difficulty increases by 1 for each additional 1 XP cost. Make separate rolls for each spell.</p><p><strong>Describe how you dispel the magic.</strong></p>",
   "canBeActive": false,
@@ -20,5 +20,7 @@
     }
   ],
   "artUrl": "https://cdn.midjourney.com/13f72081-a3ec-4d1a-bf30-b85ba53f9781/0_2.png",
-  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e"
+  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
+  "isMagical": true,
+  "school": "6dee9b36-a9ea-4edf-ad7b-7321e4408da5"
 }

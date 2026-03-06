@@ -2,7 +2,7 @@
   "id": "e40f285f-16e0-4972-b8d2-bc6ae3975d2b",
   "isDeleted": false,
   "createdAt": "2026-02-05T16:48:05.464Z",
-  "lastModified": "2026-02-12T21:37:52.079Z",
+  "lastModified": "2026-03-05T21:59:30.492Z",
   "name": "Spellwarping Curse",
   "description": "<p><em>Concentration, up to 1 minute.</em></p><p>Roll Spirit vs Spirit against a creature within medium range. On a win, each time the creature casts a spell or invokes a magical trait that deals damage or forces a creature to make an opposed skill check, it takes damage equal to 1d8 + the creature's HEART score. Half damage on a loss.</p>",
   "canBeActive": false,
@@ -13,5 +13,7 @@
   "manaCost": null,
   "artUrl": "https://cdn.midjourney.com/20a0a23b-7ebe-49c8-85ca-07f460717cee/0_1.png",
   "successes": "<p>✨: +1d damage.</p><p>🌞: Whenever the triggering event happens, the creature also becomes the target of its own spell or magical trait.</p>",
-  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e"
+  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
+  "isMagical": true,
+  "school": "19af0449-55e0-49ee-93c1-58d4daaaf9a5"
 }

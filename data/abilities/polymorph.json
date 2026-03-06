@@ -2,7 +2,7 @@
   "id": "bf6c0915-7b4e-495f-a0ed-52b2e9fb2d24",
   "isDeleted": false,
   "createdAt": "2025-12-31T04:59:56.389Z",
-  "lastModified": "2026-02-12T21:37:52.075Z",
+  "lastModified": "2026-03-05T21:47:15.734Z",
   "name": "Polymorph",
   "description": "<p><em>Concentration, up to 1 hour.</em></p><p>You transform a creature within medium range into a beast. Roll Lore and subtract 10; the result determines the maximum challenge rating of the beast form you may choose. If the target is unwilling, also roll Lore vs Spirit. On a loss, the spell has no effect.</p><p>While transformed, the target’s stats and abilities are fully replaced by the beast’s, including its mental faculties, though the target retains its personality. It cannot speak unless the beast can. All worn or carried equipment is melded into the new form. If the creature loses consciousness or when the spell ends, it immediately reverts.</p><p><strong>Describe the transformation.</strong></p>",
   "canBeActive": false,
@@ -12,5 +12,7 @@
   "xp": 20,
   "successes": "<p>✨: The spell lasts for up to an additional hour.</p><p>🌞: The spell lasts for up to one day.</p><p>💀: The beast’s instincts overwhelm the target’s personality; it becomes hostile to you and your allies for 1d4 minutes. If it was already hostile, it immediately takes an extra turn. Check a condition.</p>",
   "artUrl": "https://cdn.midjourney.com/a4f5f417-8a34-4ad7-a067-14591dc5fb76/0_2.jpeg",
-  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e"
+  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
+  "isMagical": true,
+  "school": "c4a153b2-8906-4b95-be65-d8e5a5cc73ff"
 }

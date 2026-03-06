@@ -9,7 +9,9 @@
   "isDeleted": false,
   "mp": 5,
   "xp": 25,
-  "lastModified": "2026-02-12T21:37:52.055Z",
+  "lastModified": "2026-03-05T17:37:53.118Z",
   "artUrl": "https://cdn.midjourney.com/69bb5fd4-ff78-481f-848c-df41862de1b4/0_1.png",
-  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e"
+  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
+  "isMagical": true,
+  "school": "c4a153b2-8906-4b95-be65-d8e5a5cc73ff"
 }

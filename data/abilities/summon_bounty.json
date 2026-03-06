@@ -2,12 +2,13 @@
   "source": "937d52da-0ebf-4d74-b3ee-be395f2f5d0a",
   "id": "891b85c9-3922-424b-b986-af26a80ed109",
   "createdAt": "2026-03-04T20:01:30.501Z",
-  "lastModified": "2026-03-05T16:44:25.765Z",
+  "lastModified": "2026-03-05T19:56:52.052Z",
   "biomeTagsAugment": [],
   "biomeTagsInhibit": [],
   "name": "Summon Bounty",
-  "description": "<p><em>General</em></p><p><em>Casting time: 1 minute.</em></p><p>Once per day: You call upon the plants and animals around you to provide food and drink for you and your companions. Increase the Keeping of the Quest for 1 Rest.</p><p><strong>Describe the bounty.</strong></p>",
+  "description": "<p><em>Casting time: 1 minute.</em></p><p>Once per day: You call upon the plants and animals around you to provide food and drink for you and your companions. Increase the Keeping of the Quest for 1 Rest.</p><p><strong>Describe the bounty.</strong></p>",
   "type": "f6a1b2c3-d4e5-4f6a-eb3c-2d1e0f9a8b7c",
   "mp": 3,
-  "xp": 15
+  "xp": 15,
+  "isMagical": true
 }

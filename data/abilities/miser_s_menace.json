@@ -2,7 +2,7 @@
   "id": "7c096efa-fe02-44d7-8a0c-12bb6d71fbb2",
   "isDeleted": false,
   "createdAt": "2026-02-05T16:00:47.160Z",
-  "lastModified": "2026-02-12T21:37:52.073Z",
+  "lastModified": "2026-03-05T21:58:54.074Z",
   "name": "Miser's Menace",
   "description": "<p><em>Casting time: 1 minute spent focusing on the target.</em></p><p>Roll Spirit vs Spirit against a creature within short range. On a win, for the next day, the creature it is compelled to give away all of its wealth, possessions, and positions of power to those who lack them, gifting at least ten percent of its wealth to each creature it encounters.</p><p>If the target has broken its end of a bargain with you, or refused your polite request for food and shelter despite having done it no harm, you can cast this spell as an action and the effect is permanent, ending only when you choose to end it, or when the target has nothing but rags to its name.</p>",
   "canBeActive": false,
@@ -12,5 +12,7 @@
   "xp": 40,
   "manaCost": null,
   "artUrl": "https://cdn.midjourney.com/a42b5b5f-71ac-4051-884d-6ea74f7792d5/0_1.png",
-  "type": "f6a1b2c3-d4e5-4f6a-eb3c-2d1e0f9a8b7c"
+  "type": "f6a1b2c3-d4e5-4f6a-eb3c-2d1e0f9a8b7c",
+  "isMagical": true,
+  "school": "19af0449-55e0-49ee-93c1-58d4daaaf9a5"
 }

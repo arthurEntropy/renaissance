@@ -12,5 +12,6 @@
   "xp": null,
   "manaCost": "BB",
   "artUrl": "https://cdn.midjourney.com/cee6942d-7a50-4945-aa9d-367257ef6cc8/0_0.png",
-  "type": "e5f6a1b2-c3d4-4e5f-da2b-1c0d9e8f7a6b"
+  "type": "e5f6a1b2-c3d4-4e5f-da2b-1c0d9e8f7a6b",
+  "isMagical": true
 }

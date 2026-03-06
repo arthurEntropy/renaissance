@@ -13,5 +13,6 @@
   "manaCost": "2UU",
   "artUrl": "https://cdn.midjourney.com/675c975c-9497-4023-8f8b-ad1bd83420c9/0_3.png",
   "successes": "<p>✨: Win or lose, the creature is knocked prone when it leaves the wall this turn.</p><p>🌞: An item the creature is carrying (chosen at random) is pulled from their grip and remains inside the segment of wall they entered.</p><p>💀: Remove mana from your mana pool equal to the cost of this spell.</p>",
-  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e"
+  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
+  "isMagical": true
 }

@@ -2,7 +2,7 @@
   "source": "a07490af-2d77-4968-9adc-0a2a7c84ef70",
   "id": "029708f0-5497-4bbf-ade6-5d88f918ede8",
   "createdAt": "2026-02-27T18:56:34.091Z",
-  "lastModified": "2026-03-03T01:31:58.970Z",
+  "lastModified": "2026-03-05T17:23:31.103Z",
   "name": "Initiate’s Orb",
   "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
   "subtype": "b4946b09-e149-4896-8129-6d7d8b58a6ff",
@@ -18,5 +18,6 @@
   "finesse": false,
   "description": "<p>Difficulty: 10</p>",
   "twoHanded": true,
-  "artUrl": "https://cdn.midjourney.com/0f4b40e6-2545-4a57-82b3-d68d9bdf1a24/0_3.png"
+  "artUrl": "https://cdn.midjourney.com/0f4b40e6-2545-4a57-82b3-d68d9bdf1a24/0_3.png",
+  "isMagical": true
 }

@@ -12,5 +12,6 @@
   "xp": "",
   "manaCost": "2B",
   "successes": "<p>✨: Roll an additional d4.</p><p>🌞: Add HEART to each roll.</p><p>💀: Check a Condition.</p>",
-  "artUrl": "https://cdn.midjourney.com/5743b277-5c5d-426d-9657-848fe78294a8/0_2.png"
+  "artUrl": "https://cdn.midjourney.com/5743b277-5c5d-426d-9657-848fe78294a8/0_2.png",
+  "isMagical": true
 }

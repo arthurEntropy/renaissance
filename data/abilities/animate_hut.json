@@ -2,7 +2,7 @@
   "id": "6546f1dc-6604-4f1d-8717-6b44353b6d10",
   "isDeleted": false,
   "createdAt": "2026-02-05T21:02:07.513Z",
-  "lastModified": "2026-02-12T21:37:52.055Z",
+  "lastModified": "2026-03-05T21:58:42.235Z",
   "name": "Animate Hut",
   "description": "<p><em>Casting time: 1 minute. Concentration, up to 8 hours.</em></p><p>Choose an adjacent building no larger than 30 ft in any dimension. You must have either some claim to ownership or residency of the building or permission from its owners, or else the spell fails and has no effect.</p><p>The building becomes a creature that follows your verbal commands and acts immediately following your turn. Ten-foot-long legs resembling the legs of a creature of your choice sprout under the building, and it gains a Speed of 40 feet. The building can stand up or sit down using half its movement, and it must sit down to lower its doorways to ground level.</p><p>While you concentrate on the spell, the building can use an action to stomp its legs, making a melee weapon attack using your spell attack bonus; on a hit it deals 3d10 damage. The building has a 15 Defense and 100 Endurance. It uses your skills for skill checks. If the building is reduced to 0 Endurance, the spell ends and it settles to the ground.</p>",
   "canBeActive": false,
@@ -12,5 +12,6 @@
   "xp": 25,
   "manaCost": null,
   "artUrl": "https://cdn.midjourney.com/d4b2bb97-92ba-4a50-ae39-2da7ed1c4807/0_1.png",
-  "type": "f6a1b2c3-d4e5-4f6a-eb3c-2d1e0f9a8b7c"
+  "type": "f6a1b2c3-d4e5-4f6a-eb3c-2d1e0f9a8b7c",
+  "isMagical": true
 }
