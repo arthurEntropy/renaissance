@@ -55,12 +55,16 @@
               <div class="magical-badge" :style="magicalBadgeStyle">{{ magicalBadgeText }}</div>
             </template>
             <template #before-description>
-              <BiomeTagDisplay v-if="showBiomeTags" :augment-tags="item.biomeTagsAugment || []"
-                :inhibit-tags="item.biomeTagsInhibit || []" :active-tags="biomeStore.activeTags" />
               <slot name="before-description"></slot>
             </template>
             <template #badge>
               <slot name="description-badge"></slot>
+            </template>
+            <template #below-description>
+              <div v-if="showBiomeTags" class="biome-tag-display-wrapper">
+                <BiomeTagDisplay :augment-tags="item.biomeTagsAugment || []" :inhibit-tags="item.biomeTagsInhibit || []"
+                  :active-tags="biomeStore.activeTags" />
+              </div>
             </template>
             <template #after-description>
               <slot name="after-description"></slot>
@@ -250,6 +254,10 @@ const handleCollapsed = () => {
 
 .base-card.collapsible {
   cursor: pointer;
+}
+
+.biome-tag-display-wrapper {
+  padding-bottom: var(--space-lg);
 }
 
 .magical-badge {
