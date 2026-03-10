@@ -49,10 +49,14 @@
 
           <!-- Main description -->
           <CardDescription
-            v-if="item.description || showBiomeTags || showMagicalBadge || $slots['before-description'] || $slots['after-description']"
+            v-if="item.description || showBiomeTags || showTopBadges || $slots['before-description'] || $slots['after-description']"
             :content="item.description || ''" @roll-link="emit('roll-link', $event)">
-            <template v-if="showMagicalBadge" #top-badge>
-              <div class="magical-badge" :style="magicalBadgeStyle">{{ magicalBadgeText }}</div>
+            <template v-if="showTopBadges" #top-badge>
+              <div class="magical-badges-container">
+                <div v-if="showMagicalBadge" class="magical-badge spell-badge">{{ spellBadgeText }}</div>
+                <div v-if="showSchoolBadge" class="magical-badge school-badge" :style="schoolBadgeStyle">{{
+                  schoolBadgeText }}</div>
+              </div>
             </template>
             <template #before-description>
               <slot name="before-description"></slot>
@@ -162,21 +166,28 @@ const showBiomeTags = computed(() =>
   props.item.biomeTagsAugment?.length > 0 || props.item.biomeTagsInhibit?.length > 0
 )
 
-// Show magical badge if the item is marked as magical, or if it has a school selected
-const showMagicalBadge = computed(() => !!props.item.isMagical || !!props.item.school)
+// Show SPELL/MAGIC badge only when explicitly marked magical
+const showMagicalBadge = computed(() => !!props.item.isMagical)
 
-// Badge label: "SPELL" or "SPELL — School" for abilities, "MAGIC" for equipment
-const magicalBadgeText = computed(() => {
-  if (props.itemType !== ItemType.ABILITY) return 'MAGIC'
-  const schoolName = props.item.school
-    ? abilitySchoolsStore.getById(props.item.school)?.name
-    : null
-  // Fall back to 'SPELL' if school data isn't loaded yet
-  return schoolName ? `SPELL \u2014 ${schoolName}` : 'SPELL'
+// Spell badge label: "SPELL" for abilities, "MAGIC" for equipment
+const spellBadgeText = computed(() => props.itemType === ItemType.ABILITY ? 'SPELL' : 'MAGIC')
+
+// Show a separate school badge for abilities that have a school assigned
+const showSchoolBadge = computed(() =>
+  props.itemType === ItemType.ABILITY && !!props.item.school
+)
+
+// Render the top badge area if either the SPELL/MAGIC badge or school badge should show
+const showTopBadges = computed(() => showMagicalBadge.value || showSchoolBadge.value)
+
+// School badge label: just the school name
+const schoolBadgeText = computed(() => {
+  const school = props.item.school ? abilitySchoolsStore.getById(props.item.school) : null
+  return school?.name ?? ''
 })
 
-// Badge color: school color at 80% opacity, or default cyan
-const magicalBadgeStyle = computed(() => {
+// School badge color: school color at 80% opacity, or default cyan as fallback
+const schoolBadgeStyle = computed(() => {
   const school = props.item.school ? abilitySchoolsStore.getById(props.item.school) : null
   const color = school?.color
   if (color && /^#[0-9a-f]{6}$/i.test(color)) {
@@ -260,11 +271,19 @@ const handleCollapsed = () => {
   padding-bottom: var(--space-lg);
 }
 
-.magical-badge {
+.magical-badges-container {
   position: absolute;
   top: 0;
   left: 50%;
   transform: translateX(-50%);
+  display: flex;
+  gap: var(--space-sm);
+  z-index: var(--z-raised);
+  pointer-events: none;
+}
+
+.magical-badge {
+  position: relative;
   background: var(--badge-color, rgba(6, 182, 212, 0.8));
   color: var(--color-black);
   font-size: var(--font-size-10);
@@ -273,8 +292,6 @@ const handleCollapsed = () => {
   text-transform: uppercase;
   letter-spacing: 0.06em;
   white-space: nowrap;
-  z-index: var(--z-raised);
-  pointer-events: none;
   line-height: 1.4;
 }
 

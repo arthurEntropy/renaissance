@@ -50,7 +50,7 @@ const anyInhibitActive = computed(() => props.inhibitTags.some(t => props.active
     align-items: center;
     justify-content: center;
     gap: var(--space-sm);
-    padding: var(--space-xs) var(--space-md);
+    padding: 0 var(--space-md) var(--space-xs) var(--space-md);
     flex-wrap: wrap;
 }
 
