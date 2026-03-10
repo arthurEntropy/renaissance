@@ -1,0 +1,21 @@
+{
+  "source": "937d52da-0ebf-4d74-b3ee-be395f2f5d0a",
+  "id": "855f6379-52b6-4fd5-8c10-ee2b00225893",
+  "createdAt": "2026-03-09T17:42:23.132Z",
+  "lastModified": "2026-03-09T18:46:28.523Z",
+  "biomeTagsAugment": [
+    "underground",
+    "wetland",
+    "hot"
+  ],
+  "biomeTagsInhibit": [
+    "cold"
+  ],
+  "name": "Way of the Hive",
+  "description": "<p>A Colony of insects lives on your body and in your clothing, granting you access to all <em>Way of the Hive</em> Abilities.</p><p>The presence of your Colony is off-putting to foes who come near you. Any time you would enter Engagement, first roll Spirit vs Fortitude against your opponent. On a win, you automatically win the Engagement, no rolls required. On a loss, no effect.</p>",
+  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d",
+  "xp": 30,
+  "school": "6e98ce47-8b88-47ce-b348-a443d89bac83",
+  "artUrl": "https://cdn.midjourney.com/6dcedb2d-7ec1-43c9-a9fe-35fc0a34f799/0_0.png",
+  "successes": "<p>✨: The opponent checks a Condition.</p><p>🌞: Win or loss, the opponent's Attack may not proceed.</p>"
+}

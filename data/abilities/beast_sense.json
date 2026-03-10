@@ -2,13 +2,14 @@
   "source": "937d52da-0ebf-4d74-b3ee-be395f2f5d0a",
   "id": "eda84cad-bab3-4967-8920-f3c13ea7bc37",
   "createdAt": "2026-03-04T18:18:51.456Z",
-  "lastModified": "2026-03-05T19:54:54.643Z",
+  "lastModified": "2026-03-09T15:48:37.522Z",
   "biomeTagsAugment": [],
   "biomeTagsInhibit": [],
   "name": "Beast Sense",
-  "description": "<p><em>Concentration, up to 1 hour.</em></p><p>You touch a willing non-humanoid creature. While the spell lasts, you may spend an Action to see through the creature's eyes and hear what it hears, temporarily forfeiting your own sight and hearing. You continue to do so until you spend an Action to return to your normal senses.</p>",
+  "description": "<p><em>Concentration, up to 1 hour.</em></p><p>You touch a willing animal. While the spell lasts, you may spend an Action to see through the animal's eyes and hear what it hears, temporarily forfeiting your own sight and hearing. You continue to do so until you spend an Action to return to your normal senses.</p>",
   "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
   "mp": 2,
   "xp": 10,
-  "isMagical": true
+  "isMagical": true,
+  "artUrl": "https://cdn.midjourney.com/62197359-a2c2-41c0-9617-4b9b87f38ed5/0_2.png"
 }

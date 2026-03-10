@@ -1,0 +1,23 @@
+{
+  "source": "937d52da-0ebf-4d74-b3ee-be395f2f5d0a",
+  "id": "6da4d70f-eb14-48d3-b8ed-c53f39f268a5",
+  "createdAt": "2026-03-09T18:47:55.244Z",
+  "lastModified": "2026-03-09T18:58:57.564Z",
+  "biomeTagsAugment": [
+    "hot",
+    "wetland",
+    "underground"
+  ],
+  "biomeTagsInhibit": [
+    "cold"
+  ],
+  "name": "Sting",
+  "description": "<p>Your Colony lashes out at an adjacent creature, dealing 1 damage. Roll Spirit vs Fortitude against the creature. On a win, the creature takes -1 Defense, up to maximum of -3 Defense from this Ability.</p>",
+  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
+  "successes": "<p>✨: Deal an additional 1d4 damage.</p><p>🌞: The creature takes an additional -1 Defense and checks a Condition.</p><p></p>",
+  "xp": 5,
+  "isMagical": true,
+  "mp": 1,
+  "school": "6e98ce47-8b88-47ce-b348-a443d89bac83",
+  "artUrl": "https://cdn.midjourney.com/decbbdd2-c10b-4deb-9985-20888cb05f4d/0_1.png"
+}

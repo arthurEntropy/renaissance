@@ -1,0 +1,31 @@
+{
+  "source": "937d52da-0ebf-4d74-b3ee-be395f2f5d0a",
+  "id": "0353aa97-c033-47ff-979e-5ed5a0b565c8",
+  "createdAt": "2026-03-06T19:11:12.294Z",
+  "lastModified": "2026-03-09T16:09:13.916Z",
+  "biomeTagsAugment": [
+    "forest",
+    "plains",
+    "wetland"
+  ],
+  "biomeTagsInhibit": [
+    "cold",
+    "desert"
+  ],
+  "name": "Vine Whip",
+  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
+  "description": "<p><em>Concentration, up to 1 minute.</em></p><p>Your Ward Plant grows a long tendril that you may use as a melee Weapon. It has a Reach of 5ft, has Finesse, grants one d4 Engagement die, and deals 1d4+BODY damage on a hit.</p><p><strong>Describe your whip.</strong></p>",
+  "xp": 5,
+  "isMagical": true,
+  "school": "f8572abf-975d-4007-b007-4cbe9bfdec01",
+  "successes": "",
+  "improvements": [
+    {
+      "name": "Vine Rope",
+      "description": "<p>Once per Rest: While Vine Whip is in effect, you may spend a Half Action to extend the tendril into a 25 ft long vine that grips and releases objects on your command and can hold up to 300 lbs of weight.</p>",
+      "xp": 5,
+      "id": "f9c8266c-8326-42f3-9c72-00d18a302255"
+    }
+  ],
+  "artUrl": "https://cdn.midjourney.com/1f7ca583-9157-450e-9102-d26f8f2a22ed/0_1.png"
+}

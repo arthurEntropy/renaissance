@@ -1,0 +1,23 @@
+{
+  "source": "937d52da-0ebf-4d74-b3ee-be395f2f5d0a",
+  "id": "bea391ca-bbfb-415f-88bf-3b69b94439bd",
+  "createdAt": "2026-03-09T18:32:00.518Z",
+  "lastModified": "2026-03-09T18:43:11.835Z",
+  "biomeTagsAugment": [
+    "wetland",
+    "hot",
+    "underground"
+  ],
+  "biomeTagsInhibit": [
+    "cold"
+  ],
+  "name": "Chitter",
+  "description": "<p><em>Concentration, up to 1 minute.</em></p><p>Your Colony makes a loud chittering sound, unsettling your foes. Each time a foe attempts to move within Short Range of you, roll Spirit vs Fortitude against them. On a win, that creature must spend all its available movement to move away from you.</p>",
+  "successes": "<p>✨: The creature takes -1 Defense for the next round.</p><p>🌞: The creature checks a Condition.</p>",
+  "mp": 1,
+  "xp": 5,
+  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
+  "isMagical": true,
+  "school": "6e98ce47-8b88-47ce-b348-a443d89bac83",
+  "artUrl": "https://cdn.midjourney.com/2b288143-a7bc-4c90-b130-3a018f458b05/0_3.png"
+}

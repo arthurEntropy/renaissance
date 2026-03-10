@@ -2,14 +2,19 @@
   "source": "937d52da-0ebf-4d74-b3ee-be395f2f5d0a",
   "id": "a5b9e5cd-17c9-4e95-89fc-77242893f1f6",
   "createdAt": "2026-03-05T16:16:33.471Z",
-  "lastModified": "2026-03-05T19:57:44.504Z",
-  "biomeTagsAugment": [],
+  "lastModified": "2026-03-09T18:31:28.310Z",
+  "biomeTagsAugment": [
+    "underground"
+  ],
   "biomeTagsInhibit": [],
   "name": "Web",
-  "description": "<p>You exude a mass of thick, sticky webbing. The web may cover an area of wall or floor, or stretch between objects or surfaces in any shape you choose, so long as it's no larger than 10 ft in any dimension. Roll Spirit to set the Difficulty.</p><p>The area of webbing is difficult terrain. Any creature that enters or attempts to move within the area must roll Dexterity against the Difficulty or become grappled. A creature grappled in the web may spend an Action to roll Strength against the Difficulty to break free.</p><p>The webbing is flammable. If ignited, the webbing will burn at a rate of one 5-ft square per round, dealing 2d6 damage to any creatures that enter the area of fire.</p>",
+  "description": "<p>You exude a mass of thick, sticky webbing. The web may cover an area of wall or floor, or stretch between objects or surfaces in any shape you choose, so long as it's no larger than 10 ft in any dimension. Roll Spirit to set the Difficulty.</p><p>The area of webbing is difficult terrain. Any creature that enters or attempts to move within the area must roll Dexterity against the Difficulty or become Grappled. A creature Grappled in the web may spend an Action to roll Strength against the Difficulty to break free.</p><p>The webbing is flammable. If ignited, the webbing will burn at a rate of one 5-ft square per round, dealing 2d6 damage to any creatures that enter the area of fire.</p>",
   "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
   "mp": 2,
   "xp": 10,
   "isMagical": true,
-  "school": "6e98ce47-8b88-47ce-b348-a443d89bac83"
+  "school": "6e98ce47-8b88-47ce-b348-a443d89bac83",
+  "artUrl": "https://cdn.midjourney.com/824468de-5e1e-4236-9017-6e3e2da4c949/0_1.png",
+  "successes": "<p>✨: The web may be up to 15 feet in any dimension.</p><p>🌞: If a creature Grappled in the web fails its first attempt to break free, its subsequent attempts are Ill-Favored.</p>",
+  "improvements": []
 }
