@@ -1,0 +1,13 @@
+{
+  "source": "162ae4db-7a67-4770-8a2c-7e9883da14f6",
+  "id": "c719fc55-55a9-49d6-ae93-92f82a1d54cf",
+  "createdAt": "2026-03-10T13:56:14.063Z",
+  "lastModified": "2026-03-11T23:20:27.109Z",
+  "name": "Arcane Lock",
+  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
+  "mp": 2,
+  "xp": 10,
+  "description": "<p>You touch and magically seal a door, gate, window, chest, or other object that can be closed. Roll Spirit to set the spell’s Difficulty.</p><p>You and any creatures you designate when casting the spell may open the object normally. You may also set a password. Speaking the password while within short range of the object suppresses the spell for 1 minute.</p><p>For all other creatures, the object cannot be opened normally. To attempt to force it open, they must roll Strength against the Difficulty. On a pass, the spell ends and the object opens.</p><p><strong>Describe how you cast the spell.</strong></p>",
+  "isMagical": true,
+  "artUrl": "https://cdn.midjourney.com/6f4f9c02-0eeb-494f-b073-125155e0dc6b/0_3.png"
+}

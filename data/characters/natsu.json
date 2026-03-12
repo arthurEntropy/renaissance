@@ -188,6 +188,36 @@
       "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false
+    },
+    {
+      "id": "eca2de98-4fb0-4254-bb03-af81f8a604ff",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "9a047b93-d2c2-4de0-ae7e-0fa06b459a29",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "b647caa0-11d8-4a34-b384-fde758eaf90e",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "fdc9ab63-b9b4-41de-a869-d2274cea32ec",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "e2cd82f4-30db-4c3e-aa76-20170b5e7694",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false
     }
   ],
   "activeEffects": [
@@ -213,8 +243,8 @@
     "https://cdn.midjourney.com/a6773dd7-3da8-4349-9212-b021c7aa09f7/0_2.png"
   ],
   "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2026-03-09T18:41:53.933Z",
-  "lastModified": "2026-03-09T18:41:53.933Z",
+  "updatedAt": "2026-03-10T01:35:49.341Z",
+  "lastModified": "2026-03-10T01:35:49.341Z",
   "mestiereId": "937d52da-0ebf-4d74-b3ee-be395f2f5d0a",
   "age": 23,
   "heightFeet": 4,
@@ -250,8 +280,7 @@
   },
   "biomeTags": [
     "forest",
-    "plains",
-    "hot"
+    "cold"
   ],
-  "biomeId": "822ad943-22be-4597-9c97-36e58dbbf93a"
+  "biomeId": "6bb4d641-6345-49af-85ce-e0902b9b3348"
 }

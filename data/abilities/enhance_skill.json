@@ -1,0 +1,13 @@
+{
+  "source": "162ae4db-7a67-4770-8a2c-7e9883da14f6",
+  "id": "19df6fd2-ac0c-4b44-8474-6dd8be431593",
+  "createdAt": "2026-03-11T13:29:13.818Z",
+  "lastModified": "2026-03-11T23:24:34.387Z",
+  "name": "Enhance Skill",
+  "description": "<p><em>Concentration, up to 1 hour.</em></p><p>You touch a creature and choose a skill. That creature's rolls for that skill are favored.</p><p><strong>Describe how your magic empowers another.</strong></p>",
+  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
+  "mp": 2,
+  "xp": 10,
+  "isMagical": true,
+  "artUrl": "https://cdn.midjourney.com/7e1977b4-c87f-40df-a431-89e7e5de4df5/0_1.png"
+}

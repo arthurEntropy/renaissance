@@ -1,0 +1,21 @@
+{
+  "source": "162ae4db-7a67-4770-8a2c-7e9883da14f6",
+  "id": "8651d1f3-0c22-4d8a-8942-647630191628",
+  "createdAt": "2026-03-11T12:47:56.660Z",
+  "lastModified": "2026-03-11T18:58:53.224Z",
+  "name": "Cure Wounds",
+  "description": "<p>A creature you touch regains 1d8+HEART Endurance.</p><p><strong>Describe your cure.</strong></p>",
+  "xp": 5,
+  "mp": 1,
+  "type": "c3d4e5f6-a1b2-4c3d-be0f-9a8b7c6d5e4f",
+  "isMagical": true,
+  "improvements": [
+    {
+      "name": "Mass Cure Wounds",
+      "description": "<p>You may spend an additional Half Action and an additional 5 MP to instead cause up to 6 creatures within Short Range to regain 1d8+HEART Endurance.</p>",
+      "xp": 15,
+      "id": "a7532733-fd44-46ea-8186-9b15dde3ccb3"
+    }
+  ],
+  "artUrl": "https://cdn.midjourney.com/033a216a-f256-42a8-876e-9880539ddf7b/0_3.png"
+}

@@ -2,7 +2,7 @@
   "id": "162ae4db-7a67-4770-8a2c-7e9883da14f6",
   "conceptType": "MESTIERE",
   "name": "Witch",
-  "description": "<p><em>Keepers of Balance, Makers of Things Right</em></p><p>Witches practice magic the way others practice care. Their power emerges through patience, routine, and intimate attention to the world around them. A Witch’s spells are often woven into everyday acts—preparing food, tending wounds, warding thresholds—yet their effects are profound and enduring.</p><p>Rather than bending reality through force, Witches <strong>maintain balance</strong>, reinforcing boundaries, restoring what is broken, and binding what should not roam free.</p><p>Where others take shortcuts,<br>Witches make things right.</p><h3><strong>Domains of Magic</strong></h3><p>Witches excel at magic that preserves, protects, and corrects:</p><ul><li><p><strong>Healing and restoration</strong></p></li><li><p><strong>Wards, boundaries, and sanctuaries</strong></p></li><li><p><strong>Purification and curse-breaking</strong></p></li><li><p><strong>Anti-magic and suppression</strong></p></li><li><p><strong>Binding, imprisonment, and inevitability</strong></p></li></ul><h3><strong>Taboo: Shortcuts</strong></h3><p>Witches despise magic that ignores consequences.</p><blockquote><p><em>What is rushed will return.</em></p></blockquote><h3><strong>Fault Lines</strong></h3><ul><li><p><strong>Channelers</strong> threaten balance through excess.</p></li><li><p><strong>Votaries</strong> invoke power without tending aftermath.</p></li></ul>",
+  "description": "<p>Witches are powerful mages as well as devoted caretakers, combining patience, insight, and subtlety with extraordinary willfulness. While other spellcasters might use magic in grand gestures that bend the world to their whims, a witch’s power works in harmony with the people, plants, animals, and magical forces around them. The practice of witchcraft is often rooted in everyday rituals and chores, emphasizing the value in doing things with care and deliberation rather than taking shortcuts.</p><p>Witches are infamous for their curses, but they don’t curse others on a whim. A witch’s curse is most often a consequence for causing harm or engaging in disrespectful behavior, to the witch themself or the people and places under their care. Curses range from a minor, temporary rebuke—causing a bully to startle at their own shadow—to permanent ramifications meted out as justice for wicked acts—transforming a greedy poacher into a helpless deer. If the recipient of the curse demonstrates increased understanding and remorse for their actions, the witch may be persuaded to lift the spell.</p><p>A home—both a location and the people who live there—is a foundational part of witchcraft. A witch often serves as a protector, counselor, and healer to the people (and animals, plants, and spirits) who live near them, whether or not this role is sanctioned by the local authorities. Often, this spellwork is seamlessly incorporated into simple home goods and handcrafts, familiar gifts that comfort their recipients and lie dormant until needed. While a witch doesn’t necessarily stay in one place, they understand the importance of community, and work to preserve balance between people, the natural world, and supernatural forces wherever they go.</p><h3>Play a Witch if you want to:</h3><ul><li><p><strong>Practice subtle, folkloric magic</strong>, weaving charms, curses, and rituals into everyday objects.</p></li><li><p><strong>Protect a community or place</strong>, serving as healer, counselor, and feared dispenser of supernatural justice.</p></li><li><p><strong>Share a deep bond with a magical familiar</strong> that aids your craft and grows in power alongside you.</p></li></ul><h3>Questions to consider when making a Witch:</h3><ul><li><p>What is their relationship to the world and the creatures around them?</p></li><li><p>How closely do they live to the subjects of their care, and what would it take to make your Witch break away from them?</p></li><li><p>How did they meet their familiar, and what do they do for each other?</p></li><li><p>What everyday rituals ground them in their work?</p></li><li><p>Perhaps your character is new to witchcraft, or perhaps they spent years as an apprentice learning traditions, rituals, and hexes from their mentor. If your character had a mentor, what was your relationship with that Witch, and what lessons did they impart to you beyond the practices of spellcasting and magic?</p></li></ul>",
   "isDeleted": false,
   "artUrls": [
     "https://cdn.midjourney.com/fe0937e2-1487-47ce-a095-ee00d3b72155/0_0.png"
@@ -19,5 +19,16 @@
   "vittles": "",
   "pointsOfInterest": "",
   "floraFauna": "",
-  "lastModified": "2026-02-05T15:31:39.065Z"
+  "lastModified": "2026-03-12T14:36:05.481Z",
+  "novizio": {
+    "flavorText": "",
+    "melee": "none",
+    "polearms": "none",
+    "ranged": "none",
+    "firearms": "none",
+    "armor": "none",
+    "engagement": "",
+    "initialMaxMP": 10,
+    "abilities": "<p>Retributive Curses, Witch's Familiar, Witchcraft Tokens, Spare the Dying. Also choose any number of additional Witch abilities with a combined XP cost of 15.</p>"
+  }
 }
