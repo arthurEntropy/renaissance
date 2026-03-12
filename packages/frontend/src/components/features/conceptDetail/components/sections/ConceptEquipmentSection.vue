@@ -1,7 +1,7 @@
 <template>
     <ConceptSection title="Equipment" :has-content="hasEquipment" :is-edit-mode="isEditMode"
         empty-message="No equipment added yet.">
-        <MasonryGrid :column-width="350" :gap="10" :row-height="10" class="cards-container">
+        <MasonryGrid :column-width="350" :gap="20" :row-height="10" class="cards-container">
             <EquipmentCard v-for="item in equipment" :key="item.id" :equipment="item" :editable="isEditMode"
                 :sources="sources" :art-expanded="true" :engagement-success-options="[]" :character="character"
                 :show-improvement-toggle="!!character" @edit="$emit('edit-equipment', item)" :collapsible="false"

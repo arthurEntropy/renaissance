@@ -11,55 +11,68 @@
 
     <div class="modal-content">
 
-      <!-- Desktop Layout: Left/Right Columns -->
-      <div v-if="isDesktop" class="concept-layout-desktop">
+      <!-- Desktop Layout: Grid Rows -->
+      <div v-if="isDesktop" class="concept-layout-grid">
 
-        <!-- Left Column -->
-        <div class="concept-column-left">
-          <ConceptImageSection title="Featured Art" :show-title="false" :is-edit-mode="isEditMode"
-            :mode="IMAGE_GALLERY_MODES.MANUAL" />
-          <NovizioSection :editable="isEditMode" />
-          <ConceptImageSection title="Faces" :is-edit-mode="isEditMode" :mode="IMAGE_GALLERY_MODES.AUTO"
-            :auto-source-type="ART_TYPES.FACES" />
-          <ConceptImageSection title="Places" :is-edit-mode="isEditMode" mode="auto" auto-source-type="places" />
-          <ConceptImageSection title="Maps" :is-edit-mode="isEditMode" mode="auto" auto-source-type="maps" />
-          <PlaylistSection :editable="isEditMode" />
+        <!-- Row 1: Art + Novizio (1fr) | Title + Description (2fr) -->
+        <div class="concept-identity-row">
+          <div class="concept-art-cell">
+            <ConceptImageSection title="Featured Art" :show-title="false" :is-edit-mode="isEditMode"
+              :mode="IMAGE_GALLERY_MODES.MANUAL" />
+            <NovizioSection v-if="layout.showNovizio" :editable="isEditMode" />
+          </div>
+          <div class="concept-description-cell">
+            <ConceptTitle :is-edit-mode="isEditMode" />
+            <ConceptDescription :is-edit-mode="isEditMode" />
+          </div>
         </div>
 
-        <!-- Right Column -->
-        <div class="concept-column-right">
-          <ConceptTitle :is-edit-mode="isEditMode" />
-          <ConceptDescription :is-edit-mode="isEditMode" />
-          <ConceptAbilitiesSection :is-edit-mode="isEditMode" @edit-ability="openAbilityModal"
-            @add-ability="createNewAbility" />
-          <LocalFlavorSection :editable="isEditMode" />
-          <HooksSection :editable="isEditMode" />
-          <ConceptEquipmentSection :is-edit-mode="isEditMode" @edit-equipment="openEquipmentModal"
-            @add-equipment="createNewEquipment" />
+        <!-- Row 2: Images (Faces | Places | Maps) — only rendered if at least one is visible -->
+        <div v-if="layout.showFaces || layout.showPlaces || layout.showMaps" class="concept-grid-row">
+          <ConceptImageSection v-if="layout.showFaces" title="Faces" :is-edit-mode="isEditMode"
+            :mode="IMAGE_GALLERY_MODES.AUTO" :auto-source-type="ART_TYPES.FACES" />
+          <ConceptImageSection v-if="layout.showPlaces" title="Places" :is-edit-mode="isEditMode"
+            :mode="IMAGE_GALLERY_MODES.AUTO" :auto-source-type="ART_TYPES.PLACES" />
+          <ConceptImageSection v-if="layout.showMaps" title="Maps" :is-edit-mode="isEditMode"
+            :mode="IMAGE_GALLERY_MODES.AUTO" :auto-source-type="ART_TYPES.MAPS" />
         </div>
+
+        <!-- Row 3: Flavor (Local Flavor | Hooks | Playlist) — only rendered if at least one is visible -->
+        <div v-if="layout.showLocalFlavor || layout.showHooks || layout.showPlaylist" class="concept-grid-row">
+          <LocalFlavorSection v-if="layout.showLocalFlavor" :editable="isEditMode" />
+          <HooksSection v-if="layout.showHooks" :editable="isEditMode" />
+          <PlaylistSection v-if="layout.showPlaylist" :editable="isEditMode" />
+        </div>
+
+        <!-- Row 4: Abilities (full width) -->
+        <ConceptAbilitiesSection v-if="layout.showAbilities" :is-edit-mode="isEditMode" @edit-ability="openAbilityModal"
+          @add-ability="createNewAbility" />
+
+        <!-- Row 5: Equipment (full width) -->
+        <ConceptEquipmentSection v-if="layout.showEquipment" :is-edit-mode="isEditMode"
+          @edit-equipment="openEquipmentModal" @add-equipment="createNewEquipment" />
       </div>
 
       <!-- Mobile Layout: Single Column -->
       <div v-else class="concept-layout-mobile">
         <ConceptImageSection title="Featured Art" :show-title="false" :is-edit-mode="isEditMode"
           :mode="IMAGE_GALLERY_MODES.MANUAL" />
+        <NovizioSection v-if="layout.showNovizio" :editable="isEditMode" />
         <ConceptTitle :is-edit-mode="isEditMode" />
         <ConceptDescription :is-edit-mode="isEditMode" />
-        <ConceptAbilitiesSection :is-edit-mode="isEditMode" @edit-ability="openAbilityModal"
+        <ConceptImageSection v-if="layout.showFaces" title="Faces" :is-edit-mode="isEditMode"
+          :mode="IMAGE_GALLERY_MODES.AUTO" :auto-source-type="ART_TYPES.FACES" />
+        <ConceptImageSection v-if="layout.showPlaces" title="Places" :is-edit-mode="isEditMode"
+          :mode="IMAGE_GALLERY_MODES.AUTO" :auto-source-type="ART_TYPES.PLACES" />
+        <ConceptImageSection v-if="layout.showMaps" title="Maps" :is-edit-mode="isEditMode"
+          :mode="IMAGE_GALLERY_MODES.AUTO" :auto-source-type="ART_TYPES.MAPS" />
+        <LocalFlavorSection v-if="layout.showLocalFlavor" :editable="isEditMode" />
+        <HooksSection v-if="layout.showHooks" :editable="isEditMode" />
+        <PlaylistSection v-if="layout.showPlaylist" :editable="isEditMode" />
+        <ConceptAbilitiesSection v-if="layout.showAbilities" :is-edit-mode="isEditMode" @edit-ability="openAbilityModal"
           @add-ability="createNewAbility" />
-        <ConceptImageSection title="Faces" :is-edit-mode="isEditMode" :mode="IMAGE_GALLERY_MODES.AUTO"
-          :auto-source-type="ART_TYPES.PLACES" />
-        <HooksSection :editable="isEditMode" />
-        <ConceptImageSection title="Maps" :is-edit-mode="isEditMode" :mode="IMAGE_GALLERY_MODES.AUTO"
-          :auto-source-type="ART_TYPES.PLACES" />
-        <ConceptImageSection title="Maps" :is-edit-mode="isEditMode" :mode="IMAGE_GALLERY_MODES.AUTO"
-          :auto-source-type="ART_TYPES.MAPS" />
-        <HooksSection :editable="isEditMode" @unsaved-changes="onSectionUnsavedChanges"
-          @reset-unsaved-changes="onSectionResetUnsavedChanges" />
-        <ConceptEquipmentSection :is-edit-mode="isEditMode" @edit-equipment="openEquipmentModal"
-          @add-equipment="createNewEquipment" />
-        <PlaylistSection :editable="isEditMode" />
-        <NovizioSection :editable="isEditMode" />
+        <ConceptEquipmentSection v-if="layout.showEquipment" :is-edit-mode="isEditMode"
+          @edit-equipment="openEquipmentModal" @add-equipment="createNewEquipment" />
       </div>
     </div>
 
@@ -116,6 +129,7 @@ import { useArtStore } from '@/stores/artStore'
 import EngagementSuccessService from '@/services/entities/engagementSuccessService'
 
 import { IMAGE_GALLERY_MODES, ART_TYPES } from '@shared/constants/artConstants.js'
+import { CONCEPT_LAYOUT_CONFIGS, DEFAULT_LAYOUT_CONFIG } from '@/config/conceptLayoutConfig'
 
 // Props
 const _props = defineProps({
@@ -171,19 +185,17 @@ const toggleEditMode = (onSave) => {
   isEditMode.value = !isEditMode.value
 }
 
-const onSectionUnsavedChanges = (hasChanges) => {
-  hasUnsavedSectionChanges.value = hasChanges
-}
-
-const onSectionResetUnsavedChanges = () => {
-  hasUnsavedSectionChanges.value = false
-}
-
 const {
   confirmIfUnsaved
 } = useUnsavedChanges(emit, () => hasUnsavedSectionChanges.value)
 
 const selectedConcept = computed(() => conceptsStore.selectedConcept)
+
+// Per-type section visibility
+const layout = computed(() => {
+  const type = selectedConcept.value?.conceptType
+  return CONCEPT_LAYOUT_CONFIGS[type] ?? DEFAULT_LAYOUT_CONFIG
+})
 
 // Responsive layout
 const MOBILE_BREAKPOINT = 1024
@@ -301,6 +313,51 @@ onBeforeUnmount(() => {
 </script>
 
 <style scoped>
+.modal-overlay {
+  --concept-modal-width: 1540px;
+}
+
+.modal-content {
+  width: var(--concept-modal-width);
+}
+
+/* Outer wrapper — full-width column of rows */
+.concept-layout-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+  padding: var(--space-xl);
+  text-align: left;
+}
+
+/* Row 1: Art/Novizio (1fr) | Title/Description (2fr) */
+.concept-identity-row {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: var(--space-xl);
+  align-items: start;
+}
+
+.concept-art-cell {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.concept-description-cell {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+/* Equal-column grid row: 3 columns, empty when sections are hidden via v-if */
+.concept-grid-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-xl);
+  align-items: start;
+}
+
 .admin-controls {
   position: fixed;
   top: var(--space-lg);

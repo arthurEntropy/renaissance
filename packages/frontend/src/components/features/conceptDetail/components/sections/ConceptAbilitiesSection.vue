@@ -1,7 +1,7 @@
 <template>
     <ConceptSection title="Abilities" :has-content="hasAbilities" :is-edit-mode="isEditMode"
         empty-message="No abilities added yet.">
-        <MasonryGrid :column-width="350" :gap="10" :row-height="10" class="cards-container">
+        <MasonryGrid :column-width="350" :gap="20" :row-height="10" class="cards-container">
             <AbilityCard v-for="ability in sortedAbilities" :key="ability.id" :ability="ability" :editable="isEditMode"
                 :sources="sources" :collapsible="false" :showImprovements="getAbilityShowImprovements(ability.id)"
                 @update:showImprovements="updateAbilityShowImprovements(ability.id, $event)"
