@@ -1,7 +1,7 @@
 {
   "id": "0aa6b16f-dd70-4e00-a39f-1dfcc89fbc4a",
   "createdAt": "2026-03-03T01:27:57.664Z",
-  "lastModified": "2026-03-03T01:30:36.536Z",
+  "lastModified": "2026-03-05T17:19:33.334Z",
   "name": "Journeyman's Orb",
   "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
   "subtype": "b4946b09-e149-4896-8129-6d7d8b58a6ff",
@@ -16,5 +16,6 @@
   "length": 0,
   "reach": 0,
   "description": "<p>Difficulty: 15</p>",
-  "artUrl": "https://cdn.midjourney.com/4e39b7ed-1313-42ef-b180-8bc4f6b2ed46/0_0.png"
+  "artUrl": "https://cdn.midjourney.com/4e39b7ed-1313-42ef-b180-8bc4f6b2ed46/0_0.png",
+  "isMagical": true
 }

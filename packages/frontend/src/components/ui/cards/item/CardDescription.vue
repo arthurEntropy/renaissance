@@ -1,11 +1,18 @@
 <template>
-    <div v-if="content || $slots.successes || $slots['before-description'] || $slots['after-description']"
-        class="card-description" :class="additionalClasses" @click="handleDescriptionClick">
+    <div v-if="content || $slots.successes || $slots['before-description'] || $slots['after-description'] || $slots['below-description'] || $slots['top-badge']"
+        class="card-description" :class="[additionalClasses, { 'has-top-badge': !!$slots['top-badge'] }]"
+        @click="handleDescriptionClick">
+        <!-- Bookmark badge for magic items/abilities -->
+        <slot name="top-badge"></slot>
+
         <!-- Content to display before the description -->
         <slot name="before-description"></slot>
 
         <div class="text-stroke" v-html="safeContent"></div>
         <slot name="badge"></slot>
+
+        <!-- Content to display directly below the description (e.g. biome tags), before after-description -->
+        <slot name="below-description"></slot>
 
         <!-- Content to display after the description -->
         <slot name="after-description"></slot>
@@ -54,7 +61,7 @@ function handleDescriptionClick(event) {
 
 .card-description {
     background-color: var(--overlay-black-heavy);
-    padding: 0 var(--space-xs);
+    padding: 0 var(--space-xs) var(--space-xs);
     border: 1px solid var(--overlay-black-heavy);
     border-radius: var(--radius-5);
     text-align: left;
@@ -70,6 +77,10 @@ function handleDescriptionClick(event) {
 
 .card-description>div {
     padding: 1px var(--space-md);
+}
+
+.card-description.has-top-badge {
+    padding-top: var(--space-lg);
 }
 
 /* Scale embedded images to fit within description width */

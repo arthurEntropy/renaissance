@@ -2,16 +2,17 @@
   "id": "253c337d-f9e6-4f4e-a37c-88f87deb8d26",
   "isDeleted": false,
   "createdAt": "2026-02-05T19:43:11.175Z",
-  "lastModified": "2026-02-12T21:37:52.082Z",
+  "lastModified": "2026-03-11T18:50:18.981Z",
   "name": "Witch's Grasp",
-  "description": "<p><em>Concentration, up to 1 minute.</em></p><p>Roll Spirit vs Strength against a creature within short range. On a win, the creature's speed is reduced to 0, and on each of its turns, it may spend an action to roll Strength against your original Spirit roll. No effect on a loss.</p><p>If the creature has attacked you or forced you to make an opposed skill check within the last minute and has never been damaged by you, each of its Strength checks are ill-favored.</p>",
+  "description": "<p><em>Concentration, up to 1 minute.</em></p><p>Roll Spirit vs Strength against a creature within short range. On a win, the creature's Speed is reduced to 0 and your roll result becomes the Difficulty. Each round, the creature may spend an action to roll Strength against the Difficulty to end the spell.</p><p>If the creature has attacked you or forced you to make an opposed skill check within the last minute and has never been damaged by you, each of its Strength checks are ill-favored.</p><p><strong>Describe your witch's grasp.</strong></p>",
   "canBeActive": false,
   "isActive": true,
   "source": "162ae4db-7a67-4770-8a2c-7e9883da14f6",
   "mp": 1,
   "xp": 5,
   "manaCost": null,
-  "successes": "<p>✨: On a win, the creature takes HEART damage.</p><p>🌞: On a win, the creature takes HEART damage each time it loses an opposed check for this spell.</p>",
+  "successes": "<p>✨: Win or lose, the creature takes HEART damage.</p><p>🌞: On a win, the difficulty increases by 2, and each subsequent win the creature achieves only restores half of its original speed. On a loss, the spell still takes effect, but only halves the creature's Speed.</p>",
   "artUrl": "https://cdn.midjourney.com/65f0808d-7f38-4d23-bfa0-064c3eb5fcbb/0_1.png",
-  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e"
+  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
+  "isMagical": true
 }

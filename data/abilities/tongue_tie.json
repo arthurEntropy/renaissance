@@ -2,9 +2,9 @@
   "id": "4eea948f-f3a2-46db-a275-ffaf6ac60815",
   "isDeleted": false,
   "createdAt": "2026-02-05T19:08:32.026Z",
-  "lastModified": "2026-02-12T21:37:52.080Z",
+  "lastModified": "2026-03-11T21:14:41.437Z",
   "name": "Tongue Tie",
-  "description": "<p><em>Concentration, up to 8 hours.</em></p><p>Roll Spirit vs Spirit against a creature within medium range. On a win, choose a topic of conversation. Whenever the creature attempts to speak about the chosen topic, you, or this spell, a phenomenon or your choice spills forth from its lips instead of words:</p><ul><li><p>Tiny toads, snakes, moths or other vermin</p></li><li><p>Short-lived wildflowers in full bloom</p></li><li><p>Black filth or bile</p></li><li><p>Fairy tales and nursery rhymes</p></li><li><p>Unflattering, unrelated truths about itself or those they are addressing</p></li></ul><p>Telepathic communication circumvents this spell, but writing about the subject results in crude drawings of the chosen phenomenon.</p><p>If you have caught the creature in a lie, or if it was rude or ungrateful after you granted a request from it, the creature's Spirit roll is ill-favored, the spell doesn’t require concentration, and the effect is permanent unless removed by magic. You can also choose to end the spell by using an action to dismiss it.</p>",
+  "description": "<p><em>Concentration, up to 8 hours.</em></p><p>Roll Spirit vs Spirit against a creature within medium range. On a win, choose a topic of conversation. Whenever the creature attempts to speak about the chosen topic, you, or this spell, a phenomenon or your choice spills forth from its lips instead of words:</p><ul><li><p>Tiny toads, snakes, moths or other vermin</p></li><li><p>Short-lived wildflowers in full bloom</p></li><li><p>Black filth or bile</p></li><li><p>Fairy tales and nursery rhymes</p></li><li><p>Unflattering, unrelated truths about itself or those they are addressing</p></li></ul><p>Telepathic communication circumvents this spell, but writing about the subject results in crude drawings of the chosen phenomenon.</p><p>If you have caught the creature in a lie, or if it was rude or ungrateful after you granted a request from it, the creature's Spirit roll is ill-favored, the spell doesn’t require concentration, and the effect is permanent unless removed by magic. You can also choose to end the spell by using an action to dismiss it.</p><p><strong>Describe the effects of the curse.</strong></p>",
   "canBeActive": false,
   "isActive": true,
   "source": "162ae4db-7a67-4770-8a2c-7e9883da14f6",
@@ -12,5 +12,7 @@
   "xp": 5,
   "manaCost": null,
   "artUrl": "https://cdn.midjourney.com/754dd7b4-aa29-491f-88ba-b8063c1c7461/0_1.png",
-  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e"
+  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
+  "isMagical": true,
+  "school": "19af0449-55e0-49ee-93c1-58d4daaaf9a5"
 }

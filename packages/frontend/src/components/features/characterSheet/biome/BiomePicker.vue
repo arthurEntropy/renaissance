@@ -4,8 +4,8 @@
         <div class="biome-display-wrapper">
             <button type="button" class="biome-display" :title="currentBiome?.description || ''"
                 @click="toggleDropdown">
-                <img v-if="currentBiome?.artUrl || !currentBiome" :src="currentBiome?.artUrl ?? CUSTOM_BIOME_ART_URL"
-                    class="biome-art" alt="" />
+                <img v-if="currentBiome?.artUrl || !currentBiome" :src="optimizedCurrentArtUrl" class="biome-art"
+                    alt="" />
                 <div v-else class="biome-art biome-art-placeholder" />
                 <span class="biome-name">{{ displayName }}</span>
             </button>
@@ -37,13 +37,14 @@
                 <!-- Custom option: deselects preset, keeps current tags (hidden when searching) -->
                 <button v-if="!searchQuery" type="button" class="dropdown-option"
                     :class="{ active: !biomeStore.selectedBiomeId }" @click="handleSelectCustom">
-                    <img :src="CUSTOM_BIOME_ART_URL" class="option-art" alt="" />
+                    <img :src="getOptimizedImageUrl(CUSTOM_BIOME_ART_URL, 'thumbnail')" class="option-art" alt="" />
                     <span class="option-name">Custom</span>
                 </button>
 
                 <button v-for="biome in filteredBiomes" :key="biome.id" type="button" class="dropdown-option"
                     :class="{ active: biomeStore.selectedBiomeId === biome.id }" @click="handleSelectBiome(biome)">
-                    <img v-if="biome.artUrl" :src="biome.artUrl" class="option-art" alt="" />
+                    <img v-if="biome.artUrl" :src="getOptimizedImageUrl(biome.artUrl, 'thumbnail')" class="option-art"
+                        alt="" />
                     <div v-else class="option-art option-art-placeholder" />
                     <span class="option-name">{{ biome.name }}</span>
                 </button>
@@ -61,6 +62,8 @@ import { useBiomeStore } from '@/stores/biomeStore'
 import { useBiomesStore } from '@/stores/biomesStore'
 import { useFloatingElement } from '@/composables/useFloatingElement'
 import { CUSTOM_BIOME_ART_URL } from '@shared/constants/biomeTags'
+import { useOptimizedImage } from '@/composables/useOptimizedImage'
+import { getOptimizedImageUrl } from '@/utils/imageOptimization'
 
 const biomeStore = useBiomeStore()
 const biomesStore = useBiomesStore()
@@ -95,6 +98,11 @@ const currentBiome = computed(() =>
     biomeStore.selectedBiomeId
         ? (biomesStore.items.find(b => b.id === biomeStore.selectedBiomeId) ?? null)
         : null
+)
+
+const optimizedCurrentArtUrl = useOptimizedImage(
+    () => currentBiome.value?.artUrl ?? CUSTOM_BIOME_ART_URL,
+    'small'
 )
 
 const isEdited = computed(() => {

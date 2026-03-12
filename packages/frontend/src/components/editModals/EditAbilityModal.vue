@@ -56,6 +56,12 @@
               <input type="checkbox" id="canBeActive" v-model="editedAbility.canBeActive" />
               Can Be Active
             </label>
+
+            <!-- Is Magical Checkbox -->
+            <label for="isMagical">
+              <input type="checkbox" id="isMagical" v-model="editedAbility.isMagical" />
+              Spell
+            </label>
           </div>
 
           <!-- Mana Cost: Only show if source is Channeler -->
@@ -63,6 +69,17 @@
             <label for="manaCost">Mana Cost:</label>
             <input type="text" id="manaCost" v-model="editedAbility.manaCost" class="modal-input small-input"
               placeholder="e.g. 2WUB" pattern="^[0-9]*[WUBRGwubrg]*$" title="Mana cost (e.g. 2WUB)" />
+          </div>
+
+          <!-- School: Only show if source mestiere has schools defined -->
+          <div class="form-group centered" v-if="sourceHasSchools">
+            <label for="school">School:</label>
+            <select id="school" v-model="editedAbility.school" class="modal-input">
+              <option :value="null">-- No School --</option>
+              <option v-for="school in schoolsForSource" :key="school.id" :value="school.id">
+                {{ school.name }}
+              </option>
+            </select>
           </div>
 
           <!-- Biome Tags: Only show if source is Wildheart -->
@@ -128,6 +145,7 @@ import BiomeTagsCyclePicker from '@/components/ui/biome/BiomeTagsCyclePicker.vue
 import { useEditModalForm } from '@/composables/useEditModalForm'
 import { computed, watch } from 'vue'
 import { useSourcesStore } from '@/stores/sourcesStore'
+import { useAbilitySchoolsStore } from '@/stores/abilitySchoolsStore'
 
 const props = defineProps({
   ability: {
@@ -143,6 +161,8 @@ const { editedData: editedAbility, save, deleteItem, handleOverlayClick } = useE
 
 // Channeler source check
 const sourcesStore = useSourcesStore()
+const abilitySchoolsStore = useAbilitySchoolsStore()
+
 const isChannelerSource = computed(() => {
   const source = sourcesStore.getSourceById(editedAbility.value.source)
   return source && source.name && source.name.toLowerCase() === 'channeler'
@@ -152,6 +172,20 @@ const isChannelerSource = computed(() => {
 const isWildheartSource = computed(() => {
   const source = sourcesStore.getSourceById(editedAbility.value.source)
   return source?.name?.toLowerCase() === 'wildheart'
+})
+
+// School support — gates school dropdown
+const schoolsForSource = computed(() =>
+  abilitySchoolsStore.items.filter(s => s.sourceId === editedAbility.value.source)
+)
+
+const sourceHasSchools = computed(() => schoolsForSource.value.length > 0)
+
+// Clear school when switching to a source that has no schools
+watch(() => editedAbility.value.source, () => {
+  if (!sourceHasSchools.value) {
+    editedAbility.value.school = null
+  }
 })
 
 // Ensure biome tag arrays are initialized when the ability is a Wildheart ability

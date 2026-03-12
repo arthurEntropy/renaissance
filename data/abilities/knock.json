@@ -2,7 +2,7 @@
   "id": "c9c732a3-7fe7-444b-957e-ddcfa8b18433",
   "isDeleted": false,
   "createdAt": "2026-01-01T02:38:55.942Z",
-  "lastModified": "2026-02-12T21:37:52.071Z",
+  "lastModified": "2026-03-05T21:45:45.619Z",
   "name": "Knock",
   "description": "<p>Choose an object within medium range that is locked, blocked, stuck or barred. The object becomes unlocked, unblocked, unstuck or unbarred. If the object is affected by a spell preventing access, that spell is suppressed for 10 minutes.</p><p>When you cast the spell, the object emits a loud knock, which is audible from within far range. Roll Lore to see if you trigger any additional effects.</p><p><strong>Describe the sound.</strong></p>",
   "canBeActive": false,
@@ -12,5 +12,7 @@
   "xp": 10,
   "successes": "<p>✨: The knock is emitted at a low frequency that does not seem to come from any particular direction.</p><p>🌞: The knock is only audible within long range.</p><p>💀: The knock is intensified to a small explosion, which deals 2d6 damage to objects and creatures within or adjacent to the object and is audible within a quarter mile. Check a condition.</p>",
   "artUrl": "https://cdn.midjourney.com/dac5abb8-045c-45fb-958f-0174582a2f91/0_0.png",
-  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e"
+  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
+  "isMagical": true,
+  "school": "c4a153b2-8906-4b95-be65-d8e5a5cc73ff"
 }

@@ -2,7 +2,7 @@
   "id": "b3152cba-8a7b-4b4b-addd-bcf50e567e2a",
   "isDeleted": false,
   "createdAt": "2025-12-30T03:09:09.178Z",
-  "lastModified": "2026-02-12T21:37:52.061Z",
+  "lastModified": "2026-03-05T21:16:46.811Z",
   "name": "Counterspell",
   "description": "<p>You attempt to prevent a creature within medium range from casting a spell. If the spell you're attempting to counter includes a skill check, roll Lore vs that skill. Otherwise, roll Lore vs Awareness. On a win, the casting fails and any resources required for the spell are consumed. On a loss, the spell is cast as normal.</p><p><strong>Describe how you counter the spell.</strong></p>",
   "canBeActive": false,
@@ -13,5 +13,7 @@
   "artUrl": "https://cdn.midjourney.com/edb41c6a-1155-438d-bede-1a38b267f0b1/0_0.png",
   "successes": "<p>✨: On a loss, you may to make the opposed roll a second time (but not a third time), ill-favored.</p><p>🌞: On a win, you may allow the spell to be cast, but with the caster as the target of the spell. On a loss, you may make the opposed roll a second time.</p><p>💀: If you're not already the target of the spell, you become the target. Check a condition.</p>",
   "improvements": [],
-  "type": "e5f6a1b2-c3d4-4e5f-da2b-1c0d9e8f7a6b"
+  "type": "e5f6a1b2-c3d4-4e5f-da2b-1c0d9e8f7a6b",
+  "isMagical": true,
+  "school": "6dee9b36-a9ea-4edf-ad7b-7321e4408da5"
 }

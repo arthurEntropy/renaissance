@@ -79,6 +79,17 @@
                 </div>
             </template>
         </AdminListManager>
+
+        <AdminListManager title="Ability Schools" item-name="School" :store="abilitySchoolsStore"
+            :group-by-store="mestriereGroupStore" group-by-key="sourceId"
+            :default-item="{ name: '', description: '', color: '', sourceId: null, index: 0 }">
+            <template #fields="{ item, update }">
+                <input v-model="item.name" @blur="update" class="field-input" placeholder="School Name" />
+                <input v-model="item.description" @blur="update" class="field-input flex-1" placeholder="Description" />
+                <input type="color" v-model="item.color" @change="update" class="school-color-input"
+                    title="Badge color" />
+            </template>
+        </AdminListManager>
     </div>
 </template>
 
@@ -95,6 +106,9 @@ import { useEquipmentGradesStore } from '@/stores/equipmentGradesStore'
 import { useEquipmentRangesStore } from '@/stores/equipmentRangesStore'
 import { useEngagementSuccessesStore } from '@/stores/engagementSuccessesStore'
 import { useBiomesStore } from '@/stores/biomesStore'
+import { useAbilitySchoolsStore } from '@/stores/abilitySchoolsStore'
+import { useConceptsStore } from '@/stores/conceptsStore'
+import { computed } from 'vue'
 import BiomeTagsCyclePicker from '@/components/ui/biome/BiomeTagsCyclePicker.vue'
 
 const backgroundImagesStore = useBackgroundImagesStore()
@@ -105,6 +119,15 @@ const equipmentGradesStore = useEquipmentGradesStore()
 const equipmentRangesStore = useEquipmentRangesStore()
 const engagementSuccessesStore = useEngagementSuccessesStore()
 const biomesStore = useBiomesStore()
+const abilitySchoolsStore = useAbilitySchoolsStore()
+const conceptsStore = useConceptsStore()
+
+// Group ability schools by mestiere; expose as a store-shaped object for AdminListManager.
+// computed() is required so that changes to conceptsStore.mestieri propagate reactively as a prop.
+const mestriereGroupStore = computed(() => ({
+    items: conceptsStore.mestieri,
+    fetch: conceptsStore.fetch,
+}))
 </script>
 
 <style scoped>
@@ -143,6 +166,17 @@ const biomesStore = useBiomesStore()
     object-fit: cover;
     border-radius: var(--radius-5);
     border: 1px solid var(--color-gray-medium);
+    flex-shrink: 0;
+}
+
+.school-color-input {
+    width: 36px;
+    height: 28px;
+    padding: 2px;
+    border: 1px solid var(--color-gray-medium);
+    border-radius: var(--radius-5);
+    background: none;
+    cursor: pointer;
     flex-shrink: 0;
 }
 </style>

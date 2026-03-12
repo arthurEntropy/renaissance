@@ -1,0 +1,16 @@
+{
+  "source": "937d52da-0ebf-4d74-b3ee-be395f2f5d0a",
+  "id": "7fdd9a89-d136-4af0-b6e5-face150a7583",
+  "createdAt": "2026-03-06T18:59:02.184Z",
+  "lastModified": "2026-03-09T17:37:39.877Z",
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": [],
+  "description": "<p>A creature you touch regains 1d4+HEART Endurance.</p>",
+  "xp": 10,
+  "mp": 1,
+  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
+  "isMagical": true,
+  "school": "c1bc149a-25c9-4414-a736-1a6cdffb5719",
+  "name": "Spore Salve",
+  "artUrl": "https://cdn.midjourney.com/20a0c7ef-a7c5-4cfa-8af6-a1a02677880b/0_2.png"
+}

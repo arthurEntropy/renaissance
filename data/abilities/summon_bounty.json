@@ -1,0 +1,15 @@
+{
+  "source": "937d52da-0ebf-4d74-b3ee-be395f2f5d0a",
+  "id": "891b85c9-3922-424b-b986-af26a80ed109",
+  "createdAt": "2026-03-04T20:01:30.501Z",
+  "lastModified": "2026-03-09T15:37:15.980Z",
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": [],
+  "name": "Summon Bounty",
+  "description": "<p><em>Casting time: 1 minute.</em></p><p>Once per day: You call upon the plants and animals around you to provide food and drink for you and your companions. Increase the Keeping of the Quest for one Rest.</p><p><strong>Describe the bounty.</strong></p>",
+  "type": "f6a1b2c3-d4e5-4f6a-eb3c-2d1e0f9a8b7c",
+  "mp": 2,
+  "xp": 10,
+  "isMagical": true,
+  "artUrl": "https://cdn.midjourney.com/72b1c7bd-09a1-41b9-9d7e-aea482611717/0_0.png"
+}

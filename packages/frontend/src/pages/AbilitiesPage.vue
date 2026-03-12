@@ -4,6 +4,8 @@
 
     <!-- Additional filters slot for mana color filter -->
     <template #additional-filters>
+      <MagicalFilter v-model="magicalFilter" />
+      <AbilitySchoolFilter v-if="magicalFilter !== 'mundane'" v-model="schoolFilter" />
       <ManaColorFilter v-model="manaColorFilter" />
     </template>
 
@@ -41,6 +43,7 @@ import { useAuthStore } from '@/stores/authStore'
 import { useSourcesStore } from '@/stores/sourcesStore'
 import { useActionTypesStore } from '@/stores/actionTypesStore'
 import { useCharactersStore } from '@/stores/charactersStore'
+import { useAbilitySchoolsStore } from '@/stores/abilitySchoolsStore'
 import { useEditModal } from '@/composables/useEditModal'
 import { useInfiniteScroll } from '@/composables/useInfiniteScroll'
 import { useInfiniteScrollObserver } from '@/composables/useInfiniteScrollObserver'
@@ -51,6 +54,8 @@ import AbilityCard from '@/components/ui/cards/item/AbilityCard.vue'
 import EditAbilityModal from '@/components/editModals/EditAbilityModal.vue'
 import ItemCardsLayout from '@/components/ui/layouts/ItemCardsLayout.vue'
 import ManaColorFilter from '@/components/ui/mana/ManaColorFilter.vue'
+import MagicalFilter from '@/components/ui/filters/MagicalFilter.vue'
+import AbilitySchoolFilter from '@/components/ui/filters/AbilitySchoolFilter.vue'
 import { getManaCostColors } from '@shared/utils/calculateManaCost'
 
 // Stores
@@ -59,6 +64,7 @@ const authStore = useAuthStore()
 const sourcesStore = useSourcesStore()
 const actionTypesStore = useActionTypesStore()
 const charactersStore = useCharactersStore()
+const abilitySchoolsStore = useAbilitySchoolsStore()
 
 const abilities = computed(() => abilitiesStore.abilities)
 const selectedCharacter = computed(() => charactersStore.selectedCharacter)
@@ -85,6 +91,8 @@ const isAdmin = computed(() => authStore.isAdmin)
 const sources = computed(() => sourcesStore.sources)
 
 const sortOptions = ref(ABILITY_SORT_OPTIONS)
+const magicalFilter = ref('')
+const schoolFilter = ref('')
 
 // Filtered and sorted abilities (before pagination)
 const allFilteredAbilities = computed(() => {
@@ -93,6 +101,22 @@ const allFilteredAbilities = computed(() => {
 
   // Filter out deleted items
   let filtered = (abilities.value || []).filter((item) => !item.isDeleted)
+
+  // Apply magical/mundane filter
+  if (magicalFilter.value === 'magical') {
+    filtered = filtered.filter((item) => item.isMagical)
+  } else if (magicalFilter.value === 'mundane') {
+    filtered = filtered.filter((item) => !item.isMagical)
+  }
+
+  // Apply school filter (only when not in mundane-only mode, since mundane abilities have no school)
+  if (schoolFilter.value && magicalFilter.value !== 'mundane') {
+    if (schoolFilter.value === '__none__') {
+      filtered = filtered.filter((item) => !item.school)
+    } else {
+      filtered = filtered.filter((item) => item.school === schoolFilter.value)
+    }
+  }
 
   // Apply source filter
   if (sourceFilterValue) {
@@ -140,7 +164,9 @@ useFilterPersistence('abilities', {
   sortOption,
   searchQuery,
   sourceFilter,
-  manaColorFilter
+  manaColorFilter,
+  magicalFilter,
+  schoolFilter
 })
 
 // Improvement visibility methods
@@ -210,6 +236,7 @@ const refreshData = async () => {
   try {
     await actionTypesStore.fetch()
     await sourcesStore.fetchSources()
+    await abilitySchoolsStore.fetch() // Pre-load schools for BaseCard badge rendering
     await abilitiesStore.fetch()
   } catch (error) {
     console.error('Error initializing AbilitiesPage:', error)

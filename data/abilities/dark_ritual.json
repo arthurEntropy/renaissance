@@ -2,9 +2,9 @@
   "id": "39a3e592-7836-4333-b336-64e75694dc98",
   "isDeleted": false,
   "createdAt": "2026-01-22T15:43:13.160Z",
-  "lastModified": "2026-02-12T21:37:52.062Z",
+  "lastModified": "2026-03-10T01:20:30.142Z",
   "name": "Dark Ritual",
-  "description": "<p>Add BBB to your mana pool. Check 2 conditions.</p>",
+  "description": "<p>Add three black mana to your mana pool. Check 2 conditions.</p>",
   "canBeActive": false,
   "isActive": true,
   "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
@@ -12,5 +12,6 @@
   "xp": "",
   "manaCost": "B",
   "artUrl": "https://cdn.midjourney.com/57be2795-cd8f-471d-8d40-09ea2e652a3c/0_0.png",
-  "type": "c3d4e5f6-a1b2-4c3d-be0f-9a8b7c6d5e4f"
+  "type": "c3d4e5f6-a1b2-4c3d-be0f-9a8b7c6d5e4f",
+  "isMagical": true
 }

@@ -1,0 +1,14 @@
+{
+  "source": "937d52da-0ebf-4d74-b3ee-be395f2f5d0a",
+  "id": "d542e98a-7173-4a2a-8e55-a7d527f4a4c2",
+  "createdAt": "2026-03-10T00:23:33.582Z",
+  "lastModified": "2026-03-10T00:57:13.766Z",
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": [],
+  "name": "Beast Kin",
+  "description": "<p>You form a permanent, lifelong bond with a large creature. Choose a creature of Challenge 10 or less that is large enough to bear you. It accompanies you on your adventures, allows you to ride it, rolls its own Initiative and acts on its turn according to your commands. If given no commands, it will defend itself, you, and any of your allies that have shown it kindness. If you become separated, the creature will try to find you.</p><p>Your bond does not impart special intelligence or understanding to the creature. Your communication with it is limited to simple commands and emotions.</p><p>If the creature dies, you immediately check all Conditions and suffer a Bout of Madness. You must spend a number of days equal to the deceased creature's Challenge score as a period of mourning before forming a bond with a new creature for this Ability.</p>",
+  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d",
+  "school": "0be89610-8361-4d2e-ab5c-da6e6722458e",
+  "xp": 40,
+  "artUrl": "https://cdn.midjourney.com/94aea580-c1d4-49ff-954a-491e387d4a69/0_2.png"
+}

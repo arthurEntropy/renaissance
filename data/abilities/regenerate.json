@@ -1,0 +1,16 @@
+{
+  "source": "937d52da-0ebf-4d74-b3ee-be395f2f5d0a",
+  "id": "eca2de98-4fb0-4254-bb03-af81f8a604ff",
+  "createdAt": "2026-03-05T14:19:54.010Z",
+  "lastModified": "2026-03-09T17:47:51.683Z",
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": [],
+  "name": "Regenerate",
+  "description": "<p><em>Casting time: 1 minute.</em></p><p>You touch a creature and transfer some of your symbiotes to it, stimulating its natural healing. The creature regains 4d8+HEART Endurance and halves its current Injury.</p><p>For the next hour, the symbiotes continue to mend the creature’s body. It regains 1 Endurance at the start of each of its turns, or 12 Endurance per minute outside of combat. At the end of each minute, it also halves its current Injury.</p><p>Any severed digits or limbs regrow over the course of the hour. If you possess the severed part and hold it in place while casting this spell, it reattaches instantly.</p>",
+  "type": "f6a1b2c3-d4e5-4f6a-eb3c-2d1e0f9a8b7c",
+  "mp": 7,
+  "xp": 35,
+  "school": "c1bc149a-25c9-4414-a736-1a6cdffb5719",
+  "isMagical": true,
+  "artUrl": "https://cdn.midjourney.com/eaadf410-1130-4fa1-b9ee-4223a495e6ad/0_0.png"
+}

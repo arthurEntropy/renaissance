@@ -1,0 +1,16 @@
+{
+  "source": "937d52da-0ebf-4d74-b3ee-be395f2f5d0a",
+  "id": "20751e8e-a5ed-4e42-be6b-76f05ccc3dbe",
+  "createdAt": "2026-03-06T20:04:24.253Z",
+  "lastModified": "2026-03-09T15:56:28.534Z",
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": [],
+  "name": "Break Fall",
+  "description": "<p>Once per Rest: Your Ward Plant extends tendrils as you fall, slowing and softening your landing. Prevent all falling damage from a single fall.</p>",
+  "type": "e5f6a1b2-c3d4-4e5f-da2b-1c0d9e8f7a6b",
+  "xp": 5,
+  "mp": 1,
+  "isMagical": true,
+  "school": "f8572abf-975d-4007-b007-4cbe9bfdec01",
+  "artUrl": "https://cdn.midjourney.com/0fed061b-40f8-4a16-8a43-5ff9be199f32/0_1.png"
+}

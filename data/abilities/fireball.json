@@ -13,5 +13,6 @@
   "artUrl": "https://cdn.midjourney.com/76de1ffb-ac58-4062-be99-c5b2c5177687/0_3.png",
   "manaCost": "4RR",
   "successes": "<p>✨: +1d6 damage</p><p>🌞: The blast instead reaches out to medium range.</p><p>💀: Check two conditions.</p>",
-  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e"
+  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
+  "isMagical": true
 }

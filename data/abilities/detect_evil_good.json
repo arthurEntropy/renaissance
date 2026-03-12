@@ -1,0 +1,21 @@
+{
+  "source": "162ae4db-7a67-4770-8a2c-7e9883da14f6",
+  "id": "3dffcf91-1f3e-42ff-a6b2-a259f7a15a19",
+  "createdAt": "2026-03-11T12:51:34.306Z",
+  "lastModified": "2026-03-11T20:43:41.160Z",
+  "name": "Detect Evil & Good",
+  "description": "<p><em>Concentration, up to 10 minutes.</em></p><p>You sense the presence of any deities, spirits and undead. For each of these that is within...</p><ul><li><p>Far range, you just sense its presence.</p></li><li><p>Long range, you sense its presence and whether its Alignment is evil, neutral or good.</p></li><li><p>Medium range, you know its location and its full Alignment.</p></li><li><p>Short Range, you know its location, full Alignment and Domain.</p></li></ul><p>You also detect whether any creatures within Short Range are currently under any effects imposed by a deity, spirit or undead.</p><p>This sense is blocked by barriers of metal of any thickness, barriers of stone at least 1 ft thick, or barriers of any solid material at least 3 ft thick.</p><p><strong>Describe how you sense these entities.</strong></p>",
+  "improvements": [
+    {
+      "name": "Dispel Evil & Good",
+      "description": "<p>While you have this sense active, attack rolls made against you by deities, spirits and undead are ill-favored. Additionally, you may spend an action and 5 MP to trigger one of the following effects:</p><ul><li><p><strong>Dispel. </strong>You touch a creature and immediately end all effects imposed upon that creature by a deity, spirit or undead.</p></li><li><p><strong>Dismissal. </strong>Roll Spirit vs Spirit against a deity, spirit or undead. On a win, it returns to the center of its Domain (if any) or moves until it is outside of far range from you - whichever is further. Either way, it cannot come within far range of you for 1 day. On a loss, it cannot move closer to you for 1 round.</p></li></ul><p>If you trigger either of these effects, the spell ends.</p>",
+      "xp": 15,
+      "id": "9fddc65a-799d-47a9-b8d3-1869664392c8"
+    }
+  ],
+  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
+  "mp": 1,
+  "xp": 5,
+  "isMagical": true,
+  "artUrl": "https://cdn.midjourney.com/8bd0cb7a-7c09-428b-b0a6-8e1e5c023b7b/0_1.png"
+}
