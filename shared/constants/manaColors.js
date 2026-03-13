@@ -6,9 +6,10 @@ export const ManaColor = {
   RED: 'red',
   GREEN: 'green',
   COLORLESS: 'colorless', // aka "any"
+  MULTICOLOR: 'multicolor', // spells with 2+ distinct colors
 }
 
-// Order for display
+// Order for display (single colors only)
 export const MANA_COLOR_ORDER = [
   ManaColor.WHITE,
   ManaColor.BLUE,
@@ -17,3 +18,6 @@ export const MANA_COLOR_ORDER = [
   ManaColor.GREEN,
   ManaColor.COLORLESS,
 ];
+
+// All keys used for per-mana-color background image overrides
+export const MANA_BACKGROUND_KEYS = [...MANA_COLOR_ORDER, ManaColor.MULTICOLOR];

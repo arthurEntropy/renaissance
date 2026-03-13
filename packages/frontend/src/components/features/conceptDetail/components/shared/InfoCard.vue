@@ -20,7 +20,7 @@ const safeContent = computed(() => sanitizeHtml(props.content))
 
 <style scoped>
 .info-card {
-  background: var(--overlay-black-medium);
+  background: var(--overlay-black-heavy);
   border-radius: var(--radius-10);
   padding: var(--space-xs) var(--space-md);
   margin-bottom: var(--space-xs);

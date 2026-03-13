@@ -9,7 +9,7 @@
         @click="() => toggleEditMode()" />
     </div>
 
-    <div class="modal-content">
+    <div class="modal-content" :style="detailBackgroundStyle">
 
       <!-- Desktop Layout: Grid Rows -->
       <div v-if="isDesktop" class="concept-layout-grid">
@@ -27,21 +27,22 @@
           </div>
         </div>
 
-        <!-- Row 2: Images (Faces | Places | Maps) — only rendered if at least one is visible -->
-        <div v-if="layout.showFaces || layout.showPlaces || layout.showMaps" class="concept-grid-row">
+        <!-- Row 2: Images (Faces | Places | Maps | Playlist) — only rendered if at least one is visible -->
+        <div v-if="layout.showFaces || layout.showPlaces || layout.showMaps || layout.showPlaylist"
+          class="concept-grid-row-4">
           <ConceptImageSection v-if="layout.showFaces" title="Faces" :is-edit-mode="isEditMode"
             :mode="IMAGE_GALLERY_MODES.AUTO" :auto-source-type="ART_TYPES.FACES" />
           <ConceptImageSection v-if="layout.showPlaces" title="Places" :is-edit-mode="isEditMode"
             :mode="IMAGE_GALLERY_MODES.AUTO" :auto-source-type="ART_TYPES.PLACES" />
           <ConceptImageSection v-if="layout.showMaps" title="Maps" :is-edit-mode="isEditMode"
             :mode="IMAGE_GALLERY_MODES.AUTO" :auto-source-type="ART_TYPES.MAPS" />
+          <PlaylistSection v-if="layout.showPlaylist" :editable="isEditMode" />
         </div>
 
-        <!-- Row 3: Flavor (Local Flavor | Hooks | Playlist) — only rendered if at least one is visible -->
-        <div v-if="layout.showLocalFlavor || layout.showHooks || layout.showPlaylist" class="concept-grid-row">
+        <!-- Row 3: Flavor (Local Flavor | Hooks) — only rendered if at least one is visible -->
+        <div v-if="layout.showLocalFlavor || layout.showHooks" class="concept-grid-row-2">
           <LocalFlavorSection v-if="layout.showLocalFlavor" :editable="isEditMode" />
           <HooksSection v-if="layout.showHooks" :editable="isEditMode" />
-          <PlaylistSection v-if="layout.showPlaylist" :editable="isEditMode" />
         </div>
 
         <!-- Row 4: Abilities (full width) -->
@@ -66,9 +67,9 @@
           :mode="IMAGE_GALLERY_MODES.AUTO" :auto-source-type="ART_TYPES.PLACES" />
         <ConceptImageSection v-if="layout.showMaps" title="Maps" :is-edit-mode="isEditMode"
           :mode="IMAGE_GALLERY_MODES.AUTO" :auto-source-type="ART_TYPES.MAPS" />
+        <PlaylistSection v-if="layout.showPlaylist" :editable="isEditMode" />
         <LocalFlavorSection v-if="layout.showLocalFlavor" :editable="isEditMode" />
         <HooksSection v-if="layout.showHooks" :editable="isEditMode" />
-        <PlaylistSection v-if="layout.showPlaylist" :editable="isEditMode" />
         <ConceptAbilitiesSection v-if="layout.showAbilities" :is-edit-mode="isEditMode" @edit-ability="openAbilityModal"
           @add-ability="createNewAbility" />
         <ConceptEquipmentSection v-if="layout.showEquipment" :is-edit-mode="isEditMode"
@@ -191,6 +192,19 @@ const {
 
 const selectedConcept = computed(() => conceptsStore.selectedConcept)
 
+const DETAIL_OVERLAY = 'rgba(0, 0, 0, 0.5)'
+
+const detailBackgroundStyle = computed(() => {
+  const url = selectedConcept.value?.detailBackgroundImage
+  if (!url) return {}
+  return {
+    backgroundImage: `linear-gradient(${DETAIL_OVERLAY}, ${DETAIL_OVERLAY}), url(${url})`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+  }
+})
+
 // Per-type section visibility
 const layout = computed(() => {
   const type = selectedConcept.value?.conceptType
@@ -279,6 +293,9 @@ const saveSettings = async (settings) => {
   if (settings.backgroundImage !== undefined) {
     selectedConcept.value.backgroundImage = settings.backgroundImage
   }
+  if (settings.detailBackgroundImage !== undefined) {
+    selectedConcept.value.detailBackgroundImage = settings.detailBackgroundImage
+  }
   if (settings.expansionId !== undefined) {
     selectedConcept.value.expansion = settings.expansionId
   }
@@ -354,6 +371,22 @@ onBeforeUnmount(() => {
 .concept-grid-row {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-xl);
+  align-items: start;
+}
+
+/* Images + Playlist row: expands to fill however many sections are visible */
+.concept-grid-row-4 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+  gap: var(--space-xl);
+  align-items: start;
+}
+
+/* Local Flavor + Hooks row: expands to fill however many sections are visible */
+.concept-grid-row-2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
   gap: var(--space-xl);
   align-items: start;
 }

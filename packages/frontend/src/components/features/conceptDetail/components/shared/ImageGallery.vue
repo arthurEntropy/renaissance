@@ -443,7 +443,6 @@ watch(totalThumbnailPages, (total) => {
   grid-template-columns: repeat(5, 1fr);
   gap: var(--space-xs);
   padding: var(--space-xs);
-  background-color: var(--color-bg-primary);
   border-radius: var(--radius-md);
 }
 
