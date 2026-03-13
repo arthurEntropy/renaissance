@@ -15,6 +15,7 @@ export function sanitizeEmbedHtml(html) {
       'allow',
       'allowfullscreen',
       'frameborder',
+      'sandbox',
       'scrolling',
       'loading',
       'referrerpolicy',
