@@ -20,8 +20,7 @@
       <BadgeDisplay
         v-if="showKeepingBadge && (keepingCost !== null || !!character) && (characterOwnsAnyImprovements || showImprovements)"
         type="keeping" :value="keepingCost" :is-owned="characterHasBaseEquipment" :asImprovementBadge="true"
-        :is-interactive="!!character"
-        :hidden-by-default="keepingCost === null && !characterHasBaseEquipment"
+        :is-interactive="!!character" :hidden-by-default="keepingCost === null && !characterHasBaseEquipment"
         @toggle="handleBaseEquipmentToggle" />
     </template>
 
@@ -95,8 +94,7 @@
       <BadgeDisplay
         v-if="showKeepingBadge && (keepingCost !== null || !!character) && !characterOwnsAnyImprovements && !showImprovements"
         type="keeping" :value="keepingCost" :is-owned="characterHasBaseEquipment" :is-interactive="!!character"
-        :hidden-by-default="keepingCost === null && !characterHasBaseEquipment"
-        @toggle="handleBaseEquipmentToggle" />
+        :hidden-by-default="keepingCost === null && !characterHasBaseEquipment" @toggle="handleBaseEquipmentToggle" />
     </template>
 
   </base-card>

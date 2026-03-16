@@ -5,6 +5,7 @@ export const CONCEPT_LAYOUT_CONFIGS = {
   [ConceptType.MESTIERE]: {
     showNovizio: true,
     showFaces: false,
+    combineFacesWithFeatured: true,
     showPlaces: false,
     showMaps: false,
     showLocalFlavor: false,
@@ -26,7 +27,8 @@ export const CONCEPT_LAYOUT_CONFIGS = {
   },
   [ConceptType.ANCESTRY]: {
     showNovizio: false,
-    showFaces: true,
+    showFaces: false,
+    combineFacesWithFeatured: true,
     showPlaces: false,
     showMaps: false,
     showLocalFlavor: false,
@@ -52,6 +54,7 @@ export const CONCEPT_LAYOUT_CONFIGS = {
 export const DEFAULT_LAYOUT_CONFIG = {
   showNovizio: false,
   showFaces: true,
+  combineFacesWithFeatured: false,
   showPlaces: true,
   showMaps: true,
   showLocalFlavor: true,

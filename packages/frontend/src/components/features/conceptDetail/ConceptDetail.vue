@@ -18,7 +18,7 @@
         <div class="concept-identity-row">
           <div class="concept-art-cell">
             <ConceptImageSection title="Featured Art" :show-title="false" :is-edit-mode="isEditMode"
-              :mode="IMAGE_GALLERY_MODES.MANUAL" />
+              :mode="layout.combineFacesWithFeatured ? IMAGE_GALLERY_MODES.COMBINED : IMAGE_GALLERY_MODES.MANUAL" />
             <NovizioSection v-if="layout.showNovizio" :editable="isEditMode" />
           </div>
           <div class="concept-description-cell">
@@ -71,7 +71,7 @@
       <!-- Mobile Layout: Single Column -->
       <div v-else class="concept-layout-mobile">
         <ConceptImageSection title="Featured Art" :show-title="false" :is-edit-mode="isEditMode"
-          :mode="IMAGE_GALLERY_MODES.MANUAL" />
+          :mode="layout.combineFacesWithFeatured ? IMAGE_GALLERY_MODES.COMBINED : IMAGE_GALLERY_MODES.MANUAL" />
         <NovizioSection v-if="layout.showNovizio" :editable="isEditMode" />
         <ConceptTitle :is-edit-mode="isEditMode" />
         <ConceptDescription :is-edit-mode="isEditMode" />

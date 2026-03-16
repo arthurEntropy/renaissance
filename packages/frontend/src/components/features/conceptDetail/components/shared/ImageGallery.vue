@@ -16,7 +16,7 @@
         @click="openFullSizeModal" />
 
       <!-- Edit button - only in manual mode -->
-      <FloatingActionButton v-if="editable && mode === IMAGE_GALLERY_MODES.MANUAL" type="edit" size="small"
+      <FloatingActionButton v-if="editable && isManualOrCombined" type="edit" size="small"
         visibility="on-hover" class="edit-button-overlay" @click.stop="openEditModal" />
 
       <!-- Navigation button - next image -->
@@ -27,7 +27,7 @@
     </div>
 
     <!-- Thumbnails grid -->
-    <div v-if="(editable && mode === IMAGE_GALLERY_MODES.MANUAL) || displayImages.length > 1" class="thumbs-container">
+    <div v-if="(editable && isManualOrCombined) || displayImages.length > 1" class="thumbs-container">
 
       <!-- Viewport clips the sliding grid -->
       <div class="thumbs-viewport">
@@ -35,7 +35,7 @@
           <div :key="thumbnailPage" class="thumbs-grid">
 
             <!-- Editable mode -->
-            <template v-if="editable && mode === IMAGE_GALLERY_MODES.MANUAL">
+            <template v-if="editable && isManualOrCombined">
 
               <!-- Draggable thumbnails (current page only) -->
               <draggable v-model="pagedLocalImages" class="draggable-container" handle=".thumb-drag-handle"
@@ -122,7 +122,7 @@
 
     <!-- Full Size Image Modal -->
     <FullSizeImageModal :is-open="fullSizeModalOpen" :image-url="displayImages[selectedIndex] || ''"
-      :show-edit-button="editable && mode === IMAGE_GALLERY_MODES.MANUAL" @close="closeFullSizeModal"
+      :show-edit-button="editable && isManualOrCombined" @close="closeFullSizeModal"
       @edit="openEditModal" />
   </div>
 </template>
@@ -175,11 +175,21 @@ const emit = defineEmits(['update:images'])
 // Stores
 const artStore = useArtStore()
 
+const isManualOrCombined = computed(() =>
+  props.mode === IMAGE_GALLERY_MODES.MANUAL || props.mode === IMAGE_GALLERY_MODES.COMBINED
+)
+
 // If auto mode, compute images from art store; else use provided images
 const displayImages = computed(() => {
   if (props.mode === IMAGE_GALLERY_MODES.AUTO && props.autoSourceId) {
     const autoImages = artStore.getByTypeAndSource(props.autoSourceType, props.autoSourceId)
     return autoImages.map(item => item.url).filter(url => !props.excludeUrls.includes(url))
+  }
+  if (props.mode === IMAGE_GALLERY_MODES.COMBINED && props.autoSourceId) {
+    if (props.editable) return props.images
+    const autoImages = artStore.getByTypeAndSource(props.autoSourceType, props.autoSourceId)
+    const autoUrls = autoImages.map(a => a.url).filter(url => !props.images.includes(url))
+    return [...props.images, ...autoUrls]
   }
   return props.images
 })
