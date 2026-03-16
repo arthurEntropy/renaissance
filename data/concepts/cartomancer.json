@@ -19,7 +19,7 @@
   "vittles": "",
   "pointsOfInterest": "",
   "floraFauna": "",
-  "lastModified": "2026-02-01T01:36:01.679Z",
+  "lastModified": "2026-03-13T20:15:23.096Z",
   "novizio": {
     "flavorText": "",
     "melee": "none",
@@ -31,5 +31,6 @@
     "initialMaxMP": 3,
     "abilities": "<p>You have all Cartomancer abilities.</p>",
     "description": "<p>Choose two suits from: Coins, Cups, Batons, Swords.</p>"
-  }
+  },
+  "detailBackgroundImage": "https://cdn.midjourney.com/dc75da16-65fe-4e50-ad4d-ada752b211fd/0_3.png"
 }

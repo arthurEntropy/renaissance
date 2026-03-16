@@ -49,11 +49,11 @@
     <!-- DISPLAY MODE -->
     <div v-else>
       <InfoCard v-for="(hook, idx) in localHooks" :key="'hook-' + idx" :title="hook.name" :content="hook.description">
+        <template #title-actions>
+          <ActionButton variant="neutral" size="small" :text="shownGMNotes[idx] ? 'Hide GM Notes' : 'View GM Notes'"
+            @click="toggleGMNotes(idx)" />
+        </template>
         <template #additional-content>
-          <div class="gm-notes-controls">
-            <ActionButton variant="neutral" size="small" :text="shownGMNotes[idx] ? 'Hide GM Notes' : 'View GM Notes'"
-              @click="toggleGMNotes(idx)" />
-          </div>
           <div v-if="shownGMNotes[idx]" class="gm-notes" v-html="sanitizeHtml(hook.gmNotes)"></div>
         </template>
       </InfoCard>
@@ -204,12 +204,6 @@ watch(() => concept.value?.hooks, (newHooks) => {
 }
 
 .delete-hook-container {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: var(--space-xs);
-}
-
-.gm-notes-controls {
   display: flex;
   justify-content: flex-end;
   margin-top: var(--space-xs);

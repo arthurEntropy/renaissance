@@ -54,7 +54,8 @@ defineEmits(['toggle-edit'])
     display: flex;
     flex-direction: column;
     width: 100%;
-    margin-top: var(--space-lg);
+    margin-top: 0;
+    margin-bottom: var(--space-lg);
     text-align: left;
 }
 
@@ -64,7 +65,8 @@ defineEmits(['toggle-edit'])
 
 .section-header {
     font-weight: var(--font-weight-bold);
-    margin-bottom: var(--space-sm);
+    margin-top: 0;
+    margin-bottom: var(--space-lg);
     font-size: var(--font-size-32);
 }
 

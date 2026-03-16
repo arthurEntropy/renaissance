@@ -88,6 +88,12 @@
 
     </div>
 
+    <!-- Thumbnail page dots -->
+    <div v-if="totalThumbnailPages > 1" class="thumb-dots">
+      <span v-for="page in totalThumbnailPages" :key="page" class="thumb-dot"
+        :class="{ active: page - 1 === thumbnailPage }" @click="goToThumbnailPage(page - 1)"></span>
+    </div>
+
     <!-- Add Image Modal -->
     <div v-if="addModalOpen" class="modal-overlay" @click.self="closeAddModal">
       <div class="modal-content">
@@ -215,7 +221,7 @@ const nextImage = () => {
 }
 
 // Thumbnail pagination
-const THUMBS_PER_PAGE = 25 // 5 columns × 5 rows
+const THUMBS_PER_PAGE = 5 // 5 columns × 1 row
 
 const thumbnailPage = ref(0)
 const slideDirection = ref('left')
@@ -253,6 +259,12 @@ const nextThumbnailPage = () => {
     slideDirection.value = 'left'
     thumbnailPage.value++
   }
+}
+
+const goToThumbnailPage = (page) => {
+  if (page === thumbnailPage.value) return
+  slideDirection.value = page > thumbnailPage.value ? 'left' : 'right'
+  thumbnailPage.value = page
 }
 
 const openEditModal = () => {
@@ -435,7 +447,6 @@ watch(totalThumbnailPages, (total) => {
 .thumbs-viewport {
   overflow: hidden;
   position: relative;
-  aspect-ratio: 1 / 1;
 }
 
 .thumbs-grid {
@@ -595,6 +606,27 @@ watch(totalThumbnailPages, (total) => {
   font-size: var(--font-size-32);
   font-weight: var(--font-weight-light);
   color: var(--color-gray-light);
+}
+
+.thumb-dots {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-top: var(--space-xs);
+  align-items: center;
+}
+
+.thumb-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  background: var(--overlay-white-medium);
+  cursor: pointer;
+  transition: background var(--transition-normal);
+}
+
+.thumb-dot.active {
+  background: var(--color-white);
 }
 
 .modal-buttons {

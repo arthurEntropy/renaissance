@@ -43,15 +43,15 @@
         <div v-for="(playlist, index) in localPlaylists" :key="index" v-show="index === selectedIndex"
           class="playlist-embed" v-html="safeEmbed(playlist)">
         </div>
-        <div v-if="localPlaylists.length > 1" class="playlist-dots" :class="{ visible: showNav }">
-          <span v-for="(_, index) in localPlaylists" :key="index" class="playlist-dot"
-            :class="{ active: index === selectedIndex }" @click="selectedIndex = index">
-          </span>
-        </div>
         <button v-if="showNav && localPlaylists.length > 1" class="nav-button right" @click="nextPlaylist"
           aria-label="Next playlist">
           <ChevronRightIcon class="nav-icon" />
         </button>
+      </div>
+      <div v-if="localPlaylists.length > 1" class="playlist-dots">
+        <span v-for="(_, index) in localPlaylists" :key="index" class="playlist-dot"
+          :class="{ active: index === selectedIndex }" @click="selectedIndex = index">
+        </span>
       </div>
     </div>
   </ConceptSection>
@@ -253,22 +253,11 @@ watch(concept, (newConcept) => {
 }
 
 .playlist-dots {
-  position: absolute;
-  top: var(--space-sm);
-  left: 50%;
-  transform: translateX(-50%);
   display: flex;
+  justify-content: center;
   gap: 6px;
+  margin-top: var(--space-xs);
   align-items: center;
-  opacity: 0;
-  transition: opacity var(--transition-normal);
-  z-index: var(--z-raised);
-  pointer-events: none;
-}
-
-.playlist-dots.visible {
-  opacity: 1;
-  pointer-events: auto;
 }
 
 .playlist-dot {

@@ -28,21 +28,35 @@
         </div>
 
         <!-- Row 2: Images (Faces | Places | Maps | Playlist) — only rendered if at least one is visible -->
+        <!-- Wrapper divs ensure all 4 grid columns are always present so hidden siblings don't create dead space -->
         <div v-if="layout.showFaces || layout.showPlaces || layout.showMaps || layout.showPlaylist"
           class="concept-grid-row-4">
-          <ConceptImageSection v-if="layout.showFaces" title="Faces" :is-edit-mode="isEditMode"
-            :mode="IMAGE_GALLERY_MODES.AUTO" :auto-source-type="ART_TYPES.FACES" />
-          <ConceptImageSection v-if="layout.showPlaces" title="Places" :is-edit-mode="isEditMode"
-            :mode="IMAGE_GALLERY_MODES.AUTO" :auto-source-type="ART_TYPES.PLACES" />
-          <ConceptImageSection v-if="layout.showMaps" title="Maps" :is-edit-mode="isEditMode"
-            :mode="IMAGE_GALLERY_MODES.AUTO" :auto-source-type="ART_TYPES.MAPS" />
-          <PlaylistSection v-if="layout.showPlaylist" :editable="isEditMode" />
+          <div>
+            <ConceptImageSection v-if="layout.showFaces" title="Faces" :is-edit-mode="isEditMode"
+              :mode="IMAGE_GALLERY_MODES.AUTO" :auto-source-type="ART_TYPES.FACES" />
+          </div>
+          <div>
+            <ConceptImageSection v-if="layout.showPlaces" title="Places" :is-edit-mode="isEditMode"
+              :mode="IMAGE_GALLERY_MODES.AUTO" :auto-source-type="ART_TYPES.PLACES" />
+          </div>
+          <div>
+            <ConceptImageSection v-if="layout.showMaps" title="Maps" :is-edit-mode="isEditMode"
+              :mode="IMAGE_GALLERY_MODES.AUTO" :auto-source-type="ART_TYPES.MAPS" />
+          </div>
+          <div>
+            <PlaylistSection v-if="layout.showPlaylist" :editable="isEditMode" />
+          </div>
         </div>
 
         <!-- Row 3: Flavor (Local Flavor | Hooks) — only rendered if at least one is visible -->
+        <!-- Wrapper divs ensure both grid columns are always present so a lone section doesn't stretch -->
         <div v-if="layout.showLocalFlavor || layout.showHooks" class="concept-grid-row-2">
-          <LocalFlavorSection v-if="layout.showLocalFlavor" :editable="isEditMode" />
-          <HooksSection v-if="layout.showHooks" :editable="isEditMode" />
+          <div>
+            <LocalFlavorSection v-if="layout.showLocalFlavor" :editable="isEditMode" />
+          </div>
+          <div>
+            <HooksSection v-if="layout.showHooks" :editable="isEditMode" />
+          </div>
         </div>
 
         <!-- Row 4: Abilities (full width) -->
@@ -126,6 +140,7 @@ import { useEquipmentGradesStore } from '@/stores/equipmentGradesStore'
 import { useEquipmentRangesStore } from '@/stores/equipmentRangesStore'
 import { useKeepingStore } from '@/stores/keepingStore'
 import { useActionTypesStore } from '@/stores/actionTypesStore'
+import { useAbilitySchoolsStore } from '@/stores/abilitySchoolsStore'
 import { useArtStore } from '@/stores/artStore'
 import EngagementSuccessService from '@/services/entities/engagementSuccessService'
 
@@ -154,6 +169,7 @@ const equipmentGradesStore = useEquipmentGradesStore()
 const equipmentRangesStore = useEquipmentRangesStore()
 const keepingStore = useKeepingStore()
 const actionTypesStore = useActionTypesStore()
+const abilitySchoolsStore = useAbilitySchoolsStore()
 const artStore = useArtStore()
 const engagementSuccessOptions = ref([])
 
@@ -319,6 +335,7 @@ onMounted(async () => {
     equipmentRangesStore.fetch(),
     keepingStore.fetch(),
     actionTypesStore.fetch(),
+    abilitySchoolsStore.fetch(),
     artStore.fetch()
   ])
   engagementSuccessOptions.value = await EngagementSuccessService.getAll()
@@ -358,13 +375,15 @@ onBeforeUnmount(() => {
 .concept-art-cell {
   display: flex;
   flex-direction: column;
-  gap: var(--space-lg);
 }
 
 .concept-description-cell {
   display: flex;
   flex-direction: column;
   gap: var(--space-lg);
+  background: var(--overlay-black-medium);
+  border-radius: var(--radius-10);
+  padding: var(--space-lg);
 }
 
 /* Equal-column grid row: 3 columns, empty when sections are hidden via v-if */
@@ -375,18 +394,18 @@ onBeforeUnmount(() => {
   align-items: start;
 }
 
-/* Images + Playlist row: expands to fill however many sections are visible */
+/* Images + Playlist row: fixed 4 columns so sections don't stretch when siblings are hidden */
 .concept-grid-row-4 {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: var(--space-xl);
   align-items: start;
 }
 
-/* Local Flavor + Hooks row: expands to fill however many sections are visible */
+/* Local Flavor + Hooks row: fixed 2 columns so sections don't stretch when siblings are hidden */
 .concept-grid-row-2 {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--space-xl);
   align-items: start;
 }

@@ -1,6 +1,9 @@
 <template>
   <div class="info-card">
-    <div class="info-card-title">{{ title }}</div>
+    <div class="info-card-header">
+      <div class="info-card-title">{{ title }}</div>
+      <slot name="title-actions"></slot>
+    </div>
     <div class="info-card-content" v-html="safeContent"></div>
     <slot name="additional-content"></slot>
   </div>
@@ -20,21 +23,28 @@ const safeContent = computed(() => sanitizeHtml(props.content))
 
 <style scoped>
 .info-card {
-  background: var(--overlay-black-heavy);
+  background: var(--overlay-black-medium);
   border-radius: var(--radius-10);
-  padding: var(--space-xs) var(--space-md);
+  padding: var(--space-lg);
   margin-bottom: var(--space-xs);
   width: 100%;
   box-sizing: border-box;
+}
+
+.info-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--color-accent-gold);
+  padding-bottom: var(--space-xs);
+  margin-bottom: var(--space-xs);
+  gap: var(--space-sm);
 }
 
 .info-card-title {
   font-weight: var(--font-weight-bold);
   color: var(--color-accent-gold);
   font-size: var(--font-size-20);
-  margin-bottom: var(--space-xs);
-  border-bottom: 1px solid var(--color-accent-gold);
-  padding-bottom: var(--space-xs);
 }
 
 .info-card-content {

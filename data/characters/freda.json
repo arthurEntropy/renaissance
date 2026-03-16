@@ -211,6 +211,31 @@
     "https://cdn.midjourney.com/3914bd33-13a2-48e4-89c5-b75076572688/0_1.png"
   ],
   "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2025-12-19T13:58:19.531Z",
-  "lastModified": "2025-12-19T13:58:19.531Z"
+  "updatedAt": "2026-03-16T15:02:28.173Z",
+  "lastModified": "2026-03-16T15:02:28.173Z",
+  "rollStats": {
+    "skillChecks": {
+      "attempts": 0,
+      "successes": 0,
+      "totalSum": 0,
+      "bestTotal": null,
+      "hardestSuccess": null,
+      "bySkill": {},
+      "solCount": 0,
+      "morteCount": 0,
+      "successCount": 0
+    },
+    "contests": {
+      "engagement": {
+        "wins": 0,
+        "losses": 0,
+        "draws": 0
+      },
+      "opposed": {
+        "wins": 0,
+        "losses": 0,
+        "draws": 0
+      }
+    }
+  }
 }
