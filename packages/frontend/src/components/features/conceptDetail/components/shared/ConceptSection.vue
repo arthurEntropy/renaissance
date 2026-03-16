@@ -1,5 +1,5 @@
 <template>
-    <div class="concept-section" v-if="hasContent || isEditMode">
+    <div class="concept-section" :class="{ 'flush-top': flush }" v-if="hasContent || isEditMode">
         <h2 v-if="title" class="section-header" :class="{ 'edit-hover-area': showEditButton }">
             {{ title }}
             <FloatingActionButton v-if="showEditButton" type="edit" :is-active="isSectionEditing"
@@ -39,6 +39,10 @@ defineProps({
     isSectionEditing: {
         type: Boolean,
         default: false
+    },
+    flush: {
+        type: Boolean,
+        default: false
     }
 })
 
@@ -50,13 +54,19 @@ defineEmits(['toggle-edit'])
     display: flex;
     flex-direction: column;
     width: 100%;
-    margin-top: var(--space-lg);
+    margin-top: 0;
+    margin-bottom: var(--space-lg);
     text-align: left;
+}
+
+.concept-section.flush-top {
+    margin-top: 0;
 }
 
 .section-header {
     font-weight: var(--font-weight-bold);
-    margin-bottom: var(--space-sm);
+    margin-top: 0;
+    margin-bottom: var(--space-lg);
     font-size: var(--font-size-32);
 }
 

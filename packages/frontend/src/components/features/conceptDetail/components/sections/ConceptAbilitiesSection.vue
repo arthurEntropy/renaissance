@@ -1,19 +1,22 @@
 <template>
-    <ConceptSection title="Abilities" :has-content="hasAbilities" :is-edit-mode="isEditMode"
-        empty-message="No abilities added yet.">
-        <MasonryGrid :column-width="350" :gap="10" :row-height="10" class="cards-container">
-            <AbilityCard v-for="ability in sortedAbilities" :key="ability.id" :ability="ability" :editable="isEditMode"
-                :sources="sources" :collapsible="false" :showImprovements="getAbilityShowImprovements(ability.id)"
-                @update:showImprovements="updateAbilityShowImprovements(ability.id, $event)"
-                @edit="$emit('edit-ability', ability)" :character="character" :show-improvement-toggle="!!character"
-                :showSuccesses="getAbilityShowSuccesses(ability.id)"
-                @update:showSuccesses="updateAbilityShowSuccesses(ability.id, $event)"
-                @update="handleCharacterUpdate" />
-        </MasonryGrid>
-        <div v-if="isEditMode" class="add-button-container">
-            <FloatingActionButton type="add" visibility="always" @click="$emit('add-ability')" />
-        </div>
-    </ConceptSection>
+    <div v-if="hasAbilities || isEditMode" class="section-panel">
+        <ConceptSection title="Abilities" :has-content="hasAbilities" :is-edit-mode="isEditMode"
+            empty-message="No abilities added yet.">
+            <MasonryGrid :column-width="350" :gap="20" :row-height="10" class="cards-container">
+                <AbilityCard v-for="ability in sortedAbilities" :key="ability.id" :ability="ability"
+                    :editable="isEditMode" :sources="sources" :collapsible="false"
+                    :showImprovements="getAbilityShowImprovements(ability.id)"
+                    @update:showImprovements="updateAbilityShowImprovements(ability.id, $event)"
+                    @edit="$emit('edit-ability', ability)" :character="character" :show-improvement-toggle="!!character"
+                    :showSuccesses="getAbilityShowSuccesses(ability.id)"
+                    @update:showSuccesses="updateAbilityShowSuccesses(ability.id, $event)"
+                    @update="handleCharacterUpdate" />
+            </MasonryGrid>
+            <div v-if="isEditMode" class="add-button-container">
+                <FloatingActionButton type="add" visibility="always" @click="$emit('add-ability')" />
+            </div>
+        </ConceptSection>
+    </div>
 </template>
 
 <script setup>
@@ -90,6 +93,12 @@ const handleCharacterUpdate = async (updatedCharacter) => {
 </script>
 
 <style scoped>
+.section-panel {
+    background: var(--overlay-black-medium);
+    border-radius: var(--radius-10);
+    padding: var(--space-lg);
+}
+
 .add-button-container {
     display: flex;
     justify-content: center;

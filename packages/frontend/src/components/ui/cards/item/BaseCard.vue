@@ -105,6 +105,9 @@ import { ItemType } from '@shared/constants/itemTypes'
 import { useOptimizedImage } from '@/composables/useOptimizedImage'
 import ManaCostDisplay from '@/components/ui/mana/ManaCostDisplay.vue'
 import BiomeTagDisplay from '@/components/ui/biome/BiomeTagDisplay.vue'
+import { getManaCostColors } from '@shared/utils/calculateManaCost'
+import { ManaColor } from '@shared/constants/manaColors.js'
+import { useChannelerSettingsStore } from '@/stores/channelerSettingsStore'
 
 // Props and emits
 const props = defineProps({
@@ -126,6 +129,10 @@ const abilitySchoolsStore = useAbilitySchoolsStore()
 const sourcesStore = useSourcesStore()
 const biomeStore = useBiomeStore()
 const userStore = useUserStore()
+const channelerSettingsStore = useChannelerSettingsStore()
+
+// Fire-and-forget: loads channeler settings once for the session
+channelerSettingsStore.fetch()
 
 // Composables
 const optimizedArtUrl = useOptimizedImage(() => props.item.artUrl, 'small')
@@ -141,6 +148,25 @@ const sourceName = computed(() => {
 
 const cardStyle = computed(() => {
   const source = sources.value ? sourcesStore.getSourceById(props.item.source) : null
+
+  // Mana-color-based background for Channeler spells
+  const manaBackgroundImages = channelerSettingsStore.manaBackgroundImages
+  if (Object.keys(manaBackgroundImages).length && props.item.manaCost) {
+    const colors = getManaCostColors(props.item.manaCost)
+    let key
+    if (colors.size === 0) key = ManaColor.COLORLESS
+    else if (colors.size === 1) key = [...colors][0]
+    else key = ManaColor.MULTICOLOR
+    const url = manaBackgroundImages[key]
+    if (url) {
+      return {
+        backgroundImage: `url(${url})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+      }
+    }
+  }
 
   if (source && source.backgroundImage) {
     return {

@@ -19,5 +19,17 @@
   "vittles": "",
   "pointsOfInterest": "",
   "floraFauna": "",
-  "lastModified": "2026-01-30T18:26:45.033Z"
+  "lastModified": "2026-03-13T19:52:29.694Z",
+  "detailBackgroundImage": "https://cdn.midjourney.com/402933c8-163a-4254-b4ae-84dfc367df08/0_0.png",
+  "novizio": {
+    "flavorText": "",
+    "melee": "none",
+    "polearms": "none",
+    "ranged": "none",
+    "firearms": "none",
+    "armor": "none",
+    "engagement": "",
+    "initialMaxMP": 1,
+    "abilities": ""
+  }
 }

@@ -28,44 +28,70 @@
 
     <!-- Thumbnails grid -->
     <div v-if="(editable && mode === IMAGE_GALLERY_MODES.MANUAL) || displayImages.length > 1" class="thumbs-container">
-      <div class="thumbs-grid">
 
-        <!-- Editable mode -->
-        <template v-if="editable && mode === IMAGE_GALLERY_MODES.MANUAL">
+      <!-- Viewport clips the sliding grid -->
+      <div class="thumbs-viewport">
+        <Transition :name="`slide-${slideDirection}`">
+          <div :key="thumbnailPage" class="thumbs-grid">
 
-          <!-- Draggable thumbnails -->
-          <draggable v-model="localImages" class="draggable-container" handle=".thumb-drag-handle" item-key="index"
-            animation="150" ghost-class="ghost-thumb" @end="onDragEnd">
-            <template #item="{ index }">
-              <div class="thumb-wrapper">
-                <FloatingActionButton type="drag" size="small" visibility="on-hover" class="thumb-drag-handle" />
-                <img :src="optimizedThumbnails[index]" :alt="`Thumbnail ${index + 1}`" class="thumb-image"
-                  @click="selectImage(index)" />
-                <div v-if="selectedIndex === index" class="thumb-selected-overlay"></div>
+            <!-- Editable mode -->
+            <template v-if="editable && mode === IMAGE_GALLERY_MODES.MANUAL">
+
+              <!-- Draggable thumbnails (current page only) -->
+              <draggable v-model="pagedLocalImages" class="draggable-container" handle=".thumb-drag-handle"
+                item-key="index" animation="150" ghost-class="ghost-thumb" @end="onDragEnd">
+                <template #item="{ index }">
+                  <div class="thumb-wrapper">
+                    <FloatingActionButton type="drag" size="small" visibility="on-hover" class="thumb-drag-handle" />
+                    <img :src="optimizedThumbnails[globalIndex(index)]" :alt="`Thumbnail ${globalIndex(index) + 1}`"
+                      class="thumb-image" @click="selectImage(globalIndex(index))" />
+                    <div v-if="selectedIndex === globalIndex(index)" class="thumb-selected-overlay"></div>
+                  </div>
+                </template>
+              </draggable>
+
+              <!-- Add button on last page only -->
+              <div v-if="thumbnailPage === totalThumbnailPages - 1" class="thumb-wrapper add-image-thumb"
+                @click="addNewImage">
+                <div class="add-image-placeholder">
+                  <span class="add-icon">+</span>
+                </div>
               </div>
             </template>
-          </draggable>
 
-          <!-- Add button in the same grid -->
-          <div class="thumb-wrapper add-image-thumb" @click="addNewImage">
-            <div class="add-image-placeholder">
-              <span class="add-icon">+</span>
-            </div>
+            <!-- Non-editable mode or auto mode -->
+            <template v-else>
+
+              <!-- Thumbnails (current page only) -->
+              <div v-for="(img, localIdx) in pagedDisplayImages" :key="img + globalIndex(localIdx)"
+                class="thumb-wrapper" @click="selectImage(globalIndex(localIdx))">
+                <img :src="optimizedThumbnails[globalIndex(localIdx)]" :alt="`Thumbnail ${globalIndex(localIdx) + 1}`"
+                  class="thumb-image" />
+                <div v-if="selectedIndex === globalIndex(localIdx)" class="thumb-selected-overlay"></div>
+              </div>
+
+            </template>
           </div>
-        </template>
-
-        <!-- Non-editable mode or auto mode -->
-        <template v-else>
-
-          <!-- Thumbnails -->
-          <div v-for="(img, index) in displayImages" :key="img + index" class="thumb-wrapper"
-            @click="selectImage(index)">
-            <img :src="optimizedThumbnails[index]" :alt="`Thumbnail ${index + 1}`" class="thumb-image" />
-            <div v-if="selectedIndex === index" class="thumb-selected-overlay"></div>
-          </div>
-
-        </template>
+        </Transition>
       </div>
+
+      <!-- Overlaid prev/next page buttons -->
+      <button v-if="totalThumbnailPages > 1" class="thumb-page-nav left" :disabled="thumbnailPage === 0"
+        @click="prevThumbnailPage" aria-label="Previous thumbnail page">
+        <ChevronLeftIcon class="nav-icon" />
+      </button>
+      <button v-if="totalThumbnailPages > 1" class="thumb-page-nav right"
+        :disabled="thumbnailPage === totalThumbnailPages - 1" @click="nextThumbnailPage"
+        aria-label="Next thumbnail page">
+        <ChevronRightIcon class="nav-icon" />
+      </button>
+
+    </div>
+
+    <!-- Thumbnail page dots -->
+    <div v-if="totalThumbnailPages > 1" class="thumb-dots">
+      <span v-for="page in totalThumbnailPages" :key="page" class="thumb-dot"
+        :class="{ active: page - 1 === thumbnailPage }" @click="goToThumbnailPage(page - 1)"></span>
     </div>
 
     <!-- Add Image Modal -->
@@ -194,6 +220,53 @@ const nextImage = () => {
   selectedIndex.value = (selectedIndex.value + 1) % displayImages.value.length
 }
 
+// Thumbnail pagination
+const THUMBS_PER_PAGE = 5 // 5 columns × 1 row
+
+const thumbnailPage = ref(0)
+const slideDirection = ref('left')
+
+const totalThumbnailPages = computed(() =>
+  Math.max(1, Math.ceil(displayImages.value.length / THUMBS_PER_PAGE))
+)
+
+const thumbnailPageStart = computed(() => thumbnailPage.value * THUMBS_PER_PAGE)
+
+const pagedDisplayImages = computed(() =>
+  displayImages.value.slice(thumbnailPageStart.value, thumbnailPageStart.value + THUMBS_PER_PAGE)
+)
+
+const pagedLocalImages = computed({
+  get: () => localImages.value.slice(thumbnailPageStart.value, thumbnailPageStart.value + THUMBS_PER_PAGE),
+  set: (newItems) => {
+    const updated = [...localImages.value]
+    updated.splice(thumbnailPageStart.value, newItems.length, ...newItems)
+    localImages.value = updated
+  }
+})
+
+const globalIndex = (localIdx) => thumbnailPageStart.value + localIdx
+
+const prevThumbnailPage = () => {
+  if (thumbnailPage.value > 0) {
+    slideDirection.value = 'right'
+    thumbnailPage.value--
+  }
+}
+
+const nextThumbnailPage = () => {
+  if (thumbnailPage.value < totalThumbnailPages.value - 1) {
+    slideDirection.value = 'left'
+    thumbnailPage.value++
+  }
+}
+
+const goToThumbnailPage = (page) => {
+  if (page === thumbnailPage.value) return
+  slideDirection.value = page > thumbnailPage.value ? 'left' : 'right'
+  thumbnailPage.value = page
+}
+
 const openEditModal = () => {
   editImageUrl.value = localImages.value[selectedIndex.value]
   editModalOpen.value = true
@@ -280,10 +353,27 @@ watch(() => props.images, (newImages) => {
   if (newImages.length !== localImages.value.length ||
     newImages.some((url, i) => url !== localImages.value[i])) {
     localImages.value = [...newImages]
+    thumbnailPage.value = 0
 
     if (selectedIndex.value >= newImages.length) {
       selectedIndex.value = Math.max(0, newImages.length - 1)
     }
+  }
+})
+
+// Sync thumbnail page when main-image navigation moves selectedIndex off the current page
+watch(selectedIndex, (index) => {
+  const page = Math.floor(index / THUMBS_PER_PAGE)
+  if (page !== thumbnailPage.value) {
+    slideDirection.value = page > thumbnailPage.value ? 'left' : 'right'
+    thumbnailPage.value = page
+  }
+})
+
+// Clamp thumbnail page when images are deleted and total pages shrinks
+watch(totalThumbnailPages, (total) => {
+  if (thumbnailPage.value >= total) {
+    thumbnailPage.value = Math.max(0, total - 1)
   }
 })
 </script>
@@ -296,7 +386,8 @@ watch(() => props.images, (newImages) => {
 
 .enlarged-image {
   width: 100%;
-  object-fit: contain;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
   border-radius: var(--radius-10);
   background: var(--color-bg-tertiary);
   cursor: zoom-in;
@@ -349,13 +440,108 @@ watch(() => props.images, (newImages) => {
   z-index: var(--z-raised);
 }
 
+.thumbs-container {
+  position: relative;
+}
+
+.thumbs-viewport {
+  overflow: hidden;
+  position: relative;
+}
+
 .thumbs-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: var(--space-xs);
   padding: var(--space-xs);
-  background-color: var(--color-bg-primary);
   border-radius: var(--radius-md);
+}
+
+.thumb-page-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: var(--z-raised);
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: var(--overlay-black-medium);
+  color: var(--color-white);
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity var(--transition-normal), background var(--transition-normal);
+}
+
+.thumbs-container:hover .thumb-page-nav {
+  opacity: 1;
+}
+
+.thumb-page-nav.left {
+  left: var(--space-xs);
+}
+
+.thumb-page-nav.right {
+  right: var(--space-xs);
+}
+
+.thumb-page-nav:hover:not(:disabled) {
+  background: var(--overlay-black-heavy);
+}
+
+.thumb-page-nav:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+/* Thumbnail page slide transitions */
+.slide-left-enter-active,
+.slide-right-enter-active {
+  transition: transform 0.25s ease;
+}
+
+.slide-left-leave-active,
+.slide-right-leave-active {
+  transition: transform 0.25s ease;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.slide-left-enter-from {
+  transform: translateX(100%);
+}
+
+.slide-left-enter-to {
+  transform: translateX(0);
+}
+
+.slide-left-leave-from {
+  transform: translateX(0);
+}
+
+.slide-left-leave-to {
+  transform: translateX(-100%);
+}
+
+.slide-right-enter-from {
+  transform: translateX(-100%);
+}
+
+.slide-right-enter-to {
+  transform: translateX(0);
+}
+
+.slide-right-leave-from {
+  transform: translateX(0);
+}
+
+.slide-right-leave-to {
+  transform: translateX(100%);
 }
 
 .thumb-wrapper {
@@ -420,6 +606,27 @@ watch(() => props.images, (newImages) => {
   font-size: var(--font-size-32);
   font-weight: var(--font-weight-light);
   color: var(--color-gray-light);
+}
+
+.thumb-dots {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-top: var(--space-xs);
+  align-items: center;
+}
+
+.thumb-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  background: var(--overlay-white-medium);
+  cursor: pointer;
+  transition: background var(--transition-normal);
+}
+
+.thumb-dot.active {
+  background: var(--color-white);
 }
 
 .modal-buttons {

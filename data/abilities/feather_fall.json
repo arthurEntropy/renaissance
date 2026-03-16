@@ -2,7 +2,7 @@
   "id": "15170e88-f451-4302-b772-8ca96aa9ca65",
   "isDeleted": false,
   "createdAt": "2025-12-31T02:40:02.823Z",
-  "lastModified": "2026-03-05T21:40:09.513Z",
+  "lastModified": "2026-03-16T14:57:47.062Z",
   "name": "Feather Fall",
   "description": "<p>Choose up to five falling creatures within medium range. Roll Lore against a difficulty of 10 + the number of chosen creatures.</p><p>On a pass, each affected creature’s descent slows to a controlled pace, allowing them to land safely and on their feet. This effect lasts for one minute.</p><p>On a failure, their fall is only partially slowed. If a creature lands before the spell ends, it takes half the normal falling damage.</p><p><strong>Describe how you slow the fall.</strong></p>",
   "canBeActive": false,

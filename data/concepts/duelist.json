@@ -31,5 +31,6 @@
     "abilities": "<p>You start each Combat with 0 MP. You earn MP by winning Engagements, via your <em>Good Form</em> ability.</p>",
     "description": "<p>You have the Demand Satisfaction and Good Form abilities. Also choose one of these additional abilities, ignoring its XP cost:</p><ul><li><p>Press Advantage</p></li><li><p>Quick Draw</p></li><li><p>Lunge</p></li></ul>"
   },
-  "lastModified": "2026-01-30T16:26:59.213Z"
+  "lastModified": "2026-03-13T20:25:33.219Z",
+  "detailBackgroundImage": "https://cdn.midjourney.com/1970a4d1-e869-4458-b57d-728d48bacafa/0_0.png"
 }

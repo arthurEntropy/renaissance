@@ -15,8 +15,8 @@
         </div>
 
         <!-- Display mode -->
-        <div v-else class="concept-description" :class="{ 'cursor-pointer': isEditMode }" @click="startEdit"
-            v-html="safeDescription" />
+        <div v-else class="concept-description rich-text-content" :class="{ 'cursor-pointer': isEditMode }"
+            @click="startEdit" v-html="safeDescription" />
     </div>
 </template>
 
@@ -80,6 +80,8 @@ watch(() => concept.value?.description, (newDesc) => {
 </script>
 
 <style scoped>
+@import '@/styles/rich-text-content.css';
+
 .description-container {
     position: relative;
 }
@@ -93,6 +95,7 @@ watch(() => concept.value?.description, (newDesc) => {
 .concept-description {
     text-align: left;
     font-size: var(--font-size-18);
+    color: var(--color-text-primary);
     line-height: var(--line-height-normal);
     padding: var(--space-xs);
     border-radius: var(--radius-5);

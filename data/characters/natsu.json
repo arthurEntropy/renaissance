@@ -243,8 +243,8 @@
     "https://cdn.midjourney.com/a6773dd7-3da8-4349-9212-b021c7aa09f7/0_2.png"
   ],
   "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2026-03-10T01:35:49.341Z",
-  "lastModified": "2026-03-10T01:35:49.341Z",
+  "updatedAt": "2026-03-16T15:07:01.745Z",
+  "lastModified": "2026-03-16T15:07:01.745Z",
   "mestiereId": "937d52da-0ebf-4d74-b3ee-be395f2f5d0a",
   "age": 23,
   "heightFeet": 4,
@@ -282,5 +282,6 @@
     "forest",
     "cold"
   ],
-  "biomeId": "6bb4d641-6345-49af-85ce-e0902b9b3348"
+  "biomeId": "6bb4d641-6345-49af-85ce-e0902b9b3348",
+  "groupAbilitiesBySource": false
 }

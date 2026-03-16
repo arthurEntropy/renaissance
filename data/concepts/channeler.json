@@ -9,7 +9,7 @@
   ],
   "faces": [],
   "places": [],
-  "backgroundImage": "https://cdn.midjourney.com/fe31d5ac-bc4f-4748-b21f-cc8538e00fab/0_3.png",
+  "backgroundImage": "https://cdn.midjourney.com/bcbc84cf-af8a-4f0d-97b1-7b9f3434f075/0_2.png",
   "expansion": "",
   "hooks": [],
   "playlists": [],
@@ -19,7 +19,7 @@
   "vittles": "",
   "pointsOfInterest": "",
   "floraFauna": "",
-  "lastModified": "2026-01-30T13:32:18.913Z",
+  "lastModified": "2026-03-13T20:22:39.656Z",
   "novizio": {
     "flavorText": "",
     "melee": "",
@@ -31,5 +31,6 @@
     "initialMaxMP": 1,
     "abilities": "",
     "description": "<p>You have the <em>Channel</em> ability, plus one ability of your choosing of each mana color.</p><p>If you check all five Conditions, you mana pool is emptied.</p>"
-  }
+  },
+  "detailBackgroundImage": "https://cdn.midjourney.com/30ad68d4-cc74-499d-8c7b-44a886954433/0_2.png"
 }

@@ -14,7 +14,8 @@ import { ConceptType, getConceptTypeLabel } from '../../../constants/conceptType
  * @property {string[]} artUrls - Associated artwork URLs
  * @property {string[]} faces - Character face art IDs
  * @property {string[]} places - Location art IDs
- * @property {string} backgroundImage - Background image URL
+ * @property {string} backgroundImage - Background image URL for ability/equipment cards
+ * @property {string} detailBackgroundImage - Background image URL for the ConceptDetail modal
  * @property {string} expansion - Expansion ID this concept belongs to
  * @property {string[]} hooks - Story hooks and prompts
  * @property {string[]} playlists - Associated music playlists
@@ -49,6 +50,7 @@ export function createDefaultGameConcept(conceptType) {
     faces: [],
     places: [],
     backgroundImage: '',
+    detailBackgroundImage: '',
     expansion: '',
     hooks: [],
     playlists: [],
