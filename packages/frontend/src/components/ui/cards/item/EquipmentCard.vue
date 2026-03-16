@@ -18,9 +18,11 @@
     <!-- Keeping badge positioned relative to main description when character owns any improvements OR when improvements are expanded -->
     <template #description-badge>
       <BadgeDisplay
-        v-if="showKeepingBadge && keepingCost !== null && (characterOwnsAnyImprovements || showImprovements)"
+        v-if="showKeepingBadge && (keepingCost !== null || !!character) && (characterOwnsAnyImprovements || showImprovements)"
         type="keeping" :value="keepingCost" :is-owned="characterHasBaseEquipment" :asImprovementBadge="true"
-        :is-interactive="!!character" @toggle="handleBaseEquipmentToggle" />
+        :is-interactive="!!character"
+        :hidden-by-default="keepingCost === null && !characterHasBaseEquipment"
+        @toggle="handleBaseEquipmentToggle" />
     </template>
 
     <template #after-description>
@@ -88,10 +90,12 @@
     </template>
 
     <!-- Overlay badges - Show keeping badge at card level when character owns no improvements AND improvements are collapsed -->
+    <!-- Also shown (hidden until card hover) for free items when a character context is present -->
     <template #badges>
       <BadgeDisplay
-        v-if="showKeepingBadge && keepingCost !== null && !characterOwnsAnyImprovements && !showImprovements"
+        v-if="showKeepingBadge && (keepingCost !== null || !!character) && !characterOwnsAnyImprovements && !showImprovements"
         type="keeping" :value="keepingCost" :is-owned="characterHasBaseEquipment" :is-interactive="!!character"
+        :hidden-by-default="keepingCost === null && !characterHasBaseEquipment"
         @toggle="handleBaseEquipmentToggle" />
     </template>
 

@@ -400,6 +400,12 @@ const handleCollapsed = () => {
   padding-top: var(--space-sm);
 }
 
+/* Reveal zero-cost item add badges when hovering anywhere on the card */
+.base-card:hover :deep(.badge-hidden-until-hover) {
+  opacity: 1;
+  pointer-events: auto;
+}
+
 .expand-enter-active,
 .expand-leave-active {
   transition: all var(--transition-medium);
