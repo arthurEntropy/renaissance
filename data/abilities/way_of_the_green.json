@@ -2,17 +2,17 @@
   "source": "937d52da-0ebf-4d74-b3ee-be395f2f5d0a",
   "id": "6d1f61bd-3417-4f20-852c-554bc25a70cd",
   "createdAt": "2026-03-06T19:17:41.240Z",
-  "lastModified": "2026-03-09T15:56:18.355Z",
+  "lastModified": "2026-03-17T15:11:02.984Z",
   "biomeTagsAugment": [],
   "biomeTagsInhibit": [],
   "name": "Way of the Green",
-  "description": "<p>You have an exceptionally strong attunement with plants, granting you access to all <em>Way of the Green</em> Abilities.</p><p>Additionally, you have a Ward Plant that you carry with you wherever you go. Your magical bond with it allows it to grow and contract spontaneously as needed, providing the following benefits while you carry it:</p><ul><li><p>The plant protects you in combat, granting you one d4 Engagement die and the Bind Engagement Success.</p></li><li><p>If a creature provokes an opportunity attack from you, you may have the plant make the opportunity attack instead without spending a Reaction, using your stats and dealing 1d4 damage on a hit.</p></li><li><p>Your Stealth checks are Favored when you are in an area where the plant could naturally grow.</p></li></ul><p>The plant requires at least a few drops of water each day and either a few hours of sunlight each day or one full day of sunlight each week. Direct exposure to extreme heat, cold or force kills the plant. You must spend 1 hour forming a bond with a new plant to make it your Ward Plant.</p>",
+  "description": "<p>You have an exceptionally strong attunement with plants, granting you access to all <em>Way of the Green</em> abilities.</p><p>Additionally, you have a Ward Plant that you carry with you wherever you go. Your magical bond with it allows it to grow and contract spontaneously as needed, providing the following benefits while you carry it:</p><ul><li><p>The plant protects you in combat, granting you one d4 engagement die and the Bind engagement success.</p></li><li><p>If a creature provokes an opportunity attack from you, you may have the plant make the opportunity attack instead without spending a reaction. If you do so, it uses your stats and deals 1d4 damage on a hit.</p></li><li><p>Your Stealth checks are favored when you are in an area where the plant could naturally grow.</p></li></ul><p>The plant requires at least a few drops of water each day and either a few hours of sunlight each day or one full day of sunlight each week. Direct exposure to extreme heat, cold or force kills the plant. You must spend 1 hour forming a bond with a new plant to make it your Ward Plant.</p><p><strong>Describe your Ward Plant.</strong></p>",
   "xp": 30,
   "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d",
   "improvements": [
     {
       "name": "Vigorous Ward",
-      "description": "<p>Your plant ward grants two additional d4 Engagement dice and it deals 1d8 damage when it makes opportunity attacks.</p>",
+      "description": "<p>Your plant ward grants two additional d4 engagement dice and it deals 1d8 damage when it makes opportunity attacks.</p>",
       "xp": 10,
       "id": "238af342-c3c5-43c6-96d4-2c5793b9f718"
     }

@@ -16,8 +16,8 @@
         @click="openFullSizeModal" />
 
       <!-- Edit button - only in manual mode -->
-      <FloatingActionButton v-if="editable && isManualOrCombined" type="edit" size="small"
-        visibility="on-hover" class="edit-button-overlay" @click.stop="openEditModal" />
+      <FloatingActionButton v-if="editable && isManualOrCombined" type="edit" size="small" visibility="on-hover"
+        class="edit-button-overlay" @click.stop="openEditModal" />
 
       <!-- Navigation button - next image -->
       <button v-if="showNav && displayImages.length > 1" class="nav-button right" @click.stop="nextImage"
@@ -122,8 +122,7 @@
 
     <!-- Full Size Image Modal -->
     <FullSizeImageModal :is-open="fullSizeModalOpen" :image-url="displayImages[selectedIndex] || ''"
-      :show-edit-button="editable && isManualOrCombined" @close="closeFullSizeModal"
-      @edit="openEditModal" />
+      :show-edit-button="editable && isManualOrCombined" @close="closeFullSizeModal" @edit="openEditModal" />
   </div>
 </template>
 

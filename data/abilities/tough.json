@@ -1,18 +1,18 @@
 {
   "id": "2f40fa98-f90a-4eb8-b626-999b000fa4b2",
   "name": "Tough",
-  "description": "<p>Your maximum Endurance is instead 6 times your BODY score.</p><p>You start each combat with 0 MP. At any time during combat, as a free action, you may spend 2 Endurance to gain 1 MP.</p>",
+  "description": "<p>Your maximum Endurance is instead 6 times your BODY score.</p><p>At any time during combat, as a free action, you may spend 2 Endurance to gain 1 MP.</p><p><strong>Describe how you throw yourself into battle.</strong></p>",
   "canBeActive": false,
   "isActive": true,
   "source": "1e4131c7-8a6f-422c-998a-5147600c946e",
   "isDeleted": false,
   "mp": null,
   "xp": null,
-  "lastModified": "2026-02-12T21:37:52.080Z",
+  "lastModified": "2026-03-17T00:30:47.933Z",
   "improvements": [
     {
       "name": "Measured Step",
-      "description": "<p>At the beginning of each of your turns, you may choose to reduce your speed for the round. For each 5 feet you reduce it by, ignore 5 lbs of weight from the equipment you're carrying when calculating Load.</p>",
+      "description": "<p>At the beginning of each of your turns, you may choose to reduce your Speed for 1 round. For each 5 ft you reduce it by, ignore 5 lbs of weight from the equipment you're carrying when calculating Load.</p>",
       "xp": 15,
       "id": "1d81ceb0-1bff-4b4d-9659-4f47ab1a4f6e"
     },

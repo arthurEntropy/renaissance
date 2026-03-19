@@ -1,14 +1,15 @@
 {
   "id": "6c1ad625-9400-447a-9b1a-189d597b573a",
   "name": "Dribble",
-  "description": "<p>You bounce your Orb to charge it with energy. Roll Dexterity against your Orb's Difficulty. On a pass, add 1 MP to the Orb and regain a Half Action for this turn. On a failure, the Orb loses all its current MP and you do not regain a Half Action.</p><p>You must move at least 10 feet before you can use this Ability again.</p>",
+  "description": "<p>You bounce your orb to charge it with energy. Roll Dexterity against your orb's Difficulty. On a pass, add 1 MP to the orb and regain a half action. On a failure, the orb loses all its current MP and you do not regain a half action.</p><p>You must move at least 10 feet before you can use this ability again.</p><p><strong>Describe your dribble.</strong></p>",
   "canBeActive": false,
   "isActive": true,
   "source": "a07490af-2d77-4968-9adc-0a2a7c84ef70",
   "isDeleted": false,
   "mp": null,
   "xp": null,
-  "lastModified": "2026-03-02T19:36:15.627Z",
+  "lastModified": "2026-03-17T01:40:39.525Z",
   "type": "c3d4e5f6-a1b2-4c3d-be0f-9a8b7c6d5e4f",
-  "artUrl": "https://cdn.midjourney.com/f3281ed1-50bd-4921-8bdb-378e6ef60966/0_3.png"
+  "artUrl": "https://cdn.midjourney.com/f3281ed1-50bd-4921-8bdb-378e6ef60966/0_3.png",
+  "successes": "<p>✨: The orb is charged with 1 additional MP.</p><p>🌞: You gain 5 ft of movement.</p>"
 }

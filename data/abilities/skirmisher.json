@@ -1,14 +1,14 @@
 {
   "id": "9220f6be-c172-4b8a-9188-b3a14ed21943",
   "name": "Skirmisher",
-  "description": "<p>Once per rest, per level of <em>Swagger</em> you have, you may disengage as a half action instead of an action.</p>",
+  "description": "<p>Once per rest for each level of <em>Swagger</em> you have: You may Evade as a half action instead of an action.</p><p><strong>Describe your swagger.</strong></p>",
   "canBeActive": false,
   "isActive": true,
   "source": "45ca935d-938b-4974-961c-4171cc388904",
   "isDeleted": false,
   "mp": null,
   "xp": 5,
-  "lastModified": "2026-02-12T21:37:52.078Z",
+  "lastModified": "2026-03-17T00:00:24.510Z",
   "artUrl": "https://cdn.midjourney.com/b8ec7074-b3e9-4701-92f4-277cbd4b2491/0_3.png",
   "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
 }

@@ -1,15 +1,15 @@
 {
   "id": "61439085-9624-4f4f-a52d-dd0b3e20d0e9",
   "name": "Pass The Rock",
-  "description": "<p>You throw your Orb to an ally. Both of you roll Dexterity, against the Orb's Difficulty</p><p>If one or both of you fail, the Orb loses all its charges of MP and falls to the ground at the ally's feet.</p><p>If you both pass, the ally catches the Orb. For the next Round, while they are holding the Orb with at least one hand, they may use any MP stored in the Orb as if they were their own MP. After 1 Round, the Orb loses all its charges of MP and teleports back to you.</p>",
+  "description": "<p>You throw your orb to an ally. Both of you roll Dexterity, against the orb's Difficulty</p><p>If one or both of you fail, the orb loses all its charges of MP and falls to the ground at the ally's feet.</p><p>If you both pass, the ally catches the orb. For the next round, while the ally is holding the orb with at least one hand, they may use any MP stored in the orb as if it were their own MP. After 1 round, the orb loses all its charges of MP and teleports back to you.</p>",
   "canBeActive": false,
   "isActive": true,
   "source": "a07490af-2d77-4968-9adc-0a2a7c84ef70",
   "isDeleted": false,
   "mp": 2,
   "xp": 15,
-  "lastModified": "2026-03-03T01:17:11.866Z",
+  "lastModified": "2026-03-17T01:38:08.134Z",
   "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
-  "successes": "<p>🌞: The ally also has access to all of your Orbmancer abilities and is considered attuned to the Orb for the next round.</p>",
+  "successes": "<p>✨: The effects last for 2 rounds.</p><p>🌞: The ally also has access to all of your Orbmancer abilities and is considered attuned to the orb for the next round.</p>",
   "artUrl": "https://cdn.midjourney.com/39df27d4-5f3b-449d-a820-64b4d019ab4a/0_0.png"
 }

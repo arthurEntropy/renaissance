@@ -1,14 +1,14 @@
 {
   "id": "79f7d0be-4052-45ae-9351-449cd4023bdf",
   "name": "Momentum",
-  "description": "<p>At any time during your turn, as a free action, you may convert any amount of Hope, one-for-one, into MP.</p><p>Whenever you inflict Injury on a foe, you gain 1 MP. Whenever you knock a foe unconscious, you gain 3 MP.</p>",
+  "description": "<p>At any time during your turn, as a free action, you may convert any amount of Hope, one-for-one, into MP.</p><p>Whenever you inflict Injury on a foe, you gain 1 MP. Whenever you knock a foe unconscious, you gain 3 MP.</p><p><strong>Describe how success in battle lifts your heart.</strong></p>",
   "canBeActive": false,
   "isActive": true,
   "source": "d4dce5e2-e767-464d-91f0-c40b47f788b3",
   "isDeleted": false,
   "mp": null,
-  "xp": "",
-  "lastModified": "2026-02-12T21:37:52.073Z",
+  "xp": null,
+  "lastModified": "2026-03-17T12:45:56.516Z",
   "artUrl": "https://cdn.midjourney.com/1658269a-a5fa-453a-8a3e-fa1cbf3dd0a5/0_1.png",
   "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
 }

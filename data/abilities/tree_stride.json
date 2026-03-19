@@ -2,11 +2,11 @@
   "source": "937d52da-0ebf-4d74-b3ee-be395f2f5d0a",
   "id": "b99b356c-a046-4211-ad0f-f07fda4b01f2",
   "createdAt": "2026-03-06T18:11:33.793Z",
-  "lastModified": "2026-03-09T16:12:23.084Z",
+  "lastModified": "2026-03-17T15:05:48.762Z",
   "biomeTagsAugment": [],
   "biomeTagsInhibit": [],
   "name": "Tree Stride",
-  "description": "<p><em>Concentration, up to 1 minute.</em></p><p>You may step into one living tree and emerge from another within Far Range once per Round. Both trees must be alive and larger than you.</p><p>Entering one tree and emerging from the other costs 5 ft of movement in total.</p>",
+  "description": "<p><em>Concentration, up to 1 minute.</em></p><p>You may step into one living tree and emerge from another within far range once per round. Both trees must be alive and larger than you.</p><p>Entering one tree and emerging from the other costs 5 ft of movement in total.</p><p><strong>Describe your movement.</strong></p>",
   "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
   "xp": 25,
   "mp": 5,
@@ -15,7 +15,7 @@
   "improvements": [
     {
       "name": "Home Tree",
-      "description": "<p>You may spend 8 hours communing with a living tree to become spiritually entwined with it. If you are already entwined with a different tree, that bond ends and is replaced by the new one.</p><p>Whenever you use <em>Tree Stride</em>, you may choose the entwined tree as your destination, regardless of its distance from you.</p><p>If the entwined tree is damaged, you feel some of its pain and check a Condition, no matter where you are. If it is felled, you take 2d10 damage and check two Conditions.</p>",
+      "description": "<p>You may spend 8 hours communing with a living tree to become spiritually entwined with it. If you are already entwined with a different tree, that bond ends and is replaced by the new one.</p><p>Whenever you use <em>Tree Stride</em>, you may choose the entwined tree as your destination, regardless of its distance from you.</p><p>If the entwined tree is damaged, you feel its pain and check a Condition, no matter where you are. If it is felled, you take 2d10 damage and check two Conditions.</p>",
       "xp": 30,
       "id": "7701d9e7-00a2-4201-a162-cdcbd2ce15c6"
     }

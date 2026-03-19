@@ -2,7 +2,7 @@
   "source": "937d52da-0ebf-4d74-b3ee-be395f2f5d0a",
   "id": "a918fcbe-8b9b-424b-83f6-933284cc71e7",
   "createdAt": "2026-03-06T20:46:40.608Z",
-  "lastModified": "2026-03-10T00:47:03.205Z",
+  "lastModified": "2026-03-17T15:14:29.962Z",
   "biomeTagsAugment": [],
   "biomeTagsInhibit": [],
   "name": "Way of the Tooth",
@@ -10,17 +10,17 @@
   "xp": 30,
   "isMagical": false,
   "school": "0be89610-8361-4d2e-ab5c-da6e6722458e",
-  "description": "<p>You take on the aspect of a predatory animal: your canine teeth and fingernails grow long and sharp, your pupils become vertical slits and your hair grows thicker and in more places on your body, like fur. This change grants you these benefits:</p><ul><li><p>Your Awe rolls are Favored.</p></li><li><p>You may use Spirit instead of Strength to make unarmed melee attacks, and your unarmed melee attacks deal 1d6+BODY damage.</p></li></ul><p>Additionally, once per Rest, you may spend a Half Action to mark a creature you can see as your prey for the next hour. During that time:</p><ul><li><p>Your first Attack Roll against it each Round is Favored.</p></li><li><p>You don’t provoke Opportunity Attacks from it.</p></li><li><p>Any Awareness rolls you make to find it are Favored.</p></li></ul>",
+  "description": "<p>You have access to all <em>Way of the Tooth</em> abilities. You take on the aspect of a predatory animal: your canine teeth and fingernails grow long and sharp, your pupils become vertical slits and your hair grows thicker and in more places on your body, like fur. This change grants you these benefits:</p><ul><li><p>Your Awe rolls are favored.</p></li><li><p>You may use Spirit instead of Strength to make unarmed melee attacks, and your unarmed melee attacks deal 1d6+BODY damage.</p></li></ul><p>Additionally, once per rest, you may spend a half action to mark a creature you can see as your prey for the next hour. During that time:</p><ul><li><p>Your first attack roll against it each round is favored.</p></li><li><p>You don’t provoke opportunity attacks from it.</p></li><li><p>Any Awareness rolls you make to find it are favored.</p></li></ul><p><strong>Describe your new appearance.</strong></p>",
   "improvements": [
     {
       "name": "Vicious",
-      "description": "<p>You unarmed melee attacks get +1d to damage rolls.</p>",
+      "description": "<p>Whenever you land a hit with an unarmed melee attack, +1d to the damage roll.</p>",
       "xp": 15,
       "id": "4f770f4b-6f3f-4c5e-9a53-b8aad19ef8c8"
     },
     {
       "name": "Red Frenzy",
-      "description": "<p>When you spend an action to make an unarmed melee attack, you may make a second unarmed melee attack.</p>",
+      "description": "<p>When you spend an action to make an unarmed melee attack, you may make a second unarmed melee attack, using the same engagement result.</p>",
       "xp": 30,
       "id": "478130b7-a236-465e-84a5-16b89f2a6238"
     }

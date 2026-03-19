@@ -2,9 +2,9 @@
   "id": "f85bb409-f0f2-4ba7-a921-fa6a567e995f",
   "isDeleted": false,
   "createdAt": "2026-01-30T17:12:44.609Z",
-  "lastModified": "2026-02-12T21:37:52.080Z",
+  "lastModified": "2026-03-16T20:26:11.185Z",
   "name": "Sword & Buckler",
-  "description": "<p>You are trained in light shields.</p>",
+  "description": "<p>You are trained in light shields.</p><p><strong>Describe your technique.</strong></p>",
   "canBeActive": false,
   "isActive": true,
   "source": "4eccfe5d-de19-4bc5-8c9c-374d793d67f0",
@@ -15,7 +15,7 @@
   "improvements": [
     {
       "name": "Buckler Punch",
-      "description": "<p>When you roll an Engagement success while wielding a light shield, you may spend 2 MP to access the <em>Knockback</em> success.</p>",
+      "description": "<p>When you roll an engagement success while wielding a light shield, you may spend 1 MP to access the <em>Knockback</em> success.</p>",
       "xp": 10,
       "id": "ffba5115-ecb3-4023-8392-7e16d3d34b4c"
     },

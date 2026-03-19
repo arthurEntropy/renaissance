@@ -2,11 +2,11 @@
   "source": "937d52da-0ebf-4d74-b3ee-be395f2f5d0a",
   "id": "53ee5622-541a-4851-a5f3-1f5ded6903d1",
   "createdAt": "2026-03-10T00:03:08.126Z",
-  "lastModified": "2026-03-10T00:20:59.355Z",
+  "lastModified": "2026-03-17T15:15:09.668Z",
   "biomeTagsAugment": [],
   "biomeTagsInhibit": [],
   "name": "Greater Wild Shape",
-  "description": "<p>When you use <em>Wild Shape</em>, you may transform into any non-humanoid creature of up to Challenge 5 that you have seen.</p>",
+  "description": "<p>When you use <em>Wild Shape</em>, you may transform into any non-humanoid creature of up to Challenge 5 that you have seen.</p><p><strong>Describe your transformation.</strong></p>",
   "xp": 15,
   "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d",
   "school": "0be89610-8361-4d2e-ab5c-da6e6722458e",
@@ -19,7 +19,7 @@
     },
     {
       "name": "Shapechanger",
-      "description": "<p>When you use <em>Wild Shape</em>, you do not need to Concentrate to sustain it, and you may sustain it for up to 1 day. During that time, you may shift between forms any number of times, as a Half Action.</p>",
+      "description": "<p>When you use <em>Wild Shape</em>, you do not need to concentrate to sustain it, and you may sustain it for up to 1 day. During that time, you may shift between forms any number of times, as a half action.</p>",
       "xp": 40,
       "id": "02708c99-c7ed-4b93-a943-f0a579c7ad6b"
     }

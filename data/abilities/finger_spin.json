@@ -1,14 +1,15 @@
 {
   "id": "9c077803-607e-4cda-9f46-8f71d7778857",
   "name": "Finger Spin",
-  "description": "<p>You spin your Orb on your finger, charging it with magical energy. Roll Dexterity against your Orb's Difficulty. On a pass, the Orb is charged with 1 MP. On a failure, the Orb discharges all of its MP.</p><p>You may repeat the roll any number of times, increasing the Difficulty by 2 each time.</p>",
+  "description": "<p>You spin your orb on your finger, charging it with magical energy. Roll Dexterity against your orb's Difficulty. On a pass, the orb is charged with 1 MP. On a failure, the orb discharges all of its MP.</p><p>You may repeat the roll any number of times, increasing the Difficulty by 2 each time.</p><p><strong>Describe how you spin your orb.</strong></p>",
   "canBeActive": false,
   "isActive": true,
   "source": "a07490af-2d77-4968-9adc-0a2a7c84ef70",
   "isDeleted": false,
   "mp": "",
   "xp": 10,
-  "lastModified": "2026-03-02T20:01:57.749Z",
+  "lastModified": "2026-03-17T01:40:21.143Z",
   "type": "c3d4e5f6-a1b2-4c3d-be0f-9a8b7c6d5e4f",
-  "artUrl": "https://cdn.midjourney.com/2d7d702d-a4f1-4846-8a58-69e591e12b05/0_3.png"
+  "artUrl": "https://cdn.midjourney.com/2d7d702d-a4f1-4846-8a58-69e591e12b05/0_3.png",
+  "successes": "<p>✨: The orb is charged with 1 additional MP.</p><p>🌞: The orb is charged with 3 additional MP.</p>"
 }

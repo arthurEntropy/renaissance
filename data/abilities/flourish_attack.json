@@ -1,14 +1,14 @@
 {
   "id": "9ec47fcf-338e-4510-8eb3-ef36ec03f941",
   "name": "Flourish Attack",
-  "description": "<p>This turn, if you have at least one level of <em>Swagger</em>, when you make a melee weapon attack, you may skip engagement and instead roll Awe vs Awareness for the attack roll.</p><p>On a hit, roll damage as normal, and you may make another attack in the same way against the same creature if you have an additional level of <em>Swagger</em> (up to 3 total attacks).</p>",
+  "description": "<p>If you have at least one level of <em>Swagger</em>, make a melee weapon attack, skipping engagement and rolling Awe vs Awareness for the attack roll.</p><p>On a hit, roll and deal damage as normal. Then, if you have at least two levels of <em>Swagger,</em> you may make another attack in the same way against the same creature as a free action.</p><p>On a second hit, roll and deal damage as normal again. Then, if you have three levels of <em>Swagger</em>, repeat the attack a third time.</p><p><strong>Describe your flourishes.</strong></p>",
   "canBeActive": false,
   "isActive": true,
   "source": "45ca935d-938b-4974-961c-4171cc388904",
   "isDeleted": false,
-  "mp": 0,
+  "mp": 1,
   "xp": 5,
-  "lastModified": "2026-02-12T21:37:52.067Z",
+  "lastModified": "2026-03-17T00:07:19.303Z",
   "artUrl": "https://cdn.midjourney.com/e3624f28-fc32-4357-a85a-ccdbf2f56fc8/0_1.png",
-  "type": "c3d4e5f6-a1b2-4c3d-be0f-9a8b7c6d5e4f"
+  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e"
 }

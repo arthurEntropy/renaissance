@@ -1,7 +1,7 @@
 {
   "id": "1e9dec02-69e5-4963-a765-19cfdc02e6ff",
   "name": "Second Attack",
-  "description": "<p>When you use an action to attack on your turn, you may instead make two attacks.</p>",
+  "description": "<p>Whenever you use an action on your turn to make a melee attack, you may instead make two attacks, rolling engagement for each attack.</p><p><strong>Describe your technique.</strong></p>",
   "canBeActive": false,
   "isActive": true,
   "source": "d4dce5e2-e767-464d-91f0-c40b47f788b3",
@@ -16,7 +16,7 @@
       "id": "81cff859-42e5-5774-a870-d06914c22386"
     }
   ],
-  "lastModified": "2026-02-12T21:37:52.077Z",
+  "lastModified": "2026-03-17T13:19:34.882Z",
   "artUrl": "https://cdn.midjourney.com/c291dbdd-7d12-4dc2-939d-83ba5213dff6/0_0.png",
   "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
 }
