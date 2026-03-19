@@ -5,8 +5,9 @@
 
     <!-- XP badge positioned relative to main description when character owns any improvements OR when improvements are expanded -->
     <template #description-badge>
-      <BadgeDisplay v-if="shouldShowBaseXpBadge && (characterOwnsAnyImprovements || showImprovements)" type="xp"
-        :value="ability.xp" :is-owned="characterHasBaseAbility" :asImprovementBadge="true" :is-interactive="!!character"
+      <BadgeDisplay v-if="(shouldShowBaseXpBadge || !!character) && (characterOwnsAnyImprovements || showImprovements)"
+        type="xp" :value="ability.xp ?? null" :is-owned="characterHasBaseAbility" :asImprovementBadge="true"
+        :is-interactive="!!character" :hidden-by-default="!shouldShowBaseXpBadge && !characterHasBaseAbility"
         @toggle="handleBaseAbilityToggle" />
     </template>
 
@@ -46,10 +47,11 @@
     </template>
 
     <!-- Overlay badges - Show XP badge at card level when character owns no improvements AND improvements are collapsed -->
+    <!-- Also shown (hidden until card hover) for no-cost items when a character context is present -->
     <template #badges>
-      <BadgeDisplay v-if="shouldShowBaseXpBadge && !characterOwnsAnyImprovements && !showImprovements" type="xp"
-        :value="ability.xp" :is-owned="characterHasBaseAbility" :is-interactive="!!character"
-        @toggle="handleBaseAbilityToggle" />
+      <BadgeDisplay v-if="(shouldShowBaseXpBadge || !!character) && !characterOwnsAnyImprovements && !showImprovements"
+        type="xp" :value="ability.xp ?? null" :is-owned="characterHasBaseAbility" :is-interactive="!!character"
+        :hidden-by-default="!shouldShowBaseXpBadge && !characterHasBaseAbility" @toggle="handleBaseAbilityToggle" />
     </template>
   </base-card>
 </template>

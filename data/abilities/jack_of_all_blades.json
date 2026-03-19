@@ -1,7 +1,7 @@
 {
   "id": "6949c26b-a3a5-44c1-ae6c-175fad763f37",
   "name": "Jack Of All Blades",
-  "description": "<p>For each engagement die provided by equipment you’re wearing or wielding, add one more die of the same type to your pool of engagement dice.</p>",
+  "description": "<p>For each engagement die provided by equipment you’re wearing or wielding, add one additional die of the same type to your pool of engagement dice.</p><p>Additionally, once per round, you may switch one wielded weapon or shield for another as a free action instead of a half action.</p><p><strong>Describe your expertise.</strong></p>",
   "canBeActive": false,
   "isActive": true,
   "source": "d4dce5e2-e767-464d-91f0-c40b47f788b3",
@@ -11,12 +11,12 @@
   "improvements": [
     {
       "name": "Master of Arms",
-      "description": "<p>Add two extra dice of the same type instead of one.</p>",
+      "description": "<p>Add two additional engagement dice of the same type instead of one.</p>",
       "xp": 15,
       "id": "ce3f8022-7bc9-5ae4-9b87-c1efb6b2bef2"
     }
   ],
-  "lastModified": "2026-02-12T21:37:52.070Z",
+  "lastModified": "2026-03-17T13:17:55.084Z",
   "artUrl": "https://cdn.midjourney.com/ff461dde-aa41-493f-b9d1-0566139666bf/0_0.png",
   "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
 }

@@ -1,7 +1,7 @@
 <template>
     <div v-if="showBadge" :class="badgeClass" @click.stop="handleClick" @mouseenter="handleMouseEnter"
         @mouseleave="handleMouseLeave">
-        <template v-if="type === 'keeping' && !isHovering">
+        <template v-if="type === 'keeping' && !isHovering && value !== null && value !== undefined">
             {{ displayValue }}
             <img :src="keepingIcon" alt="keeping" class="keeping-icon" />
         </template>
@@ -23,7 +23,11 @@ const props = defineProps({
     },
     value: {
         type: [String, Number],
-        required: true
+        default: null
+    },
+    hiddenByDefault: {
+        type: Boolean,
+        default: false
     },
     isInteractive: {
         type: Boolean,
@@ -49,7 +53,8 @@ const emit = defineEmits(['toggle'])
 const isHovering = ref(false)
 
 const showBadge = computed(() => {
-    return props.value !== undefined && props.value !== null
+    // Show when a value is present, OR when interactive (allows a no-cost item "+Add" badge)
+    return (props.value !== undefined && props.value !== null) || props.isInteractive
 })
 
 // Badge is interactive if marked as interactive (regardless of ownership status)
@@ -85,6 +90,11 @@ const displayText = computed(() => {
         if (isHovering.value) {
             // Show "- Remove" for owned items, "+ Add" for unowned
             return props.isOwned ? '- Remove' : '+ Add'
+        }
+        // Free items (no cost): always show "+ Add" as the resting text
+        // (the badge is opacity:0 at rest anyway, only revealed on card hover)
+        if (props.value === undefined || props.value === null) {
+            return '+ Add'
         }
         // Show normal badge text when not hovering
         return props.type === 'xp' ? `${props.value} XP` : props.value
@@ -125,7 +135,14 @@ const badgeClass = computed(() => {
             const interactiveClass = isHovering.value ? 'badge-interactive-available-hover' : 'badge-interactive-available'
             classes.push(interactiveClass, 'improvement-badge-unowned')
         }
-    } else if (props.isOwned) {
+    }
+
+    // Free-item badges are invisible at rest; revealed only when the parent card is hovered
+    if (props.hiddenByDefault) {
+        classes.push('badge-hidden-until-hover')
+    }
+
+    if (!isActuallyInteractive.value && props.isOwned) {
         // Non-interactive owned badges
         classes.push('badge-owned')
     }
@@ -183,6 +200,12 @@ const badgeClass = computed(() => {
 
 .badge-bottom-left.improvement-badge {
     bottom: calc(-1 * var(--space-md));
+}
+
+.badge-hidden-until-hover {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--transition-fast);
 }
 
 .keeping-icon {

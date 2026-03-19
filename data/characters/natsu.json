@@ -218,6 +218,24 @@
       "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false
+    },
+    {
+      "id": "738255ac-87f1-45a5-91ff-c2144b92b5e3",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "1325605b-d523-4ec2-b2a7-57a04dc55d91",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "754a7883-71a7-414f-bda4-504a147e68cc",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false
     }
   ],
   "activeEffects": [
@@ -243,8 +261,8 @@
     "https://cdn.midjourney.com/a6773dd7-3da8-4349-9212-b021c7aa09f7/0_2.png"
   ],
   "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2026-03-16T15:07:01.745Z",
-  "lastModified": "2026-03-16T15:07:01.745Z",
+  "updatedAt": "2026-03-16T15:18:10.914Z",
+  "lastModified": "2026-03-16T15:18:10.914Z",
   "mestiereId": "937d52da-0ebf-4d74-b3ee-be395f2f5d0a",
   "age": 23,
   "heightFeet": 4,
@@ -283,5 +301,5 @@
     "cold"
   ],
   "biomeId": "6bb4d641-6345-49af-85ce-e0902b9b3348",
-  "groupAbilitiesBySource": false
+  "groupAbilitiesBySource": true
 }

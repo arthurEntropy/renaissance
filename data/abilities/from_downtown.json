@@ -2,10 +2,10 @@
   "source": "a07490af-2d77-4968-9adc-0a2a7c84ef70",
   "id": "8a7df3fe-8920-45d1-998b-23afbd4e1d3e",
   "createdAt": "2026-02-27T19:46:00.597Z",
-  "lastModified": "2026-03-02T22:00:26.254Z",
+  "lastModified": "2026-03-17T01:34:49.120Z",
   "name": "From Downtown",
   "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
-  "description": "<p>Make a Ranged Attack with your Orb against a target beyond twice its normal range but within three times that range. This Attack Roll is Ill-Favored. On a hit, the Orb deals triple damage.</p>",
+  "description": "<p>Make a ranged attack with your orb against a target beyond twice its normal range but within three times that range. The attack roll is ill-favored. On a hit, the orb deals triple damage and teleports back to you as normal.</p><p><strong>Describe your long shot.</strong></p>",
   "mp": 3,
   "xp": 15,
   "artUrl": "https://cdn.midjourney.com/f8a2fd15-9674-48de-a79b-27b7287c55c9/0_2.png"

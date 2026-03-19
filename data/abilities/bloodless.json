@@ -1,15 +1,15 @@
 {
   "id": "dc9dbb88-7a9d-4776-8ee3-aeb7ba654f02",
   "name": "Bloodless",
-  "description": "<p><em>Trigger: You take damage.</em></p><p>Halve the damage dealt to you.</p><p>You may use this ability once per rest for each level of <em>Swagger</em> you have.</p>",
+  "description": "<p><em>Trigger: You take damage.</em></p><p>Halve the damage dealt to you.</p><p>You may use this ability once per rest for each level of <em>Swagger</em> you have.</p><p><strong>Describe your swagger.</strong></p>",
   "canBeActive": false,
   "isActive": true,
   "source": "45ca935d-938b-4974-961c-4171cc388904",
   "isDeleted": false,
-  "mp": 0,
+  "mp": 1,
   "xp": 5,
   "improvements": [],
-  "lastModified": "2026-02-12T21:37:52.058Z",
+  "lastModified": "2026-03-17T00:00:36.738Z",
   "artUrl": "https://cdn.midjourney.com/826d8bbc-8083-4aac-9dfd-014ceefe7af5/0_0.png",
   "type": "e5f6a1b2-c3d4-4e5f-da2b-1c0d9e8f7a6b"
 }

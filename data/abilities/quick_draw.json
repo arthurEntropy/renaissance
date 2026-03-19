@@ -1,14 +1,14 @@
 {
   "id": "359a4615-81a7-4cd1-a23f-22b50b7d1f93",
   "name": "Quick Draw",
-  "description": "<p><em>Trigger: A creature enters Engagement with you.</em></p><p>If you have a free hand, you draw and fire a light firearm at your opponent before rolling Engagement.</p>",
+  "description": "<p><em>Trigger: A creature enters engagement with you.</em></p><p>If you have at least free hand, you draw and fire a light firearm at your opponent before rolling engagement.</p><p><strong>Describe your quick draw.</strong></p>",
   "canBeActive": false,
   "isActive": true,
   "source": "4eccfe5d-de19-4bc5-8c9c-374d793d67f0",
   "isDeleted": false,
   "mp": 3,
   "xp": 5,
-  "lastModified": "2026-02-12T21:37:52.075Z",
+  "lastModified": "2026-03-16T20:27:19.265Z",
   "artUrl": "https://cdn.midjourney.com/3981fdcd-d38d-45af-bfe2-20ff626b49d9/0_1.png",
   "type": "e5f6a1b2-c3d4-4e5f-da2b-1c0d9e8f7a6b"
 }

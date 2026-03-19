@@ -2,7 +2,7 @@
   "id": "45ca935d-938b-4974-961c-4171cc388904",
   "conceptType": "MESTIERE",
   "name": "Landsknecht",
-  "description": "<p>FLAVOR:</p><ul><li><p>Mercenary with swagger</p></li><li><p>Expensive to have in the party</p></li><li><p>Benefits to others (morale, experience)</p></li><li><p>Martial instruments (drum and fife, etc.)</p></li><li><p>Out-of-combat advantages (impressive, negotiation, knows your price)</p></li></ul>",
+  "description": "<p>You've carried weapons from three different armies and worn the heraldry of two more. The current employer doesn't know that yet, and it wouldn't change anything if they did. You know what you cost, and you know what they're getting. The calculation is simple, and you've never had a client complain about the arithmetic.</p><p>The Landsknecht is a mercenary of the old school: conspicuous, expensive, and worth every coin. They have fought in wars you've never heard of, and they wear the gear of a dozen different armies with the easy comfort of someone who has always known that a soldier is only as good as what they are paid. Their price is not a negotiation—it's a statement about the kind of results you can expect.</p><p>What sets the Landsknecht apart from other hired swords is that their capabilities are literally funded by the quality of their engagement. When the party invests seriously—satisfying their exacting tastes in equipment, accommodation, and the general texture of the job—the Landsknecht delivers a commensurately exceptional performance. A well-compensated Landsknecht stands taller, fights sharper, and weathers more punishment. Their engagement dice become more versatile, adapting to the shape of each fight. Veterans also read a battlefield differently: they arrive at the opening of combat with knowledge already in hand, and allies fighting alongside them benefit from the accumulated competence of their presence in ways that require no explanation and no special effort.</p><p>There is one more thing worth mentioning. Every Landsknecht, no matter how seasoned, has a specific harmless inanimate object they cannot abide—a type of thing ordinary enough to occasionally appear in the world, which produces in them a reaction wholly disproportionate to any rational threat it poses. Where this fixation comes from, a Landsknecht will not say, or perhaps genuinely cannot. It is the one place where the composure cracks—and a Landsknecht who has just smashed a clock to pieces in the middle of a tense negotiation has a way of refocusing the room.</p><h3>Play a Landsknecht if you want to:</h3><ul><li><p><strong>Have your power scale with what the party is willing to spend</strong>, rewarding investment with a fighter who gets dramatically better the more seriously they are treated.</p></li><li><p><strong>Fight with flair and veteran's reading of the room</strong>, substituting presence and experience for brute-force engagement when the moment calls for it.</p></li><li><p><strong>Be a complicated professional</strong>—mercenary but not mercenary, loyal to the job and to whoever has earned your respect, with one private irrationality that cuts through all that hard-won composure.</p></li></ul><h3>Questions to consider when making a Landsknecht:</h3><ul><li><p>What wars have they fought in, and for whom? Do they have allegiances that outlasted the contract, or have they made a practice of leaving those behind?</p></li><li><p>What is the harmless object they cannot stand? How did that fixation begin, and have they ever managed to go a full quest without encountering one?</p></li><li><p>How do they feel about the people who hire them? Respectful, contemptuous, fond, professionally detached? Does it depend on the party, or is their default position always the same?</p></li><li><p>What does their kit look like? The eclectic weapons and armor of a widely traveled soldier have stories attached to them. Where did the pieces come from, and do any of them come with complications?</p></li><li><p>Is there something they won't do for money? If so, have they ever been offered enough to test that line?</p></li></ul>",
   "isDeleted": false,
   "artUrls": [
     "https://cdn.midjourney.com/c0b42a44-1bed-4eab-a3cc-1c620fe8c45e/0_1.png"
@@ -23,12 +23,12 @@
     "flavorText": "",
     "melee": "martial, heavy",
     "polearms": "light",
-    "ranged": "",
-    "firearms": "",
+    "ranged": "none",
+    "firearms": "none",
     "armor": "light, medium",
-    "engagement": "<p>Conditional - see <em>Merchant of Fighting.</em></p>",
+    "engagement": "<p>Conditional - see <em>Aura of Experience.</em></p>",
     "initialMaxMP": 5,
-    "abilities": "<p>Aura of Experience, Everyone Has A Price, Merchant of Fighting.</p>"
+    "abilities": "<p>Mercenary, Aura of Experience, Everyone Has A Price, Strange Fixation.</p>"
   },
-  "lastModified": "2025-12-15T12:57:57.306Z"
+  "lastModified": "2026-03-17T00:23:49.911Z"
 }

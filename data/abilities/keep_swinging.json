@@ -1,14 +1,14 @@
 {
   "id": "976032f0-f2e9-42c3-8c1d-6b4ff73ce454",
   "name": "Keep Swinging",
-  "description": "<p>Once per round: Make a melee attack.</p>",
+  "description": "<p>Once per round: Make a melee attack.</p><p><strong>Describe how you strain yourself to take another swing.</strong></p>",
   "canBeActive": false,
   "isActive": true,
   "source": "1e4131c7-8a6f-422c-998a-5147600c946e",
   "isDeleted": false,
   "mp": 5,
   "xp": 25,
-  "lastModified": "2026-02-12T21:37:52.071Z",
-  "artUrl": "https://cdn.midjourney.com/4fb54952-dfa1-404b-b837-c37f4d0448e9/0_3.png",
+  "lastModified": "2026-03-17T00:43:45.458Z",
+  "artUrl": "https://cdn.midjourney.com/9d9ca727-316f-46a9-a76b-9ab61fecc8dc/0_3.png",
   "type": "c3d4e5f6-a1b2-4c3d-be0f-9a8b7c6d5e4f"
 }

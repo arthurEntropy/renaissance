@@ -2,15 +2,15 @@
   "id": "918a1494-ba66-47e5-991f-6dbfef8698a8",
   "isDeleted": false,
   "createdAt": "2025-12-30T18:21:22.293Z",
-  "lastModified": "2026-03-05T21:37:17.421Z",
+  "lastModified": "2026-03-19T00:50:44.890Z",
   "name": "Dispel Magic",
-  "description": "<p>Choose one creature, object, or magical effect within far range. Any spells affecting or producing the target immediately end if their XP cost is less than this spell's XP cost.</p><p>For spells of equal XP cost, roll Lore against a 10. For spells of greater cost, the difficulty increases by 1 for each additional 1 XP cost. Make separate rolls for each spell.</p><p><strong>Describe how you dispel the magic.</strong></p>",
+  "description": "<p>Choose one creature, object, or magical effect within far range. Any spells affecting or producing the target immediately end if their XP cost is less than this spell's XP cost.</p><p>You may still attempt to end more potent spells. For spells of equal XP cost, roll Lore against a 10. For spells of greater cost, the difficulty increases by 1 for each additional 1 XP cost. Make separate rolls for each spell. On each win, the spell ends.</p><p><strong>Describe how you dispel the magic.</strong></p>",
   "canBeActive": false,
   "isActive": true,
   "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
   "mp": 3,
   "xp": 15,
-  "successes": "<p>✨: You learn the specific spells affecting the target, if any.</p><p>🌞: If you are successful and the target had only one spell affecting it, you may spend 1 minute studying the arcane energy released by dispelling the spell. At the end of the minute, roll Lore against the XP cost of the spell. On a win, you may record the spell in writing. The writing contains a single charge of the spell.</p><p>💀: If the spell has an effect triggered by an event, you trigger that effect. If the spell is already active and it could target you, you become its target. If neither of the above apply, roll Injury and check a condition.</p>",
+  "successes": "<p>✨: You learn the specific spells affecting the target, if any.</p><p>🌞: If you are successful and the target had only one spell affecting it, you may spend 1 minute studying the arcane energy released by dispelling the spell. At the end of the minute, roll Lore against the XP cost of the spell. On a win, you may record the spell in writing. The writing contains a single charge of the spell.</p><p>💀: If the spell has an effect triggered by an event, you trigger that effect. If the spell is already active and it could target you, you become its target. If neither of the above apply, roll Injury. In all cases, also check a Condition.</p>",
   "improvements": [
     {
       "name": "Find the Imperfection",

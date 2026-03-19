@@ -2,7 +2,7 @@
   "source": "937d52da-0ebf-4d74-b3ee-be395f2f5d0a",
   "id": "0353aa97-c033-47ff-979e-5ed5a0b565c8",
   "createdAt": "2026-03-06T19:11:12.294Z",
-  "lastModified": "2026-03-09T16:09:13.916Z",
+  "lastModified": "2026-03-17T14:36:59.681Z",
   "biomeTagsAugment": [
     "forest",
     "plains",
@@ -22,7 +22,7 @@
   "improvements": [
     {
       "name": "Vine Rope",
-      "description": "<p>Once per Rest: While Vine Whip is in effect, you may spend a Half Action to extend the tendril into a 25 ft long vine that grips and releases objects on your command and can hold up to 300 lbs of weight.</p>",
+      "description": "<p>Once per rest: While Vine Whip is in effect, you may spend a half action to extend the tendril into a 25 ft long vine. It can grip and release objects at your command and can hold up to 300 lbs of weight.</p>",
       "xp": 5,
       "id": "f9c8266c-8326-42f3-9c72-00d18a302255"
     }

@@ -1,14 +1,14 @@
 {
   "id": "03b57e4f-63a9-40d7-9822-c2da4810a617",
   "name": "Hold Their Eye",
-  "description": "<p>Until the beginning of your next turn, redirect all opportunity attacks made by the foe you're engaged with to you.</p>",
+  "description": "<p>Choose an adjacent creature you have attacked. For the next minute, any time the chosen creature makes an opportunity attack while adjacent to you, redirect the opportunity attack to you. The effect ends if you attack a different creature.</p><p><strong>Describe how you keep their attention.</strong></p>",
   "canBeActive": false,
   "isActive": true,
   "source": "d4dce5e2-e767-464d-91f0-c40b47f788b3",
   "isDeleted": false,
   "mp": 1,
   "xp": 5,
-  "lastModified": "2026-02-12T21:37:52.070Z",
+  "lastModified": "2026-03-17T12:50:02.407Z",
   "artUrl": "https://cdn.midjourney.com/56af1ecc-b26a-4152-b7c6-130bbff0ba33/0_1.png",
   "type": "c3d4e5f6-a1b2-4c3d-be0f-9a8b7c6d5e4f"
 }

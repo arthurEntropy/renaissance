@@ -240,7 +240,7 @@ watch(concept, (newConcept) => {
 
 <style scoped>
 .novizio-wrapper {
-  background: var(--overlay-black-heavy);
+  background: var(--overlay-black-medium);
   border-radius: var(--radius-10);
   padding: var(--space-lg);
 }

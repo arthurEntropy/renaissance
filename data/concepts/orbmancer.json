@@ -2,7 +2,7 @@
   "id": "a07490af-2d77-4968-9adc-0a2a7c84ef70",
   "conceptType": "MESTIERE",
   "name": "Orbmancer",
-  "description": "<p>Just a gal and her orb, gettin' things done.</p>",
+  "description": "<p>The Orb leaves your hand already glowing—three charges, built step by step across the last forty feet of hallway. It arcs wide off the stone wall, curves back at an angle no one standing behind the pillar thought to anticipate, and lands. The room goes quiet in the way rooms go quiet when something unexpected just happened with a great deal of force.</p><p>At the center of every Orbmancer's practice is a single, carefully made sphere—and at the center of that sphere, something personal. Through an hour of meditation and wrapping, the Orbmancer incorporates a meaningful object into the Orb's core, binding themselves to it through the ritual of its construction. The result is a weapon that manifests something of its maker: it glows, or hums, or changes color when handled; it rebounds from surfaces with uncanny energy that it saves only for them. A well-made Orb is an extension of its Orbmancer in a way that no sword or staff quite manages to be.</p><p>The Orb fights differently from every other magical implement because it must be kept in motion. The Orbmancer's primary method of charging it with magical force is continuous movement—bouncing the Orb as they travel, each contact with the ground adding energy to the sphere's reservoir. Some Orbmancers learn to charge by spinning the Orb on a single finger instead, an escalating act of balance that demands increasing precision with each additional charge. Both methods reward the same quality: an accurate read of one's own limits, and the discipline to stop at the right moment before everything discharges harmlessly.</p><p>The Orb also opens space in ways that most weapons cannot. Its most dramatic trick is simple: throw it to any unoccupied location within range, and follow it there instantly—arriving with hands already on the Orb, ready to charge again. An opponent who moves in close to neutralize the range advantage finds their target gone. An Orbmancer who needs to cover ground quickly doesn't travel through the battlefield so much as relocate across it.</p><h3>Play an Orbmancer if you want to:</h3><ul><li><p><strong>Build a deeply personal magical weapon</strong> from something that means something to you, one whose power reflects your history as much as your skill.</p></li><li><p><strong>Fight through movement and momentum</strong>, rewarding constant motion with charged energy that releases in bursts of disproportionate force.</p></li><li><p><strong>Control space and distance</strong>, using the Orb as an anchor for instant repositioning and as a threat that bends an opponent's positioning around its trajectory.</p></li></ul><h3>Questions to consider when making an Orbmancer:</h3><ul><li><p>What is at the center of their Orb? What does that object mean to them, and how did they come to have it?</p></li><li><p>How do they read the Orb's limits while charging? Is the intuition of when to stop something they developed gradually, or something they learned all at once from a costly mistake?</p></li><li><p>How does it look and feel when they handle the Orb? What is the manifestation they chose, and does it say something about them?</p></li><li><p>Have they ever lost an Orb—broken attunement, had it taken, or simply failed to recover it? What did it cost them, and with what new object did they build the next one?</p></li><li><p>How do others react to this style of fighting? It doesn't look like conventional magic and it doesn't look like conventional combat. Does the orbmancer find that useful, uncomfortable, or simply unremarkable?</p></li></ul>",
   "isDeleted": false,
   "artUrls": [
     "https://cdn.midjourney.com/5b25ca87-7014-48e0-bf60-a2e8c48ba30f/0_1.png"
@@ -19,17 +19,18 @@
   "vittles": "",
   "pointsOfInterest": "",
   "floraFauna": "",
-  "lastModified": "2026-03-02T19:33:56.495Z",
+  "lastModified": "2026-03-17T00:59:33.121Z",
   "novizio": {
     "flavorText": "",
-    "melee": "",
-    "polearms": "",
-    "ranged": "",
-    "firearms": "",
-    "armor": "",
-    "engagement": "",
+    "melee": "none",
+    "polearms": "none",
+    "ranged": "none",
+    "firearms": "none",
+    "armor": "none",
+    "engagement": "<p>none</p>",
     "initialMaxMP": 0,
-    "abilities": "",
-    "description": "<p>You have the <em>Initiate's Orb</em> Equipment item, which has a small object of personal significance at its center. Describe the object and why you chose it.</p>"
-  }
+    "abilities": "<p>Orbmancy, Orbcraft, Dribble.</p>",
+    "description": "<p>You have the <em>Initiate's Orb</em> equipment item, which has a small object of personal significance at its center. Describe the object and why you chose it.</p>"
+  },
+  "detailBackgroundImage": "https://cdn.midjourney.com/40fd93b9-6a39-400b-861c-e1cc6d81df04/0_2.png"
 }

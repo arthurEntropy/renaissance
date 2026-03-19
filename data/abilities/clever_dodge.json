@@ -1,7 +1,7 @@
 {
   "id": "2588e590-6bc7-4f42-aada-1f89bf7f1843",
   "name": "Clever Dodge",
-  "description": "<p><em>Trigger: You are hit with an attack.</em></p><p>Redirect the attack to another target within melee range.</p><p>If the new target is an inanimate object and the attack is a melee attack, the attacker takes 1d4 damage from the force of the impact.</p><p><strong>Describe how you duck out of danger just in time.</strong></p>",
+  "description": "<p><em>Trigger: You are hit with an attack.</em></p><p>Redirect the damage for the attack to another target that is adjacent to you. If the new target is an inanimate object and the attack is a melee attack, the attacker takes 1d4 damage from the force of the impact.</p><p><strong>Describe how you duck out of danger just in time.</strong></p>",
   "canBeActive": false,
   "isActive": true,
   "source": "e0a69b6f-38f9-4fa5-a1ef-5e5777299e82",
@@ -9,6 +9,6 @@
   "mp": 2,
   "xp": 5,
   "artUrl": "https://cdn.midjourney.com/e834b5c8-511e-478d-ae23-fb5282a64b19/0_2.png",
-  "lastModified": "2026-02-12T21:37:52.061Z",
+  "lastModified": "2026-03-16T19:01:50.629Z",
   "type": "e5f6a1b2-c3d4-4e5f-da2b-1c0d9e8f7a6b"
 }

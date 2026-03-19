@@ -52,7 +52,7 @@ const props = defineProps({
 })
 
 const computedImages = computed(() => {
-    if (props.mode === IMAGE_GALLERY_MODES.MANUAL) {
+    if (props.mode === IMAGE_GALLERY_MODES.MANUAL || props.mode === IMAGE_GALLERY_MODES.COMBINED) {
         return concept.value?.artUrls || []
     }
     return []
@@ -67,7 +67,7 @@ const computedExcludeUrls = computed(() => {
 })
 
 const handleImagesUpdate = async (newImages) => {
-    if (concept.value && props.mode === IMAGE_GALLERY_MODES.MANUAL) {
+    if (concept.value && (props.mode === IMAGE_GALLERY_MODES.MANUAL || props.mode === IMAGE_GALLERY_MODES.COMBINED)) {
         concept.value.artUrls = [...newImages]
         await conceptsStore.update(concept.value)
     }
@@ -77,6 +77,10 @@ const hasImages = computed(() => {
     if (props.mode === IMAGE_GALLERY_MODES.AUTO && computedAutoSourceId.value) {
         const autoImages = artStore.getByTypeAndSource(props.autoSourceType, computedAutoSourceId.value)
         return autoImages.length > 0
+    }
+    if (props.mode === IMAGE_GALLERY_MODES.COMBINED && computedAutoSourceId.value) {
+        const autoImages = artStore.getByTypeAndSource(props.autoSourceType, computedAutoSourceId.value)
+        return computedImages.value.length > 0 || autoImages.length > 0
     }
     return computedImages.value.length > 0
 })

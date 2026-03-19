@@ -12,7 +12,8 @@ export const ART_TYPES = {
  */
 export const IMAGE_GALLERY_MODES = {
   MANUAL: 'manual',
-  AUTO: 'auto'
+  AUTO: 'auto',
+  COMBINED: 'combined'
 }
 
 export const MIDJOURNEY_RESOLUTIONS = {

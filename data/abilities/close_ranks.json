@@ -1,7 +1,7 @@
 {
   "id": "d4c43cb4-a4d4-4f27-ae4a-6334bb84ea46",
   "name": "Close Ranks",
-  "description": "<p>While you and at least one ally are adjacent, you and all adjacent allies get +1 Defense.</p><p>Once per round, as a free action, you may spend 1 MP to give an adjacent ally +1d on a single melee attack roll.</p>",
+  "description": "<p>While you and at least one ally are adjacent to one another, you and all contiguous, adjacent allies gain +1 Defense.</p><p>Once per round, as a free action, you may spend 1 MP to give an adjacent ally +1d on a single melee attack roll.</p><p><strong>Describe how you form up.</strong></p>",
   "canBeActive": false,
   "isActive": true,
   "source": "d4dce5e2-e767-464d-91f0-c40b47f788b3",
@@ -17,12 +17,12 @@
     },
     {
       "name": "Hold The Line",
-      "description": "<p>When you or any of your adjacent allies are attacked, all of you may contribute Engagement dice and successes to the Engagement.</p>",
+      "description": "<p>When you or any of your adjacent allies are attacked, all of you may contribute engagement dice and successes to the engagement.</p>",
       "xp": 10,
       "id": "8e1a010d-deb5-5e63-8441-7730b5583299"
     }
   ],
-  "lastModified": "2026-02-12T21:37:52.061Z",
+  "lastModified": "2026-03-17T12:43:10.346Z",
   "artUrl": "https://cdn.midjourney.com/f3626633-06df-4300-b720-341aae5dce08/0_2.png",
   "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
 }

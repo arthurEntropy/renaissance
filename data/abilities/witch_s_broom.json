@@ -2,9 +2,9 @@
   "source": "162ae4db-7a67-4770-8a2c-7e9883da14f6",
   "id": "6e9151ad-ea1e-4799-a7b2-7d9000359ed2",
   "createdAt": "2026-03-11T21:19:10.097Z",
-  "lastModified": "2026-03-12T13:56:42.421Z",
+  "lastModified": "2026-03-17T15:23:45.590Z",
   "name": "Witch's Broom",
-  "description": "<p>You have learned the art of crafting a witch’s broom.</p><p>You may spend 1 hour crafting and enchanting a broom from raw materials. At the end of the hour, the broom becomes magical and attuned to you.</p><p>While you are astride the broom, you may fly. Additionally:</p><ul><li><p>You may spend 1 MP to double your speed for one turn as a free action.</p></li><li><p>If the broom is within medium range, you may spend 1 MP and a half action to call it to you.</p></li><li><p>You may spend 1 MP to allow the broom to bear a second rider for 1 hour.</p></li></ul><p>You may have only one crafted witch’s broom attuned to you at a time. If you craft and attune to another broom, your previous broom loses its magic and becomes mundane.</p>",
+  "description": "<p>You have learned the art of crafting a witch’s broom.</p><p>You may spend 1 hour crafting and enchanting a broom from raw materials. At the end of the hour, the broom becomes magical and attuned to you.</p><p>While you are astride the broom, you may fly. Additionally:</p><ul><li><p>You may spend 1 MP to double your speed for one turn as a free action.</p></li><li><p>If the broom is within medium range, you may spend 1 MP and a half action to call it to you.</p></li><li><p>You may spend 1 MP to allow the broom to bear a second rider for 1 hour.</p></li></ul><p>You may have only one crafted witch’s broom attuned to you at a time. If you craft and attune to another broom, your previous broom loses its magic and becomes mundane.</p><p><strong>Describe your broom.</strong></p>",
   "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d",
   "xp": 30,
   "improvements": [

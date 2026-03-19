@@ -1,14 +1,14 @@
 {
   "id": "0704fd08-ce09-40a6-9db0-62ff6e7839f7",
   "name": "Free Throw",
-  "description": "<p><em>Trigger: A creature within your Orb's range deals damage to you with an Attack.</em></p><p>Make an Attack against that creature with your Orb.</p>",
+  "description": "<p><em>Trigger: A creature within your orb's range deals damage to you with an attack.</em></p><p>Make an attack against that creature with your orb.</p>",
   "canBeActive": false,
   "isActive": true,
   "source": "a07490af-2d77-4968-9adc-0a2a7c84ef70",
   "isDeleted": false,
   "mp": "",
   "xp": 10,
-  "lastModified": "2026-03-02T21:47:32.306Z",
+  "lastModified": "2026-03-17T01:16:10.059Z",
   "type": "e5f6a1b2-c3d4-4e5f-da2b-1c0d9e8f7a6b",
   "artUrl": "https://cdn.midjourney.com/65ca68eb-56a8-4ff7-a7ec-a28989deab28/0_2.png"
 }
