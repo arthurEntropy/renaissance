@@ -64,6 +64,7 @@ import { useFloatingElement } from '@/composables/useFloatingElement'
 import { CUSTOM_BIOME_ART_URL } from '@shared/constants/biomeTags'
 import { useOptimizedImage } from '@/composables/useOptimizedImage'
 import { getOptimizedImageUrl } from '@/utils/imageOptimization'
+import { useImagePreloader } from '@/composables/useImagePreloader'
 
 const biomeStore = useBiomeStore()
 const biomesStore = useBiomesStore()
@@ -142,6 +143,12 @@ const currentNavIndex = computed(() => {
     const idx = navOptions.value.findIndex(b => b?.id === biomeStore.selectedBiomeId)
     return idx === -1 ? 0 : idx
 })
+
+const navImageUrls = computed(() =>
+    navOptions.value.map(b => b?.artUrl ?? CUSTOM_BIOME_ART_URL)
+)
+
+useImagePreloader(navImageUrls, currentNavIndex, 'small', getOptimizedImageUrl)
 
 const prevBiome = () => {
     const newIndex = (currentNavIndex.value - 1 + navOptions.value.length) % navOptions.value.length
