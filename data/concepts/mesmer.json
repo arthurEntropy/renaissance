@@ -9,7 +9,7 @@
   ],
   "faces": [],
   "places": [],
-  "backgroundImage": "https://cdn.midjourney.com/57a4f447-0af5-49d6-a810-eef63cbf3f67/0_1.png",
+  "backgroundImage": "https://cdn.midjourney.com/f9573588-5bdf-4488-a5b8-5f4e53f3d643/0_2.png",
   "expansion": "",
   "hooks": [],
   "playlists": [],
@@ -19,5 +19,18 @@
   "vittles": "",
   "pointsOfInterest": "",
   "floraFauna": "",
-  "lastModified": "2025-12-29T19:30:57.395Z"
+  "lastModified": "2026-04-03T14:30:09.874Z",
+  "detailBackgroundImage": "",
+  "novizio": {
+    "flavorText": "",
+    "melee": "",
+    "polearms": "",
+    "ranged": "",
+    "firearms": "",
+    "armor": "",
+    "engagement": "",
+    "initialMaxMP": 1,
+    "abilities": "",
+    "description": "<p>You have learned or inherited a tradition of masked performance, deception, and dubious mysticism, practicing techniques that blur the line between clever trickery and genuine supernatural influence. You discover which techniques are genuine by experimentation.</p>"
+  }
 }

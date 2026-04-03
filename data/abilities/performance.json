@@ -1,0 +1,12 @@
+{
+  "source": "dab3e414-0118-49be-9779-4e3018cdba71",
+  "id": "e74aa8a6-b6f7-4280-ad72-17bc39d769bf",
+  "createdAt": "2026-04-03T14:15:03.286Z",
+  "lastModified": "2026-04-03T15:12:12.614Z",
+  "name": "Performance",
+  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
+  "description": "<p>Roll your current mask's Discovery Skill, performing one of that mask's techniques:</p><ul><li><p>If your roll result matches that mask's current Discovery Number exactly, reveal the hidden ability. You gain that ability and immediately use it, regardless of its action and/or MP cost (you must pay these costs for subsequent uses).</p></li><li><p>Otherwise, your technique is mundane, but may still be effective. Your roll result becomes the Difficulty. State your intent and choose one or more creatures within short range. Each creature you chose rolls Awareness against the Difficulty. The GM adjudicates the outcome as a normal opposed skill check.</p></li></ul><p style=\"text-align: left\">You may use this ability any number of times in combat, and outside of combat once per day per mask you have.</p>",
+  "successes": "<p>✨: You may adjust your result up or down by 1.</p><p>🌞: You gain and use the hidden ability as if you had matched the Discovery Number.</p><p>💀: The technique has no effect, and you must choose a new ability to place face-down under the mask, rolling a new Discovery Number.</p>",
+  "artUrl": "https://cdn.midjourney.com/3db143a9-fa98-4a17-80d8-f24edabe6517/0_0.png",
+  "school": null
+}
