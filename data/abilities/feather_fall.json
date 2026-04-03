@@ -2,15 +2,15 @@
   "id": "15170e88-f451-4302-b772-8ca96aa9ca65",
   "isDeleted": false,
   "createdAt": "2025-12-31T02:40:02.823Z",
-  "lastModified": "2026-03-19T00:01:43.962Z",
+  "lastModified": "2026-03-31T01:11:35.192Z",
   "name": "Feather Fall",
-  "description": "<p>Choose up to five falling creatures within medium range. Roll Lore against a difficulty of 10 + the number of chosen creatures.</p><p>On a pass, each affected creature’s descent slows to a controlled pace, allowing them to land safely and on their feet. This effect lasts for one minute.</p><p>On a failure, their fall is only partially slowed. If a creature lands before the spell ends, it takes half the normal falling damage.</p><p><strong>Describe how you slow the fall.</strong></p>",
+  "description": "<p>Choose up to five falling creatures within medium range. Roll Lore against a difficulty of 10 + the number of chosen creatures.</p><p>On a pass, each chosen creature’s descent slows to a controlled pace, allowing them to land safely and on their feet. This effect lasts for one minute.</p><p>On a failure, their fall is only partially slowed. If a creature lands before the spell ends, it takes half the normal falling damage.</p><p><strong>Describe how you slow the fall.</strong></p>",
   "canBeActive": false,
   "isActive": true,
   "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
   "mp": 1,
   "xp": 5,
-  "successes": "<p>✨: All affected creatures are able to guide their movement as they fall, moving up to 5 ft horizontally for every 10 ft fallen.</p><p>🌞: All affected creatures stop falling immediately. While the spell lasts, they may move through the air in any direction they choose except upward.</p><p>💀: The spell misfires: it does not slow falling at all and pushes each target 15 feet away from you. Check a Condition.</p>",
+  "successes": "<p>✨: Each chosen creature is able to guide its movement as it falls, moving up to 5 ft horizontally for every 10 ft fallen.</p><p>🌞: Each chosen creature stops falling immediately. While the spell lasts, it may move through the air in any direction it chooses except upward.</p><p>💀: The spell misfires: it does not slow falling at all and pushes each chosen creature 15 feet away from you. Check a Condition.</p>",
   "improvements": [
     {
       "name": "Precious Cargo",

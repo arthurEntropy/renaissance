@@ -1,14 +1,14 @@
 {
   "id": "56f682a2-50e9-4c65-8de2-8e24ec82b04a",
   "name": "Machine Reslilience",
-  "description": "<p>You cannot become Weary or Twice-Weary. You don’t need to eat, drink, breathe or sleep, and magic can't put you to sleep. When you rest, rather than sleeping, you appear inert, but you can see and hear as normal.</p><p><strong>Describe how your inner workings keep you going.</strong></p>",
+  "description": "<p><em>Your mechanical frame is immune to weaknesses of the flesh.</em></p><p>You cannot become Weary or Twice-Weary. You don’t need to eat, drink, breathe or sleep, and magic can't put you to sleep. When you rest, rather than sleeping, you appear inert, but you can see and hear as normal.</p><p><strong>Describe how your inner workings keep you going.</strong></p>",
   "canBeActive": false,
   "isActive": true,
   "source": "cfd7bf18-3a9a-4b4e-a9a9-c7069dd822c3",
   "isDeleted": false,
   "mp": null,
   "xp": null,
-  "lastModified": "2026-02-26T14:20:45.154Z",
+  "lastModified": "2026-03-19T02:16:21.830Z",
   "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d",
   "artUrl": "https://cdn.midjourney.com/616e08a6-4bc2-4be4-96c0-495f0eef0575/0_3.png"
 }

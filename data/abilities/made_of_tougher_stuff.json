@@ -1,14 +1,14 @@
 {
   "id": "d97c0db1-5797-4f54-9c77-15597dcc6d49",
   "name": "Made Of Tougher Stuff",
-  "description": "<p>Your rigid form grants +2 to your maximum Defense.</p><p>Additionally, you may integrate Armor into your body. To do so, you must spend an hour affixing it carefully. After doing so, while you are conscious, that piece of Armor can't be removed from your body against your will.</p><p><strong>Describe how your armor alters your appearance.</strong></p>",
+  "description": "<p><em>Your rigid form is difficult to damage.</em></p><p>You gain +2 to your maximum Defense.</p><p>Additionally, you may integrate armor into your body. To do so, you must spend an hour affixing it carefully. After doing so, while you are conscious, that piece of armor can't be removed from your body against your will.</p><p><strong>Describe how your armor alters your appearance.</strong></p>",
   "canBeActive": false,
   "isActive": true,
   "source": "cfd7bf18-3a9a-4b4e-a9a9-c7069dd822c3",
   "isDeleted": false,
   "mp": null,
   "xp": null,
-  "lastModified": "2026-02-26T14:29:33.718Z",
+  "lastModified": "2026-03-19T02:16:49.042Z",
   "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d",
   "artUrl": "https://cdn.midjourney.com/d64d5273-0493-45c8-8e5b-7d2c7f639516/0_0.png"
 }
