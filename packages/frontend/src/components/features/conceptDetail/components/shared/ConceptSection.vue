@@ -1,10 +1,14 @@
 <template>
     <div class="concept-section" :class="{ 'flush-top': flush }" v-if="hasContent || isEditMode">
-        <h2 v-if="title" class="section-header" :class="{ 'edit-hover-area': showEditButton }">
-            {{ title }}
+        <div v-if="title" class="section-header"
+            :class="{ 'edit-hover-area': showEditButton, 'has-center': $slots['header-center'] }">
+            <h2 class="section-title">{{ title }}</h2>
+            <div v-if="$slots['header-center']" class="section-header-center">
+                <slot name="header-center" />
+            </div>
             <FloatingActionButton v-if="showEditButton" type="edit" :is-active="isSectionEditing"
                 @click="$emit('toggle-edit')" size="small" visibility="always" />
-        </h2>
+        </div>
         <div v-if="!hasContent && isEditMode && !isSectionEditing" class="empty-section-placeholder">
             {{ emptyMessage }}
         </div>
@@ -64,17 +68,30 @@ defineEmits(['toggle-edit'])
 }
 
 .section-header {
-    font-weight: var(--font-weight-bold);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     margin-top: 0;
     margin-bottom: var(--space-lg);
-    font-size: var(--font-size-32);
 }
 
 .section-header.edit-hover-area {
     position: relative;
+}
+
+.section-title {
+    font-weight: var(--font-weight-bold);
+    margin: 0;
+    font-size: var(--font-size-32);
+}
+
+.section-header-center {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    gap: var(--space-md);
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .empty-section-placeholder {
