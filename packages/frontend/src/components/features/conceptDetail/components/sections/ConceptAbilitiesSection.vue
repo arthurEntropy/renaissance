@@ -68,6 +68,7 @@ import SortingDropdown from '@/components/ui/dropdowns/SortingDropdown.vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import { sortItems } from '@/utils/sortItems'
 import { ABILITY_SORT_OPTIONS } from '@/constants/sortOptions'
+import { useFilterPersistence } from '@/composables/useFilterPersistence'
 import { useCharactersStore } from '@/stores/charactersStore'
 import { useAbilitiesStore } from '@/stores/abilitiesStore'
 import { useSourcesStore } from '@/stores/sourcesStore'
@@ -127,6 +128,8 @@ const groupingOptions = [
 
 const sortOption = ref('xp-asc')
 const groupingOption = ref('')
+
+useFilterPersistence('concept-abilities', { sortOption, groupingOption })
 
 const isGroupedBySchool = computed(() => groupingOption.value === 'school')
 
