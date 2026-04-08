@@ -1,0 +1,12 @@
+{
+  "source": "dab3e414-0118-49be-9779-4e3018cdba71",
+  "id": "af7cb384-c64a-42c3-a5be-7cb270623f5f",
+  "createdAt": "2026-04-06T14:01:57.146Z",
+  "lastModified": "2026-04-08T18:17:02.560Z",
+  "name": "Unsettling Presence",
+  "description": "<p>While wearing a Mesmer's mask, when you target a creature with a Mesmer ability, gain +1d for each Condition it has checked. If an ability targets multiple creatures, use the target with the fewest Conditions to determine this bonus.</p><p>If any of the targets have ever seen your unmasked face, you gain no bonus.</p><p><strong>Describe your unsettling presence.</strong></p>",
+  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d",
+  "isMagical": false,
+  "artUrl": "https://cdn.midjourney.com/b4d5aeb8-9ea2-447d-80b6-b211f928f6ae/0_2.png",
+  "improvements": []
+}

@@ -1,0 +1,14 @@
+{
+  "source": "dab3e414-0118-49be-9779-4e3018cdba71",
+  "id": "42403d4b-cebb-491f-85bd-8b479104638b",
+  "createdAt": "2026-04-08T17:17:43.099Z",
+  "lastModified": "2026-04-08T17:29:51.133Z",
+  "name": "Seeming",
+  "description": "<p>Choose any number of creatures within short range. You give each a new, illusory appearance. Roll Perform to set the Difficulty. An unwilling creature may roll Insight against the Difficulty; on a pass, it is unaffected.</p><p>The illusion alters apparent height, weight, physical features, clothing, and equipment. You can’t change a target’s body type (number of legs, for example), and adjustments to height and weight are limited to 2 ft and 200 lbs, respectively. The illusion lasts for 8 hours, or until you spend an action to end the spell.</p><p>The illusion does not withstand physical inspection. A creature can spend an action and roll Awareness against the Difficulty to see through the illusion, which becomes translucent to them on a pass.</p>",
+  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
+  "mp": 5,
+  "xp": 25,
+  "isMagical": true,
+  "school": "7182a00c-40d0-4044-aeaa-6dd75e1afcd5",
+  "successes": "<p>✨: Increase the Difficulty by 2.</p><p>🌞: While the effect lasts, you may spend an action to change the illusion affecting one of the creatures.</p>"
+}

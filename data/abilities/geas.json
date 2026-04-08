@@ -1,0 +1,14 @@
+{
+  "source": "dab3e414-0118-49be-9779-4e3018cdba71",
+  "id": "29f17960-2380-41be-8055-ba34f427ba9a",
+  "createdAt": "2026-04-07T20:21:29.042Z",
+  "lastModified": "2026-04-08T13:06:28.406Z",
+  "name": "Geas",
+  "description": "<p><em>Casting time: 1 minute.</em></p><p>Roll Persuasion vs Riddle against a creature within medium range that can understand you.</p><p>On a win, you place a magical command on a creature within medium range, forcing it to carry out some service or refrain from some action or course of activity as you decide. You can issue any command you choose, short of an activity that would result in certain death for the creature.</p><p>The command persists for up to 30 days, or until the creature satisfies the requirements of the command. During that time, the creature takes 5d10 damage each time it acts in a manner directly counter to your instructions, but no more than once each day.</p><p>On a loss, your attempt to seize control of their mind leaves scars. The creature checks a Condition and rolls Injury.</p>",
+  "successes": "<p>✨: On a win, while the command persists, you may modify the command or replace it with a new command.</p><p>🌞: The command persists for up to 100 days.</p>",
+  "mp": 5,
+  "xp": 25,
+  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
+  "isMagical": true,
+  "school": "9d93af3f-008e-429d-b7c4-7838a39d3b1b"
+}

@@ -1,0 +1,14 @@
+{
+  "source": "dab3e414-0118-49be-9779-4e3018cdba71",
+  "id": "c88f92c5-a000-4a3b-ad10-69dee0b2d60e",
+  "createdAt": "2026-04-06T23:45:04.834Z",
+  "lastModified": "2026-04-07T00:54:07.899Z",
+  "description": "<p><em>Concentration, up to 1 minute.</em></p><p>Roll Persuade vs. Riddle against a creature within long range. On a win, the target is charmed by you, its eyes glow a color of your choosing and your roll result becomes the Difficulty.</p><p>At the start of each of the creature's turns, you may spend a reaction. If you do, the creature must spend an action to make a melee attack against a creature you mentally designate. After resolving this attack, the target may roll Awareness against the Difficulty, ending the effect on a pass.</p><p><strong>Describe the change that comes over them.</strong></p>",
+  "successes": "<p>✨: Win or loss, the creature checks a Condition.</p><p>🌞: When you spend a reaction to force the creature to make an attack, you may also force it to move in a direction of your choosing, up to half its Speed.</p>",
+  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
+  "mp": 2,
+  "xp": 10,
+  "isMagical": true,
+  "school": "9d93af3f-008e-429d-b7c4-7838a39d3b1b",
+  "name": "Madness"
+}

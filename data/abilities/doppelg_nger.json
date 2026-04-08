@@ -1,0 +1,27 @@
+{
+  "id": "56da8c36-5b32-45cd-88ca-03b635503e35",
+  "createdAt": "2026-04-08T14:44:55.049Z",
+  "lastModified": "2026-04-08T18:01:18.338Z",
+  "name": "Doppelgänger",
+  "description": "<p><em>Concentration, up to 1 hour.</em></p><p>You create an illusory double of yourself, which appears adjacent to you.</p><p>You can see through its eyes and hear through its ears as if you were located where it is. You my switch between using its senses and your own by spending a half action. While you are using its senses, you are blinded and deafened in regard to your own surroundings.</p><p>You can spend an action to move your illusory double up to twice your speed and make it gesture, speak, and behave in whatever way you choose. The double cannot move beyond far range from you.</p><p>Physical interaction with the duplicate reveals the nature of the illusion.</p>",
+  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
+  "mp": 5,
+  "xp": 25,
+  "source": "dab3e414-0118-49be-9779-4e3018cdba71",
+  "isMagical": true,
+  "school": "b19b34c0-9627-4712-a9db-db6c3ccb261d",
+  "improvements": [
+    {
+      "name": "Imposter",
+      "description": "<p>You may choose to have the doppelgänger take the form of a humanoid creature you have interacted with before. If you have spent at least 1 minute in conversation with the creature you are impersonating, the doppelgänger speaks with their voice. Otherwise, the doppelgänger speaks with your voice.</p>",
+      "xp": 40,
+      "id": "bcf4a828-8891-4792-b98b-b6d0defdeb60"
+    },
+    {
+      "name": "Project Image",
+      "description": "<p>The doppelgänger may move any distance from you.</p>",
+      "xp": 50,
+      "id": "02e8247a-ca16-4aac-a588-dc12bc50b465"
+    }
+  ]
+}

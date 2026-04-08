@@ -1,0 +1,13 @@
+{
+  "source": "dab3e414-0118-49be-9779-4e3018cdba71",
+  "id": "7493c2fb-49e1-4116-94ff-f032ae3e367d",
+  "createdAt": "2026-04-04T21:26:40.774Z",
+  "lastModified": "2026-04-07T00:25:10.995Z",
+  "description": "<p><em>Concentration, up to 1 minute.</em></p><p>Your body becomes blurred, shifting and wavering to all who can see you. Attack rolls against you are ill-favored and your Stealth rolls are favored.</p><p><strong>Describe the change in your appearance.</strong></p>",
+  "name": "Blur",
+  "type": "c3d4e5f6-a1b2-4c3d-be0f-9a8b7c6d5e4f",
+  "xp": 10,
+  "mp": 2,
+  "school": "7ba974f1-287b-472f-be0d-74bfd62bb761",
+  "isMagical": true
+}

@@ -1,0 +1,14 @@
+{
+  "source": "dab3e414-0118-49be-9779-4e3018cdba71",
+  "id": "c769d4e0-12bc-4198-94f7-c10953e32670",
+  "createdAt": "2026-04-07T00:43:37.140Z",
+  "lastModified": "2026-04-07T00:53:37.715Z",
+  "description": "<p>You project sounds or words you choose into a creature's mind.</p><p>Roll Awe vs Spirit against a creature within medium range. On a win, the creature checks a Condition and immediately spends a reaction (if available) to move away from you, moving half its speed. On a loss, it just checks a Condition.</p>",
+  "successes": "<p>✨: The creature checks an additional Condition.</p><p>🌞: The creature checks an additional Condition, rolls Injury, and it cannot uncheck the Conditions checked by this ability while it can see you.</p>",
+  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
+  "mp": 1,
+  "xp": 5,
+  "school": "fcf1aa58-1d97-4950-82ba-8807f46de194",
+  "name": "Addle",
+  "isMagical": true
+}

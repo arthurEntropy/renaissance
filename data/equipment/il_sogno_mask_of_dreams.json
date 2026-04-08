@@ -2,8 +2,8 @@
   "source": "dab3e414-0118-49be-9779-4e3018cdba71",
   "id": "53cadf6f-5127-41c7-b84c-4c5abeae72a9",
   "createdAt": "2026-04-03T14:44:19.502Z",
-  "lastModified": "2026-04-03T14:45:04.195Z",
-  "description": "<p><em>Discovery Skill: Insight</em></p><p>The domain of this mask is <em>Illusion</em>. Its techniques include phantasmagoria, dream interpretation, mesmerism, and other methods of shaping perception, belief, and unreality.</p><p>While wearing this mask, when you roll Insight, +1d.</p><p><strong>Describe your technique.</strong></p>",
+  "lastModified": "2026-04-06T18:07:03.614Z",
+  "description": "<p>Discovery Skill: Insight</p><p>The domain of this mask is <em>Illusion</em>. Its techniques include phantasmagoria, dream interpretation, mesmerism, and other methods of shaping perception, belief, and unreality.</p><p>While wearing this mask, when you roll Insight, +1d.</p>",
   "name": "Il Sogno, Mask of Dreams",
   "engagementDice": [],
   "damageDice": [],
@@ -12,5 +12,7 @@
   "reach": 0,
   "artUrl": "https://cdn.midjourney.com/8c4ef866-75cf-4fd7-a33c-3e596e2989e9/0_0.png",
   "keeping": "5e6f7a8b-9c0d-4e1f-2a3b-4c5d6e7f8a9b",
-  "isMagical": true
+  "isMagical": true,
+  "type": "1571c2a7-1abb-45df-b703-a051868486a8",
+  "subtype": "d9dd4c74-670e-49d5-a3a7-11150203f262"
 }

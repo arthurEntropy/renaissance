@@ -2,9 +2,9 @@
   "source": "dab3e414-0118-49be-9779-4e3018cdba71",
   "id": "90851f66-f951-4367-8b9d-0fb198199a1b",
   "createdAt": "2026-04-03T14:42:00.582Z",
-  "lastModified": "2026-04-03T14:45:30.214Z",
+  "lastModified": "2026-04-06T18:07:12.338Z",
   "name": "Il Volto, Mask of Faces",
-  "description": "<p><em>Discovery Skill: Perform</em></p><p style=\"text-align: left\">The domain of this mask is <em>Identity</em>. Its techniques include imitation, caricature, parody, melodrama, and other adjustments to voice, posture and demeanor.</p><p style=\"text-align: left\">While wearing this mask, when you roll Perform, +1d.</p><p style=\"text-align: left\"><strong>Describe your technique.</strong></p>",
+  "description": "<p>Discovery Skill: Perform</p><p style=\"text-align: left\">The domain of this mask is <em>Identity</em>. Its techniques include imitation, caricature, parody, melodrama, and other adjustments to voice, posture and demeanor.</p><p style=\"text-align: left\">While wearing this mask, when you roll Perform, +1d.</p>",
   "keeping": "5e6f7a8b-9c0d-4e1f-2a3b-4c5d6e7f8a9b",
   "engagementDice": [],
   "damageDice": [],
@@ -12,5 +12,7 @@
   "length": 0,
   "reach": 0,
   "artUrl": "https://cdn.midjourney.com/1e087152-a2ca-46da-b41e-6e66073212dd/0_0.png",
-  "isMagical": true
+  "isMagical": true,
+  "type": "1571c2a7-1abb-45df-b703-a051868486a8",
+  "subtype": "d9dd4c74-670e-49d5-a3a7-11150203f262"
 }
