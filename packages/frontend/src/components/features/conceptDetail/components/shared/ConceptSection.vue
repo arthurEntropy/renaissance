@@ -6,6 +6,9 @@
             <div v-if="$slots['header-center']" class="section-header-center">
                 <slot name="header-center" />
             </div>
+            <div v-if="$slots['header-right']" class="section-header-right">
+                <slot name="header-right" />
+            </div>
             <FloatingActionButton v-if="showEditButton" type="edit" :is-active="isSectionEditing"
                 @click="$emit('toggle-edit')" size="small" visibility="always" />
         </div>
@@ -92,6 +95,12 @@ defineEmits(['toggle-edit'])
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
+}
+
+.section-header-right {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
 }
 
 .empty-section-placeholder {

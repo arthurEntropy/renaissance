@@ -8,6 +8,10 @@
                 <SortingDropdown v-model="sortOption" :options="sortOptions" placeholder="Order by..." />
             </template>
 
+            <template v-if="isEditMode" #header-right>
+                <FloatingActionButton type="add" visibility="always" @click="$emit('add-ability')" />
+            </template>
+
             <!-- Grouped by school display -->
             <template v-if="isGroupedBySchool">
                 <!-- Ungrouped abilities (no school) shown above groups, no header -->
@@ -49,9 +53,7 @@
                     @update="handleCharacterUpdate" />
             </MasonryGrid>
 
-            <div v-if="isEditMode" class="add-button-container">
-                <FloatingActionButton type="add" visibility="always" @click="$emit('add-ability')" />
-            </div>
+
         </ConceptSection>
     </div>
 </template>
@@ -160,13 +162,5 @@ const handleCharacterUpdate = async (updatedCharacter) => {
     background: var(--overlay-black-medium);
     border-radius: var(--radius-10);
     padding: var(--space-lg);
-}
-
-.add-button-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-    position: relative;
-    min-height: 40px;
 }
 </style>
