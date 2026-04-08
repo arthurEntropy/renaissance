@@ -150,7 +150,7 @@ const characterHasBaseAbility = computed(() => {
 })
 
 const shouldShowBaseXpBadge = computed(() => {
-  return props.showXpBadge && props.ability.xp !== undefined && props.ability.xp !== null
+  return props.showXpBadge && !!props.ability.xp
 })
 
 const biomeDiceMod = computed(() => {
