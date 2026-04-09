@@ -1,7 +1,7 @@
 <template>
     <div v-if="content || $slots.successes || $slots['before-description'] || $slots['after-description'] || $slots['below-description'] || $slots['top-badge']"
         class="card-description" :class="[additionalClasses, { 'has-top-badge': !!$slots['top-badge'] }]"
-        @click="handleDescriptionClick">
+        @click="handleDescriptionClick" @mouseover="handleRangeHintMouseover" @mouseleave="handleRangeHintMouseleave">
         <!-- Bookmark badge for magic items/abilities -->
         <slot name="top-badge"></slot>
 
@@ -20,12 +20,21 @@
         <!-- Successes section (within same container) -->
         <slot name="successes"></slot>
     </div>
+
+    <!-- Range hint tooltip -->
+    <teleport to="body">
+        <div v-if="showRangeTooltip" class="range-tooltip" :style="rangeTooltipStyle">
+            {{ rangeTooltipContent?.distance }}
+        </div>
+    </teleport>
 </template>
 
 <script setup>
 import { computed } from 'vue'
 import { sanitizeHtml } from '@/utils/sanitizeHtml'
 import { autoLinkifyRolls } from '@/utils/autoLinkifyRolls'
+import { autoLinkifyRanges } from '@/utils/autoLinkifyRanges'
+import { useTooltip } from '@/composables/useFloatingElement'
 
 const props = defineProps({
     content: { type: String, required: true },
@@ -34,9 +43,11 @@ const props = defineProps({
 
 const emit = defineEmits(['roll-link'])
 
+const { content: rangeTooltipContent, style: rangeTooltipStyle, isVisible: showRangeTooltip, show: showTooltip, hide: hideTooltip } = useTooltip()
+
 const safeContent = computed(() => {
     const sanitized = sanitizeHtml(props.content)
-    return autoLinkifyRolls(sanitized)
+    return autoLinkifyRanges(autoLinkifyRolls(sanitized))
 })
 
 function handleDescriptionClick(event) {
@@ -53,6 +64,31 @@ function handleDescriptionClick(event) {
             console.error('Failed to parse roll action data:', err)
         }
     }
+}
+
+function handleRangeHintMouseover(event) {
+    const target = event.target
+    if (target.classList?.contains('range-hint')) {
+        // Use pointer position rather than element bounding box so the tooltip
+        // stays correctly anchored even when the phrase wraps across lines
+        const pointerRect = {
+            getBoundingClientRect: () => ({
+                left: event.clientX, right: event.clientX,
+                top: event.clientY, bottom: event.clientY,
+                width: 0, height: 0,
+            })
+        }
+        showTooltip({ distance: target.dataset.rangeDistance }, pointerRect)
+    } else {
+        hideTooltip()
+    }
+}
+
+function handleRangeHintMouseleave(event) {
+    const related = event.relatedTarget
+    // Keep tooltip visible when moving within the same range-hint element
+    if (related?.classList?.contains('range-hint')) return
+    hideTooltip()
 }
 </script>
 
@@ -156,5 +192,30 @@ function handleDescriptionClick(event) {
 
 .card-description :deep(.roll-link:hover) {
     color: var(--color-accent-gold);
+}
+
+/* Range hint phrases — dotted underline appears on card hover */
+.card-description:hover :deep(.range-hint) {
+    text-decoration: underline dotted var(--color-gray-light);
+    cursor: help;
+}
+</style>
+
+<!-- Tooltip is teleported to body, so unscoped styles are needed -->
+<style>
+.range-tooltip {
+    position: fixed;
+    z-index: var(--z-tooltip);
+    background: var(--color-bg-primary);
+    color: var(--color-text-primary);
+    padding: var(--space-sm);
+    border-radius: var(--radius-5);
+    border: 1px solid var(--color-text-primary);
+    box-shadow: var(--shadow-elevation-md);
+    max-width: 260px;
+    transform: translateX(-50%);
+    pointer-events: none;
+    font-size: var(--font-size-12);
+    line-height: var(--line-height-normal);
 }
 </style>
