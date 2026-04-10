@@ -28,7 +28,8 @@
                 </MasonryGrid>
                 <!-- School-grouped abilities -->
                 <GroupedMasonryGrid v-if="schoolGroupedAbilities.length > 0" :column-width="350" :gap="20"
-                    :row-height="10" :grouped-items="schoolGroupedAbilities" class="cards-container">
+                    :row-height="10" :grouped-items="schoolGroupedAbilities" persistence-key="concept-abilities-groups"
+                    class="cards-container">
                     <template #default="{ item }">
                         <AbilityCard :ability="item" :editable="isEditMode" :sources="sources" :collapsible="false"
                             :showImprovements="getAbilityShowImprovements(item.id)"
