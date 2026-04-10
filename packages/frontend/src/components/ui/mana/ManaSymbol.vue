@@ -49,7 +49,7 @@ const imgSrc = computed(() => {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 16px;
+    width: 15px;
     height: 15px;
     padding: 1.5px 1px 1px 1px;
     position: relative;
@@ -79,9 +79,10 @@ const imgSrc = computed(() => {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.1em;
+    font-size: 1.2em;
+    color: var(--color-black);
     line-height: 1;
-    margin-left: -2px;
+    margin-left: -1px;
     -webkit-text-stroke: 0px var(--color-black);
 }
 
@@ -90,7 +91,6 @@ const imgSrc = computed(() => {
     width: 90%;
     height: 90%;
     object-fit: contain;
-    filter: brightness(0) invert(1);
 }
 
 .mana-white {

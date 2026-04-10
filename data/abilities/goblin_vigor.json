@@ -2,9 +2,9 @@
   "source": "6ff91bc4-122f-4e95-bb08-b577f1a94bb6",
   "id": "c5ccc124-c1c0-4a4a-a01f-42243b86759a",
   "createdAt": "2026-02-26T15:09:59.401Z",
-  "lastModified": "2026-02-26T15:18:11.717Z",
+  "lastModified": "2026-03-19T02:24:35.864Z",
   "name": "Goblin Vigor",
-  "description": "<p>When you regain Endurance from resting, do not subtract your current Injury as normal. Additionally, at the end of each rest, remove 1 Injury.</p><p><strong>Describe how your wounds heal quickly.</strong></p>",
+  "description": "<p><em>You have an uncanny ability to recover from harm.</em></p><p>When you regain Endurance from resting, do not subtract your current Injury as normal. Additionally, at the end of each rest, remove 1 Injury.</p><p><strong>Describe how your wounds heal quickly.</strong></p>",
   "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d",
   "artUrl": "https://cdn.midjourney.com/948976e1-22c6-4725-afb5-3c63a2894c17/0_3.png"
 }

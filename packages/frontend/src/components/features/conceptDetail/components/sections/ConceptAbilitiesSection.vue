@@ -2,7 +2,48 @@
     <div v-if="hasAbilities || isEditMode" class="section-panel">
         <ConceptSection title="Abilities" :has-content="hasAbilities" :is-edit-mode="isEditMode"
             empty-message="No abilities added yet.">
-            <MasonryGrid :column-width="350" :gap="20" :row-height="10" class="cards-container">
+
+            <template v-if="hasAbilities" #header-center>
+                <SortingDropdown v-model="groupingOption" :options="groupingOptions" placeholder="Group by..." />
+                <SortingDropdown v-model="sortOption" :options="sortOptions" placeholder="Order by..." />
+            </template>
+
+            <template v-if="isEditMode" #header-right>
+                <FloatingActionButton type="add" visibility="always" @click="$emit('add-ability')" />
+            </template>
+
+            <!-- Grouped by school display -->
+            <template v-if="isGroupedBySchool">
+                <!-- Ungrouped abilities (no school) shown above groups, no header -->
+                <MasonryGrid v-if="noSchoolAbilities.length > 0" :column-width="350" :gap="20" :row-height="10"
+                    class="cards-container">
+                    <AbilityCard v-for="ability in noSchoolAbilities" :key="ability.id" :ability="ability"
+                        :editable="isEditMode" :sources="sources" :collapsible="false"
+                        :showImprovements="getAbilityShowImprovements(ability.id)"
+                        @update:showImprovements="updateAbilityShowImprovements(ability.id, $event)"
+                        @edit="$emit('edit-ability', ability)" :character="character"
+                        :show-improvement-toggle="!!character" :showSuccesses="getAbilityShowSuccesses(ability.id)"
+                        @update:showSuccesses="updateAbilityShowSuccesses(ability.id, $event)"
+                        @update="handleCharacterUpdate" />
+                </MasonryGrid>
+                <!-- School-grouped abilities -->
+                <GroupedMasonryGrid v-if="schoolGroupedAbilities.length > 0" :column-width="350" :gap="20"
+                    :row-height="10" :grouped-items="schoolGroupedAbilities" persistence-key="concept-abilities-groups"
+                    class="cards-container">
+                    <template #default="{ item }">
+                        <AbilityCard :ability="item" :editable="isEditMode" :sources="sources" :collapsible="false"
+                            :showImprovements="getAbilityShowImprovements(item.id)"
+                            @update:showImprovements="updateAbilityShowImprovements(item.id, $event)"
+                            @edit="$emit('edit-ability', item)" :character="character"
+                            :show-improvement-toggle="!!character" :showSuccesses="getAbilityShowSuccesses(item.id)"
+                            @update:showSuccesses="updateAbilityShowSuccesses(item.id, $event)"
+                            @update="handleCharacterUpdate" />
+                    </template>
+                </GroupedMasonryGrid>
+            </template>
+
+            <!-- Ungrouped display -->
+            <MasonryGrid v-else :column-width="350" :gap="20" :row-height="10" class="cards-container">
                 <AbilityCard v-for="ability in sortedAbilities" :key="ability.id" :ability="ability"
                     :editable="isEditMode" :sources="sources" :collapsible="false"
                     :showImprovements="getAbilityShowImprovements(ability.id)"
@@ -12,9 +53,8 @@
                     @update:showSuccesses="updateAbilityShowSuccesses(ability.id, $event)"
                     @update="handleCharacterUpdate" />
             </MasonryGrid>
-            <div v-if="isEditMode" class="add-button-container">
-                <FloatingActionButton type="add" visibility="always" @click="$emit('add-ability')" />
-            </div>
+
+
         </ConceptSection>
     </div>
 </template>
@@ -24,16 +64,23 @@ import { computed, ref } from 'vue'
 import ConceptSection from '../shared/ConceptSection.vue'
 import AbilityCard from '@/components/ui/cards/item/AbilityCard.vue'
 import MasonryGrid from '@/components/ui/layouts/MasonryGrid.vue'
+import GroupedMasonryGrid from '@/components/ui/layouts/GroupedMasonryGrid.vue'
+import SortingDropdown from '@/components/ui/dropdowns/SortingDropdown.vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
+import { sortItems } from '@/utils/sortItems'
+import { ABILITY_SORT_OPTIONS } from '@/constants/sortOptions'
+import { useFilterPersistence } from '@/composables/useFilterPersistence'
 import { useCharactersStore } from '@/stores/charactersStore'
 import { useAbilitiesStore } from '@/stores/abilitiesStore'
 import { useSourcesStore } from '@/stores/sourcesStore'
 import { useConceptsStore } from '@/stores/conceptsStore'
+import { useAbilitySchoolsStore } from '@/stores/abilitySchoolsStore'
 
 const charactersStore = useCharactersStore()
 const abilitiesStore = useAbilitiesStore()
 const sourcesStore = useSourcesStore()
 const conceptsStore = useConceptsStore()
+const abilitySchoolsStore = useAbilitySchoolsStore()
 
 defineProps({
     isEditMode: {
@@ -75,14 +122,36 @@ const updateAbilityShowSuccesses = (abilityId, showSuccesses) => {
     successesVisibility.value.set(abilityId, showSuccesses)
 }
 
-// Sorted abilities by XP cost, then name
-const sortedAbilities = computed(() => {
-    return [...abilities.value].sort((a, b) => {
-        const xpA = a.xp ?? 0
-        const xpB = b.xp ?? 0
-        if (xpA !== xpB) return xpA - xpB
-        return (a.name || '').localeCompare(b.name || '')
+const sortOptions = ABILITY_SORT_OPTIONS
+const groupingOptions = [
+    { value: 'school', label: 'School' }
+]
+
+const sortOption = ref('xp-asc')
+const groupingOption = ref('')
+
+useFilterPersistence('concept-abilities', { sortOption, groupingOption })
+
+const isGroupedBySchool = computed(() => groupingOption.value === 'school')
+
+const sortedAbilities = computed(() => sortItems(abilities.value, sortOption.value))
+
+const noSchoolAbilities = computed(() =>
+    sortedAbilities.value.filter(a => !a.school)
+)
+
+const schoolGroupedAbilities = computed(() => {
+    if (!isGroupedBySchool.value) return []
+    const groups = {}
+    sortedAbilities.value.filter(a => a.school).forEach(ability => {
+        const school = abilitySchoolsStore.getById(ability.school)
+        const schoolName = school?.name || 'Unknown School'
+        if (!groups[ability.school]) {
+            groups[ability.school] = { id: ability.school, name: schoolName, collapsed: false, items: [] }
+        }
+        groups[ability.school].items.push(ability)
     })
+    return Object.values(groups).sort((a, b) => a.name.localeCompare(b.name))
 })
 
 const handleCharacterUpdate = async (updatedCharacter) => {
@@ -97,13 +166,5 @@ const handleCharacterUpdate = async (updatedCharacter) => {
     background: var(--overlay-black-medium);
     border-radius: var(--radius-10);
     padding: var(--space-lg);
-}
-
-.add-button-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-    position: relative;
-    min-height: 40px;
 }
 </style>

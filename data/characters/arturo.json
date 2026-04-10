@@ -143,12 +143,12 @@
     }
   ],
   "endurance": {
-    "current": 10,
+    "current": 15,
     "max": 15,
     "coreAbility": "body"
   },
   "hope": {
-    "current": 12,
+    "current": 6,
     "max": 6,
     "coreAbility": "heart"
   },
@@ -200,6 +200,6 @@
     "https://cdn.midjourney.com/1a823ba8-dae5-4791-b9e9-0d7ea00cf5f4/0_2.png"
   ],
   "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2026-02-15T18:10:57.332Z",
-  "lastModified": "2026-02-15T18:10:57.332Z"
+  "updatedAt": "2026-04-04T21:34:28.706Z",
+  "lastModified": "2026-04-04T21:34:28.706Z"
 }

@@ -1,7 +1,7 @@
 <template>
   <base-card :item="ability" :metaInfo="traitOrMp" :collapsed="collapsed" :editable="editable"
     @edit="$emit('edit', ability)" :collapsible="collapsible" @update:collapsed="$emit('update:collapsed', $event)"
-    @roll-link="handleRollLinkWithBiome" :itemType="ItemType.ABILITY" :class="biomeLinkClass">
+    @roll-link="handleRollLinkWithBiome" :itemType="ItemType.ABILITY" :class="biomeLinkClass" :show-source="false">
 
     <!-- XP badge positioned relative to main description when character owns any improvements OR when improvements are expanded -->
     <template #description-badge>
@@ -150,7 +150,7 @@ const characterHasBaseAbility = computed(() => {
 })
 
 const shouldShowBaseXpBadge = computed(() => {
-  return props.showXpBadge && props.ability.xp !== undefined && props.ability.xp !== null
+  return props.showXpBadge && !!props.ability.xp
 })
 
 const biomeDiceMod = computed(() => {

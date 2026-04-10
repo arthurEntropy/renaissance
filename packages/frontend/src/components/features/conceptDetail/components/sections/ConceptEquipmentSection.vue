@@ -6,6 +6,8 @@
                 <EquipmentCard v-for="item in equipment" :key="item.id" :equipment="item" :editable="isEditMode"
                     :sources="sources" :art-expanded="true" :engagement-success-options="[]" :character="character"
                     :show-improvement-toggle="!!character" @edit="$emit('edit-equipment', item)" :collapsible="false"
+                    :show-improvements="getEquipmentShowImprovements(item.id)"
+                    @update:showImprovements="updateEquipmentShowImprovements(item.id, $event)"
                     @update="handleCharacterUpdate" />
             </MasonryGrid>
             <div v-if="isEditMode" class="add-button-container">
@@ -16,7 +18,7 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import ConceptSection from '../shared/ConceptSection.vue'
 import EquipmentCard from '@/components/ui/cards/item/EquipmentCard.vue'
 import MasonryGrid from '@/components/ui/layouts/MasonryGrid.vue'
@@ -49,6 +51,17 @@ const equipment = computed(() =>
 )
 
 const hasEquipment = computed(() => equipment.value.length > 0)
+
+// Track improvement visibility per equipment item
+const improvementVisibility = ref(new Map())
+
+const getEquipmentShowImprovements = (equipmentId) => {
+    return improvementVisibility.value.get(equipmentId) || false
+}
+
+const updateEquipmentShowImprovements = (equipmentId, showImprovements) => {
+    improvementVisibility.value.set(equipmentId, showImprovements)
+}
 
 const handleCharacterUpdate = async (updatedCharacter) => {
     if (updatedCharacter && character.value) {

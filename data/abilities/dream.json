@@ -1,0 +1,28 @@
+{
+  "source": "dab3e414-0118-49be-9779-4e3018cdba71",
+  "id": "e7557a84-9144-4211-be12-4ed89268bb86",
+  "createdAt": "2026-04-07T01:07:19.264Z",
+  "lastModified": "2026-04-10T13:16:01.138Z",
+  "description": "<p><em>Casting time: 1 minute.</em></p><p>Choose a creature known to you as the target. You, or a willing creature you touch, enters a trance and acts as messenger. While in this trance, the messenger is aware of their surroundings but cannot move or take actions.</p><p>If the target is asleep, the messenger appears in the target’s dreams and may converse with them for up to 1 hour while the target remains asleep. The messenger can shape the dream’s environment, creating landscapes, objects, and other images. The messenger may end the trance at any time, ending the spell. The target recalls the dream perfectly upon waking.</p><p>If the target is awake when you cast the spell, the messenger becomes aware of this and may either end the trance or wait for the target to fall asleep. When the target falls asleep, the messenger appears in their dreams as described above. If the target does not fall asleep within 8 hours, the spell ends and the messenger emerges from the trance.</p><p><strong>Describe the dream.</strong></p>",
+  "name": "Dream",
+  "improvements": [
+    {
+      "name": "Nightmare",
+      "description": "<p>You can make the messenger appear monstrous and terrifying to the target. If you do, the messenger can deliver a message of no more than ten words. Then the messenger rolls Awe vs Spirit against the target. On a win, the target does not gain the benefits of its current rest and checks a Condition. On a loss, the target just checks a Condition.</p>",
+      "xp": 10,
+      "id": "039ed5da-b2f3-45b1-985b-b1076a72f0f6"
+    },
+    {
+      "name": "Inception",
+      "description": "<p>While in the target’s dream, the messenger may attempt to convince the target that they are dreaming, to trust them, and that falling asleep within the dream will wake them. The messenger rolls Insight vs Awareness against the target three times:</p><ul><li><p>On the first loss, the target becomes lucid, recognizes the messenger as a threat, and seizes control of the dream. The messenger loses control of the environment. The target can shape the dream freely, fly, and command other dream creatures.</p></li><li><p>On three wins, the target is convinced, trusts the messenger, and willingly falls asleep. The messenger may also fall asleep, entering a deeper dream.</p></li></ul><p>The deeper dream is formed from the people, places, and memories most important to the target. The target appears within it with no memory of the previous dream.</p><p>Within this deeper dream, the messenger may again attempt to gain the target’s trust, rolling Insight vs Awareness three times:</p><ul><li><p>On three wins, the target trusts the messenger. The target will either reveal a closely held secret or accept a suggested idea, which they believe to be their own upon waking.</p></li><li><p>On the first loss, the target becomes aware as before, but the dream immediately becomes unstable, extreme, and hostile under their control.</p></li></ul><p>In any of these rolls, a result that produces 🌞 counts as two successes on a win, or converts a loss into a win.</p><p>If the messenger is killed in the dream, the spell ends. The messenger emerges from the trance and checks a Condition. If the messenger is killed in the deeper dream, they cannot uncheck that Condition for 1 year and gain 1d6 Shadow.</p>",
+      "xp": 20,
+      "id": "2517f01e-85b0-4ba3-a49a-82cb1445d271"
+    }
+  ],
+  "mp": 5,
+  "xp": 25,
+  "type": "f6a1b2c3-d4e5-4f6a-eb3c-2d1e0f9a8b7c",
+  "school": "7ba974f1-287b-472f-be0d-74bfd62bb761",
+  "isMagical": true,
+  "artUrl": "https://cdn.midjourney.com/798212a1-ddf7-4f0c-a4f0-051d0cd1aa24/0_0.png"
+}

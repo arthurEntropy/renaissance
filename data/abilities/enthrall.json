@@ -1,0 +1,15 @@
+{
+  "source": "dab3e414-0118-49be-9779-4e3018cdba71",
+  "id": "f21ffba2-9f0a-485e-88c0-36aac43c0ed2",
+  "createdAt": "2026-04-07T02:05:18.152Z",
+  "lastModified": "2026-04-09T17:46:24.349Z",
+  "name": "Enthrall",
+  "description": "<p><em>Concentration, up to 1 minute.</em></p><p>Roll Perform vs Insight against any number of creatures within medium range that can see and hear you. If you or your allies are in combat against a creature, its roll is favored. On each win, the creature's Awareness rolls are ill-favored while this spell lasts.</p><p><strong>Describe your technique.</strong></p>",
+  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
+  "mp": 2,
+  "xp": 10,
+  "isMagical": true,
+  "school": "7182a00c-40d0-4044-aeaa-6dd75e1afcd5",
+  "successes": "<p>✨: On each win, the creature also takes -1d to its Awareness rolls.</p><p>🌞: On each win, the creature automatically fails its Awareness rolls. On each loss, the creature's Awareness rolls are ill-favored.</p>",
+  "artUrl": "https://cdn.midjourney.com/5f1d7ce6-0644-4aa7-abb6-001099a94155/0_3.png"
+}

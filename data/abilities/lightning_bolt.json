@@ -9,7 +9,7 @@
   "isActive": true,
   "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
   "mp": null,
-  "xp": "",
+  "xp": null,
   "manaCost": "1RR",
   "successes": "<p>✨: +1d damage.</p><p><strong>🌞:</strong> You may chain this attack to another creature within short range of the previous target. Roll Spirit vs Dexterity. On a win, the target takes 2d6 damage and you may continue chaining. On a loss, the target takes half damage and the chain ends.</p><p>💀: Check a condition.</p>",
   "artUrl": "https://cdn.midjourney.com/3e81b6ab-4495-44ec-acc7-64178947158e/0_3.png",

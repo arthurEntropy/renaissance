@@ -2,7 +2,7 @@
   <!-- Card Container -->
   <div ref="cardElement" class="base-card" :class="{ collapsed: collapsed, collapsible: collapsible }"
     :style="cardStyle" @click="collapsible ? toggleCollapsed() : null"
-    :title="sourceName ? `Source: ${sourceName}` : null">
+    :title="showSource && sourceName ? `Source: ${sourceName}` : null">
 
     <!-- Admin Buttons -->
     <div v-if="editable || duplicatable || deletable" class="admin-buttons">

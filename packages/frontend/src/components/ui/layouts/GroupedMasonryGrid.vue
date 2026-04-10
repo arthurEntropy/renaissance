@@ -2,7 +2,7 @@
     <div class="grouped-masonry-container">
         <div class="grouped-display">
             <GroupSection v-for="(group, index) in groupedItems" :key="group.id || group.name"
-                :group="{ ...group, collapsed: groupCollapsedState.get(group.id || group.name) ?? group.collapsed ?? false }"
+                :group="{ ...group, collapsed: groupCollapsedState[group.id || group.name] ?? group.collapsed ?? false }"
                 :column-width="columnWidth" :gap="gap" :row-height="rowHeight"
                 :ref="el => { if (el) groupSectionRefs[index] = el }" @toggle-collapse="toggleGroupCollapse(index)">
                 <template #items="{ items }">
@@ -18,6 +18,7 @@
 <script setup>
 import { ref, watch, nextTick, onBeforeUnmount } from 'vue'
 import GroupSection from '@/components/ui/groups/GroupSection.vue'
+import { useFilterPersistence } from '@/composables/useFilterPersistence'
 
 const LAYOUT_UPDATE_DEBOUNCE_MS = 100
 
@@ -37,6 +38,10 @@ const props = defineProps({
     rowHeight: {
         type: Number,
         default: 10
+    },
+    persistenceKey: {
+        type: String,
+        default: null
     }
 })
 
@@ -44,17 +49,20 @@ const groupSectionRefs = ref([])
 let layoutUpdateTimeout = null
 
 // Track collapsed state for all groups
-const groupCollapsedState = ref(new Map())
+const groupCollapsedState = ref({})
+
+if (props.persistenceKey) {
+    useFilterPersistence(props.persistenceKey, { groupCollapsedState })
+}
 
 const toggleGroupCollapse = (index) => {
     if (!props.groupedItems[index]) return
 
     const group = props.groupedItems[index]
     const groupKey = group.id || group.name
-    const currentCollapsed = groupCollapsedState.value.get(groupKey) ?? group.collapsed ?? false
-    const newCollapsed = !currentCollapsed
+    const currentCollapsed = groupCollapsedState.value[groupKey] ?? group.collapsed ?? false
 
-    groupCollapsedState.value.set(groupKey, newCollapsed)
+    groupCollapsedState.value = { ...groupCollapsedState.value, [groupKey]: !currentCollapsed }
 
     nextTick(() => {
         updateLayoutImmediate()

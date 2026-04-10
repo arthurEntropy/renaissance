@@ -11,12 +11,12 @@
   --color-gray-light: #aaaaaa;        /* Light gray - text, placeholders */
 
   /* === MANA COLORS === */
-  --mana-white: #bbb78d;      /* White mana */
-  --mana-blue: #004479;       /* Blue mana */
-  --mana-black: #3e2d3e;      /* Black mana */
-  --mana-red: #711010;        /* Red mana */
-  --mana-green: #4c804a;      /* Green mana */
-  --mana-colorless: #7b7b7b;  /* Colorless mana */
+  --mana-white: #f7eccd;      /* White mana */
+  --mana-blue: #B3CEEA;       /* Blue mana */
+  --mana-black: #7c7980;      /* Black mana */
+  --mana-red: #EB9F82;        /* Red mana */
+  --mana-green: #C4D3CA;      /* Green mana */
+  --mana-colorless: #D7D0CD;  /* Colorless mana */
 
   /* === BIOME TAG COLORS === */
   --biome-terrain: #3d5c35;   /* Earthy green-brown for terrain tags */

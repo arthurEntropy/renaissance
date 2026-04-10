@@ -1,0 +1,15 @@
+{
+  "source": "dab3e414-0118-49be-9779-4e3018cdba71",
+  "id": "5310ad14-12d9-485a-a8cc-1e595fff9f97",
+  "createdAt": "2026-04-06T19:45:21.950Z",
+  "lastModified": "2026-04-10T12:42:30.011Z",
+  "name": "Confusion",
+  "description": "<p><em>Concentration, up to 1 minute.</em></p><p>You create delusions in creatures' minds, provoking unpredictable behavior. Choose a point within long range. Roll Insight vs Awareness against each creature within short range of that point. Your roll result becomes the Difficulty.</p><p>On each win, the creature cannot use reactions and must roll a d10 at the start of each of its turns to determine its behavior for that turn:</p><table class=\"editor-table\" style=\"min-width: 50px\"><colgroup><col style=\"min-width: 25px\"><col style=\"min-width: 25px\"></colgroup><tbody><tr><td colspan=\"1\" rowspan=\"1\"><p><strong>1</strong></p></td><td colspan=\"1\" rowspan=\"1\"><p>The creature uses all its movement to move in a random direction and its actions are reduced to 0 this turn.</p></td></tr><tr><td colspan=\"1\" rowspan=\"1\"><p><strong>2-6</strong></p></td><td colspan=\"1\" rowspan=\"1\"><p>The creature's Speed and actions are both reduced to 0 this turn.</p></td></tr><tr><td colspan=\"1\" rowspan=\"1\"><p><strong>7-8</strong></p></td><td colspan=\"1\" rowspan=\"1\"><p>The creature must spend an action to make a melee attack against a randomly determined creature within its reach. If there is no creature within its reach, the creature does nothing this turn.</p></td></tr><tr><td colspan=\"1\" rowspan=\"1\"><p><strong>9-10</strong></p></td><td colspan=\"1\" rowspan=\"1\"><p>The creature can act and move normally.</p></td></tr></tbody></table><p>At the end of each of its turns, the creature may roll Riddle against the Difficulty to attempt to end the effect.</p><p><strong>Describe the delusions you create.</strong></p>",
+  "successes": "<p>✨: On each win, each of the creature's d10 rolls to determine its behavior are ill-favored. On each loss, the creature checks a Condition.</p><p>🌞: On each loss, the creature is affected as on a win for 1 round, then the effect ends.</p>",
+  "mp": 4,
+  "xp": 20,
+  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
+  "isMagical": true,
+  "school": "fcf1aa58-1d97-4950-82ba-8807f46de194",
+  "artUrl": "https://cdn.midjourney.com/780983a5-b9fc-4e55-ada4-3e796b99341a/0_1.png"
+}

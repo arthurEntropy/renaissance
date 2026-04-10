@@ -230,6 +230,12 @@
       "id": "f94fb100-aed0-4a42-89a4-3a793439b842",
       "quantity": 1,
       "isCarried": true
+    },
+    {
+      "id": "d7b8a4bf-649e-4ce5-8d6b-488755d7cc09",
+      "quantity": 1,
+      "isCarried": true,
+      "showImprovements": true
     }
   ],
   "engagementDice": [
@@ -345,8 +351,8 @@
     "https://cdn.midjourney.com/bb7f8092-0710-4aaf-9f26-e376a0cec04e/0_0.png"
   ],
   "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2026-02-18T21:17:15.292Z",
-  "lastModified": "2026-02-18T21:17:15.292Z",
+  "updatedAt": "2026-04-06T15:37:31.050Z",
+  "lastModified": "2026-04-06T15:37:31.050Z",
   "mestiereId": "4eccfe5d-de19-4bc5-8c9c-374d793d67f0",
   "groupEquipmentBySource": false,
   "equipmentSortOption": "keeping-asc",
@@ -358,20 +364,20 @@
   },
   "rollStats": {
     "skillChecks": {
-      "attempts": 21,
-      "successes": 18,
-      "totalSum": 314,
+      "attempts": 22,
+      "successes": 19,
+      "totalSum": 334,
       "bestTotal": 27,
       "hardestSuccess": 15,
       "bySkill": {
-        "Strength": 17,
+        "Strength": 18,
         "Awareness": 1,
         "Spirit": 1,
         "Dexterity": 2
       },
       "solCount": 2,
       "morteCount": 2,
-      "successCount": 6
+      "successCount": 8
     },
     "contests": {
       "engagement": {

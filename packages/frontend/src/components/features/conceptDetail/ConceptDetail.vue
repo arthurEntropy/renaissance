@@ -265,7 +265,7 @@ const deleteEquipment = async (equipment) => {
   closeEditEquipmentModal()
 }
 
-const createItemForConcept = async (store, storeItems, openModal, initialData = {}) => {
+const createItemForConcept = async (store, openModal, initialData = {}) => {
   if (!selectedConcept.value) return
 
   // Create new item with the selected concept as source
@@ -275,22 +275,18 @@ const createItemForConcept = async (store, storeItems, openModal, initialData = 
   }
 
   const newItem = await store.create(newItemData)
-
-  const createdItem = storeItems.find(item => item.id === newItem.id)
-  if (createdItem) {
-    openModal(createdItem)
+  if (newItem) {
+    openModal(newItem)
   }
 }
 
 const createNewAbility = () => createItemForConcept(
   abilitiesStore,
-  abilitiesStore.abilities,
   openAbilityModal
 )
 
 const createNewEquipment = () => createItemForConcept(
   equipmentStore,
-  equipmentStore.equipment,
   openEquipmentModal
 )
 
