@@ -2,9 +2,9 @@
   "source": "dab3e414-0118-49be-9779-4e3018cdba71",
   "id": "a066761b-bab3-410a-90bf-399ef93e143b",
   "createdAt": "2026-04-03T15:26:14.646Z",
-  "lastModified": "2026-04-08T15:57:07.195Z",
+  "lastModified": "2026-04-09T15:13:17.202Z",
   "name": "Arcane Eye",
-  "description": "<p><em>Concentration, up to 1 hour.</em></p><p>You create an invisible, magical sensor within short range that hovers in the air. You mentally receive visual information from the sensor, which has normal vision. The sensor can look in every direction.</p><p>You may spend an action to move the sensor up to short range in any direction. There is no limit to how far away from you the sensor can move. A solid barrier blocks the sensor's movement, but the sensor can pass through an opening as small as 1 inch in diameter.</p><p>A creature that can see invisible objects sees the sensor as a luminous orb about the size of your fist.</p><p><strong>Describe how you experience this sense.</strong></p>",
+  "description": "<p><em>Concentration, up to 1 hour.</em></p><p>You create an invisible, magical sensor within short range that hovers in the air. You mentally receive visual information from the sensor, which has normal vision. The sensor can look in every direction.</p><p>You may spend an action to move the sensor up to short range from its current location in any direction. There is no limit to how far away from you the sensor can move. A solid barrier blocks the sensor's movement, but the sensor can pass through an opening as small as 1 inch in diameter.</p><p>A creature that can see invisible objects sees the sensor as a luminous orb about the size of your fist.</p><p><strong>Describe how you experience this sense.</strong></p>",
   "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
   "mp": 4,
   "xp": 20,
@@ -19,9 +19,10 @@
     },
     {
       "name": "Clairvoyance",
-      "description": "<p>You may create the sensor at a point within 1 mile in a location you have visited or seen before, or in an obvious unfamiliar location (like behind a door or in a grove of trees).</p>",
+      "description": "<p>You may create the sensor at a point within 1 mile in a location you have visited or seen before, or in an obvious unfamiliar location (like behind a wall or in a grove of trees).</p>",
       "xp": 30,
       "id": "dc8d2fdc-9efc-4362-a2bb-e2d6774b2b35"
     }
-  ]
+  ],
+  "artUrl": "https://cdn.midjourney.com/93c0025f-52eb-41fe-b6e9-059984f16437/0_2.png"
 }

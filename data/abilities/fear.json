@@ -2,9 +2,9 @@
   "source": "dab3e414-0118-49be-9779-4e3018cdba71",
   "id": "09d7f346-a533-4ad9-b9ea-4be01c8f2c9d",
   "createdAt": "2026-04-07T02:12:52.959Z",
-  "lastModified": "2026-04-08T17:51:46.800Z",
+  "lastModified": "2026-04-10T12:35:58.784Z",
   "name": "Fear",
-  "description": "<p>Roll Awe vs Spirit against a creature within short range. On a win, your roll result becomes the Difficulty, and you twist the creature's mind to alter its perception of you so that you resemble the object of its greatest fear. You still appear as normal to all other creatures.</p><p>The affected creature must spend an action to Sprint on each of its turns, using all its movement to get as far away from you as possible. If at the end of its turn it no longer has line of sight to you, it may roll Spirit against the Difficulty to end the effect.</p><p><strong>Describe how you transform their perception.</strong></p>",
+  "description": "<p><em>Concentration, up to 1 minute.</em></p><p>Roll Awe vs Spirit against a creature within short range. On a win, your roll result becomes the Difficulty, and you twist the creature's mind to alter its perception of you so that you resemble the object of its greatest fear. You still appear as normal to all other creatures.</p><p>For the next minute, the affected creature must spend an action to Sprint on each of its turns, using all its movement to get as far away from you as possible. If at the end of its turn it no longer has line of sight to you, it may roll Spirit against the Difficulty to attempt to end the effect.</p><p><strong>Describe how you transform their perception.</strong></p>",
   "successes": "<p>✨: Win or lose, the creature checks a Condition.</p><p>🌞: On a win, the creature drops what it's carrying. On a loss, the creature checks a Condition.</p>",
   "mp": 3,
   "xp": 15,
@@ -18,5 +18,6 @@
       "xp": 30,
       "id": "ae1fc967-30e6-4b13-b0f8-813162da3438"
     }
-  ]
+  ],
+  "artUrl": "https://cdn.midjourney.com/63804942-9748-4b02-a3ba-4a0cb7b1d533/0_2.png"
 }

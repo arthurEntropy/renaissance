@@ -2,7 +2,7 @@
   "id": "dab3e414-0118-49be-9779-4e3018cdba71",
   "conceptType": "MESTIERE",
   "name": "Mesmer",
-  "description": "<p><em>Shapers of Belief, Architects of Doubt</em></p><p>Mesmers trade in illusions, half-truths, and the soft power of suggestion. Often dismissed as fashionable mystics or clever frauds, they are frequently the last to realize that their techniques are not merely persuasive—but <strong>magical</strong>.</p><p>By manipulating perception, emotion, and belief, Mesmers reshape reality at the level of the mind. Their magic bends thoughts, blurs senses, and plants ideas that feel self-generated. A Mesmer’s greatest victories often leave no visible scars, only altered memories and quiet doubts.</p><p>A Mesmer does not defeat you.<br>They convince you that you already have.</p><h3><strong>Domains of Magic</strong></h3><p>Mesmers command magic that targets perception, cognition, and identity:</p><ul><li><p><strong>Illusion</strong>: false images, invisibility, fabricated environments</p></li><li><p><strong>Enchantment</strong>: charm, compulsion, domination, suggestion</p></li><li><p><strong>Fear and confusion</strong> as weapons</p></li><li><p><strong>Information warfare</strong>: scrying, telepathy, dream-intrusion</p></li><li><p><strong>Truth and deception</strong>, deciding what is seen, remembered, or believed</p></li></ul><h3><strong>Taboo: Honesty</strong></h3><p>Mesmers believe truth is mutable. Presenting reality plainly, when it could be framed to greater effect, feels irresponsible.</p><blockquote><p><em>What people believe matters more than what is real.</em></p></blockquote><h3><strong>Fault Lines</strong></h3><ul><li><p>Feared by <strong>Votaries</strong>, distrusted by <strong>Witches</strong>, indulged by courts.</p></li><li><p>Rarely welcome where certainty is sacred.</p></li></ul>",
+  "description": "<p><em>Shapers of Belief, Architects of Doubt</em></p><p>Mesmers trade in illusions, half-truths, and the soft power of suggestion. Often dismissed as fashionable mystics or clever frauds, they are frequently the last to realize that their techniques are not merely persuasive—but <strong>magical</strong>.</p><p>By manipulating perception, emotion, and belief, Mesmers reshape reality at the level of the mind. Their magic bends thoughts, blurs senses, and plants ideas that feel self-generated. A Mesmer’s greatest victories often leave no visible scars, only altered memories and quiet doubts.</p><p>A Mesmer does not defeat you.<br>They convince you that you have already lost.</p><h3><strong>Domains of Magic</strong></h3><p>Mesmers command magic that targets perception, cognition, and identity:</p><ul><li><p><strong>Illusion</strong>: false images, invisibility, fabricated environments</p></li><li><p><strong>Enchantment</strong>: charm, compulsion, domination, suggestion</p></li><li><p><strong>Fear and confusion</strong> as weapons</p></li><li><p><strong>Information warfare</strong>: scrying, telepathy, dream-intrusion</p></li><li><p><strong>Truth and deception</strong>, deciding what is seen, remembered, or believed</p></li></ul><h3><strong>Taboo: Honesty</strong></h3><p>Mesmers believe truth is mutable. Presenting reality plainly, when it could be framed to greater effect, feels irresponsible.</p><blockquote><p><em>What people believe matters more than what is real.</em></p></blockquote><h3><strong>Fault Lines</strong></h3><ul><li><p>Feared by <strong>Votaries</strong>, distrusted by <strong>Witches</strong>, indulged by courts.</p></li><li><p>Rarely welcome where certainty is sacred.</p></li></ul>",
   "isDeleted": false,
   "artUrls": [
     "https://cdn.midjourney.com/904d577d-3841-48ce-9dc2-c10a8cd9bc6a/0_1.png"
@@ -19,7 +19,7 @@
   "vittles": "",
   "pointsOfInterest": "",
   "floraFauna": "",
-  "lastModified": "2026-04-06T23:43:29.527Z",
+  "lastModified": "2026-04-10T13:49:44.338Z",
   "detailBackgroundImage": "",
   "novizio": {
     "flavorText": "",
@@ -30,7 +30,7 @@
     "armor": "none",
     "engagement": "<p>none</p>",
     "initialMaxMP": 10,
-    "abilities": "<p>Masked Charlatan, Unsettling Presence, Mesmerize.</p><p>Choose any two Mesmer's masks from this mestiere or from one of your home Cultures. You gain one ability chosen at random from each of those masks' domains.</p>",
+    "abilities": "<p>Masked Charlatan, Mesmerize, Social Savvy, Unsettling Presence.</p><p>Choose any two Mesmer's masks from this mestiere or from one of your home Cultures. You gain one ability chosen at random from each of those masks' domains.</p>",
     "description": "<p>You have learned or inherited a tradition of masked performance, deception, and dubious mysticism, practicing techniques that blur the line between clever trickery and genuine supernatural influence. You discover which techniques are genuine by experimentation.</p>"
   }
 }

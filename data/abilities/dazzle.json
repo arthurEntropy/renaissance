@@ -2,7 +2,7 @@
   "source": "dab3e414-0118-49be-9779-4e3018cdba71",
   "id": "db4d3c08-997a-4dea-8e58-d1ff0abd1a1d",
   "createdAt": "2026-04-06T19:11:34.718Z",
-  "lastModified": "2026-04-08T13:22:52.932Z",
+  "lastModified": "2026-04-09T12:18:51.222Z",
   "description": "<p>You create a dazzling illusion around yourself. Roll Insight vs Awareness against each creature within short range. On each win, the creature is blinded for 1 round.</p><p><strong>Describe the illusion.</strong></p>",
   "name": "Dazzle",
   "successes": "<p>✨: On each win, the creature also checks a Condition.</p><p>🌞: On each win, the creature is blinded for 1 additional round. On each loss, the creature checks a Condition.</p>",
@@ -18,5 +18,6 @@
       "xp": 20,
       "id": "1a7724e4-e812-4292-9d5a-f89f21c3f4ac"
     }
-  ]
+  ],
+  "artUrl": "https://cdn.midjourney.com/44db9d55-e4c9-45e7-9bac-96aa56d401c2/0_3.png"
 }
