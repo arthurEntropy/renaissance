@@ -26,18 +26,39 @@
       "ebcc2bcb-8221-4ca0-bef3-000fb7e59e96"
     ],
     "polearm": [
-      "ad30b114-3c19-413f-aad2-5f270bd95684"
+      "ad30b114-3c19-413f-aad2-5f270bd95684",
+      "b92d3394-2c64-487f-8c90-c56ea1cbd3f3",
+      "847d1092-fd43-4d58-b3da-002e6f3b7f3d",
+      "ebcc2bcb-8221-4ca0-bef3-000fb7e59e96"
     ],
     "ranged": [],
-    "firearm": [],
+    "firearm": [
+      "847d1092-fd43-4d58-b3da-002e6f3b7f3d"
+    ],
     "armor": [
       "ad30b114-3c19-413f-aad2-5f270bd95684",
-      "b92d3394-2c64-487f-8c90-c56ea1cbd3f3"
+      "b92d3394-2c64-487f-8c90-c56ea1cbd3f3",
+      "847d1092-fd43-4d58-b3da-002e6f3b7f3d"
     ],
-    "engagement": "<p>Conditional - see <em>Aura of Experience.</em></p>",
+    "engagementDice": {
+      "4": 0,
+      "6": 0,
+      "8": 0,
+      "10": 0,
+      "12": 0,
+      "20": 0
+    },
+    "engagementSuccesses": [
+      "b2c3d4e5-f6a7-48b9-c0d1-e2f3a4b5c6d7",
+      "d4e5f6a7-b8c9-40d1-e2f3-a4b5c6d7e8f9",
+      "e5f6a7b8-c9d0-41e2-f3a4-b5c6d7e8f9a0",
+      "b8c9d0e1-f2a3-44b5-c6d7-e8f9a0b1c2d3",
+      "d0e1f2a3-b4c5-46d7-e8f9-a0b1c2d3e4f5"
+    ],
+    "engagementNotes": "Conditional - see Aura of Experience.",
     "initialMaxMP": 5,
     "abilities": "<p>Mercenary, Aura of Experience, Everyone Has A Price, Strange Fixation.</p>"
   },
-  "lastModified": "2026-04-13T17:23:52.892Z",
+  "lastModified": "2026-04-15T14:07:45.957Z",
   "detailBackgroundImage": "https://cdn.midjourney.com/27636738-1136-4f12-867a-6ee9e2e0c4f3/0_0.png"
 }

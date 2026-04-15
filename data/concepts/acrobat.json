@@ -28,10 +28,24 @@
     "ranged": [],
     "firearm": [],
     "armor": [],
-    "engagement": "<p><span class=\"dice-icon dice-icon df-d4-4\" style=\"font-size: 36px;\"></span> <span class=\"dice-icon dice-icon df-d4-4\" style=\"font-size: 36px;\"></span> <span class=\"dice-icon dice-icon dice-icon df-d4-4\" style=\"font-size: 36px;\"></span> <span class=\"dice-icon dice-icon dice-icon df-d4-4\" style=\"font-size: 36px;\"></span></p>",
+    "engagementDice": {
+      "4": 4,
+      "6": 0,
+      "8": 0,
+      "10": 0,
+      "12": 0,
+      "20": 0
+    },
+    "engagementSuccesses": [
+      "b2c3d4e5-f6a7-48b9-c0d1-e2f3a4b5c6d7",
+      "d4e5f6a7-b8c9-40d1-e2f3-a4b5c6d7e8f9",
+      "e5f6a7b8-c9d0-41e2-f3a4-b5c6d7e8f9a0",
+      "c9d0e1f2-a3b4-45c6-d7e8-f9a0b1c2d3e4"
+    ],
+    "engagementNotes": "You may exchange movement for additional Engagement Dice. See Nimble.",
     "initialMaxMP": 0,
     "abilities": "<p>Nimble and choose one, ignoring its XP cost:</p><ul><li><p>Pole Training</p></li><li><p>Rope &amp; Chain Weapon Training</p></li><li><p>Shuriken Training</p></li><li><p>Pressure Point Training.</p></li></ul>"
   },
-  "lastModified": "2026-03-16T18:27:48.727Z",
+  "lastModified": "2026-04-15T14:47:55.199Z",
   "detailBackgroundImage": "https://cdn.midjourney.com/b5080eea-b264-48f9-b5bf-bfe09a416fce/0_1.png"
 }

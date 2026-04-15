@@ -142,6 +142,7 @@ import { useKeepingStore } from '@/stores/keepingStore'
 import { useActionTypesStore } from '@/stores/actionTypesStore'
 import { useAbilitySchoolsStore } from '@/stores/abilitySchoolsStore'
 import { useArtStore } from '@/stores/artStore'
+import { useEngagementSuccessesStore } from '@/stores/engagementSuccessesStore'
 import EngagementSuccessService from '@/services/entities/engagementSuccessService'
 
 import { IMAGE_GALLERY_MODES, ART_TYPES } from '@shared/constants/artConstants.js'
@@ -171,6 +172,7 @@ const keepingStore = useKeepingStore()
 const actionTypesStore = useActionTypesStore()
 const abilitySchoolsStore = useAbilitySchoolsStore()
 const artStore = useArtStore()
+const engagementSuccessesStore = useEngagementSuccessesStore()
 const engagementSuccessOptions = ref([])
 
 // Edit modals
@@ -332,7 +334,8 @@ onMounted(async () => {
     keepingStore.fetch(),
     actionTypesStore.fetch(),
     abilitySchoolsStore.fetch(),
-    artStore.fetch()
+    artStore.fetch(),
+    engagementSuccessesStore.fetch()
   ])
   engagementSuccessOptions.value = await EngagementSuccessService.getAll()
 })

@@ -31,9 +31,18 @@
     "ranged": [],
     "firearm": [],
     "armor": [],
-    "engagement": "",
     "initialMaxMP": 10,
-    "abilities": "<p>Retributive Curses, Witch's Familiar, Witchcraft Tokens, Spare the Dying. Also choose any number of additional Witch abilities with a combined XP cost of 15.</p>"
+    "abilities": "<p>Retributive Curses, Witch's Familiar, Witchcraft Tokens, Spare the Dying. Also choose any number of additional Witch abilities with a combined XP cost of 15.</p>",
+    "engagementDice": {
+      "4": 0,
+      "6": 0,
+      "8": 0,
+      "10": 0,
+      "12": 0,
+      "20": 0
+    },
+    "engagementSuccesses": [],
+    "engagementNotes": ""
   },
   "detailBackgroundImage": "https://cdn.midjourney.com/c355bb0d-48b4-4ac2-bb91-9772891ffb06/0_2.png"
 }

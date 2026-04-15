@@ -34,9 +34,26 @@
     "armor": [
       "ad30b114-3c19-413f-aad2-5f270bd95684"
     ],
-    "engagement": "<p><span class=\"dice-icon dice-icon dice-icon dice-icon df-d4-4\" style=\"font-size: 36px;\"></span> <span class=\"dice-icon dice-icon dice-icon dice-icon df-d4-4\" style=\"font-size: 36px;\"></span> for each point you have in WITS.</p><p>You have the <em>Compass, Feint, Invitation, Parry, Manchette, Retreat </em>and <em>Riposte</em> Engagement successes.</p>",
     "initialMaxMP": 0,
-    "abilities": "<p>Demand Satisfaction, Good Form and choose one, ignoring its XP cost:</p><ul><li><p>Press Advantage</p></li><li><p>Quick Draw</p></li><li><p>Lunge</p></li></ul>"
+    "abilities": "<p>Demand Satisfaction, Good Form and choose one, ignoring its XP cost:</p><ul><li><p>Press Advantage</p></li><li><p>Quick Draw</p></li><li><p>Lunge</p></li></ul>",
+    "engagementDice": {
+      "4": 2,
+      "6": 0,
+      "8": 0,
+      "10": 0,
+      "12": 0,
+      "20": 0
+    },
+    "engagementSuccesses": [
+      "b2c3d4e5-f6a7-48b9-c0d1-e2f3a4b5c6d7",
+      "d4e5f6a7-b8c9-40d1-e2f3-a4b5c6d7e8f9",
+      "e5f6a7b8-c9d0-41e2-f3a4-b5c6d7e8f9a0",
+      "b8c9d0e1-f2a3-44b5-c6d7-e8f9a0b1c2d3",
+      "a7b8c9d0-e1f2-43a4-b5c6-d7e8f9a0b1c2",
+      "c9d0e1f2-a3b4-45c6-d7e8-f9a0b1c2d3e4",
+      "d0e1f2a3-b4c5-46d7-e8f9-a0b1c2d3e4f5"
+    ],
+    "engagementNotes": "for each point you have in WITS"
   },
   "lastModified": "2026-03-16T20:29:53.137Z",
   "detailBackgroundImage": "https://cdn.midjourney.com/1970a4d1-e869-4458-b57d-728d48bacafa/0_0.png"

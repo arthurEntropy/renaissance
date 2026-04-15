@@ -29,11 +29,35 @@
           </div>
         </div>
 
-        <!-- Engagement -->
+        <!-- Engagement Dice -->
         <div class="novizio-subsection">
-          <strong>Engagement</strong>
-          <text-editor v-model="localNovizio.engagement" placeholder="Engagement..." height="80px" :auto-height="true"
-            class="novizio-text-editor" />
+          <strong>Engagement Dice</strong>
+          <div class="engagement-dice-row">
+            <div v-for="dieSize in STANDARD_DIE_SIZES" :key="dieSize" class="engagement-die-column"
+              :class="{ dimmed: !localNovizio.engagementDice[String(dieSize)] }">
+              <i :class="getDiceFontMaxClass(dieSize)" class="engagement-die-icon"></i>
+              <NumberInput :model-value="localNovizio.engagementDice[String(dieSize)] || 0"
+                @update:model-value="localNovizio.engagementDice[String(dieSize)] = $event" :min="0" :max="20"
+                size="small" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Engagement Successes -->
+        <div class="novizio-subsection">
+          <strong>Engagement Successes</strong>
+          <div class="martial-grade-chips" style="margin-top: 0.4rem;">
+            <button v-for="success in engagementSuccesses" :key="success.id" type="button" class="martial-grade-chip"
+              :class="{ selected: localNovizio.engagementSuccesses.includes(success.id) }"
+              @click="toggleSuccess(success.id)">{{ success.name }}</button>
+          </div>
+        </div>
+
+        <!-- Engagement Notes -->
+        <div class="novizio-subsection">
+          <strong>Engagement Notes</strong>
+          <input type="text" v-model="localNovizio.engagementNotes" placeholder="Special cases, conditions..."
+            class="novizio-input full-width-input" style="margin-left: 0; margin-top: 0.3rem; display: block;" />
         </div>
 
         <!-- Mestieri Points -->
@@ -78,10 +102,32 @@
           </div>
         </div>
 
-        <!-- Engagement -->
-        <div class="novizio-subsection" v-if="hasAnyNovizioData && novizio && novizio.engagement">
-          <strong>Engagement</strong>
-          <div class="novizio-placeholder" v-html="safeEngagement"></div>
+        <!-- Engagement Dice -->
+        <div class="novizio-subsection" v-if="hasAnyNovizioData">
+          <strong>Engagement Dice</strong>
+          <div class="engagement-dice-display">
+            <template v-for="dieSize in STANDARD_DIE_SIZES" :key="dieSize">
+              <i v-for="n in (novizio.engagementDice?.[String(dieSize)] || 0)" :key="dieSize + '-' + n"
+                :class="getDiceFontMaxClass(dieSize)" class="engagement-die-icon"></i>
+            </template>
+            <span v-if="!STANDARD_DIE_SIZES.some(s => novizio.engagementDice?.[String(s)] > 0)"
+              class="novizio-placeholder" style="margin-left: 0;">none</span>
+          </div>
+        </div>
+
+        <!-- Engagement Successes -->
+        <div class="novizio-subsection" v-if="hasAnyNovizioData">
+          <strong>Engagement Successes</strong>
+          <div class="martial-grade-chips" style="margin-top: 0.4rem;">
+            <span v-for="success in engagementSuccesses" :key="success.id" class="martial-grade-chip display-only"
+              :class="{ selected: novizio.engagementSuccesses?.includes(success.id) }">{{ success.name }}</span>
+          </div>
+        </div>
+
+        <!-- Engagement Notes -->
+        <div class="novizio-subsection" v-if="hasAnyNovizioData && novizio.engagementNotes">
+          <strong>Engagement Notes</strong>
+          <div class="novizio-placeholder">{{ novizio.engagementNotes }}</div>
         </div>
 
         <!-- Mestieri Points -->
@@ -103,11 +149,15 @@
 <script setup>
 import { ref, computed, watch } from 'vue'
 import TextEditor from '@/components/ui/textEditor/TextEditor.vue'
+import NumberInput from '@/components/ui/forms/NumberInput.vue'
 import ConceptSection from '../shared/ConceptSection.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import { sanitizeHtml } from '@/utils/sanitizeHtml'
+import { getDiceFontMaxClass } from '@/utils/diceFontUtils'
 import { useConceptsStore } from '@/stores/conceptsStore'
 import { useEquipmentGradesStore } from '@/stores/equipmentGradesStore'
+import { useEngagementSuccessesStore } from '@/stores/engagementSuccessesStore'
+import { STANDARD_DIE_SIZES } from '@shared/constants/dice'
 
 import meleeIcon from '@/assets/icons/melee.png'
 import polearmIcon from '@/assets/icons/polearms.png'
@@ -124,9 +174,11 @@ const props = defineProps({
 
 const conceptsStore = useConceptsStore()
 const equipmentGradesStore = useEquipmentGradesStore()
+const engagementSuccessesStore = useEngagementSuccessesStore()
 
 const concept = computed(() => conceptsStore.selectedConcept)
 const equipmentGrades = computed(() => equipmentGradesStore.items)
+const engagementSuccesses = computed(() => engagementSuccessesStore.items)
 
 const martialRows = [
   { key: 'melee', label: 'Melee', icon: meleeIcon },
@@ -136,6 +188,8 @@ const martialRows = [
   { key: 'armor', label: 'Armor', icon: armorIcon },
 ]
 
+const EMPTY_DICE = () => Object.fromEntries(STANDARD_DIE_SIZES.map(s => [String(s), 0]))
+
 const getDefaultNovizio = () => ({
   flavorText: '',
   melee: [],
@@ -143,7 +197,9 @@ const getDefaultNovizio = () => ({
   ranged: [],
   firearm: [],
   armor: [],
-  engagement: '',
+  engagementDice: EMPTY_DICE(),
+  engagementSuccesses: [],
+  engagementNotes: '',
   initialMaxMP: 1,
   abilities: ''
 })
@@ -163,18 +219,29 @@ const toggleGrade = (rowKey, gradeId) => {
   }
 }
 
+const toggleSuccess = (successId) => {
+  const arr = localNovizio.value.engagementSuccesses
+  const idx = arr.indexOf(successId)
+  if (idx === -1) {
+    arr.push(successId)
+  } else {
+    arr.splice(idx, 1)
+  }
+}
+
 
 const hasAnyNovizioData = computed(() => {
   if (!concept.value?.novizio) return false
   const n = concept.value.novizio
   const hasMartial = ['melee', 'polearm', 'ranged', 'firearm', 'armor'].some(k => n[k]?.length > 0)
-  return hasMartial
-    || [n.flavorText, n.engagement, n.abilities].some(val => val?.toString().trim())
+  const hasDice = STANDARD_DIE_SIZES.some(s => (n.engagementDice?.[String(s)] ?? 0) > 0)
+  const hasEngagement = hasDice || n.engagementSuccesses?.length > 0 || n.engagementNotes?.toString().trim()
+  return hasMartial || hasEngagement
+    || [n.flavorText, n.abilities].some(val => val?.toString().trim())
     || n.initialMaxMP > 1
 })
 
 const safeDescription = computed(() => sanitizeHtml(concept.value?.novizio?.description))
-const safeEngagement = computed(() => sanitizeHtml(concept.value?.novizio?.engagement))
 const safeAbilities = computed(() => sanitizeHtml(concept.value?.novizio?.abilities))
 
 const syncLocalNovizio = (sourceConcept) => {
@@ -188,7 +255,9 @@ const syncLocalNovizio = (sourceConcept) => {
       ranged: Array.isArray(n.ranged) ? [...n.ranged] : [],
       firearm: Array.isArray(n.firearm) ? [...n.firearm] : [],
       armor: Array.isArray(n.armor) ? [...n.armor] : [],
-      engagement: n.engagement || '',
+      engagementDice: { ...EMPTY_DICE(), ...(n.engagementDice || {}) },
+      engagementSuccesses: Array.isArray(n.engagementSuccesses) ? [...n.engagementSuccesses] : [],
+      engagementNotes: n.engagementNotes || '',
       initialMaxMP: n.initialMaxMP ?? 1,
       abilities: n.abilities || '',
     }
@@ -333,6 +402,7 @@ watch(concept, (newConcept) => {
   border-radius: var(--radius-10);
   font-size: var(--font-size-13);
   font-weight: var(--font-weight-semibold);
+  font-family: inherit;
   line-height: 1;
   cursor: pointer;
   border: 1px solid var(--color-gray-medium);
@@ -362,5 +432,37 @@ watch(concept, (newConcept) => {
   font-size: var(--font-size-16);
   margin-left: 0.5rem;
   margin-top: 0.2rem;
+}
+
+.engagement-dice-row {
+  display: flex;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+  margin-top: 0.5rem;
+}
+
+.engagement-dice-display {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+.engagement-die-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-xs);
+  transition: opacity 0.15s;
+}
+
+.engagement-die-column.dimmed {
+  opacity: 0.3;
+}
+
+.engagement-die-icon {
+  font-size: var(--font-size-36);
+  color: var(--color-gray-light);
 }
 </style>

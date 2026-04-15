@@ -1,7 +1,7 @@
 {
   "id": "c43c4a45-e40c-41eb-ab9b-6ff10ee7ba87",
   "name": "Guisarmiere",
-  "description": "<p>You are trained in the use of heavy polearms.</p><p>While wielding any polearm, you have the following abilities:</p><ul><li><p>You may use a half action to make a melee attack with the butt end. The damage die for this attack is a d4. You may spend 1 MP to upgrade one butt attack to use a d6 damage die.</p></li><li><p>Any time you land a hit with a polearm and either beat the creature's Defense by at least 3 or roll max damage, you may spend 1 MP to inflict Injury (this applies to hits with either end of the polearm).</p></li><li><p>If the polearm can be thrown, you may halve its range and use Strength instead of Dexterity to fling it with extreme force, dealing +1d damage on a hit.</p></li></ul><p><strong>Describe how you wield your polearm.</strong></p>",
+  "description": "<p>You are trained in the use of Great polearms.</p><p>While wielding any polearm, you have the following abilities:</p><ul><li><p>You may use a half action to make a melee attack with the butt end. The damage die for this attack is a d4. You may spend 1 MP to upgrade one butt attack to use a d6 damage die.</p></li><li><p>Any time you land a hit with a polearm and either beat the creature's Defense by at least 3 or roll max damage, you may spend 1 MP to inflict Injury (this applies to hits with either end of the polearm).</p></li><li><p>If the polearm can be thrown, you may halve its range and use Strength instead of Dexterity to fling it with extreme force, dealing +1d damage on a hit.</p></li></ul><p><strong>Describe how you wield your polearm.</strong></p>",
   "canBeActive": false,
   "isActive": true,
   "source": "45ca935d-938b-4974-961c-4171cc388904",
@@ -34,7 +34,7 @@
       "id": "20d9d94f-754b-59a9-ab30-ae0cf8b33d86"
     }
   ],
-  "lastModified": "2026-03-17T00:22:37.762Z",
+  "lastModified": "2026-04-15T14:03:13.473Z",
   "artUrl": "https://cdn.midjourney.com/a82d85c6-f0b8-445d-9357-7e66501f5fe0/0_1.png",
   "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
 }

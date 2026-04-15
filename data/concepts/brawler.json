@@ -26,10 +26,19 @@
     "ranged": [],
     "firearm": [],
     "armor": [],
-    "engagement": "<p><span class=\"dice-icon dice-icon df-d12-12\" style=\"font-size: 36px;\"></span>  <span class=\"dice-icon dice-icon dice-icon df-d12-12\" style=\"font-size: 36px;\"></span></p>",
+    "engagementDice": {
+      "4": 0,
+      "6": 0,
+      "8": 0,
+      "10": 0,
+      "12": 5,
+      "20": 0
+    },
+    "engagementSuccesses": [],
+    "engagementNotes": "",
     "initialMaxMP": 0,
     "abilities": "<p>Action Over Deliberation, Embrace The Chaos, Fists Up</p>"
   },
-  "lastModified": "2026-03-16T18:52:01.309Z",
+  "lastModified": "2026-04-15T14:46:21.780Z",
   "detailBackgroundImage": "https://cdn.midjourney.com/b377ad72-f0f8-4d1a-b64d-9c1ed00cdb59/0_1.png"
 }

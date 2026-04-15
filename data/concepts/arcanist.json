@@ -28,8 +28,17 @@
     "ranged": [],
     "firearm": [],
     "armor": [],
-    "engagement": "",
     "initialMaxMP": 10,
-    "abilities": "<p>Arcane Focus and choose your Arcanist archetype: Hedge Mage, Rune Knight, or Wizard of the Tower. Each archetype grants different starting abilities.</p>"
+    "abilities": "<p>Arcane Focus and choose your Arcanist archetype: Hedge Mage, Rune Knight, or Wizard of the Tower. Each archetype grants different starting abilities.</p>",
+    "engagementDice": {
+      "4": 0,
+      "6": 0,
+      "8": 0,
+      "10": 0,
+      "12": 0,
+      "20": 0
+    },
+    "engagementSuccesses": [],
+    "engagementNotes": ""
   }
 }

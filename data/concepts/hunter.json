@@ -19,7 +19,7 @@
   "vittles": "",
   "pointsOfInterest": "",
   "floraFauna": "",
-  "lastModified": "2026-04-13T17:21:42.508Z",
+  "lastModified": "2026-04-15T14:04:31.632Z",
   "novizio": {
     "flavorText": "",
     "melee": [
@@ -27,17 +27,32 @@
       "b92d3394-2c64-487f-8c90-c56ea1cbd3f3"
     ],
     "polearm": [
-      "ad30b114-3c19-413f-aad2-5f270bd95684"
+      "ad30b114-3c19-413f-aad2-5f270bd95684",
+      "b92d3394-2c64-487f-8c90-c56ea1cbd3f3"
     ],
     "ranged": [
       "ad30b114-3c19-413f-aad2-5f270bd95684",
-      "ebcc2bcb-8221-4ca0-bef3-000fb7e59e96"
+      "ebcc2bcb-8221-4ca0-bef3-000fb7e59e96",
+      "b92d3394-2c64-487f-8c90-c56ea1cbd3f3",
+      "a9023254-92ed-4c54-9840-5a7577c1aa1f"
     ],
     "firearm": [],
     "armor": [
-      "ad30b114-3c19-413f-aad2-5f270bd95684"
+      "ad30b114-3c19-413f-aad2-5f270bd95684",
+      "b92d3394-2c64-487f-8c90-c56ea1cbd3f3"
     ],
-    "engagement": "",
+    "engagementDice": {
+      "4": 0,
+      "6": 0,
+      "8": 0,
+      "10": 0,
+      "12": 0,
+      "20": 0
+    },
+    "engagementSuccesses": [
+      "b8c9d0e1-f2a3-44b5-c6d7-e8f9a0b1c2d3"
+    ],
+    "engagementNotes": "",
     "initialMaxMP": 5,
     "abilities": ""
   },

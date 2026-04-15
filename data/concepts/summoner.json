@@ -32,9 +32,18 @@
     "armor": [
       "ad30b114-3c19-413f-aad2-5f270bd95684"
     ],
-    "engagement": "<p>none</p>",
     "initialMaxMP": "",
-    "abilities": "<p>All Summoner abilities.</p>"
+    "abilities": "<p>All Summoner abilities.</p>",
+    "engagementDice": {
+      "4": 0,
+      "6": 0,
+      "8": 0,
+      "10": 0,
+      "12": 0,
+      "20": 0
+    },
+    "engagementSuccesses": [],
+    "engagementNotes": ""
   },
   "detailBackgroundImage": "https://cdn.midjourney.com/09481920-388a-488d-9ef2-c213269d3490/0_3.png"
 }
