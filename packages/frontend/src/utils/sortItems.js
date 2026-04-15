@@ -15,6 +15,8 @@ export function sortItems(items, sortOption) {
       comparison = compareByName(a, b, field)
     } else if (field === 'manaCost') {
       comparison = compareByManaCost(a, b)
+    } else if (field === 'createdAt' || field === 'lastModified') {
+      comparison = compareByDate(a, b, field)
     } else {
       comparison = compareByNumber(a, b, field)
     }
@@ -48,4 +50,15 @@ function compareByNumber(a, b, field) {
   const aNum = aValue == null ? 0 : Number(aValue)
   const bNum = bValue == null ? 0 : Number(bValue)
   return aNum - bNum
+}
+
+function compareByDate(a, b, field) {
+  const aValue = a?.[field]
+  const bValue = b?.[field]
+
+  if (aValue == null && bValue == null) return 0
+  if (aValue == null) return 1
+  if (bValue == null) return -1
+
+  return new Date(aValue) - new Date(bValue)
 }

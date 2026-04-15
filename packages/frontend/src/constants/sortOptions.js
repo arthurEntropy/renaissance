@@ -15,6 +15,14 @@ export const ABILITY_SORT_OPTIONS = {
     { value: 'manaCost-asc', label: 'Mana Cost (Low to High)' },
     { value: 'manaCost-desc', label: 'Mana Cost (High to Low)' },
   ],
+  'Date Created': [
+    { value: 'createdAt-asc', label: 'Created (Old to New)', adminOnly: true },
+    { value: 'createdAt-desc', label: 'Created (New to Old)', adminOnly: true },
+  ],
+  'Date Modified': [
+    { value: 'lastModified-asc', label: 'Modified (Old to New)', adminOnly: true },
+    { value: 'lastModified-desc', label: 'Modified (New to Old)', adminOnly: true },
+  ],
 }
 
 export const EQUIPMENT_SORT_OPTIONS = {
@@ -29,5 +37,13 @@ export const EQUIPMENT_SORT_OPTIONS = {
   'Keeping': [
     { value: 'keeping-asc', label: 'Keeping (Low to High)' },
     { value: 'keeping-desc', label: 'Keeping (High to Low)' },
+  ],
+  'Date Created': [
+    { value: 'createdAt-asc', label: 'Created (Old to New)', adminOnly: true },
+    { value: 'createdAt-desc', label: 'Created (New to Old)', adminOnly: true },
+  ],
+  'Date Modified': [
+    { value: 'lastModified-asc', label: 'Modified (Old to New)', adminOnly: true },
+    { value: 'lastModified-desc', label: 'Modified (New to Old)', adminOnly: true },
   ],
 }

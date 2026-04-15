@@ -75,12 +75,14 @@ import { useAbilitiesStore } from '@/stores/abilitiesStore'
 import { useSourcesStore } from '@/stores/sourcesStore'
 import { useConceptsStore } from '@/stores/conceptsStore'
 import { useAbilitySchoolsStore } from '@/stores/abilitySchoolsStore'
+import { useAuthStore } from '@/stores/authStore'
 
 const charactersStore = useCharactersStore()
 const abilitiesStore = useAbilitiesStore()
 const sourcesStore = useSourcesStore()
 const conceptsStore = useConceptsStore()
 const abilitySchoolsStore = useAbilitySchoolsStore()
+const authStore = useAuthStore()
 
 defineProps({
     isEditMode: {
@@ -122,7 +124,18 @@ const updateAbilityShowSuccesses = (abilityId, showSuccesses) => {
     successesVisibility.value.set(abilityId, showSuccesses)
 }
 
-const sortOptions = ABILITY_SORT_OPTIONS
+const isAdmin = computed(() => authStore.isAdmin)
+
+const sortOptions = computed(() => {
+    const options = {}
+    for (const [group, items] of Object.entries(ABILITY_SORT_OPTIONS)) {
+        const filtered = items.filter(item => !item.adminOnly || isAdmin.value)
+        if (filtered.length > 0) {
+            options[group] = filtered
+        }
+    }
+    return options
+})
 const groupingOptions = [
     { value: 'school', label: 'School' }
 ]
