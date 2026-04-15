@@ -63,7 +63,7 @@ import GroupedMasonryGrid from '@/components/ui/layouts/GroupedMasonryGrid.vue'
 import SortingDropdown from '@/components/ui/dropdowns/SortingDropdown.vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import { sortItems } from '@/utils/sortItems'
-import { EQUIPMENT_SORT_OPTIONS } from '@/constants/sortOptions'
+import { EQUIPMENT_SORT_OPTIONS, filterAdminSortOptions } from '@/constants/sortOptions'
 import { useFilterPersistence } from '@/composables/useFilterPersistence'
 import { useCharactersStore } from '@/stores/charactersStore'
 import { useEquipmentStore } from '@/stores/equipmentStore'
@@ -93,16 +93,7 @@ const character = computed(() => charactersStore.selectedCharacter)
 const sources = computed(() => sourcesStore.allSourcesFlat)
 const isAdmin = computed(() => authStore.isAdmin)
 
-const sortOptions = computed(() => {
-    const options = {}
-    for (const [group, items] of Object.entries(EQUIPMENT_SORT_OPTIONS)) {
-        const filtered = items.filter(item => !item.adminOnly || isAdmin.value)
-        if (filtered.length > 0) {
-            options[group] = filtered
-        }
-    }
-    return options
-})
+const sortOptions = computed(() => filterAdminSortOptions(EQUIPMENT_SORT_OPTIONS, isAdmin.value))
 
 const groupingOptions = [
     { value: 'type', label: 'Type' }

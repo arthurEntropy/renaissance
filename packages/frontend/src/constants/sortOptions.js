@@ -47,3 +47,12 @@ export const EQUIPMENT_SORT_OPTIONS = {
     { value: 'lastModified-desc', label: 'Modified (New to Old)', adminOnly: true },
   ],
 }
+
+export function filterAdminSortOptions(options, isAdmin) {
+  const result = {}
+  for (const [group, items] of Object.entries(options)) {
+    const filtered = items.filter(item => !item.adminOnly || isAdmin)
+    if (filtered.length > 0) result[group] = filtered
+  }
+  return result
+}

@@ -28,7 +28,7 @@
             </div>
           </div>
           <text-editor v-model="localNovizio.martialNotes" placeholder="Special cases, conditions..." height="60px"
-            :auto-height="true" class="novizio-text-editor" style="margin-top: 0.5rem;" />
+            :auto-height="true" class="novizio-text-editor novizio-text-editor--spaced" />
         </div>
 
         <!-- Engagement Dice -->
@@ -44,20 +44,20 @@
             </div>
           </div>
           <text-editor v-model="localNovizio.engagementNotes" placeholder="Special cases, conditions..." height="60px"
-            :auto-height="true" class="novizio-text-editor" style="margin-top: 0.5rem;" />
+            :auto-height="true" class="novizio-text-editor novizio-text-editor--spaced" />
         </div>
 
         <!-- Engagement Successes -->
         <div class="novizio-subsection">
           <strong>ENGAGEMENT SUCCESSES</strong>
-          <div class="martial-grade-chips" style="margin-top: 0.4rem;">
+          <div class="martial-grade-chips martial-grade-chips--top-spaced">
             <ChipTag v-for="success in engagementSuccesses" :key="success.id" :text="success.name"
               :variant="localNovizio.engagementSuccesses.includes(success.id) ? 'primary' : 'secondary'" rounded="full"
               :tooltip="{ description: success.description }" style="cursor: pointer"
               @click="toggleSuccess(success.id)" />
           </div>
           <text-editor v-model="localNovizio.engagementSuccessNotes" placeholder="Special cases, conditions..."
-            height="60px" :auto-height="true" class="novizio-text-editor" style="margin-top: 0.5rem;" />
+            height="60px" :auto-height="true" class="novizio-text-editor novizio-text-editor--spaced" />
         </div>
 
         <!-- Mestieri Points -->
@@ -66,14 +66,14 @@
           <input type="number" min="1" v-model.number="localNovizio.baseMP" placeholder="Initial Base MP..."
             class="novizio-input" />
           <text-editor v-model="localNovizio.mpNotes" placeholder="Notes..." height="60px" :auto-height="true"
-            class="novizio-text-editor" style="margin-top: 0.5rem;" />
+            class="novizio-text-editor novizio-text-editor--spaced" />
         </div>
 
         <!-- Abilities -->
         <div class="novizio-subsection">
           <strong>ABILITIES</strong>
           <text-editor v-model="localNovizio.abilities" placeholder="Abilities..." height="80px" :auto-height="true"
-            class="novizio-text-editor" />
+            class="novizio-text-editor novizio-text-editor--spaced" />
         </div>
 
         <!-- Cancel Button -->
@@ -129,7 +129,7 @@
         <div class="novizio-subsection" v-if="hasAnyNovizioData">
           <strong>ENGAGEMENT SUCCESSES</strong>
           <template v-if="novizio.engagementSuccesses?.length">
-            <div class="martial-grade-chips" style="margin-top: 0.4rem;">
+            <div class="martial-grade-chips martial-grade-chips--top-spaced">
               <ChipTag v-for="success in engagementSuccesses" :key="success.id" :text="success.name"
                 :variant="novizio.engagementSuccesses?.includes(success.id) ? 'primary' : 'dim'" rounded="full"
                 :tooltip="success.description ? { description: success.description } : null" />
@@ -419,6 +419,14 @@ watch(concept, (newConcept) => {
   flex-wrap: wrap;
   gap: var(--space-xs);
   padding-top: 2px;
+}
+
+.martial-grade-chips--top-spaced {
+  margin-top: var(--space-xs);
+}
+
+.novizio-text-editor--spaced {
+  margin-top: var(--space-sm);
 }
 
 .engagement-dice-row {

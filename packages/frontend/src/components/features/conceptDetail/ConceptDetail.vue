@@ -143,7 +143,6 @@ import { useActionTypesStore } from '@/stores/actionTypesStore'
 import { useAbilitySchoolsStore } from '@/stores/abilitySchoolsStore'
 import { useArtStore } from '@/stores/artStore'
 import { useEngagementSuccessesStore } from '@/stores/engagementSuccessesStore'
-import EngagementSuccessService from '@/services/entities/engagementSuccessService'
 
 import { IMAGE_GALLERY_MODES, ART_TYPES } from '@shared/constants/artConstants.js'
 import { CONCEPT_LAYOUT_CONFIGS, DEFAULT_LAYOUT_CONFIG } from '@/config/conceptLayoutConfig'
@@ -173,7 +172,6 @@ const actionTypesStore = useActionTypesStore()
 const abilitySchoolsStore = useAbilitySchoolsStore()
 const artStore = useArtStore()
 const engagementSuccessesStore = useEngagementSuccessesStore()
-const engagementSuccessOptions = ref([])
 
 // Edit modals
 const {
@@ -208,6 +206,7 @@ const {
   confirmIfUnsaved
 } = useUnsavedChanges(emit, () => hasUnsavedSectionChanges.value)
 
+const engagementSuccessOptions = computed(() => engagementSuccessesStore.items)
 const selectedConcept = computed(() => conceptsStore.selectedConcept)
 
 const DETAIL_OVERLAY = 'rgba(0, 0, 0, 0.5)'
@@ -337,7 +336,6 @@ onMounted(async () => {
     artStore.fetch(),
     engagementSuccessesStore.fetch()
   ])
-  engagementSuccessOptions.value = await EngagementSuccessService.getAll()
 })
 
 onBeforeUnmount(() => {

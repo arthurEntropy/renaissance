@@ -81,7 +81,7 @@ import { useInfiniteScroll } from '@/composables/useInfiniteScroll'
 import { useInfiniteScrollObserver } from '@/composables/useInfiniteScrollObserver'
 import { useFilterPersistence } from '@/composables/useFilterPersistence'
 import { sortItems } from '@/utils/sortItems'
-import { EQUIPMENT_SORT_OPTIONS } from '@/constants/sortOptions'
+import { EQUIPMENT_SORT_OPTIONS, filterAdminSortOptions } from '@/constants/sortOptions'
 import EngagementSuccessService from '@/services/entities/engagementSuccessService'
 import EquipmentCard from '@/components/ui/cards/item/EquipmentCard.vue'
 import EditEquipmentModal from '@/components/editModals/EditEquipmentModal.vue'
@@ -133,16 +133,7 @@ const filteredSubtypes = computed(() => {
   return equipmentSubtypesStore.getSubtypesByType(typeFilter.value)
 })
 
-const sortOptions = computed(() => {
-  const options = {}
-  for (const [group, items] of Object.entries(EQUIPMENT_SORT_OPTIONS)) {
-    const filtered = items.filter(item => !item.adminOnly || isAdmin.value)
-    if (filtered.length > 0) {
-      options[group] = filtered
-    }
-  }
-  return options
-})
+const sortOptions = computed(() => filterAdminSortOptions(EQUIPMENT_SORT_OPTIONS, isAdmin.value))
 
 // Filtering and sorting logic
 const allFilteredEquipment = computed(() => {
