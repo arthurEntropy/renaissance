@@ -14,7 +14,7 @@ import { createDefaultGameConcept, ConceptType } from './gameConcept.js'
  * @property {string} flavorText - Introductory flavor text
  * @property {NovizioMartialTraining} - Martial training expressed as arrays of equipment grade IDs
  * @property {string} engagement - Engagement dice description (rich text)
- * @property {number} initialMaxMP - Starting maximum Mestieri Points
+ * @property {number} baseMP - Starting base Mestieri Points
  * @property {string} abilities - Starting abilities description (rich text)
  */
 
