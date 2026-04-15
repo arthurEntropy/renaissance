@@ -9,7 +9,7 @@
           @click="toggleAbilitySelector" />
       </template>
       <template #header-center>
-        <div v-show="!isCollapsed && internalEditMode" class="header-controls">
+        <div v-show="!isCollapsed" class="header-controls">
           <SortingDropdown v-model="groupingOption" :options="groupingOptions" placeholder="Group by..." />
           <SortingDropdown v-model="abilitySortOption" :options="sortOptions" placeholder="Order by..." />
         </div>
