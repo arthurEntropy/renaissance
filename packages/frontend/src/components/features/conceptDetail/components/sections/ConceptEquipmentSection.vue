@@ -2,17 +2,54 @@
     <div v-if="hasEquipment || isEditMode" class="section-panel">
         <ConceptSection title="Equipment" :has-content="hasEquipment" :is-edit-mode="isEditMode"
             empty-message="No equipment added yet.">
-            <MasonryGrid :column-width="350" :gap="20" :row-height="10" class="cards-container">
-                <EquipmentCard v-for="item in equipment" :key="item.id" :equipment="item" :editable="isEditMode"
+
+            <template v-if="hasEquipment" #header-center>
+                <SortingDropdown v-model="groupingOption" :options="groupingOptions" placeholder="Group by..." />
+                <SortingDropdown v-model="sortOption" :options="sortOptions" placeholder="Order by..." />
+            </template>
+
+            <template v-if="isEditMode" #header-right>
+                <FloatingActionButton type="add" visibility="always" @click="$emit('add-equipment')" />
+            </template>
+
+            <!-- Grouped by type display -->
+            <template v-if="isGroupedByType">
+                <!-- Ungrouped equipment (no type) shown above groups -->
+                <MasonryGrid v-if="noTypeEquipment.length > 0" :column-width="350" :gap="20" :row-height="10"
+                    class="cards-container">
+                    <EquipmentCard v-for="item in noTypeEquipment" :key="item.id" :equipment="item"
+                        :editable="isEditMode" :sources="sources" :art-expanded="true" :engagement-success-options="[]"
+                        :character="character" :show-improvement-toggle="!!character"
+                        @edit="$emit('edit-equipment', item)" :collapsible="false"
+                        :show-improvements="getEquipmentShowImprovements(item.id)"
+                        @update:showImprovements="updateEquipmentShowImprovements(item.id, $event)"
+                        @update="handleCharacterUpdate" />
+                </MasonryGrid>
+                <!-- Type-grouped equipment -->
+                <GroupedMasonryGrid v-if="typeGroupedEquipment.length > 0" :column-width="350" :gap="20"
+                    :row-height="10" :grouped-items="typeGroupedEquipment" persistence-key="concept-equipment-groups"
+                    class="cards-container">
+                    <template #default="{ item }">
+                        <EquipmentCard :equipment="item" :editable="isEditMode" :sources="sources" :art-expanded="true"
+                            :engagement-success-options="[]" :character="character"
+                            :show-improvement-toggle="!!character" @edit="$emit('edit-equipment', item)"
+                            :collapsible="false" :show-improvements="getEquipmentShowImprovements(item.id)"
+                            @update:showImprovements="updateEquipmentShowImprovements(item.id, $event)"
+                            @update="handleCharacterUpdate" />
+                    </template>
+                </GroupedMasonryGrid>
+            </template>
+
+            <!-- Ungrouped display -->
+            <MasonryGrid v-else :column-width="350" :gap="20" :row-height="10" class="cards-container">
+                <EquipmentCard v-for="item in sortedEquipment" :key="item.id" :equipment="item" :editable="isEditMode"
                     :sources="sources" :art-expanded="true" :engagement-success-options="[]" :character="character"
                     :show-improvement-toggle="!!character" @edit="$emit('edit-equipment', item)" :collapsible="false"
                     :show-improvements="getEquipmentShowImprovements(item.id)"
                     @update:showImprovements="updateEquipmentShowImprovements(item.id, $event)"
                     @update="handleCharacterUpdate" />
             </MasonryGrid>
-            <div v-if="isEditMode" class="add-button-container">
-                <FloatingActionButton type="add" visibility="always" @click="$emit('add-equipment')" />
-            </div>
+
         </ConceptSection>
     </div>
 </template>
@@ -22,16 +59,25 @@ import { computed, ref } from 'vue'
 import ConceptSection from '../shared/ConceptSection.vue'
 import EquipmentCard from '@/components/ui/cards/item/EquipmentCard.vue'
 import MasonryGrid from '@/components/ui/layouts/MasonryGrid.vue'
+import GroupedMasonryGrid from '@/components/ui/layouts/GroupedMasonryGrid.vue'
+import SortingDropdown from '@/components/ui/dropdowns/SortingDropdown.vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
+import { sortItems } from '@/utils/sortItems'
+import { EQUIPMENT_SORT_OPTIONS } from '@/constants/sortOptions'
+import { useFilterPersistence } from '@/composables/useFilterPersistence'
 import { useCharactersStore } from '@/stores/charactersStore'
 import { useEquipmentStore } from '@/stores/equipmentStore'
+import { useEquipmentTypesStore } from '@/stores/equipmentTypesStore'
 import { useSourcesStore } from '@/stores/sourcesStore'
 import { useConceptsStore } from '@/stores/conceptsStore'
+import { useAuthStore } from '@/stores/authStore'
 
 const charactersStore = useCharactersStore()
 const equipmentStore = useEquipmentStore()
+const equipmentTypesStore = useEquipmentTypesStore()
 const sourcesStore = useSourcesStore()
 const conceptsStore = useConceptsStore()
+const authStore = useAuthStore()
 
 defineProps({
     isEditMode: {
@@ -45,10 +91,53 @@ defineEmits(['edit-equipment', 'add-equipment'])
 const concept = computed(() => conceptsStore.selectedConcept)
 const character = computed(() => charactersStore.selectedCharacter)
 const sources = computed(() => sourcesStore.allSourcesFlat)
+const isAdmin = computed(() => authStore.isAdmin)
+
+const sortOptions = computed(() => {
+    const options = {}
+    for (const [group, items] of Object.entries(EQUIPMENT_SORT_OPTIONS)) {
+        const filtered = items.filter(item => !item.adminOnly || isAdmin.value)
+        if (filtered.length > 0) {
+            options[group] = filtered
+        }
+    }
+    return options
+})
+
+const groupingOptions = [
+    { value: 'type', label: 'Type' }
+]
+
+const sortOption = ref('name-asc')
+const groupingOption = ref('')
+
+useFilterPersistence('concept-equipment', { sortOption, groupingOption })
+
+const isGroupedByType = computed(() => groupingOption.value === 'type')
 
 const equipment = computed(() =>
     equipmentStore.equipment.filter(e => e.source === concept.value?.id)
 )
+
+const sortedEquipment = computed(() => sortItems(equipment.value, sortOption.value))
+
+const noTypeEquipment = computed(() =>
+    sortedEquipment.value.filter(e => !e.type)
+)
+
+const typeGroupedEquipment = computed(() => {
+    if (!isGroupedByType.value) return []
+    const groups = {}
+    sortedEquipment.value.filter(e => e.type).forEach(item => {
+        const type = equipmentTypesStore.items.find(t => t.id === item.type)
+        const typeName = type?.name || 'Unknown Type'
+        if (!groups[item.type]) {
+            groups[item.type] = { id: item.type, name: typeName, collapsed: false, items: [] }
+        }
+        groups[item.type].items.push(item)
+    })
+    return Object.values(groups).sort((a, b) => a.name.localeCompare(b.name))
+})
 
 const hasEquipment = computed(() => equipment.value.length > 0)
 
@@ -75,13 +164,5 @@ const handleCharacterUpdate = async (updatedCharacter) => {
     background: var(--overlay-black-medium);
     border-radius: var(--radius-10);
     padding: var(--space-lg);
-}
-
-.add-button-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-    position: relative;
-    min-height: 40px;
 }
 </style>
