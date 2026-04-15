@@ -21,11 +21,23 @@
   "floraFauna": "",
   "novizio": {
     "flavorText": "<p></p>",
-    "melee": "common, martial, heavy, great",
-    "polearms": "light, heavy",
-    "ranged": "none",
-    "firearms": "heavy",
-    "armor": "heavy armor, all helms, all shields",
+    "melee": [
+      "b92d3394-2c64-487f-8c90-c56ea1cbd3f3",
+      "847d1092-fd43-4d58-b3da-002e6f3b7f3d",
+      "ebcc2bcb-8221-4ca0-bef3-000fb7e59e96",
+      "a9023254-92ed-4c54-9840-5a7577c1aa1f"
+    ],
+    "polearm": [
+      "ad30b114-3c19-413f-aad2-5f270bd95684",
+      "ebcc2bcb-8221-4ca0-bef3-000fb7e59e96"
+    ],
+    "ranged": [],
+    "firearm": [
+      "ebcc2bcb-8221-4ca0-bef3-000fb7e59e96"
+    ],
+    "armor": [
+      "ebcc2bcb-8221-4ca0-bef3-000fb7e59e96"
+    ],
     "engagement": "<p><span class=\"dice-icon dice-icon df-d12-12\" style=\"font-size: 36px;\"></span> <span class=\"dice-icon dice-icon df-d12-12\" style=\"font-size: 36px;\"></span></p>",
     "initialMaxMP": 0,
     "abilities": "<p>Heavy Strike, Take A Breather, Tough</p>"

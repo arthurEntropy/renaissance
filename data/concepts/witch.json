@@ -26,15 +26,14 @@
   "lastModified": "2026-03-16T14:44:01.863Z",
   "novizio": {
     "flavorText": "",
-    "melee": "none",
-    "polearms": "none",
-    "ranged": "none",
-    "firearms": "none",
-    "armor": "none",
+    "melee": [],
+    "polearm": [],
+    "ranged": [],
+    "firearm": [],
+    "armor": [],
     "engagement": "",
     "initialMaxMP": 10,
-    "abilities": "<p>Retributive Curses, Witch's Familiar, Witchcraft Tokens, Spare the Dying. Also choose any number of additional Witch abilities with a combined XP cost of 15.</p>",
-    "description": "<p>You're a new witch just setting out on your own for the first time. You know some skills, but not many.</p>"
+    "abilities": "<p>Retributive Curses, Witch's Familiar, Witchcraft Tokens, Spare the Dying. Also choose any number of additional Witch abilities with a combined XP cost of 15.</p>"
   },
   "detailBackgroundImage": "https://cdn.midjourney.com/c355bb0d-48b4-4ac2-bb91-9772891ffb06/0_2.png"
 }

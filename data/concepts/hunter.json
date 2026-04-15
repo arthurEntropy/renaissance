@@ -22,11 +22,21 @@
   "lastModified": "2026-04-13T17:21:42.508Z",
   "novizio": {
     "flavorText": "",
-    "melee": "light, common",
-    "polearms": "light",
-    "ranged": "light, heavy",
-    "firearms": "none",
-    "armor": "light",
+    "melee": [
+      "ad30b114-3c19-413f-aad2-5f270bd95684",
+      "b92d3394-2c64-487f-8c90-c56ea1cbd3f3"
+    ],
+    "polearm": [
+      "ad30b114-3c19-413f-aad2-5f270bd95684"
+    ],
+    "ranged": [
+      "ad30b114-3c19-413f-aad2-5f270bd95684",
+      "ebcc2bcb-8221-4ca0-bef3-000fb7e59e96"
+    ],
+    "firearm": [],
+    "armor": [
+      "ad30b114-3c19-413f-aad2-5f270bd95684"
+    ],
     "engagement": "",
     "initialMaxMP": 5,
     "abilities": ""

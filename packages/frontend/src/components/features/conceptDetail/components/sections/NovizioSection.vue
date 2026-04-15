@@ -17,35 +17,14 @@
         <div class="novizio-subsection">
           <strong>Martial Training</strong>
           <div class="martial-training-list">
-            <div class="martial-training-item">
-              <img src="@/assets/icons/melee.png" alt="Melee" class="martial-icon" />
-              <span class="martial-label">Melee</span>
-              <input type="text" v-model="localNovizio.melee" placeholder="Melee..."
-                class="novizio-input full-width-input" />
-            </div>
-            <div class="martial-training-item">
-              <img src="@/assets/icons/polearms.png" alt="Polearms" class="martial-icon" />
-              <span class="martial-label">Polearms</span>
-              <input type="text" v-model="localNovizio.polearms" placeholder="Polearms..."
-                class="novizio-input full-width-input" />
-            </div>
-            <div class="martial-training-item">
-              <img src="@/assets/icons/ranged.png" alt="Ranged" class="martial-icon" />
-              <span class="martial-label">Ranged</span>
-              <input type="text" v-model="localNovizio.ranged" placeholder="Ranged..."
-                class="novizio-input full-width-input" />
-            </div>
-            <div class="martial-training-item">
-              <img src="@/assets/icons/firearms.png" alt="Firearms" class="martial-icon" />
-              <span class="martial-label">Firearms</span>
-              <input type="text" v-model="localNovizio.firearms" placeholder="Firearms..."
-                class="novizio-input full-width-input" />
-            </div>
-            <div class="martial-training-item">
-              <img src="@/assets/icons/armor.png" alt="Armor" class="martial-icon" />
-              <span class="martial-label">Armor</span>
-              <input type="text" v-model="localNovizio.armor" placeholder="Armor..."
-                class="novizio-input full-width-input" />
+            <div class="martial-training-item" v-for="row in martialRows" :key="row.key">
+              <img :src="row.icon" :alt="row.label" class="martial-icon" />
+              <span class="martial-label">{{ row.label }}</span>
+              <div class="martial-grade-chips">
+                <button v-for="grade in equipmentGrades" :key="grade.id" type="button" class="martial-grade-chip"
+                  :class="{ selected: localNovizio[row.key].includes(grade.id) }"
+                  @click="toggleGrade(row.key, grade.id)">{{ grade.name }}</button>
+              </div>
             </div>
           </div>
         </div>
@@ -88,51 +67,14 @@
         <div class="novizio-subsection" v-if="hasAnyNovizioData">
           <strong>Martial Training</strong>
           <div class="martial-training-list">
-            <template v-if="hasAnyMartialTraining">
-              <div class="martial-training-item" v-if="novizio && novizio.melee">
-                <img src="@/assets/icons/melee.png" alt="Melee" class="martial-icon" />
-                <span class="martial-label">Melee</span>
-                <span class="martial-chips">
-                  <span v-for="(chip, i) in novizio.melee.split(',').map(s => s.trim()).filter(Boolean)"
-                    :key="'melee-' + i" class="martial-chip">{{ chip }}</span>
-                </span>
+            <div class="martial-training-item" v-for="row in martialRows" :key="row.key">
+              <img :src="row.icon" :alt="row.label" class="martial-icon" />
+              <span class="martial-label">{{ row.label }}</span>
+              <div class="martial-grade-chips">
+                <span v-for="grade in equipmentGrades" :key="grade.id" class="martial-grade-chip display-only"
+                  :class="{ selected: novizio[row.key]?.includes(grade.id) }">{{ grade.name }}</span>
               </div>
-              <div class="martial-training-item" v-if="novizio && novizio.polearms">
-                <img src="@/assets/icons/polearms.png" alt="Polearms" class="martial-icon" />
-                <span class="martial-label">Polearms</span>
-                <span class="martial-chips">
-                  <span v-for="(chip, i) in novizio.polearms.split(',').map(s => s.trim()).filter(Boolean)"
-                    :key="'polearms-' + i" class="martial-chip">{{ chip }}</span>
-                </span>
-              </div>
-              <div class="martial-training-item" v-if="novizio && novizio.ranged">
-                <img src="@/assets/icons/ranged.png" alt="Ranged" class="martial-icon" />
-                <span class="martial-label">Ranged</span>
-                <span class="martial-chips">
-                  <span v-for="(chip, i) in novizio.ranged.split(',').map(s => s.trim()).filter(Boolean)"
-                    :key="'ranged-' + i" class="martial-chip">{{ chip }}</span>
-                </span>
-              </div>
-              <div class="martial-training-item" v-if="novizio && novizio.firearms">
-                <img src="@/assets/icons/firearms.png" alt="Firearms" class="martial-icon" />
-                <span class="martial-label">Firearms</span>
-                <span class="martial-chips">
-                  <span v-for="(chip, i) in novizio.firearms.split(',').map(s => s.trim()).filter(Boolean)"
-                    :key="'firearms-' + i" class="martial-chip">{{ chip }}</span>
-                </span>
-              </div>
-              <div class="martial-training-item" v-if="novizio && novizio.armor">
-                <img src="@/assets/icons/armor.png" alt="Armor" class="martial-icon" />
-                <span class="martial-label">Armor</span>
-                <span class="martial-chips">
-                  <span v-for="(chip, i) in novizio.armor.split(',').map(s => s.trim()).filter(Boolean)"
-                    :key="'armor-' + i" class="martial-chip">{{ chip }}</span>
-                </span>
-              </div>
-            </template>
-            <template v-else>
-              <div class="martial-training-none">none</div>
-            </template>
+            </div>
           </div>
         </div>
 
@@ -165,6 +107,13 @@ import ConceptSection from '../shared/ConceptSection.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import { sanitizeHtml } from '@/utils/sanitizeHtml'
 import { useConceptsStore } from '@/stores/conceptsStore'
+import { useEquipmentGradesStore } from '@/stores/equipmentGradesStore'
+
+import meleeIcon from '@/assets/icons/melee.png'
+import polearmIcon from '@/assets/icons/polearms.png'
+import rangedIcon from '@/assets/icons/ranged.png'
+import firearmIcon from '@/assets/icons/firearms.png'
+import armorIcon from '@/assets/icons/armor.png'
 
 const props = defineProps({
   editable: {
@@ -174,15 +123,26 @@ const props = defineProps({
 })
 
 const conceptsStore = useConceptsStore()
+const equipmentGradesStore = useEquipmentGradesStore()
+
 const concept = computed(() => conceptsStore.selectedConcept)
+const equipmentGrades = computed(() => equipmentGradesStore.items)
+
+const martialRows = [
+  { key: 'melee', label: 'Melee', icon: meleeIcon },
+  { key: 'polearm', label: 'Polearm', icon: polearmIcon },
+  { key: 'ranged', label: 'Ranged', icon: rangedIcon },
+  { key: 'firearm', label: 'Firearm', icon: firearmIcon },
+  { key: 'armor', label: 'Armor', icon: armorIcon },
+]
 
 const getDefaultNovizio = () => ({
   flavorText: '',
-  melee: '',
-  polearms: '',
-  ranged: '',
-  firearms: '',
-  armor: '',
+  melee: [],
+  polearm: [],
+  ranged: [],
+  firearm: [],
+  armor: [],
   engagement: '',
   initialMaxMP: 1,
   abilities: ''
@@ -193,15 +153,24 @@ const isSectionEditing = ref(false)
 
 const novizio = computed(() => concept.value?.novizio)
 
-const hasAnyMartialTraining = computed(() => {
-  const n = concept.value?.novizio || {}
-  return [n.melee, n.polearms, n.ranged, n.firearms, n.armor].some(val => val?.trim())
-})
+const toggleGrade = (rowKey, gradeId) => {
+  const arr = localNovizio.value[rowKey]
+  const idx = arr.indexOf(gradeId)
+  if (idx === -1) {
+    arr.push(gradeId)
+  } else {
+    arr.splice(idx, 1)
+  }
+}
+
 
 const hasAnyNovizioData = computed(() => {
   if (!concept.value?.novizio) return false
   const n = concept.value.novizio
-  return [n.flavorText, n.melee, n.polearms, n.ranged, n.firearms, n.armor, n.engagement, n.abilities].some(val => val?.toString().trim()) || n.initialMaxMP > 1
+  const hasMartial = ['melee', 'polearm', 'ranged', 'firearm', 'armor'].some(k => n[k]?.length > 0)
+  return hasMartial
+    || [n.flavorText, n.engagement, n.abilities].some(val => val?.toString().trim())
+    || n.initialMaxMP > 1
 })
 
 const safeDescription = computed(() => sanitizeHtml(concept.value?.novizio?.description))
@@ -210,7 +179,22 @@ const safeAbilities = computed(() => sanitizeHtml(concept.value?.novizio?.abilit
 
 const syncLocalNovizio = (sourceConcept) => {
   if (!sourceConcept) return
-  localNovizio.value = sourceConcept.novizio ? { ...sourceConcept.novizio } : getDefaultNovizio()
+  if (sourceConcept.novizio) {
+    const n = sourceConcept.novizio
+    localNovizio.value = {
+      flavorText: n.flavorText || '',
+      melee: Array.isArray(n.melee) ? [...n.melee] : [],
+      polearm: Array.isArray(n.polearm) ? [...n.polearm] : [],
+      ranged: Array.isArray(n.ranged) ? [...n.ranged] : [],
+      firearm: Array.isArray(n.firearm) ? [...n.firearm] : [],
+      armor: Array.isArray(n.armor) ? [...n.armor] : [],
+      engagement: n.engagement || '',
+      initialMaxMP: n.initialMaxMP ?? 1,
+      abilities: n.abilities || '',
+    }
+  } else {
+    localNovizio.value = getDefaultNovizio()
+  }
 }
 
 const toggleEdit = async () => {
@@ -272,15 +256,6 @@ watch(concept, (newConcept) => {
   font-size: var(--font-size-16);
   display: inline-block;
   vertical-align: middle;
-}
-
-.novizio-input.full-width-input {
-  flex: 1 1 auto;
-  width: 100%;
-  min-width: 0;
-  max-width: none;
-  margin-left: 0.5rem;
-  margin-right: 0;
 }
 
 .novizio-description {
@@ -346,15 +321,40 @@ watch(concept, (newConcept) => {
   margin-left: 0.5rem;
 }
 
-.martial-chip {
-  background: var(--color-bg-secondary);
-  color: var(--color-text-primary);
-  border: 1px solid var(--color-gray-medium);
+.martial-grade-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  padding-top: 2px;
+}
+
+.martial-grade-chip {
+  padding: var(--space-xs) var(--space-sm);
   border-radius: var(--radius-10);
-  padding: var(--space-xs) var(--space-xs);
-  font-size: var(--font-size-15);
-  line-height: var(--line-height-normal);
-  display: inline-block;
+  font-size: var(--font-size-13);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1;
+  cursor: pointer;
+  border: 1px solid var(--color-gray-medium);
+  background: var(--color-bg-secondary);
+  color: var(--color-text-muted);
+  transition: background var(--transition-opacity), color var(--transition-opacity), border-color var(--transition-opacity);
+}
+
+.martial-grade-chip.selected {
+  background: var(--color-primary);
+  color: var(--color-primary-text);
+  border-color: var(--color-primary);
+}
+
+.martial-grade-chip:hover:not(.selected):not(.display-only) {
+  border-color: var(--color-gray-light);
+  color: var(--color-text-primary);
+}
+
+.martial-grade-chip.display-only {
+  cursor: default;
+  pointer-events: none;
 }
 
 .martial-training-none {

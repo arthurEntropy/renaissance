@@ -22,15 +22,19 @@
   "lastModified": "2026-03-17T01:53:23.373Z",
   "novizio": {
     "flavorText": "",
-    "melee": "light, common",
-    "polearms": "none",
-    "ranged": "none",
-    "firearms": "none",
-    "armor": "light",
+    "melee": [
+      "ad30b114-3c19-413f-aad2-5f270bd95684",
+      "b92d3394-2c64-487f-8c90-c56ea1cbd3f3"
+    ],
+    "polearm": [],
+    "ranged": [],
+    "firearm": [],
+    "armor": [
+      "ad30b114-3c19-413f-aad2-5f270bd95684"
+    ],
     "engagement": "<p>none</p>",
     "initialMaxMP": "",
-    "abilities": "<p>All Summoner abilities.</p>",
-    "description": "<p>You have 3 standard vessels. They can all be the same or you can have a mix of vessels.</p><p><strong>Describe your vessels and how you created them.</strong></p><p>Choose a non-humanoid creature of Challenge 10 or less that inhabits your home biome, or a biome you have travelled through recently. That creature is already captured in one of your 3 starting vessels and has a Friendship score of 3.</p><p><strong>Describe how you captured this creature.</strong></p>"
+    "abilities": "<p>All Summoner abilities.</p>"
   },
   "detailBackgroundImage": "https://cdn.midjourney.com/09481920-388a-488d-9ef2-c213269d3490/0_3.png"
 }

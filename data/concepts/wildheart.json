@@ -27,11 +27,11 @@
   "detailBackgroundImage": "https://cdn.midjourney.com/dd9274a0-bea0-48a1-ad88-ad0a6ca99ad2/0_1.png",
   "novizio": {
     "flavorText": "",
-    "melee": "none",
-    "polearms": "none",
-    "ranged": "none",
-    "firearms": "none",
-    "armor": "none",
+    "melee": [],
+    "polearm": [],
+    "ranged": [],
+    "firearm": [],
+    "armor": [],
     "engagement": "<p>none</p>",
     "initialMaxMP": 1,
     "abilities": "<p>Wild Attunement and any combination of other Wildheart abilities that are not part of a school with a combined XP cost of no more than 15.</p><p>Also choose one: Way of the Hive, Way of the Green, Way of the Spore, Way of the Tooth.</p>"

@@ -21,15 +21,22 @@
   "floraFauna": "",
   "novizio": {
     "flavorText": "",
-    "melee": "light, martial, heavy",
-    "polearms": "none",
-    "ranged": "none",
-    "firearms": "light",
-    "armor": "light",
+    "melee": [
+      "ad30b114-3c19-413f-aad2-5f270bd95684",
+      "847d1092-fd43-4d58-b3da-002e6f3b7f3d",
+      "ebcc2bcb-8221-4ca0-bef3-000fb7e59e96"
+    ],
+    "polearm": [],
+    "ranged": [],
+    "firearm": [
+      "ad30b114-3c19-413f-aad2-5f270bd95684"
+    ],
+    "armor": [
+      "ad30b114-3c19-413f-aad2-5f270bd95684"
+    ],
     "engagement": "<p><span class=\"dice-icon dice-icon dice-icon dice-icon df-d4-4\" style=\"font-size: 36px;\"></span> <span class=\"dice-icon dice-icon dice-icon dice-icon df-d4-4\" style=\"font-size: 36px;\"></span> for each point you have in WITS.</p><p>You have the <em>Compass, Feint, Invitation, Parry, Manchette, Retreat </em>and <em>Riposte</em> Engagement successes.</p>",
     "initialMaxMP": 0,
-    "abilities": "<p>Demand Satisfaction, Good Form and choose one, ignoring its XP cost:</p><ul><li><p>Press Advantage</p></li><li><p>Quick Draw</p></li><li><p>Lunge</p></li></ul>",
-    "description": ""
+    "abilities": "<p>Demand Satisfaction, Good Form and choose one, ignoring its XP cost:</p><ul><li><p>Press Advantage</p></li><li><p>Quick Draw</p></li><li><p>Lunge</p></li></ul>"
   },
   "lastModified": "2026-03-16T20:29:53.137Z",
   "detailBackgroundImage": "https://cdn.midjourney.com/1970a4d1-e869-4458-b57d-728d48bacafa/0_0.png"

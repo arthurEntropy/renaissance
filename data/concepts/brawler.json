@@ -21,11 +21,11 @@
   "floraFauna": "",
   "novizio": {
     "flavorText": "<p>Testing TESTOIMG</p>",
-    "melee": "none",
-    "polearms": "none",
-    "ranged": "none",
-    "firearms": "none",
-    "armor": "none",
+    "melee": [],
+    "polearm": [],
+    "ranged": [],
+    "firearm": [],
+    "armor": [],
     "engagement": "<p><span class=\"dice-icon dice-icon df-d12-12\" style=\"font-size: 36px;\"></span>  <span class=\"dice-icon dice-icon dice-icon df-d12-12\" style=\"font-size: 36px;\"></span></p>",
     "initialMaxMP": 0,
     "abilities": "<p>Action Over Deliberation, Embrace The Chaos, Fists Up</p>"

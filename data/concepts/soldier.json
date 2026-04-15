@@ -21,15 +21,31 @@
   "floraFauna": "",
   "novizio": {
     "flavorText": "",
-    "melee": "light, common, martial, heavy",
-    "polearms": "light, heavy",
-    "ranged": "light",
-    "firearms": "none",
-    "armor": "all armor, all helms, all shields",
+    "melee": [
+      "ad30b114-3c19-413f-aad2-5f270bd95684",
+      "b92d3394-2c64-487f-8c90-c56ea1cbd3f3",
+      "847d1092-fd43-4d58-b3da-002e6f3b7f3d",
+      "ebcc2bcb-8221-4ca0-bef3-000fb7e59e96"
+    ],
+    "polearm": [
+      "ad30b114-3c19-413f-aad2-5f270bd95684",
+      "ebcc2bcb-8221-4ca0-bef3-000fb7e59e96"
+    ],
+    "ranged": [
+      "ad30b114-3c19-413f-aad2-5f270bd95684"
+    ],
+    "firearm": [],
+    "armor": [
+      "ad30b114-3c19-413f-aad2-5f270bd95684",
+      "b92d3394-2c64-487f-8c90-c56ea1cbd3f3",
+      "847d1092-fd43-4d58-b3da-002e6f3b7f3d",
+      "ebcc2bcb-8221-4ca0-bef3-000fb7e59e96",
+      "a9023254-92ed-4c54-9840-5a7577c1aa1f"
+    ],
     "engagement": "<p><span class=\"dice-icon df-d6-6\" style=\"font-size: 36px;\"></span> <span class=\"dice-icon df-d6-6\" style=\"font-size: 36px;\"></span></p>",
     "initialMaxMP": 0,
     "abilities": "<p>Close Ranks, Momentum, Rally</p>"
   },
-  "lastModified": "2026-04-13T18:45:56.358Z",
+  "lastModified": "2026-04-15T13:09:15.660Z",
   "detailBackgroundImage": "https://cdn.midjourney.com/46be6a95-1b04-452c-8d84-fe0a2043423e/0_3.png"
 }

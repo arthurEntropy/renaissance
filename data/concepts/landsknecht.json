@@ -21,11 +21,19 @@
   "floraFauna": "",
   "novizio": {
     "flavorText": "",
-    "melee": "martial, heavy",
-    "polearms": "light",
-    "ranged": "none",
-    "firearms": "none",
-    "armor": "light, medium",
+    "melee": [
+      "847d1092-fd43-4d58-b3da-002e6f3b7f3d",
+      "ebcc2bcb-8221-4ca0-bef3-000fb7e59e96"
+    ],
+    "polearm": [
+      "ad30b114-3c19-413f-aad2-5f270bd95684"
+    ],
+    "ranged": [],
+    "firearm": [],
+    "armor": [
+      "ad30b114-3c19-413f-aad2-5f270bd95684",
+      "b92d3394-2c64-487f-8c90-c56ea1cbd3f3"
+    ],
     "engagement": "<p>Conditional - see <em>Aura of Experience.</em></p>",
     "initialMaxMP": 5,
     "abilities": "<p>Mercenary, Aura of Experience, Everyone Has A Price, Strange Fixation.</p>"

@@ -21,11 +21,13 @@
   "floraFauna": "",
   "novizio": {
     "flavorText": "",
-    "melee": "light",
-    "polearms": "none",
-    "ranged": "none",
-    "firearms": "none",
-    "armor": "none",
+    "melee": [
+      "ad30b114-3c19-413f-aad2-5f270bd95684"
+    ],
+    "polearm": [],
+    "ranged": [],
+    "firearm": [],
+    "armor": [],
     "engagement": "<p><span class=\"dice-icon dice-icon df-d4-4\" style=\"font-size: 36px;\"></span> <span class=\"dice-icon dice-icon df-d4-4\" style=\"font-size: 36px;\"></span> <span class=\"dice-icon dice-icon dice-icon df-d4-4\" style=\"font-size: 36px;\"></span> <span class=\"dice-icon dice-icon dice-icon df-d4-4\" style=\"font-size: 36px;\"></span></p>",
     "initialMaxMP": 0,
     "abilities": "<p>Nimble and choose one, ignoring its XP cost:</p><ul><li><p>Pole Training</p></li><li><p>Rope &amp; Chain Weapon Training</p></li><li><p>Shuriken Training</p></li><li><p>Pressure Point Training.</p></li></ul>"

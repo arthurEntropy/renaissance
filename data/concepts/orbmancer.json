@@ -22,15 +22,14 @@
   "lastModified": "2026-03-17T00:59:33.121Z",
   "novizio": {
     "flavorText": "",
-    "melee": "none",
-    "polearms": "none",
-    "ranged": "none",
-    "firearms": "none",
-    "armor": "none",
+    "melee": [],
+    "polearm": [],
+    "ranged": [],
+    "firearm": [],
+    "armor": [],
     "engagement": "<p>none</p>",
     "initialMaxMP": 0,
-    "abilities": "<p>Orbmancy, Orbcraft, Dribble.</p>",
-    "description": "<p>You have the <em>Initiate's Orb</em> equipment item, which has a small object of personal significance at its center. Describe the object and why you chose it.</p>"
+    "abilities": "<p>Orbmancy, Orbcraft, Dribble.</p>"
   },
   "detailBackgroundImage": "https://cdn.midjourney.com/40fd93b9-6a39-400b-861c-e1cc6d81df04/0_2.png"
 }
