@@ -38,6 +38,7 @@
       "ebcc2bcb-8221-4ca0-bef3-000fb7e59e96",
       "a9023254-92ed-4c54-9840-5a7577c1aa1f"
     ],
+    "martialNotes": "",
     "engagementDice": {
       "4": 0,
       "6": 0,
@@ -51,9 +52,12 @@
       "d0e1f2a3-b4c5-46d7-e8f9-a0b1c2d3e4f5"
     ],
     "engagementNotes": "",
-    "initialMaxMP": 0,
-    "abilities": "<p>Heavy Strike, Take A Breather, Tough</p>"
+    "engagementSuccessNotes": "",
+    "baseMP": 0,
+    "mpNotes": "<p>You can gain MP through your <em>Tough</em> ability.</p>",
+    "abilities": "<p><em>Heavy Strike, Take A Breather, Tough.</em></p>",
+    "description": "<p>Sed ultricies nisi sit amet justo ultricies, eu ullamcorper lacus vestibulum. Aenean mattis velit neque, ut posuere ligula suscipit eu. Aenean enim odio, scelerisque vitae pulvinar vel, euismod et nulla. Ut tempor maximus eros, vitae tristique arcu condimentum at. Nulla.</p>"
   },
-  "lastModified": "2026-04-15T14:06:16.289Z",
+  "lastModified": "2026-04-15T18:39:16.039Z",
   "detailBackgroundImage": "https://cdn.midjourney.com/984846b1-cf63-47c0-80c7-29ecdb84da87/0_3.png"
 }

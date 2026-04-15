@@ -19,6 +19,44 @@
   "vittles": "",
   "pointsOfInterest": "",
   "floraFauna": "",
-  "lastModified": "2026-04-13T17:32:58.781Z",
-  "detailBackgroundImage": "https://cdn.midjourney.com/bda1a37f-a80c-4f43-8e0a-38b2ba2f084b/0_2.png"
+  "lastModified": "2026-04-15T18:48:19.797Z",
+  "detailBackgroundImage": "https://cdn.midjourney.com/bda1a37f-a80c-4f43-8e0a-38b2ba2f084b/0_2.png",
+  "novizio": {
+    "flavorText": "",
+    "melee": [
+      "ad30b114-3c19-413f-aad2-5f270bd95684",
+      "b92d3394-2c64-487f-8c90-c56ea1cbd3f3",
+      "847d1092-fd43-4d58-b3da-002e6f3b7f3d"
+    ],
+    "polearm": [],
+    "ranged": [
+      "ad30b114-3c19-413f-aad2-5f270bd95684"
+    ],
+    "firearm": [
+      "ad30b114-3c19-413f-aad2-5f270bd95684"
+    ],
+    "armor": [
+      "ad30b114-3c19-413f-aad2-5f270bd95684",
+      "b92d3394-2c64-487f-8c90-c56ea1cbd3f3",
+      "847d1092-fd43-4d58-b3da-002e6f3b7f3d"
+    ],
+    "martialNotes": "",
+    "engagementDice": {
+      "4": 0,
+      "6": 0,
+      "8": 1,
+      "10": 0,
+      "12": 0,
+      "20": 0
+    },
+    "engagementSuccesses": [
+      "b8c9d0e1-f2a3-44b5-c6d7-e8f9a0b1c2d3"
+    ],
+    "engagementNotes": "",
+    "engagementSuccessNotes": "",
+    "baseMP": 10,
+    "mpNotes": "",
+    "abilities": "<p><em>Tactician 1, Tactician 2, Tactician 3.</em></p>",
+    "description": "<p>Sed mi diam, imperdiet vitae sem eu, aliquam placerat nunc. Morbi est odio, commodo at quam quis, congue aliquam orci. Duis semper nulla leo, non eleifend dolor consequat nec. Suspendisse tincidunt malesuada enim, eget tempor diam iaculis vitae. Aenean orci.</p>"
+  }
 }

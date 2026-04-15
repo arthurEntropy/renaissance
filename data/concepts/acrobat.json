@@ -28,6 +28,7 @@
     "ranged": [],
     "firearm": [],
     "armor": [],
+    "martialNotes": "",
     "engagementDice": {
       "4": 4,
       "6": 0,
@@ -42,10 +43,12 @@
       "e5f6a7b8-c9d0-41e2-f3a4-b5c6d7e8f9a0",
       "c9d0e1f2-a3b4-45c6-d7e8-f9a0b1c2d3e4"
     ],
-    "engagementNotes": "You may exchange movement for additional Engagement Dice. See Nimble.",
-    "initialMaxMP": 0,
-    "abilities": "<p>Nimble and choose one, ignoring its XP cost:</p><ul><li><p>Pole Training</p></li><li><p>Rope &amp; Chain Weapon Training</p></li><li><p>Shuriken Training</p></li><li><p>Pressure Point Training.</p></li></ul>"
+    "engagementNotes": "<p>Your <em>Nimble</em> ability allows you to exchange movement for additional engagement dice.</p>",
+    "engagementSuccessNotes": "",
+    "baseMP": 0,
+    "mpNotes": "<p>Acrobat abilities to not have an MP cost.</p>",
+    "abilities": "<p><em>Nimble</em> and choose one, ignoring its XP cost: <em>Pole Training, Rope &amp; Chain Weapon Training, Shuriken Training, </em>or <em>Pressure Point Training</em>.</p>"
   },
-  "lastModified": "2026-04-15T14:47:55.199Z",
+  "lastModified": "2026-04-15T18:56:21.018Z",
   "detailBackgroundImage": "https://cdn.midjourney.com/b5080eea-b264-48f9-b5bf-bfe09a416fce/0_1.png"
 }

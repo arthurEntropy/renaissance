@@ -19,7 +19,7 @@
   "vittles": "",
   "pointsOfInterest": "",
   "floraFauna": "",
-  "lastModified": "2026-03-17T01:53:23.373Z",
+  "lastModified": "2026-04-15T18:46:44.303Z",
   "novizio": {
     "flavorText": "",
     "melee": [
@@ -32,8 +32,7 @@
     "armor": [
       "ad30b114-3c19-413f-aad2-5f270bd95684"
     ],
-    "initialMaxMP": "",
-    "abilities": "<p>All Summoner abilities.</p>",
+    "martialNotes": "",
     "engagementDice": {
       "4": 0,
       "6": 0,
@@ -43,7 +42,12 @@
       "20": 0
     },
     "engagementSuccesses": [],
-    "engagementNotes": ""
+    "engagementNotes": "",
+    "engagementSuccessNotes": "",
+    "baseMP": 0,
+    "mpNotes": "<p>Summoner abilities to not have an MP cost. The creatures you summon may have their own base MP.</p>",
+    "abilities": "<p><em>Capture, Craft Vessel, Friendship, Keeper of Vessels, Summon, Train.</em></p>",
+    "description": "<p>In scelerisque turpis vitae elit volutpat mollis. Morbi quis blandit velit. Quisque arcu lorem, fringilla nec suscipit non, porttitor et justo. Integer pharetra felis mi, et pretium justo lacinia eget. Cras volutpat orci ut pharetra imperdiet. Morbi volutpat ligula eleifend.</p>"
   },
   "detailBackgroundImage": "https://cdn.midjourney.com/09481920-388a-488d-9ef2-c213269d3490/0_3.png"
 }

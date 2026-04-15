@@ -23,6 +23,30 @@
   "vittles": "",
   "pointsOfInterest": "",
   "floraFauna": "",
-  "lastModified": "2026-04-13T17:51:09.868Z",
-  "detailBackgroundImage": "https://cdn.midjourney.com/72465cf5-ad08-473c-92d2-bdbdc22ccd40/0_2.png"
+  "lastModified": "2026-04-15T18:51:46.806Z",
+  "detailBackgroundImage": "https://cdn.midjourney.com/72465cf5-ad08-473c-92d2-bdbdc22ccd40/0_2.png",
+  "novizio": {
+    "flavorText": "",
+    "melee": [],
+    "polearm": [],
+    "ranged": [],
+    "firearm": [],
+    "armor": [],
+    "martialNotes": "",
+    "engagementDice": {
+      "4": 0,
+      "6": 0,
+      "8": 0,
+      "10": 0,
+      "12": 0,
+      "20": 0
+    },
+    "engagementSuccesses": [],
+    "engagementNotes": "",
+    "engagementSuccessNotes": "",
+    "baseMP": 7,
+    "mpNotes": "",
+    "abilities": "<p><em>Votary 1, Votary 2, Votary 3.</em></p>",
+    "description": "<p>Donec ut justo at tortor dapibus sagittis. Phasellus dignissim hendrerit molestie. Aliquam vel pellentesque ligula. Vivamus tristique pretium tellus, in tristique nunc facilisis at. Mauris posuere dui enim, id porta purus imperdiet vel. Praesent rhoncus mi congue sapien posuere, in.</p>"
+  }
 }

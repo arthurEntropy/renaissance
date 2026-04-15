@@ -19,7 +19,7 @@
   "vittles": "",
   "pointsOfInterest": "",
   "floraFauna": "",
-  "lastModified": "2026-04-10T20:54:04.224Z",
+  "lastModified": "2026-04-15T18:19:34.984Z",
   "detailBackgroundImage": "https://cdn.midjourney.com/402933c8-163a-4254-b4ae-84dfc367df08/0_0.png",
   "novizio": {
     "flavorText": "",
@@ -28,8 +28,7 @@
     "ranged": [],
     "firearm": [],
     "armor": [],
-    "initialMaxMP": 10,
-    "abilities": "<p>Arcane Focus and choose your Arcanist archetype: Hedge Mage, Rune Knight, or Wizard of the Tower. Each archetype grants different starting abilities.</p>",
+    "martialNotes": "",
     "engagementDice": {
       "4": 0,
       "6": 0,
@@ -39,6 +38,11 @@
       "20": 0
     },
     "engagementSuccesses": [],
-    "engagementNotes": ""
+    "engagementNotes": "",
+    "engagementSuccessNotes": "",
+    "baseMP": 10,
+    "mpNotes": "",
+    "abilities": "<p><em>Arcane Focus</em> and choose your Arcanist archetype: <em>Hedge Mage</em>, <em>Rune Knight</em>, or <em>Wizard of the Tower</em>. Each archetype grants different starting abilities.</p>",
+    "description": "<p>Nunc pellentesque arcu lobortis hendrerit vestibulum. Etiam non erat suscipit, aliquet metus sed, finibus orci. Mauris eu quam dignissim, eleifend ipsum sed, mollis arcu. Cras at elit sit amet sem auctor lacinia ac nec nunc. Sed efficitur, mauris eu pellentesque.</p>"
   }
 }

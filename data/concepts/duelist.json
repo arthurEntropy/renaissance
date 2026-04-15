@@ -34,8 +34,7 @@
     "armor": [
       "ad30b114-3c19-413f-aad2-5f270bd95684"
     ],
-    "initialMaxMP": 0,
-    "abilities": "<p>Demand Satisfaction, Good Form and choose one, ignoring its XP cost:</p><ul><li><p>Press Advantage</p></li><li><p>Quick Draw</p></li><li><p>Lunge</p></li></ul>",
+    "martialNotes": "",
     "engagementDice": {
       "4": 2,
       "6": 0,
@@ -53,8 +52,13 @@
       "c9d0e1f2-a3b4-45c6-d7e8-f9a0b1c2d3e4",
       "d0e1f2a3-b4c5-46d7-e8f9-a0b1c2d3e4f5"
     ],
-    "engagementNotes": "for each point you have in WITS"
+    "engagementNotes": "<p>Multiply this base allotment by your WITS score <em>(for example, a WITS score of 3 means you get 6d4)</em>. The allotment changes as your WITS score changes.</p>",
+    "engagementSuccessNotes": "",
+    "baseMP": 0,
+    "mpNotes": "<p>You can gain MP through your <em>Good Form</em> ability.</p>",
+    "abilities": "<p><em>Demand Satisfaction</em>, <em>Good Form</em> and choose one, ignoring its XP cost: <em>Press Advantage, Quick Draw, </em>or <em>Lunge.</em></p>",
+    "description": "<p>Cras nec quam a lectus hendrerit facilisis quis a libero. Ut nibh ex, varius ut magna sit amet, blandit eleifend enim. Interdum et malesuada fames ac ante ipsum primis in faucibus. Donec luctus ut mi id venenatis. Sed molestie non.</p>"
   },
-  "lastModified": "2026-03-16T20:29:53.137Z",
+  "lastModified": "2026-04-15T18:38:46.555Z",
   "detailBackgroundImage": "https://cdn.midjourney.com/1970a4d1-e869-4458-b57d-728d48bacafa/0_0.png"
 }

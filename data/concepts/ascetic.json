@@ -19,6 +19,30 @@
   "vittles": "",
   "pointsOfInterest": "",
   "floraFauna": "",
-  "lastModified": "2026-04-13T18:57:05.150Z",
-  "detailBackgroundImage": "https://cdn.midjourney.com/4b22394a-a6b0-4c58-8c09-086cc592e7f2/0_0.png"
+  "lastModified": "2026-04-15T18:19:51.553Z",
+  "detailBackgroundImage": "https://cdn.midjourney.com/4b22394a-a6b0-4c58-8c09-086cc592e7f2/0_0.png",
+  "novizio": {
+    "flavorText": "",
+    "melee": [],
+    "polearm": [],
+    "ranged": [],
+    "firearm": [],
+    "armor": [],
+    "martialNotes": "",
+    "engagementDice": {
+      "4": 0,
+      "6": 0,
+      "8": 0,
+      "10": 0,
+      "12": 0,
+      "20": 0
+    },
+    "engagementSuccesses": [],
+    "engagementNotes": "<p>You gain engagement dice from your current <em>Stance</em>.</p>",
+    "engagementSuccessNotes": "",
+    "baseMP": 0,
+    "mpNotes": "",
+    "abilities": "<p><em>Stance</em> and some other stuff I haven't written yet.</p>",
+    "description": "<p>Suspendisse sit amet porttitor dolor. Pellentesque ornare magna eu lorem auctor, et blandit urna maximus. Sed eget ante semper, suscipit lacus a, ultricies dui. Sed tincidunt tortor vel sapien sodales eleifend. Quisque dictum mauris elementum purus eleifend, ac eleifend tellus.</p>"
+  }
 }

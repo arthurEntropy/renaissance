@@ -19,7 +19,7 @@
   "vittles": "",
   "pointsOfInterest": "",
   "floraFauna": "",
-  "lastModified": "2026-03-17T00:59:33.121Z",
+  "lastModified": "2026-04-15T18:42:57.587Z",
   "novizio": {
     "flavorText": "",
     "melee": [],
@@ -27,8 +27,7 @@
     "ranged": [],
     "firearm": [],
     "armor": [],
-    "initialMaxMP": 0,
-    "abilities": "<p>Orbmancy, Orbcraft, Dribble.</p>",
+    "martialNotes": "",
     "engagementDice": {
       "4": 0,
       "6": 0,
@@ -38,7 +37,12 @@
       "20": 0
     },
     "engagementSuccesses": [],
-    "engagementNotes": ""
+    "engagementNotes": "",
+    "engagementSuccessNotes": "",
+    "baseMP": 0,
+    "mpNotes": "<p>You can gain MP through your Orbmancer abilities.</p>",
+    "abilities": "<p><em>Orbmancy, Orbcraft, Dribble.</em></p>",
+    "description": "<p>Vivamus venenatis justo lorem, a interdum ligula congue ac. Ut eu nunc arcu. Morbi orci est, eleifend nec ornare tincidunt, consequat a ex. Nulla eget mi ut massa gravida imperdiet. Aliquam consectetur metus et orci congue, non aliquam risus viverra.</p>"
   },
   "detailBackgroundImage": "https://cdn.midjourney.com/40fd93b9-6a39-400b-861c-e1cc6d81df04/0_2.png"
 }

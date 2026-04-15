@@ -19,7 +19,7 @@
   "vittles": "",
   "pointsOfInterest": "",
   "floraFauna": "",
-  "lastModified": "2026-03-19T01:26:17.589Z",
+  "lastModified": "2026-04-15T18:37:49.711Z",
   "novizio": {
     "flavorText": "",
     "melee": [],
@@ -27,8 +27,7 @@
     "ranged": [],
     "firearm": [],
     "armor": [],
-    "initialMaxMP": 0,
-    "abilities": "<p><em>Channel</em>, plus one ability of your choosing of each mana color.</p>",
+    "martialNotes": "",
     "engagementDice": {
       "4": 0,
       "6": 0,
@@ -38,7 +37,12 @@
       "20": 0
     },
     "engagementSuccesses": [],
-    "engagementNotes": ""
+    "engagementNotes": "",
+    "engagementSuccessNotes": "",
+    "baseMP": 0,
+    "mpNotes": "<p>You can gain MP (mana) through your <em>Channel</em> ability, among others.</p>",
+    "abilities": "<p><em>Channel</em>, plus one ability of your choosing of each mana color.</p>",
+    "description": "<p>Fusce blandit urna vitae fringilla porta. Donec elementum dui a libero commodo, vitae faucibus eros facilisis. Donec lobortis enim ac metus dictum bibendum. Praesent ullamcorper tempor metus quis pharetra. In nec ultricies massa. Maecenas rhoncus suscipit finibus. Ut volutpat, dui.</p>"
   },
   "detailBackgroundImage": "https://cdn.midjourney.com/30ad68d4-cc74-499d-8c7b-44a886954433/0_2.png"
 }

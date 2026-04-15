@@ -46,6 +46,7 @@
       "847d1092-fd43-4d58-b3da-002e6f3b7f3d",
       "ebcc2bcb-8221-4ca0-bef3-000fb7e59e96"
     ],
+    "martialNotes": "",
     "engagementDice": {
       "4": 0,
       "6": 2,
@@ -60,9 +61,12 @@
       "d0e1f2a3-b4c5-46d7-e8f9-a0b1c2d3e4f5"
     ],
     "engagementNotes": "",
-    "initialMaxMP": 0,
-    "abilities": "<p>Close Ranks, Momentum, Rally</p>"
+    "engagementSuccessNotes": "",
+    "baseMP": 0,
+    "mpNotes": "<p>You can gain MP through your <em>Momentum</em> ability.</p>",
+    "abilities": "<p><em>Close Ranks, Momentum, Rally.</em></p>",
+    "description": "<p>Phasellus vehicula, dolor ac pretium vehicula, nisi risus efficitur nisl, quis ultrices est massa eu orci. Sed imperdiet ante ac turpis tincidunt, ac condimentum eros sodales. Duis diam magna, malesuada vitae convallis quis, commodo quis sem. Fusce nec lacus fringilla.</p>"
   },
-  "lastModified": "2026-04-15T13:52:23.607Z",
+  "lastModified": "2026-04-15T18:44:01.334Z",
   "detailBackgroundImage": "https://cdn.midjourney.com/46be6a95-1b04-452c-8d84-fe0a2043423e/0_3.png"
 }

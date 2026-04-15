@@ -19,7 +19,7 @@
   "vittles": "",
   "pointsOfInterest": "",
   "floraFauna": "",
-  "lastModified": "2026-03-13T20:15:23.096Z",
+  "lastModified": "2026-04-15T18:24:17.930Z",
   "novizio": {
     "flavorText": "",
     "melee": [],
@@ -27,8 +27,7 @@
     "ranged": [],
     "firearm": [],
     "armor": [],
-    "initialMaxMP": 3,
-    "abilities": "<p>You have all Cartomancer abilities.</p>",
+    "martialNotes": "",
     "engagementDice": {
       "4": 0,
       "6": 0,
@@ -38,7 +37,12 @@
       "20": 0
     },
     "engagementSuccesses": [],
-    "engagementNotes": ""
+    "engagementNotes": "",
+    "engagementSuccessNotes": "",
+    "baseMP": 3,
+    "mpNotes": "",
+    "abilities": "<p><em>Oblation, Pull One, Pull Three, Reading.</em></p>",
+    "description": "<p>Phasellus vehicula risus nec ante lobortis, ut fringilla felis volutpat. Pellentesque ligula enim, consectetur eget accumsan nec, sagittis quis orci. Sed est ligula, pellentesque vel commodo id, dignissim quis metus. Class aptent taciti sociosqu ad litora torquent per conubia nostra.</p>"
   },
   "detailBackgroundImage": "https://cdn.midjourney.com/dc75da16-65fe-4e50-ad4d-ada752b211fd/0_3.png"
 }

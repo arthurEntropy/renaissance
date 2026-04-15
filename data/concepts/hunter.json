@@ -19,7 +19,7 @@
   "vittles": "",
   "pointsOfInterest": "",
   "floraFauna": "",
-  "lastModified": "2026-04-15T14:04:31.632Z",
+  "lastModified": "2026-04-15T18:27:51.886Z",
   "novizio": {
     "flavorText": "",
     "melee": [
@@ -41,9 +41,10 @@
       "ad30b114-3c19-413f-aad2-5f270bd95684",
       "b92d3394-2c64-487f-8c90-c56ea1cbd3f3"
     ],
+    "martialNotes": "",
     "engagementDice": {
       "4": 0,
-      "6": 0,
+      "6": 2,
       "8": 0,
       "10": 0,
       "12": 0,
@@ -53,8 +54,11 @@
       "b8c9d0e1-f2a3-44b5-c6d7-e8f9a0b1c2d3"
     ],
     "engagementNotes": "",
-    "initialMaxMP": 5,
-    "abilities": ""
+    "engagementSuccessNotes": "",
+    "baseMP": 5,
+    "mpNotes": "",
+    "abilities": "",
+    "description": "<p>Suspendisse efficitur imperdiet nisi. Cras et mi in elit vehicula volutpat. Integer laoreet auctor lobortis. Nulla facilisi. Praesent auctor nisi a mauris gravida, in pretium sem bibendum. Maecenas ultricies, sapien et efficitur tempor, tellus magna tincidunt orci, vel mattis ante.</p>"
   },
   "detailBackgroundImage": "https://cdn.midjourney.com/264a8c61-7957-4e53-9349-62c45573022c/0_1.png"
 }

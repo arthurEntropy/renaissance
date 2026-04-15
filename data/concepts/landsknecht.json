@@ -40,6 +40,7 @@
       "b92d3394-2c64-487f-8c90-c56ea1cbd3f3",
       "847d1092-fd43-4d58-b3da-002e6f3b7f3d"
     ],
+    "martialNotes": "",
     "engagementDice": {
       "4": 0,
       "6": 0,
@@ -55,10 +56,13 @@
       "b8c9d0e1-f2a3-44b5-c6d7-e8f9a0b1c2d3",
       "d0e1f2a3-b4c5-46d7-e8f9-a0b1c2d3e4f5"
     ],
-    "engagementNotes": "Conditional - see Aura of Experience.",
-    "initialMaxMP": 5,
-    "abilities": "<p>Mercenary, Aura of Experience, Everyone Has A Price, Strange Fixation.</p>"
+    "engagementNotes": "<p>You can gain engagement dice through your <em>Aura of Experience </em>ability.</p>",
+    "engagementSuccessNotes": "",
+    "baseMP": 5,
+    "mpNotes": "<p>You increase your base MP through your <em>Aura of Experience </em>ability.</p>",
+    "abilities": "<p><em>Mercenary, Aura of Experience, Everyone Has A Price, Strange Fixation.</em></p>",
+    "description": "<p>Vestibulum dapibus ultricies eleifend. Ut vitae varius magna, nec fringilla justo. Integer congue, lectus eget sollicitudin blandit, odio metus interdum leo, vitae dignissim mi ipsum ut lacus. Sed auctor risus quis lorem vehicula tempor. Vestibulum bibendum nisl eu quam tincidunt.</p>"
   },
-  "lastModified": "2026-04-15T14:07:45.957Z",
+  "lastModified": "2026-04-15T18:33:23.177Z",
   "detailBackgroundImage": "https://cdn.midjourney.com/27636738-1136-4f12-867a-6ee9e2e0c4f3/0_0.png"
 }
