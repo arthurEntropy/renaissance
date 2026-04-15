@@ -2,7 +2,7 @@
   "source": "937d52da-0ebf-4d74-b3ee-be395f2f5d0a",
   "id": "5ea47cda-b70e-4530-af7e-8a4f2e0f2fb3",
   "createdAt": "2026-03-09T21:21:00.127Z",
-  "lastModified": "2026-03-17T14:49:30.550Z",
+  "lastModified": "2026-04-10T14:30:17.763Z",
   "biomeTagsAugment": [],
   "biomeTagsInhibit": [],
   "name": "Wild Shape",
@@ -12,5 +12,12 @@
   "xp": 15,
   "mp": 3,
   "artUrl": "https://cdn.midjourney.com/cb45f1a6-bc21-4584-a635-593fe7581e2f/0_1.png",
-  "improvements": []
+  "improvements": [
+    {
+      "name": "Wing & Gill",
+      "description": "<p>You may choose an animal that can fly or breathe underwater.</p>",
+      "xp": 10,
+      "id": "d5a11904-83e8-49c1-8e71-1b31953fb9c7"
+    }
+  ]
 }

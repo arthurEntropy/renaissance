@@ -19,7 +19,7 @@
   "vittles": "",
   "pointsOfInterest": "",
   "floraFauna": "",
-  "lastModified": "2026-03-16T18:35:58.919Z",
+  "lastModified": "2026-04-10T20:54:04.224Z",
   "detailBackgroundImage": "https://cdn.midjourney.com/402933c8-163a-4254-b4ae-84dfc367df08/0_0.png",
   "novizio": {
     "flavorText": "",
@@ -30,6 +30,6 @@
     "armor": "none",
     "engagement": "",
     "initialMaxMP": 10,
-    "abilities": ""
+    "abilities": "<p>Arcane Focus and choose your Arcanist archetype: Hedge Mage, Rune Knight, or Wizard of the Tower. Each archetype grants different starting abilities.</p>"
   }
 }

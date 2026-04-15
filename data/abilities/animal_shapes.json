@@ -1,0 +1,16 @@
+{
+  "source": "937d52da-0ebf-4d74-b3ee-be395f2f5d0a",
+  "id": "3cd517d3-4f9f-4674-9dbe-f759e4acf3ac",
+  "createdAt": "2026-04-10T14:10:01.556Z",
+  "lastModified": "2026-04-10T14:12:33.623Z",
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": [],
+  "name": "Animal Shapes",
+  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
+  "isMagical": true,
+  "mp": 8,
+  "xp": 40,
+  "description": "<p><em>Concentration, up to 1 hour.</em></p><p></p>",
+  "school": "0be89610-8361-4d2e-ab5c-da6e6722458e",
+  "isDeleted": true
+}
