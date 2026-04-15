@@ -21,16 +21,44 @@
   "floraFauna": "",
   "novizio": {
     "flavorText": "",
-    "melee": "light, martial, heavy",
-    "polearms": "none",
-    "ranged": "none",
-    "firearms": "light",
-    "armor": "light",
-    "engagement": "<p><span class=\"dice-icon dice-icon dice-icon dice-icon df-d4-4\" style=\"font-size: 36px;\"></span> <span class=\"dice-icon dice-icon dice-icon dice-icon df-d4-4\" style=\"font-size: 36px;\"></span> for each point you have in WITS.</p><p>You have the <em>Compass, Feint, Invitation, Parry, Manchette, Retreat </em>and <em>Riposte</em> Engagement successes.</p>",
-    "initialMaxMP": 0,
-    "abilities": "<p>Demand Satisfaction, Good Form and choose one, ignoring its XP cost:</p><ul><li><p>Press Advantage</p></li><li><p>Quick Draw</p></li><li><p>Lunge</p></li></ul>",
-    "description": ""
+    "melee": [
+      "ad30b114-3c19-413f-aad2-5f270bd95684",
+      "847d1092-fd43-4d58-b3da-002e6f3b7f3d",
+      "ebcc2bcb-8221-4ca0-bef3-000fb7e59e96"
+    ],
+    "polearm": [],
+    "ranged": [],
+    "firearm": [
+      "ad30b114-3c19-413f-aad2-5f270bd95684"
+    ],
+    "armor": [
+      "ad30b114-3c19-413f-aad2-5f270bd95684"
+    ],
+    "martialNotes": "",
+    "engagementDice": {
+      "4": 2,
+      "6": 0,
+      "8": 0,
+      "10": 0,
+      "12": 0,
+      "20": 0
+    },
+    "engagementSuccesses": [
+      "b2c3d4e5-f6a7-48b9-c0d1-e2f3a4b5c6d7",
+      "d4e5f6a7-b8c9-40d1-e2f3-a4b5c6d7e8f9",
+      "e5f6a7b8-c9d0-41e2-f3a4-b5c6d7e8f9a0",
+      "b8c9d0e1-f2a3-44b5-c6d7-e8f9a0b1c2d3",
+      "a7b8c9d0-e1f2-43a4-b5c6-d7e8f9a0b1c2",
+      "c9d0e1f2-a3b4-45c6-d7e8-f9a0b1c2d3e4",
+      "d0e1f2a3-b4c5-46d7-e8f9-a0b1c2d3e4f5"
+    ],
+    "engagementNotes": "<p>Multiply this base allotment by your WITS score <em>(for example, a WITS score of 3 means you get 6d4)</em>. The allotment changes as your WITS score changes.</p>",
+    "engagementSuccessNotes": "",
+    "baseMP": 0,
+    "mpNotes": "<p>You can gain MP through your <em>Good Form</em> ability.</p>",
+    "abilities": "<p><em>Demand Satisfaction</em>, <em>Good Form</em> and choose one, ignoring its XP cost: <em>Press Advantage, Quick Draw, </em>or <em>Lunge.</em></p>",
+    "description": "<p>Cras nec quam a lectus hendrerit facilisis quis a libero. Ut nibh ex, varius ut magna sit amet, blandit eleifend enim. Interdum et malesuada fames ac ante ipsum primis in faucibus. Donec luctus ut mi id venenatis. Sed molestie non.</p>"
   },
-  "lastModified": "2026-03-16T20:29:53.137Z",
+  "lastModified": "2026-04-15T18:38:46.555Z",
   "detailBackgroundImage": "https://cdn.midjourney.com/1970a4d1-e869-4458-b57d-728d48bacafa/0_0.png"
 }

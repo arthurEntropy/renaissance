@@ -19,18 +19,30 @@
   "vittles": "",
   "pointsOfInterest": "",
   "floraFauna": "",
-  "lastModified": "2026-03-13T20:15:23.096Z",
+  "lastModified": "2026-04-15T18:24:17.930Z",
   "novizio": {
     "flavorText": "",
-    "melee": "none",
-    "polearms": "none",
-    "ranged": "none",
-    "firearms": "none",
-    "armor": "none",
-    "engagement": "<p>none</p>",
-    "initialMaxMP": 3,
-    "abilities": "<p>You have all Cartomancer abilities.</p>",
-    "description": "<p>Choose two suits from: Coins, Cups, Batons, Swords.</p>"
+    "melee": [],
+    "polearm": [],
+    "ranged": [],
+    "firearm": [],
+    "armor": [],
+    "martialNotes": "",
+    "engagementDice": {
+      "4": 0,
+      "6": 0,
+      "8": 0,
+      "10": 0,
+      "12": 0,
+      "20": 0
+    },
+    "engagementSuccesses": [],
+    "engagementNotes": "",
+    "engagementSuccessNotes": "",
+    "baseMP": 3,
+    "mpNotes": "",
+    "abilities": "<p><em>Oblation, Pull One, Pull Three, Reading.</em></p>",
+    "description": "<p>Phasellus vehicula risus nec ante lobortis, ut fringilla felis volutpat. Pellentesque ligula enim, consectetur eget accumsan nec, sagittis quis orci. Sed est ligula, pellentesque vel commodo id, dignissim quis metus. Class aptent taciti sociosqu ad litora torquent per conubia nostra.</p>"
   },
   "detailBackgroundImage": "https://cdn.midjourney.com/dc75da16-65fe-4e50-ad4d-ada752b211fd/0_3.png"
 }

@@ -23,18 +23,30 @@
   "vittles": "",
   "pointsOfInterest": "",
   "floraFauna": "",
-  "lastModified": "2026-03-16T14:44:01.863Z",
+  "lastModified": "2026-04-15T18:54:51.830Z",
   "novizio": {
     "flavorText": "",
-    "melee": "none",
-    "polearms": "none",
-    "ranged": "none",
-    "firearms": "none",
-    "armor": "none",
-    "engagement": "",
-    "initialMaxMP": 10,
-    "abilities": "<p>Retributive Curses, Witch's Familiar, Witchcraft Tokens, Spare the Dying. Also choose any number of additional Witch abilities with a combined XP cost of 15.</p>",
-    "description": "<p>You're a new witch just setting out on your own for the first time. You know some skills, but not many.</p>"
+    "melee": [],
+    "polearm": [],
+    "ranged": [],
+    "firearm": [],
+    "armor": [],
+    "martialNotes": "",
+    "engagementDice": {
+      "4": 0,
+      "6": 0,
+      "8": 0,
+      "10": 0,
+      "12": 0,
+      "20": 0
+    },
+    "engagementSuccesses": [],
+    "engagementNotes": "",
+    "engagementSuccessNotes": "",
+    "baseMP": 10,
+    "mpNotes": "",
+    "abilities": "<p><em>Retributive Curses, Witch's Familiar, Witchcraft Tokens, Spare the Dying.</em> Also choose any number of additional Witch abilities with a combined XP cost of no more than 15.</p>",
+    "description": "<p>Aliquam bibendum felis vitae pulvinar ornare. Nam congue malesuada sapien quis pulvinar. Morbi mi sem, vehicula id nibh nec, lacinia faucibus risus. Aliquam tempus pretium ipsum. Vestibulum tincidunt neque imperdiet suscipit euismod. Mauris maximus magna lacus, in volutpat ipsum commodo.</p>"
   },
   "detailBackgroundImage": "https://cdn.midjourney.com/c355bb0d-48b4-4ac2-bb91-9772891ffb06/0_2.png"
 }

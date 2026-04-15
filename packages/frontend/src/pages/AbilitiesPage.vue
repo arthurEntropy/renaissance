@@ -49,7 +49,7 @@ import { useInfiniteScroll } from '@/composables/useInfiniteScroll'
 import { useInfiniteScrollObserver } from '@/composables/useInfiniteScrollObserver'
 import { useFilterPersistence } from '@/composables/useFilterPersistence'
 import { sortItems } from '@/utils/sortItems'
-import { ABILITY_SORT_OPTIONS } from '@/constants/sortOptions'
+import { ABILITY_SORT_OPTIONS, filterAdminSortOptions } from '@/constants/sortOptions'
 import AbilityCard from '@/components/ui/cards/item/AbilityCard.vue'
 import EditAbilityModal from '@/components/editModals/EditAbilityModal.vue'
 import ItemCardsLayout from '@/components/ui/layouts/ItemCardsLayout.vue'
@@ -90,7 +90,7 @@ const isLoadingMore = ref(false)
 const isAdmin = computed(() => authStore.isAdmin)
 const sources = computed(() => sourcesStore.sources)
 
-const sortOptions = ref(ABILITY_SORT_OPTIONS)
+const sortOptions = computed(() => filterAdminSortOptions(ABILITY_SORT_OPTIONS, isAdmin.value))
 const magicalFilter = ref('')
 const schoolFilter = ref('')
 

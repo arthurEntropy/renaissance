@@ -1,7 +1,7 @@
 {
   "id": "1e4131c7-8a6f-422c-998a-5147600c946e",
   "conceptType": "MESTIERE",
-  "name": "Murato",
+  "name": "Juggernaut",
   "description": "<p>The blow lands and you feel it—a deep, dull force that would have stopped someone else. You plant your feet and take a breath. There is more where that came from, and you are going to be here until it runs out. This is simply the arrangement you have made.</p><p>The <em>Murato</em>—the walled one, the armored one—is a fighter built for one thing above all others: holding the line and making the enemy pay dearly for every inch of it. They carry the heaviest weapons, wear the heaviest armor, and stand where others would retreat. They don't win through speed or cleverness. They win by being harder to put down than any opponent can manage, and by making every moment of the fight progressively worse for everyone who isn't them.</p><p>At the center of a Murato's practice is a brutal economy: their body is their resource. Where other fighters track their health as a ceiling to stay above, the Murato spends theirs deliberately, converting raw endurance into the focus that their most devastating blows require. When the math tips against them, they plant their feet, skip their turn, absorb what comes, and recover a measure of what they've spent before bearing back in. The rhythm is expansion and contraction: attack, drain, recover, attack again, harder.</p><p>When they choose to commit to a strike, the Murato commits fully. Their most powerful attacks don't just damage—they break. A perfectly landed blow forces the target to make an Injury roll; against a Murato who has mastered their technique, a creature that is already critically compromised simply doesn't survive the next hit at all. The Murato's menace isn't limited to the creature directly in front of them, either. When they finally put an opponent down, the sight of it rattles nearby enemies in a way that goes beyond ordinary fear—forcing those who witnessed it to reckon with the possibility that they are next.</p><h3>Play a Murato if you want to:</h3><ul><li><p><strong>Absorb punishment and keep fighting</strong>, managing your health as a resource to spend and recover across a long, grinding engagement.</p></li><li><p><strong>Land hits that end fights</strong>, building toward strikes of escalating permanence—from wounding to injuring to, finally, ending the matter entirely.</p></li><li><p><strong>Be a presence on the battlefield</strong>, one whose weight and ferocity extends beyond a single target and reshapes how the whole fight feels.</p></li></ul><h3>Questions to consider when making a Murato:</h3><ul><li><p>What do they fight for? They are built for cost—they bleed for every victory. What is worth that cost to them, and have they ever found something that wasn't?</p></li><li><p>How do they carry the weight—literally and otherwise? Is the armor and the weaponry a burden they have made peace with, a source of identity, or something they barely register after years of wearing it?</p></li><li><p>Have they ever broken? Most fighters have a moment where they pushed past what they thought was their limit. What was theirs, and what did it cost them to find out where that limit actually was?</p></li><li><p>Do they frighten people—allies included? The kind of fighting a murato does is not comfortable to be near. How do they relate to the effect their presence has on others?</p></li><li><p>What would make them stop? Not a defeat—a defeat just means they rest and return. What would actually end them as a fighter, and do they know what that is?</p></li></ul>",
   "isDeleted": false,
   "artUrls": [
@@ -21,14 +21,43 @@
   "floraFauna": "",
   "novizio": {
     "flavorText": "<p></p>",
-    "melee": "common, martial, heavy, great",
-    "polearms": "light, heavy",
-    "ranged": "none",
-    "firearms": "heavy",
-    "armor": "heavy armor, all helms, all shields",
-    "engagement": "<p><span class=\"dice-icon dice-icon df-d12-12\" style=\"font-size: 36px;\"></span> <span class=\"dice-icon dice-icon df-d12-12\" style=\"font-size: 36px;\"></span></p>",
-    "initialMaxMP": 0,
-    "abilities": "<p>Heavy Strike, Take A Breather, Tough</p>"
+    "melee": [
+      "b92d3394-2c64-487f-8c90-c56ea1cbd3f3",
+      "847d1092-fd43-4d58-b3da-002e6f3b7f3d",
+      "ebcc2bcb-8221-4ca0-bef3-000fb7e59e96",
+      "a9023254-92ed-4c54-9840-5a7577c1aa1f"
+    ],
+    "polearm": [
+      "ebcc2bcb-8221-4ca0-bef3-000fb7e59e96",
+      "b92d3394-2c64-487f-8c90-c56ea1cbd3f3",
+      "847d1092-fd43-4d58-b3da-002e6f3b7f3d"
+    ],
+    "ranged": [],
+    "firearm": [],
+    "armor": [
+      "ebcc2bcb-8221-4ca0-bef3-000fb7e59e96",
+      "a9023254-92ed-4c54-9840-5a7577c1aa1f"
+    ],
+    "martialNotes": "",
+    "engagementDice": {
+      "4": 0,
+      "6": 0,
+      "8": 0,
+      "10": 0,
+      "12": 2,
+      "20": 0
+    },
+    "engagementSuccesses": [
+      "b8c9d0e1-f2a3-44b5-c6d7-e8f9a0b1c2d3",
+      "d0e1f2a3-b4c5-46d7-e8f9-a0b1c2d3e4f5"
+    ],
+    "engagementNotes": "",
+    "engagementSuccessNotes": "",
+    "baseMP": 0,
+    "mpNotes": "<p>You can gain MP through your <em>Tough</em> ability.</p>",
+    "abilities": "<p><em>Heavy Strike, Take A Breather, Tough.</em></p>",
+    "description": "<p>Sed ultricies nisi sit amet justo ultricies, eu ullamcorper lacus vestibulum. Aenean mattis velit neque, ut posuere ligula suscipit eu. Aenean enim odio, scelerisque vitae pulvinar vel, euismod et nulla. Ut tempor maximus eros, vitae tristique arcu condimentum at. Nulla.</p>"
   },
-  "lastModified": "2026-03-16T17:13:43.428Z"
+  "lastModified": "2026-04-15T18:39:16.039Z",
+  "detailBackgroundImage": "https://cdn.midjourney.com/984846b1-cf63-47c0-80c7-29ecdb84da87/0_3.png"
 }

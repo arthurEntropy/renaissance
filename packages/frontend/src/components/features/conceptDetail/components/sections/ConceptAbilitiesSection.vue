@@ -68,19 +68,21 @@ import GroupedMasonryGrid from '@/components/ui/layouts/GroupedMasonryGrid.vue'
 import SortingDropdown from '@/components/ui/dropdowns/SortingDropdown.vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import { sortItems } from '@/utils/sortItems'
-import { ABILITY_SORT_OPTIONS } from '@/constants/sortOptions'
+import { ABILITY_SORT_OPTIONS, filterAdminSortOptions } from '@/constants/sortOptions'
 import { useFilterPersistence } from '@/composables/useFilterPersistence'
 import { useCharactersStore } from '@/stores/charactersStore'
 import { useAbilitiesStore } from '@/stores/abilitiesStore'
 import { useSourcesStore } from '@/stores/sourcesStore'
 import { useConceptsStore } from '@/stores/conceptsStore'
 import { useAbilitySchoolsStore } from '@/stores/abilitySchoolsStore'
+import { useAuthStore } from '@/stores/authStore'
 
 const charactersStore = useCharactersStore()
 const abilitiesStore = useAbilitiesStore()
 const sourcesStore = useSourcesStore()
 const conceptsStore = useConceptsStore()
 const abilitySchoolsStore = useAbilitySchoolsStore()
+const authStore = useAuthStore()
 
 defineProps({
     isEditMode: {
@@ -122,7 +124,9 @@ const updateAbilityShowSuccesses = (abilityId, showSuccesses) => {
     successesVisibility.value.set(abilityId, showSuccesses)
 }
 
-const sortOptions = ABILITY_SORT_OPTIONS
+const isAdmin = computed(() => authStore.isAdmin)
+
+const sortOptions = computed(() => filterAdminSortOptions(ABILITY_SORT_OPTIONS, isAdmin.value))
 const groupingOptions = [
     { value: 'school', label: 'School' }
 ]

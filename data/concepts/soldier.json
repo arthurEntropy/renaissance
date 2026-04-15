@@ -1,0 +1,72 @@
+{
+  "id": "d4dce5e2-e767-464d-91f0-c40b47f788b3",
+  "conceptType": "MESTIERE",
+  "name": "Soldier",
+  "description": "<p>You've fought in lines, in doorways, in open fields, and in rooms too small to swing properly. You've used every weight of weapon and every weight of armor, and you know what each one costs and what each one gives back. The person beside you doesn't need to know all of that. They just need to know that you do, and that you're watching the shape of things.</p><p>The <em>Uomo d'Armi</em>—the man-at-arms—is the professional soldier in its fullest expression: versatile, disciplined, and dangerous with any weapon placed in their hands. Where other fighters specialize in a single style or a narrow set of tools, the Uomo d'Armi trains broadly and carries the marks of that breadth everywhere. In any battle lineup, they are the one who knows how each piece of the fight is supposed to work—and how to make it work when it doesn't.</p><p>More than any other fighter, the Uomo d'Armi is defined by the people fighting alongside them. Their abilities reward formation: standing adjacent to allies raises everyone's defense, pressing the attack together sharpens every blow, and their shield can become the cornerstone of a wall that simply cannot be breached. When a foe threatens to slip past them to reach someone more vulnerable, the Uomo d'Armi plants themselves in the way—not as a last resort, but as a trained response. In the press of fighting, their victories generate momentum that benefits the whole group, each enemy's defeat sharpening the next attack for everyone present.</p><p>There is, finally, the matter of sacrifice. The Uomo d'Armi understands something that most people would rather not think about: that a soldier's death, properly given, is not an ending—it's a gift. Being struck down in battle is not failure but contribution; falling permanently is not loss but legacy. The companions who survive carry something forward that makes every future venture a little more possible. This is not a philosophy of recklessness. It is a philosophy of priority—knowing which things matter more than personal survival, and acting on that knowledge when the moment comes.</p><h3>Play a Soldier if you want to:</h3><ul><li><p><strong>Master every weapon and every weight of armor</strong>, bringing the trained competence of a professional soldier to bear regardless of what the fight demands.</p></li><li><p><strong>Make everyone around you more effective</strong>, turning proximity into a tactical advantage and each enemy's defeat into fuel for the ones that follow.</p></li><li><p><strong>Embrace sacrifice as a strategy</strong>, understanding that the best way to win a battle is sometimes to give something up—and that what you leave behind can outlast the fight itself.</p></li></ul><h3>Questions to consider when making a Soldier:</h3><ul><li><p>Under whom did they serve, and what does that service mean to them now—duty still owed, a past left behind, or the only life they've ever known how to live?</p></li><li><p>How do they hold up the weight of the people depending on them? Is it a burden, a purpose, or simply an unremarkable fact of their existence?</p></li><li><p>Have they ever been the one who didn't come back? Do they carry a name—or more than one—for whom their formation held, and then didn't?</p></li><li><p>What is their relationship to the idea of a good death? Is it something they've made peace with, something they fear, or something they haven't allowed themselves to think about yet?</p></li><li><p>What does it take to make them put down their weapons? Is there a fight they won't take—and if so, what is it?</p></li></ul>",
+  "isDeleted": false,
+  "artUrls": [
+    "https://cdn.midjourney.com/d148d2cc-bd6c-4ec5-816d-1cbe79a5af2b/0_1.png"
+  ],
+  "faces": [],
+  "places": [],
+  "backgroundImage": "https://cdn.midjourney.com/c8d64ac7-c7c4-47d1-b7d6-34bd6ff153a8/0_2.png",
+  "expansion": "",
+  "hooks": [],
+  "playlists": [],
+  "names": "",
+  "occupations": "",
+  "publicHouses": "",
+  "vittles": "",
+  "pointsOfInterest": "",
+  "floraFauna": "",
+  "novizio": {
+    "flavorText": "",
+    "melee": [
+      "ad30b114-3c19-413f-aad2-5f270bd95684",
+      "b92d3394-2c64-487f-8c90-c56ea1cbd3f3",
+      "847d1092-fd43-4d58-b3da-002e6f3b7f3d",
+      "ebcc2bcb-8221-4ca0-bef3-000fb7e59e96"
+    ],
+    "polearm": [
+      "ad30b114-3c19-413f-aad2-5f270bd95684",
+      "ebcc2bcb-8221-4ca0-bef3-000fb7e59e96",
+      "b92d3394-2c64-487f-8c90-c56ea1cbd3f3",
+      "847d1092-fd43-4d58-b3da-002e6f3b7f3d"
+    ],
+    "ranged": [
+      "ad30b114-3c19-413f-aad2-5f270bd95684",
+      "b92d3394-2c64-487f-8c90-c56ea1cbd3f3",
+      "847d1092-fd43-4d58-b3da-002e6f3b7f3d",
+      "ebcc2bcb-8221-4ca0-bef3-000fb7e59e96"
+    ],
+    "firearm": [],
+    "armor": [
+      "ad30b114-3c19-413f-aad2-5f270bd95684",
+      "b92d3394-2c64-487f-8c90-c56ea1cbd3f3",
+      "847d1092-fd43-4d58-b3da-002e6f3b7f3d",
+      "ebcc2bcb-8221-4ca0-bef3-000fb7e59e96"
+    ],
+    "martialNotes": "",
+    "engagementDice": {
+      "4": 0,
+      "6": 2,
+      "8": 0,
+      "10": 0,
+      "12": 0,
+      "20": 0
+    },
+    "engagementSuccesses": [
+      "b8c9d0e1-f2a3-44b5-c6d7-e8f9a0b1c2d3",
+      "c9d0e1f2-a3b4-45c6-d7e8-f9a0b1c2d3e4",
+      "d0e1f2a3-b4c5-46d7-e8f9-a0b1c2d3e4f5"
+    ],
+    "engagementNotes": "",
+    "engagementSuccessNotes": "",
+    "baseMP": 0,
+    "mpNotes": "<p>You can gain MP through your <em>Momentum</em> ability.</p>",
+    "abilities": "<p><em>Close Ranks, Momentum, Rally.</em></p>",
+    "description": "<p>Phasellus vehicula, dolor ac pretium vehicula, nisi risus efficitur nisl, quis ultrices est massa eu orci. Sed imperdiet ante ac turpis tincidunt, ac condimentum eros sodales. Duis diam magna, malesuada vitae convallis quis, commodo quis sem. Fusce nec lacus fringilla.</p>"
+  },
+  "lastModified": "2026-04-15T18:44:01.334Z",
+  "detailBackgroundImage": "https://cdn.midjourney.com/46be6a95-1b04-452c-8d84-fe0a2043423e/0_3.png"
+}

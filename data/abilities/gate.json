@@ -1,0 +1,15 @@
+{
+  "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
+  "id": "cdfdb90e-ba37-42d3-a80f-7b0a8fde838f",
+  "createdAt": "2026-04-14T17:22:51.214Z",
+  "lastModified": "2026-04-14T18:10:54.944Z",
+  "name": "Gate",
+  "description": "<p><em>Concentration, up to 1 minute.</em></p><p>You conjure a portal within medium range to any other location, which can be a place you can see, a place you can visualize, or one you can describe by stating distance and direction. The portal is circular and of a diameter you choose between 5 and 20 ft. You can see through the portal to the other linked location from either side. Roll Lore to determine any additional effects.</p><p>A creature that passes through the portal is immediately transported to the other linked location.</p>",
+  "isMagical": true,
+  "school": "dae8a70f-3f7a-4357-8fe4-972f863be65b",
+  "mp": 8,
+  "xp": 40,
+  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
+  "successes": "<p>✨: You may sustain the portal for 1 additional minute.</p><p>🌞: You may choose to make the portal persist until dispelled.</p><p>💀: The portal's surface is a confusion of swirling energy and its destination is uncertain. Check a Condition. Each time a creature passes through the portal, roll a d8. On a 1, the creature is transported to the place of your birth.</p>",
+  "artUrl": "https://cdn.midjourney.com/51b002af-7da3-44a6-878e-d36fb60848f3/0_0.png"
+}

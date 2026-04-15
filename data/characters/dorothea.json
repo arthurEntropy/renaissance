@@ -17,8 +17,8 @@
     "current": 3,
     "max": 5
   },
-  "body": 3,
-  "heart": 2,
+  "body": 15,
+  "heart": 15,
   "wits": 1,
   "skills": [
     {
@@ -144,16 +144,16 @@
   ],
   "endurance": {
     "current": 15,
-    "max": 15,
+    "max": 75,
     "coreAbility": "body"
   },
   "hope": {
     "current": 12,
-    "max": 6,
+    "max": 30,
     "coreAbility": "heart"
   },
   "defense": {
-    "current": 13,
+    "current": 11,
     "max": 11,
     "coreAbility": "wits"
   },
@@ -199,5 +199,7 @@
   "artUrls": [
     "https://cdn.midjourney.com/890188b9-df60-4f68-8f03-11b5d1f127b4/0_2.png"
   ],
-  "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1"
+  "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
+  "updatedAt": "2026-04-14T01:34:33.387Z",
+  "lastModified": "2026-04-14T01:34:33.387Z"
 }

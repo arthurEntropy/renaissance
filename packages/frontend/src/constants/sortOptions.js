@@ -15,6 +15,14 @@ export const ABILITY_SORT_OPTIONS = {
     { value: 'manaCost-asc', label: 'Mana Cost (Low to High)' },
     { value: 'manaCost-desc', label: 'Mana Cost (High to Low)' },
   ],
+  'Date Created': [
+    { value: 'createdAt-asc', label: 'Created (Old to New)', adminOnly: true },
+    { value: 'createdAt-desc', label: 'Created (New to Old)', adminOnly: true },
+  ],
+  'Date Modified': [
+    { value: 'lastModified-asc', label: 'Modified (Old to New)', adminOnly: true },
+    { value: 'lastModified-desc', label: 'Modified (New to Old)', adminOnly: true },
+  ],
 }
 
 export const EQUIPMENT_SORT_OPTIONS = {
@@ -30,4 +38,21 @@ export const EQUIPMENT_SORT_OPTIONS = {
     { value: 'keeping-asc', label: 'Keeping (Low to High)' },
     { value: 'keeping-desc', label: 'Keeping (High to Low)' },
   ],
+  'Date Created': [
+    { value: 'createdAt-asc', label: 'Created (Old to New)', adminOnly: true },
+    { value: 'createdAt-desc', label: 'Created (New to Old)', adminOnly: true },
+  ],
+  'Date Modified': [
+    { value: 'lastModified-asc', label: 'Modified (Old to New)', adminOnly: true },
+    { value: 'lastModified-desc', label: 'Modified (New to Old)', adminOnly: true },
+  ],
+}
+
+export function filterAdminSortOptions(options, isAdmin) {
+  const result = {}
+  for (const [group, items] of Object.entries(options)) {
+    const filtered = items.filter(item => !item.adminOnly || isAdmin)
+    if (filtered.length > 0) result[group] = filtered
+  }
+  return result
 }

@@ -19,17 +19,30 @@
   "vittles": "",
   "pointsOfInterest": "",
   "floraFauna": "",
-  "lastModified": "2026-03-16T18:35:58.919Z",
+  "lastModified": "2026-04-15T18:19:34.984Z",
   "detailBackgroundImage": "https://cdn.midjourney.com/402933c8-163a-4254-b4ae-84dfc367df08/0_0.png",
   "novizio": {
     "flavorText": "",
-    "melee": "none",
-    "polearms": "none",
-    "ranged": "none",
-    "firearms": "none",
-    "armor": "none",
-    "engagement": "",
-    "initialMaxMP": 10,
-    "abilities": ""
+    "melee": [],
+    "polearm": [],
+    "ranged": [],
+    "firearm": [],
+    "armor": [],
+    "martialNotes": "",
+    "engagementDice": {
+      "4": 0,
+      "6": 0,
+      "8": 0,
+      "10": 0,
+      "12": 0,
+      "20": 0
+    },
+    "engagementSuccesses": [],
+    "engagementNotes": "",
+    "engagementSuccessNotes": "",
+    "baseMP": 10,
+    "mpNotes": "",
+    "abilities": "<p><em>Arcane Focus</em> and choose your Arcanist archetype: <em>Hedge Mage</em>, <em>Rune Knight</em>, or <em>Wizard of the Tower</em>. Each archetype grants different starting abilities.</p>",
+    "description": "<p>Nunc pellentesque arcu lobortis hendrerit vestibulum. Etiam non erat suscipit, aliquet metus sed, finibus orci. Mauris eu quam dignissim, eleifend ipsum sed, mollis arcu. Cras at elit sit amet sem auctor lacinia ac nec nunc. Sed efficitur, mauris eu pellentesque.</p>"
   }
 }

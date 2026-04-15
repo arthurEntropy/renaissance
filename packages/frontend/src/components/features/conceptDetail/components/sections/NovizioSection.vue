@@ -15,60 +15,65 @@
 
         <!-- Martial Training -->
         <div class="novizio-subsection">
-          <strong>Martial Training</strong>
+          <strong>MARTIAL TRAINING</strong>
           <div class="martial-training-list">
-            <div class="martial-training-item">
-              <img src="@/assets/icons/melee.png" alt="Melee" class="martial-icon" />
-              <span class="martial-label">Melee</span>
-              <input type="text" v-model="localNovizio.melee" placeholder="Melee..."
-                class="novizio-input full-width-input" />
-            </div>
-            <div class="martial-training-item">
-              <img src="@/assets/icons/polearms.png" alt="Polearms" class="martial-icon" />
-              <span class="martial-label">Polearms</span>
-              <input type="text" v-model="localNovizio.polearms" placeholder="Polearms..."
-                class="novizio-input full-width-input" />
-            </div>
-            <div class="martial-training-item">
-              <img src="@/assets/icons/ranged.png" alt="Ranged" class="martial-icon" />
-              <span class="martial-label">Ranged</span>
-              <input type="text" v-model="localNovizio.ranged" placeholder="Ranged..."
-                class="novizio-input full-width-input" />
-            </div>
-            <div class="martial-training-item">
-              <img src="@/assets/icons/firearms.png" alt="Firearms" class="martial-icon" />
-              <span class="martial-label">Firearms</span>
-              <input type="text" v-model="localNovizio.firearms" placeholder="Firearms..."
-                class="novizio-input full-width-input" />
-            </div>
-            <div class="martial-training-item">
-              <img src="@/assets/icons/armor.png" alt="Armor" class="martial-icon" />
-              <span class="martial-label">Armor</span>
-              <input type="text" v-model="localNovizio.armor" placeholder="Armor..."
-                class="novizio-input full-width-input" />
+            <div class="martial-training-item" v-for="row in martialRows" :key="row.key">
+              <img :src="row.icon" :alt="row.label" class="martial-icon" />
+              <span class="martial-label">{{ row.label }}</span>
+              <div class="martial-grade-chips">
+                <ChipTag v-for="grade in equipmentGrades" :key="grade.id" :text="grade.name"
+                  :variant="localNovizio[row.key].includes(grade.id) ? 'primary' : 'secondary'" rounded="full"
+                  style="cursor: pointer" @click="toggleGrade(row.key, grade.id)" />
+              </div>
             </div>
           </div>
+          <text-editor v-model="localNovizio.martialNotes" placeholder="Special cases, conditions..." height="60px"
+            :auto-height="true" class="novizio-text-editor novizio-text-editor--spaced" />
         </div>
 
-        <!-- Engagement -->
+        <!-- Engagement Dice -->
         <div class="novizio-subsection">
-          <strong>Engagement</strong>
-          <text-editor v-model="localNovizio.engagement" placeholder="Engagement..." height="80px" :auto-height="true"
-            class="novizio-text-editor" />
+          <strong>ENGAGEMENT DICE</strong>
+          <div class="engagement-dice-row">
+            <div v-for="dieSize in STANDARD_DIE_SIZES" :key="dieSize" class="engagement-die-column"
+              :class="{ dimmed: !localNovizio.engagementDice[String(dieSize)] }">
+              <i :class="getDiceFontMaxClass(dieSize)" class="engagement-die-icon"></i>
+              <NumberInput :model-value="localNovizio.engagementDice[String(dieSize)] || 0"
+                @update:model-value="localNovizio.engagementDice[String(dieSize)] = $event" :min="0" :max="20"
+                size="small" />
+            </div>
+          </div>
+          <text-editor v-model="localNovizio.engagementNotes" placeholder="Special cases, conditions..." height="60px"
+            :auto-height="true" class="novizio-text-editor novizio-text-editor--spaced" />
+        </div>
+
+        <!-- Engagement Successes -->
+        <div class="novizio-subsection">
+          <strong>ENGAGEMENT SUCCESSES</strong>
+          <div class="martial-grade-chips martial-grade-chips--top-spaced">
+            <ChipTag v-for="success in engagementSuccesses" :key="success.id" :text="success.name"
+              :variant="localNovizio.engagementSuccesses.includes(success.id) ? 'primary' : 'secondary'" rounded="full"
+              :tooltip="{ description: success.description }" style="cursor: pointer"
+              @click="toggleSuccess(success.id)" />
+          </div>
+          <text-editor v-model="localNovizio.engagementSuccessNotes" placeholder="Special cases, conditions..."
+            height="60px" :auto-height="true" class="novizio-text-editor novizio-text-editor--spaced" />
         </div>
 
         <!-- Mestieri Points -->
         <div class="novizio-subsection">
-          <strong>Mestieri Points (MP)</strong>
-          <input type="number" min="1" v-model.number="localNovizio.initialMaxMP" placeholder="Initial Max MP..."
+          <strong>BASE MP (MESTIERE POINTS)</strong>
+          <input type="number" min="1" v-model.number="localNovizio.baseMP" placeholder="Initial Base MP..."
             class="novizio-input" />
+          <text-editor v-model="localNovizio.mpNotes" placeholder="Notes..." height="60px" :auto-height="true"
+            class="novizio-text-editor novizio-text-editor--spaced" />
         </div>
 
         <!-- Abilities -->
         <div class="novizio-subsection">
-          <strong>Abilities</strong>
+          <strong>ABILITIES</strong>
           <text-editor v-model="localNovizio.abilities" placeholder="Abilities..." height="80px" :auto-height="true"
-            class="novizio-text-editor" />
+            class="novizio-text-editor novizio-text-editor--spaced" />
         </div>
 
         <!-- Cancel Button -->
@@ -86,85 +91,91 @@
 
         <!-- Martial Training -->
         <div class="novizio-subsection" v-if="hasAnyNovizioData">
-          <strong>Martial Training</strong>
-          <div class="martial-training-list">
-            <template v-if="hasAnyMartialTraining">
-              <div class="martial-training-item" v-if="novizio && novizio.melee">
-                <img src="@/assets/icons/melee.png" alt="Melee" class="martial-icon" />
-                <span class="martial-label">Melee</span>
-                <span class="martial-chips">
-                  <span v-for="(chip, i) in novizio.melee.split(',').map(s => s.trim()).filter(Boolean)"
-                    :key="'melee-' + i" class="martial-chip">{{ chip }}</span>
-                </span>
+          <strong>MARTIAL TRAINING</strong>
+          <template v-if="martialRows.some(r => novizio[r.key]?.length)">
+            <div class="martial-training-list">
+              <div class="martial-training-item" v-for="row in martialRows.filter(r => novizio[r.key]?.length)"
+                :key="row.key">
+                <img :src="row.icon" :alt="row.label" class="martial-icon" />
+                <span class="martial-label">{{ row.label }}</span>
+                <div class="martial-grade-chips">
+                  <ChipTag v-for="grade in equipmentGrades" :key="grade.id" :text="grade.name"
+                    :variant="novizio[row.key]?.includes(grade.id) ? 'primary' : 'dim'" rounded="full"
+                    :hoverable="false" />
+                </div>
               </div>
-              <div class="martial-training-item" v-if="novizio && novizio.polearms">
-                <img src="@/assets/icons/polearms.png" alt="Polearms" class="martial-icon" />
-                <span class="martial-label">Polearms</span>
-                <span class="martial-chips">
-                  <span v-for="(chip, i) in novizio.polearms.split(',').map(s => s.trim()).filter(Boolean)"
-                    :key="'polearms-' + i" class="martial-chip">{{ chip }}</span>
-                </span>
-              </div>
-              <div class="martial-training-item" v-if="novizio && novizio.ranged">
-                <img src="@/assets/icons/ranged.png" alt="Ranged" class="martial-icon" />
-                <span class="martial-label">Ranged</span>
-                <span class="martial-chips">
-                  <span v-for="(chip, i) in novizio.ranged.split(',').map(s => s.trim()).filter(Boolean)"
-                    :key="'ranged-' + i" class="martial-chip">{{ chip }}</span>
-                </span>
-              </div>
-              <div class="martial-training-item" v-if="novizio && novizio.firearms">
-                <img src="@/assets/icons/firearms.png" alt="Firearms" class="martial-icon" />
-                <span class="martial-label">Firearms</span>
-                <span class="martial-chips">
-                  <span v-for="(chip, i) in novizio.firearms.split(',').map(s => s.trim()).filter(Boolean)"
-                    :key="'firearms-' + i" class="martial-chip">{{ chip }}</span>
-                </span>
-              </div>
-              <div class="martial-training-item" v-if="novizio && novizio.armor">
-                <img src="@/assets/icons/armor.png" alt="Armor" class="martial-icon" />
-                <span class="martial-label">Armor</span>
-                <span class="martial-chips">
-                  <span v-for="(chip, i) in novizio.armor.split(',').map(s => s.trim()).filter(Boolean)"
-                    :key="'armor-' + i" class="martial-chip">{{ chip }}</span>
-                </span>
-              </div>
+            </div>
+          </template>
+          <div v-else class="novizio-placeholder">none</div>
+          <div v-if="novizio.martialNotes" class="novizio-placeholder" v-html="safeMartialNotes"></div>
+        </div>
+
+        <!-- Engagement Dice -->
+        <div class="novizio-subsection" v-if="hasAnyNovizioData">
+          <strong>ENGAGEMENT DICE</strong>
+          <div class="engagement-dice-display">
+            <template v-for="dieSize in STANDARD_DIE_SIZES" :key="dieSize">
+              <i v-for="n in (novizio.engagementDice?.[String(dieSize)] || 0)" :key="dieSize + '-' + n"
+                :class="getDiceFontMaxClass(dieSize)" class="engagement-die-icon"></i>
             </template>
-            <template v-else>
-              <div class="martial-training-none">none</div>
-            </template>
+          </div>
+          <div v-if="!STANDARD_DIE_SIZES.some(s => novizio.engagementDice?.[String(s)] > 0) && !novizio.engagementNotes"
+            class="novizio-placeholder">none</div>
+          <div v-if="novizio.engagementNotes" class="novizio-placeholder engagement-notes" v-html="safeEngagementNotes">
           </div>
         </div>
 
-        <!-- Engagement -->
-        <div class="novizio-subsection" v-if="hasAnyNovizioData && novizio && novizio.engagement">
-          <strong>Engagement</strong>
-          <div class="novizio-placeholder" v-html="safeEngagement"></div>
+        <!-- Engagement Successes -->
+        <div class="novizio-subsection" v-if="hasAnyNovizioData">
+          <strong>ENGAGEMENT SUCCESSES</strong>
+          <template v-if="novizio.engagementSuccesses?.length">
+            <div class="martial-grade-chips martial-grade-chips--top-spaced">
+              <ChipTag v-for="success in engagementSuccesses" :key="success.id" :text="success.name"
+                :variant="novizio.engagementSuccesses?.includes(success.id) ? 'primary' : 'dim'" rounded="full"
+                :tooltip="success.description ? { description: success.description } : null" />
+            </div>
+          </template>
+          <div v-else class="novizio-placeholder">none</div>
+          <div v-if="novizio.engagementSuccessNotes" class="novizio-placeholder" v-html="safeEngagementSuccessNotes">
+          </div>
         </div>
 
         <!-- Mestieri Points -->
-        <div class="novizio-subsection" v-if="hasAnyNovizioData && novizio && novizio.initialMaxMP">
-          <strong>Mestieri Points (MP)</strong>
-          <div class="novizio-placeholder">Your maximum MP for this mestiere is {{ novizio.initialMaxMP }}.</div>
+        <div class="novizio-subsection" v-if="hasAnyNovizioData && novizio">
+          <strong>BASE MP (MESTIERE POINTS):</strong> <span class="mp-value">{{ novizio.baseMP }}</span>
+          <div v-if="novizio.mpNotes" class="novizio-placeholder" v-html="safeMpNotes"></div>
         </div>
 
         <!-- Abilities -->
         <div class="novizio-subsection" v-if="hasAnyNovizioData && novizio && novizio.abilities">
-          <strong>Abilities</strong>
+          <strong>ABILITIES</strong>
           <div class="novizio-placeholder" v-html="safeAbilities"></div>
         </div>
       </div>
     </ConceptSection>
   </div>
+
 </template>
 
 <script setup>
 import { ref, computed, watch } from 'vue'
 import TextEditor from '@/components/ui/textEditor/TextEditor.vue'
+import NumberInput from '@/components/ui/forms/NumberInput.vue'
 import ConceptSection from '../shared/ConceptSection.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import { sanitizeHtml } from '@/utils/sanitizeHtml'
+import { getDiceFontMaxClass } from '@/utils/diceFontUtils'
 import { useConceptsStore } from '@/stores/conceptsStore'
+import { useEquipmentGradesStore } from '@/stores/equipmentGradesStore'
+import { useEngagementSuccessesStore } from '@/stores/engagementSuccessesStore'
+import { STANDARD_DIE_SIZES } from '@shared/constants/dice'
+import ChipTag from '@/components/ui/chips/ChipTag.vue'
+
+import meleeIcon from '@/assets/icons/melee.png'
+import polearmIcon from '@/assets/icons/polearms.png'
+import rangedIcon from '@/assets/icons/ranged.png'
+import firearmIcon from '@/assets/icons/firearms.png'
+import armorIcon from '@/assets/icons/armor.png'
 
 const props = defineProps({
   editable: {
@@ -174,17 +185,37 @@ const props = defineProps({
 })
 
 const conceptsStore = useConceptsStore()
+const equipmentGradesStore = useEquipmentGradesStore()
+const engagementSuccessesStore = useEngagementSuccessesStore()
+
 const concept = computed(() => conceptsStore.selectedConcept)
+const equipmentGrades = computed(() => equipmentGradesStore.items)
+const engagementSuccesses = computed(() => engagementSuccessesStore.items)
+
+const martialRows = [
+  { key: 'melee', label: 'Melee', icon: meleeIcon },
+  { key: 'polearm', label: 'Polearm', icon: polearmIcon },
+  { key: 'ranged', label: 'Ranged', icon: rangedIcon },
+  { key: 'firearm', label: 'Firearm', icon: firearmIcon },
+  { key: 'armor', label: 'Armor', icon: armorIcon },
+]
+
+const EMPTY_DICE = () => Object.fromEntries(STANDARD_DIE_SIZES.map(s => [String(s), 0]))
 
 const getDefaultNovizio = () => ({
   flavorText: '',
-  melee: '',
-  polearms: '',
-  ranged: '',
-  firearms: '',
-  armor: '',
-  engagement: '',
-  initialMaxMP: 1,
+  melee: [],
+  polearm: [],
+  ranged: [],
+  firearm: [],
+  armor: [],
+  martialNotes: '',
+  engagementDice: EMPTY_DICE(),
+  engagementSuccesses: [],
+  engagementNotes: '',
+  engagementSuccessNotes: '',
+  baseMP: 1,
+  mpNotes: '',
   abilities: ''
 })
 
@@ -193,24 +224,68 @@ const isSectionEditing = ref(false)
 
 const novizio = computed(() => concept.value?.novizio)
 
-const hasAnyMartialTraining = computed(() => {
-  const n = concept.value?.novizio || {}
-  return [n.melee, n.polearms, n.ranged, n.firearms, n.armor].some(val => val?.trim())
-})
+const toggleGrade = (rowKey, gradeId) => {
+  const arr = localNovizio.value[rowKey]
+  const idx = arr.indexOf(gradeId)
+  if (idx === -1) {
+    arr.push(gradeId)
+  } else {
+    arr.splice(idx, 1)
+  }
+}
+
+const toggleSuccess = (successId) => {
+  const arr = localNovizio.value.engagementSuccesses
+  const idx = arr.indexOf(successId)
+  if (idx === -1) {
+    arr.push(successId)
+  } else {
+    arr.splice(idx, 1)
+  }
+}
+
 
 const hasAnyNovizioData = computed(() => {
   if (!concept.value?.novizio) return false
   const n = concept.value.novizio
-  return [n.flavorText, n.melee, n.polearms, n.ranged, n.firearms, n.armor, n.engagement, n.abilities].some(val => val?.toString().trim()) || n.initialMaxMP > 1
+  const hasMartial = ['melee', 'polearm', 'ranged', 'firearm', 'armor'].some(k => n[k]?.length > 0)
+  const hasDice = STANDARD_DIE_SIZES.some(s => (n.engagementDice?.[String(s)] ?? 0) > 0)
+  const hasEngagement = hasDice || n.engagementSuccesses?.length > 0 || n.engagementNotes?.toString().trim() || n.engagementSuccessNotes?.toString().trim()
+  return hasMartial || hasEngagement
+    || [n.flavorText, n.abilities, n.mpNotes, n.martialNotes].some(val => val?.toString().trim())
+    || n.baseMP > 1
 })
 
 const safeDescription = computed(() => sanitizeHtml(concept.value?.novizio?.description))
-const safeEngagement = computed(() => sanitizeHtml(concept.value?.novizio?.engagement))
+const safeMartialNotes = computed(() => sanitizeHtml(concept.value?.novizio?.martialNotes))
+const safeEngagementNotes = computed(() => sanitizeHtml(concept.value?.novizio?.engagementNotes))
+const safeEngagementSuccessNotes = computed(() => sanitizeHtml(concept.value?.novizio?.engagementSuccessNotes))
+const safeMpNotes = computed(() => sanitizeHtml(concept.value?.novizio?.mpNotes))
 const safeAbilities = computed(() => sanitizeHtml(concept.value?.novizio?.abilities))
 
 const syncLocalNovizio = (sourceConcept) => {
   if (!sourceConcept) return
-  localNovizio.value = sourceConcept.novizio ? { ...sourceConcept.novizio } : getDefaultNovizio()
+  if (sourceConcept.novizio) {
+    const n = sourceConcept.novizio
+    localNovizio.value = {
+      flavorText: n.flavorText || '',
+      melee: Array.isArray(n.melee) ? [...n.melee] : [],
+      polearm: Array.isArray(n.polearm) ? [...n.polearm] : [],
+      ranged: Array.isArray(n.ranged) ? [...n.ranged] : [],
+      firearm: Array.isArray(n.firearm) ? [...n.firearm] : [],
+      armor: Array.isArray(n.armor) ? [...n.armor] : [],
+      martialNotes: n.martialNotes || '',
+      engagementDice: { ...EMPTY_DICE(), ...(n.engagementDice || {}) },
+      engagementSuccesses: Array.isArray(n.engagementSuccesses) ? [...n.engagementSuccesses] : [],
+      engagementNotes: n.engagementNotes || '',
+      engagementSuccessNotes: n.engagementSuccessNotes || '',
+      baseMP: n.baseMP ?? 1,
+      mpNotes: n.mpNotes || '',
+      abilities: n.abilities || '',
+    }
+  } else {
+    localNovizio.value = getDefaultNovizio()
+  }
 }
 
 const toggleEdit = async () => {
@@ -274,15 +349,6 @@ watch(concept, (newConcept) => {
   vertical-align: middle;
 }
 
-.novizio-input.full-width-input {
-  flex: 1 1 auto;
-  width: 100%;
-  min-width: 0;
-  max-width: none;
-  margin-left: 0.5rem;
-  margin-right: 0;
-}
-
 .novizio-description {
   color: var(--color-text-primary);
   font-size: var(--font-size-18);
@@ -296,11 +362,19 @@ watch(concept, (newConcept) => {
   margin-bottom: 1.1rem;
 }
 
+.novizio-subsection>strong {
+  color: var(--color-primary);
+}
+
 .novizio-placeholder {
   color: var(--color-text-primary);
   font-size: var(--font-size-15);
   margin-top: 0.2rem;
   margin-left: 0.5rem;
+}
+
+.engagement-notes {
+  margin-top: -1rem;
 }
 
 .edit-field-buttons {
@@ -340,27 +414,57 @@ watch(concept, (newConcept) => {
   color: var(--color-text-primary);
 }
 
-.martial-placeholder {
-  color: var(--color-text-muted);
-  font-size: var(--font-size-15);
-  margin-left: 0.5rem;
+.martial-grade-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  padding-top: 2px;
 }
 
-.martial-chip {
-  background: var(--color-bg-secondary);
+.martial-grade-chips--top-spaced {
+  margin-top: var(--space-xs);
+}
+
+.novizio-text-editor--spaced {
+  margin-top: var(--space-sm);
+}
+
+.engagement-dice-row {
+  display: flex;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+  margin-top: 0.5rem;
+}
+
+.engagement-dice-display {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+.engagement-die-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-xs);
+  transition: opacity 0.15s;
+}
+
+.engagement-die-column.dimmed {
+  opacity: 0.3;
+}
+
+.engagement-die-icon {
+  font-size: var(--font-size-36);
   color: var(--color-text-primary);
-  border: 1px solid var(--color-gray-medium);
-  border-radius: var(--radius-10);
-  padding: var(--space-xs) var(--space-xs);
-  font-size: var(--font-size-15);
-  line-height: var(--line-height-normal);
-  display: inline-block;
 }
 
-.martial-training-none {
-  color: var(--color-text-muted);
-  font-size: var(--font-size-16);
-  margin-left: 0.5rem;
-  margin-top: 0.2rem;
+.mp-value {
+  color: var(--color-text-primary);
+  font-size: var(--font-size-18);
+  font-weight: var(--font-weight-semibold);
+  margin-left: 0.4rem;
 }
 </style>

@@ -1,5 +1,6 @@
 <template>
-    <span class="chip" :class="[variant, rounded]" @mouseenter="startTooltip" @mouseleave="clearTooltip">
+    <span class="chip" :class="[variant, rounded, { 'no-hover': !hoverable }]" @mouseenter="startTooltip"
+        @mouseleave="clearTooltip">
 
         <span class="chip-text">{{ displayText }}</span>
 
@@ -46,7 +47,7 @@ const props = defineProps({
     variant: {
         type: String,
         default: 'gray',
-        validator: (value) => ['primary', 'secondary', 'gray', 'success'].includes(value)
+        validator: (value) => ['primary', 'secondary', 'gray', 'success', 'dim'].includes(value)
     },
     rounded: {
         type: String,
@@ -57,6 +58,10 @@ const props = defineProps({
     removable: {
         type: Boolean,
         default: false
+    },
+    hoverable: {
+        type: Boolean,
+        default: true
     },
     // Tooltip (optional)
     tooltip: {
@@ -125,6 +130,12 @@ const clearTooltip = () => {
     color: var(--color-text-secondary);
 }
 
+.chip.dim {
+    background: var(--color-black);
+    color: var(--color-text-muted);
+    border: 1px solid var(--color-gray-dark);
+}
+
 .chip.success {
     background-color: var(--color-accent-gold);
     color: var(--color-black);
@@ -141,8 +152,12 @@ const clearTooltip = () => {
 }
 
 /* Hover */
-.chip:hover {
+.chip:hover:not(.no-hover) {
     text-shadow: var(--shadow-glow-lg);
+}
+
+.chip.no-hover {
+    cursor: default;
 }
 
 /* Text */

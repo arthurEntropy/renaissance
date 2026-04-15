@@ -1,0 +1,23 @@
+{
+  "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
+  "id": "e3b68a22-7a8a-458f-ae72-74e1c2a0b552",
+  "createdAt": "2026-04-14T20:41:57.746Z",
+  "lastModified": "2026-04-14T20:50:54.208Z",
+  "name": "Ray of Sickness",
+  "description": "<p>You project a ray of sickening greenish energy at a creature within medium range. Roll Lore vs Fortitude against the creature. On a win, the creature becomes Weary for the next minute.</p>",
+  "successes": "<p>✨: The creature takes 1d4 damage.</p><p>🌞: The creature rolls Injury.</p><p>💀: You become the target of the spell.</p>",
+  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
+  "mp": 1,
+  "xp": 5,
+  "isMagical": true,
+  "school": "a0a08024-4b29-4b14-a187-232b79ee3f4a",
+  "artUrl": "https://cdn.midjourney.com/ac7d709c-69a3-4ea4-9a5c-fdd8bc5d87b9/0_2.png",
+  "improvements": [
+    {
+      "name": "Ray of Enfeeblement",
+      "description": "<p>You may spend 1 additional MP when you cast the spell. If you do, on a win, for the next minute, any time the creature deals damage with a melee attack, halve the damage.</p>",
+      "xp": 10,
+      "id": "b62c0d71-daec-4b34-adf1-9286e5d83d41"
+    }
+  ]
+}
