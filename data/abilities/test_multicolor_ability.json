@@ -1,0 +1,11 @@
+{
+  "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
+  "id": "3a55c26d-f21a-4f5c-ad98-f880eeda2f32",
+  "createdAt": "2026-04-15T20:56:58.254Z",
+  "lastModified": "2026-04-15T20:57:13.923Z",
+  "name": "Test Multicolor Ability",
+  "description": "<p>Just a test</p>",
+  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
+  "isMagical": true,
+  "manaCost": "2WUB"
+}

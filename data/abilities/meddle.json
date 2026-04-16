@@ -2,7 +2,7 @@
   "id": "a71010fe-d7dc-41c9-ba68-0dd2a01d50d3",
   "isDeleted": false,
   "createdAt": "2026-01-02T22:18:37.668Z",
-  "lastModified": "2026-02-12T21:37:52.073Z",
+  "lastModified": "2026-04-16T14:07:52.581Z",
   "name": "Meddle",
   "description": "<p><em>Trigger: a creature within medium range makes a skill check or damage roll.</em></p><p>If the trigger is a skill check, it becomes favored or ill-favored (your choice).</p><p>If the trigger is a damage roll, upgrade or downgrade each die in the roll by one die size. A d10 becomes a d12 or d8, etc. A downgraded d4 is removed from the roll entirely. The creature still adds any modifiers to the total.</p><p>Either way, check a Condition.</p><p><strong>Describe how you intervene.</strong></p>",
   "canBeActive": false,
