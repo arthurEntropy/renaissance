@@ -50,7 +50,8 @@
           <!-- Main description -->
           <CardDescription
             v-if="item.description || showBiomeTags || showTopBadges || $slots['before-description'] || $slots['after-description']"
-            :content="item.description || ''" @roll-link="emit('roll-link', $event)">
+            :content="item.description || ''" :additionalClasses="descriptionManaClass"
+            @roll-link="emit('roll-link', $event)">
             <template v-if="showTopBadges" #top-badge>
               <div class="magical-badges-container">
                 <div v-if="showMagicalBadge" class="magical-badge spell-badge">{{ spellBadgeText }}</div>
@@ -227,6 +228,17 @@ const schoolBadgeStyle = computed(() => {
 })
 
 const showMetaInfo = computed(() => !!props.metaInfo || showManaCost.value)
+
+// CSS class for CardDescription background tinted to the ability's mana color
+const descriptionManaClass = computed(() => {
+  if (!props.item.manaCost) return null
+  const colors = getManaCostColors(props.item.manaCost)
+  let key
+  if (colors.size === 0) key = ManaColor.COLORLESS
+  else if (colors.size === 1) key = [...colors][0]
+  else key = ManaColor.MULTICOLOR
+  return `mana-description-${key}`
+})
 
 // Methods
 const toggleCollapsed = () => {
