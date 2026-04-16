@@ -60,8 +60,8 @@
         </div>
 
         <!-- Row 4: Abilities (full width) -->
-        <ConceptAbilitiesSection v-if="layout.showAbilities" :is-edit-mode="isEditMode" @edit-ability="openAbilityModal"
-          @add-ability="createNewAbility" />
+        <ConceptAbilitiesSection v-if="layout.showAbilities" :key="conceptsStore.selectedConcept?.id"
+          :is-edit-mode="isEditMode" @edit-ability="openAbilityModal" @add-ability="createNewAbility" />
 
         <!-- Row 5: Equipment (full width) -->
         <ConceptEquipmentSection v-if="layout.showEquipment" :is-edit-mode="isEditMode"
@@ -84,8 +84,8 @@
         <PlaylistSection v-if="layout.showPlaylist" :editable="isEditMode" />
         <LocalFlavorSection v-if="layout.showLocalFlavor" :editable="isEditMode" />
         <HooksSection v-if="layout.showHooks" :editable="isEditMode" />
-        <ConceptAbilitiesSection v-if="layout.showAbilities" :is-edit-mode="isEditMode" @edit-ability="openAbilityModal"
-          @add-ability="createNewAbility" />
+        <ConceptAbilitiesSection v-if="layout.showAbilities" :key="conceptsStore.selectedConcept?.id"
+          :is-edit-mode="isEditMode" @edit-ability="openAbilityModal" @add-ability="createNewAbility" />
         <ConceptEquipmentSection v-if="layout.showEquipment" :is-edit-mode="isEditMode"
           @edit-equipment="openEquipmentModal" @add-equipment="createNewEquipment" />
       </div>

@@ -28,8 +28,8 @@
                 </MasonryGrid>
                 <!-- School-grouped abilities -->
                 <GroupedMasonryGrid v-if="schoolGroupedAbilities.length > 0" :column-width="350" :gap="20"
-                    :row-height="10" :grouped-items="schoolGroupedAbilities" persistence-key="concept-abilities-groups"
-                    class="cards-container">
+                    :row-height="10" :grouped-items="schoolGroupedAbilities"
+                    :persistence-key="`concept-abilities-school-groups-${concept?.id}`" class="cards-container">
                     <template #default="{ item }">
                         <AbilityCard :ability="item" :editable="isEditMode" :sources="sources" :collapsible="false"
                             :showImprovements="getAbilityShowImprovements(item.id)"
@@ -46,7 +46,7 @@
             <template v-else-if="isGroupedByManaColor">
                 <GroupedMasonryGrid v-if="manaColorGroupedAbilities.length > 0" :column-width="350" :gap="20"
                     :row-height="10" :grouped-items="manaColorGroupedAbilities"
-                    persistence-key="concept-abilities-mana-color-groups" class="cards-container">
+                    :persistence-key="`concept-abilities-mana-color-groups-${concept?.id}`" class="cards-container">
                     <template #default="{ item }">
                         <AbilityCard :ability="item" :editable="isEditMode" :sources="sources" :collapsible="false"
                             :showImprovements="getAbilityShowImprovements(item.id)"
@@ -161,7 +161,7 @@ const groupingOptions = computed(() => {
 const sortOption = ref('xp-asc')
 const groupingOption = ref('')
 
-useFilterPersistence('concept-abilities', { sortOption, groupingOption })
+useFilterPersistence(`concept-abilities-${concept.value?.id}`, { sortOption, groupingOption })
 
 const isGroupedBySchool = computed(() => groupingOption.value === 'school')
 const isGroupedByManaColor = computed(() => groupingOption.value === 'mana-color')
