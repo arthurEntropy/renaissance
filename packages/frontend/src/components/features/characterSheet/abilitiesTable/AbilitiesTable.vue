@@ -92,6 +92,7 @@ import { ABILITY_SORT_OPTIONS } from '@/constants/sortOptions'
 import { useCharactersStore } from '@/stores/charactersStore'
 import { useAbilitiesStore } from '@/stores/abilitiesStore'
 import { useSourcesStore } from '@/stores/sourcesStore'
+import { useConceptsStore } from '@/stores/conceptsStore'
 import { useRollsStore } from '@/stores/rollsStore'
 import DamageRollService from '@/services/rolls/damageRollService'
 import CustomRollService from '@/services/rolls/customRollService'
@@ -108,6 +109,13 @@ const charactersStore = useCharactersStore()
 const selectedCharacter = computed(() => charactersStore.selectedCharacter)
 const abilitiesStore = useAbilitiesStore()
 const allAbilities = computed(() => abilitiesStore.abilities || [])
+const conceptsStore = useConceptsStore()
+
+const isChanneler = computed(() => {
+  if (!selectedCharacter.value?.mestiereId) return false
+  const mestiere = conceptsStore.mestieri.find(m => m.id === selectedCharacter.value.mestiereId)
+  return mestiere?.name?.toLowerCase() === 'channeler'
+})
 
 const masonryGridRef = ref(null)
 
@@ -121,16 +129,25 @@ const rollLinkBiomeDiceMod = ref(0)
 
 const sortOptions = ABILITY_SORT_OPTIONS
 
-const groupingOptions = [
-  { value: 'source', label: 'Source' }
-]
+const groupingOptions = computed(() => {
+  const options = [{ value: 'source', label: 'Source' }]
+  if (isChanneler.value) {
+    options.push({ value: 'mana-color', label: 'Mana Color' })
+  }
+  return options
+})
 
 // Grouping and Sorting state
 const groupingOption = computed({
-  get: () => selectedCharacter.value?.groupAbilitiesBySource ? 'source' : '',
+  get: () => {
+    if (selectedCharacter.value?.groupAbilitiesByManaColor) return 'mana-color'
+    if (selectedCharacter.value?.groupAbilitiesBySource) return 'source'
+    return ''
+  },
   set: (value) => {
     if (selectedCharacter.value) {
       selectedCharacter.value.groupAbilitiesBySource = (value === 'source')
+      selectedCharacter.value.groupAbilitiesByManaColor = (value === 'mana-color')
     }
   }
 })
@@ -192,7 +209,7 @@ const {
 
 const { groupedItems: groupedAbilities, hasGrouping: hasAbilityGrouping } = useItemGrouping(
   characterAbilities,
-  computed(() => !!selectedCharacter.value?.groupAbilitiesBySource),
+  groupingOption,
   sourcesStore
 )
 

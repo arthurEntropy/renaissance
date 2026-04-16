@@ -42,6 +42,23 @@
                 </GroupedMasonryGrid>
             </template>
 
+            <!-- Grouped by mana color display -->
+            <template v-else-if="isGroupedByManaColor">
+                <GroupedMasonryGrid v-if="manaColorGroupedAbilities.length > 0" :column-width="350" :gap="20"
+                    :row-height="10" :grouped-items="manaColorGroupedAbilities"
+                    persistence-key="concept-abilities-mana-color-groups" class="cards-container">
+                    <template #default="{ item }">
+                        <AbilityCard :ability="item" :editable="isEditMode" :sources="sources" :collapsible="false"
+                            :showImprovements="getAbilityShowImprovements(item.id)"
+                            @update:showImprovements="updateAbilityShowImprovements(item.id, $event)"
+                            @edit="$emit('edit-ability', item)" :character="character"
+                            :show-improvement-toggle="!!character" :showSuccesses="getAbilityShowSuccesses(item.id)"
+                            @update:showSuccesses="updateAbilityShowSuccesses(item.id, $event)"
+                            @update="handleCharacterUpdate" />
+                    </template>
+                </GroupedMasonryGrid>
+            </template>
+
             <!-- Ungrouped display -->
             <MasonryGrid v-else :column-width="350" :gap="20" :row-height="10" class="cards-container">
                 <AbilityCard v-for="ability in sortedAbilities" :key="ability.id" :ability="ability"
@@ -76,6 +93,8 @@ import { useSourcesStore } from '@/stores/sourcesStore'
 import { useConceptsStore } from '@/stores/conceptsStore'
 import { useAbilitySchoolsStore } from '@/stores/abilitySchoolsStore'
 import { useAuthStore } from '@/stores/authStore'
+import { getManaCostColors } from '@shared/utils/calculateManaCost'
+import { ManaColor, MANA_COLOR_ORDER } from '@shared/constants/manaColors'
 
 const charactersStore = useCharactersStore()
 const abilitiesStore = useAbilitiesStore()
@@ -126,10 +145,18 @@ const updateAbilityShowSuccesses = (abilityId, showSuccesses) => {
 
 const isAdmin = computed(() => authStore.isAdmin)
 
+const isChannelerConcept = computed(() =>
+    concept.value?.name?.toLowerCase() === 'channeler'
+)
+
 const sortOptions = computed(() => filterAdminSortOptions(ABILITY_SORT_OPTIONS, isAdmin.value))
-const groupingOptions = [
-    { value: 'school', label: 'School' }
-]
+const groupingOptions = computed(() => {
+    const options = [{ value: 'school', label: 'School' }]
+    if (isChannelerConcept.value) {
+        options.push({ value: 'mana-color', label: 'Mana Color' })
+    }
+    return options
+})
 
 const sortOption = ref('xp-asc')
 const groupingOption = ref('')
@@ -137,6 +164,7 @@ const groupingOption = ref('')
 useFilterPersistence('concept-abilities', { sortOption, groupingOption })
 
 const isGroupedBySchool = computed(() => groupingOption.value === 'school')
+const isGroupedByManaColor = computed(() => groupingOption.value === 'mana-color')
 
 const sortedAbilities = computed(() => sortItems(abilities.value, sortOption.value))
 
@@ -156,6 +184,44 @@ const schoolGroupedAbilities = computed(() => {
         groups[ability.school].items.push(ability)
     })
     return Object.values(groups).sort((a, b) => a.name.localeCompare(b.name))
+})
+
+const MANA_COLOR_GROUP_ORDER = ['none', ...MANA_COLOR_ORDER.filter(c => c !== ManaColor.COLORLESS), ManaColor.MULTICOLOR, ManaColor.COLORLESS]
+
+const MANA_COLOR_GROUP_LABELS = {
+    [ManaColor.WHITE]: 'White',
+    [ManaColor.BLUE]: 'Blue',
+    [ManaColor.BLACK]: 'Black',
+    [ManaColor.RED]: 'Red',
+    [ManaColor.GREEN]: 'Green',
+    [ManaColor.COLORLESS]: 'Colorless',
+    [ManaColor.MULTICOLOR]: 'Multicolor',
+    none: 'No Mana Cost',
+}
+
+const manaColorGroupedAbilities = computed(() => {
+    if (!isGroupedByManaColor.value) return []
+    const groups = {}
+    sortedAbilities.value.forEach(ability => {
+        let key
+        if (!ability.manaCost) {
+            key = 'none'
+        } else {
+            const colors = getManaCostColors(ability.manaCost)
+            if (colors.size === 0) key = ManaColor.COLORLESS
+            else if (colors.size === 1) key = [...colors][0]
+            else key = ManaColor.MULTICOLOR
+        }
+        if (!groups[key]) {
+            groups[key] = { id: key, name: MANA_COLOR_GROUP_LABELS[key] || key, collapsed: false, items: [] }
+        }
+        groups[key].items.push(ability)
+    })
+    return Object.values(groups).sort((a, b) => {
+        const ai = MANA_COLOR_GROUP_ORDER.indexOf(a.id)
+        const bi = MANA_COLOR_GROUP_ORDER.indexOf(b.id)
+        return (ai === -1 ? 999 : ai) - (bi === -1 ? 999 : bi)
+    })
 })
 
 const handleCharacterUpdate = async (updatedCharacter) => {

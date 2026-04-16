@@ -102,6 +102,7 @@ import { createBaseEntity } from './gameEntity.js'
  * @property {Object.<string, string>} engagementDiceStatuses - Saved engagement die statuses keyed by die identifier
  * @property {ActiveEffect[]} activeEffects - Currently active effects
  * @property {boolean} groupAbilitiesBySource - Whether to group abilities by source
+ * @property {boolean} groupAbilitiesByManaColor - Whether to group abilities by mana color
  * @property {boolean} groupEquipmentBySource - Whether to group equipment by source
  * @property {string} abilitySortOption - Sort option for abilities
  * @property {string} equipmentSortOption - Sort option for equipment
@@ -195,6 +196,7 @@ export function createDefaultCharacter() {
     biomeId: null,
     activeEffects: [],
     groupAbilitiesBySource: false,
+    groupAbilitiesByManaColor: false,
     groupEquipmentBySource: false,
     abilitySortOption: 'name-asc',
     equipmentSortOption: 'name-asc',
