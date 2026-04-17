@@ -225,6 +225,7 @@
   /* Interactive layers */
   --z-interactive: 10;
   --z-dropdown: 100;
+  --z-popover: 200;
   
   /* Modal layers */
   --z-modal: 1000;

@@ -24,6 +24,7 @@
         <router-link to="/abilities" @click="closeMenu">ABILITIES</router-link>
         <router-link to="/equipment" @click="closeMenu">EQUIPMENT</router-link>
         <router-link v-if="authStore.isAdmin" to="/art" @click="closeMenu">ART</router-link>
+        <router-link v-if="authStore.isAdmin" to="/tabletop">TABLETOP</router-link>
       </nav>
     </div>
 
@@ -40,6 +41,7 @@
         <router-link to="/abilities">ABILITIES</router-link>
         <router-link to="/equipment">EQUIPMENT</router-link>
         <router-link v-if="authStore.isAdmin" to="/art">ART</router-link>
+        <router-link v-if="authStore.isAdmin" to="/tabletop">TABLETOP</router-link>
       </div>
 
       <!-- Desktop Auth Component -->
