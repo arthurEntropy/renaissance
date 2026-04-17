@@ -117,11 +117,11 @@ function handleRangeHintMouseleave(event) {
 
 /* Mana-color tinted backgrounds for Channeler spell descriptions */
 .mana-description-white {
-    background-color: color-mix(in srgb, color-mix(in srgb, var(--mana-white) 25%, black) 75%, transparent);
+    background-color: color-mix(in srgb, color-mix(in srgb, var(--mana-white) 15%, black) 75%, transparent);
 }
 
 .mana-description-blue {
-    background-color: color-mix(in srgb, color-mix(in srgb, var(--mana-blue) 25%, black) 75%, transparent);
+    background-color: color-mix(in srgb, color-mix(in srgb, var(--mana-blue) 15%, black) 75%, transparent);
 }
 
 .mana-description-black {
@@ -129,19 +129,19 @@ function handleRangeHintMouseleave(event) {
 }
 
 .mana-description-red {
-    background-color: color-mix(in srgb, color-mix(in srgb, var(--mana-red) 25%, black) 75%, transparent);
+    background-color: color-mix(in srgb, color-mix(in srgb, var(--mana-red) 15%, black) 75%, transparent);
 }
 
 .mana-description-green {
-    background-color: color-mix(in srgb, color-mix(in srgb, var(--mana-green) 25%, black) 75%, transparent);
+    background-color: color-mix(in srgb, color-mix(in srgb, var(--mana-green) 15%, black) 75%, transparent);
 }
 
 .mana-description-colorless {
-    background-color: color-mix(in srgb, color-mix(in srgb, var(--mana-colorless) 25%, black) 75%, transparent);
+    background-color: color-mix(in srgb, color-mix(in srgb, var(--mana-colorless) 15%, black) 75%, transparent);
 }
 
 .mana-description-multicolor {
-    background-color: color-mix(in srgb, color-mix(in srgb, var(--color-primary) 25%, black) 75%, transparent);
+    background-color: color-mix(in srgb, color-mix(in srgb, var(--color-primary) 15%, black) 75%, transparent);
 }
 
 .card-description.has-top-badge {

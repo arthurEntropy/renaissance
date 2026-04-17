@@ -260,7 +260,7 @@ const handleCollapsed = () => {
 .base-card {
   border: 1px solid var(--color-gray-medium);
   border-radius: var(--radius-10);
-  padding: var(--space-md);
+  padding: var(--space-sm) var(--space-md) var(--space-md) var(--space-md);
   margin-top: var(--space-xs);
   transition:
     background-color var(--transition-normal) ease,
