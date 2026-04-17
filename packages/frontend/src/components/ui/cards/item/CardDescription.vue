@@ -115,6 +115,35 @@ function handleRangeHintMouseleave(event) {
     padding: 1px var(--space-md);
 }
 
+/* Mana-color tinted backgrounds for Channeler spell descriptions */
+.mana-description-white {
+    background-color: color-mix(in srgb, color-mix(in srgb, var(--mana-white) 15%, black) 75%, transparent);
+}
+
+.mana-description-blue {
+    background-color: color-mix(in srgb, color-mix(in srgb, var(--mana-blue) 15%, black) 75%, transparent);
+}
+
+.mana-description-black {
+    background-color: color-mix(in srgb, color-mix(in srgb, var(--mana-black) 15%, black) 75%, transparent);
+}
+
+.mana-description-red {
+    background-color: color-mix(in srgb, color-mix(in srgb, var(--mana-red) 15%, black) 75%, transparent);
+}
+
+.mana-description-green {
+    background-color: color-mix(in srgb, color-mix(in srgb, var(--mana-green) 15%, black) 75%, transparent);
+}
+
+.mana-description-colorless {
+    background-color: color-mix(in srgb, color-mix(in srgb, var(--mana-colorless) 15%, black) 75%, transparent);
+}
+
+.mana-description-multicolor {
+    background-color: color-mix(in srgb, color-mix(in srgb, var(--color-primary) 15%, black) 75%, transparent);
+}
+
 .card-description.has-top-badge {
     padding-top: var(--space-lg);
 }
@@ -186,7 +215,6 @@ function handleRangeHintMouseleave(event) {
 /* Auto-linkified roll links */
 .card-description :deep(.roll-link) {
     color: var(--color-primary);
-    text-decoration: underline;
     cursor: pointer;
 }
 

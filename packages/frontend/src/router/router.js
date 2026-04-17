@@ -14,6 +14,7 @@ import EquipmentPage from '@/pages/EquipmentPage.vue'
 import RulesPage from '@/pages/RulesPage.vue'
 import AdminPage from '@/pages/AdminPage.vue'
 import ArtPage from '@/pages/ArtPage.vue'
+import VirtualTabletopPage from '@/pages/VirtualTabletopPage.vue'
 
 const routes = [
   { path: '/', component: TitlePage },
@@ -62,6 +63,11 @@ const routes = [
     path: '/admin', 
     component: AdminPage,
     meta: { requiresAuth: true, requiresAdmin: true }
+  },
+  {
+    path: '/tabletop',
+    component: VirtualTabletopPage,
+    meta: { requiresAuth: true, requiresAdmin: true },
   },
 ]
 
