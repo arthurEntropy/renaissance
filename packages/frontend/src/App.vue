@@ -14,34 +14,16 @@
       </div>
 
       <nav v-if="menuOpen">
-        <router-link to="/rules" @click="closeMenu">RULES</router-link>
-        <router-link to="/ancestries" @click="closeMenu">ANCESTRIES</router-link>
-        <router-link to="/cultures" @click="closeMenu">CULTURES</router-link>
-        <router-link to="/world-elements" @click="closeMenu">WORLD ELEMENTS</router-link>
-        <router-link to="/mestieri" @click="closeMenu">MESTIERI</router-link>
-        <router-link v-if="authStore.isAuthenticated" to="/characters" @click="closeMenu">CHARACTERS</router-link>
-        <router-link to="/bestiary" @click="closeMenu">BESTIARY</router-link>
-        <router-link to="/abilities" @click="closeMenu">ABILITIES</router-link>
-        <router-link to="/equipment" @click="closeMenu">EQUIPMENT</router-link>
-        <router-link v-if="authStore.isAdmin" to="/art" @click="closeMenu">ART</router-link>
-        <router-link v-if="authStore.isAdmin" to="/tabletop">TABLETOP</router-link>
+        <router-link v-for="link in navLinks" :key="link.to" :to="link.to"
+          :class="{ 'router-link-active': isActiveSection(link.to) }" @click="closeMenu">{{ link.label }}</router-link>
       </nav>
     </div>
 
     <!-- Desktop Top Navigation -->
     <div class="top-nav">
       <div class="top-nav-content">
-        <router-link to="/rules">RULES</router-link>
-        <router-link to="/ancestries">ANCESTRIES</router-link>
-        <router-link to="/cultures">CULTURES</router-link>
-        <router-link to="/world-elements">WORLD ELEMENTS</router-link>
-        <router-link to="/mestieri">MESTIERI</router-link>
-        <router-link v-if="authStore.isAuthenticated" to="/characters">CHARACTERS</router-link>
-        <router-link to="/bestiary">BESTIARY</router-link>
-        <router-link to="/abilities">ABILITIES</router-link>
-        <router-link to="/equipment">EQUIPMENT</router-link>
-        <router-link v-if="authStore.isAdmin" to="/art">ART</router-link>
-        <router-link v-if="authStore.isAdmin" to="/tabletop">TABLETOP</router-link>
+        <router-link v-for="link in navLinks" :key="link.to" :to="link.to"
+          :class="{ 'router-link-active': isActiveSection(link.to) }">{{ link.label }}</router-link>
       </div>
 
       <!-- Desktop Auth Component -->
@@ -90,6 +72,21 @@ const authStore = useAuthStore()
 const userStore = useUserStore()
 const backgroundImagesStore = useBackgroundImagesStore()
 const shouldShowOverlay = computed(() => route.meta?.overlay === true)
+const isActiveSection = (path) => route.path === path || route.path.startsWith(path + '/')
+
+const navLinks = computed(() => [
+  { to: '/rules', label: 'RULES' },
+  { to: '/ancestries', label: 'ANCESTRIES' },
+  { to: '/cultures', label: 'CULTURES' },
+  { to: '/world-elements', label: 'WORLD ELEMENTS' },
+  { to: '/mestieri', label: 'MESTIERI' },
+  ...(authStore.isAuthenticated ? [{ to: '/characters', label: 'CHARACTERS' }] : []),
+  { to: '/bestiary', label: 'BESTIARY' },
+  { to: '/abilities', label: 'ABILITIES' },
+  { to: '/equipment', label: 'EQUIPMENT' },
+  ...(authStore.isAdmin ? [{ to: '/art', label: 'ART' }] : []),
+  ...(authStore.isAdmin ? [{ to: '/tabletop', label: 'TABLETOP' }] : []),
+])
 const showPreferencesModal = ref(false)
 
 // Compute selected background image from user preferences

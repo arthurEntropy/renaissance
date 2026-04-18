@@ -1,5 +1,10 @@
 <template>
-  <div class="modal-overlay" @click.self="handleClose">
+  <div class="concept-detail">
+
+    <!-- Full-viewport background image -->
+    <Teleport to="body">
+      <div v-if="selectedConcept?.detailBackgroundImage" class="concept-detail-bg" :style="detailBackgroundStyle" />
+    </Teleport>
 
     <!-- Admin Controls -->
     <div class="admin-controls">
@@ -9,7 +14,7 @@
         @click="() => toggleEditMode()" />
     </div>
 
-    <div class="modal-content" :style="detailBackgroundStyle">
+    <div class="concept-content">
 
       <!-- Desktop Layout: Grid Rows -->
       <div v-if="isDesktop" class="concept-layout-grid">
@@ -122,7 +127,6 @@ import EditAbilityModal from '@/components/editModals/EditAbilityModal.vue'
 import EditEquipmentModal from '@/components/editModals/EditEquipmentModal.vue'
 
 // Composables
-import { useUnsavedChanges } from '@/composables/useUnsavedChanges'
 import { useEditModal } from '@/composables/useEditModal'
 
 // Store imports
@@ -152,7 +156,7 @@ const _props = defineProps({
 })
 
 // Emits
-const emit = defineEmits(['close'])
+defineEmits(['close'])
 
 // Stores
 const conceptsStore = useConceptsStore()
@@ -189,7 +193,6 @@ const showSettingsModal = ref(false)
 
 // Edit mode state
 const isEditMode = ref(false)
-const hasUnsavedSectionChanges = ref(false)
 
 const toggleEditMode = (onSave) => {
   if (isEditMode.value && onSave) {
@@ -197,10 +200,6 @@ const toggleEditMode = (onSave) => {
   }
   isEditMode.value = !isEditMode.value
 }
-
-const {
-  confirmIfUnsaved
-} = useUnsavedChanges(emit, () => hasUnsavedSectionChanges.value)
 
 const selectedConcept = computed(() => conceptsStore.selectedConcept)
 
@@ -232,11 +231,6 @@ const updateLayout = () => {
 }
 
 const isDesktop = computed(() => !isMobile.value)
-
-// Methods
-const handleClose = () => {
-  confirmIfUnsaved(() => emit('close'))
-}
 
 // Ability and Equipment modal methods
 const saveEditedAbility = async (editedAbility) => {
@@ -339,12 +333,23 @@ onBeforeUnmount(() => {
 </script>
 
 <style scoped>
-.modal-overlay {
+.concept-detail {
   --concept-modal-width: 1540px;
 }
 
-.modal-content {
+.concept-content {
+  position: relative;
+  z-index: var(--z-raised);
   width: var(--concept-modal-width);
+  max-width: 90%;
+  margin: 0 auto;
+}
+
+.concept-detail-bg {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-overlay);
+  pointer-events: none;
 }
 
 /* Outer wrapper — full-width column of rows */
@@ -404,7 +409,7 @@ onBeforeUnmount(() => {
 
 .admin-controls {
   position: fixed;
-  top: var(--space-lg);
+  top: calc(var(--nav-height) + var(--space-lg));
   right: var(--space-lg);
   z-index: var(--z-modal-controls);
   display: flex;

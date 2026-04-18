@@ -409,7 +409,7 @@ watch(concept, (newConcept) => {
 }
 
 .martial-label {
-  min-width: 80px;
+  min-width: 70px;
   font-weight: var(--font-weight-semibold);
   color: var(--color-text-primary);
 }

@@ -34,15 +34,7 @@ defineEmits(['navigate'])
 
 <style scoped>
 .navigation-controls {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    z-index: var(--z-modal);
+    display: contents;
 }
 
 .navigate-button {
@@ -102,6 +94,12 @@ defineEmits(['navigate'])
 
     .navigate-button.next {
         right: 5px;
+    }
+}
+
+@media (max-width: 1800px) {
+    .navigate-button {
+        display: none;
     }
 }
 </style>

@@ -1,17 +1,19 @@
 <template>
   <div class="concepts-view">
-    <!-- Filter Controls -->
-    <FilterControls v-model:search-query="searchQuery" v-model:primary-filter="expansionFilter"
+
+    <!-- Filter Controls: hidden when concept detail is open -->
+    <FilterControls v-show="!showConceptDetail || modalComponent === 'CharacterSheetModal'"
+      v-model:search-query="searchQuery" v-model:primary-filter="expansionFilter"
       :search-placeholder="searchPlaceholder" :primary-filter-options="primaryFilterOptions"
       :primary-filter-label="primaryFilterLabel" :show-add-button="isAdmin" @create="createConcept" />
 
-    <!-- Selection Cards -->
-    <div class="concept-cards-container">
+    <!-- Selection Cards: hidden when concept detail is open -->
+    <div v-show="!showConceptDetail || modalComponent === 'CharacterSheetModal'" class="concept-cards-container">
       <ConceptCard v-for="concept in filteredConcepts" :key="concept.id" :concept="concept" :sources="sources"
         :expansions="expansionStore.items" @select="openConceptDetail" />
     </div>
 
-    <!-- Modal with Navigation Controls -->
+    <!-- Detail / Character Sheet with Navigation Controls -->
     <NavigationControls v-if="showConceptDetail" :has-previous="hasPreviousConcept" :has-next="hasNextConcept"
       @navigate="navigateConcept">
 
@@ -19,7 +21,7 @@
       <CharacterSheetModal v-if="modalComponent === 'CharacterSheetModal'" :key="`character-${props.selectedItem?.id}`"
         @close="closeConceptDetail" />
 
-      <!-- Concept Detail Modal -->
+      <!-- Concept Detail -->
       <ConceptDetail v-else :key="`concept-${props.selectedItem?.id}`" :editable="isAdmin"
         @close="closeConceptDetail" />
     </NavigationControls>
