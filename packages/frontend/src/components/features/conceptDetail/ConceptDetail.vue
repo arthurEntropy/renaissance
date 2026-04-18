@@ -29,6 +29,7 @@
           <div class="concept-description-cell">
             <ConceptTitle :is-edit-mode="isEditMode" />
             <ConceptDescription :is-edit-mode="isEditMode" />
+            <PhysiologySection v-if="layout.showPhysiology" :is-edit-mode="isEditMode" />
           </div>
         </div>
 
@@ -80,6 +81,7 @@
         <NovizioSection v-if="layout.showNovizio" :editable="isEditMode" />
         <ConceptTitle :is-edit-mode="isEditMode" />
         <ConceptDescription :is-edit-mode="isEditMode" />
+        <PhysiologySection v-if="layout.showPhysiology" :is-edit-mode="isEditMode" />
         <ConceptImageSection v-if="layout.showFaces" title="Faces" :is-edit-mode="isEditMode"
           :mode="IMAGE_GALLERY_MODES.AUTO" :auto-source-type="ART_TYPES.FACES" />
         <ConceptImageSection v-if="layout.showPlaces" title="Places" :is-edit-mode="isEditMode"
@@ -115,6 +117,7 @@ import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import ConceptTitle from './components/ConceptTitle.vue'
 import ConceptDescription from './components/sections/ConceptDescription.vue'
+import PhysiologySection from './components/sections/PhysiologySection.vue'
 import ConceptAbilitiesSection from './components/sections/ConceptAbilitiesSection.vue'
 import ConceptEquipmentSection from './components/sections/ConceptEquipmentSection.vue'
 import ConceptImageSection from './components/sections/ConceptImageSection.vue'

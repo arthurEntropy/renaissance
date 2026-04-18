@@ -13,6 +13,7 @@ export const CONCEPT_LAYOUT_CONFIGS = {
     showPlaylist: false,
     showAbilities: true,
     showEquipment: true,
+    showPhysiology: false,
   },
   [ConceptType.CULTURE]: {
     showNovizio: false,
@@ -24,6 +25,7 @@ export const CONCEPT_LAYOUT_CONFIGS = {
     showPlaylist: true,
     showAbilities: true,
     showEquipment: true,
+    showPhysiology: false,
   },
   [ConceptType.ANCESTRY]: {
     showNovizio: false,
@@ -36,6 +38,7 @@ export const CONCEPT_LAYOUT_CONFIGS = {
     showPlaylist: false,
     showAbilities: true,
     showEquipment: false,
+    showPhysiology: true,
   },
   [ConceptType.WORLD_ELEMENT]: {
     showNovizio: false,
@@ -47,6 +50,7 @@ export const CONCEPT_LAYOUT_CONFIGS = {
     showPlaylist: true,
     showAbilities: true,
     showEquipment: true,
+    showPhysiology: false,
   },
 }
 
@@ -62,4 +66,5 @@ export const DEFAULT_LAYOUT_CONFIG = {
   showPlaylist: true,
   showAbilities: true,
   showEquipment: true,
+  showPhysiology: false,
 }

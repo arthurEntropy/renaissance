@@ -2,7 +2,7 @@
   "id": "d5e3228b-1d04-4503-8ec6-3210d420c082",
   "conceptType": "ANCESTRY",
   "name": "Furu",
-  "description": "<p>The Furu emerged from the deep north, where winters outlast hope. Owl-like in feature — large, still eyes set wide in a broad face, and a quality of total silence when they choose stillness — they are something stranger than simple avian humanoids. What sets them apart more than any physical trait is their memory: complete, unhurried, and very nearly perfect. They forget nothing, which is not always the gift it sounds.</p><p><strong><em>Height</em></strong><em>: 6-7' </em>| <strong><em>Weight</em></strong><em>: 100-325 lbs </em>| <strong><em>Average Lifespan</em></strong><em>: 120 years </em>| <strong><em>Speed</em></strong><em>: 30</em></p>",
+  "description": "<p>The Furu emerged from the deep north, where winters outlast hope. Owl-like in feature — large, still eyes set wide in a broad face, and a quality of total silence when they choose stillness — they are something stranger than simple avian humanoids. What sets them apart more than any physical trait is their memory: complete, unhurried, and very nearly perfect. They forget nothing, which is not always the gift it sounds.</p>",
   "isDeleted": false,
   "artUrls": [
     "https://cdn.midjourney.com/4d48d295-4aa2-46bb-9db0-448f8c241347/0_1.png"
@@ -19,5 +19,11 @@
   "vittles": "",
   "pointsOfInterest": "",
   "floraFauna": "",
-  "lastModified": "2025-12-13T19:15:03.738Z"
+  "lastModified": "2025-12-13T19:15:03.738Z",
+  "heightMin": 6,
+  "heightMax": 7,
+  "weightMin": 100,
+  "weightMax": 325,
+  "lifespan": "120 years",
+  "speed": 30
 }
