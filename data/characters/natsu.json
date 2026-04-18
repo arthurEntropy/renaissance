@@ -181,7 +181,29 @@
     "afraid": false,
     "troubled": false
   },
-  "equipment": [],
+  "equipment": [
+    {
+      "id": "43b5ef83-6a24-4912-93c2-29487b0b9f91",
+      "quantity": 1,
+      "isCarried": true,
+      "isWielding": false,
+      "collapsed": false
+    },
+    {
+      "id": "2f54077d-56bd-46a6-9ad5-a7acdc7a90cf",
+      "quantity": 1,
+      "isCarried": true,
+      "isWielding": false,
+      "collapsed": false
+    },
+    {
+      "id": "e43614f2-91e1-495f-9d4f-7cdc4d87d3be",
+      "quantity": 1,
+      "isCarried": true,
+      "isWielding": false,
+      "collapsed": false
+    }
+  ],
   "abilities": [
     {
       "id": "90315f32-f485-498d-8d83-f8dad2f32882",
@@ -261,8 +283,8 @@
     "https://cdn.midjourney.com/a6773dd7-3da8-4349-9212-b021c7aa09f7/0_2.png"
   ],
   "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2026-04-15T12:35:07.382Z",
-  "lastModified": "2026-04-15T12:35:07.382Z",
+  "updatedAt": "2026-04-18T22:16:21.902Z",
+  "lastModified": "2026-04-18T22:16:21.902Z",
   "mestiereId": "937d52da-0ebf-4d74-b3ee-be395f2f5d0a",
   "age": 23,
   "heightFeet": 4,
