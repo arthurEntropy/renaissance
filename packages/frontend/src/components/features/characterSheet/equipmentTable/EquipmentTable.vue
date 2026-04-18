@@ -73,11 +73,8 @@
     </ItemSelector>
 
     <!-- Edit Equipment Modal -->
-    <EditEquipmentModal v-if="showEditEquipmentModal" :equipment="equipmentToEdit" :all-equipment="allEquipment"
-      :keeping-options="keepingStore.keeping" :sources="sourcesStore.sources"
-      :equipment-types="equipmentTypesStore.items" :equipment-subtypes="equipmentSubtypesStore.items"
-      :equipment-grades="equipmentGradesStore.items" :engagement-success-options="engagementSuccessOptions"
-      @update="saveEditedEquipment" @close="closeEditEquipmentModal" @delete="deleteEquipment" />
+    <EditEquipmentModal v-if="showEditEquipmentModal" :equipment="equipmentToEdit" @update="saveEditedEquipment"
+      @close="closeEditEquipmentModal" @delete="deleteEquipment" />
 
     <!-- Skill Check Modal -->
     <SkillCheckModal v-if="showSkillCheckModal" :selected-skill-name="rollLinkSkill" :character="selectedCharacter"

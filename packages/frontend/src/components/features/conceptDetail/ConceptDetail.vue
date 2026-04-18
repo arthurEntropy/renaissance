@@ -99,11 +99,7 @@
       @close="closeEditAbilityModal" @delete="deleteAbility" />
 
     <!-- Edit Equipment Modal -->
-    <EditEquipmentModal v-if="showEditEquipmentModal" :equipment="selectedEquipment"
-      :all-equipment="equipmentStore.equipment" :keeping-options="keepingStore.keeping"
-      :equipment-types="equipmentTypesStore.items" :equipment-subtypes="equipmentSubtypesStore.items"
-      :equipment-grades="equipmentGradesStore.items" :equipment-ranges="equipmentRangesStore.items"
-      :engagement-success-options="engagementSuccessOptions" @update="saveEditedEquipment"
+    <EditEquipmentModal v-if="showEditEquipmentModal" :equipment="selectedEquipment" @update="saveEditedEquipment"
       @close="closeEditEquipmentModal" @delete="deleteEquipment" />
   </div>
 
@@ -206,7 +202,6 @@ const {
   confirmIfUnsaved
 } = useUnsavedChanges(emit, () => hasUnsavedSectionChanges.value)
 
-const engagementSuccessOptions = computed(() => engagementSuccessesStore.items)
 const selectedConcept = computed(() => conceptsStore.selectedConcept)
 
 const DETAIL_OVERLAY = 'rgba(0, 0, 0, 0.5)'
