@@ -62,7 +62,7 @@
 
         <!-- Mestieri Points -->
         <div class="novizio-subsection">
-          <strong>BASE MP (MESTIERE POINTS)</strong>
+          <strong>BASE MP</strong>
           <input type="number" min="1" v-model.number="localNovizio.baseMP" placeholder="Initial Base MP..."
             class="novizio-input" />
           <text-editor v-model="localNovizio.mpNotes" placeholder="Notes..." height="60px" :auto-height="true"
@@ -142,7 +142,7 @@
 
         <!-- Mestieri Points -->
         <div class="novizio-subsection" v-if="hasAnyNovizioData && novizio">
-          <strong>BASE MP (MESTIERE POINTS):</strong> <span class="mp-value">{{ novizio.baseMP }}</span>
+          <strong>BASE MP:</strong> <span class="mp-value">{{ novizio.baseMP }}</span>
           <div v-if="novizio.mpNotes" class="novizio-placeholder" v-html="safeMpNotes"></div>
         </div>
 

@@ -174,16 +174,19 @@
     "troubled": false
   },
   "equipment": [],
-  "engagementDice": [
-    12,
-    12
-  ],
+  "engagementDice": [],
   "abilities": [],
   "activeEffects": [],
   "artUrls": [
     "https://cdn.midjourney.com/b75951b3-d21b-4e00-b7c8-c81fc16c043e/0_2.png"
   ],
   "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2026-02-18T12:51:07.421Z",
-  "lastModified": "2026-02-18T12:51:07.421Z"
+  "updatedAt": "2026-04-20T15:58:56.997Z",
+  "lastModified": "2026-04-20T15:58:56.997Z",
+  "mestiereId": "d4dce5e2-e767-464d-91f0-c40b47f788b3",
+  "age": 0,
+  "heightFeet": 0,
+  "heightInches": 0,
+  "weight": 0,
+  "engagementDiceStatuses": {}
 }
