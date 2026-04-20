@@ -336,10 +336,6 @@ onBeforeUnmount(() => {
 </script>
 
 <style scoped>
-.concept-detail {
-  --concept-modal-width: 1540px;
-}
-
 .concept-content {
   position: relative;
   z-index: var(--z-raised);

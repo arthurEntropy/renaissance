@@ -3,7 +3,7 @@
         <label v-if="label" class="sorting-label">{{ label }}</label>
         <div class="sorting-dropdown">
             <select :value="modelValue" @input="$emit('update:modelValue', $event.target.value)" class="sort-select">
-                <option value="">{{ placeholder }}</option>
+                <option v-if="placeholder" value="">{{ placeholder }}</option>
 
                 <template v-if="isGrouped">
                     <optgroup v-for="(groupOptions, group) in options" :key="group" :label="group">
@@ -45,7 +45,7 @@ const props = defineProps({
     },
     placeholder: {
         type: String,
-        default: 'Sort by...'
+        default: ''
     }
 })
 
@@ -64,6 +64,7 @@ const isGrouped = computed(() => !Array.isArray(props.options))
 .sorting-label {
     font-family: var(--font-family-body);
     font-size: var(--font-size-13, 13px);
+    font-weight: var(--font-weight-normal);
     color: var(--color-text-secondary);
 }
 

@@ -96,6 +96,7 @@
   /* Elevation shadows */
   --shadow-elevation-sm: 0 2px 8px var(--color-black);          /* Small elevation */
   --shadow-elevation-lg: 0 2px 12px var(--color-black);         /* Large elevation */
+  --shadow-elevation-xl: 0 8px 24px rgba(0, 0, 0, 0.7);         /* Extra-large elevation (floating overlays) */
 
   /* Glow effects */
   --shadow-glow-sm: 0 0 5px var(--color-white);                 /* Small glow */

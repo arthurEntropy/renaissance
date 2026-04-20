@@ -186,78 +186,93 @@
       "id": "43b5ef83-6a24-4912-93c2-29487b0b9f91",
       "quantity": 1,
       "isCarried": true,
-      "isWielding": false,
-      "collapsed": false
+      "isWielding": true,
+      "collapsed": true,
+      "columnIndex": 0,
+      "customGroupId": "11712a09-e1b1-4c70-b47e-26d8245a8855"
     },
     {
       "id": "2f54077d-56bd-46a6-9ad5-a7acdc7a90cf",
       "quantity": 1,
       "isCarried": true,
-      "isWielding": false,
-      "collapsed": false
+      "isWielding": true,
+      "collapsed": true,
+      "columnIndex": 1,
+      "customGroupId": null
     },
     {
       "id": "e43614f2-91e1-495f-9d4f-7cdc4d87d3be",
       "quantity": 1,
       "isCarried": true,
-      "isWielding": false,
-      "collapsed": false
+      "isWielding": true,
+      "collapsed": true,
+      "columnIndex": 2,
+      "customGroupId": null
     }
   ],
   "abilities": [
     {
-      "id": "90315f32-f485-498d-8d83-f8dad2f32882",
+      "id": "b647caa0-11d8-4a34-b384-fde758eaf90e",
       "collapsed": true,
       "showImprovements": false,
-      "showSuccesses": false
-    },
-    {
-      "id": "eca2de98-4fb0-4254-bb03-af81f8a604ff",
-      "collapsed": true,
-      "showImprovements": false,
-      "showSuccesses": false
+      "showSuccesses": false,
+      "customGroupId": "05f73331-5708-4305-a84c-bc4e8b4eb491"
     },
     {
       "id": "9a047b93-d2c2-4de0-ae7e-0fa06b459a29",
       "collapsed": true,
       "showImprovements": false,
-      "showSuccesses": false
-    },
-    {
-      "id": "b647caa0-11d8-4a34-b384-fde758eaf90e",
-      "collapsed": true,
-      "showImprovements": false,
-      "showSuccesses": false
-    },
-    {
-      "id": "fdc9ab63-b9b4-41de-a869-d2274cea32ec",
-      "collapsed": true,
-      "showImprovements": false,
-      "showSuccesses": false
+      "showSuccesses": false,
+      "customGroupId": "05f73331-5708-4305-a84c-bc4e8b4eb491"
     },
     {
       "id": "e2cd82f4-30db-4c3e-aa76-20170b5e7694",
       "collapsed": true,
       "showImprovements": false,
-      "showSuccesses": false
+      "showSuccesses": false,
+      "customGroupId": null
+    },
+    {
+      "id": "90315f32-f485-498d-8d83-f8dad2f32882",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "customGroupId": null
     },
     {
       "id": "738255ac-87f1-45a5-91ff-c2144b92b5e3",
       "collapsed": true,
       "showImprovements": false,
-      "showSuccesses": false
+      "showSuccesses": false,
+      "customGroupId": null
     },
     {
       "id": "1325605b-d523-4ec2-b2a7-57a04dc55d91",
       "collapsed": true,
       "showImprovements": false,
-      "showSuccesses": false
+      "showSuccesses": false,
+      "customGroupId": null
     },
     {
       "id": "754a7883-71a7-414f-bda4-504a147e68cc",
       "collapsed": true,
       "showImprovements": false,
-      "showSuccesses": false
+      "showSuccesses": false,
+      "customGroupId": null
+    },
+    {
+      "id": "eca2de98-4fb0-4254-bb03-af81f8a604ff",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "customGroupId": null
+    },
+    {
+      "id": "fdc9ab63-b9b4-41de-a869-d2274cea32ec",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "customGroupId": null
     }
   ],
   "activeEffects": [
@@ -283,8 +298,8 @@
     "https://cdn.midjourney.com/a6773dd7-3da8-4349-9212-b021c7aa09f7/0_2.png"
   ],
   "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2026-04-18T22:16:21.902Z",
-  "lastModified": "2026-04-18T22:16:21.902Z",
+  "updatedAt": "2026-04-20T13:35:31.957Z",
+  "lastModified": "2026-04-20T13:35:31.957Z",
   "mestiereId": "937d52da-0ebf-4d74-b3ee-be395f2f5d0a",
   "age": 23,
   "heightFeet": 4,
@@ -324,5 +339,23 @@
     "cold"
   ],
   "biomeId": "cb1dcc26-e6d7-4db7-a449-9affcffa67b8",
-  "groupAbilitiesBySource": true
+  "groupAbilitiesBySource": false,
+  "groupEquipmentBySource": false,
+  "groupEquipmentByCustom": false,
+  "equipmentCustomGroups": [
+    {
+      "id": "11712a09-e1b1-4c70-b47e-26d8245a8855",
+      "name": "Cool Bits"
+    }
+  ],
+  "groupAbilitiesByManaColor": false,
+  "groupAbilitiesByCustom": false,
+  "abilityCustomGroups": [
+    {
+      "id": "05f73331-5708-4305-a84c-bc4e8b4eb491",
+      "name": "Cool Spells"
+    }
+  ],
+  "abilitySortOption": "xp-asc",
+  "equipmentSortOption": "name-asc"
 }

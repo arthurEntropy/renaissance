@@ -1,7 +1,8 @@
 <template>
   <base-card :item="ability" :metaInfo="traitOrMp" :collapsed="collapsed" :editable="editable"
     @edit="$emit('edit', ability)" :collapsible="collapsible" @update:collapsed="$emit('update:collapsed', $event)"
-    @roll-link="handleRollLinkWithBiome" :itemType="ItemType.ABILITY" :class="biomeLinkClass" :show-source="false">
+    @roll-link="handleRollLinkWithBiome" :itemType="ItemType.ABILITY" :class="biomeLinkClass" :show-source="false"
+    @mouseenter="onCardMouseEnter" @mouseleave="cardPreview.scheduleHide()">
 
     <!-- XP badge positioned relative to main description when character owns any improvements OR when improvements are expanded -->
     <template #description-badge>
@@ -49,7 +50,8 @@
     <!-- Overlay badges - Show XP badge at card level when character owns no improvements AND improvements are collapsed -->
     <!-- Also shown (hidden until card hover) for no-cost items when a character context is present -->
     <template #badges>
-      <BadgeDisplay v-if="(shouldShowBaseXpBadge || !!character) && !characterOwnsAnyImprovements && !showImprovements"
+      <BadgeDisplay
+        v-if="!collapsed && (shouldShowBaseXpBadge || !!character) && !characterOwnsAnyImprovements && !showImprovements"
         type="xp" :value="ability.xp ?? null" :is-owned="characterHasBaseAbility" :is-interactive="!!character"
         :hidden-by-default="!shouldShowBaseXpBadge && !characterHasBaseAbility" @toggle="handleBaseAbilityToggle" />
     </template>
@@ -59,6 +61,7 @@
 <script setup>
 import { computed } from 'vue'
 import { ChevronUpIcon, ChevronDownIcon } from '@heroicons/vue/24/outline'
+import { useCardPreview } from '@/composables/useCardPreview'
 import { useItemImprovements } from '@/composables/useItemImprovements'
 import { useActionTypesStore } from '@/stores/actionTypesStore'
 import { useCharactersStore } from '@/stores/charactersStore'
@@ -116,6 +119,14 @@ const props = defineProps({
 })
 
 const emit = defineEmits(['edit', 'update', 'sendToChat', 'update:collapsed', 'update:showImprovements', 'update:showSuccesses', 'height-changed', 'roll-link'])
+
+const cardPreview = useCardPreview()
+
+function onCardMouseEnter(event) {
+  if (props.collapsed && props.collapsible) {
+    cardPreview.showAbilityPreview(props.ability, event.currentTarget)
+  }
+}
 
 // Item improvements composable
 const { toggleImprovement, getCharacterImprovements } = useItemImprovements('abilities')

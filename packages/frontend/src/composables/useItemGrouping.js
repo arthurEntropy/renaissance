@@ -2,8 +2,10 @@ import { computed } from 'vue'
 import { getManaCostColors } from '@shared/utils/calculateManaCost'
 import { ManaColor, MANA_COLOR_ORDER } from '@shared/constants/manaColors'
 
-// Accepts groupingMode as a string ref ('source', 'mana-color', '') or a boolean ref (treated as 'source').
-export function useItemGrouping(items, groupingMode, sourcesStore) {
+// Accepts groupingMode as a string ref ('source', 'mana-color', 'custom', '') or a boolean ref (treated as 'source').
+// When mode is 'custom', customGroups must be a ref to an array of { id, name } objects and
+// items must carry a customGroupId property to assign them to a group.
+export function useItemGrouping(items, groupingMode, sourcesStore, customGroups) {
   
   const resolvedMode = computed(() => {
     const mode = groupingMode.value
@@ -16,6 +18,7 @@ export function useItemGrouping(items, groupingMode, sourcesStore) {
   const groupedItems = computed(() => {
     if (!hasGrouping.value) return []
     if (resolvedMode.value === 'mana-color') return groupByManaColor(items.value)
+    if (resolvedMode.value === 'custom') return groupByCustom(items.value, customGroups?.value ?? [])
     return groupBySource(items.value, sourcesStore)
   })
 
@@ -103,5 +106,44 @@ function groupByManaColor(items) {
     const bi = MANA_COLOR_GROUP_ORDER.indexOf(b.id)
     return (ai === -1 ? 999 : ai) - (bi === -1 ? 999 : bi)
   })
+}
+
+// Groups items by their customGroupId, respecting the user-defined group order.
+// Items with no customGroupId (or an unrecognised one) fall into an "Ungrouped" section at the end.
+function groupByCustom(items, customGroups) {
+  const groupMap = new Map()
+
+  // Seed map with defined groups in their defined order (preserving empty groups)
+  customGroups.forEach(g => {
+    groupMap.set(g.id, {
+      id: g.id,
+      name: g.name,
+      collapsed: false,
+      items: [],
+      isCustom: true
+    })
+  })
+
+  const ungrouped = {
+    id: '__ungrouped__',
+    name: 'Ungrouped',
+    collapsed: false,
+    items: [],
+    isUngrouped: true
+  }
+
+  items.forEach(item => {
+    const gid = item.customGroupId
+    if (gid && groupMap.has(gid)) {
+      groupMap.get(gid).items.push(item)
+    } else {
+      ungrouped.items.push(item)
+    }
+  })
+
+  const result = [...groupMap.values()]
+  // Always append the Ungrouped section (even if empty, so it acts as a drop target)
+  result.push(ungrouped)
+  return result
 }
 

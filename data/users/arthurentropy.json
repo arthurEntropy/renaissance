@@ -7,7 +7,7 @@
   "status": "approved",
   "needsUsername": false,
   "createdAt": "2025-10-24T18:03:45.214Z",
-  "lastLoginAt": "2025-12-17T14:39:00.463Z",
+  "lastLoginAt": "2026-04-20T13:39:42.350Z",
   "isDeleted": false,
   "preferences": {
     "theme": "dark",
@@ -17,5 +17,5 @@
   },
   "characters": [],
   "lastUpdatedAt": "2026-03-05T16:55:02.171Z",
-  "lastModified": "2026-03-05T16:55:02.171Z"
+  "lastModified": "2026-04-20T13:39:42.885Z"
 }

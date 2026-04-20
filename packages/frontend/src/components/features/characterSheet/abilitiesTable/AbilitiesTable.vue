@@ -7,11 +7,14 @@
       <template #header-left>
         <FloatingActionButton v-if="internalEditMode" type="add" size="small" visibility="always"
           @click="toggleAbilitySelector" />
+        <ActionButton v-if="internalEditMode && groupingOption === 'custom'" variant="outline" size="small"
+          text="+ Group" @click="createAbilityGroup" />
       </template>
       <template #header-center>
-        <div v-show="!isCollapsed" class="header-controls">
-          <SortingDropdown v-model="groupingOption" :options="groupingOptions" placeholder="Group by..." />
-          <SortingDropdown v-model="abilitySortOption" :options="sortOptions" placeholder="Order by..." />
+        <div v-if="internalEditMode" v-show="!isCollapsed" class="header-controls">
+          <SortingDropdown v-model="groupingOption" :options="groupingOptions" label="Group by:"
+            placeholder="Ungrouped" />
+          <SortingDropdown v-model="abilitySortOption" :options="sortOptions" label="Order by:" placeholder="Custom" />
         </div>
       </template>
       <template #header-right>
@@ -31,31 +34,34 @@
       </div>
 
       <!-- Grouped Display -->
-      <GroupedMasonryGrid v-else-if="hasAbilityGrouping" :column-width="350" :gap="20" :row-height="10"
-        :grouped-items="groupedAbilities" class="abilities-masonry" ref="masonryGridRef">
+      <GroupedThreeColumnLayout v-else-if="hasAbilityGrouping" :grouped-items="groupedAbilities"
+        :draggable="isDraggable" :custom-group-mode="groupingOption === 'custom'" custom-group-id="ability-custom-group"
+        @reorder-group="onAbilityGroupReorder" @rename-group="renameAbilityGroup" @delete-group="deleteAbilityGroup">
         <template #default="{ item }">
-          <AbilityCard v-if="item" :ability="item" :collapsed="item.collapsed" class="ability-card" :collapsible="false"
+          <AbilityCard v-if="item" :ability="item" :collapsed="item.collapsed" class="ability-card" :collapsible="true"
             :show-xp-badge="true" :show-add-to-character="false" :show-action-buttons="true"
             :character="selectedCharacter" :show-improvement-toggle="true" :show-improvements="item.showImprovements"
-            @update="handleCharacterUpdate" @update:showImprovements="updateAbilityShowImprovements(item, $event)"
-            :show-successes="item.showSuccesses" @update:showSuccesses="updateAbilityShowSuccesses(item, $event)"
-            @roll-link="handleRollLink" />
+            @update="handleCharacterUpdate" @update:collapsed="updateAbilityCollapsed(item.id, $event)"
+            @update:showImprovements="updateAbilityShowImprovements(item, $event)" :show-successes="item.showSuccesses"
+            @update:showSuccesses="updateAbilityShowSuccesses(item, $event)" @roll-link="handleRollLink" />
           <span v-else class="missing-item">Unknown ability</span>
         </template>
-      </GroupedMasonryGrid>
+      </GroupedThreeColumnLayout>
 
       <!-- Ungrouped Display -->
-      <MasonryGrid v-else :column-width="350" :gap="20" :row-height="10" class="abilities-masonry" ref="masonryGridRef">
-        <div v-for="ability in characterAbilities" :key="ability.id" class="masonry-item">
+      <ThreeColumnLayout v-else :items="characterAbilities" :is-draggable="isDraggable" group-id="abilities"
+        @reorder="handleAbilityReorder">
+        <template #default="{ item: ability }">
           <AbilityCard v-if="ability" :ability="ability" :collapsed="ability.collapsed" class="ability-card"
-            :collapsible="false" :show-xp-badge="true" :show-add-to-character="false" :show-action-buttons="true"
+            :collapsible="true" :show-xp-badge="true" :show-add-to-character="false" :show-action-buttons="true"
             :character="selectedCharacter" :show-improvement-toggle="true" :show-improvements="ability.showImprovements"
-            @update="handleCharacterUpdate" @update:showImprovements="updateAbilityShowImprovements(ability, $event)"
+            @update="handleCharacterUpdate" @update:collapsed="updateAbilityCollapsed(ability.id, $event)"
+            @update:showImprovements="updateAbilityShowImprovements(ability, $event)"
             :show-successes="ability.showSuccesses" @update:showSuccesses="updateAbilityShowSuccesses(ability, $event)"
             @roll-link="handleRollLink" />
           <span v-else class="missing-item">Unknown ability</span>
-        </div>
-      </MasonryGrid>
+        </template>
+      </ThreeColumnLayout>
     </div>
 
     <!-- Add Ability Selector Modal -->
@@ -73,20 +79,22 @@
 </template>
 
 <script setup>
-import { computed, ref, onMounted, watch } from 'vue'
+import { computed, ref } from 'vue'
 import AbilityCard from '@/components/ui/cards/item/AbilityCard.vue'
+import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import TableHeader from '@/components/ui/tables/TableHeader.vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import ItemSelector from '@/components/ui/selectors/ItemSelector.vue'
 import CharacterSheetSection from '@/components/ui/containers/CharacterSheetSection.vue'
 import MPDisplay from './MPDisplay.vue'
-import GroupedMasonryGrid from '@/components/ui/layouts/GroupedMasonryGrid.vue'
-import MasonryGrid from '@/components/ui/layouts/MasonryGrid.vue'
+import ThreeColumnLayout from '@/components/ui/layouts/ThreeColumnLayout.vue'
+import GroupedThreeColumnLayout from '@/components/ui/layouts/GroupedThreeColumnLayout.vue'
 import SortingDropdown from '@/components/ui/dropdowns/SortingDropdown.vue'
 import SkillCheckModal from '@/components/features/characterSheet/modals/SkillCheckModal.vue'
 import CharacterService from '@/services/entities/characterService'
 import { useItemSelector } from '@/composables/useItemSelector'
 import { useItemGrouping } from '@/composables/useItemGrouping'
+import { useCustomGroupManagement } from '@/composables/useCustomGroupManagement'
 import { sortItems } from '@/utils/sortItems'
 import { ABILITY_SORT_OPTIONS } from '@/constants/sortOptions'
 import { useCharactersStore } from '@/stores/charactersStore'
@@ -117,8 +125,6 @@ const isChanneler = computed(() => {
   return mestiere?.name?.toLowerCase() === 'channeler'
 })
 
-const masonryGridRef = ref(null)
-
 const rollsStore = useRollsStore()
 
 // Roll link modal refs
@@ -130,9 +136,12 @@ const rollLinkBiomeDiceMod = ref(0)
 const sortOptions = ABILITY_SORT_OPTIONS
 
 const groupingOptions = computed(() => {
-  const options = [{ value: 'source', label: 'Source' }]
+  const options = [
+    { value: 'source', label: 'Source' },
+    { value: 'custom', label: 'Custom' },
+  ]
   if (isChanneler.value) {
-    options.push({ value: 'mana-color', label: 'Mana Color' })
+    options.splice(1, 0, { value: 'mana-color', label: 'Mana Color' })
   }
   return options
 })
@@ -141,19 +150,22 @@ const groupingOptions = computed(() => {
 const groupingOption = computed({
   get: () => {
     if (selectedCharacter.value?.groupAbilitiesByManaColor) return 'mana-color'
+    if (selectedCharacter.value?.groupAbilitiesByCustom) return 'custom'
     if (selectedCharacter.value?.groupAbilitiesBySource) return 'source'
     return ''
   },
   set: (value) => {
+    // All three flags are set explicitly to ensure they are mutually exclusive
     if (selectedCharacter.value) {
       selectedCharacter.value.groupAbilitiesBySource = (value === 'source')
       selectedCharacter.value.groupAbilitiesByManaColor = (value === 'mana-color')
+      selectedCharacter.value.groupAbilitiesByCustom = (value === 'custom')
     }
   }
 })
 
 const abilitySortOption = computed({
-  get: () => selectedCharacter.value?.abilitySortOption || 'name-asc',
+  get: () => selectedCharacter.value?.abilitySortOption || '',
   set: (value) => {
     if (selectedCharacter.value) {
       selectedCharacter.value.abilitySortOption = value
@@ -168,6 +180,20 @@ const toggleEditMode = () => { internalEditMode.value = !internalEditMode.value 
 
 const canEdit = computed(() => props.canEdit)
 
+// Drag is enabled only when no sort option is active (custom order mode)
+const isDraggable = computed(() => !abilitySortOption.value)
+
+// Custom groups stored on the character, exposed as a computed ref for useItemGrouping
+const abilityCustomGroups = computed(() => selectedCharacter.value?.abilityCustomGroups ?? [])
+
+const {
+  handleFlatReorder: handleAbilityReorder,
+  onGroupReorder: onAbilityGroupReorder,
+  createGroup: createAbilityGroup,
+  renameGroup: renameAbilityGroup,
+  deleteGroup: deleteAbilityGroup
+} = useCustomGroupManagement(selectedCharacter, 'abilities', 'abilityCustomGroups', groupingOption)
+
 const sourcesStore = useSourcesStore()
 
 const characterAbilities = computed(() => {
@@ -175,7 +201,7 @@ const characterAbilities = computed(() => {
   if (!selectedCharacter.value?.abilities) return []
 
   const abilities = selectedCharacter.value.abilities
-    ?.map((abilityObj) => {
+    ?.map((abilityObj, index) => {
       const ability = allAbilitiesArray.find((a) => a.id === abilityObj.id)
       if (!ability) return null
 
@@ -188,7 +214,8 @@ const characterAbilities = computed(() => {
         characterImprovements: characterImprovements || {},
         collapsed: abilityObj.collapsed ?? true,
         showImprovements: abilityObj.showImprovements ?? false,
-        showSuccesses: abilityObj.showSuccesses ?? false
+        showSuccesses: abilityObj.showSuccesses ?? false,
+        columnIndex: abilityObj.columnIndex ?? (index % 3)
       }
     })
     .filter((ability) => ability !== null) || []
@@ -210,12 +237,9 @@ const {
 const { groupedItems: groupedAbilities, hasGrouping: hasAbilityGrouping } = useItemGrouping(
   characterAbilities,
   groupingOption,
-  sourcesStore
+  sourcesStore,
+  abilityCustomGroups
 )
-
-watch(characterAbilities, () => {
-  masonryGridRef.value?.updateLayout()
-}, { deep: true })
 
 const selectAbility = (ability) => {
   const updated = CharacterService.addItem(selectedCharacter.value, 'abilities', {
@@ -241,6 +265,14 @@ const updateAbilityShowSuccesses = (ability, showSuccesses) => {
   const index = selectedCharacter.value.abilities.findIndex(a => a.id === ability.id)
   if (index !== -1) {
     selectedCharacter.value.abilities[index].showSuccesses = showSuccesses
+  }
+}
+
+const updateAbilityCollapsed = (abilityId, collapsed) => {
+  if (!selectedCharacter.value?.abilities) return
+  const index = selectedCharacter.value.abilities.findIndex(a => a.id === abilityId)
+  if (index !== -1) {
+    selectedCharacter.value.abilities[index].collapsed = collapsed
   }
 }
 
@@ -357,11 +389,6 @@ function applyBiomeDiceMod(pool, mod) {
   }
   return result
 }
-
-onMounted(() => {
-  masonryGridRef.value?.updateLayout()
-})
-
 </script>
 
 <style scoped>

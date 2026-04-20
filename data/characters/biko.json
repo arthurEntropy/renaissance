@@ -355,7 +355,7 @@
   "lastModified": "2026-04-15T12:17:22.976Z",
   "mestiereId": "4eccfe5d-de19-4bc5-8c9c-374d793d67f0",
   "groupEquipmentBySource": false,
-  "equipmentSortOption": "keeping-asc",
+  "equipmentSortOption": "",
   "groupAbilitiesBySource": true,
   "abilitySortOption": "",
   "autoCalculations": {

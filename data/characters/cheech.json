@@ -259,8 +259,8 @@
   "activeEffects": [],
   "groupAbilitiesBySource": true,
   "groupEquipmentBySource": false,
-  "abilitySortOption": "name-asc",
-  "equipmentSortOption": "name-asc",
+  "abilitySortOption": "",
+  "equipmentSortOption": "",
   "autoCalculations": {
     "load": true,
     "statesAndEffects": true

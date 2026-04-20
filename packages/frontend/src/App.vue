@@ -51,6 +51,8 @@
     </div>
 
   </div>
+
+  <CardPreviewOverlay />
 </template>
 
 <script setup>
@@ -65,6 +67,7 @@ import AuthComponent from '@/components/features/auth/AuthComponent.vue'
 import UsernameSetup from '@/components/features/auth/UsernameSetup.vue'
 import NotInvitedModal from '@/components/features/auth/NotInvitedModal.vue'
 import PreferencesModal from '@/components/features/preferences/PreferencesModal.vue'
+import CardPreviewOverlay from '@/components/ui/cards/preview/CardPreviewOverlay.vue'
 
 const menuOpen = ref(false)
 const route = useRoute()
