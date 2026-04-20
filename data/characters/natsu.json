@@ -16,7 +16,7 @@
   "personalityAndBackground": "Arrived too late to join the Asana Commune before it was destroyed. Squatting in the ruins. Big speech impediment.",
   "xp": 10,
   "mp": {
-    "current": 3,
+    "current": 5,
     "max": 5
   },
   "body": 3,
@@ -298,8 +298,8 @@
     "https://cdn.midjourney.com/a6773dd7-3da8-4349-9212-b021c7aa09f7/0_2.png"
   ],
   "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2026-04-20T14:53:59.079Z",
-  "lastModified": "2026-04-20T14:53:59.080Z",
+  "updatedAt": "2026-04-20T15:02:49.186Z",
+  "lastModified": "2026-04-20T15:02:49.186Z",
   "mestiereId": "937d52da-0ebf-4d74-b3ee-be395f2f5d0a",
   "age": 23,
   "heightFeet": 4,
@@ -334,11 +334,11 @@
     }
   },
   "biomeTags": [
+    "plains",
     "water",
-    "underground",
-    "cold"
+    "temperate"
   ],
-  "biomeId": "cb1dcc26-e6d7-4db7-a449-9affcffa67b8",
+  "biomeId": "c5adb6ab-3ae3-4521-8714-f7581d045e32",
   "groupAbilitiesBySource": false,
   "groupEquipmentBySource": false,
   "groupEquipmentByCustom": false,

@@ -3,7 +3,7 @@
     :metaInfo="equipment.weight ? `${equipment.weight} ${equipment.weight === 1 ? 'lb' : 'lbs'}` : ''"
     :collapsed="collapsed" :editable="editable" :duplicatable="duplicatable" :collapsible="collapsible"
     :itemType="ItemType.EQUIPMENT" @edit="$emit('edit', equipment)" @duplicate="handleDuplicate"
-    @roll-link="$emit('roll-link', $event)" @mouseenter="onCardMouseEnter" @mouseleave="cardPreview.scheduleHide()">
+    @roll-link="$emit('roll-link', $event)" @mouseenter="onCardMouseEnter" @mouseleave="cardPreview.scheduleHide()" @mousedown="onCardMouseDown">
 
     <!-- Description with categories, properties, dice, and successes -->
     <template #before-description>
@@ -185,6 +185,12 @@ const cardPreview = useCardPreview()
 function onCardMouseEnter(event) {
   if (props.collapsed && props.collapsible) {
     cardPreview.showEquipmentPreview(props.equipment, event.currentTarget)
+  }
+}
+
+function onCardMouseDown() {
+  if (props.collapsible) {
+    cardPreview.startDragIntent({ expandCooldown: props.collapsed ? 800 : 0 })
   }
 }
 

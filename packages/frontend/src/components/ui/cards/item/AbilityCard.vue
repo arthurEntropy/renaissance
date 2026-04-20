@@ -2,7 +2,7 @@
   <base-card :item="ability" :metaInfo="traitOrMp" :collapsed="collapsed" :editable="editable"
     @edit="$emit('edit', ability)" :collapsible="collapsible" @update:collapsed="$emit('update:collapsed', $event)"
     @roll-link="handleRollLinkWithBiome" :itemType="ItemType.ABILITY" :class="biomeLinkClass" :show-source="false"
-    @mouseenter="onCardMouseEnter" @mouseleave="cardPreview.scheduleHide()">
+    @mouseenter="onCardMouseEnter" @mouseleave="cardPreview.scheduleHide()" @mousedown="onCardMouseDown">
 
     <!-- XP badge positioned relative to main description when character owns any improvements OR when improvements are expanded -->
     <template #description-badge>
@@ -125,6 +125,12 @@ const cardPreview = useCardPreview()
 function onCardMouseEnter(event) {
   if (props.collapsed && props.collapsible) {
     cardPreview.showAbilityPreview(props.ability, event.currentTarget)
+  }
+}
+
+function onCardMouseDown() {
+  if (props.collapsible) {
+    cardPreview.startDragIntent({ expandCooldown: props.collapsed ? 800 : 0 })
   }
 }
 
