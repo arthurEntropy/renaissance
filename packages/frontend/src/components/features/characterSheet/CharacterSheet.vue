@@ -15,6 +15,7 @@
                 <CoreAbilityColumn :column="CORE_ABILITIES.HEART" />
                 <CoreAbilityColumn :column="CORE_ABILITIES.WITS" />
                 <ConditionsColumn :is-edit-mode="canEdit" />
+                <AcrobatSection v-if="showAcrobatSection" />
                 <EquipmentTable :is-edit-mode="canEdit" />
                 <AbilitiesTable :canEdit="canEdit" />
                 <BiomeSection v-if="showBiomeSection" />
@@ -38,6 +39,7 @@ import AbilitiesTable from '@/components/features/characterSheet/abilitiesTable/
 import EngagementTable from '@/components/features/characterSheet/engagementTable/EngagementTable.vue'
 import DiceBox from '@/components/features/characterSheet/diceBox/DiceBox.vue'
 import BiomeSection from '@/components/features/characterSheet/biome/BiomeSection.vue'
+import AcrobatSection from '@/components/features/characterSheet/acrobat/AcrobatSection.vue'
 
 const emit = defineEmits(['close'])
 
@@ -54,6 +56,12 @@ const showBiomeSection = computed(() => {
     if (!selectedCharacter.value?.mestiereId) return false
     const mestiere = conceptsStore.mestieri.find(m => m.id === selectedCharacter.value.mestiereId)
     return mestiere != null && BIOME_MESTIERI.includes(mestiere.name.toLowerCase())
+})
+
+const showAcrobatSection = computed(() => {
+    if (!selectedCharacter.value?.mestiereId) return false
+    const mestiere = conceptsStore.mestieri.find(m => m.id === selectedCharacter.value.mestiereId)
+    return mestiere?.name?.toLowerCase() === 'acrobat'
 })
 
 const handleClose = () => {

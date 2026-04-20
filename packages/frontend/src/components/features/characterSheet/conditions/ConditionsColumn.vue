@@ -17,7 +17,7 @@
             <div class="speed-row">
                 <span class="speed-name">Speed</span>
                 <NumberInput :model-value="selectedCharacter?.speed || 0" :disabled="!isEditMode"
-                    @update:model-value="updateSpeed" :min="0" size="small" aria-label="Character speed" />
+                    @update:model-value="updateSpeed" :min="0" :step="5" size="small" aria-label="Character speed" />
             </div>
         </CharacterSheetSection>
     </div>

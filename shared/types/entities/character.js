@@ -100,6 +100,7 @@ import { createBaseEntity } from './gameEntity.js'
  * @property {CharacterStates} states - Character states
  * @property {CharacterConditions} conditions - Character conditions
  * @property {number} speed - Movement speed
+ * @property {number} nimbleStep - Nimble speed-to-action conversion step (0 = full movement, increments by 1 per 10 ft traded)
  * @property {CharacterEquipmentItem[]} equipment - Equipped items
  * @property {CharacterAbilityItem[]} abilities - Character abilities with UI state
  * @property {string[]} artUrls - Character art URLs
@@ -196,6 +197,7 @@ export function createDefaultCharacter() {
       troubled: false,
     },
     speed: 0,
+    nimbleStep: 0,
     equipment: [],
     abilities: [],
     artUrls: ['https://cdn.midjourney.com/a8a36740-b7d3-4aef-bea3-a95039bec06f/0_2.png'],
