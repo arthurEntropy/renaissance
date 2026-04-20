@@ -15,6 +15,9 @@
           <SortingDropdown v-model="equipmentSortOption" :options="sortOptions" label="Order by:"
             placeholder="Custom" />
         </div>
+        <FloatingActionButton v-else-if="!isCollapsed && characterEquipment.length > 0" class="expand-collapse-btn"
+          :type="allEquipmentExpanded ? 'collapse-all' : 'expand-all'" size="small" visibility="on-hover"
+          @click="toggleAllEquipment" />
       </template>
       <template #header-right>
         <EquipmentWeight :equipment-items="characterEquipment" />
@@ -455,6 +458,19 @@ const updateEquipmentCollapsed = (itemId, collapsed) => {
   const index = selectedCharacter.value.equipment.findIndex(e => e.id === itemId)
   if (index !== -1) {
     selectedCharacter.value.equipment[index].collapsed = collapsed
+  }
+}
+
+const allEquipmentExpanded = computed(() =>
+  characterEquipment.value.length > 0 &&
+  characterEquipment.value.every(e => !e.collapsed)
+)
+
+const toggleAllEquipment = () => {
+  if (!selectedCharacter.value?.equipment) return
+  const collapse = allEquipmentExpanded.value
+  for (const e of selectedCharacter.value.equipment) {
+    e.collapsed = collapse
   }
 }
 

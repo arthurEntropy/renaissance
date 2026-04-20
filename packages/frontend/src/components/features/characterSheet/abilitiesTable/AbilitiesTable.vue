@@ -16,6 +16,9 @@
             placeholder="Ungrouped" />
           <SortingDropdown v-model="abilitySortOption" :options="sortOptions" label="Order by:" placeholder="Custom" />
         </div>
+        <FloatingActionButton v-else-if="!isCollapsed && characterAbilities.length > 0" class="expand-collapse-btn"
+          :type="allAbilitiesExpanded ? 'collapse-all' : 'expand-all'" size="small" visibility="on-hover"
+          @click="toggleAllAbilities" />
       </template>
       <template #header-right>
         <div class="mp-display-container">
@@ -364,6 +367,19 @@ const handleRollLink = (rollData) => {
     if (rollResult) {
       rollsStore.setRoll(rollResult)
     }
+  }
+}
+
+const allAbilitiesExpanded = computed(() =>
+  characterAbilities.value.length > 0 &&
+  characterAbilities.value.every(a => !a.collapsed)
+)
+
+const toggleAllAbilities = () => {
+  if (!selectedCharacter.value?.abilities) return
+  const collapse = allAbilitiesExpanded.value
+  for (const a of selectedCharacter.value.abilities) {
+    a.collapsed = collapse
   }
 }
 

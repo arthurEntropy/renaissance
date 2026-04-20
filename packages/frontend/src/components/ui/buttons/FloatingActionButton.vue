@@ -10,7 +10,7 @@
 
 <script setup>
 import { computed, ref } from 'vue'
-import { PlusIcon, DocumentDuplicateIcon, PencilIcon, CheckIcon, XMarkIcon, Bars3Icon, Cog6ToothIcon, ArrowPathIcon, BookOpenIcon, CalculatorIcon } from '@heroicons/vue/24/outline'
+import { PlusIcon, DocumentDuplicateIcon, PencilIcon, CheckIcon, XMarkIcon, Bars3Icon, Cog6ToothIcon, ArrowPathIcon, BookOpenIcon, CalculatorIcon, ChevronDoubleDownIcon, ChevronDoubleUpIcon } from '@heroicons/vue/24/outline'
 import crossedSwordsIcon from '@/assets/icons/crossed_swords.png'
 import dieIcon from '@/assets/icons/die.png'
 import injuryIcon from '@/assets/icons/injury.png'
@@ -19,7 +19,7 @@ const props = defineProps({
     type: {
         type: String,
         required: true,
-        validator: (value) => ['edit', 'add', 'duplicate', 'delete', 'drag', 'settings', 'refresh', 'dice', 'initiative', 'injury', 'notes', 'auto-calc'].includes(value)
+        validator: (value) => ['edit', 'add', 'duplicate', 'delete', 'drag', 'settings', 'refresh', 'dice', 'initiative', 'injury', 'notes', 'auto-calc', 'expand-all', 'collapse-all'].includes(value)
     },
 
     size: {
@@ -186,6 +186,10 @@ const iconComponent = computed(() => {
         return BookOpenIcon
     } else if (props.type === 'auto-calc') {
         return CalculatorIcon
+    } else if (props.type === 'expand-all') {
+        return ChevronDoubleDownIcon
+    } else if (props.type === 'collapse-all') {
+        return ChevronDoubleUpIcon
     } else {
         return Bars3Icon
     }
@@ -218,6 +222,10 @@ const tooltip = computed(() => {
         return 'Bio & Notes'
     } else if (props.type === 'auto-calc') {
         return props.isActive ? 'Auto mode (long-press to toggle)' : 'Manual mode (click to calculate, long-press to toggle)'
+    } else if (props.type === 'expand-all') {
+        return 'Expand all'
+    } else if (props.type === 'collapse-all') {
+        return 'Collapse all'
     } else {
         return 'Drag to reorder'
     }

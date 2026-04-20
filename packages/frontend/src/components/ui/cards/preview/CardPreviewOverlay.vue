@@ -7,14 +7,12 @@
                 <AbilityCard v-if="previewAbility" :ability="previewAbility" :collapsed="false" :collapsible="false"
                     :editable="false" :show-xp-badge="true" :show-action-buttons="false"
                     :show-improvement-toggle="false" :show-improvements="previewShowImprovements"
-                    :show-successes="previewShowSuccesses"
-                    @update:showImprovements="previewShowImprovements = $event"
+                    :show-successes="previewShowSuccesses" @update:showImprovements="previewShowImprovements = $event"
                     @update:showSuccesses="previewShowSuccesses = $event" />
                 <EquipmentCard v-else-if="previewEquipment" :equipment="previewEquipment" :collapsed="false"
                     :collapsible="false" :editable="false" :duplicatable="false" :show-keeping-badge="true"
                     :show-improvement-toggle="false" :show-improvements="previewShowImprovements"
-                    :engagement-success-options="[]" :enable-damage-roll="false"
-                    :show-successes="previewShowSuccesses"
+                    :engagement-success-options="[]" :enable-damage-roll="false" :show-successes="previewShowSuccesses"
                     @update:showImprovements="previewShowImprovements = $event"
                     @update:showSuccesses="previewShowSuccesses = $event" />
             </div>

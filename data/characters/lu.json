@@ -2,7 +2,7 @@
   "id": "271fd0d4-77f2-4b5e-b390-42521c4c4dfe",
   "isDeleted": false,
   "createdAt": "2026-01-29T00:54:19.091Z",
-  "lastModified": "2026-04-20T18:03:25.367Z",
+  "lastModified": "2026-04-20T18:15:49.536Z",
   "name": "Lu",
   "isBeast": false,
   "pronouns": "he/him",
@@ -177,115 +177,115 @@
   "abilities": [
     {
       "id": "4fbf9ccb-0fbb-45d0-9f8f-7b7fcfb811fb",
-      "collapsed": true,
+      "collapsed": false,
       "showImprovements": false,
       "showSuccesses": false
     },
     {
       "id": "ad7f2d4c-75cc-4b7c-8066-57eb1ccaf54a",
-      "collapsed": true,
+      "collapsed": false,
       "showImprovements": false,
       "showSuccesses": false
     },
     {
       "id": "b20b4f5e-7c7c-4b43-b180-991cf07d0712",
-      "collapsed": true,
+      "collapsed": false,
       "showImprovements": false,
       "showSuccesses": false
     },
     {
       "id": "e16343e2-35aa-4a42-b8f3-9105aad87780",
-      "collapsed": true,
+      "collapsed": false,
       "showImprovements": false,
       "showSuccesses": false
     },
     {
       "id": "e8bf3d3c-63f7-462d-a69e-c112780b72da",
-      "collapsed": true,
+      "collapsed": false,
       "showImprovements": false,
       "showSuccesses": false
     },
     {
       "id": "ec5cca33-66bb-4976-b205-877ba1b01a4b",
-      "collapsed": true,
+      "collapsed": false,
       "showImprovements": false,
       "showSuccesses": false
     },
     {
       "id": "a57f9fe4-8513-42db-bdde-2bd022a253b6",
-      "collapsed": true,
+      "collapsed": false,
       "showImprovements": false,
       "showSuccesses": false
     },
     {
       "id": "97ce4d11-c35f-4545-b09a-c18e0322413f",
-      "collapsed": true,
+      "collapsed": false,
       "showImprovements": false,
       "showSuccesses": false
     },
     {
       "id": "9bd3cdd7-5ae7-4d1a-b185-c3ed8fa8824f",
-      "collapsed": true,
+      "collapsed": false,
       "showImprovements": false,
       "showSuccesses": false
     },
     {
       "id": "58baa847-7425-499c-be87-46712966fa63",
-      "collapsed": true,
+      "collapsed": false,
       "showImprovements": false,
       "showSuccesses": false
     },
     {
       "id": "4b6d9c51-b6c8-4730-a07b-fc692321c402",
-      "collapsed": true,
+      "collapsed": false,
       "showImprovements": false,
       "showSuccesses": false
     },
     {
       "id": "b9271b66-5772-4ec2-ba0c-5a8f4b6cc525",
-      "collapsed": true,
+      "collapsed": false,
       "showImprovements": false,
       "showSuccesses": true
     },
     {
       "id": "92417d74-0eb3-45f3-8b15-5d68cec4ad7f",
-      "collapsed": true,
+      "collapsed": false,
       "showImprovements": false,
       "showSuccesses": false
     },
     {
       "id": "a2841450-e975-4fef-875c-0a7f91a0250c",
-      "collapsed": true,
+      "collapsed": false,
       "showImprovements": false,
       "showSuccesses": false
     },
     {
       "id": "7b2d897e-f83c-4bd6-97bb-33a1e85fd08f",
-      "collapsed": true,
+      "collapsed": false,
       "showImprovements": false,
       "showSuccesses": false
     },
     {
       "id": "39a3e592-7836-4333-b336-64e75694dc98",
-      "collapsed": true,
+      "collapsed": false,
       "showImprovements": false,
       "showSuccesses": false
     },
     {
       "id": "1f6eb2e9-d033-4809-a9f4-1bb0bf502951",
-      "collapsed": true,
+      "collapsed": false,
       "showImprovements": false,
       "showSuccesses": false
     },
     {
       "id": "ed857510-1a7b-4b26-9f4b-277e3baa5655",
-      "collapsed": true,
+      "collapsed": false,
       "showImprovements": false,
       "showSuccesses": false
     },
     {
       "id": "8d9b4191-4c71-4d62-9344-800fe50787ab",
-      "collapsed": true,
+      "collapsed": false,
       "showImprovements": false,
       "showSuccesses": false
     }
@@ -303,5 +303,5 @@
     "c02c53d1-b456-45d0-a048-6fc941cacc03"
   ],
   "mestiereId": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
-  "updatedAt": "2026-04-20T18:03:25.367Z"
+  "updatedAt": "2026-04-20T18:15:49.536Z"
 }
