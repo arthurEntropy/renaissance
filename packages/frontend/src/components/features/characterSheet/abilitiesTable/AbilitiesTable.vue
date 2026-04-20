@@ -416,7 +416,6 @@ function applyBiomeDiceMod(pool, mod) {
 .empty-table-state {
   padding: var(--space-2xl) var(--space-xl);
   text-align: center;
-  background: var(--color-bg-secondary);
   border-radius: var(--radius-4);
   margin: var(--space-lg) 0;
 }

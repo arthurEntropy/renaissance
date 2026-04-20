@@ -3,7 +3,8 @@
     :metaInfo="equipment.weight ? `${equipment.weight} ${equipment.weight === 1 ? 'lb' : 'lbs'}` : ''"
     :collapsed="collapsed" :editable="editable" :duplicatable="duplicatable" :collapsible="collapsible"
     :itemType="ItemType.EQUIPMENT" @edit="$emit('edit', equipment)" @duplicate="handleDuplicate"
-    @roll-link="$emit('roll-link', $event)" @mouseenter="onCardMouseEnter" @mouseleave="cardPreview.scheduleHide()" @mousedown="onCardMouseDown">
+    @roll-link="$emit('roll-link', $event)" @mouseenter="onCardMouseEnter" @mouseleave="cardPreview.scheduleHide()"
+    @mousedown="onCardMouseDown">
 
     <!-- Description with categories, properties, dice, and successes -->
     <template #before-description>
