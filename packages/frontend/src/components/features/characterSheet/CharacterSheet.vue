@@ -1,25 +1,23 @@
 <template>
-    <div class="modal-overlay" @click.self="handleClose">
-        <div class="modal-content">
-            <div class="scrollable-wrapper">
+    <div class="character-sheet">
+        <div class="character-sheet-content">
 
-                <!-- Top Row -->
-                <div class="top-section">
-                    <CharacterProfile @close-sheet="handleClose" />
-                    <DiceBox />
-                    <EngagementTable :can-edit="canEdit" />
-                </div>
+            <!-- Top Row -->
+            <div class="top-section">
+                <CharacterProfile @close-sheet="handleClose" />
+                <DiceBox />
+                <EngagementTable :can-edit="canEdit" />
+            </div>
 
-                <!-- Character Stats and Details -->
-                <div class="character-stats-section">
-                    <CoreAbilityColumn :column="CORE_ABILITIES.BODY" />
-                    <CoreAbilityColumn :column="CORE_ABILITIES.HEART" />
-                    <CoreAbilityColumn :column="CORE_ABILITIES.WITS" />
-                    <ConditionsColumn :is-edit-mode="canEdit" />
-                    <EquipmentTable :is-edit-mode="canEdit" />
-                    <AbilitiesTable :canEdit="canEdit" />
-                    <BiomeSection v-if="showBiomeSection" />
-                </div>
+            <!-- Character Stats and Details -->
+            <div class="character-stats-section">
+                <CoreAbilityColumn :column="CORE_ABILITIES.BODY" />
+                <CoreAbilityColumn :column="CORE_ABILITIES.HEART" />
+                <CoreAbilityColumn :column="CORE_ABILITIES.WITS" />
+                <ConditionsColumn :is-edit-mode="canEdit" />
+                <EquipmentTable :is-edit-mode="canEdit" />
+                <AbilitiesTable :canEdit="canEdit" />
+                <BiomeSection v-if="showBiomeSection" />
             </div>
         </div>
     </div>
@@ -64,24 +62,16 @@ const handleClose = () => {
 </script>
 
 <style scoped>
-.modal-content {
-    background: var(--overlay-black-heavy);
-    border-radius: var(--radius-5);
-    max-width: 1120px;
-    position: relative;
-    margin-top: -7px;
+.character-sheet {
+    width: 100%;
     padding: var(--space-lg);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    max-height: calc(100vh - 2 * var(--space-lg));
 }
 
-.scrollable-wrapper {
-    width: 100%;
-    max-height: 100%;
-    overflow-y: auto;
-    overflow-x: visible;
+.character-sheet-content {
+    border-radius: var(--radius-5);
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: var(--space-lg);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -119,15 +109,13 @@ const handleClose = () => {
 }
 
 @media (max-width: var(--breakpoint-sm)) {
-    .modal-content {
-        margin: 0;
-        max-height: 100vh;
-        border-radius: 0;
+    .character-sheet {
         padding: var(--space-md);
     }
 
-    .scrollable-wrapper {
-        max-height: calc(100vh - 2 * var(--space-md));
+    .character-sheet-content {
+        border-radius: 0;
+        padding: var(--space-md);
     }
 }
 </style>

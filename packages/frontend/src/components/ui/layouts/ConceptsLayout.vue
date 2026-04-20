@@ -2,13 +2,13 @@
   <div class="concepts-view">
 
     <!-- Filter Controls: hidden when concept detail is open -->
-    <FilterControls v-show="!showConceptDetail || modalComponent === 'CharacterSheetModal'"
-      v-model:search-query="searchQuery" v-model:primary-filter="expansionFilter"
-      :search-placeholder="searchPlaceholder" :primary-filter-options="primaryFilterOptions"
-      :primary-filter-label="primaryFilterLabel" :show-add-button="isAdmin" @create="createConcept" />
+    <FilterControls v-show="!showConceptDetail" v-model:search-query="searchQuery"
+      v-model:primary-filter="expansionFilter" :search-placeholder="searchPlaceholder"
+      :primary-filter-options="primaryFilterOptions" :primary-filter-label="primaryFilterLabel"
+      :show-add-button="isAdmin" @create="createConcept" />
 
     <!-- Selection Cards: hidden when concept detail is open -->
-    <div v-show="!showConceptDetail || modalComponent === 'CharacterSheetModal'" class="concept-cards-container">
+    <div v-show="!showConceptDetail" class="concept-cards-container">
       <ConceptCard v-for="concept in filteredConcepts" :key="concept.id" :concept="concept" :sources="sources"
         :expansions="expansionStore.items" @select="openConceptDetail" />
     </div>
