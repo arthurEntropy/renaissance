@@ -51,7 +51,7 @@
               <label for="equipmentType" class="left-aligned">Type:</label>
               <select id="equipmentType" v-model="editedEquipment.type" class="modal-input" @change="onTypeChange">
                 <option value="">-- Select Type --</option>
-                <option v-for="type in equipmentTypes" :key="type.id" :value="type.id">
+                <option v-for="type in equipmentTypesStore.items" :key="type.id" :value="type.id">
                   {{ type.name }}
                 </option>
               </select>
@@ -74,7 +74,7 @@
               <label for="equipmentGrade" class="left-aligned">Grade:</label>
               <select id="equipmentGrade" v-model="editedEquipment.grade" class="modal-input">
                 <option value="">-- Select Grade --</option>
-                <option v-for="grade in equipmentGrades" :key="grade.id" :value="grade.id">
+                <option v-for="grade in equipmentGradesStore.items" :key="grade.id" :value="grade.id">
                   {{ grade.name }}
                 </option>
               </select>
@@ -106,7 +106,7 @@
               <label for="range" class="left-aligned">Range:</label>
               <select id="range" v-model="editedEquipment.range" class="modal-input">
                 <option value="">-- Select Range --</option>
-                <option v-for="range in equipmentRanges" :key="range.id" :value="range.id">
+                <option v-for="range in equipmentRangesStore.items" :key="range.id" :value="range.id">
                   {{ range.name }} ({{ range.distance }})
                 </option>
               </select>
@@ -125,7 +125,7 @@
             <div class="form-column">
               <label for="keeping" class="left-aligned">Keeping:</label>
               <select id="keeping" v-model="editedEquipment.keeping" class="modal-input">
-                <option v-for="keeping in keepingOptions" :key="keeping.id" :value="keeping.id">
+                <option v-for="keeping in keepingStore.keeping" :key="keeping.id" :value="keeping.id">
                   {{ keeping.name }} ({{ keeping.cost }})
                 </option>
               </select>
@@ -181,7 +181,7 @@
           <div v-if="equipmentIsWeapon" class="form-group vertical">
             <label>Engagement Successes:</label>
             <div class="properties-inline">
-              <label v-for="success in engagementSuccessOptions" :key="success.id" :for="'success-' + success.id"
+              <label v-for="success in engagementSuccessesStore.items" :key="success.id" :for="'success-' + success.id"
                 class="property-checkbox">
                 <input type="checkbox" :id="'success-' + success.id" :value="success.id"
                   v-model="editedEquipment.engagementSuccesses" />
@@ -251,6 +251,12 @@ import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import { useEditModalForm } from '@/composables/useEditModalForm'
 import { getDiceFontMaxClass } from '@/utils/diceFontUtils'
 import { STANDARD_DIE_SIZES } from '@shared/constants/dice'
+import { useEquipmentTypesStore } from '@/stores/equipmentTypesStore'
+import { useEquipmentSubtypesStore } from '@/stores/equipmentSubtypesStore'
+import { useEquipmentGradesStore } from '@/stores/equipmentGradesStore'
+import { useEquipmentRangesStore } from '@/stores/equipmentRangesStore'
+import { useKeepingStore } from '@/stores/keepingStore'
+import { useEngagementSuccessesStore } from '@/stores/engagementSuccessesStore'
 
 
 // Props
@@ -259,34 +265,6 @@ const props = defineProps({
     type: Object,
     required: true,
   },
-  allEquipment: {
-    type: Array,
-    default: () => [],
-  },
-  keepingOptions: {
-    type: Array,
-    default: () => [],
-  },
-  equipmentTypes: {
-    type: Array,
-    default: () => [],
-  },
-  equipmentSubtypes: {
-    type: Array,
-    default: () => [],
-  },
-  equipmentGrades: {
-    type: Array,
-    default: () => [],
-  },
-  equipmentRanges: {
-    type: Array,
-    default: () => [],
-  },
-  engagementSuccessOptions: {
-    type: Array,
-    default: () => [],
-  },
 })
 
 // Emits
@@ -294,6 +272,14 @@ const emit = defineEmits(['update', 'delete', 'close'])
 
 // Use edit modal form composable
 const { editedData: editedEquipment, save: baseSave, deleteItem, handleOverlayClick } = useEditModalForm(props, emit)
+
+// Stores
+const equipmentTypesStore = useEquipmentTypesStore()
+const equipmentSubtypesStore = useEquipmentSubtypesStore()
+const equipmentGradesStore = useEquipmentGradesStore()
+const equipmentRangesStore = useEquipmentRangesStore()
+const keepingStore = useKeepingStore()
+const engagementSuccessesStore = useEngagementSuccessesStore()
 
 // Dice management - convert between array [4, 6, 6, 8] and count object {4: 1, 6: 2, 8: 1}
 const dieTypes = STANDARD_DIE_SIZES
@@ -325,14 +311,14 @@ damageDiceCounts.value = convertArrayToCounts(editedEquipment.value?.damageDice 
 // Computed properties
 const equipmentIsWeapon = computed(() => {
   if (!editedEquipment.value?.type) return false
-  const equipmentType = props.equipmentTypes.find(t => t.id === editedEquipment.value.type)
+  const equipmentType = equipmentTypesStore.items.find(t => t.id === editedEquipment.value.type)
   return equipmentType?.name === 'Weapon'
 })
 
 // Equipment categories management
 const availableSubtypes = computed(() => {
   if (!editedEquipment.value?.type) return []
-  return props.equipmentSubtypes.filter(subtype => subtype.typeId === editedEquipment.value.type)
+  return equipmentSubtypesStore.items.filter(subtype => subtype.typeId === editedEquipment.value.type)
 })
 
 const onTypeChange = () => {

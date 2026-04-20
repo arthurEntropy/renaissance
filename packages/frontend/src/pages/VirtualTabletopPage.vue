@@ -61,11 +61,9 @@
         <EditAbilityModal v-if="showEditAbilityModal" :ability="abilityToEdit" @update="handleAbilityModalUpdate"
             @delete="handleAbilityModalDelete" @close="closeEditAbilityModal" />
 
-        <EditEquipmentModal v-if="showEditEquipmentModal" :equipment="equipmentToEdit" :all-equipment="allEquipment"
-            :keeping-options="keepingOptions" :equipment-types="equipmentTypes" :equipment-subtypes="equipmentSubtypes"
-            :equipment-grades="equipmentGrades" :equipment-ranges="equipmentRanges"
-            :engagement-success-options="engagementSuccessOptions" @update="handleEquipmentModalUpdate"
-            @delete="handleEquipmentModalDelete" @close="closeEditEquipmentModal" />
+        <EditEquipmentModal v-if="showEditEquipmentModal" :equipment="equipmentToEdit"
+            @update="handleEquipmentModalUpdate" @delete="handleEquipmentModalDelete"
+            @close="closeEditEquipmentModal" />
 
         <!-- Bottom Toolbar -->
         <TabletopToolbar :show-picker="showPicker" :scale="transform.scale" :snap-to-grid="snapToGrid"
@@ -169,14 +167,8 @@ const selectionRectangleStyle = computed(() => {
 // Loading
 const isLoading = ref(true)
 
-// Store-derived data for modals
+// Store-derived data shared with canvas components
 const engagementSuccessOptions = computed(() => engagementSuccessesStore.items)
-const allEquipment = computed(() => equipmentStore.equipment)
-const keepingOptions = computed(() => keepingStore.items)
-const equipmentTypes = computed(() => equipmentTypesStore.items)
-const equipmentSubtypes = computed(() => equipmentSubtypesStore.items)
-const equipmentGrades = computed(() => equipmentGradesStore.items)
-const equipmentRanges = computed(() => equipmentRangesStore.items)
 
 // Edit modals – Abilities
 const showEditAbilityModal = ref(false)

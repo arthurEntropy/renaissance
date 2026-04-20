@@ -2,7 +2,7 @@
   "id": "f00fe427-1bb5-472c-8abb-2a394730a40a",
   "conceptType": "ANCESTRY",
   "name": "Fey",
-  "description": "<p>Born where the seam between the mortal and fae worlds ran thin enough to bleed through, the Fey carry two natures at once. What the world sees is their glamour: a humanoid form, chosen and maintained by instinct. Beneath it lies their true form — stranger, wilder, less easy to name.</p><p><strong><em>Height</em></strong><em>: 5-7' </em>| <strong><em>Weight</em></strong><em>: 75-500 lbs </em>| <strong><em>Average Lifespan</em></strong><em>: undying </em>| <strong><em>Speed</em></strong><em>: 30</em></p>",
+  "description": "<p>Born where the seam between the mortal and fae worlds ran thin enough to bleed through, the Fey carry two natures at once. What the world sees is their glamour: a humanoid form, chosen and maintained by instinct. Beneath it lies their true form — stranger, wilder, less easy to name.</p>",
   "isDeleted": false,
   "artUrls": [
     "https://cdn.midjourney.com/56acc187-316c-4d6a-aba8-f64ad6b5c126/0_2.png"
@@ -19,5 +19,11 @@
   "vittles": "",
   "pointsOfInterest": "",
   "floraFauna": "",
-  "lastModified": "2026-02-25T19:26:35.196Z"
+  "lastModified": "2026-02-25T19:26:35.196Z",
+  "heightMin": 5,
+  "heightMax": 7,
+  "weightMin": 75,
+  "weightMax": 500,
+  "lifespan": "undying",
+  "speed": 30
 }

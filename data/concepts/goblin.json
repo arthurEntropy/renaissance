@@ -2,7 +2,7 @@
   "id": "6ff91bc4-122f-4e95-bb08-b577f1a94bb6",
   "conceptType": "ANCESTRY",
   "name": "Goblin",
-  "description": "<p>Quick, sharp-featured, and possessed of more energy than their frame suggests it can contain, Goblins are a people of striking variety — their skin comes in every shade the world has to offer. Whatever darkness may have touched their ancient origins is long worn away by the ordinary work of living. What persists is spryness, tenacity and a willingness to throw caution to the wind.</p><p><strong><em>Height</em></strong><em>: 3-4' </em>| <strong><em>Weight</em></strong><em>: 30-120 lbs </em>| <strong><em>Average Lifespan</em></strong><em>: 60 years </em>| <strong><em>Speed</em></strong><em>: 30</em></p>",
+  "description": "<p>Quick, sharp-featured, and possessed of more energy than their frame suggests it can contain, Goblins are a people of striking variety — their skin comes in every shade the world has to offer. Whatever darkness may have touched their ancient origins is long worn away by the ordinary work of living. What persists is spryness, tenacity and a willingness to throw caution to the wind.</p>",
   "isDeleted": false,
   "artUrls": [
     "https://cdn.midjourney.com/33cf6394-1488-4dbf-b76d-e9205a9410cd/0_2.png"
@@ -19,5 +19,11 @@
   "vittles": "",
   "pointsOfInterest": "",
   "floraFauna": "",
-  "lastModified": "2026-02-25T14:17:40.656Z"
+  "lastModified": "2026-02-25T14:17:40.656Z",
+  "heightMin": 3,
+  "heightMax": 4,
+  "weightMin": 30,
+  "weightMax": 120,
+  "lifespan": "60 years",
+  "speed": 30
 }

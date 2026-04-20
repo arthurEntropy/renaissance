@@ -76,12 +76,11 @@
       </div>
 
       <!-- Overlaid prev/next page buttons -->
-      <button v-if="totalThumbnailPages > 1" class="thumb-page-nav left" :disabled="thumbnailPage === 0"
-        @click="prevThumbnailPage" aria-label="Previous thumbnail page">
+      <button v-if="totalThumbnailPages > 1" class="thumb-page-nav left" @click="prevThumbnailPage"
+        aria-label="Previous thumbnail page">
         <ChevronLeftIcon class="nav-icon" />
       </button>
-      <button v-if="totalThumbnailPages > 1" class="thumb-page-nav right"
-        :disabled="thumbnailPage === totalThumbnailPages - 1" @click="nextThumbnailPage"
+      <button v-if="totalThumbnailPages > 1" class="thumb-page-nav right" @click="nextThumbnailPage"
         aria-label="Next thumbnail page">
         <ChevronRightIcon class="nav-icon" />
       </button>
@@ -90,8 +89,8 @@
 
     <!-- Thumbnail page dots -->
     <div v-if="totalThumbnailPages > 1" class="thumb-dots">
-      <span v-for="page in totalThumbnailPages" :key="page" class="thumb-dot"
-        :class="{ active: page - 1 === thumbnailPage }" @click="goToThumbnailPage(page - 1)"></span>
+      <span v-for="page in visibleDotPages" :key="page" class="thumb-dot" :class="{ active: page === thumbnailPage }"
+        @click="goToThumbnailPage(page)"></span>
     </div>
 
     <!-- Add Image Modal -->
@@ -178,19 +177,24 @@ const isManualOrCombined = computed(() =>
   props.mode === IMAGE_GALLERY_MODES.MANUAL || props.mode === IMAGE_GALLERY_MODES.COMBINED
 )
 
+// Thumbnail pagination constants
+const THUMBS_PER_PAGE = 5 // 5 columns × 1 row
+const MAX_VISIBLE_DOTS = 25
+const MAX_TOTAL_IMAGES = MAX_VISIBLE_DOTS * THUMBS_PER_PAGE
+
 // If auto mode, compute images from art store; else use provided images
 const displayImages = computed(() => {
   if (props.mode === IMAGE_GALLERY_MODES.AUTO && props.autoSourceId) {
     const autoImages = artStore.getByTypeAndSource(props.autoSourceType, props.autoSourceId)
-    return autoImages.map(item => item.url).filter(url => !props.excludeUrls.includes(url))
+    return autoImages.map(item => item.url).filter(url => !props.excludeUrls.includes(url)).slice(0, MAX_TOTAL_IMAGES)
   }
   if (props.mode === IMAGE_GALLERY_MODES.COMBINED && props.autoSourceId) {
     if (props.editable) return props.images
     const autoImages = artStore.getByTypeAndSource(props.autoSourceType, props.autoSourceId)
     const autoUrls = autoImages.map(a => a.url).filter(url => !props.images.includes(url))
-    return [...props.images, ...autoUrls]
+    return [...props.images, ...autoUrls.slice(0, MAX_TOTAL_IMAGES - props.images.length)]
   }
-  return props.images
+  return props.images.slice(0, MAX_TOTAL_IMAGES)
 })
 
 // Reactive state
@@ -230,8 +234,6 @@ const nextImage = () => {
 }
 
 // Thumbnail pagination
-const THUMBS_PER_PAGE = 5 // 5 columns × 1 row
-
 const thumbnailPage = ref(0)
 const slideDirection = ref('left')
 
@@ -257,17 +259,13 @@ const pagedLocalImages = computed({
 const globalIndex = (localIdx) => thumbnailPageStart.value + localIdx
 
 const prevThumbnailPage = () => {
-  if (thumbnailPage.value > 0) {
-    slideDirection.value = 'right'
-    thumbnailPage.value--
-  }
+  slideDirection.value = 'right'
+  thumbnailPage.value = (thumbnailPage.value - 1 + totalThumbnailPages.value) % totalThumbnailPages.value
 }
 
 const nextThumbnailPage = () => {
-  if (thumbnailPage.value < totalThumbnailPages.value - 1) {
-    slideDirection.value = 'left'
-    thumbnailPage.value++
-  }
+  slideDirection.value = 'left'
+  thumbnailPage.value = (thumbnailPage.value + 1) % totalThumbnailPages.value
 }
 
 const goToThumbnailPage = (page) => {
@@ -275,6 +273,24 @@ const goToThumbnailPage = (page) => {
   slideDirection.value = page > thumbnailPage.value ? 'left' : 'right'
   thumbnailPage.value = page
 }
+
+const visibleDotPages = computed(() => {
+  const total = totalThumbnailPages.value
+  if (total <= MAX_VISIBLE_DOTS) {
+    return Array.from({ length: total }, (_, i) => i)
+  }
+  const half = Math.floor(MAX_VISIBLE_DOTS / 2)
+  let start = thumbnailPage.value - half
+  let end = start + MAX_VISIBLE_DOTS - 1
+  if (start < 0) {
+    start = 0
+    end = MAX_VISIBLE_DOTS - 1
+  } else if (end >= total) {
+    end = total - 1
+    start = end - MAX_VISIBLE_DOTS + 1
+  }
+  return Array.from({ length: MAX_VISIBLE_DOTS }, (_, i) => start + i)
+})
 
 const openEditModal = () => {
   editImageUrl.value = localImages.value[selectedIndex.value]

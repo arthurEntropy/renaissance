@@ -2,7 +2,7 @@
   "id": "eed942f5-8cc4-446a-8806-b83186098274",
   "conceptType": "ANCESTRY",
   "name": "Orc",
-  "description": "<p>Orcs are large, broad, and built for endurance — their skin ranging from gray to green, some bearing tusks, others not. Old stories cast them as creatures of destruction and ruin, but an Orc will tell you that those stories were not told by them. What persists in the Orcish body is simply strength, and an appetite for using it.</p><p><strong><em>Height</em></strong><em>: 4-6' </em>| <strong><em>Weight</em></strong><em>: 100-375 lbs </em>| <strong><em>Average Lifespan</em></strong><em>: 60 years </em>| <strong><em>Speed</em></strong><em>: 30</em></p>",
+  "description": "<p>Orcs are large, broad, and built for endurance — their skin ranging from gray to green, some bearing tusks, others not. Old stories cast them as creatures of destruction and ruin, but an Orc will tell you that those stories were not told by them. What persists in the Orcish body is simply strength, and an appetite for using it.</p>",
   "isDeleted": false,
   "artUrls": [
     "https://cdn.midjourney.com/8d595be7-bd0e-44c1-ba84-8a49dc8b357a/0_2.png"
@@ -19,5 +19,11 @@
   "vittles": "",
   "pointsOfInterest": "",
   "floraFauna": "",
-  "lastModified": "2026-02-26T18:58:34.289Z"
+  "lastModified": "2026-02-26T18:58:34.289Z",
+  "heightMin": 4,
+  "heightMax": 6,
+  "weightMin": 100,
+  "weightMax": 375,
+  "lifespan": "60 years",
+  "speed": 30
 }

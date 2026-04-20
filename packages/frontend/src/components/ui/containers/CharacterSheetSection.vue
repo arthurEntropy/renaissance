@@ -42,7 +42,7 @@ const dynamicStyles = computed(() => {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    background-color: var(--color-bg-secondary);
+    background-color: var(--overlay-black-heavy);
     border-radius: var(--radius-5);
     padding: var(--space-lg);
     position: relative;

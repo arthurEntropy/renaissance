@@ -46,6 +46,8 @@ import { createBaseEntity } from './gameEntity.js'
  * @property {number} index - Display order index
  * @property {boolean} collapsed - Whether item display is collapsed in UI
  * @property {boolean} artExpanded - Whether art view is expanded in UI
+ * @property {number} [columnIndex] - Column index (0-2) in the three-column layout
+ * @property {string|null} [customGroupId] - ID of the custom group this item belongs to
  */
 
 /**
@@ -55,6 +57,8 @@ import { createBaseEntity } from './gameEntity.js'
  * @property {boolean} showImprovements - Whether improvements section is expanded in UI
  * @property {boolean} showSuccesses - Whether successes section is expanded in UI
  * @property {Object.<string, boolean>} [improvements] - Map of improvement IDs to ownership status
+ * @property {number} [columnIndex] - Column index (0-2) in the three-column layout
+ * @property {string|null} [customGroupId] - ID of the custom group this ability belongs to
  */
 
 /**
@@ -103,7 +107,11 @@ import { createBaseEntity } from './gameEntity.js'
  * @property {ActiveEffect[]} activeEffects - Currently active effects
  * @property {boolean} groupAbilitiesBySource - Whether to group abilities by source
  * @property {boolean} groupAbilitiesByManaColor - Whether to group abilities by mana color
+ * @property {boolean} groupAbilitiesByCustom - Whether to group abilities by custom user-defined groups
  * @property {boolean} groupEquipmentBySource - Whether to group equipment by source
+ * @property {boolean} groupEquipmentByCustom - Whether to group equipment by custom user-defined groups
+ * @property {Array<{id: string, name: string}>} abilityCustomGroups - User-defined ability group definitions
+ * @property {Array<{id: string, name: string}>} equipmentCustomGroups - User-defined equipment group definitions
  * @property {string} abilitySortOption - Sort option for abilities
  * @property {string} equipmentSortOption - Sort option for equipment
  * @property {Object} autoCalculations - Auto-calculation settings

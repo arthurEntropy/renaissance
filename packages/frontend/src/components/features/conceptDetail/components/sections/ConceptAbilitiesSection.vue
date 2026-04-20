@@ -4,8 +4,9 @@
             empty-message="No abilities added yet.">
 
             <template v-if="hasAbilities" #header-center>
-                <SortingDropdown v-model="groupingOption" :options="groupingOptions" placeholder="Group by..." />
-                <SortingDropdown v-model="sortOption" :options="sortOptions" placeholder="Order by..." />
+                <SortingDropdown v-model="groupingOption" :options="groupingOptions" label="Group by:"
+                    placeholder="Ungrouped" />
+                <SortingDropdown v-model="sortOption" :options="sortOptions" label="Order by:" />
             </template>
 
             <template v-if="isEditMode" #header-right>

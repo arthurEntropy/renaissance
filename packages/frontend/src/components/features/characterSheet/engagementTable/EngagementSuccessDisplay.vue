@@ -13,7 +13,7 @@
         </div>
 
         <!-- No Successes Message -->
-        <div v-if="successData.length === 0 && !isEditMode" class="no-successes-message">
+        <div v-if="successData.length === 0 && !isEditMode && diceData.length > 0" class="no-successes-message">
             No engagement successes available
         </div>
 
@@ -25,6 +25,7 @@
 
 <script setup>
 import { ref, nextTick } from 'vue'
+import { useEngagementRoll } from '@/composables/useEngagementRoll'
 import { useEngagementSuccesses } from '@/composables/useEngagementSuccesses'
 import { useFloatingElement } from '@/composables/useFloatingElement'
 import ChipTag from '@/components/ui/chips/ChipTag.vue'
@@ -38,6 +39,7 @@ defineProps({
     }
 })
 
+const diceData = useEngagementRoll().allOwnedEngagementDice
 const successManager = useEngagementSuccesses()
 const successData = successManager.allOwnedEngagementSuccesses
 const availableSuccesses = successManager.availableEngagementSuccesses

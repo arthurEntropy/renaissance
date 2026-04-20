@@ -2,7 +2,7 @@
   "id": "ba7af7ad-54d2-4b45-86ad-71781d4cdb33",
   "conceptType": "ANCESTRY",
   "name": "Dragonborn",
-  "description": "<p>Born of some ancient, improbable union lost to living knowledge, the Dragonborn bear the strength of dragons within the frame of a humanoid form. Some cultivate these unusual gifts and wield them with pride. Others see them as a burden to be overcome. All stand out in a crowd - typically tall and imposing, with scales and horns of many colors.</p><p><strong><em>Height</em></strong><em>: 5-7' </em>| <strong><em>Weight</em></strong><em>: 150-400 lbs </em>| <strong><em>Average Lifespan</em></strong><em>: 90 years </em>| <strong><em>Speed</em></strong><em>: 30</em></p>",
+  "description": "<p>Born of some ancient, improbable union lost to living knowledge, the Dragonborn bear the strength of dragons within the frame of a humanoid form. Some cultivate these unusual gifts and wield them with pride. Others see them as a burden to be overcome. All stand out in a crowd - typically tall and imposing, with scales and horns of many colors.</p>",
   "isDeleted": false,
   "artUrls": [
     "https://cdn.midjourney.com/d36b8637-3c46-48f3-9a7b-b98750195974/0_2.png"
@@ -19,6 +19,13 @@
   "vittles": "",
   "pointsOfInterest": "",
   "floraFauna": "",
-  "lastModified": "2026-02-25T13:26:19.115Z",
-  "expansionLogoUrl": "https://cdn.midjourney.com/a74946da-ccb3-4540-89e9-751411b6bb7c/0_1.png"
+  "lastModified": "2026-04-18T00:24:15.983Z",
+  "expansionLogoUrl": "https://cdn.midjourney.com/a74946da-ccb3-4540-89e9-751411b6bb7c/0_1.png",
+  "detailBackgroundImage": "https://cdn.midjourney.com/5e0fa395-5759-4772-9fdd-29be4ce0072f/0_0.png",
+  "heightMin": 5,
+  "heightMax": 7,
+  "weightMin": 150,
+  "weightMax": 400,
+  "lifespan": "90 years",
+  "speed": 30
 }

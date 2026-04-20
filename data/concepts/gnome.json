@@ -2,7 +2,7 @@
   "id": "fffc6b74-d66f-4270-a8b4-e045433ae176",
   "conceptType": "ANCESTRY",
   "name": "Gnome",
-  "description": "<p>Small in stature and enormous in curiosity, Gnomes are drawn to complexity the way other folk are drawn to warmth. A mechanism unexamined, a puzzle unturned, a question unasked — these feel to a Gnome like unfinished business. They are not especially well-suited to sitting still.</p><p><strong><em>Height</em></strong><em>: 2-3' </em>| <strong><em>Weight</em></strong><em>: 20-75 lbs </em>| <strong><em>Average Lifespan</em></strong><em>: 200 years </em>| <strong><em>Speed</em></strong><em>: 20</em></p>",
+  "description": "<p>Small in stature and enormous in curiosity, Gnomes are drawn to complexity the way other folk are drawn to warmth. A mechanism unexamined, a puzzle unturned, a question unasked — these feel to a Gnome like unfinished business. They are not especially well-suited to sitting still.</p>",
   "isDeleted": false,
   "artUrls": [
     "https://cdn.midjourney.com/353a461b-7107-4426-a4a8-c2e536ce42da/0_2.png"
@@ -19,5 +19,11 @@
   "vittles": "",
   "pointsOfInterest": "",
   "floraFauna": "",
-  "lastModified": "2026-02-03T14:07:43.177Z"
+  "lastModified": "2026-02-03T14:07:43.177Z",
+  "heightMin": 2,
+  "heightMax": 3,
+  "weightMin": 20,
+  "weightMax": 75,
+  "lifespan": "200 years",
+  "speed": 20
 }

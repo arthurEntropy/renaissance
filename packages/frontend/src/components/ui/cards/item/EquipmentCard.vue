@@ -3,7 +3,8 @@
     :metaInfo="equipment.weight ? `${equipment.weight} ${equipment.weight === 1 ? 'lb' : 'lbs'}` : ''"
     :collapsed="collapsed" :editable="editable" :duplicatable="duplicatable" :collapsible="collapsible"
     :itemType="ItemType.EQUIPMENT" @edit="$emit('edit', equipment)" @duplicate="handleDuplicate"
-    @roll-link="$emit('roll-link', $event)">
+    @roll-link="$emit('roll-link', $event)" @mouseenter="onCardMouseEnter" @mouseleave="cardPreview.scheduleHide()"
+    @mousedown="onCardMouseDown">
 
     <!-- Description with categories, properties, dice, and successes -->
     <template #before-description>
@@ -92,7 +93,7 @@
     <!-- Also shown (hidden until card hover) for free items when a character context is present -->
     <template #badges>
       <BadgeDisplay
-        v-if="showKeepingBadge && (keepingCost !== null || !!character) && !characterOwnsAnyImprovements && !showImprovements"
+        v-if="!collapsed && showKeepingBadge && (keepingCost !== null || !!character) && !characterOwnsAnyImprovements && !showImprovements"
         type="keeping" :value="keepingCost" :is-owned="characterHasBaseEquipment" :is-interactive="!!character"
         :hidden-by-default="keepingCost === null && !characterHasBaseEquipment" @toggle="handleBaseEquipmentToggle" />
     </template>
@@ -103,6 +104,7 @@
 <script setup>
 import { onMounted, computed } from 'vue'
 import { ChevronUpIcon, ChevronDownIcon } from '@heroicons/vue/24/outline'
+import { useCardPreview } from '@/composables/useCardPreview'
 import { useEquipmentStore } from '@/stores/equipmentStore'
 import { useEquipmentTypesStore } from '@/stores/equipmentTypesStore'
 import { useEquipmentSubtypesStore } from '@/stores/equipmentSubtypesStore'
@@ -178,6 +180,20 @@ const props = defineProps({
 })
 
 const emit = defineEmits(['edit', 'duplicate', 'update', 'height-changed', 'update:showImprovements', 'update:showSuccesses', 'roll-damage', 'roll-link'])
+
+const cardPreview = useCardPreview()
+
+function onCardMouseEnter(event) {
+  if (props.collapsed && props.collapsible) {
+    cardPreview.showEquipmentPreview(props.equipment, event.currentTarget)
+  }
+}
+
+function onCardMouseDown() {
+  if (props.collapsible) {
+    cardPreview.startDragIntent({ expandCooldown: props.collapsed ? 800 : 0 })
+  }
+}
 
 // Stores
 const equipmentStore = useEquipmentStore()

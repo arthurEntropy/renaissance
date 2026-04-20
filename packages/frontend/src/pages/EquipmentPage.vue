@@ -56,10 +56,7 @@
 
     <!-- Modals slot -->
     <template #modals>
-      <EditEquipmentModal v-if="showEditEquipmentModal" :equipment="equipmentToEdit" :all-equipment="allEquipment"
-        :keeping-options="keeping" :sources="sources" :equipment-types="equipmentTypes"
-        :equipment-subtypes="equipmentSubtypes" :equipment-grades="equipmentGrades" :equipment-ranges="equipmentRanges"
-        :engagement-success-options="engagementSuccessOptions" @update="saveEditedEquipment"
+      <EditEquipmentModal v-if="showEditEquipmentModal" :equipment="equipmentToEdit" @update="saveEditedEquipment"
         @close="closeEditEquipmentModal" @delete="deleteEquipment(equipmentToEdit)" />
     </template>
   </ItemCardsLayout>
@@ -73,6 +70,7 @@ import { useEquipmentSubtypesStore } from '@/stores/equipmentSubtypesStore'
 import { useEquipmentGradesStore } from '@/stores/equipmentGradesStore'
 import { useEquipmentRangesStore } from '@/stores/equipmentRangesStore'
 import { useKeepingStore } from '@/stores/keepingStore'
+import { useEngagementSuccessesStore } from '@/stores/engagementSuccessesStore'
 import { useAuthStore } from '@/stores/authStore'
 import { useSourcesStore } from '@/stores/sourcesStore'
 import { useCharactersStore } from '@/stores/charactersStore'
@@ -82,7 +80,6 @@ import { useInfiniteScrollObserver } from '@/composables/useInfiniteScrollObserv
 import { useFilterPersistence } from '@/composables/useFilterPersistence'
 import { sortItems } from '@/utils/sortItems'
 import { EQUIPMENT_SORT_OPTIONS, filterAdminSortOptions } from '@/constants/sortOptions'
-import EngagementSuccessService from '@/services/entities/engagementSuccessService'
 import EquipmentCard from '@/components/ui/cards/item/EquipmentCard.vue'
 import EditEquipmentModal from '@/components/editModals/EditEquipmentModal.vue'
 import ItemCardsLayout from '@/components/ui/layouts/ItemCardsLayout.vue'
@@ -94,6 +91,7 @@ const equipmentSubtypesStore = useEquipmentSubtypesStore()
 const equipmentGradesStore = useEquipmentGradesStore()
 const equipmentRangesStore = useEquipmentRangesStore()
 const keepingStore = useKeepingStore()
+const engagementSuccessesStore = useEngagementSuccessesStore()
 const authStore = useAuthStore()
 const sourcesStore = useSourcesStore()
 const charactersStore = useCharactersStore()
@@ -117,7 +115,7 @@ const typeFilter = ref('')
 const subtypeFilter = ref('')
 const gradeFilter = ref('')
 const showTemplates = ref(false)
-const engagementSuccessOptions = ref([])
+const engagementSuccessOptions = computed(() => engagementSuccessesStore.items)
 const isLoadingMore = ref(false)
 const improvementVisibility = ref(new Map())
 const successesVisibility = ref(new Map())
@@ -274,7 +272,7 @@ const handleDuplicateEquipment = async () => {
 
 const fetchEngagementSuccessOptions = async () => {
   try {
-    engagementSuccessOptions.value = await EngagementSuccessService.getAll()
+    await engagementSuccessesStore.fetch()
   } catch (error) {
     console.error('Error fetching engagement success options:', error)
   }
@@ -328,11 +326,7 @@ const layoutProps = computed(() => ({
 }))
 
 const equipmentTypes = computed(() => equipmentTypesStore.items)
-const equipmentSubtypes = computed(() => equipmentSubtypesStore.items)
 const equipmentGrades = computed(() => equipmentGradesStore.items)
-const equipmentRanges = computed(() => equipmentRangesStore.items)
-const keeping = computed(() => keepingStore.keeping)
-const allEquipment = computed(() => equipmentStore.equipment)
 </script>
 
 <style scoped>

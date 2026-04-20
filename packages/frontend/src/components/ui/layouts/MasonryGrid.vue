@@ -62,7 +62,7 @@ function initMasonry() {
   container.style.display = 'grid'
   container.style.gridAutoRows = `${props.rowHeight}px`
   container.style.gap = `${props.gap}px`
-  container.style.justifyContent = 'center'
+  container.style.justifyContent = 'start'
 
   nextTick(() => {
     updateLayoutImmediate()
