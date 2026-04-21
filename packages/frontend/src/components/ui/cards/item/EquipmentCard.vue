@@ -110,22 +110,9 @@
         </span>
       </div>
 
-      <!-- Difficulty badge for Hunter's Traps -->
-      <div v-if="showTrapBadge && character" class="trap-badge" :class="{ 'trap-badge--set': trapDifficulty != null }"
-        :title="trapDifficulty != null ? `Difficulty: ${trapDifficulty}` : 'Set difficulty'" @click.stop="startTrapEdit"
-        @mouseenter="trapBadgeHovered = true" @mouseleave="trapBadgeHovered = false">
-        <div class="trap-badge-content">
-          <input v-if="editingTrap" :ref="el => { if (el) el.focus() }" v-model="editTrapValue" type="number"
-            class="trap-badge-input" @keydown.enter="commitTrapEdit" @keydown.escape="cancelTrapEdit"
-            @blur="commitTrapEdit" @click.stop />
-          <span v-else class="trap-badge-text">
-            {{ trapDifficulty != null ? trapDifficulty : '' }}
-          </span>
-        </div>
-        <FloatingActionButton v-if="trapDifficulty != null && !editingTrap" type="refresh" size="small"
-          :force-visible="trapBadgeHovered" class="trap-badge-clear" title="Clear difficulty"
-          @click.stop="clearTrapDifficulty" />
-      </div>
+      <!-- Difficulty badge for Hunter's Traps and other difficulty-setting equipment -->
+      <DifficultyBadge v-if="showDifficultyBadge && hasDifficultyBadge && character" :value="trapDifficulty"
+        @update:value="handleTrapDifficultyUpdate" />
     </template>
 
   </base-card>
@@ -144,7 +131,7 @@ import { useKeepingStore } from '@/stores/keepingStore'
 import { useCharactersStore } from '@/stores/charactersStore'
 import { useItemImprovements } from '@/composables/useItemImprovements'
 import BaseCard from '@/components/ui/cards/item/BaseCard.vue'
-import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
+import DifficultyBadge from '@/components/ui/cards/item/DifficultyBadge.vue'
 import BadgeDisplay from '@/components/ui/cards/item/BadgeDisplay.vue'
 import ChipTag from '@/components/ui/chips/ChipTag.vue'
 import ImprovementsSection from '@/components/ui/cards/item/ImprovementsSection.vue'
@@ -212,7 +199,7 @@ const props = defineProps({
     type: Boolean,
     default: false
   },
-  showTrapBadge: {
+  showDifficultyBadge: {
     type: Boolean,
     default: false
   }
@@ -226,11 +213,6 @@ const cardPreview = useCardPreview()
 const editingDiscovery = ref(false)
 const editDiscoveryValue = ref('')
 
-// Difficulty (Hunter's Trap)
-const editingTrap = ref(false)
-const editTrapValue = ref('')
-const trapBadgeHovered = ref(false)
-
 const characterEquipmentEntry = computed(() =>
   props.character?.equipment?.find((e) => e.id === props.equipment.id) ?? null,
 )
@@ -239,7 +221,30 @@ const discoveryNumber = computed(() => characterEquipmentEntry.value?.discoveryN
 
 const isMaskWorn = computed(() => characterEquipmentEntry.value?.isWielding ?? false)
 
+// Difficulty (Hunter's Trap and description-based detection)
+const HUNTER_TRAP_SUBTYPE_ID = '71c52847-7265-4c53-82c0-5b89a8f32998'
+const DIFFICULTY_TRIGGER_PHRASES = ['to set the Difficulty', 'becomes the Difficulty']
+
+const hasDifficultyBadge = computed(() =>
+  props.equipment.subtype === HUNTER_TRAP_SUBTYPE_ID ||
+  (typeof props.equipment.description === 'string' &&
+    DIFFICULTY_TRIGGER_PHRASES.some(phrase => props.equipment.description.includes(phrase)))
+)
+
 const trapDifficulty = computed(() => characterEquipmentEntry.value?.difficulty ?? null)
+
+function handleTrapDifficultyUpdate(newValue) {
+  if (!characterEquipmentEntry.value) return
+  const updatedCharacter = CharacterService.updateItem(
+    props.character,
+    'equipment',
+    props.equipment.id,
+    { difficulty: newValue },
+  )
+  if (updatedCharacter) {
+    emit('update', updatedCharacter)
+  }
+}
 
 function startDiscoveryEdit() {
   editDiscoveryValue.value = discoveryNumber.value != null ? String(discoveryNumber.value) : ''
@@ -267,47 +272,6 @@ function commitDiscoveryEdit() {
 
 function cancelDiscoveryEdit() {
   editingDiscovery.value = false
-}
-
-function startTrapEdit() {
-  editTrapValue.value = trapDifficulty.value != null ? String(trapDifficulty.value) : ''
-  editingTrap.value = true
-}
-
-function commitTrapEdit() {
-  if (!editingTrap.value) return
-  if (characterEquipmentEntry.value) {
-    const raw = editTrapValue.value
-    const parsed = raw === '' || raw === null ? null : parseInt(String(raw), 10)
-    const newValue = parsed === null || isNaN(parsed) ? null : parsed
-    const updatedCharacter = CharacterService.updateItem(
-      props.character,
-      'equipment',
-      props.equipment.id,
-      { difficulty: newValue },
-    )
-    if (updatedCharacter) {
-      emit('update', updatedCharacter)
-    }
-  }
-  editingTrap.value = false
-}
-
-function cancelTrapEdit() {
-  editingTrap.value = false
-}
-
-function clearTrapDifficulty() {
-  if (!characterEquipmentEntry.value) return
-  const updatedCharacter = CharacterService.updateItem(
-    props.character,
-    'equipment',
-    props.equipment.id,
-    { difficulty: null },
-  )
-  if (updatedCharacter) {
-    emit('update', updatedCharacter)
-  }
 }
 
 function onCardMouseEnter(event) {
@@ -720,71 +684,5 @@ onMounted(async () => {
   margin: 0;
 }
 
-/* Difficulty badge (Hunter's Trap) */
-.trap-badge {
-  position: absolute;
-  top: 4px;
-  left: 50%;
-  transform: translateX(-50%) rotate(45deg);
-  width: 26px;
-  height: 26px;
-  border: 2px solid var(--color-border-primary);
-  background: var(--overlay-black-medium);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  z-index: var(--z-interactive);
-  transition: border-color var(--transition-fast);
-  pointer-events: auto;
-}
-
-.trap-badge--set {
-  border-color: var(--color-primary);
-}
-
-.trap-badge-content {
-  transform: rotate(-45deg);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.trap-badge-text {
-  font-family: var(--font-family-primary);
-  font-style: italic;
-  font-weight: 700;
-  font-size: var(--font-size-14);
-  color: var(--color-text-primary);
-  line-height: 1;
-  user-select: none;
-}
-
-.trap-badge-input {
-  width: 22px;
-  background: transparent;
-  border: none;
-  outline: none;
-  font-family: var(--font-family-primary);
-  font-style: italic;
-  font-weight: 700;
-  font-size: var(--font-size-14);
-  color: var(--color-text-primary);
-  text-align: center;
-  appearance: textfield;
-  -moz-appearance: textfield;
-}
-
-.trap-badge-input::-webkit-outer-spin-button,
-.trap-badge-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-.trap-badge-clear {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) rotate(-45deg);
-}
+/* Difficulty badge (Hunter's Trap) - extracted to DifficultyBadge.vue */
 </style>

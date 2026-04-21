@@ -47,7 +47,8 @@
             :character="selectedCharacter" :show-improvement-toggle="true" :show-improvements="item.showImprovements"
             @update="handleCharacterUpdate" @update:collapsed="updateAbilityCollapsed(item.id, $event)"
             @update:showImprovements="updateAbilityShowImprovements(item, $event)" :show-successes="item.showSuccesses"
-            @update:showSuccesses="updateAbilityShowSuccesses(item, $event)" @roll-link="handleRollLink" />
+            @update:showSuccesses="updateAbilityShowSuccesses(item, $event)" @roll-link="handleRollLink"
+            :show-difficulty-badge="true" />
           <span v-else class="missing-item">Unknown ability</span>
         </template>
       </GroupedThreeColumnLayout>
@@ -62,7 +63,7 @@
             @update="handleCharacterUpdate" @update:collapsed="updateAbilityCollapsed(ability.id, $event)"
             @update:showImprovements="updateAbilityShowImprovements(ability, $event)"
             :show-successes="ability.showSuccesses" @update:showSuccesses="updateAbilityShowSuccesses(ability, $event)"
-            @roll-link="handleRollLink" />
+            @roll-link="handleRollLink" :show-difficulty-badge="true" />
           <span v-else class="missing-item">Unknown ability</span>
         </template>
       </ThreeColumnLayout>

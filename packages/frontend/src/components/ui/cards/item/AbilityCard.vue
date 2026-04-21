@@ -54,6 +54,10 @@
         v-if="!collapsed && (shouldShowBaseXpBadge || !!character) && !characterOwnsAnyImprovements && !showImprovements"
         type="xp" :value="ability.xp ?? null" :is-owned="characterHasBaseAbility" :is-interactive="!!character"
         :hidden-by-default="!shouldShowBaseXpBadge && !characterHasBaseAbility" @toggle="handleBaseAbilityToggle" />
+
+      <!-- Difficulty badge for abilities that set a difficulty -->
+      <DifficultyBadge v-if="showDifficultyBadge && hasDifficultyBadge && character" :value="abilityDifficulty"
+        @update:value="handleDifficultyUpdate" />
     </template>
   </base-card>
 </template>
@@ -68,6 +72,7 @@ import { useCharactersStore } from '@/stores/charactersStore'
 import { useBiomeStore } from '@/stores/biomeStore'
 import BaseCard from '@/components/ui/cards/item/BaseCard.vue'
 import BadgeDisplay from '@/components/ui/cards/item/BadgeDisplay.vue'
+import DifficultyBadge from '@/components/ui/cards/item/DifficultyBadge.vue'
 import ImprovementsSection from '@/components/ui/cards/item/ImprovementsSection.vue'
 import SuccessesSection from '@/components/ui/cards/item/SuccessesSection.vue'
 import CharacterService from '@/services/entities/characterService'
@@ -116,11 +121,42 @@ const props = defineProps({
     type: Boolean,
     default: false
   },
+  showDifficultyBadge: {
+    type: Boolean,
+    default: false
+  },
 })
 
 const emit = defineEmits(['edit', 'update', 'sendToChat', 'update:collapsed', 'update:showImprovements', 'update:showSuccesses', 'height-changed', 'roll-link'])
 
 const cardPreview = useCardPreview()
+
+// Difficulty badge (auto-detected from description text)
+const DIFFICULTY_TRIGGER_PHRASES = ['to set the Difficulty', 'becomes the Difficulty']
+
+const hasDifficultyBadge = computed(() =>
+  typeof props.ability.description === 'string' &&
+  DIFFICULTY_TRIGGER_PHRASES.some(phrase => props.ability.description.includes(phrase))
+)
+
+const characterAbilityEntry = computed(() =>
+  props.character?.abilities?.find(a => a.id === props.ability.id) ?? null
+)
+
+const abilityDifficulty = computed(() => characterAbilityEntry.value?.difficulty ?? null)
+
+function handleDifficultyUpdate(newValue) {
+  if (!characterAbilityEntry.value) return
+  const updatedCharacter = CharacterService.updateItem(
+    props.character,
+    'abilities',
+    props.ability.id,
+    { difficulty: newValue },
+  )
+  if (updatedCharacter) {
+    emit('update', updatedCharacter)
+  }
+}
 
 function onCardMouseEnter(event) {
   if (props.collapsed && props.collapsible) {

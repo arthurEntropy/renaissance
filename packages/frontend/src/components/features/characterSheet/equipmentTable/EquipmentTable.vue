@@ -42,8 +42,7 @@
               :editable="item.equipment.isCustom" class="equipment-card" @edit="openEditEquipmentModal"
               @update="handleCharacterUpdate" :collapsible="true" :show-keeping-badge="true"
               :character="selectedCharacter" :show-improvement-toggle="true" :show-improvements="item.showImprovements"
-              :show-discovery-badge="item.equipment.subtype === MESMER_MASK_SUBTYPE_ID"
-              :show-trap-badge="item.equipment.subtype === HUNTER_TRAP_SUBTYPE_ID"
+              :show-discovery-badge="item.equipment.subtype === MESMER_MASK_SUBTYPE_ID" :show-difficulty-badge="true"
               @update:collapsed="updateEquipmentCollapsed(item.id, $event)"
               @update:showImprovements="updateEquipmentShowImprovements(item, $event)" :engagement-success-options="[]"
               :enable-damage-roll="true" @roll-damage="handleDamageRoll" @roll-link="handleRollLink" />
@@ -64,8 +63,7 @@
               :editable="item.equipment.isCustom" class="equipment-card" @edit="openEditEquipmentModal"
               @update="handleCharacterUpdate" :collapsible="true" :show-keeping-badge="true"
               :character="selectedCharacter" :show-improvement-toggle="true" :show-improvements="item.showImprovements"
-              :show-discovery-badge="item.equipment.subtype === MESMER_MASK_SUBTYPE_ID"
-              :show-trap-badge="item.equipment.subtype === HUNTER_TRAP_SUBTYPE_ID"
+              :show-discovery-badge="item.equipment.subtype === MESMER_MASK_SUBTYPE_ID" :show-difficulty-badge="true"
               @update:collapsed="updateEquipmentCollapsed(item.id, $event)"
               @update:showImprovements="updateEquipmentShowImprovements(item, $event)" :engagement-success-options="[]"
               :enable-damage-roll="true" @roll-damage="handleDamageRoll" @roll-link="handleRollLink" />
@@ -130,15 +128,14 @@ import { useSourcesStore } from '@/stores/sourcesStore'
 import { useKeepingStore } from '@/stores/keepingStore'
 import { useEquipmentSubtypesStore } from '@/stores/equipmentSubtypesStore'
 import { useEquipmentGradesStore } from '@/stores/equipmentGradesStore'
-
-const MESMER_MASK_SUBTYPE_ID = 'd9dd4c74-670e-49d5-a3a7-11150203f262'
-const HUNTER_TRAP_SUBTYPE_ID = '71c52847-7265-4c53-82c0-5b89a8f32998'
 import { useRollsStore } from '@/stores/rollsStore'
 import EngagementSuccessService from '@/services/entities/engagementSuccessService'
 import DamageRollService from '@/services/rolls/damageRollService'
 import CustomRollService from '@/services/rolls/customRollService'
 import { RollTypes } from '@/constants/rollTypes'
 import { BookOpenIcon, PlusIcon } from '@heroicons/vue/24/outline'
+
+const MESMER_MASK_SUBTYPE_ID = 'd9dd4c74-670e-49d5-a3a7-11150203f262'
 
 const props = defineProps({
   isEditMode: {

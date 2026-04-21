@@ -60,6 +60,7 @@ import { createBaseEntity } from './gameEntity.js'
  * @property {Object.<string, boolean>} [improvements] - Map of improvement IDs to ownership status
  * @property {number} [columnIndex] - Column index (0-2) in the three-column layout
  * @property {string|null} [customGroupId] - ID of the custom group this ability belongs to
+ * @property {number|null} [difficulty] - Set difficulty for abilities that require one
  */
 
 /**
