@@ -134,8 +134,7 @@ import DamageRollService from '@/services/rolls/damageRollService'
 import CustomRollService from '@/services/rolls/customRollService'
 import { RollTypes } from '@/constants/rollTypes'
 import { BookOpenIcon, PlusIcon } from '@heroicons/vue/24/outline'
-
-const MESMER_MASK_SUBTYPE_ID = 'd9dd4c74-670e-49d5-a3a7-11150203f262'
+import { MESMER_MASK_SUBTYPE_ID } from '@/constants/mesmerConstants'
 
 const props = defineProps({
   isEditMode: {

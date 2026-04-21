@@ -50,7 +50,7 @@ class CharacterService extends BaseEntityService {
   addAbilityToCharacter(character, ability) {
     return this.addItem(character, 'abilities', { 
       id: ability.id, 
-      collapsed: true, 
+      collapsed: false, 
       showImprovements: false,
       showSuccesses: false
     })

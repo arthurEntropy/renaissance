@@ -49,6 +49,7 @@ import { createBaseEntity } from './gameEntity.js'
  * @property {number} [columnIndex] - Column index (0-2) in the three-column layout
  * @property {string|null} [customGroupId] - ID of the custom group this item belongs to
  * @property {number|null} [difficulty] - Set difficulty for Hunter's Trap items
+ * @property {string|null} [pendingDiscoveryAbilityId] - Ability pre-selected for Mesmer's Mask discovery, persisted until claimed
  */
 
 /**

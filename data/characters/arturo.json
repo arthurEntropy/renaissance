@@ -184,20 +184,53 @@
       "id": "d7b8a4bf-649e-4ce5-8d6b-488755d7cc09",
       "quantity": 1,
       "isCarried": true,
-      "collapsed": true,
-      "discoveryNumber": 23,
-      "isWielding": true
+      "collapsed": false,
+      "discoveryNumber": 15,
+      "isWielding": false
     },
     {
       "id": "53cadf6f-5127-41c7-b84c-4c5abeae72a9",
       "quantity": 1,
       "isCarried": true,
-      "collapsed": true,
-      "discoveryNumber": null,
-      "isWielding": false
+      "collapsed": false,
+      "discoveryNumber": 8,
+      "isWielding": true,
+      "pendingDiscoveryAbilityId": "65f9dc5c-9bc5-479d-86ed-2db0584f0403"
     }
   ],
-  "abilities": [],
+  "abilities": [
+    {
+      "id": "1bd8d9b7-db27-4d2a-baab-316b3b64e56c",
+      "collapsed": false,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "c88f92c5-a000-4a3b-ad10-69dee0b2d60e",
+      "collapsed": false,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "difficulty": null
+    },
+    {
+      "id": "ccd0501e-d0bc-427a-ace5-224ec67249bb",
+      "collapsed": false,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "29f17960-2380-41be-8055-ba34f427ba9a",
+      "collapsed": false,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "5efbd11d-7b7c-47b2-9a5a-2b01595b863f",
+      "collapsed": false,
+      "showImprovements": false,
+      "showSuccesses": false
+    }
+  ],
   "activeEffects": [
     {
       "name": "Weird But Entertaining",
@@ -221,8 +254,8 @@
     "https://cdn.midjourney.com/1a823ba8-dae5-4791-b9e9-0d7ea00cf5f4/0_2.png"
   ],
   "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2026-04-21T13:23:27.856Z",
-  "lastModified": "2026-04-21T13:23:27.856Z",
+  "updatedAt": "2026-04-21T17:43:48.983Z",
+  "lastModified": "2026-04-21T17:43:48.983Z",
   "mestiereId": "dab3e414-0118-49be-9779-4e3018cdba71",
   "age": 42,
   "heightFeet": 5,

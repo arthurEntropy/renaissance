@@ -201,7 +201,7 @@ const spellBadgeText = computed(() => props.itemType === ItemType.ABILITY ? 'SPE
 
 // Show a separate school badge for abilities that have a school assigned
 const showSchoolBadge = computed(() =>
-  props.itemType === ItemType.ABILITY && !!props.item.school
+  (props.itemType === ItemType.ABILITY || props.itemType === ItemType.EQUIPMENT) && !!props.item.school
 )
 
 // Render the top badge area if either the SPELL/MAGIC badge or school badge should show

@@ -5,7 +5,7 @@
       <CharacterPhysicalStats :age="character.age || 0" :height-feet="character.heightFeet || 0"
         :height-inches="character.heightInches || 0" :weight="character.weight || 0" />
     </div>
-    <CharacterVitals @close-sheet="$emit('close-sheet')" />
+    <CharacterVitals />
 
     <!-- Bio & Notes Button -->
     <FloatingActionButton type="notes" size="small" visibility="always" class="notes-button" @click="openModal" />

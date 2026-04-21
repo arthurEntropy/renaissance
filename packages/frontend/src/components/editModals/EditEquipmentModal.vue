@@ -132,6 +132,17 @@
             </div>
           </div>
 
+          <!-- School: Only show if source mestiere has schools defined -->
+          <div class="form-group centered" v-if="sourceHasSchools">
+            <label for="school">School:</label>
+            <select id="school" v-model="editedEquipment.school" class="modal-input">
+              <option :value="null">-- No School --</option>
+              <option v-for="school in schoolsForSource" :key="school.id" :value="school.id">
+                {{ school.name }}
+              </option>
+            </select>
+          </div>
+
           <!-- Weapon Properties -->
           <div v-if="equipmentIsWeapon" class="form-group vertical">
             <label>Weapon Properties:</label>
@@ -243,7 +254,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { XMarkIcon, ArrowUpIcon, ArrowDownIcon } from '@heroicons/vue/24/outline'
 import TextEditor from '@/components/ui/textEditor/TextEditor.vue'
 import SourceDropdown from '@/components/ui/selectors/SourceDropdown.vue'
@@ -257,6 +268,8 @@ import { useEquipmentGradesStore } from '@/stores/equipmentGradesStore'
 import { useEquipmentRangesStore } from '@/stores/equipmentRangesStore'
 import { useKeepingStore } from '@/stores/keepingStore'
 import { useEngagementSuccessesStore } from '@/stores/engagementSuccessesStore'
+import { useAbilitySchoolsStore } from '@/stores/abilitySchoolsStore'
+import { MESMER_MASK_SUBTYPE_ID, MESMER_CONCEPT_ID } from '@/constants/mesmerConstants'
 
 
 // Props
@@ -280,6 +293,28 @@ const equipmentGradesStore = useEquipmentGradesStore()
 const equipmentRangesStore = useEquipmentRangesStore()
 const keepingStore = useKeepingStore()
 const engagementSuccessesStore = useEngagementSuccessesStore()
+const abilitySchoolsStore = useAbilitySchoolsStore()
+
+// Mesmer's Mask always uses mesmer schools regardless of source
+const isMesmersMask = computed(() => editedEquipment.value.subtype === MESMER_MASK_SUBTYPE_ID)
+
+// School support — gates school dropdown (only mestieri have schools defined)
+// Mesmer's Mask items always show mesmer schools regardless of their source
+const schoolsForSource = computed(() => {
+  if (isMesmersMask.value) {
+    return abilitySchoolsStore.items.filter(s => s.sourceId === MESMER_CONCEPT_ID)
+  }
+  return abilitySchoolsStore.items.filter(s => s.sourceId === editedEquipment.value.source)
+})
+
+const sourceHasSchools = computed(() => schoolsForSource.value.length > 0)
+
+// Clear school when switching to a source that has no schools (not applicable for Mesmer's Mask)
+watch(() => editedEquipment.value.source, () => {
+  if (!sourceHasSchools.value) {
+    editedEquipment.value.school = null
+  }
+})
 
 // Dice management - convert between array [4, 6, 6, 8] and count object {4: 1, 6: 2, 8: 1}
 const dieTypes = STANDARD_DIE_SIZES
