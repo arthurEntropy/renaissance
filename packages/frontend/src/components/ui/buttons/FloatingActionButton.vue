@@ -41,6 +41,12 @@ const props = defineProps({
         default: false
     },
 
+    // Overrides visibility='on-hover' to always show the button, controlled by the parent.
+    forceVisible: {
+        type: Boolean,
+        default: false
+    },
+
     disabled: {
         type: Boolean,
         default: false
@@ -115,7 +121,7 @@ const buttonClasses = computed(() => {
         'fab',
         `fab--${props.type}`,
         `fab--${props.size}`,
-        `fab--${props.visibility}`,
+        `fab--${props.forceVisible ? 'always' : props.visibility}`,
         {
             'fab--active': props.isActive && props.type === 'edit',
             'fab--disabled': props.disabled

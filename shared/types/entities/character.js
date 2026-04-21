@@ -48,6 +48,7 @@ import { createBaseEntity } from './gameEntity.js'
  * @property {boolean} artExpanded - Whether art view is expanded in UI
  * @property {number} [columnIndex] - Column index (0-2) in the three-column layout
  * @property {string|null} [customGroupId] - ID of the custom group this item belongs to
+ * @property {number|null} [difficulty] - Set difficulty for Hunter's Trap items
  */
 
 /**

@@ -184,7 +184,7 @@
       "id": "d7b8a4bf-649e-4ce5-8d6b-488755d7cc09",
       "quantity": 1,
       "isCarried": true,
-      "collapsed": false,
+      "collapsed": true,
       "discoveryNumber": 23,
       "isWielding": true
     },
@@ -192,8 +192,8 @@
       "id": "53cadf6f-5127-41c7-b84c-4c5abeae72a9",
       "quantity": 1,
       "isCarried": true,
-      "collapsed": false,
-      "discoveryNumber": 10,
+      "collapsed": true,
+      "discoveryNumber": null,
       "isWielding": false
     }
   ],
@@ -221,8 +221,8 @@
     "https://cdn.midjourney.com/1a823ba8-dae5-4791-b9e9-0d7ea00cf5f4/0_2.png"
   ],
   "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2026-04-21T01:07:01.019Z",
-  "lastModified": "2026-04-21T01:07:01.019Z",
+  "updatedAt": "2026-04-21T13:23:27.856Z",
+  "lastModified": "2026-04-21T13:23:27.856Z",
   "mestiereId": "dab3e414-0118-49be-9779-4e3018cdba71",
   "age": 42,
   "heightFeet": 5,
