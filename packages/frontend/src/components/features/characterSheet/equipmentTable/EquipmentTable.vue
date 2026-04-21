@@ -42,6 +42,7 @@
               :editable="item.equipment.isCustom" class="equipment-card" @edit="openEditEquipmentModal"
               @update="handleCharacterUpdate" :collapsible="true" :show-keeping-badge="true"
               :character="selectedCharacter" :show-improvement-toggle="true" :show-improvements="item.showImprovements"
+              :show-discovery-badge="item.equipment.subtype === MESMER_MASK_SUBTYPE_ID"
               @update:collapsed="updateEquipmentCollapsed(item.id, $event)"
               @update:showImprovements="updateEquipmentShowImprovements(item, $event)" :engagement-success-options="[]"
               :enable-damage-roll="true" @roll-damage="handleDamageRoll" @roll-link="handleRollLink" />
@@ -62,6 +63,7 @@
               :editable="item.equipment.isCustom" class="equipment-card" @edit="openEditEquipmentModal"
               @update="handleCharacterUpdate" :collapsible="true" :show-keeping-badge="true"
               :character="selectedCharacter" :show-improvement-toggle="true" :show-improvements="item.showImprovements"
+              :show-discovery-badge="item.equipment.subtype === MESMER_MASK_SUBTYPE_ID"
               @update:collapsed="updateEquipmentCollapsed(item.id, $event)"
               @update:showImprovements="updateEquipmentShowImprovements(item, $event)" :engagement-success-options="[]"
               :enable-damage-roll="true" @roll-damage="handleDamageRoll" @roll-link="handleRollLink" />
@@ -100,6 +102,8 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import EquipmentCard from '@/components/ui/cards/item/EquipmentCard.vue'
+
+const MESMER_MASK_SUBTYPE_ID = 'd9dd4c74-670e-49d5-a3a7-11150203f262'
 import EquipmentWeight from './EquipmentWeight.vue'
 import EquipmentDetails from './EquipmentDetails.vue'
 import TableHeader from '@/components/ui/tables/TableHeader.vue'

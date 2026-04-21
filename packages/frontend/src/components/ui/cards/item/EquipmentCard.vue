@@ -96,13 +96,27 @@
         v-if="!collapsed && showKeepingBadge && (keepingCost !== null || !!character) && !characterOwnsAnyImprovements && !showImprovements"
         type="keeping" :value="keepingCost" :is-owned="characterHasBaseEquipment" :is-interactive="!!character"
         :hidden-by-default="keepingCost === null && !characterHasBaseEquipment" @toggle="handleBaseEquipmentToggle" />
+
+      <!-- Discovery number badge for Mesmer's Masks -->
+      <div v-if="showDiscoveryBadge && character" class="discovery-badge"
+        :class="{ 'discovery-badge--set': isMaskWorn }"
+        :title="discoveryNumber != null ? `Discovery: ${discoveryNumber}` : 'Set discovery number'"
+        @click.stop="startDiscoveryEdit">
+        <input v-if="editingDiscovery" :ref="el => { if (el) el.focus() }" v-model="editDiscoveryValue" type="number"
+          class="discovery-badge-input" @keydown.enter="commitDiscoveryEdit" @keydown.escape="cancelDiscoveryEdit"
+          @blur="commitDiscoveryEdit" @click.stop />
+        <span v-else class="discovery-badge-text"
+          :class="{ 'discovery-badge-text--placeholder': discoveryNumber == null }">
+          {{ discoveryNumber != null ? discoveryNumber : '?' }}
+        </span>
+      </div>
     </template>
 
   </base-card>
 </template>
 
 <script setup>
-import { onMounted, computed } from 'vue'
+import { onMounted, computed, ref } from 'vue'
 import { ChevronUpIcon, ChevronDownIcon } from '@heroicons/vue/24/outline'
 import { useCardPreview } from '@/composables/useCardPreview'
 import { useEquipmentStore } from '@/stores/equipmentStore'
@@ -176,12 +190,56 @@ const props = defineProps({
   enableDamageRoll: {
     type: Boolean,
     default: false
+  },
+  showDiscoveryBadge: {
+    type: Boolean,
+    default: false
   }
 })
 
 const emit = defineEmits(['edit', 'duplicate', 'update', 'height-changed', 'update:showImprovements', 'update:showSuccesses', 'roll-damage', 'roll-link'])
 
 const cardPreview = useCardPreview()
+
+// Discovery number (Mesmer's Mask)
+const editingDiscovery = ref(false)
+const editDiscoveryValue = ref('')
+
+const characterEquipmentEntry = computed(() =>
+  props.character?.equipment?.find((e) => e.id === props.equipment.id) ?? null,
+)
+
+const discoveryNumber = computed(() => characterEquipmentEntry.value?.discoveryNumber ?? null)
+
+const isMaskWorn = computed(() => characterEquipmentEntry.value?.isWielding ?? false)
+
+function startDiscoveryEdit() {
+  editDiscoveryValue.value = discoveryNumber.value != null ? String(discoveryNumber.value) : ''
+  editingDiscovery.value = true
+}
+
+function commitDiscoveryEdit() {
+  if (!editingDiscovery.value) return
+  if (characterEquipmentEntry.value) {
+    const raw = editDiscoveryValue.value
+    const parsed = raw === '' || raw === null ? null : parseInt(String(raw), 10)
+    const newValue = parsed === null || isNaN(parsed) ? null : parsed
+    const updatedCharacter = CharacterService.updateItem(
+      props.character,
+      'equipment',
+      props.equipment.id,
+      { discoveryNumber: newValue },
+    )
+    if (updatedCharacter) {
+      emit('update', updatedCharacter)
+    }
+  }
+  editingDiscovery.value = false
+}
+
+function cancelDiscoveryEdit() {
+  editingDiscovery.value = false
+}
 
 function onCardMouseEnter(event) {
   if (props.collapsed && props.collapsible) {
@@ -537,5 +595,63 @@ onMounted(async () => {
   width: 16px;
   height: 16px;
   stroke-width: 2.5;
+}
+
+/* Discovery number badge (Mesmer's Mask) */
+.discovery-badge {
+  position: absolute;
+  top: 1px;
+  right: 3px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 2px solid var(--color-border-primary);
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: var(--z-interactive);
+  transition: border-color var(--transition-fast);
+  pointer-events: auto;
+}
+
+.discovery-badge--set {
+  border-color: var(--color-primary);
+}
+
+.discovery-badge-text {
+  font-family: var(--font-family-primary);
+  font-style: italic;
+  font-weight: 700;
+  font-size: var(--font-size-14);
+  color: var(--color-text-primary);
+  line-height: 1;
+  user-select: none;
+}
+
+.discovery-badge-text--placeholder {
+  color: var(--color-text-secondary);
+}
+
+.discovery-badge-input {
+  width: 26px;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: var(--font-family-primary);
+  font-style: italic;
+  font-weight: 700;
+  font-size: var(--font-size-14);
+  color: var(--color-text-primary);
+  text-align: center;
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+.discovery-badge-input::-webkit-outer-spin-button,
+.discovery-badge-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 </style>

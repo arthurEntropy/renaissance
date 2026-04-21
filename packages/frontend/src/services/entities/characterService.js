@@ -57,11 +57,23 @@ class CharacterService extends BaseEntityService {
   }
 
   addEquipmentToCharacter(character, equipment) {
-    return this.addItem(character, 'equipment', { 
-      id: equipment.id, 
-      quantity: 1, 
-      isCarried: true 
+    return this.addItem(character, 'equipment', {
+      id: equipment.id,
+      quantity: 1,
+      isCarried: true,
     })
+  }
+
+  updateItem(character, itemsProperty, id, fields) {
+    if (!character || !Array.isArray(character[itemsProperty])) return null
+    const index = character[itemsProperty].findIndex((item) => item.id === id)
+    if (index === -1) return null
+    return {
+      ...character,
+      [itemsProperty]: character[itemsProperty].map((item, i) =>
+        i === index ? { ...item, ...fields } : item,
+      ),
+    }
   }
 }
 

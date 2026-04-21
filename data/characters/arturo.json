@@ -5,8 +5,12 @@
   "pronouns": "he/him",
   "ancestries": "Human",
   "cultures": "Anuerismo",
-  "ancestryIds": [],
-  "cultureIds": [],
+  "ancestryIds": [
+    "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+  ],
+  "cultureIds": [
+    "c02c53d1-b456-45d0-a048-6fc941cacc03"
+  ],
   "personalityAndBackground": "Roving trader and purveyor of hams and jams, recently spent several months disguised as a ghost in The Swooning Swan spa.",
   "xp": 10,
   "mp": {
@@ -175,7 +179,24 @@
     "afraid": false,
     "troubled": false
   },
-  "equipment": [],
+  "equipment": [
+    {
+      "id": "d7b8a4bf-649e-4ce5-8d6b-488755d7cc09",
+      "quantity": 1,
+      "isCarried": true,
+      "collapsed": false,
+      "discoveryNumber": 23,
+      "isWielding": true
+    },
+    {
+      "id": "53cadf6f-5127-41c7-b84c-4c5abeae72a9",
+      "quantity": 1,
+      "isCarried": true,
+      "collapsed": false,
+      "discoveryNumber": 10,
+      "isWielding": false
+    }
+  ],
   "abilities": [],
   "activeEffects": [
     {
@@ -200,6 +221,11 @@
     "https://cdn.midjourney.com/1a823ba8-dae5-4791-b9e9-0d7ea00cf5f4/0_2.png"
   ],
   "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2026-04-04T21:34:28.706Z",
-  "lastModified": "2026-04-04T21:34:28.706Z"
+  "updatedAt": "2026-04-21T01:07:01.019Z",
+  "lastModified": "2026-04-21T01:07:01.019Z",
+  "mestiereId": "dab3e414-0118-49be-9779-4e3018cdba71",
+  "age": 42,
+  "heightFeet": 5,
+  "heightInches": 7,
+  "weight": 170
 }
