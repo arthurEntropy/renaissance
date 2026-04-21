@@ -22,9 +22,10 @@
       </template>
       <template #header-right>
         <div class="mp-display-container">
-          <FloatingActionButton v-if="canEdit" class="mp-reset-button" type="refresh" size="small" visibility="on-hover"
-            @click="resetMP" />
-          <MPDisplay :is-edit-mode="canEdit" />
+          <FloatingActionButton v-if="canEdit && !isChanneler" class="mp-reset-button" type="refresh" size="small"
+            visibility="on-hover" @click="resetMP" />
+          <ManaPoolDisplay v-if="isChanneler" />
+          <MPDisplay v-else :is-edit-mode="canEdit" />
         </div>
       </template>
     </TableHeader>
@@ -90,6 +91,7 @@ import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.v
 import ItemSelector from '@/components/ui/selectors/ItemSelector.vue'
 import CharacterSheetSection from '@/components/ui/containers/CharacterSheetSection.vue'
 import MPDisplay from './MPDisplay.vue'
+import ManaPoolDisplay from './ManaPoolDisplay.vue'
 import ThreeColumnLayout from '@/components/ui/layouts/ThreeColumnLayout.vue'
 import GroupedThreeColumnLayout from '@/components/ui/layouts/GroupedThreeColumnLayout.vue'
 import SortingDropdown from '@/components/ui/dropdowns/SortingDropdown.vue'
@@ -105,6 +107,7 @@ import { useAbilitiesStore } from '@/stores/abilitiesStore'
 import { useSourcesStore } from '@/stores/sourcesStore'
 import { useConceptsStore } from '@/stores/conceptsStore'
 import { useRollsStore } from '@/stores/rollsStore'
+import { MANA_COLOR_ORDER } from '@shared/constants/manaColors'
 import DamageRollService from '@/services/rolls/damageRollService'
 import CustomRollService from '@/services/rolls/customRollService'
 import { RollTypes } from '@/constants/rollTypes'
@@ -384,7 +387,13 @@ const toggleAllAbilities = () => {
 }
 
 const resetMP = () => {
-  if (selectedCharacter.value?.mp) {
+  if (isChanneler.value) {
+    if (selectedCharacter.value?.manaPool) {
+      for (const c of MANA_COLOR_ORDER) {
+        selectedCharacter.value.manaPool[c] = []
+      }
+    }
+  } else if (selectedCharacter.value?.mp) {
     selectedCharacter.value.mp.current = selectedCharacter.value.mp.max
   }
 }

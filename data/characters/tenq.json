@@ -288,8 +288,8 @@
     "https://cdn.midjourney.com/545939d2-7091-4ee5-9e3d-479166b344af/0_3.png"
   ],
   "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2026-04-20T19:32:03.699Z",
-  "lastModified": "2026-04-20T19:32:03.699Z",
+  "updatedAt": "2026-04-20T19:33:14.701Z",
+  "lastModified": "2026-04-20T19:33:14.701Z",
   "mestiereId": "e10d7d9f-9d93-46b0-9846-d60241031644",
   "expansionLogoUrl": "",
   "engagementSuccesses": [
@@ -299,6 +299,6 @@
   "heightFeet": 0,
   "heightInches": 0,
   "weight": 0,
-  "speed": 80,
-  "nimbleStep": 4
+  "speed": 60,
+  "nimbleStep": 3
 }

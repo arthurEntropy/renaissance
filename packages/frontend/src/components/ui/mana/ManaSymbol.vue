@@ -79,6 +79,8 @@ const imgSrc = computed(() => {
     display: flex;
     align-items: center;
     justify-content: center;
+    font-family: var(--font-family-primary);
+    font-style: italic;
     font-size: 1.2em;
     color: var(--color-black);
     line-height: 1;
