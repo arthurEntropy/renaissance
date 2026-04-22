@@ -9,6 +9,7 @@ import { DICE_ROLL_DURATION } from '@/constants/animationDurations'
 import { getDiceFontClass, getDiceFontMaxClass } from '@/utils/diceFontUtils'
 import { useCharactersStore } from '@/stores/charactersStore'
 import { useEquipmentStore } from '@/stores/equipmentStore'
+import { useConceptsStore } from '@/stores/conceptsStore'
 
 // Singleton state - shared across all instances
 let sharedState = null
@@ -16,9 +17,11 @@ let sharedState = null
 function createSharedState() {
   const charactersStore = useCharactersStore()
   const equipmentStore = useEquipmentStore()
-  
+  const conceptsStore = useConceptsStore()
+
   const character = computed(() => charactersStore.selectedCharacter)
   const allEquipment = computed(() => equipmentStore.equipment || [])
+  const characterMestiere = computed(() => conceptsStore.concepts?.find(c => c.id === character.value?.mestiereId) ?? null)
 
   // Dice state
   const diceStatuses = reactive({})
@@ -63,6 +66,17 @@ function createSharedState() {
     userAddedDice.forEach((_, index) => {
       keys.add(`user_added_${index}`)
     })
+
+    const mestriereDiceMap = characterMestiere.value?.novizio?.engagementDice
+    if (mestriereDiceMap) {
+      let globalIndex = 0
+      for (const count of Object.values(mestriereDiceMap)) {
+        for (let i = 0; i < count; i++) {
+          keys.add(`mestiere_${globalIndex}`)
+          globalIndex++
+        }
+      }
+    }
 
     return keys
   }
@@ -128,6 +142,7 @@ function createSharedState() {
   return {
     character,
     allEquipment,
+    characterMestiere,
     diceStatuses,
     persistDiceStatusesToCharacter,
     manualResults,
@@ -153,6 +168,7 @@ export function useEngagementRoll() {
   const {
     character,
     allEquipment,
+    characterMestiere,
     diceStatuses,
     persistDiceStatusesToCharacter,
     manualResults,
@@ -170,6 +186,32 @@ export function useEngagementRoll() {
 
   // ==================== COMPUTED - DICE DATA ====================
   
+  // Engagement dice provided by the character's mestiere (auto-populated from novizio data)
+  const mestiereEngagementDice = computed(() => {
+    const mestiere = characterMestiere.value
+    if (!mestiere?.novizio?.engagementDice) return []
+
+    const result = []
+    let globalIndex = 0
+    for (const [dieSizeStr, count] of Object.entries(mestiere.novizio.engagementDice)) {
+      const dieSide = Number(dieSizeStr)
+      for (let i = 0; i < count; i++) {
+        const statusKey = `mestiere_${globalIndex}`
+        const status = diceStatuses[statusKey] || DiceStatus.AVAILABLE
+        result.push({
+          die: dieSide,
+          name: mestiere.name,
+          statusKey,
+          status,
+          isUserAdded: false,
+          isMestiere: true
+        })
+        globalIndex++
+      }
+    }
+    return result
+  })
+
   // Engagement dice provided by the character's equipment
   const equipmentEngagementDice = computed(() => {
     const result = []
@@ -225,6 +267,7 @@ export function useEngagementRoll() {
   // All engagement dice available to the character
   const allOwnedEngagementDice = computed(() => {
     const allDice = [
+      ...mestiereEngagementDice.value,
       ...equipmentEngagementDice.value,
       ...userAddedEngagementDice.value
     ]

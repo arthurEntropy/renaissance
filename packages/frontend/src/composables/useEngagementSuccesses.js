@@ -3,6 +3,7 @@ import EngagementSuccessService from '@/services/entities/engagementSuccessServi
 import engagementSessionService from '@/services/sessions/engagementSessionService'
 import { useCharactersStore } from '@/stores/charactersStore'
 import { useEquipmentStore } from '@/stores/equipmentStore'
+import { useConceptsStore } from '@/stores/conceptsStore'
 
 // Singleton state - shared across all instances
 let sharedState = null
@@ -10,15 +11,18 @@ let sharedState = null
 function createSharedState() {
   const charactersStore = useCharactersStore()
   const equipmentStore = useEquipmentStore()
-  
+  const conceptsStore = useConceptsStore()
+
   const character = computed(() => charactersStore.selectedCharacter)
   const allEquipment = computed(() => equipmentStore.equipment || [])
+  const characterMestiere = computed(() => conceptsStore.concepts?.find(c => c.id === character.value?.mestiereId) ?? null)
   const allEngagementSuccesses = ref([])
   const assignedSuccesses = reactive({})
 
   return {
     character,
     allEquipment,
+    characterMestiere,
     allEngagementSuccesses,
     assignedSuccesses
   }
@@ -30,9 +34,21 @@ export function useEngagementSuccesses() {
     sharedState = createSharedState()
   }
 
-  const { character, allEquipment, allEngagementSuccesses, assignedSuccesses } = sharedState
+  const { character, allEquipment, characterMestiere, allEngagementSuccesses, assignedSuccesses } = sharedState
 
   // Computed properties for success data processing
+  const mestiereEngagementSuccesses = computed(() => {
+    const mestiere = characterMestiere.value
+    if (!mestiere?.novizio?.engagementSuccesses?.length) return []
+
+    return mestiere.novizio.engagementSuccesses
+      .map(successId => {
+        const success = allEngagementSuccesses.value.find(s => s.id === successId)
+        return success ? { ...success, isUserAdded: false, sources: [mestiere.name] } : null
+      })
+      .filter(Boolean)
+  })
+
   const equipmentEngagementSuccesses = computed(() => {
     const result = []
 
@@ -77,6 +93,7 @@ export function useEngagementSuccesses() {
 
   const allOwnedEngagementSuccesses = computed(() => {
     const allSuccesses = [
+      ...mestiereEngagementSuccesses.value,
       ...equipmentEngagementSuccesses.value,
       ...userAddedEngagementSuccesses.value
     ]

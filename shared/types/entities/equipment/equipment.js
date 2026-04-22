@@ -37,6 +37,7 @@ import { createBaseEntity } from '../gameEntity.js'
  * @property {string} description - Detailed description
  * @property {string|null} keeping - Keeping level UUID reference
  * @property {string|null} source - Source concept UUID (ancestry, culture, etc.)
+ * @property {string|null} [school] - Ability school UUID reference (only for mestiere-sourced equipment)
  * @property {number} weight - Weight value
  * @property {number} length - Length value
  * @property {number} reach - Reach value
@@ -74,6 +75,7 @@ export function createDefaultEquipment() {
     description: '',
     keeping: null,
     source: null,
+    school: null,
     weight: 0,
     length: 0,
     reach: 0,

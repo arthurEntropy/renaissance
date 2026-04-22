@@ -15,6 +15,9 @@
           <SortingDropdown v-model="equipmentSortOption" :options="sortOptions" label="Order by:"
             placeholder="Custom" />
         </div>
+        <FloatingActionButton v-else-if="!isCollapsed && characterEquipment.length > 0" class="expand-collapse-btn"
+          :type="allEquipmentExpanded ? 'collapse-all' : 'expand-all'" size="small" visibility="on-hover"
+          @click="toggleAllEquipment" />
       </template>
       <template #header-right>
         <EquipmentWeight :equipment-items="characterEquipment" />
@@ -39,6 +42,7 @@
               :editable="item.equipment.isCustom" class="equipment-card" @edit="openEditEquipmentModal"
               @update="handleCharacterUpdate" :collapsible="true" :show-keeping-badge="true"
               :character="selectedCharacter" :show-improvement-toggle="true" :show-improvements="item.showImprovements"
+              :show-discovery-badge="item.equipment.subtype === MESMER_MASK_SUBTYPE_ID" :show-difficulty-badge="true"
               @update:collapsed="updateEquipmentCollapsed(item.id, $event)"
               @update:showImprovements="updateEquipmentShowImprovements(item, $event)" :engagement-success-options="[]"
               :enable-damage-roll="true" @roll-damage="handleDamageRoll" @roll-link="handleRollLink" />
@@ -59,6 +63,7 @@
               :editable="item.equipment.isCustom" class="equipment-card" @edit="openEditEquipmentModal"
               @update="handleCharacterUpdate" :collapsible="true" :show-keeping-badge="true"
               :character="selectedCharacter" :show-improvement-toggle="true" :show-improvements="item.showImprovements"
+              :show-discovery-badge="item.equipment.subtype === MESMER_MASK_SUBTYPE_ID" :show-difficulty-badge="true"
               @update:collapsed="updateEquipmentCollapsed(item.id, $event)"
               @update:showImprovements="updateEquipmentShowImprovements(item, $event)" :engagement-success-options="[]"
               :enable-damage-roll="true" @roll-damage="handleDamageRoll" @roll-link="handleRollLink" />
@@ -129,6 +134,7 @@ import DamageRollService from '@/services/rolls/damageRollService'
 import CustomRollService from '@/services/rolls/customRollService'
 import { RollTypes } from '@/constants/rollTypes'
 import { BookOpenIcon, PlusIcon } from '@heroicons/vue/24/outline'
+import { MESMER_MASK_SUBTYPE_ID } from '@/constants/mesmerConstants'
 
 const props = defineProps({
   isEditMode: {
@@ -455,6 +461,19 @@ const updateEquipmentCollapsed = (itemId, collapsed) => {
   const index = selectedCharacter.value.equipment.findIndex(e => e.id === itemId)
   if (index !== -1) {
     selectedCharacter.value.equipment[index].collapsed = collapsed
+  }
+}
+
+const allEquipmentExpanded = computed(() =>
+  characterEquipment.value.length > 0 &&
+  characterEquipment.value.every(e => !e.collapsed)
+)
+
+const toggleAllEquipment = () => {
+  if (!selectedCharacter.value?.equipment) return
+  const collapse = allEquipmentExpanded.value
+  for (const e of selectedCharacter.value.equipment) {
+    e.collapsed = collapse
   }
 }
 

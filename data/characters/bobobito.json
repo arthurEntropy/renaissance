@@ -6,7 +6,7 @@
   "ancestries": "Human",
   "cultures": "Agralaur",
   "ancestryIds": [
-    1
+    "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
   ],
   "cultureIds": [
     "c02c53d1-b456-45d0-a048-6fc941cacc03"
@@ -188,8 +188,8 @@
     "https://cdn.midjourney.com/33a4c041-49a8-4234-8e65-54d65bc7033b/0_0.png"
   ],
   "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2026-02-27T15:17:26.268Z",
-  "lastModified": "2026-02-27T15:17:26.268Z",
+  "updatedAt": "2026-04-21T12:34:02.749Z",
+  "lastModified": "2026-04-21T12:34:02.749Z",
   "rollStats": {
     "skillChecks": {
       "attempts": 3,
@@ -216,5 +216,13 @@
         "draws": 0
       }
     }
-  }
+  },
+  "mestiereId": "45ca935d-938b-4974-961c-4171cc388904",
+  "age": 57,
+  "heightFeet": 5,
+  "heightInches": 3,
+  "weight": 150,
+  "swagger": 3,
+  "swaggerIconIndex": 1,
+  "swaggerColor": "#fdf7f7"
 }

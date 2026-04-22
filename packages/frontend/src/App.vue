@@ -35,6 +35,9 @@
     <!-- Selected Character Badge -->
     <SelectedCharacterBadge />
 
+    <!-- Selected Beast Badge (Summoner mestiere — shows summoned creature) -->
+    <SelectedBeastBadge />
+
     <!-- Main Content -->
     <div class="content-area">
       <!-- Not invited modal -->
@@ -63,6 +66,7 @@ import { useAuthStore } from '@/stores/authStore'
 import { useUserStore } from '@/stores/userStore'
 import { useBackgroundImagesStore } from '@/stores/backgroundImagesStore'
 import SelectedCharacterBadge from '@/components/features/characterSelection/SelectedCharacterBadge.vue'
+import SelectedBeastBadge from '@/components/features/characterSelection/SelectedBeastBadge.vue'
 import AuthComponent from '@/components/features/auth/AuthComponent.vue'
 import UsernameSetup from '@/components/features/auth/UsernameSetup.vue'
 import NotInvitedModal from '@/components/features/auth/NotInvitedModal.vue'

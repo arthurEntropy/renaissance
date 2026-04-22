@@ -6,18 +6,22 @@
                 @mouseleave="scheduleHide">
                 <AbilityCard v-if="previewAbility" :ability="previewAbility" :collapsed="false" :collapsible="false"
                     :editable="false" :show-xp-badge="true" :show-action-buttons="false"
-                    :show-improvement-toggle="false" :show-improvements="false" :show-successes="false" />
+                    :show-improvement-toggle="false" :show-improvements="previewShowImprovements"
+                    :show-successes="previewShowSuccesses" @update:showImprovements="previewShowImprovements = $event"
+                    @update:showSuccesses="previewShowSuccesses = $event" />
                 <EquipmentCard v-else-if="previewEquipment" :equipment="previewEquipment" :collapsed="false"
                     :collapsible="false" :editable="false" :duplicatable="false" :show-keeping-badge="true"
-                    :show-improvement-toggle="false" :show-improvements="false" :engagement-success-options="[]"
-                    :enable-damage-roll="false" :show-successes="false" />
+                    :show-improvement-toggle="false" :show-improvements="previewShowImprovements"
+                    :engagement-success-options="[]" :enable-damage-roll="false" :show-successes="previewShowSuccesses"
+                    @update:showImprovements="previewShowImprovements = $event"
+                    @update:showSuccesses="previewShowSuccesses = $event" />
             </div>
         </Transition>
     </Teleport>
 </template>
 
 <script setup>
-import { ref, computed, watch, nextTick } from 'vue'
+import { ref, computed, watch, onUnmounted } from 'vue'
 import AbilityCard from '@/components/ui/cards/item/AbilityCard.vue'
 import EquipmentCard from '@/components/ui/cards/item/EquipmentCard.vue'
 import { useCardPreview } from '@/composables/useCardPreview'
@@ -30,15 +34,37 @@ const { previewAbility, previewEquipment, anchorRect, scheduleHide, cancelHide }
 
 const overlayEl = ref(null)
 // Tracks the rendered height of the overlay so we can clamp it to the viewport.
+// ResizeObserver fires after every layout change, including after CSS transitions
+// complete, which is needed for accurate positioning after expansion.
 const overlayHeight = ref(0)
+const previewShowImprovements = ref(false)
+const previewShowSuccesses = ref(false)
 
-// Whenever the preview content changes, measure the overlay height on the next tick.
+let resizeObserver = null
+watch(overlayEl, (el) => {
+    if (resizeObserver) {
+        resizeObserver.disconnect()
+        resizeObserver = null
+    }
+    if (el) {
+        resizeObserver = new ResizeObserver(() => {
+            overlayHeight.value = el.offsetHeight
+        })
+        resizeObserver.observe(el)
+    }
+})
+
+onUnmounted(() => {
+    if (resizeObserver) resizeObserver.disconnect()
+})
+
+// Reset toggle states when the previewed item changes.
 watch(
     [previewAbility, previewEquipment],
-    async () => {
-        if (!previewAbility.value && !previewEquipment.value) return
-        await nextTick()
-        overlayHeight.value = overlayEl.value?.offsetHeight ?? 0
+    ([ability, equipment]) => {
+        if (!ability && !equipment) return
+        previewShowImprovements.value = false
+        previewShowSuccesses.value = false
     }
 )
 

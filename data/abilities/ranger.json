@@ -2,7 +2,7 @@
   "id": "f48f7fa7-e9a2-482d-b7ee-0e195471f7c8",
   "isDeleted": false,
   "createdAt": "2026-02-03T21:18:18.268Z",
-  "lastModified": "2026-03-16T21:00:26.279Z",
+  "lastModified": "2026-04-21T13:04:04.517Z",
   "name": "Ranger",
   "description": "<p>Your skill in the wild is exceptional. Your base MP increases to 10.</p><p><strong>Describe your prowess.</strong></p>",
   "canBeActive": false,
@@ -11,6 +11,6 @@
   "mp": null,
   "xp": 30,
   "manaCost": null,
-  "artUrl": "https://cdn.midjourney.com/bc61cd45-f99b-4c1b-b58e-0b32952a52db/0_1.png",
+  "artUrl": "https://cdn.midjourney.com/9fe1eb22-9249-4425-bbf7-e290848f3f5d/0_3.png",
   "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
 }

@@ -16,12 +16,16 @@
             placeholder="Ungrouped" />
           <SortingDropdown v-model="abilitySortOption" :options="sortOptions" label="Order by:" placeholder="Custom" />
         </div>
+        <FloatingActionButton v-else-if="!isCollapsed && characterAbilities.length > 0" class="expand-collapse-btn"
+          :type="allAbilitiesExpanded ? 'collapse-all' : 'expand-all'" size="small" visibility="on-hover"
+          @click="toggleAllAbilities" />
       </template>
       <template #header-right>
         <div class="mp-display-container">
-          <FloatingActionButton v-if="canEdit" class="mp-reset-button" type="refresh" size="small" visibility="on-hover"
-            @click="resetMP" />
-          <MPDisplay :is-edit-mode="canEdit" />
+          <FloatingActionButton v-if="canEdit && !isChanneler" class="mp-reset-button" type="refresh" size="small"
+            visibility="on-hover" @click="resetMP" />
+          <ManaPoolDisplay v-if="isChanneler" />
+          <MPDisplay v-else :is-edit-mode="canEdit" />
         </div>
       </template>
     </TableHeader>
@@ -43,7 +47,8 @@
             :character="selectedCharacter" :show-improvement-toggle="true" :show-improvements="item.showImprovements"
             @update="handleCharacterUpdate" @update:collapsed="updateAbilityCollapsed(item.id, $event)"
             @update:showImprovements="updateAbilityShowImprovements(item, $event)" :show-successes="item.showSuccesses"
-            @update:showSuccesses="updateAbilityShowSuccesses(item, $event)" @roll-link="handleRollLink" />
+            @update:showSuccesses="updateAbilityShowSuccesses(item, $event)" @roll-link="handleRollLink"
+            :show-difficulty-badge="true" />
           <span v-else class="missing-item">Unknown ability</span>
         </template>
       </GroupedThreeColumnLayout>
@@ -58,7 +63,7 @@
             @update="handleCharacterUpdate" @update:collapsed="updateAbilityCollapsed(ability.id, $event)"
             @update:showImprovements="updateAbilityShowImprovements(ability, $event)"
             :show-successes="ability.showSuccesses" @update:showSuccesses="updateAbilityShowSuccesses(ability, $event)"
-            @roll-link="handleRollLink" />
+            @roll-link="handleRollLink" :show-difficulty-badge="true" />
           <span v-else class="missing-item">Unknown ability</span>
         </template>
       </ThreeColumnLayout>
@@ -87,6 +92,7 @@ import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.v
 import ItemSelector from '@/components/ui/selectors/ItemSelector.vue'
 import CharacterSheetSection from '@/components/ui/containers/CharacterSheetSection.vue'
 import MPDisplay from './MPDisplay.vue'
+import ManaPoolDisplay from './ManaPoolDisplay.vue'
 import ThreeColumnLayout from '@/components/ui/layouts/ThreeColumnLayout.vue'
 import GroupedThreeColumnLayout from '@/components/ui/layouts/GroupedThreeColumnLayout.vue'
 import SortingDropdown from '@/components/ui/dropdowns/SortingDropdown.vue'
@@ -102,6 +108,7 @@ import { useAbilitiesStore } from '@/stores/abilitiesStore'
 import { useSourcesStore } from '@/stores/sourcesStore'
 import { useConceptsStore } from '@/stores/conceptsStore'
 import { useRollsStore } from '@/stores/rollsStore'
+import { MANA_COLOR_ORDER } from '@shared/constants/manaColors'
 import DamageRollService from '@/services/rolls/damageRollService'
 import CustomRollService from '@/services/rolls/customRollService'
 import { RollTypes } from '@/constants/rollTypes'
@@ -367,8 +374,27 @@ const handleRollLink = (rollData) => {
   }
 }
 
+const allAbilitiesExpanded = computed(() =>
+  characterAbilities.value.length > 0 &&
+  characterAbilities.value.every(a => !a.collapsed)
+)
+
+const toggleAllAbilities = () => {
+  if (!selectedCharacter.value?.abilities) return
+  const collapse = allAbilitiesExpanded.value
+  for (const a of selectedCharacter.value.abilities) {
+    a.collapsed = collapse
+  }
+}
+
 const resetMP = () => {
-  if (selectedCharacter.value?.mp) {
+  if (isChanneler.value) {
+    if (selectedCharacter.value?.manaPool) {
+      for (const c of MANA_COLOR_ORDER) {
+        selectedCharacter.value.manaPool[c] = []
+      }
+    }
+  } else if (selectedCharacter.value?.mp) {
     selectedCharacter.value.mp.current = selectedCharacter.value.mp.max
   }
 }

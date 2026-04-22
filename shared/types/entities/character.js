@@ -48,6 +48,38 @@ import { createBaseEntity } from './gameEntity.js'
  * @property {boolean} artExpanded - Whether art view is expanded in UI
  * @property {number} [columnIndex] - Column index (0-2) in the three-column layout
  * @property {string|null} [customGroupId] - ID of the custom group this item belongs to
+ * @property {number|null} [difficulty] - Set difficulty for Hunter's Trap items
+ * @property {string|null} [pendingDiscoveryAbilityId] - Ability pre-selected for Mesmer's Mask discovery, persisted until claimed
+ */
+
+/**
+ * @typedef {Object} WitchcraftToken
+ * @property {string} id - Local UUID
+ * @property {string|null} abilityId - ID of the stored spell ability
+ * @property {string} imageUrl - Icon path or custom image URL
+ * @property {string} givenTo - Who currently holds this token
+ * @property {string} notes - Optional notes (e.g. contingency triggers)
+ */
+
+/**
+ * @typedef {Object} WitchcraftTalisman
+ * @property {string} id - Local UUID
+ * @property {string|null} abilityId - ID of the stored spell ability
+ * @property {string} imageUrl - Icon path or custom image URL
+ * @property {string} givenTo - Who currently holds this talisman
+ * @property {string} notes - Optional notes (e.g. contingency triggers)
+ */
+
+/**
+ * @typedef {Object} SummonerVessel
+ * @property {string} id - Local UUID
+ * @property {string|null} beastId - ID of the captured beast character (null if vessel is empty)
+ * @property {number} friendship - 0–10 friendship score with the captured beast
+ * @property {boolean} isActive - Whether this vessel is primed for the current rest
+ * @property {boolean} isSummoned - Whether the creature is currently out of its vessel
+ * @property {'standard'|'great'|'ultra'|'maestro'} vesselType - Quality tier of the vessel
+ * @property {string} vesselNote - Optional player description of the physical vessel object
+ * @property {string} imageUrl - Icon path for the vessel
  */
 
 /**
@@ -59,6 +91,7 @@ import { createBaseEntity } from './gameEntity.js'
  * @property {Object.<string, boolean>} [improvements] - Map of improvement IDs to ownership status
  * @property {number} [columnIndex] - Column index (0-2) in the three-column layout
  * @property {string|null} [customGroupId] - ID of the custom group this ability belongs to
+ * @property {number|null} [difficulty] - Set difficulty for abilities that require one
  */
 
 /**
@@ -100,6 +133,8 @@ import { createBaseEntity } from './gameEntity.js'
  * @property {CharacterStates} states - Character states
  * @property {CharacterConditions} conditions - Character conditions
  * @property {number} speed - Movement speed
+ * @property {number} nimbleStep - Nimble speed-to-action conversion step (0 = full movement, increments by 1 per 10 ft traded)
+ * @property {Object} manaPool - Channeler mana pool; each key is a mana color, value is an array of booleans (true = tapped)
  * @property {CharacterEquipmentItem[]} equipment - Equipped items
  * @property {CharacterAbilityItem[]} abilities - Character abilities with UI state
  * @property {string[]} artUrls - Character art URLs
@@ -131,6 +166,9 @@ import { createBaseEntity } from './gameEntity.js'
  * @property {Object} rollStats.contests - Contest result statistics
  * @property {Object} rollStats.contests.engagement - Engagement win/loss/draw counts
  * @property {Object} rollStats.contests.opposed - Opposed skill check win/loss/draw counts
+ * @property {WitchcraftToken[]} witchcraftTokens - Active witchcraft tokens (Witch mestiere only)
+ * @property {WitchcraftTalisman[]} witchcraftTalismans - Active witchcraft talismans (Witch mestiere only)
+ * @property {SummonerVessel[]} summonerVessels - Vessels carried by this Summoner character
  * @property {string} createdAt - ISO 8601 datetime string
  * @property {string} lastModified - ISO 8601 datetime string
  */
@@ -196,6 +234,8 @@ export function createDefaultCharacter() {
       troubled: false,
     },
     speed: 0,
+    nimbleStep: 0,
+    manaPool: { white: [], blue: [], black: [], red: [], green: [], colorless: [] },
     equipment: [],
     abilities: [],
     artUrls: ['https://cdn.midjourney.com/a8a36740-b7d3-4aef-bea3-a95039bec06f/0_2.png'],
@@ -203,6 +243,9 @@ export function createDefaultCharacter() {
     biomeTags: [],
     biomeId: null,
     activeEffects: [],
+    witchcraftTokens: [],
+    witchcraftTalismans: [],
+    summonerVessels: [],
     groupAbilitiesBySource: false,
     groupAbilitiesByManaColor: false,
     groupEquipmentBySource: false,

@@ -1,10 +1,12 @@
 import { computed, onMounted } from 'vue'
 import { useActionTypesStore } from '@/stores/actionTypesStore'
+import { useAbilitySchoolsStore } from '@/stores/abilitySchoolsStore'
 
 export function useCharactersLayout(charactersStore, equipmentStore, abilitiesStore, characterService, options = {}) {
   const { isBeast = false } = options
   
   const actionTypesStore = useActionTypesStore()
+  const abilitySchoolsStore = useAbilitySchoolsStore()
   
   const characters = computed(() => 
     isBeast 
@@ -39,7 +41,8 @@ export function useCharactersLayout(charactersStore, equipmentStore, abilitiesSt
       charactersStore.fetch(),
       equipmentStore.fetch(),
       abilitiesStore.fetch(),
-      actionTypesStore.fetch()
+      actionTypesStore.fetch(),
+      abilitySchoolsStore.fetch()
     ])
   }
 

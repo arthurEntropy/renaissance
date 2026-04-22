@@ -240,8 +240,6 @@
   ],
   "engagementDice": [
     4,
-    4,
-    4,
     4
   ],
   "abilities": [
@@ -397,8 +395,6 @@
   "heightInches": 7,
   "weight": 195,
   "engagementDiceStatuses": {
-    "user_added_1": "expended",
-    "user_added_2": "selected",
-    "user_added_3": "selected"
+    "user_added_1": "expended"
   }
 }

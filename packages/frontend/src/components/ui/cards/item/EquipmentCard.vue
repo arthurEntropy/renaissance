@@ -96,13 +96,43 @@
         v-if="!collapsed && showKeepingBadge && (keepingCost !== null || !!character) && !characterOwnsAnyImprovements && !showImprovements"
         type="keeping" :value="keepingCost" :is-owned="characterHasBaseEquipment" :is-interactive="!!character"
         :hidden-by-default="keepingCost === null && !characterHasBaseEquipment" @toggle="handleBaseEquipmentToggle" />
+
+      <!-- Discovery number badge for Mesmer's Masks -->
+      <div v-if="showDiscoveryBadge && character" class="discovery-badge-host"
+        @mouseenter="discoveryBadgeHovered = true; cardPreview.scheduleHide()"
+        @mouseleave="discoveryBadgeHovered = false">
+        <ActionButton v-if="isMaskWorn && discoveryNumber != null && !editingDiscovery && equipment.school"
+          variant="primary" size="small" text="Discover?" class="discover-trigger"
+          :class="{ 'discover-trigger--visible': discoveryBadgeHovered }"
+          :style="{ borderTopRightRadius: 0, borderBottomRightRadius: 0 }"
+          title="Discover a random ability from this mask's school" @click.stop="openDiscoverModal" />
+        <div class="discovery-badge" :class="{ 'discovery-badge--set': isMaskWorn }"
+          :title="discoveryNumber != null ? `Discovery: ${discoveryNumber}` : 'Set discovery number'"
+          @click.stop="startDiscoveryEdit">
+          <input v-if="editingDiscovery" :ref="el => { if (el) el.focus() }" v-model="editDiscoveryValue" type="number"
+            class="discovery-badge-input" @keydown.enter="commitDiscoveryEdit" @keydown.escape="cancelDiscoveryEdit"
+            @blur="commitDiscoveryEdit" @click.stop />
+          <span v-else class="discovery-badge-text">
+            {{ discoveryNumber != null ? discoveryNumber : '?' }}
+          </span>
+        </div>
+      </div>
+
+      <!-- Difficulty badge for Hunter's Traps and other difficulty-setting equipment -->
+      <DifficultyBadge v-if="showDifficultyBadge && hasDifficultyBadge && character" :value="trapDifficulty"
+        @update:value="handleTrapDifficultyUpdate" />
+
+      <!-- Discovery modal for Mesmer's Masks -->
+      <MesmerDiscoverModal v-if="showDiscoverModal && equipment.school && character" :school="equipment.school"
+        :mask-name="equipment.name" :character="character" :equipment-id="equipment.id"
+        @close="showDiscoverModal = false" @update="handleDiscoverUpdate" />
     </template>
 
   </base-card>
 </template>
 
 <script setup>
-import { onMounted, computed } from 'vue'
+import { onMounted, computed, ref } from 'vue'
 import { ChevronUpIcon, ChevronDownIcon } from '@heroicons/vue/24/outline'
 import { useCardPreview } from '@/composables/useCardPreview'
 import { useEquipmentStore } from '@/stores/equipmentStore'
@@ -114,6 +144,9 @@ import { useKeepingStore } from '@/stores/keepingStore'
 import { useCharactersStore } from '@/stores/charactersStore'
 import { useItemImprovements } from '@/composables/useItemImprovements'
 import BaseCard from '@/components/ui/cards/item/BaseCard.vue'
+import DifficultyBadge from '@/components/ui/cards/item/DifficultyBadge.vue'
+import MesmerDiscoverModal from '@/components/features/characterSheet/modals/MesmerDiscoverModal.vue'
+import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import BadgeDisplay from '@/components/ui/cards/item/BadgeDisplay.vue'
 import ChipTag from '@/components/ui/chips/ChipTag.vue'
 import ImprovementsSection from '@/components/ui/cards/item/ImprovementsSection.vue'
@@ -176,12 +209,95 @@ const props = defineProps({
   enableDamageRoll: {
     type: Boolean,
     default: false
+  },
+  showDiscoveryBadge: {
+    type: Boolean,
+    default: false
+  },
+  showDifficultyBadge: {
+    type: Boolean,
+    default: false
   }
 })
 
 const emit = defineEmits(['edit', 'duplicate', 'update', 'height-changed', 'update:showImprovements', 'update:showSuccesses', 'roll-damage', 'roll-link'])
 
 const cardPreview = useCardPreview()
+
+// Discovery number (Mesmer's Mask)
+const editingDiscovery = ref(false)
+const editDiscoveryValue = ref('')
+const discoveryBadgeHovered = ref(false)
+const showDiscoverModal = ref(false)
+
+function openDiscoverModal() {
+  showDiscoverModal.value = true
+}
+
+function handleDiscoverUpdate(updatedCharacter) {
+  emit('update', updatedCharacter)
+}
+
+const characterEquipmentEntry = computed(() =>
+  props.character?.equipment?.find((e) => e.id === props.equipment.id) ?? null,
+)
+
+const discoveryNumber = computed(() => characterEquipmentEntry.value?.discoveryNumber ?? null)
+
+const isMaskWorn = computed(() => characterEquipmentEntry.value?.isWielding ?? false)
+
+// Difficulty (Hunter's Trap and description-based detection)
+const HUNTER_TRAP_SUBTYPE_ID = '71c52847-7265-4c53-82c0-5b89a8f32998'
+const DIFFICULTY_TRIGGER_PHRASES = ['to set the Difficulty', 'becomes the Difficulty']
+
+const hasDifficultyBadge = computed(() =>
+  props.equipment.subtype === HUNTER_TRAP_SUBTYPE_ID ||
+  (typeof props.equipment.description === 'string' &&
+    DIFFICULTY_TRIGGER_PHRASES.some(phrase => props.equipment.description.includes(phrase)))
+)
+
+const trapDifficulty = computed(() => characterEquipmentEntry.value?.difficulty ?? null)
+
+function handleTrapDifficultyUpdate(newValue) {
+  if (!characterEquipmentEntry.value) return
+  const updatedCharacter = CharacterService.updateItem(
+    props.character,
+    'equipment',
+    props.equipment.id,
+    { difficulty: newValue },
+  )
+  if (updatedCharacter) {
+    emit('update', updatedCharacter)
+  }
+}
+
+function startDiscoveryEdit() {
+  editDiscoveryValue.value = discoveryNumber.value != null ? String(discoveryNumber.value) : ''
+  editingDiscovery.value = true
+}
+
+function commitDiscoveryEdit() {
+  if (!editingDiscovery.value) return
+  if (characterEquipmentEntry.value) {
+    const raw = editDiscoveryValue.value
+    const parsed = raw === '' || raw === null ? null : parseInt(String(raw), 10)
+    const newValue = parsed === null || isNaN(parsed) ? null : parsed
+    const updatedCharacter = CharacterService.updateItem(
+      props.character,
+      'equipment',
+      props.equipment.id,
+      { discoveryNumber: newValue },
+    )
+    if (updatedCharacter) {
+      emit('update', updatedCharacter)
+    }
+  }
+  editingDiscovery.value = false
+}
+
+function cancelDiscoveryEdit() {
+  editingDiscovery.value = false
+}
 
 function onCardMouseEnter(event) {
   if (props.collapsed && props.collapsible) {
@@ -538,4 +654,83 @@ onMounted(async () => {
   height: 16px;
   stroke-width: 2.5;
 }
+
+/* Discovery number badge (Mesmer's Mask) */
+.discovery-badge-host {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  width: 30px;
+  height: 30px;
+  z-index: var(--z-interactive);
+}
+
+.discovery-badge {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid var(--color-border-primary);
+  background: var(--color-bg-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: border-color var(--transition-fast);
+  pointer-events: auto;
+}
+
+.discovery-badge--set {
+  border-color: var(--color-primary);
+}
+
+.discovery-badge-text {
+  font-family: var(--font-family-primary);
+  font-style: italic;
+  font-weight: 700;
+  font-size: var(--font-size-14);
+  color: var(--color-text-primary);
+  line-height: 1;
+  user-select: none;
+}
+
+.discovery-badge-input {
+  width: 26px;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: var(--font-family-primary);
+  font-style: italic;
+  font-weight: 700;
+  font-size: var(--font-size-14);
+  color: var(--color-text-primary);
+  text-align: center;
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+.discovery-badge-input::-webkit-outer-spin-button,
+.discovery-badge-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.discover-trigger {
+  font-size: var(--font-size-10);
+  position: absolute;
+  right: calc(100% - 6px);
+  top: 50%;
+  transform: translateY(-50%) translateX(4px);
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-fast), transform var(--transition-fast);
+}
+
+.discover-trigger--visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(-50%) translateX(0);
+}
+
+/* Difficulty badge (Hunter's Trap) - extracted to DifficultyBadge.vue */
 </style>

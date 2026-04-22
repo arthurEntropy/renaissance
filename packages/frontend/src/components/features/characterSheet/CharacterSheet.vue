@@ -15,9 +15,12 @@
                 <CoreAbilityColumn :column="CORE_ABILITIES.HEART" />
                 <CoreAbilityColumn :column="CORE_ABILITIES.WITS" />
                 <ConditionsColumn :is-edit-mode="canEdit" />
+                <AcrobatSection v-if="showAcrobatSection" />
                 <EquipmentTable :is-edit-mode="canEdit" />
                 <AbilitiesTable :canEdit="canEdit" />
                 <BiomeSection v-if="showBiomeSection" />
+                <WitchcraftSection v-if="showWitchcraftSection" />
+                <SummonerSection v-if="showSummonerSection" />
             </div>
         </div>
     </div>
@@ -30,6 +33,8 @@ import { useCharactersStore } from '@/stores/charactersStore'
 import { useConceptsStore } from '@/stores/conceptsStore'
 import { CORE_ABILITIES } from '@shared/constants/characterConstants'
 import { BIOME_MESTIERI } from '@shared/constants/biomeTags'
+import { WITCH_MESTIERE_NAME } from '@/constants/witchcraftConstants'
+import { SUMMONER_MESTIERE_NAME } from '@/constants/summonerConstants'
 import CharacterProfile from '@/components/features/characterSheet/characterProfile/CharacterProfile.vue'
 import CoreAbilityColumn from '@/components/features/characterSheet/coreAbilityColumns/CoreAbilityColumn.vue'
 import ConditionsColumn from '@/components/features/characterSheet/conditions/ConditionsColumn.vue'
@@ -38,6 +43,9 @@ import AbilitiesTable from '@/components/features/characterSheet/abilitiesTable/
 import EngagementTable from '@/components/features/characterSheet/engagementTable/EngagementTable.vue'
 import DiceBox from '@/components/features/characterSheet/diceBox/DiceBox.vue'
 import BiomeSection from '@/components/features/characterSheet/biome/BiomeSection.vue'
+import AcrobatSection from '@/components/features/characterSheet/acrobat/AcrobatSection.vue'
+import WitchcraftSection from '@/components/features/characterSheet/witchcraftTracker/WitchcraftSection.vue'
+import SummonerSection from '@/components/features/characterSheet/summonerSection/SummonerSection.vue'
 
 const emit = defineEmits(['close'])
 
@@ -54,6 +62,24 @@ const showBiomeSection = computed(() => {
     if (!selectedCharacter.value?.mestiereId) return false
     const mestiere = conceptsStore.mestieri.find(m => m.id === selectedCharacter.value.mestiereId)
     return mestiere != null && BIOME_MESTIERI.includes(mestiere.name.toLowerCase())
+})
+
+const showAcrobatSection = computed(() => {
+    if (!selectedCharacter.value?.mestiereId) return false
+    const mestiere = conceptsStore.mestieri.find(m => m.id === selectedCharacter.value.mestiereId)
+    return mestiere?.name?.toLowerCase() === 'acrobat'
+})
+
+const showWitchcraftSection = computed(() => {
+    if (!selectedCharacter.value?.mestiereId) return false
+    const mestiere = conceptsStore.mestieri.find(m => m.id === selectedCharacter.value.mestiereId)
+    return mestiere?.name?.toLowerCase() === WITCH_MESTIERE_NAME
+})
+
+const showSummonerSection = computed(() => {
+    if (!selectedCharacter.value?.mestiereId) return false
+    const mestiere = conceptsStore.mestieri.find(m => m.id === selectedCharacter.value.mestiereId)
+    return mestiere?.name?.toLowerCase() === SUMMONER_MESTIERE_NAME
 })
 
 const handleClose = () => {

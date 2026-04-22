@@ -174,16 +174,158 @@
     "troubled": false
   },
   "equipment": [],
-  "engagementDice": [
-    12,
-    12
+  "engagementDice": [],
+  "abilities": [
+    {
+      "id": "5b9967f3-a2f9-4515-a94f-d00ca8147cf3",
+      "collapsed": false,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "13be092e-c89d-47eb-a629-7797ef760c7b",
+      "collapsed": false,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "e5f027b7-ef18-461e-9c0c-5b549df17af2",
+      "collapsed": false,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "51d0523f-8778-4ceb-9cce-2a47a6b46088",
+      "collapsed": false,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "e693653e-0a59-445d-8936-b85deec84f53",
+      "collapsed": false,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "3dffcf91-1f3e-42ff-a6b2-a259f7a15a19",
+      "collapsed": false,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "81323093-faf3-416e-977e-7a28c7a7fb11",
+      "collapsed": false,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "04a49ecd-d52d-4087-b423-e36e8ead9af6",
+      "collapsed": false,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "c719fc55-55a9-49d6-ae93-92f82a1d54cf",
+      "collapsed": false,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "670a86d8-f547-40c4-b4fd-2a5979022960",
+      "collapsed": false,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "730c80ee-011d-4942-85e3-93f5e42eb1a8",
+      "collapsed": false,
+      "showImprovements": false,
+      "showSuccesses": false
+    }
   ],
-  "abilities": [],
   "activeEffects": [],
   "artUrls": [
     "https://cdn.midjourney.com/b75951b3-d21b-4e00-b7c8-c81fc16c043e/0_2.png"
   ],
   "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2026-02-18T12:51:07.421Z",
-  "lastModified": "2026-02-18T12:51:07.421Z"
+  "updatedAt": "2026-04-22T17:33:42.478Z",
+  "lastModified": "2026-04-22T17:33:42.478Z",
+  "mestiereId": "162ae4db-7a67-4770-8a2c-7e9883da14f6",
+  "age": 0,
+  "heightFeet": 0,
+  "heightInches": 0,
+  "weight": 0,
+  "engagementDiceStatuses": {},
+  "witchcraftTokens": [
+    {
+      "id": "9e79c32b-cead-4e68-b2f3-fc25bd3ee5ed",
+      "imageUrl": "https://cdn.midjourney.com/b98ed20b-fcea-4f71-a0ba-299d115df5b1/0_0.png",
+      "givenTo": "Volans, Second Wizard of the Grand Tower.",
+      "notes": "He doesn't know it's magical, but he's a cool guy anyway. So I think he'll figure it out. But hey, who knows? He might n",
+      "abilityId": "e693653e-0a59-445d-8936-b85deec84f53"
+    },
+    {
+      "id": "554c135d-e03c-4621-b6c0-53b3011ee8d3",
+      "imageUrl": "/src/assets/icons/witch/bracelet.png",
+      "givenTo": "Arthur",
+      "notes": "Cool king",
+      "abilityId": "5b9967f3-a2f9-4515-a94f-d00ca8147cf3"
+    },
+    {
+      "id": "d15e9d85-1dff-4448-9df4-4ff81134fd18",
+      "imageUrl": "/src/assets/icons/witch/wood.png",
+      "givenTo": "Ropeson",
+      "notes": "Gregarious rope guy.",
+      "abilityId": "670a86d8-f547-40c4-b4fd-2a5979022960"
+    }
+  ],
+  "witchcraftTalismans": [
+    {
+      "id": "831a5e9b-ad17-4963-a2c5-3394639ffa8d",
+      "imageUrl": "/src/assets/icons/witch/necklace.png",
+      "givenTo": "Kathy",
+      "notes": "Coffee!",
+      "abilityId": "13be092e-c89d-47eb-a629-7797ef760c7b"
+    },
+    {
+      "id": "2751cd6a-a6cf-47bd-a286-8a10e197ee0a",
+      "imageUrl": "/src/assets/icons/witch/cake.png",
+      "givenTo": "Aragorn",
+      "notes": "Tarp time",
+      "abilityId": "04a49ecd-d52d-4087-b423-e36e8ead9af6"
+    },
+    {
+      "id": "57010523-0fa3-407a-a510-2b5e24a250cd",
+      "imageUrl": "/src/assets/icons/witch/scarf.png",
+      "givenTo": "Nief",
+      "notes": "For cold weather",
+      "abilityId": "3dffcf91-1f3e-42ff-a6b2-a259f7a15a19",
+      "spellAbilities": [
+        {
+          "ability": {
+            "source": "162ae4db-7a67-4770-8a2c-7e9883da14f6",
+            "id": "3dffcf91-1f3e-42ff-a6b2-a259f7a15a19",
+            "createdAt": "2026-03-11T12:51:34.306Z",
+            "lastModified": "2026-03-11T20:43:41.160Z",
+            "name": "Detect Evil & Good",
+            "description": "<p><em>Concentration, up to 10 minutes.</em></p><p>You sense the presence of any deities, spirits and undead. For each of these that is within...</p><ul><li><p>Far range, you just sense its presence.</p></li><li><p>Long range, you sense its presence and whether its Alignment is evil, neutral or good.</p></li><li><p>Medium range, you know its location and its full Alignment.</p></li><li><p>Short Range, you know its location, full Alignment and Domain.</p></li></ul><p>You also detect whether any creatures within Short Range are currently under any effects imposed by a deity, spirit or undead.</p><p>This sense is blocked by barriers of metal of any thickness, barriers of stone at least 1 ft thick, or barriers of any solid material at least 3 ft thick.</p><p><strong>Describe how you sense these entities.</strong></p>",
+            "improvements": [
+              {
+                "name": "Dispel Evil & Good",
+                "description": "<p>While you have this sense active, attack rolls made against you by deities, spirits and undead are ill-favored. Additionally, you may spend an action and 5 MP to trigger one of the following effects:</p><ul><li><p><strong>Dispel. </strong>You touch a creature and immediately end all effects imposed upon that creature by a deity, spirit or undead.</p></li><li><p><strong>Dismissal. </strong>Roll Spirit vs Spirit against a deity, spirit or undead. On a win, it returns to the center of its Domain (if any) or moves until it is outside of far range from you - whichever is further. Either way, it cannot come within far range of you for 1 day. On a loss, it cannot move closer to you for 1 round.</p></li></ul><p>If you trigger either of these effects, the spell ends.</p>",
+                "xp": 15,
+                "id": "9fddc65a-799d-47a9-b8d3-1869664392c8"
+              }
+            ],
+            "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
+            "mp": 1,
+            "xp": 5,
+            "isMagical": true,
+            "artUrl": "https://cdn.midjourney.com/8bd0cb7a-7c09-428b-b0a6-8e1e5c023b7b/0_1.png"
+          },
+          "charges": 1
+        }
+      ]
+    }
+  ]
 }
