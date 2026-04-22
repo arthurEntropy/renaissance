@@ -106,7 +106,7 @@ function resetSlider() {
     justify-content: flex-end;
 }
 
-/* ── Inline tracker row ── */
+/* Inline tracker row */
 
 .nimble-inline {
     display: flex;
@@ -136,7 +136,7 @@ function resetSlider() {
     white-space: nowrap;
 }
 
-/* ── Bar + Slider ── */
+/* Bar + Slider */
 
 .nimble-bar-wrapper {
     position: relative;

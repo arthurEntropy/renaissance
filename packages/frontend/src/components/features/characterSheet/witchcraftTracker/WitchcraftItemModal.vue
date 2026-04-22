@@ -73,9 +73,7 @@ import { ref, computed, watch } from 'vue'
 import { WITCH_ICON_KEYS, WITCH_ICON_LABELS } from '@/constants/witchcraftConstants'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 
-// ---------------------------------------------------------------------------
 // Static icon imports – resolved at build time by Vite
-// ---------------------------------------------------------------------------
 import billiardIcon from '@/assets/icons/witch/billiard.png'
 import bookIcon from '@/assets/icons/witch/book.png'
 import bowIcon from '@/assets/icons/witch/bow.png'
@@ -116,9 +114,7 @@ const ICON_LIST = WITCH_ICON_KEYS.map((key) => ({
     url: ICON_URL_MAP[key],
 }))
 
-// ---------------------------------------------------------------------------
 // Props / emits
-// ---------------------------------------------------------------------------
 
 const props = defineProps({
     type: {
@@ -140,18 +136,14 @@ const props = defineProps({
 
 const emit = defineEmits(['save', 'close'])
 
-// ---------------------------------------------------------------------------
 // Title
-// ---------------------------------------------------------------------------
 
 const title = computed(() => {
     const verb = props.item ? 'Edit' : 'Add'
     return props.type === 'token' ? `${verb} Token` : `${verb} Talisman`
 })
 
-// ---------------------------------------------------------------------------
 // Form state
-// ---------------------------------------------------------------------------
 
 const form = ref({
     imageUrl: '',
@@ -186,9 +178,7 @@ watch(
     { immediate: true }
 )
 
-// ---------------------------------------------------------------------------
 // Handlers
-// ---------------------------------------------------------------------------
 
 function selectIcon(url) {
     form.value.imageUrl = url
@@ -253,7 +243,7 @@ function handleSave() {
     min-height: unset;
 }
 
-/* ── Icon grid ───────────────────────────────────────────────────────────── */
+/* Icon grid */
 .icon-grid {
     display: grid;
     grid-template-columns: repeat(5, 1fr);

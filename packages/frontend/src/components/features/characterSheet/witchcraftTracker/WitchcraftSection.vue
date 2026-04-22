@@ -16,7 +16,7 @@
         <div v-if="!isCollapsed" class="witchcraft-content">
             <div class="witchcraft-row">
 
-                <!-- ── Tokens ───────────────────────────────────────────── -->
+                <!-- Tokens -->
                 <div class="witchcraft-group">
                     <span class="witchcraft-group__label">Tokens</span>
                     <div v-if="heartScore === 0" class="witchcraft-empty-hint">
@@ -29,7 +29,7 @@
                     </div>
                 </div>
 
-                <!-- ── Vertical divider + Talismans ─────────────────────── -->
+                <!-- Vertical divider + Talismans -->
                 <template v-if="hasTalismansAbility">
                     <div class="witchcraft-vdivider" />
                     <div class="witchcraft-group">
@@ -66,23 +66,17 @@ import {
     WITCHCRAFT_TALISMANS_ABILITY_ID,
 } from '@/constants/witchcraftConstants'
 
-// ---------------------------------------------------------------------------
 // Stores
-// ---------------------------------------------------------------------------
 
 const charactersStore = useCharactersStore()
 const abilitiesStore = useAbilitiesStore()
 const selectedCharacter = computed(() => charactersStore.selectedCharacter)
 
-// ---------------------------------------------------------------------------
 // Section collapse
-// ---------------------------------------------------------------------------
 
 const isCollapsed = ref(false)
 
-// ---------------------------------------------------------------------------
 // Ability gating
-// ---------------------------------------------------------------------------
 
 const hasTalismansAbility = computed(() =>
     selectedCharacter.value?.abilities?.some(
@@ -90,9 +84,7 @@ const hasTalismansAbility = computed(() =>
     ) ?? false
 )
 
-// ---------------------------------------------------------------------------
 // Character-owned abilities (resolved) — used in the spell picker
-// ---------------------------------------------------------------------------
 
 const ownedAbilities = computed(() => {
     const charAbilities = selectedCharacter.value?.abilities ?? []
@@ -101,9 +93,7 @@ const ownedAbilities = computed(() => {
         .filter(Boolean)
 })
 
-// ---------------------------------------------------------------------------
 // Token slots
-// ---------------------------------------------------------------------------
 
 const heartScore = computed(() => selectedCharacter.value?.heart ?? 0)
 
@@ -139,9 +129,7 @@ const resolvedTalismans = computed(() => {
     }))
 })
 
-// ---------------------------------------------------------------------------
 // Modal state
-// ---------------------------------------------------------------------------
 
 const showModal = ref(false)
 const modalType = ref('token')
@@ -159,9 +147,7 @@ function openEditModal(type, item) {
     showModal.value = true
 }
 
-// ---------------------------------------------------------------------------
 // Save / remove
-// ---------------------------------------------------------------------------
 
 function handleSave(data) {
     if (!selectedCharacter.value) return
@@ -210,7 +196,7 @@ function removeTalisman(talisman) {
     width: 100%;
 }
 
-/* ── Single horizontal row ───────────────────────────────────────────────── */
+/* Single horizontal row */
 .witchcraft-row {
     display: flex;
     flex-direction: row;
@@ -219,7 +205,7 @@ function removeTalisman(talisman) {
     overflow-x: auto;
 }
 
-/* ── Group (tokens or talismans) ─────────────────────────────────────────── */
+/* Group (tokens or talismans) */
 .witchcraft-group {
     display: flex;
     flex-direction: row;
@@ -241,7 +227,7 @@ function removeTalisman(talisman) {
     flex-shrink: 0;
 }
 
-/* ── Token count badge in header ─────────────────────────────────────────── */
+/* Token count badge in header */
 .token-count-badge {
     display: flex;
     align-items: center;
@@ -267,7 +253,7 @@ function removeTalisman(talisman) {
 
 
 
-/* ── Badge row ───────────────────────────────────────────────────────────── */
+/* Badge row */
 .badge-group {
     display: flex;
     flex-wrap: wrap;
@@ -275,7 +261,7 @@ function removeTalisman(talisman) {
     align-items: flex-start;
 }
 
-/* ── Vertical divider between groups ────────────────────────────────────── */
+/* Vertical divider between groups */
 .witchcraft-vdivider {
     width: 1px;
     align-self: stretch;
@@ -287,7 +273,7 @@ function removeTalisman(talisman) {
     flex-shrink: 0;
 }
 
-/* ── Empty hint ──────────────────────────────────────────────────────────── */
+/* Empty hint */
 .witchcraft-empty-hint {
     font-size: var(--font-size-13);
     color: var(--color-text-muted);

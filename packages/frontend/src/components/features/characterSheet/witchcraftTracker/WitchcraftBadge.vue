@@ -129,7 +129,7 @@ function handleRemove() {
 </script>
 
 <style scoped>
-/* ── Filled badge ────────────────────────────────────────────────────────── */
+/* Filled badge */
 .badge {
     position: relative;
     width: 120px;
@@ -141,7 +141,7 @@ function handleRemove() {
     overflow: hidden;
 }
 
-/* ── Ghost slot ──────────────────────────────────────────────────────────── */
+/* Ghost slot */
 .badge--ghost {
     width: 120px;
     border-radius: var(--radius-10);
@@ -183,7 +183,7 @@ function handleRemove() {
     opacity: 0.4;
 }
 
-/* ── Talisman color overrides (cyan) ─────────────────────────────────────── */
+/* Talisman color overrides (cyan) */
 .badge.badge--talisman {
     border-color: var(--color-accent-cyan);
 }
@@ -200,7 +200,7 @@ function handleRemove() {
     border-top-color: var(--color-accent-cyan);
 }
 
-/* ── Top-right controls ──────────────────────────────────────────────────── */
+/* Top-right controls */
 .badge__controls {
     position: absolute;
     top: var(--space-xs);
@@ -210,7 +210,7 @@ function handleRemove() {
     z-index: var(--z-raised);
 }
 
-/* ── Art area ────────────────────────────────────────────────────────────── */
+/* Art area */
 .badge__art {
     position: relative;
     width: 100%;
@@ -259,7 +259,7 @@ function handleRemove() {
     display: none;
 }
 
-/* ── Hover overlay ───────────────────────────────────────────────────────── */
+/* Hover overlay */
 .badge__hover-overlay {
     position: absolute;
     inset: 0;
@@ -278,12 +278,12 @@ function handleRemove() {
     opacity: 1;
 }
 
-/* ── Info strip ──────────────────────────────────────────────────────────── */
+/* Info strip */
 .badge__strip {
     display: none;
 }
 
-/* ── Spell footer ───────────────────────────────────────────────────────── */
+/* Spell footer */
 .badge__spell-footer {
     display: flex;
     flex-direction: column;
@@ -292,7 +292,7 @@ function handleRemove() {
     border-radius: 0 0 var(--radius-10) var(--radius-10);
 }
 
-/* ── Spell name chips ────────────────────────────────────────────────────── */
+/* Spell name chips */
 .badge__spell-chip {
     display: flex;
     align-items: center;
@@ -337,7 +337,7 @@ function handleRemove() {
     line-height: 1.3;
 }
 
-/* ── MP cost chip (talisman) ────────────────────────────────────────────── */
+/* MP cost chip (talisman) */
 .badge__mp-chip {
     position: absolute;
     top: var(--space-xs);
@@ -353,7 +353,7 @@ function handleRemove() {
 }
 
 
-/* ── Recipient label ─────────────────────────────────────────────────────── */
+/* Recipient label */
 .badge__given-to {
     margin: 0;
     font-size: var(--font-size-10);
@@ -370,7 +370,7 @@ function handleRemove() {
     font-style: normal;
 }
 
-/* ── Notes text ──────────────────────────────────────────────────────────── */
+/* Notes text */
 .badge__notes {
     margin: 0;
     font-size: 9px;
@@ -383,7 +383,7 @@ function handleRemove() {
     -webkit-box-orient: vertical;
 }
 
-/* ── Notes modal ─────────────────────────────────────────────────────────── */
+/* Notes modal */
 .modal-overlay {
     position: fixed;
     inset: 0;

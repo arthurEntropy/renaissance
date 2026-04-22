@@ -16,12 +16,13 @@ import { useRouter, useRoute } from 'vue-router'
 import { useCharactersStore } from '@/stores/charactersStore'
 import { XMarkIcon } from '@heroicons/vue/24/outline'
 import { useOptimizedImage } from '@/composables/useOptimizedImage'
+import { createSlug } from '@/utils/urlHelpers'
 
 const router = useRouter()
 const route = useRoute()
 const charactersStore = useCharactersStore()
 
-const character = computed(() => charactersStore.selectedCharacter)
+const character = computed(() => charactersStore.activePlayerCharacter)
 const optimizedCharacterArt = useOptimizedImage(() => character.value?.artUrls?.[0], 'thumbnail')
 
 const shouldHideBadge = computed(() => {
@@ -30,7 +31,11 @@ const shouldHideBadge = computed(() => {
 })
 
 const navigateToCharacter = () => {
-    router.push('/characters')
+    if (character.value) {
+        router.push('/characters/' + createSlug(character.value.name))
+    } else {
+        router.push('/characters')
+    }
 }
 
 const deselectCharacter = () => {
@@ -50,6 +55,7 @@ const deselectCharacter = () => {
 
 .selected-character-badge:hover {
     transform: scale(1.05);
+    z-index: calc(var(--z-badge) + 1);
 }
 
 .selected-character-badge:hover .character-name-tooltip {
@@ -109,7 +115,7 @@ const deselectCharacter = () => {
 
 .character-name-tooltip {
     position: absolute;
-    bottom: -30px;
+    bottom: -10px;
     left: 50%;
     transform: translateX(-50%) translateY(10px);
     background-color: var(--overlay-black-heavy);

@@ -239,7 +239,7 @@ function onDrop() {
     margin-right: var(--space-xs);
 }
 
-/* ── Pill container (matches MPDisplay) ── */
+/* Pill container (matches MPDisplay) */
 .mana-pool-pill {
     background-color: var(--color-gray-dark);
     padding: var(--space-xs) var(--space-lg);
@@ -250,7 +250,7 @@ function onDrop() {
     gap: var(--space-xs);
 }
 
-/* ── Action buttons cluster ── */
+/* Action buttons cluster */
 .actions-cluster {
     display: flex;
     align-items: center;
@@ -258,15 +258,14 @@ function onDrop() {
     margin-left: var(--space-sm);
 }
 
-/* ── Delete / drop-zone slot ── */
+/* Delete / drop-zone slot */
 .delete-slot {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-/* ── Drop zone (dragging state) ──
-   Uses outline instead of border so it never shifts layout. */
+/* Drop zone (dragging state) — uses outline instead of border so it never shifts layout. */
 .drop-zone {
     border-radius: var(--radius-full);
     outline: 2px dashed var(--color-danger);
@@ -287,7 +286,7 @@ function onDrop() {
     border-color: transparent !important;
 }
 
-/* ── Per-pip tap button ── */
+/* Per-pip tap button */
 .mana-pip-btn {
     appearance: none;
     -webkit-appearance: none;
@@ -321,7 +320,7 @@ function onDrop() {
     opacity: 0.45;
 }
 
-/* ── Add button + circle menu ── */
+/* Add button + circle menu */
 .add-btn-wrapper {
     position: relative;
     display: flex;
@@ -382,7 +381,7 @@ function onDrop() {
         0 0 0 2px var(--color-border-focus, rgba(255, 255, 255, 0.35));
 }
 
-/* ── Click-outside overlay ── */
+/* Click-outside overlay */
 .circle-menu-backdrop {
     position: fixed;
     inset: 0;

@@ -71,6 +71,18 @@ import { createBaseEntity } from './gameEntity.js'
  */
 
 /**
+ * @typedef {Object} SummonerVessel
+ * @property {string} id - Local UUID
+ * @property {string|null} beastId - ID of the captured beast character (null if vessel is empty)
+ * @property {number} friendship - 0–10 friendship score with the captured beast
+ * @property {boolean} isActive - Whether this vessel is primed for the current rest
+ * @property {boolean} isSummoned - Whether the creature is currently out of its vessel
+ * @property {'standard'|'great'|'ultra'|'maestro'} vesselType - Quality tier of the vessel
+ * @property {string} vesselNote - Optional player description of the physical vessel object
+ * @property {string} imageUrl - Icon path for the vessel
+ */
+
+/**
  * @typedef {Object} CharacterAbilityItem
  * @property {string} id - Ability ID reference
  * @property {boolean} collapsed - Whether ability display is collapsed in UI
@@ -156,6 +168,7 @@ import { createBaseEntity } from './gameEntity.js'
  * @property {Object} rollStats.contests.opposed - Opposed skill check win/loss/draw counts
  * @property {WitchcraftToken[]} witchcraftTokens - Active witchcraft tokens (Witch mestiere only)
  * @property {WitchcraftTalisman[]} witchcraftTalismans - Active witchcraft talismans (Witch mestiere only)
+ * @property {SummonerVessel[]} summonerVessels - Vessels carried by this Summoner character
  * @property {string} createdAt - ISO 8601 datetime string
  * @property {string} lastModified - ISO 8601 datetime string
  */
@@ -232,6 +245,7 @@ export function createDefaultCharacter() {
     activeEffects: [],
     witchcraftTokens: [],
     witchcraftTalismans: [],
+    summonerVessels: [],
     groupAbilitiesBySource: false,
     groupAbilitiesByManaColor: false,
     groupEquipmentBySource: false,

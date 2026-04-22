@@ -553,6 +553,33 @@ function calculateDiceTotal(dice) {
 }
 ```
 
+#### Script Section Labels
+
+Use a single plain comment to label logical sections in `<script setup>`. Do **not** use decorative separator lines.
+
+✅ **Good**:
+
+```javascript
+// Modal state
+
+const showModal = ref(false)
+const modalItem = ref(null)
+
+// Save / remove
+
+function handleSave(data) { ... }
+```
+
+❌ **Avoid — decorative separators**:
+
+```javascript
+// ---------------------------------------------------------------------------
+// Modal state
+// ---------------------------------------------------------------------------
+
+const showModal = ref(false)
+```
+
 #### When to Comment
 
 Comments are appropriate for:
@@ -594,17 +621,13 @@ const NOVIZIO_STARTING_ABILITIES = 3
 4. **Organizing large style blocks**:
 
 ```css
-/* ==================== */
 /* Layout */
-/* ==================== */
 
 .container {
   /* ... */
 }
 
-/* ==================== */
 /* Typography */
-/* ==================== */
 
 .heading {
   /* ... */
