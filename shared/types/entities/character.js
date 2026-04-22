@@ -53,6 +53,24 @@ import { createBaseEntity } from './gameEntity.js'
  */
 
 /**
+ * @typedef {Object} WitchcraftToken
+ * @property {string} id - Local UUID
+ * @property {string|null} abilityId - ID of the stored spell ability
+ * @property {string} imageUrl - Icon path or custom image URL
+ * @property {string} givenTo - Who currently holds this token
+ * @property {string} notes - Optional notes (e.g. contingency triggers)
+ */
+
+/**
+ * @typedef {Object} WitchcraftTalisman
+ * @property {string} id - Local UUID
+ * @property {string|null} abilityId - ID of the stored spell ability
+ * @property {string} imageUrl - Icon path or custom image URL
+ * @property {string} givenTo - Who currently holds this talisman
+ * @property {string} notes - Optional notes (e.g. contingency triggers)
+ */
+
+/**
  * @typedef {Object} CharacterAbilityItem
  * @property {string} id - Ability ID reference
  * @property {boolean} collapsed - Whether ability display is collapsed in UI
@@ -136,6 +154,8 @@ import { createBaseEntity } from './gameEntity.js'
  * @property {Object} rollStats.contests - Contest result statistics
  * @property {Object} rollStats.contests.engagement - Engagement win/loss/draw counts
  * @property {Object} rollStats.contests.opposed - Opposed skill check win/loss/draw counts
+ * @property {WitchcraftToken[]} witchcraftTokens - Active witchcraft tokens (Witch mestiere only)
+ * @property {WitchcraftTalisman[]} witchcraftTalismans - Active witchcraft talismans (Witch mestiere only)
  * @property {string} createdAt - ISO 8601 datetime string
  * @property {string} lastModified - ISO 8601 datetime string
  */
@@ -210,6 +230,8 @@ export function createDefaultCharacter() {
     biomeTags: [],
     biomeId: null,
     activeEffects: [],
+    witchcraftTokens: [],
+    witchcraftTalismans: [],
     groupAbilitiesBySource: false,
     groupAbilitiesByManaColor: false,
     groupEquipmentBySource: false,
