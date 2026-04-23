@@ -47,8 +47,9 @@
     "engagementSuccessNotes": "",
     "baseMP": 0,
     "mpNotes": "<p>Acrobat abilities to not have an MP cost.</p>",
-    "abilities": "<p><em>Nimble</em> and choose one, ignoring its XP cost: <em>Pole Training, Rope &amp; Chain Weapon Training, Shuriken Training, </em>or <em>Pressure Point Training</em>.</p>"
+    "abilities": "<p><em>Nimble</em> and choose one, ignoring its XP cost: <em>Pole Training, Rope &amp; Chain Weapon Training, Shuriken Training, </em>or <em>Pressure Point Training</em>.</p>",
+    "gratuiti": "<p>Clothes and footwear that are easy to move in, a small pouch of chalk.</p>"
   },
-  "lastModified": "2026-04-15T18:56:21.018Z",
+  "lastModified": "2026-04-23T01:36:40.211Z",
   "detailBackgroundImage": "https://cdn.midjourney.com/b5080eea-b264-48f9-b5bf-bfe09a416fce/0_1.png"
 }
