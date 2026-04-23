@@ -20,7 +20,10 @@
           @click="toggleAllEquipment" />
       </template>
       <template #header-right>
-        <EquipmentWeight :equipment-items="characterEquipment" />
+        <div class="header-right-controls">
+          <FloatingActionButton type="martial-training" size="small" visibility="always" @click="openMartialTraining" />
+          <EquipmentWeight :equipment-items="characterEquipment" />
+        </div>
       </template>
     </TableHeader>
 
@@ -96,6 +99,11 @@
     <SkillCheckModal v-if="showSkillCheckModal" :selected-skill-name="rollLinkSkill" :character="selectedCharacter"
       :default-roll-type="rollLinkRollType" @close="showSkillCheckModal = false" />
 
+    <!-- Martial Training Popup -->
+    <MartialTrainingModal v-if="showMartialTrainingModal" :novizio="characterMestiereNovizio"
+      :equipment-grades="equipmentGradesStore.items" :mestiere-name="characterMestiere?.name"
+      :anchor-el="martialTrainingAnchorEl" @close="showMartialTrainingModal = false" />
+
   </CharacterSheetSection>
 </template>
 
@@ -114,6 +122,7 @@ import GroupedThreeColumnLayout from '@/components/ui/layouts/GroupedThreeColumn
 import SortingDropdown from '@/components/ui/dropdowns/SortingDropdown.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import SkillCheckModal from '@/components/features/characterSheet/modals/SkillCheckModal.vue'
+import MartialTrainingModal from '@/components/features/characterSheet/modals/MartialTrainingModal.vue'
 import { useEditModal } from '@/composables/useEditModal'
 import CharacterService from '@/services/entities/characterService'
 import { useItemSelector } from '@/composables/useItemSelector'
@@ -128,6 +137,7 @@ import { useSourcesStore } from '@/stores/sourcesStore'
 import { useKeepingStore } from '@/stores/keepingStore'
 import { useEquipmentSubtypesStore } from '@/stores/equipmentSubtypesStore'
 import { useEquipmentGradesStore } from '@/stores/equipmentGradesStore'
+import { useConceptsStore } from '@/stores/conceptsStore'
 import { useRollsStore } from '@/stores/rollsStore'
 import EngagementSuccessService from '@/services/entities/engagementSuccessService'
 import DamageRollService from '@/services/rolls/damageRollService'
@@ -154,6 +164,21 @@ const equipmentGradesStore = useEquipmentGradesStore()
 const keepingStore = useKeepingStore()
 const sourcesStore = useSourcesStore()
 const rollsStore = useRollsStore()
+const conceptsStore = useConceptsStore()
+
+const characterMestiere = computed(() => {
+  if (!selectedCharacter.value?.mestiereId) return null
+  return conceptsStore.mestieri.find(m => m.id === selectedCharacter.value.mestiereId) ?? null
+})
+const characterMestiereNovizio = computed(() => characterMestiere.value?.novizio ?? null)
+
+const showMartialTrainingModal = ref(false)
+const martialTrainingAnchorEl = ref(null)
+
+const openMartialTraining = (event) => {
+  martialTrainingAnchorEl.value = event.currentTarget
+  showMartialTrainingModal.value = true
+}
 
 const allEquipment = computed(() => equipmentStore.equipment || [])
 const engagementSuccessOptions = ref([])
@@ -532,6 +557,12 @@ onMounted(async () => {
 </script>
 
 <style scoped>
+.header-right-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
 .missing-item {
   color: var(--color-text-muted);
   font-style: italic;

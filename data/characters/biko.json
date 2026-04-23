@@ -190,21 +190,21 @@
       "quantity": 1,
       "isCarried": true,
       "isWielding": false,
-      "collapsed": false
+      "collapsed": true
     },
     {
       "id": "249e6650-8646-4367-9912-6655f03ce32c",
       "quantity": 1,
       "isCarried": true,
       "isWielding": false,
-      "collapsed": false
+      "collapsed": true
     },
     {
       "id": "30ade4bc-27c7-4bb5-a674-00cbd0fc294b",
       "quantity": 1,
       "isCarried": true,
       "isWielding": false,
-      "collapsed": false,
+      "collapsed": true,
       "showImprovements": true,
       "improvements": {
         "a1b2c3d4-e5f6-7890-1234-567890abcdef": true
@@ -213,29 +213,34 @@
     {
       "id": "b2235478-d2a6-4ccd-8cde-bd7efc35fd59",
       "quantity": 1,
-      "isCarried": true
+      "isCarried": true,
+      "collapsed": true
     },
     {
       "id": "6c9a4bb8-84f1-41ba-af09-ad6e65f7b9cc",
       "quantity": 1,
-      "isCarried": true
+      "isCarried": true,
+      "collapsed": true
     },
     {
       "id": "35d95303-a550-457a-97b5-00c2eda8e9ee",
       "quantity": 1,
       "isCarried": true,
-      "isWielding": false
+      "isWielding": false,
+      "collapsed": true
     },
     {
       "id": "f94fb100-aed0-4a42-89a4-3a793439b842",
       "quantity": 1,
-      "isCarried": true
+      "isCarried": true,
+      "collapsed": true
     },
     {
       "id": "d7b8a4bf-649e-4ce5-8d6b-488755d7cc09",
       "quantity": 1,
       "isCarried": true,
-      "showImprovements": true
+      "showImprovements": true,
+      "collapsed": true
     }
   ],
   "engagementDice": [
@@ -245,7 +250,7 @@
   "abilities": [
     {
       "id": "4fbf9ccb-0fbb-45d0-9f8f-7b7fcfb811fb",
-      "collapsed": false,
+      "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false
     },
@@ -257,7 +262,7 @@
     },
     {
       "id": "7eb3559b-8cd5-49ce-b047-a627e30db31c",
-      "collapsed": false,
+      "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false
     },
@@ -275,7 +280,7 @@
     },
     {
       "id": "df41e010-07b6-40bf-bc67-ec2a01c9b95d",
-      "collapsed": false,
+      "collapsed": true,
       "showImprovements": true,
       "showSuccesses": false,
       "improvements": {
@@ -309,19 +314,19 @@
     },
     {
       "id": "b9271b66-5772-4ec2-ba0c-5a8f4b6cc525",
-      "collapsed": false,
+      "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false
     },
     {
       "id": "8d9b4191-4c71-4d62-9344-800fe50787ab",
-      "collapsed": false,
+      "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false
     },
     {
       "id": "e16343e2-35aa-4a42-b8f3-9105aad87780",
-      "collapsed": false,
+      "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false
     },
@@ -349,8 +354,8 @@
     "https://cdn.midjourney.com/bb7f8092-0710-4aaf-9f26-e376a0cec04e/0_0.png"
   ],
   "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2026-04-15T12:17:22.976Z",
-  "lastModified": "2026-04-15T12:17:22.976Z",
+  "updatedAt": "2026-04-23T01:11:48.096Z",
+  "lastModified": "2026-04-23T01:11:48.096Z",
   "mestiereId": "4eccfe5d-de19-4bc5-8c9c-374d793d67f0",
   "groupEquipmentBySource": false,
   "equipmentSortOption": "",
