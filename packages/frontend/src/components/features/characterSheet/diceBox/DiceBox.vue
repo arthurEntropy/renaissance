@@ -32,6 +32,10 @@
       </template>
     </div>
 
+    <!-- Take XP Button -->
+    <ActionButton v-if="canEdit && xpEarned > 0 && !hasClaimedXp && !isRolling && !customDiceRollerOpen"
+      class="take-xp-button" variant="primary" size="small" :text="`← Take ${xpEarned} XP`" @click="handleTakeXp" />
+
     <!-- Empty State -->
     <div v-show="!customDiceRollerOpen && !latestRoll" class="empty-state-container view-container">
       <EmptyRollState />
@@ -43,6 +47,7 @@
 <script setup>
 import { computed, ref, watch, nextTick } from 'vue'
 import { RollTypes } from '@/constants/rollTypes'
+import { computeXpEarned } from '@/services/rolls/rollStatsService'
 import CharacterSheetSection from '@/components/ui/containers/CharacterSheetSection.vue'
 import DiceDisplay from './DiceDisplay.vue'
 import RollTitle from './RollTitle.vue'
@@ -50,6 +55,7 @@ import RollOutcome from './RollOutcome.vue'
 import EmptyRollState from './EmptyRollState.vue'
 import CustomDiceRoller from '../customDiceRoller/CustomDiceRoller.vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
+import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import { useRollsStore } from '@/stores/rollsStore'
 import { useCharactersStore } from '@/stores/charactersStore'
 import InitiativeRollService from '@/services/rolls/initiativeRollService'
@@ -149,6 +155,21 @@ const isInjury = computed(() => {
 const isRolling = computed(() => {
   return diceDisplayRef.value?.isRolling || false
 })
+
+const xpEarned = computed(() => latestRoll.value ? computeXpEarned(latestRoll.value) : 0)
+
+const claimedXpKeys = ref([])
+
+const hasClaimedXp = computed(() =>
+  !currentRollDisplayKey.value || claimedXpKeys.value.includes(currentRollDisplayKey.value)
+)
+
+const handleTakeXp = () => {
+  const character = charactersStore.selectedCharacter
+  if (!character || !currentRollDisplayKey.value) return
+  character.xp = (character.xp || 0) + xpEarned.value
+  claimedXpKeys.value.push(currentRollDisplayKey.value)
+}
 </script>
 
 <style scoped>
@@ -204,5 +225,29 @@ const isRolling = computed(() => {
   top: var(--space-md);
   right: var(--space-md);
   z-index: var(--z-raised);
+}
+
+.take-xp-button {
+  padding: 7px;
+  font-size: var(--font-size-12);
+  font-weight: bold;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  border-radius: 0 var(--radius-15) 0 0;
+  z-index: var(--z-raised);
+  animation: pulse-glow-gold 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse-glow-gold {
+
+  0%,
+  100% {
+    box-shadow: var(--shadow-glow-gold-sm);
+  }
+
+  50% {
+    box-shadow: var(--shadow-glow-gold-lg);
+  }
 }
 </style>
