@@ -19,11 +19,11 @@
   "vittles": "",
   "pointsOfInterest": "",
   "floraFauna": "",
-  "lastModified": "2026-02-26T16:10:54.862Z",
+  "lastModified": "2026-04-23T01:29:47.706Z",
   "heightMin": 5,
   "heightMax": 6,
-  "weightMin": 100,
-  "weightMax": 350,
+  "weightMin": 90,
+  "weightMax": 250,
   "lifespan": "80 years",
   "speed": 30
 }

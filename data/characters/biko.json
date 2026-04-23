@@ -354,8 +354,8 @@
     "https://cdn.midjourney.com/bb7f8092-0710-4aaf-9f26-e376a0cec04e/0_0.png"
   ],
   "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2026-04-23T01:11:48.096Z",
-  "lastModified": "2026-04-23T01:11:48.096Z",
+  "updatedAt": "2026-04-23T01:30:13.962Z",
+  "lastModified": "2026-04-23T01:30:13.962Z",
   "mestiereId": "4eccfe5d-de19-4bc5-8c9c-374d793d67f0",
   "groupEquipmentBySource": false,
   "equipmentSortOption": "",
@@ -395,10 +395,10 @@
       }
     }
   },
-  "age": 27,
-  "heightFeet": 6,
-  "heightInches": 7,
-  "weight": 195,
+  "age": 21,
+  "heightFeet": 5,
+  "heightInches": 6,
+  "weight": 174,
   "engagementDiceStatuses": {
     "user_added_1": "expended"
   }
