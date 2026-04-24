@@ -2,12 +2,13 @@
   "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
   "id": "329d1591-591b-47e8-aeb0-27e0820f57bb",
   "createdAt": "2026-04-16T18:48:23.329Z",
-  "lastModified": "2026-04-16T19:41:01.599Z",
+  "lastModified": "2026-04-23T14:13:00.018Z",
   "name": "Tsunami",
   "manaCost": "4UUGG",
-  "description": "<p><em>Concentration, up to 1 minute.</em></p><p>The ground shudders and a wall of water springs into existence at a point you choose within range. Uncheck any number of Conditions. For each Condition you unchecked (twice for Insecure and Guilty), add 5 feet of thickness, 20 feet of height, and 20 ft of width to the wall. Roll Spirit to set the Difficulty.</p><p>When the wall appears, each creature within its area must roll Strength against the Difficulty. On each failure, the creature takes 6d10 bludgeoning damage. On each pass, half damage, and the creature may swim within the wall.</p><p>At the start of each of your turns after the wall appears, the wall, along with any creatures in it, moves 50 feet away from you. Any creature inside the wall or whose space the wall enters when it moves must roll Strength against the Difficulty, as above.</p><p>At the end of each of your turns, the wall’s height is reduced by 50 feet, and its damage is reduced by 1d. The spell ends when the wall’s height reaches 0.</p><p><strong>Describe the tsunami.</strong></p>",
+  "description": "<p><em>Concentration, up to 1 minute.</em></p><p>The ground shudders and a wall of water springs into existence at a point you choose within range. Uncheck any number of Conditions. For each Condition you unchecked (twice for Insecure and Guilty), add 5 feet of thickness, 20 feet of height, and 20 ft of width to the wall. Roll Spirit to set the Difficulty.</p><p>When the wall appears, each creature within its area must roll Strength against the Difficulty. On each failure, the creature takes 6d10 damage. On each pass, half damage, and the creature may swim within the wall.</p><p>At the start of each of your turns after the wall appears, the wall, along with any creatures in it, moves 50 feet away from you. Any creature inside the wall or whose space the wall enters when it moves must roll Strength against the Difficulty, as above.</p><p>At the end of each round, the wall’s height is reduced by 50 feet, and its damage is reduced by 1d. The spell ends when the wall’s height reaches 0.</p><p><strong>Describe the tsunami.</strong></p>",
   "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
   "xp": 40,
   "isMagical": true,
-  "artUrl": "https://cdn.midjourney.com/3e610f28-d4fe-43a2-9a01-78fe7a9059cd/0_3.png"
+  "artUrl": "https://cdn.midjourney.com/3e610f28-d4fe-43a2-9a01-78fe7a9059cd/0_3.png",
+  "successes": "<p>✨: Add an additional 5 feet of thickness, 20 feet of height, and 20 ft of width to the wall.</p><p>🌞: The wall's height and damage are only reduced at the end of every other round.</p>"
 }

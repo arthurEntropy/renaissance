@@ -2,7 +2,7 @@
   "id": "d5e3228b-1d04-4503-8ec6-3210d420c082",
   "conceptType": "ANCESTRY",
   "name": "Furu",
-  "description": "<p>The Furu emerged from the deep north, where winters outlast hope. Owl-like in feature — large, still eyes set wide in a broad face, and a quality of total silence when they choose stillness — they are something stranger than simple avian humanoids. What sets them apart more than any physical trait is their memory: complete, unhurried, and very nearly perfect. They forget nothing, which is not always the gift it sounds.</p>",
+  "description": "<p>The Furu arose in quiet lands where watchfulness meant survival. They developed exceptional powers of observation and recall, and in their havens they filled the silence with stories. Typically tall and striking, with owl-like features, their eyes are piercing and their vestigial wings allow them to glide and perch in high places: the better to observe.</p>",
   "isDeleted": false,
   "artUrls": [
     "https://cdn.midjourney.com/4d48d295-4aa2-46bb-9db0-448f8c241347/0_1.png"
@@ -19,7 +19,7 @@
   "vittles": "",
   "pointsOfInterest": "",
   "floraFauna": "",
-  "lastModified": "2025-12-13T19:15:03.738Z",
+  "lastModified": "2026-04-24T14:22:17.655Z",
   "heightMin": 6,
   "heightMax": 7,
   "weightMin": 100,

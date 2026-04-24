@@ -3,7 +3,7 @@
         <ConceptSection title="Abilities" :has-content="hasAbilities" :is-edit-mode="isEditMode"
             empty-message="No abilities added yet.">
 
-            <template v-if="hasAbilities" #header-center>
+            <template v-if="showOrganizationControls" #header-center>
                 <SortingDropdown v-model="groupingOption" :options="groupingOptions" label="Group by:"
                     placeholder="Ungrouped" />
                 <SortingDropdown v-model="sortOption" :options="sortOptions" label="Order by:" />
@@ -95,6 +95,7 @@ import { useConceptsStore } from '@/stores/conceptsStore'
 import { useAbilitySchoolsStore } from '@/stores/abilitySchoolsStore'
 import { useAuthStore } from '@/stores/authStore'
 import { getManaCostColors } from '@shared/utils/calculateManaCost'
+import { ConceptType } from '@shared/constants/conceptTypes'
 import { ManaColor, MANA_COLOR_ORDER } from '@shared/constants/manaColors'
 
 const charactersStore = useCharactersStore()
@@ -145,10 +146,13 @@ const updateAbilityShowSuccesses = (abilityId, showSuccesses) => {
 }
 
 const isAdmin = computed(() => authStore.isAdmin)
+const isMestiereConcept = computed(() => concept.value?.conceptType === ConceptType.MESTIERE)
 
 const isChannelerConcept = computed(() =>
     concept.value?.name?.toLowerCase() === 'channeler'
 )
+
+const showOrganizationControls = computed(() => hasAbilities.value && isMestiereConcept.value)
 
 const sortOptions = computed(() => filterAdminSortOptions(ABILITY_SORT_OPTIONS, isAdmin.value))
 const groupingOptions = computed(() => {
@@ -164,8 +168,8 @@ const groupingOption = ref('')
 
 useFilterPersistence(`concept-abilities-${concept.value?.id}`, { sortOption, groupingOption })
 
-const isGroupedBySchool = computed(() => groupingOption.value === 'school')
-const isGroupedByManaColor = computed(() => groupingOption.value === 'mana-color')
+const isGroupedBySchool = computed(() => isMestiereConcept.value && groupingOption.value === 'school')
+const isGroupedByManaColor = computed(() => isMestiereConcept.value && groupingOption.value === 'mana-color')
 
 const sortedAbilities = computed(() => sortItems(abilities.value, sortOption.value))
 

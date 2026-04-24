@@ -2,7 +2,7 @@
   "id": "271fd0d4-77f2-4b5e-b390-42521c4c4dfe",
   "isDeleted": false,
   "createdAt": "2026-01-29T00:54:19.091Z",
-  "lastModified": "2026-04-21T00:05:29.277Z",
+  "lastModified": "2026-04-23T20:00:08.463Z",
   "name": "Lu",
   "isBeast": false,
   "pronouns": "he/him",
@@ -23,8 +23,8 @@
       "coreAbility": "body",
       "ranks": 0,
       "isFavored": false,
-      "isIllFavored": false,
-      "diceMod": 0
+      "isIllFavored": true,
+      "diceMod": -1
     },
     {
       "name": "Strength",
@@ -40,7 +40,7 @@
       "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 0
+      "diceMod": -1
     },
     {
       "name": "Fortitude",
@@ -63,8 +63,8 @@
       "coreAbility": "heart",
       "ranks": 0,
       "isFavored": false,
-      "isIllFavored": false,
-      "diceMod": 0
+      "isIllFavored": true,
+      "diceMod": -1
     },
     {
       "name": "Insight",
@@ -80,7 +80,7 @@
       "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 0
+      "diceMod": -1
     },
     {
       "name": "Spirit",
@@ -104,7 +104,7 @@
       "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 0
+      "diceMod": -1
     },
     {
       "name": "Awareness",
@@ -119,8 +119,8 @@
       "coreAbility": "wits",
       "ranks": 0,
       "isFavored": false,
-      "isIllFavored": false,
-      "diceMod": 0
+      "isIllFavored": true,
+      "diceMod": -1
     },
     {
       "name": "Lore",
@@ -140,7 +140,7 @@
     }
   ],
   "endurance": {
-    "current": 20,
+    "current": 36,
     "max": 20,
     "coreAbility": "body"
   },
@@ -166,9 +166,9 @@
     "twiceHelpless": false
   },
   "conditions": {
-    "insecure": false,
+    "insecure": true,
     "guilty": false,
-    "angry": false,
+    "angry": true,
     "afraid": false,
     "troubled": false
   },
@@ -296,6 +296,211 @@
       "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false
+    },
+    {
+      "id": "de1f7e3d-cf67-4ef1-9307-21935fae9ed9",
+      "collapsed": true,
+      "showImprovements": true,
+      "showSuccesses": false
+    },
+    {
+      "id": "a3884291-a274-45c7-93c3-d8d3e45e85ef",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "1973c880-5d4f-4d0f-b376-35cb7feceee5",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "difficulty": null
+    },
+    {
+      "id": "38aee0f6-4084-4ad7-9361-65634913cd2c",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "906b18a7-c889-4bbb-917e-8ebdb3d42ec4",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "8a762dde-2929-4301-8b05-30f57350bdec",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "8c407283-06cb-4843-a67f-0bfc792ba34e",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "20b15810-3312-4e21-ab98-e236838fecbf",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "16e61f97-308c-4fc3-9b3b-50fe04f3174a",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "1dbc92aa-7732-4f21-a541-48dda9dbe49e",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "329d1591-591b-47e8-aeb0-27e0820f57bb",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "3630b937-8479-4349-b19f-4a74f704be16",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "ad4fbe65-f072-4d41-98b4-7e41e645acf1",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "7a2fcef8-f722-4b87-8847-1232117c2b54",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "dd7acfdd-58e6-4d0f-8242-daeddf2510d6",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "469ffb2b-40b9-4f8c-be8e-6de882924bac",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "08a7438e-e41e-4b6e-85fb-60b8031c5df6",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "793c3f58-96d1-4501-92f4-e439fbbd7a7e",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "cb26a2d9-be12-4a79-8e98-d230d71f5530",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "46827f4f-7010-41b7-aa15-f5a00b96a6cf",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "75c839af-c925-4c70-a312-c7c3b0307d92",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "8a64a1b0-2ee2-4b5c-b603-59a4742eaa51",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "7283814f-6904-4508-b127-4aa80901cb90",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "8c97d183-dde7-47d8-93ae-9bc74e98d391",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "32591781-7147-40f0-86f0-0ae7b115b2a8",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "09d253f8-93b4-4b2e-bf35-e7739d5d4b22",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "ff53f4dd-375c-45db-bae1-401a013fd8a7",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "3783b9d5-f6cc-4a9e-b071-40954248d990",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "ef25e6c3-e0b2-426b-96dd-2e25e9c87a63",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "c6af7ec3-4553-41dc-8604-dd2c3d93be6b",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "109b7300-df80-4697-92ac-ead98366c6d2",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "7f923efd-91ce-4967-bc8f-9166bcd32eec",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "1508d6e3-e73e-4348-9fcd-94061e13a866",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "050c7940-23c2-4cf4-8e29-b3653f34bed1",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false
     }
   ],
   "artUrls": [
@@ -311,26 +516,51 @@
     "c02c53d1-b456-45d0-a048-6fc941cacc03"
   ],
   "mestiereId": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
-  "updatedAt": "2026-04-21T00:05:29.277Z",
+  "updatedAt": "2026-04-23T20:00:08.463Z",
   "manaPool": {
     "white": [],
-    "blue": [
-      false
-    ],
+    "blue": [],
     "black": [
-      false
-    ],
-    "red": [],
-    "green": [
+      false,
+      false,
       false,
       false
     ],
-    "colorless": [
-      false,
-      false
-    ]
+    "red": [
+      true
+    ],
+    "green": [],
+    "colorless": []
   },
   "groupAbilitiesBySource": false,
   "groupAbilitiesByManaColor": true,
-  "groupAbilitiesByCustom": false
+  "groupAbilitiesByCustom": false,
+  "rollStats": {
+    "skillChecks": {
+      "attempts": 1,
+      "successes": 1,
+      "totalSum": 26,
+      "bestTotal": 26,
+      "hardestSuccess": null,
+      "bySkill": {
+        "Spirit": 1
+      },
+      "solCount": 1,
+      "morteCount": 0,
+      "successCount": 0
+    },
+    "contests": {
+      "engagement": {
+        "wins": 0,
+        "losses": 0,
+        "draws": 0
+      },
+      "opposed": {
+        "wins": 0,
+        "losses": 0,
+        "draws": 0
+      }
+    }
+  },
+  "abilitySortOption": "manaCost-asc"
 }

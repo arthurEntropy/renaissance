@@ -1,7 +1,7 @@
 {
   "id": "738255ac-87f1-45a5-91ff-c2144b92b5e3",
   "name": "Lucky",
-  "description": "<p><em>Trigger: You roll Morte </em>💀<em> on a Feat Die.</em></p><p>Once per rest: Re-roll the Feat Die. You must use the new result. The original roll still counts toward Bane/Boon.</p><p><strong>Describe how you cheat fate.</strong></p>",
+  "description": "<p><em>You have an uncanny knack for avoiding the worst danger.</em></p><p>Whenever you Morte 💀 on a feat die: Re-roll the feat die. You must use the new result, even if it is another Morte 💀. Only the new result counts toward Bane/Boon.</p><p><strong>Describe how you cheat fate.</strong></p>",
   "canBeActive": false,
   "isActive": true,
   "source": "77e4f81a-728f-49a7-a013-4d6f666353e2",
@@ -9,6 +9,6 @@
   "mp": null,
   "xp": null,
   "artUrl": "https://cdn.midjourney.com/c9d63c27-fb38-43a2-98ef-cc41ea9a28e3/0_2.png",
-  "lastModified": "2026-02-26T15:41:05.555Z",
+  "lastModified": "2026-04-24T17:24:01.808Z",
   "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
 }

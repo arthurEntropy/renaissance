@@ -2,7 +2,7 @@
   "id": "d7578278-c801-410b-b194-12b555042f29",
   "conceptType": "ANCESTRY",
   "name": "Falena",
-  "description": "<p>The Falena bear the features of insects — foremost among them the moth, though the family is broad. Fine antennae rise from their brows, lending them a subtle sensitivity to the emotions and intentions of those nearby. Most have wings, delicate and patterned like stained glass; others have dextrous legs and feet that can cling to any surface.</p>",
+  "description": "<p>More a collection of related races than a single ancestry, the Falena bear the features of insects and arachnids upon a humanoid frame. Variously possessed of compound eyes, wings, six or eight legs and antennae, they are united in a shared sensitivity to the thoughts and feelings of those around them - perhaps a remnant of their distant, hive-like origins.</p>",
   "isDeleted": false,
   "artUrls": [
     "https://cdn.midjourney.com/a4e20f92-a7de-47e6-8445-f499a6d406e5/0_2.png"
@@ -19,7 +19,7 @@
   "vittles": "",
   "pointsOfInterest": "",
   "floraFauna": "",
-  "lastModified": "2026-02-25T14:13:05.016Z",
+  "lastModified": "2026-04-24T13:19:50.530Z",
   "heightMin": 3,
   "heightMax": 6,
   "weightMin": 50,

@@ -1,14 +1,14 @@
 {
   "id": "d453adb9-09fb-4886-bf22-8770e2f02f6e",
   "name": "Earthen Skin",
-  "description": "<p><em>Your thick skin resembles one or more natural materials, like stone, bark, moss, earth, etc.</em></p><p>Your maximum Endurance increases by your BODY score.</p><p>Once per rest, you may spend a half action to change the appearance of your skin to another natural material that you choose. When you are in an area with natural features that resemble your current appearance, your Stealth rolls are favored and you cannot be seen if you remain still.</p><p><strong>Describe how you blend in.</strong></p>",
+  "description": "<p><em>Your thick skin resembles one or more natural materials, like stone, bark, moss or soil.</em></p><p>Your maximum Endurance increases by your BODY score.</p><p>Once per rest, you may spend a half action to change the appearance of your skin to another natural material that you choose. When you are in an area with natural features that resemble your current appearance, your Stealth rolls are favored and you cannot be seen if you remain still.</p><p><strong>Describe your skin.</strong></p>",
   "canBeActive": false,
   "isActive": true,
   "source": "134acec3-0e13-42e1-9d75-7999340d458c",
   "isDeleted": false,
   "mp": null,
   "xp": null,
-  "lastModified": "2026-03-19T02:17:32.635Z",
+  "lastModified": "2026-04-24T15:08:57.664Z",
   "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d",
   "artUrl": "https://cdn.midjourney.com/a6f4bd73-7042-4a1a-b1f6-aa8e394bf625/0_2.png"
 }

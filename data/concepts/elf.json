@@ -2,7 +2,7 @@
   "id": "f5cda222-6c69-4ae9-bc0d-761729cd8e2e",
   "conceptType": "ANCESTRY",
   "name": "Elf",
-  "description": "<p>Elves move through the world with an uncommon physical lightness, as though gravity has a slightly looser hold on them than on most. They tend toward keen senses and an unmistakable affinity for open water and the night sky. Their draw toward fine craft and jeweled work is well-attested. None of this makes them better than anyone else — only particular.</p>",
+  "description": "<p>Typically lithe in frame and light of foot, Elves move through the world with a demeanor that speaks of their long lives, which stretch for centuries and are ended only by mishap or violence. This long accumulation of experience expresses itself in exceptional strength of will, grace of speech and keenness of senses.</p>",
   "isDeleted": false,
   "artUrls": [
     "https://cdn.midjourney.com/831b273e-9002-4112-ba61-082d83341ba6/0_3.png"
@@ -19,7 +19,7 @@
   "vittles": "",
   "pointsOfInterest": "",
   "floraFauna": "",
-  "lastModified": "2026-04-18T02:27:45.739Z",
+  "lastModified": "2026-04-24T13:12:15.391Z",
   "detailBackgroundImage": "",
   "heightMin": 5,
   "heightMax": 6,

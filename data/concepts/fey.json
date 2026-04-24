@@ -2,7 +2,7 @@
   "id": "f00fe427-1bb5-472c-8abb-2a394730a40a",
   "conceptType": "ANCESTRY",
   "name": "Fey",
-  "description": "<p>Born where the seam between the mortal and fae worlds ran thin enough to bleed through, the Fey carry two natures at once. What the world sees is their glamour: a humanoid form, chosen and maintained by instinct. Beneath it lies their true form — stranger, wilder, less easy to name.</p>",
+  "description": "<p>The Fey emerged in places where the border between our world and another was worn thin. They are in this world, but are not of it, and they remain governed by laws that seem strange here. This crisis of belonging is central to their lives here: they must choose to what degree they will conceal or reveal their true form, their true name, their true nature.</p>",
   "isDeleted": false,
   "artUrls": [
     "https://cdn.midjourney.com/56acc187-316c-4d6a-aba8-f64ad6b5c126/0_2.png"
@@ -19,7 +19,7 @@
   "vittles": "",
   "pointsOfInterest": "",
   "floraFauna": "",
-  "lastModified": "2026-02-25T19:26:35.196Z",
+  "lastModified": "2026-04-24T14:07:32.046Z",
   "heightMin": 5,
   "heightMax": 7,
   "weightMin": 75,

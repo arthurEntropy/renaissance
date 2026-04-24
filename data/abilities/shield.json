@@ -1,0 +1,14 @@
+{
+  "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
+  "id": "eccd85bc-375b-42f1-aa45-8bcc56172c5d",
+  "createdAt": "2026-04-23T12:47:18.877Z",
+  "lastModified": "2026-04-23T12:57:18.754Z",
+  "name": "Shield",
+  "mp": 1,
+  "xp": 5,
+  "type": "e5f6a1b2-c3d4-4e5f-da2b-1c0d9e8f7a6b",
+  "isMagical": true,
+  "school": "6dee9b36-a9ea-4edf-ad7b-7321e4408da5",
+  "description": "<p><em>Trigger: You become the target of an attack.</em></p><p>You gain +5 Defense for 1 round.</p><p><strong>Describe the magical shield.</strong></p>",
+  "artUrl": "https://cdn.midjourney.com/c337b75b-3c1f-43c5-b41d-eaa827255266/0_1.png"
+}
