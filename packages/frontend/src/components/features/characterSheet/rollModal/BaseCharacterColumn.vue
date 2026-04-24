@@ -34,6 +34,7 @@
 import { computed } from 'vue'
 import LoadingSpinner from '@/components/ui/LoadingSpinner.vue'
 import { useOptimizedImage } from '@/composables/useOptimizedImage'
+import { MIDJOURNEY_IMAGE_CONTEXTS } from '@shared/constants/artConstants.js'
 
 const props = defineProps({
     character: {
@@ -66,7 +67,7 @@ const characterArtUrl = computed(() => {
 })
 
 // Optimize character art thumbnail
-const optimizedCharacterArt = useOptimizedImage(characterArtUrl, 'small')
+const optimizedCharacterArt = useOptimizedImage(characterArtUrl, MIDJOURNEY_IMAGE_CONTEXTS.SMALL)
 
 const columnClasses = computed(() => {
     const classes = []

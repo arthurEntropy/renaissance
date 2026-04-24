@@ -2,7 +2,7 @@
   "id": "cfd7bf18-3a9a-4b4e-a9a9-c7069dd822c3",
   "conceptType": "ANCESTRY",
   "name": "Gearborn",
-  "description": "<p>Fashioned from metal, stone, and purposes now obscure, the Gearborn wake into a world that remembers nothing of those who made them. The civilization responsible has passed entirely from living history — no ruins carry useful answers, no text survives in legible form. Each Gearborn is, in a sense, a question without an origin. They carry this in the particular stillness behind their eyes.</p>",
+  "description": "<p>Fashioned from materials and for purposes now obscure, the Gearborn wake into a world that remembers nothing of those who made them. Tall, short, fragile, sturdy, dextrous, awkward: their forms are as varied as the tasks they were designed for. As they move through a changed world, they work to apply their unique physiology to new tasks and find new meaning.</p>",
   "isDeleted": false,
   "artUrls": [
     "https://cdn.midjourney.com/6f95a939-4378-49cc-ac4c-8f99d962a4c1/0_2.png"
@@ -19,7 +19,7 @@
   "vittles": "",
   "pointsOfInterest": "",
   "floraFauna": "",
-  "lastModified": "2026-02-25T19:26:50.208Z",
+  "lastModified": "2026-04-24T14:59:31.629Z",
   "heightMin": 3,
   "heightMax": 8,
   "weightMin": 150,

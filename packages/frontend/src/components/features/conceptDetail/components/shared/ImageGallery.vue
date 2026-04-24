@@ -133,7 +133,7 @@ import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.v
 import FullSizeImageModal from '@/components/ui/modals/FullSizeImageModal.vue'
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/vue/24/outline'
 import { useArtStore } from '@/stores/artStore'
-import { IMAGE_GALLERY_MODES, ART_TYPES } from '@shared/constants/artConstants.js'
+import { ART_TYPES, IMAGE_GALLERY_MODES, MIDJOURNEY_IMAGE_CONTEXTS } from '@shared/constants/artConstants.js'
 import { useOptimizedImage, useOptimizedImages } from '@/composables/useOptimizedImage'
 import { useImagePreloader } from '@/composables/useImagePreloader'
 import { getOptimizedImageUrl } from '@/utils/imageOptimization'
@@ -201,11 +201,14 @@ const displayImages = computed(() => {
 const selectedIndex = ref(0)
 
 // Optimize images for display
-const optimizedMainImage = useOptimizedImage(() => displayImages.value[selectedIndex.value], 'medium')
-const optimizedThumbnails = useOptimizedImages(displayImages, 'thumbnail')
+const optimizedMainImage = useOptimizedImage(
+  () => displayImages.value[selectedIndex.value],
+  MIDJOURNEY_IMAGE_CONTEXTS.MEDIUM
+)
+const optimizedThumbnails = useOptimizedImages(displayImages, MIDJOURNEY_IMAGE_CONTEXTS.THUMBNAIL)
 
 // Preload adjacent images for instant navigation
-useImagePreloader(displayImages, selectedIndex, 'medium', getOptimizedImageUrl)
+useImagePreloader(displayImages, selectedIndex, MIDJOURNEY_IMAGE_CONTEXTS.MEDIUM, getOptimizedImageUrl)
 const showNav = ref(false)
 const editModalOpen = ref(false)
 const addModalOpen = ref(false)

@@ -1,7 +1,7 @@
 {
   "id": "9f21adf6-85f2-482b-a13c-29b4c53487bd",
   "name": "Stout-Hearted",
-  "description": "<p>Your maximum Hope increases by 2.</p><p><strong>Describe what keeps you going.</strong></p>",
+  "description": "<p><em>You manage to find something to hold on to even in the darkest of circumstances.</em></p><p>Your maximum Hope increases by 2.</p><p><strong>Describe what keeps you going.</strong></p>",
   "canBeActive": false,
   "isActive": true,
   "source": "77e4f81a-728f-49a7-a013-4d6f666353e2",
@@ -9,6 +9,6 @@
   "mp": null,
   "xp": null,
   "artUrl": "https://cdn.midjourney.com/44872663-d75d-45b7-8b12-9f37f2a4defc/0_2.png",
-  "lastModified": "2026-02-12T21:37:52.079Z",
+  "lastModified": "2026-04-24T17:25:13.951Z",
   "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
 }

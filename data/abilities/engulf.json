@@ -1,8 +1,8 @@
 {
   "id": "94459cd1-10be-4c6f-a6eb-1693d2af41d1",
-  "isDeleted": false,
+  "isDeleted": true,
   "createdAt": "2026-01-13T01:13:56.396Z",
-  "lastModified": "2026-04-16T18:28:00.031Z",
+  "lastModified": "2026-04-23T20:30:38.361Z",
   "name": "Engulf",
   "description": "<p><em>[Folded this spell into the white Bind spell. Keeping this as a placeholder to preserve the art and name.]</em></p>",
   "canBeActive": false,

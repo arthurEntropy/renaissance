@@ -2,7 +2,7 @@
   "id": "48a9eff3-9041-4b33-8f99-4137955d2997",
   "isDeleted": false,
   "createdAt": "2026-04-22T14:45:33.779Z",
-  "lastModified": "2026-04-22T18:05:48.049Z",
+  "lastModified": "2026-04-22T18:24:33.089Z",
   "name": "Otho",
   "isBeast": false,
   "pronouns": "",
@@ -277,8 +277,8 @@
       "imageUrl": "/src/assets/icons/summoner/seashell.png",
       "vesselType": "great",
       "vesselNote": "test",
-      "beastId": null,
-      "friendship": 0
+      "beastId": "b9cd5af3-b5da-4e94-8431-3e501a916ad9",
+      "friendship": 4
     }
   ],
   "groupAbilitiesBySource": false,
@@ -317,7 +317,7 @@
   },
   "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
   "ownerEmail": "ljbrevoort@gmail.com",
-  "updatedAt": "2026-04-22T18:05:48.049Z",
+  "updatedAt": "2026-04-22T18:24:33.089Z",
   "ancestryIds": [
     "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
   ],

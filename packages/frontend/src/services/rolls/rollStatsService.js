@@ -146,3 +146,14 @@ export function applyRollToCharacterStats(character, rollResult) {
 
   character.rollStats = stats
 }
+
+export function computeXpEarned(roll) {
+  if (roll.type !== RollTypes.SKILL_CHECK && roll.type !== RollTypes.OPPOSED_SKILL_CHECK) return 0
+
+  let xp = 0
+  if (roll.type === RollTypes.SKILL_CHECK && !roll.success) xp += 1
+  if (roll.type === RollTypes.OPPOSED_SKILL_CHECK && roll.winner === WINNER.OPPONENT) xp += 1
+  if (roll.diceResults?.some(d => d.dieSides === DIE_TYPE.D12 && d.dieRollValue === SPECIAL_ROLLS.MORTE)) xp += 1
+
+  return xp
+}

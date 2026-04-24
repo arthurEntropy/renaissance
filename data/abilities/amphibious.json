@@ -1,7 +1,7 @@
 {
   "id": "47c7c5bb-4d96-4b56-a431-66c0f885e5e4",
   "name": "Amphibious",
-  "description": "<p><em>You are agile in water but are weak when away from it.</em></p><p>Your base Speed is doubled while swimming, and you can breathe in both air and water, but you must immerse yourself in water for at least 1 hour each day or become Weary. This state persists - regardless of your Endurance scores - until you immerse yourself in water for 1 hour.</p><p><strong>Describe the effects of this need and how you sate it.</strong></p>",
+  "description": "<p><em>You are agile in water but are weak when away from it.</em></p><p>Your base Speed is doubled while swimming, and you can breathe in both air and water.</p><p>You must immerse yourself in a body of water larger than yourself for at least 1 hour each day or become Weary. This state persists - regardless of your Endurance scores - until you immerse yourself for 1 hour.</p><p><strong>Describe the effects of this need and how you sate it.</strong></p>",
   "canBeActive": false,
   "isActive": true,
   "source": "9250fcc5-9bc9-4724-815d-4411e79d403c",
@@ -9,6 +9,6 @@
   "mp": null,
   "xp": null,
   "artUrl": "https://cdn.midjourney.com/ca5286ed-6bd8-4e6b-ad08-b7be3fcf0280/0_3.png",
-  "lastModified": "2026-03-19T02:27:12.612Z",
+  "lastModified": "2026-04-24T17:21:21.115Z",
   "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
 }

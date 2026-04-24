@@ -3,7 +3,7 @@
         <ConceptSection title="Abilities" :has-content="hasAbilities" :is-edit-mode="isEditMode"
             empty-message="No abilities added yet.">
 
-            <template v-if="hasAbilities" #header-center>
+            <template v-if="showOrganizationControls" #header-center>
                 <SortingDropdown v-model="groupingOption" :options="groupingOptions" label="Group by:"
                     placeholder="Ungrouped" />
                 <SortingDropdown v-model="sortOption" :options="sortOptions" label="Order by:" />
@@ -17,7 +17,7 @@
             <template v-if="isGroupedBySchool">
                 <!-- Ungrouped abilities (no school) shown above groups, no header -->
                 <MasonryGrid v-if="noSchoolAbilities.length > 0" :column-width="350" :gap="20" :row-height="10"
-                    class="cards-container">
+                    justify-content="start" class="cards-container">
                     <AbilityCard v-for="ability in noSchoolAbilities" :key="ability.id" :ability="ability"
                         :editable="isEditMode" :sources="sources" :collapsible="false"
                         :showImprovements="getAbilityShowImprovements(ability.id)"
@@ -29,7 +29,7 @@
                 </MasonryGrid>
                 <!-- School-grouped abilities -->
                 <GroupedMasonryGrid v-if="schoolGroupedAbilities.length > 0" :column-width="350" :gap="20"
-                    :row-height="10" :grouped-items="schoolGroupedAbilities"
+                    :row-height="10" justify-content="start" :grouped-items="schoolGroupedAbilities"
                     :persistence-key="`concept-abilities-school-groups-${concept?.id}`" class="cards-container">
                     <template #default="{ item }">
                         <AbilityCard :ability="item" :editable="isEditMode" :sources="sources" :collapsible="false"
@@ -46,7 +46,7 @@
             <!-- Grouped by mana color display -->
             <template v-else-if="isGroupedByManaColor">
                 <GroupedMasonryGrid v-if="manaColorGroupedAbilities.length > 0" :column-width="350" :gap="20"
-                    :row-height="10" :grouped-items="manaColorGroupedAbilities"
+                    :row-height="10" justify-content="start" :grouped-items="manaColorGroupedAbilities"
                     :persistence-key="`concept-abilities-mana-color-groups-${concept?.id}`" class="cards-container">
                     <template #default="{ item }">
                         <AbilityCard :ability="item" :editable="isEditMode" :sources="sources" :collapsible="false"
@@ -61,7 +61,8 @@
             </template>
 
             <!-- Ungrouped display -->
-            <MasonryGrid v-else :column-width="350" :gap="20" :row-height="10" class="cards-container">
+            <MasonryGrid v-else :column-width="350" :gap="20" :row-height="10" justify-content="start"
+                class="cards-container">
                 <AbilityCard v-for="ability in sortedAbilities" :key="ability.id" :ability="ability"
                     :editable="isEditMode" :sources="sources" :collapsible="false"
                     :showImprovements="getAbilityShowImprovements(ability.id)"
@@ -95,6 +96,7 @@ import { useConceptsStore } from '@/stores/conceptsStore'
 import { useAbilitySchoolsStore } from '@/stores/abilitySchoolsStore'
 import { useAuthStore } from '@/stores/authStore'
 import { getManaCostColors } from '@shared/utils/calculateManaCost'
+import { ConceptType } from '@shared/constants/conceptTypes'
 import { ManaColor, MANA_COLOR_ORDER } from '@shared/constants/manaColors'
 
 const charactersStore = useCharactersStore()
@@ -145,10 +147,13 @@ const updateAbilityShowSuccesses = (abilityId, showSuccesses) => {
 }
 
 const isAdmin = computed(() => authStore.isAdmin)
+const isMestiereConcept = computed(() => concept.value?.conceptType === ConceptType.MESTIERE)
 
 const isChannelerConcept = computed(() =>
     concept.value?.name?.toLowerCase() === 'channeler'
 )
+
+const showOrganizationControls = computed(() => hasAbilities.value && isMestiereConcept.value)
 
 const sortOptions = computed(() => filterAdminSortOptions(ABILITY_SORT_OPTIONS, isAdmin.value))
 const groupingOptions = computed(() => {
@@ -164,8 +169,8 @@ const groupingOption = ref('')
 
 useFilterPersistence(`concept-abilities-${concept.value?.id}`, { sortOption, groupingOption })
 
-const isGroupedBySchool = computed(() => groupingOption.value === 'school')
-const isGroupedByManaColor = computed(() => groupingOption.value === 'mana-color')
+const isGroupedBySchool = computed(() => isMestiereConcept.value && groupingOption.value === 'school')
+const isGroupedByManaColor = computed(() => isMestiereConcept.value && groupingOption.value === 'mana-color')
 
 const sortedAbilities = computed(() => sortItems(abilities.value, sortOption.value))
 

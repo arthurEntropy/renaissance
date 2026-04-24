@@ -44,6 +44,7 @@ import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.v
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import FullSizeImageModal from '@/components/ui/modals/FullSizeImageModal.vue'
 import { useOptimizedImage } from '@/composables/useOptimizedImage'
+import { MIDJOURNEY_IMAGE_CONTEXTS } from '@shared/constants/artConstants.js'
 import { LANDSKNECHT_MESTIERE_ID, SWAGGER_MAX, SWAGGER_ICONS, shieldMaskStyle } from './swaggerConstants'
 
 const charactersStore = useCharactersStore()
@@ -95,7 +96,7 @@ const characterImageUrl = computed(() => {
 })
 
 // Optimized image URL for display
-const optimizedCharacterImageUrl = useOptimizedImage(characterImageUrl, 'medium')
+const optimizedCharacterImageUrl = useOptimizedImage(characterImageUrl, MIDJOURNEY_IMAGE_CONTEXTS.MEDIUM)
 
 const isValidImageUrl = (url) => {
     if (!url) return false

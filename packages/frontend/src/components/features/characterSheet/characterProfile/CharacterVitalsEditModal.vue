@@ -110,6 +110,17 @@
                         </div>
                     </div>
 
+                    <!-- Randomize Vitals -->
+                    <div class="form-group randomize-row">
+                        <div class="randomize-wrapper">
+                            <ActionButton variant="outline" size="small" text="Randomize Vitals"
+                                :disabled="!hasSelectedAncestry"
+                                :title="hasSelectedAncestry ? '' : 'Select an ancestry first'"
+                                @click="randomizeVitals" />
+                            <span class="randomize-note">Based on selected ancestry</span>
+                        </div>
+                    </div>
+
                 </form>
 
                 <!-- Settings Section -->
@@ -227,6 +238,61 @@ const resetStats = () => {
     character.rollStats = createEmptyRollStats()
 }
 
+const hasSelectedAncestry = computed(() =>
+    formData.value.ancestryIds.some(id => id !== '')
+)
+
+const parseLifespan = (lifespan) => {
+    if (!lifespan) return null
+    const match = lifespan.match(/(\d+)/)
+    return match ? parseInt(match[1]) : null
+}
+
+const randomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min
+
+// Box-Muller normal distribution, clamped to [min, max]
+const randomBell = (min, max) => {
+    const mean = (min + max) / 2
+    const stdDev = (max - min) / 6 // ~99.7% of values fall within [min, max]
+    const u1 = Math.random() || Number.EPSILON
+    const u2 = Math.random()
+    const z = Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2)
+    return Math.round(Math.min(max, Math.max(min, mean + z * stdDev)))
+}
+
+const randomizeVitals = () => {
+    const selectedAncestries = formData.value.ancestryIds
+        .filter(id => id !== '')
+        .map(id => conceptsStore.ancestries.find(a => a.id === id))
+        .filter(Boolean)
+
+    if (selectedAncestries.length === 0) return
+
+    // Average ranges across ancestries
+    const count = selectedAncestries.length
+    const avgHeightMin = selectedAncestries.reduce((s, a) => s + (a.heightMin || 0), 0) / count
+    const avgHeightMax = selectedAncestries.reduce((s, a) => s + (a.heightMax || 0), 0) / count
+    const avgWeightMin = selectedAncestries.reduce((s, a) => s + (a.weightMin || 0), 0) / count
+    const avgWeightMax = selectedAncestries.reduce((s, a) => s + (a.weightMax || 0), 0) / count
+
+    // Height: work in total inches then split back into feet + inches
+    const minInches = Math.round(avgHeightMin * 12)
+    const maxInches = Math.round(avgHeightMax * 12)
+    const totalInches = randomInt(minInches, maxInches)
+    formData.value.heightFeet = Math.floor(totalInches / 12)
+    formData.value.heightInches = totalInches % 12
+
+    // Weight (bell curve so extreme values are rare)
+    formData.value.weight = randomBell(Math.round(avgWeightMin), Math.round(avgWeightMax))
+
+    // Age: between 18 and average lifespan (skip undying ancestries if mixed)
+    const lifespans = selectedAncestries.map(a => parseLifespan(a.lifespan)).filter(l => l !== null)
+    if (lifespans.length > 0) {
+        const avgLifespan = Math.round(lifespans.reduce((s, l) => s + l, 0) / lifespans.length)
+        formData.value.age = randomInt(18, avgLifespan)
+    }
+}
+
 // Delete functionality
 const initiateDelete = () => {
     showDeleteConfirmation.value = true
@@ -308,6 +374,25 @@ const confirmDeletion = async () => {
 .modal-input-placeholder {
     height: 1px;
     visibility: hidden;
+}
+
+.randomize-row {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: calc(-1 * var(--space-xs));
+}
+
+.randomize-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: var(--space-xs);
+}
+
+.randomize-note {
+    font-size: var(--font-size-11);
+    color: var(--color-text-muted);
+    font-style: italic;
 }
 
 /* Settings Section Styles */

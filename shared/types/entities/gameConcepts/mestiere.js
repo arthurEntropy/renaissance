@@ -21,6 +21,7 @@ import { createDefaultGameConcept, ConceptType } from './gameConcept.js'
  * @property {number} baseMP - Starting base Mestieri Points
  * @property {string} mpNotes - Notes about MP (rich text)
  * @property {string} abilities - Starting abilities description (rich text)
+ * @property {string} gratuiti - Starting gratuiti description (rich text)
  */
 
 /**

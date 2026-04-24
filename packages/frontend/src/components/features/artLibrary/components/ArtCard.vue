@@ -26,6 +26,7 @@ import { computed } from 'vue'
 import { UserCircleIcon, PhotoIcon, MapIcon, CheckIcon } from '@heroicons/vue/24/outline'
 import ChipTag from '@/components/ui/chips/ChipTag.vue'
 import { useOptimizedImage } from '@/composables/useOptimizedImage'
+import { MIDJOURNEY_IMAGE_CONTEXTS } from '@shared/constants/artConstants.js'
 
 const props = defineProps({
     art: {
@@ -40,7 +41,7 @@ const props = defineProps({
 
 const emit = defineEmits(['click'])
 
-const optimizedImageUrl = useOptimizedImage(() => props.art?.url, 'small')
+const optimizedImageUrl = useOptimizedImage(() => props.art?.url, MIDJOURNEY_IMAGE_CONTEXTS.SMALL)
 
 const typeIcon = computed(() => {
     const icons = {

@@ -13,12 +13,13 @@ import { useRouter } from 'vue-router'
 import { useCharactersStore } from '@/stores/charactersStore'
 import { useOptimizedImage } from '@/composables/useOptimizedImage'
 import { createSlug } from '@/utils/urlHelpers'
+import { MIDJOURNEY_IMAGE_CONTEXTS } from '@shared/constants/artConstants.js'
 
 const router = useRouter()
 const charactersStore = useCharactersStore()
 
 const beast = computed(() => charactersStore.summonedBeast)
-const optimizedBeastArt = useOptimizedImage(() => beast.value?.artUrls?.[0], 'thumbnail')
+const optimizedBeastArt = useOptimizedImage(() => beast.value?.artUrls?.[0], MIDJOURNEY_IMAGE_CONTEXTS.THUMBNAIL)
 
 const navigateToBeast = () => {
     router.push('/bestiary/' + createSlug(beast.value.name))

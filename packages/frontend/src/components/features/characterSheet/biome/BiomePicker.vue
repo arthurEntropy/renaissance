@@ -37,14 +37,16 @@
                 <!-- Custom option: deselects preset, keeps current tags (hidden when searching) -->
                 <button v-if="!searchQuery" type="button" class="dropdown-option"
                     :class="{ active: !biomeStore.selectedBiomeId }" @click="handleSelectCustom">
-                    <img :src="getOptimizedImageUrl(CUSTOM_BIOME_ART_URL, 'thumbnail')" class="option-art" alt="" />
+                    <img :src="getOptimizedImageUrl(CUSTOM_BIOME_ART_URL, MIDJOURNEY_IMAGE_CONTEXTS.THUMBNAIL)"
+                        class="option-art" alt="" />
                     <span class="option-name">Custom</span>
                 </button>
 
                 <button v-for="biome in filteredBiomes" :key="biome.id" type="button" class="dropdown-option"
                     :class="{ active: biomeStore.selectedBiomeId === biome.id }" @click="handleSelectBiome(biome)">
-                    <img v-if="biome.artUrl" :src="getOptimizedImageUrl(biome.artUrl, 'thumbnail')" class="option-art"
-                        alt="" />
+                    <img v-if="biome.artUrl"
+                        :src="getOptimizedImageUrl(biome.artUrl, MIDJOURNEY_IMAGE_CONTEXTS.THUMBNAIL)"
+                        class="option-art" alt="" />
                     <div v-else class="option-art option-art-placeholder" />
                     <span class="option-name">{{ biome.name }}</span>
                 </button>
@@ -62,6 +64,7 @@ import { useBiomeStore } from '@/stores/biomeStore'
 import { useBiomesStore } from '@/stores/biomesStore'
 import { useFloatingElement } from '@/composables/useFloatingElement'
 import { CUSTOM_BIOME_ART_URL } from '@shared/constants/biomeTags'
+import { MIDJOURNEY_IMAGE_CONTEXTS } from '@shared/constants/artConstants.js'
 import { useOptimizedImage } from '@/composables/useOptimizedImage'
 import { getOptimizedImageUrl } from '@/utils/imageOptimization'
 import { useImagePreloader } from '@/composables/useImagePreloader'
@@ -103,7 +106,7 @@ const currentBiome = computed(() =>
 
 const optimizedCurrentArtUrl = useOptimizedImage(
     () => currentBiome.value?.artUrl ?? CUSTOM_BIOME_ART_URL,
-    'small'
+    MIDJOURNEY_IMAGE_CONTEXTS.SMALL
 )
 
 const isEdited = computed(() => {
@@ -148,7 +151,7 @@ const navImageUrls = computed(() =>
     navOptions.value.map(b => b?.artUrl ?? CUSTOM_BIOME_ART_URL)
 )
 
-useImagePreloader(navImageUrls, currentNavIndex, 'small', getOptimizedImageUrl)
+useImagePreloader(navImageUrls, currentNavIndex, MIDJOURNEY_IMAGE_CONTEXTS.SMALL, getOptimizedImageUrl)
 
 const prevBiome = () => {
     const newIndex = (currentNavIndex.value - 1 + navOptions.value.length) % navOptions.value.length

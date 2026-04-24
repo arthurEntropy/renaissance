@@ -15,6 +15,7 @@
 
 <script setup>
 import { useOptimizedImage } from '@/composables/useOptimizedImage'
+import { MIDJOURNEY_IMAGE_CONTEXTS } from '@shared/constants/artConstants.js'
 
 const props = defineProps({
     url: {
@@ -30,7 +31,7 @@ const props = defineProps({
 defineEmits(['openFullSize'])
 
 // Use medium resolution for art preview in modal
-const optimizedUrl = useOptimizedImage(() => props.url, 'medium')
+const optimizedUrl = useOptimizedImage(() => props.url, MIDJOURNEY_IMAGE_CONTEXTS.MEDIUM)
 </script>
 
 <style scoped>

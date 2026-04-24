@@ -72,6 +72,8 @@ import UsernameSetup from '@/components/features/auth/UsernameSetup.vue'
 import NotInvitedModal from '@/components/features/auth/NotInvitedModal.vue'
 import PreferencesModal from '@/components/features/preferences/PreferencesModal.vue'
 import CardPreviewOverlay from '@/components/ui/cards/preview/CardPreviewOverlay.vue'
+import { useProgressiveOptimizedImage } from '@/composables/useOptimizedImage'
+import { PROGRESSIVE_IMAGE_CONTEXTS } from '@/constants/imageOptimization'
 
 const menuOpen = ref(false)
 const route = useRoute()
@@ -107,16 +109,28 @@ const selectedBackgroundImage = computed(() => {
   return selectedImage?.imageUrl || null
 })
 
+const {
+  activeUrl: activeBackgroundImageUrl
+} = useProgressiveOptimizedImage(() => selectedBackgroundImage.value, {
+  previewContext: PROGRESSIVE_IMAGE_CONTEXTS.APP_BACKGROUND.preview,
+  finalContext: PROGRESSIVE_IMAGE_CONTEXTS.APP_BACKGROUND.final
+})
+
 // Apply background dynamically
 const updateBackground = () => {
-  const bgUrl = selectedBackgroundImage.value
+  const bgUrl = activeBackgroundImageUrl.value
   if (bgUrl) {
     // TODO: Figure out how to obviate the need for all three settings here.
     // All three are needed: CSS variable for global.css, html for documentElement, body for body element
     document.documentElement.style.setProperty('--background-image-url', `url('${bgUrl}')`)
     document.documentElement.style.setProperty('background-image', `url('${bgUrl}')`, 'important')
     document.body.style.setProperty('background-image', `url('${bgUrl}')`, 'important')
+    return
   }
+
+  document.documentElement.style.removeProperty('--background-image-url')
+  document.documentElement.style.removeProperty('background-image')
+  document.body.style.removeProperty('background-image')
 }
 
 const toggleMenu = () => {
@@ -148,11 +162,9 @@ onMounted(async () => {
 
 // Watch for changes to selected background image
 watch(
-  selectedBackgroundImage,
-  (newBg) => {
-    if (newBg) {
-      updateBackground()
-    }
+  activeBackgroundImageUrl,
+  () => {
+    updateBackground()
   },
   { immediate: true }
 )

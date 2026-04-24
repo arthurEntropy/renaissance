@@ -17,7 +17,7 @@
             <template v-if="isGroupedByType">
                 <!-- Ungrouped equipment (no type) shown above groups -->
                 <MasonryGrid v-if="noTypeEquipment.length > 0" :column-width="350" :gap="20" :row-height="10"
-                    class="cards-container">
+                    justify-content="start" class="cards-container">
                     <EquipmentCard v-for="item in noTypeEquipment" :key="item.id" :equipment="item"
                         :editable="isEditMode" :sources="sources" :art-expanded="true" :engagement-success-options="[]"
                         :character="character" :show-improvement-toggle="!!character"
@@ -28,8 +28,8 @@
                 </MasonryGrid>
                 <!-- Type-grouped equipment -->
                 <GroupedMasonryGrid v-if="typeGroupedEquipment.length > 0" :column-width="350" :gap="20"
-                    :row-height="10" :grouped-items="typeGroupedEquipment" persistence-key="concept-equipment-groups"
-                    class="cards-container">
+                    :row-height="10" justify-content="start" :grouped-items="typeGroupedEquipment"
+                    persistence-key="concept-equipment-groups" class="cards-container">
                     <template #default="{ item }">
                         <EquipmentCard :equipment="item" :editable="isEditMode" :sources="sources" :art-expanded="true"
                             :engagement-success-options="[]" :character="character"
@@ -42,7 +42,8 @@
             </template>
 
             <!-- Ungrouped display -->
-            <MasonryGrid v-else :column-width="350" :gap="20" :row-height="10" class="cards-container">
+            <MasonryGrid v-else :column-width="350" :gap="20" :row-height="10" justify-content="start"
+                class="cards-container">
                 <EquipmentCard v-for="item in sortedEquipment" :key="item.id" :equipment="item" :editable="isEditMode"
                     :sources="sources" :art-expanded="true" :engagement-success-options="[]" :character="character"
                     :show-improvement-toggle="!!character" @edit="$emit('edit-equipment', item)" :collapsible="false"

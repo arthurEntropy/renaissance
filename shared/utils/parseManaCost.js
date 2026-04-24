@@ -22,6 +22,8 @@ export function parseManaCost(cost) {
         num += cost[++i]
       }
       result.push({ type: ManaColor.COLORLESS, value: num })
+    } else if (char === 'X') {
+      result.push({ type: ManaColor.COLORLESS, value: char })
     } else if (symbolMap[char]) {
       result.push({ type: symbolMap[char], value: char })
     }

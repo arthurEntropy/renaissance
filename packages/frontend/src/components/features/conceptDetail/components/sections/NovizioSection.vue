@@ -76,6 +76,13 @@
             class="novizio-text-editor novizio-text-editor--spaced" />
         </div>
 
+        <!-- Gratuiti -->
+        <div class="novizio-subsection">
+          <strong>GRATUITI</strong>
+          <text-editor v-model="localNovizio.gratuiti" placeholder="Gratuiti..." height="80px" :auto-height="true"
+            class="novizio-text-editor novizio-text-editor--spaced" />
+        </div>
+
         <!-- Cancel Button -->
         <div class="edit-field-buttons">
           <ActionButton variant="neutral" size="small" text="Cancel" @click="cancelEdit" />
@@ -151,6 +158,12 @@
           <strong>ABILITIES</strong>
           <div class="novizio-placeholder" v-html="safeAbilities"></div>
         </div>
+
+        <!-- Gratuiti -->
+        <div class="novizio-subsection" v-if="hasAnyNovizioData && novizio && novizio.gratuiti">
+          <strong>GRATUITI</strong>
+          <div class="novizio-placeholder" v-html="safeGratuiti"></div>
+        </div>
       </div>
     </ConceptSection>
   </div>
@@ -216,7 +229,8 @@ const getDefaultNovizio = () => ({
   engagementSuccessNotes: '',
   baseMP: 1,
   mpNotes: '',
-  abilities: ''
+  abilities: '',
+  gratuiti: ''
 })
 
 const localNovizio = ref(getDefaultNovizio())
@@ -252,7 +266,7 @@ const hasAnyNovizioData = computed(() => {
   const hasDice = STANDARD_DIE_SIZES.some(s => (n.engagementDice?.[String(s)] ?? 0) > 0)
   const hasEngagement = hasDice || n.engagementSuccesses?.length > 0 || n.engagementNotes?.toString().trim() || n.engagementSuccessNotes?.toString().trim()
   return hasMartial || hasEngagement
-    || [n.flavorText, n.abilities, n.mpNotes, n.martialNotes].some(val => val?.toString().trim())
+    || [n.flavorText, n.abilities, n.gratuiti, n.mpNotes, n.martialNotes].some(val => val?.toString().trim())
     || n.baseMP > 1
 })
 
@@ -262,6 +276,7 @@ const safeEngagementNotes = computed(() => sanitizeHtml(concept.value?.novizio?.
 const safeEngagementSuccessNotes = computed(() => sanitizeHtml(concept.value?.novizio?.engagementSuccessNotes))
 const safeMpNotes = computed(() => sanitizeHtml(concept.value?.novizio?.mpNotes))
 const safeAbilities = computed(() => sanitizeHtml(concept.value?.novizio?.abilities))
+const safeGratuiti = computed(() => sanitizeHtml(concept.value?.novizio?.gratuiti))
 
 const syncLocalNovizio = (sourceConcept) => {
   if (!sourceConcept) return
@@ -282,6 +297,7 @@ const syncLocalNovizio = (sourceConcept) => {
       baseMP: n.baseMP ?? 1,
       mpNotes: n.mpNotes || '',
       abilities: n.abilities || '',
+      gratuiti: n.gratuiti || '',
     }
   } else {
     localNovizio.value = getDefaultNovizio()

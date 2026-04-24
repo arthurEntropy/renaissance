@@ -17,13 +17,14 @@ import { useCharactersStore } from '@/stores/charactersStore'
 import { XMarkIcon } from '@heroicons/vue/24/outline'
 import { useOptimizedImage } from '@/composables/useOptimizedImage'
 import { createSlug } from '@/utils/urlHelpers'
+import { MIDJOURNEY_IMAGE_CONTEXTS } from '@shared/constants/artConstants.js'
 
 const router = useRouter()
 const route = useRoute()
 const charactersStore = useCharactersStore()
 
 const character = computed(() => charactersStore.activePlayerCharacter)
-const optimizedCharacterArt = useOptimizedImage(() => character.value?.artUrls?.[0], 'thumbnail')
+const optimizedCharacterArt = useOptimizedImage(() => character.value?.artUrls?.[0], MIDJOURNEY_IMAGE_CONTEXTS.THUMBNAIL)
 
 const shouldHideBadge = computed(() => {
     // Hide badge when on characters page with a character sheet open (route has :id param)

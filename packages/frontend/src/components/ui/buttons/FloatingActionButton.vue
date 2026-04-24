@@ -19,7 +19,7 @@ const props = defineProps({
     type: {
         type: String,
         required: true,
-        validator: (value) => ['edit', 'add', 'duplicate', 'delete', 'drag', 'settings', 'refresh', 'dice', 'initiative', 'injury', 'notes', 'auto-calc', 'expand-all', 'collapse-all'].includes(value)
+        validator: (value) => ['edit', 'add', 'duplicate', 'delete', 'drag', 'settings', 'refresh', 'dice', 'initiative', 'injury', 'notes', 'auto-calc', 'expand-all', 'collapse-all', 'martial-training'].includes(value)
     },
 
     size: {
@@ -134,7 +134,7 @@ const isAutoCalcText = computed(() => {
 })
 
 const isImageIcon = computed(() => {
-    return ['dice', 'initiative', 'injury'].includes(props.type)
+    return ['dice', 'initiative', 'injury', 'martial-training'].includes(props.type)
 })
 
 const imageIconStyle = computed(() => {
@@ -149,7 +149,7 @@ const imageIconStyle = computed(() => {
             maskPosition: 'center',
             WebkitMaskPosition: 'center'
         }
-    } else if (props.type === 'initiative') {
+    } else if (props.type === 'initiative' || props.type === 'martial-training') {
         return {
             maskImage: `url(${crossedSwordsIcon})`,
             WebkitMaskImage: `url(${crossedSwordsIcon})`,
@@ -222,6 +222,8 @@ const tooltip = computed(() => {
         return 'Custom Dice Roll'
     } else if (props.type === 'initiative') {
         return 'Roll Initiative'
+    } else if (props.type === 'martial-training') {
+        return 'View Martial Training'
     } else if (props.type === 'injury') {
         return 'Roll Injury'
     } else if (props.type === 'notes') {
@@ -334,6 +336,10 @@ const tooltip = computed(() => {
 
 .fab--auto-calc {
     /* Same styling as other FABs */
+}
+
+.fab--martial-training .fab__icon--image {
+    background-color: var(--color-white);
 }
 
 .auto-text {
