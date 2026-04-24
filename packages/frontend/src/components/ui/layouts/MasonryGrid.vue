@@ -13,6 +13,7 @@ const props = defineProps({
   columnWidth: { type: Number, default: 300 },
   gap: { type: Number, default: 10 },
   rowHeight: { type: Number, default: 10 },
+  justifyContent: { type: String, default: 'center' },
 })
 
 const masonryContainer = ref(null)
@@ -39,6 +40,7 @@ function updateLayoutImmediate() {
 
   const columnCount = calculateColumnCount()
   container.style.gridTemplateColumns = `repeat(${columnCount}, ${props.columnWidth}px)`
+  container.style.justifyContent = props.justifyContent
 
   // Update row spans for all children
   Array.from(container.children).forEach((child) => setSpanForElement(child))
@@ -62,7 +64,7 @@ function initMasonry() {
   container.style.display = 'grid'
   container.style.gridAutoRows = `${props.rowHeight}px`
   container.style.gap = `${props.gap}px`
-  container.style.justifyContent = 'start'
+  container.style.justifyContent = props.justifyContent
 
   nextTick(() => {
     updateLayoutImmediate()
