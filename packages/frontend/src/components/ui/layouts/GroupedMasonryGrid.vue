@@ -3,8 +3,7 @@
         <div class="grouped-display">
             <GroupSection v-for="(group, index) in groupedItems" :key="group.id || group.name"
                 :group="{ ...group, collapsed: groupCollapsedState[group.id || group.name] ?? group.collapsed ?? false }"
-                :column-width="columnWidth" :gap="gap" :row-height="rowHeight"
-                :justify-content="justifyContent"
+                :column-width="columnWidth" :gap="gap" :row-height="rowHeight" :justify-content="justifyContent"
                 :ref="el => { if (el) groupSectionRefs[index] = el }" @toggle-collapse="toggleGroupCollapse(index)">
                 <template #items="{ items }">
                     <div v-for="item in items" :key="item.id" class="masonry-item">

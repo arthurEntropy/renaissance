@@ -29,8 +29,7 @@
                 <!-- Type-grouped equipment -->
                 <GroupedMasonryGrid v-if="typeGroupedEquipment.length > 0" :column-width="350" :gap="20"
                     :row-height="10" justify-content="start" :grouped-items="typeGroupedEquipment"
-                    persistence-key="concept-equipment-groups"
-                    class="cards-container">
+                    persistence-key="concept-equipment-groups" class="cards-container">
                     <template #default="{ item }">
                         <EquipmentCard :equipment="item" :editable="isEditMode" :sources="sources" :art-expanded="true"
                             :engagement-success-options="[]" :character="character"
