@@ -66,6 +66,7 @@ import { HeartIcon } from '@heroicons/vue/24/solid'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import { VESSEL_TYPE_LABELS } from '@/constants/summonerConstants'
 import { useOptimizedImage } from '@/composables/useOptimizedImage'
+import { MIDJOURNEY_IMAGE_CONTEXTS } from '@shared/constants/artConstants.js'
 
 const props = defineProps({
     vessel: {
@@ -84,7 +85,7 @@ const props = defineProps({
 
 const emit = defineEmits(['add', 'edit', 'remove-beast', 'remove-vessel', 'toggle-state', 'open-sheet'])
 
-const beastArt = useOptimizedImage(() => props.beast?.artUrls?.[0], 'thumbnail')
+const beastArt = useOptimizedImage(() => props.beast?.artUrls?.[0], MIDJOURNEY_IMAGE_CONTEXTS.THUMBNAIL)
 
 const vesselTypeLabel = computed(() => VESSEL_TYPE_LABELS[props.vessel?.vesselType] ?? '')
 

@@ -3,7 +3,11 @@
 
     <!-- Full-viewport background image -->
     <Teleport to="body">
-      <div v-if="selectedConcept?.detailBackgroundImage" class="concept-detail-bg" :style="detailBackgroundStyle" />
+      <div v-if="selectedConcept?.detailBackgroundImage" class="concept-detail-bg">
+        <div class="concept-detail-bg-layer concept-detail-bg-preview" :style="detailBackgroundPreviewStyle" />
+        <div class="concept-detail-bg-layer concept-detail-bg-full" :class="{ 'is-loaded': isDetailBackgroundLoaded }"
+          :style="detailBackgroundFullStyle" />
+      </div>
     </Teleport>
 
     <!-- Admin Controls -->
@@ -146,6 +150,8 @@ import { useActionTypesStore } from '@/stores/actionTypesStore'
 import { useAbilitySchoolsStore } from '@/stores/abilitySchoolsStore'
 import { useArtStore } from '@/stores/artStore'
 import { useEngagementSuccessesStore } from '@/stores/engagementSuccessesStore'
+import { useProgressiveOptimizedImage } from '@/composables/useOptimizedImage'
+import { PROGRESSIVE_IMAGE_CONTEXTS } from '@/constants/imageOptimization'
 
 import { IMAGE_GALLERY_MODES, ART_TYPES } from '@shared/constants/artConstants.js'
 import { CONCEPT_LAYOUT_CONFIGS, DEFAULT_LAYOUT_CONFIG } from '@/config/conceptLayoutConfig'
@@ -208,8 +214,19 @@ const selectedConcept = computed(() => conceptsStore.selectedConcept)
 
 const DETAIL_OVERLAY = 'rgba(0, 0, 0, 0.5)'
 
-const detailBackgroundStyle = computed(() => {
-  const url = selectedConcept.value?.detailBackgroundImage
+const {
+  previewUrl: detailBackgroundPreviewUrl,
+  finalUrl: detailBackgroundFullUrl,
+  isFinalLoaded: isDetailBackgroundLoaded
+} = useProgressiveOptimizedImage(
+  () => selectedConcept.value?.detailBackgroundImage,
+  {
+    previewContext: PROGRESSIVE_IMAGE_CONTEXTS.CONCEPT_DETAIL_BACKGROUND.preview,
+    finalContext: PROGRESSIVE_IMAGE_CONTEXTS.CONCEPT_DETAIL_BACKGROUND.final
+  }
+)
+
+const buildDetailBackgroundStyle = (url) => {
   if (!url) return {}
   return {
     backgroundImage: `linear-gradient(${DETAIL_OVERLAY}, ${DETAIL_OVERLAY}), url(${url})`,
@@ -217,7 +234,10 @@ const detailBackgroundStyle = computed(() => {
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
   }
-})
+}
+
+const detailBackgroundPreviewStyle = computed(() => buildDetailBackgroundStyle(detailBackgroundPreviewUrl.value))
+const detailBackgroundFullStyle = computed(() => buildDetailBackgroundStyle(detailBackgroundFullUrl.value))
 
 // Per-type section visibility
 const layout = computed(() => {
@@ -349,6 +369,21 @@ onBeforeUnmount(() => {
   inset: 0;
   z-index: var(--z-overlay);
   pointer-events: none;
+  overflow: hidden;
+}
+
+.concept-detail-bg-layer {
+  position: absolute;
+  inset: 0;
+}
+
+.concept-detail-bg-full {
+  opacity: 0;
+  transition: opacity 220ms ease;
+}
+
+.concept-detail-bg-full.is-loaded {
+  opacity: 1;
 }
 
 /* Outer wrapper — full-width column of rows */

@@ -12,6 +12,7 @@
 <script setup>
 import { computed } from 'vue'
 import { useOptimizedImage } from '@/composables/useOptimizedImage'
+import { MIDJOURNEY_IMAGE_CONTEXTS } from '@shared/constants/artConstants.js'
 
 const props = defineProps({
   concept: { type: Object, required: true },
@@ -19,7 +20,7 @@ const props = defineProps({
 })
 
 // Optimize concept art URL
-const optimizedConceptArtUrl = useOptimizedImage(() => props.concept.artUrls?.[0], 'small')
+const optimizedConceptArtUrl = useOptimizedImage(() => props.concept.artUrls?.[0], MIDJOURNEY_IMAGE_CONTEXTS.SMALL)
 
 const expansionLogoUrl = computed(() => {
   const expansion = props.expansions.find(e => e.id === props.concept.expansion)

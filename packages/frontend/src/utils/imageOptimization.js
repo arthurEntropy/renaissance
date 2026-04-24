@@ -1,4 +1,8 @@
-import { MIDJOURNEY_RESOLUTIONS } from '@shared/constants/artConstants.js'
+import {
+  MIDJOURNEY_IMAGE_CONTEXTS,
+  MIDJOURNEY_IMAGE_FORMATS,
+  MIDJOURNEY_RESOLUTIONS
+} from '@shared/constants/artConstants.js'
 
 export function isMidjourneyUrl(url) {
   if (!url || typeof url !== 'string') {
@@ -7,7 +11,11 @@ export function isMidjourneyUrl(url) {
   return url.includes('cdn.midjourney.com/')
 }
 
-export function optimizeMidjourneyUrl(url, resolution = MIDJOURNEY_RESOLUTIONS.MEDIUM, format = 'webp') {
+export function optimizeMidjourneyUrl(
+  url,
+  resolution = MIDJOURNEY_RESOLUTIONS.MEDIUM,
+  format = MIDJOURNEY_IMAGE_FORMATS.WEBP
+) {
   if (!url || !isMidjourneyUrl(url)) {
     return url
   }
@@ -31,24 +39,43 @@ export function optimizeMidjourneyUrl(url, resolution = MIDJOURNEY_RESOLUTIONS.M
   return `https://cdn.midjourney.com/${uuid}/${gridIndex}_${resolution}_N.${format}`
 }
 
-export function getOptimizedImageUrl(url, context = 'medium') {
+const IMAGE_CONTEXT_MAP = {
+  [MIDJOURNEY_IMAGE_CONTEXTS.THUMBNAIL]: {
+    resolution: MIDJOURNEY_RESOLUTIONS.THUMBNAIL,
+    format: MIDJOURNEY_IMAGE_FORMATS.WEBP
+  },
+  [MIDJOURNEY_IMAGE_CONTEXTS.SMALL]: {
+    resolution: MIDJOURNEY_RESOLUTIONS.SMALL,
+    format: MIDJOURNEY_IMAGE_FORMATS.WEBP
+  },
+  [MIDJOURNEY_IMAGE_CONTEXTS.MEDIUM]: {
+    resolution: MIDJOURNEY_RESOLUTIONS.MEDIUM,
+    format: MIDJOURNEY_IMAGE_FORMATS.WEBP
+  },
+  [MIDJOURNEY_IMAGE_CONTEXTS.LARGE]: {
+    resolution: MIDJOURNEY_RESOLUTIONS.LARGE,
+    format: MIDJOURNEY_IMAGE_FORMATS.WEBP
+  },
+  [MIDJOURNEY_IMAGE_CONTEXTS.XLARGE]: {
+    resolution: MIDJOURNEY_RESOLUTIONS.XLARGE,
+    format: MIDJOURNEY_IMAGE_FORMATS.WEBP
+  }
+}
+
+export function getOptimizedImageUrl(url, context = MIDJOURNEY_IMAGE_CONTEXTS.MEDIUM) {
   if (!isMidjourneyUrl(url)) {
     return url
   }
 
-  const contextMap = {
-    'thumbnail': { resolution: MIDJOURNEY_RESOLUTIONS.THUMBNAIL, format: 'webp' },
-    'small': { resolution: MIDJOURNEY_RESOLUTIONS.SMALL, format: 'webp' },
-    'medium': { resolution: MIDJOURNEY_RESOLUTIONS.MEDIUM, format: 'webp' },
-    'large': { resolution: MIDJOURNEY_RESOLUTIONS.LARGE, format: 'webp' },
-    'xlarge': { resolution: MIDJOURNEY_RESOLUTIONS.XLARGE, format: 'webp' }
-  }
-
-  const config = contextMap[context] || contextMap.medium
+  const config = IMAGE_CONTEXT_MAP[context] || IMAGE_CONTEXT_MAP[MIDJOURNEY_IMAGE_CONTEXTS.MEDIUM]
   return optimizeMidjourneyUrl(url, config.resolution, config.format)
 }
 
-export function getOptimizedImageUrlWithResolution(url, resolution, format = 'webp') {
+export function getOptimizedImageUrlWithResolution(
+  url,
+  resolution,
+  format = MIDJOURNEY_IMAGE_FORMATS.WEBP
+) {
   if (!isMidjourneyUrl(url)) {
     return url
   }

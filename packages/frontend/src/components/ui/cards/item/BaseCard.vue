@@ -103,12 +103,14 @@ import { useAbilitySchoolsStore } from '@/stores/abilitySchoolsStore'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import CardDescription from '@/components/ui/cards/item/CardDescription.vue'
 import { ItemType } from '@shared/constants/itemTypes'
-import { useOptimizedImage } from '@/composables/useOptimizedImage'
+import { useOptimizedImage, useProgressiveOptimizedImage } from '@/composables/useOptimizedImage'
 import ManaCostDisplay from '@/components/ui/mana/ManaCostDisplay.vue'
 import BiomeTagDisplay from '@/components/ui/biome/BiomeTagDisplay.vue'
 import { getManaCostColors } from '@shared/utils/calculateManaCost'
 import { ManaColor } from '@shared/constants/manaColors.js'
 import { useChannelerSettingsStore } from '@/stores/channelerSettingsStore'
+import { PROGRESSIVE_IMAGE_CONTEXTS } from '@/constants/imageOptimization'
+import { MIDJOURNEY_IMAGE_CONTEXTS } from '@shared/constants/artConstants.js'
 
 // Props and emits
 const props = defineProps({
@@ -136,7 +138,7 @@ const channelerSettingsStore = useChannelerSettingsStore()
 channelerSettingsStore.fetch()
 
 // Composables
-const optimizedArtUrl = useOptimizedImage(() => props.item.artUrl, 'small')
+const optimizedArtUrl = useOptimizedImage(() => props.item.artUrl, MIDJOURNEY_IMAGE_CONTEXTS.SMALL)
 
 // Computed properties
 const sources = computed(() => sourcesStore.sources)
@@ -147,7 +149,7 @@ const sourceName = computed(() => {
   return sourcesStore.getSourceName(props.item.source)
 })
 
-const cardStyle = computed(() => {
+const rawCardBackgroundUrl = computed(() => {
   const source = sources.value ? sourcesStore.getSourceById(props.item.source) : null
 
   // Mana-color-based background for Channeler spells
@@ -160,18 +162,25 @@ const cardStyle = computed(() => {
     else key = ManaColor.MULTICOLOR
     const url = manaBackgroundImages[key]
     if (url) {
-      return {
-        backgroundImage: `url(${url})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-      }
+      return url
     }
   }
 
-  if (source && source.backgroundImage) {
+  return source?.backgroundImage || null
+})
+
+const {
+  activeUrl: activeCardBackgroundUrl
+} = useProgressiveOptimizedImage(() => rawCardBackgroundUrl.value, {
+  previewContext: PROGRESSIVE_IMAGE_CONTEXTS.BASE_CARD_BACKGROUND.preview,
+  finalContext: PROGRESSIVE_IMAGE_CONTEXTS.BASE_CARD_BACKGROUND.final
+})
+
+const cardStyle = computed(() => {
+  const backgroundUrl = activeCardBackgroundUrl.value
+  if (backgroundUrl) {
     return {
-      backgroundImage: `url(${source.backgroundImage})`,
+      backgroundImage: `url(${backgroundUrl})`,
       backgroundSize: 'cover',
       backgroundPosition: 'center',
       backgroundRepeat: 'no-repeat',
