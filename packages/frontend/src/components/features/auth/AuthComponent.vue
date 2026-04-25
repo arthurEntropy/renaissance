@@ -42,6 +42,10 @@
                     <router-link v-if="authStore.isAdmin" to="/admin" class="dropdown-item" @click.stop="closeDropdown">
                         Admin Panel
                     </router-link>
+                    <router-link v-if="authStore.isAdmin" to="/design-lab" class="dropdown-item"
+                        @click.stop="closeDropdown">
+                        Design Lab
+                    </router-link>
                     <button @click.stop="handleSignOut" class="dropdown-item">
                         Sign Out
                     </button>
