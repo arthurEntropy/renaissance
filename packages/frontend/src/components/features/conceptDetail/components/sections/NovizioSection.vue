@@ -184,11 +184,11 @@ import { useEngagementSuccessesStore } from '@/stores/engagementSuccessesStore'
 import { STANDARD_DIE_SIZES } from '@shared/constants/dice'
 import ChipTag from '@/components/ui/chips/ChipTag.vue'
 
-import meleeIcon from '@/assets/icons/melee.png'
-import polearmIcon from '@/assets/icons/polearms.png'
-import rangedIcon from '@/assets/icons/ranged.png'
-import firearmIcon from '@/assets/icons/firearms.png'
-import armorIcon from '@/assets/icons/armor.png'
+import meleeIcon from '@/assets/icons/martial/melee.png'
+import polearmIcon from '@/assets/icons/martial/polearms.png'
+import rangedIcon from '@/assets/icons/martial/ranged.png'
+import firearmIcon from '@/assets/icons/martial/firearms.png'
+import armorIcon from '@/assets/icons/martial/armor.png'
 
 const props = defineProps({
   editable: {

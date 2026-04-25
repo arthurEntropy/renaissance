@@ -360,7 +360,7 @@ onBeforeUnmount(() => {
   position: relative;
   z-index: var(--z-raised);
   width: var(--concept-modal-width);
-  max-width: 90%;
+  max-width: 91%;
   margin: 0 auto;
 }
 
