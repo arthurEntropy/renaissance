@@ -13,22 +13,22 @@ import { computed } from 'vue'
 import { BiomeTag, BiomeTagEffect, BiomeTagGroup, BIOME_TAG_LABELS, BIOME_TAG_GROUP_MAP } from '@shared/constants/biomeTags'
 
 // PNG imports — Terrain
-import forestPng from '@/assets/biome/forest.png'
-import plainsPng from '@/assets/biome/plains.png'
-import mountainPng from '@/assets/biome/mountain.png'
-import desertPng from '@/assets/biome/desert.png'
-import wetlandPng from '@/assets/biome/wetland.png'
-import waterPng from '@/assets/biome/water.png'
-import undergroundPng from '@/assets/biome/underground.png'
+import forestPng from '@/assets/icons/biome/forest.png'
+import plainsPng from '@/assets/icons/biome/plains.png'
+import mountainPng from '@/assets/icons/biome/mountain.png'
+import desertPng from '@/assets/icons/biome/desert.png'
+import wetlandPng from '@/assets/icons/biome/wetland.png'
+import waterPng from '@/assets/icons/biome/water.png'
+import undergroundPng from '@/assets/icons/biome/underground.png'
 // PNG imports — Climate
-import coldPng from '@/assets/biome/cold.png'
-import temperatePng from '@/assets/biome/temperate.png'
-import hotPng from '@/assets/biome/hot.png'
+import coldPng from '@/assets/icons/biome/cold.png'
+import temperatePng from '@/assets/icons/biome/temperate.png'
+import hotPng from '@/assets/icons/biome/hot.png'
 // PNG imports — Influence
-import civilizedPng from '@/assets/biome/civilized.png'
-import ruinedPng from '@/assets/biome/ruined.png'
-import corruptedPng from '@/assets/biome/corrupted.png'
-import enchantedPng from '@/assets/biome/enchanted.png'
+import civilizedPng from '@/assets/icons/biome/civilized.png'
+import ruinedPng from '@/assets/icons/biome/ruined.png'
+import corruptedPng from '@/assets/icons/biome/corrupted.png'
+import enchantedPng from '@/assets/icons/biome/enchanted.png'
 
 const TAG_PNGS = {
     [BiomeTag.FOREST]: forestPng,
