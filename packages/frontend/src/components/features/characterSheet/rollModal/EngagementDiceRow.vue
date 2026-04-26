@@ -209,7 +209,7 @@ const onSuccessDrop = (event) => {
     border: 2px dashed var(--color-accent-gold);
     border-radius: var(--radius-10);
     background-color: transparent;
-    transition: var(--transition-all);
+    transition: var(--transition-normal);
 }
 
 .success-drop-zone.disabled {
@@ -338,7 +338,7 @@ const onSuccessDrop = (event) => {
 }
 
 .result-die {
-    transition: var(--transition-all);
+    transition: var(--transition-normal);
 }
 
 .result-die:hover {

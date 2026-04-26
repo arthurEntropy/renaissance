@@ -325,7 +325,7 @@ watch(localSelectedSkillName, () => {
 .dice-symbol {
   font-size: var(--font-size-32);
   color: var(--color-text-primary);
-  transition: var(--transition-all);
+  transition: var(--transition-normal);
 }
 
 .dice-symbol.favored-die i,

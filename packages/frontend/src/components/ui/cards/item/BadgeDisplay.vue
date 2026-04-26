@@ -13,7 +13,7 @@
 
 <script setup>
 import { computed, ref } from 'vue'
-import keepingIcon from '@/assets/icons/keeping.png'
+import keepingIcon from '@/assets/icons/keeping/keeping.png'
 
 const props = defineProps({
     type: {
@@ -172,7 +172,7 @@ const badgeClass = computed(() => {
 
 .badge-interactive {
     cursor: pointer;
-    transition: var(--transition-all);
+    transition: var(--transition-normal);
     pointer-events: auto;
 }
 

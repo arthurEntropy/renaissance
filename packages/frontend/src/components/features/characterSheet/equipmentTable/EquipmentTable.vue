@@ -3,8 +3,8 @@
     <TableHeader title="Equipment" :is-edit-mode="internalEditMode" :show-edit-button="canEdit" collapsible
       :is-collapsed="isCollapsed" @toggle-collapse="isCollapsed = !isCollapsed" @toggle-edit="toggleEditMode">
       <template #header-left>
-        <FloatingActionButton v-if="internalEditMode" type="add" size="small" visibility="always"
-          @click="showEquipmentSelector = true" />
+        <FloatingActionButton v-if="internalEditMode" :type="FAB_TYPES.ADD" :size="FAB_SIZES.SMALL"
+          :visibility="FAB_VISIBILITIES.ALWAYS" @click="showEquipmentSelector = true" />
         <ActionButton v-if="internalEditMode && groupingOption === 'custom'" variant="outline" size="small"
           text="+ Group" @click="createEquipmentGroup" />
       </template>
@@ -16,12 +16,13 @@
             placeholder="Custom" />
         </div>
         <FloatingActionButton v-else-if="!isCollapsed && characterEquipment.length > 0" class="expand-collapse-btn"
-          :type="allEquipmentExpanded ? 'collapse-all' : 'expand-all'" size="small" visibility="on-hover"
-          @click="toggleAllEquipment" />
+          :type="allEquipmentExpanded ? FAB_TYPES.COLLAPSE_ALL : FAB_TYPES.EXPAND_ALL" :size="FAB_SIZES.SMALL"
+          :visibility="FAB_VISIBILITIES.ON_HOVER" @click="toggleAllEquipment" />
       </template>
       <template #header-right>
         <div class="header-right-controls">
-          <FloatingActionButton type="martial-training" size="small" visibility="always" @click="openMartialTraining" />
+          <FloatingActionButton :type="FAB_TYPES.MARTIAL_TRAINING" :size="FAB_SIZES.LARGE"
+            :visibility="FAB_VISIBILITIES.ALWAYS" @click="openMartialTraining" />
           <EquipmentWeight :equipment-items="characterEquipment" />
         </div>
       </template>
@@ -114,6 +115,7 @@ import EquipmentWeight from './EquipmentWeight.vue'
 import EquipmentDetails from './EquipmentDetails.vue'
 import TableHeader from '@/components/ui/tables/TableHeader.vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
+import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 import ItemSelector from '@/components/ui/selectors/ItemSelector.vue'
 import CharacterSheetSection from '@/components/ui/containers/CharacterSheetSection.vue'
 import EditEquipmentModal from '@/components/editModals/EditEquipmentModal.vue'

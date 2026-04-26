@@ -1,242 +1,67 @@
 <template>
-    <button type="button" :disabled="disabled" :class="buttonClasses" :title="tooltip" @click="handleClick"
-        @mousedown="handleMouseDown" @mouseup="handleMouseUp" @mouseleave="handleMouseUp" @touchstart="handleTouchStart"
-        @touchend="handleTouchEnd" @touchcancel="handleTouchEnd">
-        <span v-if="isAutoCalcText" class="auto-text">AUTO</span>
-        <span v-else-if="isImageIcon" :class="[iconClass, 'fab__icon--image']" :style="imageIconStyle"></span>
-        <component v-else :is="iconComponent" :class="iconClass" />
+    <button type="button" :class="['fab', `fab--${props.type}`, `fab--${props.size}`, `fab--${props.visibility}`]"
+        :title="typeConfig.tooltip">
+        <!-- Special case for character sheet auto-calc: text instead of icon -->
+        <span v-if="props.type === FAB_TYPES.AUTO_CALC_ON" class="auto-text">AUTO</span>
+        <component v-else :is="typeConfig.icon"
+            :class="props.size === FAB_SIZES.SMALL ? 'fab__icon--small' : 'fab__icon--large'" />
     </button>
 </template>
 
 <script setup>
-import { computed, ref } from 'vue'
+import { computed } from 'vue'
+// Heroicons
 import { PlusIcon, DocumentDuplicateIcon, PencilIcon, CheckIcon, XMarkIcon, Bars3Icon, Cog6ToothIcon, ArrowPathIcon, BookOpenIcon, CalculatorIcon, ChevronDoubleDownIcon, ChevronDoubleUpIcon } from '@heroicons/vue/24/outline'
-import crossedSwordsIcon from '@/assets/icons/crossed_swords.png'
-import dieIcon from '@/assets/icons/die.png'
-import injuryIcon from '@/assets/icons/injury.png'
+// Custom icons
+import CrossedSwordsIcon from '@/assets/icons/characterSheet/crossed_swords.svg?component'
+import DieIcon from '@/assets/icons/characterSheet/die.svg?component'
+import InjuryIcon from '@/assets/icons/characterSheet/injury.svg?component'
+import MartialTrainingIcon from '@/assets/icons/characterSheet/martial_training.svg?component'
+// Constants
+import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 
 const props = defineProps({
     type: {
         type: String,
         required: true,
-        validator: (value) => ['edit', 'add', 'duplicate', 'delete', 'drag', 'settings', 'refresh', 'dice', 'initiative', 'injury', 'notes', 'auto-calc', 'expand-all', 'collapse-all', 'martial-training'].includes(value)
+        validator: (value) => Object.values(FAB_TYPES).includes(value)
     },
 
     size: {
         type: String,
-        default: 'small',
-        validator: (value) => ['small', 'large'].includes(value)
+        default: FAB_SIZES.SMALL,
+        validator: (value) => Object.values(FAB_SIZES).includes(value)
     },
 
     visibility: {
         type: String,
-        default: 'on-hover',
-        validator: (value) => ['always', 'on-hover'].includes(value)
-    },
-
-    // Only used for edit type - indicates active/editing state
-    // For auto-calc type - indicates auto mode (true) vs manual mode (false)
-    isActive: {
-        type: Boolean,
-        default: false
-    },
-
-    // Overrides visibility='on-hover' to always show the button, controlled by the parent.
-    forceVisible: {
-        type: Boolean,
-        default: false
-    },
-
-    disabled: {
-        type: Boolean,
-        default: false
+        default: FAB_VISIBILITIES.ON_HOVER,
+        validator: (value) => Object.values(FAB_VISIBILITIES).includes(value)
     }
 })
 
-const emit = defineEmits(['click', 'long-press'])
-
-// Long-press detection
-const LONG_PRESS_DURATION = 500
-let longPressTimer = null
-const isLongPress = ref(false)
-
-const handleClick = (e) => {
-    if (!isLongPress.value) {
-        emit('click', e)
-    }
+const FAB_TYPE_CONFIG = {
+    [FAB_TYPES.EDIT]: { icon: PencilIcon, tooltip: 'Enter Edit Mode' },
+    [FAB_TYPES.CONFIRM]: { icon: CheckIcon, tooltip: 'Save Changes' },
+    [FAB_TYPES.ADD]: { icon: PlusIcon, tooltip: 'Add' },
+    [FAB_TYPES.DUPLICATE]: { icon: DocumentDuplicateIcon, tooltip: 'Duplicate' },
+    [FAB_TYPES.DELETE]: { icon: XMarkIcon, tooltip: 'Delete' },
+    [FAB_TYPES.DRAG]: { icon: Bars3Icon, tooltip: 'Drag to reorder' },
+    [FAB_TYPES.SETTINGS]: { icon: Cog6ToothIcon, tooltip: 'Settings' },
+    [FAB_TYPES.REFRESH]: { icon: ArrowPathIcon, tooltip: 'Reset to Base Value' },
+    [FAB_TYPES.DICE]: { icon: DieIcon, tooltip: 'Custom Dice Roll' },
+    [FAB_TYPES.INITIATIVE]: { icon: CrossedSwordsIcon, tooltip: 'Roll Initiative' },
+    [FAB_TYPES.INJURY]: { icon: InjuryIcon, tooltip: 'Roll Injury' },
+    [FAB_TYPES.NOTES]: { icon: BookOpenIcon, tooltip: 'Bio & Notes' },
+    [FAB_TYPES.AUTO_CALC]: { icon: CalculatorIcon, tooltip: 'Manual mode (click to switch to auto)' },
+    [FAB_TYPES.AUTO_CALC_ON]: { icon: CalculatorIcon, tooltip: 'Auto mode (click to switch to manual)' },
+    [FAB_TYPES.EXPAND_ALL]: { icon: ChevronDoubleDownIcon, tooltip: 'Expand all' },
+    [FAB_TYPES.COLLAPSE_ALL]: { icon: ChevronDoubleUpIcon, tooltip: 'Collapse all' },
+    [FAB_TYPES.MARTIAL_TRAINING]: { icon: MartialTrainingIcon, tooltip: 'View Martial Training' },
 }
 
-const startLongPress = () => {
-    isLongPress.value = false
-    longPressTimer = setTimeout(() => {
-        isLongPress.value = true
-        emit('long-press')
-    }, LONG_PRESS_DURATION)
-}
-
-const cancelLongPress = () => {
-    if (longPressTimer) {
-        clearTimeout(longPressTimer)
-        longPressTimer = null
-    }
-}
-
-const handleMouseDown = () => {
-    if (props.type === 'auto-calc') {
-        startLongPress()
-    }
-}
-
-const handleMouseUp = () => {
-    if (props.type === 'auto-calc') {
-        cancelLongPress()
-        setTimeout(() => {
-            isLongPress.value = false
-        }, 50)
-    }
-}
-
-const handleTouchStart = (e) => {
-    if (props.type === 'auto-calc') {
-        e.preventDefault()
-        startLongPress()
-    }
-}
-
-const handleTouchEnd = (e) => {
-    if (props.type === 'auto-calc') {
-        e.preventDefault()
-        cancelLongPress()
-        if (!isLongPress.value) {
-            emit('click', e)
-        }
-        setTimeout(() => {
-            isLongPress.value = false
-        }, 50)
-    }
-}
-
-const buttonClasses = computed(() => {
-    return [
-        'fab',
-        `fab--${props.type}`,
-        `fab--${props.size}`,
-        `fab--${props.forceVisible ? 'always' : props.visibility}`,
-        {
-            'fab--active': props.isActive && props.type === 'edit',
-            'fab--disabled': props.disabled
-        }
-    ].filter(Boolean)
-})
-
-const isAutoCalcText = computed(() => {
-    return props.type === 'auto-calc' && props.isActive
-})
-
-const isImageIcon = computed(() => {
-    return ['dice', 'initiative', 'injury', 'martial-training'].includes(props.type)
-})
-
-const imageIconStyle = computed(() => {
-    if (props.type === 'dice') {
-        return {
-            maskImage: `url(${dieIcon})`,
-            WebkitMaskImage: `url(${dieIcon})`,
-            maskSize: 'contain',
-            WebkitMaskSize: 'contain',
-            maskRepeat: 'no-repeat',
-            WebkitMaskRepeat: 'no-repeat',
-            maskPosition: 'center',
-            WebkitMaskPosition: 'center'
-        }
-    } else if (props.type === 'initiative' || props.type === 'martial-training') {
-        return {
-            maskImage: `url(${crossedSwordsIcon})`,
-            WebkitMaskImage: `url(${crossedSwordsIcon})`,
-            maskSize: 'contain',
-            WebkitMaskSize: 'contain',
-            maskRepeat: 'no-repeat',
-            WebkitMaskRepeat: 'no-repeat',
-            maskPosition: 'center',
-            WebkitMaskPosition: 'center'
-        }
-    } else if (props.type === 'injury') {
-        return {
-            maskImage: `url(${injuryIcon})`,
-            WebkitMaskImage: `url(${injuryIcon})`,
-            maskSize: 'contain',
-            WebkitMaskSize: 'contain',
-            maskRepeat: 'no-repeat',
-            WebkitMaskRepeat: 'no-repeat',
-            maskPosition: 'center',
-            WebkitMaskPosition: 'center'
-        }
-    }
-    return {}
-})
-
-const iconComponent = computed(() => {
-    if (props.type === 'edit') {
-        return props.isActive ? CheckIcon : PencilIcon
-    } else if (props.type === 'add') {
-        return PlusIcon
-    } else if (props.type === 'duplicate') {
-        return DocumentDuplicateIcon
-    } else if (props.type === 'delete') {
-        return XMarkIcon
-    } else if (props.type === 'settings') {
-        return Cog6ToothIcon
-    } else if (props.type === 'refresh') {
-        return ArrowPathIcon
-    } else if (props.type === 'notes') {
-        return BookOpenIcon
-    } else if (props.type === 'auto-calc') {
-        return CalculatorIcon
-    } else if (props.type === 'expand-all') {
-        return ChevronDoubleDownIcon
-    } else if (props.type === 'collapse-all') {
-        return ChevronDoubleUpIcon
-    } else {
-        return Bars3Icon
-    }
-})
-
-const iconClass = computed(() => {
-    return props.size === 'small' ? 'fab__icon--small' : 'fab__icon--large'
-})
-
-const tooltip = computed(() => {
-    if (props.type === 'edit') {
-        return props.isActive ? 'Exit Edit Mode' : 'Enter Edit Mode'
-    } else if (props.type === 'add') {
-        return 'Add'
-    } else if (props.type === 'settings') {
-        return 'Settings'
-    } else if (props.type === 'duplicate') {
-        return 'Duplicate'
-    } else if (props.type === 'delete') {
-        return 'Delete'
-    } else if (props.type === 'refresh') {
-        return 'Reset to maximum'
-    } else if (props.type === 'dice') {
-        return 'Custom Dice Roll'
-    } else if (props.type === 'initiative') {
-        return 'Roll Initiative'
-    } else if (props.type === 'martial-training') {
-        return 'View Martial Training'
-    } else if (props.type === 'injury') {
-        return 'Roll Injury'
-    } else if (props.type === 'notes') {
-        return 'Bio & Notes'
-    } else if (props.type === 'auto-calc') {
-        return props.isActive ? 'Auto mode (long-press to toggle)' : 'Manual mode (click to calculate, long-press to toggle)'
-    } else if (props.type === 'expand-all') {
-        return 'Expand all'
-    } else if (props.type === 'collapse-all') {
-        return 'Collapse all'
-    } else {
-        return 'Drag to reorder'
-    }
+const typeConfig = computed(() => {
+    return FAB_TYPE_CONFIG[props.type]
 })
 </script>
 
@@ -245,18 +70,18 @@ const tooltip = computed(() => {
 
 /* === BASE FAB STYLES === */
 .fab {
+    --fab-size: var(--btn-min-height-sm);
     /* Layout */
     display: inline-flex;
     align-items: center;
     justify-content: center;
     padding: 0;
+    width: var(--fab-size);
+    height: var(--fab-size);
 
     /* Typography */
     font-family: var(--font-family-primary);
-    font-weight: var(--font-weight-semibold);
-    text-decoration: none;
     white-space: nowrap;
-    line-height: var(--line-height-none);
 
     /* Appearance */
     background: var(--overlay-black-medium);
@@ -267,79 +92,69 @@ const tooltip = computed(() => {
     user-select: none;
 
     /* Transitions */
-    transition: var(--transition-all);
+    transition: var(--transition-normal);
 }
 
-.fab:hover:not(.fab--disabled) {
+.fab:hover {
     background: var(--overlay-black-heavy);
     border-color: var(--overlay-black-heavy);
-    color: var(--color-white);
 }
 
 /* === SIZE VARIANTS === */
 .fab--small {
-    min-width: var(--btn-min-height-sm);
-    min-height: var(--btn-min-height-sm);
-    width: var(--btn-min-height-sm);
-    height: var(--btn-min-height-sm);
+    --fab-size: var(--btn-min-height-sm);
 }
 
 .fab--large {
-    min-width: var(--btn-min-height-md);
-    min-height: var(--btn-min-height-md);
-    width: var(--btn-min-height-md);
-    height: var(--btn-min-height-md);
+    --fab-size: var(--btn-min-height-lg);
 }
 
 /* === ICON SIZES === */
+.fab__icon--small,
+.fab__icon--large {
+    width: var(--fab-icon-size);
+    height: var(--fab-icon-size);
+    font-size: var(--fab-icon-font-size);
+}
+
 .fab__icon--small {
-    width: 14px;
-    height: 14px;
-    font-size: 11px;
-    line-height: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--color-text-primary);
+    --fab-icon-size: 14px;
+    --fab-icon-font-size: 11px;
 }
 
 .fab__icon--large {
-    width: 18px;
-    height: 18px;
-    font-size: 14px;
-    line-height: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--color-text-primary);
-}
-
-/* === IMAGE ICON STYLES === */
-.fab__icon--image {
-    background-color: var(--color-primary);
+    --fab-icon-size: 22px;
+    --fab-icon-font-size: 14px;
 }
 
 /* === TYPE VARIANTS === */
-.fab--add {
+.fab--add,
+.fab--dice,
+.fab--initiative,
+.fab--injury {
     background: var(--color-primary);
     border-color: var(--color-primary);
 }
 
-.fab--add:hover:not(.fab--disabled) {
+.fab--add:hover,
+.fab--dice:hover,
+.fab--initiative:hover,
+.fab--injury:hover {
     background: var(--color-primary-hover);
     border-color: var(--color-primary-hover);
 }
 
+.fab--dice .fab__icon--small,
+.fab--dice .fab__icon--large,
+.fab--initiative .fab__icon--small,
+.fab--initiative .fab__icon--large,
+.fab--injury .fab__icon--small,
+.fab--injury .fab__icon--large {
+    color: var(--color-black);
+}
+
 .fab--drag {
-    cursor: move;
-}
-
-.fab--auto-calc {
-    /* Same styling as other FABs */
-}
-
-.fab--martial-training .fab__icon--image {
-    background-color: var(--color-white);
+    cursor: grab;
 }
 
 .auto-text {
@@ -347,57 +162,45 @@ const tooltip = computed(() => {
     font-weight: var(--font-weight-bold);
     color: var(--color-primary);
     letter-spacing: 0.3px;
-    line-height: 1;
 }
 
-.fab--auto-calc:not(.fab--active) .fab__icon--small {
+.fab--auto-calc .fab__icon--small,
+.fab--auto-calc .fab__icon--large,
+.fab--auto-calc-on .fab__icon--small,
+.fab--auto-calc-on .fab__icon--large {
     color: var(--color-primary);
+}
+
+
+
+.fab--confirm {
+    background: var(--color-success);
+    border-color: var(--color-success);
+}
+
+.fab--confirm:hover {
+    background: var(--color-success-hover);
+    border-color: var(--color-success-hover);
 }
 
 /* === VISIBILITY VARIANTS === */
 .fab--on-hover {
     opacity: 0;
     pointer-events: none;
-    transition: opacity var(--transition-normal), transform var(--transition-normal);
-}
-
-/* When edit button is active (checkmark), always show it */
-.fab--on-hover.fab--active {
-    opacity: 1;
-    pointer-events: auto;
+    transition: opacity var(--transition-normal);
 }
 
 .fab--always {
     opacity: 0.7;
 }
 
-.fab--always:hover:not(.fab--disabled) {
+.fab--always:hover {
     opacity: 1;
-}
-
-/* === ACTIVE STATE (Edit type) === */
-.fab--active {
-    background: var(--color-success);
-    border-color: var(--color-success);
-    color: var(--color-white);
-}
-
-.fab--active:hover:not(.fab--disabled) {
-    background: var(--color-success-hover);
-    border-color: var(--color-success-hover);
-    color: var(--color-white);
-}
-
-/* === DISABLED STATE === */
-.fab--disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
-    pointer-events: none;
 }
 
 /* === FOCUS STYLES === */
 .fab:focus {
-    outline: 2px solid var(--color-primary);
+    outline: 2px solid var(--color-white);
     outline-offset: 2px;
 }
 
@@ -407,47 +210,8 @@ const tooltip = computed(() => {
 
 /* === HOVER TRIGGER CLASSES === */
 /* Parent containers can use these classes to trigger hover visibility */
-.edit-trigger:hover .fab--on-hover,
-.edit-trigger.hover .fab--on-hover {
+:global(:is(.edit-trigger:hover, .edit-hover-area:hover) .fab--on-hover) {
     opacity: 1;
     pointer-events: auto;
-}
-
-.edit-hover-area:hover .fab--on-hover,
-.edit-hover-area.hover .fab--on-hover {
-    opacity: 1;
-    pointer-events: auto;
-}
-
-/* === RESPONSIVE ADJUSTMENTS === */
-@media (max-width: var(--breakpoint-md)) {
-
-    /* Make on-hover buttons always visible on touch devices */
-    .fab--on-hover {
-        opacity: 0.6;
-        pointer-events: auto;
-    }
-
-    /* Slightly larger touch targets */
-    .fab--small {
-        min-width: 32px;
-        min-height: 32px;
-        width: 32px;
-        height: 32px;
-    }
-
-    .fab--large {
-        min-width: 36px;
-        min-height: 36px;
-        width: 36px;
-        height: 36px;
-    }
-}
-
-/* === REDUCED MOTION === */
-@media (prefers-reduced-motion: reduce) {
-    .fab {
-        transition: none;
-    }
 }
 </style>

@@ -16,8 +16,8 @@
         @click="openFullSizeModal" />
 
       <!-- Edit button - only in manual mode -->
-      <FloatingActionButton v-if="editable && isManualOrCombined" type="edit" size="small" visibility="on-hover"
-        class="edit-button-overlay" @click.stop="openEditModal" />
+      <FloatingActionButton v-if="editable && isManualOrCombined" :type="FAB_TYPES.EDIT" :size="FAB_SIZES.SMALL"
+        :visibility="FAB_VISIBILITIES.ON_HOVER" class="edit-button-overlay" @click.stop="openEditModal" />
 
       <!-- Navigation button - next image -->
       <button v-if="showNav && displayImages.length > 1" class="nav-button right" @click.stop="nextImage"
@@ -42,7 +42,8 @@
                 item-key="index" animation="150" ghost-class="ghost-thumb" @end="onDragEnd">
                 <template #item="{ index }">
                   <div class="thumb-wrapper">
-                    <FloatingActionButton type="drag" size="small" visibility="on-hover" class="thumb-drag-handle" />
+                    <FloatingActionButton :type="FAB_TYPES.DRAG" :size="FAB_SIZES.SMALL"
+                      :visibility="FAB_VISIBILITIES.ON_HOVER" class="thumb-drag-handle" />
                     <img :src="optimizedThumbnails[globalIndex(index)]" :alt="`Thumbnail ${globalIndex(index) + 1}`"
                       class="thumb-image" @click="selectImage(globalIndex(index))" />
                     <div v-if="selectedIndex === globalIndex(index)" class="thumb-selected-overlay"></div>
@@ -130,6 +131,7 @@ import { ref, watch, computed, nextTick } from 'vue'
 import draggable from 'vuedraggable'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
+import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 import FullSizeImageModal from '@/components/ui/modals/FullSizeImageModal.vue'
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/vue/24/outline'
 import { useArtStore } from '@/stores/artStore'
@@ -622,7 +624,7 @@ watch(totalThumbnailPages, (total) => {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: var(--transition-all);
+  transition: var(--transition-normal);
 }
 
 .add-image-thumb:hover .add-image-placeholder {

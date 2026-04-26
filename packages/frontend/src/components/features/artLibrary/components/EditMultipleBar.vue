@@ -55,7 +55,7 @@ defineEmits(['edit', 'clear'])
     border-radius: var(--radius-5);
     color: var(--color-text-secondary);
     cursor: pointer;
-    transition: var(--transition-all);
+    transition: var(--transition-normal);
 }
 
 .close-button:hover {

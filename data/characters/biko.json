@@ -354,8 +354,8 @@
     "https://cdn.midjourney.com/bb7f8092-0710-4aaf-9f26-e376a0cec04e/0_0.png"
   ],
   "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2026-04-23T01:30:13.962Z",
-  "lastModified": "2026-04-23T01:30:13.962Z",
+  "updatedAt": "2026-04-25T23:31:35.179Z",
+  "lastModified": "2026-04-25T23:31:35.179Z",
   "mestiereId": "4eccfe5d-de19-4bc5-8c9c-374d793d67f0",
   "groupEquipmentBySource": false,
   "equipmentSortOption": "",
@@ -367,16 +367,16 @@
   },
   "rollStats": {
     "skillChecks": {
-      "attempts": 22,
-      "successes": 19,
-      "totalSum": 334,
+      "attempts": 23,
+      "successes": 20,
+      "totalSum": 352,
       "bestTotal": 27,
       "hardestSuccess": 15,
       "bySkill": {
         "Strength": 18,
         "Awareness": 1,
         "Spirit": 1,
-        "Dexterity": 2
+        "Dexterity": 3
       },
       "solCount": 2,
       "morteCount": 2,

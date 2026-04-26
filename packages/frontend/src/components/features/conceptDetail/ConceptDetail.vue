@@ -12,10 +12,10 @@
 
     <!-- Admin Controls -->
     <div class="admin-controls">
-      <FloatingActionButton v-if="isEditMode" type="settings" size="large" visibility="always"
-        @click="openSettingsModal" />
-      <FloatingActionButton v-if="editable" type="edit" size="large" visibility="always" :is-active="isEditMode"
-        @click="() => toggleEditMode()" />
+      <FloatingActionButton v-if="isEditMode" :type="FAB_TYPES.SETTINGS" :size="FAB_SIZES.LARGE"
+        :visibility="FAB_VISIBILITIES.ALWAYS" @click="openSettingsModal" />
+      <FloatingActionButton v-if="editable" :type="isEditMode ? FAB_TYPES.CONFIRM : FAB_TYPES.EDIT"
+        :size="FAB_SIZES.LARGE" :visibility="FAB_VISIBILITIES.ALWAYS" @click="() => toggleEditMode()" />
     </div>
 
     <div class="concept-content">
@@ -119,6 +119,7 @@
 <script setup>
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
+import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 import ConceptTitle from './components/ConceptTitle.vue'
 import ConceptDescription from './components/sections/ConceptDescription.vue'
 import PhysiologySection from './components/sections/PhysiologySection.vue'

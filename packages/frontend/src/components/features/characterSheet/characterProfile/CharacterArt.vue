@@ -2,8 +2,8 @@
     <div>
         <div class="character-art-container edit-hover-area">
             <img :src="optimizedCharacterImageUrl" class="character-art-image" @click="openFullSizeArtModal" />
-            <FloatingActionButton v-if="canEdit" type="edit" size="small" visibility="on-hover"
-                class="edit-button-overlay-small" @click.stop="openEditModal" />
+            <FloatingActionButton v-if="canEdit" :type="FAB_TYPES.EDIT" :size="FAB_SIZES.SMALL"
+                :visibility="FAB_VISIBILITIES.ON_HOVER" class="edit-button-overlay-small" @click.stop="openEditModal" />
             <!-- Swagger overlay for Landsknecht -->
             <div v-if="isLandsknecht" class="swagger-overlay">
                 <div v-if="hoveredPip !== null" class="swagger-label">Swagger: {{ swagger }}</div>
@@ -41,6 +41,7 @@ import { ref, computed } from 'vue'
 import { useModal } from '@/composables/useModal'
 import { useCharactersStore } from '@/stores/charactersStore'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
+import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import FullSizeImageModal from '@/components/ui/modals/FullSizeImageModal.vue'
 import { useOptimizedImage } from '@/composables/useOptimizedImage'

@@ -101,7 +101,7 @@ const handleClick = (event) => {
     user-select: none;
 
     /* Transitions */
-    transition: var(--transition-all);
+    transition: var(--transition-normal);
 
     /* Prevent double-tap zoom on mobile */
     touch-action: manipulation;
@@ -109,15 +109,15 @@ const handleClick = (event) => {
 
 /* === SIZE VARIANTS === */
 .action-btn--small {
-    padding: var(--btn-padding-sm);
-    font-size: var(--btn-font-size-sm);
+    padding: 2px var(--space-sm);
+    font-size: var(--font-size-14);
     min-height: var(--btn-min-height-sm);
 }
 
 .action-btn--large {
-    padding: var(--btn-padding-md);
-    font-size: var(--btn-font-size-md);
-    min-height: var(--btn-min-height-md);
+    padding: var(--btn-min-height-lg);
+    font-size: var(--btn-min-height-lg);
+    min-height: var(--btn-min-height-lg);
 }
 
 /* === COLOR VARIANTS === */
@@ -235,7 +235,7 @@ const handleClick = (event) => {
     }
 
     .action-btn--large {
-        min-height: calc(var(--btn-min-height-md) + 0.25rem);
+        min-height: calc(var(--btn-min-height-lg) + 0.25rem);
     }
 }
 </style>

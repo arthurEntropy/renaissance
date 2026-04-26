@@ -1,17 +1,17 @@
 <template>
   <!-- Card Container -->
-  <div ref="cardElement" class="base-card" :class="{ collapsed: collapsed, collapsible: collapsible }"
+  <div ref="cardElement" class="base-card edit-hover-area" :class="{ collapsed: collapsed, collapsible: collapsible }"
     :style="cardStyle" @click="collapsible ? toggleCollapsed() : null"
     :title="showSource && sourceName ? `Source: ${sourceName}` : null">
 
     <!-- Admin Buttons -->
     <div v-if="editable || duplicatable || deletable" class="admin-buttons">
-      <FloatingActionButton v-if="deletable" type="delete" @click.stop="$emit('delete', item)" size="small"
-        visibility="on-hover" class="delete-button-floating" />
-      <FloatingActionButton v-if="duplicatable" type="duplicate" @click.stop="$emit('duplicate', item)" size="small"
-        visibility="on-hover" class="duplicate-button-floating" />
-      <FloatingActionButton v-if="editable" type="edit" @click.stop="$emit('edit', item)" size="small"
-        visibility="on-hover" class="edit-button-floating" />
+      <FloatingActionButton v-if="deletable" :type="FAB_TYPES.DELETE" @click.stop="$emit('delete', item)"
+        :size="FAB_SIZES.SMALL" :visibility="FAB_VISIBILITIES.ON_HOVER" class="delete-button-floating" />
+      <FloatingActionButton v-if="duplicatable" :type="FAB_TYPES.DUPLICATE" @click.stop="$emit('duplicate', item)"
+        :size="FAB_SIZES.SMALL" :visibility="FAB_VISIBILITIES.ON_HOVER" class="duplicate-button-floating" />
+      <FloatingActionButton v-if="editable" :type="FAB_TYPES.EDIT" @click.stop="$emit('edit', item)"
+        :size="FAB_SIZES.SMALL" :visibility="FAB_VISIBILITIES.ON_HOVER" class="edit-button-floating" />
     </div>
 
     <!-- Header Row -->
@@ -101,6 +101,7 @@ import { useUserStore } from '@/stores/userStore'
 import { useBiomeStore } from '@/stores/biomeStore'
 import { useAbilitySchoolsStore } from '@/stores/abilitySchoolsStore'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
+import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 import CardDescription from '@/components/ui/cards/item/CardDescription.vue'
 import { ItemType } from '@shared/constants/itemTypes'
 import { useOptimizedImage, useProgressiveOptimizedImage } from '@/composables/useOptimizedImage'
@@ -383,11 +384,6 @@ const handleCollapsed = () => {
   z-index: var(--z-interactive);
   display: flex;
   gap: var(--space-xs);
-}
-
-.base-card:hover .admin-buttons .fab--on-hover {
-  opacity: 1;
-  pointer-events: auto;
 }
 
 .art-frame {

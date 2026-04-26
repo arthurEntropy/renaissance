@@ -1,7 +1,6 @@
 <template>
-    <div class="difficulty-badge" :class="{ 'difficulty-badge--set': value != null }"
-        :title="value != null ? `Difficulty: ${value}` : 'Set difficulty'" @click.stop="startEdit"
-        @mouseenter="hovered = true" @mouseleave="hovered = false">
+    <div class="difficulty-badge edit-trigger" :class="{ 'difficulty-badge--set': value != null }"
+        :title="value != null ? `Difficulty: ${value}` : 'Set difficulty'" @click.stop="startEdit">
         <div class="difficulty-badge-content">
             <input v-if="editing" :ref="el => { if (el) el.focus() }" v-model="editValue" type="number"
                 class="difficulty-badge-input" @keydown.enter="commitEdit" @keydown.escape="cancelEdit"
@@ -10,14 +9,16 @@
                 {{ value != null ? value : '' }}
             </span>
         </div>
-        <FloatingActionButton v-if="value != null && !editing" type="refresh" size="small" :force-visible="hovered"
-            class="difficulty-badge-clear" title="Clear difficulty" @click.stop="$emit('update:value', null)" />
+        <FloatingActionButton v-if="value != null && !editing" :type="FAB_TYPES.REFRESH" :size="FAB_SIZES.SMALL"
+            :visibility="FAB_VISIBILITIES.ON_HOVER" class="difficulty-badge-clear" title="Clear difficulty"
+            @click.stop="$emit('update:value', null)" />
     </div>
 </template>
 
 <script setup>
 import { ref } from 'vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
+import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 
 const props = defineProps({
     value: {
@@ -30,7 +31,6 @@ const emit = defineEmits(['update:value'])
 
 const editing = ref(false)
 const editValue = ref('')
-const hovered = ref(false)
 
 function startEdit() {
     editValue.value = props.value != null ? String(props.value) : ''

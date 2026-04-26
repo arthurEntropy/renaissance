@@ -7,8 +7,8 @@
             </div>
             <h2 v-else>{{ title }}</h2>
 
-            <FloatingActionButton v-if="showEditButton" type="edit" size="small" visibility="on-hover"
-                :is-active="isEditMode" @click="$emit('toggle-edit')" />
+            <FloatingActionButton v-if="showEditButton" :type="isEditMode ? FAB_TYPES.CONFIRM : FAB_TYPES.EDIT"
+                :size="FAB_SIZES.SMALL" :visibility="FAB_VISIBILITIES.ON_HOVER" @click="$emit('toggle-edit')" />
             <slot name="header-left" />
         </div>
         <div class="header-center">
@@ -23,6 +23,7 @@
 <script setup>
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import { ChevronRightIcon, ChevronDownIcon } from '@heroicons/vue/24/outline'
+import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 
 defineProps({
     title: {

@@ -54,7 +54,7 @@ const getCircularPosition = (index, total) => {
     font-size: var(--font-size-24);
     color: var(--color-gray-medium);
     opacity: 0.6;
-    transition: var(--transition-all);
+    transition: var(--transition-normal);
 }
 
 .showcase-die:hover {

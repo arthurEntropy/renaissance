@@ -4,8 +4,8 @@
     <!-- Header with edit toggle button -->
     <div class="rules-nav-header">
       <h3>Table of Contents</h3>
-      <FloatingActionButton v-if="isAdmin" type="edit" :is-active="isStructureEditMode" visibility="always"
-        @click="toggleStructureEditMode" />
+      <FloatingActionButton v-if="isAdmin" :type="isStructureEditMode ? FAB_TYPES.CONFIRM : FAB_TYPES.EDIT"
+        :visibility="FAB_VISIBILITIES.ALWAYS" @click="toggleStructureEditMode" />
     </div>
 
     <!-- Draggable rule sections when in structure edit mode -->
@@ -20,8 +20,9 @@
           <span class="section-name">{{ element.name }}</span>
           <!-- Edit controls -->
           <div class="section-controls">
-            <FloatingActionButton type="drag" size="small" visibility="always" />
-            <FloatingActionButton type="delete" size="small" visibility="always"
+            <FloatingActionButton :type="FAB_TYPES.DRAG" :size="FAB_SIZES.SMALL"
+              :visibility="FAB_VISIBILITIES.ALWAYS" />
+            <FloatingActionButton :type="FAB_TYPES.DELETE" :size="FAB_SIZES.SMALL" :visibility="FAB_VISIBILITIES.ALWAYS"
               @click.stop="confirmDeleteSection(element)" />
           </div>
         </div>
@@ -52,6 +53,7 @@ import { useAuthStore } from '@/stores/authStore'
 import { useRulesStore } from '@/stores/rulesStore'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
+import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 import draggable from 'vuedraggable'
 import RulesService from '@/services/entities/rulesService'
 import { createSlug } from '@/utils/urlHelpers'

@@ -10,7 +10,8 @@
             </template>
 
             <template v-if="isEditMode" #header-right>
-                <FloatingActionButton type="add" visibility="always" @click="$emit('add-equipment')" />
+                <FloatingActionButton :type="FAB_TYPES.ADD" :visibility="FAB_VISIBILITIES.ALWAYS"
+                    @click="$emit('add-equipment')" />
             </template>
 
             <!-- Grouped by type display -->
@@ -64,6 +65,7 @@ import MasonryGrid from '@/components/ui/layouts/MasonryGrid.vue'
 import GroupedMasonryGrid from '@/components/ui/layouts/GroupedMasonryGrid.vue'
 import SortingDropdown from '@/components/ui/dropdowns/SortingDropdown.vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
+import { FAB_TYPES, FAB_VISIBILITIES } from '@/constants/fab'
 import { sortItems } from '@/utils/sortItems'
 import { EQUIPMENT_SORT_OPTIONS, filterAdminSortOptions } from '@/constants/sortOptions'
 import { useFilterPersistence } from '@/composables/useFilterPersistence'

@@ -5,8 +5,8 @@
     <TableHeader title="Abilities" :is-edit-mode="internalEditMode" :show-edit-button="canEdit" collapsible
       :is-collapsed="isCollapsed" @toggle-collapse="isCollapsed = !isCollapsed" @toggle-edit="toggleEditMode">
       <template #header-left>
-        <FloatingActionButton v-if="internalEditMode" type="add" size="small" visibility="always"
-          @click="toggleAbilitySelector" />
+        <FloatingActionButton v-if="internalEditMode" :type="FAB_TYPES.ADD" :size="FAB_SIZES.SMALL"
+          :visibility="FAB_VISIBILITIES.ALWAYS" @click="toggleAbilitySelector" />
         <ActionButton v-if="internalEditMode && groupingOption === 'custom'" variant="outline" size="small"
           text="+ Group" @click="createAbilityGroup" />
       </template>
@@ -17,13 +17,13 @@
           <SortingDropdown v-model="abilitySortOption" :options="sortOptions" label="Order by:" placeholder="Custom" />
         </div>
         <FloatingActionButton v-else-if="!isCollapsed && characterAbilities.length > 0" class="expand-collapse-btn"
-          :type="allAbilitiesExpanded ? 'collapse-all' : 'expand-all'" size="small" visibility="on-hover"
-          @click="toggleAllAbilities" />
+          :type="allAbilitiesExpanded ? FAB_TYPES.COLLAPSE_ALL : FAB_TYPES.EXPAND_ALL" :size="FAB_SIZES.SMALL"
+          :visibility="FAB_VISIBILITIES.ON_HOVER" @click="toggleAllAbilities" />
       </template>
       <template #header-right>
         <div class="mp-display-container">
-          <FloatingActionButton v-if="canEdit && !isChanneler" class="mp-reset-button" type="refresh" size="small"
-            visibility="on-hover" @click="resetMP" />
+          <FloatingActionButton v-if="canEdit && !isChanneler" class="mp-reset-button" :type="FAB_TYPES.REFRESH"
+            :size="FAB_SIZES.SMALL" :visibility="FAB_VISIBILITIES.ON_HOVER" @click="resetMP" />
           <ManaPoolDisplay v-if="isChanneler" />
           <MPDisplay v-else :is-edit-mode="canEdit" />
         </div>
@@ -89,6 +89,7 @@ import AbilityCard from '@/components/ui/cards/item/AbilityCard.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import TableHeader from '@/components/ui/tables/TableHeader.vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
+import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 import ItemSelector from '@/components/ui/selectors/ItemSelector.vue'
 import CharacterSheetSection from '@/components/ui/containers/CharacterSheetSection.vue'
 import MPDisplay from './MPDisplay.vue'

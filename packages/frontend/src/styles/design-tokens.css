@@ -207,7 +207,6 @@
   --transition-slow: var(--duration-slow) var(--ease-standard);
   
   /* Core semantic transitions (most commonly used) */
-  --transition-all: all var(--transition-normal);
   --transition-color: color var(--transition-normal);
   --transition-background: background-color var(--transition-normal);
   --transition-opacity: opacity var(--transition-normal);
@@ -248,15 +247,7 @@
   
 
   /* === BUTTON SPECIFIC === */
-  --btn-padding-sm: 2px var(--space-sm);  /* 2px top/bottom, 8px left/right */
-  --btn-padding-md: var(--space-sm) var(--space-lg);
-  --btn-padding-lg: var(--space-lg) var(--space-xl);
-  
-  --btn-font-size-sm: var(--font-size-14);
-  --btn-font-size-md: var(--font-size-14);
-  --btn-font-size-lg: var(--font-size-16);
-  
-  --btn-min-height-sm: 24px;     /* 24px */
-  --btn-min-height-md: 32px;     /* 32px */
-  --btn-min-height-lg: 48px;    /* 48px */
+  --btn-min-height-sm: 24px;
+  --btn-min-height-lg: 32px;
+
 }

@@ -248,8 +248,8 @@
     "https://cdn.midjourney.com/b75951b3-d21b-4e00-b7c8-c81fc16c043e/0_2.png"
   ],
   "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2026-04-22T17:33:42.478Z",
-  "lastModified": "2026-04-22T17:33:42.478Z",
+  "updatedAt": "2026-04-25T20:04:55.882Z",
+  "lastModified": "2026-04-25T20:04:55.882Z",
   "mestiereId": "162ae4db-7a67-4770-8a2c-7e9883da14f6",
   "age": 0,
   "heightFeet": 0,
@@ -327,5 +327,32 @@
         }
       ]
     }
-  ]
+  ],
+  "rollStats": {
+    "skillChecks": {
+      "attempts": 1,
+      "successes": 1,
+      "totalSum": 17,
+      "bestTotal": 17,
+      "hardestSuccess": null,
+      "bySkill": {
+        "Strength": 1
+      },
+      "solCount": 0,
+      "morteCount": 0,
+      "successCount": 0
+    },
+    "contests": {
+      "engagement": {
+        "wins": 0,
+        "losses": 0,
+        "draws": 0
+      },
+      "opposed": {
+        "wins": 0,
+        "losses": 0,
+        "draws": 0
+      }
+    }
+  }
 }

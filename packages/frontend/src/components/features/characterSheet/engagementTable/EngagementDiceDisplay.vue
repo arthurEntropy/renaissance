@@ -6,9 +6,9 @@
             <div v-for="(diceInfo) in diceData" :key="diceInfo.statusKey" class="dice-icon-container"
                 :class="{ 'user-added-die': diceInfo.isUserAdded }">
 
-                <FloatingActionButton v-if="isEditMode && diceInfo.isUserAdded" type="delete" size="small"
-                    visibility="always" @click="removeUserAddedDie(diceInfo.userAddedIndex)"
-                    class="remove-die-button" />
+                <FloatingActionButton v-if="isEditMode && diceInfo.isUserAdded" :type="FAB_TYPES.DELETE"
+                    :size="FAB_SIZES.SMALL" :visibility="FAB_VISIBILITIES.ALWAYS"
+                    @click="removeUserAddedDie(diceInfo.userAddedIndex)" class="remove-die-button" />
 
                 <span class="dice-icon" :class="diceInfo.status" role="button" tabindex="0"
                     :aria-label="`d${diceInfo.die} from ${diceInfo.name} - ${diceInfo.status}`"
@@ -20,7 +20,8 @@
             </div>
 
             <div v-if="isEditMode" class="add-die-container">
-                <FloatingActionButton type="add" visibility="always" @click="toggleDropdown" />
+                <FloatingActionButton :type="FAB_TYPES.ADD" :visibility="FAB_VISIBILITIES.ALWAYS"
+                    @click="toggleDropdown" />
             </div>
         </div>
 
@@ -50,6 +51,7 @@ import { ref, nextTick } from 'vue'
 import { useTooltip, useFloatingElement } from '@/composables/useFloatingElement'
 import { useEngagementRoll } from '@/composables/useEngagementRoll'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
+import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 import ItemDropdown from '@/components/ui/dropdowns/ItemDropdown.vue'
 import { getDiceFontMaxClass } from '@/utils/diceFontUtils'
 import { STANDARD_DIE_SIZES } from '@shared/constants/dice'
@@ -122,7 +124,7 @@ const clearDiceTooltip = () => {
 .dice-icon {
     font-size: var(--font-size-36);
     cursor: pointer;
-    transition: var(--transition-all);
+    transition: var(--transition-normal);
     position: relative;
     display: inline-block;
     z-index: 1;

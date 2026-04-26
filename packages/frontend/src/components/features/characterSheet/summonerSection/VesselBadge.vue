@@ -12,10 +12,10 @@
 
         <!-- Top-right controls -->
         <div class="badge__controls">
-            <FloatingActionButton type="edit" size="small" visibility="on-hover" title="Edit vessel"
+            <FloatingActionButton :type="FAB_TYPES.EDIT" :size="FAB_SIZES.SMALL" :visibility="FAB_VISIBILITIES.ON_HOVER"
                 @click.stop="$emit('edit', vessel)" />
-            <FloatingActionButton type="delete" size="small" visibility="on-hover" title="Remove vessel"
-                @click.stop="handleRemove" />
+            <FloatingActionButton :type="FAB_TYPES.DELETE" :size="FAB_SIZES.SMALL"
+                :visibility="FAB_VISIBILITIES.ON_HOVER" @click.stop="handleRemove" />
         </div>
 
         <!-- Art area — clickable to view beast sheet if beast is captured -->
@@ -64,6 +64,7 @@ import { computed } from 'vue'
 import { PlusIcon, SparklesIcon } from '@heroicons/vue/24/outline'
 import { HeartIcon } from '@heroicons/vue/24/solid'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
+import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 import { VESSEL_TYPE_LABELS } from '@/constants/summonerConstants'
 import { useOptimizedImage } from '@/composables/useOptimizedImage'
 import { MIDJOURNEY_IMAGE_CONTEXTS } from '@shared/constants/artConstants.js'

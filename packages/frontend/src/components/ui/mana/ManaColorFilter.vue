@@ -6,8 +6,8 @@
                 <ManaSymbol :color="color" :value="color === ManaColor.COLORLESS ? 'X' : ''" />
             </button>
             <div class="clear-button-container">
-                <FloatingActionButton v-if="selectedColors.length > 0" type="delete" size="small" visibility="always"
-                    @click="clearAll" />
+                <FloatingActionButton v-if="selectedColors.length > 0" :type="FAB_TYPES.DELETE" :size="FAB_SIZES.SMALL"
+                    :visibility="FAB_VISIBILITIES.ALWAYS" @click="clearAll" />
             </div>
         </div>
     </div>
@@ -17,6 +17,7 @@
 import { computed } from 'vue'
 import ManaSymbol from '@/components/ui/mana/ManaSymbol.vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
+import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 import { ManaColor, MANA_COLOR_ORDER } from '@shared/constants/manaColors'
 
 const props = defineProps({

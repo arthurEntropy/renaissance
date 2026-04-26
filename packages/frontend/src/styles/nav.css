@@ -67,7 +67,7 @@
   background: var(--overlay-black-medium);
   backdrop-filter: blur(5px);
   padding: var(--space-xl);
-  transition: var(--transition-all);
+  transition: var(--transition-normal);
   display: none;
   /* Hidden on desktop by default */
   flex-direction: column;

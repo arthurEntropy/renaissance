@@ -29,18 +29,16 @@
 
         <section class="fab-section" aria-label="Floating Action Button inventory">
             <h2 class="section-title">Floating Action Buttons</h2>
-            <p class="count">{{ fabVariants.length }} variations</p>
+            <p class="count">{{fabRows.reduce((sum, row) => sum + row.items.length, 0)}} variations</p>
 
-            <div class="groups-wrap">
-                <section v-for="group in fabGroups" :key="group.type" class="asset-group">
-                    <h3 class="group-title">{{ group.label }}</h3>
-                    <div class="fab-grid">
-                        <article v-for="variant in group.items" :key="variant.id" class="fab-card">
-                            <div class="edit-trigger hover fab-trigger">
-                                <FloatingActionButton :type="variant.type" :size="variant.size"
-                                    :visibility="variant.visibility" />
-                            </div>
-                            <p class="variant-label">{{ variant.label }}</p>
+            <div class="fab-rows">
+                <section v-for="row in fabRows" :key="row.size" class="fab-row-section">
+                    <h3 class="group-title">{{ row.label }}</h3>
+                    <div class="fab-row">
+                        <article v-for="item in row.items" :key="item.id" class="fab-card"
+                            :title="toTitleCase(item.type)">
+                            <FloatingActionButton :type="item.type" :size="item.size"
+                                :visibility="FAB_VISIBILITIES.ALWAYS" />
                         </article>
                     </div>
                 </section>
@@ -52,11 +50,10 @@
 <script setup>
 import { computed } from 'vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
-import { FAB_TYPES as FAB_TYPE_VALUES, FAB_SIZES as FAB_SIZE_VALUES, FAB_VISIBILITIES as FAB_VISIBILITY_VALUES } from '@/constants/fab'
+import { FAB_TYPES as FAB_TYPE_VALUES, FAB_SIZES as FAB_SIZE_VALUES, FAB_VISIBILITIES } from '@/constants/fab'
 
 const FAB_TYPES = Object.values(FAB_TYPE_VALUES)
 const FAB_SIZES = Object.values(FAB_SIZE_VALUES)
-const FAB_VISIBILITIES = Object.values(FAB_VISIBILITY_VALUES)
 
 const pngModules = import.meta.glob('/src/assets/**/*.png', {
     eager: true,
@@ -122,43 +119,15 @@ const toTitleCase = (value) => {
         .join(' ')
 }
 
-const fabVariants = computed(() => {
-    const variants = []
-
-    for (const type of FAB_TYPES) {
-        for (const size of FAB_SIZES) {
-            for (const visibility of FAB_VISIBILITIES) {
-                const id = [type, size, visibility].join('|')
-                const label = [size, visibility].join(' • ')
-
-                variants.push({
-                    id,
-                    type,
-                    size,
-                    visibility,
-                    label,
-                })
-            }
-        }
-    }
-
-    return variants
-})
-
-const fabGroups = computed(() => {
-    const groups = new Map()
-
-    for (const variant of fabVariants.value) {
-        if (!groups.has(variant.type)) {
-            groups.set(variant.type, [])
-        }
-        groups.get(variant.type).push(variant)
-    }
-
-    return Array.from(groups.entries()).map(([type, items]) => ({
-        type,
-        label: toTitleCase(type),
-        items,
+const fabRows = computed(() => {
+    return FAB_SIZES.map((size) => ({
+        size,
+        label: toTitleCase(size),
+        items: FAB_TYPES.map((type) => ({
+            id: `${type}|${size}`,
+            type,
+            size,
+        })),
     }))
 })
 </script>
@@ -261,33 +230,27 @@ h1 {
     filter: brightness(0);
 }
 
-.fab-grid {
+.fab-rows {
     display: grid;
-    gap: var(--space-md);
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: var(--space-lg);
+}
+
+.fab-row-section {
+    display: grid;
+    gap: var(--space-sm);
+}
+
+.fab-row {
+    display: flex;
+    gap: var(--space-sm);
+    overflow-x: auto;
+    padding-bottom: var(--space-xs);
 }
 
 .fab-card {
-    display: grid;
-    gap: var(--space-sm);
-    justify-items: center;
-    align-content: start;
-}
-
-.fab-trigger {
-    width: 100%;
-    min-height: 40px;
+    flex: 0 0 auto;
     display: grid;
     place-items: center;
-}
-
-.variant-label {
-    margin: 0;
-    text-align: center;
-    color: var(--color-gray-light);
-    font-size: 11px;
-    line-height: 1.3;
-    text-wrap: balance;
 }
 
 @media (max-width: 720px) {

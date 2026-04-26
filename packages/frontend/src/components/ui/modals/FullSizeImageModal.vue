@@ -3,14 +3,15 @@
         <div class="modal-content image-container edit-hover-area" @click.stop>
             <img :src="modalImageSrc" class="modal-image"
                 :class="{ 'modal-image--loading': isProgressive && !isFullQualityLoaded }" :alt="altText" />
-            <FloatingActionButton v-if="showEditButton" type="edit" size="small" visibility="on-hover"
-                class="edit-button-overlay" @click.stop="$emit('edit')" />
+            <FloatingActionButton v-if="showEditButton" :type="FAB_TYPES.EDIT" :size="FAB_SIZES.SMALL"
+                :visibility="FAB_VISIBILITIES.ON_HOVER" class="edit-button-overlay" @click.stop="$emit('edit')" />
         </div>
     </div>
 </template>
 
 <script setup>
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
+import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 import { useProgressiveOptimizedImage } from '@/composables/useOptimizedImage'
 import { PROGRESSIVE_IMAGE_CONTEXTS } from '@/constants/imageOptimization'
 

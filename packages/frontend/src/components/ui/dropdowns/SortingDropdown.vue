@@ -86,7 +86,7 @@ const isGrouped = computed(() => !Array.isArray(props.options))
     font-family: 'Lora', serif;
     font-size: var(--font-size-13, 13px);
     cursor: pointer;
-    transition: var(--transition-all, all 0.2s ease);
+    transition: var(--transition-normal, all 0.2s ease);
     appearance: none;
 }
 

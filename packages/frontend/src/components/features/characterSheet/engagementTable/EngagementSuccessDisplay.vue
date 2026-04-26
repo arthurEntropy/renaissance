@@ -9,7 +9,8 @@
 
         <!-- Add Success Button -->
         <div v-if="isEditMode" class="add-success-container">
-            <FloatingActionButton type="add" size="small" visibility="always" @click="toggleDropdown" />
+            <FloatingActionButton :type="FAB_TYPES.ADD" :size="FAB_SIZES.SMALL" :visibility="FAB_VISIBILITIES.ALWAYS"
+                @click="toggleDropdown" />
         </div>
 
         <!-- No Successes Message -->
@@ -30,6 +31,7 @@ import { useEngagementSuccesses } from '@/composables/useEngagementSuccesses'
 import { useFloatingElement } from '@/composables/useFloatingElement'
 import ChipTag from '@/components/ui/chips/ChipTag.vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
+import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 import ItemDropdown from '@/components/ui/dropdowns/ItemDropdown.vue'
 
 defineProps({

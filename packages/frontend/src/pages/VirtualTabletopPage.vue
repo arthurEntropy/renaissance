@@ -346,7 +346,7 @@ onMounted(async () => {
     color: var(--color-danger-text);
     border: none;
     border-radius: var(--radius-5);
-    padding: var(--btn-padding-sm);
+    padding: 2px var(--space-sm);
     font-size: var(--font-size-12);
     cursor: pointer;
 }

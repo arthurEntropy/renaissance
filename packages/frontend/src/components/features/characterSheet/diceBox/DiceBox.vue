@@ -1,15 +1,16 @@
 <template>
   <CharacterSheetSection custom-class="dice-box edit-hover-area">
 
-    <FloatingActionButton v-if="canEdit && !customDiceRollerOpen" type="initiative" size="large" visibility="on-hover"
-      class="initiative-button" @click="handleInitiativeRoll" />
+    <div v-if="canEdit" class="dice-box-controls">
+      <FloatingActionButton v-if="!customDiceRollerOpen" :type="FAB_TYPES.INITIATIVE" :size="FAB_SIZES.LARGE"
+        :visibility="FAB_VISIBILITIES.ON_HOVER" @click="handleInitiativeRoll" />
 
-    <FloatingActionButton v-if="canEdit && !customDiceRollerOpen" type="injury" size="large" visibility="on-hover"
-      class="injury-button" @click="handleInjuryRoll" />
+      <FloatingActionButton v-if="!customDiceRollerOpen" :type="FAB_TYPES.INJURY" :size="FAB_SIZES.LARGE"
+        :visibility="FAB_VISIBILITIES.ON_HOVER" @click="handleInjuryRoll" />
 
-    <FloatingActionButton v-if="canEdit" :type="customDiceRollerOpen ? 'delete' : 'dice'" size="large"
-      visibility="on-hover" :is-active="customDiceRollerOpen" class="dice-roller-toggle"
-      @click="toggleCustomDiceRoller" />
+      <FloatingActionButton :type="customDiceRollerOpen ? FAB_TYPES.DELETE : FAB_TYPES.DICE" :size="FAB_SIZES.LARGE"
+        :visibility="FAB_VISIBILITIES.ON_HOVER" @click="toggleCustomDiceRoller" />
+    </div>
 
     <!-- Custom Dice Roller View -->
     <div v-show="customDiceRollerOpen" class="custom-roller-view view-container">
@@ -55,6 +56,7 @@ import RollOutcome from './RollOutcome.vue'
 import EmptyRollState from './EmptyRollState.vue'
 import CustomDiceRoller from '../customDiceRoller/CustomDiceRoller.vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
+import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import { useRollsStore } from '@/stores/rollsStore'
 import { useCharactersStore } from '@/stores/charactersStore'
@@ -179,7 +181,6 @@ const handleTakeXp = () => {
   align-items: flex-start;
   min-height: 180px;
   padding-top: 40px;
-  --action-button-offset-step: var(--btn-min-height-md);
 }
 
 .view-container {
@@ -206,24 +207,12 @@ const handleTakeXp = () => {
   width: 100%;
 }
 
-.initiative-button {
-  position: absolute;
-  top: var(--space-md);
-  right: calc(var(--space-md) + (var(--action-button-offset-step) * 2));
-  z-index: var(--z-raised);
-}
-
-.injury-button {
-  position: absolute;
-  top: var(--space-md);
-  right: calc(var(--space-md) + var(--action-button-offset-step));
-  z-index: var(--z-raised);
-}
-
-.dice-roller-toggle {
+.dice-box-controls {
   position: absolute;
   top: var(--space-md);
   right: var(--space-md);
+  display: flex;
+  gap: var(--space-xs);
   z-index: var(--z-raised);
 }
 

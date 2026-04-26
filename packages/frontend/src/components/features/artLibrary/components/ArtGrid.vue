@@ -116,7 +116,7 @@ const handleCardClick = (event, art) => {
     width: 20px;
     height: 20px;
     flex-shrink: 0;
-    transition: var(--transition-all);
+    transition: var(--transition-normal);
 }
 
 .group-count {

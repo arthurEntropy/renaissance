@@ -19,7 +19,7 @@
   "vittles": "",
   "pointsOfInterest": "",
   "floraFauna": "",
-  "lastModified": "2026-04-15T18:24:17.930Z",
+  "lastModified": "2026-04-25T23:53:14.661Z",
   "novizio": {
     "flavorText": "",
     "melee": [],
@@ -42,7 +42,7 @@
     "baseMP": 3,
     "mpNotes": "",
     "abilities": "<p><em>Oblation, Pull One, Pull Three, Reading.</em></p>",
-    "description": "<p>Phasellus vehicula risus nec ante lobortis, ut fringilla felis volutpat. Pellentesque ligula enim, consectetur eget accumsan nec, sagittis quis orci. Sed est ligula, pellentesque vel commodo id, dignissim quis metus. Class aptent taciti sociosqu ad litora torquent per conubia nostra.</p>"
+    "gratuiti": ""
   },
   "detailBackgroundImage": "https://cdn.midjourney.com/dc75da16-65fe-4e50-ad4d-ada752b211fd/0_3.png"
 }

@@ -82,7 +82,7 @@ defineEmits(['update:url', 'update:type'])
     border-radius: var(--radius-5);
     border: 1px solid transparent;
     cursor: pointer;
-    transition: var(--transition-all);
+    transition: var(--transition-normal);
     opacity: 0.5;
 }
 

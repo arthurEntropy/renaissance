@@ -32,23 +32,24 @@
             <!-- Action buttons cluster: untap, delete, add —— separated from pips -->
             <div class="actions-cluster">
                 <!-- Untap all — only visible when there is tapped mana -->
-                <FloatingActionButton v-if="anyMana" type="refresh" size="small" visibility="always"
-                    title="Untap all mana" :disabled="!anyTapped" @click="untapAll" />
+                <FloatingActionButton v-if="anyMana" :type="FAB_TYPES.REFRESH" :size="FAB_SIZES.SMALL"
+                    :visibility="FAB_VISIBILITIES.ALWAYS" title="Untap all mana" @click="untapAll" />
 
                 <!-- Clear all / drop-to-delete — visible when there is mana; becomes drop zone while dragging -->
                 <div v-if="anyMana || dragging" class="delete-slot"
                     :class="{ 'drop-zone': dragging, 'drop-zone--over': dropOver }"
                     @dragover.prevent="dragging && (dropOver = true)" @dragleave="dropOver = false"
                     @drop.prevent="dragging && onDrop()">
-                    <FloatingActionButton v-if="!dragging" type="delete" size="small" visibility="always"
-                        title="Clear mana pool" @click="clearPool" />
-                    <FloatingActionButton v-else type="delete" size="small" visibility="always" class="drop-zone-fab" />
+                    <FloatingActionButton v-if="!dragging" :type="FAB_TYPES.DELETE" :size="FAB_SIZES.SMALL"
+                        :visibility="FAB_VISIBILITIES.ALWAYS" title="Clear mana pool" @click="clearPool" />
+                    <FloatingActionButton v-else :type="FAB_TYPES.DELETE" :size="FAB_SIZES.SMALL"
+                        :visibility="FAB_VISIBILITIES.ALWAYS" class="drop-zone-fab" />
                 </div>
 
                 <!-- Add FAB + circular color picker -->
                 <div class="add-btn-wrapper">
-                    <FloatingActionButton type="add" size="small" visibility="always" title="Add mana to pool"
-                        @click="toggleCircleMenu" />
+                    <FloatingActionButton :type="FAB_TYPES.ADD" :size="FAB_SIZES.SMALL"
+                        :visibility="FAB_VISIBILITIES.ALWAYS" title="Add mana to pool" @click="toggleCircleMenu" />
                     <!-- Backdrop closes the menu when clicking outside -->
                     <div v-if="circleMenuOpen" class="circle-menu-backdrop" @click="circleMenuOpen = false" />
                     <!-- Circular menu -->
@@ -77,6 +78,7 @@ import { useCharactersStore } from '@/stores/charactersStore'
 import { ManaColor, MANA_COLOR_ORDER } from '@shared/constants/manaColors'
 import ManaSymbol from '@/components/ui/mana/ManaSymbol.vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
+import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 
 const COLORED_MANA = MANA_COLOR_ORDER.filter((c) => c !== ManaColor.COLORLESS)
 
@@ -109,10 +111,6 @@ const colorlessUntapped = computed(
 )
 const colorlessTapped = computed(
     () => getColorPips(ManaColor.COLORLESS).filter((t) => !!t).length,
-)
-
-const anyTapped = computed(() =>
-    MANA_COLOR_ORDER.some((c) => getColorPips(c).some((t) => t)),
 )
 
 const anyMana = computed(() =>

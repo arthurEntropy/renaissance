@@ -365,7 +365,7 @@ onUnmounted(() => {
     color: var(--color-text-primary);
     font-size: var(--font-size-13);
     cursor: pointer;
-    transition: var(--transition-all);
+    transition: var(--transition-normal);
 }
 
 .control-select:hover {
@@ -404,7 +404,7 @@ onUnmounted(() => {
     font-size: var(--font-size-14);
     font-weight: var(--font-weight-semibold);
     cursor: pointer;
-    transition: var(--transition-all);
+    transition: var(--transition-normal);
 }
 
 .size-button:hover {
@@ -435,7 +435,7 @@ onUnmounted(() => {
     border-radius: var(--radius-5);
     border: 2px solid transparent;
     cursor: pointer;
-    transition: var(--transition-all);
+    transition: var(--transition-normal);
     opacity: 0.5;
     font-size: var(--font-size-14);
     font-weight: var(--font-weight-semibold);
@@ -536,7 +536,7 @@ onUnmounted(() => {
     cursor: pointer;
     font-size: var(--font-size-14);
     color: var(--color-text-primary);
-    transition: var(--transition-all);
+    transition: var(--transition-normal);
 }
 
 .dropdown-option:hover,

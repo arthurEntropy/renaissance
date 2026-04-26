@@ -2,8 +2,8 @@
     <div v-if="hasContent || isEditMode" class="physiology-section edit-hover-area">
 
         <!-- Edit button -->
-        <FloatingActionButton v-if="isEditMode" type="edit" @click="toggleEdit" :is-active="isEditingPhysiology"
-            size="small" visibility="always" class="edit-button-overlay" />
+        <FloatingActionButton v-if="isEditMode" :type="isEditingPhysiology ? FAB_TYPES.CONFIRM : FAB_TYPES.EDIT"
+            @click="toggleEdit" size="small" visibility="always" class="edit-button-overlay" />
 
         <!-- Edit mode -->
         <div v-if="isEditingPhysiology" class="physiology-edit">
@@ -68,6 +68,7 @@ import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.v
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import NumberInput from '@/components/ui/forms/NumberInput.vue'
 import { useConceptsStore } from '@/stores/conceptsStore'
+import { FAB_TYPES } from '@/constants/fab'
 
 const props = defineProps({
     isEditMode: {

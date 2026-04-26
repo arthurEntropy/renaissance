@@ -8,7 +8,8 @@
     <CharacterVitals />
 
     <!-- Bio & Notes Button -->
-    <FloatingActionButton type="notes" size="small" visibility="always" class="notes-button" @click="openModal" />
+    <FloatingActionButton :type="FAB_TYPES.NOTES" :size="FAB_SIZES.SMALL" :visibility="FAB_VISIBILITIES.ALWAYS"
+      class="notes-button" @click="openModal" />
 
     <!-- XP Badge -->
     <div class="xp-badge">
@@ -20,8 +21,8 @@
     <!-- Bio Modal (View/Edit) -->
     <div v-if="isModalOpen" class="modal-overlay" @click="handleOverlayClick">
       <div class="modal-content bio-modal edit-hover-area" @click.stop>
-        <FloatingActionButton v-if="canEdit && !isEditMode" type="edit" size="small" visibility="on-hover"
-          class="edit-button-overlay" @click.stop="startEdit" />
+        <FloatingActionButton v-if="canEdit && !isEditMode" :type="FAB_TYPES.EDIT" :size="FAB_SIZES.SMALL"
+          :visibility="FAB_VISIBILITIES.ON_HOVER" class="edit-button-overlay" @click.stop="startEdit" />
 
         <!-- View Mode -->
         <div v-if="!isEditMode" class="full-text-content">
@@ -77,6 +78,7 @@ import CharacterSheetSection from '@/components/ui/containers/CharacterSheetSect
 import NumberInput from '@/components/ui/forms/NumberInput.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
+import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 import TextEditor from '@/components/ui/textEditor/TextEditor.vue'
 import { useCharactersStore } from '@/stores/charactersStore'
 

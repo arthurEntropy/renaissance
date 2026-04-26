@@ -63,7 +63,7 @@ const handleClick = (event) => {
     border-radius: var(--radius-10);
     overflow: hidden;
     cursor: pointer;
-    transition: var(--transition-all);
+    transition: var(--transition-normal);
     box-shadow: var(--shadow-elevation-sm);
     position: relative;
 }

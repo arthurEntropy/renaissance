@@ -4,8 +4,9 @@
         <TableHeader title="Biome" :show-edit-button="false" collapsible :is-collapsed="isCollapsed"
             @toggle-collapse="isCollapsed = !isCollapsed">
             <template #header-right>
-                <FloatingActionButton v-if="hasActiveTags" type="refresh" size="small" visibility="always"
-                    title="Clear active biome tags" @click="biomeStore.clearAll()" />
+                <FloatingActionButton v-if="hasActiveTags" :type="FAB_TYPES.REFRESH" :size="FAB_SIZES.SMALL"
+                    :visibility="FAB_VISIBILITIES.ALWAYS" title="Clear active biome tags"
+                    @click="biomeStore.clearAll()" />
             </template>
         </TableHeader>
 
@@ -42,6 +43,7 @@ import { BiomeTagGroup, BIOME_TAG_GROUPS, BIOME_TAG_GROUP_LABELS, BIOME_TAG_LABE
 import CharacterSheetSection from '@/components/ui/containers/CharacterSheetSection.vue'
 import TableHeader from '@/components/ui/tables/TableHeader.vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
+import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 import BiomeTagSymbol from '@/components/ui/biome/BiomeTagSymbol.vue'
 import BiomePicker from './BiomePicker.vue'
 
