@@ -2,13 +2,13 @@
   <CharacterSheetSection custom-class="dice-box edit-hover-area">
 
     <div v-if="canEdit" class="dice-box-controls">
-      <FloatingActionButton v-if="!customDiceRollerOpen" :type="FAB_TYPES.INITIATIVE" :size="FAB_SIZES.LARGE"
+      <FloatingActionButton v-if="!customDiceRollerOpen" :variant="FAB_TYPES.INITIATIVE" :size="FAB_SIZES.LARGE"
         :visibility="FAB_VISIBILITIES.ON_HOVER" @click="handleInitiativeRoll" />
 
-      <FloatingActionButton v-if="!customDiceRollerOpen" :type="FAB_TYPES.INJURY" :size="FAB_SIZES.LARGE"
+      <FloatingActionButton v-if="!customDiceRollerOpen" :variant="FAB_TYPES.INJURY" :size="FAB_SIZES.LARGE"
         :visibility="FAB_VISIBILITIES.ON_HOVER" @click="handleInjuryRoll" />
 
-      <FloatingActionButton :type="customDiceRollerOpen ? FAB_TYPES.DELETE : FAB_TYPES.DICE" :size="FAB_SIZES.LARGE"
+      <FloatingActionButton :variant="customDiceRollerOpen ? FAB_TYPES.DELETE : FAB_TYPES.DICE" :size="FAB_SIZES.LARGE"
         :visibility="FAB_VISIBILITIES.ON_HOVER" @click="toggleCustomDiceRoller" />
     </div>
 

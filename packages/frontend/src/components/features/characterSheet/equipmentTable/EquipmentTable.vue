@@ -3,7 +3,7 @@
     <TableHeader title="Equipment" :is-edit-mode="internalEditMode" :show-edit-button="canEdit" collapsible
       :is-collapsed="isCollapsed" @toggle-collapse="isCollapsed = !isCollapsed" @toggle-edit="toggleEditMode">
       <template #header-left>
-        <FloatingActionButton v-if="internalEditMode" :type="FAB_TYPES.ADD" :size="FAB_SIZES.SMALL"
+        <FloatingActionButton v-if="internalEditMode" :variant="FAB_TYPES.ADD" :size="FAB_SIZES.SMALL"
           :visibility="FAB_VISIBILITIES.ALWAYS" @click="showEquipmentSelector = true" />
         <ActionButton v-if="internalEditMode && groupingOption === 'custom'" variant="outline" size="small"
           text="+ Group" @click="createEquipmentGroup" />
@@ -16,12 +16,12 @@
             placeholder="Custom" />
         </div>
         <FloatingActionButton v-else-if="!isCollapsed && characterEquipment.length > 0" class="expand-collapse-btn"
-          :type="allEquipmentExpanded ? FAB_TYPES.COLLAPSE_ALL : FAB_TYPES.EXPAND_ALL" :size="FAB_SIZES.SMALL"
+          :variant="allEquipmentExpanded ? FAB_TYPES.COLLAPSE_ALL : FAB_TYPES.EXPAND_ALL" :size="FAB_SIZES.SMALL"
           :visibility="FAB_VISIBILITIES.ON_HOVER" @click="toggleAllEquipment" />
       </template>
       <template #header-right>
         <div class="header-right-controls">
-          <FloatingActionButton :type="FAB_TYPES.MARTIAL_TRAINING" :size="FAB_SIZES.LARGE"
+          <FloatingActionButton :variant="FAB_TYPES.MARTIAL_TRAINING" :size="FAB_SIZES.LARGE"
             :visibility="FAB_VISIBILITIES.ALWAYS" @click="openMartialTraining" />
           <EquipmentWeight :equipment-items="characterEquipment" />
         </div>

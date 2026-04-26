@@ -9,7 +9,7 @@
 
         <!-- Add Success Button -->
         <div v-if="isEditMode" class="add-success-container">
-            <FloatingActionButton :type="FAB_TYPES.ADD" :size="FAB_SIZES.SMALL" :visibility="FAB_VISIBILITIES.ALWAYS"
+            <FloatingActionButton :variant="FAB_TYPES.ADD" :size="FAB_SIZES.SMALL" :visibility="FAB_VISIBILITIES.ALWAYS"
                 @click="toggleDropdown" />
         </div>
 

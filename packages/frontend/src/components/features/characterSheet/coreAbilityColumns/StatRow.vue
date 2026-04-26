@@ -4,7 +4,7 @@
 
         <!-- Range type (virtue: current/max) -->
         <template v-if="type === STAT_ROW_TYPES.RANGE">
-            <FloatingActionButton v-if="canEdit" class="reset-button" :type="FAB_TYPES.REFRESH" :size="FAB_SIZES.SMALL"
+            <FloatingActionButton v-if="canEdit" class="reset-button" :variant="FAB_TYPES.REFRESH" :size="FAB_SIZES.SMALL"
                 :visibility="FAB_VISIBILITIES.ON_HOVER" @click="emit('reset')" />
             <NumberInput :model-value="value.current" :disabled="!canEdit"
                 @update:model-value="$emit('update', 'current', $event)" :min="0" size="small" />
@@ -16,10 +16,10 @@
         <!-- Single value type (weakness) -->
         <template v-else-if="type === STAT_ROW_TYPES.SINGLE">
             <FloatingActionButton v-if="canEdit && showInjuryRollButton" class="injury-roll-button"
-                :type="FAB_TYPES.INJURY" :size="FAB_SIZES.SMALL" :visibility="FAB_VISIBILITIES.ON_HOVER"
+                :variant="FAB_TYPES.INJURY" :size="FAB_SIZES.SMALL" :visibility="FAB_VISIBILITIES.ON_HOVER"
                 @click="emit('roll-injury')" />
             <FloatingActionButton v-if="canEdit && showAutoCalcButton" class="auto-calc-button"
-                :type="isAutoCalc ? FAB_TYPES.AUTO_CALC_ON : FAB_TYPES.AUTO_CALC" :size="FAB_SIZES.SMALL"
+                :variant="isAutoCalc ? FAB_TYPES.AUTO_CALC_ON : FAB_TYPES.AUTO_CALC" :size="FAB_SIZES.SMALL"
                 :visibility="FAB_VISIBILITIES.ON_HOVER" @click="emit('toggle-auto-calc')" />
             <NumberInput :model-value="value" :disabled="!canEdit" @update:model-value="$emit('update', $event)"
                 :min="0" size="small" />
@@ -28,7 +28,7 @@
         <!-- Checkbox type (states) -->
         <template v-else-if="type === STAT_ROW_TYPES.STATE">
             <FloatingActionButton v-if="canEdit && showAutoCalcButton" class="auto-calc-button"
-                :type="isAutoCalc ? FAB_TYPES.AUTO_CALC_ON : FAB_TYPES.AUTO_CALC" :size="FAB_SIZES.SMALL"
+                :variant="isAutoCalc ? FAB_TYPES.AUTO_CALC_ON : FAB_TYPES.AUTO_CALC" :size="FAB_SIZES.SMALL"
                 :visibility="FAB_VISIBILITIES.ON_HOVER" @click="emit('toggle-auto-calc')" />
             <input type="checkbox" :checked="firstState" :disabled="!canEdit"
                 @change="$emit('update', 'first', $event.target.checked)" class="skill-checkbox"

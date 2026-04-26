@@ -1,36 +1,32 @@
 <template>
-    <button :type="type" :disabled="disabled || loading" :class="buttonClasses" @click="handleClick">
-        <!-- Loading spinner -->
-        <LoadingSpinner v-if="loading" size="small" />
-
-        <!-- Button text -->
-        <span v-if="!loading" class="action-btn__text">
+    <button type="button" :disabled="disabled" :class="[
+        'action-btn',
+        `action-btn--${props.variant}`,
+        `action-btn--${props.size}`,
+        {
+            'action-btn--disabled': props.disabled
+        }
+    ]">
+        <span class="action-btn__text">
             <slot>{{ text }}</slot>
         </span>
     </button>
 </template>
 
 <script setup>
-import { computed } from 'vue'
-import LoadingSpinner from '@/components/ui/LoadingSpinner.vue'
+import { ACTION_BUTTON_VARIANTS, ACTION_BUTTON_SIZES } from '@/constants/actionButton'
 
 const props = defineProps({
     variant: {
         type: String,
-        default: 'neutral',
-        validator: (value) => ['primary', 'neutral', 'danger', 'success', 'outline'].includes(value)
+        default: ACTION_BUTTON_VARIANTS.NEUTRAL,
+        validator: (value) => Object.values(ACTION_BUTTON_VARIANTS).includes(value)
     },
 
     size: {
         type: String,
-        default: 'large',
-        validator: (value) => ['small', 'large'].includes(value)
-    },
-
-    type: {
-        type: String,
-        default: 'button',
-        validator: (value) => ['button', 'submit', 'reset'].includes(value)
+        default: ACTION_BUTTON_SIZES.LARGE,
+        validator: (value) => Object.values(ACTION_BUTTON_SIZES).includes(value)
     },
 
     text: {
@@ -41,40 +37,8 @@ const props = defineProps({
     disabled: {
         type: Boolean,
         default: false
-    },
-
-    loading: {
-        type: Boolean,
-        default: false
-    },
-
-    selected: {
-        // Note: 'selected' styling currently only implemented for variant="outline"
-        type: Boolean,
-        default: false
     }
 })
-
-const emit = defineEmits(['click'])
-
-const buttonClasses = computed(() => {
-    return [
-        'action-btn',
-        `action-btn--${props.variant}`,
-        `action-btn--${props.size}`,
-        {
-            'action-btn--disabled': props.disabled,
-            'action-btn--loading': props.loading,
-            'action-btn--selected': props.selected
-        }
-    ].filter(Boolean)
-})
-
-const handleClick = (event) => {
-    if (!props.disabled && !props.loading) {
-        emit('click', event)
-    }
-}
 </script>
 
 <style scoped>
@@ -82,6 +46,17 @@ const handleClick = (event) => {
 
 /* === BASE BUTTON STYLES === */
 .action-btn {
+    --action-btn-bg: transparent;
+    --action-btn-text: var(--color-text-primary);
+    --action-btn-bg-hover: var(--action-btn-bg);
+    --action-btn-text-hover: var(--action-btn-text);
+    --action-btn-bg-active: var(--action-btn-bg-hover);
+    --action-btn-text-active: var(--action-btn-text-hover);
+    --action-btn-border-width: 0;
+    --action-btn-border-color: transparent;
+    --action-btn-border-color-hover: var(--action-btn-border-color);
+    --action-btn-border-color-active: var(--action-btn-border-color-hover);
+
     /* Layout */
     display: inline-flex;
     align-items: center;
@@ -95,7 +70,9 @@ const handleClick = (event) => {
     white-space: nowrap;
 
     /* Appearance */
-    border: none;
+    background-color: var(--action-btn-bg);
+    color: var(--action-btn-text);
+    border: var(--action-btn-border-width) solid var(--action-btn-border-color);
     border-radius: var(--radius-5);
     cursor: pointer;
     user-select: none;
@@ -107,6 +84,18 @@ const handleClick = (event) => {
     touch-action: manipulation;
 }
 
+.action-btn:hover:not(.action-btn--disabled) {
+    background-color: var(--action-btn-bg-hover);
+    color: var(--action-btn-text-hover);
+    border-color: var(--action-btn-border-color-hover);
+}
+
+.action-btn:active:not(.action-btn--disabled) {
+    background-color: var(--action-btn-bg-active);
+    color: var(--action-btn-text-active);
+    border-color: var(--action-btn-border-color-active);
+}
+
 /* === SIZE VARIANTS === */
 .action-btn--small {
     padding: 2px var(--space-sm);
@@ -115,8 +104,8 @@ const handleClick = (event) => {
 }
 
 .action-btn--large {
-    padding: var(--btn-min-height-lg);
-    font-size: var(--btn-min-height-lg);
+    padding: var(--space-sm) var(--space-lg);
+    font-size: var(--font-size-14);
     min-height: var(--btn-min-height-lg);
 }
 
@@ -124,81 +113,46 @@ const handleClick = (event) => {
 
 /* Primary (Gold) */
 .action-btn--primary {
-    background-color: var(--color-primary);
-    color: var(--color-primary-text);
-}
-
-.action-btn--primary:hover:not(.action-btn--disabled):not(.action-btn--loading) {
-    background-color: var(--color-primary-hover);
-}
-
-.action-btn--primary:active:not(.action-btn--disabled):not(.action-btn--loading) {
-    background-color: var(--color-primary-active);
+    --action-btn-bg: var(--color-primary);
+    --action-btn-text: var(--color-primary-text);
+    --action-btn-bg-hover: var(--color-primary-hover);
+    --action-btn-bg-active: var(--color-primary-active);
 }
 
 /* Secondary (Gray) */
 .action-btn--neutral {
-    background-color: var(--color-neutral);
-    color: var(--color-neutral-text);
-}
-
-.action-btn--neutral:hover:not(.action-btn--disabled):not(.action-btn--loading) {
-    background-color: var(--color-neutral-hover);
-}
-
-.action-btn--neutral:active:not(.action-btn--disabled):not(.action-btn--loading) {
-    background-color: var(--color-neutral-active);
+    --action-btn-bg: var(--color-neutral);
+    --action-btn-text: var(--color-neutral-text);
+    --action-btn-bg-hover: var(--color-neutral-hover);
+    --action-btn-bg-active: var(--color-neutral-active);
 }
 
 /* Danger (Red) */
 .action-btn--danger {
-    background-color: var(--color-danger);
-    color: var(--color-danger-text);
-}
-
-.action-btn--danger:hover:not(.action-btn--disabled):not(.action-btn--loading) {
-    background-color: var(--color-danger-hover);
-}
-
-.action-btn--danger:active:not(.action-btn--disabled):not(.action-btn--loading) {
-    background-color: var(--color-danger-active);
+    --action-btn-bg: var(--color-danger);
+    --action-btn-text: var(--color-danger-text);
+    --action-btn-bg-hover: var(--color-danger-hover);
+    --action-btn-bg-active: var(--color-danger-active);
 }
 
 /* Success (Green) */
 .action-btn--success {
-    background-color: var(--color-success);
-    color: var(--color-success-text);
-}
-
-.action-btn--success:hover:not(.action-btn--disabled):not(.action-btn--loading) {
-    background-color: var(--color-success-hover);
-}
-
-.action-btn--success:active:not(.action-btn--disabled):not(.action-btn--loading) {
-    background-color: var(--color-success-active);
+    --action-btn-bg: var(--color-success);
+    --action-btn-text: var(--color-success-text);
+    --action-btn-bg-hover: var(--color-success-hover);
+    --action-btn-bg-active: var(--color-success-active);
 }
 
 /* Outline */
 .action-btn--outline {
-    background-color: var(--color-bg-secondary);
-    color: var(--color-text-primary);
-    border: 1px solid var(--color-gray-medium);
-}
-
-.action-btn--outline:hover:not(.action-btn--disabled):not(.action-btn--loading) {
-    background-color: var(--color-primary-hover);
-}
-
-.action-btn--outline:active:not(.action-btn--disabled):not(.action-btn--loading) {
-    background-color: var(--color-primary);
-    color: var(--color-primary-text);
-    border-color: var(--color-primary);
-}
-
-.action-btn--outline.action-btn--selected {
-    background-color: var(--color-primary);
-    color: var(--color-primary-text);
-    border-color: var(--color-primary);
+    --action-btn-bg: var(--color-bg-secondary);
+    --action-btn-text: var(--color-text-primary);
+    --action-btn-bg-hover: var(--color-primary-hover);
+    --action-btn-bg-active: var(--color-primary);
+    --action-btn-text-active: var(--color-primary-text);
+    --action-btn-border-width: 1px;
+    --action-btn-border-color: var(--color-gray-medium);
+    --action-btn-border-color-active: var(--color-primary);
 }
 
 /* === STATE VARIANTS === */
@@ -210,32 +164,9 @@ const handleClick = (event) => {
     pointer-events: none;
 }
 
-/* Loading */
-.action-btn--loading {
-    cursor: wait;
-    position: relative;
-}
-
 /* === FOCUS STYLES === */
-.action-btn:focus {
+.action-btn:focus-visible {
     outline: 2px solid var(--color-primary);
     outline-offset: 2px;
-}
-
-.action-btn:focus:not(:focus-visible) {
-    outline: none;
-}
-
-/* === RESPONSIVE ADJUSTMENTS === */
-@media (max-width: var(--breakpoint-md)) {
-
-    /* Slightly larger touch targets on mobile */
-    .action-btn--small {
-        min-height: calc(var(--btn-min-height-sm) + 0.25rem);
-    }
-
-    .action-btn--large {
-        min-height: calc(var(--btn-min-height-lg) + 0.25rem);
-    }
 }
 </style>

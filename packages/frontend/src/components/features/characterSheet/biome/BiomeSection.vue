@@ -4,7 +4,7 @@
         <TableHeader title="Biome" :show-edit-button="false" collapsible :is-collapsed="isCollapsed"
             @toggle-collapse="isCollapsed = !isCollapsed">
             <template #header-right>
-                <FloatingActionButton v-if="hasActiveTags" :type="FAB_TYPES.REFRESH" :size="FAB_SIZES.SMALL"
+                <FloatingActionButton v-if="hasActiveTags" :variant="FAB_TYPES.REFRESH" :size="FAB_SIZES.SMALL"
                     :visibility="FAB_VISIBILITIES.ALWAYS" title="Clear active biome tags"
                     @click="biomeStore.clearAll()" />
             </template>

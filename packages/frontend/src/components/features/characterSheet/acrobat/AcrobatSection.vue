@@ -18,7 +18,7 @@
                 </div>
             </template>
             <template #header-right>
-                <FloatingActionButton v-if="nimbleStep > 0" :type="FAB_TYPES.REFRESH" :size="FAB_SIZES.SMALL"
+                <FloatingActionButton v-if="nimbleStep > 0" :variant="FAB_TYPES.REFRESH" :size="FAB_SIZES.SMALL"
                     :visibility="FAB_VISIBILITIES.ALWAYS" title="Reset to full movement" @click="resetSlider" />
             </template>
         </TableHeader>

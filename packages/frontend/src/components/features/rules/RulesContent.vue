@@ -8,7 +8,7 @@
           class="section-name-input" />
         <h2 v-else>{{ currentSection.name }}</h2>
         <div v-if="isAdmin" :class="{ 'fab-lockout': isStructureEditMode }">
-          <FloatingActionButton :type="isContentEditMode ? FAB_TYPES.CONFIRM : FAB_TYPES.EDIT"
+          <FloatingActionButton :variant="isContentEditMode ? FAB_TYPES.CONFIRM : FAB_TYPES.EDIT"
             :visibility="FAB_VISIBILITIES.ALWAYS" @click="toggleContentEditMode" />
         </div>
       </div>

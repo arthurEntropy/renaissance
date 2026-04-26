@@ -36,10 +36,34 @@
                     <h3 class="group-title">{{ row.label }}</h3>
                     <div class="fab-row">
                         <article v-for="item in row.items" :key="item.id" class="fab-card"
-                            :title="toTitleCase(item.type)">
-                            <FloatingActionButton :type="item.type" :size="item.size"
+                            :title="toTitleCase(item.variant)">
+                            <FloatingActionButton :variant="item.variant" :size="item.size"
                                 :visibility="FAB_VISIBILITIES.ALWAYS" />
                         </article>
+                    </div>
+                </section>
+            </div>
+        </section>
+
+        <section class="action-button-section" aria-label="Action Button inventory">
+            <h2 class="section-title">Action Buttons</h2>
+            <p class="count">{{ actionButtonVariationCount }} variations</p>
+
+            <div class="action-button-rows">
+                <section v-for="row in actionButtonRows" :key="row.size" class="action-button-row-section">
+                    <h3 class="group-title">{{ row.label }}</h3>
+
+                    <div class="action-button-state-groups">
+                        <section v-for="group in row.groups" :key="group.id" class="action-button-state-group">
+                            <h4 class="state-title">{{ group.label }}</h4>
+
+                            <div class="action-button-grid">
+                                <div v-for="item in group.items" :key="item.id" class="action-button-item">
+                                    <ActionButton :variant="item.variant" :size="item.size" :text="item.text"
+                                        :disabled="item.disabled" />
+                                </div>
+                            </div>
+                        </section>
                     </div>
                 </section>
             </div>
@@ -49,11 +73,36 @@
 
 <script setup>
 import { computed } from 'vue'
+import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import { FAB_TYPES as FAB_TYPE_VALUES, FAB_SIZES as FAB_SIZE_VALUES, FAB_VISIBILITIES } from '@/constants/fab'
 
 const FAB_TYPES = Object.values(FAB_TYPE_VALUES)
 const FAB_SIZES = Object.values(FAB_SIZE_VALUES)
+const ACTION_BUTTON_VARIANTS = ['primary', 'neutral', 'danger', 'success', 'outline']
+const ACTION_BUTTON_SIZES = ['small', 'large']
+const ACTION_BUTTON_STATES = [
+    {
+        id: 'default',
+        label: 'Default',
+        textSuffix: '',
+        props: {},
+    },
+    {
+        id: 'disabled',
+        label: 'Disabled',
+        textSuffix: 'Disabled',
+        props: {
+            disabled: true,
+        },
+    },
+    {
+        id: 'loading',
+        label: 'Loading',
+        textSuffix: 'Loading',
+        props: {},
+    },
+]
 
 const pngModules = import.meta.glob('/src/assets/**/*.png', {
     eager: true,
@@ -123,12 +172,40 @@ const fabRows = computed(() => {
     return FAB_SIZES.map((size) => ({
         size,
         label: toTitleCase(size),
-        items: FAB_TYPES.map((type) => ({
-            id: `${type}|${size}`,
-            type,
+        items: FAB_TYPES.map((variant) => ({
+            id: `${variant}|${size}`,
+            variant,
             size,
         })),
     }))
+})
+
+const actionButtonRows = computed(() => {
+    return ACTION_BUTTON_SIZES.map((size) => ({
+        size,
+        label: toTitleCase(size),
+        groups: ACTION_BUTTON_STATES.map((state) => {
+            const variants = state.variants || ACTION_BUTTON_VARIANTS
+
+            return {
+                id: `${size}|${state.id}`,
+                label: state.label,
+                items: variants.map((variant) => ({
+                    id: `${size}|${state.id}|${variant}`,
+                    size,
+                    variant,
+                    text: state.textSuffix ? `${toTitleCase(variant)} ${state.textSuffix}` : toTitleCase(variant),
+                    ...state.props,
+                })),
+            }
+        }),
+    }))
+})
+
+const actionButtonVariationCount = computed(() => {
+    return actionButtonRows.value.reduce((total, row) => {
+        return total + row.groups.reduce((sum, group) => sum + group.items.length, 0)
+    }, 0)
 })
 </script>
 
@@ -138,6 +215,7 @@ const fabRows = computed(() => {
     padding: var(--space-xl) var(--space-lg);
     display: grid;
     gap: var(--space-xxl, 32px);
+    width: 60%;
 }
 
 .design-lab-header {
@@ -177,7 +255,8 @@ h1 {
 }
 
 .inventory-section,
-.fab-section {
+.fab-section,
+.action-button-section {
     display: grid;
     gap: var(--space-md);
 }
@@ -220,7 +299,7 @@ h1 {
     height: 40px;
     display: grid;
     place-items: center;
-    background: #fff;
+    background: var(--color-gray-light);
 }
 
 .asset-tile img {
@@ -253,6 +332,47 @@ h1 {
     place-items: center;
 }
 
+.action-button-rows {
+    display: grid;
+    gap: var(--space-lg);
+}
+
+.action-button-row-section {
+    display: grid;
+    gap: var(--space-md);
+}
+
+.action-button-state-groups {
+    display: grid;
+    gap: var(--space-md);
+}
+
+.action-button-state-group {
+    display: grid;
+    gap: var(--space-sm);
+}
+
+.state-title {
+    margin: 0;
+    color: var(--color-gray-light);
+    font-size: var(--font-size-14);
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.action-button-grid {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-sm) var(--space-md);
+}
+
+.action-button-item {
+    display: flex;
+    align-items: center;
+}
+
 @media (max-width: 720px) {
     .design-lab-page {
         padding: var(--space-lg) var(--space-md);
@@ -262,8 +382,8 @@ h1 {
         grid-template-columns: repeat(auto-fill, minmax(56px, 1fr));
     }
 
-    .fab-grid {
-        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    .action-button-grid {
+        gap: var(--space-sm);
     }
 }
 </style>

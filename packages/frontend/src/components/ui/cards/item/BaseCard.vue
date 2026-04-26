@@ -6,11 +6,11 @@
 
     <!-- Admin Buttons -->
     <div v-if="editable || duplicatable || deletable" class="admin-buttons">
-      <FloatingActionButton v-if="deletable" :type="FAB_TYPES.DELETE" @click.stop="$emit('delete', item)"
+      <FloatingActionButton v-if="deletable" :variant="FAB_TYPES.DELETE" @click.stop="$emit('delete', item)"
         :size="FAB_SIZES.SMALL" :visibility="FAB_VISIBILITIES.ON_HOVER" class="delete-button-floating" />
-      <FloatingActionButton v-if="duplicatable" :type="FAB_TYPES.DUPLICATE" @click.stop="$emit('duplicate', item)"
+      <FloatingActionButton v-if="duplicatable" :variant="FAB_TYPES.DUPLICATE" @click.stop="$emit('duplicate', item)"
         :size="FAB_SIZES.SMALL" :visibility="FAB_VISIBILITIES.ON_HOVER" class="duplicate-button-floating" />
-      <FloatingActionButton v-if="editable" :type="FAB_TYPES.EDIT" @click.stop="$emit('edit', item)"
+      <FloatingActionButton v-if="editable" :variant="FAB_TYPES.EDIT" @click.stop="$emit('edit', item)"
         :size="FAB_SIZES.SMALL" :visibility="FAB_VISIBILITIES.ON_HOVER" class="edit-button-floating" />
     </div>
 

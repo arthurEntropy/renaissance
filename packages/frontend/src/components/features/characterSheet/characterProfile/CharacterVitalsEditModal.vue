@@ -153,8 +153,8 @@
             <!-- Sticky Action Buttons -->
             <div class="modal-footer">
                 <div class="form-buttons">
-                    <ActionButton variant="success" size="small" text="Save" @click="saveChanges" type="button" />
-                    <ActionButton variant="neutral" size="small" text="Cancel" @click="closeModal" type="button" />
+                    <ActionButton variant="success" size="small" text="Save" @click="saveChanges" />
+                    <ActionButton variant="neutral" size="small" text="Cancel" @click="closeModal" />
                 </div>
             </div>
 

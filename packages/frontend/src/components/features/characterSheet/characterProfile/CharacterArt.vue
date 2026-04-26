@@ -2,7 +2,7 @@
     <div>
         <div class="character-art-container edit-hover-area">
             <img :src="optimizedCharacterImageUrl" class="character-art-image" @click="openFullSizeArtModal" />
-            <FloatingActionButton v-if="canEdit" :type="FAB_TYPES.EDIT" :size="FAB_SIZES.SMALL"
+            <FloatingActionButton v-if="canEdit" :variant="FAB_TYPES.EDIT" :size="FAB_SIZES.SMALL"
                 :visibility="FAB_VISIBILITIES.ON_HOVER" class="edit-button-overlay-small" @click.stop="openEditModal" />
             <!-- Swagger overlay for Landsknecht -->
             <div v-if="isLandsknecht" class="swagger-overlay">

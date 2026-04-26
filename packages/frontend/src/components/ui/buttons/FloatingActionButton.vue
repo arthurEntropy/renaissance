@@ -1,9 +1,9 @@
 <template>
-    <button type="button" :class="['fab', `fab--${props.type}`, `fab--${props.size}`, `fab--${props.visibility}`]"
-        :title="typeConfig.tooltip">
+    <button type="button" :class="['fab', `fab--${props.variant}`, `fab--${props.size}`, `fab--${props.visibility}`]"
+        :title="variantConfig.tooltip">
         <!-- Special case for character sheet auto-calc: text instead of icon -->
-        <span v-if="props.type === FAB_TYPES.AUTO_CALC_ON" class="auto-text">AUTO</span>
-        <component v-else :is="typeConfig.icon"
+        <span v-if="props.variant === FAB_TYPES.AUTO_CALC_ON" class="auto-text">AUTO</span>
+        <component v-else :is="variantConfig.icon"
             :class="props.size === FAB_SIZES.SMALL ? 'fab__icon--small' : 'fab__icon--large'" />
     </button>
 </template>
@@ -21,7 +21,7 @@ import MartialTrainingIcon from '@/assets/icons/characterSheet/martial_training.
 import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 
 const props = defineProps({
-    type: {
+    variant: {
         type: String,
         required: true,
         validator: (value) => Object.values(FAB_TYPES).includes(value)
@@ -60,8 +60,8 @@ const FAB_TYPE_CONFIG = {
     [FAB_TYPES.MARTIAL_TRAINING]: { icon: MartialTrainingIcon, tooltip: 'View Martial Training' },
 }
 
-const typeConfig = computed(() => {
-    return FAB_TYPE_CONFIG[props.type]
+const variantConfig = computed(() => {
+    return FAB_TYPE_CONFIG[props.variant]
 })
 </script>
 

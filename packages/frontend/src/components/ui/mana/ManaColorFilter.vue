@@ -6,7 +6,7 @@
                 <ManaSymbol :color="color" :value="color === ManaColor.COLORLESS ? 'X' : ''" />
             </button>
             <div class="clear-button-container">
-                <FloatingActionButton v-if="selectedColors.length > 0" :type="FAB_TYPES.DELETE" :size="FAB_SIZES.SMALL"
+                <FloatingActionButton v-if="selectedColors.length > 0" :variant="FAB_TYPES.DELETE" :size="FAB_SIZES.SMALL"
                     :visibility="FAB_VISIBILITIES.ALWAYS" @click="clearAll" />
             </div>
         </div>

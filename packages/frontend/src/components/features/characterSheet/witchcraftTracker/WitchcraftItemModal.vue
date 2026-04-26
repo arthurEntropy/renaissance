@@ -57,7 +57,7 @@
                 <!-- Footer -->
                 <div class="modal-footer">
                     <div class="form-buttons">
-                        <ActionButton variant="success" size="small" text="Save" @click="handleSave" type="button" />
+                        <ActionButton variant="success" size="small" text="Save" @click="handleSave" />
                         <ActionButton variant="danger" size="small" text="Cancel" @click="$emit('close')"
                             type="button" />
                     </div>

@@ -3,7 +3,7 @@
         <div class="modal-content image-container edit-hover-area" @click.stop>
             <img :src="modalImageSrc" class="modal-image"
                 :class="{ 'modal-image--loading': isProgressive && !isFullQualityLoaded }" :alt="altText" />
-            <FloatingActionButton v-if="showEditButton" :type="FAB_TYPES.EDIT" :size="FAB_SIZES.SMALL"
+            <FloatingActionButton v-if="showEditButton" :variant="FAB_TYPES.EDIT" :size="FAB_SIZES.SMALL"
                 :visibility="FAB_VISIBILITIES.ON_HOVER" class="edit-button-overlay" @click.stop="$emit('edit')" />
         </div>
     </div>

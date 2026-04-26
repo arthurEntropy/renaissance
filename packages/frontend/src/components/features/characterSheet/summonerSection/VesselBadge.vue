@@ -12,9 +12,9 @@
 
         <!-- Top-right controls -->
         <div class="badge__controls">
-            <FloatingActionButton :type="FAB_TYPES.EDIT" :size="FAB_SIZES.SMALL" :visibility="FAB_VISIBILITIES.ON_HOVER"
+            <FloatingActionButton :variant="FAB_TYPES.EDIT" :size="FAB_SIZES.SMALL" :visibility="FAB_VISIBILITIES.ON_HOVER"
                 @click.stop="$emit('edit', vessel)" />
-            <FloatingActionButton :type="FAB_TYPES.DELETE" :size="FAB_SIZES.SMALL"
+            <FloatingActionButton :variant="FAB_TYPES.DELETE" :size="FAB_SIZES.SMALL"
                 :visibility="FAB_VISIBILITIES.ON_HOVER" @click.stop="handleRemove" />
         </div>
 

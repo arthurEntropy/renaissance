@@ -5,7 +5,7 @@
     <TableHeader title="Abilities" :is-edit-mode="internalEditMode" :show-edit-button="canEdit" collapsible
       :is-collapsed="isCollapsed" @toggle-collapse="isCollapsed = !isCollapsed" @toggle-edit="toggleEditMode">
       <template #header-left>
-        <FloatingActionButton v-if="internalEditMode" :type="FAB_TYPES.ADD" :size="FAB_SIZES.SMALL"
+        <FloatingActionButton v-if="internalEditMode" :variant="FAB_TYPES.ADD" :size="FAB_SIZES.SMALL"
           :visibility="FAB_VISIBILITIES.ALWAYS" @click="toggleAbilitySelector" />
         <ActionButton v-if="internalEditMode && groupingOption === 'custom'" variant="outline" size="small"
           text="+ Group" @click="createAbilityGroup" />
@@ -17,12 +17,12 @@
           <SortingDropdown v-model="abilitySortOption" :options="sortOptions" label="Order by:" placeholder="Custom" />
         </div>
         <FloatingActionButton v-else-if="!isCollapsed && characterAbilities.length > 0" class="expand-collapse-btn"
-          :type="allAbilitiesExpanded ? FAB_TYPES.COLLAPSE_ALL : FAB_TYPES.EXPAND_ALL" :size="FAB_SIZES.SMALL"
+          :variant="allAbilitiesExpanded ? FAB_TYPES.COLLAPSE_ALL : FAB_TYPES.EXPAND_ALL" :size="FAB_SIZES.SMALL"
           :visibility="FAB_VISIBILITIES.ON_HOVER" @click="toggleAllAbilities" />
       </template>
       <template #header-right>
         <div class="mp-display-container">
-          <FloatingActionButton v-if="canEdit && !isChanneler" class="mp-reset-button" :type="FAB_TYPES.REFRESH"
+          <FloatingActionButton v-if="canEdit && !isChanneler" class="mp-reset-button" :variant="FAB_TYPES.REFRESH"
             :size="FAB_SIZES.SMALL" :visibility="FAB_VISIBILITIES.ON_HOVER" @click="resetMP" />
           <ManaPoolDisplay v-if="isChanneler" />
           <MPDisplay v-else :is-edit-mode="canEdit" />

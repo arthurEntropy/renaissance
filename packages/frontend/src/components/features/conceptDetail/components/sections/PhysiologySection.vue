@@ -2,7 +2,7 @@
     <div v-if="hasContent || isEditMode" class="physiology-section edit-hover-area">
 
         <!-- Edit button -->
-        <FloatingActionButton v-if="isEditMode" :type="isEditingPhysiology ? FAB_TYPES.CONFIRM : FAB_TYPES.EDIT"
+        <FloatingActionButton v-if="isEditMode" :variant="isEditingPhysiology ? FAB_TYPES.CONFIRM : FAB_TYPES.EDIT"
             @click="toggleEdit" size="small" visibility="always" class="edit-button-overlay" />
 
         <!-- Edit mode -->

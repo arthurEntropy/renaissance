@@ -7,7 +7,7 @@
         <template v-else>
             <h1 class="concept-title edit-hover-area">
                 {{ concept.name }}
-                <FloatingActionButton v-if="isEditMode" :type="FAB_TYPES.EDIT" @click="enhancedStartEdit"
+                <FloatingActionButton v-if="isEditMode" :variant="FAB_TYPES.EDIT" @click="enhancedStartEdit"
                     :size="FAB_SIZES.SMALL" :visibility="FAB_VISIBILITIES.ALWAYS" />
             </h1>
             <div v-if="expansionLogoUrl" class="expansion-badge-wrapper"

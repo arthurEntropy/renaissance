@@ -16,7 +16,7 @@
         @click="openFullSizeModal" />
 
       <!-- Edit button - only in manual mode -->
-      <FloatingActionButton v-if="editable && isManualOrCombined" :type="FAB_TYPES.EDIT" :size="FAB_SIZES.SMALL"
+      <FloatingActionButton v-if="editable && isManualOrCombined" :variant="FAB_TYPES.EDIT" :size="FAB_SIZES.SMALL"
         :visibility="FAB_VISIBILITIES.ON_HOVER" class="edit-button-overlay" @click.stop="openEditModal" />
 
       <!-- Navigation button - next image -->
@@ -42,7 +42,7 @@
                 item-key="index" animation="150" ghost-class="ghost-thumb" @end="onDragEnd">
                 <template #item="{ index }">
                   <div class="thumb-wrapper">
-                    <FloatingActionButton :type="FAB_TYPES.DRAG" :size="FAB_SIZES.SMALL"
+                    <FloatingActionButton :variant="FAB_TYPES.DRAG" :size="FAB_SIZES.SMALL"
                       :visibility="FAB_VISIBILITIES.ON_HOVER" class="thumb-drag-handle" />
                     <img :src="optimizedThumbnails[globalIndex(index)]" :alt="`Thumbnail ${globalIndex(index) + 1}`"
                       class="thumb-image" @click="selectImage(globalIndex(index))" />

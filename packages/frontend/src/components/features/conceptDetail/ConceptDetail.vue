@@ -12,9 +12,9 @@
 
     <!-- Admin Controls -->
     <div class="admin-controls">
-      <FloatingActionButton v-if="isEditMode" :type="FAB_TYPES.SETTINGS" :size="FAB_SIZES.LARGE"
+      <FloatingActionButton v-if="isEditMode" :variant="FAB_TYPES.SETTINGS" :size="FAB_SIZES.LARGE"
         :visibility="FAB_VISIBILITIES.ALWAYS" @click="openSettingsModal" />
-      <FloatingActionButton v-if="editable" :type="isEditMode ? FAB_TYPES.CONFIRM : FAB_TYPES.EDIT"
+      <FloatingActionButton v-if="editable" :variant="isEditMode ? FAB_TYPES.CONFIRM : FAB_TYPES.EDIT"
         :size="FAB_SIZES.LARGE" :visibility="FAB_VISIBILITIES.ALWAYS" @click="() => toggleEditMode()" />
     </div>
 

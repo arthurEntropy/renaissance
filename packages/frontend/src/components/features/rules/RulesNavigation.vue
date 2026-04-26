@@ -4,7 +4,7 @@
     <!-- Header with edit toggle button -->
     <div class="rules-nav-header">
       <h3>Table of Contents</h3>
-      <FloatingActionButton v-if="isAdmin" :type="isStructureEditMode ? FAB_TYPES.CONFIRM : FAB_TYPES.EDIT"
+      <FloatingActionButton v-if="isAdmin" :variant="isStructureEditMode ? FAB_TYPES.CONFIRM : FAB_TYPES.EDIT"
         :visibility="FAB_VISIBILITIES.ALWAYS" @click="toggleStructureEditMode" />
     </div>
 
@@ -20,9 +20,9 @@
           <span class="section-name">{{ element.name }}</span>
           <!-- Edit controls -->
           <div class="section-controls">
-            <FloatingActionButton :type="FAB_TYPES.DRAG" :size="FAB_SIZES.SMALL"
+            <FloatingActionButton :variant="FAB_TYPES.DRAG" :size="FAB_SIZES.SMALL"
               :visibility="FAB_VISIBILITIES.ALWAYS" />
-            <FloatingActionButton :type="FAB_TYPES.DELETE" :size="FAB_SIZES.SMALL" :visibility="FAB_VISIBILITIES.ALWAYS"
+            <FloatingActionButton :variant="FAB_TYPES.DELETE" :size="FAB_SIZES.SMALL" :visibility="FAB_VISIBILITIES.ALWAYS"
               @click.stop="confirmDeleteSection(element)" />
           </div>
         </div>

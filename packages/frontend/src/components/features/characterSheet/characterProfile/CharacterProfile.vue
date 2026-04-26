@@ -8,7 +8,7 @@
     <CharacterVitals />
 
     <!-- Bio & Notes Button -->
-    <FloatingActionButton :type="FAB_TYPES.NOTES" :size="FAB_SIZES.SMALL" :visibility="FAB_VISIBILITIES.ALWAYS"
+    <FloatingActionButton :variant="FAB_TYPES.NOTES" :size="FAB_SIZES.SMALL" :visibility="FAB_VISIBILITIES.ALWAYS"
       class="notes-button" @click="openModal" />
 
     <!-- XP Badge -->
@@ -21,7 +21,7 @@
     <!-- Bio Modal (View/Edit) -->
     <div v-if="isModalOpen" class="modal-overlay" @click="handleOverlayClick">
       <div class="modal-content bio-modal edit-hover-area" @click.stop>
-        <FloatingActionButton v-if="canEdit && !isEditMode" :type="FAB_TYPES.EDIT" :size="FAB_SIZES.SMALL"
+        <FloatingActionButton v-if="canEdit && !isEditMode" :variant="FAB_TYPES.EDIT" :size="FAB_SIZES.SMALL"
           :visibility="FAB_VISIBILITIES.ON_HOVER" class="edit-button-overlay" @click.stop="startEdit" />
 
         <!-- View Mode -->

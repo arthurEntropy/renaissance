@@ -32,7 +32,7 @@
             <!-- Action buttons cluster: untap, delete, add —— separated from pips -->
             <div class="actions-cluster">
                 <!-- Untap all — only visible when there is tapped mana -->
-                <FloatingActionButton v-if="anyMana" :type="FAB_TYPES.REFRESH" :size="FAB_SIZES.SMALL"
+                <FloatingActionButton v-if="anyMana" :variant="FAB_TYPES.REFRESH" :size="FAB_SIZES.SMALL"
                     :visibility="FAB_VISIBILITIES.ALWAYS" title="Untap all mana" @click="untapAll" />
 
                 <!-- Clear all / drop-to-delete — visible when there is mana; becomes drop zone while dragging -->
@@ -40,15 +40,15 @@
                     :class="{ 'drop-zone': dragging, 'drop-zone--over': dropOver }"
                     @dragover.prevent="dragging && (dropOver = true)" @dragleave="dropOver = false"
                     @drop.prevent="dragging && onDrop()">
-                    <FloatingActionButton v-if="!dragging" :type="FAB_TYPES.DELETE" :size="FAB_SIZES.SMALL"
+                    <FloatingActionButton v-if="!dragging" :variant="FAB_TYPES.DELETE" :size="FAB_SIZES.SMALL"
                         :visibility="FAB_VISIBILITIES.ALWAYS" title="Clear mana pool" @click="clearPool" />
-                    <FloatingActionButton v-else :type="FAB_TYPES.DELETE" :size="FAB_SIZES.SMALL"
+                    <FloatingActionButton v-else :variant="FAB_TYPES.DELETE" :size="FAB_SIZES.SMALL"
                         :visibility="FAB_VISIBILITIES.ALWAYS" class="drop-zone-fab" />
                 </div>
 
                 <!-- Add FAB + circular color picker -->
                 <div class="add-btn-wrapper">
-                    <FloatingActionButton :type="FAB_TYPES.ADD" :size="FAB_SIZES.SMALL"
+                    <FloatingActionButton :variant="FAB_TYPES.ADD" :size="FAB_SIZES.SMALL"
                         :visibility="FAB_VISIBILITIES.ALWAYS" title="Add mana to pool" @click="toggleCircleMenu" />
                     <!-- Backdrop closes the menu when clicking outside -->
                     <div v-if="circleMenuOpen" class="circle-menu-backdrop" @click="circleMenuOpen = false" />

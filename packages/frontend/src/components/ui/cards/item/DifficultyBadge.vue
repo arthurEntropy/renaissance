@@ -9,7 +9,7 @@
                 {{ value != null ? value : '' }}
             </span>
         </div>
-        <FloatingActionButton v-if="value != null && !editing" :type="FAB_TYPES.REFRESH" :size="FAB_SIZES.SMALL"
+        <FloatingActionButton v-if="value != null && !editing" :variant="FAB_TYPES.REFRESH" :size="FAB_SIZES.SMALL"
             :visibility="FAB_VISIBILITIES.ON_HOVER" class="difficulty-badge-clear" title="Clear difficulty"
             @click.stop="$emit('update:value', null)" />
     </div>

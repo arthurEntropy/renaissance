@@ -125,7 +125,7 @@
       <!-- Sticky Action Buttons -->
       <div class="modal-footer">
         <div class="form-buttons">
-          <ActionButton variant="success" size="small" text="Save" @click="save" type="button" />
+          <ActionButton variant="success" size="small" text="Save" @click="save" />
           <ActionButton variant="danger" size="small" text="Delete" @click="() => deleteItem('ability')"
             type="button" />
         </div>

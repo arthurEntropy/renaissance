@@ -10,7 +10,7 @@
             </template>
 
             <template v-if="isEditMode" #header-right>
-                <FloatingActionButton :type="FAB_TYPES.ADD" :visibility="FAB_VISIBILITIES.ALWAYS"
+                <FloatingActionButton :variant="FAB_TYPES.ADD" :visibility="FAB_VISIBILITIES.ALWAYS"
                     @click="$emit('add-ability')" />
             </template>
 

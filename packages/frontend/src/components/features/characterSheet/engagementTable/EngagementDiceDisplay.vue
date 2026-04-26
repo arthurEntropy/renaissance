@@ -6,7 +6,7 @@
             <div v-for="(diceInfo) in diceData" :key="diceInfo.statusKey" class="dice-icon-container"
                 :class="{ 'user-added-die': diceInfo.isUserAdded }">
 
-                <FloatingActionButton v-if="isEditMode && diceInfo.isUserAdded" :type="FAB_TYPES.DELETE"
+                <FloatingActionButton v-if="isEditMode && diceInfo.isUserAdded" :variant="FAB_TYPES.DELETE"
                     :size="FAB_SIZES.SMALL" :visibility="FAB_VISIBILITIES.ALWAYS"
                     @click="removeUserAddedDie(diceInfo.userAddedIndex)" class="remove-die-button" />
 
@@ -20,7 +20,7 @@
             </div>
 
             <div v-if="isEditMode" class="add-die-container">
-                <FloatingActionButton :type="FAB_TYPES.ADD" :visibility="FAB_VISIBILITIES.ALWAYS"
+                <FloatingActionButton :variant="FAB_TYPES.ADD" :visibility="FAB_VISIBILITIES.ALWAYS"
                     @click="toggleDropdown" />
             </div>
         </div>

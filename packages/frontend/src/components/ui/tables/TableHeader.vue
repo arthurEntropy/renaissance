@@ -7,7 +7,7 @@
             </div>
             <h2 v-else>{{ title }}</h2>
 
-            <FloatingActionButton v-if="showEditButton" :type="isEditMode ? FAB_TYPES.CONFIRM : FAB_TYPES.EDIT"
+            <FloatingActionButton v-if="showEditButton" :variant="isEditMode ? FAB_TYPES.CONFIRM : FAB_TYPES.EDIT"
                 :size="FAB_SIZES.SMALL" :visibility="FAB_VISIBILITIES.ON_HOVER" @click="$emit('toggle-edit')" />
             <slot name="header-left" />
         </div>
