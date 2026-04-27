@@ -16,7 +16,8 @@
             <div class="engagement-successes-section" :class="{ 'opponent-successes-hidden': isOpponent }">
                 <div class="engagement-successes-list">
                     <div v-if="successes.length > 0" class="success-pills">
-                        <ChipTag v-for="success in successes" :key="success.id" :text="success.name" rounded="full"
+                        <ChipTag v-for="success in successes" :key="success.id" :text="success.name"
+                            :rounded="CHIP_TAG_ROUNDED.FULL"
                             :tooltip="{ description: success.description, sources: success.sources }"
                             class="draggable-success" :draggable="canEdit"
                             @dragstart="onSuccessDragStart($event, success)" />
@@ -36,6 +37,7 @@ import { useEngagementSession } from '@/composables/useEngagementSession'
 import { useEngagementRoll } from '@/composables/useEngagementRoll'
 import { useCharactersStore } from '@/stores/charactersStore'
 import ChipTag from '@/components/ui/chips/ChipTag.vue'
+import { CHIP_TAG_ROUNDED } from '@/constants/chipTag'
 import BaseCharacterColumn from './BaseCharacterColumn.vue'
 import EngagementDiceRow from './EngagementDiceRow.vue'
 

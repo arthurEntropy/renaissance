@@ -5,10 +5,11 @@
         <div v-if="die.rolledMaxValue && showResults && !isOpponent" class="success-drop-zone left-side"
             :class="{ disabled: !canEdit }" @drop="onSuccessDrop" @dragover.prevent @dragenter.prevent>
             <div v-if="assignedSuccess" class="assigned-success-container">
-                <ChipTag :text="assignedSuccess.name" rounded="full" variant="success" :tooltip="{
-                    description: assignedSuccess.description,
-                    sources: assignedSuccess.sources
-                }" :removable="canEdit" @remove="handleRemoveSuccess" />
+                <ChipTag :text="assignedSuccess.name" :rounded="CHIP_TAG_ROUNDED.FULL"
+                    :variant="CHIP_TAG_VARIANTS.PRIMARY" :tooltip="{
+                        description: assignedSuccess.description,
+                        sources: assignedSuccess.sources
+                    }" :removable="canEdit" @remove="handleRemoveSuccess" />
             </div>
             <div v-else class="success-outline"></div>
         </div>
@@ -26,10 +27,11 @@
         <!-- Success assignment display (right side for opponent) -->
         <div v-if="die.rolledMaxValue && showResults && isOpponent" class="success-display-zone right-side">
             <div v-if="assignedSuccess" class="assigned-success-container">
-                <ChipTag :text="assignedSuccess.name" rounded="full" variant="success" :tooltip="{
-                    description: assignedSuccess.description,
-                    sources: assignedSuccess.sources
-                }" />
+                <ChipTag :text="assignedSuccess.name" :rounded="CHIP_TAG_ROUNDED.FULL"
+                    :variant="CHIP_TAG_VARIANTS.PRIMARY" :tooltip="{
+                        description: assignedSuccess.description,
+                        sources: assignedSuccess.sources
+                    }" />
             </div>
             <div v-else class="success-outline"></div>
         </div>
@@ -45,6 +47,7 @@ import { useEngagementSession } from '@/composables/useEngagementSession'
 import { useEngagementRoll } from '@/composables/useEngagementRoll'
 import { useCharactersStore } from '@/stores/charactersStore'
 import ChipTag from '@/components/ui/chips/ChipTag.vue'
+import { CHIP_TAG_VARIANTS, CHIP_TAG_ROUNDED } from '@/constants/chipTag'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 
 const engagementSuccesses = useEngagementSuccesses()

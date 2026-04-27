@@ -110,8 +110,8 @@
                 </select>
 
                 <!-- Show Duplicates -->
-                <ActionButton size="small" :text="showDuplicates ? 'Show All' : 'Show Duplicates'"
-                    @click="showDuplicates = !showDuplicates" />
+                <ActionButton :variant="showDuplicates ? 'danger' : 'neutral'" size="small"
+                    :text="showDuplicates ? 'Show All' : 'Show Duplicates'" @click="showDuplicates = !showDuplicates" />
 
                 <ActionButton variant="primary" size="small" text="+ Add Art" @click="$emit('add')" />
             </div>

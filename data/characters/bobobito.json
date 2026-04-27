@@ -188,8 +188,8 @@
     "https://cdn.midjourney.com/33a4c041-49a8-4234-8e65-54d65bc7033b/0_0.png"
   ],
   "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2026-04-21T12:34:02.749Z",
-  "lastModified": "2026-04-21T12:34:02.749Z",
+  "updatedAt": "2026-04-26T02:04:30.022Z",
+  "lastModified": "2026-04-26T02:04:30.022Z",
   "rollStats": {
     "skillChecks": {
       "attempts": 3,
@@ -224,5 +224,9 @@
   "weight": 150,
   "swagger": 3,
   "swaggerIconIndex": 1,
-  "swaggerColor": "#fdf7f7"
+  "swaggerColor": "#fdf7f7",
+  "engagementDiceStatuses": {
+    "user_added_1": "expended",
+    "user_added_0": "expended"
+  }
 }

@@ -4,7 +4,7 @@
             <p class="eyebrow">Admin Tools</p>
             <h1>Design Lab</h1>
             <p class="intro">
-                Visual inventory for current icon assets and floating action button variants.
+                Visual inventory for current icon assets and UI component variants.
             </p>
         </header>
 
@@ -68,6 +68,37 @@
                 </section>
             </div>
         </section>
+
+        <section class="chip-tag-section" aria-label="Chip Tag inventory">
+            <h2 class="section-title">Chip Tags</h2>
+            <p class="count">{{ chipVariationCount }} variations</p>
+
+            <div class="chip-tag-rows">
+                <section v-for="row in chipRows" :key="row.id" class="chip-tag-row-section">
+                    <h3 class="group-title">{{ row.label }}</h3>
+
+                    <div class="chip-tag-state-groups">
+                        <section v-for="group in row.groups" :key="group.id" class="chip-tag-state-group">
+                            <h4 class="state-title">{{ group.label }}</h4>
+
+                            <div class="chip-tag-variant-rows">
+                                <div v-for="variantRow in group.variantRows" :key="variantRow.id"
+                                    class="chip-tag-variant-row">
+                                    <span class="chip-tag-variant-label">{{ variantRow.label }}</span>
+                                    <div class="chip-tag-grid">
+                                        <div v-for="item in variantRow.items" :key="item.id" class="chip-tag-item">
+                                            <ChipTag :text="item.text" :variant="item.variant" :rounded="item.rounded"
+                                                :removable="item.removable" :hoverable="item.hoverable"
+                                                :tooltip="item.tooltip" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </section>
+            </div>
+        </section>
     </main>
 </template>
 
@@ -75,7 +106,9 @@
 import { computed } from 'vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
+import ChipTag from '@/components/ui/chips/ChipTag.vue'
 import { FAB_TYPES as FAB_TYPE_VALUES, FAB_SIZES as FAB_SIZE_VALUES, FAB_VISIBILITIES } from '@/constants/fab'
+import { CHIP_TAG_VARIANTS as CHIP_TAG_VARIANT_VALUES, CHIP_TAG_ROUNDED as CHIP_TAG_ROUNDED_VALUES } from '@/constants/chipTag'
 
 const FAB_TYPES = Object.values(FAB_TYPE_VALUES)
 const FAB_SIZES = Object.values(FAB_SIZE_VALUES)
@@ -91,16 +124,24 @@ const ACTION_BUTTON_STATES = [
     {
         id: 'disabled',
         label: 'Disabled',
-        textSuffix: 'Disabled',
+        textSuffix: '',
         props: {
             disabled: true,
         },
     },
+]
+const CHIP_VARIANTS = Object.values(CHIP_TAG_VARIANT_VALUES)
+const CHIP_ROUNDED_OPTIONS = Object.values(CHIP_TAG_ROUNDED_VALUES)
+const CHIP_INTERACTION_STATES = [
     {
-        id: 'loading',
-        label: 'Loading',
-        textSuffix: 'Loading',
-        props: {},
+        id: 'tooltip',
+        label: 'With Tooltip',
+        props: {
+            tooltip: {
+                description: 'Lore detail for this chip variation.',
+                sources: ['Design Lab'],
+            },
+        },
     },
 ]
 
@@ -207,6 +248,71 @@ const actionButtonVariationCount = computed(() => {
         return total + row.groups.reduce((sum, group) => sum + group.items.length, 0)
     }, 0)
 })
+
+const chipRows = computed(() => {
+    return CHIP_ROUNDED_OPTIONS.map((rounded) => ({
+        id: rounded,
+        label: `${toTitleCase(rounded)} Rounded`,
+        groups: CHIP_INTERACTION_STATES.map((state) => ({
+            id: `${rounded}|${state.id}`,
+            label: state.label,
+            variantRows: CHIP_VARIANTS.map((variant) => {
+                const baseId = `${rounded}|${state.id}|${variant}`
+
+                return {
+                    id: `${baseId}|row`,
+                    label: toTitleCase(variant),
+                    items: [
+                        {
+                            id: `${baseId}|standard`,
+                            text: `${toTitleCase(variant)} Chip`,
+                            variant,
+                            rounded,
+                            removable: false,
+                            hoverable: true,
+                            ...state.props,
+                        },
+                        {
+                            id: `${baseId}|remove`,
+                            text: `${toTitleCase(variant)} Removable`,
+                            variant,
+                            rounded,
+                            removable: true,
+                            hoverable: true,
+                            ...state.props,
+                        },
+                        {
+                            id: `${baseId}|nohover`,
+                            text: `${toTitleCase(variant)} No Hover`,
+                            variant,
+                            rounded,
+                            removable: false,
+                            hoverable: false,
+                            ...state.props,
+                        },
+                        {
+                            id: `${baseId}|remove-nohover`,
+                            text: `${toTitleCase(variant)} Remove No Hover`,
+                            variant,
+                            rounded,
+                            removable: true,
+                            hoverable: false,
+                            ...state.props,
+                        },
+                    ],
+                }
+            }),
+        })),
+    }))
+})
+
+const chipVariationCount = computed(() => {
+    return chipRows.value.reduce((total, row) => {
+        return total + row.groups.reduce((sum, group) => {
+            return sum + group.variantRows.reduce((variantSum, variantRow) => variantSum + variantRow.items.length, 0)
+        }, 0)
+    }, 0)
+})
 </script>
 
 <style scoped>
@@ -256,7 +362,8 @@ h1 {
 
 .inventory-section,
 .fab-section,
-.action-button-section {
+.action-button-section,
+.chip-tag-section {
     display: grid;
     gap: var(--space-md);
 }
@@ -279,19 +386,22 @@ h1 {
 }
 
 .asset-grid {
-    display: grid;
+    display: flex;
+    flex-wrap: wrap;
     gap: var(--space-md);
-    grid-template-columns: repeat(auto-fill, minmax(64px, 1fr));
 }
 
 .asset-card {
     padding: 0;
+    margin: 0;
 }
 
 .tile-wrap {
     display: flex;
     align-items: center;
     justify-content: center;
+    margin: 0;
+
 }
 
 .asset-tile {
@@ -299,14 +409,15 @@ h1 {
     height: 40px;
     display: grid;
     place-items: center;
-    background: var(--color-gray-light);
+    background: var(--color-black);
 }
 
 .asset-tile img {
     max-width: 36px;
     max-height: 36px;
     object-fit: contain;
-    filter: brightness(0);
+    filter: brightness(0) invert(1);
+    opacity: 0.93;
 }
 
 .fab-rows {
@@ -373,17 +484,53 @@ h1 {
     align-items: center;
 }
 
-@media (max-width: 720px) {
-    .design-lab-page {
-        padding: var(--space-lg) var(--space-md);
-    }
+.chip-tag-rows {
+    display: grid;
+    gap: var(--space-lg);
+}
 
-    .asset-grid {
-        grid-template-columns: repeat(auto-fill, minmax(56px, 1fr));
-    }
+.chip-tag-row-section {
+    display: grid;
+    gap: var(--space-md);
+}
 
-    .action-button-grid {
-        gap: var(--space-sm);
-    }
+.chip-tag-state-groups {
+    display: grid;
+    gap: var(--space-md);
+}
+
+.chip-tag-state-group {
+    display: grid;
+    gap: var(--space-sm);
+}
+
+.chip-tag-variant-rows {
+    display: grid;
+    gap: var(--space-sm);
+}
+
+.chip-tag-variant-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+}
+
+.chip-tag-variant-label {
+    min-width: 64px;
+    color: var(--color-gray-light);
+    font-size: var(--font-size-13);
+    text-transform: uppercase;
+}
+
+.chip-tag-grid {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-sm) var(--space-md);
+}
+
+.chip-tag-item {
+    display: flex;
+    align-items: center;
 }
 </style>

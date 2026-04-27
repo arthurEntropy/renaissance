@@ -99,7 +99,7 @@ const props = defineProps({
 /* === SIZE VARIANTS === */
 .action-btn--small {
     padding: 2px var(--space-sm);
-    font-size: var(--font-size-14);
+    font-size: var(--font-size-12);
     min-height: var(--btn-min-height-sm);
 }
 

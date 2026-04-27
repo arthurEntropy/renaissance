@@ -63,8 +63,8 @@
 
       <!-- Engagement success chiptags -->
       <div v-if="engagementSuccesses.length > 0" class="engagement-successes">
-        <ChipTag v-for="success in engagementSuccesses" :key="success.id" :text="success.name" rounded="full"
-          :tooltip="{ description: success.description, sources: success.sources }" />
+        <ChipTag v-for="success in engagementSuccesses" :key="success.id" :text="success.name"
+          :rounded="CHIP_TAG_ROUNDED.FULL" :tooltip="{ description: success.description, sources: success.sources }" />
       </div>
 
       <!-- Successes section (✨/🌞/💀 style) -->
@@ -149,6 +149,7 @@ import MesmerDiscoverModal from '@/components/features/characterSheet/modals/Mes
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import BadgeDisplay from '@/components/ui/cards/item/BadgeDisplay.vue'
 import ChipTag from '@/components/ui/chips/ChipTag.vue'
+import { CHIP_TAG_ROUNDED } from '@/constants/chipTag'
 import ImprovementsSection from '@/components/ui/cards/item/ImprovementsSection.vue'
 import SuccessesSection from '@/components/ui/cards/item/SuccessesSection.vue'
 import CharacterService from '@/services/entities/characterService'

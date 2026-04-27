@@ -11,7 +11,7 @@
                     <component :is="typeIcon" class="icon-sm" />
                 </span>
                 <ChipTag v-for="sourceId in art?.tags?.sources || []" :key="sourceId" :sourceId="sourceId"
-                    variant="secondary" />
+                    :variant="CHIP_TAG_VARIANTS.GRAY" />
             </div>
         </div>
         <!-- Selection indicator -->
@@ -25,6 +25,7 @@
 import { computed } from 'vue'
 import { UserCircleIcon, PhotoIcon, MapIcon, CheckIcon } from '@heroicons/vue/24/outline'
 import ChipTag from '@/components/ui/chips/ChipTag.vue'
+import { CHIP_TAG_VARIANTS } from '@/constants/chipTag'
 import { useOptimizedImage } from '@/composables/useOptimizedImage'
 import { MIDJOURNEY_IMAGE_CONTEXTS } from '@shared/constants/artConstants.js'
 
