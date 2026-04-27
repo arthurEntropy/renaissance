@@ -121,6 +121,47 @@
                 </section>
             </div>
         </section>
+
+        <section class="mana-section" aria-label="Mana display inventory">
+            <h2 class="section-title">Mana Displays</h2>
+            <p class="count">{{ manaVariationCount }} variations</p>
+
+            <div class="mana-rows">
+                <section class="mana-row-section">
+                    <h3 class="group-title">Mana Symbols</h3>
+                    <div class="mana-symbol-grid">
+                        <div v-for="symbol in manaSymbolSamples" :key="symbol.id" class="mana-symbol-item">
+                            <ManaSymbol :color="symbol.color" :value="symbol.value" />
+                            <span class="mana-item-label">{{ symbol.label }}</span>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="mana-row-section">
+                    <h3 class="group-title">Mana Cost Display</h3>
+                    <div class="mana-cost-grid">
+                        <div v-for="sample in manaCostSamples" :key="sample.id" class="mana-cost-item">
+                            <span class="mana-item-label">{{ sample.cost }}</span>
+                            <ManaCostDisplay :cost="sample.cost" />
+                        </div>
+                    </div>
+                </section>
+
+                <section class="mana-row-section">
+                    <h3 class="group-title">Mana Color Filter</h3>
+                    <div class="mana-filter-stack">
+                        <ManaColorFilter v-model="selectedManaFilterColors" />
+                        <div class="mana-filter-preview" v-if="selectedManaFilterColors.length > 0">
+                            <span class="mana-item-label">Selected</span>
+                            <div class="mana-selected-grid">
+                                <ManaSymbol v-for="color in selectedManaFilterColors" :key="color" :color="color" />
+                            </div>
+                        </div>
+                        <span class="mana-item-label" v-else>Selected: none</span>
+                    </div>
+                </section>
+            </div>
+        </section>
     </main>
 </template>
 
@@ -130,9 +171,13 @@ import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import ChipTag from '@/components/ui/chips/ChipTag.vue'
 import NumberInput from '@/components/ui/forms/NumberInput.vue'
+import ManaSymbol from '@/components/ui/mana/ManaSymbol.vue'
+import ManaCostDisplay from '@/components/ui/mana/ManaCostDisplay.vue'
+import ManaColorFilter from '@/components/ui/mana/ManaColorFilter.vue'
 import { FAB_TYPES as FAB_TYPE_VALUES, FAB_SIZES as FAB_SIZE_VALUES, FAB_VISIBILITIES } from '@/constants/fab'
 import { CHIP_TAG_VARIANTS as CHIP_TAG_VARIANT_VALUES, CHIP_TAG_ROUNDED as CHIP_TAG_ROUNDED_VALUES } from '@/constants/chipTag'
 import { NUMBER_INPUT_SIZES as NUMBER_INPUT_SIZE_VALUES } from '@/constants/numberInput'
+import { ManaColor, MANA_COLOR_ORDER } from '@shared/constants/manaColors'
 
 const FAB_TYPES = Object.values(FAB_TYPE_VALUES)
 const FAB_SIZES = Object.values(FAB_SIZE_VALUES)
@@ -192,31 +237,31 @@ const NUMBER_INPUT_STATES = [
             disabled: true,
         },
     },
-    {
-        id: 'bounded',
-        label: 'Bounded 0-20',
-        props: {
-            initialValue: 10,
-            min: 0,
-            max: 20,
-            step: 1,
-            disabled: false,
-        },
-    },
-    {
-        id: 'step',
-        label: 'Step 5',
-        props: {
-            initialValue: 15,
-            min: 0,
-            max: 50,
-            step: 5,
-            disabled: false,
-        },
-    },
+]
+
+const manaSymbolSamples = [
+    ...MANA_COLOR_ORDER.map((color) => ({
+        id: `color-${color}`,
+        color,
+        value: color === ManaColor.COLORLESS ? '1' : '',
+        label: toTitleCase(color),
+    })),
+    { id: 'colorless-x', color: ManaColor.COLORLESS, value: 'X', label: 'Colorless X' },
+    { id: 'colorless-10', color: ManaColor.COLORLESS, value: '10', label: 'Colorless 10' },
+]
+
+const manaCostSamples = [
+    { id: 'cost-1', cost: 'W' },
+    { id: 'cost-2', cost: '2W' },
+    { id: 'cost-3', cost: '1UB' },
+    { id: 'cost-4', cost: '3RG' },
+    { id: 'cost-5', cost: 'XU' },
+    { id: 'cost-6', cost: '10G' },
+    { id: 'cost-7', cost: '2WUBRG' },
 ]
 
 const numberInputValues = ref({})
+const selectedManaFilterColors = ref([])
 
 const pngModules = import.meta.glob('/src/assets/**/*.png', {
     eager: true,
@@ -274,7 +319,7 @@ const formatGroupLabel = (folder) => {
         .join(' / ')
 }
 
-const toTitleCase = (value) => {
+function toTitleCase(value) {
     return value
         .split(/[_\-\s]+/)
         .filter(Boolean)
@@ -418,6 +463,10 @@ const getNumberInputValue = (item) => {
 const setNumberInputValue = (itemId, value) => {
     numberInputValues.value[itemId] = value
 }
+
+const manaVariationCount = computed(() => {
+    return manaSymbolSamples.length + manaCostSamples.length + 1
+})
 </script>
 
 <style scoped>
@@ -469,7 +518,8 @@ h1 {
 .fab-section,
 .action-button-section,
 .chip-tag-section,
-.number-input-section {
+.number-input-section,
+.mana-section {
     display: grid;
     gap: var(--space-md);
 }
@@ -641,13 +691,16 @@ h1 {
 }
 
 .number-input-rows {
-    display: grid;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
     gap: var(--space-lg);
 }
 
 .number-input-row-section {
     display: grid;
     gap: var(--space-md);
+    flex: 0 0 auto;
 }
 
 .number-input-grid {
@@ -674,5 +727,53 @@ h1 {
 .number-input-item {
     display: flex;
     align-items: center;
+}
+
+.mana-rows {
+    display: grid;
+    gap: var(--space-lg);
+}
+
+.mana-row-section {
+    display: grid;
+    gap: var(--space-sm);
+}
+
+.mana-symbol-grid,
+.mana-cost-grid {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-sm) var(--space-md);
+}
+
+.mana-symbol-item,
+.mana-cost-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+}
+
+.mana-item-label {
+    font-size: var(--font-size-12);
+    color: var(--color-gray-light);
+}
+
+.mana-filter-stack {
+    display: grid;
+    gap: var(--space-xs);
+    justify-content: flex-start;
+}
+
+.mana-filter-preview {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+}
+
+.mana-selected-grid {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
 }
 </style>
