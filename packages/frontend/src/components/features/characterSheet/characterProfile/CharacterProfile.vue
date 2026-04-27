@@ -15,7 +15,7 @@
     <div class="xp-badge">
       <span class="xp-label">XP:</span>
       <NumberInput :model-value="character.xp || 0" :disabled="!canEdit" @update:model-value="character.xp = $event"
-        :min="0" size="small" />
+        :min="0" :size="NUMBER_INPUT_SIZES.MEDIUM" />
     </div>
 
     <!-- Bio Modal (View/Edit) -->
@@ -36,22 +36,23 @@
             <div class="profile-fields-grid">
               <label class="profile-field">
                 <span>Age</span>
-                <NumberInput :model-value="editedAge" @update:model-value="editedAge = $event" :min="0" size="small" />
+                <NumberInput :model-value="editedAge" @update:model-value="editedAge = $event" :min="0"
+                  :size="NUMBER_INPUT_SIZES.MEDIUM" />
               </label>
               <label class="profile-field">
                 <span>Feet</span>
                 <NumberInput :model-value="editedHeightFeet" @update:model-value="editedHeightFeet = $event" :min="0"
-                  size="small" />
+                  :size="NUMBER_INPUT_SIZES.MEDIUM" />
               </label>
               <label class="profile-field">
                 <span>Inches</span>
                 <NumberInput :model-value="editedHeightInches" @update:model-value="editedHeightInches = $event"
-                  :min="0" :max="11" size="small" />
+                  :min="0" :max="11" :size="NUMBER_INPUT_SIZES.MEDIUM" />
               </label>
               <label class="profile-field">
                 <span>Weight</span>
                 <NumberInput :model-value="editedWeight" @update:model-value="editedWeight = $event" :min="0"
-                  size="small" />
+                  :size="NUMBER_INPUT_SIZES.MEDIUM" />
               </label>
             </div>
             <TextEditor v-model="editedContent" :auto-height="true" :placeholder="EMPTY_BIO_MESSAGE" height="300px" />
@@ -76,6 +77,7 @@ import CharacterPhysicalStats from './CharacterPhysicalStats.vue'
 import CharacterVitals from './CharacterVitals.vue'
 import CharacterSheetSection from '@/components/ui/containers/CharacterSheetSection.vue'
 import NumberInput from '@/components/ui/forms/NumberInput.vue'
+import { NUMBER_INPUT_SIZES } from '@/constants/numberInput'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'

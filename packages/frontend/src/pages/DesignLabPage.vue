@@ -99,16 +99,40 @@
                 </section>
             </div>
         </section>
+
+        <section class="number-input-section" aria-label="Number Input inventory">
+            <h2 class="section-title">Number Inputs</h2>
+            <p class="count">{{ numberInputVariationCount }} variations</p>
+
+            <div class="number-input-rows">
+                <section v-for="row in numberInputRows" :key="row.size" class="number-input-row-section">
+                    <h3 class="group-title">{{ row.label }}</h3>
+
+                    <div class="number-input-grid">
+                        <div v-for="group in row.groups" :key="group.id" class="number-input-item-stack">
+                            <span class="number-input-item-label">{{ group.label }}</span>
+                            <div v-for="item in group.items" :key="item.id" class="number-input-item">
+                                <NumberInput :model-value="getNumberInputValue(item)"
+                                    @update:model-value="setNumberInputValue(item.id, $event)" :size="item.size"
+                                    :disabled="item.disabled" :min="item.min" :max="item.max" :step="item.step" />
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </section>
     </main>
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import ChipTag from '@/components/ui/chips/ChipTag.vue'
+import NumberInput from '@/components/ui/forms/NumberInput.vue'
 import { FAB_TYPES as FAB_TYPE_VALUES, FAB_SIZES as FAB_SIZE_VALUES, FAB_VISIBILITIES } from '@/constants/fab'
 import { CHIP_TAG_VARIANTS as CHIP_TAG_VARIANT_VALUES, CHIP_TAG_ROUNDED as CHIP_TAG_ROUNDED_VALUES } from '@/constants/chipTag'
+import { NUMBER_INPUT_SIZES as NUMBER_INPUT_SIZE_VALUES } from '@/constants/numberInput'
 
 const FAB_TYPES = Object.values(FAB_TYPE_VALUES)
 const FAB_SIZES = Object.values(FAB_SIZE_VALUES)
@@ -144,6 +168,55 @@ const CHIP_INTERACTION_STATES = [
         },
     },
 ]
+const NUMBER_INPUT_SIZES = Object.values(NUMBER_INPUT_SIZE_VALUES)
+const NUMBER_INPUT_STATES = [
+    {
+        id: 'default',
+        label: 'Default',
+        props: {
+            initialValue: 12,
+            min: null,
+            max: null,
+            step: 1,
+            disabled: false,
+        },
+    },
+    {
+        id: 'disabled',
+        label: 'Disabled',
+        props: {
+            initialValue: 12,
+            min: null,
+            max: null,
+            step: 1,
+            disabled: true,
+        },
+    },
+    {
+        id: 'bounded',
+        label: 'Bounded 0-20',
+        props: {
+            initialValue: 10,
+            min: 0,
+            max: 20,
+            step: 1,
+            disabled: false,
+        },
+    },
+    {
+        id: 'step',
+        label: 'Step 5',
+        props: {
+            initialValue: 15,
+            min: 0,
+            max: 50,
+            step: 5,
+            disabled: false,
+        },
+    },
+]
+
+const numberInputValues = ref({})
 
 const pngModules = import.meta.glob('/src/assets/**/*.png', {
     eager: true,
@@ -313,6 +386,38 @@ const chipVariationCount = computed(() => {
         }, 0)
     }, 0)
 })
+
+const numberInputRows = computed(() => {
+    return NUMBER_INPUT_SIZES.map((size) => ({
+        size,
+        label: toTitleCase(size),
+        groups: NUMBER_INPUT_STATES.map((state) => ({
+            id: `${size}|${state.id}`,
+            label: state.label,
+            items: [
+                {
+                    id: `${size}|${state.id}|input`,
+                    size,
+                    ...state.props,
+                },
+            ],
+        })),
+    }))
+})
+
+const numberInputVariationCount = computed(() => {
+    return numberInputRows.value.reduce((total, row) => {
+        return total + row.groups.reduce((sum, group) => sum + group.items.length, 0)
+    }, 0)
+})
+
+const getNumberInputValue = (item) => {
+    return numberInputValues.value[item.id] ?? item.initialValue
+}
+
+const setNumberInputValue = (itemId, value) => {
+    numberInputValues.value[itemId] = value
+}
 </script>
 
 <style scoped>
@@ -363,7 +468,8 @@ h1 {
 .inventory-section,
 .fab-section,
 .action-button-section,
-.chip-tag-section {
+.chip-tag-section,
+.number-input-section {
     display: grid;
     gap: var(--space-md);
 }
@@ -530,6 +636,42 @@ h1 {
 }
 
 .chip-tag-item {
+    display: flex;
+    align-items: center;
+}
+
+.number-input-rows {
+    display: grid;
+    gap: var(--space-lg);
+}
+
+.number-input-row-section {
+    display: grid;
+    gap: var(--space-md);
+}
+
+.number-input-grid {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: var(--space-sm) var(--space-md);
+}
+
+.number-input-item-stack {
+    display: grid;
+    justify-items: center;
+    gap: var(--space-xs);
+}
+
+.number-input-item-label {
+    color: var(--color-gray-light);
+    font-size: var(--font-size-12);
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+}
+
+.number-input-item {
     display: flex;
     align-items: center;
 }

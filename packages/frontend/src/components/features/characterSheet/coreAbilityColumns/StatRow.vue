@@ -4,13 +4,13 @@
 
         <!-- Range type (virtue: current/max) -->
         <template v-if="type === STAT_ROW_TYPES.RANGE">
-            <FloatingActionButton v-if="canEdit" class="reset-button" :variant="FAB_TYPES.REFRESH" :size="FAB_SIZES.SMALL"
-                :visibility="FAB_VISIBILITIES.ON_HOVER" @click="emit('reset')" />
+            <FloatingActionButton v-if="canEdit" class="reset-button" :variant="FAB_TYPES.REFRESH"
+                :size="FAB_SIZES.SMALL" :visibility="FAB_VISIBILITIES.ON_HOVER" @click="emit('reset')" />
             <NumberInput :model-value="value.current" :disabled="!canEdit"
-                @update:model-value="$emit('update', 'current', $event)" :min="0" size="small" />
+                @update:model-value="$emit('update', 'current', $event)" :min="0" :size="NUMBER_INPUT_SIZES.MEDIUM" />
             <span class="range-separator">/</span>
             <NumberInput :model-value="value.max" :disabled="!canEdit"
-                @update:model-value="$emit('update', 'max', $event)" :min="0" size="small" />
+                @update:model-value="$emit('update', 'max', $event)" :min="0" :size="NUMBER_INPUT_SIZES.MEDIUM" />
         </template>
 
         <!-- Single value type (weakness) -->
@@ -22,7 +22,7 @@
                 :variant="isAutoCalc ? FAB_TYPES.AUTO_CALC_ON : FAB_TYPES.AUTO_CALC" :size="FAB_SIZES.SMALL"
                 :visibility="FAB_VISIBILITIES.ON_HOVER" @click="emit('toggle-auto-calc')" />
             <NumberInput :model-value="value" :disabled="!canEdit" @update:model-value="$emit('update', $event)"
-                :min="0" size="small" />
+                :min="0" :size="NUMBER_INPUT_SIZES.MEDIUM" />
         </template>
 
         <!-- Checkbox type (states) -->
@@ -45,6 +45,7 @@ import { computed, toRefs } from 'vue'
 import NumberInput from '@/components/ui/forms/NumberInput.vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
+import { NUMBER_INPUT_SIZES } from '@/constants/numberInput'
 import { STAT_ROW_TYPES } from '@shared/constants/characterConstants'
 
 // Props

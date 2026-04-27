@@ -2,16 +2,17 @@
     <div v-if="selectedCharacter?.mp" class="mp-container">
         <span class="mp-label">MP:</span>
         <NumberInput :model-value="selectedCharacter.mp.current" :disabled="!isEditMode"
-            @update:model-value="updateCurrent" :min="0" size="small" />
+            @update:model-value="updateCurrent" :min="0" :size="NUMBER_INPUT_SIZES.MEDIUM" />
         <span>/</span>
         <NumberInput :model-value="selectedCharacter.mp.max" :disabled="!isEditMode" @update:model-value="updateMax"
-            :min="0" size="small" />
+            :min="0" :size="NUMBER_INPUT_SIZES.MEDIUM" />
     </div>
 </template>
 
 <script setup>
 import { computed } from 'vue'
 import NumberInput from '@/components/ui/forms/NumberInput.vue'
+import { NUMBER_INPUT_SIZES } from '@/constants/numberInput'
 import { useCharactersStore } from '@/stores/charactersStore'
 
 defineProps({

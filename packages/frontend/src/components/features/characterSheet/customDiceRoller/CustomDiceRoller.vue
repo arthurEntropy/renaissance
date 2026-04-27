@@ -5,14 +5,15 @@
             <div v-for="dieType in DIE_TYPES" :key="dieType" class="dice-column">
                 <i :class="getDiceFontMaxClass(dieType)" class="die-icon"></i>
                 <NumberInput :model-value="diceCounts[dieType]" @update:model-value="updateDiceCount(dieType, $event)"
-                    :min="0" :max="20" size="small" />
+                    :min="0" :max="20" :size="NUMBER_INPUT_SIZES.MEDIUM" />
             </div>
         </div>
 
         <div class="controls-row">
             <div class="modifier-control">
                 <span class="modifier-label">Modifier</span>
-                <NumberInput :model-value="modifier" @update:model-value="modifier = $event" size="small" />
+                <NumberInput :model-value="modifier" @update:model-value="modifier = $event"
+                    :size="NUMBER_INPUT_SIZES.MEDIUM" />
             </div>
 
             <div class="action-buttons">
@@ -33,6 +34,7 @@
 <script setup>
 import { ref, computed } from 'vue'
 import NumberInput from '@/components/ui/forms/NumberInput.vue'
+import { NUMBER_INPUT_SIZES } from '@/constants/numberInput'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import { getDiceFontMaxClass } from '@/utils/diceFontUtils'
 import { STANDARD_DIE_SIZES } from '@shared/constants/dice'

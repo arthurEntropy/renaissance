@@ -40,7 +40,7 @@
               <i :class="getDiceFontMaxClass(dieSize)" class="engagement-die-icon"></i>
               <NumberInput :model-value="localNovizio.engagementDice[String(dieSize)] || 0"
                 @update:model-value="localNovizio.engagementDice[String(dieSize)] = $event" :min="0" :max="20"
-                size="small" />
+                :size="NUMBER_INPUT_SIZES.MEDIUM" />
             </div>
           </div>
           <text-editor v-model="localNovizio.engagementNotes" placeholder="Special cases, conditions..." height="60px"
@@ -185,6 +185,7 @@ import { useEngagementSuccessesStore } from '@/stores/engagementSuccessesStore'
 import { STANDARD_DIE_SIZES } from '@shared/constants/dice'
 import ChipTag from '@/components/ui/chips/ChipTag.vue'
 import { CHIP_TAG_VARIANTS, CHIP_TAG_ROUNDED } from '@/constants/chipTag'
+import { NUMBER_INPUT_SIZES } from '@/constants/numberInput'
 
 import meleeIcon from '@/assets/icons/martial/melee.png'
 import polearmIcon from '@/assets/icons/martial/polearms.png'
