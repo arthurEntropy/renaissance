@@ -148,10 +148,6 @@ const clearDiceTooltip = () => {
     margin-left: var(--space-xs);
 }
 
-.add-die-container :deep(.fab) {
-    border-color: var(--color-text-primary) !important;
-}
-
 :deep(.dice-grid) {
     display: grid;
     grid-template-columns: repeat(3, 1fr);

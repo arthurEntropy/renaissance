@@ -5,28 +5,7 @@ import { useSourcesStore } from '@/stores/sourcesStore'
 import { useAbilitySchoolsStore } from '@/stores/abilitySchoolsStore'
 import { getManaCostColors } from '@shared/utils/calculateManaCost'
 import { ManaColor, MANA_COLOR_ORDER } from '@shared/constants/manaColors'
-
-// Singleton state
-// Defined at module level so all callers share one reactive instance. This is
-// intentional – there is only ever one cascade picker visible on the page.
-const showPicker = ref(false)
-const pickerCategory = ref(null)           // 'ability' | 'equipment'
-const pickerSelectedSourceType = ref(null) // 'ancestry' | 'culture' | 'mestiere' | 'worldElement' | 'general'
-const pickerSelectedSource = ref(null)     // { id, name } | null
-const pickerSearch = ref('')
-const previewItem = ref(null)
-const previewItemType = ref(null)          // 'ability' | 'equipment'
-
-let closeMenuTimer = null
-
-const SOURCE_TYPE_LABELS = {
-    ancestry: 'Ancestries',
-    culture: 'Cultures',
-    mestiere: 'Mestieri',
-    worldElement: 'World Elements',
-    general: 'General',
-}
-const SOURCE_TYPE_ORDER = ['ancestry', 'culture', 'mestiere', 'worldElement', 'general']
+import { SOURCE_TYPE_LABELS, SOURCE_TYPE_ORDER } from '@/constants/sourceTypes'
 
 const MANA_COLOR_GROUP_ORDER = [
     'none',
@@ -45,21 +24,51 @@ const MANA_COLOR_GROUP_LABELS = {
     none: 'No Mana Cost',
 }
 
-export function useCascadePicker() {
+export function useCardCascadePicker(options = {}) {
+    const fixedCategory = options.fixedCategory || null
+
     const abilitiesStore = useAbilitiesStore()
     const equipmentStore = useEquipmentStore()
     const sourcesStore = useSourcesStore()
     const abilitySchoolsStore = useAbilitySchoolsStore()
 
-    // Open / close
-    const closeCascadeImmediate = () => {
-        showPicker.value = false
-        pickerCategory.value = null
+    const showPicker = ref(false)
+    const pickerCategory = ref(fixedCategory)
+    const pickerSelectedSourceType = ref(null) // 'ancestry' | 'culture' | 'mestiere' | 'worldElement' | 'general'
+    const pickerSelectedSource = ref(null)     // { id, name } | null
+    const pickerSearch = ref('')
+    const previewItem = ref(null)
+    const previewItemType = ref(null)          // 'ability' | 'equipment'
+
+    let closeMenuTimer = null
+
+    const resetSelectionState = () => {
         pickerSelectedSourceType.value = null
         pickerSelectedSource.value = null
         pickerSearch.value = ''
         previewItem.value = null
         previewItemType.value = null
+    }
+
+    const applyCategory = (category) => {
+        if (!category) return
+        if (pickerCategory.value !== category) {
+            pickerCategory.value = category
+            resetSelectionState()
+        }
+    }
+
+    const ensureFixedCategory = () => {
+        if (fixedCategory) {
+            applyCategory(fixedCategory)
+        }
+    }
+
+    // Open / close
+    const closeCascadeImmediate = () => {
+        showPicker.value = false
+        pickerCategory.value = fixedCategory
+        resetSelectionState()
     }
 
     const startCloseMenu = () => {
@@ -70,25 +79,24 @@ export function useCascadePicker() {
         if (closeMenuTimer) { clearTimeout(closeMenuTimer); closeMenuTimer = null }
     }
 
+    const openPicker = () => {
+        showPicker.value = true
+        ensureFixedCategory()
+    }
+
     const togglePicker = () => {
         if (showPicker.value) {
             closeCascadeImmediate()
         } else {
-            showPicker.value = true
+            openPicker()
         }
     }
 
     // Navigation hover handlers
     const onHoverCategory = (cat) => {
+        if (fixedCategory) return
         cancelCloseMenu()
-        if (pickerCategory.value !== cat) {
-            pickerCategory.value = cat
-            pickerSelectedSourceType.value = null
-            pickerSelectedSource.value = null
-            pickerSearch.value = ''
-            previewItem.value = null
-            previewItemType.value = null
-        }
+        applyCategory(cat)
     }
 
     const onHoverSourceType = (st) => {
@@ -249,6 +257,7 @@ export function useCascadePicker() {
 
     return {
         showPicker,
+        fixedCategory,
         pickerCategory,
         pickerSelectedSourceType,
         pickerSelectedSource,
@@ -262,6 +271,7 @@ export function useCascadePicker() {
         pickerCurrentSources,
         pickerCurrentItems,
         pickerCurrentItemsGrouped,
+        openPicker,
         togglePicker,
         closeCascadeImmediate,
         startCloseMenu,

@@ -318,7 +318,7 @@ onUnmounted(() => {
     gap: var(--space-md);
     margin-bottom: var(--space-lg);
     padding: var(--space-lg);
-    background: var(--color-bg-secondary);
+    background: var(--overlay-black-heavy);
     border-radius: var(--radius-10);
     overflow: visible;
 }

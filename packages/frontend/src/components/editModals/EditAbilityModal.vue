@@ -42,14 +42,14 @@
             <label for="xp">XP:</label>
             <input type="number" id="xp" v-model.number="editedAbility.xp" class="modal-input small-input" />
             <label for="actionType">Type:</label>
-            <ActionTypeDropdown v-model="editedAbility.type" id="actionType" select-class="modal-input small-input" />
+            <ActionTypePicker v-model="editedAbility.type" id="actionType" select-class="modal-input small-input" />
           </div>
 
           <div class="form-group centered">
 
             <!-- Source Dropdown -->
             <label for="source">Source:</label>
-            <SourceDropdown v-model="editedAbility.source" id="source" />
+            <SourceCascadePicker v-model="editedAbility.source" id="source" />
 
             <!-- Can-Be-Active Checkbox -->
             <label for="canBeActive">
@@ -138,8 +138,8 @@
 <script setup>
 import { XMarkIcon, ArrowUpIcon, ArrowDownIcon } from '@heroicons/vue/24/outline'
 import TextEditor from '@/components/ui/textEditor/TextEditor.vue'
-import SourceDropdown from '@/components/ui/selectors/SourceDropdown.vue'
-import ActionTypeDropdown from '@/components/ui/selectors/ActionTypeDropdown.vue'
+import SourceCascadePicker from '@/components/ui/pickers/SourceCascadePicker.vue'
+import ActionTypePicker from '@/components/ui/pickers/ActionTypePicker.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import BiomeTagsCyclePicker from '@/components/ui/biome/BiomeTagsCyclePicker.vue'
 import { useEditModalForm } from '@/composables/useEditModalForm'

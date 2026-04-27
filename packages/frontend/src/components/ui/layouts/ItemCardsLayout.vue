@@ -7,7 +7,7 @@
 
       <!-- Source Filter -->
       <template #additional-filters>
-        <SourceDropdown v-model="sourceFilterLocal" id="source-filter" placeholder="All Sources"
+        <SourceCascadePicker v-model="sourceFilterLocal" id="source-filter" placeholder="All Sources"
           select-class="source-filter" :show-group-options="showSourceGroupOptions" />
 
         <!-- Additional filters slot for parent (e.g., equipment categories) -->
@@ -33,7 +33,7 @@
 
 <script setup>
 import MasonryGrid from '@/components/ui/layouts/MasonryGrid.vue'
-import SourceDropdown from '@/components/ui/selectors/SourceDropdown.vue'
+import SourceCascadePicker from '@/components/ui/pickers/SourceCascadePicker.vue'
 import FilterControls from '@/components/ui/FilterControls.vue'
 import { computed } from 'vue'
 import { useAuthStore } from '@/stores/authStore'

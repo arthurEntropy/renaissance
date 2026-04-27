@@ -236,6 +236,9 @@
   /* Global Badge */
   --z-badge: 1200;
 
+  /* Floating menus above card tooltips/badges */
+  --z-cascade-menu: 1300;
+
   /* === BREAKPOINTS (for reference in JS) === */
   /* Industry standard breakpoints */
   --breakpoint-sm: 640px;     /* Small screens (mobile) */

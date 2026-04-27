@@ -1,6 +1,6 @@
 <template>
     <div class="toolbar" @mousedown.stop @wheel.stop>
-        <button class="tool-btn" :class="{ active: showPicker }" @click="$emit('toggle-picker')">
+        <button class="tool-btn" :class="{ active: showPicker }" @click="$emit('toggle-picker', $event)">
             + Add Card
         </button>
 

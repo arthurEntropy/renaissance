@@ -11,15 +11,8 @@
             </option>
         </select>
 
-        <select v-if="sortOptions && Object.keys(sortOptions).length > 0" v-model="sortOption" class="sort-filter"
-            aria-label="Sort items">
-            <option value="">Sort by...</option>
-            <optgroup v-for="(options, group) in sortOptions" :key="group" :label="group">
-                <option v-for="option in options" :key="option.value" :value="option.value">
-                    {{ option.label }}
-                </option>
-            </optgroup>
-        </select>
+        <SortingPicker v-if="sortOptions && Object.keys(sortOptions).length > 0" v-model="sortOption"
+            :options="sortOptions" placeholder="Sort by..." />
 
         <slot name="additional-filters"></slot>
 
@@ -29,6 +22,7 @@
 
 <script setup>
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
+import SortingPicker from '@/components/ui/pickers/SortingPicker.vue'
 
 defineProps({
     searchPlaceholder: {
@@ -66,6 +60,7 @@ const sortOption = defineModel('sortOption')
 <style scoped>
 .filter-controls {
     display: flex;
+    position: relative;
     gap: var(--space-lg);
     width: 100%;
     max-width: 85%;
@@ -85,7 +80,6 @@ const sortOption = defineModel('sortOption')
 }
 
 .primary-filter,
-.sort-filter,
 :deep(.source-filter),
 :deep(.category-filter) {
     flex: 1;
