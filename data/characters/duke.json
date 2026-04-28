@@ -9,7 +9,6 @@
     "adc655c1-1d9c-433f-a0eb-41f93cf3ee07"
   ],
   "cultureIds": [],
-  "personalityAndBackground": "",
   "xp": 0,
   "mp": {
     "current": 0,
@@ -248,8 +247,8 @@
     "https://cdn.midjourney.com/b75951b3-d21b-4e00-b7c8-c81fc16c043e/0_2.png"
   ],
   "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2026-04-25T20:04:55.882Z",
-  "lastModified": "2026-04-25T20:04:55.882Z",
+  "updatedAt": "2026-04-28T17:56:50.758Z",
+  "lastModified": "2026-04-28T17:56:50.758Z",
   "mestiereId": "162ae4db-7a67-4770-8a2c-7e9883da14f6",
   "age": 0,
   "heightFeet": 0,
@@ -354,5 +353,7 @@
         "draws": 0
       }
     }
-  }
+  },
+  "notes": "",
+  "keeping": "2b3c4d5e-6f7a-4b8c-9d0e-1f2a3b4c5d6e"
 }

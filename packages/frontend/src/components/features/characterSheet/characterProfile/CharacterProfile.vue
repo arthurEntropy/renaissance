@@ -7,82 +7,44 @@
     </div>
     <CharacterVitals />
 
-    <!-- Bio & Notes Button -->
-    <FloatingActionButton :variant="FAB_TYPES.NOTES" :size="FAB_SIZES.SMALL" :visibility="FAB_VISIBILITIES.ALWAYS"
-      class="notes-button" @click="openModal" />
-
-    <!-- XP Badge -->
-    <div class="xp-badge">
-      <span class="xp-label">XP:</span>
-      <NumberInput :model-value="character.xp || 0" :disabled="!canEdit" @update:model-value="character.xp = $event"
-        :min="0" :size="NUMBER_INPUT_SIZES.MEDIUM" />
-    </div>
-
-    <!-- Bio Modal (View/Edit) -->
-    <div v-if="isModalOpen" class="modal-overlay" @click="handleOverlayClick">
-      <div class="modal-content bio-modal edit-hover-area" @click.stop>
-        <FloatingActionButton v-if="canEdit && !isEditMode" :variant="FAB_TYPES.EDIT" :size="FAB_SIZES.SMALL"
-          :visibility="FAB_VISIBILITIES.ON_HOVER" class="edit-button-overlay" @click.stop="startEdit" />
-
-        <!-- View Mode -->
-        <div v-if="!isEditMode" class="full-text-content">
-          <div v-if="hasBio" v-html="safeFormattedBio" class="full-text"></div>
-          <p v-else class="empty-text">{{ EMPTY_BIO_MESSAGE }}</p>
-        </div>
-
-        <!-- Edit Mode -->
-        <template v-else>
-          <div class="modal-body">
-            <div class="profile-fields-grid">
-              <label class="profile-field">
-                <span>Age</span>
-                <NumberInput :model-value="editedAge" @update:model-value="editedAge = $event" :min="0"
-                  :size="NUMBER_INPUT_SIZES.MEDIUM" />
-              </label>
-              <label class="profile-field">
-                <span>Feet</span>
-                <NumberInput :model-value="editedHeightFeet" @update:model-value="editedHeightFeet = $event" :min="0"
-                  :size="NUMBER_INPUT_SIZES.MEDIUM" />
-              </label>
-              <label class="profile-field">
-                <span>Inches</span>
-                <NumberInput :model-value="editedHeightInches" @update:model-value="editedHeightInches = $event"
-                  :min="0" :max="11" :size="NUMBER_INPUT_SIZES.MEDIUM" />
-              </label>
-              <label class="profile-field">
-                <span>Weight</span>
-                <NumberInput :model-value="editedWeight" @update:model-value="editedWeight = $event" :min="0"
-                  :size="NUMBER_INPUT_SIZES.MEDIUM" />
-              </label>
-            </div>
-            <TextEditor v-model="editedContent" :auto-height="true" :placeholder="EMPTY_BIO_MESSAGE" height="300px" />
-          </div>
-          <div class="modal-footer">
-            <div class="form-buttons">
-              <ActionButton variant="success" size="small" text="Save" @click="saveChanges" />
-            </div>
-          </div>
-        </template>
+    <!-- Bottom Badges -->
+    <div class="bottom-badges">
+      <!-- Keeping Badge -->
+      <div class="keeping-badge" :style="keepingBadgeStyle">
+        <select title="Keeping" class="keeping-select" :value="character.keeping || ''" :disabled="!canEdit"
+          @change="character.keeping = $event.target.value || null">
+          <option value="">Choose...</option>
+          <option v-for="k in keepingStore.keeping" :key="k.id" :value="k.id">{{ k.name }}</option>
+        </select>
+      </div>
+      <!-- Treasure Badge -->
+      <div class="treasure-badge">
+        <img :src="keepingIcon" alt="treasure" class="treasure-icon" />
+        <NumberInput :model-value="character.treasure || 0" :disabled="!canEdit"
+          @update:model-value="character.treasure = $event" :min="0" :size="NUMBER_INPUT_SIZES.MEDIUM" />
+      </div>
+      <!-- XP Badge -->
+      <div class="xp-badge">
+        <span class="xp-label">XP:</span>
+        <NumberInput :model-value="character.xp || 0" :disabled="!canEdit" @update:model-value="character.xp = $event"
+          :min="0" :size="NUMBER_INPUT_SIZES.MEDIUM" />
       </div>
     </div>
   </CharacterSheetSection>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
-import { marked } from 'marked'
-import { sanitizeHtml } from '@/utils/sanitizeHtml'
+import { computed } from 'vue'
+import keepingIcon from '@/assets/icons/keeping/keeping.png'
 import CharacterArt from './CharacterArt.vue'
 import CharacterPhysicalStats from './CharacterPhysicalStats.vue'
 import CharacterVitals from './CharacterVitals.vue'
 import CharacterSheetSection from '@/components/ui/containers/CharacterSheetSection.vue'
 import NumberInput from '@/components/ui/forms/NumberInput.vue'
 import { NUMBER_INPUT_SIZES } from '@/constants/numberInput'
-import ActionButton from '@/components/ui/buttons/ActionButton.vue'
-import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
-import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
-import TextEditor from '@/components/ui/textEditor/TextEditor.vue'
 import { useCharactersStore } from '@/stores/charactersStore'
+import { useKeepingStore } from '@/stores/keepingStore'
+import { KEEPING_COLORS } from '@/constants/keepingConstants'
 
 defineEmits(['close-sheet'])
 
@@ -90,76 +52,15 @@ const charactersStore = useCharactersStore()
 
 const character = computed(() => charactersStore.selectedCharacter)
 const canEdit = computed(() => charactersStore.canEditSelectedCharacter)
+const keepingStore = useKeepingStore()
 
-// Bio Modal State
-const EMPTY_BIO_MESSAGE = "What's your vibe? What's your story? Where are you going?"
-
-const hasBio = computed(() => !!character.value?.personalityAndBackground)
-
-const isModalOpen = ref(false)
-const isEditMode = ref(false)
-const editedContent = ref('')
-const editedAge = ref(0)
-const editedHeightFeet = ref(0)
-const editedHeightInches = ref(0)
-const editedWeight = ref(0)
-
-const safeFormattedBio = computed(() => {
-  if (!hasBio.value) return ''
-  const html = marked.parse(character.value.personalityAndBackground, { breaks: true })
-  return sanitizeHtml(html)
+const keepingBadgeStyle = computed(() => {
+  if (!character.value?.keeping) return {}
+  const entry = keepingStore.getById(character.value.keeping)
+  const color = entry ? KEEPING_COLORS[entry.name] : null
+  return color ? { backgroundColor: color } : {}
 })
 
-const hasUnsavedChanges = computed(() => {
-  return (
-    editedContent.value !== (character.value?.personalityAndBackground || '') ||
-    editedAge.value !== (character.value?.age || 0) ||
-    editedHeightFeet.value !== (character.value?.heightFeet || 0) ||
-    editedHeightInches.value !== (character.value?.heightInches || 0) ||
-    editedWeight.value !== (character.value?.weight || 0)
-  )
-})
-
-const openModal = () => {
-  isModalOpen.value = true
-  isEditMode.value = false
-}
-
-const startEdit = () => {
-  editedContent.value = character.value?.personalityAndBackground || ''
-  editedAge.value = character.value?.age || 0
-  editedHeightFeet.value = character.value?.heightFeet || 0
-  editedHeightInches.value = character.value?.heightInches || 0
-  editedWeight.value = character.value?.weight || 0
-  isEditMode.value = true
-}
-
-const closeModal = () => {
-  isModalOpen.value = false
-  isEditMode.value = false
-}
-
-const handleOverlayClick = () => {
-  if (isEditMode.value && hasUnsavedChanges.value) {
-    const shouldDiscard = confirm('Discard unsaved changes?')
-    if (shouldDiscard) {
-      closeModal()
-    }
-  } else {
-    closeModal()
-  }
-}
-
-const saveChanges = () => {
-  if (character.value) {
-    character.value.personalityAndBackground = editedContent.value
-    character.value.age = editedAge.value
-    character.value.heightFeet = editedHeightFeet.value
-    character.value.heightInches = editedHeightInches.value
-    character.value.weight = editedWeight.value
-    isEditMode.value = false
-  }
-}
 </script>
 
 <style scoped>
@@ -183,90 +84,83 @@ const saveChanges = () => {
   z-index: var(--z-raised);
 }
 
-.xp-badge {
+.bottom-badges {
   position: absolute;
-  bottom: 0px;
-  right: 0px;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  align-items: stretch;
+}
+
+.keeping-badge {
+  display: flex;
+  align-items: center;
+  background-color: var(--color-gray-medium);
+  padding: var(--space-xs) calc(var(--space-md) + 8px) var(--space-xs) var(--space-xs);
+  border-top-left-radius: var(--radius-15);
+  position: relative;
+  z-index: var(--z-base);
+  margin-right: -12px;
+}
+
+.keeping-select {
+  background: transparent;
+  border: none;
+  color: var(--color-black);
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-11);
+  font-weight: var(--font-weight-bold);
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  padding: 0;
+  max-width: 130px;
+}
+
+.keeping-select:disabled {
+  cursor: default;
+  opacity: 1;
+}
+
+.keeping-select option {
+  background-color: var(--color-bg-secondary);
+  color: var(--color-text-primary);
+}
+
+.treasure-badge {
   display: flex;
   gap: var(--space-xs);
   align-items: center;
-  background-color: var(--color-gray-dark);
+  background-color: var(--color-primary-hover);
+  padding: var(--space-xs) calc(var(--space-md) + 8px) var(--space-xs) var(--space-md);
+  border-top-left-radius: var(--radius-15);
+  position: relative;
+  z-index: var(--z-overlay);
+  margin-right: -12px;
+}
+
+.treasure-icon {
+  width: 14px;
+  height: 14px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.xp-badge {
+  display: flex;
+  gap: var(--space-xs);
+  align-items: center;
+  background-color: var(--color-primary);
   padding: var(--space-xs) var(--space-md);
   border-top-left-radius: var(--radius-15);
+  position: relative;
   z-index: var(--z-raised);
 }
 
 .xp-label {
+  color: var(--color-black);
   font-size: var(--font-size-12);
   font-style: italic;
-}
-
-/* Bio Modal Styles */
-.edit-button-overlay {
-  position: absolute;
-  z-index: var(--z-raised);
-  top: var(--space-md);
-  right: var(--space-md);
-}
-
-.bio-modal {
-  max-width: var(--width-modal);
-  max-height: 90%;
-  padding: var(--space-xl);
-  background: var(--color-bg-secondary);
-  border-radius: var(--border-radius-lg);
-  position: relative;
-}
-
-.full-text-content {
-  max-height: 80vh;
-  overflow-y: auto;
-  text-align: left;
-}
-
-.profile-fields-grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: var(--space-md);
-  margin-bottom: var(--space-md);
-}
-
-.profile-field {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-xs);
-  font-size: var(--font-size-12);
-}
-
-.profile-field span {
-  color: var(--color-gray-light);
-}
-
-.full-text-content h2 {
-  margin-top: 0;
-  margin-bottom: var(--space-lg);
-  color: var(--color-white);
-  font-size: var(--font-size-24);
-}
-
-.full-text {
-  line-height: var(--line-height-normal);
-  font-size: var(--font-size-16);
-  color: var(--color-white);
-}
-
-.full-text :deep(p) {
-  margin: 0 0 var(--space-md) 0;
-}
-
-.full-text :deep(p:last-child) {
-  margin-bottom: 0;
-}
-
-.empty-text {
-  color: var(--color-gray-light);
-  font-style: italic;
-  font-size: var(--font-size-16);
 }
 
 @media (max-width: var(--breakpoint-lg)) {

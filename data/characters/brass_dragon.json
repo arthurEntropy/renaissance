@@ -8,7 +8,6 @@
   "ancestryIds": [],
   "cultureIds": [],
   "mestiereId": "",
-  "personalityAndBackground": "",
   "xp": 0,
   "mp": {
     "current": 0,
@@ -182,5 +181,6 @@
   "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
   "ownerEmail": "ljbrevoort@gmail.com",
   "createdAt": "2025-10-29T19:52:32.242Z",
-  "updatedAt": "2025-10-29T19:54:29.667Z"
+  "updatedAt": "2025-10-29T19:54:29.667Z",
+  "notes": ""
 }

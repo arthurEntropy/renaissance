@@ -2,13 +2,12 @@
   "id": "48a9eff3-9041-4b33-8f99-4137955d2997",
   "isDeleted": false,
   "createdAt": "2026-04-22T14:45:33.779Z",
-  "lastModified": "2026-04-22T18:24:33.089Z",
+  "lastModified": "2026-04-28T17:57:12.375Z",
   "name": "Otho",
   "isBeast": false,
   "pronouns": "",
   "ancestries": "",
   "cultures": "",
-  "personalityAndBackground": "",
   "age": 38,
   "heightFeet": 5,
   "heightInches": 11,
@@ -317,12 +316,14 @@
   },
   "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
   "ownerEmail": "ljbrevoort@gmail.com",
-  "updatedAt": "2026-04-22T18:24:33.089Z",
+  "updatedAt": "2026-04-28T17:57:12.375Z",
   "ancestryIds": [
     "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
   ],
   "cultureIds": [
     "55494a30-a1bb-47c3-aae9-2db3a5bfcb8b"
   ],
-  "mestiereId": "558abd15-f90f-40d7-80d8-df73a37f977c"
+  "mestiereId": "558abd15-f90f-40d7-80d8-df73a37f977c",
+  "notes": "",
+  "keeping": "2b3c4d5e-6f7a-4b8c-9d0e-1f2a3b4c5d6e"
 }

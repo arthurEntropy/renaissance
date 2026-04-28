@@ -2,13 +2,12 @@
   "id": "09f4c307-2acc-475a-a634-94c58e7e6992",
   "isDeleted": false,
   "createdAt": "2026-02-18T16:16:31.097Z",
-  "lastModified": "2026-04-21T13:41:48.632Z",
+  "lastModified": "2026-04-28T17:56:37.231Z",
   "name": "Cheech",
   "isBeast": false,
   "pronouns": "she/her",
   "ancestries": "",
   "cultures": "",
-  "personalityAndBackground": "",
   "age": 25,
   "heightFeet": 3,
   "heightInches": 4,
@@ -319,10 +318,12 @@
     "0c876a74-a89b-42dc-b76a-4592a0478d81"
   ],
   "mestiereId": "10f46ecd-e6f5-4d3b-b510-d4035ab24f56",
-  "updatedAt": "2026-04-21T13:41:48.632Z",
+  "updatedAt": "2026-04-28T17:56:37.231Z",
   "biomeTags": [
     "forest",
     "hot"
   ],
-  "biomeId": "de00d1ab-c1f3-40ce-a794-1f346ada18f0"
+  "biomeId": "de00d1ab-c1f3-40ce-a794-1f346ada18f0",
+  "notes": "",
+  "keeping": "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d"
 }

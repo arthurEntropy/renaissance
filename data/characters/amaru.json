@@ -11,8 +11,7 @@
   "cultureIds": [
     "352c844b-6d4f-4b61-b475-315421a453e7"
   ],
-  "personalityAndBackground": "Wizard of the Third Wizards' Guild of Guildford. Associate of Volans.",
-  "xp": 10,
+  "xp": 11,
   "mp": {
     "current": 7,
     "max": 18
@@ -229,7 +228,7 @@
     },
     {
       "id": "e71d1ead-efd9-4d2c-a9c3-9f937f93847c",
-      "collapsed": false,
+      "collapsed": true,
       "showImprovements": false,
       "showSuccesses": true
     }
@@ -239,8 +238,40 @@
     "https://cdn.midjourney.com/46f7df2d-65a2-44e8-90fd-c01738a187c3/0_0.png"
   ],
   "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2026-03-05T21:52:22.759Z",
-  "lastModified": "2026-03-05T21:52:22.759Z",
+  "updatedAt": "2026-04-28T17:52:38.424Z",
+  "lastModified": "2026-04-28T17:52:38.424Z",
   "mestiereId": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
-  "abilitySortOption": ""
+  "abilitySortOption": "",
+  "notes": "Wizard of the Third Wizards' Guild of Guildford. Associate of Volans.",
+  "keeping": "5e6f7a8b-9c0d-4e1f-2a3b-4c5d6e7f8a9b",
+  "rollStats": {
+    "skillChecks": {
+      "attempts": 1,
+      "successes": 0,
+      "totalSum": 16,
+      "bestTotal": 16,
+      "hardestSuccess": null,
+      "bySkill": {
+        "Dexterity": 1
+      },
+      "solCount": 0,
+      "morteCount": 0,
+      "successCount": 1
+    },
+    "contests": {
+      "engagement": {
+        "wins": 0,
+        "losses": 0,
+        "draws": 0
+      },
+      "opposed": {
+        "wins": 0,
+        "losses": 0,
+        "draws": 0
+      }
+    }
+  },
+  "groupAbilitiesBySource": true,
+  "groupAbilitiesByManaColor": false,
+  "groupAbilitiesByCustom": false
 }

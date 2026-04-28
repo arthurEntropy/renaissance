@@ -188,21 +188,22 @@
     "https://cdn.midjourney.com/33a4c041-49a8-4234-8e65-54d65bc7033b/0_0.png"
   ],
   "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2026-04-26T02:04:30.022Z",
-  "lastModified": "2026-04-26T02:04:30.022Z",
+  "updatedAt": "2026-04-28T17:56:32.487Z",
+  "lastModified": "2026-04-28T17:56:32.487Z",
   "rollStats": {
     "skillChecks": {
-      "attempts": 3,
-      "successes": 3,
-      "totalSum": 24,
-      "bestTotal": 12,
-      "hardestSuccess": null,
+      "attempts": 6,
+      "successes": 5,
+      "totalSum": 96,
+      "bestTotal": 30,
+      "hardestSuccess": 30,
       "bySkill": {
-        "Dexterity": 3
+        "Dexterity": 3,
+        "Strength": 3
       },
-      "solCount": 0,
+      "solCount": 1,
       "morteCount": 0,
-      "successCount": 1
+      "successCount": 3
     },
     "contests": {
       "engagement": {
@@ -226,7 +227,8 @@
   "swaggerIconIndex": 1,
   "swaggerColor": "#fdf7f7",
   "engagementDiceStatuses": {
-    "user_added_1": "expended",
-    "user_added_0": "expended"
-  }
+    "user_added_0": "available"
+  },
+  "notes": "",
+  "keeping": "2b3c4d5e-6f7a-4b8c-9d0e-1f2a3b4c5d6e"
 }

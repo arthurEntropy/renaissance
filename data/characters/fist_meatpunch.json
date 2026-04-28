@@ -14,7 +14,6 @@
     "01869d39-1961-4c8d-941d-744ce1d51bbd"
   ],
   "mestiereId": "e0a69b6f-38f9-4fa5-a1ef-5e5777299e82",
-  "personalityAndBackground": "<p>A strong fella with one normal-sized hand and one gargantuan one.</p>",
   "xp": 0,
   "mp": {
     "current": 0,
@@ -238,11 +237,13 @@
     "https://cdn.midjourney.com/579f1913-10e8-438c-9d1d-949151eb171c/0_0.png"
   ],
   "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2026-04-28T14:35:29.191Z",
-  "lastModified": "2026-04-28T14:35:29.191Z",
+  "updatedAt": "2026-04-28T17:56:54.996Z",
+  "lastModified": "2026-04-28T17:56:54.996Z",
   "age": 32,
   "weight": 225,
   "heightFeet": 6,
   "heightInches": 2,
-  "engagementDiceStatuses": {}
+  "engagementDiceStatuses": {},
+  "notes": "<p>A strong fella with one normal-sized hand and one gargantuan one.</p>",
+  "keeping": "4d5e6f7a-8b9c-4d0e-1f2a-3b4c5d6e7f8a"
 }

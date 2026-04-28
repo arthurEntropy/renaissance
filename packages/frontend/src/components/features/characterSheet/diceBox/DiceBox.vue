@@ -1,5 +1,5 @@
 <template>
-  <CharacterSheetSection custom-class="dice-box edit-hover-area">
+  <CharacterSheetSection custom-class="dice-box edit-hover-area" :min-width="'300px'">
 
     <div v-if="canEdit" class="dice-box-controls">
       <FloatingActionButton v-if="!customDiceRollerOpen" :variant="FAB_TYPES.INITIATIVE" :size="FAB_SIZES.LARGE"
@@ -179,8 +179,8 @@ const handleTakeXp = () => {
   position: relative;
   justify-content: flex-start;
   align-items: flex-start;
-  min-height: 180px;
   padding-top: 40px;
+  width: auto;
 }
 
 .view-container {

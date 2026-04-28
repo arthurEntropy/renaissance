@@ -13,7 +13,6 @@
     "352c844b-6d4f-4b61-b475-315421a453e7",
     "cdc93466-8327-4096-a8c2-04cccf3e3835"
   ],
-  "personalityAndBackground": "Arrived too late to join the Asana Commune before it was destroyed. Squatting in the ruins. Big speech impediment.",
   "xp": 10,
   "mp": {
     "current": 5,
@@ -298,8 +297,8 @@
     "https://cdn.midjourney.com/a6773dd7-3da8-4349-9212-b021c7aa09f7/0_2.png"
   ],
   "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2026-04-20T18:24:13.110Z",
-  "lastModified": "2026-04-20T18:24:13.110Z",
+  "updatedAt": "2026-04-28T17:57:04.383Z",
+  "lastModified": "2026-04-28T17:57:04.383Z",
   "mestiereId": "937d52da-0ebf-4d74-b3ee-be395f2f5d0a",
   "age": 23,
   "heightFeet": 4,
@@ -357,5 +356,7 @@
     }
   ],
   "abilitySortOption": "xp-asc",
-  "equipmentSortOption": "name-asc"
+  "equipmentSortOption": "name-asc",
+  "notes": "Arrived too late to join the Asana Commune before it was destroyed. Squatting in the ruins. Big speech impediment.",
+  "keeping": "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d"
 }

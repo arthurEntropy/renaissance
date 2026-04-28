@@ -6,6 +6,7 @@
             <div class="top-section">
                 <CharacterProfile @close-sheet="handleClose" />
                 <DiceBox />
+                <CharacterNotes />
             </div>
 
             <!-- Character Stats and Details -->
@@ -36,6 +37,7 @@ import { BIOME_MESTIERI } from '@shared/constants/biomeTags'
 import { WITCH_MESTIERE_NAME } from '@/constants/witchcraftConstants'
 import { SUMMONER_MESTIERE_NAME } from '@/constants/summonerConstants'
 import CharacterProfile from '@/components/features/characterSheet/characterProfile/CharacterProfile.vue'
+import CharacterNotes from '@/components/features/characterSheet/characterNotes/CharacterNotes.vue'
 import CoreAbilityColumn from '@/components/features/characterSheet/coreAbilityColumns/CoreAbilityColumn.vue'
 import ConditionsColumn from '@/components/features/characterSheet/conditions/ConditionsColumn.vue'
 import EquipmentTable from '@/components/features/characterSheet/equipmentTable/EquipmentTable.vue'
@@ -110,6 +112,7 @@ const handleClose = () => {
     gap: var(--space-lg);
     justify-content: center;
     margin-bottom: var(--space-lg);
+    height: 230px;
 }
 
 @media (max-width: var(--breakpoint-md)) {

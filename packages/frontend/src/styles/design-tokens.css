@@ -50,6 +50,13 @@
   --color-accent-gold: #ffd700;
   --color-accent-cyan: #06b6d4;
 
+  /* Keeping Colors */
+  --color-keeping-wretched: #c68d8d;
+  --color-keeping-modest: #cfa483;
+  --color-keeping-comfortable: #96ca9b;
+  --color-keeping-prosperous: #87a7be;
+  --color-keeping-opulent: #b092c8;
+
    /* Mana Colors */
   --mana-white: #ece9e0;
   --mana-blue: #82a3c7;

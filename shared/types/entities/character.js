@@ -113,7 +113,9 @@ import { createBaseEntity } from './gameEntity.js'
  * @property {string} pronouns - Character pronouns
  * @property {string} ancestries - Ancestry IDs (comma-separated)
  * @property {string} cultures - Culture IDs (comma-separated)
- * @property {string} personalityAndBackground - Character background text
+ * @property {string} notes - Character notes and background text
+ * @property {string|null} keeping - Keeping level ID reference
+ * @property {number} treasure - Character treasure
  * @property {number} age - Character age
  * @property {number} heightFeet - Character height (feet)
  * @property {number} heightInches - Character height (inches)
@@ -185,7 +187,9 @@ export function createDefaultCharacter() {
     pronouns: '',
     ancestries: '',
     cultures: '',
-    personalityAndBackground: '',
+    notes: '',
+    keeping: null,
+    treasure: 0,
     age: 0,
     heightFeet: 0,
     heightInches: 0,

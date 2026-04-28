@@ -14,7 +14,6 @@
     "55494a30-a1bb-47c3-aae9-2db3a5bfcb8b"
   ],
   "mestiereId": "96e062f8-646e-49f4-8eec-d92bd5fb77c4",
-  "personalityAndBackground": "<p>It is a long established fact that a reader will be TEST distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy.</p><p>The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.</p>",
   "xp": 10,
   "mp": {
     "current": 2,
@@ -211,19 +210,21 @@
     "https://cdn.midjourney.com/3914bd33-13a2-48e4-89c5-b75076572688/0_1.png"
   ],
   "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2026-03-16T15:02:28.173Z",
-  "lastModified": "2026-03-16T15:02:28.173Z",
+  "updatedAt": "2026-04-28T17:56:58.217Z",
+  "lastModified": "2026-04-28T17:56:58.217Z",
   "rollStats": {
     "skillChecks": {
-      "attempts": 0,
-      "successes": 0,
-      "totalSum": 0,
-      "bestTotal": null,
-      "hardestSuccess": null,
-      "bySkill": {},
+      "attempts": 1,
+      "successes": 1,
+      "totalSum": 29,
+      "bestTotal": 29,
+      "hardestSuccess": 23,
+      "bySkill": {
+        "Fortitude": 1
+      },
       "solCount": 0,
       "morteCount": 0,
-      "successCount": 0
+      "successCount": 1
     },
     "contests": {
       "engagement": {
@@ -237,5 +238,7 @@
         "draws": 0
       }
     }
-  }
+  },
+  "notes": "<p>It is a long established fact that a reader will be TEST distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy.</p><p>The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.</p>",
+  "keeping": "5e6f7a8b-9c0d-4e1f-2a3b-4c5d6e7f8a9b"
 }
