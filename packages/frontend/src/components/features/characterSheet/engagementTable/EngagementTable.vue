@@ -1,8 +1,13 @@
 <template>
-  <CharacterSheetSection max-width="325px">
+  <CharacterSheetSection>
 
-    <TableHeader title="Engagement" :is-edit-mode="internalEditMode" :show-edit-button="props.canEdit"
-      @toggle-edit="toggleEditMode">
+    <TableHeader title="Engagement" :is-edit-mode="internalEditMode" :show-edit-button="props.canEdit" collapsible
+      :is-collapsed="isCollapsed" @toggle-collapse="isCollapsed = !isCollapsed" @toggle-edit="toggleEditMode">
+      <template #header-center>
+        <div v-if="diceInHeader" class="header-dice">
+          <EngagementDiceDisplay :isEditMode="internalEditMode" />
+        </div>
+      </template>
       <template #header-right>
         <div v-if="props.canEdit" class="button-group">
           <ActionButton variant="neutral" size="small" text="Reset" :disabled="internalEditMode || !hasExpendedDice"
@@ -15,15 +20,16 @@
 
     <EngagementRollModal v-if="showEngagementRollModal" @close="closeEngagementRollModal" />
 
-    <EngagementDiceDisplay :isEditMode="internalEditMode" />
-
-    <EngagementSuccessDisplay :isEditMode="internalEditMode" />
+    <div v-if="!isCollapsed" class="engagement-content">
+      <EngagementDiceDisplay v-if="!diceInHeader" :isEditMode="internalEditMode" />
+      <EngagementSuccessDisplay :isEditMode="internalEditMode" />
+    </div>
 
   </CharacterSheetSection>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import EngagementRollModal from '@/components/features/characterSheet/rollModal/EngagementRollModal.vue'
 import TableHeader from '@/components/ui/tables/TableHeader.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
@@ -42,6 +48,7 @@ const props = defineProps({
 })
 
 const internalEditMode = ref(false)
+const isCollapsed = ref(false)
 const toggleEditMode = () => { internalEditMode.value = !internalEditMode.value }
 
 const diceManager = useEngagementRoll()
@@ -53,6 +60,9 @@ const showEngagementRollModal = ref(false)
 // Reactive references from composables
 const hasExpendedDice = diceManager.hasExpendedDice
 const resetDice = diceManager.resetDice
+
+const INLINE_DICE_THRESHOLD = 8
+const diceInHeader = computed(() => diceManager.allOwnedEngagementDice.value.length <= INLINE_DICE_THRESHOLD)
 
 const rollSelectedDice = () => {
   const selectedDice = diceManager.allOwnedEngagementDice.value
@@ -83,5 +93,22 @@ onMounted(async () => {
 .button-group {
   display: flex;
   gap: var(--space-sm);
+}
+
+.header-dice {
+  display: flex;
+  align-items: center;
+}
+
+.header-dice :deep(.dice-display) {
+  margin-top: 0;
+  flex-wrap: nowrap;
+}
+
+.engagement-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
 </style>

@@ -6,7 +6,6 @@
             <div class="top-section">
                 <CharacterProfile @close-sheet="handleClose" />
                 <DiceBox />
-                <EngagementTable :can-edit="canEdit" />
             </div>
 
             <!-- Character Stats and Details -->
@@ -16,6 +15,7 @@
                 <CoreAbilityColumn :column="CORE_ABILITIES.WITS" />
                 <ConditionsColumn :is-edit-mode="canEdit" />
                 <AcrobatSection v-if="showAcrobatSection" />
+                <EngagementTable :can-edit="canEdit" />
                 <EquipmentTable :is-edit-mode="canEdit" />
                 <AbilitiesTable :canEdit="canEdit" />
                 <BiomeSection v-if="showBiomeSection" />
