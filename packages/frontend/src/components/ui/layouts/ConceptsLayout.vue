@@ -1,11 +1,15 @@
 <template>
   <div class="concepts-view">
+    <div v-if="isAdmin && props.showAddButton && !props.showFilterBar && !showConceptDetail"
+      class="concepts-view-actions">
+      <FloatingActionButton :variant="FAB_TYPES.ADD" :visibility="FAB_VISIBILITIES.ALWAYS" @click="createConcept" />
+    </div>
 
-    <!-- Filter Controls: hidden when concept detail is open -->
-    <FilterControls v-show="!showConceptDetail" v-model:search-query="searchQuery"
-      v-model:primary-filter="expansionFilter" :search-placeholder="searchPlaceholder"
-      :primary-filter-options="primaryFilterOptions" :primary-filter-label="primaryFilterLabel"
-      :show-add-button="isAdmin" @create="createConcept" />
+    <!-- Filter Bar: hidden when concept detail is open -->
+    <FilterBar v-if="props.showFilterBar" v-show="!showConceptDetail" v-model:searchQuery="searchQuery"
+      v-model:selectedTags="expansionTags" :tag-groups="tagGroups" :multiselect="false"
+      :show-add-button="isAdmin && props.showAddButton" :search-placeholder="searchPlaceholder"
+      tag-search-placeholder="Filter by expansion..." @add="createConcept" />
 
     <!-- Selection Cards: hidden when concept detail is open -->
     <div v-show="!showConceptDetail" class="concept-cards-container">
@@ -37,10 +41,12 @@ import { useAuthStore } from '@/stores/authStore'
 import { useFilterPersistence } from '@/composables/useFilterPersistence'
 import { createSlug, findConceptBySlug, getBasePath } from '@/utils/urlHelpers'
 import ConceptCard from '@/components/ui/cards/concept/ConceptCard.vue'
-import FilterControls from '@/components/ui/FilterControls.vue'
+import FilterBar from '@/components/ui/FilterBar.vue'
+import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import NavigationControls from '@/components/ui/NavigationControls.vue'
 import ConceptDetail from '@/components/features/conceptDetail/ConceptDetail.vue'
 import CharacterSheetModal from '@/components/features/characterSheet/CharacterSheet.vue'
+import { FAB_TYPES, FAB_VISIBILITIES } from '@/constants/fab'
 
 // Props
 const props = defineProps({
@@ -68,6 +74,14 @@ const props = defineProps({
     type: String,
     default: 'ConceptDetail',
   },
+  showFilterBar: {
+    type: Boolean,
+    default: true,
+  },
+  showAddButton: {
+    type: Boolean,
+    default: true,
+  },
 })
 
 const emit = defineEmits(['select', 'deselect', 'create'])
@@ -84,12 +98,22 @@ const isAdmin = computed(() => authStore.isAdmin)
 
 // Filter configuration
 const searchPlaceholder = 'Search...'
-const primaryFilterLabel = 'All Expansions'
-const primaryFilterOptions = computed(() => props.showExpansionFilter ? expansionStore.items || [] : [])
+const tagGroups = computed(() => {
+  if (!props.showExpansionFilter) return []
+  const items = expansionStore.items || []
+  if (!items.length) return []
+  return [{ label: 'Expansions', items }]
+})
 
 const showConceptDetail = ref(false)
 const searchQuery = ref('')
 const expansionFilter = ref('')
+
+// Bridge: FilterBar works with arrays; persistence stores a single string
+const expansionTags = computed({
+  get: () => expansionFilter.value ? [expansionFilter.value] : [],
+  set: (tags) => { expansionFilter.value = tags[0] || '' },
+})
 
 // Filter persistence
 useFilterPersistence(
@@ -272,6 +296,14 @@ onBeforeUnmount(() => {
   flex-direction: column;
   align-items: center;
   width: 90%;
+  margin: 0 auto;
+}
+
+.concepts-view-actions {
+  position: fixed;
+  top: var(--nav-height) + var(--space-sm);
+  right: var(--space-lg);
+  z-index: var(--z-interactive);
 }
 
 .concept-cards-container {

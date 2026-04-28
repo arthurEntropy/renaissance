@@ -32,6 +32,7 @@ import { computed } from 'vue'
 import { XMarkIcon } from '@heroicons/vue/24/outline'
 import { useSourcesStore } from '@/stores/sourcesStore'
 import { useTooltip } from '@/composables/useFloatingElement'
+import { CHIP_TAG_VARIANTS, CHIP_TAG_ROUNDED } from '@/constants/chipTag'
 
 const props = defineProps({
     // Display text (direct or via sourceId lookup)
@@ -46,13 +47,13 @@ const props = defineProps({
     // Styling
     variant: {
         type: String,
-        default: 'gray',
-        validator: (value) => ['primary', 'secondary', 'gray', 'success', 'dim'].includes(value)
+        default: CHIP_TAG_VARIANTS.GRAY,
+        validator: (value) => Object.values(CHIP_TAG_VARIANTS).includes(value)
     },
     rounded: {
         type: String,
-        default: 'normal',
-        validator: (value) => ['normal', 'full'].includes(value)
+        default: CHIP_TAG_ROUNDED.NORMAL,
+        validator: (value) => Object.values(CHIP_TAG_ROUNDED).includes(value)
     },
     // States
     removable: {
@@ -77,7 +78,6 @@ defineEmits(['remove'])
 
 const sourcesStore = useSourcesStore()
 
-// Compute display text
 const displayText = computed(() => {
     if (props.text) {
         return props.text
@@ -125,21 +125,10 @@ const clearTooltip = () => {
     color: var(--color-primary-text);
 }
 
-.chip.secondary {
-    background: var(--color-gray-dark);
-    color: var(--color-text-secondary);
-}
-
 .chip.dim {
     background: var(--color-black);
     color: var(--color-text-muted);
     border: 1px solid var(--color-gray-dark);
-}
-
-.chip.success {
-    background-color: var(--color-accent-gold);
-    color: var(--color-black);
-    text-shadow: 0 0 8px var(--color-accent-gold);
 }
 
 /* Rounded variants */
@@ -152,8 +141,16 @@ const clearTooltip = () => {
 }
 
 /* Hover */
-.chip:hover:not(.no-hover) {
-    text-shadow: var(--shadow-glow-lg);
+.chip.gray:hover:not(.no-hover) {
+    background-color: var(--color-gray-medium);
+}
+
+.chip.primary:hover:not(.no-hover) {
+    background-color: var(--color-primary-hover);
+}
+
+.chip.dim:hover:not(.no-hover) {
+    background-color: var(--color-bg-secondary);
 }
 
 .chip.no-hover {
@@ -161,7 +158,7 @@ const clearTooltip = () => {
 }
 
 /* Text */
-.chip-text {
+.chip.full .chip-text {
     line-height: 1;
 }
 
@@ -183,8 +180,8 @@ const clearTooltip = () => {
 }
 
 .remove-icon {
-    width: 14px;
-    height: 14px;
+    width: 11px;
+    height: 11px;
 }
 
 /* Tooltip */

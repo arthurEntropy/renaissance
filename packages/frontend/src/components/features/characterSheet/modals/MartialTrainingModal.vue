@@ -16,8 +16,8 @@
                     <span class="mt-label">{{ row.label }}</span>
                     <div class="mt-chips">
                         <ChipTag v-for="grade in equipmentGrades" :key="grade.id" :text="grade.name"
-                            :variant="novizio?.[row.key]?.includes(grade.id) ? 'primary' : 'dim'" rounded="full"
-                            :hoverable="false" />
+                            :variant="novizio?.[row.key]?.includes(grade.id) ? CHIP_TAG_VARIANTS.PRIMARY : CHIP_TAG_VARIANTS.DIM"
+                            :rounded="CHIP_TAG_ROUNDED.FULL" :hoverable="false" />
                     </div>
                 </div>
             </div>
@@ -30,12 +30,13 @@
 <script setup>
 import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue'
 import ChipTag from '@/components/ui/chips/ChipTag.vue'
+import { CHIP_TAG_VARIANTS, CHIP_TAG_ROUNDED } from '@/constants/chipTag'
 import { sanitizeHtml } from '@/utils/sanitizeHtml'
-import meleeIcon from '@/assets/icons/melee.png'
-import polearmIcon from '@/assets/icons/polearms.png'
-import rangedIcon from '@/assets/icons/ranged.png'
-import firearmIcon from '@/assets/icons/firearms.png'
-import armorIcon from '@/assets/icons/armor.png'
+import meleeIcon from '@/assets/icons/martial/melee.png'
+import polearmIcon from '@/assets/icons/martial/polearms.png'
+import rangedIcon from '@/assets/icons/martial/ranged.png'
+import firearmIcon from '@/assets/icons/martial/firearms.png'
+import armorIcon from '@/assets/icons/martial/armor.png'
 
 const props = defineProps({
     novizio: {

@@ -8,20 +8,21 @@
     <CharacterVitals />
 
     <!-- Bio & Notes Button -->
-    <FloatingActionButton type="notes" size="small" visibility="always" class="notes-button" @click="openModal" />
+    <FloatingActionButton :variant="FAB_TYPES.NOTES" :size="FAB_SIZES.SMALL" :visibility="FAB_VISIBILITIES.ALWAYS"
+      class="notes-button" @click="openModal" />
 
     <!-- XP Badge -->
     <div class="xp-badge">
       <span class="xp-label">XP:</span>
       <NumberInput :model-value="character.xp || 0" :disabled="!canEdit" @update:model-value="character.xp = $event"
-        :min="0" size="small" />
+        :min="0" :size="NUMBER_INPUT_SIZES.MEDIUM" />
     </div>
 
     <!-- Bio Modal (View/Edit) -->
     <div v-if="isModalOpen" class="modal-overlay" @click="handleOverlayClick">
       <div class="modal-content bio-modal edit-hover-area" @click.stop>
-        <FloatingActionButton v-if="canEdit && !isEditMode" type="edit" size="small" visibility="on-hover"
-          class="edit-button-overlay" @click.stop="startEdit" />
+        <FloatingActionButton v-if="canEdit && !isEditMode" :variant="FAB_TYPES.EDIT" :size="FAB_SIZES.SMALL"
+          :visibility="FAB_VISIBILITIES.ON_HOVER" class="edit-button-overlay" @click.stop="startEdit" />
 
         <!-- View Mode -->
         <div v-if="!isEditMode" class="full-text-content">
@@ -35,22 +36,23 @@
             <div class="profile-fields-grid">
               <label class="profile-field">
                 <span>Age</span>
-                <NumberInput :model-value="editedAge" @update:model-value="editedAge = $event" :min="0" size="small" />
+                <NumberInput :model-value="editedAge" @update:model-value="editedAge = $event" :min="0"
+                  :size="NUMBER_INPUT_SIZES.MEDIUM" />
               </label>
               <label class="profile-field">
                 <span>Feet</span>
                 <NumberInput :model-value="editedHeightFeet" @update:model-value="editedHeightFeet = $event" :min="0"
-                  size="small" />
+                  :size="NUMBER_INPUT_SIZES.MEDIUM" />
               </label>
               <label class="profile-field">
                 <span>Inches</span>
                 <NumberInput :model-value="editedHeightInches" @update:model-value="editedHeightInches = $event"
-                  :min="0" :max="11" size="small" />
+                  :min="0" :max="11" :size="NUMBER_INPUT_SIZES.MEDIUM" />
               </label>
               <label class="profile-field">
                 <span>Weight</span>
                 <NumberInput :model-value="editedWeight" @update:model-value="editedWeight = $event" :min="0"
-                  size="small" />
+                  :size="NUMBER_INPUT_SIZES.MEDIUM" />
               </label>
             </div>
             <TextEditor v-model="editedContent" :auto-height="true" :placeholder="EMPTY_BIO_MESSAGE" height="300px" />
@@ -75,8 +77,10 @@ import CharacterPhysicalStats from './CharacterPhysicalStats.vue'
 import CharacterVitals from './CharacterVitals.vue'
 import CharacterSheetSection from '@/components/ui/containers/CharacterSheetSection.vue'
 import NumberInput from '@/components/ui/forms/NumberInput.vue'
+import { NUMBER_INPUT_SIZES } from '@/constants/numberInput'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
+import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 import TextEditor from '@/components/ui/textEditor/TextEditor.vue'
 import { useCharactersStore } from '@/stores/charactersStore'
 

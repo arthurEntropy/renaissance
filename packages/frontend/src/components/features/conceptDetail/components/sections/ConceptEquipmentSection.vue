@@ -4,13 +4,14 @@
             empty-message="No equipment added yet.">
 
             <template v-if="hasEquipment" #header-center>
-                <SortingDropdown v-model="groupingOption" :options="groupingOptions" label="Group by:"
+                <SortingPicker v-model="groupingOption" :options="groupingOptions" label="Group by:"
                     placeholder="None" />
-                <SortingDropdown v-model="sortOption" :options="sortOptions" label="Order by:" />
+                <SortingPicker v-model="sortOption" :options="sortOptions" label="Order by:" />
             </template>
 
             <template v-if="isEditMode" #header-right>
-                <FloatingActionButton type="add" visibility="always" @click="$emit('add-equipment')" />
+                <FloatingActionButton :variant="FAB_TYPES.ADD" :visibility="FAB_VISIBILITIES.ALWAYS"
+                    @click="$emit('add-equipment')" />
             </template>
 
             <!-- Grouped by type display -->
@@ -62,8 +63,9 @@ import ConceptSection from '../shared/ConceptSection.vue'
 import EquipmentCard from '@/components/ui/cards/item/EquipmentCard.vue'
 import MasonryGrid from '@/components/ui/layouts/MasonryGrid.vue'
 import GroupedMasonryGrid from '@/components/ui/layouts/GroupedMasonryGrid.vue'
-import SortingDropdown from '@/components/ui/dropdowns/SortingDropdown.vue'
+import SortingPicker from '@/components/ui/pickers/SortingPicker.vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
+import { FAB_TYPES, FAB_VISIBILITIES } from '@/constants/fab'
 import { sortItems } from '@/utils/sortItems'
 import { EQUIPMENT_SORT_OPTIONS, filterAdminSortOptions } from '@/constants/sortOptions'
 import { useFilterPersistence } from '@/composables/useFilterPersistence'

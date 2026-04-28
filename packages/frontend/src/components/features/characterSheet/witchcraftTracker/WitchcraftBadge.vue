@@ -13,10 +13,10 @@
 
         <!-- Top-right controls: edit, delete -->
         <div class="badge__controls">
-            <FloatingActionButton type="edit" size="small" visibility="on-hover" title="Edit"
+            <FloatingActionButton :variant="FAB_TYPES.EDIT" :size="FAB_SIZES.SMALL" :visibility="FAB_VISIBILITIES.ON_HOVER"
                 @click.stop="$emit('edit', item)" />
-            <FloatingActionButton type="delete" size="small" visibility="on-hover" title="Remove"
-                @click.stop="handleRemove" />
+            <FloatingActionButton :variant="FAB_TYPES.DELETE" :size="FAB_SIZES.SMALL"
+                :visibility="FAB_VISIBILITIES.ON_HOVER" @click.stop="handleRemove" />
         </div>
 
         <!-- Art area -->
@@ -59,6 +59,7 @@ import { PlusIcon, SparklesIcon } from '@heroicons/vue/24/outline'
 import { useCardPreview } from '@/composables/useCardPreview'
 import { useSourcesStore } from '@/stores/sourcesStore'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
+import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 
 const props = defineProps({
     type: {

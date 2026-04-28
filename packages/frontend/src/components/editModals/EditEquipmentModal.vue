@@ -118,7 +118,7 @@
             <!-- Source -->
             <div class="form-column source-dropdown">
               <label for="source" class="left-aligned">Source:</label>
-              <SourceDropdown v-model="editedEquipment.source" id="source" />
+              <SourceCascadePicker v-model="editedEquipment.source" id="source" />
             </div>
 
             <!-- Keeping -->
@@ -243,7 +243,7 @@
       <!-- Sticky Action Buttons -->
       <div class="modal-footer">
         <div class="form-buttons">
-          <ActionButton variant="success" size="small" text="Save" @click="saveEquipment" type="button" />
+          <ActionButton variant="success" size="small" text="Save" @click="saveEquipment" />
           <ActionButton variant="danger" size="small" text="Delete" @click="() => deleteItem('equipment')"
             type="button" />
         </div>
@@ -257,7 +257,7 @@
 import { ref, computed, watch } from 'vue'
 import { XMarkIcon, ArrowUpIcon, ArrowDownIcon } from '@heroicons/vue/24/outline'
 import TextEditor from '@/components/ui/textEditor/TextEditor.vue'
-import SourceDropdown from '@/components/ui/selectors/SourceDropdown.vue'
+import SourceCascadePicker from '@/components/ui/pickers/SourceCascadePicker.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import { useEditModalForm } from '@/composables/useEditModalForm'
 import { getDiceFontMaxClass } from '@/utils/diceFontUtils'

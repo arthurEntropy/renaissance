@@ -2,8 +2,8 @@
     <div class="description-container edit-hover-area">
 
         <!-- Edit button -->
-        <FloatingActionButton v-if="isEditMode" type="edit" @click="toggleEdit" :is-active="isEditingDescription"
-            size="small" visibility="always" class="edit-button-overlay" />
+        <FloatingActionButton v-if="isEditMode" :variant="isEditingDescription ? FAB_TYPES.CONFIRM : FAB_TYPES.EDIT"
+            @click="toggleEdit" size="small" visibility="always" class="edit-button-overlay" />
 
         <!-- Edit mode -->
         <div v-if="isEditingDescription" class="editable-description">
@@ -27,6 +27,7 @@ import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import TextEditor from '@/components/ui/textEditor/TextEditor.vue'
 import { sanitizeHtml } from '@/utils/sanitizeHtml'
 import { useConceptsStore } from '@/stores/conceptsStore'
+import { FAB_TYPES } from '@/constants/fab'
 
 const props = defineProps({
     isEditMode: {

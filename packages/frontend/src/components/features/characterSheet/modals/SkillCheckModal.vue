@@ -16,18 +16,19 @@
 
       <!-- Favored Status Toggle -->
       <div class="favored-status-toggle">
-        <ActionButton variant="outline" size="large" text="Ill-Favored"
-          :selected="favoredStatus === SKILL_STATUS.ILL_FAVORED" @click="favoredStatus = SKILL_STATUS.ILL_FAVORED" />
-        <ActionButton variant="outline" size="large" text="Flat" :selected="favoredStatus === null"
+        <ActionButton :variant="favoredStatus === SKILL_STATUS.ILL_FAVORED ? 'primary' : 'outline'" size="large"
+          text="Ill-Favored" @click="favoredStatus = SKILL_STATUS.ILL_FAVORED" />
+        <ActionButton :variant="favoredStatus === null ? 'primary' : 'outline'" size="large" text="Flat"
           @click="favoredStatus = null" />
-        <ActionButton variant="outline" size="large" text="Favored" :selected="favoredStatus === SKILL_STATUS.FAVORED"
-          @click="favoredStatus = SKILL_STATUS.FAVORED" />
+        <ActionButton :variant="favoredStatus === SKILL_STATUS.FAVORED ? 'primary' : 'outline'" size="large"
+          text="Favored" @click="favoredStatus = SKILL_STATUS.FAVORED" />
       </div>
 
       <!-- Dice Mod Options -->
       <div class="dice-mod-options">
-        <ActionButton v-for="mod in diceModOptions" :key="mod.value" variant="outline" size="small" :text="mod.label"
-          :selected="rollParameters.diceMod === mod.value" @click="rollParameters.diceMod = mod.value" />
+        <ActionButton v-for="mod in diceModOptions" :key="mod.value"
+          :variant="rollParameters.diceMod === mod.value ? 'primary' : 'outline'" size="small" :text="mod.label"
+          @click="rollParameters.diceMod = mod.value" />
       </div>
 
       <!-- Dice Preview -->
@@ -50,10 +51,10 @@
 
       <!-- Roll Type Toggle -->
       <div class="roll-type-toggle">
-        <ActionButton variant="outline" size="large" text="Opposed"
-          :selected="rollType === RollTypes.OPPOSED_SKILL_CHECK" @click="rollType = RollTypes.OPPOSED_SKILL_CHECK" />
-        <ActionButton variant="outline" size="large" text="Against Difficulty"
-          :selected="rollType === RollTypes.SKILL_CHECK" @click="rollType = RollTypes.SKILL_CHECK" />
+        <ActionButton :variant="rollType === RollTypes.OPPOSED_SKILL_CHECK ? 'primary' : 'outline'" size="large"
+          text="Opposed" @click="rollType = RollTypes.OPPOSED_SKILL_CHECK" />
+        <ActionButton :variant="rollType === RollTypes.SKILL_CHECK ? 'primary' : 'outline'" size="large"
+          text="Against Difficulty" @click="rollType = RollTypes.SKILL_CHECK" />
       </div>
 
       <!-- Difficulty -->
@@ -66,8 +67,8 @@
           <span>Legendary</span>
         </div>
         <div class="difficulty-options">
-          <ActionButton v-for="difficulty in difficultyOptions" :key="difficulty" variant="outline" size="small"
-            :text="difficulty.toString()" :selected="localDifficulty === difficulty"
+          <ActionButton v-for="difficulty in difficultyOptions" :key="difficulty"
+            :variant="localDifficulty === difficulty ? 'primary' : 'outline'" size="small" :text="difficulty.toString()"
             :disabled="rollType === RollTypes.OPPOSED_SKILL_CHECK" @click="toggleDifficulty(difficulty)" />
         </div>
       </div>
@@ -325,19 +326,19 @@ watch(localSelectedSkillName, () => {
 .dice-symbol {
   font-size: var(--font-size-32);
   color: var(--color-text-primary);
-  transition: var(--transition-all);
+  transition: var(--transition-normal);
 }
 
 .dice-symbol.favored-die i,
 .dice-symbol.added-die i {
   color: var(--color-success);
-  text-shadow: var(--shadow-glow-success-sm);
+  text-shadow: var(--glow-success-sm);
 }
 
 .dice-symbol.illfavored-die i,
 .dice-symbol.subtracted-die i {
   color: var(--color-danger);
-  text-shadow: var(--shadow-glow-danger-sm);
+  text-shadow: var(--glow-danger-sm);
 }
 
 .roll-type-toggle {

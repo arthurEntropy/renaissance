@@ -3,25 +3,25 @@
     <TableHeader title="Equipment" :is-edit-mode="internalEditMode" :show-edit-button="canEdit" collapsible
       :is-collapsed="isCollapsed" @toggle-collapse="isCollapsed = !isCollapsed" @toggle-edit="toggleEditMode">
       <template #header-left>
-        <FloatingActionButton v-if="internalEditMode" type="add" size="small" visibility="always"
-          @click="showEquipmentSelector = true" />
+        <FloatingActionButton v-if="internalEditMode" :variant="FAB_TYPES.ADD" :size="FAB_SIZES.SMALL"
+          :visibility="FAB_VISIBILITIES.ALWAYS" @click="openEquipmentSelectorFromButton" />
         <ActionButton v-if="internalEditMode && groupingOption === 'custom'" variant="outline" size="small"
           text="+ Group" @click="createEquipmentGroup" />
       </template>
       <template #header-center>
         <div v-if="internalEditMode" v-show="!isCollapsed" class="header-controls">
-          <SortingDropdown v-model="groupingOption" :options="groupingOptions" label="Group by:"
+          <SortingPicker v-model="groupingOption" :options="groupingOptions" label="Group by:"
             placeholder="Ungrouped" />
-          <SortingDropdown v-model="equipmentSortOption" :options="sortOptions" label="Order by:"
-            placeholder="Custom" />
+          <SortingPicker v-model="equipmentSortOption" :options="sortOptions" label="Order by:" placeholder="Custom" />
         </div>
         <FloatingActionButton v-else-if="!isCollapsed && characterEquipment.length > 0" class="expand-collapse-btn"
-          :type="allEquipmentExpanded ? 'collapse-all' : 'expand-all'" size="small" visibility="on-hover"
-          @click="toggleAllEquipment" />
+          :variant="allEquipmentExpanded ? FAB_TYPES.COLLAPSE_ALL : FAB_TYPES.EXPAND_ALL" :size="FAB_SIZES.SMALL"
+          :visibility="FAB_VISIBILITIES.ON_HOVER" @click="toggleAllEquipment" />
       </template>
       <template #header-right>
         <div class="header-right-controls">
-          <FloatingActionButton type="martial-training" size="small" visibility="always" @click="openMartialTraining" />
+          <FloatingActionButton :variant="FAB_TYPES.MARTIAL_TRAINING" :size="FAB_SIZES.LARGE"
+            :visibility="FAB_VISIBILITIES.ALWAYS" @click="openMartialTraining" />
           <EquipmentWeight :equipment-items="characterEquipment" />
         </div>
       </template>
@@ -79,17 +79,12 @@
       </ThreeColumnLayout>
     </div>
 
-    <!-- Equipment Selector Modal -->
-    <ItemSelector :show="showEquipmentSelector" title="Add Equipment" :grouped-items="groupedEquipmentForSelector"
-      :search-query="equipmentSearchQuery" search-placeholder="Search equipment..."
-      no-items-message="No equipment found" :get-source-name="sourcesStore.getSourceName"
-      :show-choice-mode="showChoiceMode" :choice-options="addEquipmentOptions" @close="closeEquipmentSelector"
-      @select="selectEquipment" @search="equipmentSearchQuery = $event" @choice="handleEquipmentChoice">
-      <template #item-display="{ item }">
-        {{ item.name }}
-        <span class="equipment-weight">({{ item.weight }} lbs)</span>
-      </template>
-    </ItemSelector>
+    <!-- Equipment Selector -->
+    <CardCascadePicker v-if="showEquipmentSelector" :picker="equipmentPicker" fixed-category="equipment"
+      :show-category-column="false" :close-on-mouse-leave="false" :close-on-outside-click="true"
+      :anchor-position="equipmentSelectorAnchor" :is-loading="false" top-level-action-label="Create custom item..."
+      :show-add-all-at-every-level="false" @add-item="handleCascadeAddEquipment"
+      @add-all-items="handleCascadeAddAllEquipment" @top-level-action="createAndAddCustomEquipment" />
 
     <!-- Edit Equipment Modal -->
     <EditEquipmentModal v-if="showEditEquipmentModal" :equipment="equipmentToEdit" @update="saveEditedEquipment"
@@ -114,18 +109,20 @@ import EquipmentWeight from './EquipmentWeight.vue'
 import EquipmentDetails from './EquipmentDetails.vue'
 import TableHeader from '@/components/ui/tables/TableHeader.vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
-import ItemSelector from '@/components/ui/selectors/ItemSelector.vue'
+import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
+import CardCascadePicker from '@/components/ui/pickers/CardCascadePicker.vue'
 import CharacterSheetSection from '@/components/ui/containers/CharacterSheetSection.vue'
 import EditEquipmentModal from '@/components/editModals/EditEquipmentModal.vue'
 import ThreeColumnLayout from '@/components/ui/layouts/ThreeColumnLayout.vue'
 import GroupedThreeColumnLayout from '@/components/ui/layouts/GroupedThreeColumnLayout.vue'
-import SortingDropdown from '@/components/ui/dropdowns/SortingDropdown.vue'
+import SortingPicker from '@/components/ui/pickers/SortingPicker.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import SkillCheckModal from '@/components/features/characterSheet/modals/SkillCheckModal.vue'
 import MartialTrainingModal from '@/components/features/characterSheet/modals/MartialTrainingModal.vue'
 import { useEditModal } from '@/composables/useEditModal'
 import CharacterService from '@/services/entities/characterService'
-import { useItemSelector } from '@/composables/useItemSelector'
+import { useCardCascadePicker } from '@/composables/useCardCascadePicker'
+import { anchorFromTriggerEvent } from '@/composables/useAnchoredPickerTrigger'
 import { useItemGrouping } from '@/composables/useItemGrouping'
 import { useCustomGroupManagement } from '@/composables/useCustomGroupManagement'
 import { sortItems } from '@/utils/sortItems'
@@ -143,7 +140,6 @@ import EngagementSuccessService from '@/services/entities/engagementSuccessServi
 import DamageRollService from '@/services/rolls/damageRollService'
 import CustomRollService from '@/services/rolls/customRollService'
 import { RollTypes } from '@/constants/rollTypes'
-import { BookOpenIcon, PlusIcon } from '@heroicons/vue/24/outline'
 import { MESMER_MASK_SUBTYPE_ID } from '@/constants/mesmerConstants'
 
 const props = defineProps({
@@ -248,27 +244,20 @@ const canEdit = computed(() => props.isEditMode)
 // Drag is enabled only when no sort option is active (custom order mode)
 const isDraggable = computed(() => !equipmentSortOption.value)
 
-const showEquipmentSelector = ref(false)
-const showChoiceMode = ref(true)
+const equipmentPicker = useCardCascadePicker({ fixedCategory: 'equipment' })
+const {
+  showPicker: showEquipmentSelector,
+  openPicker: openEquipmentSelector,
+  closeCascadeImmediate: closeEquipmentSelector,
+} = equipmentPicker
 
-const addEquipmentOptions = [
-  {
-    key: 'library',
-    label: 'Add from Library',
-    icon: BookOpenIcon
-  },
-  {
-    key: 'custom',
-    label: 'Add Custom Item',
-    icon: PlusIcon
-  }
-]
+const equipmentSelectorAnchor = ref({ x: 0, y: 0 })
 
-const { groupedItems: groupedEquipmentForSelector, searchQuery: equipmentSearchQuery } = useItemSelector(
-  allEquipment,
-  sourcesStore,
-  { searchFields: ['name'] }
-)
+const openEquipmentSelectorFromButton = (event) => {
+  const anchor = anchorFromTriggerEvent(event)
+  if (anchor) equipmentSelectorAnchor.value = anchor
+  openEquipmentSelector()
+}
 
 const characterEquipment = computed(() => {
   if (!selectedCharacter.value?.equipment) return []
@@ -512,9 +501,9 @@ const deleteEquipment = async (equipment) => {
   closeEditEquipmentModal()
 }
 
-const selectEquipment = (equipment) => {
+const addEquipmentById = (equipmentId) => {
   const newItem = {
-    id: equipment.id,
+    id: equipmentId,
     quantity: 1,
     isCarried: true,
     isWielding: false,
@@ -522,23 +511,37 @@ const selectEquipment = (equipment) => {
   }
 
   const updated = CharacterService.addItem(selectedCharacter.value, 'equipment', newItem)
-  if (updated) Object.assign(selectedCharacter.value, updated)
-  showEquipmentSelector.value = false
+  return updated
 }
 
-const handleEquipmentChoice = (choice) => {
-  if (choice === 'library') {
-    showChoiceMode.value = false
-  } else if (choice === 'custom') {
-    showEquipmentSelector.value = false
-    showChoiceMode.value = true
-    createAndAddCustomEquipment()
+const handleCascadeAddEquipment = (type, equipmentId) => {
+  if (type !== 'equipment') return
+  const updated = addEquipmentById(equipmentId)
+  if (updated) {
+    Object.assign(selectedCharacter.value, updated)
   }
+  closeEquipmentSelector()
 }
 
-const closeEquipmentSelector = () => {
-  showEquipmentSelector.value = false
-  showChoiceMode.value = true
+const handleCascadeAddAllEquipment = (type, equipmentItems) => {
+  if (type !== 'equipment' || !Array.isArray(equipmentItems) || equipmentItems.length === 0) return
+  let nextCharacter = selectedCharacter.value
+  for (const equipment of equipmentItems) {
+    const updated = CharacterService.addItem(nextCharacter, 'equipment', {
+      id: equipment.id,
+      quantity: 1,
+      isCarried: true,
+      isWielding: false,
+      collapsed: false,
+    })
+    if (updated) {
+      nextCharacter = updated
+    }
+  }
+  if (nextCharacter !== selectedCharacter.value) {
+    Object.assign(selectedCharacter.value, nextCharacter)
+  }
+  closeEquipmentSelector()
 }
 
 onMounted(async () => {

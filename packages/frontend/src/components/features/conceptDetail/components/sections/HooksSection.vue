@@ -11,7 +11,8 @@
 
             <!-- Title with drag handle and expand/collapse button -->
             <div class="hook-header">
-              <FloatingActionButton type="drag" size="small" visibility="always" class="drag-handle" />
+              <FloatingActionButton :variant="FAB_TYPES.DRAG" :size="FAB_SIZES.SMALL" :visibility="FAB_VISIBILITIES.ALWAYS"
+                class="drag-handle" />
               <button class="hook-caret" @click="toggleHookExpansion(idx)" type="button">
                 <ChevronDownIcon v-if="isHookExpanded(idx)" class="caret-icon" />
                 <ChevronRightIcon v-else class="caret-icon" />
@@ -41,8 +42,8 @@
 
       <!-- Editor buttons: Cancel and Add -->
       <div class="editor-buttons">
-        <ActionButton variant="neutral" size="small" text="Cancel" @click="cancelHooksEdit" type="button" />
-        <ActionButton variant="primary" size="small" text="+ Add" @click="addHook" type="button" />
+        <ActionButton variant="neutral" size="small" text="Cancel" @click="cancelHooksEdit" />
+        <ActionButton variant="primary" size="small" text="+ Add" @click="addHook" />
       </div>
     </div>
 
@@ -71,6 +72,7 @@ import ConceptSection from '../shared/ConceptSection.vue'
 import InfoCard from '../shared/InfoCard.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
+import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 import { sanitizeHtml } from '@/utils/sanitizeHtml'
 import { useConceptsStore } from '@/stores/conceptsStore'
 

@@ -9,7 +9,7 @@
             <div v-if="$slots['header-right']" class="section-header-right">
                 <slot name="header-right" />
             </div>
-            <FloatingActionButton v-if="showEditButton" type="edit" :is-active="isSectionEditing"
+            <FloatingActionButton v-if="showEditButton" :variant="isSectionEditing ? FAB_TYPES.CONFIRM : FAB_TYPES.EDIT"
                 @click="$emit('toggle-edit')" size="small" visibility="always" />
         </div>
         <div v-if="!hasContent && isEditMode && !isSectionEditing" class="empty-section-placeholder">
@@ -21,6 +21,7 @@
 
 <script setup>
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
+import { FAB_TYPES } from '@/constants/fab'
 
 defineProps({
     title: {

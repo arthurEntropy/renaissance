@@ -309,7 +309,7 @@ const handleBaseAbilityToggle = () => {
 }
 
 .bottom-buttons:hover {
-  text-shadow: var(--shadow-glow-sm);
+  text-shadow: var(--glow-sm);
 }
 
 .toggle-active-button {

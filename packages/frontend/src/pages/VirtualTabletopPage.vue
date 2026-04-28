@@ -1,7 +1,9 @@
 <template>
     <div class="tabletop-root" @wheel.prevent="handleWheel">
-        <TabletopCascadeMenu v-if="showPicker" :engagement-success-options="engagementSuccessOptions"
-            :is-loading="isLoading" @add-item="addItem" @add-all-items="addAllItems" />
+        <CardCascadePicker v-if="showPicker" :picker="cascadePicker"
+            :engagement-success-options="engagementSuccessOptions" :anchor-position="tabletopPickerAnchor"
+            :bottom-boundary="tabletopPickerBottomBoundary" :is-loading="isLoading" :show-add-all-at-every-level="true"
+            @add-item="addItem" @add-all-items="addAllItems" />
 
         <!-- Canvas Container -->
         <div class="canvas-container" ref="canvasContainerRef" @mousedown="handleContainerMousedown">
@@ -68,7 +70,7 @@
         <!-- Bottom Toolbar -->
         <TabletopToolbar :show-picker="showPicker" :scale="transform.scale" :snap-to-grid="snapToGrid"
             :grid-size="gridSize" :item-count="canvasItems.length" :can-undo="canUndo" :can-redo="canRedo"
-            @toggle-picker="togglePicker" @zoom-in="adjustZoom(1.2)" @zoom-out="adjustZoom(1 / 1.2)"
+            @toggle-picker="handleTogglePicker" @zoom-in="adjustZoom(1.2)" @zoom-out="adjustZoom(1 / 1.2)"
             @reset-view="resetView" @toggle-snap="toggleSnap" @increase-grid="increaseGridSize"
             @decrease-grid="decreaseGridSize" @clear-all="clearAll" @undo="undo" @redo="redo" />
     </div>
@@ -81,10 +83,11 @@ import AbilityCard from '@/components/ui/cards/item/AbilityCard.vue'
 import EquipmentCard from '@/components/ui/cards/item/EquipmentCard.vue'
 import EditAbilityModal from '@/components/editModals/EditAbilityModal.vue'
 import EditEquipmentModal from '@/components/editModals/EditEquipmentModal.vue'
-import TabletopCascadeMenu from '@/components/features/tabletop/TabletopCascadeMenu.vue'
+import CardCascadePicker from '@/components/ui/pickers/CardCascadePicker.vue'
 import TabletopToolbar from '@/components/features/tabletop/TabletopToolbar.vue'
 import { useTabletopCanvas } from '@/composables/useTabletopCanvas'
-import { useCascadePicker } from '@/composables/useCascadePicker'
+import { useCardCascadePicker } from '@/composables/useCardCascadePicker'
+import { anchorFromTriggerEvent } from '@/composables/useAnchoredPickerTrigger'
 
 // Stores
 import { useAbilitiesStore } from '@/stores/abilitiesStore'
@@ -150,7 +153,20 @@ const {
     clearAll,
 } = useTabletopCanvas()
 
-const { showPicker, togglePicker } = useCascadePicker()
+const cascadePicker = useCardCascadePicker()
+const { showPicker, togglePicker } = cascadePicker
+const tabletopPickerAnchor = ref({ x: 0, y: 0 })
+const tabletopPickerBottomBoundary = ref(null)
+
+const handleTogglePicker = (event) => {
+    const anchor = anchorFromTriggerEvent(event, { yMode: 'top', yOffset: 12 })
+    if (anchor) {
+        tabletopPickerAnchor.value = anchor
+        tabletopPickerBottomBoundary.value = anchor.y + 4
+    }
+
+    togglePicker()
+}
 
 // Selection rectangle visual style
 const selectionRectangleStyle = computed(() => {
@@ -346,7 +362,7 @@ onMounted(async () => {
     color: var(--color-danger-text);
     border: none;
     border-radius: var(--radius-5);
-    padding: var(--btn-padding-sm);
+    padding: 2px var(--space-sm);
     font-size: var(--font-size-12);
     cursor: pointer;
 }

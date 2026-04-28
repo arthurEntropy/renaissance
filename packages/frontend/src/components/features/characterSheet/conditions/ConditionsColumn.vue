@@ -17,7 +17,8 @@
             <div class="speed-row">
                 <span class="speed-name">Speed</span>
                 <NumberInput :model-value="selectedCharacter?.speed || 0" :disabled="!isEditMode"
-                    @update:model-value="updateSpeed" :min="0" :step="5" size="small" aria-label="Character speed" />
+                    @update:model-value="updateSpeed" :min="0" :step="5" :size="NUMBER_INPUT_SIZES.MEDIUM"
+                    aria-label="Character speed" />
             </div>
         </CharacterSheetSection>
     </div>
@@ -27,6 +28,7 @@
 import { computed } from 'vue'
 import CharacterSheetSection from '@/components/ui/containers/CharacterSheetSection.vue'
 import NumberInput from '@/components/ui/forms/NumberInput.vue'
+import { NUMBER_INPUT_SIZES } from '@/constants/numberInput'
 import { useCharactersStore } from '@/stores/charactersStore'
 import * as CharacterUtils from '@shared/types/entities/characterUtils'
 
@@ -120,10 +122,10 @@ const updateSpeed = (value) => {
 
 .condition-active {
     color: var(--color-danger);
-    text-shadow: var(--shadow-glow-danger-sm);
+    text-shadow: var(--glow-danger-sm);
 }
 
 .condition-active-checkbox {
-    box-shadow: var(--shadow-glow-danger-md);
+    box-shadow: var(--glow-danger-lg);
 }
 </style>

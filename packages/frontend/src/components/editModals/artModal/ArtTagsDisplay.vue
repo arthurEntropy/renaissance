@@ -1,14 +1,15 @@
 <template>
     <div class="selected-tags" :class="{ empty: selectedSources.length === 0 }">
         <ChipTag v-for="sourceId in selectedSources" :key="sourceId" :sourceId="sourceId"
-            :variant="isPartialSource(sourceId) ? 'secondary' : 'primary'" removable
-            @remove="$emit('remove', sourceId)" />
+            :variant="isPartialSource(sourceId) ? CHIP_TAG_VARIANTS.GRAY : CHIP_TAG_VARIANTS.PRIMARY" :hoverable="false"
+            removable @remove="$emit('remove', sourceId)" />
         <span v-if="selectedSources.length === 0" class="empty-message">No tags</span>
     </div>
 </template>
 
 <script setup>
 import ChipTag from '@/components/ui/chips/ChipTag.vue'
+import { CHIP_TAG_VARIANTS } from '@/constants/chipTag'
 
 const props = defineProps({
     selectedSources: {

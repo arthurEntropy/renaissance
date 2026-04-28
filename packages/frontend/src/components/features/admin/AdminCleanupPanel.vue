@@ -2,7 +2,8 @@
     <CollapsibleAdminSection title="Data Cleanup">
         <div class="cleanup-panel">
             <div class="cleanup-actions">
-                <ActionButton variant="primary" text="Clean Up Data" :loading="isScanning" @click="scanData" />
+                <ActionButton variant="primary" :text="isScanning ? 'Scanning...' : 'Clean Up Data'"
+                    :disabled="isScanning" @click="scanData" />
                 <ActionButton variant="outline" size="small" text="Select All" :disabled="!items.length"
                     @click="selectAll" />
                 <ActionButton variant="outline" size="small" text="Clear" :disabled="!items.length"
@@ -34,8 +35,8 @@
 
             <div class="cleanup-footer">
                 <div class="cleanup-count">{{ selectedCount }} selected</div>
-                <ActionButton variant="danger" text="Delete Selected" :loading="isDeleting"
-                    :disabled="selectedCount === 0" @click="deleteSelected" />
+                <ActionButton variant="danger" :text="isDeleting ? 'Deleting...' : 'Delete Selected'"
+                    :disabled="selectedCount === 0 || isDeleting" @click="deleteSelected" />
             </div>
         </div>
     </CollapsibleAdminSection>

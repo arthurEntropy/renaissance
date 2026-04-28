@@ -7,8 +7,10 @@
         <input v-if="isContentEditMode" type="text" v-model="localSection.name" @input="unsavedChanges = true"
           class="section-name-input" />
         <h2 v-else>{{ currentSection.name }}</h2>
-        <FloatingActionButton v-if="isAdmin" type="edit" :is-active="isContentEditMode" :disabled="isStructureEditMode"
-          visibility="always" @click="toggleContentEditMode" />
+        <div v-if="isAdmin" :class="{ 'fab-lockout': isStructureEditMode }">
+          <FloatingActionButton :variant="isContentEditMode ? FAB_TYPES.CONFIRM : FAB_TYPES.EDIT"
+            :visibility="FAB_VISIBILITIES.ALWAYS" @click="toggleContentEditMode" />
+        </div>
       </div>
     </div>
 
@@ -39,6 +41,7 @@ import { useAuthStore } from '@/stores/authStore'
 import { useRulesStore } from '@/stores/rulesStore'
 import TextEditor from '@/components/ui/textEditor/TextEditor.vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
+import { FAB_TYPES, FAB_VISIBILITIES } from '@/constants/fab'
 import { sanitizeHtml } from '@/utils/sanitizeHtml'
 
 const authStore = useAuthStore()
@@ -145,6 +148,11 @@ const toggleContentEditMode = async () => {
   justify-content: space-between;
   border-bottom: 1px solid var(--overlay-white-medium);
   padding-bottom: var(--space-md);
+}
+
+.fab-lockout {
+  opacity: 0.4;
+  pointer-events: none;
 }
 
 .section-name-container h2 {

@@ -388,7 +388,7 @@ export function useEditMode() {
 - **Spacing**: `--space-xs`, `--space-sm`, `--space-md`, `--space-lg`
 - **Radii**: `--radius-5`, `--radius-10`, `--radius-15`
 - **Typography**: `--font-size-12`, `--font-size-14`, `--font-family-primary`
-- **Shadows**: `--shadow-elevation-sm`, `--shadow-elevation-md`
+- **Shadows**: `--shadow-sm`, `--shadow-elevation-md`
 - **Transitions**: `--transition-background`, `--transition-transform`
 - **Z-Index**: `--z-dropdown`, `--z-modal`, `--z-tooltip`
 

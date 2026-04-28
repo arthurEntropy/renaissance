@@ -52,7 +52,7 @@ defineEmits(['navigate'])
     justify-content: center;
     cursor: pointer;
     z-index: var(--z-tooltip);
-    transition: var(--transition-all);
+    transition: var(--transition-normal);
 }
 
 .nav-icon {

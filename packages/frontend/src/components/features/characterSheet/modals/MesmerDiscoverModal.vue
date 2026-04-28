@@ -182,7 +182,7 @@ function handleOverlayClick() {
   padding: var(--space-xl);
   max-width: 420px;
   width: 90%;
-  box-shadow: var(--shadow-elevation-sm);
+  box-shadow: var(--shadow-sm);
 }
 
 .modal-header {

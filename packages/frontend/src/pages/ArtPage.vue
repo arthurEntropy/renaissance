@@ -145,9 +145,9 @@ onMounted(async () => {
 
 <style scoped>
 .art-library {
-    max-width: 1400px;
-    min-width: min(100%, 1200px);
+    width: 90%;
+    max-width: 1460px;
     margin: 0 auto;
-    padding: var(--space-xl);
+    padding: 0;
 }
 </style>

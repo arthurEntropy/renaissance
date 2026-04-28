@@ -94,7 +94,7 @@ defineExpose({ updateLayout })
     height: 20px;
     flex-shrink: 0;
     cursor: pointer;
-    transition: var(--transition-all);
+    transition: var(--transition-normal);
 }
 
 .group-name {

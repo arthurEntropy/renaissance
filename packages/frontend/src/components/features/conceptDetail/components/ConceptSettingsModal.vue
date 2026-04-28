@@ -29,8 +29,8 @@
       </div>
 
       <div class="settings-buttons-container">
-        <ActionButton variant="neutral" size="small" text="Cancel" @click="cancel" type="button" />
-        <ActionButton variant="success" size="small" text="Save" @click="save" type="button" />
+        <ActionButton variant="neutral" size="small" text="Cancel" @click="cancel" />
+        <ActionButton variant="success" size="small" text="Save" @click="save" />
       </div>
     </div>
   </div>

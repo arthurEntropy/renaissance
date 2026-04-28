@@ -119,7 +119,7 @@ function getCaretClasses(comparison) {
     border: 2px solid var(--color-gray-light);
     border-radius: var(--radius-15);
     padding: 3px 15px;
-    box-shadow: var(--shadow-elevation-sm);
+    box-shadow: var(--shadow-sm);
     height: 28px;
     left: -7px;
 }
@@ -127,18 +127,18 @@ function getCaretClasses(comparison) {
 .result-indicator.user-wins-pair,
 .result-indicator.opponent-wins-pair {
     border: 2px solid var(--color-success);
-    box-shadow: var(--shadow-glow-success-lg);
+    box-shadow: var(--glow-success-lg);
 }
 
 .result-indicator.user-loses-pair,
 .result-indicator.opponent-loses-pair {
     border: 2px solid var(--color-danger);
-    box-shadow: var(--shadow-glow-danger-sm);
+    box-shadow: var(--glow-danger-sm);
 }
 
 .result-indicator.tie-pair {
     border: 2px solid var(--color-warning);
-    box-shadow: var(--shadow-glow-warning-sm);
+    box-shadow: var(--glow-warning-sm);
 }
 
 .indicator-circle {
@@ -150,7 +150,7 @@ function getCaretClasses(comparison) {
 
 .indicator-circle.winner {
     background-color: var(--color-white);
-    box-shadow: var(--shadow-glow-lg);
+    box-shadow: var(--glow-lg);
     animation: pulse-win var(--duration-dice-roll) infinite;
 }
 
@@ -183,12 +183,12 @@ function getCaretClasses(comparison) {
 
 .indicator-caret.clickable:hover {
     transform: scale(1.2);
-    text-shadow: var(--shadow-glow-sm);
+    text-shadow: var(--glow-sm);
 }
 
 .indicator-caret.tie {
     color: var(--color-warning);
-    text-shadow: var(--shadow-glow-warning-sm);
+    text-shadow: var(--glow-warning-sm);
 }
 
 .indicator-caret.left-wins,
@@ -198,15 +198,15 @@ function getCaretClasses(comparison) {
 
 @keyframes pulse-win {
     0% {
-        box-shadow: var(--shadow-glow-success-sm);
+        box-shadow: var(--glow-success-sm);
     }
 
     50% {
-        box-shadow: var(--shadow-glow-success-lg);
+        box-shadow: var(--glow-success-lg);
     }
 
     100% {
-        box-shadow: var(--shadow-glow-success-sm);
+        box-shadow: var(--glow-success-sm);
     }
 }
 </style>

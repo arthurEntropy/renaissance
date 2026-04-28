@@ -1,6 +1,7 @@
 <template>
     <span class="mana-symbol" :class="colorClass" :title="colorTitle">
-        <span v-if="isColorless" class="mana-digit">{{ value }}</span>
+        <span v-if="isColorless" class="mana-digit" :class="{ 'mana-digit--multi': isMultiDigitColorless }">{{
+            colorlessValue }}</span>
         <img v-else :src="imgSrc" class="mana-img" :alt="colorTitle" />
     </span>
 </template>
@@ -21,6 +22,13 @@ const props = defineProps({
 })
 
 const isColorless = computed(() => props.color === ManaColor.COLORLESS)
+const colorlessValue = computed(() => {
+    if (props.value === '' || props.value === null || props.value === undefined) {
+        return '0'
+    }
+    return String(props.value)
+})
+const isMultiDigitColorless = computed(() => colorlessValue.value.length >= 2)
 const colorClass = computed(() => `mana-${props.color}`)
 const colorTitle = computed(() => props.color.charAt(0).toUpperCase() + props.color.slice(1))
 
@@ -86,6 +94,11 @@ const imgSrc = computed(() => {
     line-height: 1;
     margin-left: -1px;
     -webkit-text-stroke: 0px var(--color-black);
+}
+
+.mana-digit--multi {
+    font-size: 0.85em;
+    margin-left: 1px;
 }
 
 .mana-img {

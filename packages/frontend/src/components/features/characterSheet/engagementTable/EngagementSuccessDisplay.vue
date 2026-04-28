@@ -2,14 +2,15 @@
     <div class="engagement-success-display">
 
         <!-- Display existing engagement successes -->
-        <ChipTag v-for="success in successData" :key="success.id" :text="success.name" rounded="full"
+        <ChipTag v-for="success in successData" :key="success.id" :text="success.name" :rounded="CHIP_TAG_ROUNDED.FULL"
             :removable="isEditMode && success.isUserAdded"
             :tooltip="{ description: success.description, sources: success.sources }"
             @remove="removeUserAddedSuccess(success.id)" />
 
         <!-- Add Success Button -->
         <div v-if="isEditMode" class="add-success-container">
-            <FloatingActionButton type="add" size="small" visibility="always" @click="toggleDropdown" />
+            <FloatingActionButton :variant="FAB_TYPES.ADD" :size="FAB_SIZES.SMALL" :visibility="FAB_VISIBILITIES.ALWAYS"
+                @click="toggleDropdown" />
         </div>
 
         <!-- No Successes Message -->
@@ -30,6 +31,8 @@ import { useEngagementSuccesses } from '@/composables/useEngagementSuccesses'
 import { useFloatingElement } from '@/composables/useFloatingElement'
 import ChipTag from '@/components/ui/chips/ChipTag.vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
+import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
+import { CHIP_TAG_ROUNDED } from '@/constants/chipTag'
 import ItemDropdown from '@/components/ui/dropdowns/ItemDropdown.vue'
 
 defineProps({

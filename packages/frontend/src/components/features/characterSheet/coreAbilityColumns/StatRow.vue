@@ -1,34 +1,35 @@
 <template>
-    <div :class="rowClass">
+    <div :class="[rowClass, 'edit-hover-area']">
         <span class="stat-name" :class="stateClasses">{{ label }}</span>
 
         <!-- Range type (virtue: current/max) -->
         <template v-if="type === STAT_ROW_TYPES.RANGE">
-            <FloatingActionButton v-if="canEdit" class="reset-button" type="refresh" size="small" visibility="on-hover"
-                @click="emit('reset')" />
+            <FloatingActionButton v-if="canEdit" class="reset-button" :variant="FAB_TYPES.REFRESH"
+                :size="FAB_SIZES.SMALL" :visibility="FAB_VISIBILITIES.ON_HOVER" @click="emit('reset')" />
             <NumberInput :model-value="value.current" :disabled="!canEdit"
-                @update:model-value="$emit('update', 'current', $event)" :min="0" size="small" />
+                @update:model-value="$emit('update', 'current', $event)" :min="0" :size="NUMBER_INPUT_SIZES.MEDIUM" />
             <span class="range-separator">/</span>
             <NumberInput :model-value="value.max" :disabled="!canEdit"
-                @update:model-value="$emit('update', 'max', $event)" :min="0" size="small" />
+                @update:model-value="$emit('update', 'max', $event)" :min="0" :size="NUMBER_INPUT_SIZES.MEDIUM" />
         </template>
 
         <!-- Single value type (weakness) -->
         <template v-else-if="type === STAT_ROW_TYPES.SINGLE">
-            <FloatingActionButton v-if="canEdit && showInjuryRollButton" class="injury-roll-button" type="injury"
-                size="small" visibility="on-hover" @click="emit('roll-injury')" />
-            <FloatingActionButton v-if="canEdit && showAutoCalcButton" class="auto-calc-button" type="auto-calc"
-                size="small" visibility="on-hover" :is-active="isAutoCalc" :disabled="!canEdit"
-                @click="handleAutoCalcClick" @long-press="emit('toggle-auto-calc')" />
+            <FloatingActionButton v-if="canEdit && showInjuryRollButton" class="injury-roll-button"
+                :variant="FAB_TYPES.INJURY" :size="FAB_SIZES.SMALL" :visibility="FAB_VISIBILITIES.ON_HOVER"
+                @click="emit('roll-injury')" />
+            <FloatingActionButton v-if="canEdit && showAutoCalcButton" class="auto-calc-button"
+                :variant="isAutoCalc ? FAB_TYPES.AUTO_CALC_ON : FAB_TYPES.AUTO_CALC" :size="FAB_SIZES.SMALL"
+                :visibility="FAB_VISIBILITIES.ON_HOVER" @click="emit('toggle-auto-calc')" />
             <NumberInput :model-value="value" :disabled="!canEdit" @update:model-value="$emit('update', $event)"
-                :min="0" size="small" />
+                :min="0" :size="NUMBER_INPUT_SIZES.MEDIUM" />
         </template>
 
         <!-- Checkbox type (states) -->
         <template v-else-if="type === STAT_ROW_TYPES.STATE">
-            <FloatingActionButton v-if="canEdit && showAutoCalcButton" class="auto-calc-button" type="auto-calc"
-                size="small" visibility="on-hover" :is-active="isAutoCalc" :disabled="!canEdit"
-                @click="handleAutoCalcClick" @long-press="emit('toggle-auto-calc')" />
+            <FloatingActionButton v-if="canEdit && showAutoCalcButton" class="auto-calc-button"
+                :variant="isAutoCalc ? FAB_TYPES.AUTO_CALC_ON : FAB_TYPES.AUTO_CALC" :size="FAB_SIZES.SMALL"
+                :visibility="FAB_VISIBILITIES.ON_HOVER" @click="emit('toggle-auto-calc')" />
             <input type="checkbox" :checked="firstState" :disabled="!canEdit"
                 @change="$emit('update', 'first', $event.target.checked)" class="skill-checkbox"
                 :class="{ 'state-active-checkbox': firstState }" />
@@ -43,6 +44,8 @@
 import { computed, toRefs } from 'vue'
 import NumberInput from '@/components/ui/forms/NumberInput.vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
+import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
+import { NUMBER_INPUT_SIZES } from '@/constants/numberInput'
 import { STAT_ROW_TYPES } from '@shared/constants/characterConstants'
 
 // Props
@@ -88,14 +91,7 @@ const props = defineProps({
 
 const { type, label, canEdit, value, firstState, secondState, showAutoCalcButton, showInjuryRollButton, isAutoCalc } = toRefs(props)
 
-const emit = defineEmits(['update', 'reset', 'calculate', 'toggle-auto-calc', 'roll-injury'])
-
-const handleAutoCalcClick = () => {
-    // Only emit calculate if in manual mode
-    if (!isAutoCalc.value) {
-        emit('calculate')
-    }
-}
+const emit = defineEmits(['update', 'reset', 'toggle-auto-calc', 'roll-injury'])
 
 const rowClass = computed(() => {
     return {
@@ -135,11 +131,6 @@ const stateClasses = computed(() => {
     margin-right: 4px;
 }
 
-.virtue-row:hover .reset-button {
-    opacity: 1;
-    pointer-events: auto;
-}
-
 .weakness-row {
     grid-template-columns: 37% 63%;
 }
@@ -156,16 +147,6 @@ const stateClasses = computed(() => {
 .weakness-row--with-button .injury-roll-button {
     justify-self: end;
     margin-right: 4px;
-}
-
-.weakness-row--with-button:hover .auto-calc-button {
-    opacity: 1;
-    pointer-events: auto;
-}
-
-.weakness-row--with-button:hover .injury-roll-button {
-    opacity: 1;
-    pointer-events: auto;
 }
 
 .state-row {
@@ -185,11 +166,6 @@ const stateClasses = computed(() => {
     margin-right: 4px;
 }
 
-.state-row--with-button:hover .auto-calc-button {
-    opacity: 1;
-    pointer-events: auto;
-}
-
 .stat-name {
     font-size: var(--font-size-15);
     text-align: left;
@@ -203,10 +179,10 @@ const stateClasses = computed(() => {
 
 .state-active {
     color: var(--color-danger);
-    text-shadow: var(--shadow-glow-danger-sm);
+    text-shadow: var(--glow-danger-sm);
 }
 
 .state-active-checkbox {
-    box-shadow: var(--shadow-glow-danger-md);
+    box-shadow: var(--glow-danger-lg);
 }
 </style>

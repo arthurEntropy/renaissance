@@ -27,7 +27,8 @@
                 <div class="detail-item">
                     <em class="carried-label">Qty:</em>
                     <NumberInput :model-value="equipmentItem.quantity" :disabled="!isEditMode"
-                        @update:model-value="handleQuantityChange" :min="1" size="tiny" class="quantity-input" />
+                        @update:model-value="handleQuantityChange" :min="1" :size="NUMBER_INPUT_SIZES.SMALL"
+                        class="quantity-input" />
                 </div>
 
                 <div class="detail-item carried-weight">
@@ -42,6 +43,7 @@
 <script setup>
 import { computed } from 'vue'
 import NumberInput from '@/components/ui/forms/NumberInput.vue'
+import { NUMBER_INPUT_SIZES } from '@/constants/numberInput'
 
 const props = defineProps({
     equipmentItem: {
@@ -173,8 +175,6 @@ const handleQuantityChange = (value) => {
 
 .quantity-input {
     top: 2px;
-    width: 40px;
-    font-size: var(--font-size-12);
 }
 
 .details-divider {

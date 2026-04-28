@@ -28,8 +28,8 @@
         </div>
       </div>
       <div class="editor-buttons">
-        <ActionButton variant="neutral" size="small" text="Cancel" @click="cancelPlaylistEdit" type="button" />
-        <ActionButton variant="primary" size="small" text="+ Add" @click="addPlaylist" type="button" />
+        <ActionButton variant="neutral" size="small" text="Cancel" @click="cancelPlaylistEdit" />
+        <ActionButton variant="primary" size="small" text="+ Add" @click="addPlaylist" />
       </div>
     </div>
 

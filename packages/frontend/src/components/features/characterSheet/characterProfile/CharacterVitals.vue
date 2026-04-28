@@ -1,7 +1,7 @@
 <template>
     <div class="vitals-info edit-hover-area">
-        <FloatingActionButton v-if="canEdit" type="edit" size="small" visibility="on-hover" class="edit-button-overlay"
-            @click="openEditModal" />
+        <FloatingActionButton v-if="canEdit" :variant="FAB_TYPES.EDIT" :size="FAB_SIZES.SMALL"
+            :visibility="FAB_VISIBILITIES.ON_HOVER" class="edit-button-overlay" @click="openEditModal" />
 
         <!-- Name and Pronouns -->
         <div class="character-name-container">
@@ -28,7 +28,7 @@
                     <span v-if="!cultures.length">None</span>
                     <span v-for="(culture, index) in cultures" :key="culture.id">
                         <router-link :to="`/cultures/${createSlug(culture.name)}`" class="concept-link">{{ culture.name
-                        }}</router-link><span v-if="index < cultures.length - 1">, </span>
+                            }}</router-link><span v-if="index < cultures.length - 1">, </span>
                     </span>
                 </div>
             </div>
@@ -80,6 +80,7 @@ import { useCharactersStore } from '@/stores/charactersStore'
 import { useConceptsStore } from '@/stores/conceptsStore'
 import { createSlug } from '@/utils/urlHelpers'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
+import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 import CharacterVitalsEditModal from './CharacterVitalsEditModal.vue'
 import { LANDSKNECHT_MESTIERE_ID, SWAGGER_ICONS, shieldMaskStyle } from './swaggerConstants'
 

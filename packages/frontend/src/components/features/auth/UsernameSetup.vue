@@ -12,7 +12,7 @@
                 <span v-if="error" class="error-text">{{ error }}</span>
 
                 <div class="form-buttons">
-                    <ActionButton type="submit" variant="primary" :disabled="submitting">
+                    <ActionButton variant="primary" :disabled="submitting">
                         {{ submitting ? 'Saving...' : 'Continue' }}
                     </ActionButton>
                 </div>

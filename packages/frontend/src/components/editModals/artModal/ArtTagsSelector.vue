@@ -166,7 +166,7 @@ const filteredGroups = computed(() => {
     font-family: var(--font-family-primary);
     text-align: left;
     cursor: pointer;
-    transition: var(--transition-all);
+    transition: var(--transition-normal);
 }
 
 .source-item:hover {

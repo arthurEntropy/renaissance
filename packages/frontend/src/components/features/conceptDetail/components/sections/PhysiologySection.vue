@@ -2,27 +2,29 @@
     <div v-if="hasContent || isEditMode" class="physiology-section edit-hover-area">
 
         <!-- Edit button -->
-        <FloatingActionButton v-if="isEditMode" type="edit" @click="toggleEdit" :is-active="isEditingPhysiology"
-            size="small" visibility="always" class="edit-button-overlay" />
+        <FloatingActionButton v-if="isEditMode" :variant="isEditingPhysiology ? FAB_TYPES.CONFIRM : FAB_TYPES.EDIT"
+            @click="toggleEdit" size="small" visibility="always" class="edit-button-overlay" />
 
         <!-- Edit mode -->
         <div v-if="isEditingPhysiology" class="physiology-edit">
             <div class="physiology-edit-grid">
                 <div class="physiology-edit-field">
                     <label class="physiology-edit-label">Height Min (ft)</label>
-                    <NumberInput v-model="localStats.heightMin" :min="0" :max="99" size="small" />
+                    <NumberInput v-model="localStats.heightMin" :min="0" :max="99" :size="NUMBER_INPUT_SIZES.MEDIUM" />
                 </div>
                 <div class="physiology-edit-field">
                     <label class="physiology-edit-label">Height Max (ft)</label>
-                    <NumberInput v-model="localStats.heightMax" :min="0" :max="99" size="small" />
+                    <NumberInput v-model="localStats.heightMax" :min="0" :max="99" :size="NUMBER_INPUT_SIZES.MEDIUM" />
                 </div>
                 <div class="physiology-edit-field">
                     <label class="physiology-edit-label">Weight Min (lbs)</label>
-                    <NumberInput v-model="localStats.weightMin" :min="0" :max="99999" size="small" />
+                    <NumberInput v-model="localStats.weightMin" :min="0" :max="99999"
+                        :size="NUMBER_INPUT_SIZES.MEDIUM" />
                 </div>
                 <div class="physiology-edit-field">
                     <label class="physiology-edit-label">Weight Max (lbs)</label>
-                    <NumberInput v-model="localStats.weightMax" :min="0" :max="99999" size="small" />
+                    <NumberInput v-model="localStats.weightMax" :min="0" :max="99999"
+                        :size="NUMBER_INPUT_SIZES.MEDIUM" />
                 </div>
                 <div class="physiology-edit-field">
                     <label class="physiology-edit-label">Avg. Lifespan</label>
@@ -31,7 +33,7 @@
                 </div>
                 <div class="physiology-edit-field">
                     <label class="physiology-edit-label">Speed</label>
-                    <NumberInput v-model="localStats.speed" :min="0" :max="999" size="small" />
+                    <NumberInput v-model="localStats.speed" :min="0" :max="999" :size="NUMBER_INPUT_SIZES.MEDIUM" />
                 </div>
             </div>
             <div class="physiology-edit-buttons">
@@ -68,6 +70,8 @@ import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.v
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import NumberInput from '@/components/ui/forms/NumberInput.vue'
 import { useConceptsStore } from '@/stores/conceptsStore'
+import { FAB_TYPES } from '@/constants/fab'
+import { NUMBER_INPUT_SIZES } from '@/constants/numberInput'
 
 const props = defineProps({
     isEditMode: {
@@ -175,7 +179,7 @@ watch(
     justify-content: center;
     gap: var(--space-xs);
     background: var(--overlay-black-medium);
-    border: 1px solid var(--color-border-muted);
+    border: 1px solid var(--color-border-secondary);
     border-radius: var(--radius-10);
     padding: var(--space-md) var(--space-sm);
     text-align: center;

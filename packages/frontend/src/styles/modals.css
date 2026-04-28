@@ -18,7 +18,7 @@
   background: var(--color-bg-primary);
   padding: var(--space-xl);
   border-radius: var(--radius-10);
-  box-shadow: var(--shadow-elevation-sm);
+  box-shadow: var(--shadow-sm);
   text-align: center;
   max-height: 90vh;
   max-width: 90%;

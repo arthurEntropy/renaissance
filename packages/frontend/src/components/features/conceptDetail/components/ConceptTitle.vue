@@ -7,8 +7,8 @@
         <template v-else>
             <h1 class="concept-title edit-hover-area">
                 {{ concept.name }}
-                <FloatingActionButton v-if="isEditMode" type="edit" @click="enhancedStartEdit" size="small"
-                    visibility="always" />
+                <FloatingActionButton v-if="isEditMode" :variant="FAB_TYPES.EDIT" @click="enhancedStartEdit"
+                    :size="FAB_SIZES.SMALL" :visibility="FAB_VISIBILITIES.ALWAYS" />
             </h1>
             <div v-if="expansionLogoUrl" class="expansion-badge-wrapper"
                 :title="expansion ? `Expansion: ${expansion.name}` : 'Expansion'">
@@ -21,6 +21,7 @@
 <script setup>
 import { ref, computed, nextTick } from 'vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
+import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 import { useConceptsStore } from '@/stores/conceptsStore'
 import { useExpansionsStore } from '@/stores/expansionsStore'
 

@@ -12,6 +12,7 @@ export const SPECIAL_FILTERS = {
 
 export function useArtFilters(artStore) {
     const sourcesStore = useSourcesStore()
+    const VALID_ART_TYPES = ['faces', 'places', 'maps']
     const gridSize = ref('large')
     const typeFilters = ref([])
     const sourceFilters = ref([])
@@ -42,14 +43,26 @@ export function useArtFilters(artStore) {
     const filteredArt = computed(() => {
         let filtered = artStore.art
 
+        // Guard against stale/malformed persisted filter state.
+        const normalizedTypeFilters = Array.isArray(typeFilters.value) ? typeFilters.value : []
+        const normalizedSourceFilters = Array.isArray(sourceFilters.value) ? sourceFilters.value : []
+
+        const validTypeFilters = normalizedTypeFilters.filter((type) => VALID_ART_TYPES.includes(type))
+
+        const validSourceIds = new Set([
+            ...sourcesStore.allSourcesFlat.map((source) => source.id),
+            ...Object.values(SPECIAL_FILTERS)
+        ])
+        const validSourceFilters = normalizedSourceFilters.filter((id) => validSourceIds.has(id))
+
         // Filter by types (if any selected)
-        if (typeFilters.value.length > 0) {
-            filtered = filtered.filter(art => art?.tags?.type && typeFilters.value.includes(art.tags.type))
+        if (validTypeFilters.length > 0) {
+            filtered = filtered.filter(art => art?.tags?.type && validTypeFilters.includes(art.tags.type))
         }
 
         // Separate special filters from regular source filters
-        const regularFilters = sourceFilters.value.filter(id => !Object.values(SPECIAL_FILTERS).includes(id))
-        const specialFilters = sourceFilters.value.filter(id => Object.values(SPECIAL_FILTERS).includes(id))
+        const regularFilters = validSourceFilters.filter(id => !Object.values(SPECIAL_FILTERS).includes(id))
+        const specialFilters = validSourceFilters.filter(id => Object.values(SPECIAL_FILTERS).includes(id))
 
         // Filter by regular sources (must match ALL selected sources)
         if (regularFilters.length > 0) {

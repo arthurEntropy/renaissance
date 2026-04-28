@@ -12,13 +12,12 @@
 
     <StatRow :type="STAT_ROW_TYPES.SINGLE" :label="weaknessLabel" :value="weaknessValue" :can-edit="canEdit"
       :show-auto-calc-button="showLoadAutoCalcButton" :show-injury-roll-button="showInjuryRollButton"
-      :is-auto-calc="isLoadAuto" @update="updateWeakness" @calculate="handleCalculateLoad"
-      @toggle-auto-calc="handleToggleLoadAutoCalc" @roll-injury="handleInjuryRoll" />
+      :is-auto-calc="isLoadAuto" @update="updateWeakness" @toggle-auto-calc="handleToggleLoadAutoCalc"
+      @roll-injury="handleInjuryRoll" />
 
     <StatRow :type="STAT_ROW_TYPES.STATE" :label="firstStateLabel" :first-state="firstStateValue"
       :second-state="secondStateValue" :can-edit="canEdit" :show-auto-calc-button="showStatesAutoCalcButton"
-      :is-auto-calc="isStatesAuto" @update="updateState" @calculate="handleCalculateStates"
-      @toggle-auto-calc="handleToggleStatesAutoCalc" />
+      :is-auto-calc="isStatesAuto" @update="updateState" @toggle-auto-calc="handleToggleStatesAutoCalc" />
 
     <SkillCheckModal v-if="skillCheckModal.isOpen.value && character" :character="character"
       :selectedSkillName="selectedSkillName" :defaultDifficulty="rollsStore.lastDifficulty"

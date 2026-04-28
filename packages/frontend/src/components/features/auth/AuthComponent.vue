@@ -7,9 +7,11 @@
 
         <!-- Not authenticated -->
         <div v-else-if="!authStore.isAuthenticated" class="auth-login">
-            <ActionButton @click="handleGoogleSignIn" variant="outline" size="large" :loading="signingIn"
-                :disabled="signingIn">
-                Sign In <img :src="GOOGLE_ICON_URL" alt="Google" class="google-icon" />
+            <ActionButton @click="handleGoogleSignIn" variant="outline" size="large" :disabled="signingIn">
+                <template v-if="signingIn">Signing In...</template>
+                <template v-else>
+                    Sign In <img :src="GOOGLE_ICON_URL" alt="Google" class="google-icon" />
+                </template>
             </ActionButton>
         </div>
 
@@ -21,8 +23,8 @@
             <p class="pending-message">
                 Your account is pending approval. Please wait for an administrator to approve your access.
             </p>
-            <ActionButton @click="handleSignOut" variant="outline" :loading="signingOut" :disabled="signingOut">
-                Sign Out
+            <ActionButton @click="handleSignOut" variant="outline" :disabled="signingOut">
+                {{ signingOut ? 'Signing Out...' : 'Sign Out' }}
             </ActionButton>
         </div>
 
@@ -41,6 +43,10 @@
                     </button>
                     <router-link v-if="authStore.isAdmin" to="/admin" class="dropdown-item" @click.stop="closeDropdown">
                         Admin Panel
+                    </router-link>
+                    <router-link v-if="authStore.isAdmin" to="/design-lab" class="dropdown-item"
+                        @click.stop="closeDropdown">
+                        Design Lab
                     </router-link>
                     <button @click.stop="handleSignOut" class="dropdown-item">
                         Sign Out
@@ -187,7 +193,7 @@ const handleSignOut = async () => {
 }
 
 .user-dropdown:hover .user-name {
-    filter: var(--shadow-glow-gold-md);
+    filter: var(--glow-gold-lg);
 }
 
 .dropdown-menu {

@@ -115,7 +115,7 @@ const isOverlayOnLeftSide = computed(() => {
     overflow-y: auto;
     overflow-x: hidden;
     border-radius: var(--radius-10);
-    filter: drop-shadow(var(--shadow-elevation-xl));
+    filter: drop-shadow(var(--shadow-lg));
     pointer-events: auto;
     /* Prevent scrollbars from causing layout shifts inside the preview */
     scrollbar-width: thin;

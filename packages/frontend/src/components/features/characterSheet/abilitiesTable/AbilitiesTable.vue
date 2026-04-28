@@ -5,25 +5,25 @@
     <TableHeader title="Abilities" :is-edit-mode="internalEditMode" :show-edit-button="canEdit" collapsible
       :is-collapsed="isCollapsed" @toggle-collapse="isCollapsed = !isCollapsed" @toggle-edit="toggleEditMode">
       <template #header-left>
-        <FloatingActionButton v-if="internalEditMode" type="add" size="small" visibility="always"
-          @click="toggleAbilitySelector" />
+        <FloatingActionButton v-if="internalEditMode" :variant="FAB_TYPES.ADD" :size="FAB_SIZES.SMALL"
+          :visibility="FAB_VISIBILITIES.ALWAYS" @click="openAbilitySelectorFromButton" />
         <ActionButton v-if="internalEditMode && groupingOption === 'custom'" variant="outline" size="small"
           text="+ Group" @click="createAbilityGroup" />
       </template>
       <template #header-center>
         <div v-if="internalEditMode" v-show="!isCollapsed" class="header-controls">
-          <SortingDropdown v-model="groupingOption" :options="groupingOptions" label="Group by:"
+          <SortingPicker v-model="groupingOption" :options="groupingOptions" label="Group by:"
             placeholder="Ungrouped" />
-          <SortingDropdown v-model="abilitySortOption" :options="sortOptions" label="Order by:" placeholder="Custom" />
+          <SortingPicker v-model="abilitySortOption" :options="sortOptions" label="Order by:" placeholder="Custom" />
         </div>
         <FloatingActionButton v-else-if="!isCollapsed && characterAbilities.length > 0" class="expand-collapse-btn"
-          :type="allAbilitiesExpanded ? 'collapse-all' : 'expand-all'" size="small" visibility="on-hover"
-          @click="toggleAllAbilities" />
+          :variant="allAbilitiesExpanded ? FAB_TYPES.COLLAPSE_ALL : FAB_TYPES.EXPAND_ALL" :size="FAB_SIZES.SMALL"
+          :visibility="FAB_VISIBILITIES.ON_HOVER" @click="toggleAllAbilities" />
       </template>
       <template #header-right>
         <div class="mp-display-container">
-          <FloatingActionButton v-if="canEdit && !isChanneler" class="mp-reset-button" type="refresh" size="small"
-            visibility="on-hover" @click="resetMP" />
+          <FloatingActionButton v-if="canEdit && !isChanneler" class="mp-reset-button" :variant="FAB_TYPES.REFRESH"
+            :size="FAB_SIZES.SMALL" :visibility="FAB_VISIBILITIES.ON_HOVER" @click="resetMP" />
           <ManaPoolDisplay v-if="isChanneler" />
           <MPDisplay v-else :is-edit-mode="canEdit" />
         </div>
@@ -69,11 +69,11 @@
       </ThreeColumnLayout>
     </div>
 
-    <!-- Add Ability Selector Modal -->
-    <ItemSelector :show="showAbilitySelector" title="Add Ability" :grouped-items="groupedAbilitiesForSelector"
-      :search-query="abilitySearchQuery" search-placeholder="Search abilities..." no-items-message="No abilities found"
-      :get-source-name="sourcesStore.getSourceName" @close="toggleAbilitySelector" @select="selectAbility"
-      @search="abilitySearchQuery = $event" />
+    <!-- Add Ability Selector -->
+    <CardCascadePicker v-if="showAbilitySelector" :picker="abilityPicker" fixed-category="ability"
+      :show-category-column="false" :close-on-mouse-leave="false" :close-on-outside-click="true"
+      :anchor-position="abilitySelectorAnchor" :is-loading="false" :show-add-all-at-every-level="false"
+      @add-item="handleCascadeAddAbility" @add-all-items="handleCascadeAddAllAbilities" />
 
     <!-- Skill Check Modal -->
     <SkillCheckModal v-if="showSkillCheckModal" :selected-skill-name="rollLinkSkill" :character="selectedCharacter"
@@ -89,16 +89,18 @@ import AbilityCard from '@/components/ui/cards/item/AbilityCard.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import TableHeader from '@/components/ui/tables/TableHeader.vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
-import ItemSelector from '@/components/ui/selectors/ItemSelector.vue'
+import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
+import CardCascadePicker from '@/components/ui/pickers/CardCascadePicker.vue'
 import CharacterSheetSection from '@/components/ui/containers/CharacterSheetSection.vue'
 import MPDisplay from './MPDisplay.vue'
 import ManaPoolDisplay from './ManaPoolDisplay.vue'
 import ThreeColumnLayout from '@/components/ui/layouts/ThreeColumnLayout.vue'
 import GroupedThreeColumnLayout from '@/components/ui/layouts/GroupedThreeColumnLayout.vue'
-import SortingDropdown from '@/components/ui/dropdowns/SortingDropdown.vue'
+import SortingPicker from '@/components/ui/pickers/SortingPicker.vue'
 import SkillCheckModal from '@/components/features/characterSheet/modals/SkillCheckModal.vue'
 import CharacterService from '@/services/entities/characterService'
-import { useItemSelector } from '@/composables/useItemSelector'
+import { useCardCascadePicker } from '@/composables/useCardCascadePicker'
+import { anchorFromTriggerEvent } from '@/composables/useAnchoredPickerTrigger'
 import { useItemGrouping } from '@/composables/useItemGrouping'
 import { useCustomGroupManagement } from '@/composables/useCustomGroupManagement'
 import { sortItems } from '@/utils/sortItems'
@@ -230,16 +232,20 @@ const characterAbilities = computed(() => {
   return sortItems(abilities, abilitySortOption.value)
 })
 
+const abilityPicker = useCardCascadePicker({ fixedCategory: 'ability' })
 const {
-  showSelector: showAbilitySelector,
-  searchQuery: abilitySearchQuery,
-  groupedItems: groupedAbilitiesForSelector,
-  toggleSelector: toggleAbilitySelector
-} = useItemSelector(
-  allAbilities,
-  sourcesStore,
-  { searchFields: ['name'] }
-)
+  showPicker: showAbilitySelector,
+  openPicker: openAbilitySelector,
+  closeCascadeImmediate: closeAbilitySelector,
+} = abilityPicker
+
+const abilitySelectorAnchor = ref({ x: 0, y: 0 })
+
+const openAbilitySelectorFromButton = (event) => {
+  const anchor = anchorFromTriggerEvent(event)
+  if (anchor) abilitySelectorAnchor.value = anchor
+  openAbilitySelector()
+}
 
 const { groupedItems: groupedAbilities, hasGrouping: hasAbilityGrouping } = useItemGrouping(
   characterAbilities,
@@ -248,15 +254,43 @@ const { groupedItems: groupedAbilities, hasGrouping: hasAbilityGrouping } = useI
   abilityCustomGroups
 )
 
-const selectAbility = (ability) => {
+const addAbilityById = (abilityId) => {
   const updated = CharacterService.addItem(selectedCharacter.value, 'abilities', {
-    id: ability.id,
+    id: abilityId,
     collapsed: false, // Default to expanded
     showImprovements: false, // Default to hiding improvements
     showSuccesses: false // Default to hiding successes
   })
-  if (updated) Object.assign(selectedCharacter.value, updated)
-  toggleAbilitySelector()
+  return updated
+}
+
+const handleCascadeAddAbility = (type, abilityId) => {
+  if (type !== 'ability') return
+  const updated = addAbilityById(abilityId)
+  if (updated) {
+    Object.assign(selectedCharacter.value, updated)
+  }
+  closeAbilitySelector()
+}
+
+const handleCascadeAddAllAbilities = (type, abilities) => {
+  if (type !== 'ability' || !Array.isArray(abilities) || abilities.length === 0) return
+  let nextCharacter = selectedCharacter.value
+  for (const ability of abilities) {
+    const updated = CharacterService.addItem(nextCharacter, 'abilities', {
+      id: ability.id,
+      collapsed: false,
+      showImprovements: false,
+      showSuccesses: false,
+    })
+    if (updated) {
+      nextCharacter = updated
+    }
+  }
+  if (nextCharacter !== selectedCharacter.value) {
+    Object.assign(selectedCharacter.value, nextCharacter)
+  }
+  closeAbilitySelector()
 }
 
 const updateAbilityShowImprovements = (ability, showImprovements) => {

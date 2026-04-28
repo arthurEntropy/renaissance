@@ -20,6 +20,6 @@
   font-family: var(--font-family-title);
   font-size: 15vw;
   color: var(--color-primary);
-  text-shadow: var(--shadow-elevation-lg);
+  text-shadow: var(--shadow-lg);
 }
 </style>

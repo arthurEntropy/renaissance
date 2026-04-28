@@ -11,12 +11,18 @@
 </template>
 
 <script setup>
+import { NUMBER_INPUT_SIZES } from '@/constants/numberInput'
+
 const props = defineProps({
   modelValue: { type: Number, required: true },
   min: { type: Number, default: null },
   max: { type: Number, default: null },
   step: { type: Number, default: 1 },
-  size: { type: String, default: 'small', validator: (v) => ['tiny', 'small', 'large'].includes(v) },
+  size: {
+    type: String,
+    default: NUMBER_INPUT_SIZES.MEDIUM,
+    validator: (v) => Object.values(NUMBER_INPUT_SIZES).includes(v)
+  },
   disabled: { type: Boolean, default: false }
 })
 
@@ -72,11 +78,11 @@ input[type='number']:disabled {
   cursor: default;
 }
 
-.input-tiny {
+.input-small {
   font-size: var(--font-size-12);
 }
 
-.input-small {
+.input-medium {
   font-size: var(--font-size-16);
 }
 
@@ -98,12 +104,12 @@ input[type='number']:disabled {
   overflow: hidden;
 }
 
-.spinner-buttons-tiny {
+.spinner-buttons-small {
   top: 2px;
   width: 10px;
 }
 
-.spinner-buttons-small {
+.spinner-buttons-medium {
   top: 2px;
   bottom: -1px;
 }
@@ -133,8 +139,8 @@ input[type='number']:disabled {
   justify-content: center;
 }
 
-.spinner-buttons-tiny .spinner-up,
-.spinner-buttons-tiny .spinner-down {
+.spinner-buttons-small .spinner-up,
+.spinner-buttons-small .spinner-down {
   font-size: 6px;
 }
 
@@ -154,6 +160,6 @@ input[type='number']:disabled {
 input:focus {
   outline: none;
   border-color: var(--color-gray-light);
-  box-shadow: var(--shadow-glow-sm);
+  box-shadow: var(--glow-sm);
 }
 </style>

@@ -18,8 +18,8 @@
                 </div>
             </template>
             <template #header-right>
-                <FloatingActionButton v-if="nimbleStep > 0" type="refresh" size="small" visibility="always"
-                    title="Reset to full movement" @click="resetSlider" />
+                <FloatingActionButton v-if="nimbleStep > 0" :variant="FAB_TYPES.REFRESH" :size="FAB_SIZES.SMALL"
+                    :visibility="FAB_VISIBILITIES.ALWAYS" title="Reset to full movement" @click="resetSlider" />
             </template>
         </TableHeader>
     </CharacterSheetSection>
@@ -31,6 +31,7 @@ import { useCharactersStore } from '@/stores/charactersStore'
 import CharacterSheetSection from '@/components/ui/containers/CharacterSheetSection.vue'
 import TableHeader from '@/components/ui/tables/TableHeader.vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
+import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 
 const charactersStore = useCharactersStore()
 const selectedCharacter = computed(() => charactersStore.selectedCharacter)
@@ -213,13 +214,13 @@ function resetSlider() {
     border: 2px solid var(--color-gray-light);
     cursor: pointer;
     margin-top: -5px;
-    box-shadow: var(--shadow-elevation-sm);
+    box-shadow: var(--shadow-sm);
     transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
 
 .nimble-slider:hover::-webkit-slider-thumb {
     border-color: var(--color-text-primary);
-    box-shadow: var(--shadow-glow-sm);
+    box-shadow: var(--glow-sm);
 }
 
 .nimble-slider:focus-visible::-webkit-slider-thumb {
@@ -241,7 +242,7 @@ function resetSlider() {
     background: var(--color-gray-medium);
     border: 2px solid var(--color-gray-light);
     cursor: pointer;
-    box-shadow: var(--shadow-elevation-sm);
+    box-shadow: var(--shadow-sm);
     transition: border-color var(--transition-fast);
 }
 

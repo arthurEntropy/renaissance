@@ -98,7 +98,7 @@ const toggleExpanded = () => {
     align-items: center;
     justify-content: center;
     min-height: 24px;
-    box-shadow: var(--shadow-elevation-sm);
+    box-shadow: var(--shadow-sm);
     width: 70px;
 }
 

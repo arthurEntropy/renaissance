@@ -1,19 +1,19 @@
 <template>
   <div class="item-cards-layout">
 
-    <!-- Search and Filter Controls -->
-    <FilterControls v-model:search-query="searchQueryLocal" v-model:sort-option="sortOptionLocal"
-      :sort-options="sortOptions" :show-add-button="isAdmin" @create="createItem">
-
-      <!-- Source Filter -->
+    <!-- Filter Bar -->
+    <FilterBar v-model:searchQuery="searchQueryLocal" v-model:selectedTags="selectedTagsLocal"
+      v-model:groupBy="groupByLocal" v-model:orderBy="sortOptionLocal" :tag-groups="resolvedTagGroups"
+      :tag-picker-mode="tagPickerMode" :multiselect="tagMultiselect" :group-options="groupOptions"
+      :order-options="sortOptions" :show-add-button="isAdmin" search-placeholder="Search..."
+      :tag-search-placeholder="tagSearchPlaceholder" :stats="stats" @add="createItem">
       <template #additional-filters>
-        <SourceDropdown v-model="sourceFilterLocal" id="source-filter" placeholder="All Sources"
-          select-class="source-filter" :show-group-options="showSourceGroupOptions" />
-
-        <!-- Additional filters slot for parent (e.g., equipment categories) -->
         <slot name="additional-filters"></slot>
       </template>
-    </FilterControls>
+      <template v-if="slots.actions" #actions>
+        <slot name="actions"></slot>
+      </template>
+    </FilterBar>
 
     <!-- Item Cards -->
     <MasonryGrid :column-width="350" :gap="20" :row-height="10" class="cards-container" role="list">
@@ -33,40 +33,88 @@
 
 <script setup>
 import MasonryGrid from '@/components/ui/layouts/MasonryGrid.vue'
-import SourceDropdown from '@/components/ui/selectors/SourceDropdown.vue'
-import FilterControls from '@/components/ui/FilterControls.vue'
-import { computed } from 'vue'
+import FilterBar from '@/components/ui/FilterBar.vue'
+import { computed, useSlots } from 'vue'
 import { useAuthStore } from '@/stores/authStore'
+import { useSourcesStore } from '@/stores/sourcesStore'
+import { SOURCE_COLLECTION_TYPES } from '@/constants/sourceTypes'
 
 const authStore = useAuthStore()
+const sourcesStore = useSourcesStore()
+const slots = useSlots()
 const isAdmin = computed(() => authStore.isAdmin)
 
 const props = defineProps({
   searchQuery: { type: String, default: '' },
   sourceFilter: { type: String, default: '' },
+  tagFilters: { type: Array, default: null },
+  tagGroups: { type: Array, default: null },
+  tagPickerMode: { type: String, default: 'flat' },
+  tagMultiselect: { type: Boolean, default: false },
+  tagSearchPlaceholder: { type: String, default: 'Filter by source...' },
+  groupBy: { type: String, default: '' },
+  groupOptions: { type: [Array, Object], default: () => [] },
   sortOption: { type: String, default: '' },
   sortOptions: { type: Object, default: () => ({}) },
   items: { type: Array, default: () => [] },
   hasMore: { type: Boolean, default: false },
   isLoadingMore: { type: Boolean, default: false },
   showSourceGroupOptions: { type: Boolean, default: false },
+  stats: { type: Array, default: () => [] },
 })
 
-const emit = defineEmits(['update:searchQuery', 'update:sourceFilter', 'update:sortOption', 'create', 'load-more'])
+const emit = defineEmits(['update:searchQuery', 'update:sourceFilter', 'update:tagFilters', 'update:groupBy', 'update:sortOption', 'create', 'load-more'])
+
+const hasExplicitTagFilters = computed(() => Array.isArray(props.tagFilters))
+
+// Bridge:
+// 1) If parent provides tagFilters, use them directly.
+// 2) Otherwise maintain backward compatibility via sourceFilter string.
+const selectedTagsLocal = computed({
+  get: () => hasExplicitTagFilters.value ? props.tagFilters : (props.sourceFilter ? [props.sourceFilter] : []),
+  set: (tags) => {
+    if (hasExplicitTagFilters.value) {
+      emit('update:tagFilters', tags)
+      return
+    }
+    emit('update:sourceFilter', tags[0] || '')
+  },
+})
 
 const searchQueryLocal = computed({
   get: () => props.searchQuery,
   set: (value) => emit('update:searchQuery', value),
 })
 
-const sourceFilterLocal = computed({
-  get: () => props.sourceFilter,
-  set: (value) => emit('update:sourceFilter', value),
+const groupByLocal = computed({
+  get: () => props.groupBy,
+  set: (value) => emit('update:groupBy', value),
 })
 
 const sortOptionLocal = computed({
   get: () => props.sortOption,
   set: (value) => emit('update:sortOption', value),
+})
+
+// Build tag groups from the sources store, optionally prepending group-select items
+const defaultSourceTagGroups = computed(() =>
+  SOURCE_COLLECTION_TYPES
+    .map(sourceType => {
+      const items = sourcesStore.sources[sourceType.listKey] || []
+      if (!items.length) return null
+      const groupItems = props.showSourceGroupOptions
+        ? [{ id: `type:${sourceType.id}`, name: `All ${sourceType.label}` }, ...items]
+        : items
+      return { label: sourceType.label, items: groupItems }
+    })
+    .filter(Boolean)
+)
+
+const resolvedTagGroups = computed(() => {
+  if (Array.isArray(props.tagGroups) && props.tagGroups.length > 0) {
+    return props.tagGroups
+  }
+  return defaultSourceTagGroups.value
 })
 
 const createItem = () => {
@@ -82,6 +130,8 @@ const createItem = () => {
   flex-direction: column;
   align-items: center;
   width: 90%;
+  max-width: 1460px;
+  margin: 0 auto;
 }
 
 .cards-container {

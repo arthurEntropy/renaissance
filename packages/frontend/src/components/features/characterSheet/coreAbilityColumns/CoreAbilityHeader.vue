@@ -2,12 +2,13 @@
     <div class="core-ability-header">
         <h2>{{ title }}</h2>
         <NumberInput :model-value="value" :disabled="!canEdit" @update:model-value="$emit('update', $event)" :min="0"
-            size="large" />
+            :size="NUMBER_INPUT_SIZES.LARGE" />
     </div>
 </template>
 
 <script setup>
 import NumberInput from '@/components/ui/forms/NumberInput.vue'
+import { NUMBER_INPUT_SIZES } from '@/constants/numberInput'
 
 defineProps({
     title: {

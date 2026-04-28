@@ -3,11 +3,11 @@
         <div class="color-options">
             <button v-for="color in availableColors" :key="color" class="color-button"
                 :class="{ active: isColorSelected(color) }" :title="getColorTitle(color)" @click="toggleColor(color)">
-                <ManaSymbol :color="color" :value="color === ManaColor.COLORLESS ? 'X' : ''" />
+                <ManaSymbol :color="color" :value="color === ManaColor.COLORLESS ? '0' : ''" />
             </button>
             <div class="clear-button-container">
-                <FloatingActionButton v-if="selectedColors.length > 0" type="delete" size="small" visibility="always"
-                    @click="clearAll" />
+                <FloatingActionButton v-if="selectedColors.length > 0" :variant="FAB_TYPES.DELETE"
+                    :size="FAB_SIZES.SMALL" :visibility="FAB_VISIBILITIES.ALWAYS" @click="clearAll" />
             </div>
         </div>
     </div>
@@ -17,6 +17,7 @@
 import { computed } from 'vue'
 import ManaSymbol from '@/components/ui/mana/ManaSymbol.vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
+import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 import { ManaColor, MANA_COLOR_ORDER } from '@shared/constants/manaColors'
 
 const props = defineProps({
@@ -25,10 +26,7 @@ const props = defineProps({
 
 const emit = defineEmits(['update:modelValue'])
 
-// Available colors (excluding colorless for filtering purposes)
-const availableColors = computed(() =>
-    MANA_COLOR_ORDER.filter(color => color !== ManaColor.COLORLESS)
-)
+const availableColors = computed(() => MANA_COLOR_ORDER)
 
 const selectedColors = computed(() => props.modelValue || [])
 
@@ -46,6 +44,7 @@ const toggleColor = (color) => {
         current.push(color)
     }
 
+    current.sort((a, b) => MANA_COLOR_ORDER.indexOf(a) - MANA_COLOR_ORDER.indexOf(b))
     emit('update:modelValue', current)
 }
 
@@ -73,7 +72,7 @@ const getColorTitle = (color) => {
 
 .mana-color-filter:focus-within {
     border-color: var(--color-gray-light);
-    box-shadow: var(--shadow-glow-sm);
+    box-shadow: var(--glow-sm);
 }
 
 .filter-label {
@@ -108,7 +107,7 @@ const getColorTitle = (color) => {
 
 .color-button.active {
     opacity: 1;
-    border-color: var(--color-accent);
+    border-color: var(--color-primary);
     transform: scale(1.05);
 }
 

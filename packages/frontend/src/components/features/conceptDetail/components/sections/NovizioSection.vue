@@ -22,8 +22,8 @@
               <span class="martial-label">{{ row.label }}</span>
               <div class="martial-grade-chips">
                 <ChipTag v-for="grade in equipmentGrades" :key="grade.id" :text="grade.name"
-                  :variant="localNovizio[row.key].includes(grade.id) ? 'primary' : 'secondary'" rounded="full"
-                  style="cursor: pointer" @click="toggleGrade(row.key, grade.id)" />
+                  :variant="localNovizio[row.key].includes(grade.id) ? CHIP_TAG_VARIANTS.PRIMARY : CHIP_TAG_VARIANTS.GRAY"
+                  :rounded="CHIP_TAG_ROUNDED.FULL" style="cursor: pointer" @click="toggleGrade(row.key, grade.id)" />
               </div>
             </div>
           </div>
@@ -40,7 +40,7 @@
               <i :class="getDiceFontMaxClass(dieSize)" class="engagement-die-icon"></i>
               <NumberInput :model-value="localNovizio.engagementDice[String(dieSize)] || 0"
                 @update:model-value="localNovizio.engagementDice[String(dieSize)] = $event" :min="0" :max="20"
-                size="small" />
+                :size="NUMBER_INPUT_SIZES.MEDIUM" />
             </div>
           </div>
           <text-editor v-model="localNovizio.engagementNotes" placeholder="Special cases, conditions..." height="60px"
@@ -52,8 +52,8 @@
           <strong>ENGAGEMENT SUCCESSES</strong>
           <div class="martial-grade-chips martial-grade-chips--top-spaced">
             <ChipTag v-for="success in engagementSuccesses" :key="success.id" :text="success.name"
-              :variant="localNovizio.engagementSuccesses.includes(success.id) ? 'primary' : 'secondary'" rounded="full"
-              :tooltip="{ description: success.description }" style="cursor: pointer"
+              :variant="localNovizio.engagementSuccesses.includes(success.id) ? CHIP_TAG_VARIANTS.PRIMARY : CHIP_TAG_VARIANTS.GRAY"
+              :rounded="CHIP_TAG_ROUNDED.FULL" :tooltip="{ description: success.description }" style="cursor: pointer"
               @click="toggleSuccess(success.id)" />
           </div>
           <text-editor v-model="localNovizio.engagementSuccessNotes" placeholder="Special cases, conditions..."
@@ -107,8 +107,8 @@
                 <span class="martial-label">{{ row.label }}</span>
                 <div class="martial-grade-chips">
                   <ChipTag v-for="grade in equipmentGrades" :key="grade.id" :text="grade.name"
-                    :variant="novizio[row.key]?.includes(grade.id) ? 'primary' : 'dim'" rounded="full"
-                    :hoverable="false" />
+                    :variant="novizio[row.key]?.includes(grade.id) ? CHIP_TAG_VARIANTS.PRIMARY : CHIP_TAG_VARIANTS.DIM"
+                    :rounded="CHIP_TAG_ROUNDED.FULL" :hoverable="false" />
                 </div>
               </div>
             </div>
@@ -138,7 +138,8 @@
           <template v-if="novizio.engagementSuccesses?.length">
             <div class="martial-grade-chips martial-grade-chips--top-spaced">
               <ChipTag v-for="success in engagementSuccesses" :key="success.id" :text="success.name"
-                :variant="novizio.engagementSuccesses?.includes(success.id) ? 'primary' : 'dim'" rounded="full"
+                :variant="novizio.engagementSuccesses?.includes(success.id) ? CHIP_TAG_VARIANTS.PRIMARY : CHIP_TAG_VARIANTS.DIM"
+                :rounded="CHIP_TAG_ROUNDED.FULL"
                 :tooltip="success.description ? { description: success.description } : null" />
             </div>
           </template>
@@ -183,12 +184,14 @@ import { useEquipmentGradesStore } from '@/stores/equipmentGradesStore'
 import { useEngagementSuccessesStore } from '@/stores/engagementSuccessesStore'
 import { STANDARD_DIE_SIZES } from '@shared/constants/dice'
 import ChipTag from '@/components/ui/chips/ChipTag.vue'
+import { CHIP_TAG_VARIANTS, CHIP_TAG_ROUNDED } from '@/constants/chipTag'
+import { NUMBER_INPUT_SIZES } from '@/constants/numberInput'
 
-import meleeIcon from '@/assets/icons/melee.png'
-import polearmIcon from '@/assets/icons/polearms.png'
-import rangedIcon from '@/assets/icons/ranged.png'
-import firearmIcon from '@/assets/icons/firearms.png'
-import armorIcon from '@/assets/icons/armor.png'
+import meleeIcon from '@/assets/icons/martial/melee.png'
+import polearmIcon from '@/assets/icons/martial/polearms.png'
+import rangedIcon from '@/assets/icons/martial/ranged.png'
+import firearmIcon from '@/assets/icons/martial/firearms.png'
+import armorIcon from '@/assets/icons/martial/armor.png'
 
 const props = defineProps({
   editable: {
