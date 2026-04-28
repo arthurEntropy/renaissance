@@ -138,6 +138,7 @@ onUnmounted(() => {
     z-index: calc(var(--z-popover) + 1);
     background: var(--color-bg-secondary);
     border-radius: var(--radius-10);
+    border: 1px solid var(--color-border-secondary);
     padding: var(--space-lg);
     min-width: 320px;
     max-width: 480px;

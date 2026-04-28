@@ -89,6 +89,10 @@
 
     <!-- Selected Tag Chips -->
     <div v-if="selectedTags.length > 0" class="selected-chips">
+        <button type="button" class="chip chip--clear" @click="picker.clearAllTags">
+            <span class="chip-text">Clear all</span>
+            <XMarkIcon class="chip-icon" />
+        </button>
         <div v-for="tagId in selectedTags" :key="tagId" class="chip">
             <span class="chip-text">{{ picker.getTagName(tagId) }}</span>
             <button class="chip-remove" type="button" @click="picker.removeTag(tagId)">
@@ -288,5 +292,17 @@ onMounted(() => {
 .chip-icon {
     width: 14px;
     height: 14px;
+}
+
+.chip--clear {
+    background: var(--color-bg-tertiary);
+    color: var(--color-text-secondary);
+    border: none;
+    cursor: pointer;
+    transition: var(--transition-opacity);
+}
+
+.chip--clear:hover {
+    opacity: 0.8;
 }
 </style>

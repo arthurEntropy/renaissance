@@ -214,6 +214,10 @@ export function useFilterTagPicker({ tagGroups, tagPickerMode, multiselect, sele
         selectedTags.value = selectedTags.value.filter((id) => id !== tagId)
     }
 
+    const clearAllTags = () => {
+        selectedTags.value = []
+    }
+
     const toggleDropdown = () => {
         showDropdown.value = !showDropdown.value
     }
@@ -281,6 +285,7 @@ export function useFilterTagPicker({ tagGroups, tagPickerMode, multiselect, sele
         getTagName,
         selectTag,
         removeTag,
+        clearAllTags,
         setWrapperRef,
     }
 }

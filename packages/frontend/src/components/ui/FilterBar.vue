@@ -12,8 +12,12 @@
             </div>
 
             <!-- Text Search Input -->
-            <input v-if="showSearch" v-model="localSearchQuery" class="filter-input search-input"
-                :placeholder="searchPlaceholder" type="text" aria-label="Search" />
+            <div v-if="showSearch" class="search-input-wrapper">
+                <input v-model="localSearchQuery" class="filter-input search-input" :placeholder="searchPlaceholder"
+                    type="text" aria-label="Search" />
+                <FloatingActionButton v-if="localSearchQuery" :variant="FAB_TYPES.DELETE"
+                    :visibility="FAB_VISIBILITIES.ALWAYS" class="search-clear-fab" @click="localSearchQuery = ''" />
+            </div>
 
             <!-- Tag Picker + Selected Chips -->
             <FilterTagPicker v-if="tagGroups.length > 0" v-model:selectedTags="localSelectedTags"
@@ -69,7 +73,9 @@ import { ChevronUpIcon } from '@heroicons/vue/24/outline'
 import SortingPicker from '@/components/ui/pickers/SortingPicker.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import FilterTagPicker from '@/components/ui/pickers/FilterTagPicker.vue'
+import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import { useScrollToTop } from '@/composables/useScrollToTop'
+import { FAB_TYPES, FAB_VISIBILITIES } from '@/constants/fab'
 
 const props = defineProps({
     // Tag groups: [{ label: String, items: [{ id, name }] }]
@@ -279,10 +285,25 @@ const showControlsRow = computed(() =>
     border-color: var(--color-primary);
 }
 
-.search-input {
+.search-input-wrapper {
+    position: relative;
     min-width: 180px;
     flex: 1;
     max-width: 280px;
+    display: flex;
+    align-items: center;
+}
+
+.search-input {
+    width: 100%;
+    box-sizing: border-box;
+    padding-right: calc(var(--btn-min-height-sm) + var(--space-md));
+}
+
+.search-clear-fab {
+    position: absolute;
+    right: var(--space-xs);
+    flex-shrink: 0;
 }
 
 .size-toggle {

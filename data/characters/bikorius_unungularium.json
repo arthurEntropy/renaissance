@@ -1,15 +1,17 @@
 {
   "id": "3394b1a2-236d-45ca-9262-84c17a3b7015",
-  "name": "Biko",
+  "name": "Bikorius Unungularium",
   "isBeast": false,
   "pronouns": "he/him",
   "ancestries": "",
   "cultures": "",
   "ancestryIds": [
-    "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+    "ba7af7ad-54d2-4b45-86ad-71781d4cdb33",
+    "f9e8d7c6-b5a4-9382-7165-0f9e8d7c6b5a"
   ],
   "cultureIds": [
-    "5c67bedd-8e73-4add-b46b-9b911bf0fd59"
+    "5c67bedd-8e73-4add-b46b-9b911bf0fd59",
+    "61e2ce55-1954-4e8e-b1b3-b249ae915fa7"
   ],
   "personalityAndBackground": "",
   "xp": 0,
@@ -354,8 +356,8 @@
     "https://cdn.midjourney.com/bb7f8092-0710-4aaf-9f26-e376a0cec04e/0_0.png"
   ],
   "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2026-04-27T20:34:49.889Z",
-  "lastModified": "2026-04-27T20:34:49.889Z",
+  "updatedAt": "2026-04-28T14:36:29.057Z",
+  "lastModified": "2026-04-28T14:36:29.057Z",
   "mestiereId": "4eccfe5d-de19-4bc5-8c9c-374d793d67f0",
   "groupEquipmentBySource": false,
   "equipmentSortOption": "",
