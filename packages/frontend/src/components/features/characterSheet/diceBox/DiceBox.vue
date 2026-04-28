@@ -232,11 +232,11 @@ const handleTakeXp = () => {
 
   0%,
   100% {
-    box-shadow: var(--shadow-glow-gold-sm);
+    box-shadow: var(--glow-gold-sm);
   }
 
   50% {
-    box-shadow: var(--shadow-glow-gold-lg);
+    box-shadow: var(--glow-gold-lg);
   }
 }
 </style>

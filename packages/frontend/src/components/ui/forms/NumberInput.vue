@@ -160,6 +160,6 @@ input[type='number']:disabled {
 input:focus {
   outline: none;
   border-color: var(--color-gray-light);
-  box-shadow: var(--shadow-glow-sm);
+  box-shadow: var(--glow-sm);
 }
 </style>

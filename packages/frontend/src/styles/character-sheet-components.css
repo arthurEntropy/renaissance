@@ -18,12 +18,12 @@
 /* Column result state variations */
 .winner-column {
   border-color: var(--color-success);
-  box-shadow: var(--shadow-glow-success-sm);
+  box-shadow: var(--glow-success-sm);
 }
 
 .loser-column {
   border-color: var(--color-danger);
-  box-shadow: var(--shadow-glow-danger-sm);
+  box-shadow: var(--glow-danger-sm);
 }
 
 /* === WAITING STATES === */
@@ -86,17 +86,17 @@
 
 .total-value.winner {
   color: var(--color-success);
-  text-shadow: var(--shadow-glow-success-sm);
+  text-shadow: var(--glow-success-sm);
 }
 
 .total-value.loser {
   color: var(--color-danger);
-  text-shadow: var(--shadow-glow-danger-sm);
+  text-shadow: var(--glow-danger-sm);
 }
 
 .total-value.tie {
   color: var(--color-warning);
-  text-shadow: var(--shadow-glow-warning-sm);
+  text-shadow: var(--glow-warning-sm);
 }
 
 /* === SKILL STATUS VARIATIONS === */

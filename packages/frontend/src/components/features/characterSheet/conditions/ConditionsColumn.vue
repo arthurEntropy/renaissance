@@ -122,10 +122,10 @@ const updateSpeed = (value) => {
 
 .condition-active {
     color: var(--color-danger);
-    text-shadow: var(--shadow-glow-danger-sm);
+    text-shadow: var(--glow-danger-sm);
 }
 
 .condition-active-checkbox {
-    box-shadow: var(--shadow-glow-danger-md);
+    box-shadow: var(--glow-danger-lg);
 }
 </style>

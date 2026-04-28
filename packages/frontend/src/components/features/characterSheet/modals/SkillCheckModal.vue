@@ -332,13 +332,13 @@ watch(localSelectedSkillName, () => {
 .dice-symbol.favored-die i,
 .dice-symbol.added-die i {
   color: var(--color-success);
-  text-shadow: var(--shadow-glow-success-sm);
+  text-shadow: var(--glow-success-sm);
 }
 
 .dice-symbol.illfavored-die i,
 .dice-symbol.subtracted-die i {
   color: var(--color-danger);
-  text-shadow: var(--shadow-glow-danger-sm);
+  text-shadow: var(--glow-danger-sm);
 }
 
 .roll-type-toggle {

@@ -71,7 +71,7 @@ const getItemLabel = (item) => {
     max-width: 250px;
     max-height: 400px;
     overflow-y: auto;
-    box-shadow: var(--shadow-elevation-sm);
+    box-shadow: var(--shadow-sm);
 }
 
 .item-option {

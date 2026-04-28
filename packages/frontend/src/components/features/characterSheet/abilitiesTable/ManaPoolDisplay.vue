@@ -279,7 +279,7 @@ function onDrop() {
 
 .drop-zone--over {
     background: rgba(244, 67, 54, 0.2);
-    box-shadow: var(--shadow-glow-danger-sm);
+    box-shadow: var(--glow-danger-sm);
 }
 
 .drop-zone-fab {
@@ -359,7 +359,7 @@ function onDrop() {
     cursor: pointer;
     pointer-events: auto;
     padding: 0;
-    box-shadow: var(--shadow-elevation-sm);
+    box-shadow: var(--shadow-sm);
     transition:
         transform var(--transition-fast),
         box-shadow var(--transition-fast);

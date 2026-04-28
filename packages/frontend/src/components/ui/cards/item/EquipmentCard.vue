@@ -626,7 +626,7 @@ onMounted(async () => {
 }
 
 .bottom-buttons:hover {
-  text-shadow: var(--shadow-glow-sm);
+  text-shadow: var(--glow-sm);
 }
 
 .improvements-toggle-button {

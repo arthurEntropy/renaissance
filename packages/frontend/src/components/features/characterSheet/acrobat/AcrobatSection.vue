@@ -214,13 +214,13 @@ function resetSlider() {
     border: 2px solid var(--color-gray-light);
     cursor: pointer;
     margin-top: -5px;
-    box-shadow: var(--shadow-elevation-sm);
+    box-shadow: var(--shadow-sm);
     transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
 
 .nimble-slider:hover::-webkit-slider-thumb {
     border-color: var(--color-text-primary);
-    box-shadow: var(--shadow-glow-sm);
+    box-shadow: var(--glow-sm);
 }
 
 .nimble-slider:focus-visible::-webkit-slider-thumb {
@@ -242,7 +242,7 @@ function resetSlider() {
     background: var(--color-gray-medium);
     border: 2px solid var(--color-gray-light);
     cursor: pointer;
-    box-shadow: var(--shadow-elevation-sm);
+    box-shadow: var(--shadow-sm);
     transition: border-color var(--transition-fast);
 }
 

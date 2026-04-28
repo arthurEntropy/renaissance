@@ -48,7 +48,7 @@ defineEmits(['select'])
 }
 
 .concept-card:hover {
-  box-shadow: var(--shadow-glow-lg);
+  box-shadow: var(--glow-lg);
 }
 
 .concept-card-image {
@@ -75,7 +75,7 @@ defineEmits(['select'])
   width: 30px;
   height: 30px;
   border-radius: var(--radius-full);
-  box-shadow: var(--shadow-elevation-sm);
+  box-shadow: var(--shadow-sm);
   background: var(--color-gray-dark);
   object-fit: cover;
   border: 2px solid var(--color-gray-dark);

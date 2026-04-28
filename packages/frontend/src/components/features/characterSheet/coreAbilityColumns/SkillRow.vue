@@ -82,7 +82,7 @@ const decrementManualDiceMod = () => {
 
 .skill-name-clickable:hover {
     color: var(--color-text-primary);
-    text-shadow: var(--shadow-glow-gold-sm);
+    text-shadow: var(--glow-gold-sm);
 }
 
 .dice-icon {
@@ -136,7 +136,7 @@ const decrementManualDiceMod = () => {
 
 .manual-spinner-up:hover {
     background: var(--overlay-black-heavy);
-    text-shadow: var(--shadow-glow-success-sm);
+    text-shadow: var(--glow-success-sm);
 }
 
 .manual-spinner-down {
@@ -147,16 +147,16 @@ const decrementManualDiceMod = () => {
 
 .manual-spinner-down:hover {
     background: var(--overlay-black-heavy);
-    text-shadow: var(--shadow-glow-danger-sm);
+    text-shadow: var(--glow-danger-sm);
 }
 
 .favored {
     color: var(--color-success);
-    text-shadow: var(--shadow-glow-success-sm);
+    text-shadow: var(--glow-success-sm);
 }
 
 .ill-favored {
     color: var(--color-danger);
-    text-shadow: var(--shadow-glow-danger-sm);
+    text-shadow: var(--glow-danger-sm);
 }
 </style>

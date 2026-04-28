@@ -153,7 +153,7 @@ div {
     height: 185px;
     object-fit: cover;
     border-radius: var(--radius-5);
-    box-shadow: var(--shadow-elevation-sm);
+    box-shadow: var(--shadow-sm);
     cursor: zoom-in;
 }
 

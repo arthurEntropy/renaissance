@@ -65,7 +65,7 @@ const handleClick = (event) => {
     overflow: hidden;
     cursor: pointer;
     transition: var(--transition-normal);
-    box-shadow: var(--shadow-elevation-sm);
+    box-shadow: var(--shadow-sm);
     position: relative;
 }
 

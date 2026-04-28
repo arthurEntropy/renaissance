@@ -601,7 +601,7 @@ watch(totalThumbnailPages, (total) => {
   aspect-ratio: 1/1;
   object-fit: cover;
   border-radius: var(--radius-10);
-  box-shadow: var(--shadow-elevation-sm);
+  box-shadow: var(--shadow-sm);
   background: var(--color-bg-secondary);
   transition: box-shadow var(--transition-normal);
 }
@@ -634,7 +634,6 @@ watch(totalThumbnailPages, (total) => {
 
 .add-icon {
   font-size: var(--font-size-32);
-  font-weight: var(--font-weight-light);
   color: var(--color-gray-light);
 }
 

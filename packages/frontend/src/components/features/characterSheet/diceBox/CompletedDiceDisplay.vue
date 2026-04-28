@@ -86,12 +86,12 @@ const showDiceHover = ref(false)
 @keyframes fadeInGlow {
     0% {
         color: var(--color-white);
-        text-shadow: var(--shadow-none);
+        text-shadow: none;
     }
 
     100% {
         color: var(--color-accent-gold);
-        text-shadow: var(--shadow-glow-gold-sm);
+        text-shadow: var(--glow-gold-sm);
     }
 }
 

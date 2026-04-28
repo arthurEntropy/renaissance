@@ -239,17 +239,17 @@ onUnmounted(() => {
 
 .success {
     color: var(--color-success);
-    text-shadow: var(--shadow-glow-success-sm);
+    text-shadow: var(--glow-success-sm);
 }
 
 .failure {
     color: var(--color-danger);
-    text-shadow: var(--shadow-glow-danger-sm);
+    text-shadow: var(--glow-danger-sm);
 }
 
 .draw {
     color: var(--color-warning);
-    text-shadow: var(--shadow-glow-warning-sm);
+    text-shadow: var(--glow-warning-sm);
 }
 
 .roll-footer {

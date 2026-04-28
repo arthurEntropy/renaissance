@@ -193,7 +193,7 @@ const handleSignOut = async () => {
 }
 
 .user-dropdown:hover .user-name {
-    filter: var(--shadow-glow-gold-md);
+    filter: var(--glow-gold-lg);
 }
 
 .dropdown-menu {

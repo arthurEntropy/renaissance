@@ -158,12 +158,12 @@ onMounted(async () => {
 .background-option:hover {
     border-color: var(--color-primary);
     transform: translateY(-2px);
-    box-shadow: var(--shadow-glow-sm);
+    box-shadow: var(--glow-sm);
 }
 
 .background-option.selected {
     border-color: var(--color-primary);
-    box-shadow: var(--shadow-glow-gold-md);
+    box-shadow: var(--glow-gold-lg);
 }
 
 .background-thumbnail {

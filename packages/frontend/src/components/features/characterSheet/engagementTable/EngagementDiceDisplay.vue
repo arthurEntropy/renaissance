@@ -131,7 +131,7 @@ const clearDiceTooltip = () => {
 }
 
 .dice-icon:hover {
-    text-shadow: var(--shadow-glow-sm);
+    text-shadow: var(--glow-sm);
 }
 
 .remove-die-button {
@@ -164,7 +164,7 @@ const clearDiceTooltip = () => {
 
 .dice-icon.selected {
     color: var(--color-accent-gold);
-    text-shadow: var(--shadow-glow-gold-sm);
+    text-shadow: var(--glow-gold-sm);
     transform: scale(1.05);
 }
 

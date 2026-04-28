@@ -91,12 +91,12 @@ const getDiceClasses = (diceIndex) => {
 
 .dice-added {
     color: var(--color-success);
-    text-shadow: var(--shadow-glow-success-sm);
+    text-shadow: var(--glow-success-sm);
 }
 
 .dice-subtracted {
     color: var(--color-danger);
-    text-shadow: var(--shadow-glow-danger-sm);
+    text-shadow: var(--glow-danger-sm);
 }
 
 .dice-hover-preview {

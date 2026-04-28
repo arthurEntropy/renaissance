@@ -376,7 +376,7 @@ const showControlsRow = computed(() =>
     background: var(--color-bg-secondary);
     color: var(--color-white);
     font-family: var(--font-family-primary);
-    box-shadow: var(--shadow-glow-sm);
+    box-shadow: var(--glow-sm);
     cursor: pointer;
     z-index: var(--z-tooltip);
     opacity: 0;

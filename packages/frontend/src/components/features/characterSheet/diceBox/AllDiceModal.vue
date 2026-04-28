@@ -56,7 +56,7 @@ const emit = defineEmits(['close'])
     max-width: 500px;
     max-height: 80vh;
     overflow-y: auto;
-    box-shadow: var(--shadow-elevation-lg);
+    box-shadow: var(--shadow-lg);
 }
 
 .modal-header {
@@ -113,7 +113,7 @@ const emit = defineEmits(['close'])
 
 .modal-dice-symbol.max-value-die {
     color: var(--color-accent-gold);
-    text-shadow: var(--shadow-glow-gold-sm);
+    text-shadow: var(--glow-gold-sm);
     animation: none;
     /* Override animation for modal */
 }

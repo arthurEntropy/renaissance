@@ -212,7 +212,7 @@
   width: 40px;
   height: 40px;
   border-radius: var(--radius-full);
-  box-shadow: var(--shadow-elevation-sm);
+  box-shadow: var(--shadow-sm);
   background: var(--color-bg-secondary);
   object-fit: cover;
   border: 2px solid var(--color-text-secondary);

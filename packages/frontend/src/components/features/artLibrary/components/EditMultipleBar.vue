@@ -32,7 +32,7 @@ defineEmits(['edit', 'clear'])
     border: 1px solid var(--color-border-primary);
     border-radius: var(--radius-10);
     padding: var(--space-md) var(--space-lg);
-    box-shadow: var(--shadow-elevation-lg);
+    box-shadow: var(--shadow-lg);
     display: flex;
     align-items: center;
     gap: var(--space-md);

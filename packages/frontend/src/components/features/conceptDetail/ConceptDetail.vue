@@ -446,7 +446,7 @@ onBeforeUnmount(() => {
   position: fixed;
   top: calc(var(--nav-height) + var(--space-lg));
   right: var(--space-lg);
-  z-index: var(--z-modal-controls);
+  z-index: var(--z-tooltip);
   display: flex;
   gap: var(--space-xs);
   align-items: center;

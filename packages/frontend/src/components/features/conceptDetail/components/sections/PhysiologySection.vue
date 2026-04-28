@@ -179,7 +179,7 @@ watch(
     justify-content: center;
     gap: var(--space-xs);
     background: var(--overlay-black-medium);
-    border: 1px solid var(--color-border-muted);
+    border: 1px solid var(--color-border-secondary);
     border-radius: var(--radius-10);
     padding: var(--space-md) var(--space-sm);
     text-align: center;

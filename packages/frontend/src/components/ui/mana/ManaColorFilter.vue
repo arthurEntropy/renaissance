@@ -72,7 +72,7 @@ const getColorTitle = (color) => {
 
 .mana-color-filter:focus-within {
     border-color: var(--color-gray-light);
-    box-shadow: var(--shadow-glow-sm);
+    box-shadow: var(--glow-sm);
 }
 
 .filter-label {
