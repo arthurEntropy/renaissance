@@ -122,6 +122,7 @@ import MartialTrainingModal from '@/components/features/characterSheet/modals/Ma
 import { useEditModal } from '@/composables/useEditModal'
 import CharacterService from '@/services/entities/characterService'
 import { useCardCascadePicker } from '@/composables/useCardCascadePicker'
+import { anchorFromTriggerEvent } from '@/composables/useAnchoredPickerTrigger'
 import { useItemGrouping } from '@/composables/useItemGrouping'
 import { useCustomGroupManagement } from '@/composables/useCustomGroupManagement'
 import { sortItems } from '@/utils/sortItems'
@@ -253,14 +254,8 @@ const {
 const equipmentSelectorAnchor = ref({ x: 0, y: 0 })
 
 const openEquipmentSelectorFromButton = (event) => {
-  const triggerEl = event?.currentTarget || event?.target?.closest('button')
-  if (triggerEl) {
-    const rect = triggerEl.getBoundingClientRect()
-    equipmentSelectorAnchor.value = {
-      x: Math.round(rect.left + 16),
-      y: Math.round(rect.top + rect.height / 2 - 16),
-    }
-  }
+  const anchor = anchorFromTriggerEvent(event)
+  if (anchor) equipmentSelectorAnchor.value = anchor
   openEquipmentSelector()
 }
 

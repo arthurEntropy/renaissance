@@ -95,6 +95,8 @@ import { useFilterPersistence } from '@/composables/useFilterPersistence'
 import { sortItems } from '@/utils/sortItems'
 import { EQUIPMENT_SORT_OPTIONS, filterAdminSortOptions } from '@/constants/sortOptions'
 import { SOURCE_COLLECTION_TYPES } from '@/constants/sourceTypes'
+import { FILTER_TAG_PREFIXES } from '@/constants/filterTagPrefixes'
+import { FILTER_SPECIAL_TAG_GROUP_LABEL } from '@/constants/filterBar'
 import EquipmentCard from '@/components/ui/cards/item/EquipmentCard.vue'
 import EditEquipmentModal from '@/components/editModals/EditEquipmentModal.vue'
 import ItemCardsLayout from '@/components/ui/layouts/ItemCardsLayout.vue'
@@ -148,9 +150,7 @@ const groupByOptions = [
 ]
 
 const TAG_PREFIX = {
-    SOURCE: 'source:',
-    SOURCE_TYPE: 'source-type:',
-    MAGIC: 'magic:',
+    ...FILTER_TAG_PREFIXES,
     TYPE: 'type:',
     SUBTYPE: 'subtype:',
     GRADE: 'grade:',
@@ -201,7 +201,7 @@ const equipmentTagGroups = computed(() => {
     }))
 
     groups.push({
-        label: 'Special Tags',
+        label: FILTER_SPECIAL_TAG_GROUP_LABEL,
         items: [
             { id: `${TAG_PREFIX.MAGIC}magical`, name: 'Magic' },
             { id: `${TAG_PREFIX.TYPE}weapons`, name: 'Weapon Types', items: typeItems },

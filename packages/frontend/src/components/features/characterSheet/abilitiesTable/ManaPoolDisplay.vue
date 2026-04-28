@@ -32,7 +32,7 @@
             <!-- Action buttons cluster: untap, delete, add —— separated from pips -->
             <div class="actions-cluster">
                 <!-- Untap all — only visible when there is tapped mana -->
-                <FloatingActionButton v-if="anyMana" :variant="FAB_TYPES.REFRESH" :size="FAB_SIZES.SMALL"
+                <FloatingActionButton v-if="anyTapped" :variant="FAB_TYPES.REFRESH" :size="FAB_SIZES.SMALL"
                     :visibility="FAB_VISIBILITIES.ALWAYS" title="Untap all mana" @click="untapAll" />
 
                 <!-- Clear all / drop-to-delete — visible when there is mana; becomes drop zone while dragging -->
@@ -111,6 +111,10 @@ const colorlessUntapped = computed(
 )
 const colorlessTapped = computed(
     () => getColorPips(ManaColor.COLORLESS).filter((t) => !!t).length,
+)
+
+const anyTapped = computed(() =>
+    MANA_COLOR_ORDER.some((c) => getColorPips(c).some((t) => t)),
 )
 
 const anyMana = computed(() =>

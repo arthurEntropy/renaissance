@@ -100,6 +100,7 @@ import SortingPicker from '@/components/ui/pickers/SortingPicker.vue'
 import SkillCheckModal from '@/components/features/characterSheet/modals/SkillCheckModal.vue'
 import CharacterService from '@/services/entities/characterService'
 import { useCardCascadePicker } from '@/composables/useCardCascadePicker'
+import { anchorFromTriggerEvent } from '@/composables/useAnchoredPickerTrigger'
 import { useItemGrouping } from '@/composables/useItemGrouping'
 import { useCustomGroupManagement } from '@/composables/useCustomGroupManagement'
 import { sortItems } from '@/utils/sortItems'
@@ -241,14 +242,8 @@ const {
 const abilitySelectorAnchor = ref({ x: 0, y: 0 })
 
 const openAbilitySelectorFromButton = (event) => {
-  const triggerEl = event?.currentTarget || event?.target?.closest('button')
-  if (triggerEl) {
-    const rect = triggerEl.getBoundingClientRect()
-    abilitySelectorAnchor.value = {
-      x: Math.round(rect.left + 16),
-      y: Math.round(rect.top + rect.height / 2 - 16),
-    }
-  }
+  const anchor = anchorFromTriggerEvent(event)
+  if (anchor) abilitySelectorAnchor.value = anchor
   openAbilitySelector()
 }
 

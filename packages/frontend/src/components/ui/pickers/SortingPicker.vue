@@ -109,31 +109,30 @@ const selectOption = (value) => {
 .sorting-row {
     display: flex;
     align-items: center;
-    gap: var(--space-sm, 8px);
+    gap: var(--space-sm);
 }
 
 .sorting-label {
-    font-family: var(--font-family-body);
-    font-size: var(--font-size-13, 13px);
+    font-family: var(--font-family-primary);
+    font-size: var(--font-size-13);
     font-weight: var(--font-weight-normal);
     color: var(--color-text-secondary);
 }
 
 .sort-select {
-    /* Matching ArtPage control-select styles */
     display: inline-flex;
     align-items: center;
     justify-content: space-between;
     min-width: 140px;
-    padding: var(--space-xs, 4px) var(--space-sm, 8px);
+    padding: var(--space-xs) var(--space-sm);
     background: var(--color-bg-primary);
     border: 1px solid var(--color-border-secondary);
-    border-radius: var(--radius-5, 5px);
+    border-radius: var(--radius-5);
     color: var(--color-text-primary);
-    font-family: 'Lora', serif;
-    font-size: var(--font-size-13, 13px);
+    font-family: var(--font-family-primary);
+    font-size: var(--font-size-13);
     cursor: pointer;
-    transition: var(--transition-normal, all 0.2s ease);
+    transition: var(--transition-normal);
 }
 
 .sort-select-value {
@@ -152,9 +151,9 @@ const selectOption = (value) => {
 }
 
 .dropdown-icon {
-    margin-left: var(--space-sm, 8px);
+    margin-left: var(--space-sm);
     pointer-events: none;
-    color: var(--color-text-secondary, #999);
+    color: var(--color-text-secondary);
     display: flex;
     align-items: center;
     width: 16px;

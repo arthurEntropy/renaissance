@@ -87,6 +87,7 @@ import CardCascadePicker from '@/components/ui/pickers/CardCascadePicker.vue'
 import TabletopToolbar from '@/components/features/tabletop/TabletopToolbar.vue'
 import { useTabletopCanvas } from '@/composables/useTabletopCanvas'
 import { useCardCascadePicker } from '@/composables/useCardCascadePicker'
+import { anchorFromTriggerEvent } from '@/composables/useAnchoredPickerTrigger'
 
 // Stores
 import { useAbilitiesStore } from '@/stores/abilitiesStore'
@@ -158,14 +159,10 @@ const tabletopPickerAnchor = ref({ x: 0, y: 0 })
 const tabletopPickerBottomBoundary = ref(null)
 
 const handleTogglePicker = (event) => {
-    const triggerEl = event?.currentTarget || event?.target?.closest('button')
-    if (triggerEl) {
-        const rect = triggerEl.getBoundingClientRect()
-        tabletopPickerAnchor.value = {
-            x: Math.round(rect.left + 16),
-            y: Math.round(rect.top - 12),
-        }
-        tabletopPickerBottomBoundary.value = Math.round(rect.top - 8)
+    const anchor = anchorFromTriggerEvent(event, { yMode: 'top', yOffset: 12 })
+    if (anchor) {
+        tabletopPickerAnchor.value = anchor
+        tabletopPickerBottomBoundary.value = anchor.y + 4
     }
 
     togglePicker()

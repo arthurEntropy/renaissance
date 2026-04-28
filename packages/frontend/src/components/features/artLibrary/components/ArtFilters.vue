@@ -1,9 +1,9 @@
 <template>
     <FilterBar :show-search="false" :multiselect="true" :show-size-toggle="true" :type-toggles="typeToggles"
-        :tag-groups="tagGroups" :stats="stats" :group-options="groupingOptions" :order-options="orderingOptions"
-        :show-add-button="true" add-button-label="+ Add Art" v-model:selectedTags="sourceFilters"
-        v-model:selectedTypes="typeFilters" v-model:gridSize="gridSize" v-model:groupBy="groupBy"
-        v-model:orderBy="orderBy" @add="$emit('add')">
+        :tag-groups="tagGroups" tag-picker-mode="cascade" :stats="stats" :group-options="groupingOptions"
+        :order-options="orderingOptions" :show-add-button="true" add-button-label="+ Add Art"
+        v-model:selectedTags="sourceFilters" v-model:selectedTypes="typeFilters" v-model:gridSize="gridSize"
+        v-model:groupBy="groupBy" v-model:orderBy="orderBy" @add="$emit('add')">
         <template #actions>
             <ActionButton :variant="showDuplicates ? 'danger' : 'neutral'" size="small"
                 :text="showDuplicates ? 'Show All' : 'Show Duplicates'" @click="showDuplicates = !showDuplicates" />
@@ -18,6 +18,7 @@ import FilterBar from '@/components/ui/FilterBar.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import { useSourcesStore } from '@/stores/sourcesStore'
 import { SPECIAL_FILTERS } from '../composables/useArtFilters'
+import { FILTER_SPECIAL_TAG_GROUP_LABEL } from '@/constants/filterBar'
 
 const props = defineProps({
     totalCount: { type: Number, required: true },
@@ -52,7 +53,7 @@ const specialFilterOptions = [
 
 const tagGroups = computed(() => {
     const groups = [
-        { label: 'Special Filters', items: specialFilterOptions },
+        { label: FILTER_SPECIAL_TAG_GROUP_LABEL, items: specialFilterOptions },
     ]
     const s = sourcesStore.sources
     if (s.ancestries?.length) groups.push({ label: 'Ancestries', items: s.ancestries })

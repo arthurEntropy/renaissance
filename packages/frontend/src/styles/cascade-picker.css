@@ -12,6 +12,16 @@
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
 }
 
+.cascade-section-label {
+    padding: var(--space-xs) var(--space-sm);
+    font-size: var(--font-size-11);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    user-select: none;
+}
+
 .cascade-item-wrap {
     position: relative;
 }

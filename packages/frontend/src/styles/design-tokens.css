@@ -250,6 +250,7 @@
   
 
   /* === BUTTON SPECIFIC === */
+  --btn-padding-sm: 2px var(--space-sm);
   --btn-min-height-sm: 24px;
   --btn-min-height-lg: 32px;
 

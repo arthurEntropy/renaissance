@@ -8,7 +8,7 @@
   width: 100%;
   height: 100%;
   background-color: var(--overlay-black-medium);
-  z-index: 1;
+  z-index: var(--z-overlay);
   pointer-events: none;
 }
 
@@ -19,7 +19,7 @@
   align-items: center;
   padding-top: var(--content-padding-desktop);
   position: relative;
-  z-index: 10;
+  z-index: var(--z-interactive);
 }
 
 /* Mobile content area adjustment (top nav is hidden on mobile) */
@@ -37,7 +37,7 @@
   bottom: 0;
   display: flex;
   align-items: center;
-  z-index: 1;
+  z-index: var(--z-overlay);
 }
 
 .mobile-auth {

@@ -1,5 +1,26 @@
 import { onBeforeUnmount, ref, watch } from 'vue'
 
+/**
+ * Computes anchor { x, y } from a trigger button click/pointer event.
+ * Centralises the offset math so callers don't repeat magic numbers.
+ *
+ * @param {Event} event
+ * @param {{ xOffset?: number, yMode?: 'center'|'top', yOffset?: number }} [options]
+ * @returns {{ x: number, y: number } | null}
+ */
+export function anchorFromTriggerEvent(event, { xOffset = 16, yMode = 'center', yOffset = 16 } = {}) {
+    const triggerEl = event?.currentTarget || event?.target?.closest('button')
+    if (!triggerEl) return null
+    const rect = triggerEl.getBoundingClientRect()
+    const y = yMode === 'top'
+        ? Math.round(rect.top - yOffset)
+        : Math.round(rect.top + rect.height / 2 - yOffset)
+    return {
+        x: Math.round(rect.left + xOffset),
+        y,
+    }
+}
+
 export function useAnchoredPickerTrigger(options = {}) {
     const {
         isOpenRef = null,

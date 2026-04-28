@@ -128,6 +128,8 @@ import GroupedMasonryGrid from '@/components/ui/layouts/GroupedMasonryGrid.vue'
 import { getManaCostColors } from '@shared/utils/calculateManaCost'
 import { SOURCE_COLLECTION_TYPES } from '@/constants/sourceTypes'
 import { ManaColor, MANA_COLOR_ORDER } from '@shared/constants/manaColors'
+import { FILTER_TAG_PREFIXES } from '@/constants/filterTagPrefixes'
+import { FILTER_SPECIAL_TAG_GROUP_LABEL } from '@/constants/filterBar'
 
 // Stores
 const abilitiesStore = useAbilitiesStore()
@@ -171,9 +173,7 @@ const groupByOptions = [
 ]
 
 const TAG_PREFIX = {
-  SOURCE: 'source:',
-  SOURCE_TYPE: 'source-type:',
-  MAGIC: 'magic:',
+  ...FILTER_TAG_PREFIXES,
   SCHOOL: 'school:',
   MANA_COLOR: 'mana-color:',
   ACTION_TYPE: 'action-type:',
@@ -210,7 +210,7 @@ const abilityTagGroups = computed(() => {
   groups.push({ label: 'Mestiere Schools', items: schoolItems })
 
   groups.push({
-    label: 'Special Tags',
+    label: FILTER_SPECIAL_TAG_GROUP_LABEL,
     items: [
       { id: `${TAG_PREFIX.MAGIC}magical`, name: 'Magical' },
       { id: `${TAG_PREFIX.MAGIC}mundane`, name: 'Mundane' },
