@@ -79,6 +79,7 @@ const handleCardClick = (event, art) => {
 <style scoped>
 .art-grid-container {
     min-width: 100%;
+    margin-top: var(--space-xl);
 }
 
 .grouped-art {

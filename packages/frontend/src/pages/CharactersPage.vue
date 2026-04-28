@@ -1,5 +1,6 @@
 <template>
-  <ConceptsLayout v-bind="layoutProps" @select="handleSelect" @deselect="handleDeselect" @create="handleCreate" />
+  <ConceptsLayout v-bind="layoutProps" :show-filter-bar="false" @select="handleSelect" @deselect="handleDeselect"
+    @create="handleCreate" />
 </template>
 
 <script setup>
