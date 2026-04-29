@@ -169,22 +169,25 @@ export function updateFavoredStatus(character) {
 // ORCHESTRATION FUNCTIONS (HANDLE CHANGES)
 // ========================================
 
-export function handleBodyChange(character) {
-  character.endurance.max = calculateMaxEndurance(character.body)
+export function handleBodyChange(character, options = {}) {
+  const { calcMax = true } = options
+  if (calcMax) character.endurance.max = calculateMaxEndurance(character.body)
   Object.assign(character.states, calculateWearyStates(character))
   updateDiceMods(character)
   updateFavoredStatus(character)
 }
 
-export function handleHeartChange(character) {
-  character.hope.max = calculateMaxHope(character.heart)
+export function handleHeartChange(character, options = {}) {
+  const { calcMax = true } = options
+  if (calcMax) character.hope.max = calculateMaxHope(character.heart)
   Object.assign(character.states, calculateMiserableStates(character))
   updateDiceMods(character)
   updateFavoredStatus(character)
 }
 
-export function handleWitsChange(character) {
-  character.defense.max = calculateMaxDefense(character.wits)
+export function handleWitsChange(character, options = {}) {
+  const { calcMax = true } = options
+  if (calcMax) character.defense.max = calculateMaxDefense(character.wits)
   Object.assign(character.states, calculateHelplessStates(character))
   updateDiceMods(character)
   updateFavoredStatus(character)

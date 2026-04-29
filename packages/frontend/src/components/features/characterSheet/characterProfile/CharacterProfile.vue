@@ -161,6 +161,7 @@ const keepingBadgeStyle = computed(() => {
   color: var(--color-black);
   font-size: var(--font-size-12);
   font-style: italic;
+  font-weight: var(--font-weight-bold);
 }
 
 @media (max-width: var(--breakpoint-lg)) {

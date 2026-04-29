@@ -10,7 +10,18 @@
                 @update:model-value="$emit('update', 'current', $event)" :min="0" :size="NUMBER_INPUT_SIZES.MEDIUM" />
             <span class="range-separator">/</span>
             <NumberInput :model-value="value.max" :disabled="!canEdit"
+                :class="{ 'max-value-armor': armorDefenseBonus > 0 }"
                 @update:model-value="$emit('update', 'max', $event)" :min="0" :size="NUMBER_INPUT_SIZES.MEDIUM" />
+            <FloatingActionButton v-if="showAutoCalcButton && armorDefenseBonus <= 0" class="virtue-auto-calc-button"
+                :variant="isAutoCalc ? FAB_TYPES.AUTO_CALC_ON : FAB_TYPES.AUTO_CALC" :size="FAB_SIZES.SMALL"
+                :visibility="FAB_VISIBILITIES.ON_HOVER" @click="emit('toggle-auto-calc')" />
+            <span class="armor-defense-bonus" :class="{ 'armor-defense-bonus--hidden': armorDefenseBonus <= 0 }">
+                {{ armorDefenseBonus > 0 ? `+${armorDefenseBonus}` : '' }}
+            </span>
+            <FloatingActionButton v-if="showAutoCalcButton && armorDefenseBonus > 0"
+                class="virtue-auto-calc-button virtue-auto-calc-armor"
+                :variant="isAutoCalc ? FAB_TYPES.AUTO_CALC_ON : FAB_TYPES.AUTO_CALC" :size="FAB_SIZES.SMALL"
+                :visibility="FAB_VISIBILITIES.ON_HOVER" @click="emit('toggle-auto-calc')" />
         </template>
 
         <!-- Single value type (weakness) -->
@@ -86,10 +97,14 @@ const props = defineProps({
     isAutoCalc: {
         type: Boolean,
         default: true
+    },
+    armorDefenseBonus: {
+        type: Number,
+        default: 0
     }
 })
 
-const { type, label, canEdit, value, firstState, secondState, showAutoCalcButton, showInjuryRollButton, isAutoCalc } = toRefs(props)
+const { type, label, canEdit, value, firstState, secondState, showAutoCalcButton, showInjuryRollButton, isAutoCalc, armorDefenseBonus } = toRefs(props)
 
 const emit = defineEmits(['update', 'reset', 'toggle-auto-calc', 'roll-injury'])
 
@@ -123,7 +138,7 @@ const stateClasses = computed(() => {
 }
 
 .virtue-row {
-    grid-template-columns: 75px 30px 40px 30px 0px;
+    grid-template-columns: 75px 30px 40px 30px 30px 40px 30px;
 }
 
 .virtue-row .reset-button {
@@ -184,5 +199,36 @@ const stateClasses = computed(() => {
 
 .state-active-checkbox {
     box-shadow: var(--glow-danger-lg);
+}
+
+.armor-defense-bonus {
+    font-size: var(--font-size-16);
+    font-weight: bold;
+    color: var(--color-accent-armor);
+    align-self: center;
+    padding: 2px 0 0 var(--space-lg);
+    white-space: nowrap;
+}
+
+.armor-defense-bonus--hidden {
+    visibility: hidden;
+}
+
+.max-value-armor :deep(input) {
+    color: var(--color-accent-armor);
+}
+
+.virtue-auto-calc-button {
+    justify-self: start;
+    margin-left: 15px;
+}
+
+.virtue-auto-calc-armor :deep(.auto-text) {
+    color: var(--color-accent-armor);
+}
+
+.virtue-auto-calc-armor :deep(.fab__icon--small),
+.virtue-auto-calc-armor :deep(.fab__icon--large) {
+    color: var(--color-accent-armor);
 }
 </style>

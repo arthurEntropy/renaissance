@@ -154,6 +154,9 @@ import { createBaseEntity } from './gameEntity.js'
  * @property {Object} autoCalculations - Auto-calculation settings
  * @property {boolean} autoCalculations.load - Whether to auto-calculate load
  * @property {boolean} autoCalculations.statesAndEffects - Whether to auto-apply states and effects
+ * @property {boolean} autoCalculations.maxEndurance - Whether to auto-calculate max endurance from Body
+ * @property {boolean} autoCalculations.maxHope - Whether to auto-calculate max hope from Heart
+ * @property {boolean} autoCalculations.maxDefense - Whether to auto-calculate max defense from Wits (+ armor bonus)
  * @property {Object} rollStats - Aggregate roll statistics for this character
  * @property {Object} rollStats.skillChecks - Skill check statistics
  * @property {number} rollStats.skillChecks.attempts - Number of skill checks attempted
@@ -258,6 +261,9 @@ export function createDefaultCharacter() {
     autoCalculations: {
       load: true,
       statesAndEffects: true,
+      maxEndurance: true,
+      maxHope: true,
+      maxDefense: true,
     },
     rollStats: {
       skillChecks: {

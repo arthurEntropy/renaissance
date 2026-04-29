@@ -98,6 +98,7 @@ onMounted(async () => {
 .header-dice {
   display: flex;
   align-items: center;
+  margin-top: var(--space-md);
 }
 
 .header-dice :deep(.dice-display) {

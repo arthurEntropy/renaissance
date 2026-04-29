@@ -45,25 +45,28 @@ export function useCharacterStatWatchers(selectedCharacter, allEquipment) {
   // Core stats watchers
   watch(() => selectedCharacter.value?.body, () => {
     if (!selectedCharacter.value || selectedCharacter.value.body === undefined) return
-    // Only auto-calculate if statesAndEffects is enabled (body change affects states)
     if (selectedCharacter.value.autoCalculations?.statesAndEffects ?? true) {
-      CharacterUtils.handleBodyChange(selectedCharacter.value)
+      CharacterUtils.handleBodyChange(selectedCharacter.value, {
+        calcMax: selectedCharacter.value.autoCalculations?.maxEndurance ?? true
+      })
     }
   })
 
   watch(() => selectedCharacter.value?.heart, () => {
     if (!selectedCharacter.value || selectedCharacter.value.heart === undefined) return
-    // Only auto-calculate if statesAndEffects is enabled (heart change affects states)
     if (selectedCharacter.value.autoCalculations?.statesAndEffects ?? true) {
-      CharacterUtils.handleHeartChange(selectedCharacter.value)
+      CharacterUtils.handleHeartChange(selectedCharacter.value, {
+        calcMax: selectedCharacter.value.autoCalculations?.maxHope ?? true
+      })
     }
   })
 
   watch(() => selectedCharacter.value?.wits, () => {
     if (!selectedCharacter.value || selectedCharacter.value.wits === undefined) return
-    // Only auto-calculate if statesAndEffects is enabled (wits change affects states)
     if (selectedCharacter.value.autoCalculations?.statesAndEffects ?? true) {
-      CharacterUtils.handleWitsChange(selectedCharacter.value)
+      CharacterUtils.handleWitsChange(selectedCharacter.value, {
+        calcMax: selectedCharacter.value.autoCalculations?.maxDefense ?? true
+      })
     }
   })
 

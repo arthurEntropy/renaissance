@@ -132,6 +132,15 @@
             </div>
           </div>
 
+          <!-- Defense Bonus: Only show for Armor -->
+          <div class="form-group row" v-if="equipmentIsArmor">
+            <div class="form-column weight-input">
+              <label for="defenseBonus" class="left-aligned">Defense Bonus:</label>
+              <input type="number" id="defenseBonus" v-model.number="editedEquipment.defenseBonus" min="0"
+                class="modal-input" />
+            </div>
+          </div>
+
           <!-- School: Only show if source mestiere has schools defined -->
           <div class="form-group centered" v-if="sourceHasSchools">
             <label for="school">School:</label>
@@ -270,6 +279,7 @@ import { useKeepingStore } from '@/stores/keepingStore'
 import { useEngagementSuccessesStore } from '@/stores/engagementSuccessesStore'
 import { useAbilitySchoolsStore } from '@/stores/abilitySchoolsStore'
 import { MESMER_MASK_SUBTYPE_ID, MESMER_CONCEPT_ID } from '@/constants/mesmerConstants'
+import { ARMOR_TYPE_ID } from '@/constants/armorConstants'
 
 
 // Props
@@ -349,6 +359,8 @@ const equipmentIsWeapon = computed(() => {
   const equipmentType = equipmentTypesStore.items.find(t => t.id === editedEquipment.value.type)
   return equipmentType?.name === 'Weapon'
 })
+
+const equipmentIsArmor = computed(() => editedEquipment.value?.type === ARMOR_TYPE_ID)
 
 // Equipment categories management
 const availableSubtypes = computed(() => {

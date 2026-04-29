@@ -161,11 +161,11 @@ const saveChanges = () => {
 .notes-preview {
     font-size: var(--font-size-11);
     color: var(--color-text-secondary);
-    line-height: var(--line-height-normal);
+    line-height: var(--line-height-tight);
     overflow: hidden;
     display: -webkit-box;
-    line-clamp: 11;
-    -webkit-line-clamp: 11;
+    line-clamp: 13;
+    -webkit-line-clamp: 13;
     -webkit-box-orient: vertical;
     word-break: break-word;
     margin: 0;
@@ -218,8 +218,9 @@ const saveChanges = () => {
     max-height: 85%;
     min-height: 200px;
     padding: var(--space-xl);
-    background: var(--color-bg-secondary);
-    border-radius: var(--border-radius-lg);
+    background: var(--overlay-black-heavy);
+    border-radius: var(--radius-15);
+    border: 1px solid var(--color-border-secondary);
     position: relative;
 }
 
@@ -231,8 +232,8 @@ const saveChanges = () => {
 
 .full-text {
     line-height: var(--line-height-normal);
-    font-size: var(--font-size-16);
-    color: var(--color-white);
+    font-size: var(--font-size-14);
+    color: var(--color-text-primary);
 }
 
 .full-text :deep(p) {

@@ -60,6 +60,7 @@ import { createBaseEntity } from '../gameEntity.js'
  * @property {string|null} type - Equipment type UUID reference
  * @property {string|null} subtype - Equipment subtype UUID reference
  * @property {string|null} grade - Equipment grade UUID reference
+ * @property {number} defenseBonus - Defense bonus granted when wearing this item (armor only)
  * @property {string} createdAt - ISO 8601 datetime string
  * @property {string} lastModified - ISO 8601 datetime string
  */
@@ -97,5 +98,6 @@ export function createDefaultEquipment() {
     type: null,
     subtype: null,
     grade: null,
+    defenseBonus: 0,
   }
 }
