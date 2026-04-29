@@ -110,6 +110,10 @@ import { createBaseEntity } from './gameEntity.js'
  * @property {string|null} id - UUID identifier
  * @property {string} name - Character name
  * @property {boolean} isBeast - Whether this is a beast/creature
+ * @property {number} challenge - Challenge rating for beasts (0 = not applicable)
+ * @property {string} description - Beast description
+ * @property {number} size - Beast size value
+ * @property {number} reach - Beast reach in feet
  * @property {string} pronouns - Character pronouns
  * @property {string} ancestries - Ancestry IDs (comma-separated)
  * @property {string} cultures - Culture IDs (comma-separated)
@@ -187,6 +191,10 @@ export function createDefaultCharacter() {
     ...createBaseEntity(),
     name: 'New Character',
     isBeast: false,
+    challenge: 0,
+    description: '',
+    size: 0,
+    reach: 0,
     pronouns: '',
     ancestries: '',
     cultures: '',

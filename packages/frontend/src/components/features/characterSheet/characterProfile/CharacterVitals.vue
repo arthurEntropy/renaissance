@@ -10,7 +10,7 @@
         </div>
 
         <!-- Vitals Details -->
-        <div class="vitals-details">
+        <div class="vitals-details" v-if="!character.isBeast">
             <div class="vitals-detail">
                 <span class="vitals-label">{{ ancestries.length === 1 ? 'Ancestry' : 'Ancestries' }}:</span>
                 <div class="vitals-value">
@@ -28,7 +28,7 @@
                     <span v-if="!cultures.length">None</span>
                     <span v-for="(culture, index) in cultures" :key="culture.id">
                         <router-link :to="`/cultures/${createSlug(culture.name)}`" class="concept-link">{{ culture.name
-                            }}</router-link><span v-if="index < cultures.length - 1">, </span>
+                        }}</router-link><span v-if="index < cultures.length - 1">, </span>
                     </span>
                 </div>
             </div>
@@ -48,6 +48,14 @@
                             </button>
                         </div>
                     </template>
+                </div>
+            </div>
+        </div>
+
+        <!-- Beast Vitals Details -->
+        <div class="vitals-details" v-else>
+            <div class="vitals-detail">
+                <div class="vitals-value beast-vitals-text" ref="beastDescriptionRef">{{ character.description || '' }}
                 </div>
             </div>
         </div>
@@ -130,9 +138,36 @@ function fitNameText() {
     }
 }
 
+const beastDescriptionRef = ref(null)
+
+const VITAL_MAX_PX = 14
+const VITAL_MIN_PX = 10
+
+function fitVitalText(el) {
+    if (!el) return
+    el.style.fontSize = `${VITAL_MAX_PX}px`
+    const lh = parseFloat(getComputedStyle(el).lineHeight)
+    const lineHeight = isNaN(lh) ? VITAL_MAX_PX * 1.5 : lh
+    const maxHeight = lineHeight * 3
+    while (el.scrollHeight > maxHeight && parseFloat(el.style.fontSize) > VITAL_MIN_PX) {
+        el.style.fontSize = `${parseFloat(el.style.fontSize) - 0.5}px`
+    }
+}
+
+function fitBeastTexts() {
+    fitVitalText(beastDescriptionRef.value)
+}
+
 watch([() => character.value?.name, () => character.value?.pronouns], async () => {
     await nextTick()
     fitNameText()
+})
+
+watch([
+    () => character.value?.description,
+], async () => {
+    await nextTick()
+    fitBeastTexts()
 })
 
 const triggerRef = ref(null)
@@ -185,6 +220,7 @@ function selectIcon(index) {
 onUnmounted(() => {
     document.removeEventListener('click', closeIconPicker)
     window.removeEventListener('resize', fitNameText)
+    window.removeEventListener('resize', fitBeastTexts)
 })
 
 const openEditModal = () => {
@@ -199,7 +235,9 @@ onMounted(async () => {
     conceptsStore.fetch()
     await nextTick()
     fitNameText()
+    fitBeastTexts()
     window.addEventListener('resize', fitNameText)
+    window.addEventListener('resize', fitBeastTexts)
 })
 </script>
 
@@ -278,6 +316,13 @@ onMounted(async () => {
     display: flex;
     align-items: center;
     gap: var(--space-xs);
+}
+
+.beast-vitals-text {
+    font-size: var(--font-size-14);
+    color: var(--color-text-secondary);
+    overflow: hidden;
+    line-height: 1.4;
 }
 
 .swagger-icon-picker {

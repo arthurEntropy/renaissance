@@ -1,34 +1,55 @@
 <template>
-  <CharacterSheetSection custom-class="character-profile" min-width="400px">
+  <CharacterSheetSection custom-class="character-profile" :min-width="character.isBeast ? '340px' : '400px'">
     <div class="art-column">
       <CharacterArt />
-      <CharacterPhysicalStats :age="character.age || 0" :height-feet="character.heightFeet || 0"
-        :height-inches="character.heightInches || 0" :weight="character.weight || 0" />
+      <CharacterPhysicalStats v-if="!character.isBeast" :age="character.age || 0"
+        :height-feet="character.heightFeet || 0" :height-inches="character.heightInches || 0"
+        :weight="character.weight || 0" />
+      <div v-else class="beast-physical-stats">
+        <span class="beast-physical-stat">
+          <span class="beast-physical-stat-label">Size: </span>
+          <span class="beast-physical-stat-value">{{ character.size || 0 }}</span>
+        </span>
+        <span class="beast-physical-stat">
+          <span class="beast-physical-stat-label">Reach: </span>
+          <span class="beast-physical-stat-value">{{ character.reach || 0 }} ft</span>
+        </span>
+      </div>
     </div>
     <CharacterVitals />
 
     <!-- Bottom Badges -->
     <div class="bottom-badges">
-      <!-- Keeping Badge -->
-      <div class="keeping-badge" :style="keepingBadgeStyle">
-        <select title="Keeping" class="keeping-select" :value="character.keeping || ''" :disabled="!canEdit"
-          @change="character.keeping = $event.target.value || null">
-          <option value="">Choose...</option>
-          <option v-for="k in keepingStore.keeping" :key="k.id" :value="k.id">{{ k.name }}</option>
-        </select>
-      </div>
-      <!-- Treasure Badge -->
-      <div class="treasure-badge">
-        <img :src="keepingIcon" alt="treasure" class="treasure-icon" />
-        <NumberInput :model-value="character.treasure || 0" :disabled="!canEdit"
-          @update:model-value="character.treasure = $event" :min="0" :size="NUMBER_INPUT_SIZES.MEDIUM" />
-      </div>
-      <!-- XP Badge -->
-      <div class="xp-badge">
-        <span class="xp-label">XP:</span>
-        <NumberInput :model-value="character.xp || 0" :disabled="!canEdit" @update:model-value="character.xp = $event"
-          :min="0" :size="NUMBER_INPUT_SIZES.MEDIUM" />
-      </div>
+      <template v-if="!character.isBeast">
+        <!-- Keeping Badge -->
+        <div class="keeping-badge" :style="keepingBadgeStyle">
+          <select title="Keeping" class="keeping-select" :value="character.keeping || ''" :disabled="!canEdit"
+            @change="character.keeping = $event.target.value || null">
+            <option value="">Choose...</option>
+            <option v-for="k in keepingStore.keeping" :key="k.id" :value="k.id">{{ k.name }}</option>
+          </select>
+        </div>
+        <!-- Treasure Badge -->
+        <div class="treasure-badge">
+          <img :src="keepingIcon" alt="treasure" class="treasure-icon" />
+          <NumberInput :model-value="character.treasure || 0" :disabled="!canEdit"
+            @update:model-value="character.treasure = $event" :min="0" :size="NUMBER_INPUT_SIZES.MEDIUM" />
+        </div>
+        <!-- XP Badge -->
+        <div class="xp-badge">
+          <span class="xp-label">XP:</span>
+          <NumberInput :model-value="character.xp || 0" :disabled="!canEdit" @update:model-value="character.xp = $event"
+            :min="0" :size="NUMBER_INPUT_SIZES.MEDIUM" />
+        </div>
+      </template>
+      <template v-else>
+        <!-- Challenge Badge (beasts only) -->
+        <div class="challenge-badge">
+          <span class="challenge-label">CHALLENGE:</span>
+          <NumberInput :model-value="character.challenge || 0" :disabled="!canEdit"
+            @update:model-value="character.challenge = $event" :min="0" :size="NUMBER_INPUT_SIZES.MEDIUM" />
+        </div>
+      </template>
     </div>
   </CharacterSheetSection>
 </template>
@@ -95,7 +116,7 @@ const keepingBadgeStyle = computed(() => {
 .keeping-badge {
   display: flex;
   align-items: center;
-  background-color: var(--color-gray-medium);
+  background-color: var(--color-gray-light);
   padding: var(--space-xs) calc(var(--space-md) + 8px) var(--space-xs) var(--space-xs);
   border-top-left-radius: var(--radius-15);
   position: relative;
@@ -131,7 +152,7 @@ const keepingBadgeStyle = computed(() => {
   display: flex;
   gap: var(--space-xs);
   align-items: center;
-  background-color: var(--color-primary-hover);
+  background-color: var(--color-gray-medium);
   padding: var(--space-xs) calc(var(--space-md) + 8px) var(--space-xs) var(--space-md);
   border-top-left-radius: var(--radius-15);
   position: relative;
@@ -162,6 +183,43 @@ const keepingBadgeStyle = computed(() => {
   font-size: var(--font-size-12);
   font-style: italic;
   font-weight: var(--font-weight-bold);
+}
+
+.challenge-badge {
+  display: flex;
+  gap: var(--space-xs);
+  align-items: center;
+  background-color: var(--color-danger-hover);
+  padding: var(--space-xs) var(--space-md);
+  border-top-left-radius: var(--radius-15);
+  position: relative;
+  z-index: var(--z-raised);
+}
+
+.challenge-label {
+  color: var(--color-text-primary);
+  font-size: var(--font-size-12);
+  font-style: italic;
+  font-weight: var(--font-weight-bold);
+}
+
+.beast-physical-stats {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-sm);
+  font-size: var(--font-size-10);
+  font-style: italic;
+  color: var(--color-gray-light);
+  line-height: var(--line-height-none);
+}
+
+.beast-physical-stat-label {
+  color: inherit;
+}
+
+.beast-physical-stat-value {
+  color: var(--color-text-primary);
+  font-style: normal;
 }
 
 @media (max-width: var(--breakpoint-lg)) {
