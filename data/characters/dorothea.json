@@ -11,7 +11,6 @@
   "cultureIds": [
     "5a639d7b-847a-468b-9bbe-5275d31fdf66"
   ],
-  "personalityAndBackground": "<p>Super cool orbmancer</p><p>This is some <strong>example</strong> text</p>",
   "xp": 10,
   "mp": {
     "current": 3,
@@ -200,6 +199,8 @@
     "https://cdn.midjourney.com/890188b9-df60-4f68-8f03-11b5d1f127b4/0_2.png"
   ],
   "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2026-04-14T01:34:33.387Z",
-  "lastModified": "2026-04-14T01:34:33.387Z"
+  "updatedAt": "2026-04-28T17:56:47.450Z",
+  "lastModified": "2026-04-28T17:56:47.450Z",
+  "notes": "<p>Super cool orbmancer</p><p>This is some <strong>example</strong> text</p>",
+  "keeping": "3c4d5e6f-7a8b-4c9d-0e1f-2a3b4c5d6e7f"
 }

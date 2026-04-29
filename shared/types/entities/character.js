@@ -110,10 +110,16 @@ import { createBaseEntity } from './gameEntity.js'
  * @property {string|null} id - UUID identifier
  * @property {string} name - Character name
  * @property {boolean} isBeast - Whether this is a beast/creature
+ * @property {number} challenge - Challenge rating for beasts (0 = not applicable)
+ * @property {string} description - Beast description
+ * @property {number} size - Beast size value
+ * @property {number} reach - Beast reach in feet
  * @property {string} pronouns - Character pronouns
  * @property {string} ancestries - Ancestry IDs (comma-separated)
  * @property {string} cultures - Culture IDs (comma-separated)
- * @property {string} personalityAndBackground - Character background text
+ * @property {string} notes - Character notes and background text
+ * @property {string|null} keeping - Keeping level ID reference
+ * @property {number} treasure - Character treasure
  * @property {number} age - Character age
  * @property {number} heightFeet - Character height (feet)
  * @property {number} heightInches - Character height (inches)
@@ -152,6 +158,9 @@ import { createBaseEntity } from './gameEntity.js'
  * @property {Object} autoCalculations - Auto-calculation settings
  * @property {boolean} autoCalculations.load - Whether to auto-calculate load
  * @property {boolean} autoCalculations.statesAndEffects - Whether to auto-apply states and effects
+ * @property {boolean} autoCalculations.maxEndurance - Whether to auto-calculate max endurance from Body
+ * @property {boolean} autoCalculations.maxHope - Whether to auto-calculate max hope from Heart
+ * @property {boolean} autoCalculations.maxDefense - Whether to auto-calculate max defense from Wits (+ armor bonus)
  * @property {Object} rollStats - Aggregate roll statistics for this character
  * @property {Object} rollStats.skillChecks - Skill check statistics
  * @property {number} rollStats.skillChecks.attempts - Number of skill checks attempted
@@ -182,10 +191,16 @@ export function createDefaultCharacter() {
     ...createBaseEntity(),
     name: 'New Character',
     isBeast: false,
+    challenge: 0,
+    description: '',
+    size: 0,
+    reach: 0,
     pronouns: '',
     ancestries: '',
     cultures: '',
-    personalityAndBackground: '',
+    notes: '',
+    keeping: null,
+    treasure: 0,
     age: 0,
     heightFeet: 0,
     heightInches: 0,
@@ -254,6 +269,9 @@ export function createDefaultCharacter() {
     autoCalculations: {
       load: true,
       statesAndEffects: true,
+      maxEndurance: true,
+      maxHope: true,
+      maxDefense: true,
     },
     rollStats: {
       skillChecks: {

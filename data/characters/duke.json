@@ -8,8 +8,10 @@
   "ancestryIds": [
     "adc655c1-1d9c-433f-a0eb-41f93cf3ee07"
   ],
-  "cultureIds": [],
-  "personalityAndBackground": "",
+  "cultureIds": [
+    "a3a54cb6-09c4-42e3-b142-3053b7c1d4e8",
+    "c02c53d1-b456-45d0-a048-6fc941cacc03"
+  ],
   "xp": 0,
   "mp": {
     "current": 0,
@@ -151,8 +153,8 @@
     "coreAbility": "heart"
   },
   "defense": {
-    "current": 20,
-    "max": 14,
+    "current": 4,
+    "max": 4,
     "coreAbility": "wits"
   },
   "load": 0,
@@ -248,8 +250,8 @@
     "https://cdn.midjourney.com/b75951b3-d21b-4e00-b7c8-c81fc16c043e/0_2.png"
   ],
   "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2026-04-25T20:04:55.882Z",
-  "lastModified": "2026-04-25T20:04:55.882Z",
+  "updatedAt": "2026-04-29T00:25:32.623Z",
+  "lastModified": "2026-04-29T00:25:32.623Z",
   "mestiereId": "162ae4db-7a67-4770-8a2c-7e9883da14f6",
   "age": 0,
   "heightFeet": 0,
@@ -354,5 +356,7 @@
         "draws": 0
       }
     }
-  }
+  },
+  "notes": "",
+  "keeping": "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d"
 }

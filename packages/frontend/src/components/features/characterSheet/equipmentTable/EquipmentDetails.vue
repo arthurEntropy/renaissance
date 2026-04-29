@@ -12,9 +12,10 @@
                 <div class="detail-item checkbox-item">
                     <input type="checkbox" class="equipment-checkbox" :checked="equipmentItem.isWielding"
                         :disabled="!equipmentItem.isCarried || !isEditMode"
+                        :class="{ 'worn-active': isArmor && equipmentItem.isWielding }"
                         @change="handleWieldingChange($event.target.checked)" />
-                    <em class="carried-label">
-                        Wielding
+                    <em class="carried-label" :class="{ 'worn-active': isArmor && equipmentItem.isWielding }">
+                        {{ wieldingLabel }}
                     </em>
                 </div>
             </div>
@@ -44,6 +45,7 @@
 import { computed } from 'vue'
 import NumberInput from '@/components/ui/forms/NumberInput.vue'
 import { NUMBER_INPUT_SIZES } from '@/constants/numberInput'
+import { ARMOR_TYPE_ID, ARMOR_SHIELD_SUBTYPE_ID } from '@/constants/armorConstants'
 
 const props = defineProps({
     equipmentItem: {
@@ -61,6 +63,15 @@ const props = defineProps({
 })
 
 const emit = defineEmits(['update-carried', 'update-wielding', 'update-quantity'])
+
+const isArmor = computed(() => props.equipmentItem.equipment?.type === ARMOR_TYPE_ID)
+const isShield = computed(() => props.equipmentItem.equipment?.subtype === ARMOR_SHIELD_SUBTYPE_ID)
+
+const wieldingLabel = computed(() => {
+    if (!isArmor.value) return 'Wielding'
+    if (isShield.value) return 'Wielded'
+    return 'Worn'
+})
 
 const displayWeight = computed(() => {
     if (props.equipmentItem.isCarried && props.equipmentItem.equipment) {
@@ -96,7 +107,7 @@ const handleQuantityChange = (value) => {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 24px 8px 4px 8px;
+    padding: 20px 8px 2px 8px;
     background-color: var(--overlay-white-medium);
     border: 1px solid var(--color-gray-medium);
     border-radius: var(--radius-10);
@@ -160,6 +171,15 @@ const handleQuantityChange = (value) => {
     font-style: italic;
     color: var(--color-text-secondary);
     margin-left: 2px;
+}
+
+.worn-active {
+    color: var(--color-accent-armor);
+}
+
+.equipment-checkbox.worn-active:checked {
+    background-color: var(--color-accent-armor);
+    border-color: var(--color-accent-armor);
 }
 
 .carried-weight {

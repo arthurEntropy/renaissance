@@ -275,15 +275,26 @@ watch(() => route.params.id, (newId, oldId) => {
   }
 })
 
-// Watch for concepts to be loaded and open detail if URL has ID param
+// Watch for concepts to be loaded and open detail if URL has ID param or sticky selection
 watch(() => props.concepts, (newConcepts) => {
-  if (newConcepts.length > 0 && route.params.id && !showConceptDetail.value) {
-    const conceptToOpen = findConceptBySlug(newConcepts, route.params.id)
-    if (conceptToOpen) {
-      openConceptDetail(conceptToOpen)
+  if (newConcepts.length > 0 && !showConceptDetail.value) {
+    if (route.params.id) {
+      const conceptToOpen = findConceptBySlug(newConcepts, route.params.id)
+      if (conceptToOpen) openConceptDetail(conceptToOpen)
+    } else if (props.stickySelection && props.selectedItem) {
+      const concept = newConcepts.find(c => c.id === props.selectedItem.id)
+      if (concept) openConceptDetail(concept)
     }
   }
 }, { immediate: true })
+
+// Auto-open when a sticky-selected item is set after concepts are already loaded
+watch(() => props.selectedItem, (newItem) => {
+  if (props.stickySelection && newItem && !showConceptDetail.value && props.concepts.length > 0) {
+    const concept = props.concepts.find(c => c.id === newItem.id)
+    if (concept) openConceptDetail(concept)
+  }
+})
 
 onBeforeUnmount(() => {
   window.removeEventListener('keydown', handleKeyNavigation);

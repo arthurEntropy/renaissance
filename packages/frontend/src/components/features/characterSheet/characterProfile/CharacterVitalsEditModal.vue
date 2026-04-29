@@ -15,7 +15,7 @@
                             <input type="text" v-model="formData.name" id="name" class="modal-input"
                                 placeholder="Character name" />
                         </div>
-                        <div class="form-column pronouns-input">
+                        <div v-if="!character.isBeast" class="form-column pronouns-input">
                             <label for="pronouns" class="left-aligned">Pronouns:</label>
                             <input type="text" v-model="formData.pronouns" id="pronouns" class="modal-input"
                                 placeholder="they/them" />
@@ -23,103 +23,131 @@
                     </div>
 
                     <!-- Ancestries -->
-                    <div class="form-group row">
-                        <div class="form-column">
-                            <label for="ancestry1" class="left-aligned">Ancestries:</label>
-                            <select v-model="formData.ancestryIds[0]" id="ancestry1" class="modal-input">
-                                <option value="">Select ancestry...</option>
-                                <option v-for="ancestry in conceptsStore.ancestries" :key="ancestry.id"
-                                    :value="ancestry.id">
-                                    {{ ancestry.name }}
-                                </option>
-                            </select>
+                    <template v-if="!character.isBeast">
+                        <div class="form-group row">
+                            <div class="form-column">
+                                <label for="ancestry1" class="left-aligned">Ancestries:</label>
+                                <select v-model="formData.ancestryIds[0]" id="ancestry1" class="modal-input">
+                                    <option value="">Select ancestry...</option>
+                                    <option v-for="ancestry in conceptsStore.ancestries" :key="ancestry.id"
+                                        :value="ancestry.id">
+                                        {{ ancestry.name }}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="form-column">
+                                <label for="ancestry2" class="left-aligned invisible-label">&nbsp;</label>
+                                <select v-model="formData.ancestryIds[1]" id="ancestry2" class="modal-input">
+                                    <option value="">Select ancestry...</option>
+                                    <option v-for="ancestry in conceptsStore.ancestries" :key="ancestry.id"
+                                        :value="ancestry.id">
+                                        {{ ancestry.name }}
+                                    </option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="form-column">
-                            <label for="ancestry2" class="left-aligned invisible-label">&nbsp;</label>
-                            <select v-model="formData.ancestryIds[1]" id="ancestry2" class="modal-input">
-                                <option value="">Select ancestry...</option>
-                                <option v-for="ancestry in conceptsStore.ancestries" :key="ancestry.id"
-                                    :value="ancestry.id">
-                                    {{ ancestry.name }}
-                                </option>
-                            </select>
-                        </div>
-                    </div>
 
-                    <!-- Cultures -->
-                    <div class="form-group row">
-                        <div class="form-column">
-                            <label for="culture1" class="left-aligned">Cultures:</label>
-                            <select v-model="formData.cultureIds[0]" id="culture1" class="modal-input">
-                                <option value="">Select culture...</option>
-                                <option v-for="culture in conceptsStore.cultures" :key="culture.id" :value="culture.id">
-                                    {{ culture.name }}
-                                </option>
-                            </select>
+                        <!-- Cultures -->
+                        <div class="form-group row">
+                            <div class="form-column">
+                                <label for="culture1" class="left-aligned">Cultures:</label>
+                                <select v-model="formData.cultureIds[0]" id="culture1" class="modal-input">
+                                    <option value="">Select culture...</option>
+                                    <option v-for="culture in conceptsStore.cultures" :key="culture.id"
+                                        :value="culture.id">
+                                        {{ culture.name }}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="form-column">
+                                <label for="culture2" class="left-aligned invisible-label">&nbsp;</label>
+                                <select v-model="formData.cultureIds[1]" id="culture2" class="modal-input">
+                                    <option value="">Select culture...</option>
+                                    <option v-for="culture in conceptsStore.cultures" :key="culture.id"
+                                        :value="culture.id">
+                                        {{ culture.name }}
+                                    </option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="form-column">
-                            <label for="culture2" class="left-aligned invisible-label">&nbsp;</label>
-                            <select v-model="formData.cultureIds[1]" id="culture2" class="modal-input">
-                                <option value="">Select culture...</option>
-                                <option v-for="culture in conceptsStore.cultures" :key="culture.id" :value="culture.id">
-                                    {{ culture.name }}
-                                </option>
-                            </select>
-                        </div>
-                    </div>
 
-                    <!-- Mestiere -->
-                    <div class="form-group row">
-                        <div class="form-column">
-                            <label for="mestiere" class="left-aligned">Mestiere:</label>
-                            <select v-model="formData.mestiereId" id="mestiere" class="modal-input">
-                                <option value="">Select mestiere...</option>
-                                <option v-for="mestiere in conceptsStore.mestieri" :key="mestiere.id"
-                                    :value="mestiere.id">
-                                    {{ mestiere.name }}
-                                </option>
-                            </select>
+                        <!-- Mestiere -->
+                        <div class="form-group row">
+                            <div class="form-column">
+                                <label for="mestiere" class="left-aligned">Mestiere:</label>
+                                <select v-model="formData.mestiereId" id="mestiere" class="modal-input">
+                                    <option value="">Select mestiere...</option>
+                                    <option v-for="mestiere in conceptsStore.mestieri" :key="mestiere.id"
+                                        :value="mestiere.id">
+                                        {{ mestiere.name }}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="form-column">
+                                <label class="left-aligned invisible-label">&nbsp;</label>
+                                <div class="modal-input-placeholder"></div>
+                            </div>
                         </div>
-                        <div class="form-column">
-                            <label class="left-aligned invisible-label">&nbsp;</label>
-                            <div class="modal-input-placeholder"></div>
-                        </div>
-                    </div>
 
-                    <!-- Physical Stats -->
-                    <div class="form-group row">
-                        <div class="form-column">
-                            <label for="age" class="left-aligned">Age:</label>
-                            <input id="age" type="number" min="0" v-model.number="formData.age" class="modal-input"
-                                placeholder="0" />
+                        <!-- Physical Stats -->
+                        <div class="form-group row">
+                            <div class="form-column">
+                                <label for="age" class="left-aligned">Age:</label>
+                                <input id="age" type="number" min="0" v-model.number="formData.age" class="modal-input"
+                                    placeholder="0" />
+                            </div>
+                            <div class="form-column">
+                                <label for="heightFeet" class="left-aligned">Height (ft):</label>
+                                <input id="heightFeet" type="number" min="0" v-model.number="formData.heightFeet"
+                                    class="modal-input" placeholder="0" />
+                            </div>
+                            <div class="form-column">
+                                <label for="heightInches" class="left-aligned">Height (in):</label>
+                                <input id="heightInches" type="number" min="0" max="11"
+                                    v-model.number="formData.heightInches" class="modal-input" placeholder="0" />
+                            </div>
+                            <div class="form-column">
+                                <label for="weight" class="left-aligned">Weight (lbs):</label>
+                                <input id="weight" type="number" min="0" v-model.number="formData.weight"
+                                    class="modal-input" placeholder="0" />
+                            </div>
                         </div>
-                        <div class="form-column">
-                            <label for="heightFeet" class="left-aligned">Height (ft):</label>
-                            <input id="heightFeet" type="number" min="0" v-model.number="formData.heightFeet"
-                                class="modal-input" placeholder="0" />
-                        </div>
-                        <div class="form-column">
-                            <label for="heightInches" class="left-aligned">Height (in):</label>
-                            <input id="heightInches" type="number" min="0" max="11"
-                                v-model.number="formData.heightInches" class="modal-input" placeholder="0" />
-                        </div>
-                        <div class="form-column">
-                            <label for="weight" class="left-aligned">Weight (lbs):</label>
-                            <input id="weight" type="number" min="0" v-model.number="formData.weight"
-                                class="modal-input" placeholder="0" />
-                        </div>
-                    </div>
 
-                    <!-- Randomize Vitals -->
-                    <div class="form-group randomize-row">
-                        <div class="randomize-wrapper">
-                            <ActionButton variant="outline" size="small" text="Randomize Vitals"
-                                :disabled="!hasSelectedAncestry"
-                                :title="hasSelectedAncestry ? '' : 'Select an ancestry first'"
-                                @click="randomizeVitals" />
-                            <span class="randomize-note">Based on selected ancestry</span>
+                        <!-- Randomize Vitals -->
+                        <div class="form-group randomize-row">
+                            <div class="randomize-wrapper">
+                                <ActionButton variant="outline" size="small" text="Randomize Vitals"
+                                    :disabled="!hasSelectedAncestry"
+                                    :title="hasSelectedAncestry ? '' : 'Select an ancestry first'"
+                                    @click="randomizeVitals" />
+                                <span class="randomize-note">Based on selected ancestry</span>
+                            </div>
                         </div>
-                    </div>
+                    </template>
+
+                    <!-- Beast Fields -->
+                    <template v-else>
+                        <!-- Description -->
+                        <div class="form-column">
+                            <label for="description" class="left-aligned">Description:</label>
+                            <textarea id="description" v-model="formData.description"
+                                class="modal-input beast-text-input" placeholder="Describe the beast..." />
+                        </div>
+
+                        <!-- Size & Reach -->
+                        <div class="form-group beast-number-row">
+                            <div class="beast-number-field">
+                                <label for="size" class="left-aligned">Size:</label>
+                                <input id="size" type="number" min="0" v-model.number="formData.size"
+                                    class="modal-input beast-number-input" placeholder="0" />
+                            </div>
+                            <div class="beast-number-field">
+                                <label for="reach" class="left-aligned">Reach (ft):</label>
+                                <input id="reach" type="number" min="0" v-model.number="formData.reach"
+                                    class="modal-input beast-number-input" placeholder="0" />
+                            </div>
+                        </div>
+                    </template>
 
                 </form>
 
@@ -147,7 +175,7 @@
                     </div>
                 </div>
 
-                <CharacterRollStats @reset-stats="resetStats" />
+                <CharacterRollStats v-if="!character.isBeast" @reset-stats="resetStats" />
             </div>
 
             <!-- Sticky Action Buttons -->
@@ -186,7 +214,10 @@ const formData = ref({
     age: 0,
     heightFeet: 0,
     heightInches: 0,
-    weight: 0
+    weight: 0,
+    description: '',
+    size: 0,
+    reach: 0,
 })
 
 // Delete confirmation state
@@ -210,7 +241,10 @@ onMounted(() => {
         age: character.age || 0,
         heightFeet: character.heightFeet || 0,
         heightInches: character.heightInches || 0,
-        weight: character.weight || 0
+        weight: character.weight || 0,
+        description: character.description || '',
+        size: character.size || 0,
+        reach: character.reach || 0,
     }
 })
 
@@ -219,15 +253,25 @@ const closeModal = () => {
 }
 
 const saveChanges = () => {
-    // Filter out empty strings from ancestry and culture IDs before saving
-    const filteredAncestryIds = formData.value.ancestryIds.filter(id => id !== '')
-    const filteredCultureIds = formData.value.cultureIds.filter(id => id !== '')
+    if (character.isBeast) {
+        Object.assign(character, {
+            name: formData.value.name,
+            pronouns: formData.value.pronouns,
+            description: formData.value.description,
+            size: formData.value.size,
+            reach: formData.value.reach,
+        })
+    } else {
+        // Filter out empty strings from ancestry and culture IDs before saving
+        const filteredAncestryIds = formData.value.ancestryIds.filter(id => id !== '')
+        const filteredCultureIds = formData.value.cultureIds.filter(id => id !== '')
 
-    Object.assign(character, {
-        ...formData.value,
-        ancestryIds: filteredAncestryIds,
-        cultureIds: filteredCultureIds
-    })
+        Object.assign(character, {
+            ...formData.value,
+            ancestryIds: filteredAncestryIds,
+            cultureIds: filteredCultureIds
+        })
+    }
     closeModal()
 }
 
@@ -393,6 +437,29 @@ const confirmDeletion = async () => {
     font-size: var(--font-size-11);
     color: var(--color-text-muted);
     font-style: italic;
+}
+
+.beast-text-input {
+    resize: vertical;
+    min-height: 60px;
+    line-height: var(--line-height-normal);
+    font-family: var(--font-family-primary);
+}
+
+.beast-number-row {
+    display: flex;
+    gap: var(--space-md);
+    align-items: flex-end;
+}
+
+.beast-number-field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+}
+
+.beast-number-input {
+    width: 80px;
 }
 
 /* Settings Section Styles */

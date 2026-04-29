@@ -2,13 +2,12 @@
   "id": "09f4c307-2acc-475a-a634-94c58e7e6992",
   "isDeleted": false,
   "createdAt": "2026-02-18T16:16:31.097Z",
-  "lastModified": "2026-04-21T13:41:48.632Z",
+  "lastModified": "2026-04-29T00:28:17.597Z",
   "name": "Cheech",
   "isBeast": false,
   "pronouns": "she/her",
   "ancestries": "",
   "cultures": "",
-  "personalityAndBackground": "",
   "age": 25,
   "heightFeet": 3,
   "heightInches": 4,
@@ -165,12 +164,12 @@
   },
   "hope": {
     "current": 8,
-    "max": 8,
+    "max": 6,
     "coreAbility": "heart"
   },
   "defense": {
-    "current": 13,
-    "max": 13,
+    "current": 10,
+    "max": 10,
     "coreAbility": "wits"
   },
   "load": 0,
@@ -194,27 +193,39 @@
   "speed": 0,
   "equipment": [
     {
-      "id": "63b70983-0120-43ef-af99-f0835014246b",
+      "id": "093eef8a-85e0-42d8-85bc-b0bb1d1877af",
       "quantity": 1,
-      "isCarried": true
+      "isCarried": true,
+      "isWielding": true,
+      "collapsed": false,
+      "columnIndex": 0
+    },
+    {
+      "id": "4ef323c3-c475-4148-a9ab-df5868d5fa06",
+      "quantity": 1,
+      "isCarried": true,
+      "isWielding": true,
+      "collapsed": false,
+      "columnIndex": 0
     },
     {
       "id": "60d8ec28-8e4f-4789-83cf-9338a8f4ee0e",
       "quantity": 1,
-      "isCarried": true
+      "isCarried": true,
+      "columnIndex": 1
+    },
+    {
+      "id": "63b70983-0120-43ef-af99-f0835014246b",
+      "quantity": 1,
+      "isCarried": true,
+      "columnIndex": 1
     },
     {
       "id": "e7c57bc7-5009-45bd-81f0-c8011115862c",
       "quantity": 1,
-      "isCarried": true
-    },
-    {
-      "id": "010cc4f9-1dc5-4f35-8eb9-eb19a911a9c5",
-      "quantity": 1,
       "isCarried": true,
-      "isWielding": false,
-      "collapsed": true,
-      "difficulty": 14
+      "isWielding": true,
+      "columnIndex": 1
     },
     {
       "id": "89323e37-bd8c-4103-8fc7-12f31969dfc6",
@@ -222,7 +233,17 @@
       "isCarried": true,
       "isWielding": false,
       "collapsed": true,
-      "difficulty": null
+      "difficulty": null,
+      "columnIndex": 2
+    },
+    {
+      "id": "010cc4f9-1dc5-4f35-8eb9-eb19a911a9c5",
+      "quantity": 1,
+      "isCarried": true,
+      "isWielding": false,
+      "collapsed": true,
+      "difficulty": 12,
+      "columnIndex": 2
     }
   ],
   "abilities": [
@@ -279,7 +300,8 @@
   "equipmentSortOption": "",
   "autoCalculations": {
     "load": true,
-    "statesAndEffects": true
+    "statesAndEffects": true,
+    "maxDefense": true
   },
   "rollStats": {
     "skillChecks": {
@@ -319,10 +341,18 @@
     "0c876a74-a89b-42dc-b76a-4592a0478d81"
   ],
   "mestiereId": "10f46ecd-e6f5-4d3b-b510-d4035ab24f56",
-  "updatedAt": "2026-04-21T13:41:48.632Z",
+  "updatedAt": "2026-04-29T00:28:17.597Z",
   "biomeTags": [
-    "forest",
-    "hot"
+    "mountain",
+    "water",
+    "cold"
   ],
-  "biomeId": "de00d1ab-c1f3-40ce-a794-1f346ada18f0"
+  "biomeId": "f61d1026-1282-4ec2-a684-d0e5bd07f612",
+  "notes": "",
+  "keeping": "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d",
+  "engagementDiceStatuses": {
+    "e7c57bc7-5009-45bd-81f0-c8011115862c_0": "selected",
+    "mestiere_0": "selected",
+    "mestiere_1": "selected"
+  }
 }

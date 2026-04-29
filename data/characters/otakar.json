@@ -7,7 +7,6 @@
   "cultures": "Monte Dei Paschi",
   "ancestryIds": [],
   "cultureIds": [],
-  "personalityAndBackground": "Creepy orbmancer",
   "xp": 10,
   "mp": {
     "current": 3,
@@ -196,6 +195,8 @@
     "https://cdn.midjourney.com/021b7e7a-fe5a-4a9d-84d6-e5833a2dfbda/0_2.png"
   ],
   "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2025-12-12T03:52:37.837Z",
-  "lastModified": "2025-12-12T03:52:37.837Z"
+  "updatedAt": "2026-04-28T17:57:08.712Z",
+  "lastModified": "2026-04-28T17:57:08.712Z",
+  "notes": "Creepy orbmancer",
+  "keeping": "3c4d5e6f-7a8b-4c9d-0e1f-2a3b4c5d6e7f"
 }

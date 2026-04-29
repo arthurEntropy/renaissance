@@ -1,6 +1,6 @@
 export const MAX_ENDURANCE_MULTIPLIER = 5
 export const MAX_HOPE_MULTIPLIER = 2
-export const MAX_DEFENSE_BASE = 10
+export const MAX_DEFENSE_BASE = 0
 export const MAX_SKILL_RANKS = 5
 
 export const CORE_ABILITIES = {

@@ -26,6 +26,11 @@
     </template>
 
     <template #after-description>
+      <!-- Defense bonus display -->
+      <div v-if="equipment.defenseBonus > 0" class="defense-bonus-display text-stroke">
+        +{{ equipment.defenseBonus }} Defense
+      </div>
+
       <div v-if="isWeapon" class="dice-display-section">
 
         <!-- Engagement dice -->
@@ -519,6 +524,16 @@ onMounted(async () => {
 
 <style scoped>
 @import '@/styles/design-tokens.css';
+
+/* Defense Bonus Display */
+.defense-bonus-display {
+  text-align: center;
+  color: var(--color-accent-armor);
+  font-size: var(--font-size-14);
+  font-weight: bold;
+  padding: var(--space-lg);
+  border-top: 1px solid var(--overlay-black-medium);
+}
 
 /* Dice Display Section */
 .dice-display-section {
