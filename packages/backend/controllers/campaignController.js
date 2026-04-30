@@ -419,7 +419,6 @@ export const createCampaignCharacter = (req, res) => {
       ...req.body,
       campaignId: campaign.id,
       ownerId: req.user.uid,
-      ownerEmail: req.user.email,
       createdAt: new Date().toISOString(),
     }
 

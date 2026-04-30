@@ -32,11 +32,11 @@
                 }}
             </div>
 
-            <div class="campaign-menu-divider" />
+            <div v-if="campaignStore.pendingInviteCount > 0" class="campaign-menu-divider" />
 
             <!-- Create new -->
             <button class="campaign-menu-item campaign-menu-item--create" @click="openCreateModal">
-                + Create New Campaign…
+                Create New Campaign…
             </button>
         </div>
 
@@ -163,6 +163,22 @@ const submitCreate = async (payload) => {
     gap: var(--space-xs);
 }
 
+.campaign-btn-wrapper :deep(.action-btn) {
+    border-radius: var(--radius-full);
+    background: var(--color-gray-dark);
+}
+
+/* Bridge hover state across the visual gap between badge and FAB. */
+.campaign-btn-wrapper.is-in-campaign::after {
+    content: '';
+    position: absolute;
+    left: 100%;
+    top: 50%;
+    width: var(--space-xs);
+    height: calc(100% + var(--space-lg));
+    transform: translateY(-50%);
+}
+
 .exit-fab {
     position: absolute;
     left: calc(100% + var(--space-xs));
@@ -175,6 +191,11 @@ const submitCreate = async (payload) => {
 }
 
 .campaign-btn-wrapper:hover .exit-fab {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.campaign-btn-wrapper:focus-within .exit-fab {
     opacity: 1;
     pointer-events: auto;
 }
@@ -239,7 +260,7 @@ const submitCreate = async (payload) => {
 .campaign-menu-section-label {
     font-size: var(--font-size-11);
     font-weight: var(--font-weight-semibold);
-    color: var(--color-text-tertiary);
+    color: var(--color-text-secondary);
     text-transform: uppercase;
     letter-spacing: 0.06em;
     padding: var(--space-sm) var(--space-lg);

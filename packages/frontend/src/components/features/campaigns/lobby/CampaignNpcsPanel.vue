@@ -15,9 +15,8 @@
                 <p class="status-label">ACTIVE</p>
                 <div v-if="activeNpcs.length === 0" class="status-drop-zone">Drop characters here</div>
                 <div v-else class="char-badge-grid">
-                    <SelectedCharacterBadge v-for="npc in activeNpcs" :key="npc.id" :character="npc"
-                        :always-show-name="true" draggable="true" class="draggable-badge"
-                        @dragstart="handleDragStart($event, npc.id)" @dragend="handleDragEnd"
+                    <SelectedCharacterBadge v-for="npc in activeNpcs" :key="npc.id" :character="npc" draggable="true"
+                        class="draggable-badge" @dragstart="handleDragStart($event, npc.id)" @dragend="handleDragEnd"
                         :on-remove="(character) => deleteNPC(character)"
                         :on-click="(character) => viewNPCSheet(character)" />
                 </div>
@@ -30,7 +29,7 @@
                 <div v-if="inactiveNpcs.length === 0" class="status-drop-zone">Drop characters here</div>
                 <div v-else class="char-badge-grid">
                     <SelectedCharacterBadge v-for="npc in inactiveNpcs" :key="npc.id" :character="npc"
-                        :always-show-name="true" :is-inactive="true" draggable="true" class="draggable-badge"
+                        :is-inactive="true" draggable="true" class="draggable-badge"
                         @dragstart="handleDragStart($event, npc.id)" @dragend="handleDragEnd"
                         :on-remove="(character) => deleteNPC(character)"
                         :on-click="(character) => viewNPCSheet(character)" />

@@ -40,6 +40,22 @@
 
                 <!-- Dropdown menu -->
                 <div v-if="dropdownOpen" class="dropdown-menu">
+
+                    <div v-if="authStore.isAdmin" class="dropdown-menu-section-label">Admin</div>
+                    <router-link v-if="authStore.isAdmin" to="/admin" class="dropdown-item dropdown-item--admin"
+                        @click.stop="closeDropdown">
+                        Admin Panel
+                    </router-link>
+                    <router-link v-if="authStore.isAdmin" to="/tabletop" class="dropdown-item dropdown-item--admin"
+                        @click.stop="closeDropdown">
+                        Tabletop
+                    </router-link>
+                    <router-link v-if="authStore.isAdmin" to="/design-lab" class="dropdown-item dropdown-item--admin"
+                        @click.stop="closeDropdown">
+                        Design Lab
+                    </router-link>
+                    <div v-if="authStore.isAdmin" class="dropdown-menu-divider" />
+
                     <button @click.stop="openPreferences" class="dropdown-item">
                         Preferences
                     </button>
@@ -47,18 +63,10 @@
                         class="dropdown-item dropdown-item--highlight">
                         Invites ({{ campaignStore.pendingInviteCount }})
                     </button>
-                    <router-link v-if="authStore.isAdmin" to="/admin" class="dropdown-item" @click.stop="closeDropdown">
-                        Admin Panel
-                    </router-link>
-                    <router-link v-if="authStore.isAdmin" to="/tabletop" class="dropdown-item"
-                        @click.stop="closeDropdown">
-                        Tabletop
-                    </router-link>
-                    <router-link v-if="authStore.isAdmin" to="/design-lab" class="dropdown-item"
-                        @click.stop="closeDropdown">
-                        Design Lab
-                    </router-link>
-                    <button @click.stop="handleSignOut" class="dropdown-item">
+
+
+                    <div class="dropdown-menu-divider" />
+                    <button @click.stop="handleSignOut" class="dropdown-item dropdown-item--signout">
                         Sign Out
                     </button>
                 </div>
@@ -219,35 +227,63 @@ const handleSignOut = async () => {
 
 .dropdown-menu {
     position: absolute;
-    top: 100%;
+    top: calc(100% + var(--space-lg));
     right: 0;
-    margin-top: var(--space-sm);
     background: var(--color-bg-secondary);
-    border: 1px solid var(--color-gray-medium);
-    border-radius: var(--radius-5);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--overlay-white-medium);
+    border-radius: var(--radius-10);
+    box-shadow: var(--shadow-elevation-md, var(--shadow-lg));
     width: 120px;
-    z-index: 1000;
+    z-index: var(--z-dropdown);
+    overflow: hidden;
 }
 
 .dropdown-item {
     display: block;
     min-width: 120px;
     max-width: 120px;
-    padding: var(--space-sm) var(--space-md);
+    padding: var(--space-md) var(--space-lg);
     background: none;
     border: none;
-    color: var(--color-white);
+    color: var(--color-text-primary);
     font-size: var(--font-size-14);
     font-family: var(--font-family-primary);
     text-align: left;
     text-decoration: none;
     cursor: pointer;
-    transition: background-color var(--duration-fast);
+    transition: background var(--transition-fast);
+}
+
+.dropdown-item:hover {
+    background: var(--overlay-white-subtle);
 }
 
 .dropdown-item--highlight {
     color: var(--color-primary);
+}
+
+.dropdown-item--admin {
+    color: var(--color-accent-cyan);
+}
+
+.dropdown-item--signout {
+    color: var(--color-primary);
+    font-weight: var(--font-weight-semibold);
+}
+
+.dropdown-menu-divider {
+    height: 1px;
+    background: var(--overlay-white-medium);
+    margin: var(--space-sm) 0;
+}
+
+.dropdown-menu-section-label {
+    font-size: var(--font-size-11);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: var(--space-sm) var(--space-lg);
 }
 
 /* Adjustment for active route underline in auth dropdown */

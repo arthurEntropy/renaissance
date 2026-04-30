@@ -45,7 +45,7 @@ const FAB_TYPE_CONFIG = {
     [FAB_TYPES.CONFIRM]: { icon: CheckIcon, tooltip: 'Save Changes' },
     [FAB_TYPES.ADD]: { icon: PlusIcon, tooltip: 'Add' },
     [FAB_TYPES.DUPLICATE]: { icon: DocumentDuplicateIcon, tooltip: 'Duplicate' },
-    [FAB_TYPES.DELETE]: { icon: XMarkIcon, tooltip: 'Delete' },
+    [FAB_TYPES.DELETE]: { icon: XMarkIcon, tooltip: '' }, // This variant is used for close and remove actions
     [FAB_TYPES.TRASH]: { icon: TrashIcon, tooltip: 'Delete permanently' },
     [FAB_TYPES.DRAG]: { icon: Bars3Icon, tooltip: 'Drag to reorder' },
     [FAB_TYPES.SETTINGS]: { icon: Cog6ToothIcon, tooltip: 'Settings' },
@@ -173,8 +173,6 @@ const variantConfig = computed(() => {
     color: var(--color-primary);
 }
 
-
-
 .fab--confirm {
     background: var(--color-success);
     border-color: var(--color-success);
@@ -185,23 +183,14 @@ const variantConfig = computed(() => {
     border-color: var(--color-success-hover);
 }
 
-.fab--trash {
+.fab--trash:hover {
     background: var(--color-danger);
     border-color: var(--color-danger);
 }
 
-.fab--trash:hover {
-    background: var(--color-danger-hover);
-    border-color: var(--color-danger-hover);
-}
-
-.fab--exit {
-    background: var(--overlay-black-medium);
-}
-
 .fab--exit:hover {
-    background: var(--color-danger, #c0392b);
-    border-color: var(--color-danger, #c0392b);
+    background: var(--color-primary);
+    border-color: var(--color-primary);
 }
 
 /* === VISIBILITY VARIANTS === */

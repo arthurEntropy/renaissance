@@ -1,0 +1,34 @@
+{
+  "id": "b42c0e45-4270-4936-a27e-f58230eee0d4",
+  "slug": "the-quest-for-the-witch-s-vale",
+  "name": "The Quest for the Witch's Vale",
+  "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur metus nisl, consectetur venenatis congue ut, varius nec ipsum. Praesent ornare, massa vel faucibus feugiat, tortor leo rutrum ante, id viverra nisl dolor eget eros. Ut id faucibus nibh. Donec pellentesque tincidunt est, quis tempus enim euismod at. Proin at mi faucibus, condimentum orci eget, molestie nisl. Morbi porta volutpat enim, a venenatis ex vulputate ut. Sed malesuada et nunc nec tempor.</p><p style=\"text-align: justify\">Cras ut posuere nisl, id faucibus risus. Donec non pharetra felis. Etiam ut porttitor massa. Fusce lacinia auctor erat et mollis. Nulla facilisi. Duis nunc tortor, fringilla quis ex sed, ultricies iaculis magna. Aliquam sodales velit finibus turpis mattis sollicitudin. Vestibulum vel aliquam tortor. Duis a velit sed dui rhoncus lobortis. Sed ultrices turpis eget sem iaculis egestas. Nulla facilisi. Sed et est ac nulla porttitor pharetra non eget augue.</p><p style=\"text-align: justify\">Praesent volutpat aliquet sollicitudin. Morbi placerat dolor vel magna ullamcorper, ut vestibulum purus laoreet. Vestibulum eu ex mattis odio pulvinar placerat. Donec ullamcorper porttitor placerat. Mauris rhoncus blandit bibendum. Aenean dapibus ante in lorem pulvinar lobortis. Integer vulputate pulvinar posuere. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>",
+  "coverImageUrl": "https://cdn.midjourney.com/3174384a-f6a0-426d-abf5-c351fc3f933a/0_0.png",
+  "createdAt": "2026-04-30T18:30:31.947Z",
+  "lastModified": "2026-04-30T18:57:43.145Z",
+  "isDeleted": false,
+  "foundingGmUserId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
+  "members": [
+    {
+      "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
+      "role": "gm",
+      "status": "accepted",
+      "characterIds": [],
+      "joinedAt": "2026-04-30T18:30:31.947Z",
+      "invitedAt": "2026-04-30T18:30:31.947Z",
+      "invitedByUserId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1"
+    },
+    {
+      "userId": "yMwXRvIrCwWwG4NRC4HBjN2BrOM2",
+      "role": "player",
+      "status": "accepted",
+      "characterIds": [],
+      "joinedAt": "2026-04-30T18:57:43.145Z",
+      "invitedAt": "2026-04-30T18:57:04.635Z",
+      "invitedByUserId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1"
+    }
+  ],
+  "includedConceptIds": [],
+  "shops": [],
+  "sessionNotes": ""
+}

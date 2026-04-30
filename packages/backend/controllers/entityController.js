@@ -63,7 +63,6 @@ const createEntity = (entity) => (req, res) => {
     // For characters, add owner information
     if (entity === 'characters' && req.user) {
       req.body.ownerId = req.user.uid
-      req.body.ownerEmail = req.user.email
       req.body.createdAt = new Date().toISOString()
     }
     
@@ -97,7 +96,6 @@ const updateEntity = (entity) => (req, res) => {
     // Preserve ownership information
     if (entity === 'characters') {
       req.body.ownerId = existingEntity.ownerId
-      req.body.ownerEmail = existingEntity.ownerEmail
       req.body.updatedAt = new Date().toISOString()
     }
 

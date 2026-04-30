@@ -27,9 +27,8 @@
                 <div v-if="activeCharacters.length === 0" class="status-drop-zone">Drop characters here</div>
                 <div v-else class="char-badge-grid">
                     <SelectedCharacterBadge v-for="char in activeCharacters" :key="char.id" :character="char"
-                        :always-show-name="true" draggable="true" class="draggable-badge"
-                        @dragstart="handleDragStart($event, char.id)" @dragend="handleDragEnd"
-                        :on-remove="(character) => removeCharacterFromCampaign(character)"
+                        draggable="true" class="draggable-badge" @dragstart="handleDragStart($event, char.id)"
+                        @dragend="handleDragEnd" :on-remove="(character) => removeCharacterFromCampaign(character)"
                         :on-click="(character) => viewCharacterSheet(character)" />
                 </div>
             </div>
@@ -41,7 +40,7 @@
                 <div v-if="inactiveCharacters.length === 0" class="status-drop-zone">Drop characters here</div>
                 <div v-else class="char-badge-grid">
                     <SelectedCharacterBadge v-for="char in inactiveCharacters" :key="char.id" :character="char"
-                        :always-show-name="true" :is-inactive="true" draggable="true" class="draggable-badge"
+                        :is-inactive="true" draggable="true" class="draggable-badge"
                         @dragstart="handleDragStart($event, char.id)" @dragend="handleDragEnd"
                         :on-remove="(character) => removeCharacterFromCampaign(character)"
                         :on-click="(character) => viewCharacterSheet(character)" />

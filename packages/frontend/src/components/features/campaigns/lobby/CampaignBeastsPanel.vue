@@ -19,9 +19,8 @@
                     <div v-if="activeBeasts.length === 0" class="status-drop-zone">Drop characters here</div>
                     <div v-else class="char-badge-grid">
                         <SelectedBeastBadge v-for="beast in activeBeasts" :key="beast.id" :beast="beast"
-                            :always-show-name="true" draggable="true" class="draggable-badge"
-                            @dragstart="handleDragStart($event, beast.id)" @dragend="handleDragEnd"
-                            :on-remove="(character) => deleteBeast(character)"
+                            draggable="true" class="draggable-badge" @dragstart="handleDragStart($event, beast.id)"
+                            @dragend="handleDragEnd" :on-remove="(character) => deleteBeast(character)"
                             :on-click="(character) => viewBeastSheet(character)" />
                     </div>
                 </div>
@@ -33,7 +32,7 @@
                     <div v-if="inactiveBeasts.length === 0" class="status-drop-zone">Drop characters here</div>
                     <div v-else class="char-badge-grid">
                         <SelectedBeastBadge v-for="beast in inactiveBeasts" :key="beast.id" :beast="beast"
-                            :always-show-name="true" :is-inactive="true" draggable="true" class="draggable-badge"
+                            :is-inactive="true" draggable="true" class="draggable-badge"
                             @dragstart="handleDragStart($event, beast.id)" @dragend="handleDragEnd"
                             :on-remove="(character) => deleteBeast(character)"
                             :on-click="(character) => viewBeastSheet(character)" />

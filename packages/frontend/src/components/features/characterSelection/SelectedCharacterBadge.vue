@@ -6,9 +6,8 @@
         <div class="character-portrait">
             <img :src="optimizedCharacterArt" :alt="resolvedCharacter.name" />
         </div>
-        <div class="close-button" @click.stop="handleRemove">
-            <XMarkIcon class="close-icon" />
-        </div>
+        <FloatingActionButton class="close-fab" :variant="FAB_TYPES.DELETE" :size="FAB_SIZES.SMALL"
+            :visibility="FAB_VISIBILITIES.ALWAYS" @click.stop="handleRemove" />
         <div class="character-name-tooltip">{{ resolvedCharacter.name }}</div>
     </div>
 </template>
@@ -17,10 +16,11 @@
 import { computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useCharactersStore } from '@/stores/charactersStore'
-import { XMarkIcon } from '@heroicons/vue/24/outline'
+import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import { useOptimizedImage } from '@/composables/useOptimizedImage'
 import { createSlug } from '@/utils/urlHelpers'
 import { MIDJOURNEY_IMAGE_CONTEXTS } from '@shared/constants/artConstants.js'
+import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 
 const props = defineProps({
     /** Override the character shown (instead of the store's activePlayerCharacter) */
@@ -121,41 +121,25 @@ const handleRemove = () => {
     object-fit: cover;
 }
 
-.close-button {
+.close-fab {
     position: absolute;
     top: -8px;
     right: -8px;
-    width: 22px;
-    height: 22px;
-    border-radius: 50%;
-    background-color: var(--color-black);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    opacity: 0;
+    opacity: 0 !important;
+    pointer-events: none;
     transition: opacity var(--transition-normal);
-    cursor: pointer;
 }
 
-.selected-character-badge:hover .close-button {
-    opacity: 1;
-}
-
-.close-icon {
-    width: 16px;
-    height: 16px;
-    color: var(--color-text-primary);
-}
-
-.close-button:hover .close-icon {
-    color: var(--color-danger);
+.selected-character-badge:hover .close-fab {
+    opacity: 1 !important;
+    pointer-events: auto;
 }
 
 .character-name-tooltip {
     position: absolute;
     bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%) translateY(10px);
+    left: 0;
+    transform: translateY(10px);
     background-color: var(--overlay-black-heavy);
     color: var(--color-text-primary);
     padding: var(--space-xs) var(--space-sm);
@@ -170,7 +154,7 @@ const handleRemove = () => {
 /* Always-visible name variant */
 .name-always-visible .character-name-tooltip {
     opacity: 1;
-    transform: translateX(-50%) translateY(0);
+    transform: translateY(0);
 }
 
 @media (max-width: 768px) {
@@ -180,8 +164,9 @@ const handleRemove = () => {
         left: var(--space-lg);
     }
 
-    .close-button {
-        opacity: 1;
+    .close-fab {
+        opacity: 1 !important;
+        pointer-events: auto;
     }
 
     .character-name-tooltip {

@@ -6,11 +6,6 @@
             </div>
         </Teleport>
 
-        <div v-if="isGM && campaign && !showCharacterSheet" class="admin-controls">
-            <FloatingActionButton :variant="FAB_TYPES.SETTINGS" :size="FAB_SIZES.LARGE"
-                :visibility="FAB_VISIBILITIES.ALWAYS" @click="openEditImageModal" />
-        </div>
-
         <div v-if="isLoading" class="lobby-loading">
             <p>Loading campaign…</p>
         </div>
@@ -22,23 +17,33 @@
 
         <div v-else-if="!showCharacterSheet" class="lobby-content">
             <div class="lobby-header">
-                <div class="edit-hover-area">
-                    <input v-if="isEditingName" v-model="localName" class="name-input" ref="nameInputRef"
-                        @blur="saveName" @keyup.enter="saveName" @keyup.esc="cancelNameEdit" />
-                    <h1 v-else class="lobby-title">
-                        {{ campaign.name }}
-                        <FloatingActionButton v-if="isGM" :variant="FAB_TYPES.EDIT" :size="FAB_SIZES.SMALL"
-                            :visibility="FAB_VISIBILITIES.ON_HOVER" @click.stop="startNameEdit" />
-                    </h1>
+                <div class="lobby-header-top-row">
+                    <div class="edit-hover-area lobby-title-area">
+                        <input v-if="isEditingName" v-model="localName" class="name-input" ref="nameInputRef"
+                            @blur="saveName" @keyup.enter="saveName" @keyup.esc="cancelNameEdit" />
+                        <h1 v-else class="lobby-title">
+                            {{ campaign.name }}
+                            <FloatingActionButton v-if="isGM" :variant="FAB_TYPES.EDIT" :size="FAB_SIZES.SMALL"
+                                :visibility="FAB_VISIBILITIES.ON_HOVER" @click.stop="startNameEdit" />
+                        </h1>
+                    </div>
+                    <FloatingActionButton v-if="isGM" :variant="FAB_TYPES.SETTINGS" :size="FAB_SIZES.LARGE"
+                        :visibility="FAB_VISIBILITIES.ALWAYS" @click="openEditImageModal" />
                 </div>
 
-                <div class="edit-hover-area desc-area">
-                    <textarea v-if="isEditingDescription" v-model="localDescription" class="desc-textarea"
-                        ref="descTextareaRef" rows="3" @blur="saveDescription" @keyup.esc="cancelDescEdit" />
-                    <div v-else class="desc-display">
-                        <p class="lobby-description">{{ campaign.description || '' }}</p>
+                <div class="desc-area">
+                    <TextEditor v-if="isEditingDescription" v-model="localDescription" :auto-height="true"
+                        placeholder="Campaign description…" />
+                    <div v-else class="desc-display edit-hover-area" @click="isGM && startDescEdit()">
+                        <div v-if="campaign.description" v-html="safeDescription"
+                            class="lobby-description rich-description" />
+                        <p v-else class="lobby-description lobby-description--empty">{{ '' }}</p>
                         <FloatingActionButton v-if="isGM" :variant="FAB_TYPES.EDIT" :size="FAB_SIZES.SMALL"
-                            :visibility="FAB_VISIBILITIES.ON_HOVER" @click="startDescEdit" />
+                            :visibility="FAB_VISIBILITIES.ON_HOVER" @click.stop="startDescEdit" />
+                    </div>
+                    <div v-if="isEditingDescription" class="desc-edit-actions">
+                        <ActionButton variant="neutral" size="small" @click="cancelDescEdit">Cancel</ActionButton>
+                        <ActionButton variant="primary" size="small" @click="saveDescription">Save</ActionButton>
                     </div>
                 </div>
             </div>
@@ -56,11 +61,12 @@
                         @view-character="openCharacterSheet" />
                 </div>
 
-                <CampaignShopsPanel :campaign="campaign" :campaign-id="campaignId" :is-g-m="isGM" />
-
                 <CampaignBeastsPanel v-if="isGM" :campaign-id="campaignId" :beasts="campaignBeastInstances"
                     @created="handleCampaignCharacterCreated" @deleted="handleCampaignCharacterDeleted"
                     @view-character="openCharacterSheet" />
+
+                <CampaignShopsPanel :campaign="campaign" :campaign-id="campaignId" :is-g-m="isGM" />
+
             </div>
         </div>
 
@@ -122,6 +128,8 @@ import CampaignShopsPanel from '@/components/features/campaigns/lobby/CampaignSh
 import CampaignCurationPanel from '@/components/features/campaigns/lobby/CampaignCurationPanel.vue'
 import CampaignBeastsPanel from '@/components/features/campaigns/lobby/CampaignBeastsPanel.vue'
 import CharacterSheet from '@/components/features/characterSheet/CharacterSheet.vue'
+import TextEditor from '@/components/ui/textEditor/TextEditor.vue'
+import { sanitizeHtml } from '@/utils/sanitizeHtml'
 import NavigationControls from '@/components/ui/NavigationControls.vue'
 import CampaignService from '@/services/entities/campaignService'
 import { CAMPAIGN_ROLE } from '@shared/constants/campaignConstants'
@@ -137,13 +145,13 @@ const keepingStore = useKeepingStore()
 const equipmentStore = useEquipmentStore()
 const equipmentTypesStore = useEquipmentTypesStore()
 
-// ── Campaign ──────────────────────────────────────────────────────────────
+// Campaign
 const isLoading = ref(true)
 const slug = computed(() => route.params.slug)
 const campaign = computed(() => campaignStore.getBySlug(slug.value))
 const campaignId = computed(() => campaign.value?.id)
 
-// ── Auth ──────────────────────────────────────────────────────────────────
+// Auth
 const isGM = computed(() => {
     const member = campaign.value?.members?.find((m) => m.userId === authStore.user?.uid)
     return member?.role === CAMPAIGN_ROLE.GM
@@ -151,7 +159,7 @@ const isGM = computed(() => {
 
 const isFoundingGM = computed(() => campaign.value?.foundingGmUserId === authStore.user?.uid)
 
-// ── Background ────────────────────────────────────────────────────────────
+// Background
 const bgStyle = computed(() => {
     const url = campaign.value?.coverImageUrl
     if (!url) return {}
@@ -163,7 +171,7 @@ const bgStyle = computed(() => {
     }
 })
 
-// ── Inline Edit: Name ─────────────────────────────────────────────────────
+// Inline Edit: Name
 const isEditingName = ref(false)
 const localName = ref('')
 const nameInputRef = ref(null)
@@ -187,16 +195,15 @@ const cancelNameEdit = () => {
     isEditingName.value = false
 }
 
-// ── Inline Edit: Description ──────────────────────────────────────────────
+// Inline Edit: Description
 const isEditingDescription = ref(false)
 const localDescription = ref('')
-const descTextareaRef = ref(null)
 
-const startDescEdit = async () => {
+const safeDescription = computed(() => sanitizeHtml(campaign.value?.description || ''))
+
+const startDescEdit = () => {
     localDescription.value = campaign.value?.description || ''
     isEditingDescription.value = true
-    await nextTick()
-    descTextareaRef.value?.focus()
 }
 
 const saveDescription = async () => {
@@ -209,7 +216,7 @@ const cancelDescEdit = () => {
     isEditingDescription.value = false
 }
 
-// ── Edit Background Image Modal ───────────────────────────────────────────
+// Edit Background Image Modal
 const showEditImageModal = ref(false)
 const editImageUrl = ref('')
 const savingSettings = ref(false)
@@ -235,7 +242,7 @@ const saveSettings = async () => {
     }
 }
 
-// ── Character Sheet Overlay (Lobby) ──────────────────────────────────────
+// Character Sheet Overlay (Lobby)
 const showCharacterSheet = ref(false)
 const activeCharacterSection = ref(null)
 
@@ -285,7 +292,7 @@ const closeCharacterSheet = () => {
     charactersStore.deselectCharacter()
 }
 
-// ── Campaign Characters (NPCs + Beasts) ───────────────────────────────────
+// Campaign Characters (NPCs + Beasts)
 const campaignCharacters = ref([])
 const campaignNPCs = computed(() => campaignCharacters.value.filter((c) => c.isNPC))
 const campaignBeastInstances = computed(() => campaignCharacters.value.filter((c) => c.beastType === 'instance'))
@@ -307,7 +314,7 @@ const handleCampaignCharacterDeleted = (characterId) => {
     campaignCharacters.value = campaignCharacters.value.filter((character) => character.id !== characterId)
 }
 
-// ── Lifecycle ─────────────────────────────────────────────────────────────
+// Lifecycle
 onMounted(async () => {
     await campaignStore.fetch()
 
@@ -354,14 +361,26 @@ onMounted(async () => {
     inset: 0;
 }
 
-.admin-controls {
-    position: fixed;
-    top: calc(var(--nav-height) + var(--space-lg));
-    right: var(--space-lg);
-    z-index: var(--z-tooltip);
+.lobby-header {
     display: flex;
-    gap: var(--space-xs);
-    align-items: center;
+    flex-direction: column;
+    gap: var(--space-md);
+    background: var(--overlay-black-heavy);
+    border-radius: var(--radius-10);
+    padding: var(--space-lg) var(--space-xl);
+    text-align: left;
+}
+
+.lobby-header-top-row {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-md);
+    justify-content: space-between;
+}
+
+.lobby-title-area {
+    flex: 1;
+    min-width: 0;
 }
 
 .lobby-page {
@@ -391,16 +410,6 @@ onMounted(async () => {
     gap: var(--space-xl);
 }
 
-.lobby-header {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-md);
-    background: var(--overlay-black-heavy);
-    border-radius: var(--radius-10);
-    padding: var(--space-lg) var(--space-xl);
-    text-align: left;
-}
-
 .lobby-title {
     font-size: var(--font-size-40);
     font-weight: bold;
@@ -425,14 +434,14 @@ onMounted(async () => {
     font-family: var(--font-family-title, var(--font-family-primary));
 }
 
-.desc-area {
-    position: relative;
-}
-
 .desc-display {
     display: flex;
     align-items: flex-start;
     gap: var(--space-sm);
+    cursor: pointer;
+    border-radius: var(--radius-5);
+    padding: var(--space-xs);
+    margin: calc(-1 * var(--space-xs));
 }
 
 .lobby-description {
@@ -443,22 +452,24 @@ onMounted(async () => {
     flex: 1;
 }
 
-.desc-textarea {
-    width: 100%;
-    background: var(--color-bg-primary);
-    border: 1px solid var(--overlay-white-medium);
-    border-radius: var(--radius-5);
-    color: var(--color-text-primary);
-    font-family: var(--font-family-primary);
-    font-size: var(--font-size-16);
-    padding: var(--space-sm) var(--space-md);
-    resize: vertical;
-    outline: none;
-    box-sizing: border-box;
+.lobby-description--empty {
+    font-style: italic;
+    color: var(--color-text-muted);
 }
 
-.desc-textarea:focus {
-    border-color: var(--color-primary);
+.rich-description :deep(p) {
+    margin: 0 0 var(--space-sm) 0;
+}
+
+.rich-description :deep(p:last-child) {
+    margin-bottom: 0;
+}
+
+.desc-edit-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--space-sm);
+    margin-top: var(--space-sm);
 }
 
 .lobby-sections {
