@@ -16,6 +16,7 @@
 .section-title {
     font-size: var(--font-size-24);
     font-weight: var(--font-weight-semibold);
+    line-height: 1.2;
     color: var(--color-text-primary);
     margin: 0;
 }
@@ -67,12 +68,29 @@
 }
 
 .char-badge-grid :deep(.selected-character-badge) {
-    position: static;
+    position: static !important;
+    z-index: auto !important;
+    top: auto !important;
+    left: auto !important;
+    bottom: auto !important;
+    right: auto !important;
     cursor: pointer;
     transition: transform var(--transition-normal);
 }
 
-.char-badge-grid :deep(.selected-character-badge:hover) {
+.char-badge-grid :deep(.selected-beast-badge) {
+    position: static !important;
+    z-index: auto !important;
+    top: auto !important;
+    left: auto !important;
+    bottom: auto !important;
+    right: auto !important;
+    cursor: pointer;
+    transition: transform var(--transition-normal);
+}
+
+.char-badge-grid :deep(.selected-character-badge:hover),
+.char-badge-grid :deep(.selected-beast-badge:hover) {
     transform: scale(1.05);
 }
 

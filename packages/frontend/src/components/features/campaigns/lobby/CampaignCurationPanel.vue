@@ -1,40 +1,28 @@
 <template>
     <div class="section-card full-width-section">
         <div class="section-header">
-            <div class="section-title-row" @click="isCollapsed = !isCollapsed">
-                <component :is="isCollapsed ? ChevronRightIcon : ChevronDownIcon" class="section-chevron" />
-                <h2 class="section-title">Curation</h2>
-            </div>
-            <div class="curation-save-row">
-                <span v-if="curationSaveSuccess" class="save-success">Saved</span>
-                <ActionButton variant="primary" size="small" @click="saveCuration" :disabled="curationSaving">
-                    {{ curationSaving ? 'Saving…' : 'Save' }}
-                </ActionButton>
-            </div>
+            <h2 class="section-title">Curation</h2>
         </div>
 
-        <div v-show="!isCollapsed">
-            <p class="section-description">Select which game concepts players can access in this campaign.</p>
-            <div class="curation-grid">
-                <div v-for="section in conceptSections" :key="section.type" class="curation-section">
-                    <div class="curation-section-header">
-                        <h3 class="curation-section-title">
-                            {{ section.label }}
-                            <span class="count-badge">{{ includedCount(section.items) }}/{{ section.items.length
-                            }}</span>
-                        </h3>
-                        <div class="batch-actions">
-                            <button class="batch-btn" @click="includeAll(section.items)">All</button>
-                            <button class="batch-btn" @click="excludeAll(section.items)">None</button>
-                        </div>
+        <p class="section-description">Select which game concepts players can access in this campaign.</p>
+        <div class="curation-grid">
+            <div v-for="section in conceptSections" :key="section.type" class="curation-section">
+                <div class="curation-section-header">
+                    <h3 class="curation-section-title">
+                        {{ section.label }}
+                        <span class="count-badge">{{ includedCount(section.items) }}/{{ section.items.length }}</span>
+                    </h3>
+                    <div class="batch-actions">
+                        <button class="batch-btn" @click="includeAll(section.items)">All</button>
+                        <button class="batch-btn" @click="excludeAll(section.items)">None</button>
                     </div>
-                    <div class="concept-list">
-                        <button v-for="concept in section.items" :key="concept.id" type="button" class="concept-item"
-                            :class="{ 'concept-item--included': isIncluded(concept.id) }"
-                            @click="toggleConcept(concept.id)">
-                            {{ concept.name }}
-                        </button>
-                    </div>
+                </div>
+                <div class="concept-list">
+                    <button v-for="concept in section.items" :key="concept.id" type="button" class="concept-item"
+                        :class="{ 'concept-item--included': isIncluded(concept.id) }"
+                        @click="toggleConcept(concept.id)">
+                        {{ concept.name }}
+                    </button>
                 </div>
             </div>
         </div>
@@ -43,10 +31,8 @@
 
 <script setup>
 import { computed, ref, watch } from 'vue'
-import { ChevronDownIcon, ChevronRightIcon } from '@heroicons/vue/24/outline'
 import { useCampaignStore } from '@/stores/campaignStore'
 import { useConceptsStore } from '@/stores/conceptsStore'
-import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import { ConceptType } from '@shared/constants/conceptTypes'
 
 const props = defineProps({
@@ -63,10 +49,7 @@ const props = defineProps({
 const campaignStore = useCampaignStore()
 const conceptsStore = useConceptsStore()
 
-const isCollapsed = ref(false)
 const localIncluded = ref(new Set())
-const curationSaving = ref(false)
-const curationSaveSuccess = ref(false)
 
 watch(
     () => props.includedConceptIds,
@@ -106,18 +89,10 @@ const excludeAll = (items) => {
 }
 
 const saveCuration = async () => {
-    curationSaving.value = true
-    curationSaveSuccess.value = false
-    try {
-        await campaignStore.updateIncludedConcepts(props.campaignId, [...localIncluded.value])
-        curationSaveSuccess.value = true
-        setTimeout(() => {
-            curationSaveSuccess.value = false
-        }, 2000)
-    } finally {
-        curationSaving.value = false
-    }
+    await campaignStore.updateIncludedConcepts(props.campaignId, [...localIncluded.value])
 }
+
+defineExpose({ saveCuration })
 </script>
 
 <style scoped>
@@ -210,16 +185,5 @@ const saveCuration = async () => {
 .concept-item--included {
     background: var(--color-primary-hover);
     color: var(--color-black);
-}
-
-.curation-save-row {
-    display: flex;
-    align-items: center;
-    gap: var(--space-md);
-}
-
-.save-success {
-    color: var(--color-text-secondary);
-    font-size: var(--font-size-13);
 }
 </style>

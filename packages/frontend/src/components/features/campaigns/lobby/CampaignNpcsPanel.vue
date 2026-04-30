@@ -1,9 +1,9 @@
 <template>
-    <div class="section-card">
+    <div class="section-card edit-hover-area">
         <div class="section-header">
             <h2 class="section-title">NPCs</h2>
-            <FloatingActionButton :variant="FAB_TYPES.ADD" :size="FAB_SIZES.SMALL" :visibility="FAB_VISIBILITIES.ALWAYS"
-                @click="showCreateNPCModal = true" />
+            <FloatingActionButton :variant="FAB_TYPES.ADD" :size="FAB_SIZES.SMALL"
+                :visibility="FAB_VISIBILITIES.ON_HOVER" @click="showCreateNPCModal = true" />
         </div>
 
         <div v-if="npcs.length === 0" class="empty-state">
@@ -32,15 +32,6 @@
             </div>
         </div>
 
-        <Teleport to="body">
-            <div v-if="showNPCSheet" class="sheet-overlay" @click.self="closeNPCSheet">
-                <FloatingActionButton class="sheet-close" :variant="FAB_TYPES.DELETE" :size="FAB_SIZES.LARGE"
-                    :visibility="FAB_VISIBILITIES.ALWAYS" @click="closeNPCSheet" />
-                <div class="sheet-container">
-                    <CharacterSheet @close="closeNPCSheet" />
-                </div>
-            </div>
-        </Teleport>
     </div>
 </template>
 
@@ -51,7 +42,6 @@ import CampaignService from '@/services/entities/campaignService'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import SelectedCharacterBadge from '@/components/features/characterSelection/SelectedCharacterBadge.vue'
-import CharacterSheet from '@/components/features/characterSheet/CharacterSheet.vue'
 import { createDefaultCharacter } from '@shared/types'
 import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 
@@ -66,7 +56,7 @@ const props = defineProps({
     },
 })
 
-const emit = defineEmits(['created', 'deleted'])
+const emit = defineEmits(['created', 'deleted', 'view-character'])
 
 const charactersStore = useCharactersStore()
 
@@ -74,7 +64,6 @@ const showCreateNPCModal = ref(false)
 const npcForm = ref({ name: '' })
 const npcError = ref(null)
 const creatingNPC = ref(false)
-const showNPCSheet = ref(false)
 
 const createNPC = async () => {
     if (!npcForm.value.name.trim()) {
@@ -116,13 +105,7 @@ const deleteNPC = async (npc) => {
 
 const viewNPCSheet = (npc) => {
     if (!npc) return
-    charactersStore.selectCharacter(npc)
-    showNPCSheet.value = true
-}
-
-const closeNPCSheet = () => {
-    showNPCSheet.value = false
-    charactersStore.deselectCharacter()
+    emit('view-character', { section: 'npcs', character: npc })
 }
 </script>
 

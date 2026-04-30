@@ -4,6 +4,7 @@ export const FAB_TYPES = {
     ADD: 'add',
     DUPLICATE: 'duplicate',
     DELETE: 'delete',
+    TRASH: 'trash',
     DRAG: 'drag',
     SETTINGS: 'settings',
     REFRESH: 'refresh',

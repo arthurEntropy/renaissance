@@ -1,10 +1,10 @@
 <template>
-    <div class="section-card" :class="isGM ? 'chars-col' : 'chars-col--full'">
+    <div class="section-card edit-hover-area" :class="isGM ? 'chars-col' : 'chars-col--full'">
         <div class="section-header">
             <h2 class="section-title">Player Characters</h2>
             <div class="chars-fab-wrap" ref="charPickerRef">
                 <FloatingActionButton :variant="FAB_TYPES.ADD" :size="FAB_SIZES.SMALL"
-                    :visibility="FAB_VISIBILITIES.ALWAYS" @click.stop="showCharPicker = !showCharPicker" />
+                    :visibility="FAB_VISIBILITIES.ON_HOVER" @click.stop="showCharPicker = !showCharPicker" />
                 <div v-if="showCharPicker" class="char-picker-dropdown">
                     <div v-if="availableUserCharacters.length === 0" class="char-picker-empty">
                         No characters available to add
@@ -24,20 +24,18 @@
         <div v-else class="char-badge-grid">
             <SelectedCharacterBadge v-for="char in playerCharacters" :key="char.id" :character="char"
                 :always-show-name="true" :on-remove="(character) => removeCharacterFromCampaign(character)"
-                :on-click="(character) => navigateToCharacter(character)" />
+                :on-click="(character) => viewCharacterSheet(character)" />
         </div>
     </div>
 </template>
 
 <script setup>
 import { computed, onUnmounted, ref, watch } from 'vue'
-import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/authStore'
 import { useCampaignStore } from '@/stores/campaignStore'
 import { useCharactersStore } from '@/stores/charactersStore'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import SelectedCharacterBadge from '@/components/features/characterSelection/SelectedCharacterBadge.vue'
-import { createSlug } from '@/utils/urlHelpers'
 import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 
 const props = defineProps({
@@ -55,7 +53,8 @@ const props = defineProps({
     },
 })
 
-const router = useRouter()
+const emit = defineEmits(['view-character'])
+
 const authStore = useAuthStore()
 const campaignStore = useCampaignStore()
 const charactersStore = useCharactersStore()
@@ -122,9 +121,9 @@ const removeCharacterFromCampaign = async (character) => {
     await campaignStore.updateMemberCharacters(props.campaignId, member.userId, newIds)
 }
 
-const navigateToCharacter = (character) => {
+const viewCharacterSheet = (character) => {
     if (!character) return
-    router.push('/characters/' + createSlug(character.name))
+    emit('view-character', { section: 'players', character })
 }
 </script>
 
@@ -137,6 +136,8 @@ const navigateToCharacter = (character) => {
 
 .chars-fab-wrap {
     position: relative;
+    display: flex;
+    align-items: center;
 }
 
 .char-picker-dropdown {

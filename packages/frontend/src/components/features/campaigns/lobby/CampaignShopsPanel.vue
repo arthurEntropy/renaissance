@@ -1,12 +1,12 @@
 <template>
-    <div class="section-card full-width-section">
+    <div class="section-card full-width-section edit-hover-area">
         <div class="section-header">
             <div class="section-title-row" @click="isCollapsed = !isCollapsed">
                 <component :is="isCollapsed ? ChevronRightIcon : ChevronDownIcon" class="section-chevron" />
                 <h2 class="section-title">Shops</h2>
             </div>
-            <FloatingActionButton v-if="isGM" :variant="FAB_TYPES.ADD" :size="FAB_SIZES.SMALL"
-                :visibility="FAB_VISIBILITIES.ALWAYS" @click="openShopGenerator" />
+            <FloatingActionButton v-if="isGM && !isCollapsed" :variant="FAB_TYPES.ADD" :size="FAB_SIZES.SMALL"
+                :visibility="FAB_VISIBILITIES.ON_HOVER" @click="openShopGenerator" />
         </div>
 
         <div v-show="!isCollapsed">
@@ -61,6 +61,10 @@
                         <ActionButton variant="primary" @click="generateShop" :disabled="shopGenerating">
                             {{ shopGenerating ? 'Generating…' : 'Generate' }}
                         </ActionButton>
+                        <ActionButton variant="neutral" @click="stockManually" :disabled="shopSaving">
+                            {{ shopSaving ? 'Creating…' : 'Stock Manually' }}
+                        </ActionButton>
+                        <ActionButton variant="neutral" @click="closeShopGenerator">Cancel</ActionButton>
                     </div>
                 </div>
 
@@ -83,10 +87,6 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="modal-actions">
-                    <ActionButton variant="neutral" @click="closeShopGenerator">Cancel</ActionButton>
-                </div>
             </div>
         </div>
 
@@ -108,7 +108,7 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { ChevronDownIcon, ChevronRightIcon } from '@heroicons/vue/24/outline'
 import { useCampaignStore } from '@/stores/campaignStore'
 import { useConceptsStore } from '@/stores/conceptsStore'
@@ -204,6 +204,21 @@ const saveGeneratedShop = async () => {
     }
 }
 
+const stockManually = async () => {
+    shopSaving.value = true
+    try {
+        await campaignStore.saveShop(props.campaignId, {
+            name: previewShopName.value.trim() || 'New Shop',
+            items: [],
+        })
+        closeShopGenerator()
+    } catch (error) {
+        console.error('Failed to create manual stock shop:', error)
+    } finally {
+        shopSaving.value = false
+    }
+}
+
 const deleteShop = async (shopId) => {
     if (!confirm('Delete this shop?')) return
     try {
@@ -229,6 +244,24 @@ const executeRenameShop = async () => {
         console.error('Failed to rename shop:', error)
     }
 }
+
+const collapseStateKey = computed(() =>
+    props.campaignId ? `campaign-lobby:section:shops:${props.campaignId}` : null
+)
+
+watch(
+    collapseStateKey,
+    (key) => {
+        if (!key) return
+        isCollapsed.value = localStorage.getItem(key) === '1'
+    },
+    { immediate: true }
+)
+
+watch(isCollapsed, (value) => {
+    if (!collapseStateKey.value) return
+    localStorage.setItem(collapseStateKey.value, value ? '1' : '0')
+})
 </script>
 
 <style scoped>

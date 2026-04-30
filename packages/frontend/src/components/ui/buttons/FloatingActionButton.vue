@@ -11,7 +11,7 @@
 <script setup>
 import { computed } from 'vue'
 // Heroicons
-import { PlusIcon, DocumentDuplicateIcon, PencilIcon, CheckIcon, XMarkIcon, Bars3Icon, Cog6ToothIcon, ArrowPathIcon, BookOpenIcon, CalculatorIcon, ChevronDoubleDownIcon, ChevronDoubleUpIcon, ArrowRightStartOnRectangleIcon } from '@heroicons/vue/24/outline'
+import { PlusIcon, DocumentDuplicateIcon, PencilIcon, CheckIcon, XMarkIcon, TrashIcon, Bars3Icon, Cog6ToothIcon, ArrowPathIcon, BookOpenIcon, CalculatorIcon, ChevronDoubleDownIcon, ChevronDoubleUpIcon, ArrowRightStartOnRectangleIcon } from '@heroicons/vue/24/outline'
 // Custom icons
 import CrossedSwordsIcon from '@/assets/icons/characterSheet/crossed_swords.svg?component'
 import DieIcon from '@/assets/icons/characterSheet/die.svg?component'
@@ -46,6 +46,7 @@ const FAB_TYPE_CONFIG = {
     [FAB_TYPES.ADD]: { icon: PlusIcon, tooltip: 'Add' },
     [FAB_TYPES.DUPLICATE]: { icon: DocumentDuplicateIcon, tooltip: 'Duplicate' },
     [FAB_TYPES.DELETE]: { icon: XMarkIcon, tooltip: 'Delete' },
+    [FAB_TYPES.TRASH]: { icon: TrashIcon, tooltip: 'Delete permanently' },
     [FAB_TYPES.DRAG]: { icon: Bars3Icon, tooltip: 'Drag to reorder' },
     [FAB_TYPES.SETTINGS]: { icon: Cog6ToothIcon, tooltip: 'Settings' },
     [FAB_TYPES.REFRESH]: { icon: ArrowPathIcon, tooltip: 'Reset to Base Value' },
@@ -182,6 +183,16 @@ const variantConfig = computed(() => {
 .fab--confirm:hover {
     background: var(--color-success-hover);
     border-color: var(--color-success-hover);
+}
+
+.fab--trash {
+    background: var(--color-danger);
+    border-color: var(--color-danger);
+}
+
+.fab--trash:hover {
+    background: var(--color-danger-hover);
+    border-color: var(--color-danger-hover);
 }
 
 .fab--exit {

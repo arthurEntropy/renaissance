@@ -6,7 +6,7 @@
             </div>
         </Teleport>
 
-        <div v-if="isGM && campaign" class="admin-controls">
+        <div v-if="isGM && campaign && !showCharacterSheet" class="admin-controls">
             <FloatingActionButton :variant="FAB_TYPES.SETTINGS" :size="FAB_SIZES.LARGE"
                 :visibility="FAB_VISIBILITIES.ALWAYS" @click="openEditImageModal" />
         </div>
@@ -20,7 +20,7 @@
             <button class="btn-secondary" @click="router.push('/')">Go Home</button>
         </div>
 
-        <div v-else class="lobby-content">
+        <div v-else-if="!showCharacterSheet" class="lobby-content">
             <div class="lobby-header">
                 <div class="edit-hover-area">
                     <input v-if="isEditingName" v-model="localName" class="name-input" ref="nameInputRef"
@@ -48,35 +48,58 @@
                     <CampaignMembersPanel :campaign="campaign" :campaign-id="campaignId" :is-g-m="isGM"
                         :is-founding-g-m="isFoundingGM" :current-user-id="authStore.user?.uid" />
 
-                    <CampaignPlayerCharactersPanel :campaign="campaign" :campaign-id="campaignId" :is-g-m="isGM" />
+                    <CampaignPlayerCharactersPanel :campaign="campaign" :campaign-id="campaignId" :is-g-m="isGM"
+                        @view-character="openCharacterSheet" />
 
                     <CampaignNpcsPanel v-if="isGM" :campaign-id="campaignId" :npcs="campaignNPCs"
-                        @created="handleCampaignCharacterCreated" @deleted="handleCampaignCharacterDeleted" />
+                        @created="handleCampaignCharacterCreated" @deleted="handleCampaignCharacterDeleted"
+                        @view-character="openCharacterSheet" />
                 </div>
 
                 <CampaignShopsPanel :campaign="campaign" :campaign-id="campaignId" :is-g-m="isGM" />
 
-                <CampaignCurationPanel v-if="isGM" :campaign-id="campaignId"
-                    :included-concept-ids="campaign.includedConceptIds || []" />
-
                 <CampaignBeastsPanel v-if="isGM" :campaign-id="campaignId" :beasts="campaignBeastInstances"
-                    @created="handleCampaignCharacterCreated" @deleted="handleCampaignCharacterDeleted" />
+                    @created="handleCampaignCharacterCreated" @deleted="handleCampaignCharacterDeleted"
+                    @view-character="openCharacterSheet" />
             </div>
         </div>
 
-        <div v-if="showEditImageModal" class="modal-overlay" @click.self="showEditImageModal = false">
-            <div class="modal">
-                <h2 class="modal-title">Campaign Background Image</h2>
-                <div class="form-field">
-                    <label class="form-label">Image URL</label>
-                    <input v-model="editImageUrl" class="form-input" type="text" placeholder="https://…" autofocus />
+        <div v-if="showEditImageModal && !showCharacterSheet" class="modal-overlay"
+            @click.self="showEditImageModal = false">
+            <div class="modal modal--wide settings-modal">
+                <h2 class="modal-title">Campaign Settings</h2>
+                <div class="section-card settings-section-card">
+                    <div class="section-header">
+                        <h3 class="section-title settings-section-title">Background Image</h3>
+                    </div>
+                    <div class="form-field settings-form-field">
+                        <label class="form-label">Image URL</label>
+                        <input v-model="editImageUrl" class="form-input" type="text" placeholder="https://…"
+                            autofocus />
+                    </div>
                 </div>
+                <CampaignCurationPanel ref="curationPanelRef" :campaign-id="campaignId"
+                    :included-concept-ids="campaign.includedConceptIds || []" />
                 <div class="modal-actions">
                     <ActionButton variant="neutral" @click="showEditImageModal = false">Cancel</ActionButton>
-                    <ActionButton variant="primary" @click="saveImageUrl">Save</ActionButton>
+                    <ActionButton variant="primary" :disabled="savingSettings" @click="saveSettings">
+                        {{ savingSettings ? 'Saving…' : 'Save Settings' }}
+                    </ActionButton>
                 </div>
             </div>
         </div>
+
+        <Teleport to="body">
+            <div v-if="showCharacterSheet" class="sheet-overlay" @click.self="closeCharacterSheet">
+                <NavigationControls :has-previous="hasPreviousCharacter" :has-next="hasNextCharacter"
+                    @navigate="navigateCharacterSheet" />
+                <FloatingActionButton class="sheet-close" :variant="FAB_TYPES.DELETE" :size="FAB_SIZES.LARGE"
+                    :visibility="FAB_VISIBILITIES.ALWAYS" @click="closeCharacterSheet" />
+                <div class="sheet-container">
+                    <CharacterSheet @close="closeCharacterSheet" />
+                </div>
+            </div>
+        </Teleport>
     </div>
 </template>
 
@@ -98,6 +121,8 @@ import CampaignNpcsPanel from '@/components/features/campaigns/lobby/CampaignNpc
 import CampaignShopsPanel from '@/components/features/campaigns/lobby/CampaignShopsPanel.vue'
 import CampaignCurationPanel from '@/components/features/campaigns/lobby/CampaignCurationPanel.vue'
 import CampaignBeastsPanel from '@/components/features/campaigns/lobby/CampaignBeastsPanel.vue'
+import CharacterSheet from '@/components/features/characterSheet/CharacterSheet.vue'
+import NavigationControls from '@/components/ui/NavigationControls.vue'
 import CampaignService from '@/services/entities/campaignService'
 import { CAMPAIGN_ROLE } from '@shared/constants/campaignConstants'
 import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
@@ -187,15 +212,77 @@ const cancelDescEdit = () => {
 // ── Edit Background Image Modal ───────────────────────────────────────────
 const showEditImageModal = ref(false)
 const editImageUrl = ref('')
+const savingSettings = ref(false)
+const curationPanelRef = ref(null)
 
 const openEditImageModal = () => {
     editImageUrl.value = campaign.value?.coverImageUrl || ''
     showEditImageModal.value = true
 }
 
-const saveImageUrl = async () => {
-    await campaignStore.update(campaignId.value, { coverImageUrl: editImageUrl.value.trim() })
-    showEditImageModal.value = false
+const saveSettings = async () => {
+    if (!campaignId.value) return
+    savingSettings.value = true
+    try {
+        const tasks = [campaignStore.update(campaignId.value, { coverImageUrl: editImageUrl.value.trim() })]
+        if (isGM.value && curationPanelRef.value?.saveCuration) {
+            tasks.push(curationPanelRef.value.saveCuration())
+        }
+        await Promise.all(tasks)
+        showEditImageModal.value = false
+    } finally {
+        savingSettings.value = false
+    }
+}
+
+// ── Character Sheet Overlay (Lobby) ──────────────────────────────────────
+const showCharacterSheet = ref(false)
+const activeCharacterSection = ref(null)
+
+const playerCharacters = computed(() => {
+    if (!campaign.value) return []
+    const allCharacterIds = (campaign.value.members || []).flatMap((member) => member.characterIds || [])
+    return charactersStore.characters.filter((character) => allCharacterIds.includes(character.id))
+})
+
+const activeCharacterList = computed(() => {
+    if (activeCharacterSection.value === 'players') return playerCharacters.value
+    if (activeCharacterSection.value === 'npcs') return campaignNPCs.value
+    if (activeCharacterSection.value === 'beasts') return campaignBeastInstances.value
+    return []
+})
+
+const activeCharacterIndex = computed(() => {
+    const selectedId = charactersStore.selectedCharacter?.id
+    if (!selectedId) return -1
+    return activeCharacterList.value.findIndex((character) => character.id === selectedId)
+})
+
+const hasPreviousCharacter = computed(() => activeCharacterIndex.value > 0)
+const hasNextCharacter = computed(() =>
+    activeCharacterIndex.value >= 0 && activeCharacterIndex.value < activeCharacterList.value.length - 1
+)
+
+const openCharacterSheet = (payload) => {
+    const character = payload?.character
+    const section = payload?.section
+    if (!character || !section) return
+    activeCharacterSection.value = section
+    charactersStore.selectCharacter(character)
+    showCharacterSheet.value = true
+}
+
+const navigateCharacterSheet = (direction) => {
+    const nextIndex = activeCharacterIndex.value + direction
+    if (nextIndex < 0 || nextIndex >= activeCharacterList.value.length) return
+    const nextCharacter = activeCharacterList.value[nextIndex]
+    if (nextCharacter) charactersStore.selectCharacter(nextCharacter)
+}
+
+const closeCharacterSheet = () => {
+    showCharacterSheet.value = false
+    activeCharacterSection.value = null
+    charactersStore.deselectCharacter()
 }
 
 // ── Campaign Characters (NPCs + Beasts) ───────────────────────────────────
@@ -385,7 +472,32 @@ onMounted(async () => {
     display: grid;
     grid-template-columns: 2fr 3fr 3fr;
     gap: var(--space-xl);
-    align-items: start;
+    align-items: stretch;
+}
+
+:deep(.sheet-container) {
+    width: min(1240px, calc(100vw - 120px));
+    margin: 0 auto;
+}
+
+.settings-modal {
+    width: min(1100px, 94vw);
+    max-height: 90vh;
+}
+
+.settings-section-title {
+    margin: 0;
+    font-size: var(--font-size-20);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+}
+
+.settings-section-card {
+    gap: var(--space-md);
+}
+
+.settings-form-field {
+    margin-bottom: 0;
 }
 
 .btn-secondary {

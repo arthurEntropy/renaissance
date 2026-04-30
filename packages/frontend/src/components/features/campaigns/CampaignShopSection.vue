@@ -1,11 +1,15 @@
 <template>
-    <div class="section-panel">
+    <div class="section-panel edit-hover-area">
         <!-- Custom header row -->
-        <div class="shop-header edit-hover-area">
+        <div class="shop-header">
             <!-- Left: collapse toggle + title -->
             <div class="shop-header-left" @click="isCollapsed = !isCollapsed">
                 <component :is="isCollapsed ? ChevronRightIcon : ChevronDownIcon" class="collapse-chevron" />
-                <h3 class="shop-title">{{ shop.name || 'Unnamed Shop' }}</h3>
+                <div class="shop-title-wrap">
+                    <h3 class="shop-title">{{ shop.name || 'Unnamed Shop' }}</h3>
+                    <FloatingActionButton v-if="isGM && !isCollapsed" :variant="FAB_TYPES.EDIT" :size="FAB_SIZES.SMALL"
+                        :visibility="FAB_VISIBILITIES.ON_HOVER" @click.stop="$emit('rename', shop)" />
+                </div>
             </div>
 
             <!-- Center: expand all / collapse all FAB -->
@@ -17,13 +21,11 @@
 
             <!-- Right: GM actions -->
             <div class="shop-header-right" @click.stop>
-                <template v-if="isGM">
+                <template v-if="isGM && !isCollapsed">
                     <FloatingActionButton :variant="FAB_TYPES.ADD" :size="FAB_SIZES.SMALL"
-                        :visibility="FAB_VISIBILITIES.ALWAYS" @click="openAddPicker" />
-                    <FloatingActionButton :variant="FAB_TYPES.EDIT" :size="FAB_SIZES.SMALL"
-                        :visibility="FAB_VISIBILITIES.ALWAYS" @click="$emit('rename', shop)" />
-                    <FloatingActionButton :variant="FAB_TYPES.DELETE" :size="FAB_SIZES.SMALL"
-                        :visibility="FAB_VISIBILITIES.ALWAYS" @click="$emit('delete', shop.id)" />
+                        :visibility="FAB_VISIBILITIES.ON_HOVER" @click="openAddPicker" />
+                    <FloatingActionButton :variant="FAB_TYPES.TRASH" :size="FAB_SIZES.SMALL"
+                        :visibility="FAB_VISIBILITIES.ON_HOVER" @click="$emit('delete', shop.id)" />
                 </template>
             </div>
         </div>
@@ -77,7 +79,7 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { ChevronDownIcon, ChevronRightIcon } from '@heroicons/vue/24/outline'
 import EquipmentCard from '@/components/ui/cards/item/EquipmentCard.vue'
 import ThreeColumnLayout from '@/components/ui/layouts/ThreeColumnLayout.vue'
@@ -123,6 +125,26 @@ defineEmits(['rename', 'delete'])
 
 // ── Collapse state ────────────────────────────────────────────────────────
 const isCollapsed = ref(false)
+
+const collapseStateKey = computed(() =>
+    props.campaignId && props.shop?.id
+        ? `campaign-lobby:shop:${props.campaignId}:${props.shop.id}`
+        : null
+)
+
+watch(
+    collapseStateKey,
+    (key) => {
+        if (!key) return
+        isCollapsed.value = localStorage.getItem(key) === '1'
+    },
+    { immediate: true }
+)
+
+watch(isCollapsed, (value) => {
+    if (!collapseStateKey.value) return
+    localStorage.setItem(collapseStateKey.value, value ? '1' : '0')
+})
 
 // ── Resolve shop items ────────────────────────────────────────────────────
 const resolvedItems = computed(() =>
@@ -269,6 +291,12 @@ const removeItem = async (equipment) => {
     font-weight: var(--font-weight-bold);
     color: var(--color-text-primary);
     margin: 0;
+}
+
+.shop-title-wrap {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
 }
 
 .shop-header-center {
