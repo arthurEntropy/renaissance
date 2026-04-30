@@ -1,10 +1,8 @@
 <template>
-    <div class="selected-character-badge"
-        :class="{
-            'name-always-visible': alwaysShowName,
-            'selected-character-badge--inactive': isInactive,
-        }"
-        v-if="resolvedCharacter && !shouldHideBadge" @click="handleClick">
+    <div class="selected-character-badge" :class="{
+        'name-always-visible': alwaysShowName,
+        'selected-character-badge--inactive': isInactive,
+    }" v-if="resolvedCharacter && !shouldHideBadge" @click="handleClick">
         <div class="character-portrait">
             <img :src="optimizedCharacterArt" :alt="resolvedCharacter.name" />
         </div>

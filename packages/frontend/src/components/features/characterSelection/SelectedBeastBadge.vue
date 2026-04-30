@@ -1,10 +1,8 @@
 <template>
-    <div v-if="resolvedBeast" class="selected-beast-badge"
-        :class="{
-            'name-always-visible': props.alwaysShowName,
-            'selected-beast-badge--inactive': props.isInactive,
-        }"
-        @click="handleClick">
+    <div v-if="resolvedBeast" class="selected-beast-badge" :class="{
+        'name-always-visible': props.alwaysShowName,
+        'selected-beast-badge--inactive': props.isInactive,
+    }" @click="handleClick">
         <div class="beast-portrait">
             <img :src="optimizedBeastArt" :alt="resolvedBeast.name" />
         </div>
