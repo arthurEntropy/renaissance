@@ -13,10 +13,32 @@
             <div v-if="beasts.length === 0" class="empty-state">
                 <p>No beasts yet.</p>
             </div>
-            <div v-else class="char-badge-grid">
-                <SelectedBeastBadge v-for="beast in beasts" :key="beast.id" :beast="beast" :always-show-name="true"
-                    :on-remove="(character) => deleteBeast(character)"
-                    :on-click="(character) => viewBeastSheet(character)" />
+            <div v-else class="status-sections">
+                <div class="status-section" @dragover.prevent @drop="moveToActive">
+                    <p class="status-label">ACTIVE</p>
+                    <div v-if="activeBeasts.length === 0" class="status-drop-zone">Drop characters here</div>
+                    <div v-else class="char-badge-grid">
+                        <SelectedBeastBadge v-for="beast in activeBeasts" :key="beast.id" :beast="beast"
+                            :always-show-name="true" draggable="true" class="draggable-badge"
+                            @dragstart="handleDragStart($event, beast.id)" @dragend="handleDragEnd"
+                            :on-remove="(character) => deleteBeast(character)"
+                            :on-click="(character) => viewBeastSheet(character)" />
+                    </div>
+                </div>
+
+                <div v-show="showInactiveSection" class="status-divider" />
+
+                <div v-show="showInactiveSection" class="status-section" @dragover.prevent @drop="moveToInactive">
+                    <p class="status-label">INACTIVE</p>
+                    <div v-if="inactiveBeasts.length === 0" class="status-drop-zone">Drop characters here</div>
+                    <div v-else class="char-badge-grid">
+                        <SelectedBeastBadge v-for="beast in inactiveBeasts" :key="beast.id" :beast="beast"
+                            :always-show-name="true" :is-inactive="true" draggable="true" class="draggable-badge"
+                            @dragstart="handleDragStart($event, beast.id)" @dragend="handleDragEnd"
+                            :on-remove="(character) => deleteBeast(character)"
+                            :on-click="(character) => viewBeastSheet(character)" />
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -45,7 +67,7 @@
 </template>
 
 <script setup>
-import { computed, ref, watch } from 'vue'
+import { computed, onUnmounted, ref, watch } from 'vue'
 import { ChevronDownIcon, ChevronRightIcon } from '@heroicons/vue/24/outline'
 import { useCharactersStore } from '@/stores/charactersStore'
 import CampaignService from '@/services/entities/campaignService'
@@ -74,10 +96,107 @@ const showCreateBeastModal = ref(false)
 const beastForm = ref({ templateId: '' })
 const beastError = ref(null)
 const creatingBeast = ref(false)
+const inactiveBeastIds = ref([])
+const draggedBeastId = ref(null)
+const dragPreviewEl = ref(null)
 
 const availableTemplates = computed(() =>
     charactersStore.filteredBeasts.filter((beast) => !beast.beastType || beast.beastType === 'template')
 )
+
+const inactiveBeastIdSet = computed(() => new Set(inactiveBeastIds.value))
+const activeBeasts = computed(() => props.beasts.filter((beast) => !inactiveBeastIdSet.value.has(beast.id)))
+const inactiveBeasts = computed(() => props.beasts.filter((beast) => inactiveBeastIdSet.value.has(beast.id)))
+const showInactiveSection = computed(() => inactiveBeasts.value.length > 0 || draggedBeastId.value !== null)
+
+const inactiveStateKey = computed(() =>
+    props.campaignId ? `campaign-lobby:inactive:beasts:${props.campaignId}` : null
+)
+
+watch(
+    inactiveStateKey,
+    (key) => {
+        if (!key) return
+        try {
+            const parsed = JSON.parse(localStorage.getItem(key) || '[]')
+            inactiveBeastIds.value = Array.isArray(parsed) ? parsed : []
+        } catch {
+            inactiveBeastIds.value = []
+        }
+    },
+    { immediate: true }
+)
+
+watch(
+    () => props.beasts,
+    (beasts) => {
+        const validIds = new Set(beasts.map((beast) => beast.id))
+        inactiveBeastIds.value = inactiveBeastIds.value.filter((id) => validIds.has(id))
+    },
+    { immediate: true }
+)
+
+watch(inactiveBeastIds, (value) => {
+    if (!inactiveStateKey.value) return
+    localStorage.setItem(inactiveStateKey.value, JSON.stringify(value))
+}, { deep: true })
+
+const createDragPreview = (event) => {
+    if (!event?.dataTransfer) return
+
+    const badge = event.currentTarget
+    if (!(badge instanceof HTMLElement)) return
+
+    const preview = badge.cloneNode(true)
+    if (!(preview instanceof HTMLElement)) return
+
+    preview.querySelectorAll('.beast-name-tooltip, .close-button').forEach((el) => el.remove())
+    preview.style.position = 'fixed'
+    preview.style.top = '-1000px'
+    preview.style.left = '-1000px'
+    preview.style.pointerEvents = 'none'
+    preview.style.transform = 'none'
+
+    document.body.appendChild(preview)
+    dragPreviewEl.value = preview
+
+    const rect = badge.getBoundingClientRect()
+    event.dataTransfer.setDragImage(preview, rect.width / 2, rect.height / 2)
+    event.dataTransfer.effectAllowed = 'move'
+}
+
+const clearDragPreview = () => {
+    if (dragPreviewEl.value) {
+        dragPreviewEl.value.remove()
+        dragPreviewEl.value = null
+    }
+}
+
+const handleDragStart = (event, beastId) => {
+    createDragPreview(event)
+    draggedBeastId.value = beastId
+}
+
+const handleDragEnd = () => {
+    draggedBeastId.value = null
+    clearDragPreview()
+}
+
+const moveToInactive = () => {
+    const beastId = draggedBeastId.value
+    if (!beastId) return
+    if (!inactiveBeastIds.value.includes(beastId)) {
+        inactiveBeastIds.value = [...inactiveBeastIds.value, beastId]
+    }
+    handleDragEnd()
+}
+
+const moveToActive = () => {
+    const beastId = draggedBeastId.value
+    if (!beastId) return
+    inactiveBeastIds.value = inactiveBeastIds.value.filter((id) => id !== beastId)
+    handleDragEnd()
+}
 
 const createBeastInstance = async () => {
     if (!beastForm.value.templateId) {
@@ -145,6 +264,10 @@ const deleteBeast = async (beast) => {
         console.error('Failed to delete beast instance:', error)
     }
 }
+
+onUnmounted(() => {
+    clearDragPreview()
+})
 </script>
 
 <style scoped>

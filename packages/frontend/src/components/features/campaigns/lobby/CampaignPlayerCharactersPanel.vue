@@ -21,10 +21,32 @@
             <p>No player characters in this campaign yet.</p>
         </div>
 
-        <div v-else class="char-badge-grid">
-            <SelectedCharacterBadge v-for="char in playerCharacters" :key="char.id" :character="char"
-                :always-show-name="true" :on-remove="(character) => removeCharacterFromCampaign(character)"
-                :on-click="(character) => viewCharacterSheet(character)" />
+        <div v-else class="status-sections">
+            <div class="status-section" @dragover.prevent @drop="moveToActive">
+                <p class="status-label">ACTIVE</p>
+                <div v-if="activeCharacters.length === 0" class="status-drop-zone">Drop characters here</div>
+                <div v-else class="char-badge-grid">
+                    <SelectedCharacterBadge v-for="char in activeCharacters" :key="char.id" :character="char"
+                        :always-show-name="true" draggable="true" class="draggable-badge"
+                        @dragstart="handleDragStart($event, char.id)" @dragend="handleDragEnd"
+                        :on-remove="(character) => removeCharacterFromCampaign(character)"
+                        :on-click="(character) => viewCharacterSheet(character)" />
+                </div>
+            </div>
+
+            <div v-show="showInactiveSection" class="status-divider" />
+
+            <div v-show="showInactiveSection" class="status-section" @dragover.prevent @drop="moveToInactive">
+                <p class="status-label">INACTIVE</p>
+                <div v-if="inactiveCharacters.length === 0" class="status-drop-zone">Drop characters here</div>
+                <div v-else class="char-badge-grid">
+                    <SelectedCharacterBadge v-for="char in inactiveCharacters" :key="char.id" :character="char"
+                        :always-show-name="true" :is-inactive="true" draggable="true" class="draggable-badge"
+                        @dragstart="handleDragStart($event, char.id)" @dragend="handleDragEnd"
+                        :on-remove="(character) => removeCharacterFromCampaign(character)"
+                        :on-click="(character) => viewCharacterSheet(character)" />
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -61,6 +83,9 @@ const charactersStore = useCharactersStore()
 
 const showCharPicker = ref(false)
 const charPickerRef = ref(null)
+const inactiveCharacterIds = ref([])
+const draggedCharacterId = ref(null)
+const dragPreviewEl = ref(null)
 
 const playerCharacters = computed(() => {
     const allCharIds = (props.campaign?.members || []).flatMap((member) => member.characterIds || [])
@@ -76,6 +101,107 @@ const availableUserCharacters = computed(() => {
         (character) => character.userId === uid && !character.isNPC && !alreadyAdded.has(character.id)
     )
 })
+
+const inactiveIdSet = computed(() => new Set(inactiveCharacterIds.value))
+
+const activeCharacters = computed(() =>
+    playerCharacters.value.filter((character) => !inactiveIdSet.value.has(character.id))
+)
+
+const inactiveCharacters = computed(() =>
+    playerCharacters.value.filter((character) => inactiveIdSet.value.has(character.id))
+)
+
+const showInactiveSection = computed(() => inactiveCharacters.value.length > 0 || draggedCharacterId.value !== null)
+
+const inactiveStateKey = computed(() =>
+    props.campaignId ? `campaign-lobby:inactive:players:${props.campaignId}` : null
+)
+
+watch(
+    inactiveStateKey,
+    (key) => {
+        if (!key) return
+        try {
+            const parsed = JSON.parse(localStorage.getItem(key) || '[]')
+            inactiveCharacterIds.value = Array.isArray(parsed) ? parsed : []
+        } catch {
+            inactiveCharacterIds.value = []
+        }
+    },
+    { immediate: true }
+)
+
+watch(
+    playerCharacters,
+    (characters) => {
+        const validIds = new Set(characters.map((character) => character.id))
+        inactiveCharacterIds.value = inactiveCharacterIds.value.filter((id) => validIds.has(id))
+    },
+    { immediate: true }
+)
+
+watch(inactiveCharacterIds, (value) => {
+    if (!inactiveStateKey.value) return
+    localStorage.setItem(inactiveStateKey.value, JSON.stringify(value))
+}, { deep: true })
+
+const createDragPreview = (event) => {
+    if (!event?.dataTransfer) return
+
+    const badge = event.currentTarget
+    if (!(badge instanceof HTMLElement)) return
+
+    const preview = badge.cloneNode(true)
+    if (!(preview instanceof HTMLElement)) return
+
+    preview.querySelectorAll('.character-name-tooltip, .close-button').forEach((el) => el.remove())
+    preview.style.position = 'fixed'
+    preview.style.top = '-1000px'
+    preview.style.left = '-1000px'
+    preview.style.pointerEvents = 'none'
+    preview.style.transform = 'none'
+
+    document.body.appendChild(preview)
+    dragPreviewEl.value = preview
+
+    const rect = badge.getBoundingClientRect()
+    event.dataTransfer.setDragImage(preview, rect.width / 2, rect.height / 2)
+    event.dataTransfer.effectAllowed = 'move'
+}
+
+const clearDragPreview = () => {
+    if (dragPreviewEl.value) {
+        dragPreviewEl.value.remove()
+        dragPreviewEl.value = null
+    }
+}
+
+const handleDragStart = (event, characterId) => {
+    createDragPreview(event)
+    draggedCharacterId.value = characterId
+}
+
+const handleDragEnd = () => {
+    draggedCharacterId.value = null
+    clearDragPreview()
+}
+
+const moveToInactive = () => {
+    const characterId = draggedCharacterId.value
+    if (!characterId) return
+    if (!inactiveCharacterIds.value.includes(characterId)) {
+        inactiveCharacterIds.value = [...inactiveCharacterIds.value, characterId]
+    }
+    handleDragEnd()
+}
+
+const moveToActive = () => {
+    const characterId = draggedCharacterId.value
+    if (!characterId) return
+    inactiveCharacterIds.value = inactiveCharacterIds.value.filter((id) => id !== characterId)
+    handleDragEnd()
+}
 
 const handleDocumentClick = (event) => {
     if (!showCharPicker.value) return
@@ -94,6 +220,7 @@ watch(showCharPicker, (isOpen) => {
 
 onUnmounted(() => {
     document.removeEventListener('click', handleDocumentClick)
+    clearDragPreview()
 })
 
 const addCharacterToCampaign = async (character) => {

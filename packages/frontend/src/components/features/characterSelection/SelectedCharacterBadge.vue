@@ -1,5 +1,9 @@
 <template>
-    <div class="selected-character-badge" :class="{ 'name-always-visible': alwaysShowName }"
+    <div class="selected-character-badge"
+        :class="{
+            'name-always-visible': alwaysShowName,
+            'selected-character-badge--inactive': isInactive,
+        }"
         v-if="resolvedCharacter && !shouldHideBadge" @click="handleClick">
         <div class="character-portrait">
             <img :src="optimizedCharacterArt" :alt="resolvedCharacter.name" />
@@ -29,6 +33,8 @@ const props = defineProps({
     onRemove: { type: Function, default: null },
     /** Custom click handler — if provided, replaces the default navigation */
     onClick: { type: Function, default: null },
+    /** Render with inactive status ring styling */
+    isInactive: { type: Boolean, default: false },
 })
 
 const emit = defineEmits(['remove', 'click'])
@@ -105,6 +111,10 @@ const handleRemove = () => {
 
 .badge-pulse .character-portrait {
     box-shadow: var(--shadow-elevation-md);
+}
+
+.selected-character-badge--inactive .character-portrait {
+    border-color: var(--color-gray-medium);
 }
 
 .character-portrait img {

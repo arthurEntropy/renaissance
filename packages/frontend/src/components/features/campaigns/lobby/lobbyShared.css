@@ -67,6 +67,42 @@
     padding: var(--space-sm) 0;
 }
 
+.status-sections {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+}
+
+.status-label {
+    margin: 0;
+    color: var(--color-font-secondary, var(--color-text-secondary));
+    font-size: var(--font-size-11);
+    letter-spacing: 0.08em;
+    font-weight: var(--font-weight-semibold);
+}
+
+.status-divider {
+    height: 1px;
+    background: var(--color-font-secondary, var(--color-text-secondary));
+    opacity: 0.45;
+}
+
+.status-drop-zone {
+    min-height: 58px;
+    border: 1px dashed var(--overlay-white-medium);
+    border-radius: var(--radius-5);
+    color: var(--color-font-secondary, var(--color-text-secondary));
+    font-size: var(--font-size-12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-sm);
+}
+
+.draggable-badge {
+    display: inline-flex;
+}
+
 .char-badge-grid :deep(.selected-character-badge) {
     position: static !important;
     z-index: auto !important;

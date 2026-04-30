@@ -1,5 +1,9 @@
 <template>
-    <div v-if="resolvedBeast" class="selected-beast-badge" :class="{ 'name-always-visible': props.alwaysShowName }"
+    <div v-if="resolvedBeast" class="selected-beast-badge"
+        :class="{
+            'name-always-visible': props.alwaysShowName,
+            'selected-beast-badge--inactive': props.isInactive,
+        }"
         @click="handleClick">
         <div class="beast-portrait">
             <img :src="optimizedBeastArt" :alt="resolvedBeast.name" />
@@ -25,6 +29,7 @@ const props = defineProps({
     alwaysShowName: { type: Boolean, default: false },
     onRemove: { type: Function, default: null },
     onClick: { type: Function, default: null },
+    isInactive: { type: Boolean, default: false },
 })
 
 const emit = defineEmits(['remove', 'click'])
@@ -88,6 +93,10 @@ const handleRemove = () => {
     overflow: hidden;
     border: 3px solid var(--color-accent-cyan);
     box-shadow: var(--shadow-elevation-md);
+}
+
+.selected-beast-badge--inactive .beast-portrait {
+    border-color: var(--color-gray-medium);
 }
 
 .beast-portrait img {
