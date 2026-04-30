@@ -3,10 +3,12 @@ import { computed } from 'vue'
 import { useCrudEntityStore } from './composables/useBaseEntityStore'
 import ConceptService from '@/services/entities/conceptService'
 import { ConceptType } from '@shared/constants/conceptTypes'
+import { useCampaignStore } from '@/stores/campaignStore'
 
 export const useConceptsStore = defineStore('concepts', () => {
   const base = useCrudEntityStore(ConceptService, 'concepts')
-  
+  const campaignStore = useCampaignStore()
+
   // Helper function to sort concepts, ignoring "The " prefix
   const sortByName = (items) => {
     return [...items].sort((a, b) => {
@@ -15,23 +17,37 @@ export const useConceptsStore = defineStore('concepts', () => {
       return nameA.localeCompare(nameB)
     })
   }
-  
+
   // Filtered and sorted computed properties by type
-  const ancestries = computed(() => 
-    sortByName(base.items.value.filter(c => c.conceptType === ConceptType.ANCESTRY))
+  const ancestries = computed(() =>
+    sortByName(base.items.value.filter((c) => c.conceptType === ConceptType.ANCESTRY))
   )
-  
-  const cultures = computed(() => 
-    sortByName(base.items.value.filter(c => c.conceptType === ConceptType.CULTURE))
+
+  const cultures = computed(() =>
+    sortByName(base.items.value.filter((c) => c.conceptType === ConceptType.CULTURE))
   )
-  
-  const mestieri = computed(() => 
-    sortByName(base.items.value.filter(c => c.conceptType === ConceptType.MESTIERE))
+
+  const mestieri = computed(() =>
+    sortByName(base.items.value.filter((c) => c.conceptType === ConceptType.MESTIERE))
   )
-  
-  const worldElements = computed(() => 
-    sortByName(base.items.value.filter(c => c.conceptType === ConceptType.WORLD_ELEMENT))
+
+  const worldElements = computed(() =>
+    sortByName(base.items.value.filter((c) => c.conceptType === ConceptType.WORLD_ELEMENT))
   )
+
+  // Campaign-filtered variants: when in campaign, only show included concept sources
+  const filterByCampaign = (items) => {
+    if (!campaignStore.isInCampaign || !campaignStore.activeIncludedConceptIds?.length) {
+      return items
+    }
+    const included = new Set(campaignStore.activeIncludedConceptIds)
+    return items.filter((c) => included.has(c.id))
+  }
+
+  const visibleAncestries = computed(() => filterByCampaign(ancestries.value))
+  const visibleCultures = computed(() => filterByCampaign(cultures.value))
+  const visibleMestieri = computed(() => filterByCampaign(mestieri.value))
+  const visibleWorldElements = computed(() => filterByCampaign(worldElements.value))
   
   // Type-specific selected items (computed from base.selectedItem)
   const selectedAncestry = computed(() => 
@@ -70,12 +86,18 @@ export const useConceptsStore = defineStore('concepts', () => {
     // All concepts
     concepts: base.items,
     allConcepts: base.allItems,
-    
-    // Filtered by type
+
+    // Filtered by type (all, regardless of campaign)
     ancestries,
     cultures,
     mestieri,
     worldElements,
+
+    // Campaign-filtered variants (only concepts included in active campaign)
+    visibleAncestries,
+    visibleCultures,
+    visibleMestieri,
+    visibleWorldElements,
     
     // Selection
     selectedConcept: base.selectedItem,

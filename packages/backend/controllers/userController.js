@@ -116,6 +116,73 @@ export const getCurrentUserProfile = async (req, res) => {
   }
 }
 
+// Approved users: Resolve a list of user IDs to lightweight public profile info
+export const getPublicUsersByIds = async (req, res) => {
+  try {
+    const idsParam = req.query.ids
+    if (!idsParam || typeof idsParam !== 'string') {
+      return res.status(400).json({ error: 'ids query parameter is required' })
+    }
+
+    const requestedIds = idsParam
+      .split(',')
+      .map((id) => id.trim())
+      .filter(Boolean)
+
+    if (requestedIds.length === 0) {
+      return res.json([])
+    }
+
+    const users = getAllDataByDirectory(USERS_DIRECTORY)
+    const usersById = new Map(
+      users
+        .filter((user) => !user.isDeleted)
+        .map((user) => [user.id, { id: user.id, name: user.name || user.email || user.id }])
+    )
+
+    const resolvedUsers = requestedIds
+      .map((id) => usersById.get(id))
+      .filter(Boolean)
+
+    res.json(resolvedUsers)
+  } catch (error) {
+    console.error('Error resolving users by IDs:', error)
+    res.status(500).json({ error: 'Failed to resolve users' })
+  }
+}
+
+// Approved users: Search users by name/email for invite workflows
+export const searchUsers = async (req, res) => {
+  try {
+    const rawQuery = typeof req.query.q === 'string' ? req.query.q : ''
+    const query = rawQuery.trim().toLowerCase()
+
+    if (query.length < 2) {
+      return res.json([])
+    }
+
+    const users = getAllDataByDirectory(USERS_DIRECTORY)
+    const matches = users
+      .filter((user) => !user.isDeleted)
+      .filter((user) => {
+        const name = (user.name || '').toLowerCase()
+        const email = (user.email || '').toLowerCase()
+        return name.includes(query) || email.includes(query)
+      })
+      .slice(0, 25)
+      .map((user) => ({
+        id: user.id,
+        name: user.name || user.email || user.id,
+        email: user.email || '',
+      }))
+
+    res.json(matches)
+  } catch (error) {
+    console.error('Error searching users:', error)
+    res.status(500).json({ error: 'Failed to search users' })
+  }
+}
+
 // Update current user's profile
 export const updateCurrentUserProfile = async (req, res) => {
   try {
@@ -126,7 +193,7 @@ export const updateCurrentUserProfile = async (req, res) => {
     }
     
     // Only allow updating certain fields
-    const allowedUpdates = ['name', 'preferences']
+    const allowedUpdates = ['name', 'preferences', 'activeCampaignId']
     const updates = {}
     
     for (const field of allowedUpdates) {

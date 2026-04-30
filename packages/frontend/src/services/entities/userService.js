@@ -27,6 +27,35 @@ class UserService extends BaseEntityService {
     }
   }
 
+  async getPublicUsersByIds(ids = []) {
+    try {
+      if (!Array.isArray(ids) || ids.length === 0) return []
+      const response = await apiClient.get('/users/public', {
+        params: {
+          ids: ids.join(','),
+        },
+      })
+      return response.data
+    } catch (error) {
+      console.error('Error getting public users by IDs:', error)
+      throw error
+    }
+  }
+
+  async searchUsers(query) {
+    try {
+      const response = await apiClient.get('/users/search', {
+        params: {
+          q: query,
+        },
+      })
+      return response.data
+    } catch (error) {
+      console.error('Error searching users:', error)
+      throw error
+    }
+  }
+
   async getAllUsers() {
     try {
       const response = await apiClient.get('/users/admin/all')

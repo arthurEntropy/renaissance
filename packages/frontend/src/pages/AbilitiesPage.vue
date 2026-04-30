@@ -111,6 +111,7 @@ import { ref, computed, onMounted } from 'vue'
 import { useAbilitiesStore } from '@/stores/abilitiesStore'
 import { useAuthStore } from '@/stores/authStore'
 import { useSourcesStore } from '@/stores/sourcesStore'
+import { useCampaignStore } from '@/stores/campaignStore'
 import { useActionTypesStore } from '@/stores/actionTypesStore'
 import { useCharactersStore } from '@/stores/charactersStore'
 import { useAbilitySchoolsStore } from '@/stores/abilitySchoolsStore'
@@ -310,6 +311,15 @@ const allFilteredAbilities = computed(() => {
 
   // Filter out deleted items
   let filtered = (abilities.value || []).filter((item) => !item.isDeleted)
+
+  // Campaign mode: restrict to abilities from included concept sources
+  const campaignStore = useCampaignStore()
+  if (campaignStore.isInCampaign && campaignStore.activeIncludedConceptIds?.length > 0) {
+    const included = new Set(campaignStore.activeIncludedConceptIds)
+    filtered = filtered.filter(
+      (item) => !item.source || item.source === 'general' || included.has(item.source)
+    )
+  }
 
   // Apply source filters (OR within category)
   if (sourceIds.length > 0) {

@@ -12,7 +12,7 @@ import { useConceptsLayout } from '@/composables/useConceptsLayout'
 const conceptsStore = useConceptsStore()
 
 const { layoutProps, handleSelect, handleDeselect, handleCreate } = useConceptsLayout(conceptsStore, ConceptService, {
-  conceptsProperty: 'mestieri',
+  conceptsProperty: 'visibleMestieri',
   itemName: 'Mestiere'
 })
 </script>

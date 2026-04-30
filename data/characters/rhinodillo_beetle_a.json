@@ -1,0 +1,191 @@
+{
+  "id": "11a82c25-dea1-47b2-8221-0777ae428b88",
+  "name": "Rhinodillo Beetle A",
+  "isBeast": true,
+  "pronouns": "",
+  "ancestries": "",
+  "cultures": "",
+  "ancestryIds": [],
+  "cultureIds": [],
+  "mestiereId": "",
+  "xp": 0,
+  "mp": {
+    "current": 0,
+    "max": 0
+  },
+  "body": 0,
+  "heart": 0,
+  "wits": 0,
+  "skills": [
+    {
+      "name": "Awe",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "coreAbility": "body"
+    },
+    {
+      "name": "Strength",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "coreAbility": "body"
+    },
+    {
+      "name": "Dexterity",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "coreAbility": "body"
+    },
+    {
+      "name": "Fortitude",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "coreAbility": "body"
+    },
+    {
+      "name": "Craft",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "coreAbility": "body"
+    },
+    {
+      "name": "Perform",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "coreAbility": "heart"
+    },
+    {
+      "name": "Insight",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "coreAbility": "heart"
+    },
+    {
+      "name": "Courtesy",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "coreAbility": "heart"
+    },
+    {
+      "name": "Spirit",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "coreAbility": "heart"
+    },
+    {
+      "name": "Aid",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "coreAbility": "heart"
+    },
+    {
+      "name": "Persuade",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "coreAbility": "wits"
+    },
+    {
+      "name": "Awareness",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "coreAbility": "wits"
+    },
+    {
+      "name": "Stealth",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "coreAbility": "wits"
+    },
+    {
+      "name": "Lore",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "coreAbility": "wits"
+    },
+    {
+      "name": "Riddle",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "coreAbility": "wits"
+    }
+  ],
+  "endurance": {
+    "current": 0,
+    "max": 0,
+    "coreAbility": "body"
+  },
+  "hope": {
+    "current": 0,
+    "max": 0,
+    "coreAbility": "heart"
+  },
+  "defense": {
+    "current": 0,
+    "max": 0,
+    "coreAbility": "wits"
+  },
+  "load": 0,
+  "shadow": 0,
+  "injury": 0,
+  "speed": 0,
+  "states": {
+    "weary": false,
+    "twiceWeary": false,
+    "miserable": false,
+    "twiceMiserable": false,
+    "helpless": false,
+    "twiceHelpless": false
+  },
+  "conditions": {
+    "insecure": false,
+    "guilty": false,
+    "angry": false,
+    "afraid": false,
+    "troubled": false
+  },
+  "equipment": [],
+  "abilities": [],
+  "activeEffects": [],
+  "artUrls": [
+    "https://cdn.midjourney.com/d190fffe-70a8-4aea-b938-10664317c862/0_0.png"
+  ],
+  "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
+  "ownerEmail": "ljbrevoort@gmail.com",
+  "createdAt": "2026-04-30T12:35:02.808Z",
+  "updatedAt": "2025-10-29T19:57:35.851Z",
+  "notes": "",
+  "beastType": "instance",
+  "templateId": "3774aed2-eec6-49d3-8d4d-f5b2e24fd373",
+  "templateName": "Rhinodillo Beetle",
+  "campaignId": "2216d52f-f74d-479e-b440-f7b5aa6319e5",
+  "lastModified": "2026-04-30T12:35:02.810Z"
+}

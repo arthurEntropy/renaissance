@@ -16,6 +16,7 @@ export const FAB_TYPES = {
     EXPAND_ALL: 'expand-all',
     COLLAPSE_ALL: 'collapse-all',
     MARTIAL_TRAINING: 'martial-training',
+    EXIT: 'exit',
 }
 
 export const FAB_SIZES = {

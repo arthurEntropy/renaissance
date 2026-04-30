@@ -35,14 +35,24 @@
                 <ChevronDownIcon class="chevron-icon" />
 
                 <span class="user-name">{{ displayName }}</span>
+                <span v-if="campaignStore.pendingInviteCount > 0" class="invite-dot"
+                    :title="`${campaignStore.pendingInviteCount} pending invite(s)`" />
 
                 <!-- Dropdown menu -->
                 <div v-if="dropdownOpen" class="dropdown-menu">
                     <button @click.stop="openPreferences" class="dropdown-item">
                         Preferences
                     </button>
+                    <button v-if="campaignStore.pendingInviteCount > 0" @click.stop="openInvites"
+                        class="dropdown-item dropdown-item--highlight">
+                        Invites ({{ campaignStore.pendingInviteCount }})
+                    </button>
                     <router-link v-if="authStore.isAdmin" to="/admin" class="dropdown-item" @click.stop="closeDropdown">
                         Admin Panel
+                    </router-link>
+                    <router-link v-if="authStore.isAdmin" to="/tabletop" class="dropdown-item"
+                        @click.stop="closeDropdown">
+                        Tabletop
                     </router-link>
                     <router-link v-if="authStore.isAdmin" to="/design-lab" class="dropdown-item"
                         @click.stop="closeDropdown">
@@ -55,23 +65,29 @@
             </div>
         </div>
     </div>
+
+    <InvitesModal v-if="showInvitesModal" @close="showInvitesModal = false" />
 </template>
 
 <script setup>
 import { ref, computed, watch } from 'vue'
 import { useAuthStore } from '@/stores/authStore'
 import { useUserStore } from '@/stores/userStore'
+import { useCampaignStore } from '@/stores/campaignStore'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import { ChevronDownIcon } from '@heroicons/vue/24/outline'
+import InvitesModal from '@/components/features/campaigns/InvitesModal.vue'
 
 const GOOGLE_ICON_URL = 'https://www.gstatic.com/marketing-cms/assets/images/d5/dc/cfe9ce8b4425b410b49b7f2dd3f3/g.webp=s48-fcrop64=1,00000000ffffffff-rw'
 
 const authStore = useAuthStore()
 const userStore = useUserStore()
+const campaignStore = useCampaignStore()
 const signingIn = ref(false)
 const signingOut = ref(false)
 const dropdownOpen = ref(false)
 const dropdownTrigger = ref(null)
+const showInvitesModal = ref(false)
 
 const emit = defineEmits(['openPreferences'])
 
@@ -104,6 +120,11 @@ const closeDropdown = () => {
 
 const openPreferences = () => {
     emit('openPreferences')
+    dropdownOpen.value = false
+}
+
+const openInvites = () => {
+    showInvitesModal.value = true
     dropdownOpen.value = false
 }
 
@@ -223,5 +244,23 @@ const handleSignOut = async () => {
     text-decoration: none;
     cursor: pointer;
     transition: background-color var(--duration-fast);
+}
+
+.dropdown-item--highlight {
+    color: var(--color-primary);
+}
+
+/* Adjustment for active route underline in auth dropdown */
+.top-nav a.router-link-active::after {
+    right: 45px;
+}
+
+.invite-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: var(--color-danger, #e74c3c);
+    border-radius: 50%;
+    flex-shrink: 0;
 }
 </style>

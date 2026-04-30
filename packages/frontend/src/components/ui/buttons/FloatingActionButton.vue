@@ -11,7 +11,7 @@
 <script setup>
 import { computed } from 'vue'
 // Heroicons
-import { PlusIcon, DocumentDuplicateIcon, PencilIcon, CheckIcon, XMarkIcon, Bars3Icon, Cog6ToothIcon, ArrowPathIcon, BookOpenIcon, CalculatorIcon, ChevronDoubleDownIcon, ChevronDoubleUpIcon } from '@heroicons/vue/24/outline'
+import { PlusIcon, DocumentDuplicateIcon, PencilIcon, CheckIcon, XMarkIcon, Bars3Icon, Cog6ToothIcon, ArrowPathIcon, BookOpenIcon, CalculatorIcon, ChevronDoubleDownIcon, ChevronDoubleUpIcon, ArrowRightStartOnRectangleIcon } from '@heroicons/vue/24/outline'
 // Custom icons
 import CrossedSwordsIcon from '@/assets/icons/characterSheet/crossed_swords.svg?component'
 import DieIcon from '@/assets/icons/characterSheet/die.svg?component'
@@ -58,6 +58,7 @@ const FAB_TYPE_CONFIG = {
     [FAB_TYPES.EXPAND_ALL]: { icon: ChevronDoubleDownIcon, tooltip: 'Expand all' },
     [FAB_TYPES.COLLAPSE_ALL]: { icon: ChevronDoubleUpIcon, tooltip: 'Collapse all' },
     [FAB_TYPES.MARTIAL_TRAINING]: { icon: MartialTrainingIcon, tooltip: 'View Martial Training' },
+    [FAB_TYPES.EXIT]: { icon: ArrowRightStartOnRectangleIcon, tooltip: 'Exit Campaign' },
 }
 
 const variantConfig = computed(() => {
@@ -181,6 +182,15 @@ const variantConfig = computed(() => {
 .fab--confirm:hover {
     background: var(--color-success-hover);
     border-color: var(--color-success-hover);
+}
+
+.fab--exit {
+    background: var(--overlay-black-medium);
+}
+
+.fab--exit:hover {
+    background: var(--color-danger, #c0392b);
+    border-color: var(--color-danger, #c0392b);
 }
 
 /* === VISIBILITY VARIANTS === */

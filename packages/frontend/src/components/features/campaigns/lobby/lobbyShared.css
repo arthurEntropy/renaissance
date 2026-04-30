@@ -1,0 +1,180 @@
+.section-card {
+    background: var(--overlay-black-heavy);
+    border-radius: var(--radius-10);
+    padding: var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.section-title {
+    font-size: var(--font-size-24);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+    margin: 0;
+}
+
+.section-title-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    cursor: pointer;
+    user-select: none;
+    flex: 1;
+}
+
+.section-chevron {
+    width: 20px;
+    height: 20px;
+    color: var(--color-text-secondary);
+    flex-shrink: 0;
+    transition: color var(--transition-fast);
+}
+
+.section-title-row:hover .section-chevron {
+    color: var(--color-primary);
+}
+
+.section-description {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-14);
+    line-height: var(--line-height-normal);
+    padding-bottom: var(--space-xl);
+    margin: 0;
+}
+
+.empty-state {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-14);
+    padding: var(--space-md) 0;
+}
+
+.empty-state p {
+    margin: 0;
+}
+
+.char-badge-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xl) var(--space-lg);
+    padding: var(--space-sm) 0;
+}
+
+.char-badge-grid :deep(.selected-character-badge) {
+    position: static;
+    cursor: pointer;
+    transition: transform var(--transition-normal);
+}
+
+.char-badge-grid :deep(.selected-character-badge:hover) {
+    transform: scale(1.05);
+}
+
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: var(--overlay-black-heavy);
+    z-index: var(--z-modal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal {
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--overlay-white-medium);
+    border-radius: var(--radius-15);
+    padding: var(--space-xl);
+    width: min(520px, 90vw);
+    max-height: 80vh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+}
+
+.modal--wide {
+    width: min(720px, 90vw);
+}
+
+.modal-title {
+    font-size: var(--font-size-20);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+    margin: 0;
+}
+
+.form-field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+}
+
+.form-label {
+    font-size: var(--font-size-13);
+    color: var(--color-text-secondary);
+    font-weight: var(--font-weight-semibold);
+}
+
+.form-input {
+    background: var(--color-bg-primary);
+    border: 1px solid var(--overlay-white-medium);
+    border-radius: var(--radius-5);
+    color: var(--color-text-primary);
+    font-family: var(--font-family-primary);
+    font-size: var(--font-size-14);
+    padding: var(--space-sm) var(--space-md);
+    outline: none;
+    transition: border-color var(--transition-fast);
+}
+
+.form-input:focus {
+    border-color: var(--color-primary);
+}
+
+.form-error {
+    color: var(--color-danger);
+    font-size: var(--font-size-13);
+    margin: 0;
+}
+
+.modal-actions {
+    display: flex;
+    gap: var(--space-sm);
+    justify-content: flex-end;
+}
+
+.empty-hint {
+    font-size: var(--font-size-13);
+    color: var(--color-text-secondary);
+    margin: 0;
+}
+
+.sheet-overlay {
+    position: fixed;
+    inset: 0;
+    background: var(--overlay-black-heavy);
+    z-index: var(--z-modal);
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    overflow-y: auto;
+    padding: var(--space-xl) 0;
+}
+
+.sheet-close {
+    position: fixed;
+    top: var(--space-lg);
+    right: var(--space-lg);
+    z-index: calc(var(--z-modal) + 1);
+}
+
+.sheet-container {
+    width: 100%;
+}

@@ -1,0 +1,134 @@
+{
+  "id": "2216d52f-f74d-479e-b440-f7b5aa6319e5",
+  "slug": "through-the-giant-s-eye",
+  "name": "Through The Giant's Eye",
+  "description": "In which we explore the realm of imagination.",
+  "coverImageUrl": "https://cdn.midjourney.com/89c26af7-b4e3-47f5-b6ea-92985d2df5d5/0_0.png",
+  "createdAt": "2026-04-29T13:40:44.511Z",
+  "lastModified": "2026-04-30T00:16:14.307Z",
+  "isDeleted": false,
+  "foundingGmUserId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
+  "members": [
+    {
+      "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
+      "role": "gm",
+      "status": "accepted",
+      "characterIds": [
+        11,
+        "c6e87008-622d-4410-9f1d-ce56c85ea5ae",
+        10,
+        9
+      ],
+      "joinedAt": "2026-04-29T13:40:44.511Z",
+      "invitedAt": "2026-04-29T13:40:44.511Z",
+      "invitedByUserId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1"
+    }
+  ],
+  "includedConceptIds": [
+    "68fadf5d-6661-4611-bb38-deaf05f01d45",
+    "a3a54cb6-09c4-42e3-b142-3053b7c1d4e8",
+    "55494a30-a1bb-47c3-aae9-2db3a5bfcb8b",
+    "5a639d7b-847a-468b-9bbe-5275d31fdf66",
+    "0c876a74-a89b-42dc-b76a-4592a0478d81",
+    "e10d7d9f-9d93-46b0-9846-d60241031644",
+    "e0a69b6f-38f9-4fa5-a1ef-5e5777299e82",
+    "1e4131c7-8a6f-422c-998a-5147600c946e",
+    "10f46ecd-e6f5-4d3b-b510-d4035ab24f56",
+    "4eccfe5d-de19-4bc5-8c9c-374d793d67f0",
+    "45ca935d-938b-4974-961c-4171cc388904",
+    "dab3e414-0118-49be-9779-4e3018cdba71",
+    "d4dce5e2-e767-464d-91f0-c40b47f788b3",
+    "a07490af-2d77-4968-9adc-0a2a7c84ef70",
+    "937d52da-0ebf-4d74-b3ee-be395f2f5d0a",
+    "162ae4db-7a67-4770-8a2c-7e9883da14f6",
+    "ba7af7ad-54d2-4b45-86ad-71781d4cdb33",
+    "fffc6b74-d66f-4270-a8b4-e045433ae176",
+    "77e4f81a-728f-49a7-a013-4d6f666353e2",
+    "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "cfd7bf18-3a9a-4b4e-a9a9-c7069dd822c3",
+    "adc655c1-1d9c-433f-a0eb-41f93cf3ee07",
+    "9250fcc5-9bc9-4724-815d-4411e79d403c"
+  ],
+  "shops": [
+    {
+      "id": "69c93a01-2da6-4704-afe0-352b4c7a5c88",
+      "name": "Tierney's Magic Nifty Trinkets",
+      "generatedAt": "2026-04-29T19:50:38.998Z",
+      "primaryCultureId": null,
+      "generationParams": {},
+      "items": [
+        {
+          "equipmentId": "f339e1ee-39c8-4712-8baa-60129fd87ff0",
+          "name": "Rogatina",
+          "description": "",
+          "keeping": "3c4d5e6f-7a8b-4c9d-0e1f-2a3b4c5d6e7f",
+          "source": "5a639d7b-847a-468b-9bbe-5275d31fdf66"
+        },
+        {
+          "equipmentId": "f248a20d-f79e-4fb9-a800-94e2145fc23a",
+          "name": "Bearded Axe",
+          "description": "",
+          "keeping": "4d5e6f7a-8b9c-4d0e-1f2a-3b4c5d6e7f8a",
+          "source": "5a639d7b-847a-468b-9bbe-5275d31fdf66"
+        },
+        {
+          "equipmentId": "6341bbc6-9c9a-4c53-a603-132e368577b2",
+          "name": "Musket",
+          "description": "",
+          "keeping": "3c4d5e6f-7a8b-4c9d-0e1f-2a3b4c5d6e7f",
+          "source": "5a639d7b-847a-468b-9bbe-5275d31fdf66"
+        },
+        {
+          "equipmentId": "f339e1ee-39c8-4712-8baa-60129fd87ff0",
+          "name": "Rogatina",
+          "description": "",
+          "keeping": "3c4d5e6f-7a8b-4c9d-0e1f-2a3b4c5d6e7f",
+          "source": "5a639d7b-847a-468b-9bbe-5275d31fdf66"
+        },
+        {
+          "equipmentId": "b69c879e-a758-47b6-a3a4-b81dfd12eaaf",
+          "name": "Zweihänder",
+          "description": "",
+          "keeping": "5e6f7a8b-9c0d-4e1f-2a3b-4c5d6e7f8a9b",
+          "source": "5a639d7b-847a-468b-9bbe-5275d31fdf66"
+        },
+        {
+          "equipmentId": "1a98852b-e310-4f56-b4b4-75af7f784149",
+          "name": "Throwing Axe",
+          "description": "",
+          "keeping": "2b3c4d5e-6f7a-4b8c-9d0e-1f2a3b4c5d6e",
+          "source": "5a639d7b-847a-468b-9bbe-5275d31fdf66"
+        },
+        {
+          "equipmentId": "e43614f2-91e1-495f-9d4f-7cdc4d87d3be",
+          "name": "Dirk",
+          "description": "",
+          "keeping": "3c4d5e6f-7a8b-4c9d-0e1f-2a3b4c5d6e7f",
+          "source": "5a639d7b-847a-468b-9bbe-5275d31fdf66"
+        },
+        {
+          "equipmentId": "b69c879e-a758-47b6-a3a4-b81dfd12eaaf",
+          "name": "Zweihänder",
+          "description": "",
+          "keeping": "5e6f7a8b-9c0d-4e1f-2a3b-4c5d6e7f8a9b",
+          "source": "5a639d7b-847a-468b-9bbe-5275d31fdf66"
+        },
+        {
+          "equipmentId": "f339e1ee-39c8-4712-8baa-60129fd87ff0",
+          "name": "Rogatina",
+          "description": "",
+          "keeping": "3c4d5e6f-7a8b-4c9d-0e1f-2a3b4c5d6e7f",
+          "source": "5a639d7b-847a-468b-9bbe-5275d31fdf66"
+        },
+        {
+          "equipmentId": "4ef323c3-c475-4148-a9ab-df5868d5fa06",
+          "name": "Chestnut Shield",
+          "description": "<p>Whenever a creature hits you with a melee attack, this shield deals 1d4 damage to it.</p>",
+          "keeping": "2b3c4d5e-6f7a-4b8c-9d0e-1f2a3b4c5d6e",
+          "source": "55494a30-a1bb-47c3-aae9-2db3a5bfcb8b"
+        }
+      ]
+    }
+  ],
+  "sessionNotes": ""
+}

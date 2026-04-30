@@ -17,6 +17,7 @@ import { createBaseEntity } from './gameEntity.js'
  * @property {boolean} isDeleted - Soft delete flag
  * @property {UserPreferences} preferences - User preferences
  * @property {string[]} characters - Character IDs owned by this user
+ * @property {string|null} activeCampaignId - ID of the campaign the user is currently viewing in campaign mode
  * @property {string} createdAt - ISO 8601 datetime string
  * @property {string} lastModified - ISO 8601 datetime string
  */
@@ -38,5 +39,6 @@ export function createDefaultUser() {
       showArtwork: true,
     },
     characters: [],
+    activeCampaignId: null,
   }
 }

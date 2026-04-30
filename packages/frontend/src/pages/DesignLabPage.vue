@@ -1,7 +1,6 @@
 <template>
     <main class="design-lab-page">
         <header class="design-lab-header">
-            <p class="eyebrow">Admin Tools</p>
             <h1>Design Lab</h1>
             <p class="intro">
                 Visual inventory for current icon assets and UI component variants.
@@ -472,22 +471,15 @@ const manaVariationCount = computed(() => {
 <style scoped>
 .design-lab-page {
     min-height: 100%;
-    padding: var(--space-xl) var(--space-lg);
+    padding: var(--space-xl) 30px;
     display: grid;
     gap: var(--space-xxl, 32px);
-    width: 60%;
+    width: 50%;
+    background: var(--overlay-black-heavy)
 }
 
 .design-lab-header {
     margin-bottom: 0;
-}
-
-.eyebrow {
-    margin: 0;
-    font-size: var(--font-size-14);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--color-text-muted, var(--color-gray-light));
 }
 
 h1 {

@@ -87,6 +87,7 @@ import { useKeepingStore } from '@/stores/keepingStore'
 import { useEngagementSuccessesStore } from '@/stores/engagementSuccessesStore'
 import { useAuthStore } from '@/stores/authStore'
 import { useSourcesStore } from '@/stores/sourcesStore'
+import { useCampaignStore } from '@/stores/campaignStore'
 import { useCharactersStore } from '@/stores/charactersStore'
 import { useEditModal } from '@/composables/useEditModal'
 import { useInfiniteScroll } from '@/composables/useInfiniteScroll'
@@ -270,6 +271,15 @@ const allFilteredEquipment = computed(() => {
     const { sourceIds, sourceTypes, magicality, typeIds, subtypeIds, gradeIds } = parsedTagFilters.value
 
     let filtered = [...equipment.value].filter((item) => !item.isDeleted)
+
+    // Campaign mode: restrict to equipment from included concept sources
+    const campaignStore = useCampaignStore()
+    if (campaignStore.isInCampaign && campaignStore.activeIncludedConceptIds?.length > 0) {
+        const included = new Set(campaignStore.activeIncludedConceptIds)
+        filtered = filtered.filter(
+            (item) => !item.source || item.source === 'general' || included.has(item.source)
+        )
+    }
 
     if (!showTemplates.value) {
         filtered = filtered.filter((item) => !item.isTemplate)

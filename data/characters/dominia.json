@@ -1,17 +1,28 @@
 {
-  "id": "48a9eff3-9041-4b33-8f99-4137955d2997",
+  "id": "833888c8-725f-4826-9745-73792345cc4a",
   "isDeleted": false,
-  "createdAt": "2026-04-22T14:45:33.779Z",
-  "lastModified": "2026-04-30T12:29:25.239Z",
-  "name": "Otho",
+  "createdAt": "2026-04-30T00:16:28.721Z",
+  "lastModified": "2026-04-30T00:16:28.721Z",
+  "name": "Dominia",
   "isBeast": false,
+  "campaignId": "2216d52f-f74d-479e-b440-f7b5aa6319e5",
+  "isNPC": true,
+  "beastType": null,
+  "templateId": null,
+  "challenge": 0,
+  "description": "",
+  "size": 0,
+  "reach": 0,
   "pronouns": "",
   "ancestries": "",
   "cultures": "",
-  "age": 38,
-  "heightFeet": 5,
-  "heightInches": 11,
-  "weight": 200,
+  "notes": "",
+  "keeping": null,
+  "treasure": 0,
+  "age": 0,
+  "heightFeet": 0,
+  "heightInches": 0,
+  "weight": 0,
   "xp": 0,
   "mp": {
     "current": 0,
@@ -152,7 +163,7 @@
       "coreAbility": "wits",
       "ranks": 0,
       "isFavored": false,
-      "isIllFavored": false,
+      "isIllFavored": true,
       "diceMod": 0,
       "manualDiceMod": 0
     }
@@ -169,7 +180,7 @@
   },
   "defense": {
     "current": 0,
-    "max": 10,
+    "max": 0,
     "coreAbility": "wits"
   },
   "load": 0,
@@ -201,46 +212,9 @@
     "colorless": []
   },
   "equipment": [],
-  "abilities": [
-    {
-      "id": "4024366e-242c-448a-b5da-5a811ad78aa7",
-      "collapsed": false,
-      "showImprovements": false,
-      "showSuccesses": false
-    },
-    {
-      "id": "04e9acb0-df69-44eb-8c7f-8bbcf28ca22d",
-      "collapsed": false,
-      "showImprovements": false,
-      "showSuccesses": false
-    },
-    {
-      "id": "1fbe03dd-9c5f-4224-bcbf-1bdac72673a0",
-      "collapsed": false,
-      "showImprovements": false,
-      "showSuccesses": false
-    },
-    {
-      "id": "263ec9d9-457c-44fd-90ac-50ae8d6823f8",
-      "collapsed": false,
-      "showImprovements": false,
-      "showSuccesses": false
-    },
-    {
-      "id": "00923682-709e-43cd-b33b-ca15a4ac7dca",
-      "collapsed": false,
-      "showImprovements": false,
-      "showSuccesses": false
-    },
-    {
-      "id": "c59e50f9-4063-4066-bc80-c634b3b5aacf",
-      "collapsed": false,
-      "showImprovements": true,
-      "showSuccesses": false
-    }
-  ],
+  "abilities": [],
   "artUrls": [
-    "https://cdn.midjourney.com/6acd8daa-8d90-43ae-b78a-8349d712b046/0_1.png"
+    "https://cdn.midjourney.com/a8a36740-b7d3-4aef-bea3-a95039bec06f/0_2.png"
   ],
   "engagementDiceStatuses": {},
   "biomeTags": [],
@@ -248,38 +222,7 @@
   "activeEffects": [],
   "witchcraftTokens": [],
   "witchcraftTalismans": [],
-  "summonerVessels": [
-    {
-      "id": "ddaf9eb8-a1da-413c-8672-2ba619e1ec06",
-      "isActive": true,
-      "isSummoned": true,
-      "imageUrl": "/src/assets/icons/witch/potion.png",
-      "vesselType": "great",
-      "vesselNote": "",
-      "beastId": "09f7035a-0826-4761-af7a-49ef27655cd2",
-      "friendship": 6
-    },
-    {
-      "id": "73af4476-d886-4c38-8549-0fd46e2344ed",
-      "isActive": true,
-      "isSummoned": false,
-      "imageUrl": "/src/assets/icons/witch/carrot.png",
-      "vesselType": "maestro",
-      "vesselNote": "",
-      "beastId": "382f9f84-8084-4d62-82aa-165721574846",
-      "friendship": 4
-    },
-    {
-      "id": "9ef6ea44-5428-4377-ad2f-c862a218db43",
-      "isActive": false,
-      "isSummoned": false,
-      "imageUrl": "/src/assets/icons/summoner/seashell.png",
-      "vesselType": "great",
-      "vesselNote": "test",
-      "beastId": "b9cd5af3-b5da-4e94-8431-3e501a916ad9",
-      "friendship": 4
-    }
-  ],
+  "summonerVessels": [],
   "groupAbilitiesBySource": false,
   "groupAbilitiesByManaColor": false,
   "groupEquipmentBySource": false,
@@ -287,7 +230,10 @@
   "equipmentSortOption": "name-asc",
   "autoCalculations": {
     "load": true,
-    "statesAndEffects": true
+    "statesAndEffects": true,
+    "maxEndurance": true,
+    "maxHope": true,
+    "maxDefense": true
   },
   "rollStats": {
     "skillChecks": {
@@ -315,15 +261,5 @@
     }
   },
   "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "ownerEmail": "ljbrevoort@gmail.com",
-  "updatedAt": "2026-04-30T12:29:25.239Z",
-  "ancestryIds": [
-    "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
-  ],
-  "cultureIds": [
-    "55494a30-a1bb-47c3-aae9-2db3a5bfcb8b"
-  ],
-  "mestiereId": "558abd15-f90f-40d7-80d8-df73a37f977c",
-  "notes": "",
-  "keeping": "2b3c4d5e-6f7a-4b8c-9d0e-1f2a3b4c5d6e"
+  "ownerEmail": "ljbrevoort@gmail.com"
 }

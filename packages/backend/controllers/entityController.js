@@ -5,10 +5,23 @@ import {
   deleteFile,
 } from '../utils/fileService.js'
 import { USER_ROLE } from '../../../shared/constants/userConstants.js'
+import { CAMPAIGN_MEMBER_STATUS } from '../../../shared/constants/campaignConstants.js'
 
 // These are generic CRUD operations for all data entities.
 // They are designed to be used with the routes defined in server.js.
 // The routes are created dynamically based on the entity names in the "data" directory.
+
+const getUserCampaignIds = (userId) => {
+  try {
+    const campaignsDir = getDirectory('campaigns')
+    const allCampaigns = getAllDataByDirectory(campaignsDir).filter((c) => !c.isDeleted)
+    return allCampaigns
+      .filter((c) => c.members?.some((m) => m.userId === userId && m.status === CAMPAIGN_MEMBER_STATUS.ACCEPTED))
+      .map((c) => c.id)
+  } catch {
+    return []
+  }
+}
 
 const getAllEntities = (entity) => (req, res) => {
   try {
@@ -19,8 +32,11 @@ const getAllEntities = (entity) => (req, res) => {
     // For characters, filter by ownership unless user is admin
     if (entity === 'characters' && req.user) {
       if (req.user.role !== USER_ROLE.ADMIN) {
-        filteredEntities = filteredEntities.filter(character => 
-          character.ownerId === req.user.uid
+        // Include characters owned by this user AND campaign characters from campaigns they belong to
+        const memberCampaignIds = getUserCampaignIds(req.user.uid)
+        filteredEntities = filteredEntities.filter(character =>
+          character.ownerId === req.user.uid ||
+          (character.campaignId && memberCampaignIds.includes(character.campaignId))
         )
       }
     }

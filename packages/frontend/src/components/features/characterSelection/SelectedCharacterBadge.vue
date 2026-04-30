@@ -1,12 +1,13 @@
 <template>
-    <div class="selected-character-badge" v-if="character && !shouldHideBadge" @click="navigateToCharacter">
+    <div class="selected-character-badge" :class="{ 'name-always-visible': alwaysShowName }"
+        v-if="resolvedCharacter && !shouldHideBadge" @click="handleClick">
         <div class="character-portrait">
-            <img :src="optimizedCharacterArt" :alt="character.name" />
+            <img :src="optimizedCharacterArt" :alt="resolvedCharacter.name" />
         </div>
-        <div class="close-button" @click.stop="deselectCharacter">
+        <div class="close-button" @click.stop="handleRemove">
             <XMarkIcon class="close-icon" />
         </div>
-        <div class="character-name-tooltip">{{ character.name }}</div>
+        <div class="character-name-tooltip">{{ resolvedCharacter.name }}</div>
     </div>
 </template>
 
@@ -19,27 +20,55 @@ import { useOptimizedImage } from '@/composables/useOptimizedImage'
 import { createSlug } from '@/utils/urlHelpers'
 import { MIDJOURNEY_IMAGE_CONTEXTS } from '@shared/constants/artConstants.js'
 
+const props = defineProps({
+    /** Override the character shown (instead of the store's activePlayerCharacter) */
+    character: { type: Object, default: null },
+    /** Always show the name tooltip without hover */
+    alwaysShowName: { type: Boolean, default: false },
+    /** Custom remove handler — if provided, replaces the default deselectCharacter */
+    onRemove: { type: Function, default: null },
+    /** Custom click handler — if provided, replaces the default navigation */
+    onClick: { type: Function, default: null },
+})
+
+const emit = defineEmits(['remove', 'click'])
+
 const router = useRouter()
 const route = useRoute()
 const charactersStore = useCharactersStore()
 
-const character = computed(() => charactersStore.activePlayerCharacter)
-const optimizedCharacterArt = useOptimizedImage(() => character.value?.artUrls?.[0], MIDJOURNEY_IMAGE_CONTEXTS.THUMBNAIL)
+const resolvedCharacter = computed(() => props.character ?? charactersStore.activePlayerCharacter)
+
+const optimizedCharacterArt = useOptimizedImage(
+    () => resolvedCharacter.value?.artUrls?.[0],
+    MIDJOURNEY_IMAGE_CONTEXTS.THUMBNAIL
+)
 
 const shouldHideBadge = computed(() => {
-    // Hide badge when on characters page with a character sheet open (route has :id param)
+    // Only apply default hide logic when using the store character
+    if (props.character) return false
     return route.path.startsWith('/characters') && route.params.id
 })
 
-const navigateToCharacter = () => {
-    if (character.value) {
-        router.push('/characters/' + createSlug(character.value.name))
+const handleClick = () => {
+    if (props.onClick) {
+        props.onClick(resolvedCharacter.value)
+        return
+    }
+    emit('click', resolvedCharacter.value)
+    if (resolvedCharacter.value) {
+        router.push('/characters/' + createSlug(resolvedCharacter.value.name))
     } else {
         router.push('/characters')
     }
 }
 
-const deselectCharacter = () => {
+const handleRemove = () => {
+    if (props.onRemove) {
+        props.onRemove(resolvedCharacter.value)
+        return
+    }
+    emit('remove', resolvedCharacter.value)
     charactersStore.deselectCharacter()
 }
 </script>
@@ -128,6 +157,12 @@ const deselectCharacter = () => {
     opacity: 0;
     transition: opacity var(--transition-normal), transform var(--transition-normal);
     pointer-events: none;
+}
+
+/* Always-visible name variant */
+.name-always-visible .character-name-tooltip {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
 }
 
 @media (max-width: 768px) {
