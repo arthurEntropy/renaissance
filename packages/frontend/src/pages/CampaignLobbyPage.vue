@@ -2,7 +2,9 @@
     <div class="lobby-page">
         <Teleport to="body">
             <div v-if="campaign?.coverImageUrl" class="lobby-bg">
-                <div class="lobby-bg-layer" :style="bgStyle" />
+                <div class="lobby-bg-layer lobby-bg-preview" :style="bgPreviewStyle" />
+                <div class="lobby-bg-layer lobby-bg-full" :class="{ 'is-loaded': isLobbyBgLoaded }"
+                    :style="bgFullStyle" />
             </div>
         </Teleport>
 
@@ -138,6 +140,8 @@ import NavigationControls from '@/components/ui/NavigationControls.vue'
 import CampaignService from '@/services/entities/campaignService'
 import { CAMPAIGN_ROLE } from '@shared/constants/campaignConstants'
 import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
+import { useProgressiveOptimizedImage } from '@/composables/useOptimizedImage'
+import { PROGRESSIVE_IMAGE_CONTEXTS } from '@/constants/imageOptimization'
 
 const route = useRoute()
 const router = useRouter()
@@ -164,16 +168,27 @@ const isGM = computed(() => {
 const isFoundingGM = computed(() => campaign.value?.foundingGmUserId === authStore.user?.uid)
 
 // Background
-const bgStyle = computed(() => {
-    const url = campaign.value?.coverImageUrl
+const {
+    previewUrl: lobbyBgPreviewUrl,
+    finalUrl: lobbyBgFullUrl,
+    isFinalLoaded: isLobbyBgLoaded,
+} = useProgressiveOptimizedImage(() => campaign.value?.coverImageUrl, {
+    previewContext: PROGRESSIVE_IMAGE_CONTEXTS.APP_BACKGROUND.preview,
+    finalContext: PROGRESSIVE_IMAGE_CONTEXTS.APP_BACKGROUND.final,
+})
+
+const buildLobbyBgStyle = (url) => {
     if (!url) return {}
     return {
-        backgroundImage: `linear-gradient(var(--overlay-black-medium), var(--overlay-black-medium)), url('${url}')`,
+        backgroundImage: `linear-gradient(var(--overlay-black-medium), var(--overlay-black-medium)), url(${url})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
     }
-})
+}
+
+const bgPreviewStyle = computed(() => buildLobbyBgStyle(lobbyBgPreviewUrl.value))
+const bgFullStyle = computed(() => buildLobbyBgStyle(lobbyBgFullUrl.value))
 
 // Inline Edit: Name
 const isEditingName = ref(false)
@@ -383,6 +398,15 @@ onMounted(async () => {
 .lobby-bg-layer {
     position: absolute;
     inset: 0;
+}
+
+.lobby-bg-full {
+    opacity: 0;
+    transition: opacity 220ms ease;
+}
+
+.lobby-bg-full.is-loaded {
+    opacity: 1;
 }
 
 .lobby-header {
