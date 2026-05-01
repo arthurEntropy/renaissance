@@ -23,7 +23,7 @@
     <div class="top-nav">
       <!-- Campaign Badge (left side, symmetrical with auth on right) -->
       <div class="campaign-badge-wrapper">
-        <CampaignBadge />
+        <CampaignBadge v-if="authStore.isAuthenticated" />
       </div>
       <div class="top-nav-content">
         <router-link v-for="link in navLinks" :key="link.to" :to="link.to"
