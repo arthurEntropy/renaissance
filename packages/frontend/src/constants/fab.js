@@ -4,6 +4,7 @@ export const FAB_TYPES = {
     ADD: 'add',
     DUPLICATE: 'duplicate',
     DELETE: 'delete',
+    TRASH: 'trash',
     DRAG: 'drag',
     SETTINGS: 'settings',
     REFRESH: 'refresh',
@@ -15,7 +16,9 @@ export const FAB_TYPES = {
     AUTO_CALC_ON: 'auto-calc-on',
     EXPAND_ALL: 'expand-all',
     COLLAPSE_ALL: 'collapse-all',
+    VISIBILITY: 'visibility',
     MARTIAL_TRAINING: 'martial-training',
+    EXIT: 'exit',
 }
 
 export const FAB_SIZES = {

@@ -40,8 +40,7 @@ Campaign {
   id: string                          // UUID
   name: string                        // Display name
   description: string                 // Optional rich text description (for session notes, premise, etc.)
-  themeColor: string                  // Hex color used for the campaign nav badge (e.g. '#a83232')
-  badgeImageUrl: string | null        // Optional background image URL for the campaign nav badge
+  coverImageUrl: string | null        // Optional background image URL for the campaign badge
   createdAt: string                   // ISO 8601
   lastModified: string                // ISO 8601
   isDeleted: boolean                  // Soft delete
@@ -136,7 +135,7 @@ This is server-persisted so it survives page reloads.
 ### 2.3 Entering and exiting a campaign
 
 - From the campaign list, clicking "Enter" on an active campaign sets `activeCampaignId` on the user profile.
-- While in campaign mode, a **campaign badge** appears at the left end of the global nav bar — symmetrical with the user dropdown at the right end. The badge displays the campaign name and is styled with the campaign's `themeColor` and optional `badgeImageUrl`.
+- While in campaign mode, a **campaign badge** appears at the left end of the global nav bar — symmetrical with the user dropdown at the right end. The badge displays the campaign name and can use the campaign `coverImageUrl`.
 - Clicking the campaign badge provides an "Exit Campaign" control (and potentially a quick link to the GM Dashboard for GMs).
 - Exiting sets `activeCampaignId` to `null` and returns the user to the unfiltered app experience.
 - Switching to a different campaign exits the current one and enters the new one atomically.
@@ -328,11 +327,12 @@ Beast instances are characters with `beastType: 'instance'`, `campaignId` set, a
 
 - Generated instances can be manually adjusted (the GM can override any rolled value).
 - Full character sheet is available for instances, with beast-appropriate sections only (no mestiere, no pronouns/ancestry/culture).
+- Instances can be added to and removed from combat groups.
 
 ### 8.3 Instance lifecycle
 
 - Instances persist across sessions (they retain HP, conditions, friendship scores if captured by a Summoner).
-- **[DECIDE]** GMs can "archive" or delete instances after an encounter is resolved.
+- GMs can "archive" or delete instances after an encounter is resolved, as well as whole combat groups of instances.
 
 ### 8.4 Summoner integration
 

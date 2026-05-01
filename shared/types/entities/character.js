@@ -143,6 +143,10 @@ import { createBaseEntity } from './gameEntity.js'
  * @property {Object} manaPool - Channeler mana pool; each key is a mana color, value is an array of booleans (true = tapped)
  * @property {CharacterEquipmentItem[]} equipment - Equipped items
  * @property {CharacterAbilityItem[]} abilities - Character abilities with UI state
+ * @property {string|null} campaignId - If set, this character belongs to a campaign (NPC or beast instance)
+ * @property {boolean} isNPC - True for GM-controlled humanoid characters within a campaign
+ * @property {null|'template'|'instance'} beastType - Beast classification; null = not a beast, 'template' = bestiary entry, 'instance' = campaign creature
+ * @property {string|null} templateId - For beastType='instance', references the source template character
  * @property {string[]} artUrls - Character art URLs
  * @property {Object.<string, string>} engagementDiceStatuses - Saved engagement die statuses keyed by die identifier
  * @property {ActiveEffect[]} activeEffects - Currently active effects
@@ -191,6 +195,10 @@ export function createDefaultCharacter() {
     ...createBaseEntity(),
     name: 'New Character',
     isBeast: false,
+    campaignId: null,
+    isNPC: false,
+    beastType: null,
+    templateId: null,
     challenge: 0,
     description: '',
     size: 0,

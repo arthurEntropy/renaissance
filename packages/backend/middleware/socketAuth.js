@@ -1,5 +1,4 @@
 import { getAuth } from '../config/firebase.js'
-import { USER_ROLE, USER_STATUS } from '../../../shared/constants/userConstants.js'
 
 // Socket.IO middleware to verify Firebase token
 export const socketAuthMiddleware = async (socket, next) => {
@@ -22,8 +21,6 @@ export const socketAuthMiddleware = async (socket, next) => {
     // Add user info to socket object
     socket.user = {
       uid: decodedToken.uid,
-      email: decodedToken.email,
-      name: decodedToken.name,
       role: decodedToken.role || 'user',
       ...decodedToken
     }

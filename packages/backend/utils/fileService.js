@@ -60,8 +60,10 @@ const getAllDataByDirectory = (directory) => {
   }
 }
 
-const saveFile = (data, directory, oldName = null, existingId = null) => {
+const saveFile = (data, directory, oldName = null, existingId = null, options = {}) => {
   try {
+    const { filenameBase = null } = options
+
     // Generate a new ID if one doesn't exist
     const isNew = !data.id
     if (isNew) {
@@ -81,9 +83,11 @@ const saveFile = (data, directory, oldName = null, existingId = null) => {
       data = ensureImprovementIds(data)
     }
 
-    // For entities without names (like art), use ID as filename
-    const useName = data.name !== undefined && data.name !== null
-    let baseFilename = useName ? sanitizeFilename(data.name) : data.id
+    // For entities without usable names, use ID unless a filename override is provided.
+    const useName = typeof data.name === 'string'
+      ? data.name.trim().length > 0
+      : data.name !== undefined && data.name !== null
+    let baseFilename = filenameBase || (useName ? sanitizeFilename(data.name) : data.id)
     let filename = baseFilename + '.json'
     let filePath = join(directory, filename)
 
@@ -91,7 +95,6 @@ const saveFile = (data, directory, oldName = null, existingId = null) => {
 
     // If updating an existing entity, find and remove the old file first
     let oldFilePath = null
-    let oldFileName = null
     if (!isNew && existingId) {
       // Find the existing file by ID
       const matchingFiles = []
@@ -124,7 +127,6 @@ const saveFile = (data, directory, oldName = null, existingId = null) => {
           }
         }
         oldFilePath = targetFile.path
-        oldFileName = targetFile.name
       }
     }
 

@@ -16,6 +16,7 @@ import AdminPage from '@/pages/AdminPage.vue'
 import ArtPage from '@/pages/ArtPage.vue'
 import VirtualTabletopPage from '@/pages/VirtualTabletopPage.vue'
 import DesignLabPage from '@/pages/DesignLabPage.vue'
+import CampaignLobbyPage from '@/pages/CampaignLobbyPage.vue'
 
 const routes = [
   { path: '/', component: TitlePage },
@@ -61,6 +62,11 @@ const routes = [
     path: '/tabletop',
     component: VirtualTabletopPage,
     meta: { requiresAuth: true, requiresAdmin: true },
+  },
+  {
+    path: '/campaigns/:slug',
+    component: CampaignLobbyPage,
+    meta: { requiresAuth: true },
   },
 ]
 

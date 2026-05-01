@@ -26,6 +26,7 @@ const MANA_COLOR_GROUP_LABELS = {
 
 export function useCardCascadePicker(options = {}) {
     const fixedCategory = options.fixedCategory || null
+    const filterItems = options.filterItems || null
 
     const abilitiesStore = useAbilitiesStore()
     const equipmentStore = useEquipmentStore()
@@ -132,13 +133,13 @@ export function useCardCascadePicker(options = {}) {
 
     // Flat list of all items for the active category
     const allPickerItems = computed(() => {
+        let items = []
         if (pickerCategory.value === 'ability') {
-            return abilitiesStore.abilities.filter(a => !a.isDeleted)
+            items = abilitiesStore.abilities.filter(a => !a.isDeleted)
+        } else if (pickerCategory.value === 'equipment') {
+            items = equipmentStore.equipment.filter(e => !e.isDeleted && !e.isTemplate)
         }
-        if (pickerCategory.value === 'equipment') {
-            return equipmentStore.equipment.filter(e => !e.isDeleted && !e.isTemplate)
-        }
-        return []
+        return filterItems ? items.filter(filterItems) : items
     })
 
     // Level 1: source types that have items, with counts

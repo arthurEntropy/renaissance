@@ -31,7 +31,7 @@ export const useCharactersStore = defineStore('characters', () => {
   })
 
   const filteredBeasts = computed(() => {
-    return base.items.value.filter(character => character.isBeast)
+    return base.items.value.filter((character) => character.isBeast && character.beastType !== 'instance')
   })
 
   // The beast currently summoned by the active player character (if any)

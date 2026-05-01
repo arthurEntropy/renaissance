@@ -1,5 +1,6 @@
 <template>
-    <button type="button" :class="['fab', `fab--${props.variant}`, `fab--${props.size}`, `fab--${props.visibility}`]"
+    <button type="button"
+        :class="['fab', `fab--${props.variant}`, `fab--${props.size}`, `fab--${props.visibility}`, props.variant === FAB_TYPES.VISIBILITY && !props.isActive ? 'fab--visibility-off' : '']"
         :title="variantConfig.tooltip">
         <!-- Special case for character sheet auto-calc: text instead of icon -->
         <span v-if="props.variant === FAB_TYPES.AUTO_CALC_ON" class="auto-text">AUTO</span>
@@ -11,7 +12,7 @@
 <script setup>
 import { computed } from 'vue'
 // Heroicons
-import { PlusIcon, DocumentDuplicateIcon, PencilIcon, CheckIcon, XMarkIcon, Bars3Icon, Cog6ToothIcon, ArrowPathIcon, BookOpenIcon, CalculatorIcon, ChevronDoubleDownIcon, ChevronDoubleUpIcon } from '@heroicons/vue/24/outline'
+import { PlusIcon, DocumentDuplicateIcon, PencilIcon, CheckIcon, XMarkIcon, TrashIcon, Bars3Icon, Cog6ToothIcon, ArrowPathIcon, BookOpenIcon, CalculatorIcon, ChevronDoubleDownIcon, ChevronDoubleUpIcon, ArrowRightStartOnRectangleIcon, EyeIcon, EyeSlashIcon } from '@heroicons/vue/24/outline'
 // Custom icons
 import CrossedSwordsIcon from '@/assets/icons/characterSheet/crossed_swords.svg?component'
 import DieIcon from '@/assets/icons/characterSheet/die.svg?component'
@@ -37,6 +38,11 @@ const props = defineProps({
         type: String,
         default: FAB_VISIBILITIES.ON_HOVER,
         validator: (value) => Object.values(FAB_VISIBILITIES).includes(value)
+    },
+
+    isActive: {
+        type: Boolean,
+        default: true
     }
 })
 
@@ -45,7 +51,8 @@ const FAB_TYPE_CONFIG = {
     [FAB_TYPES.CONFIRM]: { icon: CheckIcon, tooltip: 'Save Changes' },
     [FAB_TYPES.ADD]: { icon: PlusIcon, tooltip: 'Add' },
     [FAB_TYPES.DUPLICATE]: { icon: DocumentDuplicateIcon, tooltip: 'Duplicate' },
-    [FAB_TYPES.DELETE]: { icon: XMarkIcon, tooltip: 'Delete' },
+    [FAB_TYPES.DELETE]: { icon: XMarkIcon, tooltip: '' }, // This variant is used for close and remove actions
+    [FAB_TYPES.TRASH]: { icon: TrashIcon, tooltip: 'Delete permanently' },
     [FAB_TYPES.DRAG]: { icon: Bars3Icon, tooltip: 'Drag to reorder' },
     [FAB_TYPES.SETTINGS]: { icon: Cog6ToothIcon, tooltip: 'Settings' },
     [FAB_TYPES.REFRESH]: { icon: ArrowPathIcon, tooltip: 'Reset to Base Value' },
@@ -58,9 +65,17 @@ const FAB_TYPE_CONFIG = {
     [FAB_TYPES.EXPAND_ALL]: { icon: ChevronDoubleDownIcon, tooltip: 'Expand all' },
     [FAB_TYPES.COLLAPSE_ALL]: { icon: ChevronDoubleUpIcon, tooltip: 'Collapse all' },
     [FAB_TYPES.MARTIAL_TRAINING]: { icon: MartialTrainingIcon, tooltip: 'View Martial Training' },
+    [FAB_TYPES.EXIT]: { icon: ArrowRightStartOnRectangleIcon, tooltip: 'Exit Campaign' },
 }
 
 const variantConfig = computed(() => {
+    if (props.variant === FAB_TYPES.VISIBILITY) {
+        return {
+            icon: props.isActive ? EyeIcon : EyeSlashIcon,
+            tooltip: props.isActive ? 'Visible to players' : 'Hidden from players',
+        }
+    }
+
     return FAB_TYPE_CONFIG[props.variant]
 })
 </script>
@@ -171,8 +186,6 @@ const variantConfig = computed(() => {
     color: var(--color-primary);
 }
 
-
-
 .fab--confirm {
     background: var(--color-success);
     border-color: var(--color-success);
@@ -181,6 +194,26 @@ const variantConfig = computed(() => {
 .fab--confirm:hover {
     background: var(--color-success-hover);
     border-color: var(--color-success-hover);
+}
+
+.fab--trash:hover {
+    background: var(--color-danger);
+    border-color: var(--color-danger);
+}
+
+.fab--exit:hover {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+}
+
+.fab--visibility .fab__icon--small,
+.fab--visibility .fab__icon--large {
+    color: var(--color-accent-cyan);
+}
+
+.fab--visibility-off .fab__icon--small,
+.fab--visibility-off .fab__icon--large {
+    color: var(--color-danger);
 }
 
 /* === VISIBILITY VARIANTS === */

@@ -1,8 +1,8 @@
 <template>
     <div class="auth-component">
         <!-- Loading state -->
-        <div v-if="authStore.isLoading" class="auth-loading">
-            <p>Loading...</p>
+        <div v-if="shouldShowAuthLoading" class="auth-loading">
+            <p>Signing In...</p>
         </div>
 
         <!-- Not authenticated -->
@@ -35,49 +35,85 @@
                 <ChevronDownIcon class="chevron-icon" />
 
                 <span class="user-name">{{ displayName }}</span>
+                <span v-if="campaignStore.pendingInviteCount > 0" class="invite-dot"
+                    :title="`${campaignStore.pendingInviteCount} pending invite(s)`" />
 
                 <!-- Dropdown menu -->
                 <div v-if="dropdownOpen" class="dropdown-menu">
-                    <button @click.stop="openPreferences" class="dropdown-item">
-                        Preferences
-                    </button>
-                    <router-link v-if="authStore.isAdmin" to="/admin" class="dropdown-item" @click.stop="closeDropdown">
+
+                    <div v-if="authStore.isAdmin" class="dropdown-menu-section-label">Admin</div>
+                    <router-link v-if="authStore.isAdmin" to="/admin" class="dropdown-item dropdown-item--admin"
+                        @click.stop="closeDropdown">
                         Admin Panel
                     </router-link>
-                    <router-link v-if="authStore.isAdmin" to="/design-lab" class="dropdown-item"
+                    <router-link v-if="authStore.isAdmin" to="/tabletop" class="dropdown-item dropdown-item--admin"
+                        @click.stop="closeDropdown">
+                        Tabletop
+                    </router-link>
+                    <router-link v-if="authStore.isAdmin" to="/design-lab" class="dropdown-item dropdown-item--admin"
                         @click.stop="closeDropdown">
                         Design Lab
                     </router-link>
-                    <button @click.stop="handleSignOut" class="dropdown-item">
+                    <div v-if="authStore.isAdmin" class="dropdown-menu-divider" />
+
+                    <button @click.stop="openPreferences" class="dropdown-item">
+                        Preferences
+                    </button>
+                    <button v-if="campaignStore.pendingInviteCount > 0" @click.stop="openInvites"
+                        class="dropdown-item dropdown-item--highlight">
+                        Invites ({{ campaignStore.pendingInviteCount }})
+                    </button>
+
+
+                    <div class="dropdown-menu-divider" />
+                    <button @click.stop="handleSignOut" class="dropdown-item dropdown-item--signout">
                         Sign Out
                     </button>
                 </div>
             </div>
         </div>
     </div>
+
+    <InvitesModal v-if="showInvitesModal" @close="showInvitesModal = false" />
 </template>
 
 <script setup>
 import { ref, computed, watch } from 'vue'
 import { useAuthStore } from '@/stores/authStore'
 import { useUserStore } from '@/stores/userStore'
+import { useCampaignStore } from '@/stores/campaignStore'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import { ChevronDownIcon } from '@heroicons/vue/24/outline'
+import InvitesModal from '@/components/features/campaigns/InvitesModal.vue'
 
 const GOOGLE_ICON_URL = 'https://www.gstatic.com/marketing-cms/assets/images/d5/dc/cfe9ce8b4425b410b49b7f2dd3f3/g.webp=s48-fcrop64=1,00000000ffffffff-rw'
 
 const authStore = useAuthStore()
 const userStore = useUserStore()
+const campaignStore = useCampaignStore()
 const signingIn = ref(false)
 const signingOut = ref(false)
 const dropdownOpen = ref(false)
 const dropdownTrigger = ref(null)
+const showInvitesModal = ref(false)
 
 const emit = defineEmits(['openPreferences'])
 
+const isAuthProfilePending = computed(() => {
+    return authStore.isAuthenticated && (!userStore.userProfile || userStore.isLoading)
+})
+
+const isCompletingUsernameSetup = computed(() => {
+    return authStore.isAuthenticated && userStore.userProfile?.needsUsername
+})
+
+const shouldShowAuthLoading = computed(() => {
+    return authStore.isLoading || isAuthProfilePending.value || isCompletingUsernameSetup.value
+})
+
 const displayName = computed(() => {
-    if (userStore.isLoading) return 'Loading...'
-    return userStore.userProfile?.name || authStore.user?.email || 'User'
+    if (shouldShowAuthLoading.value) return 'Signing In...'
+    return userStore.userProfile?.name || 'User'
 })
 
 const toggleDropdown = () => {
@@ -104,6 +140,11 @@ const closeDropdown = () => {
 
 const openPreferences = () => {
     emit('openPreferences')
+    dropdownOpen.value = false
+}
+
+const openInvites = () => {
+    showInvitesModal.value = true
     dropdownOpen.value = false
 }
 
@@ -134,7 +175,8 @@ const handleSignOut = async () => {
 <style scoped>
 .auth-loading {
     text-align: center;
-    color: var(--color-white);
+    color: var(--color-text-primary);
+    font-size: var(--font-size-14);
 }
 
 .auth-login {
@@ -198,30 +240,76 @@ const handleSignOut = async () => {
 
 .dropdown-menu {
     position: absolute;
-    top: 100%;
+    top: calc(100% + var(--space-lg));
     right: 0;
-    margin-top: var(--space-sm);
     background: var(--color-bg-secondary);
-    border: 1px solid var(--color-gray-medium);
-    border-radius: var(--radius-5);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--overlay-white-medium);
+    border-radius: var(--radius-10);
+    box-shadow: var(--shadow-elevation-md, var(--shadow-lg));
     width: 120px;
-    z-index: 1000;
+    z-index: var(--z-dropdown);
+    overflow: hidden;
 }
 
 .dropdown-item {
     display: block;
     min-width: 120px;
     max-width: 120px;
-    padding: var(--space-sm) var(--space-md);
+    padding: var(--space-md) var(--space-lg);
     background: none;
     border: none;
-    color: var(--color-white);
+    color: var(--color-text-primary);
     font-size: var(--font-size-14);
     font-family: var(--font-family-primary);
     text-align: left;
     text-decoration: none;
     cursor: pointer;
-    transition: background-color var(--duration-fast);
+    transition: background var(--transition-fast);
+}
+
+.dropdown-item:hover {
+    background: var(--overlay-white-subtle);
+}
+
+.dropdown-item--highlight {
+    color: var(--color-primary);
+}
+
+.dropdown-item--admin {
+    color: var(--color-accent-cyan);
+}
+
+.dropdown-item--signout {
+    color: var(--color-primary);
+    font-weight: var(--font-weight-semibold);
+}
+
+.dropdown-menu-divider {
+    height: 1px;
+    background: var(--overlay-white-medium);
+    margin: var(--space-sm) 0;
+}
+
+.dropdown-menu-section-label {
+    font-size: var(--font-size-11);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: var(--space-sm) var(--space-lg);
+}
+
+/* Adjustment for active route underline in auth dropdown */
+.top-nav a.router-link-active::after {
+    right: 45px;
+}
+
+.invite-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: var(--color-danger, #e74c3c);
+    border-radius: 50%;
+    flex-shrink: 0;
 }
 </style>

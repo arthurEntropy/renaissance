@@ -4,7 +4,6 @@
             <div class="user-info">
                 <div class="user-details">
                     <h4 class="user-name">{{ user.name || 'No name' }}</h4>
-                    <p class="user-email">{{ user.email }}</p>
                 </div>
             </div>
             <div class="user-badges">
@@ -137,12 +136,6 @@ const formatDate = (dateString) => {
     font-size: var(--font-size-18);
     color: var(--color-white);
     margin: 0 0 0.25rem 0;
-}
-
-.user-email {
-    font-size: var(--font-size-14);
-    color: var(--color-gray-light);
-    margin: 0;
 }
 
 .user-badges {

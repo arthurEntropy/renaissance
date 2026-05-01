@@ -21,6 +21,10 @@
 
     <!-- Desktop Top Navigation -->
     <div class="top-nav">
+      <!-- Campaign Badge (left side, symmetrical with auth on right) -->
+      <div class="campaign-badge-wrapper">
+        <CampaignBadge v-if="authStore.isAuthenticated" />
+      </div>
       <div class="top-nav-content">
         <router-link v-for="link in navLinks" :key="link.to" :to="link.to"
           :class="{ 'router-link-active': isActiveSection(link.to) }">{{ link.label }}</router-link>
@@ -72,6 +76,7 @@ import UsernameSetup from '@/components/features/auth/UsernameSetup.vue'
 import NotInvitedModal from '@/components/features/auth/NotInvitedModal.vue'
 import PreferencesModal from '@/components/features/preferences/PreferencesModal.vue'
 import CardPreviewOverlay from '@/components/ui/cards/preview/CardPreviewOverlay.vue'
+import CampaignBadge from '@/components/features/campaigns/CampaignBadge.vue'
 import { useProgressiveOptimizedImage } from '@/composables/useOptimizedImage'
 import { PROGRESSIVE_IMAGE_CONTEXTS } from '@/constants/imageOptimization'
 
@@ -87,14 +92,13 @@ const navLinks = computed(() => [
   { to: '/rules', label: 'RULES' },
   { to: '/ancestries', label: 'ANCESTRIES' },
   { to: '/cultures', label: 'CULTURES' },
-  { to: '/world-elements', label: 'WORLD ELEMENTS' },
+  { to: '/world-elements', label: 'WORLD' },
   { to: '/mestieri', label: 'MESTIERI' },
   ...(authStore.isAuthenticated ? [{ to: '/characters', label: 'CHARACTERS' }] : []),
   { to: '/bestiary', label: 'BESTIARY' },
   { to: '/abilities', label: 'ABILITIES' },
   { to: '/equipment', label: 'EQUIPMENT' },
   ...(authStore.isAdmin ? [{ to: '/art', label: 'ART' }] : []),
-  ...(authStore.isAdmin ? [{ to: '/tabletop', label: 'TABLETOP' }] : []),
 ])
 const showPreferencesModal = ref(false)
 

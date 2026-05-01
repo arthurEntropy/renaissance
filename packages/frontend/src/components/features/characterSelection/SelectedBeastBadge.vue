@@ -1,9 +1,14 @@
 <template>
-    <div v-if="beast" class="selected-beast-badge" @click="navigateToBeast">
+    <div v-if="resolvedBeast" class="selected-beast-badge" :class="{
+        'name-always-visible': props.alwaysShowName,
+        'selected-beast-badge--inactive': props.isInactive,
+    }" @click="handleClick">
         <div class="beast-portrait">
-            <img :src="optimizedBeastArt" :alt="beast.name" />
+            <img :src="optimizedBeastArt" :alt="resolvedBeast.name" />
         </div>
-        <div class="beast-name-tooltip">{{ beast.name }}</div>
+        <FloatingActionButton v-if="props.onRemove" class="close-fab" :variant="FAB_TYPES.DELETE"
+            :size="FAB_SIZES.SMALL" :visibility="FAB_VISIBILITIES.ALWAYS" @click.stop="handleRemove" />
+        <div class="beast-name-tooltip">{{ resolvedBeast.name }}</div>
     </div>
 </template>
 
@@ -11,18 +16,51 @@
 import { computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useCharactersStore } from '@/stores/charactersStore'
+import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import { useOptimizedImage } from '@/composables/useOptimizedImage'
 import { createSlug } from '@/utils/urlHelpers'
 import { MIDJOURNEY_IMAGE_CONTEXTS } from '@shared/constants/artConstants.js'
+import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
+
+const props = defineProps({
+    beast: { type: Object, default: null },
+    alwaysShowName: { type: Boolean, default: false },
+    onRemove: { type: Function, default: null },
+    onClick: { type: Function, default: null },
+    isInactive: { type: Boolean, default: false },
+})
+
+const emit = defineEmits(['remove', 'click'])
 
 const router = useRouter()
 const charactersStore = useCharactersStore()
 
-const beast = computed(() => charactersStore.summonedBeast)
-const optimizedBeastArt = useOptimizedImage(() => beast.value?.artUrls?.[0], MIDJOURNEY_IMAGE_CONTEXTS.THUMBNAIL)
+const resolvedBeast = computed(() => props.beast ?? charactersStore.summonedBeast)
 
-const navigateToBeast = () => {
-    router.push('/bestiary/' + createSlug(beast.value.name))
+const optimizedBeastArt = useOptimizedImage(
+    () => resolvedBeast.value?.artUrls?.[0],
+    MIDJOURNEY_IMAGE_CONTEXTS.THUMBNAIL
+)
+
+const handleClick = () => {
+    if (props.onClick) {
+        props.onClick(resolvedBeast.value)
+        return
+    }
+
+    emit('click', resolvedBeast.value)
+    if (resolvedBeast.value) {
+        router.push('/bestiary/' + createSlug(resolvedBeast.value.name))
+    }
+}
+
+const handleRemove = () => {
+    if (props.onRemove) {
+        props.onRemove(resolvedBeast.value)
+        return
+    }
+
+    emit('remove', resolvedBeast.value)
 }
 </script>
 
@@ -55,6 +93,10 @@ const navigateToBeast = () => {
     box-shadow: var(--shadow-elevation-md);
 }
 
+.selected-beast-badge--inactive .beast-portrait {
+    border-color: var(--color-gray-medium);
+}
+
 .beast-portrait img {
     width: 100%;
     height: 100%;
@@ -64,8 +106,8 @@ const navigateToBeast = () => {
 .beast-name-tooltip {
     position: absolute;
     bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%) translateY(10px);
+    left: 0;
+    transform: translateY(10px);
     background-color: var(--overlay-black-heavy);
     color: var(--color-text-primary);
     padding: var(--space-xs) var(--space-sm);
@@ -75,6 +117,25 @@ const navigateToBeast = () => {
     opacity: 0;
     transition: opacity var(--transition-normal), transform var(--transition-normal);
     pointer-events: none;
+}
+
+.name-always-visible .beast-name-tooltip {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.close-fab {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    opacity: 0 !important;
+    pointer-events: none;
+    transition: opacity var(--transition-normal);
+}
+
+.selected-beast-badge:hover .close-fab {
+    opacity: 1 !important;
+    pointer-events: auto;
 }
 
 @media (max-width: 768px) {
@@ -87,6 +148,11 @@ const navigateToBeast = () => {
     .beast-name-tooltip {
         bottom: auto;
         top: -30px;
+    }
+
+    .close-fab {
+        opacity: 1 !important;
+        pointer-events: auto;
     }
 }
 </style>

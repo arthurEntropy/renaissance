@@ -3,6 +3,7 @@ import {
   getAllDataByDirectory,
   saveFile,
 } from '../utils/fileService.js'
+import { v4 as uuidv4 } from 'uuid'
 import { getAuth } from '../config/firebase.js'
 import { isEmailAllowed } from '../utils/inviteService.js'
 import { USER_ROLE, USER_STATUS } from '../../../shared/constants/userConstants.js'
@@ -23,10 +24,12 @@ export const getUserProfile = async (uid) => {
 // Create or update user profile
 export const syncUserProfile = async (req, res) => {
   try {
-    const { uid, email, displayName, photoURL, username } = req.body
-    
-    if (!uid || !email) {
-      return res.status(400).json({ error: 'UID and email are required' })
+    const { username } = req.body
+    const uid = req.user.uid
+    const email = req.user.email
+
+    if (!email) {
+      return res.status(400).json({ error: 'Email not available from auth token' })
     }
     
     let userProfile = await getUserProfile(uid)
@@ -35,10 +38,8 @@ export const syncUserProfile = async (req, res) => {
       // Update existing profile
       userProfile = {
         ...userProfile,
-        email,
         // Only update username if provided and user doesn't have one yet
         name: username || userProfile.name,
-        photoURL: photoURL || userProfile.photoURL,
         lastLoginAt: new Date().toISOString(),
       }
       
@@ -63,10 +64,7 @@ export const syncUserProfile = async (req, res) => {
       // Create new profile - automatically approved for invited users
       userProfile = {
         id: uid,
-        email,
-        // Use provided username, fallback to displayName or email prefix
-        name: username || displayName || email.split('@')[0],
-        photoURL: photoURL || '',
+        name: username || '',
         role: USER_ROLE.USER, // Default role
         status: USER_STATUS.APPROVED, // Auto-approve invited users
         needsUsername: !username, // Flag if user needs to set a username
@@ -82,7 +80,13 @@ export const syncUserProfile = async (req, res) => {
     }
     
     // Save to file system
-    saveFile(userProfile, USERS_DIRECTORY)
+    saveFile(
+      userProfile,
+      USERS_DIRECTORY,
+      null,
+      null,
+      userProfile.name ? undefined : { filenameBase: uuidv4() }
+    )
     
     // Set custom claims in Firebase if role changed
     const auth = getAuth()
@@ -116,6 +120,71 @@ export const getCurrentUserProfile = async (req, res) => {
   }
 }
 
+// Approved users: Resolve a list of user IDs to lightweight public profile info
+export const getPublicUsersByIds = async (req, res) => {
+  try {
+    const idsParam = req.query.ids
+    if (!idsParam || typeof idsParam !== 'string') {
+      return res.status(400).json({ error: 'ids query parameter is required' })
+    }
+
+    const requestedIds = idsParam
+      .split(',')
+      .map((id) => id.trim())
+      .filter(Boolean)
+
+    if (requestedIds.length === 0) {
+      return res.json([])
+    }
+
+    const users = getAllDataByDirectory(USERS_DIRECTORY)
+    const usersById = new Map(
+      users
+        .filter((user) => !user.isDeleted)
+        .map((user) => [user.id, { id: user.id, name: user.name || user.id }])
+    )
+
+    const resolvedUsers = requestedIds
+      .map((id) => usersById.get(id))
+      .filter(Boolean)
+
+    res.json(resolvedUsers)
+  } catch (error) {
+    console.error('Error resolving users by IDs:', error)
+    res.status(500).json({ error: 'Failed to resolve users' })
+  }
+}
+
+// Approved users: Search users by username for invite workflows
+export const searchUsers = async (req, res) => {
+  try {
+    const rawQuery = typeof req.query.q === 'string' ? req.query.q : ''
+    const query = rawQuery.trim().toLowerCase()
+
+    if (query.length < 2) {
+      return res.json([])
+    }
+
+    const users = getAllDataByDirectory(USERS_DIRECTORY)
+    const matches = users
+      .filter((user) => !user.isDeleted)
+      .filter((user) => {
+        const name = (user.name || '').toLowerCase()
+        return name.includes(query)
+      })
+      .slice(0, 25)
+      .map((user) => ({
+        id: user.id,
+        name: user.name || user.id,
+      }))
+
+    res.json(matches)
+  } catch (error) {
+    console.error('Error searching users:', error)
+    res.status(500).json({ error: 'Failed to search users' })
+  }
+}
+
 // Update current user's profile
 export const updateCurrentUserProfile = async (req, res) => {
   try {
@@ -126,7 +195,7 @@ export const updateCurrentUserProfile = async (req, res) => {
     }
     
     // Only allow updating certain fields
-    const allowedUpdates = ['name', 'preferences']
+    const allowedUpdates = ['name', 'preferences', 'activeCampaignId']
     const updates = {}
     
     for (const field of allowedUpdates) {

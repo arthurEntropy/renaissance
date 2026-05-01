@@ -24,8 +24,6 @@ export const verifyToken = async (req, res, next) => {
     // Add user info to request object
     req.user = {
       uid: decodedToken.uid,
-      email: decodedToken.email,
-      name: decodedToken.name,
       role: decodedToken.role || USER_ROLE.USER,
       ...decodedToken
     }

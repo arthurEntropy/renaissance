@@ -21,11 +21,40 @@ import { socketAuthMiddleware, socketRequireApproved } from './middleware/socket
 import {
   syncUserProfile,
   getCurrentUserProfile,
+  getPublicUsersByIds,
+  searchUsers,
   updateCurrentUserProfile,
   getAllUsers,
   updateUser,
   deleteUser,
 } from './controllers/userController.js'
+import {
+  getUserCampaigns,
+  getCampaign,
+  createCampaign,
+  updateCampaign,
+  deleteCampaign,
+  inviteMember,
+  respondToInvite,
+  updateMemberRole,
+  removeMember,
+  updateIncludedConcepts,
+  getCampaignCharacters,
+  createCampaignCharacter,
+  updateMemberCharacters,
+  generateShop,
+  saveShop,
+  updateShop,
+  deleteShop,
+  getPendingInvites,
+  getCampaignBySlug,
+  deleteBeastInstance,
+} from './controllers/campaignController.js'
+import {
+  requireCampaignMember,
+  requireCampaignGM,
+  requireCampaignFoundingGM,
+} from './middleware/campaignAuth.js'
 import { getAuth } from './config/firebase.js'
 
 // Load environment variables
@@ -58,7 +87,8 @@ app.use((req, res, next) => {
   // Protected routes that require authentication
   const protectedRoutes = [
     '/auth',
-    '/users'
+    '/users',
+    '/campaigns',
   ]
   
   if (protectedRoutes.some(route => req.path.startsWith(route))) {
@@ -74,6 +104,8 @@ app.post('/auth/sync-profile', requireAuth, syncUserProfile)
 
 // User profile routes
 app.get('/users/profile', requireAuth, getCurrentUserProfile)
+app.get('/users/public', requireAuth, requireApproved, getPublicUsersByIds)
+app.get('/users/search', requireAuth, requireApproved, searchUsers)
 app.put('/users/profile', requireAuth, updateCurrentUserProfile)
 
 // Admin user management routes
@@ -85,12 +117,53 @@ app.delete('/users/admin/:userId', requireAuth, requireAdmin, deleteUser)
 app.get('/admin/cleanup/scan', verifyToken, requireAuth, requireAdmin, scanCleanup)
 app.post('/admin/cleanup/delete', verifyToken, requireAuth, requireAdmin, deleteCleanupItems)
 
+// Campaign routes (all require auth + approval)
+app.get('/campaigns/invites/pending', requireAuth, requireApproved, getPendingInvites)
+app.get('/campaigns/by-slug/:slug', requireAuth, requireApproved, getCampaignBySlug)
+app.get('/campaigns', requireAuth, requireApproved, getUserCampaigns)
+app.post('/campaigns', requireAuth, requireApproved, createCampaign)
+app.get('/campaigns/:id', requireAuth, requireCampaignMember, getCampaign)
+app.put('/campaigns/:id', requireAuth, requireCampaignGM, updateCampaign)
+app.delete('/campaigns/:id', requireAuth, requireCampaignFoundingGM, deleteCampaign)
+
+// Campaign member management
+app.post('/campaigns/:id/invite', requireAuth, requireCampaignGM, inviteMember)
+app.put('/campaigns/:id/members/:userId/respond', requireAuth, requireApproved, respondToInvite)
+app.put('/campaigns/:id/members/:userId/role', requireAuth, requireCampaignGM, updateMemberRole)
+app.delete('/campaigns/:id/members/:userId', requireAuth, requireCampaignGM, removeMember)
+app.put('/campaigns/:id/members/:userId/characters', requireAuth, requireApproved, updateMemberCharacters)
+
+// Campaign concepts
+app.put('/campaigns/:id/concepts', requireAuth, requireCampaignGM, updateIncludedConcepts)
+
+// Campaign characters (NPCs + beast instances)
+app.get('/campaigns/:id/characters', requireAuth, requireCampaignMember, getCampaignCharacters)
+app.post('/campaigns/:id/characters', requireAuth, requireCampaignGM, createCampaignCharacter)
+app.delete('/campaigns/:id/beasts/:characterId', requireAuth, requireCampaignGM, deleteBeastInstance)
+
+// Campaign shops
+app.post('/campaigns/:id/shops/generate', requireAuth, requireCampaignGM, generateShop)
+app.post('/campaigns/:id/shops', requireAuth, requireCampaignGM, saveShop)
+app.put('/campaigns/:id/shops/:shopId', requireAuth, requireCampaignGM, updateShop)
+app.delete('/campaigns/:id/shops/:shopId', requireAuth, requireCampaignGM, deleteShop)
+
+// Character-specific routes — allow any approved user to manage their own characters
+// (must be defined before the generic entity loop below)
+app.get('/characters', getAllEntities('characters'))
+app.post('/characters', verifyToken, requireAuth, requireApproved, createEntity('characters'))
+app.put('/characters/:id', verifyToken, requireAuth, requireApproved, updateEntity('characters'))
+app.delete('/characters/:id', verifyToken, requireAuth, requireApproved, deleteEntity('characters'))
+
 // Dynamically retrieve entity names from the "data" directory
 const entities = getEntityNames()
 
 // Dynamically create CRUD routes for each data entity
 entities.forEach((entity) => {
-  // All data entities are public for reading, admin-only for writing
+  // Characters have their own routes above (non-admin write access)
+  // Campaigns have their own routes above
+  if (entity === 'characters' || entity === 'campaigns') return
+
+  // All other data entities are public for reading, admin-only for writing
   app.get(`/${entity}`, getAllEntities(entity))
   app.post(`/${entity}`, verifyToken, requireAuth, requireAdmin, createEntity(entity))
   app.put(`/${entity}/:id`, verifyToken, requireAuth, requireAdmin, updateEntity(entity))

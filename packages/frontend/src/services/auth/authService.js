@@ -88,12 +88,7 @@ class AuthService {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
         },
-        body: JSON.stringify({
-          uid: user.uid,
-          email: user.email,
-          displayName: user.displayName,
-          photoURL: user.photoURL
-        })
+        body: JSON.stringify({})
       })
       
       const data = await response.json()

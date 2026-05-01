@@ -1,12 +1,14 @@
 <template>
-    <div class="selected-character-badge" v-if="character && !shouldHideBadge" @click="navigateToCharacter">
+    <div class="selected-character-badge" :class="{
+        'name-always-visible': alwaysShowName,
+        'selected-character-badge--inactive': isInactive,
+    }" v-if="resolvedCharacter && !shouldHideBadge" @click="handleClick">
         <div class="character-portrait">
-            <img :src="optimizedCharacterArt" :alt="character.name" />
+            <img :src="optimizedCharacterArt" :alt="resolvedCharacter.name" />
         </div>
-        <div class="close-button" @click.stop="deselectCharacter">
-            <XMarkIcon class="close-icon" />
-        </div>
-        <div class="character-name-tooltip">{{ character.name }}</div>
+        <FloatingActionButton v-if="showRemoveFab" class="close-fab" :variant="FAB_TYPES.DELETE" :size="FAB_SIZES.SMALL"
+            :visibility="FAB_VISIBILITIES.ALWAYS" @click.stop="handleRemove" />
+        <div class="character-name-tooltip">{{ resolvedCharacter.name }}</div>
     </div>
 </template>
 
@@ -14,32 +16,71 @@
 import { computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useCharactersStore } from '@/stores/charactersStore'
-import { XMarkIcon } from '@heroicons/vue/24/outline'
+import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import { useOptimizedImage } from '@/composables/useOptimizedImage'
 import { createSlug } from '@/utils/urlHelpers'
 import { MIDJOURNEY_IMAGE_CONTEXTS } from '@shared/constants/artConstants.js'
+import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
+
+const props = defineProps({
+    /** Override the character shown (instead of the store's activePlayerCharacter) */
+    character: { type: Object, default: null },
+    /** Always show the name tooltip without hover */
+    alwaysShowName: { type: Boolean, default: false },
+    /** Custom remove handler — if provided, replaces the default deselectCharacter */
+    onRemove: { type: Function, default: null },
+    /** Custom click handler — if provided, replaces the default navigation */
+    onClick: { type: Function, default: null },
+    /** Render with inactive status ring styling */
+    isInactive: { type: Boolean, default: false },
+    /** Show the delete FAB */
+    showRemoveFab: { type: Boolean, default: true },
+    /** Disable fallback navigation when no custom click handler is provided */
+    disableDefaultClick: { type: Boolean, default: false },
+})
+
+const emit = defineEmits(['remove', 'click'])
 
 const router = useRouter()
 const route = useRoute()
 const charactersStore = useCharactersStore()
 
-const character = computed(() => charactersStore.activePlayerCharacter)
-const optimizedCharacterArt = useOptimizedImage(() => character.value?.artUrls?.[0], MIDJOURNEY_IMAGE_CONTEXTS.THUMBNAIL)
+const resolvedCharacter = computed(() => props.character ?? charactersStore.activePlayerCharacter)
+
+const optimizedCharacterArt = useOptimizedImage(
+    () => resolvedCharacter.value?.artUrls?.[0],
+    MIDJOURNEY_IMAGE_CONTEXTS.THUMBNAIL
+)
 
 const shouldHideBadge = computed(() => {
-    // Hide badge when on characters page with a character sheet open (route has :id param)
+    // Only apply default hide logic when using the store character
+    if (props.character) return false
     return route.path.startsWith('/characters') && route.params.id
 })
 
-const navigateToCharacter = () => {
-    if (character.value) {
-        router.push('/characters/' + createSlug(character.value.name))
+const handleClick = () => {
+    if (props.onClick) {
+        props.onClick(resolvedCharacter.value)
+        return
+    }
+    if (props.disableDefaultClick) return
+
+    emit('click', resolvedCharacter.value)
+    if (resolvedCharacter.value) {
+        router.push('/characters/' + createSlug(resolvedCharacter.value.name))
     } else {
         router.push('/characters')
     }
 }
 
-const deselectCharacter = () => {
+const handleRemove = () => {
+    if (!props.showRemoveFab) return
+
+    if (props.onRemove) {
+        props.onRemove(resolvedCharacter.value)
+        return
+    }
+    emit('remove', resolvedCharacter.value)
     charactersStore.deselectCharacter()
 }
 </script>
@@ -78,47 +119,35 @@ const deselectCharacter = () => {
     box-shadow: var(--shadow-elevation-md);
 }
 
+.selected-character-badge--inactive .character-portrait {
+    border-color: var(--color-gray-medium);
+}
+
 .character-portrait img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-.close-button {
+.close-fab {
     position: absolute;
     top: -8px;
     right: -8px;
-    width: 22px;
-    height: 22px;
-    border-radius: 50%;
-    background-color: var(--color-black);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    opacity: 0;
+    opacity: 0 !important;
+    pointer-events: none;
     transition: opacity var(--transition-normal);
-    cursor: pointer;
 }
 
-.selected-character-badge:hover .close-button {
-    opacity: 1;
-}
-
-.close-icon {
-    width: 16px;
-    height: 16px;
-    color: var(--color-text-primary);
-}
-
-.close-button:hover .close-icon {
-    color: var(--color-danger);
+.selected-character-badge:hover .close-fab {
+    opacity: 1 !important;
+    pointer-events: auto;
 }
 
 .character-name-tooltip {
     position: absolute;
     bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%) translateY(10px);
+    left: 0;
+    transform: translateY(10px);
     background-color: var(--overlay-black-heavy);
     color: var(--color-text-primary);
     padding: var(--space-xs) var(--space-sm);
@@ -130,6 +159,12 @@ const deselectCharacter = () => {
     pointer-events: none;
 }
 
+/* Always-visible name variant */
+.name-always-visible .character-name-tooltip {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 @media (max-width: 768px) {
     .selected-character-badge {
         top: auto;
@@ -137,8 +172,9 @@ const deselectCharacter = () => {
         left: var(--space-lg);
     }
 
-    .close-button {
-        opacity: 1;
+    .close-fab {
+        opacity: 1 !important;
+        pointer-events: auto;
     }
 
     .character-name-tooltip {

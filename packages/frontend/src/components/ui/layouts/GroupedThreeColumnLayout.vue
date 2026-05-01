@@ -33,7 +33,7 @@
             <div v-if="!isGroupCollapsed(group)" class="group-content">
                 <!-- In custom mode all groups share a single SortableJS group so cards can cross boundaries -->
                 <ThreeColumnLayout :items="strippedGroupItems.get(group.id ?? group.name)" :is-draggable="draggable"
-                    :group-id="customGroupMode ? customGroupId : String(group.id ?? group.name)"
+                    :item-key="itemKey" :group-id="customGroupMode ? customGroupId : String(group.id ?? group.name)"
                     @reorder="(newItems) => emit('reorder-group', group.id, newItems)">
                     <template #default="slotProps">
                         <slot v-bind="slotProps" />
@@ -57,6 +57,10 @@ const props = defineProps({
     draggable: {
         type: Boolean,
         default: false
+    },
+    itemKey: {
+        type: String,
+        default: 'id'
     },
     // When true, renders rename/delete controls and enables cross-group drag
     customGroupMode: {
