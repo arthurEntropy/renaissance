@@ -10,7 +10,6 @@ import { createBaseEntity } from './gameEntity.js'
 /**
  * @typedef {Object} User
  * @property {string|null} id - UUID identifier
- * @property {string} email - User email
  * @property {string} name - Display name
  * @property {'user'|'admin'} role - User role
  * @property {'pending'|'approved'} status - Account status
@@ -29,7 +28,6 @@ import { createBaseEntity } from './gameEntity.js'
 export function createDefaultUser() {
   return {
     ...createBaseEntity(),
-    email: '',
     name: '',
     role: 'user',
     status: 'pending',

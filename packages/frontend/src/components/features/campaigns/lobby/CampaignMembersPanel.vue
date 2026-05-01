@@ -33,16 +33,15 @@
                 <h2 class="modal-title">Manage Members</h2>
                 <div class="form-field">
                     <label class="form-label">Invite Player</label>
-                    <input v-model="inviteSearch" class="form-input" type="text"
-                        placeholder="Search by name or email…" />
+                    <input v-model="inviteSearch" class="form-input" type="text" placeholder="Search by username…" />
                     <div v-if="inviteResults.length > 0" class="invite-results">
                         <button v-for="user in inviteResults" :key="user.id" class="invite-result-item"
                             @click="sendInvite(user.id)">
-                            {{ user.name }} ({{ user.email }})
+                            {{ user.name }}
                         </button>
                     </div>
                     <p v-else-if="inviteSearch.length >= 2" class="empty-hint">No users found matching "{{ inviteSearch
-                    }}"</p>
+                        }}"</p>
                     <p v-if="inviteError" class="form-error">{{ inviteError }}</p>
                 </div>
 

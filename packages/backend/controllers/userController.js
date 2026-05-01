@@ -24,10 +24,12 @@ export const getUserProfile = async (uid) => {
 // Create or update user profile
 export const syncUserProfile = async (req, res) => {
   try {
-    const { uid, email, photoURL, username } = req.body
-    
-    if (!uid || !email) {
-      return res.status(400).json({ error: 'UID and email are required' })
+    const { photoURL, username } = req.body
+    const uid = req.user.uid
+    const email = req.user.email
+
+    if (!email) {
+      return res.status(400).json({ error: 'Email not available from auth token' })
     }
     
     let userProfile = await getUserProfile(uid)
@@ -36,7 +38,6 @@ export const syncUserProfile = async (req, res) => {
       // Update existing profile
       userProfile = {
         ...userProfile,
-        email,
         // Only update username if provided and user doesn't have one yet
         name: username || userProfile.name,
         photoURL: photoURL || userProfile.photoURL,
@@ -64,7 +65,6 @@ export const syncUserProfile = async (req, res) => {
       // Create new profile - automatically approved for invited users
       userProfile = {
         id: uid,
-        email,
         name: username || '',
         photoURL: photoURL || '',
         role: USER_ROLE.USER, // Default role
@@ -143,7 +143,7 @@ export const getPublicUsersByIds = async (req, res) => {
     const usersById = new Map(
       users
         .filter((user) => !user.isDeleted)
-        .map((user) => [user.id, { id: user.id, name: user.name || user.email || user.id }])
+        .map((user) => [user.id, { id: user.id, name: user.name || user.id }])
     )
 
     const resolvedUsers = requestedIds
@@ -157,7 +157,7 @@ export const getPublicUsersByIds = async (req, res) => {
   }
 }
 
-// Approved users: Search users by name/email for invite workflows
+// Approved users: Search users by username for invite workflows
 export const searchUsers = async (req, res) => {
   try {
     const rawQuery = typeof req.query.q === 'string' ? req.query.q : ''
@@ -172,14 +172,12 @@ export const searchUsers = async (req, res) => {
       .filter((user) => !user.isDeleted)
       .filter((user) => {
         const name = (user.name || '').toLowerCase()
-        const email = (user.email || '').toLowerCase()
-        return name.includes(query) || email.includes(query)
+        return name.includes(query)
       })
       .slice(0, 25)
       .map((user) => ({
         id: user.id,
-        name: user.name || user.email || user.id,
-        email: user.email || '',
+        name: user.name || user.id,
       }))
 
     res.json(matches)

@@ -1,19 +1,18 @@
 {
   "id": "yMwXRvIrCwWwG4NRC4HBjN2BrOM2",
-  "email": "lukebrevoort@gmail.com",
   "name": "sansterminus",
   "photoURL": "https://lh3.googleusercontent.com/a/ACg8ocLqG__Is98ruDDKvqW45fbYGZgT1-z9pMQv1rBCv8dAMfY1nktG=s96-c",
   "role": "user",
   "status": "approved",
   "needsUsername": false,
-  "createdAt": "2026-05-01T18:38:54.566Z",
-  "lastLoginAt": "2026-05-01T18:38:54.566Z",
+  "createdAt": "2026-05-01T19:04:41.040Z",
+  "lastLoginAt": "2026-05-01T19:04:41.040Z",
   "isDeleted": false,
   "preferences": {
     "theme": "dark",
     "notifications": true
   },
   "characters": [],
-  "lastModified": "2026-05-01T18:39:03.065Z",
-  "lastUpdatedAt": "2026-05-01T18:39:03.065Z"
+  "lastModified": "2026-05-01T19:04:49.341Z",
+  "lastUpdatedAt": "2026-05-01T19:04:49.341Z"
 }

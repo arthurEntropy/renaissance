@@ -113,7 +113,7 @@ const shouldShowAuthLoading = computed(() => {
 
 const displayName = computed(() => {
     if (shouldShowAuthLoading.value) return 'Signing In...'
-    return userStore.userProfile?.name || authStore.user?.email || 'User'
+    return userStore.userProfile?.name || 'User'
 })
 
 const toggleDropdown = () => {
