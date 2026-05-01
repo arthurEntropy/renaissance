@@ -77,7 +77,6 @@ import NotInvitedModal from '@/components/features/auth/NotInvitedModal.vue'
 import PreferencesModal from '@/components/features/preferences/PreferencesModal.vue'
 import CardPreviewOverlay from '@/components/ui/cards/preview/CardPreviewOverlay.vue'
 import CampaignBadge from '@/components/features/campaigns/CampaignBadge.vue'
-import { useCampaignStore } from '@/stores/campaignStore'
 import { useProgressiveOptimizedImage } from '@/composables/useOptimizedImage'
 import { PROGRESSIVE_IMAGE_CONTEXTS } from '@/constants/imageOptimization'
 
@@ -86,7 +85,6 @@ const route = useRoute()
 const authStore = useAuthStore()
 const userStore = useUserStore()
 const backgroundImagesStore = useBackgroundImagesStore()
-const campaignStore = useCampaignStore()
 const shouldShowOverlay = computed(() => route.meta?.overlay === true)
 const isActiveSection = (path) => route.path === path || route.path.startsWith(path + '/')
 
@@ -164,11 +162,6 @@ onMounted(async () => {
 
   // Load background images for all users
   await backgroundImagesStore.fetch()
-
-  // Load campaigns if authenticated
-  if (authStore.isAuthenticated) {
-    await campaignStore.fetch()
-  }
 })
 
 // Watch for changes to selected background image

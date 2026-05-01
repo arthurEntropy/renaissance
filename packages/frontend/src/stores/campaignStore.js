@@ -64,6 +64,13 @@ export const useCampaignStore = defineStore('campaigns', () => {
 
   // Actions
 
+  const reset = () => {
+    campaigns.value = []
+    pendingInvites.value = []
+    isLoading.value = false
+    error.value = null
+  }
+
   const upsertCampaign = (updatedCampaign) => {
     const index = campaigns.value.findIndex((campaign) => campaign.id === updatedCampaign.id)
     if (index === -1) {
@@ -298,6 +305,7 @@ export const useCampaignStore = defineStore('campaigns', () => {
     isInCampaign,
     isLoading,
     error,
+    reset,
     fetch,
     create,
     update,

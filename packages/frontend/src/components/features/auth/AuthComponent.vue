@@ -2,7 +2,7 @@
     <div class="auth-component">
         <!-- Loading state -->
         <div v-if="authStore.isLoading" class="auth-loading">
-            <p>Loading...</p>
+            <p>Signing In...</p>
         </div>
 
         <!-- Not authenticated -->
@@ -163,7 +163,8 @@ const handleSignOut = async () => {
 <style scoped>
 .auth-loading {
     text-align: center;
-    color: var(--color-white);
+    color: var(--color-text-primary);
+    font-size: var(--font-size-14);
 }
 
 .auth-login {

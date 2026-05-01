@@ -3,6 +3,7 @@ import { ref, computed } from 'vue'
 import AuthService from '@/services/auth/authService'
 import router from '@/router/router'
 import { useUserStore } from './userStore'
+import { useCampaignStore } from './campaignStore'
 import { USER_STATUS, USER_ROLE } from '@shared/constants/userConstants'
 
 export const useAuthStore = defineStore('auth', () => {
@@ -31,6 +32,22 @@ export const useAuthStore = defineStore('auth', () => {
     return userStore.userProfile?.status === USER_STATUS.APPROVED
   })
 
+  const syncAuthScopedData = async (firebaseUser) => {
+    user.value = firebaseUser
+
+    const userStore = useUserStore()
+    const campaignStore = useCampaignStore()
+
+    if (!firebaseUser) {
+      userStore.userProfile = null
+      campaignStore.reset()
+      return
+    }
+
+    await userStore.fetch()
+    await campaignStore.fetch()
+  }
+
   // Actions
   const signInWithGoogle = async () => {
     try {
@@ -39,11 +56,7 @@ export const useAuthStore = defineStore('auth', () => {
       isLoading.value = true
       
       const result = await AuthService.signInWithGoogle()
-      user.value = result.user
-      
-      // Fetch user profile from backend via userStore
-      const userStore = useUserStore()
-      await userStore.fetch()
+            await syncAuthScopedData(result.user)
       
       return result
     } catch (err) {
@@ -53,9 +66,7 @@ export const useAuthStore = defineStore('auth', () => {
       if (err.message.includes('not invited')) {
         notInvited.value = true
         await AuthService.signOut()
-        user.value = null
-        const userStore = useUserStore()
-        userStore.userProfile = null
+        await syncAuthScopedData(null)
       }
       
       throw err
@@ -73,11 +84,7 @@ export const useAuthStore = defineStore('auth', () => {
     try {
       error.value = null
       await AuthService.signOut()
-      user.value = null
-      
-      // Clear user profile
-      const userStore = useUserStore()
-      userStore.userProfile = null
+      await syncAuthScopedData(null)
       
       // Redirect to title page
       router.push('/')
@@ -91,12 +98,7 @@ export const useAuthStore = defineStore('auth', () => {
     try {
       isLoading.value = true
       const currentUser = await AuthService.waitForAuth()
-      user.value = currentUser
-      
-      if (currentUser) {
-        const userStore = useUserStore()
-        await userStore.fetch()
-      }
+      await syncAuthScopedData(currentUser)
     } catch (err) {
       error.value = err.message
     } finally {
@@ -106,16 +108,8 @@ export const useAuthStore = defineStore('auth', () => {
 
   const initializeAuthListener = () => {
     AuthService.onAuthStateChange(async (firebaseUser) => {
-      user.value = firebaseUser
-      
       try {
-        if (firebaseUser) {
-          const userStore = useUserStore()
-          await userStore.fetch()
-        } else {
-          const userStore = useUserStore()
-          userStore.userProfile = null
-        }
+        await syncAuthScopedData(firebaseUser)
       } catch (err) {
         console.error('Error in auth state listener:', err)
         error.value = err.message
