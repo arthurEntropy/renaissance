@@ -3,6 +3,7 @@ import {
   getAllDataByDirectory,
   saveFile,
 } from '../utils/fileService.js'
+import { v4 as uuidv4 } from 'uuid'
 import { getAuth } from '../config/firebase.js'
 import { isEmailAllowed } from '../utils/inviteService.js'
 import { USER_ROLE, USER_STATUS } from '../../../shared/constants/userConstants.js'
@@ -23,7 +24,7 @@ export const getUserProfile = async (uid) => {
 // Create or update user profile
 export const syncUserProfile = async (req, res) => {
   try {
-    const { uid, email, displayName, photoURL, username } = req.body
+    const { uid, email, photoURL, username } = req.body
     
     if (!uid || !email) {
       return res.status(400).json({ error: 'UID and email are required' })
@@ -64,8 +65,7 @@ export const syncUserProfile = async (req, res) => {
       userProfile = {
         id: uid,
         email,
-        // Use provided username, fallback to displayName or email prefix
-        name: username || displayName || email.split('@')[0],
+        name: username || '',
         photoURL: photoURL || '',
         role: USER_ROLE.USER, // Default role
         status: USER_STATUS.APPROVED, // Auto-approve invited users
@@ -82,7 +82,13 @@ export const syncUserProfile = async (req, res) => {
     }
     
     // Save to file system
-    saveFile(userProfile, USERS_DIRECTORY)
+    saveFile(
+      userProfile,
+      USERS_DIRECTORY,
+      null,
+      null,
+      userProfile.name ? undefined : { filenameBase: uuidv4() }
+    )
     
     // Set custom claims in Firebase if role changed
     const auth = getAuth()

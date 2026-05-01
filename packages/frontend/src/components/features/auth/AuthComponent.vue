@@ -1,7 +1,7 @@
 <template>
     <div class="auth-component">
         <!-- Loading state -->
-        <div v-if="authStore.isLoading" class="auth-loading">
+        <div v-if="shouldShowAuthLoading" class="auth-loading">
             <p>Signing In...</p>
         </div>
 
@@ -99,8 +99,20 @@ const showInvitesModal = ref(false)
 
 const emit = defineEmits(['openPreferences'])
 
+const isAuthProfilePending = computed(() => {
+    return authStore.isAuthenticated && (!userStore.userProfile || userStore.isLoading)
+})
+
+const isCompletingUsernameSetup = computed(() => {
+    return authStore.isAuthenticated && userStore.userProfile?.needsUsername
+})
+
+const shouldShowAuthLoading = computed(() => {
+    return authStore.isLoading || isAuthProfilePending.value || isCompletingUsernameSetup.value
+})
+
 const displayName = computed(() => {
-    if (userStore.isLoading) return 'Loading...'
+    if (shouldShowAuthLoading.value) return 'Signing In...'
     return userStore.userProfile?.name || authStore.user?.email || 'User'
 })
 

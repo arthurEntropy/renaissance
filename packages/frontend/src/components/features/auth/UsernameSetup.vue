@@ -11,8 +11,10 @@
                     required />
                 <span v-if="error" class="error-text">{{ error }}</span>
 
+                <button type="submit" class="visually-hidden-submit" tabindex="-1" aria-hidden="true" />
+
                 <div class="form-buttons">
-                    <ActionButton variant="primary" :disabled="submitting">
+                    <ActionButton variant="primary" :disabled="submitting" @click="handleSubmit">
                         {{ submitting ? 'Saving...' : 'Continue' }}
                     </ActionButton>
                 </div>
@@ -92,5 +94,17 @@ const handleSubmit = async () => {
     font-size: var(--font-size-12);
     color: var(--color-danger);
     text-align: left;
+}
+
+.visually-hidden-submit {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
 }
 </style>
