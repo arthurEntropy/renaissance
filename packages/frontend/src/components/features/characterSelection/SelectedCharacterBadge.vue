@@ -6,7 +6,7 @@
         <div class="character-portrait">
             <img :src="optimizedCharacterArt" :alt="resolvedCharacter.name" />
         </div>
-        <FloatingActionButton class="close-fab" :variant="FAB_TYPES.DELETE" :size="FAB_SIZES.SMALL"
+        <FloatingActionButton v-if="showRemoveFab" class="close-fab" :variant="FAB_TYPES.DELETE" :size="FAB_SIZES.SMALL"
             :visibility="FAB_VISIBILITIES.ALWAYS" @click.stop="handleRemove" />
         <div class="character-name-tooltip">{{ resolvedCharacter.name }}</div>
     </div>
@@ -33,6 +33,10 @@ const props = defineProps({
     onClick: { type: Function, default: null },
     /** Render with inactive status ring styling */
     isInactive: { type: Boolean, default: false },
+    /** Show the delete FAB */
+    showRemoveFab: { type: Boolean, default: true },
+    /** Disable fallback navigation when no custom click handler is provided */
+    disableDefaultClick: { type: Boolean, default: false },
 })
 
 const emit = defineEmits(['remove', 'click'])
@@ -59,6 +63,8 @@ const handleClick = () => {
         props.onClick(resolvedCharacter.value)
         return
     }
+    if (props.disableDefaultClick) return
+
     emit('click', resolvedCharacter.value)
     if (resolvedCharacter.value) {
         router.push('/characters/' + createSlug(resolvedCharacter.value.name))
@@ -68,6 +74,8 @@ const handleClick = () => {
 }
 
 const handleRemove = () => {
+    if (!props.showRemoveFab) return
+
     if (props.onRemove) {
         props.onRemove(resolvedCharacter.value)
         return

@@ -1,5 +1,5 @@
 <template>
-    <div class="section-card edit-hover-area" :class="isGM ? 'chars-col' : 'chars-col--full'">
+    <div class="section-card edit-hover-area">
         <div class="section-header">
             <h2 class="section-title">Player Characters</h2>
             <div class="chars-fab-wrap" ref="charPickerRef">
@@ -27,9 +27,9 @@
                 <div class="char-badge-grid"
                     :class="{ 'char-badge-grid--empty': activeCharacters.length === 0 && !isDragging }">
                     <SelectedCharacterBadge v-for="char in activeCharacters" :key="char.id" :character="char"
-                        :draggable="canDragCharacter(char)" class="draggable-badge"
-                        @dragstart="handleDragStart($event, char.id)" @dragend="handleDragEnd"
-                        :on-remove="(character) => removeCharacterFromCampaign(character)"
+                        :show-remove-fab="canRemoveCharacter(char)" :draggable="canDragCharacter(char)"
+                        class="draggable-badge" @dragstart="handleDragStart($event, char.id)" @dragend="handleDragEnd"
+                        :on-remove="canRemoveCharacter(char) ? (character) => removeCharacterFromCampaign(character) : undefined"
                         :on-click="(character) => viewCharacterSheet(character)" />
                     <div v-if="showDropSlot('active')" class="status-drop-slot" aria-hidden="true">
                         <PlusIcon class="status-drop-slot-icon" />
@@ -44,9 +44,10 @@
                 <div class="char-badge-grid"
                     :class="{ 'char-badge-grid--empty': inactiveCharacters.length === 0 && !isDragging }">
                     <SelectedCharacterBadge v-for="char in inactiveCharacters" :key="char.id" :character="char"
-                        :is-inactive="true" :draggable="canDragCharacter(char)" class="draggable-badge"
+                        :is-inactive="true" :show-remove-fab="canRemoveCharacter(char)"
+                        :draggable="canDragCharacter(char)" class="draggable-badge"
                         @dragstart="handleDragStart($event, char.id)" @dragend="handleDragEnd"
-                        :on-remove="(character) => removeCharacterFromCampaign(character)"
+                        :on-remove="canRemoveCharacter(char) ? (character) => removeCharacterFromCampaign(character) : undefined"
                         :on-click="(character) => viewCharacterSheet(character)" />
                     <div v-if="showDropSlot('inactive')" class="status-drop-slot" aria-hidden="true">
                         <PlusIcon class="status-drop-slot-icon" />
@@ -129,6 +130,11 @@ const draggedCharacterSection = computed(() => {
 const showInactiveSection = computed(() => inactiveCharacters.value.length > 0 || isDragging.value)
 
 const canDragCharacter = (character) => {
+    if (!character) return false
+    return props.isGM || character.userId === currentUserId.value
+}
+
+const canRemoveCharacter = (character) => {
     if (!character) return false
     return props.isGM || character.userId === currentUserId.value
 }
@@ -255,6 +261,8 @@ const addCharacterToCampaign = async (character) => {
 }
 
 const removeCharacterFromCampaign = async (character) => {
+    if (!canRemoveCharacter(character)) return
+
     const member = props.campaign?.members?.find((campaignMember) =>
         (campaignMember.characterIds || []).includes(character.id)
     )
@@ -272,10 +280,6 @@ const viewCharacterSheet = (character) => {
 
 <style scoped>
 @import './lobbyShared.css';
-
-.chars-col--full {
-    grid-column: 2 / 4;
-}
 
 .chars-fab-wrap {
     position: relative;

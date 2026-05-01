@@ -2,7 +2,7 @@
   "id": "941405e8-72ba-40fa-9d0c-f4d056f0ba62",
   "isDeleted": false,
   "createdAt": "2026-05-01T12:05:33.721Z",
-  "lastModified": "2026-05-01T13:50:34.239Z",
+  "lastModified": "2026-05-01T14:48:36.659Z",
   "name": "Gregor",
   "isBeast": false,
   "campaignId": "2216d52f-f74d-479e-b440-f7b5aa6319e5",
@@ -16,13 +16,13 @@
   "pronouns": "",
   "ancestries": "",
   "cultures": "",
-  "notes": "",
-  "keeping": null,
-  "treasure": 0,
-  "age": 0,
-  "heightFeet": 0,
-  "heightInches": 0,
-  "weight": 0,
+  "notes": "<p>Penitent knife sinner.</p>",
+  "keeping": "3c4d5e6f-7a8b-4c9d-0e1f-2a3b4c5d6e7f",
+  "treasure": 3,
+  "age": 61,
+  "heightFeet": 5,
+  "heightInches": 8,
+  "weight": 163,
   "xp": 0,
   "mp": {
     "current": 0,
@@ -261,8 +261,13 @@
     }
   },
   "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "ancestryIds": [],
-  "cultureIds": [],
+  "ancestryIds": [
+    "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+  ],
+  "cultureIds": [
+    "55494a30-a1bb-47c3-aae9-2db3a5bfcb8b",
+    "68fadf5d-6661-4611-bb38-deaf05f01d45"
+  ],
   "mestiereId": "",
-  "updatedAt": "2026-05-01T13:50:34.239Z"
+  "updatedAt": "2026-05-01T14:48:36.659Z"
 }

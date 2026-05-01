@@ -1,15 +1,16 @@
 <template>
     <div class="character-notes-wrapper">
-        <CharacterSheetSection custom-class="character-notes" :min-width="'250px'" @click="openModal">
+        <CharacterSheetSection :custom-class="notesClass" :min-width="'250px'" @click="handleSectionClick">
             <div class="notes-header">NOTES</div>
-            <div class="notes-content">
-                <div v-if="hasNotes" v-html="safeFormattedNotes" class="notes-preview"></div>
+            <div class="notes-content" :class="{ 'notes-content--full': showFullContent }">
+                <div v-if="hasNotes" v-html="safeFormattedNotes" class="notes-preview"
+                    :class="{ 'notes-preview--full': showFullContent }" :style="notesBodyStyle"></div>
                 <p v-else class="notes-empty">{{ EMPTY_NOTES_MESSAGE }}</p>
             </div>
         </CharacterSheetSection>
 
         <!-- Notes / Bio Modal -->
-        <div v-if="isModalOpen" class="modal-overlay" @click="handleOverlayClick">
+        <div v-if="isInteractive && isModalOpen" class="modal-overlay" @click="handleOverlayClick">
             <div class="modal-content bio-modal edit-hover-area" @click.stop>
                 <FloatingActionButton v-if="canEdit && !isEditMode" :variant="FAB_TYPES.EDIT" :size="FAB_SIZES.SMALL"
                     :visibility="FAB_VISIBILITIES.ON_HOVER" class="edit-button-overlay" @click.stop="startEdit" />
@@ -51,6 +52,21 @@ import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.v
 import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 import TextEditor from '@/components/ui/textEditor/TextEditor.vue'
 
+const props = defineProps({
+    isInteractive: {
+        type: Boolean,
+        default: true,
+    },
+    showFullContent: {
+        type: Boolean,
+        default: false,
+    },
+    bodyFontSize: {
+        type: String,
+        default: 'var(--font-size-11)',
+    },
+})
+
 const EMPTY_NOTES_MESSAGE = "Add notes here..."
 
 const charactersStore = useCharactersStore()
@@ -73,6 +89,15 @@ watch(isModalOpen, (val) => {
 })
 
 const hasNotes = computed(() => !!character.value?.notes)
+
+const notesClass = computed(() => ({
+    'character-notes': true,
+    'character-notes--static': !props.isInteractive,
+}))
+
+const notesBodyStyle = computed(() => ({
+    fontSize: props.bodyFontSize,
+}))
 
 const safeFormattedNotes = computed(() => {
     if (!hasNotes.value) return ''
@@ -97,6 +122,11 @@ const startEdit = () => {
     editedHeightInches.value = character.value?.heightInches || 0
     editedWeight.value = character.value?.weight || 0
     isEditMode.value = true
+}
+
+const handleSectionClick = () => {
+    if (!props.isInteractive) return
+    openModal()
 }
 
 const handleOverlayClick = () => {
@@ -138,8 +168,16 @@ const saveChanges = () => {
     gap: var(--space-sm);
 }
 
+:deep(.character-notes.character-notes--static) {
+    cursor: default;
+}
+
 :deep(.character-notes:hover) {
     background-color: rgba(0, 0, 0, 0.85);
+}
+
+:deep(.character-notes.character-notes--static:hover) {
+    background-color: inherit;
 }
 
 .notes-header {
@@ -158,6 +196,10 @@ const saveChanges = () => {
     min-height: 0;
 }
 
+.notes-content--full {
+    overflow: visible;
+}
+
 .notes-preview {
     font-size: var(--font-size-11);
     color: var(--color-text-secondary);
@@ -171,12 +213,20 @@ const saveChanges = () => {
     margin: 0;
 }
 
+.notes-preview--full {
+    display: block;
+    overflow: visible;
+    line-clamp: unset;
+    -webkit-line-clamp: unset;
+    -webkit-box-orient: initial;
+}
+
 .notes-preview :deep(p),
 .notes-preview :deep(h1),
 .notes-preview :deep(h2),
 .notes-preview :deep(h3),
 .notes-preview :deep(li) {
-    font-size: var(--font-size-11);
+    font-size: inherit;
     color: var(--color-text-secondary);
     margin: 0;
     padding: 0;
@@ -184,7 +234,7 @@ const saveChanges = () => {
 
 .notes-preview :deep(ul),
 .notes-preview :deep(ol) {
-    font-size: var(--font-size-11);
+    font-size: inherit;
     color: var(--color-text-secondary);
     margin: 0;
     padding-left: var(--space-lg);

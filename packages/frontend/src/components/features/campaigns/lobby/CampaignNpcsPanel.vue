@@ -16,9 +16,10 @@
                 <div class="char-badge-grid"
                     :class="{ 'char-badge-grid--empty': activeNpcs.length === 0 && !isDragging }">
                     <SelectedCharacterBadge v-for="npc in activeNpcs" :key="npc.id" :character="npc"
-                        :draggable="canDragNpcs" class="draggable-badge" @dragstart="handleDragStart($event, npc.id)"
-                        @dragend="handleDragEnd" :on-remove="isGM ? (character) => deleteNPC(character) : undefined"
-                        :on-click="(character) => viewNPCSheet(character)" />
+                        :show-remove-fab="isGM" :disable-default-click="!isGM" :draggable="canDragNpcs"
+                        class="draggable-badge" @dragstart="handleDragStart($event, npc.id)" @dragend="handleDragEnd"
+                        :on-remove="isGM ? (character) => deleteNPC(character) : undefined"
+                        :on-click="(character) => handleNpcBadgeClick(character)" />
                     <div v-if="showDropSlot('active')" class="status-drop-slot" aria-hidden="true">
                         <PlusIcon class="status-drop-slot-icon" />
                     </div>
@@ -32,10 +33,10 @@
                 <div class="char-badge-grid"
                     :class="{ 'char-badge-grid--empty': inactiveNpcs.length === 0 && !isDragging }">
                     <SelectedCharacterBadge v-for="npc in inactiveNpcs" :key="npc.id" :character="npc"
-                        :is-inactive="true" :draggable="canDragNpcs" class="draggable-badge"
-                        @dragstart="handleDragStart($event, npc.id)" @dragend="handleDragEnd"
-                        :on-remove="isGM ? (character) => deleteNPC(character) : undefined"
-                        :on-click="(character) => viewNPCSheet(character)" />
+                        :is-inactive="true" :show-remove-fab="isGM" :disable-default-click="!isGM"
+                        :draggable="canDragNpcs" class="draggable-badge" @dragstart="handleDragStart($event, npc.id)"
+                        @dragend="handleDragEnd" :on-remove="isGM ? (character) => deleteNPC(character) : undefined"
+                        :on-click="(character) => handleNpcBadgeClick(character)" />
                     <div v-if="showDropSlot('inactive')" class="status-drop-slot" aria-hidden="true">
                         <PlusIcon class="status-drop-slot-icon" />
                     </div>
@@ -49,9 +50,10 @@
                 <div class="char-badge-grid"
                     :class="{ 'char-badge-grid--empty': hiddenNpcs.length === 0 && !isDragging }">
                     <SelectedCharacterBadge v-for="npc in hiddenNpcs" :key="npc.id" :character="npc" :is-inactive="true"
-                        :draggable="canDragNpcs" class="draggable-badge" @dragstart="handleDragStart($event, npc.id)"
-                        @dragend="handleDragEnd" :on-remove="isGM ? (character) => deleteNPC(character) : undefined"
-                        :on-click="(character) => viewNPCSheet(character)" />
+                        :show-remove-fab="isGM" :disable-default-click="!isGM" :draggable="canDragNpcs"
+                        class="draggable-badge" @dragstart="handleDragStart($event, npc.id)" @dragend="handleDragEnd"
+                        :on-remove="isGM ? (character) => deleteNPC(character) : undefined"
+                        :on-click="(character) => handleNpcBadgeClick(character)" />
                     <div v-if="showDropSlot('hidden')" class="status-drop-slot" aria-hidden="true">
                         <PlusIcon class="status-drop-slot-icon" />
                     </div>
@@ -105,7 +107,7 @@ const props = defineProps({
     },
 })
 
-const emit = defineEmits(['created', 'deleted', 'view-character'])
+const emit = defineEmits(['created', 'deleted', 'preview-character'])
 
 const charactersStore = useCharactersStore()
 
@@ -298,9 +300,9 @@ const deleteNPC = async (npc) => {
     }
 }
 
-const viewNPCSheet = (npc) => {
+const handleNpcBadgeClick = (npc) => {
     if (!npc) return
-    emit('view-character', { section: 'npcs', character: npc })
+    emit('preview-character', npc)
 }
 
 onUnmounted(() => {

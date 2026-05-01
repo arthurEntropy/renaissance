@@ -58,7 +58,7 @@
 
                     <CampaignNpcsPanel :campaign-id="campaignId" :npcs="campaignNPCs" :is-g-m="isGM"
                         @created="handleCampaignCharacterCreated" @deleted="handleCampaignCharacterDeleted"
-                        @view-character="openCharacterSheet" />
+                        @preview-character="openNpcPreview" />
                 </div>
 
                 <CampaignBeastsPanel v-if="isGM" :campaign-id="campaignId" :beasts="campaignBeastInstances"
@@ -95,6 +95,9 @@
             </div>
         </div>
 
+        <NpcPreviewModal :visible="showNpcPreviewModal && !showCharacterSheet" :character="npcPreviewCharacter"
+            :show-view-character-sheet="isGM" @close="closeNpcPreview" @view-character-sheet="openNpcCharacterSheet" />
+
         <Teleport to="body">
             <div v-if="showCharacterSheet" class="sheet-overlay" @click.self="closeCharacterSheet">
                 <NavigationControls :has-previous="hasPreviousCharacter" :has-next="hasNextCharacter"
@@ -124,6 +127,7 @@ import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import CampaignMembersPanel from '@/components/features/campaigns/lobby/CampaignMembersPanel.vue'
 import CampaignPlayerCharactersPanel from '@/components/features/campaigns/lobby/CampaignPlayerCharactersPanel.vue'
 import CampaignNpcsPanel from '@/components/features/campaigns/lobby/CampaignNpcsPanel.vue'
+import NpcPreviewModal from '@/components/features/campaigns/lobby/NpcPreviewModal.vue'
 import CampaignShopsPanel from '@/components/features/campaigns/lobby/CampaignShopsPanel.vue'
 import CampaignCurationPanel from '@/components/features/campaigns/lobby/CampaignCurationPanel.vue'
 import CampaignBeastsPanel from '@/components/features/campaigns/lobby/CampaignBeastsPanel.vue'
@@ -245,6 +249,9 @@ const saveSettings = async () => {
 // Character Sheet Overlay (Lobby)
 const showCharacterSheet = ref(false)
 const activeCharacterSection = ref(null)
+const showNpcPreviewModal = ref(false)
+
+const npcPreviewCharacter = computed(() => charactersStore.selectedCharacter)
 
 const playerCharacters = computed(() => {
     if (!campaign.value) return []
@@ -290,6 +297,23 @@ const closeCharacterSheet = () => {
     showCharacterSheet.value = false
     activeCharacterSection.value = null
     charactersStore.deselectCharacter()
+}
+
+const openNpcPreview = (character) => {
+    if (!character) return
+    charactersStore.selectCharacter(character)
+    showNpcPreviewModal.value = true
+}
+
+const closeNpcPreview = () => {
+    showNpcPreviewModal.value = false
+    charactersStore.deselectCharacter()
+}
+
+const openNpcCharacterSheet = () => {
+    if (!npcPreviewCharacter.value) return
+    showNpcPreviewModal.value = false
+    openCharacterSheet({ section: 'npcs', character: npcPreviewCharacter.value })
 }
 
 // Campaign Characters (NPCs + Beasts)

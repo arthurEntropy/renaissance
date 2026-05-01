@@ -7,7 +7,7 @@
   "status": "approved",
   "needsUsername": false,
   "createdAt": "2025-10-24T18:03:45.214Z",
-  "lastLoginAt": "2026-04-30T19:04:58.937Z",
+  "lastLoginAt": "2026-05-01T14:45:36.106Z",
   "isDeleted": false,
   "preferences": {
     "theme": "dark",
@@ -16,7 +16,7 @@
     "showArtwork": true
   },
   "characters": [],
-  "lastUpdatedAt": "2026-05-01T14:08:09.347Z",
-  "lastModified": "2026-05-01T14:08:09.347Z",
+  "lastUpdatedAt": "2026-05-01T14:45:39.263Z",
+  "lastModified": "2026-05-01T14:45:39.263Z",
   "activeCampaignId": "2216d52f-f74d-479e-b440-f7b5aa6319e5"
 }

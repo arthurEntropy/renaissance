@@ -2,7 +2,7 @@
   "id": "df665b9f-c716-4640-98e3-299ba82946ac",
   "isDeleted": false,
   "createdAt": "2026-05-01T12:05:24.587Z",
-  "lastModified": "2026-05-01T13:52:10.566Z",
+  "lastModified": "2026-05-01T14:33:40.611Z",
   "name": "Biff",
   "isBeast": false,
   "campaignId": "2216d52f-f74d-479e-b440-f7b5aa6319e5",
@@ -13,16 +13,16 @@
   "description": "",
   "size": 0,
   "reach": 0,
-  "pronouns": "",
+  "pronouns": "they/them",
   "ancestries": "",
   "cultures": "",
-  "notes": "",
-  "keeping": null,
-  "treasure": 0,
-  "age": 0,
-  "heightFeet": 0,
+  "notes": "<p>A strange fellow with a penchant for colorful spells. Always wears a cloak, regardless of the weather. Refuses to eat fish and gorges himself on arugula whenever he can get it.</p>",
+  "keeping": "4d5e6f7a-8b9c-4d0e-1f2a-3b4c5d6e7f8a",
+  "treasure": 10,
+  "age": 234,
+  "heightFeet": 6,
   "heightInches": 0,
-  "weight": 0,
+  "weight": 158,
   "xp": 0,
   "mp": {
     "current": 0,
@@ -163,7 +163,7 @@
       "coreAbility": "wits",
       "ranks": 0,
       "isFavored": false,
-      "isIllFavored": true,
+      "isIllFavored": false,
       "diceMod": 0,
       "manualDiceMod": 0
     }
@@ -261,5 +261,14 @@
     }
   },
   "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2026-05-01T13:52:10.566Z"
+  "updatedAt": "2026-05-01T14:33:40.611Z",
+  "ancestryIds": [
+    "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "2e46823f-bec7-4d70-b323-dbc8b71c7739"
+  ],
+  "cultureIds": [
+    "c114dc0e-d6ca-4115-be35-684dead36de2",
+    "40086e18-eaba-411a-b4ec-7a0a7fd42d37"
+  ],
+  "mestiereId": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa"
 }
