@@ -55,7 +55,7 @@
                                 class="member-founder">founder</span>
                         </div>
                         <div class="member-actions" v-if="member.userId !== currentUserId">
-                            <ActionButton v-if="member.role === 'player'" variant="neutral" size="small"
+                            <ActionButton v-if="member.role === 'player'" variant="primary" size="small"
                                 @click="promoteToGM(member.userId)">
                                 Promote to GM
                             </ActionButton>
@@ -255,7 +255,6 @@ const cancelInvite = async (userId) => {
     justify-content: space-between;
     gap: var(--space-sm);
     padding: var(--space-xs) 0;
-    border-bottom: 1px solid var(--overlay-white-subtle);
 }
 
 .member-item:last-child {
