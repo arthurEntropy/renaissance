@@ -24,7 +24,7 @@ export const getUserProfile = async (uid) => {
 // Create or update user profile
 export const syncUserProfile = async (req, res) => {
   try {
-    const { photoURL, username } = req.body
+    const { username } = req.body
     const uid = req.user.uid
     const email = req.user.email
 
@@ -40,7 +40,6 @@ export const syncUserProfile = async (req, res) => {
         ...userProfile,
         // Only update username if provided and user doesn't have one yet
         name: username || userProfile.name,
-        photoURL: photoURL || userProfile.photoURL,
         lastLoginAt: new Date().toISOString(),
       }
       
@@ -66,7 +65,6 @@ export const syncUserProfile = async (req, res) => {
       userProfile = {
         id: uid,
         name: username || '',
-        photoURL: photoURL || '',
         role: USER_ROLE.USER, // Default role
         status: USER_STATUS.APPROVED, // Auto-approve invited users
         needsUsername: !username, // Flag if user needs to set a username
