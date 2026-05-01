@@ -1,7 +1,7 @@
 <template>
     <div class="three-column-layout" :class="{ 'is-dragging': isDragging }">
         <div v-for="(_, colIndex) in columns" :key="colIndex" class="column">
-            <draggable v-model="columns[colIndex]" :group="{ name: groupId, pull: true, put: true }" item-key="id"
+            <draggable v-model="columns[colIndex]" :group="{ name: groupId, pull: true, put: true }" :item-key="itemKey"
                 :disabled="!isDraggable" @start="onDragStart" @end="onDragEnd" @add="onDragEnd" @remove="onDragRemove"
                 class="column-drop-zone" :class="{ 'drag-enabled': isDraggable }">
                 <template #item="{ element }">
@@ -27,6 +27,10 @@ const props = defineProps({
     isDraggable: {
         type: Boolean,
         default: false
+    },
+    itemKey: {
+        type: String,
+        default: 'id'
     },
     groupId: {
         type: String,
@@ -60,9 +64,9 @@ function distributeItems(items, isDraggable) {
 // positions are already correct, but data properties (e.g. collapsed) may
 // have been updated by the save round-trip.
 function refreshItemData(items) {
-    const itemMap = new Map(items.map(i => [i.id, i]))
+    const itemMap = new Map(items.map(i => [i[props.itemKey], i]))
     for (let c = 0; c < 3; c++) {
-        columns.value[c] = columns.value[c].map(colItem => itemMap.get(colItem.id) ?? colItem)
+        columns.value[c] = columns.value[c].map(colItem => itemMap.get(colItem[props.itemKey]) ?? colItem)
     }
 }
 
@@ -86,8 +90,8 @@ watch(
     (items) => {
         if (isDragging.value) return
 
-        const currentIds = new Set(columns.value.flat().map(i => i.id))
-        const newIds = new Set(items.map(i => i.id))
+        const currentIds = new Set(columns.value.flat().map(i => i[props.itemKey]))
+        const newIds = new Set(items.map(i => i[props.itemKey]))
         const structureChanged =
             currentIds.size !== newIds.size ||
             [...newIds].some(id => !currentIds.has(id)) ||
@@ -111,7 +115,7 @@ let itemWasRemoved = false
 function onDragStart() {
     isDragging.value = true
     setDragging(true)
-    preDragSnapshot = columns.value.flatMap((col, c) => col.map(item => `${item.id}:${c}`))
+    preDragSnapshot = columns.value.flatMap((col, c) => col.map(item => `${item[props.itemKey]}:${c}`))
 }
 
 function onDragRemove() {
@@ -137,7 +141,7 @@ function onDragEnd() {
         }
     }
     // Skip the emit if nothing actually moved (dropped back in the same position)
-    const newSnapshot = newItems.map(i => `${i.id}:${i.columnIndex}`)
+    const newSnapshot = newItems.map(i => `${i[props.itemKey]}:${i.columnIndex}`)
     if (preDragSnapshot && preDragSnapshot.join(',') === newSnapshot.join(',')) return
     emit('reorder', newItems)
 }

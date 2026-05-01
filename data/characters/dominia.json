@@ -2,7 +2,7 @@
   "id": "833888c8-725f-4826-9745-73792345cc4a",
   "isDeleted": false,
   "createdAt": "2026-04-30T00:16:28.721Z",
-  "lastModified": "2026-04-30T00:16:28.721Z",
+  "lastModified": "2026-05-01T13:53:09.425Z",
   "name": "Dominia",
   "isBeast": false,
   "campaignId": "2216d52f-f74d-479e-b440-f7b5aa6319e5",
@@ -214,7 +214,7 @@
   "equipment": [],
   "abilities": [],
   "artUrls": [
-    "https://cdn.midjourney.com/a8a36740-b7d3-4aef-bea3-a95039bec06f/0_2.png"
+    "https://cdn.midjourney.com/843b7b6f-6fe5-4a08-907f-051d26d0ef54/0_0.png"
   ],
   "engagementDiceStatuses": {},
   "biomeTags": [],
@@ -260,5 +260,6 @@
       }
     }
   },
-  "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1"
+  "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
+  "updatedAt": "2026-05-01T13:53:09.424Z"
 }

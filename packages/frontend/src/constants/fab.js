@@ -16,6 +16,7 @@ export const FAB_TYPES = {
     AUTO_CALC_ON: 'auto-calc-on',
     EXPAND_ALL: 'expand-all',
     COLLAPSE_ALL: 'collapse-all',
+    VISIBILITY: 'visibility',
     MARTIAL_TRAINING: 'martial-training',
     EXIT: 'exit',
 }

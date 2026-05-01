@@ -1,7 +1,7 @@
 <template>
-    <div class="section-panel edit-hover-area">
+    <div class="section-panel">
         <!-- Custom header row -->
-        <div class="shop-header">
+        <div class="shop-header edit-hover-area" :class="{ 'shop-header--collapsed': isCollapsed }">
             <!-- Left: collapse toggle + title -->
             <div class="shop-header-left" @click="isCollapsed = !isCollapsed">
                 <component :is="isCollapsed ? ChevronRightIcon : ChevronDownIcon" class="collapse-chevron" />
@@ -21,11 +21,16 @@
 
             <!-- Right: GM actions -->
             <div class="shop-header-right" @click.stop>
-                <template v-if="isGM && !isCollapsed">
-                    <FloatingActionButton :variant="FAB_TYPES.ADD" :size="FAB_SIZES.SMALL"
-                        :visibility="FAB_VISIBILITIES.ON_HOVER" @click="openAddPicker" />
-                    <FloatingActionButton :variant="FAB_TYPES.TRASH" :size="FAB_SIZES.SMALL"
-                        :visibility="FAB_VISIBILITIES.ON_HOVER" @click="$emit('delete', shop.id)" />
+                <template v-if="isGM">
+                    <template v-if="!isCollapsed">
+                        <FloatingActionButton :variant="FAB_TYPES.ADD" :size="FAB_SIZES.SMALL"
+                            :visibility="FAB_VISIBILITIES.ON_HOVER" @click="openAddPicker" />
+                        <FloatingActionButton :variant="FAB_TYPES.TRASH" :size="FAB_SIZES.SMALL"
+                            :visibility="FAB_VISIBILITIES.ON_HOVER" @click="$emit('delete', shop.id)" />
+                    </template>
+                    <FloatingActionButton :variant="FAB_TYPES.VISIBILITY" :size="FAB_SIZES.SMALL"
+                        :visibility="FAB_VISIBILITIES.ALWAYS" :is-active="shop.isVisibleToPlayers ?? true"
+                        @click="togglePlayerVisibility" />
                 </template>
             </div>
         </div>
@@ -45,26 +50,32 @@
                 <template v-if="isGroupedByType">
                     <ThreeColumnLayout v-if="noTypeItems.length > 0" :items="noTypeItems">
                         <template #default="{ item }">
-                            <EquipmentCard :equipment="item" :collapsible="true" :collapsed="isCardCollapsed(item.id)"
-                                :deletable="isGM" :engagement-success-options="[]"
-                                @update:collapsed="setCardCollapsed(item.id, $event)" @delete="removeItem" />
+                            <EquipmentCard :equipment="item" :collapsible="true"
+                                :collapsed="isCardCollapsed(item.shopEntryId)" :deletable="isGM"
+                                :engagement-success-options="[]"
+                                @update:collapsed="setCardCollapsed(item.shopEntryId, $event)"
+                                @delete="removeItem(item)" />
                         </template>
                     </ThreeColumnLayout>
-                    <GroupedThreeColumnLayout v-if="typeGroupedItems.length > 0" :grouped-items="typeGroupedItems">
+                    <GroupedThreeColumnLayout v-if="typeGroupedItems.length > 0" :grouped-items="typeGroupedItems"
+                        item-key="shopEntryId">
                         <template #default="{ item }">
-                            <EquipmentCard :equipment="item" :collapsible="true" :collapsed="isCardCollapsed(item.id)"
-                                :deletable="isGM" :engagement-success-options="[]"
-                                @update:collapsed="setCardCollapsed(item.id, $event)" @delete="removeItem" />
+                            <EquipmentCard :equipment="item" :collapsible="true"
+                                :collapsed="isCardCollapsed(item.shopEntryId)" :deletable="isGM"
+                                :engagement-success-options="[]"
+                                @update:collapsed="setCardCollapsed(item.shopEntryId, $event)"
+                                @delete="removeItem(item)" />
                         </template>
                     </GroupedThreeColumnLayout>
                 </template>
 
                 <!-- Ungrouped display -->
-                <ThreeColumnLayout v-else :items="sortedItems">
+                <ThreeColumnLayout v-else :items="sortedItems" item-key="shopEntryId">
                     <template #default="{ item }">
-                        <EquipmentCard :equipment="item" :collapsible="true" :collapsed="isCardCollapsed(item.id)"
-                            :deletable="isGM" :engagement-success-options="[]"
-                            @update:collapsed="setCardCollapsed(item.id, $event)" @delete="removeItem" />
+                        <EquipmentCard :equipment="item" :collapsible="true"
+                            :collapsed="isCardCollapsed(item.shopEntryId)" :deletable="isGM"
+                            :engagement-success-options="[]"
+                            @update:collapsed="setCardCollapsed(item.shopEntryId, $event)" @delete="removeItem(item)" />
                     </template>
                 </ThreeColumnLayout>
             </template>
@@ -147,9 +158,35 @@ watch(isCollapsed, (value) => {
 })
 
 // ── Resolve shop items ────────────────────────────────────────────────────
+const shopEntryIds = ref([])
+let nextShopEntryId = 0
+
+const createShopEntryId = () => `${props.shop.id}:entry:${nextShopEntryId++}`
+
+watch(
+    () => props.shop.items?.length ?? 0,
+    (itemCount) => {
+        const nextIds = shopEntryIds.value.slice(0, itemCount)
+        while (nextIds.length < itemCount) {
+            nextIds.push(createShopEntryId())
+        }
+        shopEntryIds.value = nextIds
+    },
+    { immediate: true }
+)
+
 const resolvedItems = computed(() =>
     (props.shop.items || [])
-        .map((shopItem) => equipmentStore.equipment.find((e) => e.id === shopItem.equipmentId))
+        .map((shopItem, index) => {
+            const equipment = equipmentStore.equipment.find((e) => e.id === shopItem.equipmentId)
+            if (!equipment) return null
+
+            return {
+                ...equipment,
+                shopEntryId: shopEntryIds.value[index],
+                shopItemIndex: index,
+            }
+        })
         .filter(Boolean)
 )
 
@@ -185,23 +222,23 @@ const typeGroupedItems = computed(() => {
 // ── Card collapse state (for expand all / collapse all) ───────────────────
 const cardCollapseState = ref(new Map())
 
-const isCardCollapsed = (id) => cardCollapseState.value.get(id) ?? true
+const isCardCollapsed = (entryId) => cardCollapseState.value.get(entryId) ?? true
 
-const setCardCollapsed = (id, val) => {
+const setCardCollapsed = (entryId, val) => {
     const m = new Map(cardCollapseState.value)
-    m.set(id, val)
+    m.set(entryId, val)
     cardCollapseState.value = m
 }
 
 const allExpanded = computed(() =>
     resolvedItems.value.length > 0 &&
-    resolvedItems.value.every((item) => !isCardCollapsed(item.id))
+    resolvedItems.value.every((item) => !isCardCollapsed(item.shopEntryId))
 )
 
 const toggleAll = () => {
     const collapse = allExpanded.value
     const m = new Map()
-    for (const item of resolvedItems.value) m.set(item.id, collapse)
+    for (const item of resolvedItems.value) m.set(item.shopEntryId, collapse)
     cardCollapseState.value = m
 }
 
@@ -222,11 +259,23 @@ const openAddPicker = (event) => {
     openPicker()
 }
 
+const togglePlayerVisibility = async () => {
+    try {
+        await campaignStore.updateShop(props.campaignId, props.shop.id, {
+            isVisibleToPlayers: !(props.shop.isVisibleToPlayers ?? true),
+        })
+    } catch (err) {
+        console.error('Failed to update shop visibility:', err)
+    }
+}
+
 // ── Add / remove items ────────────────────────────────────────────────────
 const addItem = async (type, equipmentId) => {
     if (type !== 'equipment') return
     const eq = equipmentStore.equipment.find((e) => e.id === equipmentId)
     if (!eq) return
+    const previousEntryIds = [...shopEntryIds.value]
+    shopEntryIds.value = [...shopEntryIds.value, createShopEntryId()]
     const newItems = [
         ...(props.shop.items || []),
         { equipmentId: eq.id, name: eq.name, description: eq.description, keeping: eq.keeping, source: eq.source },
@@ -234,16 +283,29 @@ const addItem = async (type, equipmentId) => {
     try {
         await campaignStore.updateShop(props.campaignId, props.shop.id, { items: newItems })
     } catch (err) {
+        shopEntryIds.value = previousEntryIds
         console.error('Failed to add item to shop:', err)
     }
     closeCascadeImmediate()
 }
 
 const removeItem = async (equipment) => {
-    const newItems = (props.shop.items || []).filter((i) => i.equipmentId !== equipment.id)
+    const previousEntryIds = [...shopEntryIds.value]
+    const nextEntryIds = [...shopEntryIds.value]
+    const [removedEntryId] = nextEntryIds.splice(equipment.shopItemIndex, 1)
+    shopEntryIds.value = nextEntryIds
+
+    if (removedEntryId) {
+        const nextCollapseState = new Map(cardCollapseState.value)
+        nextCollapseState.delete(removedEntryId)
+        cardCollapseState.value = nextCollapseState
+    }
+
+    const newItems = (props.shop.items || []).filter((_, index) => index !== equipment.shopItemIndex)
     try {
         await campaignStore.updateShop(props.campaignId, props.shop.id, { items: newItems })
     } catch (err) {
+        shopEntryIds.value = previousEntryIds
         console.error('Failed to remove item from shop:', err)
     }
 }
@@ -251,7 +313,7 @@ const removeItem = async (equipment) => {
 
 <style scoped>
 .section-panel {
-    background: var(--overlay-black-medium);
+    background: var(--overlay-white-subtle);
     border-radius: var(--radius-10);
     padding: var(--space-lg);
 }
@@ -263,6 +325,10 @@ const removeItem = async (equipment) => {
     justify-content: space-between;
     position: relative;
     margin-bottom: var(--space-lg);
+}
+
+.shop-header--collapsed {
+    margin-bottom: 0;
 }
 
 .shop-header-left {

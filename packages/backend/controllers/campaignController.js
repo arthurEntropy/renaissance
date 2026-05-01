@@ -580,7 +580,7 @@ export const saveShop = (req, res) => {
       return res.status(404).json({ error: 'Campaign not found' })
     }
 
-    const { name, primaryCultureId, generationParams, items } = req.body
+    const { name, primaryCultureId, generationParams, items, isVisibleToPlayers } = req.body
     if (!name?.trim()) {
       return res.status(400).json({ error: 'Shop name is required' })
     }
@@ -591,6 +591,7 @@ export const saveShop = (req, res) => {
       generatedAt: new Date().toISOString(),
       primaryCultureId: primaryCultureId || null,
       generationParams: generationParams || {},
+      isVisibleToPlayers: isVisibleToPlayers ?? true,
       items: items || [],
     }
 
@@ -616,7 +617,7 @@ export const updateShop = (req, res) => {
       return res.status(404).json({ error: 'Shop not found' })
     }
 
-    const allowedFields = ['name', 'items', 'generationParams', 'primaryCultureId']
+    const allowedFields = ['name', 'items', 'generationParams', 'primaryCultureId', 'isVisibleToPlayers']
     const updates = {}
     for (const field of allowedFields) {
       if (req.body[field] !== undefined) updates[field] = req.body[field]

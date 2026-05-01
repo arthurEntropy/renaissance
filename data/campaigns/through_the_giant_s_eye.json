@@ -5,7 +5,7 @@
   "description": "In which we explore the realm of imagination. We do not fear what our minds may create, but rather celebrate the strangeness of the sum of our collective hopes, fears and dreams. We will plunge headlong into new worlds. We will love and hate the strange and wonderful people we meet. We will learn about ourselves and about each other. The magic is in not knowing what comes next. We play to find out what happens.",
   "coverImageUrl": "https://cdn.midjourney.com/89c26af7-b4e3-47f5-b6ea-92985d2df5d5/0_0.png",
   "createdAt": "2026-04-29T13:40:44.511Z",
-  "lastModified": "2026-05-01T13:24:50.164Z",
+  "lastModified": "2026-05-01T14:09:54.107Z",
   "isDeleted": false,
   "foundingGmUserId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
   "members": [
@@ -67,20 +67,6 @@
       "generationParams": {},
       "items": [
         {
-          "equipmentId": "f339e1ee-39c8-4712-8baa-60129fd87ff0",
-          "name": "Rogatina",
-          "description": "",
-          "keeping": "3c4d5e6f-7a8b-4c9d-0e1f-2a3b4c5d6e7f",
-          "source": "5a639d7b-847a-468b-9bbe-5275d31fdf66"
-        },
-        {
-          "equipmentId": "f248a20d-f79e-4fb9-a800-94e2145fc23a",
-          "name": "Bearded Axe",
-          "description": "",
-          "keeping": "4d5e6f7a-8b9c-4d0e-1f2a-3b4c5d6e7f8a",
-          "source": "5a639d7b-847a-468b-9bbe-5275d31fdf66"
-        },
-        {
           "equipmentId": "6341bbc6-9c9a-4c53-a603-132e368577b2",
           "name": "Musket",
           "description": "",
@@ -88,43 +74,8 @@
           "source": "5a639d7b-847a-468b-9bbe-5275d31fdf66"
         },
         {
-          "equipmentId": "f339e1ee-39c8-4712-8baa-60129fd87ff0",
-          "name": "Rogatina",
-          "description": "",
-          "keeping": "3c4d5e6f-7a8b-4c9d-0e1f-2a3b4c5d6e7f",
-          "source": "5a639d7b-847a-468b-9bbe-5275d31fdf66"
-        },
-        {
-          "equipmentId": "b69c879e-a758-47b6-a3a4-b81dfd12eaaf",
-          "name": "Zweihänder",
-          "description": "",
-          "keeping": "5e6f7a8b-9c0d-4e1f-2a3b-4c5d6e7f8a9b",
-          "source": "5a639d7b-847a-468b-9bbe-5275d31fdf66"
-        },
-        {
-          "equipmentId": "1a98852b-e310-4f56-b4b4-75af7f784149",
-          "name": "Throwing Axe",
-          "description": "",
-          "keeping": "2b3c4d5e-6f7a-4b8c-9d0e-1f2a3b4c5d6e",
-          "source": "5a639d7b-847a-468b-9bbe-5275d31fdf66"
-        },
-        {
           "equipmentId": "e43614f2-91e1-495f-9d4f-7cdc4d87d3be",
           "name": "Dirk",
-          "description": "",
-          "keeping": "3c4d5e6f-7a8b-4c9d-0e1f-2a3b4c5d6e7f",
-          "source": "5a639d7b-847a-468b-9bbe-5275d31fdf66"
-        },
-        {
-          "equipmentId": "b69c879e-a758-47b6-a3a4-b81dfd12eaaf",
-          "name": "Zweihänder",
-          "description": "",
-          "keeping": "5e6f7a8b-9c0d-4e1f-2a3b-4c5d6e7f8a9b",
-          "source": "5a639d7b-847a-468b-9bbe-5275d31fdf66"
-        },
-        {
-          "equipmentId": "f339e1ee-39c8-4712-8baa-60129fd87ff0",
-          "name": "Rogatina",
           "description": "",
           "keeping": "3c4d5e6f-7a8b-4c9d-0e1f-2a3b4c5d6e7f",
           "source": "5a639d7b-847a-468b-9bbe-5275d31fdf66"
@@ -136,7 +87,8 @@
           "keeping": "2b3c4d5e-6f7a-4b8c-9d0e-1f2a3b4c5d6e",
           "source": "55494a30-a1bb-47c3-aae9-2db3a5bfcb8b"
         }
-      ]
+      ],
+      "isVisibleToPlayers": false
     }
   ],
   "sessionNotes": ""

@@ -1,5 +1,6 @@
 <template>
-    <button type="button" :class="['fab', `fab--${props.variant}`, `fab--${props.size}`, `fab--${props.visibility}`]"
+    <button type="button"
+        :class="['fab', `fab--${props.variant}`, `fab--${props.size}`, `fab--${props.visibility}`, props.variant === FAB_TYPES.VISIBILITY && !props.isActive ? 'fab--visibility-off' : '']"
         :title="variantConfig.tooltip">
         <!-- Special case for character sheet auto-calc: text instead of icon -->
         <span v-if="props.variant === FAB_TYPES.AUTO_CALC_ON" class="auto-text">AUTO</span>
@@ -11,7 +12,7 @@
 <script setup>
 import { computed } from 'vue'
 // Heroicons
-import { PlusIcon, DocumentDuplicateIcon, PencilIcon, CheckIcon, XMarkIcon, TrashIcon, Bars3Icon, Cog6ToothIcon, ArrowPathIcon, BookOpenIcon, CalculatorIcon, ChevronDoubleDownIcon, ChevronDoubleUpIcon, ArrowRightStartOnRectangleIcon } from '@heroicons/vue/24/outline'
+import { PlusIcon, DocumentDuplicateIcon, PencilIcon, CheckIcon, XMarkIcon, TrashIcon, Bars3Icon, Cog6ToothIcon, ArrowPathIcon, BookOpenIcon, CalculatorIcon, ChevronDoubleDownIcon, ChevronDoubleUpIcon, ArrowRightStartOnRectangleIcon, EyeIcon, EyeSlashIcon } from '@heroicons/vue/24/outline'
 // Custom icons
 import CrossedSwordsIcon from '@/assets/icons/characterSheet/crossed_swords.svg?component'
 import DieIcon from '@/assets/icons/characterSheet/die.svg?component'
@@ -37,6 +38,11 @@ const props = defineProps({
         type: String,
         default: FAB_VISIBILITIES.ON_HOVER,
         validator: (value) => Object.values(FAB_VISIBILITIES).includes(value)
+    },
+
+    isActive: {
+        type: Boolean,
+        default: true
     }
 })
 
@@ -63,6 +69,13 @@ const FAB_TYPE_CONFIG = {
 }
 
 const variantConfig = computed(() => {
+    if (props.variant === FAB_TYPES.VISIBILITY) {
+        return {
+            icon: props.isActive ? EyeIcon : EyeSlashIcon,
+            tooltip: props.isActive ? 'Visible to players' : 'Hidden from players',
+        }
+    }
+
     return FAB_TYPE_CONFIG[props.variant]
 })
 </script>
@@ -191,6 +204,16 @@ const variantConfig = computed(() => {
 .fab--exit:hover {
     background: var(--color-primary);
     border-color: var(--color-primary);
+}
+
+.fab--visibility .fab__icon--small,
+.fab--visibility .fab__icon--large {
+    color: var(--color-accent-cyan);
+}
+
+.fab--visibility-off .fab__icon--small,
+.fab--visibility-off .fab__icon--large {
+    color: var(--color-danger);
 }
 
 /* === VISIBILITY VARIANTS === */

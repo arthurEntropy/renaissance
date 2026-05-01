@@ -34,6 +34,7 @@ import { CAMPAIGN_ROLE, CAMPAIGN_MEMBER_STATUS } from '../../constants/campaignC
  * @property {string} generatedAt - ISO 8601
  * @property {string} primaryCultureId - The culture this shop is nominally associated with
  * @property {ShopGenerationParams} generationParams - Persisted generation parameters
+ * @property {boolean} isVisibleToPlayers - Whether players can see this shop in the lobby
  * @property {ShopItem[]} items - Snapshot of generated items
  */
 

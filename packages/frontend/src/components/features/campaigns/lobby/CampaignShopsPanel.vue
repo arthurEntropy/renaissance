@@ -10,13 +10,13 @@
         </div>
 
         <div v-show="!isCollapsed">
-            <div v-if="!campaign.shops?.length" class="empty-state">
+            <div v-if="!visibleShops.length" class="empty-state">
                 <p>No shops yet.</p>
             </div>
             <div v-else class="shops-list">
-                <CampaignShopSection v-for="shop in campaign.shops" :key="shop.id" :shop="shop"
-                    :campaign-id="campaignId" :is-g-m="isGM" :included-concept-ids="campaign.includedConceptIds || []"
-                    @rename="startRenameShop" @delete="deleteShop" />
+                <CampaignShopSection v-for="shop in visibleShops" :key="shop.id" :shop="shop" :campaign-id="campaignId"
+                    :is-g-m="isGM" :included-concept-ids="campaign.includedConceptIds || []" @rename="startRenameShop"
+                    @delete="deleteShop" />
             </div>
         </div>
 
@@ -150,6 +150,9 @@ const genParams = ref({ cultureMix: {}, keepingMix: {}, itemCount: 12 })
 
 const shopCultures = computed(() => conceptsStore.visibleCultures)
 const shopKeepingTiers = computed(() => keepingStore.keeping || [])
+const visibleShops = computed(() =>
+    (props.campaign.shops || []).filter((shop) => props.isGM || (shop.isVisibleToPlayers ?? true))
+)
 
 const openShopGenerator = () => {
     showShopGenerator.value = true
@@ -194,6 +197,7 @@ const saveGeneratedShop = async () => {
         const payload = {
             ...previewShop.value,
             name: previewShopName.value.trim() || previewShop.value.name,
+            isVisibleToPlayers: previewShop.value.isVisibleToPlayers ?? true,
         }
         await campaignStore.saveShop(props.campaignId, payload)
         closeShopGenerator()
@@ -209,6 +213,7 @@ const stockManually = async () => {
     try {
         await campaignStore.saveShop(props.campaignId, {
             name: previewShopName.value.trim() || 'New Shop',
+            isVisibleToPlayers: true,
             items: [],
         })
         closeShopGenerator()
@@ -271,6 +276,16 @@ watch(isCollapsed, (value) => {
     display: flex;
     flex-direction: column;
     gap: var(--space-md);
+}
+
+.section-card.edit-hover-area:hover .shops-list :deep(.fab--on-hover) {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.section-card.edit-hover-area:hover .shops-list :deep(.edit-hover-area:hover .fab--on-hover) {
+    opacity: 1;
+    pointer-events: auto;
 }
 
 .generator-form {

@@ -2,7 +2,7 @@
   "id": "807d03d2-3edc-410c-b2ca-141e679d7bf9",
   "isDeleted": false,
   "createdAt": "2026-04-30T20:44:10.378Z",
-  "lastModified": "2026-04-30T20:44:10.378Z",
+  "lastModified": "2026-05-01T13:51:05.034Z",
   "name": "Julius",
   "isBeast": false,
   "campaignId": "2216d52f-f74d-479e-b440-f7b5aa6319e5",
@@ -214,7 +214,7 @@
   "equipment": [],
   "abilities": [],
   "artUrls": [
-    "https://cdn.midjourney.com/a8a36740-b7d3-4aef-bea3-a95039bec06f/0_2.png"
+    "https://cdn.midjourney.com/b4d83def-5416-469f-811c-ed83b844e465/0_0.png"
   ],
   "engagementDiceStatuses": {},
   "biomeTags": [],
@@ -260,5 +260,6 @@
       }
     }
   },
-  "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1"
+  "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
+  "updatedAt": "2026-05-01T13:51:05.034Z"
 }
