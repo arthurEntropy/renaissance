@@ -56,7 +56,7 @@
                     <CampaignPlayerCharactersPanel :campaign="campaign" :campaign-id="campaignId" :is-g-m="isGM"
                         @view-character="openCharacterSheet" />
 
-                    <CampaignNpcsPanel v-if="isGM" :campaign-id="campaignId" :npcs="campaignNPCs"
+                    <CampaignNpcsPanel :campaign-id="campaignId" :npcs="campaignNPCs" :is-g-m="isGM"
                         @created="handleCampaignCharacterCreated" @deleted="handleCampaignCharacterDeleted"
                         @view-character="openCharacterSheet" />
                 </div>

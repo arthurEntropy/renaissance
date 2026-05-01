@@ -1,0 +1,264 @@
+{
+  "id": "807d03d2-3edc-410c-b2ca-141e679d7bf9",
+  "isDeleted": false,
+  "createdAt": "2026-04-30T20:44:10.378Z",
+  "lastModified": "2026-04-30T20:44:10.378Z",
+  "name": "Julius",
+  "isBeast": false,
+  "campaignId": "2216d52f-f74d-479e-b440-f7b5aa6319e5",
+  "isNPC": true,
+  "beastType": null,
+  "templateId": null,
+  "challenge": 0,
+  "description": "",
+  "size": 0,
+  "reach": 0,
+  "pronouns": "",
+  "ancestries": "",
+  "cultures": "",
+  "notes": "",
+  "keeping": null,
+  "treasure": 0,
+  "age": 0,
+  "heightFeet": 0,
+  "heightInches": 0,
+  "weight": 0,
+  "xp": 0,
+  "mp": {
+    "current": 0,
+    "max": 0
+  },
+  "body": 0,
+  "heart": 0,
+  "wits": 0,
+  "skills": [
+    {
+      "name": "Awe",
+      "coreAbility": "body",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "name": "Strength",
+      "coreAbility": "body",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "name": "Dexterity",
+      "coreAbility": "body",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "name": "Fortitude",
+      "coreAbility": "body",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "name": "Craft",
+      "coreAbility": "body",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "name": "Perform",
+      "coreAbility": "heart",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "name": "Insight",
+      "coreAbility": "heart",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "name": "Courtesy",
+      "coreAbility": "heart",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "name": "Spirit",
+      "coreAbility": "heart",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "name": "Aid",
+      "coreAbility": "heart",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "name": "Persuade",
+      "coreAbility": "wits",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "name": "Awareness",
+      "coreAbility": "wits",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "name": "Stealth",
+      "coreAbility": "wits",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "name": "Lore",
+      "coreAbility": "wits",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "name": "Riddle",
+      "coreAbility": "wits",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": true,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    }
+  ],
+  "endurance": {
+    "current": 0,
+    "max": 0,
+    "coreAbility": "body"
+  },
+  "hope": {
+    "current": 0,
+    "max": 0,
+    "coreAbility": "heart"
+  },
+  "defense": {
+    "current": 0,
+    "max": 0,
+    "coreAbility": "wits"
+  },
+  "load": 0,
+  "shadow": 0,
+  "injury": 0,
+  "states": {
+    "weary": false,
+    "twiceWeary": false,
+    "miserable": false,
+    "twiceMiserable": false,
+    "helpless": false,
+    "twiceHelpless": false
+  },
+  "conditions": {
+    "insecure": false,
+    "guilty": false,
+    "angry": false,
+    "afraid": false,
+    "troubled": false
+  },
+  "speed": 0,
+  "nimbleStep": 0,
+  "manaPool": {
+    "white": [],
+    "blue": [],
+    "black": [],
+    "red": [],
+    "green": [],
+    "colorless": []
+  },
+  "equipment": [],
+  "abilities": [],
+  "artUrls": [
+    "https://cdn.midjourney.com/a8a36740-b7d3-4aef-bea3-a95039bec06f/0_2.png"
+  ],
+  "engagementDiceStatuses": {},
+  "biomeTags": [],
+  "biomeId": null,
+  "activeEffects": [],
+  "witchcraftTokens": [],
+  "witchcraftTalismans": [],
+  "summonerVessels": [],
+  "groupAbilitiesBySource": false,
+  "groupAbilitiesByManaColor": false,
+  "groupEquipmentBySource": false,
+  "abilitySortOption": "name-asc",
+  "equipmentSortOption": "name-asc",
+  "autoCalculations": {
+    "load": true,
+    "statesAndEffects": true,
+    "maxEndurance": true,
+    "maxHope": true,
+    "maxDefense": true
+  },
+  "rollStats": {
+    "skillChecks": {
+      "attempts": 0,
+      "successes": 0,
+      "totalSum": 0,
+      "bestTotal": null,
+      "hardestSuccess": null,
+      "bySkill": {},
+      "solCount": 0,
+      "morteCount": 0,
+      "successCount": 0
+    },
+    "contests": {
+      "engagement": {
+        "wins": 0,
+        "losses": 0,
+        "draws": 0
+      },
+      "opposed": {
+        "wins": 0,
+        "losses": 0,
+        "draws": 0
+      }
+    }
+  },
+  "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1"
+}

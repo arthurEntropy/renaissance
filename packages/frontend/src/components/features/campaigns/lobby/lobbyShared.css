@@ -88,7 +88,6 @@
 }
 
 .status-drop-zone {
-    min-height: 58px;
     border: 1px dashed var(--overlay-white-medium);
     border-radius: var(--radius-5);
     color: var(--color-font-secondary, var(--color-text-secondary));
@@ -96,11 +95,37 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: var(--space-sm);
 }
 
 .draggable-badge {
     display: inline-flex;
+}
+
+.char-badge-grid--empty {
+    padding: 0;
+    min-height: 72px;
+    align-items: center;
+}
+
+.status-drop-slot {
+    width: 56px;
+    height: 56px;
+    box-sizing: border-box;
+    border: 2px dotted var(--overlay-white-heavy);
+    border-radius: 999px;
+    color: var(--overlay-white-heavy);
+    background: var(--overlay-white-subtle);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    user-select: none;
+}
+
+.status-drop-slot-icon {
+    width: 18px;
+    height: 18px;
+    stroke-width: 2.4;
 }
 
 .char-badge-grid :deep(.selected-character-badge) {

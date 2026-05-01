@@ -5,7 +5,7 @@
   "description": "In which we explore the realm of imagination. We do not fear what our minds may create, but rather celebrate the strangeness of the sum of our collective hopes, fears and dreams. We will plunge headlong into new worlds. We will love and hate the strange and wonderful people we meet. We will learn about ourselves and about each other. The magic is in not knowing what comes next. We play to find out what happens.",
   "coverImageUrl": "https://cdn.midjourney.com/89c26af7-b4e3-47f5-b6ea-92985d2df5d5/0_0.png",
   "createdAt": "2026-04-29T13:40:44.511Z",
-  "lastModified": "2026-04-30T16:14:26.981Z",
+  "lastModified": "2026-05-01T13:24:50.164Z",
   "isDeleted": false,
   "foundingGmUserId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
   "members": [
@@ -21,6 +21,15 @@
       ],
       "joinedAt": "2026-04-29T13:40:44.511Z",
       "invitedAt": "2026-04-29T13:40:44.511Z",
+      "invitedByUserId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1"
+    },
+    {
+      "userId": "yMwXRvIrCwWwG4NRC4HBjN2BrOM2",
+      "role": "player",
+      "status": "accepted",
+      "characterIds": [],
+      "joinedAt": "2026-04-30T19:04:29.447Z",
+      "invitedAt": "2026-04-30T19:04:07.538Z",
       "invitedByUserId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1"
     }
   ],

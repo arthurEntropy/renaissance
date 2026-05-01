@@ -7,14 +7,14 @@
   "status": "approved",
   "needsUsername": false,
   "createdAt": "2026-04-30T18:54:57.731Z",
-  "lastLoginAt": "2026-04-30T18:54:57.731Z",
+  "lastLoginAt": "2026-04-30T19:04:22.056Z",
   "isDeleted": false,
   "preferences": {
     "theme": "dark",
     "notifications": true
   },
   "characters": [],
-  "lastModified": "2026-04-30T18:57:48.517Z",
-  "activeCampaignId": "b42c0e45-4270-4936-a27e-f58230eee0d4",
-  "lastUpdatedAt": "2026-04-30T18:57:48.517Z"
+  "lastModified": "2026-04-30T19:04:34.786Z",
+  "activeCampaignId": "2216d52f-f74d-479e-b440-f7b5aa6319e5",
+  "lastUpdatedAt": "2026-04-30T19:04:34.786Z"
 }

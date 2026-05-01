@@ -24,12 +24,16 @@
         <div v-else class="status-sections">
             <div class="status-section" @dragover.prevent @drop="moveToActive">
                 <p class="status-label">ACTIVE</p>
-                <div v-if="activeCharacters.length === 0" class="status-drop-zone">Drop characters here</div>
-                <div v-else class="char-badge-grid">
+                <div class="char-badge-grid"
+                    :class="{ 'char-badge-grid--empty': activeCharacters.length === 0 && !isDragging }">
                     <SelectedCharacterBadge v-for="char in activeCharacters" :key="char.id" :character="char"
-                        draggable="true" class="draggable-badge" @dragstart="handleDragStart($event, char.id)"
-                        @dragend="handleDragEnd" :on-remove="(character) => removeCharacterFromCampaign(character)"
+                        :draggable="canDragCharacter(char)" class="draggable-badge"
+                        @dragstart="handleDragStart($event, char.id)" @dragend="handleDragEnd"
+                        :on-remove="(character) => removeCharacterFromCampaign(character)"
                         :on-click="(character) => viewCharacterSheet(character)" />
+                    <div v-if="showDropSlot('active')" class="status-drop-slot" aria-hidden="true">
+                        <PlusIcon class="status-drop-slot-icon" />
+                    </div>
                 </div>
             </div>
 
@@ -37,13 +41,16 @@
 
             <div v-show="showInactiveSection" class="status-section" @dragover.prevent @drop="moveToInactive">
                 <p class="status-label">INACTIVE</p>
-                <div v-if="inactiveCharacters.length === 0" class="status-drop-zone">Drop characters here</div>
-                <div v-else class="char-badge-grid">
+                <div class="char-badge-grid"
+                    :class="{ 'char-badge-grid--empty': inactiveCharacters.length === 0 && !isDragging }">
                     <SelectedCharacterBadge v-for="char in inactiveCharacters" :key="char.id" :character="char"
-                        :is-inactive="true" draggable="true" class="draggable-badge"
+                        :is-inactive="true" :draggable="canDragCharacter(char)" class="draggable-badge"
                         @dragstart="handleDragStart($event, char.id)" @dragend="handleDragEnd"
                         :on-remove="(character) => removeCharacterFromCampaign(character)"
                         :on-click="(character) => viewCharacterSheet(character)" />
+                    <div v-if="showDropSlot('inactive')" class="status-drop-slot" aria-hidden="true">
+                        <PlusIcon class="status-drop-slot-icon" />
+                    </div>
                 </div>
             </div>
         </div>
@@ -57,6 +64,7 @@ import { useCampaignStore } from '@/stores/campaignStore'
 import { useCharactersStore } from '@/stores/charactersStore'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import SelectedCharacterBadge from '@/components/features/characterSelection/SelectedCharacterBadge.vue'
+import { PlusIcon } from '@heroicons/vue/24/outline'
 import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 
 const props = defineProps({
@@ -85,6 +93,7 @@ const charPickerRef = ref(null)
 const inactiveCharacterIds = ref([])
 const draggedCharacterId = ref(null)
 const dragPreviewEl = ref(null)
+const currentUserId = computed(() => authStore.user?.uid)
 
 const playerCharacters = computed(() => {
     const allCharIds = (props.campaign?.members || []).flatMap((member) => member.characterIds || [])
@@ -111,7 +120,25 @@ const inactiveCharacters = computed(() =>
     playerCharacters.value.filter((character) => inactiveIdSet.value.has(character.id))
 )
 
-const showInactiveSection = computed(() => inactiveCharacters.value.length > 0 || draggedCharacterId.value !== null)
+const isDragging = computed(() => draggedCharacterId.value !== null)
+const draggedCharacterSection = computed(() => {
+    const characterId = draggedCharacterId.value
+    if (!characterId) return null
+    return inactiveIdSet.value.has(characterId) ? 'inactive' : 'active'
+})
+const showInactiveSection = computed(() => inactiveCharacters.value.length > 0 || isDragging.value)
+
+const canDragCharacter = (character) => {
+    if (!character) return false
+    return props.isGM || character.userId === currentUserId.value
+}
+
+const canDragCharacterId = (characterId) => {
+    const character = playerCharacters.value.find((item) => item.id === characterId)
+    return canDragCharacter(character)
+}
+
+const showDropSlot = (section) => isDragging.value && draggedCharacterSection.value !== section
 
 const inactiveStateKey = computed(() =>
     props.campaignId ? `campaign-lobby:inactive:players:${props.campaignId}` : null
@@ -151,21 +178,8 @@ const createDragPreview = (event) => {
     const badge = event.currentTarget
     if (!(badge instanceof HTMLElement)) return
 
-    const preview = badge.cloneNode(true)
-    if (!(preview instanceof HTMLElement)) return
-
-    preview.querySelectorAll('.character-name-tooltip, .close-button').forEach((el) => el.remove())
-    preview.style.position = 'fixed'
-    preview.style.top = '-1000px'
-    preview.style.left = '-1000px'
-    preview.style.pointerEvents = 'none'
-    preview.style.transform = 'none'
-
-    document.body.appendChild(preview)
-    dragPreviewEl.value = preview
-
     const rect = badge.getBoundingClientRect()
-    event.dataTransfer.setDragImage(preview, rect.width / 2, rect.height / 2)
+    event.dataTransfer.setDragImage(badge, rect.width / 2, rect.height / 2)
     event.dataTransfer.effectAllowed = 'move'
 }
 
@@ -177,6 +191,7 @@ const clearDragPreview = () => {
 }
 
 const handleDragStart = (event, characterId) => {
+    if (!canDragCharacterId(characterId)) return
     createDragPreview(event)
     draggedCharacterId.value = characterId
 }
@@ -189,6 +204,7 @@ const handleDragEnd = () => {
 const moveToInactive = () => {
     const characterId = draggedCharacterId.value
     if (!characterId) return
+    if (!canDragCharacterId(characterId)) return
     if (!inactiveCharacterIds.value.includes(characterId)) {
         inactiveCharacterIds.value = [...inactiveCharacterIds.value, characterId]
     }
@@ -198,6 +214,7 @@ const moveToInactive = () => {
 const moveToActive = () => {
     const characterId = draggedCharacterId.value
     if (!characterId) return
+    if (!canDragCharacterId(characterId)) return
     inactiveCharacterIds.value = inactiveCharacterIds.value.filter((id) => id !== characterId)
     handleDragEnd()
 }

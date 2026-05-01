@@ -16,12 +16,15 @@
             <div v-else class="status-sections">
                 <div class="status-section" @dragover.prevent @drop="moveToActive">
                     <p class="status-label">ACTIVE</p>
-                    <div v-if="activeBeasts.length === 0" class="status-drop-zone">Drop characters here</div>
-                    <div v-else class="char-badge-grid">
+                    <div class="char-badge-grid"
+                        :class="{ 'char-badge-grid--empty': activeBeasts.length === 0 && !isDragging }">
                         <SelectedBeastBadge v-for="beast in activeBeasts" :key="beast.id" :beast="beast"
                             draggable="true" class="draggable-badge" @dragstart="handleDragStart($event, beast.id)"
                             @dragend="handleDragEnd" :on-remove="(character) => deleteBeast(character)"
                             :on-click="(character) => viewBeastSheet(character)" />
+                        <div v-if="showDropSlot('active')" class="status-drop-slot" aria-hidden="true">
+                            <PlusIcon class="status-drop-slot-icon" />
+                        </div>
                     </div>
                 </div>
 
@@ -29,13 +32,16 @@
 
                 <div v-show="showInactiveSection" class="status-section" @dragover.prevent @drop="moveToInactive">
                     <p class="status-label">INACTIVE</p>
-                    <div v-if="inactiveBeasts.length === 0" class="status-drop-zone">Drop characters here</div>
-                    <div v-else class="char-badge-grid">
+                    <div class="char-badge-grid"
+                        :class="{ 'char-badge-grid--empty': inactiveBeasts.length === 0 && !isDragging }">
                         <SelectedBeastBadge v-for="beast in inactiveBeasts" :key="beast.id" :beast="beast"
                             :is-inactive="true" draggable="true" class="draggable-badge"
                             @dragstart="handleDragStart($event, beast.id)" @dragend="handleDragEnd"
                             :on-remove="(character) => deleteBeast(character)"
                             :on-click="(character) => viewBeastSheet(character)" />
+                        <div v-if="showDropSlot('inactive')" class="status-drop-slot" aria-hidden="true">
+                            <PlusIcon class="status-drop-slot-icon" />
+                        </div>
                     </div>
                 </div>
             </div>
@@ -67,7 +73,7 @@
 
 <script setup>
 import { computed, onUnmounted, ref, watch } from 'vue'
-import { ChevronDownIcon, ChevronRightIcon } from '@heroicons/vue/24/outline'
+import { ChevronDownIcon, ChevronRightIcon, PlusIcon } from '@heroicons/vue/24/outline'
 import { useCharactersStore } from '@/stores/charactersStore'
 import CampaignService from '@/services/entities/campaignService'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
@@ -106,7 +112,14 @@ const availableTemplates = computed(() =>
 const inactiveBeastIdSet = computed(() => new Set(inactiveBeastIds.value))
 const activeBeasts = computed(() => props.beasts.filter((beast) => !inactiveBeastIdSet.value.has(beast.id)))
 const inactiveBeasts = computed(() => props.beasts.filter((beast) => inactiveBeastIdSet.value.has(beast.id)))
-const showInactiveSection = computed(() => inactiveBeasts.value.length > 0 || draggedBeastId.value !== null)
+const isDragging = computed(() => draggedBeastId.value !== null)
+const draggedBeastSection = computed(() => {
+    const beastId = draggedBeastId.value
+    if (!beastId) return null
+    return inactiveBeastIdSet.value.has(beastId) ? 'inactive' : 'active'
+})
+const showInactiveSection = computed(() => inactiveBeasts.value.length > 0 || isDragging.value)
+const showDropSlot = (section) => isDragging.value && draggedBeastSection.value !== section
 
 const inactiveStateKey = computed(() =>
     props.campaignId ? `campaign-lobby:inactive:beasts:${props.campaignId}` : null
@@ -146,21 +159,8 @@ const createDragPreview = (event) => {
     const badge = event.currentTarget
     if (!(badge instanceof HTMLElement)) return
 
-    const preview = badge.cloneNode(true)
-    if (!(preview instanceof HTMLElement)) return
-
-    preview.querySelectorAll('.beast-name-tooltip, .close-button').forEach((el) => el.remove())
-    preview.style.position = 'fixed'
-    preview.style.top = '-1000px'
-    preview.style.left = '-1000px'
-    preview.style.pointerEvents = 'none'
-    preview.style.transform = 'none'
-
-    document.body.appendChild(preview)
-    dragPreviewEl.value = preview
-
     const rect = badge.getBoundingClientRect()
-    event.dataTransfer.setDragImage(preview, rect.width / 2, rect.height / 2)
+    event.dataTransfer.setDragImage(badge, rect.width / 2, rect.height / 2)
     event.dataTransfer.effectAllowed = 'move'
 }
 
