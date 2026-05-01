@@ -67,12 +67,26 @@ import { useCharactersStore } from '@/stores/charactersStore'
 import { useKeepingStore } from '@/stores/keepingStore'
 import { KEEPING_COLORS } from '@/constants/keepingConstants'
 
+const props = defineProps({
+  characterOverride: {
+    type: Object,
+    default: null,
+  },
+  forceReadonly: {
+    type: Boolean,
+    default: false,
+  },
+})
+
 defineEmits(['close-sheet'])
 
 const charactersStore = useCharactersStore()
 
-const character = computed(() => charactersStore.selectedCharacter)
-const canEdit = computed(() => charactersStore.canEditSelectedCharacter)
+const character = computed(() => props.characterOverride ?? charactersStore.selectedCharacter ?? { isBeast: false })
+const canEdit = computed(() => {
+  if (props.forceReadonly || props.characterOverride) return false
+  return charactersStore.canEditSelectedCharacter
+})
 const keepingStore = useKeepingStore()
 
 const keepingBadgeStyle = computed(() => {

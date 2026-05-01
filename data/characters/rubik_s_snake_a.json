@@ -1,6 +1,6 @@
 {
-  "id": "11a82c25-dea1-47b2-8221-0777ae428b88",
-  "name": "Rhinodillo Beetle A",
+  "id": "504cff0a-33ab-4eb7-8172-6ee38fcd1a03",
+  "name": "Rubik's Snake A",
   "isBeast": true,
   "pronouns": "",
   "ancestries": "",
@@ -176,15 +176,15 @@
   "abilities": [],
   "activeEffects": [],
   "artUrls": [
-    "https://cdn.midjourney.com/d190fffe-70a8-4aea-b938-10664317c862/0_0.png"
+    "https://cdn.midjourney.com/310abf0c-3ccf-45a7-bf09-d9a1ea4ce62d/0_2.png"
   ],
   "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "createdAt": "2026-04-30T12:35:02.808Z",
-  "updatedAt": "2026-04-30T16:08:23.917Z",
+  "createdAt": "2026-05-01T16:03:03.115Z",
+  "updatedAt": "2025-10-29T19:55:23.527Z",
   "notes": "",
   "beastType": "instance",
-  "templateId": "3774aed2-eec6-49d3-8d4d-f5b2e24fd373",
-  "templateName": "Rhinodillo Beetle",
+  "templateId": "2c099087-05ee-4b2c-88e8-966b4af8a9c9",
+  "templateName": "Rubik's Snake",
   "campaignId": "2216d52f-f74d-479e-b440-f7b5aa6319e5",
-  "lastModified": "2026-04-30T16:08:23.917Z"
+  "lastModified": "2026-05-01T16:03:03.160Z"
 }

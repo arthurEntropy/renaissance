@@ -1,6 +1,6 @@
 {
-  "id": "0b246828-a10a-4c18-95ca-112d02281e0b",
-  "name": "Flameskull A",
+  "id": "7b02fb38-0895-460d-88ee-c096109e2e40",
+  "name": "Nether Jelly A",
   "isBeast": true,
   "pronouns": "",
   "ancestries": "",
@@ -176,15 +176,15 @@
   "abilities": [],
   "activeEffects": [],
   "artUrls": [
-    "https://cdn.midjourney.com/9dcf81b5-f92f-4d2a-a244-27df6c69f626/0_2.png"
+    "https://cdn.midjourney.com/627fed95-dffe-4485-8fea-5a56d06fb145/0_2.png"
   ],
   "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "createdAt": "2026-04-29T13:52:08.682Z",
-  "updatedAt": "2025-10-30T13:45:41.680Z",
+  "createdAt": "2026-05-01T15:55:43.071Z",
+  "updatedAt": "2025-10-29T19:59:49.756Z",
   "notes": "",
   "beastType": "instance",
-  "templateId": "9f81e252-394e-400c-926d-ddb698f400e2",
-  "templateName": "Flameskull",
+  "templateId": "d526bd58-51b2-4f76-9663-c12a850051e9",
+  "templateName": "Nether Jelly",
   "campaignId": "2216d52f-f74d-479e-b440-f7b5aa6319e5",
-  "lastModified": "2026-04-29T13:52:08.685Z"
+  "lastModified": "2026-05-01T15:55:43.085Z"
 }

@@ -1,6 +1,6 @@
 {
-  "id": "7f60872d-f49a-43ad-bd97-48d1b9f8d181",
-  "name": "Gorilla Vulture A",
+  "id": "5ba6fb6d-301d-43f0-9b32-d184c815b2a0",
+  "name": "Baldur's Horror B",
   "isBeast": true,
   "pronouns": "",
   "ancestries": "",
@@ -13,9 +13,9 @@
     "current": 0,
     "max": 0
   },
-  "body": 6,
-  "heart": 1,
-  "wits": 4,
+  "body": 0,
+  "heart": 0,
+  "wits": 0,
   "skills": [
     {
       "name": "Awe",
@@ -27,7 +27,7 @@
     },
     {
       "name": "Strength",
-      "ranks": 4,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -35,7 +35,7 @@
     },
     {
       "name": "Dexterity",
-      "ranks": 1,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -43,7 +43,7 @@
     },
     {
       "name": "Fortitude",
-      "ranks": 1,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -67,7 +67,7 @@
     },
     {
       "name": "Insight",
-      "ranks": 1,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -107,7 +107,7 @@
     },
     {
       "name": "Awareness",
-      "ranks": 3,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -115,7 +115,7 @@
     },
     {
       "name": "Stealth",
-      "ranks": 1,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -140,17 +140,17 @@
   ],
   "endurance": {
     "current": 0,
-    "max": 30,
+    "max": 0,
     "coreAbility": "body"
   },
   "hope": {
     "current": 0,
-    "max": 3,
+    "max": 0,
     "coreAbility": "heart"
   },
   "defense": {
     "current": 0,
-    "max": 14,
+    "max": 0,
     "coreAbility": "wits"
   },
   "load": 0,
@@ -176,15 +176,16 @@
   "abilities": [],
   "activeEffects": [],
   "artUrls": [
-    "https://cdn.midjourney.com/50436a93-c108-4e5a-9142-74abf3868c4e/0_1.png"
+    "https://cdn.midjourney.com/a953b792-2f19-4b8f-9cd4-5bff1b4b0199/0_1.png"
   ],
   "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "createdAt": "2026-05-01T15:41:43.832Z",
-  "updatedAt": "2025-10-29T19:51:44.544Z",
+  "createdAt": "2026-05-01T15:41:37.478Z",
+  "updatedAt": "2026-04-29T00:48:50.896Z",
+  "lastModified": "2026-05-01T15:41:37.483Z",
   "notes": "",
+  "keeping": null,
   "beastType": "instance",
-  "templateId": "291d9cc9-68e5-4054-83b8-841ba330c6f4",
-  "templateName": "Gorilla Vulture",
-  "campaignId": "2216d52f-f74d-479e-b440-f7b5aa6319e5",
-  "lastModified": "2026-05-01T15:41:43.836Z"
+  "templateId": "70dbd03f-96a7-44d1-a677-3347d616c808",
+  "templateName": "Baldur's Horror",
+  "campaignId": "2216d52f-f74d-479e-b440-f7b5aa6319e5"
 }

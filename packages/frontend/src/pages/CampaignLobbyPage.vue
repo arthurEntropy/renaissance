@@ -61,9 +61,9 @@
                         @preview-character="openNpcPreview" />
                 </div>
 
-                <CampaignBeastsPanel v-if="isGM" :campaign-id="campaignId" :beasts="campaignBeastInstances"
-                    @created="handleCampaignCharacterCreated" @deleted="handleCampaignCharacterDeleted"
-                    @view-character="openCharacterSheet" />
+                <CombatBuilder v-if="isGM" :campaign-id="campaignId" :beasts="campaignBeastInstances"
+                    :npcs="campaignNPCs" @created="handleCampaignCharacterCreated"
+                    @deleted="handleCampaignCharacterDeleted" @view-character="openCharacterSheet" />
 
                 <CampaignShopsPanel :campaign="campaign" :campaign-id="campaignId" :is-g-m="isGM" />
 
@@ -130,7 +130,7 @@ import CampaignNpcsPanel from '@/components/features/campaigns/lobby/CampaignNpc
 import NpcPreviewModal from '@/components/features/campaigns/lobby/NpcPreviewModal.vue'
 import CampaignShopsPanel from '@/components/features/campaigns/lobby/CampaignShopsPanel.vue'
 import CampaignCurationPanel from '@/components/features/campaigns/lobby/CampaignCurationPanel.vue'
-import CampaignBeastsPanel from '@/components/features/campaigns/lobby/CampaignBeastsPanel.vue'
+import CombatBuilder from '@/components/features/campaigns/lobby/CombatBuilder.vue'
 import CharacterSheet from '@/components/features/characterSheet/CharacterSheet.vue'
 import TextEditor from '@/components/ui/textEditor/TextEditor.vue'
 import { sanitizeHtml } from '@/utils/sanitizeHtml'
