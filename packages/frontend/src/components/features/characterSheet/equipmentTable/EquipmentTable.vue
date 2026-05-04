@@ -146,13 +146,17 @@ const props = defineProps({
   isEditMode: {
     type: Boolean,
     default: false
+  },
+  character: {
+    type: Object,
+    default: null
   }
 })
 
 const emit = defineEmits(['edit-custom-equipment'])
 
 const charactersStore = useCharactersStore()
-const selectedCharacter = computed(() => charactersStore.selectedCharacter)
+const selectedCharacter = computed(() => props.character || charactersStore.selectedCharacter)
 const equipmentTypesStore = useEquipmentTypesStore()
 const equipmentStore = useEquipmentStore()
 const equipmentSubtypesStore = useEquipmentSubtypesStore()

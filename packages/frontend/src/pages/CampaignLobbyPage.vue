@@ -17,7 +17,7 @@
             <button class="btn-secondary" @click="router.push('/')">Go Home</button>
         </div>
 
-        <div v-else-if="!showCharacterSheet" class="lobby-content">
+        <div v-else class="lobby-content">
             <div class="lobby-header">
                 <div class="lobby-header-top-row">
                     <div class="edit-hover-area lobby-title-area">
@@ -52,28 +52,21 @@
 
             <div class="lobby-sections">
                 <div class="lobby-row-main">
-                    <CampaignMembersPanel :campaign="campaign" :campaign-id="campaignId" :is-g-m="isGM"
-                        :is-founding-g-m="isFoundingGM" :current-user-id="authStore.user?.uid" />
+                    <CampaignMembersPanel />
 
-                    <CampaignPlayerCharactersPanel :campaign="campaign" :campaign-id="campaignId" :is-g-m="isGM"
-                        @view-character="openCharacterSheet" />
+                    <CampaignPlayerCharactersPanel />
 
-                    <CampaignNpcsPanel :campaign-id="campaignId" :npcs="campaignNPCs" :is-g-m="isGM"
-                        @created="handleCampaignCharacterCreated" @deleted="handleCampaignCharacterDeleted"
-                        @preview-character="openNpcPreview" />
+                    <CampaignNpcsPanel />
                 </div>
 
-                <CombatBuilder v-if="isGM" :campaign-id="campaignId" :beasts="campaignBeastInstances"
-                    :npcs="campaignNPCs" @created="handleCampaignCharacterCreated"
-                    @deleted="handleCampaignCharacterDeleted" @view-character="openCharacterSheet" />
+                <CombatBuilder v-if="isGM" />
 
-                <CampaignShopsPanel :campaign="campaign" :campaign-id="campaignId" :is-g-m="isGM" />
+                <CampaignShopsPanel />
 
             </div>
         </div>
 
-        <div v-if="showEditImageModal && !showCharacterSheet" class="modal-overlay"
-            @click.self="showEditImageModal = false">
+        <div v-if="showEditImageModal" class="modal-overlay" @click.self="showEditImageModal = false">
             <div class="modal modal--wide settings-modal">
                 <h2 class="modal-title">Campaign Settings</h2>
                 <div class="section-card settings-section-card">
@@ -97,29 +90,16 @@
             </div>
         </div>
 
-        <NpcPreviewModal :visible="showNpcPreviewModal && !showCharacterSheet" :character="npcPreviewCharacter"
-            :show-view-character-sheet="isGM" @close="closeNpcPreview" @view-character-sheet="openNpcCharacterSheet" />
-
-        <Teleport to="body">
-            <div v-if="showCharacterSheet" class="sheet-overlay" @click.self="closeCharacterSheet">
-                <NavigationControls :has-previous="hasPreviousCharacter" :has-next="hasNextCharacter"
-                    @navigate="navigateCharacterSheet" />
-                <FloatingActionButton class="sheet-close" :variant="FAB_TYPES.DELETE" :size="FAB_SIZES.LARGE"
-                    :visibility="FAB_VISIBILITIES.ALWAYS" @click="closeCharacterSheet" />
-                <div class="sheet-container">
-                    <CharacterSheet @close="closeCharacterSheet" />
-                </div>
-            </div>
-        </Teleport>
     </div>
 </template>
 
 <script setup>
-import { ref, computed, onMounted, nextTick } from 'vue'
+import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useCampaignStore } from '@/stores/campaignStore'
 import { useAuthStore } from '@/stores/authStore'
 import { useCharactersStore } from '@/stores/charactersStore'
+import { useCharacterContextStore } from '@/stores/characterContextStore'
 import { useConceptsStore } from '@/stores/conceptsStore'
 import { useKeepingStore } from '@/stores/keepingStore'
 import { useEquipmentStore } from '@/stores/equipmentStore'
@@ -129,14 +109,11 @@ import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import CampaignMembersPanel from '@/components/features/campaigns/lobby/CampaignMembersPanel.vue'
 import CampaignPlayerCharactersPanel from '@/components/features/campaigns/lobby/CampaignPlayerCharactersPanel.vue'
 import CampaignNpcsPanel from '@/components/features/campaigns/lobby/CampaignNpcsPanel.vue'
-import NpcPreviewModal from '@/components/features/campaigns/lobby/NpcPreviewModal.vue'
 import CampaignShopsPanel from '@/components/features/campaigns/lobby/CampaignShopsPanel.vue'
 import CampaignCurationPanel from '@/components/features/campaigns/lobby/CampaignCurationPanel.vue'
 import CombatBuilder from '@/components/features/campaigns/lobby/CombatBuilder.vue'
-import CharacterSheet from '@/components/features/characterSheet/CharacterSheet.vue'
 import TextEditor from '@/components/ui/textEditor/TextEditor.vue'
 import { sanitizeHtml } from '@/utils/sanitizeHtml'
-import NavigationControls from '@/components/ui/NavigationControls.vue'
 import CampaignService from '@/services/entities/campaignService'
 import { CAMPAIGN_ROLE } from '@shared/constants/campaignConstants'
 import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
@@ -148,6 +125,7 @@ const router = useRouter()
 const campaignStore = useCampaignStore()
 const authStore = useAuthStore()
 const charactersStore = useCharactersStore()
+const characterContextStore = useCharacterContextStore()
 const conceptsStore = useConceptsStore()
 const keepingStore = useKeepingStore()
 const equipmentStore = useEquipmentStore()
@@ -164,8 +142,6 @@ const isGM = computed(() => {
     const member = campaign.value?.members?.find((m) => m.userId === authStore.user?.uid)
     return member?.role === CAMPAIGN_ROLE.GM
 })
-
-const isFoundingGM = computed(() => campaign.value?.foundingGmUserId === authStore.user?.uid)
 
 // Background
 const {
@@ -234,8 +210,6 @@ const saveDescription = async () => {
 const cancelDescEdit = () => {
     isEditingDescription.value = false
 }
-
-// Edit Background Image Modal
 const showEditImageModal = ref(false)
 const editImageUrl = ref('')
 const savingSettings = ref(false)
@@ -261,98 +235,6 @@ const saveSettings = async () => {
     }
 }
 
-// Character Sheet Overlay (Lobby)
-const showCharacterSheet = ref(false)
-const activeCharacterSection = ref(null)
-const showNpcPreviewModal = ref(false)
-
-const npcPreviewCharacter = computed(() => charactersStore.selectedCharacter)
-
-const playerCharacters = computed(() => {
-    if (!campaign.value) return []
-    const allCharacterIds = (campaign.value.members || []).flatMap((member) => member.characterIds || [])
-    return charactersStore.characters.filter((character) => allCharacterIds.includes(character.id))
-})
-
-const activeCharacterList = computed(() => {
-    if (activeCharacterSection.value === 'players') return playerCharacters.value
-    if (activeCharacterSection.value === 'npcs') return campaignNPCs.value
-    if (activeCharacterSection.value === 'beasts') return campaignBeastInstances.value
-    return []
-})
-
-const activeCharacterIndex = computed(() => {
-    const selectedId = charactersStore.selectedCharacter?.id
-    if (!selectedId) return -1
-    return activeCharacterList.value.findIndex((character) => character.id === selectedId)
-})
-
-const hasPreviousCharacter = computed(() => activeCharacterIndex.value > 0)
-const hasNextCharacter = computed(() =>
-    activeCharacterIndex.value >= 0 && activeCharacterIndex.value < activeCharacterList.value.length - 1
-)
-
-const openCharacterSheet = (payload) => {
-    const character = payload?.character
-    const section = payload?.section
-    if (!character || !section) return
-    activeCharacterSection.value = section
-    charactersStore.selectCharacter(character)
-    showCharacterSheet.value = true
-}
-
-const navigateCharacterSheet = (direction) => {
-    const nextIndex = activeCharacterIndex.value + direction
-    if (nextIndex < 0 || nextIndex >= activeCharacterList.value.length) return
-    const nextCharacter = activeCharacterList.value[nextIndex]
-    if (nextCharacter) charactersStore.selectCharacter(nextCharacter)
-}
-
-const closeCharacterSheet = () => {
-    showCharacterSheet.value = false
-    activeCharacterSection.value = null
-    charactersStore.deselectCharacter()
-}
-
-const openNpcPreview = (character) => {
-    if (!character) return
-    charactersStore.selectCharacter(character)
-    showNpcPreviewModal.value = true
-}
-
-const closeNpcPreview = () => {
-    showNpcPreviewModal.value = false
-    charactersStore.deselectCharacter()
-}
-
-const openNpcCharacterSheet = () => {
-    if (!npcPreviewCharacter.value) return
-    showNpcPreviewModal.value = false
-    openCharacterSheet({ section: 'npcs', character: npcPreviewCharacter.value })
-}
-
-// Campaign Characters (NPCs + Beasts)
-const campaignCharacters = ref([])
-const campaignNPCs = computed(() => campaignCharacters.value.filter((c) => c.isNPC))
-const campaignBeastInstances = computed(() => campaignCharacters.value.filter((c) => c.beastType === 'instance'))
-
-const loadCampaignCharacters = async () => {
-    if (!campaignId.value) return
-    try {
-        campaignCharacters.value = await CampaignService.getCampaignCharacters(campaignId.value)
-    } catch (err) {
-        console.error('Failed to load campaign characters:', err)
-    }
-}
-
-const handleCampaignCharacterCreated = (character) => {
-    campaignCharacters.value.push(character)
-}
-
-const handleCampaignCharacterDeleted = (characterId) => {
-    campaignCharacters.value = campaignCharacters.value.filter((character) => character.id !== characterId)
-}
-
 // Lifecycle
 onMounted(async () => {
     await campaignStore.fetch()
@@ -374,13 +256,17 @@ onMounted(async () => {
             keepingStore.fetch(),
             equipmentStore.fetch(),
             equipmentTypesStore.fetch(),
-            loadCampaignCharacters(),
+            campaignStore.fetchCampaignCharacters(campaign.value.id),
         ])
     } else {
         router.replace('/')
     }
 
     isLoading.value = false
+})
+
+onUnmounted(() => {
+    characterContextStore.clearPinnedGroups()
 })
 </script>
 

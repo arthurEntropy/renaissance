@@ -1,6 +1,6 @@
 {
-  "id": "4cc4b2c9-6e9f-44cc-b933-6208107e6f48",
-  "name": "Cloth Spirit A",
+  "id": "9d307cf1-5f80-4092-b8be-4eca81f3870e",
+  "name": "Lady Fûktûn A",
   "isBeast": true,
   "pronouns": "",
   "ancestries": "",
@@ -176,15 +176,15 @@
   "abilities": [],
   "activeEffects": [],
   "artUrls": [
-    "https://cdn.midjourney.com/26bda6d5-9d4f-46e7-954f-c9e28e55d675/0_0.jpeg"
+    "https://cdn.midjourney.com/0a36ee30-e86d-4781-8461-829fc3acaf66/0_3.png"
   ],
   "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "createdAt": "2026-05-01T15:41:41.036Z",
-  "updatedAt": "2026-05-04T15:56:45.347Z",
-  "lastModified": "2026-05-04T15:56:45.347Z",
+  "createdAt": "2026-05-02T14:11:17.016Z",
+  "updatedAt": "2025-10-29T20:02:57.935Z",
   "notes": "",
   "beastType": "instance",
-  "templateId": "09f7035a-0826-4761-af7a-49ef27655cd2",
-  "templateName": "Cloth Spirit",
-  "campaignId": "2216d52f-f74d-479e-b440-f7b5aa6319e5"
+  "templateId": "382f9f84-8084-4d62-82aa-165721574846",
+  "templateName": "Lady Fûktûn",
+  "campaignId": "2216d52f-f74d-479e-b440-f7b5aa6319e5",
+  "lastModified": "2026-05-02T14:11:17.029Z"
 }

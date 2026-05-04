@@ -227,6 +227,7 @@
   --z-tooltip: 1100;
   --z-badge: 1200;
   --z-cascade-menu: 1300;
+  --z-modal-sheet: 1400;
 
   /* ===== BREAKPOINTS ===== */
   --breakpoint-sm: 640px;

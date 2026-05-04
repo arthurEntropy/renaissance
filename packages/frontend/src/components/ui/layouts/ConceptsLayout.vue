@@ -82,6 +82,10 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
+  useExternalModal: {
+    type: Boolean,
+    default: false,
+  },
 })
 
 const emit = defineEmits(['select', 'deselect', 'create'])
@@ -172,6 +176,7 @@ const createConcept = () => {
 
 const openConceptDetail = (concept) => {
   emit('select', concept)
+  if (props.useExternalModal) return
   showConceptDetail.value = true
   updateConceptUrl(concept.name)
 }

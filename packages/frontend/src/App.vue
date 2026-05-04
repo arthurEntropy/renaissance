@@ -36,14 +36,11 @@
       </div>
     </div>
 
-    <!-- Selected Character Badge -->
-    <SelectedCharacterBadge />
-
-    <!-- Selected Beast Badge (Summoner mestiere — shows summoned creature) -->
-    <SelectedBeastBadge />
+    <!-- Badge rail: focused character/beast + pinned combat groups -->
+    <PinnedBadgesContainer v-if="authStore.isAuthenticated" />
 
     <!-- Main Content -->
-    <div class="content-area">
+    <div class="content-area" v-show="!isCharacterSheetOpen">
       <!-- Not invited modal -->
       <NotInvitedModal v-if="authStore.notInvited" @close="authStore.clearNotInvited()" />
 
@@ -60,6 +57,7 @@
   </div>
 
   <CardPreviewOverlay />
+  <AppCharacterSheetModal />
 </template>
 
 <script setup>
@@ -69,22 +67,29 @@ import { Bars3Icon } from '@heroicons/vue/24/outline'
 import { useAuthStore } from '@/stores/authStore'
 import { useUserStore } from '@/stores/userStore'
 import { useBackgroundImagesStore } from '@/stores/backgroundImagesStore'
-import SelectedCharacterBadge from '@/components/features/characterSelection/SelectedCharacterBadge.vue'
-import SelectedBeastBadge from '@/components/features/characterSelection/SelectedBeastBadge.vue'
+import { useCharactersStore } from '@/stores/charactersStore'
+import { useCharacterContextStore } from '@/stores/characterContextStore'
 import AuthComponent from '@/components/features/auth/AuthComponent.vue'
 import UsernameSetup from '@/components/features/auth/UsernameSetup.vue'
 import NotInvitedModal from '@/components/features/auth/NotInvitedModal.vue'
 import PreferencesModal from '@/components/features/preferences/PreferencesModal.vue'
 import CardPreviewOverlay from '@/components/ui/cards/preview/CardPreviewOverlay.vue'
 import CampaignBadge from '@/components/features/campaigns/CampaignBadge.vue'
+import PinnedBadgesContainer from '@/components/features/characterSelection/PinnedBadgesContainer.vue'
+import AppCharacterSheetModal from '@/components/features/characterSheet/AppCharacterSheetModal.vue'
+import { useAppCharacterSheetModal } from '@/composables/useAppCharacterSheetModal'
 import { useProgressiveOptimizedImage } from '@/composables/useOptimizedImage'
 import { PROGRESSIVE_IMAGE_CONTEXTS } from '@/constants/imageOptimization'
+
+const { isOpen: isCharacterSheetOpen } = useAppCharacterSheetModal()
 
 const menuOpen = ref(false)
 const route = useRoute()
 const authStore = useAuthStore()
 const userStore = useUserStore()
 const backgroundImagesStore = useBackgroundImagesStore()
+const charactersStore = useCharactersStore()
+const characterContextStore = useCharacterContextStore()
 const shouldShowOverlay = computed(() => route.meta?.overlay === true)
 const isActiveSection = (path) => route.path === path || route.path.startsWith(path + '/')
 
@@ -171,5 +176,16 @@ watch(
     updateBackground()
   },
   { immediate: true }
+)
+
+// Clear pinned groups and selected character on logout
+watch(
+  () => authStore.isAuthenticated,
+  (isAuth) => {
+    if (!isAuth) {
+      characterContextStore.clearPinnedGroups()
+      charactersStore.deselectCharacter()
+    }
+  }
 )
 </script>

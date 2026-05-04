@@ -39,6 +39,13 @@ import { CAMPAIGN_ROLE, CAMPAIGN_MEMBER_STATUS } from '../../constants/campaignC
  */
 
 /**
+ * @typedef {Object} CampaignLobbyState
+ * @property {string[]} inactiveNpcIds - NPC IDs marked as inactive in the lobby
+ * @property {string[]} hiddenNpcIds - NPC IDs hidden from players (GM-only)
+ * @property {string[]} inactivePlayerCharacterIds - Player character IDs marked as inactive
+ */
+
+/**
  * @typedef {Object} Campaign
  * @property {string|null} id - UUID identifier
  * @property {string} slug - URL-friendly identifier generated from name at creation
@@ -53,6 +60,7 @@ import { CAMPAIGN_ROLE, CAMPAIGN_MEMBER_STATUS } from '../../constants/campaignC
  * @property {string[]} includedConceptIds - IDs of concepts included in campaign
  * @property {CampaignShop[]} shops - Generated shops
  * @property {string} sessionNotes - GM-only notes for ongoing sessions
+ * @property {CampaignLobbyState} lobbyState - Shared GM lobby arrangement
  */
 
 /**
@@ -86,5 +94,10 @@ export function createDefaultCampaign(foundingGmUserId) {
     includedConceptIds: [],
     shops: [],
     sessionNotes: '',
+    lobbyState: {
+      inactiveNpcIds: [],
+      hiddenNpcIds: [],
+      inactivePlayerCharacterIds: [],
+    },
   }
 }

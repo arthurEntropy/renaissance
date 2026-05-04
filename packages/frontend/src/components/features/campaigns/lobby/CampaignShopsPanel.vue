@@ -15,7 +15,7 @@
             </div>
             <div v-else class="shops-list">
                 <CampaignShopSection v-for="shop in visibleShops" :key="shop.id" :shop="shop" :campaign-id="campaignId"
-                    :is-g-m="isGM" :included-concept-ids="campaign.includedConceptIds || []" @rename="startRenameShop"
+                    :is-g-m="isGM" :included-concept-ids="campaign?.includedConceptIds || []" @rename="startRenameShop"
                     @delete="deleteShop" />
             </div>
         </div>
@@ -82,8 +82,6 @@
                     <div class="shop-items-list">
                         <div v-for="(item, index) in previewShop.items" :key="index" class="shop-item-row">
                             <span class="shop-item-name">{{ item.name }}</span>
-                            <span class="shop-item-grade">{{ item.grade }}</span>
-                            <span class="shop-item-price">{{ item.price }} ¤</span>
                         </div>
                     </div>
                 </div>
@@ -119,24 +117,13 @@ import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.v
 import CampaignShopSection from '@/components/features/campaigns/CampaignShopSection.vue'
 import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 
-const props = defineProps({
-    campaign: {
-        type: Object,
-        required: true,
-    },
-    campaignId: {
-        type: String,
-        required: true,
-    },
-    isGM: {
-        type: Boolean,
-        default: false,
-    },
-})
-
 const campaignStore = useCampaignStore()
 const conceptsStore = useConceptsStore()
 const keepingStore = useKeepingStore()
+
+const campaign = computed(() => campaignStore.activeCampaign)
+const campaignId = computed(() => campaign.value?.id)
+const isGM = computed(() => campaignStore.isGMInActiveCampaign)
 
 const isCollapsed = ref(false)
 const showShopGenerator = ref(false)
@@ -151,7 +138,7 @@ const genParams = ref({ cultureMix: {}, keepingMix: {}, itemCount: 12 })
 const shopCultures = computed(() => conceptsStore.visibleCultures)
 const shopKeepingTiers = computed(() => keepingStore.keeping || [])
 const visibleShops = computed(() =>
-    (props.campaign.shops || []).filter((shop) => props.isGM || (shop.isVisibleToPlayers ?? true))
+    (campaign.value?.shops || []).filter((shop) => isGM.value || (shop.isVisibleToPlayers ?? true))
 )
 
 const openShopGenerator = () => {
@@ -177,7 +164,7 @@ const generateShop = async () => {
             ? rawKeepingMix.map(([keepingId, weight]) => ({ keepingId, weight }))
             : shopKeepingTiers.value.map((tier) => ({ keepingId: tier.id, weight: 1 }))
 
-        previewShop.value = await CampaignService.generateShop(props.campaignId, {
+        previewShop.value = await CampaignService.generateShop(campaignId.value, {
             cultureMix,
             keepingMix,
             itemCount: genParams.value.itemCount,
@@ -199,7 +186,7 @@ const saveGeneratedShop = async () => {
             name: previewShopName.value.trim() || previewShop.value.name,
             isVisibleToPlayers: previewShop.value.isVisibleToPlayers ?? true,
         }
-        await campaignStore.saveShop(props.campaignId, payload)
+        await campaignStore.saveShop(campaignId.value, payload)
         closeShopGenerator()
     } catch (error) {
         console.error('Failed to save shop:', error)
@@ -211,7 +198,7 @@ const saveGeneratedShop = async () => {
 const stockManually = async () => {
     shopSaving.value = true
     try {
-        await campaignStore.saveShop(props.campaignId, {
+        await campaignStore.saveShop(campaignId.value, {
             name: previewShopName.value.trim() || 'New Shop',
             isVisibleToPlayers: true,
             items: [],
@@ -227,7 +214,7 @@ const stockManually = async () => {
 const deleteShop = async (shopId) => {
     if (!confirm('Delete this shop?')) return
     try {
-        await campaignStore.deleteShop(props.campaignId, shopId)
+        await campaignStore.deleteShop(campaignId.value, shopId)
     } catch (error) {
         console.error('Failed to delete shop:', error)
     }
@@ -241,7 +228,7 @@ const startRenameShop = (shop) => {
 const executeRenameShop = async () => {
     if (!renamingShop.value) return
     try {
-        await campaignStore.updateShop(props.campaignId, renamingShop.value.id, {
+        await campaignStore.updateShop(campaignId.value, renamingShop.value.id, {
             name: renameShopValue.value.trim(),
         })
         renamingShop.value = null
@@ -251,7 +238,7 @@ const executeRenameShop = async () => {
 }
 
 const collapseStateKey = computed(() =>
-    props.campaignId ? `campaign-lobby:section:shops:${props.campaignId}` : null
+    campaignId.value ? `campaign-lobby:section:shops:${campaignId.value}` : null
 )
 
 watch(
@@ -364,23 +351,12 @@ watch(isCollapsed, (value) => {
 
 .shop-item-row {
     display: grid;
-    grid-template-columns: 1fr auto auto;
+    grid-template-columns: 1fr;
     gap: var(--space-md);
     align-items: center;
 }
 
 .shop-item-name {
     color: var(--color-text-primary);
-}
-
-.shop-item-grade {
-    color: var(--color-text-secondary);
-    font-size: var(--font-size-12);
-}
-
-.shop-item-price {
-    color: var(--color-primary);
-    font-size: var(--font-size-12);
-    font-weight: var(--font-weight-semibold);
 }
 </style>

@@ -28,9 +28,10 @@
                     :class="{ 'char-badge-grid--empty': activeCharacters.length === 0 && !isDragging }">
                     <SelectedCharacterBadge v-for="char in activeCharacters" :key="char.id" :character="char"
                         :show-remove-fab="canRemoveCharacter(char)" :draggable="canDragCharacter(char)"
-                        class="draggable-badge" @dragstart="handleDragStart($event, char.id)" @dragend="handleDragEnd"
-                        :on-remove="canRemoveCharacter(char) ? (character) => removeCharacterFromCampaign(character) : undefined"
-                        :on-click="(character) => viewCharacterSheet(character)" />
+                        :disable-default-click="true" class="draggable-badge"
+                        @dragstart="handleDragStart($event, char.id)" @dragend="handleDragEnd"
+                        @remove="canRemoveCharacter(char) ? removeCharacterFromCampaign(char) : undefined"
+                        @click="viewCharacterSheet(char)" />
                     <div v-if="showDropSlot('active')" class="status-drop-slot" aria-hidden="true">
                         <PlusIcon class="status-drop-slot-icon" />
                     </div>
@@ -45,10 +46,10 @@
                     :class="{ 'char-badge-grid--empty': inactiveCharacters.length === 0 && !isDragging }">
                     <SelectedCharacterBadge v-for="char in inactiveCharacters" :key="char.id" :character="char"
                         :is-inactive="true" :show-remove-fab="canRemoveCharacter(char)"
-                        :draggable="canDragCharacter(char)" class="draggable-badge"
+                        :draggable="canDragCharacter(char)" :disable-default-click="true" class="draggable-badge"
                         @dragstart="handleDragStart($event, char.id)" @dragend="handleDragEnd"
-                        :on-remove="canRemoveCharacter(char) ? (character) => removeCharacterFromCampaign(character) : undefined"
-                        :on-click="(character) => viewCharacterSheet(character)" />
+                        @remove="canRemoveCharacter(char) ? removeCharacterFromCampaign(char) : undefined"
+                        @click="viewCharacterSheet(char)" />
                     <div v-if="showDropSlot('inactive')" class="status-drop-slot" aria-hidden="true">
                         <PlusIcon class="status-drop-slot-icon" />
                     </div>
@@ -63,41 +64,29 @@ import { computed, onUnmounted, ref, watch } from 'vue'
 import { useAuthStore } from '@/stores/authStore'
 import { useCampaignStore } from '@/stores/campaignStore'
 import { useCharactersStore } from '@/stores/charactersStore'
+import { useAppCharacterSheetModal } from '@/composables/useAppCharacterSheetModal'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import SelectedCharacterBadge from '@/components/features/characterSelection/SelectedCharacterBadge.vue'
 import { PlusIcon } from '@heroicons/vue/24/outline'
 import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 
-const props = defineProps({
-    campaign: {
-        type: Object,
-        required: true,
-    },
-    campaignId: {
-        type: String,
-        required: true,
-    },
-    isGM: {
-        type: Boolean,
-        default: false,
-    },
-})
-
-const emit = defineEmits(['view-character'])
-
 const authStore = useAuthStore()
 const campaignStore = useCampaignStore()
 const charactersStore = useCharactersStore()
+const { open: openCharacterSheet } = useAppCharacterSheetModal()
+
+const campaign = computed(() => campaignStore.activeCampaign)
+const campaignId = computed(() => campaign.value?.id)
+const isGM = computed(() => campaignStore.isGMInActiveCampaign)
+const currentUserId = computed(() => authStore.user?.uid)
 
 const showCharPicker = ref(false)
 const charPickerRef = ref(null)
-const inactiveCharacterIds = ref([])
 const draggedCharacterId = ref(null)
 const dragPreviewEl = ref(null)
-const currentUserId = computed(() => authStore.user?.uid)
 
 const playerCharacters = computed(() => {
-    const allCharIds = (props.campaign?.members || []).flatMap((member) => member.characterIds || [])
+    const allCharIds = (campaign.value?.members || []).flatMap((member) => member.characterIds || [])
     return charactersStore.characters.filter((character) => allCharIds.includes(character.id))
 })
 
@@ -111,6 +100,7 @@ const availableUserCharacters = computed(() => {
     )
 })
 
+const inactiveCharacterIds = computed(() => campaign.value?.lobbyState?.inactivePlayerCharacterIds || [])
 const inactiveIdSet = computed(() => new Set(inactiveCharacterIds.value))
 
 const activeCharacters = computed(() =>
@@ -129,14 +119,11 @@ const draggedCharacterSection = computed(() => {
 })
 const showInactiveSection = computed(() => inactiveCharacters.value.length > 0 || isDragging.value)
 
-const canDragCharacter = (character) => {
-    if (!character) return false
-    return props.isGM || character.userId === currentUserId.value
-}
+const canDragCharacter = () => isGM.value
 
 const canRemoveCharacter = (character) => {
     if (!character) return false
-    return props.isGM || character.userId === currentUserId.value
+    return isGM.value || character.userId === currentUserId.value
 }
 
 const canDragCharacterId = (characterId) => {
@@ -145,38 +132,6 @@ const canDragCharacterId = (characterId) => {
 }
 
 const showDropSlot = (section) => isDragging.value && draggedCharacterSection.value !== section
-
-const inactiveStateKey = computed(() =>
-    props.campaignId ? `campaign-lobby:inactive:players:${props.campaignId}` : null
-)
-
-watch(
-    inactiveStateKey,
-    (key) => {
-        if (!key) return
-        try {
-            const parsed = JSON.parse(localStorage.getItem(key) || '[]')
-            inactiveCharacterIds.value = Array.isArray(parsed) ? parsed : []
-        } catch {
-            inactiveCharacterIds.value = []
-        }
-    },
-    { immediate: true }
-)
-
-watch(
-    playerCharacters,
-    (characters) => {
-        const validIds = new Set(characters.map((character) => character.id))
-        inactiveCharacterIds.value = inactiveCharacterIds.value.filter((id) => validIds.has(id))
-    },
-    { immediate: true }
-)
-
-watch(inactiveCharacterIds, (value) => {
-    if (!inactiveStateKey.value) return
-    localStorage.setItem(inactiveStateKey.value, JSON.stringify(value))
-}, { deep: true })
 
 const createDragPreview = (event) => {
     if (!event?.dataTransfer) return
@@ -207,21 +162,23 @@ const handleDragEnd = () => {
     clearDragPreview()
 }
 
-const moveToInactive = () => {
+const moveToInactive = async () => {
     const characterId = draggedCharacterId.value
-    if (!characterId) return
-    if (!canDragCharacterId(characterId)) return
-    if (!inactiveCharacterIds.value.includes(characterId)) {
-        inactiveCharacterIds.value = [...inactiveCharacterIds.value, characterId]
-    }
+    if (!characterId || !isGM.value) return
+    const current = inactiveCharacterIds.value
+    if (current.includes(characterId)) { handleDragEnd(); return }
+    await campaignStore.updateLobbyState(campaignId.value, {
+        inactivePlayerCharacterIds: [...current, characterId],
+    })
     handleDragEnd()
 }
 
-const moveToActive = () => {
+const moveToActive = async () => {
     const characterId = draggedCharacterId.value
-    if (!characterId) return
-    if (!canDragCharacterId(characterId)) return
-    inactiveCharacterIds.value = inactiveCharacterIds.value.filter((id) => id !== characterId)
+    if (!characterId || !isGM.value) return
+    await campaignStore.updateLobbyState(campaignId.value, {
+        inactivePlayerCharacterIds: inactiveCharacterIds.value.filter((id) => id !== characterId),
+    })
     handleDragEnd()
 }
 
@@ -251,30 +208,31 @@ const addCharacterToCampaign = async (character) => {
     const uid = authStore.user?.uid
     if (!uid) return
 
-    const member = props.campaign?.members?.find((campaignMember) => campaignMember.userId === uid)
+    const member = campaign.value?.members?.find((campaignMember) => campaignMember.userId === uid)
     if (!member) return
 
     const currentIds = member.characterIds || []
     if (currentIds.includes(character.id)) return
 
-    await campaignStore.updateMemberCharacters(props.campaignId, uid, [...currentIds, character.id])
+    await campaignStore.updateMemberCharacters(campaignId.value, uid, [...currentIds, character.id])
 }
 
 const removeCharacterFromCampaign = async (character) => {
     if (!canRemoveCharacter(character)) return
 
-    const member = props.campaign?.members?.find((campaignMember) =>
+    const member = campaign.value?.members?.find((campaignMember) =>
         (campaignMember.characterIds || []).includes(character.id)
     )
     if (!member) return
 
     const newIds = (member.characterIds || []).filter((id) => id !== character.id)
-    await campaignStore.updateMemberCharacters(props.campaignId, member.userId, newIds)
+    await campaignStore.updateMemberCharacters(campaignId.value, member.userId, newIds)
 }
 
 const viewCharacterSheet = (character) => {
     if (!character) return
-    emit('view-character', { section: 'players', character })
+    const ownsCharacter = character.userId === authStore.user?.uid
+    openCharacterSheet(character, { persistSelection: ownsCharacter })
 }
 </script>
 

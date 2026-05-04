@@ -7,6 +7,8 @@ import { v4 as uuidv4 } from 'uuid'
 import { getAuth } from '../config/firebase.js'
 import { isEmailAllowed } from '../utils/inviteService.js'
 import { USER_ROLE, USER_STATUS } from '../../../shared/constants/userConstants.js'
+import { getCampaignById, getCampaignMembership } from '../utils/campaignUtils.js'
+import { CAMPAIGN_MEMBER_STATUS } from '../../../shared/constants/campaignConstants.js'
 
 const USERS_DIRECTORY = getDirectory('users')
 
@@ -201,6 +203,18 @@ export const updateCurrentUserProfile = async (req, res) => {
     for (const field of allowedUpdates) {
       if (req.body[field] !== undefined) {
         updates[field] = req.body[field]
+      }
+    }
+
+    // Validate that the user is an accepted member of the campaign being set as active
+    if (updates.activeCampaignId != null) {
+      const campaign = getCampaignById(updates.activeCampaignId)
+      if (!campaign) {
+        return res.status(400).json({ error: 'Campaign not found' })
+      }
+      const membership = getCampaignMembership(campaign, req.user.uid)
+      if (!membership || membership.status !== CAMPAIGN_MEMBER_STATUS.ACCEPTED) {
+        return res.status(403).json({ error: 'You are not a member of this campaign' })
       }
     }
     

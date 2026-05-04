@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useCharactersStore } from '@/stores/charactersStore'
 import { applyRollToCharacterStats } from '@/services/rolls/rollStatsService'
 
@@ -8,50 +8,167 @@ const ROLL_STATS_PERSIST_DELAY_MS = 250
 export const useRollsStore = defineStore('rolls', () => {
   const charactersStore = useCharactersStore()
 
-  let persistTimeout = null
-  const displayedRollKeys = new Set()
-
-  // Current roll result displayed in DiceRollResults
-  const latestRoll = ref(null)
+  // Normalized roll storage
+  const rollsById = ref({})
+  const rollIdsByCharacterId = ref({})
+  const rollIdsByBatchId = ref({})
+  const latestRollIdByCharacterId = ref({})
+  const pendingPersistByCharacterId = ref({})
+  
+  let displayedRollKeys = new Set()
 
   // Last difficulty used in skill checks (for defaulting next roll)
   const lastDifficulty = ref(null)
 
-  // Set the latest roll result
+  // Generate a unique roll ID
+  const generateRollId = () => `roll_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
+
+  // Add or update a roll in the normalized store
+  const addRoll = (rollResult, characterId, batchId = null) => {
+    const rollId = generateRollId()
+    
+    // Normalize roll data
+    const normalizedRoll = {
+      id: rollId,
+      ...rollResult,
+      rollCharacterId: characterId,
+      batchId,
+      timestamp: Date.now()
+    }
+    
+    rollsById.value[rollId] = normalizedRoll
+    
+    // Index by character
+    if (!rollIdsByCharacterId.value[characterId]) {
+      rollIdsByCharacterId.value[characterId] = []
+    }
+    rollIdsByCharacterId.value[characterId].push(rollId)
+    latestRollIdByCharacterId.value[characterId] = rollId
+    
+    // Index by batch if present
+    if (batchId) {
+      if (!rollIdsByBatchId.value[batchId]) {
+        rollIdsByBatchId.value[batchId] = []
+      }
+      rollIdsByBatchId.value[batchId].push(rollId)
+    }
+    
+    return rollId
+  }
+
+  // Set the latest roll result; defaults to selectedCharacter. Deprecated: prefer setRollForCharacter with explicit ID.
   function setRoll(rollResult, characterOverride = null) {
     const targetCharacter = characterOverride || charactersStore.selectedCharacter
-    latestRoll.value = {
-      ...rollResult,
-      rollCharacterId: targetCharacter?.id || null
+    if (!targetCharacter) return
+    
+    const characterId = targetCharacter.id
+    addRoll(rollResult, characterId)
+    
+    // Apply stats and schedule persist
+    applyRollToCharacterStats(targetCharacter, rollResult)
+    
+    // Clear existing timeout for this character
+    if (pendingPersistByCharacterId.value[characterId]) {
+      clearTimeout(pendingPersistByCharacterId.value[characterId])
     }
-
-    if (targetCharacter) {
-      applyRollToCharacterStats(targetCharacter, rollResult)
-
-      if (persistTimeout) {
-        clearTimeout(persistTimeout)
+    
+    pendingPersistByCharacterId.value[characterId] = setTimeout(async () => {
+      try {
+        await charactersStore.update(targetCharacter)
+      } catch (error) {
+        console.error('Failed to persist roll stats:', error)
+      } finally {
+        delete pendingPersistByCharacterId.value[characterId]
       }
-
-      persistTimeout = setTimeout(async () => {
-        try {
-          await charactersStore.update(targetCharacter)
-        } catch (error) {
-          console.error('Failed to persist roll stats:', error)
-        } finally {
-          persistTimeout = null
-        }
-      }, ROLL_STATS_PERSIST_DELAY_MS)
-    }
+    }, ROLL_STATS_PERSIST_DELAY_MS)
   }
+
+  // Set a roll for a specific character (multi-character aware)
+  function setRollForCharacter(rollResult, characterId, batchId = null) {
+    const character = charactersStore.getById(characterId)
+    if (!character) {
+      console.warn(`Character not found: ${characterId}`)
+      return
+    }
+    
+    const rollId = addRoll(rollResult, characterId, batchId)
+    
+    // Apply stats and schedule persist
+    applyRollToCharacterStats(character, rollResult)
+    
+    // Clear existing timeout for this character
+    if (pendingPersistByCharacterId.value[characterId]) {
+      clearTimeout(pendingPersistByCharacterId.value[characterId])
+    }
+    
+    pendingPersistByCharacterId.value[characterId] = setTimeout(async () => {
+      try {
+        await charactersStore.update(character)
+      } catch (error) {
+        console.error('Failed to persist roll stats:', error)
+      } finally {
+        delete pendingPersistByCharacterId.value[characterId]
+      }
+    }, ROLL_STATS_PERSIST_DELAY_MS)
+    
+    return rollId
+  }
+
+  // Get the latest roll for a specific character
+  const getLatestRollForCharacter = (characterId) => {
+    const rollId = latestRollIdByCharacterId.value[characterId]
+    return rollId ? rollsById.value[rollId] : null
+  }
+
+  // Get all rolls for a character
+  const getRollsForCharacter = (characterId) => {
+    const rollIds = rollIdsByCharacterId.value[characterId] || []
+    return rollIds.map(id => rollsById.value[id]).filter(Boolean)
+  }
+
+  // Get all rolls in a batch
+  const getRollsForBatch = (batchId) => {
+    const rollIds = rollIdsByBatchId.value[batchId] || []
+    return rollIds.map(id => rollsById.value[id]).filter(Boolean)
+  }
+
+  // Compatibility computed: returns latest roll from the selected character. Deprecated: prefer getLatestRollForCharacter(characterId).
+  const latestRoll = computed(() => {
+    const selectedCharacterId = charactersStore.selectedCharacter?.id
+    if (!selectedCharacterId) return null
+    return getLatestRollForCharacter(selectedCharacterId)
+  })
 
   // Update the last difficulty used
   function setLastDifficulty(difficulty) {
     lastDifficulty.value = difficulty
   }
 
-  // Clear the current roll
+  // Clear the current roll (compatibility API - clears selected character's latest)
   function clearRoll() {
-    latestRoll.value = null
+    const selectedCharacterId = charactersStore.selectedCharacter?.id
+    if (!selectedCharacterId) return
+    
+    const rollId = latestRollIdByCharacterId.value[selectedCharacterId]
+    if (rollId) {
+      delete latestRollIdByCharacterId.value[selectedCharacterId]
+    }
+  }
+
+  // Clear all rolls for a character
+  const clearRollsForCharacter = (characterId) => {
+    const rollIds = rollIdsByCharacterId.value[characterId] || []
+    rollIds.forEach(rollId => {
+      const roll = rollsById.value[rollId]
+      if (roll?.batchId) {
+        const batchRolls = rollIdsByBatchId.value[roll.batchId] || []
+        const batchIndex = batchRolls.indexOf(rollId)
+        if (batchIndex > -1) batchRolls.splice(batchIndex, 1)
+      }
+      delete rollsById.value[rollId]
+    })
+    delete rollIdsByCharacterId.value[characterId]
+    delete latestRollIdByCharacterId.value[characterId]
   }
 
   function hasDisplayedRollKey(rollKey) {
@@ -109,6 +226,13 @@ export const useRollsStore = defineStore('rolls', () => {
   }
 
   return {
+    // Normalized data (read-only references)
+    rollsById,
+    rollIdsByCharacterId,
+    rollIdsByBatchId,
+    latestRollIdByCharacterId,
+    
+    // Compatibility API (single-character, uses selected character)
     latestRoll,
     lastDifficulty,
     setRoll,
@@ -116,6 +240,14 @@ export const useRollsStore = defineStore('rolls', () => {
     clearRoll,
     hasDisplayedRollKey,
     markRollKeyDisplayed,
-    reroll
+    reroll,
+    
+    // Multi-character aware APIs (new)
+    setRollForCharacter,
+    getLatestRollForCharacter,
+    getRollsForCharacter,
+    getRollsForBatch,
+    clearRollsForCharacter,
   }
 })
+

@@ -128,32 +128,9 @@
     stroke-width: 2.4;
 }
 
-.char-badge-grid :deep(.selected-character-badge) {
-    position: relative !important;
-    z-index: auto !important;
-    top: auto !important;
-    left: auto !important;
-    bottom: auto !important;
-    right: auto !important;
-    cursor: pointer;
-    transition: transform var(--transition-normal);
-}
-
-.char-badge-grid :deep(.selected-beast-badge) {
-    position: relative !important;
-    z-index: auto !important;
-    top: auto !important;
-    left: auto !important;
-    bottom: auto !important;
-    right: auto !important;
-    cursor: pointer;
-    transition: transform var(--transition-normal);
-}
-
 .char-badge-grid :deep(.selected-character-badge:hover),
 .char-badge-grid :deep(.selected-beast-badge:hover) {
     transform: scale(1.05);
-    z-index: 2 !important;
 }
 
 .modal-overlay {

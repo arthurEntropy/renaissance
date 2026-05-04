@@ -35,7 +35,10 @@ export function useEngagementSuccesses() {
   }
 
   const { character, allEquipment, characterMestiere, allEngagementSuccesses, assignedSuccesses } = sharedState
+  return buildComposable({ character, allEquipment, characterMestiere, allEngagementSuccesses, assignedSuccesses })
+}
 
+function buildComposable({ character, allEquipment, characterMestiere, allEngagementSuccesses, assignedSuccesses }) {
   // Computed properties for success data processing
   const mestiereEngagementSuccesses = computed(() => {
     const mestiere = characterMestiere.value

@@ -23,19 +23,16 @@ import { MIDJOURNEY_IMAGE_CONTEXTS } from '@shared/constants/artConstants.js'
 import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 
 const props = defineProps({
-    /** Override the character shown (instead of the store's activePlayerCharacter) */
+    // Override the character shown instead of the store's selectedCharacter
     character: { type: Object, default: null },
     /** Always show the name tooltip without hover */
     alwaysShowName: { type: Boolean, default: false },
     /** Custom remove handler — if provided, replaces the default deselectCharacter */
-    onRemove: { type: Function, default: null },
-    /** Custom click handler — if provided, replaces the default navigation */
-    onClick: { type: Function, default: null },
     /** Render with inactive status ring styling */
     isInactive: { type: Boolean, default: false },
     /** Show the delete FAB */
     showRemoveFab: { type: Boolean, default: true },
-    /** Disable fallback navigation when no custom click handler is provided */
+    /** Disable fallback navigation when the badge is used in a container context */
     disableDefaultClick: { type: Boolean, default: false },
 })
 
@@ -45,7 +42,7 @@ const router = useRouter()
 const route = useRoute()
 const charactersStore = useCharactersStore()
 
-const resolvedCharacter = computed(() => props.character ?? charactersStore.activePlayerCharacter)
+const resolvedCharacter = computed(() => props.character ?? charactersStore.selectedCharacter)
 
 const optimizedCharacterArt = useOptimizedImage(
     () => resolvedCharacter.value?.artUrls?.[0],
@@ -59,13 +56,8 @@ const shouldHideBadge = computed(() => {
 })
 
 const handleClick = () => {
-    if (props.onClick) {
-        props.onClick(resolvedCharacter.value)
-        return
-    }
-    if (props.disableDefaultClick) return
-
     emit('click', resolvedCharacter.value)
+    if (props.disableDefaultClick) return
     if (resolvedCharacter.value) {
         router.push('/characters/' + createSlug(resolvedCharacter.value.name))
     } else {
@@ -75,22 +67,15 @@ const handleClick = () => {
 
 const handleRemove = () => {
     if (!props.showRemoveFab) return
-
-    if (props.onRemove) {
-        props.onRemove(resolvedCharacter.value)
-        return
-    }
     emit('remove', resolvedCharacter.value)
-    charactersStore.deselectCharacter()
+    if (!props.character) {
+        charactersStore.deselectCharacter()
+    }
 }
 </script>
 
 <style scoped>
 .selected-character-badge {
-    position: fixed;
-    top: calc(var(--space-lg) + 3rem);
-    left: var(--space-lg);
-    z-index: var(--z-badge);
     cursor: pointer;
     transition: transform var(--transition-normal);
 }

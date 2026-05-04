@@ -119,11 +119,15 @@ const props = defineProps({
   canEdit: {
     type: Boolean,
     default: false
+  },
+  character: {
+    type: Object,
+    default: null
   }
 })
 
 const charactersStore = useCharactersStore()
-const selectedCharacter = computed(() => charactersStore.selectedCharacter)
+const selectedCharacter = computed(() => props.character || charactersStore.selectedCharacter)
 const abilitiesStore = useAbilitiesStore()
 const allAbilities = computed(() => abilitiesStore.abilities || [])
 const conceptsStore = useConceptsStore()

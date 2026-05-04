@@ -13,7 +13,7 @@
                     <span class="member-role" :class="`member-role--${member.role}`">
                         {{ member.role === 'gm' ? 'GM' : 'Player' }}
                     </span>
-                    <span v-if="member.userId === campaign.foundingGmUserId" class="member-founder">founder</span>
+                    <span v-if="member.userId === campaign?.foundingGmUserId" class="member-founder">founder</span>
                 </div>
             </li>
         </ul>
@@ -41,7 +41,7 @@
                         </button>
                     </div>
                     <p v-else-if="inviteSearch.length >= 2" class="empty-hint">No users found matching "{{ inviteSearch
-                        }}"</p>
+                    }}"</p>
                     <p v-if="inviteError" class="form-error">{{ inviteError }}</p>
                 </div>
 
@@ -50,7 +50,7 @@
                         <div class="member-info">
                             <span class="member-name">{{ getUserName(member.userId) }}</span>
                             <span class="member-role" :class="`member-role--${member.role}`">{{ member.role }}</span>
-                            <span v-if="member.userId === campaign.foundingGmUserId"
+                            <span v-if="member.userId === campaign?.foundingGmUserId"
                                 class="member-founder">founder</span>
                         </div>
                         <div class="member-actions" v-if="member.userId !== currentUserId">
@@ -112,43 +112,28 @@
 <script setup>
 import { computed, ref, watch } from 'vue'
 import { useCampaignStore } from '@/stores/campaignStore'
+import { useAuthStore } from '@/stores/authStore'
 import UserService from '@/services/entities/userService'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import { CAMPAIGN_ROLE, CAMPAIGN_MEMBER_STATUS } from '@shared/constants/campaignConstants'
 import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 
-const props = defineProps({
-    campaign: {
-        type: Object,
-        required: true,
-    },
-    campaignId: {
-        type: String,
-        required: true,
-    },
-    isGM: {
-        type: Boolean,
-        default: false,
-    },
-    isFoundingGM: {
-        type: Boolean,
-        default: false,
-    },
-    currentUserId: {
-        type: String,
-        default: null,
-    },
-})
-
 const campaignStore = useCampaignStore()
+const authStore = useAuthStore()
+
+const campaign = computed(() => campaignStore.activeCampaign)
+const campaignId = computed(() => campaign.value?.id)
+const currentUserId = computed(() => authStore.user?.uid)
+const isGM = computed(() => campaignStore.isGMInActiveCampaign)
+const isFoundingGM = computed(() => campaign.value?.foundingGmUserId === currentUserId.value)
 
 const acceptedMembers = computed(() =>
-    (props.campaign?.members || []).filter((member) => member.status === CAMPAIGN_MEMBER_STATUS.ACCEPTED)
+    (campaign.value?.members || []).filter((member) => member.status === CAMPAIGN_MEMBER_STATUS.ACCEPTED)
 )
 
 const pendingMembers = computed(() =>
-    (props.campaign?.members || []).filter((member) => member.status === CAMPAIGN_MEMBER_STATUS.PENDING)
+    (campaign.value?.members || []).filter((member) => member.status === CAMPAIGN_MEMBER_STATUS.PENDING)
 )
 
 const userNamesById = ref({})
@@ -162,7 +147,7 @@ const memberToRemove = ref(null)
 let inviteSearchToken = 0
 
 const loadMemberNames = async () => {
-    const memberIds = Array.from(new Set((props.campaign?.members || []).map((member) => member.userId)))
+    const memberIds = Array.from(new Set((campaign.value?.members || []).map((member) => member.userId)))
     if (memberIds.length === 0) {
         userNamesById.value = {}
         return
@@ -177,7 +162,7 @@ const loadMemberNames = async () => {
 }
 
 watch(
-    () => props.campaign?.members,
+    () => campaign.value?.members,
     () => {
         loadMemberNames()
     },
@@ -195,7 +180,7 @@ watch(inviteSearch, async (value) => {
         const users = await UserService.searchUsers(value.trim())
         if (token !== inviteSearchToken) return
         inviteResults.value = users.filter(
-            (user) => !props.campaign?.members?.some((member) => member.userId === user.id)
+            (user) => !campaign.value?.members?.some((member) => member.userId === user.id)
         )
     } catch {
         if (token !== inviteSearchToken) return
@@ -206,7 +191,7 @@ watch(inviteSearch, async (value) => {
 const sendInvite = async (userId) => {
     inviteError.value = null
     try {
-        await campaignStore.inviteMember(props.campaignId, userId)
+        await campaignStore.inviteMember(campaignId.value, userId)
         inviteSearch.value = ''
     } catch (error) {
         inviteError.value = error.message || 'Failed to send invitation'
@@ -214,11 +199,11 @@ const sendInvite = async (userId) => {
 }
 
 const promoteToGM = async (userId) => {
-    await campaignStore.updateMemberRole(props.campaignId, userId, CAMPAIGN_ROLE.GM)
+    await campaignStore.updateMemberRole(campaignId.value, userId, CAMPAIGN_ROLE.GM)
 }
 
 const demoteToPlayer = async (userId) => {
-    await campaignStore.updateMemberRole(props.campaignId, userId, CAMPAIGN_ROLE.PLAYER)
+    await campaignStore.updateMemberRole(campaignId.value, userId, CAMPAIGN_ROLE.PLAYER)
 }
 
 const confirmRemoveMember = (member) => {
@@ -227,12 +212,12 @@ const confirmRemoveMember = (member) => {
 
 const executeRemoveMember = async () => {
     if (!memberToRemove.value) return
-    await campaignStore.removeMember(props.campaignId, memberToRemove.value.userId)
+    await campaignStore.removeMember(campaignId.value, memberToRemove.value.userId)
     memberToRemove.value = null
 }
 
 const cancelInvite = async (userId) => {
-    await campaignStore.removeMember(props.campaignId, userId)
+    await campaignStore.removeMember(campaignId.value, userId)
 }
 </script>
 
