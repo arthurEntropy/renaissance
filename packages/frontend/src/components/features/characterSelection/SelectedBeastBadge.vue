@@ -6,7 +6,7 @@
         <div class="beast-portrait">
             <img :src="optimizedBeastArt" :alt="resolvedBeast.name" />
         </div>
-        <FloatingActionButton v-if="props.onRemove" class="close-fab" :variant="FAB_TYPES.DELETE"
+        <FloatingActionButton v-if="props.showRemoveFab" class="close-fab" :variant="FAB_TYPES.DELETE"
             :size="FAB_SIZES.SMALL" :visibility="FAB_VISIBILITIES.ALWAYS" @click.stop="handleRemove" />
         <div class="beast-name-tooltip">{{ resolvedBeast.name }}</div>
     </div>
@@ -25,8 +25,8 @@ import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 const props = defineProps({
     beast: { type: Object, default: null },
     alwaysShowName: { type: Boolean, default: false },
-    onRemove: { type: Function, default: null },
-    onClick: { type: Function, default: null },
+    showRemoveFab: { type: Boolean, default: false },
+    disableDefaultClick: { type: Boolean, default: false },
     isInactive: { type: Boolean, default: false },
 })
 
@@ -35,7 +35,8 @@ const emit = defineEmits(['remove', 'click'])
 const router = useRouter()
 const charactersStore = useCharactersStore()
 
-const resolvedBeast = computed(() => props.beast ?? charactersStore.summonedBeast)
+// Use explicit beast prop; fall back to store summonedBeast only when no prop is provided at all
+const resolvedBeast = computed(() => props.beast !== undefined ? props.beast : charactersStore.summonedBeast)
 
 const optimizedBeastArt = useOptimizedImage(
     () => resolvedBeast.value?.artUrls?.[0],
@@ -43,34 +44,20 @@ const optimizedBeastArt = useOptimizedImage(
 )
 
 const handleClick = () => {
-    if (props.onClick) {
-        props.onClick(resolvedBeast.value)
-        return
-    }
-
     emit('click', resolvedBeast.value)
+    if (props.disableDefaultClick) return
     if (resolvedBeast.value) {
         router.push('/bestiary/' + createSlug(resolvedBeast.value.name))
     }
 }
 
 const handleRemove = () => {
-    if (props.onRemove) {
-        props.onRemove(resolvedBeast.value)
-        return
-    }
-
     emit('remove', resolvedBeast.value)
 }
 </script>
 
 <style scoped>
 .selected-beast-badge {
-    position: fixed;
-    /* Positioned below the character badge (50px portrait + --space-xl gap) */
-    top: calc(var(--space-lg) + 3rem + 50px + var(--space-xl));
-    left: var(--space-lg);
-    z-index: var(--z-badge);
     cursor: pointer;
     transition: transform var(--transition-normal);
 }

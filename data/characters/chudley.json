@@ -2,7 +2,7 @@
   "id": "625fcedc-851d-4980-9d76-0fb6285484e1",
   "isDeleted": false,
   "createdAt": "2026-05-01T12:05:29.620Z",
-  "lastModified": "2026-05-01T13:51:42.281Z",
+  "lastModified": "2026-05-02T14:32:39.150Z",
   "name": "Chudley",
   "isBeast": false,
   "campaignId": "2216d52f-f74d-479e-b440-f7b5aa6319e5",
@@ -163,7 +163,7 @@
       "coreAbility": "wits",
       "ranks": 0,
       "isFavored": false,
-      "isIllFavored": true,
+      "isIllFavored": false,
       "diceMod": 0,
       "manualDiceMod": 0
     }
@@ -261,5 +261,5 @@
     }
   },
   "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2026-05-01T13:51:42.281Z"
+  "updatedAt": "2026-05-02T14:32:39.150Z"
 }

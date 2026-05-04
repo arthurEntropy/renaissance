@@ -16,10 +16,9 @@
                 <div class="char-badge-grid"
                     :class="{ 'char-badge-grid--empty': activeNpcs.length === 0 && !isDragging }">
                     <SelectedCharacterBadge v-for="npc in activeNpcs" :key="npc.id" :character="npc"
-                        :show-remove-fab="isGM" :disable-default-click="!isGM" :draggable="canDragNpcs"
+                        :show-remove-fab="isGM" :disable-default-click="true" :draggable="canDragNpcs"
                         class="draggable-badge" @dragstart="handleDragStart($event, npc.id)" @dragend="handleDragEnd"
-                        :on-remove="isGM ? (character) => deleteNPC(character) : undefined"
-                        :on-click="(character) => handleNpcBadgeClick(character)" />
+                        @remove="isGM ? deleteNPC(npc) : undefined" @click="handleNpcBadgeClick(npc)" />
                     <div v-if="showDropSlot('active')" class="status-drop-slot" aria-hidden="true">
                         <PlusIcon class="status-drop-slot-icon" />
                     </div>
@@ -33,10 +32,10 @@
                 <div class="char-badge-grid"
                     :class="{ 'char-badge-grid--empty': inactiveNpcs.length === 0 && !isDragging }">
                     <SelectedCharacterBadge v-for="npc in inactiveNpcs" :key="npc.id" :character="npc"
-                        :is-inactive="true" :show-remove-fab="isGM" :disable-default-click="!isGM"
+                        :is-inactive="true" :show-remove-fab="isGM" :disable-default-click="true"
                         :draggable="canDragNpcs" class="draggable-badge" @dragstart="handleDragStart($event, npc.id)"
-                        @dragend="handleDragEnd" :on-remove="isGM ? (character) => deleteNPC(character) : undefined"
-                        :on-click="(character) => handleNpcBadgeClick(character)" />
+                        @dragend="handleDragEnd" @remove="isGM ? deleteNPC(npc) : undefined"
+                        @click="handleNpcBadgeClick(npc)" />
                     <div v-if="showDropSlot('inactive')" class="status-drop-slot" aria-hidden="true">
                         <PlusIcon class="status-drop-slot-icon" />
                     </div>
@@ -50,10 +49,9 @@
                 <div class="char-badge-grid"
                     :class="{ 'char-badge-grid--empty': hiddenNpcs.length === 0 && !isDragging }">
                     <SelectedCharacterBadge v-for="npc in hiddenNpcs" :key="npc.id" :character="npc" :is-inactive="true"
-                        :show-remove-fab="isGM" :disable-default-click="!isGM" :draggable="canDragNpcs"
+                        :show-remove-fab="isGM" :disable-default-click="true" :draggable="canDragNpcs"
                         class="draggable-badge" @dragstart="handleDragStart($event, npc.id)" @dragend="handleDragEnd"
-                        :on-remove="isGM ? (character) => deleteNPC(character) : undefined"
-                        :on-click="(character) => handleNpcBadgeClick(character)" />
+                        @remove="isGM ? deleteNPC(npc) : undefined" @click="handleNpcBadgeClick(npc)" />
                     <div v-if="showDropSlot('hidden')" class="status-drop-slot" aria-hidden="true">
                         <PlusIcon class="status-drop-slot-icon" />
                     </div>
@@ -77,54 +75,49 @@
                 </div>
             </div>
         </div>
-
     </div>
+
+    <NpcPreviewModal :visible="npcPreviewVisible" :show-view-character-sheet="isGM" @close="closeNpcPreview"
+        @view-character-sheet="handleViewCharacterSheet" />
 </template>
 
 <script setup>
-import { computed, onUnmounted, ref, watch } from 'vue'
+import { computed, onUnmounted, ref } from 'vue'
+import { useCampaignStore } from '@/stores/campaignStore'
 import { useCharactersStore } from '@/stores/charactersStore'
-import CampaignService from '@/services/entities/campaignService'
+import { useAppCharacterSheetModal } from '@/composables/useAppCharacterSheetModal'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import SelectedCharacterBadge from '@/components/features/characterSelection/SelectedCharacterBadge.vue'
+import NpcPreviewModal from '@/components/features/campaigns/lobby/NpcPreviewModal.vue'
 import { PlusIcon } from '@heroicons/vue/24/outline'
 import { createDefaultCharacter } from '@shared/types'
 import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 
-const props = defineProps({
-    campaignId: {
-        type: String,
-        required: true,
-    },
-    npcs: {
-        type: Array,
-        default: () => [],
-    },
-    isGM: {
-        type: Boolean,
-        default: false,
-    },
-})
-
-const emit = defineEmits(['created', 'deleted', 'preview-character'])
-
+const campaignStore = useCampaignStore()
 const charactersStore = useCharactersStore()
+const { open: openCharacterSheet } = useAppCharacterSheetModal()
+
+const campaign = computed(() => campaignStore.activeCampaign)
+const campaignId = computed(() => campaign.value?.id)
+const isGM = computed(() => campaignStore.isGMInActiveCampaign)
+const npcs = computed(() => campaignStore.campaignNPCs)
 
 const showCreateNPCModal = ref(false)
 const npcForm = ref({ name: '' })
 const npcError = ref(null)
 const creatingNPC = ref(false)
-const inactiveNpcIds = ref([])
 const draggedNpcId = ref(null)
 const dragPreviewEl = ref(null)
+const npcPreviewVisible = ref(false)
 
+const inactiveNpcIds = computed(() => campaign.value?.lobbyState?.inactiveNpcIds || [])
+const hiddenNpcIds = computed(() => campaign.value?.lobbyState?.hiddenNpcIds || [])
 const inactiveNpcIdSet = computed(() => new Set(inactiveNpcIds.value))
-const hiddenNpcIds = ref([])
 const hiddenNpcIdSet = computed(() => new Set(hiddenNpcIds.value))
-const activeNpcs = computed(() => props.npcs.filter((npc) => !inactiveNpcIdSet.value.has(npc.id) && !hiddenNpcIdSet.value.has(npc.id)))
-const inactiveNpcs = computed(() => props.npcs.filter((npc) => inactiveNpcIdSet.value.has(npc.id)))
-const hiddenNpcs = computed(() => props.npcs.filter((npc) => hiddenNpcIdSet.value.has(npc.id)))
+const activeNpcs = computed(() => npcs.value.filter((npc) => !inactiveNpcIdSet.value.has(npc.id) && !hiddenNpcIdSet.value.has(npc.id)))
+const inactiveNpcs = computed(() => npcs.value.filter((npc) => inactiveNpcIdSet.value.has(npc.id)))
+const hiddenNpcs = computed(() => npcs.value.filter((npc) => hiddenNpcIdSet.value.has(npc.id)))
 const isDragging = computed(() => draggedNpcId.value !== null)
 const draggedNpcSection = computed(() => {
     const npcId = draggedNpcId.value
@@ -135,70 +128,13 @@ const draggedNpcSection = computed(() => {
 })
 const showInactiveSection = computed(() =>
     inactiveNpcs.value.length > 0
-    || (props.isGM && hiddenNpcs.value.length > 0)
+    || (isGM.value && hiddenNpcs.value.length > 0)
     || isDragging.value
 )
-const showHiddenSection = computed(() => props.isGM && (hiddenNpcs.value.length > 0 || draggedNpcId.value !== null))
-const isGM = computed(() => props.isGM)
-const canDragNpcs = computed(() => props.isGM)
+const showHiddenSection = computed(() => isGM.value && (hiddenNpcs.value.length > 0 || draggedNpcId.value !== null))
+const canDragNpcs = computed(() => isGM.value)
 
 const showDropSlot = (section) => isDragging.value && draggedNpcSection.value !== section
-
-const inactiveStateKey = computed(() =>
-    props.campaignId ? `campaign-lobby:inactive:npcs:${props.campaignId}` : null
-)
-
-const hiddenStateKey = computed(() =>
-    props.campaignId ? `campaign-lobby:hidden:npcs:${props.campaignId}` : null
-)
-
-watch(
-    inactiveStateKey,
-    (key) => {
-        if (!key) return
-        try {
-            const parsed = JSON.parse(localStorage.getItem(key) || '[]')
-            inactiveNpcIds.value = Array.isArray(parsed) ? parsed : []
-        } catch {
-            inactiveNpcIds.value = []
-        }
-    },
-    { immediate: true }
-)
-
-watch(
-    hiddenStateKey,
-    (key) => {
-        if (!key) return
-        try {
-            const parsed = JSON.parse(localStorage.getItem(key) || '[]')
-            hiddenNpcIds.value = Array.isArray(parsed) ? parsed : []
-        } catch {
-            hiddenNpcIds.value = []
-        }
-    },
-    { immediate: true }
-)
-
-watch(
-    () => props.npcs,
-    (npcs) => {
-        const validIds = new Set(npcs.map((npc) => npc.id))
-        inactiveNpcIds.value = inactiveNpcIds.value.filter((id) => validIds.has(id))
-        hiddenNpcIds.value = hiddenNpcIds.value.filter((id) => validIds.has(id))
-    },
-    { immediate: true }
-)
-
-watch(inactiveNpcIds, (value) => {
-    if (!inactiveStateKey.value) return
-    localStorage.setItem(inactiveStateKey.value, JSON.stringify(value))
-}, { deep: true })
-
-watch(hiddenNpcIds, (value) => {
-    if (!hiddenStateKey.value) return
-    localStorage.setItem(hiddenStateKey.value, JSON.stringify(value))
-}, { deep: true })
 
 const createDragPreview = (event) => {
     if (!event?.dataTransfer) return
@@ -229,34 +165,36 @@ const handleDragEnd = () => {
     clearDragPreview()
 }
 
-const moveToInactive = () => {
+const moveToInactive = async () => {
     if (!isGM.value) return
     const npcId = draggedNpcId.value
     if (!npcId) return
-    hiddenNpcIds.value = hiddenNpcIds.value.filter((id) => id !== npcId)
-    if (!inactiveNpcIds.value.includes(npcId)) {
-        inactiveNpcIds.value = [...inactiveNpcIds.value, npcId]
-    }
+    await campaignStore.updateLobbyState(campaignId.value, {
+        inactiveNpcIds: [...inactiveNpcIds.value.filter((id) => id !== npcId), npcId],
+        hiddenNpcIds: hiddenNpcIds.value.filter((id) => id !== npcId),
+    })
     handleDragEnd()
 }
 
-const moveToActive = () => {
+const moveToActive = async () => {
     if (!isGM.value) return
     const npcId = draggedNpcId.value
     if (!npcId) return
-    inactiveNpcIds.value = inactiveNpcIds.value.filter((id) => id !== npcId)
-    hiddenNpcIds.value = hiddenNpcIds.value.filter((id) => id !== npcId)
+    await campaignStore.updateLobbyState(campaignId.value, {
+        inactiveNpcIds: inactiveNpcIds.value.filter((id) => id !== npcId),
+        hiddenNpcIds: hiddenNpcIds.value.filter((id) => id !== npcId),
+    })
     handleDragEnd()
 }
 
-const moveToHidden = () => {
+const moveToHidden = async () => {
     if (!isGM.value) return
     const npcId = draggedNpcId.value
     if (!npcId) return
-    inactiveNpcIds.value = inactiveNpcIds.value.filter((id) => id !== npcId)
-    if (!hiddenNpcIds.value.includes(npcId)) {
-        hiddenNpcIds.value = [...hiddenNpcIds.value, npcId]
-    }
+    await campaignStore.updateLobbyState(campaignId.value, {
+        inactiveNpcIds: inactiveNpcIds.value.filter((id) => id !== npcId),
+        hiddenNpcIds: [...hiddenNpcIds.value.filter((id) => id !== npcId), npcId],
+    })
     handleDragEnd()
 }
 
@@ -278,8 +216,7 @@ const createNPC = async () => {
             beastType: null,
         }
 
-        const created = await CampaignService.createCampaignCharacter(props.campaignId, npc)
-        emit('created', created)
+        await campaignStore.createCampaignCharacter(campaignId.value, npc)
         showCreateNPCModal.value = false
         npcForm.value = { name: '' }
     } catch (error) {
@@ -294,7 +231,7 @@ const deleteNPC = async (npc) => {
     if (!confirm(`Delete NPC "${npc.name}"?`)) return
     try {
         await charactersStore.remove(npc)
-        emit('deleted', npc.id)
+        campaignStore.removeCampaignCharacter(npc.id)
     } catch (error) {
         console.error('Failed to delete NPC:', error)
     }
@@ -302,7 +239,19 @@ const deleteNPC = async (npc) => {
 
 const handleNpcBadgeClick = (npc) => {
     if (!npc) return
-    emit('preview-character', npc)
+    charactersStore.selectCharacter(npc)
+    npcPreviewVisible.value = true
+}
+
+const handleViewCharacterSheet = () => {
+    const npc = charactersStore.selectedCharacter
+    npcPreviewVisible.value = false
+    if (npc) openCharacterSheet(npc)
+}
+
+const closeNpcPreview = () => {
+    npcPreviewVisible.value = false
+    charactersStore.deselectCharacter()
 }
 
 onUnmounted(() => {

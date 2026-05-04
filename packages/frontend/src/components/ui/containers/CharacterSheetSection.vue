@@ -10,7 +10,7 @@ import { computed } from 'vue'
 const props = defineProps({
     // Optional custom class for specific sections
     customClass: {
-        type: String,
+        type: [String, Array, Object],
         default: ''
     },
     // Optional minimum width

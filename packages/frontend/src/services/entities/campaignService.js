@@ -38,9 +38,7 @@ class CampaignService {
     return response.data
   }
 
-  async respondToInvite(campaignId, accept) {
-    const authStore = await import('@/stores/authStore').then((m) => m.useAuthStore())
-    const userId = authStore.user?.uid
+  async respondToInvite(campaignId, userId, accept) {
     const response = await apiClient.put(`/campaigns/${campaignId}/members/${userId}/respond`, { accept })
     return response.data
   }
@@ -63,6 +61,12 @@ class CampaignService {
   // Concepts
   async updateIncludedConcepts(campaignId, includedConceptIds) {
     const response = await apiClient.put(`/campaigns/${campaignId}/concepts`, { includedConceptIds })
+    return response.data
+  }
+
+  // Lobby state
+  async updateLobbyState(campaignId, lobbyState) {
+    const response = await apiClient.put(`/campaigns/${campaignId}/lobby-state`, lobbyState)
     return response.data
   }
 

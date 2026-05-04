@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { useCrudEntityStore } from './composables/useBaseEntityStore'
 import CharacterService from '@/services/entities/characterService'
 import { useAuthStore } from './authStore'
@@ -8,21 +8,40 @@ export const useCharactersStore = defineStore('characters', () => {
   const base = useCrudEntityStore(CharacterService, 'characters')
   const authStore = useAuthStore()
 
-  // Additional state for app-wide selected character feature
-  const selectedCharacter = ref(null)       // drives CharacterSheet (beast or player)
-  const activePlayerCharacter = ref(null)   // drives badge — non-beast only
+  // The last-viewed character (player, NPC, or beast). Drives the badge rail and CharacterSheet.
+  const selectedCharacter = ref(null)
+
+  const SELECTED_CHAR_KEY = 'characters:selectedId'
+
+  // Persist selected character ID on change
+  watch(() => selectedCharacter.value?.id, (id) => {
+    try {
+      if (id) localStorage.setItem(SELECTED_CHAR_KEY, id)
+      else localStorage.removeItem(SELECTED_CHAR_KEY)
+    } catch {
+      // ignore storage errors
+    }
+  })
+
+  // Rehydrate selected character once after initial characters load
+  let rehydrated = false
+  watch(base.items, (characters) => {
+    if (rehydrated || selectedCharacter.value || !characters.length) return
+    rehydrated = true
+    const storedId = localStorage.getItem(SELECTED_CHAR_KEY)
+    if (storedId) {
+      const char = characters.find((c) => c.id === storedId)
+      if (char) selectedCharacter.value = char
+    }
+  })
 
   // Actions
   const selectCharacter = (character) => {
     selectedCharacter.value = character
-    if (!character?.isBeast) {
-      activePlayerCharacter.value = character
-    }
   }
 
   const deselectCharacter = () => {
     selectedCharacter.value = null
-    activePlayerCharacter.value = null
   }
 
   // Computed properties
@@ -34,9 +53,9 @@ export const useCharactersStore = defineStore('characters', () => {
     return base.items.value.filter((character) => character.isBeast && character.beastType !== 'instance')
   })
 
-  // The beast currently summoned by the active player character (if any)
+  // The beast currently summoned by the selected character (if any)
   const summonedBeast = computed(() => {
-    const vessels = activePlayerCharacter.value?.summonerVessels
+    const vessels = selectedCharacter.value?.summonerVessels
     if (!vessels?.length) return null
     const summonedVessel = vessels.find((v) => v.isSummoned && v.beastId)
     if (!summonedVessel) return null
@@ -55,19 +74,13 @@ export const useCharactersStore = defineStore('characters', () => {
     return selectedCharacter.value.userId === authStore.user?.uid
   })
 
-  // Wrap update to sync selectedCharacter and activePlayerCharacter
+  // Wrap update to keep selectedCharacter in sync
   const update = async (entity) => {
-    const tracked = [selectedCharacter, activePlayerCharacter]
-
-    for (const r of tracked) {
-      if (r.value?.id === entity?.id) r.value = entity
-    }
+    if (selectedCharacter.value?.id === entity?.id) selectedCharacter.value = entity
 
     const updatedEntity = await base.update(entity)
 
-    for (const r of tracked) {
-      if (r.value?.id === updatedEntity?.id) r.value = updatedEntity
-    }
+    if (selectedCharacter.value?.id === updatedEntity?.id) selectedCharacter.value = updatedEntity
 
     return updatedEntity
   }
@@ -75,7 +88,6 @@ export const useCharactersStore = defineStore('characters', () => {
   return {
     characters: base.items,
     selectedCharacter,
-    activePlayerCharacter,
     isLoading: base.isLoading,
     error: base.error,
     fetch: base.fetch,

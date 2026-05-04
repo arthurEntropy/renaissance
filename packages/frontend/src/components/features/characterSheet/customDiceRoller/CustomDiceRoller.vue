@@ -45,6 +45,10 @@ import { useCharactersStore } from '@/stores/charactersStore'
 const rollsStore = useRollsStore()
 const charactersStore = useCharactersStore()
 
+const props = defineProps({
+    character: { type: Object, default: null },
+})
+
 const emit = defineEmits(['roll-complete'])
 
 const DIE_TYPES = STANDARD_DIE_SIZES
@@ -90,7 +94,8 @@ const handleRoll = async () => {
             }
         })
 
-        const character = charactersStore.selectedCharacter
+        // Use explicit character prop if provided, otherwise fall back to selected character
+        const character = props.character || charactersStore.selectedCharacter
         const rollResult = CustomRollService.makeCustomRoll(
             dicePool,
             modifier.value,

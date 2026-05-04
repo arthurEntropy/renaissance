@@ -14,7 +14,7 @@
 
     <!-- Custom Dice Roller View -->
     <div v-show="customDiceRollerOpen" class="custom-roller-view view-container">
-      <CustomDiceRoller @roll-complete="handleRollComplete" />
+      <CustomDiceRoller :character="activeCharacter" @roll-complete="handleRollComplete" />
     </div>
 
     <!-- Roll Results Display -->
@@ -63,6 +63,10 @@ import { useCharactersStore } from '@/stores/charactersStore'
 import InitiativeRollService from '@/services/rolls/initiativeRollService'
 import InjuryRollService from '@/services/rolls/injuryRollService'
 
+const props = defineProps({
+  character: { type: Object, default: null },
+})
+
 const rollsStore = useRollsStore()
 const charactersStore = useCharactersStore()
 
@@ -71,6 +75,9 @@ const diceDisplayRef = ref(null)
 const CONTAINER_WIDTH = 310
 
 const customDiceRollerOpen = ref(false)
+
+// Get the active character - use explicit prop if provided, otherwise fall back to selected
+const activeCharacter = computed(() => props.character || charactersStore.selectedCharacter)
 
 const toggleCustomDiceRoller = () => {
   customDiceRollerOpen.value = !customDiceRollerOpen.value
@@ -81,7 +88,7 @@ const handleRollComplete = () => {
 }
 
 const handleInitiativeRoll = () => {
-  const character = charactersStore.selectedCharacter
+  const character = activeCharacter.value
   if (!character) return
 
   const rollResult = InitiativeRollService.makeInitiativeRoll(character)
@@ -89,21 +96,24 @@ const handleInitiativeRoll = () => {
 }
 
 const handleInjuryRoll = () => {
-  const character = charactersStore.selectedCharacter
+  const character = activeCharacter.value
   if (!character) return
 
   const rollResult = InjuryRollService.makeInjuryRoll(character)
   rollsStore.setRoll(rollResult)
 }
 
-const canEdit = computed(() => charactersStore.canEditSelectedCharacter)
+const canEdit = computed(() => {
+  if (!activeCharacter.value) return false
+  return charactersStore.canEditSelectedCharacter && activeCharacter.value.id === charactersStore.selectedCharacter?.id
+})
 const latestRoll = computed(() => {
-  const selectedCharacterId = charactersStore.selectedCharacter?.id
-  if (!selectedCharacterId || !rollsStore.latestRoll) {
+  const characterId = activeCharacter.value?.id
+  if (!characterId || !rollsStore.latestRoll) {
     return null
   }
 
-  return rollsStore.latestRoll.rollCharacterId === selectedCharacterId
+  return rollsStore.latestRoll.rollCharacterId === characterId
     ? rollsStore.latestRoll
     : null
 })
@@ -167,7 +177,7 @@ const hasClaimedXp = computed(() =>
 )
 
 const handleTakeXp = () => {
-  const character = charactersStore.selectedCharacter
+  const character = activeCharacter.value
   if (!character || !currentRollDisplayKey.value) return
   character.xp = (character.xp || 0) + xpEarned.value
   claimedXpKeys.value.push(currentRollDisplayKey.value)

@@ -49,6 +49,7 @@ import {
   getPendingInvites,
   getCampaignBySlug,
   deleteBeastInstance,
+  updateLobbyState,
 } from './controllers/campaignController.js'
 import {
   requireCampaignMember,
@@ -140,6 +141,9 @@ app.put('/campaigns/:id/concepts', requireAuth, requireCampaignGM, updateInclude
 app.get('/campaigns/:id/characters', requireAuth, requireCampaignMember, getCampaignCharacters)
 app.post('/campaigns/:id/characters', requireAuth, requireCampaignGM, createCampaignCharacter)
 app.delete('/campaigns/:id/beasts/:characterId', requireAuth, requireCampaignGM, deleteBeastInstance)
+
+// Campaign lobby state
+app.put('/campaigns/:id/lobby-state', requireAuth, requireCampaignGM, updateLobbyState)
 
 // Campaign shops
 app.post('/campaigns/:id/shops/generate', requireAuth, requireCampaignGM, generateShop)

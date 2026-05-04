@@ -18,6 +18,11 @@ export const useCampaignStore = defineStore('campaigns', () => {
   // Pending invites (campaigns where user has a pending membership)
   const pendingInvites = ref([])
 
+  // Characters fetched for the active campaign (NPCs + beast instances)
+  const campaignCharacters = ref([])
+  const campaignNPCs = computed(() => campaignCharacters.value.filter((c) => c.isNPC))
+  const campaignBeastInstances = computed(() => campaignCharacters.value.filter((c) => c.beastType === 'instance'))
+
   // The currently active campaign (user entered it)
   const activeCampaign = computed(() => {
     const activeId = userStore.userProfile?.activeCampaignId
@@ -67,6 +72,7 @@ export const useCampaignStore = defineStore('campaigns', () => {
   const reset = () => {
     campaigns.value = []
     pendingInvites.value = []
+    campaignCharacters.value = []
     isLoading.value = false
     error.value = null
   }
@@ -186,7 +192,7 @@ export const useCampaignStore = defineStore('campaigns', () => {
   const respondToInvite = async (campaignId, accept) => {
     error.value = null
     try {
-      const updated = await CampaignService.respondToInvite(campaignId, accept)
+      const updated = await CampaignService.respondToInvite(campaignId, authStore.user?.uid, accept)
       if (accept) upsertCampaign(updated)
       // Remove from pending invites
       pendingInvites.value = pendingInvites.value.filter((c) => c.id !== campaignId)
@@ -250,6 +256,54 @@ export const useCampaignStore = defineStore('campaigns', () => {
     }
   }
 
+  const updateLobbyState = async (campaignId, lobbyState) => {
+    // Optimistic update for instant UI feedback
+    const idx = campaigns.value.findIndex((c) => c.id === campaignId)
+    const original = idx !== -1 ? campaigns.value[idx] : null
+    if (original) {
+      campaigns.value[idx] = {
+        ...original,
+        lobbyState: { ...(original.lobbyState || {}), ...lobbyState },
+      }
+    }
+    try {
+      const updated = await CampaignService.updateLobbyState(campaignId, lobbyState)
+      upsertCampaign(updated)
+      return updated
+    } catch (err) {
+      if (original) upsertCampaign(original)
+      console.error('Error updating lobby state:', err)
+      throw err
+    }
+  }
+
+  const fetchCampaignCharacters = async (campaignId) => {
+    try {
+      campaignCharacters.value = await CampaignService.getCampaignCharacters(campaignId)
+    } catch (err) {
+      console.error('Error fetching campaign characters:', err)
+    }
+  }
+
+  const addCampaignCharacter = (character) => {
+    campaignCharacters.value = [...campaignCharacters.value, character]
+  }
+
+  const removeCampaignCharacter = (characterId) => {
+    campaignCharacters.value = campaignCharacters.value.filter((c) => c.id !== characterId)
+  }
+
+  const createCampaignCharacter = async (campaignId, characterData) => {
+    const created = await CampaignService.createCampaignCharacter(campaignId, characterData)
+    addCampaignCharacter(created)
+    return created
+  }
+
+  const deleteCampaignBeastInstance = async (campaignId, characterId) => {
+    await CampaignService.deleteBeastInstance(campaignId, characterId)
+    removeCampaignCharacter(characterId)
+  }
+
   const saveShop = async (campaignId, shopData) => {
     error.value = null
     try {
@@ -305,6 +359,9 @@ export const useCampaignStore = defineStore('campaigns', () => {
     isInCampaign,
     isLoading,
     error,
+    campaignCharacters,
+    campaignNPCs,
+    campaignBeastInstances,
     reset,
     fetch,
     create,
@@ -318,6 +375,12 @@ export const useCampaignStore = defineStore('campaigns', () => {
     removeMember,
     updateMemberCharacters,
     updateIncludedConcepts,
+    updateLobbyState,
+    fetchCampaignCharacters,
+    addCampaignCharacter,
+    removeCampaignCharacter,
+    createCampaignCharacter,
+    deleteCampaignBeastInstance,
     saveShop,
     updateShop,
     deleteShop,

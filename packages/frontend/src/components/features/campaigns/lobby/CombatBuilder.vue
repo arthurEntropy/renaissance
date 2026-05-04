@@ -14,6 +14,17 @@
                         <input class="combat-group-name-input" :value="group.name"
                             @change="renameGroup(group.id, $event.target.value)" @click.stop
                             aria-label="Combat group name" />
+                        <button type="button" class="combat-group-action-btn"
+                            :class="{ 'is-pinned': characterContextStore.isPinned(group.id) }"
+                            :title="characterContextStore.isPinned(group.id) ? 'Unpin group' : 'Pin group'"
+                            @click="togglePinGroup(group)">
+                            <MapPinIcon class="combat-group-action-icon" />
+                        </button>
+                        <button type="button" class="combat-group-action-btn"
+                            :disabled="getGroupCharacters(group).length === 0"
+                            title="Roll initiative for all combatants" @click="rollGroupInitiative(group)">
+                            <BoltIcon class="combat-group-action-icon" />
+                        </button>
                         <button type="button" class="combat-group-delete" @click="deleteGroup(group.id)"
                             aria-label="Delete combat group">
                             <TrashIcon class="combat-group-delete-icon" />
@@ -39,6 +50,24 @@
                                 <PlusIcon class="status-drop-slot-icon" />
                             </button>
                         </div>
+                    </div>
+
+                    <!-- Batch initiative results for this group -->
+                    <div v-if="characterContextStore.pinnedGroupsById[group.id]?.initiativeResults"
+                        class="batch-initiative-results">
+                        <div class="batch-results-header">
+                            <span>Initiative Order</span>
+                            <button type="button" class="batch-results-clear"
+                                @click="clearBatchResults(group.id)">Clear</button>
+                        </div>
+                        <ol class="batch-results-list">
+                            <li v-for="(entry, i) in characterContextStore.pinnedGroupsById[group.id].initiativeResults"
+                                :key="entry.characterId" class="batch-results-entry">
+                                <span class="batch-results-rank">{{ i + 1 }}.</span>
+                                <span class="batch-results-name">{{ entry.character?.name ?? entry.characterId }}</span>
+                                <span class="batch-results-total">{{ entry.initiativeTotal ?? '—' }}</span>
+                            </li>
+                        </ol>
                     </div>
                 </div>
 
@@ -87,32 +116,28 @@
 </template>
 
 <script setup>
-import { computed, onUnmounted, ref, watch } from 'vue'
-import { ChevronDownIcon, ChevronRightIcon, PlusIcon, TrashIcon } from '@heroicons/vue/24/outline'
+import { computed, onMounted, onUnmounted, ref, watch, nextTick } from 'vue'
+import { ChevronDownIcon, ChevronRightIcon, PlusIcon, TrashIcon, MapPinIcon, BoltIcon } from '@heroicons/vue/24/outline'
 import SelectedBeastBadge from '@/components/features/characterSelection/SelectedBeastBadge.vue'
 import SelectedCharacterBadge from '@/components/features/characterSelection/SelectedCharacterBadge.vue'
 import CascadeMenuFrame from '@/components/ui/pickers/CascadeMenuFrame.vue'
-import CampaignService from '@/services/entities/campaignService'
+import { useCampaignStore } from '@/stores/campaignStore'
 import { useCharactersStore } from '@/stores/charactersStore'
+import { useCharacterContextStore } from '@/stores/characterContextStore'
+import { useAppCharacterSheetModal } from '@/composables/useAppCharacterSheetModal'
+import BatchRollOrchestrationService from '@/services/rolls/batchRollOrchestrationService'
 import { useCascadeColumnPositioning } from '@/composables/useCascadeColumnPositioning'
+import { toLetterSuffix } from '@shared/utils/letterSuffix'
 
-const props = defineProps({
-    campaignId: {
-        type: String,
-        required: true,
-    },
-    beasts: {
-        type: Array,
-        default: () => [],
-    },
-    npcs: {
-        type: Array,
-        default: () => [],
-    },
-})
-
-const emit = defineEmits(['created', 'deleted', 'view-character'])
+const campaignStore = useCampaignStore()
 const charactersStore = useCharactersStore()
+const characterContextStore = useCharacterContextStore()
+const { open: openCharacterSheet } = useAppCharacterSheetModal()
+
+const campaign = computed(() => campaignStore.activeCampaign)
+const campaignId = computed(() => campaign.value?.id)
+const npcs = computed(() => campaignStore.campaignNPCs)
+const beasts = computed(() => campaignStore.campaignBeastInstances)
 
 const isCollapsed = ref(false)
 const combatGroups = ref([])
@@ -144,11 +169,11 @@ const handleOutsidePointerDownWhileOpen = (event) => {
 }
 
 const combatBuilderStateKey = computed(() =>
-    props.campaignId ? `campaign-lobby:combat-builder:groups:${props.campaignId}` : null
+    campaignId.value ? `campaign-lobby:combat-builder:groups:${campaignId.value}` : null
 )
 
 const collapseStateKey = computed(() =>
-    props.campaignId ? `campaign-lobby:section:beasts:${props.campaignId}` : null
+    campaignId.value ? `campaign-lobby:section:combat-builder:${campaignId.value}` : null
 )
 
 const beastPickerTemplates = computed(() =>
@@ -157,19 +182,19 @@ const beastPickerTemplates = computed(() =>
 
 const beastInstancesById = computed(() => {
     const map = new Map()
-    for (const beast of props.beasts || []) {
+    for (const beast of beasts.value || []) {
         if (beast?.id) map.set(beast.id, beast)
     }
     return map
 })
 
 const sourceTypeOptions = computed(() => [
-    { id: 'npcs', label: 'NPCs', count: props.npcs.length },
+    { id: 'npcs', label: 'NPCs', count: npcs.value.length },
     { id: 'beasts', label: 'Beasts', count: beastPickerTemplates.value.length },
 ])
 
 const pickerItems = computed(() => {
-    const sourceItems = pickerSelectedType.value === 'beasts' ? beastPickerTemplates.value : props.npcs
+    const sourceItems = pickerSelectedType.value === 'beasts' ? beastPickerTemplates.value : npcs.value
     const search = pickerSearch.value.trim().toLowerCase()
     const normalized = sourceItems.map((character) => ({
         id: character.id,
@@ -235,10 +260,10 @@ watch(
 )
 
 watch(
-    () => [props.npcs, props.beasts],
+    () => [npcs.value, beasts.value],
     () => {
-        const npcIds = new Set(props.npcs.map((npc) => npc.id))
-        const beastIds = new Set(props.beasts.map((beast) => beast.id))
+        const npcIds = new Set(npcs.value.map((npc) => npc.id))
+        const beastIds = new Set(beasts.value.map((beast) => beast.id))
         combatGroups.value = combatGroups.value
             .map((group) => ({
                 ...group,
@@ -256,6 +281,11 @@ watch(
 watch(combatGroups, (value) => {
     if (!combatBuilderStateKey.value) return
     localStorage.setItem(combatBuilderStateKey.value, JSON.stringify(value))
+
+    // Keep pinned rail groups in sync with the latest builder group state.
+    if (!isSyncingFromStore) {
+        syncPinnedGroupsFromCombatGroups(value)
+    }
 }, { deep: true })
 
 watch(
@@ -297,23 +327,12 @@ const getNextGroupName = () => {
     return `Group ${index}`
 }
 
-const getSuffixLetter = (index) => {
-    let value = index + 1
-    let suffix = ''
-    while (value > 0) {
-        const remainder = (value - 1) % 26
-        suffix = String.fromCharCode(65 + remainder) + suffix
-        value = Math.floor((value - 1) / 26)
-    }
-    return suffix
-}
-
 const getNextBeastInstanceName = (templateName) => {
     const escaped = String(templateName || '').replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
     const suffixPattern = new RegExp(`^${escaped}\\s+([A-Z]+)$`)
     const usedSuffixes = new Set()
 
-    for (const beast of props.beasts || []) {
+    for (const beast of beasts.value || []) {
         if (!beast?.name) continue
         const match = beast.name.match(suffixPattern)
         if (match?.[1]) {
@@ -322,7 +341,7 @@ const getNextBeastInstanceName = (templateName) => {
     }
 
     for (let index = 0; index < 702; index += 1) {
-        const suffix = getSuffixLetter(index)
+        const suffix = toLetterSuffix(index)
         if (!usedSuffixes.has(suffix)) {
             return `${templateName} ${suffix}`
         }
@@ -354,11 +373,10 @@ const renameGroup = (groupId, rawName) => {
 }
 
 const deleteBeastInstance = async (characterId) => {
-    if (!props.campaignId || !characterId) return false
+    if (!campaignId.value || !characterId) return false
 
     try {
-        await CampaignService.deleteBeastInstance(props.campaignId, characterId)
-        emit('deleted', characterId)
+        await campaignStore.deleteCampaignBeastInstance(campaignId.value, characterId)
         return true
     } catch (error) {
         console.error('Failed to delete beast instance:', error)
@@ -402,7 +420,7 @@ const removeCombatant = async (groupId, combatantId) => {
 
 const findCharacter = (combatant) => {
     if (combatant.type === 'npc') {
-        return props.npcs.find((npc) => npc.id === combatant.characterId) || null
+        return npcs.value.find((npc) => npc.id === combatant.characterId) || null
     }
     return beastInstancesById.value.get(combatant.characterId) || null
 }
@@ -410,10 +428,7 @@ const findCharacter = (combatant) => {
 const onCombatantClick = (combatant) => {
     const character = findCharacter(combatant)
     if (!character) return
-    emit('view-character', {
-        section: combatant.type === 'npc' ? 'npcs' : 'beasts',
-        character,
-    })
+    openCharacterSheet(character)
 }
 
 const getBadgeProps = (combatant, groupId) => {
@@ -437,6 +452,8 @@ const getBadgeProps = (combatant, groupId) => {
     return {
         ...baseProps,
         beast: character,
+        showRemoveFab: true,
+        disableDefaultClick: true,
     }
 }
 
@@ -496,7 +513,7 @@ const upsertCombatantIntoGroup = (groupId, combatant) => {
 }
 
 const createBeastInstanceFromTemplate = async (templateId) => {
-    if (!props.campaignId) return null
+    if (!campaignId.value) return null
     if (creatingBeastTemplateIdSet.value.has(templateId)) return null
 
     const template = beastPickerTemplates.value.find((beast) => beast.id === templateId)
@@ -512,13 +529,12 @@ const createBeastInstanceFromTemplate = async (templateId) => {
             beastType: 'instance',
             templateId: template.id,
             templateName: template.name,
-            campaignId: props.campaignId,
+            campaignId: campaignId.value,
             createdAt: new Date().toISOString(),
             lastModified: new Date().toISOString(),
         }
 
-        const created = await CampaignService.createCampaignCharacter(props.campaignId, instance)
-        emit('created', created)
+        const created = await campaignStore.createCampaignCharacter(campaignId.value, instance)
         return created
     } catch (error) {
         console.error('Failed to create beast instance:', error)
@@ -605,6 +621,94 @@ const dropCombatantToGroup = (targetGroupId) => {
     dragOverAddSlotGroupId.value = null
     handleDragEnd()
 }
+
+// Collect resolved character objects for all combatants in a group
+const getGroupCharacters = (group) => {
+    return (group.combatants || [])
+        .map((combatant) => findCharacter(combatant))
+        .filter(Boolean)
+}
+
+// Pin or unpin a group, syncing with characterContextStore
+const togglePinGroup = (group) => {
+    if (characterContextStore.isPinned(group.id)) {
+        characterContextStore.unpinGroup(group.id)
+        return
+    }
+    const memberIds = (group.combatants || [])
+        .map((c) => c.characterId)
+        .filter(Boolean)
+    characterContextStore.pinGroup(group.id, {
+        id: group.id,
+        name: group.name,
+        memberIds,
+    })
+}
+
+// Execute batch initiative roll for all combatants in the group, persist results in store
+const rollGroupInitiative = (group) => {
+    const characters = getGroupCharacters(group)
+    if (characters.length === 0) return
+    if (!characterContextStore.isPinned(group.id)) {
+        // Auto-pin the group so results have a home in the store
+        togglePinGroup(group)
+    }
+    const { results } = BatchRollOrchestrationService.executeBatchInitiativeRoll(characters)
+    characterContextStore.updatePinnedGroup(group.id, { initiativeResults: results })
+}
+
+const clearBatchResults = (groupId) => {
+    characterContextStore.updatePinnedGroup(groupId, { initiativeResults: null })
+}
+
+// Guard flag to avoid feedback loop when syncing combatGroups from store changes
+let isSyncingFromStore = false
+
+// Watch pinnedGroupsById for member removals triggered from the badge rail
+watch(
+    () => characterContextStore.pinnedGroupsById,
+    (newById) => {
+        isSyncingFromStore = true
+        combatGroups.value = combatGroups.value.map((group) => {
+            const pinnedData = newById[group.id]
+            if (!pinnedData?.memberIds) return group
+            const allowedIds = new Set(pinnedData.memberIds)
+            const filtered = (group.combatants || []).filter((c) => allowedIds.has(c.characterId))
+            if (filtered.length === (group.combatants || []).length) return group
+            return { ...group, combatants: filtered }
+        })
+        nextTick(() => {
+            isSyncingFromStore = false
+        })
+    },
+    { deep: true }
+)
+
+const syncPinnedGroupsFromCombatGroups = (groups) => {
+    const pinnedIds = [...characterContextStore.pinnedGroupIds]
+    const groupsById = new Map((groups || []).map((group) => [group.id, group]))
+
+    for (const pinnedId of pinnedIds) {
+        const group = groupsById.get(pinnedId)
+        if (!group) {
+            characterContextStore.unpinGroup(pinnedId)
+            continue
+        }
+
+        const memberIds = (group.combatants || [])
+            .map((combatant) => combatant.characterId)
+            .filter(Boolean)
+
+        characterContextStore.updatePinnedGroup(pinnedId, {
+            name: group.name,
+            memberIds,
+        })
+    }
+}
+
+onMounted(() => {
+    // intentionally empty — picker scroll/pointer listeners are registered in openPicker()
+})
 
 onUnmounted(() => {
     window.removeEventListener('scroll', handleAnyScrollWhileOpen, true)
@@ -720,6 +824,115 @@ onUnmounted(() => {
     width: 30px;
     height: 30px;
     stroke-width: 2.2;
+}
+
+/* Action buttons (pin, initiative, delete) in group header */
+.combat-group-action-btn {
+    border: 1px solid var(--overlay-white-medium);
+    background: transparent;
+    color: var(--color-text-secondary);
+    width: 30px;
+    height: 30px;
+    border-radius: 999px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: color var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast);
+    flex-shrink: 0;
+}
+
+.combat-group-action-btn:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
+.combat-group-action-btn:not(:disabled):hover {
+    color: var(--color-primary);
+    border-color: var(--color-primary);
+    background: var(--overlay-white-subtle);
+}
+
+.combat-group-action-btn.is-pinned {
+    color: var(--color-primary);
+    border-color: var(--color-primary);
+}
+
+.combat-group-action-icon {
+    width: 16px;
+    height: 16px;
+}
+
+/* Batch initiative results list */
+.batch-initiative-results {
+    margin-top: var(--space-sm);
+    padding: var(--space-xs) var(--space-sm);
+    background: var(--overlay-white-subtle);
+    border-radius: var(--radius-6);
+    border: 1px solid var(--overlay-white-medium);
+    font-size: var(--font-size-sm, 0.8rem);
+}
+
+.batch-results-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 600;
+    color: var(--color-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 0.7rem;
+    margin-bottom: var(--space-xs);
+}
+
+.batch-results-clear {
+    background: transparent;
+    border: none;
+    color: var(--color-text-muted, #999);
+    font-size: 0.7rem;
+    cursor: pointer;
+    padding: 0;
+    text-transform: none;
+    font-weight: 400;
+}
+
+.batch-results-clear:hover {
+    color: var(--color-danger);
+}
+
+.batch-results-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.batch-results-entry {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    color: var(--color-text-primary);
+}
+
+.batch-results-rank {
+    color: var(--color-text-secondary);
+    min-width: 1.2rem;
+    font-variant-numeric: tabular-nums;
+}
+
+.batch-results-name {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.batch-results-total {
+    font-variant-numeric: tabular-nums;
+    font-weight: 600;
+    color: var(--color-primary);
 }
 
 .status-drop-slot--interactive {

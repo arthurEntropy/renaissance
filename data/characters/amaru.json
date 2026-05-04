@@ -181,6 +181,11 @@
       "isCarried": true,
       "isWielding": false,
       "collapsed": true
+    },
+    {
+      "id": "f248a20d-f79e-4fb9-a800-94e2145fc23a",
+      "quantity": 1,
+      "isCarried": true
     }
   ],
   "abilities": [
@@ -231,6 +236,12 @@
       "collapsed": true,
       "showImprovements": false,
       "showSuccesses": true
+    },
+    {
+      "id": "25daccec-9dc4-469a-93ce-af13e853fc8e",
+      "collapsed": false,
+      "showImprovements": false,
+      "showSuccesses": false
     }
   ],
   "activeEffects": [],
@@ -238,8 +249,8 @@
     "https://cdn.midjourney.com/46f7df2d-65a2-44e8-90fd-c01738a187c3/0_0.png"
   ],
   "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2026-04-29T23:22:56.263Z",
-  "lastModified": "2026-04-29T23:22:56.263Z",
+  "updatedAt": "2026-05-02T14:34:34.856Z",
+  "lastModified": "2026-05-02T14:34:34.856Z",
   "mestiereId": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
   "abilitySortOption": "",
   "notes": "Wizard of the Third Wizards' Guild of Guildford. Associate of Volans.",

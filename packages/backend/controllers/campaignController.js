@@ -7,6 +7,7 @@ import {
 import { getUserProfile } from './userController.js'
 import { CAMPAIGN_ROLE, CAMPAIGN_MEMBER_STATUS } from '../../../shared/constants/campaignConstants.js'
 import { createDefaultCampaign } from '../../../shared/types/entities/campaign.js'
+import { toLetterSuffix } from '../../../shared/utils/letterSuffix.js'
 import { v4 as uuidv4 } from 'uuid'
 import { getAllActiveCampaigns, getCampaignById, getCampaignMembership } from '../utils/campaignUtils.js'
 
@@ -20,19 +21,6 @@ const generateSlug = (name) =>
     .trim()
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-|-$/g, '') || 'campaign'
-
-const toLetterSuffix = (index) => {
-  let n = index + 1
-  let suffix = ''
-
-  while (n > 0) {
-    const remainder = (n - 1) % 26
-    suffix = String.fromCharCode(65 + remainder) + suffix
-    n = Math.floor((n - 1) / 26)
-  }
-
-  return suffix
-}
 
 const getNextBeastInstanceSuffix = (allCharacters, templateId, baseName) => {
   const prefix = `${baseName} `
@@ -692,6 +680,35 @@ export const getCampaignBySlug = (req, res) => {
   } catch (err) {
     console.error('Error getting campaign by slug:', err)
     res.status(500).json({ error: 'Failed to retrieve campaign' })
+  }
+}
+
+// PUT /campaigns/:id/lobby-state — updates shared lobby arrangement (GM only)
+export const updateLobbyState = (req, res) => {
+  try {
+    const campaign = getCampaignById(req.params.id)
+    if (!campaign) {
+      return res.status(404).json({ error: 'Campaign not found' })
+    }
+
+    const allowedFields = ['inactiveNpcIds', 'hiddenNpcIds', 'inactivePlayerCharacterIds']
+    const updates = {}
+    for (const field of allowedFields) {
+      if (req.body[field] !== undefined) {
+        if (!Array.isArray(req.body[field])) {
+          return res.status(400).json({ error: `${field} must be an array` })
+        }
+        updates[field] = req.body[field]
+      }
+    }
+
+    const updatedLobbyState = { ...(campaign.lobbyState || {}), ...updates }
+    const updated = { ...campaign, lobbyState: updatedLobbyState }
+    saveFile(updated, CAMPAIGNS_DIRECTORY, campaign.name, campaign.id)
+    res.json(updated)
+  } catch (err) {
+    console.error('Error updating lobby state:', err)
+    res.status(500).json({ error: 'Failed to update lobby state' })
   }
 }
 

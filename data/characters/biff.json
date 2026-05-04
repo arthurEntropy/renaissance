@@ -2,7 +2,7 @@
   "id": "df665b9f-c716-4640-98e3-299ba82946ac",
   "isDeleted": false,
   "createdAt": "2026-05-01T12:05:24.587Z",
-  "lastModified": "2026-05-01T14:33:40.611Z",
+  "lastModified": "2026-05-02T01:25:22.054Z",
   "name": "Biff",
   "isBeast": false,
   "campaignId": "2216d52f-f74d-479e-b440-f7b5aa6319e5",
@@ -212,7 +212,17 @@
     "colorless": []
   },
   "equipment": [],
-  "abilities": [],
+  "abilities": [
+    {
+      "id": "1e289ca8-cf6a-4f0d-ad7c-a13fc8e1f381",
+      "collapsed": false,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "improvements": {
+        "c0cce62d-03a8-5654-92e9-c354f4233834": true
+      }
+    }
+  ],
   "artUrls": [
     "https://cdn.midjourney.com/f47a6f0c-8192-460b-976e-5875358952bb/0_3.png"
   ],
@@ -261,7 +271,7 @@
     }
   },
   "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2026-05-01T14:33:40.611Z",
+  "updatedAt": "2026-05-02T01:25:22.054Z",
   "ancestryIds": [
     "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
     "2e46823f-bec7-4d70-b323-dbc8b71c7739"

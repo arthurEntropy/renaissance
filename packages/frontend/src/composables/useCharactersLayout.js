@@ -1,13 +1,16 @@
 import { computed, onMounted } from 'vue'
 import { useActionTypesStore } from '@/stores/actionTypesStore'
 import { useAbilitySchoolsStore } from '@/stores/abilitySchoolsStore'
+import { useAppCharacterSheetModal } from '@/composables/useAppCharacterSheetModal'
+import { useAuthStore } from '@/stores/authStore'
 
 export function useCharactersLayout(charactersStore, equipmentStore, abilitiesStore, characterService, options = {}) {
-  const { isBeast = false } = options
-  
+  const { isBeast = false, adminOnlySelect = false } = options
+
   const actionTypesStore = useActionTypesStore()
   const abilitySchoolsStore = useAbilitySchoolsStore()
-  
+  const { open: openCharacterSheet } = useAppCharacterSheetModal()
+  const authStore = useAuthStore()
   const characters = computed(() => 
     isBeast 
       ? (charactersStore.filteredBeasts || [])
@@ -56,12 +59,14 @@ export function useCharactersLayout(charactersStore, equipmentStore, abilitiesSt
     storageKey: isBeast ? 'bestiary' : 'characters',
     stickySelection: true,
     showExpansionFilter: false,
-    modalComponent: 'CharacterSheetModal'
+    modalComponent: 'CharacterSheetModal',
+    useExternalModal: true,
   }))
 
   // Event handlers for ConceptsLayout
   const handleSelect = (character) => {
-    charactersStore.selectCharacter(character)
+    const persistSelection = !adminOnlySelect || authStore.isAdmin
+    openCharacterSheet(character, { persistSelection })
   }
 
   const handleDeselect = () => {
@@ -77,8 +82,8 @@ export function useCharactersLayout(charactersStore, equipmentStore, abilitiesSt
     const newCharacter = await characterService.create(defaultEntity)
     await charactersStore.fetch()
     
-    // Select the newly created character
-    charactersStore.selectCharacter(newCharacter)
+    // Open the character sheet for the newly created character
+    openCharacterSheet(newCharacter)
   }
 
   return {
