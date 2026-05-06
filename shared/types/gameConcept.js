@@ -1,5 +1,5 @@
-import { createBaseEntity } from '../gameEntity.js'
-import { ConceptType, getConceptTypeLabel } from '../../../constants/conceptTypes.js'
+import { createBaseEntity } from './gameEntity.js'
+import { ConceptType, getConceptTypeLabel } from '../constants/conceptTypes.js'
 
 /**
  * Base structure for game concepts (Ancestry, Culture, Mestiere, WorldElement)

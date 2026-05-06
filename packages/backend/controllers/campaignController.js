@@ -6,7 +6,7 @@ import {
 } from '../utils/fileService.js'
 import { getUserProfile } from './userController.js'
 import { CAMPAIGN_ROLE, CAMPAIGN_MEMBER_STATUS } from '../../../shared/constants/campaignConstants.js'
-import { createDefaultCampaign } from '../../../shared/types/entities/campaign.js'
+import { createDefaultCampaign } from '../../../shared/types/campaign.js'
 import { toLetterSuffix } from '../../../shared/utils/letterSuffix.js'
 import { v4 as uuidv4 } from 'uuid'
 import { getAllActiveCampaigns, getCampaignById, getCampaignMembership } from '../utils/campaignUtils.js'

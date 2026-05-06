@@ -1,9 +1,9 @@
-import { createBaseEntity } from '../gameEntity.js'
+import { createBaseEntity } from './gameEntity.js'
 
 /**
- * @typedef {import('../../dice.js').DieSize} DieSize
- * @typedef {import('../improvement.js').Improvement} Improvement
- * @typedef {import('../gameEntity.js').GameEntity} GameEntity
+ * @typedef {import('./dice.js').DieSize} DieSize
+ * @typedef {import('./improvement.js').Improvement} Improvement
+ * @typedef {import('./gameEntity.js').GameEntity} GameEntity
  */
 
 /**

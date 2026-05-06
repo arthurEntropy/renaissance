@@ -5,7 +5,7 @@ import {
   CONDITION_AFFECTED_SKILLS,
   STATE_AFFECTED_SKILLS,
   CONDITION_AND_STATE_DICE_MODIFIER,
-} from '../../constants/characterConstants.js'
+} from '../constants/characterConstants.js'
 
 // ========================================
 // STAT CALCULATIONS

@@ -30,7 +30,7 @@ import CharacterSheetSection from '@/components/ui/containers/CharacterSheetSect
 import NumberInput from '@/components/ui/forms/NumberInput.vue'
 import { NUMBER_INPUT_SIZES } from '@/constants/numberInput'
 import { useCharactersStore } from '@/stores/charactersStore'
-import * as CharacterUtils from '@shared/types/entities/characterUtils'
+import * as CharacterUtils from '@shared/utils/characterUtils'
 
 defineProps({
     isEditMode: {

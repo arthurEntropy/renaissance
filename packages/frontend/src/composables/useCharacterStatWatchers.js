@@ -1,5 +1,5 @@
 import { watch, onUnmounted } from 'vue'
-import * as CharacterUtils from '@shared/types/entities/characterUtils'
+import * as CharacterUtils from '@shared/utils/characterUtils'
 import { useCharactersStore } from '@/stores/charactersStore'
 
 const SAVE_DEBOUNCE_MS = 500

@@ -1,10 +1,10 @@
-import { CAMPAIGN_ROLE, CAMPAIGN_MEMBER_STATUS } from '../../constants/campaignConstants.js'
+import { CAMPAIGN_ROLE, CAMPAIGN_MEMBER_STATUS } from '../constants/campaignConstants.js'
 
 /**
  * @typedef {Object} CampaignMember
  * @property {string} userId - Firebase UID of the member
- * @property {import('../../constants/campaignConstants.js').CampaignRole} role - Member role within this campaign
- * @property {import('../../constants/campaignConstants.js').CampaignMemberStatus} status - Invitation status
+ * @property {import('../constants/campaignConstants.js').CampaignRole} role - Member role within this campaign
+ * @property {import('../constants/campaignConstants.js').CampaignMemberStatus} status - Invitation status
  * @property {string[]} characterIds - Character IDs this player has added to the campaign
  * @property {string} joinedAt - ISO 8601, set on acceptance
  * @property {string} invitedAt - ISO 8601

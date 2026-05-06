@@ -1,7 +1,7 @@
-import { createBaseEntity } from '../gameEntity.js'
+import { createBaseEntity } from './gameEntity.js'
 
 /**
- * @typedef {import('../gameEntity.js').GameEntity} GameEntity
+ * @typedef {import('./gameEntity.js').GameEntity} GameEntity
  */
 
 /**

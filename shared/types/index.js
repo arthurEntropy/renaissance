@@ -4,37 +4,36 @@
  */
 
 // Base entity type
-export * from './entities/gameEntity.js'
+export { createBaseEntity } from './gameEntity.js'
 
 // Dice types (used across multiple entities)
 export * from './dice.js'
 
 // Game concept entities (includes gameConcept base)
-export * from './entities/gameConcepts/gameConcept.js'
-export * from './entities/gameConcepts/ancestry.js'
-export * from './entities/gameConcepts/culture.js'
-export * from './entities/gameConcepts/mestiere.js'
-export * from './entities/gameConcepts/worldElement.js'
+export { createDefaultGameConcept, ConceptType } from './gameConcept.js'
+export { createDefaultAncestry } from './ancestry.js'
+export { createDefaultCulture } from './culture.js'
+export { createDefaultMestiere } from './mestiere.js'
+export { createDefaultWorldElement } from './worldElement.js'
 
 // Equipment entities
-export * from './entities/equipment/equipment.js'
-export * from './entities/equipment/equipmentType.js'
-export * from './entities/equipment/equipmentSubtype.js'
-export * from './entities/equipment/equipmentGrade.js'
-export * from './entities/equipment/equipmentRange.js'
+export { createDefaultEquipment } from './equipment.js'
+export { createDefaultEquipmentType } from './equipmentType.js'
+export { createDefaultEquipmentSubtype } from './equipmentSubtype.js'
+export { createDefaultEquipmentGrade } from './equipmentGrade.js'
+export { createDefaultEquipmentRange } from './equipmentRange.js'
 
 // Other entities
-export * from './entities/biome.js'
-export * from './entities/ability.js'
-export * from './entities/abilitySchool.js'
-export * from './entities/art.js'
-export * from './entities/backgroundImage.js'
-export * from './entities/character.js'
-export * from './entities/characterUtils.js'
-export * from './entities/engagementSuccess.js'
-export * from './entities/expansion.js'
-export * from './entities/keeping.js'
-export * from './entities/rulesSection.js'
-export * from './entities/user.js'
-export * from './entities/channelerSettings.js'
-export * from './entities/campaign.js'
+export { createDefaultBiome } from './biome.js'
+export { createDefaultAbility } from './ability.js'
+export { createDefaultAbilitySchool } from './abilitySchool.js'
+export { createDefaultArt } from './art.js'
+export { createDefaultBackgroundImage } from './backgroundImage.js'
+export { createDefaultCharacter } from './character.js'
+export { createDefaultEngagementSuccess } from './engagementSuccess.js'
+export { createDefaultExpansion } from './expansion.js'
+export { createDefaultKeeping } from './keeping.js'
+export { createDefaultRulesSection } from './rulesSection.js'
+export { createDefaultUser } from './user.js'
+export { createDefaultChannelerSettings } from './channelerSettings.js'
+export { createDefaultCampaign } from './campaign.js'
