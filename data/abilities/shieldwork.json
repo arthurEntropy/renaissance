@@ -1,14 +1,12 @@
 {
   "id": "983c85c3-6189-42d0-aa7b-4247056a093e",
-  "name": "Shieldwork",
-  "description": "<p>While you are wielding a shield:</p><ul><li><p>You gain an additional +1 Defense.</p></li><li><p>The Knockback engagement success is available to you.</p></li></ul><p><strong>Describe how you wield your shield.</strong></p>",
-  "canBeActive": false,
-  "isActive": true,
-  "source": "d4dce5e2-e767-464d-91f0-c40b47f788b3",
   "isDeleted": false,
-  "mp": "",
-  "xp": 5,
   "lastModified": "2026-03-17T12:52:46.264Z",
+  "name": "Shieldwork",
   "artUrl": "https://cdn.midjourney.com/a34032cc-b61c-4901-bd9e-61c791d7c5af/0_3.png",
-  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
+  "description": "<p>While you are wielding a shield:</p><ul><li><p>You gain an additional +1 Defense.</p></li><li><p>The Knockback engagement success is available to you.</p></li></ul><p><strong>Describe how you wield your shield.</strong></p>",
+  "source": "d4dce5e2-e767-464d-91f0-c40b47f788b3",
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": "",
+  "xpCost": 5
 }

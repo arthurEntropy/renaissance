@@ -1,14 +1,12 @@
 {
   "id": "7cbea262-49dc-45de-a1e0-cc4270835f14",
-  "name": "Weapons Specialist",
-  "description": "<p>The bustling weapons trade in Adiri has familiarized you with armaments from every corner of the land. You can identify any weapon by type, material, use and culture of origin. Once per rest, you can identify the magical properties of a weapon. </p><p><strong>Describe how you gained this knowledge.</strong></p>",
-  "canBeActive": false,
-  "isActive": true,
-  "source": "68fadf5d-6661-4611-bb38-deaf05f01d45",
   "isDeleted": false,
-  "mp": null,
-  "xp": null,
   "lastModified": "2026-04-24T18:41:09.146Z",
-  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d",
-  "artUrl": "https://cdn.midjourney.com/5c1e2ff4-fe38-441f-9d93-406eca0c5f27/0_0.png"
+  "name": "Weapons Specialist",
+  "artUrl": "https://cdn.midjourney.com/5c1e2ff4-fe38-441f-9d93-406eca0c5f27/0_0.png",
+  "description": "<p>The bustling weapons trade in Adiri has familiarized you with armaments from every corner of the land. You can identify any weapon by type, material, use and culture of origin. Once per rest, you can identify the magical properties of a weapon. </p><p><strong>Describe how you gained this knowledge.</strong></p>",
+  "source": "68fadf5d-6661-4611-bb38-deaf05f01d45",
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": null
 }

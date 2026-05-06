@@ -1,17 +1,17 @@
 {
-  "source": "937d52da-0ebf-4d74-b3ee-be395f2f5d0a",
   "id": "9183a545-a700-468f-88b5-95e4a93ad760",
   "createdAt": "2026-03-05T00:48:02.841Z",
   "lastModified": "2026-03-17T14:52:36.427Z",
-  "biomeTagsAugment": [],
-  "biomeTagsInhibit": [],
   "name": "Tangle",
+  "artUrl": "https://cdn.midjourney.com/d1391f20-11c3-4192-9374-d1962a4fde62/0_1.png",
   "description": "<p>Choose a point within long range. All mundane plants within long range of that point become thick and overgrown, becoming difficult terrain that costs quadruple movement instead of the normal double movement. You can exclude areas within the spell's range from this effect as you choose.</p><p><strong>Describe the growth.</strong></p>",
-  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
-  "mp": 3,
-  "xp": 15,
+  "improvements": [],
+  "source": "937d52da-0ebf-4d74-b3ee-be395f2f5d0a",
   "school": "f8572abf-975d-4007-b007-4cbe9bfdec01",
   "isMagical": true,
-  "artUrl": "https://cdn.midjourney.com/d1391f20-11c3-4192-9374-d1962a4fde62/0_1.png",
-  "improvements": []
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "mpCost": 3,
+  "xpCost": 15,
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": []
 }

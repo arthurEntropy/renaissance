@@ -1,15 +1,15 @@
 {
-  "source": "937d52da-0ebf-4d74-b3ee-be395f2f5d0a",
   "id": "cd85b74a-04eb-4d58-b5ed-d7380cb20fe5",
   "createdAt": "2026-03-04T17:52:03.624Z",
   "lastModified": "2026-03-17T14:29:13.449Z",
-  "biomeTagsAugment": [],
-  "biomeTagsInhibit": [],
   "name": "Animal Messenger",
-  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
-  "xp": 5,
-  "mp": 1,
+  "artUrl": "https://cdn.midjourney.com/9d68e118-51e6-4379-b955-d5bf76573a60/0_2.png",
   "description": "<p>Choose a small, non-hostile animal within short range. You command that animal to deliver a message by speaking aloud:</p><ul><li><p>A location you have visited.</p></li><li><p>A physical description of the intended recipient.</p></li><li><p>A message of up to 25 words.</p></li></ul><p>For the next day, the animal travels to the best of its ability toward the location you specified, at the rate of 1 mile per hour, or 3 miles per hour if the animal can fly. When the animal arrives at the location, it delivers the message to the first person it encounters who matches the description you gave, delivering the message in your voice.</p><p>If it does not reach its destination within one day, the message is lost and the animal returns to where you cast this spell.</p><p><strong>Describe how you enlist the animal's help.</strong></p>",
+  "source": "937d52da-0ebf-4d74-b3ee-be395f2f5d0a",
   "isMagical": true,
-  "artUrl": "https://cdn.midjourney.com/9d68e118-51e6-4379-b955-d5bf76573a60/0_2.png"
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "mpCost": 1,
+  "xpCost": 5,
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": []
 }

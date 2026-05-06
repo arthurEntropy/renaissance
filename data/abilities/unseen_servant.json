@@ -1,15 +1,15 @@
 {
-  "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
   "id": "971b7bf0-754c-401e-8e2e-74e0f21c2df1",
   "createdAt": "2026-04-14T14:11:22.426Z",
   "lastModified": "2026-04-14T18:21:58.305Z",
   "name": "Unseen Servant",
+  "artUrl": "https://cdn.midjourney.com/38db293d-7edc-47d7-996d-a5e0adfdc6b5/0_2.png",
   "description": "<p>This spell creates an invisible, mindless, shapeless force that performs simple tasks at your command. The servant appears in a space you choose on the ground within medium range and persists for 1 hour. Roll Lore to see if you trigger any additional effects. </p><p>You may spend a half action to command the servant to perform a simple task that a humanoid servant could perform. The servant will perform that task to the best of its ability until it completes the task or you give it a new command.</p><p>The servant has a speed of 15 ft, its Defense is 10, and it automatically fails skill checks. The servant cannot lift more than 10 lbs. If at any point the servant takes damage or is further than medium range from you, the spell ends.</p>",
   "successes": "<p>✨: The servant's speed increases by 15 ft.</p><p>✨: The servant can fly.</p><p>✨: The servant can lift up to 50 lbs.</p><p>🌞: The servant persists for 1 day.</p><p>💀: The servant is hostile toward you, ignores your commands and pesters you with mischief. Check a Condition. On each of your turns, it acts as the GM chooses, interacting with objects in a destructive or distracting manner. Additionally, once per round, it may cause one of your skill checks to be ill-favored.</p>",
-  "mp": 1,
-  "xp": 5,
-  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
+  "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
   "school": "dae8a70f-3f7a-4357-8fe4-972f863be65b",
-  "artUrl": "https://cdn.midjourney.com/38db293d-7edc-47d7-996d-a5e0adfdc6b5/0_2.png",
-  "isMagical": true
+  "isMagical": true,
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "mpCost": 1,
+  "xpCost": 5
 }

@@ -1,10 +1,10 @@
 {
-  "source": "adc655c1-1d9c-433f-a0eb-41f93cf3ee07",
   "id": "0092b828-81a1-478f-8c1e-d49da16a90ed",
   "createdAt": "2026-02-26T02:40:08.913Z",
   "lastModified": "2026-03-19T02:23:55.177Z",
   "name": "Iron Constitution",
+  "artUrl": "https://cdn.midjourney.com/49e59dc4-bf09-4a99-b8f2-886234e7ef02/0_3.png",
   "description": "<p><em>Your appetite for withstanding physical hardship is greater than most.</em></p><p>You gain 1 rank in Fortitude.</p><p><strong>Describe how you endure.</strong></p>",
-  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d",
-  "artUrl": "https://cdn.midjourney.com/49e59dc4-bf09-4a99-b8f2-886234e7ef02/0_3.png"
+  "source": "adc655c1-1d9c-433f-a0eb-41f93cf3ee07",
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1"
 }

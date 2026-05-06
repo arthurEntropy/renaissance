@@ -1,13 +1,11 @@
 {
   "id": "0b396674-1f4e-41b8-9439-3901d39018a2",
+  "isDeleted": false,
+  "lastModified": "2026-02-12T21:37:52.075Z",
   "name": "Plant-Wary",
   "description": "<p><em>Your time spent near the ancient forest taught you that not all plants move slowly, nor are they all to be trusted.</em></p><p>You and cannot be surprised by hostile plant creatures and your rolls against them are favored.</p><p><strong>Describe what raises your suspicion.</strong></p>",
-  "canBeActive": false,
-  "isActive": true,
   "source": "55494a30-a1bb-47c3-aae9-2db3a5bfcb8b",
-  "isDeleted": false,
-  "mp": null,
-  "xp": null,
-  "lastModified": "2026-02-12T21:37:52.075Z",
-  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": null
 }

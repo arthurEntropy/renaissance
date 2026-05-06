@@ -1,15 +1,13 @@
 {
   "id": "50139dd2-1fa0-4152-a83b-583d6812157b",
-  "name": "Crushing Force",
-  "description": "<p><em>Trigger: You roll the maximum on one or more damage dice for a melee attack.</em></p><p>The target of the attack rolls Injury for each maximum damage die result.</p><p><strong>Describe the power of your impact.</strong></p>",
-  "canBeActive": false,
-  "isActive": true,
-  "source": "1e4131c7-8a6f-422c-998a-5147600c946e",
   "isDeleted": false,
-  "mp": 1,
-  "xp": 20,
-  "improvements": [],
   "lastModified": "2026-03-17T00:43:07.406Z",
+  "name": "Crushing Force",
   "artUrl": "https://cdn.midjourney.com/52ec4413-1bd6-41fc-98ec-2adb9d77f2dc/0_0.png",
-  "type": "e5f6a1b2-c3d4-4e5f-da2b-1c0d9e8f7a6b"
+  "description": "<p><em>Trigger: You roll the maximum on one or more damage dice for a melee attack.</em></p><p>The target of the attack rolls Injury for each maximum damage die result.</p><p><strong>Describe the power of your impact.</strong></p>",
+  "improvements": [],
+  "source": "1e4131c7-8a6f-422c-998a-5147600c946e",
+  "actionCost": "c4df395c-8284-4c4f-bf01-e293ed51c58c",
+  "mpCost": 1,
+  "xpCost": 20
 }

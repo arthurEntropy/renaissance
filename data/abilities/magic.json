@@ -1,8 +1,8 @@
 {
-  "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
   "id": "3fea2a24-cd5b-4b0b-955e-11ff6b6045a4",
+  "isDeleted": true,
   "createdAt": "2026-04-10T20:33:49.776Z",
   "lastModified": "2026-04-10T20:33:58.301Z",
   "name": "Magic",
-  "isDeleted": true
+  "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa"
 }

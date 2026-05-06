@@ -1,12 +1,10 @@
 {
   "id": "2cec881a-c7b1-4e0f-86f0-f42df7981377",
+  "isDeleted": false,
+  "lastModified": "2026-02-12T21:22:31.641Z",
   "name": "Madrigal 1",
   "description": "<p>This is a placeholder.</p>",
-  "canBeActive": false,
-  "isActive": true,
   "source": "c597638a-94ef-4a1d-ba3a-fcdcbaf9dd6d",
-  "isDeleted": false,
-  "mp": null,
-  "xp": null,
-  "lastModified": "2026-02-12T21:22:31.641Z"
+  "mpCost": null,
+  "xpCost": null
 }

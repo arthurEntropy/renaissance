@@ -1,14 +1,10 @@
 {
   "id": "bbf8f9d6-45a6-4703-9388-b771935d4a0a",
-  "name": "Pressure Point Training",
-  "description": "<p>You are trained in special pressure point techniques. You may spend an action to make a pressure point attack, rolling Dexterity vs Defense against an adjacent creature. On a win, choose one:</p><ul><li><p>The creature checks a Condition.</p></li><li><p>The creature's speed is reduced by 5 ft.</p></li><li><p>The creature takes -1d to all rolls under BODY for 1 round.</p></li><li><p>The creature cannot use reactions for 1 round.</p></li></ul><p>You may make multiple pressure point attacks each turn. The effects are cumulative.</p><p><strong>Describe your technique.</strong></p>",
-  "canBeActive": false,
-  "isActive": true,
-  "source": "e10d7d9f-9d93-46b0-9846-d60241031644",
   "isDeleted": false,
-  "mp": null,
-  "xp": 10,
+  "lastModified": "2026-03-16T20:00:23.585Z",
+  "name": "Pressure Point Training",
   "artUrl": "https://cdn.midjourney.com/2349ffb5-01f4-448f-a93e-ff1f992c0d72/0_1.png",
+  "description": "<p>You are trained in special pressure point techniques. You may spend an action to make a pressure point attack, rolling Dexterity vs Defense against an adjacent creature. On a win, choose one:</p><ul><li><p>The creature checks a Condition.</p></li><li><p>The creature's speed is reduced by 5 ft.</p></li><li><p>The creature takes -1d to all rolls under BODY for 1 round.</p></li><li><p>The creature cannot use reactions for 1 round.</p></li></ul><p>You may make multiple pressure point attacks each turn. The effects are cumulative.</p><p><strong>Describe your technique.</strong></p>",
   "improvements": [
     {
       "name": "Catch Them Off-Guard",
@@ -23,6 +19,8 @@
       "id": "d6ced026-b5ab-557f-9f10-d6fa092e7cd9"
     }
   ],
-  "lastModified": "2026-03-16T20:00:23.585Z",
-  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
+  "source": "e10d7d9f-9d93-46b0-9846-d60241031644",
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": 10
 }

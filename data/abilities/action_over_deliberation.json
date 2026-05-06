@@ -1,14 +1,12 @@
 {
   "id": "9c92d5ba-7c73-4480-a357-d98ac4820c7d",
-  "name": "Action Over Deliberation",
-  "description": "<p>When your companions debate how to handle a dangerous situation, your patience wears thin. When you are present for such a conversation, for each suggested course of action beyond the first—by anyone but you—roll 1d6 and add it to a running total. If the total exceeds 10, choose one:</p><ul><li><p>Charge ahead recklessly, ignoring companions’ concerns.</p></li><li><p>Break something, make a loud noise, or reveal sensitive information.</p></li><li><p>Check two conditions.</p></li></ul><p>If the party agrees on a plan before you cross the threshold, halve your total (round down) and gain that many +1d bonuses that you may use at any time while executing the plan.</p><p><strong>Describe how your temper simmers or boils over.</strong></p>",
-  "canBeActive": false,
-  "isActive": true,
-  "source": "e0a69b6f-38f9-4fa5-a1ef-5e5777299e82",
   "isDeleted": false,
-  "mp": null,
-  "xp": null,
   "lastModified": "2026-03-16T18:51:06.749Z",
+  "name": "Action Over Deliberation",
   "artUrl": "https://cdn.midjourney.com/a9e00fd2-ea64-41f9-b176-141eead35a4a/0_0.png",
-  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
+  "description": "<p>When your companions debate how to handle a dangerous situation, your patience wears thin. When you are present for such a conversation, for each suggested course of action beyond the first—by anyone but you—roll 1d6 and add it to a running total. If the total exceeds 10, choose one:</p><ul><li><p>Charge ahead recklessly, ignoring companions’ concerns.</p></li><li><p>Break something, make a loud noise, or reveal sensitive information.</p></li><li><p>Check two conditions.</p></li></ul><p>If the party agrees on a plan before you cross the threshold, halve your total (round down) and gain that many +1d bonuses that you may use at any time while executing the plan.</p><p><strong>Describe how your temper simmers or boils over.</strong></p>",
+  "source": "e0a69b6f-38f9-4fa5-a1ef-5e5777299e82",
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": null
 }

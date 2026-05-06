@@ -1,15 +1,14 @@
 import BaseEntityService from './baseEntityService'
 
-class ActionTypeService extends BaseEntityService {
+class ActionCostService extends BaseEntityService {
   constructor() {
-    super('/actionTypes', 'actionType')
+    super('/actionCosts', 'actionCost')
   }
 
   getDefaultEntity() {
     return {
       id: null,
-      name: 'New Action Type',
-      description: '',
+      name: 'New Action Cost',
       index: 0,
       isDeleted: false,
       createdAt: new Date().toISOString(),
@@ -18,4 +17,4 @@ class ActionTypeService extends BaseEntityService {
   }
 }
 
-export default new ActionTypeService()
+export default new ActionCostService()

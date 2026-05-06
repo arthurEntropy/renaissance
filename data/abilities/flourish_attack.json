@@ -1,14 +1,12 @@
 {
   "id": "9ec47fcf-338e-4510-8eb3-ef36ec03f941",
-  "name": "Flourish Attack",
-  "description": "<p>If you have at least one level of <em>Swagger</em>, make a melee weapon attack, skipping engagement and rolling Awe vs Awareness for the attack roll.</p><p>On a hit, roll and deal damage as normal. Then, if you have at least two levels of <em>Swagger,</em> you may make another attack in the same way against the same creature as a free action.</p><p>On a second hit, roll and deal damage as normal again. Then, if you have three levels of <em>Swagger</em>, repeat the attack a third time.</p><p><strong>Describe your flourishes.</strong></p>",
-  "canBeActive": false,
-  "isActive": true,
-  "source": "45ca935d-938b-4974-961c-4171cc388904",
   "isDeleted": false,
-  "mp": 1,
-  "xp": 5,
   "lastModified": "2026-03-17T00:07:19.303Z",
+  "name": "Flourish Attack",
   "artUrl": "https://cdn.midjourney.com/e3624f28-fc32-4357-a85a-ccdbf2f56fc8/0_1.png",
-  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e"
+  "description": "<p>If you have at least one level of <em>Swagger</em>, make a melee weapon attack, skipping engagement and rolling Awe vs Awareness for the attack roll.</p><p>On a hit, roll and deal damage as normal. Then, if you have at least two levels of <em>Swagger,</em> you may make another attack in the same way against the same creature as a free action.</p><p>On a second hit, roll and deal damage as normal again. Then, if you have three levels of <em>Swagger</em>, repeat the attack a third time.</p><p><strong>Describe your flourishes.</strong></p>",
+  "source": "45ca935d-938b-4974-961c-4171cc388904",
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "mpCost": 1,
+  "xpCost": 5
 }

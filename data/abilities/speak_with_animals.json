@@ -1,15 +1,15 @@
 {
-  "source": "937d52da-0ebf-4d74-b3ee-be395f2f5d0a",
   "id": "f3ce4ee6-f73a-4498-b0e6-0fc3f9ad4b8a",
   "createdAt": "2026-03-05T15:23:18.629Z",
   "lastModified": "2026-03-17T14:33:46.078Z",
-  "biomeTagsAugment": [],
-  "biomeTagsInhibit": [],
   "name": "Speak With Animals",
+  "artUrl": "https://cdn.midjourney.com/97d38715-f244-44e7-8a54-8332e1e3dc59/0_1.png",
   "description": "<p>For the next 10 minutes, you can communicate with and understand animals, using sounds and movements they naturally use to communicate.</p><p>Their knowledge and ability to understand complex ideas may be limited by their intelligence, but in general they can share information about things they have perceived within the last day or patterns they have observed over their lifetime.</p><p><strong>Describe how you communicate.</strong></p>",
-  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
-  "mp": 1,
-  "xp": 5,
+  "source": "937d52da-0ebf-4d74-b3ee-be395f2f5d0a",
   "isMagical": true,
-  "artUrl": "https://cdn.midjourney.com/97d38715-f244-44e7-8a54-8332e1e3dc59/0_1.png"
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "mpCost": 1,
+  "xpCost": 5,
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": []
 }

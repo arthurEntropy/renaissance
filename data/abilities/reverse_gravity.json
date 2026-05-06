@@ -1,15 +1,15 @@
 {
-  "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
   "id": "1f415205-ffc9-4492-9010-693f4895d499",
   "createdAt": "2026-04-14T15:41:39.359Z",
   "lastModified": "2026-04-14T15:59:13.712Z",
   "name": "Reverse Gravity",
-  "description": "<p><em>Concentration, up to 1 minute.</em></p><p>Choose a point within long range. You create a sphere with a radius of medium range, within which gravity becomes reversed. Roll Lore to see determine any additional effects.</p><p>All unsecured creatures and objects in the sphere fall upward. If they reach the surface of the sphere, they stop and remain there, oscillating slightly. If they strike a large obstacle, they take falling damage as normal. The GM may allow them to roll Dexterity to attempt to gain a handhold and stop falling.</p><p>When the spell ends, objects and creatures in the sphere fall back down as normal.</p>",
-  "mp": 7,
-  "xp": 25,
-  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
-  "isMagical": true,
-  "school": "c4a153b2-8906-4b95-be65-d8e5a5cc73ff",
   "artUrl": "https://cdn.midjourney.com/9287c164-8791-4e46-bddb-d2f02a29a0d0/0_3.png",
-  "successes": "<p>✨: You may extend the radius of the sphere by 10 ft.</p><p>🌞: Twice while you sustain the effect, you may restore or reverse gravity.</p><p>💀: Gravity is instead reversed for you exclusively. You fall upward until you reach medium range from your starting point, at which point the effect ends and you fall as normal. Check a Condition.</p>"
+  "description": "<p><em>Concentration, up to 1 minute.</em></p><p>Choose a point within long range. You create a sphere with a radius of medium range, within which gravity becomes reversed. Roll Lore to see determine any additional effects.</p><p>All unsecured creatures and objects in the sphere fall upward. If they reach the surface of the sphere, they stop and remain there, oscillating slightly. If they strike a large obstacle, they take falling damage as normal. The GM may allow them to roll Dexterity to attempt to gain a handhold and stop falling.</p><p>When the spell ends, objects and creatures in the sphere fall back down as normal.</p>",
+  "successes": "<p>✨: You may extend the radius of the sphere by 10 ft.</p><p>🌞: Twice while you sustain the effect, you may restore or reverse gravity.</p><p>💀: Gravity is instead reversed for you exclusively. You fall upward until you reach medium range from your starting point, at which point the effect ends and you fall as normal. Check a Condition.</p>",
+  "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
+  "school": "c4a153b2-8906-4b95-be65-d8e5a5cc73ff",
+  "isMagical": true,
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "mpCost": 7,
+  "xpCost": 25
 }

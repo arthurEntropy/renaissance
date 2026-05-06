@@ -1,13 +1,10 @@
 {
   "id": "bdc10a98-d189-4917-9330-9fadb116c8e8",
-  "name": "Go Down Swinging",
-  "description": "<p>Whenever your current Endurance is less than half your maximum Endurance:</p><ul><li><p>Your Defense increases by your BODY score.</p></li><li><p>Each time you attack, you gain +1d to either the attack roll or the damage roll, your choice.</p></li></ul>",
-  "canBeActive": false,
-  "isActive": true,
-  "source": "e0a69b6f-38f9-4fa5-a1ef-5e5777299e82",
   "isDeleted": false,
-  "mp": null,
-  "xp": 5,
+  "lastModified": "2026-03-16T19:37:49.389Z",
+  "name": "Go Down Swinging",
+  "artUrl": "https://cdn.midjourney.com/10e98f64-e032-4dba-a6c8-b61b9a93193a/0_3.png",
+  "description": "<p>Whenever your current Endurance is less than half your maximum Endurance:</p><ul><li><p>Your Defense increases by your BODY score.</p></li><li><p>Each time you attack, you gain +1d to either the attack roll or the damage roll, your choice.</p></li></ul>",
   "improvements": [
     {
       "name": "Nothing To Lose",
@@ -16,7 +13,8 @@
       "id": "3a6b3769-f951-5d8b-b708-1b5a4d54f329"
     }
   ],
-  "lastModified": "2026-03-16T19:37:49.389Z",
-  "artUrl": "https://cdn.midjourney.com/10e98f64-e032-4dba-a6c8-b61b9a93193a/0_3.png",
-  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
+  "source": "e0a69b6f-38f9-4fa5-a1ef-5e5777299e82",
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": 5
 }

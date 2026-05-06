@@ -1,13 +1,13 @@
 {
-  "source": "162ae4db-7a67-4770-8a2c-7e9883da14f6",
   "id": "690c3d37-ec59-4588-9a7d-ff93a79d1a50",
   "createdAt": "2026-03-11T13:51:25.618Z",
   "lastModified": "2026-03-17T15:21:05.357Z",
   "name": "Feign Death",
+  "artUrl": "https://cdn.midjourney.com/1977590a-6a20-4d5f-b756-cbc7dcaf9379/0_2.png",
   "description": "<p><em>Concentration, up to 1 hour.</em></p><p>You touch a willing creature and put it into a catatonic state that is indistinguishable from death. The target appears dead to all mundane and magical methods of inspection and has no mental or bodily activity. It cannot take actions, move, use its senses, or perceive the passage of time. Any effects it was under when you cast the spell are suspended until the spell ends.</p><p>If you cast this spell on yourself, it automatically lasts for the full hour.</p><p><strong>Describe the effects of the spell.</strong></p>",
-  "mp": 3,
-  "xp": 15,
-  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
+  "source": "162ae4db-7a67-4770-8a2c-7e9883da14f6",
   "isMagical": true,
-  "artUrl": "https://cdn.midjourney.com/1977590a-6a20-4d5f-b756-cbc7dcaf9379/0_2.png"
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "mpCost": 3,
+  "xpCost": 15
 }

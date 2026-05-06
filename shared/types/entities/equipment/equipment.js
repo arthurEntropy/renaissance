@@ -12,8 +12,8 @@ import { createBaseEntity } from '../gameEntity.js'
  * @property {string|null} artUrl - Art image URL
  * @property {HTMLString} description - Equipment description
  * @property {HTMLString|null} [successes] - Success outcomes (✨/🌞/💀)
- * @property {Improvement[]} [improvements] - Equipment improvements with XP costs
- * @property {UUID|null} source - Source concept UUID (ancestry, culture, etc.)
+ * @property {Improvement[]} [improvements] - Equipment improvements, purchaseable with XP
+ * @property {UUID|null} source - Source concept UUID (ancestry, culture, mestiere, world element)
  * @property {UUID|null} school - Ability school UUID reference (only for mestiere-sourced equipment)
  * @property {UUID|null} keeping - Keeping level UUID reference
  * @property {boolean} isCustom - Whether this is custom/user-created equipment

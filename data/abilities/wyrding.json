@@ -4,15 +4,13 @@
   "createdAt": "2026-02-05T20:45:08.373Z",
   "lastModified": "2026-03-17T15:22:02.408Z",
   "name": "Wyrding",
-  "description": "<p>In a fit of shakes and spasms, you take on a monstrous semi-humanoid shape unique to you and your magic. When you cast this spell, you gain 20 temporary Endurance. Describe your new form and choose one of the following benefits:</p><ul><li><p>You gain huge, molting feathers and the ability to fly.</p></li><li><p>You gain squamous skin, the ability to breathe underwater, and your speed is doubled when swimming.</p></li><li><p>You gain a shaggy fur hide and your Defense becomes 13 + HEART.</p></li></ul><p>Additionally, your Strength and Dexterity rolls are favored. As a half action, you can make a melee attack against an adjacent creature. On a hit, you deal 2d10 damage.</p><p>These effects last for 1 minute. You may end the Wyrding early by spending an action. If the spell doesn't end early, at the end of the minute, you become trapped in your Wyrding form and lose the ability to speak, read, write, understand language, or cast spells that require speech until this lingering effect is ended by magic.</p><p><strong>Describe your transformation.</strong></p>",
-  "canBeActive": false,
-  "isActive": true,
-  "source": "162ae4db-7a67-4770-8a2c-7e9883da14f6",
-  "mp": 4,
-  "xp": 20,
-  "manaCost": null,
   "artUrl": "https://cdn.midjourney.com/815561e8-a658-46f3-a640-da197c5bd3a2/0_0.png",
-  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
+  "description": "<p>In a fit of shakes and spasms, you take on a monstrous semi-humanoid shape unique to you and your magic. When you cast this spell, you gain 20 temporary Endurance. Describe your new form and choose one of the following benefits:</p><ul><li><p>You gain huge, molting feathers and the ability to fly.</p></li><li><p>You gain squamous skin, the ability to breathe underwater, and your speed is doubled when swimming.</p></li><li><p>You gain a shaggy fur hide and your Defense becomes 13 + HEART.</p></li></ul><p>Additionally, your Strength and Dexterity rolls are favored. As a half action, you can make a melee attack against an adjacent creature. On a hit, you deal 2d10 damage.</p><p>These effects last for 1 minute. You may end the Wyrding early by spending an action. If the spell doesn't end early, at the end of the minute, you become trapped in your Wyrding form and lose the ability to speak, read, write, understand language, or cast spells that require speech until this lingering effect is ended by magic.</p><p><strong>Describe your transformation.</strong></p>",
+  "source": "162ae4db-7a67-4770-8a2c-7e9883da14f6",
+  "school": "19af0449-55e0-49ee-93c1-58d4daaaf9a5",
   "isMagical": true,
-  "school": "19af0449-55e0-49ee-93c1-58d4daaaf9a5"
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "mpCost": 4,
+  "xpCost": 20,
+  "manaCost": null
 }

@@ -1,14 +1,12 @@
 {
   "id": "1325605b-d523-4ec2-b2a7-57a04dc55d91",
-  "name": "Stoop For A Stone",
-  "description": "<p><em>You have an innate ability to hit your mark with a throw.</em></p><p>When you roll to throw an improvised projectile, the roll is favored. On a hit, it deals 1d8+BODY damage.</p><p><strong>Describe your technique.</strong></p>",
-  "canBeActive": false,
-  "isActive": true,
-  "source": "77e4f81a-728f-49a7-a013-4d6f666353e2",
   "isDeleted": false,
-  "mp": null,
-  "xp": null,
-  "artUrl": "https://cdn.midjourney.com/791ae1cb-4bcd-4ad2-9cfc-efe161b07b05/0_2.png",
   "lastModified": "2026-04-24T17:24:51.509Z",
-  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
+  "name": "Stoop For A Stone",
+  "artUrl": "https://cdn.midjourney.com/791ae1cb-4bcd-4ad2-9cfc-efe161b07b05/0_2.png",
+  "description": "<p><em>You have an innate ability to hit your mark with a throw.</em></p><p>When you roll to throw an improvised projectile, the roll is favored. On a hit, it deals 1d8+BODY damage.</p><p><strong>Describe your technique.</strong></p>",
+  "source": "77e4f81a-728f-49a7-a013-4d6f666353e2",
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": null
 }

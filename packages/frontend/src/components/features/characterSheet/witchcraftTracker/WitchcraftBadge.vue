@@ -13,8 +13,8 @@
 
         <!-- Top-right controls: edit, delete -->
         <div class="badge__controls">
-            <FloatingActionButton :variant="FAB_TYPES.EDIT" :size="FAB_SIZES.SMALL" :visibility="FAB_VISIBILITIES.ON_HOVER"
-                @click.stop="$emit('edit', item)" />
+            <FloatingActionButton :variant="FAB_TYPES.EDIT" :size="FAB_SIZES.SMALL"
+                :visibility="FAB_VISIBILITIES.ON_HOVER" @click.stop="$emit('edit', item)" />
             <FloatingActionButton :variant="FAB_TYPES.DELETE" :size="FAB_SIZES.SMALL"
                 :visibility="FAB_VISIBILITIES.ON_HOVER" @click.stop="handleRemove" />
         </div>
@@ -36,8 +36,8 @@
         </div>
 
         <!-- MP cost chip (talisman with spell only) -->
-        <div v-if="type === 'talisman' && spellAbilities[0]?.ability?.mp" class="badge__mp-chip">
-            {{ spellAbilities[0].ability.mp }} MP
+        <div v-if="type === 'talisman' && spellAbilities[0]?.ability?.mpCost" class="badge__mp-chip">
+            {{ spellAbilities[0].ability.mpCost }} MP
         </div>
 
         <!-- Spell footer: full-width, flush with bottom -->

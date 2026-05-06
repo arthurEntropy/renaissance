@@ -1,13 +1,11 @@
 {
   "id": "2f5eb357-d8dc-48c4-ade1-900496c7fd9c",
+  "isDeleted": false,
+  "lastModified": "2026-02-12T21:37:52.062Z",
   "name": "Cult of Baldur",
   "description": "<p>Once per quest, you may call upon the spirit of Baldur for guidance. You may ask him one question and the GM will provide an answer.</p><p>Baldur is not omnipotent, nor does he have any special knowledge of recent events. He will provide generally sound advice based on the information you give him, though he has a bias toward action and the pursuit of your personal goals (and/or his own goals, if that is part of your campaign world).</p><p><strong>Describe how you commune with the spirit of Baldur.</strong></p>",
-  "canBeActive": false,
-  "isActive": true,
   "source": "34ea8807-b404-435c-a860-704b4a40df8f",
-  "isDeleted": false,
-  "mp": null,
-  "xp": null,
-  "lastModified": "2026-02-12T21:37:52.062Z",
-  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": null
 }

@@ -1,15 +1,11 @@
 {
-  "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
   "id": "20b15810-3312-4e21-ab98-e236838fecbf",
   "createdAt": "2026-04-23T13:47:15.133Z",
   "lastModified": "2026-04-23T15:12:09.207Z",
   "name": "Frost",
+  "artUrl": "https://cdn.midjourney.com/ccd66316-0eaf-46f4-9e62-889af61111b8/0_1.png",
   "description": "<p>Uncheck a Condition. If you did, roll Spirit vs Strength against a creature within medium range. On a win, the creature takes 1d8 damage and its speed is reduced by 10 ft for 1 round. On a loss, half damage and no speed reduction.</p><p>If the Condition you unchecked was Insecure or Afraid, +1d damage.</p><p><strong>Describe the frost.</strong></p>",
   "successes": "<p>✨: +1d damage.</p><p>✨: The creature's speed is reduced by an additional 10 ft.</p><p>🌞: The creature's speed is reduced to 0.</p>",
-  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
-  "xp": 10,
-  "isMagical": true,
-  "manaCost": "UB",
   "improvements": [
     {
       "name": "Blizzard",
@@ -18,5 +14,9 @@
       "id": "883677b6-0216-40ab-a28d-cc6c6b47de13"
     }
   ],
-  "artUrl": "https://cdn.midjourney.com/ccd66316-0eaf-46f4-9e62-889af61111b8/0_1.png"
+  "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
+  "isMagical": true,
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "xpCost": 10,
+  "manaCost": "UB"
 }

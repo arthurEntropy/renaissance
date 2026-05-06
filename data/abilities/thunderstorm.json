@@ -1,15 +1,11 @@
 {
-  "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
   "id": "16e61f97-308c-4fc3-9b3b-50fe04f3174a",
   "createdAt": "2026-04-16T20:08:00.387Z",
   "lastModified": "2026-04-23T13:53:14.600Z",
   "name": "Thunderstorm",
-  "description": "<p><em>Concentration, up to 10 minutes.</em></p><p>A storm cloud appears, centered on a point within far range directly above you. The storm has a radius of medium range (if there is not enough space for it, the spell ends). Uncheck any number of Conditions. For each Condition you unchecked (twice for Troubled, Insecure and Angry), the storm gains 1 counter. Roll Spirit to set the Difficulty.</p><p>When you cast this spell and again whenever you spend an action to do so, remove a counter from the storm, choose a point below the storm, and choose one:</p><ul><li><p>A gust of wind whips downward. Each creature within short range of the point you chose must roll Strength against the Difficulty. On each failure, the creature's speed is reduced to 0 for 1 round. On each pass, the creature's speed is halved for 1 round.</p></li><li><p>A deluge of rain falls. Each creature within short range of the point you chose must roll Fortitude against the Difficulty. On each failure, all of the creature's skill checks are ill-favored for one round. On each pass, the creature checks a Condition.</p></li><li><p>A bolt of lightning flashes down from the cloud. Each creature adjacent to the point you chose must roll Dexterity against the Difficulty. On each failure, the creature takes 3d10 damage. On each pass, half damage.</p></li></ul><p>If you are outdoors in stormy conditions when you cast this spell, add 1d4 counters to the storm.</p><p><strong>Describe the storm.</strong></p>",
   "artUrl": "https://cdn.midjourney.com/53eff6d6-f677-4b94-8bd4-4761e6800ced/0_1.png",
-  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
-  "manaCost": "1WUR",
-  "isMagical": true,
-  "xp": 20,
+  "description": "<p><em>Concentration, up to 10 minutes.</em></p><p>A storm cloud appears, centered on a point within far range directly above you. The storm has a radius of medium range (if there is not enough space for it, the spell ends). Uncheck any number of Conditions. For each Condition you unchecked (twice for Troubled, Insecure and Angry), the storm gains 1 counter. Roll Spirit to set the Difficulty.</p><p>When you cast this spell and again whenever you spend an action to do so, remove a counter from the storm, choose a point below the storm, and choose one:</p><ul><li><p>A gust of wind whips downward. Each creature within short range of the point you chose must roll Strength against the Difficulty. On each failure, the creature's speed is reduced to 0 for 1 round. On each pass, the creature's speed is halved for 1 round.</p></li><li><p>A deluge of rain falls. Each creature within short range of the point you chose must roll Fortitude against the Difficulty. On each failure, all of the creature's skill checks are ill-favored for one round. On each pass, the creature checks a Condition.</p></li><li><p>A bolt of lightning flashes down from the cloud. Each creature adjacent to the point you chose must roll Dexterity against the Difficulty. On each failure, the creature takes 3d10 damage. On each pass, half damage.</p></li></ul><p>If you are outdoors in stormy conditions when you cast this spell, add 1d4 counters to the storm.</p><p><strong>Describe the storm.</strong></p>",
+  "successes": "<p>✨: Add one counter to the storm.</p><p>🌞: Each time you remove a counter from the storm, choose one additional effect.</p>",
   "improvements": [
     {
       "name": "Hurricane",
@@ -18,5 +14,9 @@
       "id": "8e633170-ae85-4bbb-810a-e17cf9d7de2d"
     }
   ],
-  "successes": "<p>✨: Add one counter to the storm.</p><p>🌞: Each time you remove a counter from the storm, choose one additional effect.</p>"
+  "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
+  "isMagical": true,
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "xpCost": 20,
+  "manaCost": "1WUR"
 }

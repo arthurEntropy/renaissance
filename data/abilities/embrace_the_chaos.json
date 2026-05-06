@@ -1,13 +1,10 @@
 {
   "id": "f1d0e5f7-bb30-4251-a575-8d31c113fe1a",
-  "name": "Embrace The Chaos",
-  "description": "<p>Whenever a creature within short range takes damage, you gain 1 MP.</p><p>Your MP may be spent on your abilities as normal but you may also convert MP, one for one, into +1d bonuses to your skill checks, at any time.</p><p>At the end of each of your turns, your MP is reduced to 0 —unless you hit with an attack and deal damage. If you did, convert all remaining MP, one for one, to +1d skill check bonuses and distribute them among any number of other creatures within short range. Recipients must use these bonuses on their next turn or lose them.</p><p><strong>Describe how you turn the chaos of battle to your advantage.</strong></p>",
-  "canBeActive": false,
-  "isActive": true,
-  "source": "e0a69b6f-38f9-4fa5-a1ef-5e5777299e82",
   "isDeleted": false,
-  "mp": null,
-  "xp": null,
+  "lastModified": "2026-03-16T18:57:36.896Z",
+  "name": "Embrace The Chaos",
+  "artUrl": "https://cdn.midjourney.com/197512d3-8d16-4826-8cc9-5f9c4b663ecf/0_1.png",
+  "description": "<p>Whenever a creature within short range takes damage, you gain 1 MP.</p><p>Your MP may be spent on your abilities as normal but you may also convert MP, one for one, into +1d bonuses to your skill checks, at any time.</p><p>At the end of each of your turns, your MP is reduced to 0 —unless you hit with an attack and deal damage. If you did, convert all remaining MP, one for one, to +1d skill check bonuses and distribute them among any number of other creatures within short range. Recipients must use these bonuses on their next turn or lose them.</p><p><strong>Describe how you turn the chaos of battle to your advantage.</strong></p>",
   "improvements": [
     {
       "name": "Bloodlust",
@@ -34,7 +31,8 @@
       "id": "2af4709b-cbc0-4a23-9ebb-771694be7556"
     }
   ],
-  "lastModified": "2026-03-16T18:57:36.896Z",
-  "artUrl": "https://cdn.midjourney.com/197512d3-8d16-4826-8cc9-5f9c4b663ecf/0_1.png",
-  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
+  "source": "e0a69b6f-38f9-4fa5-a1ef-5e5777299e82",
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": null
 }

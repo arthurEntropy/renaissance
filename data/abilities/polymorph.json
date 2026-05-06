@@ -4,17 +4,9 @@
   "createdAt": "2025-12-31T04:59:56.389Z",
   "lastModified": "2026-04-14T14:08:53.175Z",
   "name": "Polymorph",
-  "description": "<p><em>Concentration, up to 1 hour.</em></p><p>Roll Lore vs Spirit against a creature within medium range (it may choose to forfeit). On a win, you transform it into a non-humanoid creature you have seen with a Challenge score lower than its own (if it has no Challenge score, use the sum of its BODY, HEART, and WITS).</p><p>While transformed, the creature’s stats and abilities are replaced by the new form, including mental faculties, but it retains its memories and personality. It cannot speak unless the form allows it, and all worn or carried equipment melds into the new form. If it loses consciousness or the spell ends, it immediately reverts.</p><p><strong>Describe the transformation.</strong></p>",
-  "canBeActive": false,
-  "isActive": true,
-  "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
-  "mp": 4,
-  "xp": 20,
-  "successes": "<p>✨: You may sustain the spell for up to an additional hour.</p><p>🌞: The spell lasts for up to one day and does not require concentration.</p><p>💀: The instincts of the chosen form overwhelm the target’s personality. It becomes hostile to you and your allies for 1d4 minutes. If it was already hostile, it immediately takes an extra turn. Check a Condition.</p>",
   "artUrl": "https://cdn.midjourney.com/a4f5f417-8a34-4ad7-a067-14591dc5fb76/0_2.jpeg",
-  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
-  "isMagical": true,
-  "school": "c4a153b2-8906-4b95-be65-d8e5a5cc73ff",
+  "description": "<p><em>Concentration, up to 1 hour.</em></p><p>Roll Lore vs Spirit against a creature within medium range (it may choose to forfeit). On a win, you transform it into a non-humanoid creature you have seen with a Challenge score lower than its own (if it has no Challenge score, use the sum of its BODY, HEART, and WITS).</p><p>While transformed, the creature’s stats and abilities are replaced by the new form, including mental faculties, but it retains its memories and personality. It cannot speak unless the form allows it, and all worn or carried equipment melds into the new form. If it loses consciousness or the spell ends, it immediately reverts.</p><p><strong>Describe the transformation.</strong></p>",
+  "successes": "<p>✨: You may sustain the spell for up to an additional hour.</p><p>🌞: The spell lasts for up to one day and does not require concentration.</p><p>💀: The instincts of the chosen form overwhelm the target’s personality. It becomes hostile to you and your allies for 1d4 minutes. If it was already hostile, it immediately takes an extra turn. Check a Condition.</p>",
   "improvements": [
     {
       "name": "True Polymorph",
@@ -22,5 +14,11 @@
       "xp": 20,
       "id": "8ca3a182-7129-4271-80b4-b8f352f10291"
     }
-  ]
+  ],
+  "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
+  "school": "c4a153b2-8906-4b95-be65-d8e5a5cc73ff",
+  "isMagical": true,
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "mpCost": 4,
+  "xpCost": 20
 }

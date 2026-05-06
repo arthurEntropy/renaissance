@@ -1,10 +1,10 @@
 {
-  "source": "eed942f5-8cc4-446a-8806-b83186098274",
   "id": "9232bc14-8e33-4735-9ac0-28c9e4179943",
   "createdAt": "2026-02-26T19:21:01.992Z",
   "lastModified": "2026-02-26T19:43:10.652Z",
-  "description": "<p>When you are in direct sunlight, your Strength rolls are Ill-Favored.</p>",
-  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d",
+  "name": "Sun Sickness",
   "artUrl": "https://cdn.midjourney.com/c91cb890-424e-4e49-a6c7-d451761d1288/0_0.png",
-  "name": "Sun Sickness"
+  "description": "<p>When you are in direct sunlight, your Strength rolls are Ill-Favored.</p>",
+  "source": "eed942f5-8cc4-446a-8806-b83186098274",
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1"
 }

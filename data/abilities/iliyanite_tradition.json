@@ -1,14 +1,12 @@
 {
   "id": "a26dd645-a2bf-4836-b5fc-d46b80f73402",
-  "name": "Iliyanite Tradition",
-  "description": "<p>You cannot speak. You have access to the Metalshaping section of the Earthshaping Mestiere.</p>",
-  "canBeActive": false,
-  "isActive": true,
-  "source": "68fadf5d-6661-4611-bb38-deaf05f01d45",
   "isDeleted": false,
-  "mp": null,
-  "xp": null,
   "lastModified": "2026-04-24T18:38:40.696Z",
-  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d",
-  "artUrl": "https://cdn.midjourney.com/3ecee440-59f1-474a-990b-3eb660f8626d/0_0.png"
+  "name": "Iliyanite Tradition",
+  "artUrl": "https://cdn.midjourney.com/3ecee440-59f1-474a-990b-3eb660f8626d/0_0.png",
+  "description": "<p>You cannot speak. You have access to the Metalshaping section of the Earthshaping Mestiere.</p>",
+  "source": "68fadf5d-6661-4611-bb38-deaf05f01d45",
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": null
 }

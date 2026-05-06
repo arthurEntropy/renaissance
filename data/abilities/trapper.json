@@ -4,13 +4,8 @@
   "createdAt": "2026-02-03T17:41:38.381Z",
   "lastModified": "2026-04-21T13:23:03.661Z",
   "name": "Trapper",
+  "artUrl": "https://cdn.midjourney.com/cbd5ecf2-01db-4418-9d64-505c58264a0d/0_2.png",
   "description": "<p>You are skilled in crafting, setting and concealing a variety of traps. You have 3 traps, which you can set using the <em>Set Trap</em> ability, which also sets the trap's Difficulty. Each trap can inflict the following effects on a trapped creature:</p><ul><li><p><strong>Pierce: </strong>The trap deals 3d4 damage to the trapped creature.</p></li><li><p><strong>Clamp: </strong>The trapped creature's speed is halved. It may spend an action on its turn to roll Strength against the trap's Difficulty to end this effect.</p></li><li><p><strong>Trip: </strong>The trapped creature is knocked prone.</p></li><li><p><strong>Foil: </strong>The trapped creature checks a Condition.</p></li></ul><p><strong>Describe how you make and use your traps.</strong></p>",
-  "canBeActive": false,
-  "isActive": true,
-  "source": "10f46ecd-e6f5-4d3b-b510-d4035ab24f56",
-  "mp": null,
-  "xp": null,
-  "manaCost": null,
   "successes": "",
   "improvements": [
     {
@@ -32,6 +27,9 @@
       "id": "df4cfb23-804d-40a2-8640-67d3f78a6134"
     }
   ],
-  "artUrl": "https://cdn.midjourney.com/cbd5ecf2-01db-4418-9d64-505c58264a0d/0_2.png",
-  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
+  "source": "10f46ecd-e6f5-4d3b-b510-d4035ab24f56",
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": null,
+  "manaCost": null
 }

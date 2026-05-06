@@ -1,15 +1,13 @@
 {
   "id": "f52ae657-c211-46bc-9dc7-7d1444f55711",
-  "name": "Formidable",
-  "description": "<p><em>Trigger: You knock a creature unconscious.</em></p><p>Roll Awe vs Spirit against any number of creatures within short range. On each win, that creature checks two Conditions. On each loss, the creature checks one Condition.</p>",
-  "canBeActive": false,
-  "isActive": true,
-  "source": "1e4131c7-8a6f-422c-998a-5147600c946e",
   "isDeleted": false,
-  "mp": null,
-  "xp": 10,
   "lastModified": "2026-03-17T00:44:07.995Z",
-  "successes": "<p>✨: Win or lose, each creature takes -1d to attack rolls against you for 1 round.</p><p>🌞: Win or lose, each creature may not move closer to you for 1 round.</p>",
+  "name": "Formidable",
   "artUrl": "https://cdn.midjourney.com/86161bbc-5177-4631-9c1b-cf6b40aa4fc0/0_3.png",
-  "type": "e5f6a1b2-c3d4-4e5f-da2b-1c0d9e8f7a6b"
+  "description": "<p><em>Trigger: You knock a creature unconscious.</em></p><p>Roll Awe vs Spirit against any number of creatures within short range. On each win, that creature checks two Conditions. On each loss, the creature checks one Condition.</p>",
+  "successes": "<p>✨: Win or lose, each creature takes -1d to attack rolls against you for 1 round.</p><p>🌞: Win or lose, each creature may not move closer to you for 1 round.</p>",
+  "source": "1e4131c7-8a6f-422c-998a-5147600c946e",
+  "actionCost": "c4df395c-8284-4c4f-bf01-e293ed51c58c",
+  "mpCost": null,
+  "xpCost": 10
 }

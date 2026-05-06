@@ -4,13 +4,11 @@
   "createdAt": "2026-02-03T17:41:38.479Z",
   "lastModified": "2026-03-16T20:40:09.680Z",
   "name": "Guide",
-  "description": "<p>While traveling in natural areas, once per day, choose two effects, which are available to you for that day:</p><ul><li><p><strong>Navigator: </strong>You always know which direction is North.</p></li><li><p><strong>Skulk: </strong>You and your companions' Stealth checks get +2d.</p></li><li><p><strong>Scout: </strong>You and your companions cannot be ambushed.</p></li><li><p><strong>Expert: </strong>Once per rest, when a companion would fail a skill check, you may choose to have them re-roll before resolving the check.</p></li><li><p><strong>Tracker: </strong>You automatically notice any tracks left by creatures who have passed through the area within the past 3 days. You learn the approximate size and number of the creatures.</p></li><li><p><strong>Forager</strong>: You can increase the Keeping of the Quest by 1 for one rest per day.</p></li></ul><p><strong>Describe how you act as a guide.</strong></p>",
-  "canBeActive": false,
-  "isActive": true,
-  "source": "10f46ecd-e6f5-4d3b-b510-d4035ab24f56",
-  "mp": null,
-  "xp": null,
-  "manaCost": null,
   "artUrl": "https://cdn.midjourney.com/4e298128-da1c-4483-8ef3-6775baa0eeaa/0_2.png",
-  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
+  "description": "<p>While traveling in natural areas, once per day, choose two effects, which are available to you for that day:</p><ul><li><p><strong>Navigator: </strong>You always know which direction is North.</p></li><li><p><strong>Skulk: </strong>You and your companions' Stealth checks get +2d.</p></li><li><p><strong>Scout: </strong>You and your companions cannot be ambushed.</p></li><li><p><strong>Expert: </strong>Once per rest, when a companion would fail a skill check, you may choose to have them re-roll before resolving the check.</p></li><li><p><strong>Tracker: </strong>You automatically notice any tracks left by creatures who have passed through the area within the past 3 days. You learn the approximate size and number of the creatures.</p></li><li><p><strong>Forager</strong>: You can increase the Keeping of the Quest by 1 for one rest per day.</p></li></ul><p><strong>Describe how you act as a guide.</strong></p>",
+  "source": "10f46ecd-e6f5-4d3b-b510-d4035ab24f56",
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": null,
+  "manaCost": null
 }

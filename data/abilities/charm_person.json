@@ -1,16 +1,11 @@
 {
-  "source": "dab3e414-0118-49be-9779-4e3018cdba71",
   "id": "aef34ad0-19d9-4509-9cda-7e957955f580",
   "createdAt": "2026-04-04T21:44:30.036Z",
   "lastModified": "2026-04-10T13:31:43.466Z",
-  "description": "<p>Roll Persuade vs Riddle against a humanoid creature within short range. If you or your allies are engaged in combat with it, the creature's roll is favored.</p><p>On a win, the creature is charmed by you for the next hour. The charmed creature regards you as a friendly acquaintance. If you or your allies do anything harmful to the creature, the spell ends. When the spell ends, the creature knows it was charmed by you.</p><p><strong>Describe how you charm them.</strong></p>",
   "name": "Charm Person",
+  "artUrl": "https://cdn.midjourney.com/1992fe58-8a57-456e-93ad-fefc68cba252/0_0.png",
+  "description": "<p>Roll Persuade vs Riddle against a humanoid creature within short range. If you or your allies are engaged in combat with it, the creature's roll is favored.</p><p>On a win, the creature is charmed by you for the next hour. The charmed creature regards you as a friendly acquaintance. If you or your allies do anything harmful to the creature, the spell ends. When the spell ends, the creature knows it was charmed by you.</p><p><strong>Describe how you charm them.</strong></p>",
   "successes": "<p>✨: On a win, the effect lasts for 1 additional hour.</p><p>🌞: On a win, the effect instead lasts for 1 day.</p>",
-  "mp": 1,
-  "xp": 5,
-  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
-  "isMagical": true,
-  "school": "9d93af3f-008e-429d-b7c4-7838a39d3b1b",
   "improvements": [
     {
       "name": "Dominate Person",
@@ -19,5 +14,10 @@
       "id": "a7d62745-aaa0-40cf-9d66-8691bed5dbef"
     }
   ],
-  "artUrl": "https://cdn.midjourney.com/1992fe58-8a57-456e-93ad-fefc68cba252/0_0.png"
+  "source": "dab3e414-0118-49be-9779-4e3018cdba71",
+  "school": "9d93af3f-008e-429d-b7c4-7838a39d3b1b",
+  "isMagical": true,
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "mpCost": 1,
+  "xpCost": 5
 }

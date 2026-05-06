@@ -1,13 +1,11 @@
 {
   "id": "fc251bc8-4a9a-43c1-9ad1-2ed1c7a6fef7",
+  "isDeleted": false,
+  "lastModified": "2026-02-12T21:37:52.079Z",
   "name": "Stonework",
   "description": "<p>Your Craft rolls are favored when working with stone.</p><p><strong>Describe how your experience lets you shape stone adeptly.</strong></p>",
-  "canBeActive": false,
-  "isActive": true,
   "source": "a3a54cb6-09c4-42e3-b142-3053b7c1d4e8",
-  "isDeleted": false,
-  "mp": null,
-  "xp": null,
-  "lastModified": "2026-02-12T21:37:52.079Z",
-  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": null
 }

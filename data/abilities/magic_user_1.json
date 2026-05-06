@@ -1,9 +1,9 @@
 {
-  "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
   "id": "e0c991ba-8f4b-46f0-aaa9-824f0c509585",
+  "isDeleted": true,
   "createdAt": "2026-04-10T20:30:56.707Z",
   "lastModified": "2026-04-10T20:32:29.709Z",
   "name": "Magic User",
   "description": "<p>You approach magic as an external force that you bend to your will using tools and techniques that are still being developed - by yourself and other Arcanists.</p><p></p>",
-  "isDeleted": true
+  "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa"
 }

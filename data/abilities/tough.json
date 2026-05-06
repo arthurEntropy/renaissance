@@ -1,14 +1,10 @@
 {
   "id": "2f40fa98-f90a-4eb8-b626-999b000fa4b2",
-  "name": "Tough",
-  "description": "<p>Your maximum Endurance is instead 6 times your BODY score.</p><p>At any time during combat, as a free action, you may spend 2 Endurance to gain 1 MP.</p><p><strong>Describe how you throw yourself into battle.</strong></p>",
-  "canBeActive": false,
-  "isActive": true,
-  "source": "1e4131c7-8a6f-422c-998a-5147600c946e",
   "isDeleted": false,
-  "mp": null,
-  "xp": null,
   "lastModified": "2026-03-17T00:30:47.933Z",
+  "name": "Tough",
+  "artUrl": "https://cdn.midjourney.com/126d9d4d-00de-4181-b446-b48192667554/0_1.png",
+  "description": "<p>Your maximum Endurance is instead 6 times your BODY score.</p><p>At any time during combat, as a free action, you may spend 2 Endurance to gain 1 MP.</p><p><strong>Describe how you throw yourself into battle.</strong></p>",
   "improvements": [
     {
       "name": "Measured Step",
@@ -23,6 +19,8 @@
       "id": "6423364a-eaaf-468b-8717-b00df6dfb0ec"
     }
   ],
-  "artUrl": "https://cdn.midjourney.com/126d9d4d-00de-4181-b446-b48192667554/0_1.png",
-  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
+  "source": "1e4131c7-8a6f-422c-998a-5147600c946e",
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": null
 }

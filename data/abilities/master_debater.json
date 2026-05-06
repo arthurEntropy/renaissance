@@ -1,13 +1,11 @@
 {
   "id": "6eac94e4-05b4-4254-a811-2274ae0c5f7c",
+  "isDeleted": false,
+  "lastModified": "2026-02-12T21:37:52.072Z",
   "name": "Master Debater",
   "description": "<p>Your Persuade skill is favored. Once per quest, you may invoke this ability to achieve an automatic success on Persuade without rolling. Describe how you win your way with words.</p>",
-  "canBeActive": false,
-  "isActive": true,
   "source": "7016610e-ddf9-415b-8711-3b1c5fff241c",
-  "isDeleted": false,
-  "mp": null,
-  "xp": null,
-  "lastModified": "2026-02-12T21:37:52.072Z",
-  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": null
 }

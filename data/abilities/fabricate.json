@@ -4,15 +4,13 @@
   "createdAt": "2025-12-31T00:29:35.367Z",
   "lastModified": "2026-03-19T00:57:41.036Z",
   "name": "Fabricate",
-  "description": "<p><em>Casting time: 10 minutes.</em></p><p>You convert raw materials into one or more objects of the same material. For example, you can turn a group of trees into a wooden bridge or a patch of hemp into a coil of rope.</p><p>Roll Lore. The result, doubled, is the number of feet you can divide between the total height, width and length of the final result. If the raw material is metal or stone, do not double the roll result.</p><p>The result is functional, but cannot include finer details that would typically require skilled handicraft to produce.</p><p><strong>Describe the transformation and the result.</strong></p><p></p>",
-  "canBeActive": false,
-  "isActive": true,
-  "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
-  "mp": 4,
-  "xp": 20,
-  "successes": "<p>✨: The casting time is halved.</p><p>✨: You may double the roll result even if you use metal or stone.</p><p>🌞: You work with exceptional skill, adding fine details and ensuring exceptional quality. The results are indistinguishable from the work of a skilled craftsperson.</p><p>💀: The fabrication is botched. The raw materials are expended and the resulting object is useless. Check a Condition.</p>",
   "artUrl": "https://cdn.midjourney.com/d53d88d2-f10f-4f4a-8871-3f8807eb28d3/0_2.png",
-  "type": "f6a1b2c3-d4e5-4f6a-eb3c-2d1e0f9a8b7c",
+  "description": "<p><em>Casting time: 10 minutes.</em></p><p>You convert raw materials into one or more objects of the same material. For example, you can turn a group of trees into a wooden bridge or a patch of hemp into a coil of rope.</p><p>Roll Lore. The result, doubled, is the number of feet you can divide between the total height, width and length of the final result. If the raw material is metal or stone, do not double the roll result.</p><p>The result is functional, but cannot include finer details that would typically require skilled handicraft to produce.</p><p><strong>Describe the transformation and the result.</strong></p><p></p>",
+  "successes": "<p>✨: The casting time is halved.</p><p>✨: You may double the roll result even if you use metal or stone.</p><p>🌞: You work with exceptional skill, adding fine details and ensuring exceptional quality. The results are indistinguishable from the work of a skilled craftsperson.</p><p>💀: The fabrication is botched. The raw materials are expended and the resulting object is useless. Check a Condition.</p>",
+  "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
+  "school": "c4a153b2-8906-4b95-be65-d8e5a5cc73ff",
   "isMagical": true,
-  "school": "c4a153b2-8906-4b95-be65-d8e5a5cc73ff"
+  "actionCost": "c7ea4889-0dc9-40cb-a437-70329cac43ab",
+  "mpCost": 4,
+  "xpCost": 20
 }

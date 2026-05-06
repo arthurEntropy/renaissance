@@ -4,14 +4,12 @@
   "createdAt": "2026-01-02T22:29:35.895Z",
   "lastModified": "2026-04-16T15:23:49.593Z",
   "name": "Wind Ward",
-  "description": "<p><em>Concentration, up to 1 minute.</em></p><p>Uncheck a Condition. If you did, you create swirling winds out to short range that move with you. Distribute five temporary +1 Defense bonuses among creatures in the area as you choose. If the condition you unchecked was Troubled, double the number of bonuses.</p><p>When a creature with one or more bonuses takes damage from an attack, it loses all its bonuses unless you check a Condition. A creature also loses its bonuses if it leaves the area.</p><p>On your turn, you may spend a half action to redistribute any remaining bonuses among creatures within the winds.</p><p><strong>Describe the winds.</strong></p>",
-  "canBeActive": false,
-  "isActive": true,
-  "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
-  "mp": null,
-  "xp": 15,
-  "manaCost": "1WW",
   "artUrl": "https://cdn.midjourney.com/90de7c8e-989a-4f9b-b40d-f27a0b1a84be/0_1.png",
-  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
-  "isMagical": true
+  "description": "<p><em>Concentration, up to 1 minute.</em></p><p>Uncheck a Condition. If you did, you create swirling winds out to short range that move with you. Distribute five temporary +1 Defense bonuses among creatures in the area as you choose. If the condition you unchecked was Troubled, double the number of bonuses.</p><p>When a creature with one or more bonuses takes damage from an attack, it loses all its bonuses unless you check a Condition. A creature also loses its bonuses if it leaves the area.</p><p>On your turn, you may spend a half action to redistribute any remaining bonuses among creatures within the winds.</p><p><strong>Describe the winds.</strong></p>",
+  "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
+  "isMagical": true,
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "mpCost": null,
+  "xpCost": 15,
+  "manaCost": "1WW"
 }

@@ -1,10 +1,10 @@
 {
-  "source": "6ff91bc4-122f-4e95-bb08-b577f1a94bb6",
   "id": "c5ccc124-c1c0-4a4a-a01f-42243b86759a",
   "createdAt": "2026-02-26T15:09:59.401Z",
   "lastModified": "2026-04-24T17:11:55.730Z",
   "name": "Goblin Vigor",
+  "artUrl": "https://cdn.midjourney.com/948976e1-22c6-4725-afb5-3c63a2894c17/0_3.png",
   "description": "<p><em>You have an uncanny ability to recover from harm.</em></p><p>Any time you rest, remove all Injury.</p><p><strong>Describe how your wounds heal quickly.</strong></p>",
-  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d",
-  "artUrl": "https://cdn.midjourney.com/948976e1-22c6-4725-afb5-3c63a2894c17/0_3.png"
+  "source": "6ff91bc4-122f-4e95-bb08-b577f1a94bb6",
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1"
 }

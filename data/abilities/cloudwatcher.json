@@ -1,13 +1,11 @@
 {
   "id": "6dc33bff-c958-4bcd-855b-2726d477f0fe",
+  "isDeleted": false,
+  "lastModified": "2026-02-12T21:37:52.061Z",
   "name": "Cloudwatcher",
   "description": "<p>Once per day, you may accurately predict the weather for the next day (per DM). Describe how you read the signs.</p>",
-  "canBeActive": false,
-  "isActive": true,
   "source": "ccd8ce71-021b-425f-9720-fd0ee87e0140",
-  "isDeleted": false,
-  "mp": null,
-  "xp": null,
-  "lastModified": "2026-02-12T21:37:52.061Z",
-  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": null
 }

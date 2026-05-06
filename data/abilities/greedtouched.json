@@ -1,13 +1,11 @@
 {
   "id": "86740700-3b8b-4078-a779-ef088b88ff5b",
+  "isDeleted": false,
+  "lastModified": "2026-02-12T21:37:52.068Z",
   "name": "Greedtouched",
   "description": "<p>Whenever you roll a natural 12, you are visited by an emissary of Greed, who offers a relevant boon, for a price, determined by the DM. If you refuse the offer, take -1 Bond with Monte dei Paschi.</p>",
-  "canBeActive": false,
-  "isActive": true,
   "source": "01869d39-1961-4c8d-941d-744ce1d51bbd",
-  "isDeleted": false,
-  "mp": null,
-  "xp": null,
-  "lastModified": "2026-02-12T21:37:52.068Z",
-  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": null
 }

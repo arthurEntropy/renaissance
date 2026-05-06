@@ -1,14 +1,12 @@
 {
   "id": "6bd8eec2-3aa3-4e00-b73c-c716b938550b",
-  "name": "Intercept",
-  "description": "<p><em>Trigger: A creature would make an attack roll against an ally.</em></p><p>If the attacking creature is within half your Speed, you may move to a space adjacent to them. You become the target of their attack.</p><p><strong>Describe how you dash across the battlefield.</strong></p>",
-  "canBeActive": false,
-  "isActive": true,
-  "source": "d4dce5e2-e767-464d-91f0-c40b47f788b3",
   "isDeleted": false,
-  "mp": 3,
-  "xp": 15,
   "lastModified": "2026-03-17T13:15:27.797Z",
+  "name": "Intercept",
   "artUrl": "https://cdn.midjourney.com/4611c2e0-d356-4a68-8530-16b0f5b12e8d/0_1.png",
-  "type": "e5f6a1b2-c3d4-4e5f-da2b-1c0d9e8f7a6b"
+  "description": "<p><em>Trigger: A creature would make an attack roll against an ally.</em></p><p>If the attacking creature is within half your Speed, you may move to a space adjacent to them. You become the target of their attack.</p><p><strong>Describe how you dash across the battlefield.</strong></p>",
+  "source": "d4dce5e2-e767-464d-91f0-c40b47f788b3",
+  "actionCost": "c4df395c-8284-4c4f-bf01-e293ed51c58c",
+  "mpCost": 3,
+  "xpCost": 15
 }

@@ -1,15 +1,13 @@
 {
   "id": "076a961f-8a88-48b8-bdc4-e7b08b69f106",
-  "name": "Slam Dunk",
-  "description": "<p>You slam your orb into your foe rather than throwing it. Roll Awe vs Dexterity against an adjacent creature. On a win, the orb discharges MP and deals damage as normal, then the creature rolls Injury and checks a Condition.</p><p><strong>Describe your dunk.</strong></p>",
-  "canBeActive": false,
-  "isActive": true,
-  "source": "a07490af-2d77-4968-9adc-0a2a7c84ef70",
   "isDeleted": false,
-  "mp": 2,
-  "xp": 10,
   "lastModified": "2026-03-17T01:37:23.070Z",
-  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
+  "name": "Slam Dunk",
   "artUrl": "https://cdn.midjourney.com/4f04d92f-d00d-4baf-b7c4-db91f7cef475/0_1.png",
-  "successes": "<p>✨: +1d damage.</p><p>🌞: Anything glass or ceramic that the creature is wearing, wielding or carrying is shattered.</p>"
+  "description": "<p>You slam your orb into your foe rather than throwing it. Roll Awe vs Dexterity against an adjacent creature. On a win, the orb discharges MP and deals damage as normal, then the creature rolls Injury and checks a Condition.</p><p><strong>Describe your dunk.</strong></p>",
+  "successes": "<p>✨: +1d damage.</p><p>🌞: Anything glass or ceramic that the creature is wearing, wielding or carrying is shattered.</p>",
+  "source": "a07490af-2d77-4968-9adc-0a2a7c84ef70",
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "mpCost": 2,
+  "xpCost": 10
 }

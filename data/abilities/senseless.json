@@ -1,15 +1,15 @@
 {
-  "source": "162ae4db-7a67-4770-8a2c-7e9883da14f6",
   "id": "93f231bb-a1a9-4689-abaa-e0436be98309",
   "createdAt": "2026-03-10T14:08:20.342Z",
   "lastModified": "2026-03-11T23:32:27.259Z",
   "name": "Senseless",
+  "artUrl": "https://cdn.midjourney.com/4bec5d18-0c16-4709-9bfd-6d656b28fbd7/0_0.png",
   "description": "<p>Choose a creature within short range and roll Spirit vs Fortitude.</p><p>On a win, the creature loses one of its five senses (your choice) for the next minute, and your roll result becomes the spell’s Difficulty. At the start of each of its turns, the creature may roll Fortitude against the Difficulty. On a pass, the effect ends.</p><p><strong>Describe how the curse takes hold.</strong></p>",
-  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
-  "mp": 2,
-  "xp": 10,
-  "isMagical": true,
-  "school": "19af0449-55e0-49ee-93c1-58d4daaaf9a5",
   "successes": "<p>✨: Choose one additional sense.</p><p>🌞: The effects last for 1 hour.</p>",
-  "artUrl": "https://cdn.midjourney.com/4bec5d18-0c16-4709-9bfd-6d656b28fbd7/0_0.png"
+  "source": "162ae4db-7a67-4770-8a2c-7e9883da14f6",
+  "school": "19af0449-55e0-49ee-93c1-58d4daaaf9a5",
+  "isMagical": true,
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "mpCost": 2,
+  "xpCost": 10
 }

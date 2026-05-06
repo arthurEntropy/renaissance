@@ -4,15 +4,13 @@
   "createdAt": "2026-01-28T20:24:08.764Z",
   "lastModified": "2026-04-16T15:37:04.062Z",
   "name": "Bad Blood",
-  "description": "<p>Once per rest: Roll Spirit vs Spirit against a creature within medium range. On a win, that creature checks a Condition. On a loss, its next attack roll against you is favored.</p><p>Either way, you check a Condition.</p><p><strong>Describe the bad blood between you.</strong></p>",
-  "canBeActive": false,
-  "isActive": true,
-  "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
-  "mp": null,
-  "xp": 15,
-  "manaCost": "2B",
-  "successes": "<p>✨: On a loss, no effect.</p><p>🌞: Repeat the roll, with the same effects. Check another Condition.</p>",
   "artUrl": "https://cdn.midjourney.com/6dd82fae-6c5c-4e4f-bf66-f91c7b59e348/0_1.png",
-  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
-  "isMagical": true
+  "description": "<p>Once per rest: Roll Spirit vs Spirit against a creature within medium range. On a win, that creature checks a Condition. On a loss, its next attack roll against you is favored.</p><p>Either way, you check a Condition.</p><p><strong>Describe the bad blood between you.</strong></p>",
+  "successes": "<p>✨: On a loss, no effect.</p><p>🌞: Repeat the roll, with the same effects. Check another Condition.</p>",
+  "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
+  "isMagical": true,
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "mpCost": null,
+  "xpCost": 15,
+  "manaCost": "2B"
 }

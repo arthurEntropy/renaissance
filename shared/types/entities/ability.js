@@ -1,31 +1,35 @@
 import { createBaseEntity } from './gameEntity.js'
 
 /**
- * @typedef {import('./Improvement.js').Improvement} Improvement
+ * @typedef {import('./gameEntity.js').GameEntity} GameEntity
+ * @typedef {import('./improvement.js').Improvement} Improvement
+ * @typedef {import('./actionCost.js').ActionCost} ActionCost
  */
 
 /**
- * @typedef {Object} Ability
- * @property {UUID|null} id - UUID identifier
+ * @typedef {Object} AbilityFields
  * @property {string} name - Ability name
- * @property {string|null} [artUrl] - Optional art image URL
- * @property {HTMLString} description - Detailed description
- * @property {HTMLString|null} [successes] - Optional success outcomes HTML (✨/🌞/💀 style)
- * @property {UUID|null} type - Ability type ID reference (trait, action, half action, etc.)
- * @property {boolean} canBeActive - Whether this ability can be toggled active/inactive
- * @property {boolean} isActive - Current active state
- * @property {UUID|null} source - Source concept ID (ancestry, culture, mestiere, world element)
- * @property {boolean} isDeleted - Soft delete flag
- * @property {number|null} mp - Mestiere point cost
- * @property {number|null} xp - Experience point cost
+ * @property {string|null} artUrl - Art image URL
+ * @property {HTMLString} description - Ability description
+ * @property {HTMLString|null} [successes] - Success outcomes (✨/🌞/💀)
+ * @property {Improvement[]} [improvements] - Ability improvements, purchaseable with XP
+ * @property {UUID|null} source - Source concept UUID (ancestry, culture, mestiere, world element)
+ * @property {UUID|null} school - Ability school UUID reference (only for mestiere-sourced abilities)
+ * @property {boolean} isMagical - Whether this ability is magical (referred to as a "spell" in the rules/UI)
+ * 
+ * Costs
+ * @property {UUID|null} actionCost - Action cost type UUID reference (e.g., Action, Reaction, Free Action)
+ * @property {number|null} mpCost - Mestiere point cost
+ * @property {number|null} xpCost - Experience point cost
  * @property {string|null} manaCost - Mana cost string for Channeler spells (e.g., '2WUB')
- * @property {boolean} isMagical - Whether this ability is magical in nature
- * @property {UUID|null} school - Ability school UUID reference (e.g., Transmutation, Way of the Hive)
- * @property {Improvement[]} [improvements] - Optional purchasable improvements
+ * 
+ * Biome interactions
  * @property {string[]} [biomeTagsAugment] - Biome tags that augment this ability
  * @property {string[]} [biomeTagsInhibit] - Biome tags that inhibit this ability
- * @property {ISODateString} createdAt - ISO 8601 datetime string
- * @property {ISODateString} lastModified - ISO 8601 datetime string
+ */
+
+/**
+ * @typedef {GameEntity & AbilityFields} Ability
  */
 
 /**
@@ -33,18 +37,33 @@ import { createBaseEntity } from './gameEntity.js'
  * @returns {Ability}
  */
 export function createDefaultAbility() {
+  const baseEntity = createBaseEntity()
+
   return {
-    ...createBaseEntity(),
+    // Base entity fields
+    id: baseEntity.id,
+    isDeleted: baseEntity.isDeleted,
+    createdAt: baseEntity.createdAt,
+    lastModified: baseEntity.lastModified,
+
+    // Ability-specific fields
     name: 'New Ability',
+    artUrl: null,
     description: '',
-    type: null,
-    canBeActive: false,
-    isActive: true,
+    successes: null,
+    improvements: [],
     source: null,
-    mp: null,
-    xp: null,
-    manaCost: null, // Only for Channeler spells
-    isMagical: false,
     school: null,
+    isMagical: false,
+
+    // Costs
+    actionCost: null,
+    mpCost: null,
+    xpCost: null,
+    manaCost: null,
+
+    // Biome interactions
+    biomeTagsAugment: [],
+    biomeTagsInhibit: [],
   }
 }

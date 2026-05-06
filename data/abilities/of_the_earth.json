@@ -1,14 +1,12 @@
 {
   "id": "96a0444e-b3b0-47c5-a503-6250fcff1b5d",
-  "name": "Of The Earth",
-  "description": "<p><em>You have a strong connection with the earth. You can draw strength from it and tap into its memory.</em></p><p>Whenever you spend a short rest on the ground, you regain double the amount of Endurance you normally would.</p><p>Additionally, once per rest, you may commune with the earth to get a vague sense of what has happened in the immediate area within the last day. This sense is limited to what the earth itself would have experienced: footfalls, impacts, digging, a muffled sense of sound, etc. Once per Quest, you may further exert this ability to get a deeper but similarly vague sense of major events in the immediate area in the past century.</p><p><strong>Describe your connection with the earth.</strong></p>",
-  "canBeActive": false,
-  "isActive": true,
-  "source": "134acec3-0e13-42e1-9d75-7999340d458c",
   "isDeleted": false,
-  "mp": null,
-  "xp": null,
   "lastModified": "2026-04-24T15:09:47.619Z",
-  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d",
-  "artUrl": "https://cdn.midjourney.com/ab5f501d-8eb5-413c-899e-63e04139a6f8/0_2.png"
+  "name": "Of The Earth",
+  "artUrl": "https://cdn.midjourney.com/ab5f501d-8eb5-413c-899e-63e04139a6f8/0_2.png",
+  "description": "<p><em>You have a strong connection with the earth. You can draw strength from it and tap into its memory.</em></p><p>Whenever you spend a short rest on the ground, you regain double the amount of Endurance you normally would.</p><p>Additionally, once per rest, you may commune with the earth to get a vague sense of what has happened in the immediate area within the last day. This sense is limited to what the earth itself would have experienced: footfalls, impacts, digging, a muffled sense of sound, etc. Once per Quest, you may further exert this ability to get a deeper but similarly vague sense of major events in the immediate area in the past century.</p><p><strong>Describe your connection with the earth.</strong></p>",
+  "source": "134acec3-0e13-42e1-9d75-7999340d458c",
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": null
 }

@@ -1,15 +1,13 @@
 {
   "id": "98678361-6b7e-4810-8e95-06b914150808",
-  "name": "Orbcraft",
-  "description": "<p><em>Casting time: 1 hour.</em></p><p>You meditate over a small object, wrapping it in leather, cloth, or another flexible material until it forms a sphere roughly the size of your head. The ritual attunes the orb to you.</p><p>An orb you craft has a Difficulty equal to 10 plus the core object's weight, plus its Keeping.</p><p>The core object may be any small object of personal significance, or any equipment item that can reasonably fit within the wrappings of the orb. While wielding the orb, you may activate any of the object's effects as if you were wielding, carrying or wearing it, and when you attack with the orb you may activate any of the object's effects as if the object were being used to make the attack.</p><p>When you break attunement with the orb, it becomes mundane, but the core object retains its intrinsic properties, if any.</p><p><strong>Describe your orb.</strong></p>",
-  "canBeActive": false,
-  "isActive": true,
-  "source": "a07490af-2d77-4968-9adc-0a2a7c84ef70",
   "isDeleted": false,
-  "mp": null,
-  "xp": null,
   "lastModified": "2026-03-17T01:10:23.809Z",
-  "type": "f6a1b2c3-d4e5-4f6a-eb3c-2d1e0f9a8b7c",
+  "name": "Orbcraft",
   "artUrl": "https://cdn.midjourney.com/3f94476d-07ba-4ec5-9583-262b99647850/0_0.png",
-  "isMagical": true
+  "description": "<p><em>Casting time: 1 hour.</em></p><p>You meditate over a small object, wrapping it in leather, cloth, or another flexible material until it forms a sphere roughly the size of your head. The ritual attunes the orb to you.</p><p>An orb you craft has a Difficulty equal to 10 plus the core object's weight, plus its Keeping.</p><p>The core object may be any small object of personal significance, or any equipment item that can reasonably fit within the wrappings of the orb. While wielding the orb, you may activate any of the object's effects as if you were wielding, carrying or wearing it, and when you attack with the orb you may activate any of the object's effects as if the object were being used to make the attack.</p><p>When you break attunement with the orb, it becomes mundane, but the core object retains its intrinsic properties, if any.</p><p><strong>Describe your orb.</strong></p>",
+  "source": "a07490af-2d77-4968-9adc-0a2a7c84ef70",
+  "isMagical": true,
+  "actionCost": "c7ea4889-0dc9-40cb-a437-70329cac43ab",
+  "mpCost": null,
+  "xpCost": null
 }

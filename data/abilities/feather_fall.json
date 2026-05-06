@@ -4,12 +4,8 @@
   "createdAt": "2025-12-31T02:40:02.823Z",
   "lastModified": "2026-03-31T01:11:35.192Z",
   "name": "Feather Fall",
+  "artUrl": "https://cdn.midjourney.com/0d8d2f7b-2ab0-454a-b853-366ab56aa55c/0_0.png",
   "description": "<p>Choose up to five falling creatures within medium range. Roll Lore against a difficulty of 10 + the number of chosen creatures.</p><p>On a pass, each chosen creature’s descent slows to a controlled pace, allowing them to land safely and on their feet. This effect lasts for one minute.</p><p>On a failure, their fall is only partially slowed. If a creature lands before the spell ends, it takes half the normal falling damage.</p><p><strong>Describe how you slow the fall.</strong></p>",
-  "canBeActive": false,
-  "isActive": true,
-  "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
-  "mp": 1,
-  "xp": 5,
   "successes": "<p>✨: Each chosen creature is able to guide its movement as it falls, moving up to 5 ft horizontally for every 10 ft fallen.</p><p>🌞: Each chosen creature stops falling immediately. While the spell lasts, it may move through the air in any direction it chooses except upward.</p><p>💀: The spell misfires: it does not slow falling at all and pushes each chosen creature 15 feet away from you. Check a Condition.</p>",
   "improvements": [
     {
@@ -19,8 +15,10 @@
       "id": "58a05e75-05a6-4244-9c87-74b4f0f3c8e3"
     }
   ],
-  "artUrl": "https://cdn.midjourney.com/0d8d2f7b-2ab0-454a-b853-366ab56aa55c/0_0.png",
-  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
+  "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
+  "school": "c4a153b2-8906-4b95-be65-d8e5a5cc73ff",
   "isMagical": true,
-  "school": "c4a153b2-8906-4b95-be65-d8e5a5cc73ff"
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "mpCost": 1,
+  "xpCost": 5
 }

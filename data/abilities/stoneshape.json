@@ -1,16 +1,10 @@
 {
-  "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
   "id": "de1f7e3d-cf67-4ef1-9307-21935fae9ed9",
   "createdAt": "2026-04-23T11:57:51.023Z",
   "lastModified": "2026-04-23T19:59:28.105Z",
   "name": "Stoneshape",
-  "description": "<p>You touch a stone object or section of a stone object no more than 5 feet in any dimension. Choose one:</p><ul><li><p>You form the stone into any shape you choose. The form may be functional - like a simple door or a bridge - but fine mechanical or artistic detail isn’t possible. The change is permanent.</p></li><li><p>You cause the stone to crumble into small chunks.</p></li></ul><p>Check a Condition.</p><p><strong>Describe how you shape the stone.</strong></p>",
-  "mp": "",
-  "xp": 10,
-  "isMagical": true,
-  "manaCost": "GG",
-  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
   "artUrl": "https://cdn.midjourney.com/6f085459-cb2d-4861-b2b0-b6f9aad193a4/0_2.png",
+  "description": "<p>You touch a stone object or section of a stone object no more than 5 feet in any dimension. Choose one:</p><ul><li><p>You form the stone into any shape you choose. The form may be functional - like a simple door or a bridge - but fine mechanical or artistic detail isn’t possible. The change is permanent.</p></li><li><p>You cause the stone to crumble into small chunks.</p></li></ul><p>Check a Condition.</p><p><strong>Describe how you shape the stone.</strong></p>",
   "improvements": [
     {
       "name": "Greater Stoneshape",
@@ -24,5 +18,11 @@
       "xp": 20,
       "id": "b9ba8cff-2114-428a-9df7-7cc0f1ba3824"
     }
-  ]
+  ],
+  "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
+  "isMagical": true,
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "mpCost": "",
+  "xpCost": 10,
+  "manaCost": "GG"
 }

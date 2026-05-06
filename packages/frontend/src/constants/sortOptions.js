@@ -4,12 +4,12 @@ export const ABILITY_SORT_OPTIONS = {
     { value: 'name-desc', label: 'Name (Z-A)' },
   ],
   'MP': [
-    { value: 'mp-asc', label: 'MP (Low to High)' },
-    { value: 'mp-desc', label: 'MP (High to Low)' },
+    { value: 'mpCost-asc', label: 'MP (Low to High)' },
+    { value: 'mpCost-desc', label: 'MP (High to Low)' },
   ],
   'XP': [
-    { value: 'xp-asc', label: 'XP (Low to High)' },
-    { value: 'xp-desc', label: 'XP (High to Low)' },
+    { value: 'xpCost-asc', label: 'XP (Low to High)' },
+    { value: 'xpCost-desc', label: 'XP (High to Low)' },
   ],
   'Mana Cost': [
     { value: 'manaCost-asc', label: 'Mana Cost (Low to High)' },

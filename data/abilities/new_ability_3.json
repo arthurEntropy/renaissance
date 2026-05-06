@@ -5,10 +5,8 @@
   "lastModified": "2026-02-12T21:22:31.645Z",
   "name": "New Ability",
   "description": "",
-  "canBeActive": false,
-  "isActive": true,
   "source": null,
-  "mp": null,
-  "xp": null,
+  "mpCost": null,
+  "xpCost": null,
   "manaCost": null
 }

@@ -1,18 +1,18 @@
 import { defineStore } from 'pinia'
 import { computed } from 'vue'
 import { useCrudEntityStore } from '@/stores/composables/useBaseEntityStore'
-import ActionTypeService from '@/services/entities/actionTypeService'
+import ActionCostService from '@/services/entities/actionCostService'
 
-export const useActionTypesStore = defineStore('actionTypes', () => {
-  const base = useCrudEntityStore(ActionTypeService, 'actionType')
+export const useActionCostsStore = defineStore('actionCosts', () => {
+  const base = useCrudEntityStore(ActionCostService, 'actionCost')
 
   // Sorted computed property
-  const actionTypes = computed(() => {
+  const actionCosts = computed(() => {
     return [...base.items.value].sort((a, b) => a.index - b.index)
   })
 
   return {
-    items: actionTypes,
+    items: actionCosts,
     isLoading: base.isLoading,
     error: base.error,
     fetch: base.fetch,

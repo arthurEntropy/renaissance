@@ -4,17 +4,9 @@
   "createdAt": "2025-12-30T15:34:50.260Z",
   "lastModified": "2026-04-14T17:15:32.702Z",
   "name": "Detect Magic",
-  "description": "<p><em>Concentration, up to 10 minutes.</em></p><p>While this spell is active, you sense the presence of magic within short range.</p><p>When you sense magic in this way, you may spend an action to see a faint aura around any visible creature or object in range that bears magic. The color of the aura tells you which Mestiere, if any, is the source of the magic, as well as which School within that Mestiere, if any. Each time you do this, roll Lore to see if you trigger any additional effects.</p><p><strong>Describe how you sense magic around you.</strong></p>",
-  "canBeActive": false,
-  "isActive": true,
-  "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
-  "mp": 1,
-  "xp": 5,
-  "successes": "<p>✨: The range of your sense increases to medium range.</p><p>🌞: You learn which specific spells, if any, are currently effecting each creature or object.</p><p>💀: Your probing senses reach too far. Hostile creatures within long range are alerted to your presence, though not your precise location. Check a Condition.</p>",
   "artUrl": "https://cdn.midjourney.com/6d30df46-0897-4798-86b3-84e804e3cdb5/0_2.png",
-  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
-  "isMagical": true,
-  "school": "874bed28-5424-4948-a9af-a575a5bc1c79",
+  "description": "<p><em>Concentration, up to 10 minutes.</em></p><p>While this spell is active, you sense the presence of magic within short range.</p><p>When you sense magic in this way, you may spend an action to see a faint aura around any visible creature or object in range that bears magic. The color of the aura tells you which Mestiere, if any, is the source of the magic, as well as which School within that Mestiere, if any. Each time you do this, roll Lore to see if you trigger any additional effects.</p><p><strong>Describe how you sense magic around you.</strong></p>",
+  "successes": "<p>✨: The range of your sense increases to medium range.</p><p>🌞: You learn which specific spells, if any, are currently effecting each creature or object.</p><p>💀: Your probing senses reach too far. Hostile creatures within long range are alerted to your presence, though not your precise location. Check a Condition.</p>",
   "improvements": [
     {
       "name": "Identify",
@@ -22,5 +14,11 @@
       "xp": 5,
       "id": "757fb1d9-f286-4c80-809d-75758dc37f2b"
     }
-  ]
+  ],
+  "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
+  "school": "874bed28-5424-4948-a9af-a575a5bc1c79",
+  "isMagical": true,
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "mpCost": 1,
+  "xpCost": 5
 }

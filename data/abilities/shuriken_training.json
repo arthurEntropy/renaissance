@@ -1,14 +1,10 @@
 {
   "id": "bd3fe860-81bc-45cb-9f01-a2ac4efca67e",
-  "name": "Shuriken Training",
-  "description": "<p>You are trained in the use of shuriken (small throwing blades), a special weapon type. Making an attack with shuriken costs a half action instead of an action.</p><p><strong>Describe your technique.</strong></p>",
-  "canBeActive": false,
-  "isActive": true,
-  "source": "e10d7d9f-9d93-46b0-9846-d60241031644",
   "isDeleted": false,
-  "mp": null,
-  "xp": 10,
+  "lastModified": "2026-03-16T20:00:42.091Z",
+  "name": "Shuriken Training",
   "artUrl": "https://cdn.midjourney.com/69502990-fed8-4aa5-8a36-4132635df194/0_1.jpeg",
+  "description": "<p>You are trained in the use of shuriken (small throwing blades), a special weapon type. Making an attack with shuriken costs a half action instead of an action.</p><p><strong>Describe your technique.</strong></p>",
   "improvements": [
     {
       "name": "Long Throw",
@@ -29,6 +25,8 @@
       "id": "71feffcb-fe72-586a-bf4d-8130ce64a7d5"
     }
   ],
-  "lastModified": "2026-03-16T20:00:42.091Z",
-  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
+  "source": "e10d7d9f-9d93-46b0-9846-d60241031644",
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": 10
 }

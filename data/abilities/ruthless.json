@@ -1,13 +1,11 @@
 {
   "id": "d8527527-ef7f-44e6-9d47-2b24ae38ff21",
+  "isDeleted": false,
+  "lastModified": "2026-02-12T21:37:52.077Z",
   "name": "Ruthless",
   "description": "<p>Whenever you defeat a foe, gain +1d on your next attack. Describe how you draw power from violence.</p>",
-  "canBeActive": false,
-  "isActive": true,
   "source": "372c0d28-68df-4202-8e2b-80f96c8928d6",
-  "isDeleted": false,
-  "mp": null,
-  "xp": null,
-  "lastModified": "2026-02-12T21:37:52.077Z",
-  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": null
 }

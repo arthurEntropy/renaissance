@@ -1,16 +1,16 @@
 {
-  "source": "dab3e414-0118-49be-9779-4e3018cdba71",
   "id": "f184a393-0daa-4b9c-b591-8e82ee0586f7",
   "createdAt": "2026-04-08T14:30:12.917Z",
   "lastModified": "2026-04-10T12:20:06.811Z",
   "name": "Mirror Image",
-  "description": "<p><em>Concentration, up to 1 minute.</em></p><p>You create an illusory duplicate of yourself that emerges from your own form. For the next minute, as long as the duplicate is within medium range and you can see it, whenever you sustain concentration on this spell, you may cause the duplicate to move up to twice your speed and perform any physical movement you choose. The illusion cannot interact with physical objects or make sound.</p><p>If a creature that relies on sight attacks you while the duplicate is adjacent to you, roll Perform vs Insight against the attacker. On a win, the duplicate becomes the target of the attack. On a loss, the attack is ill-favored.</p><p>A creature that has physically interacted with the duplicate recognizes it as an illusion and can attack you unimpeded.</p><p><strong>Describe the movement of the duplicate.</strong></p>",
-  "mp": 2,
-  "xp": 10,
-  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
-  "isMagical": true,
-  "school": "7182a00c-40d0-4044-aeaa-6dd75e1afcd5",
-  "improvements": [],
   "artUrl": "https://cdn.midjourney.com/8bcf4114-6686-4b5b-9cb4-38b66a16aa00/0_3.png",
-  "successes": "<p>✨: You may make an opportunity attack against the attacker.</p><p>🌞: You and any other allies adjacent to the attacker may make an opportunity attack against it.</p>"
+  "description": "<p><em>Concentration, up to 1 minute.</em></p><p>You create an illusory duplicate of yourself that emerges from your own form. For the next minute, as long as the duplicate is within medium range and you can see it, whenever you sustain concentration on this spell, you may cause the duplicate to move up to twice your speed and perform any physical movement you choose. The illusion cannot interact with physical objects or make sound.</p><p>If a creature that relies on sight attacks you while the duplicate is adjacent to you, roll Perform vs Insight against the attacker. On a win, the duplicate becomes the target of the attack. On a loss, the attack is ill-favored.</p><p>A creature that has physically interacted with the duplicate recognizes it as an illusion and can attack you unimpeded.</p><p><strong>Describe the movement of the duplicate.</strong></p>",
+  "successes": "<p>✨: You may make an opportunity attack against the attacker.</p><p>🌞: You and any other allies adjacent to the attacker may make an opportunity attack against it.</p>",
+  "improvements": [],
+  "source": "dab3e414-0118-49be-9779-4e3018cdba71",
+  "school": "7182a00c-40d0-4044-aeaa-6dd75e1afcd5",
+  "isMagical": true,
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "mpCost": 2,
+  "xpCost": 10
 }

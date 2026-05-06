@@ -1,13 +1,11 @@
 {
   "id": "9f467675-fb3c-4aa4-bfcf-9cdfd066b502",
+  "isDeleted": false,
+  "lastModified": "2026-02-12T21:37:52.073Z",
   "name": "Mediator",
   "description": "<p>When you roll to de-escalate a situation, you roll with advantage. Describe how you help cooler heads prevail.</p>",
-  "canBeActive": false,
-  "isActive": true,
   "source": "6c11415a-8f95-4da2-95d8-26a858caffc3",
-  "isDeleted": false,
-  "mp": null,
-  "xp": null,
-  "lastModified": "2026-02-12T21:37:52.073Z",
-  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": null
 }

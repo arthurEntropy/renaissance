@@ -1,14 +1,12 @@
 {
   "id": "35efb3f8-5601-4204-9008-ae486e255214",
-  "name": "Flametouched",
-  "description": "<p>You can conjure, manipulate and snuff out flames up to the size of a campfire at-will.</p><p>Once per rest, when you hit with a melee attack, you may add 1d6 to the damage roll.</p>",
-  "canBeActive": false,
-  "isActive": true,
-  "source": "34ea8807-b404-435c-a860-704b4a40df8f",
   "isDeleted": false,
-  "mp": null,
-  "xp": null,
   "lastModified": "2026-03-03T01:40:38.689Z",
-  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d",
-  "artUrl": "https://cdn.midjourney.com/432aab14-16e9-4eab-9567-5c8e5d2e1ed1/0_0.png"
+  "name": "Flametouched",
+  "artUrl": "https://cdn.midjourney.com/432aab14-16e9-4eab-9567-5c8e5d2e1ed1/0_0.png",
+  "description": "<p>You can conjure, manipulate and snuff out flames up to the size of a campfire at-will.</p><p>Once per rest, when you hit with a melee attack, you may add 1d6 to the damage roll.</p>",
+  "source": "34ea8807-b404-435c-a860-704b4a40df8f",
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": null
 }

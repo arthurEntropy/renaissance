@@ -1,13 +1,10 @@
 {
   "id": "1e289ca8-cf6a-4f0d-ad7c-a13fc8e1f381",
-  "name": "Fists Up",
-  "description": "<p>When you spend an action to make an unarmed melee attack, you may make one attack per free hand.</p><p>When you make an unarmed melee attack or make a melee attack with an improvised weapon, the damage die for the attack is a d6.</p><p><strong>Describe how your stripped-down style delivers a brutal blow.</strong></p>",
-  "canBeActive": false,
-  "isActive": true,
-  "source": "e0a69b6f-38f9-4fa5-a1ef-5e5777299e82",
   "isDeleted": false,
-  "mp": null,
-  "xp": null,
+  "lastModified": "2026-03-16T19:34:38.660Z",
+  "name": "Fists Up",
+  "artUrl": "https://cdn.midjourney.com/e5d5231e-2d99-47b2-aa1d-b3dc4970239d/0_3.png",
+  "description": "<p>When you spend an action to make an unarmed melee attack, you may make one attack per free hand.</p><p>When you make an unarmed melee attack or make a melee attack with an improvised weapon, the damage die for the attack is a d6.</p><p><strong>Describe how your stripped-down style delivers a brutal blow.</strong></p>",
   "improvements": [
     {
       "name": "Fists of Fury",
@@ -22,7 +19,8 @@
       "id": "cd9bad53-973c-437d-8dbf-170e407660d5"
     }
   ],
-  "lastModified": "2026-03-16T19:34:38.660Z",
-  "artUrl": "https://cdn.midjourney.com/e5d5231e-2d99-47b2-aa1d-b3dc4970239d/0_3.png",
-  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
+  "source": "e0a69b6f-38f9-4fa5-a1ef-5e5777299e82",
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": null
 }

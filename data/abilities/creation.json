@@ -4,13 +4,8 @@
   "createdAt": "2025-12-30T03:36:13.465Z",
   "lastModified": "2026-03-19T01:07:29.199Z",
   "name": "Creation",
-  "description": "<p><em>Casting Time: 1 minute. Concentration, up to 1 day.</em></p><p>You pull arcane energy out of the air and shape it into a temporary, nonliving object of organic matter (wood, cloth, etc.) in a space within short range. The object must be of a form and material you have seen before and can be no larger than 5 ft in any dimension.</p><p>Roll Lore to see if you trigger any additional effects.</p><p><strong>Describe what you create.</strong></p>",
-  "canBeActive": false,
-  "isActive": true,
-  "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
-  "mp": 5,
-  "xp": 25,
   "artUrl": "https://cdn.midjourney.com/3501eeb2-f9a6-41ad-8604-4ad940e53ccb/0_0.png",
+  "description": "<p><em>Casting Time: 1 minute. Concentration, up to 1 day.</em></p><p>You pull arcane energy out of the air and shape it into a temporary, nonliving object of organic matter (wood, cloth, etc.) in a space within short range. The object must be of a form and material you have seen before and can be no larger than 5 ft in any dimension.</p><p>Roll Lore to see if you trigger any additional effects.</p><p><strong>Describe what you create.</strong></p>",
   "successes": "<p>✨: The object may be made of stone.</p><p>✨: Up to half of the object may be made of metal.</p><p>🌞: The whole object may be made of any combination of materials you have seen.</p><p>💀: You lose control of the energy you're gathering together and the object explodes. You take 2d6 damage and check a Condition. Roll Lore vs Dexterity against each creature within short range. On each win, the creature takes 2d6 damage and checks a Condition.</p>",
   "improvements": [
     {
@@ -20,7 +15,10 @@
       "id": "c8cfa367-3a46-4536-8928-f33ae1a2fb06"
     }
   ],
-  "type": "f6a1b2c3-d4e5-4f6a-eb3c-2d1e0f9a8b7c",
+  "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
+  "school": "dae8a70f-3f7a-4357-8fe4-972f863be65b",
   "isMagical": true,
-  "school": "dae8a70f-3f7a-4357-8fe4-972f863be65b"
+  "actionCost": "c7ea4889-0dc9-40cb-a437-70329cac43ab",
+  "mpCost": 5,
+  "xpCost": 25
 }

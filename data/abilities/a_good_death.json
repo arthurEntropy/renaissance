@@ -1,14 +1,12 @@
 {
   "id": "3f8b04db-fe8e-4569-8670-092ea46a06cf",
-  "name": "A Good Death",
-  "description": "<p>Once per Quest, when you're knocked unconscious in battle, double the quest’s current <em>Compagnia</em>.</p><p>If at any time you die outright in combat, every future Quest that includes one or more members of the current Quest begins with 1 additional <em>Compagnia</em>.</p><p><strong>Describe the glory of your fall.</strong></p>",
-  "canBeActive": false,
-  "isActive": true,
-  "source": "d4dce5e2-e767-464d-91f0-c40b47f788b3",
   "isDeleted": false,
-  "mp": null,
-  "xp": 10,
   "lastModified": "2026-04-27T19:16:49.058Z",
+  "name": "A Good Death",
   "artUrl": "https://cdn.midjourney.com/5d4955ae-2201-4f04-9c0e-7293903f9827/0_1.png",
-  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
+  "description": "<p>Once per Quest, when you're knocked unconscious in battle, double the quest’s current <em>Compagnia</em>.</p><p>If at any time you die outright in combat, every future Quest that includes one or more members of the current Quest begins with 1 additional <em>Compagnia</em>.</p><p><strong>Describe the glory of your fall.</strong></p>",
+  "source": "d4dce5e2-e767-464d-91f0-c40b47f788b3",
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": 10
 }

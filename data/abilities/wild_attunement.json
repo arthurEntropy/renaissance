@@ -1,13 +1,13 @@
 {
-  "source": "937d52da-0ebf-4d74-b3ee-be395f2f5d0a",
   "id": "260b0a4b-fcf8-43ae-ae53-92f5c2efbdb6",
   "createdAt": "2026-03-04T21:29:59.091Z",
   "lastModified": "2026-03-17T14:14:31.874Z",
-  "biomeTagsAugment": [],
-  "biomeTagsInhibit": [],
   "name": "Wild Attunement",
+  "artUrl": "https://cdn.midjourney.com/658366d7-cbcb-49a5-b86b-f1e13b848d80/0_1.png",
   "description": "<p>You are perpetually attuned to the plants and animals around you. While in natural areas, you always know the next day’s weather and gain advance awareness of impending natural disasters such as earthquakes, floods, or hurricanes.</p><p>Additionally, you may spend an action to influence nearby life. You may cause a plant within short range to bloom, or cause an animal within medium range to perform some action that is natural to it: make a sound, emit an odor, pick up or drop an object, or take another simple action that does not go against its instincts.</p><p><strong>Describe your connection with nature.</strong></p>",
-  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d",
+  "source": "937d52da-0ebf-4d74-b3ee-be395f2f5d0a",
   "isMagical": false,
-  "artUrl": "https://cdn.midjourney.com/658366d7-cbcb-49a5-b86b-f1e13b848d80/0_1.png"
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": []
 }

@@ -147,7 +147,7 @@ import { useEquipmentSubtypesStore } from '@/stores/equipmentSubtypesStore'
 import { useEquipmentGradesStore } from '@/stores/equipmentGradesStore'
 import { useEquipmentRangesStore } from '@/stores/equipmentRangesStore'
 import { useKeepingStore } from '@/stores/keepingStore'
-import { useActionTypesStore } from '@/stores/actionTypesStore'
+import { useActionCostsStore } from '@/stores/actionCostsStore'
 import { useAbilitySchoolsStore } from '@/stores/abilitySchoolsStore'
 import { useArtStore } from '@/stores/artStore'
 import { useEngagementSuccessesStore } from '@/stores/engagementSuccessesStore'
@@ -178,7 +178,7 @@ const equipmentSubtypesStore = useEquipmentSubtypesStore()
 const equipmentGradesStore = useEquipmentGradesStore()
 const equipmentRangesStore = useEquipmentRangesStore()
 const keepingStore = useKeepingStore()
-const actionTypesStore = useActionTypesStore()
+const actionTypesStore = useActionCostsStore()
 const abilitySchoolsStore = useAbilitySchoolsStore()
 const artStore = useArtStore()
 const engagementSuccessesStore = useEngagementSuccessesStore()

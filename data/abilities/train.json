@@ -4,13 +4,11 @@
   "createdAt": "2026-02-02T15:29:38.065Z",
   "lastModified": "2026-03-17T02:07:47.176Z",
   "name": "Train",
-  "description": "<p>At any time, as a free action, you may spend your captured creatures' XP to increase their core abilities and skill ranks or to acquire new abilities. You may also use your own XP for this purpose, though you cannot use one creature's XP to benefit another creature.</p><p>Additionally, once per day, you may spend 1 hour while out of combat to train one of your captured creatures.</p><p>At the end of the hour, repeat the roll you made to capture it (Awe, Spirit or Persuade) against a Difficulty equal to the creature's Challenge Rating minus the creature's vessel's Keeping, minus its current Friendship.</p><p>On a pass, you and the creature both gain XP based on the roll: 1 XP for Awe, 2 XP for Spirit, 3 XP for Persuade. On a failure, you gain no XP. Either way, the creature's Friendship score increases by 1.</p><p><strong>Describe how you train your creature.</strong></p>",
-  "canBeActive": false,
-  "isActive": true,
-  "source": "558abd15-f90f-40d7-80d8-df73a37f977c",
-  "mp": null,
-  "xp": null,
-  "manaCost": null,
   "artUrl": "https://cdn.midjourney.com/378f8987-a1ad-491e-8bfb-92cb250bb7d0/0_3.png",
-  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
+  "description": "<p>At any time, as a free action, you may spend your captured creatures' XP to increase their core abilities and skill ranks or to acquire new abilities. You may also use your own XP for this purpose, though you cannot use one creature's XP to benefit another creature.</p><p>Additionally, once per day, you may spend 1 hour while out of combat to train one of your captured creatures.</p><p>At the end of the hour, repeat the roll you made to capture it (Awe, Spirit or Persuade) against a Difficulty equal to the creature's Challenge Rating minus the creature's vessel's Keeping, minus its current Friendship.</p><p>On a pass, you and the creature both gain XP based on the roll: 1 XP for Awe, 2 XP for Spirit, 3 XP for Persuade. On a failure, you gain no XP. Either way, the creature's Friendship score increases by 1.</p><p><strong>Describe how you train your creature.</strong></p>",
+  "source": "558abd15-f90f-40d7-80d8-df73a37f977c",
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": null,
+  "manaCost": null
 }

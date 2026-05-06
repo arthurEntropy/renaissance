@@ -112,7 +112,7 @@ import { useAbilitiesStore } from '@/stores/abilitiesStore'
 import { useAuthStore } from '@/stores/authStore'
 import { useSourcesStore } from '@/stores/sourcesStore'
 import { useCampaignStore } from '@/stores/campaignStore'
-import { useActionTypesStore } from '@/stores/actionTypesStore'
+import { useActionCostsStore } from '@/stores/actionCostsStore'
 import { useCharactersStore } from '@/stores/charactersStore'
 import { useAbilitySchoolsStore } from '@/stores/abilitySchoolsStore'
 import { useEditModal } from '@/composables/useEditModal'
@@ -136,7 +136,7 @@ import { FILTER_SPECIAL_TAG_GROUP_LABEL } from '@/constants/filterBar'
 const abilitiesStore = useAbilitiesStore()
 const authStore = useAuthStore()
 const sourcesStore = useSourcesStore()
-const actionTypesStore = useActionTypesStore()
+const actionTypesStore = useActionCostsStore()
 const charactersStore = useCharactersStore()
 const abilitySchoolsStore = useAbilitySchoolsStore()
 
@@ -170,7 +170,7 @@ const groupByOptions = [
   { value: 'school', label: 'School' },
   { value: 'mana-color', label: 'Mana Color' },
   { value: 'source', label: 'Source' },
-  { value: 'action-type', label: 'Action Type' },
+  { value: 'action-type', label: 'Action Cost' },
 ]
 
 const TAG_PREFIX = {
@@ -225,7 +225,7 @@ const abilityTagGroups = computed(() => {
       },
       {
         id: `${TAG_PREFIX.ACTION_TYPE}action`,
-        name: 'Action Type',
+        name: 'Action Cost',
         items: (actionTypesStore.items || []).map((actionType) => ({
           id: `${TAG_PREFIX.ACTION_TYPE}${actionType.id}`,
           name: actionType.name,
@@ -272,8 +272,8 @@ const compareAbilityGroups = (left, right) => {
   }
 
   if (groupByOption.value === 'action-type') {
-    const leftActionType = actionTypesStore.getById(left.type)?.name || 'Unknown Action Type'
-    const rightActionType = actionTypesStore.getById(right.type)?.name || 'Unknown Action Type'
+    const leftActionType = actionTypesStore.getById(left.actionCost)?.name || 'Unknown Action Cost'
+    const rightActionType = actionTypesStore.getById(right.actionCost)?.name || 'Unknown Action Cost'
     return leftActionType.localeCompare(rightActionType)
   }
 
@@ -371,7 +371,7 @@ const allFilteredAbilities = computed(() => {
 
   // Apply action type filter (OR within category)
   if (actionTypes.length > 0) {
-    filtered = filtered.filter((item) => actionTypes.includes(item.type))
+    filtered = filtered.filter((item) => actionTypes.includes(item.actionCost))
   }
 
   const sorted = sortItems(filtered, sortOption.value)
@@ -479,13 +479,13 @@ const sourceGroupedAbilities = computed(() => {
   return Object.values(groups).sort((a, b) => a.name.localeCompare(b.name))
 })
 
-// Grouped abilities by action type
+// Grouped abilities by action cost
 const actionTypeGroupedAbilities = computed(() => {
   if (groupByOption.value !== 'action-type') return []
   const groups = {}
   allFilteredAbilities.value.forEach(ability => {
-    const actionTypeId = ability.type
-    const actionTypeName = actionTypesStore.getById(actionTypeId)?.name || 'Unknown Action Type'
+    const actionTypeId = ability.actionCost
+    const actionTypeName = actionTypesStore.getById(actionTypeId)?.name || 'Unknown Action Cost'
     if (!groups[actionTypeId]) {
       groups[actionTypeId] = { id: actionTypeId, name: actionTypeName, collapsed: false, items: [] }
     }

@@ -1,13 +1,10 @@
 {
   "id": "c93d20c3-2fa2-4001-837d-cf38629b9c1a",
-  "name": "Good Form",
-  "description": "<p>When you roll for engagement, you can always re-roll one engagement die before resolving.</p><p>Whenever you win an engagement, you gain 1 MP.</p><p><strong>Describe your form.</strong></p>",
-  "canBeActive": false,
-  "isActive": true,
-  "source": "4eccfe5d-de19-4bc5-8c9c-374d793d67f0",
   "isDeleted": false,
-  "mp": null,
-  "xp": null,
+  "lastModified": "2026-03-16T20:26:59.059Z",
+  "name": "Good Form",
+  "artUrl": "https://cdn.midjourney.com/6e339ed7-3dca-44dc-89b2-bebeabfbfd6e/0_0.png",
+  "description": "<p>When you roll for engagement, you can always re-roll one engagement die before resolving.</p><p>Whenever you win an engagement, you gain 1 MP.</p><p><strong>Describe your form.</strong></p>",
   "improvements": [
     {
       "name": "Excellent Form",
@@ -16,7 +13,8 @@
       "id": "9c694b3a-f5d5-5a55-999c-09514ea7c995"
     }
   ],
-  "lastModified": "2026-03-16T20:26:59.059Z",
-  "artUrl": "https://cdn.midjourney.com/6e339ed7-3dca-44dc-89b2-bebeabfbfd6e/0_0.png",
-  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
+  "source": "4eccfe5d-de19-4bc5-8c9c-374d793d67f0",
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": null
 }

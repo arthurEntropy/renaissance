@@ -4,15 +4,13 @@
   "createdAt": "2026-01-01T02:38:55.942Z",
   "lastModified": "2026-03-31T01:18:51.538Z",
   "name": "Knock",
-  "description": "<p>Choose an adjacent object that is locked, blocked, stuck or barred. The object becomes unlocked, unblocked, unstuck or unbarred. If the object is affected by a spell preventing access, that spell is suppressed for 10 minutes.</p><p>When you cast the spell, the object emits a loud knock, which is audible out to far range. Roll Lore to see if you trigger any additional effects.</p><p><strong>Describe the sound.</strong></p>",
-  "canBeActive": false,
-  "isActive": true,
-  "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
-  "mp": 2,
-  "xp": 10,
-  "successes": "<p>✨: The knock is emitted at a low frequency that does not seem to come from any particular direction and thus does not give away your precise location.</p><p>🌞: The knock is only audible within long range.</p><p>💀: The knock is intensified to a small explosion, which deals 2d6 damage to objects and creatures within or adjacent to the object and is audible within a quarter mile. Check a Condition.</p>",
   "artUrl": "https://cdn.midjourney.com/dac5abb8-045c-45fb-958f-0174582a2f91/0_0.png",
-  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
+  "description": "<p>Choose an adjacent object that is locked, blocked, stuck or barred. The object becomes unlocked, unblocked, unstuck or unbarred. If the object is affected by a spell preventing access, that spell is suppressed for 10 minutes.</p><p>When you cast the spell, the object emits a loud knock, which is audible out to far range. Roll Lore to see if you trigger any additional effects.</p><p><strong>Describe the sound.</strong></p>",
+  "successes": "<p>✨: The knock is emitted at a low frequency that does not seem to come from any particular direction and thus does not give away your precise location.</p><p>🌞: The knock is only audible within long range.</p><p>💀: The knock is intensified to a small explosion, which deals 2d6 damage to objects and creatures within or adjacent to the object and is audible within a quarter mile. Check a Condition.</p>",
+  "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
+  "school": "c4a153b2-8906-4b95-be65-d8e5a5cc73ff",
   "isMagical": true,
-  "school": "c4a153b2-8906-4b95-be65-d8e5a5cc73ff"
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "mpCost": 2,
+  "xpCost": 10
 }

@@ -1,13 +1,11 @@
 {
   "id": "5431c38e-e0be-4571-ab29-7e3f49549c9e",
+  "isDeleted": false,
+  "lastModified": "2026-02-12T21:37:52.064Z",
   "name": "Dragon Slayer",
   "description": "<p>When you attack a creature at least five times your size, you roll with advantage. When you succeed, describe how you get the upper hand against all odds.</p>",
-  "canBeActive": false,
-  "isActive": true,
   "source": "fa6eb60c-0895-4635-8124-ab50b0bac28e",
-  "isDeleted": false,
-  "mp": null,
-  "xp": null,
-  "lastModified": "2026-02-12T21:37:52.064Z",
-  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": null
 }

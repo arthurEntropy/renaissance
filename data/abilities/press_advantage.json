@@ -4,14 +4,12 @@
   "createdAt": "2026-01-30T13:41:36.413Z",
   "lastModified": "2026-03-16T20:27:11.664Z",
   "name": "Press Advantage",
-  "description": "<p><em>Trigger: You win an engagement.</em></p><p>Your opponent takes –1 Defense. This penalty is cumulative and lasts for the duration of the combat, provided you remain focused on that creature.</p><p>At the end of each round, the effect persists if you did not attack a different creature and at least one of the following is true:</p><ul><li><p>You entered engagement with the creature.</p></li><li><p>You dealt damage to the creature.</p></li><li><p>You used all your movement to move closer to the creature and ended within Short Range of it.</p></li></ul><p>If these conditions are not met, all penalties from this ability immediately end.</p><p><strong>Describe how you bear down on your opponent.</strong></p>",
-  "canBeActive": false,
-  "isActive": true,
-  "source": "4eccfe5d-de19-4bc5-8c9c-374d793d67f0",
-  "mp": 1,
-  "xp": 5,
-  "manaCost": null,
-  "successes": "",
   "artUrl": "https://cdn.midjourney.com/6b84044e-4d98-4a5c-a9bb-a667f5e514b5/0_0.png",
-  "type": "e5f6a1b2-c3d4-4e5f-da2b-1c0d9e8f7a6b"
+  "description": "<p><em>Trigger: You win an engagement.</em></p><p>Your opponent takes –1 Defense. This penalty is cumulative and lasts for the duration of the combat, provided you remain focused on that creature.</p><p>At the end of each round, the effect persists if you did not attack a different creature and at least one of the following is true:</p><ul><li><p>You entered engagement with the creature.</p></li><li><p>You dealt damage to the creature.</p></li><li><p>You used all your movement to move closer to the creature and ended within Short Range of it.</p></li></ul><p>If these conditions are not met, all penalties from this ability immediately end.</p><p><strong>Describe how you bear down on your opponent.</strong></p>",
+  "successes": "",
+  "source": "4eccfe5d-de19-4bc5-8c9c-374d793d67f0",
+  "actionCost": "c4df395c-8284-4c4f-bf01-e293ed51c58c",
+  "mpCost": 1,
+  "xpCost": 5,
+  "manaCost": null
 }

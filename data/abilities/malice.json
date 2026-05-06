@@ -4,14 +4,12 @@
   "createdAt": "2026-01-28T19:58:50.261Z",
   "lastModified": "2026-04-16T15:36:51.472Z",
   "name": "Malice",
-  "description": "<p><em>Trigger: You would roll damage for an attack.</em></p><p>Uncheck any number of Conditions.</p><p>For each Condition you unchecked (twice for Afraid), take +1d on the roll and lose BODY Endurance.</p><p><strong>Describe your malice.</strong></p>",
-  "canBeActive": false,
-  "isActive": true,
-  "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
-  "mp": null,
-  "xp": 10,
-  "manaCost": "BB",
   "artUrl": "https://cdn.midjourney.com/cee6942d-7a50-4945-aa9d-367257ef6cc8/0_0.png",
-  "type": "e5f6a1b2-c3d4-4e5f-da2b-1c0d9e8f7a6b",
-  "isMagical": true
+  "description": "<p><em>Trigger: You would roll damage for an attack.</em></p><p>Uncheck any number of Conditions.</p><p>For each Condition you unchecked (twice for Afraid), take +1d on the roll and lose BODY Endurance.</p><p><strong>Describe your malice.</strong></p>",
+  "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
+  "isMagical": true,
+  "actionCost": "c4df395c-8284-4c4f-bf01-e293ed51c58c",
+  "mpCost": null,
+  "xpCost": 10,
+  "manaCost": "BB"
 }

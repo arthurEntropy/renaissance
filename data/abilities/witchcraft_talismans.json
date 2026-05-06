@@ -4,14 +4,8 @@
   "createdAt": "2026-02-04T02:22:28.711Z",
   "lastModified": "2026-03-11T18:02:10.471Z",
   "name": "Witchcraft Talismans",
-  "description": "<p>A talisman is crafted and functions in the same way as a token, except as noted below:</p><ul><li><p>Crafting a talisman requires 1 full day of work, which may be divided into non-consecutive hours.</p></li><li><p>When you store a spell in a talisman, the MP you expend is also subtracted from your base MP. Casting a spell from a talisman expends its charge, but the talisman remains magical and the charge is restored at dawn. A talisman may store multiple spells or multiple charges of the same spell.</p></li><li><p>You always know the direction and distance to any talisman you have created, unless it is phased out.</p></li><li><p>As an action while you can see a talisman, you may reclaim the sacrificed MP. The talisman immediately loses all its stored spells, becomes mundane, and you regain the sacrificed MP, adding it to both your current and base MP. If the talisman is destroyed, the MP is likewise recovered.</p></li></ul><p>You may maintain any number of talismans.</p><p><strong>Describe how you craft your talisman.</strong></p>",
-  "canBeActive": false,
-  "isActive": true,
-  "source": "162ae4db-7a67-4770-8a2c-7e9883da14f6",
-  "mp": null,
-  "xp": 20,
-  "manaCost": null,
   "artUrl": "https://cdn.midjourney.com/d39c3efe-4b5a-4f2a-afc7-4598b2d2d3b0/0_0.png",
+  "description": "<p>A talisman is crafted and functions in the same way as a token, except as noted below:</p><ul><li><p>Crafting a talisman requires 1 full day of work, which may be divided into non-consecutive hours.</p></li><li><p>When you store a spell in a talisman, the MP you expend is also subtracted from your base MP. Casting a spell from a talisman expends its charge, but the talisman remains magical and the charge is restored at dawn. A talisman may store multiple spells or multiple charges of the same spell.</p></li><li><p>You always know the direction and distance to any talisman you have created, unless it is phased out.</p></li><li><p>As an action while you can see a talisman, you may reclaim the sacrificed MP. The talisman immediately loses all its stored spells, becomes mundane, and you regain the sacrificed MP, adding it to both your current and base MP. If the talisman is destroyed, the MP is likewise recovered.</p></li></ul><p>You may maintain any number of talismans.</p><p><strong>Describe how you craft your talisman.</strong></p>",
   "improvements": [
     {
       "name": "Contingency",
@@ -26,6 +20,10 @@
       "id": "92704700-fd1c-449d-b606-5fa43613ca7a"
     }
   ],
-  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d",
-  "isMagical": false
+  "source": "162ae4db-7a67-4770-8a2c-7e9883da14f6",
+  "isMagical": false,
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": 20,
+  "manaCost": null
 }

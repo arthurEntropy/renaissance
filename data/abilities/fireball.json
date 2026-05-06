@@ -4,15 +4,13 @@
   "createdAt": "2026-01-02T15:34:03.603Z",
   "lastModified": "2026-04-16T15:42:44.619Z",
   "name": "Fireball",
-  "description": "<p>Uncheck any number of Conditions.</p><p>Choose a point within long range. An explosive sphere of fire erupts at that point. Roll Spirit vs Dexterity against each creature within short range of the point. On a win, the creature takes 2d6 damage for each Condition you unchecked (3d6 for Anger). On a loss, half damage.</p><p><strong>Describe the fireball.</strong></p>",
-  "canBeActive": false,
-  "isActive": true,
-  "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
-  "mp": "",
-  "xp": 30,
   "artUrl": "https://cdn.midjourney.com/76de1ffb-ac58-4062-be99-c5b2c5177687/0_3.png",
-  "manaCost": "4RR",
+  "description": "<p>Uncheck any number of Conditions.</p><p>Choose a point within long range. An explosive sphere of fire erupts at that point. Roll Spirit vs Dexterity against each creature within short range of the point. On a win, the creature takes 2d6 damage for each Condition you unchecked (3d6 for Anger). On a loss, half damage.</p><p><strong>Describe the fireball.</strong></p>",
   "successes": "<p>✨: +1d damage.</p><p>🌞: The blast instead reaches out to medium range.</p>",
-  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
-  "isMagical": true
+  "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
+  "isMagical": true,
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "mpCost": "",
+  "xpCost": 30,
+  "manaCost": "4RR"
 }

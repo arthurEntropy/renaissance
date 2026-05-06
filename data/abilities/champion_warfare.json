@@ -1,14 +1,12 @@
 {
   "id": "8f9c579e-1089-4532-a10a-3cf5115bb403",
-  "name": "Champion Warfare",
-  "description": "<p>Any time you enter engagement with a foe and there are no other adjacent combatants, you may re-roll one of your engagement dice.</p><p><strong>Describe how your experience in dueling gives you an edge.</strong></p>",
-  "canBeActive": false,
-  "isActive": true,
-  "source": "68fadf5d-6661-4611-bb38-deaf05f01d45",
   "isDeleted": false,
-  "mp": null,
-  "xp": 0,
   "lastModified": "2026-04-24T18:33:36.333Z",
-  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d",
-  "artUrl": "https://cdn.midjourney.com/0a5e40b3-f8d9-4627-a008-f11437c5104a/0_2.png"
+  "name": "Champion Warfare",
+  "artUrl": "https://cdn.midjourney.com/0a5e40b3-f8d9-4627-a008-f11437c5104a/0_2.png",
+  "description": "<p>Any time you enter engagement with a foe and there are no other adjacent combatants, you may re-roll one of your engagement dice.</p><p><strong>Describe how your experience in dueling gives you an edge.</strong></p>",
+  "source": "68fadf5d-6661-4611-bb38-deaf05f01d45",
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": 0
 }

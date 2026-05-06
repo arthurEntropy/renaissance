@@ -1,12 +1,10 @@
 {
-  "source": "a07490af-2d77-4968-9adc-0a2a7c84ef70",
   "id": "cd57b634-a8c9-4e33-8ca6-3e1a3dacef3d",
   "createdAt": "2026-02-27T19:35:52.808Z",
   "lastModified": "2026-03-17T01:13:38.394Z",
-  "description": "<p>When you attack with your orb, you may bounce it off a flat surface as part of its trajectory. The total distance it travels for the attack must still be within its range.</p><p>If the target of the attack is a creature that you can see, you may roll Dexterity vs Dexterity for the attack roll.</p><p><strong>Describe your bank shot.</strong></p>",
   "name": "Bank Shot",
-  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d",
-  "xp": 10,
+  "artUrl": "https://cdn.midjourney.com/d9942d80-ecec-4761-8eea-3bcdc6d1d37d/0_0.png",
+  "description": "<p>When you attack with your orb, you may bounce it off a flat surface as part of its trajectory. The total distance it travels for the attack must still be within its range.</p><p>If the target of the attack is a creature that you can see, you may roll Dexterity vs Dexterity for the attack roll.</p><p><strong>Describe your bank shot.</strong></p>",
   "improvements": [
     {
       "name": "Play!",
@@ -15,5 +13,7 @@
       "id": "dda9dc97-97d7-4439-b284-3c48e8fce6fb"
     }
   ],
-  "artUrl": "https://cdn.midjourney.com/d9942d80-ecec-4761-8eea-3bcdc6d1d37d/0_0.png"
+  "source": "a07490af-2d77-4968-9adc-0a2a7c84ef70",
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "xpCost": 10
 }

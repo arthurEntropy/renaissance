@@ -1,5 +1,5 @@
 import { computed, onMounted } from 'vue'
-import { useActionTypesStore } from '@/stores/actionTypesStore'
+import { useActionCostsStore } from '@/stores/actionCostsStore'
 import { useAbilitySchoolsStore } from '@/stores/abilitySchoolsStore'
 import { useAppCharacterSheetModal } from '@/composables/useAppCharacterSheetModal'
 import { useAuthStore } from '@/stores/authStore'
@@ -7,7 +7,7 @@ import { useAuthStore } from '@/stores/authStore'
 export function useCharactersLayout(charactersStore, equipmentStore, abilitiesStore, characterService, options = {}) {
   const { isBeast = false, adminOnlySelect = false } = options
 
-  const actionTypesStore = useActionTypesStore()
+  const actionTypesStore = useActionCostsStore()
   const abilitySchoolsStore = useAbilitySchoolsStore()
   const { open: openCharacterSheet } = useAppCharacterSheetModal()
   const authStore = useAuthStore()

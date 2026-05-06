@@ -320,10 +320,10 @@
               }
             ],
             "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
-            "mp": 1,
-            "xp": 5,
             "isMagical": true,
-            "artUrl": "https://cdn.midjourney.com/8bd0cb7a-7c09-428b-b0a6-8e1e5c023b7b/0_1.png"
+            "artUrl": "https://cdn.midjourney.com/8bd0cb7a-7c09-428b-b0a6-8e1e5c023b7b/0_1.png",
+            "mpCost": 1,
+            "xpCost": 5
           },
           "charges": 1
         }
