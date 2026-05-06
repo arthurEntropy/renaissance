@@ -1,4 +1,4 @@
-import { createBaseEntity } from './gameEntity.js'
+import { createBaseEntity } from './baseEntity.js'
 import { ConceptType, getConceptTypeLabel } from '../constants/conceptTypes.js'
 
 /**

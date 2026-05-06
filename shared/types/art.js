@@ -1,4 +1,4 @@
-import { createBaseEntity } from './gameEntity.js'
+import { createBaseEntity } from './baseEntity.js'
 
 /**
  * @typedef {Object} ArtTags

@@ -1,7 +1,7 @@
-import { createBaseEntity } from './gameEntity.js'
+import { createBaseEntity } from './baseEntity.js'
 
 /**
- * @typedef {import('./gameEntity.js').GameEntity} GameEntity
+ * @typedef {import('./baseEntity.js').BaseEntity} BaseEntity
  */
 
 /**
@@ -13,7 +13,7 @@ import { createBaseEntity } from './gameEntity.js'
  */
 
 /**
- * @typedef {GameEntity & EquipmentSubtypeFields} EquipmentSubtype
+ * @typedef {BaseEntity & EquipmentSubtypeFields} EquipmentSubtype
  */
 
 /**

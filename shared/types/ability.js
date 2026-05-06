@@ -1,7 +1,7 @@
-import { createBaseEntity } from './gameEntity.js'
+import { createBaseEntity } from './baseEntity.js'
 
 /**
- * @typedef {import('./gameEntity.js').GameEntity} GameEntity
+ * @typedef {import('./baseEntity.js').BaseEntity} BaseEntity
  * @typedef {import('./improvement.js').Improvement} Improvement
  * @typedef {import('./actionCost.js').ActionCost} ActionCost
  */
@@ -29,7 +29,7 @@ import { createBaseEntity } from './gameEntity.js'
  */
 
 /**
- * @typedef {GameEntity & AbilityFields} Ability
+ * @typedef {BaseEntity & AbilityFields} Ability
  */
 
 /**

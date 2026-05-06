@@ -2,7 +2,7 @@
  * Base structure for all game entities
  * Contains fields that are common to every entity type in the system
  *
- * @typedef {Object} GameEntity
+ * @typedef {Object} BaseEntity
  * @property {string|null} id - UUID identifier
  * @property {boolean} isDeleted - Soft delete flag
  * @property {string} createdAt - ISO 8601 datetime string
@@ -11,7 +11,7 @@
 
 /**
  * Creates base fields for a new entity
- * @returns {GameEntity}
+ * @returns {BaseEntity}
  */
 export function createBaseEntity() {
   const now = new Date().toISOString()

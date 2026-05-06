@@ -4,7 +4,7 @@
  */
 
 // Base entity type
-export { createBaseEntity } from './gameEntity.js'
+export { createBaseEntity } from './baseEntity.js'
 
 // Dice types (used across multiple entities)
 export * from './dice.js'

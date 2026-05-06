@@ -1,4 +1,4 @@
-import { createBaseEntity } from './gameEntity.js'
+import { createBaseEntity } from './baseEntity.js'
 
 /**
  * A per-mana-color background image setting for Channeler cards.
