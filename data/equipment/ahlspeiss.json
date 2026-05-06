@@ -1,9 +1,22 @@
 {
   "id": "ed2d6136-d371-4364-805c-9049c9fee61d",
+  "isDeleted": false,
+  "createdAt": "2026-05-06T17:55:10.305Z",
+  "lastModified": "2026-05-06T17:55:10.305Z",
   "name": "Ahlspeiss",
+  "artUrl": null,
   "description": "Weight: 6-10. Length: 7-10",
-  "keeping": null,
+  "successes": null,
+  "improvements": [],
   "source": null,
+  "school": null,
+  "keeping": null,
+  "isCustom": false,
+  "isTemplate": true,
+  "isMagical": false,
+  "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
+  "subtype": "3d4f28d9-d757-4789-b3a2-0e9fffda4fc0",
+  "grade": "847d1092-fd43-4d58-b3da-002e6f3b7f3d",
   "weight": 6,
   "length": 7,
   "reach": 5,
@@ -22,12 +35,5 @@
     "b4c5d6e7-f8a9-40b1-c2d3-e4f5a6b7c8d9",
     "f6a7b8c9-d0e1-42f3-a4b5-c6d7e8f9a0b1"
   ],
-  "skillMods": [],
-  "isDeleted": false,
-  "isCustom": false,
-  "isTemplate": true,
-  "artUrl": null,
-  "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
-  "subtype": "3d4f28d9-d757-4789-b3a2-0e9fffda4fc0",
-  "grade": "847d1092-fd43-4d58-b3da-002e6f3b7f3d"
+  "defenseBonus": 0
 }

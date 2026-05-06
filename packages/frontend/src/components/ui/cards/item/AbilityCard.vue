@@ -66,7 +66,7 @@
 import { computed } from 'vue'
 import { ChevronUpIcon, ChevronDownIcon } from '@heroicons/vue/24/outline'
 import { useCardPreview } from '@/composables/useCardPreview'
-import { useItemImprovements } from '@/composables/useItemImprovements'
+import { useImprovements } from '@/composables/useImprovements'
 import { useActionTypesStore } from '@/stores/actionTypesStore'
 import { useCharactersStore } from '@/stores/charactersStore'
 import { useBiomeStore } from '@/stores/biomeStore'
@@ -171,7 +171,7 @@ function onCardMouseDown() {
 }
 
 // Item improvements composable
-const { toggleImprovement, getCharacterImprovements } = useItemImprovements('abilities')
+const { toggleImprovement, getCharacterImprovements } = useImprovements('abilities')
 
 // Stores
 const actionTypesStore = useActionTypesStore()

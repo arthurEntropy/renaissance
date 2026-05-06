@@ -1,23 +1,34 @@
 {
-  "source": "a07490af-2d77-4968-9adc-0a2a7c84ef70",
   "id": "029708f0-5497-4bbf-ade6-5d88f918ede8",
+  "isDeleted": false,
   "createdAt": "2026-02-27T18:56:34.091Z",
   "lastModified": "2026-03-05T17:23:31.103Z",
   "name": "Initiate’s Orb",
+  "artUrl": "https://cdn.midjourney.com/0f4b40e6-2545-4a57-82b3-d68d9bdf1a24/0_3.png",
+  "description": "<p>Difficulty: 10</p>",
+  "successes": null,
+  "improvements": [],
+  "source": "a07490af-2d77-4968-9adc-0a2a7c84ef70",
+  "school": null,
+  "keeping": null,
+  "isCustom": false,
+  "isTemplate": false,
+  "isMagical": true,
   "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
   "subtype": "b4946b09-e149-4896-8129-6d7d8b58a6ff",
-  "engagementDice": [],
-  "damageDice": [
-    4
-  ],
+  "grade": null,
   "weight": 8,
   "length": 0,
   "reach": 0,
-  "thrown": false,
   "range": "55e83a64-59b5-4d1a-b30f-2a01ff020a0b",
-  "finesse": false,
-  "description": "<p>Difficulty: 10</p>",
   "twoHanded": true,
-  "artUrl": "https://cdn.midjourney.com/0f4b40e6-2545-4a57-82b3-d68d9bdf1a24/0_3.png",
-  "isMagical": true
+  "thrown": false,
+  "finesse": false,
+  "piercing": false,
+  "damageDice": [
+    4
+  ],
+  "engagementDice": [],
+  "engagementSuccesses": [],
+  "defenseBonus": 0
 }

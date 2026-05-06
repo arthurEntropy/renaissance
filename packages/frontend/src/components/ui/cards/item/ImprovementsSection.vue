@@ -40,7 +40,7 @@
 
 <script setup>
 import { computed } from 'vue'
-import { useItemImprovements } from '@/composables/useItemImprovements'
+import { useImprovements } from '@/composables/useImprovements'
 import CardDescription from '@/components/ui/cards/item/CardDescription.vue'
 import BadgeDisplay from '@/components/ui/cards/item/BadgeDisplay.vue'
 
@@ -73,7 +73,7 @@ const props = defineProps({
 const emit = defineEmits(['toggle-improvement', 'roll-link'])
 
 // Use improvements composable
-const { hasImprovement } = useItemImprovements(props.itemType)
+const { hasImprovement } = useImprovements(props.itemType)
 
 // Computed properties
 const improvements = computed(() => props.item.improvements || [])

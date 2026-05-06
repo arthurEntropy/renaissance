@@ -1,4 +1,4 @@
-export function useItemImprovements(itemType) {
+export function useImprovements(itemType) {
   // itemType should be 'abilities' or 'equipment'
   const itemsProperty = itemType
   

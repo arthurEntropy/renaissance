@@ -1,11 +1,11 @@
 /**
- * @typedef {4 | 6 | 8 | 10 | 12 | 20} DieSides
+ * @typedef {4 | 6 | 8 | 10 | 12 | 20} DieSize
  * Number of sides on a die
  */
 
 /**
  * @typedef {Object} Die
- * @property {DieSides} dieSides - Number of sides on this die
+ * @property {DieSize} dieSides - Number of sides on this die
  * @property {string} [cssClass] - CSS class for rendering
  * @property {boolean} [isAdded] - Whether this die was added (e.g., from a condition)
  * @property {boolean} [isSubtracted] - Whether this die was subtracted (e.g., from a condition)
@@ -13,7 +13,7 @@
 
 /**
  * @typedef {Object} DiceResult
- * @property {DieSides} dieSides - Number of sides on this die (4, 6, 8, 10, 12, 20)
+ * @property {DieSize} dieSides - Number of sides on this die (4, 6, 8, 10, 12, 20)
  * @property {number} dieRollValue - The actual number rolled (0 if dropped)
  * @property {number} poolIndex - Position in the original dice pool (0-indexed)
  * @property {number} originalDieRollValue - Original roll value before modifications

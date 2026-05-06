@@ -1,9 +1,22 @@
 {
   "id": "6c9a4bb8-84f1-41ba-af09-ad6e65f7b9cc",
+  "isDeleted": false,
+  "createdAt": "2026-05-06T17:55:10.305Z",
+  "lastModified": "2026-02-17T19:50:08.610Z",
   "name": "Longsword",
+  "artUrl": "https://cdn.midjourney.com/a45961bd-a7cc-45fe-8f41-7c867bb33076/0_0.png",
   "description": "<p></p><p>Weight: 5-7. Length: 3-5</p>",
-  "keeping": "5e6f7a8b-9c0d-4e1f-2a3b-4c5d6e7f8a9b",
+  "successes": null,
+  "improvements": [],
   "source": "92110fd8-eae9-47d9-94a4-9873ef8b6c8d",
+  "school": null,
+  "keeping": "5e6f7a8b-9c0d-4e1f-2a3b-4c5d6e7f8a9b",
+  "isCustom": false,
+  "isTemplate": false,
+  "isMagical": false,
+  "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
+  "subtype": "ab765755-b7c9-47ac-b62f-34f069e00dc3",
+  "grade": "ebcc2bcb-8221-4ca0-bef3-000fb7e59e96",
   "weight": 5,
   "length": 3,
   "reach": 0,
@@ -25,13 +38,5 @@
     "d4e5f6a7-b8c9-40d1-e2f3-a4b5c6d7e8f9",
     "f6a7b8c9-d0e1-42f3-a4b5-c6d7e8f9a0b1"
   ],
-  "skillMods": [],
-  "isDeleted": false,
-  "isCustom": false,
-  "isTemplate": false,
-  "artUrl": "https://cdn.midjourney.com/a45961bd-a7cc-45fe-8f41-7c867bb33076/0_0.png",
-  "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
-  "subtype": "ab765755-b7c9-47ac-b62f-34f069e00dc3",
-  "grade": "ebcc2bcb-8221-4ca0-bef3-000fb7e59e96",
-  "lastModified": "2026-02-17T19:50:08.610Z"
+  "defenseBonus": 0
 }

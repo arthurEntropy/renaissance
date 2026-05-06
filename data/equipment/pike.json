@@ -1,9 +1,22 @@
 {
   "id": "a27debf0-f462-4e9a-9dcc-0da6aae7e575",
+  "isDeleted": false,
+  "createdAt": "2026-05-06T17:55:10.305Z",
+  "lastModified": "2026-05-06T17:55:10.305Z",
   "name": "Pike",
+  "artUrl": null,
   "description": "Weight: 10-15. Length: 12-15",
-  "keeping": null,
+  "successes": null,
+  "improvements": [],
   "source": null,
+  "school": null,
+  "keeping": null,
+  "isCustom": false,
+  "isTemplate": true,
+  "isMagical": false,
+  "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
+  "subtype": "3d4f28d9-d757-4789-b3a2-0e9fffda4fc0",
+  "grade": "a9023254-92ed-4c54-9840-5a7577c1aa1f",
   "weight": 10,
   "length": 12,
   "reach": 10,
@@ -19,12 +32,5 @@
     12
   ],
   "engagementSuccesses": [],
-  "skillMods": [],
-  "isDeleted": false,
-  "isCustom": false,
-  "isTemplate": true,
-  "artUrl": null,
-  "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
-  "subtype": "3d4f28d9-d757-4789-b3a2-0e9fffda4fc0",
-  "grade": "a9023254-92ed-4c54-9840-5a7577c1aa1f"
+  "defenseBonus": 0
 }

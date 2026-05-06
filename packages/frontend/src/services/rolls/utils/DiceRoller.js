@@ -1,5 +1,5 @@
 /**
- * @typedef {import('@shared/types/dice.js').DieSides} DieSides
+ * @typedef {import('@shared/types/dice.js').DieSize} DieSize
  * @typedef {import('@shared/types/dice.js').Die} Die
  */
 
