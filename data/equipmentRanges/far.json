@@ -1,8 +1,9 @@
 {
   "id": "a352823a-b88d-4ddb-9356-5d7ea89e1b0c",
-  "name": "Far",
-  "distance": "200 feet",
-  "index": 4,
   "isDeleted": false,
-  "lastModified": "2025-11-26T18:30:30.967Z"
+  "createdAt": "2026-05-06T18:00:33.219Z",
+  "lastModified": "2025-11-26T18:30:30.967Z",
+  "name": "Far",
+  "description": "200 feet",
+  "index": 4
 }

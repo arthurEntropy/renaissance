@@ -1,15 +1,19 @@
 import { createBaseEntity } from '../gameEntity.js'
 
 /**
- * @typedef {Object} EquipmentSubtype
- * @property {string|null} id - UUID identifier
- * @property {string} name - Subtype name (e.g., "Sword", "Axe", "Bow")
- * @property {string|null} typeId - Parent equipment type UUID reference
- * @property {string} description - Detailed description
+ * @typedef {import('../gameEntity.js').GameEntity} GameEntity
+ */
+
+/**
+ * @typedef {Object} EquipmentSubtypeFields
+ * @property {string} name - Subtype name
+ * @property {UUID|null} parentTypeId - Parent equipment type UUID reference
+ * @property {string} description - Subtype description
  * @property {number} index - Sort order index
- * @property {boolean} isDeleted - Soft delete flag
- * @property {string} createdAt - ISO 8601 datetime string
- * @property {string} lastModified - ISO 8601 datetime string
+ */
+
+/**
+ * @typedef {GameEntity & EquipmentSubtypeFields} EquipmentSubtype
  */
 
 /**
@@ -17,10 +21,18 @@ import { createBaseEntity } from '../gameEntity.js'
  * @returns {EquipmentSubtype}
  */
 export function createDefaultEquipmentSubtype() {
+  const baseEntity = createBaseEntity()
+
   return {
-    ...createBaseEntity(),
+    // Base entity fields
+    id: baseEntity.id,
+    isDeleted: baseEntity.isDeleted,
+    createdAt: baseEntity.createdAt,
+    lastModified: baseEntity.lastModified,
+
+    // Equipment subtype fields
     name: 'New Subtype',
-    typeId: null,
+    parentTypeId: null,
     description: '',
     index: 0,
   }

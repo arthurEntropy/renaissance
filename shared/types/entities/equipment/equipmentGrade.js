@@ -1,14 +1,18 @@
 import { createBaseEntity } from '../gameEntity.js'
 
 /**
- * @typedef {Object} EquipmentGrade
- * @property {string|null} id - UUID identifier
+ * @typedef {import('../gameEntity.js').GameEntity} GameEntity
+ */
+
+/**
+ * @typedef {Object} EquipmentGradeFields
  * @property {string} name - Grade name (e.g., "Common", "Martial", "Great")
- * @property {string} description - Detailed description
+ * @property {string} description - Grade description
  * @property {number} index - Sort order index
- * @property {boolean} isDeleted - Soft delete flag
- * @property {string} createdAt - ISO 8601 datetime string
- * @property {string} lastModified - ISO 8601 datetime string
+ */
+
+/**
+ * @typedef {GameEntity & EquipmentGradeFields} EquipmentGrade
  */
 
 /**
@@ -16,9 +20,17 @@ import { createBaseEntity } from '../gameEntity.js'
  * @returns {EquipmentGrade}
  */
 export function createDefaultEquipmentGrade() {
+  const baseEntity = createBaseEntity()
+
   return {
-    ...createBaseEntity(),
-    name: 'New Grade',
+    // Base entity fields
+    id: baseEntity.id,
+    isDeleted: baseEntity.isDeleted,
+    createdAt: baseEntity.createdAt,
+    lastModified: baseEntity.lastModified,
+
+    // Equipment grade fields
+    name: 'New Equipment Grade',
     description: '',
     index: 0,
   }

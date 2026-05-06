@@ -1,8 +1,9 @@
 {
   "id": "a9023254-92ed-4c54-9840-5a7577c1aa1f",
+  "isDeleted": false,
+  "createdAt": "2026-05-06T18:00:33.219Z",
+  "lastModified": "2025-11-26T18:30:18.589Z",
   "name": "Great",
   "description": "Exceptional quality equipment of legendary status",
-  "index": 4,
-  "isDeleted": false,
-  "lastModified": "2025-11-26T18:30:18.589Z"
+  "index": 4
 }

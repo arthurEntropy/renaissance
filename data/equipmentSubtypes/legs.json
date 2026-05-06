@@ -1,8 +1,10 @@
 {
   "id": "9b83b280-d799-4177-9e98-5bab995116e5",
+  "isDeleted": false,
+  "createdAt": "2026-05-06T18:00:33.219Z",
+  "lastModified": "2026-05-06T18:00:33.219Z",
   "name": "Legs",
-  "typeId": "1cc02e7b-cdaf-477c-a198-6be0ad5ab47f",
+  "parentTypeId": "1cc02e7b-cdaf-477c-a198-6be0ad5ab47f",
   "description": "Leg and thigh protection armor",
-  "index": 8,
-  "isDeleted": false
+  "index": 8
 }

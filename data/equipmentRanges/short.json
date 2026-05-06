@@ -1,8 +1,9 @@
 {
   "id": "55e83a64-59b5-4d1a-b30f-2a01ff020a0b",
-  "name": "Short",
-  "distance": "25 feet",
-  "index": 1,
   "isDeleted": false,
-  "lastModified": "2025-11-26T18:30:30.958Z"
+  "createdAt": "2026-05-06T18:00:33.219Z",
+  "lastModified": "2025-11-26T18:30:30.958Z",
+  "name": "Short",
+  "description": "25 feet",
+  "index": 1
 }

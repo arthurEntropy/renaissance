@@ -1,8 +1,9 @@
 {
   "id": "95a78acd-c61a-4b81-b004-4cac7350f594",
-  "name": "Adjacent",
-  "distance": "Within Reach",
-  "index": 0,
   "isDeleted": false,
-  "lastModified": "2025-11-26T18:30:30.952Z"
+  "createdAt": "2026-05-06T18:00:33.219Z",
+  "lastModified": "2025-11-26T18:30:30.952Z",
+  "name": "Adjacent",
+  "description": "Within Reach",
+  "index": 0
 }

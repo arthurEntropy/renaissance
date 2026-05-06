@@ -1,8 +1,10 @@
 {
   "id": "07e1ccc4-def1-47b1-8191-c5b6618c567b",
+  "isDeleted": false,
+  "createdAt": "2026-05-06T18:00:33.219Z",
+  "lastModified": "2026-05-06T18:00:33.219Z",
   "name": "Chest",
-  "typeId": "1cc02e7b-cdaf-477c-a198-6be0ad5ab47f",
+  "parentTypeId": "1cc02e7b-cdaf-477c-a198-6be0ad5ab47f",
   "description": "Torso protection armor",
-  "index": 6,
-  "isDeleted": false
+  "index": 6
 }

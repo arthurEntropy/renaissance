@@ -1,14 +1,18 @@
 import { createBaseEntity } from '../gameEntity.js'
 
 /**
- * @typedef {Object} EquipmentRange
- * @property {string|null} id - UUID identifier
+ * @typedef {import('../gameEntity.js').GameEntity} GameEntity
+ */
+
+/**
+ * @typedef {Object} EquipmentRangeFields
  * @property {string} name - Range name (e.g., "Melee", "Reach", "Ranged")
- * @property {string} distance - Distance description (e.g., "25 feet")
+ * @property {string} description - Distance description (e.g., "Within Reach, 25 feet")
  * @property {number} index - Sort order index
- * @property {boolean} isDeleted - Soft delete flag
- * @property {string} createdAt - ISO 8601 datetime string
- * @property {string} lastModified - ISO 8601 datetime string
+ */
+
+/**
+ * @typedef {GameEntity & EquipmentRangeFields} EquipmentRange
  */
 
 /**
@@ -16,10 +20,18 @@ import { createBaseEntity } from '../gameEntity.js'
  * @returns {EquipmentRange}
  */
 export function createDefaultEquipmentRange() {
+  const baseEntity = createBaseEntity()
+
   return {
-    ...createBaseEntity(),
+    // Base entity fields
+    id: baseEntity.id,
+    isDeleted: baseEntity.isDeleted,
+    createdAt: baseEntity.createdAt,
+    lastModified: baseEntity.lastModified,
+
+    // Equipment range fields
     name: 'New Range',
-    distance: '',
+    description: '',
     index: 0,
   }
 }

@@ -107,7 +107,7 @@
               <select id="range" v-model="editedEquipment.range" class="modal-input">
                 <option value="">-- Select Range --</option>
                 <option v-for="range in equipmentRangesStore.items" :key="range.id" :value="range.id">
-                  {{ range.name }} ({{ range.distance }})
+                  {{ range.name }} ({{ range.description }})
                 </option>
               </select>
             </div>
@@ -365,7 +365,7 @@ const equipmentIsArmor = computed(() => editedEquipment.value?.type === ARMOR_TY
 // Equipment categories management
 const availableSubtypes = computed(() => {
   if (!editedEquipment.value?.type) return []
-  return equipmentSubtypesStore.items.filter(subtype => subtype.typeId === editedEquipment.value.type)
+  return equipmentSubtypesStore.items.filter(subtype => subtype.parentTypeId === editedEquipment.value.type)
 })
 
 const onTypeChange = () => {

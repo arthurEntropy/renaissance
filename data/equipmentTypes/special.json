@@ -1,8 +1,9 @@
 {
+  "id": "1571c2a7-1abb-45df-b703-a051868486a8",
+  "isDeleted": false,
+  "createdAt": "2026-04-06T14:26:05.408Z",
+  "lastModified": "2026-04-06T14:26:29.604Z",
   "name": "Special",
   "description": "Equipment that requires special training to use.",
-  "index": 3,
-  "id": "1571c2a7-1abb-45df-b703-a051868486a8",
-  "createdAt": "2026-04-06T14:26:05.408Z",
-  "lastModified": "2026-04-06T14:26:29.604Z"
+  "index": 3
 }

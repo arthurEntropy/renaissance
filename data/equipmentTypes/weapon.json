@@ -1,8 +1,9 @@
 {
   "id": "9b22f01b-1c40-4f10-abec-00b4d279197f",
+  "isDeleted": false,
+  "createdAt": "2026-05-06T18:00:33.219Z",
+  "lastModified": "2025-11-26T16:04:02.646Z",
   "name": "Weapon",
   "description": "Equipment designed for combat and engagement",
-  "index": 0,
-  "isDeleted": false,
-  "lastModified": "2025-11-26T16:04:02.646Z"
+  "index": 0
 }

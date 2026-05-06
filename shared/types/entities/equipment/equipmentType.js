@@ -1,14 +1,18 @@
 import { createBaseEntity } from '../gameEntity.js'
 
 /**
- * @typedef {Object} EquipmentType
- * @property {string|null} id - UUID identifier
- * @property {string} name - Type name (e.g., "Weapon", "Armor", "Item")
- * @property {string} description - Detailed description
+ * @typedef {import('../gameEntity.js').GameEntity} GameEntity
+ */
+
+/**
+ * @typedef {Object} EquipmentTypeFields
+ * @property {string} name - Type name
+ * @property {string} description - Type description
  * @property {number} index - Sort order index
- * @property {boolean} isDeleted - Soft delete flag
- * @property {string} createdAt - ISO 8601 datetime string
- * @property {string} lastModified - ISO 8601 datetime string
+ */
+
+/**
+ * @typedef {GameEntity & EquipmentTypeFields} EquipmentType
  */
 
 /**
@@ -16,8 +20,16 @@ import { createBaseEntity } from '../gameEntity.js'
  * @returns {EquipmentType}
  */
 export function createDefaultEquipmentType() {
+  const baseEntity = createBaseEntity()
+
   return {
-    ...createBaseEntity(),
+    // Base entity fields
+    id: baseEntity.id,
+    isDeleted: baseEntity.isDeleted,
+    createdAt: baseEntity.createdAt,
+    lastModified: baseEntity.lastModified,
+
+    // Equipment type fields
     name: 'New Type',
     description: '',
     index: 0,

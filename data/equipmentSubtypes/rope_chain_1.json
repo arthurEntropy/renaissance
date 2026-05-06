@@ -1,9 +1,10 @@
 {
-  "name": "Rope & Chain",
-  "description": "",
-  "typeId": "9b22f01b-1c40-4f10-abec-00b4d279197f",
-  "index": 6,
   "id": "ab3719fa-6ee6-4c45-a368-e5047beb0e4f",
+  "isDeleted": false,
   "createdAt": "2026-04-15T14:13:16.971Z",
-  "lastModified": "2026-04-15T14:13:22.293Z"
+  "lastModified": "2026-04-15T14:13:22.293Z",
+  "name": "Rope & Chain",
+  "parentTypeId": "9b22f01b-1c40-4f10-abec-00b4d279197f",
+  "description": "",
+  "index": 6
 }

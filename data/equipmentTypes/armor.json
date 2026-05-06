@@ -1,7 +1,9 @@
 {
   "id": "1cc02e7b-cdaf-477c-a198-6be0ad5ab47f",
+  "isDeleted": false,
+  "createdAt": "2026-05-06T18:00:33.219Z",
+  "lastModified": "2026-05-06T18:00:33.219Z",
   "name": "Armor",
   "description": "Protective equipment worn to defend against attacks",
-  "index": 1,
-  "isDeleted": false
+  "index": 1
 }

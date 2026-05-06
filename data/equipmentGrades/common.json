@@ -1,8 +1,9 @@
 {
   "id": "b92d3394-2c64-487f-8c90-c56ea1cbd3f3",
+  "isDeleted": false,
+  "createdAt": "2026-05-06T18:00:33.219Z",
+  "lastModified": "2025-11-26T18:30:18.579Z",
   "name": "Common",
   "description": "Standard quality equipment commonly available",
-  "index": 1,
-  "isDeleted": false,
-  "lastModified": "2025-11-26T18:30:18.579Z"
+  "index": 1
 }

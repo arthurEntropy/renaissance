@@ -15,7 +15,7 @@ export const useEquipmentSubtypesStore = defineStore('equipmentSubtypes', () => 
   const getSubtypesByType = (typeId) => {
     if (!typeId) return []
     return base.items.value
-      .filter(subtype => subtype.typeId === typeId)
+      .filter(subtype => subtype.parentTypeId === typeId)
       .sort((a, b) => a.index - b.index)
   }
 

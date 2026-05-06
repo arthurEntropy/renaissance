@@ -1,8 +1,9 @@
 {
   "id": "6fa411a9-72ad-43e3-bca0-d4684fca010e",
-  "name": "Long",
-  "distance": "100 feet",
-  "index": 3,
   "isDeleted": false,
-  "lastModified": "2025-11-26T18:30:30.963Z"
+  "createdAt": "2026-05-06T18:00:33.219Z",
+  "lastModified": "2025-11-26T18:30:30.963Z",
+  "name": "Long",
+  "description": "100 feet",
+  "index": 3
 }
