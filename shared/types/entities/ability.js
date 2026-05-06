@@ -4,7 +4,9 @@ import { createBaseEntity } from './gameEntity.js'
  * @typedef {Object} Ability
  * @property {string|null} id - UUID identifier
  * @property {string} name - Ability name
+ * @property {string|null} [artUrl] - Optional art image URL
  * @property {string} description - Detailed description
+ * @property {string|null} [successes] - Optional success outcomes HTML (✨/🌞/💀 style)
  * @property {string|null} type - Ability type ID reference (trait, action, half action, etc.)
  * @property {boolean} canBeActive - Whether this ability can be toggled active/inactive
  * @property {boolean} isActive - Current active state
@@ -15,6 +17,9 @@ import { createBaseEntity } from './gameEntity.js'
  * @property {string|null} manaCost - Mana cost string for Channeler spells (e.g., '2WUB')
  * @property {boolean} isMagical - Whether this ability is magical in nature
  * @property {string|null} school - Ability school UUID reference (e.g., Transmutation, Way of the Hive)
+ * @property {{id?: string, name: string, description: string, xp: number}[]} [improvements] - Optional purchasable improvements
+ * @property {string[]} [biomeTagsAugment] - Biome tags that augment this ability
+ * @property {string[]} [biomeTagsInhibit] - Biome tags that inhibit this ability
  * @property {string} createdAt - ISO 8601 datetime string
  * @property {string} lastModified - ISO 8601 datetime string
  */

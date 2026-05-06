@@ -3,8 +3,8 @@ import { CAMPAIGN_ROLE, CAMPAIGN_MEMBER_STATUS } from '../../constants/campaignC
 /**
  * @typedef {Object} CampaignMember
  * @property {string} userId - Firebase UID of the member
- * @property {'gm'|'player'} role - Member role within this campaign
- * @property {'pending'|'accepted'|'declined'} status - Invitation status
+ * @property {import('../../constants/campaignConstants.js').CampaignRole} role - Member role within this campaign
+ * @property {import('../../constants/campaignConstants.js').CampaignMemberStatus} status - Invitation status
  * @property {string[]} characterIds - Character IDs this player has added to the campaign
  * @property {string} joinedAt - ISO 8601, set on acceptance
  * @property {string} invitedAt - ISO 8601
@@ -48,7 +48,7 @@ import { CAMPAIGN_ROLE, CAMPAIGN_MEMBER_STATUS } from '../../constants/campaignC
 /**
  * @typedef {Object} Campaign
  * @property {string|null} id - UUID identifier
- * @property {string} slug - URL-friendly identifier generated from name at creation
+ * @property {string|null} slug - URL-friendly identifier generated from name at creation
  * @property {string} name - Display name
  * @property {string} description - Optional rich text description
  * @property {string|null} coverImageUrl - Optional cover image URL for the campaign badge

@@ -15,7 +15,7 @@ import { createBaseEntity } from './gameEntity.js'
  * @typedef {Object} StatPool
  * @property {number} current - Current value
  * @property {number} max - Maximum value
- * @property {string} coreAbility - Core ability this stat is associated with ('body', 'heart', or 'wits')
+ * @property {string} [coreAbility] - Core ability this stat is associated with ('body', 'heart', or 'wits')
  */
 
 /**
@@ -108,6 +108,7 @@ import { createBaseEntity } from './gameEntity.js'
 /**
  * @typedef {Object} Character
  * @property {string|null} id - UUID identifier
+ * @property {boolean} isDeleted - Soft delete flag
  * @property {string} name - Character name
  * @property {boolean} isBeast - Whether this is a beast/creature
  * @property {number} challenge - Challenge rating for beasts (0 = not applicable)
@@ -148,15 +149,17 @@ import { createBaseEntity } from './gameEntity.js'
  * @property {null|'template'|'instance'} beastType - Beast classification; null = not a beast, 'template' = bestiary entry, 'instance' = campaign creature
  * @property {string|null} templateId - For beastType='instance', references the source template character
  * @property {string[]} artUrls - Character art URLs
+ * @property {string[]} [biomeTags] - Active biome tags affecting this character
+ * @property {string|null} [biomeId] - Selected biome ID
  * @property {Object.<string, string>} engagementDiceStatuses - Saved engagement die statuses keyed by die identifier
  * @property {ActiveEffect[]} activeEffects - Currently active effects
  * @property {boolean} groupAbilitiesBySource - Whether to group abilities by source
  * @property {boolean} groupAbilitiesByManaColor - Whether to group abilities by mana color
- * @property {boolean} groupAbilitiesByCustom - Whether to group abilities by custom user-defined groups
+ * @property {boolean} [groupAbilitiesByCustom] - Whether to group abilities by custom user-defined groups
  * @property {boolean} groupEquipmentBySource - Whether to group equipment by source
- * @property {boolean} groupEquipmentByCustom - Whether to group equipment by custom user-defined groups
- * @property {Array<{id: string, name: string}>} abilityCustomGroups - User-defined ability group definitions
- * @property {Array<{id: string, name: string}>} equipmentCustomGroups - User-defined equipment group definitions
+ * @property {boolean} [groupEquipmentByCustom] - Whether to group equipment by custom user-defined groups
+ * @property {Array<{id: string, name: string}>} [abilityCustomGroups] - User-defined ability group definitions
+ * @property {Array<{id: string, name: string}>} [equipmentCustomGroups] - User-defined equipment group definitions
  * @property {string} abilitySortOption - Sort option for abilities
  * @property {string} equipmentSortOption - Sort option for equipment
  * @property {Object} autoCalculations - Auto-calculation settings

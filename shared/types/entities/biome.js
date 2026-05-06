@@ -24,5 +24,6 @@ export function createDefaultBiome() {
     description: '',
     artUrl: '',
     tags: [],
+    index: 0,
   }
 }

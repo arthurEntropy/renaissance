@@ -3,6 +3,8 @@
     "target": "es2020",
     "module": "esnext",
     "moduleResolution": "bundler",
+    "checkJs": true,
+    "noEmit": true,
     "paths": {
       "@/*": ["./src/*"],
       "@shared/*": ["../../shared/*"]
