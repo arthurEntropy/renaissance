@@ -10,7 +10,7 @@
     {
       "name": "Shared Ward",
       "description": "<p>You may spend 2 additional MP to extend the benefits of this spell to one additional creature you touch.</p>",
-      "xp": 15,
+      "xpCost": 15,
       "id": "6aab7b8b-eeb0-462c-bdfc-41841f590ce9"
     }
   ],

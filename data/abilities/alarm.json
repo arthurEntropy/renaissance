@@ -10,7 +10,7 @@
     {
       "name": "Greater Alarm",
       "description": "<p>You may instead spend 8 hours casting this spell to extend to maximum dimension of the warded area to 100 ft and make its effects last for 1 year.</p>",
-      "xp": 5,
+      "xpCost": 5,
       "id": "e05fad58-d75e-4c6f-819a-30be5770976e"
     }
   ],

@@ -9,13 +9,13 @@
     {
       "name": "Disguise Person",
       "description": "<p>You may target another humanoid creature you touch. If the creature is unwilling, it may roll Insight against the Difficulty to resist. On a pass, the spell has no effect on the creature.</p>",
-      "xp": 20,
+      "xpCost": 20,
       "id": "9d4f6632-b4e0-406d-8451-b3e940828d26"
     },
     {
       "name": "Seeming",
       "description": "<p>You may target any number of creatures - humanoid or non-humanoid - within short range. In addition to the restrictions described above, you cannot change a creature's body type (for example, a four-legged creature must remain four-legged when disguised).</p>",
-      "xp": 30,
+      "xpCost": 30,
       "id": "2566be82-185a-42eb-ab5d-591c5dadc04e"
     }
   ],

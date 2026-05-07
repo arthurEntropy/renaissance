@@ -9,13 +9,13 @@
     {
       "name": "Imposter",
       "description": "<p>You may choose to have the doppelgänger take the form of a humanoid creature you have seen before. If you have spent at least 1 minute in conversation with the creature you are impersonating, the doppelgänger speaks with their voice. Otherwise, the doppelgänger speaks with your voice.</p>",
-      "xp": 40,
+      "xpCost": 40,
       "id": "bcf4a828-8891-4792-b98b-b6d0defdeb60"
     },
     {
       "name": "Project Image",
       "description": "<p>The doppelgänger may move any distance from you.</p>",
-      "xp": 50,
+      "xpCost": 50,
       "id": "02e8247a-ca16-4aac-a588-dc12bc50b465"
     }
   ],

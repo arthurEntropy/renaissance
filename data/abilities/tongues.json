@@ -9,7 +9,7 @@
     {
       "name": "Parley",
       "description": "<p>Instead choose a point within Short Range. The effects of the spell extend to each creature within Short Range of that point.</p>",
-      "xp": 15,
+      "xpCost": 15,
       "id": "f7989310-ee9c-46f2-be4b-45b42ac88615"
     }
   ],

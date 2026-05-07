@@ -9,7 +9,7 @@
     {
       "name": "Play!",
       "description": "<p>You may attempt to bounce the orb off of any creature or object that is at least as large as your orb. If you do, your Dexterity roll is ill-favored.</p>",
-      "xp": 5,
+      "xpCost": 5,
       "id": "dda9dc97-97d7-4439-b284-3c48e8fce6fb"
     }
   ],

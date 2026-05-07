@@ -9,13 +9,13 @@
     {
       "name": "Measured Step",
       "description": "<p>At the beginning of each of your turns, you may choose to reduce your Speed for 1 round. For each 5 ft you reduce it by, ignore 5 lbs of weight from the equipment you're carrying when calculating Load.</p>",
-      "xp": 15,
+      "xpCost": 15,
       "id": "1d81ceb0-1bff-4b4d-9659-4f47ab1a4f6e"
     },
     {
       "name": "Mighty",
       "description": "<p>Each time you roll damage for a melee attack, instead of adding your BODY score to the result, add twice your BODY score.</p>",
-      "xp": 30,
+      "xpCost": 30,
       "id": "6423364a-eaaf-468b-8717-b00df6dfb0ec"
     }
   ],

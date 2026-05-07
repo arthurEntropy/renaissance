@@ -10,7 +10,7 @@
     {
       "name": "Leomund's Slightly Larger Hut",
       "description": "<p>You may create a dome with a radius up to short range.</p>",
-      "xp": 10,
+      "xpCost": 10,
       "id": "526840b7-87c3-43d9-b450-72e51a9ee8e5"
     }
   ],

@@ -9,7 +9,7 @@
     {
       "name": "Dispel Evil & Good",
       "description": "<p>While you have this sense active, attack rolls made against you by deities, spirits and undead are ill-favored. Additionally, you may spend an action and 5 MP to trigger one of the following effects:</p><ul><li><p><strong>Dispel. </strong>You touch a creature and immediately end all effects imposed upon that creature by a deity, spirit or undead.</p></li><li><p><strong>Dismissal. </strong>Roll Spirit vs Spirit against a deity, spirit or undead. On a win, it returns to the center of its Domain (if any) or moves until it is outside of far range from you - whichever is further. Either way, it cannot come within far range of you for 1 day. On a loss, it cannot move closer to you for 1 round.</p></li></ul><p>If you trigger either of these effects, the spell ends.</p>",
-      "xp": 15,
+      "xpCost": 15,
       "id": "9fddc65a-799d-47a9-b8d3-1869664392c8"
     }
   ],

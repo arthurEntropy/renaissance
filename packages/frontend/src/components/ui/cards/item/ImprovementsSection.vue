@@ -8,7 +8,7 @@
                     <CardDescription v-if="impr.description" :content="impr.description"
                         additional-classes="improvement" @roll-link="emit('roll-link', $event)">
                         <template #badge>
-                            <BadgeDisplay v-if="impr.xp" type="xp" :value="impr.xp" :is-owned="true"
+                            <BadgeDisplay v-if="impr.xpCost" type="xp" :value="impr.xpCost" :is-owned="true"
                                 :isInteractive="isInteractive" :improvement-id="impr.id" :asImprovementBadge="true"
                                 @toggle="handleImprovementToggle" />
                         </template>
@@ -27,9 +27,10 @@
                     <CardDescription v-if="impr.description" :content="impr.description"
                         :additional-classes="unownedDescriptionClasses" @roll-link="emit('roll-link', $event)">
                         <template #badge>
-                            <BadgeDisplay v-if="impr.xp" type="xp" :value="impr.xp" :isInteractive="isInteractive"
-                                :is-owned="isImprovementOwned(impr.id)" :improvement-id="impr.id"
-                                :asImprovementBadge="true" @toggle="handleImprovementToggle" />
+                            <BadgeDisplay v-if="impr.xpCost" type="xp" :value="impr.xpCost"
+                                :isInteractive="isInteractive" :is-owned="isImprovementOwned(impr.id)"
+                                :improvement-id="impr.id" :asImprovementBadge="true"
+                                @toggle="handleImprovementToggle" />
                         </template>
                     </CardDescription>
                 </div>
@@ -94,7 +95,7 @@ const partitionedImprovements = computed(() => {
 
     // In non-character contexts, all improvements are un-owned
     if (!props.showImprovementToggle || !props.character) {
-        const sorted = [...improvements.value].sort((a, b) => (a.xp || 0) - (b.xp || 0))
+        const sorted = [...improvements.value].sort((a, b) => (a.xpCost || 0) - (b.xpCost || 0))
         return { ownedImprovements: [], unownedImprovements: sorted }
     }
 
@@ -111,8 +112,8 @@ const partitionedImprovements = computed(() => {
     }
 
     // Sort both arrays by XP
-    owned.sort((a, b) => (a.xp || 0) - (b.xp || 0))
-    unowned.sort((a, b) => (a.xp || 0) - (b.xp || 0))
+    owned.sort((a, b) => (a.xpCost || 0) - (b.xpCost || 0))
+    unowned.sort((a, b) => (a.xpCost || 0) - (b.xpCost || 0))
 
     return { ownedImprovements: owned, unownedImprovements: unowned }
 })

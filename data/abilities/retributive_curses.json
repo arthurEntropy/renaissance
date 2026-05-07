@@ -10,13 +10,13 @@
     {
       "name": "Improved Retribution",
       "description": "<p>Your retributive curses now last for up to 10 minutes. You also gain additional curse options:</p><p><strong>Shared Suffering</strong>. Each time the creature makes an attack against another creature, it takes 1d8+HEART damage.</p><p><strong>Enervation</strong>. The creatures takes -1d to all damage rolls.</p><p><strong>Muzzle</strong>. The target can’t make melee attacks that require use of its mouth(s).</p>",
-      "xp": 15,
+      "xpCost": 15,
       "id": "cd60e5f1-5a45-49df-b463-11bccffeec06"
     },
     {
       "name": "Greater Retribution",
       "description": "<p>Your retributive curses now last for up to 1 hour. You also gain the following additional curse option:</p><p><strong>Humbling Hex</strong>. Roll Spirit vs Spirit against the creature. On a win, you transform it into a creature of your choice with a Challenge of 0 that can survive in its current environment.<br>   ✨: The curse lasts an additional hour.<br>   🌞: The curse lasts for 1 day.</p>",
-      "xp": 30,
+      "xpCost": 30,
       "id": "8813833d-cc68-4fa2-a661-2c7b5eed0028"
     }
   ],

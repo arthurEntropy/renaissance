@@ -9,7 +9,7 @@
     {
       "name": "Wing & Gill",
       "description": "<p>You may choose an animal that can fly or breathe underwater.</p>",
-      "xp": 10,
+      "xpCost": 10,
       "id": "d5a11904-83e8-49c1-8e71-1b31953fb9c7"
     }
   ],

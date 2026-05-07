@@ -11,7 +11,7 @@
     {
       "name": "Precious Cargo",
       "description": "<p>You may also target objects with this spell. Each object must weigh 300 lbs or less.</p>",
-      "xp": 5,
+      "xpCost": 5,
       "id": "58a05e75-05a6-4244-9c87-74b4f0f3c8e3"
     }
   ],

@@ -10,13 +10,13 @@
     {
       "name": "Contingency",
       "description": "<p>When you craft a talisman, you may designate circumstances that will cause one of the spells it contains to be automatically cast. When this happens the spell is cast by the talisman, not the bearer.</p>",
-      "xp": 10,
+      "xpCost": 10,
       "id": "ba8fc053-1dca-4940-9cf0-2f4b734ff67f"
     },
     {
       "name": "Recall",
       "description": "<p>If you have a sanctum that has existed for at least 7 days, you may instill a special magical effect in a talisman, which requires the bearer to spend 5 MP and an action to cast.</p><p>You and up to 5 creatures touching the talisman are instantly teleported to an unoccupied area of your sanctum.</p>",
-      "xp": 30,
+      "xpCost": 30,
       "id": "92704700-fd1c-449d-b606-5fa43613ca7a"
     }
   ],

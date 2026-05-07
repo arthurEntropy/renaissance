@@ -10,13 +10,13 @@
     {
       "name": "Hidden Room",
       "description": "<p>Your Sanctum contains a hidden demiplane, accessible only at your will. The demiplane’s maximum size in any dimension is a number of feet equal to your combined BODY, HEART, and WITS scores. You determine its nature and appearance, provided the environment is safe and comfortable for a living creature.</p><p>By default, the demiplane is inaccessible. As an action, you may create a temporary entrance using a door, window, trapdoor, or other openable barrier within your Sanctum. The entrance persists until you dismiss it, which requires the barrier to be closed.</p>",
-      "xp": 20,
+      "xpCost": 20,
       "id": "578900b9-ea9d-452a-a64e-e546707dba4b"
     },
     {
       "name": "Hearthway",
       "description": "<p>Your Sanctum contains a fireplace that allows you to travel to familiar locations.</p><p>Once per rest, choose up to 5 creatures and choose a location you have been to before which has a fireplace. For the next minute, if you or any of those creatures pass into the fireplace, you are teleported to the location you chose, emerging from the fireplace in that location in the same manner you entered your own. You are unharmed by any fire in either fireplace while the minute lasts.</p><p>The connection between the fireplaces is one-way and does not allow for travel back to your Sanctum.</p>",
-      "xp": 20,
+      "xpCost": 20,
       "id": "9ffd67dc-2220-49c6-81e4-5dbf51d56192"
     }
   ],

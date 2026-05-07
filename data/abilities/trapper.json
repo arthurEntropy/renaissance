@@ -11,19 +11,19 @@
     {
       "name": "More Traps",
       "description": "<p>You have 5 traps instead of 3.</p>",
-      "xp": 10,
+      "xpCost": 10,
       "id": "947951c7-8b7c-4a2d-88e7-424d7a17b0fa"
     },
     {
       "name": "Deadly Traps",
       "description": "<p>The <strong>Pierce</strong> effect instead deals 3d8 damage.</p>",
-      "xp": 15,
+      "xpCost": 15,
       "id": "26328285-29eb-4b9b-8d72-f9ae10bb015c"
     },
     {
       "name": "Staked Traps",
       "description": "<p>The <strong>Clamp</strong> effect instead reduces the trapped creature's speed to 0.</p>",
-      "xp": 10,
+      "xpCost": 10,
       "id": "df4cfb23-804d-40a2-8640-67d3f78a6134"
     }
   ],

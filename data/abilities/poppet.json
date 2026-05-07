@@ -10,7 +10,7 @@
     {
       "name": "Malicious Intent",
       "description": "<p>You may choose from these additional effects:</p><ul><li><p>The creature takes HEART damage.</p></li><li><p>The creature takes -1d to a skill of your choice.</p></li><li><p>The creature checks a Condition.</p></li></ul>",
-      "xp": 10,
+      "xpCost": 10,
       "id": "41eccff5-2510-46b1-afad-61586c83e559"
     }
   ],

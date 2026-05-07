@@ -9,19 +9,19 @@
     {
       "name": "Superior Wild Shape",
       "description": "<p>When you use <em>Wild Shape</em>, you may transform into any non-humanoid creature of up to Challenge 10 that you have seen.</p>",
-      "xp": 25,
+      "xpCost": 25,
       "id": "34895912-5819-4d05-abfe-6d1f46cfb8d8"
     },
     {
       "name": "Shapechanger",
       "description": "<p>When you use <em>Wild Shape</em>, you do not need to concentrate to sustain it, and you may sustain it for up to 1 day. During that time, you may shift between forms any number of times, as a half action.</p>",
-      "xp": 40,
+      "xpCost": 40,
       "id": "02708c99-c7ed-4b93-a943-f0a579c7ad6b"
     },
     {
       "name": "Animal Shapes",
       "description": "<p>You may spend 1 minute casting <em>Wild Shape </em>as a ritual. If you do, you may target any number of willing creatures within short range with the spell, paying 1 MP for each creature other than yourself and transforming them into any non-humanoid creature of up to Challenge 5 that you have seen.</p>",
-      "xp": 50,
+      "xpCost": 50,
       "id": "88dbe0c5-71e2-4ebc-b167-99498ddbebfe"
     }
   ],

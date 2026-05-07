@@ -9,13 +9,13 @@
     {
       "name": "Ambidextrous",
       "description": "<p>You can make the follow-up attack with a melee weapon of any type.</p>",
-      "xp": 10,
+      "xpCost": 10,
       "id": "f1a6c2ee-f7f0-543b-b088-d69b048bd612"
     },
     {
       "name": "Relentless",
       "description": "<p>You can make the follow-up attack even if the initial attack hits.</p>",
-      "xp": 10,
+      "xpCost": 10,
       "id": "5cdf24a8-94a3-54a9-8d29-e31c0a213826"
     }
   ],

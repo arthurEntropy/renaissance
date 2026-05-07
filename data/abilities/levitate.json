@@ -10,7 +10,7 @@
     {
       "name": "Greater Levitate",
       "description": "<p>You may target a creature or object up to four times your weight.</p>",
-      "xp": 10,
+      "xpCost": 10,
       "id": "086bb391-fabb-435a-a324-e0b6e366288e"
     }
   ],

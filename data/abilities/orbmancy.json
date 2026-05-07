@@ -9,7 +9,7 @@
     {
       "name": "Baller",
       "description": "<p>You may maintain attunement with one additional orb.</p>",
-      "xp": 15,
+      "xpCost": 15,
       "id": "e2b1d226-b913-427c-b62f-1f8d0ea0b051"
     }
   ],

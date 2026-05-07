@@ -10,7 +10,7 @@
     {
       "name": "Vine Rope",
       "description": "<p>Once per rest: While Vine Whip is in effect, you may spend a half action to extend the tendril into a 25 ft long vine. It can grip and release objects at your command and can hold up to 300 lbs of weight.</p>",
-      "xp": 5,
+      "xpCost": 5,
       "id": "f9c8266c-8326-42f3-9c72-00d18a302255"
     }
   ],

@@ -9,13 +9,13 @@
     {
       "name": "Sending",
       "description": "<p>If you have seen and spoken to a creature before, you may choose it as a target for this spell regardless the distance between it and you.</p>",
-      "xp": 15,
+      "xpCost": 15,
       "id": "55d0ae34-9dbf-4bd8-8707-a061dfa32f60"
     },
     {
       "name": "Telepathy",
       "description": "<p>If your message successfully reaches the creature and its reply successfully reaches you, you may spend 5 MP to establish a telepathic link with the creature, which lasts for 1 day. You and the creature can instantaneously share words, images, sounds, and other sensory messages with one another through the link.</p><p>If the creature has a WITS score of at least 1, it gains the ability to understand the meaning of your words and take in the scope of any sensory messages you send to it.</p>",
-      "xp": 30,
+      "xpCost": 30,
       "id": "99c45ea3-b756-47b5-88f9-3b108ac0aa6c"
     }
   ],

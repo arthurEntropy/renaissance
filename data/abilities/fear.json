@@ -10,7 +10,7 @@
     {
       "name": "Mass Panic",
       "description": "<p>When you cast this spell, you may target any number of additional creatures within short range, at a cost of 2 MP per creature.</p>",
-      "xp": 30,
+      "xpCost": 30,
       "id": "ae1fc967-30e6-4b13-b0f8-813162da3438"
     }
   ],

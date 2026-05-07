@@ -9,7 +9,7 @@
     {
       "name": "Revivify",
       "description": "<p>You may touch a creature that has died within the last minute. That creature returns to life with 0 Endurance and remains unconscious. This spell can’t return to life a creature that has died of old age, nor can it restore any missing body parts.</p>",
-      "xp": 15,
+      "xpCost": 15,
       "id": "342c787e-094d-45e8-b14a-7bc7480f9294"
     }
   ],

@@ -11,7 +11,7 @@
     {
       "name": "Golden Edge",
       "description": "<p>Each time you apply gold to the blade as defined above, instead of imbuing the sword with charges, the blade simply deals double damage instead of half damage for 1 day.</p>",
-      "xp": 10,
+      "xpCost": 10,
       "id": "5116dfd3-d788-40f8-93df-e5b04ea6cd88"
     }
   ],

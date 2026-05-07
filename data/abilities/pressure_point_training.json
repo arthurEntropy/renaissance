@@ -9,13 +9,13 @@
     {
       "name": "Catch Them Off-Guard",
       "description": "<p>In Engagement, you may spend Engagement successes to make pressure point attacks. You still must make the opposed skill check for each attack.</p>",
-      "xp": 5,
+      "xpCost": 5,
       "id": "7ee3fb4d-0ca1-535d-999c-bf18fad83568"
     },
     {
       "name": "Five Touch Attack",
       "description": "<p>If you successfully make five pressure point attacks against the same creature within one round, they roll Injury and check a Condition. Their speed is reduced to zero until the end of their next turn.</p>",
-      "xp": 10,
+      "xpCost": 10,
       "id": "d6ced026-b5ab-557f-9f10-d6fa092e7cd9"
     }
   ],

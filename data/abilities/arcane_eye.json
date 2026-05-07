@@ -9,13 +9,13 @@
     {
       "name": "Arcane Ear",
       "description": "<p>You may spend an additional 2 MP when you cast the spell to add the sense of hearing to the sensor.</p>",
-      "xp": 10,
+      "xpCost": 10,
       "id": "d60102c1-ed0c-4fe6-8f3e-00de749d7c9c"
     },
     {
       "name": "Clairvoyance",
       "description": "<p>You may create the sensor at a point within 1 mile in a location you have visited or seen before, or in an obvious unfamiliar location (like behind a wall or in a grove of trees).</p>",
-      "xp": 30,
+      "xpCost": 30,
       "id": "dc8d2fdc-9efc-4362-a2bb-e2d6774b2b35"
     }
   ],

@@ -12,7 +12,7 @@
       "id": "a1b2c3d4-e5f6-7890-1234-567890abcdef",
       "name": "Extra Stabby",
       "description": "<p>The damage die for this weapon increases to a d8.</p>",
-      "xp": 5
+      "xpCost": 5
     }
   ],
   "source": "34ea8807-b404-435c-a860-704b4a40df8f",

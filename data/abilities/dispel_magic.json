@@ -11,7 +11,7 @@
     {
       "name": "Scrutinize",
       "description": "<p>All your Lore rolls for this ability are favored.</p>",
-      "xp": 5,
+      "xpCost": 5,
       "id": "3f2cc0ac-5b5b-476c-b8dc-20610790d49e"
     }
   ],

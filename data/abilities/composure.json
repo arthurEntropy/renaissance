@@ -10,7 +10,7 @@
     {
       "name": "Poise",
       "description": "<p>You gain an additional d4 Engagement die for each MP you spend.</p>",
-      "xp": 15,
+      "xpCost": 15,
       "id": "8efc52bd-b89a-469a-8728-ab800c5e3c66"
     }
   ],

@@ -11,7 +11,7 @@
     {
       "name": "Spur",
       "description": "<p>You may cast this spell on another creature within short range instead of on yourself.</p>",
-      "xp": 10,
+      "xpCost": 10,
       "id": "fdcfeaa5-ba54-4725-a418-080d5af3d654"
     }
   ],

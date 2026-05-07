@@ -10,7 +10,7 @@
     {
       "name": "Animate Castle",
       "description": "<p>You may target a building that is up to 100 ft in any dimension.</p>",
-      "xp": 25,
+      "xpCost": 25,
       "id": "afb17e22-aa2c-47a3-b49c-34555b7c4273"
     }
   ],

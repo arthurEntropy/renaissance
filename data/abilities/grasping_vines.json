@@ -9,7 +9,7 @@
     {
       "name": "Wall of Vines",
       "description": "<p>When you cast this spell, you may spend additional MP. For each additional 1 MP you spend, vines erupt in two additional 5-ft squares within short range. The squares must be contiguous.</p>",
-      "xp": 15,
+      "xpCost": 15,
       "id": "2983ade0-b6de-4664-820f-dca24288480d"
     }
   ],

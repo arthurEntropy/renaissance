@@ -9,19 +9,19 @@
     {
       "name": "Accurate",
       "description": "<p>When you attack with a ranged weapon, the attack roll is favored.</p>",
-      "xp": 15,
+      "xpCost": 15,
       "id": "755e5285-eb7e-4380-8fe7-0b0c232337c1"
     },
     {
       "name": "Deadly",
       "description": "<p>When you attack and hit with a ranged weapon, if you roll max damage on at least one damage die, the target rolls Injury.</p>",
-      "xp": 15,
+      "xpCost": 15,
       "id": "08cd1d93-5bb3-4a0b-bbf3-76b3c6760a8a"
     },
     {
       "name": "Quick Shot",
       "description": "<p>Whenever you spend an action to make an attack with a ranged weapon, you may instead make two ranged attacks with that weapon.</p>",
-      "xp": 30,
+      "xpCost": 30,
       "id": "b285a26b-6169-4d68-b919-253ca92805b5"
     }
   ],

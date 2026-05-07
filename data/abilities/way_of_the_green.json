@@ -9,7 +9,7 @@
     {
       "name": "Vigorous Ward",
       "description": "<p>Your plant ward grants two additional d4 engagement dice and it deals 1d8 damage when it makes opportunity attacks.</p>",
-      "xp": 10,
+      "xpCost": 10,
       "id": "238af342-c3c5-43c6-96d4-2c5793b9f718"
     }
   ],

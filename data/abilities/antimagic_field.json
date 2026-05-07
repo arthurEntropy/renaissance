@@ -11,7 +11,7 @@
     {
       "name": "Antilife Field",
       "description": "<p>The field also prevents all creatures other than you from passing or reaching through. The field pushes creatures out of the way as it moves.</p>",
-      "xp": 10,
+      "xpCost": 10,
       "id": "c2746235-8e55-443e-8a47-264ab1914237"
     }
   ],

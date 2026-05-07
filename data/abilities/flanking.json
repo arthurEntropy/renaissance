@@ -9,13 +9,13 @@
     {
       "name": "Team Strike",
       "description": "<p>You and flanking allies also take +1d to damage rolls against the flanked creature.</p>",
-      "xp": 10,
+      "xpCost": 10,
       "id": "4cae0907-4033-5102-a4cd-e6d6dab10ef4"
     },
     {
       "name": "Topple",
       "description": "<p>When you or a flanking ally lands a hit with a melee attack, another flanking ally may roll Strength vs Dexterity against the flanked creature. On a win, the creature is knocked prone.</p>",
-      "xp": 5,
+      "xpCost": 5,
       "id": "7b6ffab3-6ac0-5741-8d96-983c15798232"
     }
   ],

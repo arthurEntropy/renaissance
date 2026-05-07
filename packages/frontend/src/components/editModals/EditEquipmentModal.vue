@@ -225,8 +225,8 @@
               <div class="improvement-card-row">
                 <input type="text" v-model="impr.name" placeholder="Name" class="modal-input improvement-name-input" />
                 <span class="xp-label">XP:</span>
-                <input type="number" v-model.number="impr.xp" placeholder="XP" class="modal-input improvement-xp-input"
-                  min="0" />
+                <input type="number" v-model.number="impr.xpCost" placeholder="XP"
+                  class="modal-input improvement-xp-input" min="0" />
                 <button type="button" class="icon-btn" @click="removeImprovement(idx)" aria-label="Remove improvement">
                   <XMarkIcon class="icon" />
                 </button>
@@ -401,7 +401,7 @@ const saveEquipment = () => {
 // Improvement management functions
 const addImprovement = () => {
   if (!editedEquipment.value.improvements) editedEquipment.value.improvements = []
-  editedEquipment.value.improvements.push({ name: '', description: '', xp: 0 })
+  editedEquipment.value.improvements.push({ name: '', description: '', xpCost: 0 })
 }
 
 const removeImprovement = (idx) => {

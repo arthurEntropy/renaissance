@@ -9,7 +9,7 @@
     {
       "name": "Master of Arms",
       "description": "<p>Add two additional engagement dice of the same type instead of one.</p>",
-      "xp": 15,
+      "xpCost": 15,
       "id": "ce3f8022-7bc9-5ae4-9b87-c1efb6b2bef2"
     }
   ],

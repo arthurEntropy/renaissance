@@ -10,7 +10,7 @@
     {
       "name": "The Very Best",
       "description": "<p>You may choose up to 6 active vessels instead.</p>",
-      "xp": 30,
+      "xpCost": 30,
       "id": "3e948b42-5cb6-4672-a8fa-c218b5412cd9"
     }
   ],

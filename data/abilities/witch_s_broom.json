@@ -9,7 +9,7 @@
     {
       "name": "Borrowed Broom",
       "description": "<p>You can temporarily attune to a broom you did not craft.</p><p>Spend 1 action and maintain concentration for 1 round while holding or touching the broom. At the end of the round, you become temporarily attuned to it for 1 minute. This does not break your attunement to you regular witch's broom.</p><p>While this attunement lasts, the broom behaves like your Witch’s Broom, but whenever you fly using the broom, roll a feat die. On a result of:</p><ul><li><p>💀, your attunement immediately ends and the broom becomes mundane. If you are airborne, you fall.</p></li><li><p>1-3, the broom moves in a random direction, determined by the GM.</p></li><li><p>4-10, the broom moves as you intend.</p></li><li><p>🌞, the broom moves as you intend for the rest of the attunement. You no longer roll the feat die each time you fly with the broom.</p></li></ul><p>When the minute ends, the broom becomes mundane. If you are airborne, you fall.</p>",
-      "xp": 10,
+      "xpCost": 10,
       "id": "da9c56c8-f713-41e1-8253-a518ff0c2366"
     }
   ],

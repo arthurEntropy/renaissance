@@ -9,13 +9,13 @@
     {
       "name": "Fists of Fury",
       "description": "<p>Your damage die for unarmed melee attacks and melee attacks with improvised weapons increases to a d8.</p>",
-      "xp": 15,
+      "xpCost": 15,
       "id": "c0cce62d-03a8-5654-92e9-c354f4233834"
     },
     {
       "name": "Sting Like A Bee",
       "description": "<p>Your damage die for unarmed melee attacks and melee attacks with improvised weapons increases to a d10.</p>",
-      "xp": 30,
+      "xpCost": 30,
       "id": "cd9bad53-973c-437d-8dbf-170e407660d5"
     }
   ],

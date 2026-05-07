@@ -10,7 +10,7 @@
     {
       "name": "Hurricane",
       "description": "<p>You may pay double the mana cost to double the storm's size, strength and intensity. If you do:</p><ul><li><p>You may extend the storm's radius out to far range.</p></li><li><p>Double the number of counters you put on the storm.</p></li><li><p>It only costs a half action to remove a counter from the storm and choose an effect.</p></li></ul>",
-      "xp": 40,
+      "xpCost": 40,
       "id": "8e633170-ae85-4bbb-810a-e17cf9d7de2d"
     }
   ],

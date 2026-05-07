@@ -9,13 +9,13 @@
     {
       "name": "Vicious",
       "description": "<p>Whenever you land a hit with an unarmed melee attack, +1d to the damage roll.</p>",
-      "xp": 15,
+      "xpCost": 15,
       "id": "4f770f4b-6f3f-4c5e-9a53-b8aad19ef8c8"
     },
     {
       "name": "Red Frenzy",
       "description": "<p>When you spend an action to make an unarmed melee attack, you may make a second unarmed melee attack, using the same engagement result.</p>",
-      "xp": 30,
+      "xpCost": 30,
       "id": "478130b7-a236-465e-84a5-16b89f2a6238"
     }
   ],

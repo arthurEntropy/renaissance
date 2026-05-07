@@ -11,13 +11,13 @@
     {
       "name": "Greater Circle of Protection",
       "description": "<p>The circle extends out to medium range.</p>",
-      "xp": 10,
+      "xpCost": 10,
       "id": "221cff27-2bf8-4941-b815-e7979bb22882"
     },
     {
       "name": "Color Protection",
       "description": "<p>When you cast this spell, choose a mana color. Spells of the chosen color cannot target creatures within the circle.</p>",
-      "xp": 10,
+      "xpCost": 10,
       "id": "ccfc7553-3a14-4131-9bfd-dc4334f043ca"
     }
   ],

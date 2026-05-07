@@ -9,13 +9,13 @@
     {
       "name": "Greater Stoneshape",
       "description": "<p>You may instead target a stone object or section of a stone object no more than 10 feet in any dimension that is within short range.</p>",
-      "xp": 15,
+      "xpCost": 15,
       "id": "2627d75c-b81c-4cef-a073-8ca7b614d8a6"
     },
     {
       "name": "Superior Stoneshape",
       "description": "<p>You may instead target a stone object or section of a stone object no more than 20 feet in any dimension that is within medium range.</p>",
-      "xp": 20,
+      "xpCost": 20,
       "id": "b9ba8cff-2114-428a-9df7-7cc0f1ba3824"
     }
   ],

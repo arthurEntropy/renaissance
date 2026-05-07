@@ -10,7 +10,7 @@
     {
       "name": "Magical Assistant",
       "description": "<p>Your familiar serves as a store of magical energy, increasing your base MP by 5.</p><p>When you cast a spell that requires touch, your familiar may deliver the spell as if it had cast it, provided it is within long range of you and uses its reaction to do so. You use your own stats for the spell.</p><p>Once per rest, if you lose concentration due to damage or unconsciousness, your familiar may assume concentration as a reaction if it is within long range of you. At the start of your next turn, you may reclaim concentration as a half action; otherwise, the spell ends.</p>",
-      "xp": 15,
+      "xpCost": 15,
       "id": "35e3ba2a-bf53-4ce0-81dd-8044ee998b95"
     }
   ],

@@ -10,7 +10,7 @@
     {
       "name": "Dominate Person",
       "description": "<p>On a win:</p><ul><li><p>While the effect lasts, you have a telepathic link with the creature. You may use this link to issue simple commands to the creature as a free action, which it does its best to obey.</p></li><li><p>You may spend an action to take total and precise control of the target. For the next round, the creature spends its movement, actions and reactions as you choose, and doesn’t do anything that you don’t allow it to do. While you maintain this control, each time the creature takes damage, roll Persuade vs Riddle against it. On a loss, the spell ends.</p></li></ul><p>On a loss, the creature checks a Condition.</p>",
-      "xp": 0,
+      "xpCost": 0,
       "id": "a7d62745-aaa0-40cf-9d66-8691bed5dbef"
     }
   ],

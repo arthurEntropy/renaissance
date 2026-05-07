@@ -9,7 +9,7 @@
     {
       "name": "Mass Suggestion",
       "description": "<p>When you cast this spell, you may spend an additional 4 MP to target up to 10 creatures.</p>",
-      "xp": 30,
+      "xpCost": 30,
       "id": "abdb99f6-00d9-4714-897d-1b6dfae0d455"
     }
   ],

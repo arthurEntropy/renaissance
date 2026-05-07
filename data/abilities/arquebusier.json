@@ -9,7 +9,7 @@
     {
       "name": "Hand Cannoneer",
       "description": "<p>You are trained in the use of great firearms.</p>",
-      "xp": 5,
+      "xpCost": 5,
       "id": "8282b6fb-4c1f-56a2-8ba3-08bc100a4876"
     }
   ],

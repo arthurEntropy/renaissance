@@ -11,13 +11,13 @@
     {
       "name": "Buckler Punch",
       "description": "<p>When you roll an engagement success while wielding a light shield, you may spend 1 MP to access the <em>Knockback</em> success.</p>",
-      "xp": 10,
+      "xpCost": 10,
       "id": "ffba5115-ecb3-4023-8392-7e16d3d34b4c"
     },
     {
       "name": "Untouchable",
       "description": "<p>When wielding a light shield, you gain +WITS Defense instead of the shield's normal Defense bonus.</p>",
-      "xp": 20,
+      "xpCost": 20,
       "id": "68d267a0-fb20-44ae-8dac-1ed2f0f80f8b"
     }
   ],

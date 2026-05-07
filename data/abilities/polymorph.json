@@ -11,7 +11,7 @@
     {
       "name": "True Polymorph",
       "description": "<p>You may pay an additional 5 MP to transform a creature into an object or an object into a creature. In either case, the new form cannot be larger than the original. If you transform an object into a creature, it may have any Challenge score, is friendly to you and your allies, and acts on your turn as you direct.</p><p>Additionally, if you paid the additional MP and the spell lasts for its full duration, the transformation becomes permanent.</p>",
-      "xp": 20,
+      "xpCost": 20,
       "id": "8ca3a182-7129-4271-80b4-b8f352f10291"
     }
   ],

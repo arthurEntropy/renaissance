@@ -11,7 +11,7 @@
     {
       "name": "Identify",
       "description": "<p>When you sense magic on an object, you may spend an additional 1 MP and 1 minute touching the object to learn the full, detailed extent of its mundane and magical properties, including its culture of origin. If the object was created by a spell, you learn the spell that created it.</p>",
-      "xp": 5,
+      "xpCost": 5,
       "id": "757fb1d9-f286-4c80-809d-75758dc37f2b"
     }
   ],

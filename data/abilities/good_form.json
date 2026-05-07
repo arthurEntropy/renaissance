@@ -9,7 +9,7 @@
     {
       "name": "Excellent Form",
       "description": "<p>You can always re-roll 2 Engagement dice before resolving.</p>",
-      "xp": 15,
+      "xpCost": 15,
       "id": "9c694b3a-f5d5-5a55-999c-09514ea7c995"
     }
   ],

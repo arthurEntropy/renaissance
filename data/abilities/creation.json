@@ -11,7 +11,7 @@
     {
       "name": "Greater Creation",
       "description": "<p>The size limit for your Creation increases to 10 ft in any dimension.</p>",
-      "xp": 10,
+      "xpCost": 10,
       "id": "c8cfa367-3a46-4536-8928-f33ae1a2fb06"
     }
   ],

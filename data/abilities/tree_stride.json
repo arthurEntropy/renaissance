@@ -9,7 +9,7 @@
     {
       "name": "Home Tree",
       "description": "<p>You may spend 8 hours communing with a living tree to become spiritually entwined with it. If you are already entwined with a different tree, that bond ends and is replaced by the new one.</p><p>Whenever you use <em>Tree Stride</em>, you may choose the entwined tree as your destination, regardless of its distance from you.</p><p>If the entwined tree is damaged, you feel its pain and check a Condition, no matter where you are. If it is felled, you take 2d10 damage and check two Conditions.</p>",
-      "xp": 30,
+      "xpCost": 30,
       "id": "7701d9e7-00a2-4201-a162-cdcbd2ce15c6"
     }
   ],

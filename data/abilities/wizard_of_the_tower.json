@@ -9,7 +9,7 @@
     {
       "name": "Advanced Placement",
       "description": "<p>You may bypass the institution's proscribed course of study and gain any abilities you choose - regardless of your progression in that ability's school - by paying double its normal XP cost.</p>",
-      "xp": 10,
+      "xpCost": 10,
       "id": "da9fb706-fbe1-40ef-8360-eb47833a1d78"
     }
   ],

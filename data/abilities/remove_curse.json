@@ -9,7 +9,7 @@
     {
       "name": "Freedom of Movement",
       "description": "<p>You may also remove any effects from a creature that are currently reducing its Speed or inhibiting its movement. If it is bound by mundane restraints or is Grappled, it may spend 5 ft of movement on its next turn to escape.</p>",
-      "xp": 5,
+      "xpCost": 5,
       "id": "2830a1ad-b013-4fcc-92c4-428a922d1ca8"
     }
   ],

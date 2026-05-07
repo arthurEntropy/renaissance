@@ -9,19 +9,19 @@
     {
       "name": "Long Throw",
       "description": "<p>When you attack with shuriken, you may spend an additional half action to double the weapon's range without the normal ill-favored penalty.</p>",
-      "xp": 5,
+      "xpCost": 5,
       "id": "303b2836-27a8-5a89-bb01-fbe0bc0b4f6d"
     },
     {
       "name": "Pinning Throw",
       "description": "<p>Each time you roll the maximum possible result on a damage die for your shuriken, if the creature you're attacking is adjacent to a wall or other sturdy, inanimate object, they are pinned to that object and must spend a half action on their turn to free themself (multiple pinnings require multiple half actions).</p>",
-      "xp": 5,
+      "xpCost": 5,
       "id": "6614bab2-b939-5e62-8a31-1fd53b34172c"
     },
     {
       "name": "Piercing Throw",
       "description": "<p>Each time you roll the maximum possible result on a damage die for your shuriken, you inflict 1 injury on the creature.</p>",
-      "xp": 10,
+      "xpCost": 10,
       "id": "71feffcb-fe72-586a-bf4d-8130ce64a7d5"
     }
   ],

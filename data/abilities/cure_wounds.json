@@ -9,7 +9,7 @@
     {
       "name": "Mass Cure Wounds",
       "description": "<p>You may spend an additional Half Action and an additional 5 MP to instead cause up to 6 creatures within Short Range to regain 1d8+HEART Endurance.</p>",
-      "xp": 15,
+      "xpCost": 15,
       "id": "a7532733-fd44-46ea-8186-9b15dde3ccb3"
     }
   ],

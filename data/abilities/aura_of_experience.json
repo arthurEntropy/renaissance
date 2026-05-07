@@ -9,13 +9,13 @@
     {
       "name": "Inspiring",
       "description": "<p>Whenever you roll 🌞 on an attack roll, an ally within short range may use their reaction to make a melee attack.</p>",
-      "xp": 5,
+      "xpCost": 5,
       "id": "fe501c7d-0d44-5dee-b652-025ff40791ad"
     },
     {
       "name": "Put Your Back Into It",
       "description": "<p>Allies within short range may spend 2 Endurance before making an attack roll. If they do and land a hit, +1d to the damage roll.</p>",
-      "xp": 5,
+      "xpCost": 5,
       "id": "c4d67aa6-fa4b-5cd8-9259-75b810f28afa"
     }
   ],

@@ -10,13 +10,13 @@
     {
       "name": "Greater Control Water",
       "description": "<p>You take control of all freestanding water within long range. You may choose and sustain one additional effect at a time.</p>",
-      "xp": 10,
+      "xpCost": 10,
       "id": "f26ddc51-97a7-4168-889d-b3a9529b95fa"
     },
     {
       "name": "Superior Control Water",
       "description": "<p>You take control of all freestanding water within far range. You may choose and sustain one additional effect at a time.</p>",
-      "xp": 20,
+      "xpCost": 20,
       "id": "c21dec7e-7361-40ab-a71e-701f6ca4fd95"
     }
   ],

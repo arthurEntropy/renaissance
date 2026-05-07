@@ -11,13 +11,13 @@
     {
       "name": "Chain Lightning",
       "description": "<p>On a win, you may chain this attack to another creature within short range of the previous target. Roll Spirit vs Dexterity. On a win, the target takes 2d6 damage and you may continue chaining. On a loss, the target takes half damage and the chain ends.</p>",
-      "xp": 10,
+      "xpCost": 10,
       "id": "01e2801d-d255-43db-8449-50f729e725ee"
     },
     {
       "name": "Ball Lightning",
       "description": "<p>For the initial attack, you may instead target any number of creatures in a straight line reaching out to long range, using the same roll and triggering the same effect on each win.</p><p>If you have the Chain Lightning advancement, you may chain outward from each individual win.</p>",
-      "xp": 10,
+      "xpCost": 10,
       "id": "51292a75-7ce7-4832-af7e-d8d3afe43b95"
     }
   ],

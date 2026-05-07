@@ -10,7 +10,7 @@
     {
       "name": "Dazzling Blast",
       "description": "<p>You may spend an additional 4 MP when you cast this spell. If you do, on each win, the creature's speed, actions and reactions are reduced to 0 for 1 round.</p>",
-      "xp": 20,
+      "xpCost": 20,
       "id": "1a7724e4-e812-4292-9d5a-f89f21c3f4ac"
     }
   ],

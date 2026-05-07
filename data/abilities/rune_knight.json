@@ -9,7 +9,7 @@
     {
       "name": "Rune Carver",
       "description": "<p>By spending 1 hour, you may engrave a permanent rune into a weapon, shield, or piece of armor, storing a spell as normal. Unlike drawn runes, an engraved rune persists after its charge is used and regains its charge at sunrise.</p>",
-      "xp": 25,
+      "xpCost": 25,
       "id": "3593c8f9-323d-4f01-94d0-c00f66dd54e8"
     }
   ],

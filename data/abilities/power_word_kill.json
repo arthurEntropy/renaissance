@@ -9,7 +9,7 @@
     {
       "name": "End Bloodline",
       "description": "<p>If the target is killed, each creature within far range that is related to the target by blood and has 50 Endurance or less also dies. You gain 2 additional Shadow for each creature killed in this way.</p>",
-      "xp": 100,
+      "xpCost": 100,
       "id": "09c20535-fcb4-45f5-b859-24a5db1c1028"
     }
   ],

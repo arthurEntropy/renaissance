@@ -10,7 +10,7 @@
     {
       "name": "Ray of Enfeeblement",
       "description": "<p>You may spend 1 additional MP when you cast the spell. If you do, on a win, for the next minute, any time the creature deals damage with a melee attack, halve the damage.</p>",
-      "xp": 10,
+      "xpCost": 10,
       "id": "b62c0d71-daec-4b34-adf1-9286e5d83d41"
     }
   ],

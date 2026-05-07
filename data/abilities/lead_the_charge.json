@@ -9,7 +9,7 @@
     {
       "name": "Break Their Line",
       "description": "<p>You may spend 1 additional MP to take an additional -3 Defense and give all allies within medium range an additional +1d to their attack rolls for the next round.</p>",
-      "xp": 20,
+      "xpCost": 20,
       "id": "7ec5f21f-f20d-5267-add7-6ca70ea052e8"
     }
   ],

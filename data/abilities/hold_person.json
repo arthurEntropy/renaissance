@@ -10,7 +10,7 @@
     {
       "name": "Hold Creature",
       "description": "<p>You may spend an additional 3 MP to target any creature.</p>",
-      "xp": 15,
+      "xpCost": 15,
       "id": "a27431dc-a843-43ed-9bf1-4b6265b725b3"
     }
   ],

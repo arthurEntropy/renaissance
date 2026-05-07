@@ -10,13 +10,13 @@
     {
       "name": "Programmed Image",
       "description": "<p>You may spend 1 minute casting this spell as a ritual. If you do, the image does not appear immediately. Instead, define a triggering event. The event must be something that could be observed sensorially from the chosen point.</p><p>When the triggering event occurs, the image appears and persists for 1 minute, then goes dormant. 1 minute must pass before the image can be triggered again.</p><p>You may define movements and changes to the image - as well as sounds - that will occur over the course of the minute each time the image is triggered.</p><p>If you cast the spell in this way, it does not require concentration and it persists until dispelled.</p>",
-      "xp": 10,
+      "xpCost": 10,
       "id": "7167f4b3-290f-434c-901b-714ef57e3784"
     },
     {
       "name": "Major Image",
       "description": "<p>When you cast this spell, you may spend an additional 2 MP. If you do, the image you create may be up to 20 ft in any dimension and you may sustain the effect for up to 10 minutes.</p><p>Additionally, while you remain within long range of the illusion, you may spend an action to move it a distance up to your Speed to any other point within long range. As it moves, you can alter its appearance so its behavior remains natural—for example, making a creature appear to walk, or changing its sounds over time, including carrying on a conversation.</p>",
-      "xp": 15,
+      "xpCost": 15,
       "id": "f1cd18f0-11f3-4a7f-a732-563ed1f4f9bf"
     }
   ],

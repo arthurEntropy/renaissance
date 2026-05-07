@@ -11,7 +11,7 @@
     {
       "name": "Call to Arms",
       "description": "<p>Once per Quest, you may use this ability instead of rolling initiative.</p>",
-      "xp": 15,
+      "xpCost": 15,
       "id": "b9f693b6-5262-4583-b4d8-adbc9ad7ffec"
     }
   ],
