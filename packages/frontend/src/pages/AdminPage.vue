@@ -6,14 +6,6 @@
 
         <AdminCleanupPanel />
 
-        <AdminListManager title="Background Images" item-name="Background" :store="backgroundImagesStore"
-            :default-item="{ imageUrl: '', index: 0 }">
-            <template #fields="{ item, update }">
-                <input v-model="item.imageUrl" @blur="update" class="url-input" placeholder="Image URL" />
-                <img v-if="item.imageUrl" :src="item.imageUrl" class="preview" alt="Background preview" />
-            </template>
-        </AdminListManager>
-
         <AdminListManager title="Expansions" item-name="Expansion" :store="expansionsStore"
             :default-item="{ name: '', logoUrl: '', index: 0 }">
             <template #fields="{ item, update }">
@@ -98,7 +90,6 @@ import AdminListManager from '@/components/features/admin/AdminListManager.vue'
 import AdminCleanupPanel from '@/components/features/admin/AdminCleanupPanel.vue'
 import UserManager from '@/components/features/admin/UserManager.vue'
 import UserSettings from '@/components/features/admin/UserSettings.vue'
-import { useBackgroundImagesStore } from '@/stores/backgroundImagesStore'
 import { useExpansionsStore } from '@/stores/expansionsStore'
 import { useEquipmentTypesStore } from '@/stores/equipmentTypesStore'
 import { useEquipmentSubtypesStore } from '@/stores/equipmentSubtypesStore'
@@ -111,7 +102,6 @@ import { useConceptsStore } from '@/stores/conceptsStore'
 import { computed } from 'vue'
 import BiomeTagsCyclePicker from '@/components/ui/biome/BiomeTagsCyclePicker.vue'
 
-const backgroundImagesStore = useBackgroundImagesStore()
 const expansionsStore = useExpansionsStore()
 const equipmentTypesStore = useEquipmentTypesStore()
 const equipmentSubtypesStore = useEquipmentSubtypesStore()

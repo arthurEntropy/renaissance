@@ -27,36 +27,17 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
-import { useBackgroundImagesStore } from '@/stores/backgroundImagesStore'
 import { useUserStore } from '@/stores/userStore'
 import { XMarkIcon } from '@heroicons/vue/24/outline'
+import { BACKGROUND_IMAGES } from '@/constants/backgroundImages'
 
 const emit = defineEmits(['close'])
 
-const backgroundImagesStore = useBackgroundImagesStore()
 const userStore = useUserStore()
 
 const selectedBackgroundId = ref(null)
 
-// Sort backgrounds by index (items without index go to end, then sort by id)
-const sortedBackgrounds = computed(() => {
-    return [...backgroundImagesStore.items].sort((a, b) => {
-        // Items with index come before items without index
-        const aHasIndex = a.index != null
-        const bHasIndex = b.index != null
-
-        if (aHasIndex && !bHasIndex) return -1
-        if (!aHasIndex && bHasIndex) return 1
-
-        // Both have index: sort by index value
-        if (aHasIndex && bHasIndex) {
-            if (a.index !== b.index) return a.index - b.index
-        }
-
-        // Same index or both lack index: sort by id
-        return (a.id || '').localeCompare(b.id || '')
-    })
-})
+const sortedBackgrounds = computed(() => BACKGROUND_IMAGES)
 
 const isSelected = (backgroundId, index) => {
     return selectedBackgroundId.value === backgroundId ||
@@ -78,7 +59,6 @@ const closeModal = () => {
 }
 
 onMounted(async () => {
-    await backgroundImagesStore.fetch()
     selectedBackgroundId.value = userStore.userProfile?.preferences?.backgroundImageId || null
 })
 </script>
