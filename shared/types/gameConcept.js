@@ -39,7 +39,7 @@ export function createDefaultGameConcept(conceptType) {
   
   return {
     ...createBaseEntity(),
-    conceptType,
+    conceptType, // TODO: This should be obviated by using the individual concept types once we're ready to enforce types in the FE/BE.
     name: `New ${label}`,
     description: '',
     featuredArtUrls: ['https://cdn.midjourney.com/a8a36740-b7d3-4aef-bea3-a95039bec06f/0_2.png'],
