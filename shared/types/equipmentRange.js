@@ -20,16 +20,8 @@ import { createBaseEntity } from './baseEntity.js'
  * @returns {EquipmentRange}
  */
 export function createDefaultEquipmentRange() {
-  const baseEntity = createBaseEntity()
-
   return {
-    // Base entity fields
-    id: baseEntity.id,
-    isDeleted: baseEntity.isDeleted,
-    createdAt: baseEntity.createdAt,
-    lastModified: baseEntity.lastModified,
-
-    // Equipment range fields
+    ...createBaseEntity(),
     name: 'New Range',
     description: '',
     index: 0,

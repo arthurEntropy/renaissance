@@ -1,3 +1,4 @@
+import { createBaseEntity } from './baseEntity.js'
 import { CAMPAIGN_ROLE, CAMPAIGN_MEMBER_STATUS } from '../constants/campaignConstants.js'
 
 /**
@@ -46,15 +47,15 @@ import { CAMPAIGN_ROLE, CAMPAIGN_MEMBER_STATUS } from '../constants/campaignCons
  */
 
 /**
- * @typedef {Object} Campaign
- * @property {string|null} id - UUID identifier
+ * @typedef {import('./baseEntity.js').BaseEntity} BaseEntity
+ */
+
+/**
+ * @typedef {Object} CampaignFields
  * @property {string|null} slug - URL-friendly identifier generated from name at creation
  * @property {string} name - Display name
  * @property {string} description - Optional rich text description
  * @property {string|null} coverImageUrl - Optional cover image URL for the campaign badge
- * @property {string} createdAt - ISO 8601
- * @property {string} lastModified - ISO 8601
- * @property {boolean} isDeleted - Soft delete flag
  * @property {string} foundingGmUserId - UID of the user who created the campaign
  * @property {CampaignMember[]} members - All members including GMs
  * @property {string[]} includedConceptIds - IDs of concepts included in campaign
@@ -64,21 +65,22 @@ import { CAMPAIGN_ROLE, CAMPAIGN_MEMBER_STATUS } from '../constants/campaignCons
  */
 
 /**
+ * @typedef {BaseEntity & CampaignFields} Campaign
+ */
+
+/**
  * Creates a new default Campaign
  * @param {string} foundingGmUserId - Firebase UID of the campaign creator
  * @returns {Campaign}
  */
 export function createDefaultCampaign(foundingGmUserId) {
-  const now = new Date().toISOString()
+  const base = createBaseEntity()
   return {
-    id: null,
+    ...base,
     slug: null,
     name: 'New Campaign',
     description: '',
     coverImageUrl: null,
-    createdAt: now,
-    lastModified: now,
-    isDeleted: false,
     foundingGmUserId,
     members: [
       {
@@ -86,8 +88,8 @@ export function createDefaultCampaign(foundingGmUserId) {
         role: CAMPAIGN_ROLE.GM,
         status: CAMPAIGN_MEMBER_STATUS.ACCEPTED,
         characterIds: [],
-        joinedAt: now,
-        invitedAt: now,
+        joinedAt: base.createdAt,
+        invitedAt: base.createdAt,
         invitedByUserId: foundingGmUserId,
       },
     ],

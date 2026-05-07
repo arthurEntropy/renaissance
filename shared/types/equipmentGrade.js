@@ -20,16 +20,8 @@ import { createBaseEntity } from './baseEntity.js'
  * @returns {EquipmentGrade}
  */
 export function createDefaultEquipmentGrade() {
-  const baseEntity = createBaseEntity()
-
   return {
-    // Base entity fields
-    id: baseEntity.id,
-    isDeleted: baseEntity.isDeleted,
-    createdAt: baseEntity.createdAt,
-    lastModified: baseEntity.lastModified,
-
-    // Equipment grade fields
+    ...createBaseEntity(),
     name: 'New Equipment Grade',
     description: '',
     index: 0,

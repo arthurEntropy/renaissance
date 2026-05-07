@@ -21,16 +21,8 @@ import { createBaseEntity } from './baseEntity.js'
  * @returns {EquipmentSubtype}
  */
 export function createDefaultEquipmentSubtype() {
-  const baseEntity = createBaseEntity()
-
   return {
-    // Base entity fields
-    id: baseEntity.id,
-    isDeleted: baseEntity.isDeleted,
-    createdAt: baseEntity.createdAt,
-    lastModified: baseEntity.lastModified,
-
-    // Equipment subtype fields
+    ...createBaseEntity(),
     name: 'New Subtype',
     parentTypeId: null,
     description: '',

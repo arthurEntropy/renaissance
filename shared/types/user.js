@@ -1,6 +1,10 @@
 import { createBaseEntity } from './baseEntity.js'
 
 /**
+ * @typedef {import('./baseEntity.js').BaseEntity} BaseEntity
+ */
+
+/**
  * @typedef {Object} UserPreferences
  * @property {string} theme - UI theme preference
  * @property {boolean} notifications - Notification preference
@@ -8,17 +12,17 @@ import { createBaseEntity } from './baseEntity.js'
  */
 
 /**
- * @typedef {Object} User
- * @property {string|null} id - UUID identifier
+ * @typedef {Object} UserFields
  * @property {string} name - Display name
  * @property {'user'|'admin'} role - User role
  * @property {'pending'|'approved'} status - Account status
- * @property {boolean} isDeleted - Soft delete flag
  * @property {UserPreferences} preferences - User preferences
  * @property {string[]} characters - Character IDs owned by this user
  * @property {string|null} activeCampaignId - ID of the campaign the user is currently viewing in campaign mode
- * @property {string} createdAt - ISO 8601 datetime string
- * @property {string} lastModified - ISO 8601 datetime string
+ */
+
+/**
+ * @typedef {BaseEntity & UserFields} User
  */
 
 /**

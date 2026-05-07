@@ -1,7 +1,7 @@
 /**
  * Common type definitions shared across entities
  * 
- * NOTE: These are JSDoc type aliases for primitive types. When migrating to TypeScript,
+ * TODO: These are JSDoc type aliases for primitive types. When migrating to TypeScript,
  * replace these with proper branded types or validation schemas (e.g., zod) to enforce
  * format constraints at the type level.
  */

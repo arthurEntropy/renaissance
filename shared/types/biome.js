@@ -1,16 +1,26 @@
 import { createBaseEntity } from './baseEntity.js'
 
 /**
- * @typedef {Object} Biome
- * @property {string|null} id - UUID identifier
+ * @typedef {import('./baseEntity.js').BaseEntity} BaseEntity
+ * @typedef {import('../constants/biomeTags.js').BiomeTag} BiomeTagEnum
+ */
+
+/**
+ * A valid biome tag value (one of the BiomeTag constant values)
+ * @typedef {BiomeTagEnum[keyof BiomeTagEnum]} BiomeTagValue
+ */
+
+/**
+ * @typedef {Object} BiomeFields
  * @property {string} name - Biome name
  * @property {string} description - Biome description
  * @property {string} artUrl - URL for biome artwork
- * @property {string[]} tags - Array of BiomeTag values that define this biome
+ * @property {BiomeTagValue[]} tags - Array of BiomeTag values that define this biome
  * @property {number} index - Sort order index
- * @property {boolean} isDeleted - Soft delete flag
- * @property {string} createdAt - ISO 8601 datetime string
- * @property {string} lastModified - ISO 8601 datetime string
+ */
+
+/**
+ * @typedef {BaseEntity & BiomeFields} Biome
  */
 
 /**

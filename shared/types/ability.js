@@ -37,14 +37,8 @@ import { createBaseEntity } from './baseEntity.js'
  * @returns {Ability}
  */
 export function createDefaultAbility() {
-  const baseEntity = createBaseEntity()
-
   return {
-    // Base entity fields
-    id: baseEntity.id,
-    isDeleted: baseEntity.isDeleted,
-    createdAt: baseEntity.createdAt,
-    lastModified: baseEntity.lastModified,
+    ...createBaseEntity(),
 
     // Ability-specific fields
     name: 'New Ability',

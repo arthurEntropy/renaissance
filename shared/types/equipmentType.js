@@ -20,16 +20,8 @@ import { createBaseEntity } from './baseEntity.js'
  * @returns {EquipmentType}
  */
 export function createDefaultEquipmentType() {
-  const baseEntity = createBaseEntity()
-
   return {
-    // Base entity fields
-    id: baseEntity.id,
-    isDeleted: baseEntity.isDeleted,
-    createdAt: baseEntity.createdAt,
-    lastModified: baseEntity.lastModified,
-
-    // Equipment type fields
+    ...createBaseEntity(),
     name: 'New Type',
     description: '',
     index: 0,

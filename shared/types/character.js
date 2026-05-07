@@ -1,6 +1,10 @@
 import { createBaseEntity } from './baseEntity.js'
 
 /**
+ * @typedef {import('./baseEntity.js').BaseEntity} BaseEntity
+ */
+
+/**
  * @typedef {Object} Skill
  * @property {string} name - Skill name
  * @property {string} coreAbility - Core ability this skill is associated with ('body', 'heart', or 'wits')
@@ -106,9 +110,7 @@ import { createBaseEntity } from './baseEntity.js'
  */
 
 /**
- * @typedef {Object} Character
- * @property {string|null} id - UUID identifier
- * @property {boolean} isDeleted - Soft delete flag
+ * @typedef {Object} CharacterFields
  * @property {string} name - Character name
  * @property {boolean} isBeast - Whether this is a beast/creature
  * @property {number} challenge - Challenge rating for beasts (0 = not applicable)
@@ -185,8 +187,10 @@ import { createBaseEntity } from './baseEntity.js'
  * @property {WitchcraftToken[]} witchcraftTokens - Active witchcraft tokens (Witch mestiere only)
  * @property {WitchcraftTalisman[]} witchcraftTalismans - Active witchcraft talismans (Witch mestiere only)
  * @property {SummonerVessel[]} summonerVessels - Vessels carried by this Summoner character
- * @property {string} createdAt - ISO 8601 datetime string
- * @property {string} lastModified - ISO 8601 datetime string
+ */
+
+/**
+ * @typedef {BaseEntity & CharacterFields} Character
  */
 
 /**

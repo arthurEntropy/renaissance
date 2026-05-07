@@ -19,16 +19,8 @@ import { createBaseEntity } from './baseEntity.js'
  * @returns {ActionCost}
  */
 export function createDefaultActionCost() {
-  const baseEntity = createBaseEntity()
-
   return {
-    // Base entity fields
-    id: baseEntity.id,
-    isDeleted: baseEntity.isDeleted,
-    createdAt: baseEntity.createdAt,
-    lastModified: baseEntity.lastModified,
-
-    // Action cost fields
+    ...createBaseEntity(),
     name: 'New Action Cost',
     index: 0,
   }
