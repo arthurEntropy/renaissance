@@ -1,13 +1,17 @@
 import { createBaseEntity } from './baseEntity.js'
 
 /**
- * @typedef {Object} Expansion
- * @property {string|null} id - UUID identifier
+ * @typedef {import('./baseEntity.js').BaseEntity} BaseEntity
+ */
+
+/**
+ * @typedef {Object} ExpansionFields
  * @property {string} name - Expansion name
  * @property {string} logoUrl - Logo image URL
- * @property {boolean} isDeleted - Soft delete flag
- * @property {string} createdAt - ISO 8601 datetime string
- * @property {string} lastModified - ISO 8601 datetime string
+ */
+
+/**
+ * @typedef {BaseEntity & ExpansionFields} Expansion
  */
 
 /**
