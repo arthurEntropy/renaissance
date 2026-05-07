@@ -22,25 +22,27 @@
   "lastModified": "2026-04-15T18:50:31.736Z",
   "detailBackgroundImage": "https://cdn.midjourney.com/7bc8c979-5c0d-4256-be74-e6b677199c01/0_2.png",
   "novizio": {
-    "flavorText": "",
-    "melee": [
-      "ad30b114-3c19-413f-aad2-5f270bd95684",
-      "b92d3394-2c64-487f-8c90-c56ea1cbd3f3"
-    ],
-    "polearm": [
-      "ad30b114-3c19-413f-aad2-5f270bd95684",
-      "b92d3394-2c64-487f-8c90-c56ea1cbd3f3"
-    ],
-    "ranged": [
-      "ad30b114-3c19-413f-aad2-5f270bd95684",
-      "b92d3394-2c64-487f-8c90-c56ea1cbd3f3"
-    ],
-    "firearm": [],
-    "armor": [
-      "ad30b114-3c19-413f-aad2-5f270bd95684",
-      "b92d3394-2c64-487f-8c90-c56ea1cbd3f3"
-    ],
-    "martialNotes": "",
+    "description": "<p>Aenean mollis egestas rutrum. Donec tincidunt sed elit nec fermentum. Sed facilisis velit eros, quis pretium neque fermentum dignissim. Nulla nec vestibulum nisl, nec rutrum mauris. Maecenas ac purus sit amet felis maximus sodales. Suspendisse potenti. Suspendisse at elit dapibus.</p>",
+    "martialTraining": {
+      "meleeGrades": [
+        "ad30b114-3c19-413f-aad2-5f270bd95684",
+        "b92d3394-2c64-487f-8c90-c56ea1cbd3f3"
+      ],
+      "polearmGrades": [
+        "ad30b114-3c19-413f-aad2-5f270bd95684",
+        "b92d3394-2c64-487f-8c90-c56ea1cbd3f3"
+      ],
+      "rangedGrades": [
+        "ad30b114-3c19-413f-aad2-5f270bd95684",
+        "b92d3394-2c64-487f-8c90-c56ea1cbd3f3"
+      ],
+      "firearmGrades": [],
+      "armorGrades": [
+        "ad30b114-3c19-413f-aad2-5f270bd95684",
+        "b92d3394-2c64-487f-8c90-c56ea1cbd3f3"
+      ]
+    },
+    "martialTrainingNotes": "",
     "engagementDice": {
       "4": 0,
       "6": 0,
@@ -49,12 +51,12 @@
       "12": 0,
       "20": 0
     },
+    "engagementDiceNotes": "",
     "engagementSuccesses": [],
-    "engagementNotes": "",
     "engagementSuccessNotes": "",
     "baseMP": 0,
-    "mpNotes": "",
+    "baseMpNotes": "",
     "abilities": "<p><em>Tinker 1, Tinker 2, Tinker 3.</em></p>",
-    "description": "<p>Aenean mollis egestas rutrum. Donec tincidunt sed elit nec fermentum. Sed facilisis velit eros, quis pretium neque fermentum dignissim. Nulla nec vestibulum nisl, nec rutrum mauris. Maecenas ac purus sit amet felis maximus sodales. Suspendisse potenti. Suspendisse at elit dapibus.</p>"
+    "gratuiti": ""
   }
 }

@@ -21,13 +21,15 @@
   "floraFauna": "",
   "lastModified": "2026-04-15T18:42:57.587Z",
   "novizio": {
-    "flavorText": "",
-    "melee": [],
-    "polearm": [],
-    "ranged": [],
-    "firearm": [],
-    "armor": [],
-    "martialNotes": "",
+    "description": "<p>Vivamus venenatis justo lorem, a interdum ligula congue ac. Ut eu nunc arcu. Morbi orci est, eleifend nec ornare tincidunt, consequat a ex. Nulla eget mi ut massa gravida imperdiet. Aliquam consectetur metus et orci congue, non aliquam risus viverra.</p>",
+    "martialTraining": {
+      "meleeGrades": [],
+      "polearmGrades": [],
+      "rangedGrades": [],
+      "firearmGrades": [],
+      "armorGrades": []
+    },
+    "martialTrainingNotes": "",
     "engagementDice": {
       "4": 0,
       "6": 0,
@@ -36,13 +38,13 @@
       "12": 0,
       "20": 0
     },
+    "engagementDiceNotes": "",
     "engagementSuccesses": [],
-    "engagementNotes": "",
     "engagementSuccessNotes": "",
     "baseMP": 0,
-    "mpNotes": "<p>You can gain MP through your Orbmancer abilities.</p>",
+    "baseMpNotes": "<p>You can gain MP through your Orbmancer abilities.</p>",
     "abilities": "<p><em>Orbmancy, Orbcraft, Dribble.</em></p>",
-    "description": "<p>Vivamus venenatis justo lorem, a interdum ligula congue ac. Ut eu nunc arcu. Morbi orci est, eleifend nec ornare tincidunt, consequat a ex. Nulla eget mi ut massa gravida imperdiet. Aliquam consectetur metus et orci congue, non aliquam risus viverra.</p>"
+    "gratuiti": ""
   },
   "detailBackgroundImage": "https://cdn.midjourney.com/40fd93b9-6a39-400b-861c-e1cc6d81df04/0_2.png"
 }

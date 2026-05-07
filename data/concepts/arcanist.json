@@ -22,13 +22,15 @@
   "lastModified": "2026-04-28T12:58:19.484Z",
   "detailBackgroundImage": "https://cdn.midjourney.com/402933c8-163a-4254-b4ae-84dfc367df08/0_0.png",
   "novizio": {
-    "flavorText": "",
-    "melee": [],
-    "polearm": [],
-    "ranged": [],
-    "firearm": [],
-    "armor": [],
-    "martialNotes": "",
+    "description": "",
+    "martialTraining": {
+      "meleeGrades": [],
+      "polearmGrades": [],
+      "rangedGrades": [],
+      "firearmGrades": [],
+      "armorGrades": []
+    },
+    "martialTrainingNotes": "",
     "engagementDice": {
       "4": 0,
       "6": 0,
@@ -37,11 +39,11 @@
       "12": 0,
       "20": 0
     },
+    "engagementDiceNotes": "",
     "engagementSuccesses": [],
-    "engagementNotes": "",
     "engagementSuccessNotes": "",
     "baseMP": 10,
-    "mpNotes": "",
+    "baseMpNotes": "",
     "abilities": "<p><em>Arcane Focus</em> and choose your Arcanist archetype: <em>Hedge Mage</em>, <em>Rune Knight</em>, or <em>Wizard of the Tower</em>. Each archetype grants different starting abilities.</p>",
     "gratuiti": ""
   }

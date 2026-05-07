@@ -20,15 +20,17 @@
   "pointsOfInterest": "",
   "floraFauna": "",
   "novizio": {
-    "flavorText": "",
-    "melee": [
-      "ad30b114-3c19-413f-aad2-5f270bd95684"
-    ],
-    "polearm": [],
-    "ranged": [],
-    "firearm": [],
-    "armor": [],
-    "martialNotes": "",
+    "description": "",
+    "martialTraining": {
+      "meleeGrades": [
+        "ad30b114-3c19-413f-aad2-5f270bd95684"
+      ],
+      "polearmGrades": [],
+      "rangedGrades": [],
+      "firearmGrades": [],
+      "armorGrades": []
+    },
+    "martialTrainingNotes": "",
     "engagementDice": {
       "4": 4,
       "6": 0,
@@ -37,16 +39,16 @@
       "12": 0,
       "20": 0
     },
+    "engagementDiceNotes": "<p>Your <em>Nimble</em> ability allows you to exchange movement for additional engagement dice.</p>",
     "engagementSuccesses": [
       "b2c3d4e5-f6a7-48b9-c0d1-e2f3a4b5c6d7",
       "d4e5f6a7-b8c9-40d1-e2f3-a4b5c6d7e8f9",
       "e5f6a7b8-c9d0-41e2-f3a4-b5c6d7e8f9a0",
       "c9d0e1f2-a3b4-45c6-d7e8-f9a0b1c2d3e4"
     ],
-    "engagementNotes": "<p>Your <em>Nimble</em> ability allows you to exchange movement for additional engagement dice.</p>",
     "engagementSuccessNotes": "",
     "baseMP": 0,
-    "mpNotes": "<p>Acrobat abilities to not have an MP cost.</p>",
+    "baseMpNotes": "<p>Acrobat abilities to not have an MP cost.</p>",
     "abilities": "<p><em>Nimble</em> and choose one, ignoring its XP cost: <em>Pole Training, Rope &amp; Chain Weapon Training, Shuriken Training, </em>or <em>Pressure Point Training</em>.</p>",
     "gratuiti": "<p>Clothes and footwear that are easy to move in, a small pouch of chalk.</p>"
   },

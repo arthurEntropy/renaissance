@@ -20,33 +20,35 @@
   "pointsOfInterest": "",
   "floraFauna": "",
   "novizio": {
-    "flavorText": "",
-    "melee": [
-      "ad30b114-3c19-413f-aad2-5f270bd95684",
-      "b92d3394-2c64-487f-8c90-c56ea1cbd3f3",
-      "847d1092-fd43-4d58-b3da-002e6f3b7f3d",
-      "ebcc2bcb-8221-4ca0-bef3-000fb7e59e96"
-    ],
-    "polearm": [
-      "ad30b114-3c19-413f-aad2-5f270bd95684",
-      "ebcc2bcb-8221-4ca0-bef3-000fb7e59e96",
-      "b92d3394-2c64-487f-8c90-c56ea1cbd3f3",
-      "847d1092-fd43-4d58-b3da-002e6f3b7f3d"
-    ],
-    "ranged": [
-      "ad30b114-3c19-413f-aad2-5f270bd95684",
-      "b92d3394-2c64-487f-8c90-c56ea1cbd3f3",
-      "847d1092-fd43-4d58-b3da-002e6f3b7f3d",
-      "ebcc2bcb-8221-4ca0-bef3-000fb7e59e96"
-    ],
-    "firearm": [],
-    "armor": [
-      "ad30b114-3c19-413f-aad2-5f270bd95684",
-      "b92d3394-2c64-487f-8c90-c56ea1cbd3f3",
-      "847d1092-fd43-4d58-b3da-002e6f3b7f3d",
-      "ebcc2bcb-8221-4ca0-bef3-000fb7e59e96"
-    ],
-    "martialNotes": "",
+    "description": "<p>Phasellus vehicula, dolor ac pretium vehicula, nisi risus efficitur nisl, quis ultrices est massa eu orci. Sed imperdiet ante ac turpis tincidunt, ac condimentum eros sodales. Duis diam magna, malesuada vitae convallis quis, commodo quis sem. Fusce nec lacus fringilla.</p>",
+    "martialTraining": {
+      "meleeGrades": [
+        "ad30b114-3c19-413f-aad2-5f270bd95684",
+        "b92d3394-2c64-487f-8c90-c56ea1cbd3f3",
+        "847d1092-fd43-4d58-b3da-002e6f3b7f3d",
+        "ebcc2bcb-8221-4ca0-bef3-000fb7e59e96"
+      ],
+      "polearmGrades": [
+        "ad30b114-3c19-413f-aad2-5f270bd95684",
+        "ebcc2bcb-8221-4ca0-bef3-000fb7e59e96",
+        "b92d3394-2c64-487f-8c90-c56ea1cbd3f3",
+        "847d1092-fd43-4d58-b3da-002e6f3b7f3d"
+      ],
+      "rangedGrades": [
+        "ad30b114-3c19-413f-aad2-5f270bd95684",
+        "b92d3394-2c64-487f-8c90-c56ea1cbd3f3",
+        "847d1092-fd43-4d58-b3da-002e6f3b7f3d",
+        "ebcc2bcb-8221-4ca0-bef3-000fb7e59e96"
+      ],
+      "firearmGrades": [],
+      "armorGrades": [
+        "ad30b114-3c19-413f-aad2-5f270bd95684",
+        "b92d3394-2c64-487f-8c90-c56ea1cbd3f3",
+        "847d1092-fd43-4d58-b3da-002e6f3b7f3d",
+        "ebcc2bcb-8221-4ca0-bef3-000fb7e59e96"
+      ]
+    },
+    "martialTrainingNotes": "",
     "engagementDice": {
       "4": 0,
       "6": 2,
@@ -55,17 +57,17 @@
       "12": 0,
       "20": 0
     },
+    "engagementDiceNotes": "",
     "engagementSuccesses": [
       "b8c9d0e1-f2a3-44b5-c6d7-e8f9a0b1c2d3",
       "c9d0e1f2-a3b4-45c6-d7e8-f9a0b1c2d3e4",
       "d0e1f2a3-b4c5-46d7-e8f9-a0b1c2d3e4f5"
     ],
-    "engagementNotes": "",
     "engagementSuccessNotes": "",
     "baseMP": 0,
-    "mpNotes": "<p>You can gain MP through your <em>Momentum</em> ability.</p>",
+    "baseMpNotes": "<p>You can gain MP through your <em>Momentum</em> ability.</p>",
     "abilities": "<p><em>Close Ranks, Momentum, Rally.</em></p>",
-    "description": "<p>Phasellus vehicula, dolor ac pretium vehicula, nisi risus efficitur nisl, quis ultrices est massa eu orci. Sed imperdiet ante ac turpis tincidunt, ac condimentum eros sodales. Duis diam magna, malesuada vitae convallis quis, commodo quis sem. Fusce nec lacus fringilla.</p>"
+    "gratuiti": ""
   },
   "lastModified": "2026-04-15T18:44:01.334Z",
   "detailBackgroundImage": "https://cdn.midjourney.com/46be6a95-1b04-452c-8d84-fe0a2043423e/0_3.png"

@@ -16,13 +16,13 @@
                     <span class="mt-label">{{ row.label }}</span>
                     <div class="mt-chips">
                         <ChipTag v-for="grade in equipmentGrades" :key="grade.id" :text="grade.name"
-                            :variant="novizio?.[row.key]?.includes(grade.id) ? CHIP_TAG_VARIANTS.PRIMARY : CHIP_TAG_VARIANTS.DIM"
+                            :variant="novizio?.martialTraining?.[row.key]?.includes(grade.id) ? CHIP_TAG_VARIANTS.PRIMARY : CHIP_TAG_VARIANTS.DIM"
                             :rounded="CHIP_TAG_ROUNDED.FULL" :hoverable="false" />
                     </div>
                 </div>
             </div>
 
-            <div v-if="novizio?.martialNotes" class="mt-notes" v-html="safeMartialNotes"></div>
+            <div v-if="novizio?.martialTrainingNotes" class="mt-notes" v-html="safeMartialTrainingNotes"></div>
         </div>
     </teleport>
 </template>
@@ -63,14 +63,14 @@ const GAP = 8
 const VIEWPORT_PADDING = 10
 
 const martialRows = [
-    { key: 'melee', label: 'Melee', icon: meleeIcon },
-    { key: 'polearm', label: 'Polearm', icon: polearmIcon },
-    { key: 'ranged', label: 'Ranged', icon: rangedIcon },
-    { key: 'firearm', label: 'Firearm', icon: firearmIcon },
-    { key: 'armor', label: 'Armor', icon: armorIcon },
+    { key: 'meleeGrades', label: 'Melee', icon: meleeIcon },
+    { key: 'polearmGrades', label: 'Polearm', icon: polearmIcon },
+    { key: 'rangedGrades', label: 'Ranged', icon: rangedIcon },
+    { key: 'firearmGrades', label: 'Firearm', icon: firearmIcon },
+    { key: 'armorGrades', label: 'Armor', icon: armorIcon },
 ]
 
-const safeMartialNotes = computed(() => sanitizeHtml(props.novizio?.martialNotes))
+const safeMartialTrainingNotes = computed(() => sanitizeHtml(props.novizio?.martialTrainingNotes))
 
 const popupEl = ref(null)
 const positionStyle = ref({})

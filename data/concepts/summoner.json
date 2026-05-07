@@ -21,18 +21,20 @@
   "floraFauna": "",
   "lastModified": "2026-04-15T18:46:44.303Z",
   "novizio": {
-    "flavorText": "",
-    "melee": [
-      "ad30b114-3c19-413f-aad2-5f270bd95684",
-      "b92d3394-2c64-487f-8c90-c56ea1cbd3f3"
-    ],
-    "polearm": [],
-    "ranged": [],
-    "firearm": [],
-    "armor": [
-      "ad30b114-3c19-413f-aad2-5f270bd95684"
-    ],
-    "martialNotes": "",
+    "description": "<p>In scelerisque turpis vitae elit volutpat mollis. Morbi quis blandit velit. Quisque arcu lorem, fringilla nec suscipit non, porttitor et justo. Integer pharetra felis mi, et pretium justo lacinia eget. Cras volutpat orci ut pharetra imperdiet. Morbi volutpat ligula eleifend.</p>",
+    "martialTraining": {
+      "meleeGrades": [
+        "ad30b114-3c19-413f-aad2-5f270bd95684",
+        "b92d3394-2c64-487f-8c90-c56ea1cbd3f3"
+      ],
+      "polearmGrades": [],
+      "rangedGrades": [],
+      "firearmGrades": [],
+      "armorGrades": [
+        "ad30b114-3c19-413f-aad2-5f270bd95684"
+      ]
+    },
+    "martialTrainingNotes": "",
     "engagementDice": {
       "4": 0,
       "6": 0,
@@ -41,13 +43,13 @@
       "12": 0,
       "20": 0
     },
+    "engagementDiceNotes": "",
     "engagementSuccesses": [],
-    "engagementNotes": "",
     "engagementSuccessNotes": "",
     "baseMP": 0,
-    "mpNotes": "<p>Summoner abilities to not have an MP cost. The creatures you summon may have their own base MP.</p>",
+    "baseMpNotes": "<p>Summoner abilities to not have an MP cost. The creatures you summon may have their own base MP.</p>",
     "abilities": "<p><em>Capture, Craft Vessel, Friendship, Keeper of Vessels, Summon, Train.</em></p>",
-    "description": "<p>In scelerisque turpis vitae elit volutpat mollis. Morbi quis blandit velit. Quisque arcu lorem, fringilla nec suscipit non, porttitor et justo. Integer pharetra felis mi, et pretium justo lacinia eget. Cras volutpat orci ut pharetra imperdiet. Morbi volutpat ligula eleifend.</p>"
+    "gratuiti": ""
   },
   "detailBackgroundImage": "https://cdn.midjourney.com/09481920-388a-488d-9ef2-c213269d3490/0_3.png"
 }

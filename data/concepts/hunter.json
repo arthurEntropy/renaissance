@@ -21,27 +21,29 @@
   "floraFauna": "",
   "lastModified": "2026-04-15T18:27:51.886Z",
   "novizio": {
-    "flavorText": "",
-    "melee": [
-      "ad30b114-3c19-413f-aad2-5f270bd95684",
-      "b92d3394-2c64-487f-8c90-c56ea1cbd3f3"
-    ],
-    "polearm": [
-      "ad30b114-3c19-413f-aad2-5f270bd95684",
-      "b92d3394-2c64-487f-8c90-c56ea1cbd3f3"
-    ],
-    "ranged": [
-      "ad30b114-3c19-413f-aad2-5f270bd95684",
-      "ebcc2bcb-8221-4ca0-bef3-000fb7e59e96",
-      "b92d3394-2c64-487f-8c90-c56ea1cbd3f3",
-      "a9023254-92ed-4c54-9840-5a7577c1aa1f"
-    ],
-    "firearm": [],
-    "armor": [
-      "ad30b114-3c19-413f-aad2-5f270bd95684",
-      "b92d3394-2c64-487f-8c90-c56ea1cbd3f3"
-    ],
-    "martialNotes": "",
+    "description": "<p>Suspendisse efficitur imperdiet nisi. Cras et mi in elit vehicula volutpat. Integer laoreet auctor lobortis. Nulla facilisi. Praesent auctor nisi a mauris gravida, in pretium sem bibendum. Maecenas ultricies, sapien et efficitur tempor, tellus magna tincidunt orci, vel mattis ante.</p>",
+    "martialTraining": {
+      "meleeGrades": [
+        "ad30b114-3c19-413f-aad2-5f270bd95684",
+        "b92d3394-2c64-487f-8c90-c56ea1cbd3f3"
+      ],
+      "polearmGrades": [
+        "ad30b114-3c19-413f-aad2-5f270bd95684",
+        "b92d3394-2c64-487f-8c90-c56ea1cbd3f3"
+      ],
+      "rangedGrades": [
+        "ad30b114-3c19-413f-aad2-5f270bd95684",
+        "ebcc2bcb-8221-4ca0-bef3-000fb7e59e96",
+        "b92d3394-2c64-487f-8c90-c56ea1cbd3f3",
+        "a9023254-92ed-4c54-9840-5a7577c1aa1f"
+      ],
+      "firearmGrades": [],
+      "armorGrades": [
+        "ad30b114-3c19-413f-aad2-5f270bd95684",
+        "b92d3394-2c64-487f-8c90-c56ea1cbd3f3"
+      ]
+    },
+    "martialTrainingNotes": "",
     "engagementDice": {
       "4": 0,
       "6": 2,
@@ -50,15 +52,15 @@
       "12": 0,
       "20": 0
     },
+    "engagementDiceNotes": "",
     "engagementSuccesses": [
       "b8c9d0e1-f2a3-44b5-c6d7-e8f9a0b1c2d3"
     ],
-    "engagementNotes": "",
     "engagementSuccessNotes": "",
     "baseMP": 5,
-    "mpNotes": "",
+    "baseMpNotes": "",
     "abilities": "",
-    "description": "<p>Suspendisse efficitur imperdiet nisi. Cras et mi in elit vehicula volutpat. Integer laoreet auctor lobortis. Nulla facilisi. Praesent auctor nisi a mauris gravida, in pretium sem bibendum. Maecenas ultricies, sapien et efficitur tempor, tellus magna tincidunt orci, vel mattis ante.</p>"
+    "gratuiti": ""
   },
   "detailBackgroundImage": "https://cdn.midjourney.com/264a8c61-7957-4e53-9349-62c45573022c/0_1.png"
 }

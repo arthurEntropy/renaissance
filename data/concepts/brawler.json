@@ -20,13 +20,15 @@
   "pointsOfInterest": "",
   "floraFauna": "",
   "novizio": {
-    "flavorText": "<p>Testing TESTOIMG</p>",
-    "melee": [],
-    "polearm": [],
-    "ranged": [],
-    "firearm": [],
-    "armor": [],
-    "martialNotes": "",
+    "description": "<p>Nunc quis tellus nisl. Morbi aliquam, diam eu bibendum tempor, orci turpis faucibus nisi, vitae placerat sem ipsum euismod lectus. Cras nec ligula et metus sodales accumsan. Nam vulputate, nulla eu gravida imperdiet, arcu est iaculis arcu, quis dictum metus.</p>",
+    "martialTraining": {
+      "meleeGrades": [],
+      "polearmGrades": [],
+      "rangedGrades": [],
+      "firearmGrades": [],
+      "armorGrades": []
+    },
+    "martialTrainingNotes": "",
     "engagementDice": {
       "4": 0,
       "6": 0,
@@ -35,17 +37,17 @@
       "12": 5,
       "20": 0
     },
+    "engagementDiceNotes": "",
     "engagementSuccesses": [
       "e1f2a3b4-c5d6-47e8-f9a0-b1c2d3e4f5a6",
       "f6a7b8c9-d0e1-42f3-a4b5-c6d7e8f9a0b1",
       "d0e1f2a3-b4c5-46d7-e8f9-a0b1c2d3e4f5"
     ],
-    "engagementNotes": "",
     "engagementSuccessNotes": "",
     "baseMP": 0,
-    "mpNotes": "<p>You gain MP with your <em>Embrace the Chaos</em> ability.</p>",
+    "baseMpNotes": "<p>You gain MP with your <em>Embrace the Chaos</em> ability.</p>",
     "abilities": "<p>Action Over Deliberation, Embrace The Chaos, Fists Up</p>",
-    "description": "<p>Nunc quis tellus nisl. Morbi aliquam, diam eu bibendum tempor, orci turpis faucibus nisi, vitae placerat sem ipsum euismod lectus. Cras nec ligula et metus sodales accumsan. Nam vulputate, nulla eu gravida imperdiet, arcu est iaculis arcu, quis dictum metus.</p>"
+    "gratuiti": ""
   },
   "lastModified": "2026-04-15T18:20:14.661Z",
   "detailBackgroundImage": "https://cdn.midjourney.com/b377ad72-f0f8-4d1a-b64d-9c1ed00cdb59/0_1.png"

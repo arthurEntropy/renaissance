@@ -1,25 +1,28 @@
 import { createDefaultGameConcept, ConceptType } from './gameConcept.js'
 
+/** @typedef {import('./dice.js').Die} Die */
+/** @typedef {import('./engagementSuccess.js').EngagementSuccess} EngagementSuccess */
+
 /**
  * @typedef {Object} NovizioMartialTraining
- * @property {string[]} melee - Grade IDs the mestiere is proficient with for melee weapons
- * @property {string[]} polearm - Grade IDs the mestiere is proficient with for polearms
- * @property {string[]} ranged - Grade IDs the mestiere is proficient with for ranged weapons
- * @property {string[]} firearm - Grade IDs the mestiere is proficient with for firearms
- * @property {string[]} armor - Grade IDs the mestiere is proficient with for armor (includes shields and helms)
+ * @property {UUID[]} meleeGrades - IDs for the grades of melee weapons the mestiere is proficient with
+ * @property {UUID[]} polearmGrades - IDs for the grades of polearms the mestiere is proficient with
+ * @property {UUID[]} rangedGrades - IDs for the grades of ranged weapons the mestiere is proficient with
+ * @property {UUID[]} firearmGrades - IDs for the grades of firearms the mestiere is proficient with
+ * @property {UUID[]} armorGrades - IDs for the grades of armor the mestiere is proficient with
  */
 
 /**
  * @typedef {Object} Novizio
- * @property {string} flavorText - Introductory flavor text
- * @property {NovizioMartialTraining} martial - Martial training expressed as arrays of equipment grade IDs
- * @property {string} martialNotes - Special cases or conditions for martial training (rich text)
- * @property {Object.<string, number>} engagementDice - Map of die size (as string) to count, e.g. { "6": 2, "8": 1 }
- * @property {string} engagementNotes - Special cases or conditions for engagement dice (rich text)
- * @property {string[]} engagementSuccesses - IDs of selectable engagement successes
+ * @property {string} description - Description of the mestiere's novizio
+ * @property {NovizioMartialTraining} martialTraining - Martial training expressed as arrays of equipment grade IDs
+ * @property {string} martialTrainingNotes - Notes about martial training
+ * @property {Die[]} engagementDice - Engagement dice granted by this novizio
+ * @property {string} engagementDiceNotes - Special cases or conditions for engagement dice (rich text)
+ * @property {EngagementSuccess[]} engagementSuccesses - Engagement successes granted by this novizio
  * @property {string} engagementSuccessNotes - Special cases or conditions for engagement successes (rich text)
  * @property {number} baseMP - Starting base Mestieri Points
- * @property {string} mpNotes - Notes about MP (rich text)
+ * @property {string} baseMpNotes - Notes about MP (rich text)
  * @property {string} abilities - Starting abilities description (rich text)
  * @property {string} gratuiti - Starting gratuiti description (rich text)
  */

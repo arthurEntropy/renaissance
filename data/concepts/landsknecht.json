@@ -20,27 +20,29 @@
   "pointsOfInterest": "",
   "floraFauna": "",
   "novizio": {
-    "flavorText": "",
-    "melee": [
-      "847d1092-fd43-4d58-b3da-002e6f3b7f3d",
-      "ebcc2bcb-8221-4ca0-bef3-000fb7e59e96"
-    ],
-    "polearm": [
-      "ad30b114-3c19-413f-aad2-5f270bd95684",
-      "b92d3394-2c64-487f-8c90-c56ea1cbd3f3",
-      "847d1092-fd43-4d58-b3da-002e6f3b7f3d",
-      "ebcc2bcb-8221-4ca0-bef3-000fb7e59e96"
-    ],
-    "ranged": [],
-    "firearm": [
-      "847d1092-fd43-4d58-b3da-002e6f3b7f3d"
-    ],
-    "armor": [
-      "ad30b114-3c19-413f-aad2-5f270bd95684",
-      "b92d3394-2c64-487f-8c90-c56ea1cbd3f3",
-      "847d1092-fd43-4d58-b3da-002e6f3b7f3d"
-    ],
-    "martialNotes": "",
+    "description": "<p>Vestibulum dapibus ultricies eleifend. Ut vitae varius magna, nec fringilla justo. Integer congue, lectus eget sollicitudin blandit, odio metus interdum leo, vitae dignissim mi ipsum ut lacus. Sed auctor risus quis lorem vehicula tempor. Vestibulum bibendum nisl eu quam tincidunt.</p>",
+    "martialTraining": {
+      "meleeGrades": [
+        "847d1092-fd43-4d58-b3da-002e6f3b7f3d",
+        "ebcc2bcb-8221-4ca0-bef3-000fb7e59e96"
+      ],
+      "polearmGrades": [
+        "ad30b114-3c19-413f-aad2-5f270bd95684",
+        "b92d3394-2c64-487f-8c90-c56ea1cbd3f3",
+        "847d1092-fd43-4d58-b3da-002e6f3b7f3d",
+        "ebcc2bcb-8221-4ca0-bef3-000fb7e59e96"
+      ],
+      "rangedGrades": [],
+      "firearmGrades": [
+        "847d1092-fd43-4d58-b3da-002e6f3b7f3d"
+      ],
+      "armorGrades": [
+        "ad30b114-3c19-413f-aad2-5f270bd95684",
+        "b92d3394-2c64-487f-8c90-c56ea1cbd3f3",
+        "847d1092-fd43-4d58-b3da-002e6f3b7f3d"
+      ]
+    },
+    "martialTrainingNotes": "",
     "engagementDice": {
       "4": 0,
       "6": 0,
@@ -49,6 +51,7 @@
       "12": 0,
       "20": 0
     },
+    "engagementDiceNotes": "<p>You can gain engagement dice through your <em>Aura of Experience </em>ability.</p>",
     "engagementSuccesses": [
       "b2c3d4e5-f6a7-48b9-c0d1-e2f3a4b5c6d7",
       "d4e5f6a7-b8c9-40d1-e2f3-a4b5c6d7e8f9",
@@ -56,12 +59,11 @@
       "b8c9d0e1-f2a3-44b5-c6d7-e8f9a0b1c2d3",
       "d0e1f2a3-b4c5-46d7-e8f9-a0b1c2d3e4f5"
     ],
-    "engagementNotes": "<p>You can gain engagement dice through your <em>Aura of Experience </em>ability.</p>",
     "engagementSuccessNotes": "",
     "baseMP": 5,
-    "mpNotes": "<p>You increase your base MP through your <em>Aura of Experience </em>ability.</p>",
+    "baseMpNotes": "<p>You increase your base MP through your <em>Aura of Experience </em>ability.</p>",
     "abilities": "<p><em>Mercenary, Aura of Experience, Everyone Has A Price, Strange Fixation.</em></p>",
-    "description": "<p>Vestibulum dapibus ultricies eleifend. Ut vitae varius magna, nec fringilla justo. Integer congue, lectus eget sollicitudin blandit, odio metus interdum leo, vitae dignissim mi ipsum ut lacus. Sed auctor risus quis lorem vehicula tempor. Vestibulum bibendum nisl eu quam tincidunt.</p>"
+    "gratuiti": ""
   },
   "lastModified": "2026-04-15T18:33:23.177Z",
   "detailBackgroundImage": "https://cdn.midjourney.com/27636738-1136-4f12-867a-6ee9e2e0c4f3/0_0.png"

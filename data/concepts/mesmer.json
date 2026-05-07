@@ -22,13 +22,15 @@
   "lastModified": "2026-04-15T18:41:23.524Z",
   "detailBackgroundImage": "https://cdn.midjourney.com/ba991705-8848-4d7f-82fb-48b76ee2bb67/0_0.png",
   "novizio": {
-    "flavorText": "",
-    "melee": [],
-    "polearm": [],
-    "ranged": [],
-    "firearm": [],
-    "armor": [],
-    "martialNotes": "",
+    "description": "<p>Morbi vel pulvinar metus. Integer cursus purus mauris, in tempus libero porta interdum. Phasellus sagittis dolor ut nisi fringilla molestie. Quisque sapien lectus, consectetur eu nisi non, laoreet commodo lacus. Maecenas dictum purus quis libero pharetra, id porta libero tincidunt.</p>",
+    "martialTraining": {
+      "meleeGrades": [],
+      "polearmGrades": [],
+      "rangedGrades": [],
+      "firearmGrades": [],
+      "armorGrades": []
+    },
+    "martialTrainingNotes": "",
     "engagementDice": {
       "4": 0,
       "6": 0,
@@ -37,12 +39,12 @@
       "12": 0,
       "20": 0
     },
+    "engagementDiceNotes": "",
     "engagementSuccesses": [],
-    "engagementNotes": "",
     "engagementSuccessNotes": "",
     "baseMP": 10,
-    "mpNotes": "",
+    "baseMpNotes": "",
     "abilities": "<p><em>Masked Charlatan, Mesmerize, Social Savvy, Unsettling Presence.</em></p><p>Also choose any two Mesmer's Masks from this mestiere or from one of your home Cultures. You gain one ability chosen at random from each of those masks' domains.</p>",
-    "description": "<p>Morbi vel pulvinar metus. Integer cursus purus mauris, in tempus libero porta interdum. Phasellus sagittis dolor ut nisi fringilla molestie. Quisque sapien lectus, consectetur eu nisi non, laoreet commodo lacus. Maecenas dictum purus quis libero pharetra, id porta libero tincidunt.</p>"
+    "gratuiti": ""
   }
 }

@@ -26,13 +26,15 @@
   "lastModified": "2026-04-15T18:40:20.915Z",
   "detailBackgroundImage": "https://cdn.midjourney.com/d838e7af-7014-4bde-86e6-2bb98de64006/0_0.png",
   "novizio": {
-    "flavorText": "",
-    "melee": [],
-    "polearm": [],
-    "ranged": [],
-    "firearm": [],
-    "armor": [],
-    "martialNotes": "",
+    "description": "<p>Morbi vel pulvinar metus. Integer cursus purus mauris, in tempus libero porta interdum. Phasellus sagittis dolor ut nisi fringilla molestie. Quisque sapien lectus, consectetur eu nisi non, laoreet commodo lacus. Maecenas dictum purus quis libero pharetra, id porta libero tincidunt.</p>",
+    "martialTraining": {
+      "meleeGrades": [],
+      "polearmGrades": [],
+      "rangedGrades": [],
+      "firearmGrades": [],
+      "armorGrades": []
+    },
+    "martialTrainingNotes": "",
     "engagementDice": {
       "4": 0,
       "6": 0,
@@ -41,12 +43,12 @@
       "12": 0,
       "20": 0
     },
+    "engagementDiceNotes": "",
     "engagementSuccesses": [],
-    "engagementNotes": "",
     "engagementSuccessNotes": "",
     "baseMP": 10,
-    "mpNotes": "",
+    "baseMpNotes": "",
     "abilities": "<p><em>Magrigal 1, Magrigal 2, Madrigal 3.</em></p>",
-    "description": "<p>Morbi vel pulvinar metus. Integer cursus purus mauris, in tempus libero porta interdum. Phasellus sagittis dolor ut nisi fringilla molestie. Quisque sapien lectus, consectetur eu nisi non, laoreet commodo lacus. Maecenas dictum purus quis libero pharetra, id porta libero tincidunt.</p>"
+    "gratuiti": ""
   }
 }

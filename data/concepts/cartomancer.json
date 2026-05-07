@@ -21,13 +21,15 @@
   "floraFauna": "",
   "lastModified": "2026-04-25T23:53:14.661Z",
   "novizio": {
-    "flavorText": "",
-    "melee": [],
-    "polearm": [],
-    "ranged": [],
-    "firearm": [],
-    "armor": [],
-    "martialNotes": "",
+    "description": "",
+    "martialTraining": {
+      "meleeGrades": [],
+      "polearmGrades": [],
+      "rangedGrades": [],
+      "firearmGrades": [],
+      "armorGrades": []
+    },
+    "martialTrainingNotes": "",
     "engagementDice": {
       "4": 0,
       "6": 0,
@@ -36,11 +38,11 @@
       "12": 0,
       "20": 0
     },
+    "engagementDiceNotes": "",
     "engagementSuccesses": [],
-    "engagementNotes": "",
     "engagementSuccessNotes": "",
     "baseMP": 3,
-    "mpNotes": "",
+    "baseMpNotes": "",
     "abilities": "<p><em>Oblation, Pull One, Pull Three, Reading.</em></p>",
     "gratuiti": ""
   },
