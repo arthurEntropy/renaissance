@@ -4,6 +4,7 @@ import { createBaseEntity } from './baseEntity.js'
  * @typedef {import('./baseEntity.js').BaseEntity} BaseEntity
  * @typedef {import('./improvement.js').Improvement} Improvement
  * @typedef {import('./actionCost.js').ActionCost} ActionCost
+ * @typedef {import('../constants/biomeTags.js').BiomeTagValue} BiomeTagValue
  */
 
 /**
@@ -24,8 +25,8 @@ import { createBaseEntity } from './baseEntity.js'
  * @property {string|null} manaCost - Mana cost string for Channeler spells (e.g., '2WUB')
  * 
  * Biome interactions
- * @property {string[]} [biomeTagsAugment] - Biome tags that augment this ability
- * @property {string[]} [biomeTagsInhibit] - Biome tags that inhibit this ability
+ * @property {BiomeTagValue[]} [biomeTagsAugment] - Biome tags that augment this ability
+ * @property {BiomeTagValue[]} [biomeTagsInhibit] - Biome tags that inhibit this ability
  */
 
 /**

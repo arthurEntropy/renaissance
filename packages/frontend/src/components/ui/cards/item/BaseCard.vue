@@ -37,7 +37,7 @@
       <div v-if="!collapsible || !collapsed" class="card-content">
 
         <!-- Art Image -->
-        <div v-if="item.artUrl && showArtwork" class="art-frame">
+        <div v-if="item.artUrl && showCardArtwork" class="art-frame">
           <img :src="optimizedArtUrl" :alt="item.name" class="art-image" />
         </div>
 
@@ -138,7 +138,7 @@ const optimizedArtUrl = useOptimizedImage(() => props.item.artUrl, MIDJOURNEY_IM
 
 // Computed properties
 const sources = computed(() => sourcesStore.sources)
-const showArtwork = computed(() => userStore.userProfile?.preferences?.showArtwork ?? true)
+const showCardArtwork = computed(() => userStore.userProfile?.preferences?.showCardArtwork ?? true)
 
 const sourceName = computed(() => {
   if (!props.item.source) return 'Unknown'

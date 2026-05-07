@@ -3,15 +3,11 @@ export const CAMPAIGN_ROLE = /** @type {const} */ ({
   PLAYER: 'player',
 })
 
-/** @typedef {typeof CAMPAIGN_ROLE[keyof typeof CAMPAIGN_ROLE]} CampaignRole */
-
 export const CAMPAIGN_MEMBER_STATUS = /** @type {const} */ ({
   PENDING: 'pending',
   ACCEPTED: 'accepted',
   DECLINED: 'declined',
 })
-
-/** @typedef {typeof CAMPAIGN_MEMBER_STATUS[keyof typeof CAMPAIGN_MEMBER_STATUS]} CampaignMemberStatus */
 
 export const BEAST_TYPE = /** @type {const} */ ({
   TEMPLATE: 'template',

@@ -31,6 +31,8 @@ export const BiomeTag = {
   ENCHANTED: 'enchanted',
 }
 
+/** @typedef {typeof BiomeTag[keyof typeof BiomeTag]} BiomeTagValue */
+
 export const BiomeTagGroup = {
   TERRAIN: 'terrain',
   CLIMATE: 'climate',

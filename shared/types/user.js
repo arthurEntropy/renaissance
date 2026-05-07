@@ -1,24 +1,28 @@
 import { createBaseEntity } from './baseEntity.js'
+import { USER_ROLE, USER_STATUS } from '../constants/userConstants.js'
 
 /**
  * @typedef {import('./baseEntity.js').BaseEntity} BaseEntity
+ * @typedef {import('../constants/userConstants.js').USER_ROLE} UserRoleEnum
+ * @typedef {import('../constants/userConstants.js').USER_STATUS} UserStatusEnum
+ * @typedef {UserRoleEnum[keyof UserRoleEnum]} UserRole
+ * @typedef {UserStatusEnum[keyof UserStatusEnum]} UserStatus
  */
 
 /**
  * @typedef {Object} UserPreferences
- * @property {string} theme - UI theme preference
- * @property {boolean} notifications - Notification preference
- * @property {boolean} showArtwork - Whether to show artwork on cards
+ * @property {boolean} showCardArtwork - Whether to show artwork on cards
+ * @property {string|null} backgroundImageId - Selected app background image ID
  */
 
 /**
  * @typedef {Object} UserFields
  * @property {string} name - Display name
- * @property {'user'|'admin'} role - User role
- * @property {'pending'|'approved'} status - Account status
+ * @property {UserRole} role - User role
+ * @property {UserStatus} status - Account status
  * @property {UserPreferences} preferences - User preferences
- * @property {string[]} characters - Character IDs owned by this user
- * @property {string|null} activeCampaignId - ID of the campaign the user is currently viewing in campaign mode
+ * @property {UUID[]} characters - Character IDs owned by this user
+ * @property {UUID|null} activeCampaignId - ID of the campaign the user is currently viewing in campaign mode
  */
 
 /**
@@ -33,12 +37,11 @@ export function createDefaultUser() {
   return {
     ...createBaseEntity(),
     name: '',
-    role: 'user',
-    status: 'pending',
+    role: USER_ROLE.USER,
+    status: USER_STATUS.PENDING,
     preferences: {
-      theme: 'dark',
-      notifications: true,
-      showArtwork: true,
+      showCardArtwork: true,
+      backgroundImageId: null,
     },
     characters: [],
     activeCampaignId: null,

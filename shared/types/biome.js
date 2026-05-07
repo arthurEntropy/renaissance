@@ -2,12 +2,7 @@ import { createBaseEntity } from './baseEntity.js'
 
 /**
  * @typedef {import('./baseEntity.js').BaseEntity} BaseEntity
- * @typedef {import('../constants/biomeTags.js').BiomeTag} BiomeTagEnum
- */
-
-/**
- * A valid biome tag value (one of the BiomeTag constant values)
- * @typedef {BiomeTagEnum[keyof BiomeTagEnum]} BiomeTagValue
+ * @typedef {import('../constants/biomeTags.js').BiomeTagValue} BiomeTagValue
  */
 
 /**

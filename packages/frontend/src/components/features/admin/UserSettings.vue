@@ -4,7 +4,7 @@
 
         <div class="setting-item">
             <label class="setting-label">
-                <input type="checkbox" :checked="showArtwork" @change="toggleArtwork" class="setting-checkbox" />
+                <input type="checkbox" :checked="showCardArtwork" @change="toggleArtwork" class="setting-checkbox" />
                 <span class="setting-text">Show artwork on ability cards</span>
             </label>
         </div>
@@ -17,8 +17,8 @@ import { useUserStore } from '@/stores/userStore'
 
 const userStore = useUserStore()
 
-const showArtwork = computed(() => {
-    return userStore.userProfile?.preferences?.showArtwork ?? true
+const showCardArtwork = computed(() => {
+    return userStore.userProfile?.preferences?.showCardArtwork ?? true
 })
 
 const toggleArtwork = async () => {
@@ -27,8 +27,8 @@ const toggleArtwork = async () => {
     const updatedUser = {
         ...userStore.userProfile,
         preferences: {
-            ...userStore.userProfile.preferences,
-            showArtwork: !showArtwork.value
+            ...(userStore.userProfile.preferences || {}),
+            showCardArtwork: !showCardArtwork.value
         }
     }
 

@@ -8,8 +8,7 @@
   "lastLoginAt": "2026-05-04T17:26:48.074Z",
   "isDeleted": false,
   "preferences": {
-    "theme": "dark",
-    "notifications": true
+    "showCardArtwork": true
   },
   "characters": [],
   "lastModified": "2026-05-04T17:26:49.482Z",

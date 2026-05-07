@@ -8,10 +8,8 @@
   "lastLoginAt": "2026-05-04T17:39:20.322Z",
   "isDeleted": false,
   "preferences": {
-    "theme": "dark",
-    "notifications": true,
     "backgroundImageId": "1cf1ac16-e262-4739-823f-70d3352cf74f",
-    "showArtwork": true
+    "showCardArtwork": true
   },
   "characters": [],
   "lastUpdatedAt": "2026-05-07T01:59:20.743Z",
