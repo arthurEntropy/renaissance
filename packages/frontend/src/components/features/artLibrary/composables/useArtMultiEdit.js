@@ -1,4 +1,5 @@
 import { computed } from 'vue'
+import { ART_TYPES } from '@shared/constants/artConstants'
 
 export function useArtMultiEdit(artStore, selectedItems, isMultiEdit) {
     const multiEditData = computed(() => {
@@ -17,7 +18,7 @@ export function useArtMultiEdit(artStore, selectedItems, isMultiEdit) {
         const sourceItemCounts = {} // Track how many items have each source
 
         selectedArts.forEach(art => {
-            art.tags.sources.forEach(sourceId => {
+            art.sources.forEach(sourceId => {
                 allSources.add(sourceId)
                 sourceItemCounts[sourceId] = (sourceItemCounts[sourceId] || 0) + 1
             })
@@ -35,13 +36,13 @@ export function useArtMultiEdit(artStore, selectedItems, isMultiEdit) {
             }
         })
 
-        // For type, use the most common type, or 'faces' as default
+        // For type, use the most common type, or FACES as default
         const typeCounts = {}
         selectedArts.forEach(art => {
-            typeCounts[art.tags.type] = (typeCounts[art.tags.type] || 0) + 1
+            typeCounts[art.type] = (typeCounts[art.type] || 0) + 1
         })
         const mostCommonType = Object.keys(typeCounts).reduce((a, b) =>
-            typeCounts[a] > typeCounts[b] ? a : b, 'faces'
+            typeCounts[a] > typeCounts[b] ? a : b, ART_TYPES.DEFAULT
         )
 
         return {

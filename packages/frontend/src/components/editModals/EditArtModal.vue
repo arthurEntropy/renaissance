@@ -9,17 +9,17 @@
                         <ArtImageSection :url="localArt.url" :isMultiEdit="isMultiEdit"
                             @openFullSize="openFullSizeModal" />
 
-                        <ArtUrlTypeRow v-model:url="localArt.url" v-model:type="localArt.tags.type"
-                            :selectedType="localArt.tags.type" :isMultiEdit="isMultiEdit" />
+                        <ArtUrlTypeRow v-model:url="localArt.url" v-model:type="localArt.type"
+                            :selectedType="localArt.type" :isMultiEdit="isMultiEdit" />
 
-                        <ArtTagsDisplay :selectedSources="localArt.tags.sources" :partialSources="partialSources"
+                        <ArtTagsDisplay :selectedSources="localArt.sources" :partialSources="partialSources"
                             @remove="removeSource" />
                     </div>
 
                     <!-- Right Column: Tag Search and Options -->
                     <div class="right-column">
                         <ArtTagsSelector ref="tagsSelectorRef" v-model:searchQuery="searchQuery"
-                            :selectedSources="localArt.tags.sources" @toggle="toggleSource" />
+                            :selectedSources="localArt.sources" @toggle="toggleSource" />
                     </div>
                 </div>
 
@@ -51,6 +51,7 @@ import ArtUrlTypeRow from '@/components/editModals/artModal/ArtUrlTypeRow.vue'
 import ArtTagsDisplay from '@/components/editModals/artModal/ArtTagsDisplay.vue'
 import ArtTagsSelector from '@/components/editModals/artModal/ArtTagsSelector.vue'
 import { useSourcesStore } from '@/stores/sourcesStore'
+import { ART_TYPES } from '@shared/constants/artConstants'
 
 const props = defineProps({
     art: {
@@ -84,14 +85,12 @@ const sourcesStore = useSourcesStore()
 const localArt = ref({
     id: props.art?.id || null,
     url: props.art?.url || '',
-    tags: {
-        type: props.isMultiEdit && props.multiEditData
-            ? props.multiEditData.type
-            : (props.art?.tags?.type || 'faces'),
-        sources: props.isMultiEdit && props.multiEditData
-            ? [...props.multiEditData.universalSources, ...props.multiEditData.partialSources]
-            : (props.art?.tags?.sources || [])
-    },
+    type: props.isMultiEdit && props.multiEditData
+        ? props.multiEditData.type
+        : (props.art?.type || ART_TYPES.DEFAULT),
+    sources: props.isMultiEdit && props.multiEditData
+        ? [...props.multiEditData.universalSources, ...props.multiEditData.partialSources]
+        : (props.art?.sources || []),
     isDeleted: props.art?.isDeleted || false
 })
 
@@ -119,10 +118,8 @@ watch(() => props.art?.id, (newId, oldId) => {
         localArt.value = {
             id: props.art.id || null,
             url: props.art.url || '',
-            tags: {
-                type: props.art.tags?.type || 'faces',
-                sources: props.art.tags?.sources || []
-            },
+            type: props.art.type || ART_TYPES.DEFAULT,
+            sources: props.art.sources || [],
             isDeleted: props.art.isDeleted || false
         }
         setTimeout(() => {
@@ -148,11 +145,11 @@ watch(localArt, (newValue) => {
 }, { deep: true })
 
 const toggleSource = (sourceId) => {
-    const index = localArt.value.tags.sources.indexOf(sourceId)
+    const index = localArt.value.sources.indexOf(sourceId)
     if (index > -1) {
-        localArt.value.tags.sources.splice(index, 1)
+        localArt.value.sources.splice(index, 1)
     } else {
-        localArt.value.tags.sources.push(sourceId)
+        localArt.value.sources.push(sourceId)
         // If it was partial and we're adding it, remove from partial list
         if (props.isMultiEdit) {
             const partialIndex = partialSources.value.indexOf(sourceId)
@@ -170,9 +167,9 @@ const toggleSource = (sourceId) => {
 }
 
 const removeSource = (sourceId) => {
-    const index = localArt.value.tags.sources.indexOf(sourceId)
+    const index = localArt.value.sources.indexOf(sourceId)
     if (index > -1) {
-        localArt.value.tags.sources.splice(index, 1)
+        localArt.value.sources.splice(index, 1)
     }
 }
 
@@ -187,7 +184,7 @@ const handleSave = () => {
         // For multi-edit, calculate which sources to add and remove
         const originalUniversalSources = props.multiEditData.universalSources
         const originalPartialSources = props.multiEditData.partialSources
-        const currentSources = localArt.value.tags.sources
+        const currentSources = localArt.value.sources
         const currentPartialSources = partialSources.value
 
         // Sources to add: anything in current that:
@@ -207,7 +204,7 @@ const handleSave = () => {
 
         emit('save', {
             isMultiEdit: true,
-            type: localArt.value.tags.type,
+            type: localArt.value.type,
             sourcesToAdd,
             sourcesToRemove
         })

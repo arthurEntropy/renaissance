@@ -1,6 +1,7 @@
 import { ref, computed } from 'vue'
 import { useFilterPersistence } from '@/composables/useFilterPersistence'
 import { useSourcesStore } from '@/stores/sourcesStore'
+import { ART_TYPES } from '@shared/constants/artConstants'
 
 // Special filter IDs for missing tags
 export const SPECIAL_FILTERS = {
@@ -12,7 +13,7 @@ export const SPECIAL_FILTERS = {
 
 export function useArtFilters(artStore) {
     const sourcesStore = useSourcesStore()
-    const VALID_ART_TYPES = ['faces', 'places', 'maps']
+    const VALID_ART_TYPES = Object.values(ART_TYPES)
     const gridSize = ref('large')
     const typeFilters = ref([])
     const sourceFilters = ref([])
@@ -33,8 +34,8 @@ export function useArtFilters(artStore) {
 
     // Helper function to check if art has any tags from a specific category
     const hasTagFromCategory = (art, category) => {
-        if (!art?.tags?.sources || !Array.isArray(art.tags.sources)) return false
-        return art.tags.sources.some(sourceId => {
+        if (!art?.sources || !Array.isArray(art.sources)) return false
+        return art.sources.some(sourceId => {
             const sourceType = sourcesStore.getSourceType(sourceId)
             return sourceType === category
         })
@@ -57,7 +58,7 @@ export function useArtFilters(artStore) {
 
         // Filter by types (if any selected)
         if (validTypeFilters.length > 0) {
-            filtered = filtered.filter(art => art?.tags?.type && validTypeFilters.includes(art.tags.type))
+            filtered = filtered.filter(art => art?.type && validTypeFilters.includes(art.type))
         }
 
         // Separate special filters from regular source filters
@@ -67,7 +68,7 @@ export function useArtFilters(artStore) {
         // Filter by regular sources (must match ALL selected sources)
         if (regularFilters.length > 0) {
             filtered = filtered.filter(art =>
-                art?.tags?.sources && regularFilters.every(sourceId => art.tags.sources.includes(sourceId))
+                art?.sources && regularFilters.every(sourceId => art.sources.includes(sourceId))
             )
         }
 
@@ -76,7 +77,7 @@ export function useArtFilters(artStore) {
             switch (specialFilter) {
                 case SPECIAL_FILTERS.NO_TAGS:
                     filtered = filtered.filter(art => 
-                        !art?.tags?.sources || art.tags.sources.length === 0
+                        !art?.sources || art.sources.length === 0
                     )
                     break
                 case SPECIAL_FILTERS.NO_ANCESTRY:
@@ -186,8 +187,8 @@ export function useArtFilters(artStore) {
 
     // Helper function to get the first tag of a specific category from art
     const getFirstTagOfCategory = (art, category) => {
-        if (!art?.tags?.sources || !Array.isArray(art.tags.sources)) return null
-        for (const sourceId of art.tags.sources) {
+        if (!art?.sources || !Array.isArray(art.sources)) return null
+        for (const sourceId of art.sources) {
             const sourceType = sourcesStore.getSourceType(sourceId)
             if (sourceType === category) {
                 return sourcesStore.getSourceName(sourceId)
@@ -203,8 +204,8 @@ export function useArtFilters(artStore) {
         switch (sortBy) {
             case 'type':
                 return sorted.sort((a, b) => {
-                    const typeA = a?.tags?.type || ''
-                    const typeB = b?.tags?.type || ''
+                    const typeA = a?.type || ''
+                    const typeB = b?.type || ''
                     return typeA.localeCompare(typeB)
                 })
             case 'ancestry':
@@ -249,15 +250,15 @@ export function useArtFilters(artStore) {
     }
 
     const faceCount = computed(() => {
-        return filteredArt.value.filter(art => art?.tags?.type === 'faces').length
+        return filteredArt.value.filter(art => art?.type === ART_TYPES.FACES).length
     })
 
     const placeCount = computed(() => {
-        return filteredArt.value.filter(art => art?.tags?.type === 'places').length
+        return filteredArt.value.filter(art => art?.type === ART_TYPES.PLACES).length
     })
 
     const mapCount = computed(() => {
-        return filteredArt.value.filter(art => art?.tags?.type === 'maps').length
+        return filteredArt.value.filter(art => art?.type === ART_TYPES.MAPS).length
     })
 
     const toggleTypeFilter = (type) => {

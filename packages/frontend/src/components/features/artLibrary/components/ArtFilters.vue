@@ -19,6 +19,7 @@ import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import { useSourcesStore } from '@/stores/sourcesStore'
 import { SPECIAL_FILTERS } from '../composables/useArtFilters'
 import { FILTER_SPECIAL_TAG_GROUP_LABEL } from '@/constants/filterBar'
+import { ART_TYPES } from '@shared/constants/artConstants'
 
 const props = defineProps({
     totalCount: { type: Number, required: true },
@@ -39,9 +40,9 @@ const showDuplicates = defineModel('showDuplicates')
 const sourcesStore = useSourcesStore()
 
 const typeToggles = [
-    { value: 'faces', label: 'Faces', icon: UserCircleIcon, colorClass: 'faces' },
-    { value: 'places', label: 'Places', icon: PhotoIcon, colorClass: 'places' },
-    { value: 'maps', label: 'Maps', icon: MapIcon, colorClass: 'maps' },
+    { value: ART_TYPES.FACES, label: 'Faces', icon: UserCircleIcon, colorClass: 'faces' },
+    { value: ART_TYPES.PLACES, label: 'Places', icon: PhotoIcon, colorClass: 'places' },
+    { value: ART_TYPES.MAPS, label: 'Maps', icon: MapIcon, colorClass: 'maps' },
 ]
 
 const specialFilterOptions = [

@@ -1,19 +1,19 @@
 import { createBaseEntity } from './baseEntity.js'
+import { ART_TYPES } from '../constants/artConstants.js'
 
 /**
- * @typedef {Object} ArtTags
- * @property {'faces'|'places'|'maps'} type - Type of art
- * @property {string[]} sources - Array of concept IDs this art is associated with
+ * @typedef {import('./baseEntity.js').BaseEntity} BaseEntity
  */
 
 /**
- * @typedef {Object} Art
- * @property {string|null} id - UUID identifier
+ * @typedef {Object} ArtFields
  * @property {string} url - Image URL
- * @property {ArtTags} tags - Categorization tags
- * @property {boolean} isDeleted - Soft delete flag
- * @property {string} createdAt - ISO 8601 datetime string
- * @property {string} lastModified - ISO 8601 datetime string
+ * @property {string} type - Type of art. Valid values: see ART_TYPES constant in artConstants.js
+ * @property {UUID[]} sources - Array of concept IDs this art is associated with
+ */
+
+/**
+ * @typedef {BaseEntity & ArtFields} Art
  */
 
 /**
@@ -24,9 +24,7 @@ export function createDefaultArt() {
   return {
     ...createBaseEntity(),
     url: '',
-    tags: {
-      type: 'faces',
-      sources: []
-    },
+    type: ART_TYPES.DEFAULT,
+    sources: [],
   }
 }

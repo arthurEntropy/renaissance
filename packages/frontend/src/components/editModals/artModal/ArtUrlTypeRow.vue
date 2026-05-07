@@ -4,16 +4,16 @@
         <input v-if="!isMultiEdit" id="art-url" :value="url" @input="$emit('update:url', $event.target.value)"
             type="text" class="modal-input" placeholder="https://..." />
         <div class="type-toggle">
-            <button type="button" class="type-button faces" :class="{ 'selected': selectedType === 'faces' }"
-                @click="$emit('update:type', 'faces')">
+            <button type="button" class="type-button faces" :class="{ 'selected': selectedType === ART_TYPES.FACES }"
+                @click="$emit('update:type', ART_TYPES.FACES)">
                 <UserCircleIcon class="icon-sm" />
             </button>
-            <button type="button" class="type-button places" :class="{ 'selected': selectedType === 'places' }"
-                @click="$emit('update:type', 'places')">
+            <button type="button" class="type-button places" :class="{ 'selected': selectedType === ART_TYPES.PLACES }"
+                @click="$emit('update:type', ART_TYPES.PLACES)">
                 <PhotoIcon class="icon-sm" />
             </button>
-            <button type="button" class="type-button maps" :class="{ 'selected': selectedType === 'maps' }"
-                @click="$emit('update:type', 'maps')">
+            <button type="button" class="type-button maps" :class="{ 'selected': selectedType === ART_TYPES.MAPS }"
+                @click="$emit('update:type', ART_TYPES.MAPS)">
                 <MapIcon class="icon-sm" />
             </button>
         </div>
@@ -22,6 +22,7 @@
 
 <script setup>
 import { UserCircleIcon, PhotoIcon, MapIcon } from '@heroicons/vue/24/outline'
+import { ART_TYPES } from '@shared/constants/artConstants'
 
 defineProps({
     url: {

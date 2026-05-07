@@ -1,4 +1,5 @@
 import { ref } from 'vue'
+import { ART_TYPES } from '@shared/constants/artConstants'
 
 export function useArtModal() {
     const showEditModal = ref(false)
@@ -7,10 +8,8 @@ export function useArtModal() {
 
     const openAddModal = (initialTags = {}) => {
         selectedArt.value = initialTags.type || initialTags.sources ? {
-            tags: {
-                type: initialTags.type || 'faces',
-                sources: initialTags.sources || []
-            }
+            type: initialTags.type || ART_TYPES.DEFAULT,
+            sources: initialTags.sources || []
         } : null
         isMultiEdit.value = false
         showEditModal.value = true

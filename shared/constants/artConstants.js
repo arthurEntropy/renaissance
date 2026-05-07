@@ -1,7 +1,8 @@
 export const ART_TYPES = {
   FACES: 'faces',
   PLACES: 'places',
-  MAPS: 'maps'
+  MAPS: 'maps',
+  DEFAULT: 'faces'
 }
 
 export const IMAGE_GALLERY_MODES = {
