@@ -4,25 +4,12 @@ import { useEquipmentStore } from '@/stores/equipmentStore'
 import { useSourcesStore } from '@/stores/sourcesStore'
 import { useAbilitySchoolsStore } from '@/stores/abilitySchoolsStore'
 import { getManaCostColors } from '@shared/utils/calculateManaCost'
-import { ManaColor, MANA_COLOR_ORDER } from '@shared/constants/manaColors'
+import {
+    ManaColor,
+    MANA_COLOR_GROUP_ORDER,
+    MANA_COLOR_GROUP_LABELS,
+} from '@shared/constants/manaColors'
 import { SOURCE_TYPE_LABELS, SOURCE_TYPE_ORDER } from '@/constants/sourceTypes'
-
-const MANA_COLOR_GROUP_ORDER = [
-    'none',
-    ...MANA_COLOR_ORDER.filter(c => c !== ManaColor.COLORLESS),
-    ManaColor.MULTICOLOR,
-    ManaColor.COLORLESS,
-]
-const MANA_COLOR_GROUP_LABELS = {
-    [ManaColor.WHITE]: 'White',
-    [ManaColor.BLUE]: 'Blue',
-    [ManaColor.BLACK]: 'Black',
-    [ManaColor.RED]: 'Red',
-    [ManaColor.GREEN]: 'Green',
-    [ManaColor.COLORLESS]: 'Colorless',
-    [ManaColor.MULTICOLOR]: 'Multicolor',
-    none: 'No Mana Cost',
-}
 
 export function useCardCascadePicker(options = {}) {
     const fixedCategory = options.fixedCategory || null

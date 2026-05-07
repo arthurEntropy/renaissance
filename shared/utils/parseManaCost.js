@@ -1,14 +1,9 @@
 // Utility to parse mana cost strings like '2WUB'
-import { ManaColor } from '../constants/manaColors'
+import { ManaColor, MANA_SYMBOL_TO_COLOR } from '../constants/manaColors'
 
-const symbolMap = {
-  W: ManaColor.WHITE,
-  U: ManaColor.BLUE,
-  B: ManaColor.BLACK,
-  R: ManaColor.RED,
-  G: ManaColor.GREEN,
-}
-
+/**
+ * @param {string | null | undefined} cost
+ */
 export function parseManaCost(cost) {
   if (!cost) return []
   const result = []
@@ -22,10 +17,13 @@ export function parseManaCost(cost) {
         num += cost[++i]
       }
       result.push({ type: ManaColor.COLORLESS, value: num })
-    } else if (char === 'X') {
-      result.push({ type: ManaColor.COLORLESS, value: char })
-    } else if (symbolMap[char]) {
-      result.push({ type: symbolMap[char], value: char })
+    } else if (char.toUpperCase() === 'X') {
+      result.push({ type: ManaColor.COLORLESS, value: 'X' })
+    } else {
+      const normalized = char.toUpperCase()
+      if (MANA_SYMBOL_TO_COLOR[normalized]) {
+        result.push({ type: MANA_SYMBOL_TO_COLOR[normalized], value: normalized })
+      }
     }
     i++
   }

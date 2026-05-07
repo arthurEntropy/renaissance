@@ -128,7 +128,12 @@ import FilterBar from '@/components/ui/FilterBar.vue'
 import GroupedMasonryGrid from '@/components/ui/layouts/GroupedMasonryGrid.vue'
 import { getManaCostColors } from '@shared/utils/calculateManaCost'
 import { SOURCE_COLLECTION_TYPES } from '@/constants/sourceTypes'
-import { ManaColor, MANA_COLOR_ORDER } from '@shared/constants/manaColors'
+import {
+  ManaColor,
+  MANA_COLOR_ORDER,
+  MANA_COLOR_GROUP_ORDER,
+  MANA_COLOR_GROUP_LABELS,
+} from '@shared/constants/manaColors'
 import { FILTER_TAG_PREFIXES } from '@/constants/filterTagPrefixes'
 import { FILTER_SPECIAL_TAG_GROUP_LABEL } from '@/constants/filterBar'
 
@@ -425,19 +430,6 @@ const schoolGroupedAbilities = computed(() => {
 
   return result
 })
-
-// Grouped abilities by mana color
-const MANA_COLOR_GROUP_ORDER = ['none', ...MANA_COLOR_ORDER.filter(c => c !== ManaColor.COLORLESS), ManaColor.MULTICOLOR, ManaColor.COLORLESS]
-const MANA_COLOR_GROUP_LABELS = {
-  [ManaColor.WHITE]: 'White',
-  [ManaColor.BLUE]: 'Blue',
-  [ManaColor.BLACK]: 'Black',
-  [ManaColor.RED]: 'Red',
-  [ManaColor.GREEN]: 'Green',
-  [ManaColor.COLORLESS]: 'Colorless',
-  [ManaColor.MULTICOLOR]: 'Multicolor',
-  none: 'No Mana Cost',
-}
 
 const manaColorGroupedAbilities = computed(() => {
   if (groupByOption.value !== 'mana-color') return []
