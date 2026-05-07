@@ -1,5 +1,5 @@
 import { createBaseEntity } from './baseEntity.js'
-import { ConceptType, getConceptTypeLabel } from '../constants/conceptTypes.js'
+import { getConceptTypeLabel } from '../constants/conceptTypes.js'
 
 /**
  * @typedef {import('./baseEntity.js').BaseEntity} BaseEntity
@@ -48,6 +48,3 @@ export function createDefaultGameConcept(conceptType) {
     expansion: '',
   }
 }
-
-// Re-export ConceptType for convenience
-export { ConceptType }

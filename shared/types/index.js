@@ -10,7 +10,7 @@ export { createBaseEntity } from './baseEntity.js'
 export * from './dice.js'
 
 // Game concept entities (includes gameConcept base)
-export { createDefaultGameConcept, ConceptType } from './gameConcept.js'
+export { createDefaultGameConcept } from './gameConcept.js'
 export { createDefaultAncestry } from './ancestry.js'
 export { createDefaultCulture } from './culture.js'
 export { createDefaultMestiere } from './mestiere.js'

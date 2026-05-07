@@ -1,4 +1,5 @@
-import { createDefaultGameConcept, ConceptType } from './gameConcept.js'
+import { createDefaultGameConcept } from './gameConcept.js'
+import { ConceptType } from '../constants/conceptTypes.js'
 
 /** @typedef {import('./dice.js').Die} Die */
 /** @typedef {import('./engagementSuccess.js').EngagementSuccess} EngagementSuccess */
