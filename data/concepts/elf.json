@@ -4,27 +4,19 @@
   "name": "Elf",
   "description": "<p>Typically lithe in frame and light of foot, Elves move through the world with a demeanor that speaks of their long lives, which stretch for centuries and are ended only by mishap or violence. This long accumulation of experience expresses itself in exceptional strength of will, grace of speech and keenness of senses.</p>",
   "isDeleted": false,
-  "artUrls": [
+  "featuredArtUrls": [
     "https://cdn.midjourney.com/831b273e-9002-4112-ba61-082d83341ba6/0_3.png"
   ],
-  "faces": [],
-  "places": [],
-  "backgroundImage": "https://cdn.midjourney.com/9fc7e11e-6c4c-4063-921f-111239ba6d01/0_3.png",
+  "backgroundImage": "",
+  "cardBackgroundImage": "https://cdn.midjourney.com/9fc7e11e-6c4c-4063-921f-111239ba6d01/0_3.png",
   "expansion": "824cad94-3a4a-4df3-b81a-ede17b84644b",
-  "hooks": [],
-  "playlists": [],
-  "names": "",
-  "occupations": "",
-  "publicHouses": "",
-  "vittles": "",
-  "pointsOfInterest": "",
-  "floraFauna": "",
   "lastModified": "2026-04-24T13:12:15.391Z",
-  "detailBackgroundImage": "",
-  "heightMin": 5,
-  "heightMax": 6,
-  "weightMin": 75,
-  "weightMax": 225,
-  "lifespan": "undying",
-  "speed": 30
+  "physiology": {
+    "heightMin": 5,
+    "heightMax": 6,
+    "weightMin": 75,
+    "weightMax": 225,
+    "lifespan": "undying",
+    "speed": 30
+  }
 }

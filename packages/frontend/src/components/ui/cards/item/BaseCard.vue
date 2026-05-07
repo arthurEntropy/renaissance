@@ -161,7 +161,7 @@ const rawCardBackgroundUrl = computed(() => {
     }
   }
 
-  return source?.backgroundImage || null
+  return source?.cardBackgroundImage || null
 })
 
 const {

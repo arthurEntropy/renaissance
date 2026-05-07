@@ -43,21 +43,22 @@
 
         <!-- Display mode -->
         <div v-else class="physiology-badges" :class="{ 'cursor-pointer': isEditMode }" @click="startEdit">
-            <div v-if="concept?.heightMin || concept?.heightMax" class="physiology-badge">
+            <div v-if="concept?.physiology?.heightMin || concept?.physiology?.heightMax" class="physiology-badge">
                 <span class="badge-label">Height</span>
-                <span class="badge-value">{{ concept.heightMin }}-{{ concept.heightMax }}'</span>
+                <span class="badge-value">{{ concept.physiology.heightMin }}-{{ concept.physiology.heightMax }}'</span>
             </div>
-            <div v-if="concept?.weightMin || concept?.weightMax" class="physiology-badge">
+            <div v-if="concept?.physiology?.weightMin || concept?.physiology?.weightMax" class="physiology-badge">
                 <span class="badge-label">Weight</span>
-                <span class="badge-value">{{ concept.weightMin }}-{{ concept.weightMax }} lbs</span>
+                <span class="badge-value">{{ concept.physiology.weightMin }}-{{ concept.physiology.weightMax }}
+                    lbs</span>
             </div>
-            <div v-if="concept?.lifespan" class="physiology-badge">
+            <div v-if="concept?.physiology?.lifespan" class="physiology-badge">
                 <span class="badge-label">Avg. Lifespan</span>
-                <span class="badge-value">{{ concept.lifespan }}</span>
+                <span class="badge-value">{{ concept.physiology.lifespan }}</span>
             </div>
-            <div v-if="concept?.speed" class="physiology-badge">
+            <div v-if="concept?.physiology?.speed" class="physiology-badge">
                 <span class="badge-label">Speed</span>
-                <span class="badge-value">{{ concept.speed }} ft</span>
+                <span class="badge-value">{{ concept.physiology.speed }} ft</span>
             </div>
         </div>
 
@@ -86,22 +87,22 @@ const concept = computed(() => conceptsStore.selectedConcept)
 const isEditingPhysiology = ref(false)
 
 const localStats = ref({
-    heightMin: concept.value?.heightMin ?? 0,
-    heightMax: concept.value?.heightMax ?? 0,
-    weightMin: concept.value?.weightMin ?? 0,
-    weightMax: concept.value?.weightMax ?? 0,
-    lifespan: concept.value?.lifespan ?? '',
-    speed: concept.value?.speed ?? 30,
+    heightMin: concept.value?.physiology?.heightMin ?? 0,
+    heightMax: concept.value?.physiology?.heightMax ?? 0,
+    weightMin: concept.value?.physiology?.weightMin ?? 0,
+    weightMax: concept.value?.physiology?.weightMax ?? 0,
+    lifespan: concept.value?.physiology?.lifespan ?? '',
+    speed: concept.value?.physiology?.speed ?? 30,
 })
 
 const hasContent = computed(() => {
     return !!(
-        concept.value?.heightMin ||
-        concept.value?.heightMax ||
-        concept.value?.weightMin ||
-        concept.value?.weightMax ||
-        concept.value?.lifespan ||
-        concept.value?.speed
+        concept.value?.physiology?.heightMin ||
+        concept.value?.physiology?.heightMax ||
+        concept.value?.physiology?.weightMin ||
+        concept.value?.physiology?.weightMax ||
+        concept.value?.physiology?.lifespan ||
+        concept.value?.physiology?.speed
     )
 })
 
@@ -121,12 +122,13 @@ const toggleEdit = () => {
 
 const saveStats = async () => {
     if (concept.value) {
-        concept.value.heightMin = localStats.value.heightMin
-        concept.value.heightMax = localStats.value.heightMax
-        concept.value.weightMin = localStats.value.weightMin
-        concept.value.weightMax = localStats.value.weightMax
-        concept.value.lifespan = localStats.value.lifespan
-        concept.value.speed = localStats.value.speed
+        if (!concept.value.physiology) concept.value.physiology = {}
+        concept.value.physiology.heightMin = localStats.value.heightMin
+        concept.value.physiology.heightMax = localStats.value.heightMax
+        concept.value.physiology.weightMin = localStats.value.weightMin
+        concept.value.physiology.weightMax = localStats.value.weightMax
+        concept.value.physiology.lifespan = localStats.value.lifespan
+        concept.value.physiology.speed = localStats.value.speed
         await conceptsStore.update(concept.value)
     }
     isEditingPhysiology.value = false
@@ -134,12 +136,12 @@ const saveStats = async () => {
 
 const cancelEdit = () => {
     localStats.value = {
-        heightMin: concept.value?.heightMin ?? 0,
-        heightMax: concept.value?.heightMax ?? 0,
-        weightMin: concept.value?.weightMin ?? 0,
-        weightMax: concept.value?.weightMax ?? 0,
-        lifespan: concept.value?.lifespan ?? '',
-        speed: concept.value?.speed ?? 30,
+        heightMin: concept.value?.physiology?.heightMin ?? 0,
+        heightMax: concept.value?.physiology?.heightMax ?? 0,
+        weightMin: concept.value?.physiology?.weightMin ?? 0,
+        weightMax: concept.value?.physiology?.weightMax ?? 0,
+        lifespan: concept.value?.physiology?.lifespan ?? '',
+        speed: concept.value?.physiology?.speed ?? 30,
     }
     isEditingPhysiology.value = false
 }
@@ -149,12 +151,12 @@ watch(
     (newConcept) => {
         if (!isEditingPhysiology.value) {
             localStats.value = {
-                heightMin: newConcept?.heightMin ?? 0,
-                heightMax: newConcept?.heightMax ?? 0,
-                weightMin: newConcept?.weightMin ?? 0,
-                weightMax: newConcept?.weightMax ?? 0,
-                lifespan: newConcept?.lifespan ?? '',
-                speed: newConcept?.speed ?? 30,
+                heightMin: newConcept?.physiology?.heightMin ?? 0,
+                heightMax: newConcept?.physiology?.heightMax ?? 0,
+                weightMin: newConcept?.physiology?.weightMin ?? 0,
+                weightMax: newConcept?.physiology?.weightMax ?? 0,
+                lifespan: newConcept?.physiology?.lifespan ?? '',
+                speed: newConcept?.physiology?.speed ?? 30,
             }
         }
     },

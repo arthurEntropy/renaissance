@@ -3,7 +3,7 @@
     @click="$emit('select', concept)" @keydown.enter="$emit('select', concept)"
     @keydown.space.prevent="$emit('select', concept)">
     <img v-if="expansionLogoUrl" :src="expansionLogoUrl" alt="Expansion Logo" class="expansion-logo-badge" />
-    <img v-if="concept.artUrls?.[0]" :src="optimizedConceptArtUrl" :alt="`${concept.name} concept art`"
+    <img v-if="concept.featuredArtUrls?.[0]" :src="optimizedConceptArtUrl" :alt="`${concept.name} concept art`"
       class="concept-card-image" />
     <p class="concept-card-name">{{ concept.name }}</p>
   </div>
@@ -20,7 +20,7 @@ const props = defineProps({
 })
 
 // Optimize concept art URL
-const optimizedConceptArtUrl = useOptimizedImage(() => props.concept.artUrls?.[0], MIDJOURNEY_IMAGE_CONTEXTS.SMALL)
+const optimizedConceptArtUrl = useOptimizedImage(() => props.concept.featuredArtUrls?.[0], MIDJOURNEY_IMAGE_CONTEXTS.SMALL)
 
 const expansionLogoUrl = computed(() => {
   const expansion = props.expansions.find(e => e.id === props.concept.expansion)

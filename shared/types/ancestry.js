@@ -1,14 +1,26 @@
 import { createDefaultGameConcept, ConceptType } from './gameConcept.js'
 
 /**
- * @typedef {import('./gameConcept.js').GameConcept & {
- *   heightMin: number,
- *   heightMax: number,
- *   weightMin: number,
- *   weightMax: number,
- *   lifespan: string,
- *   speed: number,
- * }} Ancestry
+ * @typedef {import('./gameConcept.js').GameConcept} GameConcept
+ */
+
+/**
+ * @typedef {Object} Physiology
+ * @property {number} heightMin - Minimum height
+ * @property {number} heightMax - Maximum height
+ * @property {number} weightMin - Minimum weight
+ * @property {number} weightMax - Maximum weight
+ * @property {string} lifespan - Typical lifespan
+ * @property {number} speed - Base speed
+ */
+
+/**
+ * @typedef {Object} AncestryFields
+ * @property {Physiology} physiology - Physical characteristics
+ */
+
+/**
+ * @typedef {GameConcept & AncestryFields} Ancestry
  */
 
 /**
@@ -18,11 +30,13 @@ import { createDefaultGameConcept, ConceptType } from './gameConcept.js'
 export function createDefaultAncestry() {
   return {
     ...createDefaultGameConcept(ConceptType.ANCESTRY),
-    heightMin: 0,
-    heightMax: 0,
-    weightMin: 0,
-    weightMax: 0,
-    lifespan: '',
-    speed: 30,
+    physiology: {
+      heightMin: 0,
+      heightMax: 0,
+      weightMin: 0,
+      weightMax: 0,
+      lifespan: '',
+      speed: 30,
+    },
   }
 }

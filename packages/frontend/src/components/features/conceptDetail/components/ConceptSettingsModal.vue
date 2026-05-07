@@ -3,17 +3,17 @@
     <div class="modal-content settings-modal">
       <h3>Ability/Equipment Card Style Settings</h3>
 
-      <!-- Card Background Image URL -->
+      <!-- Detail Background Image URL -->
       <div class="form-group">
-        <label for="backgroundImage">Card Background Image URL:</label>
+        <label for="backgroundImage">Detail Background Image URL:</label>
         <input type="text" id="backgroundImage" v-model="localSettings.backgroundImage" class="modal-input"
           placeholder="https://example.com/image.png" />
       </div>
 
-      <!-- Detail Background Image URL -->
+      <!-- Card Background Image URL -->
       <div class="form-group">
-        <label for="detailBackgroundImage">Detail Background Image URL:</label>
-        <input type="text" id="detailBackgroundImage" v-model="localSettings.detailBackgroundImage" class="modal-input"
+        <label for="cardBackgroundImage">Card Background Image URL:</label>
+        <input type="text" id="cardBackgroundImage" v-model="localSettings.cardBackgroundImage" class="modal-input"
           placeholder="https://example.com/image.png" />
       </div>
 
@@ -56,7 +56,7 @@ const conceptsStore = useConceptsStore()
 
 const localSettings = reactive({
   backgroundImage: '',
-  detailBackgroundImage: '',
+  cardBackgroundImage: '',
   expansionId: '',
 })
 
@@ -74,7 +74,7 @@ const loadSettings = () => {
   const concept = conceptsStore.selectedConcept
   if (concept) {
     localSettings.backgroundImage = concept.backgroundImage || ''
-    localSettings.detailBackgroundImage = concept.detailBackgroundImage || ''
+    localSettings.cardBackgroundImage = concept.cardBackgroundImage || ''
     localSettings.expansionId = concept.expansion || ''
   }
 }

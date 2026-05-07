@@ -4,26 +4,19 @@
   "name": "Fey",
   "description": "<p>The Fey emerged in places where the border between our world and another was worn thin. They are in this world, but are not of it, and they remain governed by laws that seem strange here. This crisis of belonging is central to their lives here: they must choose to what degree they will conceal or reveal their true form, their true name, their true nature.</p>",
   "isDeleted": false,
-  "artUrls": [
+  "featuredArtUrls": [
     "https://cdn.midjourney.com/56acc187-316c-4d6a-aba8-f64ad6b5c126/0_2.png"
   ],
-  "faces": [],
-  "places": [],
-  "backgroundImage": "https://cdn.midjourney.com/4295a2ed-3594-42e0-8f96-1a01c321af4a/0_1.png",
+  "backgroundImage": "",
+  "cardBackgroundImage": "https://cdn.midjourney.com/4295a2ed-3594-42e0-8f96-1a01c321af4a/0_1.png",
   "expansion": "e46f4320-a414-4300-95d5-397ba717d982",
-  "hooks": [],
-  "playlists": [],
-  "names": "",
-  "occupations": "",
-  "publicHouses": "",
-  "vittles": "",
-  "pointsOfInterest": "",
-  "floraFauna": "",
   "lastModified": "2026-04-24T14:07:32.046Z",
-  "heightMin": 5,
-  "heightMax": 7,
-  "weightMin": 75,
-  "weightMax": 500,
-  "lifespan": "undying",
-  "speed": 30
+  "physiology": {
+    "heightMin": 5,
+    "heightMax": 7,
+    "weightMin": 75,
+    "weightMax": 500,
+    "lifespan": "undying",
+    "speed": 30
+  }
 }

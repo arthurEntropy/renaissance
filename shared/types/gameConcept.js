@@ -2,31 +2,27 @@ import { createBaseEntity } from './baseEntity.js'
 import { ConceptType, getConceptTypeLabel } from '../constants/conceptTypes.js'
 
 /**
+ * @typedef {import('./baseEntity.js').BaseEntity} BaseEntity
+ */
+
+/**
  * Base structure for game concepts (Ancestry, Culture, Mestiere, WorldElement)
  * These all share the same fundamental structure
- *
- * @typedef {Object} GameConcept
- * @property {string|null} id - UUID identifier
+ */
+
+/**
+ * @typedef {Object} GameConceptFields
  * @property {string} conceptType - Type of concept (ANCESTRY, CULTURE, MESTIERE, WORLD_ELEMENT)
  * @property {string} name - Concept name
- * @property {string} description - Detailed description
- * @property {boolean} isDeleted - Soft delete flag
- * @property {string[]} artUrls - Associated artwork URLs
- * @property {string[]} faces - Character face art IDs
- * @property {string[]} places - Location art IDs
- * @property {string} backgroundImage - Background image URL for ability/equipment cards
- * @property {string} detailBackgroundImage - Background image URL for the ConceptDetail modal
- * @property {string} expansion - Expansion ID this concept belongs to
- * @property {string[]} hooks - Story hooks and prompts
- * @property {string[]} playlists - Associated music playlists
- * @property {string} names - Example names and naming conventions
- * @property {string} occupations - Typical occupations
- * @property {string} publicHouses - Public houses and gathering places
- * @property {string} vittles - Food and drink descriptions
- * @property {string} pointsOfInterest - Notable locations
- * @property {string} floraFauna - Native flora and fauna
- * @property {string} createdAt - ISO 8601 datetime string
- * @property {string} lastModified - ISO 8601 datetime string
+ * @property {HTMLString} description - Concept description
+ * @property {string[]} featuredArtUrls - Image URLs for the concept's featured art
+ * @property {string} backgroundImage - Image URL for the background of the concept's detail page
+ * @property {string} cardBackgroundImage - Image URL for the background of the concept's ability and equipment cards
+ * @property {UUID} expansion - Expansion ID this concept belongs to
+ */
+
+/**
+ * @typedef {BaseEntity & GameConceptFields} GameConcept
  */
 
 /**
@@ -46,20 +42,10 @@ export function createDefaultGameConcept(conceptType) {
     conceptType,
     name: `New ${label}`,
     description: '',
-    artUrls: ['https://cdn.midjourney.com/a8a36740-b7d3-4aef-bea3-a95039bec06f/0_2.png'],
-    faces: [],
-    places: [],
+    featuredArtUrls: ['https://cdn.midjourney.com/a8a36740-b7d3-4aef-bea3-a95039bec06f/0_2.png'],
     backgroundImage: '',
-    detailBackgroundImage: '',
+    cardBackgroundImage: '',
     expansion: '',
-    hooks: [],
-    playlists: [],
-    names: '',
-    occupations: '',
-    publicHouses: '',
-    vittles: '',
-    pointsOfInterest: '',
-    floraFauna: '',
   }
 }
 

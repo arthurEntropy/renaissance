@@ -4,27 +4,16 @@
   "name": "Madrigal",
   "description": "<p>FLAVOR:</p><ul><li><p>Bard but good</p></li><li><p>Three paths: song, verse, tones</p></li></ul><p>WEAPONS:</p><ul><li><p>none</p></li></ul><p>ENGAGEMENT:</p><ul><li><p>none</p></li></ul><p>ABILITIES:</p><ul><li><p>Song: chain together verse, chorus, prechorus, bridge, etc. for cumulative effects.</p><ul><li><p>Maybe can sustain same section with half action?</p></li><li><p>Learn/write new song with new effects</p></li></ul></li><li><p>Tones: Colin's cool dice idea, more dice with advancements</p></li><li><p>Verse: poetry, oratory, comedy: other players rating system</p></li><li><p>Different instruments do different things</p></li></ul><p>OLD NOTES:</p><ul><li><p>Analogous to Bard, but this is a class for actual music nerds to play.</p></li><li><p>Effects should be cumulative, verse-chorus-verse-bridge-chorus, etc.</p></li><li><p>Ask Colin to come up with something based on I, IV, V, VII thing.</p></li><li><p>Maybe advancements get you more complicated chords.</p></li><li><p>The thing that sucks about Bard, though, is having to keep track of and remind people of the various benefits you’re granting them. How about because you’re making music everyone on the battlefield can hear, the effects you produce are generally area-based. So you’re shaping the nature of the battle as you shape your song.</p></li></ul>",
   "isDeleted": false,
-  "artUrls": [
+  "featuredArtUrls": [
     "https://cdn.midjourney.com/977aa60a-1bd9-4c67-b654-aceb6249248f/0_3.png",
     "https://cdn.midjourney.com/4c33efed-1edd-4c83-a90b-9ad9e7628062/0_2.jpeg",
     "https://cdn.midjourney.com/e76783a7-96d0-492f-89de-cc303bb10385/0_0.jpeg",
     "https://cdn.midjourney.com/975d0c02-345e-449f-bd67-f733795ad61a/0_0.jpeg",
     "https://cdn.midjourney.com/222b3e07-3e80-4a9f-a183-4d74c3a8ab87/0_3.jpeg"
   ],
-  "faces": [],
-  "places": [],
-  "backgroundImage": "https://cdn.midjourney.com/5673581c-a3c2-42a5-8120-fcbb8cb39a25/0_1.png",
+  "backgroundImage": "https://cdn.midjourney.com/d838e7af-7014-4bde-86e6-2bb98de64006/0_0.png",
+  "cardBackgroundImage": "https://cdn.midjourney.com/5673581c-a3c2-42a5-8120-fcbb8cb39a25/0_1.png",
   "expansion": "",
-  "hooks": [],
-  "playlists": [],
-  "names": "",
-  "occupations": "",
-  "publicHouses": "",
-  "vittles": "",
-  "pointsOfInterest": "",
-  "floraFauna": "",
-  "lastModified": "2026-04-15T18:40:20.915Z",
-  "detailBackgroundImage": "https://cdn.midjourney.com/d838e7af-7014-4bde-86e6-2bb98de64006/0_0.png",
   "novizio": {
     "description": "<p>Morbi vel pulvinar metus. Integer cursus purus mauris, in tempus libero porta interdum. Phasellus sagittis dolor ut nisi fringilla molestie. Quisque sapien lectus, consectetur eu nisi non, laoreet commodo lacus. Maecenas dictum purus quis libero pharetra, id porta libero tincidunt.</p>",
     "martialTraining": {
@@ -35,14 +24,7 @@
       "armorGrades": []
     },
     "martialTrainingNotes": "",
-    "engagementDice": {
-      "4": 0,
-      "6": 0,
-      "8": 0,
-      "10": 0,
-      "12": 0,
-      "20": 0
-    },
+    "engagementDice": [],
     "engagementDiceNotes": "",
     "engagementSuccesses": [],
     "engagementSuccessNotes": "",
@@ -50,5 +32,8 @@
     "baseMpNotes": "",
     "abilities": "<p><em>Magrigal 1, Magrigal 2, Madrigal 3.</em></p>",
     "gratuiti": ""
-  }
+  },
+  "lastModified": "2026-04-15T18:40:20.915Z",
+  "hooks": [],
+  "playlists": []
 }

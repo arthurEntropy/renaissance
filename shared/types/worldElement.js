@@ -1,7 +1,15 @@
 import { createDefaultGameConcept, ConceptType } from './gameConcept.js'
 
 /**
- * @typedef {import('./gameConcept.js').GameConcept} WorldElement
+ * @typedef {import('./gameConcept.js').GameConcept} GameConcept
+ */
+
+/**
+ * @typedef {Object} WorldElementFields
+ */
+
+/**
+ * @typedef {GameConcept & WorldElementFields} WorldElement
  */
 
 /**

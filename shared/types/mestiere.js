@@ -2,6 +2,7 @@ import { createDefaultGameConcept, ConceptType } from './gameConcept.js'
 
 /** @typedef {import('./dice.js').Die} Die */
 /** @typedef {import('./engagementSuccess.js').EngagementSuccess} EngagementSuccess */
+/** @typedef {import('./gameConcept.js').GameConcept} GameConcept */
 
 /**
  * @typedef {Object} NovizioMartialTraining
@@ -14,7 +15,7 @@ import { createDefaultGameConcept, ConceptType } from './gameConcept.js'
 
 /**
  * @typedef {Object} Novizio
- * @property {string} description - Description of the mestiere's novizio
+ * @property {string} description - Novizio description
  * @property {NovizioMartialTraining} martialTraining - Martial training expressed as arrays of equipment grade IDs
  * @property {string} martialTrainingNotes - Notes about martial training
  * @property {Die[]} engagementDice - Engagement dice granted by this novizio
@@ -28,7 +29,12 @@ import { createDefaultGameConcept, ConceptType } from './gameConcept.js'
  */
 
 /**
- * @typedef {import('./gameConcept.js').GameConcept & { novizio?: Novizio }} Mestiere
+ * @typedef {Object} MestiereFields
+ * @property {Novizio} [novizio] - Optional novizio progression data
+ */
+
+/**
+ * @typedef {GameConcept & MestiereFields} Mestiere
  */
 
 /**
@@ -36,5 +42,8 @@ import { createDefaultGameConcept, ConceptType } from './gameConcept.js'
  * @returns {Mestiere}
  */
 export function createDefaultMestiere() {
-  return createDefaultGameConcept(ConceptType.MESTIERE)
+  return {
+    ...createDefaultGameConcept(ConceptType.MESTIERE),
+    novizio: undefined,
+  }
 }

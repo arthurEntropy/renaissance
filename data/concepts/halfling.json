@@ -4,26 +4,19 @@
   "name": "Halfling",
   "description": "<p>Of modest height and build, Halflings are lighter on their feet than almost anyone has a right to be. Their senses are sharp, their reflexes quicker than their size implies, and they have a long-established reputation for appearing in exactly the place you weren't watching.</p>",
   "isDeleted": false,
-  "artUrls": [
+  "featuredArtUrls": [
     "https://cdn.midjourney.com/033e30ef-e853-44db-971b-ba105fd8a590/0_3.png"
   ],
-  "faces": [],
-  "places": [],
-  "backgroundImage": "https://cdn.midjourney.com/12e9b421-4ba7-445a-babd-354b5e673fd3/0_2.png",
+  "backgroundImage": "",
+  "cardBackgroundImage": "https://cdn.midjourney.com/12e9b421-4ba7-445a-babd-354b5e673fd3/0_2.png",
   "expansion": "",
-  "hooks": [],
-  "playlists": [],
-  "names": "",
-  "occupations": "",
-  "publicHouses": "",
-  "vittles": "",
-  "pointsOfInterest": "",
-  "floraFauna": "",
   "lastModified": "2026-02-25T14:25:14.291Z",
-  "heightMin": 3,
-  "heightMax": 4,
-  "weightMin": 50,
-  "weightMax": 180,
-  "lifespan": "125 years",
-  "speed": 25
+  "physiology": {
+    "heightMin": 3,
+    "heightMax": 4,
+    "weightMin": 50,
+    "weightMax": 180,
+    "lifespan": "125 years",
+    "speed": 25
+  }
 }

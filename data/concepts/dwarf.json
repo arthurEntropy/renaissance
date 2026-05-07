@@ -4,27 +4,19 @@
   "name": "Dwarf",
   "description": "<p>Stout in stature and typically broad in bearing, some say that the Dwarves emerged fully-formed from within the mountains themselves. More likely they are descended from folk who fell in love with the hidden places within the Earth. Many long generations of subterranean exploration and toil have made them sturdy and hardy, and they are often the last to succumb to fatigue.</p>",
   "isDeleted": false,
-  "artUrls": [
+  "featuredArtUrls": [
     "https://cdn.midjourney.com/b75951b3-d21b-4e00-b7c8-c81fc16c043e/0_2.png"
   ],
-  "faces": [],
-  "places": [],
-  "backgroundImage": "https://cdn.midjourney.com/6f44f23e-5a88-4f40-aaa4-a3df9120514d/0_0.png",
+  "backgroundImage": "https://cdn.midjourney.com/fad3ec31-91c1-4b4c-8172-725a2f07e670/0_3.png",
+  "cardBackgroundImage": "https://cdn.midjourney.com/6f44f23e-5a88-4f40-aaa4-a3df9120514d/0_0.png",
   "expansion": "",
-  "hooks": [],
-  "playlists": [],
-  "names": "",
-  "occupations": "",
-  "publicHouses": "",
-  "vittles": "",
-  "pointsOfInterest": "",
-  "floraFauna": "",
   "lastModified": "2026-04-24T12:57:19.946Z",
-  "detailBackgroundImage": "https://cdn.midjourney.com/fad3ec31-91c1-4b4c-8172-725a2f07e670/0_3.png",
-  "heightMin": 4,
-  "heightMax": 5,
-  "weightMin": 120,
-  "weightMax": 375,
-  "lifespan": "350 years",
-  "speed": 25
+  "physiology": {
+    "heightMin": 4,
+    "heightMax": 5,
+    "weightMin": 120,
+    "weightMax": 375,
+    "lifespan": "350 years",
+    "speed": 25
+  }
 }

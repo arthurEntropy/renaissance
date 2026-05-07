@@ -4,26 +4,19 @@
   "name": "Svirfneblin",
   "description": "<p>The Svirfneblin share the Gnome's curiosity, but compressed and directed inward — down through layers of stone and precision, toward the very small and the very exact. They are most at home underground, carrying the careful stillness of people who have learned not to make unnecessary noise in the dark. They also have a constitutional tendency to speak at considerable length on subjects of personal interest, and to continue well past the point at which their audience has given up following.</p>",
   "isDeleted": false,
-  "artUrls": [
+  "featuredArtUrls": [
     "https://cdn.midjourney.com/63d1805a-ac93-410e-ae5d-4626c5194e29/0_0.png"
   ],
-  "faces": [],
-  "places": [],
-  "backgroundImage": "https://cdn.midjourney.com/87414dca-15df-4ece-88d8-ef0605045b6e/0_2.png",
+  "backgroundImage": "",
+  "cardBackgroundImage": "https://cdn.midjourney.com/87414dca-15df-4ece-88d8-ef0605045b6e/0_2.png",
   "expansion": "824cad94-3a4a-4df3-b81a-ede17b84644b",
-  "hooks": [],
-  "playlists": [],
-  "names": "",
-  "occupations": "",
-  "publicHouses": "",
-  "vittles": "",
-  "pointsOfInterest": "",
-  "floraFauna": "",
   "lastModified": "2026-02-26T20:04:08.765Z",
-  "heightMin": 2,
-  "heightMax": 3,
-  "weightMin": 20,
-  "weightMax": 75,
-  "lifespan": "200 years",
-  "speed": 20
+  "physiology": {
+    "heightMin": 2,
+    "heightMax": 3,
+    "weightMin": 20,
+    "weightMax": 75,
+    "lifespan": "200 years",
+    "speed": 20
+  }
 }

@@ -2,7 +2,7 @@
   "id": "941405e8-72ba-40fa-9d0c-f4d056f0ba62",
   "isDeleted": false,
   "createdAt": "2026-05-01T12:05:33.721Z",
-  "lastModified": "2026-05-01T14:48:36.659Z",
+  "lastModified": "2026-05-07T13:20:02.148Z",
   "name": "Gregor",
   "isBeast": false,
   "campaignId": "2216d52f-f74d-479e-b440-f7b5aa6319e5",
@@ -21,8 +21,8 @@
   "treasure": 3,
   "age": 61,
   "heightFeet": 5,
-  "heightInches": 8,
-  "weight": 163,
+  "heightInches": 10,
+  "weight": 177,
   "xp": 0,
   "mp": {
     "current": 0,
@@ -262,12 +262,12 @@
   },
   "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
   "ancestryIds": [
-    "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+    "f5cda222-6c69-4ae9-bc0d-761729cd8e2e"
   ],
   "cultureIds": [
     "55494a30-a1bb-47c3-aae9-2db3a5bfcb8b",
     "68fadf5d-6661-4611-bb38-deaf05f01d45"
   ],
   "mestiereId": "",
-  "updatedAt": "2026-05-01T14:48:36.659Z"
+  "updatedAt": "2026-05-07T13:20:02.148Z"
 }

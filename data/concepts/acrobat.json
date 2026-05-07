@@ -4,21 +4,12 @@
   "name": "Acrobat",
   "description": "<p>The rooftop is three stories up and the gap is wider than it looks. You don't slow down. Your foot catches the ledge, your body unfolds into open air, and you land already moving—rolling through the impact and coming up at a sprint without breaking rhythm. Behind you, someone is still deciding whether to jump. That hesitation is the whole difference between an Acrobat and everyone else.</p><p>The Acrobat's defining quality is that movement itself is their fuel. Where others begin a fight with actions and spend their movement reaching the enemy, an Acrobat begins with nothing and earns everything they do by moving. Every step generates potential—potential to strike, to dodge, to thread a gap no one else thought to use. A truly fast Acrobat on open ground is a terrifying thing to face: opponents who step out of reach learn quickly that an Acrobat can pursue through a crowd without slowing, tumbling past outstretched blades with a roll of pure reflexes rather than careful avoidance.</p><p>Their weapons reflect the same philosophy. Acrobats rarely carry the swords and axes of conventional fighters. Some take up an Acrobat's pole—a long weapon that sweeps wide arcs and strikes multiple targets in a single flourishing motion, doubling as a vaulting implement mid-fight. Others prefer rope or chain weapons that extend their reach and wrap around a foe to restrain them. Some favor shuriken, small throwing blades that cost only a fraction of a moment to launch while already moving to the next position. And some eschew weapons altogether, relying on a deep knowledge of the body's vulnerabilities to deliver precise strikes that dull reflexes, slow movement, or—in the hands of a true master—bring a hardened opponent down in five practiced touches.</p><p>Away from open combat, an Acrobat's skills open doors—sometimes literally. They slip into fortified buildings the way water finds cracks in stone: over a balcony railing, up a windowless wall, through a gap in scaffolding no one thought to guard. When silence matters, their body control is so complete that footwork alone becomes a form of stealth.</p><h3>Play an Acrobat if you want to:</h3><ul><li><p><strong>Use movement itself as a resource</strong>, turning raw speed and agility into actions, attacks, and advantages that others simply cannot replicate.</p></li><li><p><strong>Go where no one else can</strong>, scaling, vaulting, and threading through environments with a ease that makes the impossible look routine.</p></li><li><p><strong>Fight with unconventional weapons and techniques</strong>, from a long pole to coiled chain to precisely targeted strikes that disable a foe's body piece by piece.</p></li></ul><h3>Questions to consider when making an Acrobat:</h3><ul><li><p>Where did they train? A traveling circus, a martial arts tradition, a life spent free-running across urban rooftops, or simple feral necessity?</p></li><li><p>What weapon—or fighting style—feels most like an extension of who they are? Is there a philosophy behind the choice, or is it purely practical?</p></li><li><p>How do they feel about their own physical capability? Is it a source of pride and identity, or simply a tool they use without much reflection?</p></li><li><p>Are they a performer as well as a fighter? Does anyone know what they can do, or do they keep it in reserve?</p></li><li><p>What is a place they have reached that no one thought reachable—and what did they find there?</p></li></ul>",
   "isDeleted": false,
-  "artUrls": [
+  "featuredArtUrls": [
     "https://cdn.midjourney.com/b0fff4ff-247e-48c6-ac5a-0a736dffb494/0_0.png"
   ],
-  "faces": [],
-  "places": [],
-  "backgroundImage": "https://cdn.midjourney.com/bb5d780e-88ee-4d7e-a4c0-94fe2eceb64f/0_3.png",
+  "backgroundImage": "https://cdn.midjourney.com/b5080eea-b264-48f9-b5bf-bfe09a416fce/0_1.png",
+  "cardBackgroundImage": "https://cdn.midjourney.com/bb5d780e-88ee-4d7e-a4c0-94fe2eceb64f/0_3.png",
   "expansion": "",
-  "hooks": [],
-  "playlists": [],
-  "names": "",
-  "occupations": "",
-  "publicHouses": "",
-  "vittles": "",
-  "pointsOfInterest": "",
-  "floraFauna": "",
   "novizio": {
     "description": "",
     "martialTraining": {
@@ -31,27 +22,34 @@
       "armorGrades": []
     },
     "martialTrainingNotes": "",
-    "engagementDice": {
-      "4": 4,
-      "6": 0,
-      "8": 0,
-      "10": 0,
-      "12": 0,
-      "20": 0
-    },
-    "engagementDiceNotes": "<p>Your <em>Nimble</em> ability allows you to exchange movement for additional engagement dice.</p>",
+    "engagementDice": [
+      {
+        "dieSides": 4
+      },
+      {
+        "dieSides": 4
+      },
+      {
+        "dieSides": 4
+      },
+      {
+        "dieSides": 4
+      }
+    ],
     "engagementSuccesses": [
       "b2c3d4e5-f6a7-48b9-c0d1-e2f3a4b5c6d7",
       "d4e5f6a7-b8c9-40d1-e2f3-a4b5c6d7e8f9",
       "e5f6a7b8-c9d0-41e2-f3a4-b5c6d7e8f9a0",
       "c9d0e1f2-a3b4-45c6-d7e8-f9a0b1c2d3e4"
     ],
+    "engagementDiceNotes": "<p>Your <em>Nimble</em> ability allows you to exchange movement for additional engagement dice.</p>",
     "engagementSuccessNotes": "",
     "baseMP": 0,
     "baseMpNotes": "<p>Acrobat abilities to not have an MP cost.</p>",
     "abilities": "<p><em>Nimble</em> and choose one, ignoring its XP cost: <em>Pole Training, Rope &amp; Chain Weapon Training, Shuriken Training, </em>or <em>Pressure Point Training</em>.</p>",
     "gratuiti": "<p>Clothes and footwear that are easy to move in, a small pouch of chalk.</p>"
   },
-  "lastModified": "2026-04-23T01:36:40.211Z",
-  "detailBackgroundImage": "https://cdn.midjourney.com/b5080eea-b264-48f9-b5bf-bfe09a416fce/0_1.png"
+  "lastModified": "2026-05-07T14:59:38.292Z",
+  "hooks": [],
+  "playlists": []
 }

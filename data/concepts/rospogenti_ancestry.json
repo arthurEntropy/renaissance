@@ -4,26 +4,19 @@
   "name": "Rospogenti",
   "description": "<p>Wide-set and solidly built, the Rospogenti share the temperament of toads: unhurried, practical, and difficult to ruffle. Their hides are exceptionally tough — not armor by design, but armor by nature. They carry themselves with the calm ease of beings who concluded long ago that most urgency is optional. They are not slow. They are deliberate, and they will be the first to tell you the difference.</p>",
   "isDeleted": false,
-  "artUrls": [
+  "featuredArtUrls": [
     "https://cdn.midjourney.com/4eea37a1-9ee1-4b3a-aa21-574e58368a36/0_2.png"
   ],
-  "faces": [],
-  "places": [],
-  "backgroundImage": "https://cdn.midjourney.com/4daef6e7-e8b1-430c-a9a4-5a0f6400ec95/0_0.png",
+  "backgroundImage": "",
+  "cardBackgroundImage": "https://cdn.midjourney.com/4daef6e7-e8b1-430c-a9a4-5a0f6400ec95/0_0.png",
   "expansion": "e46f4320-a414-4300-95d5-397ba717d982",
-  "hooks": [],
-  "playlists": [],
-  "names": "",
-  "occupations": "",
-  "publicHouses": "",
-  "vittles": "",
-  "pointsOfInterest": "",
-  "floraFauna": "",
   "lastModified": "2025-11-20T15:52:54.760Z",
-  "heightMin": 4,
-  "heightMax": 5,
-  "weightMin": 125,
-  "weightMax": 400,
-  "lifespan": "75 years",
-  "speed": 30
+  "physiology": {
+    "heightMin": 4,
+    "heightMax": 5,
+    "weightMin": 125,
+    "weightMax": 400,
+    "lifespan": "75 years",
+    "speed": 30
+  }
 }

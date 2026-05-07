@@ -4,27 +4,16 @@
   "name": "Wildheart",
   "description": "<p>You felt the storm before you woke up. Something in the pressure of the air, the quality of the silence outside—the living world's way of telling you what it is doing, which it has been doing since the moment your attunement opened and never stopped. You don't cast this awareness as a spell. You simply cannot turn it off.</p><p>A Wildheart's education begins not with a teacher but with a listening. At the moment of their awakening, something opens in them that does not close again—a constant, low awareness of weather and root and the quiet intentions of living things. <em>Wild Attunement</em> is not a spell they cast; it is simply how they move through the world. With nothing more than will and attention, they can coax a vine toward a wall or a crow to carry a message, bending simple behaviors without force. Most would not call this power. A Wildheart would not call it anything.</p><p>Beyond this baseline attunement, Wildhearts are defined by their schools—four distinct ways of deepening the bond with nature's aspects. Those who pursue the <strong>Way of the Tooth</strong> let something predatory surface in their flesh—fangs, claws, tawny fur—and learn to Wild Shape into animals of increasing ferocity, eventually forging a lifelong bond with a great Beast Kin companion. Those who walk the <strong>Way of the Green</strong> cultivate a Ward Plant that fights beside them, while Grasping Vines and Tangle turn the battlefield into hostile terrain. Those who welcome the <strong>Way of the Hive</strong> carry a Colony of insects on their body—and on entry to any engagement, the Colony surges, the first contest already decided. And those who open themselves to the <strong>Way of the Spore</strong> host mycelial symbiotes that knit their injuries from within, while Blight and Contagion let them visit the slow, inevitable logic of decay on everyone in range.</p><p>Nature does not rush. Neither do Wildhearts. Their most transformative effects ask for the same patience the living world extends to everything. If the Way of the Tooth changes their face permanently, if the Colony unsettles allies as much as enemies—this is not a side effect to manage. This is the practice. A Wildheart does not approximate nature; they participate in it, fully and with whatever consequences that entails.</p><h3>Play a Wildheart if you want to:</h3><ul><li><p><strong>Reshape the battlefield with the living world</strong>, directing roots, vines, insects, and animals as extensions of your own intent.</p></li><li><p><strong>Let nature change you from the outside in</strong> — a predator's form, a body hosting a Colony, flesh threaded with mycelium — and mean it, not perform it.</p></li><li><p><strong>Build a world of animal bonds</strong> until you travel less like a single person and more like a small migration, accompanied by a Beast Kin, a Pack, and creatures you have Awakened into genuine companions.</p></li></ul><h3>Questions to consider when making a Wildheart:</h3><ul><li><p>Which aspect of nature called to them first — predation, growth, the collective, or decay — and did they choose it, or did it choose them?</p></li><li><p>How do they appear to others? Does the attunement show in small ways: the animals that follow without being called, the silences they hold, the weather they predict without looking up?</p></li><li><p>What is their relationship to civilization? Do they move through it as a visitor, or have they found ways to carry the wild into human spaces?</p></li><li><p>If they walk the Way of the Tooth, what does the predatory aspect feel like from the inside — a costume they wear, or something they are relieved to finally admit?</p></li><li><p>Who or what was the first wild creature they truly understood, and what did understanding it cost them?</p></li></ul>",
   "isDeleted": false,
-  "artUrls": [
+  "featuredArtUrls": [
     "https://cdn.midjourney.com/0f16b519-2f2d-44ac-833a-1d49cf30ddf1/0_3.png",
     "https://cdn.midjourney.com/fb0baebd-29e7-4acc-a38a-5f17848711f8/0_0.jpeg",
     "https://cdn.midjourney.com/7dba42aa-82ae-4536-9c26-21deb5a53518/0_1.jpeg",
     "https://cdn.midjourney.com/b85ba620-5b2b-479b-bfca-708827925d20/0_1.jpeg",
     "https://cdn.midjourney.com/549a77ea-f9d1-46db-9704-2ab94facd77f/0_1.jpeg"
   ],
-  "faces": [],
-  "places": [],
-  "backgroundImage": "https://cdn.midjourney.com/146dd798-2692-467a-a56f-dd8967d7c798/0_2.png",
+  "backgroundImage": "https://cdn.midjourney.com/dd9274a0-bea0-48a1-ad88-ad0a6ca99ad2/0_1.png",
+  "cardBackgroundImage": "https://cdn.midjourney.com/146dd798-2692-467a-a56f-dd8967d7c798/0_2.png",
   "expansion": "",
-  "hooks": [],
-  "playlists": [],
-  "names": "",
-  "occupations": "",
-  "publicHouses": "",
-  "vittles": "",
-  "pointsOfInterest": "",
-  "floraFauna": "",
-  "lastModified": "2026-04-15T18:54:15.035Z",
-  "detailBackgroundImage": "https://cdn.midjourney.com/dd9274a0-bea0-48a1-ad88-ad0a6ca99ad2/0_1.png",
   "novizio": {
     "description": "<p>Donec sagittis efficitur est, ac mattis ligula sodales eget. Etiam tortor ex, feugiat eget accumsan vitae, vestibulum non risus. Fusce cursus mauris ex, eget aliquam tortor tempor sed. Suspendisse et interdum diam, sed ultrices quam. Nullam at tempus nisi, ac.</p>",
     "martialTraining": {
@@ -35,14 +24,7 @@
       "armorGrades": []
     },
     "martialTrainingNotes": "",
-    "engagementDice": {
-      "4": 0,
-      "6": 0,
-      "8": 0,
-      "10": 0,
-      "12": 0,
-      "20": 0
-    },
+    "engagementDice": [],
     "engagementDiceNotes": "",
     "engagementSuccesses": [],
     "engagementSuccessNotes": "",
@@ -50,5 +32,8 @@
     "baseMpNotes": "",
     "abilities": "<p><em>Wild Attunement</em> and any combination of other Wildheart abilities - not from a school - with a combined XP cost of no more than 15.</p><p>Also choose one: <em>Way of the Hive, Way of the Green, Way of the Spore, Way of the Tooth.</em></p>",
     "gratuiti": ""
-  }
+  },
+  "lastModified": "2026-04-15T18:54:15.035Z",
+  "hooks": [],
+  "playlists": []
 }

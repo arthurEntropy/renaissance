@@ -4,13 +4,15 @@
   "name": "Ered Luin",
   "description": "<p></p>",
   "isDeleted": false,
-  "artUrls": [
+  "featuredArtUrls": [
     "https://cdn.midjourney.com/275667ac-9ecf-40d9-85b4-89b340aeff14/0_0.png"
   ],
-  "faces": [],
-  "places": [],
-  "backgroundImage": "https://cdn.midjourney.com/8235fdcd-c55b-4cc8-a9fe-0a3fa65bde93/0_2.png",
+  "backgroundImage": "https://cdn.midjourney.com/30b6ae11-33b5-4c6d-8eb9-3a21aa7b9b3e/0_2_2048_N.webp",
+  "cardBackgroundImage": "https://cdn.midjourney.com/8235fdcd-c55b-4cc8-a9fe-0a3fa65bde93/0_2.png",
   "expansion": "",
+  "playlists": [
+    "<iframe allow=\"autoplay *; encrypted-media *;\" frameborder=\"0\" height=\"450\" style=\"width:100%;max-width:660px;overflow:hidden;background:transparent;\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation\" src=\"https://embed.music.apple.com/us/playlist/freda-songs/pl.u-pMylNMjUK7P3g1?theme=dark\"></iframe>"
+  ],
   "hooks": [
     {
       "name": "The Missing Miners",
@@ -28,15 +30,13 @@
       "gmNotes": "The silver was actually stolen by a group of bandits who are using it to fund their operations."
     }
   ],
-  "playlists": [
-    "<iframe allow=\"autoplay *; encrypted-media *;\" frameborder=\"0\" height=\"450\" style=\"width:100%;max-width:660px;overflow:hidden;background:transparent;\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation\" src=\"https://embed.music.apple.com/us/playlist/freda-songs/pl.u-pMylNMjUK7P3g1?theme=dark\"></iframe>"
-  ],
-  "names": "Freda, Heithur, Sigrid, Eldrin, Thrain, Eirik, Brynhild, Hilda, Gunnar, Astrid, Bjorn, Ingrid, Leif, Solveig, Ragnhild, Torsten, Freya, Halvar, Sigrun, Einar, Gudrun",
-  "occupations": "Silversmith, Miner, Weaver, Jeweler",
-  "publicHouses": "Freda's, Goober's, Shooter's, The Smiling Skull",
-  "vittles": "Rat Stew, Blue Mink?",
-  "pointsOfInterest": "The Ice Cliffs",
-  "floraFauna": "Marmosets, I guess",
-  "lastModified": "2026-03-13T20:36:53.028Z",
-  "detailBackgroundImage": "https://cdn.midjourney.com/30b6ae11-33b5-4c6d-8eb9-3a21aa7b9b3e/0_2_2048_N.webp"
+  "localFlavor": {
+    "names": "Freda, Heithur, Sigrid, Eldrin, Thrain, Eirik, Brynhild, Hilda, Gunnar, Astrid, Bjorn, Ingrid, Leif, Solveig, Ragnhild, Torsten, Freya, Halvar, Sigrun, Einar, Gudrun",
+    "occupations": "Silversmith, Miner, Weaver, Jeweler",
+    "publicHouses": "Freda's, Goober's, Shooter's, The Smiling Skull",
+    "vittles": "Rat Stew, Blue Mink?",
+    "pointsOfInterest": "The Ice Cliffs",
+    "floraFauna": "Marmosets, I guess"
+  },
+  "lastModified": "2026-03-13T20:36:53.028Z"
 }

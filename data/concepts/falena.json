@@ -4,26 +4,19 @@
   "name": "Falena",
   "description": "<p>More a collection of related races than a single ancestry, the Falena bear the features of insects and arachnids upon a humanoid frame. Variously possessed of compound eyes, wings, six or eight legs and antennae, they are united in a shared sensitivity to the thoughts and feelings of those around them - perhaps a remnant of their distant, hive-like origins.</p>",
   "isDeleted": false,
-  "artUrls": [
+  "featuredArtUrls": [
     "https://cdn.midjourney.com/a4e20f92-a7de-47e6-8445-f499a6d406e5/0_2.png"
   ],
-  "faces": [],
-  "places": [],
-  "backgroundImage": "https://cdn.midjourney.com/40e12a16-2ec0-40c6-8d55-859a90bb3606/0_2.png",
+  "backgroundImage": "",
+  "cardBackgroundImage": "https://cdn.midjourney.com/40e12a16-2ec0-40c6-8d55-859a90bb3606/0_2.png",
   "expansion": "e46f4320-a414-4300-95d5-397ba717d982",
-  "hooks": [],
-  "playlists": [],
-  "names": "",
-  "occupations": "",
-  "publicHouses": "",
-  "vittles": "",
-  "pointsOfInterest": "",
-  "floraFauna": "",
   "lastModified": "2026-04-24T13:19:50.530Z",
-  "heightMin": 3,
-  "heightMax": 6,
-  "weightMin": 50,
-  "weightMax": 250,
-  "lifespan": "50 years",
-  "speed": 30
+  "physiology": {
+    "heightMin": 3,
+    "heightMax": 6,
+    "weightMin": 50,
+    "weightMax": 250,
+    "lifespan": "50 years",
+    "speed": 30
+  }
 }

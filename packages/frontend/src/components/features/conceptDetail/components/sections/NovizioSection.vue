@@ -36,10 +36,10 @@
           <strong>ENGAGEMENT DICE</strong>
           <div class="engagement-dice-row">
             <div v-for="dieSize in STANDARD_DIE_SIZES" :key="dieSize" class="engagement-die-column"
-              :class="{ dimmed: !localNovizio.engagementDice[String(dieSize)] }">
+              :class="{ dimmed: !getDiceCountBySize(localNovizio.engagementDice, dieSize) }">
               <i :class="getDiceFontMaxClass(dieSize)" class="engagement-die-icon"></i>
-              <NumberInput :model-value="localNovizio.engagementDice[String(dieSize)] || 0"
-                @update:model-value="localNovizio.engagementDice[String(dieSize)] = $event" :min="0" :max="20"
+              <NumberInput :model-value="getDiceCountBySize(localNovizio.engagementDice, dieSize)"
+                @update:model-value="setEngagementDiceCount(dieSize, $event)" :min="0" :max="20"
                 :size="NUMBER_INPUT_SIZES.MEDIUM" />
             </div>
           </div>
@@ -122,13 +122,13 @@
           <strong>ENGAGEMENT DICE</strong>
           <div class="engagement-dice-display">
             <template v-for="dieSize in STANDARD_DIE_SIZES" :key="dieSize">
-              <i v-for="n in (novizio.engagementDice?.[String(dieSize)] || 0)" :key="dieSize + '-' + n"
+              <i v-for="n in getDiceCountBySize(novizio.engagementDice, dieSize)" :key="dieSize + '-' + n"
                 :class="getDiceFontMaxClass(dieSize)" class="engagement-die-icon"></i>
             </template>
           </div>
-          <div
-            v-if="!STANDARD_DIE_SIZES.some(s => novizio.engagementDice?.[String(s)] > 0) && !novizio.engagementDiceNotes"
-            class="novizio-placeholder">none</div>
+          <div v-if="!hasAnyEngagementDice(novizio.engagementDice) && !novizio.engagementDiceNotes"
+            class="novizio-placeholder">
+            none</div>
           <div v-if="novizio.engagementDiceNotes" class="novizio-placeholder engagement-notes"
             v-html="safeEngagementDiceNotes">
           </div>
@@ -218,7 +218,48 @@ const martialRows = [
   { key: 'armorGrades', label: 'Armor', icon: armorIcon },
 ]
 
-const EMPTY_DICE = () => Object.fromEntries(STANDARD_DIE_SIZES.map(s => [String(s), 0]))
+const isValidDieSize = (dieSize) => STANDARD_DIE_SIZES.includes(dieSize)
+
+const normalizeDieSides = (die) => {
+  if (typeof die === 'number') return die
+  return Number(die?.dieSides)
+}
+
+const normalizeEngagementDice = (rawEngagementDice) => {
+  if (Array.isArray(rawEngagementDice)) {
+    return rawEngagementDice
+      .map((die) => normalizeDieSides(die))
+      .filter((dieSize) => isValidDieSize(dieSize))
+      .map((dieSize) => ({ dieSides: dieSize }))
+  }
+
+  if (!rawEngagementDice || typeof rawEngagementDice !== 'object') {
+    return []
+  }
+
+  const normalized = []
+  for (const [dieSizeKey, countRaw] of Object.entries(rawEngagementDice)) {
+    const dieSize = Number(dieSizeKey)
+    if (!isValidDieSize(dieSize)) continue
+    const count = Math.max(0, Number(countRaw) || 0)
+    for (let i = 0; i < count; i++) {
+      normalized.push({ dieSides: dieSize })
+    }
+  }
+
+  return normalized
+}
+
+const getDiceCountBySize = (dice, dieSize) => {
+  if (!Array.isArray(dice)) return 0
+  return dice.filter((die) => normalizeDieSides(die) === dieSize).length
+}
+
+const hasAnyEngagementDice = (dice) => {
+  if (!Array.isArray(dice)) return false
+  return dice.some((die) => isValidDieSize(normalizeDieSides(die)))
+}
+
 const EMPTY_MARTIAL_TRAINING = () => ({
   meleeGrades: [],
   polearmGrades: [],
@@ -231,7 +272,7 @@ const getDefaultNovizio = () => ({
   description: '',
   martialTraining: EMPTY_MARTIAL_TRAINING(),
   martialTrainingNotes: '',
-  engagementDice: EMPTY_DICE(),
+  engagementDice: [],
   engagementSuccesses: [],
   engagementDiceNotes: '',
   engagementSuccessNotes: '',
@@ -266,13 +307,22 @@ const toggleSuccess = (successId) => {
   }
 }
 
+const setEngagementDiceCount = (dieSize, nextCountRaw) => {
+  const nextCount = Math.max(0, Number(nextCountRaw) || 0)
+  const existingDice = Array.isArray(localNovizio.value.engagementDice) ? localNovizio.value.engagementDice : []
+  const keptDice = existingDice.filter((die) => normalizeDieSides(die) !== dieSize)
+  const updatedDice = Array.from({ length: nextCount }, () => ({ dieSides: dieSize }))
+
+  localNovizio.value.engagementDice = [...keptDice, ...updatedDice]
+}
+
 
 const hasAnyNovizioData = computed(() => {
   if (!concept.value?.novizio) return false
   const n = concept.value.novizio
   const hasMartial = ['meleeGrades', 'polearmGrades', 'rangedGrades', 'firearmGrades', 'armorGrades']
     .some(k => n.martialTraining?.[k]?.length > 0)
-  const hasDice = STANDARD_DIE_SIZES.some(s => (n.engagementDice?.[String(s)] ?? 0) > 0)
+  const hasDice = hasAnyEngagementDice(n.engagementDice)
   const hasEngagement = hasDice || n.engagementSuccesses?.length > 0 || n.engagementDiceNotes?.toString().trim() || n.engagementSuccessNotes?.toString().trim()
   return hasMartial || hasEngagement
     || [n.description, n.abilities, n.gratuiti, n.baseMpNotes, n.martialTrainingNotes].some(val => val?.toString().trim())
@@ -303,7 +353,7 @@ const syncLocalNovizio = (sourceConcept) => {
         armorGrades: Array.isArray(n.martialTraining?.armorGrades) ? [...n.martialTraining.armorGrades] : (Array.isArray(n.armor) ? [...n.armor] : []),
       },
       martialTrainingNotes: n.martialTrainingNotes || '',
-      engagementDice: { ...EMPTY_DICE(), ...(n.engagementDice || {}) },
+      engagementDice: normalizeEngagementDice(n.engagementDice),
       engagementSuccesses: Array.isArray(n.engagementSuccesses) ? [...n.engagementSuccesses] : [],
       engagementDiceNotes: n.engagementDiceNotes || '',
       engagementSuccessNotes: n.engagementSuccessNotes || '',

@@ -4,19 +4,20 @@
   "name": "The Afterneath",
   "description": "",
   "isDeleted": false,
-  "artUrls": [
+  "featuredArtUrls": [
     "https://cdn.midjourney.com/38b4d8a6-a6f1-4bc6-8d52-a2eb25f6119d/0_3.png"
   ],
-  "faces": [],
-  "places": [],
   "backgroundImage": "",
+  "cardBackgroundImage": "",
   "expansion": "e46f4320-a414-4300-95d5-397ba717d982",
-  "hooks": [],
   "playlists": [],
-  "names": "",
-  "occupations": "",
-  "publicHouses": "",
-  "vittles": "",
-  "pointsOfInterest": "",
-  "floraFauna": ""
+  "hooks": [],
+  "localFlavor": {
+    "names": "",
+    "occupations": "",
+    "publicHouses": "",
+    "vittles": "",
+    "pointsOfInterest": "",
+    "floraFauna": ""
+  }
 }

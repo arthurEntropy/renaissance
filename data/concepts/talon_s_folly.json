@@ -4,19 +4,20 @@
   "name": "Talon's Folly",
   "description": "<p>When the Red Dragon Flight scoured the Eastern plains and turned it to The Ashlands, the surviving displaced peoples of the formerly verdant region founded a settlement to the north, where they nursed their anger and sharpened their spears. Destroyed and re-settled innumerable times over the centuries - as if the gods themselves were bickering over its existence - tumult is routine here. Although the Blue Dragon flight displaced the Red, and afterward the Potluck Plague significantly reduced their numbers, the great geyser that once fed orchards is now charged with the bolts of the scaly overlords of the Ashlands, every hill and field boiled clear of life with every eruption. And yet, the bold, the reckless and the hopeful take up the near-suicidal dragon hunt again and again…</p>",
   "isDeleted": false,
-  "artUrls": [
+  "featuredArtUrls": [
     "https://cdn.midjourney.com/8df2f891-c335-4c44-b84b-948bd857839f/0_2.png"
   ],
-  "faces": [],
-  "places": [],
   "backgroundImage": "",
+  "cardBackgroundImage": "",
   "expansion": "e46f4320-a414-4300-95d5-397ba717d982",
-  "hooks": [],
   "playlists": [],
-  "names": "",
-  "occupations": "",
-  "publicHouses": "",
-  "vittles": "",
-  "pointsOfInterest": "",
-  "floraFauna": ""
+  "hooks": [],
+  "localFlavor": {
+    "names": "",
+    "occupations": "",
+    "publicHouses": "",
+    "vittles": "",
+    "pointsOfInterest": "",
+    "floraFauna": ""
+  }
 }

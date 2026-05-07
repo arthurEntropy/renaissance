@@ -4,26 +4,19 @@
   "name": "Furu",
   "description": "<p>The Furu arose in quiet lands where watchfulness meant survival. They developed exceptional powers of observation and recall, and in their havens they filled the silence with stories. Typically tall and striking, with owl-like features, their eyes are piercing and their vestigial wings allow them to glide and perch in high places: the better to observe.</p>",
   "isDeleted": false,
-  "artUrls": [
+  "featuredArtUrls": [
     "https://cdn.midjourney.com/4d48d295-4aa2-46bb-9db0-448f8c241347/0_1.png"
   ],
-  "faces": [],
-  "places": [],
-  "backgroundImage": "https://cdn.midjourney.com/7e60824c-94bc-4137-a4f5-5d1fe560553d/0_2.png",
+  "backgroundImage": "",
+  "cardBackgroundImage": "https://cdn.midjourney.com/7e60824c-94bc-4137-a4f5-5d1fe560553d/0_2.png",
   "expansion": "e46f4320-a414-4300-95d5-397ba717d982",
-  "hooks": [],
-  "playlists": [],
-  "names": "",
-  "occupations": "",
-  "publicHouses": "",
-  "vittles": "",
-  "pointsOfInterest": "",
-  "floraFauna": "",
   "lastModified": "2026-04-24T14:22:17.655Z",
-  "heightMin": 6,
-  "heightMax": 7,
-  "weightMin": 100,
-  "weightMax": 325,
-  "lifespan": "120 years",
-  "speed": 30
+  "physiology": {
+    "heightMin": 6,
+    "heightMax": 7,
+    "weightMin": 100,
+    "weightMax": 325,
+    "lifespan": "120 years",
+    "speed": 30
+  }
 }

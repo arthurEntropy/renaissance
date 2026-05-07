@@ -4,19 +4,20 @@
   "name": "Sila",
   "description": "",
   "isDeleted": false,
-  "artUrls": [
+  "featuredArtUrls": [
     "https://cdn.midjourney.com/aefdc4d7-94d1-45aa-a81c-e2526d92d62c/0_2.png"
   ],
-  "faces": [],
-  "places": [],
   "backgroundImage": "",
+  "cardBackgroundImage": "",
   "expansion": "e46f4320-a414-4300-95d5-397ba717d982",
-  "hooks": [],
   "playlists": [],
-  "names": "",
-  "occupations": "",
-  "publicHouses": "",
-  "vittles": "",
-  "pointsOfInterest": "",
-  "floraFauna": ""
+  "hooks": [],
+  "localFlavor": {
+    "names": "",
+    "occupations": "",
+    "publicHouses": "",
+    "vittles": "",
+    "pointsOfInterest": "",
+    "floraFauna": ""
+  }
 }
