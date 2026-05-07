@@ -1,5 +1,5 @@
 // Utility to parse mana cost strings like '2WUB'
-import { ManaColor, MANA_SYMBOL_TO_COLOR } from '../constants/manaColors'
+import { ManaColor, MANA_SYMBOL_TO_COLOR } from '@/constants/manaColors'
 
 /**
  * @param {string | null | undefined} cost

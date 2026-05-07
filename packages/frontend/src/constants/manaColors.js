@@ -62,6 +62,7 @@ export const MANA_COLOR_GROUP_LABELS = /** @type {Readonly<Record<string, string
   [NO_MANA_COST_GROUP_KEY]: 'No Mana Cost',
 }))
 
+// TODO: Set up as environment variables and fetch from backend when we deploy.
 // Card backgrounds keyed by computed mana color bucket.
 export const MANA_BACKGROUND_IMAGES = /** @type {Readonly<Record<string, string>>} */ (Object.freeze({
   [ManaColor.WHITE]: 'https://cdn.midjourney.com/07481332-c0d4-4486-986a-cb2e3af39493/0_2.png',

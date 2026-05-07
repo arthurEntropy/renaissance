@@ -97,13 +97,13 @@ import { useSourcesStore } from '@/stores/sourcesStore'
 import { useConceptsStore } from '@/stores/conceptsStore'
 import { useAbilitySchoolsStore } from '@/stores/abilitySchoolsStore'
 import { useAuthStore } from '@/stores/authStore'
-import { getManaCostColors } from '@shared/utils/calculateManaCost'
+import { getManaCostColors } from '@/utils/calculateManaCost'
 import { ConceptType } from '@shared/constants/conceptTypes'
 import {
     ManaColor,
     MANA_COLOR_GROUP_ORDER,
     MANA_COLOR_GROUP_LABELS,
-} from '@shared/constants/manaColors'
+} from '@/constants/manaColors'
 
 const charactersStore = useCharactersStore()
 const abilitiesStore = useAbilitiesStore()

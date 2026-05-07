@@ -18,7 +18,7 @@ import { computed } from 'vue'
 import ManaSymbol from '@/components/ui/mana/ManaSymbol.vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
-import { ManaColor, MANA_COLOR_ORDER } from '@shared/constants/manaColors'
+import { ManaColor, MANA_COLOR_ORDER } from '@/constants/manaColors'
 
 const props = defineProps({
     modelValue: { type: Array, default: () => [] },

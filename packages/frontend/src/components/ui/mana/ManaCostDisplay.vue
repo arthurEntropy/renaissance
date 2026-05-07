@@ -7,7 +7,7 @@
 <script setup>
 import { computed } from 'vue'
 import ManaSymbol from './ManaSymbol.vue'
-import { parseManaCost } from '@shared/utils/parseManaCost'
+import { parseManaCost } from '@/utils/parseManaCost'
 
 const props = defineProps({
     cost: { type: String, required: true },

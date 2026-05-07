@@ -1,10 +1,10 @@
 import { computed } from 'vue'
-import { getManaCostColors } from '@shared/utils/calculateManaCost'
+import { getManaCostColors } from '@/utils/calculateManaCost'
 import {
   ManaColor,
   MANA_COLOR_GROUP_ORDER,
   MANA_COLOR_GROUP_LABELS,
-} from '@shared/constants/manaColors'
+} from '@/constants/manaColors'
 
 // Accepts groupingMode as a string ref ('source', 'mana-color', 'custom', '') or a boolean ref (treated as 'source').
 // When mode is 'custom', customGroups must be a ref to an array of { id, name } objects and

@@ -3,12 +3,12 @@ import { useAbilitiesStore } from '@/stores/abilitiesStore'
 import { useEquipmentStore } from '@/stores/equipmentStore'
 import { useSourcesStore } from '@/stores/sourcesStore'
 import { useAbilitySchoolsStore } from '@/stores/abilitySchoolsStore'
-import { getManaCostColors } from '@shared/utils/calculateManaCost'
+import { getManaCostColors } from '@/utils/calculateManaCost'
 import {
     ManaColor,
     MANA_COLOR_GROUP_ORDER,
     MANA_COLOR_GROUP_LABELS,
-} from '@shared/constants/manaColors'
+} from '@/constants/manaColors'
 import { SOURCE_TYPE_LABELS, SOURCE_TYPE_ORDER } from '@/constants/sourceTypes'
 
 export function useCardCascadePicker(options = {}) {
