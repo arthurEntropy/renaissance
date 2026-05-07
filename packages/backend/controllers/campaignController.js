@@ -56,6 +56,13 @@ const pickWeightedEntry = (entries, totalWeight) => {
   return entries.length - 1
 }
 
+const normalizeShopItems = (items) => {
+  if (!Array.isArray(items)) return []
+  return items
+    .map((item) => (typeof item === 'string' ? item : item?.equipmentId))
+    .filter((id) => typeof id === 'string' && id.length > 0)
+}
+
 // GET /campaigns — returns campaigns the current user is a member of
 export const getUserCampaigns = (req, res) => {
   try {
@@ -106,7 +113,7 @@ export const createCampaign = (req, res) => {
   }
 }
 
-// PUT /campaigns/:id — updates campaign fields (name, description, cover image, session notes, etc.)
+// PUT /campaigns/:id — updates campaign fields (name, description, cover image, etc.)
 export const updateCampaign = (req, res) => {
   try {
     const campaign = getCampaignById(req.params.id)
@@ -115,7 +122,7 @@ export const updateCampaign = (req, res) => {
     }
 
     // Only allow updating safe fields
-    const allowedFields = ['name', 'description', 'coverImageUrl', 'sessionNotes']
+    const allowedFields = ['name', 'description', 'coverImageUrl']
     const updates = {}
     for (const field of allowedFields) {
       if (req.body[field] !== undefined) {
@@ -182,8 +189,6 @@ export const inviteMember = async (req, res) => {
     }
 
     const existingMember = getCampaignMembership(campaign, userId)
-    const now = new Date().toISOString()
-
     let updatedMembers
     if (existingMember) {
       // Re-invite a declined member
@@ -192,7 +197,7 @@ export const inviteMember = async (req, res) => {
       }
       updatedMembers = campaign.members.map((m) =>
         m.userId === userId
-          ? { ...m, status: CAMPAIGN_MEMBER_STATUS.PENDING, invitedAt: now, invitedByUserId: req.user.uid }
+          ? { ...m, status: CAMPAIGN_MEMBER_STATUS.PENDING }
           : m
       )
     } else {
@@ -203,9 +208,6 @@ export const inviteMember = async (req, res) => {
           role: CAMPAIGN_ROLE.PLAYER,
           status: CAMPAIGN_MEMBER_STATUS.PENDING,
           characterIds: [],
-          joinedAt: '',
-          invitedAt: now,
-          invitedByUserId: req.user.uid,
         },
       ]
     }
@@ -241,11 +243,10 @@ export const respondToInvite = (req, res) => {
       return res.status(400).json({ error: 'No pending invitation found' })
     }
 
-    const now = new Date().toISOString()
     const newStatus = accept ? CAMPAIGN_MEMBER_STATUS.ACCEPTED : CAMPAIGN_MEMBER_STATUS.DECLINED
     const updatedMembers = campaign.members.map((m) =>
       m.userId === req.user.uid
-        ? { ...m, status: newStatus, joinedAt: accept ? now : m.joinedAt }
+        ? { ...m, status: newStatus }
         : m
     )
 
@@ -518,39 +519,18 @@ export const generateShop = (req, res) => {
       return res.status(400).json({ error: 'No items with valid weights in the selection' })
     }
 
-    // First draw unique items without replacement, then allow duplicates only if needed.
+    // Draw without replacement. If requested count exceeds available items,
+    // return all available items and stop.
     const selectedItems = []
-    const uniqueTarget = Math.min(targetCount, weightedPool.length)
+    const selectionTarget = Math.min(targetCount, weightedPool.length)
     const uniquePool = [...weightedPool]
 
-    for (let i = 0; i < uniqueTarget; i += 1) {
+    for (let i = 0; i < selectionTarget; i += 1) {
       const totalUniqueWeight = uniquePool.reduce((sum, entry) => sum + entry.weight, 0)
       const selectedIndex = pickWeightedEntry(uniquePool, totalUniqueWeight)
       const [{ item }] = uniquePool.splice(selectedIndex, 1)
 
-      selectedItems.push({
-        equipmentId: item.id,
-        name: item.name,
-        description: item.description,
-        keeping: item.keeping,
-        source: item.source,
-      })
-    }
-
-    if (targetCount > uniqueTarget) {
-      const totalWeight = weightedPool.reduce((sum, entry) => sum + entry.weight, 0)
-      for (let i = uniqueTarget; i < targetCount; i += 1) {
-        const selectedIndex = pickWeightedEntry(weightedPool, totalWeight)
-        const { item } = weightedPool[selectedIndex]
-
-        selectedItems.push({
-          equipmentId: item.id,
-          name: item.name,
-          description: item.description,
-          keeping: item.keeping,
-          source: item.source,
-        })
-      }
+      selectedItems.push(item.id)
     }
 
     res.json({ items: selectedItems })
@@ -576,11 +556,10 @@ export const saveShop = (req, res) => {
     const shop = {
       id: uuidv4(),
       name: name.trim(),
-      generatedAt: new Date().toISOString(),
       primaryCultureId: primaryCultureId || null,
       generationParams: generationParams || {},
       isVisibleToPlayers: isVisibleToPlayers ?? true,
-      items: items || [],
+      items: normalizeShopItems(items),
     }
 
     const updated = { ...campaign, shops: [...(campaign.shops || []), shop] }
@@ -609,6 +588,10 @@ export const updateShop = (req, res) => {
     const updates = {}
     for (const field of allowedFields) {
       if (req.body[field] !== undefined) updates[field] = req.body[field]
+    }
+
+    if (updates.items !== undefined) {
+      updates.items = normalizeShopItems(updates.items)
     }
 
     const updatedShops = [...campaign.shops]

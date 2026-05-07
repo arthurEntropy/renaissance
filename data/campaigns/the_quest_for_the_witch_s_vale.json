@@ -13,22 +13,20 @@
       "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
       "role": "gm",
       "status": "accepted",
-      "characterIds": [],
-      "joinedAt": "2026-04-30T18:30:31.947Z",
-      "invitedAt": "2026-04-30T18:30:31.947Z",
-      "invitedByUserId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1"
+      "characterIds": []
     },
     {
       "userId": "yMwXRvIrCwWwG4NRC4HBjN2BrOM2",
       "role": "player",
       "status": "accepted",
-      "characterIds": [],
-      "joinedAt": "2026-04-30T18:57:43.145Z",
-      "invitedAt": "2026-04-30T18:57:04.635Z",
-      "invitedByUserId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1"
+      "characterIds": []
     }
   ],
   "includedConceptIds": [],
   "shops": [],
-  "sessionNotes": ""
+  "lobbyState": {
+    "inactiveNpcIds": [],
+    "hiddenNpcIds": [],
+    "inactivePlayerCharacterIds": []
+  }
 }

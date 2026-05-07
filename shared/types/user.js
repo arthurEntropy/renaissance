@@ -2,7 +2,6 @@ import { createBaseEntity } from './baseEntity.js'
 import { USER_ROLE, USER_STATUS } from '../constants/userConstants.js'
 
 /**
- * @typedef {import('./baseEntity.js').BaseEntity} BaseEntity
  * @typedef {import('../constants/userConstants.js').USER_ROLE} UserRoleEnum
  * @typedef {import('../constants/userConstants.js').USER_STATUS} UserStatusEnum
  * @typedef {UserRoleEnum[keyof UserRoleEnum]} UserRole
@@ -26,7 +25,15 @@ import { USER_ROLE, USER_STATUS } from '../constants/userConstants.js'
  */
 
 /**
- * @typedef {BaseEntity & UserFields} User
+ * @typedef {Object} UserBaseFields
+ * @property {string|null} id - Firebase UID (nullable before profile sync)
+ * @property {boolean} isDeleted - Soft delete flag
+ * @property {ISODateString} createdAt - ISO 8601 datetime string
+ * @property {ISODateString} lastModified - ISO 8601 datetime string
+ */
+
+/**
+ * @typedef {UserBaseFields & UserFields} User
  */
 
 /**

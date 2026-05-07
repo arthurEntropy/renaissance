@@ -177,8 +177,9 @@ watch(
 
 const resolvedItems = computed(() =>
     (props.shop.items || [])
-        .map((shopItem, index) => {
-            const equipment = equipmentStore.equipment.find((e) => e.id === shopItem.equipmentId)
+        .map((equipmentId, index) => {
+            const id = typeof equipmentId === 'string' ? equipmentId : equipmentId?.equipmentId
+            const equipment = equipmentStore.equipment.find((e) => e.id === id)
             if (!equipment) return null
 
             return {
@@ -272,13 +273,11 @@ const togglePlayerVisibility = async () => {
 // ── Add / remove items ────────────────────────────────────────────────────
 const addItem = async (type, equipmentId) => {
     if (type !== 'equipment') return
-    const eq = equipmentStore.equipment.find((e) => e.id === equipmentId)
-    if (!eq) return
     const previousEntryIds = [...shopEntryIds.value]
     shopEntryIds.value = [...shopEntryIds.value, createShopEntryId()]
     const newItems = [
         ...(props.shop.items || []),
-        { equipmentId: eq.id, name: eq.name, description: eq.description, keeping: eq.keeping, source: eq.source },
+        equipmentId,
     ]
     try {
         await campaignStore.updateShop(props.campaignId, props.shop.id, { items: newItems })
