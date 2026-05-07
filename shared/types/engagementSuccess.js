@@ -1,13 +1,17 @@
 import { createBaseEntity } from './baseEntity.js'
 
 /**
- * @typedef {Object} EngagementSuccess
- * @property {string|null} id - UUID identifier
+ * @typedef {import('./baseEntity.js').BaseEntity} BaseEntity
+ */
+
+/**
+ * @typedef {Object} EngagementSuccessFields
  * @property {string} name - Success name
- * @property {string} description - Detailed description
- * @property {boolean} isDeleted - Soft delete flag
- * @property {string} createdAt - ISO 8601 datetime string
- * @property {string} lastModified - ISO 8601 datetime string
+ * @property {string} description - Success description
+ */
+
+/**
+ * @typedef {BaseEntity & EngagementSuccessFields} EngagementSuccess
  */
 
 /**
