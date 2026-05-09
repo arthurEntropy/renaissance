@@ -1,18 +1,18 @@
 {
   "id": "9f81e252-394e-400c-926d-ddb698f400e2",
+  "createdAt": "2025-10-29T19:58:01.719Z",
   "name": "Flameskull",
-  "isBeast": true,
   "pronouns": "",
-  "ancestries": "",
-  "cultures": "",
   "ancestryIds": [],
   "cultureIds": [],
-  "mestiereId": "",
+  "mestiereId": null,
+  "featuredArtUrls": [
+    "https://cdn.midjourney.com/9dcf81b5-f92f-4d2a-a244-27df6c69f626/0_2.png"
+  ],
+  "speed": 0,
   "xp": 0,
-  "mp": {
-    "current": 0,
-    "max": 0
-  },
+  "notes": "",
+  "isBeast": true,
   "body": 0,
   "heart": 0,
   "wits": 0,
@@ -140,20 +140,19 @@
   ],
   "endurance": {
     "current": 0,
-    "max": 0
+    "base": 0
   },
   "hope": {
     "current": 0,
-    "max": 0
+    "base": 0
   },
   "defense": {
     "current": 0,
-    "max": 0
+    "base": 0
   },
   "load": 0,
   "shadow": 0,
   "injury": 0,
-  "speed": 0,
   "states": {
     "weary": false,
     "twiceWeary": false,
@@ -170,13 +169,11 @@
     "troubled": false
   },
   "equipment": [],
+  "mp": {
+    "current": 0,
+    "base": 0
+  },
   "abilities": [],
-  "activeEffects": [],
-  "featuredArtUrls": [
-    "https://cdn.midjourney.com/9dcf81b5-f92f-4d2a-a244-27df6c69f626/0_2.png"
-  ],
-  "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "createdAt": "2025-10-29T19:58:01.719Z",
-  "updatedAt": "2025-10-30T13:45:41.680Z",
-  "notes": ""
+  "witchcraftTokens": [],
+  "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1"
 }

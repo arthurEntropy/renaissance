@@ -434,7 +434,7 @@ const resetMP = () => {
       }
     }
   } else if (selectedCharacter.value?.mp) {
-    selectedCharacter.value.mp.current = selectedCharacter.value.mp.max
+    selectedCharacter.value.mp.current = selectedCharacter.value.mp.base
   }
 }
 

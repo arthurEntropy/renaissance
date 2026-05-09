@@ -11,15 +11,15 @@ import {
 // STAT CALCULATIONS
 // ========================================
 
-export function calculateMaxEndurance(body) {
+export function calculatebaseEndurance(body) {
   return body * BASE_ENDURANCE_MULTIPLIER
 }
 
-export function calculateMaxHope(heart) {
+export function calculatebaseHope(heart) {
   return heart * BASE_HOPE_MULTIPLIER
 }
 
-export function calculateMaxDefense(wits) {
+export function calculatebaseDefense(wits) {
   return wits + BASE_DEFENSE_MINIMUM
 }
 
@@ -38,10 +38,10 @@ export function getTotalWeightCarried(character, allEquipment) {
 
 export function calculateLoad(character, allEquipment) {
   const totalWeight = getTotalWeightCarried(character, allEquipment)
-  const maxEndurance = character.endurance?.max || 0
+  const baseEndurance = character.endurance?.base || 0
   const body = character.body || 0
   
-  return Math.max(0, totalWeight - maxEndurance - body)
+  return Math.max(0, totalWeight - baseEndurance - body)
 }
 
 // ========================================
@@ -51,10 +51,10 @@ export function calculateLoad(character, allEquipment) {
 export function calculateWearyStates(character) {
   const load = character.load || 0
   const currentEndurance = character.endurance?.current || 0
-  const maxEndurance = character.endurance?.max || 0
+  const baseEndurance = character.endurance?.base || 0
 
   const weary = load > currentEndurance
-  const twiceWeary = load > maxEndurance && weary
+  const twiceWeary = load > baseEndurance && weary
 
   return { weary, twiceWeary }
 }
@@ -62,10 +62,10 @@ export function calculateWearyStates(character) {
 export function calculateMiserableStates(character) {
   const shadow = character.shadow || 0
   const currentHope = character.hope?.current || 0
-  const maxHope = character.hope?.max || 0
+  const baseHope = character.hope?.base || 0
 
   const miserable = shadow > currentHope
-  const twiceMiserable = shadow > maxHope && miserable
+  const twiceMiserable = shadow > baseHope && miserable
 
   return { miserable, twiceMiserable }
 }
@@ -73,10 +73,10 @@ export function calculateMiserableStates(character) {
 export function calculateHelplessStates(character) {
   const injury = character.injury || 0
   const currentDefense = character.defense?.current || 0
-  const maxDefense = character.defense?.max || 0
+  const baseDefense = character.defense?.base || 0
 
   const helpless = injury > currentDefense
-  const twiceHelpless = injury > maxDefense && helpless
+  const twiceHelpless = injury > baseDefense && helpless
 
   return { helpless, twiceHelpless }
 }
@@ -97,19 +97,6 @@ export function updateDiceMods(character) {
   character.skills.forEach((skill) => {
     // Reset to 0
     skill.diceMod = 0
-
-    // Apply mods from active effects
-    if (character.activeEffects) {
-      character.activeEffects.forEach((effect) => {
-        if (effect.skillsModified) {
-          effect.skillsModified.forEach((modifiedSkill) => {
-            if (modifiedSkill.key === skill.key) {
-              skill.diceMod += modifiedSkill.diceMod || 0
-            }
-          })
-        }
-      })
-    }
 
     // Apply mods from conditions
     if (character.conditions) {
@@ -156,23 +143,6 @@ export function updateFavoredStatus(character) {
     const totalDiceMod = (skill.diceMod || 0) + (skill.manualDiceMod || 0)
     skill.isIllFavored = (skill.ranks || 0) + totalDiceMod < 0
 
-    // Apply favored/ill-favored from active effects
-    if (character.activeEffects) {
-      character.activeEffects.forEach((effect) => {
-        if (effect.skillsModified) {
-          effect.skillsModified.forEach((modifiedSkill) => {
-            if (modifiedSkill.key === skill.key) {
-              if (modifiedSkill.makeFavored) {
-                skill.isFavored = true
-              }
-              if (modifiedSkill.makeIllFavored) {
-                skill.isIllFavored = true
-              }
-            }
-          })
-        }
-      })
-    }
   })
 }
 
@@ -182,7 +152,7 @@ export function updateFavoredStatus(character) {
 
 export function handleBodyChange(character, options = {}) {
   const { calcMax = true } = options
-  if (calcMax) character.endurance.max = calculateMaxEndurance(character.body)
+  if (calcMax) character.endurance.base = calculatebaseEndurance(character.body)
   Object.assign(character.states, calculateWearyStates(character))
   updateDiceMods(character)
   updateFavoredStatus(character)
@@ -190,7 +160,7 @@ export function handleBodyChange(character, options = {}) {
 
 export function handleHeartChange(character, options = {}) {
   const { calcMax = true } = options
-  if (calcMax) character.hope.max = calculateMaxHope(character.heart)
+  if (calcMax) character.hope.base = calculatebaseHope(character.heart)
   Object.assign(character.states, calculateMiserableStates(character))
   updateDiceMods(character)
   updateFavoredStatus(character)
@@ -198,7 +168,7 @@ export function handleHeartChange(character, options = {}) {
 
 export function handleWitsChange(character, options = {}) {
   const { calcMax = true } = options
-  if (calcMax) character.defense.max = calculateMaxDefense(character.wits)
+  if (calcMax) character.defense.base = calculatebaseDefense(character.wits)
   Object.assign(character.states, calculateHelplessStates(character))
   updateDiceMods(character)
   updateFavoredStatus(character)

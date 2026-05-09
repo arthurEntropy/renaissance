@@ -1,18 +1,22 @@
 {
   "id": "f00caf03-4f6b-47e5-9bfc-5d29610a365c",
+  "createdAt": "2026-05-01T15:59:46.511Z",
+  "lastModified": "2026-05-01T15:59:46.514Z",
   "name": "Nether Jelly C",
-  "isBeast": true,
   "pronouns": "",
-  "ancestries": "",
-  "cultures": "",
   "ancestryIds": [],
   "cultureIds": [],
-  "mestiereId": "",
+  "mestiereId": null,
+  "featuredArtUrls": [
+    "https://cdn.midjourney.com/627fed95-dffe-4485-8fea-5a56d06fb145/0_2.png"
+  ],
+  "speed": 0,
   "xp": 0,
-  "mp": {
-    "current": 0,
-    "max": 0
-  },
+  "notes": "",
+  "isBeast": true,
+  "beastType": "instance",
+  "templateId": "d526bd58-51b2-4f76-9663-c12a850051e9",
+  "templateName": "Nether Jelly",
   "body": 0,
   "heart": 0,
   "wits": 0,
@@ -140,20 +144,19 @@
   ],
   "endurance": {
     "current": 0,
-    "max": 0
+    "base": 0
   },
   "hope": {
     "current": 0,
-    "max": 0
+    "base": 0
   },
   "defense": {
     "current": 0,
-    "max": 0
+    "base": 0
   },
   "load": 0,
   "shadow": 0,
   "injury": 0,
-  "speed": 0,
   "states": {
     "weary": false,
     "twiceWeary": false,
@@ -170,18 +173,12 @@
     "troubled": false
   },
   "equipment": [],
+  "mp": {
+    "current": 0,
+    "base": 0
+  },
   "abilities": [],
-  "activeEffects": [],
-  "featuredArtUrls": [
-    "https://cdn.midjourney.com/627fed95-dffe-4485-8fea-5a56d06fb145/0_2.png"
-  ],
-  "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "createdAt": "2026-05-01T15:59:46.511Z",
-  "updatedAt": "2025-10-29T19:59:49.756Z",
-  "notes": "",
-  "beastType": "instance",
-  "templateId": "d526bd58-51b2-4f76-9663-c12a850051e9",
-  "templateName": "Nether Jelly",
+  "witchcraftTokens": [],
   "campaignId": "2216d52f-f74d-479e-b440-f7b5aa6319e5",
-  "lastModified": "2026-05-01T15:59:46.514Z"
+  "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1"
 }

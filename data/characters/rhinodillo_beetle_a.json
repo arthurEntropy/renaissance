@@ -1,18 +1,22 @@
 {
   "id": "8cd488b1-3161-4c75-ab9c-73075a5e2494",
+  "createdAt": "2026-05-02T14:23:26.167Z",
+  "lastModified": "2026-05-02T14:23:26.172Z",
   "name": "Rhinodillo Beetle A",
-  "isBeast": true,
   "pronouns": "",
-  "ancestries": "",
-  "cultures": "",
   "ancestryIds": [],
   "cultureIds": [],
-  "mestiereId": "",
+  "mestiereId": null,
+  "featuredArtUrls": [
+    "https://cdn.midjourney.com/d190fffe-70a8-4aea-b938-10664317c862/0_0.png"
+  ],
+  "speed": 0,
   "xp": 0,
-  "mp": {
-    "current": 0,
-    "max": 0
-  },
+  "notes": "",
+  "isBeast": true,
+  "beastType": "instance",
+  "templateId": "3774aed2-eec6-49d3-8d4d-f5b2e24fd373",
+  "templateName": "Rhinodillo Beetle",
   "body": 0,
   "heart": 0,
   "wits": 0,
@@ -140,20 +144,19 @@
   ],
   "endurance": {
     "current": 0,
-    "max": 0
+    "base": 0
   },
   "hope": {
     "current": 0,
-    "max": 0
+    "base": 0
   },
   "defense": {
     "current": 0,
-    "max": 0
+    "base": 0
   },
   "load": 0,
   "shadow": 0,
   "injury": 0,
-  "speed": 0,
   "states": {
     "weary": false,
     "twiceWeary": false,
@@ -170,18 +173,12 @@
     "troubled": false
   },
   "equipment": [],
+  "mp": {
+    "current": 0,
+    "base": 0
+  },
   "abilities": [],
-  "activeEffects": [],
-  "featuredArtUrls": [
-    "https://cdn.midjourney.com/d190fffe-70a8-4aea-b938-10664317c862/0_0.png"
-  ],
-  "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "createdAt": "2026-05-02T14:23:26.167Z",
-  "updatedAt": "2025-10-29T19:57:35.851Z",
-  "notes": "",
-  "beastType": "instance",
-  "templateId": "3774aed2-eec6-49d3-8d4d-f5b2e24fd373",
-  "templateName": "Rhinodillo Beetle",
+  "witchcraftTokens": [],
   "campaignId": "2216d52f-f74d-479e-b440-f7b5aa6319e5",
-  "lastModified": "2026-05-02T14:23:26.172Z"
+  "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1"
 }

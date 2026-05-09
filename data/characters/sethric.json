@@ -1,17 +1,18 @@
 {
   "id": 7,
+  "lastModified": "2026-04-28T17:57:15.265Z",
   "name": "Sethric",
-  "isBeast": false,
   "pronouns": "he/him",
-  "ancestries": "Dragonborn",
-  "cultures": "Talon's Folly",
   "ancestryIds": [],
   "cultureIds": [],
+  "mestiereId": null,
+  "featuredArtUrls": [
+    "https://cdn.midjourney.com/197f94cf-5881-40eb-992f-01478aac1660/0_3.png"
+  ],
+  "keeping": "2b3c4d5e-6f7a-4b8c-9d0e-1f2a3b4c5d6e",
   "xp": 10,
-  "mp": {
-    "current": 3,
-    "max": 5
-  },
+  "notes": "Silversmith, practitioner of Dwarven resonant singing, precocious party animal.",
+  "isBeast": false,
   "body": 3,
   "heart": 2,
   "wits": 1,
@@ -139,15 +140,15 @@
   ],
   "endurance": {
     "current": 10,
-    "max": 15
+    "base": 15
   },
   "hope": {
     "current": 12,
-    "max": 6
+    "base": 6
   },
   "defense": {
     "current": 13,
-    "max": 11
+    "base": 11
   },
   "load": 0,
   "shadow": 0,
@@ -176,6 +177,10 @@
       "collapsed": true
     }
   ],
+  "mp": {
+    "current": 3,
+    "base": 5
+  },
   "abilities": [
     {
       "id": "306c6504-1e45-43cc-b73b-77e38557e566",
@@ -236,31 +241,6 @@
       "showSuccesses": false
     }
   ],
-  "activeEffects": [
-    {
-      "name": "Weird But Entertaining",
-      "skillsModified": [
-        {
-          "key": "awe",
-          "diceMod": -1,
-          "makeFavored": false,
-          "makeIllFavored": false
-        },
-        {
-          "key": "perform",
-          "diceMod": 1,
-          "makeFavored": false,
-          "makeIllFavored": false
-        }
-      ]
-    }
-  ],
-  "featuredArtUrls": [
-    "https://cdn.midjourney.com/197f94cf-5881-40eb-992f-01478aac1660/0_3.png"
-  ],
-  "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2026-04-28T17:57:15.265Z",
-  "lastModified": "2026-04-28T17:57:15.265Z",
   "rollStats": {
     "skillChecks": {
       "attempts": 1,
@@ -288,6 +268,6 @@
       }
     }
   },
-  "notes": "Silversmith, practitioner of Dwarven resonant singing, precocious party animal.",
-  "keeping": "2b3c4d5e-6f7a-4b8c-9d0e-1f2a3b4c5d6e"
+  "witchcraftTokens": [],
+  "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1"
 }

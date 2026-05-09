@@ -98,7 +98,7 @@ const ownedAbilities = computed(() => {
 const heartScore = computed(() => selectedCharacter.value?.heart ?? 0)
 
 const tokenCount = computed(() =>
-    selectedCharacter.value?.witchcraftTokens?.length ?? 0
+    tokenItems.value.length
 )
 
 function resolveSpellAbilities(item) {
@@ -108,11 +108,22 @@ function resolveSpellAbilities(item) {
     return [{ ability, charges: 1 }]
 }
 
+const allWitchcraftItems = computed(() =>
+    selectedCharacter.value?.witchcraftTokens ?? []
+)
+
+const tokenItems = computed(() =>
+    allWitchcraftItems.value.filter((item) => !item?.isTalisman)
+)
+
+const talismanItems = computed(() =>
+    allWitchcraftItems.value.filter((item) => Boolean(item?.isTalisman))
+)
+
 const tokenSlots = computed(() => {
-    const tokens = selectedCharacter.value?.witchcraftTokens ?? []
     const count = heartScore.value
     return Array.from({ length: count }, (_, i) => {
-        const token = tokens[i] ?? null
+        const token = tokenItems.value[i] ?? null
         return {
             index: i,
             token,
@@ -122,8 +133,7 @@ const tokenSlots = computed(() => {
 })
 
 const resolvedTalismans = computed(() => {
-    const talismans = selectedCharacter.value?.witchcraftTalismans ?? []
-    return talismans.map((t) => ({
+    return talismanItems.value.map((t) => ({
         ...t,
         spellAbilities: resolveSpellAbilities(t),
     }))
@@ -152,27 +162,27 @@ function openEditModal(type, item) {
 function handleSave(data) {
     if (!selectedCharacter.value) return
 
-    if (modalType.value === 'token') {
-        const tokens = [...(selectedCharacter.value.witchcraftTokens ?? [])]
-        if (modalItem.value) {
-            // Edit existing
-            const idx = tokens.findIndex((t) => t.id === modalItem.value.id)
-            if (idx !== -1) tokens[idx] = { ...modalItem.value, ...data }
-        } else {
-            // Add new
-            tokens.push({ id: crypto.randomUUID(), ...data })
-        }
-        selectedCharacter.value.witchcraftTokens = tokens
-    } else {
-        const talismans = [...(selectedCharacter.value.witchcraftTalismans ?? [])]
-        if (modalItem.value) {
-            const idx = talismans.findIndex((t) => t.id === modalItem.value.id)
-            if (idx !== -1) talismans[idx] = { ...modalItem.value, ...data }
-        } else {
-            talismans.push({ id: crypto.randomUUID(), ...data })
-        }
-        selectedCharacter.value.witchcraftTalismans = talismans
+    const items = [...(selectedCharacter.value.witchcraftTokens ?? [])]
+    const isTalisman = modalType.value === 'talisman'
+
+    const nextItem = {
+        id: modalItem.value?.id ?? crypto.randomUUID(),
+        ...data,
+        isTalisman,
     }
+
+    if (modalItem.value) {
+        const idx = items.findIndex((t) => t.id === modalItem.value.id)
+        if (idx !== -1) {
+            items[idx] = { ...items[idx], ...nextItem }
+        } else {
+            items.push(nextItem)
+        }
+    } else {
+        items.push(nextItem)
+    }
+
+    selectedCharacter.value.witchcraftTokens = items
 
     showModal.value = false
 }
@@ -184,9 +194,7 @@ function removeToken(token) {
 }
 
 function removeTalisman(talisman) {
-    if (!selectedCharacter.value) return
-    selectedCharacter.value.witchcraftTalismans =
-        (selectedCharacter.value.witchcraftTalismans ?? []).filter((t) => t.id !== talisman.id)
+    removeToken(talisman)
 }
 
 </script>

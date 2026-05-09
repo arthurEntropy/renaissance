@@ -4,15 +4,22 @@
   "createdAt": "2026-01-29T00:54:19.091Z",
   "lastModified": "2026-04-28T17:57:01.612Z",
   "name": "Lu",
-  "isBeast": false,
   "pronouns": "he/him",
-  "ancestries": "",
-  "cultures": "",
+  "ancestryIds": [
+    "77e4f81a-728f-49a7-a013-4d6f666353e2"
+  ],
+  "cultureIds": [
+    "c02c53d1-b456-45d0-a048-6fc941cacc03"
+  ],
+  "mestiereId": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
+  "featuredArtUrls": [
+    "https://cdn.midjourney.com/3f3366f2-b7f5-4b6e-82ec-a71150a47d9b/0_1_1024_N.png"
+  ],
+  "speed": 0,
+  "keeping": "2b3c4d5e-6f7a-4b8c-9d0e-1f2a3b4c5d6e",
   "xp": 0,
-  "mp": {
-    "current": 0,
-    "max": 0
-  },
+  "notes": "",
+  "isBeast": false,
   "body": 4,
   "heart": 7,
   "wits": 3,
@@ -140,15 +147,15 @@
   ],
   "endurance": {
     "current": 36,
-    "max": 20
+    "base": 20
   },
   "hope": {
     "current": 21,
-    "max": 21
+    "base": 21
   },
   "defense": {
     "current": 13,
-    "max": 13
+    "base": 13
   },
   "load": 0,
   "shadow": 0,
@@ -168,7 +175,6 @@
     "afraid": false,
     "troubled": false
   },
-  "speed": 0,
   "equipment": [
     {
       "id": "e1651d86-3287-4b2c-b68f-a6b6f50d8380",
@@ -178,6 +184,10 @@
       "collapsed": true
     }
   ],
+  "mp": {
+    "current": 0,
+    "base": 0
+  },
   "abilities": [
     {
       "id": "4fbf9ccb-0fbb-45d0-9f8f-7b7fcfb811fb",
@@ -499,37 +509,10 @@
       "showSuccesses": false
     }
   ],
-  "featuredArtUrls": [
-    "https://cdn.midjourney.com/3f3366f2-b7f5-4b6e-82ec-a71150a47d9b/0_1_1024_N.png"
-  ],
-  "activeEffects": [],
-  "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "ancestryIds": [
-    "77e4f81a-728f-49a7-a013-4d6f666353e2"
-  ],
-  "cultureIds": [
-    "c02c53d1-b456-45d0-a048-6fc941cacc03"
-  ],
-  "mestiereId": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
-  "updatedAt": "2026-04-28T17:57:01.612Z",
-  "manaPool": {
-    "white": [],
-    "blue": [],
-    "black": [
-      false,
-      false,
-      false,
-      false
-    ],
-    "red": [
-      true
-    ],
-    "green": [],
-    "colorless": []
-  },
   "groupAbilitiesBySource": false,
   "groupAbilitiesByManaColor": true,
   "groupAbilitiesByCustom": false,
+  "abilitySortOption": "manaCost-asc",
   "rollStats": {
     "skillChecks": {
       "attempts": 1,
@@ -557,7 +540,21 @@
       }
     }
   },
-  "abilitySortOption": "manaCost-asc",
-  "notes": "",
-  "keeping": "2b3c4d5e-6f7a-4b8c-9d0e-1f2a3b4c5d6e"
+  "manaPool": {
+    "white": [],
+    "blue": [],
+    "black": [
+      false,
+      false,
+      false,
+      false
+    ],
+    "red": [
+      true
+    ],
+    "green": [],
+    "colorless": []
+  },
+  "witchcraftTokens": [],
+  "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1"
 }

@@ -1,18 +1,22 @@
 {
   "id": "504cff0a-33ab-4eb7-8172-6ee38fcd1a03",
+  "createdAt": "2026-05-01T16:03:03.115Z",
+  "lastModified": "2026-05-01T16:03:03.160Z",
   "name": "Rubik's Snake A",
-  "isBeast": true,
   "pronouns": "",
-  "ancestries": "",
-  "cultures": "",
   "ancestryIds": [],
   "cultureIds": [],
-  "mestiereId": "",
+  "mestiereId": null,
+  "featuredArtUrls": [
+    "https://cdn.midjourney.com/310abf0c-3ccf-45a7-bf09-d9a1ea4ce62d/0_2.png"
+  ],
+  "speed": 0,
   "xp": 0,
-  "mp": {
-    "current": 0,
-    "max": 0
-  },
+  "notes": "",
+  "isBeast": true,
+  "beastType": "instance",
+  "templateId": "2c099087-05ee-4b2c-88e8-966b4af8a9c9",
+  "templateName": "Rubik's Snake",
   "body": 0,
   "heart": 0,
   "wits": 0,
@@ -140,20 +144,19 @@
   ],
   "endurance": {
     "current": 0,
-    "max": 0
+    "base": 0
   },
   "hope": {
     "current": 0,
-    "max": 0
+    "base": 0
   },
   "defense": {
     "current": 0,
-    "max": 0
+    "base": 0
   },
   "load": 0,
   "shadow": 0,
   "injury": 0,
-  "speed": 0,
   "states": {
     "weary": false,
     "twiceWeary": false,
@@ -170,18 +173,12 @@
     "troubled": false
   },
   "equipment": [],
+  "mp": {
+    "current": 0,
+    "base": 0
+  },
   "abilities": [],
-  "activeEffects": [],
-  "featuredArtUrls": [
-    "https://cdn.midjourney.com/310abf0c-3ccf-45a7-bf09-d9a1ea4ce62d/0_2.png"
-  ],
-  "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "createdAt": "2026-05-01T16:03:03.115Z",
-  "updatedAt": "2025-10-29T19:55:23.527Z",
-  "notes": "",
-  "beastType": "instance",
-  "templateId": "2c099087-05ee-4b2c-88e8-966b4af8a9c9",
-  "templateName": "Rubik's Snake",
+  "witchcraftTokens": [],
   "campaignId": "2216d52f-f74d-479e-b440-f7b5aa6319e5",
-  "lastModified": "2026-05-01T16:03:03.160Z"
+  "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1"
 }

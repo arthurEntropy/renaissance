@@ -1,18 +1,18 @@
 {
   "id": "016ee017-aee7-4819-97cc-aada398d6640",
+  "createdAt": "2025-10-29T19:58:30.286Z",
   "name": "Sewer Turtle",
-  "isBeast": true,
   "pronouns": "",
-  "ancestries": "",
-  "cultures": "",
   "ancestryIds": [],
   "cultureIds": [],
-  "mestiereId": "",
+  "mestiereId": null,
+  "featuredArtUrls": [
+    "https://cdn.midjourney.com/ecde24e5-de05-486b-a91b-d89b9fc4b437/0_0.png"
+  ],
+  "speed": 0,
   "xp": 0,
-  "mp": {
-    "current": 0,
-    "max": 0
-  },
+  "notes": "",
+  "isBeast": true,
   "body": 0,
   "heart": 0,
   "wits": 0,
@@ -140,20 +140,19 @@
   ],
   "endurance": {
     "current": 0,
-    "max": 0
+    "base": 0
   },
   "hope": {
     "current": 0,
-    "max": 0
+    "base": 0
   },
   "defense": {
     "current": 0,
-    "max": 0
+    "base": 0
   },
   "load": 0,
   "shadow": 0,
   "injury": 0,
-  "speed": 0,
   "states": {
     "weary": false,
     "twiceWeary": false,
@@ -170,13 +169,11 @@
     "troubled": false
   },
   "equipment": [],
+  "mp": {
+    "current": 0,
+    "base": 0
+  },
   "abilities": [],
-  "activeEffects": [],
-  "featuredArtUrls": [
-    "https://cdn.midjourney.com/ecde24e5-de05-486b-a91b-d89b9fc4b437/0_0.png"
-  ],
-  "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "createdAt": "2025-10-29T19:58:30.286Z",
-  "updatedAt": "2025-10-29T19:58:43.195Z",
-  "notes": ""
+  "witchcraftTokens": [],
+  "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1"
 }

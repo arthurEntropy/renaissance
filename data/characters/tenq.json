@@ -1,10 +1,8 @@
 {
   "id": 8,
+  "lastModified": "2026-04-28T17:57:20.109Z",
   "name": "Tenq",
-  "isBeast": false,
   "pronouns": "she/her",
-  "ancestries": "Human",
-  "cultures": "The Beast Marshes",
   "ancestryIds": [
     "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
     "ba7af7ad-54d2-4b45-86ad-71781d4cdb33"
@@ -12,11 +10,19 @@
   "cultureIds": [
     "68fadf5d-6661-4611-bb38-deaf05f01d45"
   ],
+  "mestiereId": "e10d7d9f-9d93-46b0-9846-d60241031644",
+  "featuredArtUrls": [
+    "https://cdn.midjourney.com/545939d2-7091-4ee5-9e3d-479166b344af/0_3.png"
+  ],
+  "age": 0,
+  "heightFeet": 0,
+  "heightInches": 0,
+  "weight": 0,
+  "speed": 60,
+  "keeping": "3c4d5e6f-7a8b-4c9d-0e1f-2a3b4c5d6e7f",
   "xp": 0,
-  "mp": {
-    "current": 3,
-    "max": 5
-  },
+  "notes": "<p style=\"text-align: justify\">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque velit massa, varius non pellentesque ut, pharetra eu lorem. Fusce tempor mi quis malesuada laoreet. Sed laoreet faucibus justo, eget laoreet mi commodo at. Duis purus sapien, tristique dictum risus pellentesque, bibendum laoreet neque. Etiam varius neque quis nisl placerat, id aliquet diam tempus. Nam lacus risus, cursus in mauris in, euismod gravida augue. Sed nec ex nec justo fermentum rhoncus sit amet vel mi. Aliquam erat volutpat. Sed pretium rutrum dolor, in sollicitudin felis sodales luctus. In euismod imperdiet turpis vel volutpat. Ut sed ipsum aliquam, luctus libero ut, gravida odio. Duis mattis lorem nunc. Proin dictum nibh leo, nec lobortis lacus aliquam in. Praesent sit amet ex et massa rutrum aliquet. Donec eget purus interdum, lobortis orci quis, gravida mi.</p><p style=\"text-align: justify\">Nulla vitae egestas felis, in elementum mi. Aenean blandit scelerisque tempor. Curabitur eget purus quis libero consectetur mollis id sit amet elit. Fusce iaculis sapien neque, quis sollicitudin dui posuere ac. Donec eros quam, auctor eget iaculis sed, interdum nec nulla. Sed sed iaculis lorem. Etiam dapibus felis sit amet tortor tempor, ut tincidunt ipsum ultricies. Integer sed diam sed justo egestas mattis. Quisque finibus tincidunt nisi elementum cursus.</p><p style=\"text-align: justify\">Nulla sollicitudin vel mi quis rhoncus. Donec et tempus ex. Suspendisse rutrum sagittis ipsum condimentum molestie. Fusce egestas mi at commodo pharetra. Nulla vitae tellus a nisl lobortis maximus. Nam dapibus metus iaculis cursus ornare. Phasellus et leo non erat sollicitudin sodales. Vivamus in nunc eget nisl ultricies consectetur vel vitae justo.</p><p style=\"text-align: justify\">Sed aliquam tempor eros, sed pharetra nisi suscipit et. Morbi egestas erat vehicula dui pharetra, eu fringilla ante interdum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Curabitur fringilla neque in ligula imperdiet, non elementum nisi tempus. Aenean eu ipsum sed risus consequat semper vel id dui. Phasellus elementum eros nec facilisis blandit. Aliquam vestibulum ullamcorper accumsan. Aliquam vel erat non erat consectetur maximus a a sem. Vivamus at orci porttitor, tempor felis a, mattis quam. Ut et imperdiet erat. Donec facilisis erat ac augue malesuada sodales. Integer eleifend ornare lacus, a aliquet mi finibus et.</p><p style=\"text-align: justify\">Donec non lectus non risus viverra maximus eget quis mauris. Aliquam bibendum ultrices diam nec semper. Proin tincidunt, purus ac placerat finibus, tellus nisl gravida nulla, non porttitor turpis lacus nec lacus. Nulla id sem sed risus cursus accumsan. Aliquam egestas, leo a lobortis vehicula, dui nulla pulvinar arcu, id elementum orci tortor non neque. Aliquam vulputate, nibh vel pellentesque tincidunt, justo mi imperdiet enim, ut ullamcorper velit turpis lacinia dui. Etiam rhoncus fringilla euismod. Fusce vulputate felis sit amet felis mattis, id dapibus est tempor. Nunc eu sapien bibendum, finibus orci lobortis, convallis est. In tincidunt felis sit amet fermentum condimentum. Curabitur hendrerit tellus tincidunt mi accumsan fringilla. Aenean luctus orci odio, vitae aliquet leo commodo eleifend. Nulla sed est euismod, rutrum enim et, porta turpis. Praesent vitae elit metus. Nullam tempus ex sit amet ultricies ultricies. Nunc non velit eros.</p>",
+  "isBeast": false,
   "body": 4,
   "heart": 2,
   "wits": 3,
@@ -144,15 +150,15 @@
   ],
   "endurance": {
     "current": 20,
-    "max": 20
+    "base": 20
   },
   "hope": {
     "current": 6,
-    "max": 6
+    "base": 6
   },
   "defense": {
     "current": 13,
-    "max": 13
+    "base": 13
   },
   "load": 0,
   "shadow": 0,
@@ -172,89 +178,34 @@
     "afraid": false,
     "troubled": false
   },
+  "engagementDice": [],
+  "engagementSuccesses": [
+    "b4c5d6e7-f8a9-40b1-c2d3-e4f5a6b7c8d9"
+  ],
   "equipment": [
     {
       "id": "4d318ef9-5a9b-4c1d-a79d-f61b090f43fa",
       "quantity": 1,
       "isCarried": true,
-      "artExpanded": true,
-      "collapsed": true,
       "isWielding": true,
-      "equipment": {
-        "id": "4d318ef9-5a9b-4c1d-a79d-f61b090f43fa",
-        "name": "Dagger",
-        "description": "",
-        "keeping": "2",
-        "source": "5a639d7b-847a-468b-9bbe-5275d31fdf66",
-        "weight": 1,
-        "length": 1,
-        "reach": 0,
-        "range": "55e83a64-59b5-4d1a-b30f-2a01ff020a0b",
-        "twoHanded": false,
-        "thrown": true,
-        "finesse": true,
-        "piercing": false,
-        "damageDice": [
-          4
-        ],
-        "engagementDice": [
-          4
-        ],
-        "engagementSuccesses": [],
-        "isDeleted": false,
-        "isCustom": false,
-        "isTemplate": false,
-        "artUrl": "https://cdn.midjourney.com/44ad2b39-4623-408d-a3f0-ff67d4af842c/0_2.png",
-        "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
-        "subtype": "ab765755-b7c9-47ac-b62f-34f069e00dc3",
-        "grade": "ad30b114-3c19-413f-aad2-5f270bd95684"
-      },
-      "index": 0
+      "index": 0,
+      "collapsed": true,
+      "artExpanded": true
     },
     {
       "id": "01b42045-e490-457e-a533-875ea582d8f5",
       "quantity": 1,
       "isCarried": true,
       "isWielding": true,
-      "artExpanded": true,
+      "index": 1,
       "collapsed": true,
-      "equipment": {
-        "id": "01b42045-e490-457e-a533-875ea582d8f5",
-        "name": "Acrobat's Pole",
-        "description": "<p>TEST</p>",
-        "keeping": "2",
-        "source": "0c876a74-a89b-42dc-b76a-4592a0478d81",
-        "weight": 10,
-        "length": 10,
-        "reach": 5,
-        "range": null,
-        "twoHanded": true,
-        "thrown": false,
-        "finesse": true,
-        "piercing": false,
-        "damageDice": [
-          4
-        ],
-        "engagementDice": [
-          8
-        ],
-        "engagementSuccesses": [
-          "e1f2a3b4-c5d6-47e8-f9a0-b1c2d3e4f5a6",
-          "f6a7b8c9-d0e1-42f3-a4b5-c6d7e8f9a0b1"
-        ],
-        "isDeleted": false,
-        "isCustom": false,
-        "isTemplate": false,
-        "artUrl": "https://cdn.midjourney.com/dff73a55-641f-427d-bf4b-5941f11b37ef/0_0.png",
-        "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
-        "subtype": "956839d8-393c-4743-9cb3-8038c8a7aa93",
-        "grade": "ebcc2bcb-8221-4ca0-bef3-000fb7e59e96",
-        "lastModified": "2025-12-12T16:18:25.324Z"
-      },
-      "index": 1
+      "artExpanded": true
     }
   ],
-  "engagementDice": [],
+  "mp": {
+    "current": 3,
+    "base": 5
+  },
   "abilities": [
     {
       "id": "71514016-e2a6-4a6d-97e7-df00d89d94d3",
@@ -277,24 +228,7 @@
       "showImprovements": false
     }
   ],
-  "activeEffects": [],
-  "featuredArtUrls": [
-    "https://cdn.midjourney.com/545939d2-7091-4ee5-9e3d-479166b344af/0_3.png"
-  ],
-  "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2026-04-28T17:57:20.109Z",
-  "lastModified": "2026-04-28T17:57:20.109Z",
-  "mestiereId": "e10d7d9f-9d93-46b0-9846-d60241031644",
-  "expansionLogoUrl": "",
-  "engagementSuccesses": [
-    "b4c5d6e7-f8a9-40b1-c2d3-e4f5a6b7c8d9"
-  ],
-  "age": 0,
-  "heightFeet": 0,
-  "heightInches": 0,
-  "weight": 0,
-  "speed": 60,
   "nimbleStep": 1,
-  "notes": "<p style=\"text-align: justify\">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque velit massa, varius non pellentesque ut, pharetra eu lorem. Fusce tempor mi quis malesuada laoreet. Sed laoreet faucibus justo, eget laoreet mi commodo at. Duis purus sapien, tristique dictum risus pellentesque, bibendum laoreet neque. Etiam varius neque quis nisl placerat, id aliquet diam tempus. Nam lacus risus, cursus in mauris in, euismod gravida augue. Sed nec ex nec justo fermentum rhoncus sit amet vel mi. Aliquam erat volutpat. Sed pretium rutrum dolor, in sollicitudin felis sodales luctus. In euismod imperdiet turpis vel volutpat. Ut sed ipsum aliquam, luctus libero ut, gravida odio. Duis mattis lorem nunc. Proin dictum nibh leo, nec lobortis lacus aliquam in. Praesent sit amet ex et massa rutrum aliquet. Donec eget purus interdum, lobortis orci quis, gravida mi.</p><p style=\"text-align: justify\">Nulla vitae egestas felis, in elementum mi. Aenean blandit scelerisque tempor. Curabitur eget purus quis libero consectetur mollis id sit amet elit. Fusce iaculis sapien neque, quis sollicitudin dui posuere ac. Donec eros quam, auctor eget iaculis sed, interdum nec nulla. Sed sed iaculis lorem. Etiam dapibus felis sit amet tortor tempor, ut tincidunt ipsum ultricies. Integer sed diam sed justo egestas mattis. Quisque finibus tincidunt nisi elementum cursus.</p><p style=\"text-align: justify\">Nulla sollicitudin vel mi quis rhoncus. Donec et tempus ex. Suspendisse rutrum sagittis ipsum condimentum molestie. Fusce egestas mi at commodo pharetra. Nulla vitae tellus a nisl lobortis maximus. Nam dapibus metus iaculis cursus ornare. Phasellus et leo non erat sollicitudin sodales. Vivamus in nunc eget nisl ultricies consectetur vel vitae justo.</p><p style=\"text-align: justify\">Sed aliquam tempor eros, sed pharetra nisi suscipit et. Morbi egestas erat vehicula dui pharetra, eu fringilla ante interdum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Curabitur fringilla neque in ligula imperdiet, non elementum nisi tempus. Aenean eu ipsum sed risus consequat semper vel id dui. Phasellus elementum eros nec facilisis blandit. Aliquam vestibulum ullamcorper accumsan. Aliquam vel erat non erat consectetur maximus a a sem. Vivamus at orci porttitor, tempor felis a, mattis quam. Ut et imperdiet erat. Donec facilisis erat ac augue malesuada sodales. Integer eleifend ornare lacus, a aliquet mi finibus et.</p><p style=\"text-align: justify\">Donec non lectus non risus viverra maximus eget quis mauris. Aliquam bibendum ultrices diam nec semper. Proin tincidunt, purus ac placerat finibus, tellus nisl gravida nulla, non porttitor turpis lacus nec lacus. Nulla id sem sed risus cursus accumsan. Aliquam egestas, leo a lobortis vehicula, dui nulla pulvinar arcu, id elementum orci tortor non neque. Aliquam vulputate, nibh vel pellentesque tincidunt, justo mi imperdiet enim, ut ullamcorper velit turpis lacinia dui. Etiam rhoncus fringilla euismod. Fusce vulputate felis sit amet felis mattis, id dapibus est tempor. Nunc eu sapien bibendum, finibus orci lobortis, convallis est. In tincidunt felis sit amet fermentum condimentum. Curabitur hendrerit tellus tincidunt mi accumsan fringilla. Aenean luctus orci odio, vitae aliquet leo commodo eleifend. Nulla sed est euismod, rutrum enim et, porta turpis. Praesent vitae elit metus. Nullam tempus ex sit amet ultricies ultricies. Nunc non velit eros.</p>",
-  "keeping": "3c4d5e6f-7a8b-4c9d-0e1f-2a3b4c5d6e7f"
+  "witchcraftTokens": [],
+  "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1"
 }

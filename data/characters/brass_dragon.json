@@ -1,18 +1,23 @@
 {
   "id": "552f7a07-1675-4878-aef2-196784552065",
+  "createdAt": "2025-10-29T19:52:32.242Z",
+  "lastModified": "2026-04-29T01:47:18.400Z",
   "name": "Brass Dragon",
-  "isBeast": true,
   "pronouns": "",
-  "ancestries": "",
-  "cultures": "",
   "ancestryIds": [],
   "cultureIds": [],
-  "mestiereId": "",
+  "mestiereId": null,
+  "featuredArtUrls": [
+    "https://cdn.midjourney.com/e63c2642-6d1c-4ee3-afff-54ee1b6927cb/0_1.png"
+  ],
+  "speed": 0,
   "xp": 0,
-  "mp": {
-    "current": 0,
-    "max": 0
-  },
+  "notes": "",
+  "isBeast": true,
+  "challenge": 26,
+  "description": "Flying, trample, resistance to heat",
+  "size": 9,
+  "reach": 10,
   "body": 10,
   "heart": 6,
   "wits": 10,
@@ -140,20 +145,19 @@
   ],
   "endurance": {
     "current": 0,
-    "max": 50
+    "base": 50
   },
   "hope": {
     "current": 0,
-    "max": 18
+    "base": 18
   },
   "defense": {
     "current": 0,
-    "max": 20
+    "base": 20
   },
   "load": 0,
   "shadow": 0,
   "injury": 0,
-  "speed": 0,
   "states": {
     "weary": false,
     "twiceWeary": false,
@@ -170,21 +174,11 @@
     "troubled": false
   },
   "equipment": [],
+  "mp": {
+    "current": 0,
+    "base": 0
+  },
   "abilities": [],
-  "activeEffects": [],
-  "featuredArtUrls": [
-    "https://cdn.midjourney.com/e63c2642-6d1c-4ee3-afff-54ee1b6927cb/0_1.png"
-  ],
-  "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "createdAt": "2025-10-29T19:52:32.242Z",
-  "updatedAt": "2026-04-29T01:47:18.400Z",
-  "notes": "",
-  "challenge": 26,
-  "lastModified": "2026-04-29T01:47:18.400Z",
-  "resistancesAndImmunities": "Resistant to non-physical damage.",
-  "weaknesses": "Weak to fire and cold.",
-  "specialSensesAndMovement": "Flying, swimming",
-  "size": 9,
-  "reach": 10,
-  "description": "Flying, trample, resistance to heat"
+  "witchcraftTokens": [],
+  "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1"
 }

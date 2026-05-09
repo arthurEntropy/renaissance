@@ -1,21 +1,22 @@
 {
   "id": 10,
+  "lastModified": "2026-04-28T17:56:47.450Z",
   "name": "Dorothea",
-  "isBeast": false,
   "pronouns": "she/her",
-  "ancestries": "Halfling",
-  "cultures": "Sila",
   "ancestryIds": [
     "77e4f81a-728f-49a7-a013-4d6f666353e2"
   ],
   "cultureIds": [
     "5a639d7b-847a-468b-9bbe-5275d31fdf66"
   ],
+  "mestiereId": null,
+  "featuredArtUrls": [
+    "https://cdn.midjourney.com/890188b9-df60-4f68-8f03-11b5d1f127b4/0_2.png"
+  ],
+  "keeping": "3c4d5e6f-7a8b-4c9d-0e1f-2a3b4c5d6e7f",
   "xp": 10,
-  "mp": {
-    "current": 3,
-    "max": 5
-  },
+  "notes": "<p>Super cool orbmancer</p><p>This is some <strong>example</strong> text</p>",
+  "isBeast": false,
   "body": 15,
   "heart": 15,
   "wits": 1,
@@ -143,15 +144,15 @@
   ],
   "endurance": {
     "current": 15,
-    "max": 75
+    "base": 75
   },
   "hope": {
     "current": 12,
-    "max": 30
+    "base": 30
   },
   "defense": {
     "current": 11,
-    "max": 11
+    "base": 11
   },
   "load": 0,
   "shadow": 0,
@@ -172,32 +173,11 @@
     "troubled": true
   },
   "equipment": [],
+  "mp": {
+    "current": 3,
+    "base": 5
+  },
   "abilities": [],
-  "activeEffects": [
-    {
-      "name": "Weird But Entertaining",
-      "skillsModified": [
-        {
-          "key": "awe",
-          "diceMod": -1,
-          "makeFavored": false,
-          "makeIllFavored": false
-        },
-        {
-          "key": "perform",
-          "diceMod": 1,
-          "makeFavored": false,
-          "makeIllFavored": false
-        }
-      ]
-    }
-  ],
-  "featuredArtUrls": [
-    "https://cdn.midjourney.com/890188b9-df60-4f68-8f03-11b5d1f127b4/0_2.png"
-  ],
-  "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2026-04-28T17:56:47.450Z",
-  "lastModified": "2026-04-28T17:56:47.450Z",
-  "notes": "<p>Super cool orbmancer</p><p>This is some <strong>example</strong> text</p>",
-  "keeping": "3c4d5e6f-7a8b-4c9d-0e1f-2a3b4c5d6e7f"
+  "witchcraftTokens": [],
+  "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1"
 }

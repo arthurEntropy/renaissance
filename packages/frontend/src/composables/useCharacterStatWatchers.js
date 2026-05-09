@@ -45,27 +45,27 @@ export function useCharacterStatWatchers(selectedCharacter, allEquipment) {
   // Core stats watchers
   watch(() => selectedCharacter.value?.body, () => {
     if (!selectedCharacter.value || selectedCharacter.value.body === undefined) return
-    if (selectedCharacter.value.autoCalculations?.statesAndEffects ?? true) {
+    if (selectedCharacter.value.autoCalculations?.states ?? true) {
       CharacterUtils.handleBodyChange(selectedCharacter.value, {
-        calcMax: selectedCharacter.value.autoCalculations?.maxEndurance ?? true
+        calcMax: selectedCharacter.value.autoCalculations?.baseEndurance ?? true
       })
     }
   })
 
   watch(() => selectedCharacter.value?.heart, () => {
     if (!selectedCharacter.value || selectedCharacter.value.heart === undefined) return
-    if (selectedCharacter.value.autoCalculations?.statesAndEffects ?? true) {
+    if (selectedCharacter.value.autoCalculations?.states ?? true) {
       CharacterUtils.handleHeartChange(selectedCharacter.value, {
-        calcMax: selectedCharacter.value.autoCalculations?.maxHope ?? true
+        calcMax: selectedCharacter.value.autoCalculations?.baseHope ?? true
       })
     }
   })
 
   watch(() => selectedCharacter.value?.wits, () => {
     if (!selectedCharacter.value || selectedCharacter.value.wits === undefined) return
-    if (selectedCharacter.value.autoCalculations?.statesAndEffects ?? true) {
+    if (selectedCharacter.value.autoCalculations?.states ?? true) {
       CharacterUtils.handleWitsChange(selectedCharacter.value, {
-        calcMax: selectedCharacter.value.autoCalculations?.maxDefense ?? true
+        calcMax: selectedCharacter.value.autoCalculations?.baseDefense ?? true
       })
     }
   })
@@ -75,9 +75,9 @@ export function useCharacterStatWatchers(selectedCharacter, allEquipment) {
     if (!selectedCharacter.value || !selectedCharacter.value.endurance) return
     const equipment = allEquipment.value || []
     if (!Array.isArray(equipment)) return
-    // Check both load and statesAndEffects flags
+    // Check both load and states flags
     const autoLoad = selectedCharacter.value.autoCalculations?.load ?? true
-    const autoStates = selectedCharacter.value.autoCalculations?.statesAndEffects ?? true
+    const autoStates = selectedCharacter.value.autoCalculations?.states ?? true
     if (autoLoad || autoStates) {
       CharacterUtils.handleEnduranceChange(selectedCharacter.value, equipment)
     }
@@ -85,35 +85,35 @@ export function useCharacterStatWatchers(selectedCharacter, allEquipment) {
 
   watch(() => selectedCharacter.value?.hope, () => {
     if (!selectedCharacter.value || !selectedCharacter.value.hope) return
-    if (selectedCharacter.value.autoCalculations?.statesAndEffects ?? true) {
+    if (selectedCharacter.value.autoCalculations?.states ?? true) {
       CharacterUtils.handleHopeChange(selectedCharacter.value)
     }
   }, { deep: true })
 
   watch(() => selectedCharacter.value?.defense, () => {
     if (!selectedCharacter.value || !selectedCharacter.value.defense) return
-    if (selectedCharacter.value.autoCalculations?.statesAndEffects ?? true) {
+    if (selectedCharacter.value.autoCalculations?.states ?? true) {
       CharacterUtils.handleDefenseChange(selectedCharacter.value)
     }
   }, { deep: true })
 
   watch(() => selectedCharacter.value?.load, () => {
     if (!selectedCharacter.value || selectedCharacter.value.load === undefined) return
-    if (selectedCharacter.value.autoCalculations?.statesAndEffects ?? true) {
+    if (selectedCharacter.value.autoCalculations?.states ?? true) {
       CharacterUtils.handleLoadChange(selectedCharacter.value)
     }
   })
 
   watch(() => selectedCharacter.value?.shadow, () => {
     if (!selectedCharacter.value || selectedCharacter.value.shadow === undefined) return
-    if (selectedCharacter.value.autoCalculations?.statesAndEffects ?? true) {
+    if (selectedCharacter.value.autoCalculations?.states ?? true) {
       CharacterUtils.handleShadowChange(selectedCharacter.value)
     }
   })
 
   watch(() => selectedCharacter.value?.injury, () => {
     if (!selectedCharacter.value || selectedCharacter.value.injury === undefined) return
-    if (selectedCharacter.value.autoCalculations?.statesAndEffects ?? true) {
+    if (selectedCharacter.value.autoCalculations?.states ?? true) {
       CharacterUtils.handleInjuryChange(selectedCharacter.value)
     }
   })
@@ -121,14 +121,14 @@ export function useCharacterStatWatchers(selectedCharacter, allEquipment) {
   // Complex state watchers
   watch(() => selectedCharacter.value?.states, () => {
     if (!selectedCharacter.value || !selectedCharacter.value.states) return
-    if (selectedCharacter.value.autoCalculations?.statesAndEffects ?? true) {
+    if (selectedCharacter.value.autoCalculations?.states ?? true) {
       CharacterUtils.handleStatesChange(selectedCharacter.value)
     }
   }, { deep: true })
 
   watch(() => selectedCharacter.value?.conditions, () => {
     if (!selectedCharacter.value || !selectedCharacter.value.conditions) return
-    if (selectedCharacter.value.autoCalculations?.statesAndEffects ?? true) {
+    if (selectedCharacter.value.autoCalculations?.states ?? true) {
       CharacterUtils.handleConditionsChange(selectedCharacter.value)
     }
   }, { deep: true })

@@ -1,18 +1,23 @@
 {
   "id": "70dbd03f-96a7-44d1-a677-3347d616c808",
+  "createdAt": "2025-10-29T20:01:39.191Z",
+  "lastModified": "2026-05-09T21:12:01.926Z",
   "name": "Baldur's Horror",
-  "isBeast": true,
   "pronouns": "",
-  "ancestries": "",
-  "cultures": "",
   "ancestryIds": [],
   "cultureIds": [],
-  "mestiereId": "",
+  "mestiereId": null,
+  "featuredArtUrls": [
+    "https://cdn.midjourney.com/a953b792-2f19-4b8f-9cd4-5bff1b4b0199/0_1.png"
+  ],
+  "speed": 0,
+  "keeping": null,
   "xp": 0,
-  "mp": {
-    "current": 0,
-    "max": 0
-  },
+  "notes": "",
+  "isBeast": true,
+  "description": "",
+  "size": 0,
+  "reach": 0,
   "body": 0,
   "heart": 0,
   "wits": 0,
@@ -140,20 +145,19 @@
   ],
   "endurance": {
     "current": 0,
-    "max": 0
+    "base": 0
   },
   "hope": {
     "current": 0,
-    "max": 0
+    "base": 0
   },
   "defense": {
     "current": 0,
-    "max": 0
+    "base": 0
   },
   "load": 0,
   "shadow": 0,
   "injury": 0,
-  "speed": 0,
   "states": {
     "weary": false,
     "twiceWeary": false,
@@ -170,15 +174,11 @@
     "troubled": false
   },
   "equipment": [],
+  "mp": {
+    "current": 0,
+    "base": 0
+  },
   "abilities": [],
-  "activeEffects": [],
-  "featuredArtUrls": [
-    "https://cdn.midjourney.com/a953b792-2f19-4b8f-9cd4-5bff1b4b0199/0_1.png"
-  ],
-  "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "createdAt": "2025-10-29T20:01:39.191Z",
-  "updatedAt": "2026-04-29T00:48:50.896Z",
-  "lastModified": "2026-04-29T00:48:50.896Z",
-  "notes": "",
-  "keeping": null
+  "witchcraftTokens": [],
+  "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1"
 }

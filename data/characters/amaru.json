@@ -1,21 +1,22 @@
 {
   "id": 11,
+  "lastModified": "2026-05-09T12:42:22.876Z",
   "name": "Amaru",
-  "isBeast": false,
   "pronouns": "he/him",
-  "ancestries": "Human",
-  "cultures": "Guildford",
   "ancestryIds": [
     "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
   ],
   "cultureIds": [
     "352c844b-6d4f-4b61-b475-315421a453e7"
   ],
+  "mestiereId": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
+  "featuredArtUrls": [
+    "https://cdn.midjourney.com/46f7df2d-65a2-44e8-90fd-c01738a187c3/0_0.png"
+  ],
+  "keeping": "5e6f7a8b-9c0d-4e1f-2a3b-4c5d6e7f8a9b",
   "xp": 12,
-  "mp": {
-    "current": 7,
-    "max": 18
-  },
+  "notes": "Wizard of the Third Wizards' Guild of Guildford. Associate of Volans.",
+  "isBeast": false,
   "body": 3,
   "heart": 5,
   "wits": 6,
@@ -143,15 +144,15 @@
   ],
   "endurance": {
     "current": 15,
-    "max": 15
+    "base": 15
   },
   "hope": {
     "current": 15,
-    "max": 15
+    "base": 15
   },
   "defense": {
     "current": 16,
-    "max": 16
+    "base": 16
   },
   "load": 0,
   "shadow": 0,
@@ -185,6 +186,10 @@
       "isCarried": true
     }
   ],
+  "mp": {
+    "current": 7,
+    "base": 18
+  },
   "abilities": [
     {
       "id": "ad7f2d4c-75cc-4b7c-8066-57eb1ccaf54a",
@@ -241,17 +246,14 @@
       "showSuccesses": false
     }
   ],
-  "activeEffects": [],
-  "featuredArtUrls": [
-    "https://cdn.midjourney.com/46f7df2d-65a2-44e8-90fd-c01738a187c3/0_0.png"
-  ],
-  "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2026-05-09T12:42:22.876Z",
-  "lastModified": "2026-05-09T12:42:22.876Z",
-  "mestiereId": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
+  "groupAbilitiesBySource": true,
+  "groupAbilitiesByManaColor": false,
+  "groupAbilitiesByCustom": false,
   "abilitySortOption": "",
-  "notes": "Wizard of the Third Wizards' Guild of Guildford. Associate of Volans.",
-  "keeping": "5e6f7a8b-9c0d-4e1f-2a3b-4c5d6e7f8a9b",
+  "autoCalculations": {
+    "load": true,
+    "states": true
+  },
   "rollStats": {
     "skillChecks": {
       "attempts": 1,
@@ -279,11 +281,6 @@
       }
     }
   },
-  "groupAbilitiesBySource": true,
-  "groupAbilitiesByManaColor": false,
-  "groupAbilitiesByCustom": false,
-  "autoCalculations": {
-    "load": true,
-    "statesAndEffects": true
-  }
+  "witchcraftTokens": [],
+  "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1"
 }

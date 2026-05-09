@@ -4,30 +4,29 @@
   "createdAt": "2026-04-30T00:16:28.721Z",
   "lastModified": "2026-05-01T13:53:09.425Z",
   "name": "Dominia",
+  "pronouns": "",
+  "ancestryIds": [],
+  "cultureIds": [],
+  "mestiereId": null,
+  "featuredArtUrls": [
+    "https://cdn.midjourney.com/843b7b6f-6fe5-4a08-907f-051d26d0ef54/0_0.png"
+  ],
+  "age": 0,
+  "heightFeet": 0,
+  "heightInches": 0,
+  "weight": 0,
+  "speed": 0,
+  "keeping": null,
+  "treasure": 0,
+  "xp": 0,
+  "notes": "",
   "isBeast": false,
-  "campaignId": "2216d52f-f74d-479e-b440-f7b5aa6319e5",
-  "isNPC": true,
   "beastType": null,
   "templateId": null,
   "challenge": 0,
   "description": "",
   "size": 0,
   "reach": 0,
-  "pronouns": "",
-  "ancestries": "",
-  "cultures": "",
-  "notes": "",
-  "keeping": null,
-  "treasure": 0,
-  "age": 0,
-  "heightFeet": 0,
-  "heightInches": 0,
-  "weight": 0,
-  "xp": 0,
-  "mp": {
-    "current": 0,
-    "max": 0
-  },
   "body": 0,
   "heart": 0,
   "wits": 0,
@@ -155,15 +154,15 @@
   ],
   "endurance": {
     "current": 0,
-    "max": 0
+    "base": 0
   },
   "hope": {
     "current": 0,
-    "max": 0
+    "base": 0
   },
   "defense": {
     "current": 0,
-    "max": 0
+    "base": 0
   },
   "load": 0,
   "shadow": 0,
@@ -183,39 +182,24 @@
     "afraid": false,
     "troubled": false
   },
-  "speed": 0,
-  "nimbleStep": 0,
-  "manaPool": {
-    "white": [],
-    "blue": [],
-    "black": [],
-    "red": [],
-    "green": [],
-    "colorless": []
-  },
-  "equipment": [],
-  "abilities": [],
-  "featuredArtUrls": [
-    "https://cdn.midjourney.com/843b7b6f-6fe5-4a08-907f-051d26d0ef54/0_0.png"
-  ],
   "engagementDiceStatuses": {},
-  "biomeTags": [],
-  "biomeId": null,
-  "activeEffects": [],
-  "witchcraftTokens": [],
-  "witchcraftTalismans": [],
-  "summonerVessels": [],
+  "equipment": [],
+  "groupEquipmentBySource": false,
+  "equipmentSortOption": "name-asc",
+  "mp": {
+    "current": 0,
+    "base": 0
+  },
+  "abilities": [],
   "groupAbilitiesBySource": false,
   "groupAbilitiesByManaColor": false,
-  "groupEquipmentBySource": false,
   "abilitySortOption": "name-asc",
-  "equipmentSortOption": "name-asc",
   "autoCalculations": {
     "load": true,
-    "statesAndEffects": true,
-    "maxEndurance": true,
-    "maxHope": true,
-    "maxDefense": true
+    "states": true,
+    "baseEndurance": true,
+    "baseHope": true,
+    "baseDefense": true
   },
   "rollStats": {
     "skillChecks": {
@@ -242,6 +226,20 @@
       }
     }
   },
-  "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2026-05-01T13:53:09.424Z"
+  "biomeTags": [],
+  "biomeId": null,
+  "nimbleStep": 0,
+  "manaPool": {
+    "white": [],
+    "blue": [],
+    "black": [],
+    "red": [],
+    "green": [],
+    "colorless": []
+  },
+  "witchcraftTokens": [],
+  "summonerVessels": [],
+  "campaignId": "2216d52f-f74d-479e-b440-f7b5aa6319e5",
+  "isNPC": true,
+  "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1"
 }

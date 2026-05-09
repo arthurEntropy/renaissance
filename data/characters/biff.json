@@ -4,30 +4,35 @@
   "createdAt": "2026-05-01T12:05:24.587Z",
   "lastModified": "2026-05-07T19:00:43.493Z",
   "name": "Biff",
+  "pronouns": "they/them",
+  "ancestryIds": [
+    "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "2e46823f-bec7-4d70-b323-dbc8b71c7739"
+  ],
+  "cultureIds": [
+    "c114dc0e-d6ca-4115-be35-684dead36de2",
+    "40086e18-eaba-411a-b4ec-7a0a7fd42d37"
+  ],
+  "mestiereId": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
+  "featuredArtUrls": [
+    "https://cdn.midjourney.com/f47a6f0c-8192-460b-976e-5875358952bb/0_3.png"
+  ],
+  "age": 234,
+  "heightFeet": 6,
+  "heightInches": 0,
+  "weight": 158,
+  "speed": 0,
+  "keeping": "4d5e6f7a-8b9c-4d0e-1f2a-3b4c5d6e7f8a",
+  "treasure": 10,
+  "xp": 0,
+  "notes": "<p>A strange fellow with a penchant for colorful spells. Always wears a cloak, regardless of the weather. Refuses to eat fish and gorges himself on arugula whenever he can get it.</p>",
   "isBeast": false,
-  "campaignId": "2216d52f-f74d-479e-b440-f7b5aa6319e5",
-  "isNPC": true,
   "beastType": null,
   "templateId": null,
   "challenge": 0,
   "description": "",
   "size": 0,
   "reach": 0,
-  "pronouns": "they/them",
-  "ancestries": "",
-  "cultures": "",
-  "notes": "<p>A strange fellow with a penchant for colorful spells. Always wears a cloak, regardless of the weather. Refuses to eat fish and gorges himself on arugula whenever he can get it.</p>",
-  "keeping": "4d5e6f7a-8b9c-4d0e-1f2a-3b4c5d6e7f8a",
-  "treasure": 10,
-  "age": 234,
-  "heightFeet": 6,
-  "heightInches": 0,
-  "weight": 158,
-  "xp": 0,
-  "mp": {
-    "current": 0,
-    "max": 0
-  },
   "body": 0,
   "heart": 0,
   "wits": 0,
@@ -155,15 +160,15 @@
   ],
   "endurance": {
     "current": 0,
-    "max": 0
+    "base": 0
   },
   "hope": {
     "current": 0,
-    "max": 0
+    "base": 0
   },
   "defense": {
     "current": 0,
-    "max": 0
+    "base": 0
   },
   "load": 0,
   "shadow": 0,
@@ -183,17 +188,14 @@
     "afraid": false,
     "troubled": false
   },
-  "speed": 0,
-  "nimbleStep": 0,
-  "manaPool": {
-    "white": [],
-    "blue": [],
-    "black": [],
-    "red": [],
-    "green": [],
-    "colorless": []
-  },
+  "engagementDiceStatuses": {},
   "equipment": [],
+  "groupEquipmentBySource": false,
+  "equipmentSortOption": "name-asc",
+  "mp": {
+    "current": 0,
+    "base": 0
+  },
   "abilities": [
     {
       "id": "1e289ca8-cf6a-4f0d-ad7c-a13fc8e1f381",
@@ -205,27 +207,15 @@
       }
     }
   ],
-  "featuredArtUrls": [
-    "https://cdn.midjourney.com/f47a6f0c-8192-460b-976e-5875358952bb/0_3.png"
-  ],
-  "engagementDiceStatuses": {},
-  "biomeTags": [],
-  "biomeId": null,
-  "activeEffects": [],
-  "witchcraftTokens": [],
-  "witchcraftTalismans": [],
-  "summonerVessels": [],
   "groupAbilitiesBySource": false,
   "groupAbilitiesByManaColor": false,
-  "groupEquipmentBySource": false,
   "abilitySortOption": "name-asc",
-  "equipmentSortOption": "name-asc",
   "autoCalculations": {
     "load": true,
-    "statesAndEffects": true,
-    "maxEndurance": true,
-    "maxHope": true,
-    "maxDefense": true
+    "states": true,
+    "baseEndurance": true,
+    "baseHope": true,
+    "baseDefense": true
   },
   "rollStats": {
     "skillChecks": {
@@ -252,15 +242,20 @@
       }
     }
   },
-  "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2026-05-07T19:00:43.493Z",
-  "ancestryIds": [
-    "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
-    "2e46823f-bec7-4d70-b323-dbc8b71c7739"
-  ],
-  "cultureIds": [
-    "c114dc0e-d6ca-4115-be35-684dead36de2",
-    "40086e18-eaba-411a-b4ec-7a0a7fd42d37"
-  ],
-  "mestiereId": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa"
+  "biomeTags": [],
+  "biomeId": null,
+  "nimbleStep": 0,
+  "manaPool": {
+    "white": [],
+    "blue": [],
+    "black": [],
+    "red": [],
+    "green": [],
+    "colorless": []
+  },
+  "witchcraftTokens": [],
+  "summonerVessels": [],
+  "campaignId": "2216d52f-f74d-479e-b440-f7b5aa6319e5",
+  "isNPC": true,
+  "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1"
 }

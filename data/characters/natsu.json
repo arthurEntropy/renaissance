@@ -1,10 +1,8 @@
 {
   "id": 5,
+  "lastModified": "2026-04-28T17:57:04.383Z",
   "name": "Natsu",
-  "isBeast": false,
   "pronouns": "they/them",
-  "ancestries": "Human",
-  "cultures": "Asana Commune",
   "ancestryIds": [
     "77e4f81a-728f-49a7-a013-4d6f666353e2",
     "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
@@ -13,11 +11,18 @@
     "352c844b-6d4f-4b61-b475-315421a453e7",
     "cdc93466-8327-4096-a8c2-04cccf3e3835"
   ],
+  "mestiereId": "937d52da-0ebf-4d74-b3ee-be395f2f5d0a",
+  "featuredArtUrls": [
+    "https://cdn.midjourney.com/a6773dd7-3da8-4349-9212-b021c7aa09f7/0_2.png"
+  ],
+  "age": 23,
+  "heightFeet": 4,
+  "heightInches": 10,
+  "weight": 95,
+  "keeping": "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d",
   "xp": 10,
-  "mp": {
-    "current": 5,
-    "max": 5
-  },
+  "notes": "Arrived too late to join the Asana Commune before it was destroyed. Squatting in the ruins. Big speech impediment.",
+  "isBeast": false,
   "body": 3,
   "heart": 4,
   "wits": 2,
@@ -145,15 +150,15 @@
   ],
   "endurance": {
     "current": 10,
-    "max": 15
+    "base": 15
   },
   "hope": {
     "current": 8,
-    "max": 8
+    "base": 8
   },
   "defense": {
     "current": 13,
-    "max": 12
+    "base": 12
   },
   "load": 0,
   "shadow": 0,
@@ -202,6 +207,19 @@
       "customGroupId": null
     }
   ],
+  "groupEquipmentBySource": false,
+  "groupEquipmentByCustom": false,
+  "equipmentSortOption": "name-asc",
+  "equipmentCustomGroups": [
+    {
+      "id": "11712a09-e1b1-4c70-b47e-26d8245a8855",
+      "name": "Cool Bits"
+    }
+  ],
+  "mp": {
+    "current": 5,
+    "base": 5
+  },
   "abilities": [
     {
       "id": "b647caa0-11d8-4a34-b384-fde758eaf90e",
@@ -267,36 +285,16 @@
       "customGroupId": null
     }
   ],
-  "activeEffects": [
+  "groupAbilitiesBySource": false,
+  "groupAbilitiesByManaColor": false,
+  "groupAbilitiesByCustom": false,
+  "abilitySortOption": "xp-asc",
+  "abilityCustomGroups": [
     {
-      "name": "Weird But Entertaining",
-      "skillsModified": [
-        {
-          "key": "awe",
-          "diceMod": -1,
-          "makeFavored": false,
-          "makeIllFavored": false
-        },
-        {
-          "key": "perform",
-          "diceMod": 1,
-          "makeFavored": false,
-          "makeIllFavored": false
-        }
-      ]
+      "id": "05f73331-5708-4305-a84c-bc4e8b4eb491",
+      "name": "Cool Spells"
     }
   ],
-  "featuredArtUrls": [
-    "https://cdn.midjourney.com/a6773dd7-3da8-4349-9212-b021c7aa09f7/0_2.png"
-  ],
-  "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2026-04-28T17:57:04.383Z",
-  "lastModified": "2026-04-28T17:57:04.383Z",
-  "mestiereId": "937d52da-0ebf-4d74-b3ee-be395f2f5d0a",
-  "age": 23,
-  "heightFeet": 4,
-  "heightInches": 10,
-  "weight": 95,
   "rollStats": {
     "skillChecks": {
       "attempts": 6,
@@ -331,25 +329,6 @@
     "temperate"
   ],
   "biomeId": "c5adb6ab-3ae3-4521-8714-f7581d045e32",
-  "groupAbilitiesBySource": false,
-  "groupEquipmentBySource": false,
-  "groupEquipmentByCustom": false,
-  "equipmentCustomGroups": [
-    {
-      "id": "11712a09-e1b1-4c70-b47e-26d8245a8855",
-      "name": "Cool Bits"
-    }
-  ],
-  "groupAbilitiesByManaColor": false,
-  "groupAbilitiesByCustom": false,
-  "abilityCustomGroups": [
-    {
-      "id": "05f73331-5708-4305-a84c-bc4e8b4eb491",
-      "name": "Cool Spells"
-    }
-  ],
-  "abilitySortOption": "xp-asc",
-  "equipmentSortOption": "name-asc",
-  "notes": "Arrived too late to join the Asana Commune before it was destroyed. Squatting in the ruins. Big speech impediment.",
-  "keeping": "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d"
+  "witchcraftTokens": [],
+  "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1"
 }

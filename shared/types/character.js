@@ -1,19 +1,9 @@
 import { SKILLS } from '../constants/characterConstants.js'
 import { createBaseEntity } from './baseEntity.js'
 
-function createDefaultSkills() {
-  return Object.values(SKILLS).map((skill) => ({
-    key: skill.key,
-    ranks: 0,
-    isFavored: false,
-    isIllFavored: 'defaultIllFavored' in skill && Boolean(skill.defaultIllFavored),
-    diceMod: 0,
-    manualDiceMod: 0,
-  }))
-}
-
 /**
  * @typedef {import('./baseEntity.js').BaseEntity} BaseEntity
+ * @typedef {import('./dice.js').DieSize} DieSize
  */
 
 /**
@@ -23,73 +13,82 @@ function createDefaultSkills() {
  * @property {boolean} isFavored - Whether this skill is favored
  * @property {boolean} isIllFavored - Whether this skill is ill-favored
  * @property {number} diceMod - Dice modifier from conditions/states/effects (auto-calculated)
- * @property {number} manualDiceMod - Manual dice modifier set by user
+ * @property {number} manualDiceMod - Manual dice modifier set by user via the UI
  */
 
 /**
  * @typedef {Object} StatPool
  * @property {number} current - Current value
- * @property {number} max - Maximum value
+ * @property {number} base - Base value
  */
 
 /**
  * @typedef {Object} CharacterStates
- * @property {boolean} weary - Character is weary
- * @property {boolean} twiceWeary - Character is twice weary
- * @property {boolean} miserable - Character is miserable
- * @property {boolean} twiceMiserable - Character is twice miserable
- * @property {boolean} helpless - Character is helpless
- * @property {boolean} twiceHelpless - Character is twice helpless
+ * @property {boolean} weary - Whether the character is weary
+ * @property {boolean} twiceWeary - Whether the character is twice weary
+ * @property {boolean} miserable - Whether the character is miserable
+ * @property {boolean} twiceMiserable - Whether the character is twice miserable
+ * @property {boolean} helpless - Whether the character is helpless
+ * @property {boolean} twiceHelpless - Whether the character is twice helpless
  */
 
 /**
  * @typedef {Object} CharacterConditions
- * @property {boolean} insecure - Character is insecure
- * @property {boolean} guilty - Character is guilty
- * @property {boolean} angry - Character is angry
- * @property {boolean} afraid - Character is afraid
- * @property {boolean} troubled - Character is troubled
+ * @property {boolean} insecure - Whether the character is insecure
+ * @property {boolean} guilty - Whether the character is guilty
+ * @property {boolean} angry - Whether the character is angry
+ * @property {boolean} afraid - Whether the character is afraid
+ * @property {boolean} troubled - Whether the character is troubled
  */
 
 /**
- * @typedef {Object} CharacterEquipmentItem
- * @property {string} id - Equipment ID reference
+ * @typedef {Object} CharacterEquipment
+ * @property {UUID} id - Equipment ID reference
  * @property {number} quantity - Number of items
  * @property {boolean} isCarried - Whether item is currently carried
- * @property {boolean} [isWielding] - Whether item is currently wielded
+ * @property {boolean} [isWielding] - Whether item is currently wielded or worn
+ * @property {number|null} [difficulty] - Set difficulty for the item
+ * 
+ * // Display properties
  * @property {number} index - Display order index
  * @property {boolean} collapsed - Whether item display is collapsed in UI
  * @property {boolean} artExpanded - Whether art view is expanded in UI
  * @property {number} [columnIndex] - Column index (0-2) in the three-column layout
- * @property {string|null} [customGroupId] - ID of the custom group this item belongs to
- * @property {number|null} [difficulty] - Set difficulty for Hunter's Trap items
- * @property {string|null} [pendingDiscoveryAbilityId] - Ability pre-selected for Mesmer's Mask discovery, persisted until claimed
+ * @property {UUID|null} [customGroupId] - ID of the custom group this item belongs to
+ * 
+ * // Mesmer's mask
+ * @property {UUID|null} [pendingDiscoveryAbilityId] - Ability pre-selected for Mesmer's Mask discovery, persisted until claimed
+ * @property {number|null} [discoveryNumber] - Discovery roll result tracked for Mesmer's Mask workflow
+ */
+
+/**
+ * @typedef {Object} CharacterAbility
+ * @property {UUID} id - Ability ID reference
+ * @property {boolean} collapsed - Whether ability display is collapsed in UI
+ * @property {boolean} showImprovements - Whether improvements section is expanded in UI
+ * @property {boolean} showSuccesses - Whether successes section is expanded in UI
+ * @property {Object.<UUID, boolean>} [improvements] - Map of improvement IDs to ownership status
+ * @property {number} [columnIndex] - Column index (0-2) in the three-column layout
+ * @property {UUID|null} [customGroupId] - ID of the custom group this ability belongs to
+ * @property {number|null} [difficulty] - Set difficulty for abilities that allow one
  */
 
 /**
  * @typedef {Object} WitchcraftToken
- * @property {string} id - Local UUID
- * @property {string|null} abilityId - ID of the stored spell ability
+ * @property {UUID} id - Local UUID
+ * @property {UUID|null} abilityId - ID of the spell ability stored in this token
+ * @property {boolean} [isTalisman] - Whether this entry is a talisman (true) instead of a token (false/default)
  * @property {string} imageUrl - Icon path or custom image URL
  * @property {string} givenTo - Who currently holds this token
  * @property {string} notes - Optional notes (e.g. contingency triggers)
  */
 
 /**
- * @typedef {Object} WitchcraftTalisman
- * @property {string} id - Local UUID
- * @property {string|null} abilityId - ID of the stored spell ability
- * @property {string} imageUrl - Icon path or custom image URL
- * @property {string} givenTo - Who currently holds this talisman
- * @property {string} notes - Optional notes (e.g. contingency triggers)
- */
-
-/**
  * @typedef {Object} SummonerVessel
- * @property {string} id - Local UUID
- * @property {string|null} beastId - ID of the captured beast character (null if vessel is empty)
+ * @property {UUID} id - Local UUID
+ * @property {UUID|null} beastId - ID of the captured beast character (null if vessel is empty)
  * @property {number} friendship - 0–10 friendship score with the captured beast
- * @property {boolean} isActive - Whether this vessel is primed for the current rest
+ * @property {boolean} isActive - Whether this vessel is chosen as active for the current per-rest period
  * @property {boolean} isSummoned - Whether the creature is currently out of its vessel
  * @property {'standard'|'great'|'ultra'|'maestro'} vesselType - Quality tier of the vessel
  * @property {string} vesselNote - Optional player description of the physical vessel object
@@ -97,48 +96,62 @@ function createDefaultSkills() {
  */
 
 /**
- * @typedef {Object} CharacterAbilityItem
- * @property {string} id - Ability ID reference
- * @property {boolean} collapsed - Whether ability display is collapsed in UI
- * @property {boolean} showImprovements - Whether improvements section is expanded in UI
- * @property {boolean} showSuccesses - Whether successes section is expanded in UI
- * @property {Object.<string, boolean>} [improvements] - Map of improvement IDs to ownership status
- * @property {number} [columnIndex] - Column index (0-2) in the three-column layout
- * @property {string|null} [customGroupId] - ID of the custom group this ability belongs to
- * @property {number|null} [difficulty] - Set difficulty for abilities that require one
+ * @typedef {Object} AutoCalculationsSettings
+ * @property {boolean} load - Whether to auto-calculate load
+ * @property {boolean} states - Whether to auto-apply states and effects
+ * @property {boolean} baseEndurance - Whether to auto-calculate max endurance from Body
+ * @property {boolean} baseHope - Whether to auto-calculate max hope from Heart
+ * @property {boolean} baseDefense - Whether to auto-calculate max defense from Wits (+ armor bonus)
  */
 
 /**
-
- * @typedef {Object} ActiveEffect
- * @property {string} name - Effect name
- * @property {Object[]} skillsModified - Skills affected by this effect
- * @property {string} skillsModified[].key - Stable skill identifier
- * @property {number} skillsModified[].diceMod - Dice modifier
- * @property {boolean} [skillsModified[].makeFavored] - Make skill favored
- * @property {boolean} [skillsModified[].makeIllFavored] - Make skill ill-favored
+ * @typedef {Object} RollStats
+ * @property {Object} skillChecks - Skill check statistics
+ * @property {number} skillChecks.attempts - Number of skill checks attempted
+ * @property {number} skillChecks.successes - Number of successful skill checks
+ * @property {number} skillChecks.totalSum - Sum of all skill check totals
+ * @property {number|null} skillChecks.bestTotal - Highest skill check total
+ * @property {number|null} skillChecks.hardestSuccess - Highest difficulty successfully beaten
+ * @property {Object.<string, number>} skillChecks.bySkill - Skill usage counts
+ * @property {number} skillChecks.solCount - Number of Sol outcomes rolled on d12
+ * @property {number} skillChecks.morteCount - Number of Morte outcomes rolled on d12
+ * @property {number} skillChecks.successCount - Number of d6 successes rolled
+ * @property {Object} contests - Contest result statistics
+ * @property {Object} contests.engagement - Engagement win/loss/draw counts
+ * @property {Object} contests.opposed - Opposed skill check win/loss/draw counts
  */
 
 /**
  * @typedef {Object} CharacterFields
+ * 
+ * // Character Profile
  * @property {string} name - Character name
- * @property {boolean} isBeast - Whether this is a beast/creature
- * @property {number} challenge - Challenge rating for beasts (0 = not applicable)
- * @property {string} description - Beast description
- * @property {number} size - Beast size value
- * @property {number} reach - Beast reach in feet
  * @property {string} pronouns - Character pronouns
- * @property {string} ancestries - Ancestry IDs (comma-separated)
- * @property {string} cultures - Culture IDs (comma-separated)
- * @property {string} notes - Character notes and background text
- * @property {string|null} keeping - Keeping level ID reference
- * @property {number} treasure - Character treasure
- * @property {number} age - Character age
+ * @property {UUID[]} ancestryIds - Selected ancestry concept IDs
+ * @property {UUID[]} cultureIds - Selected culture concept IDs
+ * @property {UUID|null} mestiereId - Selected mestiere concept ID
+ * @property {string[]} featuredArtUrls - Character art URLs
+ * @property {number} age - Character age, in years
  * @property {number} heightFeet - Character height (feet)
  * @property {number} heightInches - Character height (inches)
  * @property {number} weight - Character weight
+ * @property {number} speed - Movement speed
+ * @property {UUID|null} keeping - Keeping level ID reference
+ * @property {number} treasure - Character's current treasure
  * @property {number} xp - Experience points
- * @property {StatPool} mp - Mestiere points
+ * @property {string} notes - Character notes
+ * 
+ * // Beast-specific fields
+ * @property {boolean} isBeast - Whether this is a beast character
+ * @property {null|'template'|'instance'} beastType - Beast classification; null = not a beast, 'template' = bestiary entry, 'instance' = campaign creature
+ * @property {string|null} templateId - For beastType='instance', references the source template character
+ * @property {number} challenge - Challenge rating for beasts (0 = not applicable)
+ * @property {string|null} [templateName] - For beastType='instance', cached source template display name
+ * @property {string} description - Beast description
+ * @property {number} size - Beast size value
+ * @property {number} reach - Beast reach, in feet
+ * 
+ * // Core abilities and derived stats
  * @property {number} body - Body attribute
  * @property {number} heart - Heart attribute
  * @property {number} wits - Wits attribute
@@ -151,94 +164,104 @@ function createDefaultSkills() {
  * @property {number} injury - Injury points
  * @property {CharacterStates} states - Character states
  * @property {CharacterConditions} conditions - Character conditions
- * @property {number} speed - Movement speed
- * @property {number} nimbleStep - Nimble speed-to-action conversion step (0 = full movement, increments by 1 per 10 ft traded)
- * @property {Object} manaPool - Channeler mana pool; each key is a mana color, value is an array of booleans (true = tapped)
- * @property {CharacterEquipmentItem[]} equipment - Equipped items
- * @property {CharacterAbilityItem[]} abilities - Character abilities with UI state
- * @property {string|null} campaignId - If set, this character belongs to a campaign (NPC or beast instance)
- * @property {boolean} isNPC - True for GM-controlled humanoid characters within a campaign
- * @property {null|'template'|'instance'} beastType - Beast classification; null = not a beast, 'template' = bestiary entry, 'instance' = campaign creature
- * @property {string|null} templateId - For beastType='instance', references the source template character
- * @property {string[]} featuredArtUrls - Character art URLs
- * @property {string[]} [biomeTags] - Active biome tags affecting this character
- * @property {string|null} [biomeId] - Selected biome ID
+ * 
+ * // Engagement Dice
+ * @property {DieSize[]} engagementDice - User-added engagement dice values
+ * @property {UUID[]} engagementSuccesses - User-added engagement success IDs
  * @property {Object.<string, string>} engagementDiceStatuses - Saved engagement die statuses keyed by die identifier
- * @property {ActiveEffect[]} activeEffects - Currently active effects
+ * 
+ * //Equipment
+ * @property {CharacterEquipment[]} equipment - Equipped items
+ * @property {boolean} groupEquipmentBySource - Whether to group equipment by source
+ * @property {boolean} [groupEquipmentByCustom] - Whether to group equipment by custom user-defined groups
+ * @property {string} equipmentSortOption - Sort option for equipment
+ * @property {Array<{id: string, name: string}>} [equipmentCustomGroups] - User-defined equipment group definitions
+ * 
+ * // MP & Abilities
+ * @property {StatPool} mp - Mestiere points
+ * @property {CharacterAbility[]} abilities - Character abilities with UI state
  * @property {boolean} groupAbilitiesBySource - Whether to group abilities by source
  * @property {boolean} groupAbilitiesByManaColor - Whether to group abilities by mana color
  * @property {boolean} [groupAbilitiesByCustom] - Whether to group abilities by custom user-defined groups
- * @property {boolean} groupEquipmentBySource - Whether to group equipment by source
- * @property {boolean} [groupEquipmentByCustom] - Whether to group equipment by custom user-defined groups
- * @property {Array<{id: string, name: string}>} [abilityCustomGroups] - User-defined ability group definitions
- * @property {Array<{id: string, name: string}>} [equipmentCustomGroups] - User-defined equipment group definitions
  * @property {string} abilitySortOption - Sort option for abilities
- * @property {string} equipmentSortOption - Sort option for equipment
- * @property {Object} autoCalculations - Auto-calculation settings
- * @property {boolean} autoCalculations.load - Whether to auto-calculate load
- * @property {boolean} autoCalculations.statesAndEffects - Whether to auto-apply states and effects
- * @property {boolean} autoCalculations.maxEndurance - Whether to auto-calculate max endurance from Body
- * @property {boolean} autoCalculations.maxHope - Whether to auto-calculate max hope from Heart
- * @property {boolean} autoCalculations.maxDefense - Whether to auto-calculate max defense from Wits (+ armor bonus)
- * @property {Object} rollStats - Aggregate roll statistics for this character
- * @property {Object} rollStats.skillChecks - Skill check statistics
- * @property {number} rollStats.skillChecks.attempts - Number of skill checks attempted
- * @property {number} rollStats.skillChecks.successes - Number of successful skill checks
- * @property {number} rollStats.skillChecks.totalSum - Sum of all skill check totals
- * @property {number|null} rollStats.skillChecks.bestTotal - Highest skill check total
- * @property {number|null} rollStats.skillChecks.hardestSuccess - Highest difficulty successfully beaten
- * @property {Object.<string, number>} rollStats.skillChecks.bySkill - Skill usage counts
- * @property {number} rollStats.skillChecks.solCount - Number of Sol outcomes rolled on d12
- * @property {number} rollStats.skillChecks.morteCount - Number of Morte outcomes rolled on d12
- * @property {number} rollStats.skillChecks.successCount - Number of d6 successes rolled
- * @property {Object} rollStats.contests - Contest result statistics
- * @property {Object} rollStats.contests.engagement - Engagement win/loss/draw counts
- * @property {Object} rollStats.contests.opposed - Opposed skill check win/loss/draw counts
- * @property {WitchcraftToken[]} witchcraftTokens - Active witchcraft tokens (Witch mestiere only)
- * @property {WitchcraftTalisman[]} witchcraftTalismans - Active witchcraft talismans (Witch mestiere only)
+ * @property {Array<{id: string, name: string}>} [abilityCustomGroups] - User-defined ability group definitions
+ * 
+ * // Settings & Stats
+ * @property {AutoCalculationsSettings} autoCalculations - Auto-calculation settings
+ * @property {RollStats} rollStats - Aggregate roll statistics for this character
+ * 
+ * // Mestiere-specific fields
+ * @property {string[]} [biomeTags] - Active biome tags affecting this character
+ * @property {string|null} [biomeId] - Selected biome ID
+ * @property {number} nimbleStep - Acrobat: Nimble speed-to-action conversion step (0 = full movement, increments by 1 per 10 ft traded)
+ * @property {number} [swagger] - Landsknecht swagger pips currently filled
+ * @property {number} [swaggerIconIndex] - Landsknecht swagger icon variant index
+ * @property {string} [swaggerColor] - Landsknecht swagger icon tint color
+ * @property {Object} manaPool - Channeler: each key is a mana color, value is an array of booleans (true = tapped)
+ * @property {WitchcraftToken[]} witchcraftTokens - Active witchcraft items (tokens and talismans) (Witch mestiere only)
  * @property {SummonerVessel[]} summonerVessels - Vessels carried by this Summoner character
+ * 
+ * // Campaign-related fields
+ * @property {string|null} campaignId - If set, this character belongs to a campaign (NPC or beast instance)
+ * @property {boolean} isNPC - True for GM-controlled humanoid characters within a campaign
+ * @property {string|null} [ownerId] - Owner user ID used by backend authorization
+ * @property {string|null} [userId] - Legacy/compat owner user ID used by some frontend checks
  */
 
 /**
  * @typedef {BaseEntity & CharacterFields} Character
  */
 
-/**
- * Creates a new default Character
- * @returns {Character}
- */
+function createDefaultSkills() {
+  return Object.values(SKILLS).map((skill) => ({
+    key: skill.key,
+    ranks: 0,
+    isFavored: false,
+    isIllFavored: 'defaultIllFavored' in skill && Boolean(skill.defaultIllFavored),
+    diceMod: 0,
+    manualDiceMod: 0,
+  }))
+}
+
 export function createDefaultCharacter() {
   return {
     ...createBaseEntity(),
+
+    // Character Profile
     name: 'New Character',
-    isBeast: false,
-    campaignId: null,
-    isNPC: false,
-    beastType: null,
-    templateId: null,
-    challenge: 0,
-    description: '',
-    size: 0,
-    reach: 0,
     pronouns: '',
-    ancestries: '',
-    cultures: '',
-    notes: '',
-    keeping: null,
-    treasure: 0,
+    ancestryIds: [],
+    cultureIds: [],
+    mestiereId: null,
+    featuredArtUrls: ['https://cdn.midjourney.com/a8a36740-b7d3-4aef-bea3-a95039bec06f/0_2.png'],
     age: 0,
     heightFeet: 0,
     heightInches: 0,
     weight: 0,
+    speed: 0,
+    keeping: null,
+    treasure: 0,
     xp: 0,
-    mp: { current: 0, max: 0 },
+    notes: '',
+
+    // Beast-specific fields
+    isBeast: false,
+    beastType: null,
+    templateId: null,
+    challenge: 0,
+    templateName: null,
+    description: '',
+    size: 0,
+    reach: 0,
+
+    // Core abilities and derived stats
     body: 0,
     heart: 0,
     wits: 0,
     skills: createDefaultSkills(),
-    endurance: { current: 0, max: 0 },
-    hope: { current: 0, max: 0 },
-    defense: { current: 0, max: 0 },
+    endurance: { current: 0, base: 0 },
+    hope: { current: 0, base: 0 },
+    defense: { current: 0, base: 0 },
     load: 0,
     shadow: 0,
     injury: 0,
@@ -257,30 +280,35 @@ export function createDefaultCharacter() {
       afraid: false,
       troubled: false,
     },
-    speed: 0,
-    nimbleStep: 0,
-    manaPool: { white: [], blue: [], black: [], red: [], green: [], colorless: [] },
-    equipment: [],
-    abilities: [],
-    featuredArtUrls: ['https://cdn.midjourney.com/a8a36740-b7d3-4aef-bea3-a95039bec06f/0_2.png'],
+
+    // Engagement Dice
+    engagementDice: [],
+    engagementSuccesses: [],
     engagementDiceStatuses: {},
-    biomeTags: [],
-    biomeId: null,
-    activeEffects: [],
-    witchcraftTokens: [],
-    witchcraftTalismans: [],
-    summonerVessels: [],
+
+    // Equipment
+    equipment: [],
+    groupEquipmentBySource: false,
+    groupEquipmentByCustom: false,
+    equipmentSortOption: 'name-asc',
+    equipmentCustomGroups: [],
+
+    // MP & Abilities
+    mp: { current: 0, base: 0 },
+    abilities: [],
     groupAbilitiesBySource: false,
     groupAbilitiesByManaColor: false,
-    groupEquipmentBySource: false,
+    groupAbilitiesByCustom: false,
     abilitySortOption: 'name-asc',
-    equipmentSortOption: 'name-asc',
+    abilityCustomGroups: [],
+
+    // Settings & Stats
     autoCalculations: {
       load: true,
-      statesAndEffects: true,
-      maxEndurance: true,
-      maxHope: true,
-      maxDefense: true,
+      states: true,
+      baseEndurance: true,
+      baseHope: true,
+      baseDefense: true,
     },
     rollStats: {
       skillChecks: {
@@ -299,5 +327,22 @@ export function createDefaultCharacter() {
         opposed: { wins: 0, losses: 0, draws: 0 },
       },
     },
+
+    // Mestiere-specific fields
+    biomeTags: [],
+    biomeId: null,
+    nimbleStep: 0,
+    swagger: 0,
+    swaggerIconIndex: 0,
+    swaggerColor: '#ffffff',
+    manaPool: { white: [], blue: [], black: [], red: [], green: [], colorless: [] },
+    witchcraftTokens: [],
+    summonerVessels: [],
+
+    // Campaign-related fields
+    campaignId: null,
+    isNPC: false,
+    ownerId: null,
+    userId: null,
   }
 }

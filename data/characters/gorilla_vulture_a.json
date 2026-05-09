@@ -1,18 +1,22 @@
 {
   "id": "7f60872d-f49a-43ad-bd97-48d1b9f8d181",
+  "createdAt": "2026-05-01T15:41:43.832Z",
+  "lastModified": "2026-05-01T15:41:43.836Z",
   "name": "Gorilla Vulture A",
-  "isBeast": true,
   "pronouns": "",
-  "ancestries": "",
-  "cultures": "",
   "ancestryIds": [],
   "cultureIds": [],
-  "mestiereId": "",
+  "mestiereId": null,
+  "featuredArtUrls": [
+    "https://cdn.midjourney.com/50436a93-c108-4e5a-9142-74abf3868c4e/0_1.png"
+  ],
+  "speed": 0,
   "xp": 0,
-  "mp": {
-    "current": 0,
-    "max": 0
-  },
+  "notes": "",
+  "isBeast": true,
+  "beastType": "instance",
+  "templateId": "291d9cc9-68e5-4054-83b8-841ba330c6f4",
+  "templateName": "Gorilla Vulture",
   "body": 6,
   "heart": 1,
   "wits": 4,
@@ -140,20 +144,19 @@
   ],
   "endurance": {
     "current": 0,
-    "max": 30
+    "base": 30
   },
   "hope": {
     "current": 0,
-    "max": 3
+    "base": 3
   },
   "defense": {
     "current": 0,
-    "max": 14
+    "base": 14
   },
   "load": 0,
   "shadow": 0,
   "injury": 0,
-  "speed": 0,
   "states": {
     "weary": false,
     "twiceWeary": false,
@@ -170,18 +173,12 @@
     "troubled": false
   },
   "equipment": [],
+  "mp": {
+    "current": 0,
+    "base": 0
+  },
   "abilities": [],
-  "activeEffects": [],
-  "featuredArtUrls": [
-    "https://cdn.midjourney.com/50436a93-c108-4e5a-9142-74abf3868c4e/0_1.png"
-  ],
-  "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "createdAt": "2026-05-01T15:41:43.832Z",
-  "updatedAt": "2025-10-29T19:51:44.544Z",
-  "notes": "",
-  "beastType": "instance",
-  "templateId": "291d9cc9-68e5-4054-83b8-841ba330c6f4",
-  "templateName": "Gorilla Vulture",
+  "witchcraftTokens": [],
   "campaignId": "2216d52f-f74d-479e-b440-f7b5aa6319e5",
-  "lastModified": "2026-05-01T15:41:43.836Z"
+  "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1"
 }

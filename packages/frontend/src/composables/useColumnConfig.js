@@ -33,8 +33,8 @@ export function useColumnConfig(coreAbility, character) {
   })
 
   const virtueValue = computed(() => {
-    if (!virtueConfig.value || !character.value) return { current: 0, max: 0 }
-    return character.value[virtueConfig.value.key] || { current: 0, max: 0 }
+    if (!virtueConfig.value || !character.value) return { current: 0, base: 0 }
+    return character.value[virtueConfig.value.key] || { current: 0, base: 0 }
   })
 
   const weaknessValue = computed(() => {

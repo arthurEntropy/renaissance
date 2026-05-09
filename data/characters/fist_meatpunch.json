@@ -1,10 +1,8 @@
 {
   "id": 2,
+  "lastModified": "2026-04-28T18:19:03.158Z",
   "name": "Fist Meatpunch",
-  "isBeast": false,
   "pronouns": "he/him",
-  "ancestries": "Human",
-  "cultures": "Guildford",
   "ancestryIds": [
     "ba7af7ad-54d2-4b45-86ad-71781d4cdb33",
     "f9e8d7c6-b5a4-9382-7165-0f9e8d7c6b5a"
@@ -14,11 +12,19 @@
     "01869d39-1961-4c8d-941d-744ce1d51bbd"
   ],
   "mestiereId": "e0a69b6f-38f9-4fa5-a1ef-5e5777299e82",
+  "featuredArtUrls": [
+    "https://cdn.midjourney.com/579f1913-10e8-438c-9d1d-949151eb171c/0_0.png"
+  ],
+  "age": 32,
+  "heightFeet": 6,
+  "heightInches": 2,
+  "weight": 225,
+  "speed": 30,
+  "keeping": "4d5e6f7a-8b9c-4d0e-1f2a-3b4c5d6e7f8a",
+  "treasure": 23,
   "xp": 0,
-  "mp": {
-    "current": 0,
-    "max": 0
-  },
+  "notes": "<p>A strong fella with one normal-sized hand and one gargantuan one.</p>",
+  "isBeast": false,
   "body": 6,
   "heart": 3,
   "wits": 5,
@@ -146,20 +152,19 @@
   ],
   "endurance": {
     "current": 30,
-    "max": 30
+    "base": 30
   },
   "hope": {
     "current": 6,
-    "max": 6
+    "base": 6
   },
   "defense": {
     "current": 15,
-    "max": 15
+    "base": 15
   },
   "load": 0,
   "shadow": 0,
   "injury": 0,
-  "speed": 30,
   "states": {
     "weary": false,
     "twiceWeary": false,
@@ -175,9 +180,14 @@
     "afraid": false,
     "troubled": false
   },
-  "equipment": [],
   "engagementDice": [],
   "engagementSuccesses": [],
+  "engagementDiceStatuses": {},
+  "equipment": [],
+  "mp": {
+    "current": 0,
+    "base": 0
+  },
   "abilities": [
     {
       "id": "f1d0e5f7-bb30-4251-a575-8d31c113fe1a",
@@ -229,19 +239,6 @@
       "showSuccesses": false
     }
   ],
-  "activeEffects": [],
-  "featuredArtUrls": [
-    "https://cdn.midjourney.com/579f1913-10e8-438c-9d1d-949151eb171c/0_0.png"
-  ],
-  "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2026-04-28T18:19:03.158Z",
-  "lastModified": "2026-04-28T18:19:03.158Z",
-  "age": 32,
-  "weight": 225,
-  "heightFeet": 6,
-  "heightInches": 2,
-  "engagementDiceStatuses": {},
-  "notes": "<p>A strong fella with one normal-sized hand and one gargantuan one.</p>",
-  "keeping": "4d5e6f7a-8b9c-4d0e-1f2a-3b4c5d6e7f8a",
-  "treasure": 23
+  "witchcraftTokens": [],
+  "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1"
 }
