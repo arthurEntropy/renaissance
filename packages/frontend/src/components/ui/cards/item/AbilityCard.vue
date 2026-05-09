@@ -171,7 +171,6 @@ const traitOrMp = computed(() => {
   const parts = []
   if (props.ability.actionCost) {
     const abilityType = actionTypesStore.getById(props.ability.actionCost)
-    console.log('Ability action cost type:', abilityType)
     if (abilityType) {
       parts.push(abilityType.name.toLowerCase())
     }

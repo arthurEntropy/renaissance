@@ -57,7 +57,7 @@ import NumberInput from '@/components/ui/forms/NumberInput.vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 import { NUMBER_INPUT_SIZES } from '@/constants/numberInput'
-import { STAT_ROW_TYPES } from '@shared/constants/characterConstants'
+import { STAT_ROW_TYPES } from '@/constants/statRowTypes'
 
 // Props
 const props = defineProps({

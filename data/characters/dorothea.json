@@ -21,140 +21,137 @@
   "wits": 1,
   "skills": [
     {
-      "name": "Awe",
+      "key": "awe",
       "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": -1,
-      "coreAbility": "body"
+      "manualDiceMod": 0
     },
     {
-      "name": "Strength",
+      "key": "strength",
       "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "coreAbility": "body"
+      "manualDiceMod": 0
     },
     {
-      "name": "Dexterity",
+      "key": "dexterity",
       "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "coreAbility": "body"
+      "manualDiceMod": 0
     },
     {
-      "name": "Fortitude",
+      "key": "fortitude",
       "ranks": 0,
       "isFavored": true,
       "isIllFavored": false,
       "diceMod": 0,
-      "coreAbility": "body"
+      "manualDiceMod": 0
     },
     {
-      "name": "Craft",
+      "key": "craft",
       "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": -1,
-      "coreAbility": "body"
+      "manualDiceMod": 0
     },
     {
-      "name": "Perform",
+      "key": "perform",
       "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 1,
-      "coreAbility": "heart"
+      "manualDiceMod": 0
     },
     {
-      "name": "Insight",
+      "key": "insight",
       "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "coreAbility": "heart"
+      "manualDiceMod": 0
     },
     {
-      "name": "Courtesy",
+      "key": "courtesy",
       "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "coreAbility": "heart"
+      "manualDiceMod": 0
     },
     {
-      "name": "Spirit",
+      "key": "spirit",
       "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "coreAbility": "heart"
+      "manualDiceMod": 0
     },
     {
-      "name": "Aid",
-      "ranks": 0,
-      "isFavored": false,
-      "isIllFavored": true,
-      "diceMod": -1,
-      "coreAbility": "heart"
-    },
-    {
-      "name": "Persuade",
-      "ranks": 1,
-      "isFavored": false,
-      "isIllFavored": false,
-      "diceMod": 0,
-      "coreAbility": "wits"
-    },
-    {
-      "name": "Awareness",
-      "ranks": 1,
-      "isFavored": false,
-      "isIllFavored": false,
-      "diceMod": 0,
-      "coreAbility": "wits"
-    },
-    {
-      "name": "Stealth",
-      "ranks": 0,
-      "isFavored": false,
-      "isIllFavored": false,
-      "diceMod": 0,
-      "coreAbility": "wits"
-    },
-    {
-      "name": "Lore",
-      "ranks": 1,
-      "isFavored": false,
-      "isIllFavored": false,
-      "diceMod": 0,
-      "coreAbility": "wits"
-    },
-    {
-      "name": "Riddle",
+      "key": "aid",
       "ranks": 0,
       "isFavored": false,
       "isIllFavored": true,
       "diceMod": -1,
-      "coreAbility": "wits"
+      "manualDiceMod": 0
+    },
+    {
+      "key": "persuade",
+      "ranks": 1,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "awareness",
+      "ranks": 1,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "stealth",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "lore",
+      "ranks": 1,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "riddle",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": true,
+      "diceMod": -1,
+      "manualDiceMod": 0
     }
   ],
   "endurance": {
     "current": 15,
-    "max": 75,
-    "coreAbility": "body"
+    "max": 75
   },
   "hope": {
     "current": 12,
-    "max": 30,
-    "coreAbility": "heart"
+    "max": 30
   },
   "defense": {
     "current": 11,
-    "max": 11,
-    "coreAbility": "wits"
+    "max": 11
   },
   "load": 0,
   "shadow": 0,
@@ -181,13 +178,13 @@
       "name": "Weird But Entertaining",
       "skillsModified": [
         {
-          "name": "Awe",
+          "key": "awe",
           "diceMod": -1,
           "makeFavored": false,
           "makeIllFavored": false
         },
         {
-          "name": "Perform",
+          "key": "perform",
           "diceMod": 1,
           "makeFavored": false,
           "makeIllFavored": false
@@ -195,7 +192,7 @@
       ]
     }
   ],
-  "artUrls": [
+  "featuredArtUrls": [
     "https://cdn.midjourney.com/890188b9-df60-4f68-8f03-11b5d1f127b4/0_2.png"
   ],
   "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",

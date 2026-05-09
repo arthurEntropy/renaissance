@@ -21,140 +21,137 @@
   "wits": 6,
   "skills": [
     {
-      "name": "Awe",
+      "key": "awe",
       "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "coreAbility": "body"
+      "manualDiceMod": 0
     },
     {
-      "name": "Strength",
+      "key": "strength",
       "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "coreAbility": "body"
+      "manualDiceMod": 0
     },
     {
-      "name": "Dexterity",
+      "key": "dexterity",
       "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "coreAbility": "body"
+      "manualDiceMod": 0
     },
     {
-      "name": "Fortitude",
+      "key": "fortitude",
       "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "coreAbility": "body"
+      "manualDiceMod": 0
     },
     {
-      "name": "Craft",
+      "key": "craft",
       "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "coreAbility": "body"
+      "manualDiceMod": 0
     },
     {
-      "name": "Perform",
+      "key": "perform",
       "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "coreAbility": "heart"
+      "manualDiceMod": 0
     },
     {
-      "name": "Insight",
+      "key": "insight",
       "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "coreAbility": "heart"
+      "manualDiceMod": 0
     },
     {
-      "name": "Courtesy",
+      "key": "courtesy",
       "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "coreAbility": "heart"
+      "manualDiceMod": 0
     },
     {
-      "name": "Spirit",
+      "key": "spirit",
       "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "coreAbility": "heart"
+      "manualDiceMod": 0
     },
     {
-      "name": "Aid",
+      "key": "aid",
       "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "coreAbility": "heart"
+      "manualDiceMod": 0
     },
     {
-      "name": "Persuade",
+      "key": "persuade",
       "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "coreAbility": "wits"
+      "manualDiceMod": 0
     },
     {
-      "name": "Awareness",
+      "key": "awareness",
       "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "coreAbility": "wits"
+      "manualDiceMod": 0
     },
     {
-      "name": "Stealth",
+      "key": "stealth",
       "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "coreAbility": "wits"
+      "manualDiceMod": 0
     },
     {
-      "name": "Lore",
+      "key": "lore",
       "ranks": 4,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "coreAbility": "wits"
+      "manualDiceMod": 0
     },
     {
-      "name": "Riddle",
+      "key": "riddle",
       "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "coreAbility": "wits"
+      "manualDiceMod": 0
     }
   ],
   "endurance": {
     "current": 15,
-    "max": 15,
-    "coreAbility": "body"
+    "max": 15
   },
   "hope": {
     "current": 15,
-    "max": 15,
-    "coreAbility": "heart"
+    "max": 15
   },
   "defense": {
     "current": 16,
-    "max": 16,
-    "coreAbility": "wits"
+    "max": 16
   },
   "load": 0,
   "shadow": 0,
@@ -245,12 +242,12 @@
     }
   ],
   "activeEffects": [],
-  "artUrls": [
+  "featuredArtUrls": [
     "https://cdn.midjourney.com/46f7df2d-65a2-44e8-90fd-c01738a187c3/0_0.png"
   ],
   "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2026-05-02T14:34:34.856Z",
-  "lastModified": "2026-05-02T14:34:34.856Z",
+  "updatedAt": "2026-05-09T12:42:22.876Z",
+  "lastModified": "2026-05-09T12:42:22.876Z",
   "mestiereId": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
   "abilitySortOption": "",
   "notes": "Wizard of the Third Wizards' Guild of Guildford. Associate of Volans.",
@@ -284,5 +281,9 @@
   },
   "groupAbilitiesBySource": true,
   "groupAbilitiesByManaColor": false,
-  "groupAbilitiesByCustom": false
+  "groupAbilitiesByCustom": false,
+  "autoCalculations": {
+    "load": true,
+    "statesAndEffects": true
+  }
 }

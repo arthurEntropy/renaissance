@@ -12,8 +12,8 @@
 
         <!-- Top-right controls -->
         <div class="badge__controls">
-            <FloatingActionButton :variant="FAB_TYPES.EDIT" :size="FAB_SIZES.SMALL" :visibility="FAB_VISIBILITIES.ON_HOVER"
-                @click.stop="$emit('edit', vessel)" />
+            <FloatingActionButton :variant="FAB_TYPES.EDIT" :size="FAB_SIZES.SMALL"
+                :visibility="FAB_VISIBILITIES.ON_HOVER" @click.stop="$emit('edit', vessel)" />
             <FloatingActionButton :variant="FAB_TYPES.DELETE" :size="FAB_SIZES.SMALL"
                 :visibility="FAB_VISIBILITIES.ON_HOVER" @click.stop="handleRemove" />
         </div>
@@ -86,7 +86,7 @@ const props = defineProps({
 
 const emit = defineEmits(['add', 'edit', 'remove-beast', 'remove-vessel', 'toggle-state', 'open-sheet'])
 
-const beastArt = useOptimizedImage(() => props.beast?.artUrls?.[0], MIDJOURNEY_IMAGE_CONTEXTS.THUMBNAIL)
+const beastArt = useOptimizedImage(() => props.beast?.featuredArtUrls?.[0], MIDJOURNEY_IMAGE_CONTEXTS.THUMBNAIL)
 
 const vesselTypeLabel = computed(() => VESSEL_TYPE_LABELS[props.vessel?.vesselType] ?? '')
 

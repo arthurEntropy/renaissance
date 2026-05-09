@@ -39,7 +39,7 @@ const charactersStore = useCharactersStore()
 const resolvedBeast = computed(() => props.beast !== undefined ? props.beast : charactersStore.summonedBeast)
 
 const optimizedBeastArt = useOptimizedImage(
-    () => resolvedBeast.value?.artUrls?.[0],
+    () => resolvedBeast.value?.featuredArtUrls?.[0],
     MIDJOURNEY_IMAGE_CONTEXTS.THUMBNAIL
 )
 

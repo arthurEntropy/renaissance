@@ -45,7 +45,7 @@ const charactersStore = useCharactersStore()
 const resolvedCharacter = computed(() => props.character ?? charactersStore.selectedCharacter)
 
 const optimizedCharacterArt = useOptimizedImage(
-    () => resolvedCharacter.value?.artUrls?.[0],
+    () => resolvedCharacter.value?.featuredArtUrls?.[0],
     MIDJOURNEY_IMAGE_CONTEXTS.THUMBNAIL
 )
 

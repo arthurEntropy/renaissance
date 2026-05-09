@@ -18,140 +18,137 @@
   "wits": 0,
   "skills": [
     {
-      "name": "Awe",
+      "key": "awe",
       "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "coreAbility": "body"
+      "manualDiceMod": 0
     },
     {
-      "name": "Strength",
+      "key": "strength",
       "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "coreAbility": "body"
+      "manualDiceMod": 0
     },
     {
-      "name": "Dexterity",
+      "key": "dexterity",
       "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "coreAbility": "body"
+      "manualDiceMod": 0
     },
     {
-      "name": "Fortitude",
+      "key": "fortitude",
       "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "coreAbility": "body"
+      "manualDiceMod": 0
     },
     {
-      "name": "Craft",
+      "key": "craft",
       "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "coreAbility": "body"
+      "manualDiceMod": 0
     },
     {
-      "name": "Perform",
+      "key": "perform",
       "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "coreAbility": "heart"
+      "manualDiceMod": 0
     },
     {
-      "name": "Insight",
+      "key": "insight",
       "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "coreAbility": "heart"
+      "manualDiceMod": 0
     },
     {
-      "name": "Courtesy",
+      "key": "courtesy",
       "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "coreAbility": "heart"
+      "manualDiceMod": 0
     },
     {
-      "name": "Spirit",
+      "key": "spirit",
       "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "coreAbility": "heart"
+      "manualDiceMod": 0
     },
     {
-      "name": "Aid",
+      "key": "aid",
       "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "coreAbility": "heart"
+      "manualDiceMod": 0
     },
     {
-      "name": "Persuade",
+      "key": "persuade",
       "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "coreAbility": "wits"
+      "manualDiceMod": 0
     },
     {
-      "name": "Awareness",
+      "key": "awareness",
       "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "coreAbility": "wits"
+      "manualDiceMod": 0
     },
     {
-      "name": "Stealth",
+      "key": "stealth",
       "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "coreAbility": "wits"
+      "manualDiceMod": 0
     },
     {
-      "name": "Lore",
+      "key": "lore",
       "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "coreAbility": "wits"
+      "manualDiceMod": 0
     },
     {
-      "name": "Riddle",
+      "key": "riddle",
       "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "coreAbility": "wits"
+      "manualDiceMod": 0
     }
   ],
   "endurance": {
     "current": 0,
-    "max": 0,
-    "coreAbility": "body"
+    "max": 0
   },
   "hope": {
     "current": 0,
-    "max": 0,
-    "coreAbility": "heart"
+    "max": 0
   },
   "defense": {
     "current": 0,
-    "max": 0,
-    "coreAbility": "wits"
+    "max": 0
   },
   "load": 0,
   "shadow": 0,
@@ -175,7 +172,7 @@
   "equipment": [],
   "abilities": [],
   "activeEffects": [],
-  "artUrls": [
+  "featuredArtUrls": [
     "https://cdn.midjourney.com/26bda6d5-9d4f-46e7-954f-c9e28e55d675/0_0.jpeg"
   ],
   "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",

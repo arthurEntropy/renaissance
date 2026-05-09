@@ -1,10 +1,21 @@
 import { computed } from 'vue'
-import { VIRTUES, WEAKNESSES, STATES } from '@shared/constants/characterConstants'
+import {
+  SKILLS,
+  STATES,
+  VIRTUES,
+  WEAKNESSES,
+} from '@shared/constants/characterConstants'
 
 // Derives all column metadata and values for a core ability (Body, Heart, or Wits).
 // Maps constants to character data, providing virtue/weakness labels and values,
 // state labels and values, and filtered skills list.
+/**
+ * @param {{ value: { key: string, label: string } }} coreAbility
+ * @param {{ value: ({ skills?: Array<{ key: string }>, states?: Record<string, boolean> } & Record<string, any>) | null }} character
+ */
 export function useColumnConfig(coreAbility, character) {
+  const coreAbilityKey = computed(() => coreAbility.value?.key || '')
+
   const virtueConfig = computed(() => 
     Object.values(VIRTUES).find(v => v.coreAbility === coreAbility.value)
   )
@@ -18,7 +29,7 @@ export function useColumnConfig(coreAbility, character) {
   )
 
   const coreAbilityValue = computed(() => {
-    return character.value?.[coreAbility.value] ?? 0
+    return character.value?.[coreAbilityKey.value] ?? 0
   })
 
   const virtueValue = computed(() => {
@@ -40,16 +51,28 @@ export function useColumnConfig(coreAbility, character) {
     return stateConfig ? character.value?.states?.[stateConfig.key] ?? false : false
   })
 
+  const skillKeysByCoreAbility = computed(() => {
+    const abilityKey = coreAbilityKey.value
+    if (!abilityKey) return new Set()
+
+    return new Set(
+      Object.values(SKILLS)
+        .filter((skillDef) => skillDef.coreAbility.key === abilityKey)
+        .map((skillDef) => skillDef.key)
+    )
+  })
+
   const skills = computed(() => {
+    const allowedSkillKeys = skillKeysByCoreAbility.value
     return character.value?.skills?.filter(
-      skill => skill.coreAbility === coreAbility.value
+      (skill) => allowedSkillKeys.has(skill.key)
     ) ?? []
   })
 
   return {
-    coreAbilityKey: computed(() => coreAbility.value),
+    coreAbilityKey,
     coreAbilityValue,
-    coreAbilityTitle: computed(() => coreAbility.value.toUpperCase()),
+    coreAbilityTitle: computed(() => coreAbility.value.label),
     
     virtueLabel: computed(() => virtueConfig.value?.label || ''),
     virtueKey: computed(() => virtueConfig.value?.key || ''),

@@ -4,17 +4,37 @@
  * Operates on text nodes only, preserving existing HTML structure
  */
 
+import { CORE_ABILITIES } from '@shared/constants/characterConstants'
+
+/**
+ * @typedef {{ key: string, label: string }} CoreAbility
+ * @typedef {{ type: 'stat', value: CoreAbility } | { type: 'number', value: number }} RollModifier
+ * @typedef {{
+ *   type?: 'opposed-skill-check' | 'skill-check-multiple' | 'skill-check' | 'damage-roll' | 'custom-roll',
+ *   skill?: string,
+ *   opponentSkill?: string,
+ *   skills?: string[],
+ *   skillsText?: string,
+ *   dice?: Array<{ count: number, sides: number }>,
+ *   modifier: RollModifier | null,
+ *   fullText: string,
+ *   linkText: string,
+ *   rollPrefix?: string,
+ *   biomeDiceMod?: number,
+ * }} RollData
+ */
+
 const SKILLS = [
   'Awe', 'Strength', 'Dexterity', 'Fortitude', 'Craft',
   'Perform', 'Insight', 'Courtesy', 'Spirit', 'Aid',
   'Persuade', 'Awareness', 'Stealth', 'Lore', 'Riddle'
 ]
 
-const CORE_ABILITIES = ['BODY', 'HEART', 'WITS']
+const CORE_ABILITIES_LIST = Object.values(CORE_ABILITIES)
 
 // Build combined regex pattern for all roll types (only once)
 const SKILLS_PATTERN = SKILLS.join('|')
-const CORE_ABILITIES_PATTERN = CORE_ABILITIES.join('|')
+const CORE_ABILITIES_PATTERN = CORE_ABILITIES_LIST.map((ability) => ability.label).join('|')
 
 // Combined pattern matches all roll types in priority order
 const ROLL_PATTERN = new RegExp(
@@ -38,25 +58,28 @@ const ROLL_PATTERN = new RegExp(
 
 /**
  * Parse dice expression and create roll data from regex match
+ * @param {RegExpMatchArray} match
  */
 function parseRollMatch(match) {
   const fullMatch = match[0]
   
   // Opposed skill check: Roll <Skill> vs <Skill>
   if (match[1] && match[2]) {
+    const rollPrefix = fullMatch.match(/^[Rr]oll\s+/)?.[0] ?? ''
     return {
       type: 'opposed-skill-check',
       skill: match[1],
       opponentSkill: match[2],
       fullText: fullMatch,
       linkText: `${match[1]} vs ${match[2]}`,
-      rollPrefix: fullMatch.match(/^[Rr]oll\s+/)[0]
+      rollPrefix
     }
   }
   
   // Multiple skill options: Roll <Skill>, <Skill>, ... and/or <Skill>
   if (match[3]) {
     const skillsText = match[3]
+    const rollPrefix = fullMatch.match(/^[Rr]oll\s+/)?.[0] ?? ''
     // Extract individual skill names from the comma/conjunction-separated list
     const skillPattern = new RegExp(SKILLS_PATTERN, 'g')
     const skills = []
@@ -70,18 +93,19 @@ function parseRollMatch(match) {
       skills: skills,
       fullText: fullMatch,
       skillsText: skillsText,
-      rollPrefix: fullMatch.match(/^[Rr]oll\s+/)[0]
+      rollPrefix
     }
   }
   
   // Simple skill check: Roll <Skill>
   if (match[4]) {
+    const rollPrefix = fullMatch.match(/^[Rr]oll\s+/)?.[0] ?? ''
     return {
       type: 'skill-check',
       skill: match[4],
       fullText: fullMatch,
       linkText: match[4],
-      rollPrefix: fullMatch.match(/^[Rr]oll\s+/)[0]
+      rollPrefix
     }
   }
   
@@ -95,6 +119,7 @@ function parseRollMatch(match) {
     const sides = parseInt(diceMatch[2], 10)
     const modPart = diceMatch[3]
     
+    /** @type {RollData} */
     const rollData = {
       dice: [{ count, sides }],
       modifier: null,
@@ -104,8 +129,9 @@ function parseRollMatch(match) {
     
     if (modPart) {
       const upperMod = modPart.toUpperCase()
-      if (CORE_ABILITIES.includes(upperMod)) {
-        rollData.modifier = { type: 'stat', value: upperMod }
+      const coreAbility = CORE_ABILITIES_LIST.find((ability) => ability.label === upperMod)
+      if (coreAbility) {
+        rollData.modifier = { type: 'stat', value: coreAbility }
       } else {
         const numMod = parseInt(modPart, 10)
         if (!isNaN(numMod)) {
@@ -131,6 +157,7 @@ function parseRollMatch(match) {
 /**
  * Process a text node and replace roll patterns with links
  * Uses a single regex pass for O(n) complexity
+ * @param {Text} textNode
  */
 function processTextNode(textNode) {
   const text = textNode.nodeValue
@@ -156,10 +183,10 @@ function processTextNode(textNode) {
     // Handle multiple skill options specially
     if (rollData.type === 'skill-check-multiple') {
       // Add "Roll " prefix
-      fragments.push(document.createTextNode(rollData.rollPrefix))
+      fragments.push(document.createTextNode(rollData.rollPrefix ?? ''))
       
       // Parse the skills text to create links interspersed with punctuation
-      const skillsText = rollData.skillsText
+      const skillsText = rollData.skillsText ?? ''
       let skillsLastIndex = 0
       const skillPattern = new RegExp(SKILLS_PATTERN, 'g')
       let skillMatch
@@ -201,7 +228,7 @@ function processTextNode(textNode) {
       link.href = '#'
       link.className = 'roll-link'
       link.dataset.rollAction = JSON.stringify(rollData)
-      link.textContent = rollData.linkText
+      link.textContent = rollData.linkText ?? ''
       fragments.push(link)
     }
     
@@ -216,6 +243,7 @@ function processTextNode(textNode) {
   // Replace text node with fragments if we found any matches
   if (fragments.length > 1) {
     const parent = textNode.parentNode
+    if (!parent) return
     fragments.forEach(fragment => parent.insertBefore(fragment, textNode))
     parent.removeChild(textNode)
   }
@@ -223,6 +251,7 @@ function processTextNode(textNode) {
 
 /**
  * Walk DOM tree and linkify text nodes
+ * @param {HTMLElement | DocumentFragment} element
  */
 function linkifyTextNodes(element) {
   const walker = document.createTreeWalker(
@@ -231,7 +260,7 @@ function linkifyTextNodes(element) {
     {
       acceptNode: (node) => {
         // Skip text inside existing links or scripts
-        const parent = node.parentNode
+        const parent = node.parentElement
         if (!parent) return NodeFilter.FILTER_REJECT
         if (parent.tagName === 'A' || parent.tagName === 'SCRIPT') {
           return NodeFilter.FILTER_REJECT
@@ -241,10 +270,11 @@ function linkifyTextNodes(element) {
     }
   )
   
+  /** @type {Text[]} */
   const textNodes = []
   let node
   while ((node = walker.nextNode())) {
-    textNodes.push(node)
+    textNodes.push(/** @type {Text} */ (node))
   }
   
   // Process in reverse to avoid walker invalidation
@@ -255,6 +285,7 @@ function linkifyTextNodes(element) {
 
 /**
  * Main function: auto-linkify roll patterns in sanitized HTML
+ * @param {string} html
  */
 export function autoLinkifyRolls(html) {
   if (!html || typeof html !== 'string') return html

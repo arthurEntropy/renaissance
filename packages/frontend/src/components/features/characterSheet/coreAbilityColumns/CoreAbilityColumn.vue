@@ -3,7 +3,7 @@
     <CoreAbilityHeader :title="coreAbilityTitle" :value="coreAbilityValue" :can-edit="canEdit"
       @update="updateCoreAbility" />
 
-    <SkillRow v-for="skill in skills" :key="skill.name" :skill="skill" :can-edit="canEdit"
+    <SkillRow v-for="skill in skills" :key="getSkillId(skill)" :skill="skill" :can-edit="canEdit"
       @open-skill-check="openSkillCheckModal" @update-ranks="handleRanksUpdate"
       @update-manual-dice-mod="handleManualDiceModUpdate" />
 
@@ -22,7 +22,7 @@
       :is-auto-calc="isStatesAuto" @update="updateState" @toggle-auto-calc="handleToggleStatesAutoCalc" />
 
     <SkillCheckModal v-if="skillCheckModal.isOpen.value && character" :character="character"
-      :selectedSkillName="selectedSkillName" :defaultDifficulty="rollsStore.lastDifficulty"
+      :selectedSkillKey="selectedSkillKey" :defaultDifficulty="rollsStore.lastDifficulty"
       @close="skillCheckModal.closeModal" @update-difficulty="rollsStore.setLastDifficulty"
       @start-opposed-skill-check="handleStartOpposedSkillCheck" />
 
@@ -38,7 +38,7 @@ import { useColumnConfig } from '@/composables/useColumnConfig'
 import { useRollsStore } from '@/stores/rollsStore'
 import { useCharactersStore } from '@/stores/charactersStore'
 import { useEquipmentStore } from '@/stores/equipmentStore'
-import { STAT_ROW_TYPES } from '@shared/constants/characterConstants'
+import { STAT_ROW_TYPES } from '@/constants/statRowTypes'
 import { ARMOR_TYPE_ID } from '@/constants/armorConstants'
 import * as CharacterUtils from '@shared/utils/characterUtils'
 import InjuryRollService from '@/services/rolls/injuryRollService'
@@ -48,10 +48,11 @@ import SkillRow from './SkillRow.vue'
 import StatRow from './StatRow.vue'
 import SkillCheckModal from '@/components/features/characterSheet/modals/SkillCheckModal.vue'
 import OpposedSkillCheckModal from '@/components/features/characterSheet/rollModal/OpposedSkillCheckModal.vue'
+import { findSkillById, getSkillId } from '@/utils/characterKeyUtils'
 
 const props = defineProps({
   column: {
-    type: String,
+    type: Object,
     required: true,
   }
 })
@@ -207,25 +208,27 @@ const updateState = (field, value) => {
   character.value.states[stateKey] = value
 }
 
-const handleRanksUpdate = (skillName, newRanks) => {
-  const skill = character.value.skills.find(s => s.name === skillName)
+const handleRanksUpdate = (skillKey, newRanks) => {
+  const skill = findSkillById(character.value.skills, skillKey)
+  if (!skill) return
   skill.ranks = newRanks
   CharacterUtils.updateFavoredStatus(character.value)
 }
 
-const handleManualDiceModUpdate = (skillName, newManualDiceMod) => {
-  const skill = character.value.skills.find(s => s.name === skillName)
+const handleManualDiceModUpdate = (skillKey, newManualDiceMod) => {
+  const skill = findSkillById(character.value.skills, skillKey)
+  if (!skill) return
   skill.manualDiceMod = newManualDiceMod
   CharacterUtils.updateFavoredStatus(character.value)
 }
 
 const skillCheckModal = useModal()
 const opposedSkillCheckModal = useModal()
-const selectedSkillName = ref('')
+const selectedSkillKey = ref('')
 const opposedSessionConfig = ref(null)
 
-const openSkillCheckModal = (skillName) => {
-  selectedSkillName.value = skillName
+const openSkillCheckModal = (skillKey) => {
+  selectedSkillKey.value = skillKey
   skillCheckModal.openModal()
 }
 

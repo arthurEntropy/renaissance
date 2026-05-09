@@ -1,4 +1,5 @@
 import { RollTypes } from '@/constants/rollTypes'
+import { CORE_ABILITIES } from '@shared/constants/characterConstants'
 import eventBus, { ROLL_EVENTS } from '../events/eventBus'
 import BaseRollService from './baseRollService.js'
 
@@ -74,8 +75,8 @@ class DamageRollService extends BaseRollService {
       rollName: 'Damage',
       baseSkillName: 'Damage',
       sourceName: equipment?.name || null,
-      modifierLabel: 'BODY',
-      footer: '+ BODY',
+      modifierLabel: CORE_ABILITIES.BODY.label,
+      footer: `+ ${CORE_ABILITIES.BODY.label}`,
       ...options
     })
   }

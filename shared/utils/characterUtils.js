@@ -1,9 +1,9 @@
 import {
-  MAX_ENDURANCE_MULTIPLIER,
-  MAX_HOPE_MULTIPLIER,
-  MAX_DEFENSE_BASE,
-  CONDITION_AFFECTED_SKILLS,
-  STATE_AFFECTED_SKILLS,
+  BASE_ENDURANCE_MULTIPLIER,
+  BASE_HOPE_MULTIPLIER,
+  BASE_DEFENSE_MINIMUM,
+  CONDITIONS,
+  STATES,
   CONDITION_AND_STATE_DICE_MODIFIER,
 } from '../constants/characterConstants.js'
 
@@ -12,15 +12,15 @@ import {
 // ========================================
 
 export function calculateMaxEndurance(body) {
-  return body * MAX_ENDURANCE_MULTIPLIER
+  return body * BASE_ENDURANCE_MULTIPLIER
 }
 
 export function calculateMaxHope(heart) {
-  return heart * MAX_HOPE_MULTIPLIER
+  return heart * BASE_HOPE_MULTIPLIER
 }
 
 export function calculateMaxDefense(wits) {
-  return wits + MAX_DEFENSE_BASE
+  return wits + BASE_DEFENSE_MINIMUM
 }
 
 export function getTotalWeightCarried(character, allEquipment) {
@@ -103,7 +103,7 @@ export function updateDiceMods(character) {
       character.activeEffects.forEach((effect) => {
         if (effect.skillsModified) {
           effect.skillsModified.forEach((modifiedSkill) => {
-            if (modifiedSkill.name === skill.name) {
+            if (modifiedSkill.key === skill.key) {
               skill.diceMod += modifiedSkill.diceMod || 0
             }
           })
@@ -113,10 +113,15 @@ export function updateDiceMods(character) {
 
     // Apply mods from conditions
     if (character.conditions) {
-      Object.keys(character.conditions).forEach((condition) => {
+      Object.entries(character.conditions).forEach(([conditionKey, isActive]) => {
+        if (!isActive) {
+          return
+        }
+
+        const conditionObj = Object.values(CONDITIONS).find((condition) => condition.key === conditionKey)
         if (
-          character.conditions[condition] &&
-          CONDITION_AFFECTED_SKILLS[condition]?.includes(skill.name)
+          conditionObj &&
+          conditionObj.affectedSkills?.some((affectedSkill) => affectedSkill.key === skill.key)
         ) {
           skill.diceMod += CONDITION_AND_STATE_DICE_MODIFIER
         }
@@ -125,10 +130,16 @@ export function updateDiceMods(character) {
 
     // Apply mods from states
     if (character.states) {
-      Object.keys(character.states).forEach((state) => {
+      Object.entries(character.states).forEach(([stateKey, isActive]) => {
+        if (!isActive) {
+          return
+        }
+
+        const stateObj = Object.values(STATES).find((state) => state.key === stateKey)
         if (
-          character.states[state] &&
-          STATE_AFFECTED_SKILLS[state]?.includes(skill.name)
+          stateObj &&
+          'affectedSkills' in stateObj &&
+          stateObj.affectedSkills.some((affectedSkill) => affectedSkill.key === skill.key)
         ) {
           skill.diceMod += CONDITION_AND_STATE_DICE_MODIFIER
         }
@@ -150,7 +161,7 @@ export function updateFavoredStatus(character) {
       character.activeEffects.forEach((effect) => {
         if (effect.skillsModified) {
           effect.skillsModified.forEach((modifiedSkill) => {
-            if (modifiedSkill.name === skill.name) {
+            if (modifiedSkill.key === skill.key) {
               if (modifiedSkill.makeFavored) {
                 skill.isFavored = true
               }

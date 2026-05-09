@@ -141,6 +141,7 @@ import DamageRollService from '@/services/rolls/damageRollService'
 import CustomRollService from '@/services/rolls/customRollService'
 import { RollTypes } from '@/constants/rollTypes'
 import { MESMER_MASK_SUBTYPE_ID } from '@/constants/mesmerConstants'
+import { getModifierStatKey, getModifierStatLabel } from '@/utils/characterKeyUtils'
 
 const props = defineProps({
   isEditMode: {
@@ -412,9 +413,9 @@ const handleRollLink = (rollData) => {
 
     if (rollData.modifier) {
       if (rollData.modifier.type === 'stat') {
-        const statName = rollData.modifier.value.toLowerCase()
+        const statName = getModifierStatKey(rollData.modifier)
         modifierValue = selectedCharacter.value[statName] || 0
-        modifierLabel = rollData.modifier.value
+        modifierLabel = getModifierStatLabel(rollData.modifier)
       } else if (rollData.modifier.type === 'number') {
         modifierValue = rollData.modifier.value
       }
@@ -447,7 +448,7 @@ const handleRollLink = (rollData) => {
 
     if (rollData.modifier) {
       if (rollData.modifier.type === 'stat') {
-        const statName = rollData.modifier.value.toLowerCase()
+        const statName = getModifierStatKey(rollData.modifier)
         modifierValue = selectedCharacter.value[statName] || 0
       } else if (rollData.modifier.type === 'number') {
         modifierValue = rollData.modifier.value

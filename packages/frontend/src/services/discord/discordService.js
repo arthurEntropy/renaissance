@@ -52,7 +52,7 @@ class DiscordService {
         skill: rollResult.skillName,
         success: rollResult.success,
         footer: rollResult.footer || '',
-        image: character.artUrls?.[0] || ''
+        image: character.featuredArtUrls?.[0] || ''
       }
 
       await apiClient.post('/send-discord-message', payload)
@@ -80,7 +80,7 @@ class DiscordService {
         name: character.name || 'Unnamed Character',
         skill: 'Custom Roll',
         footer,
-        image: character.artUrls?.[0] || ''
+        image: character.featuredArtUrls?.[0] || ''
       }
 
       await apiClient.post('/send-discord-message', payload)
@@ -101,7 +101,7 @@ class DiscordService {
         total: rollResult.total,
         rollResults: rollResult.diceResults,
         footer: rollResult.footer || '',
-        image: character.artUrls?.[0] || ''
+        image: character.featuredArtUrls?.[0] || ''
       }
 
       await apiClient.post('/send-discord-message', payload)
@@ -152,7 +152,7 @@ class DiscordService {
         total: rollResult.total,
         rollResults: rollResult.diceResults,
         footer: rollResult.footer || '',
-        image: character.artUrls?.[0] || ''
+        image: character.featuredArtUrls?.[0] || ''
       }
 
       await apiClient.post('/send-discord-message', payload)
@@ -172,7 +172,7 @@ class DiscordService {
         total: rollResult.total,
         rollResults: rollResult.diceResults,
         footer: rollResult.footer || '',
-        image: character.artUrls?.[0] || ''
+        image: character.featuredArtUrls?.[0] || ''
       }
 
       await apiClient.post('/send-discord-message', payload)

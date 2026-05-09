@@ -1,5 +1,9 @@
 import { RollTypes } from '@/constants/rollTypes'
-import { CONDITIONS, STATES } from '@shared/constants/characterConstants.js'
+import {
+  SKILLS,
+  CONDITIONS,
+  STATES,
+} from '@shared/constants/characterConstants.js'
 import { SKILL_STATUS } from '@/constants/skillStatus.js'
 import eventBus, { ROLL_EVENTS } from '../events/eventBus'
 import BaseRollService from './baseRollService.js'
@@ -29,6 +33,7 @@ class SkillCheckService extends BaseRollService {
   }
 
   static _buildSkillCheckResult(skill, character, difficulty, diceResults, total, success) {
+    const baseSkillName = Object.values(SKILLS).find((item) => item.key === skill.key)?.label ?? skill.key
     const skillName = this._formatSkillNameWithFavoredStatus(skill)
     const footer = this._generateFooter(character.conditions, character.states)
     const formattedDiceResults = this.formatDiceForDisplay(diceResults, RollTypes.SKILL_CHECK)
@@ -36,7 +41,7 @@ class SkillCheckService extends BaseRollService {
     return this.createRollResult(RollTypes.SKILL_CHECK, {
       characterName: character.name,
       skillName: skillName,
-      baseSkillName: skill.name,
+      baseSkillName: baseSkillName,
       total: total,
       difficulty: difficulty,
       success: success,
@@ -52,12 +57,13 @@ class SkillCheckService extends BaseRollService {
   }
 
   static _formatSkillNameWithFavoredStatus(skill) {
+    const skillLabel = Object.values(SKILLS).find((item) => item.key === skill.key)?.label ?? skill.key
     if (skill.isFavored && !skill.isIllFavored) {
-      return `${skill.name} (${SKILL_STATUS.FAVORED})`
+      return `${skillLabel} (${SKILL_STATUS.FAVORED})`
     } else if (skill.isIllFavored && !skill.isFavored) {
-      return `${skill.name} (${SKILL_STATUS.ILL_FAVORED})`
+      return `${skillLabel} (${SKILL_STATUS.ILL_FAVORED})`
     }
-    return skill.name
+    return skillLabel
   }
 
   // Favored and ill-favored cancel each other out; return status accordingly
@@ -67,7 +73,7 @@ class SkillCheckService extends BaseRollService {
     // Add conditions to footer text
     Object.keys(conditions).forEach((conditionKey) => {
       if (conditions[conditionKey]) {
-        const condition = Object.values(CONDITIONS).find(c => c.key === conditionKey)
+        const condition = Object.values(CONDITIONS).find((item) => item.key === conditionKey)
         if (condition) {
           footerText.push(condition.label)
         }
@@ -77,7 +83,7 @@ class SkillCheckService extends BaseRollService {
     // Add states to footer text
     Object.keys(states).forEach((stateKey) => {
       if (states[stateKey]) {
-        const state = Object.values(STATES).find(s => s.key === stateKey)
+        const state = Object.values(STATES).find((item) => item.key === stateKey)
         if (state) {
           footerText.push(state.label)
         }

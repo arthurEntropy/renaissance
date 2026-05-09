@@ -1,4 +1,16 @@
+import { SKILLS } from '../constants/characterConstants.js'
 import { createBaseEntity } from './baseEntity.js'
+
+function createDefaultSkills() {
+  return Object.values(SKILLS).map((skill) => ({
+    key: skill.key,
+    ranks: 0,
+    isFavored: false,
+    isIllFavored: 'defaultIllFavored' in skill && Boolean(skill.defaultIllFavored),
+    diceMod: 0,
+    manualDiceMod: 0,
+  }))
+}
 
 /**
  * @typedef {import('./baseEntity.js').BaseEntity} BaseEntity
@@ -6,8 +18,7 @@ import { createBaseEntity } from './baseEntity.js'
 
 /**
  * @typedef {Object} Skill
- * @property {string} name - Skill name
- * @property {string} coreAbility - Core ability this skill is associated with ('body', 'heart', or 'wits')
+ * @property {string} key - Stable skill identifier
  * @property {number} ranks - Number of ranks in this skill
  * @property {boolean} isFavored - Whether this skill is favored
  * @property {boolean} isIllFavored - Whether this skill is ill-favored
@@ -19,7 +30,6 @@ import { createBaseEntity } from './baseEntity.js'
  * @typedef {Object} StatPool
  * @property {number} current - Current value
  * @property {number} max - Maximum value
- * @property {string} [coreAbility] - Core ability this stat is associated with ('body', 'heart', or 'wits')
  */
 
 /**
@@ -103,7 +113,7 @@ import { createBaseEntity } from './baseEntity.js'
  * @typedef {Object} ActiveEffect
  * @property {string} name - Effect name
  * @property {Object[]} skillsModified - Skills affected by this effect
- * @property {string} skillsModified[].name - Skill name
+ * @property {string} skillsModified[].key - Stable skill identifier
  * @property {number} skillsModified[].diceMod - Dice modifier
  * @property {boolean} [skillsModified[].makeFavored] - Make skill favored
  * @property {boolean} [skillsModified[].makeIllFavored] - Make skill ill-favored
@@ -150,7 +160,7 @@ import { createBaseEntity } from './baseEntity.js'
  * @property {boolean} isNPC - True for GM-controlled humanoid characters within a campaign
  * @property {null|'template'|'instance'} beastType - Beast classification; null = not a beast, 'template' = bestiary entry, 'instance' = campaign creature
  * @property {string|null} templateId - For beastType='instance', references the source template character
- * @property {string[]} artUrls - Character art URLs
+ * @property {string[]} featuredArtUrls - Character art URLs
  * @property {string[]} [biomeTags] - Active biome tags affecting this character
  * @property {string|null} [biomeId] - Selected biome ID
  * @property {Object.<string, string>} engagementDiceStatuses - Saved engagement die statuses keyed by die identifier
@@ -225,26 +235,10 @@ export function createDefaultCharacter() {
     body: 0,
     heart: 0,
     wits: 0,
-    skills: [
-      { name: 'Awe', coreAbility: 'body', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0, manualDiceMod: 0 },
-      { name: 'Strength', coreAbility: 'body', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0, manualDiceMod: 0 },
-      { name: 'Dexterity', coreAbility: 'body', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0, manualDiceMod: 0 },
-      { name: 'Fortitude', coreAbility: 'body', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0, manualDiceMod: 0 },
-      { name: 'Craft', coreAbility: 'body', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0, manualDiceMod: 0 },
-      { name: 'Perform', coreAbility: 'heart', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0, manualDiceMod: 0 },
-      { name: 'Insight', coreAbility: 'heart', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0, manualDiceMod: 0 },
-      { name: 'Courtesy', coreAbility: 'heart', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0, manualDiceMod: 0 },
-      { name: 'Spirit', coreAbility: 'heart', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0, manualDiceMod: 0 },
-      { name: 'Aid', coreAbility: 'heart', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0, manualDiceMod: 0 },
-      { name: 'Persuade', coreAbility: 'wits', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0, manualDiceMod: 0 },
-      { name: 'Awareness', coreAbility: 'wits', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0, manualDiceMod: 0 },
-      { name: 'Stealth', coreAbility: 'wits', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0, manualDiceMod: 0 },
-      { name: 'Lore', coreAbility: 'wits', ranks: 0, isFavored: false, isIllFavored: false, diceMod: 0, manualDiceMod: 0 },
-      { name: 'Riddle', coreAbility: 'wits', ranks: 0, isFavored: false, isIllFavored: true, diceMod: 0, manualDiceMod: 0 },
-    ],
-    endurance: { current: 0, max: 0, coreAbility: 'body' },
-    hope: { current: 0, max: 0, coreAbility: 'heart' },
-    defense: { current: 0, max: 0, coreAbility: 'wits' },
+    skills: createDefaultSkills(),
+    endurance: { current: 0, max: 0 },
+    hope: { current: 0, max: 0 },
+    defense: { current: 0, max: 0 },
     load: 0,
     shadow: 0,
     injury: 0,
@@ -268,7 +262,7 @@ export function createDefaultCharacter() {
     manaPool: { white: [], blue: [], black: [], red: [], green: [], colorless: [] },
     equipment: [],
     abilities: [],
-    artUrls: ['https://cdn.midjourney.com/a8a36740-b7d3-4aef-bea3-a95039bec06f/0_2.png'],
+    featuredArtUrls: ['https://cdn.midjourney.com/a8a36740-b7d3-4aef-bea3-a95039bec06f/0_2.png'],
     engagementDiceStatuses: {},
     biomeTags: [],
     biomeId: null,

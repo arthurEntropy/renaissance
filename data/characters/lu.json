@@ -18,140 +18,137 @@
   "wits": 3,
   "skills": [
     {
-      "name": "Awe",
-      "coreAbility": "body",
+      "key": "awe",
       "ranks": 0,
       "isFavored": false,
       "isIllFavored": true,
-      "diceMod": -1
+      "diceMod": -1,
+      "manualDiceMod": 0
     },
     {
-      "name": "Strength",
-      "coreAbility": "body",
+      "key": "strength",
       "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 0
+      "diceMod": 0,
+      "manualDiceMod": 0
     },
     {
-      "name": "Dexterity",
-      "coreAbility": "body",
+      "key": "dexterity",
       "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": -1
+      "diceMod": -1,
+      "manualDiceMod": 0
     },
     {
-      "name": "Fortitude",
-      "coreAbility": "body",
+      "key": "fortitude",
       "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 0
+      "diceMod": 0,
+      "manualDiceMod": 0
     },
     {
-      "name": "Craft",
-      "coreAbility": "body",
+      "key": "craft",
       "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 0
+      "diceMod": 0,
+      "manualDiceMod": 0
     },
     {
-      "name": "Perform",
-      "coreAbility": "heart",
+      "key": "perform",
       "ranks": 0,
       "isFavored": false,
       "isIllFavored": true,
-      "diceMod": -1
+      "diceMod": -1,
+      "manualDiceMod": 0
     },
     {
-      "name": "Insight",
-      "coreAbility": "heart",
+      "key": "insight",
       "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 0
+      "diceMod": 0,
+      "manualDiceMod": 0
     },
     {
-      "name": "Courtesy",
-      "coreAbility": "heart",
+      "key": "courtesy",
       "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": -1
+      "diceMod": -1,
+      "manualDiceMod": 0
     },
     {
-      "name": "Spirit",
-      "coreAbility": "heart",
+      "key": "spirit",
       "ranks": 5,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 0
+      "diceMod": 0,
+      "manualDiceMod": 0
     },
     {
-      "name": "Aid",
-      "coreAbility": "heart",
+      "key": "aid",
       "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 0
+      "diceMod": 0,
+      "manualDiceMod": 0
     },
     {
-      "name": "Persuade",
-      "coreAbility": "wits",
+      "key": "persuade",
       "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": -1
+      "diceMod": -1,
+      "manualDiceMod": 0
     },
     {
-      "name": "Awareness",
-      "coreAbility": "wits",
+      "key": "awareness",
       "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 0
+      "diceMod": 0,
+      "manualDiceMod": 0
     },
     {
-      "name": "Stealth",
-      "coreAbility": "wits",
+      "key": "stealth",
       "ranks": 0,
       "isFavored": false,
       "isIllFavored": true,
-      "diceMod": -1
+      "diceMod": -1,
+      "manualDiceMod": 0
     },
     {
-      "name": "Lore",
-      "coreAbility": "wits",
+      "key": "lore",
       "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 0
+      "diceMod": 0,
+      "manualDiceMod": 0
     },
     {
-      "name": "Riddle",
-      "coreAbility": "wits",
+      "key": "riddle",
       "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 0
+      "diceMod": 0,
+      "manualDiceMod": 0
     }
   ],
   "endurance": {
     "current": 36,
-    "max": 20,
-    "coreAbility": "body"
+    "max": 20
   },
   "hope": {
     "current": 21,
-    "max": 21,
-    "coreAbility": "heart"
+    "max": 21
   },
   "defense": {
     "current": 13,
-    "max": 13,
-    "coreAbility": "wits"
+    "max": 13
   },
   "load": 0,
   "shadow": 0,
@@ -502,7 +499,7 @@
       "showSuccesses": false
     }
   ],
-  "artUrls": [
+  "featuredArtUrls": [
     "https://cdn.midjourney.com/3f3366f2-b7f5-4b6e-82ec-a71150a47d9b/0_1_1024_N.png"
   ],
   "activeEffects": [],
