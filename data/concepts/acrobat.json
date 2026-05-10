@@ -24,16 +24,16 @@
     "martialTrainingNotes": "",
     "engagementDice": [
       {
-        "dieSides": 4
+        "dieSize": 4
       },
       {
-        "dieSides": 4
+        "dieSize": 4
       },
       {
-        "dieSides": 4
+        "dieSize": 4
       },
       {
-        "dieSides": 4
+        "dieSize": 4
       }
     ],
     "engagementSuccesses": [

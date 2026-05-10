@@ -72,7 +72,7 @@ function createSharedState() {
     const mestiereDice = characterMestiere.value?.novizio?.engagementDice
     if (Array.isArray(mestiereDice)) {
       mestiereDice.forEach((die, dieIndex) => {
-        const dieSide = typeof die === 'number' ? die : Number(die?.dieSides)
+        const dieSide = typeof die === 'number' ? die : Number(die?.dieSize)
         if (VALID_DIE_SIZES.has(dieSide)) {
           keys.add(`mestiere_${dieIndex}`)
         }
@@ -194,7 +194,7 @@ export function useEngagementRoll() {
 
     const result = []
     mestiere.novizio.engagementDice.forEach((die, dieIndex) => {
-      const dieSide = typeof die === 'number' ? die : Number(die?.dieSides)
+      const dieSide = typeof die === 'number' ? die : Number(die?.dieSize)
       if (!VALID_DIE_SIZES.has(dieSide)) {
         return
       }
@@ -279,7 +279,7 @@ export function useEngagementRoll() {
   const selectedDiceValues = computed(() => {
     return allOwnedEngagementDice.value
       .filter(item => item.status === DiceStatus.SELECTED)
-      .map(item => ({ dieSides: item.die }))
+      .map(item => ({ dieSize: item.die }))
   })
 
   const hasExpendedDice = computed(() => {
@@ -564,7 +564,7 @@ export function useEngagementRoll() {
         return
       }
 
-      const originalDieSize = targetDie.dieSides
+      const originalDieSize = targetDie.dieSize
 
       if (sessionManager?.startRerolling) {
         sessionManager.startRerolling()
@@ -637,7 +637,7 @@ export function useEngagementRoll() {
 
     targetDie.previousValue = targetDie.dieRollValue
 
-    const originalDieSize = targetDie.dieSides
+    const originalDieSize = targetDie.dieSize
     targetDie.cssClass = getDiceFontMaxClass(originalDieSize)
     targetDie.rolledMaxValue = false
 

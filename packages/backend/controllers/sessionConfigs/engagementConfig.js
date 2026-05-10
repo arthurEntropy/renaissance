@@ -85,7 +85,7 @@ export const engagementConfig = {
             // Update the DiceResult object
             user.rollResults[diceIndex].dieRollValue = newValue
             user.rollResults[diceIndex].originalDieRollValue = newValue
-            user.rollResults[diceIndex].rolledMaxValue = newValue === user.rollResults[diceIndex].dieSides
+            user.rollResults[diceIndex].rolledMaxValue = newValue === user.rollResults[diceIndex].dieSize
             
             // Recalculate total from DiceResult objects
             user.rollTotal = user.rollResults.reduce((sum, die) => sum + (die.dieRollValue || 0), 0)

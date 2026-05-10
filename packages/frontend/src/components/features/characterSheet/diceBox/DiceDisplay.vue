@@ -87,12 +87,12 @@ const startRollAnimation = (rollData, skipAnimation = false) => {
     lastRollId.value = currentRollId
 
     animatedDice.value = rollData.diceResults.map((die) => {
-        const randomValue = Math.floor(Math.random() * die.dieSides) + 1
+        const randomValue = Math.floor(Math.random() * die.dieSize) + 1
         return {
             ...die,
             dieRollValue: randomValue,
             displayValue: randomValue,
-            cssClass: getRandomDiceFontClass(die.dieSides),
+            cssClass: getRandomDiceFontClass(die.dieSize),
             isRolling: true,
         }
     })
@@ -115,12 +115,12 @@ const animateRoll = (rollId, finalDiceResults) => {
                 (progress * DICE_ANIMATION.CHANGE_FREQUENCY_RANGE)
 
             if (Math.random() < changeFrequency) {
-                const randomValue = Math.floor(Math.random() * die.dieSides) + 1
+                const randomValue = Math.floor(Math.random() * die.dieSize) + 1
                 return {
                     ...die,
                     dieRollValue: randomValue,
                     displayValue: randomValue,
-                    cssClass: getRandomDiceFontClass(die.dieSides),
+                    cssClass: getRandomDiceFontClass(die.dieSize),
                     isRolling: true,
                 }
             }
@@ -195,8 +195,8 @@ const waitingDiceDisplay = computed(() => {
     if (!props.waitingDice || props.waitingDice.length === 0) return []
 
     return props.waitingDice.map((die, index) => ({
-        dieSides: die.dieSides,
-        cssClass: getDiceFontClass(die.dieSides, die.dieSides), // Use the die type as the value for consistent display
+        dieSize: die.dieSize,
+        cssClass: getDiceFontClass(die.dieSize, die.dieSize), // Use the die type as the value for consistent display
         poolIndex: index
     }))
 })

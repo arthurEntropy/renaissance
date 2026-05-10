@@ -98,7 +98,7 @@ import { RollTypes } from '@/constants/rollTypes'
 import { DIE_TYPE, DICE_MOD_RANGE, DIFFICULTY_VALUES } from '@shared/constants/dice'
 import { findSkillById, getSkillId, getSkillLabel } from '@/utils/characterKeyUtils'
 
-/** @typedef {{ dieSides: number, cssClass: string, isAdded?: boolean, isSubtracted?: boolean }} DisplayDie */
+/** @typedef {{ dieSize: number, cssClass: string, isAdded?: boolean, isSubtracted?: boolean }} DisplayDie */
 
 const rollsStore = useRollsStore()
 
@@ -186,8 +186,8 @@ const dicePool = computed(() => {
   }))
 
   return {
-    d12Dice: allDice.filter(die => die.dieSides === DIE_TYPE.D12),
-    d6Dice: allDice.filter(die => die.dieSides === DIE_TYPE.D6)
+    d12Dice: allDice.filter(die => die.dieSize === DIE_TYPE.D12),
+    d6Dice: allDice.filter(die => die.dieSize === DIE_TYPE.D6)
   }
 })
 

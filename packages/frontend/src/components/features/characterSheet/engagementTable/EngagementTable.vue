@@ -67,7 +67,7 @@ const diceInHeader = computed(() => diceManager.allOwnedEngagementDice.value.len
 const rollSelectedDice = () => {
   const selectedDice = diceManager.allOwnedEngagementDice.value
     .filter(item => item.status === DiceStatus.SELECTED)
-    .map(item => ({ dieSides: item.die }))
+    .map(item => ({ dieSize: item.die }))
 
   if (selectedDice.length === 0) {
     if (!confirm('Enter engagement with no dice selected?')) {

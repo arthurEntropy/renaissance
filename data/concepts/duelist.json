@@ -30,10 +30,10 @@
     "martialTrainingNotes": "",
     "engagementDice": [
       {
-        "dieSides": 4
+        "dieSize": 4
       },
       {
-        "dieSides": 4
+        "dieSize": 4
       }
     ],
     "engagementDiceNotes": "<p>Multiply this base allotment by your WITS score <em>(for example, a WITS score of 3 means you get 6d4)</em>. The allotment changes as your WITS score changes.</p>",

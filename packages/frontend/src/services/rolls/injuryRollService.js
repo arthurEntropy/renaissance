@@ -6,7 +6,7 @@ import BaseRollService from './baseRollService.js'
 class InjuryRollService extends BaseRollService {
 
   static makeInjuryRoll(character) {
-    const dicePool = [{ dieSides: DIE_TYPE.D12 }]
+    const dicePool = [{ dieSize: DIE_TYPE.D12 }]
     let diceResults = this.rollDicePool(dicePool)
 
     const featDieResult = diceResults[0]?.dieRollValue || 0

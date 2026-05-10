@@ -64,7 +64,7 @@ function countSkillCheckSpecialOutcomes(diceResults, skillChecks) {
   diceResults.forEach((dieResult) => {
     const dieValue = getDisplayDieRollValue(dieResult)
 
-    if (dieResult?.dieSides === DIE_TYPE.D12) {
+    if (dieResult?.dieSize === DIE_TYPE.D12) {
       if (dieValue === SPECIAL_ROLLS.SOL) {
         skillChecks.solCount += 1
       }
@@ -73,7 +73,7 @@ function countSkillCheckSpecialOutcomes(diceResults, skillChecks) {
       }
     }
 
-    if (dieResult?.dieSides === DIE_TYPE.D6 && dieValue === SPECIAL_ROLLS.SUCCESS) {
+    if (dieResult?.dieSize === DIE_TYPE.D6 && dieValue === SPECIAL_ROLLS.SUCCESS) {
       skillChecks.successCount += 1
     }
   })
@@ -153,7 +153,7 @@ export function computeXpEarned(roll) {
   let xp = 0
   if (roll.type === RollTypes.SKILL_CHECK && !roll.success) xp += 1
   if (roll.type === RollTypes.OPPOSED_SKILL_CHECK && roll.winner === WINNER.OPPONENT) xp += 1
-  if (roll.diceResults?.some(d => d.dieSides === DIE_TYPE.D12 && d.dieRollValue === SPECIAL_ROLLS.MORTE)) xp += 1
+  if (roll.diceResults?.some(d => d.dieSize === DIE_TYPE.D12 && d.dieRollValue === SPECIAL_ROLLS.MORTE)) xp += 1
 
   return xp
 }

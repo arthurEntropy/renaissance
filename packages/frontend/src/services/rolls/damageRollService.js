@@ -7,7 +7,7 @@ class DamageRollService extends BaseRollService {
 
   static makeDamageRoll(dicePool, modifier, character, options = {}) {
     const sanitizedDicePool = Array.isArray(dicePool)
-      ? dicePool.filter((die) => Number.isInteger(die?.dieSides) && die.dieSides > 0)
+      ? dicePool.filter((die) => Number.isInteger(die?.dieSize) && die.dieSize > 0)
       : []
 
     if (!character || sanitizedDicePool.length === 0) {
@@ -66,8 +66,8 @@ class DamageRollService extends BaseRollService {
   static makeEquipmentDamageRoll(equipment, character, options = {}) {
     const damageDice = Array.isArray(equipment?.damageDice) ? equipment.damageDice : []
     const dicePool = damageDice
-      .filter((dieSides) => Number.isInteger(dieSides) && dieSides > 0)
-      .map((dieSides) => ({ dieSides }))
+      .filter((dieSize) => Number.isInteger(dieSize) && dieSize > 0)
+      .map((dieSize) => ({ dieSize }))
 
     const bodyModifier = character?.body || 0
 

@@ -399,11 +399,11 @@ const handleRollLink = (rollData) => {
       : RollTypes.SKILL_CHECK
     showSkillCheckModal.value = true
   } else if (rollData.type === 'damage-roll') {
-    // Transform dice format from [{count, sides}] to [{dieSides}...]
+    // Transform dice format from [{count, sides}] to [{dieSize}...]
     const dicePool = []
     rollData.dice.forEach(die => {
       for (let i = 0; i < die.count; i++) {
-        dicePool.push({ dieSides: die.sides })
+        dicePool.push({ dieSize: die.sides })
       }
     })
 
@@ -435,11 +435,11 @@ const handleRollLink = (rollData) => {
       rollsStore.setRoll(rollResult)
     }
   } else if (rollData.type === 'custom-roll') {
-    // Transform dice format from [{count, sides}] to [{dieSides}...]
+    // Transform dice format from [{count, sides}] to [{dieSize}...]
     const dicePool = []
     rollData.dice.forEach(die => {
       for (let i = 0; i < die.count; i++) {
-        dicePool.push({ dieSides: die.sides })
+        dicePool.push({ dieSize: die.sides })
       }
     })
 

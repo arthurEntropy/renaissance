@@ -220,17 +220,17 @@ const martialRows = [
 
 const isValidDieSize = (dieSize) => STANDARD_DIE_SIZES.includes(dieSize)
 
-const normalizeDieSides = (die) => {
+const normalizedieSize = (die) => {
   if (typeof die === 'number') return die
-  return Number(die?.dieSides)
+  return Number(die?.dieSize)
 }
 
 const normalizeEngagementDice = (rawEngagementDice) => {
   if (Array.isArray(rawEngagementDice)) {
     return rawEngagementDice
-      .map((die) => normalizeDieSides(die))
+      .map((die) => normalizedieSize(die))
       .filter((dieSize) => isValidDieSize(dieSize))
-      .map((dieSize) => ({ dieSides: dieSize }))
+      .map((dieSize) => ({ dieSize: dieSize }))
   }
 
   if (!rawEngagementDice || typeof rawEngagementDice !== 'object') {
@@ -243,7 +243,7 @@ const normalizeEngagementDice = (rawEngagementDice) => {
     if (!isValidDieSize(dieSize)) continue
     const count = Math.max(0, Number(countRaw) || 0)
     for (let i = 0; i < count; i++) {
-      normalized.push({ dieSides: dieSize })
+      normalized.push({ dieSize: dieSize })
     }
   }
 
@@ -252,12 +252,12 @@ const normalizeEngagementDice = (rawEngagementDice) => {
 
 const getDiceCountBySize = (dice, dieSize) => {
   if (!Array.isArray(dice)) return 0
-  return dice.filter((die) => normalizeDieSides(die) === dieSize).length
+  return dice.filter((die) => normalizedieSize(die) === dieSize).length
 }
 
 const hasAnyEngagementDice = (dice) => {
   if (!Array.isArray(dice)) return false
-  return dice.some((die) => isValidDieSize(normalizeDieSides(die)))
+  return dice.some((die) => isValidDieSize(normalizedieSize(die)))
 }
 
 const EMPTY_MARTIAL_TRAINING = () => ({
@@ -310,8 +310,8 @@ const toggleSuccess = (successId) => {
 const setEngagementDiceCount = (dieSize, nextCountRaw) => {
   const nextCount = Math.max(0, Number(nextCountRaw) || 0)
   const existingDice = Array.isArray(localNovizio.value.engagementDice) ? localNovizio.value.engagementDice : []
-  const keptDice = existingDice.filter((die) => normalizeDieSides(die) !== dieSize)
-  const updatedDice = Array.from({ length: nextCount }, () => ({ dieSides: dieSize }))
+  const keptDice = existingDice.filter((die) => normalizedieSize(die) !== dieSize)
+  const updatedDice = Array.from({ length: nextCount }, () => ({ dieSize: dieSize }))
 
   localNovizio.value.engagementDice = [...keptDice, ...updatedDice]
 }

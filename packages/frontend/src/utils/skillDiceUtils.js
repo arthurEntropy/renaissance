@@ -8,7 +8,7 @@ const buildD12Dice = (skillConfig, options) => {
   const d12Count = skillConfig.isFavored || skillConfig.isIllFavored ? 2 : 1
   
   for (let i = 0; i < d12Count; i++) {
-    const die = { dieSides: DIE_TYPE.D12 }
+    const die = { dieSize: DIE_TYPE.D12 }
     if (includeDiceClass && getDiceFontMaxClass) {
       die.cssClass = getDiceFontMaxClass(DIE_TYPE.D12)
     }
@@ -27,7 +27,7 @@ const buildBaseRankDice = (baseRanks, diceMod, options) => {
     const isSubtracted = diceMod < 0 && i >= baseRanks + diceMod
     
     const die = {
-      dieSides: DIE_TYPE.D6,
+      dieSize: DIE_TYPE.D6,
       isSubtracted,
       isAdded: false
     }
@@ -51,7 +51,7 @@ const buildDiceModDice = (baseRanks, diceMod, options) => {
     const maxAdditionalDice = Math.min(diceMod, MAX_SKILL_RANKS - baseRanks)
     for (let i = 0; i < maxAdditionalDice; i++) {
       const die = {
-        dieSides: DIE_TYPE.D6,
+        dieSize: DIE_TYPE.D6,
         isSubtracted: false,
         isAdded: true
       }

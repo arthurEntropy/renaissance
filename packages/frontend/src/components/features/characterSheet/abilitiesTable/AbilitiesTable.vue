@@ -339,11 +339,11 @@ const handleRollLink = (rollData) => {
     rollLinkBiomeDiceMod.value = rollData.biomeDiceMod ?? 0
     showSkillCheckModal.value = true
   } else if (rollData.type === 'damage-roll') {
-    // Transform dice format from [{count, sides}] to [{dieSides}...]
+    // Transform dice format from [{count, sides}] to [{dieSize}...]
     const dicePool = []
     rollData.dice.forEach(die => {
       for (let i = 0; i < die.count; i++) {
-        dicePool.push({ dieSides: die.sides })
+        dicePool.push({ dieSize: die.sides })
       }
     })
 
@@ -378,11 +378,11 @@ const handleRollLink = (rollData) => {
       rollsStore.setRoll(rollResult)
     }
   } else if (rollData.type === 'custom-roll') {
-    // Transform dice format from [{count, sides}] to [{dieSides}...]
+    // Transform dice format from [{count, sides}] to [{dieSize}...]
     const dicePool = []
     rollData.dice.forEach(die => {
       for (let i = 0; i < die.count; i++) {
-        dicePool.push({ dieSides: die.sides })
+        dicePool.push({ dieSize: die.sides })
       }
     })
 
@@ -446,7 +446,7 @@ function applyBiomeDiceMod(pool, mod) {
   if (mod > 0) {
     const templateDie = result[result.length - 1]
     for (let i = 0; i < mod; i++) {
-      result.push({ dieSides: templateDie.dieSides })
+      result.push({ dieSize: templateDie.dieSize })
     }
   } else {
     const removeCount = Math.min(Math.abs(mod), result.length)

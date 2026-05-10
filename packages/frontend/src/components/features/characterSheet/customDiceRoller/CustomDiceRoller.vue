@@ -90,7 +90,7 @@ const handleRoll = async () => {
         const dicePool = []
         Object.entries(diceCounts.value).forEach(([dieType, count]) => {
             for (let i = 0; i < count; i++) {
-                dicePool.push({ dieSides: parseInt(dieType) })
+                dicePool.push({ dieSize: parseInt(dieType) })
             }
         })
 

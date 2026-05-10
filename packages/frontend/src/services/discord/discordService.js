@@ -67,7 +67,7 @@ class DiscordService {
 
     try {
       const rollResultsText = rollResult.diceResults
-        .map(r => `${r.dieRollValue} (d${r.dieSides})`)
+        .map(r => `${r.dieRollValue} (d${r.dieSize})`)
         .join(', ')
 
       const footer = rollResult.modifier !== 0

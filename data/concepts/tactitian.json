@@ -34,7 +34,7 @@
     "martialTrainingNotes": "",
     "engagementDice": [
       {
-        "dieSides": 8
+        "dieSize": 8
       }
     ],
     "engagementDiceNotes": "",

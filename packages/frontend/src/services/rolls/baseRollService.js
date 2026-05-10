@@ -52,7 +52,7 @@ class BaseRollService {
     // Add d12(s)
     const d12Count = (skill.isFavored || skill.isIllFavored) ? 2 : 1 // Favored or ill-favored gets 2 d12s
     for (let i = 0; i < d12Count; i++) {
-      dicePool.push({ dieSides: DIE_TYPE.D12 })
+      dicePool.push({ dieSize: DIE_TYPE.D12 })
     }
     
     // Add d6s based on ranks + diceMod
@@ -60,7 +60,7 @@ class BaseRollService {
     if (totalD6Count < 0) totalD6Count = 0
     
     for (let i = 0; i < totalD6Count; i++) {
-      dicePool.push({ dieSides: DIE_TYPE.D6 })
+      dicePool.push({ dieSize: DIE_TYPE.D6 })
     }
     
     return dicePool

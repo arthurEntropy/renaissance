@@ -164,7 +164,7 @@ class EngagementRollService extends BaseRollService {
         // Update the DiceResult object
         targetUser.rollResults[rerolledDie.poolIndex].dieRollValue = newValue
         targetUser.rollResults[rerolledDie.poolIndex].originalDieRollValue = newValue
-        targetUser.rollResults[rerolledDie.poolIndex].rolledMaxValue = newValue === targetUser.rollResults[rerolledDie.poolIndex].dieSides
+        targetUser.rollResults[rerolledDie.poolIndex].rolledMaxValue = newValue === targetUser.rollResults[rerolledDie.poolIndex].dieSize
         
         // Recalculate total
         targetUser.rollTotal = targetUser.rollResults.reduce((sum, result) => sum + (result.dieRollValue || 0), 0)

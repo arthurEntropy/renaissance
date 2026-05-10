@@ -11,16 +11,16 @@ class DiceRoller {
 
   static rollPool(dicePool) {
     return dicePool.map((die, index) => 
-      this.createDiceResult(die.dieSides, this.rollDie(die.dieSides), index)
+      this.createDiceResult(die.dieSize, this.rollDie(die.dieSize), index)
     )
   }
 
-  static createDiceResult(dieSides, rolledValue, poolIndex) {
-    const rolledMaxValue = rolledValue === dieSides
+  static createDiceResult(dieSize, rolledValue, poolIndex) {
+    const rolledMaxValue = rolledValue === dieSize
     
     return {
       // Core identity
-      dieSides,
+      dieSize,
       dieRollValue: rolledValue,
       poolIndex,
       
