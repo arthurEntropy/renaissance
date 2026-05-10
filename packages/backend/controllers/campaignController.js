@@ -717,6 +717,72 @@ export const updateLobbyState = (req, res) => {
   }
 }
 
+// PUT /campaigns/:id/combat-groups — updates shared combat groups (GM only)
+export const updateCombatGroups = (req, res) => {
+  try {
+    const campaign = getCampaignById(req.params.id)
+    if (!campaign) {
+      return res.status(404).json({ error: 'Campaign not found' })
+    }
+
+    const inputGroups = req.body?.combatGroups
+    if (!Array.isArray(inputGroups)) {
+      return res.status(400).json({ error: 'combatGroups must be an array' })
+    }
+
+    const normalizedGroups = inputGroups.map((group, groupIndex) => {
+      if (!group || typeof group !== 'object') {
+        throw new Error(`combatGroups[${groupIndex}] must be an object`)
+      }
+
+      const groupId = String(group.id || '').trim()
+      if (!groupId) {
+        throw new Error(`combatGroups[${groupIndex}].id is required`)
+      }
+
+      const groupName = String(group.name || '').trim()
+      if (!groupName) {
+        throw new Error(`combatGroups[${groupIndex}].name is required`)
+      }
+
+      const combatants = Array.isArray(group.combatants) ? group.combatants : []
+      const normalizedCombatants = combatants.map((combatant, combatantIndex) => {
+        const type = combatant?.type
+        if (type !== 'npc' && type !== 'beast') {
+          throw new Error(`combatGroups[${groupIndex}].combatants[${combatantIndex}].type must be npc or beast`)
+        }
+
+        const characterId = String(combatant?.characterId || '').trim()
+        if (!characterId) {
+          throw new Error(`combatGroups[${groupIndex}].combatants[${combatantIndex}].characterId is required`)
+        }
+
+        return {
+          id: `${type}:${characterId}`,
+          type,
+          characterId,
+        }
+      })
+
+      return {
+        id: groupId,
+        name: groupName,
+        combatants: normalizedCombatants,
+      }
+    })
+
+    const updated = { ...campaign, combatGroups: normalizedGroups }
+    saveFile(updated, CAMPAIGNS_DIRECTORY, campaign.name, campaign.id)
+    res.json(updated)
+  } catch (err) {
+    console.error('Error updating combat groups:', err)
+    if (err?.message?.includes('combatGroups[')) {
+      return res.status(400).json({ error: err.message })
+    }
+    res.status(500).json({ error: 'Failed to update combat groups' })
+  }
+}
+
 // DELETE /campaigns/:id/beasts/:characterId — hard-deletes a beast instance
 export const deleteBeastInstance = (req, res) => {
   try {

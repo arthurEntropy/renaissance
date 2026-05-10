@@ -5,7 +5,7 @@
   "description": "In which we explore the realm of imagination. We do not fear what our minds may create, but rather celebrate the strangeness of the sum of our collective hopes, fears and dreams. We will plunge headlong into new worlds. We will love and hate the strange and wonderful people we meet. We will learn about ourselves and about each other. The magic is in not knowing what comes next. We play to find out what happens.",
   "coverImageUrl": "https://cdn.midjourney.com/89c26af7-b4e3-47f5-b6ea-92985d2df5d5/0_0.png",
   "createdAt": "2026-04-29T13:40:44.511Z",
-  "lastModified": "2026-05-07T18:15:21.744Z",
+  "lastModified": "2026-05-10T18:29:04.657Z",
   "isDeleted": false,
   "foundingGmUserId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
   "members": [
@@ -14,7 +14,8 @@
       "role": "gm",
       "status": "accepted",
       "characterIds": [
-        "c6e87008-622d-4410-9f1d-ce56c85ea5ae"
+        "c6e87008-622d-4410-9f1d-ce56c85ea5ae",
+        "f100327c-464b-4f18-9b9a-d32b22a54cc8"
       ]
     },
     {
@@ -90,5 +91,49 @@
     "inactiveNpcIds": [],
     "hiddenNpcIds": [],
     "inactivePlayerCharacterIds": []
-  }
+  },
+  "combatGroups": [
+    {
+      "id": "group-1778437706836-cpj434",
+      "name": "Bad Dudes",
+      "combatants": [
+        {
+          "id": "beast:01d7b1ff-3cd1-47d5-b92f-6bdd206d1b06",
+          "type": "beast",
+          "characterId": "01d7b1ff-3cd1-47d5-b92f-6bdd206d1b06"
+        },
+        {
+          "id": "beast:aa3a7a7b-86f1-4e24-9151-3087693e7998",
+          "type": "beast",
+          "characterId": "aa3a7a7b-86f1-4e24-9151-3087693e7998"
+        },
+        {
+          "id": "npc:bcd5b03e-0a75-4fe0-96ae-9a2ca392c09c",
+          "type": "npc",
+          "characterId": "bcd5b03e-0a75-4fe0-96ae-9a2ca392c09c"
+        }
+      ]
+    },
+    {
+      "id": "group-1778437726703-uv9fzb",
+      "name": "Worse Dudes",
+      "combatants": [
+        {
+          "id": "npc:833888c8-725f-4826-9745-73792345cc4a",
+          "type": "npc",
+          "characterId": "833888c8-725f-4826-9745-73792345cc4a"
+        },
+        {
+          "id": "npc:807d03d2-3edc-410c-b2ca-141e679d7bf9",
+          "type": "npc",
+          "characterId": "807d03d2-3edc-410c-b2ca-141e679d7bf9"
+        },
+        {
+          "id": "beast:7488fa06-7455-4ecd-a4bf-931838c50094",
+          "type": "beast",
+          "characterId": "7488fa06-7455-4ecd-a4bf-931838c50094"
+        }
+      ]
+    }
+  ]
 }

@@ -1,25 +1,22 @@
 {
-  "id": "01d7b1ff-3cd1-47d5-b92f-6bdd206d1b06",
-  "createdAt": "2026-05-10T18:28:38.032Z",
-  "name": "Rhinodillo Beetle A",
-  "pronouns": "",
-  "ancestryIds": [],
-  "cultureIds": [],
-  "mestiereId": null,
+  "id": "f100327c-464b-4f18-9b9a-d32b22a54cc8",
+  "isDeleted": false,
+  "createdAt": "2026-05-10T18:05:32.328Z",
+  "lastModified": "2026-05-10T18:07:25.973Z",
+  "characterType": "playerCharacter",
+  "name": "Doran",
   "featuredArtUrls": [
-    "https://cdn.midjourney.com/d190fffe-70a8-4aea-b938-10664317c862/0_0.png"
+    "https://cdn.midjourney.com/c0bc4dfb-498a-4163-b451-a61affada144/0_0.jpeg"
   ],
   "speed": 0,
-  "xp": 0,
   "notes": "",
-  "characterType": "beastInstance",
-  "body": 0,
-  "heart": 0,
-  "wits": 0,
+  "body": 2,
+  "heart": 4,
+  "wits": 2,
   "skills": [
     {
       "key": "awe",
-      "ranks": 0,
+      "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -59,7 +56,7 @@
     },
     {
       "key": "perform",
-      "ranks": 0,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -75,7 +72,7 @@
     },
     {
       "key": "courtesy",
-      "ranks": 0,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -83,7 +80,7 @@
     },
     {
       "key": "spirit",
-      "ranks": 0,
+      "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -99,7 +96,7 @@
     },
     {
       "key": "persuade",
-      "ranks": 0,
+      "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -140,15 +137,15 @@
   ],
   "endurance": {
     "current": 0,
-    "base": 0
+    "base": 10
   },
   "hope": {
     "current": 0,
-    "base": 0
+    "base": 8
   },
   "defense": {
     "current": 0,
-    "base": 0
+    "base": 2
   },
   "load": 0,
   "shadow": 0,
@@ -168,15 +165,91 @@
     "afraid": false,
     "troubled": false
   },
+  "engagementDice": [],
+  "engagementSuccesses": [],
+  "engagementDiceStatuses": {},
   "equipment": [],
+  "groupEquipmentBySource": false,
+  "groupEquipmentByCustom": false,
+  "equipmentSortOption": "name-asc",
+  "equipmentCustomGroups": [],
   "mp": {
     "current": 0,
     "base": 0
   },
   "abilities": [],
+  "groupAbilitiesBySource": false,
+  "groupAbilitiesByManaColor": false,
+  "groupAbilitiesByCustom": false,
+  "abilitySortOption": "name-asc",
+  "abilityCustomGroups": [],
+  "autoCalculations": {
+    "load": true,
+    "states": true,
+    "baseEndurance": true,
+    "baseHope": true,
+    "baseDefense": true
+  },
+  "rollStats": {
+    "skillChecks": {
+      "attempts": 0,
+      "successes": 0,
+      "totalSum": 0,
+      "bestTotal": null,
+      "hardestSuccess": null,
+      "bySkill": {},
+      "solCount": 0,
+      "morteCount": 0,
+      "successCount": 0
+    },
+    "contests": {
+      "engagement": {
+        "wins": 0,
+        "losses": 0,
+        "draws": 0
+      },
+      "opposed": {
+        "wins": 0,
+        "losses": 0,
+        "draws": 0
+      }
+    }
+  },
+  "biomeTags": [],
+  "biomeId": null,
+  "nimbleStep": 0,
+  "swagger": 0,
+  "swaggerIconIndex": 0,
+  "swaggerColor": "#ffffff",
+  "manaPool": {
+    "white": [],
+    "blue": [],
+    "black": [],
+    "red": [],
+    "green": [],
+    "colorless": []
+  },
   "witchcraftTokens": [],
+  "summonerVessels": [],
+  "campaignId": null,
   "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "templateId": "3774aed2-eec6-49d3-8d4d-f5b2e24fd373",
-  "campaignId": "2216d52f-f74d-479e-b440-f7b5aa6319e5",
-  "lastModified": "2026-05-10T18:28:38.040Z"
+  "pronouns": "he/him",
+  "ancestryIds": [
+    "f9e8d7c6-b5a4-9382-7165-0f9e8d7c6b5a"
+  ],
+  "cultureIds": [
+    "34ea8807-b404-435c-a860-704b4a40df8f"
+  ],
+  "mestiereId": "49f10189-9634-4083-933b-fa74c2583b87",
+  "age": 71,
+  "heightFeet": 5,
+  "heightInches": 0,
+  "weight": 275,
+  "keeping": "3c4d5e6f-7a8b-4c9d-0e1f-2a3b4c5d6e7f",
+  "treasure": 0,
+  "xp": 0,
+  "description": "",
+  "size": 0,
+  "reach": 0,
+  "updatedAt": "2026-05-10T18:07:25.973Z"
 }

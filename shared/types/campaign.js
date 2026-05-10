@@ -41,6 +41,24 @@ import { CAMPAIGN_ROLE, CAMPAIGN_MEMBER_STATUS } from '../constants/campaignCons
  */
 
 /**
+ * @typedef {'npc'|'beast'} CombatantType
+ */
+
+/**
+ * @typedef {Object} CombatCombatant
+ * @property {string} id - Stable local combatant entry ID, formatted as type:characterId
+ * @property {CombatantType} type - Combatant type
+ * @property {UUID} characterId - Character ID (NPC or beast instance)
+ */
+
+/**
+ * @typedef {Object} CombatGroup
+ * @property {UUID} id - Combat group ID
+ * @property {string} name - Combat group name
+ * @property {CombatCombatant[]} combatants - Ordered combatants in this group
+ */
+
+/**
  * @typedef {import('./baseEntity.js').BaseEntity} BaseEntity
  */
 
@@ -55,6 +73,7 @@ import { CAMPAIGN_ROLE, CAMPAIGN_MEMBER_STATUS } from '../constants/campaignCons
  * @property {UUID[]} includedConceptIds - IDs of concepts included in campaign
  * @property {CampaignShop[]} shops - Generated shops
  * @property {CampaignLobbyState} lobbyState - Shared GM lobby arrangement
+ * @property {CombatGroup[]} combatGroups - Shared combat groups for campaign lobby
  */
 
 /**
@@ -90,5 +109,6 @@ export function createDefaultCampaign(foundingGmUserId) {
       hiddenNpcIds: [],
       inactivePlayerCharacterIds: [],
     },
+    combatGroups: [],
   }
 }

@@ -28,5 +28,6 @@
     "inactiveNpcIds": [],
     "hiddenNpcIds": [],
     "inactivePlayerCharacterIds": []
-  }
+  },
+  "combatGroups": []
 }

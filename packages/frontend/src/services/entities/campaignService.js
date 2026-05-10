@@ -70,6 +70,11 @@ class CampaignService {
     return response.data
   }
 
+  async updateCombatGroups(campaignId, combatGroups) {
+    const response = await apiClient.put(`/campaigns/${campaignId}/combat-groups`, { combatGroups })
+    return response.data
+  }
+
   // Campaign characters (NPCs & beast instances)
   async getCampaignCharacters(campaignId) {
     const response = await apiClient.get(`/campaigns/${campaignId}/characters`)

@@ -42,6 +42,7 @@ import { computed, ref } from 'vue'
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/vue/24/outline'
 import { useCharacterContextStore } from '@/stores/characterContextStore'
 import { useCharactersStore } from '@/stores/charactersStore'
+import { useCampaignStore } from '@/stores/campaignStore'
 import SelectedCharacterBadge from '@/components/features/characterSelection/SelectedCharacterBadge.vue'
 import SelectedBeastBadge from '@/components/features/characterSelection/SelectedBeastBadge.vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
@@ -52,6 +53,7 @@ import { isBeastTemplate, isBeastInstance } from '@/utils/characterTypeGuards'
 
 const characterContextStore = useCharacterContextStore()
 const charactersStore = useCharactersStore()
+const campaignStore = useCampaignStore()
 const { getSummonedBeastForCharacterId } = useSummonedBeast()
 const { open: openCharacterSheet } = useAppCharacterSheetModal()
 const collapsedGroupIds = ref(new Set())
@@ -59,11 +61,23 @@ const focusedCharacter = computed(() => charactersStore.selectedCharacter)
 const isBeastCharacter = (character) => isBeastTemplate(character) || isBeastInstance(character)
 
 const pinnedGroups = computed(() => characterContextStore.pinnedGroups)
+const campaignCharactersById = computed(() => {
+    const map = new Map()
+    for (const character of campaignStore.campaignCharacters || []) {
+        if (character?.id) map.set(character.id, character)
+    }
+    return map
+})
+
+function resolveCharacterById(id) {
+    return charactersStore.getById(id) || campaignCharactersById.value.get(id) || null
+}
+
 const resolvedPinnedGroups = computed(() => {
     return pinnedGroups.value
         .map((group) => {
             const members = (group.memberIds || [])
-                .map((memberId) => charactersStore.getById(memberId))
+                .map((memberId) => resolveCharacterById(memberId))
                 .filter(Boolean)
             return {
                 ...group,

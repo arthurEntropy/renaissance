@@ -50,6 +50,7 @@ import {
   getCampaignBySlug,
   deleteBeastInstance,
   updateLobbyState,
+  updateCombatGroups,
 } from './controllers/campaignController.js'
 import {
   requireCampaignMember,
@@ -144,6 +145,7 @@ app.delete('/campaigns/:id/beasts/:characterId', requireAuth, requireCampaignGM,
 
 // Campaign lobby state
 app.put('/campaigns/:id/lobby-state', requireAuth, requireCampaignGM, updateLobbyState)
+app.put('/campaigns/:id/combat-groups', requireAuth, requireCampaignGM, updateCombatGroups)
 
 // Campaign shops
 app.post('/campaigns/:id/shops/generate', requireAuth, requireCampaignGM, generateShop)

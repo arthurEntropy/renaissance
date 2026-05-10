@@ -280,6 +280,28 @@ export const useCampaignStore = defineStore('campaigns', () => {
     }
   }
 
+  const updateCombatGroups = async (campaignId, combatGroups) => {
+    const idx = campaigns.value.findIndex((c) => c.id === campaignId)
+    const original = idx !== -1 ? campaigns.value[idx] : null
+
+    if (original) {
+      campaigns.value[idx] = {
+        ...original,
+        combatGroups: Array.isArray(combatGroups) ? combatGroups : [],
+      }
+    }
+
+    try {
+      const updated = await CampaignService.updateCombatGroups(campaignId, combatGroups)
+      upsertCampaign(updated)
+      return updated
+    } catch (err) {
+      if (original) upsertCampaign(original)
+      console.error('Error updating combat groups:', err)
+      throw err
+    }
+  }
+
   const fetchCampaignCharacters = async (campaignId) => {
     try {
       campaignCharacters.value = await CampaignService.getCampaignCharacters(campaignId)
@@ -379,6 +401,7 @@ export const useCampaignStore = defineStore('campaigns', () => {
     updateMemberCharacters,
     updateIncludedConcepts,
     updateLobbyState,
+    updateCombatGroups,
     fetchCampaignCharacters,
     addCampaignCharacter,
     removeCampaignCharacter,
