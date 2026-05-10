@@ -327,8 +327,8 @@ const getNextGroupName = () => {
     return `Group ${index}`
 }
 
-const getNextBeastInstanceName = (templateName) => {
-    const escaped = String(templateName || '').replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+const getNextBeastInstanceName = (baseName) => {
+    const escaped = String(baseName || '').replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
     const suffixPattern = new RegExp(`^${escaped}\\s+([A-Z]+)$`)
     const usedSuffixes = new Set()
 
@@ -343,11 +343,11 @@ const getNextBeastInstanceName = (templateName) => {
     for (let index = 0; index < 702; index += 1) {
         const suffix = toLetterSuffix(index)
         if (!usedSuffixes.has(suffix)) {
-            return `${templateName} ${suffix}`
+            return `${baseName} ${suffix}`
         }
     }
 
-    return `${templateName} ${Date.now()}`
+    return `${baseName} ${Date.now()}`
 }
 
 const createGroup = () => {
@@ -526,9 +526,8 @@ const createBeastInstanceFromTemplate = async (templateId) => {
             ...template,
             id: null,
             name: getNextBeastInstanceName(template.name),
-            beastType: 'instance',
+            characterType: 'beastInstance',
             templateId: template.id,
-            templateName: template.name,
             campaignId: campaignId.value,
             createdAt: new Date().toISOString(),
             lastModified: new Date().toISOString(),

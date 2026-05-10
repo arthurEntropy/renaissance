@@ -5,6 +5,7 @@ import UserService from '@/services/entities/userService'
 import { useAuthStore } from './authStore'
 import { useUserStore } from './userStore'
 import { CAMPAIGN_ROLE, CAMPAIGN_MEMBER_STATUS } from '@shared/constants/campaignConstants'
+import { isNPC, isBeastInstance } from '@/utils/characterTypeGuards'
 
 export const useCampaignStore = defineStore('campaigns', () => {
   const authStore = useAuthStore()
@@ -20,8 +21,10 @@ export const useCampaignStore = defineStore('campaigns', () => {
 
   // Characters fetched for the active campaign (NPCs + beast instances)
   const campaignCharacters = ref([])
-  const campaignNPCs = computed(() => campaignCharacters.value.filter((c) => c.isNPC))
-  const campaignBeastInstances = computed(() => campaignCharacters.value.filter((c) => c.beastType === 'instance'))
+  const campaignNPCs = computed(() => campaignCharacters.value.filter((c) => isNPC(c)))
+  const campaignBeastInstances = computed(() =>
+    campaignCharacters.value.filter((c) => isBeastInstance(c))
+  )
 
   // The currently active campaign (user entered it)
   const activeCampaign = computed(() => {

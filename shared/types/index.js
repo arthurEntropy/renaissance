@@ -28,7 +28,13 @@ export { createDefaultBiome } from './biome.js'
 export { createDefaultAbility } from './ability.js'
 export { createDefaultAbilitySchool } from './abilitySchool.js'
 export { createDefaultArt } from './art.js'
-export { createDefaultCharacter } from './character.js'
+export {
+	createDefaultCharacter,
+	createDefaultPlayerCharacter,
+	createDefaultNPC,
+	createDefaultBeast,
+	createDefaultBeastInstance,
+} from './character.js'
 export { createDefaultEngagementSuccess } from './engagementSuccess.js'
 export { createDefaultExpansion } from './expansion.js'
 export { createDefaultKeeping } from './keeping.js'

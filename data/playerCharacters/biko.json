@@ -1,0 +1,398 @@
+{
+  "id": "3394b1a2-236d-45ca-9262-84c17a3b7015",
+  "lastModified": "2026-04-29T02:23:58.612Z",
+  "name": "Biko",
+  "pronouns": "he/him",
+  "ancestryIds": [
+    "ba7af7ad-54d2-4b45-86ad-71781d4cdb33",
+    "f9e8d7c6-b5a4-9382-7165-0f9e8d7c6b5a"
+  ],
+  "cultureIds": [
+    "5c67bedd-8e73-4add-b46b-9b911bf0fd59",
+    "61e2ce55-1954-4e8e-b1b3-b249ae915fa7"
+  ],
+  "mestiereId": "4eccfe5d-de19-4bc5-8c9c-374d793d67f0",
+  "featuredArtUrls": [
+    "https://cdn.midjourney.com/bb7f8092-0710-4aaf-9f26-e376a0cec04e/0_0.png"
+  ],
+  "age": 21,
+  "heightFeet": 5,
+  "heightInches": 6,
+  "weight": 174,
+  "keeping": "5e6f7a8b-9c0d-4e1f-2a3b-4c5d6e7f8a9b",
+  "xp": 0,
+  "notes": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In maximus nisl eu augue consectetur mattis. Donec ac quam a velit bibendum porttitor. Vivamus bibendum massa at lacus ornare condimentum. Curabitur at mollis quam. Suspendisse aliquet auctor est, sed aliquam magna volutpat eget. Duis quis ligula eu ante condimentum viverra. Curabitur euismod est in varius fringilla. Fusce lorem libero, scelerisque sed aliquet fringilla, sodales in mauris. Maecenas in lacus ac ligula accumsan convallis. Praesent erat elit, accumsan et sapien bibendum, sollicitudin varius ipsum. Curabitur iaculis rutrum ex.</p><p style=\"text-align: justify\">Praesent quis tristique felis. Cras sed tortor mauris. Nam dolor tellus, congue eu elit ac, fermentum scelerisque nulla. Proin vehicula gravida luctus. Donec in elit tempus, fermentum metus nec, sagittis enim. Donec vitae augue leo. Quisque vel arcu quis ligula imperdiet dapibus sed sit amet lacus. Aenean at ornare libero. Aliquam lacinia faucibus dolor, sit amet volutpat purus convallis et. In cursus pulvinar mauris a lacinia. Nullam quis odio et odio consequat rhoncus. Fusce lectus enim, ornare in urna id, mollis facilisis odio. Aliquam dictum purus sed turpis elementum aliquam. Sed dapibus non leo quis euismod.</p><p style=\"text-align: justify\">Cras dapibus quam nulla, et semper enim sodales quis. Nunc sagittis sagittis metus. In sit amet eros posuere, egestas lacus eget, porta felis. Aliquam id sem ut magna aliquam fringilla. Suspendisse nec urna a erat gravida lobortis. Sed posuere mollis efficitur. Quisque vel vestibulum turpis. Duis sodales in orci sed dictum. Aliquam egestas sodales leo ac aliquam. Ut ac blandit neque. Integer at lobortis nulla, vel congue odio. Maecenas accumsan, nisi vel vulputate maximus, mi nibh blandit lorem, vel euismod nisi lectus at risus. Duis non malesuada odio, vitae commodo velit.</p><p style=\"text-align: justify\"></p><p style=\"text-align: justify\">Praesent quis tristique felis. Cras sed tortor mauris. Nam dolor tellus, congue eu elit ac, fermentum scelerisque nulla. Proin vehicula gravida luctus. Donec in elit tempus, fermentum metus nec, sagittis enim. Donec vitae augue leo. Quisque vel arcu quis ligula imperdiet dapibus sed sit amet lacus. Aenean at ornare libero. Aliquam lacinia faucibus dolor, sit amet volutpat purus convallis et. In cursus pulvinar mauris a lacinia. Nullam quis odio et odio consequat rhoncus. Fusce lectus enim, ornare in urna id, mollis facilisis odio. Aliquam dictum purus sed turpis elementum aliquam. Sed dapibus non leo quis euismod.</p><p style=\"text-align: justify\">Cras dapibus quam nulla, et semper enim sodales quis. Nunc sagittis sagittis metus. In sit amet eros posuere, egestas lacus eget, porta felis. Aliquam id sem ut magna aliquam fringilla. Suspendisse nec urna a erat gravida lobortis. Sed posuere mollis efficitur. Quisque vel vestibulum turpis. Duis sodales in orci sed dictum. Aliquam egestas sodales leo ac aliquam. Ut ac blandit neque. Integer at lobortis nulla, vel congue odio. Maecenas accumsan, nisi vel vulputate maximus, mi nibh blandit lorem, vel euismod nisi lectus at risus. Duis non malesuada odio, vitae commodo velit.</p><p style=\"text-align: justify\"></p><p style=\"text-align: justify\">Praesent quis tristique felis. Cras sed tortor mauris. Nam dolor tellus, congue eu elit ac, fermentum scelerisque nulla. Proin vehicula gravida luctus. Donec in elit tempus, fermentum metus nec, sagittis enim. Donec vitae augue leo. Quisque vel arcu quis ligula imperdiet dapibus sed sit amet lacus. Aenean at ornare libero. Aliquam lacinia faucibus dolor, sit amet volutpat purus convallis et. In cursus pulvinar mauris a lacinia. Nullam quis odio et odio consequat rhoncus. Fusce lectus enim, ornare in urna id, mollis facilisis odio. Aliquam dictum purus sed turpis elementum aliquam. Sed dapibus non leo quis euismod.</p><p style=\"text-align: justify\">Cras dapibus quam nulla, et semper enim sodales quis. Nunc sagittis sagittis metus. In sit amet eros posuere, egestas lacus eget, porta felis. Aliquam id sem ut magna aliquam fringilla. Suspendisse nec urna a erat gravida lobortis. Sed posuere mollis efficitur. Quisque vel vestibulum turpis. Duis sodales in orci sed dictum. Aliquam egestas sodales leo ac aliquam. Ut ac blandit neque. Integer at lobortis nulla, vel congue odio. Maecenas accumsan, nisi vel vulputate maximus, mi nibh blandit lorem, vel euismod nisi lectus at risus. Duis non malesuada odio, vitae commodo velit.</p>",
+  "characterType": "player",
+  "description": "",
+  "size": 0,
+  "reach": 0,
+  "body": 5,
+  "heart": 2,
+  "wits": 2,
+  "skills": [
+    {
+      "key": "awe",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "strength",
+      "ranks": 3,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "dexterity",
+      "ranks": 2,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "fortitude",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "craft",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "perform",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "insight",
+      "ranks": 1,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "courtesy",
+      "ranks": 1,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "spirit",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "aid",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "persuade",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "awareness",
+      "ranks": 2,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "stealth",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "lore",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "riddle",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    }
+  ],
+  "endurance": {
+    "current": 25,
+    "base": 25
+  },
+  "hope": {
+    "current": 4,
+    "base": 4
+  },
+  "defense": {
+    "current": 12,
+    "base": 12
+  },
+  "load": 0,
+  "shadow": 0,
+  "injury": 0,
+  "states": {
+    "weary": false,
+    "twiceWeary": false,
+    "miserable": false,
+    "twiceMiserable": false,
+    "helpless": false,
+    "twiceHelpless": false
+  },
+  "conditions": {
+    "insecure": false,
+    "guilty": false,
+    "angry": false,
+    "afraid": false,
+    "troubled": false
+  },
+  "engagementDice": [
+    4,
+    4,
+    6
+  ],
+  "engagementSuccesses": [],
+  "engagementDiceStatuses": {},
+  "equipment": [
+    {
+      "id": "b69c879e-a758-47b6-a3a4-b81dfd12eaaf",
+      "quantity": 1,
+      "isCarried": true,
+      "isWielding": true,
+      "collapsed": true
+    },
+    {
+      "id": "2f54077d-56bd-46a6-9ad5-a7acdc7a90cf",
+      "quantity": 1,
+      "isCarried": true,
+      "isWielding": false,
+      "collapsed": true
+    },
+    {
+      "id": "249e6650-8646-4367-9912-6655f03ce32c",
+      "quantity": 1,
+      "isCarried": true,
+      "isWielding": false,
+      "collapsed": true
+    },
+    {
+      "id": "30ade4bc-27c7-4bb5-a674-00cbd0fc294b",
+      "quantity": 1,
+      "isCarried": true,
+      "isWielding": false,
+      "collapsed": true
+    },
+    {
+      "id": "b2235478-d2a6-4ccd-8cde-bd7efc35fd59",
+      "quantity": 1,
+      "isCarried": true,
+      "collapsed": true
+    },
+    {
+      "id": "6c9a4bb8-84f1-41ba-af09-ad6e65f7b9cc",
+      "quantity": 1,
+      "isCarried": true,
+      "collapsed": true
+    },
+    {
+      "id": "35d95303-a550-457a-97b5-00c2eda8e9ee",
+      "quantity": 1,
+      "isCarried": true,
+      "isWielding": false,
+      "collapsed": true
+    },
+    {
+      "id": "f94fb100-aed0-4a42-89a4-3a793439b842",
+      "quantity": 1,
+      "isCarried": true,
+      "collapsed": true
+    },
+    {
+      "id": "d7b8a4bf-649e-4ce5-8d6b-488755d7cc09",
+      "quantity": 1,
+      "isCarried": true,
+      "collapsed": true
+    }
+  ],
+  "groupEquipmentBySource": false,
+  "equipmentSortOption": "",
+  "mp": {
+    "current": 5,
+    "base": 5
+  },
+  "abilities": [
+    {
+      "id": "4fbf9ccb-0fbb-45d0-9f8f-7b7fcfb811fb",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "ad7f2d4c-75cc-4b7c-8066-57eb1ccaf54a",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "7eb3559b-8cd5-49ce-b047-a627e30db31c",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "359a4615-81a7-4cd1-a23f-22b50b7d1f93",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "de2e226f-c1e2-489e-9f70-353153421262",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "df41e010-07b6-40bf-bc67-ec2a01c9b95d",
+      "collapsed": true,
+      "showImprovements": true,
+      "showSuccesses": false,
+      "improvements": {
+        "f1a6c2ee-f7f0-543b-b088-d69b048bd612": true,
+        "5cdf24a8-94a3-54a9-8d29-e31c0a213826": true
+      }
+    },
+    {
+      "id": "c93d20c3-2fa2-4001-837d-cf38629b9c1a",
+      "collapsed": true,
+      "showImprovements": true,
+      "showSuccesses": false,
+      "improvements": {
+        "9c694b3a-f5d5-5a55-999c-09514ea7c995": true
+      }
+    },
+    {
+      "id": "18d87a10-1a25-493c-a549-7644744788f1",
+      "collapsed": true,
+      "showImprovements": true,
+      "showSuccesses": false,
+      "improvements": {
+        "8efc52bd-b89a-469a-8728-ab800c5e3c66": false
+      }
+    },
+    {
+      "id": "bd8f66a4-5849-483b-9123-b0085c0e5a5c",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "b9271b66-5772-4ec2-ba0c-5a8f4b6cc525",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "8d9b4191-4c71-4d62-9344-800fe50787ab",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "e16343e2-35aa-4a42-b8f3-9105aad87780",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "3f8b04db-fe8e-4569-8670-092ea46a06cf",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "f906a23e-b95d-421a-b4ed-b094c3086497",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "8f9c579e-1089-4532-a10a-3cf5115bb403",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false
+    }
+  ],
+  "groupAbilitiesBySource": true,
+  "abilitySortOption": "",
+  "autoCalculations": {
+    "load": true,
+    "states": true
+  },
+  "rollStats": {
+    "skillChecks": {
+      "attempts": 28,
+      "successes": 25,
+      "totalSum": 432,
+      "bestTotal": 27,
+      "hardestSuccess": 15,
+      "bySkill": {
+        "Strength": 23,
+        "Awareness": 1,
+        "Spirit": 1,
+        "Dexterity": 3
+      },
+      "solCount": 3,
+      "morteCount": 2,
+      "successCount": 9
+    },
+    "contests": {
+      "engagement": {
+        "wins": 0,
+        "losses": 0,
+        "draws": 0
+      },
+      "opposed": {
+        "wins": 0,
+        "losses": 0,
+        "draws": 0
+      }
+    }
+  },
+  "witchcraftTokens": [],
+  "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1"
+}

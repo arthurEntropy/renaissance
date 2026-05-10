@@ -122,34 +122,17 @@ import { createBaseEntity } from './baseEntity.js'
  */
 
 /**
- * @typedef {Object} CharacterFields
+ * @typedef {'playerCharacter'|'npc'|'beast'|'beastInstance'} CharacterType
+ */
+
+/**
+ * @typedef {Object} CharacterBaseFields
  * 
  * // Character Profile
  * @property {string} name - Character name
- * @property {string} pronouns - Character pronouns
- * @property {UUID[]} ancestryIds - Selected ancestry concept IDs
- * @property {UUID[]} cultureIds - Selected culture concept IDs
- * @property {UUID|null} mestiereId - Selected mestiere concept ID
  * @property {string[]} featuredArtUrls - Character art URLs
- * @property {number} age - Character age, in years
- * @property {number} heightFeet - Character height (feet)
- * @property {number} heightInches - Character height (inches)
- * @property {number} weight - Character weight
  * @property {number} speed - Movement speed
- * @property {UUID|null} keeping - Keeping level ID reference
- * @property {number} treasure - Character's current treasure
- * @property {number} xp - Experience points
  * @property {string} notes - Character notes
- * 
- * // Beast-specific fields
- * @property {boolean} isBeast - Whether this is a beast character
- * @property {null|'template'|'instance'} beastType - Beast classification; null = not a beast, 'template' = bestiary entry, 'instance' = campaign creature
- * @property {string|null} templateId - For beastType='instance', references the source template character
- * @property {number} challenge - Challenge rating for beasts (0 = not applicable)
- * @property {string|null} [templateName] - For beastType='instance', cached source template display name
- * @property {string} description - Beast description
- * @property {number} size - Beast size value
- * @property {number} reach - Beast reach, in feet
  * 
  * // Core abilities and derived stats
  * @property {number} body - Body attribute
@@ -170,7 +153,7 @@ import { createBaseEntity } from './baseEntity.js'
  * @property {UUID[]} engagementSuccesses - User-added engagement success IDs
  * @property {Object.<string, string>} engagementDiceStatuses - Saved engagement die statuses keyed by die identifier
  * 
- * //Equipment
+ * // Equipment
  * @property {CharacterEquipment[]} equipment - Equipped items
  * @property {boolean} groupEquipmentBySource - Whether to group equipment by source
  * @property {boolean} [groupEquipmentByCustom] - Whether to group equipment by custom user-defined groups
@@ -202,14 +185,55 @@ import { createBaseEntity } from './baseEntity.js'
  * @property {SummonerVessel[]} summonerVessels - Vessels carried by this Summoner character
  * 
  * // Campaign-related fields
- * @property {string|null} campaignId - If set, this character belongs to a campaign (NPC or beast instance)
- * @property {boolean} isNPC - True for GM-controlled humanoid characters within a campaign
- * @property {string|null} [ownerId] - Owner user ID used by backend authorization
- * @property {string|null} [userId] - Legacy/compat owner user ID used by some frontend checks
+ * @property {string|null} campaignId - If set, this character belongs to a campaign
+ * @property {string|null} [ownerId] - Owner user ID
  */
 
 /**
- * @typedef {BaseEntity & CharacterFields} Character
+ * @typedef {Object} PlayerCharacterFields
+ * @property {string} pronouns - Character pronouns
+ * @property {UUID[]} ancestryIds - Selected ancestry concept IDs
+ * @property {UUID[]} cultureIds - Selected culture concept IDs
+ * @property {UUID|null} mestiereId - Selected mestiere concept ID
+ * @property {number} age - Character age, in years
+ * @property {number} heightFeet - Character height (feet)
+ * @property {number} heightInches - Character height (inches)
+ * @property {number} weight - Character weight
+ * @property {UUID|null} keeping - Keeping level ID reference
+ * @property {number} treasure - Character's current treasure
+ * @property {number} xp - Experience points
+ */
+
+/**
+ * @typedef {Object} BeastFields
+ * @property {number} challenge - Challenge rating for beasts (0 = not applicable)
+ * @property {string} description - Beast description
+ * @property {number} size - Beast size value
+ * @property {number} reach - Beast reach, in feet
+ */
+
+/**
+ * @typedef {BaseEntity & CharacterBaseFields} CharacterBase
+ */
+
+/**
+ * @typedef {CharacterBase & PlayerCharacterFields & {characterType: 'playerCharacter'}} PlayerCharacter
+ */
+
+/**
+ * @typedef {CharacterBase & PlayerCharacterFields & {characterType: 'npc'}} NPC
+ */
+
+/**
+ * @typedef {CharacterBase & BeastFields & {characterType: 'beast'}} Beast
+ */
+
+/**
+ * @typedef {CharacterBase & BeastFields & {characterType: 'beastInstance', templateId: string}} BeastInstance
+ */
+
+/**
+ * @typedef {PlayerCharacter | NPC | Beast | BeastInstance} Character
  */
 
 function createDefaultSkills() {
@@ -217,42 +241,23 @@ function createDefaultSkills() {
     key: skill.key,
     ranks: 0,
     isFavored: false,
-    isIllFavored: 'defaultIllFavored' in skill && Boolean(skill.defaultIllFavored),
+    isIllFavored: false,
     diceMod: 0,
     manualDiceMod: 0,
   }))
 }
 
-export function createDefaultCharacter() {
+function createDefaultCharacterBase() {
   return {
     ...createBaseEntity(),
 
+    characterType: 'playerCharacter',
+
     // Character Profile
     name: 'New Character',
-    pronouns: '',
-    ancestryIds: [],
-    cultureIds: [],
-    mestiereId: null,
     featuredArtUrls: ['https://cdn.midjourney.com/a8a36740-b7d3-4aef-bea3-a95039bec06f/0_2.png'],
-    age: 0,
-    heightFeet: 0,
-    heightInches: 0,
-    weight: 0,
     speed: 0,
-    keeping: null,
-    treasure: 0,
-    xp: 0,
     notes: '',
-
-    // Beast-specific fields
-    isBeast: false,
-    beastType: null,
-    templateId: null,
-    challenge: 0,
-    templateName: null,
-    description: '',
-    size: 0,
-    reach: 0,
 
     // Core abilities and derived stats
     body: 0,
@@ -341,8 +346,66 @@ export function createDefaultCharacter() {
 
     // Campaign-related fields
     campaignId: null,
-    isNPC: false,
     ownerId: null,
-    userId: null,
   }
+}
+
+function createDefaultPlayerCharacterFields() {
+  return {
+    pronouns: '',
+    ancestryIds: [],
+    cultureIds: [],
+    mestiereId: null,
+    age: 0,
+    heightFeet: 0,
+    heightInches: 0,
+    weight: 0,
+    keeping: null,
+    treasure: 0,
+    xp: 0,
+  }
+}
+
+function createDefaultBeastFields() {
+  return {
+    challenge: 0,
+    description: '',
+    size: 0,
+    reach: 0,
+  }
+}
+
+export function createDefaultPlayerCharacter() {
+  return {
+    ...createDefaultCharacterBase(),
+    ...createDefaultPlayerCharacterFields(),
+  }
+}
+
+export function createDefaultNPC() {
+  return {
+    ...createDefaultPlayerCharacter(),
+    characterType: 'npc',
+  }
+}
+
+export function createDefaultBeast() {
+  return {
+    ...createDefaultCharacterBase(),
+    ...createDefaultBeastFields(),
+    characterType: 'beast',
+  }
+}
+
+export function createDefaultBeastInstance(campaignId = null, templateId = null) {
+  return {
+    ...createDefaultBeast(),
+    characterType: 'beastInstance',
+    campaignId,
+    templateId,
+  }
+}
+
+export function createDefaultCharacter() {
+  return createDefaultPlayerCharacter()
 }

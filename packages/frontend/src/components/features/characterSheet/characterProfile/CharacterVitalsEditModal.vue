@@ -15,7 +15,7 @@
                             <input type="text" v-model="formData.name" id="name" class="modal-input"
                                 placeholder="Character name" />
                         </div>
-                        <div v-if="!character.isBeast" class="form-column pronouns-input">
+                        <div v-if="!isBeastCharacter" class="form-column pronouns-input">
                             <label for="pronouns" class="left-aligned">Pronouns:</label>
                             <input type="text" v-model="formData.pronouns" id="pronouns" class="modal-input"
                                 placeholder="they/them" />
@@ -23,7 +23,7 @@
                     </div>
 
                     <!-- Ancestries -->
-                    <template v-if="!character.isBeast">
+                    <template v-if="!isBeastCharacter">
                         <div class="form-group row">
                             <div class="form-column">
                                 <label for="ancestry1" class="left-aligned">Ancestries:</label>
@@ -175,7 +175,7 @@
                     </div>
                 </div>
 
-                <CharacterRollStats v-if="!character.isBeast" @reset-stats="resetStats" />
+                <CharacterRollStats v-if="!isBeastCharacter" @reset-stats="resetStats" />
             </div>
 
             <!-- Sticky Action Buttons -->
@@ -197,6 +197,7 @@ import { useConceptsStore } from '@/stores/conceptsStore'
 import { createEmptyRollStats } from '@/services/rolls/rollStatsService'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import CharacterRollStats from './CharacterRollStats.vue'
+import { isBeastTemplate, isBeastInstance } from '@/utils/characterTypeGuards'
 
 const charactersStore = useCharactersStore()
 const conceptsStore = useConceptsStore()
@@ -204,6 +205,9 @@ const conceptsStore = useConceptsStore()
 const emit = defineEmits(['close'])
 
 const character = charactersStore.selectedCharacter
+const isBeastCharacter = computed(() =>
+    isBeastTemplate(character) || isBeastInstance(character)
+)
 
 const formData = ref({
     name: '',
@@ -253,10 +257,9 @@ const closeModal = () => {
 }
 
 const saveChanges = () => {
-    if (character.isBeast) {
+    if (isBeastCharacter.value) {
         Object.assign(character, {
             name: formData.value.name,
-            pronouns: formData.value.pronouns,
             description: formData.value.description,
             size: formData.value.size,
             reach: formData.value.reach,

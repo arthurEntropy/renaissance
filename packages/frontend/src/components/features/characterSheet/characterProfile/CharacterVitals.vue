@@ -10,7 +10,7 @@
         </div>
 
         <!-- Vitals Details -->
-        <div class="vitals-details" v-if="!character.isBeast">
+        <div class="vitals-details" v-if="!isBeastCharacter">
             <div class="vitals-detail">
                 <span class="vitals-label">{{ ancestries.length === 1 ? 'Ancestry' : 'Ancestries' }}:</span>
                 <div class="vitals-value">
@@ -28,7 +28,7 @@
                     <span v-if="!cultures.length">None</span>
                     <span v-for="(culture, index) in cultures" :key="culture.id">
                         <router-link :to="`/cultures/${createSlug(culture.name)}`" class="concept-link">{{ culture.name
-                        }}</router-link><span v-if="index < cultures.length - 1">, </span>
+                            }}</router-link><span v-if="index < cultures.length - 1">, </span>
                     </span>
                 </div>
             </div>
@@ -91,11 +91,15 @@ import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.v
 import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 import CharacterVitalsEditModal from './CharacterVitalsEditModal.vue'
 import { LANDSKNECHT_MESTIERE_ID, SWAGGER_ICONS, shieldMaskStyle } from './swaggerConstants'
+import { isBeastTemplate, isBeastInstance } from '@/utils/characterTypeGuards'
 
 const charactersStore = useCharactersStore()
 const conceptsStore = useConceptsStore()
 
 const character = computed(() => charactersStore.selectedCharacter)
+const isBeastCharacter = computed(() =>
+    isBeastTemplate(character.value) || isBeastInstance(character.value)
+)
 const canEdit = computed(() => charactersStore.canEditSelectedCharacter)
 
 const isEditModalOpen = ref(false)

@@ -91,7 +91,7 @@ import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import SelectedCharacterBadge from '@/components/features/characterSelection/SelectedCharacterBadge.vue'
 import NpcPreviewModal from '@/components/features/campaigns/lobby/NpcPreviewModal.vue'
 import { PlusIcon } from '@heroicons/vue/24/outline'
-import { createDefaultCharacter } from '@shared/types'
+import { createDefaultNPC } from '@shared/types'
 import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 
 const campaignStore = useCampaignStore()
@@ -209,11 +209,8 @@ const createNPC = async () => {
     npcError.value = null
     try {
         const npc = {
-            ...createDefaultCharacter(),
+            ...createDefaultNPC(),
             name: npcForm.value.name.trim(),
-            isNPC: true,
-            isBeast: false,
-            beastType: null,
         }
 
         await campaignStore.createCampaignCharacter(campaignId.value, npc)

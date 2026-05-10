@@ -20,6 +20,6 @@ const { layoutProps, handleSelect, handleDeselect, handleCreate } = useCharacter
     equipmentStore,
     abilitiesStore,
     CharacterService,
-    { isBeast: true, adminOnlySelect: true }
+    { beastMode: true, adminOnlySelect: true }
 )
 </script>

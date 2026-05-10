@@ -1,6 +1,10 @@
 import {
   getDirectory,
   getAllDataByDirectory,
+  getAllCharacterData,
+  getCharacterRecordById,
+  saveCharacterFile,
+  deleteCharacterById,
   saveFile,
   deleteFile,
 } from '../utils/fileService.js'
@@ -25,8 +29,9 @@ const getUserCampaignIds = (userId) => {
 
 const getAllEntities = (entity) => (req, res) => {
   try {
-    const directory = getDirectory(entity)
-    const allEntities = getAllDataByDirectory(directory)
+    const allEntities = entity === 'characters'
+      ? getAllCharacterData()
+      : getAllDataByDirectory(getDirectory(entity))
     let filteredEntities = allEntities.filter((e) => !e.isDeleted)
     
     // For characters, filter by ownership unless user is admin
@@ -58,15 +63,19 @@ const getAllEntities = (entity) => (req, res) => {
 
 const createEntity = (entity) => (req, res) => {
   try {
-    const directory = getDirectory(entity)
-    
+    const directory = entity === 'characters' ? null : getDirectory(entity)
+
     // For characters, add owner information
     if (entity === 'characters' && req.user) {
       req.body.ownerId = req.user.uid
       req.body.createdAt = new Date().toISOString()
     }
-    
-    saveFile(req.body, directory)
+
+    if (entity === 'characters') {
+      saveCharacterFile(req.body)
+    } else {
+      saveFile(req.body, directory)
+    }
     
     // Return the full saved entity (saveFile modifies req.body with id, timestamps, etc.)
     res.status(201).json(req.body)
@@ -78,28 +87,37 @@ const createEntity = (entity) => (req, res) => {
 
 const updateEntity = (entity) => (req, res) => {
   try {
-    const directory = getDirectory(entity)
-    const entities = getAllDataByDirectory(directory)
-    const existingEntity = entities.find((e) => e.id === req.body.id)
+    const directory = entity === 'characters' ? null : getDirectory(entity)
+    const existingEntity = entity === 'characters'
+      ? getCharacterRecordById(req.body.id)
+      : { character: getAllDataByDirectory(directory).find((e) => e.id === req.body.id), directory }
 
-    if (!existingEntity) {
+    if (!existingEntity?.character) {
       return res.status(404).json({ error: `No record found to update in ${entity}` })
     }
     
     // For characters, check ownership unless user is admin
     if (entity === 'characters' && req.user && req.user.role !== USER_ROLE.ADMIN) {
-      if (existingEntity.ownerId !== req.user.uid) {
+      if (existingEntity.character.ownerId !== req.user.uid) {
         return res.status(403).json({ error: 'You can only update your own characters' })
       }
     }
     
     // Preserve ownership information
     if (entity === 'characters') {
-      req.body.ownerId = existingEntity.ownerId
+      req.body.ownerId = existingEntity.character.ownerId
       req.body.updatedAt = new Date().toISOString()
     }
 
-    saveFile(req.body, directory, existingEntity.name, existingEntity.id)
+    if (entity === 'characters') {
+      saveCharacterFile(req.body, {
+        oldName: existingEntity.character.name,
+        existingId: existingEntity.character.id,
+        existingDirectory: existingEntity.directory,
+      })
+    } else {
+      saveFile(req.body, directory, existingEntity.character.name, existingEntity.character.id)
+    }
     
     // Return the updated entity
     res.status(200).json(req.body)
@@ -111,9 +129,10 @@ const updateEntity = (entity) => (req, res) => {
 
 const deleteEntity = (entity) => (req, res) => {
   try {
-    const directory = getDirectory(entity)
-    const entities = getAllDataByDirectory(directory)
-    const entityToDelete = entities.find((e) => e.id === req.params.id)
+    const directory = entity === 'characters' ? null : getDirectory(entity)
+    const entityToDelete = entity === 'characters'
+      ? getCharacterRecordById(req.params.id)?.character
+      : getAllDataByDirectory(directory).find((e) => e.id === req.params.id)
 
     if (!entityToDelete) {
       return res.status(404).json({ error: `Record not found in ${entity}` })
@@ -126,7 +145,11 @@ const deleteEntity = (entity) => (req, res) => {
       }
     }
 
-    deleteFile(entityToDelete.name, directory)
+    if (entity === 'characters') {
+      deleteCharacterById(entityToDelete.id)
+    } else {
+      deleteFile(entityToDelete.name, directory)
+    }
     res.status(200).json({ message: `Record deleted successfully in ${entity}` })
   } catch (error) {
     console.error(`Error deleting record in ${entity}:`, error)

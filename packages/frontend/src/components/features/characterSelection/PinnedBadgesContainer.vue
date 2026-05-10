@@ -48,6 +48,7 @@ import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.v
 import { useSummonedBeast } from '@/composables/useSummonedBeast'
 import { useAppCharacterSheetModal } from '@/composables/useAppCharacterSheetModal'
 import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
+import { isBeastTemplate, isBeastInstance } from '@/utils/characterTypeGuards'
 
 const characterContextStore = useCharacterContextStore()
 const charactersStore = useCharactersStore()
@@ -55,6 +56,7 @@ const { getSummonedBeastForCharacterId } = useSummonedBeast()
 const { open: openCharacterSheet } = useAppCharacterSheetModal()
 const collapsedGroupIds = ref(new Set())
 const focusedCharacter = computed(() => charactersStore.selectedCharacter)
+const isBeastCharacter = (character) => isBeastTemplate(character) || isBeastInstance(character)
 
 const pinnedGroups = computed(() => characterContextStore.pinnedGroups)
 const resolvedPinnedGroups = computed(() => {
@@ -72,7 +74,7 @@ const resolvedPinnedGroups = computed(() => {
 })
 const showFocusedCharacter = computed(() => !!focusedCharacter.value)
 const selectedSummonedBeast = computed(() => {
-    if (!focusedCharacter.value || focusedCharacter.value.isBeast) return null
+    if (!focusedCharacter.value || isBeastCharacter(focusedCharacter.value)) return null
 
     return focusedCharacter.value.id
         ? getSummonedBeastForCharacterId(focusedCharacter.value.id)
@@ -86,7 +88,7 @@ const hasAnyBadges = computed(() => {
 })
 
 function getBadgeComponent(character) {
-    return character?.isBeast ? SelectedBeastBadge : SelectedCharacterBadge
+    return isBeastCharacter(character) ? SelectedBeastBadge : SelectedCharacterBadge
 }
 
 function isGroupCollapsed(groupId) {
@@ -118,7 +120,7 @@ function removeMemberFromPinnedGroup(groupId, memberId) {
 function getBadgeProps(character, groupId = null) {
     if (!character) return {}
 
-    if (character.isBeast) {
+    if (isBeastCharacter(character)) {
         return {
             beast: character,
             showRemoveFab: !!groupId,
@@ -140,7 +142,7 @@ function getBadgeProps(character, groupId = null) {
 function getFocusedBadgeProps(character) {
     if (!character) return {}
 
-    if (character.isBeast) {
+    if (isBeastCharacter(character)) {
         return {
             beast: character,
             showRemoveFab: true,

@@ -1,8 +1,11 @@
 import {
   getDirectory,
   getAllDataByDirectory,
+  getAllCharacterData,
+  getCharacterRecordById,
+  saveCharacterFile,
+  deleteCharacterById,
   saveFile,
-  deleteFileById,
 } from '../utils/fileService.js'
 import { getUserProfile } from './userController.js'
 import { CAMPAIGN_ROLE, CAMPAIGN_MEMBER_STATUS } from '../../../shared/constants/campaignConstants.js'
@@ -12,7 +15,11 @@ import { v4 as uuidv4 } from 'uuid'
 import { getAllActiveCampaigns, getCampaignById, getCampaignMembership } from '../utils/campaignUtils.js'
 
 const CAMPAIGNS_DIRECTORY = getDirectory('campaigns')
-const CHARACTERS_DIRECTORY = getDirectory('characters')
+
+const getCharacterType = (character) => {
+  if (character?.characterType === 'player') return 'playerCharacter'
+  return typeof character?.characterType === 'string' ? character.characterType : 'playerCharacter'
+}
 
 // Generate a URL-friendly slug from a campaign name
 const generateSlug = (name) =>
@@ -26,7 +33,12 @@ const getNextBeastInstanceSuffix = (allCharacters, templateId, baseName) => {
   const prefix = `${baseName} `
   const usedSuffixes = new Set(
     allCharacters
-      .filter((c) => c.beastType === 'instance' && c.templateId === templateId && !c.isDeleted)
+      .filter(
+        (c) =>
+          getCharacterType(c) === 'beastInstance' &&
+          c.templateId === templateId &&
+          !c.isDeleted
+      )
       .map((c) => c.name)
       .filter((name) => typeof name === 'string' && name.startsWith(prefix))
       .map((name) => name.slice(prefix.length).trim())
@@ -155,11 +167,16 @@ export const deleteCampaign = (req, res) => {
     saveFile(deleted, CAMPAIGNS_DIRECTORY, campaign.name, campaign.id)
 
     // Soft-delete all NPC and beast instance characters owned by this campaign
-    const allCharacters = getAllDataByDirectory(CHARACTERS_DIRECTORY).filter((c) => !c.isDeleted)
+    const allCharacters = getAllCharacterData().filter((c) => !c.isDeleted)
     const campaignCharacters = allCharacters.filter((c) => c.campaignId === campaign.id)
     for (const char of campaignCharacters) {
       const deletedChar = { ...char, isDeleted: true }
-      saveFile(deletedChar, CHARACTERS_DIRECTORY, char.name, char.id)
+      const existing = getCharacterRecordById(char.id)
+      saveCharacterFile(deletedChar, {
+        oldName: char.name,
+        existingId: char.id,
+        existingDirectory: existing?.directory,
+      })
     }
 
     res.json({ message: 'Campaign deleted successfully' })
@@ -387,7 +404,7 @@ export const getCampaignCharacters = (req, res) => {
       return res.status(404).json({ error: 'Campaign not found' })
     }
 
-    const allCharacters = getAllDataByDirectory(CHARACTERS_DIRECTORY).filter((c) => !c.isDeleted)
+    const allCharacters = getAllCharacterData().filter((c) => !c.isDeleted)
     const campaignCharacters = allCharacters.filter((c) => c.campaignId === campaign.id)
     res.json(campaignCharacters)
   } catch (err) {
@@ -411,23 +428,28 @@ export const createCampaignCharacter = (req, res) => {
       createdAt: new Date().toISOString(),
     }
 
+    const characterType = getCharacterType(character)
+    character.characterType = characterType
+
     // Validate required campaign character fields
-    if (!character.isNPC && character.beastType !== 'instance') {
+    if (characterType !== 'npc' && characterType !== 'beastInstance') {
       return res.status(400).json({ error: 'Campaign characters must be NPCs or beast instances' })
+    }
+    if (characterType === 'beastInstance' && !character.templateId) {
+      return res.status(400).json({ error: 'Beast instances require templateId' })
     }
 
     // Assign a stable, non-colliding suffix (A..Z, AA..ZZ, etc.) for beast instances.
-    if (character.beastType === 'instance' && character.templateId) {
-      const allChars = getAllDataByDirectory(CHARACTERS_DIRECTORY)
+    if (characterType === 'beastInstance' && character.templateId) {
+      const allChars = getAllCharacterData()
       const template = allChars.find((c) => c.id === character.templateId)
-      const baseName = template?.name || character.templateName || 'Beast'
-      character.templateName = baseName
+      const baseName = template?.name || 'Beast'
 
       const suffix = getNextBeastInstanceSuffix(allChars, character.templateId, baseName)
       character.name = `${baseName} ${suffix}`
     }
 
-    saveFile(character, CHARACTERS_DIRECTORY)
+    saveCharacterFile(character)
     res.status(201).json(character)
   } catch (err) {
     console.error('Error creating campaign character:', err)
@@ -703,20 +725,20 @@ export const deleteBeastInstance = (req, res) => {
       return res.status(404).json({ error: 'Campaign not found' })
     }
 
-    const allChars = getAllDataByDirectory(CHARACTERS_DIRECTORY)
+    const allChars = getAllCharacterData()
     const character = allChars.find((c) => c.id === req.params.characterId)
 
     if (!character) {
       return res.status(404).json({ error: 'Beast instance not found' })
     }
-    if (character.beastType !== 'instance') {
+    if (getCharacterType(character) !== 'beastInstance') {
       return res.status(400).json({ error: 'Character is not a beast instance' })
     }
     if (character.campaignId !== campaign.id) {
       return res.status(403).json({ error: 'Beast instance does not belong to this campaign' })
     }
 
-    deleteFileById(character.id, CHARACTERS_DIRECTORY)
+    deleteCharacterById(character.id)
     res.json({ message: 'Beast instance deleted' })
   } catch (err) {
     console.error('Error deleting beast instance:', err)

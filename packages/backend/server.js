@@ -165,7 +165,16 @@ const entities = getEntityNames()
 entities.forEach((entity) => {
   // Characters have their own routes above (non-admin write access)
   // Campaigns have their own routes above
-  if (entity === 'characters' || entity === 'campaigns') return
+  if (
+    entity === 'characters' ||
+    entity === 'campaigns' ||
+    entity === 'playerCharacters' ||
+    entity === 'npcs' ||
+    entity === 'beasts' ||
+    entity === 'beastInstances'
+  ) {
+    return
+  }
 
   // All other data entities are public for reading, admin-only for writing
   app.get(`/${entity}`, getAllEntities(entity))
