@@ -13,6 +13,7 @@ import {
   scanCleanup,
   deleteCleanupItems,
 } from './controllers/adminCleanupController.js'
+import { exportData, importData } from './controllers/adminDataController.js'
 import { sendDiscordMessage } from './controllers/discordController.js'
 import { setupEngagementHandlers, setupOpposedSkillCheckHandlers } from './controllers/sessionController.js'
 import { getEntityNames } from './utils/fileService.js'
@@ -114,6 +115,10 @@ app.put('/users/profile', requireAuth, updateCurrentUserProfile)
 app.get('/users/admin/all', requireAuth, requireAdmin, getAllUsers)
 app.put('/users/admin/:userId', requireAuth, requireAdmin, updateUser)
 app.delete('/users/admin/:userId', requireAuth, requireAdmin, deleteUser)
+
+// Admin data sync routes
+app.get('/admin/data/export', verifyToken, requireAuth, requireAdmin, exportData)
+app.post('/admin/data/import', express.raw({ limit: '200mb', type: 'application/octet-stream' }), verifyToken, requireAuth, requireAdmin, importData)
 
 // Admin cleanup routes
 app.get('/admin/cleanup/scan', verifyToken, requireAuth, requireAdmin, scanCleanup)
