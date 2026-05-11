@@ -330,6 +330,7 @@ const deleteCharacterById = (id) => {
 }
 
 export {
+  DATA_DIR,
   sanitizeFilename,
   getDirectory,
   getEntityNames,

@@ -1,4 +1,37 @@
 <template>
+    <CollapsibleAdminSection title="Data Sync">
+        <div class="data-sync-panel">
+            <p class="data-sync-description">
+                Download all server data as a <code>.tar.gz</code> archive (e.g. to sync back to the repo), or upload
+                an archive to replace all server data.
+            </p>
+
+            <div class="data-sync-row">
+                <ActionButton variant="primary" :text="isDownloading ? 'Downloading...' : 'Download Data Archive'"
+                    :disabled="isDownloading" @click="downloadData" />
+                <span v-if="downloadError" class="data-sync-error">{{ downloadError }}</span>
+            </div>
+
+            <div class="data-sync-row">
+                <input ref="fileInput" type="file"
+                    accept=".gz,.tgz,application/gzip,application/x-gzip,application/x-tar"
+                    class="data-sync-hidden-input" @change="onFileSelected" />
+                <ActionButton variant="outline" text="Choose File" @click="fileInput.click()" />
+                <span class="data-sync-filename">{{ selectedFile ? selectedFile.name : 'No file chosen' }}</span>
+                <ActionButton variant="danger" :text="isUploading ? 'Uploading...' : 'Upload & Replace All Data'"
+                    :disabled="!selectedFile || isUploading" @click="uploadData" />
+            </div>
+
+            <div v-if="uploadStatus" class="data-sync-status" :class="{ 'data-sync-error': uploadIsError }">
+                {{ uploadStatus }}
+            </div>
+
+            <p class="data-sync-warning">
+                ⚠ Upload replaces ALL data on the server. This cannot be undone.
+            </p>
+        </div>
+    </CollapsibleAdminSection>
+
     <CollapsibleAdminSection title="Data Cleanup">
         <div class="cleanup-panel">
             <div class="cleanup-actions">
@@ -47,7 +80,55 @@ import { ref, computed } from 'vue'
 import CollapsibleAdminSection from './CollapsibleAdminSection.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import AdminCleanupService from '@/services/admin/adminCleanupService'
+import AdminDataService from '@/services/admin/adminDataService'
 
+// Data Sync state
+const fileInput = ref(null)
+const selectedFile = ref(null)
+const isDownloading = ref(false)
+const isUploading = ref(false)
+const downloadError = ref('')
+const uploadStatus = ref('')
+const uploadIsError = ref(false)
+
+const onFileSelected = (e) => {
+    selectedFile.value = e.target.files[0] || null
+    uploadStatus.value = ''
+    uploadIsError.value = false
+}
+
+const downloadData = async () => {
+    isDownloading.value = true
+    downloadError.value = ''
+    try {
+        await AdminDataService.downloadData()
+    } catch (err) {
+        downloadError.value = err.message || 'Download failed'
+    } finally {
+        isDownloading.value = false
+    }
+}
+
+const uploadData = async () => {
+    if (!selectedFile.value) return
+    if (!confirm('This will replace ALL data on the server with the contents of the uploaded archive. This cannot be undone. Continue?')) return
+    isUploading.value = true
+    uploadStatus.value = ''
+    uploadIsError.value = false
+    try {
+        await AdminDataService.uploadData(selectedFile.value)
+        uploadStatus.value = 'Data imported successfully.'
+        selectedFile.value = null
+        if (fileInput.value) fileInput.value.value = ''
+    } catch (err) {
+        uploadStatus.value = err.message || 'Upload failed'
+        uploadIsError.value = true
+    } finally {
+        isUploading.value = false
+    }
+}
+
+// Data Cleanup state
 const items = ref([])
 const isScanning = ref(false)
 const isDeleting = ref(false)
@@ -254,5 +335,57 @@ const deleteSelected = async () => {
         flex-direction: column;
         align-items: flex-start;
     }
+}
+
+.data-sync-panel {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+    background: var(--color-bg-primary);
+    border-radius: var(--radius-10);
+    padding: var(--space-lg);
+}
+
+.data-sync-description {
+    color: var(--color-text-primary);
+    font-size: var(--font-size-14);
+    margin: 0;
+}
+
+.data-sync-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-sm);
+}
+
+.data-sync-hidden-input {
+    display: none;
+}
+
+.data-sync-filename {
+    color: var(--color-gray-light);
+    font-size: var(--font-size-14);
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.data-sync-status {
+    font-size: var(--font-size-14);
+    color: var(--color-text-primary);
+}
+
+.data-sync-error {
+    color: var(--color-danger);
+    font-size: var(--font-size-14);
+}
+
+.data-sync-warning {
+    margin: 0;
+    font-size: var(--font-size-12);
+    color: var(--color-gray-light);
 }
 </style>
