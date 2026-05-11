@@ -1,5 +1,5 @@
 <template>
-    <div class="modal-overlay" @click="closeModal">
+    <div class="modal-overlay" @click="handleOverlayClick">
         <div class="modal-content" @click.stop>
 
             <!-- Scrollable Form Content -->
@@ -232,6 +232,8 @@ const isDeleteConfirmed = computed(() => {
     return confirmationInput.value === character.name
 })
 
+const initialFormDataSnapshot = ref(null)
+
 onMounted(() => {
     const ancestryIds = character.ancestryIds || []
     const cultureIds = character.cultureIds || []
@@ -250,10 +252,18 @@ onMounted(() => {
         size: character.size || 0,
         reach: character.reach || 0,
     }
+    initialFormDataSnapshot.value = JSON.stringify(formData.value)
 })
 
 const closeModal = () => {
     emit('close')
+}
+
+const handleOverlayClick = () => {
+    if (initialFormDataSnapshot.value && JSON.stringify(formData.value) !== initialFormDataSnapshot.value) {
+        if (!confirm('You have unsaved changes. Are you sure you want to close?')) return
+    }
+    closeModal()
 }
 
 const saveChanges = () => {

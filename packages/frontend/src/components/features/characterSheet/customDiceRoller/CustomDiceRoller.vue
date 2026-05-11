@@ -182,7 +182,7 @@ const handleRoll = async () => {
     align-items: center;
     justify-content: center;
     gap: var(--space-xs);
-    font-size: var(--font-size-14);
+    font-size: var(--font-size-11);
     color: var(--color-text-muted);
     user-select: none;
 }

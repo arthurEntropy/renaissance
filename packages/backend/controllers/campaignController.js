@@ -26,7 +26,9 @@ const generateSlug = (name) =>
   (name || '')
     .toLowerCase()
     .trim()
-    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/[^a-z0-9\s]/g, '')
+    .trim()
+    .replace(/\s+/g, '-')
     .replace(/^-|-$/g, '') || 'campaign'
 
 const getNextBeastInstanceSuffix = (allCharacters, templateId, baseName) => {
@@ -140,6 +142,10 @@ export const updateCampaign = (req, res) => {
       if (req.body[field] !== undefined) {
         updates[field] = req.body[field]
       }
+    }
+
+    if (updates.name !== undefined) {
+      updates.slug = generateSlug(updates.name)
     }
 
     const updated = { ...campaign, ...updates }
