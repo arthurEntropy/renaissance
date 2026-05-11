@@ -1,6 +1,6 @@
 {
   "id": 1,
-  "lastModified": "2026-05-11T17:59:41.864Z",
+  "lastModified": "2026-05-11T18:12:46.145Z",
   "name": "Freda",
   "pronouns": "she/her",
   "ancestryIds": [
@@ -216,12 +216,12 @@
   },
   "witchcraftTokens": [],
   "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "age": 0,
-  "heightFeet": 0,
-  "heightInches": 0,
-  "weight": 0,
+  "age": 559,
+  "heightFeet": 5,
+  "heightInches": 9,
+  "weight": 139,
   "description": "",
   "size": 0,
   "reach": 0,
-  "updatedAt": "2026-05-11T17:59:41.864Z"
+  "updatedAt": "2026-05-11T18:12:46.145Z"
 }

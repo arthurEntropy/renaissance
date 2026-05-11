@@ -289,13 +289,6 @@ const hasSelectedAncestry = computed(() =>
     formData.value.ancestryIds.some(id => id !== '')
 )
 
-const parseLifespan = (lifespan) => {
-    if (!lifespan) return null
-    const normalized = typeof lifespan === 'number' ? String(lifespan) : lifespan
-    const match = normalized.match(/(\d+)/)
-    return match ? parseInt(match[1]) : null
-}
-
 const randomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min
 
 // Box-Muller normal distribution, clamped to [min, max]
@@ -350,10 +343,11 @@ const randomizeVitals = () => {
         formData.value.weight = randomBell(Math.round(weightRange.min), Math.round(weightRange.max))
     }
 
-    // Age: between 18 and average lifespan (skip undying ancestries if mixed)
+    // Age: between 18 and average lifespan (0 = undying, treated as 1000)
     const lifespans = selectedAncestries
-        .map((a) => parseLifespan(getAncestryPhysiology(a)?.lifespan))
-        .filter(l => l !== null)
+        .map((a) => getAncestryPhysiology(a)?.lifespan)
+        .filter(l => l != null)
+        .map(l => l === 0 ? 1000 : l)
 
     if (lifespans.length > 0) {
         const avgLifespan = Math.round(lifespans.reduce((s, l) => s + l, 0) / lifespans.length)

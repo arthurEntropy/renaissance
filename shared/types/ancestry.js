@@ -11,7 +11,7 @@ import { ConceptType } from '../constants/conceptTypes.js'
  * @property {number} heightMax - Maximum height
  * @property {number} weightMin - Minimum weight
  * @property {number} weightMax - Maximum weight
- * @property {string} lifespan - Typical lifespan
+ * @property {number} lifespan - Typical lifespan in years (0 = undying)
  * @property {number} speed - Base speed
  */
 
@@ -36,7 +36,7 @@ export function createDefaultAncestry() {
       heightMax: 0,
       weightMin: 0,
       weightMax: 0,
-      lifespan: '',
+      lifespan: 0,
       speed: 30,
     },
   }
