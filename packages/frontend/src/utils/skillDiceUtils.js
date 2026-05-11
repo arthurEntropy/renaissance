@@ -1,26 +1,24 @@
 import { DIE_TYPE } from '@shared/constants/dice.js'
 import { MAX_SKILL_RANKS } from '@shared/constants/characterConstants'
 
+/** @typedef {import('@/types/rollPreviewTypes.js').SkillPreviewDie} SkillPreviewDie */
+
 // Add d12 dice based on favored status (1 for flat, 2 for favored/ill-favored)
-const buildD12Dice = (skillConfig, options) => {
-  const { includeDiceClass, getDiceFontMaxClass } = options
+/** @returns {SkillPreviewDie[]} */
+const buildD12Dice = (skillConfig) => {
   const dice = []
   const d12Count = skillConfig.isFavored || skillConfig.isIllFavored ? 2 : 1
   
   for (let i = 0; i < d12Count; i++) {
-    const die = { dieSize: DIE_TYPE.D12 }
-    if (includeDiceClass && getDiceFontMaxClass) {
-      die.cssClass = getDiceFontMaxClass(DIE_TYPE.D12)
-    }
-    dice.push(die)
+    dice.push({ dieSize: DIE_TYPE.D12 })
   }
   
   return dice
 }
 
 // Add d6 dice for base skill ranks (accounting for negative dice mod)
-const buildBaseRankDice = (baseRanks, diceMod, options) => {
-  const { includeDiceClass, getDiceFontMaxClass } = options
+/** @returns {SkillPreviewDie[]} */
+const buildBaseRankDice = (baseRanks, diceMod) => {
   const dice = []
   
   for (let i = 0; i < baseRanks; i++) {
@@ -32,10 +30,6 @@ const buildBaseRankDice = (baseRanks, diceMod, options) => {
       isAdded: false
     }
     
-    if (includeDiceClass && getDiceFontMaxClass) {
-      die.cssClass = getDiceFontMaxClass(DIE_TYPE.D6)
-    }
-    
     dice.push(die)
   }
   
@@ -43,8 +37,8 @@ const buildBaseRankDice = (baseRanks, diceMod, options) => {
 }
 
 // Add d6 dice for positive dice mod (up to max ranks)
-const buildDiceModDice = (baseRanks, diceMod, options) => {
-  const { includeDiceClass, getDiceFontMaxClass } = options
+/** @returns {SkillPreviewDie[]} */
+const buildDiceModDice = (baseRanks, diceMod) => {
   const dice = []
   
   if (diceMod > 0) {
@@ -56,10 +50,6 @@ const buildDiceModDice = (baseRanks, diceMod, options) => {
         isAdded: true
       }
       
-      if (includeDiceClass && getDiceFontMaxClass) {
-        die.cssClass = getDiceFontMaxClass(DIE_TYPE.D6)
-      }
-      
       dice.push(die)
     }
   }
@@ -67,15 +57,16 @@ const buildDiceModDice = (baseRanks, diceMod, options) => {
   return dice
 }
 
-export const buildDiceSetForSkill = (skillConfig, options = {}) => {
+/** @returns {SkillPreviewDie[]} */
+export const buildDiceSetForSkill = (skillConfig, _options = {}) => {
   if (!skillConfig) return []
   
   const baseRanks = skillConfig.ranks || 0
   const diceMod = skillConfig.diceMod || 0
   
   return [
-    ...buildD12Dice(skillConfig, options),
-    ...buildBaseRankDice(baseRanks, diceMod, options),
-    ...buildDiceModDice(baseRanks, diceMod, options)
+    ...buildD12Dice(skillConfig),
+    ...buildBaseRankDice(baseRanks, diceMod),
+    ...buildDiceModDice(baseRanks, diceMod)
   ]
 }

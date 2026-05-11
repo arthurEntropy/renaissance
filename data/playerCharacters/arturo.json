@@ -1,6 +1,6 @@
 {
   "id": 12,
-  "lastModified": "2026-05-06T20:17:20.582Z",
+  "lastModified": "2026-05-10T18:50:35.744Z",
   "name": "Arturo",
   "pronouns": "he/him",
   "ancestryIds": [
@@ -30,7 +30,7 @@
       "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": -1,
+      "diceMod": 0,
       "manualDiceMod": 0
     },
     {
@@ -70,7 +70,7 @@
       "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 1,
+      "diceMod": 0,
       "manualDiceMod": -1
     },
     {
@@ -238,18 +238,18 @@
   },
   "rollStats": {
     "skillChecks": {
-      "attempts": 29,
-      "successes": 0,
-      "totalSum": 356,
+      "attempts": 32,
+      "successes": 1,
+      "totalSum": 395,
       "bestTotal": 20,
-      "hardestSuccess": null,
+      "hardestSuccess": 17,
       "bySkill": {
         "Courtesy": 27,
         "Strength": 2
       },
       "solCount": 0,
       "morteCount": 2,
-      "successCount": 13
+      "successCount": 15
     },
     "contests": {
       "engagement": {
@@ -265,5 +265,6 @@
     }
   },
   "witchcraftTokens": [],
-  "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1"
+  "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
+  "updatedAt": "2026-05-10T18:50:35.744Z"
 }

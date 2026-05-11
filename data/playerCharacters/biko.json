@@ -1,6 +1,6 @@
 {
   "id": "3394b1a2-236d-45ca-9262-84c17a3b7015",
-  "lastModified": "2026-04-29T02:23:58.612Z",
+  "lastModified": "2026-05-10T18:53:52.391Z",
   "name": "Biko",
   "pronouns": "he/him",
   "ancestryIds": [
@@ -187,7 +187,10 @@
     6
   ],
   "engagementSuccesses": [],
-  "engagementDiceStatuses": {},
+  "engagementDiceStatuses": {
+    "b69c879e-a758-47b6-a3a4-b81dfd12eaaf_0": "expended",
+    "user_added_2": "expended"
+  },
   "equipment": [
     {
       "id": "b69c879e-a758-47b6-a3a4-b81dfd12eaaf",
@@ -365,9 +368,9 @@
   },
   "rollStats": {
     "skillChecks": {
-      "attempts": 28,
+      "attempts": 29,
       "successes": 25,
-      "totalSum": 432,
+      "totalSum": 449,
       "bestTotal": 27,
       "hardestSuccess": 15,
       "bySkill": {
@@ -378,7 +381,7 @@
       },
       "solCount": 3,
       "morteCount": 2,
-      "successCount": 9
+      "successCount": 10
     },
     "contests": {
       "engagement": {
@@ -394,5 +397,6 @@
     }
   },
   "witchcraftTokens": [],
-  "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1"
+  "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
+  "updatedAt": "2026-05-10T18:53:52.391Z"
 }

@@ -11,16 +11,16 @@ class DiceRoller {
 
   static rollPool(dicePool) {
     return dicePool.map((die, index) => 
-      this.createDiceResult(die.dieSize, this.rollDie(die.dieSize), index)
+      this.createDieResult(die, this.rollDie(die.dieSize), index)
     )
   }
 
-  static createDiceResult(dieSize, rolledValue, poolIndex) {
-    const rolledMaxValue = rolledValue === dieSize
+  static createDieResult(die, rolledValue, poolIndex) {
+    const rolledMaxValue = rolledValue === die.dieSize
     
     return {
       // Core identity
-      dieSize,
+      die,
       dieRollValue: rolledValue,
       poolIndex,
       
@@ -28,6 +28,7 @@ class DiceRoller {
       originalDieRollValue: rolledValue,
       isDropped: false, // Default to not dropped
       rolledMaxValue,
+      isRolling: false,
       
       // Display data
       displayValue: rolledValue,

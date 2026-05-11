@@ -161,10 +161,10 @@ class EngagementRollService extends BaseRollService {
       const rerolledDie = sortedDice[diceIndex]
 
       if (rerolledDie.poolIndex !== undefined) {
-        // Update the DiceResult object
+        // Update the DieResult object
         targetUser.rollResults[rerolledDie.poolIndex].dieRollValue = newValue
         targetUser.rollResults[rerolledDie.poolIndex].originalDieRollValue = newValue
-        targetUser.rollResults[rerolledDie.poolIndex].rolledMaxValue = newValue === targetUser.rollResults[rerolledDie.poolIndex].dieSize
+        targetUser.rollResults[rerolledDie.poolIndex].rolledMaxValue = newValue === targetUser.rollResults[rerolledDie.poolIndex].die.dieSize
         
         // Recalculate total
         targetUser.rollTotal = targetUser.rollResults.reduce((sum, result) => sum + (result.dieRollValue || 0), 0)

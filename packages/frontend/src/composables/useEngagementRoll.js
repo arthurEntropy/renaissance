@@ -564,7 +564,7 @@ export function useEngagementRoll() {
         return
       }
 
-      const originalDieSize = targetDie.dieSize
+      const originalDieSize = targetDie.die.dieSize
 
       if (sessionManager?.startRerolling) {
         sessionManager.startRerolling()
@@ -637,7 +637,7 @@ export function useEngagementRoll() {
 
     targetDie.previousValue = targetDie.dieRollValue
 
-    const originalDieSize = targetDie.dieSize
+    const originalDieSize = targetDie.die.dieSize
     targetDie.cssClass = getDiceFontMaxClass(originalDieSize)
     targetDie.rolledMaxValue = false
 

@@ -98,7 +98,7 @@ import { RollTypes } from '@/constants/rollTypes'
 import { DIE_TYPE, DICE_MOD_RANGE, DIFFICULTY_VALUES } from '@shared/constants/dice'
 import { findSkillById, getSkillId, getSkillLabel } from '@/utils/characterKeyUtils'
 
-/** @typedef {{ dieSize: number, cssClass: string, isAdded?: boolean, isSubtracted?: boolean }} DisplayDie */
+/** @typedef {import('@/types/rollPreviewTypes.js').SkillPreviewDie} SkillPreviewDie */
 
 const rollsStore = useRollsStore()
 
@@ -180,7 +180,7 @@ const favoredStatus = computed({
 const dicePool = computed(() => {
   if (!selectedSkill.value) return { d12Dice: [], d6Dice: [] }
 
-  const allDice = /** @type {DisplayDie[]} */ (buildDiceSetForSkill(rollParameters.value, {
+  const allDice = /** @type {SkillPreviewDie[]} */ (buildDiceSetForSkill(rollParameters.value, {
     includeDiceClass: true,
     getDiceFontMaxClass
   }))

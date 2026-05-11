@@ -15,7 +15,8 @@ const DIE_SYMBOL = {
 
 export function formatDiceSymbol(dieResult) {
   try {
-    const { dieSize, dieRollValue } = dieResult
+    const { dieRollValue } = dieResult
+    const dieSize = dieResult.die.dieSize
     const displayDieRollValue = dieRollValue === 0 && dieResult.originalDieRollValue ? dieResult.originalDieRollValue : dieRollValue
     
     if (dieSize === DIE_TYPE.D12) {

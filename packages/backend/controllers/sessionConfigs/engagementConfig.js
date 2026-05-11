@@ -34,7 +34,7 @@ export const engagementConfig = {
           if (!user) return
 
           // Store roll results in session state
-          // rollResults.diceResults is an array of DiceResult objects from DiceRoller
+          // rollResults.diceResults is an array of DieResult objects from DiceRoller
           user.rollResults = rollResults.diceResults || []
           user.rollTotal = rollResults.diceResults
             ? rollResults.diceResults.reduce((sum, die) => sum + (die.dieRollValue || 0), 0)
@@ -82,12 +82,12 @@ export const engagementConfig = {
           const user = session.users.find(u => u.characterInfo.id === characterId)
           if (user && user.rollResults && user.rollResults[diceIndex] !== undefined) {
             
-            // Update the DiceResult object
+            // Update the DieResult object
             user.rollResults[diceIndex].dieRollValue = newValue
             user.rollResults[diceIndex].originalDieRollValue = newValue
-            user.rollResults[diceIndex].rolledMaxValue = newValue === user.rollResults[diceIndex].dieSize
+            user.rollResults[diceIndex].rolledMaxValue = newValue === user.rollResults[diceIndex].die.dieSize
             
-            // Recalculate total from DiceResult objects
+            // Recalculate total from DieResult objects
             user.rollTotal = user.rollResults.reduce((sum, die) => sum + (die.dieRollValue || 0), 0)
             
             // Emit session update so both players see the new session state
