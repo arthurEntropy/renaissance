@@ -1,6 +1,6 @@
 {
   "id": "3394b1a2-236d-45ca-9262-84c17a3b7015",
-  "lastModified": "2026-05-10T18:53:52.391Z",
+  "lastModified": "2026-05-11T17:58:23.186Z",
   "name": "Biko",
   "pronouns": "he/him",
   "ancestryIds": [
@@ -163,7 +163,7 @@
     "current": 12,
     "base": 12
   },
-  "load": 0,
+  "load": 10,
   "shadow": 0,
   "injury": 0,
   "states": {
@@ -228,7 +228,7 @@
     },
     {
       "id": "6c9a4bb8-84f1-41ba-af09-ad6e65f7b9cc",
-      "quantity": 1,
+      "quantity": 6,
       "isCarried": true,
       "collapsed": true
     },
@@ -363,7 +363,7 @@
   "groupAbilitiesBySource": true,
   "abilitySortOption": "",
   "autoCalculations": {
-    "load": true,
+    "load": false,
     "states": true
   },
   "rollStats": {
@@ -390,13 +390,13 @@
         "draws": 0
       },
       "opposed": {
-        "wins": 0,
-        "losses": 0,
+        "wins": 2,
+        "losses": 3,
         "draws": 0
       }
     }
   },
   "witchcraftTokens": [],
   "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2026-05-10T18:53:52.391Z"
+  "updatedAt": "2026-05-11T17:58:23.186Z"
 }

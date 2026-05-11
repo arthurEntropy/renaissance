@@ -16,8 +16,9 @@
                 <div class="vitals-value">
                     <span v-if="!ancestries.length">None</span>
                     <span v-for="(ancestry, index) in ancestries" :key="ancestry.id">
-                        <router-link :to="`/ancestries/${createSlug(ancestry.name)}`" class="concept-link">{{
-                            ancestry.name }}</router-link><span v-if="index < ancestries.length - 1">, </span>
+                        <router-link :to="`/ancestries/${createSlug(ancestry.name)}`" class="concept-link"
+                            @click="closeCharacterSheet">{{
+                                ancestry.name }}</router-link><span v-if="index < ancestries.length - 1">, </span>
                     </span>
                 </div>
             </div>
@@ -27,7 +28,8 @@
                 <div class="vitals-value">
                     <span v-if="!cultures.length">None</span>
                     <span v-for="(culture, index) in cultures" :key="culture.id">
-                        <router-link :to="`/cultures/${createSlug(culture.name)}`" class="concept-link">{{ culture.name
+                        <router-link :to="`/cultures/${createSlug(culture.name)}`" class="concept-link"
+                            @click="closeCharacterSheet">{{ culture.name
                             }}</router-link><span v-if="index < cultures.length - 1">, </span>
                     </span>
                 </div>
@@ -38,8 +40,9 @@
                 <div class="vitals-value mestiere-value">
                     <span v-if="!mestiere">None</span>
                     <template v-else>
-                        <router-link :to="`/mestieri/${createSlug(mestiere.name)}`" class="concept-link">{{
-                            mestiere.name }}</router-link>
+                        <router-link :to="`/mestieri/${createSlug(mestiere.name)}`" class="concept-link"
+                            @click="closeCharacterSheet">{{
+                                mestiere.name }}</router-link>
                         <div v-if="isLandsknecht" class="swagger-icon-picker">
                             <button ref="triggerRef" class="swagger-icon-trigger" title="Change swagger icon"
                                 @click.stop="toggleIconPicker">
@@ -92,6 +95,7 @@ import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 import CharacterVitalsEditModal from './CharacterVitalsEditModal.vue'
 import { LANDSKNECHT_MESTIERE_ID, SWAGGER_ICONS, shieldMaskStyle } from './swaggerConstants'
 import { isBeastTemplate, isBeastInstance } from '@/utils/characterTypeGuards'
+import { useAppCharacterSheetModal } from '@/composables/useAppCharacterSheetModal'
 
 const charactersStore = useCharactersStore()
 const conceptsStore = useConceptsStore()
@@ -101,6 +105,7 @@ const isBeastCharacter = computed(() =>
     isBeastTemplate(character.value) || isBeastInstance(character.value)
 )
 const canEdit = computed(() => charactersStore.canEditSelectedCharacter)
+const { close: closeCharacterSheet } = useAppCharacterSheetModal()
 
 const isEditModalOpen = ref(false)
 

@@ -299,6 +299,7 @@ onMounted(() => {
     color: var(--color-text-secondary);
     border: none;
     cursor: pointer;
+    font-family: var(--font-family-primary);
     transition: var(--transition-opacity);
 }
 

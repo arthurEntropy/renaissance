@@ -16,8 +16,9 @@
 
             <footer class="modal-actions">
                 <RollResolution v-if="showResults" mode="opposed-skill-check" :user-accepted="userAccepted"
-                    :opponent-accepted="opponentAccepted" :can-accept="showResults" :character-name="characterName"
-                    :opponent-name="opponentName" @toggle-user-accept="toggleUserAccept" />
+                    :opponent-accepted="opponentAccepted" :can-accept="showResults && !bothUsersAccepted"
+                    :character-name="characterName" :opponent-name="opponentName"
+                    @toggle-user-accept="toggleUserAccept" />
             </footer>
 
         </div>
@@ -25,7 +26,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
+import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue'
 import { XMarkIcon } from '@heroicons/vue/24/outline'
 import { useOpposedSkillCheckSession } from '@/composables/useOpposedSkillCheckSession'
 import { useCharactersStore } from '@/stores/charactersStore'
@@ -50,7 +51,8 @@ const {
     userAccepted,
     opponentAccepted,
     showResults,
-    bothUsersAccepted
+    bothUsersAccepted,
+    opponentLeftAfterBothAccepted
 } = sessionManager
 
 const characterName = computed(() => charactersStore.selectedCharacter?.name || '')
@@ -79,6 +81,13 @@ const toggleUserAccept = () => {
 }
 
 onMounted(() => {
+    watch(opponentLeftAfterBothAccepted, (newVal) => {
+        if (newVal) {
+            sessionManager.cleanup()
+            emit('close')
+        }
+    })
+
     if (props.initialSessionConfig) {
         const { character, skillCheckConfig, sendToDiscord } = props.initialSessionConfig
         sessionManager.startSession(character, skillCheckConfig, { sendToDiscord })

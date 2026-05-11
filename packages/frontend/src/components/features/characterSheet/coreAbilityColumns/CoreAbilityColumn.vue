@@ -5,7 +5,7 @@
 
     <SkillRow v-for="skill in skills" :key="getSkillId(skill)" :skill="skill" :can-edit="canEdit"
       @open-skill-check="openSkillCheckModal" @update-ranks="handleRanksUpdate"
-      @update-manual-dice-mod="handleManualDiceModUpdate" />
+      @update-manual-dice-mod="handleManualDiceModUpdate" @update-favored-status="handleFavoredStatusUpdate" />
 
     <StatRow :type="STAT_ROW_TYPES.RANGE" :label="virtueLabel" :value="virtueValue" :can-edit="canEdit"
       :armor-defense-bonus="virtueKey === 'defense' ? armorDefenseBonus : 0" :show-auto-calc-button="true"
@@ -220,6 +220,13 @@ const handleManualDiceModUpdate = (skillKey, newManualDiceMod) => {
   if (!skill) return
   skill.manualDiceMod = newManualDiceMod
   CharacterUtils.updateFavoredStatus(character.value)
+}
+
+const handleFavoredStatusUpdate = (skillKey, { isFavored, isIllFavored }) => {
+  const skill = findSkillById(character.value.skills, skillKey)
+  if (!skill) return
+  skill.isFavored = isFavored
+  skill.isIllFavored = isIllFavored
 }
 
 const skillCheckModal = useModal()

@@ -31,6 +31,7 @@
 import { computed } from 'vue'
 import { useCharacterStatWatchers } from '@/composables/useCharacterStatWatchers'
 import { useCharactersStore } from '@/stores/charactersStore'
+import { useEquipmentStore } from '@/stores/equipmentStore'
 import { useConceptsStore } from '@/stores/conceptsStore'
 import { CORE_ABILITIES } from '@shared/constants/characterConstants'
 import { BIOME_MESTIERI } from '@shared/constants/biomeTags'
@@ -53,10 +54,11 @@ const emit = defineEmits(['close'])
 
 const charactersStore = useCharactersStore()
 const conceptsStore = useConceptsStore()
+const equipmentStore = useEquipmentStore()
 
 const selectedCharacter = computed(() => charactersStore.selectedCharacter)
 
-useCharacterStatWatchers(selectedCharacter, computed(() => []))
+useCharacterStatWatchers(selectedCharacter, computed(() => equipmentStore.equipment || []))
 
 const canEdit = computed(() => charactersStore.canEditSelectedCharacter)
 

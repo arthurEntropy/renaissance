@@ -10,7 +10,8 @@
                 aria-label="Subtract manual dice" type="button">▼</button>
         </div>
         <i class="dice-icon d12-icon"
-            :class="[getDiceFontClass(DIE_TYPE.D12, DIE_TYPE.D12), getStyleClassForFavoredStatus(skill)]">
+            :class="[getDiceFontClass(DIE_TYPE.D12, DIE_TYPE.D12), getStyleClassForFavoredStatus(skill), { 'dice-icon--clickable': canEdit }]"
+            @click="handleD12Click">
         </i>
         <DiceGroup :skill="skill" :can-edit="canEdit" @update-ranks="emit('update-ranks', skillId, $event)" />
     </div>
@@ -22,7 +23,7 @@ import { DIE_TYPE } from '@shared/constants/dice'
 import { getSkillId, getSkillLabel } from '@/utils/characterKeyUtils'
 import BaseRollService from '@/services/rolls/baseRollService'
 import DiceGroup from './DiceGroup.vue'
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 
 const props = defineProps({
     skill: {
@@ -35,7 +36,7 @@ const props = defineProps({
     }
 })
 
-const emit = defineEmits(['open-skill-check', 'update-ranks', 'update-manual-dice-mod'])
+const emit = defineEmits(['open-skill-check', 'update-ranks', 'update-manual-dice-mod', 'update-favored-status'])
 
 const skillId = computed(() => getSkillId(props.skill))
 const skillLabel = computed(() => getSkillLabel(props.skill))
@@ -49,6 +50,31 @@ const getStyleClassForFavoredStatus = (skill) => {
 const handleSkillClick = () => {
     if (props.canEdit) {
         emit('open-skill-check', skillId.value)
+    }
+}
+
+// Tracks which state was last applied, so that flat alternates between favored and ill-favored.
+// Starting as 'ill-favored' means the first click on a flat skill goes to favored.
+const lastAppliedFavoredState = ref('ill-favored')
+
+const handleD12Click = () => {
+    if (!props.canEdit) return
+    const { isFavored, isIllFavored } = props.skill
+    if (isFavored && !isIllFavored) {
+        // favored → flat
+        lastAppliedFavoredState.value = 'favored'
+        emit('update-favored-status', skillId.value, { isFavored: false, isIllFavored: false })
+    } else if (isIllFavored && !isFavored) {
+        // ill-favored → flat
+        lastAppliedFavoredState.value = 'ill-favored'
+        emit('update-favored-status', skillId.value, { isFavored: false, isIllFavored: false })
+    } else {
+        // flat → favored or ill-favored, alternating
+        if (lastAppliedFavoredState.value === 'ill-favored') {
+            emit('update-favored-status', skillId.value, { isFavored: true, isIllFavored: false })
+        } else {
+            emit('update-favored-status', skillId.value, { isFavored: false, isIllFavored: true })
+        }
     }
 }
 
@@ -94,6 +120,10 @@ const decrementManualDiceMod = () => {
 .dice-icon {
     font-size: var(--font-size-24);
     transition: var(--transition-color), opacity var(--transition-normal);
+}
+
+.dice-icon--clickable {
+    cursor: pointer;
 }
 
 .d12-icon {

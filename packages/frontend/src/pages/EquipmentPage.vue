@@ -204,8 +204,8 @@ const equipmentTagGroups = computed(() => {
     groups.push({
         label: FILTER_SPECIAL_TAG_GROUP_LABEL,
         items: [
-            { id: `${TAG_PREFIX.MAGIC}magical`, name: 'Magic' },
-            { id: `${TAG_PREFIX.TYPE}weapons`, name: 'Weapon Types', items: typeItems },
+            { id: `${TAG_PREFIX.MAGIC}magical`, name: 'Magic Items' },
+            { id: `${TAG_PREFIX.TYPE}weapons`, name: 'Equipment Types', items: typeItems },
             { id: `${TAG_PREFIX.GRADE}grades`, name: 'Equipment Grades', items: gradeItems },
         ],
     })

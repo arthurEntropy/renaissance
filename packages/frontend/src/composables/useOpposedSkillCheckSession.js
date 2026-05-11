@@ -55,6 +55,9 @@ export function useOpposedSkillCheckSession() {
   const userSkillConfig = ref(null)
   const sendToDiscord = ref(true)
 
+  // Signals the modal to close when opponent leaves after both accepted
+  const opponentLeftAfterBothAccepted = ref(false)
+
   // Store previous winner for stable display during reroll animations
   const previousWinner = ref(null)
 
@@ -161,6 +164,11 @@ export function useOpposedSkillCheckSession() {
         // This ensures the first user to accept also gets results when the second user accepts
         if (accepted && baseSession.userAccepted.value && baseSession.opponentAccepted.value) {
           generateResultsOnAccept()
+        }
+      },
+      onSessionCancelled: ({ wasCompleted }) => {
+        if (wasCompleted) {
+          opponentLeftAfterBothAccepted.value = true
         }
       }
     }
@@ -297,6 +305,7 @@ export function useOpposedSkillCheckSession() {
   function disconnect() {
     cleanupEventListeners()
     opposedSkillCheckSessionService.disconnect()
+    opponentLeftAfterBothAccepted.value = false
     // Reset singleton instance to null so a fresh instance is created next time
     opposedSkillCheckSessionInstance = null
   }
@@ -349,6 +358,7 @@ export function useOpposedSkillCheckSession() {
     
     // Specific state
     userSkillConfig,
+    opponentLeftAfterBothAccepted,
     
     // Computed from base
     bothUsersAccepted: baseSession.bothUsersAccepted,

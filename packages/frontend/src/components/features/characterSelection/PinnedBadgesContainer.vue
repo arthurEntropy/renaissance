@@ -55,7 +55,7 @@ const characterContextStore = useCharacterContextStore()
 const charactersStore = useCharactersStore()
 const campaignStore = useCampaignStore()
 const { getSummonedBeastForCharacterId } = useSummonedBeast()
-const { open: openCharacterSheet } = useAppCharacterSheetModal()
+const { open: openCharacterSheet, isOpen: isCharacterSheetOpen } = useAppCharacterSheetModal()
 const collapsedGroupIds = ref(new Set())
 const focusedCharacter = computed(() => charactersStore.selectedCharacter)
 const isBeastCharacter = (character) => isBeastTemplate(character) || isBeastInstance(character)
@@ -159,7 +159,7 @@ function getFocusedBadgeProps(character) {
     if (isBeastCharacter(character)) {
         return {
             beast: character,
-            showRemoveFab: true,
+            showRemoveFab: !isCharacterSheetOpen.value,
             disableDefaultClick: true,
             onRemove: () => clearFocusedCharacter(),
             onClick: () => openCharacterSheet(character),
@@ -168,7 +168,7 @@ function getFocusedBadgeProps(character) {
 
     return {
         character,
-        showRemoveFab: true,
+        showRemoveFab: !isCharacterSheetOpen.value,
         disableDefaultClick: true,
         onRemove: () => clearFocusedCharacter(),
         onClick: () => openCharacterSheet(character),
