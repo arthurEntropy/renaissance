@@ -23,13 +23,13 @@
 <script setup>
 import { computed } from 'vue'
 import CascadeMenuFrame from '@/components/ui/pickers/CascadeMenuFrame.vue'
-import { useActionTypesStore } from '@/stores/actionTypesStore'
+import { useActionCostsStore } from '@/stores/actionCostsStore'
 import { useAnchoredPickerTrigger } from '@/composables/useAnchoredPickerTrigger'
 
 const props = defineProps({
     id: {
         type: String,
-        default: 'actionType',
+        default: 'actionCost',
     },
     modelValue: {
         type: String,
@@ -37,7 +37,7 @@ const props = defineProps({
     },
     placeholder: {
         type: String,
-        default: '-- Select Type --',
+        default: '-- Select Action Cost --',
     },
     selectClass: {
         type: String,
@@ -47,7 +47,7 @@ const props = defineProps({
 
 const emit = defineEmits(['update:modelValue'])
 
-const actionTypesStore = useActionTypesStore()
+const actionTypesStore = useActionCostsStore()
 const actionTypes = computed(() => actionTypesStore.items)
 
 const {

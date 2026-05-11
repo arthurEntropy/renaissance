@@ -1,13 +1,11 @@
 {
   "id": "7f33f7ca-dfe2-49cd-8e11-ac8fdab5f905",
+  "isDeleted": false,
+  "lastModified": "2026-02-12T21:37:52.081Z",
   "name": "Visitor To Ancient Shrines",
   "description": "<p><em>Your time among the forested peaks around Upham has brought you to many long-forgotten shrines</em></p>",
-  "canBeActive": false,
-  "isActive": true,
   "source": "5a639d7b-847a-468b-9bbe-5275d31fdf66",
-  "isDeleted": false,
-  "mp": null,
-  "xp": null,
-  "lastModified": "2026-02-12T21:37:52.081Z",
-  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": null
 }

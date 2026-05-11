@@ -1,15 +1,15 @@
 {
-  "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
   "id": "a55bd8ad-6e9b-4494-a218-05ff096101df",
   "createdAt": "2026-04-14T00:56:55.648Z",
   "lastModified": "2026-04-14T01:11:20.363Z",
   "name": "Locate Object",
-  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
-  "mp": 2,
-  "xp": 10,
-  "isMagical": true,
-  "school": "874bed28-5424-4948-a9af-a575a5bc1c79",
-  "description": "<p><em>Concentration, up to 10 minutes.</em></p><p>Name or describe an object familiar to you, and you sense its direction if it is within 1 mile. If it is moving, you also sense its direction of movement. You may target a specific object you have seen up close at least once, or the nearest object of a particular kind (such as a type of apparel, jewelry, furniture, tool, or weapon).</p>",
   "artUrl": "https://cdn.midjourney.com/c230c61f-b115-4e6a-aa5c-e8b0f1fecdd8/0_0.png",
-  "successes": "<p>✨: You may sustain the effect without concentration and for an additional 10 minutes.</p><p>🌞: You may sustain the effect without concentration indefinitely.</p><p>💀: Check a Condition. Your mind is flooded with an awareness of every object within 10 miles that is even vaguely similar to the object you're attempting to find making you temporarily Helpless. This effect lasts for 10 minutes regardless of concentration.</p>"
+  "description": "<p><em>Concentration, up to 10 minutes.</em></p><p>Name or describe an object familiar to you, and you sense its direction if it is within 1 mile. If it is moving, you also sense its direction of movement. You may target a specific object you have seen up close at least once, or the nearest object of a particular kind (such as a type of apparel, jewelry, furniture, tool, or weapon).</p>",
+  "successes": "<p>✨: You may sustain the effect without concentration and for an additional 10 minutes.</p><p>🌞: You may sustain the effect without concentration indefinitely.</p><p>💀: Check a Condition. Your mind is flooded with an awareness of every object within 10 miles that is even vaguely similar to the object you're attempting to find making you temporarily Helpless. This effect lasts for 10 minutes regardless of concentration.</p>",
+  "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
+  "school": "874bed28-5424-4948-a9af-a575a5bc1c79",
+  "isMagical": true,
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "mpCost": 2,
+  "xpCost": 10
 }

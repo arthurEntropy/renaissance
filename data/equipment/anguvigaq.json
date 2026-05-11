@@ -1,9 +1,22 @@
 {
   "id": "be23f869-abbb-4b72-a155-65fd53c1a8c7",
+  "isDeleted": false,
+  "createdAt": "2026-05-06T17:55:10.305Z",
+  "lastModified": "2026-05-06T17:55:10.305Z",
   "name": "Anguvigaq",
+  "artUrl": null,
   "description": "Weight: 5-7. Length: 4-6",
-  "keeping": null,
+  "successes": null,
+  "improvements": [],
   "source": null,
+  "school": null,
+  "keeping": null,
+  "isCustom": false,
+  "isTemplate": true,
+  "isMagical": false,
+  "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
+  "subtype": "3d4f28d9-d757-4789-b3a2-0e9fffda4fc0",
+  "grade": "b92d3394-2c64-487f-8c90-c56ea1cbd3f3",
   "weight": 5,
   "length": 4,
   "reach": 0,
@@ -19,12 +32,5 @@
     6
   ],
   "engagementSuccesses": [],
-  "skillMods": [],
-  "isDeleted": false,
-  "isCustom": false,
-  "isTemplate": true,
-  "artUrl": null,
-  "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
-  "subtype": "3d4f28d9-d757-4789-b3a2-0e9fffda4fc0",
-  "grade": "b92d3394-2c64-487f-8c90-c56ea1cbd3f3"
+  "defenseBonus": 0
 }

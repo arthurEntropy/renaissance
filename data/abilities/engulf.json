@@ -4,15 +4,13 @@
   "createdAt": "2026-01-13T01:13:56.396Z",
   "lastModified": "2026-04-23T20:30:38.361Z",
   "name": "Engulf",
-  "description": "<p><em>[Folded this spell into the white Bind spell. Keeping this as a placeholder to preserve the art and name.]</em></p>",
-  "canBeActive": false,
-  "isActive": true,
-  "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
-  "mp": null,
-  "xp": "",
-  "manaCost": "U",
-  "successes": "",
   "artUrl": "https://cdn.midjourney.com/c6e1ece8-749a-48e4-a75b-ec8967a47773/0_3.png",
-  "type": "",
-  "isMagical": true
+  "description": "<p><em>[Folded this spell into the white Bind spell. Keeping this as a placeholder to preserve the art and name.]</em></p>",
+  "successes": "",
+  "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
+  "isMagical": true,
+  "actionCost": "",
+  "mpCost": null,
+  "xpCost": "",
+  "manaCost": "U"
 }

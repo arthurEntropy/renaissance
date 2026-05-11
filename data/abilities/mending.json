@@ -4,15 +4,13 @@
   "createdAt": "2025-12-31T15:12:37.444Z",
   "lastModified": "2026-03-05T21:45:24.306Z",
   "name": "Mending",
-  "description": "<p><em>Casting time: 1 minute.</em></p><p>You repair a single break or tear in an object you touch, leaving no trace of the damage, as long as the break or tear is no larger than 1 ft in any dimension.</p><p><strong>Describe how you make the repair.</strong></p>",
-  "canBeActive": false,
-  "isActive": true,
-  "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
-  "mp": 0,
-  "xp": null,
-  "successes": "",
   "artUrl": "https://cdn.midjourney.com/bde80867-6289-462b-b753-a14d9f0cd4b0/0_0.jpeg",
-  "type": "f6a1b2c3-d4e5-4f6a-eb3c-2d1e0f9a8b7c",
+  "description": "<p><em>Casting time: 1 minute.</em></p><p>You repair a single break or tear in an object you touch, leaving no trace of the damage, as long as the break or tear is no larger than 1 ft in any dimension.</p><p><strong>Describe how you make the repair.</strong></p>",
+  "successes": "",
+  "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
+  "school": "c4a153b2-8906-4b95-be65-d8e5a5cc73ff",
   "isMagical": true,
-  "school": "c4a153b2-8906-4b95-be65-d8e5a5cc73ff"
+  "actionCost": "c7ea4889-0dc9-40cb-a437-70329cac43ab",
+  "mpCost": 0,
+  "xpCost": null
 }

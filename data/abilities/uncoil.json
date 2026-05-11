@@ -1,14 +1,12 @@
 {
   "id": "837bcd8c-e9d9-4328-b1e8-be2a420bce07",
-  "name": "Uncoil",
-  "description": "<p>While the rope that makes up your body is not generally expendable and is vital to your continued bodily function, you are able to - as an action - unravel a length of yourself out to short range without causing yourself any harm.</p><p>You can unravel further, but at risk to your wellbeing. Each additional 5 ft unraveled temporarily reduces your current and maximum endurance by 1 while it is uncoiled. If your Endurance is reduced to 0 in this way, you unravel completely and become an inert length of rope, forever.</p><p>Any unraveled length you extend can be controlled by you as if it were an arm or tentacle - you can move and bend it, have a sense of touch all along it, and can use it to grip and manipulate objects. You can also use it like a whip-like melee weapon, dealing 1d6+BODY damage on a hit.</p><p><strong>Describe how you unravel.</strong></p>",
-  "canBeActive": false,
-  "isActive": true,
-  "source": "15bb5476-5cca-48ee-a6a0-95b0ea6cc803",
   "isDeleted": false,
-  "mp": null,
-  "xp": null,
   "lastModified": "2026-02-12T21:37:52.081Z",
+  "name": "Uncoil",
   "artUrl": "https://cdn.midjourney.com/4a35aa9c-76f9-458f-bdde-570e8c07e9a6/0_0.png",
-  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
+  "description": "<p>While the rope that makes up your body is not generally expendable and is vital to your continued bodily function, you are able to - as an action - unravel a length of yourself out to short range without causing yourself any harm.</p><p>You can unravel further, but at risk to your wellbeing. Each additional 5 ft unraveled temporarily reduces your current and maximum endurance by 1 while it is uncoiled. If your Endurance is reduced to 0 in this way, you unravel completely and become an inert length of rope, forever.</p><p>Any unraveled length you extend can be controlled by you as if it were an arm or tentacle - you can move and bend it, have a sense of touch all along it, and can use it to grip and manipulate objects. You can also use it like a whip-like melee weapon, dealing 1d6+BODY damage on a hit.</p><p><strong>Describe how you unravel.</strong></p>",
+  "source": "15bb5476-5cca-48ee-a6a0-95b0ea6cc803",
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": null
 }

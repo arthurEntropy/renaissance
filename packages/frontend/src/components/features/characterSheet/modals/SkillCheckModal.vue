@@ -5,11 +5,11 @@
       <!-- Header Row with Skill Dropdown -->
       <div class="header-row">
         <h2>{{ props.character.name }} rolling</h2>
-        <select v-model="localSelectedSkillName" class="modal-skill-dropdown"
-          :class="{ 'skill-selected': localSelectedSkillName }" aria-label="Select skill">
+        <select v-model="localSelectedSkillKey" class="modal-skill-dropdown"
+          :class="{ 'skill-selected': localSelectedSkillKey }" aria-label="Select skill">
           <option disabled value="">Select a skill</option>
-          <option v-for="skill in props.character.skills" :key="skill.name" :value="skill.name">
-            {{ skill.name }}
+          <option v-for="skill in props.character.skills" :key="getSkillId(skill)" :value="getSkillId(skill)">
+            {{ getSkillLabel(skill) }}
           </option>
         </select>
       </div>
@@ -32,7 +32,7 @@
       </div>
 
       <!-- Dice Preview -->
-      <div class="dice-preview" v-if="localSelectedSkillName && selectedSkill">
+      <div class="dice-preview" v-if="localSelectedSkillKey && selectedSkill">
         <div class="dice-pool">
           <span v-for="(die, index) in dicePool.d12Dice" :key="`d12-${index}`" class="dice-symbol" :class="{
             'favored-die': rollParameters.isFavored,
@@ -75,7 +75,7 @@
 
       <!-- Roll Button -->
       <ActionButton variant="primary" size="large" text="Roll" @click="rollSkillCheck"
-        :disabled="!localSelectedSkillName" />
+        :disabled="!localSelectedSkillKey" />
 
       <!-- Discord Toggle -->
       <label class="discord-toggle" for="send-to-discord">
@@ -96,6 +96,9 @@ import { buildDiceSetForSkill } from '@/utils/skillDiceUtils'
 import { SKILL_STATUS } from '@/constants/skillStatus'
 import { RollTypes } from '@/constants/rollTypes'
 import { DIE_TYPE, DICE_MOD_RANGE, DIFFICULTY_VALUES } from '@shared/constants/dice'
+import { findSkillById, getSkillId, getSkillLabel } from '@/utils/characterKeyUtils'
+
+/** @typedef {import('@/types/rollPreviewTypes.js').SkillPreviewDie} SkillPreviewDie */
 
 const rollsStore = useRollsStore()
 
@@ -104,7 +107,7 @@ const props = defineProps({
     type: Object,
     required: true,
   },
-  selectedSkillName: {
+  selectedSkillKey: {
     type: String,
     default: '',
   },
@@ -124,11 +127,12 @@ const props = defineProps({
 
 const emit = defineEmits(['close', 'update-difficulty', 'start-opposed-skill-check'])
 
-const localSelectedSkillName = ref(props.selectedSkillName || '')
+const localSelectedSkillKey = ref(props.selectedSkillKey || '')
 const localDifficulty = ref(props.defaultDifficulty || null)
 const sendToDiscord = ref(true)
 const rollType = ref(props.defaultRollType)
 const rollParameters = ref({
+  skillId: '',
   name: '',
   isFavored: false,
   isIllFavored: false,
@@ -150,9 +154,7 @@ const diceModOptions = Array.from(
 const difficultyOptions = DIFFICULTY_VALUES
 
 const selectedSkill = computed(() => {
-  return props.character.skills.find(
-    (skill) => skill.name === localSelectedSkillName.value,
-  ) || null
+  return findSkillById(props.character.skills, localSelectedSkillKey.value)
 })
 
 const favoredStatus = computed({
@@ -178,14 +180,14 @@ const favoredStatus = computed({
 const dicePool = computed(() => {
   if (!selectedSkill.value) return { d12Dice: [], d6Dice: [] }
 
-  const allDice = buildDiceSetForSkill(rollParameters.value, {
+  const allDice = /** @type {SkillPreviewDie[]} */ (buildDiceSetForSkill(rollParameters.value, {
     includeDiceClass: true,
     getDiceFontMaxClass
-  })
+  }))
 
   return {
-    d12Dice: allDice.filter(die => die.dieSides === DIE_TYPE.D12),
-    d6Dice: allDice.filter(die => die.dieSides === DIE_TYPE.D6)
+    d12Dice: allDice.filter(die => die.dieSize === DIE_TYPE.D12),
+    d6Dice: allDice.filter(die => die.dieSize === DIE_TYPE.D6)
   }
 })
 
@@ -193,7 +195,8 @@ const dicePool = computed(() => {
 function updateRollParameters() {
   if (selectedSkill.value) {
     rollParameters.value = {
-      name: selectedSkill.value.name,
+      skillId: getSkillId(selectedSkill.value),
+      name: getSkillLabel(selectedSkill.value),
       isFavored: selectedSkill.value.isFavored,
       isIllFavored: selectedSkill.value.isIllFavored,
       ranks: selectedSkill.value.ranks,
@@ -201,6 +204,7 @@ function updateRollParameters() {
     }
   } else {
     rollParameters.value = {
+      skillId: '',
       name: '',
       isFavored: false,
       isIllFavored: false,
@@ -210,6 +214,7 @@ function updateRollParameters() {
   }
 }
 
+/** @param {number} difficulty */
 function toggleDifficulty(difficulty) {
   localDifficulty.value = localDifficulty.value === difficulty ? null : difficulty
 }
@@ -220,12 +225,13 @@ function closeModal() {
 }
 
 function rollSkillCheck() {
-  if (!localSelectedSkillName.value) {
+  if (!localSelectedSkillKey.value) {
     return
   }
 
   if (rollType.value === RollTypes.OPPOSED_SKILL_CHECK) {
     const skillCheckConfig = {
+      key: rollParameters.value.skillId,
       name: rollParameters.value.name,
       isFavored: rollParameters.value.isFavored,
       isIllFavored: rollParameters.value.isIllFavored,
@@ -254,12 +260,15 @@ function rollSkillCheck() {
 }
 
 // Watchers
-watch(() => [props.character, props.selectedSkillName], ([, newSkillName]) => {
-  localSelectedSkillName.value = newSkillName || ''
+watch(() => props.selectedSkillKey, (newSkillKey) => {
+  localSelectedSkillKey.value = newSkillKey || ''
+})
+
+watch(() => props.character, () => {
   updateRollParameters()
 }, { immediate: true })
 
-watch(localSelectedSkillName, () => {
+watch(localSelectedSkillKey, () => {
   updateRollParameters()
 })
 </script>

@@ -3,7 +3,7 @@
     <CoreAbilityHeader :title="coreAbilityTitle" :value="coreAbilityValue" :can-edit="canEdit"
       @update="updateCoreAbility" />
 
-    <SkillRow v-for="skill in skills" :key="skill.name" :skill="skill" :can-edit="canEdit"
+    <SkillRow v-for="skill in skills" :key="getSkillId(skill)" :skill="skill" :can-edit="canEdit"
       @open-skill-check="openSkillCheckModal" @update-ranks="handleRanksUpdate"
       @update-manual-dice-mod="handleManualDiceModUpdate" />
 
@@ -22,7 +22,7 @@
       :is-auto-calc="isStatesAuto" @update="updateState" @toggle-auto-calc="handleToggleStatesAutoCalc" />
 
     <SkillCheckModal v-if="skillCheckModal.isOpen.value && character" :character="character"
-      :selectedSkillName="selectedSkillName" :defaultDifficulty="rollsStore.lastDifficulty"
+      :selectedSkillKey="selectedSkillKey" :defaultDifficulty="rollsStore.lastDifficulty"
       @close="skillCheckModal.closeModal" @update-difficulty="rollsStore.setLastDifficulty"
       @start-opposed-skill-check="handleStartOpposedSkillCheck" />
 
@@ -38,9 +38,9 @@ import { useColumnConfig } from '@/composables/useColumnConfig'
 import { useRollsStore } from '@/stores/rollsStore'
 import { useCharactersStore } from '@/stores/charactersStore'
 import { useEquipmentStore } from '@/stores/equipmentStore'
-import { STAT_ROW_TYPES } from '@shared/constants/characterConstants'
+import { STAT_ROW_TYPES } from '@/constants/statRowTypes'
 import { ARMOR_TYPE_ID } from '@/constants/armorConstants'
-import * as CharacterUtils from '@shared/types/entities/characterUtils'
+import * as CharacterUtils from '@shared/utils/characterUtils'
 import InjuryRollService from '@/services/rolls/injuryRollService'
 import CharacterSheetSection from '@/components/ui/containers/CharacterSheetSection.vue'
 import CoreAbilityHeader from './CoreAbilityHeader.vue'
@@ -48,10 +48,11 @@ import SkillRow from './SkillRow.vue'
 import StatRow from './StatRow.vue'
 import SkillCheckModal from '@/components/features/characterSheet/modals/SkillCheckModal.vue'
 import OpposedSkillCheckModal from '@/components/features/characterSheet/rollModal/OpposedSkillCheckModal.vue'
+import { findSkillById, getSkillId } from '@/utils/characterKeyUtils'
 
 const props = defineProps({
   column: {
-    type: String,
+    type: Object,
     required: true,
   }
 })
@@ -91,7 +92,7 @@ const updateVirtue = (field, value) => {
 }
 
 const resetVirtue = () => {
-  character.value[virtueKey.value].current = character.value[virtueKey.value].max
+  character.value[virtueKey.value].current = character.value[virtueKey.value].base
 }
 
 const updateWeakness = (value) => {
@@ -106,17 +107,17 @@ const handleInjuryRoll = () => {
 
 // Auto-calculation computed properties
 const isLoadAuto = computed(() => character.value?.autoCalculations?.load ?? true)
-const isStatesAuto = computed(() => character.value?.autoCalculations?.statesAndEffects ?? true)
+const isStatesAuto = computed(() => character.value?.autoCalculations?.states ?? true)
 const showLoadAutoCalcButton = computed(() => weaknessKey.value === 'load')
 const showInjuryRollButton = computed(() => weaknessKey.value === 'injury')
 const showStatesAutoCalcButton = computed(() => true) // Always show for states
 
-// Virtue max auto-calc flag (Endurance/Hope/Defense)
+// Virtue base auto-calc flag (Endurance/Hope/Defense)
 const isMaxVirtueAuto = computed(() => {
   const key = virtueKey.value
-  if (key === 'endurance') return character.value?.autoCalculations?.maxEndurance ?? true
-  if (key === 'hope') return character.value?.autoCalculations?.maxHope ?? true
-  if (key === 'defense') return character.value?.autoCalculations?.maxDefense ?? true
+  if (key === 'endurance') return character.value?.autoCalculations?.baseEndurance ?? true
+  if (key === 'hope') return character.value?.autoCalculations?.baseHope ?? true
+  if (key === 'defense') return character.value?.autoCalculations?.baseDefense ?? true
   return true
 })
 
@@ -134,33 +135,33 @@ const armorDefenseBonus = computed(() => {
     }, 0)
 })
 
-// When armor bonus or wits changes, keep defense.max up to date (defense column only)
+// When armor bonus or wits changes, keep defense.base up to date (defense column only)
 watch([() => character.value?.wits, armorDefenseBonus], () => {
   if (!character.value || virtueKey.value !== 'defense') return
-  if (!(character.value?.autoCalculations?.maxDefense ?? true)) return
-  character.value.defense.max = CharacterUtils.calculateMaxDefense(character.value.wits) + armorDefenseBonus.value
+  if (!(character.value?.autoCalculations?.baseDefense ?? true)) return
+  character.value.defense.base = CharacterUtils.calculatebaseDefense(character.value.wits) + armorDefenseBonus.value
 })
 
 const handleToggleVirtueAutoCalc = () => {
   if (!character.value) return
   if (!character.value.autoCalculations) {
-    character.value.autoCalculations = { load: true, statesAndEffects: true, maxEndurance: true, maxHope: true, maxDefense: true }
+    character.value.autoCalculations = { load: true, states: true, baseEndurance: true, baseHope: true, baseDefense: true }
   }
   const key = virtueKey.value
   if (key === 'endurance') {
-    character.value.autoCalculations.maxEndurance = !(character.value.autoCalculations.maxEndurance ?? true)
-    if (character.value.autoCalculations.maxEndurance) {
-      character.value.endurance.max = CharacterUtils.calculateMaxEndurance(character.value.body)
+    character.value.autoCalculations.baseEndurance = !(character.value.autoCalculations.baseEndurance ?? true)
+    if (character.value.autoCalculations.baseEndurance) {
+      character.value.endurance.base = CharacterUtils.calculatebaseEndurance(character.value.body)
     }
   } else if (key === 'hope') {
-    character.value.autoCalculations.maxHope = !(character.value.autoCalculations.maxHope ?? true)
-    if (character.value.autoCalculations.maxHope) {
-      character.value.hope.max = CharacterUtils.calculateMaxHope(character.value.heart)
+    character.value.autoCalculations.baseHope = !(character.value.autoCalculations.baseHope ?? true)
+    if (character.value.autoCalculations.baseHope) {
+      character.value.hope.base = CharacterUtils.calculatebaseHope(character.value.heart)
     }
   } else if (key === 'defense') {
-    character.value.autoCalculations.maxDefense = !(character.value.autoCalculations.maxDefense ?? true)
-    if (character.value.autoCalculations.maxDefense) {
-      character.value.defense.max = CharacterUtils.calculateMaxDefense(character.value.wits) + armorDefenseBonus.value
+    character.value.autoCalculations.baseDefense = !(character.value.autoCalculations.baseDefense ?? true)
+    if (character.value.autoCalculations.baseDefense) {
+      character.value.defense.base = CharacterUtils.calculatebaseDefense(character.value.wits) + armorDefenseBonus.value
     }
   }
 }
@@ -181,7 +182,7 @@ const handleCalculateStates = () => {
 const handleToggleLoadAutoCalc = () => {
   if (!character.value) return
   if (!character.value.autoCalculations) {
-    character.value.autoCalculations = { load: true, statesAndEffects: true }
+    character.value.autoCalculations = { load: true, states: true }
   }
   character.value.autoCalculations.load = !character.value.autoCalculations.load
   // If turning on auto, calculate immediately
@@ -193,11 +194,11 @@ const handleToggleLoadAutoCalc = () => {
 const handleToggleStatesAutoCalc = () => {
   if (!character.value) return
   if (!character.value.autoCalculations) {
-    character.value.autoCalculations = { load: true, statesAndEffects: true }
+    character.value.autoCalculations = { load: true, states: true }
   }
-  character.value.autoCalculations.statesAndEffects = !character.value.autoCalculations.statesAndEffects
+  character.value.autoCalculations.states = !character.value.autoCalculations.states
   // If turning on auto, calculate immediately
-  if (character.value.autoCalculations.statesAndEffects) {
+  if (character.value.autoCalculations.states) {
     handleCalculateStates()
   }
 }
@@ -207,25 +208,27 @@ const updateState = (field, value) => {
   character.value.states[stateKey] = value
 }
 
-const handleRanksUpdate = (skillName, newRanks) => {
-  const skill = character.value.skills.find(s => s.name === skillName)
+const handleRanksUpdate = (skillKey, newRanks) => {
+  const skill = findSkillById(character.value.skills, skillKey)
+  if (!skill) return
   skill.ranks = newRanks
   CharacterUtils.updateFavoredStatus(character.value)
 }
 
-const handleManualDiceModUpdate = (skillName, newManualDiceMod) => {
-  const skill = character.value.skills.find(s => s.name === skillName)
+const handleManualDiceModUpdate = (skillKey, newManualDiceMod) => {
+  const skill = findSkillById(character.value.skills, skillKey)
+  if (!skill) return
   skill.manualDiceMod = newManualDiceMod
   CharacterUtils.updateFavoredStatus(character.value)
 }
 
 const skillCheckModal = useModal()
 const opposedSkillCheckModal = useModal()
-const selectedSkillName = ref('')
+const selectedSkillKey = ref('')
 const opposedSessionConfig = ref(null)
 
-const openSkillCheckModal = (skillName) => {
-  selectedSkillName.value = skillName
+const openSkillCheckModal = (skillKey) => {
+  selectedSkillKey.value = skillKey
   skillCheckModal.openModal()
 }
 

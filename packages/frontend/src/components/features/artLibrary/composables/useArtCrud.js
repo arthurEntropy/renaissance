@@ -9,7 +9,7 @@ export function useArtCrud(artStore) {
                     const art = artStore.getById(artId)
                     if (art) {
                         // Start with existing sources
-                        let updatedSources = [...art.tags.sources]
+                        let updatedSources = [...art.sources]
 
                         // Remove sources that should be removed
                         updatedSources = updatedSources.filter(id => !artData.sourcesToRemove.includes(id))
@@ -23,10 +23,8 @@ export function useArtCrud(artStore) {
 
                         const updatedArt = {
                             ...art,
-                            tags: {
-                                type: artData.type,
-                                sources: updatedSources
-                            }
+                            type: artData.type,
+                            sources: updatedSources
                         }
                         await ArtService.update(updatedArt)
                         artStore.update(updatedArt)

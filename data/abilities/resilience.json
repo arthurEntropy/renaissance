@@ -1,13 +1,11 @@
 {
   "id": "4f01e99f-1a9f-4c76-9435-c116c4d6c958",
+  "isDeleted": false,
+  "lastModified": "2026-02-12T21:37:52.076Z",
   "name": "Resilience",
   "description": "<p>Any time you are healed, you gain an additional 1 HP. Describe what’s keeping you on your feet.</p>",
-  "canBeActive": false,
-  "isActive": true,
   "source": "fa6eb60c-0895-4635-8124-ab50b0bac28e",
-  "isDeleted": false,
-  "mp": null,
-  "xp": null,
-  "lastModified": "2026-02-12T21:37:52.076Z",
-  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": null
 }

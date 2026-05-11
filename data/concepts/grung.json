@@ -4,26 +4,19 @@
   "name": "Grung",
   "description": "<p>Brightly-colored, smooth-skinned, large-eyed - the Grung are typically wary. Their survival instincts tend to run close to the surface and their poisonous skin keeps others at a distance. They do not often stray far from water without some provision of it to keep themselves from drying out, and their affinity for the natural world allows them to notice danger before others.</p>",
   "isDeleted": false,
-  "artUrls": [
+  "featuredArtUrls": [
     "https://cdn.midjourney.com/6a52d112-8461-45a7-bf01-3c17367af7c8/0_1.png"
   ],
-  "faces": [],
-  "places": [],
-  "backgroundImage": "https://cdn.midjourney.com/72d2011e-24c8-4d1c-a035-c3a9bda06b51/0_3.png",
+  "backgroundImage": "",
+  "cardBackgroundImage": "https://cdn.midjourney.com/72d2011e-24c8-4d1c-a035-c3a9bda06b51/0_3.png",
   "expansion": "e46f4320-a414-4300-95d5-397ba717d982",
-  "hooks": [],
-  "playlists": [],
-  "names": "",
-  "occupations": "",
-  "publicHouses": "",
-  "vittles": "",
-  "pointsOfInterest": "",
-  "floraFauna": "",
   "lastModified": "2026-04-24T17:19:37.468Z",
-  "heightMin": 3,
-  "heightMax": 4,
-  "weightMin": 40,
-  "weightMax": 150,
-  "lifespan": "50 years",
-  "speed": 25
+  "physiology": {
+    "heightMin": 3,
+    "heightMax": 4,
+    "weightMin": 40,
+    "weightMax": 150,
+    "lifespan": "50 years",
+    "speed": 25
+  }
 }

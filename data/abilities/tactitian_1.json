@@ -1,12 +1,10 @@
 {
   "id": "057bc9d1-9930-47c4-80a2-ac6f72e1077d",
+  "isDeleted": false,
+  "lastModified": "2026-02-12T21:22:31.655Z",
   "name": "Tactitian 1",
   "description": "<p>This is a placeholder.</p>",
-  "canBeActive": false,
-  "isActive": true,
   "source": "a7895ceb-db19-4c87-acf5-8960f6b555ea",
-  "isDeleted": false,
-  "mp": null,
-  "xp": null,
-  "lastModified": "2026-02-12T21:22:31.655Z"
+  "mpCost": null,
+  "xpCost": null
 }

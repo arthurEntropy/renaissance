@@ -63,7 +63,7 @@ const props = defineProps({
 
 const characterArtUrl = computed(() => {
     if (!props.character) return null
-    return props.character.artUrls?.[0] || null
+    return props.character.featuredArtUrls?.[0] || null
 })
 
 // Optimize character art thumbnail

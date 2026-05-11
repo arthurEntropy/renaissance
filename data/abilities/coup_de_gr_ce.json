@@ -4,13 +4,11 @@
   "createdAt": "2026-01-30T15:06:22.574Z",
   "lastModified": "2026-03-16T20:26:42.768Z",
   "name": "Coup de Grâce",
-  "description": "<p><em>Trigger: You win an engagement and it is at least the third consecutive engagement you've won against the same creature this combat.</em></p><p>The next time you hit the creature with an attack this turn, +1d damage and the creature rolls Injury. If the creature is prone, gain an additional +1d damage. If you roll 🌞 on the attack roll, the creature rolls Injury twice.</p><p><strong>Describe your killing blow.</strong></p>",
-  "canBeActive": false,
-  "isActive": true,
-  "source": "4eccfe5d-de19-4bc5-8c9c-374d793d67f0",
-  "mp": 3,
-  "xp": 15,
-  "manaCost": null,
   "artUrl": "https://cdn.midjourney.com/4f416294-3302-4c95-a1a0-b7dc6e24700d/0_3.png",
-  "type": "e5f6a1b2-c3d4-4e5f-da2b-1c0d9e8f7a6b"
+  "description": "<p><em>Trigger: You win an engagement and it is at least the third consecutive engagement you've won against the same creature this combat.</em></p><p>The next time you hit the creature with an attack this turn, +1d damage and the creature rolls Injury. If the creature is prone, gain an additional +1d damage. If you roll 🌞 on the attack roll, the creature rolls Injury twice.</p><p><strong>Describe your killing blow.</strong></p>",
+  "source": "4eccfe5d-de19-4bc5-8c9c-374d793d67f0",
+  "actionCost": "c4df395c-8284-4c4f-bf01-e293ed51c58c",
+  "mpCost": 3,
+  "xpCost": 15,
+  "manaCost": null
 }

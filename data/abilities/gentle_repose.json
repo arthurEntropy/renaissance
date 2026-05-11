@@ -1,14 +1,14 @@
 {
-  "source": "162ae4db-7a67-4770-8a2c-7e9883da14f6",
   "id": "306c6504-1e45-43cc-b73b-77e38557e566",
   "createdAt": "2026-03-11T14:13:00.844Z",
   "lastModified": "2026-03-11T20:43:58.858Z",
   "name": "Gentle Repose",
+  "artUrl": "https://cdn.midjourney.com/185b96ae-d6a7-443d-91f7-b5b74fdfaddb/0_0.png",
   "description": "<p><em>Casting time: 1 minute.</em></p><p>You touch a corpse or other remains. Roll Spirit to set the Difficulty. For the next month, the remains are protected from decay, and any creature other than you that attempts to disturb the remains or target them with a spell must first roll Spirit against the Difficulty and pass before proceeding.</p><p><strong>Describe how you protect the dead.</strong></p>",
   "successes": "<p>✨: The Difficulty increases by 2.</p><p>🌞: The effect lasts indefinitely.</p>",
-  "type": "f6a1b2c3-d4e5-4f6a-eb3c-2d1e0f9a8b7c",
-  "mp": 1,
-  "xp": 5,
+  "source": "162ae4db-7a67-4770-8a2c-7e9883da14f6",
   "isMagical": true,
-  "artUrl": "https://cdn.midjourney.com/185b96ae-d6a7-443d-91f7-b5b74fdfaddb/0_0.png"
+  "actionCost": "c7ea4889-0dc9-40cb-a437-70329cac43ab",
+  "mpCost": 1,
+  "xpCost": 5
 }

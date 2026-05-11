@@ -3,7 +3,7 @@
 
     <!-- Full-viewport background image -->
     <Teleport to="body">
-      <div v-if="selectedConcept?.detailBackgroundImage" class="concept-detail-bg">
+      <div v-if="selectedConcept?.backgroundImage" class="concept-detail-bg">
         <div class="concept-detail-bg-layer concept-detail-bg-preview" :style="detailBackgroundPreviewStyle" />
         <div class="concept-detail-bg-layer concept-detail-bg-full" :class="{ 'is-loaded': isDetailBackgroundLoaded }"
           :style="detailBackgroundFullStyle" />
@@ -147,7 +147,7 @@ import { useEquipmentSubtypesStore } from '@/stores/equipmentSubtypesStore'
 import { useEquipmentGradesStore } from '@/stores/equipmentGradesStore'
 import { useEquipmentRangesStore } from '@/stores/equipmentRangesStore'
 import { useKeepingStore } from '@/stores/keepingStore'
-import { useActionTypesStore } from '@/stores/actionTypesStore'
+import { useActionCostsStore } from '@/stores/actionCostsStore'
 import { useAbilitySchoolsStore } from '@/stores/abilitySchoolsStore'
 import { useArtStore } from '@/stores/artStore'
 import { useEngagementSuccessesStore } from '@/stores/engagementSuccessesStore'
@@ -178,7 +178,7 @@ const equipmentSubtypesStore = useEquipmentSubtypesStore()
 const equipmentGradesStore = useEquipmentGradesStore()
 const equipmentRangesStore = useEquipmentRangesStore()
 const keepingStore = useKeepingStore()
-const actionTypesStore = useActionTypesStore()
+const actionTypesStore = useActionCostsStore()
 const abilitySchoolsStore = useAbilitySchoolsStore()
 const artStore = useArtStore()
 const engagementSuccessesStore = useEngagementSuccessesStore()
@@ -220,7 +220,7 @@ const {
   finalUrl: detailBackgroundFullUrl,
   isFinalLoaded: isDetailBackgroundLoaded
 } = useProgressiveOptimizedImage(
-  () => selectedConcept.value?.detailBackgroundImage,
+  () => selectedConcept.value?.backgroundImage,
   {
     previewContext: PROGRESSIVE_IMAGE_CONTEXTS.CONCEPT_DETAIL_BACKGROUND.preview,
     finalContext: PROGRESSIVE_IMAGE_CONTEXTS.CONCEPT_DETAIL_BACKGROUND.final
@@ -316,11 +316,11 @@ const closeSettingsModal = () => {
 const saveSettings = async (settings) => {
   if (!selectedConcept.value) return
 
+  if (settings.cardBackgroundImage !== undefined) {
+    selectedConcept.value.cardBackgroundImage = settings.cardBackgroundImage
+  }
   if (settings.backgroundImage !== undefined) {
     selectedConcept.value.backgroundImage = settings.backgroundImage
-  }
-  if (settings.detailBackgroundImage !== undefined) {
-    selectedConcept.value.detailBackgroundImage = settings.detailBackgroundImage
   }
   if (settings.expansionId !== undefined) {
     selectedConcept.value.expansion = settings.expansionId

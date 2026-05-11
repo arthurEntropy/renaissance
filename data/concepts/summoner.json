@@ -4,50 +4,37 @@
   "name": "Summoner",
   "description": "<p>A pouch of carved glass phials rattles at your hip. Each one glows faintly with an inner light—beast-souls suspended in crystalline stasis, waiting to be called forth. You reach for one, feel its warmth pulse against your palm, and uncork it with practiced fingers. Reality shivers as fur and scale and claw materialize beside you, a creature both wild and bound, answering your silent command.</p><p>Summoners are not beast tamers in any ordinary sense. They do not break creatures or subjugate them through force. The art of summoning begins with a Vessel—a mundane object transformed through careful craft and meaningful components into something capable of holding a living soul. The quality of that Vessel matters: a simple glass phial can hold something modest, but a properly made Vessel can contain something formidable, and makes capturing it significantly easier. Each Vessel is a small labor of preparation, and each one tells you something about the Summoner who made it.</p><p>Capture is not a combat technique. When a Summoner throws a Vessel at a weakened creature, they are not commanding it—they are making an appeal. That appeal can be made through force of presence (Awe), emotional resonance (Spirit), or outright negotiation (Persuade), and the approach shapes the relationship that follows. A creature captured through Persuade arrives with a higher initial Friendship than one captured through sheer Awe—but each approach leaves its mark on how the creature develops and which of its capabilities come naturally.</p><p>In combat, the Summoner works through delegation, giving up their own actions to direct their creature's. This is a genuine trade-off managed anew each round: how much of themselves to invest in the creature's efforts, and how much to reserve for their own. At each rest, the Summoner decides which of their Vessels to prime—which creatures are ready to answer the call and which remain in suspension. The roster is a strategic decision made with knowledge of what lies ahead, and a Summoner who reads that terrain well arrives ready for almost anything.</p><h3>Play a Summoner if you want to:</h3><ul><li><p><strong>Build and tend a roster of unique creatures</strong>, investing in their growth over time and managing a collection whose depth rewards long-term play.</p></li><li><p><strong>Fight through relationship rather than through force</strong>, winning creatures over through presence, empathy, or negotiation, and growing those bonds into something genuinely powerful.</p></li><li><p><strong>Approach each encounter as a logistics problem</strong>, choosing which creatures to prime, how to split your actions, and which of your companions' strengths best matches what you're walking into.</p></li></ul><h3>Questions to consider when making a Summoner:</h3><ul><li><p>What drew them to this practice? The craft of the Vessels, the thrill of capture, the appeal of companionship with creatures who are not humanoid, or some older tradition they were trained into?</p></li><li><p>How do they feel about the creatures in their care? Are the Vessels a kind of kindness—giving wild beings safety and purpose—or do they carry some private discomfort about the nature of what they do?</p></li><li><p>Which of their current creatures has the deepest Friendship, and what did it take to get there? What broke the bond once, or almost did?</p></li><li><p>What kind of Vessels do they make? The choice of object and components is personal—is there a pattern to their choices, a material they favor, a form that means something to them?</p></li><li><p>Is there a creature they have tried and failed to capture? One they are still looking for?</p></li></ul>",
   "isDeleted": false,
-  "artUrls": [
+  "featuredArtUrls": [
     "https://cdn.midjourney.com/b4a69efb-4573-427d-b5b2-3bf49c18753c/0_1.png"
   ],
-  "faces": [],
-  "places": [],
-  "backgroundImage": "https://cdn.midjourney.com/7f7891f0-b3cb-45ec-92a2-738839651f59/0_3.png",
+  "backgroundImage": "https://cdn.midjourney.com/09481920-388a-488d-9ef2-c213269d3490/0_3.png",
+  "cardBackgroundImage": "https://cdn.midjourney.com/7f7891f0-b3cb-45ec-92a2-738839651f59/0_3.png",
   "expansion": "",
-  "hooks": [],
-  "playlists": [],
-  "names": "",
-  "occupations": "",
-  "publicHouses": "",
-  "vittles": "",
-  "pointsOfInterest": "",
-  "floraFauna": "",
-  "lastModified": "2026-04-15T18:46:44.303Z",
   "novizio": {
-    "flavorText": "",
-    "melee": [
-      "ad30b114-3c19-413f-aad2-5f270bd95684",
-      "b92d3394-2c64-487f-8c90-c56ea1cbd3f3"
-    ],
-    "polearm": [],
-    "ranged": [],
-    "firearm": [],
-    "armor": [
-      "ad30b114-3c19-413f-aad2-5f270bd95684"
-    ],
-    "martialNotes": "",
-    "engagementDice": {
-      "4": 0,
-      "6": 0,
-      "8": 0,
-      "10": 0,
-      "12": 0,
-      "20": 0
+    "description": "<p>In scelerisque turpis vitae elit volutpat mollis. Morbi quis blandit velit. Quisque arcu lorem, fringilla nec suscipit non, porttitor et justo. Integer pharetra felis mi, et pretium justo lacinia eget. Cras volutpat orci ut pharetra imperdiet. Morbi volutpat ligula eleifend.</p>",
+    "martialTraining": {
+      "meleeGrades": [
+        "ad30b114-3c19-413f-aad2-5f270bd95684",
+        "b92d3394-2c64-487f-8c90-c56ea1cbd3f3"
+      ],
+      "polearmGrades": [],
+      "rangedGrades": [],
+      "firearmGrades": [],
+      "armorGrades": [
+        "ad30b114-3c19-413f-aad2-5f270bd95684"
+      ]
     },
+    "martialTrainingNotes": "",
+    "engagementDice": [],
+    "engagementDiceNotes": "",
     "engagementSuccesses": [],
-    "engagementNotes": "",
     "engagementSuccessNotes": "",
     "baseMP": 0,
-    "mpNotes": "<p>Summoner abilities to not have an MP cost. The creatures you summon may have their own base MP.</p>",
+    "baseMpNotes": "<p>Summoner abilities to not have an MP cost. The creatures you summon may have their own base MP.</p>",
     "abilities": "<p><em>Capture, Craft Vessel, Friendship, Keeper of Vessels, Summon, Train.</em></p>",
-    "description": "<p>In scelerisque turpis vitae elit volutpat mollis. Morbi quis blandit velit. Quisque arcu lorem, fringilla nec suscipit non, porttitor et justo. Integer pharetra felis mi, et pretium justo lacinia eget. Cras volutpat orci ut pharetra imperdiet. Morbi volutpat ligula eleifend.</p>"
+    "gratuiti": ""
   },
-  "detailBackgroundImage": "https://cdn.midjourney.com/09481920-388a-488d-9ef2-c213269d3490/0_3.png"
+  "lastModified": "2026-04-15T18:46:44.303Z",
+  "hooks": [],
+  "playlists": []
 }

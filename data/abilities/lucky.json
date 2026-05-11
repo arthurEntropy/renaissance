@@ -1,14 +1,12 @@
 {
   "id": "738255ac-87f1-45a5-91ff-c2144b92b5e3",
-  "name": "Lucky",
-  "description": "<p><em>You have an uncanny knack for avoiding the worst danger.</em></p><p>Whenever you Morte 💀 on a feat die: Re-roll the feat die. You must use the new result, even if it is another Morte 💀. Only the new result counts toward Bane/Boon.</p><p><strong>Describe how you cheat fate.</strong></p>",
-  "canBeActive": false,
-  "isActive": true,
-  "source": "77e4f81a-728f-49a7-a013-4d6f666353e2",
   "isDeleted": false,
-  "mp": null,
-  "xp": null,
-  "artUrl": "https://cdn.midjourney.com/c9d63c27-fb38-43a2-98ef-cc41ea9a28e3/0_2.png",
   "lastModified": "2026-04-24T17:24:01.808Z",
-  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
+  "name": "Lucky",
+  "artUrl": "https://cdn.midjourney.com/c9d63c27-fb38-43a2-98ef-cc41ea9a28e3/0_2.png",
+  "description": "<p><em>You have an uncanny knack for avoiding the worst danger.</em></p><p>Whenever you Morte 💀 on a feat die: Re-roll the feat die. You must use the new result, even if it is another Morte 💀. Only the new result counts toward Bane/Boon.</p><p><strong>Describe how you cheat fate.</strong></p>",
+  "source": "77e4f81a-728f-49a7-a013-4d6f666353e2",
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": null
 }

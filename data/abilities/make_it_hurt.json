@@ -1,14 +1,12 @@
 {
   "id": "76025af2-a4d6-4e91-bcec-2815f575f4dd",
-  "name": "Make It Hurt",
-  "description": "<p>The next time you hit a creature with an attack this turn and deal damage, you automatically inflict Injury on the creature.</p><p><strong>Describe how you make it hurt.</strong></p>",
-  "canBeActive": false,
-  "isActive": true,
-  "source": "1e4131c7-8a6f-422c-998a-5147600c946e",
   "isDeleted": false,
-  "mp": 3,
-  "xp": 15,
   "lastModified": "2026-03-17T00:33:04.493Z",
+  "name": "Make It Hurt",
   "artUrl": "https://cdn.midjourney.com/43a16bac-9951-4eb9-b5e5-e026e1150220/0_1.png",
-  "type": "c3d4e5f6-a1b2-4c3d-be0f-9a8b7c6d5e4f"
+  "description": "<p>The next time you hit a creature with an attack this turn and deal damage, you automatically inflict Injury on the creature.</p><p><strong>Describe how you make it hurt.</strong></p>",
+  "source": "1e4131c7-8a6f-422c-998a-5147600c946e",
+  "actionCost": "40656418-af01-43ae-8a60-a1bd0124efb4",
+  "mpCost": 3,
+  "xpCost": 15
 }

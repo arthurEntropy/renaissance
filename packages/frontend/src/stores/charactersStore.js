@@ -3,6 +3,12 @@ import { ref, computed, watch } from 'vue'
 import { useCrudEntityStore } from './composables/useBaseEntityStore'
 import CharacterService from '@/services/entities/characterService'
 import { useAuthStore } from './authStore'
+import {
+  isPlayerCharacter,
+  isNPC,
+  isBeastTemplate,
+  isBeastInstance,
+} from '@/utils/characterTypeGuards'
 
 export const useCharactersStore = defineStore('characters', () => {
   const base = useCrudEntityStore(CharacterService, 'characters')
@@ -46,11 +52,13 @@ export const useCharactersStore = defineStore('characters', () => {
 
   // Computed properties
   const filteredCharacters = computed(() => {
-    return base.items.value.filter(character => !character.isBeast)
+    return base.items.value.filter((character) =>
+      isPlayerCharacter(character) || isNPC(character)
+    )
   })
 
   const filteredBeasts = computed(() => {
-    return base.items.value.filter((character) => character.isBeast && character.beastType !== 'instance')
+    return base.items.value.filter((character) => isBeastTemplate(character))
   })
 
   // The beast currently summoned by the selected character (if any)
@@ -69,9 +77,11 @@ export const useCharactersStore = defineStore('characters', () => {
   const canEditSelectedCharacter = computed(() => {
     if (!selectedCharacter.value) return false
     if (authStore.isAdmin) return true
-    if (selectedCharacter.value.isBeast) return false
+    if (isBeastTemplate(selectedCharacter.value) || isBeastInstance(selectedCharacter.value)) {
+      return false
+    }
     if (!authStore.isAuthenticated) return false
-    return selectedCharacter.value.userId === authStore.user?.uid
+    return selectedCharacter.value.ownerId === authStore.user?.uid
   })
 
   // Wrap update to keep selectedCharacter in sync

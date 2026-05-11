@@ -1,8 +1,10 @@
 {
   "id": "a352823a-b88d-4ddb-9356-5d7ea89e1b0c",
+  "isDeleted": false,
+  "createdAt": "2026-05-06T18:00:33.219Z",
+  "lastModified": "2026-05-06T18:00:33.219Z",
   "name": "Mundane",
-  "typeId": "07e3c504-605e-495e-96d3-6b4177516821",
+  "parentTypeId": "07e3c504-605e-495e-96d3-6b4177516821",
   "description": "Regular items without magical properties, including tools, accessories, and gear",
-  "index": 12,
-  "isDeleted": false
+  "index": 12
 }

@@ -69,6 +69,7 @@ import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.v
 import SelectedCharacterBadge from '@/components/features/characterSelection/SelectedCharacterBadge.vue'
 import { PlusIcon } from '@heroicons/vue/24/outline'
 import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
+import { isPlayerCharacter } from '@/utils/characterTypeGuards'
 
 const authStore = useAuthStore()
 const campaignStore = useCampaignStore()
@@ -96,7 +97,10 @@ const availableUserCharacters = computed(() => {
 
     const alreadyAdded = new Set(playerCharacters.value.map((character) => character.id))
     return charactersStore.filteredCharacters.filter(
-        (character) => character.userId === uid && !character.isNPC && !alreadyAdded.has(character.id)
+        (character) =>
+            character.ownerId === uid
+            && isPlayerCharacter(character)
+            && !alreadyAdded.has(character.id)
     )
 })
 
@@ -123,7 +127,7 @@ const canDragCharacter = () => isGM.value
 
 const canRemoveCharacter = (character) => {
     if (!character) return false
-    return isGM.value || character.userId === currentUserId.value
+    return isGM.value || character.ownerId === currentUserId.value
 }
 
 const canDragCharacterId = (characterId) => {
@@ -231,7 +235,7 @@ const removeCharacterFromCampaign = async (character) => {
 
 const viewCharacterSheet = (character) => {
     if (!character) return
-    const ownsCharacter = character.userId === authStore.user?.uid
+    const ownsCharacter = character.ownerId === authStore.user?.uid
     openCharacterSheet(character, { persistSelection: ownsCharacter })
 }
 </script>

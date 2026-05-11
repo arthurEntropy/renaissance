@@ -4,28 +4,26 @@
   "createdAt": "2026-01-30T17:12:44.609Z",
   "lastModified": "2026-03-16T20:26:11.185Z",
   "name": "Sword & Buckler",
+  "artUrl": "https://cdn.midjourney.com/0ee2c88c-5569-425a-b78d-5e7bb57cc22f/0_3.png",
   "description": "<p>You are trained in light shields.</p><p><strong>Describe your technique.</strong></p>",
-  "canBeActive": false,
-  "isActive": true,
-  "source": "4eccfe5d-de19-4bc5-8c9c-374d793d67f0",
-  "mp": null,
-  "xp": 15,
-  "manaCost": null,
   "successes": "",
   "improvements": [
     {
       "name": "Buckler Punch",
       "description": "<p>When you roll an engagement success while wielding a light shield, you may spend 1 MP to access the <em>Knockback</em> success.</p>",
-      "xp": 10,
+      "xpCost": 10,
       "id": "ffba5115-ecb3-4023-8392-7e16d3d34b4c"
     },
     {
       "name": "Untouchable",
       "description": "<p>When wielding a light shield, you gain +WITS Defense instead of the shield's normal Defense bonus.</p>",
-      "xp": 20,
+      "xpCost": 20,
       "id": "68d267a0-fb20-44ae-8dac-1ed2f0f80f8b"
     }
   ],
-  "artUrl": "https://cdn.midjourney.com/0ee2c88c-5569-425a-b78d-5e7bb57cc22f/0_3.png",
-  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
+  "source": "4eccfe5d-de19-4bc5-8c9c-374d793d67f0",
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": 15,
+  "manaCost": null
 }

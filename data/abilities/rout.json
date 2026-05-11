@@ -1,14 +1,12 @@
 {
   "id": "5dfebb16-f7a3-44d1-9c7a-a575812ff676",
-  "name": "Rout",
-  "description": "<p><em>Trigger: You knock a creature unconscious.</em></p><p>You and all allies within medium range get +1d to all attack rolls.</p><p>At the end of each round, if you or an ally knocked another creature unconscious this round, the bonus increases by an additional +1d. Otherwise, this effects ends.</p><p><strong>Describe how you tip the battle in your favor.</strong></p>",
-  "canBeActive": true,
-  "isActive": true,
-  "source": "d4dce5e2-e767-464d-91f0-c40b47f788b3",
   "isDeleted": false,
-  "mp": 3,
-  "xp": 20,
   "lastModified": "2026-03-17T13:21:11.698Z",
+  "name": "Rout",
   "artUrl": "https://cdn.midjourney.com/8e96861c-81c9-4b4f-bf0e-0e9b36ef17ea/0_0.png",
-  "type": "e5f6a1b2-c3d4-4e5f-da2b-1c0d9e8f7a6b"
+  "description": "<p><em>Trigger: You knock a creature unconscious.</em></p><p>You and all allies within medium range get +1d to all attack rolls.</p><p>At the end of each round, if you or an ally knocked another creature unconscious this round, the bonus increases by an additional +1d. Otherwise, this effects ends.</p><p><strong>Describe how you tip the battle in your favor.</strong></p>",
+  "source": "d4dce5e2-e767-464d-91f0-c40b47f788b3",
+  "actionCost": "c4df395c-8284-4c4f-bf01-e293ed51c58c",
+  "mpCost": 3,
+  "xpCost": 20
 }

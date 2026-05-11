@@ -4,18 +4,18 @@ import { DIE_TYPE, SPECIAL_ROLLS, EMOJI } from '@shared/constants/dice.js'
 
 class DiceFormatter {
 
-  static getDiceEmoji(dieSides, dieRollValue, rolledMaxValue = false, rollType = null) {
+  static getDiceEmoji(dieSize, dieRollValue, rolledMaxValue = false, rollType = null) {
     // Check for Sol/Morte on d12s for feat-die based roll types
     const isFeatDieType = rollType === RollTypes.SKILL_CHECK ||
       rollType === RollTypes.OPPOSED_SKILL_CHECK ||
       rollType === RollTypes.INJURY
     
-    if (dieSides === DIE_TYPE.D12 && isFeatDieType) {
+    if (dieSize === DIE_TYPE.D12 && isFeatDieType) {
       if (dieRollValue === SPECIAL_ROLLS.SOL) return EMOJI.SOL
       if (dieRollValue === SPECIAL_ROLLS.MORTE) return EMOJI.MORTE
-    } else if (dieSides === DIE_TYPE.D6 && dieRollValue === SPECIAL_ROLLS.SUCCESS) {
+    } else if (dieSize === DIE_TYPE.D6 && dieRollValue === SPECIAL_ROLLS.SUCCESS) {
       return EMOJI.SUCCESS
-    } else if (rolledMaxValue && dieRollValue === dieSides) {
+    } else if (rolledMaxValue && dieRollValue === dieSize) {
       // For any die that rolled max value (engagement dice, initiative, etc.)
       return EMOJI.SUCCESS
     }
@@ -28,9 +28,12 @@ class DiceFormatter {
     }
 
     const rollingDice = diceArray.map((die, index) => ({
-      dieSides: die.dieSides,
-      dieRollValue: die.dieSides, // Max possible value for this die
-      cssClass: getDiceFontClass(die.dieSides, die.dieSides),
+      die,
+      dieRollValue: die.dieSize, // Max possible value for this die
+      originalDieRollValue: die.dieSize,
+      displayValue: die.dieSize,
+      cssClass: getDiceFontClass(die.dieSize, die.dieSize),
+      emoji: null,
       isRolling: true,
       rolledMaxValue: false,
       poolIndex: index,
@@ -48,8 +51,8 @@ class DiceFormatter {
         : result.dieRollValue
       
       result.displayValue = valueToDisplay
-      result.cssClass = getDiceFontClass(result.dieSides, valueToDisplay)
-      result.emoji = this.getDiceEmoji(result.dieSides, valueToDisplay, result.rolledMaxValue, rollType)
+      result.cssClass = getDiceFontClass(result.die.dieSize, valueToDisplay)
+      result.emoji = this.getDiceEmoji(result.die.dieSize, valueToDisplay, result.rolledMaxValue, rollType)
       
       return result
     })
@@ -74,8 +77,8 @@ class DiceFormatter {
   static sortForSkillCheck(diceResults) {
     return [...diceResults].sort((a, b) => {
       // First, sort by die type (d12s before d6s)
-      if (a.dieSides !== b.dieSides) {
-        return b.dieSides - a.dieSides
+      if (a.die.dieSize !== b.die.dieSize) {
+        return b.die.dieSize - a.die.dieSize
       }
       
       // Within same die type, dropped dice go to end
@@ -90,7 +93,7 @@ class DiceFormatter {
       
       // If same type and value, maintain original pool order
       if (a.poolIndex === undefined || b.poolIndex === undefined) {
-        console.warn('DiceResult missing poolIndex during sort', { a, b })
+        console.warn('DieResult missing poolIndex during sort', { a, b })
         return 0
       }
       return a.poolIndex - b.poolIndex
@@ -105,13 +108,13 @@ class DiceFormatter {
       }
       
       // If same value, larger die wins
-      if (a.dieSides !== b.dieSides) {
-        return b.dieSides - a.dieSides
+      if (a.die.dieSize !== b.die.dieSize) {
+        return b.die.dieSize - a.die.dieSize
       }
       
       // If same value and size, maintain pool order
       if (a.poolIndex === undefined || b.poolIndex === undefined) {
-        console.warn('DiceResult missing poolIndex during sort', { a, b })
+        console.warn('DieResult missing poolIndex during sort', { a, b })
         return 0
       }
       return a.poolIndex - b.poolIndex

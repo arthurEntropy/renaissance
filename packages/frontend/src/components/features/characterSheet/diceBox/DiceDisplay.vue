@@ -77,6 +77,10 @@ const rollDuration = ref(DICE_ROLL_DURATION)
 const animatedDice = ref([])
 const lastRollId = ref(null)
 
+const getAnimatedDieSize = (die) => {
+    return die?.die?.dieSize ?? die?.dieSize ?? 0
+}
+
 const startRollAnimation = (rollData, skipAnimation = false) => {
     if (skipAnimation || !rollData || !rollData.diceResults || rollData.diceResults.length === 0) {
         isRolling.value = false
@@ -87,12 +91,13 @@ const startRollAnimation = (rollData, skipAnimation = false) => {
     lastRollId.value = currentRollId
 
     animatedDice.value = rollData.diceResults.map((die) => {
-        const randomValue = Math.floor(Math.random() * die.dieSides) + 1
+        const dieSize = getAnimatedDieSize(die)
+        const randomValue = Math.floor(Math.random() * dieSize) + 1
         return {
             ...die,
             dieRollValue: randomValue,
             displayValue: randomValue,
-            cssClass: getRandomDiceFontClass(die.dieSides),
+            cssClass: getRandomDiceFontClass(dieSize),
             isRolling: true,
         }
     })
@@ -115,12 +120,13 @@ const animateRoll = (rollId, finalDiceResults) => {
                 (progress * DICE_ANIMATION.CHANGE_FREQUENCY_RANGE)
 
             if (Math.random() < changeFrequency) {
-                const randomValue = Math.floor(Math.random() * die.dieSides) + 1
+                const dieSize = getAnimatedDieSize(die)
+                const randomValue = Math.floor(Math.random() * dieSize) + 1
                 return {
                     ...die,
                     dieRollValue: randomValue,
                     displayValue: randomValue,
-                    cssClass: getRandomDiceFontClass(die.dieSides),
+                    cssClass: getRandomDiceFontClass(dieSize),
                     isRolling: true,
                 }
             }
@@ -195,8 +201,8 @@ const waitingDiceDisplay = computed(() => {
     if (!props.waitingDice || props.waitingDice.length === 0) return []
 
     return props.waitingDice.map((die, index) => ({
-        dieSides: die.dieSides,
-        cssClass: getDiceFontClass(die.dieSides, die.dieSides), // Use the die type as the value for consistent display
+        dieSize: die.dieSize,
+        cssClass: getDiceFontClass(die.dieSize, die.dieSize), // Use the die type as the value for consistent display
         poolIndex: index
     }))
 })

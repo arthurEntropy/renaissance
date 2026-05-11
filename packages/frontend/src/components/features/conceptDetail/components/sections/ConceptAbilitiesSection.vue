@@ -97,9 +97,13 @@ import { useSourcesStore } from '@/stores/sourcesStore'
 import { useConceptsStore } from '@/stores/conceptsStore'
 import { useAbilitySchoolsStore } from '@/stores/abilitySchoolsStore'
 import { useAuthStore } from '@/stores/authStore'
-import { getManaCostColors } from '@shared/utils/calculateManaCost'
+import { getManaCostColors } from '@/utils/calculateManaCost'
 import { ConceptType } from '@shared/constants/conceptTypes'
-import { ManaColor, MANA_COLOR_ORDER } from '@shared/constants/manaColors'
+import {
+    ManaColor,
+    MANA_COLOR_GROUP_ORDER,
+    MANA_COLOR_GROUP_LABELS,
+} from '@/constants/manaColors'
 
 const charactersStore = useCharactersStore()
 const abilitiesStore = useAbilitiesStore()
@@ -193,19 +197,6 @@ const schoolGroupedAbilities = computed(() => {
     })
     return Object.values(groups).sort((a, b) => a.name.localeCompare(b.name))
 })
-
-const MANA_COLOR_GROUP_ORDER = ['none', ...MANA_COLOR_ORDER.filter(c => c !== ManaColor.COLORLESS), ManaColor.MULTICOLOR, ManaColor.COLORLESS]
-
-const MANA_COLOR_GROUP_LABELS = {
-    [ManaColor.WHITE]: 'White',
-    [ManaColor.BLUE]: 'Blue',
-    [ManaColor.BLACK]: 'Black',
-    [ManaColor.RED]: 'Red',
-    [ManaColor.GREEN]: 'Green',
-    [ManaColor.COLORLESS]: 'Colorless',
-    [ManaColor.MULTICOLOR]: 'Multicolor',
-    none: 'No Mana Cost',
-}
 
 const manaColorGroupedAbilities = computed(() => {
     if (!isGroupedByManaColor.value) return []

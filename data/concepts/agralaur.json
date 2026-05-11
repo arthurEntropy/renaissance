@@ -4,21 +4,21 @@
   "name": "Agralaur",
   "description": "",
   "isDeleted": false,
-  "artUrls": [
+  "featuredArtUrls": [
     "https://cdn.midjourney.com/6482f16b-9948-4aa8-8483-a19d349076b4/0_1.png"
   ],
-  "faces": [],
-  "places": [],
-  "backgroundImage": "https://cdn.midjourney.com/16656d8c-9e59-490f-ac47-71d4dca95cbf/0_2.png",
+  "backgroundImage": "https://cdn.midjourney.com/7d8344f6-3aad-4a1b-9dd7-0ac106a75c83/0_0_2048_N.webp",
+  "cardBackgroundImage": "https://cdn.midjourney.com/16656d8c-9e59-490f-ac47-71d4dca95cbf/0_2.png",
   "expansion": "824cad94-3a4a-4df3-b81a-ede17b84644b",
-  "hooks": [],
   "playlists": [],
-  "names": "Yara, Tetsu, Maikolli, Riku, Ixaya, Nobu, Kael, Yumiko, Ahuac, Brisa, Tamo, Sachiko, Kallima, Jiro, Nayeli, Tomiko, Koan, Luma, Citlali, Renzo",
-  "occupations": "Canal Skimmer, Shrine Painter, Mask Maker, Music-Weaver, River Fisher, Rooftop Gardener, Lantern Stringer, Stone Diver, Sandal Cobbler, Drum Carver, Brew Vendor, Gondola Pilot, Street Herald, Ruin Scout, Parade Beast Tamer",
-  "publicHouses": "Floodline Table, The Drowned Ember, House of Painted Smoke, Capybara’s Crown, The Second Moon, Mask and Current",
-  "vittles": "Fermented Shrimp Paste, Spiced Plantain Cakes, Smoked River Turtle, Tamarind-Sauced Fish, Pickled Lotus Root, Blackened Catfish, Vinegar Rice Parcels, Dried Mango Strips, Fried Cassava Balls, Mussel and Pepper Skewers, Coconut Milk Porridge, Roasted Corn with Lime Salt, Honeyed Insect Clusters, Cured River Eel, Candied Hibiscus Petals",
-  "pointsOfInterest": "The Grand Parade Arch, The Singing Bridge, Temple of the Last Echo, The Silt Market, The Vaulted Docks, Dwarfstone Row",
-  "floraFauna": "Mangrove, Water Hyacinth, River Cress, Lotus, Banana Tree, Swamp Fern, Capybara, Ibis, Marsh Toad, River Dolphin, Painted Frog, Lantern Beetle, Water Snake, Otter, Golden Kite",
-  "lastModified": "2026-03-13T20:51:16.615Z",
-  "detailBackgroundImage": "https://cdn.midjourney.com/7d8344f6-3aad-4a1b-9dd7-0ac106a75c83/0_0_2048_N.webp"
+  "hooks": [],
+  "localFlavor": {
+    "names": "Yara, Tetsu, Maikolli, Riku, Ixaya, Nobu, Kael, Yumiko, Ahuac, Brisa, Tamo, Sachiko, Kallima, Jiro, Nayeli, Tomiko, Koan, Luma, Citlali, Renzo",
+    "occupations": "Canal Skimmer, Shrine Painter, Mask Maker, Music-Weaver, River Fisher, Rooftop Gardener, Lantern Stringer, Stone Diver, Sandal Cobbler, Drum Carver, Brew Vendor, Gondola Pilot, Street Herald, Ruin Scout, Parade Beast Tamer",
+    "publicHouses": "Floodline Table, The Drowned Ember, House of Painted Smoke, Capybara’s Crown, The Second Moon, Mask and Current",
+    "vittles": "Fermented Shrimp Paste, Spiced Plantain Cakes, Smoked River Turtle, Tamarind-Sauced Fish, Pickled Lotus Root, Blackened Catfish, Vinegar Rice Parcels, Dried Mango Strips, Fried Cassava Balls, Mussel and Pepper Skewers, Coconut Milk Porridge, Roasted Corn with Lime Salt, Honeyed Insect Clusters, Cured River Eel, Candied Hibiscus Petals",
+    "pointsOfInterest": "The Grand Parade Arch, The Singing Bridge, Temple of the Last Echo, The Silt Market, The Vaulted Docks, Dwarfstone Row",
+    "floraFauna": "Mangrove, Water Hyacinth, River Cress, Lotus, Banana Tree, Swamp Fern, Capybara, Ibis, Marsh Toad, River Dolphin, Painted Frog, Lantern Beetle, Water Snake, Otter, Golden Kite"
+  },
+  "lastModified": "2026-03-13T20:51:16.615Z"
 }

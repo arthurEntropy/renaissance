@@ -1,23 +1,23 @@
 {
-  "source": "937d52da-0ebf-4d74-b3ee-be395f2f5d0a",
   "id": "5ea47cda-b70e-4530-af7e-8a4f2e0f2fb3",
   "createdAt": "2026-03-09T21:21:00.127Z",
   "lastModified": "2026-04-10T14:30:17.763Z",
-  "biomeTagsAugment": [],
-  "biomeTagsInhibit": [],
   "name": "Wild Shape",
-  "description": "<p><em>Concentration, up to 1 hour</em></p><p>Once per rest, you transform into an animal of Challenge 0 that you have seen. You may not choose an animal that can fly or breathe underwater.</p><p>While transformed, you use the animal’s stats instead of your own, but retain your intellect and memories: you may opt to use your own stats when rolling skills under HEART and WITS. You cannot use your own abilities while in this form, except the ability to end concentration for this spell.</p><p>When you transform, you start with the animal's maximum Endurance. When the animal form is reduced to 0 Endurance, the spell ends and you revert to your natural form, subtracting any leftover damage from your own Endurance.</p><p>Also when you transform, anything you are wearing merges into your animal form. Anything you are carrying may either merge into the form or fall to the ground. your choice.</p><p><strong>Describe your transformation.</strong></p>",
-  "type": "c3d4e5f6-a1b2-4c3d-be0f-9a8b7c6d5e4f",
-  "isMagical": true,
-  "xp": 15,
-  "mp": 3,
   "artUrl": "https://cdn.midjourney.com/cb45f1a6-bc21-4584-a635-593fe7581e2f/0_1.png",
+  "description": "<p><em>Concentration, up to 1 hour</em></p><p>Once per rest, you transform into an animal of Challenge 0 that you have seen. You may not choose an animal that can fly or breathe underwater.</p><p>While transformed, you use the animal’s stats instead of your own, but retain your intellect and memories: you may opt to use your own stats when rolling skills under HEART and WITS. You cannot use your own abilities while in this form, except the ability to end concentration for this spell.</p><p>When you transform, you start with the animal's maximum Endurance. When the animal form is reduced to 0 Endurance, the spell ends and you revert to your natural form, subtracting any leftover damage from your own Endurance.</p><p>Also when you transform, anything you are wearing merges into your animal form. Anything you are carrying may either merge into the form or fall to the ground. your choice.</p><p><strong>Describe your transformation.</strong></p>",
   "improvements": [
     {
       "name": "Wing & Gill",
       "description": "<p>You may choose an animal that can fly or breathe underwater.</p>",
-      "xp": 10,
+      "xpCost": 10,
       "id": "d5a11904-83e8-49c1-8e71-1b31953fb9c7"
     }
-  ]
+  ],
+  "source": "937d52da-0ebf-4d74-b3ee-be395f2f5d0a",
+  "isMagical": true,
+  "actionCost": "40656418-af01-43ae-8a60-a1bd0124efb4",
+  "mpCost": 3,
+  "xpCost": 15,
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": []
 }

@@ -4,22 +4,20 @@
   "createdAt": "2026-02-05T00:21:28.638Z",
   "lastModified": "2026-03-11T23:21:14.388Z",
   "name": "Cleansing Ward",
+  "artUrl": "https://cdn.midjourney.com/50c600d6-fa65-40de-883b-fa517ecc9a68/0_2.png",
   "description": "<p>You touch a creature. For the next hour, any time a spell would impose effects upon the creature which last 1 round or longer, all of the spell's effects instead end at the start of the creature's next turn.</p><p><strong>Describe how you cast the ward.</strong></p>",
-  "canBeActive": false,
-  "isActive": true,
-  "source": "162ae4db-7a67-4770-8a2c-7e9883da14f6",
-  "mp": 2,
-  "xp": 10,
-  "manaCost": null,
   "improvements": [
     {
       "name": "Shared Ward",
       "description": "<p>You may spend 2 additional MP to extend the benefits of this spell to one additional creature you touch.</p>",
-      "xp": 15,
+      "xpCost": 15,
       "id": "6aab7b8b-eeb0-462c-bdfc-41841f590ce9"
     }
   ],
-  "artUrl": "https://cdn.midjourney.com/50c600d6-fa65-40de-883b-fa517ecc9a68/0_2.png",
-  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
-  "isMagical": true
+  "source": "162ae4db-7a67-4770-8a2c-7e9883da14f6",
+  "isMagical": true,
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "mpCost": 2,
+  "xpCost": 10,
+  "manaCost": null
 }

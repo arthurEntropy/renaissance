@@ -1,14 +1,12 @@
 {
   "id": "25daccec-9dc4-469a-93ce-af13e853fc8e",
-  "name": "Breath Weapon",
-  "description": "<p><em>You can naturally exhale a burst of a volatile energy or substance.</em></p><p>Once per rest: Roll Fortitude vs Dexterity against a creature within short range. On a win, you deal damage equal to half your BODY score in d6s (minimum 1d6). On a loss, half damage.</p><p>The nature of your breath weapon is based on your <em>Draconic Affinity</em>. If you do not have the <em>Draconic Affinity</em> trait, choose a volatile energy or substance for the purpose of this ability, but you do not gain the protective benefits of that affinity: whenever you deal damage with this ability, you take half damage.</p><p><strong>Describe the burst and its effects.</strong></p>",
-  "canBeActive": false,
-  "isActive": true,
-  "source": "ba7af7ad-54d2-4b45-86ad-71781d4cdb33",
   "isDeleted": false,
-  "mp": null,
-  "xp": null,
   "lastModified": "2026-04-24T13:38:36.715Z",
+  "name": "Breath Weapon",
   "artUrl": "https://cdn.midjourney.com/7c42fd35-b29d-44ec-a2a0-99290323cd46/0_3.png",
-  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e"
+  "description": "<p><em>You can naturally exhale a burst of a volatile energy or substance.</em></p><p>Once per rest: Roll Fortitude vs Dexterity against a creature within short range. On a win, you deal damage equal to half your BODY score in d6s (minimum 1d6). On a loss, half damage.</p><p>The nature of your breath weapon is based on your <em>Draconic Affinity</em>. If you do not have the <em>Draconic Affinity</em> trait, choose a volatile energy or substance for the purpose of this ability, but you do not gain the protective benefits of that affinity: whenever you deal damage with this ability, you take half damage.</p><p><strong>Describe the burst and its effects.</strong></p>",
+  "source": "ba7af7ad-54d2-4b45-86ad-71781d4cdb33",
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "mpCost": null,
+  "xpCost": null
 }

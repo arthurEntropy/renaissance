@@ -1,8 +1,24 @@
 {
-  "source": "937d52da-0ebf-4d74-b3ee-be395f2f5d0a",
   "id": "90315f32-f485-498d-8d83-f8dad2f32882",
   "createdAt": "2026-03-03T17:43:01.177Z",
   "lastModified": "2026-03-17T14:39:18.506Z",
+  "name": "Grasping Vines",
+  "artUrl": "https://cdn.midjourney.com/22c2a68d-2863-44e2-8288-b7581c629d1f/0_0.png",
+  "description": "<p><em>Concentration, up to 10 minutes.</em></p><p>Thick, thorny vines erupt from the ground in a 5-ft square within short range. Roll Spirit vs. Dexterity against each creature in that space. On a win, the creature is grappled. On a loss, the creature moves to an adjacent space. Either way, your roll result becomes this spell’s Difficulty.</p><p>On each of its turns, a creature grappled by the vines may roll Strength against the Difficulty to attempt to escape. On a failure, it takes 1d6+HEART damage and the Difficulty increases by 2. On a pass, it escapes the vines, moving to an adjacent space, and the Difficulty decreases by 2.</p><p>The vines persist for the duration of your concentration, even if no creature is currently grappled. While the vines remain:</p><ul><li><p>Any creature that enters their space must roll Dexterity against the Difficulty or become grappled.</p></li><li><p>A creature adjacent to the vines may spend an action to hack at them, reducing the Difficulty by 2.</p></li></ul><p>When the spell ends, the vines wither into mundane growth but remain as difficult terrain. A creature that falls prone into the vines takes 1d6 damage from the thorns.</p><p><strong>Describe the vines.</strong></p>",
+  "improvements": [
+    {
+      "name": "Wall of Vines",
+      "description": "<p>When you cast this spell, you may spend additional MP. For each additional 1 MP you spend, vines erupt in two additional 5-ft squares within short range. The squares must be contiguous.</p>",
+      "xpCost": 15,
+      "id": "2983ade0-b6de-4664-820f-dca24288480d"
+    }
+  ],
+  "source": "937d52da-0ebf-4d74-b3ee-be395f2f5d0a",
+  "school": "f8572abf-975d-4007-b007-4cbe9bfdec01",
+  "isMagical": true,
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "mpCost": 2,
+  "xpCost": 10,
   "biomeTagsAugment": [
     "forest",
     "wetland",
@@ -11,21 +27,5 @@
   "biomeTagsInhibit": [
     "cold",
     "desert"
-  ],
-  "name": "Grasping Vines",
-  "description": "<p><em>Concentration, up to 10 minutes.</em></p><p>Thick, thorny vines erupt from the ground in a 5-ft square within short range. Roll Spirit vs. Dexterity against each creature in that space. On a win, the creature is grappled. On a loss, the creature moves to an adjacent space. Either way, your roll result becomes this spell’s Difficulty.</p><p>On each of its turns, a creature grappled by the vines may roll Strength against the Difficulty to attempt to escape. On a failure, it takes 1d6+HEART damage and the Difficulty increases by 2. On a pass, it escapes the vines, moving to an adjacent space, and the Difficulty decreases by 2.</p><p>The vines persist for the duration of your concentration, even if no creature is currently grappled. While the vines remain:</p><ul><li><p>Any creature that enters their space must roll Dexterity against the Difficulty or become grappled.</p></li><li><p>A creature adjacent to the vines may spend an action to hack at them, reducing the Difficulty by 2.</p></li></ul><p>When the spell ends, the vines wither into mundane growth but remain as difficult terrain. A creature that falls prone into the vines takes 1d6 damage from the thorns.</p><p><strong>Describe the vines.</strong></p>",
-  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
-  "mp": 2,
-  "xp": 10,
-  "artUrl": "https://cdn.midjourney.com/22c2a68d-2863-44e2-8288-b7581c629d1f/0_0.png",
-  "improvements": [
-    {
-      "name": "Wall of Vines",
-      "description": "<p>When you cast this spell, you may spend additional MP. For each additional 1 MP you spend, vines erupt in two additional 5-ft squares within short range. The squares must be contiguous.</p>",
-      "xp": 15,
-      "id": "2983ade0-b6de-4664-820f-dca24288480d"
-    }
-  ],
-  "isMagical": true,
-  "school": "f8572abf-975d-4007-b007-4cbe9bfdec01"
+  ]
 }

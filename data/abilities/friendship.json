@@ -4,13 +4,11 @@
   "createdAt": "2026-02-02T21:16:04.833Z",
   "lastModified": "2026-03-17T02:05:19.685Z",
   "name": "Friendship",
-  "description": "<p>Each captured creature has a Friendship score ranging from 0–10.</p><p>A creature’s starting Friendship is set by your <em>Capture</em> ability and can be increased using your <em>Train </em>ability. A creature loses 1 Friendship whenever it is knocked unconscious, whenever you or an ally deal damage to it, or whenever it spends a full day farther than far range from you.</p><ul><li><p><strong>Friendship 0:</strong> The creature seeks to escape your control. Whenever you <em>Summon</em> or <em>Train</em> it, it immediately attempts to flee and may attack anyone who blocks its escape.</p></li><li><p><strong>Friendship 1–4:</strong> The creature is indifferent to positively inclined toward you, but may wander or flee if left outside its vessel for more than a few minutes.</p></li><li><p><strong>Friendship 5+:</strong> You may keep the creature outside its vessel without risk of losing it. It willingly accompanies you and obeys your commands. You may still have only one captured creature summoned at a time.</p></li><li><p><strong>Friendship 6+:</strong> The creature is loyal. Whenever it would use its BODY, HEART, or WITS score, it may instead use its Friendship score.</p></li><li><p><strong>Friendship 10:</strong> The creature shares a deep bond of trust with you. You may issue complex, multi-step, time-sensitive commands, and it can travel any distance to carry them out. Additionally, its Friendship cannot be reduced below 5 due to distance from you if it begins the separation at Friendship of 10.</p></li></ul><p><strong>Describe how your friendship evolves.</strong></p>",
-  "canBeActive": false,
-  "isActive": true,
-  "source": "558abd15-f90f-40d7-80d8-df73a37f977c",
-  "mp": null,
-  "xp": null,
-  "manaCost": null,
   "artUrl": "https://cdn.midjourney.com/35f29ea7-a3bf-4689-894c-7cf6a8ea8f31/0_0.png",
-  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
+  "description": "<p>Each captured creature has a Friendship score ranging from 0–10.</p><p>A creature’s starting Friendship is set by your <em>Capture</em> ability and can be increased using your <em>Train </em>ability. A creature loses 1 Friendship whenever it is knocked unconscious, whenever you or an ally deal damage to it, or whenever it spends a full day farther than far range from you.</p><ul><li><p><strong>Friendship 0:</strong> The creature seeks to escape your control. Whenever you <em>Summon</em> or <em>Train</em> it, it immediately attempts to flee and may attack anyone who blocks its escape.</p></li><li><p><strong>Friendship 1–4:</strong> The creature is indifferent to positively inclined toward you, but may wander or flee if left outside its vessel for more than a few minutes.</p></li><li><p><strong>Friendship 5+:</strong> You may keep the creature outside its vessel without risk of losing it. It willingly accompanies you and obeys your commands. You may still have only one captured creature summoned at a time.</p></li><li><p><strong>Friendship 6+:</strong> The creature is loyal. Whenever it would use its BODY, HEART, or WITS score, it may instead use its Friendship score.</p></li><li><p><strong>Friendship 10:</strong> The creature shares a deep bond of trust with you. You may issue complex, multi-step, time-sensitive commands, and it can travel any distance to carry them out. Additionally, its Friendship cannot be reduced below 5 due to distance from you if it begins the separation at Friendship of 10.</p></li></ul><p><strong>Describe how your friendship evolves.</strong></p>",
+  "source": "558abd15-f90f-40d7-80d8-df73a37f977c",
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": null,
+  "manaCost": null
 }

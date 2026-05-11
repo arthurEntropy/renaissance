@@ -6,24 +6,6 @@
 
         <AdminCleanupPanel />
 
-        <AdminListManager title="Background Images" item-name="Background" :store="backgroundImagesStore"
-            :default-item="{ imageUrl: '', index: 0 }">
-            <template #fields="{ item, update }">
-                <input v-model="item.imageUrl" @blur="update" class="url-input" placeholder="Image URL" />
-                <img v-if="item.imageUrl" :src="item.imageUrl" class="preview" alt="Background preview" />
-            </template>
-        </AdminListManager>
-
-        <AdminListManager title="Channeler Card Backgrounds" item-name="Background" :store="channelerSettingsStore"
-            :default-item="{ color: '', imageUrl: '', index: 0 }"
-            :delete-confirm-message="(item) => `Delete ${item.color} background?`">
-            <template #fields="{ item, update }">
-                <span class="channeler-color-label">{{ item.color }}</span>
-                <input v-model="item.imageUrl" @blur="update" class="url-input" placeholder="Image URL" />
-                <img v-if="item.imageUrl" :src="item.imageUrl" class="preview" alt="Background preview" />
-            </template>
-        </AdminListManager>
-
         <AdminListManager title="Expansions" item-name="Expansion" :store="expansionsStore"
             :default-item="{ name: '', logoUrl: '', index: 0 }">
             <template #fields="{ item, update }">
@@ -108,8 +90,6 @@ import AdminListManager from '@/components/features/admin/AdminListManager.vue'
 import AdminCleanupPanel from '@/components/features/admin/AdminCleanupPanel.vue'
 import UserManager from '@/components/features/admin/UserManager.vue'
 import UserSettings from '@/components/features/admin/UserSettings.vue'
-import { useBackgroundImagesStore } from '@/stores/backgroundImagesStore'
-import { useChannelerSettingsStore } from '@/stores/channelerSettingsStore'
 import { useExpansionsStore } from '@/stores/expansionsStore'
 import { useEquipmentTypesStore } from '@/stores/equipmentTypesStore'
 import { useEquipmentSubtypesStore } from '@/stores/equipmentSubtypesStore'
@@ -122,8 +102,6 @@ import { useConceptsStore } from '@/stores/conceptsStore'
 import { computed } from 'vue'
 import BiomeTagsCyclePicker from '@/components/ui/biome/BiomeTagsCyclePicker.vue'
 
-const backgroundImagesStore = useBackgroundImagesStore()
-const channelerSettingsStore = useChannelerSettingsStore()
 const expansionsStore = useExpansionsStore()
 const equipmentTypesStore = useEquipmentTypesStore()
 const equipmentSubtypesStore = useEquipmentSubtypesStore()
@@ -190,13 +168,5 @@ const mestriereGroupStore = computed(() => ({
     background: none;
     cursor: pointer;
     flex-shrink: 0;
-}
-
-.channeler-color-label {
-    width: 80px;
-    flex-shrink: 0;
-    color: var(--color-text-primary);
-    font-size: var(--font-size-14);
-    text-transform: capitalize;
 }
 </style>

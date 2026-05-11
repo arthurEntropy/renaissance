@@ -4,16 +4,14 @@
   "createdAt": "2026-01-02T21:12:11.548Z",
   "lastModified": "2026-04-23T13:45:55.162Z",
   "name": "Burning Hands",
-  "description": "<p>Uncheck a Condition. If you did, roll Spirit vs Dexterity against a creature within short range. On a win, it takes 2d6 damage. On a loss, half damage.</p><p>If the Condition you unchecked was Anger, +1d damage.</p><p><strong>Describe how your hands erupt in flame.</strong></p>",
-  "canBeActive": false,
-  "isActive": true,
-  "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
-  "mp": null,
-  "xp": 10,
-  "manaCost": "1R",
   "artUrl": "https://cdn.midjourney.com/a389d0bb-2d2e-428e-9816-cd84b72f136c/0_0.png",
+  "description": "<p>Uncheck a Condition. If you did, roll Spirit vs Dexterity against a creature within short range. On a win, it takes 2d6 damage. On a loss, half damage.</p><p>If the Condition you unchecked was Anger, +1d damage.</p><p><strong>Describe how your hands erupt in flame.</strong></p>",
   "successes": "<p>✨: +1d damage.</p><p>🌞: You may target one additional creature within short range.</p>",
-  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
+  "improvements": [],
+  "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
   "isMagical": true,
-  "improvements": []
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "mpCost": null,
+  "xpCost": 10,
+  "manaCost": "1R"
 }

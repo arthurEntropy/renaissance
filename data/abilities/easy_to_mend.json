@@ -1,14 +1,12 @@
 {
   "id": "3ccd9c77-deaf-4f96-aaef-907d8e2baf01",
-  "name": "Easy To Mend",
-  "description": "<p>Being made of rope, your injuries are easier than most to repair. The quality of the repair depends on the quality of the rope you carry.</p><p>On a short rest, reduce your Injury score by your current Keeping. Double this effect on a long rest.</p><p><strong>Describe how you repair your wounds.</strong></p>",
-  "canBeActive": false,
-  "isActive": true,
-  "source": "15bb5476-5cca-48ee-a6a0-95b0ea6cc803",
   "isDeleted": false,
-  "mp": null,
-  "xp": null,
-  "artUrl": "https://cdn.midjourney.com/0b24fecf-ec2e-4b51-9545-78d14caf9735/0_2.png",
   "lastModified": "2026-02-12T21:37:52.065Z",
-  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
+  "name": "Easy To Mend",
+  "artUrl": "https://cdn.midjourney.com/0b24fecf-ec2e-4b51-9545-78d14caf9735/0_2.png",
+  "description": "<p>Being made of rope, your injuries are easier than most to repair. The quality of the repair depends on the quality of the rope you carry.</p><p>On a short rest, reduce your Injury score by your current Keeping. Double this effect on a long rest.</p><p><strong>Describe how you repair your wounds.</strong></p>",
+  "source": "15bb5476-5cca-48ee-a6a0-95b0ea6cc803",
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": null
 }

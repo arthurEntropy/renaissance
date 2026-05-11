@@ -1,14 +1,12 @@
 {
   "id": "b7daf873-507b-4797-8011-7ba2954fa662",
-  "name": "Designed Purpose",
-  "description": "<p><em>You were built to perform a specific task.</em></p><p>Determine your task through discussion with the GM. The task should be something quite specific and unrelated to adventuring - though you may certainly find ways to make use of it while adventuring.</p><p>Unless circumstances explicitly prevent it, you automatically perform your task successfully whenever you attempt it.</p><p><strong>Describe how your design gives you an advantage.</strong></p>",
-  "canBeActive": false,
-  "isActive": true,
-  "source": "cfd7bf18-3a9a-4b4e-a9a9-c7069dd822c3",
   "isDeleted": false,
-  "mp": null,
-  "xp": null,
   "lastModified": "2026-03-19T02:14:47.656Z",
-  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d",
-  "artUrl": "https://cdn.midjourney.com/e6b1d87f-1f29-4476-b8a4-86564944835f/0_1.png"
+  "name": "Designed Purpose",
+  "artUrl": "https://cdn.midjourney.com/e6b1d87f-1f29-4476-b8a4-86564944835f/0_1.png",
+  "description": "<p><em>You were built to perform a specific task.</em></p><p>Determine your task through discussion with the GM. The task should be something quite specific and unrelated to adventuring - though you may certainly find ways to make use of it while adventuring.</p><p>Unless circumstances explicitly prevent it, you automatically perform your task successfully whenever you attempt it.</p><p><strong>Describe how your design gives you an advantage.</strong></p>",
+  "source": "cfd7bf18-3a9a-4b4e-a9a9-c7069dd822c3",
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": null
 }

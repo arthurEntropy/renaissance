@@ -1,15 +1,15 @@
 {
-  "source": "dab3e414-0118-49be-9779-4e3018cdba71",
   "id": "3514c403-96cc-434e-8c95-88789436d044",
   "createdAt": "2026-04-08T15:02:04.365Z",
   "lastModified": "2026-04-10T12:21:23.410Z",
-  "description": "<p>Concentration, up to 1 minute.</p><p>You attempt to reshape another creature’s memories. Roll Awareness vs Awareness against a creature within short range. If you are in combat with the creature, its roll is favored.</p><p>On a win, the creature’s speed becomes 0, it can’t take actions or reactions, and it becomes unaware of its surroundings, though it can still hear you. If it takes any damage or is targeted by another spell, this spell ends and none of its memories are modified.</p><p>While this spell lasts, you can alter the target’s memory of an event it experienced within the last 24 hours that lasted no more than 10 minutes—erasing it, recalling it with perfect clarity, changing its details, or replacing it with another memory.</p><p>You must speak to the target, and it must understand you. Its mind fills in any gaps in your description. If the spell ends before you finish, its memory is unchanged; otherwise, the changes take hold when the spell ends.</p><p>Modified memories don’t necessarily affect behavior, especially if they conflict with the creature’s nature, beliefs, or alignment. Illogical memories may be dismissed at the GM’s discretion.</p><p><strong>Describe how you explore the creature's memories.</strong></p>",
   "name": "Modify Memory",
-  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
-  "mp": 5,
-  "xp": 25,
-  "isMagical": true,
-  "school": "b19b34c0-9627-4712-a9db-db6c3ccb261d",
   "artUrl": "https://cdn.midjourney.com/60b5e0c6-9e98-4c02-b4cc-8f1cdbd7f631/0_0.png",
-  "successes": "<p>✨: You may modify a memory that occurred within the past week.</p><p>✨: You may modify a memory that lasted up to 1 hour.</p><p>🌞: You may modify up to three memories that occurred within the past year, each of which lasted up to 1 hour.</p>"
+  "description": "<p>Concentration, up to 1 minute.</p><p>You attempt to reshape another creature’s memories. Roll Awareness vs Awareness against a creature within short range. If you are in combat with the creature, its roll is favored.</p><p>On a win, the creature’s speed becomes 0, it can’t take actions or reactions, and it becomes unaware of its surroundings, though it can still hear you. If it takes any damage or is targeted by another spell, this spell ends and none of its memories are modified.</p><p>While this spell lasts, you can alter the target’s memory of an event it experienced within the last 24 hours that lasted no more than 10 minutes—erasing it, recalling it with perfect clarity, changing its details, or replacing it with another memory.</p><p>You must speak to the target, and it must understand you. Its mind fills in any gaps in your description. If the spell ends before you finish, its memory is unchanged; otherwise, the changes take hold when the spell ends.</p><p>Modified memories don’t necessarily affect behavior, especially if they conflict with the creature’s nature, beliefs, or alignment. Illogical memories may be dismissed at the GM’s discretion.</p><p><strong>Describe how you explore the creature's memories.</strong></p>",
+  "successes": "<p>✨: You may modify a memory that occurred within the past week.</p><p>✨: You may modify a memory that lasted up to 1 hour.</p><p>🌞: You may modify up to three memories that occurred within the past year, each of which lasted up to 1 hour.</p>",
+  "source": "dab3e414-0118-49be-9779-4e3018cdba71",
+  "school": "b19b34c0-9627-4712-a9db-db6c3ccb261d",
+  "isMagical": true,
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "mpCost": 5,
+  "xpCost": 25
 }

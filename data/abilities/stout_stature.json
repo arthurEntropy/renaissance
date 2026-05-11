@@ -1,14 +1,12 @@
 {
   "id": "22b1ec3d-59a4-4cac-98a1-98a2286e9520",
-  "name": "Stout Stature",
-  "description": "<p><em>Your sturdy frame allows you to bear more weight than your size would suggest.</em></p><p>When calculating Load, halve the total weight of all gear you're carrying.</p><p>Whenever you take the Sprint action, you lose Endurance equal to one quarter of your BODY score (minimum of 1).</p><p><strong>Describe how you bear up under the weight.</strong></p>",
-  "canBeActive": false,
-  "isActive": true,
-  "source": "adc655c1-1d9c-433f-a0eb-41f93cf3ee07",
   "isDeleted": false,
-  "mp": null,
-  "xp": null,
   "lastModified": "2026-04-24T14:01:05.156Z",
+  "name": "Stout Stature",
   "artUrl": "https://cdn.midjourney.com/fc7c2206-2313-4aab-b5fb-a467f2889844/0_2.png",
-  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
+  "description": "<p><em>Your sturdy frame allows you to bear more weight than your size would suggest.</em></p><p>When calculating Load, halve the total weight of all gear you're carrying.</p><p>Whenever you take the Sprint action, you lose Endurance equal to one quarter of your BODY score (minimum of 1).</p><p><strong>Describe how you bear up under the weight.</strong></p>",
+  "source": "adc655c1-1d9c-433f-a0eb-41f93cf3ee07",
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": null
 }

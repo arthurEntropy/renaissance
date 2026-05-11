@@ -1,10 +1,10 @@
 {
-  "source": "eed942f5-8cc4-446a-8806-b83186098274",
   "id": "d65ae016-6813-49d0-bbc0-68c6a680cbd5",
   "createdAt": "2026-02-26T19:01:05.845Z",
   "lastModified": "2026-02-26T19:19:24.547Z",
   "name": "Brute Force",
+  "artUrl": "https://cdn.midjourney.com/75872441-4c2f-4273-b99d-e4a1bb73d4f0/0_3.png",
   "description": "<p>Whenever you deal damage, you deal 1 additional damage.</p><p><strong>Describe your strength.</strong></p>",
-  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d",
-  "artUrl": "https://cdn.midjourney.com/75872441-4c2f-4273-b99d-e4a1bb73d4f0/0_3.png"
+  "source": "eed942f5-8cc4-446a-8806-b83186098274",
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1"
 }

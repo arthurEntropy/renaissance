@@ -4,59 +4,50 @@
   "name": "Tactitian",
   "description": "<p>FLAVOR:</p><ul><li><p>Warlord-type</p></li><li><p>But also strange geometrical significance --&gt; big magic</p></li></ul><p>WEAPONS:</p><ul><li><p>Light, common</p></li><li><p>Light, heavy armor, no shields, light helms</p></li></ul><p>ENGAGEMENT:</p><ul><li><p>Only from gear</p></li></ul><p>ABILITIES:</p><ul><li><p>Commands: others move, attack, retreat, etc.</p></li><li><p>Can read foes to anticipate movement?</p></li><li><p>Tetris-ish shapes that you arrange on the battlefield to make overlapping large shapes</p><ul><li><p>Don't know what they do until you do them</p></li><li><p>Effects are as grab-bag of magic (akin to wild magic)</p></li><li><p>One-time randomization upon character creation</p></li></ul></li></ul><p></p><p>You help your allies move around the battlefield, but you also have a strange private affinity for geometry and are surprised to find that indulging that preoccupation produces magical results.</p><p></p><ul><li><p>So let’s start with the <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://dnd4.fandom.com/wiki/Warlord\">4e Warlord class</a>. Mine that for what’s good and interesting. Commanding other people to do stuff.</p></li><li><p>But the concept art with the dude conjuring a weird geometric shape in the middle of battle really speaks to me. This class should be weirder. Like, you see patterns that other people don’t see and which aren’t evident as tactical advantages until you point them out.</p></li><li><p>So maybe it’s literally based on geometry on the battlefield. Like the player has a set of geometric shapes (<a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://m.media-amazon.com/images/I/71mSvHvLzUL._AC_UF1000,1000_QL80_.jpg\">like these things</a>) that they are attempting to place connecting between combatants. Actually maybe it’s more like tetris shapes, since those fit nicely on a battle map grid. Maybe you’re building shapes out on the battlefield and then projecting benefits or banes through them. Maybe you get more shapes as advancements.</p></li><li><p>I think a pitfall here is that it would suck to have to try to get people to stand in the right places all the time - you should be able to do that on your turn, in small ways of course.</p></li></ul>",
   "isDeleted": false,
-  "artUrls": [
+  "featuredArtUrls": [
     "https://cdn.midjourney.com/05e244de-4082-4629-89db-739d0762d0f8/0_2.png"
   ],
-  "faces": [],
-  "places": [],
-  "backgroundImage": "https://cdn.midjourney.com/d26b65f9-3113-44e0-aeba-98c8d1de8090/0_2.png",
+  "backgroundImage": "https://cdn.midjourney.com/bda1a37f-a80c-4f43-8e0a-38b2ba2f084b/0_2.png",
+  "cardBackgroundImage": "https://cdn.midjourney.com/d26b65f9-3113-44e0-aeba-98c8d1de8090/0_2.png",
   "expansion": "",
-  "hooks": [],
-  "playlists": [],
-  "names": "",
-  "occupations": "",
-  "publicHouses": "",
-  "vittles": "",
-  "pointsOfInterest": "",
-  "floraFauna": "",
-  "lastModified": "2026-04-15T18:48:19.797Z",
-  "detailBackgroundImage": "https://cdn.midjourney.com/bda1a37f-a80c-4f43-8e0a-38b2ba2f084b/0_2.png",
   "novizio": {
-    "flavorText": "",
-    "melee": [
-      "ad30b114-3c19-413f-aad2-5f270bd95684",
-      "b92d3394-2c64-487f-8c90-c56ea1cbd3f3",
-      "847d1092-fd43-4d58-b3da-002e6f3b7f3d"
-    ],
-    "polearm": [],
-    "ranged": [
-      "ad30b114-3c19-413f-aad2-5f270bd95684"
-    ],
-    "firearm": [
-      "ad30b114-3c19-413f-aad2-5f270bd95684"
-    ],
-    "armor": [
-      "ad30b114-3c19-413f-aad2-5f270bd95684",
-      "b92d3394-2c64-487f-8c90-c56ea1cbd3f3",
-      "847d1092-fd43-4d58-b3da-002e6f3b7f3d"
-    ],
-    "martialNotes": "",
-    "engagementDice": {
-      "4": 0,
-      "6": 0,
-      "8": 1,
-      "10": 0,
-      "12": 0,
-      "20": 0
+    "description": "<p>Sed mi diam, imperdiet vitae sem eu, aliquam placerat nunc. Morbi est odio, commodo at quam quis, congue aliquam orci. Duis semper nulla leo, non eleifend dolor consequat nec. Suspendisse tincidunt malesuada enim, eget tempor diam iaculis vitae. Aenean orci.</p>",
+    "martialTraining": {
+      "meleeGrades": [
+        "ad30b114-3c19-413f-aad2-5f270bd95684",
+        "b92d3394-2c64-487f-8c90-c56ea1cbd3f3",
+        "847d1092-fd43-4d58-b3da-002e6f3b7f3d"
+      ],
+      "polearmGrades": [],
+      "rangedGrades": [
+        "ad30b114-3c19-413f-aad2-5f270bd95684"
+      ],
+      "firearmGrades": [
+        "ad30b114-3c19-413f-aad2-5f270bd95684"
+      ],
+      "armorGrades": [
+        "ad30b114-3c19-413f-aad2-5f270bd95684",
+        "b92d3394-2c64-487f-8c90-c56ea1cbd3f3",
+        "847d1092-fd43-4d58-b3da-002e6f3b7f3d"
+      ]
     },
+    "martialTrainingNotes": "",
+    "engagementDice": [
+      {
+        "dieSize": 8
+      }
+    ],
+    "engagementDiceNotes": "",
     "engagementSuccesses": [
       "b8c9d0e1-f2a3-44b5-c6d7-e8f9a0b1c2d3"
     ],
-    "engagementNotes": "",
     "engagementSuccessNotes": "",
     "baseMP": 10,
-    "mpNotes": "",
+    "baseMpNotes": "",
     "abilities": "<p><em>Tactician 1, Tactician 2, Tactician 3.</em></p>",
-    "description": "<p>Sed mi diam, imperdiet vitae sem eu, aliquam placerat nunc. Morbi est odio, commodo at quam quis, congue aliquam orci. Duis semper nulla leo, non eleifend dolor consequat nec. Suspendisse tincidunt malesuada enim, eget tempor diam iaculis vitae. Aenean orci.</p>"
-  }
+    "gratuiti": ""
+  },
+  "lastModified": "2026-04-15T18:48:19.797Z",
+  "hooks": [],
+  "playlists": []
 }

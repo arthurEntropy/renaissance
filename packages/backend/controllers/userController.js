@@ -74,8 +74,7 @@ export const syncUserProfile = async (req, res) => {
         lastLoginAt: new Date().toISOString(),
         isDeleted: false,
         preferences: {
-          theme: 'dark',
-          notifications: true,
+          showCardArtwork: true,
         },
         characters: [], // Character IDs owned by this user
       }

@@ -4,21 +4,21 @@
   "name": "Ikeda",
   "description": "<p>A humble halfling fishing village long isolated from the rest of Iago, Ikeda was thrust upon the world stage as waves of refugees fled from the Potluck Plague and landed upon their shores. Ikedan seamanship was discovered to be peerless and invaluable in navigating the straits between the continents.  Whether from the water-shaping boon of Tenkara or some other source, Ikedan captains seemed able to anticipate the weather and tides with startling accuracy. Little more than a century later, Ikeda is now one of the largest ports in Iago and their merchant navy grows ever larger…</p>",
   "isDeleted": false,
-  "artUrls": [
+  "featuredArtUrls": [
     "https://cdn.midjourney.com/23a23e84-07a7-41a9-b101-afa4e1c95892/0_1.png"
   ],
-  "faces": [],
-  "places": [],
-  "backgroundImage": "",
+  "backgroundImage": "https://cdn.midjourney.com/9ca6875c-cac1-4440-b0ac-4bf66aeaf1f0/0_2.png",
+  "cardBackgroundImage": "",
   "expansion": "e46f4320-a414-4300-95d5-397ba717d982",
-  "hooks": [],
   "playlists": [],
-  "names": "",
-  "occupations": "",
-  "publicHouses": "",
-  "vittles": "",
-  "pointsOfInterest": "",
-  "floraFauna": "",
-  "detailBackgroundImage": "https://cdn.midjourney.com/9ca6875c-cac1-4440-b0ac-4bf66aeaf1f0/0_2.png",
+  "hooks": [],
+  "localFlavor": {
+    "names": "",
+    "occupations": "",
+    "publicHouses": "",
+    "vittles": "",
+    "pointsOfInterest": "",
+    "floraFauna": ""
+  },
   "lastModified": "2026-03-13T20:45:51.557Z"
 }

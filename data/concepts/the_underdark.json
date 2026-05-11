@@ -4,20 +4,21 @@
   "name": "The Underdark",
   "description": "",
   "isDeleted": false,
-  "artUrls": [
+  "featuredArtUrls": [
     "https://cdn.midjourney.com/fd3657d5-7bcf-4343-84fc-617829d64e2e/0_0.png"
   ],
-  "faces": [],
-  "places": [],
   "backgroundImage": "",
+  "cardBackgroundImage": "",
   "expansion": "824cad94-3a4a-4df3-b81a-ede17b84644b",
-  "hooks": [],
   "playlists": [],
-  "names": "Gregorik, Ilona, Radomir, Zsófia, Marek, Anika, Vlas, Erzsé, Tibor, Daciana, Emil, Klara, Istvan, Mirela, Vojtek, Lenka, Oskar, Bela, Florika, Andor",
-  "occupations": "Fungus Cartographer, Tunnel Lampwright, Chitin Smith, Sporespoken Courier, Imperial Relic Hunter, Mold Taxidermist, Glowworm Shepherd, Bone Archivist, Echo Scout, Collapse Watcher, Crypt Fencer, Vein Surveyor, Lichen Apothecary, Vault Mason, Myco-Chronicler",
-  "publicHouses": "The Velvet Spore, The Red Grotto, Hollowglass Bar, Soot and Lichen, The Last Railcar, Stag in the Deep",
-  "vittles": "Pickled Glowcap Mushrooms, Bat Jerky, Sourmoss Soup, Roasted Lichen Crisps, Ash-Baked Rootcakes, Salted Larvae Pâté, Chitin Crackers, Ghostberry Jam, Moss-Stuffed Dumplings, Glowsap Mead, Mold-Crusted Cheese, Deepwater Snail Stew, Spore-Fried Beetles, Stonefruit Cordial, Gloamtree Cider",
-  "pointsOfInterest": "The Spire of Boneglass, Forgotten Rail Terminus, Hall of Imperial Spores, Vault of Whispering Keys, The Crowned Root, The Emberlit Gallery",
-  "floraFauna": "Glowcap, Cave Ivy, Ghost Fern, Red Moss, Iron Vein Lichen, Spore Lily, Scree Bat, Pale Mite, Echo Frog, Chitin Hound, Silkmoth Swarm, Blind Newt, Tunnel Cobra, Gloom Elk, Marble Ant",
+  "hooks": [],
+  "localFlavor": {
+    "names": "Gregorik, Ilona, Radomir, Zsófia, Marek, Anika, Vlas, Erzsé, Tibor, Daciana, Emil, Klara, Istvan, Mirela, Vojtek, Lenka, Oskar, Bela, Florika, Andor",
+    "occupations": "Fungus Cartographer, Tunnel Lampwright, Chitin Smith, Sporespoken Courier, Imperial Relic Hunter, Mold Taxidermist, Glowworm Shepherd, Bone Archivist, Echo Scout, Collapse Watcher, Crypt Fencer, Vein Surveyor, Lichen Apothecary, Vault Mason, Myco-Chronicler",
+    "publicHouses": "The Velvet Spore, The Red Grotto, Hollowglass Bar, Soot and Lichen, The Last Railcar, Stag in the Deep",
+    "vittles": "Pickled Glowcap Mushrooms, Bat Jerky, Sourmoss Soup, Roasted Lichen Crisps, Ash-Baked Rootcakes, Salted Larvae Pâté, Chitin Crackers, Ghostberry Jam, Moss-Stuffed Dumplings, Glowsap Mead, Mold-Crusted Cheese, Deepwater Snail Stew, Spore-Fried Beetles, Stonefruit Cordial, Gloamtree Cider",
+    "pointsOfInterest": "The Spire of Boneglass, Forgotten Rail Terminus, Hall of Imperial Spores, Vault of Whispering Keys, The Crowned Root, The Emberlit Gallery",
+    "floraFauna": "Glowcap, Cave Ivy, Ghost Fern, Red Moss, Iron Vein Lichen, Spore Lily, Scree Bat, Pale Mite, Echo Frog, Chitin Hound, Silkmoth Swarm, Blind Newt, Tunnel Cobra, Gloom Elk, Marble Ant"
+  },
   "lastModified": "2025-12-12T03:33:50.303Z"
 }

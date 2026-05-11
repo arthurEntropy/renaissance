@@ -1,13 +1,11 @@
 {
   "id": "4703558f-0b7e-41f0-9185-f6452bf71404",
+  "isDeleted": false,
+  "lastModified": "2026-02-12T21:37:52.073Z",
   "name": "Medicine",
   "description": "<p>Your <em>Heal</em> skill is favored. Whenever you restore Endurance to a creature (including yourself), restore 1 additional Endurance. Describe the technique you’re using.</p>",
-  "canBeActive": false,
-  "isActive": true,
   "source": "8221b753-1564-447e-b26a-4c95761d2714",
-  "isDeleted": false,
-  "mp": null,
-  "xp": null,
-  "lastModified": "2026-02-12T21:37:52.073Z",
-  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": null
 }

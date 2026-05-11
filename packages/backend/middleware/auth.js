@@ -122,10 +122,8 @@ async function checkResourceOwnership(userId, resourceId, endpoint) {
   try {
     // Only checking 'characters' ownership for now
     if (endpoint.includes('/characters')) {
-      const { getAllDataByDirectory, getDirectory } = await import('../utils/fileService.js')
-      const directory = getDirectory('characters')
-      const characters = getAllDataByDirectory(directory)
-      const character = characters.find(c => c.id === resourceId)
+      const { getCharacterRecordById } = await import('../utils/fileService.js')
+      const character = getCharacterRecordById(resourceId)?.character
       return character && character.ownerId === userId
     }
     

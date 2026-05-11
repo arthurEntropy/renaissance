@@ -1,18 +1,25 @@
 import {
   getDirectory,
   getAllDataByDirectory,
+  getAllCharacterData,
+  getCharacterRecordById,
+  saveCharacterFile,
+  deleteCharacterById,
   saveFile,
-  deleteFileById,
 } from '../utils/fileService.js'
 import { getUserProfile } from './userController.js'
 import { CAMPAIGN_ROLE, CAMPAIGN_MEMBER_STATUS } from '../../../shared/constants/campaignConstants.js'
-import { createDefaultCampaign } from '../../../shared/types/entities/campaign.js'
+import { createDefaultCampaign } from '../../../shared/types/campaign.js'
 import { toLetterSuffix } from '../../../shared/utils/letterSuffix.js'
 import { v4 as uuidv4 } from 'uuid'
 import { getAllActiveCampaigns, getCampaignById, getCampaignMembership } from '../utils/campaignUtils.js'
 
 const CAMPAIGNS_DIRECTORY = getDirectory('campaigns')
-const CHARACTERS_DIRECTORY = getDirectory('characters')
+
+const getCharacterType = (character) => {
+  if (character?.characterType === 'player') return 'playerCharacter'
+  return typeof character?.characterType === 'string' ? character.characterType : 'playerCharacter'
+}
 
 // Generate a URL-friendly slug from a campaign name
 const generateSlug = (name) =>
@@ -26,7 +33,12 @@ const getNextBeastInstanceSuffix = (allCharacters, templateId, baseName) => {
   const prefix = `${baseName} `
   const usedSuffixes = new Set(
     allCharacters
-      .filter((c) => c.beastType === 'instance' && c.templateId === templateId && !c.isDeleted)
+      .filter(
+        (c) =>
+          getCharacterType(c) === 'beastInstance' &&
+          c.templateId === templateId &&
+          !c.isDeleted
+      )
       .map((c) => c.name)
       .filter((name) => typeof name === 'string' && name.startsWith(prefix))
       .map((name) => name.slice(prefix.length).trim())
@@ -54,6 +66,13 @@ const pickWeightedEntry = (entries, totalWeight) => {
   }
 
   return entries.length - 1
+}
+
+const normalizeShopItems = (items) => {
+  if (!Array.isArray(items)) return []
+  return items
+    .map((item) => (typeof item === 'string' ? item : item?.equipmentId))
+    .filter((id) => typeof id === 'string' && id.length > 0)
 }
 
 // GET /campaigns — returns campaigns the current user is a member of
@@ -106,7 +125,7 @@ export const createCampaign = (req, res) => {
   }
 }
 
-// PUT /campaigns/:id — updates campaign fields (name, description, cover image, session notes, etc.)
+// PUT /campaigns/:id — updates campaign fields (name, description, cover image, etc.)
 export const updateCampaign = (req, res) => {
   try {
     const campaign = getCampaignById(req.params.id)
@@ -115,7 +134,7 @@ export const updateCampaign = (req, res) => {
     }
 
     // Only allow updating safe fields
-    const allowedFields = ['name', 'description', 'coverImageUrl', 'sessionNotes']
+    const allowedFields = ['name', 'description', 'coverImageUrl']
     const updates = {}
     for (const field of allowedFields) {
       if (req.body[field] !== undefined) {
@@ -148,11 +167,16 @@ export const deleteCampaign = (req, res) => {
     saveFile(deleted, CAMPAIGNS_DIRECTORY, campaign.name, campaign.id)
 
     // Soft-delete all NPC and beast instance characters owned by this campaign
-    const allCharacters = getAllDataByDirectory(CHARACTERS_DIRECTORY).filter((c) => !c.isDeleted)
+    const allCharacters = getAllCharacterData().filter((c) => !c.isDeleted)
     const campaignCharacters = allCharacters.filter((c) => c.campaignId === campaign.id)
     for (const char of campaignCharacters) {
       const deletedChar = { ...char, isDeleted: true }
-      saveFile(deletedChar, CHARACTERS_DIRECTORY, char.name, char.id)
+      const existing = getCharacterRecordById(char.id)
+      saveCharacterFile(deletedChar, {
+        oldName: char.name,
+        existingId: char.id,
+        existingDirectory: existing?.directory,
+      })
     }
 
     res.json({ message: 'Campaign deleted successfully' })
@@ -182,8 +206,6 @@ export const inviteMember = async (req, res) => {
     }
 
     const existingMember = getCampaignMembership(campaign, userId)
-    const now = new Date().toISOString()
-
     let updatedMembers
     if (existingMember) {
       // Re-invite a declined member
@@ -192,7 +214,7 @@ export const inviteMember = async (req, res) => {
       }
       updatedMembers = campaign.members.map((m) =>
         m.userId === userId
-          ? { ...m, status: CAMPAIGN_MEMBER_STATUS.PENDING, invitedAt: now, invitedByUserId: req.user.uid }
+          ? { ...m, status: CAMPAIGN_MEMBER_STATUS.PENDING }
           : m
       )
     } else {
@@ -203,9 +225,6 @@ export const inviteMember = async (req, res) => {
           role: CAMPAIGN_ROLE.PLAYER,
           status: CAMPAIGN_MEMBER_STATUS.PENDING,
           characterIds: [],
-          joinedAt: '',
-          invitedAt: now,
-          invitedByUserId: req.user.uid,
         },
       ]
     }
@@ -241,11 +260,10 @@ export const respondToInvite = (req, res) => {
       return res.status(400).json({ error: 'No pending invitation found' })
     }
 
-    const now = new Date().toISOString()
     const newStatus = accept ? CAMPAIGN_MEMBER_STATUS.ACCEPTED : CAMPAIGN_MEMBER_STATUS.DECLINED
     const updatedMembers = campaign.members.map((m) =>
       m.userId === req.user.uid
-        ? { ...m, status: newStatus, joinedAt: accept ? now : m.joinedAt }
+        ? { ...m, status: newStatus }
         : m
     )
 
@@ -386,7 +404,7 @@ export const getCampaignCharacters = (req, res) => {
       return res.status(404).json({ error: 'Campaign not found' })
     }
 
-    const allCharacters = getAllDataByDirectory(CHARACTERS_DIRECTORY).filter((c) => !c.isDeleted)
+    const allCharacters = getAllCharacterData().filter((c) => !c.isDeleted)
     const campaignCharacters = allCharacters.filter((c) => c.campaignId === campaign.id)
     res.json(campaignCharacters)
   } catch (err) {
@@ -410,23 +428,28 @@ export const createCampaignCharacter = (req, res) => {
       createdAt: new Date().toISOString(),
     }
 
+    const characterType = getCharacterType(character)
+    character.characterType = characterType
+
     // Validate required campaign character fields
-    if (!character.isNPC && character.beastType !== 'instance') {
+    if (characterType !== 'npc' && characterType !== 'beastInstance') {
       return res.status(400).json({ error: 'Campaign characters must be NPCs or beast instances' })
+    }
+    if (characterType === 'beastInstance' && !character.templateId) {
+      return res.status(400).json({ error: 'Beast instances require templateId' })
     }
 
     // Assign a stable, non-colliding suffix (A..Z, AA..ZZ, etc.) for beast instances.
-    if (character.beastType === 'instance' && character.templateId) {
-      const allChars = getAllDataByDirectory(CHARACTERS_DIRECTORY)
+    if (characterType === 'beastInstance' && character.templateId) {
+      const allChars = getAllCharacterData()
       const template = allChars.find((c) => c.id === character.templateId)
-      const baseName = template?.name || character.templateName || 'Beast'
-      character.templateName = baseName
+      const baseName = template?.name || 'Beast'
 
       const suffix = getNextBeastInstanceSuffix(allChars, character.templateId, baseName)
       character.name = `${baseName} ${suffix}`
     }
 
-    saveFile(character, CHARACTERS_DIRECTORY)
+    saveCharacterFile(character)
     res.status(201).json(character)
   } catch (err) {
     console.error('Error creating campaign character:', err)
@@ -518,39 +541,18 @@ export const generateShop = (req, res) => {
       return res.status(400).json({ error: 'No items with valid weights in the selection' })
     }
 
-    // First draw unique items without replacement, then allow duplicates only if needed.
+    // Draw without replacement. If requested count exceeds available items,
+    // return all available items and stop.
     const selectedItems = []
-    const uniqueTarget = Math.min(targetCount, weightedPool.length)
+    const selectionTarget = Math.min(targetCount, weightedPool.length)
     const uniquePool = [...weightedPool]
 
-    for (let i = 0; i < uniqueTarget; i += 1) {
+    for (let i = 0; i < selectionTarget; i += 1) {
       const totalUniqueWeight = uniquePool.reduce((sum, entry) => sum + entry.weight, 0)
       const selectedIndex = pickWeightedEntry(uniquePool, totalUniqueWeight)
       const [{ item }] = uniquePool.splice(selectedIndex, 1)
 
-      selectedItems.push({
-        equipmentId: item.id,
-        name: item.name,
-        description: item.description,
-        keeping: item.keeping,
-        source: item.source,
-      })
-    }
-
-    if (targetCount > uniqueTarget) {
-      const totalWeight = weightedPool.reduce((sum, entry) => sum + entry.weight, 0)
-      for (let i = uniqueTarget; i < targetCount; i += 1) {
-        const selectedIndex = pickWeightedEntry(weightedPool, totalWeight)
-        const { item } = weightedPool[selectedIndex]
-
-        selectedItems.push({
-          equipmentId: item.id,
-          name: item.name,
-          description: item.description,
-          keeping: item.keeping,
-          source: item.source,
-        })
-      }
+      selectedItems.push(item.id)
     }
 
     res.json({ items: selectedItems })
@@ -576,11 +578,10 @@ export const saveShop = (req, res) => {
     const shop = {
       id: uuidv4(),
       name: name.trim(),
-      generatedAt: new Date().toISOString(),
       primaryCultureId: primaryCultureId || null,
       generationParams: generationParams || {},
       isVisibleToPlayers: isVisibleToPlayers ?? true,
-      items: items || [],
+      items: normalizeShopItems(items),
     }
 
     const updated = { ...campaign, shops: [...(campaign.shops || []), shop] }
@@ -609,6 +610,10 @@ export const updateShop = (req, res) => {
     const updates = {}
     for (const field of allowedFields) {
       if (req.body[field] !== undefined) updates[field] = req.body[field]
+    }
+
+    if (updates.items !== undefined) {
+      updates.items = normalizeShopItems(updates.items)
     }
 
     const updatedShops = [...campaign.shops]
@@ -712,6 +717,72 @@ export const updateLobbyState = (req, res) => {
   }
 }
 
+// PUT /campaigns/:id/combat-groups — updates shared combat groups (GM only)
+export const updateCombatGroups = (req, res) => {
+  try {
+    const campaign = getCampaignById(req.params.id)
+    if (!campaign) {
+      return res.status(404).json({ error: 'Campaign not found' })
+    }
+
+    const inputGroups = req.body?.combatGroups
+    if (!Array.isArray(inputGroups)) {
+      return res.status(400).json({ error: 'combatGroups must be an array' })
+    }
+
+    const normalizedGroups = inputGroups.map((group, groupIndex) => {
+      if (!group || typeof group !== 'object') {
+        throw new Error(`combatGroups[${groupIndex}] must be an object`)
+      }
+
+      const groupId = String(group.id || '').trim()
+      if (!groupId) {
+        throw new Error(`combatGroups[${groupIndex}].id is required`)
+      }
+
+      const groupName = String(group.name || '').trim()
+      if (!groupName) {
+        throw new Error(`combatGroups[${groupIndex}].name is required`)
+      }
+
+      const combatants = Array.isArray(group.combatants) ? group.combatants : []
+      const normalizedCombatants = combatants.map((combatant, combatantIndex) => {
+        const type = combatant?.type
+        if (type !== 'npc' && type !== 'beast') {
+          throw new Error(`combatGroups[${groupIndex}].combatants[${combatantIndex}].type must be npc or beast`)
+        }
+
+        const characterId = String(combatant?.characterId || '').trim()
+        if (!characterId) {
+          throw new Error(`combatGroups[${groupIndex}].combatants[${combatantIndex}].characterId is required`)
+        }
+
+        return {
+          id: `${type}:${characterId}`,
+          type,
+          characterId,
+        }
+      })
+
+      return {
+        id: groupId,
+        name: groupName,
+        combatants: normalizedCombatants,
+      }
+    })
+
+    const updated = { ...campaign, combatGroups: normalizedGroups }
+    saveFile(updated, CAMPAIGNS_DIRECTORY, campaign.name, campaign.id)
+    res.json(updated)
+  } catch (err) {
+    console.error('Error updating combat groups:', err)
+    if (err?.message?.includes('combatGroups[')) {
+      return res.status(400).json({ error: err.message })
+    }
+    res.status(500).json({ error: 'Failed to update combat groups' })
+  }
+}
+
 // DELETE /campaigns/:id/beasts/:characterId — hard-deletes a beast instance
 export const deleteBeastInstance = (req, res) => {
   try {
@@ -720,20 +791,20 @@ export const deleteBeastInstance = (req, res) => {
       return res.status(404).json({ error: 'Campaign not found' })
     }
 
-    const allChars = getAllDataByDirectory(CHARACTERS_DIRECTORY)
+    const allChars = getAllCharacterData()
     const character = allChars.find((c) => c.id === req.params.characterId)
 
     if (!character) {
       return res.status(404).json({ error: 'Beast instance not found' })
     }
-    if (character.beastType !== 'instance') {
+    if (getCharacterType(character) !== 'beastInstance') {
       return res.status(400).json({ error: 'Character is not a beast instance' })
     }
     if (character.campaignId !== campaign.id) {
       return res.status(403).json({ error: 'Beast instance does not belong to this campaign' })
     }
 
-    deleteFileById(character.id, CHARACTERS_DIRECTORY)
+    deleteCharacterById(character.id)
     res.json({ message: 'Beast instance deleted' })
   } catch (err) {
     console.error('Error deleting beast instance:', err)

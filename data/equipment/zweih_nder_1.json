@@ -1,9 +1,22 @@
 {
   "id": "b69c879e-a758-47b6-a3a4-b81dfd12eaaf",
+  "isDeleted": false,
+  "createdAt": "2026-05-06T17:55:10.305Z",
+  "lastModified": "2026-05-06T17:55:10.305Z",
   "name": "Zweihänder",
+  "artUrl": "https://cdn.midjourney.com/eb579f55-8327-4384-a574-cf25711f2a04/0_0.jpeg",
   "description": "",
-  "keeping": "5e6f7a8b-9c0d-4e1f-2a3b-4c5d6e7f8a9b",
+  "successes": null,
+  "improvements": [],
   "source": "5a639d7b-847a-468b-9bbe-5275d31fdf66",
+  "school": null,
+  "keeping": "5e6f7a8b-9c0d-4e1f-2a3b-4c5d6e7f8a9b",
+  "isCustom": false,
+  "isTemplate": false,
+  "isMagical": false,
+  "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
+  "subtype": "ab765755-b7c9-47ac-b62f-34f069e00dc3",
+  "grade": "ebcc2bcb-8221-4ca0-bef3-000fb7e59e96",
   "weight": 5,
   "length": 3,
   "reach": 0,
@@ -24,12 +37,5 @@
     "d4e5f6a7-b8c9-40d1-e2f3-a4b5c6d7e8f9",
     "f6a7b8c9-d0e1-42f3-a4b5-c6d7e8f9a0b1"
   ],
-  "skillMods": [],
-  "isDeleted": false,
-  "isCustom": false,
-  "isTemplate": false,
-  "artUrl": "https://cdn.midjourney.com/eb579f55-8327-4384-a574-cf25711f2a04/0_0.jpeg",
-  "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
-  "subtype": "ab765755-b7c9-47ac-b62f-34f069e00dc3",
-  "grade": "ebcc2bcb-8221-4ca0-bef3-000fb7e59e96"
+  "defenseBonus": 0
 }

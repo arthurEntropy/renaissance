@@ -1,0 +1,334 @@
+{
+  "id": 5,
+  "lastModified": "2026-04-28T17:57:04.383Z",
+  "name": "Natsu",
+  "pronouns": "they/them",
+  "ancestryIds": [
+    "77e4f81a-728f-49a7-a013-4d6f666353e2",
+    "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+  ],
+  "cultureIds": [
+    "352c844b-6d4f-4b61-b475-315421a453e7",
+    "cdc93466-8327-4096-a8c2-04cccf3e3835"
+  ],
+  "mestiereId": "937d52da-0ebf-4d74-b3ee-be395f2f5d0a",
+  "featuredArtUrls": [
+    "https://cdn.midjourney.com/a6773dd7-3da8-4349-9212-b021c7aa09f7/0_2.png"
+  ],
+  "age": 23,
+  "heightFeet": 4,
+  "heightInches": 10,
+  "weight": 95,
+  "keeping": "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d",
+  "xp": 10,
+  "notes": "Arrived too late to join the Asana Commune before it was destroyed. Squatting in the ruins. Big speech impediment.",
+  "characterType": "player",
+  "body": 3,
+  "heart": 4,
+  "wits": 2,
+  "skills": [
+    {
+      "key": "awe",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": -1,
+      "manualDiceMod": 1
+    },
+    {
+      "key": "strength",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "dexterity",
+      "ranks": 2,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "fortitude",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "craft",
+      "ranks": 1,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "perform",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 1,
+      "manualDiceMod": -1
+    },
+    {
+      "key": "insight",
+      "ranks": 1,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "courtesy",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "spirit",
+      "ranks": 5,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 2
+    },
+    {
+      "key": "aid",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "persuade",
+      "ranks": 1,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "awareness",
+      "ranks": 1,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "stealth",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "lore",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "riddle",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    }
+  ],
+  "endurance": {
+    "current": 10,
+    "base": 15
+  },
+  "hope": {
+    "current": 8,
+    "base": 8
+  },
+  "defense": {
+    "current": 13,
+    "base": 12
+  },
+  "load": 0,
+  "shadow": 0,
+  "injury": 0,
+  "states": {
+    "weary": false,
+    "twiceWeary": false,
+    "miserable": false,
+    "twiceMiserable": false,
+    "helpless": false,
+    "twiceHelpless": false
+  },
+  "conditions": {
+    "insecure": false,
+    "guilty": false,
+    "angry": false,
+    "afraid": false,
+    "troubled": false
+  },
+  "equipment": [
+    {
+      "id": "43b5ef83-6a24-4912-93c2-29487b0b9f91",
+      "quantity": 1,
+      "isCarried": true,
+      "isWielding": true,
+      "collapsed": true,
+      "columnIndex": 0,
+      "customGroupId": "11712a09-e1b1-4c70-b47e-26d8245a8855"
+    },
+    {
+      "id": "2f54077d-56bd-46a6-9ad5-a7acdc7a90cf",
+      "quantity": 1,
+      "isCarried": true,
+      "isWielding": true,
+      "collapsed": true,
+      "columnIndex": 1,
+      "customGroupId": null
+    },
+    {
+      "id": "e43614f2-91e1-495f-9d4f-7cdc4d87d3be",
+      "quantity": 1,
+      "isCarried": true,
+      "isWielding": true,
+      "collapsed": true,
+      "columnIndex": 2,
+      "customGroupId": null
+    }
+  ],
+  "groupEquipmentBySource": false,
+  "groupEquipmentByCustom": false,
+  "equipmentSortOption": "name-asc",
+  "equipmentCustomGroups": [
+    {
+      "id": "11712a09-e1b1-4c70-b47e-26d8245a8855",
+      "name": "Cool Bits"
+    }
+  ],
+  "mp": {
+    "current": 5,
+    "base": 5
+  },
+  "abilities": [
+    {
+      "id": "b647caa0-11d8-4a34-b384-fde758eaf90e",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "customGroupId": "05f73331-5708-4305-a84c-bc4e8b4eb491"
+    },
+    {
+      "id": "9a047b93-d2c2-4de0-ae7e-0fa06b459a29",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "customGroupId": "05f73331-5708-4305-a84c-bc4e8b4eb491"
+    },
+    {
+      "id": "e2cd82f4-30db-4c3e-aa76-20170b5e7694",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "customGroupId": null
+    },
+    {
+      "id": "90315f32-f485-498d-8d83-f8dad2f32882",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "customGroupId": null
+    },
+    {
+      "id": "738255ac-87f1-45a5-91ff-c2144b92b5e3",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "customGroupId": null
+    },
+    {
+      "id": "1325605b-d523-4ec2-b2a7-57a04dc55d91",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "customGroupId": null
+    },
+    {
+      "id": "754a7883-71a7-414f-bda4-504a147e68cc",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "customGroupId": null
+    },
+    {
+      "id": "eca2de98-4fb0-4254-bb03-af81f8a604ff",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "customGroupId": null
+    },
+    {
+      "id": "fdc9ab63-b9b4-41de-a869-d2274cea32ec",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "customGroupId": null
+    }
+  ],
+  "groupAbilitiesBySource": false,
+  "groupAbilitiesByManaColor": false,
+  "groupAbilitiesByCustom": false,
+  "abilitySortOption": "xp-asc",
+  "abilityCustomGroups": [
+    {
+      "id": "05f73331-5708-4305-a84c-bc4e8b4eb491",
+      "name": "Cool Spells"
+    }
+  ],
+  "rollStats": {
+    "skillChecks": {
+      "attempts": 6,
+      "successes": 3,
+      "totalSum": 94,
+      "bestTotal": 27,
+      "hardestSuccess": 17,
+      "bySkill": {
+        "Dexterity": 1,
+        "Spirit": 5
+      },
+      "solCount": 0,
+      "morteCount": 0,
+      "successCount": 1
+    },
+    "contests": {
+      "engagement": {
+        "wins": 0,
+        "losses": 0,
+        "draws": 0
+      },
+      "opposed": {
+        "wins": 0,
+        "losses": 0,
+        "draws": 0
+      }
+    }
+  },
+  "biomeTags": [
+    "plains",
+    "water",
+    "temperate"
+  ],
+  "biomeId": "c5adb6ab-3ae3-4521-8714-f7581d045e32",
+  "witchcraftTokens": [],
+  "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1"
+}

@@ -1,40 +1,38 @@
 {
   "id": "c43c4a45-e40c-41eb-ab9b-6ff10ee7ba87",
-  "name": "Guisarmiere",
-  "description": "<p>You are trained in the use of Great polearms.</p><p>While wielding any polearm, you have the following abilities:</p><ul><li><p>You may use a half action to make a melee attack with the butt end. The damage die for this attack is a d4. You may spend 1 MP to upgrade one butt attack to use a d6 damage die.</p></li><li><p>Any time you land a hit with a polearm and either beat the creature's Defense by at least 3 or roll max damage, you may spend 1 MP to inflict Injury (this applies to hits with either end of the polearm).</p></li><li><p>If the polearm can be thrown, you may halve its range and use Strength instead of Dexterity to fling it with extreme force, dealing +1d damage on a hit.</p></li></ul><p><strong>Describe how you wield your polearm.</strong></p>",
-  "canBeActive": false,
-  "isActive": true,
-  "source": "45ca935d-938b-4974-961c-4171cc388904",
   "isDeleted": false,
-  "mp": null,
-  "xp": 10,
+  "lastModified": "2026-04-15T14:03:13.473Z",
+  "name": "Guisarmiere",
+  "artUrl": "https://cdn.midjourney.com/a82d85c6-f0b8-445d-9357-7e66501f5fe0/0_1.png",
+  "description": "<p>You are trained in the use of Great polearms.</p><p>While wielding any polearm, you have the following abilities:</p><ul><li><p>You may use a half action to make a melee attack with the butt end. The damage die for this attack is a d4. You may spend 1 MP to upgrade one butt attack to use a d6 damage die.</p></li><li><p>Any time you land a hit with a polearm and either beat the creature's Defense by at least 3 or roll max damage, you may spend 1 MP to inflict Injury (this applies to hits with either end of the polearm).</p></li><li><p>If the polearm can be thrown, you may halve its range and use Strength instead of Dexterity to fling it with extreme force, dealing +1d damage on a hit.</p></li></ul><p><strong>Describe how you wield your polearm.</strong></p>",
   "improvements": [
     {
       "name": "Takedown",
       "description": "<p>Whenever you roll max damage with either end of a polearm, you may roll Strength vs Dexterity against the creature you hit. On a win, the creature is knocked prone.</p>",
-      "xp": 5,
+      "xpCost": 5,
       "id": "a9f71e5f-12a2-51ff-980f-6e2e3ce647ac"
     },
     {
       "name": "Brace For Impact",
       "description": "<p>While wielding a polearm two-handed, you may spend an action to brace it against the ground.</p><p>For the next round:</p><ul><li><p>You gain +WITS Defense.</p></li><li><p>The first time a creature makes a melee attack against you, roll Strength vs Dexterity instead of rolling Engagement. On a win, the attacker is knocked prone and the attack cannot proceed unless they spend 10 ft of movement.</p></li></ul>",
-      "xp": 5,
+      "xpCost": 5,
       "id": "17ec45d2-efef-5f34-92a3-6dfa2dc69868"
     },
     {
       "name": "Polearm Master",
       "description": "<p>While wielding a polearm two-handed, if you make an opportunity attack and land a hit, the creature's movement is stopped and they cannot move further this turn.</p>",
-      "xp": 10,
+      "xpCost": 10,
       "id": "f284b986-0bd2-5098-b6d0-4daec9d23195"
     },
     {
       "name": "Deep Impact",
       "description": "<p>Whenever you inflict Injury with a polearm, you may spend 1 MP to lodge the weapon in the wound. While the weapon remains lodged, you cannot make further attacks with it, but the creature takes –2 Defense and its speed is halved.</p><p>Removing the weapon costs an Action. When a creature removes it, that creature must roll Dexterity vs the creature’s current Injury (they may choose to fail the roll). On a pass, the weapon is removed with no additional effect. On a failure, the creature rolls Injury again, as the removal tears the wound further. </p>",
-      "xp": 10,
+      "xpCost": 10,
       "id": "20d9d94f-754b-59a9-ab30-ae0cf8b33d86"
     }
   ],
-  "lastModified": "2026-04-15T14:03:13.473Z",
-  "artUrl": "https://cdn.midjourney.com/a82d85c6-f0b8-445d-9357-7e66501f5fe0/0_1.png",
-  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
+  "source": "45ca935d-938b-4974-961c-4171cc388904",
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": 10
 }

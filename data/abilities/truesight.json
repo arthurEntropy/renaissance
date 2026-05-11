@@ -4,13 +4,11 @@
   "createdAt": "2026-02-04T15:34:16.889Z",
   "lastModified": "2026-04-14T19:58:51.799Z",
   "name": "Truesight",
-  "description": "<p>You have enhanced sight out to medium range, or within any line of sight within the bounds of your Sanctum. You can see through magical light and darkness as if it weren't there. You see through illusions and see the true nature of creatures and objects that are invisible, magically altered or phased out.</p><p><strong>Describe your special sight.</strong></p>",
-  "canBeActive": false,
-  "isActive": true,
-  "source": "162ae4db-7a67-4770-8a2c-7e9883da14f6",
-  "mp": "",
-  "xp": 40,
-  "manaCost": null,
   "artUrl": "https://cdn.midjourney.com/39047c95-06ef-42d4-b53d-d64d508f2250/0_2.png",
-  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
+  "description": "<p>You have enhanced sight out to medium range, or within any line of sight within the bounds of your Sanctum. You can see through magical light and darkness as if it weren't there. You see through illusions and see the true nature of creatures and objects that are invisible, magically altered or phased out.</p><p><strong>Describe your special sight.</strong></p>",
+  "source": "162ae4db-7a67-4770-8a2c-7e9883da14f6",
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": "",
+  "xpCost": 40,
+  "manaCost": null
 }

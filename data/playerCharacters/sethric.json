@@ -1,0 +1,273 @@
+{
+  "id": 7,
+  "lastModified": "2026-04-28T17:57:15.265Z",
+  "name": "Sethric",
+  "pronouns": "he/him",
+  "ancestryIds": [],
+  "cultureIds": [],
+  "mestiereId": null,
+  "featuredArtUrls": [
+    "https://cdn.midjourney.com/197f94cf-5881-40eb-992f-01478aac1660/0_3.png"
+  ],
+  "keeping": "2b3c4d5e-6f7a-4b8c-9d0e-1f2a3b4c5d6e",
+  "xp": 10,
+  "notes": "Silversmith, practitioner of Dwarven resonant singing, precocious party animal.",
+  "characterType": "player",
+  "body": 3,
+  "heart": 2,
+  "wits": 1,
+  "skills": [
+    {
+      "key": "awe",
+      "ranks": 2,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": -1,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "strength",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "dexterity",
+      "ranks": 2,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "fortitude",
+      "ranks": 0,
+      "isFavored": true,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "craft",
+      "ranks": 1,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": -1,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "perform",
+      "ranks": 1,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 1,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "insight",
+      "ranks": 1,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "courtesy",
+      "ranks": 2,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "spirit",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "aid",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": true,
+      "diceMod": -1,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "persuade",
+      "ranks": 1,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "awareness",
+      "ranks": 1,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "stealth",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "lore",
+      "ranks": 1,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "riddle",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": true,
+      "diceMod": -1,
+      "manualDiceMod": 0
+    }
+  ],
+  "endurance": {
+    "current": 10,
+    "base": 15
+  },
+  "hope": {
+    "current": 12,
+    "base": 6
+  },
+  "defense": {
+    "current": 13,
+    "base": 11
+  },
+  "load": 0,
+  "shadow": 0,
+  "injury": 0,
+  "states": {
+    "weary": false,
+    "twiceWeary": false,
+    "miserable": false,
+    "twiceMiserable": false,
+    "helpless": false,
+    "twiceHelpless": false
+  },
+  "conditions": {
+    "insecure": false,
+    "guilty": false,
+    "angry": false,
+    "afraid": false,
+    "troubled": true
+  },
+  "equipment": [
+    {
+      "id": "ce985330-a052-4e54-99f8-23611c77d174",
+      "quantity": 1,
+      "isCarried": true,
+      "difficulty": null,
+      "collapsed": true
+    }
+  ],
+  "mp": {
+    "current": 3,
+    "base": 5
+  },
+  "abilities": [
+    {
+      "id": "306c6504-1e45-43cc-b73b-77e38557e566",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "difficulty": null
+    },
+    {
+      "id": "56619d29-3c7b-4d27-9a22-1616c5a54fb7",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "difficulty": null
+    },
+    {
+      "id": "54a60d03-6104-401d-9e2d-8e44ca186947",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "fef9a7a1-a4cf-4e40-85dd-1d73244cf3d8",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "a0d8b922-f703-45f2-a95b-49c532dd50aa",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "c1c66bb5-5bf0-4dfc-ad2e-24ae1d7fbbe7",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "difficulty": null
+    },
+    {
+      "id": "4db092a5-3036-4d76-986d-6327b6689ce8",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "329d1591-591b-47e8-aeb0-27e0820f57bb",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "difficulty": null
+    },
+    {
+      "id": "16e61f97-308c-4fc3-9b3b-50fe04f3174a",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false
+    }
+  ],
+  "rollStats": {
+    "skillChecks": {
+      "attempts": 1,
+      "successes": 1,
+      "totalSum": 7,
+      "bestTotal": 7,
+      "hardestSuccess": null,
+      "bySkill": {
+        "Craft": 1
+      },
+      "solCount": 0,
+      "morteCount": 0,
+      "successCount": 0
+    },
+    "contests": {
+      "engagement": {
+        "wins": 0,
+        "losses": 0,
+        "draws": 0
+      },
+      "opposed": {
+        "wins": 0,
+        "losses": 0,
+        "draws": 0
+      }
+    }
+  },
+  "witchcraftTokens": [],
+  "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1"
+}

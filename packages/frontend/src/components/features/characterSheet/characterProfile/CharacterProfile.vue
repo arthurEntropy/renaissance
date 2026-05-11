@@ -1,8 +1,8 @@
 <template>
-  <CharacterSheetSection custom-class="character-profile" :min-width="character.isBeast ? '340px' : '400px'">
+  <CharacterSheetSection custom-class="character-profile" :min-width="isBeastCharacter ? '340px' : '400px'">
     <div class="art-column">
       <CharacterArt />
-      <CharacterPhysicalStats v-if="!character.isBeast" :age="character.age || 0"
+      <CharacterPhysicalStats v-if="!isBeastCharacter" :age="character.age || 0"
         :height-feet="character.heightFeet || 0" :height-inches="character.heightInches || 0"
         :weight="character.weight || 0" />
       <div v-else class="beast-physical-stats">
@@ -20,7 +20,7 @@
 
     <!-- Bottom Badges -->
     <div class="bottom-badges">
-      <template v-if="!character.isBeast">
+      <template v-if="!isBeastCharacter">
         <!-- Keeping Badge -->
         <div class="keeping-badge" :style="keepingBadgeStyle">
           <select title="Keeping" class="keeping-select" :value="character.keeping || ''" :disabled="!canEdit"
@@ -66,6 +66,7 @@ import { NUMBER_INPUT_SIZES } from '@/constants/numberInput'
 import { useCharactersStore } from '@/stores/charactersStore'
 import { useKeepingStore } from '@/stores/keepingStore'
 import { KEEPING_COLORS } from '@/constants/keepingConstants'
+import { isBeastTemplate, isBeastInstance } from '@/utils/characterTypeGuards'
 
 const props = defineProps({
   characterOverride: {
@@ -82,7 +83,10 @@ defineEmits(['close-sheet'])
 
 const charactersStore = useCharactersStore()
 
-const character = computed(() => props.characterOverride ?? charactersStore.selectedCharacter ?? { isBeast: false })
+const character = computed(() => props.characterOverride ?? charactersStore.selectedCharacter ?? { characterType: 'playerCharacter' })
+const isBeastCharacter = computed(() =>
+  isBeastTemplate(character.value) || isBeastInstance(character.value)
+)
 const canEdit = computed(() => {
   if (props.forceReadonly || props.characterOverride) return false
   return charactersStore.canEditSelectedCharacter

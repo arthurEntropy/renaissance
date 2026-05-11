@@ -1,14 +1,12 @@
 {
   "id": "82fad9cc-9de8-49c3-a192-ae96a981007d",
-  "name": "Cleave",
-  "description": "<p><em>Trigger: You hit a creature with a melee attack.</em></p><p>You may hit another adjacent creature with a glancing blow, dealing BODY damage to them.</p><p><strong>Describe the arc of your swing.</strong></p>",
-  "canBeActive": false,
-  "isActive": true,
-  "source": "1e4131c7-8a6f-422c-998a-5147600c946e",
   "isDeleted": false,
-  "mp": 1,
-  "xp": 5,
   "lastModified": "2026-03-17T00:40:47.344Z",
+  "name": "Cleave",
   "artUrl": "https://cdn.midjourney.com/ff15e619-f33b-4e24-8748-6f3aa5f74428/0_1.png",
-  "type": "e5f6a1b2-c3d4-4e5f-da2b-1c0d9e8f7a6b"
+  "description": "<p><em>Trigger: You hit a creature with a melee attack.</em></p><p>You may hit another adjacent creature with a glancing blow, dealing BODY damage to them.</p><p><strong>Describe the arc of your swing.</strong></p>",
+  "source": "1e4131c7-8a6f-422c-998a-5147600c946e",
+  "actionCost": "c4df395c-8284-4c4f-bf01-e293ed51c58c",
+  "mpCost": 1,
+  "xpCost": 5
 }

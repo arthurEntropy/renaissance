@@ -1,23 +1,23 @@
 {
-  "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
   "id": "d280dcad-3e65-4e9a-9173-c7450cc0205c",
   "createdAt": "2026-04-14T20:13:18.587Z",
   "lastModified": "2026-04-14T20:34:12.951Z",
   "name": "Hold Person",
-  "description": "<p><em>Concentration, up to 1 minute.</em></p><p>Roll Lore vs Spirit against a humanoid creature within medium range. On a win, the creature cannot move, speak, or take actions or reactions, and attacks against the creature are favored. Your roll result becomes the Difficulty. At the end of each of the creature's turns, it may roll Spirit against the Difficulty to attempt to end the spell.</p>",
-  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
-  "mp": 2,
-  "xp": 10,
-  "isMagical": true,
-  "school": "45ec3f2a-bbd2-402a-a18e-7c9cbdc8d60a",
   "artUrl": "https://cdn.midjourney.com/083c7ae4-ee08-43a5-84b2-e5ab71168447/0_3.png",
+  "description": "<p><em>Concentration, up to 1 minute.</em></p><p>Roll Lore vs Spirit against a humanoid creature within medium range. On a win, the creature cannot move, speak, or take actions or reactions, and attacks against the creature are favored. Your roll result becomes the Difficulty. At the end of each of the creature's turns, it may roll Spirit against the Difficulty to attempt to end the spell.</p>",
   "successes": "<p>✨: Increase the Difficulty by 2.</p><p>🌞: The spell does not require concentration and lasts the full minute. The creature does not get to attempt to end the spell.</p><p>💀: You become the target of the spell. Check a Condition.</p>",
   "improvements": [
     {
       "name": "Hold Creature",
       "description": "<p>You may spend an additional 3 MP to target any creature.</p>",
-      "xp": 15,
+      "xpCost": 15,
       "id": "a27431dc-a843-43ed-9bf1-4b6265b725b3"
     }
-  ]
+  ],
+  "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
+  "school": "45ec3f2a-bbd2-402a-a18e-7c9cbdc8d60a",
+  "isMagical": true,
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "mpCost": 2,
+  "xpCost": 10
 }

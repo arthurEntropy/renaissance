@@ -1,9 +1,22 @@
 {
   "id": "f278760c-680d-4f34-a041-744ba7566e44",
+  "isDeleted": false,
+  "createdAt": "2026-05-06T17:55:10.305Z",
+  "lastModified": "2026-05-06T17:55:10.305Z",
   "name": "Lantern Shield",
+  "artUrl": null,
   "description": "Weight: 7-9. Length: 2-3. Shield, casts light in a cone out to short range",
-  "keeping": null,
+  "successes": null,
+  "improvements": [],
   "source": null,
+  "school": null,
+  "keeping": null,
+  "isCustom": false,
+  "isTemplate": true,
+  "isMagical": false,
+  "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
+  "subtype": "ab765755-b7c9-47ac-b62f-34f069e00dc3",
+  "grade": "ebcc2bcb-8221-4ca0-bef3-000fb7e59e96",
   "weight": 7,
   "length": 2,
   "reach": 0,
@@ -22,12 +35,5 @@
   "engagementSuccesses": [
     "f6a7b8c9-d0e1-42f3-a4b5-c6d7e8f9a0b1"
   ],
-  "skillMods": [],
-  "isDeleted": false,
-  "isCustom": false,
-  "isTemplate": true,
-  "artUrl": null,
-  "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
-  "subtype": "ab765755-b7c9-47ac-b62f-34f069e00dc3",
-  "grade": "ebcc2bcb-8221-4ca0-bef3-000fb7e59e96"
+  "defenseBonus": 0
 }

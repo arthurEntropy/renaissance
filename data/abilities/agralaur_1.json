@@ -1,13 +1,11 @@
 {
   "id": "05f788f2-cf7a-4bf0-a65c-e41bbe0f5ea3",
+  "isDeleted": false,
+  "lastModified": "2026-04-27T19:16:38.987Z",
   "name": "Agralaur 1",
   "description": "<p>This is a placeholder for an ability</p>",
-  "canBeActive": false,
-  "isActive": true,
   "source": "c02c53d1-b456-45d0-a048-6fc941cacc03",
-  "isDeleted": false,
-  "mp": null,
-  "xp": null,
-  "lastModified": "2026-04-27T19:16:38.987Z",
-  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": null
 }

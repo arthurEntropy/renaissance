@@ -4,26 +4,19 @@
   "name": "Gearborn",
   "description": "<p>Fashioned from materials and for purposes now obscure, the Gearborn wake into a world that remembers nothing of those who made them. Tall, short, fragile, sturdy, dextrous, awkward: their forms are as varied as the tasks they were designed for. As they move through a changed world, they work to apply their unique physiology to new tasks and find new meaning.</p>",
   "isDeleted": false,
-  "artUrls": [
+  "featuredArtUrls": [
     "https://cdn.midjourney.com/6f95a939-4378-49cc-ac4c-8f99d962a4c1/0_2.png"
   ],
-  "faces": [],
-  "places": [],
-  "backgroundImage": "https://cdn.midjourney.com/27dc5718-9778-4461-bbb9-ba249c4ea10d/0_0.png",
+  "backgroundImage": "",
+  "cardBackgroundImage": "https://cdn.midjourney.com/27dc5718-9778-4461-bbb9-ba249c4ea10d/0_0.png",
   "expansion": "e46f4320-a414-4300-95d5-397ba717d982",
-  "hooks": [],
-  "playlists": [],
-  "names": "",
-  "occupations": "",
-  "publicHouses": "",
-  "vittles": "",
-  "pointsOfInterest": "",
-  "floraFauna": "",
   "lastModified": "2026-04-24T14:59:31.629Z",
-  "heightMin": 3,
-  "heightMax": 8,
-  "weightMin": 150,
-  "weightMax": 1000,
-  "lifespan": "undying",
-  "speed": 30
+  "physiology": {
+    "heightMin": 3,
+    "heightMax": 8,
+    "weightMin": 150,
+    "weightMax": 1000,
+    "lifespan": "undying",
+    "speed": 30
+  }
 }

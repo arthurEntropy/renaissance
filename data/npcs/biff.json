@@ -1,0 +1,258 @@
+{
+  "id": "df665b9f-c716-4640-98e3-299ba82946ac",
+  "isDeleted": false,
+  "createdAt": "2026-05-01T12:05:24.587Z",
+  "lastModified": "2026-05-07T19:00:43.493Z",
+  "name": "Biff",
+  "pronouns": "they/them",
+  "ancestryIds": [
+    "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "2e46823f-bec7-4d70-b323-dbc8b71c7739"
+  ],
+  "cultureIds": [
+    "c114dc0e-d6ca-4115-be35-684dead36de2",
+    "40086e18-eaba-411a-b4ec-7a0a7fd42d37"
+  ],
+  "mestiereId": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
+  "featuredArtUrls": [
+    "https://cdn.midjourney.com/f47a6f0c-8192-460b-976e-5875358952bb/0_3.png"
+  ],
+  "age": 234,
+  "heightFeet": 6,
+  "heightInches": 0,
+  "weight": 158,
+  "speed": 0,
+  "keeping": "4d5e6f7a-8b9c-4d0e-1f2a-3b4c5d6e7f8a",
+  "treasure": 10,
+  "xp": 0,
+  "notes": "<p>A strange fellow with a penchant for colorful spells. Always wears a cloak, regardless of the weather. Refuses to eat fish and gorges himself on arugula whenever he can get it.</p>",
+  "characterType": "npc",
+  "challenge": 0,
+  "description": "",
+  "size": 0,
+  "reach": 0,
+  "body": 0,
+  "heart": 0,
+  "wits": 0,
+  "skills": [
+    {
+      "key": "awe",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "strength",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "dexterity",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "fortitude",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "craft",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "perform",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "insight",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "courtesy",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "spirit",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "aid",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "persuade",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "awareness",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "stealth",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "lore",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "riddle",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    }
+  ],
+  "endurance": {
+    "current": 0,
+    "base": 0
+  },
+  "hope": {
+    "current": 0,
+    "base": 0
+  },
+  "defense": {
+    "current": 0,
+    "base": 0
+  },
+  "load": 0,
+  "shadow": 0,
+  "injury": 0,
+  "states": {
+    "weary": false,
+    "twiceWeary": false,
+    "miserable": false,
+    "twiceMiserable": false,
+    "helpless": false,
+    "twiceHelpless": false
+  },
+  "conditions": {
+    "insecure": false,
+    "guilty": false,
+    "angry": false,
+    "afraid": false,
+    "troubled": false
+  },
+  "engagementDiceStatuses": {},
+  "equipment": [],
+  "groupEquipmentBySource": false,
+  "equipmentSortOption": "name-asc",
+  "mp": {
+    "current": 0,
+    "base": 0
+  },
+  "abilities": [
+    {
+      "id": "1e289ca8-cf6a-4f0d-ad7c-a13fc8e1f381",
+      "collapsed": false,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "improvements": {
+        "c0cce62d-03a8-5654-92e9-c354f4233834": true
+      }
+    }
+  ],
+  "groupAbilitiesBySource": false,
+  "groupAbilitiesByManaColor": false,
+  "abilitySortOption": "name-asc",
+  "autoCalculations": {
+    "load": true,
+    "states": true,
+    "baseEndurance": true,
+    "baseHope": true,
+    "baseDefense": true
+  },
+  "rollStats": {
+    "skillChecks": {
+      "attempts": 0,
+      "successes": 0,
+      "totalSum": 0,
+      "bestTotal": null,
+      "hardestSuccess": null,
+      "bySkill": {},
+      "solCount": 0,
+      "morteCount": 0,
+      "successCount": 0
+    },
+    "contests": {
+      "engagement": {
+        "wins": 0,
+        "losses": 0,
+        "draws": 0
+      },
+      "opposed": {
+        "wins": 0,
+        "losses": 0,
+        "draws": 0
+      }
+    }
+  },
+  "biomeTags": [],
+  "biomeId": null,
+  "nimbleStep": 0,
+  "manaPool": {
+    "white": [],
+    "blue": [],
+    "black": [],
+    "red": [],
+    "green": [],
+    "colorless": []
+  },
+  "witchcraftTokens": [],
+  "summonerVessels": [],
+  "campaignId": "2216d52f-f74d-479e-b440-f7b5aa6319e5",
+  "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1"
+}

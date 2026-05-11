@@ -1,9 +1,22 @@
 {
   "id": "f94fb100-aed0-4a42-89a4-3a793439b842",
+  "isDeleted": false,
+  "createdAt": "2026-05-06T17:55:10.305Z",
+  "lastModified": "2025-12-26T19:15:28.170Z",
   "name": "Dagger",
+  "artUrl": "https://cdn.midjourney.com/11ac18fe-ac63-42c4-868c-c44630b3d0c7/0_0.png",
   "description": "",
-  "keeping": "3c4d5e6f-7a8b-4c9d-0e1f-2a3b4c5d6e7f",
+  "successes": null,
+  "improvements": [],
   "source": "68fadf5d-6661-4611-bb38-deaf05f01d45",
+  "school": null,
+  "keeping": "3c4d5e6f-7a8b-4c9d-0e1f-2a3b4c5d6e7f",
+  "isCustom": false,
+  "isTemplate": false,
+  "isMagical": false,
+  "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
+  "subtype": "ab765755-b7c9-47ac-b62f-34f069e00dc3",
+  "grade": "ad30b114-3c19-413f-aad2-5f270bd95684",
   "weight": 1,
   "length": 1,
   "reach": 0,
@@ -19,13 +32,5 @@
     4
   ],
   "engagementSuccesses": [],
-  "skillMods": [],
-  "isDeleted": false,
-  "isCustom": false,
-  "isTemplate": false,
-  "artUrl": "https://cdn.midjourney.com/11ac18fe-ac63-42c4-868c-c44630b3d0c7/0_0.png",
-  "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
-  "subtype": "ab765755-b7c9-47ac-b62f-34f069e00dc3",
-  "grade": "ad30b114-3c19-413f-aad2-5f270bd95684",
-  "lastModified": "2025-12-26T19:15:28.170Z"
+  "defenseBonus": 0
 }

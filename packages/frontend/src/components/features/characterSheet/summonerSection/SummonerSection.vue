@@ -36,7 +36,7 @@ import TableHeader from '@/components/ui/tables/TableHeader.vue'
 import VesselBadge from './VesselBadge.vue'
 import VesselModal from './VesselModal.vue'
 import { useCharactersStore } from '@/stores/charactersStore'
-import { useItemImprovements } from '@/composables/useItemImprovements'
+import { useImprovements } from '@/composables/useImprovements'
 import { createSlug } from '@/utils/urlHelpers'
 import {
     KEEPER_OF_VESSELS_ABILITY_ID,
@@ -50,7 +50,7 @@ import {
 const charactersStore = useCharactersStore()
 const selectedCharacter = computed(() => charactersStore.selectedCharacter)
 
-const { hasImprovement } = useItemImprovements('abilities')
+const { hasImprovement } = useImprovements('abilities')
 const router = useRouter()
 
 // Section collapse

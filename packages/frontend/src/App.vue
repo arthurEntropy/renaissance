@@ -66,7 +66,6 @@ import { useRoute } from 'vue-router'
 import { Bars3Icon } from '@heroicons/vue/24/outline'
 import { useAuthStore } from '@/stores/authStore'
 import { useUserStore } from '@/stores/userStore'
-import { useBackgroundImagesStore } from '@/stores/backgroundImagesStore'
 import { useCharactersStore } from '@/stores/charactersStore'
 import { useCharacterContextStore } from '@/stores/characterContextStore'
 import AuthComponent from '@/components/features/auth/AuthComponent.vue'
@@ -80,6 +79,7 @@ import AppCharacterSheetModal from '@/components/features/characterSheet/AppChar
 import { useAppCharacterSheetModal } from '@/composables/useAppCharacterSheetModal'
 import { useProgressiveOptimizedImage } from '@/composables/useOptimizedImage'
 import { PROGRESSIVE_IMAGE_CONTEXTS } from '@/constants/imageOptimization'
+import { BACKGROUND_IMAGES } from '@/constants/backgroundImages'
 
 const { isOpen: isCharacterSheetOpen } = useAppCharacterSheetModal()
 
@@ -87,7 +87,6 @@ const menuOpen = ref(false)
 const route = useRoute()
 const authStore = useAuthStore()
 const userStore = useUserStore()
-const backgroundImagesStore = useBackgroundImagesStore()
 const charactersStore = useCharactersStore()
 const characterContextStore = useCharacterContextStore()
 const shouldShowOverlay = computed(() => route.meta?.overlay === true)
@@ -112,7 +111,7 @@ const selectedBackgroundImage = computed(() => {
   const backgroundImageId = userStore.userProfile?.preferences?.backgroundImageId
   if (!backgroundImageId) return null
 
-  const selectedImage = backgroundImagesStore.items.find(
+  const selectedImage = BACKGROUND_IMAGES.find(
     img => img.id === backgroundImageId
   )
   return selectedImage?.imageUrl || null
@@ -164,9 +163,6 @@ onMounted(async () => {
 
   // Wait for auth to be ready before proceeding
   await authStore.checkAuthStatus()
-
-  // Load background images for all users
-  await backgroundImagesStore.fetch()
 })
 
 // Watch for changes to selected background image

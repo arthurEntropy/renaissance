@@ -19,7 +19,6 @@
                             <div class="campaign-dot" />
                             <span class="invite-campaign-name">{{ campaign.name }}</span>
                         </div>
-                        <span class="invite-meta">Invited {{ formatDate(getMyMembership(campaign)?.invitedAt) }}</span>
                     </div>
                     <div class="invite-actions">
                         <ActionButton variant="success" size="small" @click="accept(campaign.id)"
@@ -41,23 +40,12 @@
 import { ref } from 'vue'
 import { XMarkIcon } from '@heroicons/vue/24/outline'
 import { useCampaignStore } from '@/stores/campaignStore'
-import { useAuthStore } from '@/stores/authStore'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 
 const emit = defineEmits(['close'])
 const campaignStore = useCampaignStore()
-const authStore = useAuthStore()
 
 const responding = ref(null)
-
-const getMyMembership = (campaign) => {
-    return campaign.members?.find((m) => m.userId === authStore.user?.uid)
-}
-
-const formatDate = (isoString) => {
-    if (!isoString) return ''
-    return new Date(isoString).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })
-}
 
 const accept = async (campaignId) => {
     responding.value = campaignId

@@ -5,6 +5,7 @@ import UserService from '@/services/entities/userService'
 import { useAuthStore } from './authStore'
 import { useUserStore } from './userStore'
 import { CAMPAIGN_ROLE, CAMPAIGN_MEMBER_STATUS } from '@shared/constants/campaignConstants'
+import { isNPC, isBeastInstance } from '@/utils/characterTypeGuards'
 
 export const useCampaignStore = defineStore('campaigns', () => {
   const authStore = useAuthStore()
@@ -20,8 +21,10 @@ export const useCampaignStore = defineStore('campaigns', () => {
 
   // Characters fetched for the active campaign (NPCs + beast instances)
   const campaignCharacters = ref([])
-  const campaignNPCs = computed(() => campaignCharacters.value.filter((c) => c.isNPC))
-  const campaignBeastInstances = computed(() => campaignCharacters.value.filter((c) => c.beastType === 'instance'))
+  const campaignNPCs = computed(() => campaignCharacters.value.filter((c) => isNPC(c)))
+  const campaignBeastInstances = computed(() =>
+    campaignCharacters.value.filter((c) => isBeastInstance(c))
+  )
 
   // The currently active campaign (user entered it)
   const activeCampaign = computed(() => {
@@ -277,6 +280,28 @@ export const useCampaignStore = defineStore('campaigns', () => {
     }
   }
 
+  const updateCombatGroups = async (campaignId, combatGroups) => {
+    const idx = campaigns.value.findIndex((c) => c.id === campaignId)
+    const original = idx !== -1 ? campaigns.value[idx] : null
+
+    if (original) {
+      campaigns.value[idx] = {
+        ...original,
+        combatGroups: Array.isArray(combatGroups) ? combatGroups : [],
+      }
+    }
+
+    try {
+      const updated = await CampaignService.updateCombatGroups(campaignId, combatGroups)
+      upsertCampaign(updated)
+      return updated
+    } catch (err) {
+      if (original) upsertCampaign(original)
+      console.error('Error updating combat groups:', err)
+      throw err
+    }
+  }
+
   const fetchCampaignCharacters = async (campaignId) => {
     try {
       campaignCharacters.value = await CampaignService.getCampaignCharacters(campaignId)
@@ -376,6 +401,7 @@ export const useCampaignStore = defineStore('campaigns', () => {
     updateMemberCharacters,
     updateIncludedConcepts,
     updateLobbyState,
+    updateCombatGroups,
     fetchCampaignCharacters,
     addCampaignCharacter,
     removeCampaignCharacter,

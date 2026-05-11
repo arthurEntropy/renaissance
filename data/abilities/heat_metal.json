@@ -1,15 +1,15 @@
 {
-  "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
   "id": "fef9a7a1-a4cf-4e40-85dd-1d73244cf3d8",
   "createdAt": "2026-04-14T01:11:48.892Z",
   "lastModified": "2026-04-14T13:57:01.114Z",
-  "description": "<p><em>Concentration, up to 1 minute.</em></p><p>Choose a manufactured metal object within medium range. You cause the object to glow red-hot. Any creature in physical contact with the object takes 2d8 damage when you cast the spell. Once per round, beginning with your next turn, you may use a half action to cause this damage again.</p><p>Roll Lore to set the Difficulty. If a creature is holding or wearing the object and takes the damage from it, the creature must roll Fortitude against the Difficulty. On a failure, it drops the object if it can. If it doesn’t drop the object, all its skill checks are ill-favored for the next round.</p>",
   "name": "Heat Metal",
-  "mp": 2,
-  "xp": 10,
-  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
-  "isMagical": true,
-  "school": "c4a153b2-8906-4b95-be65-d8e5a5cc73ff",
+  "artUrl": "https://cdn.midjourney.com/6e24f4ed-668e-4406-b74e-0de3df09053f/0_3.png",
+  "description": "<p><em>Concentration, up to 1 minute.</em></p><p>Choose a manufactured metal object within medium range. You cause the object to glow red-hot. Any creature in physical contact with the object takes 2d8 damage when you cast the spell. Once per round, beginning with your next turn, you may use a half action to cause this damage again.</p><p>Roll Lore to set the Difficulty. If a creature is holding or wearing the object and takes the damage from it, the creature must roll Fortitude against the Difficulty. On a failure, it drops the object if it can. If it doesn’t drop the object, all its skill checks are ill-favored for the next round.</p>",
   "successes": "<p>✨: +1d damage.</p><p>🌞: +2d damage.</p><p>💀: Another worn or carried metal object within medium range, chosen at random, becomes the target. Check a Condition.</p>",
-  "artUrl": "https://cdn.midjourney.com/6e24f4ed-668e-4406-b74e-0de3df09053f/0_3.png"
+  "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
+  "school": "c4a153b2-8906-4b95-be65-d8e5a5cc73ff",
+  "isMagical": true,
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "mpCost": 2,
+  "xpCost": 10
 }

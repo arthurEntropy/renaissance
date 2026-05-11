@@ -4,15 +4,13 @@
   "createdAt": "2026-01-28T20:52:00.930Z",
   "lastModified": "2026-04-16T15:38:05.563Z",
   "name": "Pestilence",
-  "description": "<p><em>Concentration, up to 1 minute.</em></p><p>Uncheck any number of Conditions.</p><p>At the beginning of each of your turns, you take 1d4 damage. Then, for each Condition you unchecked (twice for Afraid), roll Spirit vs Fortitude against each creature within medium range. On each win, the creature takes 1d4+HEART damage. On a loss, half damage.</p><p><strong>Describe the pestilence.</strong></p>",
-  "canBeActive": false,
-  "isActive": true,
-  "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
-  "mp": null,
-  "xp": 30,
-  "manaCost": "4BB",
-  "successes": "<p>✨: +1d damage.</p><p>🌞: You do not take damage at the beginning of each of your turns.</p>",
   "artUrl": "https://cdn.midjourney.com/32ebdcee-741a-4cf3-a6e7-1d6359b9d1b1/0_3.png",
-  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
-  "isMagical": true
+  "description": "<p><em>Concentration, up to 1 minute.</em></p><p>Uncheck any number of Conditions.</p><p>At the beginning of each of your turns, you take 1d4 damage. Then, for each Condition you unchecked (twice for Afraid), roll Spirit vs Fortitude against each creature within medium range. On each win, the creature takes 1d4+HEART damage. On a loss, half damage.</p><p><strong>Describe the pestilence.</strong></p>",
+  "successes": "<p>✨: +1d damage.</p><p>🌞: You do not take damage at the beginning of each of your turns.</p>",
+  "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
+  "isMagical": true,
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "mpCost": null,
+  "xpCost": 30,
+  "manaCost": "4BB"
 }

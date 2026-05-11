@@ -7,7 +7,7 @@ class InitiativeRollService extends BaseRollService {
 
   static makeInitiativeRoll(character) {
     // Initiative is 1d12 + WITS
-    const dicePool = [{ dieSides: DIE_TYPE.D12 }]
+    const dicePool = [{ dieSize: DIE_TYPE.D12 }]
     
     // Roll the dice
     let diceResults = this.rollDicePool(dicePool)

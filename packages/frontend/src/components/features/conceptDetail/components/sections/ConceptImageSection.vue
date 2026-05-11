@@ -1,7 +1,7 @@
 <!--
   Displays images for a concept with two modes:
   
-  - MANUAL mode: User-curated images (concept.artUrls) that can be edited/reordered
+    - MANUAL mode: User-curated images (concept.featuredArtUrls) that can be edited/reordered
   - AUTO mode: Images from art library filtered by type (faces/places/maps) and concept ID
     Auto mode automatically excludes featured art to prevent duplicates
 -->
@@ -53,7 +53,7 @@ const props = defineProps({
 
 const computedImages = computed(() => {
     if (props.mode === IMAGE_GALLERY_MODES.MANUAL || props.mode === IMAGE_GALLERY_MODES.COMBINED) {
-        return concept.value?.artUrls || []
+        return concept.value?.featuredArtUrls || []
     }
     return []
 })
@@ -63,12 +63,12 @@ const computedAutoSourceId = computed(() => {
 })
 
 const computedExcludeUrls = computed(() => {
-    return concept.value?.artUrls || []
+    return concept.value?.featuredArtUrls || []
 })
 
 const handleImagesUpdate = async (newImages) => {
     if (concept.value && (props.mode === IMAGE_GALLERY_MODES.MANUAL || props.mode === IMAGE_GALLERY_MODES.COMBINED)) {
-        concept.value.artUrls = [...newImages]
+        concept.value.featuredArtUrls = [...newImages]
         await conceptsStore.update(concept.value)
     }
 }

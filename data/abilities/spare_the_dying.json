@@ -1,19 +1,19 @@
 {
-  "source": "162ae4db-7a67-4770-8a2c-7e9883da14f6",
   "id": "20ce2193-40ba-4b19-a995-bcd526a9adca",
   "createdAt": "2026-03-11T15:33:08.733Z",
   "lastModified": "2026-03-11T18:02:24.704Z",
   "name": "Spare the Dying",
+  "artUrl": "https://cdn.midjourney.com/81b2079b-b421-4ed2-a195-bb7c178b999c/0_3.png",
   "description": "<p>You touch a living creature that has 0 Endurance. The if the creature is dying, it is no longer dying.</p><p><strong>Describe how you bring them back from the brink.</strong></p>",
-  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
-  "isMagical": true,
   "improvements": [
     {
       "name": "Revivify",
       "description": "<p>You may touch a creature that has died within the last minute. That creature returns to life with 0 Endurance and remains unconscious. This spell can’t return to life a creature that has died of old age, nor can it restore any missing body parts.</p>",
-      "xp": 15,
+      "xpCost": 15,
       "id": "342c787e-094d-45e8-b14a-7bc7480f9294"
     }
   ],
-  "artUrl": "https://cdn.midjourney.com/81b2079b-b421-4ed2-a195-bb7c178b999c/0_3.png"
+  "source": "162ae4db-7a67-4770-8a2c-7e9883da14f6",
+  "isMagical": true,
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c"
 }

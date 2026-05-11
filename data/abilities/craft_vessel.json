@@ -1,15 +1,13 @@
 {
   "id": "04e9acb0-df69-44eb-8c7f-8bbcf28ca22d",
-  "name": "Craft Vessel",
-  "description": "<p><em>Casting time: 10 minutes.</em></p><p>You transform a mundane object into a magic vessel capable of capturing and holding a creature. The object may be anything with an opening that can be sealed - a glass phial, a seashell, an iron flask, a wooden box, etc. You adorn the object with special components of your choosing.</p><p>The overall Keeping of the object and components determines the vessel’s quality. If you spend...</p><ul><li><p>1 treasure (Modest): <strong>Standard Vessel</strong></p></li><li><p>2 treasure (Comfortable): <strong>Great Vessel</strong></p></li><li><p>3 treasure (Prosperous): <strong>Ultra Vessel</strong></p></li><li><p>4 treasure (Opulent): <strong>Maestro Vessel</strong></p></li></ul><p>When you use a vessel for your <em>Capture</em> ability, subtract the vessel's keeping from the creature's Challenge when determining whether it is captured.</p><p><strong>Describe the vessel you create.</strong></p>",
-  "canBeActive": false,
-  "isActive": true,
-  "source": "558abd15-f90f-40d7-80d8-df73a37f977c",
   "isDeleted": false,
-  "mp": null,
-  "xp": 0,
-  "lastModified": "2026-03-17T01:58:36.564Z",
+  "lastModified": "2026-05-09T19:59:51.674Z",
+  "name": "Craft Vessel",
   "artUrl": "https://cdn.midjourney.com/bcd0021e-3b95-4ad4-ba8e-22ecc9bda838/0_0.png",
-  "type": "f6a1b2c3-d4e5-4f6a-eb3c-2d1e0f9a8b7c",
-  "isMagical": true
+  "description": "<p><em>Casting time: 10 minutes.</em></p><p>You transform a mundane object into a magic vessel capable of capturing and holding a creature. The object may be anything with an opening that can be sealed - a glass phial, a seashell, an iron flask, a wooden box, etc. You adorn the object with special components of your choosing.</p><p>The treasure you spend on the special components sets the keeping for that vessel:</p><ul><li><p>Spend 1 treasure to craft a modest vessel.</p></li><li><p>Spend 2 treasure to craft a comfortable vessel.</p></li><li><p>Spend 3 treasure to craft a prosperous vessel.</p></li><li><p>Spend 4 treasure to craft an opulent vessel.</p></li></ul><p>You cannot craft a wretched vessel. The vessel's keeping makes it more likely to capture a creature - see the <em>Capture</em> ability.</p><p><strong>Describe the vessel you create.</strong></p>",
+  "source": "558abd15-f90f-40d7-80d8-df73a37f977c",
+  "isMagical": true,
+  "actionCost": "c7ea4889-0dc9-40cb-a437-70329cac43ab",
+  "mpCost": null,
+  "xpCost": 0
 }

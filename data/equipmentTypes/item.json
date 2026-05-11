@@ -1,7 +1,9 @@
 {
   "id": "07e3c504-605e-495e-96d3-6b4177516821",
+  "isDeleted": false,
+  "createdAt": "2026-05-06T18:00:33.219Z",
+  "lastModified": "2026-05-06T18:00:33.219Z",
   "name": "Item",
   "description": "General equipment items including tools, accessories, and other gear",
-  "index": 2,
-  "isDeleted": false
+  "index": 2
 }

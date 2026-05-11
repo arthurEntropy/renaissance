@@ -1,22 +1,22 @@
 {
-  "source": "162ae4db-7a67-4770-8a2c-7e9883da14f6",
   "id": "5b9967f3-a2f9-4515-a94f-d00ca8147cf3",
   "createdAt": "2026-03-10T13:09:04.363Z",
   "lastModified": "2026-03-11T18:29:22.842Z",
   "name": "Alarm",
-  "type": "f6a1b2c3-d4e5-4f6a-eb3c-2d1e0f9a8b7c",
-  "isMagical": true,
+  "artUrl": "https://cdn.midjourney.com/dea3d886-1a15-4737-bd34-525f2d7aeda3/0_0.png",
   "description": "<p><em>Casting time: 1 minute.</em></p><p>You ward against unwanted intrusion. Choose a door, window, or an area no larger than 20 ft in any dimension. For the next day, you are alerted whenever a creature touches the warded object or enters the warded area. When you cast the spell, you may designate creatures that do not trigger the alarm.</p><p>Choose whether the alarm is audible or mental:</p><ul><li><p><strong>Audible</strong>: The alarm produces a sound of your choosing, audible within Long Range.</p></li><li><p><strong>Mental</strong>: You are alerted in your mind and awakened if sleeping.</p></li></ul><p><strong>Describe how you cast the ward.</strong></p>",
-  "mp": 1,
-  "xp": 5,
   "successes": "",
   "improvements": [
     {
       "name": "Greater Alarm",
       "description": "<p>You may instead spend 8 hours casting this spell to extend to maximum dimension of the warded area to 100 ft and make its effects last for 1 year.</p>",
-      "xp": 5,
+      "xpCost": 5,
       "id": "e05fad58-d75e-4c6f-819a-30be5770976e"
     }
   ],
-  "artUrl": "https://cdn.midjourney.com/dea3d886-1a15-4737-bd34-525f2d7aeda3/0_0.png"
+  "source": "162ae4db-7a67-4770-8a2c-7e9883da14f6",
+  "isMagical": true,
+  "actionCost": "c7ea4889-0dc9-40cb-a437-70329cac43ab",
+  "mpCost": 1,
+  "xpCost": 5
 }

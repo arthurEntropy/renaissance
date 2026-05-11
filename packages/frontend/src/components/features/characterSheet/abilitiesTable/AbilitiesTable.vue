@@ -110,10 +110,11 @@ import { useAbilitiesStore } from '@/stores/abilitiesStore'
 import { useSourcesStore } from '@/stores/sourcesStore'
 import { useConceptsStore } from '@/stores/conceptsStore'
 import { useRollsStore } from '@/stores/rollsStore'
-import { MANA_COLOR_ORDER } from '@shared/constants/manaColors'
+import { MANA_COLOR_ORDER } from '@/constants/manaColors'
 import DamageRollService from '@/services/rolls/damageRollService'
 import CustomRollService from '@/services/rolls/customRollService'
 import { RollTypes } from '@/constants/rollTypes'
+import { getModifierStatKey, getModifierStatLabel } from '@/utils/characterKeyUtils'
 
 const props = defineProps({
   canEdit: {
@@ -338,11 +339,11 @@ const handleRollLink = (rollData) => {
     rollLinkBiomeDiceMod.value = rollData.biomeDiceMod ?? 0
     showSkillCheckModal.value = true
   } else if (rollData.type === 'damage-roll') {
-    // Transform dice format from [{count, sides}] to [{dieSides}...]
+    // Transform dice format from [{count, sides}] to [{dieSize}...]
     const dicePool = []
     rollData.dice.forEach(die => {
       for (let i = 0; i < die.count; i++) {
-        dicePool.push({ dieSides: die.sides })
+        dicePool.push({ dieSize: die.sides })
       }
     })
 
@@ -355,9 +356,9 @@ const handleRollLink = (rollData) => {
 
     if (rollData.modifier) {
       if (rollData.modifier.type === 'stat') {
-        const statName = rollData.modifier.value.toLowerCase()
+        const statName = getModifierStatKey(rollData.modifier)
         modifierValue = selectedCharacter.value[statName] || 0
-        modifierLabel = rollData.modifier.value
+        modifierLabel = getModifierStatLabel(rollData.modifier)
       } else if (rollData.modifier.type === 'number') {
         modifierValue = rollData.modifier.value
       }
@@ -377,11 +378,11 @@ const handleRollLink = (rollData) => {
       rollsStore.setRoll(rollResult)
     }
   } else if (rollData.type === 'custom-roll') {
-    // Transform dice format from [{count, sides}] to [{dieSides}...]
+    // Transform dice format from [{count, sides}] to [{dieSize}...]
     const dicePool = []
     rollData.dice.forEach(die => {
       for (let i = 0; i < die.count; i++) {
-        dicePool.push({ dieSides: die.sides })
+        dicePool.push({ dieSize: die.sides })
       }
     })
 
@@ -393,7 +394,7 @@ const handleRollLink = (rollData) => {
 
     if (rollData.modifier) {
       if (rollData.modifier.type === 'stat') {
-        const statName = rollData.modifier.value.toLowerCase()
+        const statName = getModifierStatKey(rollData.modifier)
         modifierValue = selectedCharacter.value[statName] || 0
       } else if (rollData.modifier.type === 'number') {
         modifierValue = rollData.modifier.value
@@ -433,7 +434,7 @@ const resetMP = () => {
       }
     }
   } else if (selectedCharacter.value?.mp) {
-    selectedCharacter.value.mp.current = selectedCharacter.value.mp.max
+    selectedCharacter.value.mp.current = selectedCharacter.value.mp.base
   }
 }
 
@@ -445,7 +446,7 @@ function applyBiomeDiceMod(pool, mod) {
   if (mod > 0) {
     const templateDie = result[result.length - 1]
     for (let i = 0; i < mod; i++) {
-      result.push({ dieSides: templateDie.dieSides })
+      result.push({ dieSize: templateDie.dieSize })
     }
   } else {
     const removeCount = Math.min(Math.abs(mod), result.length)

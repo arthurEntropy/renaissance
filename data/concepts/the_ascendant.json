@@ -4,20 +4,11 @@
   "name": "The Ascendant",
   "description": "",
   "isDeleted": false,
-  "artUrls": [
+  "featuredArtUrls": [
     "https://cdn.midjourney.com/d056d77d-8ca6-49bd-a5f1-701704c9df1c/0_0.png"
   ],
-  "faces": [],
-  "places": [],
   "backgroundImage": "",
+  "cardBackgroundImage": "",
   "expansion": "",
-  "hooks": [],
-  "playlists": [],
-  "names": "",
-  "occupations": "",
-  "publicHouses": "",
-  "vittles": "",
-  "pointsOfInterest": "",
-  "floraFauna": "",
   "lastModified": "2025-12-12T21:09:57.478Z"
 }

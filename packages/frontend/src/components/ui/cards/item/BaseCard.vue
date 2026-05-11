@@ -37,7 +37,7 @@
       <div v-if="!collapsible || !collapsed" class="card-content">
 
         <!-- Art Image -->
-        <div v-if="item.artUrl && showArtwork" class="art-frame">
+        <div v-if="item.artUrl && showCardArtwork" class="art-frame">
           <img :src="optimizedArtUrl" :alt="item.name" class="art-image" />
         </div>
 
@@ -107,9 +107,8 @@ import { ItemType } from '@shared/constants/itemTypes'
 import { useOptimizedImage, useProgressiveOptimizedImage } from '@/composables/useOptimizedImage'
 import ManaCostDisplay from '@/components/ui/mana/ManaCostDisplay.vue'
 import BiomeTagDisplay from '@/components/ui/biome/BiomeTagDisplay.vue'
-import { getManaCostColors } from '@shared/utils/calculateManaCost'
-import { ManaColor } from '@shared/constants/manaColors.js'
-import { useChannelerSettingsStore } from '@/stores/channelerSettingsStore'
+import { getManaCostColors } from '@/utils/calculateManaCost'
+import { ManaColor, MANA_BACKGROUND_IMAGES } from '@/constants/manaColors'
 import { PROGRESSIVE_IMAGE_CONTEXTS } from '@/constants/imageOptimization'
 import { MIDJOURNEY_IMAGE_CONTEXTS } from '@shared/constants/artConstants.js'
 
@@ -133,17 +132,13 @@ const abilitySchoolsStore = useAbilitySchoolsStore()
 const sourcesStore = useSourcesStore()
 const biomeStore = useBiomeStore()
 const userStore = useUserStore()
-const channelerSettingsStore = useChannelerSettingsStore()
-
-// Fire-and-forget: loads channeler settings once for the session
-channelerSettingsStore.fetch()
 
 // Composables
 const optimizedArtUrl = useOptimizedImage(() => props.item.artUrl, MIDJOURNEY_IMAGE_CONTEXTS.SMALL)
 
 // Computed properties
 const sources = computed(() => sourcesStore.sources)
-const showArtwork = computed(() => userStore.userProfile?.preferences?.showArtwork ?? true)
+const showCardArtwork = computed(() => userStore.userProfile?.preferences?.showCardArtwork ?? true)
 
 const sourceName = computed(() => {
   if (!props.item.source) return 'Unknown'
@@ -154,20 +149,19 @@ const rawCardBackgroundUrl = computed(() => {
   const source = sources.value ? sourcesStore.getSourceById(props.item.source) : null
 
   // Mana-color-based background for Channeler spells
-  const manaBackgroundImages = channelerSettingsStore.manaBackgroundImages
-  if (Object.keys(manaBackgroundImages).length && props.item.manaCost) {
+  if (props.item.manaCost) {
     const colors = getManaCostColors(props.item.manaCost)
     let key
     if (colors.size === 0) key = ManaColor.COLORLESS
     else if (colors.size === 1) key = [...colors][0]
     else key = ManaColor.MULTICOLOR
-    const url = manaBackgroundImages[key]
+    const url = MANA_BACKGROUND_IMAGES[key]
     if (url) {
       return url
     }
   }
 
-  return source?.backgroundImage || null
+  return source?.cardBackgroundImage || null
 })
 
 const {

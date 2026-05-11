@@ -22,13 +22,13 @@
               <span class="martial-label">{{ row.label }}</span>
               <div class="martial-grade-chips">
                 <ChipTag v-for="grade in equipmentGrades" :key="grade.id" :text="grade.name"
-                  :variant="localNovizio[row.key].includes(grade.id) ? CHIP_TAG_VARIANTS.PRIMARY : CHIP_TAG_VARIANTS.GRAY"
+                  :variant="localNovizio.martialTraining[row.key].includes(grade.id) ? CHIP_TAG_VARIANTS.PRIMARY : CHIP_TAG_VARIANTS.GRAY"
                   :rounded="CHIP_TAG_ROUNDED.FULL" style="cursor: pointer" @click="toggleGrade(row.key, grade.id)" />
               </div>
             </div>
           </div>
-          <text-editor v-model="localNovizio.martialNotes" placeholder="Special cases, conditions..." height="60px"
-            :auto-height="true" class="novizio-text-editor novizio-text-editor--spaced" />
+          <text-editor v-model="localNovizio.martialTrainingNotes" placeholder="Special cases, conditions..."
+            height="60px" :auto-height="true" class="novizio-text-editor novizio-text-editor--spaced" />
         </div>
 
         <!-- Engagement Dice -->
@@ -36,15 +36,15 @@
           <strong>ENGAGEMENT DICE</strong>
           <div class="engagement-dice-row">
             <div v-for="dieSize in STANDARD_DIE_SIZES" :key="dieSize" class="engagement-die-column"
-              :class="{ dimmed: !localNovizio.engagementDice[String(dieSize)] }">
+              :class="{ dimmed: !getDiceCountBySize(localNovizio.engagementDice, dieSize) }">
               <i :class="getDiceFontMaxClass(dieSize)" class="engagement-die-icon"></i>
-              <NumberInput :model-value="localNovizio.engagementDice[String(dieSize)] || 0"
-                @update:model-value="localNovizio.engagementDice[String(dieSize)] = $event" :min="0" :max="20"
+              <NumberInput :model-value="getDiceCountBySize(localNovizio.engagementDice, dieSize)"
+                @update:model-value="setEngagementDiceCount(dieSize, $event)" :min="0" :max="20"
                 :size="NUMBER_INPUT_SIZES.MEDIUM" />
             </div>
           </div>
-          <text-editor v-model="localNovizio.engagementNotes" placeholder="Special cases, conditions..." height="60px"
-            :auto-height="true" class="novizio-text-editor novizio-text-editor--spaced" />
+          <text-editor v-model="localNovizio.engagementDiceNotes" placeholder="Special cases, conditions..."
+            height="60px" :auto-height="true" class="novizio-text-editor novizio-text-editor--spaced" />
         </div>
 
         <!-- Engagement Successes -->
@@ -65,7 +65,7 @@
           <strong>BASE MP</strong>
           <input type="number" min="1" v-model.number="localNovizio.baseMP" placeholder="Initial Base MP..."
             class="novizio-input" />
-          <text-editor v-model="localNovizio.mpNotes" placeholder="Notes..." height="60px" :auto-height="true"
+          <text-editor v-model="localNovizio.baseMpNotes" placeholder="Notes..." height="60px" :auto-height="true"
             class="novizio-text-editor novizio-text-editor--spaced" />
         </div>
 
@@ -99,22 +99,22 @@
         <!-- Martial Training -->
         <div class="novizio-subsection" v-if="hasAnyNovizioData">
           <strong>MARTIAL TRAINING</strong>
-          <template v-if="martialRows.some(r => novizio[r.key]?.length)">
+          <template v-if="martialRows.some(r => novizio.martialTraining?.[r.key]?.length)">
             <div class="martial-training-list">
-              <div class="martial-training-item" v-for="row in martialRows.filter(r => novizio[r.key]?.length)"
-                :key="row.key">
+              <div class="martial-training-item"
+                v-for="row in martialRows.filter(r => novizio.martialTraining?.[r.key]?.length)" :key="row.key">
                 <img :src="row.icon" :alt="row.label" class="martial-icon" />
                 <span class="martial-label">{{ row.label }}</span>
                 <div class="martial-grade-chips">
                   <ChipTag v-for="grade in equipmentGrades" :key="grade.id" :text="grade.name"
-                    :variant="novizio[row.key]?.includes(grade.id) ? CHIP_TAG_VARIANTS.PRIMARY : CHIP_TAG_VARIANTS.DIM"
+                    :variant="novizio.martialTraining?.[row.key]?.includes(grade.id) ? CHIP_TAG_VARIANTS.PRIMARY : CHIP_TAG_VARIANTS.DIM"
                     :rounded="CHIP_TAG_ROUNDED.FULL" :hoverable="false" />
                 </div>
               </div>
             </div>
           </template>
           <div v-else class="novizio-placeholder">none</div>
-          <div v-if="novizio.martialNotes" class="novizio-placeholder" v-html="safeMartialNotes"></div>
+          <div v-if="novizio.martialTrainingNotes" class="novizio-placeholder" v-html="safeMartialTrainingNotes"></div>
         </div>
 
         <!-- Engagement Dice -->
@@ -122,13 +122,15 @@
           <strong>ENGAGEMENT DICE</strong>
           <div class="engagement-dice-display">
             <template v-for="dieSize in STANDARD_DIE_SIZES" :key="dieSize">
-              <i v-for="n in (novizio.engagementDice?.[String(dieSize)] || 0)" :key="dieSize + '-' + n"
+              <i v-for="n in getDiceCountBySize(novizio.engagementDice, dieSize)" :key="dieSize + '-' + n"
                 :class="getDiceFontMaxClass(dieSize)" class="engagement-die-icon"></i>
             </template>
           </div>
-          <div v-if="!STANDARD_DIE_SIZES.some(s => novizio.engagementDice?.[String(s)] > 0) && !novizio.engagementNotes"
-            class="novizio-placeholder">none</div>
-          <div v-if="novizio.engagementNotes" class="novizio-placeholder engagement-notes" v-html="safeEngagementNotes">
+          <div v-if="!hasAnyEngagementDice(novizio.engagementDice) && !novizio.engagementDiceNotes"
+            class="novizio-placeholder">
+            none</div>
+          <div v-if="novizio.engagementDiceNotes" class="novizio-placeholder engagement-notes"
+            v-html="safeEngagementDiceNotes">
           </div>
         </div>
 
@@ -151,7 +153,7 @@
         <!-- Mestieri Points -->
         <div class="novizio-subsection" v-if="hasAnyNovizioData && novizio">
           <strong>BASE MP:</strong> <span class="mp-value">{{ novizio.baseMP }}</span>
-          <div v-if="novizio.mpNotes" class="novizio-placeholder" v-html="safeMpNotes"></div>
+          <div v-if="novizio.baseMpNotes" class="novizio-placeholder" v-html="safeBaseMpNotes"></div>
         </div>
 
         <!-- Abilities -->
@@ -209,29 +211,73 @@ const equipmentGrades = computed(() => equipmentGradesStore.items)
 const engagementSuccesses = computed(() => engagementSuccessesStore.items)
 
 const martialRows = [
-  { key: 'melee', label: 'Melee', icon: meleeIcon },
-  { key: 'polearm', label: 'Polearm', icon: polearmIcon },
-  { key: 'ranged', label: 'Ranged', icon: rangedIcon },
-  { key: 'firearm', label: 'Firearm', icon: firearmIcon },
-  { key: 'armor', label: 'Armor', icon: armorIcon },
+  { key: 'meleeGrades', label: 'Melee', icon: meleeIcon },
+  { key: 'polearmGrades', label: 'Polearm', icon: polearmIcon },
+  { key: 'rangedGrades', label: 'Ranged', icon: rangedIcon },
+  { key: 'firearmGrades', label: 'Firearm', icon: firearmIcon },
+  { key: 'armorGrades', label: 'Armor', icon: armorIcon },
 ]
 
-const EMPTY_DICE = () => Object.fromEntries(STANDARD_DIE_SIZES.map(s => [String(s), 0]))
+const isValidDieSize = (dieSize) => STANDARD_DIE_SIZES.includes(dieSize)
+
+const normalizedieSize = (die) => {
+  if (typeof die === 'number') return die
+  return Number(die?.dieSize)
+}
+
+const normalizeEngagementDice = (rawEngagementDice) => {
+  if (Array.isArray(rawEngagementDice)) {
+    return rawEngagementDice
+      .map((die) => normalizedieSize(die))
+      .filter((dieSize) => isValidDieSize(dieSize))
+      .map((dieSize) => ({ dieSize: dieSize }))
+  }
+
+  if (!rawEngagementDice || typeof rawEngagementDice !== 'object') {
+    return []
+  }
+
+  const normalized = []
+  for (const [dieSizeKey, countRaw] of Object.entries(rawEngagementDice)) {
+    const dieSize = Number(dieSizeKey)
+    if (!isValidDieSize(dieSize)) continue
+    const count = Math.max(0, Number(countRaw) || 0)
+    for (let i = 0; i < count; i++) {
+      normalized.push({ dieSize: dieSize })
+    }
+  }
+
+  return normalized
+}
+
+const getDiceCountBySize = (dice, dieSize) => {
+  if (!Array.isArray(dice)) return 0
+  return dice.filter((die) => normalizedieSize(die) === dieSize).length
+}
+
+const hasAnyEngagementDice = (dice) => {
+  if (!Array.isArray(dice)) return false
+  return dice.some((die) => isValidDieSize(normalizedieSize(die)))
+}
+
+const EMPTY_MARTIAL_TRAINING = () => ({
+  meleeGrades: [],
+  polearmGrades: [],
+  rangedGrades: [],
+  firearmGrades: [],
+  armorGrades: [],
+})
 
 const getDefaultNovizio = () => ({
-  flavorText: '',
-  melee: [],
-  polearm: [],
-  ranged: [],
-  firearm: [],
-  armor: [],
-  martialNotes: '',
-  engagementDice: EMPTY_DICE(),
+  description: '',
+  martialTraining: EMPTY_MARTIAL_TRAINING(),
+  martialTrainingNotes: '',
+  engagementDice: [],
   engagementSuccesses: [],
-  engagementNotes: '',
+  engagementDiceNotes: '',
   engagementSuccessNotes: '',
   baseMP: 1,
-  mpNotes: '',
+  baseMpNotes: '',
   abilities: '',
   gratuiti: ''
 })
@@ -242,7 +288,7 @@ const isSectionEditing = ref(false)
 const novizio = computed(() => concept.value?.novizio)
 
 const toggleGrade = (rowKey, gradeId) => {
-  const arr = localNovizio.value[rowKey]
+  const arr = localNovizio.value.martialTraining[rowKey]
   const idx = arr.indexOf(gradeId)
   if (idx === -1) {
     arr.push(gradeId)
@@ -261,23 +307,33 @@ const toggleSuccess = (successId) => {
   }
 }
 
+const setEngagementDiceCount = (dieSize, nextCountRaw) => {
+  const nextCount = Math.max(0, Number(nextCountRaw) || 0)
+  const existingDice = Array.isArray(localNovizio.value.engagementDice) ? localNovizio.value.engagementDice : []
+  const keptDice = existingDice.filter((die) => normalizedieSize(die) !== dieSize)
+  const updatedDice = Array.from({ length: nextCount }, () => ({ dieSize: dieSize }))
+
+  localNovizio.value.engagementDice = [...keptDice, ...updatedDice]
+}
+
 
 const hasAnyNovizioData = computed(() => {
   if (!concept.value?.novizio) return false
   const n = concept.value.novizio
-  const hasMartial = ['melee', 'polearm', 'ranged', 'firearm', 'armor'].some(k => n[k]?.length > 0)
-  const hasDice = STANDARD_DIE_SIZES.some(s => (n.engagementDice?.[String(s)] ?? 0) > 0)
-  const hasEngagement = hasDice || n.engagementSuccesses?.length > 0 || n.engagementNotes?.toString().trim() || n.engagementSuccessNotes?.toString().trim()
+  const hasMartial = ['meleeGrades', 'polearmGrades', 'rangedGrades', 'firearmGrades', 'armorGrades']
+    .some(k => n.martialTraining?.[k]?.length > 0)
+  const hasDice = hasAnyEngagementDice(n.engagementDice)
+  const hasEngagement = hasDice || n.engagementSuccesses?.length > 0 || n.engagementDiceNotes?.toString().trim() || n.engagementSuccessNotes?.toString().trim()
   return hasMartial || hasEngagement
-    || [n.flavorText, n.abilities, n.gratuiti, n.mpNotes, n.martialNotes].some(val => val?.toString().trim())
+    || [n.description, n.abilities, n.gratuiti, n.baseMpNotes, n.martialTrainingNotes].some(val => val?.toString().trim())
     || n.baseMP > 1
 })
 
 const safeDescription = computed(() => sanitizeHtml(concept.value?.novizio?.description))
-const safeMartialNotes = computed(() => sanitizeHtml(concept.value?.novizio?.martialNotes))
-const safeEngagementNotes = computed(() => sanitizeHtml(concept.value?.novizio?.engagementNotes))
+const safeMartialTrainingNotes = computed(() => sanitizeHtml(concept.value?.novizio?.martialTrainingNotes))
+const safeEngagementDiceNotes = computed(() => sanitizeHtml(concept.value?.novizio?.engagementDiceNotes))
 const safeEngagementSuccessNotes = computed(() => sanitizeHtml(concept.value?.novizio?.engagementSuccessNotes))
-const safeMpNotes = computed(() => sanitizeHtml(concept.value?.novizio?.mpNotes))
+const safeBaseMpNotes = computed(() => sanitizeHtml(concept.value?.novizio?.baseMpNotes))
 const safeAbilities = computed(() => sanitizeHtml(concept.value?.novizio?.abilities))
 const safeGratuiti = computed(() => sanitizeHtml(concept.value?.novizio?.gratuiti))
 
@@ -286,19 +342,23 @@ const syncLocalNovizio = (sourceConcept) => {
   if (sourceConcept.novizio) {
     const n = sourceConcept.novizio
     localNovizio.value = {
-      flavorText: n.flavorText || '',
-      melee: Array.isArray(n.melee) ? [...n.melee] : [],
-      polearm: Array.isArray(n.polearm) ? [...n.polearm] : [],
-      ranged: Array.isArray(n.ranged) ? [...n.ranged] : [],
-      firearm: Array.isArray(n.firearm) ? [...n.firearm] : [],
-      armor: Array.isArray(n.armor) ? [...n.armor] : [],
-      martialNotes: n.martialNotes || '',
-      engagementDice: { ...EMPTY_DICE(), ...(n.engagementDice || {}) },
+      description: n.description || '',
+      martialTraining: {
+        ...EMPTY_MARTIAL_TRAINING(),
+        ...(n.martialTraining || {}),
+        meleeGrades: Array.isArray(n.martialTraining?.meleeGrades) ? [...n.martialTraining.meleeGrades] : (Array.isArray(n.melee) ? [...n.melee] : []),
+        polearmGrades: Array.isArray(n.martialTraining?.polearmGrades) ? [...n.martialTraining.polearmGrades] : (Array.isArray(n.polearm) ? [...n.polearm] : []),
+        rangedGrades: Array.isArray(n.martialTraining?.rangedGrades) ? [...n.martialTraining.rangedGrades] : (Array.isArray(n.ranged) ? [...n.ranged] : []),
+        firearmGrades: Array.isArray(n.martialTraining?.firearmGrades) ? [...n.martialTraining.firearmGrades] : (Array.isArray(n.firearm) ? [...n.firearm] : []),
+        armorGrades: Array.isArray(n.martialTraining?.armorGrades) ? [...n.martialTraining.armorGrades] : (Array.isArray(n.armor) ? [...n.armor] : []),
+      },
+      martialTrainingNotes: n.martialTrainingNotes || '',
+      engagementDice: normalizeEngagementDice(n.engagementDice),
       engagementSuccesses: Array.isArray(n.engagementSuccesses) ? [...n.engagementSuccesses] : [],
-      engagementNotes: n.engagementNotes || '',
+      engagementDiceNotes: n.engagementDiceNotes || '',
       engagementSuccessNotes: n.engagementSuccessNotes || '',
       baseMP: n.baseMP ?? 1,
-      mpNotes: n.mpNotes || '',
+      baseMpNotes: n.baseMpNotes || '',
       abilities: n.abilities || '',
       gratuiti: n.gratuiti || '',
     }

@@ -1,0 +1,184 @@
+{
+  "id": "552f7a07-1675-4878-aef2-196784552065",
+  "createdAt": "2025-10-29T19:52:32.242Z",
+  "lastModified": "2026-04-29T01:47:18.400Z",
+  "name": "Brass Dragon",
+  "pronouns": "",
+  "ancestryIds": [],
+  "cultureIds": [],
+  "mestiereId": null,
+  "featuredArtUrls": [
+    "https://cdn.midjourney.com/e63c2642-6d1c-4ee3-afff-54ee1b6927cb/0_1.png"
+  ],
+  "speed": 0,
+  "xp": 0,
+  "notes": "",
+  "characterType": "beast",
+  "challenge": 26,
+  "description": "Flying, trample, resistance to heat",
+  "size": 9,
+  "reach": 10,
+  "body": 10,
+  "heart": 6,
+  "wits": 10,
+  "skills": [
+    {
+      "key": "awe",
+      "ranks": 3,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "strength",
+      "ranks": 5,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "dexterity",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "fortitude",
+      "ranks": 2,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "craft",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "perform",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "insight",
+      "ranks": 2,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "courtesy",
+      "ranks": 2,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "spirit",
+      "ranks": 2,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "aid",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "persuade",
+      "ranks": 2,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "awareness",
+      "ranks": 4,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "stealth",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "lore",
+      "ranks": 2,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "riddle",
+      "ranks": 2,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    }
+  ],
+  "endurance": {
+    "current": 0,
+    "base": 50
+  },
+  "hope": {
+    "current": 0,
+    "base": 18
+  },
+  "defense": {
+    "current": 0,
+    "base": 20
+  },
+  "load": 0,
+  "shadow": 0,
+  "injury": 0,
+  "states": {
+    "weary": false,
+    "twiceWeary": false,
+    "miserable": false,
+    "twiceMiserable": false,
+    "helpless": false,
+    "twiceHelpless": false
+  },
+  "conditions": {
+    "insecure": false,
+    "guilty": false,
+    "angry": false,
+    "afraid": false,
+    "troubled": false
+  },
+  "equipment": [],
+  "mp": {
+    "current": 0,
+    "base": 0
+  },
+  "abilities": [],
+  "witchcraftTokens": [],
+  "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1"
+}

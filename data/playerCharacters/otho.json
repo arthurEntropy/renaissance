@@ -1,0 +1,305 @@
+{
+  "id": "48a9eff3-9041-4b33-8f99-4137955d2997",
+  "isDeleted": false,
+  "createdAt": "2026-04-22T14:45:33.779Z",
+  "lastModified": "2026-05-09T19:49:59.337Z",
+  "name": "Otho",
+  "pronouns": "",
+  "ancestryIds": [
+    "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+  ],
+  "cultureIds": [
+    "55494a30-a1bb-47c3-aae9-2db3a5bfcb8b"
+  ],
+  "mestiereId": "558abd15-f90f-40d7-80d8-df73a37f977c",
+  "featuredArtUrls": [
+    "https://cdn.midjourney.com/6acd8daa-8d90-43ae-b78a-8349d712b046/0_1.png"
+  ],
+  "age": 38,
+  "heightFeet": 5,
+  "heightInches": 11,
+  "weight": 200,
+  "speed": 0,
+  "keeping": "2b3c4d5e-6f7a-4b8c-9d0e-1f2a3b4c5d6e",
+  "xp": 0,
+  "notes": "",
+  "characterType": "player",
+  "body": 0,
+  "heart": 0,
+  "wits": 0,
+  "skills": [
+    {
+      "key": "awe",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "strength",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "dexterity",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "fortitude",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "craft",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "perform",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "insight",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "courtesy",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "spirit",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "aid",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "persuade",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "awareness",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "stealth",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "lore",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "riddle",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    }
+  ],
+  "endurance": {
+    "current": 0,
+    "base": 0
+  },
+  "hope": {
+    "current": 0,
+    "base": 0
+  },
+  "defense": {
+    "current": 0,
+    "base": 10
+  },
+  "load": 0,
+  "shadow": 0,
+  "injury": 0,
+  "states": {
+    "weary": false,
+    "twiceWeary": false,
+    "miserable": false,
+    "twiceMiserable": false,
+    "helpless": false,
+    "twiceHelpless": false
+  },
+  "conditions": {
+    "insecure": false,
+    "guilty": false,
+    "angry": false,
+    "afraid": false,
+    "troubled": false
+  },
+  "engagementDiceStatuses": {},
+  "equipment": [],
+  "groupEquipmentBySource": false,
+  "equipmentSortOption": "name-asc",
+  "mp": {
+    "current": 0,
+    "base": 0
+  },
+  "abilities": [
+    {
+      "id": "4024366e-242c-448a-b5da-5a811ad78aa7",
+      "collapsed": false,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "04e9acb0-df69-44eb-8c7f-8bbcf28ca22d",
+      "collapsed": false,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "1fbe03dd-9c5f-4224-bcbf-1bdac72673a0",
+      "collapsed": false,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "263ec9d9-457c-44fd-90ac-50ae8d6823f8",
+      "collapsed": false,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "00923682-709e-43cd-b33b-ca15a4ac7dca",
+      "collapsed": false,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "c59e50f9-4063-4066-bc80-c634b3b5aacf",
+      "collapsed": false,
+      "showImprovements": true,
+      "showSuccesses": false
+    }
+  ],
+  "groupAbilitiesBySource": false,
+  "groupAbilitiesByManaColor": false,
+  "abilitySortOption": "name-asc",
+  "autoCalculations": {
+    "load": true,
+    "states": true
+  },
+  "rollStats": {
+    "skillChecks": {
+      "attempts": 0,
+      "successes": 0,
+      "totalSum": 0,
+      "bestTotal": null,
+      "hardestSuccess": null,
+      "bySkill": {},
+      "solCount": 0,
+      "morteCount": 0,
+      "successCount": 0
+    },
+    "contests": {
+      "engagement": {
+        "wins": 0,
+        "losses": 0,
+        "draws": 0
+      },
+      "opposed": {
+        "wins": 0,
+        "losses": 0,
+        "draws": 0
+      }
+    }
+  },
+  "biomeTags": [],
+  "biomeId": null,
+  "nimbleStep": 0,
+  "manaPool": {
+    "white": [],
+    "blue": [],
+    "black": [],
+    "red": [],
+    "green": [],
+    "colorless": []
+  },
+  "witchcraftTokens": [],
+  "summonerVessels": [
+    {
+      "id": "ddaf9eb8-a1da-413c-8672-2ba619e1ec06",
+      "beastId": "09f7035a-0826-4761-af7a-49ef27655cd2",
+      "friendship": 6,
+      "isActive": true,
+      "isSummoned": true,
+      "vesselType": "great",
+      "vesselNote": "",
+      "imageUrl": "/src/assets/icons/witch/potion.png"
+    },
+    {
+      "id": "73af4476-d886-4c38-8549-0fd46e2344ed",
+      "beastId": "382f9f84-8084-4d62-82aa-165721574846",
+      "friendship": 4,
+      "isActive": true,
+      "isSummoned": false,
+      "vesselType": "maestro",
+      "vesselNote": "",
+      "imageUrl": "/src/assets/icons/witch/carrot.png"
+    },
+    {
+      "id": "9ef6ea44-5428-4377-ad2f-c862a218db43",
+      "beastId": "b9cd5af3-b5da-4e94-8431-3e501a916ad9",
+      "friendship": 4,
+      "isActive": false,
+      "isSummoned": false,
+      "vesselType": "great",
+      "vesselNote": "test",
+      "imageUrl": "/src/assets/icons/summoner/seashell.png"
+    }
+  ],
+  "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1"
+}

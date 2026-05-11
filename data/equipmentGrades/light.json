@@ -1,8 +1,9 @@
 {
   "id": "ad30b114-3c19-413f-aad2-5f270bd95684",
+  "isDeleted": false,
+  "createdAt": "2026-05-06T18:00:33.219Z",
+  "lastModified": "2025-11-26T18:30:18.576Z",
   "name": "Light",
   "description": "Basic quality equipment with minimal properties",
-  "index": 0,
-  "isDeleted": false,
-  "lastModified": "2025-11-26T18:30:18.576Z"
+  "index": 0
 }

@@ -176,7 +176,7 @@ import ManaColorFilter from '@/components/ui/mana/ManaColorFilter.vue'
 import { FAB_TYPES as FAB_TYPE_VALUES, FAB_SIZES as FAB_SIZE_VALUES, FAB_VISIBILITIES } from '@/constants/fab'
 import { CHIP_TAG_VARIANTS as CHIP_TAG_VARIANT_VALUES, CHIP_TAG_ROUNDED as CHIP_TAG_ROUNDED_VALUES } from '@/constants/chipTag'
 import { NUMBER_INPUT_SIZES as NUMBER_INPUT_SIZE_VALUES } from '@/constants/numberInput'
-import { ManaColor, MANA_COLOR_ORDER } from '@shared/constants/manaColors'
+import { ManaColor, MANA_COLOR_ORDER } from '@/constants/manaColors'
 
 const FAB_TYPES = Object.values(FAB_TYPE_VALUES)
 const FAB_SIZES = Object.values(FAB_SIZE_VALUES)

@@ -1,28 +1,32 @@
 import { computed, onMounted } from 'vue'
-import { useActionTypesStore } from '@/stores/actionTypesStore'
+import { useActionCostsStore } from '@/stores/actionCostsStore'
 import { useAbilitySchoolsStore } from '@/stores/abilitySchoolsStore'
 import { useAppCharacterSheetModal } from '@/composables/useAppCharacterSheetModal'
 import { useAuthStore } from '@/stores/authStore'
 
 export function useCharactersLayout(charactersStore, equipmentStore, abilitiesStore, characterService, options = {}) {
-  const { isBeast = false, adminOnlySelect = false } = options
+  const { beastMode = false, adminOnlySelect = false } = options
 
-  const actionTypesStore = useActionTypesStore()
+  const actionTypesStore = useActionCostsStore()
   const abilitySchoolsStore = useAbilitySchoolsStore()
   const { open: openCharacterSheet } = useAppCharacterSheetModal()
   const authStore = useAuthStore()
   const characters = computed(() => 
-    isBeast 
+    beastMode 
       ? (charactersStore.filteredBeasts || [])
       : (charactersStore.filteredCharacters || [])
   )
 
+  const applyCharacterTypeDefaults = (entity) => {
+    if (!beastMode) return entity
+
+    entity.characterType = 'beast'
+    entity.name = 'New Beast'
+    return entity
+  }
+
   const createCharacter = async () => {
-    const defaultEntity = characterService.getDefaultEntity()
-    if (isBeast) {
-      defaultEntity.isBeast = true
-      defaultEntity.name = 'New Beast'
-    }
+    const defaultEntity = applyCharacterTypeDefaults(characterService.getDefaultEntity())
     const newCharacter = await characterService.create(defaultEntity)
     await charactersStore.fetch()
     return newCharacter
@@ -56,7 +60,7 @@ export function useCharactersLayout(charactersStore, equipmentStore, abilitiesSt
   const layoutProps = computed(() => ({
     concepts: characters.value,
     selectedItem: charactersStore.selectedCharacter,
-    storageKey: isBeast ? 'bestiary' : 'characters',
+    storageKey: beastMode ? 'bestiary' : 'characters',
     stickySelection: true,
     showExpansionFilter: false,
     modalComponent: 'CharacterSheetModal',
@@ -74,11 +78,7 @@ export function useCharactersLayout(charactersStore, equipmentStore, abilitiesSt
   }
 
   const handleCreate = async () => {
-    const defaultEntity = characterService.getDefaultEntity()
-    if (isBeast) {
-      defaultEntity.isBeast = true
-      defaultEntity.name = 'New Beast'
-    }
+    const defaultEntity = applyCharacterTypeDefaults(characterService.getDefaultEntity())
     const newCharacter = await characterService.create(defaultEntity)
     await charactersStore.fetch()
     

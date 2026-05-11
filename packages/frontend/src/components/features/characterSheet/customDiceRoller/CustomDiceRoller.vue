@@ -90,7 +90,7 @@ const handleRoll = async () => {
         const dicePool = []
         Object.entries(diceCounts.value).forEach(([dieType, count]) => {
             for (let i = 0; i < count; i++) {
-                dicePool.push({ dieSides: parseInt(dieType) })
+                dicePool.push({ dieSize: parseInt(dieType) })
             }
         })
 
@@ -99,7 +99,7 @@ const handleRoll = async () => {
         const rollResult = CustomRollService.makeCustomRoll(
             dicePool,
             modifier.value,
-            character || { name: 'Unknown Character', artUrls: [''] },
+            character || { name: 'Unknown Character', featuredArtUrls: [''] },
             { sendToDiscord: sendToDiscord.value }
         )
 

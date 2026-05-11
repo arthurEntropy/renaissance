@@ -2,16 +2,16 @@
     <div :class="[rowClass, 'edit-hover-area']">
         <span class="stat-name" :class="stateClasses">{{ label }}</span>
 
-        <!-- Range type (virtue: current/max) -->
+        <!-- Range type (virtue: current/base) -->
         <template v-if="type === STAT_ROW_TYPES.RANGE">
             <FloatingActionButton v-if="canEdit" class="reset-button" :variant="FAB_TYPES.REFRESH"
                 :size="FAB_SIZES.SMALL" :visibility="FAB_VISIBILITIES.ON_HOVER" @click="emit('reset')" />
             <NumberInput :model-value="value.current" :disabled="!canEdit"
                 @update:model-value="$emit('update', 'current', $event)" :min="0" :size="NUMBER_INPUT_SIZES.MEDIUM" />
             <span class="range-separator">/</span>
-            <NumberInput :model-value="value.max" :disabled="!canEdit"
+            <NumberInput :model-value="value.base" :disabled="!canEdit"
                 :class="{ 'max-value-armor': armorDefenseBonus > 0 }"
-                @update:model-value="$emit('update', 'max', $event)" :min="0" :size="NUMBER_INPUT_SIZES.MEDIUM" />
+                @update:model-value="$emit('update', 'base', $event)" :min="0" :size="NUMBER_INPUT_SIZES.MEDIUM" />
             <FloatingActionButton v-if="showAutoCalcButton && armorDefenseBonus <= 0" class="virtue-auto-calc-button"
                 :variant="isAutoCalc ? FAB_TYPES.AUTO_CALC_ON : FAB_TYPES.AUTO_CALC" :size="FAB_SIZES.SMALL"
                 :visibility="FAB_VISIBILITIES.ON_HOVER" @click="emit('toggle-auto-calc')" />
@@ -57,7 +57,7 @@ import NumberInput from '@/components/ui/forms/NumberInput.vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 import { NUMBER_INPUT_SIZES } from '@/constants/numberInput'
-import { STAT_ROW_TYPES } from '@shared/constants/characterConstants'
+import { STAT_ROW_TYPES } from '@/constants/statRowTypes'
 
 // Props
 const props = defineProps({

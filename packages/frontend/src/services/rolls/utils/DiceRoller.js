@@ -1,5 +1,5 @@
 /**
- * @typedef {import('@shared/types/dice.js').DieSides} DieSides
+ * @typedef {import('@shared/types/dice.js').DieSize} DieSize
  * @typedef {import('@shared/types/dice.js').Die} Die
  */
 
@@ -11,16 +11,16 @@ class DiceRoller {
 
   static rollPool(dicePool) {
     return dicePool.map((die, index) => 
-      this.createDiceResult(die.dieSides, this.rollDie(die.dieSides), index)
+      this.createDieResult(die, this.rollDie(die.dieSize), index)
     )
   }
 
-  static createDiceResult(dieSides, rolledValue, poolIndex) {
-    const rolledMaxValue = rolledValue === dieSides
+  static createDieResult(die, rolledValue, poolIndex) {
+    const rolledMaxValue = rolledValue === die.dieSize
     
     return {
       // Core identity
-      dieSides,
+      die,
       dieRollValue: rolledValue,
       poolIndex,
       
@@ -28,6 +28,7 @@ class DiceRoller {
       originalDieRollValue: rolledValue,
       isDropped: false, // Default to not dropped
       rolledMaxValue,
+      isRolling: false,
       
       // Display data
       displayValue: rolledValue,

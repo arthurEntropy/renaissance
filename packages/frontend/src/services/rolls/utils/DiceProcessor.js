@@ -4,7 +4,7 @@ class DiceProcessor {
 
   static applyFavoredOrIllFavored(diceResults, isFavored) {
     // Get all d12 results
-    const d12Results = diceResults.filter(result => result.dieSides === DIE_TYPE.D12)
+    const d12Results = diceResults.filter(result => result.die.dieSize === DIE_TYPE.D12)
     
     if (d12Results.length < 2) {
       return diceResults // Need at least 2 d12s to process favored/ill-favored rules
@@ -52,7 +52,7 @@ class DiceProcessor {
 
   static markMaxValueDice(diceResults) {
     diceResults.forEach(result => {
-      result.rolledMaxValue = result.dieSides === result.dieRollValue && !result.isDropped
+      result.rolledMaxValue = result.die.dieSize === result.dieRollValue && !result.isDropped
     })
     return diceResults
   }
@@ -65,12 +65,12 @@ class DiceProcessor {
       }
       
       // Always exclude Morte on d12s
-      if (result.dieSides === DIE_TYPE.D12 && result.dieRollValue === SPECIAL_ROLLS.MORTE) {
+      if (result.die.dieSize === DIE_TYPE.D12 && result.dieRollValue === SPECIAL_ROLLS.MORTE) {
         return sum
       }
       
       // Apply Twice Weary filter if enabled (d6 rolls of 1-3 don't count)
-      if (twiceWearyFilter && result.dieSides === DIE_TYPE.D6 && result.dieRollValue <= TWICE_WEARY_THRESHOLD) {
+      if (twiceWearyFilter && result.die.dieSize === DIE_TYPE.D6 && result.dieRollValue <= TWICE_WEARY_THRESHOLD) {
         return sum
       }
       
@@ -85,7 +85,7 @@ class DiceProcessor {
     }
     
     const d12Rolls = diceResults
-      .filter(result => result.dieSides === DIE_TYPE.D12)
+      .filter(result => result.die.dieSize === DIE_TYPE.D12)
       .map(result => result.dieRollValue)
     
     if (isFavored) {

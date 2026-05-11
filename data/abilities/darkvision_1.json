@@ -1,10 +1,10 @@
 {
-  "source": "d5e3228b-1d04-4503-8ec6-3210d420c082",
   "id": "f397d87f-ac43-4828-861c-5422075508ae",
   "createdAt": "2026-02-26T14:04:49.616Z",
   "lastModified": "2026-04-24T14:22:54.264Z",
   "name": "Darkvision",
+  "artUrl": "https://cdn.midjourney.com/30cc0ac6-d34a-4bd3-ab6f-7735c67d9c59/0_0.png",
   "description": "<p><em>Your people arose in lands where cover of night meant safety.</em></p><p>You can see in dim light as if it were bright light. You can see in complete darkness as if it were dim light. You cannot see through magical darkness.</p><p><strong>Describe how your eyes adjust.</strong></p>",
-  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d",
-  "artUrl": "https://cdn.midjourney.com/30cc0ac6-d34a-4bd3-ab6f-7735c67d9c59/0_0.png"
+  "source": "d5e3228b-1d04-4503-8ec6-3210d420c082",
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1"
 }

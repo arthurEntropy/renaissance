@@ -81,7 +81,7 @@
                     </div>
                     <div class="shop-items-list">
                         <div v-for="(item, index) in previewShop.items" :key="index" class="shop-item-row">
-                            <span class="shop-item-name">{{ item.name }}</span>
+                            <span class="shop-item-name">{{ getPreviewItemName(item) }}</span>
                         </div>
                     </div>
                 </div>
@@ -111,6 +111,7 @@ import { ChevronDownIcon, ChevronRightIcon } from '@heroicons/vue/24/outline'
 import { useCampaignStore } from '@/stores/campaignStore'
 import { useConceptsStore } from '@/stores/conceptsStore'
 import { useKeepingStore } from '@/stores/keepingStore'
+import { useEquipmentStore } from '@/stores/equipmentStore'
 import CampaignService from '@/services/entities/campaignService'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
@@ -120,6 +121,7 @@ import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 const campaignStore = useCampaignStore()
 const conceptsStore = useConceptsStore()
 const keepingStore = useKeepingStore()
+const equipmentStore = useEquipmentStore()
 
 const campaign = computed(() => campaignStore.activeCampaign)
 const campaignId = computed(() => campaign.value?.id)
@@ -209,6 +211,13 @@ const stockManually = async () => {
     } finally {
         shopSaving.value = false
     }
+}
+
+const getPreviewItemName = (item) => {
+    if (typeof item === 'string') {
+        return equipmentStore.equipment.find((equipment) => equipment.id === item)?.name || 'Unknown Item'
+    }
+    return item?.name || 'Unknown Item'
 }
 
 const deleteShop = async (shopId) => {

@@ -11,6 +11,8 @@ import { useCharactersStore } from '@/stores/charactersStore'
 import { useEquipmentStore } from '@/stores/equipmentStore'
 import { useConceptsStore } from '@/stores/conceptsStore'
 
+const VALID_DIE_SIZES = new Set([4, 6, 8, 10, 12, 20])
+
 // Singleton state - shared across all instances
 let sharedState = null
 
@@ -67,15 +69,14 @@ function createSharedState() {
       keys.add(`user_added_${index}`)
     })
 
-    const mestriereDiceMap = characterMestiere.value?.novizio?.engagementDice
-    if (mestriereDiceMap) {
-      let globalIndex = 0
-      for (const count of Object.values(mestriereDiceMap)) {
-        for (let i = 0; i < count; i++) {
-          keys.add(`mestiere_${globalIndex}`)
-          globalIndex++
+    const mestiereDice = characterMestiere.value?.novizio?.engagementDice
+    if (Array.isArray(mestiereDice)) {
+      mestiereDice.forEach((die, dieIndex) => {
+        const dieSide = typeof die === 'number' ? die : Number(die?.dieSize)
+        if (VALID_DIE_SIZES.has(dieSide)) {
+          keys.add(`mestiere_${dieIndex}`)
         }
-      }
+      })
     }
 
     return keys
@@ -189,26 +190,26 @@ export function useEngagementRoll() {
   // Engagement dice provided by the character's mestiere (auto-populated from novizio data)
   const mestiereEngagementDice = computed(() => {
     const mestiere = characterMestiere.value
-    if (!mestiere?.novizio?.engagementDice) return []
+    if (!Array.isArray(mestiere?.novizio?.engagementDice)) return []
 
     const result = []
-    let globalIndex = 0
-    for (const [dieSizeStr, count] of Object.entries(mestiere.novizio.engagementDice)) {
-      const dieSide = Number(dieSizeStr)
-      for (let i = 0; i < count; i++) {
-        const statusKey = `mestiere_${globalIndex}`
-        const status = diceStatuses[statusKey] || DiceStatus.AVAILABLE
-        result.push({
-          die: dieSide,
-          name: mestiere.name,
-          statusKey,
-          status,
-          isUserAdded: false,
-          isMestiere: true
-        })
-        globalIndex++
+    mestiere.novizio.engagementDice.forEach((die, dieIndex) => {
+      const dieSide = typeof die === 'number' ? die : Number(die?.dieSize)
+      if (!VALID_DIE_SIZES.has(dieSide)) {
+        return
       }
-    }
+
+      const statusKey = `mestiere_${dieIndex}`
+      const status = diceStatuses[statusKey] || DiceStatus.AVAILABLE
+      result.push({
+        die: dieSide,
+        name: mestiere.name,
+        statusKey,
+        status,
+        isUserAdded: false,
+        isMestiere: true
+      })
+    })
     return result
   })
 
@@ -278,7 +279,7 @@ export function useEngagementRoll() {
   const selectedDiceValues = computed(() => {
     return allOwnedEngagementDice.value
       .filter(item => item.status === DiceStatus.SELECTED)
-      .map(item => ({ dieSides: item.die }))
+      .map(item => ({ dieSize: item.die }))
   })
 
   const hasExpendedDice = computed(() => {
@@ -563,7 +564,7 @@ export function useEngagementRoll() {
         return
       }
 
-      const originalDieSize = targetDie.dieSides
+      const originalDieSize = targetDie.die.dieSize
 
       if (sessionManager?.startRerolling) {
         sessionManager.startRerolling()
@@ -636,7 +637,7 @@ export function useEngagementRoll() {
 
     targetDie.previousValue = targetDie.dieRollValue
 
-    const originalDieSize = targetDie.dieSides
+    const originalDieSize = targetDie.die.dieSize
     targetDie.cssClass = getDiceFontMaxClass(originalDieSize)
     targetDie.rolledMaxValue = false
 

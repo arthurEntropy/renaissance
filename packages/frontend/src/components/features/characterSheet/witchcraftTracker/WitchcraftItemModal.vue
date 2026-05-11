@@ -33,7 +33,7 @@
                         <select v-model="form.abilityId" class="modal-input">
                             <option value="">— No spell —</option>
                             <option v-for="ability in ownedAbilities" :key="ability.id" :value="ability.id">
-                                {{ ability.name }}{{ ability.mp ? ` (${ability.mp} MP)` : '' }}
+                                {{ ability.name }}{{ ability.mpCost ? ` (${ability.mpCost} MP)` : '' }}
                             </option>
                         </select>
                     </div>

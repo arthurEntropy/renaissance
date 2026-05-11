@@ -1,6 +1,10 @@
 import { computed } from 'vue'
-import { getManaCostColors } from '@shared/utils/calculateManaCost'
-import { ManaColor, MANA_COLOR_ORDER } from '@shared/constants/manaColors'
+import { getManaCostColors } from '@/utils/calculateManaCost'
+import {
+  ManaColor,
+  MANA_COLOR_GROUP_ORDER,
+  MANA_COLOR_GROUP_LABELS,
+} from '@/constants/manaColors'
 
 // Accepts groupingMode as a string ref ('source', 'mana-color', 'custom', '') or a boolean ref (treated as 'source').
 // When mode is 'custom', customGroups must be a ref to an array of { id, name } objects and
@@ -61,20 +65,6 @@ function groupBySource(items, sourcesStore) {
     const nameB = (b.name || '').replace(/^The /i, '').toLowerCase()
     return nameA.localeCompare(nameB)
   })
-}
-
-// Color display order: no mana cost first, then single colors, then multicolor, then colorless last
-const MANA_COLOR_GROUP_ORDER = ['none', ...MANA_COLOR_ORDER.filter(c => c !== ManaColor.COLORLESS), ManaColor.MULTICOLOR, ManaColor.COLORLESS]
-
-const MANA_COLOR_GROUP_LABELS = {
-  [ManaColor.WHITE]: 'White',
-  [ManaColor.BLUE]: 'Blue',
-  [ManaColor.BLACK]: 'Black',
-  [ManaColor.RED]: 'Red',
-  [ManaColor.GREEN]: 'Green',
-  [ManaColor.COLORLESS]: 'Colorless',
-  [ManaColor.MULTICOLOR]: 'Multicolor',
-  none: 'No Mana Cost',
 }
 
 function getManaColorGroupKey(ability) {

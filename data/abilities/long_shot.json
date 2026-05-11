@@ -4,13 +4,11 @@
   "createdAt": "2026-02-03T15:27:36.365Z",
   "lastModified": "2026-03-16T20:49:54.263Z",
   "name": "Long Shot",
-  "description": "<p>You may double the range of your next ranged attack without incurring the normal ill-favored penalty.</p><p><strong>Describe how you aim from a great distance.</strong></p>",
-  "canBeActive": false,
-  "isActive": true,
-  "source": "10f46ecd-e6f5-4d3b-b510-d4035ab24f56",
-  "mp": 1,
-  "xp": 5,
-  "manaCost": null,
   "artUrl": "https://cdn.midjourney.com/0e09f594-6243-4b18-bd6d-c837fb277510/0_0.png",
-  "type": "c3d4e5f6-a1b2-4c3d-be0f-9a8b7c6d5e4f"
+  "description": "<p>You may double the range of your next ranged attack without incurring the normal ill-favored penalty.</p><p><strong>Describe how you aim from a great distance.</strong></p>",
+  "source": "10f46ecd-e6f5-4d3b-b510-d4035ab24f56",
+  "actionCost": "40656418-af01-43ae-8a60-a1bd0124efb4",
+  "mpCost": 1,
+  "xpCost": 5,
+  "manaCost": null
 }

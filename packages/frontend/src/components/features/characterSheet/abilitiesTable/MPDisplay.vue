@@ -4,7 +4,7 @@
         <NumberInput :model-value="selectedCharacter.mp.current" :disabled="!isEditMode"
             @update:model-value="updateCurrent" :min="0" :size="NUMBER_INPUT_SIZES.MEDIUM" />
         <span>/</span>
-        <NumberInput :model-value="selectedCharacter.mp.max" :disabled="!isEditMode" @update:model-value="updateMax"
+        <NumberInput :model-value="selectedCharacter.mp.base" :disabled="!isEditMode" @update:model-value="updateBase"
             :min="0" :size="NUMBER_INPUT_SIZES.MEDIUM" />
     </div>
 </template>
@@ -31,9 +31,9 @@ const updateCurrent = (value) => {
     }
 }
 
-const updateMax = (value) => {
+const updateBase = (value) => {
     if (!isNaN(value)) {
-        selectedCharacter.value.mp.max = value
+        selectedCharacter.value.mp.base = value
     }
 }
 </script>

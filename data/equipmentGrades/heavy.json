@@ -1,8 +1,9 @@
 {
   "id": "ebcc2bcb-8221-4ca0-bef3-000fb7e59e96",
+  "isDeleted": false,
+  "createdAt": "2026-05-06T18:00:33.219Z",
+  "lastModified": "2025-11-26T18:30:18.586Z",
   "name": "Heavy",
   "description": "High-grade equipment with enhanced properties",
-  "index": 3,
-  "isDeleted": false,
-  "lastModified": "2025-11-26T18:30:18.586Z"
+  "index": 3
 }

@@ -11,8 +11,8 @@
 
             <!-- Title with drag handle and expand/collapse button -->
             <div class="hook-header">
-              <FloatingActionButton :variant="FAB_TYPES.DRAG" :size="FAB_SIZES.SMALL" :visibility="FAB_VISIBILITIES.ALWAYS"
-                class="drag-handle" />
+              <FloatingActionButton :variant="FAB_TYPES.DRAG" :size="FAB_SIZES.SMALL"
+                :visibility="FAB_VISIBILITIES.ALWAYS" class="drag-handle" />
               <button class="hook-caret" @click="toggleHookExpansion(idx)" type="button">
                 <ChevronDownIcon v-if="isHookExpanded(idx)" class="caret-icon" />
                 <ChevronRightIcon v-else class="caret-icon" />
@@ -119,6 +119,10 @@ const cancelHooksEdit = () => {
 
 const saveHooksOrder = async () => {
   if (concept.value) {
+    // Update indices to match current order
+    localHooks.value.forEach((hook, i) => {
+      hook.index = i
+    })
     concept.value.hooks = [...localHooks.value]
     await conceptsStore.update(concept.value)
   }
@@ -127,9 +131,11 @@ const saveHooksOrder = async () => {
 const addHook = () => {
   const newIndex = localHooks.value.length
   localHooks.value.push({
+    id: null,
     name: '',
     description: '',
     gmNotes: '',
+    index: newIndex,
   })
   expandedHooks.value[newIndex] = true
 }
@@ -144,6 +150,10 @@ const isHookExpanded = (index) => {
 
 const removeHook = (idx) => {
   localHooks.value.splice(idx, 1)
+  // Update indices for remaining hooks
+  localHooks.value.forEach((hook, i) => {
+    hook.index = i
+  })
 }
 
 const toggleGMNotes = (index) => {

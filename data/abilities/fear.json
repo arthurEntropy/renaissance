@@ -1,23 +1,23 @@
 {
-  "source": "dab3e414-0118-49be-9779-4e3018cdba71",
   "id": "09d7f346-a533-4ad9-b9ea-4be01c8f2c9d",
   "createdAt": "2026-04-07T02:12:52.959Z",
   "lastModified": "2026-04-10T12:35:58.784Z",
   "name": "Fear",
+  "artUrl": "https://cdn.midjourney.com/63804942-9748-4b02-a3ba-4a0cb7b1d533/0_2.png",
   "description": "<p><em>Concentration, up to 1 minute.</em></p><p>Roll Awe vs Spirit against a creature within short range. On a win, your roll result becomes the Difficulty, and you twist the creature's mind to alter its perception of you so that you resemble the object of its greatest fear. You still appear as normal to all other creatures.</p><p>For the next minute, the affected creature must spend an action to Sprint on each of its turns, using all its movement to get as far away from you as possible. If at the end of its turn it no longer has line of sight to you, it may roll Spirit against the Difficulty to attempt to end the effect.</p><p><strong>Describe how you transform their perception.</strong></p>",
   "successes": "<p>✨: Win or lose, the creature checks a Condition.</p><p>🌞: On a win, the creature drops what it's carrying. On a loss, the creature checks a Condition.</p>",
-  "mp": 3,
-  "xp": 15,
-  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
-  "isMagical": true,
-  "school": "fcf1aa58-1d97-4950-82ba-8807f46de194",
   "improvements": [
     {
       "name": "Mass Panic",
       "description": "<p>When you cast this spell, you may target any number of additional creatures within short range, at a cost of 2 MP per creature.</p>",
-      "xp": 30,
+      "xpCost": 30,
       "id": "ae1fc967-30e6-4b13-b0f8-813162da3438"
     }
   ],
-  "artUrl": "https://cdn.midjourney.com/63804942-9748-4b02-a3ba-4a0cb7b1d533/0_2.png"
+  "source": "dab3e414-0118-49be-9779-4e3018cdba71",
+  "school": "fcf1aa58-1d97-4950-82ba-8807f46de194",
+  "isMagical": true,
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "mpCost": 3,
+  "xpCost": 15
 }

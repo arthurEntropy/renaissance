@@ -1,14 +1,12 @@
 {
   "id": "bd8f66a4-5849-483b-9123-b0085c0e5a5c",
-  "name": "Cat-Like Tread",
-  "description": "<p>You may roll Dexterity instead of Stealth to sneak or hide.</p><p><strong>Describe your careful movement.</strong></p>",
-  "canBeActive": false,
-  "isActive": true,
-  "source": "e10d7d9f-9d93-46b0-9846-d60241031644",
   "isDeleted": false,
-  "mp": null,
-  "xp": 5,
-  "artUrl": "https://cdn.midjourney.com/8fa5339f-e829-451b-ad57-c58e0764e9d5/0_3.png",
   "lastModified": "2026-03-16T19:59:35.086Z",
-  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
+  "name": "Cat-Like Tread",
+  "artUrl": "https://cdn.midjourney.com/8fa5339f-e829-451b-ad57-c58e0764e9d5/0_3.png",
+  "description": "<p>You may roll Dexterity instead of Stealth to sneak or hide.</p><p><strong>Describe your careful movement.</strong></p>",
+  "source": "e10d7d9f-9d93-46b0-9846-d60241031644",
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": 5
 }

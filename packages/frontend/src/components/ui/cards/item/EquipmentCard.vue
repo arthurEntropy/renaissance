@@ -147,7 +147,7 @@ import { useEquipmentGradesStore } from '@/stores/equipmentGradesStore'
 import { useEquipmentRangesStore } from '@/stores/equipmentRangesStore'
 import { useKeepingStore } from '@/stores/keepingStore'
 import { useCharactersStore } from '@/stores/charactersStore'
-import { useItemImprovements } from '@/composables/useItemImprovements'
+import { useImprovements } from '@/composables/useImprovements'
 import BaseCard from '@/components/ui/cards/item/BaseCard.vue'
 import DifficultyBadge from '@/components/ui/cards/item/DifficultyBadge.vue'
 import MesmerDiscoverModal from '@/components/features/characterSheet/modals/MesmerDiscoverModal.vue'
@@ -327,7 +327,7 @@ const keepingStore = useKeepingStore()
 const charactersStore = useCharactersStore()
 
 // Item improvements composable
-const { toggleImprovement, getCharacterImprovements } = useItemImprovements('equipment')
+const { toggleImprovement, getCharacterImprovements } = useImprovements('equipment')
 
 // Computed properties
 const isWeapon = computed(() => {

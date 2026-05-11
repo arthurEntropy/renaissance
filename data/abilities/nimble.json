@@ -1,34 +1,32 @@
 {
   "id": "8e346eb3-1e72-4b3f-971c-497eac98a06c",
-  "name": "Nimble",
-  "description": "<p>Your base Speed is doubled, but you start each turn with no actions by default. You may convert movement into actions at a rate of 10 ft per half action, spending as much movement as you like in this way each turn.</p><p>Additionally, your jump distance and height are doubled, you can run up vertical surfaces up to 1/4 your speed as if it were flat ground, and you take no damage from falling up to 1/4 your speed if all your limbs are free.</p><p><strong>Describe your agility.</strong></p>",
-  "canBeActive": false,
-  "isActive": true,
-  "source": "e10d7d9f-9d93-46b0-9846-d60241031644",
   "isDeleted": false,
-  "mp": null,
-  "xp": null,
+  "lastModified": "2026-03-16T19:59:23.835Z",
+  "name": "Nimble",
   "artUrl": "https://cdn.midjourney.com/50c1cfc5-07c3-4455-84fd-d6d7dc6149cb/0_2.png",
+  "description": "<p>Your base Speed is doubled, but you start each turn with no actions by default. You may convert movement into actions at a rate of 10 ft per half action, spending as much movement as you like in this way each turn.</p><p>Additionally, your jump distance and height are doubled, you can run up vertical surfaces up to 1/4 your speed as if it were flat ground, and you take no damage from falling up to 1/4 your speed if all your limbs are free.</p><p><strong>Describe your agility.</strong></p>",
   "improvements": [
     {
       "name": "Hard To Pin Down",
       "description": "<p>You may also convert movement into engagement dice at a rate of 1d4 per 10 ft.</p>",
-      "xp": 5,
+      "xpCost": 5,
       "id": "baa4641b-caf0-5680-abf1-5a6cae7c0f3d"
     },
     {
       "name": "Ready To Spring",
       "description": "<p>You may spend half your movement to assume a ready position. If you do, for the next round, each time a creature makes a melee attack against you, skip Engagement and instead roll Dexterity vs Dexterity, treating the outcome as if it were the outcome of an Engagement.</p>",
-      "xp": 10,
+      "xpCost": 10,
       "id": "050b6440-b906-5a90-a0f9-5201ed941562"
     },
     {
       "name": "Like The Wind",
       "description": "<p>Your base Speed is tripled instead of doubled.</p>",
-      "xp": 30,
+      "xpCost": 30,
       "id": "5101de51-b275-5117-9c02-8802f70655cc"
     }
   ],
-  "lastModified": "2026-03-16T19:59:23.835Z",
-  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
+  "source": "e10d7d9f-9d93-46b0-9846-d60241031644",
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": null
 }

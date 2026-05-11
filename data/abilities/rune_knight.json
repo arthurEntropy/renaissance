@@ -1,18 +1,18 @@
 {
-  "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
   "id": "b1c8de9c-eb3c-40e9-853a-2366da6e7940",
   "createdAt": "2026-04-10T15:34:46.905Z",
   "lastModified": "2026-04-14T20:06:35.817Z",
   "name": "Rune Knight",
+  "artUrl": "https://cdn.midjourney.com/da802e63-5afa-4d5e-aa54-5c805a069cd1/0_0.png",
   "description": "<p><em>Arcane Focus: The equipment you inscribe with runes.</em></p><p>You belong to an order whose training combines the martial and arcane arts. You are trained in martial melee weapons, martial polearms, and martial armor and shields, and you are initiated in the practice of imbuing your equipment with the supernatural power of runes.</p><p>For each school of magic, choose abilities from that school with a combined XP cost of up to 15 — you gain them for free. You may purchase additional abilities at normal XP cost, to a maximum of 3 known abilities per school.</p><p>Once per rest, you may draw a rune on each weapon, shield, or piece of armor you have. This ritual takes 1 minute per item; each rune stores a charge of one of your spells, and you pay the MP cost for all spells at the ritual's end. Runed items are considered magical, and their charges last indefinitely.</p><p>You may cast stored charges from worn and wielded items, paying each spell's action cost. Once cast, the charge is spent and the rune vanishes; if the item was not already magical, it becomes mundane again.</p><p>Each item holds only one rune at a time — drawing a new rune replaces the old, losing its charge. Only you can cast the stored spells.</p><p><strong>Describe your runic tradition.</strong></p>",
-  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d",
   "improvements": [
     {
       "name": "Rune Carver",
       "description": "<p>By spending 1 hour, you may engrave a permanent rune into a weapon, shield, or piece of armor, storing a spell as normal. Unlike drawn runes, an engraved rune persists after its charge is used and regains its charge at sunrise.</p>",
-      "xp": 25,
+      "xpCost": 25,
       "id": "3593c8f9-323d-4f01-94d0-c00f66dd54e8"
     }
   ],
-  "artUrl": "https://cdn.midjourney.com/da802e63-5afa-4d5e-aa54-5c805a069cd1/0_0.png"
+  "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1"
 }

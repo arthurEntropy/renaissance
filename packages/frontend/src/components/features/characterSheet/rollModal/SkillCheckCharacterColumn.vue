@@ -170,14 +170,14 @@ const rollData = computed(() => {
     } else {
         // Use skill config dice as placeholders for animation
         diceResults = allDice.value.map(die => ({
-            dieSides: die.dieSides,
-            dieRollValue: die.dieSides,
-            displayDieRollValue: die.dieSides,
+            dieSize: die.dieSize,
+            dieRollValue: die.dieSize,
+            displayDieRollValue: die.dieSize,
             isDropped: false,
             rolledMaxValue: true,
             poolIndex: 0,
             emoji: null,
-            cssClass: getDiceFontClass(die.dieSides, die.dieSides)
+            cssClass: getDiceFontClass(die.dieSize, die.dieSize)
         }))
     }
 

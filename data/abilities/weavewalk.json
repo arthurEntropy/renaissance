@@ -4,16 +4,14 @@
   "createdAt": "2025-12-30T18:21:30.310Z",
   "lastModified": "2026-03-19T01:19:48.456Z",
   "name": "Weavewalk",
-  "description": "<p>You phase out and remain phased out while the spell lasts. Roll Lore. The result is the duration of the spell, in minutes.</p><p><strong>Describe how you phase out.</strong></p>",
-  "canBeActive": false,
-  "isActive": true,
-  "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
-  "mp": 7,
-  "xp": 35,
   "artUrl": "https://cdn.midjourney.com/d4f5e659-79c8-456b-89f6-7162bfc3c0ef/0_2.png",
-  "improvements": [],
+  "description": "<p>You phase out and remain phased out while the spell lasts. Roll Lore. The result is the duration of the spell, in minutes.</p><p><strong>Describe how you phase out.</strong></p>",
   "successes": "<p>✨: Double the spell's duration and you may end it at any time.</p><p>🌞: The spell lasts for up to one day and you may end it at any time.</p><p>💀: Roll 1d8 at the end of each minute while the spell lasts. On a 1, you immediately phase in, the spell ends, and you check a Condition.</p>",
-  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
+  "improvements": [],
+  "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
+  "school": "dae8a70f-3f7a-4357-8fe4-972f863be65b",
   "isMagical": true,
-  "school": "dae8a70f-3f7a-4357-8fe4-972f863be65b"
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "mpCost": 7,
+  "xpCost": 35
 }

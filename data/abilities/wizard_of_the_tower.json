@@ -1,18 +1,18 @@
 {
-  "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
   "id": "2ad8916a-7e41-498f-a001-547bcd6b848a",
   "createdAt": "2026-04-10T14:54:49.093Z",
   "lastModified": "2026-04-10T20:55:25.753Z",
   "name": "Wizard of the Tower",
+  "artUrl": "https://cdn.midjourney.com/bf2deb73-6552-45f2-a400-6bc9f8b68d3a/0_2.png",
   "description": "<p><em>Arcane Focus: A wand, rod or staff, provided by the institution.</em></p><p>You are an initiate in a powerful, established institution of arcane learning, which grants you access to valuable resources but comes with limitations.</p><p>You bear a magic ring, talisman or other worn item given to you by the institution. It grants you a reserve of additional MP equal to your WITS score that is replenished each sunrise. Whenever you cast a spell while wearing the item, the institution is able to detect your location and which spell you cast. The institution can also detect if you remove the item.</p><p>You must follow a proscribed course of magical study. When you gain this ability, choose and gain one ability from each school of magic that has the lowest XP cost (or is tied for lowest) in that school. You do not need to pay the XP cost of these initial abilities.</p><p>To gain subsequent abilities, you must pay their XP cost as normal, and you may not gain an ability unless you have already gained all other abilities with a lower XP cost in that school.</p><p><strong>Describe the institution and how you earned membership in it.</strong></p>",
-  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d",
   "improvements": [
     {
       "name": "Advanced Placement",
       "description": "<p>You may bypass the institution's proscribed course of study and gain any abilities you choose - regardless of your progression in that ability's school - by paying double its normal XP cost.</p>",
-      "xp": 10,
+      "xpCost": 10,
       "id": "da9fb706-fbe1-40ef-8360-eb47833a1d78"
     }
   ],
-  "artUrl": "https://cdn.midjourney.com/bf2deb73-6552-45f2-a400-6bc9f8b68d3a/0_2.png"
+  "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1"
 }

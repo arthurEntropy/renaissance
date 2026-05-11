@@ -1,28 +1,26 @@
 {
   "id": "fafd1877-3ecf-4da7-a29a-e14e5a345a9d",
-  "name": "Rope & Chain Weapon Training",
-  "description": "<p>You are trained in the use of rope and chain weapons, a special weapon type.</p><p>Whenever you make an attack with a rope or chain weapon, you may spend any number of additional half actions before making the attack roll. On a hit, +1d damage for each half action you spent.</p><p><strong>Describe your technique.</strong></p>",
-  "canBeActive": false,
-  "isActive": true,
-  "source": "e10d7d9f-9d93-46b0-9846-d60241031644",
   "isDeleted": false,
-  "mp": null,
-  "xp": 10,
+  "lastModified": "2026-03-16T20:00:33.967Z",
+  "name": "Rope & Chain Weapon Training",
   "artUrl": "https://cdn.midjourney.com/e7f1e258-f3b0-4468-9123-0d7b19eae1f8/0_1.png",
+  "description": "<p>You are trained in the use of rope and chain weapons, a special weapon type.</p><p>Whenever you make an attack with a rope or chain weapon, you may spend any number of additional half actions before making the attack roll. On a hit, +1d damage for each half action you spent.</p><p><strong>Describe your technique.</strong></p>",
   "improvements": [
     {
       "name": "Grappling",
       "description": "<p>When you hit with a rope or chain weapon, you may spend a half action to attempt to grapple the target with the weapon. Roll Dexterity vs Dexterity. On a win, the target is grappled and your roll result becomes the Difficulty they roll against to attempt to escape the grapple. If you are no longer holding the weapon when they make an attempt to escape, their roll is favored. Any adjacent creature can free them by spending an action (no roll required).</p><p>While a rope or chain weapon is grappling a foe, you cannot attack with it. However, you may spend an action to pull or drag the grappled creature up to 1/4 your Speed or knock them prone.</p>",
-      "xp": 5,
+      "xpCost": 5,
       "id": "8ab4398d-585e-58db-ae9a-42e03c43b4d3"
     },
     {
       "name": "Reach",
       "description": "<p>Once per turn, you may double the reach of a rope or chain weapon for one attack, but you must spend a half action to pull the weapon back to you before you can make another attack with it.</p>",
-      "xp": 10,
+      "xpCost": 10,
       "id": "fc3f90a9-f954-5257-82a6-d1fd1203c886"
     }
   ],
-  "lastModified": "2026-03-16T20:00:33.967Z",
-  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
+  "source": "e10d7d9f-9d93-46b0-9846-d60241031644",
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": 10
 }

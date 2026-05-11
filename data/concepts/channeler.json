@@ -4,45 +4,32 @@
   "name": "Channeler",
   "description": "<p>You breathe in and feel the mana settle into you—not a warmth exactly, more a pressure, like holding something together that wants to come apart. You add another charge and feel the Condition starting to build at the back of your mind. Not Anger yet. Not quite. You can work with not-quite.</p><p>At the heart of Channeler practice is a single, deceptively simple act: <em>Channel</em>. The Channeler draws in ambient magical energy—raw, formless mana—and holds it in reserve, adding one mana of any color to their pool each turn. That mana then pays for everything else they do. Unlike spellcasters who draw power from an external source, a Channeler is the source: a living reservoir that must be consciously loaded and carefully spent.</p><p>Conditions are the Channeler's second economy. Most abilities require either checking a Condition (acquiring one) or unchecking a Condition (spending one already held). A Condition checked is pressure accumulating; a Condition unchecked is that pressure released into magic—and some effects scale with the specific Condition spent. Fire erupts hotter when Anger is the fuel. Darkness spreads wider when Afraid powers it. The Channeler learns, over time, to cultivate emotional states deliberately and direct them outward. But the system has a ceiling: five Conditions checked at once empties the mana pool entirely, turning the reservoir that makes a Channeler formidable into their greatest vulnerability.</p><p>The colors of the mana pool describe what a Channeler is willing to do and who they are willing to be for others. White magic is almost entirely selfless—and costly. Blue offers control without self-destruction. Black inverts the principle, taking from others to fuel the Channeler's strength, or taking from the Channeler themselves for explosive gain. Red amplifies bodies—fury, rage, fire that scales precisely as far as the Channeler's emotional release goes. A Channeler who has never stood at the edge of the breakdown has not yet learned what they are capable of.</p><h3>Play a Channeler if you want to:</h3><ul><li><p><strong>Build and spend magical energy as a living economy</strong>, managing a mana pool that you load yourself and spend on spells across every color.</p></li><li><p><strong>Absorb the costs others would have paid</strong>, redirecting damage, States, and Conditions onto yourself to protect the people beside you.</p></li><li><p><strong>Harness your own emotional extremes</strong> — cultivating Anger for fire, letting Afraid accumulate until it becomes useful, riding the edge of the five-Condition collapse for maximum effect.</p></li></ul><h3>Questions to consider when making a Channeler:</h3><ul><li><p>How do they describe channeling mana? Is it a visible phenomenon, a physical sensation, something others can notice, or something entirely internal?</p></li><li><p>Which color do they gravitate toward, and what does that say about who they are — do they sacrifice themselves for others, control from a distance, burn bright, or court something darker?</p></li><li><p>What is their relationship to the Condition collapse? Do they fear it, accept it as an occasional cost, or deliberately court it for the edge it gives them just before?</p></li><li><p>Has their emotional life always been an asset, or did they have to learn to stop running from the states they now wield as weapons?</p></li><li><p>What happens after the pool is empty, the Conditions all checked, and the fight still ongoing? What does a Channeler do without mana?</p></li></ul>",
   "isDeleted": false,
-  "artUrls": [
+  "featuredArtUrls": [
     "https://cdn.midjourney.com/3f3366f2-b7f5-4b6e-82ec-a71150a47d9b/0_1.png"
   ],
-  "faces": [],
-  "places": [],
-  "backgroundImage": "https://cdn.midjourney.com/bcbc84cf-af8a-4f0d-97b1-7b9f3434f075/0_2.png",
+  "backgroundImage": "https://cdn.midjourney.com/30ad68d4-cc74-499d-8c7b-44a886954433/0_2.png",
+  "cardBackgroundImage": "https://cdn.midjourney.com/bcbc84cf-af8a-4f0d-97b1-7b9f3434f075/0_2.png",
   "expansion": "",
-  "hooks": [],
-  "playlists": [],
-  "names": "",
-  "occupations": "",
-  "publicHouses": "",
-  "vittles": "",
-  "pointsOfInterest": "",
-  "floraFauna": "",
-  "lastModified": "2026-04-15T18:37:49.711Z",
   "novizio": {
-    "flavorText": "",
-    "melee": [],
-    "polearm": [],
-    "ranged": [],
-    "firearm": [],
-    "armor": [],
-    "martialNotes": "",
-    "engagementDice": {
-      "4": 0,
-      "6": 0,
-      "8": 0,
-      "10": 0,
-      "12": 0,
-      "20": 0
+    "description": "<p>Fusce blandit urna vitae fringilla porta. Donec elementum dui a libero commodo, vitae faucibus eros facilisis. Donec lobortis enim ac metus dictum bibendum. Praesent ullamcorper tempor metus quis pharetra. In nec ultricies massa. Maecenas rhoncus suscipit finibus. Ut volutpat, dui.</p>",
+    "martialTraining": {
+      "meleeGrades": [],
+      "polearmGrades": [],
+      "rangedGrades": [],
+      "firearmGrades": [],
+      "armorGrades": []
     },
+    "martialTrainingNotes": "",
+    "engagementDice": [],
+    "engagementDiceNotes": "",
     "engagementSuccesses": [],
-    "engagementNotes": "",
     "engagementSuccessNotes": "",
     "baseMP": 0,
-    "mpNotes": "<p>You can gain MP (mana) through your <em>Channel</em> ability, among others.</p>",
+    "baseMpNotes": "<p>You can gain MP (mana) through your <em>Channel</em> ability, among others.</p>",
     "abilities": "<p><em>Channel</em>, plus one ability of your choosing of each mana color.</p>",
-    "description": "<p>Fusce blandit urna vitae fringilla porta. Donec elementum dui a libero commodo, vitae faucibus eros facilisis. Donec lobortis enim ac metus dictum bibendum. Praesent ullamcorper tempor metus quis pharetra. In nec ultricies massa. Maecenas rhoncus suscipit finibus. Ut volutpat, dui.</p>"
+    "gratuiti": ""
   },
-  "detailBackgroundImage": "https://cdn.midjourney.com/30ad68d4-cc74-499d-8c7b-44a886954433/0_2.png"
+  "lastModified": "2026-04-15T18:37:49.711Z",
+  "hooks": [],
+  "playlists": []
 }

@@ -9,7 +9,7 @@
 <script setup>
 
 import { computed } from 'vue'
-import { ManaColor } from '@shared/constants/manaColors'
+import { ManaColor } from '@/constants/manaColors'
 import whitePng from './pngs/white.png'
 import bluePng from './pngs/blue.png'
 import blackPng from './pngs/black.png'

@@ -1,22 +1,22 @@
 {
-  "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
   "id": "22b9e872-5214-4404-a21e-99ba774bbc8f",
   "createdAt": "2026-04-14T01:27:33.892Z",
   "lastModified": "2026-04-14T12:40:35.324Z",
   "name": "Power Word: Kill",
+  "artUrl": "https://cdn.midjourney.com/59334845-3825-48ed-b830-0709c61b054b/0_1.png",
   "description": "<p>You utter a word of power that can compel one creature within medium range to die instantly. If the creature you chose has 50 Endurance or less, it dies. Otherwise, the spell has no effect.</p><p>You gain Shadow equal to the creature's HEART score.</p>",
-  "mp": 10,
-  "xp": 50,
-  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
-  "isMagical": true,
-  "school": "45ec3f2a-bbd2-402a-a18e-7c9cbdc8d60a",
   "improvements": [
     {
       "name": "End Bloodline",
       "description": "<p>If the target is killed, each creature within far range that is related to the target by blood and has 50 Endurance or less also dies. You gain 2 additional Shadow for each creature killed in this way.</p>",
-      "xp": 100,
+      "xpCost": 100,
       "id": "09c20535-fcb4-45f5-b859-24a5db1c1028"
     }
   ],
-  "artUrl": "https://cdn.midjourney.com/59334845-3825-48ed-b830-0709c61b054b/0_1.png"
+  "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
+  "school": "45ec3f2a-bbd2-402a-a18e-7c9cbdc8d60a",
+  "isMagical": true,
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "mpCost": 10,
+  "xpCost": 50
 }

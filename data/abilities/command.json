@@ -1,15 +1,15 @@
 {
-  "source": "dab3e414-0118-49be-9779-4e3018cdba71",
   "id": "ccd0501e-d0bc-427a-ace5-224ec67249bb",
   "createdAt": "2026-04-06T19:18:58.843Z",
   "lastModified": "2026-04-08T18:32:11.885Z",
-  "description": "<p>You speak a one-word command to a creature within medium range. Roll Persuade vs Riddle. On a win, the creature must obey your command on its next turn, unless it doesn’t understand your language or if your command is directly harmful to it.</p><p>Some typical commands and their effects:</p><ul><li><p><strong><em>Approach.</em></strong> The target moves toward you by the shortest and most direct route, ending its turn if it moves within 5 feet of you.</p></li><li><p><strong><em>Drop.</em></strong> The target drops whatever it is holding and then ends its turn.</p></li><li><p><strong><em>Flee.</em></strong> The target spends its turn moving away from you by the fastest available means.</p></li><li><p><strong><em>Grovel.</em></strong> The target falls prone and then ends its turn.</p></li><li><p><strong><em>Halt.</em></strong> The target doesn’t move and takes no actions.</p></li></ul><p>You might issue a command other than one described here. If you do so, the GM determines how the target behaves. If the target can’t follow your command, the spell ends.</p><p><strong>Describe how you issue the command.</strong></p>",
-  "artUrl": "https://cdn.midjourney.com/a6d806a8-5316-4dee-b279-6aad6ac21c18/0_0.png",
   "name": "Command",
-  "xp": 5,
-  "mp": 1,
+  "artUrl": "https://cdn.midjourney.com/a6d806a8-5316-4dee-b279-6aad6ac21c18/0_0.png",
+  "description": "<p>You speak a one-word command to a creature within medium range. Roll Persuade vs Riddle. On a win, the creature must obey your command on its next turn, unless it doesn’t understand your language or if your command is directly harmful to it.</p><p>Some typical commands and their effects:</p><ul><li><p><strong><em>Approach.</em></strong> The target moves toward you by the shortest and most direct route, ending its turn if it moves within 5 feet of you.</p></li><li><p><strong><em>Drop.</em></strong> The target drops whatever it is holding and then ends its turn.</p></li><li><p><strong><em>Flee.</em></strong> The target spends its turn moving away from you by the fastest available means.</p></li><li><p><strong><em>Grovel.</em></strong> The target falls prone and then ends its turn.</p></li><li><p><strong><em>Halt.</em></strong> The target doesn’t move and takes no actions.</p></li></ul><p>You might issue a command other than one described here. If you do so, the GM determines how the target behaves. If the target can’t follow your command, the spell ends.</p><p><strong>Describe how you issue the command.</strong></p>",
   "successes": "<p>✨: You may issue a second one-word command that does not contradict your first command. On a win, the creature must also obey that command on its next turn.</p><p>🌞: The creature must obey the command(s) on its next 2 turns.</p>",
-  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
+  "source": "dab3e414-0118-49be-9779-4e3018cdba71",
+  "school": "9d93af3f-008e-429d-b7c4-7838a39d3b1b",
   "isMagical": true,
-  "school": "9d93af3f-008e-429d-b7c4-7838a39d3b1b"
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "mpCost": 1,
+  "xpCost": 5
 }

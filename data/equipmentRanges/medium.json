@@ -1,8 +1,9 @@
 {
   "id": "c8e24244-5f2f-42a5-848c-1a4371dd1922",
-  "name": "Medium",
-  "distance": "50 feet",
-  "index": 2,
   "isDeleted": false,
-  "lastModified": "2025-11-26T18:30:30.960Z"
+  "createdAt": "2026-05-06T18:00:33.219Z",
+  "lastModified": "2025-11-26T18:30:30.960Z",
+  "name": "Medium",
+  "description": "50 feet",
+  "index": 2
 }

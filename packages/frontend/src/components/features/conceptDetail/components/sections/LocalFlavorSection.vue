@@ -99,12 +99,12 @@ const hasContent = computed(() =>
 const syncLocalData = (sourceConcept) => {
   if (!sourceConcept) return
   localData.value = {
-    names: sourceConcept.names || '',
-    occupations: sourceConcept.occupations || '',
-    publicHouses: sourceConcept.publicHouses || '',
-    vittles: sourceConcept.vittles || '',
-    pointsOfInterest: sourceConcept.pointsOfInterest || '',
-    floraFauna: sourceConcept.floraFauna || ''
+    names: sourceConcept.localFlavor?.names || '',
+    occupations: sourceConcept.localFlavor?.occupations || '',
+    publicHouses: sourceConcept.localFlavor?.publicHouses || '',
+    vittles: sourceConcept.localFlavor?.vittles || '',
+    pointsOfInterest: sourceConcept.localFlavor?.pointsOfInterest || '',
+    floraFauna: sourceConcept.localFlavor?.floraFauna || ''
   }
 }
 
@@ -113,7 +113,8 @@ const toggleEditing = async () => {
 
   if (isSectionEditing.value) {
     if (concept.value) {
-      Object.assign(concept.value, localData.value)
+      if (!concept.value.localFlavor) concept.value.localFlavor = {}
+      Object.assign(concept.value.localFlavor, localData.value)
       await conceptsStore.update(concept.value)
     }
     isSectionEditing.value = false

@@ -1,9 +1,22 @@
 {
   "id": "68c1813a-a233-4252-bbda-ca81c001fa16",
+  "isDeleted": false,
+  "createdAt": "2026-05-06T17:55:10.305Z",
+  "lastModified": "2026-05-06T17:55:10.305Z",
   "name": "Corseque",
+  "artUrl": null,
   "description": "Weight: 3-7. Length: 7-10",
-  "keeping": null,
+  "successes": null,
+  "improvements": [],
   "source": null,
+  "school": null,
+  "keeping": null,
+  "isCustom": false,
+  "isTemplate": true,
+  "isMagical": false,
+  "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
+  "subtype": "3d4f28d9-d757-4789-b3a2-0e9fffda4fc0",
+  "grade": "847d1092-fd43-4d58-b3da-002e6f3b7f3d",
   "weight": 3,
   "length": 7,
   "reach": 0,
@@ -22,12 +35,5 @@
     "b2c3d4e5-f6a7-48b9-c0d1-e2f3a4b5c6d7",
     "a3b4c5d6-e7f8-49a0-b1c2-d3e4f5a6b7c8"
   ],
-  "skillMods": [],
-  "isDeleted": false,
-  "isCustom": false,
-  "isTemplate": true,
-  "artUrl": null,
-  "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
-  "subtype": "3d4f28d9-d757-4789-b3a2-0e9fffda4fc0",
-  "grade": "847d1092-fd43-4d58-b3da-002e6f3b7f3d"
+  "defenseBonus": 0
 }

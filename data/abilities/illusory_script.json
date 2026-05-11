@@ -1,15 +1,15 @@
 {
-  "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
   "id": "190aa098-ee87-46ba-937c-c052e4d3f032",
   "createdAt": "2026-04-14T19:56:16.219Z",
   "lastModified": "2026-04-14T20:03:11.936Z",
   "name": "Illusory Script",
-  "description": "<p><em>Casting time: 1 minute.</em></p><p>You write a message on a suitable surface and imbue it with an illusory appearance.</p><p>To you and any creatures you designate when you cast the spell, the writing appears normal, written in your hand, and conveys whatever meaning you intended when you wrote the text. To all others, the writing appears as if it were written in an unknown or unintelligible script. Alternatively, you can cause the writing to appear to be an entirely different message, written in a different hand and/or language you know.</p><p>Should the spell be dispelled, the original script and the illusion both disappear.</p>",
-  "type": "f6a1b2c3-d4e5-4f6a-eb3c-2d1e0f9a8b7c",
-  "mp": 1,
-  "xp": 5,
-  "isMagical": true,
-  "school": "ed9b382c-f5e3-458e-a7b7-d3cc74e09894",
   "artUrl": "https://cdn.midjourney.com/1783e3de-480c-4188-a5c5-1d86abb12e90/0_2.png",
-  "successes": ""
+  "description": "<p><em>Casting time: 1 minute.</em></p><p>You write a message on a suitable surface and imbue it with an illusory appearance.</p><p>To you and any creatures you designate when you cast the spell, the writing appears normal, written in your hand, and conveys whatever meaning you intended when you wrote the text. To all others, the writing appears as if it were written in an unknown or unintelligible script. Alternatively, you can cause the writing to appear to be an entirely different message, written in a different hand and/or language you know.</p><p>Should the spell be dispelled, the original script and the illusion both disappear.</p>",
+  "successes": "",
+  "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
+  "school": "ed9b382c-f5e3-458e-a7b7-d3cc74e09894",
+  "isMagical": true,
+  "actionCost": "c7ea4889-0dc9-40cb-a437-70329cac43ab",
+  "mpCost": 1,
+  "xpCost": 5
 }

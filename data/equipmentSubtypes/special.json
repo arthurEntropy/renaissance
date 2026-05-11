@@ -1,9 +1,10 @@
 {
   "id": "956839d8-393c-4743-9cb3-8038c8a7aa93",
-  "name": "Special",
-  "typeId": "9b22f01b-1c40-4f10-abec-00b4d279197f",
-  "description": "Unique or unconventional weapons",
-  "index": 4,
   "isDeleted": false,
-  "lastModified": "2026-04-15T14:13:11.560Z"
+  "createdAt": "2026-05-06T18:00:33.219Z",
+  "lastModified": "2026-04-15T14:13:11.560Z",
+  "name": "Special",
+  "parentTypeId": "9b22f01b-1c40-4f10-abec-00b4d279197f",
+  "description": "Unique or unconventional weapons",
+  "index": 4
 }

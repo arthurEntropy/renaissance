@@ -4,27 +4,19 @@
   "name": "Drow",
   "description": "<p>Distant kindred of the Elves, the Drow spent countless generations living in the lightless places of the world. They are well-adapted to darkness, with skin ranging from dark gray to violet, eyes wide and golden, hair almost universally white. These adaptations seem to have been hard-won though, as attested by their capacity today for ferocity in the face of danger.</p>",
   "isDeleted": false,
-  "artUrls": [
+  "featuredArtUrls": [
     "https://cdn.midjourney.com/0333b110-ab2f-4965-ae32-3c67dba0a0f3/0_2.png"
   ],
-  "faces": [],
-  "places": [],
-  "backgroundImage": "https://cdn.midjourney.com/4e63ff43-ce15-464c-a754-abbf80477916/0_3.png",
+  "backgroundImage": "https://cdn.midjourney.com/f8c33089-e573-46c2-a31e-e3cb6fa84f32/0_2.png",
+  "cardBackgroundImage": "https://cdn.midjourney.com/4e63ff43-ce15-464c-a754-abbf80477916/0_3.png",
   "expansion": "824cad94-3a4a-4df3-b81a-ede17b84644b",
-  "hooks": [],
-  "playlists": [],
-  "names": "",
-  "occupations": "",
-  "publicHouses": "",
-  "vittles": "",
-  "pointsOfInterest": "",
-  "floraFauna": "",
   "lastModified": "2026-04-24T13:04:23.512Z",
-  "detailBackgroundImage": "https://cdn.midjourney.com/f8c33089-e573-46c2-a31e-e3cb6fa84f32/0_2.png",
-  "heightMin": 5,
-  "heightMax": 6,
-  "weightMin": 75,
-  "weightMax": 225,
-  "lifespan": "500 years",
-  "speed": 30
+  "physiology": {
+    "heightMin": 5,
+    "heightMax": 6,
+    "weightMin": 75,
+    "weightMax": 225,
+    "lifespan": "500 years",
+    "speed": 30
+  }
 }

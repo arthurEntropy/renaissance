@@ -1,9 +1,10 @@
 {
-  "name": "Shuriken",
-  "description": "",
-  "typeId": "9b22f01b-1c40-4f10-abec-00b4d279197f",
-  "index": 7,
   "id": "dfa9e6e6-f759-47ce-b267-de70ccc885cd",
+  "isDeleted": false,
   "createdAt": "2026-04-15T14:13:22.323Z",
-  "lastModified": "2026-04-15T14:13:27.915Z"
+  "lastModified": "2026-04-15T14:13:27.915Z",
+  "name": "Shuriken",
+  "parentTypeId": "9b22f01b-1c40-4f10-abec-00b4d279197f",
+  "description": "",
+  "index": 7
 }

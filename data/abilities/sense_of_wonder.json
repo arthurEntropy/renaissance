@@ -1,13 +1,11 @@
 {
   "id": "666b2870-f941-452a-a5c2-ff801d1ad955",
+  "isDeleted": false,
+  "lastModified": "2026-02-12T21:37:52.078Z",
   "name": "Sense of Wonder",
   "description": "<p>Once per rest, when you encounter an exceptionally beautiful natural place of phenomenon, you may spend time taking it in. Describe how you experience it and what details you notice. If you spend at least one hour, take 1d that can be used on any roll. If you spend at least one day, take 3d. These persist until the next time you invoke this ability.</p>",
-  "canBeActive": false,
-  "isActive": true,
   "source": "f66ab54f-ef77-4d04-9ae3-ca575615a6d1",
-  "isDeleted": false,
-  "mp": null,
-  "xp": null,
-  "lastModified": "2026-02-12T21:37:52.078Z",
-  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": null
 }

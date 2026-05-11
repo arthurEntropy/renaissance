@@ -4,13 +4,11 @@
   "createdAt": "2026-02-02T15:35:58.389Z",
   "lastModified": "2026-03-17T01:57:30.728Z",
   "name": "Summon",
-  "description": "<p>You open one of your active vessels, summoning the creature inside. The creature appears in the nearest space to you within short range where it can fit. If no such space exists, or if you already have another creature summoned, it immediately returns to its vessel.</p><p>You may use this ability instead of rolling initiative at the start of combat. If you do, the creature rolls initiative in your stead.</p><p>You control the creature’s actions. By default, it has 0 actions and reactions. On each of your turns, you may transfer any number of your actions and reactions to the creature for it to use. As the creature acts, it uses its own stats and abilities as shown on its character sheet.</p><p>If you do not command the creature, it takes no actions, though it will defend itself if attacked (rolling engagement as needed). If its Friendship is 5 or higher, it will also defend you by default, moving to interpose itself between you and a threat.</p><p>On your turn, you may spend a half action to recall the creature to its vessel if it is within far range. If at any time you or the creature are knocked unconscious, the creature immediately returns to its vessel if it is within far range.</p><p><strong>Describe how you summon your creature.</strong></p>",
-  "canBeActive": false,
-  "isActive": true,
-  "source": "558abd15-f90f-40d7-80d8-df73a37f977c",
-  "mp": null,
-  "xp": null,
-  "manaCost": null,
   "artUrl": "https://cdn.midjourney.com/0847e1ba-bdd3-41eb-9b08-7cff02606e5b/0_2.png",
-  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e"
+  "description": "<p>You open one of your active vessels, summoning the creature inside. The creature appears in the nearest space to you within short range where it can fit. If no such space exists, or if you already have another creature summoned, it immediately returns to its vessel.</p><p>You may use this ability instead of rolling initiative at the start of combat. If you do, the creature rolls initiative in your stead.</p><p>You control the creature’s actions. By default, it has 0 actions and reactions. On each of your turns, you may transfer any number of your actions and reactions to the creature for it to use. As the creature acts, it uses its own stats and abilities as shown on its character sheet.</p><p>If you do not command the creature, it takes no actions, though it will defend itself if attacked (rolling engagement as needed). If its Friendship is 5 or higher, it will also defend you by default, moving to interpose itself between you and a threat.</p><p>On your turn, you may spend a half action to recall the creature to its vessel if it is within far range. If at any time you or the creature are knocked unconscious, the creature immediately returns to its vessel if it is within far range.</p><p><strong>Describe how you summon your creature.</strong></p>",
+  "source": "558abd15-f90f-40d7-80d8-df73a37f977c",
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "mpCost": null,
+  "xpCost": null,
+  "manaCost": null
 }

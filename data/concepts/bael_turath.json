@@ -4,21 +4,21 @@
   "name": "Bael Turath",
   "description": "Deep in the half-light beneath towering colonnades of ancient trees, the Fey Court presides over the city which has grown up around it. Pageantry and intrigue are the rule of the day among the Courtiers, while the rest of the city maneuvers to anticipate and benefit from the various fads, rises and falls among the Fey. Despite this turmoil, the Fey seem to draw more and more power from the forest, and new, fearsome beasts have begun appearing in the surrounding foothills…",
   "isDeleted": false,
-  "artUrls": [
+  "featuredArtUrls": [
     "https://cdn.midjourney.com/b392c2f0-750f-47fe-ba27-d906e661d74a/0_0.png"
   ],
-  "faces": [],
-  "places": [],
-  "backgroundImage": "https://cdn.midjourney.com/ce7aa2b1-a531-4201-acaf-b95e9d99c25c/0_1.png",
+  "backgroundImage": "https://cdn.midjourney.com/9ff8cfd6-5d65-4257-96ce-3d9ea4e258c1/0_2_2048_N.webp",
+  "cardBackgroundImage": "https://cdn.midjourney.com/ce7aa2b1-a531-4201-acaf-b95e9d99c25c/0_1.png",
   "expansion": "e46f4320-a414-4300-95d5-397ba717d982",
-  "hooks": [],
   "playlists": [],
-  "names": "",
-  "occupations": "",
-  "publicHouses": "",
-  "vittles": "",
-  "pointsOfInterest": "",
-  "floraFauna": "",
-  "lastModified": "2026-03-13T20:35:24.785Z",
-  "detailBackgroundImage": "https://cdn.midjourney.com/9ff8cfd6-5d65-4257-96ce-3d9ea4e258c1/0_2_2048_N.webp"
+  "hooks": [],
+  "localFlavor": {
+    "names": "",
+    "occupations": "",
+    "publicHouses": "",
+    "vittles": "",
+    "pointsOfInterest": "",
+    "floraFauna": ""
+  },
+  "lastModified": "2026-03-13T20:35:24.785Z"
 }

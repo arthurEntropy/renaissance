@@ -4,19 +4,20 @@
   "name": "The Murgle",
   "description": "<p>Once an empty stretch of sea, the sudden rising of ancient ruins populated by singing automatons was met with fear and wonder. As the ruins gathered beaches and vegetation about them, the Grung appeared, quickly populating the new archipelago, seemingly immune to the “persistent magical malaise” emanating from the islands. Eventually, they learned to communicate with the automatons - the Gearborn, of ancient Dwarven make - and quickly grew to rely on their services. When the Potluck Plague wreaked havoc on the lazy frogkin, they quickly placed blame on the Gearborn and made to scour the islands of their presence. A stalemate quickly developed and the emergence of yet more ruins from the sea quashed any notions of further offensives from the Grung. Tensions have lessened in recent years, especially as Kerok has taken an interest in the Gearborn and brought more connection between the Murgle and the rest of Iago…</p>",
   "isDeleted": false,
-  "artUrls": [
+  "featuredArtUrls": [
     "https://cdn.midjourney.com/e270e21a-56a5-43d5-b824-99645450c6cd/0_2.png"
   ],
-  "faces": [],
-  "places": [],
-  "backgroundImage": "https://cdn.midjourney.com/144c469b-9011-4088-9771-93f33af2f2c3/0_0.png",
+  "backgroundImage": "",
+  "cardBackgroundImage": "https://cdn.midjourney.com/144c469b-9011-4088-9771-93f33af2f2c3/0_0.png",
   "expansion": "e46f4320-a414-4300-95d5-397ba717d982",
-  "hooks": [],
   "playlists": [],
-  "names": "",
-  "occupations": "",
-  "publicHouses": "",
-  "vittles": "",
-  "pointsOfInterest": "",
-  "floraFauna": ""
+  "hooks": [],
+  "localFlavor": {
+    "names": "",
+    "occupations": "",
+    "publicHouses": "",
+    "vittles": "",
+    "pointsOfInterest": "",
+    "floraFauna": ""
+  }
 }

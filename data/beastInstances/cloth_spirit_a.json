@@ -1,0 +1,182 @@
+{
+  "id": "4cc4b2c9-6e9f-44cc-b933-6208107e6f48",
+  "createdAt": "2026-05-01T15:41:41.036Z",
+  "lastModified": "2026-05-04T15:56:45.347Z",
+  "name": "Cloth Spirit A",
+  "pronouns": "",
+  "ancestryIds": [],
+  "cultureIds": [],
+  "mestiereId": null,
+  "featuredArtUrls": [
+    "https://cdn.midjourney.com/26bda6d5-9d4f-46e7-954f-c9e28e55d675/0_0.jpeg"
+  ],
+  "speed": 0,
+  "xp": 0,
+  "notes": "",
+  "characterType": "beastInstance",
+  "templateId": "09f7035a-0826-4761-af7a-49ef27655cd2",
+  "body": 0,
+  "heart": 0,
+  "wits": 0,
+  "skills": [
+    {
+      "key": "awe",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "strength",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "dexterity",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "fortitude",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "craft",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "perform",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "insight",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "courtesy",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "spirit",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "aid",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "persuade",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "awareness",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "stealth",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "lore",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "riddle",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    }
+  ],
+  "endurance": {
+    "current": 0,
+    "base": 0
+  },
+  "hope": {
+    "current": 0,
+    "base": 0
+  },
+  "defense": {
+    "current": 0,
+    "base": 0
+  },
+  "load": 0,
+  "shadow": 0,
+  "injury": 0,
+  "states": {
+    "weary": false,
+    "twiceWeary": false,
+    "miserable": false,
+    "twiceMiserable": false,
+    "helpless": false,
+    "twiceHelpless": false
+  },
+  "conditions": {
+    "insecure": false,
+    "guilty": false,
+    "angry": false,
+    "afraid": false,
+    "troubled": false
+  },
+  "equipment": [],
+  "mp": {
+    "current": 0,
+    "base": 0
+  },
+  "abilities": [],
+  "witchcraftTokens": [],
+  "campaignId": "2216d52f-f74d-479e-b440-f7b5aa6319e5",
+  "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1"
+}

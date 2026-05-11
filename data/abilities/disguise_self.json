@@ -1,28 +1,28 @@
 {
-  "source": "dab3e414-0118-49be-9779-4e3018cdba71",
   "id": "56619d29-3c7b-4d27-9a22-1616c5a54fb7",
   "createdAt": "2026-04-03T15:21:31.509Z",
   "lastModified": "2026-04-09T17:44:58.924Z",
   "name": "Disguise Self",
-  "description": "<p><em>Concentration, up to 1 hour.</em></p><p>You create an illusory disguise, transforming your appearance. You decide what you look like, including your height, weight, facial features, sound of your voice, hair length, coloration, apparent ancestry and distinguishing characteristics, if any. You must remain humanoid and the changes to your height and weight may be no more than 2 ft and 200 lbs, respectively. Roll Perform to set the Difficulty.</p><p>While the spell lasts, you may spend an action to change your appearance in this way again.</p><p>The illusion does not withstand physical inspection. A creature can spend an action and roll Insight against the Difficulty to see through the illusion, which becomes translucent to them on a pass.</p><p><strong>Describe how you transform.</strong></p>",
-  "mp": 2,
-  "xp": 10,
-  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
-  "isMagical": true,
-  "school": "7182a00c-40d0-4044-aeaa-6dd75e1afcd5",
   "artUrl": "https://cdn.midjourney.com/c8b9057a-9f0b-4f42-ae77-a1dc86e0f4a0/0_0.png",
+  "description": "<p><em>Concentration, up to 1 hour.</em></p><p>You create an illusory disguise, transforming your appearance. You decide what you look like, including your height, weight, facial features, sound of your voice, hair length, coloration, apparent ancestry and distinguishing characteristics, if any. You must remain humanoid and the changes to your height and weight may be no more than 2 ft and 200 lbs, respectively. Roll Perform to set the Difficulty.</p><p>While the spell lasts, you may spend an action to change your appearance in this way again.</p><p>The illusion does not withstand physical inspection. A creature can spend an action and roll Insight against the Difficulty to see through the illusion, which becomes translucent to them on a pass.</p><p><strong>Describe how you transform.</strong></p>",
   "improvements": [
     {
       "name": "Disguise Person",
       "description": "<p>You may target another humanoid creature you touch. If the creature is unwilling, it may roll Insight against the Difficulty to resist. On a pass, the spell has no effect on the creature.</p>",
-      "xp": 20,
+      "xpCost": 20,
       "id": "9d4f6632-b4e0-406d-8451-b3e940828d26"
     },
     {
       "name": "Seeming",
       "description": "<p>You may target any number of creatures - humanoid or non-humanoid - within short range. In addition to the restrictions described above, you cannot change a creature's body type (for example, a four-legged creature must remain four-legged when disguised).</p>",
-      "xp": 30,
+      "xpCost": 30,
       "id": "2566be82-185a-42eb-ab5d-591c5dadc04e"
     }
-  ]
+  ],
+  "source": "dab3e414-0118-49be-9779-4e3018cdba71",
+  "school": "7182a00c-40d0-4044-aeaa-6dd75e1afcd5",
+  "isMagical": true,
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "mpCost": 2,
+  "xpCost": 10
 }

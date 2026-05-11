@@ -1,16 +1,14 @@
 {
   "id": "b20b4f5e-7c7c-4b43-b180-991cf07d0712",
-  "name": "Channel",
-  "description": "<p>Add one mana of any color to your mana pool. If you have already used this ability this turn, check a Condition.</p><p><strong>Describe how you channel mana.</strong></p>",
-  "canBeActive": false,
-  "isActive": true,
-  "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
   "isDeleted": false,
-  "mp": null,
-  "xp": null,
   "lastModified": "2026-03-12T20:29:34.746Z",
-  "successes": "",
+  "name": "Channel",
   "artUrl": "https://cdn.midjourney.com/97ae27de-76f5-4313-bc52-2601156959b3/0_0.png",
-  "type": "c3d4e5f6-a1b2-4c3d-be0f-9a8b7c6d5e4f",
-  "isMagical": false
+  "description": "<p>Add one mana of any color to your mana pool. If you have already used this ability this turn, check a Condition.</p><p><strong>Describe how you channel mana.</strong></p>",
+  "successes": "",
+  "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
+  "isMagical": false,
+  "actionCost": "40656418-af01-43ae-8a60-a1bd0124efb4",
+  "mpCost": null,
+  "xpCost": null
 }

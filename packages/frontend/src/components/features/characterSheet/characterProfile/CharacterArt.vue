@@ -93,7 +93,7 @@ const editModal = useModal()
 const tempArtUrl = ref('')
 
 const characterImageUrl = computed(() => {
-    return character.value?.artUrls?.[0] ?? ''
+    return character.value?.featuredArtUrls?.[0] ?? ''
 })
 
 // Optimized image URL for display
@@ -110,20 +110,20 @@ const openFullSizeArtModal = () => {
 }
 
 const openEditModal = () => {
-    tempArtUrl.value = character.value?.artUrls?.[0] || ''
+    tempArtUrl.value = character.value?.featuredArtUrls?.[0] || ''
     editModal.openModal()
 }
 
 const saveArtUrl = () => {
-    if (!character.value.artUrls) {
-        character.value.artUrls = []
+    if (!character.value.featuredArtUrls) {
+        character.value.featuredArtUrls = []
     }
-    character.value.artUrls[0] = tempArtUrl.value
+    character.value.featuredArtUrls[0] = tempArtUrl.value
     editModal.closeModal()
 }
 
 const handleEditModalOverlayClick = () => {
-    const originalUrl = character.value?.artUrls?.[0] || ''
+    const originalUrl = character.value?.featuredArtUrls?.[0] || ''
     const hasChanges = tempArtUrl.value !== originalUrl
 
     if (hasChanges) {

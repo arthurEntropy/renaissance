@@ -1,9 +1,22 @@
 {
   "id": "e43614f2-91e1-495f-9d4f-7cdc4d87d3be",
+  "isDeleted": false,
+  "createdAt": "2026-05-06T17:55:10.305Z",
+  "lastModified": "2025-12-26T19:46:35.422Z",
   "name": "Dirk",
+  "artUrl": "https://cdn.midjourney.com/ee64e6a4-9c25-4c15-8e8d-29b00d8a6115/0_0.png",
   "description": "",
-  "keeping": "3c4d5e6f-7a8b-4c9d-0e1f-2a3b4c5d6e7f",
+  "successes": null,
+  "improvements": [],
   "source": "5a639d7b-847a-468b-9bbe-5275d31fdf66",
+  "school": null,
+  "keeping": "3c4d5e6f-7a8b-4c9d-0e1f-2a3b4c5d6e7f",
+  "isCustom": false,
+  "isTemplate": false,
+  "isMagical": false,
+  "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
+  "subtype": "ab765755-b7c9-47ac-b62f-34f069e00dc3",
+  "grade": "ad30b114-3c19-413f-aad2-5f270bd95684",
   "weight": 1,
   "length": 1,
   "reach": 0,
@@ -19,13 +32,5 @@
     6
   ],
   "engagementSuccesses": [],
-  "skillMods": [],
-  "isDeleted": false,
-  "isCustom": false,
-  "isTemplate": false,
-  "artUrl": "https://cdn.midjourney.com/ee64e6a4-9c25-4c15-8e8d-29b00d8a6115/0_0.png",
-  "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
-  "subtype": "ab765755-b7c9-47ac-b62f-34f069e00dc3",
-  "grade": "ad30b114-3c19-413f-aad2-5f270bd95684",
-  "lastModified": "2025-12-26T19:46:35.422Z"
+  "defenseBonus": 0
 }

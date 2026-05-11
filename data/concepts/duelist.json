@@ -4,45 +4,39 @@
   "name": "Duelist",
   "description": "<p>The blade comes up and the room narrows to a single point of attention—the line between you and the person across from you. Everything else recedes: the crowd, the noise, the stakes. There is only footwork, timing, and the correct next move. You already know what it is. You've done this before.</p><p>Duelists are masters of personal combat who have elevated the art of the sword beyond mere survival into a discipline of constant refinement and studied execution. Where soldiers fight with numbers and force, a Duelist invests in precision: careful footwork, crisply timed strikes, and a studied attention to form. To the Duelist, every exchange is more than a physical contest—it is a test of character, technique, and willpower.</p><p>Central to every Duelist's practice is the concept of <em>good form</em>: the composure, exactness, and presence of mind that distinguishes a trained master from a desperate fighter. Maintaining form in the heat of battle is its own reward, sharpening focus and building the momentum to press opponents harder with each exchange. When a Duelist is fully in their element, every won engagement feeds that momentum—and momentum itself becomes a weapon. A Duelist who has held their ground patiently can suddenly release that stockpile of poise in a devastating lunge or a perfectly timed coup de grâce.</p><p>The Duelist is also a creature of honor, or at least its performance. A favored tactic is the deliberate <em>demand for satisfaction</em>: using force of personality and social confidence to compel one's opponent into undivided attention, making them abandon all others on the field of battle. This isn't manipulation, exactly—it's a kind of contest fought in the space between two gazes before the first blade is drawn.</p><p>Duelists favor light weapons, light armor, and swift footwork, trading the protection of heavier gear for freedom of movement. Their engagements are fought with many small dice: reading an opponent through a feint, controlling distance with a compass step, deflecting a blow outright with a parry, or slipping back out of reach with a controlled retreat. Those who value a measure of extra defense without sacrificing agility may add a buckler to their off hand—or a second blade altogether, opening the door to relentless follow-up attacks whenever the first thrust falls short. In any form, dueling is a dialogue at blade's edge, every move an argument that demands a response.</p><h3>Play a Duelist if you want to:</h3><ul><li><p><strong>Fight with precision and style</strong>, building momentum through disciplined engagement and spending it at the perfect moment.</p></li><li><p><strong>Demand to be met as an equal</strong>, using composure and bearing to compel opponents to face you and you alone.</p></li><li><p><strong>Read and outmaneuver your opponents</strong>, answering every attack with technique and timing rather than raw strength.</p></li></ul><h3>Questions to consider when making a Duelist:</h3><ul><li><p>Who trained them? Do they follow a particular school of swordsmanship, or have they developed their own style through years of hard experience?</p></li><li><p>What does <em>good form</em> mean to them personally—a source of pride, a survival skill, a kind of aesthetic devotion, or all three?</p></li><li><p>What first drew them to dueling? An affair of honor, the influence of a mentor, a need to prove themselves, or simply a love of the craft?</p></li><li><p>Do they carry that sense of honor into the rest of their life, or is the dueling ground the only place they hold themselves to a higher standard?</p></li><li><p>Have they ever lost a duel that truly mattered? What did it cost them, and what did it teach them?</p></li></ul>",
   "isDeleted": false,
-  "artUrls": [
+  "featuredArtUrls": [
     "https://cdn.midjourney.com/bb7f8092-0710-4aaf-9f26-e376a0cec04e/0_0.png"
   ],
-  "faces": [],
-  "places": [],
-  "backgroundImage": "https://cdn.midjourney.com/0f6778cb-4d1e-47f5-b37a-2ce56238195a/0_3.png",
+  "backgroundImage": "https://cdn.midjourney.com/1970a4d1-e869-4458-b57d-728d48bacafa/0_0.png",
+  "cardBackgroundImage": "https://cdn.midjourney.com/0f6778cb-4d1e-47f5-b37a-2ce56238195a/0_3.png",
   "expansion": "",
-  "hooks": [],
-  "playlists": [],
-  "names": "",
-  "occupations": "",
-  "publicHouses": "",
-  "vittles": "",
-  "pointsOfInterest": "",
-  "floraFauna": "",
   "novizio": {
-    "flavorText": "",
-    "melee": [
-      "ad30b114-3c19-413f-aad2-5f270bd95684",
-      "847d1092-fd43-4d58-b3da-002e6f3b7f3d",
-      "ebcc2bcb-8221-4ca0-bef3-000fb7e59e96"
-    ],
-    "polearm": [],
-    "ranged": [],
-    "firearm": [
-      "ad30b114-3c19-413f-aad2-5f270bd95684"
-    ],
-    "armor": [
-      "ad30b114-3c19-413f-aad2-5f270bd95684"
-    ],
-    "martialNotes": "",
-    "engagementDice": {
-      "4": 2,
-      "6": 0,
-      "8": 0,
-      "10": 0,
-      "12": 0,
-      "20": 0
+    "description": "<p>Cras nec quam a lectus hendrerit facilisis quis a libero. Ut nibh ex, varius ut magna sit amet, blandit eleifend enim. Interdum et malesuada fames ac ante ipsum primis in faucibus. Donec luctus ut mi id venenatis. Sed molestie non.</p>",
+    "martialTraining": {
+      "meleeGrades": [
+        "ad30b114-3c19-413f-aad2-5f270bd95684",
+        "847d1092-fd43-4d58-b3da-002e6f3b7f3d",
+        "ebcc2bcb-8221-4ca0-bef3-000fb7e59e96"
+      ],
+      "polearmGrades": [],
+      "rangedGrades": [],
+      "firearmGrades": [
+        "ad30b114-3c19-413f-aad2-5f270bd95684"
+      ],
+      "armorGrades": [
+        "ad30b114-3c19-413f-aad2-5f270bd95684"
+      ]
     },
+    "martialTrainingNotes": "",
+    "engagementDice": [
+      {
+        "dieSize": 4
+      },
+      {
+        "dieSize": 4
+      }
+    ],
+    "engagementDiceNotes": "<p>Multiply this base allotment by your WITS score <em>(for example, a WITS score of 3 means you get 6d4)</em>. The allotment changes as your WITS score changes.</p>",
     "engagementSuccesses": [
       "b2c3d4e5-f6a7-48b9-c0d1-e2f3a4b5c6d7",
       "d4e5f6a7-b8c9-40d1-e2f3-a4b5c6d7e8f9",
@@ -52,13 +46,13 @@
       "c9d0e1f2-a3b4-45c6-d7e8-f9a0b1c2d3e4",
       "d0e1f2a3-b4c5-46d7-e8f9-a0b1c2d3e4f5"
     ],
-    "engagementNotes": "<p>Multiply this base allotment by your WITS score <em>(for example, a WITS score of 3 means you get 6d4)</em>. The allotment changes as your WITS score changes.</p>",
     "engagementSuccessNotes": "",
     "baseMP": 0,
-    "mpNotes": "<p>You can gain MP through your <em>Good Form</em> ability.</p>",
+    "baseMpNotes": "<p>You can gain MP through your <em>Good Form</em> ability.</p>",
     "abilities": "<p><em>Demand Satisfaction</em>, <em>Good Form</em> and choose one, ignoring its XP cost: <em>Press Advantage, Quick Draw, </em>or <em>Lunge.</em></p>",
-    "description": "<p>Cras nec quam a lectus hendrerit facilisis quis a libero. Ut nibh ex, varius ut magna sit amet, blandit eleifend enim. Interdum et malesuada fames ac ante ipsum primis in faucibus. Donec luctus ut mi id venenatis. Sed molestie non.</p>"
+    "gratuiti": ""
   },
   "lastModified": "2026-04-15T18:38:46.555Z",
-  "detailBackgroundImage": "https://cdn.midjourney.com/1970a4d1-e869-4458-b57d-728d48bacafa/0_0.png"
+  "hooks": [],
+  "playlists": []
 }

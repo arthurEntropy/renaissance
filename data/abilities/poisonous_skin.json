@@ -1,14 +1,12 @@
 {
   "id": "f957c002-8de8-42f5-9452-2edd153e6bca",
-  "name": "Poisonous Skin",
-  "description": "<p><em>Your skin secretes poison.</em></p><p>When any non-Grung creature comes into direct contact with your skin, they take 1d4 damage. On a 4, they also take 1 Injury.</p><p><strong>Describe the poison and its effects.</strong></p>",
-  "canBeActive": false,
-  "isActive": true,
-  "source": "9250fcc5-9bc9-4724-815d-4411e79d403c",
   "isDeleted": false,
-  "mp": null,
-  "xp": null,
-  "artUrl": "https://cdn.midjourney.com/1451268a-8d6c-4664-aa8d-6bfd2cd9dd15/0_3.png",
   "lastModified": "2026-03-19T02:28:36.089Z",
-  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
+  "name": "Poisonous Skin",
+  "artUrl": "https://cdn.midjourney.com/1451268a-8d6c-4664-aa8d-6bfd2cd9dd15/0_3.png",
+  "description": "<p><em>Your skin secretes poison.</em></p><p>When any non-Grung creature comes into direct contact with your skin, they take 1d4 damage. On a 4, they also take 1 Injury.</p><p><strong>Describe the poison and its effects.</strong></p>",
+  "source": "9250fcc5-9bc9-4724-815d-4411e79d403c",
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": null
 }

@@ -7,7 +7,7 @@
     <!-- XP badge positioned relative to main description when character owns any improvements OR when improvements are expanded -->
     <template #description-badge>
       <BadgeDisplay v-if="(shouldShowBaseXpBadge || !!character) && (characterOwnsAnyImprovements || showImprovements)"
-        type="xp" :value="ability.xp ?? null" :is-owned="characterHasBaseAbility" :asImprovementBadge="true"
+        type="xp" :value="ability.xpCost ?? null" :is-owned="characterHasBaseAbility" :asImprovementBadge="true"
         :is-interactive="!!character" :hidden-by-default="!shouldShowBaseXpBadge && !characterHasBaseAbility"
         @toggle="handleBaseAbilityToggle" />
     </template>
@@ -27,18 +27,6 @@
 
     <!-- Action buttons -->
     <template #buttons>
-
-      <!-- TODO: Figure out what to do with active status in character sheet UI (these are currently hidden) -->
-      <button v-if="showActionButtons && ability.canBeActive" class="bottom-buttons toggle-active-button"
-        @click.stop="toggleActive" :title="isActive ? 'Make inactive' : 'Make active'">
-        {{ isActive ? '💨' : '💥' }}
-      </button>
-
-      <button v-if="showActionButtons" class="bottom-buttons send-to-chat-button" @click.stop="sendAbilityToChat"
-        title="Send to chat">
-        💬
-      </button>
-
       <!-- Show improvements toggle button only if not all improvements are owned -->
       <button v-if="hasImprovements && !characterOwnsAllImprovements" class="bottom-buttons improvements-toggle-button"
         @click.stop="toggleImprovements" :title="showImprovements ? 'Hide improvements' : 'Show improvements'">
@@ -52,7 +40,7 @@
     <template #badges>
       <BadgeDisplay
         v-if="!collapsed && (shouldShowBaseXpBadge || !!character) && !characterOwnsAnyImprovements && !showImprovements"
-        type="xp" :value="ability.xp ?? null" :is-owned="characterHasBaseAbility" :is-interactive="!!character"
+        type="xp" :value="ability.xpCost ?? null" :is-owned="characterHasBaseAbility" :is-interactive="!!character"
         :hidden-by-default="!shouldShowBaseXpBadge && !characterHasBaseAbility" @toggle="handleBaseAbilityToggle" />
 
       <!-- Difficulty badge for abilities that set a difficulty -->
@@ -66,8 +54,8 @@
 import { computed } from 'vue'
 import { ChevronUpIcon, ChevronDownIcon } from '@heroicons/vue/24/outline'
 import { useCardPreview } from '@/composables/useCardPreview'
-import { useItemImprovements } from '@/composables/useItemImprovements'
-import { useActionTypesStore } from '@/stores/actionTypesStore'
+import { useImprovements } from '@/composables/useImprovements'
+import { useActionCostsStore } from '@/stores/actionCostsStore'
 import { useCharactersStore } from '@/stores/charactersStore'
 import { useBiomeStore } from '@/stores/biomeStore'
 import BaseCard from '@/components/ui/cards/item/BaseCard.vue'
@@ -127,7 +115,7 @@ const props = defineProps({
   },
 })
 
-const emit = defineEmits(['edit', 'update', 'sendToChat', 'update:collapsed', 'update:showImprovements', 'update:showSuccesses', 'height-changed', 'roll-link'])
+const emit = defineEmits(['edit', 'update', 'update:collapsed', 'update:showImprovements', 'update:showSuccesses', 'height-changed', 'roll-link'])
 
 const cardPreview = useCardPreview()
 
@@ -171,26 +159,23 @@ function onCardMouseDown() {
 }
 
 // Item improvements composable
-const { toggleImprovement, getCharacterImprovements } = useItemImprovements('abilities')
+const { toggleImprovement, getCharacterImprovements } = useImprovements('abilities')
 
 // Stores
-const actionTypesStore = useActionTypesStore()
+const actionTypesStore = useActionCostsStore()
 const charactersStore = useCharactersStore()
 const biomeStore = useBiomeStore()
-
-// Reactive state
-const isActive = computed(() => props.ability.isActive)
 
 // Computed properties
 const traitOrMp = computed(() => {
   const parts = []
-  if (props.ability.type) {
-    const abilityType = actionTypesStore.getById(props.ability.type)
+  if (props.ability.actionCost) {
+    const abilityType = actionTypesStore.getById(props.ability.actionCost)
     if (abilityType) {
       parts.push(abilityType.name.toLowerCase())
     }
   }
-  if (props.ability.mp) parts.push(`${props.ability.mp} MP`)
+  if (props.ability.mpCost) parts.push(`${props.ability.mpCost} MP`)
   return parts.join(', ')
 })
 
@@ -203,7 +188,7 @@ const characterHasBaseAbility = computed(() => {
 })
 
 const shouldShowBaseXpBadge = computed(() => {
-  return props.showXpBadge && !!props.ability.xp
+  return props.showXpBadge && !!props.ability.xpCost
 })
 
 const biomeDiceMod = computed(() => {
@@ -240,14 +225,6 @@ const characterOwnsAllImprovements = computed(() => {
 })
 
 // Methods
-const toggleActive = () => {
-  emit('update', { ...props.ability, isActive: !isActive.value })
-}
-
-const sendAbilityToChat = () => {
-  emit('sendToChat', props.ability)
-}
-
 const toggleImprovements = () => {
   emit('update:showImprovements', !props.showImprovements)
   emit('height-changed')
@@ -310,10 +287,6 @@ const handleBaseAbilityToggle = () => {
 
 .bottom-buttons:hover {
   text-shadow: var(--glow-sm);
-}
-
-.toggle-active-button {
-  right: 27px;
 }
 
 .send-to-chat-button {

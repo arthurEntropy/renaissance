@@ -15,14 +15,15 @@ const DIE_SYMBOL = {
 
 export function formatDiceSymbol(dieResult) {
   try {
-    const { dieSides, dieRollValue } = dieResult
+    const { dieRollValue } = dieResult
+    const dieSize = dieResult.die.dieSize
     const displayDieRollValue = dieRollValue === 0 && dieResult.originalDieRollValue ? dieResult.originalDieRollValue : dieRollValue
     
-    if (dieSides === DIE_TYPE.D12) {
+    if (dieSize === DIE_TYPE.D12) {
       if (displayDieRollValue === SPECIAL_ROLLS.SOL) return `${DIE_SYMBOL.D12}${SPECIAL_ROLLS.SOL}${EMOJI.SOL}`
       if (displayDieRollValue === SPECIAL_ROLLS.MORTE) return `${DIE_SYMBOL.D12}${SPECIAL_ROLLS.MORTE}${EMOJI.MORTE}`
       return `${DIE_SYMBOL.D12}${displayDieRollValue}`
-    } else if (dieSides === DIE_TYPE.D6) {
+    } else if (dieSize === DIE_TYPE.D6) {
       if (displayDieRollValue === SPECIAL_ROLLS.SUCCESS) return `${DIE_SYMBOL.D6}${SPECIAL_ROLLS.SUCCESS}${EMOJI.SUCCESS}`
       return `${DIE_SYMBOL.D6}${displayDieRollValue}`
     }

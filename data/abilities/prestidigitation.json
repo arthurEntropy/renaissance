@@ -1,13 +1,13 @@
 {
-  "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
   "id": "8d46af6e-4cfd-4515-a753-ae7488f011e2",
   "createdAt": "2026-04-14T01:55:39.415Z",
   "lastModified": "2026-04-14T13:56:44.686Z",
   "name": "Prestidigitation",
+  "artUrl": "https://cdn.midjourney.com/4f4b94e3-faef-4e15-bb76-dc5845c37408/0_3.png",
   "description": "<p>You create one of the following magical effects within short range:</p><ul><li><p>You create an instantaneous, harmless sensory effect, such as a shower of sparks, a puff of wind, faint musical notes, or an odd odor.</p></li></ul><ul><li><p>You instantaneously light or snuff out a candle, a torch, or a small campfire.</p></li></ul><ul><li><p>You instantaneously clean or soil an object no larger than 1 cubic foot.</p></li></ul><ul><li><p>You chill, warm, or flavor up to 1 cubic foot of nonliving material for 1 hour.</p></li></ul><ul><li><p>You make a color, a small mark, or a symbol appear on an object or a surface for 1 hour.</p></li></ul><ul><li><p>You create a nonmagical trinket or an illusory image that can fit in your hand and that lasts until the end of your next turn.</p></li></ul><p>If you cast this spell multiple times, you can have up to three of its non-instantaneous effects active at a time, and you can dismiss such an effect as an action.</p>",
-  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
-  "xp": 5,
-  "isMagical": true,
+  "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
   "school": "c4a153b2-8906-4b95-be65-d8e5a5cc73ff",
-  "artUrl": "https://cdn.midjourney.com/4f4b94e3-faef-4e15-bb76-dc5845c37408/0_3.png"
+  "isMagical": true,
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "xpCost": 5
 }

@@ -1,14 +1,14 @@
 {
-  "source": "dab3e414-0118-49be-9779-4e3018cdba71",
   "id": "f2a49fa1-e176-4c00-9652-a382ffc9b8c0",
   "createdAt": "2026-04-08T14:22:04.692Z",
   "lastModified": "2026-04-10T12:20:47.734Z",
   "name": "Mind Ward",
+  "artUrl": "https://cdn.midjourney.com/f222aaa2-79e1-4572-a9d0-969255915161/0_3.png",
   "description": "<p><em>Concentration, up to 1 day.</em></p><p>Your thoughts, memories, emotions and willpower are protected against magical perception and influence. Any spells that attempt to read your mind sense nothing and any spells that attempt to influence you automatically fail against you.</p><p><strong>Describe the ward.</strong></p>",
-  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
-  "mp": 5,
-  "xp": 25,
-  "isMagical": true,
+  "source": "dab3e414-0118-49be-9779-4e3018cdba71",
   "school": "b19b34c0-9627-4712-a9db-db6c3ccb261d",
-  "artUrl": "https://cdn.midjourney.com/f222aaa2-79e1-4572-a9d0-969255915161/0_3.png"
+  "isMagical": true,
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "mpCost": 5,
+  "xpCost": 25
 }

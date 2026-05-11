@@ -1,8 +1,10 @@
 {
   "id": "179c7626-c5b3-4b49-85fe-241258743ff7",
+  "isDeleted": false,
+  "createdAt": "2026-05-06T18:00:33.219Z",
+  "lastModified": "2026-05-06T18:00:33.219Z",
   "name": "Magic",
-  "typeId": "07e3c504-605e-495e-96d3-6b4177516821",
+  "parentTypeId": "07e3c504-605e-495e-96d3-6b4177516821",
   "description": "Items imbued with magical properties or enchantments",
-  "index": 11,
-  "isDeleted": false
+  "index": 11
 }

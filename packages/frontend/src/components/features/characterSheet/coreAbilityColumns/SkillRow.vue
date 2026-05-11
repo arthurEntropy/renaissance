@@ -1,7 +1,7 @@
 <template>
     <div class="skill-row">
         <span :class="['skill-name', { 'skill-name-clickable': canEdit }]" @click="handleSkillClick">
-            {{ skill.name }}
+            {{ skillLabel }}
         </span>
         <div v-if="canEdit" class="manual-dice-mod-controls">
             <button @click="incrementManualDiceMod" class="manual-spinner manual-spinner-up"
@@ -12,15 +12,17 @@
         <i class="dice-icon d12-icon"
             :class="[getDiceFontClass(DIE_TYPE.D12, DIE_TYPE.D12), getStyleClassForFavoredStatus(skill)]">
         </i>
-        <DiceGroup :skill="skill" :can-edit="canEdit" @update-ranks="emit('update-ranks', skill.name, $event)" />
+        <DiceGroup :skill="skill" :can-edit="canEdit" @update-ranks="emit('update-ranks', skillId, $event)" />
     </div>
 </template>
 
 <script setup>
 import { getDiceFontClass } from '@/utils/diceFontUtils'
 import { DIE_TYPE } from '@shared/constants/dice'
+import { getSkillId, getSkillLabel } from '@/utils/characterKeyUtils'
 import BaseRollService from '@/services/rolls/baseRollService'
 import DiceGroup from './DiceGroup.vue'
+import { computed } from 'vue'
 
 const props = defineProps({
     skill: {
@@ -35,6 +37,10 @@ const props = defineProps({
 
 const emit = defineEmits(['open-skill-check', 'update-ranks', 'update-manual-dice-mod'])
 
+const skillId = computed(() => getSkillId(props.skill))
+const skillLabel = computed(() => getSkillLabel(props.skill))
+
+/** @param {Record<string, any>} skill */
 const getStyleClassForFavoredStatus = (skill) => {
     const status = BaseRollService.getFavoredStatus(skill)
     return status || ''
@@ -42,18 +48,18 @@ const getStyleClassForFavoredStatus = (skill) => {
 
 const handleSkillClick = () => {
     if (props.canEdit) {
-        emit('open-skill-check', props.skill.name)
+        emit('open-skill-check', skillId.value)
     }
 }
 
 const incrementManualDiceMod = () => {
     const currentMod = props.skill.manualDiceMod || 0
-    emit('update-manual-dice-mod', props.skill.name, currentMod + 1)
+    emit('update-manual-dice-mod', skillId.value, currentMod + 1)
 }
 
 const decrementManualDiceMod = () => {
     const currentMod = props.skill.manualDiceMod || 0
-    emit('update-manual-dice-mod', props.skill.name, currentMod - 1)
+    emit('update-manual-dice-mod', skillId.value, currentMod - 1)
 }
 </script>
 

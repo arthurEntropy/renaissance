@@ -6,12 +6,12 @@ import BaseRollService from './baseRollService.js'
 class InjuryRollService extends BaseRollService {
 
   static makeInjuryRoll(character) {
-    const dicePool = [{ dieSides: DIE_TYPE.D12 }]
+    const dicePool = [{ dieSize: DIE_TYPE.D12 }]
     let diceResults = this.rollDicePool(dicePool)
 
     const featDieResult = diceResults[0]?.dieRollValue || 0
     const currentInjury = character.injury || 0
-    const maxDefense = character.defense?.max || 0
+    const baseDefense = character.defense?.base || 0
 
     let injuryApplied = 0
     let resultingInjury = currentInjury
@@ -20,9 +20,9 @@ class InjuryRollService extends BaseRollService {
     if (featDieResult === SPECIAL_ROLLS.SOL) {
       footer = 'No injury!'
     } else if (featDieResult === SPECIAL_ROLLS.MORTE) {
-      resultingInjury = Math.max(currentInjury, maxDefense)
+      resultingInjury = Math.max(currentInjury, baseDefense)
       injuryApplied = resultingInjury - currentInjury
-      footer = 'Injury increases to your max Defense.'
+      footer = 'Injury increases to your base Defense.'
     } else {
       injuryApplied = featDieResult
       resultingInjury = currentInjury + injuryApplied

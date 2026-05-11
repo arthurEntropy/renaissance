@@ -15,7 +15,7 @@
                             <input type="text" v-model="formData.name" id="name" class="modal-input"
                                 placeholder="Character name" />
                         </div>
-                        <div v-if="!character.isBeast" class="form-column pronouns-input">
+                        <div v-if="!isBeastCharacter" class="form-column pronouns-input">
                             <label for="pronouns" class="left-aligned">Pronouns:</label>
                             <input type="text" v-model="formData.pronouns" id="pronouns" class="modal-input"
                                 placeholder="they/them" />
@@ -23,7 +23,7 @@
                     </div>
 
                     <!-- Ancestries -->
-                    <template v-if="!character.isBeast">
+                    <template v-if="!isBeastCharacter">
                         <div class="form-group row">
                             <div class="form-column">
                                 <label for="ancestry1" class="left-aligned">Ancestries:</label>
@@ -175,7 +175,7 @@
                     </div>
                 </div>
 
-                <CharacterRollStats v-if="!character.isBeast" @reset-stats="resetStats" />
+                <CharacterRollStats v-if="!isBeastCharacter" @reset-stats="resetStats" />
             </div>
 
             <!-- Sticky Action Buttons -->
@@ -197,6 +197,7 @@ import { useConceptsStore } from '@/stores/conceptsStore'
 import { createEmptyRollStats } from '@/services/rolls/rollStatsService'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import CharacterRollStats from './CharacterRollStats.vue'
+import { isBeastTemplate, isBeastInstance } from '@/utils/characterTypeGuards'
 
 const charactersStore = useCharactersStore()
 const conceptsStore = useConceptsStore()
@@ -204,6 +205,9 @@ const conceptsStore = useConceptsStore()
 const emit = defineEmits(['close'])
 
 const character = charactersStore.selectedCharacter
+const isBeastCharacter = computed(() =>
+    isBeastTemplate(character) || isBeastInstance(character)
+)
 
 const formData = ref({
     name: '',
@@ -253,10 +257,9 @@ const closeModal = () => {
 }
 
 const saveChanges = () => {
-    if (character.isBeast) {
+    if (isBeastCharacter.value) {
         Object.assign(character, {
             name: formData.value.name,
-            pronouns: formData.value.pronouns,
             description: formData.value.description,
             size: formData.value.size,
             reach: formData.value.reach,
@@ -288,7 +291,8 @@ const hasSelectedAncestry = computed(() =>
 
 const parseLifespan = (lifespan) => {
     if (!lifespan) return null
-    const match = lifespan.match(/(\d+)/)
+    const normalized = typeof lifespan === 'number' ? String(lifespan) : lifespan
+    const match = normalized.match(/(\d+)/)
     return match ? parseInt(match[1]) : null
 }
 
@@ -304,6 +308,23 @@ const randomBell = (min, max) => {
     return Math.round(Math.min(max, Math.max(min, mean + z * stdDev)))
 }
 
+const getAncestryPhysiology = (ancestry) => ancestry?.physiology ?? ancestry
+
+const getAveragedRange = (ancestries, minKey, maxKey) => {
+    const validRanges = ancestries
+        .map(getAncestryPhysiology)
+        .map((p) => ({ min: Number(p?.[minKey]), max: Number(p?.[maxKey]) }))
+        .filter(({ min, max }) => Number.isFinite(min) && Number.isFinite(max) && max >= min)
+
+    if (!validRanges.length) return null
+
+    const count = validRanges.length
+    return {
+        min: validRanges.reduce((sum, r) => sum + r.min, 0) / count,
+        max: validRanges.reduce((sum, r) => sum + r.max, 0) / count,
+    }
+}
+
 const randomizeVitals = () => {
     const selectedAncestries = formData.value.ancestryIds
         .filter(id => id !== '')
@@ -312,28 +333,33 @@ const randomizeVitals = () => {
 
     if (selectedAncestries.length === 0) return
 
-    // Average ranges across ancestries
-    const count = selectedAncestries.length
-    const avgHeightMin = selectedAncestries.reduce((s, a) => s + (a.heightMin || 0), 0) / count
-    const avgHeightMax = selectedAncestries.reduce((s, a) => s + (a.heightMax || 0), 0) / count
-    const avgWeightMin = selectedAncestries.reduce((s, a) => s + (a.weightMin || 0), 0) / count
-    const avgWeightMax = selectedAncestries.reduce((s, a) => s + (a.weightMax || 0), 0) / count
+    const heightRange = getAveragedRange(selectedAncestries, 'heightMin', 'heightMax')
+    const weightRange = getAveragedRange(selectedAncestries, 'weightMin', 'weightMax')
 
     // Height: work in total inches then split back into feet + inches
-    const minInches = Math.round(avgHeightMin * 12)
-    const maxInches = Math.round(avgHeightMax * 12)
-    const totalInches = randomInt(minInches, maxInches)
-    formData.value.heightFeet = Math.floor(totalInches / 12)
-    formData.value.heightInches = totalInches % 12
+    if (heightRange) {
+        const minInches = Math.round(heightRange.min * 12)
+        const maxInches = Math.round(heightRange.max * 12)
+        const totalInches = randomInt(minInches, maxInches)
+        formData.value.heightFeet = Math.floor(totalInches / 12)
+        formData.value.heightInches = totalInches % 12
+    }
 
     // Weight (bell curve so extreme values are rare)
-    formData.value.weight = randomBell(Math.round(avgWeightMin), Math.round(avgWeightMax))
+    if (weightRange) {
+        formData.value.weight = randomBell(Math.round(weightRange.min), Math.round(weightRange.max))
+    }
 
     // Age: between 18 and average lifespan (skip undying ancestries if mixed)
-    const lifespans = selectedAncestries.map(a => parseLifespan(a.lifespan)).filter(l => l !== null)
+    const lifespans = selectedAncestries
+        .map((a) => parseLifespan(getAncestryPhysiology(a)?.lifespan))
+        .filter(l => l !== null)
+
     if (lifespans.length > 0) {
         const avgLifespan = Math.round(lifespans.reduce((s, l) => s + l, 0) / lifespans.length)
-        formData.value.age = randomInt(18, avgLifespan)
+        if (avgLifespan >= 18) {
+            formData.value.age = randomInt(18, avgLifespan)
+        }
     }
 }
 

@@ -1,16 +1,16 @@
 {
-  "source": "937d52da-0ebf-4d74-b3ee-be395f2f5d0a",
   "id": "b7a4679c-df40-47cd-aa16-a960a89d146b",
   "createdAt": "2026-03-09T16:02:16.133Z",
   "lastModified": "2026-03-17T14:53:06.312Z",
-  "biomeTagsAugment": [],
-  "biomeTagsInhibit": [],
   "name": "Verdure",
-  "type": "f6a1b2c3-d4e5-4f6a-eb3c-2d1e0f9a8b7c",
+  "artUrl": "https://cdn.midjourney.com/761f700a-a5cb-480b-a763-dde85898e686/0_0.png",
   "description": "<p><em>Casting time: 8 hours.</em></p><p>For the next year, all the plants within far range achieve exceptional growth and yield twice the normal amount of food when harvested.</p><p><strong>Describe your ritual.</strong></p>",
-  "mp": 3,
-  "xp": 15,
-  "isMagical": true,
+  "source": "937d52da-0ebf-4d74-b3ee-be395f2f5d0a",
   "school": "f8572abf-975d-4007-b007-4cbe9bfdec01",
-  "artUrl": "https://cdn.midjourney.com/761f700a-a5cb-480b-a763-dde85898e686/0_0.png"
+  "isMagical": true,
+  "actionCost": "c7ea4889-0dc9-40cb-a437-70329cac43ab",
+  "mpCost": 3,
+  "xpCost": 15,
+  "biomeTagsAugment": [],
+  "biomeTagsInhibit": []
 }

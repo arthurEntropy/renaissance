@@ -4,45 +4,32 @@
   "name": "Arcanist",
   "description": "<p>The spell doesn't feel like faith, and it doesn't feel like instinct. It feels like a calculation clicking into place—structure resolving into effect, the underlying logic of reality briefly cooperating with someone who has taken the trouble to understand it. You write the result in the margin of your notes and move on. There is always more to understand.</p><p>An Arcanist's magic begins in a library, not a ritual. Where a Votary channels divine authority and a Wildheart listens to the living world, an Arcanist works from a different premise: that magic is an underlying structure, that it follows rules, and that those rules can be discovered, notated, and eventually extended. The practical consequence is that an Arcanist casts with Lore — not Spirit, not Fortitude — and every spell scales with accumulated scholarly understanding. The most powerful version of an Arcanist is not a more devoted or more passionate one. It is a more learned one.</p><p>Two domains belong to Arcanists above all others. The first is spatial manipulation: Dimension Door, Blink, Weavewalk, Demiplane, Passwall. An Arcanist approaches every locked door and walled structure as a spatial problem to be solved — because to them, it is. The second is metamagic: the authority to intervene on spells already in motion. Counterspell pits the Arcanist's Lore against the casting skill of whoever is casting; a successful Dispel Magic can strip an active effect entirely—and on a masterful dispel, the released arcane energy can be captured and recorded as new knowledge, scholarship acquired directly from the act of unmaking someone else's work.</p><p>What sets the Arcanist apart from other casters is range, not depth. Their formulary spans traditions — Mending and Fabricate, Feather Fall and Animate Objects, Polymorph and Unmake — spells pulled from half a dozen disciplines and reverse-engineered into a common framework. Other mestieri will exceed an Arcanist in raw power within their focus. What an Arcanist offers is that there are very few situations they have no answer for. Magic is a language. Arcanists are the ones still adding grammar.</p><h3>Play an Arcanist if you want to:</h3><ul><li><p><strong>Approach magic as a system to be understood and extended</strong>, casting with knowledge rather than faith or instinct, and growing more powerful the more you learn.</p></li><li><p><strong>Bend space as a first resort</strong>, teleporting through walls, stepping into pocket dimensions, phasing out of reality, and routing problems through geometry that other casters can't reach.</p></li><li><p><strong>Intervene in other people's magic</strong> — stopping a spell mid-cast, stripping enchantments, or capturing a dispelled spell as new knowledge to be studied and eventually used.</p></li></ul><h3>Questions to consider when making an Arcanist:</h3><ul><li><p>Where did they encounter the idea that magic is a structure, not a mystery? Was it a mentor, a text, a failed spell that made no sense until they worked out why?</p></li><li><p>How do they describe their spells when asked? Do they give technical explanations, or is the description itself still a work in progress — something they are still formulating as they cast?</p></li><li><p>What is their relationship to other magical traditions? Do they regard Votaries with respectful curiosity, or with something closer to frustration? Is there a caster they have encountered whose methods they genuinely cannot yet explain?</p></li><li><p>What is the first spell they want to write themselves — the one not yet in any formulary, the gap in what currently exists that they have already been quietly thinking about?</p></li><li><p>What does it feel like when a spell misfires? For a Votary or a Wildheart, unexpected results might register as the divine will or nature's capriciousness. For an Arcanist, every 💀 is a calculation error. How do they carry that?</p></li></ul>",
   "isDeleted": false,
-  "artUrls": [
+  "featuredArtUrls": [
     "https://cdn.midjourney.com/46f7df2d-65a2-44e8-90fd-c01738a187c3/0_0.png"
   ],
-  "faces": [],
-  "places": [],
-  "backgroundImage": "https://cdn.midjourney.com/0ad1709c-0643-4b49-b96d-09fe9583f562/0_3.png",
+  "backgroundImage": "https://cdn.midjourney.com/402933c8-163a-4254-b4ae-84dfc367df08/0_0.png",
+  "cardBackgroundImage": "https://cdn.midjourney.com/0ad1709c-0643-4b49-b96d-09fe9583f562/0_3.png",
   "expansion": "",
-  "hooks": [],
-  "playlists": [],
-  "names": "",
-  "occupations": "",
-  "publicHouses": "",
-  "vittles": "",
-  "pointsOfInterest": "",
-  "floraFauna": "",
-  "lastModified": "2026-04-28T12:58:19.484Z",
-  "detailBackgroundImage": "https://cdn.midjourney.com/402933c8-163a-4254-b4ae-84dfc367df08/0_0.png",
   "novizio": {
-    "flavorText": "",
-    "melee": [],
-    "polearm": [],
-    "ranged": [],
-    "firearm": [],
-    "armor": [],
-    "martialNotes": "",
-    "engagementDice": {
-      "4": 0,
-      "6": 0,
-      "8": 0,
-      "10": 0,
-      "12": 0,
-      "20": 0
+    "description": "",
+    "martialTraining": {
+      "meleeGrades": [],
+      "polearmGrades": [],
+      "rangedGrades": [],
+      "firearmGrades": [],
+      "armorGrades": []
     },
+    "martialTrainingNotes": "",
+    "engagementDice": [],
+    "engagementDiceNotes": "",
     "engagementSuccesses": [],
-    "engagementNotes": "",
     "engagementSuccessNotes": "",
     "baseMP": 10,
-    "mpNotes": "",
+    "baseMpNotes": "",
     "abilities": "<p><em>Arcane Focus</em> and choose your Arcanist archetype: <em>Hedge Mage</em>, <em>Rune Knight</em>, or <em>Wizard of the Tower</em>. Each archetype grants different starting abilities.</p>",
     "gratuiti": ""
-  }
+  },
+  "lastModified": "2026-04-28T12:58:19.484Z",
+  "hooks": [],
+  "playlists": []
 }

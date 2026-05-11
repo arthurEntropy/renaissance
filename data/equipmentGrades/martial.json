@@ -1,8 +1,9 @@
 {
   "id": "847d1092-fd43-4d58-b3da-002e6f3b7f3d",
+  "isDeleted": false,
+  "createdAt": "2026-05-06T18:00:33.219Z",
+  "lastModified": "2025-11-26T18:30:18.583Z",
   "name": "Martial",
   "description": "Superior quality equipment for skilled combatants",
-  "index": 2,
-  "isDeleted": false,
-  "lastModified": "2025-11-26T18:30:18.583Z"
+  "index": 2
 }

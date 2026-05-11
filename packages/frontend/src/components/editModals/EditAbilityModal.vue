@@ -38,11 +38,12 @@
           <!-- MP, XP, Type -->
           <div class="form-group centered">
             <label for="mp">MP:</label>
-            <input type="number" id="mp" v-model.number="editedAbility.mp" class="modal-input small-input" />
+            <input type="number" id="mp" v-model.number="editedAbility.mpCost" class="modal-input small-input" />
             <label for="xp">XP:</label>
-            <input type="number" id="xp" v-model.number="editedAbility.xp" class="modal-input small-input" />
-            <label for="actionType">Type:</label>
-            <ActionTypePicker v-model="editedAbility.type" id="actionType" select-class="modal-input small-input" />
+            <input type="number" id="xp" v-model.number="editedAbility.xpCost" class="modal-input small-input" />
+            <label for="actionCost">Action Cost:</label>
+            <ActionTypePicker v-model="editedAbility.actionCost" id="actionCost"
+              select-class="modal-input small-input" />
           </div>
 
           <div class="form-group centered">
@@ -50,12 +51,6 @@
             <!-- Source Dropdown -->
             <label for="source">Source:</label>
             <SourceCascadePicker v-model="editedAbility.source" id="source" />
-
-            <!-- Can-Be-Active Checkbox -->
-            <label for="canBeActive">
-              <input type="checkbox" id="canBeActive" v-model="editedAbility.canBeActive" />
-              Can Be Active
-            </label>
 
             <!-- Is Magical Checkbox -->
             <label for="isMagical">
@@ -98,8 +93,8 @@
               <div class="improvement-card-row">
                 <input type="text" v-model="impr.name" placeholder="Name" class="modal-input improvement-name-input" />
                 <span class="xp-label">XP:</span>
-                <input type="number" v-model.number="impr.xp" placeholder="XP" class="modal-input improvement-xp-input"
-                  min="0" />
+                <input type="number" v-model.number="impr.xpCost" placeholder="XP"
+                  class="modal-input improvement-xp-input" min="0" />
                 <button type="button" class="icon-btn" @click="removeImprovement(idx)" aria-label="Remove improvement">
                   <XMarkIcon class="icon" />
                 </button>
@@ -199,7 +194,7 @@ watch(isWildheartSource, (isWildheart) => {
 // Improvement management functions
 const addImprovement = () => {
   if (!editedAbility.value.improvements) editedAbility.value.improvements = []
-  editedAbility.value.improvements.push({ name: '', description: '', xp: 0 })
+  editedAbility.value.improvements.push({ name: '', description: '', xpCost: 0 })
 }
 
 const removeImprovement = (idx) => {

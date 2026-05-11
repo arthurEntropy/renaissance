@@ -1,14 +1,12 @@
 {
   "id": "366982d4-7d65-4b32-b808-be39ccea385e",
-  "name": "Antennae",
-  "description": "<p><em>Your antennae grant you extra-sensory perception.</em></p><p>Once per rest: You perceive your surroundings without sight and sense the surface emotions of creatures within short range for one minute. You cannot use this ability if your antennae are covered.</p><p><strong>Describe how you experience this sense and how it appears to others.</strong></p>",
-  "canBeActive": false,
-  "isActive": true,
-  "source": "d7578278-c801-410b-b194-12b555042f29",
   "isDeleted": false,
-  "mp": null,
-  "xp": null,
-  "artUrl": "https://cdn.midjourney.com/aa895194-c9ae-4207-bb71-fcddbce70f62/0_2.png",
   "lastModified": "2026-04-24T14:05:16.474Z",
-  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e"
+  "name": "Antennae",
+  "artUrl": "https://cdn.midjourney.com/aa895194-c9ae-4207-bb71-fcddbce70f62/0_2.png",
+  "description": "<p><em>Your antennae grant you extra-sensory perception.</em></p><p>Once per rest: You perceive your surroundings without sight and sense the surface emotions of creatures within short range for one minute. You cannot use this ability if your antennae are covered.</p><p><strong>Describe how you experience this sense and how it appears to others.</strong></p>",
+  "source": "d7578278-c801-410b-b194-12b555042f29",
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "mpCost": null,
+  "xpCost": null
 }

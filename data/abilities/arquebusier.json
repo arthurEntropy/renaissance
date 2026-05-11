@@ -1,22 +1,20 @@
 {
   "id": "f5182393-253b-4bd9-b41a-b92e8f91b334",
-  "name": "Arquebusier",
-  "description": "<p>You are trained in the use of heavy firearms.</p><p><strong>Describe how you wield your firearms.</strong></p>",
-  "canBeActive": false,
-  "isActive": true,
-  "source": "45ca935d-938b-4974-961c-4171cc388904",
   "isDeleted": false,
-  "mp": null,
-  "xp": 10,
+  "lastModified": "2026-03-17T00:09:13.384Z",
+  "name": "Arquebusier",
+  "artUrl": "https://cdn.midjourney.com/b91d942e-9baa-4035-b3e2-26a9d45fdb00/0_3.png",
+  "description": "<p>You are trained in the use of heavy firearms.</p><p><strong>Describe how you wield your firearms.</strong></p>",
   "improvements": [
     {
       "name": "Hand Cannoneer",
       "description": "<p>You are trained in the use of great firearms.</p>",
-      "xp": 5,
+      "xpCost": 5,
       "id": "8282b6fb-4c1f-56a2-8ba3-08bc100a4876"
     }
   ],
-  "artUrl": "https://cdn.midjourney.com/b91d942e-9baa-4035-b3e2-26a9d45fdb00/0_3.png",
-  "lastModified": "2026-03-17T00:09:13.384Z",
-  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
+  "source": "45ca935d-938b-4974-961c-4171cc388904",
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": 10
 }

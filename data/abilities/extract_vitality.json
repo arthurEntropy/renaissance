@@ -4,15 +4,13 @@
   "createdAt": "2026-01-03T22:40:44.913Z",
   "lastModified": "2026-04-16T15:37:23.629Z",
   "name": "Extract Vitality",
-  "description": "<p>Uncheck a Condition. If you did, roll Spirit vs Fortitude against a creature within short range. On a win, the creature takes 1d4 damage and you regain that amount of Endurance. On a loss, it takes 1 damage and you regain 1 Endurance.</p><p>If the Condition you unchecked was Afraid, +1d damage.</p><p><strong>Describe how you extract their vitality.</strong></p>",
-  "canBeActive": false,
-  "isActive": true,
-  "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
-  "mp": null,
-  "xp": 15,
-  "manaCost": "2B",
-  "successes": "<p>✨: +1d damage.</p><p>🌞: Add HEART to the damage roll.</p>",
   "artUrl": "https://cdn.midjourney.com/5743b277-5c5d-426d-9657-848fe78294a8/0_2.png",
+  "description": "<p>Uncheck a Condition. If you did, roll Spirit vs Fortitude against a creature within short range. On a win, the creature takes 1d4 damage and you regain that amount of Endurance. On a loss, it takes 1 damage and you regain 1 Endurance.</p><p>If the Condition you unchecked was Afraid, +1d damage.</p><p><strong>Describe how you extract their vitality.</strong></p>",
+  "successes": "<p>✨: +1d damage.</p><p>🌞: Add HEART to the damage roll.</p>",
+  "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
   "isMagical": true,
-  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e"
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "mpCost": null,
+  "xpCost": 15,
+  "manaCost": "2B"
 }

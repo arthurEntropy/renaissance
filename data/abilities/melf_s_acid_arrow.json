@@ -1,15 +1,15 @@
 {
-  "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
   "id": "dd0115c6-14b3-4512-86f5-f24b9ca9d7e6",
   "createdAt": "2026-04-14T12:42:59.487Z",
   "lastModified": "2026-04-14T13:53:29.415Z",
   "name": "Melf's Acid Arrow",
-  "mp": 2,
-  "xp": 10,
-  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
-  "description": "<p>A shimmering green arrow streaks toward a target and bursts in a spray of acid. Make a ranged spell attack against a creature within long range. On a hit, the takes 4d4 damage immediately and 2d4 damage at the end of its next turn. On a miss, the arrow splashes the target with acid for half as much of the initial damage and no damage at the end of its next turn.</p>",
   "artUrl": "https://cdn.midjourney.com/5be5cd08-afd7-48ed-953b-91666f9a6aff/0_0.png",
+  "description": "<p>A shimmering green arrow streaks toward a target and bursts in a spray of acid. Make a ranged spell attack against a creature within long range. On a hit, the takes 4d4 damage immediately and 2d4 damage at the end of its next turn. On a miss, the arrow splashes the target with acid for half as much of the initial damage and no damage at the end of its next turn.</p>",
   "successes": "<p>✨: +1d to the initial damage roll.</p><p>🌞: Hit or miss, the creature takes 2d4 damage at the end of each of its turns for the next minute.</p><p>💀: The acid explodes in your face. You become the target of the spell and the spell automatically hits. Check a Condition.</p>",
+  "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
+  "school": "0341bd63-648c-48c2-ba5d-ce92322e5a09",
   "isMagical": true,
-  "school": "0341bd63-648c-48c2-ba5d-ce92322e5a09"
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "mpCost": 2,
+  "xpCost": 10
 }

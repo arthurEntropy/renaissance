@@ -1,9 +1,10 @@
 {
-  "name": "Acrobat's Pole",
-  "description": "",
-  "typeId": "9b22f01b-1c40-4f10-abec-00b4d279197f",
-  "index": 5,
   "id": "078c69c2-2644-4be5-b378-05c177ce1a9f",
+  "isDeleted": false,
   "createdAt": "2026-04-15T14:13:12.088Z",
-  "lastModified": "2026-04-15T14:13:16.929Z"
+  "lastModified": "2026-04-15T14:13:16.929Z",
+  "name": "Acrobat's Pole",
+  "parentTypeId": "9b22f01b-1c40-4f10-abec-00b4d279197f",
+  "description": "",
+  "index": 5
 }

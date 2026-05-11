@@ -1,13 +1,11 @@
 {
   "id": "b2fc670c-2837-45a5-a8cb-0b9223acc76c",
+  "isDeleted": false,
+  "lastModified": "2026-02-12T21:37:52.077Z",
   "name": "Savvy Trader",
   "description": "<p>You're good at negotiating good deals for shit. You roll Persuade favored when making a cool business deal.</p>",
-  "canBeActive": false,
-  "isActive": true,
   "source": "75800953-4adb-405f-a4ab-a599573ca533",
-  "isDeleted": false,
-  "mp": null,
-  "xp": null,
-  "lastModified": "2026-02-12T21:37:52.077Z",
-  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": null
 }

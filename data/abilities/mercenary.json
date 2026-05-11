@@ -1,15 +1,13 @@
 {
   "id": "a9e22111-7812-43f4-995f-25da1c0f37f4",
-  "name": "Mercenary",
-  "description": "<p>When establishing the Keeping for a Quest, the party may spend up to 3 additional Treasure to enhance the quality of your services and satisfy your exacting sartorial tastes. For each additional treasure spent in this way, you gain 1 level of <em>Swagger </em>for the Quest.</p><p>For each level of <em>Swagger</em>, choose one effect, which lasts for the duration of the Quest:</p><ul><li><p>You gain one rank in Awe.</p></li><li><p>Your maximum Endurance increases by your BODY score.</p></li><li><p>Your maximum Hope increases by 3.</p></li><li><p>Your maximum Defense increases by 2.</p></li></ul><p>You may choose each effect multiple times.</p><p><strong>Describe how you receive and spend your payment.</strong></p>",
-  "canBeActive": false,
-  "isActive": true,
-  "source": "45ca935d-938b-4974-961c-4171cc388904",
   "isDeleted": false,
-  "mp": null,
-  "xp": null,
-  "improvements": [],
   "lastModified": "2026-03-16T23:59:07.351Z",
+  "name": "Mercenary",
   "artUrl": "https://cdn.midjourney.com/e06695d6-1add-45c7-8232-4f008989c4dc/0_1.png",
-  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d"
+  "description": "<p>When establishing the Keeping for a Quest, the party may spend up to 3 additional Treasure to enhance the quality of your services and satisfy your exacting sartorial tastes. For each additional treasure spent in this way, you gain 1 level of <em>Swagger </em>for the Quest.</p><p>For each level of <em>Swagger</em>, choose one effect, which lasts for the duration of the Quest:</p><ul><li><p>You gain one rank in Awe.</p></li><li><p>Your maximum Endurance increases by your BODY score.</p></li><li><p>Your maximum Hope increases by 3.</p></li><li><p>Your maximum Defense increases by 2.</p></li></ul><p>You may choose each effect multiple times.</p><p><strong>Describe how you receive and spend your payment.</strong></p>",
+  "improvements": [],
+  "source": "45ca935d-938b-4974-961c-4171cc388904",
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": null
 }

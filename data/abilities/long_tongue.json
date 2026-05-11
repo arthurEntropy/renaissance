@@ -1,15 +1,13 @@
 {
   "id": "3023d595-cc9a-4109-9e99-d9f393806085",
-  "name": "Long Tongue",
-  "description": "<p>You thrust out your long, sticky tongue. The tongue can extend up to 10 ft and automatically sticks to stationary objects and willing targets. Roll Dexterity vs Dexterity against unwilling targets. If the tongue does not stick to anything, it automatically retracts.</p><p>Once the tongue is stuck, it remains stuck until you use an action to remove it or another creature uses an action to roll Strength vs Strength against you to remove it (you may choose to forfeit the roll).</p><p>While stuck, you may use an action to attempt to pull the stuck object toward you. Inanimate objects of less than half your body weight are automatically pulled to you. Heaver objects require a Strength check of a difficulty determined by the GM. Roll Strength vs Strength to attempt to pull an unwilling creature (they may also do the same to attempt to pull you).</p><p><strong>Describe your tongue.</strong></p>",
-  "canBeActive": false,
-  "isActive": true,
-  "source": "f9e8d7c6-b5a4-9382-7165-0f9e8d7c6b5a",
   "isDeleted": false,
-  "mp": null,
-  "xp": null,
-  "successes": "<p>✨: Attacks against the object or creature your tongue is stuck to are favored while it remains stuck.</p><p>🌞: You may immediately pull the object or creature to be adjacent to you.</p><p>💀: You strain your tongue or is strikes a sharp object. You take 1d4 damage. Check a Condition.</p>",
   "lastModified": "2026-02-12T21:37:52.072Z",
+  "name": "Long Tongue",
   "artUrl": "https://cdn.midjourney.com/f78e0068-a3f2-4205-bae3-981d0d6404a4/0_3.png",
-  "type": "c3d4e5f6-a1b2-4c3d-be0f-9a8b7c6d5e4f"
+  "description": "<p>You thrust out your long, sticky tongue. The tongue can extend up to 10 ft and automatically sticks to stationary objects and willing targets. Roll Dexterity vs Dexterity against unwilling targets. If the tongue does not stick to anything, it automatically retracts.</p><p>Once the tongue is stuck, it remains stuck until you use an action to remove it or another creature uses an action to roll Strength vs Strength against you to remove it (you may choose to forfeit the roll).</p><p>While stuck, you may use an action to attempt to pull the stuck object toward you. Inanimate objects of less than half your body weight are automatically pulled to you. Heaver objects require a Strength check of a difficulty determined by the GM. Roll Strength vs Strength to attempt to pull an unwilling creature (they may also do the same to attempt to pull you).</p><p><strong>Describe your tongue.</strong></p>",
+  "successes": "<p>✨: Attacks against the object or creature your tongue is stuck to are favored while it remains stuck.</p><p>🌞: You may immediately pull the object or creature to be adjacent to you.</p><p>💀: You strain your tongue or is strikes a sharp object. You take 1d4 damage. Check a Condition.</p>",
+  "source": "f9e8d7c6-b5a4-9382-7165-0f9e8d7c6b5a",
+  "actionCost": "40656418-af01-43ae-8a60-a1bd0124efb4",
+  "mpCost": null,
+  "xpCost": null
 }

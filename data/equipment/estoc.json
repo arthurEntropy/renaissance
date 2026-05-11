@@ -1,9 +1,22 @@
 {
   "id": "eea82a51-3e52-43aa-b985-f5748fc2176f",
+  "isDeleted": false,
+  "createdAt": "2026-05-06T17:55:10.305Z",
+  "lastModified": "2026-05-06T17:55:10.305Z",
   "name": "Estoc",
+  "artUrl": null,
   "description": "Weight: 4-6. Length: 3-4",
-  "keeping": null,
+  "successes": null,
+  "improvements": [],
   "source": null,
+  "school": null,
+  "keeping": null,
+  "isCustom": false,
+  "isTemplate": true,
+  "isMagical": false,
+  "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
+  "subtype": "ab765755-b7c9-47ac-b62f-34f069e00dc3",
+  "grade": "ebcc2bcb-8221-4ca0-bef3-000fb7e59e96",
   "weight": 4,
   "length": 3,
   "reach": 0,
@@ -19,12 +32,5 @@
     10
   ],
   "engagementSuccesses": [],
-  "skillMods": [],
-  "isDeleted": false,
-  "isCustom": false,
-  "isTemplate": true,
-  "artUrl": null,
-  "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
-  "subtype": "ab765755-b7c9-47ac-b62f-34f069e00dc3",
-  "grade": "ebcc2bcb-8221-4ca0-bef3-000fb7e59e96"
+  "defenseBonus": 0
 }

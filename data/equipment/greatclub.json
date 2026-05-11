@@ -1,9 +1,22 @@
 {
   "id": "e9aa507f-1046-43ae-bf16-0060b7da378f",
+  "isDeleted": false,
+  "createdAt": "2026-05-06T17:55:10.305Z",
+  "lastModified": "2026-05-06T17:55:10.305Z",
   "name": "Greatclub",
+  "artUrl": null,
   "description": "Weight: 10-20. Length: 4-6",
-  "keeping": null,
+  "successes": null,
+  "improvements": [],
   "source": null,
+  "school": null,
+  "keeping": null,
+  "isCustom": false,
+  "isTemplate": true,
+  "isMagical": false,
+  "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
+  "subtype": "ab765755-b7c9-47ac-b62f-34f069e00dc3",
+  "grade": "a9023254-92ed-4c54-9840-5a7577c1aa1f",
   "weight": 10,
   "length": 4,
   "reach": 0,
@@ -24,12 +37,5 @@
     "d4e5f6a7-b8c9-40d1-e2f3-a4b5c6d7e8f9",
     "f6a7b8c9-d0e1-42f3-a4b5-c6d7e8f9a0b1"
   ],
-  "skillMods": [],
-  "isDeleted": false,
-  "isCustom": false,
-  "isTemplate": true,
-  "artUrl": null,
-  "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
-  "subtype": "ab765755-b7c9-47ac-b62f-34f069e00dc3",
-  "grade": "a9023254-92ed-4c54-9840-5a7577c1aa1f"
+  "defenseBonus": 0
 }

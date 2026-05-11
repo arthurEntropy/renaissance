@@ -1,12 +1,12 @@
 {
-  "source": "dab3e414-0118-49be-9779-4e3018cdba71",
   "id": "93f31a2c-8719-423d-b1f1-86c5522ef10e",
   "createdAt": "2026-04-07T00:34:21.230Z",
   "lastModified": "2026-04-09T14:59:37.076Z",
-  "description": "<p>You have honed your techniques to be most effective within a certain social stratum. Choose a Keeping (Wretched, Modest, Comfortable, Prosperous, Opulent). Whenever you target a humanoid creature of that Keeping with a Mesmer ability, your rolls for that ability are favored.</p><p>However, your specialized approach draws skepticism from another social stratum. Choose another Keeping. Whenever you target a humanoid creature of that Keeping with a Mesmer ability, your rolls for that ability are ill-favored.</p><p><strong>Describe your social connections.</strong></p>",
   "name": "Social Savvy",
-  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d",
-  "xp": "",
+  "artUrl": "https://cdn.midjourney.com/79f162df-9850-4e83-8127-2adf265f9995/0_1.png",
+  "description": "<p>You have honed your techniques to be most effective within a certain social stratum. Choose a Keeping (Wretched, Modest, Comfortable, Prosperous, Opulent). Whenever you target a humanoid creature of that Keeping with a Mesmer ability, your rolls for that ability are favored.</p><p>However, your specialized approach draws skepticism from another social stratum. Choose another Keeping. Whenever you target a humanoid creature of that Keeping with a Mesmer ability, your rolls for that ability are ill-favored.</p><p><strong>Describe your social connections.</strong></p>",
   "improvements": [],
-  "artUrl": "https://cdn.midjourney.com/79f162df-9850-4e83-8127-2adf265f9995/0_1.png"
+  "source": "dab3e414-0118-49be-9779-4e3018cdba71",
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "xpCost": ""
 }

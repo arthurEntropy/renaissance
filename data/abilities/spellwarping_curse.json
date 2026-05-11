@@ -4,16 +4,14 @@
   "createdAt": "2026-02-05T16:48:05.464Z",
   "lastModified": "2026-03-11T23:33:21.330Z",
   "name": "Spellwarping Curse",
-  "description": "<p><em>Concentration, up to 1 minute.</em></p><p>Roll Spirit vs Spirit against a creature within medium range. On a win, each time the creature casts a spell or invokes a magical trait that deals damage or forces a creature to make an opposed skill check, it takes 1d8+ HEART damage. On a loss, half damage.</p><p><strong>Describe the effects of the curse.</strong></p>",
-  "canBeActive": false,
-  "isActive": true,
-  "source": "162ae4db-7a67-4770-8a2c-7e9883da14f6",
-  "mp": 1,
-  "xp": 10,
-  "manaCost": null,
   "artUrl": "https://cdn.midjourney.com/20a0a23b-7ebe-49c8-85ca-07f460717cee/0_1.png",
+  "description": "<p><em>Concentration, up to 1 minute.</em></p><p>Roll Spirit vs Spirit against a creature within medium range. On a win, each time the creature casts a spell or invokes a magical trait that deals damage or forces a creature to make an opposed skill check, it takes 1d8+ HEART damage. On a loss, half damage.</p><p><strong>Describe the effects of the curse.</strong></p>",
   "successes": "<p>✨: +1d damage.</p><p>🌞: Whenever the triggering event happens, the creature also becomes the target of its own spell or magical trait.</p>",
-  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
+  "source": "162ae4db-7a67-4770-8a2c-7e9883da14f6",
+  "school": "19af0449-55e0-49ee-93c1-58d4daaaf9a5",
   "isMagical": true,
-  "school": "19af0449-55e0-49ee-93c1-58d4daaaf9a5"
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "mpCost": 1,
+  "xpCost": 10,
+  "manaCost": null
 }

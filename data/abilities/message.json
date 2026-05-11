@@ -1,27 +1,27 @@
 {
-  "source": "dab3e414-0118-49be-9779-4e3018cdba71",
   "id": "ccd69dd4-8c55-46cb-b3ad-2ffae28d7f6b",
   "createdAt": "2026-04-08T14:12:29.283Z",
   "lastModified": "2026-04-10T12:21:40.613Z",
   "name": "Message",
+  "artUrl": "https://cdn.midjourney.com/c7b97a27-de73-41b8-9f52-37bcc05565e0/0_3.png",
   "description": "<p>Choose a creature within far range. If you have spoken to the creature before, you do not need to be able to see the creature. You transmit a one-sentence message to the creature, so long as it remains within far range. The creature hears the message in its mind and may respond with a one-sentence reply as a free action within the next round. You hear the response in your mind.</p><p>If the creature replies, you may spend 1 MP to send another message and receive another reply within 1 round. You may repeat this as many times as you choose, so long as the creature continues responding.</p><p><strong>Describe how you send and receive the messages.</strong></p>",
-  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
-  "xp": 5,
-  "isMagical": true,
-  "school": "b19b34c0-9627-4712-a9db-db6c3ccb261d",
   "improvements": [
     {
       "name": "Sending",
       "description": "<p>If you have seen and spoken to a creature before, you may choose it as a target for this spell regardless the distance between it and you.</p>",
-      "xp": 15,
+      "xpCost": 15,
       "id": "55d0ae34-9dbf-4bd8-8707-a061dfa32f60"
     },
     {
       "name": "Telepathy",
       "description": "<p>If your message successfully reaches the creature and its reply successfully reaches you, you may spend 5 MP to establish a telepathic link with the creature, which lasts for 1 day. You and the creature can instantaneously share words, images, sounds, and other sensory messages with one another through the link.</p><p>If the creature has a WITS score of at least 1, it gains the ability to understand the meaning of your words and take in the scope of any sensory messages you send to it.</p>",
-      "xp": 30,
+      "xpCost": 30,
       "id": "99c45ea3-b756-47b5-88f9-3b108ac0aa6c"
     }
   ],
-  "artUrl": "https://cdn.midjourney.com/c7b97a27-de73-41b8-9f52-37bcc05565e0/0_3.png"
+  "source": "dab3e414-0118-49be-9779-4e3018cdba71",
+  "school": "b19b34c0-9627-4712-a9db-db6c3ccb261d",
+  "isMagical": true,
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "xpCost": 5
 }

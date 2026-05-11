@@ -116,7 +116,7 @@
 </template>
 
 <script setup>
-import { computed, onMounted, onUnmounted, ref, watch, nextTick } from 'vue'
+import { computed, onUnmounted, ref, watch, nextTick } from 'vue'
 import { ChevronDownIcon, ChevronRightIcon, PlusIcon, TrashIcon, MapPinIcon, BoltIcon } from '@heroicons/vue/24/outline'
 import SelectedBeastBadge from '@/components/features/characterSelection/SelectedBeastBadge.vue'
 import SelectedCharacterBadge from '@/components/features/characterSelection/SelectedCharacterBadge.vue'
@@ -168,9 +168,43 @@ const handleOutsidePointerDownWhileOpen = (event) => {
     closePicker()
 }
 
-const combatBuilderStateKey = computed(() =>
-    campaignId.value ? `campaign-lobby:combat-builder:groups:${campaignId.value}` : null
+const cloneCombatGroups = (groups) => {
+    if (!Array.isArray(groups)) return []
+    return groups.map((group) => ({
+        id: group?.id,
+        name: group?.name,
+        combatants: Array.isArray(group?.combatants)
+            ? group.combatants.map((combatant) => ({
+                id: combatant?.id,
+                type: combatant?.type,
+                characterId: combatant?.characterId,
+            }))
+            : [],
+    }))
+}
+
+const campaignCombatGroups = computed(() =>
+    Array.isArray(campaign.value?.combatGroups) ? campaign.value.combatGroups : []
 )
+
+let persistTimeoutId = null
+let isSyncingFromCampaign = false
+
+const persistCombatGroupsToCampaign = (groups) => {
+    if (!campaignId.value) return
+
+    if (persistTimeoutId) {
+        clearTimeout(persistTimeoutId)
+    }
+
+    persistTimeoutId = setTimeout(async () => {
+        try {
+            await campaignStore.updateCombatGroups(campaignId.value, cloneCombatGroups(groups))
+        } catch (error) {
+            console.error('Failed to persist combat groups:', error)
+        }
+    }, 250)
+}
 
 const collapseStateKey = computed(() =>
     campaignId.value ? `campaign-lobby:section:combat-builder:${campaignId.value}` : null
@@ -246,15 +280,13 @@ const pickerAnchorCenterY = computed(() => {
 })
 
 watch(
-    combatBuilderStateKey,
-    (key) => {
-        if (!key) return
-        try {
-            const parsed = JSON.parse(localStorage.getItem(key) || '[]')
-            combatGroups.value = Array.isArray(parsed) ? parsed : []
-        } catch {
-            combatGroups.value = []
-        }
+    campaignCombatGroups,
+    (groups) => {
+        isSyncingFromCampaign = true
+        combatGroups.value = cloneCombatGroups(groups)
+        nextTick(() => {
+            isSyncingFromCampaign = false
+        })
     },
     { immediate: true }
 )
@@ -279,8 +311,9 @@ watch(
 )
 
 watch(combatGroups, (value) => {
-    if (!combatBuilderStateKey.value) return
-    localStorage.setItem(combatBuilderStateKey.value, JSON.stringify(value))
+    if (!isSyncingFromCampaign) {
+        persistCombatGroupsToCampaign(value)
+    }
 
     // Keep pinned rail groups in sync with the latest builder group state.
     if (!isSyncingFromStore) {
@@ -327,8 +360,8 @@ const getNextGroupName = () => {
     return `Group ${index}`
 }
 
-const getNextBeastInstanceName = (templateName) => {
-    const escaped = String(templateName || '').replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+const getNextBeastInstanceName = (baseName) => {
+    const escaped = String(baseName || '').replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
     const suffixPattern = new RegExp(`^${escaped}\\s+([A-Z]+)$`)
     const usedSuffixes = new Set()
 
@@ -343,11 +376,11 @@ const getNextBeastInstanceName = (templateName) => {
     for (let index = 0; index < 702; index += 1) {
         const suffix = toLetterSuffix(index)
         if (!usedSuffixes.has(suffix)) {
-            return `${templateName} ${suffix}`
+            return `${baseName} ${suffix}`
         }
     }
 
-    return `${templateName} ${Date.now()}`
+    return `${baseName} ${Date.now()}`
 }
 
 const createGroup = () => {
@@ -526,9 +559,8 @@ const createBeastInstanceFromTemplate = async (templateId) => {
             ...template,
             id: null,
             name: getNextBeastInstanceName(template.name),
-            beastType: 'instance',
+            characterType: 'beastInstance',
             templateId: template.id,
-            templateName: template.name,
             campaignId: campaignId.value,
             createdAt: new Date().toISOString(),
             lastModified: new Date().toISOString(),
@@ -706,11 +738,11 @@ const syncPinnedGroupsFromCombatGroups = (groups) => {
     }
 }
 
-onMounted(() => {
-    // intentionally empty — picker scroll/pointer listeners are registered in openPicker()
-})
-
 onUnmounted(() => {
+    if (persistTimeoutId) {
+        clearTimeout(persistTimeoutId)
+        persistTimeoutId = null
+    }
     window.removeEventListener('scroll', handleAnyScrollWhileOpen, true)
     window.removeEventListener('pointerdown', handleOutsidePointerDownWhileOpen, true)
     clearDragPreview()

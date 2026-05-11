@@ -1,10 +1,10 @@
 {
-  "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
   "id": "49800609-6ee9-4428-aa2d-de373f82dd8e",
   "createdAt": "2026-04-16T14:31:48.115Z",
   "lastModified": "2026-04-16T15:08:01.260Z",
   "name": "Magic From Within",
+  "artUrl": "https://cdn.midjourney.com/efd47ec6-dd2f-4ae1-8174-78340e5281c2/0_1.png",
   "description": "<p>You accumulate MP in the form of a mana pool: a store of magical-emotional energy.</p><p>Mana added to your mana pool remains there until an ability removes it, you release it as a free action, or you spend 1 minute outside of combat.</p><p>When you use mana to pay an ability's mana cost, that mana becomes tapped, though it remains in your mana pool. You may not use it again until it is untapped. All mana in your mana pool is automatically untapped at the start of each of your turns.</p><p>Whenever you roll 💀 on a skill check for an ability with a mana cost, remove the mana cost of that ability from your mana pool and check a Condition. Then the GM takes a Soft Move as normal.</p><p>Abilities that grant or take away MP affect your Mana Pool, adding or removing mana, 1-for-1. You choose which color of mana is added or removed.</p><p><strong>Describe how you channel your emotions into magic.</strong></p>",
-  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d",
-  "artUrl": "https://cdn.midjourney.com/efd47ec6-dd2f-4ae1-8174-78340e5281c2/0_1.png"
+  "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1"
 }

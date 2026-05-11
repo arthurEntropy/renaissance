@@ -4,26 +4,19 @@
   "name": "Musteval",
   "description": "<p>Mouselike in feature and modest in stature, the Musteval are easy to underestimate. They carry within them a quiet attunement to divine presence, like an ear for music. Sacred beings find the Musteval unusually easy to hear, and are in turn unusually willing to listen.</p>",
   "isDeleted": false,
-  "artUrls": [
+  "featuredArtUrls": [
     "https://cdn.midjourney.com/7a1fcf86-49b5-4371-b51c-de1799128ab6/0_3.jpeg"
   ],
-  "faces": [],
-  "places": [],
-  "backgroundImage": "https://cdn.midjourney.com/ecc09774-1264-4f1e-9778-593263887818/0_3.png",
+  "backgroundImage": "",
+  "cardBackgroundImage": "https://cdn.midjourney.com/ecc09774-1264-4f1e-9778-593263887818/0_3.png",
   "expansion": "824cad94-3a4a-4df3-b81a-ede17b84644b",
-  "hooks": [],
-  "playlists": [],
-  "names": "",
-  "occupations": "",
-  "publicHouses": "",
-  "vittles": "",
-  "pointsOfInterest": "",
-  "floraFauna": "",
   "lastModified": "2026-02-26T16:26:03.589Z",
-  "heightMin": 3,
-  "heightMax": 4,
-  "weightMin": 30,
-  "weightMax": 100,
-  "lifespan": "100 years",
-  "speed": 25
+  "physiology": {
+    "heightMin": 3,
+    "heightMax": 4,
+    "weightMin": 30,
+    "weightMax": 100,
+    "lifespan": "100 years",
+    "speed": 25
+  }
 }

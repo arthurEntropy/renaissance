@@ -1,4 +1,4 @@
-import { calculateTotalManaCost } from '@shared/utils/calculateManaCost'
+import { calculateTotalManaCost } from '@/utils/calculateManaCost'
 
 export function sortItems(items, sortOption) {
   if (!sortOption) {

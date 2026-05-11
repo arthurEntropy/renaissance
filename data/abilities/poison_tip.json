@@ -4,14 +4,12 @@
   "createdAt": "2026-02-03T15:33:25.423Z",
   "lastModified": "2026-03-16T20:53:56.303Z",
   "name": "Poison Tip",
-  "description": "<p>Once per day, you may apply poison to the tips of projectiles for one of your ranged weapons. Roll Craft to set the Difficulty.</p><p>For the next day, whenever you hit a creature with a poisoned projectile, the creature rolls Fortitude against the Difficulty. On a win, the creature takes -1 Defense, and at the beginning of each of its turns, it must repeat the roll. On each win, it takes an additional -1 Defense. On a loss, the effect ends.</p><p><strong>Describe how you apply the poison.</strong></p>",
-  "canBeActive": false,
-  "isActive": true,
-  "source": "10f46ecd-e6f5-4d3b-b510-d4035ab24f56",
-  "mp": 1,
-  "xp": 10,
-  "manaCost": null,
-  "successes": "<p>✨: Each time the creature takes -1 Defense, it also takes 1d4 damage.</p><p>🌞: Each time the creature takes -1 Defense, it also rolls Injury.</p>",
   "artUrl": "https://cdn.midjourney.com/fccc54a9-1153-4e1f-891d-576fcb14daea/0_0.png",
-  "type": "f6a1b2c3-d4e5-4f6a-eb3c-2d1e0f9a8b7c"
+  "description": "<p>Once per day, you may apply poison to the tips of projectiles for one of your ranged weapons. Roll Craft to set the Difficulty.</p><p>For the next day, whenever you hit a creature with a poisoned projectile, the creature rolls Fortitude against the Difficulty. On a win, the creature takes -1 Defense, and at the beginning of each of its turns, it must repeat the roll. On each win, it takes an additional -1 Defense. On a loss, the effect ends.</p><p><strong>Describe how you apply the poison.</strong></p>",
+  "successes": "<p>✨: Each time the creature takes -1 Defense, it also takes 1d4 damage.</p><p>🌞: Each time the creature takes -1 Defense, it also rolls Injury.</p>",
+  "source": "10f46ecd-e6f5-4d3b-b510-d4035ab24f56",
+  "actionCost": "c7ea4889-0dc9-40cb-a437-70329cac43ab",
+  "mpCost": 1,
+  "xpCost": 10,
+  "manaCost": null
 }

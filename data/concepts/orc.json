@@ -4,26 +4,19 @@
   "name": "Orc",
   "description": "<p>Orcs are large, broad, and built for endurance — their skin ranging from gray to green, some bearing tusks, others not. Old stories cast them as creatures of destruction and ruin, but an Orc will tell you that those stories were not told by them. What persists in the Orcish body is simply strength, and an appetite for using it.</p>",
   "isDeleted": false,
-  "artUrls": [
+  "featuredArtUrls": [
     "https://cdn.midjourney.com/8d595be7-bd0e-44c1-ba84-8a49dc8b357a/0_2.png"
   ],
-  "faces": [],
-  "places": [],
-  "backgroundImage": "https://cdn.midjourney.com/7128c765-227e-4450-9c40-2f1dc055b8f6/0_3.png",
+  "backgroundImage": "",
+  "cardBackgroundImage": "https://cdn.midjourney.com/7128c765-227e-4450-9c40-2f1dc055b8f6/0_3.png",
   "expansion": "824cad94-3a4a-4df3-b81a-ede17b84644b",
-  "hooks": [],
-  "playlists": [],
-  "names": "",
-  "occupations": "",
-  "publicHouses": "",
-  "vittles": "",
-  "pointsOfInterest": "",
-  "floraFauna": "",
   "lastModified": "2026-02-26T18:58:34.289Z",
-  "heightMin": 4,
-  "heightMax": 6,
-  "weightMin": 100,
-  "weightMax": 375,
-  "lifespan": "60 years",
-  "speed": 30
+  "physiology": {
+    "heightMin": 4,
+    "heightMax": 6,
+    "weightMin": 100,
+    "weightMax": 375,
+    "lifespan": "60 years",
+    "speed": 30
+  }
 }

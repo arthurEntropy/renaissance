@@ -4,26 +4,19 @@
   "name": "Giantkin",
   "description": "<p>Some say that the Giantkin were formed from the earth. Others say that when, long ago, the Great Giants lay down in sleep and became the mountains, some small few of them remained waking and mingled with peoples of lesser stature. Whatever their true origin, the Giantkin stand taller than all others, and bear an unmatched affinity for the earth and its creatures.</p>",
   "isDeleted": false,
-  "artUrls": [
+  "featuredArtUrls": [
     "https://cdn.midjourney.com/20207a5c-0193-4b5a-84b7-519887005460/0_2.png"
   ],
-  "faces": [],
-  "places": [],
-  "backgroundImage": "https://cdn.midjourney.com/4306cf43-e21d-4494-a5f4-0d24a3dbcd7f/0_1.png",
+  "backgroundImage": "",
+  "cardBackgroundImage": "https://cdn.midjourney.com/4306cf43-e21d-4494-a5f4-0d24a3dbcd7f/0_1.png",
   "expansion": "e46f4320-a414-4300-95d5-397ba717d982",
-  "hooks": [],
-  "playlists": [],
-  "names": "",
-  "occupations": "",
-  "publicHouses": "",
-  "vittles": "",
-  "pointsOfInterest": "",
-  "floraFauna": "",
   "lastModified": "2026-04-24T15:07:43.866Z",
-  "heightMin": 7,
-  "heightMax": 9,
-  "weightMin": 275,
-  "weightMax": 700,
-  "lifespan": "200 years",
-  "speed": 30
+  "physiology": {
+    "heightMin": 7,
+    "heightMax": 9,
+    "weightMin": 275,
+    "weightMax": 700,
+    "lifespan": "200 years",
+    "speed": 30
+  }
 }

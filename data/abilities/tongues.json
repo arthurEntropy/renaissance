@@ -2,20 +2,20 @@
   "id": "1d094a42-5d6e-4403-83f4-e1e17610a80d",
   "createdAt": "2026-03-10T15:48:11.543Z",
   "lastModified": "2026-03-17T15:21:37.564Z",
-  "source": "162ae4db-7a67-4770-8a2c-7e9883da14f6",
   "name": "Tongues",
+  "artUrl": "https://cdn.midjourney.com/c378ce5a-78fa-4741-918c-6c42017d0dd0/0_0.png",
   "description": "<p>For the next hour, a creature you touch can understand any spoken language it hears, and any creature that knows at least one language and can hear the target understands what it says.</p><p><strong>Describe the effects of the spell.</strong></p>",
-  "mp": 3,
-  "xp": 15,
-  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
-  "isMagical": true,
   "improvements": [
     {
       "name": "Parley",
       "description": "<p>Instead choose a point within Short Range. The effects of the spell extend to each creature within Short Range of that point.</p>",
-      "xp": 15,
+      "xpCost": 15,
       "id": "f7989310-ee9c-46f2-be4b-45b42ac88615"
     }
   ],
-  "artUrl": "https://cdn.midjourney.com/c378ce5a-78fa-4741-918c-6c42017d0dd0/0_0.png"
+  "source": "162ae4db-7a67-4770-8a2c-7e9883da14f6",
+  "isMagical": true,
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "mpCost": 3,
+  "xpCost": 15
 }

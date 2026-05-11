@@ -4,13 +4,16 @@
   "name": "Ockham",
   "description": "<p>This is a town that gets burnt to the ground. Your story can start before it happens or after it happens, but it happens.</p><p>Before it happens, it's the center of trade for the valley of the River Troutbeck: a broad, green, bread-basket region that includes the outlying hamlets of Eashing, Wattle and Send. There is a different festival nearly every week, each drawing a different patchwork of folk from the surrounding fields and hills. The land is plentiful and life is thundering blissful towards death.</p><p>After it happens - and it's up to you when and why and how it happens - it is a place agape, newly awake to the full depth of cruelty and horror that this world contains. There is a wandering time, a casting-about for meaning. But as the people begin to dig through the charred ruin of their former lives, they pick out the nails from the ashes. What will they do with their anger? What will they become? TEST</p>",
   "isDeleted": false,
-  "artUrls": [
+  "featuredArtUrls": [
     "https://cdn.midjourney.com/9eeb3810-b3f8-41e0-bfb4-2b29c9dd0808/0_0.jpeg"
   ],
-  "faces": [],
-  "places": [],
-  "backgroundImage": "https://cdn.midjourney.com/077407d0-f6fb-4245-81ae-07c31bbce5d9/0_1.png",
+  "backgroundImage": "https://cdn.midjourney.com/308a2b3a-4b13-43b8-b089-71a57bc1364b/0_2_2048_N.webp",
+  "cardBackgroundImage": "https://cdn.midjourney.com/077407d0-f6fb-4245-81ae-07c31bbce5d9/0_1.png",
   "expansion": "824cad94-3a4a-4df3-b81a-ede17b84644b",
+  "playlists": [
+    "<iframe allow=\"autoplay *; encrypted-media *;\" frameborder=\"0\" height=\"450\" style=\"width:100%;max-width:660px;overflow:hidden;background:transparent;\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation\" src=\"https://embed.music.apple.com/us/playlist/ockham-before/pl.u-yZyVjgLCqRNX7y?theme=dark&theme=dark&theme=dark&theme=dark&theme=dark&theme=dark&theme=dark&theme=dark&theme=dark&theme=dark&theme=dark&theme=dark&theme=dark&theme=dark&theme=dark\"></iframe>",
+    "<iframe allow=\"autoplay *; encrypted-media *;\" frameborder=\"0\" height=\"450\" style=\"width:100%;max-width:660px;overflow:hidden;background:transparent;\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation\" src=\"https://embed.music.apple.com/us/playlist/ockham-after/pl.u-zPyLJMgCxaR5Xr?theme=dark&theme=dark&theme=dark&theme=dark&theme=dark&theme=dark&theme=dark&theme=dark&theme=dark&theme=dark&theme=dark&theme=dark&theme=dark&theme=dark&theme=dark\"></iframe>"
+  ],
   "hooks": [
     {
       "id": "ef3e441b-455e-4b91-95b8-58263289d699",
@@ -31,16 +34,13 @@
       "gmNotes": "<p>Should Our Heroes take up the call, they should readily find tracks leading to a cave. What follows should be a jolly-good cave crawl, perhaps two or three chambers in length, with reasonably challenging but surmountable bandit and bandit-adjacent foes.</p><p>The final, much-larger chamber should reveal an organized operation of theft and repackaging-for-resale, being led by... the mayor(!), who has humped themself double-time to get here before Our Heroes and intends to destroy them with something unexpected and powerful: perhaps a faithful ogre in a pit or some other less-blunt instrument?</p><p>Should Our Heroes prove victorious and should they choose to return to Ockham, perhaps it becomes apparent that others in town were secretly invested in this operation and are less than pleased at its demise. What trouble have they stirred up for themselves?</p><p>Bonus points for foreshadowing this illicit operation with items and/or foodstuffs for sale in town at the outset of the quest that are of notable quality and mysterious origin. Further accolades for including in the large cave chamber noncombatant laborers, kitchen staff, etc. who were ignorant of the evil of their employer's machinations and who muddy the moral waters of Our Heroes' putting things to rights.</p>"
     }
   ],
-  "playlists": [
-    "<iframe allow=\"autoplay *; encrypted-media *;\" frameborder=\"0\" height=\"450\" style=\"width:100%;max-width:660px;overflow:hidden;background:transparent;\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation\" src=\"https://embed.music.apple.com/us/playlist/ockham-before/pl.u-yZyVjgLCqRNX7y?theme=dark&theme=dark&theme=dark&theme=dark&theme=dark&theme=dark&theme=dark&theme=dark&theme=dark&theme=dark&theme=dark&theme=dark&theme=dark&theme=dark&theme=dark\"></iframe>",
-    "<iframe allow=\"autoplay *; encrypted-media *;\" frameborder=\"0\" height=\"450\" style=\"width:100%;max-width:660px;overflow:hidden;background:transparent;\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation\" src=\"https://embed.music.apple.com/us/playlist/ockham-after/pl.u-zPyLJMgCxaR5Xr?theme=dark&theme=dark&theme=dark&theme=dark&theme=dark&theme=dark&theme=dark&theme=dark&theme=dark&theme=dark&theme=dark&theme=dark&theme=dark&theme=dark&theme=dark\"></iframe>"
-  ],
-  "names": "Hugh, Albie, Benedict, Miles, Rupert, Imogen, Harriet, Tamsin, Elspeth, Marnie, Rowan, Kit, Jules, Enid, Robin, Edmund, Cecily, Anselm, Lettice, Simeon TEST",
-  "occupations": "Farmer, Shepherd, Miller, Broker, Blacksmith, Carpenter, Cooper, Weaver, Potter, Tanner, Carney, Butcher, Baker, Brewer, Chandler, Mason, Thatcher, Midwife",
-  "publicHouses": "The Stripey Pig, The Green Woman, The Sack and Sickle, Stickney's Tavern, The Shepherd's Legs",
-  "vittles": "Cider, Mead, Barley Bread, Oat Porridge, Smoked Eel, Salted Pork, Stewed Lentils, Hard Cheese, Fresh Apples, Pickled Onions, Roasted Turnips, Honey Cakes, Black Pudding, Small Beer, Snipe-On-A-Stick",
-  "pointsOfInterest": "The Festival Square, The Grand Fountain, The Exchange House, The Tithing Barn, The Hollow Tree",
-  "floraFauna": "Oak, Willow, Hawthorn, Elderberry, Wild Garlic, Nettles, Foxglove, Crow, Hedgehog, Badger, Red Deer, Pike, Barn Owl, Stoat, LarkTEST",
-  "lastModified": "2026-03-13T20:47:40.853Z",
-  "detailBackgroundImage": "https://cdn.midjourney.com/308a2b3a-4b13-43b8-b089-71a57bc1364b/0_2_2048_N.webp"
+  "localFlavor": {
+    "names": "Hugh, Albie, Benedict, Miles, Rupert, Imogen, Harriet, Tamsin, Elspeth, Marnie, Rowan, Kit, Jules, Enid, Robin, Edmund, Cecily, Anselm, Lettice, Simeon TEST",
+    "occupations": "Farmer, Shepherd, Miller, Broker, Blacksmith, Carpenter, Cooper, Weaver, Potter, Tanner, Carney, Butcher, Baker, Brewer, Chandler, Mason, Thatcher, Midwife",
+    "publicHouses": "The Stripey Pig, The Green Woman, The Sack and Sickle, Stickney's Tavern, The Shepherd's Legs",
+    "vittles": "Cider, Mead, Barley Bread, Oat Porridge, Smoked Eel, Salted Pork, Stewed Lentils, Hard Cheese, Fresh Apples, Pickled Onions, Roasted Turnips, Honey Cakes, Black Pudding, Small Beer, Snipe-On-A-Stick",
+    "pointsOfInterest": "The Festival Square, The Grand Fountain, The Exchange House, The Tithing Barn, The Hollow Tree",
+    "floraFauna": "Oak, Willow, Hawthorn, Elderberry, Wild Garlic, Nettles, Foxglove, Crow, Hedgehog, Badger, Red Deer, Pike, Barn Owl, Stoat, LarkTEST"
+  },
+  "lastModified": "2026-03-13T20:47:40.853Z"
 }

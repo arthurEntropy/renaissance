@@ -1,10 +1,10 @@
 {
-  "source": "45ca935d-938b-4974-961c-4171cc388904",
   "id": "130dc6aa-976a-4334-8b6c-c05bdcf776f1",
   "createdAt": "2026-03-16T23:29:37.865Z",
   "lastModified": "2026-03-16T23:55:22.001Z",
   "name": "Strange Fixation",
+  "artUrl": "https://cdn.midjourney.com/48377b31-8388-49fd-bca8-bfccffa24545/0_3.png",
   "description": "<p>You have a strange, hateful fixation on a certain type of harmless inanimate object - dolls, telescopes, clocks, windmills or the like - something neither omnipresent nor rare, and which represents no real threat in and of itself.</p><p>Catching sight of one of these objects causes you to check a Condition. Every minute you knowingly spend within medium range of these objects causes you to check another Condition. Touching one causes you to check two Conditions. Destroying one of these objects clears all your Conditions.</p><p><strong>Describe your fixation.</strong></p>",
-  "type": "a1b2c3d4-e5f6-4a1b-9c8d-7e6f5a4b3c2d",
-  "artUrl": "https://cdn.midjourney.com/48377b31-8388-49fd-bca8-bfccffa24545/0_3.png"
+  "source": "45ca935d-938b-4974-961c-4171cc388904",
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1"
 }

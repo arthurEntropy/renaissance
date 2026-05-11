@@ -4,15 +4,13 @@
   "createdAt": "2025-12-30T16:40:17.828Z",
   "lastModified": "2026-03-31T01:40:02.994Z",
   "name": "Unmake",
-  "description": "<p>A thin ray of light flashes from your pointing finger toward a creature or object you can see within medium range.</p><p>If the target is a creature, roll Lore vs Dexterity. On a loss, the target rolls Injury twice. On a win, the target takes 10d6+40 damage. If this damage reduces the target to 0 Endurance, its body is disintegrated into scattered points of light. The creature dies immediately, leaving no physical remains.</p><p>If the target is an object, roll Lore (ill-favored if the object is magical), then halve the result. If the object’s largest dimension, in feet, is less than or equal to the halved result, the object is completely disintegrated. Otherwise, a portion of the object up to that size is disintegrated instead.</p><p><strong>Describe how you unmake your target.</strong></p>",
-  "canBeActive": false,
-  "isActive": true,
-  "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
-  "mp": 10,
-  "xp": 50,
-  "successes": "<p>✨: You may shape the spell so as to avoid disintegrating a particular portion of the target or a particular item that the creature is carrying.</p><p>🌞: If the target is a creature, the damage dice increase to d8s. If the target is an object, do not halve the result of the Lore role.</p><p>💀: The energy of the spell is more than you can handle. You cast the spell, but you also take 3d6 damage, roll Injury and check a Condition.</p>",
   "artUrl": "https://cdn.midjourney.com/25fef22a-e56b-4eb1-adae-9819dbb309fc/0_0.png",
-  "type": "b2c3d4e5-f6a1-4b2c-ad9e-8f7a6b5c4d3e",
+  "description": "<p>A thin ray of light flashes from your pointing finger toward a creature or object you can see within medium range.</p><p>If the target is a creature, roll Lore vs Dexterity. On a loss, the target rolls Injury twice. On a win, the target takes 10d6+40 damage. If this damage reduces the target to 0 Endurance, its body is disintegrated into scattered points of light. The creature dies immediately, leaving no physical remains.</p><p>If the target is an object, roll Lore (ill-favored if the object is magical), then halve the result. If the object’s largest dimension, in feet, is less than or equal to the halved result, the object is completely disintegrated. Otherwise, a portion of the object up to that size is disintegrated instead.</p><p><strong>Describe how you unmake your target.</strong></p>",
+  "successes": "<p>✨: You may shape the spell so as to avoid disintegrating a particular portion of the target or a particular item that the creature is carrying.</p><p>🌞: If the target is a creature, the damage dice increase to d8s. If the target is an object, do not halve the result of the Lore role.</p><p>💀: The energy of the spell is more than you can handle. You cast the spell, but you also take 3d6 damage, roll Injury and check a Condition.</p>",
+  "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
+  "school": "c4a153b2-8906-4b95-be65-d8e5a5cc73ff",
   "isMagical": true,
-  "school": "c4a153b2-8906-4b95-be65-d8e5a5cc73ff"
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "mpCost": 10,
+  "xpCost": 50
 }

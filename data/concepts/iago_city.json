@@ -4,21 +4,21 @@
   "name": "Iago City",
   "description": "<p>Founded over 500 years ago by Karto Graffikos himself, the shining towers of the university stand as a beacon of knowledge at the head of the great Bay of Iago. Protected by the long-indentured Adjuncts, the university is now surrounded by a labyrinthine city and several outlying towns ringing the bay. Even as some decry the University’s aggressive tradition of acquiring relics from around the world, others point to the city’s vulnerability. Indeed, a recent financial setback brought the University under the leadership of an agent of Monte dei Paschi, whose policies are putting significant strain on regional alliances…</p>",
   "isDeleted": false,
-  "artUrls": [
+  "featuredArtUrls": [
     "https://cdn.midjourney.com/3d13bcb8-0a72-4366-b8d6-b0a2f98ba7d6/0_3.png"
   ],
-  "faces": [],
-  "places": [],
-  "backgroundImage": "",
+  "backgroundImage": "https://cdn.midjourney.com/1f611311-2f88-47af-841a-07a76b6ee011/0_1.png",
+  "cardBackgroundImage": "",
   "expansion": "e46f4320-a414-4300-95d5-397ba717d982",
-  "hooks": [],
   "playlists": [],
-  "names": "",
-  "occupations": "",
-  "publicHouses": "",
-  "vittles": "",
-  "pointsOfInterest": "",
-  "floraFauna": "",
-  "lastModified": "2026-03-13T20:40:34.161Z",
-  "detailBackgroundImage": "https://cdn.midjourney.com/1f611311-2f88-47af-841a-07a76b6ee011/0_1.png"
+  "hooks": [],
+  "localFlavor": {
+    "names": "",
+    "occupations": "",
+    "publicHouses": "",
+    "vittles": "",
+    "pointsOfInterest": "",
+    "floraFauna": ""
+  },
+  "lastModified": "2026-03-13T20:40:34.161Z"
 }

@@ -1,9 +1,29 @@
 {
   "id": "30ade4bc-27c7-4bb5-a674-00cbd0fc294b",
+  "isDeleted": false,
+  "createdAt": "2026-05-06T17:55:10.305Z",
+  "lastModified": "2026-02-17T19:46:32.776Z",
   "name": "Dagger",
+  "artUrl": "https://cdn.midjourney.com/8cdadc84-4cdf-4308-98b1-8e06a3ec0806/0_0.png",
   "description": "<p>Once per rest, you may spend a half action to ignite the blade. Until the beginning of your next turn, this deals +1d damage.</p>",
-  "keeping": "5e6f7a8b-9c0d-4e1f-2a3b-4c5d6e7f8a9b",
+  "successes": "<p>✨: +1d damage</p><p>🌞: Double damage</p><p>💀: Check a Condition.</p>",
+  "improvements": [
+    {
+      "id": "a1b2c3d4-e5f6-7890-1234-567890abcdef",
+      "name": "Extra Stabby",
+      "description": "<p>The damage die for this weapon increases to a d8.</p>",
+      "xpCost": 5
+    }
+  ],
   "source": "34ea8807-b404-435c-a860-704b4a40df8f",
+  "school": null,
+  "keeping": "5e6f7a8b-9c0d-4e1f-2a3b-4c5d6e7f8a9b",
+  "isCustom": false,
+  "isTemplate": false,
+  "isMagical": false,
+  "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
+  "subtype": "ab765755-b7c9-47ac-b62f-34f069e00dc3",
+  "grade": "ad30b114-3c19-413f-aad2-5f270bd95684",
   "weight": 1,
   "length": 1,
   "reach": 0,
@@ -19,22 +39,5 @@
     4
   ],
   "engagementSuccesses": [],
-  "skillMods": [],
-  "isDeleted": false,
-  "isCustom": false,
-  "isTemplate": false,
-  "artUrl": "https://cdn.midjourney.com/8cdadc84-4cdf-4308-98b1-8e06a3ec0806/0_0.png",
-  "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
-  "subtype": "ab765755-b7c9-47ac-b62f-34f069e00dc3",
-  "grade": "ad30b114-3c19-413f-aad2-5f270bd95684",
-  "lastModified": "2026-02-17T19:46:32.776Z",
-  "successes": "<p>✨: +1d damage</p><p>🌞: Double damage</p><p>💀: Check a Condition.</p>",
-  "improvements": [
-    {
-      "id": "a1b2c3d4-e5f6-7890-1234-567890abcdef",
-      "name": "Extra Stabby",
-      "description": "<p>The damage die for this weapon increases to a d8.</p>",
-      "xp": 5
-    }
-  ]
+  "defenseBonus": 0
 }

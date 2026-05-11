@@ -8,13 +8,11 @@
   "lastLoginAt": "2026-05-04T17:39:20.322Z",
   "isDeleted": false,
   "preferences": {
-    "theme": "dark",
-    "notifications": true,
     "backgroundImageId": "1cf1ac16-e262-4739-823f-70d3352cf74f",
-    "showArtwork": true
+    "showCardArtwork": true
   },
   "characters": [],
-  "lastUpdatedAt": "2026-05-04T18:28:42.303Z",
-  "lastModified": "2026-05-04T18:28:42.303Z",
+  "lastUpdatedAt": "2026-05-10T18:36:21.319Z",
+  "lastModified": "2026-05-10T18:36:21.319Z",
   "activeCampaignId": "2216d52f-f74d-479e-b440-f7b5aa6319e5"
 }

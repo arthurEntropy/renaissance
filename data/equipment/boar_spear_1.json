@@ -1,9 +1,22 @@
 {
   "id": "63b70983-0120-43ef-af99-f0835014246b",
+  "isDeleted": false,
+  "createdAt": "2026-05-06T17:55:10.305Z",
+  "lastModified": "2025-12-26T19:25:10.173Z",
   "name": "Boar Spear",
+  "artUrl": "https://cdn.midjourney.com/81a53c7a-f18e-42da-9e73-cb469ec942e4/0_0.png",
   "description": "",
-  "keeping": "3c4d5e6f-7a8b-4c9d-0e1f-2a3b4c5d6e7f",
+  "successes": null,
+  "improvements": [],
   "source": "0c876a74-a89b-42dc-b76a-4592a0478d81",
+  "school": null,
+  "keeping": "3c4d5e6f-7a8b-4c9d-0e1f-2a3b4c5d6e7f",
+  "isCustom": false,
+  "isTemplate": false,
+  "isMagical": false,
+  "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
+  "subtype": "3d4f28d9-d757-4789-b3a2-0e9fffda4fc0",
+  "grade": "b92d3394-2c64-487f-8c90-c56ea1cbd3f3",
   "weight": 3,
   "length": 6,
   "reach": 0,
@@ -21,13 +34,5 @@
   "engagementSuccesses": [
     "e1f2a3b4-c5d6-47e8-f9a0-b1c2d3e4f5a6"
   ],
-  "skillMods": [],
-  "isDeleted": false,
-  "isCustom": false,
-  "isTemplate": false,
-  "artUrl": "https://cdn.midjourney.com/81a53c7a-f18e-42da-9e73-cb469ec942e4/0_0.png",
-  "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
-  "subtype": "3d4f28d9-d757-4789-b3a2-0e9fffda4fc0",
-  "grade": "b92d3394-2c64-487f-8c90-c56ea1cbd3f3",
-  "lastModified": "2025-12-26T19:25:10.173Z"
+  "defenseBonus": 0
 }

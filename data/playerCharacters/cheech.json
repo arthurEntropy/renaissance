@@ -1,0 +1,336 @@
+{
+  "id": "09f4c307-2acc-475a-a634-94c58e7e6992",
+  "isDeleted": false,
+  "createdAt": "2026-02-18T16:16:31.097Z",
+  "lastModified": "2026-04-29T00:28:17.597Z",
+  "name": "Cheech",
+  "pronouns": "she/her",
+  "ancestryIds": [
+    "77e4f81a-728f-49a7-a013-4d6f666353e2"
+  ],
+  "cultureIds": [
+    "0c876a74-a89b-42dc-b76a-4592a0478d81"
+  ],
+  "mestiereId": "10f46ecd-e6f5-4d3b-b510-d4035ab24f56",
+  "featuredArtUrls": [
+    "https://cdn.midjourney.com/b103377f-aac8-4932-a0ef-4f996901880d/0_3.jpeg"
+  ],
+  "age": 25,
+  "heightFeet": 3,
+  "heightInches": 4,
+  "weight": 50,
+  "speed": 0,
+  "keeping": "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d",
+  "xp": 1,
+  "notes": "",
+  "characterType": "player",
+  "body": 4,
+  "heart": 3,
+  "wits": 3,
+  "skills": [
+    {
+      "key": "awe",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "strength",
+      "ranks": 1,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "dexterity",
+      "ranks": 2,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "fortitude",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "craft",
+      "ranks": 1,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "perform",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "insight",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "courtesy",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "spirit",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "aid",
+      "ranks": 3,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "persuade",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "awareness",
+      "ranks": 2,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "stealth",
+      "ranks": 1,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "lore",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "riddle",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    }
+  ],
+  "endurance": {
+    "current": 20,
+    "base": 20
+  },
+  "hope": {
+    "current": 8,
+    "base": 6
+  },
+  "defense": {
+    "current": 10,
+    "base": 10
+  },
+  "load": 0,
+  "shadow": 0,
+  "injury": 3,
+  "states": {
+    "weary": false,
+    "twiceWeary": false,
+    "miserable": false,
+    "twiceMiserable": false,
+    "helpless": false,
+    "twiceHelpless": false
+  },
+  "conditions": {
+    "insecure": false,
+    "guilty": false,
+    "angry": false,
+    "afraid": false,
+    "troubled": false
+  },
+  "engagementDiceStatuses": {
+    "e7c57bc7-5009-45bd-81f0-c8011115862c_0": "selected",
+    "mestiere_0": "selected",
+    "mestiere_1": "selected"
+  },
+  "equipment": [
+    {
+      "id": "093eef8a-85e0-42d8-85bc-b0bb1d1877af",
+      "quantity": 1,
+      "isCarried": true,
+      "isWielding": true,
+      "collapsed": false,
+      "columnIndex": 0
+    },
+    {
+      "id": "4ef323c3-c475-4148-a9ab-df5868d5fa06",
+      "quantity": 1,
+      "isCarried": true,
+      "isWielding": true,
+      "collapsed": false,
+      "columnIndex": 0
+    },
+    {
+      "id": "60d8ec28-8e4f-4789-83cf-9338a8f4ee0e",
+      "quantity": 1,
+      "isCarried": true,
+      "columnIndex": 1
+    },
+    {
+      "id": "63b70983-0120-43ef-af99-f0835014246b",
+      "quantity": 1,
+      "isCarried": true,
+      "columnIndex": 1
+    },
+    {
+      "id": "e7c57bc7-5009-45bd-81f0-c8011115862c",
+      "quantity": 1,
+      "isCarried": true,
+      "isWielding": true,
+      "columnIndex": 1
+    },
+    {
+      "id": "89323e37-bd8c-4103-8fc7-12f31969dfc6",
+      "quantity": 1,
+      "isCarried": true,
+      "isWielding": false,
+      "difficulty": null,
+      "collapsed": true,
+      "columnIndex": 2
+    },
+    {
+      "id": "010cc4f9-1dc5-4f35-8eb9-eb19a911a9c5",
+      "quantity": 1,
+      "isCarried": true,
+      "isWielding": false,
+      "difficulty": 12,
+      "collapsed": true,
+      "columnIndex": 2
+    }
+  ],
+  "groupEquipmentBySource": false,
+  "equipmentSortOption": "",
+  "mp": {
+    "current": 0,
+    "base": 0
+  },
+  "abilities": [
+    {
+      "id": "738255ac-87f1-45a5-91ff-c2144b92b5e3",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "1325605b-d523-4ec2-b2a7-57a04dc55d91",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "9f21adf6-85f2-482b-a13c-29b4c53487bd",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "0be14c83-458a-41f4-b5ac-29c2b4266ea5",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "9d6d82e0-bc0d-4f68-85dd-c2f3e2e17597",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "ea5b56c6-375f-4426-84be-cf4df79b7505",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false
+    },
+    {
+      "id": "ed6d2d46-d275-45e4-b62f-3a3aaa40b6be",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false
+    }
+  ],
+  "groupAbilitiesBySource": true,
+  "abilitySortOption": "",
+  "autoCalculations": {
+    "load": true,
+    "states": true,
+    "baseDefense": true
+  },
+  "rollStats": {
+    "skillChecks": {
+      "attempts": 5,
+      "successes": 4,
+      "totalSum": 82,
+      "bestTotal": 27,
+      "hardestSuccess": 18,
+      "bySkill": {
+        "Dexterity": 3,
+        "Aid": 1,
+        "Craft": 1
+      },
+      "solCount": 1,
+      "morteCount": 0,
+      "successCount": 2
+    },
+    "contests": {
+      "engagement": {
+        "wins": 0,
+        "losses": 0,
+        "draws": 0
+      },
+      "opposed": {
+        "wins": 0,
+        "losses": 0,
+        "draws": 0
+      }
+    }
+  },
+  "biomeTags": [
+    "mountain",
+    "water",
+    "cold"
+  ],
+  "biomeId": "f61d1026-1282-4ec2-a684-d0e5bd07f612",
+  "witchcraftTokens": [],
+  "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1"
+}
