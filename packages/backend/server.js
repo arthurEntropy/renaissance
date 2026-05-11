@@ -180,6 +180,14 @@ app.post('/characters', verifyToken, requireAuth, requireApproved, createEntity(
 app.put('/characters/:id', verifyToken, requireAuth, requireApproved, updateEntity('characters'))
 app.delete('/characters/:id', verifyToken, requireAuth, requireApproved, deleteEntity('characters'))
 
+// Concept-specific routes — public read, admin-only write
+// Data is stored across ancestries/cultures/mestieri/worldElements directories
+// (must be defined before the generic entity loop below)
+app.get('/concepts', getAllEntities('concepts'))
+app.post('/concepts', verifyToken, requireAuth, requireAdmin, createEntity('concepts'))
+app.put('/concepts/:id', verifyToken, requireAuth, requireAdmin, updateEntity('concepts'))
+app.delete('/concepts/:id', verifyToken, requireAuth, requireAdmin, deleteEntity('concepts'))
+
 // Dynamically retrieve entity names from the "data" directory
 const entities = getEntityNames()
 
@@ -187,13 +195,18 @@ const entities = getEntityNames()
 entities.forEach((entity) => {
   // Characters have their own routes above (non-admin write access)
   // Campaigns have their own routes above
+  // Concept subdirectories are aggregated behind /concepts above
   if (
     entity === 'characters' ||
     entity === 'campaigns' ||
     entity === 'playerCharacters' ||
     entity === 'npcs' ||
     entity === 'beasts' ||
-    entity === 'beastInstances'
+    entity === 'beastInstances' ||
+    entity === 'ancestries' ||
+    entity === 'cultures' ||
+    entity === 'mestieri' ||
+    entity === 'worldElements'
   ) {
     return
   }
