@@ -36,7 +36,7 @@
 </template>
 
 <script setup>
-import { ref, computed, watch, provide, inject, nextTick } from 'vue'
+import { ref, computed, watch, provide, inject, nextTick, onMounted, onUnmounted } from 'vue'
 import { useAuthStore } from '@/stores/authStore'
 import { useRulesStore } from '@/stores/rulesStore'
 import TextEditor from '@/components/ui/textEditor/TextEditor.vue'
@@ -48,6 +48,8 @@ const authStore = useAuthStore()
 const rulesStore = useRulesStore()
 const isAdmin = computed(() => authStore.isAdmin)
 const isStructureEditMode = inject('isStructureEditMode', ref(false))
+
+const emit = defineEmits(['activeHeadingChanged'])
 
 const isContentEditMode = ref(false)
 const localSection = ref(null)
@@ -87,6 +89,7 @@ watch(() => rulesStore.selectedSection?.id, async (newId, oldId) => {
   if (scrollableContent.value) {
     scrollableContent.value.scrollTop = scrollPositions[newId] ?? 0
   }
+  updateActiveHeading()
 })
 
 const safeSectionHtml = computed(() => {
@@ -108,6 +111,60 @@ const toggleContentEditMode = async () => {
   }
   isContentEditMode.value = !isContentEditMode.value
 }
+
+const updateActiveHeading = () => {
+  const container = scrollableContent.value
+  if (!container) return
+  const h2Elements = [...container.querySelectorAll('h2')]
+  if (h2Elements.length === 0) {
+    emit('activeHeadingChanged', null)
+    return
+  }
+  const atBottom = container.scrollTop + container.clientHeight >= container.scrollHeight - 2
+  if (atBottom) {
+    emit('activeHeadingChanged', h2Elements[h2Elements.length - 1].textContent.trim())
+    return
+  }
+  const containerTop = container.getBoundingClientRect().top
+  let active = null
+  for (const el of h2Elements) {
+    if (el.getBoundingClientRect().top - containerTop <= 10) {
+      active = el
+    }
+  }
+  emit('activeHeadingChanged', active ? active.textContent.trim() : null)
+}
+
+onMounted(() => {
+  if (scrollableContent.value) {
+    scrollableContent.value.addEventListener('scroll', updateActiveHeading)
+  }
+})
+
+onUnmounted(() => {
+  if (scrollableContent.value) {
+    scrollableContent.value.removeEventListener('scroll', updateActiveHeading)
+  }
+})
+
+const scrollToHeading = (headingText) => {
+  const container = scrollableContent.value
+  if (!container) return
+  const h2Elements = container.querySelectorAll('h2')
+  for (const el of h2Elements) {
+    if (el.textContent.trim() === headingText.trim()) {
+      const containerRect = container.getBoundingClientRect()
+      const elRect = el.getBoundingClientRect()
+      container.scrollTo({
+        top: container.scrollTop + elRect.top - containerRect.top,
+        behavior: 'smooth'
+      })
+      break
+    }
+  }
+}
+
+defineExpose({ scrollToHeading })
 </script>
 
 <style scoped>

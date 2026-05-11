@@ -22,8 +22,8 @@
           <div class="section-controls">
             <FloatingActionButton :variant="FAB_TYPES.DRAG" :size="FAB_SIZES.SMALL"
               :visibility="FAB_VISIBILITIES.ALWAYS" />
-            <FloatingActionButton :variant="FAB_TYPES.DELETE" :size="FAB_SIZES.SMALL" :visibility="FAB_VISIBILITIES.ALWAYS"
-              @click.stop="confirmDeleteSection(element)" />
+            <FloatingActionButton :variant="FAB_TYPES.DELETE" :size="FAB_SIZES.SMALL"
+              :visibility="FAB_VISIBILITIES.ALWAYS" @click.stop="confirmDeleteSection(element)" />
           </div>
         </div>
       </template>
@@ -31,11 +31,22 @@
 
     <!-- Non-draggable rule sections when not in structure edit mode -->
     <div v-else class="rule-sections-list">
-      <div v-for="section in orderedSections" :key="section.id" :class="[
-        'rule-section-item',
-        { active: rulesStore.selectedSection?.id === section.id },
-      ]" @click="selectSection(section.id)">
-        <span class="section-name">{{ section.name }}</span>
+      <div v-for="section in orderedSections" :key="section.id" class="rule-section-wrapper">
+        <div :class="[
+          'rule-section-item',
+          { active: rulesStore.selectedSection?.id === section.id },
+        ]" @click="selectSection(section.id)">
+          <span class="section-name">{{ section.name }}</span>
+        </div>
+        <!-- Subsections derived from H2 elements in the section content -->
+        <div v-if="rulesStore.selectedSection?.id === section.id && selectedSectionHeadings.length > 0"
+          class="subsections-list">
+          <div v-for="heading in selectedSectionHeadings" :key="heading"
+            :class="['subsection-item', { 'subsection-active': props.activeHeading === heading }]"
+            @click="handleSubsectionClick(heading)">
+            {{ toTitleCase(heading) }}
+          </div>
+        </div>
       </div>
     </div>
 
@@ -69,8 +80,31 @@ const isStructureEditMode = inject('isStructureEditMode', ref(false))
 const emit = defineEmits([
   'selectSection',
   'sectionCreated',
-  'update:isStructureEditMode'
+  'update:isStructureEditMode',
+  'scrollToHeading'
 ])
+
+const props = defineProps({
+  activeHeading: {
+    type: String,
+    default: null
+  }
+})
+
+const toTitleCase = (str) =>
+  str.replace(/\S+/g, word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+
+const selectedSectionHeadings = computed(() => {
+  const content = rulesStore.selectedSection?.content
+  if (!content) return []
+  const parser = new DOMParser()
+  const doc = parser.parseFromString(content, 'text/html')
+  return Array.from(doc.querySelectorAll('h2')).map(el => el.textContent.trim()).filter(Boolean)
+})
+
+const handleSubsectionClick = (heading) => {
+  emit('scrollToHeading', heading)
+}
 
 const orderedSections = computed(() => {
   return rulesStore.sections
@@ -237,6 +271,29 @@ const updateLocalSections = (newSections) => {
 .ghost-section {
   opacity: 0.5;
   background: var(--color-gray-dark);
+}
+
+.subsections-list {
+  background: var(--overlay-black-medium);
+  border-left: 3px solid var(--color-white);
+}
+
+.subsection-item {
+  padding: var(--space-sm) var(--space-lg) var(--space-sm) var(--space-xl);
+  cursor: pointer;
+  font-size: var(--font-size-14);
+  color: var(--color-gray-medium);
+  border-bottom: 1px solid var(--overlay-white-subtle);
+  transition: var(--transition-color-bg);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.subsection-item:hover,
+.subsection-item.subsection-active {
+  background: var(--overlay-white-subtle);
+  color: var(--color-white);
 }
 
 @media (max-width: var(--breakpoint-md)) {

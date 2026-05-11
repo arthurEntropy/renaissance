@@ -4,7 +4,8 @@
 
       <!-- NAVIGATION -->
       <RulesNavigation @selectSection="handleSelectSection" @update:isStructureEditMode="toggleStructureEditMode"
-        @sectionCreated="handleSectionCreated" />
+        @sectionCreated="handleSectionCreated" @scrollToHeading="handleScrollToHeading"
+        :activeHeading="activeHeading" />
 
       <!-- CONTENT AREA -->
       <div class="rules-content">
@@ -12,7 +13,7 @@
           <div class="section-layout">
 
             <!-- CONTENT -->
-            <RulesContent />
+            <RulesContent ref="rulesContentRef" @activeHeadingChanged="activeHeading = $event" />
 
             <!-- IMAGE PANEL -->
             <RulesImagePanel />
@@ -130,6 +131,13 @@ const handleSelectSection = async (sectionId) => {
 
 const handleSectionCreated = () => {
   toggleStructureEditMode()
+}
+
+const rulesContentRef = ref(null)
+const activeHeading = ref(null)
+
+const handleScrollToHeading = (heading) => {
+  rulesContentRef.value?.scrollToHeading(heading)
 }
 
 onMounted(async () => {
