@@ -28,7 +28,7 @@
           class="section-text-editor" height="100%" />
 
         <!-- DISPLAY MODE: Section content when not in content edit mode -->
-        <div v-else class="content-display rich-text-content" v-html="safeSectionHtml">
+        <div v-else class="content-display rich-text-content" v-html="displayedSectionHtml">
         </div>
       </div>
     </div>
@@ -43,11 +43,14 @@ import TextEditor from '@/components/ui/textEditor/TextEditor.vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import { FAB_TYPES, FAB_VISIBILITIES } from '@/constants/fab'
 import { sanitizeHtml } from '@/utils/sanitizeHtml'
+import { highlightInHtml } from '@/utils/highlightText'
 
 const authStore = useAuthStore()
 const rulesStore = useRulesStore()
 const isAdmin = computed(() => authStore.isAdmin)
 const isStructureEditMode = inject('isStructureEditMode', ref(false))
+const searchQuery = inject('searchQuery', ref(''))
+const pendingScrollTarget = inject('pendingScrollTarget', ref(null))
 
 const emit = defineEmits(['activeHeadingChanged'])
 
@@ -86,14 +89,40 @@ watch(() => rulesStore.selectedSection?.id, async (newId, oldId) => {
 
   // Restore saved scroll position, or start at top for first visit
   await nextTick()
-  if (scrollableContent.value) {
+  if (scrollableContent.value && !pendingScrollTarget.value) {
     scrollableContent.value.scrollTop = scrollPositions[newId] ?? 0
+  }
+  if (pendingScrollTarget.value) {
+    applyScrollTarget(pendingScrollTarget.value)
+    pendingScrollTarget.value = null
   }
   updateActiveHeading()
 })
 
+const applyScrollTarget = (target) => {
+  const container = scrollableContent.value
+  if (!container) return
+  // Always prefer scrolling to the first highlighted mark — it's the exact match.
+  // Fall back to the h2 heading if no mark is present.
+  const firstMark = container.querySelector('mark')
+  if (firstMark) {
+    const containerRect = container.getBoundingClientRect()
+    const markRect = firstMark.getBoundingClientRect()
+    container.scrollTo({
+      top: container.scrollTop + markRect.top - containerRect.top - 40,
+      behavior: 'smooth',
+    })
+  } else if (target.type === 'heading') {
+    scrollToHeading(target.text)
+  }
+}
+
 const safeSectionHtml = computed(() => {
   return sanitizeHtml(currentSection.value?.content || '')
+})
+
+const displayedSectionHtml = computed(() => {
+  return highlightInHtml(safeSectionHtml.value, searchQuery.value.trim())
 })
 
 const saveSection = async () => {
@@ -164,7 +193,7 @@ const scrollToHeading = (headingText) => {
   }
 }
 
-defineExpose({ scrollToHeading })
+defineExpose({ scrollToHeading, applyScrollTarget })
 </script>
 
 <style scoped>
@@ -274,6 +303,13 @@ defineExpose({ scrollToHeading })
   text-align: left;
   line-height: var(--line-height-loose);
   font-size: var(--font-size-16);
+}
+
+.content-display :deep(mark) {
+  background: var(--color-accent-yellow, #f5c842);
+  color: var(--color-text-dark, #1a1a1a);
+  border-radius: 2px;
+  padding: 0 1px;
 }
 
 @media (max-width: var(--breakpoint-md)) {

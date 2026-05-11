@@ -5,7 +5,7 @@
   "status": "approved",
   "needsUsername": false,
   "createdAt": "2025-10-24T18:03:45.214Z",
-  "lastLoginAt": "2026-05-04T17:39:20.322Z",
+  "lastLoginAt": "2026-05-11T19:28:51.426Z",
   "isDeleted": false,
   "preferences": {
     "backgroundImageId": "1cf1ac16-e262-4739-823f-70d3352cf74f",
@@ -13,6 +13,6 @@
   },
   "characters": [],
   "lastUpdatedAt": "2026-05-11T17:12:45.058Z",
-  "lastModified": "2026-05-11T17:12:45.058Z",
+  "lastModified": "2026-05-11T19:28:51.999Z",
   "activeCampaignId": null
 }

@@ -5,7 +5,7 @@
       <!-- NAVIGATION -->
       <RulesNavigation @selectSection="handleSelectSection" @update:isStructureEditMode="toggleStructureEditMode"
         @sectionCreated="handleSectionCreated" @scrollToHeading="handleScrollToHeading"
-        :activeHeading="activeHeading" />
+        @scrollToTarget="handleScrollToTarget" :activeHeading="activeHeading" />
 
       <!-- CONTENT AREA -->
       <div class="rules-content">
@@ -36,6 +36,7 @@
 <script setup>
 import { ref, computed, watch, onMounted, provide } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import RulesNavigation from '@/components/features/rules/RulesNavigation.vue'
 import RulesContent from '@/components/features/rules/RulesContent.vue'
@@ -120,6 +121,15 @@ const isStructureEditMode = ref(false)
 
 provide('isStructureEditMode', isStructureEditMode)
 
+// Search query shared with navigation (writes) and content (reads)
+const searchQuery = ref('')
+
+provide('searchQuery', searchQuery)
+
+// Pending scroll target set by search result clicks
+const pendingScrollTarget = ref(null)
+provide('pendingScrollTarget', pendingScrollTarget)
+
 const toggleStructureEditMode = () => {
   isStructureEditMode.value = !isStructureEditMode.value
 }
@@ -138,6 +148,10 @@ const activeHeading = ref(null)
 
 const handleScrollToHeading = (heading) => {
   rulesContentRef.value?.scrollToHeading(heading)
+}
+
+const handleScrollToTarget = (target) => {
+  rulesContentRef.value?.applyScrollTarget(target)
 }
 
 onMounted(async () => {
