@@ -70,11 +70,26 @@ if (!auth) {
 
 const app = express()
 const server = createServer(app)
+
+const allowedOrigins = (process.env.CORS_ALLOWED_ORIGINS || 'http://localhost:5173')
+  .split(',')
+  .map((origin) => origin.trim())
+  .filter(Boolean)
+
+const corsOptions = {
+  origin: (origin, callback) => {
+    // Allow non-browser clients (no origin header), and configured browser origins.
+    if (!origin || allowedOrigins.includes(origin)) {
+      return callback(null, true)
+    }
+
+    return callback(new Error(`Origin ${origin} is not allowed by CORS`))
+  },
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+}
+
 const io = new Server(server, {
-  cors: {
-    origin: '*', // TODO: Restrict this to frontend domain in production
-    methods: ['GET', 'POST']
-  }
+  cors: corsOptions,
 })
 
 // Apply authentication middleware to all socket connections
@@ -83,7 +98,7 @@ io.use(socketRequireApproved)
 const PORT = process.env.PORT || 3000
 
 app.use(express.json())
-app.use(cors())
+app.use(cors(corsOptions))
 
 app.use((req, res, next) => {
   // Protected routes that require authentication
@@ -155,7 +170,7 @@ app.delete('/campaigns/:id/shops/:shopId', requireAuth, requireCampaignGM, delet
 
 // Character-specific routes — allow any approved user to manage their own characters
 // (must be defined before the generic entity loop below)
-app.get('/characters', getAllEntities('characters'))
+app.get('/characters', verifyToken, requireAuth, requireApproved, getAllEntities('characters'))
 app.post('/characters', verifyToken, requireAuth, requireApproved, createEntity('characters'))
 app.put('/characters/:id', verifyToken, requireAuth, requireApproved, updateEntity('characters'))
 app.delete('/characters/:id', verifyToken, requireAuth, requireApproved, deleteEntity('characters'))
@@ -178,6 +193,23 @@ entities.forEach((entity) => {
     return
   }
 
+  // User and invite datasets should never be publicly readable.
+  if (entity === 'users') {
+    app.get(`/${entity}`, verifyToken, requireAuth, requireAdmin, getAllEntities(entity))
+    app.post(`/${entity}`, verifyToken, requireAuth, requireAdmin, createEntity(entity))
+    app.put(`/${entity}/:id`, verifyToken, requireAuth, requireAdmin, updateEntity(entity))
+    app.delete(`/${entity}/:id`, verifyToken, requireAuth, requireAdmin, deleteEntity(entity))
+    return
+  }
+
+  if (entity === 'invites') {
+    app.get(`/${entity}`, verifyToken, requireAuth, requireAdmin, getAllEntities(entity))
+    app.post(`/${entity}`, verifyToken, requireAuth, requireAdmin, createEntity(entity))
+    app.put(`/${entity}/:id`, verifyToken, requireAuth, requireAdmin, updateEntity(entity))
+    app.delete(`/${entity}/:id`, verifyToken, requireAuth, requireAdmin, deleteEntity(entity))
+    return
+  }
+
   // All other data entities are public for reading, admin-only for writing
   app.get(`/${entity}`, getAllEntities(entity))
   app.post(`/${entity}`, verifyToken, requireAuth, requireAdmin, createEntity(entity))
@@ -186,7 +218,7 @@ entities.forEach((entity) => {
 })
 
 // Discord route
-app.post('/send-discord-message', sendDiscordMessage)
+app.post('/send-discord-message', verifyToken, requireAuth, requireApproved, sendDiscordMessage)
 
 // Set up Socket.io handlers
 setupEngagementHandlers(io)
