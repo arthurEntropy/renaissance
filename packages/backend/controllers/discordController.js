@@ -12,16 +12,19 @@ let discordConfig = null
 
 function getDiscordConfig() {
   if (discordConfig === null) {
-    discordConfig = { webhookUrl: null }
-    if (process.env.DISCORD_WEBHOOK_PATH) {
+    discordConfig = { webhookUrl: process.env.DISCORD_WEBHOOK_URL || null }
+
+    if (discordConfig.webhookUrl) {
+      console.log('Discord webhook configuration loaded from DISCORD_WEBHOOK_URL')
+    } else if (process.env.DISCORD_WEBHOOK_PATH) {
       try {
         discordConfig = JSON.parse(readFileSync(process.env.DISCORD_WEBHOOK_PATH, 'utf8'))
-        console.log('Discord webhook configuration loaded')
+        console.log('Discord webhook configuration loaded from DISCORD_WEBHOOK_PATH')
       } catch (error) {
         console.error('Error loading Discord webhook config:', error.message)
       }
     } else {
-      console.warn('DISCORD_WEBHOOK_PATH environment variable not set')
+      console.warn('Discord webhook is not configured (set DISCORD_WEBHOOK_URL or DISCORD_WEBHOOK_PATH)')
     }
   }
   return discordConfig

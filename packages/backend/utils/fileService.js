@@ -7,12 +7,17 @@ import {
   existsSync,
   mkdirSync,
 } from 'fs'
-import { join } from 'path'
+import { isAbsolute, join, resolve } from 'path'
 import { fileURLToPath } from 'url'
 import { v4 as uuidv4 } from 'uuid'
 
 // Base directory for all data entities (cultures, characters, etc.)
-const DATA_DIR = fileURLToPath(new URL('../../../data', import.meta.url))
+const DEFAULT_DATA_DIR = fileURLToPath(new URL('../../../data', import.meta.url))
+const DATA_DIR = process.env.DATA_DIR
+  ? (isAbsolute(process.env.DATA_DIR)
+      ? process.env.DATA_DIR
+      : resolve(process.cwd(), process.env.DATA_DIR))
+  : DEFAULT_DATA_DIR
 const LEGACY_CHARACTERS_ENTITY = 'characters'
 const CHARACTER_SPLIT_ENTITIES = Object.freeze([
   'playerCharacters',
