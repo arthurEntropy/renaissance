@@ -1,18 +1,18 @@
 {
   "id": 7,
-  "lastModified": "2026-04-28T17:57:15.265Z",
+  "lastModified": "2026-05-12T01:34:54.429Z",
   "name": "Sethric",
   "pronouns": "he/him",
   "ancestryIds": [],
   "cultureIds": [],
-  "mestiereId": null,
+  "mestiereId": "",
   "featuredArtUrls": [
     "https://cdn.midjourney.com/197f94cf-5881-40eb-992f-01478aac1660/0_3.png"
   ],
   "keeping": "2b3c4d5e-6f7a-4b8c-9d0e-1f2a3b4c5d6e",
   "xp": 10,
   "notes": "Silversmith, practitioner of Dwarven resonant singing, precocious party animal.",
-  "characterType": "player",
+  "characterType": "playerCharacter",
   "body": 3,
   "heart": 2,
   "wits": 1,
@@ -269,5 +269,14 @@
     }
   },
   "witchcraftTokens": [],
-  "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1"
+  "ownerId": "yMwXRvIrCwWwG4NRC4HBjN2BrOM2",
+  "age": 0,
+  "heightFeet": 0,
+  "heightInches": 0,
+  "weight": 0,
+  "description": "",
+  "size": 0,
+  "reach": 0,
+  "campaignId": "2216d52f-f74d-479e-b440-f7b5aa6319e5",
+  "updatedAt": "2026-05-12T01:34:54.429Z"
 }

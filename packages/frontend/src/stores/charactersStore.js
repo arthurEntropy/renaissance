@@ -5,7 +5,6 @@ import CharacterService from '@/services/entities/characterService'
 import { useAuthStore } from './authStore'
 import {
   isPlayerCharacter,
-  isNPC,
   isBeastTemplate,
   isBeastInstance,
 } from '@/utils/characterTypeGuards'
@@ -52,8 +51,9 @@ export const useCharactersStore = defineStore('characters', () => {
 
   // Computed properties
   const filteredCharacters = computed(() => {
+    const uid = authStore.user?.uid
     return base.items.value.filter((character) =>
-      isPlayerCharacter(character) || isNPC(character)
+      isPlayerCharacter(character) && character.ownerId === uid
     )
   })
 
@@ -95,6 +95,16 @@ export const useCharactersStore = defineStore('characters', () => {
     return updatedEntity
   }
 
+  const transferOwnership = async (characterId, newOwnerId) => {
+    const updated = await CharacterService.transferOwnership(characterId, newOwnerId)
+    // Remove from store since current user no longer owns it
+    base.allItems.value = base.allItems.value.filter((c) => c.id !== characterId)
+    if (selectedCharacter.value?.id === characterId) {
+      selectedCharacter.value = null
+    }
+    return updated
+  }
+
   return {
     characters: base.items,
     selectedCharacter,
@@ -104,6 +114,7 @@ export const useCharactersStore = defineStore('characters', () => {
     create: base.create,
     update,
     remove: base.remove,
+    transferOwnership,
     selectCharacter,
     deselectCharacter,
     getById: base.getById,

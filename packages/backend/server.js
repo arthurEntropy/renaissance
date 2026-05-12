@@ -8,6 +8,7 @@ import {
   createEntity,
   updateEntity,
   deleteEntity,
+  transferCharacterOwnership,
 } from './controllers/entityController.js'
 import {
   scanCleanup,
@@ -177,6 +178,7 @@ app.delete('/campaigns/:id/shops/:shopId', requireAuth, requireCampaignGM, delet
 // (must be defined before the generic entity loop below)
 app.get('/characters', verifyToken, requireAuth, requireApproved, getAllEntities('characters'))
 app.post('/characters', verifyToken, requireAuth, requireApproved, createEntity('characters'))
+app.post('/characters/:id/transfer-ownership', verifyToken, requireAuth, requireApproved, transferCharacterOwnership)
 app.put('/characters/:id', verifyToken, requireAuth, requireApproved, updateEntity('characters'))
 app.delete('/characters/:id', verifyToken, requireAuth, requireApproved, deleteEntity('characters'))
 

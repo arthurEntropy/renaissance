@@ -1,5 +1,6 @@
 import BaseEntityService from './baseEntityService'
 import { createDefaultCharacter } from '@shared/types'
+import apiClient from '../api/apiClient'
 
 class CharacterService extends BaseEntityService {
   constructor() {
@@ -73,6 +74,16 @@ class CharacterService extends BaseEntityService {
       [itemsProperty]: character[itemsProperty].map((item, i) =>
         i === index ? { ...item, ...fields } : item,
       ),
+    }
+  }
+
+  async transferOwnership(characterId, newOwnerId) {
+    try {
+      const response = await apiClient.post(`/characters/${characterId}/transfer-ownership`, { newOwnerId })
+      return response.data
+    } catch (error) {
+      console.error('Error transferring character ownership:', error)
+      throw error
     }
   }
 }

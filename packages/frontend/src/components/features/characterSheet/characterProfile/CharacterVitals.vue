@@ -1,5 +1,5 @@
 <template>
-    <div class="vitals-info edit-hover-area">
+    <div v-if="character" class="vitals-info edit-hover-area">
         <FloatingActionButton v-if="canEdit" :variant="FAB_TYPES.EDIT" :size="FAB_SIZES.SMALL"
             :visibility="FAB_VISIBILITIES.ON_HOVER" class="edit-button-overlay" @click="openEditModal" />
 

@@ -157,6 +157,90 @@
 
                     <div v-if="!showDeleteConfirmation" class="settings-content">
                         <h3 class="settings-title">Character Settings</h3>
+
+                        <!-- PC → NPC conversion -->
+                        <template v-if="showConvertToNPCButton">
+                            <div v-if="!showNPCCampaignDropdown">
+                                <ActionButton variant="outline" size="small" text="Convert to NPC"
+                                    @click="initiateConvertToNPC" />
+                            </div>
+                            <div v-else class="convert-section">
+                                <p class="convert-label">Assign to campaign:</p>
+                                <select v-model="convertToCampaignId" class="modal-input convert-campaign-select">
+                                    <option value="">Select campaign...</option>
+                                    <option v-for="camp in gmCampaigns" :key="camp.id" :value="camp.id">
+                                        {{ camp.name }}
+                                    </option>
+                                </select>
+                                <p class="convert-hint">Character will become an NPC in this campaign after saving.</p>
+                                <ActionButton variant="neutral" size="small" text="Cancel"
+                                    @click="cancelConvertToNPC" />
+                            </div>
+                        </template>
+
+                        <!-- NPC → PC conversion -->
+                        <template v-if="showConvertToPCButton">
+                            <div v-if="!pendingConvertToPC">
+                                <ActionButton variant="outline" size="small" text="Convert to Player Character"
+                                    @click="initiateConvertToPC" />
+                            </div>
+                            <div v-else class="convert-section">
+                                <p class="convert-hint">This character will become a Player Character after saving.</p>
+                                <ActionButton variant="neutral" size="small" text="Cancel" @click="cancelConvertToPC" />
+                            </div>
+                        </template>
+
+                        <!-- Transfer Ownership -->
+                        <template v-if="showTransferOwnershipButton">
+                            <div v-if="!showTransferOwnership">
+                                <ActionButton variant="outline" size="small" text="Transfer Ownership"
+                                    @click="initiateTransfer" />
+                            </div>
+                            <div v-else class="transfer-section">
+                                <p class="transfer-label">Transfer to another user:</p>
+
+                                <div v-if="campaignMembers.length > 0" class="transfer-members">
+                                    <p class="transfer-hint">Campaign members:</p>
+                                    <button v-for="member in campaignMembers" :key="member.id" type="button"
+                                        class="transfer-member-btn"
+                                        :class="{ 'transfer-member-btn--selected': selectedTransferTarget?.id === member.id }"
+                                        @click="selectTransferTarget(member)">
+                                        {{ member.name }}
+                                    </button>
+                                </div>
+
+                                <input v-model="transferSearch" class="modal-input" type="text"
+                                    placeholder="Search by username…" />
+                                <div v-if="transferSearchResults.length > 0" class="transfer-results">
+                                    <button v-for="user in transferSearchResults" :key="user.id" type="button"
+                                        class="transfer-member-btn"
+                                        :class="{ 'transfer-member-btn--selected': selectedTransferTarget?.id === user.id }"
+                                        @click="selectTransferTarget(user)">
+                                        {{ user.name }}
+                                    </button>
+                                </div>
+                                <p v-else-if="transferSearch.length >= 2 && !transferSearchLoading"
+                                    class="transfer-empty">No users found.</p>
+
+                                <template v-if="selectedTransferTarget">
+                                    <p class="transfer-confirm-text">Transfer
+                                        <strong>{{ character.name }}</strong> to
+                                        <strong>{{ selectedTransferTarget.name }}</strong>?
+                                    </p>
+                                    <p class="transfer-warn">You will lose access to this character.</p>
+                                </template>
+
+                                <p v-if="transferError" class="transfer-error">{{ transferError }}</p>
+
+                                <div class="transfer-actions">
+                                    <ActionButton v-if="selectedTransferTarget" variant="danger" size="small"
+                                        text="Transfer" :disabled="transferring" @click="confirmTransfer" />
+                                    <ActionButton variant="neutral" size="small" text="Cancel"
+                                        @click="cancelTransfer" />
+                                </div>
+                            </div>
+                        </template>
+
                         <ActionButton variant="danger" size="small" text="Delete Character" @click="initiateDelete" />
                     </div>
 
@@ -191,16 +275,24 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, watch } from 'vue'
 import { useCharactersStore } from '@/stores/charactersStore'
 import { useConceptsStore } from '@/stores/conceptsStore'
+import { useCampaignStore } from '@/stores/campaignStore'
+import { useAuthStore } from '@/stores/authStore'
+import { useAppCharacterSheetModal } from '@/composables/useAppCharacterSheetModal'
+import UserService from '@/services/entities/userService'
 import { createEmptyRollStats } from '@/services/rolls/rollStatsService'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import CharacterRollStats from './CharacterRollStats.vue'
-import { isBeastTemplate, isBeastInstance } from '@/utils/characterTypeGuards'
+import { isBeastTemplate, isBeastInstance, isPlayerCharacter, isNPC } from '@/utils/characterTypeGuards'
+import { CAMPAIGN_ROLE, CAMPAIGN_MEMBER_STATUS } from '@shared/constants/campaignConstants'
 
 const charactersStore = useCharactersStore()
 const conceptsStore = useConceptsStore()
+const campaignStore = useCampaignStore()
+const authStore = useAuthStore()
+const { close: closeCharacterSheet } = useAppCharacterSheetModal()
 
 const emit = defineEmits(['close'])
 
@@ -208,6 +300,138 @@ const character = charactersStore.selectedCharacter
 const isBeastCharacter = computed(() =>
     isBeastTemplate(character) || isBeastInstance(character)
 )
+
+const isPlayerChar = computed(() => isPlayerCharacter(character))
+const isNPCChar = computed(() => isNPC(character))
+
+// Campaigns where the current user has an accepted GM role
+const gmCampaigns = computed(() => {
+    const uid = authStore.user?.uid
+    if (!uid) return []
+    return campaignStore.campaigns.filter(campaign =>
+        campaign.members?.some(m =>
+            m.userId === uid &&
+            m.role === CAMPAIGN_ROLE.GM &&
+            m.status === CAMPAIGN_MEMBER_STATUS.ACCEPTED
+        )
+    )
+})
+
+const showConvertToNPCButton = computed(() => isPlayerChar.value && gmCampaigns.value.length > 0)
+const showConvertToPCButton = computed(() => isNPCChar.value)
+
+// Type conversion state
+const showNPCCampaignDropdown = ref(false)
+const convertToCampaignId = ref('')
+const pendingConvertToPC = ref(false)
+
+const initiateConvertToNPC = () => {
+    showNPCCampaignDropdown.value = true
+    pendingConvertToPC.value = false
+}
+
+const cancelConvertToNPC = () => {
+    showNPCCampaignDropdown.value = false
+    convertToCampaignId.value = ''
+}
+
+const initiateConvertToPC = () => {
+    pendingConvertToPC.value = true
+    showNPCCampaignDropdown.value = false
+}
+
+const cancelConvertToPC = () => {
+    pendingConvertToPC.value = false
+}
+
+// Transfer Ownership state
+const showTransferOwnershipButton = computed(() => isPlayerChar.value)
+const showTransferOwnership = ref(false)
+const campaignMembers = ref([])
+const transferSearch = ref('')
+const transferSearchResults = ref([])
+const transferSearchLoading = ref(false)
+const selectedTransferTarget = ref(null)
+const transferring = ref(false)
+const transferError = ref(null)
+let transferSearchToken = 0
+
+const initiateTransfer = async () => {
+    showTransferOwnership.value = true
+    selectedTransferTarget.value = null
+    transferSearch.value = ''
+    transferSearchResults.value = []
+    transferError.value = null
+    campaignMembers.value = []
+
+    // Pre-populate with accepted members from the active campaign (excluding self)
+    const uid = authStore.user?.uid
+    const activeCampaign = campaignStore.activeCampaign
+    if (activeCampaign?.members) {
+        const otherMemberIds = activeCampaign.members
+            .filter((m) => m.userId !== uid && m.status === CAMPAIGN_MEMBER_STATUS.ACCEPTED)
+            .map((m) => m.userId)
+        if (otherMemberIds.length > 0) {
+            try {
+                campaignMembers.value = await UserService.getPublicUsersByIds(otherMemberIds)
+            } catch {
+                campaignMembers.value = []
+            }
+        }
+    }
+}
+
+const cancelTransfer = () => {
+    showTransferOwnership.value = false
+    selectedTransferTarget.value = null
+    transferSearch.value = ''
+    transferSearchResults.value = []
+    transferError.value = null
+}
+
+const selectTransferTarget = (user) => {
+    selectedTransferTarget.value = user
+    transferSearch.value = ''
+    transferSearchResults.value = []
+}
+
+const confirmTransfer = async () => {
+    if (!selectedTransferTarget.value || !character) return
+    transferring.value = true
+    transferError.value = null
+    try {
+        await charactersStore.transferOwnership(character.id, selectedTransferTarget.value.id)
+        closeCharacterSheet()
+    } catch (err) {
+        transferError.value = err?.response?.data?.error || err.message || 'Transfer failed.'
+    } finally {
+        transferring.value = false
+    }
+}
+
+watch(transferSearch, async (value) => {
+    const token = ++transferSearchToken
+    if (value.trim().length < 2) {
+        transferSearchResults.value = []
+        return
+    }
+    transferSearchLoading.value = true
+    try {
+        const users = await UserService.searchUsers(value.trim())
+        if (token !== transferSearchToken) return
+        const uid = authStore.user?.uid
+        const campaignMemberIds = new Set(campaignMembers.value.map((m) => m.id))
+        transferSearchResults.value = users.filter(
+            (u) => u.id !== uid && !campaignMemberIds.has(u.id)
+        )
+    } catch {
+        if (token !== transferSearchToken) return
+        transferSearchResults.value = []
+    } finally {
+        if (token === transferSearchToken) transferSearchLoading.value = false
+    }
+})
+
 
 const formData = ref({
     name: '',
@@ -284,6 +508,27 @@ const saveChanges = () => {
             ancestryIds: filteredAncestryIds,
             cultureIds: filteredCultureIds
         })
+
+        // Apply type conversion if requested
+        if (pendingConvertToPC.value && isNPCChar.value) {
+            character.characterType = 'playerCharacter'
+            // Add character to the campaign member's character list so it stays visible in the campaign
+            const campaignId = character.campaignId
+            const ownerId = character.ownerId
+            if (campaignId && ownerId) {
+                const campaign = campaignStore.getById(campaignId)
+                const member = campaign?.members?.find(m => m.userId === ownerId)
+                if (member) {
+                    const currentIds = member.characterIds || []
+                    if (!currentIds.includes(character.id)) {
+                        campaignStore.updateMemberCharacters(campaignId, ownerId, [...currentIds, character.id])
+                    }
+                }
+            }
+        } else if (showNPCCampaignDropdown.value && convertToCampaignId.value && isPlayerChar.value) {
+            character.characterType = 'npc'
+            character.campaignId = convertToCampaignId.value
+        }
     }
     closeModal()
 }
@@ -551,6 +796,125 @@ const confirmDeletion = async () => {
 .confirmation-actions {
     display: flex;
     gap: var(--space-md);
+    justify-content: center;
+}
+
+.convert-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-sm);
+    width: 100%;
+}
+
+.convert-label {
+    margin: 0;
+    font-size: var(--font-size-13);
+    color: var(--color-text-secondary);
+}
+
+.convert-campaign-select {
+    max-width: 300px;
+}
+
+.convert-hint {
+    margin: 0;
+    font-size: var(--font-size-11);
+    color: var(--color-text-muted);
+    font-style: italic;
+    text-align: center;
+}
+
+.transfer-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-sm);
+    width: 100%;
+}
+
+.transfer-label {
+    margin: 0;
+    font-size: var(--font-size-13);
+    color: var(--color-text-secondary);
+}
+
+.transfer-hint {
+    margin: 0;
+    font-size: var(--font-size-11);
+    color: var(--color-text-muted);
+}
+
+.transfer-members {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-xs);
+    width: 100%;
+}
+
+.transfer-results {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 300px;
+    gap: var(--space-xs);
+}
+
+.transfer-member-btn {
+    background: var(--color-bg-primary);
+    border: 1px solid var(--overlay-white-medium);
+    border-radius: var(--radius-5);
+    color: var(--color-text-primary);
+    cursor: pointer;
+    font-size: var(--font-size-13);
+    padding: var(--space-xs) var(--space-sm);
+    text-align: center;
+    transition: border-color var(--transition-fast), background var(--transition-fast);
+    width: 100%;
+    max-width: 300px;
+}
+
+.transfer-member-btn:hover {
+    border-color: var(--color-text-secondary);
+}
+
+.transfer-member-btn--selected {
+    border-color: var(--color-danger);
+    background: color-mix(in srgb, var(--color-danger) 12%, transparent);
+}
+
+.transfer-confirm-text {
+    margin: 0;
+    font-size: var(--font-size-13);
+    color: var(--color-text-primary);
+    text-align: center;
+}
+
+.transfer-warn {
+    margin: 0;
+    font-size: var(--font-size-11);
+    color: var(--color-text-muted);
+    font-style: italic;
+    text-align: center;
+}
+
+.transfer-error {
+    margin: 0;
+    font-size: var(--font-size-12);
+    color: var(--color-danger);
+    text-align: center;
+}
+
+.transfer-empty {
+    margin: 0;
+    font-size: var(--font-size-12);
+    color: var(--color-text-muted);
+}
+
+.transfer-actions {
+    display: flex;
+    gap: var(--space-sm);
     justify-content: center;
 }
 </style>

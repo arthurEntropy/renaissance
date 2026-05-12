@@ -1,32 +1,18 @@
 {
-  "id": 4,
-  "lastModified": "2026-05-11T20:02:19.156Z",
-  "name": "Bobobito",
-  "pronouns": "he/him",
-  "ancestryIds": [
-    "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
-  ],
-  "cultureIds": [
-    "c02c53d1-b456-45d0-a048-6fc941cacc03"
-  ],
-  "mestiereId": "c597638a-94ef-4a1d-ba3a-fcdcbaf9dd6d",
+  "id": "0670151e-9e63-4636-b871-05d5ec2f3790",
+  "isDeleted": false,
+  "createdAt": "2026-05-12T01:20:53.979Z",
+  "lastModified": "2026-05-12T01:21:19.229Z",
+  "characterType": "playerCharacter",
+  "name": "Transfer Test",
   "featuredArtUrls": [
-    "https://cdn.midjourney.com/33a4c041-49a8-4234-8e65-54d65bc7033b/0_0.png"
+    "https://cdn.midjourney.com/a8a36740-b7d3-4aef-bea3-a95039bec06f/0_2.png"
   ],
-  "age": 57,
-  "heightFeet": 5,
-  "heightInches": 3,
-  "weight": 150,
-  "keeping": "2b3c4d5e-6f7a-4b8c-9d0e-1f2a3b4c5d6e",
-  "xp": 5,
+  "speed": 0,
   "notes": "",
-  "characterType": "player",
-  "description": "",
-  "size": 0,
-  "reach": 0,
-  "body": 3,
-  "heart": 2,
-  "wits": 3,
+  "body": 0,
+  "heart": 0,
+  "wits": 0,
   "skills": [
     {
       "key": "awe",
@@ -38,7 +24,7 @@
     },
     {
       "key": "strength",
-      "ranks": 5,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -94,7 +80,7 @@
     },
     {
       "key": "spirit",
-      "ranks": 1,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -110,7 +96,7 @@
     },
     {
       "key": "persuade",
-      "ranks": 1,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -118,7 +104,7 @@
     },
     {
       "key": "awareness",
-      "ranks": 2,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -150,16 +136,16 @@
     }
   ],
   "endurance": {
-    "current": 15,
-    "base": 15
+    "current": 0,
+    "base": 0
   },
   "hope": {
-    "current": 6,
-    "base": 6
+    "current": 0,
+    "base": 0
   },
   "defense": {
-    "current": 13,
-    "base": 13
+    "current": 0,
+    "base": 0
   },
   "load": 0,
   "shadow": 0,
@@ -179,34 +165,42 @@
     "afraid": false,
     "troubled": false
   },
-  "engagementDice": [
-    8
-  ],
+  "engagementDice": [],
   "engagementSuccesses": [],
-  "engagementDiceStatuses": {
-    "user_added_1": "expended",
-    "user_added_0": "expended"
-  },
+  "engagementDiceStatuses": {},
   "equipment": [],
+  "groupEquipmentBySource": false,
+  "groupEquipmentByCustom": false,
+  "equipmentSortOption": "name-asc",
+  "equipmentCustomGroups": [],
   "mp": {
-    "current": 5,
-    "base": 5
+    "current": 0,
+    "base": 0
   },
   "abilities": [],
+  "groupAbilitiesBySource": false,
+  "groupAbilitiesByManaColor": false,
+  "groupAbilitiesByCustom": false,
+  "abilitySortOption": "name-asc",
+  "abilityCustomGroups": [],
+  "autoCalculations": {
+    "load": true,
+    "states": true,
+    "baseEndurance": true,
+    "baseHope": true,
+    "baseDefense": true
+  },
   "rollStats": {
     "skillChecks": {
-      "attempts": 6,
-      "successes": 5,
-      "totalSum": 96,
-      "bestTotal": 30,
-      "hardestSuccess": 30,
-      "bySkill": {
-        "Dexterity": 3,
-        "Strength": 3
-      },
-      "solCount": 1,
+      "attempts": 0,
+      "successes": 0,
+      "totalSum": 0,
+      "bestTotal": null,
+      "hardestSuccess": null,
+      "bySkill": {},
+      "solCount": 0,
       "morteCount": 0,
-      "successCount": 3
+      "successCount": 0
     },
     "contests": {
       "engagement": {
@@ -215,16 +209,43 @@
         "draws": 0
       },
       "opposed": {
-        "wins": 3,
-        "losses": 1,
+        "wins": 0,
+        "losses": 0,
         "draws": 0
       }
     }
   },
-  "swagger": 3,
-  "swaggerIconIndex": 1,
-  "swaggerColor": "#fdf7f7",
+  "biomeTags": [],
+  "biomeId": null,
+  "nimbleStep": 0,
+  "swagger": 0,
+  "swaggerIconIndex": 0,
+  "swaggerColor": "#ffffff",
+  "manaPool": {
+    "white": [],
+    "blue": [],
+    "black": [],
+    "red": [],
+    "green": [],
+    "colorless": []
+  },
   "witchcraftTokens": [],
-  "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2026-05-11T20:02:19.156Z"
+  "summonerVessels": [],
+  "campaignId": null,
+  "ownerId": "yMwXRvIrCwWwG4NRC4HBjN2BrOM2",
+  "pronouns": "",
+  "ancestryIds": [],
+  "cultureIds": [],
+  "mestiereId": "",
+  "age": 0,
+  "heightFeet": 0,
+  "heightInches": 0,
+  "weight": 0,
+  "keeping": null,
+  "treasure": 0,
+  "xp": 0,
+  "description": "",
+  "size": 0,
+  "reach": 0,
+  "updatedAt": "2026-05-12T01:21:19.229Z"
 }
