@@ -5,13 +5,13 @@
   "status": "approved",
   "needsUsername": false,
   "createdAt": "2026-05-01T19:04:41.040Z",
-  "lastLoginAt": "2026-05-12T01:34:16.921Z",
+  "lastLoginAt": "2026-05-12T01:50:29.728Z",
   "isDeleted": false,
   "preferences": {
     "showCardArtwork": true
   },
   "characters": [],
-  "lastModified": "2026-05-12T01:34:17.546Z",
-  "lastUpdatedAt": "2026-05-04T17:26:49.482Z",
+  "lastModified": "2026-05-12T01:50:30.030Z",
+  "lastUpdatedAt": "2026-05-12T01:36:41.774Z",
   "activeCampaignId": "2216d52f-f74d-479e-b440-f7b5aa6319e5"
 }
