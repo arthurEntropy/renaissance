@@ -338,7 +338,7 @@ const closeModal = () => {
     emit('close')
 }
 
-const handleOverlayClick = () => {
+const _handleOverlayClick = () => {
     if (initialFormDataSnapshot.value && JSON.stringify(formData.value) !== initialFormDataSnapshot.value) {
         if (!confirm('You have unsaved changes. Are you sure you want to close?')) return
     }

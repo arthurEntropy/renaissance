@@ -26,7 +26,7 @@ import { ref } from 'vue'
 import BaseModal from '@/components/ui/modals/BaseModal.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 
-const props = defineProps({
+const _props = defineProps({
     gmCampaigns: {
         type: Array,
         required: true,

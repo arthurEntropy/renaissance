@@ -35,7 +35,7 @@ const props = defineProps({
     }
 })
 
-const emit = defineEmits(['close', 'edit'])
+const _emit = defineEmits(['close', 'edit'])
 
 const {
     activeUrl: modalImageSrc,
