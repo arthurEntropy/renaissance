@@ -2,7 +2,7 @@
   "id": "48a9eff3-9041-4b33-8f99-4137955d2997",
   "isDeleted": false,
   "createdAt": "2026-04-22T14:45:33.779Z",
-  "lastModified": "2026-05-12T18:18:26.181Z",
+  "lastModified": "2026-05-13T18:42:34.053Z",
   "name": "Otho",
   "pronouns": "",
   "ancestryIds": [
@@ -302,5 +302,5 @@
     }
   ],
   "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2026-05-12T18:18:26.181Z"
+  "updatedAt": "2026-05-13T18:42:34.053Z"
 }

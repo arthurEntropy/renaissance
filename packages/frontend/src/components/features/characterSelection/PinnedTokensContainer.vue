@@ -5,10 +5,18 @@
                 <span class="token-group-label">Selected</span>
             </div>
             <div class="token-group-members">
-                <component v-if="showFocusedCharacter" :is="getTokenComponent(focusedCharacter)" class="token-item"
-                    v-bind="getFocusedTokenProps(focusedCharacter)" />
-                <BeastToken v-if="selectedSummonedBeast" class="token-item" :beast="selectedSummonedBeast"
-                    :disableDefaultClick="true" @click="(beast) => openCharacterSheet(beast)" />
+                <component v-if="visibleFocusedCharacter" :is="getTokenComponent(visibleFocusedCharacter)"
+                    class="token-item" v-bind="getFocusedTokenProps(visibleFocusedCharacter)" />
+            </div>
+        </div>
+
+        <div v-if="summonersBeast" class="token-group token-group--summoned">
+            <div class="token-group-header">
+                <span class="token-group-label token-group-label--summoned">Summoned</span>
+            </div>
+            <div class="token-group-members">
+                <BeastToken class="token-item" :beast="summonersBeast" :disableDefaultClick="true"
+                    @click="(beast) => openCharacterSheet(beast)" />
             </div>
         </div>
 
@@ -38,7 +46,7 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/vue/24/outline'
 import { useCharacterContextStore } from '@/stores/characterContextStore'
 import { useCharactersStore } from '@/stores/charactersStore'
@@ -59,6 +67,29 @@ const { open: openCharacterSheet, isOpen: isCharacterSheetOpen } = useAppCharact
 const collapsedGroupIds = ref(new Set())
 const focusedCharacter = computed(() => charactersStore.selectedCharacter)
 const isBeastCharacter = (character) => isBeastTemplate(character) || isBeastInstance(character)
+
+// Tracks the last non-beast selected character. When a beast is selected (e.g. by
+// clicking its token), this ref stays unchanged so the summoner's token remains
+// visible in the rail. Clears when a different PC/NPC is selected or deselected.
+const pinnedSummoner = ref(null)
+watch(focusedCharacter, (newChar) => {
+    if (!newChar) {
+        pinnedSummoner.value = null
+        return
+    }
+    if (isBeastCharacter(newChar)) return
+    pinnedSummoner.value = newChar
+}, { immediate: true })
+
+// The character shown in the SELECTED group – prefers the pinned summoner so
+// the summoner's token doesn't disappear when the beast sheet is opened.
+const visibleFocusedCharacter = computed(() => pinnedSummoner.value || focusedCharacter.value)
+
+// The beast currently summoned by the pinned summoner (reactive).
+const summonersBeast = computed(() => {
+    if (!pinnedSummoner.value?.id) return null
+    return getSummonedBeastForCharacterId(pinnedSummoner.value.id)
+})
 
 const pinnedGroups = computed(() => characterContextStore.pinnedGroups)
 const campaignCharactersById = computed(() => {
@@ -86,19 +117,9 @@ const resolvedPinnedGroups = computed(() => {
         })
         .filter((group) => group.members.length > 0)
 })
-const showFocusedCharacter = computed(() => !!focusedCharacter.value)
-const selectedSummonedBeast = computed(() => {
-    if (!focusedCharacter.value || isBeastCharacter(focusedCharacter.value)) return null
-
-    return focusedCharacter.value.id
-        ? getSummonedBeastForCharacterId(focusedCharacter.value.id)
-        : null
-})
-const hasFocusedTokens = computed(() => {
-    return showFocusedCharacter.value || !!selectedSummonedBeast.value
-})
+const hasFocusedTokens = computed(() => !!visibleFocusedCharacter.value)
 const hasAnyTokens = computed(() => {
-    return hasFocusedTokens.value || resolvedPinnedGroups.value.length > 0
+    return hasFocusedTokens.value || !!summonersBeast.value || resolvedPinnedGroups.value.length > 0
 })
 
 function getTokenComponent(character) {
@@ -212,6 +233,10 @@ function getFocusedTokenProps(character) {
 
 .token-group--focused {
     border-color: var(--overlay-white-medium);
+}
+
+.token-group-label--summoned {
+    color: var(--color-accent-cyan) !important;
 }
 
 .token-group--pinned {
