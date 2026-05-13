@@ -226,63 +226,72 @@
       "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false,
-      "customGroupId": "05f73331-5708-4305-a84c-bc4e8b4eb491"
+      "customGroupId": "05f73331-5708-4305-a84c-bc4e8b4eb491",
+      "isActive": false
     },
     {
       "id": "9a047b93-d2c2-4de0-ae7e-0fa06b459a29",
       "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false,
-      "customGroupId": "05f73331-5708-4305-a84c-bc4e8b4eb491"
+      "customGroupId": "05f73331-5708-4305-a84c-bc4e8b4eb491",
+      "isActive": false
     },
     {
       "id": "e2cd82f4-30db-4c3e-aa76-20170b5e7694",
       "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false,
-      "customGroupId": null
+      "customGroupId": null,
+      "isActive": false
     },
     {
       "id": "90315f32-f485-498d-8d83-f8dad2f32882",
       "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false,
-      "customGroupId": null
+      "customGroupId": null,
+      "isActive": false
     },
     {
       "id": "738255ac-87f1-45a5-91ff-c2144b92b5e3",
       "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false,
-      "customGroupId": null
+      "customGroupId": null,
+      "isActive": false
     },
     {
       "id": "1325605b-d523-4ec2-b2a7-57a04dc55d91",
       "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false,
-      "customGroupId": null
+      "customGroupId": null,
+      "isActive": false
     },
     {
       "id": "754a7883-71a7-414f-bda4-504a147e68cc",
       "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false,
-      "customGroupId": null
+      "customGroupId": null,
+      "isActive": false
     },
     {
       "id": "eca2de98-4fb0-4254-bb03-af81f8a604ff",
       "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false,
-      "customGroupId": null
+      "customGroupId": null,
+      "isActive": false
     },
     {
       "id": "fdc9ab63-b9b4-41de-a869-d2274cea32ec",
       "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false,
-      "customGroupId": null
+      "customGroupId": null,
+      "isActive": false
     }
   ],
   "groupAbilitiesBySource": false,

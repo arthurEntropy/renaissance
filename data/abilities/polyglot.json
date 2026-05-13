@@ -6,5 +6,6 @@
   "artUrl": "https://cdn.midjourney.com/b5775e50-5618-4c6e-a7ee-c42df51e1e95/0_0.png",
   "description": "<p><em>You are quick to pick up new languages.</em></p><p>If you spend 1 day in the presence of creatures speaking an unfamiliar language, you manage to learn a few common words. After 1 week, you can communicate and understand simple messages. After 1 month, you become fluent in the language.</p><p><strong>Describe how you learn.</strong></p>",
   "source": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
-  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1"
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "canBeActive": false
 }

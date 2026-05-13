@@ -5,5 +5,6 @@
   "name": "Speech of Fin & Gill",
   "description": "<p><em>You have the ability to communicate in a limited manner with aquatic animals and plants.</em></p><p style=\"text-align: left\">Aquatic animals and plants can understand the meaning of your words, though you have no special ability to understand them in return.</p><p style=\"text-align: left\"><strong>Describe how you communicate with them.</strong></p>",
   "source": "e40c3cff-9f6b-4940-ae41-cef878821a75",
-  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1"
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "canBeActive": false
 }

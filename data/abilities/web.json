@@ -16,5 +16,6 @@
   "biomeTagsAugment": [
     "underground"
   ],
-  "biomeTagsInhibit": []
+  "biomeTagsInhibit": [],
+  "canBeActive": false
 }

@@ -6,5 +6,6 @@
   "artUrl": "https://cdn.midjourney.com/49e59dc4-bf09-4a99-b8f2-886234e7ef02/0_3.png",
   "description": "<p><em>Your appetite for withstanding physical hardship is greater than most.</em></p><p>You gain 1 rank in Fortitude.</p><p><strong>Describe how you endure.</strong></p>",
   "source": "adc655c1-1d9c-433f-a0eb-41f93cf3ee07",
-  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1"
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "canBeActive": false
 }

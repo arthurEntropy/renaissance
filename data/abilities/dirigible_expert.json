@@ -6,5 +6,6 @@
   "description": "<p>You know how to operate and repair lighter-than-air-craft. If you have access to the necessary materials, you can construct an air vessel. It takes one day per passenger capacity to build and costs you 1 Endurance per hour per passenger to keep aloft. Describe the work, the finished product and how you operate the craft.</p>",
   "source": "5c67bedd-8e73-4add-b46b-9b911bf0fd59",
   "mpCost": null,
-  "xpCost": null
+  "xpCost": null,
+  "canBeActive": false
 }

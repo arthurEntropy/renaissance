@@ -8,5 +8,6 @@
   "improvements": [],
   "source": "dab3e414-0118-49be-9779-4e3018cdba71",
   "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
-  "xpCost": ""
+  "xpCost": "",
+  "canBeActive": false
 }

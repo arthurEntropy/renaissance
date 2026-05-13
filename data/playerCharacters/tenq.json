@@ -210,22 +210,26 @@
     {
       "id": "71514016-e2a6-4a6d-97e7-df00d89d94d3",
       "collapsed": true,
-      "showImprovements": false
+      "showImprovements": false,
+      "isActive": false
     },
     {
       "id": "8e346eb3-1e72-4b3f-971c-497eac98a06c",
       "collapsed": true,
-      "showImprovements": false
+      "showImprovements": false,
+      "isActive": false
     },
     {
       "id": "fafd1877-3ecf-4da7-a29a-e14e5a345a9d",
       "collapsed": true,
-      "showImprovements": false
+      "showImprovements": false,
+      "isActive": false
     },
     {
       "id": "bd8f66a4-5849-483b-9123-b0085c0e5a5c",
       "collapsed": true,
-      "showImprovements": false
+      "showImprovements": false,
+      "isActive": false
     }
   ],
   "nimbleStep": 1,

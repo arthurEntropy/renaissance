@@ -8,5 +8,6 @@
   "source": null,
   "mpCost": null,
   "xpCost": null,
-  "manaCost": null
+  "manaCost": null,
+  "canBeActive": false
 }

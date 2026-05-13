@@ -1,6 +1,6 @@
 {
   "id": "c6e87008-622d-4410-9f1d-ce56c85ea5ae",
-  "lastModified": "2026-05-13T03:39:15.200Z",
+  "lastModified": "2026-05-13T20:53:13.749Z",
   "name": "Duke",
   "pronouns": "she/her",
   "ancestryIds": [
@@ -187,69 +187,81 @@
   "abilities": [
     {
       "id": "5b9967f3-a2f9-4515-a94f-d00ca8147cf3",
-      "collapsed": false,
+      "collapsed": true,
       "showImprovements": false,
-      "showSuccesses": false
+      "showSuccesses": false,
+      "isActive": false
     },
     {
       "id": "13be092e-c89d-47eb-a629-7797ef760c7b",
-      "collapsed": false,
+      "collapsed": true,
       "showImprovements": false,
-      "showSuccesses": false
+      "showSuccesses": false,
+      "isActive": false,
+      "difficulty": null
     },
     {
       "id": "e5f027b7-ef18-461e-9c0c-5b549df17af2",
-      "collapsed": false,
+      "collapsed": true,
       "showImprovements": false,
-      "showSuccesses": false
+      "showSuccesses": false,
+      "isActive": false
     },
     {
       "id": "51d0523f-8778-4ceb-9cce-2a47a6b46088",
-      "collapsed": false,
+      "collapsed": true,
       "showImprovements": false,
-      "showSuccesses": false
+      "showSuccesses": false,
+      "isActive": false
     },
     {
       "id": "e693653e-0a59-445d-8936-b85deec84f53",
-      "collapsed": false,
+      "collapsed": true,
       "showImprovements": false,
-      "showSuccesses": false
+      "showSuccesses": false,
+      "isActive": false
     },
     {
       "id": "3dffcf91-1f3e-42ff-a6b2-a259f7a15a19",
-      "collapsed": false,
+      "collapsed": true,
       "showImprovements": false,
-      "showSuccesses": false
+      "showSuccesses": false,
+      "isActive": true
     },
     {
       "id": "81323093-faf3-416e-977e-7a28c7a7fb11",
-      "collapsed": false,
+      "collapsed": true,
       "showImprovements": false,
-      "showSuccesses": false
+      "showSuccesses": false,
+      "isActive": true
     },
     {
       "id": "04a49ecd-d52d-4087-b423-e36e8ead9af6",
-      "collapsed": false,
+      "collapsed": true,
       "showImprovements": false,
-      "showSuccesses": false
+      "showSuccesses": false,
+      "isActive": false
     },
     {
       "id": "c719fc55-55a9-49d6-ae93-92f82a1d54cf",
-      "collapsed": false,
+      "collapsed": true,
       "showImprovements": false,
-      "showSuccesses": false
+      "showSuccesses": false,
+      "isActive": false
     },
     {
       "id": "670a86d8-f547-40c4-b4fd-2a5979022960",
-      "collapsed": false,
+      "collapsed": true,
       "showImprovements": false,
-      "showSuccesses": false
+      "showSuccesses": false,
+      "isActive": false
     },
     {
       "id": "730c80ee-011d-4942-85e3-93f5e42eb1a8",
-      "collapsed": false,
+      "collapsed": true,
       "showImprovements": false,
-      "showSuccesses": false
+      "showSuccesses": false,
+      "isActive": false
     }
   ],
   "rollStats": {
@@ -338,5 +350,5 @@
     }
   ],
   "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2026-05-13T03:39:15.199Z"
+  "updatedAt": "2026-05-13T20:53:13.749Z"
 }

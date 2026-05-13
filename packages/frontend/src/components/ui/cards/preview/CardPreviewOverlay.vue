@@ -110,7 +110,7 @@ const isOverlayOnLeftSide = computed(() => {
 <style scoped>
 .card-preview-overlay {
     position: fixed;
-    z-index: var(--z-tooltip);
+    z-index: var(--z-cascade-menu);
     max-height: 80vh;
     overflow-y: auto;
     overflow-x: hidden;

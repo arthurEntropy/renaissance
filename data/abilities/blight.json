@@ -22,5 +22,6 @@
     "water",
     "wetland",
     "enchanted"
-  ]
+  ],
+  "canBeActive": false
 }

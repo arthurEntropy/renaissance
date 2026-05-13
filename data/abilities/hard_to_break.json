@@ -6,5 +6,6 @@
   "artUrl": "https://cdn.midjourney.com/a324f32b-0dc5-4dc6-a349-e9c16d1475a8/0_3.png",
   "description": "<p>Any time you take Injury, halve the amount of Injury.</p>",
   "source": "15bb5476-5cca-48ee-a6a0-95b0ea6cc803",
-  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1"
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "canBeActive": false
 }

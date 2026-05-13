@@ -3,11 +3,12 @@
         'character-token--beast': variant === 'beast',
         'character-token--inactive': isInactive,
         'name-always-visible': alwaysShowName,
+        'character-token--square': square,
     }" @click="$emit('click', entity)">
         <div class="token-portrait">
             <img :src="imageSrc" :alt="entity.name" />
         </div>
-        <FloatingActionButton v-if="showRemoveFab" class="close-fab" :variant="FAB_TYPES.DELETE" :size="FAB_SIZES.SMALL"
+        <FloatingActionButton v-if="showRemoveFab" class="close-fab" :variant="removeFabVariant" :size="FAB_SIZES.SMALL"
             :visibility="FAB_VISIBILITIES.ALWAYS" @click.stop="$emit('remove', entity)" />
         <div class="token-name-tooltip">{{ entity.name }}</div>
     </div>
@@ -25,6 +26,10 @@ defineProps({
     alwaysShowName: { type: Boolean, default: false },
     showRemoveFab: { type: Boolean, default: false },
     isInactive: { type: Boolean, default: false },
+    /** Render the token portrait as square instead of circular */
+    square: { type: Boolean, default: false },
+    /** FAB variant used for the remove button */
+    removeFabVariant: { type: String, default: FAB_TYPES.DELETE },
 })
 
 defineEmits(['click', 'remove'])
@@ -63,6 +68,10 @@ defineEmits(['click', 'remove'])
 
 .character-token--inactive .token-portrait {
     border-color: var(--color-gray-medium);
+}
+
+.character-token--square .token-portrait {
+    border-radius: var(--radius-5);
 }
 
 .token-portrait img {

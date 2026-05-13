@@ -8,5 +8,6 @@
   "successes": "<p>✨: You may adjust your result up or down by 1.</p><p>🌞: You gain and use the hidden ability as if you had matched the Discovery Number, regardless of the actual roll result.</p><p>💀: The technique has no effect. Choose a new ability to place face-down beneath the mask and roll a new Discovery Number.</p>",
   "source": "dab3e414-0118-49be-9779-4e3018cdba71",
   "school": null,
-  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c"
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "canBeActive": false
 }

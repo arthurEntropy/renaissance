@@ -6,5 +6,6 @@
   "artUrl": "https://cdn.midjourney.com/948976e1-22c6-4725-afb5-3c63a2894c17/0_3.png",
   "description": "<p><em>You have an uncanny ability to recover from harm.</em></p><p>Any time you rest, remove all Injury.</p><p><strong>Describe how your wounds heal quickly.</strong></p>",
   "source": "6ff91bc4-122f-4e95-bb08-b577f1a94bb6",
-  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1"
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "canBeActive": false
 }

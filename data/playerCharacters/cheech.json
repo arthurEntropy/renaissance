@@ -250,43 +250,50 @@
       "id": "738255ac-87f1-45a5-91ff-c2144b92b5e3",
       "collapsed": true,
       "showImprovements": false,
-      "showSuccesses": false
+      "showSuccesses": false,
+      "isActive": false
     },
     {
       "id": "1325605b-d523-4ec2-b2a7-57a04dc55d91",
       "collapsed": true,
       "showImprovements": false,
-      "showSuccesses": false
+      "showSuccesses": false,
+      "isActive": false
     },
     {
       "id": "9f21adf6-85f2-482b-a13c-29b4c53487bd",
       "collapsed": true,
       "showImprovements": false,
-      "showSuccesses": false
+      "showSuccesses": false,
+      "isActive": false
     },
     {
       "id": "0be14c83-458a-41f4-b5ac-29c2b4266ea5",
       "collapsed": true,
       "showImprovements": false,
-      "showSuccesses": false
+      "showSuccesses": false,
+      "isActive": false
     },
     {
       "id": "9d6d82e0-bc0d-4f68-85dd-c2f3e2e17597",
       "collapsed": true,
       "showImprovements": false,
-      "showSuccesses": false
+      "showSuccesses": false,
+      "isActive": false
     },
     {
       "id": "ea5b56c6-375f-4426-84be-cf4df79b7505",
       "collapsed": true,
       "showImprovements": false,
-      "showSuccesses": false
+      "showSuccesses": false,
+      "isActive": false
     },
     {
       "id": "ed6d2d46-d275-45e4-b62f-3a3aaa40b6be",
       "collapsed": true,
       "showImprovements": false,
-      "showSuccesses": false
+      "showSuccesses": false,
+      "isActive": false
     }
   ],
   "groupAbilitiesBySource": true,

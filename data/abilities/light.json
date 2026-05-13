@@ -9,5 +9,6 @@
   "school": "0341bd63-648c-48c2-ba5d-ce92322e5a09",
   "isMagical": true,
   "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
-  "xpCost": 5
+  "xpCost": 5,
+  "canBeActive": false
 }

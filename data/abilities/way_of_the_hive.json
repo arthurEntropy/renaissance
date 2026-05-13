@@ -17,5 +17,6 @@
   ],
   "biomeTagsInhibit": [
     "cold"
-  ]
+  ],
+  "canBeActive": false
 }

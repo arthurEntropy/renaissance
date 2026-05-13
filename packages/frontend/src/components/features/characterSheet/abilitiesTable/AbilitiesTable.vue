@@ -48,7 +48,8 @@
             @update="handleCharacterUpdate" @update:collapsed="updateAbilityCollapsed(item.id, $event)"
             @update:showImprovements="updateAbilityShowImprovements(item, $event)" :show-successes="item.showSuccesses"
             @update:showSuccesses="updateAbilityShowSuccesses(item, $event)" @roll-link="handleRollLink"
-            :show-difficulty-badge="true" />
+            :show-difficulty-badge="true" @activate="setAbilityActive(item.id, true)"
+            @deactivate="setAbilityActive(item.id, false)" />
           <span v-else class="missing-item">Unknown ability</span>
         </template>
       </GroupedThreeColumnLayout>
@@ -63,7 +64,8 @@
             @update="handleCharacterUpdate" @update:collapsed="updateAbilityCollapsed(ability.id, $event)"
             @update:showImprovements="updateAbilityShowImprovements(ability, $event)"
             :show-successes="ability.showSuccesses" @update:showSuccesses="updateAbilityShowSuccesses(ability, $event)"
-            @roll-link="handleRollLink" :show-difficulty-badge="true" />
+            @roll-link="handleRollLink" :show-difficulty-badge="true" @activate="setAbilityActive(ability.id, true)"
+            @deactivate="setAbilityActive(ability.id, false)" />
           <span v-else class="missing-item">Unknown ability</span>
         </template>
       </ThreeColumnLayout>
@@ -264,7 +266,8 @@ const addAbilityById = (abilityId) => {
     id: abilityId,
     collapsed: false, // Default to expanded
     showImprovements: false, // Default to hiding improvements
-    showSuccesses: false // Default to hiding successes
+    showSuccesses: false, // Default to hiding successes
+    isActive: false, // Default to inactive
   })
   return updated
 }
@@ -287,6 +290,7 @@ const handleCascadeAddAllAbilities = (type, abilities) => {
       collapsed: false,
       showImprovements: false,
       showSuccesses: false,
+      isActive: false,
     })
     if (updated) {
       nextCharacter = updated
@@ -319,6 +323,14 @@ const updateAbilityCollapsed = (abilityId, collapsed) => {
   const index = selectedCharacter.value.abilities.findIndex(a => a.id === abilityId)
   if (index !== -1) {
     selectedCharacter.value.abilities[index].collapsed = collapsed
+  }
+}
+
+const setAbilityActive = (abilityId, isActive) => {
+  if (!selectedCharacter.value?.abilities) return
+  const index = selectedCharacter.value.abilities.findIndex(a => a.id === abilityId)
+  if (index !== -1) {
+    selectedCharacter.value.abilities[index].isActive = isActive
   }
 }
 
@@ -519,5 +531,11 @@ function applyBiomeDiceMod(pool, mod) {
   .ability-card {
     width: 90%;
   }
+}
+
+/* Active ability cards get the flame glow (keyframes defined in character-sheet-components.css) */
+:deep(.ability-card--active) {
+  animation: flame-pulse 2.4s linear infinite;
+  border-color: rgba(255, 160, 0, 0.6) !important;
 }
 </style>

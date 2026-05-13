@@ -5,5 +5,6 @@
   "lastModified": "2026-04-10T20:32:29.709Z",
   "name": "Magic User",
   "description": "<p>You approach magic as an external force that you bend to your will using tools and techniques that are still being developed - by yourself and other Arcanists.</p><p></p>",
-  "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa"
+  "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
+  "canBeActive": false
 }

@@ -6,5 +6,6 @@
   "artUrl": "https://cdn.midjourney.com/d50ee896-9379-4731-966b-48b6b0ecb256/0_0.png",
   "description": "<p>In areas of darkness, you cannot be detected by sight except by creatures with Darkvision.</p>",
   "source": "1c61dcb1-937a-44fe-9c69-3cd588e9dcb7",
-  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1"
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "canBeActive": false
 }

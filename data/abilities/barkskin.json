@@ -12,5 +12,6 @@
   "mpCost": 2,
   "xpCost": 10,
   "biomeTagsAugment": [],
-  "biomeTagsInhibit": []
+  "biomeTagsInhibit": [],
+  "canBeActive": true
 }

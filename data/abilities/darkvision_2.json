@@ -6,5 +6,6 @@
   "artUrl": "https://cdn.midjourney.com/cb5dde72-6852-4f83-a1ce-42413a4da6ce/0_1.png",
   "description": "<p>You can see in dim light as if it were bright light. You can see in complete darkness as if it were dim light. You cannot see through magical darkness.</p>",
   "source": "1c61dcb1-937a-44fe-9c69-3cd588e9dcb7",
-  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1"
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "canBeActive": false
 }

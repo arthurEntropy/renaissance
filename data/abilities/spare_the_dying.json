@@ -15,5 +15,6 @@
   ],
   "source": "162ae4db-7a67-4770-8a2c-7e9883da14f6",
   "isMagical": true,
-  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c"
+  "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
+  "canBeActive": false
 }

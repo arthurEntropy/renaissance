@@ -6,5 +6,6 @@
   "artUrl": "https://cdn.midjourney.com/db3ec5de-067f-4382-b6e9-4cae167d4048/0_3.png",
   "description": "<p><em>Arcane Focus: An enchanted object you bought or found, or a mundane object that you paid to have enchanted by a more experienced mage. It can be any object that you can carry.</em></p><p>You are an independent, unaffiliated student of the arcane arts. You have come by your knowledge from books, scrolls or tablets you've bought, found or inherited, or from informal training with another hedge mage.</p><p>When you gain this ability, choose and gain one ability at random from each school, ignoring its XP cost. Then choose one additional ability from any school with an XP cost no greater than 15. You also gain that ability, ignoring its XP cost.</p><p>To gain subsequent abilities, you must purchase a book, scroll or tablet containing instructions for learning the spell. In addition to paying the XP cost of an ability, you must also pay an amount of Treasure equal to its XP cost, divided by 5.</p><p><strong>Describe your approach to the arcane arts.</strong></p>",
   "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
-  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1"
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "canBeActive": false
 }

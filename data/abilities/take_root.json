@@ -19,5 +19,6 @@
   "biomeTagsInhibit": [
     "cold",
     "desert"
-  ]
+  ],
+  "canBeActive": true
 }
