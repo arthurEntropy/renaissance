@@ -58,15 +58,23 @@ const buildDiceModDice = (baseRanks, diceMod) => {
 }
 
 /** @returns {SkillPreviewDie[]} */
-export const buildDiceSetForSkill = (skillConfig, _options = {}) => {
+export const buildDiceSetForSkill = (skillConfig, options = {}) => {
   if (!skillConfig) return []
   
   const baseRanks = skillConfig.ranks || 0
   const diceMod = skillConfig.diceMod || 0
   
-  return [
+  const dice = [
     ...buildD12Dice(skillConfig),
     ...buildBaseRankDice(baseRanks, diceMod),
     ...buildDiceModDice(baseRanks, diceMod)
   ]
+
+  if (options.includeDiceClass && options.getDiceFontMaxClass) {
+    dice.forEach(die => {
+      die.cssClass = options.getDiceFontMaxClass(die.dieSize)
+    })
+  }
+
+  return dice
 }

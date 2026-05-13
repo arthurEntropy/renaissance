@@ -60,7 +60,7 @@ const tagGroups = computed(() => {
     if (s.ancestries?.length) groups.push({ label: 'Ancestries', items: s.ancestries })
     if (s.cultures?.length) groups.push({ label: 'Cultures', items: s.cultures })
     if (s.mestieri?.length) groups.push({ label: 'Mestieri', items: s.mestieri })
-    if (s.worldElements?.length) groups.push({ label: 'World Elements', items: s.worldElements })
+    if (s.worldElements?.length) groups.push({ label: 'World', items: s.worldElements })
     return groups
 })
 

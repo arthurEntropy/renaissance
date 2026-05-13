@@ -130,12 +130,12 @@ onUnmounted(() => {
 .mt-backdrop {
     position: fixed;
     inset: 0;
-    z-index: var(--z-popover);
+    z-index: var(--z-cascade-menu);
 }
 
 .mt-popup {
     position: fixed;
-    z-index: calc(var(--z-popover) + 1);
+    z-index: calc(var(--z-cascade-menu) + 1);
     background: var(--color-bg-secondary);
     border-radius: var(--radius-10);
     border: 1px solid var(--color-border-secondary);

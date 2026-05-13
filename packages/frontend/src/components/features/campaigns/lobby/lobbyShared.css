@@ -71,6 +71,8 @@
     display: flex;
     flex-direction: column;
     gap: var(--space-sm);
+    /* Contain badge hover z-index so modal overlays (z-modal) render above badges */
+    isolation: isolate;
 }
 
 .status-label {

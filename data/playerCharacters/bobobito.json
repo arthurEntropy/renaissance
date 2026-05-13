@@ -1,6 +1,6 @@
 {
   "id": 4,
-  "lastModified": "2026-05-10T18:52:06.722Z",
+  "lastModified": "2026-05-13T03:40:11.799Z",
   "name": "Bobobito",
   "pronouns": "he/him",
   "ancestryIds": [
@@ -86,7 +86,7 @@
     },
     {
       "key": "courtesy",
-      "ranks": 1,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -182,9 +182,7 @@
   "engagementDice": [
     8
   ],
-  "engagementSuccesses": [
-    "9"
-  ],
+  "engagementSuccesses": [],
   "engagementDiceStatuses": {
     "user_added_0": "expended"
   },
@@ -212,12 +210,12 @@
     "contests": {
       "engagement": {
         "wins": 0,
-        "losses": 0,
+        "losses": 1,
         "draws": 0
       },
       "opposed": {
-        "wins": 0,
-        "losses": 0,
+        "wins": 3,
+        "losses": 1,
         "draws": 0
       }
     }
@@ -227,5 +225,5 @@
   "swaggerColor": "#fdf7f7",
   "witchcraftTokens": [],
   "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2026-05-10T18:52:06.722Z"
+  "updatedAt": "2026-05-13T03:40:11.799Z"
 }

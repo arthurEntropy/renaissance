@@ -8,6 +8,27 @@
         :visibility="FAB_VISIBILITIES.ALWAYS" @click="toggleStructureEditMode" />
     </div>
 
+    <!-- Search bar (hidden in structure edit mode) -->
+    <div v-if="!isStructureEditMode" class="search-container">
+      <div class="search-input-wrapper">
+        <input v-model="searchInput" type="text" placeholder="Search rules…" class="rules-search-input"
+          autocomplete="off" />
+        <FloatingActionButton v-if="searchInput" :variant="FAB_TYPES.DELETE" :visibility="FAB_VISIBILITIES.ALWAYS"
+          class="search-clear-fab" @click="searchQuery = ''" />
+      </div>
+    </div>
+
+    <!-- Search results list -->
+    <div v-if="searchInput.trim() && !isStructureEditMode" class="rule-sections-list search-results-list">
+      <div v-if="searchResults.length === 0" class="no-results">No results found.</div>
+      <div v-for="result in searchResults" :key="result.section.id" class="rule-section-item search-result-item"
+        @click="selectSearchResult(result)">
+        <div class="search-result-name" v-html="result.highlightedName"></div>
+        <div v-if="result.subsection" class="search-result-subsection" v-html="result.highlightedSubsection"></div>
+        <div class="search-result-snippet" v-html="result.highlightedSnippet"></div>
+      </div>
+    </div>
+
     <!-- Draggable rule sections when in structure edit mode -->
     <draggable v-if="isStructureEditMode" :modelValue="localSections" @update:modelValue="updateLocalSections"
       item-key="id" handle=".fab--drag" ghost-class="ghost-section" @end="updateSectionsOrder"
@@ -22,20 +43,31 @@
           <div class="section-controls">
             <FloatingActionButton :variant="FAB_TYPES.DRAG" :size="FAB_SIZES.SMALL"
               :visibility="FAB_VISIBILITIES.ALWAYS" />
-            <FloatingActionButton :variant="FAB_TYPES.DELETE" :size="FAB_SIZES.SMALL" :visibility="FAB_VISIBILITIES.ALWAYS"
-              @click.stop="confirmDeleteSection(element)" />
+            <FloatingActionButton :variant="FAB_TYPES.DELETE" :size="FAB_SIZES.SMALL"
+              :visibility="FAB_VISIBILITIES.ALWAYS" @click.stop="confirmDeleteSection(element)" />
           </div>
         </div>
       </template>
     </draggable>
 
     <!-- Non-draggable rule sections when not in structure edit mode -->
-    <div v-else class="rule-sections-list">
-      <div v-for="section in orderedSections" :key="section.id" :class="[
-        'rule-section-item',
-        { active: rulesStore.selectedSection?.id === section.id },
-      ]" @click="selectSection(section.id)">
-        <span class="section-name">{{ section.name }}</span>
+    <div v-else-if="!searchInput.trim()" class="rule-sections-list">
+      <div v-for="section in orderedSections" :key="section.id" class="rule-section-wrapper">
+        <div :class="[
+          'rule-section-item',
+          { active: rulesStore.selectedSection?.id === section.id },
+        ]" @click="selectSection(section.id)">
+          <span class="section-name">{{ section.name }}</span>
+        </div>
+        <!-- Subsections derived from H2 elements in the section content -->
+        <div v-if="rulesStore.selectedSection?.id === section.id && selectedSectionHeadings.length > 0"
+          class="subsections-list">
+          <div v-for="heading in selectedSectionHeadings" :key="heading"
+            :class="['subsection-item', { 'subsection-active': props.activeHeading === heading }]"
+            @click="handleSubsectionClick(heading)">
+            {{ toTitleCase(heading) }}
+          </div>
+        </div>
       </div>
     </div>
 
@@ -57,6 +89,7 @@ import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 import draggable from 'vuedraggable'
 import RulesService from '@/services/entities/rulesService'
 import { createSlug } from '@/utils/urlHelpers'
+import { highlightInText, getSnippet, getMatchSubsection } from '@/utils/highlightText'
 
 const route = useRoute()
 const router = useRouter()
@@ -65,12 +98,84 @@ const rulesStore = useRulesStore()
 
 const isAdmin = computed(() => authStore.isAdmin)
 const isStructureEditMode = inject('isStructureEditMode', ref(false))
+const searchQuery = inject('searchQuery', ref(''))
+const pendingScrollTarget = inject('pendingScrollTarget', ref(null))
+
+// Local binding for the search input; keep the shared ref in sync
+const searchInput = computed({
+  get: () => searchQuery.value,
+  set: (val) => { searchQuery.value = val }
+})
+
+const searchResults = computed(() => {
+  const query = searchInput.value.trim()
+  if (!query) return []
+  return orderedSections.value
+    .map(section => {
+      const nameLower = section.name.toLowerCase()
+      const nameMatch = nameLower.includes(query.toLowerCase())
+      const snippet = getSnippet(section.content || '', query)
+      const snippetHasMatch = snippet.toLowerCase().includes(query.toLowerCase())
+      if (!nameMatch && !snippetHasMatch) return null
+      const subsection = snippetHasMatch ? getMatchSubsection(section.content || '', query) : null
+      return {
+        section,
+        highlightedName: highlightInText(section.name, query),
+        subsection,
+        highlightedSubsection: subsection ? highlightInText(subsection, query) : null,
+        highlightedSnippet: highlightInText(snippet, query),
+        contentMatch: snippetHasMatch,
+      }
+    })
+    .filter(Boolean)
+})
+
+const selectSearchResult = (result) => {
+  const scrollTarget = result.subsection
+    ? { type: 'heading', text: result.subsection }
+    : result.contentMatch
+      ? { type: 'mark' }
+      : null
+
+  if (rulesStore.selectedSection?.id === result.section.id) {
+    // Section already loaded — scroll directly without navigating
+    if (scrollTarget) emit('scrollToTarget', scrollTarget)
+  } else {
+    // Different section — stash target for after the section loads
+    pendingScrollTarget.value = scrollTarget
+    selectSection(result.section.id)
+  }
+}
 
 const emit = defineEmits([
   'selectSection',
   'sectionCreated',
-  'update:isStructureEditMode'
+  'update:isStructureEditMode',
+  'scrollToHeading',
+  'scrollToTarget',
 ])
+
+const props = defineProps({
+  activeHeading: {
+    type: String,
+    default: null
+  }
+})
+
+const toTitleCase = (str) =>
+  str.replace(/\S+/g, word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+
+const selectedSectionHeadings = computed(() => {
+  const content = rulesStore.selectedSection?.content
+  if (!content) return []
+  const parser = new DOMParser()
+  const doc = parser.parseFromString(content, 'text/html')
+  return Array.from(doc.querySelectorAll('h2')).map(el => el.textContent.trim()).filter(Boolean)
+})
+
+const handleSubsectionClick = (heading) => {
+  emit('scrollToHeading', heading)
+}
 
 const orderedSections = computed(() => {
   return rulesStore.sections
@@ -237,6 +342,127 @@ const updateLocalSections = (newSections) => {
 .ghost-section {
   opacity: 0.5;
   background: var(--color-gray-dark);
+}
+
+.subsections-list {
+  background: var(--overlay-black-medium);
+  border-left: 3px solid var(--color-white);
+}
+
+.subsection-item {
+  padding: var(--space-sm) var(--space-lg) var(--space-sm) var(--space-xl);
+  cursor: pointer;
+  font-size: var(--font-size-14);
+  color: var(--color-gray-medium);
+  border-bottom: 1px solid var(--overlay-white-subtle);
+  transition: var(--transition-color-bg);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.subsection-item:hover,
+.subsection-item.subsection-active {
+  background: var(--overlay-white-subtle);
+  color: var(--color-white);
+}
+
+.search-container {
+  padding: 0 var(--space-lg) var(--space-md);
+}
+
+.search-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.rules-search-input {
+  width: 100%;
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--radius-5);
+  padding: var(--space-sm) var(--space-md);
+  padding-right: calc(var(--btn-min-height-sm, 28px) + var(--space-md));
+  color: var(--color-text-primary);
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-14);
+  box-sizing: border-box;
+}
+
+.rules-search-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+.search-clear-fab {
+  position: absolute;
+  right: var(--space-xs);
+  flex-shrink: 0;
+}
+
+.search-results-list {
+  overflow-y: auto;
+}
+
+.search-result-item {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-xs);
+}
+
+.search-result-name {
+  font-size: var(--font-size-14);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.search-result-item:hover .search-result-name,
+.search-result-item.active .search-result-name {
+  color: var(--color-white);
+}
+
+.search-result-subsection {
+  font-size: var(--font-size-12);
+  font-style: italic;
+  color: var(--color-accent-cyan);
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.search-result-snippet {
+  font-size: var(--font-size-12);
+  color: var(--color-gray-medium);
+  line-height: var(--line-height-normal);
+  white-space: normal;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.search-result-item:hover .search-result-snippet {
+  color: var(--color-text-secondary);
+}
+
+.no-results {
+  padding: var(--space-md) var(--space-lg);
+  color: var(--color-gray-medium);
+  font-size: var(--font-size-14);
+}
+
+:deep(mark) {
+  background: var(--color-accent-yellow, #f5c842);
+  color: var(--color-text-dark, #1a1a1a);
+  border-radius: 2px;
+  padding: 0 1px;
 }
 
 @media (max-width: var(--breakpoint-md)) {

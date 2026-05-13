@@ -1,35 +1,24 @@
 <template>
-    <div class="modal-overlay preferences-modal-overlay" @click.self="closeModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Preferences</h2>
-                <button class="close-button" @click="closeModal" aria-label="Close">
-                    <XMarkIcon class="close-icon" />
-                </button>
-            </div>
-
-            <div class="preferences-section">
-                <h3>Background Image</h3>
-                <div class="background-options">
-                    <!-- Show all backgrounds in order, first one is default -->
-                    <div v-for="(background, index) in sortedBackgrounds" :key="background.id" class="background-option"
-                        :class="{ selected: isSelected(background.id, index) }"
-                        @click="selectBackground(background.id)">
-                        <img :src="background.imageUrl" :alt="`Background`" class="background-thumbnail" />
-                        <div v-if="index === 0" class="default-badge">Default</div>
-                        <div v-if="isSelected(background.id, index)" class="selected-indicator">✓</div>
-                    </div>
+    <BaseModal title="Preferences" width="min(800px, 90vw)" @close="closeModal">
+        <div class="preferences-section">
+            <h3>BACKGROUND IMAGE</h3>
+            <div class="background-options">
+                <div v-for="(background, index) in sortedBackgrounds" :key="background.id" class="background-option"
+                    :class="{ selected: isSelected(background.id, index) }" @click="selectBackground(background.id)">
+                    <img :src="background.imageUrl" :alt="`Background`" class="background-thumbnail" />
+                    <div v-if="index === 0" class="default-badge">Default</div>
+                    <div v-if="isSelected(background.id, index)" class="selected-indicator">✓</div>
                 </div>
             </div>
         </div>
-    </div>
+    </BaseModal>
 </template>
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import { useUserStore } from '@/stores/userStore'
-import { XMarkIcon } from '@heroicons/vue/24/outline'
 import { BACKGROUND_IMAGES } from '@/constants/backgroundImages'
+import BaseModal from '@/components/ui/modals/BaseModal.vue'
 
 const emit = defineEmits(['close'])
 
@@ -64,58 +53,15 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-.modal-content {
-    max-width: 800px;
-}
-
-.modal-header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    width: 100%;
-}
-
-.modal-header h2 {
-    flex: 1;
-    text-align: center;
-    color: var(--color-primary);
-    font-size: var(--font-size-32);
-    margin: 0;
-}
-
-.close-button {
-    position: absolute;
-    right: 0;
-    background: none;
-    border: none;
-    color: var(--color-gray-light);
-    cursor: pointer;
-    padding: var(--space-xs);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: var(--radius-5);
-    transition: color var(--duration-fast);
-}
-
-.close-button:hover {
-    color: var(--color-white);
-}
-
-.close-icon {
-    width: 24px;
-    height: 24px;
-}
-
 .preferences-section {
     margin-bottom: var(--space-xl);
 }
 
 .preferences-section h3 {
-    color: var(--color-white);
-    font-size: var(--font-size-24);
-    margin-bottom: var(--space-lg);
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-12);
+    font-weight: var(--font-weight-semibold);
+    margin: var(--space-lg) 0 var(--space-lg) 0;
 }
 
 .background-options {
@@ -176,7 +122,7 @@ onMounted(async () => {
     background: var(--color-gray-dark);
     color: var(--color-white);
     padding: 2px 8px;
-    border-radius: var(--radius-3);
+    border-radius: var(--radius-5);
     font-size: var(--font-size-12);
     font-weight: bold;
 }

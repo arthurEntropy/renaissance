@@ -16,7 +16,7 @@
     "heightMax": 7,
     "weightMin": 150,
     "weightMax": 400,
-    "lifespan": "90 years",
+    "lifespan": 90,
     "speed": 30
   },
   "expansionLogoUrl": "https://cdn.midjourney.com/a74946da-ccb3-4540-89e9-751411b6bb7c/0_1.png"

@@ -46,7 +46,8 @@
             v-model:groupBy="groupByOption" v-model:orderBy="sortOption" :tag-groups="equipmentTagGroups"
             :tag-picker-mode="'cascade'" :multiselect="true" :group-options="groupByOptions"
             :order-options="sortOptions" :show-add-button="isAdmin" search-placeholder="Search equipment..."
-            :tag-search-placeholder="'Filter by tags...'" :stats="stats" @add="createEquipment">
+            :tag-search-placeholder="'Filter by tags...'" :stats="stats" :hide-to-top-button="showEditEquipmentModal"
+            @add="createEquipment">
             <template #additional-filters>
                 <div v-if="isAdmin" class="top-row-actions">
                     <label class="template-toggle">
@@ -204,8 +205,8 @@ const equipmentTagGroups = computed(() => {
     groups.push({
         label: FILTER_SPECIAL_TAG_GROUP_LABEL,
         items: [
-            { id: `${TAG_PREFIX.MAGIC}magical`, name: 'Magic' },
-            { id: `${TAG_PREFIX.TYPE}weapons`, name: 'Weapon Types', items: typeItems },
+            { id: `${TAG_PREFIX.MAGIC}magical`, name: 'Magic Items' },
+            { id: `${TAG_PREFIX.TYPE}weapons`, name: 'Equipment Types', items: typeItems },
             { id: `${TAG_PREFIX.GRADE}grades`, name: 'Equipment Grades', items: gradeItems },
         ],
     })
@@ -521,6 +522,7 @@ const layoutProps = computed(() => ({
     tagPickerMode: 'cascade',
     tagMultiselect: true,
     tagSearchPlaceholder: 'Filter by tags...',
+    hideToTopButton: showEditEquipmentModal.value,
 }))
 </script>
 

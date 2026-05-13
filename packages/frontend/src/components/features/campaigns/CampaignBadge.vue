@@ -15,53 +15,54 @@
             {{ btnLabel }}
         </ActionButton>
 
-        <!-- Dropdown menu when NOT in a campaign -->
-        <div v-if="menuOpen && !campaignStore.isInCampaign" class="campaign-menu">
-            <!-- My campaigns list -->
-            <div v-if="campaignStore.activeCampaigns.length > 0" class="campaign-menu-section">
-                <div class="campaign-menu-section-label">My Campaigns</div>
-                <button v-for="c in campaignStore.activeCampaigns" :key="c.id" class="campaign-menu-item"
-                    @click="goToCampaign(c)">
-                    <span class="campaign-item-name">{{ c.name }}</span>
+        <!-- Dropdown menu when NOT in a campaign (teleported to body to escape nav stacking context) -->
+        <Teleport to="body">
+            <div v-if="menuOpen && !campaignStore.isInCampaign" ref="menuRef" class="campaign-menu" :style="menuStyle">
+                <!-- My campaigns list -->
+                <div v-if="campaignStore.activeCampaigns.length > 0" class="campaign-menu-section">
+                    <div class="campaign-menu-section-label">My Campaigns</div>
+                    <button v-for="c in campaignStore.activeCampaigns" :key="c.id" class="campaign-menu-item"
+                        @click="goToCampaign(c)">
+                        <span class="campaign-item-name">{{ c.name }}</span>
+                    </button>
+                </div>
+
+                <!-- Create new -->
+                <button class="campaign-menu-item campaign-menu-item--create" @click="openCreateModal">
+                    Create New Campaign…
                 </button>
             </div>
-
-            <!-- Pending invitations -->
-            <div v-if="campaignStore.pendingInviteCount > 0" class="campaign-menu-invites">
-                {{ campaignStore.pendingInviteCount }} pending invite{{ campaignStore.pendingInviteCount > 1 ? 's' : ''
-                }}
-            </div>
-
-            <div v-if="campaignStore.pendingInviteCount > 0" class="campaign-menu-divider" />
-
-            <!-- Create new -->
-            <button class="campaign-menu-item campaign-menu-item--create" @click="openCreateModal">
-                Create New Campaign…
-            </button>
-        </div>
-
-        <CreateCampaignModal :visible="showCreateModal" :is-submitting="creating" :error-message="createError"
-            @close="closeCreateModal" @submit="submitCreate" />
+        </Teleport>
     </div>
 </template>
 
 <script setup>
-import { ref, computed, watch, onUnmounted } from 'vue'
+import { ref, computed, watch, onUnmounted, nextTick } from 'vue'
 import { useRouter } from 'vue-router'
 import { useCampaignStore } from '@/stores/campaignStore'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
-import CreateCampaignModal from '@/components/features/campaigns/CreateCampaignModal.vue'
 import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 
 const router = useRouter()
 const campaignStore = useCampaignStore()
 const wrapperRef = ref(null)
-const menuOpen = ref(false)
-const showCreateModal = ref(false)
-const creating = ref(false)
-const createError = ref('')
+const menuRef = ref(null)
+const emit = defineEmits(['openCreateCampaign'])
 
+const menuOpen = ref(false)
+const menuStyle = ref({})
+
+const updateMenuPosition = () => {
+    if (!wrapperRef.value) return
+    const rect = wrapperRef.value.getBoundingClientRect()
+    menuStyle.value = {
+        position: 'fixed',
+        top: `${rect.bottom + 4}px`,
+        left: `${rect.left}px`,
+        zIndex: 'var(--z-cascade-menu)',
+    }
+}
 const campaign = computed(() => campaignStore.activeCampaign)
 
 const btnLabel = computed(() => {
@@ -88,13 +89,17 @@ const toggleMenu = () => {
 }
 
 const closeMenu = (event) => {
-    if (wrapperRef.value && !wrapperRef.value.contains(event.target)) {
+    const clickedInWrapper = wrapperRef.value?.contains(event.target)
+    const clickedInMenu = menuRef.value?.contains(event.target)
+    if (!clickedInWrapper && !clickedInMenu) {
         menuOpen.value = false
     }
 }
 
-watch(menuOpen, (isOpen) => {
+watch(menuOpen, async (isOpen) => {
     if (isOpen) {
+        await nextTick()
+        updateMenuPosition()
         document.addEventListener('click', closeMenu)
     } else {
         document.removeEventListener('click', closeMenu)
@@ -121,36 +126,7 @@ const handleExit = async () => {
 
 const openCreateModal = () => {
     menuOpen.value = false
-    createError.value = ''
-    showCreateModal.value = true
-}
-
-const closeCreateModal = () => {
-    showCreateModal.value = false
-}
-
-const submitCreate = async (payload) => {
-    if (!payload.name) {
-        createError.value = 'Campaign name is required.'
-        return
-    }
-    creating.value = true
-    createError.value = ''
-    try {
-        const newCampaign = await campaignStore.create({
-            name: payload.name,
-            description: payload.description,
-            coverImageUrl: payload.coverImageUrl,
-        })
-        closeCreateModal()
-        if (newCampaign?.slug) {
-            router.push(`/campaigns/${newCampaign.slug}`)
-        }
-    } catch (err) {
-        createError.value = err?.message || 'Failed to create campaign.'
-    } finally {
-        creating.value = false
-    }
+    emit('openCreateCampaign')
 }
 
 </script>
@@ -163,7 +139,7 @@ const submitCreate = async (payload) => {
     gap: var(--space-xs);
 }
 
-.campaign-btn-wrapper :deep(.action-btn) {
+.campaign-btn-wrapper> :deep(.action-btn) {
     border-radius: var(--radius-full);
     background: var(--color-gray-dark);
 }
@@ -200,20 +176,20 @@ const submitCreate = async (payload) => {
     pointer-events: auto;
 }
 
-.campaign-btn-wrapper.is-in-campaign :deep(.action-btn) {
+.campaign-btn-wrapper.is-in-campaign> :deep(.action-btn) {
     width: 100%;
     overflow: hidden;
     background-size: cover;
     background-position: center;
 }
 
-.campaign-btn-wrapper.is-in-campaign :deep(.action-btn__text) {
+.campaign-btn-wrapper.is-in-campaign> :deep(.action-btn .action-btn__text) {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
-.campaign-btn-wrapper.is-in-campaign :deep(.action-btn__text) {
+.campaign-btn-wrapper.is-in-campaign> :deep(.action-btn .action-btn__text) {
     color: #fff;
     -webkit-text-stroke: 2px var(--color-black);
     paint-order: stroke fill;
@@ -221,15 +197,11 @@ const submitCreate = async (payload) => {
 
 /* Dropdown menu */
 .campaign-menu {
-    position: absolute;
-    top: calc(100% + var(--space-sm));
-    left: 0;
     background: var(--color-bg-secondary);
     border: 1px solid var(--overlay-white-medium);
     border-radius: var(--radius-10);
     box-shadow: var(--shadow-elevation-md, var(--shadow-lg));
     min-width: 220px;
-    z-index: var(--z-dropdown);
     overflow: hidden;
 }
 

@@ -54,6 +54,10 @@
                         @click.stop="closeDropdown">
                         Design Lab
                     </router-link>
+                    <router-link v-if="authStore.isAdmin" to="/modal-lab" class="dropdown-item dropdown-item--admin"
+                        @click.stop="closeDropdown">
+                        Modal Lab
+                    </router-link>
                     <div v-if="authStore.isAdmin" class="dropdown-menu-divider" />
 
                     <button @click.stop="openPreferences" class="dropdown-item">
@@ -74,7 +78,6 @@
         </div>
     </div>
 
-    <InvitesModal v-if="showInvitesModal" @close="showInvitesModal = false" />
 </template>
 
 <script setup>
@@ -84,7 +87,6 @@ import { useUserStore } from '@/stores/userStore'
 import { useCampaignStore } from '@/stores/campaignStore'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import { ChevronDownIcon } from '@heroicons/vue/24/outline'
-import InvitesModal from '@/components/features/campaigns/InvitesModal.vue'
 
 const GOOGLE_ICON_URL = 'https://www.gstatic.com/marketing-cms/assets/images/d5/dc/cfe9ce8b4425b410b49b7f2dd3f3/g.webp=s48-fcrop64=1,00000000ffffffff-rw'
 
@@ -95,9 +97,8 @@ const signingIn = ref(false)
 const signingOut = ref(false)
 const dropdownOpen = ref(false)
 const dropdownTrigger = ref(null)
-const showInvitesModal = ref(false)
 
-const emit = defineEmits(['openPreferences'])
+const emit = defineEmits(['openPreferences', 'openInvites'])
 
 const isAuthProfilePending = computed(() => {
     return authStore.isAuthenticated && (!userStore.userProfile || userStore.isLoading)
@@ -144,7 +145,7 @@ const openPreferences = () => {
 }
 
 const openInvites = () => {
-    showInvitesModal.value = true
+    emit('openInvites')
     dropdownOpen.value = false
 }
 

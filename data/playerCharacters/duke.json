@@ -1,6 +1,6 @@
 {
   "id": "c6e87008-622d-4410-9f1d-ce56c85ea5ae",
-  "lastModified": "2026-04-30T16:08:32.713Z",
+  "lastModified": "2026-05-13T03:39:15.200Z",
   "name": "Duke",
   "pronouns": "she/her",
   "ancestryIds": [
@@ -273,7 +273,7 @@
         "draws": 0
       },
       "opposed": {
-        "wins": 0,
+        "wins": 1,
         "losses": 0,
         "draws": 0
       }
@@ -295,14 +295,6 @@
       "imageUrl": "/src/assets/icons/witch/bracelet.png",
       "givenTo": "Arthur",
       "notes": "Cool king"
-    },
-    {
-      "id": "d15e9d85-1dff-4448-9df4-4ff81134fd18",
-      "abilityId": "670a86d8-f547-40c4-b4fd-2a5979022960",
-      "isTalisman": false,
-      "imageUrl": "/src/assets/icons/witch/wood.png",
-      "givenTo": "Ropeson",
-      "notes": "Gregarious rope guy."
     },
     {
       "id": "831a5e9b-ad17-4963-a2c5-3394639ffa8d",
@@ -327,7 +319,24 @@
       "imageUrl": "/src/assets/icons/witch/scarf.png",
       "givenTo": "Nief",
       "notes": "For cold weather"
+    },
+    {
+      "id": "640c545f-5313-4f74-a7a9-a33091661363",
+      "imageUrl": "/src/assets/icons/witch/jewelery.png",
+      "givenTo": "Davey",
+      "notes": "Just a cool ring, don't worry about it.",
+      "abilityId": "81323093-faf3-416e-977e-7a28c7a7fb11",
+      "isTalisman": false
+    },
+    {
+      "id": "b1d24db1-7ccf-462a-8f64-f6e4925bc78f",
+      "imageUrl": "/src/assets/icons/witch/winkle.png",
+      "givenTo": "Darius Rucker",
+      "notes": "I only wanna be with you.",
+      "abilityId": "5b9967f3-a2f9-4515-a94f-d00ca8147cf3",
+      "isTalisman": true
     }
   ],
-  "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1"
+  "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
+  "updatedAt": "2026-05-13T03:39:15.199Z"
 }

@@ -1,213 +1,277 @@
 <template>
-    <div class="modal-overlay" @click="closeModal">
-        <div class="modal-content" @click.stop>
+    <BaseModal title="Character Profile" @close="closeModal">
 
-            <!-- Scrollable Form Content -->
-            <div class="modal-body">
-                <h2 class="profile-title">Character Profile</h2>
+        <!-- Scrollable Form Content -->
+        <header class="modal-header-row">
+        </header>
+        <form @submit.prevent="saveChanges">
 
-                <form @submit.prevent="saveChanges">
-
-                    <!-- Name and Pronouns -->
-                    <div class="form-group row">
-                        <div class="form-column name-input">
-                            <label for="name" class="left-aligned">Name:</label>
-                            <input type="text" v-model="formData.name" id="name" class="modal-input"
-                                placeholder="Character name" />
-                        </div>
-                        <div v-if="!isBeastCharacter" class="form-column pronouns-input">
-                            <label for="pronouns" class="left-aligned">Pronouns:</label>
-                            <input type="text" v-model="formData.pronouns" id="pronouns" class="modal-input"
-                                placeholder="they/them" />
-                        </div>
-                    </div>
-
-                    <!-- Ancestries -->
-                    <template v-if="!isBeastCharacter">
-                        <div class="form-group row">
-                            <div class="form-column">
-                                <label for="ancestry1" class="left-aligned">Ancestries:</label>
-                                <select v-model="formData.ancestryIds[0]" id="ancestry1" class="modal-input">
-                                    <option value="">Select ancestry...</option>
-                                    <option v-for="ancestry in conceptsStore.ancestries" :key="ancestry.id"
-                                        :value="ancestry.id">
-                                        {{ ancestry.name }}
-                                    </option>
-                                </select>
-                            </div>
-                            <div class="form-column">
-                                <label for="ancestry2" class="left-aligned invisible-label">&nbsp;</label>
-                                <select v-model="formData.ancestryIds[1]" id="ancestry2" class="modal-input">
-                                    <option value="">Select ancestry...</option>
-                                    <option v-for="ancestry in conceptsStore.ancestries" :key="ancestry.id"
-                                        :value="ancestry.id">
-                                        {{ ancestry.name }}
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <!-- Cultures -->
-                        <div class="form-group row">
-                            <div class="form-column">
-                                <label for="culture1" class="left-aligned">Cultures:</label>
-                                <select v-model="formData.cultureIds[0]" id="culture1" class="modal-input">
-                                    <option value="">Select culture...</option>
-                                    <option v-for="culture in conceptsStore.cultures" :key="culture.id"
-                                        :value="culture.id">
-                                        {{ culture.name }}
-                                    </option>
-                                </select>
-                            </div>
-                            <div class="form-column">
-                                <label for="culture2" class="left-aligned invisible-label">&nbsp;</label>
-                                <select v-model="formData.cultureIds[1]" id="culture2" class="modal-input">
-                                    <option value="">Select culture...</option>
-                                    <option v-for="culture in conceptsStore.cultures" :key="culture.id"
-                                        :value="culture.id">
-                                        {{ culture.name }}
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <!-- Mestiere -->
-                        <div class="form-group row">
-                            <div class="form-column">
-                                <label for="mestiere" class="left-aligned">Mestiere:</label>
-                                <select v-model="formData.mestiereId" id="mestiere" class="modal-input">
-                                    <option value="">Select mestiere...</option>
-                                    <option v-for="mestiere in conceptsStore.mestieri" :key="mestiere.id"
-                                        :value="mestiere.id">
-                                        {{ mestiere.name }}
-                                    </option>
-                                </select>
-                            </div>
-                            <div class="form-column">
-                                <label class="left-aligned invisible-label">&nbsp;</label>
-                                <div class="modal-input-placeholder"></div>
-                            </div>
-                        </div>
-
-                        <!-- Physical Stats -->
-                        <div class="form-group row">
-                            <div class="form-column">
-                                <label for="age" class="left-aligned">Age:</label>
-                                <input id="age" type="number" min="0" v-model.number="formData.age" class="modal-input"
-                                    placeholder="0" />
-                            </div>
-                            <div class="form-column">
-                                <label for="heightFeet" class="left-aligned">Height (ft):</label>
-                                <input id="heightFeet" type="number" min="0" v-model.number="formData.heightFeet"
-                                    class="modal-input" placeholder="0" />
-                            </div>
-                            <div class="form-column">
-                                <label for="heightInches" class="left-aligned">Height (in):</label>
-                                <input id="heightInches" type="number" min="0" max="11"
-                                    v-model.number="formData.heightInches" class="modal-input" placeholder="0" />
-                            </div>
-                            <div class="form-column">
-                                <label for="weight" class="left-aligned">Weight (lbs):</label>
-                                <input id="weight" type="number" min="0" v-model.number="formData.weight"
-                                    class="modal-input" placeholder="0" />
-                            </div>
-                        </div>
-
-                        <!-- Randomize Vitals -->
-                        <div class="form-group randomize-row">
-                            <div class="randomize-wrapper">
-                                <ActionButton variant="outline" size="small" text="Randomize Vitals"
-                                    :disabled="!hasSelectedAncestry"
-                                    :title="hasSelectedAncestry ? '' : 'Select an ancestry first'"
-                                    @click="randomizeVitals" />
-                                <span class="randomize-note">Based on selected ancestry</span>
-                            </div>
-                        </div>
-                    </template>
-
-                    <!-- Beast Fields -->
-                    <template v-else>
-                        <!-- Description -->
-                        <div class="form-column">
-                            <label for="description" class="left-aligned">Description:</label>
-                            <textarea id="description" v-model="formData.description"
-                                class="modal-input beast-text-input" placeholder="Describe the beast..." />
-                        </div>
-
-                        <!-- Size & Reach -->
-                        <div class="form-group beast-number-row">
-                            <div class="beast-number-field">
-                                <label for="size" class="left-aligned">Size:</label>
-                                <input id="size" type="number" min="0" v-model.number="formData.size"
-                                    class="modal-input beast-number-input" placeholder="0" />
-                            </div>
-                            <div class="beast-number-field">
-                                <label for="reach" class="left-aligned">Reach (ft):</label>
-                                <input id="reach" type="number" min="0" v-model.number="formData.reach"
-                                    class="modal-input beast-number-input" placeholder="0" />
-                            </div>
-                        </div>
-                    </template>
-
-                </form>
-
-                <!-- Settings Section -->
-                <div class="settings-section">
-                    <div class="settings-divider"></div>
-
-                    <div v-if="!showDeleteConfirmation" class="settings-content">
-                        <h3 class="settings-title">Character Settings</h3>
-                        <ActionButton variant="danger" size="small" text="Delete Character" @click="initiateDelete" />
-                    </div>
-
-                    <div v-else class="delete-confirmation">
-                        <h3 class="confirmation-title">Confirm Deletion</h3>
-                        <p class="confirmation-text">
-                            Type <strong>{{ character.name }}</strong> to confirm deletion:
-                        </p>
-                        <input v-model="confirmationInput" type="text" class="modal-input confirmation-input"
-                            placeholder="Type character name to confirm" @keyup.enter="confirmDeletion" />
-                        <div class="confirmation-actions">
-                            <ActionButton variant="neutral" size="small" text="Cancel" @click="cancelDelete" />
-                            <ActionButton variant="danger" size="small" text="DELETE" :disabled="!isDeleteConfirmed"
-                                @click="confirmDeletion" />
-                        </div>
-                    </div>
+            <!-- Name and Pronouns -->
+            <div class="form-group row">
+                <div class="form-column name-input">
+                    <label for="name" class="left-aligned">Name:</label>
+                    <input type="text" v-model="formData.name" id="name" class="modal-input"
+                        placeholder="Character name" />
                 </div>
-
-                <CharacterRollStats v-if="!isBeastCharacter" @reset-stats="resetStats" />
-            </div>
-
-            <!-- Sticky Action Buttons -->
-            <div class="modal-footer">
-                <div class="form-buttons">
-                    <ActionButton variant="success" size="small" text="Save" @click="saveChanges" />
-                    <ActionButton variant="neutral" size="small" text="Cancel" @click="closeModal" />
+                <div v-if="!isBeastCharacter" class="form-column pronouns-input">
+                    <label for="pronouns" class="left-aligned">Pronouns:</label>
+                    <input type="text" v-model="formData.pronouns" id="pronouns" class="modal-input"
+                        placeholder="they/them" />
                 </div>
             </div>
 
+            <!-- Ancestries -->
+            <template v-if="!isBeastCharacter">
+                <div class="form-group row">
+                    <div class="form-column">
+                        <label for="ancestry1" class="left-aligned">Ancestries:</label>
+                        <select :value="formData.ancestryIds[0]" @change="onAncestry0Change" id="ancestry1"
+                            class="modal-input">
+                            <option value="">Select ancestry...</option>
+                            <option v-for="ancestry in conceptsStore.ancestries" :key="ancestry.id"
+                                :value="ancestry.id">
+                                {{ ancestry.name }}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="form-column">
+                        <label for="ancestry2" class="left-aligned invisible-label">&nbsp;</label>
+                        <select v-model="formData.ancestryIds[1]" id="ancestry2" class="modal-input"
+                            :disabled="!formData.ancestryIds[0]">
+                            <option value="">Select ancestry...</option>
+                            <option v-for="ancestry in conceptsStore.ancestries" :key="ancestry.id"
+                                :value="ancestry.id">
+                                {{ ancestry.name }}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Cultures -->
+                <div class="form-group row">
+                    <div class="form-column">
+                        <label for="culture1" class="left-aligned">Cultures:</label>
+                        <select :value="formData.cultureIds[0]" @change="onCulture0Change" id="culture1"
+                            class="modal-input">
+                            <option value="">Select culture...</option>
+                            <option v-for="culture in conceptsStore.cultures" :key="culture.id" :value="culture.id">
+                                {{ culture.name }}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="form-column">
+                        <label for="culture2" class="left-aligned invisible-label">&nbsp;</label>
+                        <select v-model="formData.cultureIds[1]" id="culture2" class="modal-input"
+                            :disabled="!formData.cultureIds[0]">
+                            <option value="">Select culture...</option>
+                            <option v-for="culture in conceptsStore.cultures" :key="culture.id" :value="culture.id">
+                                {{ culture.name }}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Mestiere -->
+                <div class="form-group row">
+                    <div class="form-column">
+                        <label for="mestiere" class="left-aligned">Mestiere:</label>
+                        <select v-model="formData.mestiereId" id="mestiere" class="modal-input">
+                            <option value="">Select mestiere...</option>
+                            <option v-for="mestiere in conceptsStore.mestieri" :key="mestiere.id" :value="mestiere.id">
+                                {{ mestiere.name }}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="form-column">
+                        <label class="left-aligned invisible-label">&nbsp;</label>
+                        <div class="modal-input-placeholder"></div>
+                    </div>
+                </div>
+
+                <!-- Physical Stats -->
+                <div class="form-group row">
+                    <div class="form-column">
+                        <label for="age" class="left-aligned">Age:</label>
+                        <input id="age" type="number" min="0" v-model.number="formData.age" class="modal-input"
+                            placeholder="0" />
+                    </div>
+                    <div class="form-column">
+                        <label for="heightFeet" class="left-aligned">Height (ft):</label>
+                        <input id="heightFeet" type="number" min="0" v-model.number="formData.heightFeet"
+                            class="modal-input" placeholder="0" />
+                    </div>
+                    <div class="form-column">
+                        <label for="heightInches" class="left-aligned">Height (in):</label>
+                        <input id="heightInches" type="number" min="0" max="11" v-model.number="formData.heightInches"
+                            class="modal-input" placeholder="0" />
+                    </div>
+                    <div class="form-column">
+                        <label for="weight" class="left-aligned">Weight (lbs):</label>
+                        <input id="weight" type="number" min="0" v-model.number="formData.weight" class="modal-input"
+                            placeholder="0" />
+                    </div>
+                </div>
+
+                <!-- Randomize Vitals -->
+                <div class="form-group randomize-row">
+                    <div class="randomize-wrapper">
+                        <ActionButton variant="outline" size="small" text="Randomize Vitals"
+                            :disabled="!hasSelectedAncestry"
+                            :title="hasSelectedAncestry ? '' : 'Select an ancestry first'" @click="randomizeVitals" />
+                        <span class="randomize-note">Based on selected ancestry</span>
+                    </div>
+                </div>
+            </template>
+
+            <!-- Beast Fields -->
+            <template v-else>
+                <!-- Description -->
+                <div class="form-column">
+                    <label for="description" class="left-aligned">Description:</label>
+                    <textarea id="description" v-model="formData.description" class="modal-input beast-text-input"
+                        placeholder="Describe the beast..." />
+                </div>
+
+                <!-- Size & Reach -->
+                <div class="form-group beast-number-row">
+                    <div class="beast-number-field">
+                        <label for="size" class="left-aligned">Size:</label>
+                        <input id="size" type="number" min="0" v-model.number="formData.size"
+                            class="modal-input beast-number-input" placeholder="0" />
+                    </div>
+                    <div class="beast-number-field">
+                        <label for="reach" class="left-aligned">Reach (ft):</label>
+                        <input id="reach" type="number" min="0" v-model.number="formData.reach"
+                            class="modal-input beast-number-input" placeholder="0" />
+                    </div>
+                </div>
+            </template>
+
+        </form>
+
+        <CharacterRollStats v-if="!isBeastCharacter" @reset-stats="resetStats" />
+
+        <!-- Settings Section -->
+        <div class="settings-section">
+            <div class="settings-divider"></div>
+
+            <div class="settings-content">
+                <!-- PC → NPC conversion -->
+                <template v-if="showConvertToNPCButton">
+                    <div v-if="pendingConvertToNPCCampaignId" class="pending-conversion">
+                        <span class="pending-label">Converting to NPC</span>
+                        <ActionButton variant="neutral" size="small" text="Cancel"
+                            @click="pendingConvertToNPCCampaignId = ''" />
+                    </div>
+                    <ActionButton v-else variant="outline" size="small" text="Convert to NPC"
+                        @click="showConvertToNpcModal = true" />
+                </template>
+
+                <!-- NPC → PC conversion -->
+                <template v-if="showConvertToPCButton">
+                    <div v-if="pendingConvertToPC" class="pending-conversion">
+                        <span class="pending-label">Converting to Player Character</span>
+                        <ActionButton variant="neutral" size="small" text="Cancel"
+                            @click="pendingConvertToPC = false" />
+                    </div>
+                    <ActionButton v-else variant="outline" size="small" text="Convert to Player Character"
+                        @click="showConvertToPcModal = true" />
+                </template>
+
+                <!-- Transfer Ownership -->
+                <ActionButton v-if="showTransferOwnershipButton" variant="outline" size="small"
+                    text="Transfer Ownership" @click="showTransferModal = true" />
+
+                <!-- Delete -->
+                <ActionButton variant="danger" size="small" text="Delete Character" @click="showDeleteModal = true" />
+            </div>
         </div>
-    </div>
+
+        <template #actions>
+            <ActionButton variant="neutral" size="large" text="Cancel" @click="closeModal" />
+            <ActionButton variant="primary" size="large" text="Save" @click="saveChanges" />
+        </template>
+    </BaseModal>
+
+    <!-- Settings action modals -->
+    <ConvertToNpcModal v-if="showConvertToNpcModal" :gmCampaigns="gmCampaigns" @close="showConvertToNpcModal = false"
+        @confirm="onConvertToNpcConfirm" />
+    <ConvertToPcModal v-if="showConvertToPcModal" @close="showConvertToPcModal = false"
+        @confirm="onConvertToPcConfirm" />
+    <TransferOwnershipModal v-if="showTransferModal" :character="character" @close="showTransferModal = false" />
+    <DeleteCharacterModal v-if="showDeleteModal" :character="character" @close="showDeleteModal = false"
+        @deleted="closeModal" />
 </template>
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import { useCharactersStore } from '@/stores/charactersStore'
 import { useConceptsStore } from '@/stores/conceptsStore'
+import { useCampaignStore } from '@/stores/campaignStore'
+import { useAuthStore } from '@/stores/authStore'
 import { createEmptyRollStats } from '@/services/rolls/rollStatsService'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
+import BaseModal from '@/components/ui/modals/BaseModal.vue'
 import CharacterRollStats from './CharacterRollStats.vue'
-import { isBeastTemplate, isBeastInstance } from '@/utils/characterTypeGuards'
+import ConvertToNpcModal from './ConvertToNpcModal.vue'
+import ConvertToPcModal from './ConvertToPcModal.vue'
+import TransferOwnershipModal from './TransferOwnershipModal.vue'
+import DeleteCharacterModal from './DeleteCharacterModal.vue'
+import { isBeastTemplate, isBeastInstance, isPlayerCharacter, isNPC } from '@/utils/characterTypeGuards'
+import { CAMPAIGN_ROLE, CAMPAIGN_MEMBER_STATUS } from '@shared/constants/campaignConstants'
 
 const charactersStore = useCharactersStore()
 const conceptsStore = useConceptsStore()
-
+const campaignStore = useCampaignStore()
+const authStore = useAuthStore()
 const emit = defineEmits(['close'])
 
 const character = charactersStore.selectedCharacter
 const isBeastCharacter = computed(() =>
     isBeastTemplate(character) || isBeastInstance(character)
 )
+
+const isPlayerChar = computed(() => isPlayerCharacter(character))
+const isNPCChar = computed(() => isNPC(character))
+
+// Campaigns where the current user has an accepted GM role
+const gmCampaigns = computed(() => {
+    const uid = authStore.user?.uid
+    if (!uid) return []
+    return campaignStore.campaigns.filter(campaign =>
+        campaign.members?.some(m =>
+            m.userId === uid &&
+            m.role === CAMPAIGN_ROLE.GM &&
+            m.status === CAMPAIGN_MEMBER_STATUS.ACCEPTED
+        )
+    )
+})
+
+const showConvertToNPCButton = computed(() => isPlayerChar.value && gmCampaigns.value.length > 0)
+const showConvertToPCButton = computed(() => isNPCChar.value)
+
+// Modal visibility
+const showConvertToNpcModal = ref(false)
+const showConvertToPcModal = ref(false)
+const showTransferModal = ref(false)
+const showDeleteModal = ref(false)
+
+// Type conversion pending state (applied on save)
+const pendingConvertToNPCCampaignId = ref('')
+const pendingConvertToPC = ref(false)
+
+const onConvertToNpcConfirm = (campaignId) => {
+    pendingConvertToNPCCampaignId.value = campaignId
+    showConvertToNpcModal.value = false
+}
+
+const onConvertToPcConfirm = () => {
+    pendingConvertToPC.value = true
+    showConvertToPcModal.value = false
+}
+
+// Transfer Ownership
+const showTransferOwnershipButton = computed(() => isPlayerChar.value)
 
 const formData = ref({
     name: '',
@@ -224,13 +288,30 @@ const formData = ref({
     reach: 0,
 })
 
-// Delete confirmation state
-const showDeleteConfirmation = ref(false)
-const confirmationInput = ref('')
+// Shift-aware change handlers for the first ancestry/culture slots.
+// Using :value + @change instead of v-model avoids a conflict between
+// vModelSelect's internal state and the programmatic array mutation.
+const onAncestry0Change = (e) => {
+    const val = e.target.value
+    if (!val && formData.value.ancestryIds[1]) {
+        formData.value.ancestryIds[0] = formData.value.ancestryIds[1]
+        formData.value.ancestryIds[1] = ''
+    } else {
+        formData.value.ancestryIds[0] = val
+    }
+}
 
-const isDeleteConfirmed = computed(() => {
-    return confirmationInput.value === character.name
-})
+const onCulture0Change = (e) => {
+    const val = e.target.value
+    if (!val && formData.value.cultureIds[1]) {
+        formData.value.cultureIds[0] = formData.value.cultureIds[1]
+        formData.value.cultureIds[1] = ''
+    } else {
+        formData.value.cultureIds[0] = val
+    }
+}
+
+const initialFormDataSnapshot = ref(null)
 
 onMounted(() => {
     const ancestryIds = character.ancestryIds || []
@@ -250,10 +331,18 @@ onMounted(() => {
         size: character.size || 0,
         reach: character.reach || 0,
     }
+    initialFormDataSnapshot.value = JSON.stringify(formData.value)
 })
 
 const closeModal = () => {
     emit('close')
+}
+
+const _handleOverlayClick = () => {
+    if (initialFormDataSnapshot.value && JSON.stringify(formData.value) !== initialFormDataSnapshot.value) {
+        if (!confirm('You have unsaved changes. Are you sure you want to close?')) return
+    }
+    closeModal()
 }
 
 const saveChanges = () => {
@@ -274,12 +363,33 @@ const saveChanges = () => {
             ancestryIds: filteredAncestryIds,
             cultureIds: filteredCultureIds
         })
+
+        // Apply type conversion if requested
+        if (pendingConvertToPC.value && isNPCChar.value) {
+            character.characterType = 'playerCharacter'
+            // Add character to the campaign member's character list so it stays visible in the campaign
+            const campaignId = character.campaignId
+            const ownerId = character.ownerId
+            if (campaignId && ownerId) {
+                const campaign = campaignStore.getById(campaignId)
+                const member = campaign?.members?.find(m => m.userId === ownerId)
+                if (member) {
+                    const currentIds = member.characterIds || []
+                    if (!currentIds.includes(character.id)) {
+                        campaignStore.updateMemberCharacters(campaignId, ownerId, [...currentIds, character.id])
+                    }
+                }
+            }
+        } else if (pendingConvertToNPCCampaignId.value && isPlayerChar.value) {
+            character.characterType = 'npc'
+            character.campaignId = pendingConvertToNPCCampaignId.value
+        }
     }
     closeModal()
 }
 
 const resetStats = () => {
-    const shouldReset = confirm('Reset all tracked character roll stats?')
+    const shouldReset = confirm('Reset all tracked character stats?')
     if (!shouldReset) return
 
     character.rollStats = createEmptyRollStats()
@@ -288,13 +398,6 @@ const resetStats = () => {
 const hasSelectedAncestry = computed(() =>
     formData.value.ancestryIds.some(id => id !== '')
 )
-
-const parseLifespan = (lifespan) => {
-    if (!lifespan) return null
-    const normalized = typeof lifespan === 'number' ? String(lifespan) : lifespan
-    const match = normalized.match(/(\d+)/)
-    return match ? parseInt(match[1]) : null
-}
 
 const randomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min
 
@@ -350,10 +453,11 @@ const randomizeVitals = () => {
         formData.value.weight = randomBell(Math.round(weightRange.min), Math.round(weightRange.max))
     }
 
-    // Age: between 18 and average lifespan (skip undying ancestries if mixed)
+    // Age: between 18 and average lifespan (0 = undying, treated as 1000)
     const lifespans = selectedAncestries
-        .map((a) => parseLifespan(getAncestryPhysiology(a)?.lifespan))
-        .filter(l => l !== null)
+        .map((a) => getAncestryPhysiology(a)?.lifespan)
+        .filter(l => l != null)
+        .map(l => l === 0 ? 1000 : l)
 
     if (lifespans.length > 0) {
         const avgLifespan = Math.round(lifespans.reduce((s, l) => s + l, 0) / lifespans.length)
@@ -363,31 +467,11 @@ const randomizeVitals = () => {
     }
 }
 
-// Delete functionality
-const initiateDelete = () => {
-    showDeleteConfirmation.value = true
-}
-
-const cancelDelete = () => {
-    showDeleteConfirmation.value = false
-    confirmationInput.value = ''
-}
-
-const confirmDeletion = async () => {
-    if (!isDeleteConfirmed.value || !character) return
-
-    await charactersStore.deleteCharacter(character._id)
-    closeModal()
-}
 </script>
 
 <style scoped>
-.modal-content {
-    width: var(--width-modal);
-    display: flex;
-    flex-direction: column;
-    max-height: 90vh;
-    height: auto;
+.modal-header-row {
+    display: none;
 }
 
 .modal-body {
@@ -424,17 +508,6 @@ const confirmDeletion = async () => {
 .pronouns-input {
     flex: 1;
     min-width: 0;
-}
-
-.pronouns-input .modal-input {
-    width: 100%;
-    max-width: 100%;
-    box-sizing: border-box;
-}
-
-.form-column .modal-input {
-    width: 100%;
-    box-sizing: border-box;
 }
 
 .invisible-label {
@@ -508,9 +581,10 @@ const confirmDeletion = async () => {
 
 .settings-content {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     gap: var(--space-md);
     align-items: center;
+    justify-content: center;
 }
 
 .settings-title {
@@ -519,34 +593,15 @@ const confirmDeletion = async () => {
     color: var(--color-text-primary);
 }
 
-.delete-confirmation {
+.pending-conversion {
     display: flex;
-    flex-direction: column;
-    gap: var(--space-md);
     align-items: center;
+    gap: var(--space-sm);
 }
 
-.confirmation-title {
-    margin: 0;
-    color: var(--color-danger);
-    font-size: var(--font-size-18);
-}
-
-.confirmation-text {
-    text-align: center;
-    color: var(--color-text-primary);
-    margin: 0;
-}
-
-.confirmation-input {
-    text-align: center;
-    width: 100%;
-    max-width: 300px;
-}
-
-.confirmation-actions {
-    display: flex;
-    gap: var(--space-md);
-    justify-content: center;
+.pending-label {
+    font-size: var(--font-size-12);
+    color: var(--color-text-muted);
+    font-style: italic;
 }
 </style>

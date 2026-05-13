@@ -212,10 +212,11 @@ defineExpose({
 }
 
 .rich-editor-wrapper {
-  border: 1px solid var(--color-gray-medium);
+  border: 1px solid var(--overlay-white-medium);
   border-radius: var(--radius-5);
   overflow: hidden;
-  background-color: var(--color-bg-secondary);
+  background: var(--color-bg-primary);
+  color: var(--color-text-primary);
   text-align: left;
   display: flex;
   flex-direction: column;

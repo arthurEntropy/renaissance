@@ -28,7 +28,7 @@
           class="section-text-editor" height="100%" />
 
         <!-- DISPLAY MODE: Section content when not in content edit mode -->
-        <div v-else class="content-display rich-text-content" v-html="safeSectionHtml">
+        <div v-else class="content-display rich-text-content" v-html="displayedSectionHtml">
         </div>
       </div>
     </div>
@@ -36,18 +36,23 @@
 </template>
 
 <script setup>
-import { ref, computed, watch, provide, inject, nextTick } from 'vue'
+import { ref, computed, watch, provide, inject, nextTick, onMounted, onUnmounted } from 'vue'
 import { useAuthStore } from '@/stores/authStore'
 import { useRulesStore } from '@/stores/rulesStore'
 import TextEditor from '@/components/ui/textEditor/TextEditor.vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import { FAB_TYPES, FAB_VISIBILITIES } from '@/constants/fab'
 import { sanitizeHtml } from '@/utils/sanitizeHtml'
+import { highlightInHtml } from '@/utils/highlightText'
 
 const authStore = useAuthStore()
 const rulesStore = useRulesStore()
 const isAdmin = computed(() => authStore.isAdmin)
 const isStructureEditMode = inject('isStructureEditMode', ref(false))
+const searchQuery = inject('searchQuery', ref(''))
+const pendingScrollTarget = inject('pendingScrollTarget', ref(null))
+
+const emit = defineEmits(['activeHeadingChanged'])
 
 const isContentEditMode = ref(false)
 const localSection = ref(null)
@@ -84,13 +89,40 @@ watch(() => rulesStore.selectedSection?.id, async (newId, oldId) => {
 
   // Restore saved scroll position, or start at top for first visit
   await nextTick()
-  if (scrollableContent.value) {
+  if (scrollableContent.value && !pendingScrollTarget.value) {
     scrollableContent.value.scrollTop = scrollPositions[newId] ?? 0
   }
+  if (pendingScrollTarget.value) {
+    applyScrollTarget(pendingScrollTarget.value)
+    pendingScrollTarget.value = null
+  }
+  updateActiveHeading()
 })
+
+const applyScrollTarget = (target) => {
+  const container = scrollableContent.value
+  if (!container) return
+  // Always prefer scrolling to the first highlighted mark — it's the exact match.
+  // Fall back to the h2 heading if no mark is present.
+  const firstMark = container.querySelector('mark')
+  if (firstMark) {
+    const containerRect = container.getBoundingClientRect()
+    const markRect = firstMark.getBoundingClientRect()
+    container.scrollTo({
+      top: container.scrollTop + markRect.top - containerRect.top - 40,
+      behavior: 'smooth',
+    })
+  } else if (target.type === 'heading') {
+    scrollToHeading(target.text)
+  }
+}
 
 const safeSectionHtml = computed(() => {
   return sanitizeHtml(currentSection.value?.content || '')
+})
+
+const displayedSectionHtml = computed(() => {
+  return highlightInHtml(safeSectionHtml.value, searchQuery.value.trim())
 })
 
 const saveSection = async () => {
@@ -108,6 +140,60 @@ const toggleContentEditMode = async () => {
   }
   isContentEditMode.value = !isContentEditMode.value
 }
+
+const updateActiveHeading = () => {
+  const container = scrollableContent.value
+  if (!container) return
+  const h2Elements = [...container.querySelectorAll('h2')]
+  if (h2Elements.length === 0) {
+    emit('activeHeadingChanged', null)
+    return
+  }
+  const atBottom = container.scrollTop + container.clientHeight >= container.scrollHeight - 2
+  if (atBottom) {
+    emit('activeHeadingChanged', h2Elements[h2Elements.length - 1].textContent.trim())
+    return
+  }
+  const containerTop = container.getBoundingClientRect().top
+  let active = null
+  for (const el of h2Elements) {
+    if (el.getBoundingClientRect().top - containerTop <= 10) {
+      active = el
+    }
+  }
+  emit('activeHeadingChanged', active ? active.textContent.trim() : null)
+}
+
+onMounted(() => {
+  if (scrollableContent.value) {
+    scrollableContent.value.addEventListener('scroll', updateActiveHeading)
+  }
+})
+
+onUnmounted(() => {
+  if (scrollableContent.value) {
+    scrollableContent.value.removeEventListener('scroll', updateActiveHeading)
+  }
+})
+
+const scrollToHeading = (headingText) => {
+  const container = scrollableContent.value
+  if (!container) return
+  const h2Elements = container.querySelectorAll('h2')
+  for (const el of h2Elements) {
+    if (el.textContent.trim() === headingText.trim()) {
+      const containerRect = container.getBoundingClientRect()
+      const elRect = el.getBoundingClientRect()
+      container.scrollTo({
+        top: container.scrollTop + elRect.top - containerRect.top,
+        behavior: 'smooth'
+      })
+      break
+    }
+  }
+}
+
+defineExpose({ scrollToHeading, applyScrollTarget })
 </script>
 
 <style scoped>
@@ -217,6 +303,13 @@ const toggleContentEditMode = async () => {
   text-align: left;
   line-height: var(--line-height-loose);
   font-size: var(--font-size-16);
+}
+
+.content-display :deep(mark) {
+  background: var(--color-accent-yellow, #f5c842);
+  color: var(--color-text-dark, #1a1a1a);
+  border-radius: 2px;
+  padding: 0 1px;
 }
 
 @media (max-width: var(--breakpoint-md)) {

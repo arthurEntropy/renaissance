@@ -1,8 +1,10 @@
 <template>
-    <div class="form-group" :class="{ 'url-type-row': !isMultiEdit }">
-        <label v-if="!isMultiEdit" for="art-url">Image URL</label>
-        <input v-if="!isMultiEdit" id="art-url" :value="url" @input="$emit('update:url', $event.target.value)"
-            type="text" class="modal-input" placeholder="https://..." />
+    <div class="form-group url-type-row" :class="{ multi: isMultiEdit }">
+        <div v-if="!isMultiEdit" class="url-field-group">
+            <label for="art-url">Image URL</label>
+            <input id="art-url" :value="url" @input="$emit('update:url', $event.target.value)" type="text"
+                class="modal-input" placeholder="https://..." />
+        </div>
         <div class="type-toggle">
             <button type="button" class="type-button faces" :class="{ 'selected': selectedType === ART_TYPES.FACES }"
                 @click="$emit('update:type', ART_TYPES.FACES)">
@@ -43,8 +45,11 @@ defineEmits(['update:url', 'update:type'])
 </script>
 
 <style scoped>
-.form-group {
-    margin-bottom: var(--space-sm);
+.url-field-group {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
 }
 
 .form-group label {
@@ -57,8 +62,13 @@ defineEmits(['update:url', 'update:type'])
 .url-type-row {
     display: flex;
     gap: var(--space-md);
-    align-items: center;
+    align-items: flex-end;
     width: 100%;
+    margin-bottom: 0px;
+}
+
+.url-type-row.multi {
+    align-items: center;
 }
 
 .url-type-row label {
@@ -67,19 +77,28 @@ defineEmits(['update:url', 'update:type'])
 }
 
 .url-type-row input {
-    flex: 1;
+    width: 100%;
 }
 
 .type-toggle {
     display: flex;
+    height: 30px;
+    margin-bottom: 14px;
     gap: var(--space-xs);
+    flex-shrink: 0;
+    align-self: flex-end;
+}
+
+.url-type-row.multi .type-toggle {
+    align-self: center;
 }
 
 .type-button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: var(--space-xs) var(--space-sm);
+    min-width: 2.5rem;
+    padding: calc(var(--space-xs) / 2) var(--space-xs);
     border-radius: var(--radius-5);
     border: 1px solid transparent;
     cursor: pointer;
@@ -116,7 +135,7 @@ defineEmits(['update:url', 'update:type'])
 }
 
 .icon-sm {
-    width: 16px;
-    height: 16px;
+    width: 14px;
+    height: 14px;
 }
 </style>

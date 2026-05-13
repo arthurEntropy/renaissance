@@ -11,7 +11,7 @@
                         sources: assignedSuccess.sources
                     }" :removable="canEdit" @remove="handleRemoveSuccess" />
             </div>
-            <div v-else class="success-outline"></div>
+            <div v-else class="success-outline" :class="{ 'no-successes': hasNoSuccesses }"></div>
         </div>
 
         <!-- Die display -->
@@ -85,6 +85,11 @@ const props = defineProps({
 })
 
 const hoveredDiceIndex = ref(null)
+
+// Computed: no successes available to assign (user side only)
+const hasNoSuccesses = computed(() =>
+    !props.isOpponent && engagementSuccesses.allOwnedEngagementSuccesses.value.length === 0
+)
 
 // Computed: Get assigned success with null safety
 const assignedSuccess = computed(() => {
@@ -215,6 +220,11 @@ const onSuccessDrop = (event) => {
     transition: var(--transition-normal);
 }
 
+.success-outline.no-successes {
+    border-color: var(--color-gray-medium);
+    cursor: not-allowed;
+}
+
 .success-drop-zone.disabled {
     pointer-events: none;
     opacity: 0.5;
@@ -226,7 +236,6 @@ const onSuccessDrop = (event) => {
 }
 
 .success-drop-zone:hover .success-outline {
-    border-color: var(--color-accent-gold);
     background-color: var(--overlay-white-subtle);
 }
 

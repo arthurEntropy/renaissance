@@ -1,5 +1,3 @@
-import ArtService from '@/services/entities/artService'
-
 export function useArtCrud(artStore) {
     const saveArt = async (artData, selectedItems, closeModal, clearSelection) => {
         try {
@@ -9,7 +7,7 @@ export function useArtCrud(artStore) {
                     const art = artStore.getById(artId)
                     if (art) {
                         // Start with existing sources
-                        let updatedSources = [...art.sources]
+                        let updatedSources = [...(art.sources || [])]
 
                         // Remove sources that should be removed
                         updatedSources = updatedSources.filter(id => !artData.sourcesToRemove.includes(id))
@@ -26,8 +24,7 @@ export function useArtCrud(artStore) {
                             type: artData.type,
                             sources: updatedSources
                         }
-                        await ArtService.update(updatedArt)
-                        artStore.update(updatedArt)
+                        await artStore.update(updatedArt)
                     }
                 })
                 await Promise.all(updates)
@@ -35,15 +32,10 @@ export function useArtCrud(artStore) {
                 closeModal()
             } else if (artData.id) {
                 // Update existing single item
-                await ArtService.update(artData)
-                artStore.update(artData)
+                await artStore.update(artData)
             } else {
                 // Create new
-                const newArt = await ArtService.create(artData)
-                // Ensure the new art has all required fields before adding to store
-                if (newArt && newArt.id) {
-                    artStore.create(newArt)
-                }
+                await artStore.create(artData)
                 closeModal()
             }
         } catch (error) {
@@ -54,8 +46,7 @@ export function useArtCrud(artStore) {
 
     const deleteArt = async (artData, closeModal) => {
         try {
-            await ArtService.delete(artData)
-            artStore.remove(artData)
+            await artStore.remove(artData)
             closeModal()
         } catch (error) {
             console.error('Error deleting art:', error)

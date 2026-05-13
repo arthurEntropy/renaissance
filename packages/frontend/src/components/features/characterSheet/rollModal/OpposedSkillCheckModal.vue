@@ -1,32 +1,27 @@
 <template>
-    <div class="modal-overlay" @click="closeModal">
-        <div class="modal-content opposed-skill-check-modal" @click.stop>
+    <BaseModal title="Opposed Skill Check" width="min(700px, 94vw)" @close="closeModal">
 
-            <header class="header-row">
-                <h2 id="opposed-skill-check-title">Opposed Skill Check</h2>
-                <button class="close-button" @click="closeModal" aria-label="Close modal">
-                    <XMarkIcon class="icon" />
-                </button>
-            </header>
+        <main class="opposed-columns">
+            <SkillCheckCharacterColumn ref="userColumnRef" :is-opponent="false" />
+            <SkillCheckCharacterColumn ref="opponentColumnRef" :is-opponent="true" />
+        </main>
 
-            <main class="opposed-columns">
-                <SkillCheckCharacterColumn ref="userColumnRef" :is-opponent="false" />
-                <SkillCheckCharacterColumn ref="opponentColumnRef" :is-opponent="true" />
-            </main>
-
-            <footer class="modal-actions">
+        <template #actions>
+            <div class="modal-actions">
+                <ActionButton v-if="!opponent" variant="neutral" size="large" text="Cancel" @click="closeModal" />
                 <RollResolution v-if="showResults" mode="opposed-skill-check" :user-accepted="userAccepted"
-                    :opponent-accepted="opponentAccepted" :can-accept="showResults" :character-name="characterName"
-                    :opponent-name="opponentName" @toggle-user-accept="toggleUserAccept" />
-            </footer>
-
-        </div>
-    </div>
+                    :opponent-accepted="opponentAccepted" :can-accept="showResults && !bothUsersAccepted"
+                    :character-name="characterName" :opponent-name="opponentName"
+                    @toggle-user-accept="toggleUserAccept" />
+            </div>
+        </template>
+    </BaseModal>
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
-import { XMarkIcon } from '@heroicons/vue/24/outline'
+import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue'
+import ActionButton from '@/components/ui/buttons/ActionButton.vue'
+import BaseModal from '@/components/ui/modals/BaseModal.vue'
 import { useOpposedSkillCheckSession } from '@/composables/useOpposedSkillCheckSession'
 import { useCharactersStore } from '@/stores/charactersStore'
 import SkillCheckCharacterColumn from './SkillCheckCharacterColumn.vue'
@@ -50,7 +45,8 @@ const {
     userAccepted,
     opponentAccepted,
     showResults,
-    bothUsersAccepted
+    bothUsersAccepted,
+    opponentLeftAfterBothAccepted
 } = sessionManager
 
 const characterName = computed(() => charactersStore.selectedCharacter?.name || '')
@@ -79,6 +75,13 @@ const toggleUserAccept = () => {
 }
 
 onMounted(() => {
+    watch(opponentLeftAfterBothAccepted, (newVal) => {
+        if (newVal) {
+            sessionManager.cleanup()
+            emit('close')
+        }
+    })
+
     if (props.initialSessionConfig) {
         const { character, skillCheckConfig, sendToDiscord } = props.initialSessionConfig
         sessionManager.startSession(character, skillCheckConfig, { sendToDiscord })
@@ -104,56 +107,12 @@ onBeforeUnmount(() => {
 </script>
 
 <style scoped>
-.opposed-skill-check-modal {
-    width: 700px;
-    max-width: 1200px;
-    min-height: 600px;
-    max-height: 90vh;
-    display: flex;
-    flex-direction: column;
-    background: var(--color-bg-primary);
-    border-radius: var(--radius-10);
-    overflow: hidden;
+/* ── Box sizing ──────────────────────────────────── */
+:deep(.base-modal-box) {
+    min-height: min(600px, 80vh);
 }
 
-.header-row {
-    padding: var(--space-lg);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-}
-
-.header-row h2 {
-    margin: 0;
-    color: var(--color-text-primary);
-    font-size: var(--font-size-24);
-}
-
-.close-button {
-    position: absolute;
-    right: var(--space-lg);
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: var(--space-xs);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--color-text-secondary);
-    transition: var(--transition-normal);
-}
-
-.close-button:hover {
-    color: var(--color-text-primary);
-    transform: scale(1.1);
-}
-
-.close-button .icon {
-    width: 24px;
-    height: 24px;
-}
-
+/* ── Two-column layout ───────────────────────────── */
 .opposed-columns {
     display: flex;
     flex: 1;
@@ -165,6 +124,10 @@ onBeforeUnmount(() => {
     display: flex;
     justify-content: center;
     gap: var(--space-md);
-    padding: var(--space-lg);
+    padding-top: var(--space-lg);
+}
+
+:deep(.base-modal-footer) {
+    justify-content: center;
 }
 </style>

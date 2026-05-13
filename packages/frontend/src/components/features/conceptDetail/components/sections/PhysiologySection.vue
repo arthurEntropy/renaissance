@@ -27,9 +27,8 @@
                         :size="NUMBER_INPUT_SIZES.MEDIUM" />
                 </div>
                 <div class="physiology-edit-field">
-                    <label class="physiology-edit-label">Avg. Lifespan</label>
-                    <input v-model="localStats.lifespan" type="text" class="modal-input physiology-input"
-                        placeholder="e.g. 90 years" />
+                    <label class="physiology-edit-label">Avg. Lifespan (yrs, 0=Undying)</label>
+                    <NumberInput v-model="localStats.lifespan" :min="0" :max="9999" :size="NUMBER_INPUT_SIZES.MEDIUM" />
                 </div>
                 <div class="physiology-edit-field">
                     <label class="physiology-edit-label">Speed</label>
@@ -52,9 +51,10 @@
                 <span class="badge-value">{{ concept.physiology.weightMin }}-{{ concept.physiology.weightMax }}
                     lbs</span>
             </div>
-            <div v-if="concept?.physiology?.lifespan" class="physiology-badge">
+            <div v-if="concept?.physiology?.lifespan != null" class="physiology-badge">
                 <span class="badge-label">Avg. Lifespan</span>
-                <span class="badge-value">{{ concept.physiology.lifespan }}</span>
+                <span class="badge-value">{{ concept.physiology.lifespan === 0 ? 'Undying' : concept.physiology.lifespan
+                    + ' years' }}</span>
             </div>
             <div v-if="concept?.physiology?.speed" class="physiology-badge">
                 <span class="badge-label">Speed</span>
@@ -91,7 +91,7 @@ const localStats = ref({
     heightMax: concept.value?.physiology?.heightMax ?? 0,
     weightMin: concept.value?.physiology?.weightMin ?? 0,
     weightMax: concept.value?.physiology?.weightMax ?? 0,
-    lifespan: concept.value?.physiology?.lifespan ?? '',
+    lifespan: concept.value?.physiology?.lifespan ?? 0,
     speed: concept.value?.physiology?.speed ?? 30,
 })
 
@@ -101,7 +101,7 @@ const hasContent = computed(() => {
         concept.value?.physiology?.heightMax ||
         concept.value?.physiology?.weightMin ||
         concept.value?.physiology?.weightMax ||
-        concept.value?.physiology?.lifespan ||
+        concept.value?.physiology?.lifespan != null ||
         concept.value?.physiology?.speed
     )
 })
@@ -140,7 +140,7 @@ const cancelEdit = () => {
         heightMax: concept.value?.physiology?.heightMax ?? 0,
         weightMin: concept.value?.physiology?.weightMin ?? 0,
         weightMax: concept.value?.physiology?.weightMax ?? 0,
-        lifespan: concept.value?.physiology?.lifespan ?? '',
+        lifespan: concept.value?.physiology?.lifespan ?? 0,
         speed: concept.value?.physiology?.speed ?? 30,
     }
     isEditingPhysiology.value = false
@@ -155,7 +155,7 @@ watch(
                 heightMax: newConcept?.physiology?.heightMax ?? 0,
                 weightMin: newConcept?.physiology?.weightMin ?? 0,
                 weightMax: newConcept?.physiology?.weightMax ?? 0,
-                lifespan: newConcept?.physiology?.lifespan ?? '',
+                lifespan: newConcept?.physiology?.lifespan ?? 0,
                 speed: newConcept?.physiology?.speed ?? 30,
             }
         }

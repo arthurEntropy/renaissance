@@ -2,7 +2,7 @@
   "id": "48a9eff3-9041-4b33-8f99-4137955d2997",
   "isDeleted": false,
   "createdAt": "2026-04-22T14:45:33.779Z",
-  "lastModified": "2026-05-09T19:49:59.337Z",
+  "lastModified": "2026-05-12T18:18:26.181Z",
   "name": "Otho",
   "pronouns": "",
   "ancestryIds": [
@@ -46,7 +46,7 @@
     },
     {
       "key": "dexterity",
-      "ranks": 0,
+      "ranks": 3,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -234,10 +234,10 @@
   },
   "rollStats": {
     "skillChecks": {
-      "attempts": 0,
-      "successes": 0,
-      "totalSum": 0,
-      "bestTotal": null,
+      "attempts": 1,
+      "successes": 1,
+      "totalSum": 9,
+      "bestTotal": 9,
       "hardestSuccess": null,
       "bySkill": {},
       "solCount": 0,
@@ -288,12 +288,12 @@
       "isSummoned": false,
       "vesselType": "maestro",
       "vesselNote": "",
-      "imageUrl": "/src/assets/icons/witch/carrot.png"
+      "imageUrl": "/src/assets/icons/summoner/potion.png"
     },
     {
       "id": "9ef6ea44-5428-4377-ad2f-c862a218db43",
       "beastId": "b9cd5af3-b5da-4e94-8431-3e501a916ad9",
-      "friendship": 4,
+      "friendship": 3,
       "isActive": false,
       "isSummoned": false,
       "vesselType": "great",
@@ -301,5 +301,6 @@
       "imageUrl": "/src/assets/icons/summoner/seashell.png"
     }
   ],
-  "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1"
+  "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
+  "updatedAt": "2026-05-12T18:18:26.181Z"
 }

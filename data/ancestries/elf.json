@@ -16,7 +16,7 @@
     "heightMax": 6,
     "weightMin": 75,
     "weightMax": 225,
-    "lifespan": "undying",
+    "lifespan": 0,
     "speed": 30
   }
 }

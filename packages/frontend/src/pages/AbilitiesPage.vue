@@ -37,7 +37,7 @@
       v-model:groupBy="groupByOption" v-model:orderBy="sortOption" :tag-groups="abilityTagGroups"
       :tag-picker-mode="'cascade'" :multiselect="true" :group-options="groupByOptions" :order-options="sortOptions"
       :show-add-button="isAdmin" search-placeholder="Search abilities..." :tag-search-placeholder="'Filter by tags...'"
-      :stats="stats" @add="createAbility">
+      :stats="stats" :hide-to-top-button="showEditAbilityModal" @add="createAbility">
     </FilterBar>
 
     <!-- School Grouped view -->
@@ -600,6 +600,7 @@ const layoutProps = computed(() => ({
   tagMultiselect: true,
   tagSearchPlaceholder: 'Filter by tags...',
   stats: stats.value,
+  hideToTopButton: showEditAbilityModal.value,
 }))
 </script>
 

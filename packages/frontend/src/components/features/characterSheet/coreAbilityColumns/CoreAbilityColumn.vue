@@ -5,7 +5,7 @@
 
     <SkillRow v-for="skill in skills" :key="getSkillId(skill)" :skill="skill" :can-edit="canEdit"
       @open-skill-check="openSkillCheckModal" @update-ranks="handleRanksUpdate"
-      @update-manual-dice-mod="handleManualDiceModUpdate" />
+      @update-manual-dice-mod="handleManualDiceModUpdate" @update-favored-status="handleFavoredStatusUpdate" />
 
     <StatRow :type="STAT_ROW_TYPES.RANGE" :label="virtueLabel" :value="virtueValue" :can-edit="canEdit"
       :armor-defense-bonus="virtueKey === 'defense' ? armorDefenseBonus : 0" :show-auto-calc-button="true"
@@ -21,19 +21,17 @@
       :second-state="secondStateValue" :can-edit="canEdit" :show-auto-calc-button="showStatesAutoCalcButton"
       :is-auto-calc="isStatesAuto" @update="updateState" @toggle-auto-calc="handleToggleStatesAutoCalc" />
 
-    <SkillCheckModal v-if="skillCheckModal.isOpen.value && character" :character="character"
-      :selectedSkillKey="selectedSkillKey" :defaultDifficulty="rollsStore.lastDifficulty"
-      @close="skillCheckModal.closeModal" @update-difficulty="rollsStore.setLastDifficulty"
-      @start-opposed-skill-check="handleStartOpposedSkillCheck" />
+    <SkillCheckModal v-if="skillCheckModalOpen && character" :character="character" :selectedSkillKey="selectedSkillKey"
+      :defaultDifficulty="rollsStore.lastDifficulty" @close="skillCheckModalOpen = false"
+      @update-difficulty="rollsStore.setLastDifficulty" @start-opposed-skill-check="handleStartOpposedSkillCheck" />
 
-    <OpposedSkillCheckModal v-if="opposedSkillCheckModal.isOpen.value && character" :character="character"
-      :initial-session-config="opposedSessionConfig" @close="opposedSkillCheckModal.closeModal" />
+    <OpposedSkillCheckModal v-if="opposedSkillCheckModalOpen && character" :character="character"
+      :initial-session-config="opposedSessionConfig" @close="opposedSkillCheckModalOpen = false" />
   </CharacterSheetSection>
 </template>
 
 <script setup>
 import { computed, ref, watch } from 'vue'
-import { useModal } from '@/composables/useModal'
 import { useColumnConfig } from '@/composables/useColumnConfig'
 import { useRollsStore } from '@/stores/rollsStore'
 import { useCharactersStore } from '@/stores/charactersStore'
@@ -222,20 +220,27 @@ const handleManualDiceModUpdate = (skillKey, newManualDiceMod) => {
   CharacterUtils.updateFavoredStatus(character.value)
 }
 
-const skillCheckModal = useModal()
-const opposedSkillCheckModal = useModal()
+const handleFavoredStatusUpdate = (skillKey, { isFavored, isIllFavored }) => {
+  const skill = findSkillById(character.value.skills, skillKey)
+  if (!skill) return
+  skill.isFavored = isFavored
+  skill.isIllFavored = isIllFavored
+}
+
+const skillCheckModalOpen = ref(false)
+const opposedSkillCheckModalOpen = ref(false)
 const selectedSkillKey = ref('')
 const opposedSessionConfig = ref(null)
 
 const openSkillCheckModal = (skillKey) => {
   selectedSkillKey.value = skillKey
-  skillCheckModal.openModal()
+  skillCheckModalOpen.value = true
 }
 
 const handleStartOpposedSkillCheck = (config) => {
-  skillCheckModal.closeModal()
+  skillCheckModalOpen.value = false
   opposedSessionConfig.value = config
-  opposedSkillCheckModal.openModal()
+  opposedSkillCheckModalOpen.value = true
 }
 </script>
 

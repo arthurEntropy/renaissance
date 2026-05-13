@@ -5,6 +5,7 @@ import router from '@/router/router'
 import { useUserStore } from './userStore'
 import { useCampaignStore } from './campaignStore'
 import { USER_STATUS, USER_ROLE } from '@shared/constants/userConstants'
+import apiCache from '@/services/api/cache'
 
 export const useAuthStore = defineStore('auth', () => {
   // State
@@ -32,20 +33,34 @@ export const useAuthStore = defineStore('auth', () => {
     return userStore.userProfile?.status === USER_STATUS.APPROVED
   })
 
+  // Tracks the UID currently being synced to prevent duplicate concurrent syncs.
+  // The auth listener and explicit signIn/signOut calls can both trigger syncAuthScopedData;
+  // this guard ensures only one sync runs at a time per user/null state.
+  let syncingUid = undefined
+
   const syncAuthScopedData = async (firebaseUser) => {
-    user.value = firebaseUser
+    const uid = firebaseUser?.uid ?? null
+    if (syncingUid === uid) return
 
-    const userStore = useUserStore()
-    const campaignStore = useCampaignStore()
+    try {
+      syncingUid = uid
+      user.value = firebaseUser
 
-    if (!firebaseUser) {
-      userStore.userProfile = null
-      campaignStore.reset()
-      return
+      const userStore = useUserStore()
+      const campaignStore = useCampaignStore()
+
+      if (!firebaseUser) {
+        apiCache.clear()
+        userStore.userProfile = null
+        campaignStore.reset()
+        return
+      }
+
+      await userStore.fetch()
+      await campaignStore.fetch()
+    } finally {
+      syncingUid = undefined
     }
-
-    await userStore.fetch()
-    await campaignStore.fetch()
   }
 
   // Actions

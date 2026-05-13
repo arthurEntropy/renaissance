@@ -126,7 +126,7 @@ export function useArtFilters(artStore) {
             
             switch (groupBy.value) {
                 case 'type':
-                    groupKey = art?.tags?.type || 'No Type'
+                    groupKey = art?.type || 'No Type'
                     // Capitalize first letter
                     groupKey = groupKey.charAt(0).toUpperCase() + groupKey.slice(1)
                     break

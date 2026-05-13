@@ -1,39 +1,34 @@
 <template>
     <NavigationControls :has-previous="hasPrevious && !isMultiEdit" :has-next="hasNext && !isMultiEdit"
         @navigate="$emit('navigate', $event)">
-        <div class="modal-overlay" @click.self="$emit('close')">
-            <div class="modal-content edit-art-modal">
-                <div class="modal-layout">
-                    <!-- Left Column: Image and URL -->
-                    <div class="left-column">
-                        <ArtImageSection :url="localArt.url" :isMultiEdit="isMultiEdit"
-                            @openFullSize="openFullSizeModal" />
+        <BaseModal title="Edit Art" width="min(1200px, 90vw)" @close="$emit('close')">
+            <div class="modal-layout">
+                <!-- Left Column: Image and URL -->
+                <div class="left-column">
+                    <ArtImageSection :url="localArt.url" :isMultiEdit="isMultiEdit" @openFullSize="openFullSizeModal" />
 
-                        <ArtUrlTypeRow v-model:url="localArt.url" v-model:type="localArt.type"
-                            :selectedType="localArt.type" :isMultiEdit="isMultiEdit" />
+                    <ArtUrlTypeRow v-model:url="localArt.url" v-model:type="localArt.type" :selectedType="localArt.type"
+                        :isMultiEdit="isMultiEdit" />
 
-                        <ArtTagsDisplay :selectedSources="localArt.sources" :partialSources="partialSources"
-                            @remove="removeSource" />
-                    </div>
-
-                    <!-- Right Column: Tag Search and Options -->
-                    <div class="right-column">
-                        <ArtTagsSelector ref="tagsSelectorRef" v-model:searchQuery="searchQuery"
-                            :selectedSources="localArt.sources" @toggle="toggleSource" />
-                    </div>
+                    <ArtTagsDisplay :selectedSources="localArt.sources" :partialSources="partialSources"
+                        @remove="removeSource" />
                 </div>
 
-                <!-- Action Buttons -->
-                <div class="modal-buttons">
-                    <ActionButton v-if="!isNew && !isMultiEdit" variant="danger" size="large" text="Delete"
-                        @click="handleDelete" />
-                    <ActionButton v-if="isNew" variant="primary" size="large" text="Save" @click="handleSave" />
-                    <ActionButton v-if="isMultiEdit" variant="primary" size="large" text="Save Changes"
-                        @click="handleSave" />
-                    <ActionButton variant="neutral" size="large" text="Close" @click="$emit('close')" />
+                <!-- Right Column: Tag Options -->
+                <div class="right-column">
+                    <ArtTagsSelector :selectedSources="localArt.sources" @toggle="toggleSource" />
                 </div>
             </div>
-        </div>
+
+            <template #actions>
+                <ActionButton v-if="isNew" variant="primary" size="large" text="Save" @click="handleSave" />
+                <ActionButton v-if="isMultiEdit" variant="primary" size="large" text="Save Changes"
+                    @click="handleSave" />
+                <ActionButton variant="neutral" size="large" text="Close" @click="$emit('close')" />
+                <ActionButton v-if="!isNew && !isMultiEdit" variant="danger" size="large" text="Delete"
+                    @click="handleDelete" />
+            </template>
+        </BaseModal>
 
         <!-- Full Size Image Modal -->
         <FullSizeImageModal :is-open="fullSizeModalOpen" :image-url="localArt.url" :show-edit-button="false"
@@ -46,6 +41,7 @@ import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import NavigationControls from '@/components/ui/NavigationControls.vue'
 import FullSizeImageModal from '@/components/ui/modals/FullSizeImageModal.vue'
+import BaseModal from '@/components/ui/modals/BaseModal.vue'
 import ArtImageSection from '@/components/editModals/artModal/ArtImageSection.vue'
 import ArtUrlTypeRow from '@/components/editModals/artModal/ArtUrlTypeRow.vue'
 import ArtTagsDisplay from '@/components/editModals/artModal/ArtTagsDisplay.vue'
@@ -81,16 +77,20 @@ const emit = defineEmits(['close', 'save', 'delete', 'navigate'])
 // Store
 const sourcesStore = useSourcesStore()
 
+const getArtType = (art) => art?.type || ART_TYPES.DEFAULT
+
+const getArtSources = (art) => art?.sources || []
+
 // Local state - for multi-edit, use aggregated data
 const localArt = ref({
     id: props.art?.id || null,
     url: props.art?.url || '',
     type: props.isMultiEdit && props.multiEditData
         ? props.multiEditData.type
-        : (props.art?.type || ART_TYPES.DEFAULT),
+        : getArtType(props.art),
     sources: props.isMultiEdit && props.multiEditData
         ? [...props.multiEditData.universalSources, ...props.multiEditData.partialSources]
-        : (props.art?.sources || []),
+        : getArtSources(props.art),
     isDeleted: props.art?.isDeleted || false
 })
 
@@ -98,8 +98,6 @@ const localArt = ref({
 const partialSources = ref(props.multiEditData?.partialSources || [])
 
 const isNew = computed(() => !props.art || !props.art.id)
-const searchQuery = ref('')
-const tagsSelectorRef = ref(null)
 const fullSizeModalOpen = ref(false)
 
 const openFullSizeModal = () => {
@@ -118,8 +116,8 @@ watch(() => props.art?.id, (newId, oldId) => {
         localArt.value = {
             id: props.art.id || null,
             url: props.art.url || '',
-            type: props.art.type || ART_TYPES.DEFAULT,
-            sources: props.art.sources || [],
+            type: getArtType(props.art),
+            sources: getArtSources(props.art),
             isDeleted: props.art.isDeleted || false
         }
         setTimeout(() => {
@@ -150,19 +148,14 @@ const toggleSource = (sourceId) => {
         localArt.value.sources.splice(index, 1)
     } else {
         localArt.value.sources.push(sourceId)
-        // If it was partial and we're adding it, remove from partial list
-        if (props.isMultiEdit) {
-            const partialIndex = partialSources.value.indexOf(sourceId)
-            if (partialIndex > -1) {
-                partialSources.value.splice(partialIndex, 1)
-            }
-        }
     }
 
-    // Clear search and focus input for quick multi-selection
-    searchQuery.value = ''
-    if (tagsSelectorRef.value?.searchInputRef) {
-        tagsSelectorRef.value.searchInputRef.focus()
+    // If it was partial and we're adding it, remove from partial list
+    if (props.isMultiEdit) {
+        const partialIndex = partialSources.value.indexOf(sourceId)
+        if (partialIndex > -1) {
+            partialSources.value.splice(partialIndex, 1)
+        }
     }
 }
 
@@ -255,12 +248,6 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
-.edit-art-modal {
-    max-width: 1200px;
-    max-height: 90vh;
-    overflow-y: auto;
-}
-
 /* Two-column layout for wider viewports */
 .modal-layout {
     display: flex;
@@ -268,26 +255,41 @@ onUnmounted(() => {
     gap: var(--space-lg);
 }
 
+.left-column,
+.right-column {
+    min-width: 0;
+}
+
+.left-column {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    overflow: hidden;
+}
+
+.right-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.right-column :deep(.multi-select) {
+    min-width: 0;
+    width: 100%;
+}
+
 @media (min-width: 1024px) {
     .modal-layout {
         flex-direction: row;
         gap: var(--space-xl);
-        height: calc(90vh - 120px);
+        align-items: flex-start;
     }
 
     .left-column {
         flex: 1;
-        min-width: 0;
-        display: flex;
-        flex-direction: column;
-        gap: var(--space-md);
     }
 
     .right-column {
         flex: 1;
-        min-width: 0;
-        display: flex;
-        flex-direction: column;
     }
 
     .right-column :deep(.multi-select) {
@@ -296,14 +298,5 @@ onUnmounted(() => {
         height: 100%;
         margin-bottom: 0;
     }
-}
-
-.modal-buttons {
-    display: flex;
-    justify-content: center;
-    gap: var(--space-md);
-    margin-top: var(--space-xl);
-    padding-top: var(--space-lg);
-    border-top: 1px solid var(--color-border-secondary);
 }
 </style>

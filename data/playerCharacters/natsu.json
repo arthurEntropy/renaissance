@@ -1,6 +1,6 @@
 {
   "id": 5,
-  "lastModified": "2026-04-28T17:57:04.383Z",
+  "lastModified": "2026-05-11T20:07:58.451Z",
   "name": "Natsu",
   "pronouns": "they/them",
   "ancestryIds": [
@@ -22,7 +22,7 @@
   "keeping": "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d",
   "xp": 10,
   "notes": "Arrived too late to join the Asana Commune before it was destroyed. Squatting in the ruins. Big speech impediment.",
-  "characterType": "player",
+  "characterType": "playerCharacter",
   "body": 3,
   "heart": 4,
   "wits": 2,
@@ -330,5 +330,10 @@
   ],
   "biomeId": "c5adb6ab-3ae3-4521-8714-f7581d045e32",
   "witchcraftTokens": [],
-  "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1"
+  "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
+  "description": "",
+  "size": 0,
+  "reach": 0,
+  "campaignId": "2216d52f-f74d-479e-b440-f7b5aa6319e5",
+  "updatedAt": "2026-05-11T20:07:58.451Z"
 }

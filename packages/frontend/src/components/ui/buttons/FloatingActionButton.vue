@@ -12,7 +12,7 @@
 <script setup>
 import { computed } from 'vue'
 // Heroicons
-import { PlusIcon, DocumentDuplicateIcon, PencilIcon, CheckIcon, XMarkIcon, TrashIcon, Bars3Icon, Cog6ToothIcon, ArrowPathIcon, BookOpenIcon, CalculatorIcon, ChevronDoubleDownIcon, ChevronDoubleUpIcon, ArrowRightStartOnRectangleIcon, EyeIcon, EyeSlashIcon } from '@heroicons/vue/24/outline'
+import { PlusIcon, DocumentDuplicateIcon, PencilIcon, CheckIcon, XMarkIcon, TrashIcon, Bars3Icon, Cog6ToothIcon, ArrowPathIcon, BookOpenIcon, CalculatorIcon, ChevronDoubleDownIcon, ChevronDoubleUpIcon, ArrowRightStartOnRectangleIcon, EyeIcon, EyeSlashIcon, ArrowUpIcon, ArrowDownIcon } from '@heroicons/vue/24/outline'
 // Custom icons
 import CrossedSwordsIcon from '@/assets/icons/characterSheet/crossed_swords.svg?component'
 import DieIcon from '@/assets/icons/characterSheet/die.svg?component'
@@ -64,6 +64,8 @@ const FAB_TYPE_CONFIG = {
     [FAB_TYPES.AUTO_CALC_ON]: { icon: CalculatorIcon, tooltip: 'Auto mode (click to switch to manual)' },
     [FAB_TYPES.EXPAND_ALL]: { icon: ChevronDoubleDownIcon, tooltip: 'Expand all' },
     [FAB_TYPES.COLLAPSE_ALL]: { icon: ChevronDoubleUpIcon, tooltip: 'Collapse all' },
+    [FAB_TYPES.MOVE_UP]: { icon: ArrowUpIcon, tooltip: 'Move up' },
+    [FAB_TYPES.MOVE_DOWN]: { icon: ArrowDownIcon, tooltip: 'Move down' },
     [FAB_TYPES.MARTIAL_TRAINING]: { icon: MartialTrainingIcon, tooltip: 'View Martial Training' },
     [FAB_TYPES.EXIT]: { icon: ArrowRightStartOnRectangleIcon, tooltip: 'Exit Campaign' },
 }
@@ -113,6 +115,16 @@ const variantConfig = computed(() => {
 .fab:hover {
     background: var(--overlay-black-heavy);
     border-color: var(--overlay-black-heavy);
+}
+
+.fab:disabled {
+    opacity: 0.45;
+    cursor: default;
+}
+
+.fab:disabled:hover {
+    background: var(--overlay-black-medium);
+    border-color: var(--overlay-black-medium);
 }
 
 /* === SIZE VARIANTS === */

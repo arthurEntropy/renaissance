@@ -60,8 +60,8 @@
         </div>
     </div>
 
-    <button type="button" class="to-top-button" :class="{ 'to-top-button--visible': showToTopButton }"
-        :aria-hidden="!showToTopButton" @click="scrollToTop">
+    <button type="button" class="to-top-button" :class="{ 'to-top-button--visible': shouldShowToTopButton }"
+        :aria-hidden="!shouldShowToTopButton" @click="scrollToTop">
         <ChevronUpIcon class="to-top-button__icon" />
         <span>To Top</span>
     </button>
@@ -144,6 +144,12 @@ const props = defineProps({
         type: String,
         default: '+ Add',
     },
+
+    // Suppress the floating "To Top" control (e.g. while a modal is open)
+    hideToTopButton: {
+        type: Boolean,
+        default: false,
+    },
 })
 
 defineEmits(['add'])
@@ -161,6 +167,8 @@ const slots = useSlots()
 const filterBarRef = ref(null)
 
 const { showToTopButton, scrollToTop } = useScrollToTop(filterBarRef)
+
+const shouldShowToTopButton = computed(() => showToTopButton.value && !props.hideToTopButton)
 
 const toggleType = (value) => {
     const current = localSelectedTypes.value

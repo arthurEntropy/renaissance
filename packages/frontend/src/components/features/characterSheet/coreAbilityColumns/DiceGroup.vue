@@ -1,7 +1,7 @@
 <template>
     <div class="dice-group">
         <i v-for="(_, diceIndex) in MAX_SKILL_RANKS" :key="diceIndex" :class="getDiceClasses(diceIndex)"
-            @click="handleDiceClick(diceIndex)" @mouseenter="hoveredIndex = diceIndex" @mouseleave="hoveredIndex = null"
+            @click="handleDiceClick(diceIndex)" @mouseenter="hoveredIndex = diceIndex" @mouseleave="handleMouseLeave()"
             class="dice-icon d6-icon">
         </i>
     </div>
@@ -27,6 +27,7 @@ const props = defineProps({
 const emit = defineEmits(['update-ranks'])
 
 const hoveredIndex = ref(null)
+const justClickedInactive = ref(null)
 
 const handleDiceClick = (diceIndex) => {
     if (!props.canEdit) return
@@ -34,7 +35,16 @@ const handleDiceClick = (diceIndex) => {
     // Clicking on a die sets the ranks, unless it's already that rank, in which case it removes one rank
     const newRank = diceIndex + 1
     const updatedRanks = newRank === props.skill.ranks ? props.skill.ranks - 1 : newRank
+    if (updatedRanks < newRank) {
+        // Suppress hover preview at this die until cursor moves off
+        justClickedInactive.value = diceIndex
+    }
     emit('update-ranks', updatedRanks)
+}
+
+const handleMouseLeave = () => {
+    hoveredIndex.value = null
+    justClickedInactive.value = null
 }
 
 const getDiceClasses = (diceIndex) => {
@@ -42,7 +52,8 @@ const getDiceClasses = (diceIndex) => {
     const totalDiceMod = diceMod + manualDiceMod
 
     // Determine if we should show hover preview
-    const showHoverPreview = props.canEdit && hoveredIndex.value !== null
+    // Suppress hover preview if the cursor is on a die that was just clicked to deactivate
+    const showHoverPreview = props.canEdit && hoveredIndex.value !== null && hoveredIndex.value !== justClickedInactive.value
 
     // Preview logic: show ranks up to hovered index
     const withinHoverPreview = showHoverPreview && diceIndex <= hoveredIndex.value

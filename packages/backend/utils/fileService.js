@@ -32,6 +32,19 @@ const CHARACTER_ENTITY_BY_TYPE = Object.freeze({
   beastInstance: 'beastInstances',
 })
 
+const CONCEPT_SPLIT_ENTITIES = Object.freeze([
+  'ancestries',
+  'cultures',
+  'mestieri',
+  'worldElements',
+])
+const CONCEPT_ENTITY_BY_TYPE = Object.freeze({
+  ANCESTRY: 'ancestries',
+  CULTURE: 'cultures',
+  MESTIERE: 'mestieri',
+  WORLD_ELEMENT: 'worldElements',
+})
+
 const sanitizeFilename = (name) => {
   return name
     .trim()
@@ -329,20 +342,95 @@ const deleteCharacterById = (id) => {
   deleteFileById(id, existing.directory)
 }
 
+const getConceptType = (concept) => {
+  return typeof concept?.conceptType === 'string' ? concept.conceptType : null
+}
+
+const getConceptDirectoryForType = (conceptType) => {
+  const entity = CONCEPT_ENTITY_BY_TYPE[conceptType] || 'ancestries'
+  const directory = getDirectory(entity)
+  ensureDirectoryExists(directory)
+  return directory
+}
+
+const getConceptDirectories = () => {
+  return CONCEPT_SPLIT_ENTITIES
+    .map((entity) => getDirectory(entity))
+    .filter((directory) => existsSync(directory))
+}
+
+const getAllConceptData = () => {
+  const directories = getConceptDirectories()
+  const byId = new Map()
+
+  directories.forEach((directory) => {
+    const entries = getAllDataByDirectory(directory)
+    entries.forEach((concept) => {
+      if (!concept?.id || !byId.has(concept.id)) {
+        byId.set(concept?.id, concept)
+      }
+    })
+  })
+
+  return Array.from(byId.values())
+}
+
+const getConceptRecordById = (id) => {
+  const directories = getConceptDirectories()
+
+  for (const directory of directories) {
+    const entries = getAllDataByDirectory(directory)
+    const concept = entries.find((entry) => entry.id === id)
+    if (concept) {
+      return { concept, directory }
+    }
+  }
+
+  return null
+}
+
+const saveConceptFile = (concept, options = {}) => {
+  const { oldName = null, existingId = null, existingDirectory = null, filenameBase = null } = options
+  const targetDirectory = getConceptDirectoryForType(getConceptType(concept))
+
+  saveFile(concept, targetDirectory, oldName, existingId, { filenameBase })
+
+  if (existingId && existingDirectory && existingDirectory !== targetDirectory) {
+    deleteFileById(existingId, existingDirectory)
+  }
+
+  return targetDirectory
+}
+
+const deleteConceptById = (id) => {
+  const existing = getConceptRecordById(id)
+  if (!existing) {
+    throw new Error(`No concept found with id ${id}`)
+  }
+
+  deleteFileById(id, existing.directory)
+}
+
 export {
   DATA_DIR,
   sanitizeFilename,
   getDirectory,
   getEntityNames,
   CHARACTER_SPLIT_ENTITIES,
+  CONCEPT_SPLIT_ENTITIES,
   getAllDataByDirectory,
   getCharacterDirectoryForType,
   getCharacterDirectories,
   getAllCharacterData,
   getCharacterRecordById,
+  getConceptDirectories,
+  getAllConceptData,
+  getConceptRecordById,
   saveFile,
   saveCharacterFile,
+  saveConceptFile,
   deleteFile,
   deleteFileById,
   deleteCharacterById,
+  deleteConceptById,
 }

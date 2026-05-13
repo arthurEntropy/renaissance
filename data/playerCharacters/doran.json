@@ -2,7 +2,7 @@
   "id": "f100327c-464b-4f18-9b9a-d32b22a54cc8",
   "isDeleted": false,
   "createdAt": "2026-05-10T18:05:32.328Z",
-  "lastModified": "2026-05-10T18:07:25.973Z",
+  "lastModified": "2026-05-12T21:05:06.291Z",
   "characterType": "playerCharacter",
   "name": "Doran",
   "featuredArtUrls": [
@@ -251,5 +251,5 @@
   "description": "",
   "size": 0,
   "reach": 0,
-  "updatedAt": "2026-05-10T18:07:25.973Z"
+  "updatedAt": "2026-05-12T21:05:06.291Z"
 }

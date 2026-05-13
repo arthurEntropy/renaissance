@@ -1,39 +1,35 @@
 <template>
-  <div v-if="visible" class="modal-overlay" @click.self="cancel">
-    <div class="modal-content settings-modal">
-      <h3>Ability/Equipment Card Style Settings</h3>
-
-      <!-- Detail Background Image URL -->
-      <div class="form-group">
-        <label for="backgroundImage">Detail Background Image URL:</label>
-        <input type="text" id="backgroundImage" v-model="localSettings.backgroundImage" class="modal-input"
-          placeholder="https://example.com/image.png" />
-      </div>
-
-      <!-- Card Background Image URL -->
-      <div class="form-group">
-        <label for="cardBackgroundImage">Card Background Image URL:</label>
-        <input type="text" id="cardBackgroundImage" v-model="localSettings.cardBackgroundImage" class="modal-input"
-          placeholder="https://example.com/image.png" />
-      </div>
-
-      <!-- Expansion Dropdown -->
-      <div class="form-group">
-        <label for="expansion">Expansion:</label>
-        <select id="expansion" v-model="localSettings.expansionId" class="modal-input expansion-select">
-          <option value="">None</option>
-          <option v-for="exp in expansions" :key="exp.id" :value="exp.id">
-            {{ exp.name }}
-          </option>
-        </select>
-      </div>
-
-      <div class="settings-buttons-container">
-        <ActionButton variant="neutral" size="small" text="Cancel" @click="cancel" />
-        <ActionButton variant="success" size="small" text="Save" @click="save" />
-      </div>
+  <BaseModal title="Settings" :open="visible" width="min(var(--width-modal), 94vw)" @close="cancel">
+    <!-- Detail Background Image URL -->
+    <div class="form-group vertical settings-group">
+      <label for="backgroundImage">Main Background Image URL:</label>
+      <input type="text" id="backgroundImage" v-model="localSettings.backgroundImage" class="modal-input"
+        placeholder="https://example.com/image.png" />
     </div>
-  </div>
+
+    <!-- Card Background Image URL -->
+    <div class="form-group vertical settings-group">
+      <label for="cardBackgroundImage">Card Background Image URL:</label>
+      <input type="text" id="cardBackgroundImage" v-model="localSettings.cardBackgroundImage" class="modal-input"
+        placeholder="https://example.com/image.png" />
+    </div>
+
+    <!-- Expansion Dropdown -->
+    <div class="form-group vertical settings-group">
+      <label for="expansion">Expansion:</label>
+      <select id="expansion" v-model="localSettings.expansionId" class="modal-input">
+        <option value="">None</option>
+        <option v-for="exp in expansions" :key="exp.id" :value="exp.id">
+          {{ exp.name }}
+        </option>
+      </select>
+    </div>
+
+    <template #actions>
+      <ActionButton variant="neutral" size="large" text="Cancel" @click="cancel" />
+      <ActionButton variant="primary" size="large" text="Save" @click="save" />
+    </template>
+  </BaseModal>
 </template>
 
 <script setup>
@@ -41,6 +37,7 @@ import { reactive, computed, watch, onMounted } from 'vue'
 import { useExpansionsStore } from '@/stores/expansionsStore'
 import { useConceptsStore } from '@/stores/conceptsStore'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
+import BaseModal from '@/components/ui/modals/BaseModal.vue'
 
 const props = defineProps({
   visible: {
@@ -91,41 +88,7 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-.settings-modal {
-  width: var(--width-modal);
-  text-align: left;
-}
-
-.settings-buttons-container {
-  display: flex;
-  justify-content: flex-end;
-  gap: var(--space-md);
-  margin-top: var(--space-lg);
-}
-
-.modal-input {
-  width: 100%;
-  padding: var(--space-sm);
-  margin: var(--space-sm) 0;
-  background-color: var(--color-bg-secondary);
-  border: 1px solid var(--color-gray-medium);
-  border-radius: var(--radius-5);
-  color: var(--color-text-primary);
-  box-sizing: border-box;
-}
-
-label {
-  display: block;
-  color: var(--color-text-secondary);
-  margin-bottom: var(--space-xs);
-}
-
-.form-group {
+.settings-group {
   margin: var(--space-lg) 0;
-}
-
-.expansion-select {
-  width: auto;
-  min-width: 200px;
 }
 </style>

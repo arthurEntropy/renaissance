@@ -1,144 +1,143 @@
 <template>
-  <div class="modal-overlay" @click="handleOverlayClick">
-    <div class="modal-content" @click.stop>
+  <BaseModal title="Edit Ability" offset-y="var(--space-xl)" @close="handleOverlayClick">
 
-      <!-- Header -->
-      <h2 class="modal-header centered">Edit Ability</h2>
+    <!-- Scrollable Form Content -->
+    <form @submit.prevent="save">
 
-      <!-- Scrollable Form Content -->
-      <div class="modal-body">
-        <form @submit.prevent="save">
-
-          <!-- Name -->
-          <div class="form-group vertical">
-            <label for="name" class="left-aligned">Name:</label>
-            <input type="text" id="name" v-model="editedAbility.name" class="modal-input" />
-          </div>
-
-          <!-- Art URL -->
-          <div class="form-group vertical">
-            <label for="artUrl" class="left-aligned">Art URL:</label>
-            <input type="text" id="artUrl" v-model="editedAbility.artUrl" class="modal-input" />
-          </div>
-
-          <!-- Description -->
-          <div class="form-group vertical description">
-            <label for="description" class="left-aligned">Description:</label>
-            <TextEditor v-model="editedAbility.description" :placeholder="'Enter ability description...'"
-              :height="'250px'" :auto-height="true" />
-          </div>
-
-          <!-- Successes -->
-          <div class="form-group vertical description">
-            <label for="successes" class="left-aligned">Successes (✨, 🌞, 💀):</label>
-            <TextEditor v-model="editedAbility.successes" :placeholder="'Enter success outcomes...'" :height="'150px'"
-              :auto-height="true" />
-          </div>
-
-          <!-- MP, XP, Type -->
-          <div class="form-group centered">
-            <label for="mp">MP:</label>
-            <input type="number" id="mp" v-model.number="editedAbility.mpCost" class="modal-input small-input" />
-            <label for="xp">XP:</label>
-            <input type="number" id="xp" v-model.number="editedAbility.xpCost" class="modal-input small-input" />
-            <label for="actionCost">Action Cost:</label>
-            <ActionTypePicker v-model="editedAbility.actionCost" id="actionCost"
-              select-class="modal-input small-input" />
-          </div>
-
-          <div class="form-group centered">
-
-            <!-- Source Dropdown -->
-            <label for="source">Source:</label>
-            <SourceCascadePicker v-model="editedAbility.source" id="source" />
-
-            <!-- Is Magical Checkbox -->
-            <label for="isMagical">
-              <input type="checkbox" id="isMagical" v-model="editedAbility.isMagical" />
-              Spell
-            </label>
-          </div>
-
-          <!-- Mana Cost: Only show if source is Channeler -->
-          <div class="form-group centered" v-if="isChannelerSource">
-            <label for="manaCost">Mana Cost:</label>
-            <input type="text" id="manaCost" v-model="editedAbility.manaCost" class="modal-input small-input"
-              placeholder="e.g. 2WUB" pattern="^[0-9]*[WUBRGwubrg]*$" title="Mana cost (e.g. 2WUB)" />
-          </div>
-
-          <!-- School: Only show if source mestiere has schools defined -->
-          <div class="form-group centered" v-if="sourceHasSchools">
-            <label for="school">School:</label>
-            <select id="school" v-model="editedAbility.school" class="modal-input">
-              <option :value="null">-- No School --</option>
-              <option v-for="school in schoolsForSource" :key="school.id" :value="school.id">
-                {{ school.name }}
-              </option>
-            </select>
-          </div>
-
-          <!-- Biome Tags: Only show if source is Wildheart -->
-          <div class="form-group vertical" v-if="isWildheartSource">
-            <label class="left-aligned">Biome Tags:</label>
-            <BiomeTagsCyclePicker :augment-tags="editedAbility.biomeTagsAugment"
-              :inhibit-tags="editedAbility.biomeTagsInhibit"
-              @update:augment-tags="editedAbility.biomeTagsAugment = $event"
-              @update:inhibit-tags="editedAbility.biomeTagsInhibit = $event" />
-          </div>
-
-          <!-- Improvements Section -->
-          <div class="form-group vertical">
-            <label class="left-aligned">Improvements:</label>
-            <div v-for="(impr, idx) in editedAbility.improvements" :key="impr.id || idx" class="improvement-edit-block">
-              <div class="improvement-card-row">
-                <input type="text" v-model="impr.name" placeholder="Name" class="modal-input improvement-name-input" />
-                <span class="xp-label">XP:</span>
-                <input type="number" v-model.number="impr.xpCost" placeholder="XP"
-                  class="modal-input improvement-xp-input" min="0" />
-                <button type="button" class="icon-btn" @click="removeImprovement(idx)" aria-label="Remove improvement">
-                  <XMarkIcon class="icon" />
-                </button>
-                <button type="button" class="icon-btn" @click="moveImprovementUp(idx)" :disabled="idx === 0"
-                  aria-label="Move up">
-                  <ArrowUpIcon class="icon" />
-                </button>
-                <button type="button" class="icon-btn" @click="moveImprovementDown(idx)"
-                  :disabled="idx === editedAbility.improvements.length - 1" aria-label="Move down">
-                  <ArrowDownIcon class="icon" />
-                </button>
-              </div>
-              <TextEditor v-model="impr.description" :placeholder="'Description'" :height="'80px'"
-                :auto-height="true" />
-            </div>
-            <ActionButton variant="primary" size="small" text="+ Add Improvement" @click="addImprovement"
-              type="button" />
-          </div>
-
-        </form>
+      <!-- Flags -->
+      <div class="form-group centered">
+        <label for="isMagical">
+          <input type="checkbox" id="isMagical" v-model="editedAbility.isMagical" />
+          Spell
+        </label>
       </div>
 
-      <!-- Sticky Action Buttons -->
-      <div class="modal-footer">
-        <div class="form-buttons">
-          <ActionButton variant="success" size="small" text="Save" @click="save" />
-          <ActionButton variant="danger" size="small" text="Delete" @click="() => deleteItem('ability')"
-            type="button" />
+      <!-- Name -->
+      <div class="form-group vertical">
+        <label for="name" class="left-aligned">Name:</label>
+        <input type="text" id="name" v-model="editedAbility.name" class="modal-input" />
+      </div>
+
+      <!-- Art URL -->
+      <div class="form-group vertical">
+        <label for="artUrl" class="left-aligned">Art URL:</label>
+        <input type="text" id="artUrl" v-model="editedAbility.artUrl" class="modal-input" />
+      </div>
+
+      <!-- Description -->
+      <div class="form-group vertical description">
+        <label for="description" class="left-aligned">Description:</label>
+        <TextEditor v-model="editedAbility.description" :placeholder="'Enter ability description...'" :height="'250px'"
+          :auto-height="true" />
+      </div>
+
+      <!-- Successes -->
+      <div class="form-group row description">
+        <div class="form-column">
+          <label for="successes" class="left-aligned">Successes (✨, 🌞, 💀):</label>
+          <TextEditor v-model="editedAbility.successes" :placeholder="'Enter success outcomes...'" :height="'150px'"
+            :auto-height="true" />
         </div>
       </div>
 
-    </div>
-  </div>
+      <!-- MP, XP, Action Cost -->
+      <div class="form-group row ability-costs-row">
+        <div class="form-column number-input-column">
+          <label for="mp" class="left-aligned">MP:</label>
+          <input type="number" id="mp" v-model.number="editedAbility.mpCost" class="modal-input compact-number-input" />
+        </div>
+
+        <div class="form-column number-input-column">
+          <label for="xp" class="left-aligned">XP:</label>
+          <input type="number" id="xp" v-model.number="editedAbility.xpCost" class="modal-input compact-number-input" />
+        </div>
+
+        <div class="form-column action-cost-column">
+          <label for="actionCost" class="left-aligned">Action Cost:</label>
+          <ActionTypePicker v-model="editedAbility.actionCost" id="actionCost" select-class="modal-input" />
+        </div>
+      </div>
+
+      <!-- Source / School -->
+      <div class="form-group row ability-source-row">
+        <div class="form-column source-column">
+          <label for="source" class="left-aligned">Source:</label>
+          <SourceCascadePicker v-model="editedAbility.source" id="source" />
+        </div>
+
+        <!-- School: Only show if source mestiere has schools defined -->
+        <div class="form-column" v-if="sourceHasSchools">
+          <label for="school" class="left-aligned">School:</label>
+          <select id="school" v-model="editedAbility.school" class="modal-input">
+            <option :value="null">-- No School --</option>
+            <option v-for="school in schoolsForSource" :key="school.id" :value="school.id">
+              {{ school.name }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Mana Cost: Only show if source is Channeler -->
+      <div class="form-group row" v-if="isChannelerSource">
+        <div class="form-column mana-cost-column">
+          <label for="manaCost" class="left-aligned">Mana Cost:</label>
+          <input type="text" id="manaCost" v-model="editedAbility.manaCost" class="modal-input" placeholder="e.g. 2WUB"
+            pattern="^[0-9]*[WUBRGwubrg]*$" title="Mana cost (e.g. 2WUB)" />
+        </div>
+      </div>
+
+      <!-- Biome Tags: Only show if source is Wildheart -->
+      <div class="form-group vertical" v-if="isWildheartSource">
+        <label class="left-aligned">Biome Tags:</label>
+        <BiomeTagsCyclePicker :augment-tags="editedAbility.biomeTagsAugment"
+          :inhibit-tags="editedAbility.biomeTagsInhibit" @update:augment-tags="editedAbility.biomeTagsAugment = $event"
+          @update:inhibit-tags="editedAbility.biomeTagsInhibit = $event" />
+      </div>
+
+      <!-- Improvements Section -->
+      <div class="form-group vertical">
+        <label class="left-aligned">Improvements:</label>
+        <div v-for="(impr, idx) in editedAbility.improvements" :key="impr.id || idx" class="improvement-edit-block">
+          <div class="improvement-card-row">
+            <input type="text" v-model="impr.name" placeholder="Name" class="modal-input improvement-name-input" />
+            <span class="xp-label">XP:</span>
+            <input type="number" v-model.number="impr.xpCost" placeholder="XP" class="modal-input improvement-xp-input"
+              min="0" />
+            <FloatingActionButton :variant="FAB_TYPES.DELETE" :size="FAB_SIZES.SMALL"
+              :visibility="FAB_VISIBILITIES.ALWAYS" @click="removeImprovement(idx)" aria-label="Remove improvement" />
+            <FloatingActionButton :variant="FAB_TYPES.MOVE_DOWN" :size="FAB_SIZES.SMALL"
+              :visibility="FAB_VISIBILITIES.ALWAYS" :disabled="idx === editedAbility.improvements.length - 1"
+              @click="moveImprovementDown(idx)" aria-label="Move down" />
+            <FloatingActionButton :variant="FAB_TYPES.MOVE_UP" :size="FAB_SIZES.SMALL"
+              :visibility="FAB_VISIBILITIES.ALWAYS" :disabled="idx === 0" @click="moveImprovementUp(idx)"
+              aria-label="Move up" />
+          </div>
+          <TextEditor v-model="impr.description" :placeholder="'Description'" :height="'80px'" :auto-height="true" />
+        </div>
+        <ActionButton variant="primary" size="large" text="+ Add Improvement" @click="addImprovement" type="button" />
+      </div>
+
+    </form>
+
+    <template #actions>
+      <ActionButton variant="primary" size="large" text="Save" @click="save" />
+      <ActionButton variant="neutral" size="large" text="Cancel" @click="handleOverlayClick" type="button" />
+      <ActionButton variant="danger" size="large" text="Delete" @click="() => deleteItem('ability')" type="button" />
+    </template>
+  </BaseModal>
 </template>
 
 <script setup>
-import { XMarkIcon, ArrowUpIcon, ArrowDownIcon } from '@heroicons/vue/24/outline'
 import TextEditor from '@/components/ui/textEditor/TextEditor.vue'
 import SourceCascadePicker from '@/components/ui/pickers/SourceCascadePicker.vue'
 import ActionTypePicker from '@/components/ui/pickers/ActionTypePicker.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
+import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
+import BaseModal from '@/components/ui/modals/BaseModal.vue'
 import BiomeTagsCyclePicker from '@/components/ui/biome/BiomeTagsCyclePicker.vue'
 import { useEditModalForm } from '@/composables/useEditModalForm'
-import { computed, watch } from 'vue'
+import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
+import { computed, watch, onBeforeUnmount } from 'vue'
 import { useSourcesStore } from '@/stores/sourcesStore'
 import { useAbilitySchoolsStore } from '@/stores/abilitySchoolsStore'
 
@@ -214,62 +213,55 @@ const moveImprovementDown = (idx) => {
     [arr[idx], arr[idx + 1]] = [arr[idx + 1], arr[idx]]
   }
 }
+
+const handleEscape = (e) => {
+  if (e.key === 'Escape') handleOverlayClick()
+}
+
+onBeforeUnmount(() => window.removeEventListener('keydown', handleEscape))
 </script>
 
 <style scoped>
-.modal-content {
-  width: var(--width-modal);
+.form-column {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  max-height: 90vh;
-  height: auto;
 }
 
-.modal-body {
+.ability-costs-row {
+  align-items: flex-end;
+}
+
+.form-group.row.description {
+  align-items: flex-start;
+}
+
+.number-input-column {
+  flex: 0.35;
+}
+
+.compact-number-input {
+  width: 84px;
+}
+
+.action-cost-column {
+  flex: 0.8;
+}
+
+.source-column {
   flex: 1;
-  overflow-y: auto;
-  padding-bottom: var(--space-md);
 }
 
-.modal-footer {
-  flex-shrink: 0;
-  background: var(--color-bg-primary);
-  border-top: 1px solid var(--color-border-primary);
-  padding: var(--space-md) 0 0 0;
-  margin-top: var(--space-md);
+.ability-source-row .form-column {
+  flex: 1;
 }
 
-.modal-footer .form-buttons {
-  margin-top: 0;
-}
-
-.icon-btn {
-  background: none;
-  border: none;
-  padding: 0 var(--space-xs);
-  font-size: var(--font-size-16);
-  line-height: var(--line-height-none);
-  cursor: pointer;
-  color: var(--color-text-muted);
-  transition: color var(--transition-normal);
-}
-
-.icon-btn .icon {
-  width: 16px;
-  height: 16px;
-}
-
-.icon-btn:disabled {
-  color: var(--color-text-secondary);
-  cursor: default;
-}
-
-.icon-btn:not(:disabled):hover {
-  color: var(--color-bg-secondary);
+.mana-cost-column {
+  flex: 0.5;
 }
 
 .improvement-edit-block {
-  background: var(--color-bg-secondary);
+  background: var(--color-bg-primary);
   border-radius: var(--radius-5);
   margin-bottom: var(--space-md);
   padding: var(--space-md);

@@ -16,7 +16,7 @@
     "heightMax": 7,
     "weightMin": 100,
     "weightMax": 325,
-    "lifespan": "120 years",
+    "lifespan": 120,
     "speed": 30
   }
 }

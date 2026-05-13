@@ -1,77 +1,61 @@
 <template>
-    <Teleport to="body">
-        <div class="modal-overlay" @click.self="$emit('close')">
-            <div class="modal-content" @click.stop>
+    <BaseModal :title="title" width="350px" @close="emit('close')">
+        <!-- Body -->
 
-                <!-- Header -->
-                <h2 class="modal-header centered">{{ title }}</h2>
-
-                <!-- Body -->
-                <div class="modal-body">
-
-                    <!-- Image picker -->
-                    <div class="form-group vertical">
-                        <label class="left-aligned">Object</label>
-                        <div class="icon-grid">
-                            <button v-for="icon in ICON_LIST" :key="icon.key" type="button" class="icon-grid__cell"
-                                :class="{ 'icon-grid__cell--selected': form.imageUrl === icon.url }" :title="icon.label"
-                                @click="selectIcon(icon.url)">
-                                <img :src="icon.url" :alt="icon.label" class="icon-grid__img" />
-                            </button>
-                        </div>
-                        <input v-model="customUrl" type="url" placeholder="Or paste a custom image URL…"
-                            class="modal-input url-input" @input="onCustomUrlInput" />
-                        <!-- Preview of custom URL -->
-                        <div v-if="customUrl && isCustomSelected" class="custom-preview">
-                            <img :src="customUrl" alt="Custom preview" class="custom-preview__img" />
-                        </div>
-                    </div>
-
-                    <!-- Spell picker (same for tokens and talismans) -->
-                    <div class="form-group vertical">
-                        <label class="left-aligned">Stored Spell</label>
-                        <select v-model="form.abilityId" class="modal-input">
-                            <option value="">— No spell —</option>
-                            <option v-for="ability in ownedAbilities" :key="ability.id" :value="ability.id">
-                                {{ ability.name }}{{ ability.mpCost ? ` (${ability.mpCost} MP)` : '' }}
-                            </option>
-                        </select>
-                    </div>
-
-                    <!-- Given To -->
-                    <div class="form-group vertical">
-                        <label class="left-aligned">Given To</label>
-                        <input v-model="form.givenTo" type="text" placeholder="Name of the bearer…"
-                            class="modal-input" />
-                    </div>
-
-                    <!-- Notes -->
-                    <div class="form-group vertical">
-                        <label class="left-aligned">Notes</label>
-                        <textarea v-model="form.notes" placeholder="Contingency trigger, reminders…"
-                            class="modal-input notes-input" rows="2" maxlength="120" />
-                    </div>
-
-                </div>
-
-                <!-- Footer -->
-                <div class="modal-footer">
-                    <div class="form-buttons">
-                        <ActionButton variant="success" size="small" text="Save" @click="handleSave" />
-                        <ActionButton variant="danger" size="small" text="Cancel" @click="$emit('close')"
-                            type="button" />
-                    </div>
-                </div>
-
+        <!-- Image picker -->
+        <div class="form-group vertical">
+            <label class="left-aligned">Object</label>
+            <div class="icon-grid">
+                <button v-for="icon in ICON_LIST" :key="icon.key" type="button" class="icon-grid__cell"
+                    :class="{ 'icon-grid__cell--selected': form.imageUrl === icon.url }" :title="icon.label"
+                    @click="selectIcon(icon.url)">
+                    <img :src="icon.url" :alt="icon.label" class="icon-grid__img" />
+                </button>
+            </div>
+            <input v-model="customUrl" type="url" placeholder="Or paste a custom image URL…"
+                class="modal-input url-input" @input="onCustomUrlInput" />
+            <!-- Preview of custom URL -->
+            <div v-if="customUrl && isCustomSelected" class="custom-preview">
+                <img :src="customUrl" alt="Custom preview" class="custom-preview__img" />
             </div>
         </div>
-    </Teleport>
+
+        <!-- Spell picker (same for tokens and talismans) -->
+        <div class="form-group vertical">
+            <label class="left-aligned">Stored Spell</label>
+            <select v-model="form.abilityId" class="modal-input">
+                <option value="">— No spell —</option>
+                <option v-for="ability in ownedAbilities" :key="ability.id" :value="ability.id">
+                    {{ ability.name }}{{ ability.mpCost ? ` (${ability.mpCost} MP)` : '' }}
+                </option>
+            </select>
+        </div>
+
+        <!-- Given To -->
+        <div class="form-group vertical">
+            <label class="left-aligned">Given To</label>
+            <input v-model="form.givenTo" type="text" placeholder="Name of the bearer…" class="modal-input" />
+        </div>
+
+        <!-- Notes -->
+        <div class="form-group vertical">
+            <label class="left-aligned">Notes</label>
+            <textarea v-model="form.notes" placeholder="Contingency trigger, reminders…" class="modal-input notes-input"
+                rows="2" maxlength="120" />
+        </div>
+
+        <template #actions>
+            <ActionButton variant="neutral" size="large" text="Cancel" @click="emit('close')" type="button" />
+            <ActionButton variant="primary" size="large" text="Save" @click="handleSave" />
+        </template>
+    </BaseModal>
 </template>
 
 <script setup>
-import { ref, computed, watch } from 'vue'
+import { ref, computed, watch, onBeforeUnmount } from 'vue'
 import { WITCH_ICON_KEYS, WITCH_ICON_LABELS } from '@/constants/witchcraftConstants'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
+import BaseModal from '@/components/ui/modals/BaseModal.vue'
 
 // Static icon imports – resolved at build time by Vite
 import billiardIcon from '@/assets/icons/witch/billiard.png'
@@ -205,20 +189,16 @@ function handleSave() {
         abilityId: form.value.abilityId || null,
     })
 }
+
+const handleEscape = (e) => {
+    if (e.key === 'Escape') emit('close')
+}
+
+onBeforeUnmount(() => window.removeEventListener('keydown', handleEscape))
 </script>
 
 <style scoped>
-.modal-content {
-    width: var(--width-modal);
-    display: flex;
-    flex-direction: column;
-    max-height: 90vh;
-    height: auto;
-}
-
 .modal-body {
-    flex: 1;
-    overflow-y: auto;
     padding-bottom: var(--space-md);
 }
 

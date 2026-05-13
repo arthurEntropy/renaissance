@@ -1,53 +1,40 @@
 <template>
-  <Teleport to="body">
-    <div class="modal-overlay" @click.self="handleOverlayClick">
-      <div class="modal-content">
-        <Transition name="question-marks-fade">
-          <div v-if="!revealed" class="question-marks-field" aria-hidden="true">
-            <span v-for="mark in QUESTION_MARKS" :key="mark.id" class="question-mark" :style="mark.style">?</span>
-          </div>
-        </Transition>
+  <BaseModal :title="revealed ? 'New Ability Added!' : maskName" :hide-header="!revealed" width=375px
+    @close="handleOverlayClick">
+    <!-- modal-header replaced by BaseModal -->
 
-        <header class="modal-header">
-          <h2>{{ revealed ? 'New Ability Added!' : maskName }}</h2>
-          <button class="close-button" @click="$emit('close')" aria-label="Close">
-            <XMarkIcon class="close-icon" />
-          </button>
-        </header>
-
-        <!-- No abilities available -->
-        <div v-if="isReady && !chosenAbility" class="empty-state">
-          <p>All abilities in this school have already been discovered by this character.</p>
-          <ActionButton variant="neutral" size="small" text="Close" @click="$emit('close')" />
-        </div>
-
-        <!-- Ability preview -->
-        <div v-else-if="chosenAbility" class="preview-wrapper">
-          <div class="ability-preview" :class="{ 'ability-preview--blurred': !revealed }">
-            <AbilityCard :ability="chosenAbility" :collapsed="false" :collapsible="false" />
-          </div>
-
-          <!-- Overlay button — shown when not yet revealed -->
-          <div v-if="!revealed" class="reveal-overlay">
-            <ActionButton variant="primary" size="large" text="Discover?" @click="handleDiscover" />
-          </div>
-
-          <!-- Close after reveal -->
-          <div v-else class="post-reveal-actions">
-            <ActionButton variant="success" size="small" text="Close" @click="$emit('close')" />
-          </div>
-        </div>
-
-      </div>
+    <!-- No abilities available -->
+    <div v-if="isReady && !chosenAbility" class="empty-state">
+      <p>All abilities in this school have already been discovered by this character.</p>
+      <ActionButton variant="neutral" size="small" text="Close" @click="$emit('close')" />
     </div>
-  </Teleport>
+
+    <!-- Ability preview -->
+    <div v-else-if="chosenAbility" class="preview-wrapper">
+      <Transition name="question-marks-fade">
+        <div v-if="!revealed" class="question-marks-field" aria-hidden="true">
+          <span v-for="mark in QUESTION_MARKS" :key="mark.id" class="question-mark" :style="mark.style">?</span>
+        </div>
+      </Transition>
+
+      <div class="ability-preview" :class="{ 'ability-preview--blurred': !revealed }">
+        <AbilityCard :ability="chosenAbility" :collapsed="false" :collapsible="false" />
+      </div>
+
+      <!-- Overlay button — shown when not yet revealed -->
+      <div v-if="!revealed" class="reveal-overlay">
+        <ActionButton variant="primary" size="large" text="Discover?" @click="handleDiscover" />
+      </div>
+
+    </div>
+  </BaseModal>
 </template>
 
 <script setup>
-import { ref, watchEffect } from 'vue'
-import { XMarkIcon } from '@heroicons/vue/24/outline'
+import { ref, watchEffect, onBeforeUnmount } from 'vue'
 import AbilityCard from '@/components/ui/cards/item/AbilityCard.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
+import BaseModal from '@/components/ui/modals/BaseModal.vue'
 import { useAbilitiesStore } from '@/stores/abilitiesStore'
 import CharacterService from '@/services/entities/characterService'
 
@@ -155,73 +142,18 @@ function handleDiscover() {
 }
 
 function handleOverlayClick() {
-  // Only allow closing by clicking outside if already revealed (or no ability)
-  if (revealed.value || !chosenAbility.value) {
-    emit('close')
-  }
+  emit('close')
 }
+
+const handleEscape = (e) => {
+  if (e.key === 'Escape') emit('close')
+}
+
+onBeforeUnmount(() => window.removeEventListener('keydown', handleEscape))
 </script>
 
 <style scoped>
 @import '@/styles/design-tokens.css';
-
-.modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: var(--overlay-black-heavy);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: var(--z-modal);
-}
-
-.modal-content {
-  position: relative;
-  background: var(--color-bg-primary);
-  border-radius: var(--radius-10);
-  padding: var(--space-xl);
-  max-width: 420px;
-  width: 90%;
-  box-shadow: var(--shadow-sm);
-}
-
-.modal-header {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  margin-bottom: var(--space-lg);
-}
-
-.modal-header h2 {
-  margin: 0;
-  font-size: var(--font-size-20);
-}
-
-.close-button {
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  background: none;
-  border: none;
-  color: var(--color-text-secondary);
-  cursor: pointer;
-  padding: var(--space-xs);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: color var(--transition-fast);
-}
-
-.close-button:hover {
-  color: var(--color-text-primary);
-}
-
-.close-icon {
-  width: 20px;
-  height: 20px;
-}
 
 .empty-state {
   text-align: center;
@@ -259,12 +191,6 @@ function handleOverlayClick() {
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.post-reveal-actions {
-  display: flex;
-  justify-content: center;
-  margin-top: var(--space-sm);
 }
 
 /* Question marks sunburst */

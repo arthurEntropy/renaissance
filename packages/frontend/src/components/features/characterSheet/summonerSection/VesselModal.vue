@@ -1,97 +1,80 @@
 <template>
-    <Teleport to="body">
-        <div class="modal-overlay" @click.self="$emit('close')">
-            <div class="modal-content" @click.stop>
+    <BaseModal :title="title" width="350px" @close="emit('close')">
 
-                <!-- Header -->
-                <h2 class="modal-header centered">{{ title }}</h2>
-
-                <div class="modal-body">
-
-                    <!-- Icon picker -->
-                    <div class="form-group vertical">
-                        <label class="left-aligned">Vessel Icon</label>
-                        <div class="icon-grid">
-                            <button v-for="icon in ICON_LIST" :key="icon.key" type="button" class="icon-grid__cell"
-                                :class="{ 'icon-grid__cell--selected': form.imageUrl === icon.url }" :title="icon.label"
-                                @click="selectIcon(icon.url)">
-                                <img :src="icon.url" :alt="icon.label" class="icon-grid__img" />
-                            </button>
-                        </div>
-                        <input v-model="customUrl" type="url" placeholder="Or paste a custom image URL…"
-                            class="modal-input url-input" @input="onCustomUrlInput" />
-                        <!-- Preview of custom URL -->
-                        <div v-if="customUrl && isCustomSelected" class="custom-preview">
-                            <img :src="customUrl" alt="Custom preview" class="custom-preview__img" />
-                        </div>
-                    </div>
-
-                    <!-- Vessel type -->
-                    <div class="form-group vertical">
-                        <label class="left-aligned">Vessel Type</label>
-                        <div class="vessel-type-row">
-                            <button v-for="type in VESSEL_TYPES" :key="type" type="button" class="vessel-type-btn"
-                                :class="{ 'vessel-type-btn--selected': form.vesselType === type }"
-                                @click="form.vesselType = type">
-                                {{ VESSEL_TYPE_LABELS[type] }}
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Vessel note -->
-                    <div class="form-group vertical">
-                        <label class="left-aligned">Description <span class="form-hint">(optional)</span></label>
-                        <input v-model="form.vesselNote" type="text"
-                            placeholder="e.g. a glass phial wrapped in copper wire…" class="modal-input"
-                            maxlength="100" />
-                    </div>
-
-                    <!-- Beast picker -->
-                    <div class="form-group vertical">
-                        <label class="left-aligned">Captured Beast</label>
-                        <select v-model="form.beastId" class="modal-input" @change="onBeastChange">
-                            <option value="">— Empty vessel —</option>
-                            <option v-for="beast in availableBeasts" :key="beast.id" :value="beast.id">
-                                {{ beast.name }}
-                            </option>
-                        </select>
-                    </div>
-
-                    <!-- Friendship (only when a beast is selected) -->
-                    <div v-if="form.beastId" class="form-group vertical">
-                        <label class="left-aligned">Friendship</label>
-                        <div class="friendship-row">
-                            <button type="button" class="friendship-btn" :disabled="form.friendship <= 0"
-                                @click="form.friendship = Math.max(0, form.friendship - 1)">−</button>
-                            <span class="friendship-value">
-                                <HeartIcon class="friendship-heart" />
-                                {{ form.friendship }}
-                            </span>
-                            <button type="button" class="friendship-btn" :disabled="form.friendship >= 10"
-                                @click="form.friendship = Math.min(10, form.friendship + 1)">+</button>
-                        </div>
-                        <span class="friendship-desc">{{ friendshipDescription }}</span>
-                    </div>
-
-                </div>
-
-                <!-- Footer -->
-                <div class="modal-footer">
-                    <div class="form-buttons">
-                        <ActionButton variant="success" size="small" text="Save" @click="handleSave" />
-                        <ActionButton variant="danger" size="small" text="Cancel" @click="$emit('close')" />
-                    </div>
-                </div>
-
+        <!-- Icon picker -->
+        <div class="form-group vertical">
+            <label class="left-aligned">Object</label>
+            <div class="icon-grid">
+                <button v-for="icon in ICON_LIST" :key="icon.key" type="button" class="icon-grid__cell"
+                    :class="{ 'icon-grid__cell--selected': form.imageUrl === icon.url }" :title="icon.label"
+                    @click="selectIcon(icon.url)">
+                    <img :src="icon.url" :alt="icon.label" class="icon-grid__img" />
+                </button>
+            </div>
+            <input v-model="customUrl" type="url" placeholder="Or paste a custom image URL…"
+                class="modal-input url-input" @input="onCustomUrlInput" />
+            <div v-if="customUrl && isCustomSelected" class="custom-preview">
+                <img :src="customUrl" alt="Custom preview" class="custom-preview__img" />
             </div>
         </div>
-    </Teleport>
+
+        <!-- Vessel type -->
+        <div class="form-group vertical">
+            <label class="left-aligned">Vessel Type</label>
+            <div class="vessel-type-row">
+                <button v-for="type in VESSEL_TYPES" :key="type" type="button" class="vessel-type-btn"
+                    :class="{ 'vessel-type-btn--selected': form.vesselType === type }" @click="form.vesselType = type">
+                    {{ VESSEL_TYPE_LABELS[type] }}
+                </button>
+            </div>
+        </div>
+
+        <!-- Vessel note -->
+        <div class="form-group vertical">
+            <label class="left-aligned">Description</label>
+            <input v-model="form.vesselNote" type="text" placeholder="e.g. a glass phial wrapped in copper wire…"
+                class="modal-input" maxlength="100" />
+        </div>
+
+        <!-- Beast picker -->
+        <div class="form-group vertical">
+            <label class="left-aligned">Captured Beast</label>
+            <select v-model="form.beastId" class="modal-input" @change="onBeastChange">
+                <option value="">— Empty vessel —</option>
+                <option v-for="beast in availableBeasts" :key="beast.id" :value="beast.id">
+                    {{ beast.name }}
+                </option>
+            </select>
+        </div>
+
+        <!-- Friendship (only when a beast is selected) -->
+        <div v-if="form.beastId" class="form-group vertical">
+            <label>Friendship</label>
+            <div class="friendship-row">
+                <button type="button" class="friendship-btn" :disabled="form.friendship <= 0"
+                    @click="form.friendship = Math.max(0, form.friendship - 1)">−</button>
+                <span class="friendship-value">
+                    <HeartIcon class="friendship-heart" />
+                    {{ form.friendship }}
+                </span>
+                <button type="button" class="friendship-btn" :disabled="form.friendship >= 10"
+                    @click="form.friendship = Math.min(10, form.friendship + 1)">+</button>
+            </div>
+            <span class="friendship-desc">{{ friendshipDescription }}</span>
+        </div>
+
+        <template #actions>
+            <ActionButton variant="neutral" size="large" text="Cancel" @click="emit('close')" />
+            <ActionButton variant="primary" size="large" text="Save" @click="handleSave" />
+        </template>
+    </BaseModal>
 </template>
 
 <script setup>
-import { ref, computed, watch } from 'vue'
+import { ref, computed, watch, onBeforeUnmount } from 'vue'
 import { HeartIcon } from '@heroicons/vue/24/solid'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
+import BaseModal from '@/components/ui/modals/BaseModal.vue'
 import { VESSEL_TYPES, VESSEL_TYPE_LABELS, SUMMONER_ICON_KEYS, SUMMONER_ICON_LABELS } from '@/constants/summonerConstants'
 
 // Static icon imports — resolved at build time by Vite
@@ -220,33 +203,21 @@ function handleSave() {
         friendship: form.value.beastId ? form.value.friendship : 0,
     })
 }
+
+const handleEscape = (e) => {
+    if (e.key === 'Escape') emit('close')
+}
+
+onBeforeUnmount(() => window.removeEventListener('keydown', handleEscape))
 </script>
 
 <style scoped>
-.modal-content {
-    width: var(--width-modal);
-    display: flex;
-    flex-direction: column;
-    max-height: 90vh;
-    height: auto;
-}
-
 .modal-body {
-    flex: 1;
-    overflow-y: auto;
     padding-bottom: var(--space-md);
 }
 
 .modal-footer {
-    flex-shrink: 0;
-    background: var(--color-bg-primary);
-    border-top: 1px solid var(--color-border-primary);
-    padding: var(--space-md) 0 0 0;
-    margin-top: var(--space-md);
-}
-
-.modal-footer .form-buttons {
-    margin-top: 0;
+    display: none;
 }
 
 /* Icon grid */

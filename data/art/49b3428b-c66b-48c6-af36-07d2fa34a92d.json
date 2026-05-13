@@ -1,11 +1,9 @@
 {
   "id": "49b3428b-c66b-48c6-af36-07d2fa34a92d",
   "url": "https://cdn.midjourney.com/19d241c3-ea99-48f2-8a7e-b5643209b920/0_1.jpeg",
-  "tags": {
-    "type": "maps",
-    "sources": []
-  },
   "isDeleted": false,
   "createdAt": "2025-11-03T14:41:35.053Z",
-  "lastModified": "2025-11-03T14:41:35.053Z"
+  "lastModified": "2025-11-03T14:41:35.053Z",
+  "type": "maps",
+  "sources": []
 }

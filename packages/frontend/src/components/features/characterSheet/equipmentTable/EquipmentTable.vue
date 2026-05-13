@@ -95,9 +95,9 @@
       :default-roll-type="rollLinkRollType" @close="showSkillCheckModal = false" />
 
     <!-- Martial Training Popup -->
-    <MartialTrainingModal v-if="showMartialTrainingModal" :novizio="characterMestiereNovizio"
+    <MartialTrainingPopup v-if="showMartialTrainingPopup" :novizio="characterMestiereNovizio"
       :equipment-grades="equipmentGradesStore.items" :mestiere-name="characterMestiere?.name"
-      :anchor-el="martialTrainingAnchorEl" @close="showMartialTrainingModal = false" />
+      :anchor-el="martialTrainingAnchorEl" @close="showMartialTrainingPopup = false" />
 
   </CharacterSheetSection>
 </template>
@@ -118,7 +118,7 @@ import GroupedThreeColumnLayout from '@/components/ui/layouts/GroupedThreeColumn
 import SortingPicker from '@/components/ui/pickers/SortingPicker.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import SkillCheckModal from '@/components/features/characterSheet/modals/SkillCheckModal.vue'
-import MartialTrainingModal from '@/components/features/characterSheet/modals/MartialTrainingModal.vue'
+import MartialTrainingPopup from '@/components/features/characterSheet/modals/MartialTrainingPopup.vue'
 import { useEditModal } from '@/composables/useEditModal'
 import CharacterService from '@/services/entities/characterService'
 import { useCardCascadePicker } from '@/composables/useCardCascadePicker'
@@ -173,12 +173,12 @@ const characterMestiere = computed(() => {
 })
 const characterMestiereNovizio = computed(() => characterMestiere.value?.novizio ?? null)
 
-const showMartialTrainingModal = ref(false)
+const showMartialTrainingPopup = ref(false)
 const martialTrainingAnchorEl = ref(null)
 
 const openMartialTraining = (event) => {
   martialTrainingAnchorEl.value = event.currentTarget
-  showMartialTrainingModal.value = true
+  showMartialTrainingPopup.value = true
 }
 
 const allEquipment = computed(() => equipmentStore.equipment || [])

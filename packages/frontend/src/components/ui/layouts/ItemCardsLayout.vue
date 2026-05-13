@@ -6,7 +6,8 @@
       v-model:groupBy="groupByLocal" v-model:orderBy="sortOptionLocal" :tag-groups="resolvedTagGroups"
       :tag-picker-mode="tagPickerMode" :multiselect="tagMultiselect" :group-options="groupOptions"
       :order-options="sortOptions" :show-add-button="isAdmin" search-placeholder="Search..."
-      :tag-search-placeholder="tagSearchPlaceholder" :stats="stats" @add="createItem">
+      :tag-search-placeholder="tagSearchPlaceholder" :stats="stats" :hide-to-top-button="hideToTopButton"
+      @add="createItem">
       <template #additional-filters>
         <slot name="additional-filters"></slot>
       </template>
@@ -61,6 +62,7 @@ const props = defineProps({
   isLoadingMore: { type: Boolean, default: false },
   showSourceGroupOptions: { type: Boolean, default: false },
   stats: { type: Array, default: () => [] },
+  hideToTopButton: { type: Boolean, default: false },
 })
 
 const emit = defineEmits(['update:searchQuery', 'update:sourceFilter', 'update:tagFilters', 'update:groupBy', 'update:sortOption', 'create', 'load-more'])

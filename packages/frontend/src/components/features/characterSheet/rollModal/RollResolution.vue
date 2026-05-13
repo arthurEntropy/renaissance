@@ -131,7 +131,7 @@ const getAcceptButtonVariant = computed(() => {
 })
 
 const getOpponentButtonVariant = computed(() => {
-    if (!props.opponentAccepted) {
+    if (!props.opponentAccepted || (props.userAccepted && props.opponentAccepted)) {
         return 'neutral'
     }
 

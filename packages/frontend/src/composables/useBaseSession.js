@@ -78,17 +78,21 @@ export function useBaseSession(sessionService) {
 
     // Session cancelled handler
     eventHandlers.sessionCancelled = ({ message, characterName }) => {
+      const wasCompleted = bothUsersAccepted.value
       const sessionType = callbacks.sessionType || 'session'
       const alertMessage = characterName 
         ? `${characterName} has exited the ${sessionType}.` 
         : message
       alert(alertMessage)
-      sessionId.value = null
-      sessionStatus.value = SESSION_STATUS.WAITING
-      opponent.value = null
+
+      if (!wasCompleted) {
+        sessionId.value = null
+        sessionStatus.value = SESSION_STATUS.WAITING
+        opponent.value = null
+      }
 
       if (callbacks.onSessionCancelled) {
-        callbacks.onSessionCancelled({ message, characterName })
+        callbacks.onSessionCancelled({ message, characterName, wasCompleted })
       }
     }
 

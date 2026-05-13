@@ -5,6 +5,10 @@ import {
   getCharacterRecordById,
   saveCharacterFile,
   deleteCharacterById,
+  getAllConceptData,
+  getConceptRecordById,
+  saveConceptFile,
+  deleteConceptById,
   saveFile,
   deleteFile,
 } from '../utils/fileService.js'
@@ -31,6 +35,8 @@ const getAllEntities = (entity) => (req, res) => {
   try {
     const allEntities = entity === 'characters'
       ? getAllCharacterData()
+      : entity === 'concepts'
+      ? getAllConceptData()
       : getAllDataByDirectory(getDirectory(entity))
     let filteredEntities = allEntities.filter((e) => !e.isDeleted)
     
@@ -41,17 +47,9 @@ const getAllEntities = (entity) => (req, res) => {
         const memberCampaignIds = getUserCampaignIds(req.user.uid)
         filteredEntities = filteredEntities.filter(character =>
           character.ownerId === req.user.uid ||
-          (character.campaignId && memberCampaignIds.includes(character.campaignId))
+          (character.campaignId && memberCampaignIds.includes(character.campaignId) && character.characterType !== 'playerCharacter')
         )
       }
-    }
-    
-    // For concepts, filter by conceptType if query parameter provided
-    if (entity === 'concepts' && req.query.conceptType) {
-      const requestedTypes = req.query.conceptType.split(',').map(t => t.trim())
-      filteredEntities = filteredEntities.filter(concept =>
-        requestedTypes.includes(concept.conceptType)
-      )
     }
     
     res.json(filteredEntities)
@@ -63,7 +61,7 @@ const getAllEntities = (entity) => (req, res) => {
 
 const createEntity = (entity) => (req, res) => {
   try {
-    const directory = entity === 'characters' ? null : getDirectory(entity)
+    const directory = entity === 'characters' || entity === 'concepts' ? null : getDirectory(entity)
 
     // For characters, add owner information
     if (entity === 'characters' && req.user) {
@@ -73,6 +71,8 @@ const createEntity = (entity) => (req, res) => {
 
     if (entity === 'characters') {
       saveCharacterFile(req.body)
+    } else if (entity === 'concepts') {
+      saveConceptFile(req.body)
     } else {
       saveFile(req.body, directory)
     }
@@ -87,10 +87,16 @@ const createEntity = (entity) => (req, res) => {
 
 const updateEntity = (entity) => (req, res) => {
   try {
-    const directory = entity === 'characters' ? null : getDirectory(entity)
-    const existingEntity = entity === 'characters'
-      ? getCharacterRecordById(req.body.id)
-      : { character: getAllDataByDirectory(directory).find((e) => e.id === req.body.id), directory }
+    const directory = entity === 'characters' || entity === 'concepts' ? null : getDirectory(entity)
+    let existingEntity
+    if (entity === 'characters') {
+      existingEntity = getCharacterRecordById(req.body.id)
+    } else if (entity === 'concepts') {
+      const record = getConceptRecordById(req.body.id)
+      existingEntity = record ? { character: record.concept, directory: record.directory } : null
+    } else {
+      existingEntity = { character: getAllDataByDirectory(directory).find((e) => e.id === req.body.id), directory }
+    }
 
     if (!existingEntity?.character) {
       return res.status(404).json({ error: `No record found to update in ${entity}` })
@@ -115,6 +121,12 @@ const updateEntity = (entity) => (req, res) => {
         existingId: existingEntity.character.id,
         existingDirectory: existingEntity.directory,
       })
+    } else if (entity === 'concepts') {
+      saveConceptFile(req.body, {
+        oldName: existingEntity.character.name,
+        existingId: existingEntity.character.id,
+        existingDirectory: existingEntity.directory,
+      })
     } else {
       saveFile(req.body, directory, existingEntity.character.name, existingEntity.character.id)
     }
@@ -129,10 +141,15 @@ const updateEntity = (entity) => (req, res) => {
 
 const deleteEntity = (entity) => (req, res) => {
   try {
-    const directory = entity === 'characters' ? null : getDirectory(entity)
-    const entityToDelete = entity === 'characters'
-      ? getCharacterRecordById(req.params.id)?.character
-      : getAllDataByDirectory(directory).find((e) => e.id === req.params.id)
+    const directory = entity === 'characters' || entity === 'concepts' ? null : getDirectory(entity)
+    let entityToDelete
+    if (entity === 'characters') {
+      entityToDelete = getCharacterRecordById(req.params.id)?.character
+    } else if (entity === 'concepts') {
+      entityToDelete = getConceptRecordById(req.params.id)?.concept
+    } else {
+      entityToDelete = getAllDataByDirectory(directory).find((e) => e.id === req.params.id)
+    }
 
     if (!entityToDelete) {
       return res.status(404).json({ error: `Record not found in ${entity}` })
@@ -147,6 +164,8 @@ const deleteEntity = (entity) => (req, res) => {
 
     if (entity === 'characters') {
       deleteCharacterById(entityToDelete.id)
+    } else if (entity === 'concepts') {
+      deleteConceptById(entityToDelete.id)
     } else {
       deleteFile(entityToDelete.name, directory)
     }
@@ -157,9 +176,53 @@ const deleteEntity = (entity) => (req, res) => {
   }
 }
 
+const transferCharacterOwnership = (req, res) => {
+  try {
+    const rawId = req.params.id
+    // Character ids may be numeric; coerce to match how they are stored in JSON
+    const id = isNaN(Number(rawId)) ? rawId : Number(rawId)
+    const { newOwnerId } = req.body
+
+    if (!newOwnerId) {
+      return res.status(400).json({ error: 'newOwnerId is required' })
+    }
+
+    const record = getCharacterRecordById(id)
+    if (!record?.character) {
+      return res.status(404).json({ error: 'Character not found' })
+    }
+
+    if (req.user.role !== USER_ROLE.ADMIN && record.character.ownerId !== req.user.uid) {
+      return res.status(403).json({ error: 'You can only transfer ownership of your own characters' })
+    }
+
+    if (record.character.ownerId === newOwnerId) {
+      return res.status(400).json({ error: 'Character is already owned by this user' })
+    }
+
+    const updatedCharacter = {
+      ...record.character,
+      ownerId: newOwnerId,
+      updatedAt: new Date().toISOString(),
+    }
+
+    saveCharacterFile(updatedCharacter, {
+      oldName: record.character.name,
+      existingId: record.character.id,
+      existingDirectory: record.directory,
+    })
+
+    res.status(200).json(updatedCharacter)
+  } catch (error) {
+    console.error('Error transferring character ownership:', error)
+    res.status(500).json({ error: 'Failed to transfer character ownership' })
+  }
+}
+
 export {
   getAllEntities,
   createEntity,
   updateEntity,
   deleteEntity,
+  transferCharacterOwnership,
 }
