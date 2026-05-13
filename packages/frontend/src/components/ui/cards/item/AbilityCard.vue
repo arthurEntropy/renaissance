@@ -356,10 +356,9 @@ function handleActivateToggle() {
   stroke-width: 2.5;
 }
 
-/* Shift admin FABs right so they don't overlap the centered difficulty badge */
+/* Shift admin FABs to just right of the centered difficulty badge (badge is 26px wide, centered) */
 .ability-card--with-difficulty :deep(.admin-buttons) {
-  left: auto;
-  right: var(--space-xs);
+  left: calc(50% + 20px + var(--space-xs));
   transform: none;
 }
 </style>
