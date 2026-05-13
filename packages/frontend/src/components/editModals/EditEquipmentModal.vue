@@ -1,265 +1,253 @@
 <template>
-  <div class="modal-overlay" @click="handleOverlayClick">
-    <div class="modal-content" @click.stop>
+  <BaseModal title="Edit Equipment" offset-y="var(--space-xl)" @close="handleOverlayClick">
 
-      <!-- Header -->
-      <h2 class="modal-header centered">Edit Equipment</h2>
+    <!-- Scrollable Form Content -->
+    <form @submit.prevent="saveEquipment">
 
-      <!-- Scrollable Form Content -->
-      <div class="modal-body">
-        <form @submit.prevent="saveEquipment">
-
-          <!-- Flags: Custom, Template, Magic -->
-          <div class="form-group centered">
-            <label for="isCustom">
-              <input type="checkbox" id="isCustom" v-model="editedEquipment.isCustom" />
-              Custom
-            </label>
-            <label for="isTemplate">
-              <input type="checkbox" id="isTemplate" v-model="editedEquipment.isTemplate" />
-              Template
-            </label>
-            <label for="isMagical">
-              <input type="checkbox" id="isMagical" v-model="editedEquipment.isMagical" />
-              Magic
-            </label>
-          </div>
-
-          <!-- Name -->
-          <div class="form-group vertical">
-            <label for="name" class="left-aligned">Name:</label>
-            <input type="text" id="name" v-model="editedEquipment.name" class="modal-input" />
-          </div>
-
-          <!-- Art URL -->
-          <div class="form-group vertical">
-            <label for="artUrl" class="left-aligned">Art URL:</label>
-            <input type="text" id="artUrl" v-model="editedEquipment.artUrl" class="modal-input" />
-          </div>
-
-          <!-- Description -->
-          <div class="form-group vertical description">
-            <label for="description" class="left-aligned">Description:</label>
-            <TextEditor v-model="editedEquipment.description" :placeholder="'Enter equipment description...'"
-              :height="'250px'" :auto-height="true" />
-          </div>
-
-          <!-- Equipment Categories -->
-          <div class="form-group row equipment-categories">
-            <!-- Type Dropdown -->
-            <div class="form-column">
-              <label for="equipmentType" class="left-aligned">Type:</label>
-              <select id="equipmentType" v-model="editedEquipment.type" class="modal-input" @change="onTypeChange">
-                <option value="">-- Select Type --</option>
-                <option v-for="type in equipmentTypesStore.items" :key="type.id" :value="type.id">
-                  {{ type.name }}
-                </option>
-              </select>
-            </div>
-
-            <!-- Subtype Dropdown -->
-            <div class="form-column">
-              <label for="equipmentSubtype" class="left-aligned">Subtype:</label>
-              <select id="equipmentSubtype" v-model="editedEquipment.subtype" class="modal-input"
-                :disabled="!editedEquipment.type">
-                <option value="">-- Select Subtype --</option>
-                <option v-for="subtype in availableSubtypes" :key="subtype.id" :value="subtype.id">
-                  {{ subtype.name }}
-                </option>
-              </select>
-            </div>
-
-            <!-- Grade Dropdown -->
-            <div class="form-column">
-              <label for="equipmentGrade" class="left-aligned">Grade:</label>
-              <select id="equipmentGrade" v-model="editedEquipment.grade" class="modal-input">
-                <option value="">-- Select Grade --</option>
-                <option v-for="grade in equipmentGradesStore.items" :key="grade.id" :value="grade.id">
-                  {{ grade.name }}
-                </option>
-              </select>
-            </div>
-          </div>
-
-          <div class="form-group row">
-
-            <!-- Weight -->
-            <div class="form-column weight-input">
-              <label for="weight" class="left-aligned">Weight:</label>
-              <input type="number" id="weight" v-model.number="editedEquipment.weight" min="0" class="modal-input" />
-            </div>
-
-            <!-- Length -->
-            <div class="form-column weight-input">
-              <label for="length" class="left-aligned">Length:</label>
-              <input type="number" id="length" v-model.number="editedEquipment.length" min="0" class="modal-input" />
-            </div>
-
-            <!-- Reach -->
-            <div class="form-column weight-input">
-              <label for="reach" class="left-aligned">Reach:</label>
-              <input type="number" id="reach" v-model.number="editedEquipment.reach" min="0" class="modal-input" />
-            </div>
-
-            <!-- Range -->
-            <div class="form-column">
-              <label for="range" class="left-aligned">Range:</label>
-              <select id="range" v-model="editedEquipment.range" class="modal-input">
-                <option value="">-- Select Range --</option>
-                <option v-for="range in equipmentRangesStore.items" :key="range.id" :value="range.id">
-                  {{ range.name }} ({{ range.description }})
-                </option>
-              </select>
-            </div>
-          </div>
-
-          <div class="form-group row">
-
-            <!-- Source -->
-            <div class="form-column source-dropdown">
-              <label for="source" class="left-aligned">Source:</label>
-              <SourceCascadePicker v-model="editedEquipment.source" id="source" />
-            </div>
-
-            <!-- Keeping -->
-            <div class="form-column">
-              <label for="keeping" class="left-aligned">Keeping:</label>
-              <select id="keeping" v-model="editedEquipment.keeping" class="modal-input">
-                <option v-for="keeping in keepingStore.keeping" :key="keeping.id" :value="keeping.id">
-                  {{ keeping.name }} ({{ keeping.cost }})
-                </option>
-              </select>
-            </div>
-          </div>
-
-          <!-- Defense Bonus: Only show for Armor -->
-          <div class="form-group row" v-if="equipmentIsArmor">
-            <div class="form-column weight-input">
-              <label for="defenseBonus" class="left-aligned">Defense Bonus:</label>
-              <input type="number" id="defenseBonus" v-model.number="editedEquipment.defenseBonus" min="0"
-                class="modal-input" />
-            </div>
-          </div>
-
-          <!-- School: Only show if source mestiere has schools defined -->
-          <div class="form-group centered" v-if="sourceHasSchools">
-            <label for="school">School:</label>
-            <select id="school" v-model="editedEquipment.school" class="modal-input">
-              <option :value="null">-- No School --</option>
-              <option v-for="school in schoolsForSource" :key="school.id" :value="school.id">
-                {{ school.name }}
-              </option>
-            </select>
-          </div>
-
-          <!-- Weapon Properties -->
-          <div v-if="equipmentIsWeapon" class="form-group vertical">
-            <label>Weapon Properties:</label>
-            <div class="properties-inline">
-              <label for="twoHanded" class="property-checkbox">
-                <input type="checkbox" id="twoHanded" v-model="editedEquipment.twoHanded" />
-                Two-Handed
-              </label>
-              <label for="thrown" class="property-checkbox">
-                <input type="checkbox" id="thrown" v-model="editedEquipment.thrown" />
-                Thrown
-              </label>
-              <label for="finesse" class="property-checkbox">
-                <input type="checkbox" id="finesse" v-model="editedEquipment.finesse" />
-                Finesse
-              </label>
-              <label for="piercing" class="property-checkbox">
-                <input type="checkbox" id="piercing" v-model="editedEquipment.piercing" />
-                Piercing
-              </label>
-            </div>
-          </div>
-
-          <!-- Engagement Dice -->
-          <div v-if="equipmentIsWeapon" class="form-group vertical">
-            <label>Engagement Dice:</label>
-            <div class="dice-row">
-              <div v-for="dieType in dieTypes" :key="'engagement-' + dieType" class="dice-column">
-                <i :class="getDiceFontMaxClass(dieType)" class="dice-icon"></i>
-                <input type="number" min="0" v-model.number="engagementDiceCounts[dieType]" class="dice-input" />
-              </div>
-            </div>
-          </div>
-
-          <!-- Damage Dice -->
-          <div v-if="equipmentIsWeapon" class="form-group vertical">
-            <label>Damage Dice:</label>
-            <div class="dice-row">
-              <div v-for="dieType in dieTypes" :key="'damage-' + dieType" class="dice-column">
-                <i :class="getDiceFontMaxClass(dieType)" class="dice-icon"></i>
-                <input type="number" min="0" v-model.number="damageDiceCounts[dieType]" class="dice-input" />
-              </div>
-            </div>
-          </div>
-
-          <!-- Engagement Successes -->
-          <div v-if="equipmentIsWeapon" class="form-group vertical">
-            <label>Engagement Successes:</label>
-            <div class="properties-inline">
-              <label v-for="success in engagementSuccessesStore.items" :key="success.id" :for="'success-' + success.id"
-                class="property-checkbox">
-                <input type="checkbox" :id="'success-' + success.id" :value="success.id"
-                  v-model="editedEquipment.engagementSuccesses" />
-                {{ success.name }}
-              </label>
-            </div>
-          </div>
-
-          <!-- Successes (✨/🌞/💀 style outcomes) -->
-          <div class="form-group vertical description">
-            <label for="successes" class="left-aligned">Successes (✨, 🌞, 💀):</label>
-            <TextEditor v-model="editedEquipment.successes" :placeholder="'Enter success outcomes...'" :height="'150px'"
-              :auto-height="true" />
-          </div>
-
-          <!-- Improvements Section -->
-          <div class="form-group vertical">
-            <label class="left-aligned">Improvements:</label>
-            <div v-for="(impr, idx) in editedEquipment.improvements" :key="impr.id || idx"
-              class="improvement-edit-block">
-              <div class="improvement-card-row">
-                <input type="text" v-model="impr.name" placeholder="Name" class="modal-input improvement-name-input" />
-                <span class="xp-label">XP:</span>
-                <input type="number" v-model.number="impr.xpCost" placeholder="XP"
-                  class="modal-input improvement-xp-input" min="0" />
-                <button type="button" class="icon-btn" @click="removeImprovement(idx)" aria-label="Remove improvement">
-                  <XMarkIcon class="icon" />
-                </button>
-                <button type="button" class="icon-btn" @click="moveImprovementUp(idx)" :disabled="idx === 0"
-                  aria-label="Move up">
-                  <ArrowUpIcon class="icon" />
-                </button>
-                <button type="button" class="icon-btn" @click="moveImprovementDown(idx)"
-                  :disabled="idx === editedEquipment.improvements.length - 1" aria-label="Move down">
-                  <ArrowDownIcon class="icon" />
-                </button>
-              </div>
-              <TextEditor v-model="impr.description" :placeholder="'Description'" :height="'80px'"
-                :auto-height="true" />
-            </div>
-            <ActionButton variant="primary" size="small" text="+ Add Improvement" @click="addImprovement"
-              type="button" />
-          </div>
-
-        </form>
+      <!-- Flags: Custom, Template, Magic -->
+      <div class="form-group centered">
+        <label for="isMagical">
+          <input type="checkbox" id="isMagical" v-model="editedEquipment.isMagical" />
+          Magic
+        </label>
+        <label for="isCustom">
+          <input type="checkbox" id="isCustom" v-model="editedEquipment.isCustom" />
+          Custom
+        </label>
+        <label for="isTemplate">
+          <input type="checkbox" id="isTemplate" v-model="editedEquipment.isTemplate" />
+          Template
+        </label>
       </div>
 
-      <!-- Sticky Action Buttons -->
-      <div class="modal-footer">
-        <div class="form-buttons">
-          <ActionButton variant="success" size="small" text="Save" @click="saveEquipment" />
-          <ActionButton variant="danger" size="small" text="Delete" @click="() => deleteItem('equipment')"
-            type="button" />
+      <!-- Name -->
+      <div class="form-group vertical">
+        <label for="name" class="left-aligned">Name:</label>
+        <input type="text" id="name" v-model="editedEquipment.name" class="modal-input" />
+      </div>
+
+      <!-- Art URL -->
+      <div class="form-group vertical">
+        <label for="artUrl" class="left-aligned">Art URL:</label>
+        <input type="text" id="artUrl" v-model="editedEquipment.artUrl" class="modal-input" />
+      </div>
+
+      <!-- Description -->
+      <div class="form-group vertical description">
+        <label for="description" class="left-aligned">Description:</label>
+        <TextEditor v-model="editedEquipment.description" :placeholder="'Enter equipment description...'"
+          :height="'250px'" :auto-height="true" />
+      </div>
+
+      <!-- Equipment Categories -->
+      <div class="form-group row equipment-categories">
+        <!-- Type Dropdown -->
+        <div class="form-column">
+          <label for="equipmentType" class="left-aligned">Type:</label>
+          <select id="equipmentType" v-model="editedEquipment.type" class="modal-input" @change="onTypeChange">
+            <option value="">-- Select Type --</option>
+            <option v-for="type in equipmentTypesStore.items" :key="type.id" :value="type.id">
+              {{ type.name }}
+            </option>
+          </select>
+        </div>
+
+        <!-- Subtype Dropdown -->
+        <div class="form-column">
+          <label for="equipmentSubtype" class="left-aligned">Subtype:</label>
+          <select id="equipmentSubtype" v-model="editedEquipment.subtype" class="modal-input"
+            :disabled="!editedEquipment.type">
+            <option value="">-- Select Subtype --</option>
+            <option v-for="subtype in availableSubtypes" :key="subtype.id" :value="subtype.id">
+              {{ subtype.name }}
+            </option>
+          </select>
+        </div>
+
+        <!-- Grade Dropdown -->
+        <div class="form-column">
+          <label for="equipmentGrade" class="left-aligned">Grade:</label>
+          <select id="equipmentGrade" v-model="editedEquipment.grade" class="modal-input">
+            <option value="">-- Select Grade --</option>
+            <option v-for="grade in equipmentGradesStore.items" :key="grade.id" :value="grade.id">
+              {{ grade.name }}
+            </option>
+          </select>
         </div>
       </div>
 
-    </div>
-  </div>
+      <div class="form-group row">
+
+        <!-- Weight -->
+        <div class="form-column weight-input">
+          <label for="weight" class="left-aligned">Weight:</label>
+          <input type="number" id="weight" v-model.number="editedEquipment.weight" min="0" class="modal-input" />
+        </div>
+
+        <!-- Length -->
+        <div class="form-column weight-input">
+          <label for="length" class="left-aligned">Length:</label>
+          <input type="number" id="length" v-model.number="editedEquipment.length" min="0" class="modal-input" />
+        </div>
+
+        <!-- Reach -->
+        <div class="form-column weight-input">
+          <label for="reach" class="left-aligned">Reach:</label>
+          <input type="number" id="reach" v-model.number="editedEquipment.reach" min="0" class="modal-input" />
+        </div>
+
+        <!-- Range -->
+        <div class="form-column">
+          <label for="range" class="left-aligned">Range:</label>
+          <select id="range" v-model="editedEquipment.range" class="modal-input">
+            <option value="">-- Select Range --</option>
+            <option v-for="range in equipmentRangesStore.items" :key="range.id" :value="range.id">
+              {{ range.name }} ({{ range.description }})
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group row">
+
+        <!-- Source -->
+        <div class="form-column source-dropdown">
+          <label for="source" class="left-aligned">Source:</label>
+          <SourceCascadePicker v-model="editedEquipment.source" id="source" />
+        </div>
+
+        <!-- Keeping -->
+        <div class="form-column">
+          <label for="keeping" class="left-aligned">Keeping:</label>
+          <select id="keeping" v-model="editedEquipment.keeping" class="modal-input">
+            <option v-for="keeping in keepingStore.keeping" :key="keeping.id" :value="keeping.id">
+              {{ keeping.name }} ({{ keeping.cost }})
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Defense Bonus: Only show for Armor -->
+      <div class="form-group row" v-if="equipmentIsArmor">
+        <div class="form-column weight-input">
+          <label for="defenseBonus" class="left-aligned">Defense Bonus:</label>
+          <input type="number" id="defenseBonus" v-model.number="editedEquipment.defenseBonus" min="0"
+            class="modal-input" />
+        </div>
+      </div>
+
+      <!-- School: Only show if source mestiere has schools defined -->
+      <div class="form-column centered" v-if="sourceHasSchools">
+        <label for="school">School:</label>
+        <select id="school" v-model="editedEquipment.school" class="modal-input">
+          <option :value="null">-- No School --</option>
+          <option v-for="school in schoolsForSource" :key="school.id" :value="school.id">
+            {{ school.name }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Weapon Properties -->
+      <div v-if="equipmentIsWeapon" class="form-group vertical">
+        <label>Weapon Properties:</label>
+        <div class="properties-inline">
+          <label for="twoHanded" class="property-checkbox">
+            <input type="checkbox" id="twoHanded" v-model="editedEquipment.twoHanded" />
+            Two-Handed
+          </label>
+          <label for="thrown" class="property-checkbox">
+            <input type="checkbox" id="thrown" v-model="editedEquipment.thrown" />
+            Thrown
+          </label>
+          <label for="finesse" class="property-checkbox">
+            <input type="checkbox" id="finesse" v-model="editedEquipment.finesse" />
+            Finesse
+          </label>
+          <label for="piercing" class="property-checkbox">
+            <input type="checkbox" id="piercing" v-model="editedEquipment.piercing" />
+            Piercing
+          </label>
+        </div>
+      </div>
+
+      <!-- Engagement Dice -->
+      <div v-if="equipmentIsWeapon" class="form-group vertical">
+        <label>Engagement Dice:</label>
+        <div class="dice-row">
+          <div v-for="dieType in dieTypes" :key="'engagement-' + dieType" class="dice-column">
+            <i :class="getDiceFontMaxClass(dieType)" class="dice-icon"></i>
+            <input type="number" min="0" v-model.number="engagementDiceCounts[dieType]" class="dice-input" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Damage Dice -->
+      <div v-if="equipmentIsWeapon" class="form-group vertical">
+        <label>Damage Dice:</label>
+        <div class="dice-row">
+          <div v-for="dieType in dieTypes" :key="'damage-' + dieType" class="dice-column">
+            <i :class="getDiceFontMaxClass(dieType)" class="dice-icon"></i>
+            <input type="number" min="0" v-model.number="damageDiceCounts[dieType]" class="dice-input" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Engagement Successes -->
+      <div v-if="equipmentIsWeapon" class="form-group vertical">
+        <label>Engagement Successes:</label>
+        <div class="properties-inline">
+          <label v-for="success in engagementSuccessesStore.items" :key="success.id" :for="'success-' + success.id"
+            class="property-checkbox">
+            <input type="checkbox" :id="'success-' + success.id" :value="success.id"
+              v-model="editedEquipment.engagementSuccesses" />
+            {{ success.name }}
+          </label>
+        </div>
+      </div>
+
+      <!-- Successes (✨/🌞/💀 style outcomes) -->
+      <div class="form-group row description">
+        <div class="form-column">
+          <label for="successes" class="left-aligned">Successes (✨, 🌞, 💀):</label>
+          <TextEditor v-model="editedEquipment.successes" :placeholder="'Enter success outcomes...'" :height="'150px'"
+            :auto-height="true" />
+        </div>
+      </div>
+
+      <!-- Improvements Section -->
+      <div class="form-group vertical">
+        <label class="left-aligned">Improvements:</label>
+        <div v-for="(impr, idx) in editedEquipment.improvements" :key="impr.id || idx" class="improvement-edit-block">
+          <div class="improvement-card-row">
+            <input type="text" v-model="impr.name" placeholder="Name" class="modal-input improvement-name-input" />
+            <span class="xp-label">XP:</span>
+            <input type="number" v-model.number="impr.xpCost" placeholder="XP" class="modal-input improvement-xp-input"
+              min="0" />
+            <button type="button" class="icon-btn" @click="removeImprovement(idx)" aria-label="Remove improvement">
+              <XMarkIcon class="icon" />
+            </button>
+            <button type="button" class="icon-btn" @click="moveImprovementUp(idx)" :disabled="idx === 0"
+              aria-label="Move up">
+              <ArrowUpIcon class="icon" />
+            </button>
+            <button type="button" class="icon-btn" @click="moveImprovementDown(idx)"
+              :disabled="idx === editedEquipment.improvements.length - 1" aria-label="Move down">
+              <ArrowDownIcon class="icon" />
+            </button>
+          </div>
+          <TextEditor v-model="impr.description" :placeholder="'Description'" :height="'80px'" :auto-height="true" />
+        </div>
+        <ActionButton variant="primary" size="large" text="+ Add Improvement" @click="addImprovement" type="button" />
+      </div>
+
+    </form>
+
+    <template #actions>
+      <ActionButton variant="primary" size="large" text="Save" @click="saveEquipment" />
+      <ActionButton variant="neutral" size="large" text="Cancel" @click="handleOverlayClick" type="button" />
+      <ActionButton variant="danger" size="large" text="Delete" @click="() => deleteItem('equipment')" type="button" />
+    </template>
+  </BaseModal>
 </template>
 
 <script setup>
@@ -268,6 +256,7 @@ import { XMarkIcon, ArrowUpIcon, ArrowDownIcon } from '@heroicons/vue/24/outline
 import TextEditor from '@/components/ui/textEditor/TextEditor.vue'
 import SourceCascadePicker from '@/components/ui/pickers/SourceCascadePicker.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
+import BaseModal from '@/components/ui/modals/BaseModal.vue'
 import { useEditModalForm } from '@/composables/useEditModalForm'
 import { getDiceFontMaxClass } from '@/utils/diceFontUtils'
 import { STANDARD_DIE_SIZES } from '@shared/constants/dice'
@@ -421,43 +410,14 @@ const moveImprovementDown = (idx) => {
     [arr[idx], arr[idx + 1]] = [arr[idx + 1], arr[idx]]
   }
 }
+
 </script>
 
 <style scoped>
-.modal-content {
-  width: var(--width-modal);
-  display: flex;
-  flex-direction: column;
-  max-height: 90vh;
-  height: auto;
-}
-
-.modal-body {
-  flex: 1;
-  overflow-y: auto;
-  padding-bottom: var(--space-md);
-}
-
-.modal-footer {
-  flex-shrink: 0;
-  background: var(--color-bg-primary);
-  border-top: 1px solid var(--color-border-primary);
-  padding: var(--space-md) 0 0 0;
-  margin-top: var(--space-md);
-}
-
-.modal-footer .form-buttons {
-  margin-top: 0;
-}
-
 .form-column {
   flex: 1;
   display: flex;
   flex-direction: column;
-}
-
-.description :deep(.rich-editor-wrapper) {
-  width: 98%;
 }
 
 .weight-input {
@@ -471,6 +431,10 @@ const moveImprovementDown = (idx) => {
 
 .equipment-categories .form-column:last-child {
   margin-right: 0;
+}
+
+.form-group.row.description {
+  align-items: flex-start;
 }
 
 .melee-checkbox {
@@ -564,11 +528,11 @@ const moveImprovementDown = (idx) => {
 }
 
 .icon-btn:not(:disabled):hover {
-  color: var(--color-bg-secondary);
+  color: var(--color-text-primary);
 }
 
 .improvement-edit-block {
-  background: var(--color-bg-secondary);
+  background: var(--color-bg-primary);
   border-radius: var(--radius-5);
   margin-bottom: var(--space-md);
   padding: var(--space-md);

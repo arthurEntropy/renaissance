@@ -1,16 +1,16 @@
 <template>
     <div class="art-card" :class="{ 'selected': isSelected }" @click="handleClick" @keydown.enter="handleClick"
-        @keydown.space.prevent="handleClick" tabindex="0" role="button"
-        :aria-label="`Select ${art?.tags?.type || 'art'} art`" :data-art-id="art.id">
+        @keydown.space.prevent="handleClick" tabindex="0" role="button" :aria-label="`Select ${art?.type || 'art'} art`"
+        :data-art-id="art.id">
         <div class="art-image">
-            <img :src="optimizedImageUrl" :alt="`${art?.tags?.type || 'art'} art`" />
+            <img :src="optimizedImageUrl" :alt="`${art?.type || 'art'} art`" />
         </div>
         <div class="art-info">
             <div class="art-tags">
-                <span class="art-type" :class="art?.tags?.type">
+                <span class="art-type" :class="art?.type">
                     <component :is="typeIcon" class="icon-sm" />
                 </span>
-                <ChipTag v-for="sourceId in art?.tags?.sources || []" :key="sourceId" :sourceId="sourceId"
+                <ChipTag v-for="sourceId in art?.sources || []" :key="sourceId" :sourceId="sourceId"
                     :variant="CHIP_TAG_VARIANTS.GRAY" />
             </div>
         </div>
@@ -50,7 +50,7 @@ const typeIcon = computed(() => {
         places: PhotoIcon,
         maps: MapIcon
     }
-    return icons[props.art?.tags?.type] || UserCircleIcon
+    return icons[props.art?.type] || UserCircleIcon
 })
 
 const handleClick = (event) => {

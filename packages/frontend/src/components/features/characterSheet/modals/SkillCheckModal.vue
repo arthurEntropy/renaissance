@@ -1,95 +1,94 @@
 <template>
-  <div class="modal-overlay" @click="closeModal">
-    <div class="modal-content" @click.stop>
+  <BaseModal title="Skill Check" width="925px" @close="closeModal">
 
-      <!-- Header Row with Skill Dropdown -->
-      <div class="header-row">
-        <h2>{{ props.character.name }} rolling</h2>
-        <select v-model="localSelectedSkillKey" class="modal-skill-dropdown"
-          :class="{ 'skill-selected': localSelectedSkillKey }" aria-label="Select skill">
-          <option disabled value="">Select a skill</option>
-          <option v-for="skill in props.character.skills" :key="getSkillId(skill)" :value="getSkillId(skill)">
-            {{ getSkillLabel(skill) }}
-          </option>
-        </select>
+    <!-- Character rolling row -->
+    <div class="skill-rolling-row">
+      <span>{{ props.character.name }} rolling</span>
+      <select v-model="localSelectedSkillKey" class="modal-skill-dropdown"
+        :class="{ 'skill-selected': localSelectedSkillKey }" aria-label="Select skill">
+        <option disabled value="">Select a skill</option>
+        <option v-for="skill in props.character.skills" :key="getSkillId(skill)" :value="getSkillId(skill)">
+          {{ getSkillLabel(skill) }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Favored Status Toggle -->
+    <div class="favored-status-toggle">
+      <ActionButton :variant="favoredStatus === SKILL_STATUS.ILL_FAVORED ? 'primary' : 'outline'" size="large"
+        text="Ill-Favored" @click="favoredStatus = SKILL_STATUS.ILL_FAVORED" />
+      <ActionButton :variant="favoredStatus === null ? 'primary' : 'outline'" size="large" text="Flat"
+        @click="favoredStatus = null" />
+      <ActionButton :variant="favoredStatus === SKILL_STATUS.FAVORED ? 'primary' : 'outline'" size="large"
+        text="Favored" @click="favoredStatus = SKILL_STATUS.FAVORED" />
+    </div>
+
+    <!-- Dice Mod Options -->
+    <div class="dice-mod-options">
+      <ActionButton v-for="mod in diceModOptions" :key="mod.value"
+        :variant="rollParameters.diceMod === mod.value ? 'primary' : 'outline'" size="small" :text="mod.label"
+        @click="rollParameters.diceMod = mod.value" />
+    </div>
+
+    <!-- Dice Preview -->
+    <div class="dice-preview" v-if="localSelectedSkillKey && selectedSkill">
+      <div class="dice-pool">
+        <span v-for="(die, index) in dicePool.d12Dice" :key="`d12-${index}`" class="dice-symbol" :class="{
+          'favored-die': rollParameters.isFavored,
+          'illfavored-die': rollParameters.isIllFavored,
+        }">
+          <i :class="die.cssClass"></i>
+        </span>
+        <span v-for="(die, index) in dicePool.d6Dice" :key="`d6-${index}`" class="dice-symbol" :class="{
+          'added-die': die.isAdded,
+          'subtracted-die': die.isSubtracted,
+        }">
+          <i :class="die.cssClass"></i>
+        </span>
       </div>
+    </div>
 
-      <!-- Favored Status Toggle -->
-      <div class="favored-status-toggle">
-        <ActionButton :variant="favoredStatus === SKILL_STATUS.ILL_FAVORED ? 'primary' : 'outline'" size="large"
-          text="Ill-Favored" @click="favoredStatus = SKILL_STATUS.ILL_FAVORED" />
-        <ActionButton :variant="favoredStatus === null ? 'primary' : 'outline'" size="large" text="Flat"
-          @click="favoredStatus = null" />
-        <ActionButton :variant="favoredStatus === SKILL_STATUS.FAVORED ? 'primary' : 'outline'" size="large"
-          text="Favored" @click="favoredStatus = SKILL_STATUS.FAVORED" />
+    <!-- Roll Type Toggle -->
+    <div class="roll-type-toggle">
+      <ActionButton :variant="rollType === RollTypes.OPPOSED_SKILL_CHECK ? 'primary' : 'outline'" size="large"
+        text="Opposed" @click="rollType = RollTypes.OPPOSED_SKILL_CHECK" />
+      <ActionButton :variant="rollType === RollTypes.SKILL_CHECK ? 'primary' : 'outline'" size="large"
+        text="Against Difficulty" @click="rollType = RollTypes.SKILL_CHECK" />
+    </div>
+
+    <!-- Difficulty -->
+    <div class="difficulty-section" :class="{ disabled: rollType === RollTypes.OPPOSED_SKILL_CHECK }">
+      <div class="difficulty-descriptors">
+        <span>Easy</span>
+        <span>Moderate</span>
+        <span>Difficult</span>
+        <span>Extreme</span>
+        <span>Legendary</span>
       </div>
-
-      <!-- Dice Mod Options -->
-      <div class="dice-mod-options">
-        <ActionButton v-for="mod in diceModOptions" :key="mod.value"
-          :variant="rollParameters.diceMod === mod.value ? 'primary' : 'outline'" size="small" :text="mod.label"
-          @click="rollParameters.diceMod = mod.value" />
+      <div class="difficulty-options">
+        <ActionButton v-for="difficulty in difficultyOptions" :key="difficulty"
+          :variant="localDifficulty === difficulty ? 'primary' : 'outline'" size="small" :text="difficulty.toString()"
+          :disabled="rollType === RollTypes.OPPOSED_SKILL_CHECK" @click="toggleDifficulty(difficulty)" />
       </div>
+    </div>
 
-      <!-- Dice Preview -->
-      <div class="dice-preview" v-if="localSelectedSkillKey && selectedSkill">
-        <div class="dice-pool">
-          <span v-for="(die, index) in dicePool.d12Dice" :key="`d12-${index}`" class="dice-symbol" :class="{
-            'favored-die': rollParameters.isFavored,
-            'illfavored-die': rollParameters.isIllFavored,
-          }">
-            <i :class="die.cssClass"></i>
-          </span>
-          <span v-for="(die, index) in dicePool.d6Dice" :key="`d6-${index}`" class="dice-symbol" :class="{
-            'added-die': die.isAdded,
-            'subtracted-die': die.isSubtracted,
-          }">
-            <i :class="die.cssClass"></i>
-          </span>
-        </div>
-      </div>
-
-      <!-- Roll Type Toggle -->
-      <div class="roll-type-toggle">
-        <ActionButton :variant="rollType === RollTypes.OPPOSED_SKILL_CHECK ? 'primary' : 'outline'" size="large"
-          text="Opposed" @click="rollType = RollTypes.OPPOSED_SKILL_CHECK" />
-        <ActionButton :variant="rollType === RollTypes.SKILL_CHECK ? 'primary' : 'outline'" size="large"
-          text="Against Difficulty" @click="rollType = RollTypes.SKILL_CHECK" />
-      </div>
-
-      <!-- Difficulty -->
-      <div class="difficulty-section" :class="{ disabled: rollType === RollTypes.OPPOSED_SKILL_CHECK }">
-        <div class="difficulty-descriptors">
-          <span>Easy</span>
-          <span>Moderate</span>
-          <span>Difficult</span>
-          <span>Extreme</span>
-          <span>Legendary</span>
-        </div>
-        <div class="difficulty-options">
-          <ActionButton v-for="difficulty in difficultyOptions" :key="difficulty"
-            :variant="localDifficulty === difficulty ? 'primary' : 'outline'" size="small" :text="difficulty.toString()"
-            :disabled="rollType === RollTypes.OPPOSED_SKILL_CHECK" @click="toggleDifficulty(difficulty)" />
-        </div>
-      </div>
-
-      <!-- Roll Button -->
+    <!-- Roll and Discord - centered -->
+    <div class="roll-actions">
       <ActionButton variant="primary" size="large" text="Roll" @click="rollSkillCheck"
         :disabled="!localSelectedSkillKey" />
-
-      <!-- Discord Toggle -->
       <label class="discord-toggle" for="send-to-discord">
         <input id="send-to-discord" v-model="sendToDiscord" type="checkbox" />
         <span>Send to Discord</span>
       </label>
     </div>
-  </div>
+  </BaseModal>
 </template>
 
 <script setup>
-import { ref, computed, watch } from 'vue'
+import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue'
 import { useRollsStore } from '@/stores/rollsStore'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
+import BaseModal from '@/components/ui/modals/BaseModal.vue'
 import SkillCheckService from '@/services/rolls/skillCheckService'
 import { getDiceFontMaxClass } from '@/utils/diceFontUtils'
 import { buildDiceSetForSkill } from '@/utils/skillDiceUtils'
@@ -271,21 +270,18 @@ watch(() => props.character, () => {
 watch(localSelectedSkillKey, () => {
   updateRollParameters()
 })
+
+const handleEscape = (e) => {
+  if (e.key === 'Escape') closeModal()
+}
+
+onMounted(() => window.addEventListener('keydown', handleEscape))
+onBeforeUnmount(() => window.removeEventListener('keydown', handleEscape))
 </script>
 
 <style scoped>
-.modal-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: auto;
-  min-width: 400px;
-  max-width: 90vw;
-  padding: var(--space-xl);
-}
-
-.header-row {
-  width: 100%;
+/* ── Character rolling row ──────────────── */
+.skill-rolling-row {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -293,16 +289,12 @@ watch(localSelectedSkillKey, () => {
   margin-bottom: var(--space-lg);
 }
 
-.header-row h2 {
-  margin: 0;
-}
-
 .modal-skill-dropdown {
   padding: var(--space-sm);
-  font-size: var(--font-size-16);
-  background: var(--color-bg-secondary);
+  font-size: var(--font-size-14);
+  background: var(--color-bg-primary);
   color: var(--color-text-primary);
-  border: 1px solid var(--color-gray-medium);
+  border: 1px solid var(--overlay-white-medium);
   border-radius: var(--radius-5);
 }
 
@@ -320,7 +312,7 @@ watch(localSelectedSkillKey, () => {
   padding: var(--space-lg);
   background-color: var(--overlay-white-subtle);
   border-radius: var(--radius-5);
-  margin: var(--space-xl) 0;
+  margin: var(--space-xl) auto;
   display: flex;
   justify-content: center;
 }
@@ -398,11 +390,18 @@ watch(localSelectedSkillKey, () => {
   color: var(--color-gray-dark);
 }
 
+.roll-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-top: var(--space-md);
+}
+
 .discord-toggle {
   display: flex;
   align-items: center;
   gap: var(--space-xs);
-  margin-top: var(--space-sm);
   font-size: var(--font-size-14);
   color: var(--color-text-muted);
   user-select: none;

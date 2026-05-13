@@ -1,9 +1,9 @@
 <template>
     <div class="art-library">
         <ArtFilters v-model:gridSize="gridSize" v-model:typeFilters="typeFilters" v-model:sourceFilters="sourceFilters"
-            v-model:sourceFilter="sourceFilter" v-model:groupBy="groupBy" v-model:orderBy="orderBy"
-            v-model:showDuplicates="showDuplicates" :totalCount="filteredArt.length" :faceCount="faceCount"
-            :placeCount="placeCount" :mapCount="mapCount" @add="handleOpenAddModal" />
+            v-model:groupBy="groupBy" v-model:orderBy="orderBy" v-model:showDuplicates="showDuplicates"
+            :totalCount="filteredArt.length" :faceCount="faceCount" :placeCount="placeCount" :mapCount="mapCount"
+            @add="handleOpenAddModal" />
 
         <ArtGrid :paginatedArt="paginatedArt" :groupedArt="groupedArt" :gridSize="gridSize"
             :selectedItems="selectedItems" @cardClick="handleCardClick" @add="handleOpenAddModal" />
@@ -45,7 +45,6 @@ const {
     gridSize,
     typeFilters,
     sourceFilters,
-    sourceFilter,
     groupBy,
     orderBy,
     showDuplicates,

@@ -1,6 +1,6 @@
 {
   "id": 4,
-  "lastModified": "2026-05-11T20:02:19.156Z",
+  "lastModified": "2026-05-13T03:40:11.799Z",
   "name": "Bobobito",
   "pronouns": "he/him",
   "ancestryIds": [
@@ -184,7 +184,6 @@
   ],
   "engagementSuccesses": [],
   "engagementDiceStatuses": {
-    "user_added_1": "expended",
     "user_added_0": "expended"
   },
   "equipment": [],
@@ -211,7 +210,7 @@
     "contests": {
       "engagement": {
         "wins": 0,
-        "losses": 0,
+        "losses": 1,
         "draws": 0
       },
       "opposed": {
@@ -226,5 +225,5 @@
   "swaggerColor": "#fdf7f7",
   "witchcraftTokens": [],
   "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2026-05-11T20:02:19.156Z"
+  "updatedAt": "2026-05-13T03:40:11.799Z"
 }

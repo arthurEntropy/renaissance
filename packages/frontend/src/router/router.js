@@ -16,6 +16,7 @@ import AdminPage from '@/pages/AdminPage.vue'
 import ArtPage from '@/pages/ArtPage.vue'
 import VirtualTabletopPage from '@/pages/VirtualTabletopPage.vue'
 import DesignLabPage from '@/pages/DesignLabPage.vue'
+import ModalLabPage from '@/pages/ModalLabPage.vue'
 import CampaignLobbyPage from '@/pages/CampaignLobbyPage.vue'
 
 const routes = [
@@ -56,6 +57,11 @@ const routes = [
   {
     path: '/design-lab',
     component: DesignLabPage,
+    meta: { requiresAuth: true, requiresAdmin: true },
+  },
+  {
+    path: '/modal-lab',
+    component: ModalLabPage,
     meta: { requiresAuth: true, requiresAdmin: true },
   },
   {

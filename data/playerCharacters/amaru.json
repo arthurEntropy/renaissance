@@ -1,6 +1,6 @@
 {
   "id": 11,
-  "lastModified": "2026-05-10T18:36:58.996Z",
+  "lastModified": "2026-05-13T03:39:15.718Z",
   "name": "Amaru",
   "pronouns": "he/him",
   "ancestryIds": [
@@ -276,12 +276,12 @@
       },
       "opposed": {
         "wins": 0,
-        "losses": 0,
+        "losses": 1,
         "draws": 0
       }
     }
   },
   "witchcraftTokens": [],
   "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2026-05-10T18:36:58.996Z"
+  "updatedAt": "2026-05-13T03:39:15.718Z"
 }

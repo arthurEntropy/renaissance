@@ -10,7 +10,7 @@
 
       <!-- Mobile Auth Component -->
       <div v-if="menuOpen" class="mobile-auth">
-        <AuthComponent @open-preferences="openPreferences" />
+        <AuthComponent @open-preferences="openPreferences" @open-invites="openInvites" />
       </div>
 
       <nav v-if="menuOpen">
@@ -19,12 +19,13 @@
       </nav>
     </div>
 
+    <!-- Desktop campaign badge layer kept outside filtered nav so local fixed modals are viewport-relative -->
+    <div class="campaign-badge-wrapper">
+      <CampaignBadge v-if="authStore.isAuthenticated" @open-create-campaign="openCreateCampaign" />
+    </div>
+
     <!-- Desktop Top Navigation -->
     <div class="top-nav">
-      <!-- Campaign Badge (left side, symmetrical with auth on right) -->
-      <div class="campaign-badge-wrapper">
-        <CampaignBadge v-if="authStore.isAuthenticated" />
-      </div>
       <div class="top-nav-content">
         <router-link v-for="link in navLinks" :key="link.to" :to="link.to"
           :class="{ 'router-link-active': isActiveSection(link.to) }">{{ link.label }}</router-link>
@@ -32,7 +33,7 @@
 
       <!-- Desktop Auth Component -->
       <div class="desktop-auth">
-        <AuthComponent @open-preferences="openPreferences" />
+        <AuthComponent @open-preferences="openPreferences" @open-invites="openInvites" />
       </div>
     </div>
 
@@ -56,22 +57,28 @@
 
   </div>
 
+  <InvitesModal v-if="showInvitesModal" @close="closeInvites" />
+  <CreateCampaignModal :visible="showCreateCampaignModal" :is-submitting="creatingCampaign"
+    :error-message="createCampaignError" @close="closeCreateCampaign" @submit="submitCreateCampaign" />
   <CardPreviewOverlay />
   <AppCharacterSheetModal />
 </template>
 
 <script setup>
 import { ref, computed, onMounted, watch } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { Bars3Icon } from '@heroicons/vue/24/outline'
 import { useAuthStore } from '@/stores/authStore'
 import { useUserStore } from '@/stores/userStore'
 import { useCharactersStore } from '@/stores/charactersStore'
 import { useCharacterContextStore } from '@/stores/characterContextStore'
+import { useCampaignStore } from '@/stores/campaignStore'
 import AuthComponent from '@/components/features/auth/AuthComponent.vue'
 import UsernameSetup from '@/components/features/auth/UsernameSetup.vue'
 import NotInvitedModal from '@/components/features/auth/NotInvitedModal.vue'
 import PreferencesModal from '@/components/features/preferences/PreferencesModal.vue'
+import InvitesModal from '@/components/features/campaigns/InvitesModal.vue'
+import CreateCampaignModal from '@/components/features/campaigns/CreateCampaignModal.vue'
 import CardPreviewOverlay from '@/components/ui/cards/preview/CardPreviewOverlay.vue'
 import CampaignBadge from '@/components/features/campaigns/CampaignBadge.vue'
 import PinnedBadgesContainer from '@/components/features/characterSelection/PinnedBadgesContainer.vue'
@@ -85,10 +92,12 @@ const { isOpen: isCharacterSheetOpen } = useAppCharacterSheetModal()
 
 const menuOpen = ref(false)
 const route = useRoute()
+const router = useRouter()
 const authStore = useAuthStore()
 const userStore = useUserStore()
 const charactersStore = useCharactersStore()
 const characterContextStore = useCharacterContextStore()
+const campaignStore = useCampaignStore()
 const shouldShowOverlay = computed(() => route.meta?.overlay === true)
 const isActiveSection = (path) => route.path === path || route.path.startsWith(path + '/')
 
@@ -105,6 +114,10 @@ const navLinks = computed(() => [
   ...(authStore.isAdmin ? [{ to: '/art', label: 'ART' }] : []),
 ])
 const showPreferencesModal = ref(false)
+const showInvitesModal = ref(false)
+const showCreateCampaignModal = ref(false)
+const creatingCampaign = ref(false)
+const createCampaignError = ref('')
 
 // Compute selected background image from user preferences
 const selectedBackgroundImage = computed(() => {
@@ -155,6 +168,47 @@ const openPreferences = () => {
 
 const closePreferences = () => {
   showPreferencesModal.value = false
+}
+
+const openInvites = () => {
+  showInvitesModal.value = true
+}
+
+const closeInvites = () => {
+  showInvitesModal.value = false
+}
+
+const openCreateCampaign = () => {
+  createCampaignError.value = ''
+  showCreateCampaignModal.value = true
+}
+
+const closeCreateCampaign = () => {
+  showCreateCampaignModal.value = false
+}
+
+const submitCreateCampaign = async (payload) => {
+  if (!payload.name) {
+    createCampaignError.value = 'Campaign name is required.'
+    return
+  }
+  creatingCampaign.value = true
+  createCampaignError.value = ''
+  try {
+    const newCampaign = await campaignStore.create({
+      name: payload.name,
+      description: payload.description,
+      coverImageUrl: payload.coverImageUrl,
+    })
+    closeCreateCampaign()
+    if (newCampaign?.slug) {
+      router.push(`/campaigns/${newCampaign.slug}`)
+    }
+  } catch (err) {
+    createCampaignError.value = err?.message || 'Failed to create campaign.'
+  } finally {
+    creatingCampaign.value = false
+  }
 }
 
 onMounted(async () => {

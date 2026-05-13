@@ -27,24 +27,12 @@
                     </button>
                 </div>
 
-                <!-- Pending invitations -->
-                <div v-if="campaignStore.pendingInviteCount > 0" class="campaign-menu-invites">
-                    {{ campaignStore.pendingInviteCount }} pending invite{{ campaignStore.pendingInviteCount > 1 ? 's' :
-                        ''
-                    }}
-                </div>
-
-                <div v-if="campaignStore.pendingInviteCount > 0" class="campaign-menu-divider" />
-
                 <!-- Create new -->
                 <button class="campaign-menu-item campaign-menu-item--create" @click="openCreateModal">
                     Create New Campaign…
                 </button>
             </div>
         </Teleport>
-
-        <CreateCampaignModal :visible="showCreateModal" :is-submitting="creating" :error-message="createError"
-            @close="closeCreateModal" @submit="submitCreate" />
     </div>
 </template>
 
@@ -54,13 +42,14 @@ import { useRouter } from 'vue-router'
 import { useCampaignStore } from '@/stores/campaignStore'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
-import CreateCampaignModal from '@/components/features/campaigns/CreateCampaignModal.vue'
 import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 
 const router = useRouter()
 const campaignStore = useCampaignStore()
 const wrapperRef = ref(null)
 const menuRef = ref(null)
+const emit = defineEmits(['openCreateCampaign'])
+
 const menuOpen = ref(false)
 const menuStyle = ref({})
 
@@ -74,10 +63,6 @@ const updateMenuPosition = () => {
         zIndex: 'var(--z-cascade-menu)',
     }
 }
-const showCreateModal = ref(false)
-const creating = ref(false)
-const createError = ref('')
-
 const campaign = computed(() => campaignStore.activeCampaign)
 
 const btnLabel = computed(() => {
@@ -141,36 +126,7 @@ const handleExit = async () => {
 
 const openCreateModal = () => {
     menuOpen.value = false
-    createError.value = ''
-    showCreateModal.value = true
-}
-
-const closeCreateModal = () => {
-    showCreateModal.value = false
-}
-
-const submitCreate = async (payload) => {
-    if (!payload.name) {
-        createError.value = 'Campaign name is required.'
-        return
-    }
-    creating.value = true
-    createError.value = ''
-    try {
-        const newCampaign = await campaignStore.create({
-            name: payload.name,
-            description: payload.description,
-            coverImageUrl: payload.coverImageUrl,
-        })
-        closeCreateModal()
-        if (newCampaign?.slug) {
-            router.push(`/campaigns/${newCampaign.slug}`)
-        }
-    } catch (err) {
-        createError.value = err?.message || 'Failed to create campaign.'
-    } finally {
-        creating.value = false
-    }
+    emit('openCreateCampaign')
 }
 
 </script>
@@ -183,7 +139,7 @@ const submitCreate = async (payload) => {
     gap: var(--space-xs);
 }
 
-.campaign-btn-wrapper :deep(.action-btn) {
+.campaign-btn-wrapper> :deep(.action-btn) {
     border-radius: var(--radius-full);
     background: var(--color-gray-dark);
 }
@@ -220,20 +176,20 @@ const submitCreate = async (payload) => {
     pointer-events: auto;
 }
 
-.campaign-btn-wrapper.is-in-campaign :deep(.action-btn) {
+.campaign-btn-wrapper.is-in-campaign> :deep(.action-btn) {
     width: 100%;
     overflow: hidden;
     background-size: cover;
     background-position: center;
 }
 
-.campaign-btn-wrapper.is-in-campaign :deep(.action-btn__text) {
+.campaign-btn-wrapper.is-in-campaign> :deep(.action-btn .action-btn__text) {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
-.campaign-btn-wrapper.is-in-campaign :deep(.action-btn__text) {
+.campaign-btn-wrapper.is-in-campaign> :deep(.action-btn .action-btn__text) {
     color: #fff;
     -webkit-text-stroke: 2px var(--color-black);
     paint-order: stroke fill;

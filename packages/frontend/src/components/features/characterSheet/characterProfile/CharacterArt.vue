@@ -18,14 +18,18 @@
         </div>
 
         <!-- Full Size Art Modal -->
-        <FullSizeImageModal :is-open="fullSizeArtModal.isOpen.value" :image-url="characterImageUrl"
-            :show-edit-button="canEdit" @close="fullSizeArtModal.closeModal" @edit="openEditModal" />
+        <FullSizeImageModal :is-open="isFullSizeArtOpen" :image-url="characterImageUrl" :show-edit-button="canEdit"
+            @close="isFullSizeArtOpen = false" @edit="openEditModal" />
 
         <!-- Edit Modal -->
-        <div v-if="editModal.isOpen.value" class="modal-overlay edit-modal-overlay"
-            @click="handleEditModalOverlayClick">
+        <div v-if="isEditOpen" class="modal-overlay edit-modal-overlay" @click="handleEditModalOverlayClick">
             <div class="modal-content edit-modal-content" @click.stop>
-                <h3>Change Character Art</h3>
+                <div class="modal-header">
+                    <h3>Change Character Art</h3>
+                    <button class="close-button" @click="handleEditModalOverlayClick" aria-label="Close">
+                        <XMarkIcon class="close-icon" />
+                    </button>
+                </div>
                 <input type="text" v-model="tempArtUrl" class="modal-input" placeholder="Enter image URL" />
                 <div class="modal-actions">
                     <ActionButton variant="success" size="small" text="Save" @click="saveArtUrl"
@@ -37,8 +41,8 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
-import { useModal } from '@/composables/useModal'
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
+import { XMarkIcon } from '@heroicons/vue/24/outline'
 import { useCharactersStore } from '@/stores/charactersStore'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
@@ -87,8 +91,8 @@ function getSwaggerPipClasses(index) {
     }
 }
 
-const fullSizeArtModal = useModal()
-const editModal = useModal()
+const isFullSizeArtOpen = ref(false)
+const isEditOpen = ref(false)
 
 const tempArtUrl = ref('')
 
@@ -106,12 +110,12 @@ const isValidImageUrl = (url) => {
 }
 
 const openFullSizeArtModal = () => {
-    fullSizeArtModal.openModal()
+    isFullSizeArtOpen.value = true
 }
 
 const openEditModal = () => {
     tempArtUrl.value = character.value?.featuredArtUrls?.[0] || ''
-    editModal.openModal()
+    isEditOpen.value = true
 }
 
 const saveArtUrl = () => {
@@ -119,7 +123,7 @@ const saveArtUrl = () => {
         character.value.featuredArtUrls = []
     }
     character.value.featuredArtUrls[0] = tempArtUrl.value
-    editModal.closeModal()
+    isEditOpen.value = false
 }
 
 const handleEditModalOverlayClick = () => {
@@ -129,12 +133,19 @@ const handleEditModalOverlayClick = () => {
     if (hasChanges) {
         const shouldDiscard = confirm('Discard unsaved changes?')
         if (shouldDiscard) {
-            editModal.closeModal()
+            isEditOpen.value = false
         }
     } else {
-        editModal.closeModal()
+        isEditOpen.value = false
     }
 }
+
+const handleKeydown = (e) => {
+    if (e.key === 'Escape' && isEditOpen.value) handleEditModalOverlayClick()
+}
+
+onMounted(() => window.addEventListener('keydown', handleKeydown))
+onBeforeUnmount(() => window.removeEventListener('keydown', handleKeydown))
 </script>
 
 <style scoped>
@@ -173,6 +184,13 @@ div {
     min-width: 400px;
     padding: var(--space-lg);
     background: var(--color-bg-primary);
+}
+
+.edit-modal-content .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-md);
 }
 
 .modal-actions {

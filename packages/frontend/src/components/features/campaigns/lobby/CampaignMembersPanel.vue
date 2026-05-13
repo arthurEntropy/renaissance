@@ -28,84 +28,77 @@
             </ul>
         </div>
 
-        <div v-if="showMembersModal" class="modal-overlay" @click.self="showMembersModal = false">
-            <div class="modal modal--wide">
-                <h2 class="modal-title">Manage Members</h2>
-                <div class="form-field">
-                    <label class="form-label">Invite Player</label>
-                    <input v-model="inviteSearch" class="form-input" type="text" placeholder="Search by username…" />
-                    <div v-if="inviteResults.length > 0" class="invite-results">
-                        <button v-for="user in inviteResults" :key="user.id" class="invite-result-item"
-                            @click="sendInvite(user.id)">
-                            {{ user.name }}
-                        </button>
-                    </div>
-                    <p v-else-if="inviteSearch.length >= 2" class="empty-hint">No users found matching "{{ inviteSearch
-                    }}"</p>
-                    <p v-if="inviteError" class="form-error">{{ inviteError }}</p>
+        <BaseModal title="Manage Members" :open="showMembersModal" width="min(640px, 94vw)"
+            @close="showMembersModal = false">
+            <div class="form-field">
+                <label class="form-label">Invite Player</label>
+                <input v-model="inviteSearch" class="modal-input" type="text" placeholder="Search by username…" />
+                <div v-if="inviteResults.length > 0" class="invite-results">
+                    <button v-for="user in inviteResults" :key="user.id" class="invite-result-item"
+                        @click="sendInvite(user.id)">
+                        {{ user.name }}
+                    </button>
                 </div>
+                <p v-else-if="inviteSearch.length >= 2" class="empty-hint">No users found matching "{{ inviteSearch }}"
+                </p>
+                <p v-if="inviteError" class="form-error">{{ inviteError }}</p>
+            </div>
 
+            <div class="members-list">
+                <div v-for="member in acceptedMembers" :key="member.userId" class="member-row">
+                    <div class="member-info">
+                        <span class="member-name">{{ getUserName(member.userId) }}</span>
+                        <span class="member-role" :class="`member-role--${member.role}`">{{ member.role }}</span>
+                        <span v-if="member.userId === campaign?.foundingGmUserId" class="member-founder">founder</span>
+                    </div>
+                    <div v-if="member.userId !== currentUserId" class="member-actions">
+                        <ActionButton v-if="member.role === 'player'" variant="primary" size="small"
+                            @click="promoteToGM(member.userId)">
+                            Promote to GM
+                        </ActionButton>
+                        <ActionButton
+                            v-else-if="member.role === 'gm' && member.userId !== campaign.foundingGmUserId && isFoundingGM"
+                            variant="neutral" size="small" @click="demoteToPlayer(member.userId)">
+                            Demote
+                        </ActionButton>
+                        <ActionButton variant="danger" size="small" @click="confirmRemoveMember(member)">
+                            Remove
+                        </ActionButton>
+                    </div>
+                </div>
+            </div>
+
+            <div v-if="pendingMembers.length > 0" class="pending-section">
+                <h3 class="subsection-label">Pending Invites</h3>
                 <div class="members-list">
-                    <div v-for="member in acceptedMembers" :key="member.userId" class="member-row">
+                    <div v-for="member in pendingMembers" :key="member.userId" class="member-row member-row--pending">
                         <div class="member-info">
                             <span class="member-name">{{ getUserName(member.userId) }}</span>
-                            <span class="member-role" :class="`member-role--${member.role}`">{{ member.role }}</span>
-                            <span v-if="member.userId === campaign?.foundingGmUserId"
-                                class="member-founder">founder</span>
+                            <span class="member-status">pending</span>
                         </div>
-                        <div class="member-actions" v-if="member.userId !== currentUserId">
-                            <ActionButton v-if="member.role === 'player'" variant="primary" size="small"
-                                @click="promoteToGM(member.userId)">
-                                Promote to GM
-                            </ActionButton>
-                            <ActionButton
-                                v-else-if="member.role === 'gm' && member.userId !== campaign.foundingGmUserId && isFoundingGM"
-                                variant="neutral" size="small" @click="demoteToPlayer(member.userId)">
-                                Demote
-                            </ActionButton>
-                            <ActionButton variant="danger" size="small" @click="confirmRemoveMember(member)">
-                                Remove
+                        <div class="member-actions">
+                            <ActionButton variant="danger" size="small" @click="cancelInvite(member.userId)">
+                                Cancel
                             </ActionButton>
                         </div>
                     </div>
                 </div>
-
-                <div v-if="pendingMembers.length > 0" class="pending-section">
-                    <h3 class="subsection-label">Pending Invites</h3>
-                    <div class="members-list">
-                        <div v-for="member in pendingMembers" :key="member.userId"
-                            class="member-row member-row--pending">
-                            <div class="member-info">
-                                <span class="member-name">{{ getUserName(member.userId) }}</span>
-                                <span class="member-status">pending</span>
-                            </div>
-                            <div class="member-actions">
-                                <ActionButton variant="danger" size="small" @click="cancelInvite(member.userId)">
-                                    Cancel
-                                </ActionButton>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="modal-actions">
-                    <ActionButton variant="neutral" @click="showMembersModal = false">Close</ActionButton>
-                </div>
             </div>
-        </div>
 
-        <div v-if="memberToRemove" class="modal-overlay" @click.self="memberToRemove = null">
-            <div class="modal">
-                <h2 class="modal-title">Remove Member</h2>
-                <p class="confirm-text">
-                    Remove <strong>{{ getUserName(memberToRemove.userId) }}</strong> from this campaign?
-                </p>
-                <div class="modal-actions">
-                    <ActionButton variant="neutral" @click="memberToRemove = null">Cancel</ActionButton>
-                    <ActionButton variant="danger" @click="executeRemoveMember">Remove</ActionButton>
-                </div>
-            </div>
-        </div>
+            <template #actions>
+                <ActionButton variant="neutral" @click="showMembersModal = false">Close</ActionButton>
+            </template>
+        </BaseModal>
+
+        <BaseModal title="Remove Member" :open="!!memberToRemove" @close="memberToRemove = null">
+            <p class="confirm-text">
+                Remove <strong>{{ getUserName(memberToRemove.userId) }}</strong> from this campaign?
+            </p>
+            <template #actions>
+                <ActionButton variant="neutral" @click="memberToRemove = null">Cancel</ActionButton>
+                <ActionButton variant="danger" @click="executeRemoveMember">Remove</ActionButton>
+            </template>
+        </BaseModal>
     </div>
 </template>
 
@@ -116,6 +109,7 @@ import { useAuthStore } from '@/stores/authStore'
 import UserService from '@/services/entities/userService'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
+import BaseModal from '@/components/ui/modals/BaseModal.vue'
 import { CAMPAIGN_ROLE, CAMPAIGN_MEMBER_STATUS } from '@shared/constants/campaignConstants'
 import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 

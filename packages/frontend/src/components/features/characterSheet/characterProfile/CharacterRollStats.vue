@@ -1,8 +1,6 @@
 <template>
     <div class="roll-stats-section">
-        <div class="roll-stats-divider"></div>
-
-        <h3 class="roll-stats-title">Character Roll Stats</h3>
+        <h3 class="roll-stats-title">Character Stats</h3>
 
         <div class="roll-stats-content roll-stats-shell">
             <div class="roll-stats-row">
@@ -156,6 +154,8 @@ const opposedRecord = computed(() => {
 <style scoped>
 .roll-stats-section {
     margin-top: var(--space-xl);
+    background-color: var(--color-bg-primary);
+    padding: var(--space-lg);
 }
 
 .roll-stats-divider {
@@ -170,6 +170,7 @@ const opposedRecord = computed(() => {
     font-size: var(--font-size-14);
     font-weight: var(--font-weight-semibold);
     color: var(--color-text-primary);
+    text-align: center;
 }
 
 .roll-stats-content {

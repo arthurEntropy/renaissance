@@ -1,26 +1,22 @@
 <template>
-    <div class="modal-overlay" @click="emit('close')">
-        <div class="modal-content" @click.stop>
-            <div class="modal-header">
-                <h3>All Dice Results</h3>
-                <button class="close-button" @click="emit('close')">×</button>
-            </div>
-            <div class="modal-dice-display">
-                <span v-for="(die, index) in displayDice" :key="index" class="modal-dice-symbol" :class="{
-                    'dropped-die': die.isDropped,
-                    'max-value-die': die.rolledMaxValue,
-                }">
-                    <i :class="die.cssClass"></i>
-                    <span v-if="die.emoji && !isCustomRoll" class="dice-emoji">{{
-                        die.emoji
-                        }}</span>
-                </span>
-            </div>
+    <BaseModal hideHeader=true @close="emit('close')">
+        <div class="modal-dice-display">
+            <span v-for="(die, index) in displayDice" :key="index" class="modal-dice-symbol" :class="{
+                'dropped-die': die.isDropped,
+                'max-value-die': die.rolledMaxValue,
+            }">
+                <i :class="die.cssClass"></i>
+                <span v-if="die.emoji && !isCustomRoll" class="dice-emoji">{{
+                    die.emoji
+                }}</span>
+            </span>
         </div>
-    </div>
+    </BaseModal>
 </template>
 
 <script setup>
+import BaseModal from '@/components/ui/modals/BaseModal.vue'
+
 defineProps({
     displayDice: {
         type: Array,
@@ -36,63 +32,6 @@ const emit = defineEmits(['close'])
 </script>
 
 <style scoped>
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: var(--z-modal);
-}
-
-.modal-content {
-    background: var(--color-bg-secondary);
-    border-radius: var(--radius-10);
-    padding: var(--space-lg);
-    max-width: 500px;
-    max-height: 80vh;
-    overflow-y: auto;
-    box-shadow: var(--shadow-lg);
-}
-
-.modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: var(--space-md);
-}
-
-.modal-header h3 {
-    margin: 0;
-    color: var(--color-text-primary);
-    font-size: var(--font-size-18);
-}
-
-.close-button {
-    background: none;
-    border: none;
-    font-size: var(--font-size-24);
-    color: var(--color-gray-medium);
-    cursor: pointer;
-    padding: 0;
-    width: 30px;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: var(--radius-5);
-    transition: color var(--duration-fast) ease, background-color var(--duration-fast) ease;
-}
-
-.close-button:hover {
-    color: var(--color-text-primary);
-    background-color: var(--color-gray-dark);
-}
-
 .modal-dice-display {
     display: flex;
     flex-wrap: wrap;
@@ -115,14 +54,12 @@ const emit = defineEmits(['close'])
     color: var(--color-accent-gold);
     text-shadow: var(--glow-gold-sm);
     animation: none;
-    /* Override animation for modal */
 }
 
 .modal-dice-symbol.dropped-die {
     color: var(--color-gray-medium);
     opacity: 0.7;
     animation: none;
-    /* Override animation for modal */
 }
 
 .modal-dice-symbol.dropped-die::after {
@@ -137,7 +74,6 @@ const emit = defineEmits(['close'])
     pointer-events: none;
     z-index: 1;
     opacity: 1;
-    /* No animation in modal */
 }
 
 .dice-emoji {

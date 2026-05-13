@@ -46,7 +46,8 @@
             v-model:groupBy="groupByOption" v-model:orderBy="sortOption" :tag-groups="equipmentTagGroups"
             :tag-picker-mode="'cascade'" :multiselect="true" :group-options="groupByOptions"
             :order-options="sortOptions" :show-add-button="isAdmin" search-placeholder="Search equipment..."
-            :tag-search-placeholder="'Filter by tags...'" :stats="stats" @add="createEquipment">
+            :tag-search-placeholder="'Filter by tags...'" :stats="stats" :hide-to-top-button="showEditEquipmentModal"
+            @add="createEquipment">
             <template #additional-filters>
                 <div v-if="isAdmin" class="top-row-actions">
                     <label class="template-toggle">
@@ -521,6 +522,7 @@ const layoutProps = computed(() => ({
     tagPickerMode: 'cascade',
     tagMultiselect: true,
     tagSearchPlaceholder: 'Filter by tags...',
+    hideToTopButton: showEditEquipmentModal.value,
 }))
 </script>
 

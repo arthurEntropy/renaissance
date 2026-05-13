@@ -18,14 +18,14 @@
 }
 
 .campaign-badge-wrapper {
-  position: absolute;
+  position: fixed;
   left: var(--space-xl);
   top: 0;
-  bottom: 0;
+  height: var(--nav-height);
   display: flex;
   align-items: center;
   width: min(22vw, 200px);
-  z-index: var(--z-overlay);
+  z-index: var(--z-badge);
 }
 
 .top-nav-content {
@@ -147,6 +147,10 @@
 }
 
 @media (max-width: 1023px) {
+  .campaign-badge-wrapper {
+    display: none;
+  }
+
   .top-nav {
     display: none;
     /* Hide top nav on mobile */

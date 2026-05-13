@@ -1,13 +1,11 @@
 {
   "id": "84f573e7-a7a4-4cfb-9fb9-a1205db29c15",
   "url": "https://cdn.midjourney.com/dc45dbf6-d973-4cbd-913c-73ec95c47d01/0_2.jpeg",
-  "tags": {
-    "type": "places",
-    "sources": [
-      "61e2ce55-1954-4e8e-b1b3-b249ae915fa7"
-    ]
-  },
   "isDeleted": false,
   "createdAt": "2025-11-09T11:43:02.858Z",
-  "lastModified": "2025-11-09T11:43:02.858Z"
+  "lastModified": "2025-11-09T11:43:02.858Z",
+  "type": "places",
+  "sources": [
+    "61e2ce55-1954-4e8e-b1b3-b249ae915fa7"
+  ]
 }

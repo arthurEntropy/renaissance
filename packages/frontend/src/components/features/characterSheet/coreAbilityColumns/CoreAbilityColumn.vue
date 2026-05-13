@@ -21,19 +21,17 @@
       :second-state="secondStateValue" :can-edit="canEdit" :show-auto-calc-button="showStatesAutoCalcButton"
       :is-auto-calc="isStatesAuto" @update="updateState" @toggle-auto-calc="handleToggleStatesAutoCalc" />
 
-    <SkillCheckModal v-if="skillCheckModal.isOpen.value && character" :character="character"
-      :selectedSkillKey="selectedSkillKey" :defaultDifficulty="rollsStore.lastDifficulty"
-      @close="skillCheckModal.closeModal" @update-difficulty="rollsStore.setLastDifficulty"
-      @start-opposed-skill-check="handleStartOpposedSkillCheck" />
+    <SkillCheckModal v-if="skillCheckModalOpen && character" :character="character" :selectedSkillKey="selectedSkillKey"
+      :defaultDifficulty="rollsStore.lastDifficulty" @close="skillCheckModalOpen = false"
+      @update-difficulty="rollsStore.setLastDifficulty" @start-opposed-skill-check="handleStartOpposedSkillCheck" />
 
-    <OpposedSkillCheckModal v-if="opposedSkillCheckModal.isOpen.value && character" :character="character"
-      :initial-session-config="opposedSessionConfig" @close="opposedSkillCheckModal.closeModal" />
+    <OpposedSkillCheckModal v-if="opposedSkillCheckModalOpen && character" :character="character"
+      :initial-session-config="opposedSessionConfig" @close="opposedSkillCheckModalOpen = false" />
   </CharacterSheetSection>
 </template>
 
 <script setup>
 import { computed, ref, watch } from 'vue'
-import { useModal } from '@/composables/useModal'
 import { useColumnConfig } from '@/composables/useColumnConfig'
 import { useRollsStore } from '@/stores/rollsStore'
 import { useCharactersStore } from '@/stores/charactersStore'
@@ -229,20 +227,20 @@ const handleFavoredStatusUpdate = (skillKey, { isFavored, isIllFavored }) => {
   skill.isIllFavored = isIllFavored
 }
 
-const skillCheckModal = useModal()
-const opposedSkillCheckModal = useModal()
+const skillCheckModalOpen = ref(false)
+const opposedSkillCheckModalOpen = ref(false)
 const selectedSkillKey = ref('')
 const opposedSessionConfig = ref(null)
 
 const openSkillCheckModal = (skillKey) => {
   selectedSkillKey.value = skillKey
-  skillCheckModal.openModal()
+  skillCheckModalOpen.value = true
 }
 
 const handleStartOpposedSkillCheck = (config) => {
-  skillCheckModal.closeModal()
+  skillCheckModalOpen.value = false
   opposedSessionConfig.value = config
-  opposedSkillCheckModal.openModal()
+  opposedSkillCheckModalOpen.value = true
 }
 </script>
 

@@ -269,9 +269,9 @@ const toolbarGroups = computed(() => [
 .rich-editor-toolbar {
     display: flex;
     flex-wrap: wrap;
-    border-bottom: 1px solid var(--color-gray-medium);
+    border-bottom: 1px solid var(--overlay-white-medium);
     gap: var(--space-xs);
-    background: var(--color-gray-dark);
+    background: var(--overlay-white-medium);
     position: sticky;
     top: 0;
     z-index: var(--z-interactive);

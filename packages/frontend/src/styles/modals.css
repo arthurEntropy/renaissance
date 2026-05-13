@@ -15,9 +15,10 @@
 
 .modal-content {
   position: relative;
-  background: var(--color-bg-primary);
+  background: var(--color-bg-secondary);
   padding: var(--space-xl);
-  border-radius: var(--radius-10);
+  border-radius: var(--radius-15);
+  border: 1px solid var(--overlay-white-medium);
   box-shadow: var(--shadow-sm);
   text-align: center;
   max-height: 90vh;
@@ -33,14 +34,27 @@
 
 .modal-input {
   width: 90%;
-  padding: var(--space-sm);
-  margin: var(--space-md) 0;
-  border: 1px solid var(--color-border-primary);
+  padding: var(--space-sm) var(--space-md);
+  border: 1px solid var(--overlay-white-medium);
   border-radius: var(--radius-5);
   margin-right: var(--space-md);
   flex: 1;
-  background: var(--color-bg-secondary);
+  background: var(--color-bg-primary);
   color: var(--color-text-primary);
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-14);
+  line-height: var(--line-height-normal);
+  box-sizing: border-box;
+  transition: border-color var(--transition-fast), color var(--transition-fast);
+}
+
+.modal-input::placeholder {
+  color: var(--color-text-muted);
+}
+
+.modal-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
 }
 
 .modal-input.small-input {
@@ -50,42 +64,6 @@
 textarea.modal-input {
   resize: vertical;
   min-height: 150px;
-}
-
-/* Form groups */
-.form-group {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: var(--space-lg);
-  margin-left: var(--space-lg);
-}
-
-.form-group.vertical {
-  flex-direction: column;
-  align-items: flex-start;
-  text-align: left;
-  margin-bottom: var(--space-xl);
-}
-
-.form-group.centered {
-  justify-content: center;
-  text-align: center;
-}
-
-.form-group.row {
-  display: flex;
-  justify-content: space-between;
-  gap: var(--space-md);
-}
-
-/* Text alignment */
-.left-aligned {
-  text-align: left;
-}
-
-.centered {
-  text-align: center;
 }
 
 /* Form buttons */
@@ -99,4 +77,36 @@ textarea.modal-input {
 /* Button customization specific to modals */
 .form-buttons .button {
   flex: 1;
+}
+
+/* Shared close button — used across all modals */
+.close-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-xs);
+  border-radius: var(--radius-5);
+  transition: color var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.close-button:hover {
+  color: var(--color-text-primary);
+}
+
+.close-button .close-icon {
+  width: 24px;
+  height: 24px;
+}
+
+/* Modal header row — title + close button side by side */
+.modal-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-xl);
 }

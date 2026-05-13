@@ -103,8 +103,6 @@ watch(() => concept.value?.description, (newDesc) => {
 }
 
 .editable-description {
-    background: var(--color-bg-secondary);
-    border-radius: var(--radius-10);
     padding: var(--space-md);
 }
 </style>

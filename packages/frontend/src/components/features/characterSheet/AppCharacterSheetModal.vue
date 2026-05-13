@@ -1,22 +1,29 @@
 <template>
-    <Teleport to="body">
-        <div v-if="isOpen" class="sheet-overlay" @click.self="close">
-            <FloatingActionButton class="sheet-close" :variant="FAB_TYPES.DELETE" :size="FAB_SIZES.LARGE"
-                :visibility="FAB_VISIBILITIES.ALWAYS" @click="close" />
-            <div class="sheet-container">
-                <CharacterSheet @close="close" />
-            </div>
+    <div v-if="isOpen" class="sheet-overlay" @click.self="close">
+        <FloatingActionButton class="sheet-close" :variant="FAB_TYPES.DELETE" :size="FAB_SIZES.LARGE"
+            :visibility="FAB_VISIBILITIES.ALWAYS" @click="close" />
+        <div class="sheet-container">
+            <CharacterSheet @close="close" />
         </div>
-    </Teleport>
+    </div>
 </template>
 
 <script setup>
+import { onMounted, onBeforeUnmount } from 'vue'
 import { useAppCharacterSheetModal } from '@/composables/useAppCharacterSheetModal'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import CharacterSheet from '@/components/features/characterSheet/CharacterSheet.vue'
 import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 
 const { isOpen, close } = useAppCharacterSheetModal()
+
+const handleEscape = (e) => {
+    if (!isOpen.value) return
+    if (e.key === 'Escape') close()
+}
+
+onMounted(() => window.addEventListener('keydown', handleEscape))
+onBeforeUnmount(() => window.removeEventListener('keydown', handleEscape))
 </script>
 
 <style scoped>

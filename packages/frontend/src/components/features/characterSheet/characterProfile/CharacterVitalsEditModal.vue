@@ -1,290 +1,222 @@
 <template>
-    <div class="modal-overlay" @click="handleOverlayClick">
-        <div class="modal-content" @click.stop>
+    <BaseModal title="Character Profile" @close="closeModal">
 
-            <!-- Scrollable Form Content -->
-            <div class="modal-body">
-                <h2 class="profile-title">Character Profile</h2>
+        <!-- Scrollable Form Content -->
+        <header class="modal-header-row">
+        </header>
+        <form @submit.prevent="saveChanges">
 
-                <form @submit.prevent="saveChanges">
-
-                    <!-- Name and Pronouns -->
-                    <div class="form-group row">
-                        <div class="form-column name-input">
-                            <label for="name" class="left-aligned">Name:</label>
-                            <input type="text" v-model="formData.name" id="name" class="modal-input"
-                                placeholder="Character name" />
-                        </div>
-                        <div v-if="!isBeastCharacter" class="form-column pronouns-input">
-                            <label for="pronouns" class="left-aligned">Pronouns:</label>
-                            <input type="text" v-model="formData.pronouns" id="pronouns" class="modal-input"
-                                placeholder="they/them" />
-                        </div>
-                    </div>
-
-                    <!-- Ancestries -->
-                    <template v-if="!isBeastCharacter">
-                        <div class="form-group row">
-                            <div class="form-column">
-                                <label for="ancestry1" class="left-aligned">Ancestries:</label>
-                                <select v-model="formData.ancestryIds[0]" id="ancestry1" class="modal-input">
-                                    <option value="">Select ancestry...</option>
-                                    <option v-for="ancestry in conceptsStore.ancestries" :key="ancestry.id"
-                                        :value="ancestry.id">
-                                        {{ ancestry.name }}
-                                    </option>
-                                </select>
-                            </div>
-                            <div class="form-column">
-                                <label for="ancestry2" class="left-aligned invisible-label">&nbsp;</label>
-                                <select v-model="formData.ancestryIds[1]" id="ancestry2" class="modal-input">
-                                    <option value="">Select ancestry...</option>
-                                    <option v-for="ancestry in conceptsStore.ancestries" :key="ancestry.id"
-                                        :value="ancestry.id">
-                                        {{ ancestry.name }}
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <!-- Cultures -->
-                        <div class="form-group row">
-                            <div class="form-column">
-                                <label for="culture1" class="left-aligned">Cultures:</label>
-                                <select v-model="formData.cultureIds[0]" id="culture1" class="modal-input">
-                                    <option value="">Select culture...</option>
-                                    <option v-for="culture in conceptsStore.cultures" :key="culture.id"
-                                        :value="culture.id">
-                                        {{ culture.name }}
-                                    </option>
-                                </select>
-                            </div>
-                            <div class="form-column">
-                                <label for="culture2" class="left-aligned invisible-label">&nbsp;</label>
-                                <select v-model="formData.cultureIds[1]" id="culture2" class="modal-input">
-                                    <option value="">Select culture...</option>
-                                    <option v-for="culture in conceptsStore.cultures" :key="culture.id"
-                                        :value="culture.id">
-                                        {{ culture.name }}
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <!-- Mestiere -->
-                        <div class="form-group row">
-                            <div class="form-column">
-                                <label for="mestiere" class="left-aligned">Mestiere:</label>
-                                <select v-model="formData.mestiereId" id="mestiere" class="modal-input">
-                                    <option value="">Select mestiere...</option>
-                                    <option v-for="mestiere in conceptsStore.mestieri" :key="mestiere.id"
-                                        :value="mestiere.id">
-                                        {{ mestiere.name }}
-                                    </option>
-                                </select>
-                            </div>
-                            <div class="form-column">
-                                <label class="left-aligned invisible-label">&nbsp;</label>
-                                <div class="modal-input-placeholder"></div>
-                            </div>
-                        </div>
-
-                        <!-- Physical Stats -->
-                        <div class="form-group row">
-                            <div class="form-column">
-                                <label for="age" class="left-aligned">Age:</label>
-                                <input id="age" type="number" min="0" v-model.number="formData.age" class="modal-input"
-                                    placeholder="0" />
-                            </div>
-                            <div class="form-column">
-                                <label for="heightFeet" class="left-aligned">Height (ft):</label>
-                                <input id="heightFeet" type="number" min="0" v-model.number="formData.heightFeet"
-                                    class="modal-input" placeholder="0" />
-                            </div>
-                            <div class="form-column">
-                                <label for="heightInches" class="left-aligned">Height (in):</label>
-                                <input id="heightInches" type="number" min="0" max="11"
-                                    v-model.number="formData.heightInches" class="modal-input" placeholder="0" />
-                            </div>
-                            <div class="form-column">
-                                <label for="weight" class="left-aligned">Weight (lbs):</label>
-                                <input id="weight" type="number" min="0" v-model.number="formData.weight"
-                                    class="modal-input" placeholder="0" />
-                            </div>
-                        </div>
-
-                        <!-- Randomize Vitals -->
-                        <div class="form-group randomize-row">
-                            <div class="randomize-wrapper">
-                                <ActionButton variant="outline" size="small" text="Randomize Vitals"
-                                    :disabled="!hasSelectedAncestry"
-                                    :title="hasSelectedAncestry ? '' : 'Select an ancestry first'"
-                                    @click="randomizeVitals" />
-                                <span class="randomize-note">Based on selected ancestry</span>
-                            </div>
-                        </div>
-                    </template>
-
-                    <!-- Beast Fields -->
-                    <template v-else>
-                        <!-- Description -->
-                        <div class="form-column">
-                            <label for="description" class="left-aligned">Description:</label>
-                            <textarea id="description" v-model="formData.description"
-                                class="modal-input beast-text-input" placeholder="Describe the beast..." />
-                        </div>
-
-                        <!-- Size & Reach -->
-                        <div class="form-group beast-number-row">
-                            <div class="beast-number-field">
-                                <label for="size" class="left-aligned">Size:</label>
-                                <input id="size" type="number" min="0" v-model.number="formData.size"
-                                    class="modal-input beast-number-input" placeholder="0" />
-                            </div>
-                            <div class="beast-number-field">
-                                <label for="reach" class="left-aligned">Reach (ft):</label>
-                                <input id="reach" type="number" min="0" v-model.number="formData.reach"
-                                    class="modal-input beast-number-input" placeholder="0" />
-                            </div>
-                        </div>
-                    </template>
-
-                </form>
-
-                <!-- Settings Section -->
-                <div class="settings-section">
-                    <div class="settings-divider"></div>
-
-                    <div v-if="!showDeleteConfirmation" class="settings-content">
-                        <h3 class="settings-title">Character Settings</h3>
-
-                        <!-- PC → NPC conversion -->
-                        <template v-if="showConvertToNPCButton">
-                            <div v-if="!showNPCCampaignDropdown">
-                                <ActionButton variant="outline" size="small" text="Convert to NPC"
-                                    @click="initiateConvertToNPC" />
-                            </div>
-                            <div v-else class="convert-section">
-                                <p class="convert-label">Assign to campaign:</p>
-                                <select v-model="convertToCampaignId" class="modal-input convert-campaign-select">
-                                    <option value="">Select campaign...</option>
-                                    <option v-for="camp in gmCampaigns" :key="camp.id" :value="camp.id">
-                                        {{ camp.name }}
-                                    </option>
-                                </select>
-                                <p class="convert-hint">Character will become an NPC in this campaign after saving.</p>
-                                <ActionButton variant="neutral" size="small" text="Cancel"
-                                    @click="cancelConvertToNPC" />
-                            </div>
-                        </template>
-
-                        <!-- NPC → PC conversion -->
-                        <template v-if="showConvertToPCButton">
-                            <div v-if="!pendingConvertToPC">
-                                <ActionButton variant="outline" size="small" text="Convert to Player Character"
-                                    @click="initiateConvertToPC" />
-                            </div>
-                            <div v-else class="convert-section">
-                                <p class="convert-hint">This character will become a Player Character after saving.</p>
-                                <ActionButton variant="neutral" size="small" text="Cancel" @click="cancelConvertToPC" />
-                            </div>
-                        </template>
-
-                        <!-- Transfer Ownership -->
-                        <template v-if="showTransferOwnershipButton">
-                            <div v-if="!showTransferOwnership">
-                                <ActionButton variant="outline" size="small" text="Transfer Ownership"
-                                    @click="initiateTransfer" />
-                            </div>
-                            <div v-else class="transfer-section">
-                                <p class="transfer-label">Transfer to another user:</p>
-
-                                <div v-if="campaignMembers.length > 0" class="transfer-members">
-                                    <p class="transfer-hint">Campaign members:</p>
-                                    <button v-for="member in campaignMembers" :key="member.id" type="button"
-                                        class="transfer-member-btn"
-                                        :class="{ 'transfer-member-btn--selected': selectedTransferTarget?.id === member.id }"
-                                        @click="selectTransferTarget(member)">
-                                        {{ member.name }}
-                                    </button>
-                                </div>
-
-                                <input v-model="transferSearch" class="modal-input" type="text"
-                                    placeholder="Search by username…" />
-                                <div v-if="transferSearchResults.length > 0" class="transfer-results">
-                                    <button v-for="user in transferSearchResults" :key="user.id" type="button"
-                                        class="transfer-member-btn"
-                                        :class="{ 'transfer-member-btn--selected': selectedTransferTarget?.id === user.id }"
-                                        @click="selectTransferTarget(user)">
-                                        {{ user.name }}
-                                    </button>
-                                </div>
-                                <p v-else-if="transferSearch.length >= 2 && !transferSearchLoading"
-                                    class="transfer-empty">No users found.</p>
-
-                                <template v-if="selectedTransferTarget">
-                                    <p class="transfer-confirm-text">Transfer
-                                        <strong>{{ character.name }}</strong> to
-                                        <strong>{{ selectedTransferTarget.name }}</strong>?
-                                    </p>
-                                    <p class="transfer-warn">You will lose access to this character.</p>
-                                </template>
-
-                                <p v-if="transferError" class="transfer-error">{{ transferError }}</p>
-
-                                <div class="transfer-actions">
-                                    <ActionButton v-if="selectedTransferTarget" variant="danger" size="small"
-                                        text="Transfer" :disabled="transferring" @click="confirmTransfer" />
-                                    <ActionButton variant="neutral" size="small" text="Cancel"
-                                        @click="cancelTransfer" />
-                                </div>
-                            </div>
-                        </template>
-
-                        <ActionButton variant="danger" size="small" text="Delete Character" @click="initiateDelete" />
-                    </div>
-
-                    <div v-else class="delete-confirmation">
-                        <h3 class="confirmation-title">Confirm Deletion</h3>
-                        <p class="confirmation-text">
-                            Type <strong>{{ character.name }}</strong> to confirm deletion:
-                        </p>
-                        <input v-model="confirmationInput" type="text" class="modal-input confirmation-input"
-                            placeholder="Type character name to confirm" @keyup.enter="confirmDeletion" />
-                        <div class="confirmation-actions">
-                            <ActionButton variant="neutral" size="small" text="Cancel" @click="cancelDelete" />
-                            <ActionButton variant="danger" size="small" text="DELETE" :disabled="!isDeleteConfirmed"
-                                @click="confirmDeletion" />
-                        </div>
-                    </div>
+            <!-- Name and Pronouns -->
+            <div class="form-group row">
+                <div class="form-column name-input">
+                    <label for="name" class="left-aligned">Name:</label>
+                    <input type="text" v-model="formData.name" id="name" class="modal-input"
+                        placeholder="Character name" />
                 </div>
-
-                <CharacterRollStats v-if="!isBeastCharacter" @reset-stats="resetStats" />
-            </div>
-
-            <!-- Sticky Action Buttons -->
-            <div class="modal-footer">
-                <div class="form-buttons">
-                    <ActionButton variant="success" size="small" text="Save" @click="saveChanges" />
-                    <ActionButton variant="neutral" size="small" text="Cancel" @click="closeModal" />
+                <div v-if="!isBeastCharacter" class="form-column pronouns-input">
+                    <label for="pronouns" class="left-aligned">Pronouns:</label>
+                    <input type="text" v-model="formData.pronouns" id="pronouns" class="modal-input"
+                        placeholder="they/them" />
                 </div>
             </div>
 
+            <!-- Ancestries -->
+            <template v-if="!isBeastCharacter">
+                <div class="form-group row">
+                    <div class="form-column">
+                        <label for="ancestry1" class="left-aligned">Ancestries:</label>
+                        <select :value="formData.ancestryIds[0]" @change="onAncestry0Change" id="ancestry1"
+                            class="modal-input">
+                            <option value="">Select ancestry...</option>
+                            <option v-for="ancestry in conceptsStore.ancestries" :key="ancestry.id"
+                                :value="ancestry.id">
+                                {{ ancestry.name }}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="form-column">
+                        <label for="ancestry2" class="left-aligned invisible-label">&nbsp;</label>
+                        <select v-model="formData.ancestryIds[1]" id="ancestry2" class="modal-input"
+                            :disabled="!formData.ancestryIds[0]">
+                            <option value="">Select ancestry...</option>
+                            <option v-for="ancestry in conceptsStore.ancestries" :key="ancestry.id"
+                                :value="ancestry.id">
+                                {{ ancestry.name }}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Cultures -->
+                <div class="form-group row">
+                    <div class="form-column">
+                        <label for="culture1" class="left-aligned">Cultures:</label>
+                        <select :value="formData.cultureIds[0]" @change="onCulture0Change" id="culture1"
+                            class="modal-input">
+                            <option value="">Select culture...</option>
+                            <option v-for="culture in conceptsStore.cultures" :key="culture.id" :value="culture.id">
+                                {{ culture.name }}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="form-column">
+                        <label for="culture2" class="left-aligned invisible-label">&nbsp;</label>
+                        <select v-model="formData.cultureIds[1]" id="culture2" class="modal-input"
+                            :disabled="!formData.cultureIds[0]">
+                            <option value="">Select culture...</option>
+                            <option v-for="culture in conceptsStore.cultures" :key="culture.id" :value="culture.id">
+                                {{ culture.name }}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Mestiere -->
+                <div class="form-group row">
+                    <div class="form-column">
+                        <label for="mestiere" class="left-aligned">Mestiere:</label>
+                        <select v-model="formData.mestiereId" id="mestiere" class="modal-input">
+                            <option value="">Select mestiere...</option>
+                            <option v-for="mestiere in conceptsStore.mestieri" :key="mestiere.id" :value="mestiere.id">
+                                {{ mestiere.name }}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="form-column">
+                        <label class="left-aligned invisible-label">&nbsp;</label>
+                        <div class="modal-input-placeholder"></div>
+                    </div>
+                </div>
+
+                <!-- Physical Stats -->
+                <div class="form-group row">
+                    <div class="form-column">
+                        <label for="age" class="left-aligned">Age:</label>
+                        <input id="age" type="number" min="0" v-model.number="formData.age" class="modal-input"
+                            placeholder="0" />
+                    </div>
+                    <div class="form-column">
+                        <label for="heightFeet" class="left-aligned">Height (ft):</label>
+                        <input id="heightFeet" type="number" min="0" v-model.number="formData.heightFeet"
+                            class="modal-input" placeholder="0" />
+                    </div>
+                    <div class="form-column">
+                        <label for="heightInches" class="left-aligned">Height (in):</label>
+                        <input id="heightInches" type="number" min="0" max="11" v-model.number="formData.heightInches"
+                            class="modal-input" placeholder="0" />
+                    </div>
+                    <div class="form-column">
+                        <label for="weight" class="left-aligned">Weight (lbs):</label>
+                        <input id="weight" type="number" min="0" v-model.number="formData.weight" class="modal-input"
+                            placeholder="0" />
+                    </div>
+                </div>
+
+                <!-- Randomize Vitals -->
+                <div class="form-group randomize-row">
+                    <div class="randomize-wrapper">
+                        <ActionButton variant="outline" size="small" text="Randomize Vitals"
+                            :disabled="!hasSelectedAncestry"
+                            :title="hasSelectedAncestry ? '' : 'Select an ancestry first'" @click="randomizeVitals" />
+                        <span class="randomize-note">Based on selected ancestry</span>
+                    </div>
+                </div>
+            </template>
+
+            <!-- Beast Fields -->
+            <template v-else>
+                <!-- Description -->
+                <div class="form-column">
+                    <label for="description" class="left-aligned">Description:</label>
+                    <textarea id="description" v-model="formData.description" class="modal-input beast-text-input"
+                        placeholder="Describe the beast..." />
+                </div>
+
+                <!-- Size & Reach -->
+                <div class="form-group beast-number-row">
+                    <div class="beast-number-field">
+                        <label for="size" class="left-aligned">Size:</label>
+                        <input id="size" type="number" min="0" v-model.number="formData.size"
+                            class="modal-input beast-number-input" placeholder="0" />
+                    </div>
+                    <div class="beast-number-field">
+                        <label for="reach" class="left-aligned">Reach (ft):</label>
+                        <input id="reach" type="number" min="0" v-model.number="formData.reach"
+                            class="modal-input beast-number-input" placeholder="0" />
+                    </div>
+                </div>
+            </template>
+
+        </form>
+
+        <CharacterRollStats v-if="!isBeastCharacter" @reset-stats="resetStats" />
+
+        <!-- Settings Section -->
+        <div class="settings-section">
+            <div class="settings-divider"></div>
+
+            <div class="settings-content">
+                <!-- PC → NPC conversion -->
+                <template v-if="showConvertToNPCButton">
+                    <div v-if="pendingConvertToNPCCampaignId" class="pending-conversion">
+                        <span class="pending-label">Converting to NPC</span>
+                        <ActionButton variant="neutral" size="small" text="Cancel"
+                            @click="pendingConvertToNPCCampaignId = ''" />
+                    </div>
+                    <ActionButton v-else variant="outline" size="small" text="Convert to NPC"
+                        @click="showConvertToNpcModal = true" />
+                </template>
+
+                <!-- NPC → PC conversion -->
+                <template v-if="showConvertToPCButton">
+                    <div v-if="pendingConvertToPC" class="pending-conversion">
+                        <span class="pending-label">Converting to Player Character</span>
+                        <ActionButton variant="neutral" size="small" text="Cancel"
+                            @click="pendingConvertToPC = false" />
+                    </div>
+                    <ActionButton v-else variant="outline" size="small" text="Convert to Player Character"
+                        @click="showConvertToPcModal = true" />
+                </template>
+
+                <!-- Transfer Ownership -->
+                <ActionButton v-if="showTransferOwnershipButton" variant="outline" size="small"
+                    text="Transfer Ownership" @click="showTransferModal = true" />
+
+                <!-- Delete -->
+                <ActionButton variant="danger" size="small" text="Delete Character" @click="showDeleteModal = true" />
+            </div>
         </div>
-    </div>
+
+        <template #actions>
+            <ActionButton variant="neutral" size="large" text="Cancel" @click="closeModal" />
+            <ActionButton variant="primary" size="large" text="Save" @click="saveChanges" />
+        </template>
+    </BaseModal>
+
+    <!-- Settings action modals -->
+    <ConvertToNpcModal v-if="showConvertToNpcModal" :gmCampaigns="gmCampaigns" @close="showConvertToNpcModal = false"
+        @confirm="onConvertToNpcConfirm" />
+    <ConvertToPcModal v-if="showConvertToPcModal" @close="showConvertToPcModal = false"
+        @confirm="onConvertToPcConfirm" />
+    <TransferOwnershipModal v-if="showTransferModal" :character="character" @close="showTransferModal = false" />
+    <DeleteCharacterModal v-if="showDeleteModal" :character="character" @close="showDeleteModal = false"
+        @deleted="closeModal" />
 </template>
 
 <script setup>
-import { ref, computed, onMounted, watch } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useCharactersStore } from '@/stores/charactersStore'
 import { useConceptsStore } from '@/stores/conceptsStore'
 import { useCampaignStore } from '@/stores/campaignStore'
 import { useAuthStore } from '@/stores/authStore'
-import { useAppCharacterSheetModal } from '@/composables/useAppCharacterSheetModal'
-import UserService from '@/services/entities/userService'
 import { createEmptyRollStats } from '@/services/rolls/rollStatsService'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
+import BaseModal from '@/components/ui/modals/BaseModal.vue'
 import CharacterRollStats from './CharacterRollStats.vue'
+import ConvertToNpcModal from './ConvertToNpcModal.vue'
+import ConvertToPcModal from './ConvertToPcModal.vue'
+import TransferOwnershipModal from './TransferOwnershipModal.vue'
+import DeleteCharacterModal from './DeleteCharacterModal.vue'
 import { isBeastTemplate, isBeastInstance, isPlayerCharacter, isNPC } from '@/utils/characterTypeGuards'
 import { CAMPAIGN_ROLE, CAMPAIGN_MEMBER_STATUS } from '@shared/constants/campaignConstants'
 
@@ -292,8 +224,6 @@ const charactersStore = useCharactersStore()
 const conceptsStore = useConceptsStore()
 const campaignStore = useCampaignStore()
 const authStore = useAuthStore()
-const { close: closeCharacterSheet } = useAppCharacterSheetModal()
-
 const emit = defineEmits(['close'])
 
 const character = charactersStore.selectedCharacter
@@ -320,118 +250,28 @@ const gmCampaigns = computed(() => {
 const showConvertToNPCButton = computed(() => isPlayerChar.value && gmCampaigns.value.length > 0)
 const showConvertToPCButton = computed(() => isNPCChar.value)
 
-// Type conversion state
-const showNPCCampaignDropdown = ref(false)
-const convertToCampaignId = ref('')
+// Modal visibility
+const showConvertToNpcModal = ref(false)
+const showConvertToPcModal = ref(false)
+const showTransferModal = ref(false)
+const showDeleteModal = ref(false)
+
+// Type conversion pending state (applied on save)
+const pendingConvertToNPCCampaignId = ref('')
 const pendingConvertToPC = ref(false)
 
-const initiateConvertToNPC = () => {
-    showNPCCampaignDropdown.value = true
-    pendingConvertToPC.value = false
+const onConvertToNpcConfirm = (campaignId) => {
+    pendingConvertToNPCCampaignId.value = campaignId
+    showConvertToNpcModal.value = false
 }
 
-const cancelConvertToNPC = () => {
-    showNPCCampaignDropdown.value = false
-    convertToCampaignId.value = ''
-}
-
-const initiateConvertToPC = () => {
+const onConvertToPcConfirm = () => {
     pendingConvertToPC.value = true
-    showNPCCampaignDropdown.value = false
+    showConvertToPcModal.value = false
 }
 
-const cancelConvertToPC = () => {
-    pendingConvertToPC.value = false
-}
-
-// Transfer Ownership state
+// Transfer Ownership
 const showTransferOwnershipButton = computed(() => isPlayerChar.value)
-const showTransferOwnership = ref(false)
-const campaignMembers = ref([])
-const transferSearch = ref('')
-const transferSearchResults = ref([])
-const transferSearchLoading = ref(false)
-const selectedTransferTarget = ref(null)
-const transferring = ref(false)
-const transferError = ref(null)
-let transferSearchToken = 0
-
-const initiateTransfer = async () => {
-    showTransferOwnership.value = true
-    selectedTransferTarget.value = null
-    transferSearch.value = ''
-    transferSearchResults.value = []
-    transferError.value = null
-    campaignMembers.value = []
-
-    // Pre-populate with accepted members from the active campaign (excluding self)
-    const uid = authStore.user?.uid
-    const activeCampaign = campaignStore.activeCampaign
-    if (activeCampaign?.members) {
-        const otherMemberIds = activeCampaign.members
-            .filter((m) => m.userId !== uid && m.status === CAMPAIGN_MEMBER_STATUS.ACCEPTED)
-            .map((m) => m.userId)
-        if (otherMemberIds.length > 0) {
-            try {
-                campaignMembers.value = await UserService.getPublicUsersByIds(otherMemberIds)
-            } catch {
-                campaignMembers.value = []
-            }
-        }
-    }
-}
-
-const cancelTransfer = () => {
-    showTransferOwnership.value = false
-    selectedTransferTarget.value = null
-    transferSearch.value = ''
-    transferSearchResults.value = []
-    transferError.value = null
-}
-
-const selectTransferTarget = (user) => {
-    selectedTransferTarget.value = user
-    transferSearch.value = ''
-    transferSearchResults.value = []
-}
-
-const confirmTransfer = async () => {
-    if (!selectedTransferTarget.value || !character) return
-    transferring.value = true
-    transferError.value = null
-    try {
-        await charactersStore.transferOwnership(character.id, selectedTransferTarget.value.id)
-        closeCharacterSheet()
-    } catch (err) {
-        transferError.value = err?.response?.data?.error || err.message || 'Transfer failed.'
-    } finally {
-        transferring.value = false
-    }
-}
-
-watch(transferSearch, async (value) => {
-    const token = ++transferSearchToken
-    if (value.trim().length < 2) {
-        transferSearchResults.value = []
-        return
-    }
-    transferSearchLoading.value = true
-    try {
-        const users = await UserService.searchUsers(value.trim())
-        if (token !== transferSearchToken) return
-        const uid = authStore.user?.uid
-        const campaignMemberIds = new Set(campaignMembers.value.map((m) => m.id))
-        transferSearchResults.value = users.filter(
-            (u) => u.id !== uid && !campaignMemberIds.has(u.id)
-        )
-    } catch {
-        if (token !== transferSearchToken) return
-        transferSearchResults.value = []
-    } finally {
-        if (token === transferSearchToken) transferSearchLoading.value = false
-    }
-})
-
 
 const formData = ref({
     name: '',
@@ -448,13 +288,28 @@ const formData = ref({
     reach: 0,
 })
 
-// Delete confirmation state
-const showDeleteConfirmation = ref(false)
-const confirmationInput = ref('')
+// Shift-aware change handlers for the first ancestry/culture slots.
+// Using :value + @change instead of v-model avoids a conflict between
+// vModelSelect's internal state and the programmatic array mutation.
+const onAncestry0Change = (e) => {
+    const val = e.target.value
+    if (!val && formData.value.ancestryIds[1]) {
+        formData.value.ancestryIds[0] = formData.value.ancestryIds[1]
+        formData.value.ancestryIds[1] = ''
+    } else {
+        formData.value.ancestryIds[0] = val
+    }
+}
 
-const isDeleteConfirmed = computed(() => {
-    return confirmationInput.value === character.name
-})
+const onCulture0Change = (e) => {
+    const val = e.target.value
+    if (!val && formData.value.cultureIds[1]) {
+        formData.value.cultureIds[0] = formData.value.cultureIds[1]
+        formData.value.cultureIds[1] = ''
+    } else {
+        formData.value.cultureIds[0] = val
+    }
+}
 
 const initialFormDataSnapshot = ref(null)
 
@@ -525,16 +380,16 @@ const saveChanges = () => {
                     }
                 }
             }
-        } else if (showNPCCampaignDropdown.value && convertToCampaignId.value && isPlayerChar.value) {
+        } else if (pendingConvertToNPCCampaignId.value && isPlayerChar.value) {
             character.characterType = 'npc'
-            character.campaignId = convertToCampaignId.value
+            character.campaignId = pendingConvertToNPCCampaignId.value
         }
     }
     closeModal()
 }
 
 const resetStats = () => {
-    const shouldReset = confirm('Reset all tracked character roll stats?')
+    const shouldReset = confirm('Reset all tracked character stats?')
     if (!shouldReset) return
 
     character.rollStats = createEmptyRollStats()
@@ -612,31 +467,11 @@ const randomizeVitals = () => {
     }
 }
 
-// Delete functionality
-const initiateDelete = () => {
-    showDeleteConfirmation.value = true
-}
-
-const cancelDelete = () => {
-    showDeleteConfirmation.value = false
-    confirmationInput.value = ''
-}
-
-const confirmDeletion = async () => {
-    if (!isDeleteConfirmed.value || !character) return
-
-    await charactersStore.deleteCharacter(character._id)
-    closeModal()
-}
 </script>
 
 <style scoped>
-.modal-content {
-    width: var(--width-modal);
-    display: flex;
-    flex-direction: column;
-    max-height: 90vh;
-    height: auto;
+.modal-header-row {
+    display: none;
 }
 
 .modal-body {
@@ -673,17 +508,6 @@ const confirmDeletion = async () => {
 .pronouns-input {
     flex: 1;
     min-width: 0;
-}
-
-.pronouns-input .modal-input {
-    width: 100%;
-    max-width: 100%;
-    box-sizing: border-box;
-}
-
-.form-column .modal-input {
-    width: 100%;
-    box-sizing: border-box;
 }
 
 .invisible-label {
@@ -757,9 +581,10 @@ const confirmDeletion = async () => {
 
 .settings-content {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     gap: var(--space-md);
     align-items: center;
+    justify-content: center;
 }
 
 .settings-title {
@@ -768,153 +593,15 @@ const confirmDeletion = async () => {
     color: var(--color-text-primary);
 }
 
-.delete-confirmation {
+.pending-conversion {
     display: flex;
-    flex-direction: column;
-    gap: var(--space-md);
-    align-items: center;
-}
-
-.confirmation-title {
-    margin: 0;
-    color: var(--color-danger);
-    font-size: var(--font-size-18);
-}
-
-.confirmation-text {
-    text-align: center;
-    color: var(--color-text-primary);
-    margin: 0;
-}
-
-.confirmation-input {
-    text-align: center;
-    width: 100%;
-    max-width: 300px;
-}
-
-.confirmation-actions {
-    display: flex;
-    gap: var(--space-md);
-    justify-content: center;
-}
-
-.convert-section {
-    display: flex;
-    flex-direction: column;
     align-items: center;
     gap: var(--space-sm);
-    width: 100%;
 }
 
-.convert-label {
-    margin: 0;
-    font-size: var(--font-size-13);
-    color: var(--color-text-secondary);
-}
-
-.convert-campaign-select {
-    max-width: 300px;
-}
-
-.convert-hint {
-    margin: 0;
-    font-size: var(--font-size-11);
-    color: var(--color-text-muted);
-    font-style: italic;
-    text-align: center;
-}
-
-.transfer-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--space-sm);
-    width: 100%;
-}
-
-.transfer-label {
-    margin: 0;
-    font-size: var(--font-size-13);
-    color: var(--color-text-secondary);
-}
-
-.transfer-hint {
-    margin: 0;
-    font-size: var(--font-size-11);
-    color: var(--color-text-muted);
-}
-
-.transfer-members {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--space-xs);
-    width: 100%;
-}
-
-.transfer-results {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    max-width: 300px;
-    gap: var(--space-xs);
-}
-
-.transfer-member-btn {
-    background: var(--color-bg-primary);
-    border: 1px solid var(--overlay-white-medium);
-    border-radius: var(--radius-5);
-    color: var(--color-text-primary);
-    cursor: pointer;
-    font-size: var(--font-size-13);
-    padding: var(--space-xs) var(--space-sm);
-    text-align: center;
-    transition: border-color var(--transition-fast), background var(--transition-fast);
-    width: 100%;
-    max-width: 300px;
-}
-
-.transfer-member-btn:hover {
-    border-color: var(--color-text-secondary);
-}
-
-.transfer-member-btn--selected {
-    border-color: var(--color-danger);
-    background: color-mix(in srgb, var(--color-danger) 12%, transparent);
-}
-
-.transfer-confirm-text {
-    margin: 0;
-    font-size: var(--font-size-13);
-    color: var(--color-text-primary);
-    text-align: center;
-}
-
-.transfer-warn {
-    margin: 0;
-    font-size: var(--font-size-11);
-    color: var(--color-text-muted);
-    font-style: italic;
-    text-align: center;
-}
-
-.transfer-error {
-    margin: 0;
-    font-size: var(--font-size-12);
-    color: var(--color-danger);
-    text-align: center;
-}
-
-.transfer-empty {
-    margin: 0;
+.pending-label {
     font-size: var(--font-size-12);
     color: var(--color-text-muted);
-}
-
-.transfer-actions {
-    display: flex;
-    gap: var(--space-sm);
-    justify-content: center;
+    font-style: italic;
 }
 </style>

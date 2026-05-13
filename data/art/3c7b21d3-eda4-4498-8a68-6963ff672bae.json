@@ -1,14 +1,12 @@
 {
   "id": "3c7b21d3-eda4-4498-8a68-6963ff672bae",
   "url": "https://cdn.midjourney.com/32fcb777-9981-498a-92dd-def2d93dc6d1/0_0.png",
-  "tags": {
-    "type": "faces",
-    "sources": [
-      "5a639d7b-847a-468b-9bbe-5275d31fdf66",
-      "77e4f81a-728f-49a7-a013-4d6f666353e2"
-    ]
-  },
   "isDeleted": false,
   "createdAt": "2025-10-31T14:25:49.550Z",
-  "lastModified": "2025-10-31T14:25:49.550Z"
+  "lastModified": "2025-10-31T14:25:49.550Z",
+  "type": "faces",
+  "sources": [
+    "5a639d7b-847a-468b-9bbe-5275d31fdf66",
+    "77e4f81a-728f-49a7-a013-4d6f666353e2"
+  ]
 }

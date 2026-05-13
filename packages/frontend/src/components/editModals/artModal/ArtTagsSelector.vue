@@ -1,12 +1,9 @@
 <template>
     <div class="form-group multi-select">
-        <!-- Search Bar -->
-        <input ref="searchInputRef" :value="searchQuery" @input="$emit('update:searchQuery', $event.target.value)"
-            type="text" class="sources-search" placeholder="Search tags..." />
-
         <!-- Source Lists by Category -->
         <div class="sources-columns">
-            <div v-for="(groupSources, groupName) in filteredGroups" :key="groupName" class="source-column">
+            <div v-for="(groupSources, groupName) in sourceGroups" :key="groupName" class="source-column"
+                :class="{ cultures: groupName === 'Cultures' }">
                 <h4 v-if="groupSources.length > 0" class="source-group-title">{{ groupName }}</h4>
                 <div class="source-items">
                     <button v-for="source in groupSources" :key="source.id" type="button" class="source-item"
@@ -20,27 +17,17 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { computed } from 'vue'
 import { useSourcesStore } from '@/stores/sourcesStore'
 
-const props = defineProps({
-    searchQuery: {
-        type: String,
-        required: true
-    },
+defineProps({
     selectedSources: {
         type: Array,
         required: true
     }
 })
 
-defineEmits(['update:searchQuery', 'toggle'])
-
-const searchInputRef = ref(null)
-
-defineExpose({
-    searchInputRef
-})
+defineEmits(['toggle'])
 
 const sourcesStore = useSourcesStore()
 
@@ -48,28 +35,8 @@ const sourceGroups = computed(() => ({
     'Ancestries': sourcesStore.sources.ancestries || [],
     'Cultures': sourcesStore.sources.cultures || [],
     'Mestieri': sourcesStore.sources.mestieri || [],
-    'World Elements': sourcesStore.sources.worldElements || []
+    'World': sourcesStore.sources.worldElements || []
 }))
-
-const filteredGroups = computed(() => {
-    if (!props.searchQuery.trim()) {
-        return sourceGroups.value
-    }
-
-    const query = props.searchQuery.toLowerCase()
-    const filtered = {}
-
-    Object.keys(sourceGroups.value).forEach(groupName => {
-        const matchingSources = sourceGroups.value[groupName].filter(source =>
-            source.name.toLowerCase().includes(query)
-        )
-        if (matchingSources.length > 0) {
-            filtered[groupName] = matchingSources
-        }
-    })
-
-    return filtered
-})
 </script>
 
 <style scoped>
@@ -81,28 +48,13 @@ const filteredGroups = computed(() => {
 .multi-select {
     display: flex;
     flex-direction: column;
-}
-
-.sources-search {
+    min-width: 0;
     width: 100%;
-    padding: var(--space-sm) var(--space-md);
-    background: var(--color-bg-primary);
-    border: 2px solid var(--color-border-secondary);
-    border-radius: var(--radius-5);
-    color: var(--color-text-primary);
-    font-size: var(--font-size-14);
-    font-family: inherit;
-    margin-bottom: var(--space-md);
-}
-
-.sources-search:focus {
-    outline: none;
-    border-color: var(--color-primary);
 }
 
 .sources-columns {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, minmax(0, 1fr));
     gap: var(--space-md);
     max-height: 400px;
     overflow-y: auto;
@@ -123,7 +75,7 @@ const filteredGroups = computed(() => {
 
 @media (max-width: 1024px) {
     .sources-columns {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
 
@@ -137,6 +89,11 @@ const filteredGroups = computed(() => {
     display: flex;
     flex-direction: column;
     gap: var(--space-xs);
+    min-width: 0;
+}
+
+.source-column.cultures {
+    grid-column: span 2;
 }
 
 .source-group-title {
@@ -156,17 +113,26 @@ const filteredGroups = computed(() => {
     gap: var(--space-xs);
 }
 
+.source-column.cultures .source-items {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-xs);
+}
+
 .source-item {
-    padding: var(--space-xs) var(--space-sm);
+    padding: calc(var(--space-xs) * 0.75) var(--space-xs);
     background: var(--color-bg-primary);
     border: 1px solid var(--color-border-secondary);
     border-radius: var(--radius-5);
     color: var(--color-text-primary);
-    font-size: var(--font-size-12);
+    font-size: 11px;
     font-family: var(--font-family-primary);
     text-align: left;
     cursor: pointer;
     transition: var(--transition-normal);
+    line-height: 1.15;
+    overflow-wrap: anywhere;
+    width: 100%;
 }
 
 .source-item:hover {

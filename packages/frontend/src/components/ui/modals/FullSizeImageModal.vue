@@ -1,16 +1,17 @@
 <template>
-    <div v-if="isOpen" class="modal-overlay" @click.self="$emit('close')">
-        <div class="modal-content image-container edit-hover-area" @click.stop>
+    <BaseModal :open="isOpen" hide-header box-class="full-size-image-box" @close="$emit('close')">
+        <div class="image-container edit-hover-area" @click.stop>
             <img :src="modalImageSrc" class="modal-image"
                 :class="{ 'modal-image--loading': isProgressive && !isFullQualityLoaded }" :alt="altText" />
             <FloatingActionButton v-if="showEditButton" :variant="FAB_TYPES.EDIT" :size="FAB_SIZES.SMALL"
                 :visibility="FAB_VISIBILITIES.ON_HOVER" class="edit-button-overlay" @click.stop="$emit('edit')" />
         </div>
-    </div>
+    </BaseModal>
 </template>
 
 <script setup>
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
+import BaseModal from '@/components/ui/modals/BaseModal.vue'
 import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 import { useProgressiveOptimizedImage } from '@/composables/useOptimizedImage'
 import { PROGRESSIVE_IMAGE_CONTEXTS } from '@/constants/imageOptimization'
@@ -34,7 +35,7 @@ const props = defineProps({
     }
 })
 
-defineEmits(['close', 'edit'])
+const emit = defineEmits(['close', 'edit'])
 
 const {
     activeUrl: modalImageSrc,
@@ -44,20 +45,22 @@ const {
     previewContext: PROGRESSIVE_IMAGE_CONTEXTS.FULL_SIZE_MODAL.preview,
     finalContext: PROGRESSIVE_IMAGE_CONTEXTS.FULL_SIZE_MODAL.final
 })
+
 </script>
 
 <style scoped>
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: var(--overlay-black-heavy);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: var(--z-modal);
+/* Transparent/borderless box for image modal */
+:deep(.full-size-image-box) {
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    width: auto !important;
+    min-width: 0 !important;
+}
+
+/* Override overlay to add blur */
+:deep(.base-modal-overlay) {
     backdrop-filter: blur(4px);
 }
 

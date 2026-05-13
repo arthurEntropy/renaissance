@@ -1,46 +1,37 @@
 <template>
-    <div class="invites-modal-overlay" @click.self="emit('close')">
-        <div class="invites-modal">
-            <div class="modal-header">
-                <h2 class="modal-title">Campaign Invitations</h2>
-                <button class="close-btn" @click="emit('close')" aria-label="Close">
-                    <XMarkIcon class="close-icon" />
-                </button>
-            </div>
+    <BaseModal title="Campaign Invitations" width="min(480px, 90vw)" @close="emit('close')">
+        <div v-if="campaignStore.pendingInvites.length === 0" class="empty-state">
+            <p>No pending invitations.</p>
+        </div>
 
-            <div v-if="campaignStore.pendingInvites.length === 0" class="empty-state">
-                <p>No pending invitations.</p>
-            </div>
-
-            <div v-else class="invites-list">
-                <div v-for="campaign in campaignStore.pendingInvites" :key="campaign.id" class="invite-row">
-                    <div class="invite-info">
-                        <div class="invite-campaign-header">
-                            <div class="campaign-dot" />
-                            <span class="invite-campaign-name">{{ campaign.name }}</span>
-                        </div>
+        <div v-else class="invites-list">
+            <div v-for="campaign in campaignStore.pendingInvites" :key="campaign.id" class="invite-row">
+                <div class="invite-info">
+                    <div class="invite-campaign-header">
+                        <div class="campaign-dot" />
+                        <span class="invite-campaign-name">{{ campaign.name }}</span>
                     </div>
-                    <div class="invite-actions">
-                        <ActionButton variant="success" size="small" @click="accept(campaign.id)"
-                            :disabled="responding === campaign.id">
-                            Accept
-                        </ActionButton>
-                        <ActionButton variant="danger" size="small" @click="decline(campaign.id)"
-                            :disabled="responding === campaign.id">
-                            Decline
-                        </ActionButton>
-                    </div>
+                </div>
+                <div class="invite-actions">
+                    <ActionButton variant="success" size="small" @click="accept(campaign.id)"
+                        :disabled="responding === campaign.id">
+                        Accept
+                    </ActionButton>
+                    <ActionButton variant="danger" size="small" @click="decline(campaign.id)"
+                        :disabled="responding === campaign.id">
+                        Decline
+                    </ActionButton>
                 </div>
             </div>
         </div>
-    </div>
+    </BaseModal>
 </template>
 
 <script setup>
 import { ref } from 'vue'
-import { XMarkIcon } from '@heroicons/vue/24/outline'
 import { useCampaignStore } from '@/stores/campaignStore'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
+import BaseModal from '@/components/ui/modals/BaseModal.vue'
 
 const emit = defineEmits(['close'])
 const campaignStore = useCampaignStore()
@@ -65,6 +56,69 @@ const decline = async (campaignId) => {
     }
 }
 </script>
+
+<style scoped>
+.empty-state {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-14);
+    text-align: center;
+    padding: var(--space-lg) 0;
+}
+
+.invites-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+}
+
+.invite-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-md);
+    padding: var(--space-md) var(--space-lg);
+    background: var(--color-bg-primary);
+    border: 1px solid var(--overlay-white-medium);
+    border-radius: var(--radius-10);
+}
+
+.invite-info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    min-width: 0;
+}
+
+.invite-campaign-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+}
+
+.campaign-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--color-primary);
+    flex-shrink: 0;
+}
+
+.invite-campaign-name {
+    font-size: var(--font-size-15);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.invite-actions {
+    display: flex;
+    gap: var(--space-sm);
+    flex-shrink: 0;
+}
+</style>
+
 
 <style scoped>
 .invites-modal-overlay {
