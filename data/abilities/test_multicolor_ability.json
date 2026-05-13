@@ -8,5 +8,7 @@
   "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
   "isMagical": true,
   "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
-  "manaCost": "2WUB"
+  "manaCost": "2WUB",
+  "canBeActive": false,
+  "hasDifficulty": false
 }

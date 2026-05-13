@@ -20,5 +20,7 @@
   "biomeTagsInhibit": [
     "enchanted",
     "desert"
-  ]
+  ],
+  "canBeActive": true,
+  "hasDifficulty": false
 }

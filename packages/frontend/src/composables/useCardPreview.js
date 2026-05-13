@@ -19,7 +19,7 @@ let officialDragActive = false
 let pendingMouseUpListener = null
 
 export function useCardPreview() {
-  function showAbilityPreview(ability, element) {
+  function showAbilityPreview(ability, element, delay = SHOW_DELAY_MS) {
     if (isDragging.value) return
     clearTimeout(hideTimer)
     clearTimeout(showTimer)
@@ -29,7 +29,7 @@ export function useCardPreview() {
       previewEquipment.value = null
       previewAbility.value = ability
       anchorRect.value = element.getBoundingClientRect()
-    }, SHOW_DELAY_MS)
+    }, delay)
   }
 
   function showEquipmentPreview(equipment, element) {

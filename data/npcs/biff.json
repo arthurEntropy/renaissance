@@ -202,7 +202,8 @@
       "showSuccesses": false,
       "improvements": {
         "c0cce62d-03a8-5654-92e9-c354f4233834": true
-      }
+      },
+      "isActive": false
     }
   ],
   "groupAbilitiesBySource": false,

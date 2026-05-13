@@ -6,5 +6,7 @@
   "artUrl": "https://cdn.midjourney.com/8a7bc909-f895-4815-847b-6e1736703a8b/0_3.png",
   "description": "<p>Whenever you remove Shadow, if your current Hope is less than your maximum Hope, gain 1 Hope.</p><p><strong>Describe how you learned to gain inspiration from overcoming darkness.</strong></p>",
   "source": "eed942f5-8cc4-446a-8806-b83186098274",
-  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1"
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "canBeActive": false,
+  "hasDifficulty": false
 }

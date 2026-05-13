@@ -8,5 +8,7 @@
   "source": "15bb5476-5cca-48ee-a6a0-95b0ea6cc803",
   "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
   "mpCost": null,
-  "xpCost": null
+  "xpCost": null,
+  "canBeActive": false,
+  "hasDifficulty": false
 }

@@ -10,6 +10,10 @@
           <input type="checkbox" id="isMagical" v-model="editedAbility.isMagical" />
           Spell
         </label>
+        <label for="canBeActive">
+          <input type="checkbox" id="canBeActive" v-model="editedAbility.canBeActive" />
+          Can Be Active
+        </label>
       </div>
 
       <!-- Name -->

@@ -20,5 +20,7 @@
   "biomeTagsInhibit": [
     "civilized",
     "desert"
-  ]
+  ],
+  "canBeActive": false,
+  "hasDifficulty": false
 }

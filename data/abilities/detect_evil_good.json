@@ -1,7 +1,7 @@
 {
   "id": "3dffcf91-1f3e-42ff-a6b2-a259f7a15a19",
   "createdAt": "2026-03-11T12:51:34.306Z",
-  "lastModified": "2026-03-11T20:43:41.160Z",
+  "lastModified": "2026-05-13T20:25:50.759Z",
   "name": "Detect Evil & Good",
   "artUrl": "https://cdn.midjourney.com/8bd0cb7a-7c09-428b-b0a6-8e1e5c023b7b/0_1.png",
   "description": "<p><em>Concentration, up to 10 minutes.</em></p><p>You sense the presence of any deities, spirits and undead. For each of these that is within...</p><ul><li><p>Far range, you just sense its presence.</p></li><li><p>Long range, you sense its presence and whether its Alignment is evil, neutral or good.</p></li><li><p>Medium range, you know its location and its full Alignment.</p></li><li><p>Short Range, you know its location, full Alignment and Domain.</p></li></ul><p>You also detect whether any creatures within Short Range are currently under any effects imposed by a deity, spirit or undead.</p><p>This sense is blocked by barriers of metal of any thickness, barriers of stone at least 1 ft thick, or barriers of any solid material at least 3 ft thick.</p><p><strong>Describe how you sense these entities.</strong></p>",
@@ -17,5 +17,7 @@
   "isMagical": true,
   "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
   "mpCost": 1,
-  "xpCost": 5
+  "xpCost": 5,
+  "canBeActive": true,
+  "hasDifficulty": false
 }

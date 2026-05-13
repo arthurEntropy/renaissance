@@ -5,13 +5,14 @@
     :title="showSource && sourceName ? `Source: ${sourceName}` : null">
 
     <!-- Admin Buttons -->
-    <div v-if="editable || duplicatable || deletable" class="admin-buttons">
+    <div v-if="editable || duplicatable || deletable || $slots['admin-actions']" class="admin-buttons">
       <FloatingActionButton v-if="deletable" :variant="FAB_TYPES.DELETE" @click.stop="$emit('delete', item)"
         :size="FAB_SIZES.SMALL" :visibility="FAB_VISIBILITIES.ON_HOVER" class="delete-button-floating" />
       <FloatingActionButton v-if="duplicatable" :variant="FAB_TYPES.DUPLICATE" @click.stop="$emit('duplicate', item)"
         :size="FAB_SIZES.SMALL" :visibility="FAB_VISIBILITIES.ON_HOVER" class="duplicate-button-floating" />
       <FloatingActionButton v-if="editable" :variant="FAB_TYPES.EDIT" @click.stop="$emit('edit', item)"
         :size="FAB_SIZES.SMALL" :visibility="FAB_VISIBILITIES.ON_HOVER" class="edit-button-floating" />
+      <slot name="admin-actions"></slot>
     </div>
 
     <!-- Header Row -->

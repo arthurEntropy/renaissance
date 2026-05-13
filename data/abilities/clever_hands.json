@@ -6,5 +6,7 @@
   "artUrl": "https://cdn.midjourney.com/bff07cab-a492-4996-9ecb-127d7f05e9ec/0_0.png",
   "description": "<p>You gain 1 rank in Dexterity.</p>",
   "source": "b6f7cc3e-f689-4cd9-a8ed-73bf5e7f0fef",
-  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1"
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "canBeActive": false,
+  "hasDifficulty": false
 }

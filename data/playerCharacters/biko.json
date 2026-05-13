@@ -263,31 +263,36 @@
       "id": "4fbf9ccb-0fbb-45d0-9f8f-7b7fcfb811fb",
       "collapsed": true,
       "showImprovements": false,
-      "showSuccesses": false
+      "showSuccesses": false,
+      "isActive": false
     },
     {
       "id": "ad7f2d4c-75cc-4b7c-8066-57eb1ccaf54a",
       "collapsed": true,
       "showImprovements": false,
-      "showSuccesses": false
+      "showSuccesses": false,
+      "isActive": false
     },
     {
       "id": "7eb3559b-8cd5-49ce-b047-a627e30db31c",
       "collapsed": true,
       "showImprovements": false,
-      "showSuccesses": false
+      "showSuccesses": false,
+      "isActive": false
     },
     {
       "id": "359a4615-81a7-4cd1-a23f-22b50b7d1f93",
       "collapsed": true,
       "showImprovements": false,
-      "showSuccesses": false
+      "showSuccesses": false,
+      "isActive": false
     },
     {
       "id": "de2e226f-c1e2-489e-9f70-353153421262",
       "collapsed": true,
       "showImprovements": false,
-      "showSuccesses": false
+      "showSuccesses": false,
+      "isActive": false
     },
     {
       "id": "df41e010-07b6-40bf-bc67-ec2a01c9b95d",
@@ -297,7 +302,8 @@
       "improvements": {
         "f1a6c2ee-f7f0-543b-b088-d69b048bd612": true,
         "5cdf24a8-94a3-54a9-8d29-e31c0a213826": true
-      }
+      },
+      "isActive": false
     },
     {
       "id": "c93d20c3-2fa2-4001-837d-cf38629b9c1a",
@@ -306,7 +312,8 @@
       "showSuccesses": false,
       "improvements": {
         "9c694b3a-f5d5-5a55-999c-09514ea7c995": true
-      }
+      },
+      "isActive": false
     },
     {
       "id": "18d87a10-1a25-493c-a549-7644744788f1",
@@ -315,49 +322,57 @@
       "showSuccesses": false,
       "improvements": {
         "8efc52bd-b89a-469a-8728-ab800c5e3c66": false
-      }
+      },
+      "isActive": false
     },
     {
       "id": "bd8f66a4-5849-483b-9123-b0085c0e5a5c",
       "collapsed": true,
       "showImprovements": false,
-      "showSuccesses": false
+      "showSuccesses": false,
+      "isActive": false
     },
     {
       "id": "b9271b66-5772-4ec2-ba0c-5a8f4b6cc525",
       "collapsed": true,
       "showImprovements": false,
-      "showSuccesses": false
+      "showSuccesses": false,
+      "isActive": false
     },
     {
       "id": "8d9b4191-4c71-4d62-9344-800fe50787ab",
       "collapsed": true,
       "showImprovements": false,
-      "showSuccesses": false
+      "showSuccesses": false,
+      "isActive": false
     },
     {
       "id": "e16343e2-35aa-4a42-b8f3-9105aad87780",
       "collapsed": true,
       "showImprovements": false,
-      "showSuccesses": false
+      "showSuccesses": false,
+      "isActive": false
     },
     {
       "id": "3f8b04db-fe8e-4569-8670-092ea46a06cf",
       "collapsed": true,
       "showImprovements": false,
-      "showSuccesses": false
+      "showSuccesses": false,
+      "isActive": false
     },
     {
       "id": "f906a23e-b95d-421a-b4ed-b094c3086497",
       "collapsed": true,
       "showImprovements": false,
-      "showSuccesses": false
+      "showSuccesses": false,
+      "isActive": false
     },
     {
       "id": "8f9c579e-1089-4532-a10a-3cf5115bb403",
       "collapsed": true,
       "showImprovements": false,
-      "showSuccesses": false
+      "showSuccesses": false,
+      "isActive": false
     }
   ],
   "groupAbilitiesBySource": true,

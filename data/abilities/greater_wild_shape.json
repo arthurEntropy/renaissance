@@ -30,5 +30,7 @@
   "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
   "xpCost": 15,
   "biomeTagsAugment": [],
-  "biomeTagsInhibit": []
+  "biomeTagsInhibit": [],
+  "canBeActive": false,
+  "hasDifficulty": false
 }

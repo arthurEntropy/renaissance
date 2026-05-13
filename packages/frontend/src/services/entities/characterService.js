@@ -53,7 +53,8 @@ class CharacterService extends BaseEntityService {
       id: ability.id, 
       collapsed: false, 
       showImprovements: false,
-      showSuccesses: false
+      showSuccesses: false,
+      isActive: false,
     })
   }
 

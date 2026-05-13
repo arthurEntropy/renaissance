@@ -6,5 +6,7 @@
   "artUrl": "https://cdn.midjourney.com/0ac59295-3590-4c6d-a0fe-803e5d2116fb/0_3.png",
   "description": "<p>Whenever you roll Stealth, if a creature that is larger than you is within short range, your roll is Favored.</p><p><strong>Describe how you avoid notice.</strong></p>",
   "source": "b6f7cc3e-f689-4cd9-a8ed-73bf5e7f0fef",
-  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1"
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "canBeActive": false,
+  "hasDifficulty": false
 }

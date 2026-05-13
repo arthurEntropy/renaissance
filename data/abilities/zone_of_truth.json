@@ -1,7 +1,7 @@
 {
   "id": "13be092e-c89d-47eb-a629-7797ef760c7b",
   "createdAt": "2026-04-10T14:33:40.212Z",
-  "lastModified": "2026-04-13T17:16:52.760Z",
+  "lastModified": "2026-05-13T20:44:49.274Z",
   "name": "Zone of Truth",
   "artUrl": "https://cdn.midjourney.com/25dbfe9c-4d8f-4ff8-a764-bb2148a380f3/0_3.png",
   "description": "<p>You establish an area where lies become visible. The area has a radius of short range and must include you when you create it. Roll Spirit to set the Difficulty.</p><p>Each creature in the area when you cast the spell, or that enters it, must roll Spirit against the Difficulty. On a pass, the creature is unaffected (and you know it). On a failure, it is affected.</p><p>When an affected creature speaks a deliberate lie within the area, a harmless visual effect of your choice—such as dark smoke or sparks—emerges from its mouth as it speaks.</p><p>The area remains fixed even if you move or leave it. A creature that leaves the area is no longer affected and must roll again if it re-enters.</p><p><strong>Describe how you make lies visible.</strong></p>",
@@ -9,5 +9,7 @@
   "isMagical": true,
   "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
   "mpCost": 2,
-  "xpCost": 10
+  "xpCost": 10,
+  "canBeActive": true,
+  "hasDifficulty": true
 }

@@ -12,5 +12,7 @@
   "isMagical": true,
   "actionCost": "c7ea4889-0dc9-40cb-a437-70329cac43ab",
   "mpCost": 4,
-  "xpCost": 20
+  "xpCost": 20,
+  "canBeActive": false,
+  "hasDifficulty": false
 }

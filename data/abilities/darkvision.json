@@ -6,5 +6,7 @@
   "artUrl": "https://cdn.midjourney.com/fd0f2b91-9885-41d9-acd7-9d1eb2f688d4/0_0.png",
   "description": "<p><em>Your ancestors adapted to living underground.</em></p><p>You can see in dim light as if it were bright light. You can see in complete darkness as if it were dim light. You cannot see through magical darkness.</p><p><strong>Describe your luminous eyes.</strong></p>",
   "source": "2e46823f-bec7-4d70-b323-dbc8b71c7739",
-  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1"
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "canBeActive": false,
+  "hasDifficulty": false
 }

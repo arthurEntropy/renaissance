@@ -6,5 +6,7 @@
   "artUrl": "https://cdn.midjourney.com/b20ebe02-0b2e-4c57-b517-9d12f28a181c/0_3.png",
   "description": "<p><em>Your striking appearance commands the attention of those around you.</em></p><p>You gain 1 rank in Awe.</p><p><strong>Describe what sets you apart.</strong></p>",
   "source": "2e46823f-bec7-4d70-b323-dbc8b71c7739",
-  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1"
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "canBeActive": false,
+  "hasDifficulty": false
 }

@@ -13,5 +13,7 @@
   "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
   "mpCost": null,
   "xpCost": 10,
-  "manaCost": "1R"
+  "manaCost": "1R",
+  "canBeActive": false,
+  "hasDifficulty": false
 }

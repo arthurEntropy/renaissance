@@ -1,7 +1,7 @@
 {
   "id": "f5671930-9378-4600-bf1b-b6f45ad1081f",
   "createdAt": "2026-04-04T21:29:19.896Z",
-  "lastModified": "2026-04-10T12:30:17.858Z",
+  "lastModified": "2026-05-13T20:24:40.763Z",
   "name": "Bane",
   "artUrl": "https://cdn.midjourney.com/17e3c380-6ace-4ab5-864f-647c5565db74/0_1.png",
   "description": "<p><em>Concentration, up to 1 minute.</em></p><p>Your presence becomes fearful to your foes. Roll Awe vs Spirit against up to three creatures within short range. On each win, the creature takes -1d to all attack rolls and opposed skill checks.</p><p><strong>Describe how you instill fear.</strong></p>",
@@ -11,5 +11,7 @@
   "isMagical": true,
   "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
   "mpCost": 1,
-  "xpCost": 5
+  "xpCost": 5,
+  "canBeActive": true,
+  "hasDifficulty": false
 }

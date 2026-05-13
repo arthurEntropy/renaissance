@@ -1,34 +1,42 @@
 <template>
-    <div v-if="hasAnyBadges" class="badge-rail-container">
-        <div v-if="hasFocusedBadges" class="badge-group badge-group--focused">
-            <div class="badge-group-header">
-                <span class="badge-group-label">Selected</span>
+    <div v-if="hasAnyTokens" class="token-rail-container">
+        <div v-if="hasFocusedTokens" class="token-group token-group--focused">
+            <div class="token-group-header">
+                <span class="token-group-label">Selected</span>
             </div>
-            <div class="badge-group-members">
-                <component v-if="showFocusedCharacter" :is="getBadgeComponent(focusedCharacter)" class="badge-item"
-                    v-bind="getFocusedBadgeProps(focusedCharacter)" />
-                <SelectedBeastBadge v-if="selectedSummonedBeast" class="badge-item" :beast="selectedSummonedBeast"
-                    :disableDefaultClick="true" @click="(beast) => openCharacterSheet(beast)" />
+            <div class="token-group-members">
+                <component v-if="visibleFocusedCharacter" :is="getTokenComponent(visibleFocusedCharacter)"
+                    class="token-item" v-bind="getFocusedTokenProps(visibleFocusedCharacter)" />
             </div>
         </div>
 
-        <div v-for="group in resolvedPinnedGroups" :key="group.id" class="badge-group badge-group--pinned">
+        <div v-if="summonersBeast" class="token-group token-group--summoned">
+            <div class="token-group-header">
+                <span class="token-group-label token-group-label--summoned">Summoned</span>
+            </div>
+            <div class="token-group-members">
+                <BeastToken class="token-item" :beast="summonersBeast" :disableDefaultClick="true"
+                    @click="(beast) => openCharacterSheet(beast)" />
+            </div>
+        </div>
+
+        <div v-for="group in resolvedPinnedGroups" :key="group.id" class="token-group token-group--pinned">
             <FloatingActionButton class="unpin-fab" :variant="FAB_TYPES.DELETE" :size="FAB_SIZES.SMALL"
                 :visibility="FAB_VISIBILITIES.ALWAYS" aria-label="Unpin group"
                 @click="characterContextStore.unpinGroup(group.id)" />
-            <div class="badge-group-header">
-                <span class="badge-group-name">{{ group.name }}</span>
-                <span v-if="isGroupCollapsed(group.id)" class="badge-group-members-count">Members: {{
+            <div class="token-group-header">
+                <span class="token-group-name">{{ group.name }}</span>
+                <span v-if="isGroupCollapsed(group.id)" class="token-group-members-count">Members: {{
                     group.members.length }}</span>
             </div>
-            <div v-if="!isGroupCollapsed(group.id)" class="badge-group-members">
-                <component v-for="member in group.members" :key="member.id" :is="getBadgeComponent(member)"
-                    v-bind="getBadgeProps(member, group.id)" class="badge-item" />
+            <div v-if="!isGroupCollapsed(group.id)" class="token-group-members">
+                <component v-for="member in group.members" :key="member.id" :is="getTokenComponent(member)"
+                    v-bind="getTokenProps(member, group.id)" class="token-item" />
             </div>
-            <button type="button" class="badge-group-collapse-toggle" :aria-expanded="!isGroupCollapsed(group.id)"
+            <button type="button" class="token-group-collapse-toggle" :aria-expanded="!isGroupCollapsed(group.id)"
                 @click="toggleGroupCollapsed(group.id)">
                 <component :is="isGroupCollapsed(group.id) ? ChevronDownIcon : ChevronUpIcon"
-                    class="badge-group-chevron" />
+                    class="token-group-chevron" />
             </button>
         </div>
 
@@ -38,13 +46,13 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/vue/24/outline'
 import { useCharacterContextStore } from '@/stores/characterContextStore'
 import { useCharactersStore } from '@/stores/charactersStore'
 import { useCampaignStore } from '@/stores/campaignStore'
-import SelectedCharacterBadge from '@/components/features/characterSelection/SelectedCharacterBadge.vue'
-import SelectedBeastBadge from '@/components/features/characterSelection/SelectedBeastBadge.vue'
+import CharacterToken from '@/components/features/characterSelection/CharacterToken.vue'
+import BeastToken from '@/components/features/characterSelection/BeastToken.vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import { useSummonedBeast } from '@/composables/useSummonedBeast'
 import { useAppCharacterSheetModal } from '@/composables/useAppCharacterSheetModal'
@@ -59,6 +67,29 @@ const { open: openCharacterSheet, isOpen: isCharacterSheetOpen } = useAppCharact
 const collapsedGroupIds = ref(new Set())
 const focusedCharacter = computed(() => charactersStore.selectedCharacter)
 const isBeastCharacter = (character) => isBeastTemplate(character) || isBeastInstance(character)
+
+// Tracks the last non-beast selected character. When a beast is selected (e.g. by
+// clicking its token), this ref stays unchanged so the summoner's token remains
+// visible in the rail. Clears when a different PC/NPC is selected or deselected.
+const pinnedSummoner = ref(null)
+watch(focusedCharacter, (newChar) => {
+    if (!newChar) {
+        pinnedSummoner.value = null
+        return
+    }
+    if (isBeastCharacter(newChar)) return
+    pinnedSummoner.value = newChar
+}, { immediate: true })
+
+// The character shown in the SELECTED group – prefers the pinned summoner so
+// the summoner's token doesn't disappear when the beast sheet is opened.
+const visibleFocusedCharacter = computed(() => pinnedSummoner.value || focusedCharacter.value)
+
+// The beast currently summoned by the pinned summoner (reactive).
+const summonersBeast = computed(() => {
+    if (!pinnedSummoner.value?.id) return null
+    return getSummonedBeastForCharacterId(pinnedSummoner.value.id)
+})
 
 const pinnedGroups = computed(() => characterContextStore.pinnedGroups)
 const campaignCharactersById = computed(() => {
@@ -86,23 +117,13 @@ const resolvedPinnedGroups = computed(() => {
         })
         .filter((group) => group.members.length > 0)
 })
-const showFocusedCharacter = computed(() => !!focusedCharacter.value)
-const selectedSummonedBeast = computed(() => {
-    if (!focusedCharacter.value || isBeastCharacter(focusedCharacter.value)) return null
-
-    return focusedCharacter.value.id
-        ? getSummonedBeastForCharacterId(focusedCharacter.value.id)
-        : null
-})
-const hasFocusedBadges = computed(() => {
-    return showFocusedCharacter.value || !!selectedSummonedBeast.value
-})
-const hasAnyBadges = computed(() => {
-    return hasFocusedBadges.value || resolvedPinnedGroups.value.length > 0
+const hasFocusedTokens = computed(() => !!visibleFocusedCharacter.value)
+const hasAnyTokens = computed(() => {
+    return hasFocusedTokens.value || !!summonersBeast.value || resolvedPinnedGroups.value.length > 0
 })
 
-function getBadgeComponent(character) {
-    return isBeastCharacter(character) ? SelectedBeastBadge : SelectedCharacterBadge
+function getTokenComponent(character) {
+    return isBeastCharacter(character) ? BeastToken : CharacterToken
 }
 
 function isGroupCollapsed(groupId) {
@@ -131,7 +152,7 @@ function removeMemberFromPinnedGroup(groupId, memberId) {
     characterContextStore.updatePinnedGroup(groupId, { memberIds })
 }
 
-function getBadgeProps(character, groupId = null) {
+function getTokenProps(character, groupId = null) {
     if (!character) return {}
 
     if (isBeastCharacter(character)) {
@@ -153,7 +174,7 @@ function getBadgeProps(character, groupId = null) {
     }
 }
 
-function getFocusedBadgeProps(character) {
+function getFocusedTokenProps(character) {
     if (!character) return {}
 
     if (isBeastCharacter(character)) {
@@ -177,7 +198,7 @@ function getFocusedBadgeProps(character) {
 </script>
 
 <style scoped>
-.badge-rail-container {
+.token-rail-container {
     position: fixed;
     top: calc(var(--space-lg) + 3rem);
     left: var(--space-lg);
@@ -188,16 +209,16 @@ function getFocusedBadgeProps(character) {
     max-height: calc(100vh - (calc(var(--space-lg) + 3rem)) - var(--space-lg));
     overflow-y: auto;
     overflow-x: visible;
-    /* Provide right-side paint room for badge tooltips without changing badge placement. */
+    /* Provide right-side paint room for token tooltips without changing token placement. */
     padding-right: 12rem;
     margin-right: -12rem;
     /* Let clicks pass through the invisible padding zone to the sheet backdrop behind it. */
     pointer-events: none;
 }
 
-.badge-group {
-    --badge-size: 50px;
-    --badge-rail-group-width: calc(var(--badge-size) + (var(--space-xl) * 2));
+.token-group {
+    --token-size: 50px;
+    --token-group-width: calc(var(--token-size) + (var(--space-xl) * 2));
     position: relative;
     display: flex;
     flex-direction: column;
@@ -207,25 +228,29 @@ function getFocusedBadgeProps(character) {
     border-radius: var(--radius-10);
     border: 1px solid var(--overlay-white-medium);
     background: var(--overlay-black-heavy);
-    width: var(--badge-rail-group-width);
+    width: var(--token-group-width);
 }
 
-.badge-group--focused {
+.token-group--focused {
     border-color: var(--overlay-white-medium);
 }
 
-.badge-group--pinned {
+.token-group-label--summoned {
+    color: var(--color-accent-cyan) !important;
+}
+
+.token-group--pinned {
     border-color: var(--overlay-white-medium);
 }
 
-.badge-group-header {
+.token-group-header {
     display: flex;
     align-items: center;
     flex-direction: column;
     gap: var(--space-xs);
 }
 
-.badge-group-label {
+.token-group-label {
     font-size: var(--font-size-11);
     font-weight: var(--font-weight-semibold);
     text-transform: uppercase;
@@ -234,7 +259,7 @@ function getFocusedBadgeProps(character) {
     opacity: 0.9;
 }
 
-.badge-group-collapse-toggle {
+.token-group-collapse-toggle {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -248,13 +273,13 @@ function getFocusedBadgeProps(character) {
     cursor: pointer;
 }
 
-.badge-group-chevron {
+.token-group-chevron {
     width: 14px;
     height: 14px;
     color: var(--color-text-secondary);
 }
 
-.badge-group-name {
+.token-group-name {
     font-family: var(--font-family-primary);
     font-size: var(--font-size-11);
     font-weight: var(--font-weight-semibold);
@@ -267,7 +292,7 @@ function getFocusedBadgeProps(character) {
     hyphens: auto;
 }
 
-.badge-group-members-count {
+.token-group-members-count {
     font-size: var(--font-size-11);
     color: var(--color-text-muted);
     text-transform: uppercase;
@@ -284,13 +309,13 @@ function getFocusedBadgeProps(character) {
     transition: opacity var(--transition-fast);
 }
 
-.badge-group--pinned:hover .unpin-fab,
-.badge-group--pinned:focus-within .unpin-fab {
+.token-group--pinned:hover .unpin-fab,
+.token-group--pinned:focus-within .unpin-fab {
     opacity: 1;
     pointer-events: auto;
 }
 
-.badge-group-members {
+.token-group-members {
     display: flex;
     flex-direction: column;
     gap: var(--space-xl);
@@ -298,16 +323,9 @@ function getFocusedBadgeProps(character) {
     padding: var(--space-sm) 0 var(--space-xs);
 }
 
-/* Every badge inside rail uses flow layout rather than fixed positioning */
-:deep(.badge-item.selected-character-badge),
-:deep(.badge-group-members .selected-character-badge) {
-    position: relative;
-    top: unset;
-    left: unset;
-}
-
-:deep(.badge-item.selected-beast-badge),
-:deep(.badge-group-members .selected-beast-badge) {
+/* Every token inside rail uses flow layout rather than fixed positioning */
+:deep(.token-item.character-token),
+:deep(.token-group-members .character-token) {
     position: relative;
     top: unset;
     left: unset;
@@ -336,7 +354,7 @@ function getFocusedBadgeProps(character) {
 
 /* Mobile: horizontal condensed row */
 @media (max-width: 768px) {
-    .badge-rail-container {
+    .token-rail-container {
         top: unset;
         bottom: var(--space-lg);
         left: 0;
@@ -351,12 +369,12 @@ function getFocusedBadgeProps(character) {
         padding-block: var(--space-xs);
     }
 
-    .badge-group {
+    .token-group {
         flex-shrink: 0;
-        width: var(--badge-rail-group-width);
+        width: var(--token-group-width);
     }
 
-    .badge-group-members {
+    .token-group-members {
         flex-direction: row;
         gap: var(--space-xs);
     }

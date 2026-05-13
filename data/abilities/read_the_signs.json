@@ -6,5 +6,7 @@
   "description": "<p>When you roll to observe or predict the actions of Gods and Ascendants, you roll with advantage. Describe how you arrive at your interpretation.</p>",
   "source": "3531c0c2-5f33-4421-ab1f-24e2e6ba82a1",
   "mpCost": null,
-  "xpCost": null
+  "xpCost": null,
+  "canBeActive": false,
+  "hasDifficulty": false
 }

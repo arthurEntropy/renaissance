@@ -2,7 +2,7 @@
   "id": "48a9eff3-9041-4b33-8f99-4137955d2997",
   "isDeleted": false,
   "createdAt": "2026-04-22T14:45:33.779Z",
-  "lastModified": "2026-05-12T18:18:26.181Z",
+  "lastModified": "2026-05-13T18:42:34.053Z",
   "name": "Otho",
   "pronouns": "",
   "ancestryIds": [
@@ -192,37 +192,43 @@
       "id": "4024366e-242c-448a-b5da-5a811ad78aa7",
       "collapsed": false,
       "showImprovements": false,
-      "showSuccesses": false
+      "showSuccesses": false,
+      "isActive": false
     },
     {
       "id": "04e9acb0-df69-44eb-8c7f-8bbcf28ca22d",
       "collapsed": false,
       "showImprovements": false,
-      "showSuccesses": false
+      "showSuccesses": false,
+      "isActive": false
     },
     {
       "id": "1fbe03dd-9c5f-4224-bcbf-1bdac72673a0",
       "collapsed": false,
       "showImprovements": false,
-      "showSuccesses": false
+      "showSuccesses": false,
+      "isActive": false
     },
     {
       "id": "263ec9d9-457c-44fd-90ac-50ae8d6823f8",
       "collapsed": false,
       "showImprovements": false,
-      "showSuccesses": false
+      "showSuccesses": false,
+      "isActive": false
     },
     {
       "id": "00923682-709e-43cd-b33b-ca15a4ac7dca",
       "collapsed": false,
       "showImprovements": false,
-      "showSuccesses": false
+      "showSuccesses": false,
+      "isActive": false
     },
     {
       "id": "c59e50f9-4063-4066-bc80-c634b3b5aacf",
       "collapsed": false,
       "showImprovements": true,
-      "showSuccesses": false
+      "showSuccesses": false,
+      "isActive": false
     }
   ],
   "groupAbilitiesBySource": false,
@@ -302,5 +308,5 @@
     }
   ],
   "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2026-05-12T18:18:26.181Z"
+  "updatedAt": "2026-05-13T18:42:34.053Z"
 }

@@ -21,6 +21,8 @@ export const FAB_TYPES = {
     VISIBILITY: 'visibility',
     MARTIAL_TRAINING: 'martial-training',
     EXIT: 'exit',
+    ACTIVATE: 'activate',
+    DEACTIVATE: 'deactivate',
 }
 
 export const FAB_SIZES = {

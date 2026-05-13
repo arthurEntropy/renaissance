@@ -1,7 +1,7 @@
 {
   "id": "09f7035a-0826-4761-af7a-49ef27655cd2",
   "createdAt": "2025-11-10T02:15:40.884Z",
-  "lastModified": "2026-05-09T19:47:30.864Z",
+  "lastModified": "2026-05-13T18:42:35.090Z",
   "name": "Cloth Spirit",
   "pronouns": "",
   "ancestryIds": [],
@@ -176,5 +176,6 @@
   },
   "abilities": [],
   "witchcraftTokens": [],
-  "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1"
+  "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
+  "updatedAt": "2026-05-13T18:42:35.089Z"
 }

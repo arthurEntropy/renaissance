@@ -12,7 +12,7 @@
 <script setup>
 import { computed } from 'vue'
 // Heroicons
-import { PlusIcon, DocumentDuplicateIcon, PencilIcon, CheckIcon, XMarkIcon, TrashIcon, Bars3Icon, Cog6ToothIcon, ArrowPathIcon, BookOpenIcon, CalculatorIcon, ChevronDoubleDownIcon, ChevronDoubleUpIcon, ArrowRightStartOnRectangleIcon, EyeIcon, EyeSlashIcon, ArrowUpIcon, ArrowDownIcon } from '@heroicons/vue/24/outline'
+import { PlusIcon, DocumentDuplicateIcon, PencilIcon, CheckIcon, XMarkIcon, TrashIcon, Bars3Icon, Cog6ToothIcon, ArrowPathIcon, BookOpenIcon, CalculatorIcon, ChevronDoubleDownIcon, ChevronDoubleUpIcon, ArrowRightStartOnRectangleIcon, EyeIcon, EyeSlashIcon, ArrowUpIcon, ArrowDownIcon, BoltIcon, BoltSlashIcon } from '@heroicons/vue/24/outline'
 // Custom icons
 import CrossedSwordsIcon from '@/assets/icons/characterSheet/crossed_swords.svg?component'
 import DieIcon from '@/assets/icons/characterSheet/die.svg?component'
@@ -68,6 +68,8 @@ const FAB_TYPE_CONFIG = {
     [FAB_TYPES.MOVE_DOWN]: { icon: ArrowDownIcon, tooltip: 'Move down' },
     [FAB_TYPES.MARTIAL_TRAINING]: { icon: MartialTrainingIcon, tooltip: 'View Martial Training' },
     [FAB_TYPES.EXIT]: { icon: ArrowRightStartOnRectangleIcon, tooltip: 'Exit Campaign' },
+    [FAB_TYPES.ACTIVATE]: { icon: BoltIcon, tooltip: 'Activate' },
+    [FAB_TYPES.DEACTIVATE]: { icon: BoltSlashIcon, tooltip: 'Deactivate' },
 }
 
 const variantConfig = computed(() => {
@@ -217,6 +219,22 @@ const variantConfig = computed(() => {
     background: var(--color-primary);
     border-color: var(--color-primary);
 }
+
+.fab--activate {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+}
+
+.fab--activate:hover {
+    background: var(--color-primary-hover);
+    border-color: var(--color-primary-hover);
+}
+
+.fab--activate .fab__icon--small,
+.fab--activate .fab__icon--large {
+    color: var(--color-black);
+}
+
 
 .fab--visibility .fab__icon--small,
 .fab--visibility .fab__icon--large {

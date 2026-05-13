@@ -1,8 +1,10 @@
 <template>
   <base-card :item="ability" :metaInfo="traitOrMp" :collapsed="collapsed" :editable="editable"
     @edit="$emit('edit', ability)" :collapsible="collapsible" @update:collapsed="$emit('update:collapsed', $event)"
-    @roll-link="handleRollLinkWithBiome" :itemType="ItemType.ABILITY" :class="biomeLinkClass" :show-source="false"
-    @mouseenter="onCardMouseEnter" @mouseleave="cardPreview.scheduleHide()" @mousedown="onCardMouseDown">
+    @roll-link="handleRollLinkWithBiome" :itemType="ItemType.ABILITY"
+    :class="[biomeLinkClass, { 'ability-card--active': isAbilityActive, 'ability-card--with-difficulty': isShowingDifficulty }]"
+    :show-source="false" @mouseenter="onCardMouseEnter" @mouseleave="cardPreview.scheduleHide()"
+    @mousedown="onCardMouseDown">
 
     <!-- XP badge positioned relative to main description when character owns any improvements OR when improvements are expanded -->
     <template #description-badge>
@@ -44,8 +46,14 @@
         :hidden-by-default="!shouldShowBaseXpBadge && !characterHasBaseAbility" @toggle="handleBaseAbilityToggle" />
 
       <!-- Difficulty badge for abilities that set a difficulty -->
-      <DifficultyBadge v-if="showDifficultyBadge && hasDifficultyBadge && character" :value="abilityDifficulty"
-        @update:value="handleDifficultyUpdate" />
+      <DifficultyBadge v-if="isShowingDifficulty" :value="abilityDifficulty" @update:value="handleDifficultyUpdate" />
+    </template>
+
+    <!-- Activate / Deactivate FAB: shares the admin-buttons row with edit/delete FABs -->
+    <template #admin-actions>
+      <FloatingActionButton v-if="character && ability.canBeActive"
+        :variant="isAbilityActive ? FAB_TYPES.DEACTIVATE : FAB_TYPES.ACTIVATE" :size="FAB_SIZES.SMALL"
+        :visibility="FAB_VISIBILITIES.ON_HOVER" @click.stop="handleActivateToggle" />
     </template>
   </base-card>
 </template>
@@ -58,6 +66,8 @@ import { useImprovements } from '@/composables/useImprovements'
 import { useActionCostsStore } from '@/stores/actionCostsStore'
 import { useCharactersStore } from '@/stores/charactersStore'
 import { useBiomeStore } from '@/stores/biomeStore'
+import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
+import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 import BaseCard from '@/components/ui/cards/item/BaseCard.vue'
 import BadgeDisplay from '@/components/ui/cards/item/BadgeDisplay.vue'
 import DifficultyBadge from '@/components/ui/cards/item/DifficultyBadge.vue'
@@ -115,16 +125,13 @@ const props = defineProps({
   },
 })
 
-const emit = defineEmits(['edit', 'update', 'update:collapsed', 'update:showImprovements', 'update:showSuccesses', 'height-changed', 'roll-link'])
+const emit = defineEmits(['edit', 'update', 'update:collapsed', 'update:showImprovements', 'update:showSuccesses', 'height-changed', 'roll-link', 'activate', 'deactivate'])
 
 const cardPreview = useCardPreview()
 
-// Difficulty badge (auto-detected from description text)
-const DIFFICULTY_TRIGGER_PHRASES = ['to set the Difficulty', 'becomes the Difficulty']
-
-const hasDifficultyBadge = computed(() =>
-  typeof props.ability.description === 'string' &&
-  DIFFICULTY_TRIGGER_PHRASES.some(phrase => props.ability.description.includes(phrase))
+// Difficulty badge
+const isShowingDifficulty = computed(() =>
+  props.showDifficultyBadge && !!props.ability.hasDifficulty && !!props.character
 )
 
 const characterAbilityEntry = computed(() =>
@@ -268,6 +275,18 @@ const handleBaseAbilityToggle = () => {
     }
   }
 }
+
+// Activation state
+const isAbilityActive = computed(() => characterAbilityEntry.value?.isActive ?? false)
+
+function handleActivateToggle() {
+  if (!props.character) return
+  if (isAbilityActive.value) {
+    emit('deactivate', props.ability.id)
+  } else {
+    emit('activate', props.ability.id)
+  }
+}
 </script>
 
 <style scoped>
@@ -335,5 +354,11 @@ const handleBaseAbilityToggle = () => {
   width: 16px;
   height: 16px;
   stroke-width: 2.5;
+}
+
+/* Shift admin FABs to just right of the centered difficulty badge (badge is 26px wide, centered) */
+.ability-card--with-difficulty :deep(.admin-buttons) {
+  left: calc(50% + 20px + var(--space-xs));
+  transform: none;
 }
 </style>

@@ -3,5 +3,7 @@
   "isDeleted": true,
   "createdAt": "2026-03-11T21:17:57.450Z",
   "lastModified": "2026-03-11T21:19:08.150Z",
-  "source": "162ae4db-7a67-4770-8a2c-7e9883da14f6"
+  "source": "162ae4db-7a67-4770-8a2c-7e9883da14f6",
+  "canBeActive": false,
+  "hasDifficulty": false
 }

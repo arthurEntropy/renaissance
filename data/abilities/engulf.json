@@ -12,5 +12,7 @@
   "actionCost": "",
   "mpCost": null,
   "xpCost": "",
-  "manaCost": "U"
+  "manaCost": "U",
+  "canBeActive": false,
+  "hasDifficulty": false
 }
