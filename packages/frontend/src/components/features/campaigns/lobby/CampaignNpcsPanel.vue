@@ -13,12 +13,12 @@
         <div v-else class="status-sections">
             <div class="status-section" @dragover.prevent @drop="moveToActive">
                 <p class="status-label">ACTIVE</p>
-                <div class="char-badge-grid"
-                    :class="{ 'char-badge-grid--empty': activeNpcs.length === 0 && !isDragging }">
-                    <SelectedCharacterBadge v-for="npc in activeNpcs" :key="npc.id" :character="npc"
-                        :show-remove-fab="isGM" :disable-default-click="true" :draggable="canDragNpcs"
-                        class="draggable-badge" @dragstart="handleDragStart($event, npc.id)" @dragend="handleDragEnd"
-                        @remove="isGM ? deleteNPC(npc) : undefined" @click="handleNpcBadgeClick(npc)" />
+                <div class="char-token-grid"
+                    :class="{ 'char-token-grid--empty': activeNpcs.length === 0 && !isDragging }">
+                    <CharacterToken v-for="npc in activeNpcs" :key="npc.id" :character="npc" :show-remove-fab="isGM"
+                        :disable-default-click="true" :draggable="canDragNpcs" class="draggable-token"
+                        @dragstart="handleDragStart($event, npc.id)" @dragend="handleDragEnd"
+                        @remove="isGM ? deleteNPC(npc) : undefined" @click="handleNpcTokenClick(npc)" />
                     <div v-if="showDropSlot('active')" class="status-drop-slot" aria-hidden="true">
                         <PlusIcon class="status-drop-slot-icon" />
                     </div>
@@ -29,13 +29,13 @@
 
             <div v-show="showInactiveSection" class="status-section" @dragover.prevent @drop="moveToInactive">
                 <p class="status-label">INACTIVE</p>
-                <div class="char-badge-grid"
-                    :class="{ 'char-badge-grid--empty': inactiveNpcs.length === 0 && !isDragging }">
-                    <SelectedCharacterBadge v-for="npc in inactiveNpcs" :key="npc.id" :character="npc"
-                        :is-inactive="true" :show-remove-fab="isGM" :disable-default-click="true"
-                        :draggable="canDragNpcs" class="draggable-badge" @dragstart="handleDragStart($event, npc.id)"
-                        @dragend="handleDragEnd" @remove="isGM ? deleteNPC(npc) : undefined"
-                        @click="handleNpcBadgeClick(npc)" />
+                <div class="char-token-grid"
+                    :class="{ 'char-token-grid--empty': inactiveNpcs.length === 0 && !isDragging }">
+                    <CharacterToken v-for="npc in inactiveNpcs" :key="npc.id" :character="npc" :is-inactive="true"
+                        :show-remove-fab="isGM" :disable-default-click="true" :draggable="canDragNpcs"
+                        class="draggable-token" @dragstart="handleDragStart($event, npc.id)" @dragend="handleDragEnd"
+                        @remove="isGM ? deleteNPC(npc) : undefined" @click="handleNpcTokenClick(npc)" />
+                    @click="handleNpcBadgeClick(npc)" />
                     <div v-if="showDropSlot('inactive')" class="status-drop-slot" aria-hidden="true">
                         <PlusIcon class="status-drop-slot-icon" />
                     </div>
@@ -46,12 +46,12 @@
 
             <div v-if="isGM" v-show="showHiddenSection" class="status-section" @dragover.prevent @drop="moveToHidden">
                 <p class="status-label">HIDDEN</p>
-                <div class="char-badge-grid"
-                    :class="{ 'char-badge-grid--empty': hiddenNpcs.length === 0 && !isDragging }">
-                    <SelectedCharacterBadge v-for="npc in hiddenNpcs" :key="npc.id" :character="npc" :is-inactive="true"
+                <div class="char-token-grid"
+                    :class="{ 'char-token-grid--empty': hiddenNpcs.length === 0 && !isDragging }">
+                    <CharacterToken v-for="npc in hiddenNpcs" :key="npc.id" :character="npc" :is-inactive="true"
                         :show-remove-fab="isGM" :disable-default-click="true" :draggable="canDragNpcs"
-                        class="draggable-badge" @dragstart="handleDragStart($event, npc.id)" @dragend="handleDragEnd"
-                        @remove="isGM ? deleteNPC(npc) : undefined" @click="handleNpcBadgeClick(npc)" />
+                        class="draggable-token" @dragstart="handleDragStart($event, npc.id)" @dragend="handleDragEnd"
+                        @remove="isGM ? deleteNPC(npc) : undefined" @click="handleNpcTokenClick(npc)" />
                     <div v-if="showDropSlot('hidden')" class="status-drop-slot" aria-hidden="true">
                         <PlusIcon class="status-drop-slot-icon" />
                     </div>
@@ -88,7 +88,7 @@ import { useCharactersStore } from '@/stores/charactersStore'
 import { useAppCharacterSheetModal } from '@/composables/useAppCharacterSheetModal'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
-import SelectedCharacterBadge from '@/components/features/characterSelection/SelectedCharacterBadge.vue'
+import CharacterToken from '@/components/features/characterSelection/CharacterToken.vue'
 import NpcPreviewModal from '@/components/features/campaigns/lobby/NpcPreviewModal.vue'
 import { PlusIcon } from '@heroicons/vue/24/outline'
 import { createDefaultNPC } from '@shared/types'
@@ -234,7 +234,7 @@ const deleteNPC = async (npc) => {
     }
 }
 
-const handleNpcBadgeClick = (npc) => {
+const handleNpcTokenClick = (npc) => {
     if (!npc) return
     charactersStore.selectCharacter(npc)
     npcPreviewVisible.value = true

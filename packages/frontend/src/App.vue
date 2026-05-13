@@ -37,8 +37,8 @@
       </div>
     </div>
 
-    <!-- Badge rail: focused character/beast + pinned combat groups -->
-    <PinnedBadgesContainer v-if="authStore.isAuthenticated" />
+    <!-- Token rail: focused character/beast + pinned combat groups -->
+    <PinnedTokensContainer v-if="authStore.isAuthenticated" />
 
     <!-- Main Content -->
     <div class="content-area" v-show="!isCharacterSheetOpen">
@@ -81,7 +81,7 @@ import InvitesModal from '@/components/features/campaigns/InvitesModal.vue'
 import CreateCampaignModal from '@/components/features/campaigns/CreateCampaignModal.vue'
 import CardPreviewOverlay from '@/components/ui/cards/preview/CardPreviewOverlay.vue'
 import CampaignBadge from '@/components/features/campaigns/CampaignBadge.vue'
-import PinnedBadgesContainer from '@/components/features/characterSelection/PinnedBadgesContainer.vue'
+import PinnedTokensContainer from '@/components/features/characterSelection/PinnedTokensContainer.vue'
 import AppCharacterSheetModal from '@/components/features/characterSheet/AppCharacterSheetModal.vue'
 import { useAppCharacterSheetModal } from '@/composables/useAppCharacterSheetModal'
 import { useProgressiveOptimizedImage } from '@/composables/useOptimizedImage'

@@ -32,11 +32,11 @@
                     </div>
 
                     <div class="combat-group-body" @dragover.prevent @drop="dropCombatantToGroup(group.id)">
-                        <div class="char-badge-grid"
-                            :class="{ 'char-badge-grid--empty': group.combatants.length === 0 && !isDragging }">
+                        <div class="char-token-grid"
+                            :class="{ 'char-token-grid--empty': group.combatants.length === 0 && !isDragging }">
                             <component v-for="combatant in group.combatants" :key="combatant.id"
-                                :is="combatant.type === 'npc' ? SelectedCharacterBadge : SelectedBeastBadge"
-                                v-bind="getBadgeProps(combatant, group.id)" draggable="true" class="draggable-badge"
+                                :is="combatant.type === 'npc' ? CharacterToken : BeastToken"
+                                v-bind="getTokenProps(combatant, group.id)" draggable="true" class="draggable-token"
                                 @dragstart="handleDragStart($event, group.id, combatant.id)" @dragend="handleDragEnd" />
 
                             <button type="button" :class="[
@@ -118,8 +118,8 @@
 <script setup>
 import { computed, onUnmounted, ref, watch, nextTick } from 'vue'
 import { ChevronDownIcon, ChevronRightIcon, PlusIcon, TrashIcon, MapPinIcon, BoltIcon } from '@heroicons/vue/24/outline'
-import SelectedBeastBadge from '@/components/features/characterSelection/SelectedBeastBadge.vue'
-import SelectedCharacterBadge from '@/components/features/characterSelection/SelectedCharacterBadge.vue'
+import BeastToken from '@/components/features/characterSelection/BeastToken.vue'
+import CharacterToken from '@/components/features/characterSelection/CharacterToken.vue'
 import CascadeMenuFrame from '@/components/ui/pickers/CascadeMenuFrame.vue'
 import { useCampaignStore } from '@/stores/campaignStore'
 import { useCharactersStore } from '@/stores/charactersStore'
@@ -464,7 +464,7 @@ const onCombatantClick = (combatant) => {
     openCharacterSheet(character)
 }
 
-const getBadgeProps = (combatant, groupId) => {
+const getTokenProps = (combatant, groupId) => {
     const character = findCharacter(combatant)
     if (!character) return {}
 

@@ -24,11 +24,11 @@
         <div v-else class="status-sections">
             <div class="status-section" @dragover.prevent @drop="moveToActive">
                 <p class="status-label">ACTIVE</p>
-                <div class="char-badge-grid"
-                    :class="{ 'char-badge-grid--empty': activeCharacters.length === 0 && !isDragging }">
-                    <SelectedCharacterBadge v-for="char in activeCharacters" :key="char.id" :character="char"
+                <div class="char-token-grid"
+                    :class="{ 'char-token-grid--empty': activeCharacters.length === 0 && !isDragging }">
+                    <CharacterToken v-for="char in activeCharacters" :key="char.id" :character="char"
                         :show-remove-fab="canRemoveCharacter(char)" :draggable="canDragCharacter(char)"
-                        :disable-default-click="true" class="draggable-badge"
+                        :disable-default-click="true" class="draggable-token"
                         @dragstart="handleDragStart($event, char.id)" @dragend="handleDragEnd"
                         @remove="canRemoveCharacter(char) ? removeCharacterFromCampaign(char) : undefined"
                         @click="viewCharacterSheet(char)" />
@@ -42,11 +42,11 @@
 
             <div v-show="showInactiveSection" class="status-section" @dragover.prevent @drop="moveToInactive">
                 <p class="status-label">INACTIVE</p>
-                <div class="char-badge-grid"
-                    :class="{ 'char-badge-grid--empty': inactiveCharacters.length === 0 && !isDragging }">
-                    <SelectedCharacterBadge v-for="char in inactiveCharacters" :key="char.id" :character="char"
+                <div class="char-token-grid"
+                    :class="{ 'char-token-grid--empty': inactiveCharacters.length === 0 && !isDragging }">
+                    <CharacterToken v-for="char in inactiveCharacters" :key="char.id" :character="char"
                         :is-inactive="true" :show-remove-fab="canRemoveCharacter(char)"
-                        :draggable="canDragCharacter(char)" :disable-default-click="true" class="draggable-badge"
+                        :draggable="canDragCharacter(char)" :disable-default-click="true" class="draggable-token"
                         @dragstart="handleDragStart($event, char.id)" @dragend="handleDragEnd"
                         @remove="canRemoveCharacter(char) ? removeCharacterFromCampaign(char) : undefined"
                         @click="viewCharacterSheet(char)" />
@@ -66,7 +66,7 @@ import { useCampaignStore } from '@/stores/campaignStore'
 import { useCharactersStore } from '@/stores/charactersStore'
 import { useAppCharacterSheetModal } from '@/composables/useAppCharacterSheetModal'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
-import SelectedCharacterBadge from '@/components/features/characterSelection/SelectedCharacterBadge.vue'
+import CharacterToken from '@/components/features/characterSelection/CharacterToken.vue'
 import { PlusIcon } from '@heroicons/vue/24/outline'
 import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 import { isPlayerCharacter } from '@/utils/characterTypeGuards'
