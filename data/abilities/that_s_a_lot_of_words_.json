@@ -9,5 +9,6 @@
   "actionCost": "c4df395c-8284-4c4f-bf01-e293ed51c58c",
   "mpCost": 2,
   "xpCost": 10,
-  "canBeActive": false
+  "canBeActive": false,
+  "hasDifficulty": false
 }

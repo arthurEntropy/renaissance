@@ -5,5 +5,6 @@
   "lastModified": "2026-04-10T20:33:58.301Z",
   "name": "Magic",
   "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
-  "canBeActive": false
+  "canBeActive": false,
+  "hasDifficulty": false
 }

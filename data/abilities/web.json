@@ -17,5 +17,6 @@
     "underground"
   ],
   "biomeTagsInhibit": [],
-  "canBeActive": false
+  "canBeActive": false,
+  "hasDifficulty": true
 }

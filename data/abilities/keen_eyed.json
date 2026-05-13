@@ -7,5 +7,6 @@
   "description": "<p><em>Your ancestors developed their eyesight in wide open spaces.</em></p><p>Your Awareness rolls are Favored.</p><p>Additionally, you can see objects in detail as if they were only half their actual distance from you.</p><p><strong>Describe your exceptional vision.</strong></p>",
   "source": "f5cda222-6c69-4ae9-bc0d-761729cd8e2e",
   "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
-  "canBeActive": false
+  "canBeActive": false,
+  "hasDifficulty": false
 }

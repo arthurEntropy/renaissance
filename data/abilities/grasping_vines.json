@@ -28,5 +28,6 @@
     "cold",
     "desert"
   ],
-  "canBeActive": true
+  "canBeActive": true,
+  "hasDifficulty": false
 }

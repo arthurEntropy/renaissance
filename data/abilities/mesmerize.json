@@ -9,5 +9,6 @@
   "source": "dab3e414-0118-49be-9779-4e3018cdba71",
   "school": null,
   "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
-  "canBeActive": false
+  "canBeActive": false,
+  "hasDifficulty": true
 }

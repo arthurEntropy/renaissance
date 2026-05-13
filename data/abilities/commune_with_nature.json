@@ -21,5 +21,6 @@
     "civilized",
     "desert"
   ],
-  "canBeActive": false
+  "canBeActive": false,
+  "hasDifficulty": false
 }

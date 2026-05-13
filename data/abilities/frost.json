@@ -19,5 +19,6 @@
   "actionCost": "662f778f-5995-4f20-bc8c-a0f078a2125c",
   "xpCost": 10,
   "manaCost": "UB",
-  "canBeActive": false
+  "canBeActive": false,
+  "hasDifficulty": false
 }

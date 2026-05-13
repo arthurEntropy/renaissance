@@ -7,5 +7,6 @@
   "source": "8221b753-1564-447e-b26a-4c95761d2714",
   "mpCost": null,
   "xpCost": null,
-  "canBeActive": false
+  "canBeActive": false,
+  "hasDifficulty": false
 }

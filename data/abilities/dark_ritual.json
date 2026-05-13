@@ -12,5 +12,6 @@
   "mpCost": null,
   "xpCost": 5,
   "manaCost": "B",
-  "canBeActive": false
+  "canBeActive": false,
+  "hasDifficulty": false
 }

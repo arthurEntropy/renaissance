@@ -15,5 +15,6 @@
   ],
   "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
   "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
-  "canBeActive": false
+  "canBeActive": false,
+  "hasDifficulty": false
 }

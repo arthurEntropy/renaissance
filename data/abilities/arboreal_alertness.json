@@ -7,5 +7,6 @@
   "description": "<p><em>Your ancestors developed wariness among the trees.</em></p><p>You gain 2 ranks in Awareness.</p><p><strong>Describe how nothing escapes your notice.</strong></p>",
   "source": "9250fcc5-9bc9-4724-815d-4411e79d403c",
   "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
-  "canBeActive": false
+  "canBeActive": false,
+  "hasDifficulty": false
 }

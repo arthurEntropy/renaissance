@@ -7,5 +7,6 @@
   "description": "<p>You have a strange, hateful fixation on a certain type of harmless inanimate object - dolls, telescopes, clocks, windmills or the like - something neither omnipresent nor rare, and which represents no real threat in and of itself.</p><p>Catching sight of one of these objects causes you to check a Condition. Every minute you knowingly spend within medium range of these objects causes you to check another Condition. Touching one causes you to check two Conditions. Destroying one of these objects clears all your Conditions.</p><p><strong>Describe your fixation.</strong></p>",
   "source": "45ca935d-938b-4974-961c-4171cc388904",
   "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
-  "canBeActive": false
+  "canBeActive": false,
+  "hasDifficulty": false
 }

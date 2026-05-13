@@ -7,5 +7,6 @@
   "description": "<p><em>You have an uncanny ability to recover from harm.</em></p><p>Any time you rest, remove all Injury.</p><p><strong>Describe how your wounds heal quickly.</strong></p>",
   "source": "6ff91bc4-122f-4e95-bb08-b577f1a94bb6",
   "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
-  "canBeActive": false
+  "canBeActive": false,
+  "hasDifficulty": false
 }

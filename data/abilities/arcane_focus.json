@@ -8,5 +8,6 @@
   "description": "<p>Magic is something external that you have learned to bend to your will through the use of a special tool: your arcane focus.</p><p>Your Arcanist archetype (Hedge Mage, Rune Knight, Wizard of the Tower) determines what type of arcane focus you use. Your arcane focus is required for you to cast spells. Without it, you are unable to use magic. You get one arcane focus when you choose your archetype.</p><p>Rune Knights turn their equipment into arcane focuses regularly with runes, but Hedge Mages and Wizards of the tower must obtain a pre-enchanted arcane focus, which requires attunement: you must spend 1 hour meditating over the arcane focus to form a magical bond with it. At the end of the hour, any previous attunements with other arcane foci end and you are able to cast spells using the new focus.</p><p><strong>Describe your arcane focus.</strong></p>",
   "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
   "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
-  "canBeActive": false
+  "canBeActive": false,
+  "hasDifficulty": false
 }

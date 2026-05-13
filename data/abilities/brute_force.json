@@ -7,5 +7,6 @@
   "description": "<p>Whenever you deal damage, you deal 1 additional damage.</p><p><strong>Describe your strength.</strong></p>",
   "source": "eed942f5-8cc4-446a-8806-b83186098274",
   "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
-  "canBeActive": false
+  "canBeActive": false,
+  "hasDifficulty": false
 }

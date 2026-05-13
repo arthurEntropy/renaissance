@@ -18,6 +18,7 @@ import { createBaseEntity } from './baseEntity.js'
  * @property {UUID|null} school - Ability school UUID reference (only for mestiere-sourced abilities)
  * @property {boolean} isMagical - Whether this ability is magical (referred to as a "spell" in the rules/UI)
  * @property {boolean} canBeActive - Whether this ability can be toggled active (to track duration/ongoing effects)
+ * @property {boolean} hasDifficulty - Whether this ability sets a Difficulty that should be tracked per-character
  * 
  * Costs
  * @property {UUID|null} actionCost - Action cost type UUID reference (e.g., Action, Reaction, Free Action)
@@ -64,5 +65,6 @@ export function createDefaultAbility() {
 
     // Activation
     canBeActive: false,
+    hasDifficulty: false,
   }
 }

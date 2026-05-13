@@ -14,5 +14,6 @@
   "xpCost": 15,
   "biomeTagsAugment": [],
   "biomeTagsInhibit": [],
-  "canBeActive": false
+  "canBeActive": false,
+  "hasDifficulty": false
 }

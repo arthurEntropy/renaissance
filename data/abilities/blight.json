@@ -23,5 +23,6 @@
     "wetland",
     "enchanted"
   ],
-  "canBeActive": false
+  "canBeActive": false,
+  "hasDifficulty": false
 }

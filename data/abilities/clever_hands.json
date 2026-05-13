@@ -7,5 +7,6 @@
   "description": "<p>You gain 1 rank in Dexterity.</p>",
   "source": "b6f7cc3e-f689-4cd9-a8ed-73bf5e7f0fef",
   "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
-  "canBeActive": false
+  "canBeActive": false,
+  "hasDifficulty": false
 }
