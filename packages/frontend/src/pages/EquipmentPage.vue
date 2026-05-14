@@ -523,6 +523,7 @@ const layoutProps = computed(() => ({
     tagMultiselect: true,
     tagSearchPlaceholder: 'Filter by tags...',
     hideToTopButton: showEditEquipmentModal.value,
+    constrainToColumnWidths: true,
 }))
 </script>
 

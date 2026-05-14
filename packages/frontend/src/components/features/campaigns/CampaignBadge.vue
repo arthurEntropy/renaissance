@@ -1,13 +1,11 @@
 <template>
     <div class="campaign-btn-wrapper" :class="{ 'is-in-campaign': campaignStore.isInCampaign }" ref="wrapperRef">
-        <!-- The main button when in a campaign: click goes directly to lobby -->
-        <ActionButton v-if="campaignStore.isInCampaign" variant="primary" :style="btnStyle" @click="goToLobby">
+        <!-- The main button when in a campaign -->
+        <!-- On the lobby page: click shows a dropdown with an exit option -->
+        <!-- On other pages: click navigates directly to the campaign lobby -->
+        <ActionButton v-if="campaignStore.isInCampaign" variant="primary" :style="btnStyle" @click="handleBadgeClick">
             {{ btnLabel }}
         </ActionButton>
-
-        <!-- Exit FAB shown on hover when in a campaign -->
-        <FloatingActionButton v-if="campaignStore.isInCampaign" class="exit-fab" :variant="FAB_TYPES.EXIT"
-            :size="FAB_SIZES.SMALL" :visibility="FAB_VISIBILITIES.ALWAYS" @click.stop="handleExit" />
 
         <!-- Link-style trigger when not in a campaign -->
         <ActionButton v-if="!campaignStore.isInCampaign" variant="neutral" @click="toggleMenu"
@@ -15,22 +13,30 @@
             {{ btnLabel }}
         </ActionButton>
 
-        <!-- Dropdown menu when NOT in a campaign (teleported to body to escape nav stacking context) -->
+        <!-- Dropdown menu (teleported to body to escape nav stacking context) -->
         <Teleport to="body">
-            <div v-if="menuOpen && !campaignStore.isInCampaign" ref="menuRef" class="campaign-menu" :style="menuStyle">
-                <!-- My campaigns list -->
-                <div v-if="campaignStore.activeCampaigns.length > 0" class="campaign-menu-section">
-                    <div class="campaign-menu-section-label">My Campaigns</div>
-                    <button v-for="c in campaignStore.activeCampaigns" :key="c.id" class="campaign-menu-item"
-                        @click="goToCampaign(c)">
-                        <span class="campaign-item-name">{{ c.name }}</span>
+            <div v-if="menuOpen" ref="menuRef" class="campaign-menu" :style="menuStyle">
+                <!-- In-campaign menu: only the exit option -->
+                <template v-if="campaignStore.isInCampaign">
+                    <button class="campaign-menu-item" @click="handleExit">
+                        Exit Campaign
                     </button>
-                </div>
+                </template>
 
-                <!-- Create new -->
-                <button class="campaign-menu-item campaign-menu-item--create" @click="openCreateModal">
-                    Create New Campaign…
-                </button>
+                <!-- Not-in-campaign menu: campaign list + create -->
+                <template v-else>
+                    <div v-if="campaignStore.activeCampaigns.length > 0" class="campaign-menu-section">
+                        <div class="campaign-menu-section-label">My Campaigns</div>
+                        <button v-for="c in campaignStore.activeCampaigns" :key="c.id" class="campaign-menu-item"
+                            @click="goToCampaign(c)">
+                            <span class="campaign-item-name">{{ c.name }}</span>
+                        </button>
+                    </div>
+
+                    <button class="campaign-menu-item campaign-menu-item--create" @click="openCreateModal">
+                        Create New Campaign…
+                    </button>
+                </template>
             </div>
         </Teleport>
     </div>
@@ -38,14 +44,15 @@
 
 <script setup>
 import { ref, computed, watch, onUnmounted, nextTick } from 'vue'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 import { useCampaignStore } from '@/stores/campaignStore'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
-import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
-import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 
 const router = useRouter()
+const route = useRoute()
 const campaignStore = useCampaignStore()
+
+const isOnLobbyPage = computed(() => route.path.startsWith('/campaigns/'))
 const wrapperRef = ref(null)
 const menuRef = ref(null)
 const emit = defineEmits(['openCreateCampaign'])
@@ -110,8 +117,12 @@ onUnmounted(() => {
     document.removeEventListener('click', closeMenu)
 })
 
-const goToLobby = () => {
-    router.push(`/campaigns/${campaign.value?.slug}`)
+const handleBadgeClick = () => {
+    if (isOnLobbyPage.value) {
+        toggleMenu()
+    } else {
+        router.push(`/campaigns/${campaign.value?.slug}`)
+    }
 }
 
 const goToCampaign = (c) => {
@@ -120,6 +131,7 @@ const goToCampaign = (c) => {
 }
 
 const handleExit = async () => {
+    menuOpen.value = false
     await campaignStore.exitCampaign()
     router.push('/')
 }
@@ -142,38 +154,6 @@ const openCreateModal = () => {
 .campaign-btn-wrapper> :deep(.action-btn) {
     border-radius: var(--radius-full);
     background: var(--color-gray-dark);
-}
-
-/* Bridge hover state across the visual gap between badge and FAB. */
-.campaign-btn-wrapper.is-in-campaign::after {
-    content: '';
-    position: absolute;
-    left: 100%;
-    top: 50%;
-    width: var(--space-xs);
-    height: calc(100% + var(--space-lg));
-    transform: translateY(-50%);
-}
-
-.exit-fab {
-    position: absolute;
-    left: calc(100% + var(--space-xs));
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: var(--z-tooltip);
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity var(--transition-fast);
-}
-
-.campaign-btn-wrapper:hover .exit-fab {
-    opacity: 1;
-    pointer-events: auto;
-}
-
-.campaign-btn-wrapper:focus-within .exit-fab {
-    opacity: 1;
-    pointer-events: auto;
 }
 
 .campaign-btn-wrapper.is-in-campaign> :deep(.action-btn) {
@@ -273,10 +253,6 @@ const openCreateModal = () => {
 
 .campaign-menu-item--current {
     font-weight: var(--font-weight-semibold);
-}
-
-.campaign-menu-item--exit {
-    color: var(--color-danger);
 }
 
 .campaign-menu-item--create {

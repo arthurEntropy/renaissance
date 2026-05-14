@@ -1,5 +1,5 @@
 <template>
-  <div class="item-cards-layout">
+  <div :class="['item-cards-layout', { 'item-cards-layout--constrained': constrainToColumnWidths }]">
 
     <!-- Filter Bar -->
     <FilterBar v-model:searchQuery="searchQueryLocal" v-model:selectedTags="selectedTagsLocal"
@@ -63,6 +63,7 @@ const props = defineProps({
   showSourceGroupOptions: { type: Boolean, default: false },
   stats: { type: Array, default: () => [] },
   hideToTopButton: { type: Boolean, default: false },
+  constrainToColumnWidths: { type: Boolean, default: false },
 })
 
 const emit = defineEmits(['update:searchQuery', 'update:sourceFilter', 'update:tagFilters', 'update:groupBy', 'update:sortOption', 'create', 'load-more'])
@@ -134,6 +135,43 @@ const createItem = () => {
   width: 90%;
   max-width: 1460px;
   margin: 0 auto;
+}
+
+/*
+ * When constrainToColumnWidths is true, the container's max-width snaps to
+ * the exact width of the masonry column content at each column-count breakpoint
+ * (columnWidth=350, gap=20): 4-col=1460px, 3-col=1090px, 2-col=720px, 1-col=350px.
+ * This keeps the FilterBar aligned with the card grid below it.
+ *
+ * Viewport breakpoints are derived from the 90%-width container:
+ *   4-col: viewport >= 1460 / 0.9 ≈ 1623px
+ *   3-col: viewport >= 1090 / 0.9 ≈ 1212px
+ *   2-col: viewport >= 720  / 0.9 = 800px
+ */
+.item-cards-layout--constrained {
+  max-width: 1090px;
+  /* 3-column default */
+}
+
+@media (min-width: 1623px) {
+  .item-cards-layout--constrained {
+    max-width: 1460px;
+    /* 4 columns */
+  }
+}
+
+@media (max-width: 1211px) {
+  .item-cards-layout--constrained {
+    max-width: 720px;
+    /* 2 columns */
+  }
+}
+
+@media (max-width: 799px) {
+  .item-cards-layout--constrained {
+    max-width: 350px;
+    /* 1 column */
+  }
 }
 
 .cards-container {

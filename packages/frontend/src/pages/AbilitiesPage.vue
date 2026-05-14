@@ -601,6 +601,7 @@ const layoutProps = computed(() => ({
   tagSearchPlaceholder: 'Filter by tags...',
   stats: stats.value,
   hideToTopButton: showEditAbilityModal.value,
+  constrainToColumnWidths: true,
 }))
 </script>
 
