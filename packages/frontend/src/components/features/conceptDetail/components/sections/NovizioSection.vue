@@ -18,8 +18,9 @@
           <strong>MARTIAL TRAINING</strong>
           <div class="martial-training-list">
             <div class="martial-training-item" v-for="row in martialRows" :key="row.key">
-              <img :src="row.icon" :alt="row.label" class="martial-icon" />
-              <span class="martial-label">{{ row.label }}</span>
+              <div class="martial-icon-wrapper" :data-label="row.label">
+                <img :src="row.icon" :alt="row.label" class="martial-icon" />
+              </div>
               <div class="martial-grade-chips">
                 <ChipTag v-for="grade in equipmentGrades" :key="grade.id" :text="grade.name"
                   :variant="localNovizio.martialTraining[row.key].includes(grade.id) ? CHIP_TAG_VARIANTS.PRIMARY : CHIP_TAG_VARIANTS.GRAY"
@@ -101,10 +102,10 @@
           <strong>MARTIAL TRAINING</strong>
           <template v-if="martialRows.some(r => novizio.martialTraining?.[r.key]?.length)">
             <div class="martial-training-list">
-              <div class="martial-training-item"
-                v-for="row in martialRows.filter(r => novizio.martialTraining?.[r.key]?.length)" :key="row.key">
-                <img :src="row.icon" :alt="row.label" class="martial-icon" />
-                <span class="martial-label">{{ row.label }}</span>
+              <div class="martial-training-item" v-for="row in martialRows" :key="row.key">
+                <div class="martial-icon-wrapper" :data-label="row.label">
+                  <img :src="row.icon" :alt="row.label" class="martial-icon" />
+                </div>
                 <div class="martial-grade-chips">
                   <ChipTag v-for="grade in equipmentGrades" :key="grade.id" :text="grade.name"
                     :variant="novizio.martialTraining?.[row.key]?.includes(grade.id) ? CHIP_TAG_VARIANTS.PRIMARY : CHIP_TAG_VARIANTS.DIM"
@@ -430,19 +431,19 @@ watch(concept, (newConcept) => {
 
 .novizio-description {
   color: var(--color-text-primary);
-  font-size: var(--font-size-18);
+  font-size: var(--font-size-14);
   margin-bottom: 1.1rem;
-  margin-top: -0.3rem;
+  margin-top: -1rem;
   padding-left: var(--space-xs);
   padding-right: var(--space-xs);
 }
 
 .novizio-subsection {
-  margin-bottom: 1.1rem;
+  margin-bottom: 1.3rem;
 }
 
 .novizio-subsection>strong {
-  color: var(--color-primary);
+  color: var(--color-accent-cyan);
 }
 
 .novizio-placeholder {
@@ -478,8 +479,8 @@ watch(concept, (newConcept) => {
 }
 
 .martial-icon {
-  width: 28px;
-  height: 28px;
+  width: 20px;
+  height: 20px;
   object-fit: contain;
   background: var(--color-gray-light);
   border-radius: var(--radius-5);
@@ -488,7 +489,8 @@ watch(concept, (newConcept) => {
 }
 
 .martial-label {
-  min-width: 70px;
+  width: 30px;
+  font-size: var(--font-size-12);
   font-weight: var(--font-weight-semibold);
   color: var(--color-text-primary);
 }
@@ -545,5 +547,37 @@ watch(concept, (newConcept) => {
   font-size: var(--font-size-18);
   font-weight: var(--font-weight-semibold);
   margin-left: 0.4rem;
+}
+
+:deep(.section-title) {
+  color: var(--color-primary);
+}
+
+.martial-icon-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.martial-icon-wrapper::after {
+  content: attr(data-label);
+  position: absolute;
+  bottom: calc(15%);
+  left: 50%;
+  transform: translateX(-50%);
+  background: black;
+  color: var(--color-text-primary);
+  font-size: var(--font-size-14);
+  padding: 2px 6px;
+  border-radius: var(--radius-5);
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s;
+  z-index: 10;
+}
+
+.martial-icon-wrapper:hover::after {
+  opacity: 1;
 }
 </style>

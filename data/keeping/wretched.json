@@ -3,5 +3,7 @@
   "name": "Wretched",
   "description": "",
   "cost": 0,
-  "isDeleted": false
+  "imageUrl": "https://cdn.midjourney.com/fc59fb0f-bd92-46eb-8253-68d4cb4e1590/0_0.jpeg",
+  "isDeleted": false,
+  "lastModified": "2026-05-14T01:03:28.532Z"
 }

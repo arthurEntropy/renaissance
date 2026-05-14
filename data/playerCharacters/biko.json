@@ -1,6 +1,6 @@
 {
   "id": "3394b1a2-236d-45ca-9262-84c17a3b7015",
-  "lastModified": "2026-05-13T03:40:11.731Z",
+  "lastModified": "2026-05-14T15:09:24.698Z",
   "name": "Biko",
   "pronouns": "he/him",
   "ancestryIds": [
@@ -19,7 +19,7 @@
   "heightFeet": 5,
   "heightInches": 6,
   "weight": 174,
-  "keeping": "5e6f7a8b-9c0d-4e1f-2a3b-4c5d6e7f8a9b",
+  "keeping": "3c4d5e6f-7a8b-4c9d-0e1f-2a3b4c5d6e7f",
   "xp": 0,
   "notes": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In maximus nisl eu augue consectetur mattis. Donec ac quam a velit bibendum porttitor. Vivamus bibendum massa at lacus ornare condimentum. Curabitur at mollis quam. Suspendisse aliquet auctor est, sed aliquam magna volutpat eget. Duis quis ligula eu ante condimentum viverra. Curabitur euismod est in varius fringilla. Fusce lorem libero, scelerisque sed aliquet fringilla, sodales in mauris. Maecenas in lacus ac ligula accumsan convallis. Praesent erat elit, accumsan et sapien bibendum, sollicitudin varius ipsum. Curabitur iaculis rutrum ex.</p><p style=\"text-align: justify\">Praesent quis tristique felis. Cras sed tortor mauris. Nam dolor tellus, congue eu elit ac, fermentum scelerisque nulla. Proin vehicula gravida luctus. Donec in elit tempus, fermentum metus nec, sagittis enim. Donec vitae augue leo. Quisque vel arcu quis ligula imperdiet dapibus sed sit amet lacus. Aenean at ornare libero. Aliquam lacinia faucibus dolor, sit amet volutpat purus convallis et. In cursus pulvinar mauris a lacinia. Nullam quis odio et odio consequat rhoncus. Fusce lectus enim, ornare in urna id, mollis facilisis odio. Aliquam dictum purus sed turpis elementum aliquam. Sed dapibus non leo quis euismod.</p><p style=\"text-align: justify\">Cras dapibus quam nulla, et semper enim sodales quis. Nunc sagittis sagittis metus. In sit amet eros posuere, egestas lacus eget, porta felis. Aliquam id sem ut magna aliquam fringilla. Suspendisse nec urna a erat gravida lobortis. Sed posuere mollis efficitur. Quisque vel vestibulum turpis. Duis sodales in orci sed dictum. Aliquam egestas sodales leo ac aliquam. Ut ac blandit neque. Integer at lobortis nulla, vel congue odio. Maecenas accumsan, nisi vel vulputate maximus, mi nibh blandit lorem, vel euismod nisi lectus at risus. Duis non malesuada odio, vitae commodo velit.</p><p style=\"text-align: justify\"></p><p style=\"text-align: justify\">Praesent quis tristique felis. Cras sed tortor mauris. Nam dolor tellus, congue eu elit ac, fermentum scelerisque nulla. Proin vehicula gravida luctus. Donec in elit tempus, fermentum metus nec, sagittis enim. Donec vitae augue leo. Quisque vel arcu quis ligula imperdiet dapibus sed sit amet lacus. Aenean at ornare libero. Aliquam lacinia faucibus dolor, sit amet volutpat purus convallis et. In cursus pulvinar mauris a lacinia. Nullam quis odio et odio consequat rhoncus. Fusce lectus enim, ornare in urna id, mollis facilisis odio. Aliquam dictum purus sed turpis elementum aliquam. Sed dapibus non leo quis euismod.</p><p style=\"text-align: justify\">Cras dapibus quam nulla, et semper enim sodales quis. Nunc sagittis sagittis metus. In sit amet eros posuere, egestas lacus eget, porta felis. Aliquam id sem ut magna aliquam fringilla. Suspendisse nec urna a erat gravida lobortis. Sed posuere mollis efficitur. Quisque vel vestibulum turpis. Duis sodales in orci sed dictum. Aliquam egestas sodales leo ac aliquam. Ut ac blandit neque. Integer at lobortis nulla, vel congue odio. Maecenas accumsan, nisi vel vulputate maximus, mi nibh blandit lorem, vel euismod nisi lectus at risus. Duis non malesuada odio, vitae commodo velit.</p><p style=\"text-align: justify\"></p><p style=\"text-align: justify\">Praesent quis tristique felis. Cras sed tortor mauris. Nam dolor tellus, congue eu elit ac, fermentum scelerisque nulla. Proin vehicula gravida luctus. Donec in elit tempus, fermentum metus nec, sagittis enim. Donec vitae augue leo. Quisque vel arcu quis ligula imperdiet dapibus sed sit amet lacus. Aenean at ornare libero. Aliquam lacinia faucibus dolor, sit amet volutpat purus convallis et. In cursus pulvinar mauris a lacinia. Nullam quis odio et odio consequat rhoncus. Fusce lectus enim, ornare in urna id, mollis facilisis odio. Aliquam dictum purus sed turpis elementum aliquam. Sed dapibus non leo quis euismod.</p><p style=\"text-align: justify\">Cras dapibus quam nulla, et semper enim sodales quis. Nunc sagittis sagittis metus. In sit amet eros posuere, egestas lacus eget, porta felis. Aliquam id sem ut magna aliquam fringilla. Suspendisse nec urna a erat gravida lobortis. Sed posuere mollis efficitur. Quisque vel vestibulum turpis. Duis sodales in orci sed dictum. Aliquam egestas sodales leo ac aliquam. Ut ac blandit neque. Integer at lobortis nulla, vel congue odio. Maecenas accumsan, nisi vel vulputate maximus, mi nibh blandit lorem, vel euismod nisi lectus at risus. Duis non malesuada odio, vitae commodo velit.</p>",
   "characterType": "player",
@@ -161,7 +161,7 @@
   },
   "defense": {
     "current": 12,
-    "base": 12
+    "base": 2
   },
   "load": 10,
   "shadow": 0,
@@ -197,59 +197,59 @@
       "quantity": 1,
       "isCarried": true,
       "isWielding": true,
-      "collapsed": true
+      "collapsed": false
     },
     {
       "id": "2f54077d-56bd-46a6-9ad5-a7acdc7a90cf",
       "quantity": 1,
       "isCarried": true,
       "isWielding": false,
-      "collapsed": true
+      "collapsed": false
     },
     {
       "id": "249e6650-8646-4367-9912-6655f03ce32c",
       "quantity": 1,
       "isCarried": true,
       "isWielding": false,
-      "collapsed": true
+      "collapsed": false
     },
     {
       "id": "30ade4bc-27c7-4bb5-a674-00cbd0fc294b",
       "quantity": 1,
       "isCarried": true,
       "isWielding": false,
-      "collapsed": true
+      "collapsed": false
     },
     {
       "id": "b2235478-d2a6-4ccd-8cde-bd7efc35fd59",
       "quantity": 1,
       "isCarried": true,
-      "collapsed": true
+      "collapsed": false
     },
     {
       "id": "6c9a4bb8-84f1-41ba-af09-ad6e65f7b9cc",
       "quantity": 6,
       "isCarried": true,
-      "collapsed": true
+      "collapsed": false
     },
     {
       "id": "35d95303-a550-457a-97b5-00c2eda8e9ee",
       "quantity": 1,
       "isCarried": true,
       "isWielding": false,
-      "collapsed": true
+      "collapsed": false
     },
     {
       "id": "f94fb100-aed0-4a42-89a4-3a793439b842",
       "quantity": 1,
       "isCarried": true,
-      "collapsed": true
+      "collapsed": false
     },
     {
       "id": "d7b8a4bf-649e-4ce5-8d6b-488755d7cc09",
       "quantity": 1,
       "isCarried": true,
-      "collapsed": true
+      "collapsed": false
     }
   ],
   "groupEquipmentBySource": false,
@@ -261,42 +261,42 @@
   "abilities": [
     {
       "id": "4fbf9ccb-0fbb-45d0-9f8f-7b7fcfb811fb",
-      "collapsed": true,
+      "collapsed": false,
       "showImprovements": false,
       "showSuccesses": false,
       "isActive": false
     },
     {
       "id": "ad7f2d4c-75cc-4b7c-8066-57eb1ccaf54a",
-      "collapsed": true,
+      "collapsed": false,
       "showImprovements": false,
       "showSuccesses": false,
       "isActive": false
     },
     {
       "id": "7eb3559b-8cd5-49ce-b047-a627e30db31c",
-      "collapsed": true,
+      "collapsed": false,
       "showImprovements": false,
       "showSuccesses": false,
       "isActive": false
     },
     {
       "id": "359a4615-81a7-4cd1-a23f-22b50b7d1f93",
-      "collapsed": true,
+      "collapsed": false,
       "showImprovements": false,
       "showSuccesses": false,
       "isActive": false
     },
     {
       "id": "de2e226f-c1e2-489e-9f70-353153421262",
-      "collapsed": true,
+      "collapsed": false,
       "showImprovements": false,
       "showSuccesses": false,
       "isActive": false
     },
     {
       "id": "df41e010-07b6-40bf-bc67-ec2a01c9b95d",
-      "collapsed": true,
+      "collapsed": false,
       "showImprovements": true,
       "showSuccesses": false,
       "improvements": {
@@ -307,7 +307,7 @@
     },
     {
       "id": "c93d20c3-2fa2-4001-837d-cf38629b9c1a",
-      "collapsed": true,
+      "collapsed": false,
       "showImprovements": true,
       "showSuccesses": false,
       "improvements": {
@@ -317,7 +317,7 @@
     },
     {
       "id": "18d87a10-1a25-493c-a549-7644744788f1",
-      "collapsed": true,
+      "collapsed": false,
       "showImprovements": true,
       "showSuccesses": false,
       "improvements": {
@@ -327,49 +327,49 @@
     },
     {
       "id": "bd8f66a4-5849-483b-9123-b0085c0e5a5c",
-      "collapsed": true,
+      "collapsed": false,
       "showImprovements": false,
       "showSuccesses": false,
       "isActive": false
     },
     {
       "id": "b9271b66-5772-4ec2-ba0c-5a8f4b6cc525",
-      "collapsed": true,
+      "collapsed": false,
       "showImprovements": false,
       "showSuccesses": false,
       "isActive": false
     },
     {
       "id": "8d9b4191-4c71-4d62-9344-800fe50787ab",
-      "collapsed": true,
+      "collapsed": false,
       "showImprovements": false,
       "showSuccesses": false,
       "isActive": false
     },
     {
       "id": "e16343e2-35aa-4a42-b8f3-9105aad87780",
-      "collapsed": true,
+      "collapsed": false,
       "showImprovements": false,
       "showSuccesses": false,
       "isActive": false
     },
     {
       "id": "3f8b04db-fe8e-4569-8670-092ea46a06cf",
-      "collapsed": true,
+      "collapsed": false,
       "showImprovements": false,
       "showSuccesses": false,
       "isActive": false
     },
     {
       "id": "f906a23e-b95d-421a-b4ed-b094c3086497",
-      "collapsed": true,
+      "collapsed": false,
       "showImprovements": false,
       "showSuccesses": false,
       "isActive": false
     },
     {
       "id": "8f9c579e-1089-4532-a10a-3cf5115bb403",
-      "collapsed": true,
+      "collapsed": false,
       "showImprovements": false,
       "showSuccesses": false,
       "isActive": false
@@ -413,5 +413,5 @@
   },
   "witchcraftTokens": [],
   "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2026-05-13T03:40:11.731Z"
+  "updatedAt": "2026-05-14T15:09:24.698Z"
 }

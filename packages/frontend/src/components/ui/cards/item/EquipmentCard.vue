@@ -21,7 +21,8 @@
       <BadgeDisplay
         v-if="showKeepingBadge && (keepingCost !== null || !!character) && (characterOwnsAnyImprovements || showImprovements)"
         type="keeping" :value="keepingCost" :is-owned="characterHasBaseEquipment" :asImprovementBadge="true"
-        :is-interactive="!!character" :hidden-by-default="keepingCost === null && !characterHasBaseEquipment"
+        :is-interactive="!!character"
+        :hidden-by-default="keepingBadgeHiddenByDefault || (keepingCost === null && !characterHasBaseEquipment)"
         @toggle="handleBaseEquipmentToggle" />
     </template>
 
@@ -100,7 +101,8 @@
       <BadgeDisplay
         v-if="!collapsed && showKeepingBadge && (keepingCost !== null || !!character) && !characterOwnsAnyImprovements && !showImprovements"
         type="keeping" :value="keepingCost" :is-owned="characterHasBaseEquipment" :is-interactive="!!character"
-        :hidden-by-default="keepingCost === null && !characterHasBaseEquipment" @toggle="handleBaseEquipmentToggle" />
+        :hidden-by-default="keepingBadgeHiddenByDefault || (keepingCost === null && !characterHasBaseEquipment)"
+        @toggle="handleBaseEquipmentToggle" />
 
       <!-- Discovery number badge for Mesmer's Masks -->
       <div v-if="showDiscoveryBadge && character" class="discovery-badge-host"
@@ -221,6 +223,12 @@ const props = defineProps({
     default: false
   },
   showDifficultyBadge: {
+    type: Boolean,
+    default: false
+  },
+  // When true, the keeping cost badge is always hidden until the card is hovered
+  // (mirrors the XP badge behaviour in AbilityCard within AbilitiesTable)
+  keepingBadgeHiddenByDefault: {
     type: Boolean,
     default: false
   }

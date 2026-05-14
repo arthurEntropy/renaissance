@@ -249,8 +249,10 @@ onMounted(async () => {
       }
     }
     // If sticky selection is enabled and there's already a selected item,
-    // automatically open it (e.g., character sheet for active gameplay)
-    else if (props.stickySelection && props.selectedItem) {
+    // automatically open it (e.g., character sheet for active gameplay).
+    // Skip when useExternalModal is true — the external modal manages its own open state,
+    // so auto-opening here would reopen the sheet immediately after the user dismissed it.
+    else if (props.stickySelection && props.selectedItem && !props.useExternalModal) {
       const concept = props.concepts.find(c => c.id === props.selectedItem.id)
       if (concept) {
         openConceptDetail(concept)
@@ -286,7 +288,7 @@ watch(() => props.concepts, (newConcepts) => {
     if (route.params.id) {
       const conceptToOpen = findConceptBySlug(newConcepts, route.params.id)
       if (conceptToOpen) openConceptDetail(conceptToOpen)
-    } else if (props.stickySelection && props.selectedItem) {
+    } else if (props.stickySelection && props.selectedItem && !props.useExternalModal) {
       const concept = newConcepts.find(c => c.id === props.selectedItem.id)
       if (concept) openConceptDetail(concept)
     }
@@ -295,7 +297,7 @@ watch(() => props.concepts, (newConcepts) => {
 
 // Auto-open when a sticky-selected item is set after concepts are already loaded
 watch(() => props.selectedItem, (newItem) => {
-  if (props.stickySelection && newItem && !showConceptDetail.value && props.concepts.length > 0) {
+  if (props.stickySelection && newItem && !showConceptDetail.value && props.concepts.length > 0 && !props.useExternalModal) {
     const concept = props.concepts.find(c => c.id === newItem.id)
     if (concept) openConceptDetail(concept)
   }

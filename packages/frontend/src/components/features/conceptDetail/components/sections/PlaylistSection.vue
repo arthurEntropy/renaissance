@@ -36,21 +36,21 @@
     <!-- DISPLAY MODE -->
     <div v-else>
       <div class="playlist-nav-wrapper" @mouseenter="showNav = true" @mouseleave="showNav = false">
-        <button v-if="showNav && localPlaylists.length > 1" class="nav-button left" @click="prevPlaylist"
-          aria-label="Previous playlist">
+        <button v-if="showNav && totalPages > 1" class="nav-button left" @click="prevPage" aria-label="Previous page">
           <ChevronLeftIcon class="nav-icon" />
         </button>
-        <div v-for="(playlist, index) in localPlaylists" :key="index" v-show="index === selectedIndex"
-          class="playlist-embed" v-html="safeEmbed(playlist)">
+        <div class="playlist-page">
+          <div v-for="(playlist, index) in currentPagePlaylists" :key="currentPage * 2 + index" class="playlist-embed"
+            v-html="safeEmbed(playlist)">
+          </div>
         </div>
-        <button v-if="showNav && localPlaylists.length > 1" class="nav-button right" @click="nextPlaylist"
-          aria-label="Next playlist">
+        <button v-if="showNav && totalPages > 1" class="nav-button right" @click="nextPage" aria-label="Next page">
           <ChevronRightIcon class="nav-icon" />
         </button>
       </div>
-      <div v-if="localPlaylists.length > 1" class="playlist-dots">
-        <span v-for="(_, index) in localPlaylists" :key="index" class="playlist-dot"
-          :class="{ active: index === selectedIndex }" @click="selectedIndex = index">
+      <div v-if="totalPages > 1" class="playlist-dots">
+        <span v-for="page in totalPages" :key="page - 1" class="playlist-dot"
+          :class="{ active: page - 1 === currentPage }" @click="currentPage = page - 1">
         </span>
       </div>
     </div>
@@ -78,8 +78,11 @@ const concept = computed(() => conceptsStore.selectedConcept)
 
 const localPlaylists = ref([])
 const isSectionEditing = ref(false)
-const selectedIndex = ref(0)
+const currentPage = ref(0)
 const showNav = ref(false)
+
+const totalPages = computed(() => Math.ceil(localPlaylists.value.length / 2))
+const currentPagePlaylists = computed(() => localPlaylists.value.slice(currentPage.value * 2, currentPage.value * 2 + 2))
 
 const hasPlaylists = computed(() => {
   return localPlaylists.value && localPlaylists.value.length > 0
@@ -88,8 +91,8 @@ const hasPlaylists = computed(() => {
 const syncLocalPlaylists = (sourceConcept) => {
   if (!sourceConcept) return
   localPlaylists.value = sourceConcept.playlists ? [...sourceConcept.playlists] : []
-  if (selectedIndex.value >= localPlaylists.value.length) {
-    selectedIndex.value = Math.max(0, localPlaylists.value.length - 1)
+  if (currentPage.value >= Math.ceil(localPlaylists.value.length / 2)) {
+    currentPage.value = Math.max(0, Math.ceil(localPlaylists.value.length / 2) - 1)
   }
 }
 
@@ -183,12 +186,12 @@ const processAppleEmbedCodes = () => {
   localPlaylists.value = localPlaylists.value.map(normalizeEmbedCode)
 }
 
-const prevPlaylist = () => {
-  selectedIndex.value = (selectedIndex.value - 1 + localPlaylists.value.length) % localPlaylists.value.length
+const prevPage = () => {
+  currentPage.value = (currentPage.value - 1 + totalPages.value) % totalPages.value
 }
 
-const nextPlaylist = () => {
-  selectedIndex.value = (selectedIndex.value + 1) % localPlaylists.value.length
+const nextPage = () => {
+  currentPage.value = (currentPage.value + 1) % totalPages.value
 }
 
 // Normalize first (restore sandbox + enforce height), then sanitize.
@@ -210,6 +213,13 @@ watch(concept, (newConcept) => {
 
 .playlist-nav-wrapper {
   position: relative;
+}
+
+.playlist-page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  width: 100%;
 }
 
 .playlist-embed {

@@ -20,7 +20,6 @@ export const FAB_TYPES = {
     MOVE_DOWN: 'move-down',
     VISIBILITY: 'visibility',
     MARTIAL_TRAINING: 'martial-training',
-    EXIT: 'exit',
     ACTIVATE: 'activate',
     DEACTIVATE: 'deactivate',
 }

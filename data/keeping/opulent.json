@@ -3,5 +3,7 @@
   "name": "Opulent",
   "description": "",
   "cost": 4,
-  "isDeleted": false
+  "imageUrl": "https://cdn.midjourney.com/28268ac1-a7e2-456e-8597-9e028ce842eb/0_1.jpeg",
+  "isDeleted": false,
+  "lastModified": "2026-05-14T01:10:57.217Z"
 }

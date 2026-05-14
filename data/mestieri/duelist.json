@@ -36,7 +36,6 @@
         "dieSize": 4
       }
     ],
-    "engagementDiceNotes": "<p>Multiply this base allotment by your WITS score <em>(for example, a WITS score of 3 means you get 6d4)</em>. The allotment changes as your WITS score changes.</p>",
     "engagementSuccesses": [
       "b2c3d4e5-f6a7-48b9-c0d1-e2f3a4b5c6d7",
       "d4e5f6a7-b8c9-40d1-e2f3-a4b5c6d7e8f9",
@@ -46,13 +45,14 @@
       "c9d0e1f2-a3b4-45c6-d7e8-f9a0b1c2d3e4",
       "d0e1f2a3-b4c5-46d7-e8f9-a0b1c2d3e4f5"
     ],
+    "engagementDiceNotes": "<p>Multiply this base allotment by your WITS score <em>(for example, a WITS score of 3 means you get 6d4)</em>. The allotment changes as your WITS score changes.</p>",
     "engagementSuccessNotes": "",
     "baseMP": 0,
     "baseMpNotes": "<p>You can gain MP through your <em>Good Form</em> ability.</p>",
     "abilities": "<p><em>Demand Satisfaction</em>, <em>Good Form</em> and choose one, ignoring its XP cost: <em>Press Advantage, Quick Draw, </em>or <em>Lunge.</em></p>",
     "gratuiti": ""
   },
-  "lastModified": "2026-04-15T18:38:46.555Z",
+  "lastModified": "2026-05-14T13:23:06.872Z",
   "hooks": [],
   "playlists": []
 }

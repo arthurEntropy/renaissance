@@ -43,7 +43,7 @@ const safeContent = computed(() => sanitizeHtml(props.content))
 
 .info-card-title {
   font-weight: var(--font-weight-bold);
-  color: var(--color-accent-gold);
+  color: var(--color-primary);
   font-size: var(--font-size-20);
 }
 

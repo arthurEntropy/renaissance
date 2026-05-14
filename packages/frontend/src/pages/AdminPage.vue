@@ -82,6 +82,19 @@
                     title="Badge color" />
             </template>
         </AdminListManager>
+
+        <AdminListManager title="Keeping" item-name="Keeping" :store="keepingStore"
+            :default-item="{ name: '', description: '', cost: 0, imageUrl: '', index: 0 }">
+            <template #fields="{ item, update }">
+                <input v-model="item.name" @blur="update" class="field-input" placeholder="Keeping Name" />
+                <input v-model="item.description" @blur="update" class="field-input flex-1" placeholder="Description" />
+                <input v-model.number="item.cost" @blur="update" type="number" min="0" class="field-input cost-input"
+                    placeholder="Cost" />
+                <input v-model="item.imageUrl" @blur="update" class="field-input flex-1" placeholder="Image URL" />
+                <img v-if="item.imageUrl" :src="item.imageUrl" class="keeping-art-preview"
+                    alt="Keeping image preview" />
+            </template>
+        </AdminListManager>
     </div>
 </template>
 
@@ -99,6 +112,7 @@ import { useEngagementSuccessesStore } from '@/stores/engagementSuccessesStore'
 import { useBiomesStore } from '@/stores/biomesStore'
 import { useAbilitySchoolsStore } from '@/stores/abilitySchoolsStore'
 import { useConceptsStore } from '@/stores/conceptsStore'
+import { useKeepingStore } from '@/stores/keepingStore'
 import { computed } from 'vue'
 import BiomeTagsCyclePicker from '@/components/ui/biome/BiomeTagsCyclePicker.vue'
 
@@ -111,6 +125,7 @@ const engagementSuccessesStore = useEngagementSuccessesStore()
 const biomesStore = useBiomesStore()
 const abilitySchoolsStore = useAbilitySchoolsStore()
 const conceptsStore = useConceptsStore()
+const keepingStore = useKeepingStore()
 
 // Group ability schools by mestiere; expose as a store-shaped object for AdminListManager.
 // computed() is required so that changes to conceptsStore.mestieri propagate reactively as a prop.
@@ -168,5 +183,18 @@ const mestriereGroupStore = computed(() => ({
     background: none;
     cursor: pointer;
     flex-shrink: 0;
+}
+
+.keeping-art-preview {
+    width: 80px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: var(--radius-5);
+    border: 1px solid var(--color-gray-medium);
+    flex-shrink: 0;
+}
+
+.cost-input {
+    max-width: 70px;
 }
 </style>

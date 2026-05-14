@@ -41,10 +41,10 @@
     <PinnedTokensContainer v-if="authStore.isAuthenticated" />
 
     <!-- Active abilities token rail (right edge) -->
-    <ActiveAbilitiesContainer v-if="authStore.isAuthenticated" />
+    <ActiveAbilitiesContainer v-if="authStore.isAuthenticated && isCharacterSheetOpen" />
 
     <!-- Main Content -->
-    <div class="content-area" v-show="!isCharacterSheetOpen">
+    <div class="content-area">
       <!-- Not invited modal -->
       <NotInvitedModal v-if="authStore.notInvited" @close="authStore.clearNotInvited()" />
 
@@ -53,6 +53,9 @@
 
       <!-- Preferences modal -->
       <PreferencesModal v-else-if="showPreferencesModal" @close="closePreferences" />
+
+      <!-- Character Sheet page view -->
+      <CharacterSheet v-else-if="isCharacterSheetOpen" @close="closeCharacterSheet" />
 
       <!-- Main router view -->
       <router-view v-else />
@@ -64,7 +67,6 @@
   <CreateCampaignModal :visible="showCreateCampaignModal" :is-submitting="creatingCampaign"
     :error-message="createCampaignError" @close="closeCreateCampaign" @submit="submitCreateCampaign" />
   <CardPreviewOverlay />
-  <AppCharacterSheetModal />
 </template>
 
 <script setup>
@@ -86,13 +88,13 @@ import CardPreviewOverlay from '@/components/ui/cards/preview/CardPreviewOverlay
 import CampaignBadge from '@/components/features/campaigns/CampaignBadge.vue'
 import PinnedTokensContainer from '@/components/features/characterSelection/PinnedTokensContainer.vue'
 import ActiveAbilitiesContainer from '@/components/features/characterSelection/ActiveAbilitiesContainer.vue'
-import AppCharacterSheetModal from '@/components/features/characterSheet/AppCharacterSheetModal.vue'
+import CharacterSheet from '@/components/features/characterSheet/CharacterSheet.vue'
 import { useAppCharacterSheetModal } from '@/composables/useAppCharacterSheetModal'
 import { useProgressiveOptimizedImage } from '@/composables/useOptimizedImage'
 import { PROGRESSIVE_IMAGE_CONTEXTS } from '@/constants/imageOptimization'
 import { BACKGROUND_IMAGES } from '@/constants/backgroundImages'
 
-const { isOpen: isCharacterSheetOpen } = useAppCharacterSheetModal()
+const { isOpen: isCharacterSheetOpen, close: closeCharacterSheet } = useAppCharacterSheetModal()
 
 const menuOpen = ref(false)
 const route = useRoute()

@@ -104,7 +104,7 @@ function getSpellChipStyle(ability) {
     const fontSize = spellChipFontSize(ability?.name)
     if (source?.backgroundImage) {
         return {
-            backgroundImage: `url(${source.backgroundImage})`,
+            backgroundImage: `url(${source.cardBackgroundImage})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',

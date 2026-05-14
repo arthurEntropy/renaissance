@@ -2,7 +2,7 @@
   "id": "48a9eff3-9041-4b33-8f99-4137955d2997",
   "isDeleted": false,
   "createdAt": "2026-04-22T14:45:33.779Z",
-  "lastModified": "2026-05-13T18:42:34.053Z",
+  "lastModified": "2026-05-14T01:28:33.562Z",
   "name": "Otho",
   "pronouns": "",
   "ancestryIds": [
@@ -20,7 +20,7 @@
   "heightInches": 11,
   "weight": 200,
   "speed": 0,
-  "keeping": "2b3c4d5e-6f7a-4b8c-9d0e-1f2a3b4c5d6e",
+  "keeping": "5e6f7a8b-9c0d-4e1f-2a3b-4c5d6e7f8a9b",
   "xp": 0,
   "notes": "",
   "characterType": "player",
@@ -281,8 +281,8 @@
       "beastId": "09f7035a-0826-4761-af7a-49ef27655cd2",
       "friendship": 6,
       "isActive": true,
-      "isSummoned": true,
-      "vesselType": "great",
+      "isSummoned": false,
+      "keeping": "3c4d5e6f-7a8b-4c9d-0e1f-2a3b4c5d6e7f",
       "vesselNote": "",
       "imageUrl": "/src/assets/icons/witch/potion.png"
     },
@@ -291,22 +291,22 @@
       "beastId": "382f9f84-8084-4d62-82aa-165721574846",
       "friendship": 4,
       "isActive": true,
-      "isSummoned": false,
-      "vesselType": "maestro",
+      "isSummoned": true,
+      "keeping": "4d5e6f7a-8b9c-4d0e-1f2a-3b4c5d6e7f8a",
       "vesselNote": "",
       "imageUrl": "/src/assets/icons/summoner/potion.png"
     },
     {
       "id": "9ef6ea44-5428-4377-ad2f-c862a218db43",
-      "beastId": "b9cd5af3-b5da-4e94-8431-3e501a916ad9",
-      "friendship": 3,
+      "beastId": null,
+      "friendship": 0,
       "isActive": false,
       "isSummoned": false,
-      "vesselType": "great",
-      "vesselNote": "test",
-      "imageUrl": "/src/assets/icons/summoner/seashell.png"
+      "keeping": "5e6f7a8b-9c0d-4e1f-2a3b-4c5d6e7f8a9b",
+      "vesselNote": "Jewelry box",
+      "imageUrl": "/src/assets/icons/summoner/box.png"
     }
   ],
   "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2026-05-13T18:42:34.053Z"
+  "updatedAt": "2026-05-14T01:28:33.562Z"
 }

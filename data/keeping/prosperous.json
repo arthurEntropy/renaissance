@@ -3,5 +3,7 @@
   "name": "Prosperous",
   "description": "",
   "cost": 3,
-  "isDeleted": false
+  "imageUrl": "https://cdn.midjourney.com/e8776879-52c5-4b17-aada-4b827bfedc60/0_3.jpeg",
+  "isDeleted": false,
+  "lastModified": "2026-05-14T01:03:12.262Z"
 }

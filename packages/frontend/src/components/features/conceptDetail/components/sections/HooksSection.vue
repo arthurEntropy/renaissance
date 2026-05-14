@@ -50,15 +50,14 @@
     <!-- DISPLAY MODE -->
     <div v-else>
       <InfoCard v-for="(hook, idx) in localHooks" :key="'hook-' + idx" :title="hook.name" :content="hook.description">
-        <template #title-actions>
-          <ActionButton variant="neutral" size="small" :text="shownGMNotes[idx] ? 'Hide GM Notes' : 'View GM Notes'"
-            @click="toggleGMNotes(idx)" />
-        </template>
-        <template #additional-content>
-          <div v-if="shownGMNotes[idx]" class="gm-notes" v-html="sanitizeHtml(hook.gmNotes)"></div>
+        <template v-if="canViewGMNotes" #title-actions>
+          <FloatingActionButton :variant="FAB_TYPES.NOTES" :size="FAB_SIZES.SMALL" :visibility="FAB_VISIBILITIES.ALWAYS"
+            @click="openGMNotes(hook)" />
         </template>
       </InfoCard>
     </div>
+
+    <GmHookNotesModal :open="gmNotesModalOpen" :hook="selectedHookForNotes" @close="closeGMNotes" />
 
   </ConceptSection>
 </template>
@@ -72,9 +71,11 @@ import ConceptSection from '../shared/ConceptSection.vue'
 import InfoCard from '../shared/InfoCard.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
+import GmHookNotesModal from './GmHookNotesModal.vue'
 import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
-import { sanitizeHtml } from '@/utils/sanitizeHtml'
 import { useConceptsStore } from '@/stores/conceptsStore'
+import { useAuthStore } from '@/stores/authStore'
+import { useCampaignStore } from '@/stores/campaignStore'
 
 const props = defineProps({
   editable: {
@@ -84,11 +85,16 @@ const props = defineProps({
 })
 
 const conceptsStore = useConceptsStore()
+const authStore = useAuthStore()
+const campaignStore = useCampaignStore()
 const concept = computed(() => conceptsStore.selectedConcept)
 const localHooks = ref([])
 const expandedHooks = ref({})
-const shownGMNotes = ref({})
 const isSectionEditing = ref(false)
+const gmNotesModalOpen = ref(false)
+const selectedHookForNotes = ref(null)
+
+const canViewGMNotes = computed(() => authStore.isAdmin || campaignStore.isGMInActiveCampaign)
 
 const hasHooks = computed(() => {
   return localHooks.value && localHooks.value.length > 0
@@ -156,8 +162,14 @@ const removeHook = (idx) => {
   })
 }
 
-const toggleGMNotes = (index) => {
-  shownGMNotes.value[index] = !shownGMNotes.value[index]
+const openGMNotes = (hook) => {
+  selectedHookForNotes.value = hook
+  gmNotesModalOpen.value = true
+}
+
+const closeGMNotes = () => {
+  gmNotesModalOpen.value = false
+  selectedHookForNotes.value = null
 }
 
 watch(() => concept.value?.hooks, (newHooks) => {
@@ -219,14 +231,5 @@ watch(() => concept.value?.hooks, (newHooks) => {
   display: flex;
   justify-content: flex-end;
   margin-top: var(--space-xs);
-}
-
-.gm-notes {
-  margin-top: var(--space-xs);
-  padding: var(--space-md);
-  background: var(--color-bg-secondary);
-  border-radius: var(--radius-5);
-  font-style: italic;
-  color: var(--color-text-secondary);
 }
 </style>
