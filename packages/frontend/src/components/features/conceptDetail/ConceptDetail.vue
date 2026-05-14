@@ -37,10 +37,9 @@
           </div>
         </div>
 
-        <!-- Row 2: Images (Faces | Places | Maps | Playlist) — only rendered if at least one is visible -->
-        <!-- Wrapper divs ensure all 4 grid columns are always present so hidden siblings don't create dead space -->
-        <div v-if="layout.showFaces || layout.showPlaces || layout.showMaps || layout.showPlaylist"
-          class="concept-grid-row-4">
+        <!-- Row 2: Images (Faces | Places | Maps) — only rendered if at least one is visible -->
+        <!-- Wrapper divs ensure all 3 grid columns are always present so hidden siblings don't create dead space -->
+        <div v-if="layout.showFaces || layout.showPlaces || layout.showMaps" class="concept-grid-row-3">
           <div>
             <ConceptImageSection v-if="layout.showFaces" title="Faces" :is-edit-mode="isEditMode"
               :mode="IMAGE_GALLERY_MODES.AUTO" :auto-source-type="ART_TYPES.FACES" />
@@ -53,19 +52,19 @@
             <ConceptImageSection v-if="layout.showMaps" title="Maps" :is-edit-mode="isEditMode"
               :mode="IMAGE_GALLERY_MODES.AUTO" :auto-source-type="ART_TYPES.MAPS" />
           </div>
-          <div>
-            <PlaylistSection v-if="layout.showPlaylist" :editable="isEditMode" />
-          </div>
         </div>
 
-        <!-- Row 3: Flavor (Local Flavor | Hooks) — only rendered if at least one is visible -->
-        <!-- Wrapper divs ensure both grid columns are always present so a lone section doesn't stretch -->
-        <div v-if="layout.showLocalFlavor || layout.showHooks" class="concept-grid-row-2">
+        <!-- Row 3: Flavor (Local Flavor | Hooks | Playlist) — only rendered if at least one is visible -->
+        <!-- Wrapper divs ensure all 3 grid columns are always present so hidden siblings don't create dead space -->
+        <div v-if="layout.showLocalFlavor || layout.showHooks || layout.showPlaylist" class="concept-grid-row-3">
           <div>
             <LocalFlavorSection v-if="layout.showLocalFlavor" :editable="isEditMode" />
           </div>
           <div>
             <HooksSection v-if="layout.showHooks" :editable="isEditMode" />
+          </div>
+          <div>
+            <PlaylistSection v-if="layout.showPlaylist" :editable="isEditMode" />
           </div>
         </div>
 
@@ -92,9 +91,9 @@
           :mode="IMAGE_GALLERY_MODES.AUTO" :auto-source-type="ART_TYPES.PLACES" />
         <ConceptImageSection v-if="layout.showMaps" title="Maps" :is-edit-mode="isEditMode"
           :mode="IMAGE_GALLERY_MODES.AUTO" :auto-source-type="ART_TYPES.MAPS" />
-        <PlaylistSection v-if="layout.showPlaylist" :editable="isEditMode" />
         <LocalFlavorSection v-if="layout.showLocalFlavor" :editable="isEditMode" />
         <HooksSection v-if="layout.showHooks" :editable="isEditMode" />
+        <PlaylistSection v-if="layout.showPlaylist" :editable="isEditMode" />
         <ConceptAbilitiesSection v-if="layout.showAbilities" :key="conceptsStore.selectedConcept?.id"
           :is-edit-mode="isEditMode" @edit-ability="openAbilityModal" @add-ability="createNewAbility" />
         <ConceptEquipmentSection v-if="layout.showEquipment" :is-edit-mode="isEditMode"
@@ -360,8 +359,8 @@ onBeforeUnmount(() => {
 .concept-content {
   position: relative;
   z-index: var(--z-raised);
-  width: var(--concept-modal-width);
-  max-width: 91%;
+  width: 100%;
+  max-width: 1160px;
   margin: 0 auto;
 }
 
@@ -426,18 +425,10 @@ onBeforeUnmount(() => {
   align-items: start;
 }
 
-/* Images + Playlist row: fixed 4 columns so sections don't stretch when siblings are hidden */
-.concept-grid-row-4 {
+/* Images row and Flavor + Playlist row: fixed 3 columns so sections don't stretch when siblings are hidden */
+.concept-grid-row-3 {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: var(--space-xl);
-  align-items: start;
-}
-
-/* Local Flavor + Hooks row: fixed 2 columns so sections don't stretch when siblings are hidden */
-.concept-grid-row-2 {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: var(--space-xl);
   align-items: start;
 }

@@ -59,7 +59,7 @@ const FAB_TYPE_CONFIG = {
     [FAB_TYPES.DICE]: { icon: DieIcon, tooltip: 'Custom Dice Roll' },
     [FAB_TYPES.INITIATIVE]: { icon: CrossedSwordsIcon, tooltip: 'Roll Initiative' },
     [FAB_TYPES.INJURY]: { icon: InjuryIcon, tooltip: 'Roll Injury' },
-    [FAB_TYPES.NOTES]: { icon: BookOpenIcon, tooltip: 'Bio & Notes' },
+    [FAB_TYPES.NOTES]: { icon: BookOpenIcon, tooltip: 'View GM Notes' },
     [FAB_TYPES.AUTO_CALC]: { icon: CalculatorIcon, tooltip: 'Manual mode (click to switch to auto)' },
     [FAB_TYPES.AUTO_CALC_ON]: { icon: CalculatorIcon, tooltip: 'Auto mode (click to switch to manual)' },
     [FAB_TYPES.EXPAND_ALL]: { icon: ChevronDoubleDownIcon, tooltip: 'Expand all' },

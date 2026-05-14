@@ -17,8 +17,8 @@
   "hooks": [
     {
       "id": "ef3e441b-455e-4b91-95b8-58263289d699",
-      "name": "A Mysterious Advertisement TEST",
-      "description": "<p>One morning a mysterious advertisement appears all over town, advertising \"Geori Rempler's Traveling School of the Adventuring Arts\" - an institution nobody has ever heard of. Prospective students are to appear at the Grand Fountain at noon on the next festival day. TEST</p>",
+      "name": "A Mysterious Advertisement",
+      "description": "<p>One morning a mysterious advertisement appears all over town, advertising \"Geori Rempler's Traveling School of the Adventuring Arts\" - an institution nobody has ever heard of. Prospective students are to appear at the Grand Fountain at noon on the next festival day.</p>",
       "gmNotes": "<h3>Option 1</h3><p>Geori Rempler is a real person who operates a real school and will really teach students how to be adventurers. He offers a three-part, fast-track course in exchange for half of any treasure found during the course.</p><p>The first part is simple, relatively easy, presents a clear moral imperative and secures enough treasure to entice Our Heroes to continue the course.</p><p>The second is similarly straightforward, but a danger should present itself that requires Prof. Rempler to reveal a degree of surprising oTESTr even frightening power previously hidden. The treasure is proportionately larger.</p><p>The third part should either:</p><p>A) reveal Prof. Rempler to have stumbled into something very unexpected, dangerous and beyond his skill - he will perish unless Our Heroes intervene; or</p><p>B) reveal Prof. Rempler to be exploiting Our Heroes in some way - perhaps by bringing them into a dangerous situation as expendable forces, or by turning on them and attempting to rob them once a particularly large take of treasure is secured.</p><h3>Option 2</h3><p>Geori Rempler is an anagram of Emperor Rigel(!), a fearful fellow who thinks very highly of himself and is targeting Our Heroes in particular for some reason. It turns out that the posters for the Adventuring School are enchanted so as to appear as such only to Our Heroes, while everyone else sees them as mundane advertisements for various business ventures.</p><p>Whether or not Our Heroes become wise to this trick beforehand, at the appointed time and place, the trap will spring with great and reckless force - perhaps this sets into motion the great conflagration of Ockham?</p><p>Did Our Heroes unknowingly cross Rigel or one of his agents in a previous Quest? Has word of their deeds reached him and he fears their ascendant power as do-gooders? Does the force and recklessness of Rigel's attack bely a wider scope of his malice and ambition? Can the villain resist savoring the reveal of the ever-so-clever anagram ruse?</p>"
     },
     {
@@ -35,12 +35,12 @@
     }
   ],
   "localFlavor": {
-    "names": "Hugh, Albie, Benedict, Miles, Rupert, Imogen, Harriet, Tamsin, Elspeth, Marnie, Rowan, Kit, Jules, Enid, Robin, Edmund, Cecily, Anselm, Lettice, Simeon TEST",
+    "names": "Hugh, Albie, Benedict, Miles, Rupert, Imogen, Harriet, Tamsin, Elspeth, Marnie, Rowan, Kit, Jules, Enid, Robin, Edmund, Cecily, Anselm, Lettice, Simeon",
     "occupations": "Farmer, Shepherd, Miller, Broker, Blacksmith, Carpenter, Cooper, Weaver, Potter, Tanner, Carney, Butcher, Baker, Brewer, Chandler, Mason, Thatcher, Midwife",
     "publicHouses": "The Stripey Pig, The Green Woman, The Sack and Sickle, Stickney's Tavern, The Shepherd's Legs",
     "vittles": "Cider, Mead, Barley Bread, Oat Porridge, Smoked Eel, Salted Pork, Stewed Lentils, Hard Cheese, Fresh Apples, Pickled Onions, Roasted Turnips, Honey Cakes, Black Pudding, Small Beer, Snipe-On-A-Stick",
     "pointsOfInterest": "The Festival Square, The Grand Fountain, The Exchange House, The Tithing Barn, The Hollow Tree",
     "floraFauna": "Oak, Willow, Hawthorn, Elderberry, Wild Garlic, Nettles, Foxglove, Crow, Hedgehog, Badger, Red Deer, Pike, Barn Owl, Stoat, LarkTEST"
   },
-  "lastModified": "2026-03-13T20:47:40.853Z"
+  "lastModified": "2026-05-14T13:12:38.310Z"
 }

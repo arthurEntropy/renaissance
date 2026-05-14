@@ -4,42 +4,40 @@
 
     <!-- EDIT MODE -->
     <div v-if="isSectionEditing && editable" class="section-editor">
-      <div class="two-column-grid">
-        <div class="flavor-edit-item">
-          <label for="names">Names</label>
-          <textarea id="names" v-model="localData.names" class="modal-input flavor-textarea"
-            placeholder="Who might you meet?"></textarea>
-        </div>
+      <div class="flavor-edit-item">
+        <label for="names">Names</label>
+        <textarea id="names" v-model="localData.names" class="modal-input flavor-textarea"
+          placeholder="Who might you meet?"></textarea>
+      </div>
 
-        <div class="flavor-edit-item">
-          <label for="occupations">Occupations</label>
-          <textarea id="occupations" v-model="localData.occupations" class="modal-input flavor-textarea"
-            placeholder="What do people do around here?"></textarea>
-        </div>
+      <div class="flavor-edit-item">
+        <label for="occupations">Occupations</label>
+        <textarea id="occupations" v-model="localData.occupations" class="modal-input flavor-textarea"
+          placeholder="What do people do around here?"></textarea>
+      </div>
 
-        <div class="flavor-edit-item">
-          <label for="publicHouses">Public Houses</label>
-          <textarea id="publicHouses" v-model="localData.publicHouses" class="modal-input flavor-textarea"
-            placeholder="Where can a traveler find hospitality?"></textarea>
-        </div>
+      <div class="flavor-edit-item">
+        <label for="publicHouses">Public Houses</label>
+        <textarea id="publicHouses" v-model="localData.publicHouses" class="modal-input flavor-textarea"
+          placeholder="Where can a traveler find hospitality?"></textarea>
+      </div>
 
-        <div class="flavor-edit-item">
-          <label for="pointsOfInterest">Points of Interest</label>
-          <textarea id="pointsOfInterest" v-model="localData.pointsOfInterest" class="modal-input flavor-textarea"
-            placeholder="What are the must-see spots?"></textarea>
-        </div>
+      <div class="flavor-edit-item">
+        <label for="pointsOfInterest">Points of Interest</label>
+        <textarea id="pointsOfInterest" v-model="localData.pointsOfInterest" class="modal-input flavor-textarea"
+          placeholder="What are the must-see spots?"></textarea>
+      </div>
 
-        <div class="flavor-edit-item">
-          <label for="vittles">Vittles</label>
-          <textarea id="vittles" v-model="localData.vittles" class="modal-input flavor-textarea"
-            placeholder="What's on the menu?"></textarea>
-        </div>
+      <div class="flavor-edit-item">
+        <label for="vittles">Vittles</label>
+        <textarea id="vittles" v-model="localData.vittles" class="modal-input flavor-textarea"
+          placeholder="What's on the menu?"></textarea>
+      </div>
 
-        <div class="flavor-edit-item">
-          <label for="floraFauna">Flora & Fauna</label>
-          <textarea id="floraFauna" v-model="localData.floraFauna" class="modal-input flavor-textarea"
-            placeholder="What can be found in the wild?"></textarea>
-        </div>
+      <div class="flavor-edit-item">
+        <label for="floraFauna">Flora & Fauna</label>
+        <textarea id="floraFauna" v-model="localData.floraFauna" class="modal-input flavor-textarea"
+          placeholder="What can be found in the wild?"></textarea>
       </div>
 
       <div class="editor-buttons">
@@ -48,19 +46,17 @@
     </div>
 
     <!-- DISPLAY MODE -->
-    <div v-else class="two-column-grid">
-      <InfoCard v-if="localData.names" title="Names" :content="localData.names" />
+    <InfoCard v-if="localData.names" title="Names" :content="localData.names" />
 
-      <InfoCard v-if="localData.occupations" title="Occupations" :content="localData.occupations" />
+    <InfoCard v-if="localData.occupations" title="Occupations" :content="localData.occupations" />
 
-      <InfoCard v-if="localData.publicHouses" title="Public Houses" :content="localData.publicHouses" />
+    <InfoCard v-if="localData.publicHouses" title="Public Houses" :content="localData.publicHouses" />
 
-      <InfoCard v-if="localData.pointsOfInterest" title="Points of Interest" :content="localData.pointsOfInterest" />
+    <InfoCard v-if="localData.pointsOfInterest" title="Points of Interest" :content="localData.pointsOfInterest" />
 
-      <InfoCard v-if="localData.vittles" title="Vittles" :content="localData.vittles" />
+    <InfoCard v-if="localData.vittles" title="Vittles" :content="localData.vittles" />
 
-      <InfoCard v-if="localData.floraFauna" title="Flora & Fauna" :content="localData.floraFauna" />
-    </div>
+    <InfoCard v-if="localData.floraFauna" title="Flora & Fauna" :content="localData.floraFauna" />
   </ConceptSection>
 </template>
 

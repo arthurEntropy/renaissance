@@ -84,14 +84,6 @@
   white-space: pre-line;
 }
 
-/* Grid layouts */
-.two-column-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: var(--space-sm);
-  width: 100%;
-}
-
 /* === EDIT BUTTON POSITIONING === */
 .edit-button-overlay {
   position: absolute;
