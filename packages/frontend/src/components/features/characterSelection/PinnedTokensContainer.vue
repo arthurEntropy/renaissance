@@ -1,6 +1,7 @@
 <template>
     <div v-if="hasAnyTokens" class="token-rail-container">
-        <div v-if="hasFocusedTokens" class="token-group token-group--focused">
+        <div v-if="hasFocusedTokens" class="token-group token-group--focused"
+            :class="{ 'is-active-view': isViewingFocusedCharacterSheet }">
             <div class="token-group-header">
                 <span class="token-group-label">Selected</span>
             </div>
@@ -63,7 +64,7 @@ const characterContextStore = useCharacterContextStore()
 const charactersStore = useCharactersStore()
 const campaignStore = useCampaignStore()
 const { getSummonedBeastForCharacterId } = useSummonedBeast()
-const { open: openCharacterSheet, isOpen: isCharacterSheetOpen } = useAppCharacterSheetModal()
+const { open: openCharacterSheet, close: closeCharacterSheet, isOpen: isCharacterSheetOpen } = useAppCharacterSheetModal()
 const collapsedGroupIds = ref(new Set())
 const focusedCharacter = computed(() => charactersStore.selectedCharacter)
 const isBeastCharacter = (character) => isBeastTemplate(character) || isBeastInstance(character)
@@ -118,6 +119,12 @@ const resolvedPinnedGroups = computed(() => {
         .filter((group) => group.members.length > 0)
 })
 const hasFocusedTokens = computed(() => !!visibleFocusedCharacter.value)
+// Only apply the active-view border when the open sheet belongs to the token shown
+// in the focused group. When a beast sheet is open and the summoner's token is shown
+// via pinnedSummoner, the ids differ, so the border is suppressed.
+const isViewingFocusedCharacterSheet = computed(() =>
+    isCharacterSheetOpen.value && focusedCharacter.value?.id === visibleFocusedCharacter.value?.id
+)
 const hasAnyTokens = computed(() => {
     return hasFocusedTokens.value || !!summonersBeast.value || resolvedPinnedGroups.value.length > 0
 })
@@ -142,6 +149,7 @@ function toggleGroupCollapsed(groupId) {
 
 function clearFocusedCharacter() {
     charactersStore.deselectCharacter()
+    closeCharacterSheet()
 }
 
 function removeMemberFromPinnedGroup(groupId, memberId) {
@@ -233,6 +241,10 @@ function getFocusedTokenProps(character) {
 
 .token-group--focused {
     border-color: var(--overlay-white-medium);
+}
+
+.token-group--focused.is-active-view {
+    border: 2px solid var(--color-white);
 }
 
 .token-group-label--summoned {

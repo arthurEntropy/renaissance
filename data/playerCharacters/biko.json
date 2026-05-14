@@ -1,6 +1,6 @@
 {
   "id": "3394b1a2-236d-45ca-9262-84c17a3b7015",
-  "lastModified": "2026-05-14T12:49:12.025Z",
+  "lastModified": "2026-05-14T15:09:24.698Z",
   "name": "Biko",
   "pronouns": "he/him",
   "ancestryIds": [
@@ -161,7 +161,7 @@
   },
   "defense": {
     "current": 12,
-    "base": 12
+    "base": 2
   },
   "load": 10,
   "shadow": 0,
@@ -344,7 +344,7 @@
       "collapsed": false,
       "showImprovements": false,
       "showSuccesses": false,
-      "isActive": true
+      "isActive": false
     },
     {
       "id": "e16343e2-35aa-4a42-b8f3-9105aad87780",
@@ -413,5 +413,5 @@
   },
   "witchcraftTokens": [],
   "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2026-05-14T12:49:12.025Z"
+  "updatedAt": "2026-05-14T15:09:24.698Z"
 }
