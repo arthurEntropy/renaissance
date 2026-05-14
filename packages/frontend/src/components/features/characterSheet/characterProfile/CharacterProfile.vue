@@ -22,7 +22,7 @@
     <div class="bottom-badges">
       <template v-if="!isBeastCharacter">
         <!-- Keeping Badge -->
-        <div class="keeping-badge" :style="keepingBadgeStyle">
+        <div class="keeping-badge text-stroke" :style="keepingBadgeStyle">
           <select title="Keeping" class="keeping-select" :value="character.keeping || ''" :disabled="!canEdit"
             @change="character.keeping = $event.target.value || null">
             <option value="">Choose...</option>
@@ -96,6 +96,13 @@ const keepingStore = useKeepingStore()
 const keepingBadgeStyle = computed(() => {
   if (!character.value?.keeping) return {}
   const entry = keepingStore.getById(character.value.keeping)
+  if (entry?.imageUrl) {
+    return {
+      backgroundImage: `url('${entry.imageUrl}')`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+    }
+  }
   const color = entry ? KEEPING_COLORS[entry.name] : null
   return color ? { backgroundColor: color } : {}
 })
@@ -145,7 +152,7 @@ const keepingBadgeStyle = computed(() => {
 .keeping-select {
   background: transparent;
   border: none;
-  color: var(--color-black);
+  color: var(--color-text-primary);
   font-family: var(--font-family-primary);
   font-size: var(--font-size-11);
   font-weight: var(--font-weight-bold);

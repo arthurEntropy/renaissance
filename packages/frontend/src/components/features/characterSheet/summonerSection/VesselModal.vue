@@ -18,15 +18,13 @@
             </div>
         </div>
 
-        <!-- Vessel type -->
+        <!-- Vessel keeping -->
         <div class="form-group vertical">
-            <label class="left-aligned">Vessel Type</label>
-            <div class="vessel-type-row">
-                <button v-for="type in VESSEL_TYPES" :key="type" type="button" class="vessel-type-btn"
-                    :class="{ 'vessel-type-btn--selected': form.vesselType === type }" @click="form.vesselType = type">
-                    {{ VESSEL_TYPE_LABELS[type] }}
-                </button>
-            </div>
+            <label class="left-aligned">Vessel Keeping</label>
+            <select v-model="form.keeping" class="modal-input">
+                <option value="">— None —</option>
+                <option v-for="k in vesselKeepingOptions" :key="k.id" :value="k.id">{{ k.name }}</option>
+            </select>
         </div>
 
         <!-- Vessel note -->
@@ -75,7 +73,15 @@ import { ref, computed, watch, onBeforeUnmount } from 'vue'
 import { HeartIcon } from '@heroicons/vue/24/solid'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import BaseModal from '@/components/ui/modals/BaseModal.vue'
-import { VESSEL_TYPES, VESSEL_TYPE_LABELS, SUMMONER_ICON_KEYS, SUMMONER_ICON_LABELS } from '@/constants/summonerConstants'
+import { SUMMONER_ICON_KEYS, SUMMONER_ICON_LABELS } from '@/constants/summonerConstants'
+import { useKeepingStore } from '@/stores/keepingStore'
+
+const keepingStore = useKeepingStore()
+
+// Keeping options for vessels — exclude Wretched
+const vesselKeepingOptions = computed(() =>
+    keepingStore.keeping.filter((k) => k.name !== 'Wretched')
+)
 
 // Static icon imports — resolved at build time by Vite
 import bambooIcon from '@/assets/icons/summoner/bamboo.png'
@@ -141,7 +147,7 @@ const title = computed(() => props.vessel ? 'Edit Vessel' : 'Add Vessel')
 
 const form = ref({
     imageUrl: ICON_LIST[0]?.url ?? '',
-    vesselType: 'standard',
+    keeping: '',
     vesselNote: '',
     beastId: '',
     friendship: 0,
@@ -165,7 +171,7 @@ watch(
         const isBuiltinIcon = Object.values(ICON_URL_MAP).includes(vessel.imageUrl)
         form.value.imageUrl = vessel.imageUrl || ICON_LIST[0]?.url || ''
         customUrl.value = (!isBuiltinIcon && vessel.imageUrl) ? vessel.imageUrl : ''
-        form.value.vesselType = vessel.vesselType || 'standard'
+        form.value.keeping = vessel.keeping || ''
         form.value.vesselNote = vessel.vesselNote || ''
         form.value.beastId = vessel.beastId || ''
         form.value.friendship = vessel.friendship ?? 1
@@ -197,7 +203,7 @@ function onCustomUrlInput() {
 function handleSave() {
     emit('save', {
         imageUrl: form.value.imageUrl,
-        vesselType: form.value.vesselType,
+        keeping: form.value.keeping || null,
         vesselNote: form.value.vesselNote.trim(),
         beastId: form.value.beastId || null,
         friendship: form.value.beastId ? form.value.friendship : 0,
@@ -277,36 +283,6 @@ onBeforeUnmount(() => window.removeEventListener('keydown', handleEscape))
     width: 100%;
     height: 100%;
     object-fit: cover;
-}
-
-/* Vessel type selector */
-.vessel-type-row {
-    display: flex;
-    gap: var(--space-xs);
-    flex-wrap: wrap;
-}
-
-.vessel-type-btn {
-    padding: var(--space-xs) var(--space-sm);
-    border-radius: var(--radius-5);
-    border: 1px solid var(--color-border-primary);
-    background: var(--color-bg-primary);
-    color: var(--color-text-secondary);
-    font-size: var(--font-size-13);
-    cursor: pointer;
-    transition: border-color var(--transition-fast), color var(--transition-fast),
-        background var(--transition-fast);
-}
-
-.vessel-type-btn:hover {
-    border-color: var(--color-text-secondary);
-    color: var(--color-text-primary);
-}
-
-.vessel-type-btn--selected {
-    border-color: var(--color-primary);
-    color: var(--color-primary-text);
-    background: var(--color-primary);
 }
 
 /* Friendship stepper */

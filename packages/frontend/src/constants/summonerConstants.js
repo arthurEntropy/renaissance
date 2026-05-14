@@ -15,12 +15,3 @@ export const THE_VERY_BEST_IMPROVEMENT_ID = '3e948b42-5cb6-4672-a8fa-c218b5412cd
 
 export const BASE_VESSEL_LIMIT = 3
 export const EXPANDED_VESSEL_LIMIT = 6
-
-// Vessel quality tiers (set by Craft Vessel ability)
-export const VESSEL_TYPES = ['standard', 'great', 'ultra', 'maestro']
-export const VESSEL_TYPE_LABELS = {
-    standard: 'Standard',
-    great: 'Great',
-    ultra: 'Ultra',
-    maestro: 'Maestro',
-}

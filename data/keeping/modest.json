@@ -3,5 +3,7 @@
   "name": "Modest",
   "description": "",
   "cost": 1,
-  "isDeleted": false
+  "imageUrl": "https://cdn.midjourney.com/75f0a538-03b8-4453-97d7-9760cad00870/0_0.jpeg",
+  "isDeleted": false,
+  "lastModified": "2026-05-14T01:02:58.291Z"
 }

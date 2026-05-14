@@ -9,6 +9,7 @@ import { createBaseEntity } from './baseEntity.js'
  * @property {string} name - Keeping name
  * @property {string} description - Keeping description
  * @property {number} cost - Cost, in treasure
+ * @property {string} imageUrl - Background image URL for keeping badge displays
  */
 
 /**
@@ -25,5 +26,6 @@ export function createDefaultKeeping() {
     name: 'New Keeping',
     description: '',
     cost: 0,
+    imageUrl: '',
   }
 }

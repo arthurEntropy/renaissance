@@ -19,7 +19,8 @@
         </div>
 
         <!-- Art area — clickable to view beast sheet if beast is captured -->
-        <div class="badge__art-area" :class="{ 'badge__art-area--clickable': !!beast }" @click="handleArtClick">
+        <div class="badge__art-area" :class="{ 'badge__art-area--clickable': !!beast }" :style="artAreaStyle"
+            @click="handleArtClick">
             <img v-if="vessel.imageUrl" :src="vessel.imageUrl" class="badge__art-img" alt="" />
             <div v-else class="badge__art-placeholder">
                 <SparklesIcon class="badge__art-placeholder-icon" />
@@ -46,14 +47,14 @@
         <!-- Footer: vessel info or beast name + friendship -->
         <div class="badge__footer">
             <template v-if="beast">
-                <span class="badge__beast-name">{{ beast.name }}</span>
-                <span class="badge__friendship">
-                    <HeartIcon class="badge__heart-icon" />
+                <span class="badge__beast-name text-stroke">{{ beast.name }}</span>
+                <span class="badge__friendship text-stroke">
+                    <HeartIcon class="badge__heart-icon text-stroke" />
                     {{ vessel.friendship }}
                 </span>
             </template>
             <template v-else>
-                <span class="badge__vessel-label">{{ vesselTypeLabel }}</span>
+                <span class="badge__vessel-label text-stroke">{{ vesselKeepingName }}</span>
             </template>
         </div>
     </div>
@@ -65,9 +66,9 @@ import { PlusIcon, SparklesIcon } from '@heroicons/vue/24/outline'
 import { HeartIcon } from '@heroicons/vue/24/solid'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
-import { VESSEL_TYPE_LABELS } from '@/constants/summonerConstants'
 import { useOptimizedImage } from '@/composables/useOptimizedImage'
 import { MIDJOURNEY_IMAGE_CONTEXTS } from '@shared/constants/artConstants.js'
+import { useKeepingStore } from '@/stores/keepingStore'
 
 const props = defineProps({
     vessel: {
@@ -86,9 +87,26 @@ const props = defineProps({
 
 const emit = defineEmits(['add', 'edit', 'remove-beast', 'remove-vessel', 'toggle-state', 'open-sheet'])
 
+const keepingStore = useKeepingStore()
+
 const beastArt = useOptimizedImage(() => props.beast?.featuredArtUrls?.[0], MIDJOURNEY_IMAGE_CONTEXTS.THUMBNAIL)
 
-const vesselTypeLabel = computed(() => VESSEL_TYPE_LABELS[props.vessel?.vesselType] ?? '')
+const vesselKeeping = computed(() => {
+    if (!props.vessel?.keeping) return null
+    return keepingStore.getById(props.vessel.keeping)
+})
+
+const vesselKeepingName = computed(() => vesselKeeping.value?.name ? `${vesselKeeping.value.name} Vessel` : '')
+
+const artAreaStyle = computed(() => {
+    const imageUrl = vesselKeeping.value?.imageUrl
+    if (!imageUrl) return {}
+    return {
+        backgroundImage: `url('${imageUrl}')`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+    }
+})
 
 const badgeClass = computed(() => ({
     'badge--summoned': props.vessel?.isSummoned,
@@ -204,7 +222,6 @@ function handleRemove() {
     object-fit: contain;
     /* Invert black icons to white on the dark background */
     filter: invert(1);
-    opacity: 0.25;
 }
 
 .badge__art-placeholder {
@@ -265,6 +282,7 @@ function handleRemove() {
     font-size: var(--font-size-10);
     color: var(--color-text-primary);
     font-style: italic;
+    align-self: center;
     white-space: pre-wrap;
     overflow: hidden;
     display: -webkit-box;
@@ -307,7 +325,7 @@ function handleRemove() {
     justify-content: space-between;
     gap: var(--space-xs);
     padding: 4px 6px;
-    background: var(--overlay-white-medium);
+    background: var(--color-bg-secondary);
     border-radius: 0 0 var(--radius-10) var(--radius-10);
     min-height: calc(var(--font-size-12) * 1.3 + 8px);
 }
@@ -332,7 +350,7 @@ function handleRemove() {
 
 .badge__vessel-label {
     font-size: var(--font-size-11);
-    color: var(--color-text-muted);
+    color: var(--color-text-primary);
     font-style: italic;
     width: 100%;
     text-align: center;

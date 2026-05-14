@@ -91,7 +91,7 @@ import { createBaseEntity } from './baseEntity.js'
  * @property {number} friendship - 0–10 friendship score with the captured beast
  * @property {boolean} isActive - Whether this vessel is chosen as active for the current per-rest period
  * @property {boolean} isSummoned - Whether the creature is currently out of its vessel
- * @property {'standard'|'great'|'ultra'|'maestro'} vesselType - Quality tier of the vessel
+ * @property {UUID|null} keeping - ID of the Keeping that determines the vessel's quality tier
  * @property {string} vesselNote - Optional player description of the physical vessel object
  * @property {string} imageUrl - Icon path for the vessel
  */
