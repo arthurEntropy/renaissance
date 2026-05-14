@@ -8,9 +8,9 @@
 
     <!-- XP badge positioned relative to main description when character owns any improvements OR when improvements are expanded -->
     <template #description-badge>
-      <BadgeDisplay v-if="(shouldShowBaseXpBadge || !!character) && (characterOwnsAnyImprovements || showImprovements)"
-        type="xp" :value="ability.xpCost ?? null" :is-owned="characterHasBaseAbility" :asImprovementBadge="true"
-        :is-interactive="!!character" :hidden-by-default="!shouldShowBaseXpBadge && !characterHasBaseAbility"
+      <BadgeDisplay v-if="xpBadgeVisible && (characterOwnsAnyImprovements || showImprovements)" type="xp"
+        :value="ability.xpCost ?? null" :is-owned="characterHasBaseAbility" :asImprovementBadge="true"
+        :is-interactive="badgeIsInteractive" :force-active="badgeForceActive" :hidden-by-default="badgeHiddenByDefault"
         @toggle="handleBaseAbilityToggle" />
     </template>
 
@@ -40,10 +40,9 @@
     <!-- Overlay badges - Show XP badge at card level when character owns no improvements AND improvements are collapsed -->
     <!-- Also shown (hidden until card hover) for no-cost items when a character context is present -->
     <template #badges>
-      <BadgeDisplay
-        v-if="!collapsed && (shouldShowBaseXpBadge || !!character) && !characterOwnsAnyImprovements && !showImprovements"
-        type="xp" :value="ability.xpCost ?? null" :is-owned="characterHasBaseAbility" :is-interactive="!!character"
-        :hidden-by-default="!shouldShowBaseXpBadge && !characterHasBaseAbility" @toggle="handleBaseAbilityToggle" />
+      <BadgeDisplay v-if="!collapsed && xpBadgeVisible && !characterOwnsAnyImprovements && !showImprovements" type="xp"
+        :value="ability.xpCost ?? null" :is-owned="characterHasBaseAbility" :is-interactive="badgeIsInteractive"
+        :force-active="badgeForceActive" :hidden-by-default="badgeHiddenByDefault" @toggle="handleBaseAbilityToggle" />
 
       <!-- Difficulty badge for abilities that set a difficulty -->
       <DifficultyBadge v-if="isShowingDifficulty" :value="abilityDifficulty" @update:value="handleDifficultyUpdate" />
@@ -123,6 +122,11 @@ const props = defineProps({
     type: Boolean,
     default: false
   },
+  // null = uncontrolled (original hover/click behaviour outside a table context)
+  // true/false = controlled by the table (edit mode vs display mode)
+  editMode: {
+    default: null
+  },
 })
 
 const emit = defineEmits(['edit', 'update', 'update:collapsed', 'update:showImprovements', 'update:showSuccesses', 'height-changed', 'roll-link', 'activate', 'deactivate'])
@@ -197,6 +201,29 @@ const characterHasBaseAbility = computed(() => {
 const shouldShowBaseXpBadge = computed(() => {
   return props.showXpBadge && !!props.ability.xpCost
 })
+
+// Show the XP badge when there's a cost, OR when a character context is present and
+// either the table is in edit mode (show "-Remove" for owned free abilities) or
+// the character doesn't own the ability yet (show "+Add").
+const xpBadgeVisible = computed(() =>
+  shouldShowBaseXpBadge.value || (!!props.character && (props.editMode === true || !characterHasBaseAbility.value))
+)
+
+// In uncontrolled mode (editMode===null) preserve original behaviour: interactive whenever a
+// character is present. In controlled mode: interactive only when in edit mode.
+const badgeIsInteractive = computed(() => {
+  if (props.editMode === null) return !!props.character
+  return props.editMode && !!props.character
+})
+
+// Force the badge into its "action" state (show "-Remove"/"+Add" without needing to hover)
+const badgeForceActive = computed(() => props.editMode === true)
+
+// In display mode (editMode===false): always hide until card hover.
+// In edit/uncontrolled mode: only hide free unowned badges (original behaviour).
+const badgeHiddenByDefault = computed(() =>
+  props.editMode === false || (!shouldShowBaseXpBadge.value && !characterHasBaseAbility.value)
+)
 
 const biomeDiceMod = computed(() => {
   const augment = (props.ability.biomeTagsAugment || []).filter(t => biomeStore.activeTags.has(t)).length

@@ -44,6 +44,10 @@ const props = defineProps({
     asImprovementBadge: {
         type: Boolean,
         default: false
+    },
+    forceActive: {
+        type: Boolean,
+        default: false
     }
 })
 
@@ -87,7 +91,7 @@ const displayValue = computed(() => {
 const displayText = computed(() => {
     // Interactive badge text (on hover vs normal)
     if (isActuallyInteractive.value) {
-        if (isHovering.value) {
+        if (isHovering.value || props.forceActive) {
             // Show "- Remove" for owned items, "+ Add" for unowned
             return props.isOwned ? '- Remove' : '+ Add'
         }
@@ -125,14 +129,14 @@ const badgeClass = computed(() => {
 
         if (props.isOwned) {
             // Owned badges: show owned style when not hovering, warning style when hovering
-            if (isHovering.value) {
+            if (isHovering.value || props.forceActive) {
                 classes.push('badge-interactive-remove-hover')
             } else {
                 classes.push('badge-owned')
             }
         } else {
             // Unowned badges use primary/accent colors
-            const interactiveClass = isHovering.value ? 'badge-interactive-available-hover' : 'badge-interactive-available'
+            const interactiveClass = (isHovering.value || props.forceActive) ? 'badge-interactive-available-hover' : 'badge-interactive-available'
             classes.push(interactiveClass, 'improvement-badge-unowned')
         }
     }
