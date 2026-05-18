@@ -49,7 +49,8 @@
               :show-discovery-badge="item.equipment.subtype === MESMER_MASK_SUBTYPE_ID" :show-difficulty-badge="true"
               @update:collapsed="updateEquipmentCollapsed(item.id, $event)"
               @update:showImprovements="updateEquipmentShowImprovements(item, $event)" :engagement-success-options="[]"
-              :enable-damage-roll="true" @roll-damage="handleDamageRoll" @roll-link="handleRollLink" />
+              :enable-damage-roll="true" @roll-damage="handleDamageRoll" @roll-link="handleRollLink"
+              :show-transfer-button="showTransferButton" @transfer="handleTransferEquipment" />
             <EquipmentDetails :equipment-item="item" :item-id="item.id" :is-edit-mode="canEdit"
               @update-carried="handleCarriedChange" @update-wielding="handleWieldingChange"
               @update-quantity="handleQuantityChange" />
@@ -71,7 +72,8 @@
               :show-discovery-badge="item.equipment.subtype === MESMER_MASK_SUBTYPE_ID" :show-difficulty-badge="true"
               @update:collapsed="updateEquipmentCollapsed(item.id, $event)"
               @update:showImprovements="updateEquipmentShowImprovements(item, $event)" :engagement-success-options="[]"
-              :enable-damage-roll="true" @roll-damage="handleDamageRoll" @roll-link="handleRollLink" />
+              :enable-damage-roll="true" @roll-damage="handleDamageRoll" @roll-link="handleRollLink"
+              :show-transfer-button="showTransferButton" @transfer="handleTransferEquipment" />
             <EquipmentDetails :equipment-item="item" :item-id="item.id" :is-edit-mode="canEdit"
               @update-carried="handleCarriedChange" @update-wielding="handleWieldingChange"
               @update-quantity="handleQuantityChange" />
@@ -101,6 +103,12 @@
       :equipment-grades="equipmentGradesStore.items" :mestiere-name="characterMestiere?.name"
       :anchor-el="martialTrainingAnchorEl" @close="showMartialTrainingPopup = false" />
 
+    <!-- Transfer Equipment Modal -->
+    <TransferEquipmentModal v-if="showTransferEquipmentModal && transferEquipmentItem && selectedCharacter"
+      :character="selectedCharacter" :equipment="transferEquipmentItem.equipment"
+      :equipment-entry="transferEquipmentItem.equipmentEntry" @close="showTransferEquipmentModal = false"
+      @transferred="handleEquipmentTransferred" />
+
   </CharacterSheetSection>
 </template>
 
@@ -121,6 +129,7 @@ import SortingPicker from '@/components/ui/pickers/SortingPicker.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import SkillCheckModal from '@/components/features/characterSheet/modals/SkillCheckModal.vue'
 import MartialTrainingPopup from '@/components/features/characterSheet/modals/MartialTrainingPopup.vue'
+import TransferEquipmentModal from './TransferEquipmentModal.vue'
 import { useEditModal } from '@/composables/useEditModal'
 import CharacterService from '@/services/entities/characterService'
 import { useCardCascadePicker } from '@/composables/useCardCascadePicker'
@@ -138,6 +147,7 @@ import { useEquipmentSubtypesStore } from '@/stores/equipmentSubtypesStore'
 import { useEquipmentGradesStore } from '@/stores/equipmentGradesStore'
 import { useConceptsStore } from '@/stores/conceptsStore'
 import { useRollsStore } from '@/stores/rollsStore'
+import { useCampaignStore } from '@/stores/campaignStore'
 import EngagementSuccessService from '@/services/entities/engagementSuccessService'
 import DamageRollService from '@/services/rolls/damageRollService'
 import CustomRollService from '@/services/rolls/customRollService'
@@ -168,6 +178,7 @@ const keepingStore = useKeepingStore()
 const sourcesStore = useSourcesStore()
 const rollsStore = useRollsStore()
 const conceptsStore = useConceptsStore()
+const campaignStore = useCampaignStore()
 
 const characterMestiere = computed(() => {
   if (!selectedCharacter.value?.mestiereId) return null
@@ -200,6 +211,29 @@ const isCollapsed = ref(false)
 const showSkillCheckModal = ref(false)
 const rollLinkSkill = ref(null)
 const rollLinkRollType = ref(null)
+
+// Transfer equipment modal refs
+const showTransferEquipmentModal = ref(false)
+const transferEquipmentItem = ref(null) // { equipment, equipmentEntry }
+
+const showTransferButton = computed(() => internalEditMode.value && campaignStore.isInCampaign)
+
+const handleTransferEquipment = (equipment) => {
+  if (!selectedCharacter.value) return
+  const entry = selectedCharacter.value.equipment?.find((e) => e.id === equipment.id)
+  if (!entry) return
+  transferEquipmentItem.value = { equipment, equipmentEntry: entry }
+  showTransferEquipmentModal.value = true
+}
+
+const handleEquipmentTransferred = (updatedSource) => {
+  if (selectedCharacter.value?.id === updatedSource?.id) {
+    selectedCharacter.value.equipment = updatedSource.equipment
+  }
+  charactersStore.update(updatedSource)
+  showTransferEquipmentModal.value = false
+  transferEquipmentItem.value = null
+}
 
 const toggleEditMode = () => { internalEditMode.value = !internalEditMode.value }
 

@@ -12,7 +12,7 @@
 <script setup>
 import { computed } from 'vue'
 // Heroicons
-import { PlusIcon, DocumentDuplicateIcon, PencilIcon, CheckIcon, XMarkIcon, TrashIcon, Bars3Icon, Cog6ToothIcon, ArrowPathIcon, BookOpenIcon, CalculatorIcon, ChevronDoubleDownIcon, ChevronDoubleUpIcon, EyeIcon, EyeSlashIcon, ArrowUpIcon, ArrowDownIcon, BoltIcon, BoltSlashIcon } from '@heroicons/vue/24/outline'
+import { PlusIcon, DocumentDuplicateIcon, PencilIcon, CheckIcon, XMarkIcon, TrashIcon, Bars3Icon, Cog6ToothIcon, ArrowPathIcon, BookOpenIcon, CalculatorIcon, ChevronDoubleDownIcon, ChevronDoubleUpIcon, EyeIcon, EyeSlashIcon, ArrowUpIcon, ArrowDownIcon, BoltIcon, BoltSlashIcon, ArrowRightStartOnRectangleIcon } from '@heroicons/vue/24/outline'
 // Custom icons
 import CrossedSwordsIcon from '@/assets/icons/characterSheet/crossed_swords.svg?component'
 import DieIcon from '@/assets/icons/characterSheet/die.svg?component'
@@ -69,6 +69,7 @@ const FAB_TYPE_CONFIG = {
     [FAB_TYPES.MARTIAL_TRAINING]: { icon: MartialTrainingIcon, tooltip: 'View Martial Training' },
     [FAB_TYPES.ACTIVATE]: { icon: BoltIcon, tooltip: 'Activate' },
     [FAB_TYPES.DEACTIVATE]: { icon: BoltSlashIcon, tooltip: 'Deactivate' },
+    [FAB_TYPES.TRANSFER]: { icon: ArrowRightStartOnRectangleIcon, tooltip: 'Transfer to another character' },
 }
 
 const variantConfig = computed(() => {
@@ -227,6 +228,16 @@ const variantConfig = computed(() => {
 .fab--activate .fab__icon--small,
 .fab--activate .fab__icon--large {
     color: var(--color-black);
+}
+
+.fab--transfer:hover {
+    background: var(--color-accent-cyan);
+    border-color: var(--color-accent-cyan);
+}
+
+.fab--transfer .fab__icon--small,
+.fab--transfer .fab__icon--large {
+    color: var(--color-white);
 }
 
 

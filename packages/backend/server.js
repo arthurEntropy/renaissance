@@ -9,6 +9,7 @@ import {
   updateEntity,
   deleteEntity,
   transferCharacterOwnership,
+  transferEquipment,
 } from './controllers/entityController.js'
 import {
   scanCleanup,
@@ -179,6 +180,7 @@ app.delete('/campaigns/:id/shops/:shopId', requireAuth, requireCampaignGM, delet
 app.get('/characters', verifyToken, requireAuth, requireApproved, getAllEntities('characters'))
 app.post('/characters', verifyToken, requireAuth, requireApproved, createEntity('characters'))
 app.post('/characters/:id/transfer-ownership', verifyToken, requireAuth, requireApproved, transferCharacterOwnership)
+app.post('/characters/:id/transfer-equipment', verifyToken, requireAuth, requireApproved, transferEquipment)
 app.put('/characters/:id', verifyToken, requireAuth, requireApproved, updateEntity('characters'))
 app.delete('/characters/:id', verifyToken, requireAuth, requireApproved, deleteEntity('characters'))
 

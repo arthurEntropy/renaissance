@@ -2,7 +2,7 @@
   "id": "b146fe7d-e513-4321-a466-0e785656725c",
   "isDeleted": false,
   "createdAt": "2026-05-14T20:41:21.993Z",
-  "lastModified": "2026-05-16T17:28:00.123Z",
+  "lastModified": "2026-05-18T18:09:21.863Z",
   "characterType": "playerCharacter",
   "name": "Dne'dine",
   "featuredArtUrls": [
@@ -171,9 +171,9 @@
   "equipment": [
     {
       "id": "e7c57bc7-5009-45bd-81f0-c8011115862c",
-      "quantity": 1,
+      "quantity": 6,
       "isCarried": true,
-      "collapsed": true,
+      "collapsed": false,
       "isWielding": true
     }
   ],
@@ -297,5 +297,5 @@
   "description": "",
   "size": 0,
   "reach": 0,
-  "updatedAt": "2026-05-16T17:28:00.123Z"
+  "updatedAt": "2026-05-18T18:09:21.863Z"
 }

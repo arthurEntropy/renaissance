@@ -1,0 +1,30 @@
+{
+  "id": "c9ddeab9-d180-4fc5-869f-e64239bc3376",
+  "isDeleted": false,
+  "createdAt": "2026-05-18T17:56:57.471Z",
+  "lastModified": "2026-05-18T17:57:03.660Z",
+  "slug": "playtest-campaign",
+  "name": "Playtest Campaign",
+  "description": "",
+  "coverImageUrl": null,
+  "foundingGmUserId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
+  "members": [
+    {
+      "userId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
+      "role": "gm",
+      "status": "accepted",
+      "characterIds": [
+        "224ddaf7-26fc-4344-b922-6fd3853435f1",
+        "b146fe7d-e513-4321-a466-0e785656725c"
+      ]
+    }
+  ],
+  "includedConceptIds": [],
+  "shops": [],
+  "lobbyState": {
+    "inactiveNpcIds": [],
+    "hiddenNpcIds": [],
+    "inactivePlayerCharacterIds": []
+  },
+  "combatGroups": []
+}
