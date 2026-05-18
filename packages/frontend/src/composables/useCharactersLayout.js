@@ -65,6 +65,7 @@ export function useCharactersLayout(charactersStore, equipmentStore, abilitiesSt
     showExpansionFilter: false,
     modalComponent: 'CharacterSheetModal',
     useExternalModal: true,
+    emptyStateLabel: beastMode ? null : 'Create your first character',
   }))
 
   // Event handlers for ConceptsLayout

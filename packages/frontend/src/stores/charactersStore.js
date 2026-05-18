@@ -3,6 +3,7 @@ import { ref, computed, watch } from 'vue'
 import { useCrudEntityStore } from './composables/useBaseEntityStore'
 import CharacterService from '@/services/entities/characterService'
 import { useAuthStore } from './authStore'
+import { useCampaignStore } from './campaignStore'
 import {
   isPlayerCharacter,
   isBeastTemplate,
@@ -12,6 +13,7 @@ import {
 export const useCharactersStore = defineStore('characters', () => {
   const base = useCrudEntityStore(CharacterService, 'characters')
   const authStore = useAuthStore()
+  const campaignStore = useCampaignStore()
 
   // The last-viewed character (player, NPC, or beast). Drives the badge rail and CharacterSheet.
   const selectedCharacter = ref(null)
@@ -81,10 +83,16 @@ export const useCharactersStore = defineStore('characters', () => {
   const canEditSelectedCharacter = computed(() => {
     if (!selectedCharacter.value) return false
     if (selectedCharacter.value.isPublicPreview && !authStore.isAdmin) return false
-    if (authStore.isAdmin) return true
-    if (isBeastTemplate(selectedCharacter.value) || isBeastInstance(selectedCharacter.value)) {
-      return false
+    // Beast template: only admin not currently in a campaign can edit
+    if (isBeastTemplate(selectedCharacter.value)) {
+      return authStore.isAdmin && !campaignStore.isInCampaign
     }
+    // Beast instance: GM in the active campaign can edit
+    if (isBeastInstance(selectedCharacter.value)) {
+      return campaignStore.isGMInActiveCampaign
+    }
+    // Player characters and NPCs
+    if (authStore.isAdmin) return true
     if (!authStore.isAuthenticated) return false
     return selectedCharacter.value.ownerId === authStore.user?.uid
   })

@@ -46,9 +46,11 @@ const getAllEntities = (entity) => (req, res) => {
         // Unauthenticated visitors: return only public preview characters
         filteredEntities = filteredEntities.filter(character => character.isPublicPreview)
       } else if (req.user.role !== USER_ROLE.ADMIN) {
-        // Include characters owned by this user AND campaign characters from campaigns they belong to
+        // Include characters owned by this user, beast templates (public game content),
+        // and campaign characters from campaigns they belong to
         const memberCampaignIds = getUserCampaignIds(req.user.uid)
         filteredEntities = filteredEntities.filter(character =>
+          character.characterType === 'beast' ||
           character.ownerId === req.user.uid ||
           (character.campaignId && memberCampaignIds.includes(character.campaignId) && character.characterType !== 'playerCharacter')
         )

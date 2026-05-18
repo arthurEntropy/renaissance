@@ -15,7 +15,7 @@
 
       <nav v-if="menuOpen">
         <router-link v-for="link in navLinks" :key="link.to" :to="link.to"
-          :class="{ 'router-link-active': isActiveSection(link.to) }" @click="closeMenu">{{ link.label }}</router-link>
+          :class="{ 'router-link-active': isNavLinkActive(link.to) }" @click="closeMenu">{{ link.label }}</router-link>
       </nav>
     </div>
 
@@ -28,7 +28,7 @@
     <div class="top-nav">
       <div class="top-nav-content">
         <router-link v-for="link in navLinks" :key="link.to" :to="link.to"
-          :class="{ 'router-link-active': isActiveSection(link.to) }">{{ link.label }}</router-link>
+          :class="{ 'router-link-active': isNavLinkActive(link.to) }">{{ link.label }}</router-link>
       </div>
 
       <!-- Desktop Auth Component -->
@@ -107,6 +107,13 @@ const campaignStore = useCampaignStore()
 const shouldShowOverlay = computed(() => route.meta?.overlay === true)
 const isActiveSection = (path) => route.path === path || route.path.startsWith(path + '/')
 
+// Suppress nav active highlight when viewing a character/beast sheet —
+// the PinnedTokensContainer provides navigation feedback in that state
+const isNavLinkActive = (path) => {
+  if (isCharacterSheetOpen.value) return route.path === path
+  return isActiveSection(path)
+}
+
 const navLinks = computed(() => [
   { to: '/rules', label: 'RULES' },
   { to: '/ancestries', label: 'ANCESTRIES' },
@@ -114,7 +121,8 @@ const navLinks = computed(() => [
   { to: '/world-elements', label: 'WORLD' },
   { to: '/mestieri', label: 'MESTIERI' },
   { to: '/characters', label: 'CHARACTERS' },
-  { to: '/bestiary', label: 'BESTIARY' },
+  // Hide BESTIARY for campaign members who are not the GM
+  ...(!campaignStore.isInCampaign || campaignStore.isGMInActiveCampaign ? [{ to: '/bestiary', label: 'BESTIARY' }] : []),
   { to: '/abilities', label: 'ABILITIES' },
   { to: '/equipment', label: 'EQUIPMENT' },
   ...(authStore.isAdmin ? [{ to: '/art', label: 'ART' }] : []),
