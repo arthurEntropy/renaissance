@@ -270,7 +270,7 @@ const handleCollapsed = () => {
   transition:
     background-color var(--transition-normal) ease,
     transform 0.2s ease;
-  width: 100%;
+  width: var(--card-width);
   position: relative;
   box-sizing: border-box;
   min-width: 0;

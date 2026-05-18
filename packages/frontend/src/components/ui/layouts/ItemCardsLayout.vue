@@ -17,7 +17,7 @@
     </FilterBar>
 
     <!-- Item Cards -->
-    <MasonryGrid :column-width="350" :gap="20" :row-height="10" class="cards-container" role="list">
+    <MasonryGrid :gap="20" :row-height="10" class="cards-container" role="list">
       <slot name="item-cards" :items="props.items"></slot>
     </MasonryGrid>
 
@@ -140,7 +140,7 @@ const createItem = () => {
 /*
  * When constrainToColumnWidths is true, the container's max-width snaps to
  * the exact width of the masonry column content at each column-count breakpoint
- * (columnWidth=350, gap=20): 4-col=1460px, 3-col=1090px, 2-col=720px, 1-col=350px.
+ * (--card-width=350px, gap=20px): 4-col=1460px, 3-col=1090px, 2-col=720px, 1-col=350px.
  * This keeps the FilterBar aligned with the card grid below it.
  *
  * Viewport breakpoints are derived from the 90%-width container:
@@ -155,7 +155,7 @@ const createItem = () => {
 
 @media (min-width: 1623px) {
   .item-cards-layout--constrained {
-    max-width: 1460px;
+    max-width: 1480px;
     /* 4 columns */
   }
 }

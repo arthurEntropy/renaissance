@@ -17,8 +17,8 @@
             <!-- Grouped by school display -->
             <template v-if="isGroupedBySchool">
                 <!-- Ungrouped abilities (no school) shown above groups, no header -->
-                <MasonryGrid v-if="noSchoolAbilities.length > 0" :column-width="350" :gap="20" :row-height="10"
-                    justify-content="start" class="cards-container">
+                <MasonryGrid v-if="noSchoolAbilities.length > 0" :gap="20" :row-height="10" justify-content="start"
+                    class="cards-container">
                     <AbilityCard v-for="ability in noSchoolAbilities" :key="ability.id" :ability="ability"
                         :editable="isEditMode" :sources="sources" :collapsible="false"
                         :showImprovements="getAbilityShowImprovements(ability.id)"
@@ -29,8 +29,8 @@
                         @update="handleCharacterUpdate" />
                 </MasonryGrid>
                 <!-- School-grouped abilities -->
-                <GroupedMasonryGrid v-if="schoolGroupedAbilities.length > 0" :column-width="350" :gap="20"
-                    :row-height="10" justify-content="start" :grouped-items="schoolGroupedAbilities"
+                <GroupedMasonryGrid v-if="schoolGroupedAbilities.length > 0" :gap="20" :row-height="10"
+                    justify-content="start" :grouped-items="schoolGroupedAbilities"
                     :persistence-key="`concept-abilities-school-groups-${concept?.id}`" class="cards-container">
                     <template #default="{ item }">
                         <AbilityCard :ability="item" :editable="isEditMode" :sources="sources" :collapsible="false"
@@ -46,8 +46,8 @@
 
             <!-- Grouped by mana color display -->
             <template v-else-if="isGroupedByManaColor">
-                <GroupedMasonryGrid v-if="manaColorGroupedAbilities.length > 0" :column-width="350" :gap="20"
-                    :row-height="10" justify-content="start" :grouped-items="manaColorGroupedAbilities"
+                <GroupedMasonryGrid v-if="manaColorGroupedAbilities.length > 0" :gap="20" :row-height="10"
+                    justify-content="start" :grouped-items="manaColorGroupedAbilities"
                     :persistence-key="`concept-abilities-mana-color-groups-${concept?.id}`" class="cards-container">
                     <template #default="{ item }">
                         <AbilityCard :ability="item" :editable="isEditMode" :sources="sources" :collapsible="false"
@@ -62,8 +62,7 @@
             </template>
 
             <!-- Ungrouped display -->
-            <MasonryGrid v-else :column-width="350" :gap="20" :row-height="10" justify-content="start"
-                class="cards-container">
+            <MasonryGrid v-else :gap="20" :row-height="10" justify-content="start" class="cards-container">
                 <AbilityCard v-for="ability in sortedAbilities" :key="ability.id" :ability="ability"
                     :editable="isEditMode" :sources="sources" :collapsible="false"
                     :showImprovements="getAbilityShowImprovements(ability.id)"

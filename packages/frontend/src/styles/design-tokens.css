@@ -164,6 +164,7 @@
 
   /* Widths */
   --width-modal: 500px;
+  --card-width: 350px;
 
   /* Button-specific */
   --btn-padding-sm: 2px var(--space-sm);

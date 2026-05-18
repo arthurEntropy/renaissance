@@ -9,8 +9,7 @@
             </span>
         </h3>
         <div v-if="!group.collapsed" class="group-content">
-            <MasonryGrid :column-width="columnWidth" :gap="gap" :row-height="rowHeight"
-                :justify-content="justifyContent" ref="masonryGridRef">
+            <MasonryGrid :gap="gap" :row-height="rowHeight" :justify-content="justifyContent" ref="masonryGridRef">
                 <div v-for="item in group.items" :key="item.id" class="masonry-item-wrapper">
                     <slot name="items" :items="[item]" />
                 </div>
@@ -31,10 +30,6 @@ defineProps({
         validator: (value) => {
             return value.name && Array.isArray(value.items) && typeof value.collapsed === 'boolean'
         }
-    },
-    columnWidth: {
-        type: Number,
-        default: 375
     },
     gap: {
         type: Number,

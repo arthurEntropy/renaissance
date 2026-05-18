@@ -394,7 +394,6 @@ const handleTopLevelAction = () => {
 
 /* Preview pane */
 .cascade-preview {
-    width: 300px;
     flex-shrink: 0;
     cursor: pointer;
     overflow: hidden;
