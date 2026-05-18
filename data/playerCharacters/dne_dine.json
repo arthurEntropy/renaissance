@@ -2,7 +2,7 @@
   "id": "b146fe7d-e513-4321-a466-0e785656725c",
   "isDeleted": false,
   "createdAt": "2026-05-14T20:41:21.993Z",
-  "lastModified": "2026-05-18T18:09:21.863Z",
+  "lastModified": "2026-05-18T20:10:04.386Z",
   "characterType": "playerCharacter",
   "name": "Dne'dine",
   "featuredArtUrls": [
@@ -236,10 +236,10 @@
   },
   "rollStats": {
     "skillChecks": {
-      "attempts": 0,
+      "attempts": 1,
       "successes": 0,
-      "totalSum": 0,
-      "bestTotal": null,
+      "totalSum": 4,
+      "bestTotal": 4,
       "hardestSuccess": null,
       "bySkill": {},
       "solCount": 0,
@@ -291,11 +291,13 @@
   "heightFeet": 4,
   "heightInches": 11,
   "weight": 100,
-  "keeping": "3c4d5e6f-7a8b-4c9d-0e1f-2a3b4c5d6e7f",
+  "keeping": "2b3c4d5e-6f7a-4b8c-9d0e-1f2a3b4c5d6e",
   "treasure": 13,
   "xp": 0,
   "description": "",
   "size": 0,
   "reach": 0,
-  "updatedAt": "2026-05-18T18:09:21.863Z"
+  "updatedAt": "2026-05-18T20:10:04.386Z",
+  "isPublicPreview": false,
+  "featuredArtUrl": "https://cdn.midjourney.com/1afdec27-81b8-4900-b56e-c88e9fbf6d63/0_2.png"
 }

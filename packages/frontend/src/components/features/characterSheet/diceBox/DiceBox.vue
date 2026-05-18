@@ -226,7 +226,17 @@ const handleTakeXp = () => {
   z-index: var(--z-raised);
 }
 
-.take-xp-button {
+.action-btn.take-xp-button {
+  --action-btn-bg: var(--color-accent-cyan);
+  --action-btn-bg-hover: var(--color-accent-cyan);
+  --action-btn-bg-active: var(--color-accent-cyan);
+  --action-btn-text: var(--color-black);
+  --action-btn-text-hover: var(--color-black);
+  --action-btn-text-active: var(--color-black);
+  --action-btn-border-color: var(--color-accent-cyan);
+  --action-btn-border-color-hover: var(--color-accent-cyan);
+  --action-btn-border-color-active: var(--color-accent-cyan);
+
   padding: 7px;
   font-size: var(--font-size-12);
   font-weight: bold;
@@ -235,18 +245,28 @@ const handleTakeXp = () => {
   left: 0px;
   border-radius: 0 var(--radius-15) 0 0;
   z-index: var(--z-raised);
-  animation: pulse-glow-gold 1.5s ease-in-out infinite;
+  background-color: var(--color-accent-cyan);
+  border-color: var(--color-accent-cyan);
+  color: var(--color-black);
+  animation: pulse-glow-cyan 1.5s ease-in-out infinite;
 }
 
-@keyframes pulse-glow-gold {
+.action-btn.take-xp-button:hover:not(.action-btn--disabled) {
+  background-color: var(--color-accent-cyan);
+  color: var(--color-black);
+  border-color: var(--color-accent-cyan);
+  box-shadow: inset 0 0 0 999px var(--overlay-black-subtle), 0 0 5px var(--color-accent-cyan);
+}
+
+@keyframes pulse-glow-cyan {
 
   0%,
   100% {
-    box-shadow: var(--glow-gold-sm);
+    box-shadow: 0 0 5px var(--color-accent-cyan);
   }
 
   50% {
-    box-shadow: var(--glow-gold-lg);
+    box-shadow: 0 0 15px var(--color-accent-cyan);
   }
 }
 </style>

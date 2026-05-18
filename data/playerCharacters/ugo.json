@@ -2,7 +2,7 @@
   "id": "a2dd5069-a3fc-4432-ae7c-90ed749741b6",
   "isDeleted": false,
   "createdAt": "2026-05-14T23:15:47.602Z",
-  "lastModified": "2026-05-14T23:21:20.164Z",
+  "lastModified": "2026-05-18T21:03:03.815Z",
   "characterType": "playerCharacter",
   "name": "Ugo",
   "featuredArtUrls": [
@@ -273,7 +273,38 @@
     "colorless": []
   },
   "witchcraftTokens": [],
-  "summonerVessels": [],
+  "summonerVessels": [
+    {
+      "id": "3f1c39c3-b9e1-4b23-9689-33bf6dd1bdb5",
+      "isActive": false,
+      "isSummoned": false,
+      "imageUrl": "/src/assets/icons/summoner/bamboo.png",
+      "keeping": "2b3c4d5e-6f7a-4b8c-9d0e-1f2a3b4c5d6e",
+      "vesselNote": "",
+      "beastId": null,
+      "friendship": 0
+    },
+    {
+      "id": "ad3ae63b-7f7d-4503-9f65-03aaf71c6790",
+      "isActive": false,
+      "isSummoned": false,
+      "imageUrl": "/src/assets/icons/summoner/potion.png",
+      "keeping": "4d5e6f7a-8b9c-4d0e-1f2a-3b4c5d6e7f8a",
+      "vesselNote": "",
+      "beastId": null,
+      "friendship": 0
+    },
+    {
+      "id": "0601efa8-d959-4612-a9fe-576b9fcf15b3",
+      "isActive": false,
+      "isSummoned": false,
+      "imageUrl": "/src/assets/icons/summoner/walnut.png",
+      "keeping": "3c4d5e6f-7a8b-4c9d-0e1f-2a3b4c5d6e7f",
+      "vesselNote": "",
+      "beastId": null,
+      "friendship": 0
+    }
+  ],
   "campaignId": null,
   "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
   "pronouns": "he/him",
@@ -282,10 +313,10 @@
     "f00fe427-1bb5-472c-8abb-2a394730a40a"
   ],
   "cultureIds": [
-    "352c844b-6d4f-4b61-b475-315421a453e7",
-    "be62ac3d-7168-4779-8274-e60574a2fd27"
+    "be62ac3d-7168-4779-8274-e60574a2fd27",
+    "352c844b-6d4f-4b61-b475-315421a453e7"
   ],
-  "mestiereId": "e0a69b6f-38f9-4fa5-a1ef-5e5777299e82",
+  "mestiereId": "558abd15-f90f-40d7-80d8-df73a37f977c",
   "age": 345,
   "heightFeet": 6,
   "heightInches": 6,
@@ -293,8 +324,10 @@
   "keeping": "3c4d5e6f-7a8b-4c9d-0e1f-2a3b4c5d6e7f",
   "treasure": 10,
   "xp": 0,
-  "updatedAt": "2026-05-14T23:21:20.164Z",
+  "updatedAt": "2026-05-18T21:03:03.815Z",
   "description": "",
   "size": 0,
-  "reach": 0
+  "reach": 0,
+  "isPublicPreview": false,
+  "featuredArtUrl": "https://cdn.midjourney.com/94f59f8d-336c-4a8d-b212-b07b5471ed4d/0_0.png"
 }

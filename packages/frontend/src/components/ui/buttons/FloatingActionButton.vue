@@ -2,8 +2,9 @@
     <button type="button"
         :class="['fab', `fab--${props.variant}`, `fab--${props.size}`, `fab--${props.visibility}`, props.variant === FAB_TYPES.VISIBILITY && !props.isActive ? 'fab--visibility-off' : '']"
         :title="variantConfig.tooltip">
-        <!-- Special case for character sheet auto-calc: text instead of icon -->
+        <!-- Auto-calc variants: always show text instead of icon -->
         <span v-if="props.variant === FAB_TYPES.AUTO_CALC_ON" class="auto-text">AUTO</span>
+        <span v-else-if="props.variant === FAB_TYPES.AUTO_CALC" class="auto-text auto-text--off">AUTO</span>
         <component v-else :is="variantConfig.icon"
             :class="props.size === FAB_SIZES.SMALL ? 'fab__icon--small' : 'fab__icon--large'" />
     </button>
@@ -12,7 +13,7 @@
 <script setup>
 import { computed } from 'vue'
 // Heroicons
-import { PlusIcon, DocumentDuplicateIcon, PencilIcon, CheckIcon, XMarkIcon, TrashIcon, Bars3Icon, Cog6ToothIcon, ArrowPathIcon, BookOpenIcon, CalculatorIcon, ChevronDoubleDownIcon, ChevronDoubleUpIcon, EyeIcon, EyeSlashIcon, ArrowUpIcon, ArrowDownIcon, BoltIcon, BoltSlashIcon, ArrowRightStartOnRectangleIcon } from '@heroicons/vue/24/outline'
+import { PlusIcon, DocumentDuplicateIcon, PencilIcon, CheckIcon, XMarkIcon, TrashIcon, Bars3Icon, Cog6ToothIcon, ArrowPathIcon, BookOpenIcon, ChevronDoubleDownIcon, ChevronDoubleUpIcon, EyeIcon, EyeSlashIcon, ArrowUpIcon, ArrowDownIcon, BoltIcon, BoltSlashIcon, ArrowRightStartOnRectangleIcon } from '@heroicons/vue/24/outline'
 // Custom icons
 import CrossedSwordsIcon from '@/assets/icons/characterSheet/crossed_swords.svg?component'
 import DieIcon from '@/assets/icons/characterSheet/die.svg?component'
@@ -60,8 +61,8 @@ const FAB_TYPE_CONFIG = {
     [FAB_TYPES.INITIATIVE]: { icon: CrossedSwordsIcon, tooltip: 'Roll Initiative' },
     [FAB_TYPES.INJURY]: { icon: InjuryIcon, tooltip: 'Roll Injury' },
     [FAB_TYPES.NOTES]: { icon: BookOpenIcon, tooltip: 'View GM Notes' },
-    [FAB_TYPES.AUTO_CALC]: { icon: CalculatorIcon, tooltip: 'Manual mode (click to switch to auto)' },
-    [FAB_TYPES.AUTO_CALC_ON]: { icon: CalculatorIcon, tooltip: 'Auto mode (click to switch to manual)' },
+    [FAB_TYPES.AUTO_CALC]: { tooltip: 'Manual mode (click to switch to auto)' },
+    [FAB_TYPES.AUTO_CALC_ON]: { tooltip: 'Auto mode (click to switch to manual)' },
     [FAB_TYPES.EXPAND_ALL]: { icon: ChevronDoubleDownIcon, tooltip: 'Expand all' },
     [FAB_TYPES.COLLAPSE_ALL]: { icon: ChevronDoubleUpIcon, tooltip: 'Collapse all' },
     [FAB_TYPES.MOVE_UP]: { icon: ArrowUpIcon, tooltip: 'Move up' },
@@ -191,6 +192,24 @@ const variantConfig = computed(() => {
     font-weight: var(--font-weight-bold);
     color: var(--color-primary);
     letter-spacing: 0.3px;
+    display: inline-block;
+    position: relative;
+}
+
+.auto-text--off {
+    color: var(--color-text-secondary);
+}
+
+.auto-text--off::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -1px;
+    right: -1px;
+    height: 1px;
+    background: currentColor;
+    transform: rotate(-45deg);
+    transform-origin: center;
 }
 
 .fab--auto-calc .fab__icon--small,

@@ -67,6 +67,8 @@ import { HeartIcon } from '@heroicons/vue/24/solid'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 import { useOptimizedImage } from '@/composables/useOptimizedImage'
+import { useImageListPreloader } from '@/composables/useImagePreloader'
+import { getOptimizedImageUrl } from '@/utils/imageOptimization'
 import { MIDJOURNEY_IMAGE_CONTEXTS } from '@shared/constants/artConstants.js'
 import { useKeepingStore } from '@/stores/keepingStore'
 
@@ -98,8 +100,21 @@ const vesselKeeping = computed(() => {
 
 const vesselKeepingName = computed(() => vesselKeeping.value?.name ? `${vesselKeeping.value.name} Vessel` : '')
 
+const vesselKeepingImageUrl = useOptimizedImage(
+    () => vesselKeeping.value?.imageUrl,
+    MIDJOURNEY_IMAGE_CONTEXTS.SMALL
+)
+
+const keepingBadgeImageUrls = computed(() =>
+    keepingStore.keeping
+        .map(entry => getOptimizedImageUrl(entry.imageUrl, MIDJOURNEY_IMAGE_CONTEXTS.SMALL))
+        .filter(Boolean)
+)
+
+useImageListPreloader(keepingBadgeImageUrls)
+
 const artAreaStyle = computed(() => {
-    const imageUrl = vesselKeeping.value?.imageUrl
+    const imageUrl = vesselKeepingImageUrl.value
     if (!imageUrl) return {}
     return {
         backgroundImage: `url('${imageUrl}')`,
@@ -286,6 +301,7 @@ function handleRemove() {
     white-space: pre-wrap;
     overflow: hidden;
     display: -webkit-box;
+    line-clamp: 5;
     -webkit-line-clamp: 5;
     -webkit-box-orient: vertical;
 }

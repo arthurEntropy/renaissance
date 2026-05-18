@@ -6,6 +6,15 @@
         </header>
         <form @submit.prevent="saveChanges">
 
+            <!-- Art URL -->
+            <div class="form-group row">
+                <div class="form-column" style="flex: 1">
+                    <label for="featured-art-url" class="left-aligned">Art URL:</label>
+                    <input type="url" v-model="formData.featuredArtUrl" id="featured-art-url" class="modal-input"
+                        placeholder="https://..." />
+                </div>
+            </div>
+
             <!-- Name and Pronouns -->
             <div class="form-group row">
                 <div class="form-column name-input">
@@ -29,7 +38,8 @@
                             class="modal-input">
                             <option value="">Select ancestry...</option>
                             <option v-for="ancestry in conceptsStore.ancestries" :key="ancestry.id"
-                                :value="ancestry.id">
+                                :value="ancestry.id"
+                                v-show="ancestry.id !== formData.ancestryIds[1]">
                                 {{ ancestry.name }}
                             </option>
                         </select>
@@ -40,7 +50,8 @@
                             :disabled="!formData.ancestryIds[0]">
                             <option value="">Select ancestry...</option>
                             <option v-for="ancestry in conceptsStore.ancestries" :key="ancestry.id"
-                                :value="ancestry.id">
+                                :value="ancestry.id"
+                                v-show="ancestry.id !== formData.ancestryIds[0]">
                                 {{ ancestry.name }}
                             </option>
                         </select>
@@ -54,7 +65,8 @@
                         <select :value="formData.cultureIds[0]" @change="onCulture0Change" id="culture1"
                             class="modal-input">
                             <option value="">Select culture...</option>
-                            <option v-for="culture in conceptsStore.cultures" :key="culture.id" :value="culture.id">
+                            <option v-for="culture in conceptsStore.cultures" :key="culture.id" :value="culture.id"
+                                v-show="culture.id !== formData.cultureIds[1]">
                                 {{ culture.name }}
                             </option>
                         </select>
@@ -64,7 +76,8 @@
                         <select v-model="formData.cultureIds[1]" id="culture2" class="modal-input"
                             :disabled="!formData.cultureIds[0]">
                             <option value="">Select culture...</option>
-                            <option v-for="culture in conceptsStore.cultures" :key="culture.id" :value="culture.id">
+                            <option v-for="culture in conceptsStore.cultures" :key="culture.id" :value="culture.id"
+                                v-show="culture.id !== formData.cultureIds[0]">
                                 {{ culture.name }}
                             </option>
                         </select>
@@ -295,6 +308,7 @@ const formData = ref({
     size: 0,
     reach: 0,
     isPublicPreview: false,
+    featuredArtUrl: '',
 })
 
 // Shift-aware change handlers for the first ancestry/culture slots.
@@ -340,6 +354,7 @@ onMounted(() => {
         size: character.size || 0,
         reach: character.reach || 0,
         isPublicPreview: character.isPublicPreview || false,
+        featuredArtUrl: character.featuredArtUrls?.[0] || '',
     }
     initialFormDataSnapshot.value = JSON.stringify(formData.value)
 })
@@ -364,6 +379,8 @@ const saveChanges = () => {
             reach: formData.value.reach,
             isPublicPreview: formData.value.isPublicPreview,
         })
+        if (!character.featuredArtUrls) character.featuredArtUrls = []
+        character.featuredArtUrls[0] = formData.value.featuredArtUrl
     } else {
         // Filter out empty strings from ancestry and culture IDs before saving
         const filteredAncestryIds = formData.value.ancestryIds.filter(id => id !== '')
@@ -374,6 +391,10 @@ const saveChanges = () => {
             ancestryIds: filteredAncestryIds,
             cultureIds: filteredCultureIds
         })
+
+        // Save art URL
+        if (!character.featuredArtUrls) character.featuredArtUrls = []
+        character.featuredArtUrls[0] = formData.value.featuredArtUrl
 
         // Apply type conversion if requested
         if (pendingConvertToPC.value && isNPCChar.value) {

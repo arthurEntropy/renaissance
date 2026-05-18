@@ -67,6 +67,10 @@ import { useCharactersStore } from '@/stores/charactersStore'
 import { useKeepingStore } from '@/stores/keepingStore'
 import { KEEPING_COLORS } from '@/constants/keepingConstants'
 import { isBeastTemplate, isBeastInstance } from '@/utils/characterTypeGuards'
+import { useOptimizedImage } from '@/composables/useOptimizedImage'
+import { useImageListPreloader } from '@/composables/useImagePreloader'
+import { getOptimizedImageUrl } from '@/utils/imageOptimization'
+import { MIDJOURNEY_IMAGE_CONTEXTS } from '@shared/constants/artConstants.js'
 
 const props = defineProps({
   characterOverride: {
@@ -93,12 +97,28 @@ const canEdit = computed(() => {
 })
 const keepingStore = useKeepingStore()
 
+const keepingImageUrl = computed(() => {
+  if (!character.value?.keeping) return ''
+  const entry = keepingStore.getById(character.value.keeping)
+  return entry?.imageUrl || ''
+})
+
+const optimizedKeepingImageUrl = useOptimizedImage(keepingImageUrl, MIDJOURNEY_IMAGE_CONTEXTS.SMALL)
+
+const keepingBadgeImageUrls = computed(() =>
+  keepingStore.keeping
+    .map(entry => getOptimizedImageUrl(entry.imageUrl, MIDJOURNEY_IMAGE_CONTEXTS.SMALL))
+    .filter(Boolean)
+)
+
+useImageListPreloader(keepingBadgeImageUrls)
+
 const keepingBadgeStyle = computed(() => {
   if (!character.value?.keeping) return {}
   const entry = keepingStore.getById(character.value.keeping)
   if (entry?.imageUrl) {
     return {
-      backgroundImage: `url('${entry.imageUrl}')`,
+      backgroundImage: `url('${optimizedKeepingImageUrl.value}')`,
       backgroundSize: 'cover',
       backgroundPosition: 'center',
     }
@@ -177,7 +197,7 @@ const keepingBadgeStyle = computed(() => {
   display: flex;
   gap: var(--space-xs);
   align-items: center;
-  background-color: var(--color-gray-medium);
+  background-color: var(--color-primary);
   padding: var(--space-xs) calc(var(--space-md) + 8px) var(--space-xs) var(--space-md);
   border-top-left-radius: var(--radius-15);
   position: relative;
@@ -196,7 +216,7 @@ const keepingBadgeStyle = computed(() => {
   display: flex;
   gap: var(--space-xs);
   align-items: center;
-  background-color: var(--color-primary);
+  background-color: var(--color-accent-cyan);
   padding: var(--space-xs) var(--space-md);
   border-top-left-radius: var(--radius-15);
   position: relative;

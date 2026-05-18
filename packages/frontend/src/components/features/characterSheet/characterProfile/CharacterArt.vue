@@ -2,8 +2,6 @@
     <div>
         <div class="character-art-container edit-hover-area">
             <img :src="optimizedCharacterImageUrl" class="character-art-image" @click="openFullSizeArtModal" />
-            <FloatingActionButton v-if="canEdit" :variant="FAB_TYPES.EDIT" :size="FAB_SIZES.SMALL"
-                :visibility="FAB_VISIBILITIES.ON_HOVER" class="edit-button-overlay-small" @click.stop="openEditModal" />
             <!-- Swagger overlay for Landsknecht -->
             <div v-if="isLandsknecht" class="swagger-overlay">
                 <div v-if="hoveredPip !== null" class="swagger-label">Swagger: {{ swagger }}</div>
@@ -18,35 +16,14 @@
         </div>
 
         <!-- Full Size Art Modal -->
-        <FullSizeImageModal :is-open="isFullSizeArtOpen" :image-url="characterImageUrl" :show-edit-button="canEdit"
-            @close="isFullSizeArtOpen = false" @edit="openEditModal" />
-
-        <!-- Edit Modal -->
-        <div v-if="isEditOpen" class="modal-overlay edit-modal-overlay" @click="handleEditModalOverlayClick">
-            <div class="modal-content edit-modal-content" @click.stop>
-                <div class="modal-header">
-                    <h3>Change Character Art</h3>
-                    <button class="close-button" @click="handleEditModalOverlayClick" aria-label="Close">
-                        <XMarkIcon class="close-icon" />
-                    </button>
-                </div>
-                <input type="text" v-model="tempArtUrl" class="modal-input" placeholder="Enter image URL" />
-                <div class="modal-actions">
-                    <ActionButton variant="success" size="small" text="Save" @click="saveArtUrl"
-                        :disabled="!isValidImageUrl(tempArtUrl)" />
-                </div>
-            </div>
-        </div>
+        <FullSizeImageModal :is-open="isFullSizeArtOpen" :image-url="characterImageUrl"
+            @close="isFullSizeArtOpen = false" />
     </div>
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
-import { XMarkIcon } from '@heroicons/vue/24/outline'
+import { ref, computed } from 'vue'
 import { useCharactersStore } from '@/stores/charactersStore'
-import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
-import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
-import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import FullSizeImageModal from '@/components/ui/modals/FullSizeImageModal.vue'
 import { useOptimizedImage } from '@/composables/useOptimizedImage'
 import { MIDJOURNEY_IMAGE_CONTEXTS } from '@shared/constants/artConstants.js'
@@ -55,7 +32,6 @@ import { LANDSKNECHT_MESTIERE_ID, SWAGGER_MAX, SWAGGER_ICONS, shieldMaskStyle } 
 const charactersStore = useCharactersStore()
 
 const character = computed(() => charactersStore.selectedCharacter)
-const canEdit = computed(() => charactersStore.canEditSelectedCharacter)
 
 // Swagger (Landsknecht)
 const hoveredPip = ref(null)
@@ -92,9 +68,6 @@ function getSwaggerPipClasses(index) {
 }
 
 const isFullSizeArtOpen = ref(false)
-const isEditOpen = ref(false)
-
-const tempArtUrl = ref('')
 
 const characterImageUrl = computed(() => {
     return character.value?.featuredArtUrls?.[0] ?? ''
@@ -103,49 +76,9 @@ const characterImageUrl = computed(() => {
 // Optimized image URL for display
 const optimizedCharacterImageUrl = useOptimizedImage(characterImageUrl, MIDJOURNEY_IMAGE_CONTEXTS.MEDIUM)
 
-const isValidImageUrl = (url) => {
-    if (!url) return false
-    const urlPattern = /^(https?:\/\/.*\.(?:png|jpg|jpeg|gif|webp))$/i
-    return urlPattern.test(url)
-}
-
 const openFullSizeArtModal = () => {
     isFullSizeArtOpen.value = true
 }
-
-const openEditModal = () => {
-    tempArtUrl.value = character.value?.featuredArtUrls?.[0] || ''
-    isEditOpen.value = true
-}
-
-const saveArtUrl = () => {
-    if (!character.value.featuredArtUrls) {
-        character.value.featuredArtUrls = []
-    }
-    character.value.featuredArtUrls[0] = tempArtUrl.value
-    isEditOpen.value = false
-}
-
-const handleEditModalOverlayClick = () => {
-    const originalUrl = character.value?.featuredArtUrls?.[0] || ''
-    const hasChanges = tempArtUrl.value !== originalUrl
-
-    if (hasChanges) {
-        const shouldDiscard = confirm('Discard unsaved changes?')
-        if (shouldDiscard) {
-            isEditOpen.value = false
-        }
-    } else {
-        isEditOpen.value = false
-    }
-}
-
-const handleKeydown = (e) => {
-    if (e.key === 'Escape' && isEditOpen.value) handleEditModalOverlayClick()
-}
-
-onMounted(() => window.addEventListener('keydown', handleKeydown))
-onBeforeUnmount(() => window.removeEventListener('keydown', handleKeydown))
 </script>
 
 <style scoped>
@@ -166,38 +99,6 @@ div {
     border-radius: var(--radius-5);
     box-shadow: var(--shadow-sm);
     cursor: zoom-in;
-}
-
-.edit-button-overlay-small {
-    position: absolute;
-    top: var(--space-xs);
-    right: var(--space-xs);
-    z-index: var(--z-raised);
-}
-
-.edit-modal-overlay {
-    z-index: calc(var(--z-modal) + 1);
-}
-
-.edit-modal-content {
-    width: auto;
-    min-width: 400px;
-    padding: var(--space-lg);
-    background: var(--color-bg-primary);
-}
-
-.edit-modal-content .modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: var(--space-md);
-}
-
-.modal-actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: var(--space-md);
-    margin-top: var(--space-md);
 }
 
 /* Swagger pip overlay */
