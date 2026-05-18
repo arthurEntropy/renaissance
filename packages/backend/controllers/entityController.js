@@ -41,8 +41,11 @@ const getAllEntities = (entity) => (req, res) => {
     let filteredEntities = allEntities.filter((e) => !e.isDeleted)
     
     // For characters, filter by ownership unless user is admin
-    if (entity === 'characters' && req.user) {
-      if (req.user.role !== USER_ROLE.ADMIN) {
+    if (entity === 'characters') {
+      if (!req.user) {
+        // Unauthenticated visitors: return only public preview characters
+        filteredEntities = filteredEntities.filter(character => character.isPublicPreview)
+      } else if (req.user.role !== USER_ROLE.ADMIN) {
         // Include characters owned by this user AND campaign characters from campaigns they belong to
         const memberCampaignIds = getUserCampaignIds(req.user.uid)
         filteredEntities = filteredEntities.filter(character =>

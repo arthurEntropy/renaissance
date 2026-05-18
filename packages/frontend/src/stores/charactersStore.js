@@ -52,6 +52,10 @@ export const useCharactersStore = defineStore('characters', () => {
   // Computed properties
   const filteredCharacters = computed(() => {
     const uid = authStore.user?.uid
+    if (!uid) {
+      // Unauthenticated visitors: show only public preview characters
+      return base.items.value.filter((character) => character.isPublicPreview)
+    }
     return base.items.value.filter((character) =>
       isPlayerCharacter(character) && character.ownerId === uid
     )
@@ -76,6 +80,7 @@ export const useCharactersStore = defineStore('characters', () => {
 
   const canEditSelectedCharacter = computed(() => {
     if (!selectedCharacter.value) return false
+    if (selectedCharacter.value.isPublicPreview && !authStore.isAdmin) return false
     if (authStore.isAdmin) return true
     if (isBeastTemplate(selectedCharacter.value) || isBeastInstance(selectedCharacter.value)) {
       return false

@@ -113,7 +113,7 @@ const navLinks = computed(() => [
   { to: '/cultures', label: 'CULTURES' },
   { to: '/world-elements', label: 'WORLD' },
   { to: '/mestieri', label: 'MESTIERI' },
-  ...(authStore.isAuthenticated ? [{ to: '/characters', label: 'CHARACTERS' }] : []),
+  { to: '/characters', label: 'CHARACTERS' },
   { to: '/bestiary', label: 'BESTIARY' },
   { to: '/abilities', label: 'ABILITIES' },
   { to: '/equipment', label: 'EQUIPMENT' },

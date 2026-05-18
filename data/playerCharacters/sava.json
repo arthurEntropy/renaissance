@@ -2,7 +2,7 @@
   "id": "67ddc1e2-eb82-4263-afe0-a044fc1dc665",
   "isDeleted": false,
   "createdAt": "2026-05-14T23:22:12.449Z",
-  "lastModified": "2026-05-14T23:31:50.501Z",
+  "lastModified": "2026-05-18T18:32:36.083Z",
   "characterType": "playerCharacter",
   "name": "Sava",
   "featuredArtUrls": [
@@ -321,8 +321,9 @@
   "keeping": "2b3c4d5e-6f7a-4b8c-9d0e-1f2a3b4c5d6e",
   "treasure": 3,
   "xp": 0,
-  "updatedAt": "2026-05-14T23:31:50.501Z",
+  "updatedAt": "2026-05-18T18:32:36.083Z",
   "description": "",
   "size": 0,
-  "reach": 0
+  "reach": 0,
+  "isPublicPreview": true
 }

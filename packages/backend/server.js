@@ -19,7 +19,7 @@ import { exportData, importData } from './controllers/adminDataController.js'
 import { sendDiscordMessage } from './controllers/discordController.js'
 import { setupEngagementHandlers, setupOpposedSkillCheckHandlers } from './controllers/sessionController.js'
 import { getEntityNames } from './utils/fileService.js'
-import { verifyToken, requireAuth, requireAdmin, requireApproved } from './middleware/auth.js'
+import { verifyToken, requireAuth, requireAdmin, requireApproved, optionalVerifyToken } from './middleware/auth.js'
 import { socketAuthMiddleware, socketRequireApproved } from './middleware/socketAuth.js'
 import {
   syncUserProfile,
@@ -177,7 +177,7 @@ app.delete('/campaigns/:id/shops/:shopId', requireAuth, requireCampaignGM, delet
 
 // Character-specific routes — allow any approved user to manage their own characters
 // (must be defined before the generic entity loop below)
-app.get('/characters', verifyToken, requireAuth, requireApproved, getAllEntities('characters'))
+app.get('/characters', optionalVerifyToken, getAllEntities('characters'))
 app.post('/characters', verifyToken, requireAuth, requireApproved, createEntity('characters'))
 app.post('/characters/:id/transfer-ownership', verifyToken, requireAuth, requireApproved, transferCharacterOwnership)
 app.post('/characters/:id/transfer-equipment', verifyToken, requireAuth, requireApproved, transferEquipment)

@@ -185,6 +185,14 @@
                 <!-- Delete -->
                 <ActionButton variant="danger" size="small" text="Delete Character" @click="showDeleteModal = true" />
             </div>
+
+            <!-- Public Preview (admin only) -->
+            <div v-if="authStore.isAdmin" class="public-preview-row">
+                <label class="public-preview-label">
+                    <input type="checkbox" v-model="formData.isPublicPreview" />
+                    Public Preview Character
+                </label>
+            </div>
         </div>
 
         <template #actions>
@@ -286,6 +294,7 @@ const formData = ref({
     description: '',
     size: 0,
     reach: 0,
+    isPublicPreview: false,
 })
 
 // Shift-aware change handlers for the first ancestry/culture slots.
@@ -330,6 +339,7 @@ onMounted(() => {
         description: character.description || '',
         size: character.size || 0,
         reach: character.reach || 0,
+        isPublicPreview: character.isPublicPreview || false,
     }
     initialFormDataSnapshot.value = JSON.stringify(formData.value)
 })
@@ -352,6 +362,7 @@ const saveChanges = () => {
             description: formData.value.description,
             size: formData.value.size,
             reach: formData.value.reach,
+            isPublicPreview: formData.value.isPublicPreview,
         })
     } else {
         // Filter out empty strings from ancestry and culture IDs before saving
@@ -603,5 +614,20 @@ const randomizeVitals = () => {
     font-size: var(--font-size-12);
     color: var(--color-text-muted);
     font-style: italic;
+}
+
+.public-preview-row {
+    display: flex;
+    justify-content: center;
+    margin-top: var(--space-md);
+}
+
+.public-preview-label {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    font-size: var(--font-size-12);
+    color: var(--color-text-muted);
+    cursor: pointer;
 }
 </style>
