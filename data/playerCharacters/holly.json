@@ -1,42 +1,22 @@
 {
-  "id": "941405e8-72ba-40fa-9d0c-f4d056f0ba62",
+  "id": "2cbe6ed5-9249-4e5d-a827-d2b8e8a3d28a",
   "isDeleted": false,
-  "createdAt": "2026-05-01T12:05:33.721Z",
-  "lastModified": "2026-05-07T13:20:02.148Z",
-  "name": "Gregor",
-  "pronouns": "",
-  "ancestryIds": [
-    "f5cda222-6c69-4ae9-bc0d-761729cd8e2e"
-  ],
-  "cultureIds": [
-    "55494a30-a1bb-47c3-aae9-2db3a5bfcb8b",
-    "68fadf5d-6661-4611-bb38-deaf05f01d45"
-  ],
-  "mestiereId": null,
+  "createdAt": "2026-05-14T23:51:48.952Z",
+  "lastModified": "2026-05-14T23:59:47.179Z",
+  "characterType": "playerCharacter",
+  "name": "Holly",
   "featuredArtUrls": [
-    "https://cdn.midjourney.com/2ac73413-bb79-4ec7-ace9-9d0516a88333/0_3.png"
+    "https://cdn.midjourney.com/c68edbfa-e024-4717-b49b-3a15b73ba45b/0_3.png"
   ],
-  "age": 61,
-  "heightFeet": 5,
-  "heightInches": 10,
-  "weight": 177,
-  "speed": 0,
-  "keeping": "3c4d5e6f-7a8b-4c9d-0e1f-2a3b4c5d6e7f",
-  "treasure": 3,
-  "xp": 0,
-  "notes": "<p>Penitent knife sinner.</p>",
-  "characterType": "npc",
-  "challenge": 0,
-  "description": "",
-  "size": 0,
-  "reach": 0,
-  "body": 0,
-  "heart": 0,
-  "wits": 0,
+  "speed": 30,
+  "notes": "",
+  "body": 3,
+  "heart": 1,
+  "wits": 2,
   "skills": [
     {
       "key": "awe",
-      "ranks": 0,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -44,7 +24,7 @@
     },
     {
       "key": "strength",
-      "ranks": 0,
+      "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -56,7 +36,7 @@
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "manualDiceMod": 0
+      "manualDiceMod": 1
     },
     {
       "key": "fortitude",
@@ -76,7 +56,7 @@
     },
     {
       "key": "perform",
-      "ranks": 0,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -116,7 +96,7 @@
     },
     {
       "key": "persuade",
-      "ranks": 0,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -124,7 +104,7 @@
     },
     {
       "key": "awareness",
-      "ranks": 0,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -156,18 +136,18 @@
     }
   ],
   "endurance": {
-    "current": 0,
-    "base": 0
+    "current": 15,
+    "base": 15
   },
   "hope": {
-    "current": 0,
-    "base": 0
+    "current": 2,
+    "base": 2
   },
   "defense": {
-    "current": 0,
-    "base": 0
+    "current": 9,
+    "base": 9
   },
-  "load": 0,
+  "load": 7,
   "shadow": 0,
   "injury": 0,
   "states": {
@@ -185,18 +165,103 @@
     "afraid": false,
     "troubled": false
   },
+  "engagementDice": [],
+  "engagementSuccesses": [],
   "engagementDiceStatuses": {},
-  "equipment": [],
+  "equipment": [
+    {
+      "id": "4ef323c3-c475-4148-a9ab-df5868d5fa06",
+      "quantity": 1,
+      "isCarried": true,
+      "collapsed": false,
+      "isWielding": true
+    },
+    {
+      "id": "093eef8a-85e0-42d8-85bc-b0bb1d1877af",
+      "quantity": 1,
+      "isCarried": true,
+      "collapsed": false,
+      "isWielding": true
+    },
+    {
+      "id": "b69c879e-a758-47b6-a3a4-b81dfd12eaaf",
+      "quantity": 1,
+      "isCarried": true,
+      "collapsed": false,
+      "isWielding": true
+    },
+    {
+      "id": "f339e1ee-39c8-4712-8baa-60129fd87ff0",
+      "quantity": 1,
+      "isCarried": true,
+      "collapsed": false,
+      "isWielding": false
+    }
+  ],
   "groupEquipmentBySource": false,
+  "groupEquipmentByCustom": false,
   "equipmentSortOption": "name-asc",
+  "equipmentCustomGroups": [],
   "mp": {
     "current": 0,
     "base": 0
   },
-  "abilities": [],
-  "groupAbilitiesBySource": false,
+  "abilities": [
+    {
+      "id": "8c423192-b716-4cef-bfbb-c46405562fc3",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false
+    },
+    {
+      "id": "4fbf9ccb-0fbb-45d0-9f8f-7b7fcfb811fb",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false
+    },
+    {
+      "id": "ad7f2d4c-75cc-4b7c-8066-57eb1ccaf54a",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false
+    },
+    {
+      "id": "a9e22111-7812-43f4-995f-25da1c0f37f4",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false
+    },
+    {
+      "id": "75e1dc58-f195-4e23-be00-24dfbbc1a757",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false
+    },
+    {
+      "id": "c447c4d5-d5f1-4f1a-9246-cb3881d30ed8",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false
+    },
+    {
+      "id": "130dc6aa-976a-4334-8b6c-c05bdcf776f1",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false
+    }
+  ],
+  "groupAbilitiesBySource": true,
   "groupAbilitiesByManaColor": false,
+  "groupAbilitiesByCustom": false,
   "abilitySortOption": "name-asc",
+  "abilityCustomGroups": [],
   "autoCalculations": {
     "load": true,
     "states": true,
@@ -232,6 +297,9 @@
   "biomeTags": [],
   "biomeId": null,
   "nimbleStep": 0,
+  "swagger": 0,
+  "swaggerIconIndex": 4,
+  "swaggerColor": "#ffffff",
   "manaPool": {
     "white": [],
     "blue": [],
@@ -242,6 +310,27 @@
   },
   "witchcraftTokens": [],
   "summonerVessels": [],
-  "campaignId": "2216d52f-f74d-479e-b440-f7b5aa6319e5",
-  "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1"
+  "campaignId": null,
+  "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
+  "pronouns": "she/her",
+  "ancestryIds": [
+    "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "b6f7cc3e-f689-4cd9-a8ed-73bf5e7f0fef"
+  ],
+  "cultureIds": [
+    "5c67bedd-8e73-4add-b46b-9b911bf0fd59",
+    "7016610e-ddf9-415b-8711-3b1c5fff241c"
+  ],
+  "mestiereId": "45ca935d-938b-4974-961c-4171cc388904",
+  "age": 27,
+  "heightFeet": 4,
+  "heightInches": 3,
+  "weight": 107,
+  "keeping": "4d5e6f7a-8b9c-4d0e-1f2a-3b4c5d6e7f8a",
+  "treasure": 13,
+  "xp": 0,
+  "description": "",
+  "size": 0,
+  "reach": 0,
+  "updatedAt": "2026-05-14T23:59:47.179Z"
 }

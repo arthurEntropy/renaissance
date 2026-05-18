@@ -1,22 +1,22 @@
 {
-  "id": "f100327c-464b-4f18-9b9a-d32b22a54cc8",
+  "id": "b146fe7d-e513-4321-a466-0e785656725c",
   "isDeleted": false,
-  "createdAt": "2026-05-10T18:05:32.328Z",
-  "lastModified": "2026-05-13T20:44:51.239Z",
+  "createdAt": "2026-05-14T20:41:21.993Z",
+  "lastModified": "2026-05-16T17:28:00.123Z",
   "characterType": "playerCharacter",
-  "name": "Doran",
+  "name": "Dne'dine",
   "featuredArtUrls": [
-    "https://cdn.midjourney.com/c0bc4dfb-498a-4163-b451-a61affada144/0_0.jpeg"
+    "https://cdn.midjourney.com/1afdec27-81b8-4900-b56e-c88e9fbf6d63/0_2.png"
   ],
-  "speed": 0,
-  "notes": "",
-  "body": 2,
-  "heart": 4,
-  "wits": 2,
+  "speed": 60,
+  "notes": "<p>Born in Chobham, grew up a townie kid who figured out the older students would let her hang around if she impressed them with stunts and tumbling tricks.</p><p>Followed a rich friend to Teek, took gigs entertaining for the Great Houses there. Witnessed an assassination during a performance and sprang into action without thinking much about it. She caught the assassin and it opened doors for her (higher-paying security-detail gigs), but whoever sent that first assassin wants her dead.</p>",
+  "body": 3,
+  "heart": 2,
+  "wits": 3,
   "skills": [
     {
       "key": "awe",
-      "ranks": 2,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -32,7 +32,7 @@
     },
     {
       "key": "dexterity",
-      "ranks": 0,
+      "ranks": 3,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -80,7 +80,7 @@
     },
     {
       "key": "spirit",
-      "ranks": 2,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -96,7 +96,7 @@
     },
     {
       "key": "persuade",
-      "ranks": 2,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -112,7 +112,7 @@
     },
     {
       "key": "stealth",
-      "ranks": 0,
+      "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -136,16 +136,16 @@
     }
   ],
   "endurance": {
-    "current": 0,
-    "base": 10
+    "current": 15,
+    "base": 15
   },
   "hope": {
-    "current": 0,
-    "base": 8
+    "current": 4,
+    "base": 4
   },
   "defense": {
-    "current": 0,
-    "base": 2
+    "current": 3,
+    "base": 3
   },
   "load": 0,
   "shadow": 0,
@@ -168,7 +168,15 @@
   "engagementDice": [],
   "engagementSuccesses": [],
   "engagementDiceStatuses": {},
-  "equipment": [],
+  "equipment": [
+    {
+      "id": "e7c57bc7-5009-45bd-81f0-c8011115862c",
+      "quantity": 1,
+      "isCarried": true,
+      "collapsed": true,
+      "isWielding": true
+    }
+  ],
   "groupEquipmentBySource": false,
   "groupEquipmentByCustom": false,
   "equipmentSortOption": "name-asc",
@@ -177,7 +185,43 @@
     "current": 0,
     "base": 0
   },
-  "abilities": [],
+  "abilities": [
+    {
+      "id": "4fbf9ccb-0fbb-45d0-9f8f-7b7fcfb811fb",
+      "collapsed": false,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false
+    },
+    {
+      "id": "ad7f2d4c-75cc-4b7c-8066-57eb1ccaf54a",
+      "collapsed": false,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false
+    },
+    {
+      "id": "1325605b-d523-4ec2-b2a7-57a04dc55d91",
+      "collapsed": false,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false
+    },
+    {
+      "id": "8e346eb3-1e72-4b3f-971c-497eac98a06c",
+      "collapsed": false,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false
+    },
+    {
+      "id": "bbf8f9d6-45a6-4703-9388-b771935d4a0a",
+      "collapsed": false,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false
+    }
+  ],
   "groupAbilitiesBySource": false,
   "groupAbilitiesByManaColor": false,
   "groupAbilitiesByCustom": false,
@@ -217,7 +261,7 @@
   },
   "biomeTags": [],
   "biomeId": null,
-  "nimbleStep": 0,
+  "nimbleStep": 2,
   "swagger": 0,
   "swaggerIconIndex": 0,
   "swaggerColor": "#ffffff",
@@ -233,23 +277,25 @@
   "summonerVessels": [],
   "campaignId": null,
   "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "pronouns": "he/him",
+  "pronouns": "she/her",
   "ancestryIds": [
-    "f9e8d7c6-b5a4-9382-7165-0f9e8d7c6b5a"
+    "77e4f81a-728f-49a7-a013-4d6f666353e2",
+    "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
   ],
   "cultureIds": [
-    "34ea8807-b404-435c-a860-704b4a40df8f"
+    "55494a30-a1bb-47c3-aae9-2db3a5bfcb8b",
+    "40086e18-eaba-411a-b4ec-7a0a7fd42d37"
   ],
-  "mestiereId": "49f10189-9634-4083-933b-fa74c2583b87",
-  "age": 71,
-  "heightFeet": 5,
-  "heightInches": 0,
-  "weight": 275,
+  "mestiereId": "e10d7d9f-9d93-46b0-9846-d60241031644",
+  "age": 27,
+  "heightFeet": 4,
+  "heightInches": 11,
+  "weight": 100,
   "keeping": "3c4d5e6f-7a8b-4c9d-0e1f-2a3b4c5d6e7f",
-  "treasure": 0,
+  "treasure": 13,
   "xp": 0,
   "description": "",
   "size": 0,
   "reach": 0,
-  "updatedAt": "2026-05-13T20:44:51.238Z"
+  "updatedAt": "2026-05-16T17:28:00.123Z"
 }

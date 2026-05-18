@@ -1,10 +1,10 @@
 {
   "id": "da39ee23-263d-4540-ae37-aea66100a451",
   "isDeleted": false,
-  "lastModified": "2026-04-24T13:34:54.309Z",
+  "lastModified": "2026-05-15T17:32:16.159Z",
   "name": "Not Of This World",
   "artUrl": "https://cdn.midjourney.com/5c8c018f-f753-4c58-a422-6aaf23e6e141/0_0.png",
-  "description": "<p><em>Even as you walk in this world, you are bound by strands to another, which underlies the world we know.</em></p><p>You gain 1 rank in Spirit.</p><p>Once per rest, you may spend an action to open your senses, sensing nearby deities and magical beings. You get a vague sense of their power, domain or general intent. When you attempt to communicate with, influence or request a favor from such beings, your skill checks are favored.</p><p><strong>Describe how your connection manifests.</strong></p><p>Your ties to another world prevent you from following fully the ways of this one. Choose one permanent effect:</p><ul><li><p>You cannot fall asleep in a bed.</p></li><li><p>You cannot use utensils to eat food.</p></li><li><p>You cannot enter a dwelling uninvited.</p></li></ul><p><strong>Describe how you navigate this limitation.</strong></p>",
+  "description": "<p><em>Even as you walk in this world, you are bound by strands to another, which underlies the world we know.</em></p><p>Whenever you roll Spirit, +1d.</p><p>Once per rest, you may spend an action to open your senses, sensing nearby deities and magical beings. You get a vague sense of their power, domain or general intent. When you attempt to communicate with, influence or request a favor from such beings you have sensed in this way, your skill checks are favored.</p><p><strong>Describe how your connection manifests.</strong></p><p>Your ties to another world prevent you from following fully the ways of this one. Choose one permanent effect:</p><ul><li><p>You cannot fall asleep in a bed.</p></li><li><p>You cannot use utensils to eat food.</p></li><li><p>You cannot enter a dwelling uninvited.</p></li></ul><p><strong>Describe how you navigate this limitation.</strong></p>",
   "source": "f00fe427-1bb5-472c-8abb-2a394730a40a",
   "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
   "mpCost": null,

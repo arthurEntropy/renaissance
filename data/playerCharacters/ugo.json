@@ -1,25 +1,18 @@
 {
-  "id": 11,
-  "lastModified": "2026-05-13T03:39:15.718Z",
-  "name": "Amaru",
-  "pronouns": "he/him",
-  "ancestryIds": [
-    "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
-  ],
-  "cultureIds": [
-    "352c844b-6d4f-4b61-b475-315421a453e7"
-  ],
-  "mestiereId": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
+  "id": "a2dd5069-a3fc-4432-ae7c-90ed749741b6",
+  "isDeleted": false,
+  "createdAt": "2026-05-14T23:15:47.602Z",
+  "lastModified": "2026-05-14T23:21:20.164Z",
+  "characterType": "playerCharacter",
+  "name": "Ugo",
   "featuredArtUrls": [
-    "https://cdn.midjourney.com/46f7df2d-65a2-44e8-90fd-c01738a187c3/0_0.png"
+    "https://cdn.midjourney.com/94f59f8d-336c-4a8d-b212-b07b5471ed4d/0_0.png"
   ],
-  "keeping": "5e6f7a8b-9c0d-4e1f-2a3b-4c5d6e7f8a9b",
-  "xp": 12,
-  "notes": "Wizard of the Third Wizards' Guild of Guildford. Associate of Volans.",
-  "characterType": "player",
-  "body": 3,
-  "heart": 5,
-  "wits": 6,
+  "speed": 30,
+  "notes": "",
+  "body": 2,
+  "heart": 1,
+  "wits": 2,
   "skills": [
     {
       "key": "awe",
@@ -31,14 +24,6 @@
     },
     {
       "key": "strength",
-      "ranks": 0,
-      "isFavored": false,
-      "isIllFavored": false,
-      "diceMod": 0,
-      "manualDiceMod": 0
-    },
-    {
-      "key": "dexterity",
       "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
@@ -46,8 +31,16 @@
       "manualDiceMod": 0
     },
     {
+      "key": "dexterity",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
       "key": "fortitude",
-      "ranks": 1,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -71,7 +64,7 @@
     },
     {
       "key": "insight",
-      "ranks": 1,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -79,7 +72,7 @@
     },
     {
       "key": "courtesy",
-      "ranks": 2,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -87,7 +80,7 @@
     },
     {
       "key": "spirit",
-      "ranks": 1,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -111,7 +104,7 @@
     },
     {
       "key": "awareness",
-      "ranks": 1,
+      "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -127,7 +120,7 @@
     },
     {
       "key": "lore",
-      "ranks": 4,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -135,7 +128,7 @@
     },
     {
       "key": "riddle",
-      "ranks": 1,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -143,16 +136,16 @@
     }
   ],
   "endurance": {
-    "current": 15,
-    "base": 15
+    "current": 10,
+    "base": 10
   },
   "hope": {
-    "current": 15,
-    "base": 15
+    "current": 2,
+    "base": 2
   },
   "defense": {
-    "current": 16,
-    "base": 16
+    "current": 2,
+    "base": 2
   },
   "load": 0,
   "shadow": 0,
@@ -172,32 +165,19 @@
     "afraid": false,
     "troubled": false
   },
-  "equipment": [
-    {
-      "id": "e7c57bc7-5009-45bd-81f0-c8011115862c",
-      "quantity": 1,
-      "isCarried": true,
-      "isWielding": false,
-      "collapsed": true
-    },
-    {
-      "id": "f248a20d-f79e-4fb9-a800-94e2145fc23a",
-      "quantity": 1,
-      "isCarried": true
-    }
-  ],
+  "engagementDice": [],
+  "engagementSuccesses": [],
+  "engagementDiceStatuses": {},
+  "equipment": [],
+  "groupEquipmentBySource": false,
+  "groupEquipmentByCustom": false,
+  "equipmentSortOption": "name-asc",
+  "equipmentCustomGroups": [],
   "mp": {
-    "current": 7,
-    "base": 18
+    "current": 0,
+    "base": 0
   },
   "abilities": [
-    {
-      "id": "ad7f2d4c-75cc-4b7c-8066-57eb1ccaf54a",
-      "collapsed": false,
-      "showImprovements": false,
-      "showSuccesses": false,
-      "isActive": false
-    },
     {
       "id": "4fbf9ccb-0fbb-45d0-9f8f-7b7fcfb811fb",
       "collapsed": false,
@@ -206,76 +186,64 @@
       "isActive": false
     },
     {
-      "id": "15170e88-f451-4302-b772-8ca96aa9ca65",
-      "collapsed": true,
+      "id": "e4b7cc8a-7762-410e-80db-d6e680c883cc",
+      "collapsed": false,
       "showImprovements": false,
       "showSuccesses": false,
       "isActive": false
     },
     {
-      "id": "b5534e7f-c4e9-466e-a87d-8e1da0380642",
-      "collapsed": true,
+      "id": "da39ee23-263d-4540-ae37-aea66100a451",
+      "collapsed": false,
       "showImprovements": false,
       "showSuccesses": false,
       "isActive": false
     },
     {
-      "id": "b3152cba-8a7b-4b4b-addd-bcf50e567e2a",
-      "collapsed": true,
+      "id": "9c92d5ba-7c73-4480-a357-d98ac4820c7d",
+      "collapsed": false,
       "showImprovements": false,
       "showSuccesses": false,
       "isActive": false
     },
     {
-      "id": "dd5827a8-6fb7-4b9f-8c94-c7d6dd900fe4",
-      "collapsed": true,
+      "id": "f1d0e5f7-bb30-4251-a575-8d31c113fe1a",
+      "collapsed": false,
       "showImprovements": false,
       "showSuccesses": false,
       "isActive": false
     },
     {
-      "id": "923589e5-d20f-4d1e-90f9-e48dde46f8b5",
-      "collapsed": true,
-      "showImprovements": false,
-      "showSuccesses": false,
-      "isActive": false
-    },
-    {
-      "id": "e71d1ead-efd9-4d2c-a9c3-9f937f93847c",
-      "collapsed": true,
-      "showImprovements": false,
-      "showSuccesses": true,
-      "isActive": false
-    },
-    {
-      "id": "25daccec-9dc4-469a-93ce-af13e853fc8e",
+      "id": "1e289ca8-cf6a-4f0d-ad7c-a13fc8e1f381",
       "collapsed": false,
       "showImprovements": false,
       "showSuccesses": false,
       "isActive": false
     }
   ],
-  "groupAbilitiesBySource": true,
+  "groupAbilitiesBySource": false,
   "groupAbilitiesByManaColor": false,
   "groupAbilitiesByCustom": false,
-  "abilitySortOption": "",
+  "abilitySortOption": "name-asc",
+  "abilityCustomGroups": [],
   "autoCalculations": {
     "load": true,
-    "states": true
+    "states": true,
+    "baseEndurance": true,
+    "baseHope": true,
+    "baseDefense": true
   },
   "rollStats": {
     "skillChecks": {
-      "attempts": 2,
+      "attempts": 0,
       "successes": 0,
-      "totalSum": 23,
-      "bestTotal": 16,
+      "totalSum": 0,
+      "bestTotal": null,
       "hardestSuccess": null,
-      "bySkill": {
-        "Dexterity": 1
-      },
+      "bySkill": {},
       "solCount": 0,
       "morteCount": 0,
-      "successCount": 1
+      "successCount": 0
     },
     "contests": {
       "engagement": {
@@ -285,12 +253,48 @@
       },
       "opposed": {
         "wins": 0,
-        "losses": 1,
+        "losses": 0,
         "draws": 0
       }
     }
   },
+  "biomeTags": [],
+  "biomeId": null,
+  "nimbleStep": 0,
+  "swagger": 0,
+  "swaggerIconIndex": 0,
+  "swaggerColor": "#ffffff",
+  "manaPool": {
+    "white": [],
+    "blue": [],
+    "black": [],
+    "red": [],
+    "green": [],
+    "colorless": []
+  },
   "witchcraftTokens": [],
+  "summonerVessels": [],
+  "campaignId": null,
   "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2026-05-13T03:39:15.718Z"
+  "pronouns": "he/him",
+  "ancestryIds": [
+    "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "f00fe427-1bb5-472c-8abb-2a394730a40a"
+  ],
+  "cultureIds": [
+    "352c844b-6d4f-4b61-b475-315421a453e7",
+    "be62ac3d-7168-4779-8274-e60574a2fd27"
+  ],
+  "mestiereId": "e0a69b6f-38f9-4fa5-a1ef-5e5777299e82",
+  "age": 345,
+  "heightFeet": 6,
+  "heightInches": 6,
+  "weight": 251,
+  "keeping": "3c4d5e6f-7a8b-4c9d-0e1f-2a3b4c5d6e7f",
+  "treasure": 10,
+  "xp": 0,
+  "updatedAt": "2026-05-14T23:21:20.164Z",
+  "description": "",
+  "size": 0,
+  "reach": 0
 }

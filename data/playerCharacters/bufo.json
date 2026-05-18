@@ -1,33 +1,18 @@
 {
-  "id": "bcd5b03e-0a75-4fe0-96ae-9a2ca392c09c",
+  "id": "5b14036a-1a18-4578-8025-3f3a696dd359",
   "isDeleted": false,
-  "createdAt": "2026-04-30T19:05:13.004Z",
-  "lastModified": "2026-05-01T13:52:41.625Z",
-  "name": "Camilla",
-  "pronouns": "",
-  "ancestryIds": [],
-  "cultureIds": [],
-  "mestiereId": null,
+  "createdAt": "2026-05-14T23:43:45.561Z",
+  "lastModified": "2026-05-14T23:50:31.319Z",
+  "characterType": "playerCharacter",
+  "name": "Bufo",
   "featuredArtUrls": [
-    "https://cdn.midjourney.com/769ef76b-6fa0-4f15-8c2f-9b1a018b7aa5/0_2.png"
+    "https://cdn.midjourney.com/57dcbeb6-07e9-446d-beee-624e8f22c2e8/0_1.png"
   ],
-  "age": 0,
-  "heightFeet": 0,
-  "heightInches": 0,
-  "weight": 0,
   "speed": 0,
-  "keeping": null,
-  "treasure": 0,
-  "xp": 0,
   "notes": "",
-  "characterType": "npc",
-  "challenge": 0,
-  "description": "",
-  "size": 0,
-  "reach": 0,
-  "body": 0,
-  "heart": 0,
-  "wits": 0,
+  "body": 3,
+  "heart": 2,
+  "wits": 2,
   "skills": [
     {
       "key": "awe",
@@ -47,7 +32,7 @@
     },
     {
       "key": "dexterity",
-      "ranks": 0,
+      "ranks": 3,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -79,7 +64,7 @@
     },
     {
       "key": "insight",
-      "ranks": 0,
+      "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -119,15 +104,15 @@
     },
     {
       "key": "awareness",
-      "ranks": 0,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "manualDiceMod": 0
+      "manualDiceMod": 2
     },
     {
       "key": "stealth",
-      "ranks": 0,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -145,22 +130,22 @@
       "key": "riddle",
       "ranks": 0,
       "isFavored": false,
-      "isIllFavored": true,
+      "isIllFavored": false,
       "diceMod": 0,
       "manualDiceMod": 0
     }
   ],
   "endurance": {
-    "current": 0,
-    "base": 0
+    "current": 15,
+    "base": 15
   },
   "hope": {
-    "current": 0,
-    "base": 0
+    "current": 4,
+    "base": 4
   },
   "defense": {
-    "current": 0,
-    "base": 0
+    "current": 2,
+    "base": 2
   },
   "load": 0,
   "shadow": 0,
@@ -180,18 +165,74 @@
     "afraid": false,
     "troubled": false
   },
+  "engagementDice": [],
+  "engagementSuccesses": [],
   "engagementDiceStatuses": {},
   "equipment": [],
   "groupEquipmentBySource": false,
+  "groupEquipmentByCustom": false,
   "equipmentSortOption": "name-asc",
+  "equipmentCustomGroups": [],
   "mp": {
     "current": 0,
     "base": 0
   },
-  "abilities": [],
-  "groupAbilitiesBySource": false,
+  "abilities": [
+    {
+      "id": "912dc31d-7c5a-4e3e-94f2-581a527f58fd",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false
+    },
+    {
+      "id": "f957c002-8de8-42f5-9452-2edd153e6bca",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false
+    },
+    {
+      "id": "3023d595-cc9a-4109-9e99-d9f393806085",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false
+    },
+    {
+      "id": "ed6d2d46-d275-45e4-b62f-3a3aaa40b6be",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false
+    },
+    {
+      "id": "9d6d82e0-bc0d-4f68-85dd-c2f3e2e17597",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false
+    },
+    {
+      "id": "ea5b56c6-375f-4426-84be-cf4df79b7505",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false
+    },
+    {
+      "id": "0be14c83-458a-41f4-b5ac-29c2b4266ea5",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false
+    }
+  ],
+  "groupAbilitiesBySource": true,
   "groupAbilitiesByManaColor": false,
-  "abilitySortOption": "name-asc",
+  "groupAbilitiesByCustom": false,
+  "abilitySortOption": "mpCost-asc",
+  "abilityCustomGroups": [],
   "autoCalculations": {
     "load": true,
     "states": true,
@@ -224,9 +265,16 @@
       }
     }
   },
-  "biomeTags": [],
-  "biomeId": null,
+  "biomeTags": [
+    "plains",
+    "mountain",
+    "temperate"
+  ],
+  "biomeId": "3f36c0a6-7847-42d5-9859-da3326b0bf3c",
   "nimbleStep": 0,
+  "swagger": 0,
+  "swaggerIconIndex": 0,
+  "swaggerColor": "#ffffff",
   "manaPool": {
     "white": [],
     "blue": [],
@@ -237,6 +285,27 @@
   },
   "witchcraftTokens": [],
   "summonerVessels": [],
-  "campaignId": "2216d52f-f74d-479e-b440-f7b5aa6319e5",
-  "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1"
+  "campaignId": null,
+  "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
+  "pronouns": "he/him",
+  "ancestryIds": [
+    "9250fcc5-9bc9-4724-815d-4411e79d403c",
+    "f9e8d7c6-b5a4-9382-7165-0f9e8d7c6b5a"
+  ],
+  "cultureIds": [
+    "6c11415a-8f95-4da2-95d8-26a858caffc3",
+    "72dc5437-4072-4e9e-8e9f-0316fab002bb"
+  ],
+  "mestiereId": "10f46ecd-e6f5-4d3b-b510-d4035ab24f56",
+  "age": 34,
+  "heightFeet": 3,
+  "heightInches": 11,
+  "weight": 198,
+  "keeping": "2b3c4d5e-6f7a-4b8c-9d0e-1f2a3b4c5d6e",
+  "treasure": 9,
+  "xp": 0,
+  "updatedAt": "2026-05-14T23:50:31.319Z",
+  "description": "",
+  "size": 0,
+  "reach": 0
 }

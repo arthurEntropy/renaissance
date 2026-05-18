@@ -1,10 +1,10 @@
 {
   "id": "826c5f6f-1f93-4377-b429-918b4f025481",
   "createdAt": "2026-02-26T15:06:25.515Z",
-  "lastModified": "2026-04-24T17:08:32.438Z",
+  "lastModified": "2026-05-15T18:06:04.822Z",
   "name": "Resourceful",
   "artUrl": "https://cdn.midjourney.com/3a5ef46f-d063-4f45-b2b9-df595a0c9116/0_3.png",
-  "description": "<p><em>You love a good puzzle, and you tend to stick with it until you solve it.</em></p><p>You gain 1 rank in Riddle.</p><p><strong>Describe how you figure things out.</strong></p>",
+  "description": "<p><em>You love a good puzzle, and you tend to stick with it until you solve it.</em></p><p>Whenever you roll Riddle, +1d.</p><p><strong>Describe how you figure things out.</strong></p>",
   "source": "fffc6b74-d66f-4270-a8b4-e045433ae176",
   "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
   "canBeActive": false,

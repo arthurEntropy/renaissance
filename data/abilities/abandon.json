@@ -1,10 +1,10 @@
 {
   "id": "f906a23e-b95d-421a-b4ed-b094c3086497",
   "isDeleted": false,
-  "lastModified": "2026-04-27T20:09:52.859Z",
+  "lastModified": "2026-05-15T18:10:19.044Z",
   "name": "Abandon",
   "artUrl": "https://cdn.midjourney.com/d304b922-5c40-4c99-85b4-fa7ac10fc95d/0_3.png",
-  "description": "<p><em>When roused, you are readily capable of suppressing your sense of self-preservation.</em></p><p>Once per rest, you may spend a reaction to choose one:</p><ul><li><p>Re-roll a skill check. Roll Injury.</p></li><li><p>Double the damage you deal for a single attack. You take damage equal to half of the new total.</p></li></ul><p><strong>Describe how you throw caution to the wind.</strong></p>",
+  "description": "<p><em>When roused, you are readily capable of suppressing your sense of self-preservation.</em></p><p>At any time, you may spend a reaction to choose one:</p><ul><li><p>Re-roll a skill check.</p></li><li><p>Double the damage you deal for a single attack.</p></li></ul><p>Either way, you roll Injury.</p><p><strong>Describe how you throw caution to the wind.</strong></p>",
   "source": "6ff91bc4-122f-4e95-bb08-b577f1a94bb6",
   "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
   "mpCost": null,

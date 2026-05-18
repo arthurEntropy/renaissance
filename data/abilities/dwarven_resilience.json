@@ -1,10 +1,10 @@
 {
   "id": "e50350ea-0c67-4c29-bd54-f4f255ba2ffe",
   "isDeleted": false,
-  "lastModified": "2026-03-19T02:23:51.085Z",
+  "lastModified": "2026-05-15T17:45:53.391Z",
   "name": "Dwarven Resilience",
   "artUrl": "https://cdn.midjourney.com/a29da715-1f70-4593-8a0d-3f1f8e7beff0/0_1.png",
-  "description": "<p><em>You stay on your feet when others would fall.</em></p><p>Once per rest: If damage would reduce your Endurance to 0 or less, it instead reduces your Endurance to 1.</p><p><strong>Describe how you get back up.</strong></p>",
+  "description": "<p><em>You stay on your feet when others would fall.</em></p><p>Once per rest, if damage would reduce your Endurance to 0, it instead reduces your Endurance to 1.</p><p><strong>Describe how you get back up.</strong></p>",
   "source": "adc655c1-1d9c-433f-a0eb-41f93cf3ee07",
   "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
   "mpCost": null,

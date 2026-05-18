@@ -1,0 +1,12 @@
+{
+  "id": "e0708393-3526-4467-bf50-822260bbe0d3",
+  "createdAt": "2026-02-26T16:26:30.316Z",
+  "lastModified": "2026-05-15T18:23:55.369Z",
+  "name": "Celestial Servant",
+  "artUrl": "https://cdn.midjourney.com/e9cdd2c4-ac8e-4c15-932a-5f7df667ab2a/0_3.png",
+  "description": "<p><em>The reputation of your ancestors' service to the gods is still intact.</em></p><p>Whenever you interact with a deity or magical creature for the first time, they will assume you are a non-threatening servant and will continue to think so unless you target them with an attack, speak rudely to them, disobey orders they give you or otherwise anger them.</p><p>While you maintain this status:</p><ul><li><p>All your opposed skill checks against the deity or magical creature are favored.</p></li><li><p>Whenever you use the Help action to enhance an ally's skill check, they get a +2d bonus instead of the normal +1d.</p></li></ul><p><strong>Describe how you pass for the help.</strong></p>",
+  "source": "b6f7cc3e-f689-4cd9-a8ed-73bf5e7f0fef",
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "canBeActive": false,
+  "hasDifficulty": false
+}

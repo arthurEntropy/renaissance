@@ -1,10 +1,10 @@
 {
   "id": "8c423192-b716-4cef-bfbb-c46405562fc3",
   "createdAt": "2026-02-26T18:40:01.921Z",
-  "lastModified": "2026-02-26T18:50:03.522Z",
+  "lastModified": "2026-05-15T18:26:07.038Z",
   "name": "Clever Hands",
   "artUrl": "https://cdn.midjourney.com/bff07cab-a492-4996-9ecb-127d7f05e9ec/0_0.png",
-  "description": "<p>You gain 1 rank in Dexterity.</p>",
+  "description": "<p><em>Your fine features make you good with your hands.</em></p><p>Whenever you roll Dexterity, +1d.</p><p><strong>Describe your dexterousness.</strong></p>",
   "source": "b6f7cc3e-f689-4cd9-a8ed-73bf5e7f0fef",
   "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
   "canBeActive": false,

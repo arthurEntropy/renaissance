@@ -1,10 +1,10 @@
 {
   "id": "4fbf9ccb-0fbb-45d0-9f8f-7b7fcfb811fb",
   "isDeleted": false,
-  "lastModified": "2026-02-12T21:37:52.054Z",
+  "lastModified": "2026-05-15T18:17:23.746Z",
   "name": "Adaptable",
   "artUrl": "https://cdn.midjourney.com/02166992-54ac-4087-94b1-09500adaa309/0_1.png",
-  "description": "<p>Any time you gain XP, you gain 1 additional XP.</p><p><strong>Describe how you learn quickly.</strong></p>",
+  "description": "<p><em>You are quick to adapt to new situations.</em></p><p>Any time you gain XP, you gain 1 additional XP.</p><p><strong>Describe how you learn quickly.</strong></p>",
   "source": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
   "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
   "mpCost": null,

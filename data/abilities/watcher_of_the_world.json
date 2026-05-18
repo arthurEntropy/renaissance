@@ -1,10 +1,10 @@
 {
   "id": "42b239bb-7a4f-4e23-9530-276744aaf701",
   "isDeleted": false,
-  "lastModified": "2026-02-26T14:04:25.591Z",
+  "lastModified": "2026-05-15T17:37:45.342Z",
   "name": "Watcher Of The World",
   "artUrl": "https://cdn.midjourney.com/f9d7a1ca-3b4b-40c8-ba37-f8db62c14268/0_3.png",
-  "description": "<p><em>You have exceptional powers of observation and recall. The knowledge you gather becomes useful in unexpected places.</em></p><p>Your Awareness rolls are Favored and you gain 2 ranks in Lore.</p><p>You have a photographic memory and can read lips, so long as the person is speaking a language you understand.</p><p>At the outset of each Quest, you may ask the GM for a secret. The secret should be something relevant to the Quest and something you could reasonably know or deduce from things you've observed, experienced and learned in your lifetime. The GM gives you this information privately and you may choose whether and when to reveal the information to your companions.</p><p><strong>Describe how you gather and organize your vast stores of knowledge within your mind.</strong></p>",
+  "description": "<p><em>You have exceptional powers of observation and recall. The knowledge you gather becomes useful in unexpected places.</em></p><p>Your Awareness rolls are Favored and whenever you roll Lore, +1d.</p><p>You have a photographic memory and can read lips, so long as the person is speaking a language you understand.</p><p>At the outset of each Quest, you may ask the GM for a secret. The secret should be something relevant to the Quest and something you could reasonably know or deduce from things you've observed, experienced and learned in your lifetime. The GM gives you this information privately and you may choose whether and when to reveal the information to your companions.</p><p><strong>Describe how you gather and organize your vast stores of knowledge within your mind.</strong></p>",
   "source": "d5e3228b-1d04-4503-8ec6-3210d420c082",
   "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
   "mpCost": null,

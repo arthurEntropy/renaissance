@@ -1,32 +1,18 @@
 {
-  "id": "48a9eff3-9041-4b33-8f99-4137955d2997",
+  "id": "67ddc1e2-eb82-4263-afe0-a044fc1dc665",
   "isDeleted": false,
-  "createdAt": "2026-04-22T14:45:33.779Z",
-  "lastModified": "2026-05-14T01:28:33.562Z",
-  "name": "Otho",
-  "pronouns": "",
-  "ancestryIds": [
-    "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
-  ],
-  "cultureIds": [
-    "55494a30-a1bb-47c3-aae9-2db3a5bfcb8b"
-  ],
-  "mestiereId": "558abd15-f90f-40d7-80d8-df73a37f977c",
+  "createdAt": "2026-05-14T23:22:12.449Z",
+  "lastModified": "2026-05-14T23:31:50.501Z",
+  "characterType": "playerCharacter",
+  "name": "Sava",
   "featuredArtUrls": [
-    "https://cdn.midjourney.com/6acd8daa-8d90-43ae-b78a-8349d712b046/0_1.png"
+    "https://cdn.midjourney.com/3ed2c387-5da2-48ca-abc4-f41938b12a06/0_1_640_N.png"
   ],
-  "age": 38,
-  "heightFeet": 5,
-  "heightInches": 11,
-  "weight": 200,
   "speed": 0,
-  "keeping": "5e6f7a8b-9c0d-4e1f-2a3b-4c5d6e7f8a9b",
-  "xp": 0,
   "notes": "",
-  "characterType": "player",
-  "body": 0,
-  "heart": 0,
-  "wits": 0,
+  "body": 3,
+  "heart": 4,
+  "wits": 3,
   "skills": [
     {
       "key": "awe",
@@ -38,7 +24,7 @@
     },
     {
       "key": "strength",
-      "ranks": 0,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -46,7 +32,7 @@
     },
     {
       "key": "dexterity",
-      "ranks": 3,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -54,7 +40,7 @@
     },
     {
       "key": "fortitude",
-      "ranks": 0,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -94,7 +80,7 @@
     },
     {
       "key": "spirit",
-      "ranks": 0,
+      "ranks": 4,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -118,7 +104,7 @@
     },
     {
       "key": "awareness",
-      "ranks": 0,
+      "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -142,7 +128,7 @@
     },
     {
       "key": "riddle",
-      "ranks": 0,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -150,16 +136,16 @@
     }
   ],
   "endurance": {
-    "current": 0,
-    "base": 0
+    "current": 15,
+    "base": 15
   },
   "hope": {
-    "current": 0,
-    "base": 0
+    "current": 8,
+    "base": 8
   },
   "defense": {
-    "current": 0,
-    "base": 10
+    "current": 5,
+    "base": 5
   },
   "load": 0,
   "shadow": 0,
@@ -179,71 +165,108 @@
     "afraid": false,
     "troubled": false
   },
+  "engagementDice": [],
+  "engagementSuccesses": [],
   "engagementDiceStatuses": {},
   "equipment": [],
   "groupEquipmentBySource": false,
+  "groupEquipmentByCustom": false,
   "equipmentSortOption": "name-asc",
+  "equipmentCustomGroups": [],
   "mp": {
     "current": 0,
     "base": 0
   },
   "abilities": [
     {
-      "id": "4024366e-242c-448a-b5da-5a811ad78aa7",
-      "collapsed": false,
+      "id": "366982d4-7d65-4b32-b808-be39ccea385e",
+      "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false,
       "isActive": false
     },
     {
-      "id": "04e9acb0-df69-44eb-8c7f-8bbcf28ca22d",
-      "collapsed": false,
+      "id": "38a03db2-ed78-4d42-9df2-195bc2e24748",
+      "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false,
       "isActive": false
     },
     {
-      "id": "1fbe03dd-9c5f-4224-bcbf-1bdac72673a0",
-      "collapsed": false,
+      "id": "d97c0db1-5797-4f54-9c77-15597dcc6d49",
+      "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false,
       "isActive": false
     },
     {
-      "id": "263ec9d9-457c-44fd-90ac-50ae8d6823f8",
-      "collapsed": false,
+      "id": "49800609-6ee9-4428-aa2d-de373f82dd8e",
+      "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false,
       "isActive": false
     },
     {
-      "id": "00923682-709e-43cd-b33b-ca15a4ac7dca",
-      "collapsed": false,
+      "id": "b20b4f5e-7c7c-4b43-b180-991cf07d0712",
+      "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false,
       "isActive": false
     },
     {
-      "id": "c59e50f9-4063-4066-bc80-c634b3b5aacf",
-      "collapsed": false,
-      "showImprovements": true,
+      "id": "e16343e2-35aa-4a42-b8f3-9105aad87780",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false
+    },
+    {
+      "id": "a71010fe-d7dc-41c9-ba68-0dd2a01d50d3",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false
+    },
+    {
+      "id": "39a3e592-7836-4333-b336-64e75694dc98",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false
+    },
+    {
+      "id": "8c407283-06cb-4843-a67f-0bfc792ba34e",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false
+    },
+    {
+      "id": "7a2fcef8-f722-4b87-8847-1232117c2b54",
+      "collapsed": true,
+      "showImprovements": false,
       "showSuccesses": false,
       "isActive": false
     }
   ],
-  "groupAbilitiesBySource": false,
+  "groupAbilitiesBySource": true,
   "groupAbilitiesByManaColor": false,
-  "abilitySortOption": "name-asc",
+  "groupAbilitiesByCustom": false,
+  "abilitySortOption": "manaCost-asc",
+  "abilityCustomGroups": [],
   "autoCalculations": {
     "load": true,
-    "states": true
+    "states": true,
+    "baseEndurance": true,
+    "baseHope": true,
+    "baseDefense": false
   },
   "rollStats": {
     "skillChecks": {
-      "attempts": 1,
-      "successes": 1,
-      "totalSum": 9,
-      "bestTotal": 9,
+      "attempts": 0,
+      "successes": 0,
+      "totalSum": 0,
+      "bestTotal": null,
       "hardestSuccess": null,
       "bySkill": {},
       "solCount": 0,
@@ -266,6 +289,9 @@
   "biomeTags": [],
   "biomeId": null,
   "nimbleStep": 0,
+  "swagger": 0,
+  "swaggerIconIndex": 0,
+  "swaggerColor": "#ffffff",
   "manaPool": {
     "white": [],
     "blue": [],
@@ -275,38 +301,28 @@
     "colorless": []
   },
   "witchcraftTokens": [],
-  "summonerVessels": [
-    {
-      "id": "ddaf9eb8-a1da-413c-8672-2ba619e1ec06",
-      "beastId": "09f7035a-0826-4761-af7a-49ef27655cd2",
-      "friendship": 6,
-      "isActive": true,
-      "isSummoned": false,
-      "keeping": "3c4d5e6f-7a8b-4c9d-0e1f-2a3b4c5d6e7f",
-      "vesselNote": "",
-      "imageUrl": "/src/assets/icons/witch/potion.png"
-    },
-    {
-      "id": "73af4476-d886-4c38-8549-0fd46e2344ed",
-      "beastId": "382f9f84-8084-4d62-82aa-165721574846",
-      "friendship": 4,
-      "isActive": true,
-      "isSummoned": true,
-      "keeping": "4d5e6f7a-8b9c-4d0e-1f2a-3b4c5d6e7f8a",
-      "vesselNote": "",
-      "imageUrl": "/src/assets/icons/summoner/potion.png"
-    },
-    {
-      "id": "9ef6ea44-5428-4377-ad2f-c862a218db43",
-      "beastId": null,
-      "friendship": 0,
-      "isActive": false,
-      "isSummoned": false,
-      "keeping": "5e6f7a8b-9c0d-4e1f-2a3b-4c5d6e7f8a9b",
-      "vesselNote": "Jewelry box",
-      "imageUrl": "/src/assets/icons/summoner/box.png"
-    }
-  ],
+  "summonerVessels": [],
+  "campaignId": null,
   "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2026-05-14T01:28:33.562Z"
+  "pronouns": "they/them",
+  "ancestryIds": [
+    "d7578278-c801-410b-b194-12b555042f29",
+    "cfd7bf18-3a9a-4b4e-a9a9-c7069dd822c3"
+  ],
+  "cultureIds": [
+    "cdc93466-8327-4096-a8c2-04cccf3e3835",
+    "c02c53d1-b456-45d0-a048-6fc941cacc03"
+  ],
+  "mestiereId": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
+  "age": 35,
+  "heightFeet": 5,
+  "heightInches": 8,
+  "weight": 505,
+  "keeping": "2b3c4d5e-6f7a-4b8c-9d0e-1f2a3b4c5d6e",
+  "treasure": 3,
+  "xp": 0,
+  "updatedAt": "2026-05-14T23:31:50.501Z",
+  "description": "",
+  "size": 0,
+  "reach": 0
 }

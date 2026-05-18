@@ -1,39 +1,26 @@
 {
-  "id": 5,
-  "lastModified": "2026-05-11T20:07:58.451Z",
-  "name": "Natsu",
-  "pronouns": "they/them",
-  "ancestryIds": [
-    "77e4f81a-728f-49a7-a013-4d6f666353e2",
-    "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
-  ],
-  "cultureIds": [
-    "352c844b-6d4f-4b61-b475-315421a453e7",
-    "cdc93466-8327-4096-a8c2-04cccf3e3835"
-  ],
-  "mestiereId": "937d52da-0ebf-4d74-b3ee-be395f2f5d0a",
-  "featuredArtUrls": [
-    "https://cdn.midjourney.com/a6773dd7-3da8-4349-9212-b021c7aa09f7/0_2.png"
-  ],
-  "age": 23,
-  "heightFeet": 4,
-  "heightInches": 10,
-  "weight": 95,
-  "keeping": "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d",
-  "xp": 10,
-  "notes": "Arrived too late to join the Asana Commune before it was destroyed. Squatting in the ruins. Big speech impediment.",
+  "id": "668522f3-365a-4df9-a149-8d20b8cd6e7e",
+  "isDeleted": false,
+  "createdAt": "2026-05-14T23:32:41.435Z",
+  "lastModified": "2026-05-14T23:42:55.752Z",
   "characterType": "playerCharacter",
-  "body": 3,
-  "heart": 4,
-  "wits": 2,
+  "name": "Faurula",
+  "featuredArtUrls": [
+    "https://cdn.midjourney.com/f1a948ef-52d4-47e3-85b7-dcdda7c4a721/0_0_384_N.webp"
+  ],
+  "speed": 0,
+  "notes": "",
+  "body": 2,
+  "heart": 1,
+  "wits": 1,
   "skills": [
     {
       "key": "awe",
       "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": -1,
-      "manualDiceMod": 1
+      "diceMod": 0,
+      "manualDiceMod": 0
     },
     {
       "key": "strength",
@@ -61,7 +48,7 @@
     },
     {
       "key": "craft",
-      "ranks": 1,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -72,19 +59,11 @@
       "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
-      "diceMod": 1,
-      "manualDiceMod": -1
-    },
-    {
-      "key": "insight",
-      "ranks": 1,
-      "isFavored": false,
-      "isIllFavored": false,
       "diceMod": 0,
       "manualDiceMod": 0
     },
     {
-      "key": "courtesy",
+      "key": "insight",
       "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
@@ -92,12 +71,20 @@
       "manualDiceMod": 0
     },
     {
-      "key": "spirit",
-      "ranks": 5,
+      "key": "courtesy",
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "manualDiceMod": 2
+      "manualDiceMod": 0
+    },
+    {
+      "key": "spirit",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
     },
     {
       "key": "aid",
@@ -109,7 +96,7 @@
     },
     {
       "key": "persuade",
-      "ranks": 1,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -150,17 +137,17 @@
   ],
   "endurance": {
     "current": 10,
-    "base": 15
+    "base": 10
   },
   "hope": {
-    "current": 8,
-    "base": 8
+    "current": 2,
+    "base": 2
   },
   "defense": {
-    "current": 13,
-    "base": 12
+    "current": 3,
+    "base": 3
   },
-  "load": 0,
+  "load": 2,
   "shadow": 0,
   "injury": 0,
   "states": {
@@ -178,146 +165,107 @@
     "afraid": false,
     "troubled": false
   },
+  "engagementDice": [],
+  "engagementSuccesses": [],
+  "engagementDiceStatuses": {},
   "equipment": [
     {
-      "id": "43b5ef83-6a24-4912-93c2-29487b0b9f91",
+      "id": "c8b612d3-b3d9-46e8-82ab-ad25b43b7de1",
       "quantity": 1,
       "isCarried": true,
       "isWielding": true,
-      "collapsed": true,
-      "columnIndex": 0,
-      "customGroupId": "11712a09-e1b1-4c70-b47e-26d8245a8855"
-    },
-    {
-      "id": "2f54077d-56bd-46a6-9ad5-a7acdc7a90cf",
-      "quantity": 1,
-      "isCarried": true,
-      "isWielding": true,
-      "collapsed": true,
-      "columnIndex": 1,
-      "customGroupId": null
+      "collapsed": false
     },
     {
       "id": "e43614f2-91e1-495f-9d4f-7cdc4d87d3be",
       "quantity": 1,
       "isCarried": true,
       "isWielding": true,
-      "collapsed": true,
-      "columnIndex": 2,
-      "customGroupId": null
+      "collapsed": false
+    },
+    {
+      "id": "4ef323c3-c475-4148-a9ab-df5868d5fa06",
+      "quantity": 1,
+      "isCarried": true,
+      "collapsed": false,
+      "isWielding": true
     }
   ],
   "groupEquipmentBySource": false,
   "groupEquipmentByCustom": false,
   "equipmentSortOption": "name-asc",
-  "equipmentCustomGroups": [
-    {
-      "id": "11712a09-e1b1-4c70-b47e-26d8245a8855",
-      "name": "Cool Bits"
-    }
-  ],
+  "equipmentCustomGroups": [],
   "mp": {
-    "current": 5,
-    "base": 5
+    "current": 0,
+    "base": 0
   },
   "abilities": [
     {
-      "id": "b647caa0-11d8-4a34-b384-fde758eaf90e",
-      "collapsed": true,
+      "id": "d453adb9-09fb-4886-bf22-8770e2f02f6e",
+      "collapsed": false,
       "showImprovements": false,
       "showSuccesses": false,
-      "customGroupId": "05f73331-5708-4305-a84c-bc4e8b4eb491",
       "isActive": false
     },
     {
-      "id": "9a047b93-d2c2-4de0-ae7e-0fa06b459a29",
-      "collapsed": true,
+      "id": "bff3275c-9070-4571-93a5-4e280a8af4b1",
+      "collapsed": false,
       "showImprovements": false,
       "showSuccesses": false,
-      "customGroupId": "05f73331-5708-4305-a84c-bc4e8b4eb491",
       "isActive": false
     },
     {
-      "id": "e2cd82f4-30db-4c3e-aa76-20170b5e7694",
-      "collapsed": true,
+      "id": "e93bf0ca-ac0f-41d7-b825-f4d9c655ad2a",
+      "collapsed": false,
       "showImprovements": false,
       "showSuccesses": false,
-      "customGroupId": null,
       "isActive": false
     },
     {
-      "id": "90315f32-f485-498d-8d83-f8dad2f32882",
-      "collapsed": true,
+      "id": "7eb3559b-8cd5-49ce-b047-a627e30db31c",
+      "collapsed": false,
       "showImprovements": false,
       "showSuccesses": false,
-      "customGroupId": null,
       "isActive": false
     },
     {
-      "id": "738255ac-87f1-45a5-91ff-c2144b92b5e3",
-      "collapsed": true,
+      "id": "c93d20c3-2fa2-4001-837d-cf38629b9c1a",
+      "collapsed": false,
       "showImprovements": false,
       "showSuccesses": false,
-      "customGroupId": null,
       "isActive": false
     },
     {
-      "id": "1325605b-d523-4ec2-b2a7-57a04dc55d91",
-      "collapsed": true,
+      "id": "de2e226f-c1e2-489e-9f70-353153421262",
+      "collapsed": false,
       "showImprovements": false,
       "showSuccesses": false,
-      "customGroupId": null,
-      "isActive": false
-    },
-    {
-      "id": "754a7883-71a7-414f-bda4-504a147e68cc",
-      "collapsed": true,
-      "showImprovements": false,
-      "showSuccesses": false,
-      "customGroupId": null,
-      "isActive": false
-    },
-    {
-      "id": "eca2de98-4fb0-4254-bb03-af81f8a604ff",
-      "collapsed": true,
-      "showImprovements": false,
-      "showSuccesses": false,
-      "customGroupId": null,
-      "isActive": false
-    },
-    {
-      "id": "fdc9ab63-b9b4-41de-a869-d2274cea32ec",
-      "collapsed": true,
-      "showImprovements": false,
-      "showSuccesses": false,
-      "customGroupId": null,
       "isActive": false
     }
   ],
-  "groupAbilitiesBySource": false,
+  "groupAbilitiesBySource": true,
   "groupAbilitiesByManaColor": false,
   "groupAbilitiesByCustom": false,
-  "abilitySortOption": "xp-asc",
-  "abilityCustomGroups": [
-    {
-      "id": "05f73331-5708-4305-a84c-bc4e8b4eb491",
-      "name": "Cool Spells"
-    }
-  ],
+  "abilitySortOption": "name-asc",
+  "abilityCustomGroups": [],
+  "autoCalculations": {
+    "load": true,
+    "states": true,
+    "baseEndurance": true,
+    "baseHope": true,
+    "baseDefense": true
+  },
   "rollStats": {
     "skillChecks": {
-      "attempts": 6,
-      "successes": 3,
-      "totalSum": 94,
-      "bestTotal": 27,
-      "hardestSuccess": 17,
-      "bySkill": {
-        "Dexterity": 1,
-        "Spirit": 5
-      },
+      "attempts": 0,
+      "successes": 0,
+      "totalSum": 0,
+      "bestTotal": null,
+      "hardestSuccess": null,
+      "bySkill": {},
       "solCount": 0,
       "morteCount": 0,
-      "successCount": 1
+      "successCount": 0
     },
     "contests": {
       "engagement": {
@@ -332,17 +280,43 @@
       }
     }
   },
-  "biomeTags": [
-    "plains",
-    "water",
-    "temperate"
-  ],
-  "biomeId": "c5adb6ab-3ae3-4521-8714-f7581d045e32",
+  "biomeTags": [],
+  "biomeId": null,
+  "nimbleStep": 0,
+  "swagger": 0,
+  "swaggerIconIndex": 0,
+  "swaggerColor": "#ffffff",
+  "manaPool": {
+    "white": [],
+    "blue": [],
+    "black": [],
+    "red": [],
+    "green": [],
+    "colorless": []
+  },
   "witchcraftTokens": [],
+  "summonerVessels": [],
+  "campaignId": null,
   "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
+  "pronouns": "she/her",
+  "ancestryIds": [
+    "fffc6b74-d66f-4270-a8b4-e045433ae176",
+    "134acec3-0e13-42e1-9d75-7999340d458c"
+  ],
+  "cultureIds": [
+    "68fadf5d-6661-4611-bb38-deaf05f01d45",
+    "c02c53d1-b456-45d0-a048-6fc941cacc03"
+  ],
+  "mestiereId": "4eccfe5d-de19-4bc5-8c9c-374d793d67f0",
+  "age": 138,
+  "heightFeet": 6,
+  "heightInches": 11,
+  "weight": 230,
+  "keeping": "4d5e6f7a-8b9c-4d0e-1f2a-3b4c5d6e7f8a",
+  "treasure": 9,
+  "xp": 0,
+  "updatedAt": "2026-05-14T23:42:55.752Z",
   "description": "",
   "size": 0,
-  "reach": 0,
-  "campaignId": "2216d52f-f74d-479e-b440-f7b5aa6319e5",
-  "updatedAt": "2026-05-11T20:07:58.451Z"
+  "reach": 0
 }

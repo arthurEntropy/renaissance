@@ -1,34 +1,22 @@
 {
-  "id": "c6e87008-622d-4410-9f1d-ce56c85ea5ae",
-  "lastModified": "2026-05-13T23:58:51.283Z",
-  "name": "Duke",
-  "pronouns": "she/her",
-  "ancestryIds": [
-    "adc655c1-1d9c-433f-a0eb-41f93cf3ee07"
-  ],
-  "cultureIds": [
-    "a3a54cb6-09c4-42e3-b142-3053b7c1d4e8",
-    "c02c53d1-b456-45d0-a048-6fc941cacc03"
-  ],
-  "mestiereId": "162ae4db-7a67-4770-8a2c-7e9883da14f6",
+  "id": "8e8bc889-da4b-40cd-a0f1-8f5deb9b9d0d",
+  "isDeleted": false,
+  "createdAt": "2026-05-14T21:14:39.479Z",
+  "lastModified": "2026-05-14T23:13:38.421Z",
+  "characterType": "playerCharacter",
+  "name": "Ise",
   "featuredArtUrls": [
-    "https://cdn.midjourney.com/b75951b3-d21b-4e00-b7c8-c81fc16c043e/0_2.png"
+    "https://cdn.midjourney.com/8560db0f-b0e7-4bcc-9229-06d5fad0617e/0_1_640_N.webp"
   ],
-  "age": 0,
-  "heightFeet": 0,
-  "heightInches": 0,
-  "weight": 0,
-  "keeping": "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d",
-  "xp": 0,
+  "speed": 30,
   "notes": "",
-  "characterType": "player",
-  "body": 4,
-  "heart": 3,
-  "wits": 4,
+  "body": 1,
+  "heart": 1,
+  "wits": 2,
   "skills": [
     {
       "key": "awe",
-      "ranks": 0,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -36,7 +24,7 @@
     },
     {
       "key": "strength",
-      "ranks": 4,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -76,7 +64,7 @@
     },
     {
       "key": "insight",
-      "ranks": 2,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -84,7 +72,7 @@
     },
     {
       "key": "courtesy",
-      "ranks": 1,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -92,7 +80,7 @@
     },
     {
       "key": "spirit",
-      "ranks": 0,
+      "ranks": 1,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -108,7 +96,7 @@
     },
     {
       "key": "persuade",
-      "ranks": 2,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -116,7 +104,7 @@
     },
     {
       "key": "awareness",
-      "ranks": 1,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -132,7 +120,7 @@
     },
     {
       "key": "lore",
-      "ranks": 0,
+      "ranks": 2,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -140,7 +128,7 @@
     },
     {
       "key": "riddle",
-      "ranks": 1,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -149,15 +137,15 @@
   ],
   "endurance": {
     "current": 5,
-    "base": 20
+    "base": 5
   },
   "hope": {
-    "current": 9,
-    "base": 6
+    "current": 2,
+    "base": 2
   },
   "defense": {
-    "current": 4,
-    "base": 4
+    "current": 2,
+    "base": 2
   },
   "load": 0,
   "shadow": 0,
@@ -178,102 +166,130 @@
     "troubled": false
   },
   "engagementDice": [],
+  "engagementSuccesses": [],
   "engagementDiceStatuses": {},
   "equipment": [],
+  "groupEquipmentBySource": false,
+  "groupEquipmentByCustom": false,
+  "equipmentSortOption": "name-asc",
+  "equipmentCustomGroups": [],
   "mp": {
-    "current": 0,
-    "base": 0
+    "current": 12,
+    "base": 12
   },
   "abilities": [
     {
-      "id": "5b9967f3-a2f9-4515-a94f-d00ca8147cf3",
-      "collapsed": false,
+      "id": "42551b29-5fec-4caa-865a-8bf2d0397950",
+      "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false,
       "isActive": false
     },
     {
-      "id": "13be092e-c89d-47eb-a629-7797ef760c7b",
-      "collapsed": false,
-      "showImprovements": false,
-      "showSuccesses": false,
-      "isActive": false,
-      "difficulty": null
-    },
-    {
-      "id": "e5f027b7-ef18-461e-9c0c-5b549df17af2",
-      "collapsed": false,
+      "id": "2ad8916a-7e41-498f-a001-547bcd6b848a",
+      "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false,
       "isActive": false
     },
     {
-      "id": "51d0523f-8778-4ceb-9cce-2a47a6b46088",
-      "collapsed": false,
+      "id": "eccd85bc-375b-42f1-aa45-8bcc56172c5d",
+      "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false,
       "isActive": false
     },
     {
-      "id": "e693653e-0a59-445d-8936-b85deec84f53",
-      "collapsed": false,
+      "id": "971b7bf0-754c-401e-8e2e-74e0f21c2df1",
+      "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false,
       "isActive": false
     },
     {
-      "id": "3dffcf91-1f3e-42ff-a6b2-a259f7a15a19",
-      "collapsed": false,
+      "id": "316b84c2-2f3c-449e-9d93-0a611c8b55c3",
+      "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false,
       "isActive": false
     },
     {
-      "id": "81323093-faf3-416e-977e-7a28c7a7fb11",
-      "collapsed": false,
+      "id": "d280dcad-3e65-4e9a-9173-c7450cc0205c",
+      "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false,
       "isActive": false
     },
     {
-      "id": "04a49ecd-d52d-4087-b423-e36e8ead9af6",
-      "collapsed": false,
+      "id": "3ae7e89d-fee2-4fec-bfd5-4bb0b110d285",
+      "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false,
       "isActive": false
     },
     {
-      "id": "c719fc55-55a9-49d6-ae93-92f82a1d54cf",
-      "collapsed": false,
+      "id": "190aa098-ee87-46ba-937c-c052e4d3f032",
+      "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false,
       "isActive": false
     },
     {
-      "id": "670a86d8-f547-40c4-b4fd-2a5979022960",
-      "collapsed": false,
+      "id": "e3b68a22-7a8a-458f-ae72-74e1c2a0b552",
+      "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false,
       "isActive": false
     },
     {
-      "id": "730c80ee-011d-4942-85e3-93f5e42eb1a8",
-      "collapsed": false,
+      "id": "15170e88-f451-4302-b772-8ca96aa9ca65",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false
+    },
+    {
+      "id": "754a7883-71a7-414f-bda4-504a147e68cc",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false
+    },
+    {
+      "id": "fb35bc3c-5ba9-407f-b978-6b8c17544d0e",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false
+    },
+    {
+      "id": "65276c5e-17c0-41f8-a835-2190516aca1b",
+      "collapsed": true,
       "showImprovements": false,
       "showSuccesses": false,
       "isActive": false
     }
   ],
+  "groupAbilitiesBySource": true,
+  "groupAbilitiesByManaColor": false,
+  "groupAbilitiesByCustom": false,
+  "abilitySortOption": "xpCost-asc",
+  "abilityCustomGroups": [],
+  "autoCalculations": {
+    "load": true,
+    "states": true,
+    "baseEndurance": true,
+    "baseHope": true,
+    "baseDefense": true
+  },
   "rollStats": {
     "skillChecks": {
-      "attempts": 1,
-      "successes": 1,
-      "totalSum": 17,
-      "bestTotal": 17,
+      "attempts": 0,
+      "successes": 0,
+      "totalSum": 0,
+      "bestTotal": null,
       "hardestSuccess": null,
-      "bySkill": {
-        "Strength": 1
-      },
+      "bySkill": {},
       "solCount": 0,
       "morteCount": 0,
       "successCount": 0
@@ -285,70 +301,49 @@
         "draws": 0
       },
       "opposed": {
-        "wins": 1,
+        "wins": 0,
         "losses": 0,
         "draws": 0
       }
     }
   },
-  "witchcraftTokens": [
-    {
-      "id": "9e79c32b-cead-4e68-b2f3-fc25bd3ee5ed",
-      "abilityId": "e693653e-0a59-445d-8936-b85deec84f53",
-      "isTalisman": false,
-      "imageUrl": "https://cdn.midjourney.com/b98ed20b-fcea-4f71-a0ba-299d115df5b1/0_0.png",
-      "givenTo": "Volans, Second Wizard of the Grand Tower.",
-      "notes": "He doesn't know it's magical, but he's a cool guy anyway. So I think he'll figure it out. But hey, who knows? He might n"
-    },
-    {
-      "id": "554c135d-e03c-4621-b6c0-53b3011ee8d3",
-      "abilityId": "5b9967f3-a2f9-4515-a94f-d00ca8147cf3",
-      "isTalisman": false,
-      "imageUrl": "/src/assets/icons/witch/bracelet.png",
-      "givenTo": "Arthur",
-      "notes": "Cool king"
-    },
-    {
-      "id": "831a5e9b-ad17-4963-a2c5-3394639ffa8d",
-      "abilityId": "13be092e-c89d-47eb-a629-7797ef760c7b",
-      "isTalisman": true,
-      "imageUrl": "/src/assets/icons/witch/necklace.png",
-      "givenTo": "Kathy",
-      "notes": "Coffee!"
-    },
-    {
-      "id": "2751cd6a-a6cf-47bd-a286-8a10e197ee0a",
-      "abilityId": "04a49ecd-d52d-4087-b423-e36e8ead9af6",
-      "isTalisman": true,
-      "imageUrl": "/src/assets/icons/witch/cake.png",
-      "givenTo": "Aragorn",
-      "notes": "Tarp time"
-    },
-    {
-      "id": "57010523-0fa3-407a-a510-2b5e24a250cd",
-      "abilityId": "3dffcf91-1f3e-42ff-a6b2-a259f7a15a19",
-      "isTalisman": true,
-      "imageUrl": "/src/assets/icons/witch/scarf.png",
-      "givenTo": "Nief",
-      "notes": "For cold weather"
-    },
-    {
-      "id": "640c545f-5313-4f74-a7a9-a33091661363",
-      "imageUrl": "/src/assets/icons/witch/jewelery.png",
-      "givenTo": "Davey",
-      "notes": "Just a cool ring, don't worry about it.",
-      "abilityId": "81323093-faf3-416e-977e-7a28c7a7fb11",
-      "isTalisman": false
-    },
-    {
-      "id": "b1d24db1-7ccf-462a-8f64-f6e4925bc78f",
-      "imageUrl": "/src/assets/icons/witch/winkle.png",
-      "givenTo": "Darius Rucker",
-      "notes": "I only wanna be with you.",
-      "abilityId": "5b9967f3-a2f9-4515-a94f-d00ca8147cf3",
-      "isTalisman": true
-    }
-  ],
+  "biomeTags": [],
+  "biomeId": null,
+  "nimbleStep": 0,
+  "swagger": 0,
+  "swaggerIconIndex": 0,
+  "swaggerColor": "#ffffff",
+  "manaPool": {
+    "white": [],
+    "blue": [],
+    "black": [],
+    "red": [],
+    "green": [],
+    "colorless": []
+  },
+  "witchcraftTokens": [],
+  "summonerVessels": [],
+  "campaignId": null,
   "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
-  "updatedAt": "2026-05-13T23:58:51.283Z"
+  "pronouns": "she/they",
+  "ancestryIds": [
+    "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "f5cda222-6c69-4ae9-bc0d-761729cd8e2e"
+  ],
+  "cultureIds": [
+    "3531c0c2-5f33-4421-ab1f-24e2e6ba82a1",
+    "be62ac3d-7168-4779-8274-e60574a2fd27"
+  ],
+  "mestiereId": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
+  "age": 291,
+  "heightFeet": 5,
+  "heightInches": 10,
+  "weight": 176,
+  "keeping": "5e6f7a8b-9c0d-4e1f-2a3b-4c5d6e7f8a9b",
+  "treasure": 31,
+  "xp": 0,
+  "description": "",
+  "size": 0,
+  "reach": 0,
+  "updatedAt": "2026-05-14T23:13:38.421Z"
 }

@@ -1,11 +1,12 @@
 {
   "id": "31a4bcd9-0714-467f-8993-e17b21d375f8",
   "createdAt": "2026-04-24T15:11:59.975Z",
-  "lastModified": "2026-04-24T15:12:33.313Z",
+  "lastModified": "2026-05-16T02:45:22.889Z",
   "name": "Speech of Fin & Gill",
   "description": "<p><em>You have the ability to communicate in a limited manner with aquatic animals and plants.</em></p><p style=\"text-align: left\">Aquatic animals and plants can understand the meaning of your words, though you have no special ability to understand them in return.</p><p style=\"text-align: left\"><strong>Describe how you communicate with them.</strong></p>",
   "source": "e40c3cff-9f6b-4940-ae41-cef878821a75",
   "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
   "canBeActive": false,
-  "hasDifficulty": false
+  "hasDifficulty": false,
+  "artUrl": "https://cdn.midjourney.com/d0d8d209-2de1-4a7e-be53-35103b3d039f/0_0.png"
 }

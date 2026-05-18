@@ -1,10 +1,10 @@
 {
   "id": "dacd9416-0204-4460-87c8-9ba69d4203ca",
   "isDeleted": false,
-  "lastModified": "2026-03-16T19:59:45.240Z",
-  "name": "Death From Above",
+  "lastModified": "2026-05-16T17:25:05.870Z",
+  "name": "Plunging Attack",
   "artUrl": "https://cdn.midjourney.com/140a7176-6a05-4822-a515-40cbae4b444e/0_1.png",
-  "description": "<p>When you hit with a melee attack at the end of a fall, +1d to the attack's damage roll per 10 ft of falling.</p><p><strong>Describe your attack.</strong></p>",
+  "description": "<p>When you hit with a melee attack at the end of a fall, +1d to the attack's damage roll per 10 ft of falling. You still take falling damage as normal.</p><p><strong>Describe your attack.</strong></p>",
   "source": "e10d7d9f-9d93-46b0-9846-d60241031644",
   "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
   "mpCost": "",
