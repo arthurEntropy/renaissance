@@ -84,7 +84,7 @@
         </AdminListManager>
 
         <AdminListManager title="Keeping" item-name="Keeping" :store="keepingStore"
-            :default-item="{ name: '', description: '', cost: 0, imageUrl: '', gratuiti: '', index: 0 }">
+            :default-item="{ name: '', description: '', cost: 0, imageUrl: '', gratuiti: '', isEquipmentOnly: false, index: 0 }">
             <template #fields="{ item, update }">
                 <div class="keeping-admin-fields">
                     <div class="keeping-top-row">
@@ -99,6 +99,10 @@
                     <textarea v-model="item.description" @blur="update" class="field-input" placeholder="Description" />
                     <textarea v-model="item.gratuiti" @blur="update" class="field-input gratuiti-input"
                         placeholder="Gratuiti" rows="2" />
+                    <label class="checkbox-label">
+                        <input type="checkbox" v-model="item.isEquipmentOnly" @change="update" />
+                        Equipment only (rarity tier, not a character keeping level)
+                    </label>
                 </div>
             </template>
         </AdminListManager>

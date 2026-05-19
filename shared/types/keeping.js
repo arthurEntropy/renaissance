@@ -11,6 +11,7 @@ import { createBaseEntity } from './baseEntity.js'
  * @property {number} cost - Cost, in treasure
  * @property {string} imageUrl - Background image URL for keeping badge displays
  * @property {string} gratuiti - Items included at no extra cost at this keeping level
+ * @property {boolean} isEquipmentOnly - When true, this keeping level is only available as an equipment rarity tier, not as a character keeping level
  */
 
 /**
@@ -29,5 +30,6 @@ export function createDefaultKeeping() {
     cost: 0,
     imageUrl: '',
     gratuiti: '',
+    isEquipmentOnly: false,
   }
 }

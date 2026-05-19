@@ -138,7 +138,7 @@ const renameShopValue = ref('')
 const genParams = ref({ cultureMix: {}, keepingMix: {}, itemCount: 12 })
 
 const shopCultures = computed(() => conceptsStore.visibleCultures)
-const shopKeepingTiers = computed(() => keepingStore.keeping || [])
+const shopKeepingTiers = computed(() => keepingStore.standardKeeping || [])
 const visibleShops = computed(() =>
     (campaign.value?.shops || []).filter((shop) => isGM.value || (shop.isVisibleToPlayers ?? true))
 )

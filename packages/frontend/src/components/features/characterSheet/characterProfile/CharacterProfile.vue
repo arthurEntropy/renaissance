@@ -26,7 +26,7 @@
           <select title="Keeping" class="keeping-select" :value="character.keeping || ''" :disabled="!canEdit"
             @change="character.keeping = $event.target.value || null">
             <option value="">Choose...</option>
-            <option v-for="k in keepingStore.keeping" :key="k.id" :value="k.id">{{ k.name }}</option>
+            <option v-for="k in keepingStore.standardKeeping" :key="k.id" :value="k.id">{{ k.name }}</option>
           </select>
         </div>
         <!-- Treasure Badge -->

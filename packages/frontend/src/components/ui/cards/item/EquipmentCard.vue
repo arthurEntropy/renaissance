@@ -2,9 +2,9 @@
   <base-card v-bind="$attrs" :item="equipment"
     :metaInfo="equipment.weight ? `${equipment.weight} ${equipment.weight === 1 ? 'lb' : 'lbs'}` : ''"
     :collapsed="collapsed" :editable="editable" :duplicatable="duplicatable" :collapsible="collapsible"
-    :itemType="ItemType.EQUIPMENT" @edit="$emit('edit', equipment)" @duplicate="handleDuplicate"
-    @roll-link="$emit('roll-link', $event)" @mouseenter="onCardMouseEnter" @mouseleave="cardPreview.scheduleHide()"
-    @mousedown="onCardMouseDown">
+    :itemType="ItemType.EQUIPMENT" :fallbackBackgroundUrl="keepingFallbackBackgroundUrl"
+    @edit="$emit('edit', equipment)" @duplicate="handleDuplicate" @roll-link="$emit('roll-link', $event)"
+    @mouseenter="onCardMouseEnter" @mouseleave="cardPreview.scheduleHide()" @mousedown="onCardMouseDown">
 
     <!-- Description with categories, properties, dice, and successes -->
     <template #before-description>
@@ -437,6 +437,12 @@ const keepingCost = computed(() => {
 
   const keeping = keepingStore.getById(props.equipment.keeping)
   return keeping?.cost ?? null
+})
+
+const keepingFallbackBackgroundUrl = computed(() => {
+  if (props.equipment.source) return null
+  if (!props.equipment.keeping) return null
+  return keepingStore.getById(props.equipment.keeping)?.imageUrl || null
 })
 
 const characterHasBaseEquipment = computed(() => {

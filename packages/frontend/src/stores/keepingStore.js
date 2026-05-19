@@ -11,9 +11,15 @@ export const useKeepingStore = defineStore('keeping', () => {
     return [...base.items.value].sort((a, b) => a.cost - b.cost)
   })
 
+  // Standard (non-equipment-only) keeping levels for character assignment
+  const standardKeeping = computed(() => {
+    return sortedKeeping.value.filter(k => !k.isEquipmentOnly)
+  })
+
   return {
     keeping: sortedKeeping,
     items: sortedKeeping,
+    standardKeeping,
     fetch: base.fetch,
     getById: base.getById,
     create: base.create,
