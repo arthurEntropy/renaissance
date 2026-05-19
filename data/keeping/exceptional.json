@@ -4,7 +4,7 @@
   "cost": 50,
   "imageUrl": "https://cdn.midjourney.com/2718645f-7a56-4c22-a2c1-b6f334d82cef/0_3.png",
   "gratuiti": "",
-  "isEquipmentOnly": false,
+  "isEquipmentOnly": true,
   "index": 8,
   "id": "adfd997b-238b-4e19-ab16-1e22d8aa7633",
   "createdAt": "2026-05-19T15:32:39.546Z",

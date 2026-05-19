@@ -1,5 +1,5 @@
 <template>
-    <BaseToken v-if="resolvedCharacter && !shouldHideBadge" :entity="resolvedCharacter"
+    <BaseToken v-if="resolvedCharacter && !shouldHideBadge" v-bind="$attrs" :entity="resolvedCharacter"
         :imageSrc="optimizedCharacterArt" variant="character" :alwaysShowName="alwaysShowName"
         :showRemoveFab="showRemoveFab" :isInactive="isInactive" @click="handleClick" @remove="handleRemove"
         @mouseenter="isHovered = true" @mouseleave="isHovered = false">
@@ -16,6 +16,8 @@
 <script setup>
 import { computed, ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
+
+defineOptions({ inheritAttrs: false })
 import { useCharactersStore } from '@/stores/charactersStore'
 import { useConceptsStore } from '@/stores/conceptsStore'
 import { useEquipmentGradesStore } from '@/stores/equipmentGradesStore'
