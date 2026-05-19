@@ -125,6 +125,7 @@ onBeforeUnmount(() => {
     justify-content: center;
     gap: var(--space-md);
     padding-top: var(--space-lg);
+    width: 100%;
 }
 
 :deep(.base-modal-footer) {

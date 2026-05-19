@@ -107,6 +107,7 @@ function getCaretClasses(comparison) {
     z-index: var(--z-interactive);
     pointer-events: none;
     width: 100px;
+    margin-top: 15px;
 }
 
 .result-indicator {

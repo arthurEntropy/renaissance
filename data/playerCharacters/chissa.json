@@ -2,7 +2,7 @@
   "id": "224ddaf7-26fc-4344-b922-6fd3853435f1",
   "isDeleted": false,
   "createdAt": "2026-05-15T00:00:56.659Z",
-  "lastModified": "2026-05-18T18:07:17.813Z",
+  "lastModified": "2026-05-19T14:01:21.789Z",
   "characterType": "playerCharacter",
   "name": "Chissa",
   "featuredArtUrls": [
@@ -167,7 +167,11 @@
   },
   "engagementDice": [],
   "engagementSuccesses": [],
-  "engagementDiceStatuses": {},
+  "engagementDiceStatuses": {
+    "e7c57bc7-5009-45bd-81f0-c8011115862c_0": "expended",
+    "mestiere_0": "expended",
+    "mestiere_1": "expended"
+  },
   "equipment": [
     {
       "id": "4ef323c3-c475-4148-a9ab-df5868d5fa06",
@@ -315,7 +319,7 @@
   "keeping": "4d5e6f7a-8b9c-4d0e-1f2a-3b4c5d6e7f8a",
   "treasure": 11,
   "xp": 0,
-  "updatedAt": "2026-05-18T18:06:46.635Z",
+  "updatedAt": "2026-05-19T14:01:21.789Z",
   "description": "",
   "size": 0,
   "reach": 0

@@ -2,7 +2,7 @@
   "id": "668522f3-365a-4df9-a149-8d20b8cd6e7e",
   "isDeleted": false,
   "createdAt": "2026-05-14T23:32:41.435Z",
-  "lastModified": "2026-05-14T23:42:55.752Z",
+  "lastModified": "2026-05-19T14:01:21.783Z",
   "characterType": "playerCharacter",
   "name": "Faurula",
   "featuredArtUrls": [
@@ -167,7 +167,12 @@
   },
   "engagementDice": [],
   "engagementSuccesses": [],
-  "engagementDiceStatuses": {},
+  "engagementDiceStatuses": {
+    "mestiere_0": "expended",
+    "mestiere_1": "expended",
+    "e43614f2-91e1-495f-9d4f-7cdc4d87d3be_0": "expended",
+    "c8b612d3-b3d9-46e8-82ab-ad25b43b7de1_0": "expended"
+  },
   "equipment": [
     {
       "id": "c8b612d3-b3d9-46e8-82ab-ad25b43b7de1",
@@ -315,7 +320,7 @@
   "keeping": "4d5e6f7a-8b9c-4d0e-1f2a-3b4c5d6e7f8a",
   "treasure": 9,
   "xp": 0,
-  "updatedAt": "2026-05-14T23:42:55.752Z",
+  "updatedAt": "2026-05-19T14:01:21.783Z",
   "description": "",
   "size": 0,
   "reach": 0

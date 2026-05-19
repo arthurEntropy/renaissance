@@ -1,5 +1,5 @@
 <template>
-    <BaseModal title="Engagement" width="min(450px, 90vw)" @close="closeModal">
+    <BaseModal title="Engagement" width="min(525px, 90vw)" @close="closeModal">
 
         <!-- Main engagement display -->
         <ResultIndicators v-if="shouldShowComparisons" :can-edit="canEditResults" />
@@ -11,9 +11,11 @@
         <template #actions>
             <div class="modal-actions">
                 <ActionButton v-if="!opponent" variant="neutral" size="large" text="Cancel" @click="closeModal" />
-                <RollResolution v-if="shouldShowResolution" mode="engagement" :user-accepted="userAccepted"
-                    :opponent-accepted="opponentAccepted" :can-accept="showResults" :character-name="character.name"
-                    :opponent-name="opponentName" @toggle-user-accept="toggleUserAccept" />
+                <div v-if="opponent" :style="{ visibility: shouldShowResolution ? 'visible' : 'hidden' }">
+                    <RollResolution mode="engagement" :user-accepted="userAccepted"
+                        :opponent-accepted="opponentAccepted" :can-accept="showResults" :character-name="character.name"
+                        :opponent-name="opponentName" @toggle-user-accept="toggleUserAccept" />
+                </div>
             </div>
         </template>
     </BaseModal>
@@ -98,6 +100,7 @@ const toggleUserAccept = () => {
     justify-content: center;
     gap: var(--space-lg);
     margin-top: var(--space-lg);
+    width: 100%;
 }
 
 :deep(.base-modal-footer) {

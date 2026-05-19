@@ -211,7 +211,7 @@ defineExpose({
 
 .skill-name {
     font-weight: var(--font-weight-bold);
-    color: var(--color-text-primary);
+    color: var(--color-primary);
 }
 
 .favored-status {
@@ -233,14 +233,12 @@ defineExpose({
 }
 
 .dice-section {
-    margin-top: var(--space-sm);
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     min-height: 200px;
-    padding: var(--space-md);
 }
 
 .total-display {
@@ -251,7 +249,7 @@ defineExpose({
 }
 
 .total-value {
-    font-size: 3rem;
+    font-size: var(--font-size-100);
     font-weight: var(--font-weight-bold);
     line-height: 1;
     color: var(--color-text-primary);
