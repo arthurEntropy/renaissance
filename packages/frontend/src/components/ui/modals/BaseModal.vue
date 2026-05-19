@@ -14,7 +14,7 @@
                 </header>
 
                 <!-- Scrollable body -->
-                <div class="base-modal-body">
+                <div class="base-modal-body" :style="props.bodyStyle">
                     <slot />
                 </div>
 
@@ -77,6 +77,10 @@ const props = defineProps({
         default: '',
     },
     boxStyle: {
+        type: Object,
+        default: null,
+    },
+    bodyStyle: {
         type: Object,
         default: null,
     },

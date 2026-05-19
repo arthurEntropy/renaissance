@@ -59,11 +59,14 @@ const getDiceClasses = (diceIndex) => {
     const withinHoverPreview = showHoverPreview && diceIndex <= hoveredIndex.value
 
     const withinRanks = diceIndex < ranks
-    const withinDiceMod = diceIndex >= ranks && diceIndex < ranks + totalDiceMod && totalDiceMod > 0
+    // Positive mod adds dice beyond ranks (capped at MAX_SKILL_RANKS)
+    const withinDiceMod = diceIndex >= ranks && diceIndex < Math.min(ranks + totalDiceMod, MAX_SKILL_RANKS) && totalDiceMod > 0
     const isActive = withinRanks || withinDiceMod
 
     const isAdded = withinDiceMod
-    const isSubtracted = ranks - diceIndex <= Math.abs(totalDiceMod) && totalDiceMod < 0 && diceIndex < ranks
+    // Negative mod: cross out last |totalDiceMod| rank dice; excess beyond 0 is absorbed into ill-favored (d12 coloring)
+    const effectiveSubtractCount = Math.min(Math.abs(totalDiceMod), ranks)
+    const isSubtracted = totalDiceMod < 0 && withinRanks && diceIndex >= ranks - effectiveSubtractCount
 
     return [
         getDiceFontClass(DIE_TYPE.D6, DIE_TYPE.D6),

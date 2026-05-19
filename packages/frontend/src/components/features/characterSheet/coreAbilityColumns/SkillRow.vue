@@ -10,10 +10,12 @@
                 aria-label="Subtract manual dice" type="button">▼</button>
         </div>
         <i class="dice-icon d12-icon"
-            :class="[getDiceFontClass(DIE_TYPE.D12, DIE_TYPE.D12), getStyleClassForFavoredStatus(skill), { 'dice-icon--clickable': canEdit }]"
+            :class="[getDiceFontClass(DIE_TYPE.D12, DIE_TYPE.D12), effectiveFavoredClass, { 'dice-icon--clickable': canEdit }]"
             @click="handleD12Click">
         </i>
         <DiceGroup :skill="skill" :can-edit="canEdit" @update-ranks="emit('update-ranks', skillId, $event)" />
+        <span v-if="canEdit && showModLabel && modLabelText" :key="modFlashKey" class="dice-mod-flash"
+            :class="modLabelClass">{{ modLabelText }}</span>
     </div>
 </template>
 
@@ -21,9 +23,9 @@
 import { getDiceFontClass } from '@/utils/diceFontUtils'
 import { DIE_TYPE } from '@shared/constants/dice'
 import { getSkillId, getSkillLabel } from '@/utils/characterKeyUtils'
-import BaseRollService from '@/services/rolls/baseRollService'
+import { resolveEffectiveFavoredStatus } from '@/utils/skillDiceUtils'
 import DiceGroup from './DiceGroup.vue'
-import { computed, ref } from 'vue'
+import { computed, ref, watch, onBeforeUnmount } from 'vue'
 
 const props = defineProps({
     skill: {
@@ -41,11 +43,18 @@ const emit = defineEmits(['open-skill-check', 'update-ranks', 'update-manual-dic
 const skillId = computed(() => getSkillId(props.skill))
 const skillLabel = computed(() => getSkillLabel(props.skill))
 
-/** @param {Record<string, any>} skill */
-const getStyleClassForFavoredStatus = (skill) => {
-    const status = BaseRollService.getFavoredStatus(skill)
-    return status || ''
-}
+const effectiveFavored = computed(() => resolveEffectiveFavoredStatus({
+    ranks: props.skill.ranks || 0,
+    diceMod: (props.skill.diceMod || 0) + (props.skill.manualDiceMod || 0),
+    isFavored: props.skill.isFavored || false,
+    isIllFavored: props.skill.isIllFavored || false,
+}))
+
+const effectiveFavoredClass = computed(() => {
+    if (effectiveFavored.value.isFavored) return 'favored'
+    if (effectiveFavored.value.isIllFavored) return 'ill-favored'
+    return ''
+})
 
 const handleSkillClick = () => {
     if (props.canEdit) {
@@ -87,10 +96,39 @@ const decrementManualDiceMod = () => {
     const currentMod = props.skill.manualDiceMod || 0
     emit('update-manual-dice-mod', skillId.value, currentMod - 1)
 }
+
+const showModLabel = ref(false)
+const modFlashKey = ref(0)
+let modLabelTimer = null
+
+const modLabelText = computed(() => {
+    const mod = (props.skill.diceMod || 0) + (props.skill.manualDiceMod || 0)
+    if (mod === 0) return ''
+    return `${mod > 0 ? '+' : ''}${mod}d`
+})
+
+const modLabelClass = computed(() => {
+    const mod = (props.skill.diceMod || 0) + (props.skill.manualDiceMod || 0)
+    if (mod > 0) return 'positive'
+    if (mod < 0) return 'negative'
+    return ''
+})
+
+watch(() => props.skill.manualDiceMod, () => {
+    clearTimeout(modLabelTimer)
+    showModLabel.value = true
+    modFlashKey.value++
+    modLabelTimer = setTimeout(() => {
+        showModLabel.value = false
+    }, 1500)
+})
+
+onBeforeUnmount(() => clearTimeout(modLabelTimer))
 </script>
 
 <style scoped>
 .skill-row {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -98,6 +136,7 @@ const decrementManualDiceMod = () => {
     margin: var(--space-xs) 0;
     height: 25px;
     border-bottom: 1px solid var(--color-gray-dark);
+    overflow: visible;
 }
 
 .skill-name {
@@ -192,6 +231,47 @@ const decrementManualDiceMod = () => {
 }
 
 .ill-favored {
+    color: var(--color-danger);
+    text-shadow: var(--glow-danger-sm);
+}
+
+@keyframes mod-flash {
+    0% {
+        opacity: 0;
+    }
+
+    12% {
+        opacity: 1;
+    }
+
+    70% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+.dice-mod-flash {
+    position: absolute;
+    left: 99%;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: var(--font-size-10);
+    font-style: italic;
+    white-space: nowrap;
+    pointer-events: none;
+    animation: mod-flash 1.5s ease-out forwards;
+    color: var(--color-text-muted);
+}
+
+.dice-mod-flash.positive {
+    color: var(--color-success);
+    text-shadow: var(--glow-success-sm);
+}
+
+.dice-mod-flash.negative {
     color: var(--color-danger);
     text-shadow: var(--glow-danger-sm);
 }
