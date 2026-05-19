@@ -3,6 +3,7 @@ import DiceProcessor from './utils/DiceProcessor.js'
 import DiceFormatter from './utils/DiceFormatter.js'
 import { DIE_TYPE } from '@shared/constants/dice.js'
 import { SKILL_STATUS } from '@/constants/skillStatus.js'
+import { MAX_SKILL_RANKS } from '@shared/constants/characterConstants.js'
 
 class BaseRollService {
 
@@ -48,21 +49,39 @@ class BaseRollService {
 
   static prepareDicePool(skill) {
     const dicePool = []
-    
-    // Add d12(s)
-    const d12Count = (skill.isFavored || skill.isIllFavored) ? 2 : 1 // Favored or ill-favored gets 2 d12s
+
+    const rawD6Count = (skill.ranks || 0) + (skill.diceMod || 0)
+    const excessSteps = Math.max(0, -rawD6Count)
+
+    // Resolve favored status using the same step-by-step logic as resolveEffectiveFavoredStatus
+    let isFavored, isIllFavored
+    const bothSet = skill.isFavored && skill.isIllFavored
+    if (bothSet) {
+      isFavored = false
+      isIllFavored = excessSteps >= 1
+    } else if (skill.isFavored) {
+      isFavored = excessSteps === 0
+      isIllFavored = excessSteps >= 2
+    } else if (skill.isIllFavored) {
+      isFavored = false
+      isIllFavored = true
+    } else {
+      isFavored = false
+      isIllFavored = excessSteps >= 1
+    }
+
+    // Add d12(s) — favored or ill-favored rolls 2 d12s (keep higher / lower)
+    const d12Count = (isFavored || isIllFavored) ? 2 : 1
     for (let i = 0; i < d12Count; i++) {
       dicePool.push({ dieSize: DIE_TYPE.D12 })
     }
-    
-    // Add d6s based on ranks + diceMod
-    let totalD6Count = skill.ranks + (skill.diceMod || 0)
-    if (totalD6Count < 0) totalD6Count = 0
-    
+
+    // Add d6s — capped at MAX_SKILL_RANKS (5), minimum 0
+    const totalD6Count = Math.min(MAX_SKILL_RANKS, Math.max(0, rawD6Count))
     for (let i = 0; i < totalD6Count; i++) {
       dicePool.push({ dieSize: DIE_TYPE.D6 })
     }
-    
+
     return dicePool
   }
 

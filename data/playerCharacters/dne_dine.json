@@ -2,7 +2,7 @@
   "id": "b146fe7d-e513-4321-a466-0e785656725c",
   "isDeleted": false,
   "createdAt": "2026-05-14T20:41:21.993Z",
-  "lastModified": "2026-05-19T14:58:53.027Z",
+  "lastModified": "2026-05-19T21:18:43.843Z",
   "characterType": "playerCharacter",
   "name": "Dne'dine",
   "featuredArtUrls": [
@@ -33,10 +33,10 @@
     {
       "key": "dexterity",
       "ranks": 3,
-      "isFavored": false,
+      "isFavored": true,
       "isIllFavored": false,
       "diceMod": 0,
-      "manualDiceMod": 0
+      "manualDiceMod": -3
     },
     {
       "key": "fortitude",
@@ -297,7 +297,7 @@
   "description": "",
   "size": 0,
   "reach": 0,
-  "updatedAt": "2026-05-19T14:58:53.027Z",
+  "updatedAt": "2026-05-19T21:18:43.843Z",
   "isPublicPreview": false,
   "featuredArtUrl": "https://cdn.midjourney.com/1afdec27-81b8-4900-b56e-c88e9fbf6d63/0_2.png"
 }
