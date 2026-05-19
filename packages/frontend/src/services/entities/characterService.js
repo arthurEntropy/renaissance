@@ -87,6 +87,20 @@ class CharacterService extends BaseEntityService {
       throw error
     }
   }
+
+  async transferEquipment(sourceCharacterId, equipmentId, recipientCharacterId, quantity) {
+    try {
+      const response = await apiClient.post(`/characters/${sourceCharacterId}/transfer-equipment`, {
+        equipmentId,
+        recipientCharacterId,
+        quantity,
+      })
+      return response.data
+    } catch (error) {
+      console.error('Error transferring equipment:', error)
+      throw error
+    }
+  }
 }
 
 export default new CharacterService()

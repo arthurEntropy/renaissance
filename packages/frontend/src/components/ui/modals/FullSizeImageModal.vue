@@ -1,5 +1,5 @@
 <template>
-    <BaseModal :open="isOpen" hide-header box-class="full-size-image-box" @close="$emit('close')">
+    <BaseModal :open="isOpen" hide-header width="auto" :box-style="imageBoxStyle" :overlay-style="imageOverlayStyle" @close="$emit('close')">
         <div class="image-container edit-hover-area" @click.stop>
             <img :src="modalImageSrc" class="modal-image"
                 :class="{ 'modal-image--loading': isProgressive && !isFullQualityLoaded }" :alt="altText" />
@@ -37,6 +37,18 @@ const props = defineProps({
 
 const _emit = defineEmits(['close', 'edit'])
 
+const imageBoxStyle = {
+    background: 'transparent',
+    border: 'none',
+    padding: '0',
+    boxShadow: 'none',
+    minWidth: '0',
+    overflow: 'visible',
+    maxHeight: 'none',
+}
+
+const imageOverlayStyle = { backdropFilter: 'blur(4px)' }
+
 const {
     activeUrl: modalImageSrc,
     isProgressive,
@@ -49,21 +61,6 @@ const {
 </script>
 
 <style scoped>
-/* Transparent/borderless box for image modal */
-:deep(.full-size-image-box) {
-    background: transparent !important;
-    border: none !important;
-    padding: 0 !important;
-    box-shadow: none !important;
-    width: auto !important;
-    min-width: 0 !important;
-}
-
-/* Override overlay to add blur */
-:deep(.base-modal-overlay) {
-    backdrop-filter: blur(4px);
-}
-
 .image-container {
     position: relative;
     display: inline-block;

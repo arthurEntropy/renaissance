@@ -16,6 +16,14 @@
 
     <!-- Scrollable content container -->
     <div class="scrollable-content" ref="scrollableContent" :class="{ 'editing-content': isContentEditMode }">
+      <!-- Mark navigation bar (sticky within scroll area) -->
+      <div v-if="!isContentEditMode && searchQuery && markCount > 0" class="mark-nav-bar">
+        <FloatingActionButton :variant="FAB_TYPES.MOVE_UP" :visibility="FAB_VISIBILITIES.ALWAYS"
+          :disabled="currentMarkIndex <= 0" @click="navigateMark(-1)" />
+        <span class="mark-nav-counter">{{ currentMarkIndex + 1 }} / {{ markCount }}</span>
+        <FloatingActionButton :variant="FAB_TYPES.MOVE_DOWN" :visibility="FAB_VISIBILITIES.ALWAYS"
+          :disabled="currentMarkIndex >= markCount - 1" @click="navigateMark(1)" />
+      </div>
       <div class="section-content-container" :class="{ 'editing-content': isContentEditMode }">
 
         <!-- EDIT MODE: Image URL input and text editor -->
@@ -44,6 +52,7 @@ import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.v
 import { FAB_TYPES, FAB_VISIBILITIES } from '@/constants/fab'
 import { sanitizeHtml } from '@/utils/sanitizeHtml'
 import { highlightInHtml } from '@/utils/highlightText'
+import { useMarkNavigation } from '@/composables/useMarkNavigation'
 
 const authStore = useAuthStore()
 const rulesStore = useRulesStore()
@@ -62,10 +71,21 @@ const unsavedChanges = ref(false)
 const scrollableContent = ref(null)
 const scrollPositions = {}
 
+const currentSection = computed(() => rulesStore.selectedSection)
+
+const safeSectionHtml = computed(() => {
+  return sanitizeHtml(currentSection.value?.content || '')
+})
+
+const displayedSectionHtml = computed(() => {
+  return highlightInHtml(safeSectionHtml.value, searchQuery.value.trim())
+})
+
+// Mark navigation
+const { currentMarkIndex, markCount, scrollToMark, navigateMark } = useMarkNavigation(scrollableContent, displayedSectionHtml)
+
 // Provide edit mode to sibling components
 provide('isContentEditMode', isContentEditMode)
-
-const currentSection = computed(() => rulesStore.selectedSection)
 
 watch(currentSection, (newSection) => {
   if (newSection) {
@@ -86,6 +106,7 @@ watch(() => rulesStore.selectedSection?.id, async (newId, oldId) => {
   }
   isContentEditMode.value = false
   unsavedChanges.value = false
+  currentMarkIndex.value = 0
 
   // Restore saved scroll position, or start at top for first visit
   await nextTick()
@@ -99,31 +120,26 @@ watch(() => rulesStore.selectedSection?.id, async (newId, oldId) => {
   updateActiveHeading()
 })
 
+// Reset mark index when search query changes (same section)
+watch(searchQuery, () => {
+  currentMarkIndex.value = 0
+})
+
 const applyScrollTarget = (target) => {
   const container = scrollableContent.value
   if (!container) return
-  // Always prefer scrolling to the first highlighted mark — it's the exact match.
-  // Fall back to the h2 heading if no mark is present.
-  const firstMark = container.querySelector('mark')
-  if (firstMark) {
-    const containerRect = container.getBoundingClientRect()
-    const markRect = firstMark.getBoundingClientRect()
-    container.scrollTo({
-      top: container.scrollTop + markRect.top - containerRect.top - 40,
-      behavior: 'smooth',
-    })
-  } else if (target.type === 'heading') {
-    scrollToHeading(target.text)
+  if (target?.type === 'mark') {
+    scrollToMark(target.index ?? 0)
+  } else {
+    // Legacy fallback: scroll to first mark or a named heading
+    const marks = container.querySelectorAll('mark')
+    if (marks.length > 0) {
+      scrollToMark(0)
+    } else if (target?.type === 'heading') {
+      scrollToHeading(target.text)
+    }
   }
 }
-
-const safeSectionHtml = computed(() => {
-  return sanitizeHtml(currentSection.value?.content || '')
-})
-
-const displayedSectionHtml = computed(() => {
-  return highlightInHtml(safeSectionHtml.value, searchQuery.value.trim())
-})
 
 const saveSection = async () => {
   if (localSection.value) {
@@ -236,6 +252,27 @@ defineExpose({ scrollToHeading, applyScrollTarget })
   padding-bottom: var(--space-md);
 }
 
+.mark-nav-bar {
+  position: sticky;
+  top: var(--space-sm);
+  z-index: var(--z-floating);
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  background: var(--color-bg-primary);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-full);
+  width: fit-content;
+  margin-left: auto;
+}
+
+.mark-nav-counter {
+  font-size: var(--font-size-12);
+  color: var(--color-text-secondary);
+  min-width: 3em;
+  text-align: center;
+}
+
 .fab-lockout {
   opacity: 0.4;
   pointer-events: none;
@@ -310,6 +347,13 @@ defineExpose({ scrollToHeading, applyScrollTarget })
   color: var(--color-text-dark, #1a1a1a);
   border-radius: 2px;
   padding: 0 1px;
+}
+
+.content-display :deep(mark.active-mark) {
+  background: var(--color-primary);
+  color: var(--color-black);
+  outline: 2px solid var(--color-primary-hover);
+  outline-offset: 1px;
 }
 
 @media (max-width: var(--breakpoint-md)) {

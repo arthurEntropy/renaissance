@@ -2,9 +2,9 @@
   <base-card v-bind="$attrs" :item="equipment"
     :metaInfo="equipment.weight ? `${equipment.weight} ${equipment.weight === 1 ? 'lb' : 'lbs'}` : ''"
     :collapsed="collapsed" :editable="editable" :duplicatable="duplicatable" :collapsible="collapsible"
-    :itemType="ItemType.EQUIPMENT" @edit="$emit('edit', equipment)" @duplicate="handleDuplicate"
-    @roll-link="$emit('roll-link', $event)" @mouseenter="onCardMouseEnter" @mouseleave="cardPreview.scheduleHide()"
-    @mousedown="onCardMouseDown">
+    :itemType="ItemType.EQUIPMENT" :fallbackBackgroundUrl="keepingFallbackBackgroundUrl"
+    @edit="$emit('edit', equipment)" @duplicate="handleDuplicate" @roll-link="$emit('roll-link', $event)"
+    @mouseenter="onCardMouseEnter" @mouseleave="cardPreview.scheduleHide()" @mousedown="onCardMouseDown">
 
     <!-- Description with categories, properties, dice, and successes -->
     <template #before-description>
@@ -135,6 +135,12 @@
         @close="showDiscoverModal = false" @update="handleDiscoverUpdate" />
     </template>
 
+    <!-- Transfer FAB — shown in edit mode when the character is in a campaign -->
+    <template v-if="showTransferButton" #admin-actions>
+      <FloatingActionButton :variant="FAB_TYPES.TRANSFER" :size="FAB_SIZES.SMALL"
+        :visibility="FAB_VISIBILITIES.ON_HOVER" @click.stop="$emit('transfer', equipment)" />
+    </template>
+
   </base-card>
 </template>
 
@@ -154,6 +160,8 @@ import BaseCard from '@/components/ui/cards/item/BaseCard.vue'
 import DifficultyBadge from '@/components/ui/cards/item/DifficultyBadge.vue'
 import MesmerDiscoverModal from '@/components/features/characterSheet/modals/MesmerDiscoverModal.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
+import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
+import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 import BadgeDisplay from '@/components/ui/cards/item/BadgeDisplay.vue'
 import ChipTag from '@/components/ui/chips/ChipTag.vue'
 import { CHIP_TAG_ROUNDED } from '@/constants/chipTag'
@@ -231,10 +239,15 @@ const props = defineProps({
   keepingBadgeHiddenByDefault: {
     type: Boolean,
     default: false
+  },
+  // When true, shows a transfer FAB to move the item to another campaign character
+  showTransferButton: {
+    type: Boolean,
+    default: false
   }
 })
 
-const emit = defineEmits(['edit', 'duplicate', 'update', 'height-changed', 'update:showImprovements', 'update:showSuccesses', 'roll-damage', 'roll-link'])
+const emit = defineEmits(['edit', 'duplicate', 'update', 'height-changed', 'update:showImprovements', 'update:showSuccesses', 'roll-damage', 'roll-link', 'transfer'])
 
 const cardPreview = useCardPreview()
 
@@ -424,6 +437,12 @@ const keepingCost = computed(() => {
 
   const keeping = keepingStore.getById(props.equipment.keeping)
   return keeping?.cost ?? null
+})
+
+const keepingFallbackBackgroundUrl = computed(() => {
+  if (props.equipment.source) return null
+  if (!props.equipment.keeping) return null
+  return keepingStore.getById(props.equipment.keeping)?.imageUrl || null
 })
 
 const characterHasBaseEquipment = computed(() => {

@@ -508,7 +508,7 @@ export const generateShop = (req, res) => {
       return res.status(404).json({ error: 'Campaign not found' })
     }
 
-    const { cultureMix, keepingMix, itemCount = 12 } = req.body
+    const { cultureMix, keepingMix, rareTierIds = [], itemCount = 12 } = req.body
 
     if (!Array.isArray(cultureMix) || cultureMix.length === 0) {
       return res.status(400).json({ error: 'cultureMix is required' })
@@ -517,31 +517,34 @@ export const generateShop = (req, res) => {
       return res.status(400).json({ error: 'keepingMix is required' })
     }
 
-    const targetCount = Math.min(Math.max(itemCount, 5), 30)
+    const targetCount = Math.min(Math.max(itemCount, 5), 50)
     const cultureIds = new Set(cultureMix.map((c) => c.cultureId))
     const keepingIds = new Set(keepingMix.map((k) => k.keepingId))
+    // Rare tier IDs bypass the culture filter (items from these tiers have no culture source)
+    const rareIds = new Set(Array.isArray(rareTierIds) ? rareTierIds : [])
 
     // Load equipment
     const equipmentDir = getDirectory('equipment')
     const allEquipment = getAllDataByDirectory(equipmentDir).filter((e) => !e.isDeleted)
 
-    // Filter eligible items by culture and keeping tier
+    // Filter eligible items: match keeping tier AND (culture matches OR tier is a rare bypass tier)
     const eligible = allEquipment.filter(
-      (e) => cultureIds.has(e.source) && keepingIds.has(e.keeping)
+      (e) => keepingIds.has(e.keeping) && (cultureIds.has(e.source) || rareIds.has(e.keeping))
     )
 
     if (eligible.length === 0) {
       return res.status(400).json({ error: 'No equipment found matching the selected cultures and keeping tiers' })
     }
 
-    // Build weighted pool
+    // Build weighted pool. Rare-tier items use only the keeping weight (no culture weight multiplier).
     const cultureWeightMap = Object.fromEntries(cultureMix.map((c) => [c.cultureId, c.weight]))
     const keepingWeightMap = Object.fromEntries(keepingMix.map((k) => [k.keepingId, k.weight]))
 
-    const weightedPool = eligible.map((item) => ({
-      item,
-      weight: (cultureWeightMap[item.source] || 0) * (keepingWeightMap[item.keeping] || 0),
-    })).filter((entry) => entry.weight > 0)
+    const weightedPool = eligible.map((item) => {
+      const keepingWeight = keepingWeightMap[item.keeping] || 0
+      const cultureWeight = rareIds.has(item.keeping) ? 1 : (cultureWeightMap[item.source] || 0)
+      return { item, weight: cultureWeight * keepingWeight }
+    }).filter((entry) => entry.weight > 0)
 
     if (weightedPool.length === 0) {
       return res.status(400).json({ error: 'No items with valid weights in the selection' })

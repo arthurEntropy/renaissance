@@ -45,3 +45,33 @@ export function useImagePreloader(imagesRef, currentIndexRef, context, optimizeF
     preloadAdjacentImages
   }
 }
+
+export function useImageListPreloader(imagesRef) {
+  const preloadCache = new Map()
+
+  const preloadImage = (url) => {
+    if (!url || preloadCache.has(url)) return
+
+    const img = new Image()
+    img.src = url
+    preloadCache.set(url, img)
+  }
+
+  const preloadImages = (images) => {
+    if (!Array.isArray(images) || images.length === 0) return
+
+    images.forEach(preloadImage)
+  }
+
+  watch(imagesRef, (images) => {
+    preloadImages(images)
+  }, { immediate: true })
+
+  onUnmounted(() => {
+    preloadCache.clear()
+  })
+
+  return {
+    preloadImages
+  }
+}

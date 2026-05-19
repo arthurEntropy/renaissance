@@ -12,9 +12,14 @@
       tag-search-placeholder="Filter by expansion..." @add="createConcept" />
 
     <!-- Selection Cards: hidden when concept detail is open -->
-    <div v-show="!showConceptDetail" class="concept-cards-container">
+    <div v-show="!showConceptDetail" class="concept-cards-container"
+      :class="{ 'concept-cards-container--empty': isEmptyStateVisible }">
       <ConceptCard v-for="concept in filteredConcepts" :key="concept.id" :concept="concept" :sources="sources"
         :expansions="expansionStore.items" @select="openConceptDetail" />
+      <!-- Empty state: shown when logged in, no filters active, and no concepts to display -->
+      <div v-if="isEmptyStateVisible" class="empty-state-cta-wrapper">
+        <ActionButton :variant="ACTION_BUTTON_VARIANTS.PRIMARY" :text="props.emptyStateLabel" @click="createConcept" />
+      </div>
     </div>
 
     <!-- Detail / Character Sheet with Navigation Controls -->
@@ -43,10 +48,12 @@ import { createSlug, findConceptBySlug, getBasePath } from '@/utils/urlHelpers'
 import ConceptCard from '@/components/ui/cards/concept/ConceptCard.vue'
 import FilterBar from '@/components/ui/FilterBar.vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
+import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import NavigationControls from '@/components/ui/NavigationControls.vue'
 import ConceptDetail from '@/components/features/conceptDetail/ConceptDetail.vue'
 import CharacterSheetModal from '@/components/features/characterSheet/CharacterSheet.vue'
 import { FAB_TYPES, FAB_VISIBILITIES } from '@/constants/fab'
+import { ACTION_BUTTON_VARIANTS } from '@/constants/actionButton'
 
 // Props
 const props = defineProps({
@@ -85,6 +92,10 @@ const props = defineProps({
   useExternalModal: {
     type: Boolean,
     default: false,
+  },
+  emptyStateLabel: {
+    type: String,
+    default: null,
   },
 })
 
@@ -159,6 +170,16 @@ const filteredConcepts = computed(() => {
 
   // Concepts are already sorted by conceptsStore
   return filtered
+})
+
+const isEmptyStateVisible = computed(() => {
+  return Boolean(
+    props.emptyStateLabel &&
+    !filteredConcepts.value.length &&
+    !searchQuery.value &&
+    !expansionFilter.value &&
+    authStore.isAuthenticated
+  )
 })
 
 const updateConceptUrl = (conceptName) => {
@@ -328,6 +349,20 @@ onBeforeUnmount(() => {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  width: 100%;
   padding-bottom: 50px;
+}
+
+.concept-cards-container--empty {
+  flex-wrap: nowrap;
+  align-items: center;
+  min-height: 50vh;
+  padding-bottom: 0;
+}
+
+.empty-state-cta-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 </style>

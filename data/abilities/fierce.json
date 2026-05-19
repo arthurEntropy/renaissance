@@ -1,10 +1,10 @@
 {
   "id": "400fe649-0b14-4a42-b79b-a95764f4bd26",
   "createdAt": "2026-02-26T02:27:20.206Z",
-  "lastModified": "2026-04-24T13:23:29.456Z",
+  "lastModified": "2026-05-15T17:46:09.140Z",
   "name": "Fierce",
   "artUrl": "https://cdn.midjourney.com/01a10090-e215-4bce-ac70-5fb395af07e3/0_1.png",
-  "description": "<p><em>You're able to draw on your grim instincts when needed.</em></p><p>Once per rest: You may gain 1 Shadow to reduce the MP cost for a single use of an attack ability by your HEART score.</p><p><strong>Describe how you draw upon your inner darkness to fuel your willpower.</strong></p>",
+  "description": "<p><em>You're able to draw on your grim instincts when needed.</em></p><p>Once per rest, you may gain 1 Shadow to reduce the MP cost for a single use of an attack ability by your HEART score.</p><p><strong>Describe how you draw upon your inner darkness to fuel your willpower.</strong></p>",
   "source": "2e46823f-bec7-4d70-b323-dbc8b71c7739",
   "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
   "canBeActive": false,

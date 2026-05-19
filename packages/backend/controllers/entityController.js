@@ -41,11 +41,16 @@ const getAllEntities = (entity) => (req, res) => {
     let filteredEntities = allEntities.filter((e) => !e.isDeleted)
     
     // For characters, filter by ownership unless user is admin
-    if (entity === 'characters' && req.user) {
-      if (req.user.role !== USER_ROLE.ADMIN) {
-        // Include characters owned by this user AND campaign characters from campaigns they belong to
+    if (entity === 'characters') {
+      if (!req.user) {
+        // Unauthenticated visitors: return only public preview characters
+        filteredEntities = filteredEntities.filter(character => character.isPublicPreview)
+      } else if (req.user.role !== USER_ROLE.ADMIN) {
+        // Include characters owned by this user, beast templates (public game content),
+        // and campaign characters from campaigns they belong to
         const memberCampaignIds = getUserCampaignIds(req.user.uid)
         filteredEntities = filteredEntities.filter(character =>
+          character.characterType === 'beast' ||
           character.ownerId === req.user.uid ||
           (character.campaignId && memberCampaignIds.includes(character.campaignId) && character.characterType !== 'playerCharacter')
         )
@@ -219,10 +224,127 @@ const transferCharacterOwnership = (req, res) => {
   }
 }
 
+const transferEquipment = (req, res) => {
+  try {
+    const rawId = req.params.id
+    const sourceId = isNaN(Number(rawId)) ? rawId : Number(rawId)
+    const { equipmentId, recipientCharacterId, quantity } = req.body
+
+    if (!equipmentId || !recipientCharacterId || !quantity || quantity < 1) {
+      return res.status(400).json({ error: 'equipmentId, recipientCharacterId, and quantity are required' })
+    }
+
+    // Load source character
+    const sourceRecord = getCharacterRecordById(sourceId)
+    if (!sourceRecord?.character) {
+      return res.status(404).json({ error: 'Source character not found' })
+    }
+
+    const source = sourceRecord.character
+
+    // Check that user can edit source: must own it, or it's a non-playerCharacter in a shared campaign
+    const userCampaignIds = getUserCampaignIds(req.user.uid)
+    const canEditSource =
+      req.user.role === USER_ROLE.ADMIN ||
+      source.ownerId === req.user.uid ||
+      (source.campaignId && userCampaignIds.includes(source.campaignId) && source.characterType !== 'playerCharacter')
+
+    if (!canEditSource) {
+      return res.status(403).json({ error: 'You do not have permission to transfer equipment from this character' })
+    }
+
+    // Find the equipment entry on the source character
+    const sourceEquipment = source.equipment || []
+    const sourceEntryIndex = sourceEquipment.findIndex((e) => e.id === equipmentId)
+    if (sourceEntryIndex === -1) {
+      return res.status(404).json({ error: 'Equipment not found on source character' })
+    }
+
+    const sourceEntry = sourceEquipment[sourceEntryIndex]
+    const sourceQuantity = sourceEntry.quantity ?? 1
+
+    if (quantity > sourceQuantity) {
+      return res.status(400).json({ error: 'Transfer quantity exceeds available quantity' })
+    }
+
+    // Load recipient character
+    const recipientRecord = getCharacterRecordById(recipientCharacterId)
+    if (!recipientRecord?.character) {
+      return res.status(404).json({ error: 'Recipient character not found' })
+    }
+
+    const recipient = recipientRecord.character
+
+    // Check that recipient is accessible: user owns it or it's in a shared campaign
+    const canAccessRecipient =
+      req.user.role === USER_ROLE.ADMIN ||
+      recipient.ownerId === req.user.uid ||
+      (recipient.campaignId && userCampaignIds.includes(recipient.campaignId))
+
+    if (!canAccessRecipient) {
+      return res.status(403).json({ error: 'You do not have permission to transfer equipment to this character' })
+    }
+
+    // Build updated source equipment list
+    let updatedSourceEquipment
+    if (quantity >= sourceQuantity) {
+      // Full transfer — remove the entry entirely
+      updatedSourceEquipment = sourceEquipment.filter((_, i) => i !== sourceEntryIndex)
+    } else {
+      // Partial transfer — reduce quantity
+      updatedSourceEquipment = sourceEquipment.map((e, i) =>
+        i === sourceEntryIndex ? { ...e, quantity: sourceQuantity - quantity } : e
+      )
+    }
+
+    // Build updated recipient equipment list — merge with existing entry if present
+    const recipientEquipment = recipient.equipment || []
+    const existingRecipientIndex = recipientEquipment.findIndex((e) => e.id === equipmentId)
+    let updatedRecipientEquipment
+    if (existingRecipientIndex !== -1) {
+      const existingQty = recipientEquipment[existingRecipientIndex].quantity ?? 1
+      updatedRecipientEquipment = recipientEquipment.map((e, i) =>
+        i === existingRecipientIndex ? { ...e, quantity: existingQty + quantity } : e
+      )
+    } else {
+      // Add as a new entry, copying UI fields from the source entry
+      const newEntry = {
+        ...sourceEntry,
+        quantity,
+        isCarried: true,
+      }
+      updatedRecipientEquipment = [...recipientEquipment, newEntry]
+    }
+
+    const now = new Date().toISOString()
+
+    const updatedSource = { ...source, equipment: updatedSourceEquipment, lastModified: now }
+    const updatedRecipient = { ...recipient, equipment: updatedRecipientEquipment, lastModified: now }
+
+    saveCharacterFile(updatedSource, {
+      oldName: source.name,
+      existingId: source.id,
+      existingDirectory: sourceRecord.directory,
+    })
+
+    saveCharacterFile(updatedRecipient, {
+      oldName: recipient.name,
+      existingId: recipient.id,
+      existingDirectory: recipientRecord.directory,
+    })
+
+    res.status(200).json({ source: updatedSource, recipient: updatedRecipient })
+  } catch (error) {
+    console.error('Error transferring equipment:', error)
+    res.status(500).json({ error: 'Failed to transfer equipment' })
+  }
+}
+
 export {
   getAllEntities,
   createEntity,
   updateEntity,
   deleteEntity,
   transferCharacterOwnership,
+  transferEquipment,
 }

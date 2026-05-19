@@ -1,10 +1,10 @@
 {
   "id": "70a66315-8334-4d05-923e-275d03e833e8",
   "createdAt": "2026-02-25T19:52:16.387Z",
-  "lastModified": "2026-03-10T01:15:43.243Z",
+  "lastModified": "2026-05-16T02:28:00.539Z",
   "name": "Attentive",
   "artUrl": "https://cdn.midjourney.com/a854ae26-3287-4751-8991-583963dcbbfe/0_0.png",
-  "description": "<p>You have a knack for noticing details and patterns that others tend to miss. You gain 2 ranks in Riddle.</p>",
+  "description": "<p><em>You have a knack for noticing details and patterns that others tend to miss.</em></p><p>Whenever you roll Riddle, +2d.</p><p>Additionally, you can identify the type subtype and grade of any equipment item you can see within long range. If the item was made by a Culture you have visited, you also know its Culture of origin.</p><p><strong>Describe what you notice.</strong></p>",
   "source": "1c61dcb1-937a-44fe-9c69-3cd588e9dcb7",
   "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
   "canBeActive": false,

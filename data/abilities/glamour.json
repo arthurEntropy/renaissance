@@ -1,10 +1,10 @@
 {
   "id": "ef00cc69-1e2e-4697-abfb-102cca7daca7",
   "isDeleted": false,
-  "lastModified": "2026-04-24T13:35:07.603Z",
+  "lastModified": "2026-05-15T17:45:31.493Z",
   "name": "Glamour",
   "artUrl": "https://cdn.midjourney.com/1cb1fa67-0960-4032-9d03-eb89f68f0cc7/0_2.png",
-  "description": "<p><em>Your true form is an uncanny merging of human and horned or antlered mammalian features. You can conceal your true form, changing your physical appearance.</em></p><p>Choose a mostly-human form that is similar in stature to your true form. This is your glamour. The details of your appearance when wearing your glamour are up to you, but are the same each time you wear it and must include at least one feature hinting at your true form. You may assume and drop your glamour at will as a free action.</p><p>Once per rest: You may spend a half action to further exert this transformative power, turning invisible for 1 round.</p><p><strong>Describe your glamour.</strong></p>",
+  "description": "<p><em>Your true form is an uncanny merging of human and horned or antlered mammalian features. You can conceal your true form, changing your physical appearance.</em></p><p>Choose a mostly-human form that is similar in stature to your true form. This is your glamour. The details of your appearance when wearing your glamour are up to you, but are the same each time you wear it and must include at least one feature hinting at your true form. You may assume or drop your glamour at will as a free action.</p><p>Once per rest, you may spend a half action to further exert this transformative power, turning invisible for 1 round.</p><p><strong>Describe your glamour.</strong></p>",
   "source": "f00fe427-1bb5-472c-8abb-2a394730a40a",
   "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
   "mpCost": null,

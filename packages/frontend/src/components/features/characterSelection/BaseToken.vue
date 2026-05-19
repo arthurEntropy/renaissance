@@ -10,6 +10,7 @@
         </div>
         <FloatingActionButton v-if="showRemoveFab" class="close-fab" :variant="removeFabVariant" :size="FAB_SIZES.SMALL"
             :visibility="FAB_VISIBILITIES.ALWAYS" @click.stop="$emit('remove', entity)" />
+        <slot />
         <div class="token-name-tooltip">{{ entity.name }}</div>
     </div>
 </template>

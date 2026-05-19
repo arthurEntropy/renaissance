@@ -1,0 +1,14 @@
+{
+  "id": "e93bf0ca-ac0f-41d7-b825-f4d9c655ad2a",
+  "isDeleted": false,
+  "lastModified": "2026-05-15T18:06:09.294Z",
+  "name": "Quick Study",
+  "artUrl": "https://cdn.midjourney.com/3abbfdc7-3ad7-4364-a10c-d50bf2dff88b/0_2.png",
+  "description": "<p><em>You have a natural aptitude for understanding how things work, and indulging your curiosity often pays off.</em></p><p>You have an extra pool of 2 MP that can be used for abilities from any Mestiere. This pool is replenished every sunrise, regardless of all other effects.</p><p>Whenever you roll Craft to attempt a task you've never attempted before, +1d. On a pass, gain 3 XP.</p><p><strong>Describe your knack.</strong></p>",
+  "source": "fffc6b74-d66f-4270-a8b4-e045433ae176",
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": null,
+  "canBeActive": false,
+  "hasDifficulty": false
+}

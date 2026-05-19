@@ -1,10 +1,10 @@
 {
   "id": "1543a8ba-0b31-4285-a0d2-29ce6828a373",
   "createdAt": "2026-02-26T03:10:27.131Z",
-  "lastModified": "2026-04-24T14:06:29.846Z",
+  "lastModified": "2026-05-15T17:25:59.943Z",
   "name": "Sensate",
   "artUrl": "https://cdn.midjourney.com/5f9caa2d-ebd0-4273-a205-7c6305441939/0_2.png",
-  "description": "<p><em>Your sensitivities let you perceive the motivations of others.</em></p><p>You gain 1 rank in Insight.</p><p><strong>Describe your sensitivities.</strong></p>",
+  "description": "<p><em>Your sensitivities let you perceive the motivations of others.</em></p><p>Whenever you roll Insight, +1d.</p><p><strong>Describe your sensitivities.</strong></p>",
   "source": "d7578278-c801-410b-b194-12b555042f29",
   "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
   "canBeActive": false,

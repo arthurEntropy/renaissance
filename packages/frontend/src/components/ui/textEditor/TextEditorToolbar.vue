@@ -26,6 +26,9 @@ import {
     ListBulletIcon,
     LinkSlashIcon,
     TableCellsIcon,
+    H1Icon,
+    H2Icon,
+    H3Icon,
 } from '@heroicons/vue/24/outline'
 
 const props = defineProps({
@@ -82,7 +85,7 @@ const toolbarGroups = computed(() => [
         },
         {
             key: 'heading1',
-            label: 'H1',
+            icon: H1Icon,
             title: 'Heading 1 (Ctrl+Alt+1)',
             isActive: (editor) => editor?.isActive('heading', { level: 1 }),
             action: (editor) => editor.chain().focus().toggleHeading({ level: 1 }).run(),
@@ -90,7 +93,7 @@ const toolbarGroups = computed(() => [
         },
         {
             key: 'heading2',
-            label: 'H2',
+            icon: H2Icon,
             title: 'Heading 2 (Ctrl+Alt+2)',
             isActive: (editor) => editor?.isActive('heading', { level: 2 }),
             action: (editor) => editor.chain().focus().toggleHeading({ level: 2 }).run(),
@@ -98,7 +101,7 @@ const toolbarGroups = computed(() => [
         },
         {
             key: 'heading3',
-            label: 'H3',
+            icon: H3Icon,
             title: 'Heading 3 (Ctrl+Alt+3)',
             isActive: (editor) => editor?.isActive('heading', { level: 3 }),
             action: (editor) => editor.chain().focus().toggleHeading({ level: 3 }).run(),

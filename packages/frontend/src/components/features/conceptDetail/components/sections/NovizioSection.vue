@@ -15,7 +15,11 @@
 
         <!-- Martial Training -->
         <div class="novizio-subsection">
-          <strong>MARTIAL TRAINING</strong>
+          <div class="novizio-subsection-header">
+            <strong>MARTIAL TRAINING</strong>
+            <FloatingActionButton :variant="FAB_TYPES.MARTIAL_TRAINING" :size="FAB_SIZES.LARGE"
+              :visibility="FAB_VISIBILITIES.ALWAYS" disabled />
+          </div>
           <div class="martial-training-list">
             <div class="martial-training-item" v-for="row in martialRows" :key="row.key">
               <div class="martial-icon-wrapper" :data-label="row.label">
@@ -79,7 +83,11 @@
 
         <!-- Gratuiti -->
         <div class="novizio-subsection">
-          <strong>GRATUITI</strong>
+          <div class="novizio-subsection-header">
+            <strong>GRATUITI</strong>
+            <FloatingActionButton :variant="FAB_TYPES.GRATUITI" :size="FAB_SIZES.LARGE"
+              :visibility="FAB_VISIBILITIES.ALWAYS" disabled />
+          </div>
           <text-editor v-model="localNovizio.gratuiti" placeholder="Gratuiti..." height="80px" :auto-height="true"
             class="novizio-text-editor novizio-text-editor--spaced" />
         </div>
@@ -99,7 +107,11 @@
 
         <!-- Martial Training -->
         <div class="novizio-subsection" v-if="hasAnyNovizioData">
-          <strong>MARTIAL TRAINING</strong>
+          <div class="novizio-subsection-header">
+            <strong>MARTIAL TRAINING</strong>
+            <FloatingActionButton :variant="FAB_TYPES.MARTIAL_TRAINING" :size="FAB_SIZES.LARGE"
+              :visibility="FAB_VISIBILITIES.ALWAYS" disabled />
+          </div>
           <template v-if="martialRows.some(r => novizio.martialTraining?.[r.key]?.length)">
             <div class="martial-training-list">
               <div class="martial-training-item" v-for="row in martialRows" :key="row.key">
@@ -165,7 +177,11 @@
 
         <!-- Gratuiti -->
         <div class="novizio-subsection" v-if="hasAnyNovizioData && novizio && novizio.gratuiti">
-          <strong>GRATUITI</strong>
+          <div class="novizio-subsection-header">
+            <strong>GRATUITI</strong>
+            <FloatingActionButton :variant="FAB_TYPES.GRATUITI" :size="FAB_SIZES.LARGE"
+              :visibility="FAB_VISIBILITIES.ALWAYS" disabled />
+          </div>
           <div class="novizio-placeholder" v-html="safeGratuiti"></div>
         </div>
       </div>
@@ -180,6 +196,8 @@ import TextEditor from '@/components/ui/textEditor/TextEditor.vue'
 import NumberInput from '@/components/ui/forms/NumberInput.vue'
 import ConceptSection from '../shared/ConceptSection.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
+import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
+import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 import { sanitizeHtml } from '@/utils/sanitizeHtml'
 import { getDiceFontMaxClass } from '@/utils/diceFontUtils'
 import { useConceptsStore } from '@/stores/conceptsStore'
@@ -442,7 +460,19 @@ watch(concept, (newConcept) => {
   margin-bottom: 1.3rem;
 }
 
-.novizio-subsection>strong {
+.novizio-subsection-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.novizio-subsection-header :deep(.fab) {
+  opacity: 1;
+  pointer-events: none;
+}
+
+.novizio-subsection>strong,
+.novizio-subsection-header>strong {
   color: var(--color-accent-cyan);
 }
 

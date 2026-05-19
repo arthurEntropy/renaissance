@@ -1,26 +1,26 @@
 {
   "id": "c2d5d451-32de-401f-bed5-572f2b33b474",
   "isDeleted": false,
-  "lastModified": "2026-04-15T14:14:53.667Z",
+  "lastModified": "2026-05-16T17:32:43.999Z",
   "name": "Pole Training",
   "artUrl": "https://cdn.midjourney.com/a62ce061-cd28-40a5-a199-00e049506c15/0_1.png",
   "description": "<p>You are trained in the use of all grades of the Acrobat's Pole, a special weapon type.</p><p>Whenever you make an attack with an Acrobat's Pole, you may either make one attack against one creature or two attacks against two different creatures.</p><p><strong>Describe your technique.</strong></p>",
   "improvements": [
     {
       "name": "Vault",
-      "description": "<p>Once per turn, you may use your Acrobat's Pole to enhance your movement. Choose one:</p><ul><li><p>Your jump distance is doubled for your next jump this turn.</p></li><li><p>The height of vertical surface you can run up is doubled this turn.</p></li></ul><p>In either case, the increase does not cost you additional movement.</p>",
+      "description": "<p>Once per round, you may use your Acrobat's Pole to enhance your movement. Choose one:</p><ul><li><p>Your jump distance is doubled for your next jump this turn.</p></li><li><p>The height of vertical surface you can run up is doubled this turn.</p></li></ul><p>In either case, the increase does not cost you additional movement.</p>",
       "xpCost": 5,
       "id": "760035e3-1fef-5572-b37a-3ce81e5a1fe9"
     },
     {
-      "name": "Spin Attack",
-      "description": "<p>When you attack with an Acrobat's Pole, you may spend 1 additional action to attack all creatures within reach simultaneously with a single attack roll, skipping Engagement.</p>",
+      "name": "Moulinette",
+      "description": "<p>When you make a melee attack with an Acrobat's Pole, you may spend 1 additional action to attack all creatures within reach simultaneously with a single attack roll, skipping Engagement.</p>",
       "xpCost": 5,
       "id": "19a4a68e-f275-56f3-9b3e-5e968dd31c9f"
     },
     {
-      "name": "Ground Spin",
-      "description": "<p>When you make a Spin Attack, you may spend an additional action to roll Dexterity vs Dexterity against each creature you hit. On each win, the creature is knocked prone.</p>",
+      "name": "Sweeping Strike",
+      "description": "<p>When you make a Moulinette attack, you may spend an additional action to roll Dexterity vs Dexterity against each creature you hit. On each win, the creature is knocked prone.</p>",
       "xpCost": 5,
       "id": "890e9d98-2642-5a4b-912c-653892fc4d2d"
     }

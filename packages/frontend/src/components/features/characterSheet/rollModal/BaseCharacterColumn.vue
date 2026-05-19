@@ -1,16 +1,11 @@
 <template>
-    <section class="character-column-base" :class="columnClasses">
+    <section class="character-column-base" :class="columnClasses" :style="columnBgStyle">
+        <div class="column-bg-overlay" aria-hidden="true"></div>
 
         <!-- Character info header -->
         <div v-if="character" class="character-header">
             <header class="character-info">
                 <h3>{{ character.name }}</h3>
-                <div class="character-art">
-                    <img v-if="characterArtUrl" :src="optimizedCharacterArt" :alt="`${character.name} character art`"
-                        class="character-art-thumbnail">
-                    <div v-else class="character-art-placeholder" role="img" aria-label="No character art available">
-                    </div>
-                </div>
                 <slot name="additional-character-info" :character="character"></slot>
             </header>
         </div>
@@ -66,8 +61,12 @@ const characterArtUrl = computed(() => {
     return props.character.featuredArtUrls?.[0] || null
 })
 
-// Optimize character art thumbnail
-const optimizedCharacterArt = useOptimizedImage(characterArtUrl, MIDJOURNEY_IMAGE_CONTEXTS.SMALL)
+const optimizedCharacterArt = useOptimizedImage(characterArtUrl, MIDJOURNEY_IMAGE_CONTEXTS.MEDIUM)
+
+const columnBgStyle = computed(() => {
+    if (!characterArtUrl.value) return {}
+    return { backgroundImage: `url('${optimizedCharacterArt.value}')` }
+})
 
 const columnClasses = computed(() => {
     const classes = []
@@ -93,37 +92,39 @@ const columnClasses = computed(() => {
 </script>
 
 <style scoped>
+.character-column-base {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-10);
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+}
+
+.column-bg-overlay {
+    position: absolute;
+    inset: 0;
+    background: var(--overlay-black-heavy);
+}
+
+.character-header,
+.column-content,
+.waiting-for-opponent {
+    position: relative;
+    z-index: 1;
+}
+
 .character-info {
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-top: var(--space-lg);
     margin-bottom: var(--space-md);
-    height: 200px;
-    justify-content: flex-start;
     flex-shrink: 0;
 }
 
-.character-art {
-    display: flex;
-    justify-content: center;
-}
-
-.character-art-thumbnail {
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-    border-radius: var(--radius-full);
-    margin: var(--space-md) 0;
-    border: 2px solid var(--color-bg-secondary);
-}
-
-.character-art-placeholder {
-    width: 100px;
-    height: 100px;
-    border-radius: var(--radius-full);
-    margin: var(--space-md) 0;
-    border: 2px solid var(--color-bg-secondary);
-    background-color: var(--color-bg-secondary);
+.character-info h3 {
+    font-size: var(--font-size-24);
 }
 
 .column-content {

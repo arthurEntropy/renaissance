@@ -1,6 +1,6 @@
 <template>
     <Teleport to="body">
-        <div v-if="open" class="base-modal-overlay" @click.self="emit('close')">
+        <div v-if="open" class="base-modal-overlay" :style="overlayStyle" @click.self="emit('close')">
             <div class="base-modal-box" :class="boxClass" :style="modalBoxStyle">
 
                 <!-- Header: built-in title + close, or custom via #header slot, or hidden -->
@@ -76,6 +76,14 @@ const props = defineProps({
         type: String,
         default: '',
     },
+    boxStyle: {
+        type: Object,
+        default: null,
+    },
+    overlayStyle: {
+        type: Object,
+        default: null,
+    },
 })
 
 const emit = defineEmits(['close'])
@@ -87,6 +95,9 @@ const modalBoxStyle = computed(() => {
     }
     if (props.offsetY) {
         style.transform = `translateY(${props.offsetY})`
+    }
+    if (props.boxStyle) {
+        Object.assign(style, props.boxStyle)
     }
     return Object.keys(style).length > 0 ? style : undefined
 })

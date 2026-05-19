@@ -58,8 +58,8 @@
             </template>
         </FilterBar>
 
-        <GroupedMasonryGrid :column-width="350" :gap="20" :row-height="10" justify-content="start"
-            :grouped-items="groupedEquipment" :persistence-key="groupPersistenceKey" class="cards-container">
+        <GroupedMasonryGrid :gap="20" :row-height="10" justify-content="start" :grouped-items="groupedEquipment"
+            :persistence-key="groupPersistenceKey" class="cards-container">
             <template #default="{ item }">
                 <EquipmentCard :equipment="item" :editable="isAdmin" :duplicatable="isAdmin" :sources="sources"
                     :art-expanded="true" :engagement-success-options="engagementSuccessOptions" :collapsible="false"

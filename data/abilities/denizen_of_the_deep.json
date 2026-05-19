@@ -1,10 +1,10 @@
 {
   "id": "da672458-835f-42ee-a7a7-7511a526c77b",
   "isDeleted": false,
-  "lastModified": "2026-02-25T19:49:07.018Z",
+  "lastModified": "2026-05-16T02:35:37.287Z",
   "name": "Denizen of the Deep",
   "artUrl": "https://cdn.midjourney.com/22ac6703-ef61-4d17-9ba8-2394c4bedf4d/0_0.png",
-  "description": "<p>Your body is adapted to life beneath the waves but is less graceful out of water:</p><ul><li><p>All your skills under BODY are favored while underwater and ill-favored while on land.</p></li><li><p>Your speed is doubled while underwater and reduced by 5 on land.</p></li></ul><p><strong>Describe your movement.</strong></p><p>Your gills allow you to breathe underwater but you struggle on land. Your Endurance maximum is reduced by your BODY score while on land. Applying fresh mammalian blood to your gills once per day removes this penalty.</p><p><strong>Describe how you do so fashionably or how you struggle without it.</strong></p>",
+  "description": "<p><em>Your body is adapted to life beneath the waves but is less graceful out of water.</em></p><p>All your skills under BODY are favored while underwater and ill-favored while on land. Also, your speed is doubled while underwater and reduced by 5 while on land.</p><p><strong>Describe your movement.</strong></p><p>Additionally, your base Endurance is reduced by your BODY score while on land. Applying fresh mammalian blood to your gills once per day removes this penalty.</p><p><strong>Describe how you do so fashionably or how you struggle without it.</strong></p>",
   "source": "e40c3cff-9f6b-4940-ae41-cef878821a75",
   "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
   "mpCost": null,

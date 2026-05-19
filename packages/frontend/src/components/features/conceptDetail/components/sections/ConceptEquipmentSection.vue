@@ -17,8 +17,8 @@
             <!-- Grouped by type display -->
             <template v-if="isGroupedByType">
                 <!-- Ungrouped equipment (no type) shown above groups -->
-                <MasonryGrid v-if="noTypeEquipment.length > 0" :column-width="350" :gap="20" :row-height="10"
-                    justify-content="start" class="cards-container">
+                <MasonryGrid v-if="noTypeEquipment.length > 0" :gap="20" :row-height="10" justify-content="start"
+                    class="cards-container">
                     <EquipmentCard v-for="item in noTypeEquipment" :key="item.id" :equipment="item"
                         :editable="isEditMode" :sources="sources" :art-expanded="true" :engagement-success-options="[]"
                         :character="character" :show-improvement-toggle="!!character"
@@ -28,8 +28,8 @@
                         @update="handleCharacterUpdate" />
                 </MasonryGrid>
                 <!-- Type-grouped equipment -->
-                <GroupedMasonryGrid v-if="typeGroupedEquipment.length > 0" :column-width="350" :gap="20"
-                    :row-height="10" justify-content="start" :grouped-items="typeGroupedEquipment"
+                <GroupedMasonryGrid v-if="typeGroupedEquipment.length > 0" :gap="20" :row-height="10"
+                    justify-content="start" :grouped-items="typeGroupedEquipment"
                     persistence-key="concept-equipment-groups" class="cards-container">
                     <template #default="{ item }">
                         <EquipmentCard :equipment="item" :editable="isEditMode" :sources="sources" :art-expanded="true"
@@ -43,8 +43,7 @@
             </template>
 
             <!-- Ungrouped display -->
-            <MasonryGrid v-else :column-width="350" :gap="20" :row-height="10" justify-content="start"
-                class="cards-container">
+            <MasonryGrid v-else :gap="20" :row-height="10" justify-content="start" class="cards-container">
                 <EquipmentCard v-for="item in sortedEquipment" :key="item.id" :equipment="item" :editable="isEditMode"
                     :sources="sources" :art-expanded="true" :engagement-success-options="[]" :character="character"
                     :show-improvement-toggle="!!character" @edit="$emit('edit-equipment', item)" :collapsible="false"
@@ -72,6 +71,7 @@ import { useFilterPersistence } from '@/composables/useFilterPersistence'
 import { useCharactersStore } from '@/stores/charactersStore'
 import { useEquipmentStore } from '@/stores/equipmentStore'
 import { useEquipmentTypesStore } from '@/stores/equipmentTypesStore'
+import { useKeepingStore } from '@/stores/keepingStore'
 import { useSourcesStore } from '@/stores/sourcesStore'
 import { useConceptsStore } from '@/stores/conceptsStore'
 import { useAuthStore } from '@/stores/authStore'
@@ -79,6 +79,7 @@ import { useAuthStore } from '@/stores/authStore'
 const charactersStore = useCharactersStore()
 const equipmentStore = useEquipmentStore()
 const equipmentTypesStore = useEquipmentTypesStore()
+const keepingStore = useKeepingStore()
 const sourcesStore = useSourcesStore()
 const conceptsStore = useConceptsStore()
 const authStore = useAuthStore()
@@ -103,7 +104,7 @@ const groupingOptions = [
     { value: 'type', label: 'Type' }
 ]
 
-const sortOption = ref('name-asc')
+const sortOption = ref('keeping-asc')
 const groupingOption = ref('')
 
 useFilterPersistence('concept-equipment', { sortOption, groupingOption })
@@ -114,7 +115,17 @@ const equipment = computed(() =>
     equipmentStore.equipment.filter(e => e.source === concept.value?.id)
 )
 
-const sortedEquipment = computed(() => sortItems(equipment.value, sortOption.value))
+const sortedEquipment = computed(() => {
+    if (sortOption.value === 'keeping-asc' || sortOption.value === 'keeping-desc') {
+        const dir = sortOption.value === 'keeping-asc' ? 1 : -1
+        return [...equipment.value].sort((a, b) => {
+            const aCost = keepingStore.getById(a.keeping)?.cost ?? 0
+            const bCost = keepingStore.getById(b.keeping)?.cost ?? 0
+            return dir * (aCost - bCost)
+        })
+    }
+    return sortItems(equipment.value, sortOption.value)
+})
 
 const noTypeEquipment = computed(() =>
     sortedEquipment.value.filter(e => !e.type)

@@ -188,6 +188,7 @@ import { createBaseEntity } from './baseEntity.js'
  * // Campaign-related fields
  * @property {string|null} campaignId - If set, this character belongs to a campaign
  * @property {string|null} [ownerId] - Owner user ID
+ * @property {boolean} [isPublicPreview] - Whether this character is shown as a preview to unauthenticated visitors
  */
 
 /**
@@ -348,6 +349,7 @@ function createDefaultCharacterBase() {
     // Campaign-related fields
     campaignId: null,
     ownerId: null,
+    isPublicPreview: false,
   }
 }
 

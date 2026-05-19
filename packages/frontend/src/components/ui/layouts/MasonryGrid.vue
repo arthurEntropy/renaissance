@@ -10,7 +10,6 @@ import { ref, onMounted, onBeforeUnmount, nextTick } from 'vue'
 const LAYOUT_UPDATE_DEBOUNCE_MS = 100
 
 const props = defineProps({
-  columnWidth: { type: Number, default: 300 },
   gap: { type: Number, default: 10 },
   rowHeight: { type: Number, default: 10 },
   justifyContent: { type: String, default: 'center' },
@@ -20,12 +19,6 @@ const masonryContainer = ref(null)
 let resizeObserver = null
 let mutationObserver = null
 let layoutUpdateTimeout = null
-
-function calculateColumnCount() {
-  const containerWidth = masonryContainer.value?.clientWidth || 0
-  const availableColumns = Math.floor((containerWidth + props.gap) / (props.columnWidth + props.gap))
-  return Math.max(1, availableColumns)
-}
 
 function setSpanForElement(element) {
   if (!element || element.offsetParent === null) return
@@ -38,8 +31,6 @@ function updateLayoutImmediate() {
   const container = masonryContainer.value
   if (!container) return
 
-  const columnCount = calculateColumnCount()
-  container.style.gridTemplateColumns = `repeat(${columnCount}, ${props.columnWidth}px)`
   container.style.justifyContent = props.justifyContent
 
   // Update row spans for all children
@@ -61,7 +52,6 @@ function initMasonry() {
   const container = masonryContainer.value
   if (!container) return
 
-  container.style.display = 'grid'
   container.style.gridAutoRows = `${props.rowHeight}px`
   container.style.gap = `${props.gap}px`
   container.style.justifyContent = props.justifyContent
@@ -147,6 +137,8 @@ defineExpose({ updateLayout })
 </script>
 <style scoped>
 .masonry-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, var(--card-width));
   width: 100%;
   align-items: start;
   box-sizing: border-box;

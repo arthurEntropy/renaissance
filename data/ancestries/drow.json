@@ -7,10 +7,10 @@
   "featuredArtUrls": [
     "https://cdn.midjourney.com/0333b110-ab2f-4965-ae32-3c67dba0a0f3/0_2.png"
   ],
-  "backgroundImage": "https://cdn.midjourney.com/f8c33089-e573-46c2-a31e-e3cb6fa84f32/0_2.png",
+  "backgroundImage": "",
   "cardBackgroundImage": "https://cdn.midjourney.com/4e63ff43-ce15-464c-a754-abbf80477916/0_3.png",
   "expansion": "824cad94-3a4a-4df3-b81a-ede17b84644b",
-  "lastModified": "2026-04-24T13:04:23.512Z",
+  "lastModified": "2026-05-15T16:33:41.374Z",
   "physiology": {
     "heightMin": 5,
     "heightMax": 6,

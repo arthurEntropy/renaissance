@@ -41,9 +41,8 @@
     </FilterBar>
 
     <!-- School Grouped view -->
-    <GroupedMasonryGrid v-if="groupByOption === 'school'" :column-width="350" :gap="20" :row-height="10"
-      justify-content="start" :grouped-items="schoolGroupedAbilities" :persistence-key="`abilities-school-groups`"
-      class="cards-container">
+    <GroupedMasonryGrid v-if="groupByOption === 'school'" :gap="20" :row-height="10" justify-content="start"
+      :grouped-items="schoolGroupedAbilities" :persistence-key="`abilities-school-groups`" class="cards-container">
       <template #default="{ item }">
         <AbilityCard :ability="item" :editable="isAdmin" :sources="sources" :collapsible="false"
           :showImprovements="getAbilityShowImprovements(item.id)"
@@ -56,23 +55,8 @@
     </GroupedMasonryGrid>
 
     <!-- Mana Color Grouped view -->
-    <GroupedMasonryGrid v-else-if="groupByOption === 'mana-color'" :column-width="350" :gap="20" :row-height="10"
-      justify-content="start" :grouped-items="manaColorGroupedAbilities"
-      :persistence-key="`abilities-mana-color-groups`" class="cards-container">
-      <template #default="{ item }">
-        <AbilityCard :ability="item" :editable="isAdmin" :sources="sources" :collapsible="false"
-          :showImprovements="getAbilityShowImprovements(item.id)"
-          @update:showImprovements="updateAbilityShowImprovements(item.id, $event)" @edit="openEditAbilityModal(item)"
-          :character="selectedCharacter" :show-improvement-toggle="!!selectedCharacter"
-          :showSuccesses="getAbilityShowSuccesses(item.id)"
-          @update:showSuccesses="updateAbilityShowSuccesses(item.id, $event)" @update="handleUpdate"
-          @delete="deleteAbility(item)" />
-      </template>
-    </GroupedMasonryGrid>
-
-    <!-- Source Grouped view -->
-    <GroupedMasonryGrid v-else-if="groupByOption === 'source'" :column-width="350" :gap="20" :row-height="10"
-      justify-content="start" :grouped-items="sourceGroupedAbilities" :persistence-key="`abilities-source-groups`"
+    <GroupedMasonryGrid v-else-if="groupByOption === 'mana-color'" :gap="20" :row-height="10" justify-content="start"
+      :grouped-items="manaColorGroupedAbilities" :persistence-key="`abilities-mana-color-groups`"
       class="cards-container">
       <template #default="{ item }">
         <AbilityCard :ability="item" :editable="isAdmin" :sources="sources" :collapsible="false"
@@ -85,10 +69,24 @@
       </template>
     </GroupedMasonryGrid>
 
+    <!-- Source Grouped view -->
+    <GroupedMasonryGrid v-else-if="groupByOption === 'source'" :gap="20" :row-height="10" justify-content="start"
+      :grouped-items="sourceGroupedAbilities" :persistence-key="`abilities-source-groups`" class="cards-container">
+      <template #default="{ item }">
+        <AbilityCard :ability="item" :editable="isAdmin" :sources="sources" :collapsible="false"
+          :showImprovements="getAbilityShowImprovements(item.id)"
+          @update:showImprovements="updateAbilityShowImprovements(item.id, $event)" @edit="openEditAbilityModal(item)"
+          :character="selectedCharacter" :show-improvement-toggle="!!selectedCharacter"
+          :showSuccesses="getAbilityShowSuccesses(item.id)"
+          @update:showSuccesses="updateAbilityShowSuccesses(item.id, $event)" @update="handleUpdate"
+          @delete="deleteAbility(item)" />
+      </template>
+    </GroupedMasonryGrid>
+
     <!-- Action Type Grouped view -->
-    <GroupedMasonryGrid v-else-if="groupByOption === 'action-type'" :column-width="350" :gap="20" :row-height="10"
-      justify-content="start" :grouped-items="actionTypeGroupedAbilities"
-      :persistence-key="`abilities-action-type-groups`" class="cards-container">
+    <GroupedMasonryGrid v-else-if="groupByOption === 'action-type'" :gap="20" :row-height="10" justify-content="start"
+      :grouped-items="actionTypeGroupedAbilities" :persistence-key="`abilities-action-type-groups`"
+      class="cards-container">
       <template #default="{ item }">
         <AbilityCard :ability="item" :editable="isAdmin" :sources="sources" :collapsible="false"
           :showImprovements="getAbilityShowImprovements(item.id)"

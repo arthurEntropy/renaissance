@@ -2,7 +2,8 @@
     <div class="custom-roller-container">
         <h3 class="custom-roll-header">Custom Roll</h3>
         <div class="dice-types-row">
-            <div v-for="dieType in DIE_TYPES" :key="dieType" class="dice-column">
+            <div v-for="dieType in DIE_TYPES" :key="dieType" class="dice-column"
+                :class="{ 'dice-column--active': diceCounts[dieType] > 0 }">
                 <i :class="getDiceFontMaxClass(dieType)" class="die-icon"></i>
                 <NumberInput :model-value="diceCounts[dieType]" @update:model-value="updateDiceCount(dieType, $event)"
                     :min="0" :max="20" :size="NUMBER_INPUT_SIZES.MEDIUM" />
@@ -10,7 +11,8 @@
         </div>
 
         <div class="controls-row">
-            <div class="modifier-control">
+            <div class="modifier-control"
+                :class="{ 'modifier-control--positive': modifier > 0, 'modifier-control--negative': modifier < 0 }">
                 <span class="modifier-label">Modifier</span>
                 <NumberInput :model-value="modifier" @update:model-value="modifier = $event"
                     :size="NUMBER_INPUT_SIZES.MEDIUM" />
@@ -149,6 +151,15 @@ const handleRoll = async () => {
 .die-icon {
     font-size: var(--font-size-36);
     color: var(--color-gray-light);
+    transition: color var(--transition-fast);
+}
+
+.dice-column--active .die-icon {
+    color: var(--color-primary);
+}
+
+.dice-column--active :deep(input[type='number']) {
+    border-color: var(--color-primary);
 }
 
 .controls-row {
@@ -170,6 +181,14 @@ const handleRoll = async () => {
     font-size: var(--font-size-12);
     color: var(--color-text-secondary);
     min-width: 50px;
+}
+
+.modifier-control--positive :deep(input[type='number']) {
+    border-color: var(--color-success);
+}
+
+.modifier-control--negative :deep(input[type='number']) {
+    border-color: var(--color-danger);
 }
 
 .action-buttons {

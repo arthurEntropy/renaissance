@@ -5,12 +5,12 @@
     <img v-if="expansionLogoUrl" :src="expansionLogoUrl" alt="Expansion Logo" class="expansion-logo-badge" />
     <img v-if="conceptArtUrl" :src="optimizedConceptArtUrl" :alt="`${concept.name} concept art`"
       class="concept-card-image" />
-    <p class="concept-card-name">{{ concept.name }}</p>
+    <p ref="nameRef" class="concept-card-name">{{ concept.name }}</p>
   </div>
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, ref, onMounted, watch, nextTick } from 'vue'
 import { useOptimizedImage } from '@/composables/useOptimizedImage'
 import { MIDJOURNEY_IMAGE_CONTEXTS } from '@shared/constants/artConstants.js'
 
@@ -30,6 +30,33 @@ const expansionLogoUrl = computed(() => {
 })
 
 defineEmits(['select'])
+
+const nameRef = ref(null)
+
+const NAME_MAX_PX = 20
+const NAME_MIN_PX = 11
+
+function fitNameText() {
+  const nameEl = nameRef.value
+  if (!nameEl) return
+  nameEl.style.fontSize = `${NAME_MAX_PX}px`
+  const lh = parseFloat(getComputedStyle(nameEl).lineHeight)
+  const lineHeight = isNaN(lh) ? NAME_MAX_PX * 1.4 : lh
+  const maxHeight = lineHeight * 1
+  while (nameEl.scrollHeight > maxHeight && parseFloat(nameEl.style.fontSize) > NAME_MIN_PX) {
+    nameEl.style.fontSize = `${parseFloat(nameEl.style.fontSize) - 0.5}px`
+  }
+}
+
+watch(() => props.concept.name, async () => {
+  await nextTick()
+  fitNameText()
+})
+
+onMounted(async () => {
+  await nextTick()
+  fitNameText()
+})
 </script>
 
 <style scoped>

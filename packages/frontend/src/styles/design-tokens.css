@@ -143,6 +143,7 @@
   --font-size-36: 2.25rem;
   --font-size-40: 2.5rem;
   --font-size-48: 3rem;
+  --font-size-100: 6.25rem;
   
   /* Font weights */
   --font-weight-normal: 400;
@@ -164,6 +165,7 @@
 
   /* Widths */
   --width-modal: 500px;
+  --card-width: 350px;
 
   /* Button-specific */
   --btn-padding-sm: 2px var(--space-sm);

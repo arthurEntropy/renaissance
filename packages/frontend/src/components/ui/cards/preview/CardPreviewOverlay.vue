@@ -26,7 +26,7 @@ import AbilityCard from '@/components/ui/cards/item/AbilityCard.vue'
 import EquipmentCard from '@/components/ui/cards/item/EquipmentCard.vue'
 import { useCardPreview } from '@/composables/useCardPreview'
 
-const PREVIEW_WIDTH = 320
+const PREVIEW_WIDTH = 350
 const GAP = 12
 const VIEWPORT_MARGIN = 8
 

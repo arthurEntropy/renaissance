@@ -150,7 +150,7 @@ function onDragEnd() {
 <style scoped>
 .three-column-layout {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, var(--card-width));
     gap: var(--space-lg);
     align-items: start;
 }

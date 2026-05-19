@@ -124,6 +124,7 @@ const props = defineProps({
   collapsible: { type: Boolean, default: true },
   showSource: { type: Boolean, default: true },
   itemType: { type: String, default: ItemType.ABILITY },
+  fallbackBackgroundUrl: { type: String, default: null },
 })
 
 const emit = defineEmits(['edit', 'duplicate', 'delete', 'update', 'send-to-chat', 'height-changed', 'update:collapsed', 'roll-link'])
@@ -162,7 +163,7 @@ const rawCardBackgroundUrl = computed(() => {
     }
   }
 
-  return source?.cardBackgroundImage || null
+  return source?.cardBackgroundImage || props.fallbackBackgroundUrl || null
 })
 
 const {
@@ -270,7 +271,7 @@ const handleCollapsed = () => {
   transition:
     background-color var(--transition-normal) ease,
     transform 0.2s ease;
-  width: 100%;
+  width: var(--card-width);
   position: relative;
   box-sizing: border-box;
   min-width: 0;

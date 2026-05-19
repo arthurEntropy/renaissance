@@ -67,3 +67,43 @@ export function getSnippet(html, query, { before = 40, after = 80 } = {}) {
   const end = Math.min(text.length, index + query.length + after)
   return (start > 0 ? '\u2026' : '') + text.slice(start, end) + (end < text.length ? '\u2026' : '')
 }
+
+/**
+ * Returns an array of every match occurrence in the HTML content.
+ * Each entry has { matchIndex, subsection, snippet } where matchIndex is the
+ * 0-based index of the corresponding <mark> element that highlightInHtml will produce.
+ */
+export function getAllMatchPositions(html, query) {
+  if (!html || !query) return []
+  const queryLower = query.toLowerCase()
+  const parser = new DOMParser()
+  const doc = parser.parseFromString(html, 'text/html')
+  const results = []
+  let currentH2 = null
+  let matchIndex = 0
+
+  function walk(node) {
+    if (node.nodeType === Node.ELEMENT_NODE) {
+      if (node.tagName === 'H2') currentH2 = node.textContent.trim()
+      for (const child of node.childNodes) walk(child)
+    } else if (node.nodeType === Node.TEXT_NODE) {
+      const text = node.textContent
+      const lower = text.toLowerCase()
+      let from = 0
+      let idx
+      while ((idx = lower.indexOf(queryLower, from)) !== -1) {
+        const start = Math.max(0, idx - 40)
+        const end = Math.min(text.length, idx + query.length + 80)
+        const snippet =
+          (start > 0 ? '\u2026' : '') +
+          text.slice(start, end) +
+          (end < text.length ? '\u2026' : '')
+        results.push({ matchIndex: matchIndex++, subsection: currentH2, snippet })
+        from = idx + query.length
+      }
+    }
+  }
+
+  walk(doc.body)
+  return results
+}

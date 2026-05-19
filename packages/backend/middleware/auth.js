@@ -1,6 +1,32 @@
 import { getAuth } from '../config/firebase.js'
 import { USER_ROLE, USER_STATUS } from '../../../shared/constants/userConstants.js'
 
+// Middleware to verify Firebase ID token if present, but proceed without error if absent.
+// Sets req.user when a valid token is found; leaves req.user undefined otherwise.
+export const optionalVerifyToken = async (req, res, next) => {
+  try {
+    const authHeader = req.headers.authorization
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      return next()
+    }
+
+    const token = authHeader.split('Bearer ')[1]
+    const auth = getAuth()
+    if (!auth) return next()
+
+    const decodedToken = await auth.verifyIdToken(token)
+    req.user = {
+      uid: decodedToken.uid,
+      role: decodedToken.role || USER_ROLE.USER,
+      ...decodedToken
+    }
+    next()
+  } catch {
+    // Invalid token — treat as unauthenticated rather than erroring
+    next()
+  }
+}
+
 // Middleware to verify Firebase ID token
 export const verifyToken = async (req, res, next) => {
   try {

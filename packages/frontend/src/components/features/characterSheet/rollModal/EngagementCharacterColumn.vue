@@ -2,6 +2,10 @@
     <BaseCharacterColumn :character="character" :is-opponent="isOpponent" :show-results="showResults"
         :is-winner="isWinner" :is-loser="isLoser">
 
+        <template #additional-character-info>
+            <div class="art-spacer"></div>
+        </template>
+
         <template #content>
             <!-- Engagement Dice -->
             <div class="dice-display">
@@ -135,6 +139,10 @@ const onSuccessDragStart = (event, success) => {
 </script>
 
 <style scoped>
+.art-spacer {
+    height: calc(105px + 2 * var(--space-md));
+}
+
 .dice-display {
     display: flex;
     flex-direction: column;
