@@ -2,7 +2,7 @@
   "id": "224ddaf7-26fc-4344-b922-6fd3853435f1",
   "isDeleted": false,
   "createdAt": "2026-05-15T00:00:56.659Z",
-  "lastModified": "2026-05-19T14:01:21.789Z",
+  "lastModified": "2026-05-19T14:03:26.781Z",
   "characterType": "playerCharacter",
   "name": "Chissa",
   "featuredArtUrls": [
@@ -319,7 +319,7 @@
   "keeping": "4d5e6f7a-8b9c-4d0e-1f2a-3b4c5d6e7f8a",
   "treasure": 11,
   "xp": 0,
-  "updatedAt": "2026-05-19T14:01:21.789Z",
+  "updatedAt": "2026-05-19T14:03:26.781Z",
   "description": "",
   "size": 0,
   "reach": 0
