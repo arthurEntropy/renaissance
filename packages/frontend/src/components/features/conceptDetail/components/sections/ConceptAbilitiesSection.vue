@@ -169,7 +169,7 @@ const groupingOptions = computed(() => {
     return options
 })
 
-const sortOption = ref('xp-asc')
+const sortOption = ref('xpCost-asc')
 const groupingOption = ref('')
 
 useFilterPersistence(`concept-abilities-${concept.value?.id}`, { sortOption, groupingOption })

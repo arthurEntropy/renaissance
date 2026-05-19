@@ -19,15 +19,8 @@
     </div>
 
     <!-- Search results list -->
-    <div v-if="searchInput.trim() && !isStructureEditMode" class="rule-sections-list search-results-list">
-      <div v-if="searchResults.length === 0" class="no-results">No results found.</div>
-      <div v-for="result in searchResults" :key="result.section.id" class="rule-section-item search-result-item"
-        @click="selectSearchResult(result)">
-        <div class="search-result-name" v-html="result.highlightedName"></div>
-        <div v-if="result.subsection" class="search-result-subsection" v-html="result.highlightedSubsection"></div>
-        <div class="search-result-snippet" v-html="result.highlightedSnippet"></div>
-      </div>
-    </div>
+    <RulesSearchResults v-if="searchInput.trim() && !isStructureEditMode" :groupedSearchResults="groupedSearchResults"
+      class="rule-sections-list" @selectResult="selectSearchResult" />
 
     <!-- Draggable rule sections when in structure edit mode -->
     <draggable v-if="isStructureEditMode" :modelValue="localSections" @update:modelValue="updateLocalSections"
@@ -88,8 +81,9 @@ import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.v
 import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 import draggable from 'vuedraggable'
 import RulesService from '@/services/entities/rulesService'
+import RulesSearchResults from './RulesSearchResults.vue'
 import { createSlug } from '@/utils/urlHelpers'
-import { highlightInText, getSnippet, getMatchSubsection } from '@/utils/highlightText'
+import { useRulesSearch } from '@/composables/useRulesSearch'
 
 const route = useRoute()
 const router = useRouter()
@@ -107,35 +101,10 @@ const searchInput = computed({
   set: (val) => { searchQuery.value = val }
 })
 
-const searchResults = computed(() => {
-  const query = searchInput.value.trim()
-  if (!query) return []
-  return orderedSections.value
-    .map(section => {
-      const nameLower = section.name.toLowerCase()
-      const nameMatch = nameLower.includes(query.toLowerCase())
-      const snippet = getSnippet(section.content || '', query)
-      const snippetHasMatch = snippet.toLowerCase().includes(query.toLowerCase())
-      if (!nameMatch && !snippetHasMatch) return null
-      const subsection = snippetHasMatch ? getMatchSubsection(section.content || '', query) : null
-      return {
-        section,
-        highlightedName: highlightInText(section.name, query),
-        subsection,
-        highlightedSubsection: subsection ? highlightInText(subsection, query) : null,
-        highlightedSnippet: highlightInText(snippet, query),
-        contentMatch: snippetHasMatch,
-      }
-    })
-    .filter(Boolean)
-})
-
 const selectSearchResult = (result) => {
-  const scrollTarget = result.subsection
-    ? { type: 'heading', text: result.subsection }
-    : result.contentMatch
-      ? { type: 'mark' }
-      : null
+  const scrollTarget = result.contentMatch
+    ? { type: 'mark', index: result.matchIndex }
+    : null
 
   if (rulesStore.selectedSection?.id === result.section.id) {
     // Section already loaded — scroll directly without navigating
@@ -184,6 +153,8 @@ const orderedSections = computed(() => {
       .sort((a, b) => a.index - b.index)
     : []
 })
+
+const { groupedSearchResults } = useRulesSearch(orderedSections, searchQuery)
 
 const localSections = ref([])
 
@@ -399,63 +370,6 @@ const updateLocalSections = (newSections) => {
   position: absolute;
   right: var(--space-xs);
   flex-shrink: 0;
-}
-
-.search-results-list {
-  overflow-y: auto;
-}
-
-.search-result-item {
-  flex-direction: column;
-  align-items: flex-start;
-  gap: var(--space-xs);
-}
-
-.search-result-name {
-  font-size: var(--font-size-14);
-  font-weight: var(--font-weight-bold);
-  color: var(--color-primary);
-  width: 100%;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.search-result-item:hover .search-result-name,
-.search-result-item.active .search-result-name {
-  color: var(--color-white);
-}
-
-.search-result-subsection {
-  font-size: var(--font-size-12);
-  font-style: italic;
-  color: var(--color-accent-cyan);
-  width: 100%;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.search-result-snippet {
-  font-size: var(--font-size-12);
-  color: var(--color-gray-medium);
-  line-height: var(--line-height-normal);
-  white-space: normal;
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
-  -webkit-box-orient: vertical;
-}
-
-.search-result-item:hover .search-result-snippet {
-  color: var(--color-text-secondary);
-}
-
-.no-results {
-  padding: var(--space-md) var(--space-lg);
-  color: var(--color-gray-medium);
-  font-size: var(--font-size-14);
 }
 
 :deep(mark) {
