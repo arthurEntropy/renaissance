@@ -54,11 +54,15 @@
       <!-- Preferences modal -->
       <PreferencesModal v-else-if="showPreferencesModal" @close="closePreferences" />
 
-      <!-- Character Sheet page view -->
-      <CharacterSheet v-else-if="isCharacterSheetOpen" @close="closeCharacterSheet" />
-
-      <!-- Main router view -->
-      <router-view v-else />
+      <!-- Character Sheet page view + router view.
+           The router-view is always kept mounted (v-show) even when the character
+           sheet is open so that the matched page component (e.g. CharactersPage)
+           runs its onMounted data-fetch. Without this, refreshing on a character
+           URL skips CharactersPage entirely and the store never loads characters. -->
+      <template v-else>
+        <CharacterSheet v-if="isCharacterSheetOpen" @close="closeCharacterSheet" />
+        <router-view v-show="!isCharacterSheetOpen" />
+      </template>
     </div>
 
   </div>
