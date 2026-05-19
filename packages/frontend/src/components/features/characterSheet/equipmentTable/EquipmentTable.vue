@@ -20,6 +20,8 @@
       </template>
       <template #header-right>
         <div class="header-right-controls">
+          <FloatingActionButton :variant="FAB_TYPES.GRATUITI" :size="FAB_SIZES.LARGE"
+            :visibility="FAB_VISIBILITIES.ALWAYS" @click="openGratuiti" />
           <FloatingActionButton :variant="FAB_TYPES.MARTIAL_TRAINING" :size="FAB_SIZES.LARGE"
             :visibility="FAB_VISIBILITIES.ALWAYS" @click="openMartialTraining" />
           <EquipmentWeight :equipment-items="characterEquipment" />
@@ -98,6 +100,11 @@
     <SkillCheckModal v-if="showSkillCheckModal" :selected-skill-name="rollLinkSkill" :character="selectedCharacter"
       :default-roll-type="rollLinkRollType" @close="showSkillCheckModal = false" />
 
+    <!-- Gratuiti Popup -->
+    <GratuitiPopup v-if="showGratuitiPopup" :mestiere-gratuiti="characterMestiereNovizio?.gratuiti"
+      :mestiere-name="characterMestiere?.name" :keeping-gratuiti="characterKeeping?.gratuiti"
+      :keeping-name="characterKeeping?.name" :anchor-el="gratuitiAnchorEl" @close="showGratuitiPopup = false" />
+
     <!-- Martial Training Popup -->
     <MartialTrainingPopup v-if="showMartialTrainingPopup" :novizio="characterMestiereNovizio"
       :equipment-grades="equipmentGradesStore.items" :mestiere-name="characterMestiere?.name"
@@ -129,6 +136,7 @@ import SortingPicker from '@/components/ui/pickers/SortingPicker.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import SkillCheckModal from '@/components/features/characterSheet/modals/SkillCheckModal.vue'
 import MartialTrainingPopup from '@/components/features/characterSheet/modals/MartialTrainingPopup.vue'
+import GratuitiPopup from '@/components/features/characterSheet/modals/GratuitiPopup.vue'
 import TransferEquipmentModal from './TransferEquipmentModal.vue'
 import { useEditModal } from '@/composables/useEditModal'
 import CharacterService from '@/services/entities/characterService'
@@ -192,6 +200,19 @@ const martialTrainingAnchorEl = ref(null)
 const openMartialTraining = (event) => {
   martialTrainingAnchorEl.value = event.currentTarget
   showMartialTrainingPopup.value = true
+}
+
+const showGratuitiPopup = ref(false)
+const gratuitiAnchorEl = ref(null)
+
+const characterKeeping = computed(() => {
+  if (!selectedCharacter.value?.keeping) return null
+  return keepingStore.keeping.find(k => k.id === selectedCharacter.value.keeping) ?? null
+})
+
+const openGratuiti = (event) => {
+  gratuitiAnchorEl.value = event.currentTarget
+  showGratuitiPopup.value = true
 }
 
 const allEquipment = computed(() => equipmentStore.equipment || [])

@@ -84,15 +84,22 @@
         </AdminListManager>
 
         <AdminListManager title="Keeping" item-name="Keeping" :store="keepingStore"
-            :default-item="{ name: '', description: '', cost: 0, imageUrl: '', index: 0 }">
+            :default-item="{ name: '', description: '', cost: 0, imageUrl: '', gratuiti: '', index: 0 }">
             <template #fields="{ item, update }">
-                <input v-model="item.name" @blur="update" class="field-input" placeholder="Keeping Name" />
-                <input v-model="item.description" @blur="update" class="field-input flex-1" placeholder="Description" />
-                <input v-model.number="item.cost" @blur="update" type="number" min="0" class="field-input cost-input"
-                    placeholder="Cost" />
-                <input v-model="item.imageUrl" @blur="update" class="field-input flex-1" placeholder="Image URL" />
-                <img v-if="item.imageUrl" :src="item.imageUrl" class="keeping-art-preview"
-                    alt="Keeping image preview" />
+                <div class="keeping-admin-fields">
+                    <div class="keeping-top-row">
+                        <input v-model="item.name" @blur="update" class="field-input" placeholder="Keeping Name" />
+                        <input v-model.number="item.cost" @blur="update" type="number" min="0"
+                            class="field-input cost-input" placeholder="Cost" />
+                        <input v-model="item.imageUrl" @blur="update" class="field-input flex-1"
+                            placeholder="Image URL" />
+                        <img v-if="item.imageUrl" :src="item.imageUrl" class="keeping-art-preview"
+                            alt="Keeping image preview" />
+                    </div>
+                    <textarea v-model="item.description" @blur="update" class="field-input" placeholder="Description" />
+                    <textarea v-model="item.gratuiti" @blur="update" class="field-input gratuiti-input"
+                        placeholder="Gratuiti" rows="2" />
+                </div>
             </template>
         </AdminListManager>
     </div>
@@ -185,6 +192,29 @@ const mestriereGroupStore = computed(() => ({
     flex-shrink: 0;
 }
 
+.keeping-admin-fields {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    flex: 1;
+    min-width: 0;
+}
+
+.keeping-admin-fields .field-input {
+    width: 100%;
+    min-width: 0;
+}
+
+.keeping-top-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+}
+
+.keeping-top-row .field-input {
+    width: auto;
+}
+
 .keeping-art-preview {
     width: 80px;
     height: 50px;
@@ -196,5 +226,9 @@ const mestriereGroupStore = computed(() => ({
 
 .cost-input {
     max-width: 70px;
+}
+
+.gratuiti-input {
+    resize: vertical;
 }
 </style>

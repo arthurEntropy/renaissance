@@ -19,6 +19,7 @@ import CrossedSwordsIcon from '@/assets/icons/characterSheet/crossed_swords.svg?
 import DieIcon from '@/assets/icons/characterSheet/die.svg?component'
 import InjuryIcon from '@/assets/icons/characterSheet/injury.svg?component'
 import MartialTrainingIcon from '@/assets/icons/characterSheet/martial_training.svg?component'
+import GratuitiIcon from '@/assets/icons/characterSheet/gratuiti.svg?component'
 // Constants
 import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 
@@ -68,6 +69,7 @@ const FAB_TYPE_CONFIG = {
     [FAB_TYPES.MOVE_UP]: { icon: ArrowUpIcon, tooltip: 'Move up' },
     [FAB_TYPES.MOVE_DOWN]: { icon: ArrowDownIcon, tooltip: 'Move down' },
     [FAB_TYPES.MARTIAL_TRAINING]: { icon: MartialTrainingIcon, tooltip: 'View Martial Training' },
+    [FAB_TYPES.GRATUITI]: { icon: GratuitiIcon, tooltip: 'View Gratuiti' },
     [FAB_TYPES.ACTIVATE]: { icon: BoltIcon, tooltip: 'Activate' },
     [FAB_TYPES.DEACTIVATE]: { icon: BoltSlashIcon, tooltip: 'Deactivate' },
     [FAB_TYPES.TRANSFER]: { icon: ArrowRightStartOnRectangleIcon, tooltip: 'Transfer to another character' },
