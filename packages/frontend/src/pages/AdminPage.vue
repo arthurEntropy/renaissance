@@ -7,11 +7,25 @@
         <AdminCleanupPanel />
 
         <AdminListManager title="Expansions" item-name="Expansion" :store="expansionsStore"
-            :default-item="{ name: '', logoUrl: '', index: 0 }">
+            :default-item="{ name: '', logoUrl: '', isAdminVisible: true, isPublic: false, index: 0 }">
             <template #fields="{ item, update }">
-                <input v-model="item.name" @blur="update" class="name-input" placeholder="Expansion Name" />
-                <input v-model="item.logoUrl" @blur="update" class="logo-input" placeholder="Logo URL" />
-                <img v-if="item.logoUrl" :src="item.logoUrl" class="logo-preview" alt="Logo preview" />
+                <div class="expansion-admin-fields">
+                    <div class="expansion-top-row">
+                        <input v-model="item.name" @blur="update" class="name-input" placeholder="Expansion Name" />
+                        <input v-model="item.logoUrl" @blur="update" class="logo-input" placeholder="Logo URL" />
+                        <img v-if="item.logoUrl" :src="item.logoUrl" class="logo-preview" alt="Logo preview" />
+                    </div>
+                    <div class="expansion-visibility-row">
+                        <label class="checkbox-label">
+                            <input type="checkbox" v-model="item.isAdminVisible" @change="update" />
+                            Admin visible
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" v-model="item.isPublic" @change="update" />
+                            Public
+                        </label>
+                    </div>
+                </div>
             </template>
         </AdminListManager>
 
@@ -154,6 +168,26 @@ const mestriereGroupStore = computed(() => ({
     padding: var(--space-xl);
     background: var(--color-bg-secondary);
     border-radius: var(--radius-10);
+}
+
+.expansion-admin-fields {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    flex: 1;
+    min-width: 0;
+}
+
+.expansion-top-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+}
+
+.expansion-visibility-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
 }
 
 .biome-admin-fields {

@@ -8,6 +8,8 @@ import { createBaseEntity } from './baseEntity.js'
  * @typedef {Object} ExpansionFields
  * @property {string} name - Expansion name
  * @property {string} logoUrl - Logo image URL
+ * @property {boolean} isAdminVisible - Whether concepts in this expansion are visible to admin users (trumps isPublic for admins)
+ * @property {boolean} isPublic - Whether concepts in this expansion are visible to all users
  */
 
 /**
@@ -23,5 +25,7 @@ export function createDefaultExpansion() {
     ...createBaseEntity(),
     name: 'New Expansion',
     logoUrl: '',
+    isAdminVisible: true,
+    isPublic: false,
   }
 }
