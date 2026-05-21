@@ -1,7 +1,7 @@
 {
   "isDeleted": false,
   "createdAt": "2026-05-06T17:55:10.305Z",
-  "lastModified": "2026-05-21T13:04:02.582Z",
+  "lastModified": "2026-05-21T13:53:40.710Z",
   "name": "Pistol",
   "artUrl": "",
   "description": "",
@@ -11,7 +11,7 @@
   "school": null,
   "keeping": null,
   "isCustom": false,
-  "isTemplate": true,
+  "isTemplate": false,
   "isMagical": false,
   "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
   "subtype": "866abdf6-aad3-4527-abc4-ba8115755301",

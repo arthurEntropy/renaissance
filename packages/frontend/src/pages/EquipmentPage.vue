@@ -7,6 +7,10 @@
         <template #additional-filters>
             <div v-if="isAdmin" class="top-row-actions">
                 <label class="template-toggle">
+                    <input type="checkbox" v-model="templatesOnly" />
+                    <span>Templates Only</span>
+                </label>
+                <label class="template-toggle">
                     <input type="checkbox" v-model="showTemplates" />
                     <span>Show Templates</span>
                 </label>
@@ -18,7 +22,7 @@
             <EquipmentCard v-for="item in items" :key="item.id" :equipment="item" :editable="isAdmin"
                 :duplicatable="isAdmin" :sources="sources" :art-expanded="true"
                 :engagement-success-options="engagementSuccessOptions" :collapsible="false"
-                :showImprovements="getEquipmentShowImprovements(item.id)"
+                :showImprovements="getEquipmentShowImprovements(item.id) "
                 :showSuccesses="getEquipmentShowSuccesses(item.id)" @edit="openEditEquipmentModal(item)"
                 @duplicate="handleDuplicateEquipment"
                 @update:showImprovements="updateEquipmentShowImprovements(item.id, $event)"
@@ -51,6 +55,10 @@
             <template #additional-filters>
                 <div v-if="isAdmin" class="top-row-actions">
                     <label class="template-toggle">
+                        <input type="checkbox" v-model="templatesOnly" />
+                        <span>Templates Only</span>
+                    </label>
+                    <label class="template-toggle">
                         <input type="checkbox" v-model="showTemplates" />
                         <span>Show Templates</span>
                     </label>
@@ -63,7 +71,7 @@
             <template #default="{ item }">
                 <EquipmentCard :equipment="item" :editable="isAdmin" :duplicatable="isAdmin" :sources="sources"
                     :art-expanded="true" :engagement-success-options="engagementSuccessOptions" :collapsible="false"
-                    :showImprovements="getEquipmentShowImprovements(item.id)"
+                    :showImprovements="getEquipmentShowImprovements(item.id) "
                     :showSuccesses="getEquipmentShowSuccesses(item.id)" @edit="openEditEquipmentModal(item)"
                     @duplicate="handleDuplicateEquipment"
                     @update:showImprovements="updateEquipmentShowImprovements(item.id, $event)"
@@ -134,6 +142,7 @@ const groupByOption = ref('')
 const searchQuery = ref('')
 const equipmentTagFilters = ref([])
 const showTemplates = ref(false)
+const templatesOnly = ref(false)
 const engagementSuccessOptions = computed(() => engagementSuccessesStore.items)
 const isLoadingMore = ref(false)
 const improvementVisibility = ref(new Map())
@@ -282,7 +291,9 @@ const allFilteredEquipment = computed(() => {
         )
     }
 
-    if (!showTemplates.value) {
+    if (templatesOnly.value) {
+        filtered = filtered.filter((item) => item.isTemplate)
+    } else if (!showTemplates.value) {
         filtered = filtered.filter((item) => !item.isTemplate)
     }
 
@@ -383,6 +394,7 @@ useFilterPersistence('equipment', {
     searchQuery,
     equipmentTagFilters,
     showTemplates,
+    templatesOnly,
 })
 
 // Improvement visibility methods
@@ -491,7 +503,7 @@ const refreshData = async () => {
 }
 
 // Watchers
-watch([searchQuery, equipmentTagFilters, sortOption, showTemplates, groupByOption], () => {
+watch([searchQuery, equipmentTagFilters, sortOption, showTemplates, templatesOnly, groupByOption], () => {
     reset()
 })
 

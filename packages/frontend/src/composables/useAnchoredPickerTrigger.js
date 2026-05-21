@@ -49,7 +49,7 @@ export function useAnchoredPickerTrigger(options = {}) {
 
     const removeScrollListener = () => {
         if (!scrollHostRef.value) return
-        scrollHostRef.value.removeEventListener('scroll', closePicker, true)
+        scrollHostRef.value.removeEventListener('scroll', closePicker)
         scrollHostRef.value = null
     }
 
@@ -67,7 +67,7 @@ export function useAnchoredPickerTrigger(options = {}) {
         removeScrollListener()
         const scrollHost = triggerRef.value?.closest(scrollContainerSelector) || window
         scrollHostRef.value = scrollHost
-        scrollHost.addEventListener('scroll', closePicker, true)
+        scrollHost.addEventListener('scroll', closePicker)
     }
 
     const openPicker = () => {

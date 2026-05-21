@@ -1,7 +1,7 @@
 {
   "isDeleted": false,
   "createdAt": "2026-05-06T17:55:10.305Z",
-  "lastModified": "2026-05-20T14:52:19.721Z",
+  "lastModified": "2026-05-21T13:52:54.953Z",
   "name": "Bastard Sword",
   "artUrl": "https://cdn.midjourney.com/244a9cc7-1d75-486c-8b54-27ef82ca20e0/0_0.png",
   "description": "",
@@ -11,7 +11,7 @@
   "school": null,
   "keeping": null,
   "isCustom": false,
-  "isTemplate": true,
+  "isTemplate": false,
   "isMagical": false,
   "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
   "subtype": "ab765755-b7c9-47ac-b62f-34f069e00dc3",

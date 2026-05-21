@@ -260,6 +260,19 @@ const handleMouseEnter = () => {
     width: 240px;
 }
 
+/* Allow the sources column itself to scroll; keep the search bar pinned at top */
+.cascade-col--sources .cascade-search {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background: var(--color-bg-secondary);
+}
+
+.cascade-col--sources .cascade-items-list {
+    overflow-y: visible;
+    max-height: none;
+}
+
 .cascade-item-wrap--action {
     margin: 0 4px;
 }
