@@ -1,0 +1,38 @@
+{
+  "isDeleted": false,
+  "createdAt": "2026-05-06T17:55:10.305Z",
+  "lastModified": "2026-05-21T12:25:15.077Z",
+  "name": "Cudgel",
+  "artUrl": null,
+  "description": "",
+  "successes": null,
+  "improvements": [],
+  "source": "cdc93466-8327-4096-a8c2-04cccf3e3835",
+  "school": null,
+  "keeping": null,
+  "isCustom": false,
+  "isTemplate": false,
+  "isMagical": false,
+  "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
+  "subtype": "ab765755-b7c9-47ac-b62f-34f069e00dc3",
+  "grade": "b92d3394-2c64-487f-8c90-c56ea1cbd3f3",
+  "weight": 2,
+  "length": 2,
+  "reach": 0,
+  "range": null,
+  "twoHanded": false,
+  "thrown": false,
+  "finesse": false,
+  "piercing": false,
+  "damageDice": [
+    6
+  ],
+  "engagementDice": [
+    6
+  ],
+  "engagementSuccesses": [
+    "e1f2a3b4-c5d6-47e8-f9a0-b1c2d3e4f5a6"
+  ],
+  "defenseBonus": 0,
+  "id": "f25c13f0-7a93-4632-b067-7570cf5de4db"
+}

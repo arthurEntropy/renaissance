@@ -1,0 +1,36 @@
+{
+  "isDeleted": false,
+  "createdAt": "2026-05-06T17:55:10.305Z",
+  "lastModified": "2026-05-21T13:03:30.804Z",
+  "name": "Pike",
+  "artUrl": "",
+  "description": "",
+  "successes": null,
+  "improvements": [],
+  "source": "352c844b-6d4f-4b61-b475-315421a453e7",
+  "school": null,
+  "keeping": null,
+  "isCustom": false,
+  "isTemplate": false,
+  "isMagical": false,
+  "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
+  "subtype": "3d4f28d9-d757-4789-b3a2-0e9fffda4fc0",
+  "grade": "a9023254-92ed-4c54-9840-5a7577c1aa1f",
+  "weight": 10,
+  "length": 12,
+  "reach": 10,
+  "range": null,
+  "twoHanded": false,
+  "thrown": false,
+  "finesse": false,
+  "piercing": true,
+  "damageDice": [
+    12
+  ],
+  "engagementDice": [
+    12
+  ],
+  "engagementSuccesses": [],
+  "defenseBonus": 0,
+  "id": "811e474b-2f02-4200-b738-ff0ed7e4da12"
+}

@@ -1,0 +1,39 @@
+{
+  "isDeleted": false,
+  "createdAt": "2026-05-06T17:55:10.305Z",
+  "lastModified": "2026-05-20T13:51:19.130Z",
+  "name": "Acacia Pole",
+  "artUrl": "https://cdn.midjourney.com/fc9c141a-eef5-4382-9900-fc4213576b93/0_2.png",
+  "description": "",
+  "successes": null,
+  "improvements": [],
+  "source": "40086e18-eaba-411a-b4ec-7a0a7fd42d37",
+  "school": null,
+  "keeping": null,
+  "isCustom": false,
+  "isTemplate": false,
+  "isMagical": false,
+  "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
+  "subtype": "078c69c2-2644-4be5-b378-05c177ce1a9f",
+  "grade": "ebcc2bcb-8221-4ca0-bef3-000fb7e59e96",
+  "weight": 10,
+  "length": 10,
+  "reach": 5,
+  "range": null,
+  "twoHanded": true,
+  "thrown": false,
+  "finesse": true,
+  "piercing": false,
+  "damageDice": [
+    4
+  ],
+  "engagementDice": [
+    8
+  ],
+  "engagementSuccesses": [
+    "e1f2a3b4-c5d6-47e8-f9a0-b1c2d3e4f5a6",
+    "f6a7b8c9-d0e1-42f3-a4b5-c6d7e8f9a0b1"
+  ],
+  "defenseBonus": 0,
+  "id": "ed06310e-0681-4c2c-995a-565c4e0842ad"
+}

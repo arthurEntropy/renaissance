@@ -1,0 +1,36 @@
+{
+  "isDeleted": false,
+  "createdAt": "2026-05-06T17:55:10.305Z",
+  "lastModified": "2026-05-20T15:43:02.106Z",
+  "name": "Arm Knife",
+  "artUrl": "https://cdn.midjourney.com/2f58fa55-8a10-4e96-a732-9109621d82df/0_2.png",
+  "description": "",
+  "successes": null,
+  "improvements": [],
+  "source": "40086e18-eaba-411a-b4ec-7a0a7fd42d37",
+  "school": null,
+  "keeping": null,
+  "isCustom": false,
+  "isTemplate": false,
+  "isMagical": false,
+  "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
+  "subtype": "ab765755-b7c9-47ac-b62f-34f069e00dc3",
+  "grade": "ad30b114-3c19-413f-aad2-5f270bd95684",
+  "weight": 1,
+  "length": 1,
+  "reach": 0,
+  "range": "55e83a64-59b5-4d1a-b30f-2a01ff020a0b",
+  "twoHanded": false,
+  "thrown": true,
+  "finesse": false,
+  "piercing": false,
+  "damageDice": [
+    4
+  ],
+  "engagementDice": [
+    4
+  ],
+  "engagementSuccesses": [],
+  "defenseBonus": 0,
+  "id": "bb9eaf3c-71ad-4d89-ad20-65733c3600a4"
+}

@@ -1,39 +1,40 @@
 {
-  "id": "76d2126b-98f6-4d7c-9751-eaa2e43b0f1d",
   "isDeleted": false,
   "createdAt": "2026-05-06T17:55:10.305Z",
-  "lastModified": "2026-04-15T14:13:44.476Z",
-  "name": "Acrobat's Pole",
-  "artUrl": "https://cdn.midjourney.com/03333597-abc6-4336-b7f4-e98d98d1e772/0_1.png",
+  "lastModified": "2026-05-21T13:08:55.754Z",
+  "name": "Rapier",
+  "artUrl": "",
   "description": "",
   "successes": null,
   "improvements": [],
-  "source": "83d190cb-0e05-4392-a5b1-f8a8017f505b",
+  "source": "cdc93466-8327-4096-a8c2-04cccf3e3835",
   "school": null,
   "keeping": "4d5e6f7a-8b9c-4d0e-1f2a-3b4c5d6e7f8a",
   "isCustom": false,
   "isTemplate": false,
   "isMagical": false,
   "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
-  "subtype": "078c69c2-2644-4be5-b378-05c177ce1a9f",
-  "grade": "ebcc2bcb-8221-4ca0-bef3-000fb7e59e96",
-  "weight": 10,
-  "length": 10,
-  "reach": 5,
+  "subtype": "ab765755-b7c9-47ac-b62f-34f069e00dc3",
+  "grade": "847d1092-fd43-4d58-b3da-002e6f3b7f3d",
+  "weight": 3,
+  "length": 4,
+  "reach": 0,
   "range": null,
-  "twoHanded": true,
+  "twoHanded": false,
   "thrown": false,
   "finesse": true,
   "piercing": false,
   "damageDice": [
-    4
+    8
   ],
   "engagementDice": [
     8
   ],
   "engagementSuccesses": [
+    "b2c3d4e5-f6a7-48b9-c0d1-e2f3a4b5c6d7",
     "e1f2a3b4-c5d6-47e8-f9a0-b1c2d3e4f5a6",
-    "f6a7b8c9-d0e1-42f3-a4b5-c6d7e8f9a0b1"
+    "d4e5f6a7-b8c9-40d1-e2f3-a4b5c6d7e8f9"
   ],
-  "defenseBonus": 0
+  "defenseBonus": 0,
+  "id": "3f2542f1-7c87-4663-9275-fb778ba9058f"
 }

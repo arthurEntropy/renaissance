@@ -1,0 +1,40 @@
+{
+  "isDeleted": false,
+  "createdAt": "2026-05-06T17:55:10.305Z",
+  "lastModified": "2026-05-21T13:23:30.637Z",
+  "name": "Whip",
+  "artUrl": "",
+  "description": "<p></p>",
+  "successes": null,
+  "improvements": [],
+  "source": "3085883d-e74b-40aa-84a9-af6fccb3d98e",
+  "school": null,
+  "keeping": "",
+  "isCustom": false,
+  "isTemplate": false,
+  "isMagical": false,
+  "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
+  "subtype": "ab765755-b7c9-47ac-b62f-34f069e00dc3",
+  "grade": "ad30b114-3c19-413f-aad2-5f270bd95684",
+  "weight": 1,
+  "length": 6,
+  "reach": 0,
+  "range": null,
+  "twoHanded": false,
+  "thrown": false,
+  "finesse": true,
+  "piercing": false,
+  "damageDice": [
+    4
+  ],
+  "engagementDice": [
+    4
+  ],
+  "engagementSuccesses": [
+    "b2c3d4e5-f6a7-48b9-c0d1-e2f3a4b5c6d7",
+    "e1f2a3b4-c5d6-47e8-f9a0-b1c2d3e4f5a6",
+    "d4e5f6a7-b8c9-40d1-e2f3-a4b5c6d7e8f9"
+  ],
+  "defenseBonus": 0,
+  "id": "9c9f2485-d5ae-45bc-b8a7-5b9d38adb957"
+}

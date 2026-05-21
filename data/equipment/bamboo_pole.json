@@ -1,0 +1,39 @@
+{
+  "isDeleted": false,
+  "createdAt": "2026-05-06T17:55:10.305Z",
+  "lastModified": "2026-05-20T13:51:53.826Z",
+  "name": "Bamboo Pole",
+  "artUrl": "https://cdn.midjourney.com/02b85cb0-d080-49f0-8e0b-bb4556df48f9/0_3.png",
+  "description": "",
+  "successes": null,
+  "improvements": [],
+  "source": "be62ac3d-7168-4779-8274-e60574a2fd27",
+  "school": null,
+  "keeping": null,
+  "isCustom": false,
+  "isTemplate": false,
+  "isMagical": false,
+  "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
+  "subtype": "078c69c2-2644-4be5-b378-05c177ce1a9f",
+  "grade": "b92d3394-2c64-487f-8c90-c56ea1cbd3f3",
+  "weight": 6,
+  "length": 11,
+  "reach": 5,
+  "range": null,
+  "twoHanded": true,
+  "thrown": false,
+  "finesse": true,
+  "piercing": false,
+  "damageDice": [
+    4
+  ],
+  "engagementDice": [
+    8
+  ],
+  "engagementSuccesses": [
+    "e1f2a3b4-c5d6-47e8-f9a0-b1c2d3e4f5a6",
+    "f6a7b8c9-d0e1-42f3-a4b5-c6d7e8f9a0b1"
+  ],
+  "defenseBonus": 0,
+  "id": "8f8eca81-ffc9-41c7-a852-05a091d4960c"
+}

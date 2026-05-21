@@ -149,7 +149,7 @@ const createItem = () => {
  *   2-col: viewport >= 720  / 0.9 = 800px
  */
 .item-cards-layout--constrained {
-  max-width: 1090px;
+  max-width: 1110px;
   /* 3-column default */
 }
 

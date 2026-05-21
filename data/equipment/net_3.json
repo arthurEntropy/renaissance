@@ -1,0 +1,38 @@
+{
+  "isDeleted": false,
+  "createdAt": "2026-05-06T17:55:10.305Z",
+  "lastModified": "2026-05-21T13:00:26.310Z",
+  "name": "Net",
+  "artUrl": null,
+  "description": "<p>Ensnare</p>",
+  "successes": null,
+  "improvements": [],
+  "source": "61e2ce55-1954-4e8e-b1b3-b249ae915fa7",
+  "school": null,
+  "keeping": null,
+  "isCustom": false,
+  "isTemplate": false,
+  "isMagical": false,
+  "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
+  "subtype": "956839d8-393c-4743-9cb3-8038c8a7aa93",
+  "grade": "b92d3394-2c64-487f-8c90-c56ea1cbd3f3",
+  "weight": 1,
+  "length": 5,
+  "reach": 5,
+  "range": "55e83a64-59b5-4d1a-b30f-2a01ff020a0b",
+  "twoHanded": true,
+  "thrown": true,
+  "finesse": true,
+  "piercing": false,
+  "damageDice": [],
+  "engagementDice": [
+    4
+  ],
+  "engagementSuccesses": [
+    "b2c3d4e5-f6a7-48b9-c0d1-e2f3a4b5c6d7",
+    "a3b4c5d6-e7f8-49a0-b1c2-d3e4f5a6b7c8",
+    "d4e5f6a7-b8c9-40d1-e2f3-a4b5c6d7e8f9"
+  ],
+  "defenseBonus": 0,
+  "id": "1d4d4fab-eeda-4bee-8899-c4e91af47687"
+}

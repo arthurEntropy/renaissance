@@ -1,0 +1,36 @@
+{
+  "isDeleted": false,
+  "createdAt": "2026-05-06T17:55:10.305Z",
+  "lastModified": "2026-05-21T13:16:11.868Z",
+  "name": "Spear",
+  "artUrl": "",
+  "description": "",
+  "successes": null,
+  "improvements": [],
+  "source": "be62ac3d-7168-4779-8274-e60574a2fd27",
+  "school": null,
+  "keeping": null,
+  "isCustom": false,
+  "isTemplate": false,
+  "isMagical": false,
+  "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
+  "subtype": "3d4f28d9-d757-4789-b3a2-0e9fffda4fc0",
+  "grade": "847d1092-fd43-4d58-b3da-002e6f3b7f3d",
+  "weight": 4,
+  "length": 6,
+  "reach": 0,
+  "range": "c8e24244-5f2f-42a5-848c-1a4371dd1922",
+  "twoHanded": false,
+  "thrown": true,
+  "finesse": false,
+  "piercing": false,
+  "damageDice": [
+    6
+  ],
+  "engagementDice": [
+    8
+  ],
+  "engagementSuccesses": [],
+  "defenseBonus": 0,
+  "id": "dcd113de-93c0-40f8-b9f5-15a61856f7c9"
+}

@@ -1,0 +1,39 @@
+{
+  "isDeleted": false,
+  "createdAt": "2026-05-06T17:55:10.305Z",
+  "lastModified": "2026-05-20T13:50:37.300Z",
+  "name": "Ash Pole",
+  "artUrl": "https://cdn.midjourney.com/965f7414-f503-46ac-bef3-c1d810e61229/0_3.png",
+  "description": "",
+  "successes": null,
+  "improvements": [],
+  "source": "352c844b-6d4f-4b61-b475-315421a453e7",
+  "school": null,
+  "keeping": null,
+  "isCustom": false,
+  "isTemplate": false,
+  "isMagical": false,
+  "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
+  "subtype": "078c69c2-2644-4be5-b378-05c177ce1a9f",
+  "grade": "ebcc2bcb-8221-4ca0-bef3-000fb7e59e96",
+  "weight": 14,
+  "length": 14,
+  "reach": 5,
+  "range": null,
+  "twoHanded": true,
+  "thrown": false,
+  "finesse": true,
+  "piercing": false,
+  "damageDice": [
+    4
+  ],
+  "engagementDice": [
+    8
+  ],
+  "engagementSuccesses": [
+    "e1f2a3b4-c5d6-47e8-f9a0-b1c2d3e4f5a6",
+    "f6a7b8c9-d0e1-42f3-a4b5-c6d7e8f9a0b1"
+  ],
+  "defenseBonus": 0,
+  "id": "2988bbcf-640d-4473-8e14-b949f15161dd"
+}

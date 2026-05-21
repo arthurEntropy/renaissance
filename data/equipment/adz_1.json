@@ -1,0 +1,39 @@
+{
+  "isDeleted": false,
+  "createdAt": "2026-05-06T17:55:10.305Z",
+  "lastModified": "2026-05-20T14:28:04.107Z",
+  "name": "Adz",
+  "artUrl": "https://cdn.midjourney.com/efa98550-b624-4f31-9090-69c2853e4aaf/0_1.png",
+  "description": "",
+  "successes": null,
+  "improvements": [],
+  "source": "55494a30-a1bb-47c3-aae9-2db3a5bfcb8b",
+  "school": null,
+  "keeping": null,
+  "isCustom": false,
+  "isTemplate": false,
+  "isMagical": false,
+  "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
+  "subtype": "ab765755-b7c9-47ac-b62f-34f069e00dc3",
+  "grade": "b92d3394-2c64-487f-8c90-c56ea1cbd3f3",
+  "weight": 3,
+  "length": 3,
+  "reach": 0,
+  "range": null,
+  "twoHanded": false,
+  "thrown": false,
+  "finesse": false,
+  "piercing": false,
+  "damageDice": [
+    6
+  ],
+  "engagementDice": [
+    6
+  ],
+  "engagementSuccesses": [
+    "e1f2a3b4-c5d6-47e8-f9a0-b1c2d3e4f5a6",
+    "b4c5d6e7-f8a9-40b1-c2d3-e4f5a6b7c8d9"
+  ],
+  "defenseBonus": 0,
+  "id": "7c62ef5c-a160-4b2f-849f-69bdf492d213"
+}

@@ -1,0 +1,38 @@
+{
+  "isDeleted": false,
+  "createdAt": "2026-05-06T17:55:10.305Z",
+  "lastModified": "2026-05-21T13:19:42.002Z",
+  "name": "Trident",
+  "artUrl": null,
+  "description": "<p>Medium range and +1d damage if thrown underwater</p>",
+  "successes": null,
+  "improvements": [],
+  "source": "c02c53d1-b456-45d0-a048-6fc941cacc03",
+  "school": null,
+  "keeping": null,
+  "isCustom": false,
+  "isTemplate": false,
+  "isMagical": false,
+  "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
+  "subtype": "ab765755-b7c9-47ac-b62f-34f069e00dc3",
+  "grade": "b92d3394-2c64-487f-8c90-c56ea1cbd3f3",
+  "weight": 3,
+  "length": 3,
+  "reach": 0,
+  "range": "55e83a64-59b5-4d1a-b30f-2a01ff020a0b",
+  "twoHanded": false,
+  "thrown": true,
+  "finesse": false,
+  "piercing": true,
+  "damageDice": [
+    6
+  ],
+  "engagementDice": [
+    6
+  ],
+  "engagementSuccesses": [
+    "b2c3d4e5-f6a7-48b9-c0d1-e2f3a4b5c6d7"
+  ],
+  "defenseBonus": 0,
+  "id": "e1898297-104a-4c5f-9998-27b423e43858"
+}
