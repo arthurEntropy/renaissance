@@ -1,0 +1,16 @@
+{
+  "type": "1cc02e7b-cdaf-477c-a198-6be0ad5ab47f",
+  "createdAt": "2026-05-21T14:29:14.060Z",
+  "lastModified": "2026-05-21T14:46:30.191Z",
+  "isTemplate": true,
+  "name": "Martial Greaves",
+  "subtype": "9b83b280-d799-4177-9e98-5bab995116e5",
+  "grade": "847d1092-fd43-4d58-b3da-002e6f3b7f3d",
+  "weight": 6,
+  "defenseBonus": 3,
+  "engagementDice": [],
+  "damageDice": [],
+  "length": 0,
+  "reach": 0,
+  "id": "4f026679-aac8-4d48-855f-04572dd6ef53"
+}

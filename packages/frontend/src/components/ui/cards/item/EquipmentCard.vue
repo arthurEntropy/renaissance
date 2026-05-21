@@ -522,7 +522,7 @@ const handleDuplicate = async () => {
     delete duplicateData.id
 
     // Modify the name to indicate it's a copy
-    duplicateData.name = `${duplicateData.name}`
+    duplicateData.name = `${duplicateData.name} (Copy)`
 
     // Create the duplicate using the equipment store
     const newEquipment = await equipmentStore.create(duplicateData)
