@@ -1,0 +1,17 @@
+{
+  "type": "1cc02e7b-cdaf-477c-a198-6be0ad5ab47f",
+  "createdAt": "2026-05-21T15:55:35.050Z",
+  "lastModified": "2026-05-21T15:55:35.050Z",
+  "isTemplate": false,
+  "name": "Heavy Greaves",
+  "subtype": "9b83b280-d799-4177-9e98-5bab995116e5",
+  "grade": "ebcc2bcb-8221-4ca0-bef3-000fb7e59e96",
+  "weight": 10,
+  "defenseBonus": 4,
+  "engagementDice": [],
+  "damageDice": [],
+  "length": 0,
+  "reach": 0,
+  "id": "d1d5de53-33ed-4616-b8d7-78691ac41bd4",
+  "source": "c114dc0e-d6ca-4115-be35-684dead36de2"
+}

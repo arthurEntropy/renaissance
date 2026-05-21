@@ -18,7 +18,7 @@ import { getConceptTypeLabel } from '../constants/conceptTypes.js'
  * @property {string[]} featuredArtUrls - Image URLs for the concept's featured art
  * @property {string} backgroundImage - Image URL for the background of the concept's detail page
  * @property {string} cardBackgroundImage - Image URL for the background of the concept's ability and equipment cards
- * @property {UUID} expansion - Expansion ID this concept belongs to
+ * @property {UUID | null} expansion - Expansion ID this concept belongs to, or null/empty if not part of an expansion
  */
 
 /**

@@ -127,8 +127,8 @@
         </div>
       </div>
 
-      <!-- Defense Bonus: Only show for Armor -->
-      <div class="form-group row" v-if="equipmentIsArmor">
+      <!-- Defense Bonus -->
+      <div class="form-group row">
         <div class="form-column weight-input">
           <label for="defenseBonus" class="left-aligned">Defense Bonus:</label>
           <input type="number" id="defenseBonus" v-model.number="editedEquipment.defenseBonus" min="0"
@@ -268,7 +268,6 @@ import { useKeepingStore } from '@/stores/keepingStore'
 import { useEngagementSuccessesStore } from '@/stores/engagementSuccessesStore'
 import { useAbilitySchoolsStore } from '@/stores/abilitySchoolsStore'
 import { MESMER_MASK_SUBTYPE_ID, MESMER_CONCEPT_ID } from '@/constants/mesmerConstants'
-import { ARMOR_TYPE_ID } from '@/constants/armorConstants'
 
 
 // Props
@@ -348,8 +347,6 @@ const equipmentIsWeapon = computed(() => {
   const equipmentType = equipmentTypesStore.items.find(t => t.id === editedEquipment.value.type)
   return equipmentType?.name === 'Weapon'
 })
-
-const equipmentIsArmor = computed(() => editedEquipment.value?.type === ARMOR_TYPE_ID)
 
 // Equipment categories management
 const availableSubtypes = computed(() => {

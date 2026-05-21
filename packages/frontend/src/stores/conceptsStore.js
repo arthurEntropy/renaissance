@@ -4,10 +4,14 @@ import { useCrudEntityStore } from './composables/useBaseEntityStore'
 import ConceptService from '@/services/entities/conceptService'
 import { ConceptType } from '@shared/constants/conceptTypes'
 import { useCampaignStore } from '@/stores/campaignStore'
+import { useExpansionsStore } from '@/stores/expansionsStore'
+import { useAuthStore } from '@/stores/authStore'
 
 export const useConceptsStore = defineStore('concepts', () => {
   const base = useCrudEntityStore(ConceptService, 'concepts')
   const campaignStore = useCampaignStore()
+  const expansionsStore = useExpansionsStore()
+  const authStore = useAuthStore()
 
   // Helper function to sort concepts, ignoring "The " prefix
   const sortByName = (items) => {
@@ -44,10 +48,23 @@ export const useConceptsStore = defineStore('concepts', () => {
     return items.filter((c) => included.has(c.id))
   }
 
-  const visibleAncestries = computed(() => filterByCampaign(ancestries.value))
-  const visibleCultures = computed(() => filterByCampaign(cultures.value))
-  const visibleMestieri = computed(() => filterByCampaign(mestieri.value))
-  const visibleWorldElements = computed(() => filterByCampaign(worldElements.value))
+  // Expansion-filtered variants: filter by expansion visibility based on user role.
+  // Admins see concepts whose expansion has isAdminVisible === true (or no expansion).
+  // Non-admins see concepts whose expansion has isPublic === true (or no expansion).
+  const filterByExpansion = (items) => {
+    const expansions = expansionsStore.items
+    return items.filter((concept) => {
+      if (!concept.expansion) return true
+      const expansion = expansions.find((e) => e.id === concept.expansion)
+      if (!expansion) return true
+      return authStore.isAdmin ? expansion.isAdminVisible !== false : expansion.isPublic === true
+    })
+  }
+
+  const visibleAncestries = computed(() => filterByCampaign(filterByExpansion(ancestries.value)))
+  const visibleCultures = computed(() => filterByCampaign(filterByExpansion(cultures.value)))
+  const visibleMestieri = computed(() => filterByCampaign(filterByExpansion(mestieri.value)))
+  const visibleWorldElements = computed(() => filterByCampaign(filterByExpansion(worldElements.value)))
   
   // Type-specific selected items (computed from base.selectedItem)
   const selectedAncestry = computed(() => 

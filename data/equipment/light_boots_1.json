@@ -1,0 +1,17 @@
+{
+  "type": "1cc02e7b-cdaf-477c-a198-6be0ad5ab47f",
+  "createdAt": "2026-05-21T15:55:35.050Z",
+  "lastModified": "2026-05-21T15:55:35.050Z",
+  "isTemplate": false,
+  "name": "Light Boots",
+  "subtype": "9b83b280-d799-4177-9e98-5bab995116e5",
+  "grade": "ad30b114-3c19-413f-aad2-5f270bd95684",
+  "weight": 2,
+  "defenseBonus": 1,
+  "engagementDice": [],
+  "damageDice": [],
+  "length": 0,
+  "reach": 0,
+  "id": "e3c81829-3d40-40d5-bb7f-910f539d1ffc",
+  "source": "c02c53d1-b456-45d0-a048-6fc941cacc03"
+}

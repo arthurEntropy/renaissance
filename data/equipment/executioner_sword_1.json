@@ -1,0 +1,41 @@
+{
+  "isDeleted": false,
+  "createdAt": "2026-05-06T17:55:10.305Z",
+  "lastModified": "2026-05-21T12:55:25.382Z",
+  "name": "Executioner Sword",
+  "artUrl": "https://cdn.midjourney.com/0dd1fb50-77da-4dbe-a9a4-10daae5f7577/0_3.png",
+  "description": "",
+  "successes": null,
+  "improvements": [],
+  "source": "cdc93466-8327-4096-a8c2-04cccf3e3835",
+  "school": null,
+  "keeping": null,
+  "isCustom": false,
+  "isTemplate": false,
+  "isMagical": false,
+  "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
+  "subtype": "ab765755-b7c9-47ac-b62f-34f069e00dc3",
+  "grade": "ebcc2bcb-8221-4ca0-bef3-000fb7e59e96",
+  "weight": 5,
+  "length": 3,
+  "reach": 0,
+  "range": null,
+  "twoHanded": false,
+  "thrown": false,
+  "finesse": false,
+  "piercing": false,
+  "damageDice": [
+    10
+  ],
+  "engagementDice": [
+    10
+  ],
+  "engagementSuccesses": [
+    "b2c3d4e5-f6a7-48b9-c0d1-e2f3a4b5c6d7",
+    "e1f2a3b4-c5d6-47e8-f9a0-b1c2d3e4f5a6",
+    "d4e5f6a7-b8c9-40d1-e2f3-a4b5c6d7e8f9",
+    "f6a7b8c9-d0e1-42f3-a4b5-c6d7e8f9a0b1"
+  ],
+  "defenseBonus": 0,
+  "id": "8763aaeb-f3ab-4708-8f29-54502838e39f"
+}

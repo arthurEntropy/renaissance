@@ -7,6 +7,10 @@
         <template #additional-filters>
             <div v-if="isAdmin" class="top-row-actions">
                 <label class="template-toggle">
+                    <input type="checkbox" v-model="templatesOnly" />
+                    <span>Templates Only</span>
+                </label>
+                <label class="template-toggle">
                     <input type="checkbox" v-model="showTemplates" />
                     <span>Show Templates</span>
                 </label>
@@ -50,6 +54,10 @@
             @add="createEquipment">
             <template #additional-filters>
                 <div v-if="isAdmin" class="top-row-actions">
+                    <label class="template-toggle">
+                        <input type="checkbox" v-model="templatesOnly" />
+                        <span>Templates Only</span>
+                    </label>
                     <label class="template-toggle">
                         <input type="checkbox" v-model="showTemplates" />
                         <span>Show Templates</span>
@@ -95,7 +103,7 @@ import { useInfiniteScroll } from '@/composables/useInfiniteScroll'
 import { useInfiniteScrollObserver } from '@/composables/useInfiniteScrollObserver'
 import { useFilterPersistence } from '@/composables/useFilterPersistence'
 import { sortItems } from '@/utils/sortItems'
-import { EQUIPMENT_SORT_OPTIONS, filterAdminSortOptions } from '@/constants/sortOptions'
+import { EQUIPMENT_SORT_OPTIONS, EQUIPMENT_GROUP_BY_OPTIONS, filterAdminSortOptions } from '@/constants/sortOptions'
 import { SOURCE_COLLECTION_TYPES } from '@/constants/sourceTypes'
 import { FILTER_TAG_PREFIXES } from '@/constants/filterTagPrefixes'
 import { FILTER_SPECIAL_TAG_GROUP_LABEL } from '@/constants/filterBar'
@@ -134,6 +142,7 @@ const groupByOption = ref('')
 const searchQuery = ref('')
 const equipmentTagFilters = ref([])
 const showTemplates = ref(false)
+const templatesOnly = ref(false)
 const engagementSuccessOptions = computed(() => engagementSuccessesStore.items)
 const isLoadingMore = ref(false)
 const improvementVisibility = ref(new Map())
@@ -144,12 +153,7 @@ const isAdmin = computed(() => authStore.isAdmin)
 const sources = computed(() => sourcesStore.sources)
 const sortOptions = computed(() => filterAdminSortOptions(EQUIPMENT_SORT_OPTIONS, isAdmin.value))
 
-const groupByOptions = [
-    { value: 'source', label: 'Source' },
-    { value: 'type', label: 'Type' },
-    { value: 'subtype', label: 'Subtype' },
-    { value: 'grade', label: 'Grade' },
-]
+const groupByOptions = EQUIPMENT_GROUP_BY_OPTIONS
 
 const TAG_PREFIX = {
     ...FILTER_TAG_PREFIXES,
@@ -258,9 +262,9 @@ const compareEquipmentGroups = (left, right) => {
     }
 
     if (groupByOption.value === 'grade') {
-        const leftGrade = equipmentGradesStore.getById(left.grade)?.name || 'Unknown Grade'
-        const rightGrade = equipmentGradesStore.getById(right.grade)?.name || 'Unknown Grade'
-        return leftGrade.localeCompare(rightGrade)
+        const leftIndex = equipmentGradesStore.getById(left.grade)?.index ?? 999
+        const rightIndex = equipmentGradesStore.getById(right.grade)?.index ?? 999
+        return leftIndex - rightIndex
     }
 
     return 0
@@ -282,7 +286,9 @@ const allFilteredEquipment = computed(() => {
         )
     }
 
-    if (!showTemplates.value) {
+    if (templatesOnly.value) {
+        filtered = filtered.filter((item) => item.isTemplate)
+    } else if (!showTemplates.value) {
         filtered = filtered.filter((item) => !item.isTemplate)
     }
 
@@ -358,7 +364,14 @@ const groupedEquipment = computed(() => {
         groups[groupId].items.push(item)
     })
 
-    return Object.values(groups).sort((a, b) => a.name.localeCompare(b.name))
+    return Object.values(groups).sort((a, b) => {
+        if (groupByOption.value === 'grade') {
+            const aIndex = equipmentGradesStore.getById(a.id)?.index ?? 999
+            const bIndex = equipmentGradesStore.getById(b.id)?.index ?? 999
+            return aIndex - bIndex
+        }
+        return a.name.localeCompare(b.name)
+    })
 })
 
 const groupPersistenceKey = computed(() => `equipment-${groupByOption.value}-groups`)
@@ -383,6 +396,7 @@ useFilterPersistence('equipment', {
     searchQuery,
     equipmentTagFilters,
     showTemplates,
+    templatesOnly,
 })
 
 // Improvement visibility methods
@@ -491,7 +505,7 @@ const refreshData = async () => {
 }
 
 // Watchers
-watch([searchQuery, equipmentTagFilters, sortOption, showTemplates, groupByOption], () => {
+watch([searchQuery, equipmentTagFilters, sortOption, showTemplates, templatesOnly, groupByOption], () => {
     reset()
 })
 

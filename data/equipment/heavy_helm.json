@@ -1,0 +1,16 @@
+{
+  "type": "1cc02e7b-cdaf-477c-a198-6be0ad5ab47f",
+  "createdAt": "2026-05-21T14:29:14.060Z",
+  "lastModified": "2026-05-21T14:47:20.600Z",
+  "isTemplate": true,
+  "name": "Heavy Helm",
+  "subtype": "353e7289-649b-4a54-ae7a-2cddf7db22a9",
+  "grade": "ebcc2bcb-8221-4ca0-bef3-000fb7e59e96",
+  "weight": 10,
+  "defenseBonus": 4,
+  "engagementDice": [],
+  "damageDice": [],
+  "length": 0,
+  "reach": 0,
+  "id": "7c087ff3-9034-4caa-b691-eeee10f0862d"
+}

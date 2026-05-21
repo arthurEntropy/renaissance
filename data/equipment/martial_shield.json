@@ -1,0 +1,16 @@
+{
+  "type": "1cc02e7b-cdaf-477c-a198-6be0ad5ab47f",
+  "createdAt": "2026-05-21T14:29:14.060Z",
+  "lastModified": "2026-05-21T14:46:42.840Z",
+  "isTemplate": true,
+  "name": "Martial Shield",
+  "subtype": "5ec6d867-7dbf-41c0-b196-3ada5985e6ea",
+  "grade": "847d1092-fd43-4d58-b3da-002e6f3b7f3d",
+  "weight": 6,
+  "defenseBonus": 3,
+  "engagementDice": [],
+  "damageDice": [],
+  "length": 0,
+  "reach": 0,
+  "id": "bacefe77-7dc6-4e30-89bf-55170c2457de"
+}

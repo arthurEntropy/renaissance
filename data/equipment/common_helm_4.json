@@ -1,0 +1,17 @@
+{
+  "type": "1cc02e7b-cdaf-477c-a198-6be0ad5ab47f",
+  "createdAt": "2026-05-21T15:55:35.050Z",
+  "lastModified": "2026-05-21T15:55:35.050Z",
+  "isTemplate": false,
+  "name": "Common Helm",
+  "subtype": "353e7289-649b-4a54-ae7a-2cddf7db22a9",
+  "grade": "b92d3394-2c64-487f-8c90-c56ea1cbd3f3",
+  "weight": 4,
+  "defenseBonus": 2,
+  "engagementDice": [],
+  "damageDice": [],
+  "length": 0,
+  "reach": 0,
+  "id": "18f5caa9-67b4-4809-9f50-dd16b722124f",
+  "source": "cdc93466-8327-4096-a8c2-04cccf3e3835"
+}

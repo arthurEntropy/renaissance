@@ -6,10 +6,11 @@ import {
   MANA_COLOR_GROUP_LABELS,
 } from '@/constants/manaColors'
 
-// Accepts groupingMode as a string ref ('source', 'mana-color', 'custom', '') or a boolean ref (treated as 'source').
+// Accepts groupingMode as a string ref ('source', 'mana-color', 'custom', 'type', 'subtype', 'grade', '') or a boolean ref (treated as 'source').
 // When mode is 'custom', customGroups must be a ref to an array of { id, name } objects and
 // items must carry a customGroupId property to assign them to a group.
-export function useItemGrouping(items, groupingMode, sourcesStore, customGroups) {
+// equipmentStores is an optional object with { typesStore, subtypesStore, gradesStore } for equipment grouping modes.
+export function useItemGrouping(items, groupingMode, sourcesStore, customGroups, equipmentStores = {}) {
   
   const resolvedMode = computed(() => {
     const mode = groupingMode.value
@@ -23,6 +24,9 @@ export function useItemGrouping(items, groupingMode, sourcesStore, customGroups)
     if (!hasGrouping.value) return []
     if (resolvedMode.value === 'mana-color') return groupByManaColor(items.value)
     if (resolvedMode.value === 'custom') return groupByCustom(items.value, customGroups?.value ?? [])
+    if (resolvedMode.value === 'type') return groupByType(items.value, equipmentStores.typesStore)
+    if (resolvedMode.value === 'subtype') return groupBySubtype(items.value, equipmentStores.subtypesStore)
+    if (resolvedMode.value === 'grade') return groupByGrade(items.value, equipmentStores.gradesStore)
     return groupBySource(items.value, sourcesStore)
   })
 
@@ -135,5 +139,61 @@ function groupByCustom(items, customGroups) {
   // Always append the Ungrouped section (even if empty, so it acts as a drop target)
   result.push(ungrouped)
   return result
+}
+
+function groupByType(items, typesStore) {
+  const groups = {}
+  items.forEach(item => {
+    const typeId = item.type ?? null
+    const typeName = typesStore?.getById(typeId)?.name || 'Unknown Type'
+    const key = typeId || '__unknown-type__'
+    if (!groups[key]) {
+      groups[key] = { id: key, name: typeName, collapsed: false, items: [] }
+    }
+    groups[key].items.push(item)
+  })
+  return Object.values(groups).sort((a, b) => {
+    if (a.id === '__unknown-type__') return 1
+    if (b.id === '__unknown-type__') return -1
+    return a.name.localeCompare(b.name)
+  })
+}
+
+function groupBySubtype(items, subtypesStore) {
+  const groups = {}
+  items.forEach(item => {
+    const subtypeId = item.subtype ?? null
+    const subtypeName = subtypesStore?.getById(subtypeId)?.name || 'Unknown Subtype'
+    const key = subtypeId || '__unknown-subtype__'
+    if (!groups[key]) {
+      groups[key] = { id: key, name: subtypeName, collapsed: false, items: [] }
+    }
+    groups[key].items.push(item)
+  })
+  return Object.values(groups).sort((a, b) => {
+    if (a.id === '__unknown-subtype__') return 1
+    if (b.id === '__unknown-subtype__') return -1
+    return a.name.localeCompare(b.name)
+  })
+}
+
+function groupByGrade(items, gradesStore) {
+  const groups = {}
+  items.forEach(item => {
+    const gradeId = item.grade ?? null
+    const grade = gradesStore?.getById(gradeId)
+    const gradeName = grade?.name || 'Unknown Grade'
+    const gradeIndex = grade?.index ?? 999
+    const key = gradeId || '__unknown-grade__'
+    if (!groups[key]) {
+      groups[key] = { id: key, name: gradeName, index: gradeIndex, collapsed: false, items: [] }
+    }
+    groups[key].items.push(item)
+  })
+  return Object.values(groups).sort((a, b) => {
+    if (a.id === '__unknown-grade__') return 1
+    if (b.id === '__unknown-grade__') return -1
+    return a.index - b.index
+  })
 }
 

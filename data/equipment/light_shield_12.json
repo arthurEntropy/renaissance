@@ -1,0 +1,17 @@
+{
+  "type": "1cc02e7b-cdaf-477c-a198-6be0ad5ab47f",
+  "createdAt": "2026-05-21T15:55:35.050Z",
+  "lastModified": "2026-05-21T15:55:35.050Z",
+  "isTemplate": false,
+  "name": "Light Shield",
+  "subtype": "5ec6d867-7dbf-41c0-b196-3ada5985e6ea",
+  "grade": "ad30b114-3c19-413f-aad2-5f270bd95684",
+  "weight": 2,
+  "defenseBonus": 1,
+  "engagementDice": [],
+  "damageDice": [],
+  "length": 0,
+  "reach": 0,
+  "id": "b4312fd0-4dcd-4766-8036-23e27e733d9d",
+  "source": "5a639d7b-847a-468b-9bbe-5275d31fdf66"
+}

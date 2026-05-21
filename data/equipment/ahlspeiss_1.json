@@ -1,0 +1,39 @@
+{
+  "isDeleted": false,
+  "createdAt": "2026-05-06T17:55:10.305Z",
+  "lastModified": "2026-05-20T14:39:13.699Z",
+  "name": "Ahlspeiss",
+  "artUrl": "https://cdn.midjourney.com/1d735f8f-7f21-4b5a-9512-4d95f26ea738/0_2.png",
+  "description": "",
+  "successes": null,
+  "improvements": [],
+  "source": "352c844b-6d4f-4b61-b475-315421a453e7",
+  "school": null,
+  "keeping": null,
+  "isCustom": false,
+  "isTemplate": false,
+  "isMagical": false,
+  "type": "9b22f01b-1c40-4f10-abec-00b4d279197f",
+  "subtype": "3d4f28d9-d757-4789-b3a2-0e9fffda4fc0",
+  "grade": "847d1092-fd43-4d58-b3da-002e6f3b7f3d",
+  "weight": 6,
+  "length": 7,
+  "reach": 5,
+  "range": null,
+  "twoHanded": true,
+  "thrown": false,
+  "finesse": false,
+  "piercing": true,
+  "damageDice": [
+    8
+  ],
+  "engagementDice": [
+    8
+  ],
+  "engagementSuccesses": [
+    "b4c5d6e7-f8a9-40b1-c2d3-e4f5a6b7c8d9",
+    "f6a7b8c9-d0e1-42f3-a4b5-c6d7e8f9a0b1"
+  ],
+  "defenseBonus": 0,
+  "id": "43c80d8a-0145-4cb3-a588-e30624091ad9"
+}

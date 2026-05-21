@@ -1,0 +1,17 @@
+{
+  "type": "1cc02e7b-cdaf-477c-a198-6be0ad5ab47f",
+  "createdAt": "2026-05-21T15:55:35.050Z",
+  "lastModified": "2026-05-21T15:55:35.050Z",
+  "isTemplate": false,
+  "name": "Light Bracers",
+  "subtype": "55827e95-5119-4f75-9922-9a58be27827b",
+  "grade": "ad30b114-3c19-413f-aad2-5f270bd95684",
+  "weight": 2,
+  "defenseBonus": 1,
+  "engagementDice": [],
+  "damageDice": [],
+  "length": 0,
+  "reach": 0,
+  "id": "6d61d54f-8312-41cc-8a22-d483c2803f8d",
+  "source": "d194ad54-7ca8-4902-a140-e6401681ee55"
+}

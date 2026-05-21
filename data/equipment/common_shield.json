@@ -1,0 +1,16 @@
+{
+  "type": "1cc02e7b-cdaf-477c-a198-6be0ad5ab47f",
+  "createdAt": "2026-05-21T14:29:14.060Z",
+  "lastModified": "2026-05-21T14:43:41.177Z",
+  "isTemplate": true,
+  "name": "Common Shield",
+  "subtype": "5ec6d867-7dbf-41c0-b196-3ada5985e6ea",
+  "grade": "b92d3394-2c64-487f-8c90-c56ea1cbd3f3",
+  "weight": 4,
+  "defenseBonus": 2,
+  "engagementDice": [],
+  "damageDice": [],
+  "length": 0,
+  "reach": 0,
+  "id": "746b8363-7cd7-4eef-8cc8-3701ea295749"
+}

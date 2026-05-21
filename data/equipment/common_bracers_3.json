@@ -1,0 +1,17 @@
+{
+  "type": "1cc02e7b-cdaf-477c-a198-6be0ad5ab47f",
+  "createdAt": "2026-05-21T15:55:35.050Z",
+  "lastModified": "2026-05-21T15:55:35.050Z",
+  "isTemplate": false,
+  "name": "Common Bracers",
+  "subtype": "55827e95-5119-4f75-9922-9a58be27827b",
+  "grade": "b92d3394-2c64-487f-8c90-c56ea1cbd3f3",
+  "weight": 4,
+  "defenseBonus": 2,
+  "engagementDice": [],
+  "damageDice": [],
+  "length": 0,
+  "reach": 0,
+  "id": "3d63f295-8941-4ffe-8f4c-d4de52da87a4",
+  "source": "61e2ce55-1954-4e8e-b1b3-b249ae915fa7"
+}

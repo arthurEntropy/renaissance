@@ -14,33 +14,18 @@
                     @click="$emit('add-equipment')" />
             </template>
 
-            <!-- Grouped by type display -->
-            <template v-if="isGroupedByType">
-                <!-- Ungrouped equipment (no type) shown above groups -->
-                <MasonryGrid v-if="noTypeEquipment.length > 0" :gap="20" :row-height="10" justify-content="start"
-                    class="cards-container">
-                    <EquipmentCard v-for="item in noTypeEquipment" :key="item.id" :equipment="item"
-                        :editable="isEditMode" :sources="sources" :art-expanded="true" :engagement-success-options="[]"
-                        :character="character" :show-improvement-toggle="!!character"
+            <!-- Grouped display -->
+            <GroupedMasonryGrid v-if="isGrouped" :gap="20" :row-height="10" justify-content="start"
+                :grouped-items="groupedEquipment" persistence-key="concept-equipment-groups" class="cards-container">
+                <template #default="{ item }">
+                    <EquipmentCard :equipment="item" :editable="isEditMode" :sources="sources" :art-expanded="true"
+                        :engagement-success-options="[]" :character="character" :show-improvement-toggle="!!character"
                         @edit="$emit('edit-equipment', item)" :collapsible="false"
                         :show-improvements="getEquipmentShowImprovements(item.id)"
                         @update:showImprovements="updateEquipmentShowImprovements(item.id, $event)"
                         @update="handleCharacterUpdate" />
-                </MasonryGrid>
-                <!-- Type-grouped equipment -->
-                <GroupedMasonryGrid v-if="typeGroupedEquipment.length > 0" :gap="20" :row-height="10"
-                    justify-content="start" :grouped-items="typeGroupedEquipment"
-                    persistence-key="concept-equipment-groups" class="cards-container">
-                    <template #default="{ item }">
-                        <EquipmentCard :equipment="item" :editable="isEditMode" :sources="sources" :art-expanded="true"
-                            :engagement-success-options="[]" :character="character"
-                            :show-improvement-toggle="!!character" @edit="$emit('edit-equipment', item)"
-                            :collapsible="false" :show-improvements="getEquipmentShowImprovements(item.id)"
-                            @update:showImprovements="updateEquipmentShowImprovements(item.id, $event)"
-                            @update="handleCharacterUpdate" />
-                    </template>
-                </GroupedMasonryGrid>
-            </template>
+                </template>
+            </GroupedMasonryGrid>
 
             <!-- Ungrouped display -->
             <MasonryGrid v-else :gap="20" :row-height="10" justify-content="start" class="cards-container">
@@ -66,11 +51,13 @@ import SortingPicker from '@/components/ui/pickers/SortingPicker.vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import { FAB_TYPES, FAB_VISIBILITIES } from '@/constants/fab'
 import { sortItems } from '@/utils/sortItems'
-import { EQUIPMENT_SORT_OPTIONS, filterAdminSortOptions } from '@/constants/sortOptions'
+import { EQUIPMENT_SORT_OPTIONS, EQUIPMENT_GROUP_BY_OPTIONS, filterAdminSortOptions } from '@/constants/sortOptions'
 import { useFilterPersistence } from '@/composables/useFilterPersistence'
 import { useCharactersStore } from '@/stores/charactersStore'
 import { useEquipmentStore } from '@/stores/equipmentStore'
 import { useEquipmentTypesStore } from '@/stores/equipmentTypesStore'
+import { useEquipmentSubtypesStore } from '@/stores/equipmentSubtypesStore'
+import { useEquipmentGradesStore } from '@/stores/equipmentGradesStore'
 import { useKeepingStore } from '@/stores/keepingStore'
 import { useSourcesStore } from '@/stores/sourcesStore'
 import { useConceptsStore } from '@/stores/conceptsStore'
@@ -79,6 +66,8 @@ import { useAuthStore } from '@/stores/authStore'
 const charactersStore = useCharactersStore()
 const equipmentStore = useEquipmentStore()
 const equipmentTypesStore = useEquipmentTypesStore()
+const equipmentSubtypesStore = useEquipmentSubtypesStore()
+const equipmentGradesStore = useEquipmentGradesStore()
 const keepingStore = useKeepingStore()
 const sourcesStore = useSourcesStore()
 const conceptsStore = useConceptsStore()
@@ -100,16 +89,47 @@ const isAdmin = computed(() => authStore.isAdmin)
 
 const sortOptions = computed(() => filterAdminSortOptions(EQUIPMENT_SORT_OPTIONS, isAdmin.value))
 
-const groupingOptions = [
-    { value: 'type', label: 'Type' }
-]
+const groupingOptions = EQUIPMENT_GROUP_BY_OPTIONS.filter(o => o.value !== 'source')
 
 const sortOption = ref('keeping-asc')
 const groupingOption = ref('')
 
 useFilterPersistence('concept-equipment', { sortOption, groupingOption })
 
-const isGroupedByType = computed(() => groupingOption.value === 'type')
+const isGrouped = computed(() => !!groupingOption.value)
+
+const groupedEquipment = computed(() => {
+    if (!groupingOption.value) return []
+    const groups = {}
+    sortedEquipment.value.forEach(item => {
+        let groupId = ''
+        let groupName = ''
+        let groupIndex = 0
+        if (groupingOption.value === 'source') {
+            groupId = item.source || '__unknown-source__'
+            groupName = sourcesStore.getSourceName(item.source) || 'Unknown Source'
+        } else if (groupingOption.value === 'type') {
+            groupId = item.type || '__unknown-type__'
+            groupName = equipmentTypesStore.getById(item.type)?.name || 'Unknown Type'
+        } else if (groupingOption.value === 'subtype') {
+            groupId = item.subtype || '__unknown-subtype__'
+            groupName = equipmentSubtypesStore.getById(item.subtype)?.name || 'Unknown Subtype'
+        } else if (groupingOption.value === 'grade') {
+            groupId = item.grade || '__unknown-grade__'
+            const grade = equipmentGradesStore.getById(item.grade)
+            groupName = grade?.name || 'Unknown Grade'
+            groupIndex = grade?.index ?? 999
+        }
+        if (!groups[groupId]) {
+            groups[groupId] = { id: groupId, name: groupName, index: groupIndex, collapsed: false, items: [] }
+        }
+        groups[groupId].items.push(item)
+    })
+    return Object.values(groups).sort((a, b) => {
+        if (groupingOption.value === 'grade') return a.index - b.index
+        return a.name.localeCompare(b.name)
+    })
+})
 
 const equipment = computed(() =>
     equipmentStore.equipment.filter(e => e.source === concept.value?.id)
@@ -125,24 +145,6 @@ const sortedEquipment = computed(() => {
         })
     }
     return sortItems(equipment.value, sortOption.value)
-})
-
-const noTypeEquipment = computed(() =>
-    sortedEquipment.value.filter(e => !e.type)
-)
-
-const typeGroupedEquipment = computed(() => {
-    if (!isGroupedByType.value) return []
-    const groups = {}
-    sortedEquipment.value.filter(e => e.type).forEach(item => {
-        const type = equipmentTypesStore.items.find(t => t.id === item.type)
-        const typeName = type?.name || 'Unknown Type'
-        if (!groups[item.type]) {
-            groups[item.type] = { id: item.type, name: typeName, collapsed: false, items: [] }
-        }
-        groups[item.type].items.push(item)
-    })
-    return Object.values(groups).sort((a, b) => a.name.localeCompare(b.name))
 })
 
 const hasEquipment = computed(() => equipment.value.length > 0)

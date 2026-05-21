@@ -1,0 +1,17 @@
+{
+  "type": "1cc02e7b-cdaf-477c-a198-6be0ad5ab47f",
+  "createdAt": "2026-05-21T15:55:35.050Z",
+  "lastModified": "2026-05-21T15:55:35.050Z",
+  "isTemplate": false,
+  "name": "Common Boots",
+  "subtype": "3b179003-c623-425f-8d16-c41b4204758b",
+  "grade": "b92d3394-2c64-487f-8c90-c56ea1cbd3f3",
+  "weight": 4,
+  "defenseBonus": 2,
+  "engagementDice": [],
+  "damageDice": [],
+  "length": 0,
+  "reach": 0,
+  "id": "d1c75d51-ae5b-496d-b25d-d44c5437d0d6",
+  "source": "61e2ce55-1954-4e8e-b1b3-b249ae915fa7"
+}
