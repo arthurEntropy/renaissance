@@ -1,0 +1,17 @@
+{
+  "type": "1cc02e7b-cdaf-477c-a198-6be0ad5ab47f",
+  "id": "e5c43308-058f-4f25-80f6-8fcaedd5d029",
+  "createdAt": "2026-05-21T15:55:35.050Z",
+  "lastModified": "2026-05-21T15:55:35.050Z",
+  "isTemplate": false,
+  "name": "Light Breastplate",
+  "subtype": "07e1ccc4-def1-47b1-8191-c5b6618c567b",
+  "grade": "ad30b114-3c19-413f-aad2-5f270bd95684",
+  "weight": 2,
+  "defenseBonus": 1,
+  "engagementDice": [],
+  "damageDice": [],
+  "length": 0,
+  "reach": 0,
+  "source": "3085883d-e74b-40aa-84a9-af6fccb3d98e"
+}

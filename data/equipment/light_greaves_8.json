@@ -1,0 +1,17 @@
+{
+  "type": "1cc02e7b-cdaf-477c-a198-6be0ad5ab47f",
+  "createdAt": "2026-05-21T15:55:35.050Z",
+  "lastModified": "2026-05-21T15:55:35.050Z",
+  "isTemplate": false,
+  "name": "Light Greaves",
+  "subtype": "9b83b280-d799-4177-9e98-5bab995116e5",
+  "grade": "ad30b114-3c19-413f-aad2-5f270bd95684",
+  "weight": 2,
+  "defenseBonus": 1,
+  "engagementDice": [],
+  "damageDice": [],
+  "length": 0,
+  "reach": 0,
+  "id": "39471c0e-e8fb-4a35-8160-85f7e50fe02b",
+  "source": "0c876a74-a89b-42dc-b76a-4592a0478d81"
+}

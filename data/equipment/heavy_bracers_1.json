@@ -1,0 +1,17 @@
+{
+  "type": "1cc02e7b-cdaf-477c-a198-6be0ad5ab47f",
+  "createdAt": "2026-05-21T15:55:35.050Z",
+  "lastModified": "2026-05-21T15:55:35.050Z",
+  "isTemplate": false,
+  "name": "Heavy Bracers",
+  "subtype": "55827e95-5119-4f75-9922-9a58be27827b",
+  "grade": "ebcc2bcb-8221-4ca0-bef3-000fb7e59e96",
+  "weight": 10,
+  "defenseBonus": 4,
+  "engagementDice": [],
+  "damageDice": [],
+  "length": 0,
+  "reach": 0,
+  "id": "71bb3daa-564f-437c-a969-15f8373b52e3",
+  "source": "352c844b-6d4f-4b61-b475-315421a453e7"
+}
