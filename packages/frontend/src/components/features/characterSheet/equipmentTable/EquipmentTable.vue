@@ -145,7 +145,7 @@ import { anchorFromTriggerEvent } from '@/composables/useAnchoredPickerTrigger'
 import { useItemGrouping } from '@/composables/useItemGrouping'
 import { useCustomGroupManagement } from '@/composables/useCustomGroupManagement'
 import { sortItems } from '@/utils/sortItems'
-import { EQUIPMENT_SORT_OPTIONS } from '@/constants/sortOptions'
+import { EQUIPMENT_SORT_OPTIONS, EQUIPMENT_GROUP_BY_OPTIONS, filterAdminSortOptions } from '@/constants/sortOptions'
 import { useEquipmentTypesStore } from '@/stores/equipmentTypesStore'
 import { useEquipmentStore } from '@/stores/equipmentStore'
 import { useCharactersStore } from '@/stores/charactersStore'
@@ -156,6 +156,7 @@ import { useEquipmentGradesStore } from '@/stores/equipmentGradesStore'
 import { useConceptsStore } from '@/stores/conceptsStore'
 import { useRollsStore } from '@/stores/rollsStore'
 import { useCampaignStore } from '@/stores/campaignStore'
+import { useAuthStore } from '@/stores/authStore'
 import EngagementSuccessService from '@/services/entities/engagementSuccessService'
 import DamageRollService from '@/services/rolls/damageRollService'
 import CustomRollService from '@/services/rolls/customRollService'
@@ -187,6 +188,7 @@ const sourcesStore = useSourcesStore()
 const rollsStore = useRollsStore()
 const conceptsStore = useConceptsStore()
 const campaignStore = useCampaignStore()
+const authStore = useAuthStore()
 
 const characterMestiere = computed(() => {
   if (!selectedCharacter.value?.mestiereId) return null
@@ -258,23 +260,26 @@ const handleEquipmentTransferred = (updatedSource) => {
 
 const toggleEditMode = () => { internalEditMode.value = !internalEditMode.value }
 
-const sortOptions = EQUIPMENT_SORT_OPTIONS
+const sortOptions = computed(() => filterAdminSortOptions(EQUIPMENT_SORT_OPTIONS, authStore.isAdmin))
 
 const groupingOptions = [
-  { value: 'source', label: 'Source' },
-  { value: 'custom', label: 'Custom' }
+  ...EQUIPMENT_GROUP_BY_OPTIONS,
+  { value: 'custom', label: 'Custom' },
 ]
 
 // Grouping and Sorting state
 const groupingOption = computed({
   get: () => {
+    // Prefer the new string field; fall back to legacy boolean flags
+    if (selectedCharacter.value?.groupEquipmentBy) return selectedCharacter.value.groupEquipmentBy
     if (selectedCharacter.value?.groupEquipmentByCustom) return 'custom'
     if (selectedCharacter.value?.groupEquipmentBySource) return 'source'
     return ''
   },
   set: (value) => {
-    // Both flags are set explicitly to ensure they are mutually exclusive
     if (selectedCharacter.value) {
+      selectedCharacter.value.groupEquipmentBy = value
+      // Keep legacy flags in sync for backward compatibility
       selectedCharacter.value.groupEquipmentBySource = (value === 'source')
       selectedCharacter.value.groupEquipmentByCustom = (value === 'custom')
     }
@@ -348,6 +353,9 @@ const characterEquipment = computed(() => {
       collapsed: original.collapsed,
       showImprovements: original.showImprovements,
       source: sorted.source,
+      type: sorted.equipment?.type ?? null,
+      subtype: sorted.equipment?.subtype ?? null,
+      grade: sorted.equipment?.grade ?? null,
       equipment: sorted.equipment,
       columnIndex: original.columnIndex,
       customGroupId: original.customGroupId ?? null
@@ -359,7 +367,8 @@ const { groupedItems: groupedEquipmentItems, hasGrouping: hasEquipmentGrouping }
   characterEquipment,
   groupingOption,
   sourcesStore,
-  equipmentCustomGroups
+  equipmentCustomGroups,
+  { typesStore: equipmentTypesStore, subtypesStore: equipmentSubtypesStore, gradesStore: equipmentGradesStore }
 )
 
 const isCreatingCustom = ref(false)

@@ -22,7 +22,7 @@
             <EquipmentCard v-for="item in items" :key="item.id" :equipment="item" :editable="isAdmin"
                 :duplicatable="isAdmin" :sources="sources" :art-expanded="true"
                 :engagement-success-options="engagementSuccessOptions" :collapsible="false"
-                :showImprovements="getEquipmentShowImprovements(item.id) "
+                :showImprovements="getEquipmentShowImprovements(item.id)"
                 :showSuccesses="getEquipmentShowSuccesses(item.id)" @edit="openEditEquipmentModal(item)"
                 @duplicate="handleDuplicateEquipment"
                 @update:showImprovements="updateEquipmentShowImprovements(item.id, $event)"
@@ -71,7 +71,7 @@
             <template #default="{ item }">
                 <EquipmentCard :equipment="item" :editable="isAdmin" :duplicatable="isAdmin" :sources="sources"
                     :art-expanded="true" :engagement-success-options="engagementSuccessOptions" :collapsible="false"
-                    :showImprovements="getEquipmentShowImprovements(item.id) "
+                    :showImprovements="getEquipmentShowImprovements(item.id)"
                     :showSuccesses="getEquipmentShowSuccesses(item.id)" @edit="openEditEquipmentModal(item)"
                     @duplicate="handleDuplicateEquipment"
                     @update:showImprovements="updateEquipmentShowImprovements(item.id, $event)"
@@ -103,7 +103,7 @@ import { useInfiniteScroll } from '@/composables/useInfiniteScroll'
 import { useInfiniteScrollObserver } from '@/composables/useInfiniteScrollObserver'
 import { useFilterPersistence } from '@/composables/useFilterPersistence'
 import { sortItems } from '@/utils/sortItems'
-import { EQUIPMENT_SORT_OPTIONS, filterAdminSortOptions } from '@/constants/sortOptions'
+import { EQUIPMENT_SORT_OPTIONS, EQUIPMENT_GROUP_BY_OPTIONS, filterAdminSortOptions } from '@/constants/sortOptions'
 import { SOURCE_COLLECTION_TYPES } from '@/constants/sourceTypes'
 import { FILTER_TAG_PREFIXES } from '@/constants/filterTagPrefixes'
 import { FILTER_SPECIAL_TAG_GROUP_LABEL } from '@/constants/filterBar'
@@ -153,12 +153,7 @@ const isAdmin = computed(() => authStore.isAdmin)
 const sources = computed(() => sourcesStore.sources)
 const sortOptions = computed(() => filterAdminSortOptions(EQUIPMENT_SORT_OPTIONS, isAdmin.value))
 
-const groupByOptions = [
-    { value: 'source', label: 'Source' },
-    { value: 'type', label: 'Type' },
-    { value: 'subtype', label: 'Subtype' },
-    { value: 'grade', label: 'Grade' },
-]
+const groupByOptions = EQUIPMENT_GROUP_BY_OPTIONS
 
 const TAG_PREFIX = {
     ...FILTER_TAG_PREFIXES,
@@ -267,9 +262,9 @@ const compareEquipmentGroups = (left, right) => {
     }
 
     if (groupByOption.value === 'grade') {
-        const leftGrade = equipmentGradesStore.getById(left.grade)?.name || 'Unknown Grade'
-        const rightGrade = equipmentGradesStore.getById(right.grade)?.name || 'Unknown Grade'
-        return leftGrade.localeCompare(rightGrade)
+        const leftIndex = equipmentGradesStore.getById(left.grade)?.index ?? 999
+        const rightIndex = equipmentGradesStore.getById(right.grade)?.index ?? 999
+        return leftIndex - rightIndex
     }
 
     return 0
@@ -369,7 +364,14 @@ const groupedEquipment = computed(() => {
         groups[groupId].items.push(item)
     })
 
-    return Object.values(groups).sort((a, b) => a.name.localeCompare(b.name))
+    return Object.values(groups).sort((a, b) => {
+        if (groupByOption.value === 'grade') {
+            const aIndex = equipmentGradesStore.getById(a.id)?.index ?? 999
+            const bIndex = equipmentGradesStore.getById(b.id)?.index ?? 999
+            return aIndex - bIndex
+        }
+        return a.name.localeCompare(b.name)
+    })
 })
 
 const groupPersistenceKey = computed(() => `equipment-${groupByOption.value}-groups`)

@@ -56,3 +56,15 @@ export function filterAdminSortOptions(options, isAdmin) {
   }
   return result
 }
+
+// Standard group-by options shared across EquipmentPage, ConceptEquipmentSection, and EquipmentTable.
+export const EQUIPMENT_GROUP_BY_OPTIONS = [
+  { value: 'source', label: 'Source' },
+  { value: 'type', label: 'Type' },
+  { value: 'subtype', label: 'Subtype' },
+  { value: 'grade', label: 'Grade' },
+]
+
+// Canonical display order for equipment grades: Light → Common → Martial → Heavy → Great.
+// This matches the `index` field on each EquipmentGrade entity (0–4).
+export const EQUIPMENT_GRADE_ORDER = ['Light', 'Common', 'Martial', 'Heavy', 'Great']
