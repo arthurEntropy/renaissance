@@ -5,13 +5,32 @@
   "description": "",
   "isDeleted": false,
   "featuredArtUrls": [
-    "https://cdn.midjourney.com/6482f16b-9948-4aa8-8483-a19d349076b4/0_1.png"
+    "https://cdn.midjourney.com/6a7b9cdd-e359-4114-ae96-d64d7c59b24d/0_2.png"
   ],
-  "backgroundImage": "https://cdn.midjourney.com/7d8344f6-3aad-4a1b-9dd7-0ac106a75c83/0_0_2048_N.webp",
-  "cardBackgroundImage": "https://cdn.midjourney.com/16656d8c-9e59-490f-ac47-71d4dca95cbf/0_2.png",
+  "backgroundImage": "https://cdn.midjourney.com/5f087c31-cee8-4615-a136-8078649e25e0/0_0.png",
+  "cardBackgroundImage": "https://cdn.midjourney.com/681c3801-0dbf-4135-aac2-66d1ac3db8fa/0_0.png",
   "expansion": "824cad94-3a4a-4df3-b81a-ede17b84644b",
-  "playlists": [],
-  "hooks": [],
+  "playlists": [
+    "<iframe allow=\"autoplay *; encrypted-media *;\" frameborder=\"0\" height=\"450\" style=\"width:100%;max-width:660px;overflow:hidden;background:transparent;\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation\" src=\"https://embed.music.apple.com/us/playlist/agralaur-city-vibes/pl.u-MDAWmDGTqD7Gmp?theme=dark\"></iframe>",
+    "<iframe allow=\"autoplay *; encrypted-media *;\" frameborder=\"0\" height=\"450\" style=\"width:100%;max-width:660px;overflow:hidden;background:transparent;\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation\" src=\"https://embed.music.apple.com/us/playlist/agralaur-carnaval/pl.u-qxylA3DTGkb7Kv?theme=dark\"></iframe>",
+    "<iframe allow=\"autoplay *; encrypted-media *;\" frameborder=\"0\" height=\"450\" style=\"width:100%;max-width:660px;overflow:hidden;background:transparent;\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation\" src=\"https://embed.music.apple.com/us/playlist/agralaur-beach-colony/pl.u-zPyLA5gFxaR5Xr?theme=dark\"></iframe>"
+  ],
+  "hooks": [
+    {
+      "id": null,
+      "name": "Lady Fûktûn",
+      "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lectus magna, consequat sodales velit eget, mollis hendrerit justo. Nullam mi nisl, consectetur in turpis vel, gravida vehicula quam. Proin libero eros, auctor sed luctus sit amet, porttitor sit amet ante. Integer ut bibendum dui. Phasellus malesuada ligula quis sapien faucibus accumsan. </p>",
+      "gmNotes": "",
+      "index": 0
+    },
+    {
+      "id": null,
+      "name": "Diving Day",
+      "description": "<p>Nulla id hendrerit tellus, sed dictum lectus. Donec sollicitudin leo vitae libero cursus, vel efficitur felis tristique. Mauris vitae posuere neque. Duis ultricies, ipsum eu tincidunt semper, risus enim fermentum enim, nec varius nunc nisl nec erat. In finibus in ligula ut aliquet. Proin eu tempus purus. Integer maximus ex et maximus cursus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur quis iaculis ligula, vel dapibus magna. Donec ac egestas turpis. Aliquam at fringilla augue. Maecenas faucibus, leo ullamcorper gravida elementum, metus magna facilisis ex, sed ultrices dolor risus eget odio. Aenean nec nulla justo. Phasellus consequat arcu vel orci tincidunt pulvinar. Nunc ipsum eros, blandit eu viverra vitae, mattis a orci.</p>",
+      "gmNotes": "",
+      "index": 1
+    }
+  ],
   "localFlavor": {
     "names": "Yara, Tetsu, Maikolli, Riku, Ixaya, Nobu, Kael, Yumiko, Ahuac, Brisa, Tamo, Sachiko, Kallima, Jiro, Nayeli, Tomiko, Koan, Luma, Citlali, Tiago, Renzo",
     "occupations": "Canal Skimmer, Shrine Painter, Mask Maker, Music-Weaver, River Fisher, Rooftop Gardener, Lantern Stringer, Stone Diver, Sandal Cobbler, Drum Carver, Brew Vendor, Gondola Pilot, Street Herald, Ruin Scout, Parade Beast Tamer",
@@ -20,5 +39,5 @@
     "pointsOfInterest": "The Grand Parade Arch, The Singing Bridge, Temple of the Last Echo, The Silt Market, The Vaulted Docks, Dwarfstone Row",
     "floraFauna": "Mangrove, Water Hyacinth, River Cress, Lotus, Banana Tree, Swamp Fern, Capybara, Ibis, Marsh Toad, River Dolphin, Painted Frog, Lantern Beetle, Water Snake, Otter, Golden Kite"
   },
-  "lastModified": "2026-05-21T14:24:15.534Z"
+  "lastModified": "2026-05-23T19:40:08.761Z"
 }
