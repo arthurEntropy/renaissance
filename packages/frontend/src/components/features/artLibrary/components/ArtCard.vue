@@ -42,7 +42,7 @@ const props = defineProps({
 
 const emit = defineEmits(['click'])
 
-const optimizedImageUrl = useOptimizedImage(() => props.art?.url, MIDJOURNEY_IMAGE_CONTEXTS.SMALL)
+const optimizedImageUrl = useOptimizedImage(() => props.art?.url, MIDJOURNEY_IMAGE_CONTEXTS.MEDIUM)
 
 const typeIcon = computed(() => {
     const icons = {
