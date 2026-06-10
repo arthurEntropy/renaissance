@@ -50,9 +50,10 @@
               :show-improvements="item.showImprovements"
               :show-discovery-badge="item.equipment.subtype === MESMER_MASK_SUBTYPE_ID" :show-difficulty-badge="true"
               @update:collapsed="updateEquipmentCollapsed(item.id, $event)"
-              @update:showImprovements="updateEquipmentShowImprovements(item, $event)" :engagement-success-options="[]"
-              :enable-damage-roll="true" @roll-damage="handleDamageRoll" @roll-link="handleRollLink"
-              :show-transfer-button="showTransferButton" @transfer="handleTransferEquipment" />
+              @update:showImprovements="updateEquipmentShowImprovements(item, $event)"
+              :engagement-success-options="engagementSuccessOptions" :enable-damage-roll="true"
+              @roll-damage="handleDamageRoll" @roll-link="handleRollLink" :show-transfer-button="showTransferButton"
+              @transfer="handleTransferEquipment" />
             <EquipmentDetails :equipment-item="item" :item-id="item.id" :is-edit-mode="canEdit"
               @update-carried="handleCarriedChange" @update-wielding="handleWieldingChange"
               @update-quantity="handleQuantityChange" />
@@ -73,9 +74,10 @@
               :show-improvements="item.showImprovements"
               :show-discovery-badge="item.equipment.subtype === MESMER_MASK_SUBTYPE_ID" :show-difficulty-badge="true"
               @update:collapsed="updateEquipmentCollapsed(item.id, $event)"
-              @update:showImprovements="updateEquipmentShowImprovements(item, $event)" :engagement-success-options="[]"
-              :enable-damage-roll="true" @roll-damage="handleDamageRoll" @roll-link="handleRollLink"
-              :show-transfer-button="showTransferButton" @transfer="handleTransferEquipment" />
+              @update:showImprovements="updateEquipmentShowImprovements(item, $event)"
+              :engagement-success-options="engagementSuccessOptions" :enable-damage-roll="true"
+              @roll-damage="handleDamageRoll" @roll-link="handleRollLink" :show-transfer-button="showTransferButton"
+              @transfer="handleTransferEquipment" />
             <EquipmentDetails :equipment-item="item" :item-id="item.id" :is-edit-mode="canEdit"
               @update-carried="handleCarriedChange" @update-wielding="handleWieldingChange"
               @update-quantity="handleQuantityChange" />

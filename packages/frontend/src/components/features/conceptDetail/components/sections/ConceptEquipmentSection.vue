@@ -19,9 +19,9 @@
                 :grouped-items="groupedEquipment" persistence-key="concept-equipment-groups" class="cards-container">
                 <template #default="{ item }">
                     <EquipmentCard :equipment="item" :editable="isEditMode" :sources="sources" :art-expanded="true"
-                        :engagement-success-options="[]" :character="character" :show-improvement-toggle="!!character"
-                        @edit="$emit('edit-equipment', item)" :collapsible="false"
-                        :show-improvements="getEquipmentShowImprovements(item.id)"
+                        :engagement-success-options="engagementSuccessOptions" :character="character"
+                        :show-improvement-toggle="!!character" @edit="$emit('edit-equipment', item)"
+                        :collapsible="false" :show-improvements="getEquipmentShowImprovements(item.id)"
                         @update:showImprovements="updateEquipmentShowImprovements(item.id, $event)"
                         @update="handleCharacterUpdate" />
                 </template>
@@ -30,9 +30,9 @@
             <!-- Ungrouped display -->
             <MasonryGrid v-else :gap="20" :row-height="10" justify-content="start" class="cards-container">
                 <EquipmentCard v-for="item in sortedEquipment" :key="item.id" :equipment="item" :editable="isEditMode"
-                    :sources="sources" :art-expanded="true" :engagement-success-options="[]" :character="character"
-                    :show-improvement-toggle="!!character" @edit="$emit('edit-equipment', item)" :collapsible="false"
-                    :show-improvements="getEquipmentShowImprovements(item.id)"
+                    :sources="sources" :art-expanded="true" :engagement-success-options="engagementSuccessOptions"
+                    :character="character" :show-improvement-toggle="!!character" @edit="$emit('edit-equipment', item)"
+                    :collapsible="false" :show-improvements="getEquipmentShowImprovements(item.id)"
                     @update:showImprovements="updateEquipmentShowImprovements(item.id, $event)"
                     @update="handleCharacterUpdate" />
             </MasonryGrid>
@@ -42,7 +42,7 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, ref, onMounted } from 'vue'
 import ConceptSection from '../shared/ConceptSection.vue'
 import EquipmentCard from '@/components/ui/cards/item/EquipmentCard.vue'
 import MasonryGrid from '@/components/ui/layouts/MasonryGrid.vue'
@@ -62,6 +62,7 @@ import { useKeepingStore } from '@/stores/keepingStore'
 import { useSourcesStore } from '@/stores/sourcesStore'
 import { useConceptsStore } from '@/stores/conceptsStore'
 import { useAuthStore } from '@/stores/authStore'
+import { useEngagementSuccessesStore } from '@/stores/engagementSuccessesStore'
 
 const charactersStore = useCharactersStore()
 const equipmentStore = useEquipmentStore()
@@ -72,6 +73,7 @@ const keepingStore = useKeepingStore()
 const sourcesStore = useSourcesStore()
 const conceptsStore = useConceptsStore()
 const authStore = useAuthStore()
+const engagementSuccessesStore = useEngagementSuccessesStore()
 
 defineProps({
     isEditMode: {
@@ -86,6 +88,7 @@ const concept = computed(() => conceptsStore.selectedConcept)
 const character = computed(() => charactersStore.selectedCharacter)
 const sources = computed(() => sourcesStore.allSourcesFlat)
 const isAdmin = computed(() => authStore.isAdmin)
+const engagementSuccessOptions = computed(() => engagementSuccessesStore.items)
 
 const sortOptions = computed(() => filterAdminSortOptions(EQUIPMENT_SORT_OPTIONS, isAdmin.value))
 
@@ -165,6 +168,12 @@ const handleCharacterUpdate = async (updatedCharacter) => {
         await charactersStore.update(updatedCharacter)
     }
 }
+
+onMounted(async () => {
+    if (engagementSuccessesStore.items.length === 0) {
+        await engagementSuccessesStore.fetch()
+    }
+})
 </script>
 
 <style scoped>
