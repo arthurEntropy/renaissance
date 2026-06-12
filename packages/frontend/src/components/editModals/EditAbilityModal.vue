@@ -14,6 +14,10 @@
           <input type="checkbox" id="canBeActive" v-model="editedAbility.canBeActive" />
           Can Be Active
         </label>
+        <label for="hasDifficulty">
+          <input type="checkbox" id="hasDifficulty" v-model="editedAbility.hasDifficulty" />
+          Has Difficulty
+        </label>
       </div>
 
       <!-- Name -->
