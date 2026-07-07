@@ -121,8 +121,10 @@
     </div>
 
     <!-- Full Size Image Modal -->
-    <FullSizeImageModal :is-open="fullSizeModalOpen" :image-url="displayImages[selectedIndex] || ''"
-      :show-edit-button="editable && isManualOrCombined" @close="closeFullSizeModal" @edit="openEditModal" />
+    <FullSizeImageModal :is-open="fullSizeModalOpen" :image-url="displayImages[fullSizeIndex] || ''"
+      :show-edit-button="editable && isManualOrCombined" :has-previous="fullSizeIndex > 0"
+      :has-next="fullSizeIndex < displayImages.length - 1" @navigate="navigateFullSize" @close="closeFullSizeModal"
+      @edit="openEditModal" />
   </div>
 </template>
 
@@ -215,6 +217,7 @@ const showNav = ref(false)
 const editModalOpen = ref(false)
 const addModalOpen = ref(false)
 const fullSizeModalOpen = ref(false)
+const fullSizeIndex = ref(0)
 const editImageUrl = ref('')
 const newImageUrl = ref('')
 const localImages = ref([...props.images])
@@ -311,11 +314,19 @@ const closeEditModal = () => {
 }
 
 const openFullSizeModal = () => {
+  fullSizeIndex.value = selectedIndex.value
   fullSizeModalOpen.value = true
 }
 
 const closeFullSizeModal = () => {
   fullSizeModalOpen.value = false
+}
+
+const navigateFullSize = (direction) => {
+  const newIndex = fullSizeIndex.value + direction
+  if (newIndex >= 0 && newIndex < displayImages.value.length) {
+    fullSizeIndex.value = newIndex
+  }
 }
 
 const saveImageUrl = () => {

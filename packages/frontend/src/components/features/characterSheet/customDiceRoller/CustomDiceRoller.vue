@@ -1,6 +1,5 @@
 <template>
     <div class="custom-roller-container">
-        <h3 class="custom-roll-header">Custom Roll</h3>
         <div class="dice-types-row">
             <div v-for="dieType in DIE_TYPES" :key="dieType" class="dice-column"
                 :class="{ 'dice-column--active': diceCounts[dieType] > 0 }">
@@ -40,7 +39,9 @@ import { NUMBER_INPUT_SIZES } from '@/constants/numberInput'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import { getDiceFontMaxClass } from '@/utils/diceFontUtils'
 import { STANDARD_DIE_SIZES } from '@shared/constants/dice'
+import { CORE_ABILITIES } from '@shared/constants/characterConstants'
 import CustomRollService from '@/services/rolls/customRollService'
+import DamageRollService from '@/services/rolls/damageRollService'
 import { useRollsStore } from '@/stores/rollsStore'
 import { useCharactersStore } from '@/stores/charactersStore'
 
@@ -49,6 +50,11 @@ const charactersStore = useCharactersStore()
 
 const props = defineProps({
     character: { type: Object, default: null },
+    initialDiceCounts: { type: Object, default: () => ({}) },
+    initialModifier: { type: Number, default: 0 },
+    rollMode: { type: String, default: 'custom' }, // 'custom' | 'damage'
+    rollName: { type: String, default: '' },
+    sourceName: { type: String, default: '' },
 })
 
 const emit = defineEmits(['roll-complete'])
@@ -58,14 +64,15 @@ const MAX_DICE_PER_TYPE = 20
 const ROLL_DELAY_MS = 500
 
 const diceCounts = ref({})
-const modifier = ref(0)
 const isRolling = ref(false)
 const sendToDiscord = ref(true)
 
-// Initialize dice counts to 0
+// Initialize dice counts from prop (or 0)
 DIE_TYPES.forEach(dieType => {
-    diceCounts.value[dieType] = 0
+    diceCounts.value[dieType] = props.initialDiceCounts[dieType] || 0
 })
+
+const modifier = ref(props.initialModifier)
 
 const hasAnyDice = computed(() => {
     return Object.values(diceCounts.value).some(count => count > 0)
@@ -98,14 +105,35 @@ const handleRoll = async () => {
 
         // Use explicit character prop if provided, otherwise fall back to selected character
         const character = props.character || charactersStore.selectedCharacter
-        const rollResult = CustomRollService.makeCustomRoll(
-            dicePool,
-            modifier.value,
-            character || { name: 'Unknown Character', featuredArtUrls: [''] },
-            { sendToDiscord: sendToDiscord.value }
-        )
+        const resolvedCharacter = character || { name: 'Unknown Character', featuredArtUrls: [''] }
 
-        rollsStore.setRoll(rollResult)
+        let rollResult
+        if (props.rollMode === 'damage') {
+            rollResult = DamageRollService.makeDamageRoll(
+                dicePool,
+                modifier.value,
+                resolvedCharacter,
+                {
+                    rollName: props.rollName || 'Damage Roll',
+                    baseSkillName: props.rollName || 'Damage Roll',
+                    sourceName: props.sourceName || null,
+                    modifierLabel: CORE_ABILITIES.BODY.label,
+                    footer: `+ ${CORE_ABILITIES.BODY.label}`,
+                    sendToDiscord: sendToDiscord.value,
+                }
+            )
+        } else {
+            rollResult = CustomRollService.makeCustomRoll(
+                dicePool,
+                modifier.value,
+                resolvedCharacter,
+                { sendToDiscord: sendToDiscord.value }
+            )
+        }
+
+        if (rollResult) {
+            rollsStore.setRoll(rollResult)
+        }
         emit('roll-complete')
     } catch (error) {
         console.error('Error making custom roll:', error)
@@ -123,15 +151,6 @@ const handleRoll = async () => {
     flex-direction: column;
     gap: var(--space-md);
     width: 100%;
-}
-
-.custom-roll-header {
-    margin: 0;
-    padding: 0;
-    font-size: var(--font-size-16);
-    font-weight: 600;
-    color: var(--color-text-primary);
-    text-align: center;
 }
 
 .dice-types-row {
@@ -168,7 +187,6 @@ const handleRoll = async () => {
     align-items: center;
     justify-content: space-between;
     padding-top: var(--space-sm);
-    border-top: 1px solid var(--color-gray-dark);
 }
 
 .modifier-control {
@@ -181,6 +199,7 @@ const handleRoll = async () => {
     font-size: var(--font-size-12);
     color: var(--color-text-secondary);
     min-width: 50px;
+    margin-top: 15px;
 }
 
 .modifier-control--positive :deep(input[type='number']) {

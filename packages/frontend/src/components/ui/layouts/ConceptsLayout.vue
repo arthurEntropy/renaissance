@@ -11,8 +11,8 @@
       :show-add-button="isAdmin && props.showAddButton" :search-placeholder="searchPlaceholder"
       tag-search-placeholder="Filter by expansion..." @add="createConcept" />
 
-    <!-- Selection Cards: hidden when concept detail is open -->
-    <div v-show="!showConceptDetail" class="concept-cards-container"
+    <!-- Selection Cards: hidden when concept detail is open, or while expansion data is loading -->
+    <div v-show="!showConceptDetail && conceptsVisible" class="concept-cards-container"
       :class="{ 'concept-cards-container--empty': isEmptyStateVisible }">
       <ConceptCard v-for="concept in filteredConcepts" :key="concept.id" :concept="concept" :sources="sources"
         :expansions="expansionStore.items" @select="openConceptDetail" />
@@ -123,6 +123,9 @@ const tagGroups = computed(() => {
 const showConceptDetail = ref(false)
 const searchQuery = ref('')
 const expansionFilter = ref('')
+// Prevents showing concept cards until expansion visibility data is ready.
+// Without this, concepts briefly flash unfiltered before expansions load.
+const conceptsVisible = ref(false)
 
 // Bridge: FilterBar works with arrays; persistence stores a single string
 const expansionTags = computed({
@@ -260,6 +263,9 @@ const handleKeyNavigation = (event) => {
 onMounted(async () => {
   try {
     await expansionStore.fetch()
+    // Reveal concept cards only after expansions are loaded so the filter
+    // is applied from the very first render (no unfiltered flash).
+    conceptsVisible.value = true
     window.addEventListener('keydown', handleKeyNavigation);
 
     // Auto-open concept if URL has an ID param
