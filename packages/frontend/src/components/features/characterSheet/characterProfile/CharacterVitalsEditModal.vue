@@ -33,7 +33,9 @@
             <template v-if="!isBeastCharacter">
                 <div class="form-group row">
                     <div class="form-column">
-                        <label for="ancestry1" class="left-aligned">Ancestries:</label>
+                        <div class="label-with-action">
+                            <label for="ancestry1" class="left-aligned">Ancestries:</label>
+                        </div>
                         <select :value="formData.ancestryIds[0]" @change="onAncestry0Change" id="ancestry1"
                             class="modal-input">
                             <option value="">Select ancestry...</option>
@@ -44,7 +46,13 @@
                         </select>
                     </div>
                     <div class="form-column">
-                        <label for="ancestry2" class="left-aligned invisible-label">&nbsp;</label>
+                        <label for="ancestry2" class="right-aligned invisible-label">&nbsp;</label>
+                        <div class="genetics-wizard-button-wrapper">
+                            <ActionButton variant="outline" size="small" text="Genetics Wizard🪄"
+                                :disabled="!hasTwoAncestries"
+                                :title="hasTwoAncestries ? 'Open the Genetics Wizard' : 'Select two ancestries first'"
+                                @click="showGeneticsWizard = true" />
+                        </div>
                         <select v-model="formData.ancestryIds[1]" id="ancestry2" class="modal-input"
                             :disabled="!formData.ancestryIds[0]">
                             <option value="">Select ancestry...</option>
@@ -220,6 +228,9 @@
     <TransferOwnershipModal v-if="showTransferModal" :character="character" @close="showTransferModal = false" />
     <DeleteCharacterModal v-if="showDeleteModal" :character="character" @close="showDeleteModal = false"
         @deleted="closeModal" />
+    <GeneticsWizardModal v-if="showGeneticsWizard && selectedAncestryAObject && selectedAncestryBObject"
+        :ancestry-a="selectedAncestryAObject" :ancestry-b="selectedAncestryBObject"
+        @close="showGeneticsWizard = false" />
 </template>
 
 <script setup>
@@ -236,6 +247,7 @@ import ConvertToNpcModal from './ConvertToNpcModal.vue'
 import ConvertToPcModal from './ConvertToPcModal.vue'
 import TransferOwnershipModal from './TransferOwnershipModal.vue'
 import DeleteCharacterModal from './DeleteCharacterModal.vue'
+import GeneticsWizardModal from './GeneticsWizardModal.vue'
 import { isBeastTemplate, isBeastInstance, isPlayerCharacter, isNPC } from '@/utils/characterTypeGuards'
 import { CAMPAIGN_ROLE, CAMPAIGN_MEMBER_STATUS } from '@shared/constants/campaignConstants'
 
@@ -268,6 +280,18 @@ const gmCampaigns = computed(() => {
 
 const showConvertToNPCButton = computed(() => isPlayerChar.value && gmCampaigns.value.length > 0)
 const showConvertToPCButton = computed(() => isNPCChar.value)
+
+// Genetics Wizard
+const showGeneticsWizard = ref(false)
+const hasTwoAncestries = computed(() =>
+    formData.value.ancestryIds[0] !== '' && formData.value.ancestryIds[1] !== ''
+)
+const selectedAncestryAObject = computed(() =>
+    conceptsStore.ancestries.find(a => a.id === formData.value.ancestryIds[0]) || null
+)
+const selectedAncestryBObject = computed(() =>
+    conceptsStore.ancestries.find(a => a.id === formData.value.ancestryIds[1]) || null
+)
 
 // Modal visibility
 const showConvertToNpcModal = ref(false)
@@ -547,11 +571,31 @@ const randomizeVitals = () => {
 
 .invisible-label {
     visibility: hidden;
+    height: 0;
+    margin-top: -17px;
+}
+
+.genetics-wizard-button-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: var(--space-xs);
 }
 
 .modal-input-placeholder {
     height: 1px;
     visibility: hidden;
+}
+
+.label-with-action {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-xs);
+}
+
+.label-with-action label {
+    margin-bottom: 0;
 }
 
 .randomize-row {
