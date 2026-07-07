@@ -194,7 +194,17 @@ const schoolGroupedAbilities = computed(() => {
         }
         groups[ability.school].items.push(ability)
     })
-    return Object.values(groups).sort((a, b) => a.name.localeCompare(b.name))
+    return Object.values(groups).sort((a, b) => a.name.localeCompare(b.name)).map(group => {
+        const schoolName = group.name
+        const items = [...group.items].sort((a, b) => {
+            const aMatches = a.name === schoolName
+            const bMatches = b.name === schoolName
+            if (aMatches && !bMatches) return -1
+            if (!aMatches && bMatches) return 1
+            return 0
+        })
+        return { ...group, items }
+    })
 })
 
 const manaColorGroupedAbilities = computed(() => {

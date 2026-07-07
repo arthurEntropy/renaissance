@@ -135,10 +135,12 @@
         @close="showDiscoverModal = false" @update="handleDiscoverUpdate" />
     </template>
 
-    <!-- Transfer FAB — shown in edit mode when the character is in a campaign -->
-    <template v-if="showTransferButton" #admin-actions>
-      <FloatingActionButton :variant="FAB_TYPES.TRANSFER" :size="FAB_SIZES.SMALL"
+    <!-- Admin actions slot — transfer FAB and/or untrained indicator -->
+    <template v-if="showTransferButton || lacksTraining" #admin-actions>
+      <FloatingActionButton v-if="showTransferButton" :variant="FAB_TYPES.TRANSFER" :size="FAB_SIZES.SMALL"
         :visibility="FAB_VISIBILITIES.ON_HOVER" @click.stop="$emit('transfer', equipment)" />
+      <FloatingActionButton v-if="lacksTraining" :variant="FAB_TYPES.UNTRAINED" :size="FAB_SIZES.SMALL"
+        :visibility="FAB_VISIBILITIES.ALWAYS" />
     </template>
 
   </base-card>
@@ -155,6 +157,7 @@ import { useEquipmentGradesStore } from '@/stores/equipmentGradesStore'
 import { useEquipmentRangesStore } from '@/stores/equipmentRangesStore'
 import { useKeepingStore } from '@/stores/keepingStore'
 import { useCharactersStore } from '@/stores/charactersStore'
+import { useConceptsStore } from '@/stores/conceptsStore'
 import { useImprovements } from '@/composables/useImprovements'
 import BaseCard from '@/components/ui/cards/item/BaseCard.vue'
 import DifficultyBadge from '@/components/ui/cards/item/DifficultyBadge.vue'
@@ -170,6 +173,7 @@ import SuccessesSection from '@/components/ui/cards/item/SuccessesSection.vue'
 import CharacterService from '@/services/entities/characterService'
 import { getDiceFontMaxClass } from '@/utils/diceFontUtils'
 import { ItemType } from '@shared/constants/itemTypes'
+import { ARMOR_TYPE_ID } from '@/constants/armorConstants'
 
 defineOptions({
   inheritAttrs: false
@@ -346,6 +350,7 @@ const equipmentGradesStore = useEquipmentGradesStore()
 const equipmentRangesStore = useEquipmentRangesStore()
 const keepingStore = useKeepingStore()
 const charactersStore = useCharactersStore()
+const conceptsStore = useConceptsStore()
 
 // Item improvements composable
 const { toggleImprovement, getCharacterImprovements } = useImprovements('equipment')
@@ -354,6 +359,30 @@ const { toggleImprovement, getCharacterImprovements } = useImprovements('equipme
 const isWeapon = computed(() => {
   const type = equipmentTypesStore.getById(props.equipment.type)
   return type?.name === 'Weapon' // TODO: Figure out a way to avoid using string comparison here
+})
+
+// Training category key for the equipment item
+const martialTrainingKey = computed(() => {
+  if (props.equipment.type === ARMOR_TYPE_ID) return 'armorGrades'
+  if (isWeapon.value) {
+    const subtype = equipmentSubtypesStore.getById(props.equipment.subtype)
+    const name = subtype?.name?.toLowerCase()
+    if (['melee', 'polearm', 'ranged', 'firearm'].includes(name)) {
+      return `${name}Grades`
+    }
+  }
+  return null
+})
+
+// True when a character context is present, the item requires training, and the character lacks it
+const lacksTraining = computed(() => {
+  if (!props.character) return false
+  const key = martialTrainingKey.value
+  if (!key) return false
+  const mestiere = conceptsStore.mestieri.find(m => m.id === props.character.mestiereId)
+  const trainedGrades = mestiere?.novizio?.martialTraining?.[key] ?? []
+  if (!props.equipment.grade) return false
+  return !trainedGrades.includes(props.equipment.grade)
 })
 
 // Format is "Type - Subtype, Grade", e.g. "Weapon - Melee, Martial"

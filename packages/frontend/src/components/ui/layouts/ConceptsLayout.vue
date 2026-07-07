@@ -216,6 +216,7 @@ const navigateConcept = (direction) => {
 
   emit('select', newConcept)
   updateConceptUrl(newConcept.name)
+  window.scrollTo(0, 0)
 }
 
 const closeConceptDetail = () => {

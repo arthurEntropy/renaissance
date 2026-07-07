@@ -36,6 +36,7 @@ import { useColumnConfig } from '@/composables/useColumnConfig'
 import { useRollsStore } from '@/stores/rollsStore'
 import { useCharactersStore } from '@/stores/charactersStore'
 import { useEquipmentStore } from '@/stores/equipmentStore'
+import { useConceptsStore } from '@/stores/conceptsStore'
 import { STAT_ROW_TYPES } from '@/constants/statRowTypes'
 import { ARMOR_TYPE_ID } from '@/constants/armorConstants'
 import * as CharacterUtils from '@shared/utils/characterUtils'
@@ -58,6 +59,7 @@ const props = defineProps({
 const rollsStore = useRollsStore()
 const charactersStore = useCharactersStore()
 const equipmentStore = useEquipmentStore()
+const conceptsStore = useConceptsStore()
 
 const character = computed(() => charactersStore.selectedCharacter)
 const canEdit = computed(() => charactersStore.canEditSelectedCharacter)
@@ -119,15 +121,24 @@ const isMaxVirtueAuto = computed(() => {
   return true
 })
 
-// Armor defense bonus — sum of defenseBonus for all worn armor items
+// Armor defense bonus — sum of defenseBonus for all worn armor items, halved (floor) for untrained items
+const armorTrainedGrades = computed(() => {
+  if (!character.value?.mestiereId) return []
+  const mestiere = conceptsStore.mestieri.find(m => m.id === character.value.mestiereId)
+  return mestiere?.novizio?.martialTraining?.armorGrades ?? []
+})
+
 const armorDefenseBonus = computed(() => {
   if (!character.value?.equipment || !allEquipment.value) return 0
+  const trainedGrades = armorTrainedGrades.value
   return character.value.equipment
     .filter(entry => entry.isWielding)
     .reduce((sum, entry) => {
       const eq = allEquipment.value.find(e => e.id === entry.id)
       if (eq?.type === ARMOR_TYPE_ID && eq?.defenseBonus > 0) {
-        return sum + eq.defenseBonus
+        const isTrained = trainedGrades.includes(eq.grade)
+        const bonus = isTrained ? eq.defenseBonus : Math.floor(eq.defenseBonus / 2)
+        return sum + bonus
       }
       return sum
     }, 0)

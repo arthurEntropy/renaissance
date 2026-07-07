@@ -37,7 +37,7 @@ const isDeleteConfirmed = computed(() => confirmationInput.value === props.chara
 
 const confirmDeletion = async () => {
     if (!isDeleteConfirmed.value || !props.character) return
-    await charactersStore.deleteCharacter(props.character._id)
+    await charactersStore.deleteCharacter(props.character)
     emit('deleted')
 }
 </script>

@@ -135,7 +135,7 @@ const localDifficulty = ref(props.defaultDifficulty || null)
 const sendToDiscord = ref(true)
 const rollType = ref(props.defaultRollType)
 const rollParameters = ref({
-  skillId: '',
+  key: '',
   name: '',
   isFavored: false,
   isIllFavored: false,
@@ -300,7 +300,7 @@ function decrementDiceMod() {
 function updateRollParameters() {
   if (selectedSkill.value) {
     rollParameters.value = {
-      skillId: getSkillId(selectedSkill.value),
+      key: getSkillId(selectedSkill.value),
       name: getSkillLabel(selectedSkill.value),
       isFavored: selectedSkill.value.isFavored,
       isIllFavored: selectedSkill.value.isIllFavored,
@@ -309,7 +309,7 @@ function updateRollParameters() {
     }
   } else {
     rollParameters.value = {
-      skillId: '',
+      key: '',
       name: '',
       isFavored: false,
       isIllFavored: false,
@@ -331,7 +331,7 @@ function rollSkillCheck() {
 
   if (rollType.value === RollTypes.OPPOSED_SKILL_CHECK) {
     const skillCheckConfig = {
-      key: effectiveRollParameters.value.skillId,
+      key: effectiveRollParameters.value.key,
       name: effectiveRollParameters.value.name,
       isFavored: effectiveRollParameters.value.isFavored,
       isIllFavored: effectiveRollParameters.value.isIllFavored,

@@ -37,8 +37,7 @@
                         <select :value="formData.ancestryIds[0]" @change="onAncestry0Change" id="ancestry1"
                             class="modal-input">
                             <option value="">Select ancestry...</option>
-                            <option v-for="ancestry in conceptsStore.ancestries" :key="ancestry.id"
-                                :value="ancestry.id"
+                            <option v-for="ancestry in conceptsStore.ancestries" :key="ancestry.id" :value="ancestry.id"
                                 v-show="ancestry.id !== formData.ancestryIds[1]">
                                 {{ ancestry.name }}
                             </option>
@@ -49,8 +48,7 @@
                         <select v-model="formData.ancestryIds[1]" id="ancestry2" class="modal-input"
                             :disabled="!formData.ancestryIds[0]">
                             <option value="">Select ancestry...</option>
-                            <option v-for="ancestry in conceptsStore.ancestries" :key="ancestry.id"
-                                :value="ancestry.id"
+                            <option v-for="ancestry in conceptsStore.ancestries" :key="ancestry.id" :value="ancestry.id"
                                 v-show="ancestry.id !== formData.ancestryIds[0]">
                                 {{ ancestry.name }}
                             </option>
@@ -371,50 +369,53 @@ const _handleOverlayClick = () => {
 }
 
 const saveChanges = () => {
+    const char = charactersStore.selectedCharacter
+    if (!char) return
+
     if (isBeastCharacter.value) {
-        Object.assign(character, {
+        Object.assign(char, {
             name: formData.value.name,
             description: formData.value.description,
             size: formData.value.size,
             reach: formData.value.reach,
             isPublicPreview: formData.value.isPublicPreview,
         })
-        if (!character.featuredArtUrls) character.featuredArtUrls = []
-        character.featuredArtUrls[0] = formData.value.featuredArtUrl
+        if (!char.featuredArtUrls) char.featuredArtUrls = []
+        char.featuredArtUrls[0] = formData.value.featuredArtUrl
     } else {
         // Filter out empty strings from ancestry and culture IDs before saving
         const filteredAncestryIds = formData.value.ancestryIds.filter(id => id !== '')
         const filteredCultureIds = formData.value.cultureIds.filter(id => id !== '')
 
-        Object.assign(character, {
+        Object.assign(char, {
             ...formData.value,
             ancestryIds: filteredAncestryIds,
             cultureIds: filteredCultureIds
         })
 
         // Save art URL
-        if (!character.featuredArtUrls) character.featuredArtUrls = []
-        character.featuredArtUrls[0] = formData.value.featuredArtUrl
+        if (!char.featuredArtUrls) char.featuredArtUrls = []
+        char.featuredArtUrls[0] = formData.value.featuredArtUrl
 
         // Apply type conversion if requested
         if (pendingConvertToPC.value && isNPCChar.value) {
-            character.characterType = 'playerCharacter'
+            char.characterType = 'playerCharacter'
             // Add character to the campaign member's character list so it stays visible in the campaign
-            const campaignId = character.campaignId
-            const ownerId = character.ownerId
+            const campaignId = char.campaignId
+            const ownerId = char.ownerId
             if (campaignId && ownerId) {
                 const campaign = campaignStore.getById(campaignId)
                 const member = campaign?.members?.find(m => m.userId === ownerId)
                 if (member) {
                     const currentIds = member.characterIds || []
-                    if (!currentIds.includes(character.id)) {
-                        campaignStore.updateMemberCharacters(campaignId, ownerId, [...currentIds, character.id])
+                    if (!currentIds.includes(char.id)) {
+                        campaignStore.updateMemberCharacters(campaignId, ownerId, [...currentIds, char.id])
                     }
                 }
             }
         } else if (pendingConvertToNPCCampaignId.value && isPlayerChar.value) {
-            character.characterType = 'npc'
-            character.campaignId = pendingConvertToNPCCampaignId.value
+            char.characterType = 'npc'
+            char.campaignId = pendingConvertToNPCCampaignId.value
         }
     }
     closeModal()
@@ -424,7 +425,9 @@ const resetStats = () => {
     const shouldReset = confirm('Reset all tracked character stats?')
     if (!shouldReset) return
 
-    character.rollStats = createEmptyRollStats()
+    const char = charactersStore.selectedCharacter
+    if (!char) return
+    char.rollStats = createEmptyRollStats()
 }
 
 const hasSelectedAncestry = computed(() =>

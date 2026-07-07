@@ -118,6 +118,14 @@ export const useCharactersStore = defineStore('characters', () => {
     return updated
   }
 
+  const deleteCharacter = async (character) => {
+    if (!character) return
+    await base.remove(character)
+    if (selectedCharacter.value?.id === character.id) {
+      selectedCharacter.value = null
+    }
+  }
+
   return {
     characters: base.items,
     selectedCharacter,
@@ -128,6 +136,7 @@ export const useCharactersStore = defineStore('characters', () => {
     update,
     remove: base.remove,
     transferOwnership,
+    deleteCharacter,
     selectCharacter,
     deselectCharacter,
     getById: base.getById,

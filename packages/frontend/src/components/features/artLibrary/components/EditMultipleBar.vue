@@ -2,6 +2,7 @@
     <div v-if="selectedCount > 0" class="edit-multiple-bar">
         <span class="selected-count">{{ selectedCount }} item{{ selectedCount !== 1 ? 's' : '' }} selected</span>
         <ActionButton variant="primary" size="large" text="Edit Multiple" @click="$emit('edit')" />
+        <ActionButton variant="danger" size="large" text="Delete Multiple" @click="$emit('delete-multiple')" />
         <button type="button" class="close-button" @click="$emit('clear')" aria-label="Clear selection">
             <XMarkIcon class="icon-sm" />
         </button>
@@ -19,7 +20,7 @@ defineProps({
     }
 })
 
-defineEmits(['edit', 'clear'])
+defineEmits(['edit', 'delete-multiple', 'clear'])
 </script>
 
 <style scoped>
