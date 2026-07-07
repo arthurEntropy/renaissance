@@ -55,10 +55,15 @@
         :visibility="FAB_VISIBILITIES.ON_HOVER" @click.stop="handleActivateToggle" />
     </template>
   </base-card>
+
+  <!-- Confirm Purchase modal: shown when adding an ability to a character -->
+  <ConfirmPurchaseModal v-if="showConfirmModal" item-type="ability" :cost="ability.xpCost ?? null"
+    :character-balance="character?.xp ?? 0" currency-label="XP" @confirm-spend="confirmAddWithSpend"
+    @confirm-free="confirmAddFree" @close="showConfirmModal = false" />
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { ChevronUpIcon, ChevronDownIcon } from '@heroicons/vue/24/outline'
 import { useCardPreview } from '@/composables/useCardPreview'
 import { useImprovements } from '@/composables/useImprovements'
@@ -72,6 +77,7 @@ import BadgeDisplay from '@/components/ui/cards/item/BadgeDisplay.vue'
 import DifficultyBadge from '@/components/ui/cards/item/DifficultyBadge.vue'
 import ImprovementsSection from '@/components/ui/cards/item/ImprovementsSection.vue'
 import SuccessesSection from '@/components/ui/cards/item/SuccessesSection.vue'
+import ConfirmPurchaseModal from '@/components/ui/modals/ConfirmPurchaseModal.vue'
 import CharacterService from '@/services/entities/characterService'
 import { ItemType } from '@shared/constants/itemTypes'
 
@@ -285,7 +291,7 @@ const handleBaseAbilityToggle = () => {
   if (!props.character) return
 
   if (characterHasBaseAbility.value) {
-    // Remove the ability and all its improvements
+    // Remove: no confirmation needed
     const abilityIndex = props.character.abilities.findIndex(a => a.id === props.ability.id)
     if (abilityIndex === -1) return
 
@@ -294,13 +300,26 @@ const handleBaseAbilityToggle = () => {
       emit('update', updatedCharacter)
     }
   } else {
-    // Add the base ability to the character using CharacterService
-    const updatedCharacter = CharacterService.addAbilityToCharacter(props.character, props.ability)
-
-    if (updatedCharacter) {
-      emit('update', updatedCharacter)
-    }
+    // Add: show confirmation modal
+    showConfirmModal.value = true
   }
+}
+
+const showConfirmModal = ref(false)
+
+function confirmAddWithSpend() {
+  const updatedCharacter = CharacterService.addAbilityToCharacter(props.character, props.ability)
+  if (!updatedCharacter) return
+  const xpCost = props.ability.xpCost ?? 0
+  const deducted = xpCost > 0
+    ? { ...updatedCharacter, xp: Math.max(0, (updatedCharacter.xp ?? 0) - xpCost) }
+    : updatedCharacter
+  emit('update', deducted)
+}
+
+function confirmAddFree() {
+  const updatedCharacter = CharacterService.addAbilityToCharacter(props.character, props.ability)
+  if (updatedCharacter) emit('update', updatedCharacter)
 }
 
 // Activation state

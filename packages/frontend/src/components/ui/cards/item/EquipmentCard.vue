@@ -144,6 +144,11 @@
     </template>
 
   </base-card>
+
+  <!-- Confirm Purchase modal: shown when adding equipment to a character -->
+  <ConfirmPurchaseModal v-if="showConfirmPurchaseModal" item-type="equipment" :cost="keepingCost"
+    :character-balance="character?.treasure ?? 0" currency-label="Treasure" @confirm-spend="confirmAddWithSpend"
+    @confirm-free="confirmAddFree" @close="showConfirmPurchaseModal = false" />
 </template>
 
 <script setup>
@@ -170,6 +175,7 @@ import ChipTag from '@/components/ui/chips/ChipTag.vue'
 import { CHIP_TAG_ROUNDED } from '@/constants/chipTag'
 import ImprovementsSection from '@/components/ui/cards/item/ImprovementsSection.vue'
 import SuccessesSection from '@/components/ui/cards/item/SuccessesSection.vue'
+import ConfirmPurchaseModal from '@/components/ui/modals/ConfirmPurchaseModal.vue'
 import CharacterService from '@/services/entities/characterService'
 import { getDiceFontMaxClass } from '@/utils/diceFontUtils'
 import { ItemType } from '@shared/constants/itemTypes'
@@ -526,7 +532,7 @@ const handleBaseEquipmentToggle = () => {
   if (!props.character) return
 
   if (characterHasBaseEquipment.value) {
-    // Remove the equipment and all its improvements
+    // Remove: no confirmation needed
     const equipmentIndex = props.character.equipment.findIndex(e => e.id === props.equipment.id)
     if (equipmentIndex === -1) return
 
@@ -535,13 +541,26 @@ const handleBaseEquipmentToggle = () => {
       emit('update', updatedCharacter)
     }
   } else {
-    // Add the base equipment to the character using CharacterService
-    const updatedCharacter = CharacterService.addEquipmentToCharacter(props.character, props.equipment)
-
-    if (updatedCharacter) {
-      emit('update', updatedCharacter)
-    }
+    // Add: show confirmation modal
+    showConfirmPurchaseModal.value = true
   }
+}
+
+const showConfirmPurchaseModal = ref(false)
+
+function confirmAddWithSpend() {
+  const updatedCharacter = CharacterService.addEquipmentToCharacter(props.character, props.equipment)
+  if (!updatedCharacter) return
+  const cost = keepingCost.value ?? 0
+  const deducted = cost > 0
+    ? { ...updatedCharacter, treasure: Math.max(0, (updatedCharacter.treasure ?? 0) - cost) }
+    : updatedCharacter
+  emit('update', deducted)
+}
+
+function confirmAddFree() {
+  const updatedCharacter = CharacterService.addEquipmentToCharacter(props.character, props.equipment)
+  if (updatedCharacter) emit('update', updatedCharacter)
 }
 
 const handleDuplicate = async () => {

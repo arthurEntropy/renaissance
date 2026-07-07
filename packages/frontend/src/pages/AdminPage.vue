@@ -120,12 +120,25 @@
                 </div>
             </template>
         </AdminListManager>
+
+        <AdminListManager title="Art Placeholders" item-name="Placeholder" :store="artPlaceholdersStore"
+            :delete-confirm-message="() => 'Delete this placeholder image?'" :default-item="{ url: '', index: 0 }">
+            <template #fields="{ item, update }">
+                <div class="placeholder-admin-fields">
+                    <input v-model="item.url" @blur="update" class="field-input flex-1" placeholder="Image URL" />
+                    <img v-if="item.url" :src="item.url" class="placeholder-preview" alt="Placeholder preview" />
+                </div>
+            </template>
+        </AdminListManager>
+
+        <AdminReportingPanel />
     </div>
 </template>
 
 <script setup>
 import AdminListManager from '@/components/features/admin/AdminListManager.vue'
 import AdminCleanupPanel from '@/components/features/admin/AdminCleanupPanel.vue'
+import AdminReportingPanel from '@/components/features/admin/AdminReportingPanel.vue'
 import UserManager from '@/components/features/admin/UserManager.vue'
 import UserSettings from '@/components/features/admin/UserSettings.vue'
 import { useExpansionsStore } from '@/stores/expansionsStore'
@@ -138,6 +151,7 @@ import { useBiomesStore } from '@/stores/biomesStore'
 import { useAbilitySchoolsStore } from '@/stores/abilitySchoolsStore'
 import { useConceptsStore } from '@/stores/conceptsStore'
 import { useKeepingStore } from '@/stores/keepingStore'
+import { useArtPlaceholdersStore } from '@/stores/artPlaceholdersStore'
 import { computed } from 'vue'
 import BiomeTagsCyclePicker from '@/components/ui/biome/BiomeTagsCyclePicker.vue'
 
@@ -151,6 +165,7 @@ const biomesStore = useBiomesStore()
 const abilitySchoolsStore = useAbilitySchoolsStore()
 const conceptsStore = useConceptsStore()
 const keepingStore = useKeepingStore()
+const artPlaceholdersStore = useArtPlaceholdersStore()
 
 // Group ability schools by mestiere; expose as a store-shaped object for AdminListManager.
 // computed() is required so that changes to conceptsStore.mestieri propagate reactively as a prop.
@@ -268,5 +283,22 @@ const mestriereGroupStore = computed(() => ({
 
 .gratuiti-input {
     resize: vertical;
+}
+
+.placeholder-admin-fields {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    flex: 1;
+    min-width: 0;
+}
+
+.placeholder-preview {
+    width: 80px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: var(--radius-5);
+    border: 1px solid var(--color-gray-medium);
+    flex-shrink: 0;
 }
 </style>

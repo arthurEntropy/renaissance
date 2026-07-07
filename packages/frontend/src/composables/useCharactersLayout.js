@@ -3,6 +3,7 @@ import { useActionCostsStore } from '@/stores/actionCostsStore'
 import { useAbilitySchoolsStore } from '@/stores/abilitySchoolsStore'
 import { useAppCharacterSheetModal } from '@/composables/useAppCharacterSheetModal'
 import { useAuthStore } from '@/stores/authStore'
+import { useArtPlaceholdersStore } from '@/stores/artPlaceholdersStore'
 
 export function useCharactersLayout(charactersStore, equipmentStore, abilitiesStore, characterService, options = {}) {
   const { beastMode = false, adminOnlySelect = false } = options
@@ -11,6 +12,13 @@ export function useCharactersLayout(charactersStore, equipmentStore, abilitiesSt
   const abilitySchoolsStore = useAbilitySchoolsStore()
   const { open: openCharacterSheet } = useAppCharacterSheetModal()
   const authStore = useAuthStore()
+  const artPlaceholdersStore = useArtPlaceholdersStore()
+
+  /** Overrides the featuredArtUrls of an entity with a random placeholder if one is available. */
+  const withRandomPlaceholder = (entity) => {
+    const url = artPlaceholdersStore.getRandomUrl()
+    return url ? { ...entity, featuredArtUrls: [url] } : entity
+  }
   const characters = computed(() => 
     beastMode 
       ? (charactersStore.filteredBeasts || [])
@@ -26,7 +34,7 @@ export function useCharactersLayout(charactersStore, equipmentStore, abilitiesSt
   }
 
   const createCharacter = async () => {
-    const defaultEntity = applyCharacterTypeDefaults(characterService.getDefaultEntity())
+    const defaultEntity = withRandomPlaceholder(applyCharacterTypeDefaults(characterService.getDefaultEntity()))
     const newCharacter = await characterService.create(defaultEntity)
     await charactersStore.fetch()
     return newCharacter
@@ -49,7 +57,8 @@ export function useCharactersLayout(charactersStore, equipmentStore, abilitiesSt
       equipmentStore.fetch(),
       abilitiesStore.fetch(),
       actionTypesStore.fetch(),
-      abilitySchoolsStore.fetch()
+      abilitySchoolsStore.fetch(),
+      artPlaceholdersStore.fetch(),
     ])
   }
 
@@ -79,7 +88,7 @@ export function useCharactersLayout(charactersStore, equipmentStore, abilitiesSt
   }
 
   const handleCreate = async () => {
-    const defaultEntity = applyCharacterTypeDefaults(characterService.getDefaultEntity())
+    const defaultEntity = withRandomPlaceholder(applyCharacterTypeDefaults(characterService.getDefaultEntity()))
     const newCharacter = await characterService.create(defaultEntity)
     await charactersStore.fetch()
     

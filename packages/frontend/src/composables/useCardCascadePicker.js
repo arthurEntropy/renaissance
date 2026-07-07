@@ -122,9 +122,9 @@ export function useCardCascadePicker(options = {}) {
     const allPickerItems = computed(() => {
         let items = []
         if (pickerCategory.value === 'ability') {
-            items = abilitiesStore.abilities.filter(a => !a.isDeleted)
+            items = abilitiesStore.visibleAbilities.filter(a => !a.isDeleted)
         } else if (pickerCategory.value === 'equipment') {
-            items = equipmentStore.equipment.filter(e => !e.isDeleted && !e.isTemplate)
+            items = equipmentStore.visibleEquipment.filter(e => !e.isDeleted && !e.isTemplate)
         }
         return filterItems ? items.filter(filterItems) : items
     })

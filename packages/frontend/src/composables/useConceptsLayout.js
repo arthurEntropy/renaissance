@@ -1,5 +1,6 @@
 import { computed, onMounted } from 'vue'
 import { ConceptType } from '@shared/constants/conceptTypes'
+import { useArtPlaceholdersStore } from '@/stores/artPlaceholdersStore'
 
 /**
  * Map item names to ConceptType enum values
@@ -16,16 +17,20 @@ const ITEM_NAME_TO_CONCEPT_TYPE = {
  */
 export function useConceptsLayout(store, service, options = {}) {
   const { conceptsProperty = 'concepts', itemName = '' } = options
+  const artPlaceholdersStore = useArtPlaceholdersStore()
+
+  const withRandomPlaceholder = (entity) => {
+    const url = artPlaceholdersStore.getRandomUrl()
+    return url ? { ...entity, featuredArtUrls: [url] } : entity
+  }
 
   const concepts = computed(() => store[conceptsProperty] || [])
 
   const createConcept = async () => {
-    // For ConceptService, need to pass conceptType
     const conceptType = ITEM_NAME_TO_CONCEPT_TYPE[itemName]
-    const defaultEntity = conceptType 
-      ? service.getDefaultEntity(conceptType)
-      : service.getDefaultEntity()
-    
+    const defaultEntity = withRandomPlaceholder(
+      conceptType ? service.getDefaultEntity(conceptType) : service.getDefaultEntity()
+    )
     const newConcept = await service.create(defaultEntity)
     await store.fetch()
     return newConcept
@@ -43,7 +48,7 @@ export function useConceptsLayout(store, service, options = {}) {
   }
 
   const refreshData = async () => {
-    await store.fetch()
+    await Promise.all([store.fetch(), artPlaceholdersStore.fetch()])
   }
 
   // Auto-fetch data when component mounts
@@ -69,12 +74,10 @@ export function useConceptsLayout(store, service, options = {}) {
   }
 
   const handleCreate = async () => {
-    // For ConceptService, need to pass conceptType
     const conceptType = ITEM_NAME_TO_CONCEPT_TYPE[itemName]
-    const defaultEntity = conceptType 
-      ? service.getDefaultEntity(conceptType)
-      : service.getDefaultEntity()
-    
+    const defaultEntity = withRandomPlaceholder(
+      conceptType ? service.getDefaultEntity(conceptType) : service.getDefaultEntity()
+    )
     const newConcept = await service.create(defaultEntity)
     await store.fetch()
     

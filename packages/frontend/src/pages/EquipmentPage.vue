@@ -125,7 +125,7 @@ const authStore = useAuthStore()
 const sourcesStore = useSourcesStore()
 const charactersStore = useCharactersStore()
 
-const equipment = computed(() => equipmentStore.equipment)
+const equipment = computed(() => equipmentStore.visibleEquipment)
 const selectedCharacter = computed(() => charactersStore.selectedCharacter)
 
 // Modal management
