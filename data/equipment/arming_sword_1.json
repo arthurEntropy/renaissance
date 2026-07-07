@@ -1,7 +1,7 @@
 {
   "isDeleted": false,
   "createdAt": "2026-05-06T17:55:10.305Z",
-  "lastModified": "2026-05-20T18:58:51.591Z",
+  "lastModified": "2026-06-24T14:18:35.234Z",
   "name": "Arming Sword",
   "artUrl": "https://cdn.midjourney.com/404f9c67-5299-4a24-8721-4d26396f30ff/0_2.png",
   "description": "",
@@ -9,7 +9,7 @@
   "improvements": [],
   "source": "be62ac3d-7168-4779-8274-e60574a2fd27",
   "school": null,
-  "keeping": null,
+  "keeping": "4d5e6f7a-8b9c-4d0e-1f2a-3b4c5d6e7f8a",
   "isCustom": false,
   "isTemplate": false,
   "isMagical": false,

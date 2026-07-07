@@ -1,0 +1,19 @@
+{
+  "type": "1cc02e7b-cdaf-477c-a198-6be0ad5ab47f",
+  "createdAt": "2026-05-21T15:55:35.050Z",
+  "lastModified": "2026-06-24T13:12:07.705Z",
+  "isTemplate": false,
+  "name": "Leather Shield",
+  "subtype": "5ec6d867-7dbf-41c0-b196-3ada5985e6ea",
+  "grade": "ad30b114-3c19-413f-aad2-5f270bd95684",
+  "weight": 2,
+  "defenseBonus": 1,
+  "engagementDice": [],
+  "damageDice": [],
+  "length": 0,
+  "reach": 0,
+  "id": "dcc6c348-6c68-43aa-ae68-54b37ae2f4f2",
+  "source": "d194ad54-7ca8-4902-a140-e6401681ee55",
+  "artUrl": "https://cdn.midjourney.com/edcbc376-74c0-418a-90d5-438ce6f3a1f9/0_3.png",
+  "keeping": "3c4d5e6f-7a8b-4c9d-0e1f-2a3b4c5d6e7f"
+}

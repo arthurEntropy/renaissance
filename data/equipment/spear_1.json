@@ -1,7 +1,7 @@
 {
   "isDeleted": false,
   "createdAt": "2026-05-06T17:55:10.305Z",
-  "lastModified": "2026-05-21T13:15:17.629Z",
+  "lastModified": "2026-06-24T14:26:26.504Z",
   "name": "Spear",
   "artUrl": "https://cdn.midjourney.com/036c6294-15b3-40b7-8b25-673072f9c10f/0_3.png",
   "description": "",
@@ -9,7 +9,7 @@
   "improvements": [],
   "source": "cdc93466-8327-4096-a8c2-04cccf3e3835",
   "school": null,
-  "keeping": null,
+  "keeping": "4d5e6f7a-8b9c-4d0e-1f2a-3b4c5d6e7f8a",
   "isCustom": false,
   "isTemplate": false,
   "isMagical": false,

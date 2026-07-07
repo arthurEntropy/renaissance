@@ -1,0 +1,19 @@
+{
+  "type": "1cc02e7b-cdaf-477c-a198-6be0ad5ab47f",
+  "createdAt": "2026-05-21T15:55:35.050Z",
+  "lastModified": "2026-06-24T13:10:52.394Z",
+  "isTemplate": false,
+  "name": "Mycolite Greaves",
+  "subtype": "9b83b280-d799-4177-9e98-5bab995116e5",
+  "grade": "847d1092-fd43-4d58-b3da-002e6f3b7f3d",
+  "weight": 3,
+  "defenseBonus": 3,
+  "engagementDice": [],
+  "damageDice": [],
+  "length": 0,
+  "reach": 0,
+  "id": "feef7d5f-b246-49c6-9064-e58379a39602",
+  "source": "c114dc0e-d6ca-4115-be35-684dead36de2",
+  "artUrl": "https://cdn.midjourney.com/d78c24d3-7c2d-4895-9357-c7e4549e1735/0_0.jpeg",
+  "keeping": "4d5e6f7a-8b9c-4d0e-1f2a-3b4c5d6e7f8a"
+}

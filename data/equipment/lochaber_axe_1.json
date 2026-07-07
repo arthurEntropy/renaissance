@@ -1,7 +1,7 @@
 {
   "isDeleted": false,
   "createdAt": "2026-05-06T17:55:10.305Z",
-  "lastModified": "2026-05-20T20:49:58.282Z",
+  "lastModified": "2026-06-24T14:26:12.671Z",
   "name": "Lochaber Axe",
   "artUrl": "https://cdn.midjourney.com/f111955b-0501-496e-9035-25dc23a9e394/0_1.png",
   "description": "",
@@ -9,7 +9,7 @@
   "improvements": [],
   "source": "352c844b-6d4f-4b61-b475-315421a453e7",
   "school": null,
-  "keeping": null,
+  "keeping": "3c4d5e6f-7a8b-4c9d-0e1f-2a3b4c5d6e7f",
   "isCustom": false,
   "isTemplate": false,
   "isMagical": false,

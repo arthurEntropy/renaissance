@@ -1,0 +1,10 @@
+{
+  "source": "40086e18-eaba-411a-b4ec-7a0a7fd42d37",
+  "id": "9ac3ae8d-9ace-4804-9424-96a0d84a264f",
+  "createdAt": "2026-06-19T13:52:50.480Z",
+  "lastModified": "2026-06-19T19:34:00.274Z",
+  "name": "Key Magic",
+  "description": "<p><em>You bear a Butler's key, handcrafted by the Keymaker.</em></p><p>You have a polished fulgurite glass key, which is imbued with magic. Once per day, you may spend an action to choose one:</p><ul><li><p>Your key locks or unlocks a single lock that has a keyhole.</p></li><li><p>You brandish your key in an elegant gesture and a bolt of lightning erupts from it. Roll Courtesy vs Dexterity against a creature within medium range. On a win, your key deals 1d10+HEART damage to the creature. On a loss, half damage. If you are outside during a thunderstorm when you use this ability, triple the damage.</p></li></ul><p><strong>Describe your key.</strong></p>",
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "artUrl": "https://cdn.midjourney.com/116ae3c3-8e45-4079-a232-ea04750a59b3/0_2.png"
+}

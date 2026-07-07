@@ -1,7 +1,7 @@
 {
   "isDeleted": false,
   "createdAt": "2026-05-06T17:55:10.305Z",
-  "lastModified": "2026-05-21T13:54:49.683Z",
+  "lastModified": "2026-06-24T14:27:12.269Z",
   "name": "War Scythe",
   "artUrl": "https://cdn.midjourney.com/4eb487b4-77db-4cbc-8a4f-15313eb3ad5a/0_2.png",
   "description": "",
@@ -9,7 +9,7 @@
   "improvements": [],
   "source": "be62ac3d-7168-4779-8274-e60574a2fd27",
   "school": null,
-  "keeping": null,
+  "keeping": "3c4d5e6f-7a8b-4c9d-0e1f-2a3b4c5d6e7f",
   "isCustom": false,
   "isTemplate": false,
   "isMagical": false,

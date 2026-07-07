@@ -1,0 +1,19 @@
+{
+  "type": "1cc02e7b-cdaf-477c-a198-6be0ad5ab47f",
+  "createdAt": "2026-05-21T15:55:35.050Z",
+  "lastModified": "2026-06-24T12:59:31.143Z",
+  "isTemplate": false,
+  "name": "Soldier's Breastplate",
+  "subtype": "07e1ccc4-def1-47b1-8191-c5b6618c567b",
+  "grade": "847d1092-fd43-4d58-b3da-002e6f3b7f3d",
+  "weight": 15,
+  "defenseBonus": 3,
+  "engagementDice": [],
+  "damageDice": [],
+  "length": 0,
+  "reach": 0,
+  "id": "c9353b49-3ebe-4706-ab5f-4c76efd6c78d",
+  "source": "be62ac3d-7168-4779-8274-e60574a2fd27",
+  "artUrl": "https://cdn.midjourney.com/251e8fbe-6e55-41dc-b8d1-6a824d73cce7/0_2.png",
+  "keeping": "4d5e6f7a-8b9c-4d0e-1f2a-3b4c5d6e7f8a"
+}

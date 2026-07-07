@@ -2,10 +2,10 @@
   "id": "0c876a74-a89b-42dc-b76a-4592a0478d81",
   "conceptType": "CULTURE",
   "name": "Ockham",
-  "description": "<p>This is a town that gets burnt to the ground. Your story can start before it happens or after it happens, but it happens.</p><p>Before it happens, it's the center of trade for the valley of the River Troutbeck: a broad, green, bread-basket region that includes the outlying hamlets of Eashing, Wattle and Send. There is a different festival nearly every week, each drawing a different patchwork of folk from the surrounding fields and hills. The land is plentiful and life is thundering blissful towards death.</p><p>After it happens - and it's up to you when and why and how it happens - it is a place agape, newly awake to the full depth of cruelty and horror that this world contains. There is a wandering time, a casting-about for meaning. But as the people begin to dig through the charred ruin of their former lives, they pick out the nails from the ashes. What will they do with their anger? What will they become? TEST</p>",
+  "description": "<p>This is a town that gets burnt to the ground. Your story can start before it happens or after it happens, but it happens.</p><p>Before it happens, it's the center of trade for the valley of the River Troutbeck: a broad, green, bread-basket region that includes the outlying hamlets of Eashing, Wattle and Send. There is a different festival nearly every week, each drawing a different patchwork of folk from the surrounding fields and hills. The land is plentiful and life is thundering blissful towards death.</p><p>After it happens - and it's up to you when and why and how it happens - it is a place agape, newly awake to the full depth of cruelty and horror that this world contains. There is a wandering time, a casting-about for meaning. But as the people begin to dig through the charred ruin of their former lives, they pick out the nails from the ashes. What will they do with their anger? What will they become?</p>",
   "isDeleted": false,
   "featuredArtUrls": [
-    "https://cdn.midjourney.com/9eeb3810-b3f8-41e0-bfb4-2b29c9dd0808/0_0.jpeg"
+    "https://cdn.midjourney.com/5e5be9b9-35ea-4fb6-a78b-54cb6266892a/0_3_640_N.webp"
   ],
   "backgroundImage": "https://cdn.midjourney.com/308a2b3a-4b13-43b8-b089-71a57bc1364b/0_2_2048_N.png",
   "cardBackgroundImage": "https://cdn.midjourney.com/077407d0-f6fb-4245-81ae-07c31bbce5d9/0_1.png",
@@ -42,5 +42,5 @@
     "pointsOfInterest": "The Festival Square, The Grand Fountain, The Exchange House, The Tithing Barn, The Hollow Tree",
     "floraFauna": "Oak, Willow, Hawthorn, Elderberry, Wild Garlic, Nettles, Foxglove, Crow, Hedgehog, Badger, Red Deer, Pike, Barn Owl, Stoat, LarkTEST"
   },
-  "lastModified": "2026-05-18T21:14:20.062Z"
+  "lastModified": "2026-07-02T14:40:43.923Z"
 }

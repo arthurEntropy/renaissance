@@ -1,7 +1,7 @@
 {
   "isDeleted": false,
   "createdAt": "2026-05-06T17:55:10.305Z",
-  "lastModified": "2026-05-20T15:54:26.547Z",
+  "lastModified": "2026-06-24T14:09:12.454Z",
   "name": "Arquebus",
   "artUrl": "https://cdn.midjourney.com/0c620406-0d16-47b4-9e30-6f208d225d61/0_2.png",
   "description": "",
@@ -9,7 +9,7 @@
   "improvements": [],
   "source": "5a639d7b-847a-468b-9bbe-5275d31fdf66",
   "school": null,
-  "keeping": null,
+  "keeping": "5e6f7a8b-9c0d-4e1f-2a3b-4c5d6e7f8a9b",
   "isCustom": false,
   "isTemplate": false,
   "isMagical": false,

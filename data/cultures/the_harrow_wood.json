@@ -2,23 +2,48 @@
   "id": "61e2ce55-1954-4e8e-b1b3-b249ae915fa7",
   "conceptType": "CULTURE",
   "name": "The Harrow Wood",
-  "description": "",
+  "description": "<p>The ground is springy beneath your feet, the duff of ages piled in deep drifts among the great trees, whose bases rise far above your head before their trunks even begin. The smell of sap and bark permeates your nostrils until your own odor is lost to you. You feel insignificant in this an ancient place. But there's something else here, too. Just visible under the curve of a root is a carved stone. And what's that overgrown structure just ahead? Could it be that people once lived here, in the very heart of the dominion of trees? Could there still be people here?</p><p>The ruins of the Harrow Wood speak of a great civilization: grand staircases, tall temples, wide plazas, roads paved in flagstones, works on a scale and of a quality and artistry that could only have been achieved by a massive population. And yet, one can walk for days through the Wood without meeting a soul.</p><p>Those that do dwell here are scattered. Here and there you'll find rangers, explorers, scholars, mercenaries, guides, hermits - outsiders who have come to this land filled with memory to discover, to exploit, to find themselves, or to forget some other place. They have their outposts, but there also persist a few communities that maintain old ways and claim the ancient builders as kin. Even they, though, give the ruins a wide berth, fearing a latent magic within them.</p><p>In that fear lies a question: Are the ruins dead, or just sleeping?</p>",
   "isDeleted": false,
   "featuredArtUrls": [
-    "https://cdn.midjourney.com/7294b7ec-c7f3-4d32-8112-35bb02f24fab/0_1.png"
+    "https://cdn.midjourney.com/988bf45c-b734-4c16-becb-fb610792e297/0_1_640_N.webp"
   ],
-  "backgroundImage": "https://cdn.midjourney.com/d0e55a01-e3a8-432f-980b-b13387061e3b/0_3_2048_N.webp",
+  "backgroundImage": "https://cdn.midjourney.com/eb7e50af-9ce2-4c8a-8902-7378886de60d/0_2.jpeg",
   "cardBackgroundImage": "https://cdn.midjourney.com/f4e7e92b-e6eb-42b2-9572-aa0ed5dc3582/0_1.png",
   "expansion": "824cad94-3a4a-4df3-b81a-ede17b84644b",
-  "playlists": [],
-  "hooks": [],
+  "playlists": [
+    "<iframe allow=\"autoplay *; encrypted-media *;\" frameborder=\"0\" height=\"450\" style=\"width:100%;max-width:660px;overflow:hidden;background:transparent;\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation\" src=\"https://embed.music.apple.com/us/playlist/the-harrow-wood-villages/pl.u-pMyljoEUK7P3g1?theme=dark\"></iframe>",
+    "<iframe allow=\"autoplay *; encrypted-media *;\" frameborder=\"0\" height=\"450\" style=\"width:100%;max-width:660px;overflow:hidden;background:transparent;\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation\" src=\"https://embed.music.apple.com/us/playlist/the-harrow-wood/pl.u-qxylAVBtGkb7Kv?theme=dark\"></iframe>"
+  ],
+  "hooks": [
+    {
+      "id": null,
+      "name": "The Harrow Tree",
+      "description": "<p>Tradition holds that in the deepest part of the Harrow Wood stands its tallest, oldest tree - the very heart of the forest. They say a great, ancient temple surrounds it, but it is protected by mysterious guardians, and none who have ventured there have ever returned.</p>",
+      "gmNotes": "<p>All of this is quite true. Should Our Heroes dare to approach, they should find themselves thrust into the challenging trial of the temple games - a series of puzzles, combats and feats of strength spread across the lower temple complex, which the party must attempt in teams of two, each team being given a color and animal assignation: Purple Parrots, Blue Barracudas, etc.</p><p>The nature of the challenges and how each team's progress is tallied is up to you, but be sure to include ample evidence of others' past attempts and failures (skeletons trapped in chambers, etc.). As teams complete the last of the trials, they gain access to the upper temple, where they find themselves in the Garden of the Gods.</p><p>Here they are greeted by dozens of \"godlets\" - mute, friendly, inimitably strange, vaguely divine beings who will lead them around the garden to various shrines of minor gods. Each of these latter should have a highly specific, humble domain, and each should offer some sort of boon to one of Our Heroes.</p><p>Beyond the Garden of the Gods lies the Harrow Tree itself - impossibly huge, of course - surrounded by a wide stone complex, perhaps a gathering place for the ancient builders. Here Our Heroes should at last encounter the feared temple guardians who turn out to be diminutive, masked Mustevals, wearing outlandish matching livery. They should be extremely fierce despite their size. And they are fierce because they are guarding a god, who lives inside the tree.</p><p>Now, that can be as far as it goes: the party can parley or fight their way into an audience with the deity and win their favor, whatever you choose. Or you can add a twist: what if the god inside the tree is being held against its will, and its guardians are mind-controlled by whoever is responsible. If so, who would do such a thing, and what resource are they after that they can only get while the god and its guardians are neutralized?</p><p>Bonus points for foreshadowing with some early encounters with temple guardians on the way to the temple or amid the trials.</p>",
+      "index": 0
+    },
+    {
+      "id": null,
+      "name": "Invasion of the Tree Poachers",
+      "description": "<p>Residents of the Wood have felt the ground tremble in recent days. Scouts report that a band of \"tree poachers\" have encroached on the edges of the forest, felling trees and dragging them off to be milled for lumber. Their numbers are not great, but their implements of tree-killing are formidable.</p>",
+      "gmNotes": "<p>This can be a fairly straight-ahead \"go beat up the bad guys\" affair, perhaps featuring strange and terrifying arcane axes and saws and/or some sort of tree-felling berserker tradition, but consider muddying the morality of the situation with a heart-wrenching reason for the tree poachers's presence there. Perhaps they're fleeing famine or persecution, or they're infected with some strange disease with an incredibly expensive cure.</p>",
+      "index": 1
+    },
+    {
+      "id": null,
+      "name": "The Destruction of Olfa Alora",
+      "description": "<p>One day, Olfa Alora was there - a thriving community, growing crops along a stream in a modest clearing - and the next, there was just a hole in the ground. A strange hole: perfectly round, hundreds of feet deep. Nobody in the area heard a sound in the night. True, a section of the forest not far from the place had withered recently, but nobody could think of any offense the people of that place had given to anyone. What happened? Why? Perhaps the roots and vines stretching down into the darkness are pointing toward an answer.</p>",
+      "gmNotes": "<p>This could be any number of things, and will probably be made more compelling if tied into some broader goings-on in your campaign world, but here is one possibility:</p><p>The hole is an ordinary - large, but ordinary - sinkhole, and most of the community survived the fall to the bottom. What caused the collapse is the real surprise: some subterranean tyrant-aspirant has figured out that the trees in the Harrow Wood grow tall because the land beneath them is rich with deposits of huge crystals with arcane properties. Their mining operations are in an alarmingly advanced state, and it seems that in Olfa Alora they simply dug too near to the surface. If this continues, the entire Wood may be under threat. Also, could these crystals have any connection to the magic within the ruins?</p>",
+      "index": 2
+    }
+  ],
   "localFlavor": {
     "names": "Tikal, Aylen, Nakoa, Itzel, Tzin, Solka, Halil, Ixchel, Olo, Nuvani, Quen, Yaretzi, Taloc, Ena, Kasa, Nilo, Chaska, Makil, Amaja, Xel",
-    "occupations": "Ruins Tracker, Vine Cutter, Relic Binder, Totem Carver, Pathfinder, Weather Singer, Moss Tender, Bone Reader, Torch Bearer, Trap Lifter, Tree Sap Harvester, Whisper Scout, Drum Caster, God-Sign Interpreter, Woven Mapmaker",
-    "publicHouses": "The Cedar Bowl, Rain and Silence, Hollow Flame Rest, The Unseen Path, Echofire Hearth, Rootbound Table",
-    "vittles": "Cedar-Smoked Venison, Roasted Fern Bulbs, Fire-Roasted Cacao Beans, Agave-Fried Insects, Sweetcorn Porridge, Smoked Salmon with Maple Glaze, Blueberry Ash Cakes, Salted Frog Legs, Wild Honeycomb, Roasted Pine Nuts, Jungle Fruit Mash, Chilli-Lime Roots, Grilled Mushrooms with Moss Vinegar, Cedar Tea, Acorn Paste Bread",
-    "pointsOfInterest": "The God’s Eye Ruin, Woven Root Crossing, The Weeping Stair, The Black Petal Ziggurat, The Rain-Cracked Idol, Shrine of the Sleeping Mouth",
-    "floraFauna": "Red Cedar, Hanging Moss, Agave, Fernbloom, Fireflower, Vineberry, Raven, Elk, Spirit Bear, Red Salamander, Owlcat, Pine Viper, Star Beetle, Jade-Eyed Frog, Cloud Lynx"
+    "occupations": "Game Tracker, Vine Cutter, Relic Collector, Totem Carver, Pathfinder, Weather Singer, Moss Farmer, Bark Augur, Torch Bearer, Sap Harvester, Timber Scout, Drum Messenger, Map Weaver, Temple Guardian",
+    "publicHouses": "The Cedar Bowl, Rain and Silence, The Mossy Arms, Thwaxhurst Hall, The House At Temple Run, The Rootbound Table",
+    "vittles": "Cedar-Smoked Venison, Roasted Fern Bulbs, Steamed Cacao Beans, Beetle Brittle, Sweetcone Porridge, Smoked Salmon, Chokeberry Ash Cakes, Salted Frog Legs, Root Mash, Toasted Mushrooms with Moss Vinegar, Lichen Tea, Acorn Loaf",
+    "pointsOfInterest": "The God’s Eye Ruin, Woven Root Crossing, The Weeping Stair, Black Lotus Grove, The Cracked Idol, Shrine of the Silver Monkey",
+    "floraFauna": "Great Cedar, Hanging Moss, Hemlock, Tree Fern, Waterflower, Redwood, Cress, Raven, Elk, Spirit Bear, Red Salamander, Owlcat, Pine Viper, Star Beetle, Jade-Eyed Frog, Blink Lynx"
   },
-  "lastModified": "2026-05-20T12:40:42.035Z"
+  "lastModified": "2026-06-11T21:45:33.829Z"
 }

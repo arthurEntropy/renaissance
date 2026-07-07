@@ -1,0 +1,19 @@
+{
+  "type": "1cc02e7b-cdaf-477c-a198-6be0ad5ab47f",
+  "createdAt": "2026-05-21T15:55:35.050Z",
+  "lastModified": "2026-06-24T13:06:48.161Z",
+  "isTemplate": false,
+  "name": "Leather Helmet",
+  "subtype": "353e7289-649b-4a54-ae7a-2cddf7db22a9",
+  "grade": "b92d3394-2c64-487f-8c90-c56ea1cbd3f3",
+  "weight": 2,
+  "defenseBonus": 2,
+  "engagementDice": [],
+  "damageDice": [],
+  "length": 0,
+  "reach": 0,
+  "id": "18f5caa9-67b4-4809-9f50-dd16b722124f",
+  "source": "cdc93466-8327-4096-a8c2-04cccf3e3835",
+  "artUrl": "https://cdn.midjourney.com/dd0207bf-4bc1-4d0b-8332-3d87becaef69/0_2.png",
+  "keeping": "3c4d5e6f-7a8b-4c9d-0e1f-2a3b4c5d6e7f"
+}

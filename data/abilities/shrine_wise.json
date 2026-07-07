@@ -1,0 +1,15 @@
+{
+  "id": "7f33f7ca-dfe2-49cd-8e11-ac8fdab5f905",
+  "isDeleted": false,
+  "lastModified": "2026-06-19T19:55:13.009Z",
+  "name": "Shrine-Wise",
+  "description": "<p><em>Your time among the forested peaks around Upham has taught you to respect even the most forgotten-looking shrines.</em></p><p>Whenever you encounter a shrine, temple or other place of worship, you can always determine what would be an appropriate offering to make to the spirit or deity of that shrine.</p><p>Once per day, you may make such an offering. Roll a fate die. The result, halved, is the number of +1d bonuses you may hold in reserve. For the next day, whenever you or a creature you can see would make a skill check, you may spend a reaction to apply any number of these +1d bonuses to the roll. After one day has passed, any remaining bonuses are forfeited.</p><p><strong>Describe your offering.</strong></p>",
+  "source": "5a639d7b-847a-468b-9bbe-5275d31fdf66",
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "mpCost": null,
+  "xpCost": null,
+  "canBeActive": false,
+  "hasDifficulty": false,
+  "successes": "<p>🌞: You gain 6 +1d bonuses and they aren't forfeited after one day.</p><p>💀: Your offering was not well-received. All your skill checks are ill-favored for next day.</p>",
+  "artUrl": "https://cdn.midjourney.com/4f8d5243-a746-4431-9bb9-6e9bb23968e6/0_3.png"
+}

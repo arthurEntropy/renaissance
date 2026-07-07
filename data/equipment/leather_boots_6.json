@@ -1,0 +1,19 @@
+{
+  "type": "1cc02e7b-cdaf-477c-a198-6be0ad5ab47f",
+  "createdAt": "2026-05-21T15:55:35.050Z",
+  "lastModified": "2026-06-24T13:01:18.669Z",
+  "isTemplate": false,
+  "name": "Leather Boots",
+  "subtype": "3b179003-c623-425f-8d16-c41b4204758b",
+  "grade": "ad30b114-3c19-413f-aad2-5f270bd95684",
+  "weight": 2,
+  "defenseBonus": 1,
+  "engagementDice": [],
+  "damageDice": [],
+  "length": 0,
+  "reach": 0,
+  "id": "0d234881-e2b1-4bf4-a6b9-32998cfec1d9",
+  "source": "0c876a74-a89b-42dc-b76a-4592a0478d81",
+  "artUrl": "https://cdn.midjourney.com/474892dd-8a2b-40fa-9208-8c52f51366e1/0_2.png",
+  "keeping": "2b3c4d5e-6f7a-4b8c-9d0e-1f2a3b4c5d6e"
+}

@@ -1,0 +1,19 @@
+{
+  "type": "1cc02e7b-cdaf-477c-a198-6be0ad5ab47f",
+  "createdAt": "2026-05-21T15:55:35.050Z",
+  "lastModified": "2026-06-24T13:03:32.196Z",
+  "isTemplate": false,
+  "name": "Mycolite Boots",
+  "subtype": "3b179003-c623-425f-8d16-c41b4204758b",
+  "grade": "847d1092-fd43-4d58-b3da-002e6f3b7f3d",
+  "weight": 6,
+  "defenseBonus": 3,
+  "engagementDice": [],
+  "damageDice": [],
+  "length": 0,
+  "reach": 0,
+  "id": "8a9d2a26-1efe-4aed-a86e-c60c9a639330",
+  "source": "c114dc0e-d6ca-4115-be35-684dead36de2",
+  "artUrl": "https://cdn.midjourney.com/8e1bd64e-89b3-4ba5-9afb-6a4e27207d1c/0_1.jpeg",
+  "keeping": "4d5e6f7a-8b9c-4d0e-1f2a-3b4c5d6e7f8a"
+}

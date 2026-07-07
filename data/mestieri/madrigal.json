@@ -13,7 +13,7 @@
   ],
   "backgroundImage": "https://cdn.midjourney.com/d838e7af-7014-4bde-86e6-2bb98de64006/0_0.png",
   "cardBackgroundImage": "https://cdn.midjourney.com/5673581c-a3c2-42a5-8120-fcbb8cb39a25/0_1.png",
-  "expansion": "",
+  "expansion": "e46f4320-a414-4300-95d5-397ba717d982",
   "novizio": {
     "description": "<p>Morbi vel pulvinar metus. Integer cursus purus mauris, in tempus libero porta interdum. Phasellus sagittis dolor ut nisi fringilla molestie. Quisque sapien lectus, consectetur eu nisi non, laoreet commodo lacus. Maecenas dictum purus quis libero pharetra, id porta libero tincidunt.</p>",
     "martialTraining": {
@@ -33,7 +33,7 @@
     "abilities": "<p><em>Magrigal 1, Magrigal 2, Madrigal 3.</em></p>",
     "gratuiti": ""
   },
-  "lastModified": "2026-04-15T18:40:20.915Z",
+  "lastModified": "2026-07-03T17:49:37.160Z",
   "hooks": [],
   "playlists": []
 }

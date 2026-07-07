@@ -1,0 +1,10 @@
+{
+  "source": "be62ac3d-7168-4779-8274-e60574a2fd27",
+  "id": "245705af-8631-4238-a387-06f1e575dacc",
+  "createdAt": "2026-06-18T12:44:48.819Z",
+  "lastModified": "2026-06-27T23:51:15.761Z",
+  "name": "Gang Member",
+  "description": "<p><em>You're an initiated member of one of the gangs of Nïrwe, and they've taught you how to get what you want.</em></p><p>Whenever you roll Awe to intimidate one or more creatures, the roll is favored.</p><p>Once per day, you may gain 1 Shadow instead of paying the item's Treasure cost. If you do, if you are in the Quest phase, move the Quest one notch toward Bane; If you are in the Intermezzo phase, your next Quest begins one notch toward Bane for each time you used this ability during the Intermezzo.</p><p>At the end of each Quest, you must pay 10% of the treasure you acquired on the Quest - rounded up - to your gang.</p><p><strong>Describe the gang and how you joined it.</strong></p>",
+  "artUrl": "https://cdn.midjourney.com/a59e801b-131f-4b66-bff8-dbe54eab3aaf/0_1.png",
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1"
+}

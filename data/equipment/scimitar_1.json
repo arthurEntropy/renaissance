@@ -1,7 +1,7 @@
 {
   "isDeleted": false,
   "createdAt": "2026-05-06T17:55:10.305Z",
-  "lastModified": "2026-05-20T15:56:45.459Z",
+  "lastModified": "2026-06-08T19:59:33.510Z",
   "name": "Scimitar",
   "artUrl": "https://cdn.midjourney.com/d88aea75-52de-496c-8bf0-e4dac2a57eaa/0_0.png",
   "description": "",
@@ -9,7 +9,7 @@
   "improvements": [],
   "source": "c02c53d1-b456-45d0-a048-6fc941cacc03",
   "school": null,
-  "keeping": null,
+  "keeping": "3c4d5e6f-7a8b-4c9d-0e1f-2a3b4c5d6e7f",
   "isCustom": false,
   "isTemplate": false,
   "isMagical": false,

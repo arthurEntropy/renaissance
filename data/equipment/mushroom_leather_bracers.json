@@ -1,0 +1,19 @@
+{
+  "type": "1cc02e7b-cdaf-477c-a198-6be0ad5ab47f",
+  "createdAt": "2026-05-21T15:55:35.050Z",
+  "lastModified": "2026-06-24T12:54:45.679Z",
+  "isTemplate": false,
+  "name": "Mushroom Leather Bracers",
+  "subtype": "55827e95-5119-4f75-9922-9a58be27827b",
+  "grade": "b92d3394-2c64-487f-8c90-c56ea1cbd3f3",
+  "weight": 2,
+  "defenseBonus": 2,
+  "engagementDice": [],
+  "damageDice": [],
+  "length": 0,
+  "reach": 0,
+  "id": "619cada3-5d75-464f-ac10-5489ab63d842",
+  "source": "c114dc0e-d6ca-4115-be35-684dead36de2",
+  "artUrl": "https://cdn.midjourney.com/01a84e4f-15a1-4d47-9fa7-950b90a9169e/0_2.jpeg",
+  "keeping": "3c4d5e6f-7a8b-4c9d-0e1f-2a3b4c5d6e7f"
+}

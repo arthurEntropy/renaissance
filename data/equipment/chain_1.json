@@ -1,7 +1,7 @@
 {
   "isDeleted": false,
   "createdAt": "2026-05-06T17:55:10.305Z",
-  "lastModified": "2026-05-21T13:53:02.378Z",
+  "lastModified": "2026-06-24T14:10:56.271Z",
   "name": "Chain",
   "artUrl": "https://cdn.midjourney.com/5b7d2493-7241-408d-999e-ca23fd26ea25/0_3.jpeg",
   "description": "",
@@ -9,7 +9,7 @@
   "improvements": [],
   "source": "c02c53d1-b456-45d0-a048-6fc941cacc03",
   "school": null,
-  "keeping": null,
+  "keeping": "2b3c4d5e-6f7a-4b8c-9d0e-1f2a3b4c5d6e",
   "isCustom": false,
   "isTemplate": false,
   "isMagical": false,

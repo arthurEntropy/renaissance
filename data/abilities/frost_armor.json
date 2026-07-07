@@ -1,14 +1,14 @@
 {
   "id": "793c3f58-96d1-4501-92f4-e439fbbd7a7e",
   "createdAt": "2026-04-23T15:46:58.150Z",
-  "lastModified": "2026-04-23T15:55:18.703Z",
+  "lastModified": "2026-06-08T21:36:21.517Z",
   "name": "Frost Armor",
   "artUrl": "https://cdn.midjourney.com/8ff0c20f-bbff-48d4-a3a0-c2866cb3c245/0_3.png",
   "description": "<p>Your skin, clothing and gear become deathly cold and covered in frost. For the next minute:</p><ul><li><p>You gain +2 Defense.</p></li><li><p>Each time a creature hits you with a melee attack, that creature takes 1d4+HEART damage.</p></li><li><p>At the beginning of each of your turns, you take 1 damage.</p></li></ul><p>Check a Condition.</p>",
   "source": "28e3c10e-e400-47f0-954f-d0c38e5ec0fa",
   "isMagical": true,
   "actionCost": "40656418-af01-43ae-8a60-a1bd0124efb4",
-  "xpCost": 2,
+  "xpCost": 5,
   "manaCost": "B",
   "canBeActive": false,
   "hasDifficulty": false

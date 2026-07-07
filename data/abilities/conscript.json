@@ -1,0 +1,10 @@
+{
+  "source": "c114dc0e-d6ca-4115-be35-684dead36de2",
+  "id": "723762b8-516f-4c97-a16e-ece0586e99cd",
+  "createdAt": "2026-06-19T15:21:35.180Z",
+  "lastModified": "2026-06-23T17:26:07.312Z",
+  "name": "Conscript",
+  "description": "<p><em>You have performed the mandatory military service of the Underdark.</em></p><p>When you gain this ability, choose two:</p><ul><li><p>Choose and gain three Underdark-made equipment items of martial grade without paying their Treasure cost.</p></li><li><p>Choose Strength or Dexterity. Whenever you roll the chosen skill, +1d.</p></li><li><p>Your base Defense increases by 2.</p></li></ul><p>Whichever options you choose, you also gain 2 Shadow, and your Shadow can never be reduced to less than 2.</p><p><strong>Describe your military experience.</strong></p>",
+  "artUrl": "https://cdn.midjourney.com/84cfcddd-c1f5-4f64-bdb7-bafb17b41462/0_1.png",
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1"
+}

@@ -1,0 +1,10 @@
+{
+  "source": "61e2ce55-1954-4e8e-b1b3-b249ae915fa7",
+  "id": "47d52f7a-294c-4658-9dbe-d065c115abf6",
+  "createdAt": "2026-06-10T21:36:54.391Z",
+  "lastModified": "2026-06-19T19:40:41.244Z",
+  "name": "Herblore",
+  "description": "<p><em>Your time in the woods has taught you to keep some healing herbs on hand at all times.</em></p><p>Once per day, you may spend an action to apply an herbal remedy to a creature you touch. Choose one:</p><ul><li><p>The creature regains Endurance equal to half your WITS score.</p></li><li><p>The creature may uncheck a Condition.</p></li></ul><p><strong>Describe your herbal remedy.</strong></p>",
+  "artUrl": "https://cdn.midjourney.com/877f8cce-233f-4934-abf8-954365a03c3e/0_0.png",
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1"
+}

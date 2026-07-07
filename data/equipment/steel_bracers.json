@@ -1,0 +1,19 @@
+{
+  "type": "1cc02e7b-cdaf-477c-a198-6be0ad5ab47f",
+  "createdAt": "2026-05-21T15:55:35.050Z",
+  "lastModified": "2026-06-24T12:55:45.191Z",
+  "isTemplate": false,
+  "name": "Steel Bracers",
+  "subtype": "55827e95-5119-4f75-9922-9a58be27827b",
+  "grade": "ebcc2bcb-8221-4ca0-bef3-000fb7e59e96",
+  "weight": 4,
+  "defenseBonus": 4,
+  "engagementDice": [],
+  "damageDice": [],
+  "length": 0,
+  "reach": 0,
+  "id": "8caf97b4-0774-495c-8cad-8c15849bf1e7",
+  "source": "cdc93466-8327-4096-a8c2-04cccf3e3835",
+  "artUrl": "https://cdn.midjourney.com/4aec3960-4c6c-4161-a3f9-190e7b7d3c77/0_1.png",
+  "keeping": "4d5e6f7a-8b9c-4d0e-1f2a-3b4c5d6e7f8a"
+}

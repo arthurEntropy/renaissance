@@ -1,0 +1,19 @@
+{
+  "type": "1cc02e7b-cdaf-477c-a198-6be0ad5ab47f",
+  "createdAt": "2026-05-21T15:55:35.050Z",
+  "lastModified": "2026-06-24T13:12:15.467Z",
+  "isTemplate": false,
+  "name": "Oak Buckler",
+  "subtype": "5ec6d867-7dbf-41c0-b196-3ada5985e6ea",
+  "grade": "ad30b114-3c19-413f-aad2-5f270bd95684",
+  "weight": 2,
+  "defenseBonus": 1,
+  "engagementDice": [],
+  "damageDice": [],
+  "length": 0,
+  "reach": 0,
+  "id": "c0292eba-affb-4e35-935a-2e8b64894cb1",
+  "source": "55494a30-a1bb-47c3-aae9-2db3a5bfcb8b",
+  "artUrl": "https://cdn.midjourney.com/75d2c2d6-8e03-45c6-bd22-8b95339a8ad5/0_1.jpeg",
+  "keeping": "4d5e6f7a-8b9c-4d0e-1f2a-3b4c5d6e7f8a"
+}

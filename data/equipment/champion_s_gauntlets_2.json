@@ -1,0 +1,19 @@
+{
+  "type": "1cc02e7b-cdaf-477c-a198-6be0ad5ab47f",
+  "createdAt": "2026-05-21T15:55:35.050Z",
+  "lastModified": "2026-06-24T13:16:40.353Z",
+  "isTemplate": false,
+  "name": "Champion's Gauntlets",
+  "subtype": "55827e95-5119-4f75-9922-9a58be27827b",
+  "grade": "a9023254-92ed-4c54-9840-5a7577c1aa1f",
+  "weight": 5,
+  "defenseBonus": 5,
+  "engagementDice": [],
+  "damageDice": [],
+  "length": 0,
+  "reach": 0,
+  "id": "d823b412-aaa5-4192-84d2-908e40e4c758",
+  "source": "c114dc0e-d6ca-4115-be35-684dead36de2",
+  "artUrl": "https://cdn.midjourney.com/d46c36bc-e279-4cca-8cfd-7a553d7a1b40/0_0.png",
+  "keeping": "785f93f5-e4fd-4512-b888-5efdc1a1130f"
+}

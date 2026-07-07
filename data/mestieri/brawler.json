@@ -37,19 +37,19 @@
         "dieSize": 12
       }
     ],
-    "engagementDiceNotes": "",
     "engagementSuccesses": [
       "e1f2a3b4-c5d6-47e8-f9a0-b1c2d3e4f5a6",
       "f6a7b8c9-d0e1-42f3-a4b5-c6d7e8f9a0b1",
       "d0e1f2a3-b4c5-46d7-e8f9-a0b1c2d3e4f5"
     ],
+    "engagementDiceNotes": "",
     "engagementSuccessNotes": "",
     "baseMP": 0,
     "baseMpNotes": "<p>You gain MP with your <em>Embrace the Chaos</em> ability.</p>",
     "abilities": "<p>Action Over Deliberation, Embrace The Chaos, Fists Up</p>",
-    "gratuiti": ""
+    "gratuiti": "<p>Fist wraps and probably some other stuff.</p>"
   },
-  "lastModified": "2026-04-15T18:20:14.661Z",
+  "lastModified": "2026-07-03T18:21:12.017Z",
   "hooks": [],
   "playlists": []
 }

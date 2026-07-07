@@ -1,15 +1,15 @@
 {
   "isDeleted": false,
   "createdAt": "2026-05-06T17:55:10.305Z",
-  "lastModified": "2026-05-21T12:58:56.189Z",
+  "lastModified": "2026-06-24T14:45:08.934Z",
   "name": "Meteor Hammer",
-  "artUrl": null,
+  "artUrl": "https://cdn.midjourney.com/af5935e6-c251-4d8e-aa36-94f9bf7916b2/0_3.png",
   "description": "",
   "successes": null,
   "improvements": [],
   "source": "be62ac3d-7168-4779-8274-e60574a2fd27",
   "school": null,
-  "keeping": null,
+  "keeping": "4d5e6f7a-8b9c-4d0e-1f2a-3b4c5d6e7f8a",
   "isCustom": false,
   "isTemplate": false,
   "isMagical": false,
@@ -24,8 +24,14 @@
   "thrown": false,
   "finesse": true,
   "piercing": false,
-  "damageDice": [],
-  "engagementDice": [],
+  "damageDice": [
+    4,
+    4
+  ],
+  "engagementDice": [
+    4,
+    4
+  ],
   "engagementSuccesses": [
     "b2c3d4e5-f6a7-48b9-c0d1-e2f3a4b5c6d7",
     "e1f2a3b4-c5d6-47e8-f9a0-b1c2d3e4f5a6",

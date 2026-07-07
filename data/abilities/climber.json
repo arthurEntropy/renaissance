@@ -1,0 +1,10 @@
+{
+  "source": "3085883d-e74b-40aa-84a9-af6fccb3d98e",
+  "id": "5174423d-32b6-4552-b5e3-1ccfad5c6ce0",
+  "createdAt": "2026-06-18T14:31:38.016Z",
+  "lastModified": "2026-06-18T15:05:18.927Z",
+  "name": "Climber",
+  "description": "<p><em>You've scaled the steep slopes of Mount Ardis countless times.</em></p><p>Climbing does not cost you extra movement.</p><p><strong>Describe your technique.</strong></p>",
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "artUrl": "https://cdn.midjourney.com/1ab56301-ff63-40f4-9df8-feb3ab4a0262/0_0.png"
+}

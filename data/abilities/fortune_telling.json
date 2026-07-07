@@ -1,13 +1,14 @@
 {
   "id": "34799d66-7466-4505-8013-dcfe8c5e8614",
   "isDeleted": false,
-  "lastModified": "2026-02-12T21:37:52.068Z",
+  "lastModified": "2026-06-21T21:49:11.721Z",
   "name": "Fortune Telling",
-  "description": "<p><em>In your time among the paper-lanterned streets and bohemian shops of Chobham, you've seen how fortune telling - real or not - can sway people's actions.</em></p><p>Choose a technique like palm reading, astrology or reading tea leaves. Once per long rest, you can read someone's fortune, granting them +1d to their next check made that day with a relevant skill (GM discretion).</p><p><strong>Describe your technique. Do you believe that you're actually telling the future or is it an effective placebo?</strong></p>",
+  "description": "<p><em>You've seen how fortune telling - real or not - can sway people's actions.</em></p><p>Choose a technique like palm reading, astrology or reading tea leaves. Once per long rest, you may spend 1 minute performing your technique to tell a humanoid creature's fortune, then select a skill. Whenever the creature rolls the selected skill, they get +1d. This effect lasts until they fail/lose a roll using the selected skill, up to a maximum of one day.</p><p><strong>Describe your technique and to what degree you believe in it.</strong></p>",
   "source": "55494a30-a1bb-47c3-aae9-2db3a5bfcb8b",
   "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
   "mpCost": null,
   "xpCost": null,
   "canBeActive": false,
-  "hasDifficulty": false
+  "hasDifficulty": false,
+  "artUrl": "https://cdn.midjourney.com/c304687a-ecce-445c-8f54-a38e2db9377b/0_1.png"
 }

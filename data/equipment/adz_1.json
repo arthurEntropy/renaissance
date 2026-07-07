@@ -1,7 +1,7 @@
 {
   "isDeleted": false,
   "createdAt": "2026-05-06T17:55:10.305Z",
-  "lastModified": "2026-05-20T14:28:04.107Z",
+  "lastModified": "2026-06-08T22:12:19.984Z",
   "name": "Adz",
   "artUrl": "https://cdn.midjourney.com/efa98550-b624-4f31-9090-69c2853e4aaf/0_1.png",
   "description": "",
@@ -9,7 +9,7 @@
   "improvements": [],
   "source": "55494a30-a1bb-47c3-aae9-2db3a5bfcb8b",
   "school": null,
-  "keeping": null,
+  "keeping": "2b3c4d5e-6f7a-4b8c-9d0e-1f2a3b4c5d6e",
   "isCustom": false,
   "isTemplate": false,
   "isMagical": false,

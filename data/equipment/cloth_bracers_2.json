@@ -1,0 +1,19 @@
+{
+  "type": "1cc02e7b-cdaf-477c-a198-6be0ad5ab47f",
+  "createdAt": "2026-05-21T15:55:35.050Z",
+  "lastModified": "2026-06-24T12:52:37.001Z",
+  "isTemplate": false,
+  "name": "Cloth Bracers",
+  "subtype": "55827e95-5119-4f75-9922-9a58be27827b",
+  "grade": "ad30b114-3c19-413f-aad2-5f270bd95684",
+  "weight": 1,
+  "defenseBonus": 1,
+  "engagementDice": [],
+  "damageDice": [],
+  "length": 0,
+  "reach": 0,
+  "id": "a087770f-d423-46c5-b00d-f5a51c7df3d6",
+  "source": "40086e18-eaba-411a-b4ec-7a0a7fd42d37",
+  "artUrl": "https://cdn.midjourney.com/889862c9-e2c6-47e5-8fea-fbfef6283838/0_0.png",
+  "keeping": "3c4d5e6f-7a8b-4c9d-0e1f-2a3b4c5d6e7f"
+}

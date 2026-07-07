@@ -1,7 +1,7 @@
 {
   "isDeleted": false,
   "createdAt": "2026-05-06T17:55:10.305Z",
-  "lastModified": "2026-05-21T13:54:46.135Z",
+  "lastModified": "2026-06-24T14:27:04.296Z",
   "name": "Voulge",
   "artUrl": "https://cdn.midjourney.com/1b5e9f3a-8d42-42e5-b861-a96f467bb0f4/0_3.png",
   "description": "",
@@ -9,7 +9,7 @@
   "improvements": [],
   "source": "40086e18-eaba-411a-b4ec-7a0a7fd42d37",
   "school": null,
-  "keeping": null,
+  "keeping": "4d5e6f7a-8b9c-4d0e-1f2a-3b4c5d6e7f8a",
   "isCustom": false,
   "isTemplate": false,
   "isMagical": false,

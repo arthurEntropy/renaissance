@@ -1,0 +1,19 @@
+{
+  "type": "1cc02e7b-cdaf-477c-a198-6be0ad5ab47f",
+  "id": "e5c43308-058f-4f25-80f6-8fcaedd5d029",
+  "createdAt": "2026-05-21T15:55:35.050Z",
+  "lastModified": "2026-06-24T13:24:26.635Z",
+  "isTemplate": false,
+  "name": "Hide Breastplate",
+  "subtype": "07e1ccc4-def1-47b1-8191-c5b6618c567b",
+  "grade": "ad30b114-3c19-413f-aad2-5f270bd95684",
+  "weight": 5,
+  "defenseBonus": 1,
+  "engagementDice": [],
+  "damageDice": [],
+  "length": 0,
+  "reach": 0,
+  "source": "3085883d-e74b-40aa-84a9-af6fccb3d98e",
+  "artUrl": "https://cdn.midjourney.com/00bb87b4-7840-49a9-95f1-482a7ee41d9a/0_2.png",
+  "keeping": "3c4d5e6f-7a8b-4c9d-0e1f-2a3b4c5d6e7f"
+}

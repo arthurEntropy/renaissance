@@ -1,0 +1,19 @@
+{
+  "type": "1cc02e7b-cdaf-477c-a198-6be0ad5ab47f",
+  "createdAt": "2026-05-21T15:55:35.050Z",
+  "lastModified": "2026-06-24T13:08:06.592Z",
+  "isTemplate": false,
+  "name": "Cloth Greaves",
+  "subtype": "9b83b280-d799-4177-9e98-5bab995116e5",
+  "grade": "ad30b114-3c19-413f-aad2-5f270bd95684",
+  "weight": 1,
+  "defenseBonus": 1,
+  "engagementDice": [],
+  "damageDice": [],
+  "length": 0,
+  "reach": 0,
+  "id": "3ca4f9e5-56d5-4912-ba2f-6c4a7757c7ec",
+  "source": "5a639d7b-847a-468b-9bbe-5275d31fdf66",
+  "artUrl": "https://cdn.midjourney.com/96e092fe-9e75-4729-9dbd-cdbdd97df987/0_1.jpeg",
+  "keeping": "2b3c4d5e-6f7a-4b8c-9d0e-1f2a3b4c5d6e"
+}

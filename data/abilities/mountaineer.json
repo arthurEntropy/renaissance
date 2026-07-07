@@ -1,13 +1,14 @@
 {
   "id": "0f5e0bb0-8f8d-4725-9e2f-9a57781e327b",
   "isDeleted": false,
-  "lastModified": "2026-02-12T21:37:52.074Z",
+  "lastModified": "2026-06-19T14:41:29.085Z",
   "name": "Mountaineer",
-  "description": "<p><em>You are at home in the mountains. You'd as soon climb a cliff as a flight of stairs.</em></p><p>Your Strength and Dexterity checks are favored in mountainous terrain.</p><p><strong>Describe how you keep your footing on uneven ground.</strong></p>",
+  "description": "<p><em>You are at home in the mountains.</em></p><p>All your skill checks are favored while in mountainous terrain.</p><p><strong>Describe how you have adapted to mountain living.</strong></p>",
   "source": "5a639d7b-847a-468b-9bbe-5275d31fdf66",
   "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
   "mpCost": null,
   "xpCost": null,
   "canBeActive": false,
-  "hasDifficulty": false
+  "hasDifficulty": false,
+  "artUrl": "https://cdn.midjourney.com/0a5ec3b4-0a2f-437d-8e86-03ec61f95e68/0_2.png"
 }

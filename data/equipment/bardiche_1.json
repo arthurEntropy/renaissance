@@ -1,7 +1,7 @@
 {
   "isDeleted": false,
   "createdAt": "2026-05-06T17:55:10.305Z",
-  "lastModified": "2026-05-20T20:32:09.198Z",
+  "lastModified": "2026-06-24T14:25:52.380Z",
   "name": "Bardiche",
   "artUrl": "https://cdn.midjourney.com/3aa9f5cc-5103-489d-b9e1-2c010d4321a3/0_3.png",
   "description": "Weight: 4-9. Length: 5-8",
@@ -9,7 +9,7 @@
   "improvements": [],
   "source": "c02c53d1-b456-45d0-a048-6fc941cacc03",
   "school": null,
-  "keeping": null,
+  "keeping": "4d5e6f7a-8b9c-4d0e-1f2a-3b4c5d6e7f8a",
   "isCustom": false,
   "isTemplate": false,
   "isMagical": false,
