@@ -2,22 +2,22 @@
     <BaseModal title="Confirm Purchase" width="360px" @close="$emit('close')">
         <div class="confirm-purchase-body">
             <!-- Confirmation message shown briefly after adding -->
+            <div v-show="!added" class="purchase-content">
+                <p class="spend-message">
+                    <template v-if="cost !== null && cost > 0">
+                        Spend <strong>{{ cost }} {{ currencyLabel }}</strong>?
+                    </template>
+                    <template v-else>
+                        Add this {{ itemTypeName }} for free?
+                    </template>
+                </p>
+                <p class="balance-line">
+                    Current {{ currencyLabel }}: <strong>{{ characterBalance }}</strong>
+                </p>
+            </div>
             <Transition name="fade">
                 <div v-if="added" class="added-confirmation">
                     Added!
-                </div>
-                <div v-else class="purchase-content">
-                    <p class="spend-message">
-                        <template v-if="cost !== null && cost > 0">
-                            Spend <strong>{{ cost }} {{ currencyLabel }}</strong>?
-                        </template>
-                        <template v-else>
-                            Add this {{ itemTypeName }} for free?
-                        </template>
-                    </p>
-                    <p class="balance-line">
-                        Current {{ currencyLabel }}: <strong>{{ characterBalance }}</strong>
-                    </p>
                 </div>
             </Transition>
         </div>
@@ -71,7 +71,7 @@ const itemTypeName = props.itemType === 'ability' ? 'ability' : 'item'
 
 async function showAddedAndClose() {
     added.value = true
-    await new Promise((resolve) => setTimeout(resolve, 800))
+    await new Promise((resolve) => setTimeout(resolve, 1200))
     emit('close')
 }
 
@@ -90,6 +90,7 @@ function handleFree() {
 .confirm-purchase-body {
     padding: var(--space-lg) var(--space-lg) 0;
     min-height: 80px;
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -112,11 +113,15 @@ function handleFree() {
 }
 
 .added-confirmation {
+    position: absolute;
+    inset: 0;
     font-size: var(--font-size-20);
     font-weight: var(--font-weight-bold);
     color: var(--color-success);
     text-align: center;
-    padding: var(--space-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .confirm-purchase-actions {

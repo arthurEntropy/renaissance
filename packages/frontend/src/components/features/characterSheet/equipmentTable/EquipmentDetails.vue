@@ -14,7 +14,8 @@
                         :disabled="!equipmentItem.isCarried || !isEditMode"
                         :class="{ 'worn-active': isArmor && equipmentItem.isWielding }"
                         @change="handleWieldingChange($event.target.checked)" />
-                    <em class="carried-label" :class="{ 'worn-active': isArmor && equipmentItem.isWielding }">
+                    <em class="carried-label"
+                        :class="{ 'worn-active': isArmor && equipmentItem.isWielding, 'label-disabled': !equipmentItem.isCarried }">
                         {{ wieldingLabel }}
                     </em>
                 </div>
@@ -175,6 +176,10 @@ const handleQuantityChange = (value) => {
 
 .worn-active {
     color: var(--color-accent-armor);
+}
+
+.label-disabled {
+    color: var(--color-text-muted);
 }
 
 .equipment-checkbox.worn-active:checked {

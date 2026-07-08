@@ -46,7 +46,8 @@
                         </select>
                     </div>
                     <div class="form-column">
-                        <label for="ancestry2" class="right-aligned invisible-label">&nbsp;</label>
+                        <label for="ancestry2"
+                            class="right-aligned invisible-label invisible-label--ancestry">&nbsp;</label>
                         <div class="genetics-wizard-button-wrapper">
                             <ActionButton variant="outline" size="small" text="Genetics Wizard🪄"
                                 :disabled="!hasTwoAncestries"
@@ -440,6 +441,17 @@ const saveChanges = () => {
         } else if (pendingConvertToNPCCampaignId.value && isPlayerChar.value) {
             char.characterType = 'npc'
             char.campaignId = pendingConvertToNPCCampaignId.value
+
+            // Remove from all campaign player character lists
+            const charId = char.id
+            campaignStore.campaigns.forEach(campaign => {
+                campaign.members?.forEach(member => {
+                    if (member.characterIds?.includes(charId)) {
+                        const updatedIds = member.characterIds.filter(id => id !== charId)
+                        campaignStore.updateMemberCharacters(campaign.id, member.userId, updatedIds)
+                    }
+                })
+            })
         }
     }
     closeModal()
@@ -572,6 +584,10 @@ const randomizeVitals = () => {
 .invisible-label {
     visibility: hidden;
     height: 0;
+    margin-top: 14px;
+}
+
+.invisible-label--ancestry {
     margin-top: -17px;
 }
 

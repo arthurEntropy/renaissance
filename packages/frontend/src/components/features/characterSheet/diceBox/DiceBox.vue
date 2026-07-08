@@ -29,8 +29,8 @@
     </div>
 
     <!-- Take XP Button -->
-    <ActionButton v-if="canEdit && xpEarned > 0 && !hasClaimedXp && !isRolling" class="take-xp-button" variant="primary"
-      size="small" :text="`← Take ${xpEarned} XP`" @click="handleTakeXp" />
+    <ActionButton v-if="canEdit && !isBeastCharacter && xpEarned > 0 && !hasClaimedXp && !isRolling"
+      class="take-xp-button" variant="primary" size="small" :text="`← Take ${xpEarned} XP`" @click="handleTakeXp" />
 
     <!-- Empty State -->
     <div v-show="!latestRoll" class="empty-state-container view-container">
@@ -100,6 +100,11 @@ const handleInjuryRoll = () => {
 const canEdit = computed(() => {
   if (!activeCharacter.value) return false
   return charactersStore.canEditSelectedCharacter && activeCharacter.value.id === charactersStore.selectedCharacter?.id
+})
+
+const isBeastCharacter = computed(() => {
+  const type = activeCharacter.value?.characterType
+  return type === 'beast' || type === 'beastInstance'
 })
 const latestRoll = computed(() => {
   const characterId = activeCharacter.value?.id
