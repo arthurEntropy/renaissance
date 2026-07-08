@@ -94,12 +94,11 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue'
+import { ref, computed, onMounted, nextTick } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useCampaignStore } from '@/stores/campaignStore'
 import { useAuthStore } from '@/stores/authStore'
 import { useCharactersStore } from '@/stores/charactersStore'
-import { useCharacterContextStore } from '@/stores/characterContextStore'
 import { useConceptsStore } from '@/stores/conceptsStore'
 import { useKeepingStore } from '@/stores/keepingStore'
 import { useEquipmentStore } from '@/stores/equipmentStore'
@@ -125,7 +124,6 @@ const router = useRouter()
 const campaignStore = useCampaignStore()
 const authStore = useAuthStore()
 const charactersStore = useCharactersStore()
-const characterContextStore = useCharacterContextStore()
 const conceptsStore = useConceptsStore()
 const keepingStore = useKeepingStore()
 const equipmentStore = useEquipmentStore()
@@ -265,9 +263,6 @@ onMounted(async () => {
     isLoading.value = false
 })
 
-onUnmounted(() => {
-    characterContextStore.clearPinnedGroups()
-})
 </script>
 
 <style scoped>

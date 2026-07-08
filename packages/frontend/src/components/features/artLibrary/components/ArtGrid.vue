@@ -36,7 +36,7 @@ import ArtCard from './ArtCard.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import { useFilterPersistence } from '@/composables/useFilterPersistence'
 
-const props = defineProps({
+defineProps({
     paginatedArt: {
         type: Array,
         required: true

@@ -20,11 +20,9 @@
                             @click="togglePinGroup(group)">
                             <MapPinIcon class="combat-group-action-icon" />
                         </button>
-                        <button type="button" class="combat-group-action-btn"
-                            :disabled="getGroupCharacters(group).length === 0"
-                            title="Roll initiative for all combatants" @click="rollGroupInitiative(group)">
-                            <BoltIcon class="combat-group-action-icon" />
-                        </button>
+                        <FloatingActionButton :variant="FAB_TYPES.INITIATIVE" :size="FAB_SIZES.SMALL"
+                            :visibility="FAB_VISIBILITIES.ALWAYS" :disabled="getGroupCharacters(group).length === 0"
+                            @click="rollGroupInitiative(group)" />
                         <button type="button" class="combat-group-delete" @click="deleteGroup(group.id)"
                             aria-label="Delete combat group">
                             <TrashIcon class="combat-group-delete-icon" />
@@ -56,16 +54,20 @@
                     <div v-if="characterContextStore.pinnedGroupsById[group.id]?.initiativeResults"
                         class="batch-initiative-results">
                         <div class="batch-results-header">
-                            <span>Initiative Order</span>
+                            <span class="batch-results-group-total">Group Total: {{
+                                characterContextStore.pinnedGroupsById[group.id].initiativeResults.groupTotal ?? '—'
+                                }}</span>
                             <button type="button" class="batch-results-clear"
                                 @click="clearBatchResults(group.id)">Clear</button>
                         </div>
                         <ol class="batch-results-list">
-                            <li v-for="(entry, i) in characterContextStore.pinnedGroupsById[group.id].initiativeResults"
-                                :key="entry.characterId" class="batch-results-entry">
-                                <span class="batch-results-rank">{{ i + 1 }}.</span>
-                                <span class="batch-results-name">{{ entry.character?.name ?? entry.characterId }}</span>
-                                <span class="batch-results-total">{{ entry.initiativeTotal ?? '—' }}</span>
+                            <li v-for="entry in characterContextStore.pinnedGroupsById[group.id].initiativeResults.members"
+                                :key="entry.characterId" class="batch-results-entry"
+                                :class="{ 'batch-results-entry--middle': entry.role === 'middle' }">
+                                <span class="batch-results-name">{{ entry.name ?? entry.characterId }}</span>
+                                <span class="batch-results-total">{{ entry.individualTotal ?? '—' }}</span>
+                                <span v-if="entry.emoji" class="batch-results-emoji">{{ entry.emoji }}</span>
+                                <span v-if="entry.isCaughtOffGuard" class="batch-results-off-guard">(off guard)</span>
                             </li>
                         </ol>
                     </div>
@@ -117,7 +119,9 @@
 
 <script setup>
 import { computed, onUnmounted, ref, watch, nextTick } from 'vue'
-import { ChevronDownIcon, ChevronRightIcon, PlusIcon, TrashIcon, MapPinIcon, BoltIcon } from '@heroicons/vue/24/outline'
+import { ChevronDownIcon, ChevronRightIcon, PlusIcon, TrashIcon, MapPinIcon } from '@heroicons/vue/24/outline'
+import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
+import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 import BeastToken from '@/components/features/characterSelection/BeastToken.vue'
 import CharacterToken from '@/components/features/characterSelection/CharacterToken.vue'
 import CascadeMenuFrame from '@/components/ui/pickers/CascadeMenuFrame.vue'
@@ -685,8 +689,8 @@ const rollGroupInitiative = (group) => {
         // Auto-pin the group so results have a home in the store
         togglePinGroup(group)
     }
-    const { results } = BatchRollOrchestrationService.executeBatchInitiativeRoll(characters)
-    characterContextStore.updatePinnedGroup(group.id, { initiativeResults: results })
+    const { groupTotal, members } = BatchRollOrchestrationService.executeBatchInitiativeRoll(characters)
+    characterContextStore.updatePinnedGroup(group.id, { initiativeResults: { groupTotal, members } })
 }
 
 const clearBatchResults = (groupId) => {
@@ -917,6 +921,12 @@ onUnmounted(() => {
     margin-bottom: var(--space-xs);
 }
 
+.batch-results-group-total {
+    color: var(--color-primary);
+    font-weight: 700;
+    font-size: 0.75rem;
+}
+
 .batch-results-clear {
     background: transparent;
     border: none;
@@ -948,10 +958,20 @@ onUnmounted(() => {
     color: var(--color-text-primary);
 }
 
-.batch-results-rank {
-    color: var(--color-text-secondary);
-    min-width: 1.2rem;
-    font-variant-numeric: tabular-nums;
+.batch-results-entry--middle {
+    opacity: 0.5;
+}
+
+.batch-results-emoji {
+    font-size: 0.85rem;
+    line-height: 1;
+}
+
+.batch-results-off-guard {
+    font-size: 0.65rem;
+    color: var(--color-danger);
+    font-style: italic;
+    text-transform: none;
 }
 
 .batch-results-name {

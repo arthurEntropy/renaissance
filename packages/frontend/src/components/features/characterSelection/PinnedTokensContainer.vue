@@ -29,6 +29,9 @@
                 <span class="token-group-name">{{ group.name }}</span>
                 <span v-if="isGroupCollapsed(group.id)" class="token-group-members-count">Members: {{
                     group.members.length }}</span>
+                <span v-if="group.initiativeResults?.groupTotal != null" class="token-group-initiative">
+                    Initiative: {{ group.initiativeResults.groupTotal }}
+                </span>
             </div>
             <div v-if="!isGroupCollapsed(group.id)" class="token-group-members">
                 <component v-for="member in group.members" :key="member.id" :is="getTokenComponent(member)"
@@ -307,6 +310,14 @@ function getFocusedTokenProps(character) {
 .token-group-members-count {
     font-size: var(--font-size-11);
     color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.token-group-initiative {
+    font-size: var(--font-size-11);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-primary);
     text-transform: uppercase;
     letter-spacing: 0.04em;
 }
