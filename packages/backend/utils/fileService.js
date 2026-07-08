@@ -141,6 +141,7 @@ const getEntityNames = () => {
 
 const getAllDataByDirectory = (directory) => {
   try {
+    if (!existsSync(directory)) return []
     const files = readdirSync(directory)
     return files
       .filter((file) => file.endsWith('.json'))
@@ -157,6 +158,8 @@ const getAllDataByDirectory = (directory) => {
 const saveFile = (data, directory, oldName = null, existingId = null, options = {}) => {
   try {
     const { filenameBase = null } = options
+
+    ensureDirectoryExists(directory)
 
     // Generate a new ID if one doesn't exist
     const isNew = !data.id
