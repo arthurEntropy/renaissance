@@ -2,7 +2,7 @@
   <base-card :item="ability" :metaInfo="traitOrMp" :collapsed="collapsed" :editable="editable"
     @edit="$emit('edit', ability)" :collapsible="collapsible" @update:collapsed="$emit('update:collapsed', $event)"
     @roll-link="handleRollLinkWithBiome" :itemType="ItemType.ABILITY"
-    :class="[biomeLinkClass, { 'ability-card--active': isAbilityActive, 'ability-card--with-difficulty': isShowingDifficulty }]"
+    :class="[$attrs.class, biomeLinkClass, { 'ability-card--active': isAbilityActive, 'ability-card--with-difficulty': isShowingDifficulty }]"
     :show-source="false" @mouseenter="onCardMouseEnter" @mouseleave="cardPreview.scheduleHide()"
     @mousedown="onCardMouseDown">
 
@@ -65,6 +65,8 @@
 <script setup>
 import { computed, ref } from 'vue'
 import { ChevronUpIcon, ChevronDownIcon } from '@heroicons/vue/24/outline'
+
+defineOptions({ inheritAttrs: false })
 import { useCardPreview } from '@/composables/useCardPreview'
 import { useImprovements } from '@/composables/useImprovements'
 import { useActionCostsStore } from '@/stores/actionCostsStore'

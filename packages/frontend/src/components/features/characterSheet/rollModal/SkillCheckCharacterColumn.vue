@@ -122,7 +122,9 @@ const favoredStatus = computed(() => {
 })
 
 const allDice = computed(() => {
-    return buildDiceSetForSkill(skillCheckConfig.value)
+    const { d12Die, d6Dice } = buildDiceSetForSkill(skillCheckConfig.value)
+    if (!d12Die) return []
+    return [d12Die, ...d6Dice.filter(d => d.isActive && !d.isSubtracted)]
 })
 
 const sortedDice = computed(() => {

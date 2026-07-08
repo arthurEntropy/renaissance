@@ -43,10 +43,9 @@
         @reorder-group="onAbilityGroupReorder" @rename-group="renameAbilityGroup" @delete-group="deleteAbilityGroup">
         <template #default="{ item }">
           <AbilityCard v-if="item" :ability="item" :collapsed="item.collapsed" class="ability-card" :collapsible="true"
-            :show-xp-badge="true" :show-add-to-character="false" :show-action-buttons="true"
-            :character="selectedCharacter" :show-improvement-toggle="true" :show-improvements="item.showImprovements"
-            :edit-mode="internalEditMode" @update="handleCharacterUpdate"
-            @update:collapsed="updateAbilityCollapsed(item.id, $event)"
+            :show-xp-badge="true" :show-action-buttons="true" :character="selectedCharacter"
+            :show-improvement-toggle="true" :show-improvements="item.showImprovements" :edit-mode="internalEditMode"
+            @update="handleCharacterUpdate" @update:collapsed="updateAbilityCollapsed(item.id, $event)"
             @update:showImprovements="updateAbilityShowImprovements(item, $event)" :show-successes="item.showSuccesses"
             @update:showSuccesses="updateAbilityShowSuccesses(item, $event)" @roll-link="handleRollLink"
             :show-difficulty-badge="true" @activate="setAbilityActive(item.id, true)"
@@ -60,10 +59,9 @@
         @reorder="handleAbilityReorder">
         <template #default="{ item: ability }">
           <AbilityCard v-if="ability" :ability="ability" :collapsed="ability.collapsed" class="ability-card"
-            :collapsible="true" :show-xp-badge="true" :show-add-to-character="false" :show-action-buttons="true"
-            :character="selectedCharacter" :show-improvement-toggle="true" :show-improvements="ability.showImprovements"
-            :edit-mode="internalEditMode" @update="handleCharacterUpdate"
-            @update:collapsed="updateAbilityCollapsed(ability.id, $event)"
+            :collapsible="true" :show-xp-badge="true" :show-action-buttons="true" :character="selectedCharacter"
+            :show-improvement-toggle="true" :show-improvements="ability.showImprovements" :edit-mode="internalEditMode"
+            @update="handleCharacterUpdate" @update:collapsed="updateAbilityCollapsed(ability.id, $event)"
             @update:showImprovements="updateAbilityShowImprovements(ability, $event)"
             :show-successes="ability.showSuccesses" @update:showSuccesses="updateAbilityShowSuccesses(ability, $event)"
             @roll-link="handleRollLink" :show-difficulty-badge="true" @activate="setAbilityActive(ability.id, true)"
@@ -80,9 +78,12 @@
       @add-item="handleCascadeAddAbility" @add-all-items="handleCascadeAddAllAbilities" />
 
     <!-- Skill Check Modal -->
-    <SkillCheckModal v-if="showSkillCheckModal" :selected-skill-name="rollLinkSkill" :character="selectedCharacter"
+    <SkillCheckModal v-if="showSkillCheckModal" :selected-skill-key="rollLinkSkillKey" :character="selectedCharacter"
       :default-roll-type="rollLinkRollType" :default-dice-mod="rollLinkBiomeDiceMod"
-      @close="showSkillCheckModal = false" />
+      @close="showSkillCheckModal = false" @start-opposed-skill-check="handleStartOpposedSkillCheck" />
+
+    <OpposedSkillCheckModal v-if="opposedSkillCheckModalOpen" :initial-session-config="opposedSessionConfig"
+      @close="opposedSkillCheckModalOpen = false" />
 
   </CharacterSheetSection>
 </template>
@@ -102,6 +103,7 @@ import ThreeColumnLayout from '@/components/ui/layouts/ThreeColumnLayout.vue'
 import GroupedThreeColumnLayout from '@/components/ui/layouts/GroupedThreeColumnLayout.vue'
 import SortingPicker from '@/components/ui/pickers/SortingPicker.vue'
 import SkillCheckModal from '@/components/features/characterSheet/modals/SkillCheckModal.vue'
+import OpposedSkillCheckModal from '@/components/features/characterSheet/rollModal/OpposedSkillCheckModal.vue'
 import CharacterService from '@/services/entities/characterService'
 import { useCardCascadePicker } from '@/composables/useCardCascadePicker'
 import { anchorFromTriggerEvent } from '@/composables/useAnchoredPickerTrigger'
@@ -119,6 +121,7 @@ import DamageRollService from '@/services/rolls/damageRollService'
 import CustomRollService from '@/services/rolls/customRollService'
 import { RollTypes } from '@/constants/rollTypes'
 import { getModifierStatKey, getModifierStatLabel } from '@/utils/characterKeyUtils'
+import { SKILLS } from '@shared/constants/characterConstants'
 
 const props = defineProps({
   canEdit: {
@@ -147,9 +150,11 @@ const rollsStore = useRollsStore()
 
 // Roll link modal refs
 const showSkillCheckModal = ref(false)
-const rollLinkSkill = ref(null)
+const rollLinkSkillKey = ref(null)
 const rollLinkRollType = ref(null)
 const rollLinkBiomeDiceMod = ref(0)
+const opposedSkillCheckModalOpen = ref(false)
+const opposedSessionConfig = ref(null)
 
 const sortOptions = ABILITY_SORT_OPTIONS
 
@@ -346,7 +351,7 @@ const handleRollLink = (rollData) => {
   if (!selectedCharacter.value) return
 
   if (rollData.type === 'skill-check' || rollData.type === 'opposed-skill-check') {
-    rollLinkSkill.value = rollData.skill
+    rollLinkSkillKey.value = Object.values(SKILLS).find(s => s.label === rollData.skill)?.key ?? rollData.skill?.toLowerCase() ?? null
     rollLinkRollType.value = rollData.type === 'opposed-skill-check'
       ? RollTypes.OPPOSED_SKILL_CHECK
       : RollTypes.SKILL_CHECK
@@ -425,6 +430,12 @@ const handleRollLink = (rollData) => {
       rollsStore.setRoll(rollResult)
     }
   }
+}
+
+const handleStartOpposedSkillCheck = (config) => {
+  showSkillCheckModal.value = false
+  opposedSessionConfig.value = config
+  opposedSkillCheckModalOpen.value = true
 }
 
 const allAbilitiesExpanded = computed(() =>
