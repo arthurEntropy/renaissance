@@ -1,8 +1,8 @@
 {
   "id": "5b14036a-1a18-4578-8025-3f3a696dd359",
-  "isDeleted": false,
+  "isDeleted": true,
   "createdAt": "2026-05-14T23:43:45.561Z",
-  "lastModified": "2026-07-03T18:06:34.835Z",
+  "lastModified": "2026-07-08T12:31:38.676Z",
   "characterType": "playerCharacter",
   "name": "Bufo",
   "featuredArtUrls": [
@@ -304,7 +304,7 @@
   "keeping": "3c4d5e6f-7a8b-4c9d-0e1f-2a3b4c5d6e7f",
   "treasure": 9,
   "xp": 0,
-  "updatedAt": "2026-07-03T18:06:34.834Z",
+  "updatedAt": "2026-07-08T12:31:38.676Z",
   "description": "",
   "size": 0,
   "reach": 0,

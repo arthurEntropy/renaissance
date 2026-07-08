@@ -2,7 +2,7 @@
   "id": "c9ddeab9-d180-4fc5-869f-e64239bc3376",
   "isDeleted": false,
   "createdAt": "2026-05-18T17:56:57.471Z",
-  "lastModified": "2026-05-19T17:18:59.576Z",
+  "lastModified": "2026-07-08T18:45:19.278Z",
   "slug": "playtest-campaign",
   "name": "Playtest Campaign",
   "description": "",
@@ -20,32 +20,9 @@
     }
   ],
   "includedConceptIds": [
-    "ba7af7ad-54d2-4b45-86ad-71781d4cdb33",
-    "2e46823f-bec7-4d70-b323-dbc8b71c7739",
-    "adc655c1-1d9c-433f-a0eb-41f93cf3ee07",
-    "f5cda222-6c69-4ae9-bc0d-761729cd8e2e",
-    "d7578278-c801-410b-b194-12b555042f29",
-    "f00fe427-1bb5-472c-8abb-2a394730a40a",
-    "d5e3228b-1d04-4503-8ec6-3210d420c082",
-    "cfd7bf18-3a9a-4b4e-a9a9-c7069dd822c3",
-    "134acec3-0e13-42e1-9d75-7999340d458c",
-    "fffc6b74-d66f-4270-a8b4-e045433ae176",
-    "6ff91bc4-122f-4e95-bb08-b577f1a94bb6",
-    "9250fcc5-9bc9-4724-815d-4411e79d403c",
-    "77e4f81a-728f-49a7-a013-4d6f666353e2",
-    "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
-    "b6f7cc3e-f689-4cd9-a8ed-73bf5e7f0fef",
-    "eed942f5-8cc4-446a-8806-b83186098274",
-    "15bb5476-5cca-48ee-a6a0-95b0ea6cc803",
-    "f9e8d7c6-b5a4-9382-7165-0f9e8d7c6b5a",
-    "1c61dcb1-937a-44fe-9c69-3cd588e9dcb7",
-    "e40c3cff-9f6b-4940-ae41-cef878821a75",
-    "68fadf5d-6661-4611-bb38-deaf05f01d45",
     "55494a30-a1bb-47c3-aae9-2db3a5bfcb8b",
     "0c876a74-a89b-42dc-b76a-4592a0478d81",
     "5a639d7b-847a-468b-9bbe-5275d31fdf66",
-    "a3a54cb6-09c4-42e3-b142-3053b7c1d4e8",
-    "8221b753-1564-447e-b26a-4c95761d2714",
     "e10d7d9f-9d93-46b0-9846-d60241031644",
     "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
     "e0a69b6f-38f9-4fa5-a1ef-5e5777299e82",
@@ -59,95 +36,93 @@
     "d4dce5e2-e767-464d-91f0-c40b47f788b3",
     "558abd15-f90f-40d7-80d8-df73a37f977c",
     "937d52da-0ebf-4d74-b3ee-be395f2f5d0a",
-    "162ae4db-7a67-4770-8a2c-7e9883da14f6"
+    "162ae4db-7a67-4770-8a2c-7e9883da14f6",
+    "c02c53d1-b456-45d0-a048-6fc941cacc03",
+    "ba7af7ad-54d2-4b45-86ad-71781d4cdb33",
+    "adc655c1-1d9c-433f-a0eb-41f93cf3ee07",
+    "6ff91bc4-122f-4e95-bb08-b577f1a94bb6",
+    "77e4f81a-728f-49a7-a013-4d6f666353e2",
+    "b6f7cc3e-f689-4cd9-a8ed-73bf5e7f0fef",
+    "15bb5476-5cca-48ee-a6a0-95b0ea6cc803",
+    "1c61dcb1-937a-44fe-9c69-3cd588e9dcb7",
+    "eed942f5-8cc4-446a-8806-b83186098274",
+    "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "fffc6b74-d66f-4270-a8b4-e045433ae176",
+    "f5cda222-6c69-4ae9-bc0d-761729cd8e2e",
+    "2e46823f-bec7-4d70-b323-dbc8b71c7739",
+    "352c844b-6d4f-4b61-b475-315421a453e7",
+    "cdc93466-8327-4096-a8c2-04cccf3e3835",
+    "3085883d-e74b-40aa-84a9-af6fccb3d98e",
+    "40086e18-eaba-411a-b4ec-7a0a7fd42d37",
+    "c114dc0e-d6ca-4115-be35-684dead36de2",
+    "be62ac3d-7168-4779-8274-e60574a2fd27",
+    "d194ad54-7ca8-4902-a140-e6401681ee55",
+    "61e2ce55-1954-4e8e-b1b3-b249ae915fa7",
+    "e40cb278-9365-4aa3-a925-14b6b825f711",
+    "96e062f8-646e-49f4-8eec-d92bd5fb77c4",
+    "c597638a-94ef-4a1d-ba3a-fcdcbaf9dd6d",
+    "a7895ceb-db19-4c87-acf5-8960f6b555ea",
+    "21bd354f-8468-4057-971c-5afc0d20b571",
+    "49f10189-9634-4083-933b-fa74c2583b87"
   ],
-  "shops": [
-    {
-      "id": "5be1ced9-a967-431f-85c3-c12497ec0c93",
-      "name": "Tierney's",
-      "primaryCultureId": null,
-      "generationParams": {},
-      "isVisibleToPlayers": true,
-      "items": [
-        "f5d38b8a-a9b7-480c-81bd-9852fc4501ec",
-        "4d318ef9-5a9b-4c1d-a79d-f61b090f43fa",
-        "c8b612d3-b3d9-46e8-82ab-ad25b43b7de1",
-        "4ef323c3-c475-4148-a9ab-df5868d5fa06",
-        "249e6650-8646-4367-9912-6655f03ce32c",
-        "f248a20d-f79e-4fb9-a800-94e2145fc23a",
-        "3a5dba19-84d7-4c4f-bd57-9cd8d877c2a0",
-        "43b5ef83-6a24-4912-93c2-29487b0b9f91",
-        "7acfd34b-4c06-45a3-9aa4-2c67aadeecdc",
-        "4a3da5ca-ab4d-40af-8da5-199fefeb0adb",
-        "eba9a860-f0b6-44db-b615-2ebbe5b0ab65",
-        "093eef8a-85e0-42d8-85bc-b0bb1d1877af"
-      ]
-    },
-    {
-      "id": "49c75839-e4e7-467c-8f01-639ea18d50bd",
-      "name": "The Container Tent",
-      "primaryCultureId": null,
-      "generationParams": {},
-      "isVisibleToPlayers": true,
-      "items": [
-        "249e6650-8646-4367-9912-6655f03ce32c",
-        "eba9a860-f0b6-44db-b615-2ebbe5b0ab65",
-        "60d8ec28-8e4f-4789-83cf-9338a8f4ee0e",
-        "a2cd4316-f34a-49f8-8774-dcc0c9ab499a",
-        "4a3da5ca-ab4d-40af-8da5-199fefeb0adb",
-        "7acfd34b-4c06-45a3-9aa4-2c67aadeecdc",
-        "6341bbc6-9c9a-4c53-a603-132e368577b2",
-        "3a5dba19-84d7-4c4f-bd57-9cd8d877c2a0",
-        "f339e1ee-39c8-4712-8baa-60129fd87ff0",
-        "f248a20d-f79e-4fb9-a800-94e2145fc23a",
-        "f5d38b8a-a9b7-480c-81bd-9852fc4501ec",
-        "2205ff30-ca18-4b7c-9315-fdd1423837ae"
-      ]
-    },
-    {
-      "id": "eaec0ca7-18a3-4d55-bf64-3b3f812fe9f2",
-      "name": "Cool Shoppes",
-      "primaryCultureId": null,
-      "generationParams": {},
-      "isVisibleToPlayers": true,
-      "items": [
-        "f248a20d-f79e-4fb9-a800-94e2145fc23a",
-        "eba9a860-f0b6-44db-b615-2ebbe5b0ab65",
-        "7acfd34b-4c06-45a3-9aa4-2c67aadeecdc",
-        "e43614f2-91e1-495f-9d4f-7cdc4d87d3be",
-        "3a5dba19-84d7-4c4f-bd57-9cd8d877c2a0",
-        "4ef323c3-c475-4148-a9ab-df5868d5fa06",
-        "01b42045-e490-457e-a533-875ea582d8f5",
-        "f5d38b8a-a9b7-480c-81bd-9852fc4501ec",
-        "4a3da5ca-ab4d-40af-8da5-199fefeb0adb",
-        "e7c57bc7-5009-45bd-81f0-c8011115862c",
-        "a2cd4316-f34a-49f8-8774-dcc0c9ab499a",
-        "249e6650-8646-4367-9912-6655f03ce32c",
-        "b69c879e-a758-47b6-a3a4-b81dfd12eaaf",
-        "f94fb100-aed0-4a42-89a4-3a793439b842",
-        "093eef8a-85e0-42d8-85bc-b0bb1d1877af",
-        "f339e1ee-39c8-4712-8baa-60129fd87ff0",
-        "c4687d01-ef1a-4a63-b401-96614c785a7b",
-        "37843429-c6cb-4a9f-a094-d2014a1460fd",
-        "d543e3c1-9bab-4ddf-9842-2ce2293d866d",
-        "4d318ef9-5a9b-4c1d-a79d-f61b090f43fa",
-        "60d8ec28-8e4f-4789-83cf-9338a8f4ee0e",
-        "6341bbc6-9c9a-4c53-a603-132e368577b2",
-        "1a98852b-e310-4f56-b4b4-75af7f784149",
-        "63b70983-0120-43ef-af99-f0835014246b",
-        "064491f2-90d8-4097-933d-f6d09928afcf",
-        "a5889718-8970-48a6-abc9-9d7dd4c83a69",
-        "c8b612d3-b3d9-46e8-82ab-ad25b43b7de1",
-        "d7e93e77-e3dc-4ffc-a4e8-f266f97d3ea2",
-        "43b5ef83-6a24-4912-93c2-29487b0b9f91",
-        "2205ff30-ca18-4b7c-9315-fdd1423837ae"
-      ]
-    }
-  ],
+  "shops": [],
   "lobbyState": {
     "inactiveNpcIds": [],
     "hiddenNpcIds": [],
     "inactivePlayerCharacterIds": []
   },
-  "combatGroups": []
+  "combatGroups": [
+    {
+      "id": "group-1783526479296-r4csi9",
+      "name": "Foes",
+      "combatants": [
+        {
+          "id": "beast:6a9c30a0-25ce-4dcc-99bd-06d5c226d1c3",
+          "type": "beast",
+          "characterId": "6a9c30a0-25ce-4dcc-99bd-06d5c226d1c3"
+        },
+        {
+          "id": "beast:a675e17d-bf53-4ff3-937a-242aea3d0e7a",
+          "type": "beast",
+          "characterId": "a675e17d-bf53-4ff3-937a-242aea3d0e7a"
+        },
+        {
+          "id": "beast:3e1ff0fd-659b-43d7-94df-bd3269a60b36",
+          "type": "beast",
+          "characterId": "3e1ff0fd-659b-43d7-94df-bd3269a60b36"
+        },
+        {
+          "id": "beast:93866275-3365-4a80-9a11-b8185884faab",
+          "type": "beast",
+          "characterId": "93866275-3365-4a80-9a11-b8185884faab"
+        }
+      ]
+    },
+    {
+      "id": "group-1783532553201-zx2h3z",
+      "name": "Our Heroes",
+      "combatants": [
+        {
+          "id": "npc:b4417462-600b-4571-b2ad-a572ad01733f",
+          "type": "npc",
+          "characterId": "b4417462-600b-4571-b2ad-a572ad01733f"
+        },
+        {
+          "id": "npc:2fb7cd7a-91fc-4f2b-a4b4-8c815eddcea0",
+          "type": "npc",
+          "characterId": "2fb7cd7a-91fc-4f2b-a4b4-8c815eddcea0"
+        },
+        {
+          "id": "npc:b0dfc21f-b910-4a42-aca0-ad497a099139",
+          "type": "npc",
+          "characterId": "b0dfc21f-b910-4a42-aca0-ad497a099139"
+        },
+        {
+          "id": "npc:dd4ad3a1-0d8b-4e05-8548-ee81bbb61c29",
+          "type": "npc",
+          "characterId": "dd4ad3a1-0d8b-4e05-8548-ee81bbb61c29"
+        }
+      ]
+    }
+  ]
 }

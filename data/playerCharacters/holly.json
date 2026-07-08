@@ -1,8 +1,8 @@
 {
   "id": "2cbe6ed5-9249-4e5d-a827-d2b8e8a3d28a",
-  "isDeleted": false,
+  "isDeleted": true,
   "createdAt": "2026-05-14T23:51:48.952Z",
-  "lastModified": "2026-05-14T23:59:47.179Z",
+  "lastModified": "2026-07-08T12:32:47.320Z",
   "characterType": "playerCharacter",
   "name": "Holly",
   "featuredArtUrls": [
@@ -332,5 +332,5 @@
   "description": "",
   "size": 0,
   "reach": 0,
-  "updatedAt": "2026-05-14T23:59:47.179Z"
+  "updatedAt": "2026-07-08T12:32:47.320Z"
 }
