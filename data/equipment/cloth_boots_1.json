@@ -1,0 +1,19 @@
+{
+  "type": "1cc02e7b-cdaf-477c-a198-6be0ad5ab47f",
+  "createdAt": "2026-05-21T15:55:35.050Z",
+  "lastModified": "2026-06-24T13:00:37.545Z",
+  "isTemplate": false,
+  "name": "Cloth Boots",
+  "subtype": "3b179003-c623-425f-8d16-c41b4204758b",
+  "grade": "ad30b114-3c19-413f-aad2-5f270bd95684",
+  "weight": 2,
+  "defenseBonus": 1,
+  "engagementDice": [],
+  "damageDice": [],
+  "length": 0,
+  "reach": 0,
+  "id": "f5917122-3d19-455d-8493-44ccfbe7f28b",
+  "source": "c114dc0e-d6ca-4115-be35-684dead36de2",
+  "artUrl": "https://cdn.midjourney.com/fb0b78b4-85a7-43dd-9b15-512cf1c88695/0_0.jpeg",
+  "keeping": "3c4d5e6f-7a8b-4c9d-0e1f-2a3b4c5d6e7f"
+}

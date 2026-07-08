@@ -1,7 +1,7 @@
 {
   "isDeleted": false,
   "createdAt": "2026-05-06T17:55:10.305Z",
-  "lastModified": "2026-05-20T15:35:21.972Z",
+  "lastModified": "2026-06-24T14:33:27.533Z",
   "name": "Arbalest",
   "artUrl": "https://cdn.midjourney.com/ced19db8-3355-4b82-8630-926a742756fe/0_1.png",
   "description": "",
@@ -9,7 +9,7 @@
   "improvements": [],
   "source": "c114dc0e-d6ca-4115-be35-684dead36de2",
   "school": null,
-  "keeping": null,
+  "keeping": "5e6f7a8b-9c0d-4e1f-2a3b-4c5d6e7f8a9b",
   "isCustom": false,
   "isTemplate": false,
   "isMagical": false,

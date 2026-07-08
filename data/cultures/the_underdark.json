@@ -2,23 +2,48 @@
   "id": "c114dc0e-d6ca-4115-be35-684dead36de2",
   "conceptType": "CULTURE",
   "name": "The Underdark",
-  "description": "",
+  "description": "<p>The Underdark is everywhere, beneath everything. Miles underground, there is another world. Cut off from the light and warmth of the surface, life nevertheless flourishes here. Glowing mushrooms and shimmering streams take the place of the sun and moon, while thermal vents and dripping stalactites take the place of the wind and rain, and a myriad of creatures long adapted to the damp-half darkness roam, graze, hunt, and multiply.</p><p>What drew or drove the first peoples downward into this strange world is obscure, but over the centuries their bodies changed to reflect their new home. In the long years they built homes, temples, cities, shaping the dark stone into works magnificent and homely. They also became fierce, as the incursions of strange ancient beasts from the deeper reaches forced them to organize themselves around their own defense.</p><p>And so it was that the peoples of the surface discovered a highly militarized and bureaucratized society beneath their feet when the long isolation was broken at last. Now, these long-hardened societal structures are being tested, as some natives choose to leave and rejoin their long-estranged kin on the surface, and new arrivals question the many long-standing rules and norms, and yearn to explore places yet deeper and darker.</p>",
   "isDeleted": false,
   "featuredArtUrls": [
-    "https://cdn.midjourney.com/fd3657d5-7bcf-4343-84fc-617829d64e2e/0_0.png"
+    "https://cdn.midjourney.com/9cd1ff24-401e-4f50-b162-8aa063f685b6/0_1_640_N.webp"
   ],
-  "backgroundImage": "",
+  "backgroundImage": "https://cdn.midjourney.com/27435dab-09e4-4ccd-881e-aa49163216a8/0_3.png",
   "cardBackgroundImage": "https://cdn.midjourney.com/67d86dc8-9861-4039-b776-20f620207e9b/0_2.png",
   "expansion": "824cad94-3a4a-4df3-b81a-ede17b84644b",
-  "playlists": [],
-  "hooks": [],
+  "playlists": [
+    "<iframe allow=\"autoplay *; encrypted-media *;\" frameborder=\"0\" height=\"450\" style=\"width:100%;max-width:660px;overflow:hidden;background:transparent;\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation\" src=\"https://embed.music.apple.com/us/playlist/underdark-city-streets/pl.u-MDAW6LJCqD7Gmp?theme=dark\"></iframe>",
+    "<iframe allow=\"autoplay *; encrypted-media *;\" frameborder=\"0\" height=\"450\" style=\"width:100%;max-width:660px;overflow:hidden;background:transparent;\" sandbox=\"allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation\" src=\"https://embed.music.apple.com/us/playlist/underdark-deep-dark/pl.u-55D6ze2CVRap4d?theme=dark\"></iframe>"
+  ],
+  "hooks": [
+    {
+      "id": null,
+      "name": "The Larvae Run",
+      "description": "<p>The Underdark's standing army has need of more of their mount of choice: giant millipede-like creatures called Myrioids. Their nests are notoriously labyrinthine and in their adult stage they are ferocious, but their larvae are docile and bumbling. The trick is to sneak into the hatchery chamber of the nest, bag as many larvae as you can, and sneak back out before the adults can notice.</p><p>Some Underdarkers make a living doing these runs each year when the larvae are ready for harvest, but last year's run was particularly fatal and more hands are needed this time around. The army pays handsomely, but the risks are high.</p>",
+      "gmNotes": "<p>This should be a fairly straightforward stealth mission, though the nest should be quite difficult to navigate, as advertised.</p><p>The hatchery chamber should be huge, with the larvae each in their own cell of a high wall of chambers. They are frustratingly slippery and difficult to handle, and extremely clumsy if allowed to roam.</p><p>An encounter with an adult Myrioid should be a very risky enterprise, and conflict with more than one of them should be deadly.</p><p>Consider throwing an NPC in the mix, who is a half-blind, heavily scarred veteran of the larvae run who is hell-bent on getting one last big score so that he can get out of the business. He of course should be overeager in the hatching chamber, staying too long and attracting the attention of the adults.</p>",
+      "index": 0
+    },
+    {
+      "id": null,
+      "name": "The Deepest Garden",
+      "description": "<p>Explorers of the deeper reaches of the Underdark have reported that after descending through miles of lifeless, pitch dark passages, they have come suddenly upon neat, well-tended rows of purple herbs, growing without any apparent light or water source, and emitting an aroma that is heady and disorienting. Those brave or foolish enough to press on have reported an eerie turquoise glow. One claims to have seen and narrowly avoided a fast-approaching figure.</p><p>Who could they be? What is a gardener doing in the darkest depths of the earth?</p>",
+      "gmNotes": "<p>The gardener is a very, very ancient tyrant, who discovered sinister and powerful methods of mind-control and used them to exert total control over his people. And yet, this total control was not enough for him. He sought control over their very souls, to be held in bondage for eternity. He learned how to extract them from their bodies upon death, and held them in an increasingly large sphere of liquid essence.</p><p>Our Heroes should find the strange, rolling fields of rows of purple herbs, untended and in the dark. The herbs themselves bend the mind towards fear and - if ingested - allow the tyrant to exert control over the body and mind.</p><p>The tyrant should appear - simply standing without light in the darkness, trowel in hand - as a young boy, who yet also has some features of an old man - perhaps a beard, or gray hair, or weathered skin. He is bright, cheery, affable, welcoming and hospitable to Our Heroes, but his house is a strange, empty hut that is a bit too small for all to fit into it comfortably.</p><p>Near his house is the source of the rumored turquoise glow: a pool of luminous liquid, which is gently ever-roiling and which seems to underlie the whole expanse of his gardens.</p><p>The tension here should rise gradually - whatever false tale the tyrant offers to explain his presence there should seem less and less likely as time goes on. Meanwhile, the tyrant, who is initially genuinely glad for company, gradually becomes impatient with Our Heroes and his desire to exert control over them rises up. He will try to trick them into eating the herbs, or allowing him to, for example, treat a wound with them.</p><p>His ultimate goal is to knock them into the glowing pool, where their souls will be merged with those of his ancient subjects. Should any or all of Our Heroes fall in, they should be transported to the time of the tyrant's rise to power in that ancient society, and should have a chance to stop him. Should they succeed, they then are able to emerge from the pool, release the trapped souls, and visit justice upon the tyrant.</p>",
+      "index": 1
+    },
+    {
+      "id": null,
+      "name": "The Mushroom Blight",
+      "description": "<p>While the largest cities in the Underdark tend to be of hewn stone, residents of the humbler villages and towns often carve their homes into the living stalks of giant bioluminescent mushrooms.</p><p>Recently, a remote village was abruptly turned out of their homes as the mushrooms shriveled and died. This blight soon spread to other neighboring villages, and now hundreds are homeless. The sickness seems to be spreading outward from the center of an untamed mushroom forest. What could be the cause?</p>",
+      "gmNotes": "<p>Our heroes should pass through multiple ruined villages on their way to the forest, which should be half-shriveled but still extensive. Here they can have as many encounters as you like with various myconids, blink dogs, whatever you care to throw at them.</p><p>Following the lines of blight should lead them to a clearing where a massive tick-like parasite is sucking the nutrients out of the severed mycelia of the forest, its swollen belly glowing from within. It is a huge, fearsome foe that can use its mycelial connection to cause the surrounding mushrooms to release various spores.</p><p>Perhaps defeating it allows our heroes to collect some of the glowing liquid it had ingested, which can be taken as a powerful draught or can be used to revitalize the mushroom growth in the blighted villages.</p>",
+      "index": 2
+    }
+  ],
   "localFlavor": {
-    "names": "Gregorik, Ilona, Radomir, Zsófia, Marek, Anika, Vlas, Erzsé, Tibor, Daciana, Emil, Klara, Istvan, Mirela, Vojtek, Lenka, Oskar, Bela, Florika, Andor",
-    "occupations": "Fungus Cartographer, Tunnel Lampwright, Chitin Smith, Sporespoken Courier, Imperial Relic Hunter, Mold Taxidermist, Glowworm Shepherd, Bone Archivist, Echo Scout, Collapse Watcher, Crypt Fencer, Vein Surveyor, Lichen Apothecary, Vault Mason, Myco-Chronicler",
-    "publicHouses": "The Velvet Spore, The Red Grotto, Hollowglass Bar, Soot and Lichen, The Last Railcar, Stag in the Deep",
-    "vittles": "Pickled Glowcap Mushrooms, Bat Jerky, Sourmoss Soup, Roasted Lichen Crisps, Ash-Baked Rootcakes, Salted Larvae Pâté, Chitin Crackers, Ghostberry Jam, Moss-Stuffed Dumplings, Glowsap Mead, Mold-Crusted Cheese, Deepwater Snail Stew, Spore-Fried Beetles, Stonefruit Cordial, Gloamtree Cider",
-    "pointsOfInterest": "The Spire of Boneglass, Forgotten Rail Terminus, Hall of Imperial Spores, Vault of Whispering Keys, The Crowned Root, The Emberlit Gallery",
-    "floraFauna": "Glowcap, Cave Ivy, Ghost Fern, Red Moss, Iron Vein Lichen, Spore Lily, Scree Bat, Pale Mite, Echo Frog, Chitin Hound, Silkmoth Swarm, Blind Newt, Tunnel Cobra, Gloom Elk, Marble Ant"
+    "names": "Gregorik, Ilona, Radomir, Zsófia, Marek, Anika, Vlas, Erzsé, Tibor, Daciana, Emil, Klara, Istvan, Mirela, Vojtek, Lenka, Bela, Florika, Andor",
+    "occupations": "Tunnel Cartographer, Lampwright, Chitin Smith, Shadow Courier, Larvae Hunter, Mold Taxidermist, Glowworm Shepherd, Bone Archivist, Echo Scout, Passage Watcher, Crypt Curate, Vein Surveyor, Lichen Apothecary, Vault Mason, Myco-Chronicler",
+    "publicHouses": "The Velvet Spore, The Red Grotto, Darkheart's Table, The Glasslight, Deepslate Tavern,  Stag in the Deep",
+    "vittles": "Pickled Glowcap, Bat Jerky, Sourmoss Soup, Roasted Lichen Crisps, Ash-Baked Rootcakes, Salted Larvae Pâté, Chitin Crackers, Ghostberry Jam, Moss-Stuffed Dumplings, Glowsap Mead, Mold-Crusted Cheese, Deepwater Snail Stew, Fried Beetles, Stonefruit Cordial, Gloamtree Cider",
+    "pointsOfInterest": "Vault of Imperial Spores, The Darksteel Fortress, Mushroom Leather Market, The Myriod Hives, The Night Fields, The Teetering Columns, The Deep Dark",
+    "floraFauna": "Glowcap, Cave Ivy, Ghost Fern, Red Moss, Iron Vein Lichen, Spore Lily, Scree Bat, Pale Mite, Echo Frog, Chitin Hound, Silkmoth, Blind Newt, Tunnel Cobra, Gloom Elk, Marble Ant"
   },
-  "lastModified": "2026-05-20T13:03:25.441Z"
+  "lastModified": "2026-06-26T12:23:51.162Z"
 }

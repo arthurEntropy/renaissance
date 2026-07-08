@@ -1,10 +1,10 @@
 {
   "id": "ae41ad01-5ac7-48f5-a729-1c5da6cdf83e",
   "isDeleted": false,
-  "lastModified": "2026-05-15T18:03:47.568Z",
+  "lastModified": "2026-06-17T17:06:41.547Z",
   "name": "Clever",
   "artUrl": "https://cdn.midjourney.com/0a9dca77-cac5-46ce-92ea-45a4fd88d313/0_3.png",
-  "description": "<p><em>You have an uncanny knack for shrugging off magical attacks, and you are quick to pick up anything you set your mind to.</em></p><p>Whenever a spell other than your own forces you to make an opposed skill check, your roll is favored.</p><p><strong>Describe how this natural defense manifests in you.</strong></p>",
+  "description": "<p><em>You have an uncanny knack for shrugging off attacks.</em></p><p>Whenever a spell other than your own forces you to make an opposed skill check, your roll is favored.</p><p><strong>Describe how this natural defense manifests in you.</strong></p>",
   "source": "fffc6b74-d66f-4270-a8b4-e045433ae176",
   "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
   "mpCost": null,

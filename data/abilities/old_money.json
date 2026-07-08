@@ -1,0 +1,10 @@
+{
+  "source": "40086e18-eaba-411a-b4ec-7a0a7fd42d37",
+  "id": "bc100ecb-a80e-4508-9ae6-fc67a406b4b3",
+  "createdAt": "2026-06-19T13:42:16.599Z",
+  "lastModified": "2026-06-19T19:36:58.792Z",
+  "name": "Old Money",
+  "description": "<p><em>You come from a family with a long history of having deep pockets.</em></p><p>When establishing your starting treasure, double the number of d10s you roll.</p><p>At the end of each Quest, pay 10% of the Treasure you gained during the Quest - rounded up - to your family. Then you gain 1d10 Treasure.</p><p><strong>Describe how you and your family handle money.</strong></p>",
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "artUrl": "https://cdn.midjourney.com/4ae32b46-40fd-46ae-bb49-1813b3b96789/0_3.png"
+}

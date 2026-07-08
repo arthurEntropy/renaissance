@@ -1,0 +1,10 @@
+{
+  "source": "c114dc0e-d6ca-4115-be35-684dead36de2",
+  "id": "40c8cb14-1fee-4240-a5dc-50ce40d9c089",
+  "createdAt": "2026-06-19T16:05:24.516Z",
+  "lastModified": "2026-06-19T19:45:45.251Z",
+  "name": "Behemoth Hunter",
+  "description": "<p><em>You've encountered huge monsters in the deep places of the world.</em></p><p>Whenever you attack a creature whose size is 3 or more greater than yours, the attack roll is favored and, on a hit, +1d damage.</p><p><strong>Describe how you find the creature's weakness.</strong></p>",
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "artUrl": "https://cdn.midjourney.com/637e1565-f854-41a4-9270-b7c2b3976bb2/0_2.png"
+}

@@ -1,7 +1,7 @@
 {
   "isDeleted": false,
   "createdAt": "2026-05-06T17:55:10.305Z",
-  "lastModified": "2026-05-20T14:04:04.649Z",
+  "lastModified": "2026-06-24T14:26:20.211Z",
   "name": "Sovnya",
   "artUrl": "https://cdn.midjourney.com/0e63c722-57be-49da-a2e0-a929f5adb7ff/0_3.png",
   "description": "Weight: 4-6. Length: 6-9",
@@ -9,7 +9,7 @@
   "improvements": [],
   "source": "352c844b-6d4f-4b61-b475-315421a453e7",
   "school": null,
-  "keeping": null,
+  "keeping": "4d5e6f7a-8b9c-4d0e-1f2a-3b4c5d6e7f8a",
   "isCustom": false,
   "isTemplate": false,
   "isMagical": false,

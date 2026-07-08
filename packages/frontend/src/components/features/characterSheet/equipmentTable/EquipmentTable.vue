@@ -118,6 +118,12 @@
       :equipment-entry="transferEquipmentItem.equipmentEntry" @close="showTransferEquipmentModal = false"
       @transferred="handleEquipmentTransferred" />
 
+    <!-- Custom/Damage Roll Modal -->
+    <CustomRollModal v-if="showDamageRollModal && damageRollModalConfig && selectedCharacter" title="Damage Roll"
+      :character="selectedCharacter" :initial-dice-counts="damageRollModalConfig.initialDiceCounts"
+      :initial-modifier="damageRollModalConfig.initialModifier" :roll-name="damageRollModalConfig.rollName"
+      :source-name="damageRollModalConfig.sourceName" roll-mode="damage" @close="showDamageRollModal = false" />
+
   </CharacterSheetSection>
 </template>
 
@@ -137,6 +143,7 @@ import GroupedThreeColumnLayout from '@/components/ui/layouts/GroupedThreeColumn
 import SortingPicker from '@/components/ui/pickers/SortingPicker.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import SkillCheckModal from '@/components/features/characterSheet/modals/SkillCheckModal.vue'
+import CustomRollModal from '@/components/features/characterSheet/customDiceRoller/CustomRollModal.vue'
 import MartialTrainingPopup from '@/components/features/characterSheet/modals/MartialTrainingPopup.vue'
 import GratuitiPopup from '@/components/features/characterSheet/modals/GratuitiPopup.vue'
 import TransferEquipmentModal from './TransferEquipmentModal.vue'
@@ -236,6 +243,10 @@ const isCollapsed = ref(false)
 const showSkillCheckModal = ref(false)
 const rollLinkSkill = ref(null)
 const rollLinkRollType = ref(null)
+
+// Damage roll modal refs
+const showDamageRollModal = ref(false)
+const damageRollModalConfig = ref(null)
 
 // Transfer equipment modal refs
 const showTransferEquipmentModal = ref(false)
@@ -451,10 +462,20 @@ const handleCharacterUpdate = (updatedCharacter) => {
 const handleDamageRoll = (equipment) => {
   if (!equipment || !selectedCharacter.value) return
 
-  const rollResult = DamageRollService.makeEquipmentDamageRoll(equipment, selectedCharacter.value)
-  if (rollResult) {
-    rollsStore.setRoll(rollResult)
+  // Build initial dice counts from equipment's damage dice
+  const initialDiceCounts = {}
+  const damageDice = Array.isArray(equipment.damageDice) ? equipment.damageDice : []
+  damageDice.forEach(size => {
+    initialDiceCounts[size] = (initialDiceCounts[size] || 0) + 1
+  })
+
+  damageRollModalConfig.value = {
+    initialDiceCounts,
+    initialModifier: selectedCharacter.value.body || 0,
+    rollName: equipment.name || 'Damage',
+    sourceName: equipment.name || null,
   }
+  showDamageRollModal.value = true
 }
 
 const handleRollLink = (rollData) => {

@@ -1,0 +1,19 @@
+{
+  "type": "1cc02e7b-cdaf-477c-a198-6be0ad5ab47f",
+  "createdAt": "2026-05-21T15:55:35.050Z",
+  "lastModified": "2026-06-24T13:06:58.674Z",
+  "isTemplate": false,
+  "name": "Studded Leather Helm",
+  "subtype": "353e7289-649b-4a54-ae7a-2cddf7db22a9",
+  "grade": "b92d3394-2c64-487f-8c90-c56ea1cbd3f3",
+  "weight": 2,
+  "defenseBonus": 2,
+  "engagementDice": [],
+  "damageDice": [],
+  "length": 0,
+  "reach": 0,
+  "id": "a6c8015a-befa-4c2e-8de0-2f68304a01c5",
+  "source": "be62ac3d-7168-4779-8274-e60574a2fd27",
+  "artUrl": "https://cdn.midjourney.com/9a1c239a-401e-404f-8e9f-74ffced0a62d/0_3.png",
+  "keeping": "3c4d5e6f-7a8b-4c9d-0e1f-2a3b4c5d6e7f"
+}

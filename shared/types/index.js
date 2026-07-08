@@ -38,6 +38,7 @@ export {
 export { createDefaultEngagementSuccess } from './engagementSuccess.js'
 export { createDefaultExpansion } from './expansion.js'
 export { createDefaultKeeping } from './keeping.js'
+export { createDefaultArtPlaceholder } from './artPlaceholder.js'
 export { createDefaultRulesSection } from './rulesSection.js'
 export { createDefaultUser } from './user.js'
 export { createDefaultCampaign } from './campaign.js'

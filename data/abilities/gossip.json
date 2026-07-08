@@ -1,0 +1,11 @@
+{
+  "source": "40086e18-eaba-411a-b4ec-7a0a7fd42d37",
+  "id": "fa668bfa-4be1-4ee7-aa84-64051d70f686",
+  "createdAt": "2026-06-19T13:26:00.599Z",
+  "lastModified": "2026-06-19T19:32:41.961Z",
+  "name": "Gossip",
+  "description": "<p><em>Your time in Teek has taught you how to get the best gossip.</em></p><p>In towns and cities, you can always find someone who will share gossip about the wealthy and powerful. When you invoke this trait, roll a fate die. The GM interprets the result to determine what secret you learn. A higher result means you learn a juicier or more impactful secret.</p><p><strong>Describe how you trade gossip.</strong></p>",
+  "successes": "<p>🌞: Roll the fate die again and learn another secret.</p><p>💀: You must share a secret of your own before they will share anything with you.</p>",
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "artUrl": "https://cdn.midjourney.com/7a826051-ce2c-42c3-8a10-f210f6c56ea3/0_2.png"
+}

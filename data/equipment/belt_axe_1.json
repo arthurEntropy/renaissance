@@ -1,7 +1,7 @@
 {
   "isDeleted": false,
   "createdAt": "2026-05-06T17:55:10.305Z",
-  "lastModified": "2026-05-20T14:07:12.436Z",
+  "lastModified": "2026-06-24T14:11:19.726Z",
   "name": "Belt Axe",
   "artUrl": "https://cdn.midjourney.com/d1a787c2-b098-4922-a2c9-d05000d15f9b/0_3.png",
   "description": "",
@@ -9,7 +9,7 @@
   "improvements": [],
   "source": "61e2ce55-1954-4e8e-b1b3-b249ae915fa7",
   "school": null,
-  "keeping": null,
+  "keeping": "2b3c4d5e-6f7a-4b8c-9d0e-1f2a3b4c5d6e",
   "isCustom": false,
   "isTemplate": false,
   "isMagical": false,

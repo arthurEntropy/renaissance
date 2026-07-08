@@ -1,0 +1,19 @@
+{
+  "type": "1cc02e7b-cdaf-477c-a198-6be0ad5ab47f",
+  "createdAt": "2026-05-21T15:55:35.050Z",
+  "lastModified": "2026-06-24T13:15:24.357Z",
+  "isTemplate": false,
+  "name": "Champion's Greaves",
+  "subtype": "9b83b280-d799-4177-9e98-5bab995116e5",
+  "grade": "a9023254-92ed-4c54-9840-5a7577c1aa1f",
+  "weight": 5,
+  "defenseBonus": 5,
+  "engagementDice": [],
+  "damageDice": [],
+  "length": 0,
+  "reach": 0,
+  "id": "d7bf98c0-c600-409b-b420-7b843914d94f",
+  "source": "352c844b-6d4f-4b61-b475-315421a453e7",
+  "artUrl": "https://cdn.midjourney.com/7c79f039-8adf-40af-9ab0-9d797d4a76db/0_3.png",
+  "keeping": "785f93f5-e4fd-4512-b888-5efdc1a1130f"
+}

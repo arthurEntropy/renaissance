@@ -1,7 +1,7 @@
 {
   "isDeleted": false,
   "createdAt": "2026-05-06T17:55:10.305Z",
-  "lastModified": "2026-05-20T15:18:29.025Z",
+  "lastModified": "2026-06-24T14:27:50.494Z",
   "name": "Awl-Pike",
   "artUrl": "https://cdn.midjourney.com/035e3f9c-7570-4271-a5b0-cf3061a9bb86/0_2.png",
   "description": "",
@@ -9,7 +9,7 @@
   "improvements": [],
   "source": "c114dc0e-d6ca-4115-be35-684dead36de2",
   "school": null,
-  "keeping": null,
+  "keeping": "3c4d5e6f-7a8b-4c9d-0e1f-2a3b4c5d6e7f",
   "isCustom": false,
   "isTemplate": false,
   "isMagical": false,

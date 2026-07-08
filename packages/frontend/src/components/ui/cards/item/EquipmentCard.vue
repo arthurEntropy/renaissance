@@ -135,13 +135,20 @@
         @close="showDiscoverModal = false" @update="handleDiscoverUpdate" />
     </template>
 
-    <!-- Transfer FAB — shown in edit mode when the character is in a campaign -->
-    <template v-if="showTransferButton" #admin-actions>
-      <FloatingActionButton :variant="FAB_TYPES.TRANSFER" :size="FAB_SIZES.SMALL"
+    <!-- Admin actions slot — transfer FAB and/or untrained indicator -->
+    <template v-if="showTransferButton || lacksTraining" #admin-actions>
+      <FloatingActionButton v-if="showTransferButton" :variant="FAB_TYPES.TRANSFER" :size="FAB_SIZES.SMALL"
         :visibility="FAB_VISIBILITIES.ON_HOVER" @click.stop="$emit('transfer', equipment)" />
+      <FloatingActionButton v-if="lacksTraining" :variant="FAB_TYPES.UNTRAINED" :size="FAB_SIZES.SMALL"
+        :visibility="FAB_VISIBILITIES.ALWAYS" />
     </template>
 
   </base-card>
+
+  <!-- Confirm Purchase modal: shown when adding equipment to a character -->
+  <ConfirmPurchaseModal v-if="showConfirmPurchaseModal" item-type="equipment" :cost="keepingCost"
+    :character-balance="character?.treasure ?? 0" currency-label="Treasure" @confirm-spend="confirmAddWithSpend"
+    @confirm-free="confirmAddFree" @close="showConfirmPurchaseModal = false" />
 </template>
 
 <script setup>
@@ -155,6 +162,7 @@ import { useEquipmentGradesStore } from '@/stores/equipmentGradesStore'
 import { useEquipmentRangesStore } from '@/stores/equipmentRangesStore'
 import { useKeepingStore } from '@/stores/keepingStore'
 import { useCharactersStore } from '@/stores/charactersStore'
+import { useConceptsStore } from '@/stores/conceptsStore'
 import { useImprovements } from '@/composables/useImprovements'
 import BaseCard from '@/components/ui/cards/item/BaseCard.vue'
 import DifficultyBadge from '@/components/ui/cards/item/DifficultyBadge.vue'
@@ -167,9 +175,11 @@ import ChipTag from '@/components/ui/chips/ChipTag.vue'
 import { CHIP_TAG_ROUNDED } from '@/constants/chipTag'
 import ImprovementsSection from '@/components/ui/cards/item/ImprovementsSection.vue'
 import SuccessesSection from '@/components/ui/cards/item/SuccessesSection.vue'
+import ConfirmPurchaseModal from '@/components/ui/modals/ConfirmPurchaseModal.vue'
 import CharacterService from '@/services/entities/characterService'
 import { getDiceFontMaxClass } from '@/utils/diceFontUtils'
 import { ItemType } from '@shared/constants/itemTypes'
+import { ARMOR_TYPE_ID } from '@/constants/armorConstants'
 
 defineOptions({
   inheritAttrs: false
@@ -346,6 +356,7 @@ const equipmentGradesStore = useEquipmentGradesStore()
 const equipmentRangesStore = useEquipmentRangesStore()
 const keepingStore = useKeepingStore()
 const charactersStore = useCharactersStore()
+const conceptsStore = useConceptsStore()
 
 // Item improvements composable
 const { toggleImprovement, getCharacterImprovements } = useImprovements('equipment')
@@ -354,6 +365,30 @@ const { toggleImprovement, getCharacterImprovements } = useImprovements('equipme
 const isWeapon = computed(() => {
   const type = equipmentTypesStore.getById(props.equipment.type)
   return type?.name === 'Weapon' // TODO: Figure out a way to avoid using string comparison here
+})
+
+// Training category key for the equipment item
+const martialTrainingKey = computed(() => {
+  if (props.equipment.type === ARMOR_TYPE_ID) return 'armorGrades'
+  if (isWeapon.value) {
+    const subtype = equipmentSubtypesStore.getById(props.equipment.subtype)
+    const name = subtype?.name?.toLowerCase()
+    if (['melee', 'polearm', 'ranged', 'firearm'].includes(name)) {
+      return `${name}Grades`
+    }
+  }
+  return null
+})
+
+// True when a character context is present, the item requires training, and the character lacks it
+const lacksTraining = computed(() => {
+  if (!props.character) return false
+  const key = martialTrainingKey.value
+  if (!key) return false
+  const mestiere = conceptsStore.mestieri.find(m => m.id === props.character.mestiereId)
+  const trainedGrades = mestiere?.novizio?.martialTraining?.[key] ?? []
+  if (!props.equipment.grade) return false
+  return !trainedGrades.includes(props.equipment.grade)
 })
 
 // Format is "Type - Subtype, Grade", e.g. "Weapon - Melee, Martial"
@@ -497,7 +532,7 @@ const handleBaseEquipmentToggle = () => {
   if (!props.character) return
 
   if (characterHasBaseEquipment.value) {
-    // Remove the equipment and all its improvements
+    // Remove: no confirmation needed
     const equipmentIndex = props.character.equipment.findIndex(e => e.id === props.equipment.id)
     if (equipmentIndex === -1) return
 
@@ -506,13 +541,26 @@ const handleBaseEquipmentToggle = () => {
       emit('update', updatedCharacter)
     }
   } else {
-    // Add the base equipment to the character using CharacterService
-    const updatedCharacter = CharacterService.addEquipmentToCharacter(props.character, props.equipment)
-
-    if (updatedCharacter) {
-      emit('update', updatedCharacter)
-    }
+    // Add: show confirmation modal
+    showConfirmPurchaseModal.value = true
   }
+}
+
+const showConfirmPurchaseModal = ref(false)
+
+function confirmAddWithSpend() {
+  const updatedCharacter = CharacterService.addEquipmentToCharacter(props.character, props.equipment)
+  if (!updatedCharacter) return
+  const cost = keepingCost.value ?? 0
+  const deducted = cost > 0
+    ? { ...updatedCharacter, treasure: Math.max(0, (updatedCharacter.treasure ?? 0) - cost) }
+    : updatedCharacter
+  emit('update', deducted)
+}
+
+function confirmAddFree() {
+  const updatedCharacter = CharacterService.addEquipmentToCharacter(props.character, props.equipment)
+  if (updatedCharacter) emit('update', updatedCharacter)
 }
 
 const handleDuplicate = async () => {

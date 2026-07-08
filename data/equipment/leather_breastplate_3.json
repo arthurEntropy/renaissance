@@ -1,0 +1,19 @@
+{
+  "type": "1cc02e7b-cdaf-477c-a198-6be0ad5ab47f",
+  "createdAt": "2026-05-21T15:55:35.050Z",
+  "lastModified": "2026-06-24T12:58:34.639Z",
+  "isTemplate": false,
+  "name": "Leather Breastplate",
+  "subtype": "07e1ccc4-def1-47b1-8191-c5b6618c567b",
+  "grade": "b92d3394-2c64-487f-8c90-c56ea1cbd3f3",
+  "weight": 10,
+  "defenseBonus": 2,
+  "engagementDice": [],
+  "damageDice": [],
+  "length": 0,
+  "reach": 0,
+  "id": "04433cd5-e498-4c4c-b38b-a8a607f4bce1",
+  "source": "61e2ce55-1954-4e8e-b1b3-b249ae915fa7",
+  "artUrl": "https://cdn.midjourney.com/56e142f6-ab1f-4c86-a5bb-f21893b98b6f/0_2.jpeg",
+  "keeping": "4d5e6f7a-8b9c-4d0e-1f2a-3b4c5d6e7f8a"
+}

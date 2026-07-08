@@ -1,7 +1,7 @@
 {
   "isDeleted": false,
   "createdAt": "2026-05-06T17:55:10.305Z",
-  "lastModified": "2026-05-20T14:39:13.699Z",
+  "lastModified": "2026-06-24T14:27:58.944Z",
   "name": "Ahlspeiss",
   "artUrl": "https://cdn.midjourney.com/1d735f8f-7f21-4b5a-9512-4d95f26ea738/0_2.png",
   "description": "",
@@ -9,7 +9,7 @@
   "improvements": [],
   "source": "352c844b-6d4f-4b61-b475-315421a453e7",
   "school": null,
-  "keeping": null,
+  "keeping": "3c4d5e6f-7a8b-4c9d-0e1f-2a3b4c5d6e7f",
   "isCustom": false,
   "isTemplate": false,
   "isMagical": false,

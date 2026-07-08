@@ -1,7 +1,7 @@
 {
   "isDeleted": false,
   "createdAt": "2026-05-06T17:55:10.305Z",
-  "lastModified": "2026-05-20T14:39:04.452Z",
+  "lastModified": "2026-06-24T14:27:55.573Z",
   "name": "Pike",
   "artUrl": "https://cdn.midjourney.com/463e9f71-9760-497f-ae76-a1c40d37a55a/0_3.png",
   "description": "",
@@ -9,7 +9,7 @@
   "improvements": [],
   "source": "cdc93466-8327-4096-a8c2-04cccf3e3835",
   "school": null,
-  "keeping": null,
+  "keeping": "4d5e6f7a-8b9c-4d0e-1f2a-3b4c5d6e7f8a",
   "isCustom": false,
   "isTemplate": false,
   "isMagical": false,

@@ -9,7 +9,7 @@
   ],
   "backgroundImage": "https://cdn.midjourney.com/7bc8c979-5c0d-4256-be74-e6b677199c01/0_2.png",
   "cardBackgroundImage": "",
-  "expansion": "",
+  "expansion": "e46f4320-a414-4300-95d5-397ba717d982",
   "novizio": {
     "description": "<p>Aenean mollis egestas rutrum. Donec tincidunt sed elit nec fermentum. Sed facilisis velit eros, quis pretium neque fermentum dignissim. Nulla nec vestibulum nisl, nec rutrum mauris. Maecenas ac purus sit amet felis maximus sodales. Suspendisse potenti. Suspendisse at elit dapibus.</p>",
     "martialTraining": {
@@ -41,7 +41,7 @@
     "abilities": "<p><em>Tinker 1, Tinker 2, Tinker 3.</em></p>",
     "gratuiti": ""
   },
-  "lastModified": "2026-04-15T18:50:31.736Z",
+  "lastModified": "2026-07-03T17:49:58.184Z",
   "hooks": [],
   "playlists": []
 }

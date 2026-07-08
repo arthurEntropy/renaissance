@@ -1,0 +1,19 @@
+{
+  "type": "1cc02e7b-cdaf-477c-a198-6be0ad5ab47f",
+  "createdAt": "2026-05-21T15:55:35.050Z",
+  "lastModified": "2026-06-24T13:04:01.200Z",
+  "isTemplate": false,
+  "name": "Plated Boots",
+  "subtype": "3b179003-c623-425f-8d16-c41b4204758b",
+  "grade": "ebcc2bcb-8221-4ca0-bef3-000fb7e59e96",
+  "weight": 8,
+  "defenseBonus": 4,
+  "engagementDice": [],
+  "damageDice": [],
+  "length": 0,
+  "reach": 0,
+  "id": "a0a318a2-4dab-43e1-8f6b-ee59e15c2535",
+  "source": "352c844b-6d4f-4b61-b475-315421a453e7",
+  "artUrl": "https://cdn.midjourney.com/ebb276f6-d48d-4ab8-ae64-8d9236215dc7/0_1.png",
+  "keeping": "5e6f7a8b-9c0d-4e1f-2a3b-4c5d6e7f8a9b"
+}

@@ -143,7 +143,7 @@ const actionTypesStore = useActionCostsStore()
 const charactersStore = useCharactersStore()
 const abilitySchoolsStore = useAbilitySchoolsStore()
 
-const abilities = computed(() => abilitiesStore.abilities)
+const abilities = computed(() => abilitiesStore.visibleAbilities)
 const selectedCharacter = computed(() => charactersStore.selectedCharacter)
 
 // Modal management

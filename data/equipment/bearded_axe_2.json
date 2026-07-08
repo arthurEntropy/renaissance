@@ -1,7 +1,7 @@
 {
   "isDeleted": false,
   "createdAt": "2026-05-06T17:55:10.305Z",
-  "lastModified": "2026-05-21T13:52:58.136Z",
+  "lastModified": "2026-06-24T14:20:47.566Z",
   "name": "Bearded Axe",
   "artUrl": "https://cdn.midjourney.com/596fde8a-c123-4d7f-8ef9-c633c8c54e05/0_3.png",
   "description": "",
@@ -9,7 +9,7 @@
   "improvements": [],
   "source": "3085883d-e74b-40aa-84a9-af6fccb3d98e",
   "school": null,
-  "keeping": null,
+  "keeping": "4d5e6f7a-8b9c-4d0e-1f2a-3b4c5d6e7f8a",
   "isCustom": false,
   "isTemplate": false,
   "isMagical": false,

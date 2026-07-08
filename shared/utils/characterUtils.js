@@ -2,6 +2,7 @@ import {
   BASE_ENDURANCE_MULTIPLIER,
   BASE_HOPE_MULTIPLIER,
   BASE_DEFENSE_MINIMUM,
+  MAX_SKILL_RANKS,
   CONDITIONS,
   STATES,
   CONDITION_AND_STATE_DICE_MODIFIER,
@@ -139,10 +140,13 @@ export function updateFavoredStatus(character) {
   if (!character?.skills) return
 
   character.skills.forEach((skill) => {
-    // Check if ill-favored based on ranks + diceMod + manualDiceMod
     const totalDiceMod = (skill.diceMod || 0) + (skill.manualDiceMod || 0)
-    skill.isIllFavored = (skill.ranks || 0) + totalDiceMod < 0
-
+    const effectiveRanks = (skill.ranks || 0) + totalDiceMod
+    skill.isIllFavored = effectiveRanks < 0
+    // Auto-favor when dice modifier pushes effective ranks beyond the maximum
+    if (effectiveRanks > MAX_SKILL_RANKS) {
+      skill.isFavored = true
+    }
   })
 }
 

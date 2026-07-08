@@ -2,7 +2,7 @@
   "id": "67ddc1e2-eb82-4263-afe0-a044fc1dc665",
   "isDeleted": false,
   "createdAt": "2026-05-14T23:22:12.449Z",
-  "lastModified": "2026-05-18T18:32:36.083Z",
+  "lastModified": "2026-06-12T18:10:22.837Z",
   "characterType": "playerCharacter",
   "name": "Sava",
   "featuredArtUrls": [
@@ -247,6 +247,35 @@
       "showImprovements": false,
       "showSuccesses": false,
       "isActive": false
+    },
+    {
+      "id": "c719fc55-55a9-49d6-ae93-92f82a1d54cf",
+      "collapsed": false,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false
+    },
+    {
+      "id": "33ee75da-7d7e-4dfd-91c3-75530592a63a",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false
+    },
+    {
+      "id": "4e461184-0158-48b5-b8b5-3a707724da1c",
+      "collapsed": false,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false,
+      "difficulty": null
+    },
+    {
+      "id": "eda4441e-db9f-400a-b4f8-fce91ffb11a7",
+      "collapsed": false,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false
     }
   ],
   "groupAbilitiesBySource": true,
@@ -321,7 +350,7 @@
   "keeping": "2b3c4d5e-6f7a-4b8c-9d0e-1f2a3b4c5d6e",
   "treasure": 3,
   "xp": 0,
-  "updatedAt": "2026-05-18T18:32:36.083Z",
+  "updatedAt": "2026-06-12T18:10:22.837Z",
   "description": "",
   "size": 0,
   "reach": 0,

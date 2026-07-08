@@ -2,7 +2,7 @@
   "id": "5b14036a-1a18-4578-8025-3f3a696dd359",
   "isDeleted": false,
   "createdAt": "2026-05-14T23:43:45.561Z",
-  "lastModified": "2026-05-18T20:09:50.532Z",
+  "lastModified": "2026-07-03T18:06:34.835Z",
   "characterType": "playerCharacter",
   "name": "Bufo",
   "featuredArtUrls": [
@@ -10,9 +10,9 @@
   ],
   "speed": 0,
   "notes": "",
-  "body": 3,
-  "heart": 2,
-  "wits": 2,
+  "body": 0,
+  "heart": 0,
+  "wits": 0,
   "skills": [
     {
       "key": "awe",
@@ -32,7 +32,7 @@
     },
     {
       "key": "dexterity",
-      "ranks": 3,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -64,7 +64,7 @@
     },
     {
       "key": "insight",
-      "ranks": 2,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -104,15 +104,15 @@
     },
     {
       "key": "awareness",
-      "ranks": 1,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
-      "manualDiceMod": 2
+      "manualDiceMod": 0
     },
     {
       "key": "stealth",
-      "ranks": 1,
+      "ranks": 0,
       "isFavored": false,
       "isIllFavored": false,
       "diceMod": 0,
@@ -136,16 +136,16 @@
     }
   ],
   "endurance": {
-    "current": 15,
-    "base": 15
+    "current": 0,
+    "base": 0
   },
   "hope": {
-    "current": 4,
-    "base": 4
+    "current": 0,
+    "base": 0
   },
   "defense": {
-    "current": 2,
-    "base": 2
+    "current": 1,
+    "base": 0
   },
   "load": 0,
   "shadow": 0,
@@ -201,7 +201,7 @@
     },
     {
       "id": "ed6d2d46-d275-45e4-b62f-3a3aaa40b6be",
-      "collapsed": true,
+      "collapsed": false,
       "showImprovements": false,
       "showSuccesses": false,
       "isActive": false
@@ -304,7 +304,7 @@
   "keeping": "3c4d5e6f-7a8b-4c9d-0e1f-2a3b4c5d6e7f",
   "treasure": 9,
   "xp": 0,
-  "updatedAt": "2026-05-18T20:09:50.532Z",
+  "updatedAt": "2026-07-03T18:06:34.834Z",
   "description": "",
   "size": 0,
   "reach": 0,

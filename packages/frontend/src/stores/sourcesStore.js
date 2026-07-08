@@ -5,15 +5,26 @@ import { useConceptsStore } from './conceptsStore'
 export const useSourcesStore = defineStore('sources', () => {
   const conceptsStore = useConceptsStore()
 
+  // Visibility-filtered sources — used in filter dropdowns and item browsing.
+  // Respects expansion isAdminVisible / isPublic flags for the current user role.
   const sources = computed(() => ({
-    ancestries: conceptsStore.ancestries || [],
-    cultures: conceptsStore.cultures || [],
-    mestieri: conceptsStore.mestieri || [],
-    worldElements: conceptsStore.worldElements || [],
+    ancestries: conceptsStore.visibleAncestries || [],
+    cultures: conceptsStore.visibleCultures || [],
+    mestieri: conceptsStore.visibleMestieri || [],
+    worldElements: conceptsStore.visibleWorldElements || [],
   }))
 
-  // Flat list of all sources for efficient lookups
+  // Flat list of visible sources for efficient set-membership checks and item filtering.
   const allSourcesFlat = computed(() => [
+    ...(conceptsStore.visibleAncestries || []),
+    ...(conceptsStore.visibleCultures || []),
+    ...(conceptsStore.visibleMestieri || []),
+    ...(conceptsStore.visibleWorldElements || [])
+  ])
+
+  // Unfiltered flat list — used only for display lookups (source names, types) so that
+  // items a character already owns from a hidden expansion still display correctly.
+  const allConceptsFlat = computed(() => [
     ...(conceptsStore.ancestries || []),
     ...(conceptsStore.cultures || []),
     ...(conceptsStore.mestieri || []),
@@ -30,7 +41,7 @@ export const useSourcesStore = defineStore('sources', () => {
 
   const getSourceById = (sourceId) => {
     if (!sourceId) return null
-    return allSourcesFlat.value.find(s => s.id === sourceId) || null
+    return allConceptsFlat.value.find(s => s.id === sourceId) || null
 }
 
   const getSourceName = (sourceId) => {
@@ -45,10 +56,14 @@ export const useSourcesStore = defineStore('sources', () => {
     if (sourceId === 'general') return 'general'
     if (sourceId === 'custom') return 'custom'
 
-    if (sources.value.ancestries.find((s) => s.id === sourceId)) return 'ancestry'
-    if (sources.value.cultures.find((s) => s.id === sourceId)) return 'culture'
-    if (sources.value.mestieri.find((s) => s.id === sourceId)) return 'mestiere'
-    if (sources.value.worldElements.find((s) => s.id === sourceId)) return 'worldElement'
+    // Use unfiltered list so lookups work even for hidden-expansion items
+    const allFlat = allConceptsFlat.value
+    const source = allFlat.find((s) => s.id === sourceId)
+    if (!source) return 'general'
+    if (source.conceptType === 'ANCESTRY') return 'ancestry'
+    if (source.conceptType === 'CULTURE') return 'culture'
+    if (source.conceptType === 'MESTIERE') return 'mestiere'
+    if (source.conceptType === 'WORLD_ELEMENT') return 'worldElement'
     return 'general'
   }
 

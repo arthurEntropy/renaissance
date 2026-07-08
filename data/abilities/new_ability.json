@@ -1,0 +1,14 @@
+{
+  "id": "dbf9af21-c521-4e4a-99fc-71cd8729f15a",
+  "isDeleted": true,
+  "createdAt": "2026-02-05T00:47:30.343Z",
+  "lastModified": "2026-06-24T02:41:11.459Z",
+  "name": "New Ability",
+  "description": "",
+  "source": null,
+  "mpCost": null,
+  "xpCost": null,
+  "manaCost": null,
+  "canBeActive": false,
+  "hasDifficulty": false
+}

@@ -1,0 +1,19 @@
+{
+  "type": "1cc02e7b-cdaf-477c-a198-6be0ad5ab47f",
+  "id": "e191bed9-83e3-4f57-9950-df342e77f631",
+  "createdAt": "2026-05-21T15:55:35.050Z",
+  "lastModified": "2026-06-24T13:21:07.952Z",
+  "isTemplate": false,
+  "name": "Woven Breastplate",
+  "subtype": "07e1ccc4-def1-47b1-8191-c5b6618c567b",
+  "grade": "ad30b114-3c19-413f-aad2-5f270bd95684",
+  "weight": 5,
+  "defenseBonus": 1,
+  "engagementDice": [],
+  "damageDice": [],
+  "length": 0,
+  "reach": 0,
+  "source": "cdc93466-8327-4096-a8c2-04cccf3e3835",
+  "artUrl": "https://cdn.midjourney.com/4525b5ad-36dd-4cd0-9265-2c801c9ffcb6/0_1.png",
+  "keeping": "4d5e6f7a-8b9c-4d0e-1f2a-3b4c5d6e7f8a"
+}

@@ -1,0 +1,19 @@
+{
+  "type": "1cc02e7b-cdaf-477c-a198-6be0ad5ab47f",
+  "createdAt": "2026-05-21T15:55:35.050Z",
+  "lastModified": "2026-06-24T13:15:43.027Z",
+  "isTemplate": false,
+  "name": "Champion's Helm",
+  "subtype": "353e7289-649b-4a54-ae7a-2cddf7db22a9",
+  "grade": "a9023254-92ed-4c54-9840-5a7577c1aa1f",
+  "weight": 5,
+  "defenseBonus": 5,
+  "engagementDice": [],
+  "damageDice": [],
+  "length": 0,
+  "reach": 0,
+  "id": "c51fa6cd-c237-4989-99b2-12c3e807dd2e",
+  "source": "352c844b-6d4f-4b61-b475-315421a453e7",
+  "artUrl": "https://cdn.midjourney.com/09b37f49-6340-4897-977d-d0fd3d9e0d3d/0_0.png",
+  "keeping": "785f93f5-e4fd-4512-b888-5efdc1a1130f"
+}

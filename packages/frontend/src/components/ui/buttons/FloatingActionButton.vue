@@ -69,6 +69,7 @@ const FAB_TYPE_CONFIG = {
     [FAB_TYPES.MOVE_UP]: { icon: ArrowUpIcon, tooltip: 'Move up' },
     [FAB_TYPES.MOVE_DOWN]: { icon: ArrowDownIcon, tooltip: 'Move down' },
     [FAB_TYPES.MARTIAL_TRAINING]: { icon: MartialTrainingIcon, tooltip: 'View Martial Training' },
+    [FAB_TYPES.UNTRAINED]: { icon: MartialTrainingIcon, tooltip: 'You do not have martial training for this equipment item. If the item is a weapon, attack rolls made with it are ill-favored. If the item is armor or a shield, it only provides half its normal Defense bonus, rounded down.' },
     [FAB_TYPES.GRATUITI]: { icon: GratuitiIcon, tooltip: 'View Gratuiti' },
     [FAB_TYPES.ACTIVATE]: { icon: BoltIcon, tooltip: 'Activate' },
     [FAB_TYPES.DEACTIVATE]: { icon: BoltSlashIcon, tooltip: 'Deactivate' },
@@ -254,6 +255,21 @@ const variantConfig = computed(() => {
 .fab--transfer:hover {
     background: var(--color-accent-cyan);
     border-color: var(--color-accent-cyan);
+}
+
+.fab--untrained {
+    background: var(--color-danger);
+    border-color: var(--color-danger);
+}
+
+.fab--untrained:hover {
+    background: var(--color-danger);
+    border-color: var(--color-danger);
+}
+
+.fab--untrained .fab__icon--small,
+.fab--untrained .fab__icon--large {
+    color: var(--color-white);
 }
 
 .fab--transfer .fab__icon--small,

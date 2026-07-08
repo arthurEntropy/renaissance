@@ -2,23 +2,18 @@
   <CharacterSheetSection custom-class="dice-box edit-hover-area" :min-width="'300px'">
 
     <div v-if="canEdit" class="dice-box-controls">
-      <FloatingActionButton v-if="!customDiceRollerOpen" :variant="FAB_TYPES.INITIATIVE" :size="FAB_SIZES.LARGE"
+      <FloatingActionButton :variant="FAB_TYPES.INITIATIVE" :size="FAB_SIZES.LARGE"
         :visibility="FAB_VISIBILITIES.ON_HOVER" @click="handleInitiativeRoll" />
 
-      <FloatingActionButton v-if="!customDiceRollerOpen" :variant="FAB_TYPES.INJURY" :size="FAB_SIZES.LARGE"
-        :visibility="FAB_VISIBILITIES.ON_HOVER" @click="handleInjuryRoll" />
+      <FloatingActionButton :variant="FAB_TYPES.INJURY" :size="FAB_SIZES.LARGE" :visibility="FAB_VISIBILITIES.ON_HOVER"
+        @click="handleInjuryRoll" />
 
-      <FloatingActionButton :variant="customDiceRollerOpen ? FAB_TYPES.DELETE : FAB_TYPES.DICE" :size="FAB_SIZES.LARGE"
-        :visibility="FAB_VISIBILITIES.ON_HOVER" @click="toggleCustomDiceRoller" />
-    </div>
-
-    <!-- Custom Dice Roller View -->
-    <div v-show="customDiceRollerOpen" class="custom-roller-view view-container">
-      <CustomDiceRoller :character="activeCharacter" @roll-complete="handleRollComplete" />
+      <FloatingActionButton :variant="FAB_TYPES.DICE" :size="FAB_SIZES.LARGE" :visibility="FAB_VISIBILITIES.ON_HOVER"
+        @click="openCustomRollModal" />
     </div>
 
     <!-- Roll Results Display -->
-    <div v-show="!customDiceRollerOpen && latestRoll" class="roll-content view-container">
+    <div v-show="latestRoll" class="roll-content view-container">
       <template v-if="latestRoll">
         <RollTitle :rollData="latestRoll" :isEngagement="isEngagement" :isOpposedSkillCheck="isOpposedSkillCheck"
           :isCustomRoll="isCustomRoll" :isDamage="isDamage" :isInitiative="isInitiative" :isInjury="isInjury" />
@@ -34,13 +29,16 @@
     </div>
 
     <!-- Take XP Button -->
-    <ActionButton v-if="canEdit && xpEarned > 0 && !hasClaimedXp && !isRolling && !customDiceRollerOpen"
-      class="take-xp-button" variant="primary" size="small" :text="`← Take ${xpEarned} XP`" @click="handleTakeXp" />
+    <ActionButton v-if="canEdit && xpEarned > 0 && !hasClaimedXp && !isRolling" class="take-xp-button" variant="primary"
+      size="small" :text="`← Take ${xpEarned} XP`" @click="handleTakeXp" />
 
     <!-- Empty State -->
-    <div v-show="!customDiceRollerOpen && !latestRoll" class="empty-state-container view-container">
+    <div v-show="!latestRoll" class="empty-state-container view-container">
       <EmptyRollState />
     </div>
+
+    <!-- Custom Roll Modal -->
+    <CustomRollModal v-if="showCustomRollModal" :character="activeCharacter" @close="showCustomRollModal = false" />
 
   </CharacterSheetSection>
 </template>
@@ -54,7 +52,7 @@ import DiceDisplay from './DiceDisplay.vue'
 import RollTitle from './RollTitle.vue'
 import RollOutcome from './RollOutcome.vue'
 import EmptyRollState from './EmptyRollState.vue'
-import CustomDiceRoller from '../customDiceRoller/CustomDiceRoller.vue'
+import CustomRollModal from '../customDiceRoller/CustomRollModal.vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
@@ -74,17 +72,13 @@ const diceDisplayRef = ref(null)
 
 const CONTAINER_WIDTH = 310
 
-const customDiceRollerOpen = ref(false)
+const showCustomRollModal = ref(false)
 
 // Get the active character - use explicit prop if provided, otherwise fall back to selected
 const activeCharacter = computed(() => props.character || charactersStore.selectedCharacter)
 
-const toggleCustomDiceRoller = () => {
-  customDiceRollerOpen.value = !customDiceRollerOpen.value
-}
-
-const handleRollComplete = () => {
-  customDiceRollerOpen.value = false
+const openCustomRollModal = () => {
+  showCustomRollModal.value = true
 }
 
 const handleInitiativeRoll = () => {

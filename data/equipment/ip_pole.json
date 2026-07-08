@@ -1,7 +1,7 @@
 {
   "isDeleted": false,
   "createdAt": "2026-05-06T17:55:10.305Z",
-  "lastModified": "2026-05-20T15:12:54.699Z",
+  "lastModified": "2026-06-24T11:48:09.554Z",
   "name": "Ipê Pole",
   "artUrl": "https://cdn.midjourney.com/3b880bf3-2ea4-4c13-86b4-3eadeda75a73/0_2.png",
   "description": "",
@@ -9,7 +9,7 @@
   "improvements": [],
   "source": "c02c53d1-b456-45d0-a048-6fc941cacc03",
   "school": null,
-  "keeping": null,
+  "keeping": "4d5e6f7a-8b9c-4d0e-1f2a-3b4c5d6e7f8a",
   "isCustom": false,
   "isTemplate": false,
   "isMagical": false,

@@ -1,8 +1,8 @@
 {
   "id": "4ef323c3-c475-4148-a9ab-df5868d5fa06",
-  "isDeleted": false,
+  "isDeleted": true,
   "createdAt": "2026-04-28T19:59:21.515Z",
-  "lastModified": "2026-04-28T20:43:36.439Z",
+  "lastModified": "2026-06-08T21:49:46.654Z",
   "name": "Chestnut Shield",
   "artUrl": "https://cdn.midjourney.com/21ffef97-48b3-41f5-a832-3778cf34a372/0_3.png",
   "description": "<p>Whenever a creature hits you with a melee attack, this shield deals 1d4 damage to it.</p>",

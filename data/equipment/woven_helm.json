@@ -1,0 +1,19 @@
+{
+  "type": "1cc02e7b-cdaf-477c-a198-6be0ad5ab47f",
+  "createdAt": "2026-05-21T15:55:35.050Z",
+  "lastModified": "2026-06-24T13:05:46.386Z",
+  "isTemplate": false,
+  "name": "Woven Helm",
+  "subtype": "353e7289-649b-4a54-ae7a-2cddf7db22a9",
+  "grade": "ad30b114-3c19-413f-aad2-5f270bd95684",
+  "weight": 1,
+  "defenseBonus": 1,
+  "engagementDice": [],
+  "damageDice": [],
+  "length": 0,
+  "reach": 0,
+  "id": "4818e072-903a-4be0-a07c-689e6b0afc63",
+  "source": "352c844b-6d4f-4b61-b475-315421a453e7",
+  "artUrl": "https://cdn.midjourney.com/d993585e-1573-4f67-b3b7-8ae645e7ecd7/0_3.png",
+  "keeping": "2b3c4d5e-6f7a-4b8c-9d0e-1f2a3b4c5d6e"
+}

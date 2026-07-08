@@ -25,7 +25,7 @@ export function optimizeMidjourneyUrl(
     resolution = MIDJOURNEY_RESOLUTIONS.MEDIUM
   }
 
-  const pattern = /^https:\/\/cdn\.midjourney\.com\/([\w-]+)\/([^/?#]+)\.(png|jpeg|jpg)(?:[?#].*)?$/i
+  const pattern = /^https:\/\/cdn\.midjourney\.com\/([\w-]+)\/([^/?#]+)\.(png|jpeg|jpg|webp)(?:[?#].*)?$/i
   const match = url.match(pattern)
 
   if (!match) {

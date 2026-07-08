@@ -11,7 +11,8 @@
         <!-- Hidden trigger for infinite scroll observer -->
         <div v-if="hasMore && !groupBy" ref="loadingIndicatorRef" style="height: 1px;"></div>
 
-        <EditMultipleBar :selectedCount="selectedItems.length" @edit="openMultiEditModal" @clear="clearSelection" />
+        <EditMultipleBar :selectedCount="selectedItems.length" @edit="openMultiEditModal"
+            @delete-multiple="handleDeleteMultiple" @clear="clearSelection" />
 
         <EditArtModal v-if="showEditModal" :art="selectedArt" :hasPrevious="hasPreviousArt" :hasNext="hasNextArt"
             :isMultiEdit="isMultiEdit" :multiEditData="multiEditData" @close="closeEditModal" @save="handleSave"
@@ -130,6 +131,20 @@ const handleSave = async (artData) => {
 
 const handleDelete = async (artData) => {
     await deleteArt(artData, closeEditModal)
+}
+
+const handleDeleteMultiple = async () => {
+    if (!confirm(`Delete ${selectedItems.value.length} selected item${selectedItems.value.length !== 1 ? 's' : ''}? This cannot be undone.`)) return
+    try {
+        await Promise.all(selectedItems.value.map(id => {
+            const art = artStore.getById(id)
+            return art ? artStore.remove(art) : Promise.resolve()
+        }))
+        clearSelection()
+    } catch (error) {
+        console.error('Error deleting multiple art items:', error)
+        alert('Failed to delete some items. Please try again.')
+    }
 }
 
 // Lifecycle

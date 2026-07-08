@@ -1,7 +1,7 @@
 {
   "isDeleted": false,
   "createdAt": "2026-05-06T17:55:10.305Z",
-  "lastModified": "2026-05-20T15:11:38.468Z",
+  "lastModified": "2026-06-08T22:12:10.201Z",
   "name": "Hickory Pole",
   "artUrl": "https://cdn.midjourney.com/03333597-abc6-4336-b7f4-e98d98d1e772/0_1.png",
   "description": "",
@@ -9,7 +9,7 @@
   "improvements": [],
   "source": "55494a30-a1bb-47c3-aae9-2db3a5bfcb8b",
   "school": null,
-  "keeping": null,
+  "keeping": "3c4d5e6f-7a8b-4c9d-0e1f-2a3b4c5d6e7f",
   "isCustom": false,
   "isTemplate": false,
   "isMagical": false,

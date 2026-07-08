@@ -50,31 +50,9 @@
     <!-- Difficulty Wheel -->
     <div class="difficulty-wheel-section"
       :class="{ 'difficulty-wheel-section--disabled': rollType === RollTypes.OPPOSED_SKILL_CHECK }">
-      <div class="wheel-wrapper">
-        <button class="wheel-nav-btn wheel-nav-btn--left" @click="navigateWheel(-1)" :disabled="scrollIndex <= 0"
-          type="button" aria-label="Previous difficulty">&#9664;</button>
-        <div class="wheel-viewport">
-          <div class="wheel-track" :style="trackStyle">
-            <div v-for="(val, i) in effectiveDifficultyOptions" :key="val" class="wheel-item" :class="{
-              'wheel-item--selected': val === localDifficulty,
-              'wheel-item--centered': i === scrollIndex,
-            }" :style="wheelItemStyle(i)" @click="handleWheelItemClick(i, val)">
-              <template v-if="i === scrollIndex && showCustomInput">
-                <input ref="customInputRef" class="wheel-custom-input" type="number" min="1" max="100"
-                  v-model.number="customInputValue" @keydown.enter="applyCustomValue"
-                  @keydown.escape.stop="showCustomInput = false" @blur="applyCustomValue" @click.stop />
-              </template>
-              <template v-else>
-                <span class="wheel-item-value">{{ val }}</span>
-                <span v-if="getDifficultyLabel(val)" class="wheel-item-label">{{ getDifficultyLabel(val) }}</span>
-              </template>
-            </div>
-          </div>
-        </div>
-        <button class="wheel-nav-btn wheel-nav-btn--right" @click="navigateWheel(1)"
-          :disabled="scrollIndex >= effectiveDifficultyOptions.length - 1" type="button"
-          aria-label="Next difficulty">&#9654;</button>
-      </div>
+      <ValueWheelInput v-model="localDifficulty" :values="DIFFICULTY_VALUES" :labels="DIFFICULTY_LABELS"
+        :allow-custom="true" :custom-min="1" :custom-max="100" prev-aria-label="Previous difficulty"
+        next-aria-label="Next difficulty" />
     </div>
 
     <!-- Actions footer -->
@@ -92,8 +70,9 @@
 </template>
 
 <script setup>
-import { ref, computed, watch, nextTick, onMounted, onBeforeUnmount } from 'vue'
+import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue'
 import { useRollsStore } from '@/stores/rollsStore'
+import ValueWheelInput from '@/components/ui/forms/ValueWheelInput.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import BaseModal from '@/components/ui/modals/BaseModal.vue'
 import SkillDicePreview from '@/components/features/characterSheet/shared/SkillDicePreview.vue'
@@ -135,7 +114,7 @@ const localDifficulty = ref(props.defaultDifficulty || null)
 const sendToDiscord = ref(true)
 const rollType = ref(props.defaultRollType)
 const rollParameters = ref({
-  skillId: '',
+  key: '',
   name: '',
   isFavored: false,
   isIllFavored: false,
@@ -143,35 +122,7 @@ const rollParameters = ref({
   diceMod: 0,
 })
 
-const ITEM_WIDTH = 48
 const DIFFICULTY_LABELS = { 6: 'Easy', 12: 'Moderate', 18: 'Difficult', 24: 'Extreme', 30: 'Legendary' }
-
-// Wheel state
-const showCustomInput = ref(false)
-const customInputRef = ref(null)
-const customInputValue = ref(0)
-
-// Difficulty options extended to include out-of-range custom values
-const effectiveDifficultyOptions = computed(() => {
-  const d = localDifficulty.value
-  if (d == null) return DIFFICULTY_VALUES
-  if (d < DIFFICULTY_VALUES[0]) return [d, ...DIFFICULTY_VALUES]
-  if (d > DIFFICULTY_VALUES[DIFFICULTY_VALUES.length - 1]) return [...DIFFICULTY_VALUES, d]
-  return DIFFICULTY_VALUES
-})
-
-const scrollIndex = ref(
-  props.defaultDifficulty != null
-    ? Math.max(0, DIFFICULTY_VALUES.indexOf(props.defaultDifficulty))
-    : Math.floor(DIFFICULTY_VALUES.length / 2)
-)
-
-// Keep wheel centered on selected difficulty when it changes
-watch(localDifficulty, (val) => {
-  if (val == null) return
-  const idx = effectiveDifficultyOptions.value.indexOf(val)
-  if (idx >= 0) scrollIndex.value = idx
-})
 
 const selectedSkill = computed(() => {
   return findSkillById(props.character.skills, localSelectedSkillKey.value)
@@ -231,55 +182,7 @@ const modalBodyStyle = computed(() => {
   }
 })
 
-// Wheel track translation
-const trackStyle = computed(() => ({
-  transform: `translateX(${-(scrollIndex.value * ITEM_WIDTH + ITEM_WIDTH / 2)}px)`
-}))
-
 // Methods
-function getDifficultyLabel(val) {
-  return DIFFICULTY_LABELS[val] ?? ''
-}
-
-function wheelItemStyle(index) {
-  const offset = Math.abs(index - scrollIndex.value)
-  if (offset > 5) return { opacity: 0, pointerEvents: 'none' }
-  return {
-    opacity: 1 - offset * 0.2,
-    transform: `scale(${1 - offset * 0.08})`,
-  }
-}
-
-function handleWheelItemClick(index, val) {
-  if (index === scrollIndex.value) {
-    // Show custom number input at centered position
-    customInputValue.value = val
-    showCustomInput.value = true
-    nextTick(() => {
-      const el = customInputRef.value
-      const input = Array.isArray(el) ? el[0] : el
-      input?.focus()
-      input?.select()
-    })
-  } else {
-    scrollIndex.value = index
-    localDifficulty.value = val
-  }
-}
-
-function applyCustomValue() {
-  showCustomInput.value = false
-  const val = Math.round(customInputValue.value)
-  if (isNaN(val) || val < 1 || val > 100) return
-  localDifficulty.value = val
-}
-
-function navigateWheel(direction) {
-  const newIndex = Math.max(0, Math.min(effectiveDifficultyOptions.value.length - 1, scrollIndex.value + direction))
-  scrollIndex.value = newIndex
-  localDifficulty.value = effectiveDifficultyOptions.value[newIndex]
-}
-
 function onToggleFavored({ isFavored, isIllFavored }) {
   rollParameters.value.isFavored = isFavored
   rollParameters.value.isIllFavored = isIllFavored
@@ -300,7 +203,7 @@ function decrementDiceMod() {
 function updateRollParameters() {
   if (selectedSkill.value) {
     rollParameters.value = {
-      skillId: getSkillId(selectedSkill.value),
+      key: getSkillId(selectedSkill.value),
       name: getSkillLabel(selectedSkill.value),
       isFavored: selectedSkill.value.isFavored,
       isIllFavored: selectedSkill.value.isIllFavored,
@@ -309,7 +212,7 @@ function updateRollParameters() {
     }
   } else {
     rollParameters.value = {
-      skillId: '',
+      key: '',
       name: '',
       isFavored: false,
       isIllFavored: false,
@@ -331,7 +234,7 @@ function rollSkillCheck() {
 
   if (rollType.value === RollTypes.OPPOSED_SKILL_CHECK) {
     const skillCheckConfig = {
-      key: effectiveRollParameters.value.skillId,
+      key: effectiveRollParameters.value.key,
       name: effectiveRollParameters.value.name,
       isFavored: effectiveRollParameters.value.isFavored,
       isIllFavored: effectiveRollParameters.value.isIllFavored,
@@ -528,157 +431,6 @@ onBeforeUnmount(() => window.removeEventListener('keydown', handleEscape))
 .difficulty-wheel-section--disabled {
   opacity: 0.5;
   pointer-events: none;
-}
-
-/* Nav buttons sit inside the wrapper, overlaying the wheel edges */
-.wheel-wrapper {
-  position: relative;
-}
-
-.wheel-nav-btn {
-  position: absolute;
-  z-index: 3;
-  top: 50%;
-  transform: translateY(-50%);
-  background: none;
-  border: none;
-  color: var(--color-text-secondary);
-  width: 24px;
-  height: 24px;
-  cursor: pointer;
-  font-size: var(--font-size-10);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: var(--transition-color);
-}
-
-.wheel-nav-btn--left {
-  left: 4px;
-}
-
-.wheel-nav-btn--right {
-  right: 4px;
-}
-
-.wheel-nav-btn:hover:not(:disabled) {
-  color: var(--color-primary);
-}
-
-.wheel-nav-btn:disabled {
-  opacity: 0.2;
-  cursor: not-allowed;
-}
-
-.wheel-viewport {
-  width: 100%;
-  overflow: hidden;
-  position: relative;
-  height: 64px;
-  mask-image: linear-gradient(to right, transparent, black 14%, black 86%, transparent);
-  -webkit-mask-image: linear-gradient(to right, transparent, black 14%, black 86%, transparent);
-}
-
-.wheel-track {
-  position: absolute;
-  left: 50%;
-  top: 0;
-  height: 100%;
-  display: flex;
-  align-items: stretch;
-  transition: transform var(--duration-fast) var(--ease-smooth);
-  will-change: transform;
-}
-
-/* Each item: value is centered vertically, label floats at the bottom */
-.wheel-item {
-  width: 48px;
-  flex: 0 0 48px;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: opacity var(--duration-fast) ease, transform var(--duration-fast) ease;
-  user-select: none;
-}
-
-.wheel-item-value {
-  font-size: var(--font-size-14);
-  color: var(--color-text-secondary);
-  font-family: var(--font-family-primary);
-  transition: var(--transition-color), font-size var(--duration-fast) ease;
-  line-height: 1;
-  /* nudge up to leave room for the absolutely-positioned label */
-  margin-top: -10px;
-}
-
-.wheel-item-label {
-  position: absolute;
-  bottom: 6px;
-  left: 0;
-  right: 0;
-  text-align: center;
-  font-size: var(--font-size-10);
-  color: var(--color-text-muted);
-  font-style: italic;
-  white-space: nowrap;
-  transition: var(--transition-color);
-  line-height: 1;
-  pointer-events: none;
-}
-
-/* Centered position */
-.wheel-item--centered .wheel-item-value {
-  font-size: var(--font-size-20);
-  font-weight: var(--font-weight-bold);
-  color: var(--color-text-primary);
-}
-
-.wheel-item--centered .wheel-item-label {
-  font-size: var(--font-size-11);
-  color: var(--color-text-secondary);
-}
-
-/* Selected difficulty */
-.wheel-item--selected .wheel-item-value {
-  color: var(--color-primary);
-  text-shadow: var(--glow-gold-sm);
-}
-
-.wheel-item--selected .wheel-item-label {
-  color: var(--color-primary);
-}
-
-.wheel-item--centered.wheel-item--selected .wheel-item-value {
-  font-size: var(--font-size-24);
-}
-
-/* Custom difficulty number input */
-.wheel-custom-input {
-  width: 40px;
-  background: var(--overlay-black-heavy);
-  border: 1px solid var(--color-primary);
-  border-radius: var(--radius-5);
-  color: var(--color-primary);
-  font-size: var(--font-size-24);
-  font-family: var(--font-family-primary);
-  text-align: center;
-  padding: 2px 0;
-  outline: none;
-  /* same nudge as value so it sits at the same visual baseline */
-  margin-top: -10px;
-}
-
-.wheel-custom-input::-webkit-inner-spin-button,
-.wheel-custom-input::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-.wheel-custom-input[type=number] {
-  -moz-appearance: textfield;
-  appearance: textfield;
 }
 
 /* ── Footer discord toggle ───────────────── */

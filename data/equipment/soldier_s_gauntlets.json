@@ -1,0 +1,19 @@
+{
+  "type": "1cc02e7b-cdaf-477c-a198-6be0ad5ab47f",
+  "createdAt": "2026-05-21T15:55:35.050Z",
+  "lastModified": "2026-06-24T12:55:23.781Z",
+  "isTemplate": false,
+  "name": "Soldier's Gauntlets",
+  "subtype": "55827e95-5119-4f75-9922-9a58be27827b",
+  "grade": "847d1092-fd43-4d58-b3da-002e6f3b7f3d",
+  "weight": 3,
+  "defenseBonus": 3,
+  "engagementDice": [],
+  "damageDice": [],
+  "length": 0,
+  "reach": 0,
+  "id": "9f224642-17c3-4547-abfc-9c24f2fb8236",
+  "source": "be62ac3d-7168-4779-8274-e60574a2fd27",
+  "artUrl": "https://cdn.midjourney.com/b13dd81a-062c-495e-a47d-37fcebf71aa2/0_0.png",
+  "keeping": "3c4d5e6f-7a8b-4c9d-0e1f-2a3b4c5d6e7f"
+}

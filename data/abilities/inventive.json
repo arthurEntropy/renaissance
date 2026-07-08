@@ -1,0 +1,11 @@
+{
+  "source": "d194ad54-7ca8-4902-a140-e6401681ee55",
+  "id": "c7832138-9f34-470a-b909-a290c6dce96e",
+  "createdAt": "2026-06-17T17:00:08.563Z",
+  "lastModified": "2026-06-27T23:43:47.911Z",
+  "name": "Inventive",
+  "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
+  "artUrl": "https://cdn.midjourney.com/c4c26561-b602-4130-baea-ac93f2e2c51d/0_3.png",
+  "description": "<p><em>Contributing to the defenses of the Kepland has taught you how to make complex things out of mundane materials.</em></p><p>Once per Intermezzo, you may spend at least 1 day inventing a helpful contraption. When you finish the contraption, roll Craft with +1d for each day spent working on it beyond the first, then divide the result by 5. The contraption gains a number of charges equal to the divided result. Choose a skill for the contraption.</p><p>A creature wearing or wielding the contraption may spend a half action to activate it before making a check with the chosen skill. When activated, the creature may expend any number of the contraption's remaining charges, gaining +1d on the check for each charge spent.</p><p>When the contraption has no charges remaining, it breaks.</p><p><strong>Describe your contraption.</strong></p>",
+  "canBeActive": true
+}

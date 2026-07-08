@@ -1,0 +1,19 @@
+{
+  "type": "1cc02e7b-cdaf-477c-a198-6be0ad5ab47f",
+  "createdAt": "2026-05-21T15:55:35.050Z",
+  "lastModified": "2026-06-24T13:13:58.707Z",
+  "isTemplate": false,
+  "name": "Pavise",
+  "subtype": "5ec6d867-7dbf-41c0-b196-3ada5985e6ea",
+  "grade": "847d1092-fd43-4d58-b3da-002e6f3b7f3d",
+  "weight": 6,
+  "defenseBonus": 3,
+  "engagementDice": [],
+  "damageDice": [],
+  "length": 0,
+  "reach": 0,
+  "id": "5d648725-1730-4c78-abc1-b400765e607b",
+  "source": "352c844b-6d4f-4b61-b475-315421a453e7",
+  "artUrl": "https://cdn.midjourney.com/b49c4b3b-d6ba-497b-8a99-30166d6e8732/0_3.png",
+  "keeping": "4d5e6f7a-8b9c-4d0e-1f2a-3b4c5d6e7f8a"
+}

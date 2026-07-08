@@ -9,7 +9,7 @@
   ],
   "backgroundImage": "https://cdn.midjourney.com/4b22394a-a6b0-4c58-8c09-086cc592e7f2/0_0.png",
   "cardBackgroundImage": "https://cdn.midjourney.com/11955663-254f-40f4-8cdb-3b88bce0b4a9/0_3.jpeg",
-  "expansion": "",
+  "expansion": "e46f4320-a414-4300-95d5-397ba717d982",
   "novizio": {
     "description": "<p>Suspendisse sit amet porttitor dolor. Pellentesque ornare magna eu lorem auctor, et blandit urna maximus. Sed eget ante semper, suscipit lacus a, ultricies dui. Sed tincidunt tortor vel sapien sodales eleifend. Quisque dictum mauris elementum purus eleifend, ac eleifend tellus.</p>",
     "martialTraining": {
@@ -29,7 +29,7 @@
     "abilities": "<p><em>Stance</em> and some other stuff I haven't written yet.</p>",
     "gratuiti": ""
   },
-  "lastModified": "2026-04-15T18:19:51.553Z",
+  "lastModified": "2026-07-03T17:49:11.928Z",
   "hooks": [],
   "playlists": []
 }

@@ -9,7 +9,7 @@
   ],
   "backgroundImage": "https://cdn.midjourney.com/bda1a37f-a80c-4f43-8e0a-38b2ba2f084b/0_2.png",
   "cardBackgroundImage": "https://cdn.midjourney.com/d26b65f9-3113-44e0-aeba-98c8d1de8090/0_2.png",
-  "expansion": "",
+  "expansion": "e46f4320-a414-4300-95d5-397ba717d982",
   "novizio": {
     "description": "<p>Sed mi diam, imperdiet vitae sem eu, aliquam placerat nunc. Morbi est odio, commodo at quam quis, congue aliquam orci. Duis semper nulla leo, non eleifend dolor consequat nec. Suspendisse tincidunt malesuada enim, eget tempor diam iaculis vitae. Aenean orci.</p>",
     "martialTraining": {
@@ -47,7 +47,7 @@
     "abilities": "<p><em>Tactician 1, Tactician 2, Tactician 3.</em></p>",
     "gratuiti": ""
   },
-  "lastModified": "2026-04-15T18:48:19.797Z",
+  "lastModified": "2026-07-03T17:49:48.139Z",
   "hooks": [],
   "playlists": []
 }

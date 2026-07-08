@@ -1,15 +1,15 @@
 {
   "isDeleted": false,
   "createdAt": "2026-05-06T17:55:10.305Z",
-  "lastModified": "2026-05-21T13:59:08.247Z",
+  "lastModified": "2026-06-24T14:23:10.696Z",
   "name": "Dueling Shield",
-  "artUrl": null,
+  "artUrl": "https://cdn.midjourney.com/64a0cb23-e1c1-4df1-b4ab-74cf539d6641/0_1.png",
   "description": "<p>Also counts as a shield?</p>",
   "successes": null,
   "improvements": [],
   "source": "352c844b-6d4f-4b61-b475-315421a453e7",
   "school": null,
-  "keeping": null,
+  "keeping": "4d5e6f7a-8b9c-4d0e-1f2a-3b4c5d6e7f8a",
   "isCustom": false,
   "isTemplate": false,
   "isMagical": false,
@@ -33,6 +33,6 @@
   "engagementSuccesses": [
     "f6a7b8c9-d0e1-42f3-a4b5-c6d7e8f9a0b1"
   ],
-  "defenseBonus": 0,
+  "defenseBonus": 2,
   "id": "c990a71d-6b5b-4ca8-8afa-4cd1373b4ea6"
 }

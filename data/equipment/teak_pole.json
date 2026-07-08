@@ -1,7 +1,7 @@
 {
   "isDeleted": false,
   "createdAt": "2026-05-06T17:55:10.305Z",
-  "lastModified": "2026-05-20T13:33:59.087Z",
+  "lastModified": "2026-06-24T11:47:30.923Z",
   "name": "Teak Pole",
   "artUrl": "https://cdn.midjourney.com/0fe9ccf7-7676-44e0-a7d5-4fd6c54ea887/0_2.png",
   "description": "",
@@ -9,7 +9,7 @@
   "improvements": [],
   "source": "cdc93466-8327-4096-a8c2-04cccf3e3835",
   "school": null,
-  "keeping": null,
+  "keeping": "5e6f7a8b-9c0d-4e1f-2a3b-4c5d6e7f8a9b",
   "isCustom": false,
   "isTemplate": false,
   "isMagical": false,

@@ -1,0 +1,19 @@
+{
+  "type": "1cc02e7b-cdaf-477c-a198-6be0ad5ab47f",
+  "createdAt": "2026-05-21T15:55:35.050Z",
+  "lastModified": "2026-06-24T12:52:54.215Z",
+  "isTemplate": false,
+  "name": "Leather Bracers",
+  "subtype": "55827e95-5119-4f75-9922-9a58be27827b",
+  "grade": "ad30b114-3c19-413f-aad2-5f270bd95684",
+  "weight": 1,
+  "defenseBonus": 1,
+  "engagementDice": [],
+  "damageDice": [],
+  "length": 0,
+  "reach": 0,
+  "id": "6d61d54f-8312-41cc-8a22-d483c2803f8d",
+  "source": "d194ad54-7ca8-4902-a140-e6401681ee55",
+  "artUrl": "https://cdn.midjourney.com/5a1b9412-a18c-40a2-b280-d99b686a8e97/0_0.png",
+  "keeping": "3c4d5e6f-7a8b-4c9d-0e1f-2a3b4c5d6e7f"
+}

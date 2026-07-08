@@ -2,13 +2,13 @@
     <div class="art-grid-container">
         <!-- Grouped Display -->
         <div v-if="groupedArt && groupedArt.length > 0" class="grouped-art">
-            <div v-for="(group, index) in groupedArt" :key="group.name" class="art-group">
-                <h3 class="group-header" @click="toggleGroup(index)">
-                    <ChevronRightIcon v-if="collapsedGroups[index]" class="chevron-icon" />
+            <div v-for="group in groupedArt" :key="group.name" class="art-group">
+                <h3 class="group-header" @click="toggleGroup(group.name)">
+                    <ChevronRightIcon v-if="collapsedGroups[group.name]" class="chevron-icon" />
                     <ChevronDownIcon v-else class="chevron-icon" />
                     <span>{{ group.name }} <span class="group-count">({{ group.items.length }})</span></span>
                 </h3>
-                <div v-if="!collapsedGroups[index]" class="art-grid" :class="`grid-size-${gridSize}`">
+                <div v-if="!collapsedGroups[group.name]" class="art-grid" :class="`grid-size-${gridSize}`">
                     <ArtCard v-for="artItem in group.items" :key="artItem.id" :art="artItem"
                         :isSelected="selectedItems.includes(artItem.id)" @click="handleCardClick" />
                 </div>
@@ -30,10 +30,11 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue'
+import { ref } from 'vue'
 import { ChevronRightIcon, ChevronDownIcon } from '@heroicons/vue/24/outline'
 import ArtCard from './ArtCard.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
+import { useFilterPersistence } from '@/composables/useFilterPersistence'
 
 const props = defineProps({
     paginatedArt: {
@@ -56,19 +57,12 @@ const props = defineProps({
 
 const emit = defineEmits(['cardClick', 'add'])
 
-// Track collapsed state for each group
+// Track collapsed state for each group by name (persisted across page views)
 const collapsedGroups = ref({})
+useFilterPersistence('art-groups', { collapsedGroups })
 
-// Reset collapsed state when grouped art changes
-watch(() => props.groupedArt, (newGroupedArt) => {
-    if (newGroupedArt) {
-        // Initialize all groups as expanded
-        collapsedGroups.value = {}
-    }
-}, { immediate: true })
-
-const toggleGroup = (index) => {
-    collapsedGroups.value[index] = !collapsedGroups.value[index]
+const toggleGroup = (groupName) => {
+    collapsedGroups.value = { ...collapsedGroups.value, [groupName]: !collapsedGroups.value[groupName] }
 }
 
 const handleCardClick = (event, art) => {

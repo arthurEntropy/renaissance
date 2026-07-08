@@ -33,24 +33,30 @@
             <template v-if="!isBeastCharacter">
                 <div class="form-group row">
                     <div class="form-column">
-                        <label for="ancestry1" class="left-aligned">Ancestries:</label>
+                        <div class="label-with-action">
+                            <label for="ancestry1" class="left-aligned">Ancestries:</label>
+                        </div>
                         <select :value="formData.ancestryIds[0]" @change="onAncestry0Change" id="ancestry1"
                             class="modal-input">
                             <option value="">Select ancestry...</option>
-                            <option v-for="ancestry in conceptsStore.ancestries" :key="ancestry.id"
-                                :value="ancestry.id"
+                            <option v-for="ancestry in conceptsStore.ancestries" :key="ancestry.id" :value="ancestry.id"
                                 v-show="ancestry.id !== formData.ancestryIds[1]">
                                 {{ ancestry.name }}
                             </option>
                         </select>
                     </div>
                     <div class="form-column">
-                        <label for="ancestry2" class="left-aligned invisible-label">&nbsp;</label>
+                        <label for="ancestry2" class="right-aligned invisible-label">&nbsp;</label>
+                        <div class="genetics-wizard-button-wrapper">
+                            <ActionButton variant="outline" size="small" text="Genetics Wizard🪄"
+                                :disabled="!hasTwoAncestries"
+                                :title="hasTwoAncestries ? 'Open the Genetics Wizard' : 'Select two ancestries first'"
+                                @click="showGeneticsWizard = true" />
+                        </div>
                         <select v-model="formData.ancestryIds[1]" id="ancestry2" class="modal-input"
                             :disabled="!formData.ancestryIds[0]">
                             <option value="">Select ancestry...</option>
-                            <option v-for="ancestry in conceptsStore.ancestries" :key="ancestry.id"
-                                :value="ancestry.id"
+                            <option v-for="ancestry in conceptsStore.ancestries" :key="ancestry.id" :value="ancestry.id"
                                 v-show="ancestry.id !== formData.ancestryIds[0]">
                                 {{ ancestry.name }}
                             </option>
@@ -222,6 +228,9 @@
     <TransferOwnershipModal v-if="showTransferModal" :character="character" @close="showTransferModal = false" />
     <DeleteCharacterModal v-if="showDeleteModal" :character="character" @close="showDeleteModal = false"
         @deleted="closeModal" />
+    <GeneticsWizardModal v-if="showGeneticsWizard && selectedAncestryAObject && selectedAncestryBObject"
+        :ancestry-a="selectedAncestryAObject" :ancestry-b="selectedAncestryBObject"
+        @close="showGeneticsWizard = false" />
 </template>
 
 <script setup>
@@ -238,6 +247,7 @@ import ConvertToNpcModal from './ConvertToNpcModal.vue'
 import ConvertToPcModal from './ConvertToPcModal.vue'
 import TransferOwnershipModal from './TransferOwnershipModal.vue'
 import DeleteCharacterModal from './DeleteCharacterModal.vue'
+import GeneticsWizardModal from './GeneticsWizardModal.vue'
 import { isBeastTemplate, isBeastInstance, isPlayerCharacter, isNPC } from '@/utils/characterTypeGuards'
 import { CAMPAIGN_ROLE, CAMPAIGN_MEMBER_STATUS } from '@shared/constants/campaignConstants'
 
@@ -270,6 +280,18 @@ const gmCampaigns = computed(() => {
 
 const showConvertToNPCButton = computed(() => isPlayerChar.value && gmCampaigns.value.length > 0)
 const showConvertToPCButton = computed(() => isNPCChar.value)
+
+// Genetics Wizard
+const showGeneticsWizard = ref(false)
+const hasTwoAncestries = computed(() =>
+    formData.value.ancestryIds[0] !== '' && formData.value.ancestryIds[1] !== ''
+)
+const selectedAncestryAObject = computed(() =>
+    conceptsStore.ancestries.find(a => a.id === formData.value.ancestryIds[0]) || null
+)
+const selectedAncestryBObject = computed(() =>
+    conceptsStore.ancestries.find(a => a.id === formData.value.ancestryIds[1]) || null
+)
 
 // Modal visibility
 const showConvertToNpcModal = ref(false)
@@ -371,50 +393,53 @@ const _handleOverlayClick = () => {
 }
 
 const saveChanges = () => {
+    const char = charactersStore.selectedCharacter
+    if (!char) return
+
     if (isBeastCharacter.value) {
-        Object.assign(character, {
+        Object.assign(char, {
             name: formData.value.name,
             description: formData.value.description,
             size: formData.value.size,
             reach: formData.value.reach,
             isPublicPreview: formData.value.isPublicPreview,
         })
-        if (!character.featuredArtUrls) character.featuredArtUrls = []
-        character.featuredArtUrls[0] = formData.value.featuredArtUrl
+        if (!char.featuredArtUrls) char.featuredArtUrls = []
+        char.featuredArtUrls[0] = formData.value.featuredArtUrl
     } else {
         // Filter out empty strings from ancestry and culture IDs before saving
         const filteredAncestryIds = formData.value.ancestryIds.filter(id => id !== '')
         const filteredCultureIds = formData.value.cultureIds.filter(id => id !== '')
 
-        Object.assign(character, {
+        Object.assign(char, {
             ...formData.value,
             ancestryIds: filteredAncestryIds,
             cultureIds: filteredCultureIds
         })
 
         // Save art URL
-        if (!character.featuredArtUrls) character.featuredArtUrls = []
-        character.featuredArtUrls[0] = formData.value.featuredArtUrl
+        if (!char.featuredArtUrls) char.featuredArtUrls = []
+        char.featuredArtUrls[0] = formData.value.featuredArtUrl
 
         // Apply type conversion if requested
         if (pendingConvertToPC.value && isNPCChar.value) {
-            character.characterType = 'playerCharacter'
+            char.characterType = 'playerCharacter'
             // Add character to the campaign member's character list so it stays visible in the campaign
-            const campaignId = character.campaignId
-            const ownerId = character.ownerId
+            const campaignId = char.campaignId
+            const ownerId = char.ownerId
             if (campaignId && ownerId) {
                 const campaign = campaignStore.getById(campaignId)
                 const member = campaign?.members?.find(m => m.userId === ownerId)
                 if (member) {
                     const currentIds = member.characterIds || []
-                    if (!currentIds.includes(character.id)) {
-                        campaignStore.updateMemberCharacters(campaignId, ownerId, [...currentIds, character.id])
+                    if (!currentIds.includes(char.id)) {
+                        campaignStore.updateMemberCharacters(campaignId, ownerId, [...currentIds, char.id])
                     }
                 }
             }
         } else if (pendingConvertToNPCCampaignId.value && isPlayerChar.value) {
-            character.characterType = 'npc'
-            character.campaignId = pendingConvertToNPCCampaignId.value
+            char.characterType = 'npc'
+            char.campaignId = pendingConvertToNPCCampaignId.value
         }
     }
     closeModal()
@@ -424,7 +449,9 @@ const resetStats = () => {
     const shouldReset = confirm('Reset all tracked character stats?')
     if (!shouldReset) return
 
-    character.rollStats = createEmptyRollStats()
+    const char = charactersStore.selectedCharacter
+    if (!char) return
+    char.rollStats = createEmptyRollStats()
 }
 
 const hasSelectedAncestry = computed(() =>
@@ -544,11 +571,31 @@ const randomizeVitals = () => {
 
 .invisible-label {
     visibility: hidden;
+    height: 0;
+    margin-top: -17px;
+}
+
+.genetics-wizard-button-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: var(--space-xs);
 }
 
 .modal-input-placeholder {
     height: 1px;
     visibility: hidden;
+}
+
+.label-with-action {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-xs);
+}
+
+.label-with-action label {
+    margin-bottom: 0;
 }
 
 .randomize-row {
