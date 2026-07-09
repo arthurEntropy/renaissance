@@ -1,13 +1,23 @@
 <template>
     <div v-if="hasAnyTokens" class="token-rail-container">
         <div v-if="hasFocusedTokens" class="token-group token-group--focused"
-            :class="{ 'is-active-view': isViewingFocusedCharacterSheet }">
+            :class="{ 'is-active-view': isViewingFocusedCharacterSheet, 'token-group--has-stats': showFocusedCharacterStats }">
             <div class="token-group-header">
                 <span class="token-group-label">Selected</span>
             </div>
             <div class="token-group-members">
                 <component v-if="visibleFocusedCharacter" :is="getTokenComponent(visibleFocusedCharacter)"
                     class="token-item" v-bind="getFocusedTokenProps(visibleFocusedCharacter)" />
+            </div>
+            <div v-if="showFocusedCharacterStats" class="token-group-stats">
+                <div class="token-stat token-stat--treasure">
+                    <img :src="keepingIcon" alt="treasure" class="token-stat-icon" />
+                    <span class="token-stat-value">{{ visibleFocusedCharacter?.treasure ?? 0 }}</span>
+                </div>
+                <div class="token-stat token-stat--xp">
+                    <span class="token-stat-label">XP</span>
+                    <span class="token-stat-value">{{ visibleFocusedCharacter?.xp ?? 0 }}</span>
+                </div>
             </div>
         </div>
 
@@ -62,6 +72,7 @@ import { useSummonedBeast } from '@/composables/useSummonedBeast'
 import { useAppCharacterSheetModal } from '@/composables/useAppCharacterSheetModal'
 import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 import { isBeastTemplate, isBeastInstance } from '@/utils/characterTypeGuards'
+import keepingIcon from '@/assets/icons/keeping/keeping.png'
 
 const characterContextStore = useCharacterContextStore()
 const charactersStore = useCharactersStore()
@@ -130,6 +141,12 @@ const isViewingFocusedCharacterSheet = computed(() =>
 )
 const hasAnyTokens = computed(() => {
     return hasFocusedTokens.value || !!summonersBeast.value || resolvedPinnedGroups.value.length > 0
+})
+
+// Show treasure & XP on focused token hover on any page (for non-beast characters)
+const showFocusedCharacterStats = computed(() => {
+    if (!visibleFocusedCharacter.value || isBeastCharacter(visibleFocusedCharacter.value)) return false
+    return true
 })
 
 function getTokenComponent(character) {
@@ -248,6 +265,60 @@ function getFocusedTokenProps(character) {
 
 .token-group--focused.is-active-view {
     border: 2px solid var(--color-white);
+}
+
+/* Stats footer: hidden by default, revealed on hover */
+.token-group-stats {
+    display: flex;
+    gap: 0;
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transition: max-height var(--transition-normal), opacity var(--transition-normal);
+}
+
+.token-group--has-stats:hover .token-group-stats {
+    max-height: 40px;
+    opacity: 1;
+}
+
+.token-stat {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-xs);
+    padding: var(--space-xs) var(--space-sm);
+}
+
+.token-stat--treasure {
+    background-color: var(--color-primary);
+    border-bottom-left-radius: var(--radius-5);
+}
+
+.token-stat--xp {
+    background-color: var(--color-accent-cyan);
+    border-bottom-right-radius: var(--radius-5);
+}
+
+.token-stat-icon {
+    width: 12px;
+    height: 12px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.token-stat-label {
+    font-size: var(--font-size-10);
+    font-style: italic;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-black);
+}
+
+.token-stat-value {
+    font-size: var(--font-size-13);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-black);
 }
 
 .token-group-label--summoned {

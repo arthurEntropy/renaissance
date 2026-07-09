@@ -77,6 +77,12 @@
       :anchor-position="abilitySelectorAnchor" :is-loading="false" :show-add-all-at-every-level="false"
       @add-item="handleCascadeAddAbility" @add-all-items="handleCascadeAddAllAbilities" />
 
+    <!-- Confirm Purchase Modal (from FAB add) -->
+    <ConfirmPurchaseModal v-if="showConfirmPurchaseModal && pendingAbilityToAdd" item-type="ability"
+      :cost="pendingAbilityToAdd?.xpCost ?? null" :character-balance="selectedCharacter?.xp ?? 0" currency-label="XP"
+      @confirm-spend="handleConfirmAddAbilityWithSpend" @confirm-free="handleConfirmAddAbilityFree"
+      @close="showConfirmPurchaseModal = false" />
+
     <!-- Skill Check Modal -->
     <SkillCheckModal v-if="showSkillCheckModal" :selected-skill-key="rollLinkSkillKey" :character="selectedCharacter"
       :default-roll-type="rollLinkRollType" :default-dice-mod="rollLinkBiomeDiceMod"
@@ -103,6 +109,7 @@ import ThreeColumnLayout from '@/components/ui/layouts/ThreeColumnLayout.vue'
 import GroupedThreeColumnLayout from '@/components/ui/layouts/GroupedThreeColumnLayout.vue'
 import SortingPicker from '@/components/ui/pickers/SortingPicker.vue'
 import SkillCheckModal from '@/components/features/characterSheet/modals/SkillCheckModal.vue'
+import ConfirmPurchaseModal from '@/components/ui/modals/ConfirmPurchaseModal.vue'
 import OpposedSkillCheckModal from '@/components/features/characterSheet/rollModal/OpposedSkillCheckModal.vue'
 import CharacterService from '@/services/entities/characterService'
 import { useCardCascadePicker } from '@/composables/useCardCascadePicker'
@@ -279,12 +286,36 @@ const addAbilityById = (abilityId) => {
   return updated
 }
 
+const showConfirmPurchaseModal = ref(false)
+const pendingAbilityToAdd = ref(null)
+
 const handleCascadeAddAbility = (type, abilityId) => {
   if (type !== 'ability') return
-  const updated = addAbilityById(abilityId)
+  const ability = allAbilities.value.find((a) => a.id === abilityId)
+  if (!ability) return
+  pendingAbilityToAdd.value = ability
+  showConfirmPurchaseModal.value = true
+}
+
+function handleConfirmAddAbilityWithSpend() {
+  if (!pendingAbilityToAdd.value) return
+  const updated = addAbilityById(pendingAbilityToAdd.value.id)
   if (updated) {
-    Object.assign(selectedCharacter.value, updated)
+    const xpCost = pendingAbilityToAdd.value.xpCost ?? 0
+    const withDeduction = xpCost > 0
+      ? { ...updated, xp: Math.max(0, (updated.xp ?? 0) - xpCost) }
+      : updated
+    Object.assign(selectedCharacter.value, withDeduction)
   }
+  pendingAbilityToAdd.value = null
+  closeAbilitySelector()
+}
+
+function handleConfirmAddAbilityFree() {
+  if (!pendingAbilityToAdd.value) return
+  const updated = addAbilityById(pendingAbilityToAdd.value.id)
+  if (updated) Object.assign(selectedCharacter.value, updated)
+  pendingAbilityToAdd.value = null
   closeAbilitySelector()
 }
 

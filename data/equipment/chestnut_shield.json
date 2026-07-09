@@ -28,5 +28,6 @@
   "damageDice": [],
   "engagementDice": [],
   "engagementSuccesses": [],
-  "defenseBonus": 2
+  "defenseBonus": 2,
+  "hasDifficulty": false
 }

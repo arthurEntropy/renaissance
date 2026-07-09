@@ -5,14 +5,22 @@
             <div v-show="!added" class="purchase-content">
                 <p class="spend-message">
                     <template v-if="cost !== null && cost > 0">
-                        Spend <strong>{{ cost }} {{ currencyLabel }}</strong>?
+                        Spend <strong>{{ cost }}<template v-if="currencyLabel === 'Treasure'"> <img :src="keepingIcon"
+                                    alt="treasure" class="currency-icon" /></template><template v-else> {{ currencyLabel
+                                }}</template></strong>?
                     </template>
                     <template v-else>
                         Add this {{ itemTypeName }} for free?
                     </template>
                 </p>
                 <p class="balance-line">
-                    Current {{ currencyLabel }}: <strong>{{ characterBalance }}</strong>
+                    <template v-if="currencyLabel === 'Treasure'">
+                        Current: <strong>{{ characterBalance }}</strong> <img :src="keepingIcon" alt="treasure"
+                            class="currency-icon" />
+                    </template>
+                    <template v-else>
+                        Current {{ currencyLabel }}: <strong>{{ characterBalance }}</strong>
+                    </template>
                 </p>
             </div>
             <Transition name="fade">
@@ -40,6 +48,7 @@
 import { ref } from 'vue'
 import BaseModal from './BaseModal.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
+import keepingIcon from '@/assets/icons/keeping/keeping.png'
 
 const props = defineProps({
     /** 'ability' or 'equipment' */
@@ -152,6 +161,14 @@ function handleFree() {
 
 .add-free-link:hover {
     color: var(--color-text-primary);
+}
+
+.currency-icon {
+    width: 14px;
+    height: 14px;
+    object-fit: contain;
+    vertical-align: middle;
+    margin-left: 1px;
 }
 
 /* Fade transition for the "Added!" confirmation */

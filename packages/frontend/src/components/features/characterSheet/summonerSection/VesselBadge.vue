@@ -26,6 +26,12 @@
                 <SparklesIcon class="badge__art-placeholder-icon" />
             </div>
 
+            <!-- Capture bonus chip: shown when vessel is empty -->
+            <div v-if="!beast && vesselCaptureBonus != null" class="badge__capture-bonus"
+                :title="`Capture Bonus: +${vesselCaptureBonus}`">
+                +{{ vesselCaptureBonus }}
+            </div>
+
             <!-- Beast art overlay when captured -->
             <div v-if="beast" class="badge__beast-overlay">
                 <img v-if="beastArt" :src="beastArt" class="badge__beast-art" alt="" />
@@ -99,6 +105,8 @@ const vesselKeeping = computed(() => {
 })
 
 const vesselKeepingName = computed(() => vesselKeeping.value?.name ? `${vesselKeeping.value.name} Vessel` : '')
+
+const vesselCaptureBonus = computed(() => vesselKeeping.value?.cost ?? null)
 
 const vesselKeepingImageUrl = useOptimizedImage(
     () => vesselKeeping.value?.imageUrl,
@@ -211,6 +219,21 @@ function handleRemove() {
     display: flex;
     gap: 2px;
     z-index: var(--z-raised);
+}
+
+/* Capture bonus chip */
+.badge__capture-bonus {
+    position: absolute;
+    top: var(--space-xs);
+    left: var(--space-xs);
+    background: var(--color-primary);
+    color: var(--color-black);
+    font-size: var(--font-size-11);
+    font-weight: var(--font-weight-bold);
+    padding: 1px 5px;
+    border-radius: var(--radius-5);
+    z-index: var(--z-raised);
+    line-height: 1.4;
 }
 
 /* Art area */

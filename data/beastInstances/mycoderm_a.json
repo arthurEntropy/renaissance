@@ -2,7 +2,7 @@
   "id": "6a9c30a0-25ce-4dcc-99bd-06d5c226d1c3",
   "isDeleted": false,
   "createdAt": "2026-07-08T16:01:23.094Z",
-  "lastModified": "2026-07-08T19:31:15.494Z",
+  "lastModified": "2026-07-08T20:24:31.949Z",
   "characterType": "beastInstance",
   "name": "Mycoderm A",
   "featuredArtUrls": [
@@ -192,14 +192,14 @@
   },
   "rollStats": {
     "skillChecks": {
-      "attempts": 5,
+      "attempts": 6,
       "successes": 5,
-      "totalSum": 81,
+      "totalSum": 98,
       "bestTotal": 20,
       "hardestSuccess": 13,
       "bySkill": {
         "Fortitude": 1,
-        "Strength": 4
+        "Strength": 5
       },
       "solCount": 0,
       "morteCount": 0,
@@ -251,7 +251,7 @@
   "description": "",
   "size": 3,
   "reach": 5,
-  "updatedAt": "2026-07-08T19:31:15.494Z",
+  "updatedAt": "2026-07-08T20:24:31.949Z",
   "challenge": 12,
   "templateId": "731421e9-f9cb-41c1-b902-76993e0bef6f"
 }

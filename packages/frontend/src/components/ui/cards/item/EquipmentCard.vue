@@ -149,6 +149,11 @@
   <ConfirmPurchaseModal v-if="showConfirmPurchaseModal" item-type="equipment" :cost="keepingCost"
     :character-balance="character?.treasure ?? 0" currency-label="Treasure" @confirm-spend="confirmAddWithSpend"
     @confirm-free="confirmAddFree" @close="showConfirmPurchaseModal = false" />
+
+  <!-- Confirm Removal modal: shown when removing equipment from a character -->
+  <ConfirmRemovalModal v-if="showConfirmRemovalModal" :item-name="equipment.name" :cost="keepingCost"
+    :character-balance="character?.treasure ?? 0" currency-label="Treasure" @confirm-refund="confirmRemoveWithRefund"
+    @confirm-no-refund="confirmRemoveNoRefund" @close="showConfirmRemovalModal = false" />
 </template>
 
 <script setup>
@@ -176,6 +181,7 @@ import { CHIP_TAG_ROUNDED } from '@/constants/chipTag'
 import ImprovementsSection from '@/components/ui/cards/item/ImprovementsSection.vue'
 import SuccessesSection from '@/components/ui/cards/item/SuccessesSection.vue'
 import ConfirmPurchaseModal from '@/components/ui/modals/ConfirmPurchaseModal.vue'
+import ConfirmRemovalModal from '@/components/ui/modals/ConfirmRemovalModal.vue'
 import CharacterService from '@/services/entities/characterService'
 import { getDiceFontMaxClass } from '@/utils/diceFontUtils'
 import { ItemType } from '@shared/constants/itemTypes'
@@ -283,11 +289,12 @@ const discoveryNumber = computed(() => characterEquipmentEntry.value?.discoveryN
 
 const isMaskWorn = computed(() => characterEquipmentEntry.value?.isWielding ?? false)
 
-// Difficulty (Hunter's Trap and description-based detection)
+// Difficulty (uses hasDifficulty field; falls back to legacy subtype/description detection)
 const HUNTER_TRAP_SUBTYPE_ID = '71c52847-7265-4c53-82c0-5b89a8f32998'
 const DIFFICULTY_TRIGGER_PHRASES = ['to set the Difficulty', 'becomes the Difficulty']
 
 const hasDifficultyBadge = computed(() =>
+  props.equipment.hasDifficulty === true ||
   props.equipment.subtype === HUNTER_TRAP_SUBTYPE_ID ||
   (typeof props.equipment.description === 'string' &&
     DIFFICULTY_TRIGGER_PHRASES.some(phrase => props.equipment.description.includes(phrase)))
@@ -532,14 +539,8 @@ const handleBaseEquipmentToggle = () => {
   if (!props.character) return
 
   if (characterHasBaseEquipment.value) {
-    // Remove: no confirmation needed
-    const equipmentIndex = props.character.equipment.findIndex(e => e.id === props.equipment.id)
-    if (equipmentIndex === -1) return
-
-    const updatedCharacter = CharacterService.removeItem(props.character, 'equipment', equipmentIndex)
-    if (updatedCharacter) {
-      emit('update', updatedCharacter)
-    }
+    // Remove: show confirmation modal
+    showConfirmRemovalModal.value = true
   } else {
     // Add: show confirmation modal
     showConfirmPurchaseModal.value = true
@@ -547,6 +548,27 @@ const handleBaseEquipmentToggle = () => {
 }
 
 const showConfirmPurchaseModal = ref(false)
+const showConfirmRemovalModal = ref(false)
+
+function doEquipmentRemove(refundTreasure = false) {
+  const equipmentIndex = props.character.equipment.findIndex(e => e.id === props.equipment.id)
+  if (equipmentIndex === -1) return
+  const updatedCharacter = CharacterService.removeItem(props.character, 'equipment', equipmentIndex)
+  if (!updatedCharacter) return
+  const cost = keepingCost.value ?? 0
+  const withRefund = refundTreasure && cost > 0
+    ? { ...updatedCharacter, treasure: (updatedCharacter.treasure ?? 0) + cost }
+    : updatedCharacter
+  emit('update', withRefund)
+}
+
+function confirmRemoveWithRefund() {
+  doEquipmentRemove(true)
+}
+
+function confirmRemoveNoRefund() {
+  doEquipmentRemove(false)
+}
 
 function confirmAddWithSpend() {
   const updatedCharacter = CharacterService.addEquipmentToCharacter(props.character, props.equipment)

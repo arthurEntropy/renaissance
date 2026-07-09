@@ -18,6 +18,10 @@
           <input type="checkbox" id="isTemplate" v-model="editedEquipment.isTemplate" />
           Template
         </label>
+        <label for="hasDifficulty">
+          <input type="checkbox" id="hasDifficulty" v-model="editedEquipment.hasDifficulty" />
+          Has Difficulty
+        </label>
       </div>
 
       <!-- Name -->

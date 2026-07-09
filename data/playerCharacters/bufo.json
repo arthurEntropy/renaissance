@@ -308,5 +308,6 @@
   "description": "",
   "size": 0,
   "reach": 0,
-  "isPublicPreview": true
+  "isPublicPreview": true,
+  "hunterTraps": []
 }

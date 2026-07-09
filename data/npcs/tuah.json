@@ -2,7 +2,7 @@
   "id": "dd4ad3a1-0d8b-4e05-8548-ee81bbb61c29",
   "isDeleted": false,
   "createdAt": "2026-07-08T14:38:54.454Z",
-  "lastModified": "2026-07-08T19:31:22.170Z",
+  "lastModified": "2026-07-09T16:11:54.887Z",
   "characterType": "npc",
   "name": "Tuah",
   "featuredArtUrls": [
@@ -178,14 +178,6 @@
       "columnIndex": 0
     },
     {
-      "id": "aeeaf28b-7934-4ee6-891c-e430d3b0bcdc",
-      "quantity": 1,
-      "isCarried": true,
-      "isWielding": false,
-      "collapsed": false,
-      "columnIndex": 1
-    },
-    {
       "id": "b1f68cae-11ca-40b3-b9f6-b183c3adead0",
       "quantity": 1,
       "isCarried": true,
@@ -225,6 +217,13 @@
       "isCarried": true,
       "isWielding": true,
       "columnIndex": 2
+    },
+    {
+      "id": "aeeaf28b-7934-4ee6-891c-e430d3b0bcdc",
+      "quantity": 1,
+      "isCarried": true,
+      "isWielding": false,
+      "collapsed": false
     }
   ],
   "groupEquipmentBySource": false,
@@ -331,8 +330,54 @@
     "green": [],
     "colorless": []
   },
-  "witchcraftTokens": [],
-  "summonerVessels": [],
+  "witchcraftTokens": [
+    {
+      "id": "9c4a4e91-574d-46ba-bf6e-3a25efcf9c16",
+      "imageUrl": "/src/assets/icons/witch/book.png",
+      "givenTo": "",
+      "notes": "",
+      "abilityId": "9d6d82e0-bc0d-4f68-85dd-c2f3e2e17597",
+      "isTalisman": false
+    },
+    {
+      "id": "dc3f92a7-7592-4675-8ee9-f22f95a3d8c8",
+      "imageUrl": "/src/assets/icons/witch/winkle.png",
+      "givenTo": "",
+      "notes": "",
+      "abilityId": "0be14c83-458a-41f4-b5ac-29c2b4266ea5",
+      "isTalisman": false
+    },
+    {
+      "id": "6e4cd081-b3fe-45e9-b83f-e8697e255696",
+      "imageUrl": "/src/assets/icons/witch/wood.png",
+      "givenTo": "",
+      "notes": "",
+      "abilityId": "47d52f7a-294c-4658-9dbe-d065c115abf6",
+      "isTalisman": false
+    }
+  ],
+  "summonerVessels": [
+    {
+      "id": "dbfb4a0d-0449-43e0-9023-b7d37d5764de",
+      "isActive": false,
+      "isSummoned": false,
+      "imageUrl": "/src/assets/icons/summoner/box.png",
+      "keeping": "adfd997b-238b-4e19-ab16-1e22d8aa7633",
+      "vesselNote": "",
+      "beastId": null,
+      "friendship": 0
+    },
+    {
+      "id": "952d8520-edbb-4f8d-92b4-9dd8c0bccf57",
+      "isActive": false,
+      "isSummoned": false,
+      "imageUrl": "/src/assets/icons/summoner/bamboo.png",
+      "keeping": null,
+      "vesselNote": "",
+      "beastId": null,
+      "friendship": 0
+    }
+  ],
   "campaignId": "c9ddeab9-d180-4fc5-869f-e64239bc3376",
   "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
   "isPublicPreview": false,
@@ -351,9 +396,18 @@
   "keeping": "5e6f7a8b-9c0d-4e1f-2a3b-4c5d6e7f8a9b",
   "treasure": 2,
   "xp": 1,
-  "updatedAt": "2026-07-08T19:31:22.170Z",
+  "updatedAt": "2026-07-09T16:11:54.887Z",
   "description": "",
   "size": 0,
   "reach": 0,
-  "featuredArtUrl": "https://cdn.midjourney.com/28e56c75-1364-472a-be48-82ecf005fe62/0_1.png"
+  "featuredArtUrl": "https://cdn.midjourney.com/28e56c75-1364-472a-be48-82ecf005fe62/0_1.png",
+  "hunterTraps": [
+    {
+      "id": "7f0257dc-e923-4140-b3f5-1d19ada4b60c",
+      "isDropped": true,
+      "isThrown": false,
+      "difficulty": 10,
+      "imageUrl": "/src/assets/icons/hunter/spiky_pit.png"
+    }
+  ]
 }

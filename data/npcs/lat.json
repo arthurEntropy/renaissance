@@ -2,7 +2,7 @@
   "id": "b0dfc21f-b910-4a42-aca0-ad497a099139",
   "isDeleted": false,
   "createdAt": "2026-07-08T13:01:58.229Z",
-  "lastModified": "2026-07-08T19:08:06.929Z",
+  "lastModified": "2026-07-09T13:01:24.154Z",
   "characterType": "npc",
   "name": "Lat",
   "featuredArtUrls": [
@@ -290,7 +290,38 @@
     "colorless": []
   },
   "witchcraftTokens": [],
-  "summonerVessels": [],
+  "summonerVessels": [
+    {
+      "id": "5eab6b21-d13b-43b9-beb8-9b2b4f0a780e",
+      "isActive": false,
+      "isSummoned": false,
+      "imageUrl": "/src/assets/icons/summoner/seashell.png",
+      "keeping": "2b3c4d5e-6f7a-4b8c-9d0e-1f2a3b4c5d6e",
+      "vesselNote": "",
+      "beastId": "731421e9-f9cb-41c1-b902-76993e0bef6f",
+      "friendship": 1
+    },
+    {
+      "id": "c1eb37fd-9946-43fa-958f-0833f2ba579d",
+      "isActive": false,
+      "isSummoned": false,
+      "imageUrl": "/src/assets/icons/summoner/box.png",
+      "keeping": "3c4d5e6f-7a8b-4c9d-0e1f-2a3b4c5d6e7f",
+      "vesselNote": "",
+      "beastId": null,
+      "friendship": 0
+    },
+    {
+      "id": "c5e51c61-aa5f-445c-a606-2af08335e2f6",
+      "isActive": false,
+      "isSummoned": false,
+      "imageUrl": "/src/assets/icons/summoner/walnut.png",
+      "keeping": "917cb5ee-f996-4a84-be4a-47a43c25c15a",
+      "vesselNote": "",
+      "beastId": null,
+      "friendship": 0
+    }
+  ],
   "campaignId": "c9ddeab9-d180-4fc5-869f-e64239bc3376",
   "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
   "isPublicPreview": false,
@@ -303,7 +334,7 @@
     "d194ad54-7ca8-4902-a140-e6401681ee55",
     "352c844b-6d4f-4b61-b475-315421a453e7"
   ],
-  "mestiereId": "e0a69b6f-38f9-4fa5-a1ef-5e5777299e82",
+  "mestiereId": "558abd15-f90f-40d7-80d8-df73a37f977c",
   "age": 131,
   "heightFeet": 3,
   "heightInches": 6,
@@ -311,9 +342,10 @@
   "keeping": "2b3c4d5e-6f7a-4b8c-9d0e-1f2a3b4c5d6e",
   "treasure": 7,
   "xp": 0,
-  "updatedAt": "2026-07-08T19:08:06.929Z",
+  "updatedAt": "2026-07-09T13:01:24.154Z",
   "description": "",
   "size": 0,
   "reach": 0,
-  "featuredArtUrl": "https://cdn.midjourney.com/bff8c211-796e-4598-84d9-3013c2fc4d17/0_1.png"
+  "featuredArtUrl": "https://cdn.midjourney.com/bff8c211-796e-4598-84d9-3013c2fc4d17/0_1.png",
+  "hunterTraps": []
 }

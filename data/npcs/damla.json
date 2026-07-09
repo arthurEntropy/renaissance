@@ -2,7 +2,7 @@
   "id": "b4417462-600b-4571-b2ad-a572ad01733f",
   "isDeleted": false,
   "createdAt": "2026-07-08T12:49:04.391Z",
-  "lastModified": "2026-07-08T19:27:53.301Z",
+  "lastModified": "2026-07-09T12:56:40.834Z",
   "characterType": "npc",
   "name": "Damla",
   "featuredArtUrls": [
@@ -192,59 +192,66 @@
   },
   "abilities": [
     {
-      "id": "4fbf9ccb-0fbb-45d0-9f8f-7b7fcfb811fb",
-      "collapsed": true,
-      "showImprovements": false,
-      "showSuccesses": false,
-      "isActive": false
-    },
-    {
-      "id": "1325605b-d523-4ec2-b2a7-57a04dc55d91",
-      "collapsed": true,
-      "showImprovements": false,
-      "showSuccesses": false,
-      "isActive": false
-    },
-    {
-      "id": "9f21adf6-85f2-482b-a13c-29b4c53487bd",
-      "collapsed": true,
-      "showImprovements": false,
-      "showSuccesses": false,
-      "isActive": false
-    },
-    {
-      "id": "34799d66-7466-4505-8013-dcfe8c5e8614",
-      "collapsed": true,
-      "showImprovements": false,
-      "showSuccesses": false,
-      "isActive": false
-    },
-    {
-      "id": "7f33f7ca-dfe2-49cd-8e11-ac8fdab5f905",
-      "collapsed": true,
-      "showImprovements": false,
-      "showSuccesses": false,
-      "isActive": false
-    },
-    {
       "id": "8e346eb3-1e72-4b3f-971c-497eac98a06c",
       "collapsed": false,
       "showImprovements": false,
       "showSuccesses": false,
-      "isActive": false
+      "isActive": false,
+      "columnIndex": 0
     },
     {
       "id": "bbf8f9d6-45a6-4703-9388-b771935d4a0a",
       "collapsed": false,
       "showImprovements": false,
       "showSuccesses": false,
-      "isActive": false
+      "isActive": false,
+      "columnIndex": 1
+    },
+    {
+      "id": "4fbf9ccb-0fbb-45d0-9f8f-7b7fcfb811fb",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false,
+      "columnIndex": 2
+    },
+    {
+      "id": "9f21adf6-85f2-482b-a13c-29b4c53487bd",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false,
+      "columnIndex": 2
+    },
+    {
+      "id": "1325605b-d523-4ec2-b2a7-57a04dc55d91",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false,
+      "columnIndex": 2
+    },
+    {
+      "id": "34799d66-7466-4505-8013-dcfe8c5e8614",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false,
+      "columnIndex": 2
+    },
+    {
+      "id": "7f33f7ca-dfe2-49cd-8e11-ac8fdab5f905",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false,
+      "columnIndex": 2
     }
   ],
-  "groupAbilitiesBySource": true,
+  "groupAbilitiesBySource": false,
   "groupAbilitiesByManaColor": false,
   "groupAbilitiesByCustom": false,
-  "abilitySortOption": "name-asc",
+  "abilitySortOption": "",
   "abilityCustomGroups": [],
   "autoCalculations": {
     "load": true,
@@ -255,19 +262,19 @@
   },
   "rollStats": {
     "skillChecks": {
-      "attempts": 26,
-      "successes": 19,
-      "totalSum": 418,
+      "attempts": 30,
+      "successes": 22,
+      "totalSum": 457,
       "bestTotal": 31,
       "hardestSuccess": 11,
       "bySkill": {
-        "Dexterity": 18,
+        "Dexterity": 22,
         "Fortitude": 1,
         "Strength": 7
       },
       "solCount": 5,
-      "morteCount": 1,
-      "successCount": 8
+      "morteCount": 2,
+      "successCount": 9
     },
     "contests": {
       "engagement": {
@@ -318,9 +325,10 @@
   "keeping": "4d5e6f7a-8b9c-4d0e-1f2a-3b4c5d6e7f8a",
   "treasure": 12,
   "xp": 0,
-  "updatedAt": "2026-07-08T19:27:53.301Z",
+  "updatedAt": "2026-07-09T12:56:40.834Z",
   "description": "",
   "size": 0,
   "reach": 0,
-  "featuredArtUrl": "https://cdn.midjourney.com/2ef0de1a-3306-441c-9f5e-0899dcced474/0_0.png"
+  "featuredArtUrl": "https://cdn.midjourney.com/2ef0de1a-3306-441c-9f5e-0899dcced474/0_0.png",
+  "hunterTraps": []
 }

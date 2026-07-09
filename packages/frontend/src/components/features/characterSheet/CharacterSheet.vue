@@ -22,6 +22,7 @@
                 <BiomeSection v-if="showBiomeSection" />
                 <WitchcraftSection v-if="showWitchcraftSection" />
                 <SummonerSection v-if="showSummonerSection" />
+                <HunterSection v-if="showHunterSection" />
             </div>
         </div>
     </div>
@@ -37,6 +38,7 @@ import { CORE_ABILITIES } from '@shared/constants/characterConstants'
 import { BIOME_MESTIERI } from '@shared/constants/biomeTags'
 import { WITCH_MESTIERE_NAME } from '@/constants/witchcraftConstants'
 import { SUMMONER_MESTIERE_NAME } from '@/constants/summonerConstants'
+import { HUNTER_MESTIERE_NAME } from '@/constants/hunterConstants'
 import CharacterProfile from '@/components/features/characterSheet/characterProfile/CharacterProfile.vue'
 import CharacterNotes from '@/components/features/characterSheet/characterNotes/CharacterNotes.vue'
 import CoreAbilityColumn from '@/components/features/characterSheet/coreAbilityColumns/CoreAbilityColumn.vue'
@@ -49,6 +51,7 @@ import BiomeSection from '@/components/features/characterSheet/biome/BiomeSectio
 import AcrobatSection from '@/components/features/characterSheet/acrobat/AcrobatSection.vue'
 import WitchcraftSection from '@/components/features/characterSheet/witchcraftTracker/WitchcraftSection.vue'
 import SummonerSection from '@/components/features/characterSheet/summonerSection/SummonerSection.vue'
+import HunterSection from '@/components/features/characterSheet/hunterSection/HunterSection.vue'
 
 const emit = defineEmits(['close'])
 
@@ -84,6 +87,12 @@ const showSummonerSection = computed(() => {
     if (!selectedCharacter.value?.mestiereId) return false
     const mestiere = conceptsStore.mestieri.find(m => m.id === selectedCharacter.value.mestiereId)
     return mestiere?.name?.toLowerCase() === SUMMONER_MESTIERE_NAME
+})
+
+const showHunterSection = computed(() => {
+    if (!selectedCharacter.value?.mestiereId) return false
+    const mestiere = conceptsStore.mestieri.find(m => m.id === selectedCharacter.value.mestiereId)
+    return mestiere?.name?.toLowerCase() === HUNTER_MESTIERE_NAME
 })
 
 const handleClose = () => {

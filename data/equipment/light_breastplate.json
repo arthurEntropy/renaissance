@@ -12,5 +12,6 @@
   "engagementDice": [],
   "damageDice": [],
   "length": 0,
-  "reach": 0
+  "reach": 0,
+  "hasDifficulty": false
 }

@@ -12,5 +12,6 @@
   "damageDice": [],
   "length": 0,
   "reach": 0,
-  "id": "5e693af5-6aa6-441e-8324-47389c2d4d10"
+  "id": "5e693af5-6aa6-441e-8324-47389c2d4d10",
+  "hasDifficulty": false
 }
