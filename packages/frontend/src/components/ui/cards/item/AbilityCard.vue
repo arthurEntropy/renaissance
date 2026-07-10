@@ -2,7 +2,7 @@
   <base-card :item="ability" :metaInfo="traitOrMp" :collapsed="collapsed" :editable="editable"
     @edit="$emit('edit', ability)" :collapsible="collapsible" @update:collapsed="$emit('update:collapsed', $event)"
     @roll-link="handleRollLinkWithBiome" :itemType="ItemType.ABILITY"
-    :class="[biomeLinkClass, { 'ability-card--active': isAbilityActive, 'ability-card--with-difficulty': isShowingDifficulty }]"
+    :class="[$attrs.class, biomeLinkClass, { 'ability-card--active': isAbilityActive, 'ability-card--with-difficulty': isShowingDifficulty }]"
     :show-source="false" @mouseenter="onCardMouseEnter" @mouseleave="cardPreview.scheduleHide()"
     @mousedown="onCardMouseDown">
 
@@ -60,11 +60,18 @@
   <ConfirmPurchaseModal v-if="showConfirmModal" item-type="ability" :cost="ability.xpCost ?? null"
     :character-balance="character?.xp ?? 0" currency-label="XP" @confirm-spend="confirmAddWithSpend"
     @confirm-free="confirmAddFree" @close="showConfirmModal = false" />
+
+  <!-- Confirm Removal modal: shown when removing an ability from a character -->
+  <ConfirmRemovalModal v-if="showConfirmRemovalModal" :item-name="ability.name" :cost="ability.xpCost ?? null"
+    :character-balance="character?.xp ?? 0" currency-label="XP" @confirm-refund="confirmRemoveWithRefund"
+    @confirm-no-refund="confirmRemoveNoRefund" @close="showConfirmRemovalModal = false" />
 </template>
 
 <script setup>
 import { computed, ref } from 'vue'
 import { ChevronUpIcon, ChevronDownIcon } from '@heroicons/vue/24/outline'
+
+defineOptions({ inheritAttrs: false })
 import { useCardPreview } from '@/composables/useCardPreview'
 import { useImprovements } from '@/composables/useImprovements'
 import { useActionCostsStore } from '@/stores/actionCostsStore'
@@ -78,6 +85,7 @@ import DifficultyBadge from '@/components/ui/cards/item/DifficultyBadge.vue'
 import ImprovementsSection from '@/components/ui/cards/item/ImprovementsSection.vue'
 import SuccessesSection from '@/components/ui/cards/item/SuccessesSection.vue'
 import ConfirmPurchaseModal from '@/components/ui/modals/ConfirmPurchaseModal.vue'
+import ConfirmRemovalModal from '@/components/ui/modals/ConfirmRemovalModal.vue'
 import CharacterService from '@/services/entities/characterService'
 import { ItemType } from '@shared/constants/itemTypes'
 
@@ -291,14 +299,8 @@ const handleBaseAbilityToggle = () => {
   if (!props.character) return
 
   if (characterHasBaseAbility.value) {
-    // Remove: no confirmation needed
-    const abilityIndex = props.character.abilities.findIndex(a => a.id === props.ability.id)
-    if (abilityIndex === -1) return
-
-    const updatedCharacter = CharacterService.removeItem(props.character, 'abilities', abilityIndex)
-    if (updatedCharacter) {
-      emit('update', updatedCharacter)
-    }
+    // Remove: show confirmation modal
+    showConfirmRemovalModal.value = true
   } else {
     // Add: show confirmation modal
     showConfirmModal.value = true
@@ -306,15 +308,26 @@ const handleBaseAbilityToggle = () => {
 }
 
 const showConfirmModal = ref(false)
+const showConfirmRemovalModal = ref(false)
 
-function confirmAddWithSpend() {
-  const updatedCharacter = CharacterService.addAbilityToCharacter(props.character, props.ability)
+function doRemove(refundXp = false) {
+  const abilityIndex = props.character.abilities.findIndex(a => a.id === props.ability.id)
+  if (abilityIndex === -1) return
+  const updatedCharacter = CharacterService.removeItem(props.character, 'abilities', abilityIndex)
   if (!updatedCharacter) return
   const xpCost = props.ability.xpCost ?? 0
-  const deducted = xpCost > 0
-    ? { ...updatedCharacter, xp: Math.max(0, (updatedCharacter.xp ?? 0) - xpCost) }
+  const withRefund = refundXp && xpCost > 0
+    ? { ...updatedCharacter, xp: (updatedCharacter.xp ?? 0) + xpCost }
     : updatedCharacter
-  emit('update', deducted)
+  emit('update', withRefund)
+}
+
+function confirmRemoveWithRefund() {
+  doRemove(true)
+}
+
+function confirmRemoveNoRefund() {
+  doRemove(false)
 }
 
 function confirmAddFree() {

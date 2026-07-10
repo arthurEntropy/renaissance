@@ -60,12 +60,8 @@ const characterMestiereNovizio = computed(() => characterMestiere.value?.novizio
 const characterMestiereName = computed(() => characterMestiere.value?.name ?? '')
 const equipmentGrades = computed(() => equipmentGradesStore.items || [])
 
-// Only show martial training FABwhen on pages that list equipment
-const showMartialTrainingFab = computed(() => {
-    if (route.path.startsWith('/equipment')) return true
-    if (route.path.startsWith('/cultures') && route.params.id) return true
-    return false
-})
+// Show martial training FAB on any page
+const showMartialTrainingFab = computed(() => true)
 
 const isHovered = ref(false)
 const showMartialTrainingPopup = ref(false)

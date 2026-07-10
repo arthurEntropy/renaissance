@@ -39,6 +39,15 @@
                     :show-sign="true" prev-aria-label="Decrease modifier" next-aria-label="Increase modifier" />
             </div>
 
+            <div class="stat-buttons">
+                <ActionButton :variant="activeStatButton === 'body' ? 'primary' : 'outline'" size="small"
+                    :text="'+' + CORE_ABILITIES.BODY.label" @click="clickStatButton('body')" />
+                <ActionButton :variant="activeStatButton === 'heart' ? 'primary' : 'outline'" size="small"
+                    :text="'+' + CORE_ABILITIES.HEART.label" @click="clickStatButton('heart')" />
+                <ActionButton :variant="activeStatButton === 'wits' ? 'primary' : 'outline'" size="small"
+                    :text="'+' + CORE_ABILITIES.WITS.label" @click="clickStatButton('wits')" />
+            </div>
+
         </div>
 
         <template #actions>
@@ -55,7 +64,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import BaseModal from '@/components/ui/modals/BaseModal.vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import ValueWheelInput from '@/components/ui/forms/ValueWheelInput.vue'
@@ -116,6 +125,25 @@ const modifier = ref(props.initialModifier)
 const isRolling = ref(false)
 const sendToDiscord = ref(true)
 
+// Stat button active tracking
+const activeStatButton = ref(null) // 'body' | 'heart' | 'wits' | null
+const activeStatValue = ref(null)
+
+watch(modifier, (newVal) => {
+    if (activeStatButton.value !== null && newVal !== activeStatValue.value) {
+        activeStatButton.value = null
+        activeStatValue.value = null
+    }
+})
+
+function clickStatButton(statKey) {
+    const char = props.character || charactersStore.selectedCharacter
+    const statValue = char?.[statKey] ?? 0
+    modifier.value = statValue
+    activeStatButton.value = statKey
+    activeStatValue.value = statValue
+}
+
 const diceIconSize = computed(() => {
     const count = dicePool.value.length
     if (count >= POOL_THRESHOLD_SMALL) return POOL_ICON_SMALL
@@ -143,6 +171,7 @@ const modalBodyStyle = computed(() => {
         marginLeft: 'calc(-1 * var(--space-xl))',
         marginRight: 'calc(-1 * var(--space-xl))',
         width: 'calc(100% + 2 * var(--space-xl))',
+        aspectRatio: '1',
         padding: 'var(--space-xl)',
         boxSizing: 'border-box',
         display: 'flex',
@@ -365,6 +394,13 @@ function handleClose() {
 
 .modifier-section :deep(.wheel-wrapper) {
     width: 100%;
+}
+
+.stat-buttons {
+    display: flex;
+    gap: var(--space-sm);
+    justify-content: center;
+    margin-top: var(--space-xs);
 }
 
 .footer-layout {

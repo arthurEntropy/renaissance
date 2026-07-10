@@ -39,14 +39,15 @@
                         <select :value="formData.ancestryIds[0]" @change="onAncestry0Change" id="ancestry1"
                             class="modal-input">
                             <option value="">Select ancestry...</option>
-                            <option v-for="ancestry in conceptsStore.ancestries" :key="ancestry.id" :value="ancestry.id"
-                                v-show="ancestry.id !== formData.ancestryIds[1]">
+                            <option v-for="ancestry in conceptsStore.visibleAncestries" :key="ancestry.id"
+                                :value="ancestry.id" v-show="ancestry.id !== formData.ancestryIds[1]">
                                 {{ ancestry.name }}
                             </option>
                         </select>
                     </div>
                     <div class="form-column">
-                        <label for="ancestry2" class="right-aligned invisible-label">&nbsp;</label>
+                        <label for="ancestry2"
+                            class="right-aligned invisible-label invisible-label--ancestry">&nbsp;</label>
                         <div class="genetics-wizard-button-wrapper">
                             <ActionButton variant="outline" size="small" text="Genetics Wizard🪄"
                                 :disabled="!hasTwoAncestries"
@@ -56,8 +57,8 @@
                         <select v-model="formData.ancestryIds[1]" id="ancestry2" class="modal-input"
                             :disabled="!formData.ancestryIds[0]">
                             <option value="">Select ancestry...</option>
-                            <option v-for="ancestry in conceptsStore.ancestries" :key="ancestry.id" :value="ancestry.id"
-                                v-show="ancestry.id !== formData.ancestryIds[0]">
+                            <option v-for="ancestry in conceptsStore.visibleAncestries" :key="ancestry.id"
+                                :value="ancestry.id" v-show="ancestry.id !== formData.ancestryIds[0]">
                                 {{ ancestry.name }}
                             </option>
                         </select>
@@ -71,8 +72,8 @@
                         <select :value="formData.cultureIds[0]" @change="onCulture0Change" id="culture1"
                             class="modal-input">
                             <option value="">Select culture...</option>
-                            <option v-for="culture in conceptsStore.cultures" :key="culture.id" :value="culture.id"
-                                v-show="culture.id !== formData.cultureIds[1]">
+                            <option v-for="culture in conceptsStore.visibleCultures" :key="culture.id"
+                                :value="culture.id" v-show="culture.id !== formData.cultureIds[1]">
                                 {{ culture.name }}
                             </option>
                         </select>
@@ -82,8 +83,8 @@
                         <select v-model="formData.cultureIds[1]" id="culture2" class="modal-input"
                             :disabled="!formData.cultureIds[0]">
                             <option value="">Select culture...</option>
-                            <option v-for="culture in conceptsStore.cultures" :key="culture.id" :value="culture.id"
-                                v-show="culture.id !== formData.cultureIds[0]">
+                            <option v-for="culture in conceptsStore.visibleCultures" :key="culture.id"
+                                :value="culture.id" v-show="culture.id !== formData.cultureIds[0]">
                                 {{ culture.name }}
                             </option>
                         </select>
@@ -96,7 +97,8 @@
                         <label for="mestiere" class="left-aligned">Mestiere:</label>
                         <select v-model="formData.mestiereId" id="mestiere" class="modal-input">
                             <option value="">Select mestiere...</option>
-                            <option v-for="mestiere in conceptsStore.mestieri" :key="mestiere.id" :value="mestiere.id">
+                            <option v-for="mestiere in conceptsStore.visibleMestieri" :key="mestiere.id"
+                                :value="mestiere.id">
                                 {{ mestiere.name }}
                             </option>
                         </select>
@@ -440,6 +442,17 @@ const saveChanges = () => {
         } else if (pendingConvertToNPCCampaignId.value && isPlayerChar.value) {
             char.characterType = 'npc'
             char.campaignId = pendingConvertToNPCCampaignId.value
+
+            // Remove from all campaign player character lists
+            const charId = char.id
+            campaignStore.campaigns.forEach(campaign => {
+                campaign.members?.forEach(member => {
+                    if (member.characterIds?.includes(charId)) {
+                        const updatedIds = member.characterIds.filter(id => id !== charId)
+                        campaignStore.updateMemberCharacters(campaign.id, member.userId, updatedIds)
+                    }
+                })
+            })
         }
     }
     closeModal()
@@ -572,6 +585,10 @@ const randomizeVitals = () => {
 .invisible-label {
     visibility: hidden;
     height: 0;
+    margin-top: 14px;
+}
+
+.invisible-label--ancestry {
     margin-top: -17px;
 }
 

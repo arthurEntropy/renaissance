@@ -13,9 +13,11 @@
             <GeneticsAncestryColumn :ancestry="ancestryA" :is-selected="isColumnSelected('a')"
                 :is-animating="isAnimating && animatedSide === 'a'" :is-idle="isColumnIdle('a')">
                 <template v-if="currentStep === 0">
-                    <div class="speed-display">
-                        <span class="speed-value">{{ ancestryASpeed }}</span>
-                        <span class="speed-label">ft / round</span>
+                    <div class="speed-wrapper">
+                        <div class="speed-display">
+                            <span class="speed-value">{{ ancestryASpeed }}</span>
+                            <span class="speed-label">ft / round</span>
+                        </div>
                     </div>
                 </template>
                 <template v-else>
@@ -31,9 +33,11 @@
             <GeneticsAncestryColumn :ancestry="ancestryB" :is-selected="isColumnSelected('b')"
                 :is-animating="isAnimating && animatedSide === 'b'" :is-idle="isColumnIdle('b')">
                 <template v-if="currentStep === 0">
-                    <div class="speed-display">
-                        <span class="speed-value">{{ ancestryBSpeed }}</span>
-                        <span class="speed-label">ft / round</span>
+                    <div class="speed-wrapper">
+                        <div class="speed-display">
+                            <span class="speed-value">{{ ancestryBSpeed }}</span>
+                            <span class="speed-label">ft / round</span>
+                        </div>
                     </div>
                 </template>
                 <template v-else>
@@ -124,8 +128,8 @@ const stepDescription = computed(() => {
         return `Ability ${currentStep.value}: ${name}'s ability was selected.`
     }
     if (currentStep.value === 0)
-        return 'Randomize to determine which ancestry sets your character\'s Speed.'
-    return `Randomize to determine which ancestry contributes Ability ${currentStep.value}.`
+        return 'Randomize to determine which Ancestry sets your character\'s Speed.'
+    return `Randomize to determine which Ancestry contributes Ability ${currentStep.value}.`
 })
 
 const currentStepComplete = computed(() => stepSelections.value[currentStep.value] !== null)
@@ -293,6 +297,14 @@ onBeforeUnmount(() => {
 }
 
 /* Speed step content */
+.speed-wrapper {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
 .speed-display {
     display: flex;
     flex-direction: column;

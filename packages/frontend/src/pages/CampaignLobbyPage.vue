@@ -61,6 +61,8 @@
 
                 <CombatBuilder v-if="isGM" />
 
+                <CampaignTabletopsPanel />
+
                 <CampaignShopsPanel />
 
             </div>
@@ -94,12 +96,11 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue'
+import { ref, computed, onMounted, nextTick } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useCampaignStore } from '@/stores/campaignStore'
 import { useAuthStore } from '@/stores/authStore'
 import { useCharactersStore } from '@/stores/charactersStore'
-import { useCharacterContextStore } from '@/stores/characterContextStore'
 import { useConceptsStore } from '@/stores/conceptsStore'
 import { useKeepingStore } from '@/stores/keepingStore'
 import { useEquipmentStore } from '@/stores/equipmentStore'
@@ -110,6 +111,7 @@ import CampaignMembersPanel from '@/components/features/campaigns/lobby/Campaign
 import CampaignPlayerCharactersPanel from '@/components/features/campaigns/lobby/CampaignPlayerCharactersPanel.vue'
 import CampaignNpcsPanel from '@/components/features/campaigns/lobby/CampaignNpcsPanel.vue'
 import CampaignShopsPanel from '@/components/features/campaigns/lobby/CampaignShopsPanel.vue'
+import CampaignTabletopsPanel from '@/components/features/campaigns/lobby/CampaignTabletopsPanel.vue'
 import CampaignCurationPanel from '@/components/features/campaigns/lobby/CampaignCurationPanel.vue'
 import CombatBuilder from '@/components/features/campaigns/lobby/CombatBuilder.vue'
 import TextEditor from '@/components/ui/textEditor/TextEditor.vue'
@@ -125,7 +127,6 @@ const router = useRouter()
 const campaignStore = useCampaignStore()
 const authStore = useAuthStore()
 const charactersStore = useCharactersStore()
-const characterContextStore = useCharacterContextStore()
 const conceptsStore = useConceptsStore()
 const keepingStore = useKeepingStore()
 const equipmentStore = useEquipmentStore()
@@ -257,6 +258,7 @@ onMounted(async () => {
             equipmentStore.fetch(),
             equipmentTypesStore.fetch(),
             campaignStore.fetchCampaignCharacters(campaign.value.id),
+            campaignStore.fetchTabletops(campaign.value.id),
         ])
     } else {
         router.replace('/')
@@ -265,9 +267,6 @@ onMounted(async () => {
     isLoading.value = false
 })
 
-onUnmounted(() => {
-    characterContextStore.clearPinnedGroups()
-})
 </script>
 
 <style scoped>

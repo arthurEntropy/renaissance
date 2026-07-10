@@ -1,0 +1,351 @@
+{
+  "id": "b0dfc21f-b910-4a42-aca0-ad497a099139",
+  "isDeleted": false,
+  "createdAt": "2026-07-08T13:01:58.229Z",
+  "lastModified": "2026-07-09T13:01:24.154Z",
+  "characterType": "npc",
+  "name": "Lat",
+  "featuredArtUrls": [
+    "https://cdn.midjourney.com/bff8c211-796e-4598-84d9-3013c2fc4d17/0_1.png"
+  ],
+  "speed": 20,
+  "notes": "",
+  "body": 3,
+  "heart": 1,
+  "wits": 3,
+  "skills": [
+    {
+      "key": "awe",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "strength",
+      "ranks": 3,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "dexterity",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "fortitude",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "craft",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "perform",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "insight",
+      "ranks": 1,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "courtesy",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "spirit",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "aid",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "persuade",
+      "ranks": 1,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "awareness",
+      "ranks": 2,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "stealth",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "lore",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    },
+    {
+      "key": "riddle",
+      "ranks": 0,
+      "isFavored": false,
+      "isIllFavored": false,
+      "diceMod": 0,
+      "manualDiceMod": 0
+    }
+  ],
+  "endurance": {
+    "current": 0,
+    "base": 16
+  },
+  "hope": {
+    "current": 2,
+    "base": 2
+  },
+  "defense": {
+    "current": 3,
+    "base": 3
+  },
+  "load": 0,
+  "shadow": 0,
+  "injury": 0,
+  "states": {
+    "weary": false,
+    "twiceWeary": false,
+    "miserable": false,
+    "twiceMiserable": false,
+    "helpless": false,
+    "twiceHelpless": false
+  },
+  "conditions": {
+    "insecure": false,
+    "guilty": false,
+    "angry": false,
+    "afraid": false,
+    "troubled": false
+  },
+  "engagementDice": [],
+  "engagementSuccesses": [],
+  "engagementDiceStatuses": {},
+  "equipment": [],
+  "groupEquipmentBySource": false,
+  "groupEquipmentByCustom": false,
+  "equipmentSortOption": "name-asc",
+  "equipmentCustomGroups": [],
+  "mp": {
+    "current": 0,
+    "base": 0
+  },
+  "abilities": [
+    {
+      "id": "ae41ad01-5ac7-48f5-a729-1c5da6cdf83e",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false
+    },
+    {
+      "id": "e93bf0ca-ac0f-41d7-b825-f4d9c655ad2a",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false
+    },
+    {
+      "id": "826c5f6f-1f93-4377-b429-918b4f025481",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false
+    },
+    {
+      "id": "a2c05547-5732-461e-996d-34cd655aab0f",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false
+    },
+    {
+      "id": "3d107bc4-32e5-4b57-ab06-bef473eb0995",
+      "collapsed": true,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false
+    },
+    {
+      "id": "9c92d5ba-7c73-4480-a357-d98ac4820c7d",
+      "collapsed": false,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false
+    },
+    {
+      "id": "f1d0e5f7-bb30-4251-a575-8d31c113fe1a",
+      "collapsed": false,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false
+    },
+    {
+      "id": "1e289ca8-cf6a-4f0d-ad7c-a13fc8e1f381",
+      "collapsed": false,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": false
+    }
+  ],
+  "groupAbilitiesBySource": true,
+  "groupAbilitiesByManaColor": false,
+  "groupAbilitiesByCustom": false,
+  "abilitySortOption": "name-asc",
+  "abilityCustomGroups": [],
+  "autoCalculations": {
+    "load": true,
+    "states": true,
+    "baseEndurance": false,
+    "baseHope": true,
+    "baseDefense": true
+  },
+  "rollStats": {
+    "skillChecks": {
+      "attempts": 2,
+      "successes": 1,
+      "totalSum": 36,
+      "bestTotal": 24,
+      "hardestSuccess": null,
+      "bySkill": {
+        "Strength": 1,
+        "Fortitude": 1
+      },
+      "solCount": 1,
+      "morteCount": 0,
+      "successCount": 2
+    },
+    "contests": {
+      "engagement": {
+        "wins": 0,
+        "losses": 0,
+        "draws": 0
+      },
+      "opposed": {
+        "wins": 0,
+        "losses": 0,
+        "draws": 0
+      }
+    }
+  },
+  "biomeTags": [],
+  "biomeId": null,
+  "nimbleStep": 0,
+  "swagger": 0,
+  "swaggerIconIndex": 0,
+  "swaggerColor": "#ffffff",
+  "manaPool": {
+    "white": [],
+    "blue": [],
+    "black": [],
+    "red": [],
+    "green": [],
+    "colorless": []
+  },
+  "witchcraftTokens": [],
+  "summonerVessels": [
+    {
+      "id": "5eab6b21-d13b-43b9-beb8-9b2b4f0a780e",
+      "isActive": false,
+      "isSummoned": false,
+      "imageUrl": "/src/assets/icons/summoner/seashell.png",
+      "keeping": "2b3c4d5e-6f7a-4b8c-9d0e-1f2a3b4c5d6e",
+      "vesselNote": "",
+      "beastId": "731421e9-f9cb-41c1-b902-76993e0bef6f",
+      "friendship": 1
+    },
+    {
+      "id": "c1eb37fd-9946-43fa-958f-0833f2ba579d",
+      "isActive": false,
+      "isSummoned": false,
+      "imageUrl": "/src/assets/icons/summoner/box.png",
+      "keeping": "3c4d5e6f-7a8b-4c9d-0e1f-2a3b4c5d6e7f",
+      "vesselNote": "",
+      "beastId": null,
+      "friendship": 0
+    },
+    {
+      "id": "c5e51c61-aa5f-445c-a606-2af08335e2f6",
+      "isActive": false,
+      "isSummoned": false,
+      "imageUrl": "/src/assets/icons/summoner/walnut.png",
+      "keeping": "917cb5ee-f996-4a84-be4a-47a43c25c15a",
+      "vesselNote": "",
+      "beastId": null,
+      "friendship": 0
+    }
+  ],
+  "campaignId": "c9ddeab9-d180-4fc5-869f-e64239bc3376",
+  "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
+  "isPublicPreview": false,
+  "pronouns": "he/him",
+  "ancestryIds": [
+    "fffc6b74-d66f-4270-a8b4-e045433ae176",
+    "adc655c1-1d9c-433f-a0eb-41f93cf3ee07"
+  ],
+  "cultureIds": [
+    "d194ad54-7ca8-4902-a140-e6401681ee55",
+    "352c844b-6d4f-4b61-b475-315421a453e7"
+  ],
+  "mestiereId": "558abd15-f90f-40d7-80d8-df73a37f977c",
+  "age": 131,
+  "heightFeet": 3,
+  "heightInches": 6,
+  "weight": 153,
+  "keeping": "2b3c4d5e-6f7a-4b8c-9d0e-1f2a3b4c5d6e",
+  "treasure": 7,
+  "xp": 0,
+  "updatedAt": "2026-07-09T13:01:24.154Z",
+  "description": "",
+  "size": 0,
+  "reach": 0,
+  "featuredArtUrl": "https://cdn.midjourney.com/bff8c211-796e-4598-84d9-3013c2fc4d17/0_1.png",
+  "hunterTraps": []
+}

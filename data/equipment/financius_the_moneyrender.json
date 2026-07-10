@@ -39,5 +39,6 @@
     8
   ],
   "engagementSuccesses": [],
-  "defenseBonus": 0
+  "defenseBonus": 0,
+  "hasDifficulty": false
 }

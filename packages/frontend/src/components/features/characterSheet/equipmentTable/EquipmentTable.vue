@@ -94,6 +94,12 @@
       :show-add-all-at-every-level="false" @add-item="handleCascadeAddEquipment"
       @add-all-items="handleCascadeAddAllEquipment" @top-level-action="createAndAddCustomEquipment" />
 
+    <!-- Confirm Purchase Modal (from FAB add) -->
+    <ConfirmPurchaseModal v-if="showConfirmPurchaseModal && pendingEquipmentToAdd" item-type="equipment"
+      :cost="pendingEquipmentKeepingCost" :character-balance="selectedCharacter?.treasure ?? 0"
+      currency-label="Treasure" @confirm-spend="handleConfirmAddEquipmentWithSpend"
+      @confirm-free="handleConfirmAddEquipmentFree" @close="showConfirmPurchaseModal = false" />
+
     <!-- Edit Equipment Modal -->
     <EditEquipmentModal v-if="showEditEquipmentModal" :equipment="equipmentToEdit" @update="saveEditedEquipment"
       @close="closeEditEquipmentModal" @delete="deleteEquipment" />
@@ -138,6 +144,7 @@ import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 import CardCascadePicker from '@/components/ui/pickers/CardCascadePicker.vue'
 import CharacterSheetSection from '@/components/ui/containers/CharacterSheetSection.vue'
 import EditEquipmentModal from '@/components/editModals/EditEquipmentModal.vue'
+import ConfirmPurchaseModal from '@/components/ui/modals/ConfirmPurchaseModal.vue'
 import ThreeColumnLayout from '@/components/ui/layouts/ThreeColumnLayout.vue'
 import GroupedThreeColumnLayout from '@/components/ui/layouts/GroupedThreeColumnLayout.vue'
 import SortingPicker from '@/components/ui/pickers/SortingPicker.vue'
@@ -608,12 +615,41 @@ const addEquipmentById = (equipmentId) => {
   return updated
 }
 
+const showConfirmPurchaseModal = ref(false)
+const pendingEquipmentToAdd = ref(null)
+
+const pendingEquipmentKeepingCost = computed(() => {
+  if (!pendingEquipmentToAdd.value?.keeping) return null
+  return keepingStore.getById(pendingEquipmentToAdd.value.keeping)?.cost ?? null
+})
+
 const handleCascadeAddEquipment = (type, equipmentId) => {
   if (type !== 'equipment') return
-  const updated = addEquipmentById(equipmentId)
+  const equipment = allEquipment.value.find((eq) => eq.id === equipmentId)
+  if (!equipment) return
+  pendingEquipmentToAdd.value = equipment
+  showConfirmPurchaseModal.value = true
+}
+
+function handleConfirmAddEquipmentWithSpend() {
+  if (!pendingEquipmentToAdd.value) return
+  const updated = addEquipmentById(pendingEquipmentToAdd.value.id)
   if (updated) {
-    Object.assign(selectedCharacter.value, updated)
+    const cost = pendingEquipmentKeepingCost.value ?? 0
+    const withDeduction = cost > 0
+      ? { ...updated, treasure: Math.max(0, (updated.treasure ?? 0) - cost) }
+      : updated
+    Object.assign(selectedCharacter.value, withDeduction)
   }
+  pendingEquipmentToAdd.value = null
+  closeEquipmentSelector()
+}
+
+function handleConfirmAddEquipmentFree() {
+  if (!pendingEquipmentToAdd.value) return
+  const updated = addEquipmentById(pendingEquipmentToAdd.value.id)
+  if (updated) Object.assign(selectedCharacter.value, updated)
+  pendingEquipmentToAdd.value = null
   closeEquipmentSelector()
 }
 

@@ -1,0 +1,23 @@
+{
+  "id": "e0b22160-6efe-45f7-9360-8c20412e617e",
+  "isDeleted": false,
+  "createdAt": "2026-07-10T14:14:48.580Z",
+  "lastModified": "2026-07-10T14:16:16.223Z",
+  "campaignId": "c9ddeab9-d180-4fc5-869f-e64239bc3376",
+  "name": "Ice Cave",
+  "backgroundImage": {
+    "url": "https://cdn.midjourney.com/22873e30-a2f8-4294-b310-28bf4ec468f9/0_0.png",
+    "naturalWidth": 1456,
+    "naturalHeight": 816
+  },
+  "items": [],
+  "transform": {
+    "scale": 0.9999999999999996,
+    "x": 135.1005091925216,
+    "y": 109.28119393255713
+  },
+  "gridSize": 20,
+  "gridColor": "#ffffff",
+  "gridOpacity": 0.16,
+  "showPaths": true
+}

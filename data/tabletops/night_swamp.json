@@ -1,0 +1,23 @@
+{
+  "id": "f3c8c845-59f1-4481-bafb-2f1e0d5da452",
+  "isDeleted": false,
+  "createdAt": "2026-07-10T14:12:23.517Z",
+  "lastModified": "2026-07-10T17:45:10.758Z",
+  "campaignId": "c9ddeab9-d180-4fc5-869f-e64239bc3376",
+  "name": "Night Swamp",
+  "backgroundImage": {
+    "url": "https://cdn.midjourney.com/8b923175-b29b-44e8-8e7a-c137c893b579/0_0.png",
+    "naturalWidth": 2912,
+    "naturalHeight": 1632
+  },
+  "items": [],
+  "transform": {
+    "scale": 0.5022156324807011,
+    "x": 187.12210970480498,
+    "y": 70.73972743932342
+  },
+  "gridSize": 80,
+  "gridColor": "#ffffff",
+  "gridOpacity": 0.06,
+  "showPaths": true
+}

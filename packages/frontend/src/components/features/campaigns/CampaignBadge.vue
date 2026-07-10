@@ -52,7 +52,10 @@ const router = useRouter()
 const route = useRoute()
 const campaignStore = useCampaignStore()
 
-const isOnLobbyPage = computed(() => route.path.startsWith('/campaigns/'))
+const isOnLobbyPage = computed(() => {
+    const path = route.path
+    return path.startsWith('/campaigns/') && !path.includes('/tabletop/')
+})
 const wrapperRef = ref(null)
 const menuRef = ref(null)
 const emit = defineEmits(['openCreateCampaign'])

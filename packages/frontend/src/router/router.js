@@ -65,9 +65,9 @@ const routes = [
     meta: { requiresAuth: true, requiresAdmin: true },
   },
   {
-    path: '/tabletop',
+    path: '/campaigns/:slug/tabletop/:tabletopId',
     component: VirtualTabletopPage,
-    meta: { requiresAuth: true, requiresAdmin: true },
+    meta: { requiresAuth: true },
   },
   {
     path: '/campaigns/:slug',

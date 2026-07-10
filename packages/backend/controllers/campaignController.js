@@ -5,16 +5,19 @@ import {
   getCharacterRecordById,
   saveCharacterFile,
   deleteCharacterById,
+  deleteFileById,
   saveFile,
 } from '../utils/fileService.js'
 import { getUserProfile } from './userController.js'
 import { CAMPAIGN_ROLE, CAMPAIGN_MEMBER_STATUS } from '../../../shared/constants/campaignConstants.js'
 import { createDefaultCampaign } from '../../../shared/types/campaign.js'
+import { createDefaultTabletop } from '../../../shared/types/tabletop.js'
 import { toLetterSuffix } from '../../../shared/utils/letterSuffix.js'
 import { v4 as uuidv4 } from 'uuid'
 import { getAllActiveCampaigns, getCampaignById, getCampaignMembership } from '../utils/campaignUtils.js'
 
 const CAMPAIGNS_DIRECTORY = getDirectory('campaigns')
+const TABLETOPS_DIRECTORY = getDirectory('tabletops')
 
 const getCharacterType = (character) => {
   if (character?.characterType === 'player') return 'playerCharacter'
@@ -818,5 +821,180 @@ export const deleteBeastInstance = (req, res) => {
   } catch (err) {
     console.error('Error deleting beast instance:', err)
     res.status(500).json({ error: 'Failed to delete beast instance' })
+  }
+}
+
+// ─── Tabletop handlers ────────────────────────────────────────────────────────
+
+const getTabletopById = (tabletopId) => {
+  const all = getAllDataByDirectory(TABLETOPS_DIRECTORY)
+  return all.find((t) => t.id === tabletopId && !t.isDeleted) || null
+}
+
+// GET /campaigns/:id/tabletops — returns all tabletops for this campaign
+export const getCampaignTabletops = (req, res) => {
+  try {
+    const campaign = getCampaignById(req.params.id)
+    if (!campaign) {
+      return res.status(404).json({ error: 'Campaign not found' })
+    }
+
+    const tabletopIds = Array.isArray(campaign.tabletopIds) ? campaign.tabletopIds : []
+    const all = getAllDataByDirectory(TABLETOPS_DIRECTORY)
+    const allById = new Map(all.map((t) => [t.id, t]))
+
+    // Return tabletops in the campaign's declared order, skipping any missing entries
+    const tabletops = tabletopIds
+      .map((id) => allById.get(id))
+      .filter((t) => t && !t.isDeleted)
+
+    res.json(tabletops)
+  } catch (err) {
+    console.error('Error getting campaign tabletops:', err)
+    res.status(500).json({ error: 'Failed to retrieve tabletops' })
+  }
+}
+
+// POST /campaigns/:id/tabletops — creates a new tabletop for this campaign (GM only)
+export const createCampaignTabletop = (req, res) => {
+  try {
+    const campaign = getCampaignById(req.params.id)
+    if (!campaign) {
+      return res.status(404).json({ error: 'Campaign not found' })
+    }
+
+    const { name } = req.body
+    const tabletop = createDefaultTabletop(campaign.id, name?.trim() || 'New Tabletop')
+    saveFile(tabletop, TABLETOPS_DIRECTORY)
+
+    const updatedCampaign = {
+      ...campaign,
+      tabletopIds: [...(campaign.tabletopIds || []), tabletop.id],
+    }
+    saveFile(updatedCampaign, CAMPAIGNS_DIRECTORY, campaign.name, campaign.id)
+
+    res.status(201).json({ tabletop, campaign: updatedCampaign })
+  } catch (err) {
+    console.error('Error creating tabletop:', err)
+    res.status(500).json({ error: 'Failed to create tabletop' })
+  }
+}
+
+// PUT /campaigns/:id/tabletops/:tabletopId — updates a tabletop (GM only)
+export const updateCampaignTabletop = (req, res) => {
+  try {
+    const campaign = getCampaignById(req.params.id)
+    if (!campaign) {
+      return res.status(404).json({ error: 'Campaign not found' })
+    }
+
+    const tabletop = getTabletopById(req.params.tabletopId)
+    if (!tabletop) {
+      return res.status(404).json({ error: 'Tabletop not found' })
+    }
+    if (tabletop.campaignId !== campaign.id) {
+      return res.status(403).json({ error: 'Tabletop does not belong to this campaign' })
+    }
+
+    const allowedFields = ['name', 'backgroundImage', 'items', 'transform', 'gridSize', 'gridColor', 'gridOpacity', 'showPaths']
+    const updates = {}
+    for (const field of allowedFields) {
+      if (req.body[field] !== undefined) updates[field] = req.body[field]
+    }
+
+    const updated = { ...tabletop, ...updates }
+    saveFile(updated, TABLETOPS_DIRECTORY, tabletop.name, tabletop.id)
+    res.json(updated)
+  } catch (err) {
+    console.error('Error updating tabletop:', err)
+    res.status(500).json({ error: 'Failed to update tabletop' })
+  }
+}
+
+// DELETE /campaigns/:id/tabletops/:tabletopId — deletes a tabletop (GM only)
+export const deleteCampaignTabletop = (req, res) => {
+  try {
+    const campaign = getCampaignById(req.params.id)
+    if (!campaign) {
+      return res.status(404).json({ error: 'Campaign not found' })
+    }
+
+    const tabletop = getTabletopById(req.params.tabletopId)
+    if (!tabletop) {
+      return res.status(404).json({ error: 'Tabletop not found' })
+    }
+    if (tabletop.campaignId !== campaign.id) {
+      return res.status(403).json({ error: 'Tabletop does not belong to this campaign' })
+    }
+
+    deleteFileById(tabletop.id, TABLETOPS_DIRECTORY)
+
+    const updatedCampaign = {
+      ...campaign,
+      tabletopIds: (campaign.tabletopIds || []).filter((id) => id !== tabletop.id),
+      activeTabletopId: campaign.activeTabletopId === tabletop.id ? null : campaign.activeTabletopId,
+    }
+    saveFile(updatedCampaign, CAMPAIGNS_DIRECTORY, campaign.name, campaign.id)
+
+    res.json(updatedCampaign)
+  } catch (err) {
+    console.error('Error deleting tabletop:', err)
+    res.status(500).json({ error: 'Failed to delete tabletop' })
+  }
+}
+
+// PUT /campaigns/:id/tabletops/order — reorders the campaign's tabletop list (GM only)
+export const reorderCampaignTabletops = (req, res) => {
+  try {
+    const campaign = getCampaignById(req.params.id)
+    if (!campaign) {
+      return res.status(404).json({ error: 'Campaign not found' })
+    }
+
+    const { tabletopIds } = req.body
+    if (!Array.isArray(tabletopIds)) {
+      return res.status(400).json({ error: 'tabletopIds must be an array' })
+    }
+
+    const existing = new Set(campaign.tabletopIds || [])
+    if (!tabletopIds.every((id) => existing.has(id))) {
+      return res.status(400).json({ error: 'tabletopIds contains unknown tabletop IDs' })
+    }
+
+    const updated = { ...campaign, tabletopIds }
+    saveFile(updated, CAMPAIGNS_DIRECTORY, campaign.name, campaign.id)
+    res.json(updated)
+  } catch (err) {
+    console.error('Error reordering tabletops:', err)
+    res.status(500).json({ error: 'Failed to reorder tabletops' })
+  }
+}
+
+// PUT /campaigns/:id/active-tabletop — sets or clears the active tabletop (GM only)
+export const setActiveTabletop = (req, res) => {
+  try {
+    const campaign = getCampaignById(req.params.id)
+    if (!campaign) {
+      return res.status(404).json({ error: 'Campaign not found' })
+    }
+
+    const { tabletopId } = req.body
+
+    if (tabletopId !== null && tabletopId !== undefined) {
+      const tabletop = getTabletopById(tabletopId)
+      if (!tabletop) {
+        return res.status(404).json({ error: 'Tabletop not found' })
+      }
+      if (tabletop.campaignId !== campaign.id) {
+        return res.status(403).json({ error: 'Tabletop does not belong to this campaign' })
+      }
+    }
+
+    const updated = { ...campaign, activeTabletopId: tabletopId || null }
+    saveFile(updated, CAMPAIGNS_DIRECTORY, campaign.name, campaign.id)
+    res.json(updated)
+  } catch (err) {
+    console.error('Error setting active tabletop:', err)
+    res.status(500).json({ error: 'Failed to set active tabletop' })
   }
 }

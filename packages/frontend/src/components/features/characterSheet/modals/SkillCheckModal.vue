@@ -43,13 +43,15 @@
     <div class="roll-type-toggle">
       <ActionButton :variant="rollType === RollTypes.OPPOSED_SKILL_CHECK ? 'primary' : 'outline'" size="large"
         text="Opposed" @click="rollType = RollTypes.OPPOSED_SKILL_CHECK" />
-      <ActionButton :variant="rollType === RollTypes.SKILL_CHECK ? 'primary' : 'outline'" size="large"
-        text="Against Difficulty" @click="rollType = RollTypes.SKILL_CHECK" />
+      <ActionButton :variant="rollType === 'unopposed' ? 'primary' : 'outline'" size="large" text="Unopposed"
+        @click="rollType = 'unopposed'" />
+      <ActionButton :variant="rollType === RollTypes.SKILL_CHECK ? 'primary' : 'outline'" size="large" text="Difficulty"
+        @click="rollType = RollTypes.SKILL_CHECK" />
     </div>
 
     <!-- Difficulty Wheel -->
     <div class="difficulty-wheel-section"
-      :class="{ 'difficulty-wheel-section--disabled': rollType === RollTypes.OPPOSED_SKILL_CHECK }">
+      :class="{ 'difficulty-wheel-section--disabled': rollType !== RollTypes.SKILL_CHECK }">
       <ValueWheelInput v-model="localDifficulty" :values="DIFFICULTY_VALUES" :labels="DIFFICULTY_LABELS"
         :allow-custom="true" :custom-min="1" :custom-max="100" prev-aria-label="Previous difficulty"
         next-aria-label="Next difficulty" />
@@ -99,7 +101,7 @@ const props = defineProps({
   },
   defaultRollType: {
     type: String,
-    default: RollTypes.SKILL_CHECK,
+    default: 'unopposed',
   },
   defaultDiceMod: {
     type: Number,
@@ -247,16 +249,25 @@ function rollSkillCheck() {
       skillCheckConfig,
       sendToDiscord: sendToDiscord.value
     })
-  } else {
+  } else if (rollType.value === RollTypes.SKILL_CHECK) {
     const rollResult = SkillCheckService.makeSkillCheck(
       effectiveRollParameters.value,
       props.character,
       localDifficulty.value,
       { sendToDiscord: sendToDiscord.value }
     )
-
     rollsStore.setRoll(rollResult)
     emit('update-difficulty', localDifficulty.value)
+  } else {
+    // unopposed — roll without difficulty
+    const rollResult = SkillCheckService.makeSkillCheck(
+      effectiveRollParameters.value,
+      props.character,
+      null,
+      { sendToDiscord: sendToDiscord.value }
+    )
+    rollsStore.setRoll(rollResult)
+    emit('update-difficulty', null)
   }
 
   closeModal()

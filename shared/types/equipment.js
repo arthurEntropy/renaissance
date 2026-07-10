@@ -19,6 +19,7 @@ import { createBaseEntity } from './baseEntity.js'
  * @property {boolean} isCustom - Whether this is custom/user-created equipment
  * @property {boolean} isTemplate - Whether this is a template for creating new equipment
  * @property {boolean} isMagical - Whether this equipment is magical
+ * @property {boolean} hasDifficulty - Whether this equipment sets a Difficulty that should be tracked per-character
  *
  * Categories
  * @property {UUID|null} type - Equipment type UUID reference
@@ -66,6 +67,7 @@ export function createDefaultEquipment() {
     isCustom: false,
     isTemplate: false,
     isMagical: false,
+    hasDifficulty: false,
     
     // Categories
     type: null,

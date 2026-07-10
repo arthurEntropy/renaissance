@@ -2,7 +2,7 @@
   "id": "89323e37-bd8c-4103-8fc7-12f31969dfc6",
   "isDeleted": false,
   "createdAt": "2026-04-21T13:15:50.599Z",
-  "lastModified": "2026-04-21T13:21:15.238Z",
+  "lastModified": "2026-07-08T15:03:21.869Z",
   "name": "Trap",
   "artUrl": "https://cdn.midjourney.com/3ee6fc91-d56e-4870-9b1d-e5e2754b55b2/0_0.png",
   "description": "<p>See the <em>Trapper</em> and <em>Set Trap</em> abilities.</p>",
@@ -28,5 +28,6 @@
   "damageDice": [],
   "engagementDice": [],
   "engagementSuccesses": [],
-  "defenseBonus": 0
+  "defenseBonus": 0,
+  "hasDifficulty": true
 }

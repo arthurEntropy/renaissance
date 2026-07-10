@@ -38,5 +38,6 @@
     "a1b2c3d4-e5f6-47a8-b9c0-d1e2f3a4b5c6",
     "f2a3b4c5-d6e7-48f9-a0b1-c2d3e4f5a6b7"
   ],
-  "defenseBonus": 0
+  "defenseBonus": 0,
+  "hasDifficulty": false
 }

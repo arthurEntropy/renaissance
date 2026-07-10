@@ -20,6 +20,7 @@ import { ref, computed } from 'vue'
 import BaseModal from '@/components/ui/modals/BaseModal.vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import { useCharactersStore } from '@/stores/charactersStore'
+import { useAppCharacterSheetModal } from '@/composables/useAppCharacterSheetModal'
 
 const props = defineProps({
     character: {
@@ -31,6 +32,7 @@ const props = defineProps({
 const emit = defineEmits(['close', 'deleted'])
 
 const charactersStore = useCharactersStore()
+const { close: closeCharacterSheet } = useAppCharacterSheetModal()
 const confirmationInput = ref('')
 
 const isDeleteConfirmed = computed(() => confirmationInput.value === props.character.name)
@@ -38,6 +40,7 @@ const isDeleteConfirmed = computed(() => confirmationInput.value === props.chara
 const confirmDeletion = async () => {
     if (!isDeleteConfirmed.value || !props.character) return
     await charactersStore.deleteCharacter(props.character)
+    closeCharacterSheet()
     emit('deleted')
 }
 </script>

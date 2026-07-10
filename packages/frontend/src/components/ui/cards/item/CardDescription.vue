@@ -56,6 +56,7 @@ function handleDescriptionClick(event) {
     // Check if click was on a roll link
     if (target.tagName === 'A' && target.classList.contains('roll-link')) {
         event.preventDefault()
+        event.stopPropagation()
 
         try {
             const rollData = JSON.parse(target.dataset.rollAction)

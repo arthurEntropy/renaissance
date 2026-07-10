@@ -1,263 +1,169 @@
 <template>
-    <div class="tabletop-root" @wheel.prevent="handleWheel">
-        <CardCascadePicker v-if="showPicker" :picker="cascadePicker"
-            :engagement-success-options="engagementSuccessOptions" :anchor-position="tabletopPickerAnchor"
-            :bottom-boundary="tabletopPickerBottomBoundary" :is-loading="isLoading" :show-add-all-at-every-level="true"
-            @add-item="addItem" @add-all-items="addAllItems" />
+    <div class="tabletop-root" @wheel.prevent="handleWheel" @contextmenu.prevent>
 
         <!-- Canvas Container -->
-        <div class="canvas-container" ref="canvasContainerRef" @mousedown="handleContainerMousedown">
-            <div v-if="snapToGrid" class="canvas-grid" :style="canvasGridStyle" />
-            <div v-if="selectionRectangle" class="selection-rectangle" :style="selectionRectangleStyle" />
-            <div class="canvas" :style="canvasTransformStyle">
-                <div v-for="item in canvasItems" :key="item.id" class="canvas-item"
-                    :ref="(el) => registerCardRef(item.id, el)"
-                    :class="{ 'is-dragging': isDragging(item.id), 'is-selected': isSelected(item.id) || isPendingSelection(item.id) }"
+        <div class="canvas-container" :class="{ 'is-panning': isPanning }" ref="canvasContainerRef"
+            @mousedown="handleContainerMousedown" @dragover="handleDragOver" @dragleave="handleDragLeave"
+            @drop="handleDrop">
+
+            <!-- Grid overlay (always visible, tracks canvas transform) -->
+            <div class="canvas-grid" :style="canvasGridStyle" />
+
+            <!-- The transform plane -->
+            <div class="canvas" :style="[canvasTransformStyle, canvasSizeStyle]">
+
+                <!-- Background map image -->
+                <img v-if="backgroundImage" :src="backgroundImage.url" class="canvas-bg-image" draggable="false" />
+
+                <!-- Canvas tokens -->
+                <div v-for="item in canvasItems" :key="item.id" class="canvas-item edit-hover-area"
+                    :ref="(el) => registerTokenRef(item.id, el)" :class="{ 'is-dragging': isDragging(item.id) }"
                     :style="{ transform: `translate(${item.x}px, ${item.y}px)`, zIndex: item.zIndex }"
-                    @mousedown="handleCardMousedown(item, $event)">
+                    @mousedown="handleTokenMousedown(item, $event)">
+                    <TabletopToken :name="item.name" :portrait-url="item.portraitUrl" :is-beast="item.isBeast"
+                        :size="item.size" :grid-size="gridSize" :is-selected="isSelected(item.id)" />
+                    <FloatingActionButton :variant="FAB_TYPES.DELETE" :size="FAB_SIZES.SMALL"
+                        :visibility="FAB_VISIBILITIES.ON_HOVER" tabindex="-1"
+                        style="position: absolute; top: -7px; right: -7px;" @click.stop="removeToken(item.id)" />
+                </div>
 
-                    <!-- Ability card -->
-                    <AbilityCard v-if="item.type === 'ability' && resolvedItemMap.get(item.id)"
-                        :ability="resolvedItemMap.get(item.id)" :editable="authStore.isAdmin" :deletable="true"
-                        :collapsible="false" :collapsed="false" :show-xp-badge="true" :show-action-buttons="false"
-                        :show-improvements="getImprovementsVisible(item.id)"
-                        :show-successes="getSuccessesVisible(item.id)"
-                        @update:showImprovements="setImprovementsVisible(item.id, $event)"
-                        @update:showSuccesses="setSuccessesVisible(item.id, $event)" @edit="openAbilityEdit"
-                        @update="abilitiesStore.update" @delete="removeItem(item.id)" />
+                <!-- Rubber-band selection rect -->
+                <div v-if="isSelecting && selectionRectCanvas" class="selection-rect" :style="{
+                    left: `${Math.min(selectionRectCanvas.x1, selectionRectCanvas.x2)}px`,
+                    top: `${Math.min(selectionRectCanvas.y1, selectionRectCanvas.y2)}px`,
+                    width: `${Math.abs(selectionRectCanvas.x2 - selectionRectCanvas.x1)}px`,
+                    height: `${Math.abs(selectionRectCanvas.y2 - selectionRectCanvas.y1)}px`,
+                }" />
 
-                    <!-- Stale ability placeholder -->
-                    <div v-else-if="item.type === 'ability'" class="stale-card">
-                        <span>Ability not found</span>
-                        <button @click.stop="removeItem(item.id)">Remove</button>
-                    </div>
-
-                    <!-- Equipment card -->
-                    <EquipmentCard v-if="item.type === 'equipment' && resolvedItemMap.get(item.id)"
-                        :equipment="resolvedItemMap.get(item.id)" :editable="authStore.isAdmin" :deletable="true"
-                        :duplicatable="false" :collapsible="false" :collapsed="false" :show-keeping-badge="true"
-                        :engagement-success-options="engagementSuccessOptions"
-                        :show-improvements="getImprovementsVisible(item.id)"
-                        :show-successes="getSuccessesVisible(item.id)"
-                        @update:showImprovements="setImprovementsVisible(item.id, $event)"
-                        @update:showSuccesses="setSuccessesVisible(item.id, $event)" @edit="openEquipmentEdit"
-                        @update="equipmentStore.update" @delete="removeItem(item.id)" />
-
-                    <!-- Stale equipment placeholder -->
-                    <div v-else-if="item.type === 'equipment'" class="stale-card">
-                        <span>Equipment not found</span>
-                        <button @click.stop="removeItem(item.id)">Remove</button>
-                    </div>
+                <!-- Ghost tokens (drag preview – snapped to grid) -->
+                <div v-for="ghost in activeGhosts" :key="`${ghost.x}-${ghost.y}-${ghost.name}`"
+                    class="canvas-item canvas-item--ghost"
+                    :style="{ transform: `translate(${ghost.x}px, ${ghost.y}px)`, zIndex: 9999 }">
+                    <TabletopToken :name="ghost.name" :portrait-url="ghost.portraitUrl" :is-beast="ghost.isBeast"
+                        :size="ghost.size" :grid-size="gridSize" :is-ghost="true" />
                 </div>
             </div>
 
-            <!-- Empty state hint when canvas is empty -->
-            <div v-if="canvasItems.length === 0" class="canvas-empty-hint">
-                <p>Click <strong>+ Add Card</strong> below to add abilities or equipment to the tabletop.</p>
-                <p class="hint-sub">Scroll to zoom · Drag empty space to pan · Drag a card to move it · Hold shift for
-                    multi-select</p>
-            </div>
+            <!-- Measurement overlays: one per dragged token, or the single canvas-mode overlay -->
+            <template v-if="isMeasuring && measureTracks.length > 0">
+                <TabletopMeasurementOverlay v-for="(track, i) in measureTracks" :key="`track-${i}`"
+                    :waypoints="track.waypoints" :current-point="track.currentPoint" :transform="transform"
+                    :grid-size="gridSize" :exact-mode="isCmdHeld" :token-size="track.size" :show-paths="showPaths" />
+            </template>
+            <TabletopMeasurementOverlay v-else-if="isMeasuring" :waypoints="measureWaypoints"
+                :current-point="measureCurrent" :transform="transform" :grid-size="gridSize" :exact-mode="isCmdHeld"
+                :token-size="1" :show-paths="showPaths" />
         </div>
 
-        <!-- Edit Modals -->
-        <EditAbilityModal v-if="showEditAbilityModal" :ability="abilityToEdit" @update="handleAbilityModalUpdate"
-            @delete="handleAbilityModalDelete" @close="closeEditAbilityModal" />
-
-        <EditEquipmentModal v-if="showEditEquipmentModal" :equipment="equipmentToEdit"
-            @update="handleEquipmentModalUpdate" @delete="handleEquipmentModalDelete"
-            @close="closeEditEquipmentModal" />
-
         <!-- Bottom Toolbar -->
-        <TabletopToolbar :show-picker="showPicker" :scale="transform.scale" :snap-to-grid="snapToGrid"
-            :grid-size="gridSize" :item-count="canvasItems.length" :can-undo="canUndo" :can-redo="canRedo"
-            @toggle-picker="handleTogglePicker" @zoom-in="adjustZoom(1.2)" @zoom-out="adjustZoom(1 / 1.2)"
-            @reset-view="resetView" @toggle-snap="toggleSnap" @increase-grid="increaseGridSize"
-            @decrease-grid="decreaseGridSize" @clear-all="clearAll" @undo="undo" @redo="redo" />
+        <TabletopToolbar :scale="transform.scale" :grid-size="gridSize" :item-count="canvasItems.length"
+            :can-undo="canUndo" :can-redo="canRedo" :has-background="!!backgroundImage" :grid-color="gridColor"
+            :grid-opacity="gridOpacity" :show-paths="showPaths" :is-g-m="campaignStore.isGMInActiveCampaign"
+            :tabletops="campaignStore.tabletops" :current-tabletop-id="tabletopId"
+            :active-tabletop-id="campaignStore.activeCampaign?.activeTabletopId ?? null"
+            :current-tabletop-name="currentTabletopName" @zoom-in="adjustZoom(1.2)" @zoom-out="adjustZoom(1 / 1.2)"
+            @increase-grid="increaseGridSize" @decrease-grid="decreaseGridSize" @clear-all="clearAll" @undo="undo"
+            @redo="redo" @set-background="setBackgroundImage" @clear-background="clearBackgroundImage"
+            @update-grid-color="setGridColor" @update-grid-opacity="setGridOpacity" @update-show-paths="setShowPaths"
+            @toggle-active-tabletop="handleToggleActiveTabletop" @switch-tabletop="handleSwitchTabletop" />
     </div>
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
-
-import AbilityCard from '@/components/ui/cards/item/AbilityCard.vue'
-import EquipmentCard from '@/components/ui/cards/item/EquipmentCard.vue'
-import EditAbilityModal from '@/components/editModals/EditAbilityModal.vue'
-import EditEquipmentModal from '@/components/editModals/EditEquipmentModal.vue'
-import CardCascadePicker from '@/components/ui/pickers/CardCascadePicker.vue'
-import TabletopToolbar from '@/components/features/tabletop/TabletopToolbar.vue'
+import { computed, onMounted } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import { useCampaignStore } from '@/stores/campaignStore'
 import { useTabletopCanvas } from '@/composables/useTabletopCanvas'
-import { useCardCascadePicker } from '@/composables/useCardCascadePicker'
-import { anchorFromTriggerEvent } from '@/composables/useAnchoredPickerTrigger'
+import TabletopToken from '@/components/features/tabletop/TabletopToken.vue'
+import TabletopToolbar from '@/components/features/tabletop/TabletopToolbar.vue'
+import TabletopMeasurementOverlay from '@/components/features/tabletop/TabletopMeasurementOverlay.vue'
+import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
+import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 
-// Stores
-import { useAbilitiesStore } from '@/stores/abilitiesStore'
-import { useEquipmentStore } from '@/stores/equipmentStore'
-import { useEquipmentTypesStore } from '@/stores/equipmentTypesStore'
-import { useEquipmentSubtypesStore } from '@/stores/equipmentSubtypesStore'
-import { useEquipmentGradesStore } from '@/stores/equipmentGradesStore'
-import { useEquipmentRangesStore } from '@/stores/equipmentRangesStore'
-import { useKeepingStore } from '@/stores/keepingStore'
-import { useEngagementSuccessesStore } from '@/stores/engagementSuccessesStore'
-import { useSourcesStore } from '@/stores/sourcesStore'
-import { useAbilitySchoolsStore } from '@/stores/abilitySchoolsStore'
-import { useAuthStore } from '@/stores/authStore'
+const route = useRoute()
+const router = useRouter()
+const campaignStore = useCampaignStore()
 
-// Stores
-const abilitiesStore = useAbilitiesStore()
-const equipmentStore = useEquipmentStore()
-const equipmentTypesStore = useEquipmentTypesStore()
-const equipmentSubtypesStore = useEquipmentSubtypesStore()
-const equipmentGradesStore = useEquipmentGradesStore()
-const equipmentRangesStore = useEquipmentRangesStore()
-const keepingStore = useKeepingStore()
-const engagementSuccessesStore = useEngagementSuccessesStore()
-const sourcesStore = useSourcesStore()
-const abilitySchoolsStore = useAbilitySchoolsStore()
-const authStore = useAuthStore()
+const campaignSlug = computed(() => route.params.slug)
+const tabletopId = computed(() => route.params.tabletopId)
+const campaign = computed(() => campaignStore.getBySlug(campaignSlug.value))
+const campaignId = computed(() => campaign.value?.id)
 
-// Composables
+const currentTabletopName = computed(() => {
+    const id = tabletopId.value
+    if (!id) return ''
+    return campaignStore.tabletops.find((t) => t.id === id)?.name ?? ''
+})
+
 const {
     canvasContainerRef,
     canvasItems,
-    resolvedItemMap,
     transform,
-    snapToGrid,
+    backgroundImage,
     gridSize,
+    gridColor,
+    gridOpacity,
     canvasTransformStyle,
     canvasGridStyle,
+    canvasSizeStyle,
+    activeGhosts,
     canUndo,
     canRedo,
     undo,
     redo,
-    selectionRectangle,
     isSelected,
-    isPendingSelection,
     isDragging,
-    registerCardRef,
-    getImprovementsVisible,
-    setImprovementsVisible,
-    getSuccessesVisible,
-    setSuccessesVisible,
+    isPanning,
+    isSelecting,
+    selectionRectCanvas,
+    isMeasuring,
+    measureTracks,
+    measureWaypoints,
+    measureCurrent,
+    isCmdHeld,
+    registerTokenRef,
     handleWheel,
     handleContainerMousedown,
-    handleCardMousedown,
+    handleTokenMousedown,
+    handleDragOver,
+    handleDragLeave,
+    handleDrop,
     adjustZoom,
-    resetView,
-    toggleSnap,
     increaseGridSize,
     decreaseGridSize,
-    addItem,
-    addAllItems,
-    removeItem,
-    removeItemsBySource,
+    setBackgroundImage,
+    clearBackgroundImage,
+    setGridColor,
+    setGridOpacity,
+    showPaths,
+    setShowPaths,
+    removeToken,
     clearAll,
-} = useTabletopCanvas()
+    loadState,
+} = useTabletopCanvas(campaignId, tabletopId)
 
-const cascadePicker = useCardCascadePicker()
-const { showPicker, togglePicker } = cascadePicker
-const tabletopPickerAnchor = ref({ x: 0, y: 0 })
-const tabletopPickerBottomBoundary = ref(null)
-
-const handleTogglePicker = (event) => {
-    const anchor = anchorFromTriggerEvent(event, { yMode: 'top', yOffset: 12 })
-    if (anchor) {
-        tabletopPickerAnchor.value = anchor
-        tabletopPickerBottomBoundary.value = anchor.y + 4
-    }
-
-    togglePicker()
-}
-
-// Selection rectangle visual style
-const selectionRectangleStyle = computed(() => {
-    if (!selectionRectangle.value) return {}
-    const { x1, y1, x2, y2 } = selectionRectangle.value
-    return {
-        left: Math.min(x1, x2) + 'px',
-        top: Math.min(y1, y2) + 'px',
-        width: Math.abs(x2 - x1) + 'px',
-        height: Math.abs(y2 - y1) + 'px',
-    }
-})
-
-// Loading
-const isLoading = ref(true)
-
-// Store-derived data shared with canvas components
-const engagementSuccessOptions = computed(() => engagementSuccessesStore.items)
-
-// Edit modals – Abilities
-const showEditAbilityModal = ref(false)
-const abilityToEdit = ref(null)
-
-const openAbilityEdit = (ability) => {
-    abilityToEdit.value = ability
-    showEditAbilityModal.value = true
-}
-
-const closeEditAbilityModal = () => {
-    showEditAbilityModal.value = false
-    abilityToEdit.value = null
-}
-
-const handleAbilityModalUpdate = async (edited) => {
-    await abilitiesStore.update(edited)
-    closeEditAbilityModal()
-}
-
-const handleAbilityModalDelete = async (ability) => {
-    if (!ability) return
-    await abilitiesStore.update({ ...ability, isDeleted: true })
-    closeEditAbilityModal()
-    removeItemsBySource('ability', ability.id)
-}
-
-// Edit modals – Equipment
-const showEditEquipmentModal = ref(false)
-const equipmentToEdit = ref(null)
-
-const openEquipmentEdit = (equipment) => {
-    equipmentToEdit.value = equipment
-    showEditEquipmentModal.value = true
-}
-
-const closeEditEquipmentModal = () => {
-    showEditEquipmentModal.value = false
-    equipmentToEdit.value = null
-}
-
-const handleEquipmentModalUpdate = async (edited) => {
-    await equipmentStore.update(edited)
-    closeEditEquipmentModal()
-}
-
-const handleEquipmentModalDelete = async (equipment) => {
-    if (!equipment) return
-    await equipmentStore.update({ ...equipment, isDeleted: true })
-    closeEditEquipmentModal()
-    removeItemsBySource('equipment', equipment.id)
-}
-
-// Data loading
-onMounted(async () => {
-    const fetchTasks = [
-        abilitiesStore.fetch(),
-        equipmentStore.fetch(),
-        sourcesStore.fetchSources(),
-        equipmentTypesStore.fetch(),
-        equipmentSubtypesStore.fetch(),
-        equipmentGradesStore.fetch(),
-        equipmentRangesStore.fetch(),
-        keepingStore.fetch(),
-        abilitySchoolsStore.fetch(),
-        engagementSuccessesStore.fetch(),
-    ]
-
+async function handleToggleActiveTabletop() {
+    if (!campaignId.value || !tabletopId.value) return
+    const currentActiveId = campaignStore.activeCampaign?.activeTabletopId ?? null
+    const newActiveId = tabletopId.value === currentActiveId ? null : tabletopId.value
     try {
-        await Promise.all(fetchTasks)
-    } finally {
-        isLoading.value = false
+        await campaignStore.setActiveTabletop(campaignId.value, newActiveId)
+    } catch (err) {
+        console.error('Failed to toggle active tabletop:', err)
     }
+}
+
+function handleSwitchTabletop(targetTabletopId) {
+    if (!campaignSlug.value || !targetTabletopId) return
+    router.push(`/campaigns/${campaignSlug.value}/tabletop/${targetTabletopId}`)
+}
+
+onMounted(async () => {
+    // Ensure campaign and tabletop data are in the store before loading canvas state
+    if (campaignId.value && campaignStore.tabletops.length === 0) {
+        await campaignStore.fetchTabletops(campaignId.value)
+    }
+    loadState()
 })
 </script>
 
@@ -274,114 +180,73 @@ onMounted(async () => {
     z-index: var(--z-overlay);
 }
 
+/* Canvas container */
 .canvas-container {
     flex: 1;
     position: relative;
     overflow: hidden;
-    cursor: grab;
 }
 
-/* Grid overlay */
+.canvas-container.is-panning,
+.canvas-container.is-panning * {
+    cursor: grabbing !important;
+}
+
+/* Grid overlay (outside the canvas div – tracks transform via backgroundPosition) */
 .canvas-grid {
     position: absolute;
     inset: 0;
     pointer-events: none;
-    background-image:
-        linear-gradient(to right, rgba(255, 255, 255, 0.06) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
-    z-index: var(--z-base);
+    z-index: var(--z-floating);
 }
 
-.canvas-container:active {
-    cursor: grabbing;
-}
-
-/* Canvas (the infinite transform plane) */
+/* The infinite/bounded transform plane */
 .canvas {
     position: absolute;
     top: 0;
     left: 0;
     transform-origin: 0 0;
-    /* Promote to GPU layer so pan/zoom never repaints card content */
     will-change: transform;
 }
 
-/* Canvas Items */
+/* Background map image – fills the bounded canvas */
+.canvas-bg-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    display: block;
+    pointer-events: none;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+/* Canvas tokens */
 .canvas-item {
     position: absolute;
-    /* Static origin — position is driven entirely by transform: translate(x, y) */
     left: 0;
     top: 0;
-    width: 300px;
     cursor: grab;
-    /* box-shadow is GPU-accelerated; filter: drop-shadow was CPU-bound and very expensive at scale */
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.65);
-    transition: box-shadow var(--transition-fast);
-    /* Tell the browser changes to one card don't affect siblings' layout or paint */
-    contain: layout style;
+    /* overflow: visible so the name label can spill below the token square */
+    overflow: visible;
 }
 
 .canvas-item.is-dragging {
-    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.9);
     cursor: grabbing;
+    opacity: 0.6;
 }
 
-.canvas-item.is-selected {
-    outline: 2px solid var(--color-primary);
-    outline-offset: 3px;
-    border-radius: var(--radius-5);
-}
-
-/* Rubber-band selection rectangle */
-.selection-rectangle {
-    position: absolute;
-    border: 1.5px dashed var(--color-primary);
-    background: rgba(255, 255, 255, 0.04);
+.canvas-item--ghost {
     pointer-events: none;
-    z-index: var(--z-dropdown);
 }
 
-/* Stale card placeholder */
-.stale-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: var(--space-sm);
-    padding: var(--space-lg);
-    background: var(--color-bg-secondary);
-    border: 1px dashed var(--color-gray-medium);
-    border-radius: var(--radius-10);
-    color: var(--color-text-muted);
-    font-size: var(--font-size-12);
-    font-style: italic;
-}
-
-.stale-card button {
-    background: var(--color-danger);
-    color: var(--color-danger-text);
-    border: none;
-    border-radius: var(--radius-5);
-    padding: 2px var(--space-sm);
-    font-size: var(--font-size-12);
-    cursor: pointer;
-}
-
-/* Empty canvas hint */
-.canvas-empty-hint {
+/* Rubber-band selection rectangle (canvas-space coords, inside .canvas div) */
+.selection-rect {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    color: var(--color-text-muted);
+    border: 1px solid var(--color-text-primary);
+    background: rgba(255, 255, 255, 0.1);
     pointer-events: none;
-    font-size: var(--font-size-14);
-    line-height: 1.8;
-}
-
-.hint-sub {
-    font-size: var(--font-size-12);
-    color: var(--color-gray-medium);
+    z-index: 9998;
 }
 </style>

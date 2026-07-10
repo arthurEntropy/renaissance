@@ -118,6 +118,37 @@ class CampaignService {
     const response = await apiClient.delete(`/campaigns/${campaignId}/beasts/${characterId}`)
     return response.data
   }
+
+  // Tabletops
+  async getTabletops(campaignId) {
+    const response = await apiClient.get(`/campaigns/${campaignId}/tabletops`)
+    return response.data
+  }
+
+  async createTabletop(campaignId, data) {
+    const response = await apiClient.post(`/campaigns/${campaignId}/tabletops`, data)
+    return response.data
+  }
+
+  async updateTabletop(campaignId, tabletopId, updates) {
+    const response = await apiClient.put(`/campaigns/${campaignId}/tabletops/${tabletopId}`, updates)
+    return response.data
+  }
+
+  async deleteTabletop(campaignId, tabletopId) {
+    const response = await apiClient.delete(`/campaigns/${campaignId}/tabletops/${tabletopId}`)
+    return response.data
+  }
+
+  async reorderTabletops(campaignId, tabletopIds) {
+    const response = await apiClient.put(`/campaigns/${campaignId}/tabletops/order`, { tabletopIds })
+    return response.data
+  }
+
+  async setActiveTabletop(campaignId, tabletopId) {
+    const response = await apiClient.put(`/campaigns/${campaignId}/active-tabletop`, { tabletopId })
+    return response.data
+  }
 }
 
 export default new CampaignService()

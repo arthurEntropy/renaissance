@@ -26,6 +26,9 @@ export const useCampaignStore = defineStore('campaigns', () => {
     campaignCharacters.value.filter((c) => isBeastInstance(c))
   )
 
+  // Tabletops for the active campaign
+  const tabletops = ref([])
+
   // The currently active campaign (user entered it)
   const activeCampaign = computed(() => {
     const activeId = userStore.userProfile?.activeCampaignId
@@ -34,6 +37,13 @@ export const useCampaignStore = defineStore('campaigns', () => {
   })
 
   const isInCampaign = computed(() => activeCampaign.value !== null)
+
+  // The active tabletop for the current campaign (set by the GM)
+  const activeTabletop = computed(() => {
+    const id = activeCampaign.value?.activeTabletopId
+    if (!id) return null
+    return tabletops.value.find((t) => t.id === id) || null
+  })
 
   // The user's membership in the active campaign
   const activeMembership = computed(() => {
@@ -76,6 +86,7 @@ export const useCampaignStore = defineStore('campaigns', () => {
     campaigns.value = []
     pendingInvites.value = []
     campaignCharacters.value = []
+    tabletops.value = []
     isLoading.value = false
     error.value = null
   }
@@ -368,6 +379,95 @@ export const useCampaignStore = defineStore('campaigns', () => {
     }
   }
 
+  // ─── Tabletop actions ─────────────────────────────────────────────────────
+
+  const fetchTabletops = async (campaignId) => {
+    try {
+      tabletops.value = await CampaignService.getTabletops(campaignId)
+    } catch (err) {
+      console.error('Error fetching tabletops:', err)
+    }
+  }
+
+  const createTabletop = async (campaignId, data) => {
+    error.value = null
+    try {
+      const { tabletop, campaign: updatedCampaign } = await CampaignService.createTabletop(campaignId, data)
+      tabletops.value = [...tabletops.value, tabletop]
+      upsertCampaign(updatedCampaign)
+      return tabletop
+    } catch (err) {
+      console.error('Error creating tabletop:', err)
+      error.value = err.message
+      throw err
+    }
+  }
+
+  const updateTabletop = async (campaignId, tabletopId, updates) => {
+    // Optimistic update
+    const idx = tabletops.value.findIndex((t) => t.id === tabletopId)
+    const original = idx !== -1 ? tabletops.value[idx] : null
+    if (original) {
+      tabletops.value[idx] = { ...original, ...updates }
+    }
+    try {
+      const updated = await CampaignService.updateTabletop(campaignId, tabletopId, updates)
+      if (idx !== -1) tabletops.value[idx] = updated
+      return updated
+    } catch (err) {
+      if (original && idx !== -1) tabletops.value[idx] = original
+      console.error('Error updating tabletop:', err)
+      throw err
+    }
+  }
+
+  const deleteTabletop = async (campaignId, tabletopId) => {
+    error.value = null
+    try {
+      const updatedCampaign = await CampaignService.deleteTabletop(campaignId, tabletopId)
+      tabletops.value = tabletops.value.filter((t) => t.id !== tabletopId)
+      upsertCampaign(updatedCampaign)
+      return updatedCampaign
+    } catch (err) {
+      console.error('Error deleting tabletop:', err)
+      error.value = err.message
+      throw err
+    }
+  }
+
+  const reorderTabletops = async (campaignId, tabletopIds) => {
+    // Optimistic update
+    const ordered = tabletopIds.map((id) => tabletops.value.find((t) => t.id === id)).filter(Boolean)
+    const original = [...tabletops.value]
+    tabletops.value = ordered
+    try {
+      const updatedCampaign = await CampaignService.reorderTabletops(campaignId, tabletopIds)
+      upsertCampaign(updatedCampaign)
+      return updatedCampaign
+    } catch (err) {
+      tabletops.value = original
+      console.error('Error reordering tabletops:', err)
+      throw err
+    }
+  }
+
+  const setActiveTabletop = async (campaignId, tabletopId) => {
+    const idx = campaigns.value.findIndex((c) => c.id === campaignId)
+    const original = idx !== -1 ? campaigns.value[idx] : null
+    if (original) {
+      campaigns.value[idx] = { ...original, activeTabletopId: tabletopId || null }
+    }
+    try {
+      const updated = await CampaignService.setActiveTabletop(campaignId, tabletopId)
+      upsertCampaign(updated)
+      return updated
+    } catch (err) {
+      if (original) upsertCampaign(original)
+      console.error('Error setting active tabletop:', err)
+      throw err
+    }
+  }
+
   const getById = (id) => campaigns.value.find((c) => c.id === id) || null
   const getBySlug = (slug) => campaigns.value.find((c) => c.slug === slug) || null
 
@@ -387,6 +487,8 @@ export const useCampaignStore = defineStore('campaigns', () => {
     campaignCharacters,
     campaignNPCs,
     campaignBeastInstances,
+    tabletops,
+    activeTabletop,
     reset,
     fetch,
     create,
@@ -410,6 +512,12 @@ export const useCampaignStore = defineStore('campaigns', () => {
     saveShop,
     updateShop,
     deleteShop,
+    fetchTabletops,
+    createTabletop,
+    updateTabletop,
+    deleteTabletop,
+    reorderTabletops,
+    setActiveTabletop,
     getById,
     getBySlug,
   }

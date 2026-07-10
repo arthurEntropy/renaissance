@@ -85,6 +85,15 @@ import { createBaseEntity } from './baseEntity.js'
  */
 
 /**
+ * @typedef {Object} HunterTrap
+ * @property {UUID} id - Local UUID
+ * @property {string} imageUrl - Icon path or custom image URL
+ * @property {boolean} isDropped - Whether the trap has been dropped in place
+ * @property {boolean} isThrown - Whether the trap has been thrown (mutually exclusive with isDropped)
+ * @property {number|null} difficulty - The set Difficulty for the trap (null if not set)
+ */
+
+/**
  * @typedef {Object} SummonerVessel
  * @property {UUID} id - Local UUID
  * @property {UUID|null} beastId - ID of the captured beast character (null if vessel is empty)
@@ -184,6 +193,7 @@ import { createBaseEntity } from './baseEntity.js'
  * @property {Object} manaPool - Channeler: each key is a mana color, value is an array of booleans (true = tapped)
  * @property {WitchcraftToken[]} witchcraftTokens - Active witchcraft items (tokens and talismans) (Witch mestiere only)
  * @property {SummonerVessel[]} summonerVessels - Vessels carried by this Summoner character
+ * @property {HunterTrap[]} hunterTraps - Trap slots for the Hunter mestiere
  * 
  * // Campaign-related fields
  * @property {string|null} campaignId - If set, this character belongs to a campaign
@@ -345,6 +355,7 @@ function createDefaultCharacterBase() {
     manaPool: { white: [], blue: [], black: [], red: [], green: [], colorless: [] },
     witchcraftTokens: [],
     summonerVessels: [],
+    hunterTraps: [],
 
     // Campaign-related fields
     campaignId: null,

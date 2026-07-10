@@ -1,8 +1,8 @@
 {
   "id": "eeb07598-019a-4dea-a027-c7c27c5ffa8b",
-  "isDeleted": false,
+  "isDeleted": true,
   "createdAt": "2026-07-03T18:09:17.139Z",
-  "lastModified": "2026-07-04T14:16:27.074Z",
+  "lastModified": "2026-07-08T12:33:14.369Z",
   "characterType": "playerCharacter",
   "name": "Tooth",
   "featuredArtUrls": [
@@ -309,9 +309,10 @@
   "keeping": "5e6f7a8b-9c0d-4e1f-2a3b-4c5d6e7f8a9b",
   "treasure": 12,
   "xp": 0,
-  "updatedAt": "2026-07-04T14:16:27.074Z",
+  "updatedAt": "2026-07-08T12:33:14.369Z",
   "description": "",
   "size": 0,
   "reach": 0,
-  "featuredArtUrl": "https://cdn.midjourney.com/bff8c211-796e-4598-84d9-3013c2fc4d17/0_3.png"
+  "featuredArtUrl": "https://cdn.midjourney.com/bff8c211-796e-4598-84d9-3013c2fc4d17/0_3.png",
+  "hunterTraps": []
 }

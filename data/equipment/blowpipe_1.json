@@ -30,5 +30,6 @@
   "engagementDice": [],
   "engagementSuccesses": [],
   "defenseBonus": 0,
-  "id": "4e4d30f4-3477-4ebc-88fd-cd2c7e57b2b6"
+  "id": "4e4d30f4-3477-4ebc-88fd-cd2c7e57b2b6",
+  "hasDifficulty": false
 }

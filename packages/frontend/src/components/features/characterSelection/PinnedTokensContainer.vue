@@ -1,13 +1,26 @@
 <template>
     <div v-if="hasAnyTokens" class="token-rail-container">
         <div v-if="hasFocusedTokens" class="token-group token-group--focused"
-            :class="{ 'is-active-view': isViewingFocusedCharacterSheet }">
+            :class="{ 'is-active-view': isViewingFocusedCharacterSheet, 'token-group--has-stats': showFocusedCharacterStats }">
             <div class="token-group-header">
                 <span class="token-group-label">Selected</span>
             </div>
             <div class="token-group-members">
-                <component v-if="visibleFocusedCharacter" :is="getTokenComponent(visibleFocusedCharacter)"
-                    class="token-item" v-bind="getFocusedTokenProps(visibleFocusedCharacter)" />
+                <div v-if="visibleFocusedCharacter" class="token-item draggable-token-wrapper" draggable="true"
+                    @dragstart="handleTokenDragStart($event, visibleFocusedCharacter)" @dragend="handleTokenDragEnd">
+                    <component :is="getTokenComponent(visibleFocusedCharacter)"
+                        v-bind="getFocusedTokenProps(visibleFocusedCharacter)" />
+                </div>
+            </div>
+            <div v-if="showFocusedCharacterStats" class="token-group-stats">
+                <div class="token-stat token-stat--treasure">
+                    <img :src="keepingIcon" alt="treasure" class="token-stat-icon" />
+                    <span class="token-stat-value">{{ visibleFocusedCharacter?.treasure ?? 0 }}</span>
+                </div>
+                <div class="token-stat token-stat--xp">
+                    <span class="token-stat-label">XP</span>
+                    <span class="token-stat-value">{{ visibleFocusedCharacter?.xp ?? 0 }}</span>
+                </div>
             </div>
         </div>
 
@@ -16,8 +29,11 @@
                 <span class="token-group-label token-group-label--summoned">Summoned</span>
             </div>
             <div class="token-group-members">
-                <BeastToken class="token-item" :beast="summonersBeast" :disableDefaultClick="true"
-                    @click="(beast) => openCharacterSheet(beast)" />
+                <div class="token-item draggable-token-wrapper" draggable="true"
+                    @dragstart="handleTokenDragStart($event, summonersBeast)" @dragend="handleTokenDragEnd">
+                    <BeastToken :beast="summonersBeast" :disableDefaultClick="true"
+                        @click="(beast) => openCharacterSheet(beast)" />
+                </div>
             </div>
         </div>
 
@@ -29,10 +45,15 @@
                 <span class="token-group-name">{{ group.name }}</span>
                 <span v-if="isGroupCollapsed(group.id)" class="token-group-members-count">Members: {{
                     group.members.length }}</span>
+                <span v-if="group.initiativeResults?.groupTotal != null" class="token-group-initiative">
+                    Initiative: {{ group.initiativeResults.groupTotal }}
+                </span>
             </div>
             <div v-if="!isGroupCollapsed(group.id)" class="token-group-members">
-                <component v-for="member in group.members" :key="member.id" :is="getTokenComponent(member)"
-                    v-bind="getTokenProps(member, group.id)" class="token-item" />
+                <div v-for="member in group.members" :key="member.id" class="token-item draggable-token-wrapper"
+                    draggable="true" @dragstart="handleTokenDragStart($event, member)" @dragend="handleTokenDragEnd">
+                    <component :is="getTokenComponent(member)" v-bind="getTokenProps(member, group.id)" />
+                </div>
             </div>
             <button type="button" class="token-group-collapse-toggle" :aria-expanded="!isGroupCollapsed(group.id)"
                 @click="toggleGroupCollapsed(group.id)">
@@ -59,10 +80,13 @@ import { useSummonedBeast } from '@/composables/useSummonedBeast'
 import { useAppCharacterSheetModal } from '@/composables/useAppCharacterSheetModal'
 import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 import { isBeastTemplate, isBeastInstance } from '@/utils/characterTypeGuards'
+import keepingIcon from '@/assets/icons/keeping/keeping.png'
+import { useTabletopDragState } from '@/composables/useTabletopDragState'
 
 const characterContextStore = useCharacterContextStore()
 const charactersStore = useCharactersStore()
 const campaignStore = useCampaignStore()
+const { setDraggingCharacter, clearDraggingCharacter } = useTabletopDragState()
 const { getSummonedBeastForCharacterId } = useSummonedBeast()
 const { open: openCharacterSheet, close: closeCharacterSheet, isOpen: isCharacterSheetOpen } = useAppCharacterSheetModal()
 const collapsedGroupIds = ref(new Set())
@@ -129,6 +153,12 @@ const hasAnyTokens = computed(() => {
     return hasFocusedTokens.value || !!summonersBeast.value || resolvedPinnedGroups.value.length > 0
 })
 
+// Show treasure & XP on focused token hover on any page (for non-beast characters)
+const showFocusedCharacterStats = computed(() => {
+    if (!visibleFocusedCharacter.value || isBeastCharacter(visibleFocusedCharacter.value)) return false
+    return true
+})
+
 function getTokenComponent(character) {
     return isBeastCharacter(character) ? BeastToken : CharacterToken
 }
@@ -180,6 +210,34 @@ function getTokenProps(character, groupId = null) {
         onRemove: groupId ? () => removeMemberFromPinnedGroup(groupId, character.id) : undefined,
         onClick: () => openCharacterSheet(character),
     }
+}
+
+function buildDragSnapshot(character) {
+    return {
+        characterId: character.id,
+        isBeast: isBeastCharacter(character),
+        name: character.name ?? 'Unknown',
+        portraitUrl: character.featuredArtUrls?.[0] ?? null,
+        size: character.size || 1,
+    }
+}
+
+function handleTokenDragStart(event, character) {
+    if (!character) return
+    const snapshot = buildDragSnapshot(character)
+    setDraggingCharacter(snapshot)
+    event.dataTransfer.setData('application/vtt-character', JSON.stringify(snapshot))
+    event.dataTransfer.effectAllowed = 'copy'
+    // Suppress the browser's default drag image so only the canvas ghost is shown
+    const phantom = document.createElement('div')
+    phantom.style.cssText = 'position:fixed;left:-9999px;top:-9999px;width:1px;height:1px;'
+    document.body.appendChild(phantom)
+    event.dataTransfer.setDragImage(phantom, 0, 0)
+    requestAnimationFrame(() => phantom.remove())
+}
+
+function handleTokenDragEnd() {
+    clearDraggingCharacter()
 }
 
 function getFocusedTokenProps(character) {
@@ -247,6 +305,60 @@ function getFocusedTokenProps(character) {
     border: 2px solid var(--color-white);
 }
 
+/* Stats footer: hidden by default, revealed on hover */
+.token-group-stats {
+    display: flex;
+    gap: 0;
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transition: max-height var(--transition-normal), opacity var(--transition-normal);
+}
+
+.token-group--has-stats:hover .token-group-stats {
+    max-height: 40px;
+    opacity: 1;
+}
+
+.token-stat {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-xs);
+    padding: var(--space-xs) var(--space-sm);
+}
+
+.token-stat--treasure {
+    background-color: var(--color-primary);
+    border-bottom-left-radius: var(--radius-5);
+}
+
+.token-stat--xp {
+    background-color: var(--color-accent-cyan);
+    border-bottom-right-radius: var(--radius-5);
+}
+
+.token-stat-icon {
+    width: 12px;
+    height: 12px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.token-stat-label {
+    font-size: var(--font-size-10);
+    font-style: italic;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-black);
+}
+
+.token-stat-value {
+    font-size: var(--font-size-13);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-black);
+}
+
 .token-group-label--summoned {
     color: var(--color-accent-cyan) !important;
 }
@@ -311,6 +423,14 @@ function getFocusedTokenProps(character) {
     letter-spacing: 0.04em;
 }
 
+.token-group-initiative {
+    font-size: var(--font-size-11);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
 .unpin-fab {
     position: absolute;
     top: 12px;
@@ -336,11 +456,17 @@ function getFocusedTokenProps(character) {
 }
 
 /* Every token inside rail uses flow layout rather than fixed positioning */
-:deep(.token-item.character-token),
 :deep(.token-group-members .character-token) {
     position: relative;
     top: unset;
     left: unset;
+}
+
+/* Draggable wrapper: block flex-item that shrinks to token's natural size */
+.draggable-token-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .unpin-all-btn {

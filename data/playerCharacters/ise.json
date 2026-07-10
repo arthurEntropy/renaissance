@@ -1,8 +1,8 @@
 {
   "id": "8e8bc889-da4b-40cd-a0f1-8f5deb9b9d0d",
-  "isDeleted": false,
+  "isDeleted": true,
   "createdAt": "2026-05-14T21:14:39.479Z",
-  "lastModified": "2026-05-14T23:13:38.421Z",
+  "lastModified": "2026-07-08T12:32:57.290Z",
   "characterType": "playerCharacter",
   "name": "Ise",
   "featuredArtUrls": [
@@ -345,5 +345,6 @@
   "description": "",
   "size": 0,
   "reach": 0,
-  "updatedAt": "2026-05-14T23:13:38.421Z"
+  "updatedAt": "2026-07-08T12:32:57.290Z",
+  "hunterTraps": []
 }

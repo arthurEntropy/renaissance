@@ -1,8 +1,8 @@
 {
   "id": "b146fe7d-e513-4321-a466-0e785656725c",
-  "isDeleted": false,
+  "isDeleted": true,
   "createdAt": "2026-05-14T20:41:21.993Z",
-  "lastModified": "2026-05-19T21:18:43.843Z",
+  "lastModified": "2026-07-08T12:32:27.070Z",
   "characterType": "playerCharacter",
   "name": "Dne'dine",
   "featuredArtUrls": [
@@ -297,7 +297,8 @@
   "description": "",
   "size": 0,
   "reach": 0,
-  "updatedAt": "2026-05-19T21:18:43.843Z",
+  "updatedAt": "2026-07-08T12:32:27.070Z",
   "isPublicPreview": false,
-  "featuredArtUrl": "https://cdn.midjourney.com/1afdec27-81b8-4900-b56e-c88e9fbf6d63/0_2.png"
+  "featuredArtUrl": "https://cdn.midjourney.com/1afdec27-81b8-4900-b56e-c88e9fbf6d63/0_2.png",
+  "hunterTraps": []
 }

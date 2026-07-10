@@ -1,8 +1,8 @@
 {
   "id": "a2dd5069-a3fc-4432-ae7c-90ed749741b6",
-  "isDeleted": false,
+  "isDeleted": true,
   "createdAt": "2026-05-14T23:15:47.602Z",
-  "lastModified": "2026-07-03T18:09:00.979Z",
+  "lastModified": "2026-07-08T12:33:22.962Z",
   "characterType": "playerCharacter",
   "name": "Ugo",
   "featuredArtUrls": [
@@ -281,10 +281,11 @@
   "keeping": "3c4d5e6f-7a8b-4c9d-0e1f-2a3b4c5d6e7f",
   "treasure": 10,
   "xp": 0,
-  "updatedAt": "2026-07-03T18:09:00.979Z",
+  "updatedAt": "2026-07-08T12:33:22.962Z",
   "description": "",
   "size": 0,
   "reach": 0,
   "isPublicPreview": false,
-  "featuredArtUrl": "https://cdn.midjourney.com/94f59f8d-336c-4a8d-b212-b07b5471ed4d/0_0.png"
+  "featuredArtUrl": "https://cdn.midjourney.com/94f59f8d-336c-4a8d-b212-b07b5471ed4d/0_0.png",
+  "hunterTraps": []
 }

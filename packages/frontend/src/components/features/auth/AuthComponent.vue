@@ -46,10 +46,6 @@
                         @click.stop="closeDropdown">
                         Admin Panel
                     </router-link>
-                    <router-link v-if="authStore.isAdmin" to="/tabletop" class="dropdown-item dropdown-item--admin"
-                        @click.stop="closeDropdown">
-                        Tabletop
-                    </router-link>
                     <router-link v-if="authStore.isAdmin" to="/design-lab" class="dropdown-item dropdown-item--admin"
                         @click.stop="closeDropdown">
                         Design Lab

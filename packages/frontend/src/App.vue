@@ -43,6 +43,9 @@
     <!-- Active abilities token rail (right edge) -->
     <ActiveAbilitiesContainer v-if="authStore.isAuthenticated && isCharacterSheetOpen" />
 
+    <!-- Active tabletop button (bottom-right, hidden on home and tabletop pages) -->
+    <ActiveTabletopContainer v-if="showActiveTabletop" />
+
     <!-- Main Content -->
     <div class="content-area">
       <!-- Not invited modal -->
@@ -92,6 +95,7 @@ import CardPreviewOverlay from '@/components/ui/cards/preview/CardPreviewOverlay
 import CampaignBadge from '@/components/features/campaigns/CampaignBadge.vue'
 import PinnedTokensContainer from '@/components/features/characterSelection/PinnedTokensContainer.vue'
 import ActiveAbilitiesContainer from '@/components/features/characterSelection/ActiveAbilitiesContainer.vue'
+import ActiveTabletopContainer from '@/components/features/tabletop/ActiveTabletopContainer.vue'
 import CharacterSheet from '@/components/features/characterSheet/CharacterSheet.vue'
 import { useAppCharacterSheetModal } from '@/composables/useAppCharacterSheetModal'
 import { useProgressiveOptimizedImage } from '@/composables/useOptimizedImage'
@@ -110,6 +114,14 @@ const characterContextStore = useCharacterContextStore()
 const campaignStore = useCampaignStore()
 const shouldShowOverlay = computed(() => route.meta?.overlay === true)
 const isActiveSection = (path) => route.path === path || route.path.startsWith(path + '/')
+
+// The active-tabletop button is suppressed on the home page and on the tabletop canvas itself
+const showActiveTabletop = computed(() => {
+  if (!authStore.isAuthenticated) return false
+  if (route.path === '/') return false
+  if (route.path.includes('/tabletop/')) return false
+  return true
+})
 
 // Suppress nav active highlight when viewing a character/beast sheet —
 // the PinnedTokensContainer provides navigation feedback in that state
