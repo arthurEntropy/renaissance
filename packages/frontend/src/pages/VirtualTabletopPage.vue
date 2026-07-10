@@ -39,41 +39,51 @@
                 <div v-for="ghost in activeGhosts" :key="`${ghost.x}-${ghost.y}-${ghost.name}`"
                     class="canvas-item canvas-item--ghost"
                     :style="{ transform: `translate(${ghost.x}px, ${ghost.y}px)`, zIndex: 9999 }">
-                    <TabletopToken :name="ghost.name" :portrait-url="ghost.portraitUrl"
-                        :is-beast="ghost.isBeast" :size="ghost.size" :grid-size="gridSize"
-                        :is-ghost="true" />
+                    <TabletopToken :name="ghost.name" :portrait-url="ghost.portraitUrl" :is-beast="ghost.isBeast"
+                        :size="ghost.size" :grid-size="gridSize" :is-ghost="true" />
                 </div>
             </div>
 
             <!-- Measurement overlays: one per dragged token, or the single canvas-mode overlay -->
             <template v-if="isMeasuring && measureTracks.length > 0">
                 <TabletopMeasurementOverlay v-for="(track, i) in measureTracks" :key="`track-${i}`"
-                    :waypoints="track.waypoints" :current-point="track.currentPoint"
-                    :transform="transform" :grid-size="gridSize" :exact-mode="isCmdHeld"
-                    :token-size="track.size" />
+                    :waypoints="track.waypoints" :current-point="track.currentPoint" :transform="transform"
+                    :grid-size="gridSize" :exact-mode="isCmdHeld" :token-size="track.size" />
             </template>
             <TabletopMeasurementOverlay v-else-if="isMeasuring" :waypoints="measureWaypoints"
-                :current-point="measureCurrent" :transform="transform" :grid-size="gridSize"
-                :exact-mode="isCmdHeld" :token-size="1" />
+                :current-point="measureCurrent" :transform="transform" :grid-size="gridSize" :exact-mode="isCmdHeld"
+                :token-size="1" />
         </div>
 
         <!-- Bottom Toolbar -->
         <TabletopToolbar :scale="transform.scale" :grid-size="gridSize" :item-count="canvasItems.length"
             :can-undo="canUndo" :can-redo="canRedo" :has-background="!!backgroundImage" :grid-color="gridColor"
-            :grid-opacity="gridOpacity" :show-paths="showPaths" @zoom-in="adjustZoom(1.2)" @zoom-out="adjustZoom(1 / 1.2)"
-            @increase-grid="increaseGridSize" @decrease-grid="decreaseGridSize" @clear-all="clearAll" @undo="undo"
-            @redo="redo" @set-background="setBackgroundImage" @clear-background="clearBackgroundImage"
-            @update-grid-color="setGridColor" @update-grid-opacity="setGridOpacity" @update-show-paths="setShowPaths" />
+            :grid-opacity="gridOpacity" :show-paths="showPaths" @zoom-in="adjustZoom(1.2)"
+            @zoom-out="adjustZoom(1 / 1.2)" @increase-grid="increaseGridSize" @decrease-grid="decreaseGridSize"
+            @clear-all="clearAll" @undo="undo" @redo="redo" @set-background="setBackgroundImage"
+            @clear-background="clearBackgroundImage" @update-grid-color="setGridColor"
+            @update-grid-opacity="setGridOpacity" @update-show-paths="setShowPaths" />
     </div>
 </template>
 
 <script setup>
+import { computed, onMounted } from 'vue'
+import { useRoute } from 'vue-router'
+import { useCampaignStore } from '@/stores/campaignStore'
 import { useTabletopCanvas } from '@/composables/useTabletopCanvas'
 import TabletopToken from '@/components/features/tabletop/TabletopToken.vue'
 import TabletopToolbar from '@/components/features/tabletop/TabletopToolbar.vue'
 import TabletopMeasurementOverlay from '@/components/features/tabletop/TabletopMeasurementOverlay.vue'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
+
+const route = useRoute()
+const campaignStore = useCampaignStore()
+
+const campaignSlug = computed(() => route.params.slug)
+const tabletopId = computed(() => route.params.tabletopId)
+const campaign = computed(() => campaignStore.getBySlug(campaignSlug.value))
+const campaignId = computed(() => campaign.value?.id)
 
 const {
     canvasContainerRef,
@@ -119,7 +129,16 @@ const {
     setShowPaths,
     removeToken,
     clearAll,
-} = useTabletopCanvas()
+    loadState,
+} = useTabletopCanvas(campaignId, tabletopId)
+
+onMounted(async () => {
+    // Ensure campaign and tabletop data are in the store before loading canvas state
+    if (campaignId.value && campaignStore.tabletops.length === 0) {
+        await campaignStore.fetchTabletops(campaignId.value)
+    }
+    loadState()
+})
 </script>
 
 <style scoped>

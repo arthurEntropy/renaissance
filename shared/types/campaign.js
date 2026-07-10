@@ -74,6 +74,8 @@ import { CAMPAIGN_ROLE, CAMPAIGN_MEMBER_STATUS } from '../constants/campaignCons
  * @property {CampaignShop[]} shops - Generated shops
  * @property {CampaignLobbyState} lobbyState - Shared GM lobby arrangement
  * @property {CombatGroup[]} combatGroups - Shared combat groups for campaign lobby
+ * @property {string[]} tabletopIds - IDs of tabletops belonging to this campaign, in display order
+ * @property {string|null} activeTabletopId - ID of the currently active tabletop visible to all members, or null
  */
 
 /**
@@ -110,5 +112,7 @@ export function createDefaultCampaign(foundingGmUserId) {
       inactivePlayerCharacterIds: [],
     },
     combatGroups: [],
+    tabletopIds: [],
+    activeTabletopId: null,
   }
 }

@@ -1,15 +1,19 @@
 import { ref, shallowRef, computed, onMounted, onUnmounted } from 'vue'
 import { useTabletopDragState } from './useTabletopDragState'
+import { useCampaignStore } from '@/stores/campaignStore'
 
-const STORAGE_KEY = 'vtt-tabletop-state-v2'
 const MIN_SCALE = 0.1
 const MAX_SCALE = 4
 const MAX_HISTORY = 50
 // Tags whose presence in the event path should suppress token dragging
 const INTERACTIVE_TAGS = new Set(['button', 'a', 'input', 'select', 'textarea', 'label'])
 
-export function useTabletopCanvas() {
+export function useTabletopCanvas(campaignId, tabletopId) {
     const { draggingCharacter, clearDraggingCharacter } = useTabletopDragState()
+    const campaignStore = useCampaignStore()
+
+    // Debounce timer for persisting canvas state to the backend
+    let _saveTimer = null
 
     // ─── Canvas items (tokens) ───────────────────────────────────────────────
     const canvasItems = ref([])
@@ -707,8 +711,12 @@ export function useTabletopCanvas() {
 
     // ─── Persistence ─────────────────────────────────────────────────────────
     const saveState = () => {
-        try {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify({
+        const cid = typeof campaignId === 'object' ? campaignId.value : campaignId
+        const tid = typeof tabletopId === 'object' ? tabletopId.value : tabletopId
+        if (!cid || !tid) return
+        if (_saveTimer) clearTimeout(_saveTimer)
+        _saveTimer = setTimeout(() => {
+            campaignStore.updateTabletop(cid, tid, {
                 items: canvasItems.value,
                 transform: transform.value,
                 backgroundImage: backgroundImage.value,
@@ -716,34 +724,31 @@ export function useTabletopCanvas() {
                 gridColor: gridColor.value,
                 gridOpacity: gridOpacity.value,
                 showPaths: showPaths.value,
-            }))
-        } catch { /* storage full or unavailable – silently skip */ }
+            }).catch((err) => console.warn('[VTT] Failed to persist tabletop state:', err))
+        }, 500)
     }
 
     const loadState = () => {
-        try {
-            const raw = localStorage.getItem(STORAGE_KEY)
-            if (!raw) return
-            const state = JSON.parse(raw)
-            if (Array.isArray(state.items)) {
-                state.items.forEach((item, i) => {
-                    if (item.zIndex == null) item.zIndex = i + 1
-                })
-                canvasItems.value = state.items
-                topZIndex.value = Math.max(1, ...state.items.map(i => i.zIndex ?? 0))
-            }
-            if (state.transform) transform.value = state.transform
-            if (state.backgroundImage) backgroundImage.value = state.backgroundImage
-            if (state.gridSize) gridSize.value = state.gridSize
-            if (state.gridColor) gridColor.value = state.gridColor
-            if (state.gridOpacity != null) gridOpacity.value = state.gridOpacity
-            if (state.showPaths != null) showPaths.value = state.showPaths
-        } catch { /* corrupted state – start fresh */ }
+        const tid = typeof tabletopId === 'object' ? tabletopId.value : tabletopId
+        const tabletop = campaignStore.tabletops.find((t) => t.id === tid)
+        if (!tabletop) return
+        if (Array.isArray(tabletop.items)) {
+            tabletop.items.forEach((item, i) => {
+                if (item.zIndex == null) item.zIndex = i + 1
+            })
+            canvasItems.value = tabletop.items
+            topZIndex.value = Math.max(1, ...tabletop.items.map((i) => i.zIndex ?? 0))
+        }
+        if (tabletop.transform) transform.value = tabletop.transform
+        if (tabletop.backgroundImage) backgroundImage.value = tabletop.backgroundImage
+        if (tabletop.gridSize) gridSize.value = tabletop.gridSize
+        if (tabletop.gridColor) gridColor.value = tabletop.gridColor
+        if (tabletop.gridOpacity != null) gridOpacity.value = tabletop.gridOpacity
+        if (tabletop.showPaths != null) showPaths.value = tabletop.showPaths
     }
 
     // ─── Lifecycle ────────────────────────────────────────────────────────────
     onMounted(() => {
-        loadState()
         window.addEventListener('mousemove', handleGlobalMousemove)
         window.addEventListener('mouseup', handleGlobalMouseup)
         window.addEventListener('keydown', handleGlobalKeydown)
@@ -751,6 +756,7 @@ export function useTabletopCanvas() {
     })
 
     onUnmounted(() => {
+        if (_saveTimer) clearTimeout(_saveTimer)
         window.removeEventListener('mousemove', handleGlobalMousemove)
         window.removeEventListener('mouseup', handleGlobalMouseup)
         window.removeEventListener('keydown', handleGlobalKeydown)
@@ -802,5 +808,6 @@ export function useTabletopCanvas() {
         setShowPaths,
         removeToken,
         clearAll,
+        loadState,
     }
 }

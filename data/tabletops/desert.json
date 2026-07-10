@@ -1,0 +1,23 @@
+{
+  "id": "ac32f037-8649-4366-b4d0-72acba0d32df",
+  "isDeleted": false,
+  "createdAt": "2026-07-10T14:13:23.614Z",
+  "lastModified": "2026-07-10T14:14:47.092Z",
+  "campaignId": "c9ddeab9-d180-4fc5-869f-e64239bc3376",
+  "name": "Desert",
+  "backgroundImage": {
+    "url": "https://cdn.midjourney.com/aea33c68-9c2a-417a-bdda-1e7c12b71bb8/0_0.png",
+    "naturalWidth": 2912,
+    "naturalHeight": 1632
+  },
+  "items": [],
+  "transform": {
+    "scale": 0.5423928830791575,
+    "x": 151.46114742193197,
+    "y": 39.11111111111131
+  },
+  "gridSize": 60,
+  "gridColor": "#000000",
+  "gridOpacity": 0.21,
+  "showPaths": true
+}

@@ -1,0 +1,23 @@
+{
+  "id": "72c67c75-1353-4abf-8177-968723206d18",
+  "isDeleted": false,
+  "createdAt": "2026-07-10T14:16:51.012Z",
+  "lastModified": "2026-07-10T14:17:03.802Z",
+  "campaignId": "c9ddeab9-d180-4fc5-869f-e64239bc3376",
+  "name": "Mountain Road",
+  "backgroundImage": {
+    "url": "https://cdn.midjourney.com/49b76786-5947-4778-a4c4-3056d6a93d9c/0_0.png",
+    "naturalWidth": 1456,
+    "naturalHeight": 816
+  },
+  "items": [],
+  "transform": {
+    "scale": 1,
+    "x": 232,
+    "y": 70
+  },
+  "gridSize": 40,
+  "gridColor": "#ffffff",
+  "gridOpacity": 0.06,
+  "showPaths": true
+}

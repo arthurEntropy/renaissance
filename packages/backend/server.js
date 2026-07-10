@@ -54,6 +54,12 @@ import {
   deleteBeastInstance,
   updateLobbyState,
   updateCombatGroups,
+  getCampaignTabletops,
+  createCampaignTabletop,
+  updateCampaignTabletop,
+  deleteCampaignTabletop,
+  reorderCampaignTabletops,
+  setActiveTabletop,
 } from './controllers/campaignController.js'
 import {
   requireCampaignMember,
@@ -169,6 +175,14 @@ app.delete('/campaigns/:id/beasts/:characterId', requireAuth, requireCampaignGM,
 app.put('/campaigns/:id/lobby-state', requireAuth, requireCampaignGM, updateLobbyState)
 app.put('/campaigns/:id/combat-groups', requireAuth, requireCampaignGM, updateCombatGroups)
 
+// Campaign tabletops
+app.get('/campaigns/:id/tabletops', requireAuth, requireCampaignMember, getCampaignTabletops)
+app.post('/campaigns/:id/tabletops', requireAuth, requireCampaignGM, createCampaignTabletop)
+app.put('/campaigns/:id/tabletops/order', requireAuth, requireCampaignGM, reorderCampaignTabletops)
+app.put('/campaigns/:id/tabletops/:tabletopId', requireAuth, requireCampaignGM, updateCampaignTabletop)
+app.delete('/campaigns/:id/tabletops/:tabletopId', requireAuth, requireCampaignGM, deleteCampaignTabletop)
+app.put('/campaigns/:id/active-tabletop', requireAuth, requireCampaignGM, setActiveTabletop)
+
 // Campaign shops
 app.post('/campaigns/:id/shops/generate', requireAuth, requireCampaignGM, generateShop)
 app.post('/campaigns/:id/shops', requireAuth, requireCampaignGM, saveShop)
@@ -203,6 +217,7 @@ entities.forEach((entity) => {
   if (
     entity === 'characters' ||
     entity === 'campaigns' ||
+    entity === 'tabletops' ||
     entity === 'playerCharacters' ||
     entity === 'npcs' ||
     entity === 'beasts' ||

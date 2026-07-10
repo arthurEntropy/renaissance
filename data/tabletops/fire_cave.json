@@ -1,0 +1,23 @@
+{
+  "id": "6ff2ebe8-6b65-40f0-850b-9845a9fd9a62",
+  "isDeleted": false,
+  "createdAt": "2026-07-10T14:10:28.345Z",
+  "lastModified": "2026-07-10T14:10:47.444Z",
+  "campaignId": "c9ddeab9-d180-4fc5-869f-e64239bc3376",
+  "name": "Fire Cave",
+  "backgroundImage": {
+    "url": "https://cdn.midjourney.com/da36ce20-6b3d-4114-a8bb-ecbde24501f9/0_1.png",
+    "naturalWidth": 1456,
+    "naturalHeight": 816
+  },
+  "items": [],
+  "transform": {
+    "scale": 1,
+    "x": 232,
+    "y": 70
+  },
+  "gridSize": 40,
+  "gridColor": "#ffffff",
+  "gridOpacity": 0.06,
+  "showPaths": true
+}

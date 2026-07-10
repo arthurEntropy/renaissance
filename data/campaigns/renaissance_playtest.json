@@ -2,11 +2,11 @@
   "id": "c9ddeab9-d180-4fc5-869f-e64239bc3376",
   "isDeleted": false,
   "createdAt": "2026-05-18T17:56:57.471Z",
-  "lastModified": "2026-07-09T16:58:03.118Z",
-  "slug": "playtest-campaign",
-  "name": "Playtest Campaign",
-  "description": "",
-  "coverImageUrl": "",
+  "lastModified": "2026-07-10T14:20:38.798Z",
+  "slug": "renaissance-playtest",
+  "name": "Renaissance Playtest",
+  "description": "<p>This is a test campaign that I'm using to playtest the game and app.</p>",
+  "coverImageUrl": "https://cdn.midjourney.com/40658c7c-5b44-4e3b-b5ac-93549b8db82d/0_3.png",
   "foundingGmUserId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
   "members": [
     {
@@ -146,5 +146,14 @@
         }
       ]
     }
-  ]
+  ],
+  "tabletopIds": [
+    "267ca62c-de61-4776-a0cd-f09bbce490c1",
+    "6ff2ebe8-6b65-40f0-850b-9845a9fd9a62",
+    "f3c8c845-59f1-4481-bafb-2f1e0d5da452",
+    "ac32f037-8649-4366-b4d0-72acba0d32df",
+    "e0b22160-6efe-45f7-9360-8c20412e617e",
+    "72c67c75-1353-4abf-8177-968723206d18"
+  ],
+  "activeTabletopId": "ac32f037-8649-4366-b4d0-72acba0d32df"
 }

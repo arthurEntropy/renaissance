@@ -61,6 +61,8 @@
 
                 <CombatBuilder v-if="isGM" />
 
+                <CampaignTabletopsPanel />
+
                 <CampaignShopsPanel />
 
             </div>
@@ -109,6 +111,7 @@ import CampaignMembersPanel from '@/components/features/campaigns/lobby/Campaign
 import CampaignPlayerCharactersPanel from '@/components/features/campaigns/lobby/CampaignPlayerCharactersPanel.vue'
 import CampaignNpcsPanel from '@/components/features/campaigns/lobby/CampaignNpcsPanel.vue'
 import CampaignShopsPanel from '@/components/features/campaigns/lobby/CampaignShopsPanel.vue'
+import CampaignTabletopsPanel from '@/components/features/campaigns/lobby/CampaignTabletopsPanel.vue'
 import CampaignCurationPanel from '@/components/features/campaigns/lobby/CampaignCurationPanel.vue'
 import CombatBuilder from '@/components/features/campaigns/lobby/CombatBuilder.vue'
 import TextEditor from '@/components/ui/textEditor/TextEditor.vue'
@@ -255,6 +258,7 @@ onMounted(async () => {
             equipmentStore.fetch(),
             equipmentTypesStore.fetch(),
             campaignStore.fetchCampaignCharacters(campaign.value.id),
+            campaignStore.fetchTabletops(campaign.value.id),
         ])
     } else {
         router.replace('/')
