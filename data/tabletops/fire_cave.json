@@ -2,7 +2,7 @@
   "id": "6ff2ebe8-6b65-40f0-850b-9845a9fd9a62",
   "isDeleted": false,
   "createdAt": "2026-07-10T14:10:28.345Z",
-  "lastModified": "2026-07-10T14:10:47.444Z",
+  "lastModified": "2026-07-10T17:49:03.018Z",
   "campaignId": "c9ddeab9-d180-4fc5-869f-e64239bc3376",
   "name": "Fire Cave",
   "backgroundImage": {
@@ -10,14 +10,37 @@
     "naturalWidth": 1456,
     "naturalHeight": 816
   },
-  "items": [],
+  "items": [
+    {
+      "id": "a05c72a7-1707-4f98-91c2-0092d853389b",
+      "characterId": "b4417462-600b-4571-b2ad-a572ad01733f",
+      "isBeast": false,
+      "name": "Damla",
+      "portraitUrl": "https://cdn.midjourney.com/2ef0de1a-3306-441c-9f5e-0899dcced474/0_0.png",
+      "size": 1,
+      "x": 760,
+      "y": 560,
+      "zIndex": 21
+    },
+    {
+      "id": "41f9598c-08b7-422c-9e51-a37151546ec3",
+      "characterId": "6a9c30a0-25ce-4dcc-99bd-06d5c226d1c3",
+      "isBeast": true,
+      "name": "Mycoderm A",
+      "portraitUrl": "https://cdn.midjourney.com/1981f3be-8de5-4457-9d0f-da52943eb68c/0_0.png",
+      "size": 3,
+      "x": 200,
+      "y": 440,
+      "zIndex": 20
+    }
+  ],
   "transform": {
-    "scale": 1,
-    "x": 232,
-    "y": 70
+    "scale": 1.5868743229440005,
+    "x": -179.91832438374445,
+    "y": -164.83999297536013
   },
   "gridSize": 40,
   "gridColor": "#ffffff",
-  "gridOpacity": 0.06,
-  "showPaths": true
+  "gridOpacity": 0.3,
+  "showPaths": false
 }

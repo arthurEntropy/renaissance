@@ -5,6 +5,8 @@
                 <component :is="isCollapsed ? ChevronRightIcon : ChevronDownIcon" class="section-chevron" />
                 <h2 class="section-title">Combat Builder</h2>
             </div>
+            <FloatingActionButton v-if="!isCollapsed" :variant="FAB_TYPES.ADD" :size="FAB_SIZES.SMALL"
+                :visibility="FAB_VISIBILITIES.ON_HOVER" title="Create group" @click="createGroup" />
         </div>
 
         <div v-show="!isCollapsed">
@@ -20,9 +22,9 @@
                             @click="togglePinGroup(group)">
                             <MapPinIcon class="combat-group-action-icon" />
                         </button>
-                        <FloatingActionButton :variant="FAB_TYPES.INITIATIVE" :size="FAB_SIZES.SMALL"
-                            :visibility="FAB_VISIBILITIES.ALWAYS" :disabled="getGroupCharacters(group).length === 0"
-                            @click="rollGroupInitiative(group)" />
+                        <FloatingActionButton class="initiative-btn" :variant="FAB_TYPES.INITIATIVE"
+                            :size="FAB_SIZES.SMALL" :visibility="FAB_VISIBILITIES.ALWAYS"
+                            :disabled="getGroupCharacters(group).length === 0" @click="rollGroupInitiative(group)" />
                         <button type="button" class="combat-group-delete" @click="deleteGroup(group.id)"
                             aria-label="Delete combat group">
                             <TrashIcon class="combat-group-delete-icon" />
@@ -54,9 +56,9 @@
                     <div v-if="characterContextStore.pinnedGroupsById[group.id]?.initiativeResults"
                         class="batch-initiative-results">
                         <div class="batch-results-header">
-                            <span class="batch-results-group-total">Group Total: {{
+                            <span class="batch-results-group-total">Group Initiative: {{
                                 characterContextStore.pinnedGroupsById[group.id].initiativeResults.groupTotal ?? '—'
-                                }}</span>
+                            }}</span>
                             <button type="button" class="batch-results-clear"
                                 @click="clearBatchResults(group.id)">Clear</button>
                         </div>
@@ -73,10 +75,7 @@
                     </div>
                 </div>
 
-                <button type="button" class="group-create-placeholder" @click="createGroup" aria-label="Create group">
-                    <PlusIcon class="group-create-placeholder-icon" />
-                    <span>Create Group</span>
-                </button>
+                <!-- No longer needed: group creation moved to section header FAB -->
             </div>
 
             <CascadeMenuFrame v-if="showPicker" :overlay="false" :anchor-position="anchorPosition"
@@ -897,6 +896,26 @@ onUnmounted(() => {
 .combat-group-action-icon {
     width: 16px;
     height: 16px;
+}
+
+/* Override FAB initiative button to match the neutral action-btn style */
+.initiative-btn.fab {
+    background: transparent;
+    border: 1px solid var(--overlay-white-medium);
+    border-radius: 999px;
+    color: var(--color-text-secondary);
+    width: 30px;
+    height: 30px;
+}
+
+.initiative-btn.fab:not(:disabled):hover {
+    background: var(--overlay-white-subtle);
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+}
+
+.initiative-btn.fab :deep(svg) {
+    color: inherit;
 }
 
 /* Batch initiative results list */

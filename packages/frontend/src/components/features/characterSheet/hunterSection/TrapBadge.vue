@@ -29,21 +29,17 @@
 
         <!-- Footer strip: Dropped | DifficultyBadge | Thrown -->
         <div class="badge__footer">
-            <button type="button" class="badge__state-btn" :class="{ 'badge__state-btn--active': trap.isDropped }"
-                title="Dropped (set difficulty with Stealth)"
-                @click.stop="$emit('toggle-state', { ...trap, isDropped: !trap.isDropped, isThrown: false })">
-                Drop
-            </button>
+            <FloatingActionButton :variant="FAB_TYPES.TRAP_DROP" :size="FAB_SIZES.LARGE"
+                :visibility="FAB_VISIBILITIES.ALWAYS" :is-active="trap.isDropped"
+                @click.stop="$emit('toggle-state', { ...trap, isDropped: !trap.isDropped, isThrown: false })" />
 
             <div class="badge__difficulty-host">
                 <DifficultyBadge :value="trap.difficulty" @update:value="$emit('update-difficulty', $event)" />
             </div>
 
-            <button type="button" class="badge__state-btn" :class="{ 'badge__state-btn--active': trap.isThrown }"
-                title="Thrown (set difficulty with Craft)"
-                @click.stop="$emit('toggle-state', { ...trap, isThrown: !trap.isThrown, isDropped: false })">
-                Throw
-            </button>
+            <FloatingActionButton :variant="FAB_TYPES.TRAP_THROW" :size="FAB_SIZES.LARGE"
+                :visibility="FAB_VISIBILITIES.ALWAYS" :is-active="trap.isThrown"
+                @click.stop="$emit('toggle-state', { ...trap, isThrown: !trap.isThrown, isDropped: false })" />
         </div>
     </div>
 </template>
@@ -54,12 +50,6 @@ import { PlusIcon, MapPinIcon } from '@heroicons/vue/24/outline'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import DifficultyBadge from '@/components/ui/cards/item/DifficultyBadge.vue'
 import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
-
-// Resolve hunter icon URLs at import time so Vite can bundle them
-import boxTrapIcon from '@/assets/icons/hunter/box_trap.png'
-import lassoIcon from '@/assets/icons/hunter/lasso.png'
-import spikeyPitIcon from '@/assets/icons/hunter/spiky_pit.png'
-import wolfTrapIcon from '@/assets/icons/hunter/wolf_trap.png'
 
 const props = defineProps({
     trap: {
@@ -203,28 +193,6 @@ function handleRemove() {
     border-top: 1px dashed var(--color-border-primary);
     opacity: 0.4;
     background: none;
-}
-
-/* State toggle buttons */
-.badge__state-btn {
-    font-size: var(--font-size-10);
-    font-weight: var(--font-weight-semibold);
-    font-family: var(--font-family-primary);
-    padding: 0;
-    border: none;
-    background: transparent;
-    color: var(--color-text-muted);
-    cursor: pointer;
-    transition: color var(--transition-fast);
-    flex-shrink: 0;
-}
-
-.badge__state-btn:hover {
-    color: var(--color-text-primary);
-}
-
-.badge__state-btn--active {
-    color: var(--color-primary);
 }
 
 /* Difficulty badge host — lets the rotated diamond extend above and below the strip */

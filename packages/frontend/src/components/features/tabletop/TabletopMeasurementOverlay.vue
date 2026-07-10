@@ -9,7 +9,7 @@
         </defs>
 
         <!-- Highlighted path squares (expanded to token footprint width) -->
-        <rect v-if="showPaths" v-for="sq in pathSquares" :key="`${sq.col},${sq.row}`" :x="toSvgX(sq.col * gridSize)"
+        <rect v-show="showPaths" v-for="sq in pathSquares" :key="`${sq.col},${sq.row}`" :x="toSvgX(sq.col * gridSize)"
             :y="toSvgY(sq.row * gridSize)" :width="gridSize * transform.scale" :height="gridSize * transform.scale"
             fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.4)" stroke-width="1" />
 

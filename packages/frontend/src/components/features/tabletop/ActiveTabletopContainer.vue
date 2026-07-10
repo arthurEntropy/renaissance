@@ -1,15 +1,10 @@
 <template>
     <div v-if="activeTabletop" class="active-tabletop-container">
-        <button class="active-tabletop-btn" :title="`Open: ${activeTabletop.name}`" @click="openTabletop">
+        <button class="active-tabletop-btn" :title="`Go to tabletop`" @click="openTabletop">
             <!-- Background map preview or grid pattern -->
             <div class="active-tabletop-preview" :style="previewStyle">
                 <div v-if="!activeTabletop.backgroundImage" class="active-tabletop-grid" />
             </div>
-            <!-- Label -->
-            <span class="active-tabletop-label">
-                <MapIcon class="active-tabletop-icon" />
-                <span class="active-tabletop-name">{{ activeTabletop.name }}</span>
-            </span>
         </button>
     </div>
 </template>
@@ -17,7 +12,6 @@
 <script setup>
 import { computed } from 'vue'
 import { useRouter } from 'vue-router'
-import { MapIcon } from '@heroicons/vue/24/outline'
 import { useCampaignStore } from '@/stores/campaignStore'
 
 const router = useRouter()
@@ -82,7 +76,7 @@ function openTabletop() {
 /* Preview thumbnail */
 .active-tabletop-preview {
     width: 80px;
-    height: 60px;
+    height: 80px;
     position: relative;
     background: var(--overlay-black-heavy);
     overflow: hidden;
@@ -96,34 +90,5 @@ function openTabletop() {
         linear-gradient(to right, rgba(255, 255, 255, 0.07) 1px, transparent 1px),
         linear-gradient(to bottom, rgba(255, 255, 255, 0.07) 1px, transparent 1px);
     background-size: 14px 14px;
-}
-
-/* Footer label */
-.active-tabletop-label {
-    display: flex;
-    align-items: center;
-    gap: var(--space-xs);
-    padding: var(--space-xs) var(--space-sm);
-    width: 100%;
-    box-sizing: border-box;
-}
-
-.active-tabletop-icon {
-    width: 12px;
-    height: 12px;
-    color: var(--color-primary);
-    flex-shrink: 0;
-}
-
-.active-tabletop-name {
-    font-size: var(--font-size-10);
-    font-family: var(--font-family-primary);
-    font-weight: var(--font-weight-semibold);
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: var(--color-text-secondary);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
 </style>

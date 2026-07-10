@@ -1,4 +1,4 @@
-import { ref, shallowRef, computed, onMounted, onUnmounted } from 'vue'
+import { ref, shallowRef, computed, watch, onMounted, onUnmounted } from 'vue'
 import { useTabletopDragState } from './useTabletopDragState'
 import { useCampaignStore } from '@/stores/campaignStore'
 
@@ -746,6 +746,32 @@ export function useTabletopCanvas(campaignId, tabletopId) {
         if (tabletop.gridOpacity != null) gridOpacity.value = tabletop.gridOpacity
         if (tabletop.showPaths != null) showPaths.value = tabletop.showPaths
     }
+
+    // ─── Tabletop switch (route param changes without component re-mount) ───────
+    // When tabletopId changes (Vue Router reuses this component), cancel any
+    // pending save (to avoid writing stale data to the new tabletop), reset all
+    // canvas state, and load the incoming tabletop's persisted state.
+    watch(
+        () => (typeof tabletopId === 'object' ? tabletopId.value : tabletopId),
+        (newId, oldId) => {
+            if (!newId || newId === oldId) return
+            if (_saveTimer) { clearTimeout(_saveTimer); _saveTimer = null }
+            canvasItems.value = []
+            transform.value = { x: 0, y: 0, scale: 1 }
+            backgroundImage.value = null
+            gridSize.value = 40
+            gridColor.value = '#ffffff'
+            gridOpacity.value = 0.06
+            showPaths.value = true
+            _undoStack.length = 0
+            _redoStack.length = 0
+            _undoCount.value = 0
+            _redoCount.value = 0
+            selectedIds.value = new Set()
+            topZIndex.value = 1
+            loadState()
+        }
+    )
 
     // ─── Lifecycle ────────────────────────────────────────────────────────────
     onMounted(() => {

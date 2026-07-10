@@ -54,25 +54,44 @@
             Clear All Tokens
         </button>
 
-        <span v-if="itemCount > 0" class="item-count">
-            {{ itemCount }} token{{ itemCount !== 1 ? 's' : '' }}
-        </span>
-
-        <div class="toolbar-divider" />
-
         <!-- Measurement path display toggle -->
         <label class="toolbar-checkbox">
             <input type="checkbox" :checked="showPaths" @change="$emit('update-show-paths', $event.target.checked)" />
             Show Paths When Measuring
         </label>
+
+        <!-- GM-only controls pushed to the right -->
+        <template v-if="isGM">
+            <div class="toolbar-spacer" />
+
+            <!-- Tabletop switcher button -->
+            <button class="tool-btn tool-btn--tabletop-name"
+                :title="`Switch tabletop (current: ${currentTabletopName})`" @click="showSwitcher = true">
+                <MapIcon class="btn-icon" />
+                <span class="tabletop-name-label">{{ currentTabletopName }}</span>
+            </button>
+
+            <!-- Active tabletop FAB -->
+            <button class="tool-btn tool-btn--fab" :class="isCurrentTabletopActive ? 'tool-btn--fab-active' : ''"
+                :title="isCurrentTabletopActive ? 'Deactivate this tabletop' : 'Set as active tabletop'"
+                @click="$emit('toggle-active-tabletop')">
+                <BoltIcon v-if="isCurrentTabletopActive" class="btn-icon" />
+                <BoltSlashIcon v-else class="btn-icon" />
+            </button>
+        </template>
     </div>
+
+    <!-- Tabletop Switcher Modal -->
+    <TabletopSwitcherModal v-if="showSwitcher" :tabletops="tabletops" :current-tabletop-id="currentTabletopId"
+        :active-tabletop-id="activeTabletopId" @close="showSwitcher = false" @switch-tabletop="handleSwitchTabletop" />
 </template>
 
 <script setup>
-import { ref, nextTick } from 'vue'
-import { ArrowUturnLeftIcon, ArrowUturnRightIcon, MapIcon } from '@heroicons/vue/24/outline'
+import { ref, computed, nextTick } from 'vue'
+import { ArrowUturnLeftIcon, ArrowUturnRightIcon, MapIcon, BoltIcon, BoltSlashIcon } from '@heroicons/vue/24/outline'
+import TabletopSwitcherModal from './TabletopSwitcherModal.vue'
 
-defineProps({
+const props = defineProps({
     scale: Number,
     gridSize: Number,
     gridColor: String,
@@ -82,13 +101,23 @@ defineProps({
     canRedo: Boolean,
     hasBackground: Boolean,
     showPaths: { type: Boolean, default: true },
+    isGM: { type: Boolean, default: false },
+    tabletops: { type: Array, default: () => [] },
+    currentTabletopId: { type: String, default: null },
+    activeTabletopId: { type: String, default: null },
+    currentTabletopName: { type: String, default: '' },
 })
 
-const emit = defineEmits(['zoom-in', 'zoom-out', 'increase-grid', 'decrease-grid', 'clear-all', 'undo', 'redo', 'set-background', 'clear-background', 'update-grid-color', 'update-grid-opacity', 'update-show-paths'])
+const emit = defineEmits(['zoom-in', 'zoom-out', 'increase-grid', 'decrease-grid', 'clear-all', 'undo', 'redo', 'set-background', 'clear-background', 'update-grid-color', 'update-grid-opacity', 'update-show-paths', 'toggle-active-tabletop', 'switch-tabletop'])
 
 const showBgInput = ref(false)
 const bgUrlDraft = ref('')
 const bgInputRef = ref(null)
+const showSwitcher = ref(false)
+
+const isCurrentTabletopActive = computed(
+    () => !!props.currentTabletopId && props.currentTabletopId === props.activeTabletopId
+)
 
 const openBgInput = () => {
     showBgInput.value = true
@@ -105,6 +134,11 @@ const submitBgUrl = () => {
 const cancelBgInput = () => {
     showBgInput.value = false
     bgUrlDraft.value = ''
+}
+
+const handleSwitchTabletop = (tabletopId) => {
+    showSwitcher.value = false
+    emit('switch-tabletop', tabletopId)
 }
 </script>
 
@@ -245,5 +279,42 @@ const cancelBgInput = () => {
 .btn-icon {
     width: 14px;
     height: 14px;
+}
+
+/* Push GM controls to the far right */
+.toolbar-spacer {
+    flex: 1;
+}
+
+/* Active-tabletop FAB */
+.tool-btn--fab {
+    padding: 4px 8px;
+    border-radius: var(--radius-full);
+    width: 28px;
+    height: 28px;
+    justify-content: center;
+}
+
+.tool-btn--fab-active {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--color-black);
+}
+
+.tool-btn--fab-active:hover {
+    background: var(--color-primary-hover);
+    border-color: var(--color-primary-hover);
+    color: var(--color-black);
+}
+
+/* Tabletop name/switcher button */
+.tool-btn--tabletop-name {
+    max-width: 180px;
+}
+
+.tabletop-name-label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 </style>

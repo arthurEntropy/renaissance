@@ -10,51 +10,60 @@
         </div>
 
         <div v-show="!isCollapsed">
-            <div v-if="!tabletops.length" class="empty-state">
+            <div v-if="!localTabletops.length" class="empty-state">
                 <p>No tabletops yet.{{ isGM ? ' Create one to get started.' : '' }}</p>
             </div>
 
-            <div v-else class="tabletops-grid">
-                <div v-for="tabletop in tabletops" :key="tabletop.id" class="tabletop-card"
-                    :class="{ 'is-active': tabletop.id === activeTabletopId }">
+            <draggable v-else v-model="localTabletops" item-key="id" handle=".tabletop-drag-handle"
+                ghost-class="tabletop-card--ghost" class="tabletops-grid" :disabled="!isGM" @end="handleDragEnd">
+                <template #item="{ element: tabletop }">
+                    <div class="tabletop-card edit-hover-area"
+                        :class="{ 'is-active': tabletop.id === activeTabletopId }">
 
-                    <!-- Background preview -->
-                    <div class="tabletop-preview" :style="getPreviewStyle(tabletop)" @click="openTabletop(tabletop)">
-                        <div v-if="!tabletop.backgroundImage" class="tabletop-preview-grid" />
-                        <div class="tabletop-preview-overlay">
-                            <MapIcon class="tabletop-preview-icon" />
-                            <span class="tabletop-preview-label">Open</span>
+                        <!-- Drag handle (GM only, visible on hover) -->
+                        <FloatingActionButton v-if="isGM" :variant="FAB_TYPES.DRAG" :size="FAB_SIZES.SMALL"
+                            :visibility="FAB_VISIBILITIES.ON_HOVER" class="tabletop-drag-handle"
+                            title="Drag to reorder" />
+
+                        <!-- Background preview -->
+                        <div class="tabletop-preview" :style="getPreviewStyle(tabletop)"
+                            @click="openTabletop(tabletop)">
+                            <div v-if="!tabletop.backgroundImage" class="tabletop-preview-grid" />
+                            <div class="tabletop-preview-overlay">
+                                <MapIcon class="tabletop-preview-icon" />
+                                <span class="tabletop-preview-label">Open</span>
+                            </div>
+                            <span v-if="tabletop.id === activeTabletopId" class="tabletop-active-badge">Active</span>
                         </div>
-                        <span v-if="tabletop.id === activeTabletopId" class="tabletop-active-badge">Active</span>
-                    </div>
 
-                    <!-- Card footer -->
-                    <div class="tabletop-footer">
-                        <div class="tabletop-name-row">
-                            <input v-if="renamingId === tabletop.id" ref="renameInputRef" v-model="renameValue"
-                                class="tabletop-rename-input" @blur="commitRename(tabletop)"
-                                @keyup.enter="commitRename(tabletop)" @keyup.escape="cancelRename" />
-                            <span v-else class="tabletop-name">{{ tabletop.name }}</span>
+                        <!-- Card footer -->
+                        <div class="tabletop-footer">
+                            <div class="tabletop-name-row">
+                                <input v-if="renamingId === tabletop.id" ref="renameInputRef" v-model="renameValue"
+                                    class="tabletop-rename-input" @blur="commitRename(tabletop)"
+                                    @keyup.enter="commitRename(tabletop)" @keyup.escape="cancelRename" />
+                                <span v-else class="tabletop-name">{{ tabletop.name }}</span>
 
-                            <div v-if="isGM" class="tabletop-actions">
-                                <button class="tabletop-action-btn" title="Rename" @click="startRename(tabletop)">
-                                    <PencilIcon class="tabletop-action-icon" />
-                                </button>
-                                <button class="tabletop-action-btn"
-                                    :class="{ 'is-active-btn': tabletop.id === activeTabletopId }"
-                                    :title="tabletop.id === activeTabletopId ? 'Deactivate' : 'Set as active'"
-                                    @click="toggleActive(tabletop.id)">
-                                    <BoltIcon class="tabletop-action-icon" />
-                                </button>
-                                <button class="tabletop-action-btn tabletop-action-btn--danger" title="Delete"
-                                    @click="confirmDelete(tabletop)">
-                                    <TrashIcon class="tabletop-action-icon" />
-                                </button>
+                                <div v-if="isGM" class="tabletop-actions">
+                                    <button class="tabletop-action-btn" title="Rename" @click="startRename(tabletop)">
+                                        <PencilIcon class="tabletop-action-icon" />
+                                    </button>
+                                    <button class="tabletop-action-btn"
+                                        :class="{ 'is-active-btn': tabletop.id === activeTabletopId }"
+                                        :title="tabletop.id === activeTabletopId ? 'Deactivate' : 'Set as active'"
+                                        @click="toggleActive(tabletop.id)">
+                                        <BoltIcon class="tabletop-action-icon" />
+                                    </button>
+                                    <button class="tabletop-action-btn tabletop-action-btn--danger" title="Delete"
+                                        @click="confirmDelete(tabletop)">
+                                        <TrashIcon class="tabletop-action-icon" />
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
+                </template>
+            </draggable>
         </div>
     </div>
 </template>
@@ -63,6 +72,7 @@
 import { computed, ref, watch, nextTick } from 'vue'
 import { useRouter } from 'vue-router'
 import { ChevronDownIcon, ChevronRightIcon, MapIcon, PencilIcon, BoltIcon, TrashIcon } from '@heroicons/vue/24/outline'
+import draggable from 'vuedraggable'
 import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.vue'
 import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 import { useCampaignStore } from '@/stores/campaignStore'
@@ -81,6 +91,16 @@ const isCollapsed = ref(false)
 const renamingId = ref(null)
 const renameValue = ref('')
 const renameInputRef = ref(null)
+
+// Local copy of tabletops for drag-reorder — kept in sync with the store
+const localTabletops = ref([...tabletops.value])
+let isReordering = false
+
+watch(tabletops, (val) => {
+    if (!isReordering) {
+        localTabletops.value = [...val]
+    }
+}, { deep: true })
 
 const collapseStateKey = computed(() =>
     campaignId.value ? `campaign-lobby:section:tabletops:${campaignId.value}` : null
@@ -167,6 +187,20 @@ async function confirmDelete(tabletop) {
         console.error('Failed to delete tabletop:', err)
     }
 }
+
+async function handleDragEnd() {
+    if (!campaignId.value) return
+    const orderedIds = localTabletops.value.map((t) => t.id)
+    isReordering = true
+    try {
+        await campaignStore.reorderTabletops(campaignId.value, orderedIds)
+    } catch (err) {
+        console.error('Failed to reorder tabletops:', err)
+        localTabletops.value = [...tabletops.value]
+    } finally {
+        isReordering = false
+    }
+}
 </script>
 
 <style scoped>
@@ -182,14 +216,31 @@ async function confirmDelete(tabletop) {
     border: 1px solid var(--overlay-white-medium);
     border-radius: var(--radius-10);
     background: var(--overlay-black-medium);
-    overflow: hidden;
+    overflow: visible;
     display: flex;
     flex-direction: column;
     transition: border-color var(--transition-fast);
+    position: relative;
 }
 
 .tabletop-card.is-active {
     border-color: var(--color-primary);
+}
+
+/* Drag handle — positioned top-left, visible on card hover */
+.tabletop-drag-handle {
+    position: absolute;
+    top: var(--space-xs);
+    left: var(--space-xs);
+    z-index: var(--z-raised);
+    cursor: grab;
+}
+
+/* Ghost placeholder shown while dragging */
+.tabletop-card--ghost {
+    opacity: 0.35;
+    border: 2px dashed var(--color-text-primary) !important;
+    background: var(--overlay-white-subtle) !important;
 }
 
 /* Preview area */

@@ -2,7 +2,7 @@
   "id": "276cb26a-76b5-4b9f-8f14-96fc7f80c019",
   "isDeleted": false,
   "createdAt": "2026-07-09T12:56:02.379Z",
-  "lastModified": "2026-07-09T18:27:25.622Z",
+  "lastModified": "2026-07-10T15:48:34.127Z",
   "characterType": "playerCharacter",
   "name": "Omoo",
   "featuredArtUrls": [
@@ -240,14 +240,36 @@
     }
   ],
   "summonerVessels": [],
-  "hunterTraps": [],
+  "hunterTraps": [
+    {
+      "id": "55b82c59-6303-49dc-99b0-3a5468df7c73",
+      "isDropped": false,
+      "isThrown": false,
+      "difficulty": null,
+      "imageUrl": "/src/assets/icons/hunter/box_trap.png"
+    },
+    {
+      "id": "0eab7488-dbac-4c5b-bcc4-7ead2eb75bfa",
+      "isDropped": false,
+      "isThrown": false,
+      "difficulty": null,
+      "imageUrl": "/src/assets/icons/hunter/spiky_pit.png"
+    },
+    {
+      "id": "6590c759-3a82-4420-b088-0939f0a9ae29",
+      "isDropped": false,
+      "isThrown": false,
+      "difficulty": null,
+      "imageUrl": "/src/assets/icons/hunter/wolf_trap.png"
+    }
+  ],
   "campaignId": null,
   "ownerId": "dKLeSmonNhc6zNc2QYmUKFWIsFs1",
   "isPublicPreview": false,
   "pronouns": "",
   "ancestryIds": [],
   "cultureIds": [],
-  "mestiereId": "558abd15-f90f-40d7-80d8-df73a37f977c",
+  "mestiereId": "10f46ecd-e6f5-4d3b-b510-d4035ab24f56",
   "age": 0,
   "heightFeet": 0,
   "heightInches": 0,
@@ -255,7 +277,7 @@
   "keeping": null,
   "treasure": 8,
   "xp": 13,
-  "updatedAt": "2026-07-09T18:27:25.622Z",
+  "updatedAt": "2026-07-10T15:48:34.126Z",
   "description": "",
   "size": 0,
   "reach": 0,

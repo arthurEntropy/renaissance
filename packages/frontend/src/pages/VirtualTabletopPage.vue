@@ -48,27 +48,30 @@
             <template v-if="isMeasuring && measureTracks.length > 0">
                 <TabletopMeasurementOverlay v-for="(track, i) in measureTracks" :key="`track-${i}`"
                     :waypoints="track.waypoints" :current-point="track.currentPoint" :transform="transform"
-                    :grid-size="gridSize" :exact-mode="isCmdHeld" :token-size="track.size" />
+                    :grid-size="gridSize" :exact-mode="isCmdHeld" :token-size="track.size" :show-paths="showPaths" />
             </template>
             <TabletopMeasurementOverlay v-else-if="isMeasuring" :waypoints="measureWaypoints"
                 :current-point="measureCurrent" :transform="transform" :grid-size="gridSize" :exact-mode="isCmdHeld"
-                :token-size="1" />
+                :token-size="1" :show-paths="showPaths" />
         </div>
 
         <!-- Bottom Toolbar -->
         <TabletopToolbar :scale="transform.scale" :grid-size="gridSize" :item-count="canvasItems.length"
             :can-undo="canUndo" :can-redo="canRedo" :has-background="!!backgroundImage" :grid-color="gridColor"
-            :grid-opacity="gridOpacity" :show-paths="showPaths" @zoom-in="adjustZoom(1.2)"
-            @zoom-out="adjustZoom(1 / 1.2)" @increase-grid="increaseGridSize" @decrease-grid="decreaseGridSize"
-            @clear-all="clearAll" @undo="undo" @redo="redo" @set-background="setBackgroundImage"
-            @clear-background="clearBackgroundImage" @update-grid-color="setGridColor"
-            @update-grid-opacity="setGridOpacity" @update-show-paths="setShowPaths" />
+            :grid-opacity="gridOpacity" :show-paths="showPaths" :is-g-m="campaignStore.isGMInActiveCampaign"
+            :tabletops="campaignStore.tabletops" :current-tabletop-id="tabletopId"
+            :active-tabletop-id="campaignStore.activeCampaign?.activeTabletopId ?? null"
+            :current-tabletop-name="currentTabletopName" @zoom-in="adjustZoom(1.2)" @zoom-out="adjustZoom(1 / 1.2)"
+            @increase-grid="increaseGridSize" @decrease-grid="decreaseGridSize" @clear-all="clearAll" @undo="undo"
+            @redo="redo" @set-background="setBackgroundImage" @clear-background="clearBackgroundImage"
+            @update-grid-color="setGridColor" @update-grid-opacity="setGridOpacity" @update-show-paths="setShowPaths"
+            @toggle-active-tabletop="handleToggleActiveTabletop" @switch-tabletop="handleSwitchTabletop" />
     </div>
 </template>
 
 <script setup>
 import { computed, onMounted } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { useCampaignStore } from '@/stores/campaignStore'
 import { useTabletopCanvas } from '@/composables/useTabletopCanvas'
 import TabletopToken from '@/components/features/tabletop/TabletopToken.vue'
@@ -78,12 +81,19 @@ import FloatingActionButton from '@/components/ui/buttons/FloatingActionButton.v
 import { FAB_TYPES, FAB_SIZES, FAB_VISIBILITIES } from '@/constants/fab'
 
 const route = useRoute()
+const router = useRouter()
 const campaignStore = useCampaignStore()
 
 const campaignSlug = computed(() => route.params.slug)
 const tabletopId = computed(() => route.params.tabletopId)
 const campaign = computed(() => campaignStore.getBySlug(campaignSlug.value))
 const campaignId = computed(() => campaign.value?.id)
+
+const currentTabletopName = computed(() => {
+    const id = tabletopId.value
+    if (!id) return ''
+    return campaignStore.tabletops.find((t) => t.id === id)?.name ?? ''
+})
 
 const {
     canvasContainerRef,
@@ -131,6 +141,22 @@ const {
     clearAll,
     loadState,
 } = useTabletopCanvas(campaignId, tabletopId)
+
+async function handleToggleActiveTabletop() {
+    if (!campaignId.value || !tabletopId.value) return
+    const currentActiveId = campaignStore.activeCampaign?.activeTabletopId ?? null
+    const newActiveId = tabletopId.value === currentActiveId ? null : tabletopId.value
+    try {
+        await campaignStore.setActiveTabletop(campaignId.value, newActiveId)
+    } catch (err) {
+        console.error('Failed to toggle active tabletop:', err)
+    }
+}
+
+function handleSwitchTabletop(targetTabletopId) {
+    if (!campaignSlug.value || !targetTabletopId) return
+    router.push(`/campaigns/${campaignSlug.value}/tabletop/${targetTabletopId}`)
+}
 
 onMounted(async () => {
     // Ensure campaign and tabletop data are in the store before loading canvas state

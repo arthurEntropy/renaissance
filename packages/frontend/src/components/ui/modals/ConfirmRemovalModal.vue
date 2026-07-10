@@ -148,7 +148,9 @@ function handleRemoveNoRefund() {
     height: 14px;
     object-fit: contain;
     vertical-align: middle;
+    display: inline;
     margin-left: 1px;
+    filter: invert(1);
 }
 
 .remove-free-link {

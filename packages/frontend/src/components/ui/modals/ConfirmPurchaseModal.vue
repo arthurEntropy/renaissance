@@ -7,7 +7,7 @@
                     <template v-if="cost !== null && cost > 0">
                         Spend <strong>{{ cost }}<template v-if="currencyLabel === 'Treasure'"> <img :src="keepingIcon"
                                     alt="treasure" class="currency-icon" /></template><template v-else> {{ currencyLabel
-                                }}</template></strong>?
+                                    }}</template></strong>?
                     </template>
                     <template v-else>
                         Add this {{ itemTypeName }} for free?
@@ -168,7 +168,9 @@ function handleFree() {
     height: 14px;
     object-fit: contain;
     vertical-align: middle;
+    display: inline;
     margin-left: 1px;
+    filter: invert(1);
 }
 
 /* Fade transition for the "Added!" confirmation */

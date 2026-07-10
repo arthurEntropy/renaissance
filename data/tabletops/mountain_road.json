@@ -2,7 +2,7 @@
   "id": "72c67c75-1353-4abf-8177-968723206d18",
   "isDeleted": false,
   "createdAt": "2026-07-10T14:16:51.012Z",
-  "lastModified": "2026-07-10T14:17:03.802Z",
+  "lastModified": "2026-07-10T17:46:38.120Z",
   "campaignId": "c9ddeab9-d180-4fc5-869f-e64239bc3376",
   "name": "Mountain Road",
   "backgroundImage": {
@@ -10,14 +10,48 @@
     "naturalWidth": 1456,
     "naturalHeight": 816
   },
-  "items": [],
+  "items": [
+    {
+      "id": "39bbd037-9192-4042-84f1-784ee8bd4eec",
+      "characterId": "6a9c30a0-25ce-4dcc-99bd-06d5c226d1c3",
+      "isBeast": true,
+      "name": "Mycoderm A",
+      "portraitUrl": "https://cdn.midjourney.com/1981f3be-8de5-4457-9d0f-da52943eb68c/0_0.png",
+      "size": 3,
+      "x": 480,
+      "y": 240,
+      "zIndex": 10
+    },
+    {
+      "id": "df4966aa-ebca-4e34-8e40-805bd612e029",
+      "characterId": "a675e17d-bf53-4ff3-937a-242aea3d0e7a",
+      "isBeast": true,
+      "name": "Spore Hound A",
+      "portraitUrl": "https://cdn.midjourney.com/39ad5992-8dc0-48f7-9e24-e9633e4377ae/0_1.png",
+      "size": 1,
+      "x": 720,
+      "y": 160,
+      "zIndex": 9
+    },
+    {
+      "id": "689b95c8-6768-4827-8434-684886570c92",
+      "characterId": "b4417462-600b-4571-b2ad-a572ad01733f",
+      "isBeast": false,
+      "name": "Damla",
+      "portraitUrl": "https://cdn.midjourney.com/2ef0de1a-3306-441c-9f5e-0899dcced474/0_0.png",
+      "size": 1,
+      "x": 640,
+      "y": 400,
+      "zIndex": 11
+    }
+  ],
   "transform": {
-    "scale": 1,
-    "x": 232,
-    "y": 70
+    "scale": 1.4693280768000003,
+    "x": -156.09302999040028,
+    "y": -65.3613502464001
   },
   "gridSize": 40,
   "gridColor": "#ffffff",
   "gridOpacity": 0.06,
-  "showPaths": true
+  "showPaths": false
 }

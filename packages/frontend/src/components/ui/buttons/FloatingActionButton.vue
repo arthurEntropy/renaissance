@@ -1,10 +1,13 @@
 <template>
     <button type="button"
-        :class="['fab', `fab--${props.variant}`, `fab--${props.size}`, `fab--${props.visibility}`, props.variant === FAB_TYPES.VISIBILITY && !props.isActive ? 'fab--visibility-off' : '']"
+        :class="['fab', `fab--${props.variant}`, `fab--${props.size}`, `fab--${props.visibility}`, props.variant === FAB_TYPES.VISIBILITY && !props.isActive ? 'fab--visibility-off' : '', (props.variant === FAB_TYPES.TRAP_DROP || props.variant === FAB_TYPES.TRAP_THROW) && props.isActive ? 'fab--trap-active' : '']"
         :title="variantConfig.tooltip">
         <!-- Auto-calc variants: always show text instead of icon -->
         <span v-if="props.variant === FAB_TYPES.AUTO_CALC_ON" class="auto-text">AUTO</span>
         <span v-else-if="props.variant === FAB_TYPES.AUTO_CALC" class="auto-text auto-text--off">AUTO</span>
+        <!-- Trap state variants: text labels, styling driven by isActive prop -->
+        <span v-else-if="props.variant === FAB_TYPES.TRAP_DROP" class="trap-text">DROP</span>
+        <span v-else-if="props.variant === FAB_TYPES.TRAP_THROW" class="trap-text">THROW</span>
         <component v-else :is="variantConfig.icon"
             :class="props.size === FAB_SIZES.SMALL ? 'fab__icon--small' : 'fab__icon--large'" />
     </button>
@@ -74,6 +77,8 @@ const FAB_TYPE_CONFIG = {
     [FAB_TYPES.ACTIVATE]: { icon: BoltIcon, tooltip: 'Activate' },
     [FAB_TYPES.DEACTIVATE]: { icon: BoltSlashIcon, tooltip: 'Deactivate' },
     [FAB_TYPES.TRANSFER]: { icon: ArrowRightStartOnRectangleIcon, tooltip: 'Transfer to another character' },
+    [FAB_TYPES.TRAP_DROP]: { tooltip: 'Drop trap (difficulty set with Stealth)' },
+    [FAB_TYPES.TRAP_THROW]: { tooltip: 'Throw trap (difficulty set with Craft)' },
 }
 
 const variantConfig = computed(() => {
@@ -318,5 +323,42 @@ const variantConfig = computed(() => {
 :global(:is(.edit-trigger:hover, .edit-hover-area:hover) .fab--on-hover) {
     opacity: 1;
     pointer-events: auto;
+}
+
+/* === TRAP STATE FAB VARIANTS (DROP / THROW) === */
+.fab--trap-drop,
+.fab--trap-throw {
+    font-size: 7px;
+    font-weight: var(--font-weight-bold);
+    letter-spacing: 0.4px;
+    background: var(--color-bg-secondary);
+    border-color: var(--overlay-white-medium);
+    color: var(--color-text-secondary);
+    opacity: 1;
+}
+
+.fab--trap-drop:hover,
+.fab--trap-throw:hover {
+    background: var(--overlay-black-heavy);
+    border-color: var(--overlay-white-heavy);
+    color: var(--color-text-primary);
+}
+
+.fab--trap-active {
+    background: var(--color-primary) !important;
+    border-color: var(--color-primary) !important;
+    color: var(--color-black) !important;
+}
+
+.fab--trap-active:hover {
+    background: var(--color-primary-hover) !important;
+    border-color: var(--color-primary-hover) !important;
+}
+
+.trap-text {
+    font-size: 7px;
+    font-weight: var(--font-weight-bold);
+    letter-spacing: 0.4px;
+    display: inline-block;
 }
 </style>

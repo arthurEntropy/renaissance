@@ -25,6 +25,8 @@ export const FAB_TYPES = {
     ACTIVATE: 'activate',
     DEACTIVATE: 'deactivate',
     TRANSFER: 'transfer',
+    TRAP_DROP: 'trap-drop',
+    TRAP_THROW: 'trap-throw',
 }
 
 export const FAB_SIZES = {
