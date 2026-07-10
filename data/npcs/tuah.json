@@ -2,7 +2,7 @@
   "id": "dd4ad3a1-0d8b-4e05-8548-ee81bbb61c29",
   "isDeleted": false,
   "createdAt": "2026-07-08T14:38:54.454Z",
-  "lastModified": "2026-07-09T16:11:54.887Z",
+  "lastModified": "2026-07-09T19:47:22.935Z",
   "characterType": "npc",
   "name": "Tuah",
   "featuredArtUrls": [
@@ -274,6 +274,13 @@
       "showSuccesses": false,
       "isActive": false,
       "columnIndex": 2
+    },
+    {
+      "id": "d3a64a0d-dc98-4a78-b2ef-ee7247be0d81",
+      "collapsed": false,
+      "showImprovements": false,
+      "showSuccesses": false,
+      "isActive": true
     }
   ],
   "groupAbilitiesBySource": false,
@@ -396,7 +403,7 @@
   "keeping": "5e6f7a8b-9c0d-4e1f-2a3b-4c5d6e7f8a9b",
   "treasure": 2,
   "xp": 1,
-  "updatedAt": "2026-07-09T16:11:54.887Z",
+  "updatedAt": "2026-07-09T19:47:22.935Z",
   "description": "",
   "size": 0,
   "reach": 0,

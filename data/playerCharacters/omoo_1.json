@@ -2,7 +2,7 @@
   "id": "276cb26a-76b5-4b9f-8f14-96fc7f80c019",
   "isDeleted": false,
   "createdAt": "2026-07-09T12:56:02.379Z",
-  "lastModified": "2026-07-09T12:58:29.834Z",
+  "lastModified": "2026-07-09T18:27:25.622Z",
   "characterType": "playerCharacter",
   "name": "Omoo",
   "featuredArtUrls": [
@@ -11,7 +11,7 @@
   "speed": 0,
   "notes": "",
   "body": 0,
-  "heart": 0,
+  "heart": 3,
   "wits": 0,
   "skills": [
     {
@@ -141,7 +141,7 @@
   },
   "hope": {
     "current": 0,
-    "base": 0
+    "base": 6
   },
   "defense": {
     "current": 0,
@@ -229,7 +229,16 @@
     "green": [],
     "colorless": []
   },
-  "witchcraftTokens": [],
+  "witchcraftTokens": [
+    {
+      "id": "ca28780d-0727-42bc-8418-6bb5f093d9f0",
+      "imageUrl": "",
+      "givenTo": "",
+      "notes": "",
+      "abilityId": null,
+      "isTalisman": false
+    }
+  ],
   "summonerVessels": [],
   "hunterTraps": [],
   "campaignId": null,
@@ -238,7 +247,7 @@
   "pronouns": "",
   "ancestryIds": [],
   "cultureIds": [],
-  "mestiereId": "",
+  "mestiereId": "558abd15-f90f-40d7-80d8-df73a37f977c",
   "age": 0,
   "heightFeet": 0,
   "heightInches": 0,
@@ -246,7 +255,7 @@
   "keeping": null,
   "treasure": 8,
   "xp": 13,
-  "updatedAt": "2026-07-09T12:58:29.834Z",
+  "updatedAt": "2026-07-09T18:27:25.622Z",
   "description": "",
   "size": 0,
   "reach": 0,

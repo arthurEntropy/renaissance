@@ -1,142 +1,108 @@
 import { ref, shallowRef, computed, onMounted, onUnmounted } from 'vue'
-import { useAbilitiesStore } from '@/stores/abilitiesStore'
-import { useEquipmentStore } from '@/stores/equipmentStore'
+import { useTabletopDragState } from './useTabletopDragState'
 
-const STORAGE_KEY = 'vtt-tabletop-state'
-const MIN_SCALE = 0.15
-const MAX_SCALE = 3
+const STORAGE_KEY = 'vtt-tabletop-state-v2'
+const MIN_SCALE = 0.1
+const MAX_SCALE = 4
 const MAX_HISTORY = 50
-// Tags whose presence in the event path should suppress card dragging
+// Tags whose presence in the event path should suppress token dragging
 const INTERACTIVE_TAGS = new Set(['button', 'a', 'input', 'select', 'textarea', 'label'])
-// Used for rubber-band hit-testing as a fallback before the DOM ref is available
-const CARD_APPROX_WIDTH = 300
 
 export function useTabletopCanvas() {
-    const abilitiesStore = useAbilitiesStore()
-    const equipmentStore = useEquipmentStore()
+    const { draggingCharacter, clearDraggingCharacter } = useTabletopDragState()
 
-    // Canvas items
+    // ─── Canvas items (tokens) ───────────────────────────────────────────────
     const canvasItems = ref([])
 
-    const resolvedItemMap = computed(() => {
-        const map = new Map()
-        for (const item of canvasItems.value) {
-            if (item.type === 'ability') {
-                map.set(item.id, abilitiesStore.getById(item.itemId) ?? null)
-            } else {
-                map.set(item.id, equipmentStore.getById(item.itemId) ?? null)
-            }
-        }
-        return map
-    })
-
-    // O(1) item lookup used by the drag hot-path
+    // O(1) lookup used by drag hot-path
     const canvasItemsById = computed(() => {
         const map = new Map()
         for (const item of canvasItems.value) map.set(item.id, item)
         return map
     })
 
-    // Canvas transform
+    // ─── Transform (pan/zoom) ────────────────────────────────────────────────
     const transform = ref({ x: 0, y: 0, scale: 1 })
 
     const canvasTransformStyle = computed(() => ({
         transform: `translate(${transform.value.x}px, ${transform.value.y}px) scale(${transform.value.scale})`,
     }))
 
-    // Snap to grid
-    const snapToGrid = ref(true)
+    // ─── Grid (always active, no toggle) ─────────────────────────────────────
     const gridSize = ref(40)
+    const gridColor = ref('#ffffff')
+    const gridOpacity = ref(0.06)
 
-    const snap = (val) => snapToGrid.value ? Math.round(val / gridSize.value) * gridSize.value : val
+    const snap = (val) => Math.round(val / gridSize.value) * gridSize.value
+    // Snap to the centre of the nearest grid cell (used for measurement origin/waypoints)
+    const snapCenter = (val) => Math.floor(val / gridSize.value) * gridSize.value + gridSize.value / 2
 
+    // Grid overlay is a sibling of the canvas div in the container, so its
+    // background-position must track the canvas transform to stay aligned.
     const canvasGridStyle = computed(() => {
         const size = gridSize.value * transform.value.scale
         const ox = transform.value.x % size
         const oy = transform.value.y % size
+        const hex = gridColor.value.replace('#', '')
+        const r = parseInt(hex.substring(0, 2), 16)
+        const g = parseInt(hex.substring(2, 4), 16)
+        const b = parseInt(hex.substring(4, 6), 16)
+        const lineColor = `rgba(${r}, ${g}, ${b}, ${gridOpacity.value})`
         return {
             backgroundSize: `${size}px ${size}px`,
             backgroundPosition: `${ox}px ${oy}px`,
+            backgroundImage: `linear-gradient(to right, ${lineColor} 1px, transparent 1px), linear-gradient(to bottom, ${lineColor} 1px, transparent 1px)`,
         }
     })
 
-    const toggleSnap = () => { snapToGrid.value = !snapToGrid.value }
-    const increaseGridSize = () => { gridSize.value = Math.min(200, gridSize.value + 10) }
-    const decreaseGridSize = () => { gridSize.value = Math.max(10, gridSize.value - 10) }
-
-    // Per-card visibility state
-    const improvementsVisible = ref({})
-    const successesVisible = ref({})
-
-    const getImprovementsVisible = (id) => improvementsVisible.value[id] ?? false
-    const setImprovementsVisible = (id, val) => (improvementsVisible.value = { ...improvementsVisible.value, [id]: val })
-    const getSuccessesVisible = (id) => successesVisible.value[id] ?? false
-    const setSuccessesVisible = (id, val) => (successesVisible.value = { ...successesVisible.value, [id]: val })
-
-    // DOM refs
-    const canvasContainerRef = ref(null)
-
-    // Multi-select state
-    const selectedIds = ref(new Set())
-    // Rubber-band rect in canvas-container px ({ x1, y1, x2, y2 }); null when inactive
-    const selectionRectangle = ref(null)
-    // shallowRef so property mutations (currentPositions, etc.) don't trigger Vue reactivity
-    const multiDragState = shallowRef(null)
-
-    // Dynamic refs to card DOM elements, keyed by canvas-item id
-    const cardElementRefs = new Map()
-    const registerCardRef = (id, el) => {
-        if (el) cardElementRefs.set(id, el)
-        else cardElementRefs.delete(id)
-    }
-
-    const isSelected = (id) => selectedIds.value.has(id)
-
-    // Cards that would be selected if the rubber-band drag ended right now.
-    // Computed reactively so the template highlights them during the drag.
-    const pendingSelectionIds = computed(() => {
-        if (!selectionRectangle.value) return new Set()
-        const { x1, y1, x2, y2 } = selectionRectangle.value
-        const minX = Math.min(x1, x2)
-        const maxX = Math.max(x1, x2)
-        const minY = Math.min(y1, y2)
-        const maxY = Math.max(y1, y2)
-        const { x: tx, y: ty, scale } = transform.value
-        const selMinX = (minX - tx) / scale
-        const selMaxX = (maxX - tx) / scale
-        const selMinY = (minY - ty) / scale
-        const selMaxY = (maxY - ty) / scale
-        const result = new Set()
+    // Re-snap all tokens to the nearest grid line after the grid size changes so
+    // they don't drift between squares.
+    const _resnapTokens = () => {
         for (const item of canvasItems.value) {
-            const el = cardElementRefs.get(item.id)
-            const cardWidth = el ? el.offsetWidth : CARD_APPROX_WIDTH
-            const cardHeight = el ? el.offsetHeight : 0
-            if (
-                item.x + cardWidth > selMinX &&
-                item.x < selMaxX &&
-                item.y + cardHeight > selMinY &&
-                item.y < selMaxY
-            ) {
-                result.add(item.id)
-            }
+            item.x = snap(item.x)
+            item.y = snap(item.y)
+            const el = _tokenElementRefs.get(item.id)
+            if (el) el.style.transform = `translate(${item.x}px, ${item.y}px)`
         }
-        return result
+    }
+
+    const increaseGridSize = () => { gridSize.value = Math.min(200, gridSize.value + 10); _resnapTokens(); saveState() }
+    const decreaseGridSize = () => { gridSize.value = Math.max(10, gridSize.value - 10); _resnapTokens(); saveState() }
+    const setGridColor = (color) => { gridColor.value = color; saveState() }
+    const setGridOpacity = (opacity) => { gridOpacity.value = opacity; saveState() }
+
+    // ─── Background image (defines canvas bounds) ────────────────────────────
+    // { url, naturalWidth, naturalHeight } or null for an unbounded canvas
+    const backgroundImage = ref(null)
+
+    // When a background image is set, the canvas div gets a fixed size so that
+    // tokens are bounded to the map area.
+    const canvasSizeStyle = computed(() => {
+        if (!backgroundImage.value) return {}
+        return {
+            width: `${backgroundImage.value.naturalWidth}px`,
+            height: `${backgroundImage.value.naturalHeight}px`,
+        }
     })
 
-    const isPendingSelection = (id) => pendingSelectionIds.value.has(id)
-
-    const toggleSelection = (id) => {
-        const next = new Set(selectedIds.value)
-        if (next.has(id)) next.delete(id)
-        else next.add(id)
-        selectedIds.value = next
+    const setBackgroundImage = (url) => {
+        if (!url) { clearBackgroundImage(); return }
+        const img = new Image()
+        img.onload = () => {
+            backgroundImage.value = { url, naturalWidth: img.naturalWidth, naturalHeight: img.naturalHeight }
+            saveState()
+            resetView()
+        }
+        img.onerror = () => console.warn('[VTT] Failed to load background image:', url)
+        img.src = url
     }
 
-    const clearSelection = () => {
-        if (selectedIds.value.size > 0) selectedIds.value = new Set()
+    const clearBackgroundImage = () => {
+        backgroundImage.value = null
+        saveState()
     }
 
-    // Undo / Redo
+    // ─── Undo / Redo ─────────────────────────────────────────────────────────
     const _undoStack = []
     const _redoStack = []
     const _undoCount = ref(0)
@@ -158,7 +124,7 @@ export function useTabletopCanvas() {
     const _restoreItems = (items) => {
         canvasItems.value = items
         topZIndex.value = items.length > 0 ? Math.max(...items.map(i => i.zIndex ?? 0)) : 1
-        clearSelection()
+        selectedIds.value = new Set()
         saveState()
     }
 
@@ -178,42 +144,134 @@ export function useTabletopCanvas() {
         _redoCount.value = _redoStack.length
     }
 
-    // Pan interaction
+    // ─── DOM refs ────────────────────────────────────────────────────────────
+    const canvasContainerRef = ref(null)
+
+    // Dynamic refs to token DOM elements, keyed by canvas-item id.
+    // Used to move tokens directly via style.transform during drag without
+    // triggering Vue reactivity on every mousemove.
+    const _tokenElementRefs = new Map()
+    const registerTokenRef = (id, el) => {
+        if (el) _tokenElementRefs.set(id, el)
+        else _tokenElementRefs.delete(id)
+    }
+
+    // ─── Selection (multi-token) ─────────────────────────────────────────────────
+    const selectedIds = ref(new Set())
+    const isSelected = (id) => selectedIds.value.has(id) || _liveSelectionIds.value.has(id)
+    const clearSelection = () => { selectedIds.value = new Set() }
+    const toggleSelected = (id) => {
+        const next = new Set(selectedIds.value)
+        if (next.has(id)) next.delete(id)
+        else next.add(id)
+        selectedIds.value = next
+    }
+
+    // ─── Z-index stacking ────────────────────────────────────────────────────
+    const topZIndex = ref(1)
+
+    const bringToFront = (item) => {
+        topZIndex.value += 1
+        item.zIndex = topZIndex.value
+    }
+
+    // ─── Ghost overlay ────────────────────────────────────────────────────────
+    // tokenGhosts: array of ghost objects shown while dragging tokens on the canvas
+    const tokenGhosts = ref([])
+    // dropGhost: shown while dragging a character from PinnedTokensContainer over the canvas
+    const dropGhost = ref(null)
+    // All active ghosts: dragged token ghosts plus the optional drop ghost
+    const activeGhosts = computed(() => {
+        const ghosts = [...tokenGhosts.value]
+        if (dropGhost.value) ghosts.push(dropGhost.value)
+        return ghosts
+    })
+
+    // ─── Measurement / path display ───────────────────────────────────────────
+    const showPaths = ref(true)
+    const setShowPaths = (val) => { showPaths.value = val; saveState() }
+
+    // ─── Measurement tracks (one per dragged token) ───────────────────────────
+    // Each track: { waypoints: [{x,y}], currentPoint: {x,y} | null, size: Number }
+    const isMeasuring = ref(false)
+    const measureTracks = ref([])  // used during token drag (one track per token)
+    // Single-path measurement (canvas shift-click mode)
+    const measureWaypoints = ref([])
+    const measureCurrent = ref(null)
+    const isCmdHeld = ref(false)
+
+    // ─── Rubber-band selection ────────────────────────────────────────────────
+    const isSelecting = ref(false)
+    const selectionRectCanvas = ref(null) // { x1, y1, x2, y2 } in canvas coords
+    const _liveSelectionIds = ref(new Set()) // ids highlighted during rubber-band drag
+    let _selectStart = null
+
+    // ─── Right-click pan ─────────────────────────────────────────────────────
     const isPanning = ref(false)
-    const panStart = ref({ x: 0, y: 0, tx: 0, ty: 0 })
+    const _panStart = { x: 0, y: 0, tx: 0, ty: 0 }
+    // Tracks whether the current canvas shift-click measurement started as a drag
+    let _canvasMeasureDragging = false
 
     const handleContainerMousedown = (e) => {
-        if (e.button !== 0) return
-        if (e.shiftKey) {
-            // Start rubber-band selection
-            const container = canvasContainerRef.value
-            if (!container) return
-            const containerRect = container.getBoundingClientRect()
-            selectionRectangle.value = {
-                x1: e.clientX - containerRect.left,
-                y1: e.clientY - containerRect.top,
-                x2: e.clientX - containerRect.left,
-                y2: e.clientY - containerRect.top,
-            }
-        } else {
-            clearSelection()
+        if (e.button === 2) {
+            // Right-click: start pan, cancel any active canvas measurement
             isPanning.value = true
-            panStart.value = {
-                x: e.clientX,
-                y: e.clientY,
-                tx: transform.value.x,
-                ty: transform.value.y,
+            _panStart.x = e.clientX
+            _panStart.y = e.clientY
+            _panStart.tx = transform.value.x
+            _panStart.ty = transform.value.y
+            if (isMeasuring.value && !dragState.value) {
+                isMeasuring.value = false
+                measureWaypoints.value = []
+                measureCurrent.value = null
+            }
+        } else if (e.button === 0) {
+            if (e.shiftKey) {
+                // Shift+left-click on empty canvas: start or extend canvas measurement
+                const pos = _containerPos(e)
+                if (!pos) return
+                const cx = snapCenter(pos.canvasX)
+                const cy = snapCenter(pos.canvasY)
+                if (isMeasuring.value && !dragState.value) {
+                    // Lock current position as a waypoint and continue from the clicked point
+                    measureWaypoints.value = [...measureWaypoints.value, { x: cx, y: cy }]
+                    _canvasMeasureDragging = false
+                } else {
+                    isMeasuring.value = true
+                    measureWaypoints.value = [{ x: cx, y: cy }]
+                    measureCurrent.value = { x: cx, y: cy }
+                    _canvasMeasureDragging = true
+                }
+            } else {
+                // Plain left-click on empty canvas: end canvas measurement, deselect, begin rubber-band
+                if (isMeasuring.value && !dragState.value) {
+                    isMeasuring.value = false
+                    measureWaypoints.value = []
+                    measureCurrent.value = null
+                }
+                clearSelection()
+                const pos = _containerPos(e)
+                if (pos) {
+                    isSelecting.value = true
+                    _selectStart = pos
+                    selectionRectCanvas.value = { x1: pos.canvasX, y1: pos.canvasY, x2: pos.canvasX, y2: pos.canvasY }
+                }
             }
         }
     }
 
-    // Card drag interaction
-    // shallowRef so writing currentX/currentY during mousemove doesn't re-trigger Vue
+    // ─── Left-click token drag (multi-token) ──────────────────────────────────────────
+    // shallowRef: mutations to ds.currentRawDx etc. don't trigger Vue reactivity
     const dragState = shallowRef(null)
 
-    const handleCardMousedown = (item, e) => {
+    const isDragging = (id) => {
+        const ds = dragState.value
+        return ds ? ds.items.some(i => i.id === id) : false
+    }
+
+    const handleTokenMousedown = (item, e) => {
         if (e.button !== 0) return
-        // Suppress drag when the pointer is on an interactive element
+        // Don't start drag when clicking interactive elements inside the token
         for (const el of e.composedPath()) {
             if (el === e.currentTarget) break
             if (el.nodeType !== 1) continue
@@ -224,132 +282,291 @@ export function useTabletopCanvas() {
         e.stopPropagation()
 
         if (e.shiftKey) {
-            toggleSelection(item.id)
+            // Shift+click: toggle selection without starting a drag
+            toggleSelected(item.id)
             return
         }
 
-        if (isSelected(item.id)) {
-            // Drag all selected cards together
-            recordSnapshot()
-            const startPositions = new Map()
-            for (const id of selectedIds.value) {
-                const c = canvasItemsById.value.get(id)
-                if (c) {
-                    bringToFront(c)
-                    startPositions.set(id, { x: c.x, y: c.y })
-                }
-            }
-            multiDragState.value = {
-                startMouseX: e.clientX,
-                startMouseY: e.clientY,
-                startPositions,
-            }
-        } else {
-            recordSnapshot()
-            bringToFront(item)
-            dragState.value = {
-                id: item.id,
-                startMouseX: e.clientX,
-                startMouseY: e.clientY,
-                startItemX: item.x,
-                startItemY: item.y,
-            }
+        // Determine which tokens to drag: if clicked token is already selected, drag all selected;
+        // otherwise clear selection and drag only this token.
+        const idsToMove = isSelected(item.id) ? [...selectedIds.value] : [item.id]
+        selectedIds.value = new Set(idsToMove)
+
+        // Bring all dragging tokens to front; primary token gets the highest z-index.
+        for (const id of idsToMove) {
+            if (id === item.id) continue
+            const i = canvasItemsById.value.get(id)
+            if (i) bringToFront(i)
+        }
+        bringToFront(item)
+
+        const itemsToDrag = idsToMove.map(id => {
+            const i = canvasItemsById.value.get(id)
+            return { id, startX: i.x, startY: i.y }
+        })
+
+        dragState.value = {
+            primaryId: item.id,
+            items: itemsToDrag,
+            startMouseX: e.clientX,
+            startMouseY: e.clientY,
+            snapshotRecorded: false,
+            currentRawDx: 0,
+            currentRawDy: 0,
+        }
+
+        // Start measurement tracks for all dragged tokens
+        isMeasuring.value = true
+        measureTracks.value = itemsToDrag.map(({ id, startX, startY }) => {
+            const i = canvasItemsById.value.get(id)
+            const halfPx = (i.size * gridSize.value) / 2
+            const origin = { x: startX + halfPx, y: startY + halfPx }
+            return { waypoints: [origin], currentPoint: { ...origin }, size: i.size }
+        })
+        // Clear canvas shift-click measurement path when starting a drag
+        measureWaypoints.value = []
+        measureCurrent.value = null
+    }
+
+    // ─── HTML5 drag-from-rail drop zone ──────────────────────────────────────
+    const _containerPos = (e) => {
+        const container = canvasContainerRef.value
+        if (!container) return null
+        const rect = container.getBoundingClientRect()
+        return {
+            canvasX: (e.clientX - rect.left - transform.value.x) / transform.value.scale,
+            canvasY: (e.clientY - rect.top - transform.value.y) / transform.value.scale,
         }
     }
 
-    // Global mouse handlers (registered on window)
-    const handleGlobalMousemove = (e) => {
-        if (selectionRectangle.value) {
-            const container = canvasContainerRef.value
-            if (!container) return
-            const containerRect = container.getBoundingClientRect()
-            selectionRectangle.value = {
-                ...selectionRectangle.value,
-                x2: e.clientX - containerRect.left,
-                y2: e.clientY - containerRect.top,
-            }
-            return
+    const handleDragOver = (e) => {
+        e.preventDefault()
+        e.dataTransfer.dropEffect = 'copy'
+        const dc = draggingCharacter.value
+        if (!dc) return
+        const pos = _containerPos(e)
+        if (!pos) return
+        const halfPx = ((dc.size || 1) * gridSize.value) / 2
+        dropGhost.value = {
+            ...dc,
+            x: snap(pos.canvasX - halfPx),
+            y: snap(pos.canvasY - halfPx),
         }
+    }
+
+    const handleDragLeave = (e) => {
+        // Only clear ghost when the pointer leaves the canvas container entirely
+        if (!canvasContainerRef.value?.contains(e.relatedTarget)) {
+            dropGhost.value = null
+        }
+    }
+
+    const handleDrop = (e) => {
+        e.preventDefault()
+        const raw = e.dataTransfer.getData('application/vtt-character')
+        if (!raw) return
+        let snapshot
+        try { snapshot = JSON.parse(raw) } catch { return }
+        const pos = _containerPos(e)
+        if (!pos) return
+        const halfPx = ((snapshot.size || 1) * gridSize.value) / 2
+        const x = snap(pos.canvasX - halfPx)
+        const y = snap(pos.canvasY - halfPx)
+        recordSnapshot()
+        // Remove any existing token for the same character so there's only one instance
+        if (snapshot.characterId) {
+            canvasItems.value = canvasItems.value.filter(i => i.characterId !== snapshot.characterId)
+        }
+        _placeToken(snapshot, x, y)
+        dropGhost.value = null
+        clearDraggingCharacter()
+        saveState()
+    }
+
+    // ─── Global mouse handlers ────────────────────────────────────────────────
+    const handleGlobalMousemove = (e) => {
+        isCmdHeld.value = e.metaKey || e.ctrlKey
+
         if (isPanning.value) {
             transform.value = {
                 ...transform.value,
-                x: panStart.value.tx + (e.clientX - panStart.value.x),
-                y: panStart.value.ty + (e.clientY - panStart.value.y),
+                x: _panStart.tx + (e.clientX - _panStart.x),
+                y: _panStart.ty + (e.clientY - _panStart.y),
             }
             return
         }
-        if (multiDragState.value) {
-            const ds = multiDragState.value
-            const dx = (e.clientX - ds.startMouseX) / transform.value.scale
-            const dy = (e.clientY - ds.startMouseY) / transform.value.scale
-            if (!ds.currentPositions) ds.currentPositions = new Map()
-            for (const [id, start] of ds.startPositions) {
-                const x = snap(start.x + dx)
-                const y = snap(start.y + dy)
-                ds.currentPositions.set(id, { x, y })
-                const el = cardElementRefs.get(id)
-                if (el) el.style.transform = `translate(${x}px, ${y}px)`
+
+        if (isSelecting.value) {
+            const pos = _containerPos(e)
+            if (pos) {
+                selectionRectCanvas.value = {
+                    x1: _selectStart.canvasX,
+                    y1: _selectStart.canvasY,
+                    x2: pos.canvasX,
+                    y2: pos.canvasY,
+                }
+                // Live preview: compute which tokens fall inside the current rect
+                const rect = selectionRectCanvas.value
+                const minX = Math.min(rect.x1, rect.x2)
+                const maxX = Math.max(rect.x1, rect.x2)
+                const minY = Math.min(rect.y1, rect.y2)
+                const maxY = Math.max(rect.y1, rect.y2)
+                if (maxX - minX > 4 || maxY - minY > 4) {
+                    const next = new Set()
+                    for (const item of canvasItems.value) {
+                        const sz = item.size * gridSize.value
+                        if (item.x + sz > minX && item.x < maxX && item.y + sz > minY && item.y < maxY) {
+                            next.add(item.id)
+                        }
+                    }
+                    _liveSelectionIds.value = next
+                } else {
+                    _liveSelectionIds.value = new Set()
+                }
             }
             return
         }
+
         if (dragState.value) {
             const ds = dragState.value
-            const dx = e.clientX - ds.startMouseX
-            const dy = e.clientY - ds.startMouseY
-            const newX = snap(ds.startItemX + dx / transform.value.scale)
-            const newY = snap(ds.startItemY + dy / transform.value.scale)
-            ds.currentX = newX
-            ds.currentY = newY
-            const el = cardElementRefs.get(ds.id)
-            if (el) el.style.transform = `translate(${newX}px, ${newY}px)`
+            const dx = (e.clientX - ds.startMouseX) / transform.value.scale
+            const dy = (e.clientY - ds.startMouseY) / transform.value.scale
+
+            // Record snapshot on first actual movement so click-only actions don't pollute history
+            if (!ds.snapshotRecorded && (Math.abs(dx) > 2 || Math.abs(dy) > 2)) {
+                recordSnapshot()
+                ds.snapshotRecorded = true
+            }
+
+            ds.currentRawDx = dx
+            ds.currentRawDy = dy
+
+            // Move all dragging token DOM elements freely (no snap) to avoid a Vue re-render per frame
+            for (const { id, startX, startY } of ds.items) {
+                const el = _tokenElementRefs.get(id)
+                if (el) el.style.transform = `translate(${startX + dx}px, ${startY + dy}px)`
+            }
+
+            // Update ghosts and measurement tracks for all dragged tokens
+            const newGhosts = []
+            const newTracks = measureTracks.value.map((track) => ({ ...track }))
+            for (let idx = 0; idx < ds.items.length; idx++) {
+                const { id, startX, startY } = ds.items[idx]
+                const dragItem = canvasItemsById.value.get(id)
+                if (!dragItem) continue
+                const snappedX = snap(startX + dx)
+                const snappedY = snap(startY + dy)
+                newGhosts.push({
+                    x: snappedX,
+                    y: snappedY,
+                    size: dragItem.size,
+                    name: dragItem.name,
+                    portraitUrl: dragItem.portraitUrl,
+                    isBeast: dragItem.isBeast,
+                })
+                if (isMeasuring.value && newTracks[idx]) {
+                    const halfPx = (dragItem.size * gridSize.value) / 2
+                    newTracks[idx] = {
+                        ...newTracks[idx],
+                        currentPoint: { x: snappedX + halfPx, y: snappedY + halfPx },
+                    }
+                }
+            }
+            tokenGhosts.value = newGhosts
+            if (isMeasuring.value) measureTracks.value = newTracks
+            return
+        }
+
+        // Update canvas measurement current point (no token drag active)
+        if (isMeasuring.value) {
+            const pos = _containerPos(e)
+            if (pos) {
+                measureCurrent.value = { x: snapCenter(pos.canvasX), y: snapCenter(pos.canvasY) }
+            }
         }
     }
 
     const handleGlobalMouseup = () => {
-        if (selectionRectangle.value) {
-            if (pendingSelectionIds.value.size > 0) selectedIds.value = pendingSelectionIds.value
-            selectionRectangle.value = null
+        if (isPanning.value) {
+            isPanning.value = false
+            saveState()
             return
         }
-        // Sync positions from direct DOM manipulation back into Vue reactive state (one render)
-        if (dragState.value) {
-            const { id, currentX, currentY } = dragState.value
-            if (currentX !== undefined) {
-                const item = canvasItemsById.value.get(id)
-                if (item) { item.x = currentX; item.y = currentY }
+
+        if (isSelecting.value) {
+            // Finalise rubber-band: select all tokens whose bounding box overlaps the rect
+            const rect = selectionRectCanvas.value
+            if (rect) {
+                const minX = Math.min(rect.x1, rect.x2)
+                const maxX = Math.max(rect.x1, rect.x2)
+                const minY = Math.min(rect.y1, rect.y2)
+                const maxY = Math.max(rect.y1, rect.y2)
+                // Only treat as a selection drag if the rect has some meaningful size
+                if (maxX - minX > 4 || maxY - minY > 4) {
+                    const next = new Set()
+                    for (const item of canvasItems.value) {
+                        const sz = item.size * gridSize.value
+                        if (item.x + sz > minX && item.x < maxX && item.y + sz > minY && item.y < maxY) {
+                            next.add(item.id)
+                        }
+                    }
+                    selectedIds.value = next
+                }
             }
-            saveState()
-            dragState.value = null
+            isSelecting.value = false
+            selectionRectCanvas.value = null
+            _selectStart = null
+            _liveSelectionIds.value = new Set()
+            return
         }
-        if (multiDragState.value) {
-            const ds = multiDragState.value
-            if (ds.currentPositions) {
-                for (const [id, pos] of ds.currentPositions) {
+
+        if (dragState.value) {
+            const ds = dragState.value
+            if (ds.snapshotRecorded) {
+                // Snap all dragged tokens to the nearest grid line
+                for (const { id, startX, startY } of ds.items) {
+                    const snappedX = snap(startX + ds.currentRawDx)
+                    const snappedY = snap(startY + ds.currentRawDy)
                     const item = canvasItemsById.value.get(id)
-                    if (item) { item.x = pos.x; item.y = pos.y }
+                    if (item) {
+                        item.x = snappedX
+                        item.y = snappedY
+                        const el = _tokenElementRefs.get(id)
+                        if (el) el.style.transform = `translate(${snappedX}px, ${snappedY}px)`
+                    }
                 }
                 saveState()
             }
-            multiDragState.value = null
+            tokenGhosts.value = []
+            dragState.value = null
+            // End token measurement
+            isMeasuring.value = false
+            measureTracks.value = []
+            measureWaypoints.value = []
+            measureCurrent.value = null
+            return
         }
-        isPanning.value = false
+
+        // Stop canvas shift-drag measurement when the mouse is released after dragging
+        if (_canvasMeasureDragging && isMeasuring.value && !dragState.value) {
+            _canvasMeasureDragging = false
+            isMeasuring.value = false
+            measureWaypoints.value = []
+            measureCurrent.value = null
+        }
     }
 
-    // Zoom
+    // ─── Zoom ─────────────────────────────────────────────────────────────────
     const handleWheel = (e) => {
         const container = canvasContainerRef.value
         if (!container) return
         const rect = container.getBoundingClientRect()
         const mouseX = e.clientX - rect.left
         const mouseY = e.clientY - rect.top
-
         const factor = e.deltaY < 0 ? 1.08 : 1 / 1.08
         const newScale = Math.max(MIN_SCALE, Math.min(MAX_SCALE, transform.value.scale * factor))
-
-        // Keep the point under the cursor stationary
         const canvasX = (mouseX - transform.value.x) / transform.value.scale
         const canvasY = (mouseY - transform.value.y) / transform.value.scale
-
         transform.value = {
             scale: newScale,
             x: mouseX - canvasX * newScale,
@@ -376,121 +593,62 @@ export function useTabletopCanvas() {
     }
 
     const resetView = () => {
-        transform.value = { x: 0, y: 0, scale: 1 }
+        const container = canvasContainerRef.value
+        if (backgroundImage.value && container) {
+            const { width: cw, height: ch } = container.getBoundingClientRect()
+            const { naturalWidth: iw, naturalHeight: ih } = backgroundImage.value
+            const scale = Math.min(cw / iw, ch / ih, 1)
+            transform.value = {
+                scale,
+                x: (cw - iw * scale) / 2,
+                y: (ch - ih * scale) / 2,
+            }
+        } else {
+            transform.value = { x: 0, y: 0, scale: 1 }
+        }
         saveState()
     }
 
-    // Z-index stacking
-    const topZIndex = ref(1)
-
-    const bringToFront = (item) => {
-        topZIndex.value += 1
-        item.zIndex = topZIndex.value
-    }
-
-    const isDragging = (id) => {
-        if (dragState.value?.id === id) return true
-        return !!(multiDragState.value && selectedIds.value.has(id))
-    }
-
-    // Item placement & management
-    const _placeItem = (type, itemId) => {
-        const container = canvasContainerRef.value
-        if (!container) return
-        const { width, height } = container.getBoundingClientRect()
-        const cx = (width / 2 - transform.value.x) / transform.value.scale
-        const cy = (height / 2 - transform.value.y) / transform.value.scale
-        const stagger = (canvasItems.value.length % 10) * 24
+    // ─── Token placement ──────────────────────────────────────────────────────
+    const _placeToken = (snapshot, x, y) => {
         topZIndex.value += 1
         canvasItems.value.push({
             id: crypto.randomUUID(),
-            type,
-            itemId,
-            x: snap(cx - 150 + stagger),
-            y: snap(cy - 80 + stagger),
+            characterId: snapshot.characterId,
+            isBeast: snapshot.isBeast ?? false,
+            name: snapshot.name ?? 'Unknown',
+            portraitUrl: snapshot.portraitUrl ?? null,
+            size: snapshot.size || 1,
+            x,
+            y,
             zIndex: topZIndex.value,
         })
     }
 
-    const addItem = (type, itemId) => {
-        recordSnapshot()
-        _placeItem(type, itemId)
-        saveState()
-    }
-
-    const addAllItems = (type, items) => {
-        if (!items.length) return
-        recordSnapshot()
-        items.forEach(item => _placeItem(type, item.id))
-        saveState()
-    }
-
-    const removeItem = (id) => {
+    const removeToken = (id) => {
         recordSnapshot()
         canvasItems.value = canvasItems.value.filter(i => i.id !== id)
         const next = new Set(selectedIds.value)
-        if (next.delete(id)) selectedIds.value = next
-        saveState()
-    }
-
-    // Removes all canvas cards whose backing data item was deleted
-    const removeItemsBySource = (type, itemId) => {
-        const removed = canvasItems.value
-            .filter(i => i.type === type && i.itemId === itemId)
-            .map(i => i.id)
-        if (!removed.length) return
-        recordSnapshot()
-        canvasItems.value = canvasItems.value.filter(i => !(i.type === type && i.itemId === itemId))
-        const next = new Set(selectedIds.value)
-        removed.forEach(id => next.delete(id))
+        next.delete(id)
         selectedIds.value = next
         saveState()
     }
 
     const clearAll = () => {
-        if (!window.confirm('Remove all cards from the tabletop?')) return
+        if (!window.confirm('Remove all tokens from the tabletop?')) return
         recordSnapshot()
         canvasItems.value = []
         selectedIds.value = new Set()
         saveState()
     }
 
-    // Persistence
-    const saveState = () => {
-        try {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify({
-                items: canvasItems.value,
-                transform: transform.value,
-            }))
-        } catch {
-            // Storage full or unavailable – silently skip
-        }
-    }
-
-    const loadState = () => {
-        try {
-            const raw = localStorage.getItem(STORAGE_KEY)
-            if (!raw) return
-            const state = JSON.parse(raw)
-            if (Array.isArray(state.items)) {
-                // Back-fill zIndex for items persisted before this field existed
-                state.items.forEach((item, i) => {
-                    if (item.zIndex == null) item.zIndex = i + 1
-                })
-                canvasItems.value = state.items
-                topZIndex.value = Math.max(1, ...state.items.map(i => i.zIndex ?? 0))
-            }
-            if (state.transform) transform.value = state.transform
-        } catch {
-            // Corrupted state – start fresh
-        }
-    }
-
-    // Keyboard handlers
+    // ─── Keyboard ─────────────────────────────────────────────────────────────
     const handleGlobalKeydown = (e) => {
-        // Don't steal keystrokes from inputs, textareas, or contenteditable elements
         const tag = document.activeElement?.tagName?.toLowerCase()
         if (tag === 'input' || tag === 'textarea' || document.activeElement?.isContentEditable) return
+
+        // Track cmd/ctrl for measurement exact-mode even without a mousemove
+        if (e.key === 'Meta' || e.key === 'Control') isCmdHeld.value = true
 
         const ctrlOrCmd = e.metaKey || e.ctrlKey
 
@@ -507,65 +665,142 @@ export function useTabletopCanvas() {
             return
         }
 
-        if (e.key !== 'Delete' && e.key !== 'Backspace') return
-        if (selectedIds.value.size === 0) return
-        e.preventDefault()
-        recordSnapshot()
-        const toRemove = [...selectedIds.value]
-        canvasItems.value = canvasItems.value.filter(i => !toRemove.includes(i.id))
-        selectedIds.value = new Set()
-        saveState()
+        if ((e.key === 'Delete' || e.key === 'Backspace') && selectedIds.value.size > 0) {
+            e.preventDefault()
+            recordSnapshot()
+            const toDelete = new Set(selectedIds.value)
+            canvasItems.value = canvasItems.value.filter(i => !toDelete.has(i.id))
+            selectedIds.value = new Set()
+            saveState()
+            return
+        }
+
+        if (e.key === ' ' && isMeasuring.value) {
+            e.preventDefault()
+            if (dragState.value) {
+                // Lock current snapped position as a waypoint for each token track
+                measureTracks.value = measureTracks.value.map(track => {
+                    if (!track.currentPoint) return track
+                    return {
+                        ...track,
+                        waypoints: [...track.waypoints, { ...track.currentPoint }],
+                    }
+                })
+            } else if (measureCurrent.value) {
+                // Insert a waypoint at the current canvas measurement position
+                measureWaypoints.value = [...measureWaypoints.value, { ...measureCurrent.value }]
+            }
+            return
+        }
+
+        if (e.key === 'Escape' && isMeasuring.value && !dragState.value) {
+            e.preventDefault()
+            isMeasuring.value = false
+            measureWaypoints.value = []
+            measureCurrent.value = null
+        }
     }
 
-    // Lifecycle
+    const handleGlobalKeyup = (e) => {
+        if (e.key === 'Meta' || e.key === 'Control') isCmdHeld.value = false
+    }
+
+    // ─── Persistence ─────────────────────────────────────────────────────────
+    const saveState = () => {
+        try {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify({
+                items: canvasItems.value,
+                transform: transform.value,
+                backgroundImage: backgroundImage.value,
+                gridSize: gridSize.value,
+                gridColor: gridColor.value,
+                gridOpacity: gridOpacity.value,
+                showPaths: showPaths.value,
+            }))
+        } catch { /* storage full or unavailable – silently skip */ }
+    }
+
+    const loadState = () => {
+        try {
+            const raw = localStorage.getItem(STORAGE_KEY)
+            if (!raw) return
+            const state = JSON.parse(raw)
+            if (Array.isArray(state.items)) {
+                state.items.forEach((item, i) => {
+                    if (item.zIndex == null) item.zIndex = i + 1
+                })
+                canvasItems.value = state.items
+                topZIndex.value = Math.max(1, ...state.items.map(i => i.zIndex ?? 0))
+            }
+            if (state.transform) transform.value = state.transform
+            if (state.backgroundImage) backgroundImage.value = state.backgroundImage
+            if (state.gridSize) gridSize.value = state.gridSize
+            if (state.gridColor) gridColor.value = state.gridColor
+            if (state.gridOpacity != null) gridOpacity.value = state.gridOpacity
+            if (state.showPaths != null) showPaths.value = state.showPaths
+        } catch { /* corrupted state – start fresh */ }
+    }
+
+    // ─── Lifecycle ────────────────────────────────────────────────────────────
     onMounted(() => {
         loadState()
         window.addEventListener('mousemove', handleGlobalMousemove)
         window.addEventListener('mouseup', handleGlobalMouseup)
         window.addEventListener('keydown', handleGlobalKeydown)
+        window.addEventListener('keyup', handleGlobalKeyup)
     })
 
     onUnmounted(() => {
         window.removeEventListener('mousemove', handleGlobalMousemove)
         window.removeEventListener('mouseup', handleGlobalMouseup)
         window.removeEventListener('keydown', handleGlobalKeydown)
+        window.removeEventListener('keyup', handleGlobalKeyup)
     })
 
     return {
         canvasContainerRef,
         canvasItems,
-        resolvedItemMap,
         transform,
-        snapToGrid,
+        backgroundImage,
         gridSize,
+        gridColor,
+        gridOpacity,
         canvasTransformStyle,
         canvasGridStyle,
+        canvasSizeStyle,
+        activeGhosts,
         canUndo,
         canRedo,
         undo,
         redo,
         selectedIds,
-        selectionRectangle,
         isSelected,
-        isPendingSelection,
         isDragging,
-        registerCardRef,
-        getImprovementsVisible,
-        setImprovementsVisible,
-        getSuccessesVisible,
-        setSuccessesVisible,
+        isPanning,
+        isSelecting,
+        selectionRectCanvas,
+        isMeasuring,
+        measureTracks,
+        measureWaypoints,
+        measureCurrent,
+        isCmdHeld,
+        registerTokenRef,
         handleWheel,
         handleContainerMousedown,
-        handleCardMousedown,
+        handleTokenMousedown,
+        handleDragOver,
+        handleDragLeave,
+        handleDrop,
         adjustZoom,
-        resetView,
-        toggleSnap,
         increaseGridSize,
         decreaseGridSize,
-        addItem,
-        addAllItems,
-        removeItem,
-        removeItemsBySource,
+        setBackgroundImage,
+        clearBackgroundImage,
+        setGridColor,
+        setGridOpacity,
+        showPaths,
+        setShowPaths,
+        removeToken,
         clearAll,
     }
 }

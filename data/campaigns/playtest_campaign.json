@@ -2,7 +2,7 @@
   "id": "c9ddeab9-d180-4fc5-869f-e64239bc3376",
   "isDeleted": false,
   "createdAt": "2026-05-18T17:56:57.471Z",
-  "lastModified": "2026-07-08T18:45:19.278Z",
+  "lastModified": "2026-07-09T16:58:03.118Z",
   "slug": "playtest-campaign",
   "name": "Playtest Campaign",
   "description": "",
@@ -65,7 +65,29 @@
     "21bd354f-8468-4057-971c-5afc0d20b571",
     "49f10189-9634-4083-933b-fa74c2583b87"
   ],
-  "shops": [],
+  "shops": [
+    {
+      "id": "3216acb0-094e-4a04-9cf9-7336d4bf3493",
+      "name": "Tierney's Magic Nifty Trinkets",
+      "primaryCultureId": null,
+      "generationParams": {},
+      "isVisibleToPlayers": true,
+      "items": [
+        "e9559e97-d1b7-48d4-a358-d9da0614aa6d",
+        "ce7966c5-c074-4c31-87bc-3eff62a3b3c6",
+        "63b993f5-ff66-4b05-ad67-10c88de94626",
+        "653a57b2-467c-4d33-b6bd-373a71467e70",
+        "693d58f9-e5b4-4798-8408-a9fb73a6f8b4",
+        "04433cd5-e498-4c4c-b38b-a8a607f4bce1",
+        "acbfdf19-eba7-411a-8249-3244d3eb33ea",
+        "a9db46ec-176b-4018-ba95-3c71b8a99139",
+        "48ba19d7-f35e-4ec3-94c4-5c2094bb6d77",
+        "a6c8015a-befa-4c2e-8de0-2f68304a01c5",
+        "8eeb487c-0d46-4342-af1e-e4d372b66f68",
+        "7bdd18cc-6021-4a0d-84f7-a84ae90c1df7"
+      ]
+    }
+  ],
   "lobbyState": {
     "inactiveNpcIds": [],
     "hiddenNpcIds": [],
