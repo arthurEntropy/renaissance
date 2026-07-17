@@ -6,7 +6,7 @@
 
         <!-- Completed state -->
         <CompletedDiceDisplay v-else :truncated-dice="truncatedDice" :dice-size="diceSize" :is-rolling="isRolling"
-            :is-custom-roll="isCustomRoll" :can-show-reroll="canReroll && !isOpponent && !isEngagementOrOpposedRoll"
+            :is-custom-roll="isCustomRoll" :can-show-reroll="canReroll && !isOpponent && !isEngagementOrContestRoll"
             @reroll-all="emit('reroll-all-dice')" @open-modal="openModal" />
 
         <!-- Modal for showing all dice -->
@@ -174,9 +174,9 @@ const isCustomRoll = computed(() => {
     return props.rollData?.type === RollTypes.CUSTOM_ROLL
 })
 
-const isEngagementOrOpposedRoll = computed(() => {
+const isEngagementOrContestRoll = computed(() => {
     return props.rollData?.type === RollTypes.ENGAGEMENT ||
-        props.rollData?.type === RollTypes.OPPOSED_SKILL_CHECK
+        props.rollData?.type === RollTypes.CONTEST
 })
 
 const diceSize = computed(() => {

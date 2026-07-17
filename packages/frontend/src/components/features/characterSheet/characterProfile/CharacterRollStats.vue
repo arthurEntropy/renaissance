@@ -60,9 +60,9 @@
                 <span class="roll-stats-value">{{ engagementRecord }}</span>
             </div>
             <div class="roll-stats-row">
-                <span class="roll-stats-label">Opposed W/L/D</span>
+                <span class="roll-stats-label">Contest W/L/D</span>
                 <span class="roll-stats-dots" aria-hidden="true"></span>
-                <span class="roll-stats-value">{{ opposedRecord }}</span>
+                <span class="roll-stats-value">{{ contestRecord }}</span>
             </div>
 
             <div class="roll-stats-actions">
@@ -144,9 +144,9 @@ const engagementRecord = computed(() => {
     return `${engagement.wins || 0} / ${engagement.losses || 0} / ${engagement.draws || 0}`
 })
 
-const opposedRecord = computed(() => {
-    const opposed = characterRollStats.value.contests.opposed
-    return `${opposed.wins || 0} / ${opposed.losses || 0} / ${opposed.draws || 0}`
+const contestRecord = computed(() => {
+    const contest = characterRollStats.value.contests.contest
+    return `${contest.wins || 0} / ${contest.losses || 0} / ${contest.draws || 0}`
 })
 
 </script>

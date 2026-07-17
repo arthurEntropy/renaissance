@@ -41,8 +41,8 @@
 
     <!-- Roll Type Toggle -->
     <div class="roll-type-toggle">
-      <ActionButton :variant="rollType === RollTypes.OPPOSED_SKILL_CHECK ? 'primary' : 'outline'" size="large"
-        text="Opposed" @click="rollType = RollTypes.OPPOSED_SKILL_CHECK" />
+      <ActionButton :variant="rollType === RollTypes.CONTEST ? 'primary' : 'outline'" size="large" text="Contest"
+        @click="rollType = RollTypes.CONTEST" />
       <ActionButton :variant="rollType === 'unopposed' ? 'primary' : 'outline'" size="large" text="Unopposed"
         @click="rollType = 'unopposed'" />
       <ActionButton :variant="rollType === RollTypes.SKILL_CHECK ? 'primary' : 'outline'" size="large" text="Difficulty"
@@ -109,7 +109,7 @@ const props = defineProps({
   },
 })
 
-const emit = defineEmits(['close', 'update-difficulty', 'start-opposed-skill-check'])
+const emit = defineEmits(['close', 'update-difficulty', 'start-contest'])
 
 const localSelectedSkillKey = ref(props.selectedSkillKey || '')
 const localDifficulty = ref(props.defaultDifficulty || null)
@@ -234,7 +234,7 @@ function rollSkillCheck() {
     return
   }
 
-  if (rollType.value === RollTypes.OPPOSED_SKILL_CHECK) {
+  if (rollType.value === RollTypes.CONTEST) {
     const skillCheckConfig = {
       key: effectiveRollParameters.value.key,
       name: effectiveRollParameters.value.name,
@@ -244,7 +244,7 @@ function rollSkillCheck() {
       diceMod: effectiveRollParameters.value.diceMod
     }
 
-    emit('start-opposed-skill-check', {
+    emit('start-contest', {
       character: props.character,
       skillCheckConfig,
       sendToDiscord: sendToDiscord.value

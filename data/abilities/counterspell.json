@@ -6,7 +6,7 @@
   "name": "Counterspell",
   "artUrl": "https://cdn.midjourney.com/edb41c6a-1155-438d-bede-1a38b267f0b1/0_0.png",
   "description": "<p><em>Trigger: A creature within medium range casts a spell.</em></p><p>You attempt to counter the spell. If the spell includes a skill check as part of its initial effect, roll Lore vs that skill. Otherwise, roll Lore vs Awareness.</p><p>Either way, on a win, the casting fails and any resources required for the spell are consumed. On a loss, the spell is cast as normal.</p><p><strong>Describe how you counter the spell.</strong></p>",
-  "successes": "<p>✨: On a loss, you may to attempt the opposed roll a second time (but not a third time), ill-favored.</p><p>🌞: On a win, you may allow the spell to be cast, but with the caster as the target of the spell.</p><p>💀: If you're not already the target of the spell, you become the target. Check a Condition.</p>",
+  "successes": "<p>✨: On a loss, you may to attempt the contest a second time (but not a third time), ill-favored.</p><p>🌞: On a win, you may allow the spell to be cast, but with the caster as the target of the spell.</p><p>💀: If you're not already the target of the spell, you become the target. Check a Condition.</p>",
   "improvements": [],
   "source": "9633d8e1-88a6-44f1-9e8c-50b3732b4ffa",
   "school": "6dee9b36-a9ea-4edf-ad7b-7321e4408da5",

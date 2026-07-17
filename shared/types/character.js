@@ -128,7 +128,7 @@ import { createBaseEntity } from './baseEntity.js'
  * @property {number} skillChecks.successCount - Number of d6 successes rolled
  * @property {Object} contests - Contest result statistics
  * @property {Object} contests.engagement - Engagement win/loss/draw counts
- * @property {Object} contests.opposed - Opposed skill check win/loss/draw counts
+ * @property {Object} contests.contest - Contest win/loss/draw counts
  */
 
 /**
@@ -341,7 +341,7 @@ function createDefaultCharacterBase() {
       },
       contests: {
         engagement: { wins: 0, losses: 0, draws: 0 },
-        opposed: { wins: 0, losses: 0, draws: 0 },
+        contest: { wins: 0, losses: 0, draws: 0 },
       },
     },
 

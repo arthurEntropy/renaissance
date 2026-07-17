@@ -86,10 +86,10 @@
     <!-- Skill Check Modal -->
     <SkillCheckModal v-if="showSkillCheckModal" :selected-skill-key="rollLinkSkillKey" :character="selectedCharacter"
       :default-roll-type="rollLinkRollType" :default-dice-mod="rollLinkBiomeDiceMod"
-      @close="showSkillCheckModal = false" @start-opposed-skill-check="handleStartOpposedSkillCheck" />
+      @close="showSkillCheckModal = false" @start-contest="handleStartContest" />
 
-    <OpposedSkillCheckModal v-if="opposedSkillCheckModalOpen" :initial-session-config="opposedSessionConfig"
-      @close="opposedSkillCheckModalOpen = false" />
+    <ContestModal v-if="contestModalOpen" :initial-session-config="contestSessionConfig"
+      @close="contestModalOpen = false" />
 
   </CharacterSheetSection>
 </template>
@@ -110,7 +110,7 @@ import GroupedThreeColumnLayout from '@/components/ui/layouts/GroupedThreeColumn
 import SortingPicker from '@/components/ui/pickers/SortingPicker.vue'
 import SkillCheckModal from '@/components/features/characterSheet/modals/SkillCheckModal.vue'
 import ConfirmPurchaseModal from '@/components/ui/modals/ConfirmPurchaseModal.vue'
-import OpposedSkillCheckModal from '@/components/features/characterSheet/rollModal/OpposedSkillCheckModal.vue'
+import ContestModal from '@/components/features/characterSheet/rollModal/ContestModal.vue'
 import CharacterService from '@/services/entities/characterService'
 import { useCardCascadePicker } from '@/composables/useCardCascadePicker'
 import { anchorFromTriggerEvent } from '@/composables/useAnchoredPickerTrigger'
@@ -160,8 +160,8 @@ const showSkillCheckModal = ref(false)
 const rollLinkSkillKey = ref(null)
 const rollLinkRollType = ref(null)
 const rollLinkBiomeDiceMod = ref(0)
-const opposedSkillCheckModalOpen = ref(false)
-const opposedSessionConfig = ref(null)
+const contestModalOpen = ref(false)
+const contestSessionConfig = ref(null)
 
 const sortOptions = ABILITY_SORT_OPTIONS
 
@@ -381,10 +381,10 @@ const handleCharacterUpdate = (updatedCharacter) => {
 const handleRollLink = (rollData) => {
   if (!selectedCharacter.value) return
 
-  if (rollData.type === 'skill-check' || rollData.type === 'opposed-skill-check') {
+  if (rollData.type === 'skill-check' || rollData.type === 'contest') {
     rollLinkSkillKey.value = Object.values(SKILLS).find(s => s.label === rollData.skill)?.key ?? rollData.skill?.toLowerCase() ?? null
-    rollLinkRollType.value = rollData.type === 'opposed-skill-check'
-      ? RollTypes.OPPOSED_SKILL_CHECK
+    rollLinkRollType.value = rollData.type === 'contest'
+      ? RollTypes.CONTEST
       : RollTypes.SKILL_CHECK
     rollLinkBiomeDiceMod.value = rollData.biomeDiceMod ?? 0
     showSkillCheckModal.value = true
@@ -463,10 +463,10 @@ const handleRollLink = (rollData) => {
   }
 }
 
-const handleStartOpposedSkillCheck = (config) => {
+const handleStartContest = (config) => {
   showSkillCheckModal.value = false
-  opposedSessionConfig.value = config
-  opposedSkillCheckModalOpen.value = true
+  contestSessionConfig.value = config
+  contestModalOpen.value = true
 }
 
 const allAbilitiesExpanded = computed(() =>

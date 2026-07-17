@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from 'uuid'
 import { SESSION_STATUS } from '../../../shared/constants/sessionStatus.js'
 import { SESSION_EVENTS } from '../../../shared/constants/sessionEvents.js'
-import { opposedSkillCheckConfig } from './sessionConfigs/opposedSkillCheckConfig.js'
+import { contestConfig } from './sessionConfigs/contestConfig.js'
 import { engagementConfig } from './sessionConfigs/engagementConfig.js'
 
 const SESSION_CLEANUP_INTERVAL = 5 * 60 * 1000 // 5 minutes
@@ -166,5 +166,5 @@ function createSessionController(config) {
   }
 }
 
-export const setupOpposedSkillCheckHandlers = createSessionController(opposedSkillCheckConfig).setupSocketHandlers
+export const setupContestHandlers = createSessionController(contestConfig).setupSocketHandlers
 export const setupEngagementHandlers = createSessionController(engagementConfig).setupSocketHandlers

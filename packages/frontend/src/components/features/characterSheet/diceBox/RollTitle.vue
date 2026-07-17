@@ -7,8 +7,8 @@
             <span class="skill-name">{{ rollData.opponentName }}</span>
         </span>
 
-        <span v-else-if="isOpposedSkillCheck">
-            Opposed:
+        <span v-else-if="isContest">
+            Contest:
             <span class="skill-name">{{ rollData.characterName }}</span>
             ({{ rollData.skillName }})
             vs
@@ -60,7 +60,7 @@ defineProps({
         type: Boolean,
         required: true
     },
-    isOpposedSkillCheck: {
+    isContest: {
         type: Boolean,
         required: true
     },

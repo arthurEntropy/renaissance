@@ -1,9 +1,9 @@
 import BaseSessionService from './baseSessionService.js'
 import { SESSION_EVENTS } from '@shared/constants/sessionEvents.js'
 
-class OpposedSkillCheckSessionService extends BaseSessionService {
+class ContestSessionService extends BaseSessionService {
   constructor() {
-    super('opposed-skill-check')
+    super('contest')
   }
 
   _setupServiceSpecificHandlers() {
@@ -49,6 +49,6 @@ class OpposedSkillCheckSessionService extends BaseSessionService {
   }
 }
 
-const opposedSkillCheckSessionService = new OpposedSkillCheckSessionService()
+const contestSessionService = new ContestSessionService()
 
-export default opposedSkillCheckSessionService
+export default contestSessionService

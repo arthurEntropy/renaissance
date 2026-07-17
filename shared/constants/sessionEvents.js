@@ -34,7 +34,7 @@ export const SESSION_EVENTS = {
   // Engagement-specific events (emit & broadcast use same name)
   SUCCESS_ASSIGNMENT_UPDATED: 'success-assignment-updated',  // Engagement success assigned to die
   
-  // Opposed skill check-specific events (different semantic meanings)
+  // Contest-specific events (different semantic meanings)
   START_REROLL: 'start-reroll',                 // Server→Clients: reroll initiated (for animations)
   REROLL_SKILL_CHECK: 'reroll-skill-check'      // Client→Server: request to reroll entire skill check
 }

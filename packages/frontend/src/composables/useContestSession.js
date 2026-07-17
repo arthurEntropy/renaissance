@@ -4,20 +4,20 @@ import { SESSION_EVENTS } from '@shared/constants/sessionEvents.js'
 import { WINNER } from '@shared/constants/winner.js'
 import { PlayerSides } from '@/constants/playerSides.js'
 import { DICE_ROLL_DURATION } from '@/constants/animationDurations'
-import opposedSkillCheckSessionService from '@/services/sessions/opposedSkillCheckSessionService'
-import OpposedSkillCheckService from '@/services/rolls/opposedSkillCheckService'
+import contestSessionService from '@/services/sessions/contestSessionService'
+import ContestService from '@/services/rolls/contestService'
 import { useBaseSession } from './useBaseSession.js'
 import { useRollsStore } from '@/stores/rollsStore'
 
-let opposedSkillCheckSessionInstance = null
+let contestSessionInstance = null
 
-export function useOpposedSkillCheckSession() {
+export function useContestSession() {
   // Return existing instance if already created
-  if (opposedSkillCheckSessionInstance) {
-    return opposedSkillCheckSessionInstance
+  if (contestSessionInstance) {
+    return contestSessionInstance
   }
 
-  const baseSession = useBaseSession(opposedSkillCheckSessionService)
+  const baseSession = useBaseSession(contestSessionService)
   
   const rollsStore = useRollsStore()
 
@@ -49,7 +49,7 @@ export function useOpposedSkillCheckSession() {
     rerollingCharacterId.value = null
   }
 
-  // Opposed skill check specific state
+  // Contest-specific state
   const currentCharacter = ref(null)
   const currentDiceManager = ref(null)
   const userSkillConfig = ref(null)
@@ -61,7 +61,7 @@ export function useOpposedSkillCheckSession() {
   // Store previous winner for stable display during reroll animations
   const previousWinner = ref(null)
 
-  // Opposed skill check specific computed properties
+  // Contest-specific computed properties
   const canCancelSession = computed(() => {
     return baseSession.sessionStatus.value !== SESSION_STATUS.COMPLETED || 
            !baseSession.bothUsersAccepted.value
@@ -129,11 +129,11 @@ export function useOpposedSkillCheckSession() {
     
     // Setup event listeners - all handled internally now
     const callbacks = {
-      sessionType: 'opposed skill check',
+      sessionType: 'contest',
       onRollResults: ({ session, _timestamp }) => {
         // Ensure session has the expected structure
         if (!session || !session.users || session.users.length < 2) {
-          console.error('Invalid session structure for opposed skill check:', session)
+          console.error('Invalid session structure for contest:', session)
           return
         }
         
@@ -145,18 +145,18 @@ export function useOpposedSkillCheckSession() {
           return
         }
         
-        // Create the opposed result for Discord webhook
-        const opposedResult = OpposedSkillCheckService.createOpposedSkillCheckResult(
+        // Create the contest result for Discord webhook
+        const contestResult = ContestService.createContestResult(
           session,
           character.id,
           opponent.characterInfo.id
         )
         
         // Send to Discord if result was created
-        if (opposedResult) {
+        if (contestResult) {
           // Discord webhook is handled by the service internally
         } else {
-          console.error('Failed to create opposed skill check result')
+          console.error('Failed to create contest result')
         }
       },
       onAcceptanceStateUpdated: ({ _characterId, accepted }) => {
@@ -175,26 +175,26 @@ export function useOpposedSkillCheckSession() {
 
     baseSession.setupBaseEventHandlers(character, callbacks)
 
-    // Setup opposed skill check specific event handlers
-    setupOpposedSkillCheckSpecificHandlers()
+    // Setup contest specific event handlers
+    setupContestSpecificHandlers()
     
     // Initialize connection and auto-join
     baseSession.initializeConnection(() => {
-      opposedSkillCheckSessionService.autoJoinOrCreate(character, skillCheckConfig)
+      contestSessionService.autoJoinOrCreate(character, skillCheckConfig)
     })
   }
 
-  function setupOpposedSkillCheckSpecificHandlers() {
+  function setupContestSpecificHandlers() {
     // Watch for session status changes to trigger rolling
     watch(() => baseSession.sessionStatus.value, (newStatus, oldStatus) => {
       // When session becomes ACTIVE and we haven't rolled yet, start rolling
       if (newStatus === SESSION_STATUS.ACTIVE && oldStatus === SESSION_STATUS.WAITING) {
         // Make a skill check for the current character
-        const rollResult = OpposedSkillCheckService.makeOpposedSkillCheck(userSkillConfig.value, currentCharacter.value)
+        const rollResult = ContestService.makeContestRoll(userSkillConfig.value, currentCharacter.value)
         
         // Wait for roll animation duration before submitting results
         setTimeout(() => {
-          opposedSkillCheckSessionService.submitRollResults(rollResult, currentCharacter.value.id)
+          contestSessionService.submitRollResults(rollResult, currentCharacter.value.id)
         }, DICE_ROLL_DURATION)
       }
     })
@@ -215,7 +215,7 @@ export function useOpposedSkillCheckSession() {
           }
           
           // Complete the session with the calculated winner
-          opposedSkillCheckSessionService.completeSession(winner)
+          contestSessionService.completeSession(winner)
         }
       }
     }, { deep: true, immediate: true })
@@ -246,8 +246,8 @@ export function useOpposedSkillCheckSession() {
       
       // Only perform the actual reroll if this is the character that initiated it
       if (rerollingIdStr === currentUserIdStr) {
-        const rollResult = OpposedSkillCheckService.makeOpposedSkillCheck(userSkillConfig.value, currentCharacter.value)
-        opposedSkillCheckSessionService.submitRollResults(rollResult, currentCharacter.value.id)
+        const rollResult = ContestService.makeContestRoll(userSkillConfig.value, currentCharacter.value)
+        contestSessionService.submitRollResults(rollResult, currentCharacter.value.id)
       }
       
       // Stop blocking UI updates after animation duration
@@ -257,7 +257,7 @@ export function useOpposedSkillCheckSession() {
     }
 
     // Register the handlers
-    opposedSkillCheckSessionService.on(SESSION_EVENTS.START_REROLL, startRerollHandler)
+    contestSessionService.on(SESSION_EVENTS.START_REROLL, startRerollHandler)
 
     // Store handlers for cleanup
     baseSession.eventHandlers.startReroll = startRerollHandler
@@ -289,25 +289,25 @@ export function useOpposedSkillCheckSession() {
     }
 
     // Simply trigger the reroll - all animation logic will be handled by the event handler
-    opposedSkillCheckSessionService.rerollSkillCheck(baseSession.sessionId.value, rerollingCharacterId)
+    contestSessionService.rerollSkillCheck(baseSession.sessionId.value, rerollingCharacterId)
   }
 
   function cleanupEventListeners() {
     // Clean up base event listeners
     baseSession.cleanupEventListeners()
 
-    // Clean up opposed skill check specific handlers
+    // Clean up contest specific handlers
     if (baseSession.eventHandlers.startReroll) {
-      opposedSkillCheckSessionService.off(SESSION_EVENTS.START_REROLL, baseSession.eventHandlers.startReroll)
+      contestSessionService.off(SESSION_EVENTS.START_REROLL, baseSession.eventHandlers.startReroll)
     }
   }
 
   function disconnect() {
     cleanupEventListeners()
-    opposedSkillCheckSessionService.disconnect()
+    contestSessionService.disconnect()
     opponentLeftAfterBothAccepted.value = false
     // Reset singleton instance to null so a fresh instance is created next time
-    opposedSkillCheckSessionInstance = null
+    contestSessionInstance = null
   }
   
   // Simplified public API methods
@@ -331,7 +331,7 @@ export function useOpposedSkillCheckSession() {
     }
     
     // Create and emit results via service
-    const result = OpposedSkillCheckService.emitOpposedSkillCheckResult(
+    const result = ContestService.emitContestResult(
       baseSession.rollResults.value.session,
       currentCharacter.value?.id,
       baseSession.opponent.value?.characterInfo?.id,
@@ -402,6 +402,6 @@ export function useOpposedSkillCheckSession() {
   }
 
   // Store and return singleton instance
-  opposedSkillCheckSessionInstance = returnObject
+  contestSessionInstance = returnObject
   return returnObject
 }

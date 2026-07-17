@@ -18,7 +18,7 @@ export function createEmptyRollStats() {
     },
     contests: {
       engagement: { wins: 0, losses: 0, draws: 0 },
-      opposed: { wins: 0, losses: 0, draws: 0 },
+      contest: { wins: 0, losses: 0, draws: 0 },
     },
   }
 }
@@ -41,9 +41,9 @@ export function normalizeRollStats(rollStats) {
         ...defaults.contests.engagement,
         ...((incoming.contests && incoming.contests.engagement) || {}),
       },
-      opposed: {
-        ...defaults.contests.opposed,
-        ...((incoming.contests && incoming.contests.opposed) || {}),
+      contest: {
+        ...defaults.contests.contest,
+        ...((incoming.contests && incoming.contests.contest) || {}),
       },
     },
   }
@@ -119,13 +119,13 @@ function updateEngagementStats(rollResult, stats) {
   }
 }
 
-function updateOpposedStats(rollResult, stats) {
+function updateContestStats(rollResult, stats) {
   if (rollResult.winner === WINNER.USER) {
-    stats.contests.opposed.wins += 1
+    stats.contests.contest.wins += 1
   } else if (rollResult.winner === WINNER.OPPONENT) {
-    stats.contests.opposed.losses += 1
+    stats.contests.contest.losses += 1
   } else if (rollResult.winner === WINNER.TIE) {
-    stats.contests.opposed.draws += 1
+    stats.contests.contest.draws += 1
   }
 }
 
@@ -140,19 +140,19 @@ export function applyRollToCharacterStats(character, rollResult) {
     updateSkillCheckStats(rollResult, stats)
   } else if (rollResult.type === RollTypes.ENGAGEMENT) {
     updateEngagementStats(rollResult, stats)
-  } else if (rollResult.type === RollTypes.OPPOSED_SKILL_CHECK) {
-    updateOpposedStats(rollResult, stats)
+  } else if (rollResult.type === RollTypes.CONTEST) {
+    updateContestStats(rollResult, stats)
   }
 
   character.rollStats = stats
 }
 
 export function computeXpEarned(roll) {
-  if (roll.type !== RollTypes.SKILL_CHECK && roll.type !== RollTypes.OPPOSED_SKILL_CHECK) return 0
+  if (roll.type !== RollTypes.SKILL_CHECK && roll.type !== RollTypes.CONTEST) return 0
 
   let xp = 0
   if (roll.type === RollTypes.SKILL_CHECK && !roll.success) xp += 1
-  if (roll.type === RollTypes.OPPOSED_SKILL_CHECK && roll.winner === WINNER.OPPONENT) xp += 1
+  if (roll.type === RollTypes.CONTEST && roll.winner === WINNER.OPPONENT) xp += 1
   if (roll.diceResults?.some(d => d.die?.dieSize === DIE_TYPE.D12 && d.dieRollValue === SPECIAL_ROLLS.MORTE)) xp += 1
 
   return xp

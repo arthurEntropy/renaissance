@@ -2,7 +2,7 @@
   "id": "b4417462-600b-4571-b2ad-a572ad01733f",
   "isDeleted": false,
   "createdAt": "2026-07-08T12:49:04.391Z",
-  "lastModified": "2026-07-10T20:04:28.751Z",
+  "lastModified": "2026-07-17T19:57:55.628Z",
   "characterType": "npc",
   "name": "Damla",
   "featuredArtUrls": [
@@ -289,8 +289,8 @@
         "losses": 0,
         "draws": 0
       },
-      "opposed": {
-        "wins": 0,
+      "contest": {
+        "wins": 1,
         "losses": 0,
         "draws": 0
       }
@@ -332,7 +332,7 @@
   "keeping": "4d5e6f7a-8b9c-4d0e-1f2a-3b4c5d6e7f8a",
   "treasure": 12,
   "xp": 0,
-  "updatedAt": "2026-07-10T20:04:28.751Z",
+  "updatedAt": "2026-07-17T19:57:55.627Z",
   "description": "",
   "size": 0,
   "reach": 0,

@@ -3,14 +3,14 @@ import { WINNER } from '@shared/constants/winner.js'
 import eventBus, { ROLL_EVENTS } from '../events/eventBus'
 import BaseRollService from './baseRollService.js'
 
-class OpposedSkillCheckService extends BaseRollService {
+class ContestService extends BaseRollService {
 
   // Initial roll is an isolated step, since opponent's results are not yet known
-  static makeOpposedSkillCheck(skill, character) {
+  static makeContestRoll(skill, character) {
     const { diceResults, total, isAutoFail } = this.performSkillCheckRoll(skill, character)
     
     // Format dice for display (adds CSS classes, emojis, and sorts them)
-    const formattedDiceResults = this.formatDiceForDisplay(diceResults, RollTypes.OPPOSED_SKILL_CHECK)
+    const formattedDiceResults = this.formatDiceForDisplay(diceResults, RollTypes.CONTEST)
     
     return {
       diceResults: formattedDiceResults,
@@ -23,7 +23,7 @@ class OpposedSkillCheckService extends BaseRollService {
 
   // Result object is created as a separate step, since we need both users' results.
   // It's also independent from sending to Discord because users need to review and accept the result first.
-  static createOpposedSkillCheckResult(session, userCharacterId, opponentCharacterId) {
+  static createContestResult(session, userCharacterId, opponentCharacterId) {
     const userSession = session.users.find(u => u.characterInfo.id === userCharacterId)
     const opponentSession = session.users.find(u => u.characterInfo.id === opponentCharacterId)
     
@@ -33,7 +33,7 @@ class OpposedSkillCheckService extends BaseRollService {
 
     const winner = this._determineWinner(session, userCharacterId)
     
-    const result = this.createRollResult(RollTypes.OPPOSED_SKILL_CHECK, {
+    const result = this.createRollResult(RollTypes.CONTEST, {
       characterName: userSession.characterInfo.name,
       opponentName: opponentSession.characterInfo.name,
       skillName: userSession.skillCheckConfig.name,
@@ -53,11 +53,11 @@ class OpposedSkillCheckService extends BaseRollService {
   }
 
   // Separate method to emit event when result is accepted by both users
-  static emitOpposedSkillCheckResult(session, userCharacterId, opponentCharacterId, options = {}) {
-    const result = this.createOpposedSkillCheckResult(session, userCharacterId, opponentCharacterId)
+  static emitContestResult(session, userCharacterId, opponentCharacterId, options = {}) {
+    const result = this.createContestResult(session, userCharacterId, opponentCharacterId)
     if (result) {
-      eventBus.emit(ROLL_EVENTS.OPPOSED_SKILL_CHECK, {
-        opposedResult: result,
+      eventBus.emit(ROLL_EVENTS.CONTEST, {
+        contestResult: result,
         integrations: {
           discord: options.sendToDiscord !== false
         }
@@ -81,17 +81,17 @@ class OpposedSkillCheckService extends BaseRollService {
     const opponentSession = session.users.find(u => u.characterInfo.id !== userCharacterId)
     
     if (userSession && opponentSession) {
-      return this._determineOpposedWinner(userSession.rollTotal, opponentSession.rollTotal)
+      return this._determineContestWinner(userSession.rollTotal, opponentSession.rollTotal)
     }
     
     return WINNER.TIE
   }
 
-  static _determineOpposedWinner(userTotal, opponentTotal) {
+  static _determineContestWinner(userTotal, opponentTotal) {
     if (userTotal > opponentTotal) return WINNER.USER
     if (opponentTotal > userTotal) return WINNER.OPPONENT
     return WINNER.TIE
   }
 }
 
-export default OpposedSkillCheckService
+export default ContestService

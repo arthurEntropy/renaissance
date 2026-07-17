@@ -7,7 +7,7 @@ class DiceFormatter {
   static getDiceEmoji(dieSize, dieRollValue, rolledMaxValue = false, rollType = null) {
     // Check for Sol/Morte on d12s for feat-die based roll types
     const isFeatDieType = rollType === RollTypes.SKILL_CHECK ||
-      rollType === RollTypes.OPPOSED_SKILL_CHECK ||
+      rollType === RollTypes.CONTEST ||
       rollType === RollTypes.INJURY
     
     if (dieSize === DIE_TYPE.D12 && isFeatDieType) {
@@ -61,7 +61,7 @@ class DiceFormatter {
   static sortByRollType(diceResults, rollType) {
     switch (rollType) {
       case RollTypes.SKILL_CHECK:
-      case RollTypes.OPPOSED_SKILL_CHECK:
+      case RollTypes.CONTEST:
       case RollTypes.INJURY:
         return this.sortForSkillCheck(diceResults)
       case RollTypes.ENGAGEMENT:

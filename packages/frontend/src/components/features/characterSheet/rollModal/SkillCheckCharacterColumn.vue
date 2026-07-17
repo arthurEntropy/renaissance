@@ -46,7 +46,7 @@ import { WINNER } from '@shared/constants/winner.js'
 import { PlayerSides } from '@/constants/playerSides'
 import { getDiceFontClass } from '@/utils/diceFontUtils'
 import { buildDiceSetForSkill } from '@/utils/skillDiceUtils'
-import { useOpposedSkillCheckSession } from '@/composables/useOpposedSkillCheckSession'
+import { useContestSession } from '@/composables/useContestSession'
 import { useCharactersStore } from '@/stores/charactersStore'
 import BaseCharacterColumn from './BaseCharacterColumn.vue'
 import DiceDisplay from '@/components/features/characterSheet/diceBox/DiceDisplay.vue'
@@ -58,7 +58,7 @@ const props = defineProps({
     }
 })
 
-const sessionManager = useOpposedSkillCheckSession()
+const sessionManager = useContestSession()
 const charactersStore = useCharactersStore()
 
 const diceDisplayRef = ref(null)
@@ -184,7 +184,7 @@ const rollData = computed(() => {
     }
 
     return {
-        type: 'OPPOSED_SKILL_CHECK',
+        type: 'CONTEST',
         diceResults: diceResults,
         characterName: character.value?.name || 'Unknown',
         skillName: skillCheckConfig.value?.name || 'Unknown Skill'

@@ -15,14 +15,14 @@
     <!-- Roll Results Display -->
     <div v-show="latestRoll" class="roll-content view-container">
       <template v-if="latestRoll">
-        <RollTitle :rollData="latestRoll" :isEngagement="isEngagement" :isOpposedSkillCheck="isOpposedSkillCheck"
+        <RollTitle :rollData="latestRoll" :isEngagement="isEngagement" :isContest="isContest"
           :isCustomRoll="isCustomRoll" :isDamage="isDamage" :isInitiative="isInitiative" :isInjury="isInjury" />
 
         <DiceDisplay ref="diceDisplayRef" :key="latestRoll?.timestamp" :rollData="latestRoll"
           :isEngagement="isEngagement" :canReroll="true" :isOpponent="false" :containerWidth="CONTAINER_WIDTH"
           :skip-animation="shouldSkipRollAnimation" @reroll-all-dice="rollsStore.reroll" />
 
-        <RollOutcome :rollData="latestRoll" :isEngagement="isEngagement" :isOpposedSkillCheck="isOpposedSkillCheck"
+        <RollOutcome :rollData="latestRoll" :isEngagement="isEngagement" :isContest="isContest"
           :isCustomRoll="isCustomRoll" :isDamage="isDamage" :isInitiative="isInitiative" :isInjury="isInjury"
           :isRolling="isRolling" />
       </template>
@@ -143,8 +143,8 @@ const isEngagement = computed(() => {
   return latestRoll.value && latestRoll.value.type === RollTypes.ENGAGEMENT
 })
 
-const isOpposedSkillCheck = computed(() => {
-  return latestRoll.value && latestRoll.value.type === RollTypes.OPPOSED_SKILL_CHECK
+const isContest = computed(() => {
+  return latestRoll.value && latestRoll.value.type === RollTypes.CONTEST
 })
 
 const isCustomRoll = computed(() => {

@@ -1,7 +1,7 @@
 <template>
-    <BaseModal title="Opposed Skill Check" width="min(700px, 94vw)" @close="closeModal">
+    <BaseModal title="Contest" width="min(700px, 94vw)" @close="closeModal">
 
-        <main class="opposed-columns">
+        <main class="contest-columns">
             <SkillCheckCharacterColumn ref="userColumnRef" :is-opponent="false" />
             <SkillCheckCharacterColumn ref="opponentColumnRef" :is-opponent="true" />
         </main>
@@ -9,7 +9,7 @@
         <template #actions>
             <div class="modal-actions">
                 <ActionButton v-if="!opponent" variant="neutral" size="large" text="Cancel" @click="closeModal" />
-                <RollResolution v-if="showResults" mode="opposed-skill-check" :user-accepted="userAccepted"
+                <RollResolution v-if="showResults" mode="contest" :user-accepted="userAccepted"
                     :opponent-accepted="opponentAccepted" :can-accept="showResults && !bothUsersAccepted"
                     :character-name="characterName" :opponent-name="opponentName"
                     @toggle-user-accept="toggleUserAccept" />
@@ -22,12 +22,12 @@
 import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import BaseModal from '@/components/ui/modals/BaseModal.vue'
-import { useOpposedSkillCheckSession } from '@/composables/useOpposedSkillCheckSession'
+import { useContestSession } from '@/composables/useContestSession'
 import { useCharactersStore } from '@/stores/charactersStore'
 import SkillCheckCharacterColumn from './SkillCheckCharacterColumn.vue'
 import RollResolution from './RollResolution.vue'
 
-const sessionManager = useOpposedSkillCheckSession()
+const sessionManager = useContestSession()
 const charactersStore = useCharactersStore()
 
 const props = defineProps({
@@ -57,7 +57,7 @@ const opponentColumnRef = ref(null)
 
 const closeModal = () => {
     if (shouldShowExitConfirmation.value) {
-        if (!confirm('Are you sure you want to leave this opposed skill check?')) {
+        if (!confirm('Are you sure you want to leave this contest?')) {
             return
         }
     }
@@ -113,7 +113,7 @@ onBeforeUnmount(() => {
 }
 
 /* ── Two-column layout ───────────────────────────── */
-.opposed-columns {
+.contest-columns {
     display: flex;
     flex: 1;
     min-height: 0;

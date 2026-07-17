@@ -67,8 +67,8 @@
  */
 
 /**
- * @typedef {Object} OpposedSkillCheckRollResult
- * @property {string} type - 'opposed_skill_check'
+ * @typedef {Object} ContestRollResult
+ * @property {string} type - 'contest'
  * @property {string} characterName - Name of current character
  * @property {string} opponentName - Name of opponent character
  * @property {string} skillName - Current character's skill name
@@ -93,7 +93,7 @@
  * @property {DieResult[]|number[]} rollResults - Dice results (DieResult[] for new format, number[] legacy)
  * @property {number} rollTotal - Sum of all effective die rolls
  * @property {boolean} [isAutoFail] - Whether this roll auto-failed (Twice Miserable Morte rule)
- * @property {Object} [skillCheckConfig] - Skill check configuration (opposed checks only)
+ * @property {Object} [skillCheckConfig] - Skill check configuration (contests only)
  * @property {Die[]} [selectedDice] - Selected dice (engagement only)
  * @property {string[]} [engagementSuccesses] - Engagement success IDs (engagement only)
  */
@@ -101,7 +101,7 @@
 /**
  * @typedef {Object} RollSession
  * @property {string} sessionId - Unique session identifier
- * @property {string} sessionType - 'engagement' or 'opposed skill check'
+ * @property {string} sessionType - 'engagement' or 'contest'
  * @property {string} status - Session status (from SESSION_STATUS constant)
  * @property {UserRollData[]} users - Array of users in the session (always 2)
  * @property {number|null} winner - Winner index (0, 1, or -1 for tie) or null if not determined

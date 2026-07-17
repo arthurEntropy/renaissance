@@ -1,9 +1,9 @@
 import { SESSION_STATUS } from '../../../../shared/constants/sessionStatus.js'
 import { SESSION_EVENTS } from '../../../../shared/constants/sessionEvents.js'
 
-export const opposedSkillCheckConfig = {
-  namespace: '/opposed-skill-check',
-  sessionType: 'opposed skill check',
+export const contestConfig = {
+  namespace: '/contest',
+  sessionType: 'contest',
   
   createUserData: (data, socketId) => ({
     socketId,

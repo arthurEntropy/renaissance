@@ -42,14 +42,14 @@ import { WINNER } from '@shared/constants/winner.js'
 import ActionButton from '@/components/ui/buttons/ActionButton.vue'
 import { useEngagementSession } from '@/composables/useEngagementSession'
 import { useEngagementRoll } from '@/composables/useEngagementRoll'
-import { useOpposedSkillCheckSession } from '@/composables/useOpposedSkillCheckSession'
+import { useContestSession } from '@/composables/useContestSession'
 import { useCharactersStore } from '@/stores/charactersStore'
 
 const props = defineProps({
     mode: {
         type: String,
         required: true,
-        validator: (value) => ['engagement', 'opposed-skill-check'].includes(value)
+        validator: (value) => ['engagement', 'contest'].includes(value)
     },
     userAccepted: {
         type: Boolean,
@@ -77,7 +77,7 @@ const emit = defineEmits(['toggle-user-accept'])
 
 const sessionManager = useEngagementSession()
 const diceManager = useEngagementRoll()
-const opposedSessionManager = useOpposedSkillCheckSession()
+const contestSessionManager = useContestSession()
 const charactersStore = useCharactersStore()
 
 // Get winner from appropriate composable based on mode
@@ -89,8 +89,8 @@ const winner = computed(() => {
             diceManager.committedDice.value
         )
     } else {
-        // For opposed skill check, get winner from its session manager
-        return opposedSessionManager.winner.value
+        // For contest, get winner from its session manager
+        return contestSessionManager.winner.value
     }
 })
 

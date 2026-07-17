@@ -4,7 +4,7 @@
   "createdAt": "2026-06-19T15:21:19.588Z",
   "lastModified": "2026-06-19T19:48:00.848Z",
   "name": "Bureaucrat",
-  "description": "<p><em>You've seen the power of a highly formalized society in the Underdark.</em></p><p>You may invoke each of the following effects once per rest:</p><ul><li><p>When an ability forces you to make a skill check, you may roll Courtesy instead of the stated skill.</p></li><li><p>When one of your abilities calls for an opposed roll against another creature, you may roll Courtesy vs Courtesy instead of the stated skills.</p></li><li><p>You may request a pass/win with consequence from the GM even if your roll result does not include any successes. If the GM does not accept, this does not count toward the per-rest limit for this effect.</p></li></ul><p><strong>Describe how you weaponize formality.</strong></p>",
+  "description": "<p><em>You've seen the power of a highly formalized society in the Underdark.</em></p><p>You may invoke each of the following effects once per rest:</p><ul><li><p>When an ability forces you to make a skill check, you may roll Courtesy instead of the stated skill.</p></li><li><p>When one of your abilities calls for a contest, you may roll Courtesy vs Courtesy instead of the stated skills.</p></li><li><p>You may request a pass/win with consequence from the GM even if your roll result does not include any successes. If the GM does not accept, this does not count toward the per-rest limit for this effect.</p></li></ul><p><strong>Describe how you weaponize formality.</strong></p>",
   "actionCost": "f83f4bdb-440b-4d95-a01f-bd322b7f8be1",
   "artUrl": "https://cdn.midjourney.com/4711d72a-fb78-4693-a2fd-81cd4254f3d7/0_2.png"
 }

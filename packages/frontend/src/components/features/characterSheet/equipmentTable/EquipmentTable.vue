@@ -488,10 +488,10 @@ const handleDamageRoll = (equipment) => {
 const handleRollLink = (rollData) => {
   if (!selectedCharacter.value) return
 
-  if (rollData.type === 'skill-check' || rollData.type === 'opposed-skill-check') {
+  if (rollData.type === 'skill-check' || rollData.type === 'contest') {
     rollLinkSkill.value = rollData.skill
-    rollLinkRollType.value = rollData.type === 'opposed-skill-check'
-      ? RollTypes.OPPOSED_SKILL_CHECK
+    rollLinkRollType.value = rollData.type === 'contest'
+      ? RollTypes.CONTEST
       : RollTypes.SKILL_CHECK
     showSkillCheckModal.value = true
   } else if (rollData.type === 'damage-roll') {
