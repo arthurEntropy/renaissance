@@ -1,10 +1,10 @@
 {
   "id": "8eac2e82-547f-4474-b01e-07a7374eb98e",
   "isDeleted": false,
-  "lastModified": "2026-07-02T16:00:36.506Z",
+  "lastModified": "2026-07-17T18:00:49.631Z",
   "name": "Shrug It Off",
   "artUrl": "https://cdn.midjourney.com/826d8bbc-8083-4aac-9dfd-014ceefe7af5/0_0_384_N.webp",
-  "description": "<p><em>Trigger: You would lose an opposed skill check.</em></p><p>You may re-roll before resolving the opposed skill check.</p><p>You may use this ability once per rest for each level of <em>Swagger</em> you have.</p><p><strong>Describe your swagger.</strong></p>",
+  "description": "<p><em>Trigger: You would lose a contest.</em></p><p>You may re-roll before resolving the contest.</p><p>You may use this ability once per rest for each level of <em>Swagger</em> you have.</p><p><strong>Describe your swagger.</strong></p>",
   "source": "45ca935d-938b-4974-961c-4171cc388904",
   "actionCost": "c4df395c-8284-4c4f-bf01-e293ed51c58c",
   "mpCost": 1,
